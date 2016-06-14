@@ -1,0 +1,15 @@
+#ifndef ENDFTK_HPP
+#define ENDFTK_HPP
+
+#include "easylogging++.h"
+
+namespace ENDFtk {
+
+/* faux forward declaration of nested namespaces */
+namespace API{}
+namespace implementation{}
+
+} // namespace ENDFtk
+
+#endif  // ENDFTK_HPP
+
