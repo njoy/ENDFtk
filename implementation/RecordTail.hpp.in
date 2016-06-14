@@ -1,0 +1,10 @@
+#ifndef ENDFTK_IMPLEMENTATION_RECORDTAIL_HPP
+#define ENDFTK_IMPLEMENTATION_RECORDTAIL_HPP
+
+#include "ENDFtk.hpp"
+
+namespace ENDFtk {
+namespace implementation {
+} // namespace implementation
+} // namespace ENDFtk
+#endif  // ENDFTK_IMPLEMENTATION_RECORDTAIL_HPP

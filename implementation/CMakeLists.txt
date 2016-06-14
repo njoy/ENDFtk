@@ -9,12 +9,13 @@ list(APPEND header_only_subdirs
 set(subdirs "")
 list(APPEND subdirs
   ${header_only_subdirs}
+  "RecordTail"
   )
   
 foreach (subdir ${header_only_subdirs})
-  if(NOT(EXISTS "${nuclearData_HEADER_DIR}/implementation/${subdir}"))
-    file(MAKE_DIRECTORY "${nuclearData_HEADER_DIR}/implementation/${subdir}")
-  endif(NOT(EXISTS "${nuclearData_HEADER_DIR}/implementation/${subdir}"))
+  if(NOT(EXISTS "${ENDFtk_HEADER_DIR}/implementation/${subdir}"))
+    file(MAKE_DIRECTORY "${ENDFtk_HEADER_DIR}/implementation/${subdir}")
+  endif(NOT(EXISTS "${ENDFtk_HEADER_DIR}/implementation/${subdir}"))
 endforeach (subdir)
 
 set(headers "")
@@ -25,7 +26,7 @@ list(APPEND headers
 foreach(header ${headers})
   configure_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/${header}.hpp.in"
-    "${nuclearData_HEADER_DIR}/implementation/${header}.hpp"
+    "${ENDFtk_HEADER_DIR}/implementation/${header}.hpp"
     COPYONLY
     )
 endforeach(header)
