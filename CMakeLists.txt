@@ -9,6 +9,7 @@ endif(NOT DEFINED commonCMakeScripts_path)
 
 include(subprojects.cmake)
 include(${commonCMakeScripts_path}/objectOriented.cmake)
+include(${commonCMakeScripts_path}/doxygen.cmake)
 
 # Initialize a variable for collecting utility implementation components
 list(APPEND ${projectName}_src) # (empty list)
@@ -18,6 +19,7 @@ list(APPEND ${projectName}_bin_headers) # (empty list)
 set(headers "")
 list(APPEND headers
   "ENDFtk"
+  "implementation"
   )
 
 foreach(header ${headers})

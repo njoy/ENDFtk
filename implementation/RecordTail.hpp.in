@@ -1,10 +1,16 @@
 #ifndef ENDFTK_IMPLEMENTATION_RECORDTAIL_HPP
 #define ENDFTK_IMPLEMENTATION_RECORDTAIL_HPP
 
-#include "ENDFtk.hpp"
+#include "ENDFtk/implementation.hpp"
 
-namespace ENDFtk {
-namespace implementation {
-} // namespace implementation
-} // namespace ENDFtk
+class ENDFtk::implementation::RecordTail{
+public:
+  
+  RecordTail( const int MAT, const int MF, const int MT );
+
+  int MAT_;
+  int MF_;
+  int MT_;
+};
+
 #endif  // ENDFTK_IMPLEMENTATION_RECORDTAIL_HPP

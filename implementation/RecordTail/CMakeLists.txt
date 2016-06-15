@@ -2,12 +2,6 @@ if(${verbose_traversal})
   message(STATUS "Entered RecordTail directory")
 endif(${verbose_traversal})
 
-set(long_path "${ENDFtk_HEADER_DIR}/implementation/RecordTail")
-
-if(NOT(EXISTS "${long_path}/src"))
-  file(MAKE_DIRECTORY "${long_path}/src")
-endif(NOT(EXISTS "${long_path}/src"))
-
 set(headers "")
 list(APPEND headers
   )
@@ -25,6 +19,10 @@ if(${local_testing})
   list( APPEND testLabels RecordTail )
   add_subdirectory( "${CMAKE_CURRENT_SOURCE_DIR}/test" )
 endif(${local_testing})
+
+list(APPEND ENDFtk_src
+  "${CMAKE_CURRENT_SOURCE_DIR}/src/RecordTail.cpp"
+  )
 
 set(ENDFtk_src "${ENDFtk_src}" PARENT_SCOPE)
 

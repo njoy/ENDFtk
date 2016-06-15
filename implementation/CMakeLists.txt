@@ -35,6 +35,8 @@ foreach (subdir ${subdirs})
   add_subdirectory( ${subdir} )
 endforeach (subdir)
 
+set(ENDFtk_src "${ENDFtk_src}" PARENT_SCOPE)
+
 if(${verbose_traversal})
   message(STATUS "Exiting implementation directory")
 endif(${verbose_traversal})
