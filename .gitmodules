@@ -7,3 +7,6 @@
 [submodule "easyloggingpp"]
 	path = easyloggingpp
 	url = git@github.com:njoy/easyloggingpp.git
+[submodule "utility"]
+	path = utility
+	url = git@github.com:njoy/utility.git
