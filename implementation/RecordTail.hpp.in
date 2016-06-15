@@ -19,6 +19,10 @@ public:
 namespace ENDFtk {
 namespace implementation {
 
+/*& @brief Class to verify that a passed in Material number is correct
+ *
+ * This throws an exception if the MAT numbers are not the same.
+ */
 template<typename tail>
 class MAT: public tail{
 public:
@@ -34,6 +38,10 @@ public:
   }
 };
 
+/*& @brief Class to verify that a passed in File number is correct
+ *
+ * This throws an exception if the MF numbers are not the same.
+ */
 template<typename tail>
 class MF: public tail{
 public:
@@ -49,6 +57,10 @@ public:
   }
 };
 
+/*& @brief Class to verify that a passed in Section number is correct
+ *
+ * This throws an exception if the MT numbers are not the same.
+ */
 template<typename tail>
 class MT: public tail{
 public:
@@ -72,6 +84,8 @@ struct TailVerifier<>{
   using type = RecordTail;
 };
 
+/** @brief Template magic
+ */
 template< template<typename> class T1, 
           template<typename> class... Ts>
 struct TailVerifier<T1, Ts...>{
