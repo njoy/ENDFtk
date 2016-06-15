@@ -7,6 +7,9 @@
 #include "ENDFtk/implementation/RecordTail.hpp"
 
 std::unique_ptr<ENDFtk::implementation::RecordTail> myTail;
+int mat = 125;
+int mf = 4;
+int mt = 2;
 
 int main( int argc, const char* argv[] ){
   LOG(INFO) << "";
@@ -22,12 +25,12 @@ SCENARIO( "Checking the values of MAT, MF, and MT" ){
     std::string tail(" 125 4  2");
 
     myTail = std::make_unique<
-      ENDFtk::implementation::RecordTail>(125, 4, 2);
+      ENDFtk::implementation::RecordTail>(mat, mf, mt);
 
     THEN( "the correct values are read in" ){
-      REQUIRE( 125 == myTail->MAT_ );
-      REQUIRE(   4 == myTail->MF_  );
-      REQUIRE(   2 == myTail->MT_  );
+      REQUIRE( mat == myTail->MAT_ );
+      REQUIRE(  mf == myTail->MF_  );
+      REQUIRE(  mt == myTail->MT_  );
     }
 
   }

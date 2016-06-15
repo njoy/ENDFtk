@@ -3,6 +3,9 @@
 
 #include "ENDFtk/implementation.hpp"
 
+/**@brief Small class to contain the MAT, MF, and MT of a Record---the tail of
+ * the Record.
+ */
 class ENDFtk::implementation::RecordTail{
 public:
   
@@ -12,5 +15,70 @@ public:
   int MF_;
   int MT_;
 };
+
+namespace ENDFtk {
+namespace implementation {
+
+template<typename tail>
+class MAT: public tail{
+public:
+  template<typename... Args>
+  MAT(int vMAT, Args... args)
+    : tail(args...)
+  {
+    if( this->MAT_ != vMAT ){
+      LOG(ERROR) << "The Material number: " << this->MAT_ << " is not correct.";
+      LOG(INFO) << "The correct Material number is: " << vMAT;
+      throw std::exception();
+    }
+  }
+};
+
+template<typename tail>
+class MF: public tail{
+public:
+  template<typename... Args>
+  MF(int vMF, Args... args)
+    : tail(args...)
+  {
+    if( this->MF_ != vMF ){
+      LOG(ERROR) << "The File number: " << this->MF_ << " is not correct.";
+      LOG(INFO) << "The correct File number is: " << vMF;
+      throw std::exception();
+    }
+  }
+};
+
+template<typename tail>
+class MT: public tail{
+public:
+  template<typename... Args>
+  MT(int vMT, Args... args)
+    : tail(args...)
+  {
+    if( this->MT_ != vMT ){
+      LOG(ERROR) << "The Section number: " << this->MT_ << " is not correct.";
+      LOG(INFO) << "The correct Section number is: " << vMT;
+      throw std::exception();
+    }
+  }
+};
+
+template<template<typename> class... Ts>
+struct TailVerifier;
+
+template<>
+struct TailVerifier<>{
+  using type = RecordTail;
+};
+
+template< template<typename> class T1, 
+          template<typename> class... Ts>
+struct TailVerifier<T1, Ts...>{
+  using type = T1< typename TailVerifier<Ts...>::type >;
+};
+
+} // namespace implementation
+} // namespace ENDFtk
 
 #endif  // ENDFTK_IMPLEMENTATION_RECORDTAIL_HPP
