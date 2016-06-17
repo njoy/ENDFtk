@@ -44,6 +44,9 @@ DEFINE_VERIFIER( MT, section )
 
 #undef DEFINE_VERIFIER
 
+/* specialization of alias templates is forbidden, so heavy lifting is done by 
+ * structs
+ */
 template< template< typename > class... Ts >
 struct TailVerifier;
 
@@ -58,6 +61,7 @@ struct TailVerifier< T1, Ts... >{
   using type = T1< typename TailVerifier< Ts... >::type >;
 };
 
+/** @brief An alias declaring which field of a tail ought to be verified */
 template< template< typename > class... Ts >
 using TailVerifying = typename TailVerifier< Ts... >::type;
 
