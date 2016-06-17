@@ -39,6 +39,7 @@ addons:
     notification_email: jlconlin@lanl.gov
     branch_pattern: coverity_scan
 
+
 env:
   matrix:
     - build_type="release" static_libraries="TRUE"
