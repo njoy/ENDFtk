@@ -1,0 +1,16 @@
+#ifndef ENDFTK_IMPLEMENTATION_HPP
+#define ENDFTK_IMPLEMENTATION_HPP
+
+#include "ENDFtk.hpp"
+
+namespace ENDFtk {
+namespace implementation {
+
+/* foward declaration */
+class RecordTail;
+
+} // namespace implementation
+} // namespace ENDFtk
+
+#endif // ENDFTK_IMPLEMENTATION_HPP
+
