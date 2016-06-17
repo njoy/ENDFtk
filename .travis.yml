@@ -35,7 +35,7 @@ addons:
   coverity_scan:
     project:
       name: "njoy/utility"
-      description: "a repository for string and stream parsing routines and general purpose data types"
+      description: "A toolkit for dealing with ENDF-6 formatted files."
     notification_email: jlconlin@lanl.gov
     branch_pattern: coverity_scan
 
