@@ -20,10 +20,6 @@ if(${local_testing})
   add_subdirectory( "${CMAKE_CURRENT_SOURCE_DIR}/test" )
 endif(${local_testing})
 
-list(APPEND ENDFtk_src
-  "${CMAKE_CURRENT_SOURCE_DIR}/src/RecordTail.cpp"
-  )
-
 set(ENDFtk_src "${ENDFtk_src}" PARENT_SCOPE)
 
 if(${verbose_traversal})

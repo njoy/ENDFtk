@@ -28,9 +28,9 @@ SCENARIO( "Checking the values of MAT, MF, and MT" ){
       ENDFtk::implementation::RecordTail>(mat, mf, mt);
 
     THEN( "the correct values are read in" ){
-      REQUIRE( mat == myTail->MAT_ );
-      REQUIRE(  mf == myTail->MF_  );
-      REQUIRE(  mt == myTail->MT_  );
+      REQUIRE( mat == myTail->material );
+      REQUIRE(  mf == myTail->file  );
+      REQUIRE(  mt == myTail->section  );
     }
 
   }

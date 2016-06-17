@@ -6,10 +6,11 @@
 namespace ENDFtk {
 namespace implementation {
 
-/* Faux foward declaration */
+/* foward declaration */
 class RecordTail;
 
 } // namespace implementation
 } // namespace ENDFtk
+
 #endif // ENDFTK_IMPLEMENTATION_HPP
 
