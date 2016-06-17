@@ -5,7 +5,7 @@ os:
   - linux
 
 compiler:
-  - clang
+# - clang
   - gcc
 
 git:
@@ -21,14 +21,14 @@ addons:
       - gcc-5
       - g++-5
       - binutils-gold
-      - clang-3.7
-      - libclang-common-3.7-dev
-      - libclang-3.7-dev
-      - libclang1-3.7
-      - libllvm3.7
-      - llvm-3.7
-      - llvm-3.7-dev
-      - llvm-3.7-runtime 
+#     - clang-3.7
+#     - libclang-common-3.7-dev
+#     - libclang-3.7-dev
+#     - libclang1-3.7
+#     - libllvm3.7
+#     - llvm-3.7
+#     - llvm-3.7-dev
+#     - llvm-3.7-runtime 
       - cmake
       - cmake-data
 
