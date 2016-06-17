@@ -15,7 +15,7 @@ addons:
   apt:
     sources:
       - ubuntu-toolchain-r-test
-      - llvm-toolchain-precise-3.7
+#     - llvm-toolchain-precise-3.7
       - george-edison55-precise-backports
     packages:
       - gcc-5
@@ -56,7 +56,7 @@ script:
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-5 90; sudo update-alternatives --auto gcov; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo update-alternatives --install /usr/bin/ld ld /usr/bin/ld.gold 100; sudo update-alternatives --auto ld; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then if [ $CXX = "g++" ]; then export CC="/usr/bin/gcc-5"; export CXX="/usr/bin/g++-5"; export AR="/usr/bin/gcc-ar-5"; export RANLIB="/usr/bin/gcc-ranlib-5"; export NM="/usr/bin/gcc-nm-5"; fi; fi
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then if [ $CXX = "clang++" ]; then export CXX="clang++-3.7"; export CC="clang-3.7"; export AR="/usr/lib/llvm-3.7/bin/llvm-ar"; export RANLIB="/usr/lib/llvm-3.7/bin/llvm-ranlib"; export NM="/usr/lib/llvm-3.7/bin/llvm-nm"; fi; fi
+# - if [ "$TRAVIS_OS_NAME" = "linux" ]; then if [ $CXX = "clang++" ]; then export CXX="clang++-3.7"; export CC="clang-3.7"; export AR="/usr/lib/llvm-3.7/bin/llvm-ar"; export RANLIB="/usr/lib/llvm-3.7/bin/llvm-ranlib"; export NM="/usr/lib/llvm-3.7/bin/llvm-nm"; fi; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then uname -s; fi
   - ./fetchDependencies.py
   - mkdir bin
