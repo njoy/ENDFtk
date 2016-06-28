@@ -34,7 +34,7 @@ addons:
 
   coverity_scan:
     project:
-      name: "njoy/utility"
+      name: "njoy/ENDFtk"
       description: "A toolkit for dealing with ENDF-6 formatted files."
     notification_email: jlconlin@lanl.gov
     branch_pattern: coverity_scan
@@ -46,7 +46,10 @@ env:
     - build_type="debug" static_libraries="TRUE"
     - build_type="debug" static_libraries="FALSE"
   global:
-    - secure: "BQmt5BZToVO9NHjCLSPR/g1+S2PWgxSG583OJ7+3gD4Jz3Ft/NlXGwz2yMhyjDybMP2+z3W79u4lS/k1JerGTVajTxjejbxqick3jyxuBvyCv+WEuw9EbKyb4gYUS63XHx5eLDIHNOCy5MWm2WEDnVxHb0wQvF+INTJJkvHgyJe1s5idMMOxMtliRUNPTxcESFWOPR8BMqGNdZgu98N+3wxe0ZDVfjVP0nbGta4hfD0v5IDW8gsyiJUeUcQs0V7cPFjBM0jfkIajViu4WZbwgccksAzGa5aADuAhu94ao8MjDAUjlveFbkusYV46ttYF1C11nLrcu2tqxeM2RuwUrvYvdAWsEw1ekdrySIO+Y2avX0CdBp202I3IX0afGXARPG4pSvc5o2NRYmGZp2dvvxJ3Z2Fw4S8r6+RS/SqQ4CQed21+CuE3Ii1WJmkVLYZL3FLfgl79rEStUSIwcvoSOleKqvqiEN55oPCd9Q7pFPckQZl9CBNeqkxdSyVhuopnsms8VfoKiU/oPWtWHTXMrcswdBeybCNVZW0EyxVjS5FWHHJ41voueDsUMfptAhHtp3E87ICLMzBNRDfdlAcvMGXSs3nuEqrgNgLFmTCzXzNiSiz+AA4Ngn4HaNlTIm8bUNh/qm4Zjujg8ET8PZ4q2ZJsLkw9nUpTlEsdAohT2Ac="
+     # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+     #   via the "travis encrypt" command using the project repo's public key
+     - secure: "qiXTK+TUqiPMTslnl6jAgk2Zz7+vuaI3xEG/DN3vM5BCoeHa0KNB0zkxc5G9b4uQXk4xyOf1igBEPDMpEhul+QKmRS69kkAnYBT80EMpoMBqyhNQaZJ9Irw5Dh6l/DLt/NsS8ifNig4R49VtVvTAuE6m+FYayPnRgmuirYB/0vF3EZkzswX9tj2MClFGEOwPHrzuRE/YC20/jsTW9MWwcZLM1DrztvBmiRbc9m4fDMObAYh41odBK0hI16FDQyGlF3irlNaT+3zaGKnwYCH/sZikhhXEeQiJBh7m7LKwB7YGhtIZZOCmC6QiSRTTd5Sy2cjmbMdfX8buZsj60crXGL2HiBFuaxW+gEZV/ZWueUvb2CaC205ESs1MrFYGZnLXVGxHKSlXe5owPgskyjJjad3Iveom8VutidzurSrJKABbKHLBJG+20qrg0Ewa853cR1OWfjy7VBn+DVXrXATjNEG7shwD2XBDE4/y6QddXHZCa+8p1iHI2ZpDSrvPNa5jq4Smb+ksVMOYh5UdJKNfJfhUid6gCXjRyQJhIc0LdnWVpYTWMXmKBf1g16RbCTjNhOYCESrcEtJOO/OOb5gDjbuVCB0Cx/Xvf46yJNRP4HoVUo+nthvH6++3FAjr/epsu4qCvfaOf/7SuGAfUZomBHFmfPgXuZwbxTX+KJvwzMg="
+      
   
 before_install:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then wget https://cmake.org/files/v3.5/cmake-3.5.0-Darwin-x86_64.tar.gz && tar xfz cmake-3.5.0-Darwin-x86_64.tar.gz; fi
