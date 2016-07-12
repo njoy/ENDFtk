@@ -1,0 +1,93 @@
+#define CATCH_CONFIG_RUNNER
+
+#include <string>
+
+#include "catch.hpp"
+
+#include "ENDFtk.hpp"
+
+int main( int argc, const char* argv[] ){
+  LOG(INFO) << "";
+  LOG(INFO) << "DirectoryRecord Tests";
+  LOG(INFO) << "======================";
+  int result = Catch::Session().run( argc, argv );
+  LOG(INFO) << "DirectoryRecord Complete!";
+  return result;
+}
+
+using namespace ENDFtk::implementation;
+SCENARIO( "DirectoryRecord Tests", "[ENDFtk], [DirectoryRecord]" ){
+  std::string line =
+    "                                1        451        101          5 125 1451   92\n";
+
+  auto values = std::make_tuple( 1, 451, 101, 5 );
+  GIVEN( "value construction, the ctor works"){
+    REQUIRE_NOTHROW(
+      DirectoryRecord( std::get< 0 >(values), std::get< 1 >(values),
+                     std::get< 2 >(values), std::get< 3 >(values) ) );
+  }
+  GIVEN( "iterators and a line number"){
+    auto it = line.begin();
+    auto end = line.end();
+    auto lineNumber = 0l;
+
+    WHEN("the tail values match, the ctor works"){
+      REQUIRE_NOTHROW( DirectoryRecord( it, end, lineNumber, 125, 1, 451 ) );
+    }
+    WHEN("the MAT value doesn't match, the ctor throws"){
+      REQUIRE_THROWS( DirectoryRecord( it, end, lineNumber, 126, 1, 451 ) );
+    }
+    WHEN("the MF value doesn't match, the ctor throws"){
+      REQUIRE_THROWS( DirectoryRecord( it, end, lineNumber, 125, 2, 451 ) );
+    }
+    WHEN("the MT value doesn't match, the ctor throws"){
+      REQUIRE_THROWS( DirectoryRecord( it, end, lineNumber, 125, 1, 452 ) );
+    }
+  }
+  GIVEN( "A constructed directory record"){
+    auto it = line.begin();
+    auto end = line.end();
+    auto lineNumber = 0l;
+    auto directoryRecord0 = DirectoryRecord( it, end, lineNumber, 125, 1, 451 );
+    const auto& constDirectoryRecord0 = directoryRecord0;
+    auto directoryRecord1 =
+      DirectoryRecord( std::get< 0 >(values), std::get< 1 >(values),
+                       std::get< 2 >(values), std::get< 3 >(values) );
+    const auto& constDirectoryRecord1 = directoryRecord1;
+    THEN( "the getter will work" ){
+      REQUIRE( directoryRecord0.L1() == std::get< 0 >( values ) );
+      REQUIRE( directoryRecord1.L1() == std::get< 0 >( values ) );
+      REQUIRE( constDirectoryRecord0.L1() == std::get< 0 >( values ) );
+      REQUIRE( constDirectoryRecord1.L1() == std::get< 0 >( values ) );
+      REQUIRE( directoryRecord0.L2() == std::get< 1 >( values ) );
+      REQUIRE( directoryRecord1.L2() == std::get< 1 >( values ) );
+      REQUIRE( constDirectoryRecord0.L2() == std::get< 1 >( values ) );
+      REQUIRE( constDirectoryRecord1.L2() == std::get< 1 >( values ) );
+      REQUIRE( directoryRecord0.N1() == std::get< 2 >( values ) );
+      REQUIRE( directoryRecord1.N1() == std::get< 2 >( values ) );
+      REQUIRE( constDirectoryRecord0.N1() == std::get< 2 >( values ) );
+      REQUIRE( constDirectoryRecord1.N1() == std::get< 2 >( values ) );
+      REQUIRE( directoryRecord0.N2() == std::get< 3 >( values ) );
+      REQUIRE( directoryRecord1.N2() == std::get< 3 >( values ) );
+      REQUIRE( constDirectoryRecord0.N2() == std::get< 3 >( values ) );
+      REQUIRE( constDirectoryRecord1.N2() == std::get< 3 >( values ) );
+
+      directoryRecord0.L1() = 5;
+      REQUIRE( directoryRecord0.L1() == 5 );
+      directoryRecord0.L2() = 6;
+      REQUIRE( directoryRecord0.L2() == 6 );
+      directoryRecord0.N1() = 7;
+      REQUIRE( directoryRecord0.N1() == 7 );
+      directoryRecord0.N2() = 8;
+      REQUIRE( directoryRecord0.N2() == 8 );
+      // can't assign to const instances. doesn't compile
+      // constDirectoryRecord0.N1() = 10;
+    }
+    THEN( "the equality and inequality operators will work" ){
+      REQUIRE( directoryRecord0 == directoryRecord1 );
+      directoryRecord0.N1() = 10;
+      directoryRecord1.N1() = 8;
+      REQUIRE( directoryRecord0 != directoryRecord1 );
+    }
+  }
+}
