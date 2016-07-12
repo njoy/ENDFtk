@@ -58,16 +58,18 @@ before_install:
 script:
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-5 90; sudo update-alternatives --auto gcov; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo update-alternatives --install /usr/bin/ld ld /usr/bin/ld.gold 100; sudo update-alternatives --auto ld; fi
+  - if [ $CXX = "g++" ]; then export DEPTH="2048"; fi
+  - if [ $CXX = "clang++" ]; then export DEPTH="750"; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then if [ $CXX = "g++" ]; then export CC="/usr/bin/gcc-5"; export CXX="/usr/bin/g++-5"; export AR="/usr/bin/gcc-ar-5"; export RANLIB="/usr/bin/gcc-ranlib-5"; export NM="/usr/bin/gcc-nm-5"; fi; fi
 # - if [ "$TRAVIS_OS_NAME" = "linux" ]; then if [ $CXX = "clang++" ]; then export CXX="clang++-3.7"; export CC="clang-3.7"; export AR="/usr/lib/llvm-3.7/bin/llvm-ar"; export RANLIB="/usr/lib/llvm-3.7/bin/llvm-ranlib"; export NM="/usr/lib/llvm-3.7/bin/llvm-nm"; fi; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then uname -s; fi
   - ./fetchDependencies.py
   - mkdir bin
   - cd bin
-  - cmake -D build_type=$build_type -D appended_flags=-ftemplate-depth=1024 -D static_libraries=$static_libraries ..
+  - cmake -D build_type=$build_type -D static_libraries=$static_libraries -D appended_flags=-ftemplate-depth=$DEPTH ..
   - make -j 2
   - ctest --output-on-failure -j 2
-  - if [ "$build_type" = "coverage" ]; then pip install --user cpp-coveralls; echo "loading coverage information"; coveralls  --exclude "/usr/include/" --exclude-pattern ".*CMake.*|.*Catch.*|.*catch.*|.*easylogging.*|.*test\.cpp" --root ".." --build-root "." --gcov-options '\-lp'; fi
+# - if [ "$build_type" = "coverage" ]; then pip install --user cpp-coveralls; echo "loading coverage information"; coveralls  --exclude "/usr/include/" --exclude-pattern ".*CMake.*|.*Catch.*|.*catch.*|.*easylogging.*|.*test\.cpp" --root ".." --build-root "." --gcov-options '\-lp'; fi
 
 matrix:
   exclude:
