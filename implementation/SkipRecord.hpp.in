@@ -1,0 +1,38 @@
+#ifndef ENDFTK_IMPLEMENTATION_SKIPRECORD_HPP
+#define ENDFTK_IMPLEMENTATION_SKIPRECORD_HPP
+
+/** @brief used to skip over parts of the file to get to the parts that we need.
+ */
+class ENDFtk::implementation::SkipRecord : 
+  public ENDFtk::implementation::record::Tail
+{
+public:
+
+  template< typename Iterator >
+  static record::Tail readTail( Iterator& it, 
+                                 const Iterator& end, 
+                                 long& lineNumber){
+
+    ENDFtk::implementation::record::Base<
+      ENDFtk::implementation::record::Character< 66 > > base(it, end);
+
+    record::Tail tail = record::Tail(it, end, lineNumber);
+
+    return tail;
+  }
+
+  template< typename Iterator >
+  SkipRecord( Iterator& it, const Iterator& end, long& lineNumber)
+    try: Tail( readTail(it, end, lineNumber) ){
+      /* Do nothing */
+    } catch ( std::exception& e ) {
+      /* error information here */
+      throw e;
+    } catch ( int fieldNo ){
+      --lineNumber;
+      /* error information here */
+      throw std::exception();
+    }
+};
+#endif  // ENDFTK_IMPLEMENTATION_SKIPRECORD_HPP
+

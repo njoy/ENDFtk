@@ -21,6 +21,7 @@ list(APPEND subdirs
   "DirectoryRecord"
   "ListRecord"
   "StructureDivision"
+  "SkipRecord"
   ${header_only_subdirs}
   )
 
