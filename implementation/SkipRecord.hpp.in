@@ -16,9 +16,7 @@ public:
     ENDFtk::implementation::record::Base<
       ENDFtk::implementation::record::Character< 66 > > base(it, end);
 
-    record::Tail tail = record::Tail(it, end, lineNumber);
-
-    return tail;
+    return record::Tail(it, end, lineNumber);
   }
 
   template< typename Iterator >
