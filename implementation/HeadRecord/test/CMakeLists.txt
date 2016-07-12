@@ -1,0 +1,1 @@
+setupTest(HeadRecord)
