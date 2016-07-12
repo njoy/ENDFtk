@@ -1,0 +1,18 @@
+template< typename Iterator >
+static ControlRecord 
+readMetadata( Iterator& it, const Iterator& end, long& lineNumber,
+              int MAT, int MF, int MT ){
+  try{
+    ControlRecord metadata( it, end, lineNumber, MAT, MF, MT );
+    if ( metadata.N1() < 0 ){
+      LOG(ERROR) << "Illegal NPL value encountered";
+      LOG(INFO) << "NPL must be greater than or equal to 0";
+      LOG(INFO) << "NPL value: " << metadata.N1();
+      throw std::runtime_error("List Record NPL value");
+    }
+    return metadata;
+  } catch (std::exception& e){
+    LOG(INFO) << "Error while reading metadata";
+    throw e;
+  }
+}

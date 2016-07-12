@@ -1,0 +1,95 @@
+#ifndef ENDFTK_IMPLEMENTATION_LISTRECORD_HPP
+#define ENDFTK_IMPLEMENTATION_LISTRECORD_HPP
+
+class ENDFtk::implementation::ListRecord {
+public:
+  using ListLine =
+    disco::Record
+    < disco::ENDF, disco::ENDF, disco::ENDF,
+      disco::ENDF, disco::ENDF, disco::ENDF, disco::RetainCarriage >;
+       
+  using tail =
+    ENDFtk::implementation::record::TailVerifying
+    < ENDFtk::implementation::record::MAT,
+      ENDFtk::implementation::record::MF,
+      ENDFtk::implementation::record::MT >;
+
+  ControlRecord metadata;
+  std::vector< double > list_;
+
+  template< typename Iterator >
+  static void
+  verifyTail( Iterator& it, const Iterator& end, long& lineNumber,
+              int MAT, int MF, int MT ){
+    tail( MAT, MF, MT, it, end, lineNumber );
+  }
+
+#include "ENDFtk/implementation/ListRecord/src/readMetadata.hpp"
+#include "ENDFtk/implementation/ListRecord/src/readList.hpp"
+
+  ListRecord( double C1, double C2, uint64_t L1, uint64_t L2, uint64_t N2,
+              std::vector< double >&& list ) :
+    metadata( C1, C2, L1, L2, list.size(), N2 ), list_( std::move(list) ){}
+
+  template< typename Iterator >
+  ListRecord( Iterator& it, const Iterator& end, long& lineNumber,
+              int MAT, int MF, int MT )
+    try: metadata( readMetadata( it, end, lineNumber, MAT, MF, MT ) ),
+         list_( readList( this->metadata.N1(),
+                          it, end, lineNumber, MAT, MF, MT ) ){
+    } catch ( std::exception& e ){
+      LOG(INFO) << "Error encountered while parsing List record";
+      throw e;
+    } catch ( int nPosition ){
+      LOG(INFO) << "Error in position " << nPosition;
+      throw std::exception();
+    }
+    
+#define DEFINE_GETTER( name )                                           \
+  decltype( metadata.name() )                                           \
+  name (){ return this->metadata.name(); }                              \
+                                                                        \
+  decltype( std::declval                                                \
+            < typename std::add_const                                   \
+            < decltype( metadata ) >::type >().name() )                 \
+  name () const { return this->metadata.name(); }
+  
+  DEFINE_GETTER( C1 )
+  DEFINE_GETTER( C2 )
+  DEFINE_GETTER( L1 )
+  DEFINE_GETTER( L2 )
+  DEFINE_GETTER( N2 )
+    
+#undef DEFINE_GETTER  
+ 
+  std::vector< double >&
+  list(){ return this->list_; }
+  
+  const std::vector< double >&
+  list() const { return this->list_; }
+
+  std::vector< double >&
+  B(){ return this->list(); }
+
+  const std::vector< double >&
+  B() const { return this->list(); }
+
+  uint64_t
+  NPL() const { return this->list_.size(); }
+
+  bool
+  operator== ( const ListRecord& rhs ){
+    return ( this->metadata.C1() == rhs.metadata.C1() )
+      && ( this->metadata.C2() == rhs.metadata.C2() )
+      && ( this->metadata.L1() == rhs.metadata.L1() )
+      && ( this->metadata.L2() == rhs.metadata.L2() )
+      && ( this->metadata.N2() == rhs.metadata.N2() )
+      && ( std::equal( this->list_.begin(), this->list_.end(),
+                       rhs.list_.begin(), rhs.list_.end() ) );
+  }
+
+  bool
+  operator!= ( const ListRecord& rhs ){ return not ( *this == rhs ); }
+};
+
+#endif
