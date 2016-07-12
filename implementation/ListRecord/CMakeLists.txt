@@ -1,27 +1,27 @@
 if(${verbose_traversal})
-  message(STATUS "Entered RecordTail directory")
+  message(STATUS "Entered ListRecord directory")
 endif(${verbose_traversal})
 
+set(long_path "${ENDFtk_HEADER_DIR}/implementation/ListRecord" )
 set(headers "")
 list(APPEND headers
+  "src/readList"
+  "src/readMetadata"
   )
 
 foreach(header ${headers})
   configure_file(
-    "${CMAKE_CURRENT_SOURCE_DIR}/${header}.hpp.in" 
+    "${CMAKE_CURRENT_SOURCE_DIR}/${header}.hpp.in"
     "${long_path}/${header}.hpp"
     COPYONLY
     )
 endforeach(header)
 
-# traverse subdirectories
 if(${local_testing})
-  list( APPEND testLabels RecordTail )
+  list( APPEND testLabels ListRecord )
   add_subdirectory( "${CMAKE_CURRENT_SOURCE_DIR}/test" )
 endif(${local_testing})
 
-set(ENDFtk_src "${ENDFtk_src}" PARENT_SCOPE)
-
 if(${verbose_traversal})
-  message(STATUS "Exiting RecordTail directory")
+  message(STATUS "Exiting ListRecord directory")
 endif(${verbose_traversal})

@@ -1,0 +1,18 @@
+#ifndef ENDFTK_IMPLEMENTATION_RECORD_REAL_HPP
+#define ENDFTK_IMPLEMENTATION_RECORD_REAL_HPP
+
+namespace ENDFtk {
+namespace implementation {
+namespace record {
+
+struct Real {
+  static constexpr std::size_t width = 11;
+  using Type = double;
+  using Parser = disco::ENDF;
+};
+
+}
+}
+}
+
+#endif
