@@ -4,22 +4,33 @@ endif(${verbose_traversal})
 
 set(header_only_subdirs "")
 list(APPEND header_only_subdirs
-)
-
-set(subdirs "")
-list(APPEND subdirs
-  ${header_only_subdirs}
-  "RecordTail"
+  "record"
   )
-  
+
 foreach (subdir ${header_only_subdirs})
   if(NOT(EXISTS "${ENDFtk_HEADER_DIR}/implementation/${subdir}"))
     file(MAKE_DIRECTORY "${ENDFtk_HEADER_DIR}/implementation/${subdir}")
   endif(NOT(EXISTS "${ENDFtk_HEADER_DIR}/implementation/${subdir}"))
 endforeach (subdir)
 
+set(subdirs "")
+list(APPEND subdirs
+  "HeadRecord"
+  "TextRecord"
+  "ControlRecord"
+  "DirectoryRecord"
+  "ListRecord"
+  "StructureDivision"
+  ${header_only_subdirs}
+  )
+
+foreach (subdir ${subdirs})
+  add_subdirectory( ${subdir} )
+endforeach (subdir)
+
 set(headers "")
 list(APPEND headers
+  "TapeIdentification"
   ${subdirs}
   )
 
@@ -30,10 +41,6 @@ foreach(header ${headers})
     COPYONLY
     )
 endforeach(header)
-
-foreach (subdir ${subdirs})
-  add_subdirectory( ${subdir} )
-endforeach (subdir)
 
 set(ENDFtk_src "${ENDFtk_src}" PARENT_SCOPE)
 

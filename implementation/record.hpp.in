@@ -1,0 +1,36 @@
+#ifndef ENDFTK_IMPLEMENTATION_RECORD_HPP
+#define ENDFTK_IMPLEMENTATION_RECORD_HPP
+
+namespace ENDFtk {
+namespace implementation {
+namespace record {
+
+/* Base components */
+template< int w >
+struct Character;
+
+template< int w >
+struct Integer;
+
+struct Real;
+
+/* Record components */
+template< typename... Fields >
+struct Base;
+
+class Tail;
+
+struct Zipper;
+
+}
+}
+}
+
+#include "ENDFtk/implementation/record/Tail.hpp"
+#include "ENDFtk/implementation/record/Character.hpp"
+#include "ENDFtk/implementation/record/Integer.hpp"
+#include "ENDFtk/implementation/record/Real.hpp"
+#include "ENDFtk/implementation/record/Base.hpp"
+#include "ENDFtk/implementation/record/Zipper.hpp"
+
+#endif

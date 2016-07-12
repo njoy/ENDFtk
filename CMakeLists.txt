@@ -11,24 +11,7 @@ include(subprojects.cmake)
 include(${commonCMakeScripts_path}/objectOriented.cmake)
 include(${commonCMakeScripts_path}/doxygen.cmake)
 
-# Initialize a variable for collecting utility implementation components
 list(APPEND ${projectName}_src) # (empty list)
-list(APPEND ${projectName}_src_headers) # (empty list)
-list(APPEND ${projectName}_bin_headers) # (empty list)
-
-set(headers "")
-list(APPEND headers
-  "ENDFtk"
-  "implementation"
-  )
-
-foreach(header ${headers})
-  configure_file(
-    "${CMAKE_CURRENT_SOURCE_DIR}/${header}.hpp.in" 
-    "${ENDFtk_HEADER_DIR}/${header}.hpp"
-    COPYONLY
-    )
-endforeach(header)
 
 include(${commonCMakeScripts_path}/assemble.cmake)
 include(${commonCMakeScripts_path}/terminus.cmake)
