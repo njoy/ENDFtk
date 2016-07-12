@@ -1,0 +1,11 @@
+template< std::size_t index, typename Tuple >
+static void
+reserve( uint64_t, Tuple&, std::false_type ){}
+
+template< std::size_t index, typename Tuple  >
+static void
+reserve( uint64_t nEntries, Tuple& result, std::true_type ){
+  std::get< index >( result ).resize( nEntries );
+  reserve< ( index - 1 ) >
+    ( nEntries, result, shouldContinueToRecurse< index >() );
+}
