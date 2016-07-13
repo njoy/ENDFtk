@@ -19,7 +19,6 @@ template< typename... Fields >
 struct Base;
 
 class Tail;
-
 struct Zipper;
 struct Sequence;
 

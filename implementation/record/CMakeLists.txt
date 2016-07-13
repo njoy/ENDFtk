@@ -6,6 +6,7 @@ set( long_path "${ENDFtk_HEADER_DIR}/implementation/record" )
 
 set(header_only_subdirs "")
 list(APPEND header_only_subdirs
+  "Zipper"
   )
 
 foreach (subdir ${header_only_subdirs})
@@ -18,7 +19,7 @@ set(subdirs "")
 list(APPEND subdirs
   "Tail"
   "Base"
-  "Zipper"
+  "Sequence"
   ${header_only_subdirs}
   )
 
@@ -31,7 +32,6 @@ list(APPEND headers
   "Character"
   "Integer"
   "Real"
-  "Sequence"
   ${subdirs}
   )
 

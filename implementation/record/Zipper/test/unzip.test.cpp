@@ -23,7 +23,6 @@ SCENARIO( "The Zipper unzip function", "[ENDFtk], [Zipper]" ){
           REQUIRE( std::get< 0 >( vectors )[i] == double(i + 1) );
           REQUIRE( std::get< 1 >( vectors )[i] == i + 1 );
         }
-        std::cout << std::endl;
       }
     }
   }
