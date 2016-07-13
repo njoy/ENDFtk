@@ -11,9 +11,11 @@ list(APPEND headers
   "src/readLine"
   "src/readPartialLine"
   "src/reserve"
-  "src/unpackIteratorTuple"
   "src/verifyTail"
   "src/increment"
+  "src/unzip"
+  "ReadingPack"
+  "Zipped"
   )
 
 foreach(header ${headers})

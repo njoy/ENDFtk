@@ -1,0 +1,15 @@
+struct ENDFtk::implementation::record::Sequence {
+  
+  template< typename ENDFType, typename Iterator >
+  static std::vector< typename ENDFType::Type >
+  read( uint64_t nEntries,
+        Iterator& it, const Iterator& end, long& lineNumber,
+        int MAT, int MF, int MT ){
+    using Type = typename ENDFType::Type;
+    std::vector< Type > result;
+    std::tie( result ) =
+      Zipper::unzip< Type >( nEntries, it, end, lineNumber, MAT, MF, MT );
+    return result;
+  }
+
+};

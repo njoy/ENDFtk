@@ -21,6 +21,7 @@ struct Base;
 class Tail;
 
 struct Zipper;
+struct Sequence;
 
 }
 }
@@ -32,5 +33,6 @@ struct Zipper;
 #include "ENDFtk/implementation/record/Real.hpp"
 #include "ENDFtk/implementation/record/Base.hpp"
 #include "ENDFtk/implementation/record/Zipper.hpp"
+#include "ENDFtk/implementation/record/Sequence.hpp"
 
 #endif

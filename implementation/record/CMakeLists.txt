@@ -31,6 +31,7 @@ list(APPEND headers
   "Character"
   "Integer"
   "Real"
+  "Sequence"
   ${subdirs}
   )
 
