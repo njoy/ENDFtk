@@ -9,9 +9,11 @@ list(APPEND headers
   "src/makeIteratorTuple"
   "src/process"
   "src/readLine"
+  "src/readPartialLine"
   "src/reserve"
   "src/unpackIteratorTuple"
   "src/verifyTail"
+  "src/increment"
   )
 
 foreach(header ${headers})
@@ -22,10 +24,10 @@ foreach(header ${headers})
     )
 endforeach(header)
 
-#if(${local_testing})
-#  list( APPEND testLabels Zipper )
-#  add_subdirectory( "${CMAKE_CURRENT_SOURCE_DIR}/test" )
-#endif(${local_testing})
+if(${local_testing})
+ list( APPEND testLabels Zipper )
+ add_subdirectory( "${CMAKE_CURRENT_SOURCE_DIR}/test" )
+endif(${local_testing})
 
 if(${verbose_traversal})
   message(STATUS "Exiting Zipper directory")

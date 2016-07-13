@@ -18,7 +18,6 @@ expandReferencePack
   expandReferencePack< Zip, index + 1 >
     ( pack, iteratorTuple,
       shouldContinueToRecurse< Zip::tuplesPerRecord - index - 1 >(),
-      std::index_sequence< iteratorIndices... >(),
-      references... ,
+      Zip::tupleIndices, references... ,
       std::get< iteratorIndices >( iteratorTuple )[index]... );
 }

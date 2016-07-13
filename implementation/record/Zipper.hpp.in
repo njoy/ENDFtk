@@ -6,7 +6,7 @@ namespace record {
 
 struct Zipper {
 
-  /* helper structs */
+  /* helper structs */  
   template< typename Iterator >
   struct ReadingPack{
     Iterator& it;
@@ -37,6 +37,9 @@ struct Zipper {
     
     static const std::size_t nPad = 66 % tupleWidth;
 
+    static constexpr auto tupleIndices =
+      std::make_index_sequence< entriesPerTuple >();
+    
     /**
      * @brief 
      * This is dark magic to expand the parameter pack a number of times equal 
@@ -55,37 +58,74 @@ struct Zipper {
     using Format =
       decltype( expand( std::make_index_sequence< entriesPerRecord >() ) );
 
+    template< std::size_t index >
+    using Type =
+      typename std::tuple_element
+      < index, std::tuple< typename ENDFTypes::Type... > >::type;
+    
+    using TupleFormat =
+      disco::Record< typename ENDFTypes::Parser..., disco::RetainCarriage >;
+
+    static const std::tuple< typename ENDFTypes::Type... >&
+    defaultTuple(){
+      static const auto defaultValues =
+        std::make_tuple( ENDFTypes::defaultValue... );
+      return defaultValues;
+    }
+
   };
     
   /* convenience aliases */
+  using tail =
+    ENDFtk::implementation::record::TailVerifying
+    < ENDFtk::implementation::record::MAT,
+      ENDFtk::implementation::record::MF,
+      ENDFtk::implementation::record::MT >;
+  
   template< std::size_t index >
   using shouldContinueToRecurse =
-      std::conditional< ( index == 0 ), std::true_type, std::false_type >;
+    typename std::conditional< ( index != 0 ),
+                               std::true_type, std::false_type >::type;
 
   /* helper methods */
 #include "ENDFtk/implementation/record/Zipper/src/reserve.hpp"
+#include "ENDFtk/implementation/record/Zipper/src/increment.hpp"
 #include "ENDFtk/implementation/record/Zipper/src/makeIteratorTuple.hpp"
 #include "ENDFtk/implementation/record/Zipper/src/verifyTail.hpp"
 #include "ENDFtk/implementation/record/Zipper/src/process.hpp"
 #include "ENDFtk/implementation/record/Zipper/src/expandReferencePack.hpp"
 #include "ENDFtk/implementation/record/Zipper/src/readLine.hpp"
+#include "ENDFtk/implementation/record/Zipper/src/readPartialLine.hpp"
 
-//   /* methods */
-//   template< typename... ENDFTypes, typename Iterator >
-//   std::tuple< std::vector< typename ENDFTypes::Type >... >
-//   unzip( uint64_t nEntries, Iterator& it, const Iterator& end, long& lineNumber,
-//          int MAT, int MF, int MT ){
-//     std::tuple< std::vector< typename ENDFTypes::Type >... > result;
-//     reserve< ENDFTypes... >( nEntries, result, std::true_type() );
-//     auto iterators = makeIteratorTuple< ENDFTypes::Type... >( result );
-//     int remainingLines = nEntries / zipped< ENDFTypes... >::tuplesPerRecord;
-//     while ( remainingLines-- ){
-//       readLine< zipped< ENDFTypes... >::Format >
-//       ( iterators, it, end, lineNumber, MAT, MF, MT );
-//     }
-//     return result;
-//   }
+  /* methods */
+  template< typename... ENDFTypes, typename Iterator >
+  static std::tuple< std::vector< typename ENDFTypes::Type >... >
+  unzip
+  ( uint64_t nEntries,
+    Iterator& it, const Iterator& end, long& lineNumber,
+    int MAT, int MF, int MT ){
     
+    std::tuple< std::vector< typename ENDFTypes::Type >... > result;    
+    reserve( nEntries, result );
+
+    using Zip = Zipped< ENDFTypes... >;
+    auto iterators = makeIteratorTuple( result, Zip::tupleIndices );
+
+    int remainingLines = nEntries / Zip::tuplesPerRecord;
+    while ( remainingLines-- ){
+      readLine< Zip >( iterators, it, end, lineNumber, MAT, MF, MT );
+      increment< Zip >( iterators );
+    }
+    
+    const int remainingEntries = nEntries % Zip::tuplesPerRecord;
+    if ( remainingEntries ){
+      readPartialLine< Zip >
+        ( remainingEntries, iterators, it, end, lineNumber,
+          MAT, MF, MT, Zip::tupleIndices );
+    }
+    
+    return result;
+  }
 };
 
 }

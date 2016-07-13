@@ -1,4 +1,4 @@
-template< typename... Vectors, int... indices >
+template< typename... Vectors, std::size_t... indices >
 static std::tuple< typename Vectors::iterator... >
 makeIteratorTuple
 ( std::tuple< Vectors... >& vectorTuple, std::index_sequence< indices... > ){

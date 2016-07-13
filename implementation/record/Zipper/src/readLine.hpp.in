@@ -5,6 +5,5 @@ readLine( Tuple& iteratorTuple,
           int MAT, int MF, int MT ){
   ReadingPack< Iterator > pack( it, end, lineNumber, MAT, MF, MT );    
   expandReferencePack< Zip >
-    ( iteratorTuple, pack, std::true_type(),
-      std::make_index_sequence< Zip::tuplesPerRecord >() );
+    ( pack, iteratorTuple, std::true_type(), Zip::tupleIndices );
 }

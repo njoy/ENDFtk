@@ -1,15 +1,15 @@
 [submodule "commonCMakeScripts"]
 	path = commonCMakeScripts
-	url = git@github.com:njoy/commonCMakeScripts.git
+	url = https://github.com/njoy/commonCMakeScripts.git
 [submodule "Catch"]
 	path = Catch
-	url = git@github.com:njoy/Catch.git
+	url = https://github.com/njoy/Catch.git
 [submodule "easyloggingpp"]
 	path = easyloggingpp
-	url = git@github.com:njoy/easyloggingpp.git
+	url = https://github.com/njoy/easyloggingpp.git
 [submodule "utility"]
 	path = utility
-	url = git@github.com:njoy/utility.git
+        url = https://github.com/njoy/utility.git
 [submodule "disco"]
 	path = disco
 	url = https://github.com/njoy/disco.git
