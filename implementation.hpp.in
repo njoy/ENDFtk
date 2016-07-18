@@ -78,6 +78,10 @@ using INTG = IntegerRecord;
 class SkipRecord;
 using SKIP = SkipRecord;
 
+class SectionBase;
+
+template<int MF>
+class Section;
 } // namespace implementation
 } // namespace ENDFtk
 
