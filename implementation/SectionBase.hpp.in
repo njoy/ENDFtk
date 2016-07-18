@@ -3,5 +3,18 @@
 
 #include "ENDFtk.hpp"
 
+class ENDFtk::implementation::SectionBase{
+public:
+  SectionBase( const HEAD& head );
+
+  int MT() const { return MT_; }
+  int ZA() const { return ZA_; }
+  double atomicWeightRatio() const { return atomicWeightRatio_; }
+
+  const int MT_;
+  const int ZA_;
+  const double atomicWeightRatio_;
+};
+
 #endif  // ENDFTK_IMPLEMENTATION_SECTIONBASE_HPP
 

@@ -13,7 +13,7 @@ int main( int argc, const char* argv[] ){
   return result;
 }
 
-SCENARIO( "TextRecord Tests", "[ENDFtk], [TextRecord]" ){
+SCENARIO( "SkipRecord Tests", "[ENDFtk], [SkipRecord]" ){
   GIVEN( "a string rvalue" ){
   std::string line = 
     "General information for Version u235ib06ao17g6cnu5cf2             9228 1451   12\n";

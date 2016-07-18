@@ -92,6 +92,7 @@ class Section;
 #include "ENDFtk/implementation/ControlRecord.hpp"
 #include "ENDFtk/implementation/DirectoryRecord.hpp"
 #include "ENDFtk/implementation/ListRecord.hpp"
+#include "ENDFtk/implementation/SectionBase.hpp"
 #include "ENDFtk/implementation/SkipRecord.hpp"
 
 #endif // ENDFTK_IMPLEMENTATION_HPP
