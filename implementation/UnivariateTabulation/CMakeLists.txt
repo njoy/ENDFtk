@@ -1,8 +1,8 @@
 if(${verbose_traversal})
-  message(STATUS "Entered ListRecord directory")
+  message(STATUS "Entered UnivariateTabulation directory")
 endif(${verbose_traversal})
 
-set(long_path "${ENDFtk_HEADER_DIR}/implementation/ListRecord" )
+set(long_path "${ENDFtk_HEADER_DIR}/implementation/UnivariateTabulation" )
 set(headers "")
 list(APPEND headers
   "src/readMetadata"
@@ -17,10 +17,10 @@ foreach(header ${headers})
 endforeach(header)
 
 if(${local_testing})
-  list( APPEND testLabels ListRecord )
+  list( APPEND testLabels UnivariateTabulation )
   add_subdirectory( "${CMAKE_CURRENT_SOURCE_DIR}/test" )
 endif(${local_testing})
 
 if(${verbose_traversal})
-  message(STATUS "Exiting ListRecord directory")
+  message(STATUS "Exiting UnivariateTabulation directory")
 endif(${verbose_traversal})

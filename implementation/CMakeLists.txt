@@ -5,6 +5,9 @@ endif(${verbose_traversal})
 set(header_only_subdirs "")
 list(APPEND header_only_subdirs
   "record"
+  "HeadRecord"
+  "ListRecord"
+  "UnivariateTabulation"
   )
 
 foreach (subdir ${header_only_subdirs})
@@ -15,11 +18,9 @@ endforeach (subdir)
 
 set(subdirs "")
 list(APPEND subdirs
-  "HeadRecord"
   "TextRecord"
   "ControlRecord"
   "DirectoryRecord"
-  "ListRecord"
   "StructureDivision"
   "SkipRecord"
   ${header_only_subdirs}

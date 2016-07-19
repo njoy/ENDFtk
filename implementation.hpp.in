@@ -76,7 +76,22 @@ class IntegerRecord;
 using INTG = IntegerRecord;
 
 class SkipRecord;
-using SKIP = SkipRecord;
+
+template< typename T >
+using MutableReturnType =
+  typename std::add_lvalue_reference< T >::type;
+
+template< typename T >
+using ImmutableReturnType =
+  typename std::conditional
+  < std::is_trivially_copyable< T >::value,
+    T, typename std::add_lvalue_reference
+       < typename std::add_const
+         < T >::type >::type >::type;
+
+template< typename T >
+using clean = typename std::remove_const
+              < typename std::remove_reference< T >::type >::type;
 
 } // namespace implementation
 } // namespace ENDFtk
@@ -89,6 +104,7 @@ using SKIP = SkipRecord;
 #include "ENDFtk/implementation/DirectoryRecord.hpp"
 #include "ENDFtk/implementation/ListRecord.hpp"
 #include "ENDFtk/implementation/SkipRecord.hpp"
+#include "ENDFtk/implementation/UnivariateTabulation.hpp"
 
 #endif // ENDFTK_IMPLEMENTATION_HPP
 

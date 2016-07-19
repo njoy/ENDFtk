@@ -15,3 +15,8 @@ list(APPEND ${projectName}_src) # (empty list)
 
 include(${commonCMakeScripts_path}/assemble.cmake)
 include(${commonCMakeScripts_path}/terminus.cmake)
+
+#add_custom_command(TARGET ENDFtk
+#  POST_BUILD
+#  COMMAND ${CMAKE_COMMAND} -E create_symlink $<TARGET_FILE:ENDFtk> foo
+#)
