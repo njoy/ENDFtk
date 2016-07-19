@@ -13,18 +13,8 @@ public:
     try: SectionBase(head),
          TAB1_(begin, end, lineNumber, head.MAT(), head.MF(), head.MT() )
   { 
-    try{
-      auto SEND = ENDFtk::implementation::StructureDivision(
-          begin, end, lineNumber);
-      if( not SEND.isSend() ){
-        LOG(ERROR) << "No SEND Record at end of MF=3, MT=" << MT_ << ".";
-        throw std::exception();
-      }
-    } catch ( std::exception& e){
-      LOG(INFO) << "There was a problem reading the SEND record in MF=3, MT="
-                 << MT_ << ".";
-      throw e;
-    }
+    readSEND(3, begin, end, lineNumber);
+
   } catch( std::exception& e ){
     LOG(INFO) << "Trouble constructing MF=3 Section.";
     throw e;

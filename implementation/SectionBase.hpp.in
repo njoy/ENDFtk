@@ -16,6 +16,23 @@ public:
   int ZA() const { return ZA_; }
   double atomicWeightRatio() const { return atomicWeightRatio_; }
 
+  template<typename Iterator>
+  void readSEND(int MF, Iterator& begin, const Iterator& end, long LN){
+    try{
+      auto SEND = ENDFtk::implementation::StructureDivision(
+          begin, end, LN);
+      if( not SEND.isSend() ){
+        LOG(ERROR) << "No SEND Record at end of MF=" 
+                   << MF << ", MT=" << MT_ << ".";
+        throw std::exception();
+      }
+    } catch ( std::exception& e){
+      LOG(INFO) << "There was a problem reading the SEND record in MF="
+                << MF << ", MT=" << MT_ << ".";
+      throw e;
+    }
+  }
+
   const int MT_;
   const int ZA_;
   const double atomicWeightRatio_;
