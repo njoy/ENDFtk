@@ -4,8 +4,11 @@
 #include "ENDFtk/implementation/SectionBase.hpp"
 #include "ENDFtk/implementation/UnivariateTabulation.hpp"
 
+namespace ENDFtk{
+namespace implementation{
+
 template<>
-class ENDFtk::implementation::Section<3>: protected SectionBase {
+class Section<3>: protected SectionBase {
 public:
 
   template<typename Iterator>
@@ -24,10 +27,12 @@ public:
   using SectionBase::ZA;
   using SectionBase::atomicWeightRatio;
 
-  ENDFtk::implementation::UnivariateTabulation TAB1_;
+  UnivariateTabulation TAB1_;
 
 };
 
+} // namespace implementation
+} // namespace ENDFtk
 
 #endif  // ENDFTK_IMPLEMENTATION_SECTIONBASE_SECTION_HPP
 
