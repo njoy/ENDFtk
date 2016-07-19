@@ -3,6 +3,11 @@
 
 #include "ENDFtk.hpp"
 
+/** @brief Base class for all Sections
+ *
+ * @details This is the common functionality between all Sections so it makes
+ * sense ot put it in a base class.
+ */
 class ENDFtk::implementation::SectionBase{
 public:
   SectionBase( const HEAD& head );
@@ -15,6 +20,8 @@ public:
   const int ZA_;
   const double atomicWeightRatio_;
 };
+
+#include "ENDFtk/implementation/SectionBase/Section3.hpp"
 
 #endif  // ENDFTK_IMPLEMENTATION_SECTIONBASE_HPP
 

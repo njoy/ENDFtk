@@ -1,0 +1,23 @@
+#ifndef ENDFTK_IMPLEMENTATION_SECTIONBASE_SECTION_HPP
+#define ENDFTK_IMPLEMENTATION_SECTIONBASE_SECTION_HPP
+
+#include "ENDFtk/implementation/SectionBase.hpp"
+
+template<>
+class ENDFtk::implementation::Section<3>: protected SectionBase {
+public:
+
+  template<typename Iterator>
+  Section(HEAD& head, Iterator& begin, const Iterator& end, long lineNumber)
+    : SectionBase(head)
+  { }
+    
+  using SectionBase::MT;
+  using SectionBase::ZA;
+  using SectionBase::atomicWeightRatio;
+
+};
+
+
+#endif  // ENDFTK_IMPLEMENTATION_SECTIONBASE_SECTION_HPP
+
