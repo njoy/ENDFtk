@@ -13,8 +13,16 @@ public:
   SectionBase( const HEAD& head );
 
   int MT() const { return MT_; }
+  const int& MT() { return MT_; }
+
   int ZA() const { return ZA_; }
+  const int& ZA() { return ZA_; }
+
   double atomicWeightRatio() const { return atomicWeightRatio_; }
+  const double& atomicWeightRatio() { return atomicWeightRatio_; }
+
+  double AWR() const { return atomicWeightRatio_; }
+  const double& AWR() { return atomicWeightRatio_; }
 
   template<typename Iterator>
   void readSEND(int MF, Iterator& begin, const Iterator& end, long LN){
@@ -33,9 +41,9 @@ public:
     }
   }
 
-  const int MT_;
-  const int ZA_;
-  const double atomicWeightRatio_;
+  int MT_;
+  int ZA_;
+  double atomicWeightRatio_;
 };
 
 #include "ENDFtk/implementation/SectionBase/Section3.hpp"
