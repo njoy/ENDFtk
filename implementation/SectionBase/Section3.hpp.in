@@ -40,7 +40,11 @@ public:
   { 
 
     auto ltzero = [](auto& y) { return y < 0.0; };
-    std::find_if(TAB1_.yBegin(), TAB1_.yEnd(), ltzero);
+    auto found = std::find_if(TAB1_.yBegin(), TAB1_.yEnd(), ltzero);
+    if( found != TAB1_.yEnd() ){
+      LOG(ERROR) << "Found a negative cross section value: " << *found;
+      throw std::exception();
+    }
 
     readSEND(begin, end, lineNumber, MAT, 3 );
 
