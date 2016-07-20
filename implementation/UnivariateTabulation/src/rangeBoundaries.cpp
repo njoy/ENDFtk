@@ -6,7 +6,7 @@ std::tuple< TAB1::constXIterator, TAB1::constXIterator >
 TAB1::rangeBoundaries( std::size_t rangeIndex ) const {
   if ( std::size_t(this->nRanges()) <= rangeIndex ){
     LOG(ERROR) << "Out of range range index requested of TAB1 record";
-    LOG(INFO) << "Requested index: " << index;
+    LOG(INFO) << "Requested index: " << rangeIndex;
     LOG(INFO) << "Available index range: [ 0, "
               << this->boundaryIndices.size() << " )";
     throw std::out_of_range("");
