@@ -13,16 +13,16 @@ public:
   SectionBase( const HEAD& head, int MAT, int MF );
 
   int MT() const { return MT_; }
-  const int& MT() { return MT_; }
+  int& MT() { return MT_; }
 
   int ZA() const { return ZA_; }
-  const int& ZA() { return ZA_; }
+  int& ZA() { return ZA_; }
 
   double atomicWeightRatio() const { return atomicWeightRatio_; }
-  const double& atomicWeightRatio() { return atomicWeightRatio_; }
+  double& atomicWeightRatio() { return atomicWeightRatio_; }
 
   double AWR() const { return atomicWeightRatio_; }
-  const double& AWR() { return atomicWeightRatio_; }
+  double& AWR() { return atomicWeightRatio_; }
 
   template<typename Iterator>
   void readSEND(Iterator& begin, const Iterator& end, long& LN, 
@@ -33,6 +33,19 @@ public:
       if( not SEND.isSend() ){
         LOG(ERROR) << "No SEND Record at end of MAT=" << MAT
                    << ", MF=" << MF << ", MT=" << MT_ << ".";
+        throw std::exception();
+      }
+
+      if( MAT != SEND.tail.MAT() ){
+        LOG(ERROR) << "Incorrect Material number (MAT) in SEND record.";
+        LOG(INFO) << "Expected MAT=" << MAT
+                  << ". Got MAT=" << SEND.tail.MAT();
+        throw std::exception();
+      }
+      if( MF != SEND.tail.MF() ){
+        LOG(ERROR) << "Incorrect File number (MF). in SEND record";
+        LOG(INFO) << "Expected MF=" << MF
+                  << ". Got MF=" << SEND.tail.MF();
         throw std::exception();
       }
     } catch ( std::exception& e){

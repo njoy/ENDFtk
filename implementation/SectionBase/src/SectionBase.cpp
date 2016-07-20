@@ -7,8 +7,6 @@ ENDFtk::implementation::SectionBase::SectionBase( const HEAD& head,
     ZA_(head.ZA()), 
     atomicWeightRatio_(head.atomicWeightRatio() )
 { 
-  LOG(INFO) << "MAT= " << MAT;
-  LOG(INFO) << "MF= " << MF;
   if( MAT != head.MAT() ){
     LOG(ERROR) << "Incorrect Material number (MAT).";
     LOG(INFO) << "Expected MAT=" << MAT

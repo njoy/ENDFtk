@@ -25,11 +25,11 @@ SCENARIO( "SectionBase tests"){
     long lineNumber = 2;
     auto head = StructureDivision( begin, end, lineNumber );
 
+    std::unique_ptr<SectionBase> base;
     WHEN( "given good MAT, MF numbers"){
       int MAT = 125;
       int MF = 3;
       THEN( "the base can be constructed without throwing" ){
-        std::unique_ptr<SectionBase> base;
           REQUIRE_NOTHROW(
             base = std::make_unique<SectionBase>( asHead(head), MAT, MF) );
 
@@ -50,6 +50,31 @@ SCENARIO( "SectionBase tests"){
         REQUIRE_THROWS( SectionBase( asHead(head), 125, MF ) );
       }
     }
+
+    WHEN( "reading the SEND record" ){
+        base = std::make_unique<SectionBase>( asHead(head), 125, 3);
+        std::string sSEND = 
+          "                                                                   125 3  0\n";
+
+        auto beginSEND = sSEND.begin();
+        auto endSEND = sSEND.end();
+
+        THEN( "reading SEND with valid MAT, and MF does not throw" ){
+          REQUIRE_NOTHROW( base->readSEND(beginSEND, endSEND, lineNumber,
+                                          125, 3) );
+        }
+        THEN( "reading SEND with invalid MAT, and MF throws an exception" ){
+          beginSEND = sSEND.begin();
+          endSEND = sSEND.end();
+          REQUIRE_THROWS( base->readSEND(beginSEND, endSEND, lineNumber,
+                                          125, 125) );
+          beginSEND = sSEND.begin();
+          endSEND = sSEND.end();
+          REQUIRE_THROWS( base->readSEND(beginSEND, endSEND, lineNumber,
+                                          3, 3) );
+        }
+
+    } // WHEN
   } // GIVEN
 } // SCENARIO
 
