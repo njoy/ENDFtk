@@ -30,7 +30,7 @@ public:
     try: SectionBase(head, MAT, 3),
          TAB1_(begin, end, lineNumber, head.MAT(), 3, head.MT() )
   { 
-    readSEND(3, begin, end, lineNumber);
+    readSEND(begin, end, lineNumber, MAT, 3 );
 
   } catch( std::exception& e ){
     LOG(INFO) << "Trouble constructing MF=3 Section.";
