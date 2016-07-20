@@ -15,6 +15,14 @@ public:
 
   /**
    *
+   * @details This verifies in the HEAD, TAB1, and SEND records:
+   *  
+   *  - `MAT` is correct, and
+   *  - `MF` is 3
+   *
+   * This also verifies that the y-values in the TAB1 record are greater than
+   * zero.
+   *
    * @param \c head HeadRecord that beings the Section
    * @param \c begin Beginning @tparam Iterator from which the Section should be
    * created
@@ -30,6 +38,10 @@ public:
     try: SectionBase(head, MAT, 3),
          TAB1_(begin, end, lineNumber, head.MAT(), 3, head.MT() )
   { 
+
+    auto ltzero = [](auto& y) { return y < 0.0; };
+    std::find_if(TAB1_.yBegin(), TAB1_.yEnd(), ltzero);
+
     readSEND(begin, end, lineNumber, MAT, 3 );
 
   } catch( std::exception& e ){
