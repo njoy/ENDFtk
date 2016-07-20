@@ -10,7 +10,7 @@
  */
 class ENDFtk::implementation::SectionBase{
 public:
-  SectionBase( const HEAD& head );
+  SectionBase( const HEAD& head, int MAT, int MF );
 
   int MT() const { return MT_; }
   const int& MT() { return MT_; }

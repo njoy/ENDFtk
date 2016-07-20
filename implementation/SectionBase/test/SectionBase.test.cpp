@@ -13,6 +13,8 @@ int main( int argc, const char* argv[] ){
   return result;
 }
 
+using namespace ENDFtk::implementation;
+
 SCENARIO( "SectionBase tests"){
   GIVEN( "a string represnting the Section" ){
     std::string line = 
@@ -21,17 +23,33 @@ SCENARIO( "SectionBase tests"){
     auto begin = line.begin();
     auto end = line.end();
     long lineNumber = 2;
-    auto head = ENDFtk::implementation::StructureDivision(
-        begin, end, lineNumber);
+    auto head = StructureDivision( begin, end, lineNumber );
 
-    THEN( "we can get the ZA, MT, and atomicWeightRatio" ){
-      ENDFtk::implementation::SectionBase base( asHead( head ) );
-      REQUIRE( 1 == base.MT() );
-      REQUIRE( 1001 == base.ZA() );
-      REQUIRE( 0.9991673 == base.atomicWeightRatio() );
+    WHEN( "given good MAT, MF numbers"){
+      int MAT = 125;
+      int MF = 3;
+      THEN( "the base can be constructed without throwing" ){
+        std::unique_ptr<SectionBase> base;
+          REQUIRE_NOTHROW(
+            base = std::make_unique<SectionBase>( asHead(head), MAT, MF) );
 
-    } // THEN
+        AND_THEN( "we can get the ZA, MT, and atomicWeightRatio" ){
+          REQUIRE( 1 == base->MT() );
+          REQUIRE( 1001 == base->ZA() );
+          REQUIRE( 0.9991673 == base->atomicWeightRatio() );
+        } // AND_THEN
+      } // THEN
+    } // WHEN
 
+    WHEN( "given bad MAT and MF numbers" ){
+      int MAT = 1;
+      int MF = 1;
+      THEN( "an exception is thrown on construction" ){
+        REQUIRE_THROWS( SectionBase( asHead(head), MAT, MF ) );
+        REQUIRE_THROWS( SectionBase( asHead(head), MAT, 3 ) );
+        REQUIRE_THROWS( SectionBase( asHead(head), 125, MF ) );
+      }
+    }
   } // GIVEN
 } // SCENARIO
 

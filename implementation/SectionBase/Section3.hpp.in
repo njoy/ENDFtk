@@ -7,14 +7,28 @@
 namespace ENDFtk{
 namespace implementation{
 
+/** @brief Section specialization for MF=3
+ */
 template<>
 class Section<3>: protected SectionBase {
 public:
 
+  /**
+   *
+   * @param \c head HeadRecord that beings the Section
+   * @param \c begin Beginning @tparam Iterator from which the Section should be
+   * created
+   * @param \c begin Ending @tparam Iterator from which the Section should be
+   * created
+   * @param \c lineNumber
+   * @param \c MAT, what Material number is expected. This is used for
+   * verification.
+   */
   template<typename Iterator>
-  Section(HEAD& head, Iterator& begin, const Iterator& end, long lineNumber)
-    try: SectionBase(head),
-         TAB1_(begin, end, lineNumber, head.MAT(), head.MF(), head.MT() )
+  Section(HEAD& head, Iterator& begin, const Iterator& end, long& lineNumber,
+          int MAT)
+    try: SectionBase(head, MAT, 3),
+         TAB1_(begin, end, lineNumber, head.MAT(), 3, head.MT() )
   { 
     readSEND(3, begin, end, lineNumber);
 

@@ -64,7 +64,8 @@ SCENARIO( "Section3 tests" ){
       ENDFtk::implementation::HeadRecord head(begin, end, lineNumber);
           
       THEN( "a Section<3> can be constructed and members can be tested" ){
-        ENDFtk::implementation::Section<3> MF3(head, begin, end, lineNumber);
+        ENDFtk::implementation::Section<3> MF3(head, begin, end, 
+                                               lineNumber, 125);
 
         REQUIRE( 1 == MF3.MT() );
         REQUIRE( 1001 == MF3.ZA() );
@@ -83,7 +84,8 @@ SCENARIO( "Section3 tests" ){
 
       THEN( "an exception is thrown" ){
         REQUIRE_THROWS(
-          ENDFtk::implementation::Section<3> MF3(head, begin, end, lineNumber) );
+          ENDFtk::implementation::Section<3> MF3(head, begin, end, 
+                                                 lineNumber, 125) );
       }
           
     } // WHEN
