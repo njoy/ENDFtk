@@ -31,21 +31,18 @@ public:
       auto SEND = ENDFtk::implementation::StructureDivision(
           begin, end, LN);
       if( not SEND.isSend() ){
-        LOG(ERROR) << "No SEND Record at end of MAT=" << MAT
-                   << ", MF=" << MF << ", MT=" << MT_ << ".";
+        LOG(ERROR) << "No SEND Record.";
         throw std::exception();
       }
 
       if( MAT != SEND.tail.MAT() ){
         LOG(ERROR) << "Incorrect Material number (MAT) in SEND record.";
-        LOG(INFO) << "Expected MAT=" << MAT
-                  << ". Got MAT=" << SEND.tail.MAT();
+        LOG(INFO) << "Expected MAT=" << MAT << ". Got MAT=" << SEND.tail.MAT();
         throw std::exception();
       }
       if( MF != SEND.tail.MF() ){
         LOG(ERROR) << "Incorrect File number (MF). in SEND record";
-        LOG(INFO) << "Expected MF=" << MF
-                  << ". Got MF=" << SEND.tail.MF();
+        LOG(INFO) << "Expected MF=" << MF << ". Got MF=" << SEND.tail.MF();
         throw std::exception();
       }
     } catch ( std::exception& e){
