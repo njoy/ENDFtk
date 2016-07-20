@@ -17,20 +17,52 @@ int main( int argc, const char* argv[] ){
 
 using namespace ENDFtk::implementation;
 
-SCENARIO( "UnivariateTabulation ctor",
-          "[ENDFtk], [UnivariateTabulation]" ){
+std::function< UnivariateTabulation() > makeTAB1 = [](){
   auto metadata = std::make_tuple( 1.0, 2.0, 3ul, 4ul );
   auto regionPairs =
-    std::make_tuple( std::vector< long >{4,5,6}, std::vector< long >{1,2,3} );
+  std::make_tuple( std::vector< long >{4,5,6}, std::vector< long >{1,2,3} );
   auto orderedPairs =
-    std::make_tuple( std::vector< double >{1.0, 2.0, 3.0, 4.0, 5.0, 6.0 },
-                     std::vector< double >{3.0, 4.0, 5.0, 6.0, 7.0, 8.0 } );
-  auto tab1_0 =
-    UnivariateTabulation
-    ( std::get< 0 >( metadata ), std::get< 1 >( metadata ),
-      std::get< 2 >( metadata ), std::get< 3 >( metadata ),
-      utility::copy( regionPairs ), utility::copy( orderedPairs ) );
+  std::make_tuple( std::vector< double >{1.0, 2.0, 3.0, 4.0, 5.0, 6.0 },
+                   std::vector< double >{3.0, 4.0, 5.0, 6.0, 7.0, 8.0 } );
+  return UnivariateTabulation
+  ( std::get< 0 >( metadata ), std::get< 1 >( metadata ),
+    std::get< 2 >( metadata ), std::get< 3 >( metadata ),
+    utility::copy( regionPairs ), utility::copy( orderedPairs ) );
+};
 
+SCENARIO( "UnivariateTabulation ctor",
+          "[ENDFtk], [UnivariateTabulation]" ){
+
+  auto metadata = std::make_tuple( 1.0, 2.0, 3ul, 4ul );
+  auto regionPairs =
+  std::make_tuple( std::vector< long >{4,5,6}, std::vector< long >{1,2,3} );
+  auto orderedPairs =
+  std::make_tuple( std::vector< double >{1.0, 2.0, 3.0, 4.0, 5.0, 6.0 },
+                   std::vector< double >{3.0, 4.0, 5.0, 6.0, 7.0, 8.0 } );
+  auto tab1_0 = UnivariateTabulation
+  ( std::get< 0 >( metadata ), std::get< 1 >( metadata ),
+    std::get< 2 >( metadata ), std::get< 3 >( metadata ),
+    utility::copy( regionPairs ), utility::copy( orderedPairs ) );
+
+  auto mismatchedOrderedPairs =
+    std::make_tuple( std::vector< double >{1.0, 2.0, 3.0, 4.0, 5.0},
+                     std::vector< double >{3.0, 4.0, 5.0, 6.0, 7.0, 8.0 } );
+
+  REQUIRE_THROWS( UnivariateTabulation
+                  ( std::get< 0 >( metadata ), std::get< 1 >( metadata ),
+                    std::get< 2 >( metadata ), std::get< 3 >( metadata ),
+                    utility::copy( regionPairs ),
+                    utility::copy( mismatchedOrderedPairs ) ) );
+
+  auto mismatchedRegionPairs =
+    std::make_tuple( std::vector< long >{4,5,6}, std::vector< long >{1,2,3,4} );
+
+  REQUIRE_THROWS( UnivariateTabulation
+                  ( std::get< 0 >( metadata ), std::get< 1 >( metadata ),
+                    std::get< 2 >( metadata ), std::get< 3 >( metadata ),
+                    utility::copy( mismatchedRegionPairs ),
+                    utility::copy( orderedPairs ) ) );
+  
   std::string tab1String = 
     " 0.000000+0 0.000000+0         33          0          1          49228 1460  438\n"
     "          4          4                                            9228 1460  439\n"
@@ -45,4 +77,10 @@ SCENARIO( "UnivariateTabulation ctor",
   
   auto tab1_1 =
     UnivariateTabulation( tab1It, tab1End, lineNumber, MAT, MF, MT );
+
+  REQUIRE_THROWS(
+    UnivariateTabulation( tab1It, tab1End, lineNumber, 9225, MF, MT ) );
+  
+  REQUIRE( tab1_1.xValues.size() == 4 );
+  REQUIRE( tab1_1.boundaryIndices.size() == 1 );
 }
