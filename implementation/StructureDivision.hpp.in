@@ -27,10 +27,22 @@ public:
   try: base( it, end ), tail( it, end, lineNumber ) {
     if (tail.material() < -1){
       LOG(ERROR) << "Illegal material number (MAT) encountered";
-      LOG(ERROR) << "Material numbers are greater than or equal to -1";
-      LOG(ERROR) << "Material number: " << this->tail.material();
+      LOG(INFO) << "Material numbers are greater than or equal to -1";
+      LOG(INFO) << "Material number: " << this->tail.material();
       throw std::exception();
     }
+    if (tail.file() < 0){
+      LOG(ERROR) << "Illegal file number (MF) encountered";
+      LOG(INFO) << "File numbers are greater than or equal to 0";
+      LOG(INFO) << "File number: " << this->tail.file();
+      throw std::exception();
+    }
+    if (tail.section() < 0){
+      LOG(ERROR) << "Illegal section number (MT) encountered";
+      LOG(INFO) << "Section numbers are greater than or equal to 0";
+      LOG(INFO) << "Section number: " << this->tail.section();
+      throw std::exception();
+    }    
   } catch ( std::exception& e ){
     throw e;
   } catch ( int fieldNumber ){

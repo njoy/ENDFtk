@@ -80,4 +80,35 @@ SCENARIO( "StructureDivision Tests", "[ENDFtk], [StructureDivision]" ){
       }
     }
   }
+  
+  GIVEN( "a head record string with an illegal MAT"){
+    std::string line =
+      " 1.001000+3 9.991673-1          0          0          0           0  -2 1451    1";
+    THEN("the ctor will throw"){
+        auto lineNumber = 0l;
+        auto it = line.begin();
+        auto end = line.end();
+        REQUIRE_THROWS( StructureDivision( it, end, lineNumber ) );
+    }
+  }
+  GIVEN( "a head record string with an illegal MF"){
+    std::string line =
+      " 1.001000+3 9.991673-1          0          0          0           0 125-1451    1";
+    THEN("the ctor will throw"){
+        auto lineNumber = 0l;
+        auto it = line.begin();
+        auto end = line.end();
+        REQUIRE_THROWS( StructureDivision( it, end, lineNumber ) );
+    }
+  }
+  GIVEN( "a head record string with an illegal MT"){
+    std::string line =
+      " 1.001000+3 9.991673-1          0          0          0           0 125 1 -1    1";
+    THEN("the ctor will throw"){
+        auto lineNumber = 0l;
+        auto it = line.begin();
+        auto end = line.end();
+        REQUIRE_THROWS( StructureDivision( it, end, lineNumber ) );
+    }
+  }
 }

@@ -106,4 +106,15 @@ SCENARIO( "ControlRecord Tests", "[ENDFtk], [ControlRecord]" ){
       REQUIRE( controlRecord0 != controlRecord1 );
     }
   }
+  GIVEN("A line with a typo"){
+    std::string line =
+      " 1.0010z0+3 9.991673-1          0          0          0          5 125 1451    1\n";
+    auto it = line.begin();
+    auto end = line.end();
+    auto lineNumber = 0l;
+    
+    THEN("the ctor throws"){
+      REQUIRE_THROWS( ControlRecord( it, end, lineNumber, 125, 1, 451 ) );
+    }
+  }
 }
