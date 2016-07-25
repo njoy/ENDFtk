@@ -21,6 +21,13 @@ SCENARIO( "Skipping records" ){
         REQUIRE( it == end );
         REQUIRE( 3 == lineNumber );
 
+      }
+      THEN( "an exception is thrown with there isn't enough characters" ){
+        std::string line = 
+          " 1.000000+0 2.000000+0 3.000000+0 4.000000+0 5.000000+0 6.000000+0 125 14";
+        auto it = line.begin();
+        auto end = line.end();
+        auto lineNumber = 0l;
         REQUIRE_THROWS(
           ENDFtk::implementation::record::skip(it, end, lineNumber) );
       }
