@@ -35,20 +35,17 @@ SCENARIO( "SkipRecord Tests", "[ENDFtk], [SkipRecord]" ){
       }
     } // WHEN
 
-//  WHEN( "the MAT number is negative" ){
-//    MAT = "-928";
-//    MF  = "-1";
-//    MT  = "  0";
-//    line += MAT + MF + MT + NS;
-//    auto it = line.begin();
-//    auto end = line.end();
-//    long lineNumber = 12;
+    WHEN( "the non-tail is too long" ){
+      line += " " + MAT + MF + MT + NS;
+      auto it = line.begin();
+      auto end = line.end();
+      long lineNumber = 12;
 
-//    THEN( "the constructor throws" ){
-//      REQUIRE_THROWS(ENDFtk::implementation::SkipRecord skip( 
-//              it, end, lineNumber) );
-//    }
-//  }
+      THEN( "the constructor throws" ){
+        REQUIRE_THROWS(ENDFtk::implementation::SkipRecord skip( 
+                it, end, lineNumber) );
+      }
+    }
   } // GIVEN
 } // SCENARIO
 
