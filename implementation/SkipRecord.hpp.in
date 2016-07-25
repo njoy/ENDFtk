@@ -11,20 +11,39 @@ public:
   template< typename Iterator >
   static record::Tail readTail( Iterator& it, 
                                  const Iterator& end, 
-                                 long& lineNumber){
+                                 long& lineNumber,
+                                 int MAT, int MF, int MT){
 
     ENDFtk::implementation::record::Base<
       ENDFtk::implementation::record::Character< 66 > > base(it, end);
 
-    return record::Tail(it, end, lineNumber);
+    record::Tail tail(it, end, lineNumber);
+
+    if( tail.MAT() != MAT ){
+      LOG(ERROR) << "Unexpected Material number: " << MAT;
+      throw std::exception();
+    }
+    if( tail.MF() != MF ){
+      LOG(ERROR) << "Unexpected File number: " << MF;
+      throw std::exception();
+    }
+    if( tail.MT() != MT ){
+      LOG(ERROR) << "Unexpected Section number: " << MT;
+      throw std::exception();
+    }
+
+    return tail;
   }
 
   template< typename Iterator >
-  SkipRecord( Iterator& it, const Iterator& end, long& lineNumber)
-    try: Tail( readTail(it, end, lineNumber) ){
+  SkipRecord( Iterator& it, const Iterator& end, long& lineNumber,
+             int MAT, int MF, int MT )
+    try: Tail( readTail(it, end, lineNumber, MAT, MF, MT) ){
       /* Do nothing */
     } catch ( std::exception& e ) {
       /* error information here */
+      LOG(INFO) << "Trouble skipping over line number: " << lineNumber 
+                << ", with MAT=" << MAT << ", MF=" << MF << ", MT=" << MT;
       throw e;
     } catch ( int fieldNo ){
       --lineNumber;
