@@ -1,55 +1,29 @@
 #ifndef ENDFTK_IMPLEMENTATION_SKIPRECORD_HPP
 #define ENDFTK_IMPLEMENTATION_SKIPRECORD_HPP
 
+#include "ENDFtk.hpp"
+
 /** @brief used to skip over parts of the file to get to the parts that we need.
  */
 class ENDFtk::implementation::SkipRecord : 
+  public ENDFtk::implementation::record::Base<
+    ENDFtk::implementation::record::Character< 66 > >,
   public ENDFtk::implementation::record::Tail
 {
 public:
 
   template< typename Iterator >
-  static record::Tail readTail( Iterator& it, 
-                                 const Iterator& end, 
-                                 long& lineNumber,
-                                 int MAT, int MF, int MT){
-
-    ENDFtk::implementation::record::Base<
-      ENDFtk::implementation::record::Character< 66 > > base(it, end);
-
-    record::Tail tail(it, end, lineNumber);
-
-    if( tail.MAT() != MAT ){
-      LOG(ERROR) << "Unexpected Material number: " << MAT;
-      throw std::exception();
-    }
-    if( tail.MF() != MF ){
-      LOG(ERROR) << "Unexpected File number: " << MF;
-      throw std::exception();
-    }
-    if( tail.MT() != MT ){
-      LOG(ERROR) << "Unexpected Section number: " << MT;
-      throw std::exception();
-    }
-
-    return tail;
+  SkipRecord( Iterator& it, const Iterator& end, long& lineNumber)
+    try: Base(it, end),
+         Tail(it, end, lineNumber)
+  {
+    /* Do nothing */
+  } catch( std::exception& e ){
+    LOG(ERROR) << "Trouble trying to skip record at line number: " 
+               << lineNumber;
+    LOG(INFO) << "MAT=" << this->MAT() << ", MF=" << this->MF() << ", MT=" << this->MT();
   }
-
-  template< typename Iterator >
-  SkipRecord( Iterator& it, const Iterator& end, long& lineNumber,
-             int MAT, int MF, int MT )
-    try: Tail( readTail(it, end, lineNumber, MAT, MF, MT) ){
-      /* Do nothing */
-    } catch ( std::exception& e ) {
-      /* error information here */
-      LOG(INFO) << "Trouble skipping over line number: " << lineNumber 
-                << ", with MAT=" << MAT << ", MF=" << MF << ", MT=" << MT;
-      throw e;
-    } catch ( int fieldNo ){
-      --lineNumber;
-      /* error information here */
-      throw std::exception();
-    }
 };
+
 #endif  // ENDFTK_IMPLEMENTATION_SKIPRECORD_HPP
 

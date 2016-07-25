@@ -29,28 +29,26 @@ SCENARIO( "SkipRecord Tests", "[ENDFtk], [SkipRecord]" ){
         auto it = line.begin();
         auto end = line.end();
         long lineNumber = 12;
-        ENDFtk::implementation::SkipRecord skip( it, end, lineNumber,
-                                                 9228, 1, 451 );
+        REQUIRE_NOTHROW( ENDFtk::implementation::SkipRecord skip( it, end, lineNumber) );
 
-        REQUIRE( 9228 == skip.MAT() );
-        REQUIRE( 1    == skip.MF() );
-        REQUIRE( 451  == skip.MT() );
 
       }
     } // WHEN
 
-    WHEN( "the MAT number is negative" ){
-      MAT = "-928";
-      line += MAT + MF + MT + NS;
-      auto it = line.begin();
-      auto end = line.end();
-      long lineNumber = 12;
+//  WHEN( "the MAT number is negative" ){
+//    MAT = "-928";
+//    MF  = "-1";
+//    MT  = "  0";
+//    line += MAT + MF + MT + NS;
+//    auto it = line.begin();
+//    auto end = line.end();
+//    long lineNumber = 12;
 
-      THEN( "the constructor throws" ){
-        REQUIRE_THROWS(ENDFtk::implementation::SkipRecord skip( 
-                it, end, lineNumber, 9228, 1, 451 ) );
-      }
-    }
+//    THEN( "the constructor throws" ){
+//      REQUIRE_THROWS(ENDFtk::implementation::SkipRecord skip( 
+//              it, end, lineNumber) );
+//    }
+//  }
   } // GIVEN
 } // SCENARIO
 

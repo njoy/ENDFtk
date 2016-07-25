@@ -33,7 +33,6 @@ SCENARIO( "Checking single field record bases" ){
       auto it = entry.begin();
       auto end = entry.end();
       THEN("the correct value will be stored"){
-        auto begin = it;
         auto base = RecordBase( it, end );
         REQUIRE( 10 == std::get< 0 >(base.fields) );
       }
@@ -57,7 +56,6 @@ SCENARIO( "Checking single field record bases" ){
       auto it = entry.begin();
       auto end = entry.end();
       THEN("the correct value will be stored"){
-        auto begin = it;
         auto base = RecordBase( it, end );
         REQUIRE( entry == std::get< 0 >(base.fields) );
       }
