@@ -93,6 +93,10 @@ template< typename T >
 using clean = typename std::remove_const
               < typename std::remove_reference< T >::type >::type;
 
+class SectionBase;
+
+template<int MF>
+class Section;
 } // namespace implementation
 } // namespace ENDFtk
 
@@ -103,6 +107,7 @@ using clean = typename std::remove_const
 #include "ENDFtk/implementation/ControlRecord.hpp"
 #include "ENDFtk/implementation/DirectoryRecord.hpp"
 #include "ENDFtk/implementation/ListRecord.hpp"
+#include "ENDFtk/implementation/SectionBase.hpp"
 #include "ENDFtk/implementation/SkipRecord.hpp"
 #include "ENDFtk/implementation/UnivariateTabulation.hpp"
 

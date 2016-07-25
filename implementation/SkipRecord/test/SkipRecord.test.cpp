@@ -13,21 +13,38 @@ int main( int argc, const char* argv[] ){
   return result;
 }
 
-SCENARIO( "TextRecord Tests", "[ENDFtk], [TextRecord]" ){
+SCENARIO( "SkipRecord Tests", "[ENDFtk], [SkipRecord]" ){
   GIVEN( "a string rvalue" ){
-  std::string line = 
-    "General information for Version u235ib06ao17g6cnu5cf2             9228 1451   12\n";
+    std::string line = 
+      "General information for Version u235ib06ao17g6cnu5cf2             ";
+    std::string MAT = "9228";
+    std::string MF = " 1";
+    std::string MT = "451";
+    std::string NS = "   12\n";
 
-  THEN( "the constructor works" ){
-    auto it = line.begin();
-    auto end = line.end();
-    long lineNumber = 12;
-    ENDFtk::implementation::SkipRecord skip( it, end, lineNumber );
+    WHEN( "the MAT, MF, MT numbers are valid (i.e., > 0)" ){
+      line += MAT + MF + MT + NS;
 
-    REQUIRE( 9228 == skip.MAT() );
-    REQUIRE( 1    == skip.MF() );
-    REQUIRE( 451  == skip.MT() );
+      THEN( "the constructor works" ){
+        auto it = line.begin();
+        auto end = line.end();
+        long lineNumber = 12;
+        REQUIRE_NOTHROW( ENDFtk::implementation::SkipRecord skip( it, end, lineNumber) );
 
+
+      }
+    } // WHEN
+
+    WHEN( "the non-tail is too long" ){
+      line += " " + MAT + MF + MT + NS;
+      auto it = line.begin();
+      auto end = line.end();
+      long lineNumber = 12;
+
+      THEN( "the constructor throws" ){
+        REQUIRE_THROWS(ENDFtk::implementation::SkipRecord skip( 
+                it, end, lineNumber) );
+      }
     }
   } // GIVEN
 } // SCENARIO

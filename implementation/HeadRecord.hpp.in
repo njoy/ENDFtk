@@ -14,6 +14,10 @@ public:
               int MAT, int MF, int MT ) :
   StructureDivision( C1, C2, L1, L2, N1, N2, MAT, MF, MT ) {}
   
+  template< typename Iterator >
+  HeadRecord( Iterator& it, const Iterator& end, long& lineNumber )
+    : StructureDivision(it, end, lineNumber) { /* Do nothing */ }
+
 #define DEFINE_BASE_GETTER( name, position )                            \
   MutableReturnType< position >                                         \
   name(){ return std::get< position >( this->base.fields ); }           \

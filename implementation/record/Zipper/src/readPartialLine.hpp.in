@@ -6,7 +6,7 @@ readPartialLine
   long& lineNumber, int MAT, int MF, int MT,
   std::index_sequence< indices... > ){
 
-  auto increment = []( uint64_t offset, auto& iterator ){ iterator+= offset; };
+//auto increment = []( uint64_t offset, auto& iterator ){ iterator+= offset; };
   
   for ( uint64_t offset = 0; offset < nEntries; ++offset ){
     Zip::TupleFormat::read

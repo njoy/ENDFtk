@@ -19,7 +19,12 @@ public:
   static std::array< int, 3 >
   read( Iterator& it, const Iterator& end ){
     std::array< int, 3 > result;
-    Format::read( it, end, result[0], result[1], result[2] );
+    try{
+      Format::read( it, end, result[0], result[1], result[2] );
+    } catch ( std::exception& e ){
+      LOG(ERROR) << "Trouble reading Tail";
+      throw e;
+    }
     return result;
   }
 

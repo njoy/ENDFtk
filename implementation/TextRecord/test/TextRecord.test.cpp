@@ -72,4 +72,15 @@ SCENARIO( "TextRecord Tests", "[ENDFtk], [TextRecord]" ){
       REQUIRE( textRecord0 != textRecord1 );
     }
   }
+  GIVEN("A line with a typo"){
+    std::string line = 
+      "The new R-matrix analysis of the N-N system on which the ENDF/B-   1a5 1451   12\n";
+    auto it = line.begin();
+    auto end = line.end();
+    auto lineNumber = 0l;
+    
+    THEN("the ctor throws"){
+      REQUIRE_THROWS( TextRecord( it, end, lineNumber, 125, 1, 451 ) );
+    }
+  }
 }

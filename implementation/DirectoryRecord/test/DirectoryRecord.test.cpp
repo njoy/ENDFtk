@@ -90,4 +90,15 @@ SCENARIO( "DirectoryRecord Tests", "[ENDFtk], [DirectoryRecord]" ){
       REQUIRE( directoryRecord0 != directoryRecord1 );
     }
   }
+  GIVEN("A line with a typo"){
+    std::string line =
+      "                                1        451        101          5 125 14a1   92\n";
+    auto it = line.begin();
+    auto end = line.end();
+    auto lineNumber = 0l;
+    
+    THEN("the ctor throws"){
+      REQUIRE_THROWS( DirectoryRecord( it, end, lineNumber, 125, 1, 451 ) );
+    }
+  }
 }

@@ -123,4 +123,16 @@ SCENARIO( "ListRecord Tests", "[ENDFtk], [ListRecord]" ){
       REQUIRE( listRecord0 != constListRecord1 );
     }
   }
+  GIVEN("A LIST record with a negative NPL value"){
+    std::string lines =
+      " 1.001000+3 9.991673-1          0          0         -5          5 125 1451    1\n"
+      " 0.000000+0 1.000000+0 2.000000+0 3.000000+0 4.000000+0 5.000000+0 125 1451    2\n"
+      " 6.000000+0 7.000000+0 8.000000+0 9.000000+0 0.000000+0 0.000000+0 125 1451    3\n";
+    auto it = lines.begin();
+    auto end = lines.end();
+    auto lineNumber = 0l;
+    THEN("the ctor throws"){
+      REQUIRE_THROWS( ListRecord( it, end, lineNumber, 125, 1, 451 ) );
+    }
+  }
 }
