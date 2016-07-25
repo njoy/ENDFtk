@@ -45,6 +45,11 @@ endforeach(header)
 
 set(ENDFtk_src "${ENDFtk_src}" PARENT_SCOPE)
 
+if(${local_testing})
+ list( APPEND testLabels record )
+ add_subdirectory( "${CMAKE_CURRENT_SOURCE_DIR}/test" )
+endif(${local_testing})
+
 if(${verbose_traversal})
   message(STATUS "Exiting record directory")
 endif(${verbose_traversal})

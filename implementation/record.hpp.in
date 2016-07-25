@@ -22,6 +22,9 @@ class Tail;
 struct Zipper;
 struct Sequence;
 
+template<typename Iterator>
+Tail skip(Iterator& begin, const Iterator& end, long& lineNumber);
+
 }
 }
 }
@@ -33,5 +36,24 @@ struct Sequence;
 #include "ENDFtk/implementation/record/Base.hpp"
 #include "ENDFtk/implementation/record/Zipper.hpp"
 #include "ENDFtk/implementation/record/Sequence.hpp"
+
+namespace ENDFtk {
+namespace implementation {
+namespace record {
+
+template<typename Iterator>
+Tail skip(Iterator& begin, const Iterator& end, long& lineNumber){
+  try{
+    Base< Character< 66 > >( begin, end );
+    return Tail( begin, end, lineNumber );
+  } catch( std::exception& e ){
+    LOG(ERROR) << "Error while skipping a record.";
+    throw e;
+  }
+}
+
+}
+}
+}
 
 #endif
