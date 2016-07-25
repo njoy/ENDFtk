@@ -84,14 +84,14 @@ inline ENDFtk::implementation::StructureDivision
 ENDFtk::implementation::sectionEndRecord( int MAT, int MF ){
   if ( ( MAT < 1 ) ){
     LOG(ERROR) << "Illegal material number (MAT) specified in SEND record";
-    LOG(ERROR) << "SEND records require a material number greater than 0";
-    LOG(ERROR) << "Specified material number: " << MAT;
+    LOG(INFO) << "SEND records require a material number greater than 0";
+    LOG(INFO) << "Specified material number: " << MAT;
     throw std::exception();
   }
   if ( ( MF < 1 ) ){
     LOG(ERROR) << "Illegal file number (MF) specified in SEND record";
-    LOG(ERROR) << "SEND records require a file number greater than 0";
-    LOG(ERROR) << "Specified file number: " << MF;
+    LOG(INFO) << "SEND records require a file number greater than 0";
+    LOG(INFO) << "Specified file number: " << MF;
     throw std::exception();
   }
   return StructureDivision( 0.0, 0.0, 0, 0, 0, 0, MAT, MF, 0 );
@@ -106,8 +106,8 @@ inline ENDFtk::implementation::StructureDivision
 ENDFtk::implementation::fileEndRecord( int MAT ){ 
   if ( ( MAT < 1 ) ){
     LOG(ERROR) << "Illegal material number (MAT) specified in FEND record";
-    LOG(ERROR) << "FEND records require a material number greater than 0";
-    LOG(ERROR) << "Specified material number: " << MAT;
+    LOG(INFO) << "FEND records require a material number greater than 0";
+    LOG(INFO) << "Specified material number: " << MAT;
     throw std::exception();
   }
   return StructureDivision( 0.0, 0.0, 0, 0, 0, 0, MAT, 0, 0 );
