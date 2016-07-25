@@ -1,0 +1,63 @@
+#ifndef ENDFTK_IMPLEMENTATION_SECTIONBASE_HPP
+#define ENDFTK_IMPLEMENTATION_SECTIONBASE_HPP
+
+#include "ENDFtk.hpp"
+
+/** @brief Base class for all Sections
+ *
+ * @details This is the common functionality between all Sections so it makes
+ * sense ot put it in a base class.
+ */
+class ENDFtk::implementation::SectionBase{
+public:
+  SectionBase( const HEAD& head, int MAT, int MF );
+
+  int MT() const { return MT_; }
+  int& MT() { return MT_; }
+
+  int ZA() const { return ZA_; }
+  int& ZA() { return ZA_; }
+
+  double atomicWeightRatio() const { return atomicWeightRatio_; }
+  double& atomicWeightRatio() { return atomicWeightRatio_; }
+
+  double AWR() const { return atomicWeightRatio_; }
+  double& AWR() { return atomicWeightRatio_; }
+
+  template<typename Iterator>
+  void readSEND(Iterator& begin, const Iterator& end, long& LN, 
+                int MAT, int MF ){
+    try{
+      auto SEND = ENDFtk::implementation::StructureDivision(
+          begin, end, LN);
+      if( not SEND.isSend() ){
+        LOG(ERROR) << "No SEND Record.";
+        throw std::exception();
+      }
+
+      if( MAT != SEND.tail.MAT() ){
+        LOG(ERROR) << "Incorrect Material number (MAT) in SEND record.";
+        LOG(INFO) << "Expected MAT=" << MAT << ". Got MAT=" << SEND.tail.MAT();
+        throw std::exception();
+      }
+      if( MF != SEND.tail.MF() ){
+        LOG(ERROR) << "Incorrect File number (MF). in SEND record";
+        LOG(INFO) << "Expected MF=" << MF << ". Got MF=" << SEND.tail.MF();
+        throw std::exception();
+      }
+    } catch ( std::exception& e){
+      LOG(INFO) << "There was a problem reading the SEND record in MAT=" 
+                << MAT << ", MF=" << MF << ", MT=" << MT_ << ".";
+      throw e;
+    }
+  }
+
+  int MT_;
+  int ZA_;
+  double atomicWeightRatio_;
+};
+
+#include "ENDFtk/implementation/SectionBase/Section3.hpp"
+
+#endif  // ENDFTK_IMPLEMENTATION_SECTIONBASE_HPP
+

@@ -1,0 +1,133 @@
+#ifndef ENDFTK_IMPLEMENTATION_RECORD_TAIL_HPP
+#define ENDFTK_IMPLEMENTATION_RECORD_TAIL_HPP
+
+/** @brief Small class to contain the MAT, MF, and MT of a Record */
+class ENDFtk::implementation::record::Tail {
+public:
+
+  /* convenience typedefs */
+  using Format = disco::Record< disco::Integer< 4 >,
+                                disco::Integer< 2 >,
+                                disco::Integer< 3 >,
+                                disco::Integer< 5 > >;
+
+  /* fields */
+  std::array< int, 3 > fields;
+
+  /* helper methods */
+  template< typename Iterator >
+  static std::array< int, 3 >
+  read( Iterator& it, const Iterator& end ){
+    std::array< int, 3 > result;
+    try{
+      Format::read( it, end, result[0], result[1], result[2] );
+    } catch ( std::exception& e ){
+      LOG(ERROR) << "Trouble reading Tail";
+      throw e;
+    }
+    return result;
+  }
+
+  /* ctors */
+  template< typename Iterator >
+  Tail( Iterator& it, const Iterator& end, long& lineNumber ) :
+    fields( read( it, end ) ){ ++lineNumber; }
+
+  constexpr
+  Tail( int MAT, int MF, int MT ) :
+    fields( std::array< int, 3 >{{ MAT, MF, MT }} ){ }
+
+  /* methods */
+  int& material(){ return this->fields[0]; }
+  int material() const { return this->fields[0]; }
+  int& MAT(){ return this->material(); }
+  int MAT() const { return this->material(); }
+  
+  int& file(){ return this->fields[1]; }
+  int file() const { return this->fields[1]; }
+  int& MF(){ return this->file(); }
+  int MF() const { return this->file(); }
+  
+  int& section(){ return this->fields[2]; }
+  int section() const { return this->fields[2]; }
+  int& MT(){ return this->section(); }
+  int MT() const { return this->section(); }
+};
+
+namespace ENDFtk {
+namespace implementation {
+namespace record {
+namespace helper {
+
+template< int position > constexpr const char* symbol = "";
+template< > constexpr const char* symbol< 0 > = "MAT";
+template< > constexpr const char* symbol< 1 > = "MF";
+template< > constexpr const char* symbol< 2 > = "MT";
+
+template< int position > constexpr const char* name = "";
+template< > constexpr const char* name< 0 > = "material";
+template< > constexpr const char* name< 1 > = "file";
+template< > constexpr const char* name< 2 > = "section";
+
+} // namespace helper
+
+template< int position, typename tail >
+class TailVerification : public tail { 
+public:
+
+  TailVerification( int MAT, int MF, int MT ) : tail( MAT, MF, MT ){}
+  
+  /* note: universal references (not rvalue references) for perfect forwarding */
+  template< typename... Args >
+  TailVerification( int expectedValue, Args&&... args ) : 
+    tail( std::forward< Args >( args )... ) {
+    if( this->fields[ position ] != expectedValue ){ 
+      LOG(ERROR) << "The record " << helper::name< position > << " number "
+                 << "(" << helper::symbol< position > <<  ")"            
+                 << " is inconsistent with expectation.";                  
+      LOG(INFO) << "The read " << helper::name< position >
+                << " number is: " << this->fields[ position ];         
+      LOG(INFO) << "The expected " << helper::name< position >
+                << " number is: " << expectedValue; 
+      LOG(INFO) << "Error encountered while verifying record tail values"; 
+      throw (position + 6); 
+    }                                                                      
+  }
+};
+
+/* Convenience typedefs of component verifiers */
+template < typename tail >
+using MAT = TailVerification< 0, tail >;
+
+template < typename tail >
+using MF = TailVerification< 1, tail >;
+
+template < typename tail >
+using MT = TailVerification< 2, tail >;
+
+/* Convenience class providing a type definition corresponding to the 
+ * composition of zero or more component verifiers 
+ */
+template< template< typename > class... Ts >
+struct TailVerifier;
+
+template<>
+struct TailVerifier<>{
+  using type = Tail;
+};
+
+template< template< typename > class T1, 
+          template< typename > class... Ts >
+struct TailVerifier< T1, Ts... >{
+  using type = T1< typename TailVerifier< Ts... >::type >;
+};
+
+/* An alias declaring which field or fields of a tail ought to be verified */
+template< template< typename > class... Ts >
+using TailVerifying = typename TailVerifier< Ts... >::type;
+
+} // namespace record
+} // namespace implementation
+} // namespace ENDFtk
+
+#endif  // ENDFTK_IMPLEMENTATION_RECORDTAIL_HPP

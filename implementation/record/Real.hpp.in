@@ -1,0 +1,12 @@
+#ifndef ENDFTK_IMPLEMENTATION_RECORD_REAL_HPP
+#define ENDFTK_IMPLEMENTATION_RECORD_REAL_HPP
+
+struct ENDFtk::implementation::record::Real {
+  static constexpr std::size_t width = 11;
+  using Type = double;
+  using Parser = disco::ENDF;
+
+  static constexpr Type defaultValue = 0.0;
+};
+
+#endif

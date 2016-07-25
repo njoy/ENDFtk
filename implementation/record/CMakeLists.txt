@@ -1,29 +1,25 @@
 if(${verbose_traversal})
-  message(STATUS "Entered implementation directory")
+  message(STATUS "Entered record directory")
 endif(${verbose_traversal})
+
+set( long_path "${ENDFtk_HEADER_DIR}/implementation/record" )
 
 set(header_only_subdirs "")
 list(APPEND header_only_subdirs
-  "record"
-  "HeadRecord"
-  "ListRecord"
-  "UnivariateTabulation"
+  "Zipper"
   )
 
 foreach (subdir ${header_only_subdirs})
-  if(NOT(EXISTS "${ENDFtk_HEADER_DIR}/implementation/${subdir}"))
-    file(MAKE_DIRECTORY "${ENDFtk_HEADER_DIR}/implementation/${subdir}")
-  endif(NOT(EXISTS "${ENDFtk_HEADER_DIR}/implementation/${subdir}"))
+  if(NOT(EXISTS "${long_path}/${subdir}"))
+    file(MAKE_DIRECTORY "${long_path}/${subdir}")
+  endif(NOT(EXISTS "${long_path}/${subdir}"))
 endforeach (subdir)
 
 set(subdirs "")
 list(APPEND subdirs
-  "TextRecord"
-  "ControlRecord"
-  "DirectoryRecord"
-  "StructureDivision"
-  "SkipRecord"
-  "SectionBase"
+  "Tail"
+  "Base"
+  "Sequence"
   ${header_only_subdirs}
   )
 
@@ -33,14 +29,16 @@ endforeach (subdir)
 
 set(headers "")
 list(APPEND headers
-  "TapeIdentification"
+  "Character"
+  "Integer"
+  "Real"
   ${subdirs}
   )
 
 foreach(header ${headers})
   configure_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/${header}.hpp.in"
-    "${ENDFtk_HEADER_DIR}/implementation/${header}.hpp"
+    "${long_path}/${header}.hpp"
     COPYONLY
     )
 endforeach(header)
@@ -48,5 +46,5 @@ endforeach(header)
 set(ENDFtk_src "${ENDFtk_src}" PARENT_SCOPE)
 
 if(${verbose_traversal})
-  message(STATUS "Exiting implementation directory")
+  message(STATUS "Exiting record directory")
 endif(${verbose_traversal})
