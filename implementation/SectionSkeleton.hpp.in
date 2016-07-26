@@ -1,0 +1,15 @@
+#ifndef ENDFTK_IMPLEMENTATION_SECTIONSKELETON_HPP
+#define ENDFTK_IMPLEMENTATION_SECTIONSKELETON_HPP
+
+/** @brief Skeleton of a Section containing a few pieces to know how to locate
+ * it.
+ */
+class SectionSkeleton {
+  public:
+    template<typename Iterator>
+    SectionSkeleton(Iterator& begin, const Iterator& end, long& lineNumber ){
+    }
+};
+
+#endif  // ENDFTK_IMPLEMENTATION_SECTIONSKELETON_HPP
+
