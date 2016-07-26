@@ -98,6 +98,7 @@ class SectionBase;
 template<int MF>
 class Section;
 
+template<typename Iterator>
 class SectionSkeleton;
 } // namespace implementation
 } // namespace ENDFtk

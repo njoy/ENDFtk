@@ -4,12 +4,20 @@
 /** @brief Skeleton of a Section containing a few pieces to know how to locate
  * it.
  */
-class SectionSkeleton {
+template<typename Iterator>
+class ENDFtk::implementation::SectionSkeleton {
   public:
-    template<typename Iterator>
-    SectionSkeleton(Iterator& begin, const Iterator& end, long& lineNumber ){
-    }
+    SectionSkeleton(Iterator& begin, const Iterator& end, long& lineNumber );
+
+    Iterator begin() const { return begin_; }
+    Iterator end() const { return end_; }
+
+    Iterator begin_;  //!< The beginning of the SectionSkeleton
+    Iterator end_;    //!< The end of the SectionSkeleton
+
 };
+
+#include "ENDFtk/implementation/SectionSkeleton/src/SectionSkeleton.hpp"
 
 #endif  // ENDFTK_IMPLEMENTATION_SECTIONSKELETON_HPP
 

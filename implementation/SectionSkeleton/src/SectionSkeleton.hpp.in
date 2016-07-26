@@ -1,0 +1,17 @@
+#ifndef ENDFTK_IMPLEMENTATION_SECTIONSKELETON_SECTIONSKELETON_HPP
+#define ENDFTK_IMPLEMENTATION_SECTIONSKELETON_SECTIONSKELETON_HPP
+
+namespace ENDFtk {
+namespace implementation {
+
+template<typename Iterator>
+SectionSkeleton<Iterator>::SectionSkeleton(Iterator& begin, const Iterator& end, 
+                                           long& lineNumber )
+  : begin_(begin)
+{
+}
+
+} // namespace implementation
+} // namespace ENDFtk
+#endif  // ENDFTK_IMPLEMENTATION_SECTIONSKELETON_SECTIONSKELETON_HPP
+
