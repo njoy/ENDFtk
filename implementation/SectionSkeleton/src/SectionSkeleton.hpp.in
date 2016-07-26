@@ -1,5 +1,5 @@
-#ifndef ENDFTK_IMPLEMENTATION_SECTIONSKELETON_SECTIONSKELETON_HPP
-#define ENDFTK_IMPLEMENTATION_SECTIONSKELETON_SECTIONSKELETON_HPP
+#ifndef ENDFTK_IMPLEMENTATION_SECTIONSKELETON_SRC_SECTIONSKELETON_HPP
+#define ENDFTK_IMPLEMENTATION_SECTIONSKELETON_SRC_SECTIONSKELETON_HPP
 
 #include "ENDFtk.hpp"
 
@@ -12,13 +12,12 @@ SectionSkeleton<Iterator>::SectionSkeleton(Iterator& begin, const Iterator& end,
   : begin_(begin)
 {
   try{
-    auto tail = record::skip(begin, end, lineNumber);
-    LOG(INFO) << "MT=" << tail.MT();
-    while( tail.MT() != 0 ){
+    record::Tail tail(0,0,0);
+    do{
       tail = record::skip(begin, end, lineNumber);
-    }
+    } while( tail.MT() != 0 );
   } catch( std::exception& e ){
-    LOG(ERROR) << "Trouble when creating a SectionSkelton";
+    LOG(ERROR) << "Trouble when creating a SectionSkeleton";
     throw e;
   }
 
@@ -27,5 +26,21 @@ SectionSkeleton<Iterator>::SectionSkeleton(Iterator& begin, const Iterator& end,
 
 } // namespace implementation
 } // namespace ENDFtk
-#endif  // ENDFTK_IMPLEMENTATION_SECTIONSKELETON_SECTIONSKELETON_HPP
+#endif  // ENDFTK_IMPLEMENTATION_SECTIONSKELETON_SRC_SECTIONSKELETON_HPP
+
+// {
+//   try{
+//     auto tail(0,0,0);
+//     do{
+//       LOG(INFO) << "first entry of line: "
+//                 << std::string(begin, std::next(begin, 10) );
+//       tail = record::skip(begin, end, lineNumber);
+//     } while( tail.MT() != 0 );
+//     LOG(INFO) "begin == end ? " << ( begin == end ? "true" : "false";
+//   } catch( std::exception& e ){
+//     LOG(ERROR) << "Trouble when creating a SectionSkelton";
+//     throw e;
+//   }
+//   end_ = begin;
+// }
 
