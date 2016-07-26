@@ -22,7 +22,6 @@ list(APPEND subdirs
   "ControlRecord"
   "DirectoryRecord"
   "StructureDivision"
-  "SkipRecord"
   "SectionBase"
   "SectionSkeleton"
   ${header_only_subdirs}

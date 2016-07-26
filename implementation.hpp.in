@@ -112,7 +112,6 @@ class SectionSkeleton;
 #include "ENDFtk/implementation/ListRecord.hpp"
 #include "ENDFtk/implementation/SectionBase.hpp"
 #include "ENDFtk/implementation/SectionSkeleton.hpp"
-#include "ENDFtk/implementation/SkipRecord.hpp"
 #include "ENDFtk/implementation/UnivariateTabulation.hpp"
 
 #endif // ENDFTK_IMPLEMENTATION_HPP

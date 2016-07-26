@@ -1,0 +1,2 @@
+setupTest(record)
+

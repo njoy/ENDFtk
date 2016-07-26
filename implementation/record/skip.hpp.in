@@ -1,0 +1,26 @@
+#ifndef ENDFTK_IMPLEMENTATION_RECORD_SKIP_HPP
+#define ENDFTK_IMPLEMENTATION_RECORD_SKIP_HPP
+
+#include "ENDFtk.hpp"
+
+namespace ENDFtk {
+namespace implementation {
+namespace record {
+
+template<typename Iterator>
+Tail skip(Iterator& begin, const Iterator& end, long& lineNumber){
+  try{
+    Base< Character< 66 > >( begin, end );
+    return Tail( begin, end, lineNumber );
+  } catch( std::exception& e ){
+    LOG(ERROR) << "Error while skipping a record.";
+    throw e;
+  }
+}
+
+}
+}
+}
+
+#endif  // ENDFTK_IMPLEMENTATION_RECORD_SKIP_HPP
+
