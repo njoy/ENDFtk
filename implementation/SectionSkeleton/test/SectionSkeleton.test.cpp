@@ -58,10 +58,11 @@ SCENARIO( "Creating a skeleton of an ENDF Section" ){
     WHEN( "creating a SectionSkeleton" ){
       auto begin = sSection.begin();
       auto end = sSection.end();
-      auto LN = 0l;
+      long LN = 0;
       SectionSkeleton<std::string::iterator> sSkel(begin, end, LN);
 
-      REQUIRE( begin == sSkel.begin() );
+      REQUIRE( 36 == LN );
+      REQUIRE( sSection.begin() == sSkel.begin() );
       REQUIRE( end == sSkel.end() );
 
     } // WHEN

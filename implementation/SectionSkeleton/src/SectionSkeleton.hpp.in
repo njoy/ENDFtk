@@ -1,6 +1,8 @@
 #ifndef ENDFTK_IMPLEMENTATION_SECTIONSKELETON_SECTIONSKELETON_HPP
 #define ENDFTK_IMPLEMENTATION_SECTIONSKELETON_SECTIONSKELETON_HPP
 
+#include "ENDFtk.hpp"
+
 namespace ENDFtk {
 namespace implementation {
 
@@ -9,6 +11,18 @@ SectionSkeleton<Iterator>::SectionSkeleton(Iterator& begin, const Iterator& end,
                                            long& lineNumber )
   : begin_(begin)
 {
+  try{
+    auto tail = record::skip(begin, end, lineNumber);
+    LOG(INFO) << "MT=" << tail.MT();
+    while( tail.MT() != 0 ){
+      tail = record::skip(begin, end, lineNumber);
+    }
+  } catch( std::exception& e ){
+    LOG(ERROR) << "Trouble when creating a SectionSkelton";
+    throw e;
+  }
+
+  end_ = begin;
 }
 
 } // namespace implementation
