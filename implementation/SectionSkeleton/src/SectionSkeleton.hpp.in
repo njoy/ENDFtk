@@ -14,7 +14,7 @@ SectionSkeleton<Iterator>::SectionSkeleton(Iterator& begin, const Iterator& end,
   try{
     record::Tail tail(0,0,0);
     do{
-      tail = record::skip(begin, end, lineNumber);
+      tail = record::skip(begin, end, lineNumber); // Maybe a SEND record
     } while( tail.MT() != 0 );
   } catch( std::exception& e ){
     LOG(ERROR) << "Trouble when creating a SectionSkeleton";
@@ -27,20 +27,3 @@ SectionSkeleton<Iterator>::SectionSkeleton(Iterator& begin, const Iterator& end,
 } // namespace implementation
 } // namespace ENDFtk
 #endif  // ENDFTK_IMPLEMENTATION_SECTIONSKELETON_SRC_SECTIONSKELETON_HPP
-
-// {
-//   try{
-//     auto tail(0,0,0);
-//     do{
-//       LOG(INFO) << "first entry of line: "
-//                 << std::string(begin, std::next(begin, 10) );
-//       tail = record::skip(begin, end, lineNumber);
-//     } while( tail.MT() != 0 );
-//     LOG(INFO) "begin == end ? " << ( begin == end ? "true" : "false";
-//   } catch( std::exception& e ){
-//     LOG(ERROR) << "Trouble when creating a SectionSkelton";
-//     throw e;
-//   }
-//   end_ = begin;
-// }
-

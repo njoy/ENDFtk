@@ -99,6 +99,9 @@ template<int MF>
 class Section;
 
 template<typename Iterator>
+class FileSkeleton;
+
+template<typename Iterator>
 class SectionSkeleton;
 } // namespace implementation
 } // namespace ENDFtk
@@ -113,6 +116,7 @@ class SectionSkeleton;
 #include "ENDFtk/implementation/SectionBase.hpp"
 #include "ENDFtk/implementation/SectionSkeleton.hpp"
 #include "ENDFtk/implementation/UnivariateTabulation.hpp"
+#include "ENDFtk/implementation/FileSkeleton.hpp"
 
 #endif // ENDFTK_IMPLEMENTATION_HPP
 

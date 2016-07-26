@@ -1,0 +1,32 @@
+#ifndef ENDFTK_IMPLEMENTATION_FILESKELETON_SRC_FILESKELETON_HPP
+#define ENDFTK_IMPLEMENTATION_FILESKELETON_SRC_FILESKELETON_HPP
+
+#include "ENDFtk.hpp"
+
+namespace ENDFtk {
+namespace implementation {
+
+template<typename Iterator>
+FileSkeleton<Iterator>::FileSkeleton(Iterator& begin, const Iterator& end, 
+                                           long& lineNumber )
+  : begin_(begin)
+{
+  try{
+    record::Tail tail(0,0,0);
+    do{
+      sections_.emplace_back(begin, end, lineNumber);
+      tail = record::skip(begin, end, lineNumber); // Maybe a FEND record
+
+    } while( tail.MF() != 0 );
+  } catch( std::exception& e ){
+    LOG(ERROR) << "Trouble when creating a FileSkeleton";
+    throw e;
+  }
+
+  end_ = begin;
+}
+
+} // namespace implementation
+} // namespace ENDFtk
+#endif  // ENDFTK_IMPLEMENTATION_FILESKELETON_SRC_FILESKELETON_HPP
+

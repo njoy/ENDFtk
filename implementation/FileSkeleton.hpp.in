@@ -1,0 +1,26 @@
+#ifndef ENDFTK_IMPLEMENTATION_FILESKELETON_HPP
+#define ENDFTK_IMPLEMENTATION_FILESKELETON_HPP
+
+/** @brief Skeleton of a File containing a few pieces to know how to locate
+ * it.
+ */
+template<typename Iterator>
+class ENDFtk::implementation::FileSkeleton {
+  public:
+    FileSkeleton(Iterator& begin, const Iterator& end, long& lineNumber );
+
+    Iterator begin() const { return begin_; }
+    Iterator end() const { return end_; }
+
+    size_t size() const { return sections_.size(); }
+
+    Iterator begin_;  //!< The beginning of the FileSkeleton
+    Iterator end_;    //!< The end of the FileSkeleton
+
+    std::vector<SectionSkeleton<Iterator>> sections_;
+
+};
+
+#include "ENDFtk/implementation/FileSkeleton/src/FileSkeleton.hpp"
+#endif  // ENDFTK_IMPLEMENTATION_FILESKELETON_HPP
+
