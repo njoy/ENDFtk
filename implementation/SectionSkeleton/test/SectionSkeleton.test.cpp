@@ -52,10 +52,12 @@ SCENARIO( "Creating a skeleton of an ENDF Section" ){
       " 1.450000+7 6.645095-1 1.500000+7 6.431880-1 1.550000+7 6.230693-1 125 3  1\n"
       " 1.600000+7 6.040552-1 1.650000+7 5.860577-1 1.700000+7 5.689977-1 125 3  1\n"
       " 1.750000+7 5.528040-1 1.800000+7 5.374121-1 1.850000+7 5.227637-1 125 3  1\n"
-      " 1.900000+7 5.088059-1 1.950000+7 4.954905-1 2.000000+7 4.827735-1 125 3  1\n"
-      "                                                                   125 3  0\n";
+      " 1.900000+7 5.088059-1 1.950000+7 4.954905-1 2.000000+7 4.827735-1 125 3  1\n";
 
-    WHEN( "creating a SectionSkeleton" ){
+    WHEN( "a valid SEND record ends the Section" ){
+      std::string sSEND = 
+        "                                                                   125 3  0\n";
+      sSection += sSEND;
       auto begin = sSection.begin();
       auto end = sSection.end();
       long LN = 0;
@@ -64,6 +66,18 @@ SCENARIO( "Creating a skeleton of an ENDF Section" ){
       REQUIRE( 36 == LN );
       REQUIRE( sSection.begin() == sSkel.begin() );
       REQUIRE( end == sSkel.end() );
+
+    } // WHEN
+
+    WHEN( "an invalid (MT!=0) SEND record ends the Section" ){
+      std::string sSEND = 
+        "                                                                   125 3  1\n";
+      sSection += sSEND;
+      auto begin = sSection.begin();
+      auto end = sSection.end();
+      long LN = 0;
+      REQUIRE_THROWS(
+        SectionSkeleton<std::string::iterator> sSkel(begin, end, LN) );
 
     } // WHEN
   } // GIVEN
