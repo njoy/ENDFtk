@@ -3,6 +3,8 @@
 
 class ENDFtk::implementation::UnivariateTabulation {
 public:
+
+  /* convenience typedefs */
   using Base =
     ENDFtk::implementation::record::Base
     < ENDFtk::implementation::record::Real,
@@ -11,13 +13,14 @@ public:
       ENDFtk::implementation::record::Integer< 11 >,
       ENDFtk::implementation::record::Integer< 11 >,
       ENDFtk::implementation::record::Integer< 11 > >;
-  
+
   using tail =
     ENDFtk::implementation::record::TailVerifying
     < ENDFtk::implementation::record::MAT,
       ENDFtk::implementation::record::MF,
       ENDFtk::implementation::record::MT >;
 
+  /* fields */
   Base metadata;
   
   std::tuple< std::vector< long >,
@@ -28,13 +31,6 @@ public:
 
   std::vector< long >&
   interpolationSchemeIndices = std::get< 1 >( regionPairs );
-
-
-  using regionIterator =
-    clean< decltype( boundaryIndices ) >::iterator;
-  
-  using constRegionIterator =
-    clean< decltype( boundaryIndices ) >::const_iterator;
   
   std::tuple< std::vector< double >,
               std::vector< double > > evaluationPairs;
@@ -42,119 +38,26 @@ public:
   std::vector< double >& xValues = std::get< 0 >( evaluationPairs );
   std::vector< double >& yValues = std::get< 1 >( evaluationPairs );
 
+  /* more convenience typedefs */
+  using regionIterator =
+    clean< decltype( boundaryIndices ) >::iterator;
+  
+  using constRegionIterator =
+    clean< decltype( boundaryIndices ) >::const_iterator;
+
   using constXIterator = clean< decltype( xValues ) >::const_iterator;
 
   using yIterator = clean< decltype( yValues ) >::iterator;
   using constYIterator = clean< decltype( yValues ) >::const_iterator;
-  
-  template< typename Iterator >
-  static void
-  verifyTail( Iterator& it, const Iterator& end, long& lineNumber,
-              int MAT, int MF, int MT ){
-    tail( MAT, MF, MT, it, end, lineNumber );
-  }
 
-  template< typename Iterator >
-  static std::tuple< std::vector< long >, std::vector< long > >
-  readRangeDescriptions
-  ( long nRanges, Iterator& it, const Iterator& end, long& lineNumber,
-    int MAT, int MF, int MT ){
-    std::tuple< std::vector< long >, std::vector< long > > result;
-    try{
-      result = 
-        record::Zipper::unzip< record::Integer<11>,
-                               record::Integer<11> >( nRanges, it, end, 
-                                                      lineNumber, MAT, MF, MT );
-      auto& boundaryIndices = std::get< 0 >( result );
-      //auto& InterpolationSchemeIndices = std::get< 1 >( result );
-
-      auto boundaryIndexIterator = 
-        std::is_sorted_until( boundaryIndices.begin(), boundaryIndices.end() );
-      
-      const bool boundariesAreSorted =
-        ( boundaryIndexIterator == boundaryIndices.end() );
-      
-      if ( not boundariesAreSorted ){
-        LOG(ERROR) << "Interpolation boundary indices are not sorted";
-        const auto position = boundaryIndexIterator - boundaryIndices.begin();
-        LOG(INFO) << "Boundary index [" << (position - 1) << "]: "
-                  << boundaryIndexIterator[-1];
-        LOG(INFO) << "Boundary index [" << (position) << "]: "
-                  << boundaryIndexIterator[0];
-        throw std::exception();
-      }
-      
-      return result;
-    } catch ( std::exception& e ){
-      LOG(INFO) << "Error while reading TAB1 range information";
-      throw e; 
-    }
-  }
-
-  template< typename Iterator >
-  static std::tuple< std::vector< double >, std::vector< double > >
-  readPairs
-  ( long nPairs, Iterator& it, const Iterator& end, long& lineNumber,
-    int MAT, int MF, int MT ){
-    std::tuple< std::vector< double >, std::vector< double > > result;
-    try{
-      result = record::Zipper::unzip< record::Real,
-                                      record::Real >( nPairs, it, end,
-                                                      lineNumber, MAT, MF, MT );
-      auto& xValues = std::get< 0 >( result );
-
-      auto xValuesIterator =
-        std::is_sorted_until( xValues.begin(), xValues.end() );
-      
-      const bool xValuesAreSorted = ( xValuesIterator == xValues.end() );
-
-      if ( not xValuesAreSorted ){
-        LOG(ERROR) << "X-values are not sorted";
-        const auto position = xValuesIterator - xValues.begin();
-        LOG(INFO) << "X-value [" << (position - 1) << "]: "
-                  << xValuesIterator[-1];
-        LOG(INFO) << "X-value [" << (position) << "]: " << xValuesIterator[0];
-        throw std::exception();
-      }
-
-      return result;
-    } catch ( std::exception& e ){
-      LOG(INFO) << "Error while reading TAB1 ordered pairs";
-      throw e; 
-    }
-  }
-      
+  /* helper methods */
+#include "ENDFtk/implementation/UnivariateTabulation/src/verifyTail.hpp"
+#include "ENDFtk/implementation/UnivariateTabulation/src/verifyBoundaryIndicesAreSorted.hpp"
+#include "ENDFtk/implementation/UnivariateTabulation/src/verifyXValuesAreSorted.hpp"
+#include "ENDFtk/implementation/UnivariateTabulation/src/readRangeDescriptions.hpp"
+#include "ENDFtk/implementation/UnivariateTabulation/src/readPairs.hpp"      
 #include "ENDFtk/implementation/UnivariateTabulation/src/readMetadata.hpp"
-
-  UnivariateTabulation
-  ( double C1, double C2, uint64_t L1, uint64_t L2,
-    std::tuple< std::vector< long >, std::vector< long > >&& regionPairs,
-    std::tuple< std::vector< double >,
-                std::vector< double > >&& evaluationPairs ) :
-    metadata( C1, C2, L1, L2,
-              std::get< 0 >( regionPairs ).size(),
-              std::get< 0 >( evaluationPairs ).size() ),
-    regionPairs( std::move( regionPairs ) ),
-    evaluationPairs( std::move( evaluationPairs ) ) {}
-
-  template< typename Iterator >
-  UnivariateTabulation( Iterator& it, const Iterator& end, long& lineNumber,
-                        int MAT, int MF, int MT )
-    try: metadata( readMetadata( it, end, lineNumber, MAT, MF, MT ) ),
-         regionPairs(
-           readRangeDescriptions
-           ( std::get<4>( this->metadata.fields ), it, end, lineNumber, MAT, MF, MT ) ),
-         evaluationPairs(
-           readPairs
-           ( std::get<5>( this->metadata.fields ), it, end, lineNumber, MAT, MF, MT ) ){
-    } catch ( std::exception& e ){
-      LOG(INFO) << "Error encountered while parsing List record";
-      throw e;
-    } catch ( int nPosition ){
-      LOG(INFO) << "Error in position " << nPosition;
-      LOG(INFO) << "Error encountered while parsing List record";
-      throw std::exception();
-    }
+#include "ENDFtk/implementation/UnivariateTabulation/src/ctor.hpp"
     
 #define DEFINE_GETTER( name, index )                                    \
   Base::MutableReturnType< index >                                      \
@@ -175,33 +78,58 @@ public:
 
   long
   NP() const { return this->nPairs(); }
+
+#define verified_get( variable_name, name )                     \
+  try {                                                         \
+    return this->variable_name.at( index );                     \
+  } catch ( std::out_of_range& e ){                             \
+    LOG(ERROR) << "Out of bounds index for " name;              \
+    LOG(INFO)  << "Requested index: " << index;                 \
+    LOG(INFO)  << name " may be indexed from 0 to "             \
+               << (this->variable_name.size() - 1);             \
+    throw e;                                                    \
+  }
   
   ImmutableReturnType< clean< decltype( xValues ) >::value_type >
-  xValue( std::size_t index ) const;
+  xValue( std::size_t index ) const {
+    verified_get( xValues, "X-values" )
+  }
 
+  MutableReturnType< clean< decltype( yValues) >::value_type >
+  yValue( std::size_t index ){
+    verified_get( yValues, "Y-values" )
+  }
+
+  MutableReturnType< clean
+                     < decltype( interpolationSchemeIndices ) >::value_type >
+  rangeInterpolationScheme( std::size_t index ){
+    verified_get( interpolationSchemeIndices, "Interpolation schemes" )
+  }
+
+#undef verified_get
+  
   constXIterator
   xBegin() const { return this->xValues.begin(); }
 
   constXIterator
   xEnd() const { return this->xValues.end(); }
 
-  MutableReturnType< clean< decltype( yValues) >::value_type >
-  yValue( std::size_t index );
-
   ImmutableReturnType< clean< decltype( yValues ) >::value_type >
-  yValue( std::size_t index ) const;
+  yValue( std::size_t index ) const {
+    return const_cast< TAB1* >(this)->yValue( index );
+  }
 
   yIterator
   yBegin(){ return this->yValues.begin(); }
 
   constYIterator
-  yBegin() const { return this->yValues.begin(); }
+  yBegin() const { return const_cast< TAB1* >( this )->yBegin(); }
 
   yIterator
   yEnd(){ return this->yValues.end(); }
 
   constYIterator
-  yEnd() const { return this->yValues.end(); }
+  yEnd() const { return const_cast< TAB1* >( this )->yEnd(); }
 
 // /*
 //   void
@@ -223,11 +151,10 @@ public:
   std::tuple< constXIterator, constXIterator >
   rangeBoundaries( std::size_t rangeIndex ) const;
 
-  MutableReturnType< long >
-  rangeInterpolationScheme( std::size_t rangeIndex );
-
   ImmutableReturnType< long >
-  rangeInterpolationScheme( std::size_t rangeIndex ) const;  
+  rangeInterpolationScheme( std::size_t index ) const {
+    return const_cast< TAB1* >( this )->rangeInterpolationScheme( index );
+  }  
 
 // /*
 //   template< typename Iterator >
