@@ -145,5 +145,18 @@ SCENARIO( "Creating a skeleton of an ENDF File" ){
     
     }
     
+    WHEN( "an invalid (MF !=0) FEND record ends the File" ){
+      std::string sFEND = 
+        "                                                                   125 3  0\n";
+
+      sFile += sFEND;
+      auto begin = sFile.begin();
+      auto end = sFile.end();
+      long LN = 0;
+
+      REQUIRE_THROWS(FileSkeleton<std::string::iterator> fSkel(begin, end, LN));
+
+    }
+    
   } // GIVEN
 } // SCENARIO
