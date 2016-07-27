@@ -19,6 +19,10 @@ SectionSkeleton<Iterator>::SectionSkeleton(
     auto tail = record::skip(position, end, lineNumber);
 
     while( tail.MT() != 0 ){
+      if(position >= end){
+        LOG(ERROR) << "Section encountered end of stream before reading SEND";
+        throw std::exception();
+      }
       tail = record::skip(position, end, lineNumber);
     }
   } catch( std::exception& e ){

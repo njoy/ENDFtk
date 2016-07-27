@@ -51,12 +51,27 @@ SCENARIO( "Creating a material Skeleton of an ENDF File" ){
         "                                                                   125 0  0\n";
       sMaterial += sMEND;
 
-      auto end = sMaterial.end();
-      HeadRecord head(begin, end, LN);
-      REQUIRE_THROWS(
-        MaterialSkeleton<std::string::iterator> mSkel(
-        head, start, begin, end, LN) );
+      THEN( "an exception is thrown" ){
+        auto end = sMaterial.end();
 
+        LOG(INFO) << "Errors expected with invalid MEND record.";
+        HeadRecord head(begin, end, LN);
+        REQUIRE_THROWS(
+          MaterialSkeleton<std::string::iterator> mSkel(
+          head, start, begin, end, LN) );
+      }
+    }
+
+    WHEN( "a Material is too short (no MEND record)" ){
+      THEN( "an exception is thrown" ){
+        auto end = sMaterial.end();
+
+        LOG(INFO) << "Errors expected with no MEND record.";
+        HeadRecord head(begin, end, LN);
+        REQUIRE_THROWS(
+          MaterialSkeleton<std::string::iterator> mSkel(
+          head, start, begin, end, LN) );
+      }
     }
 
   } // GIVEN

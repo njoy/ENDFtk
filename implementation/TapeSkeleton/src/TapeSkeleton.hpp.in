@@ -9,18 +9,29 @@ TapeSkeleton<Iterator>::TapeSkeleton(Iterator& begin, const Iterator& end,
                                            long& lineNumber )
   : begin_(begin)
 {
+  auto position = begin;
   try{
-    ENDFtk::implementation::TapeIdentification TPID(begin, end, lineNumber);
+    LOG(INFO) << "diff: " << end-position;
 
-    HeadRecord head(begin, end, lineNumber);
+    ENDFtk::implementation::TapeIdentification TPID(position, end, lineNumber);
 
-    this->materials_.emplace_back(head, begin, begin, end, lineNumber);
+    HeadRecord head(position, end, lineNumber);
+    LOG(INFO) << "diff: " << end-position;
 
-    auto TEND = StructureDivision(begin, end, lineNumber); 
+    this->materials_.emplace_back(head, begin, position, end, lineNumber);
+
+    auto TEND = StructureDivision(position, end, lineNumber); 
 
     while( TEND.tail.MAT() != -1 ){
-      materials_.emplace_back(asHead(TEND), begin, begin, end, lineNumber);
-      TEND = StructureDivision(begin, end, lineNumber); 
+      LOG(INFO) << "diff: " << end-position;
+      if( position >= end ){
+        LOG(ERROR) << "Tape encountered end of stream before reading TEND.";
+        throw std::exception();
+      }
+
+      begin = position;
+      materials_.emplace_back(asHead(TEND), begin, position, end, lineNumber);
+      TEND = StructureDivision(position, end, lineNumber); 
     }
   } catch( std::exception& e ){
     LOG(INFO) << "Trouble when creating a TapeSkeleton";
@@ -28,7 +39,7 @@ TapeSkeleton<Iterator>::TapeSkeleton(Iterator& begin, const Iterator& end,
     throw e;
   }
 
-  end_ = begin;
+  end_ = position;
 }
 
 } // namespace implementation

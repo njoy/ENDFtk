@@ -79,16 +79,31 @@ SCENARIO( "Creating a skeleton of an ENDF Section" ){
       std::string sSEND = 
         "                                                                   125 3  1\n";
       sSection += sSEND;
-      auto begin = sSection.begin();
-      auto start = sSection.begin();
-      auto end = sSection.end();
-      long LN = 0;
-      HeadRecord head(begin, end, LN);
-      REQUIRE_THROWS(
-        SectionSkeleton<std::string::iterator> sSkel(
-        head, start, begin, end, LN) );
-
+      THEN( "an exception is thrown" ){
+        auto begin = sSection.begin();
+        auto start = sSection.begin();
+        auto end = sSection.end();
+        long LN = 0;
+        HeadRecord head(begin, end, LN);
+        REQUIRE_THROWS(
+          SectionSkeleton<std::string::iterator> sSkel(
+          head, start, begin, end, LN) );
+      }
     } // WHEN
+    WHEN( "a Section that is too short (no SEND record)" ){
+      THEN( "an exception is thrown" ){
+        auto begin = sSection.begin();
+        auto start = sSection.begin();
+        auto end = sSection.end();
+        long LN = 0;
+
+        LOG(INFO) << "Expecting errors when there is no SEND";
+        HeadRecord head(begin, end, LN);
+        REQUIRE_THROWS(
+          SectionSkeleton<std::string::iterator> sSkel(
+          head, start, begin, end, LN) );
+      }
+    }
   } // GIVEN
 } // SCENARIO
 

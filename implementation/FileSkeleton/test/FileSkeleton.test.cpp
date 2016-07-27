@@ -155,15 +155,29 @@ SCENARIO( "Creating a skeleton of an ENDF File" ){
         "                                                                   125 3  0\n";
 
       sFile += sFEND;
-      auto begin = sFile.begin();
-      auto start = sFile.begin();
-      auto end = sFile.end();
-      long LN = 0;
+      THEN( "an exception is thrown" ){
+        auto begin = sFile.begin();
+        auto start = sFile.begin();
+        auto end = sFile.end();
+        long LN = 0;
 
-      HeadRecord head(begin, end, LN);
-      REQUIRE_THROWS(FileSkeleton<std::string::iterator> fSkel( 
-        head, start, begin, end, LN));
+        HeadRecord head(begin, end, LN);
+        REQUIRE_THROWS(FileSkeleton<std::string::iterator> fSkel( 
+          head, start, begin, end, LN));
+      }
+    }
+    WHEN( "a File is too short (no FEND record)" ){
+      THEN( "an exception is thrown" ){
+        auto begin = sFile.begin();
+        auto start = sFile.begin();
+        auto end = sFile.end();
+        long LN = 0;
 
+        LOG(INFO) << "Error expected with now FEND record.";
+        HeadRecord head(begin, end, LN);
+        REQUIRE_THROWS(FileSkeleton<std::string::iterator> fSkel( 
+          head, start, begin, end, LN));
+      }
     }
     
   } // GIVEN
