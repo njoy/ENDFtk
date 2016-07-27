@@ -22,7 +22,7 @@ TapeSkeleton<Iterator>::TapeSkeleton(Iterator& begin, const Iterator& end,
 
     auto TEND = StructureDivision(position, end, lineNumber); 
 
-    while( TEND.tail.MAT() != -1 ){
+    while( not TEND.isTend() ){
       LOG(INFO) << "diff: " << end-position;
       if( position >= end ){
         LOG(ERROR) << "Tape encountered end of stream before reading TEND.";

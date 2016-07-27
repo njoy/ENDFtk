@@ -17,7 +17,7 @@ MaterialSkeleton<Iterator>::MaterialSkeleton(
 
     auto MEND = StructureDivision(position, end, lineNumber); 
 
-    while( MEND.tail.MAT() != 0 ){
+    while( not MEND.isMend() ){
       if(position >= end){
         LOG(ERROR) << "Material encountered end of stream before reading MEND";
         throw std::exception();

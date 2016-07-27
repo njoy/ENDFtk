@@ -19,7 +19,7 @@ FileSkeleton<Iterator>::FileSkeleton(
     this->sections_.emplace_back(skeletor);
     auto FEND = StructureDivision(position, end, lineNumber); 
 
-    while( FEND.tail.MF() != 0 ){
+    while( not FEND.isFend() ){
       if(position >= end){
         LOG(ERROR) << "File encountered end of stream before reading FEND";
         throw std::exception();
