@@ -16,8 +16,8 @@ class ENDFtk::implementation::FileSkeleton {
 
     size_t size() const { return sections_.size(); }
 
-    int MAT_;         //!< Identifier for the File
-    int MF_;          //!< Identifier for the File
+    int MAT_;         //!< Material identifier
+    int MF_;          //!< File identifier
     Iterator begin_;  //!< The beginning of the FileSkeleton
     Iterator end_;    //!< The end of the FileSkeleton
 

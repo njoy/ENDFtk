@@ -1,5 +1,37 @@
 #ifndef ENDFTK_IMPLEMENTATION_MATERIALSKELETON_MATERIALSKELETON_HPP
 #define ENDFTK_IMPLEMENTATION_MATERIALSKELETON_MATERIALSKELETON_HPP
+
+namespace ENDFtk {
+namespace implementation {
+
+template<typename Iterator>
+MaterialSkeleton<Iterator>::MaterialSkeleton(Iterator& begin, const Iterator& end, 
+                                           long& lineNumber )
+  : begin_(begin)
+{
+  try{
+    FileSkeleton<Iterator> skeletor(begin, end, lineNumber);
+    this->files_.emplace(skeletor.MF(), skeletor);
+    this->MAT_ = skeletor.MAT();
+
+    auto tail = record::skip(begin, end, lineNumber); // Maybe a MEND record
+
+    while( tail.MAT() != 0 ){
+      skeletor = FileSkeleton<Iterator>(begin, end, lineNumber);
+      files_.emplace(skeletor.MF(), skeletor);
+      tail = record::skip(begin, end, lineNumber); // Maybe a MEND record
+    }
+  } catch( std::exception& e ){
+    LOG(ERROR) << "Trouble when creating a MaterialSkeleton";
+    throw e;
+  }
+
+  end_ = begin;
+}
+
+} // namespace implementation
+} // namespace ENDFtk
+
 #endif  // ENDFTK_IMPLEMENTATION_MATERIALSKELETON_MATERIALSKELETON_HPP
 
 
