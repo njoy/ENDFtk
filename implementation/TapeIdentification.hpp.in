@@ -2,6 +2,7 @@
 #define ENDFTK_IMPLEMENTATION_TAPEIDENTIFICATION_HPP
 
 class ENDFtk::implementation::TapeIdentification {
+public:
 
   /* fields */
   ENDFtk::implementation::record::Base

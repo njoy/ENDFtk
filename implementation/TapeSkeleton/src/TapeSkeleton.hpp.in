@@ -1,0 +1,44 @@
+#ifndef ENDFTK_IMPLEMENTATION_TAPESKELETON_TAPESKELETON_HPP
+#define ENDFTK_IMPLEMENTATION_TAPESKELETON_TAPESKELETON_HPP
+
+namespace ENDFtk {
+namespace implementation {
+
+template<typename Iterator>
+TapeSkeleton<Iterator>::TapeSkeleton(Iterator& begin, const Iterator& end, 
+                                           long& lineNumber )
+  : begin_(begin)
+{
+  try{
+    LOG(INFO) << "Before reading TPID";
+    ENDFtk::implementation::TapeIdentification TPID(begin, end, lineNumber);
+//  auto tail = record::skip(begin, end, lineNumber); // Maybe a TEND record
+    LOG(INFO) << "Read TPID";
+
+    MaterialSkeleton<Iterator> skeletor(begin, end, lineNumber);
+    this->materials_.emplace(skeletor.MAT(), skeletor);
+
+    auto tail = record::skip(begin, end, lineNumber); // Maybe a TEND record
+    LOG(INFO) << "MAT=" << tail.MAT() << ", MF=" << tail.MF() << ", MT=" << tail.MT();
+
+    while( tail.MAT() != -1 ){
+      skeletor = MaterialSkeleton<Iterator>(begin, end, lineNumber);
+      materials_.emplace(skeletor.MAT(), skeletor);
+      tail = record::skip(begin, end, lineNumber); // Maybe a TEND record
+      LOG(INFO) << "MAT=" << tail.MAT() << ", MF=" << tail.MF() << ", MT=" << tail.MT();
+    }
+  } catch( std::exception& e ){
+    LOG(ERROR) << "Trouble when creating a TapeSkeleton";
+    LOG(INFO) << "Line number=" << lineNumber;
+    throw e;
+  }
+
+  end_ = begin;
+}
+
+} // namespace implementation
+} // namespace ENDFtk
+
+#endif  // ENDFTK_IMPLEMENTATION_TAPESKELETON_TAPESKELETON_HPP
+
+

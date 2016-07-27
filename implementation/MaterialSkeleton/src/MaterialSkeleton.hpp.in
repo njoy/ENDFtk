@@ -23,6 +23,7 @@ MaterialSkeleton<Iterator>::MaterialSkeleton(Iterator& begin, const Iterator& en
     }
   } catch( std::exception& e ){
     LOG(ERROR) << "Trouble when creating a MaterialSkeleton";
+    LOG(INFO) << "Line number=" << lineNumber << ", MAT=" << this->MAT_;
     throw e;
   }
 

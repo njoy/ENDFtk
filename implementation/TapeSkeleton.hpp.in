@@ -1,0 +1,27 @@
+#ifndef ENDFTK_IMPLEMENTATION_TAPESKELETON_HPP
+#define ENDFTK_IMPLEMENTATION_TAPESKELETON_HPP
+
+/** @brief Skeleton of a Tape containing a few pieces to know how to locate
+ * it.
+ */
+template<typename Iterator>
+class ENDFtk::implementation::TapeSkeleton {
+  public:
+    TapeSkeleton(Iterator& begin, const Iterator& end, long& lineNumber );
+
+    Iterator begin() const { return begin_; }
+    Iterator end() const { return end_; }
+
+    size_t size() const { return materials_.size(); }
+
+    Iterator begin_;  //!< The beginning of the TapeSkeleton
+    Iterator end_;    //!< The end of the TapeSkeleton
+
+    std::multimap<int, MaterialSkeleton<Iterator>> materials_;
+
+};
+
+#include "ENDFtk/implementation/TapeSkeleton/src/TapeSkeleton.hpp"
+
+#endif  // ENDFTK_IMPLEMENTATION_TAPESKELETON_HPP
+

@@ -42,7 +42,7 @@ SCENARIO( "Creating a material Skeleton of an ENDF File" ){
 
       REQUIRE( 125 == mSkel.MAT() );
     }
-    WHEN( "an invalid (MF!= 0) MEND record ends the Material" ){
+    WHEN( "an invalid (MAT != 0) MEND record ends the Material" ){
 
       std::string sMEND = 
         "                                                                   125 0  0\n";

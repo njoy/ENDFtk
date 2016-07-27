@@ -23,6 +23,7 @@ SectionSkeleton<Iterator>::SectionSkeleton(Iterator& begin, const Iterator& end,
     }
   } catch( std::exception& e ){
     LOG(ERROR) << "Trouble when creating a SectionSkeleton";
+    LOG(INFO) << "Line number=" << lineNumber << ", MT=" << this->MT_;
     throw e;
   }
 

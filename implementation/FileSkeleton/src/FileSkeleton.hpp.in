@@ -26,6 +26,7 @@ FileSkeleton<Iterator>::FileSkeleton(Iterator& begin, const Iterator& end,
     }
   } catch( std::exception& e ){
     LOG(ERROR) << "Trouble when creating a FileSkeleton";
+    LOG(INFO) << "Line number=" << lineNumber << ", MF=" << this->MF_;
     throw e;
   }
 
