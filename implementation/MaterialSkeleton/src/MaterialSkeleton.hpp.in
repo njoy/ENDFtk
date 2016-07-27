@@ -11,14 +11,13 @@ MaterialSkeleton<Iterator>::MaterialSkeleton(Iterator& begin, const Iterator& en
 {
   try{
     FileSkeleton<Iterator> skeletor(begin, end, lineNumber);
-    this->files_.emplace(skeletor.MF(), skeletor);
+    this->files_.emplace_back(skeletor);
     this->MAT_ = skeletor.MAT();
 
     auto tail = record::skip(begin, end, lineNumber); // Maybe a MEND record
 
     while( tail.MAT() != 0 ){
-      skeletor = FileSkeleton<Iterator>(begin, end, lineNumber);
-      files_.emplace(skeletor.MF(), skeletor);
+      files_.emplace_back(begin, end, lineNumber);
       tail = record::skip(begin, end, lineNumber); // Maybe a MEND record
     }
   } catch( std::exception& e ){

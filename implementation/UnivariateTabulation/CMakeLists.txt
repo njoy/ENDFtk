@@ -5,7 +5,13 @@ endif(${verbose_traversal})
 set(long_path "${ENDFtk_HEADER_DIR}/implementation/UnivariateTabulation" )
 set(headers "")
 list(APPEND headers
+  "src/verifyTail"
+  "src/verifyBoundaryIndicesAreSorted"
+  "src/verifyXValuesAreSorted"
+  "src/readRangeDescriptions"
+  "src/readPairs"
   "src/readMetadata"
+  "src/ctor"
   )
 
 foreach(header ${headers})
@@ -15,6 +21,12 @@ foreach(header ${headers})
     COPYONLY
     )
 endforeach(header)
+
+list(APPEND ENDFtk_src
+  "${CMAKE_CURRENT_SOURCE_DIR}/src/rangeBoundaries.cpp"
+  )
+  
+set( ENDFtk_src ${ENDFtk_src} PARENT_SCOPE )
 
 if(${local_testing})
   list( APPEND testLabels UnivariateTabulation )

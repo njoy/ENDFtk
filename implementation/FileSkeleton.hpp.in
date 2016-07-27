@@ -21,7 +21,7 @@ class ENDFtk::implementation::FileSkeleton {
     Iterator begin_;  //!< The beginning of the FileSkeleton
     Iterator end_;    //!< The end of the FileSkeleton
 
-    std::multimap<int, SectionSkeleton<Iterator> > sections_;
+    std::vector<SectionSkeleton<Iterator> > sections_;
 
 };
 

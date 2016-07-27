@@ -10,22 +10,15 @@ TapeSkeleton<Iterator>::TapeSkeleton(Iterator& begin, const Iterator& end,
   : begin_(begin)
 {
   try{
-    LOG(INFO) << "Before reading TPID";
     ENDFtk::implementation::TapeIdentification TPID(begin, end, lineNumber);
-//  auto tail = record::skip(begin, end, lineNumber); // Maybe a TEND record
-    LOG(INFO) << "Read TPID";
 
-    MaterialSkeleton<Iterator> skeletor(begin, end, lineNumber);
-    this->materials_.emplace(skeletor.MAT(), skeletor);
+    this->materials_.emplace_back(begin, end, lineNumber);
 
     auto tail = record::skip(begin, end, lineNumber); // Maybe a TEND record
-    LOG(INFO) << "MAT=" << tail.MAT() << ", MF=" << tail.MF() << ", MT=" << tail.MT();
 
     while( tail.MAT() != -1 ){
-      skeletor = MaterialSkeleton<Iterator>(begin, end, lineNumber);
-      materials_.emplace(skeletor.MAT(), skeletor);
+      materials_.emplace_back(begin, end, lineNumber);
       tail = record::skip(begin, end, lineNumber); // Maybe a TEND record
-      LOG(INFO) << "MAT=" << tail.MAT() << ", MF=" << tail.MF() << ", MT=" << tail.MT();
     }
   } catch( std::exception& e ){
     LOG(ERROR) << "Trouble when creating a TapeSkeleton";

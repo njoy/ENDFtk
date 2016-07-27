@@ -17,7 +17,7 @@ class ENDFtk::implementation::TapeSkeleton {
     Iterator begin_;  //!< The beginning of the TapeSkeleton
     Iterator end_;    //!< The end of the TapeSkeleton
 
-    std::multimap<int, MaterialSkeleton<Iterator>> materials_;
+    std::vector<MaterialSkeleton<Iterator>> materials_;
 
 };
 

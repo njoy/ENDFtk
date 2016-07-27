@@ -13,15 +13,14 @@ FileSkeleton<Iterator>::FileSkeleton(Iterator& begin, const Iterator& end,
 {
   try{
     SectionSkeleton<Iterator> skeletor(begin, end, lineNumber);
-    this->sections_.emplace(skeletor.MT(), skeletor);
     this->MAT_ = skeletor.MAT();
     this->MF_  = skeletor.MF();
 
+    this->sections_.emplace_back(skeletor);
     auto tail = record::skip(begin, end, lineNumber); // Maybe a FEND record
 
     while( tail.MF() != 0 ){
-      skeletor = SectionSkeleton<Iterator>(begin, end, lineNumber);
-      sections_.emplace(skeletor.MT(), skeletor);
+      sections_.emplace_back(begin, end, lineNumber);
       tail = record::skip(begin, end, lineNumber); // Maybe a FEND record
     }
   } catch( std::exception& e ){
