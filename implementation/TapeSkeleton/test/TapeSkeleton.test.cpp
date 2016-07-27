@@ -22,7 +22,6 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
     std::string sTape = utility::slurpFileToMemory( filename );
 
     auto begin = sTape.begin();
-    LOG(INFO) << "sTape.size: " << sTape.size();
     long LN = 1;
 
     WHEN( "a valid TEND record ends the Tape" ){
@@ -51,7 +50,6 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
     }
     WHEN( "the Tape isn't long enough" ){
       auto end = sTape.end()-10525;
-      LOG(INFO) << "sTape.size: " << sTape.size();
       LOG(INFO) << "Expecting errors  when the tape isn't long enough.";
       REQUIRE_THROWS(
         TapeSkeleton<std::string::iterator> mSkel(begin, end, LN) );

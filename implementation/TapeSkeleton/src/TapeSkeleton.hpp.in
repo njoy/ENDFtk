@@ -11,19 +11,15 @@ TapeSkeleton<Iterator>::TapeSkeleton(Iterator& begin, const Iterator& end,
 {
   auto position = begin;
   try{
-    LOG(INFO) << "diff: " << end-position;
-
     ENDFtk::implementation::TapeIdentification TPID(position, end, lineNumber);
 
     HeadRecord head(position, end, lineNumber);
-    LOG(INFO) << "diff: " << end-position;
 
     this->materials_.emplace_back(head, begin, position, end, lineNumber);
 
     auto TEND = StructureDivision(position, end, lineNumber); 
 
     while( not TEND.isTend() ){
-      LOG(INFO) << "diff: " << end-position;
       if( position >= end ){
         LOG(ERROR) << "Tape encountered end of stream before reading TEND.";
         throw std::exception();
