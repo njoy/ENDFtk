@@ -9,15 +9,19 @@ class ENDFtk::implementation::FileSkeleton {
   public:
     FileSkeleton(Iterator& begin, const Iterator& end, long& lineNumber );
 
+    int MAT() const { return MAT_; }
+    int MF() const { return MF_; }
     Iterator begin() const { return begin_; }
     Iterator end() const { return end_; }
 
     size_t size() const { return sections_.size(); }
 
+    int MAT_;         //!< Identifier for the File
+    int MF_;          //!< Identifier for the File
     Iterator begin_;  //!< The beginning of the FileSkeleton
     Iterator end_;    //!< The end of the FileSkeleton
 
-    std::vector<SectionSkeleton<Iterator>> sections_;
+    std::multimap<int, SectionSkeleton<Iterator> > sections_;
 
 };
 

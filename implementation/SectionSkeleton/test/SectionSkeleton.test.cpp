@@ -67,6 +67,10 @@ SCENARIO( "Creating a skeleton of an ENDF Section" ){
       REQUIRE( sSection.begin() == sSkel.begin() );
       REQUIRE( end == sSkel.end() );
 
+      REQUIRE( 125 == sSkel.MAT() );
+      REQUIRE(   3 == sSkel.MF() );
+      REQUIRE(   1 == sSkel.MT() );
+
     } // WHEN
 
     WHEN( "an invalid (MT!=0) SEND record ends the Section" ){

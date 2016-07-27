@@ -141,7 +141,10 @@ SCENARIO( "Creating a skeleton of an ENDF File" ){
       REQUIRE( 109 == LN );
       REQUIRE( sFile.begin() == fSkel.begin() );
       REQUIRE( end == fSkel.end() );
-      REQUIRE( 3 == fSkel.size() );
+      REQUIRE(   3 == fSkel.size() );
+
+      REQUIRE( 125 == fSkel.MAT() );
+      REQUIRE(   3 == fSkel.MF() );
     
     }
     

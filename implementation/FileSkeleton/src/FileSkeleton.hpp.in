@@ -12,12 +12,18 @@ FileSkeleton<Iterator>::FileSkeleton(Iterator& begin, const Iterator& end,
   : begin_(begin)
 {
   try{
-    record::Tail tail(0,0,0);
-    do{
-      sections_.emplace_back(begin, end, lineNumber);
-      tail = record::skip(begin, end, lineNumber); // Maybe a FEND record
+    SectionSkeleton<Iterator> skeletor(begin, end, lineNumber);
+    this->sections_.emplace(skeletor.MT(), skeletor);
+    this->MAT_ = skeletor.MAT();
+    this->MF_  = skeletor.MF();
 
-    } while( tail.MF() != 0 );
+    auto tail = record::skip(begin, end, lineNumber); // Maybe a FEND record
+
+    while( tail.MF() != 0 ){
+      skeletor = SectionSkeleton<Iterator>(begin, end, lineNumber);
+      sections_.emplace(skeletor.MT(), skeletor);
+      tail = record::skip(begin, end, lineNumber); // Maybe a FEND record
+    }
   } catch( std::exception& e ){
     LOG(ERROR) << "Trouble when creating a FileSkeleton";
     throw e;

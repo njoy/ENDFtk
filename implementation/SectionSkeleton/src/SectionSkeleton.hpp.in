@@ -12,10 +12,15 @@ SectionSkeleton<Iterator>::SectionSkeleton(Iterator& begin, const Iterator& end,
   : begin_(begin)
 {
   try{
-    record::Tail tail(0,0,0);
-    do{
-      tail = record::skip(begin, end, lineNumber); // Maybe a SEND record
-    } while( tail.MT() != 0 );
+    // This assumes that the Section has more than one record
+    auto tail = record::skip(begin, end, lineNumber);
+    this->MAT_ = tail.MAT();
+    this->MF_  = tail.MF();
+    this->MT_  = tail.MT();
+
+    while( tail.MT() != 0 ){
+      tail = record::skip(begin, end, lineNumber);
+    }
   } catch( std::exception& e ){
     LOG(ERROR) << "Trouble when creating a SectionSkeleton";
     throw e;
