@@ -7,29 +7,29 @@ namespace ENDFtk {
 namespace implementation {
 
 template<typename Iterator>
-FileSkeleton<Iterator>::FileSkeleton(Iterator& begin, const Iterator& end, 
-                                           long& lineNumber )
+FileSkeleton<Iterator>::FileSkeleton(
+  const HeadRecord& mHead, 
+  Iterator begin, Iterator& position, const Iterator& end, long& lineNumber )
   : begin_(begin)
 {
   try{
-    SectionSkeleton<Iterator> skeletor(begin, end, lineNumber);
-    this->MAT_ = skeletor.MAT();
-    this->MF_  = skeletor.MF();
+    SectionSkeleton<Iterator> skeletor(mHead, begin, position, end, lineNumber);
+    this->MF_  = mHead.MF();
 
     this->sections_.emplace_back(skeletor);
-    auto tail = record::skip(begin, end, lineNumber); // Maybe a FEND record
+    auto FEND = StructureDivision(position, end, lineNumber); 
 
-    while( tail.MF() != 0 ){
-      sections_.emplace_back(begin, end, lineNumber);
-      tail = record::skip(begin, end, lineNumber); // Maybe a FEND record
+    while( FEND.tail.MF() != 0 ){
+      sections_.emplace_back(asHead(FEND), begin, position, end, lineNumber);
+      FEND = StructureDivision(position, end, lineNumber); 
     }
   } catch( std::exception& e ){
-    LOG(ERROR) << "Trouble when creating a FileSkeleton";
+    LOG(INFO) << "Trouble when creating a FileSkeleton";
     LOG(INFO) << "Line number=" << lineNumber << ", MF=" << this->MF_;
     throw e;
   }
 
-  end_ = begin;
+  end_ = position;
 }
 
 } // namespace implementation

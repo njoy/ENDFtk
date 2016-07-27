@@ -58,17 +58,19 @@ SCENARIO( "Creating a skeleton of an ENDF Section" ){
       std::string sSEND = 
         "                                                                   125 3  0\n";
       sSection += sSEND;
-      auto begin = sSection.begin();
+      auto position = sSection.begin();
+      auto start = sSection.begin();
       auto end = sSection.end();
       long LN = 0;
-      SectionSkeleton<std::string::iterator> sSkel(begin, end, LN);
+
+      HeadRecord head(position, end, LN);
+      SectionSkeleton<std::string::iterator> sSkel(
+        head, start, position, end, LN);
 
       REQUIRE( 36 == LN );
       REQUIRE( sSection.begin() == sSkel.begin() );
       REQUIRE( end == sSkel.end() );
 
-      REQUIRE( 125 == sSkel.MAT() );
-      REQUIRE(   3 == sSkel.MF() );
       REQUIRE(   1 == sSkel.MT() );
 
     } // WHEN
@@ -78,10 +80,13 @@ SCENARIO( "Creating a skeleton of an ENDF Section" ){
         "                                                                   125 3  1\n";
       sSection += sSEND;
       auto begin = sSection.begin();
+      auto start = sSection.begin();
       auto end = sSection.end();
       long LN = 0;
+      HeadRecord head(begin, end, LN);
       REQUIRE_THROWS(
-        SectionSkeleton<std::string::iterator> sSkel(begin, end, LN) );
+        SectionSkeleton<std::string::iterator> sSkel(
+        head, start, begin, end, LN) );
 
     } // WHEN
   } // GIVEN

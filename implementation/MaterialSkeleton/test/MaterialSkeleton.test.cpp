@@ -24,6 +24,7 @@ SCENARIO( "Creating a material Skeleton of an ENDF File" ){
     sMaterial.erase(sMaterial.end()-152, sMaterial.end()); // Get rid of MEND
 
     auto begin = sMaterial.begin();
+    auto start = sMaterial.begin();
     long LN = 1;
 
     WHEN( "a valid MEND record ends the Material" ){
@@ -33,7 +34,9 @@ SCENARIO( "Creating a material Skeleton of an ENDF File" ){
       sMaterial += sMEND;
 
       auto end = sMaterial.end();
-      MaterialSkeleton<std::string::iterator> mSkel(begin, end, LN);
+      HeadRecord head(begin, end, LN);
+      MaterialSkeleton<std::string::iterator> mSkel(
+        head, start, begin, end, LN);
 
       REQUIRE( 2209 == LN );
       REQUIRE( sMaterial.begin() == mSkel.begin() );
@@ -49,8 +52,10 @@ SCENARIO( "Creating a material Skeleton of an ENDF File" ){
       sMaterial += sMEND;
 
       auto end = sMaterial.end();
+      HeadRecord head(begin, end, LN);
       REQUIRE_THROWS(
-        MaterialSkeleton<std::string::iterator> mSkel(begin, end, LN) );
+        MaterialSkeleton<std::string::iterator> mSkel(
+        head, start, begin, end, LN) );
 
     }
 

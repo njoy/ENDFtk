@@ -5,28 +5,29 @@ namespace ENDFtk {
 namespace implementation {
 
 template<typename Iterator>
-MaterialSkeleton<Iterator>::MaterialSkeleton(Iterator& begin, const Iterator& end, 
-                                           long& lineNumber )
+MaterialSkeleton<Iterator>::MaterialSkeleton(
+  const HeadRecord& mHead, 
+  Iterator begin, Iterator& position, const Iterator& end, long& lineNumber )
   : begin_(begin)
 {
   try{
-    FileSkeleton<Iterator> skeletor(begin, end, lineNumber);
+    FileSkeleton<Iterator> skeletor(mHead, begin, position, end, lineNumber);
     this->files_.emplace_back(skeletor);
-    this->MAT_ = skeletor.MAT();
+    this->MAT_ = mHead.MAT();
 
-    auto tail = record::skip(begin, end, lineNumber); // Maybe a MEND record
+    auto MEND = StructureDivision(position, end, lineNumber); 
 
-    while( tail.MAT() != 0 ){
-      files_.emplace_back(begin, end, lineNumber);
-      tail = record::skip(begin, end, lineNumber); // Maybe a MEND record
+    while( MEND.tail.MAT() != 0 ){
+      files_.emplace_back(asHead(MEND), begin, position, end, lineNumber);
+      MEND = StructureDivision(position, end, lineNumber); 
     }
   } catch( std::exception& e ){
-    LOG(ERROR) << "Trouble when creating a MaterialSkeleton";
+    LOG(INFO) << "Trouble when creating a MaterialSkeleton";
     LOG(INFO) << "Line number=" << lineNumber << ", MAT=" << this->MAT_;
     throw e;
   }
 
-  end_ = begin;
+  end_ = position;
 }
 
 } // namespace implementation

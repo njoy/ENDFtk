@@ -7,16 +7,14 @@
 template<typename Iterator>
 class ENDFtk::implementation::SectionSkeleton {
   public:
-    SectionSkeleton(Iterator& begin, const Iterator& end, long& lineNumber );
+    SectionSkeleton(const HeadRecord& head,
+                    Iterator begin, Iterator& position, const Iterator& end,
+                    long& lineNumber );
 
-    int MAT() const { return MAT_; }
-    int MF() const { return MF_; }
     int MT() const { return MT_; }
     Iterator begin() const { return begin_; }
     Iterator end() const { return end_; }
 
-    int MAT_;         //!< Material identifier
-    int MF_;          //!< File identifier
     int MT_;          //!< Section identifier
 
     Iterator begin_;  //!< The beginning of the SectionSkeleton

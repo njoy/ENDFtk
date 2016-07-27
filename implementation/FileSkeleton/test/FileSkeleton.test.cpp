@@ -133,17 +133,19 @@ SCENARIO( "Creating a skeleton of an ENDF File" ){
 
       sFile += sFEND;
       auto begin = sFile.begin();
+      auto start = sFile.begin();
       auto end = sFile.end();
       long LN = 0;
 
-      FileSkeleton<std::string::iterator> fSkel(begin, end, LN);
+      HeadRecord head(begin,end, LN);
+      FileSkeleton<std::string::iterator> fSkel(
+        head, start, begin, end, LN);
 
       REQUIRE( 109 == LN );
       REQUIRE( sFile.begin() == fSkel.begin() );
       REQUIRE( end == fSkel.end() );
       REQUIRE(   3 == fSkel.size() );
 
-      REQUIRE( 125 == fSkel.MAT() );
       REQUIRE(   3 == fSkel.MF() );
     
     }
@@ -154,10 +156,13 @@ SCENARIO( "Creating a skeleton of an ENDF File" ){
 
       sFile += sFEND;
       auto begin = sFile.begin();
+      auto start = sFile.begin();
       auto end = sFile.end();
       long LN = 0;
 
-      REQUIRE_THROWS(FileSkeleton<std::string::iterator> fSkel(begin, end, LN));
+      HeadRecord head(begin, end, LN);
+      REQUIRE_THROWS(FileSkeleton<std::string::iterator> fSkel( 
+        head, start, begin, end, LN));
 
     }
     

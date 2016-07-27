@@ -12,16 +12,18 @@ TapeSkeleton<Iterator>::TapeSkeleton(Iterator& begin, const Iterator& end,
   try{
     ENDFtk::implementation::TapeIdentification TPID(begin, end, lineNumber);
 
-    this->materials_.emplace_back(begin, end, lineNumber);
+    HeadRecord head(begin, end, lineNumber);
 
-    auto tail = record::skip(begin, end, lineNumber); // Maybe a TEND record
+    this->materials_.emplace_back(head, begin, begin, end, lineNumber);
 
-    while( tail.MAT() != -1 ){
-      materials_.emplace_back(begin, end, lineNumber);
-      tail = record::skip(begin, end, lineNumber); // Maybe a TEND record
+    auto TEND = StructureDivision(begin, end, lineNumber); 
+
+    while( TEND.tail.MAT() != -1 ){
+      materials_.emplace_back(asHead(TEND), begin, begin, end, lineNumber);
+      TEND = StructureDivision(begin, end, lineNumber); 
     }
   } catch( std::exception& e ){
-    LOG(ERROR) << "Trouble when creating a TapeSkeleton";
+    LOG(INFO) << "Trouble when creating a TapeSkeleton";
     LOG(INFO) << "Line number=" << lineNumber;
     throw e;
   }

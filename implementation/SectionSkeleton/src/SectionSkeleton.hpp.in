@@ -7,27 +7,27 @@ namespace ENDFtk {
 namespace implementation {
 
 template<typename Iterator>
-SectionSkeleton<Iterator>::SectionSkeleton(Iterator& begin, const Iterator& end, 
-                                           long& lineNumber )
-  : begin_(begin)
+SectionSkeleton<Iterator>::SectionSkeleton(
+    const HeadRecord& head, 
+    Iterator begin, Iterator& position, const Iterator& end, long& lineNumber )
+  : begin_(begin) 
 {
   try{
+    this->MT_ = head.MT();
+
     // This assumes that the Section has more than one record
-    auto tail = record::skip(begin, end, lineNumber);
-    this->MAT_ = tail.MAT();
-    this->MF_  = tail.MF();
-    this->MT_  = tail.MT();
+    auto tail = record::skip(position, end, lineNumber);
 
     while( tail.MT() != 0 ){
-      tail = record::skip(begin, end, lineNumber);
+      tail = record::skip(position, end, lineNumber);
     }
   } catch( std::exception& e ){
-    LOG(ERROR) << "Trouble when creating a SectionSkeleton";
+    LOG(INFO) << "Trouble when creating a SectionSkeleton";
     LOG(INFO) << "Line number=" << lineNumber << ", MT=" << this->MT_;
     throw e;
   }
 
-  end_ = begin;
+  end_ = position;
 }
 
 } // namespace implementation
