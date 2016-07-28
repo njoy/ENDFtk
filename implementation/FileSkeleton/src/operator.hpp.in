@@ -1,0 +1,23 @@
+#ifndef ENDFTK_IMPLEMENTATION_FILESKELETON_SRC_OPERATOR_HPP
+#define ENDFTK_IMPLEMENTATION_FILESKELETON_SRC_OPERATOR_HPP
+
+namespace ENDFtk {
+namespace implementation {
+
+template<typename Iterator>
+const SectionSkeleton<Iterator>& 
+FileSkeleton<Iterator>::operator[]( int MT ){
+  
+  try{
+    return sections_.at(MT);
+  } catch( std::out_of_range& o ){
+    LOG(ERROR) << "There is no MT=" << MT << " in MF=" << MF_;
+    throw o;
+  } 
+}
+
+} // namespace implementation
+} // namespace ENDFtk
+
+#endif  // ENDFTK_IMPLEMENTATION_FILESKELETON_SRC_OPERATOR_HPP
+
