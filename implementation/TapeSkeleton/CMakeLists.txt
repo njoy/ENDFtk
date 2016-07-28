@@ -7,6 +7,7 @@ set(long_path "${ENDFtk_HEADER_DIR}/implementation/TapeSkeleton" )
 set(headers "")
 list(APPEND headers
   "src/TapeSkeleton"
+  "src/operator"
   )
 
 foreach(header ${headers})

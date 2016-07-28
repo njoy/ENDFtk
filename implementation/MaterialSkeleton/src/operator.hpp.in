@@ -4,6 +4,10 @@
 namespace ENDFtk {
 namespace implementation {
 
+/** @brief Return the contained FileSkeleton given an @param MF identifier.
+ *
+ * This throws an exception if there is no File for the given MF.
+ */
 template<typename Iterator>
 const FileSkeleton<Iterator>& 
 MaterialSkeleton<Iterator>::operator[]( int MF ){

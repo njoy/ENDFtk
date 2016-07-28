@@ -9,6 +9,8 @@ class ENDFtk::implementation::TapeSkeleton {
   public:
     TapeSkeleton(Iterator& begin, const Iterator& end, long& lineNumber );
 
+    const MaterialSkeleton<Iterator>& operator[] (int index);
+
     Iterator begin() const { return begin_; }
     Iterator end() const { return end_; }
 
@@ -22,6 +24,7 @@ class ENDFtk::implementation::TapeSkeleton {
 };
 
 #include "ENDFtk/implementation/TapeSkeleton/src/TapeSkeleton.hpp"
+#include "ENDFtk/implementation/TapeSkeleton/src/operator.hpp"
 
 #endif  // ENDFTK_IMPLEMENTATION_TAPESKELETON_HPP
 

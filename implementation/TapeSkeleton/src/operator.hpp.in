@@ -1,0 +1,34 @@
+#ifndef ENDFTK_IMPLEMENTATION_TAPESKELETON_SRC_OPERATOR_HPP
+#define ENDFTK_IMPLEMENTATION_TAPESKELETON_SRC_OPERATOR_HPP
+
+namespace ENDFtk {
+namespace implementation {
+
+/** @brief Return a contained MaterialSkeleton
+ *
+ * @param \c index The index in the underlying vector of MaterialSkeletons. Note
+ * this is *not* the MAT number, but does reflect the order of the materials on 
+ * the ENDF file. 
+ *
+ * This throws an exception if the index is incorrect. Remember, the first
+ * Material has index `0`.
+ */
+template<typename Iterator>
+const MaterialSkeleton<Iterator>& 
+TapeSkeleton<Iterator>::operator[]( int index ){
+  
+  try{
+    return materials_.at(index);
+  } catch( std::out_of_range& o ){
+    LOG(ERROR) << "Invalid index, " << index;
+    throw o;
+  } 
+}
+
+} // namespace implementation
+} // namespace ENDFtk
+
+#endif  // ENDFTK_IMPLEMENTATION_TAPESKELETON_SRC_OPERATOR_HPP
+
+
+

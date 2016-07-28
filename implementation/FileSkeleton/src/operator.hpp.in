@@ -4,6 +4,10 @@
 namespace ENDFtk {
 namespace implementation {
 
+/** @brief Return the contained SectionSkeleton given an @param MT identifier.
+ *
+ * This throws an exception if there is no Section for the given MT.
+ */
 template<typename Iterator>
 const SectionSkeleton<Iterator>& 
 FileSkeleton<Iterator>::operator[]( int MT ){
