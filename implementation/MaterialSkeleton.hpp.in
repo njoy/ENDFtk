@@ -23,7 +23,7 @@ class ENDFtk::implementation::MaterialSkeleton {
     Iterator begin_;  //!< The beginning of the MaterialSkeleton
     Iterator end_;    //!< The end of the MaterialSkeleton
 
-    std::map<int, FileSkeleton<Iterator>> files_;
+    std::unordered_map<int, FileSkeleton<Iterator>> files_;
 
 };
 

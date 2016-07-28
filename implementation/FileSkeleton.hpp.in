@@ -1,6 +1,8 @@
 #ifndef ENDFTK_IMPLEMENTATION_FILESKELETON_HPP
 #define ENDFTK_IMPLEMENTATION_FILESKELETON_HPP
 
+#include <unordered_map>
+
 /** @brief Skeleton of a File containing a few pieces to know how to locate
  * it.
  */
@@ -24,7 +26,8 @@ class ENDFtk::implementation::FileSkeleton {
     Iterator begin_;  //!< The beginning of the FileSkeleton
     Iterator end_;    //!< The end of the FileSkeleton
 
-    std::map<int, SectionSkeleton<Iterator> > sections_;
+    std::unordered_map<int, SectionSkeleton<Iterator> > sections_;
+    std::vector<SectionSkeleton<Iterator> > sectionsIndexed_;
 
 };
 

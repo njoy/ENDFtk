@@ -13,10 +13,12 @@ FileSkeleton<Iterator>::FileSkeleton(
   : begin_(begin)
 {
   try{
-    SectionSkeleton<Iterator> skeletor(mHead, begin, position, end, lineNumber);
+    sectionsIndexed_.emplace_back(mHead, begin, position, end, lineNumber);
+    auto& skeletor = sectionsIndexed_.back();
+    sections_.emplace(skeletor.MT(), skeletor);
+
     this->MF_  = mHead.MF();
 
-    this->sections_.emplace(skeletor.MT(), skeletor);
     auto FEND = StructureDivision(position, end, lineNumber); 
 
     while( not FEND.isFend() ){
@@ -24,9 +26,11 @@ FileSkeleton<Iterator>::FileSkeleton(
         LOG(ERROR) << "File encountered end of stream before reading FEND";
         throw std::exception();
       }
-      skeletor = SectionSkeleton<Iterator>(asHead(FEND), 
-                                           begin, position, end, lineNumber);
-      this->sections_.emplace(skeletor.MT(), skeletor);
+      sectionsIndexed_.emplace_back(asHead(FEND), 
+                                    begin, position, end, lineNumber);
+      skeletor = sectionsIndexed_.back();
+      sections_.emplace(skeletor.MT(), skeletor);
+
       begin = position;
       FEND = StructureDivision(position, end, lineNumber); 
     }
