@@ -12,7 +12,7 @@ MaterialSkeleton<Iterator>::MaterialSkeleton(
 {
   try{
     FileSkeleton<Iterator> skeletor(mHead, begin, position, end, lineNumber);
-    this->files_.emplace_back(skeletor);
+    this->files_.emplace(skeletor.MF(), skeletor);
     this->MAT_ = mHead.MAT();
 
     auto MEND = StructureDivision(position, end, lineNumber); 
@@ -22,7 +22,9 @@ MaterialSkeleton<Iterator>::MaterialSkeleton(
         LOG(ERROR) << "Material encountered end of stream before reading MEND";
         throw std::exception();
       }
-      files_.emplace_back(asHead(MEND), begin, position, end, lineNumber);
+      skeletor = FileSkeleton<Iterator>(asHead(MEND), begin, position, end, 
+                                        lineNumber);
+      this->files_.emplace(skeletor.MF(), skeletor);
       begin = position;
       MEND = StructureDivision(position, end, lineNumber); 
     }

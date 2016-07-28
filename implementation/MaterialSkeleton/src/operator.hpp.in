@@ -1,0 +1,24 @@
+#ifndef ENDFTK_IMPLEMENTATION_MATERIALSKELETON_SRC_OPERATOR_HPP
+#define ENDFTK_IMPLEMENTATION_MATERIALSKELETON_SRC_OPERATOR_HPP
+
+namespace ENDFtk {
+namespace implementation {
+
+template<typename Iterator>
+const FileSkeleton<Iterator>& 
+MaterialSkeleton<Iterator>::operator[]( int MF ){
+  
+  try{
+    return files_.at(MF);
+  } catch( std::out_of_range& o ){
+    LOG(ERROR) << "There is no MF=" << MF << " in MAT=" << MAT_;
+    throw o;
+  } 
+}
+
+} // namespace implementation
+} // namespace ENDFtk
+
+#endif  // ENDFTK_IMPLEMENTATION_MATERIALSKELETON_SRC_OPERATOR_HPP
+
+

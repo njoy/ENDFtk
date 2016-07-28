@@ -26,7 +26,7 @@ FileSkeleton<Iterator>::FileSkeleton(
       }
       skeletor = SectionSkeleton<Iterator>(asHead(FEND), 
                                            begin, position, end, lineNumber);
-      sections_.emplace(skeletor.MT(), skeletor);
+      this->sections_.emplace(skeletor.MT(), skeletor);
       begin = position;
       FEND = StructureDivision(position, end, lineNumber); 
     }

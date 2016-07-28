@@ -7,6 +7,7 @@ set(long_path "${ENDFtk_HEADER_DIR}/implementation/MaterialSkeleton" )
 set(headers "")
 list(APPEND headers
   "src/MaterialSkeleton"
+  "src/operator"
   )
 
 foreach(header ${headers})

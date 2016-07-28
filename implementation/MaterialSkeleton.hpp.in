@@ -8,9 +8,12 @@ template<typename Iterator>
 class ENDFtk::implementation::MaterialSkeleton {
   public:
     MaterialSkeleton(const HeadRecord& mHead,
-                     Iterator begin, Iterator& position, const Iterator& end, long& lineNumber );
+                     Iterator begin, Iterator& position, const Iterator& end, 
+                     long& lineNumber );
 
     int MAT() const { return MAT_; }
+    const FileSkeleton<Iterator>& operator[] (int MF);
+
     Iterator begin() const { return begin_; }
     Iterator end() const { return end_; }
 
@@ -20,11 +23,12 @@ class ENDFtk::implementation::MaterialSkeleton {
     Iterator begin_;  //!< The beginning of the MaterialSkeleton
     Iterator end_;    //!< The end of the MaterialSkeleton
 
-    std::vector<FileSkeleton<Iterator>> files_;
+    std::map<int, FileSkeleton<Iterator>> files_;
 
 };
 
 #include "ENDFtk/implementation/MaterialSkeleton/src/MaterialSkeleton.hpp"
+#include "ENDFtk/implementation/MaterialSkeleton/src/operator.hpp"
 
 #endif  // ENDFTK_IMPLEMENTATION_MATERIALSKELETON_HPP
 

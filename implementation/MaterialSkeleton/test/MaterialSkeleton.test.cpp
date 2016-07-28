@@ -38,13 +38,30 @@ SCENARIO( "Creating a material Skeleton of an ENDF File" ){
       MaterialSkeleton<std::string::iterator> mSkel(
         head, start, begin, end, LN);
 
-      REQUIRE( 2209 == LN );
-      REQUIRE( sMaterial.begin() == mSkel.begin() );
-      REQUIRE( end == mSkel.end() );
-      REQUIRE( 6 == mSkel.size() );
+      THEN( "se can access the parts of the skeleton" ){
+        REQUIRE( 2209 == LN );
+        REQUIRE( sMaterial.begin() == mSkel.begin() );
+        REQUIRE( end == mSkel.end() );
+        REQUIRE( 6 == mSkel.size() );
 
-      REQUIRE( 125 == mSkel.MAT() );
+        REQUIRE( 125 == mSkel.MAT() );
+      }
+
+        // According to the Developers Guide, these tests should be in a
+        // different test file
+        AND_THEN( "we can access the Sections of the skeleton" ){
+          auto fSkel = mSkel[1];
+               fSkel = mSkel[2];
+               fSkel = mSkel[3];
+               fSkel = mSkel[4];
+               fSkel = mSkel[6];
+               fSkel = mSkel[33];
+        }
+        AND_THEN( "an exception is thrown if the requested MTs are invalid."){
+          REQUIRE_THROWS( mSkel[5] );
+        }
     }
+
     WHEN( "an invalid (MAT != 0) MEND record ends the Material" ){
 
       std::string sMEND = 
