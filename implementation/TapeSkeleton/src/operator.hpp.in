@@ -1,10 +1,5 @@
-#ifndef ENDFTK_IMPLEMENTATION_TAPESKELETON_SRC_OPERATOR_HPP
-#define ENDFTK_IMPLEMENTATION_TAPESKELETON_SRC_OPERATOR_HPP
-
-namespace ENDFtk {
-namespace implementation {
-
-/** @brief Return a contained MaterialSkeleton
+/** @brief Return a pair of iterators (begin, end) that iterates over the
+ * contains
  *
  * @param \c index The index in the underlying vector of MaterialSkeletons. Note
  * this is *not* the MAT number, but does reflect the order of the materials on 
@@ -13,22 +8,14 @@ namespace implementation {
  * This throws an exception if the index is incorrect. Remember, the first
  * Material has index `0`.
  */
-template<typename Iterator>
-std::pair<iterator,iterator>&
-TapeSkeleton<Iterator>::operator[]( int index ){
+auto
+operator[]( int index ){
   
-  try{
-    return materials_.equal_range(index);
-  } catch( std::out_of_range& o ){
+  auto search = materials_.find(index);
+  if( search != materials_.end() ){
+    return search;
+  } else {
     LOG(ERROR) << "Invalid index, " << index;
-    throw o;
-  } 
+    throw std::exception();
+  }
 }
-
-} // namespace implementation
-} // namespace ENDFtk
-
-#endif  // ENDFTK_IMPLEMENTATION_TAPESKELETON_SRC_OPERATOR_HPP
-
-
-

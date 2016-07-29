@@ -9,7 +9,8 @@ TapeSkeleton<Iterator>::TapeSkeleton(Iterator& begin, const Iterator& end,
                                      long& LN )
   try: begin_(begin),
     materialsIndexed_( createIndexedVector(begin, end, LN) ),
-    materials_(createMaterialsMap(materialsIndexed_))
+    materials_(createMaterialsMap(materialsIndexed_)),
+    end_(begin)
   { /* Do nothing */ } 
   catch( std::exception& e ){
     LOG(INFO) << "Trouble when creating a TapeSkeleton";

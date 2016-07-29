@@ -46,12 +46,10 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
         REQUIRE( 2 == tSkel.size() );
 
         AND_THEN( "we can access the Materials of the skeleton" ){
-          auto mSkel = tSkel[0];
-               mSkel = tSkel[1];
+          tSkel[125];
         }
         AND_THEN( "an excpetion is thrown for an invalid index" ){
-          REQUIRE_THROWS( tSkel[-1] );
-          REQUIRE_THROWS( tSkel[ 2] );
+          REQUIRE_THROWS( tSkel[1] );
         }
       }
     }

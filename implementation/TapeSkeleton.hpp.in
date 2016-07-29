@@ -11,7 +11,7 @@ class ENDFtk::implementation::TapeSkeleton {
 
     TapeSkeleton(Iterator& begin, const Iterator& end, long& LN );
 
-    const MaterialSkeleton<Iterator>& operator[] (int index);
+    #include "ENDFtk/implementation/TapeSkeleton/src/operator.hpp"
 
     Iterator begin() const { return begin_; }
     Iterator end() const { return end_; }
@@ -19,10 +19,9 @@ class ENDFtk::implementation::TapeSkeleton {
     size_t size() const { return materials_.size(); }
 
     Iterator begin_;  //!< The beginning of the TapeSkeleton
-    Iterator end_;    //!< The end of the TapeSkeleton
-
     std::vector<MaterialSkeleton_t> materialsIndexed_;
     std::unordered_multimap<int, MaterialSkeleton_t&> materials_;
+    Iterator end_;    //!< The end of the TapeSkeleton
 
 private:
   static std::vector<MaterialSkeleton_t>
@@ -35,7 +34,6 @@ private:
 #include "ENDFtk/implementation/TapeSkeleton/src/TapeSkeleton.hpp"
 #include "ENDFtk/implementation/TapeSkeleton/src/createIndexedVector.hpp"
 #include "ENDFtk/implementation/TapeSkeleton/src/createMaterialsMap.hpp"
-#include "ENDFtk/implementation/TapeSkeleton/src/operator.hpp"
 
 #endif  // ENDFTK_IMPLEMENTATION_TAPESKELETON_HPP
 

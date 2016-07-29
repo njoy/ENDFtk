@@ -14,6 +14,7 @@ TapeSkeleton<Iterator>::createIndexedVector(
     auto position = begin;
 
     try{
+      LOG(INFO) << "LN: " << LN;
       ENDFtk::implementation::TapeIdentification TPID(
         position, end, LN);
       HeadRecord head(position, end, LN);
@@ -24,6 +25,7 @@ TapeSkeleton<Iterator>::createIndexedVector(
       auto TEND = StructureDivision(position, end, LN); 
 
       while( not TEND.isTend() ){
+        LOG(INFO) << "LN: " << LN;
         if(position >= end){
           LOG(ERROR) << "Tape encountered end of stream before reading TEND";
           throw std::exception();
@@ -40,6 +42,7 @@ TapeSkeleton<Iterator>::createIndexedVector(
       throw e;
     }
 
+    begin = position;
     return MI;
 }
 

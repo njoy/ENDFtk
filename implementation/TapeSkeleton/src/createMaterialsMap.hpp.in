@@ -21,12 +21,7 @@ TapeSkeleton<Iterator>::createMaterialsMap(
   try{
     for( auto& file : indexed ){
       auto MAT = file.MAT();
-      if( materialMap.find(MAT) == materialMap.end() ){
-        materialMap.insert({file.MAT(), file});
-      } else {
-        LOG(ERROR) << "Found Material with MAT already used: " << MAT;
-        throw std::exception();
-      }
+      materialMap.insert({file.MAT(), file});
     }
   } catch( std::exception& e ){
     LOG(INFO) << "Trouble constructing the matrials map of TapeSkeleton.";
