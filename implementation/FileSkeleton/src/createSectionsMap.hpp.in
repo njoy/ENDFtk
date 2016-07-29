@@ -20,10 +20,16 @@ FileSkeleton<Iterator>::createSectionsMap(
 
   try{
     for( auto& sec : indexed ){
-      sectionMap.insert({sec.MT(), sec});
+      auto MT = sec.MT();
+      if( sectionMap.find(MT) == sectionMap.end() ){
+        sectionMap.insert({sec.MT(), sec});
+      } else {
+        LOG(ERROR) << "Found section with MT already used: " << MT;
+        throw std::exception();
+      }
     }
   } catch( std::exception& e ){
-    LOG(ERROR) << "Trouble constructing the sections map of FileSkeleton.";
+    LOG(INFO) << "Trouble constructing the sections map of FileSkeleton.";
     throw e;
   }
 

@@ -20,10 +20,16 @@ MaterialSkeleton<Iterator>::createFilesMap(
 
   try{
     for( auto& file : indexed ){
-      fileMap.insert({file.MF(), file});
+      auto MF = file.MF();
+      if( fileMap.find(MF) == fileMap.end() ){
+        fileMap.insert({file.MF(), file});
+      } else {
+        LOG(ERROR) << "Found File with MF already used: " << MF;
+        throw std::exception();
+      }
     }
   } catch( std::exception& e ){
-    LOG(ERROR) << "Trouble constructing the files map of MaterialSkeleton.";
+    LOG(INFO) << "Trouble constructing the files map of MaterialSkeleton.";
     throw e;
   }
 

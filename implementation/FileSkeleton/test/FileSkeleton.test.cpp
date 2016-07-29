@@ -160,7 +160,6 @@ SCENARIO( "Creating a skeleton of an ENDF File" ){
           REQUIRE_THROWS( fSkel[3] );
         }
       }
-    
     }
     
     WHEN( "an invalid (MF !=0) FEND record ends the File" ){
@@ -180,16 +179,34 @@ SCENARIO( "Creating a skeleton of an ENDF File" ){
       }
     }
     WHEN( "a File is too short (no FEND record)" ){
+      auto begin = sFile.begin();
+      auto start = sFile.begin();
+      auto end = sFile.end();
+      long LN = 0;
       THEN( "an exception is thrown" ){
-        auto begin = sFile.begin();
-        auto start = sFile.begin();
-        auto end = sFile.end();
-        long LN = 0;
 
         LOG(INFO) << "Error expected with no FEND record.";
         HeadRecord head(begin, end, LN);
         REQUIRE_THROWS(FileSkeleton<std::string::iterator> fSkel( 
           head, start, begin, end, LN));
+      }
+    }
+
+    WHEN( "a File has more than one Section with the same number" ){
+      std::string sFEND = 
+        "                                                                   125 0  0\n";
+      sFile += sFile + sFEND;
+      auto begin = sFile.begin();
+      auto start = sFile.begin();
+      auto end = sFile.end();
+      long LN = 0;
+
+      THEN( "an exception is thrown" ){
+        LOG(INFO) << "Error expected with degenerate (same MT) Sections.";
+        HeadRecord head(begin, end, LN);
+        REQUIRE_THROWS(FileSkeleton<std::string::iterator> fSkel( 
+          head, start, begin, end, LN));
+
       }
     }
     

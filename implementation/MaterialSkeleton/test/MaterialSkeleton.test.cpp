@@ -25,7 +25,7 @@ SCENARIO( "Creating a material Skeleton of an ENDF File" ){
 
     auto begin = sMaterial.begin();
     auto start = sMaterial.begin();
-    long LN = 1;
+    long LN = 0;
 
     WHEN( "a valid MEND record ends the Material" ){
 
@@ -39,7 +39,7 @@ SCENARIO( "Creating a material Skeleton of an ENDF File" ){
         head, start, begin, end, LN);
 
       THEN( "se can access the parts of the skeleton" ){
-        REQUIRE( 2209 == LN );
+        REQUIRE( 2208 == LN );
         REQUIRE( sMaterial.begin() == mSkel.begin() );
         REQUIRE( end == mSkel.end() );
         REQUIRE( 6 == mSkel.size() );
@@ -67,9 +67,9 @@ SCENARIO( "Creating a material Skeleton of an ENDF File" ){
       std::string sMEND = 
         "                                                                   125 0  0\n";
       sMaterial += sMEND;
+      auto end = sMaterial.end();
 
       THEN( "an exception is thrown" ){
-        auto end = sMaterial.end();
 
         LOG(INFO) << "Errors expected with invalid MEND record.";
         HeadRecord head(begin, end, LN);
@@ -84,6 +84,24 @@ SCENARIO( "Creating a material Skeleton of an ENDF File" ){
         auto end = sMaterial.end();
 
         LOG(INFO) << "Errors expected with no MEND record.";
+        HeadRecord head(begin, end, LN);
+        REQUIRE_THROWS(
+          MaterialSkeleton<std::string::iterator> mSkel(
+          head, start, begin, end, LN) );
+      }
+    }
+
+    WHEN( "there are degenerate (same MF number) Files in the Material" ){
+      std::string sMEND = 
+        "                                                                     0 0  0\n";
+      sMaterial += sMaterial + sMEND;
+      auto begin = sMaterial.begin();
+      auto start = sMaterial.begin();
+      auto end = sMaterial.end();
+      long LN = 0;
+      THEN( "an exception is thrown" ){
+
+        LOG(INFO) << "Errors expected.";
         HeadRecord head(begin, end, LN);
         REQUIRE_THROWS(
           MaterialSkeleton<std::string::iterator> mSkel(
