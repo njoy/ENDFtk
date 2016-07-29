@@ -40,7 +40,7 @@ class ENDFtk::implementation::FileSkeleton {
       long& lineNumber );
 
     static std::unordered_map<int, SectionSkeleton_t& >
-    createSectionsMap(const std::vector<SectionSkeleton_t>& indexed);
+    createSectionsMap(std::vector<SectionSkeleton_t>& indexed);
 
 };
 

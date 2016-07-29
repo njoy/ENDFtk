@@ -12,14 +12,15 @@ namespace implementation {
 template<typename Iterator>
 std::unordered_map<int, SectionSkeleton<Iterator>& > 
 FileSkeleton<Iterator>::createSectionsMap(
-  const std::vector<SectionSkeleton<Iterator>>& indexed){
+  std::vector<SectionSkeleton<Iterator>>& indexed){
 
   std::unordered_map<int, SectionSkeleton_t& > sectionMap;
+
   sectionMap.reserve(indexed.size());
 
   try{
     for( auto& sec : indexed ){
-      sectionMap.insert(std::make_pair(sec.MT(), sec));
+      sectionMap.insert({sec.MT(), sec});
     }
   } catch( std::exception& e ){
     LOG(ERROR) << "Trouble constructing the sections map of FileSkeleton.";

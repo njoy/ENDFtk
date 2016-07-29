@@ -186,7 +186,7 @@ SCENARIO( "Creating a skeleton of an ENDF File" ){
         auto end = sFile.end();
         long LN = 0;
 
-        LOG(INFO) << "Error expected with now FEND record.";
+        LOG(INFO) << "Error expected with no FEND record.";
         HeadRecord head(begin, end, LN);
         REQUIRE_THROWS(FileSkeleton<std::string::iterator> fSkel( 
           head, start, begin, end, LN));
