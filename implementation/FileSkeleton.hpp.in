@@ -43,6 +43,8 @@ class ENDFtk::implementation::FileSkeleton {
 };
 
 #include "ENDFtk/implementation/FileSkeleton/src/FileSkeleton.hpp"
+#include "ENDFtk/implementation/FileSkeleton/src/createIndexedVector.hpp"
+#include "ENDFtk/implementation/FileSkeleton/src/createSectionsMap.hpp"
 #include "ENDFtk/implementation/FileSkeleton/src/operator.hpp"
 #endif  // ENDFTK_IMPLEMENTATION_FILESKELETON_HPP
 
