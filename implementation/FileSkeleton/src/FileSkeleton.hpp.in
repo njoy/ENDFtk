@@ -22,6 +22,7 @@ FileSkeleton<Iterator>::FileSkeleton(
     auto FEND = StructureDivision(position, end, lineNumber); 
 
     while( not FEND.isFend() ){
+      LOG(INFO) << "diff before: " << end-position;
       if(position >= end){
         LOG(ERROR) << "File encountered end of stream before reading FEND";
         throw std::exception();
@@ -33,6 +34,8 @@ FileSkeleton<Iterator>::FileSkeleton(
 
       begin = position;
       FEND = StructureDivision(position, end, lineNumber); 
+      LOG(INFO) << "diff after: " << end-position;
+      LOG(INFO) << "isFEND? " << FEND.isFend();
     }
   } catch( std::exception& e ){
     LOG(INFO) << "Trouble when creating a FileSkeleton";
@@ -40,7 +43,9 @@ FileSkeleton<Iterator>::FileSkeleton(
     throw e;
   }
 
+  LOG(INFO) << "Trying to set end_.";
   end_ = position;
+  LOG(INFO) << "I just set the end_.";
 }
 
 } // namespace implementation

@@ -18,9 +18,13 @@ class ENDFtk::implementation::FileSkeleton {
     const SectionSkeleton<Iterator>& operator[] (int MT);
 
     Iterator begin() const { return begin_; }
-    Iterator end() const { return end_; }
+    Iterator end() const { 
+      LOG(INFO) << "Here is the end of FileSkeleton";
+      return end_; }
 
-    size_t size() const { return sections_.size(); }
+    size_t size() const { 
+      LOG(INFO) << "This is my size" ;
+      return sections_.size(); }
 
     int MF_;          //!< File identifier
     Iterator begin_;  //!< The beginning of the FileSkeleton
