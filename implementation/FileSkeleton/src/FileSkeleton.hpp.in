@@ -9,43 +9,68 @@ namespace implementation {
 template<typename Iterator>
 FileSkeleton<Iterator>::FileSkeleton(
   const HeadRecord& mHead, 
-  Iterator begin, Iterator& position, const Iterator& end, long& lineNumber )
-  : begin_(begin)
-{
-  try{
-    sectionsIndexed_.emplace_back(mHead, begin, position, end, lineNumber);
-    auto& skeletor = sectionsIndexed_.back();
-    sections_.emplace(skeletor.MT(), skeletor);
-
-    this->MF_  = mHead.MF();
-
-    auto FEND = StructureDivision(position, end, lineNumber); 
-
-    while( not FEND.isFend() ){
-      LOG(INFO) << "diff before: " << end-position;
-      if(position >= end){
-        LOG(ERROR) << "File encountered end of stream before reading FEND";
-        throw std::exception();
-      }
-      sectionsIndexed_.emplace_back(asHead(FEND), 
-                                    begin, position, end, lineNumber);
-      skeletor = sectionsIndexed_.back();
-      sections_.emplace(skeletor.MT(), skeletor);
-
-      begin = position;
-      FEND = StructureDivision(position, end, lineNumber); 
-      LOG(INFO) << "diff after: " << end-position;
-      LOG(INFO) << "isFEND? " << FEND.isFend();
-    }
-  } catch( std::exception& e ){
-    LOG(INFO) << "Trouble when creating a FileSkeleton";
-    LOG(INFO) << "Line number=" << lineNumber << ", MF=" << this->MF_;
+  Iterator begin, Iterator& position, const Iterator& end, long& LN )
+  try:  MF_(mHead.MF()), begin_(begin),
+        sectionsIndexed_(createIndexedVector(mHead, begin, position, end, LN)),
+        sections_(createSectionsMap()),
+        end_(position)
+  { /* Do nothing */ }
+  catch( std::exception& e ){
+    LOG(INFO) << "Trouble encountered while constructing a FileSkeleton.";
     throw e;
   }
 
-  LOG(INFO) << "Trying to set end_.";
-  end_ = position;
-  LOG(INFO) << "I just set the end_.";
+template<typename Iterator>
+std::vector<SectionSkeleton<Iterator> > 
+FileSkeleton<Iterator>::createIndexedVector(
+  const HeadRecord& head,
+  Iterator begin, Iterator& position, const Iterator& end, 
+  long& lineNumber ){
+    std::vector<SectionSkeleton<Iterator> > SI;
+
+    try{
+      SI.push_back(
+        SectionSkeleton<Iterator>(head, begin, position, end, lineNumber) );
+
+      auto FEND = StructureDivision(position, end, lineNumber); 
+
+      while( not FEND.isFend() ){
+        if(position >= end){
+          LOG(ERROR) << "File encountered end of stream before reading FEND";
+          throw std::exception();
+        }
+        SI.push_back(
+          SectionSkeleton<Iterator>(asHead(FEND), 
+                                    begin, position, end, lineNumber) );
+
+        begin = position;
+        FEND = StructureDivision(position, end, lineNumber); 
+      }
+    } catch( std::exception& e ){
+      LOG(INFO) << "Trouble when populating the FileSkeleton index";
+      LOG(INFO) << "Line number=" << lineNumber << ", MF=" << this->MF_;
+      throw e;
+    }
+
+    return SI;
+}
+
+template<typename Iterator>
+std::unordered_map<int, SectionSkeleton<Iterator>& > 
+FileSkeleton<Iterator>::createSectionsMap(){
+
+  std::unordered_map<int, SectionSkeleton<Iterator>& > sectionMap;
+
+  try{
+    for( auto& sec : sectionsIndexed_ ){
+      sectionMap.insert({sec.MT(), sec});
+    }
+  } catch( std::exception& e ){
+    LOG(ERROR) << "Trouble constructing the sections map of FileSkeleton.";
+    throw e;
+  }
+
+  return sectionMap;
 }
 
 } // namespace implementation

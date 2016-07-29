@@ -2,6 +2,7 @@
 #define ENDFTK_IMPLEMENTATION_FILESKELETON_HPP
 
 #include <unordered_map>
+#include <functional>
 
 /** @brief Skeleton of a File containing a few pieces to know how to locate
  * it.
@@ -11,27 +12,33 @@ class ENDFtk::implementation::FileSkeleton {
   public:
     FileSkeleton(const HeadRecord& head,
                  Iterator begin, Iterator& position, const Iterator& end, 
-                 long& lineNumber );
+                 long& LN );
 
     //! Return the File identifier (MF) of the skeleton
     int MF() const { return MF_; }
     const SectionSkeleton<Iterator>& operator[] (int MT);
 
     Iterator begin() const { return begin_; }
-    Iterator end() const { 
-      LOG(INFO) << "Here is the end of FileSkeleton";
-      return end_; }
+    Iterator end() const { return end_; }
 
-    size_t size() const { 
-      LOG(INFO) << "This is my size" ;
-      return sections_.size(); }
+    size_t size() const { return sections_.size(); }
 
     int MF_;          //!< File identifier
     Iterator begin_;  //!< The beginning of the FileSkeleton
+
+    std::vector<SectionSkeleton<Iterator> > sectionsIndexed_;
+    std::unordered_map<int, SectionSkeleton<Iterator>& > sections_;
+
     Iterator end_;    //!< The end of the FileSkeleton
 
-    std::unordered_map<int, SectionSkeleton<Iterator> > sections_;
-    std::vector<SectionSkeleton<Iterator> > sectionsIndexed_;
+    std::vector<SectionSkeleton<Iterator> > 
+    createIndexedVector(
+      const HeadRecord& head,
+      Iterator begin, Iterator& position, const Iterator& end, 
+      long& lineNumber );
+
+    std::unordered_map<int, SectionSkeleton<Iterator>& >
+    createSectionsMap();
 
 };
 

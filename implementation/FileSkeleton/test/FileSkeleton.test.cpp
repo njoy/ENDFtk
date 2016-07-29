@@ -140,34 +140,25 @@ SCENARIO( "Creating a skeleton of an ENDF File" ){
       HeadRecord head(begin,end, LN);
       FileSkeleton<std::string::iterator> fSkel(
         head, start, begin, end, LN);
-      LOG(INFO) << "I just created fSkel.";
 
       THEN( "we can access the parts of the skeleton" ){
-        LOG(INFO) << "Accessing parts of the skeleton.";
-        LOG(INFO) << "LN: " << LN;
         REQUIRE( 109 == LN );
-        LOG(INFO) << "sFile.begin(): " << *(sFile.begin());
-        LOG(INFO) << "fSkel.begin(): " << *(fSkel.begin());
         REQUIRE( sFile.begin() == fSkel.begin() );
-        LOG(INFO) << "end: " << *end;
-        LOG(INFO) << "fSkel.end: " << *(fSkel.end());
-//      REQUIRE( end == fSkel.end() );
-        LOG(INFO) << "fSkel.size(): " << fSkel.size();
-//      REQUIRE(   3 == fSkel.size() );
+        REQUIRE( end == fSkel.end() );
+        REQUIRE(   3 == fSkel.size() );
 
-        LOG(INFO) << "fSkel.MF(): " << fSkel.MF();
-//      REQUIRE(   3 == fSkel.MF() );
+        REQUIRE(   3 == fSkel.MF() );
 
         // According to the Developers Guide, these tests should be in a
         // different test file
-//      AND_THEN( "we can access the Sections of the skeleton" ){
-//        auto sSkel = fSkel[1];
-//             sSkel = fSkel[2];
-//             sSkel = fSkel[102];
-//      }
-//      AND_THEN( "an exception is thrown if the requested MTs are invalid."){
-//        REQUIRE_THROWS( fSkel[3] );
-//      }
+        AND_THEN( "we can access the Sections of the skeleton" ){
+          auto sSkel = fSkel[1];
+               sSkel = fSkel[2];
+               sSkel = fSkel[102];
+        }
+        AND_THEN( "an exception is thrown if the requested MTs are invalid."){
+          REQUIRE_THROWS( fSkel[3] );
+        }
       }
     
     }
