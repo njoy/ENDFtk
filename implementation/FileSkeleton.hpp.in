@@ -9,38 +9,39 @@
  */
 template<typename Iterator>
 class ENDFtk::implementation::FileSkeleton {
-  public:
-    using SectionSkeleton_t = SectionSkeleton<Iterator>;
+public:
+  using SectionSkeleton_t = SectionSkeleton<Iterator>;
 
-    FileSkeleton(const HeadRecord& head,
-                 Iterator begin, Iterator& position, const Iterator& end, 
-                 long& LN );
+  FileSkeleton(const HeadRecord& head,
+               Iterator begin, Iterator& position, const Iterator& end, 
+               long& LN );
 
-    //! Return the File identifier (MF) of the skeleton
-    int MF() const { return MF_; }
-    const SectionSkeleton_t& operator[] (int MT);
+  //! Return the File identifier (MF) of the skeleton
+  int MF() const { return MF_; }
+  const SectionSkeleton_t& operator[] (int MT);
 
-    Iterator begin() const { return begin_; }
-    Iterator end() const { return end_; }
+  Iterator begin() const { return begin_; }
+  Iterator end() const { return end_; }
 
-    size_t size() const { return sections_.size(); }
+  size_t size() const { return sections_.size(); }
 
-    int MF_;          //!< File identifier
-    Iterator begin_;  //!< The beginning of the FileSkeleton
+  int MF_;          //!< File identifier
+  Iterator begin_;  //!< The beginning of the FileSkeleton
 
-    std::vector<SectionSkeleton_t > sectionsIndexed_;
-    std::unordered_map<int, SectionSkeleton_t& > sections_;
+  std::vector<SectionSkeleton_t > sectionsIndexed_;
+  std::unordered_map<int, SectionSkeleton_t& > sections_;
 
-    Iterator end_;    //!< The end of the FileSkeleton
+  Iterator end_;    //!< The end of the FileSkeleton
 
-    static std::vector<SectionSkeleton_t > 
-    createIndexedVector(
-      const HeadRecord& head,
-      Iterator begin, Iterator& position, const Iterator& end, 
-      long& lineNumber );
+private:
+  static std::vector<SectionSkeleton_t > 
+  createIndexedVector(
+    const HeadRecord& head,
+    Iterator begin, Iterator& position, const Iterator& end, 
+    long& lineNumber );
 
-    static std::unordered_map<int, SectionSkeleton_t& >
-    createSectionsMap(std::vector<SectionSkeleton_t>& indexed);
+  static std::unordered_map<int, SectionSkeleton_t& >
+  createSectionsMap(std::vector<SectionSkeleton_t>& indexed);
 
 };
 

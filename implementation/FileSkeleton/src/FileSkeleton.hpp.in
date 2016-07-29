@@ -17,7 +17,7 @@ FileSkeleton<Iterator>::FileSkeleton(
   { /* Do nothing */ }
   catch( std::exception& e ){
     LOG(INFO) << "Trouble encountered while constructing a FileSkeleton.";
-      LOG(INFO) << "Line number=" << LN << ", MF=" << mHead.MF();
+    LOG(INFO) << "Line number=" << LN << ", MF=" << mHead.MF();
     throw e;
   }
 

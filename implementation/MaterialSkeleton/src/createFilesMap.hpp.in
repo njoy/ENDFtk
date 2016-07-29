@@ -1,0 +1,37 @@
+#ifndef ENDFTK_IMPLEMENTATION_MATERIALSKELETON_SRC_CREATEFILESMAP_HPP
+#define ENDFTK_IMPLEMENTATION_MATERIALSKELETON_SRC_CREATEFILESMAP_HPP
+
+#include <unordered_map>
+#include <functional>
+
+#include "ENDFtk.hpp"
+
+namespace ENDFtk {
+namespace implementation {
+
+template<typename Iterator>
+std::unordered_map<int, FileSkeleton<Iterator>& > 
+MaterialSkeleton<Iterator>::createFilesMap(
+  std::vector<FileSkeleton<Iterator>>& indexed){
+
+  std::unordered_map<int, FileSkeleton_t& > fileMap;
+
+  fileMap.reserve(indexed.size());
+
+  try{
+    for( auto& file : indexed ){
+      fileMap.insert({file.MF(), file});
+    }
+  } catch( std::exception& e ){
+    LOG(ERROR) << "Trouble constructing the files map of MaterialSkeleton.";
+    throw e;
+  }
+
+  return fileMap;
+}
+
+} // namespace implementation
+} // namespace ENDFtk
+#endif  // ENDFTK_IMPLEMENTATION_MATERIALSKELETON_SRC_CREATEFILESMAP_HPP
+
+

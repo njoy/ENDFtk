@@ -1,33 +1,48 @@
 #ifndef ENDFTK_IMPLEMENTATION_MATERIALSKELETON_HPP
 #define ENDFTK_IMPLEMENTATION_MATERIALSKELETON_HPP
 
+#include <functional>
+
 /** @brief Skeleton of a Material containing a few pieces to know how to locate
  * it.
  */
 template<typename Iterator>
 class ENDFtk::implementation::MaterialSkeleton {
-  public:
-    MaterialSkeleton(const HeadRecord& mHead,
-                     Iterator begin, Iterator& position, const Iterator& end, 
-                     long& lineNumber );
+public:
+  using FileSkeleton_t = FileSkeleton<Iterator>;
 
-    int MAT() const { return MAT_; }
-    const FileSkeleton<Iterator>& operator[] (int MF);
+  MaterialSkeleton(const HeadRecord& mHead,
+                   Iterator begin, Iterator& position, const Iterator& end, 
+                   long& LN );
 
-    Iterator begin() const { return begin_; }
-    Iterator end() const { return end_; }
+  int MAT() const { return MAT_; }
+  const FileSkeleton<Iterator>& operator[] (int MF);
 
-    size_t size() const { return files_.size(); }
+  Iterator begin() const { return begin_; }
+  Iterator end() const { return end_; }
 
-    int MAT_;         //!< Material idenfifier for the M
-    Iterator begin_;  //!< The beginning of the MaterialSkeleton
-    Iterator end_;    //!< The end of the MaterialSkeleton
+  size_t size() const { return files_.size(); }
 
-    std::unordered_map<int, FileSkeleton<Iterator>> files_;
+  int MAT_;         //!< Material idenfifier for the M
+  Iterator begin_;  //!< The beginning of the MaterialSkeleton
+  std::vector<FileSkeleton_t> filesIndexed_;
+  std::unordered_map<int, FileSkeleton<Iterator>&> files_;
+  Iterator end_;    //!< The end of the MaterialSkeleton
 
+private:
+  static std::vector<FileSkeleton_t>
+  createIndexedVector(
+      const HeadRecord& head,
+      Iterator begin, Iterator& position, const Iterator& end,
+      long& LN);
+
+  static std::unordered_map<int, FileSkeleton_t&>
+  createFilesMap(std::vector<FileSkeleton_t>& indeed);
 };
 
 #include "ENDFtk/implementation/MaterialSkeleton/src/MaterialSkeleton.hpp"
+#include "ENDFtk/implementation/MaterialSkeleton/src/createIndexedVector.hpp"
+#include "ENDFtk/implementation/MaterialSkeleton/src/createFilesMap.hpp"
 #include "ENDFtk/implementation/MaterialSkeleton/src/operator.hpp"
 
 #endif  // ENDFTK_IMPLEMENTATION_MATERIALSKELETON_HPP

@@ -7,34 +7,16 @@ namespace implementation {
 template<typename Iterator>
 MaterialSkeleton<Iterator>::MaterialSkeleton(
   const HeadRecord& mHead, 
-  Iterator begin, Iterator& position, const Iterator& end, long& lineNumber )
-  : begin_(begin)
-{
-  try{
-    FileSkeleton<Iterator> skeletor(mHead, begin, position, end, lineNumber);
-    this->files_.emplace(skeletor.MF(), skeletor);
-    this->MAT_ = mHead.MAT();
-
-    auto MEND = StructureDivision(position, end, lineNumber); 
-
-    while( not MEND.isMend() ){
-      if(position >= end){
-        LOG(ERROR) << "Material encountered end of stream before reading MEND";
-        throw std::exception();
-      }
-      skeletor = FileSkeleton<Iterator>(asHead(MEND), begin, position, end, 
-                                        lineNumber);
-      this->files_.emplace(skeletor.MF(), skeletor);
-      begin = position;
-      MEND = StructureDivision(position, end, lineNumber); 
-    }
-  } catch( std::exception& e ){
-    LOG(INFO) << "Trouble when creating a MaterialSkeleton";
-    LOG(INFO) << "Line number=" << lineNumber << ", MAT=" << this->MAT_;
-    throw e;
-  }
-
-  end_ = position;
+  Iterator begin, Iterator& position, const Iterator& end, long& LN )
+  try:  MAT_(mHead.MAT()), begin_(begin),
+        filesIndexed_( createIndexedVector(mHead, begin, position, end, LN)),
+        files_(createFilesMap(filesIndexed_)),
+        end_(position)
+{ /* Do nothing */ } 
+catch( std::exception& e ){
+  LOG(INFO) << "Trouble when creating a MaterialSkeleton";
+  LOG(INFO) << "Line number=" << LN << ", MAT=" << mHead.MAT();
+  throw e;
 }
 
 } // namespace implementation
