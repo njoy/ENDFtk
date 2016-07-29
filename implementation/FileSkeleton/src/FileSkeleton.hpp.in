@@ -12,11 +12,12 @@ FileSkeleton<Iterator>::FileSkeleton(
   Iterator begin, Iterator& position, const Iterator& end, long& LN )
   try:  MF_(mHead.MF()), begin_(begin),
         sectionsIndexed_(createIndexedVector(mHead, begin, position, end, LN)),
-        sections_(createSectionsMap()),
+        sections_(createSectionsMap(sectionsIndexed_)),
         end_(position)
   { /* Do nothing */ }
   catch( std::exception& e ){
     LOG(INFO) << "Trouble encountered while constructing a FileSkeleton.";
+      LOG(INFO) << "Line number=" << LN << ", MF=" << mHead.MF();
     throw e;
   }
 

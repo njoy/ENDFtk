@@ -1,6 +1,9 @@
 #ifndef ENDFTK_IMPLEMENTATION_FILESKELETON_SRC_CREATESECTIONSMAP_HPP
 #define ENDFTK_IMPLEMENTATION_FILESKELETON_SRC_CREATESECTIONSMAP_HPP
 
+#include <unordered_map>
+#include <functional>
+
 #include "ENDFtk.hpp"
 
 namespace ENDFtk {
@@ -8,13 +11,15 @@ namespace implementation {
 
 template<typename Iterator>
 std::unordered_map<int, SectionSkeleton<Iterator>& > 
-FileSkeleton<Iterator>::createSectionsMap(){
+FileSkeleton<Iterator>::createSectionsMap(
+  const std::vector<SectionSkeleton<Iterator>>& indexed){
 
-  std::unordered_map<int, SectionSkeleton<Iterator>& > sectionMap;
+  std::unordered_map<int, SectionSkeleton_t& > sectionMap;
+  sectionMap.reserve(indexed.size());
 
   try{
-    for( auto& sec : sectionsIndexed_ ){
-      sectionMap.insert({sec.MT(), sec});
+    for( auto& sec : indexed ){
+      sectionMap.insert(std::make_pair(sec.MT(), sec));
     }
   } catch( std::exception& e ){
     LOG(ERROR) << "Trouble constructing the sections map of FileSkeleton.";

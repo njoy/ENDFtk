@@ -12,11 +12,11 @@ FileSkeleton<Iterator>::createIndexedVector(
   const HeadRecord& head,
   Iterator begin, Iterator& position, const Iterator& end, 
   long& lineNumber ){
-    std::vector<SectionSkeleton<Iterator> > SI;
+    std::vector<SectionSkeleton_t > SI;
 
     try{
       SI.push_back(
-        SectionSkeleton<Iterator>(head, begin, position, end, lineNumber) );
+        SectionSkeleton_t(head, begin, position, end, lineNumber) );
 
       auto FEND = StructureDivision(position, end, lineNumber); 
 
@@ -26,7 +26,7 @@ FileSkeleton<Iterator>::createIndexedVector(
           throw std::exception();
         }
         SI.push_back(
-          SectionSkeleton<Iterator>(asHead(FEND), 
+          SectionSkeleton_t(asHead(FEND), 
                                     begin, position, end, lineNumber) );
 
         begin = position;
@@ -34,7 +34,6 @@ FileSkeleton<Iterator>::createIndexedVector(
       }
     } catch( std::exception& e ){
       LOG(INFO) << "Trouble when populating the FileSkeleton index";
-      LOG(INFO) << "Line number=" << lineNumber << ", MF=" << this->MF_;
       throw e;
     }
 

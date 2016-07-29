@@ -10,13 +10,15 @@
 template<typename Iterator>
 class ENDFtk::implementation::FileSkeleton {
   public:
+    using SectionSkeleton_t = SectionSkeleton<Iterator>;
+
     FileSkeleton(const HeadRecord& head,
                  Iterator begin, Iterator& position, const Iterator& end, 
                  long& LN );
 
     //! Return the File identifier (MF) of the skeleton
     int MF() const { return MF_; }
-    const SectionSkeleton<Iterator>& operator[] (int MT);
+    const SectionSkeleton_t& operator[] (int MT);
 
     Iterator begin() const { return begin_; }
     Iterator end() const { return end_; }
@@ -26,19 +28,19 @@ class ENDFtk::implementation::FileSkeleton {
     int MF_;          //!< File identifier
     Iterator begin_;  //!< The beginning of the FileSkeleton
 
-    std::vector<SectionSkeleton<Iterator> > sectionsIndexed_;
-    std::unordered_map<int, SectionSkeleton<Iterator>& > sections_;
+    std::vector<SectionSkeleton_t > sectionsIndexed_;
+    std::unordered_map<int, SectionSkeleton_t& > sections_;
 
     Iterator end_;    //!< The end of the FileSkeleton
 
-    std::vector<SectionSkeleton<Iterator> > 
+    static std::vector<SectionSkeleton_t > 
     createIndexedVector(
       const HeadRecord& head,
       Iterator begin, Iterator& position, const Iterator& end, 
       long& lineNumber );
 
-    std::unordered_map<int, SectionSkeleton<Iterator>& >
-    createSectionsMap();
+    static std::unordered_map<int, SectionSkeleton_t& >
+    createSectionsMap(const std::vector<SectionSkeleton_t>& indexed);
 
 };
 
