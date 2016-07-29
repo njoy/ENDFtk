@@ -1,0 +1,44 @@
+#ifndef ENDFTK_IMPLEMENTATION_TAPESKELETON_SRC_CREATEFILESMAP_HPP
+#define ENDFTK_IMPLEMENTATION_TAPESKELETON_SRC_CREATEFILESMAP_HPP
+
+#include <unordered_map>
+#include <functional>
+
+#include "ENDFtk.hpp"
+
+namespace ENDFtk {
+namespace implementation {
+
+template<typename Iterator>
+std::unordered_multimap<int, MaterialSkeleton<Iterator>& > 
+TapeSkeleton<Iterator>::createMaterialsMap(
+  std::vector<MaterialSkeleton<Iterator>>& indexed){
+
+  std::unordered_multimap<int, MaterialSkeleton_t& > materialMap;
+
+  materialMap.reserve(indexed.size());
+
+  try{
+    for( auto& file : indexed ){
+      auto MAT = file.MAT();
+      if( materialMap.find(MAT) == materialMap.end() ){
+        materialMap.insert({file.MAT(), file});
+      } else {
+        LOG(ERROR) << "Found Material with MAT already used: " << MAT;
+        throw std::exception();
+      }
+    }
+  } catch( std::exception& e ){
+    LOG(INFO) << "Trouble constructing the matrials map of TapeSkeleton.";
+    throw e;
+  }
+
+  return materialMap;
+}
+
+} // namespace implementation
+} // namespace ENDFtk
+#endif  // ENDFTK_IMPLEMENTATION_TAPESKELETON_SRC_CREATEFILESMAP_HPP
+
+
+

@@ -1,0 +1,50 @@
+#ifndef ENDFTK_IMPLEMENTATION_TAPESKELETON_SRC_CREATEINDEXEDVECTOR_HPP
+#define ENDFTK_IMPLEMENTATION_TAPESKELETON_SRC_CREATEINDEXEDVECTOR_HPP
+
+#include "ENDFtk.hpp"
+
+namespace ENDFtk {
+namespace implementation {
+
+template<typename Iterator>
+std::vector<MaterialSkeleton<Iterator> > 
+TapeSkeleton<Iterator>::createIndexedVector(
+  Iterator& begin, const Iterator& end, long& LN ){
+    std::vector<MaterialSkeleton_t > MI;
+    auto position = begin;
+
+    try{
+      ENDFtk::implementation::TapeIdentification TPID(
+        position, end, LN);
+      HeadRecord head(position, end, LN);
+
+      MI.push_back(
+        MaterialSkeleton_t(head, begin, position, end, LN) );
+
+      auto TEND = StructureDivision(position, end, LN); 
+
+      while( not TEND.isTend() ){
+        if(position >= end){
+          LOG(ERROR) << "Tape encountered end of stream before reading TEND";
+          throw std::exception();
+        }
+        MI.push_back(
+          MaterialSkeleton_t(asHead(TEND), 
+                                    begin, position, end, LN) );
+
+        begin = position;
+        TEND = StructureDivision(position, end, LN); 
+      }
+    } catch( std::exception& e ){
+      LOG(INFO) << "Trouble when populating the TapeSkeleton index";
+      throw e;
+    }
+
+    return MI;
+}
+
+} // namespace implementation
+} // namespace ENDFtk
+#endif  // ENDFTK_IMPLEMENTATION_TAPESKELETON_SRC_CREATEINDEXEDVECTOR_HPP
+
+

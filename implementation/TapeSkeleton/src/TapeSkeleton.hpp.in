@@ -6,37 +6,16 @@ namespace implementation {
 
 template<typename Iterator>
 TapeSkeleton<Iterator>::TapeSkeleton(Iterator& begin, const Iterator& end, 
-                                           long& lineNumber )
-  : begin_(begin)
-{
-  auto position = begin;
-  try{
-    ENDFtk::implementation::TapeIdentification TPID(position, end, lineNumber);
-
-    HeadRecord head(position, end, lineNumber);
-
-    this->materials_.emplace_back(head, begin, position, end, lineNumber);
-
-    auto TEND = StructureDivision(position, end, lineNumber); 
-
-    while( not TEND.isTend() ){
-      if( position >= end ){
-        LOG(ERROR) << "Tape encountered end of stream before reading TEND.";
-        throw std::exception();
-      }
-
-      begin = position;
-      materials_.emplace_back(asHead(TEND), begin, position, end, lineNumber);
-      TEND = StructureDivision(position, end, lineNumber); 
-    }
-  } catch( std::exception& e ){
+                                     long& LN )
+  try: begin_(begin),
+    materialsIndexed_( createIndexedVector(begin, end, LN) ),
+    materials_(createMaterialsMap(materialsIndexed_))
+  { /* Do nothing */ } 
+  catch( std::exception& e ){
     LOG(INFO) << "Trouble when creating a TapeSkeleton";
-    LOG(INFO) << "Line number=" << lineNumber;
+    LOG(INFO) << "Line number=" << LN;
     throw e;
   }
-
-  end_ = position;
-}
 
 } // namespace implementation
 } // namespace ENDFtk

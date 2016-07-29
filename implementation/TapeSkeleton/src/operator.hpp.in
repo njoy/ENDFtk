@@ -14,11 +14,11 @@ namespace implementation {
  * Material has index `0`.
  */
 template<typename Iterator>
-const MaterialSkeleton<Iterator>& 
+std::pair<iterator,iterator>&
 TapeSkeleton<Iterator>::operator[]( int index ){
   
   try{
-    return materials_.at(index);
+    return materials_.equal_range(index);
   } catch( std::out_of_range& o ){
     LOG(ERROR) << "Invalid index, " << index;
     throw o;
