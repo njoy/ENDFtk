@@ -6,7 +6,8 @@ set(long_path "${ENDFtk_HEADER_DIR}/implementation/SectionSkeleton" )
 
 set(headers "")
 list(APPEND headers
-  "src/SectionSkeleton"
+  "src/findEnd"
+  "src/ctor"
   )
 
 foreach(header ${headers})

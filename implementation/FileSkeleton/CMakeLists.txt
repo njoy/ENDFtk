@@ -6,10 +6,10 @@ set(long_path "${ENDFtk_HEADER_DIR}/implementation/FileSkeleton" )
 
 set(headers "")
 list(APPEND headers
-  "src/FileSkeleton"
-  "src/createIndexedVector"
-  "src/createSectionsMap"
-  "src/operator"
+  "src/ctor"
+  "src/createVector"
+  "src/createMap"
+  "src/sectionNumber"
   )
 
 foreach(header ${headers})

@@ -1,39 +1,64 @@
-#ifndef ENDFTK_IMPLEMENTATION_TAPESKELETON_HPP
-#define ENDFTK_IMPLEMENTATION_TAPESKELETON_HPP
+namespace ENDFtk{
+namespace implementation{
 
-/** @brief Skeleton of a Tape containing a few pieces to know how to locate
- * it.
- */
-template<typename Iterator>
-class ENDFtk::implementation::TapeSkeleton {
+template< typename BufferIterator >
+class TapeSkeleton {
+public:
+  /* convenience typedefs */
+  using MaterialSkeleton_t = MaterialSkeleton< BufferIterator >;
+  
+  /* nested classes */
+  template< typename Parent >
+  class MatchIterator_ : public Parent {
   public:
-    using MaterialSkeleton_t = MaterialSkeleton<Iterator>;
+    template< typename... Args >
+    MatchIterator_( Args&&... args ) :
+      Parent( std::forward< Args >( args )... ){}
+    
+    MaterialSkeleton_t&
+    operator*(){ return Parent::operator*().second; }
+  };
+  
+  /* more convenience typedefs */
+  using Iterator = typename std::vector< MaterialSkeleton_t >::iterator;
+  using Multimap = std::unordered_multimap< int, MaterialSkeleton_t& >;
+  using MatchIterator = MatchIterator_< typename Multimap::iterator >;
+  
+  /* fields */
+  std::pair< BufferIterator, BufferIterator > bufferLimits;
+  TapeIdentification tpid;
+  std::vector< MaterialSkeleton_t > materialVector;
+  std::unordered_multimap< int, MaterialSkeleton_t& > materialMap;
 
-    TapeSkeleton(Iterator& begin, const Iterator& end, long& LN );
+  /* ctor */
+#include "ENDFtk/implementation/TapeSkeleton/src/createVector.hpp"
+#include "ENDFtk/implementation/TapeSkeleton/src/createMap.hpp"
+#include "ENDFtk/implementation/TapeSkeleton/src/ctor.hpp"
 
-    #include "ENDFtk/implementation/TapeSkeleton/src/operator.hpp"
+  /* methods */
+#include "ENDFtk/implementation/TapeSkeleton/src/materialNumber.hpp"
 
-    Iterator begin() const { return begin_; }
-    Iterator end() const { return end_; }
+  std::pair< MatchIterator, MatchIterator >
+  MAT( int materialNo ){ return this->materialNumber( materialNo ); }
 
-    size_t size() const { return materials_.size(); }
+  bool
+  hasMAT( int materialNo ){ return this->materialMap.count( materialNo ); }
 
-    Iterator begin_;  //!< The beginning of the TapeSkeleton
-    std::vector<MaterialSkeleton_t> materialsIndexed_;
-    std::unordered_multimap<int, MaterialSkeleton_t&> materials_;
-    Iterator end_;    //!< The end of the TapeSkeleton
+  bool
+  hasMaterialNumber( int materialNo ){ return this->hasMAT( materialNo ); }
+  
+  Iterator begin(){ return materialVector.begin(); }
+  
+  Iterator end(){ return materialVector.end(); }
+  
+  std::size_t size() const { return materialVector.size(); }
 
-private:
-  static std::vector<MaterialSkeleton_t>
-  createIndexedVector( Iterator& begin, const Iterator& end, long& LN);
+  BufferIterator bufferBegin() { return this->bufferLimits.first; }
 
-  static std::unordered_multimap<int, MaterialSkeleton_t&>
-  createMaterialsMap(std::vector<MaterialSkeleton_t>& indeed);
+  BufferIterator bufferEnd() { return this->bufferLimits.second ; }
+
+  const TapeIdentification& TPID() const { return this->tpid; }
 };
 
-#include "ENDFtk/implementation/TapeSkeleton/src/TapeSkeleton.hpp"
-#include "ENDFtk/implementation/TapeSkeleton/src/createIndexedVector.hpp"
-#include "ENDFtk/implementation/TapeSkeleton/src/createMaterialsMap.hpp"
-
-#endif  // ENDFTK_IMPLEMENTATION_TAPESKELETON_HPP
-
+}
+}

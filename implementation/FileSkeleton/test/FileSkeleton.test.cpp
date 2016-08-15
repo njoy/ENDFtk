@@ -15,9 +15,115 @@ int main( int argc, const char* argv[] ){
 
 using namespace ENDFtk::implementation;
 
+std::string baseFile();
+std::string validFEND();
+std::string invalidFEND();
+
 SCENARIO( "Creating a skeleton of an ENDF File" ){
   GIVEN( "a string representation of a File" ){
-    std::string sFile = 
+    WHEN( "a valid FEND record ends the File" ){
+      std::string fileString = baseFile() + validFEND(); 
+      
+      auto begin = fileString.begin();
+      auto start = fileString.begin();
+      auto end = fileString.end();
+      long lineNumber = 0;
+      
+      HeadRecord head( begin, end, lineNumber);
+      
+      FileSkeleton< std::string::iterator >
+        fileSkeleton( head, start, begin, end, lineNumber );
+      
+      THEN( "the entire stream is read" ){
+        REQUIRE( 109 == lineNumber );
+      }
+      
+      AND_THEN( "the buffer iterators are populated correctly "){
+        REQUIRE( fileString.begin() == fileSkeleton.bufferBegin() );
+        REQUIRE( fileString.end() == fileSkeleton.bufferEnd() );
+      }
+      
+      AND_THEN( "the file number or MF is populated correctly" ){
+        REQUIRE(   3 == fileSkeleton.MF() );
+        REQUIRE(   3 == fileSkeleton.fileNumber() );
+      }
+
+      AND_THEN( "the correct number of sections are read from the file" ){
+        REQUIRE(   3 == fileSkeleton.size() );
+      }
+        
+      AND_THEN( "we can access the section skeletons of the file skeleton" ){
+        std::vector< int > sectionNumbers{ 1, 2, 102 };
+        for ( auto sectionNo : sectionNumbers ){
+          REQUIRE( fileSkeleton.hasMT( sectionNo ) );
+          REQUIRE( sectionNo == fileSkeleton.MT( sectionNo ).MT() );
+          REQUIRE( fileSkeleton.hasSectionNumber( sectionNo ) );
+          REQUIRE( sectionNo == fileSkeleton.sectionNumber( sectionNo ).MT() );
+        }
+        auto sectionIter = sectionNumbers.begin();
+        for ( auto& sectionSkeleton : fileSkeleton ){
+          REQUIRE( *sectionIter == sectionSkeleton.MT() );
+          ++sectionIter;
+        }
+      }
+      
+      AND_THEN( "an exception is thrown if the requested MTs are invalid."){
+        REQUIRE( not fileSkeleton.hasMT( 3 ) );
+        REQUIRE_THROWS( fileSkeleton.MT( 3 ) );
+        REQUIRE( not fileSkeleton.hasSectionNumber( 3 ) );
+        REQUIRE_THROWS( fileSkeleton.sectionNumber( 3 ) );
+      }
+    }
+  }
+    
+  WHEN( "an invalid (MF !=0) FEND record ends the File" ){
+    std::string fileString = baseFile() + invalidFEND(); 
+    THEN( "an exception is thrown" ){
+      auto begin = fileString.begin();
+      auto start = fileString.begin();
+      auto end = fileString.end();
+      long lineNumber = 0;
+
+      HeadRecord head( begin, end, lineNumber );
+      REQUIRE_THROWS
+        ( FileSkeleton< std::string::iterator >
+          ( head, start, begin, end, lineNumber ) );
+    }
+  }
+    
+  WHEN( "a File is too short (no FEND record)" ){
+    std::string fileString = baseFile(); 
+    auto begin = fileString.begin();
+    auto start = fileString.begin();
+    auto end = fileString.end();
+    long lineNumber = 0;
+      
+    THEN( "an exception is thrown" ){
+      HeadRecord head( begin, end, lineNumber );
+      REQUIRE_THROWS
+        ( FileSkeleton< std::string::iterator >
+          ( head, start, begin, end, lineNumber ) );
+    }
+  }
+
+  WHEN( "a File has more than one Section with the same number" ){
+    std::string fileString = baseFile() + baseFile() + validFEND();
+    auto begin = fileString.begin();
+    auto start = fileString.begin();
+    auto end = fileString.end();
+    long lineNumber = 0;
+    
+    THEN( "an exception is thrown" ){
+      HeadRecord head( begin, end, lineNumber );
+      REQUIRE_THROWS
+        ( FileSkeleton< std::string::iterator >
+          ( head, start, begin, end, lineNumber ) );
+    }
+  }
+} 
+
+std::string baseFile(){
+      return 
       " 1.001000+3 9.991673-1          0          0          0          0 125 3  1\n"
       " 0.000000+0 0.000000+0          0          0          2         96 125 3  1\n"
       "         30          5         96          2                       125 3  1\n"
@@ -126,89 +232,12 @@ SCENARIO( "Creating a skeleton of an ENDF File" ){
       " 1.750000+7 2.831107-5 1.800000+7 2.809523-5 1.850000+7 2.787851-5 125 3102\n"
       " 1.900000+7 2.766095-5 1.950000+7 2.744259-5 2.000000+7 2.722354-5 125 3102\n"
       "                                                                   125 3  0\n";
+}
 
-    WHEN( "a valid FEND record ends the File" ){
-      std::string sFEND = 
-        "                                                                   125 0  0\n";
+std::string validFEND(){
+  return "                                                                   125 0  0\n";
+}
 
-      sFile += sFEND;
-      auto begin = sFile.begin();
-      auto start = sFile.begin();
-      auto end = sFile.end();
-      long LN = 0;
-
-      HeadRecord head(begin,end, LN);
-      FileSkeleton<std::string::iterator> fSkel(
-        head, start, begin, end, LN);
-
-      THEN( "we can access the parts of the skeleton" ){
-        REQUIRE( 109 == LN );
-        REQUIRE( sFile.begin() == fSkel.begin() );
-        REQUIRE( end == fSkel.end() );
-        REQUIRE(   3 == fSkel.size() );
-
-        REQUIRE(   3 == fSkel.MF() );
-
-        // According to the Developers Guide, these tests should be in a
-        // different test file
-        AND_THEN( "we can access the Sections of the skeleton" ){
-          auto sSkel = fSkel[1];
-               sSkel = fSkel[2];
-               sSkel = fSkel[102];
-        }
-        AND_THEN( "an exception is thrown if the requested MTs are invalid."){
-          REQUIRE_THROWS( fSkel[3] );
-        }
-      }
-    }
-    
-    WHEN( "an invalid (MF !=0) FEND record ends the File" ){
-      std::string sFEND = 
-        "                                                                   125 3  0\n";
-
-      sFile += sFEND;
-      THEN( "an exception is thrown" ){
-        auto begin = sFile.begin();
-        auto start = sFile.begin();
-        auto end = sFile.end();
-        long LN = 0;
-
-        HeadRecord head(begin, end, LN);
-        REQUIRE_THROWS(FileSkeleton<std::string::iterator> fSkel( 
-          head, start, begin, end, LN));
-      }
-    }
-    WHEN( "a File is too short (no FEND record)" ){
-      auto begin = sFile.begin();
-      auto start = sFile.begin();
-      auto end = sFile.end();
-      long LN = 0;
-      THEN( "an exception is thrown" ){
-
-        LOG(INFO) << "Error expected with no FEND record.";
-        HeadRecord head(begin, end, LN);
-        REQUIRE_THROWS(FileSkeleton<std::string::iterator> fSkel( 
-          head, start, begin, end, LN));
-      }
-    }
-
-    WHEN( "a File has more than one Section with the same number" ){
-      std::string sFEND = 
-        "                                                                   125 0  0\n";
-      sFile += sFile + sFEND;
-      auto begin = sFile.begin();
-      auto start = sFile.begin();
-      auto end = sFile.end();
-      long LN = 0;
-
-      THEN( "an exception is thrown" ){
-        LOG(INFO) << "Error expected with degenerate (same MT) Sections.";
-        HeadRecord head(begin, end, LN);
-        REQUIRE_THROWS(FileSkeleton<std::string::iterator> fSkel( 
-          head, start, begin, end, LN));
-
-      }
-    }
-    
-  } // GIVEN
-} // SCENARIO
+std::string invalidFEND(){
+  return "                                                                   125 3  0\n";  
+}

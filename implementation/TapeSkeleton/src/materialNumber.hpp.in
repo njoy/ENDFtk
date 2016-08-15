@@ -1,0 +1,12 @@
+std::pair< MatchIterator, MatchIterator >
+materialNumber( int materialNo ){
+  if ( not materialMap.count( materialNo ) ){
+    LOG(ERROR) << "Requested material number (MAT) does not"
+               << " correspond to a stored material skeleton";
+    LOG(INFO)  << "Requested material number: " << materialNo;
+    throw std::out_of_range( "Requested material number (MAT) does not"
+                             " correspond to a stored material skeleton" );
+  }
+  auto pairwiseIteratorBounds = materialMap.equal_range( materialNo );
+  return { pairwiseIteratorBounds.first, pairwiseIteratorBounds.second };
+}

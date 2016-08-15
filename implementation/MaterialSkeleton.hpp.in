@@ -1,49 +1,51 @@
-#ifndef ENDFTK_IMPLEMENTATION_MATERIALSKELETON_HPP
-#define ENDFTK_IMPLEMENTATION_MATERIALSKELETON_HPP
+namespace ENDFtk{
+namespace implementation{
 
-#include <functional>
-
-/** @brief Skeleton of a Material containing a few pieces to know how to locate
- * it.
- */
-template<typename Iterator>
-class ENDFtk::implementation::MaterialSkeleton {
+template< typename BufferIterator >
+class MaterialSkeleton {
 public:
-  using FileSkeleton_t = FileSkeleton<Iterator>;
+  /* convenience typedefs */
+  using FileSkeleton_t = FileSkeleton< BufferIterator >;
+  using Iterator = typename std::vector< FileSkeleton_t >::iterator;
+  
+  /* fields */
+  int materialNo;         
+  std::vector< FileSkeleton_t > fileVector;
+  std::unordered_map< int, FileSkeleton_t& > fileMap;
+  std::pair< BufferIterator, BufferIterator > bufferLimits;
 
-  MaterialSkeleton(const HeadRecord& mHead,
-                   Iterator begin, Iterator& position, const Iterator& end, 
-                   long& LN );
+  /* ctor */
+#include "ENDFtk/implementation/MaterialSkeleton/src/createVector.hpp"
+#include "ENDFtk/implementation/MaterialSkeleton/src/createMap.hpp"
+#include "ENDFtk/implementation/MaterialSkeleton/src/ctor.hpp"
+ 
+  /* methods */
+#include "ENDFtk/implementation/MaterialSkeleton/src/fileNumber.hpp"
 
-  int MAT() const { return MAT_; }
-  const FileSkeleton<Iterator>& operator[] (int MF);
+  FileSkeleton_t&
+  MF( int fileNo ) { return this->fileNumber( fileNo ); }
 
-  Iterator begin() const { return begin_; }
-  Iterator end() const { return end_; }
+  bool
+  hasMF( int fileNo ){ return this->fileMap.count( fileNo ); }
 
-  size_t size() const { return files_.size(); }
+  bool
+  hasFileNumber( int fileNo ){ return this->hasMF( fileNo ); }
+  
+  Iterator begin() { return this->fileVector.begin(); }
 
-  int MAT_;         //!< Material idenfifier for the M
-  Iterator begin_;  //!< The beginning of the MaterialSkeleton
-  std::vector<FileSkeleton_t> filesIndexed_;
-  std::unordered_map<int, FileSkeleton<Iterator>&> files_;
-  Iterator end_;    //!< The end of the MaterialSkeleton
+  Iterator end() { return this->fileVector.end(); }
+  
+  std::size_t size() const { return fileVector.size(); }
+  
+  int MAT() const { return this->materialNo; }
 
-private:
-  static std::vector<FileSkeleton_t>
-  createIndexedVector(
-      const HeadRecord& head,
-      Iterator begin, Iterator& position, const Iterator& end,
-      long& LN);
+  int materialNumber() const { return this->MAT(); }
+    
+  BufferIterator bufferBegin() { return this->bufferLimits.first; }
+  
+  BufferIterator bufferEnd() { return this->bufferLimits.second; }
 
-  static std::unordered_map<int, FileSkeleton_t&>
-  createFilesMap(std::vector<FileSkeleton_t>& indeed);
 };
 
-#include "ENDFtk/implementation/MaterialSkeleton/src/MaterialSkeleton.hpp"
-#include "ENDFtk/implementation/MaterialSkeleton/src/createIndexedVector.hpp"
-#include "ENDFtk/implementation/MaterialSkeleton/src/createFilesMap.hpp"
-#include "ENDFtk/implementation/MaterialSkeleton/src/operator.hpp"
-
-#endif  // ENDFTK_IMPLEMENTATION_MATERIALSKELETON_HPP
-
+}
+}

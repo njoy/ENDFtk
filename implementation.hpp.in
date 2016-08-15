@@ -1,5 +1,5 @@
-#ifndef ENDFTK_IMPLEMENTATION_HPP
-#define ENDFTK_IMPLEMENTATION_HPP
+#include <unordered_map>
+#include <functional>
 
 #include "ENDFtk/implementation/record.hpp"
 
@@ -98,47 +98,6 @@ class SectionBase;
 template<int MF>
 class Section;
 
-//                           ud$$$**$$$$$$$bc.                          
-//                        u@**"        4$$$$$$$Nu                       
-//                      J                ""#$$$$$$r                     
-//                     @                       $$$$b                    
-//                   .F                        ^*3$$$                   
-//                  :% 4                         J$$$N                  
-//                  $  :F                       :$$$$$                  
-//                 4F  9                       J$$$$$$$                 
-//                 4$   k             4$$$$bed$$$$$$$$$                 
-//                 $$r  'F            $$$$$$$$$$$$$$$$$r                
-//                 $$$   b.           $$$$$$$$$$$$$$$$$N                
-//                 $$$$$k 3eeed$$b    $$$Euec."$$$$$$$$$                
-//  .@$**N.        $$$$$" $$$$$$F'L $$$$$$$$$$$  $$$$$$$                
-//  :$$L  'L       $$$$$ 4$$$$$$  * $$$$$$$$$$F  $$$$$$F         edNc   
-// @$$$$N  ^k      $$$$$  3$$$$*%   $F4$$$$$$$   $$$$$"        d"  z$N  
-// $$$$$$   ^k     '$$$"   #$$$F   .$  $$$$$c.u@$$$          J"  @$$$$r 
-// $$$$$$$b   *u    ^$L            $$  $$$$$$$$$$$$u@       $$  d$$$$$$ 
-//  ^$$$$$$.    "NL   "N. z@*     $$$  $$$$$$$$$$$$$P      $P  d$$$$$$$ 
-//     ^"*$$$$b   '*L   9$E      4$$$  d$$$$$$$$$$$"     d*   J$$$$$r   
-//          ^$$$$u  '$.  $$$L     "#" d$$$$$$".@$$    .@$"  z$$$$*"     
-//            ^$$$$. ^$N.3$$$       4u$$$$$$$ 4$$$  u$*" z$$$"          
-//              '*$$$$$$$$ *$b      J$$$$$$$b u$$P $"  d$$P             
-//                 #$$$$$$ 4$ 3*$"$*$ $"$'c@@$$$$ .u@$$$P               
-//                   "$$$$  ""F~$ $uNr$$$^&J$$$$F $$$$#                 
-//                     "$$    "$$$bd$.$W$$$$$$$$F $$"                   
-//                       ?k         ?$$$$$$$$$$$F'*                     
-//                        9$$bL     z$$$$$$$$$$$F                       
-//                         $$$$    $$$$$$$$$$$$$                        
-//                          '#$$c  '$$$$$$$$$"                          
-//                           .@"#$$$$$$$$$$$$b                          
-//                         z*      $$$$$$$$$$$$N.                       
-//                       e"      z$$"  #$$$k  '*$$.                     
-//                   .u*      u@$P"      '#$$c   "$$c                   
-//            u@$*"""       d$$"            "$$$u  ^*$$b.               
-//          :$F           J$P"                ^$$$c   '"$$$$$$bL        
-//         d$$  ..      @$#                      #$$b         '#$       
-//         9$$$$$$b   4$$                          ^$$k         '$      
-//          "$$6""$b u$$                             '$    d$$$$$P      
-//            '$F $$$$$"                              ^b  ^$$$$b$       
-//             '$W$$$$"                                'b@$$$$"         
-//                                                      ^$$$*  Gilo95'
 template<typename Iterator>
 class TapeSkeleton;
 
@@ -150,6 +109,7 @@ class FileSkeleton;
 
 template<typename Iterator>
 class SectionSkeleton;
+
 } // namespace implementation
 } // namespace ENDFtk
 
@@ -160,12 +120,10 @@ class SectionSkeleton;
 #include "ENDFtk/implementation/ControlRecord.hpp"
 #include "ENDFtk/implementation/DirectoryRecord.hpp"
 #include "ENDFtk/implementation/ListRecord.hpp"
-#include "ENDFtk/implementation/SectionBase.hpp"
 #include "ENDFtk/implementation/UnivariateTabulation.hpp"
+#include "ENDFtk/implementation/SectionBase.hpp"
 #include "ENDFtk/implementation/SectionSkeleton.hpp"
 #include "ENDFtk/implementation/FileSkeleton.hpp"
 #include "ENDFtk/implementation/MaterialSkeleton.hpp"
 #include "ENDFtk/implementation/TapeSkeleton.hpp"
-
-#endif // ENDFTK_IMPLEMENTATION_HPP
 

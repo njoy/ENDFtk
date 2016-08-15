@@ -3,27 +3,33 @@ if(${verbose_traversal})
 endif(${verbose_traversal})
 
 set(long_path "${ENDFtk_HEADER_DIR}/implementation/SectionBase")
-set(Sections 
-  "Section3"
+
+set( subdirectories "" )
+list( APPEND subdirectories "Section3" )
+
+set( headers "" )
+list( APPEND headers
+  "src/ctor"
+  "src/readSEND"
+  ${subdirectories}
   )
 
-foreach(Section ${Sections})
+foreach(header ${headers})
   configure_file(
-    "${CMAKE_CURRENT_SOURCE_DIR}/${Section}.hpp.in"
-    "${long_path}/${Section}.hpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/${header}.hpp.in"
+    "${long_path}/${header}.hpp"
     COPYONLY
     )
-  add_subdirectory( ${Section} )
-endforeach(Section)
+endforeach(header)
+
+foreach( subdirectory ${subdirectories} )
+  add_subdirectory( ${subdirectory} )
+endforeach( subdirectory )
 
 if(${local_testing})
   list( APPEND testLabels SectionBase )
   add_subdirectory( "${CMAKE_CURRENT_SOURCE_DIR}/test" )
 endif(${local_testing})
-
-set(ENDFtk_src "${ENDFtk_src}"
-  "${CMAKE_CURRENT_SOURCE_DIR}/src/SectionBase.cpp"
-  PARENT_SCOPE)
 
 if(${verbose_traversal})
   message(STATUS "Exiting SectionBase directory")

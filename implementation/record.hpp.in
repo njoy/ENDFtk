@@ -1,6 +1,3 @@
-#ifndef ENDFTK_IMPLEMENTATION_RECORD_HPP
-#define ENDFTK_IMPLEMENTATION_RECORD_HPP
-
 namespace ENDFtk {
 namespace implementation {
 namespace record {
@@ -37,5 +34,3 @@ Tail skip(Iterator& begin, const Iterator& end, long& lineNumber);
 #include "ENDFtk/implementation/record/Zipper.hpp"
 #include "ENDFtk/implementation/record/Sequence.hpp"
 #include "ENDFtk/implementation/record/skip.hpp"
-
-#endif

@@ -16,99 +16,123 @@ int main( int argc, const char* argv[] ){
 
 using namespace ENDFtk::implementation;
 
+std::string baseMaterial();
+std::string validMEND();
+std::string invalidMEND();
+
 SCENARIO( "Creating a material Skeleton of an ENDF File" ){
   GIVEN( "a string representation of a Material" ){
-    std::string filename("n-001_H_001.endf");
-    std::string sMaterial = utility::slurpFileToMemory( filename );
-    sMaterial.erase(0,76); // Get rid of TPID
-    sMaterial.erase(sMaterial.end()-152, sMaterial.end()); // Get rid of MEND
-
-    auto begin = sMaterial.begin();
-    auto start = sMaterial.begin();
-    long LN = 0;
-
     WHEN( "a valid MEND record ends the Material" ){
+      std::string materialString = baseMaterial() + validMEND();
+      auto begin = materialString.begin();
+      auto start = begin;
+      auto end = materialString.end();
+      long lineNumber = 0;
+      HeadRecord head( begin, end, lineNumber );
+      MaterialSkeleton< std::string::iterator >
+        materialSkeleton( head, start, begin, end, lineNumber );
 
-      std::string sMEND = 
-        "                                                                     0 0  0\n";
-      sMaterial += sMEND;
-
-      auto end = sMaterial.end();
-      HeadRecord head(begin, end, LN);
-      MaterialSkeleton<std::string::iterator> mSkel(
-        head, start, begin, end, LN);
-
-      THEN( "se can access the parts of the skeleton" ){
-        REQUIRE( 2208 == LN );
-        REQUIRE( sMaterial.begin() == mSkel.begin() );
-        REQUIRE( end == mSkel.end() );
-        REQUIRE( 6 == mSkel.size() );
-
-        REQUIRE( 125 == mSkel.MAT() );
+      THEN( "the entire stream is read" ){
+        REQUIRE( 2208 == lineNumber );
       }
 
-        // According to the Developers Guide, these tests should be in a
-        // different test file
-        AND_THEN( "we can access the Sections of the skeleton" ){
-          auto fSkel = mSkel[1];
-               fSkel = mSkel[2];
-               fSkel = mSkel[3];
-               fSkel = mSkel[4];
-               fSkel = mSkel[6];
-               fSkel = mSkel[33];
+      AND_THEN( "the buffer iterators are populated correctly "){
+        REQUIRE( materialString.begin() == materialSkeleton.bufferBegin() );
+        REQUIRE( materialString.end() == materialSkeleton.bufferEnd() );
+      }
+
+      AND_THEN( "the material number or MAT is populated correctly" ){
+        REQUIRE( 125 == materialSkeleton.MAT() );
+      }
+      
+      AND_THEN( "the correct number of files are read from the material" ){
+        REQUIRE( 6 == materialSkeleton.size() );
+      }
+
+      AND_THEN( "we can access the file skeletons of the skeleton" ){
+        std::vector< int > fileNumbers{ 1, 2, 3, 4, 6, 33 };
+        for ( auto fileNo : fileNumbers ){
+          REQUIRE( materialSkeleton.hasMF( fileNo ) );
+          REQUIRE( fileNo == materialSkeleton.MF( fileNo ).MF() );
+          REQUIRE( materialSkeleton.hasFileNumber( fileNo ) );
+          REQUIRE( fileNo == materialSkeleton.fileNumber( fileNo ).MF() );
         }
-        AND_THEN( "an exception is thrown if the requested MTs are invalid."){
-          REQUIRE_THROWS( mSkel[5] );
+        
+        auto fileNumberIterator = fileNumbers.begin();
+
+        for( auto& fileSkeleton : materialSkeleton ){
+          REQUIRE( *fileNumberIterator == fileSkeleton.MF() );
+          ++fileNumberIterator;
         }
+      }
+
+      AND_THEN( "an exception is thrown if the requested MF isn't stored."){
+        REQUIRE_THROWS( materialSkeleton.MF( 5 ) );
+      }
     }
 
     WHEN( "an invalid (MAT != 0) MEND record ends the Material" ){
-
-      std::string sMEND = 
-        "                                                                   125 0  0\n";
-      sMaterial += sMEND;
-      auto end = sMaterial.end();
-
+      std::string materialString = baseMaterial() + invalidMEND();
       THEN( "an exception is thrown" ){
+        auto begin = materialString.begin();
+        auto start = materialString.begin();
+        auto end = materialString.end();
+        long lineNumber = 0;
 
-        LOG(INFO) << "Errors expected with invalid MEND record.";
-        HeadRecord head(begin, end, LN);
-        REQUIRE_THROWS(
-          MaterialSkeleton<std::string::iterator> mSkel(
-          head, start, begin, end, LN) );
+        HeadRecord head( begin, end, lineNumber );
+        REQUIRE_THROWS
+          ( MaterialSkeleton< std::string::iterator >
+            ( head, start, begin, end, lineNumber ) );
       }
     }
 
-    WHEN( "a Material is too short (no MEND record)" ){
+    WHEN( "a material is too short (no MEND record)" ){
+      std::string materialString = baseMaterial(); 
+      auto begin = materialString.begin();
+      auto start = materialString.begin();
+      auto end = materialString.end();
+      long lineNumber = 0;
+      
       THEN( "an exception is thrown" ){
-        auto end = sMaterial.end();
-
-        LOG(INFO) << "Errors expected with no MEND record.";
-        HeadRecord head(begin, end, LN);
-        REQUIRE_THROWS(
-          MaterialSkeleton<std::string::iterator> mSkel(
-          head, start, begin, end, LN) );
+        HeadRecord head( begin, end, lineNumber );
+        REQUIRE_THROWS
+          ( MaterialSkeleton< std::string::iterator >
+            ( head, start, begin, end, lineNumber ) );
       }
     }
-
-    WHEN( "there are degenerate (same MF number) Files in the Material" ){
-      std::string sMEND = 
-        "                                                                     0 0  0\n";
-      sMaterial += sMaterial + sMEND;
-      auto begin = sMaterial.begin();
-      auto start = sMaterial.begin();
-      auto end = sMaterial.end();
-      long LN = 0;
-      THEN( "an exception is thrown" ){
-
-        LOG(INFO) << "Errors expected.";
-        HeadRecord head(begin, end, LN);
-        REQUIRE_THROWS(
-          MaterialSkeleton<std::string::iterator> mSkel(
-          head, start, begin, end, LN) );
-      }
-    }
-
   } // GIVEN
+
+  WHEN( "a material has more than one file with the same number" ){
+    std::string materialString = baseMaterial() + baseMaterial() + validMEND();
+    auto begin = materialString.begin();
+    auto start = materialString.begin();
+    auto end = materialString.end();
+    long lineNumber = 0;
+    
+    THEN( "an exception is thrown" ){
+      HeadRecord head( begin, end, lineNumber );
+      REQUIRE_THROWS
+        ( MaterialSkeleton< std::string::iterator >
+          ( head, start, begin, end, lineNumber ) );
+    }
+  }
 } // SCENARIO
 
+std::string baseMaterial(){
+  static std::string materialString =
+    utility::slurpFileToMemory( "n-001_H_001.endf" );
+  auto materialBegin = std::next( materialString.begin(), 76 );
+  auto materialEnd =
+    std::next( std::make_reverse_iterator( materialString.end() ), 152 ).base();
+  return std::string( materialBegin, materialEnd );
+}
+
+std::string validMEND(){
+  return 
+    "                                                                     0 0  0\n";
+}
+
+std::string invalidMEND(){
+  return
+    "                                                                   125 0  0\n";
+}

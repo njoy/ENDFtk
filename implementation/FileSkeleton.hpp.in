@@ -1,53 +1,51 @@
-#ifndef ENDFTK_IMPLEMENTATION_FILESKELETON_HPP
-#define ENDFTK_IMPLEMENTATION_FILESKELETON_HPP
+namespace ENDFtk{
+namespace implementation{
 
-#include <unordered_map>
-#include <functional>
-
-/** @brief Skeleton of a File containing a few pieces to know how to locate
- * it.
- */
-template<typename Iterator>
-class ENDFtk::implementation::FileSkeleton {
+template< typename BufferIterator >
+class FileSkeleton {
 public:
-  using SectionSkeleton_t = SectionSkeleton<Iterator>;
+  /* convenience typedefs */
+  using SectionSkeleton_t = SectionSkeleton< BufferIterator >;
+  using Iterator = typename std::vector< SectionSkeleton_t >::iterator;
+  
+  /* fields */
+  int fileNo;
+  std::vector< SectionSkeleton_t > sectionVector;
+  std::unordered_map< int, SectionSkeleton_t& > sectionMap;
+  std::pair< BufferIterator, BufferIterator > bufferLimits;
 
-  FileSkeleton(const HeadRecord& head,
-               Iterator begin, Iterator& position, const Iterator& end, 
-               long& LN );
+  /* ctor */
+#include "ENDFtk/implementation/FileSkeleton/src/createVector.hpp"
+#include "ENDFtk/implementation/FileSkeleton/src/createMap.hpp"
+#include "ENDFtk/implementation/FileSkeleton/src/ctor.hpp"
 
-  //! Return the File identifier (MF) of the skeleton
-  int MF() const { return MF_; }
-  const SectionSkeleton_t& operator[] (int MT);
+  /* methods */
+#include "ENDFtk/implementation/FileSkeleton/src/sectionNumber.hpp"
 
-  Iterator begin() const { return begin_; }
-  Iterator end() const { return end_; }
+  SectionSkeleton_t&
+  MT( int sectionNo ){ return this->sectionNumber( sectionNo ); }
 
-  size_t size() const { return sections_.size(); }
+  bool
+  hasMT( int sectionNo ){ return this->sectionMap.count( sectionNo ); }
+  
+  bool
+  hasSectionNumber( int sectionNo ){  return this->hasMT( sectionNo ); }
+  
+  Iterator begin() { return this->sectionVector.begin(); }
 
-  int MF_;          //!< File identifier
-  Iterator begin_;  //!< The beginning of the FileSkeleton
+  Iterator end() { return this->sectionVector.end(); }
+ 
+  std::size_t size() const { return this->sectionVector.size(); }
 
-  std::vector<SectionSkeleton_t > sectionsIndexed_;
-  std::unordered_map<int, SectionSkeleton_t& > sections_;
+  BufferIterator bufferBegin() { return this->bufferLimits.first; }
 
-  Iterator end_;    //!< The end of the FileSkeleton
+  BufferIterator bufferEnd() { return this->bufferLimits.second; }
+  
+  int MF() const { return this->fileNo; }
 
-private:
-  static std::vector<SectionSkeleton_t > 
-  createIndexedVector(
-    const HeadRecord& head,
-    Iterator begin, Iterator& position, const Iterator& end, 
-    long& lineNumber );
-
-  static std::unordered_map<int, SectionSkeleton_t& >
-  createSectionsMap(std::vector<SectionSkeleton_t>& indexed);
+  int fileNumber() const { return this->MF(); }
 
 };
 
-#include "ENDFtk/implementation/FileSkeleton/src/FileSkeleton.hpp"
-#include "ENDFtk/implementation/FileSkeleton/src/createIndexedVector.hpp"
-#include "ENDFtk/implementation/FileSkeleton/src/createSectionsMap.hpp"
-#include "ENDFtk/implementation/FileSkeleton/src/operator.hpp"
-#endif  // ENDFTK_IMPLEMENTATION_FILESKELETON_HPP
-
+}
+}

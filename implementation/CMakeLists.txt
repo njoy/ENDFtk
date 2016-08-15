@@ -24,8 +24,8 @@ list(APPEND subdirs
   "StructureDivision"
   "SectionBase"
   "SectionSkeleton"
-  "MaterialSkeleton"
   "FileSkeleton"
+  "MaterialSkeleton"
   "TapeSkeleton"
   ${header_only_subdirs}
   )

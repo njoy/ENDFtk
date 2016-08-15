@@ -1,17 +1,17 @@
 #ifndef ENDFTK_IMPLEMENTATION_FILESKELETON_SRC_FILESKELETON_HPP
 #define ENDFTK_IMPLEMENTATION_FILESKELETON_SRC_FILESKELETON_HPP
 
-#include "ENDFtk.hpp"
-
 namespace ENDFtk {
 namespace implementation {
 
-template<typename Iterator>
-FileSkeleton<Iterator>::FileSkeleton(
-  const HeadRecord& mHead, 
+template< typename Iterator >
+FileSkeleton< Iterator >::FileSkeleton
+( const HeadRecord& head, 
   Iterator begin, Iterator& position, const Iterator& end, long& LN )
-  try:  MF_(mHead.MF()), begin_(begin),
-        sectionsIndexed_(createIndexedVector(mHead, begin, position, end, LN)),
+  try:
+    MF_( head.MF() ),
+    begin_( begin ),
+    sectionsIndexed_( createIndexedVector(mHead, begin, position, end, LN) ),
         sections_(createSectionsMap(sectionsIndexed_)),
         end_(position)
   { /* Do nothing */ }
@@ -23,5 +23,6 @@ FileSkeleton<Iterator>::FileSkeleton(
 
 } // namespace implementation
 } // namespace ENDFtk
+
 #endif  // ENDFTK_IMPLEMENTATION_FILESKELETON_SRC_FILESKELETON_HPP
 

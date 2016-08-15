@@ -1,28 +1,24 @@
-#ifndef ENDFTK_IMPLEMENTATION_SECTIONSKELETON_HPP
-#define ENDFTK_IMPLEMENTATION_SECTIONSKELETON_HPP
+namespace ENDFtk{
+namespace implementation{
 
-/** @brief Skeleton of a Section containing a few pieces to know how to locate
- * it.
- */
-template<typename Iterator>
-class ENDFtk::implementation::SectionSkeleton {
-  public:
-    SectionSkeleton(const HeadRecord& head,
-                    Iterator begin, Iterator& position, const Iterator& end,
-                    long& lineNumber );
+template< typename BufferIterator >
+class SectionSkeleton {
+public:
+  /* fields */
+  int sectionNo;
+  std::pair< BufferIterator, BufferIterator > bufferLimits;
 
-    int MT() const { return MT_; }
-    Iterator begin() const { return begin_; }
-    Iterator end() const { return end_; }
+  /* ctor */
+#include "ENDFtk/implementation/SectionSkeleton/src/findEnd.hpp"
+#include "ENDFtk/implementation/SectionSkeleton/src/ctor.hpp"
 
-    int MT_;          //!< Section identifier
-
-    Iterator begin_;  //!< The beginning of the SectionSkeleton
-    Iterator end_;    //!< The end of the SectionSkeleton
-
+  /* methods */
+  int MT() const { return this->sectionNo; }
+  int sectionNumber() const { return this->MT(); }
+  BufferIterator bufferBegin() { return this->bufferLimits.first; }
+  BufferIterator bufferEnd() { return this->bufferLimits.second; }  
 };
 
-#include "ENDFtk/implementation/SectionSkeleton/src/SectionSkeleton.hpp"
-
-#endif  // ENDFTK_IMPLEMENTATION_SECTIONSKELETON_HPP
+}
+}
 

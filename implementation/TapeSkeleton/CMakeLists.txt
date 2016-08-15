@@ -6,10 +6,10 @@ set(long_path "${ENDFtk_HEADER_DIR}/implementation/TapeSkeleton" )
 
 set(headers "")
 list(APPEND headers
-  "src/TapeSkeleton"
-  "src/createIndexedVector"
-  "src/createMaterialsMap"
-  "src/operator"
+  "src/ctor"
+  "src/createVector"
+  "src/createMap"
+  "src/materialNumber"
   )
 
 foreach(header ${headers})
