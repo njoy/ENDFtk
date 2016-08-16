@@ -8,21 +8,14 @@ public:
   using MaterialSkeleton_t = MaterialSkeleton< BufferIterator >;
   
   /* nested classes */
-  template< typename Parent >
-  class MatchIterator_ : public Parent {
-  public:
-    template< typename... Args >
-    MatchIterator_( Args&&... args ) :
-      Parent( std::forward< Args >( args )... ){}
-    
-    MaterialSkeleton_t&
-    operator*(){ return Parent::operator*().second; }
-  };
+#include "ENDFtk/implementation/TapeSkeleton/src/MatchIterator.hpp"
+#include "ENDFtk/implementation/TapeSkeleton/src/Range.hpp"
   
   /* more convenience typedefs */
   using Iterator = typename std::vector< MaterialSkeleton_t >::iterator;
   using Multimap = std::unordered_multimap< int, MaterialSkeleton_t& >;
   using MatchIterator = MatchIterator_< typename Multimap::iterator >;
+  using Range = Range_< MatchIterator >;
   
   /* fields */
   std::pair< BufferIterator, BufferIterator > bufferLimits;
@@ -38,7 +31,7 @@ public:
   /* methods */
 #include "ENDFtk/implementation/TapeSkeleton/src/materialNumber.hpp"
 
-  std::pair< MatchIterator, MatchIterator >
+  Range
   MAT( int materialNo ){ return this->materialNumber( materialNo ); }
 
   bool

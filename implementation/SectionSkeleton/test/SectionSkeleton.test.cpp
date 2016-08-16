@@ -42,8 +42,8 @@ SCENARIO( "Creating a skeleton of an ENDF Section" ){
       }
 
       AND_THEN( "the section number or MT is populated correctly" ){
-        REQUIRE(   1 == sectionSkeleton.MT() );
-        REQUIRE(   1 == sectionSkeleton.sectionNumber() );
+        REQUIRE( 1 == sectionSkeleton.MT() );
+        REQUIRE( 1 == sectionSkeleton.sectionNumber() );
       }
 
     } // WHEN

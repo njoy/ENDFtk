@@ -30,9 +30,8 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
       auto end = tapeString.end();
 
       TapeSkeleton< std::string::iterator > tapeSkeleton( begin, end );
-
-              
-      AND_THEN( "the buffer iterators are populated correctly "){
+        
+      THEN( "the buffer iterators are populated correctly "){
         REQUIRE( tapeString.begin() == tapeSkeleton.bufferBegin() );
         REQUIRE( tapeString.end() == tapeSkeleton.bufferEnd() );
       }
@@ -43,16 +42,17 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
       
       AND_THEN( "we can access the Materials of the skeleton" ){
         REQUIRE( tapeSkeleton.hasMaterialNumber( 125 ) );
-        auto range = tapeSkeleton.materialNumber( 125 );
-        do {
-          MaterialSkeleton< std::string::iterator >& hydrogen = *(range.first);
-          REQUIRE( 125 == hydrogen.materialNumber() );
-        } while ( ++range.first != range.second );
+        REQUIRE( 1 == tapeSkeleton.materialNumber( 125 ).size() );
+        for ( auto& materialSkeleton : tapeSkeleton.materialNumber( 125 ) ){
+          REQUIRE( 125 == materialSkeleton.materialNumber() );
+        }
+
+        REQUIRE_THROWS( tapeSkeleton.materialNumber( 125 ).at(1) );
+
         REQUIRE( tapeSkeleton.hasMAT( 125 ) );
-        range = tapeSkeleton.MAT( 125 );
-        do {
-          REQUIRE( 125 == ( *(range.first) ).materialNumber() );
-        } while ( ++range.first != range.second );
+        for ( auto& materialSkeleton : tapeSkeleton.MAT( 125 ) ){
+          REQUIRE( 125 == materialSkeleton.materialNumber() );
+        }
       }
       AND_THEN( "an excpetion is thrown for an invalid index" ){
         REQUIRE_THROWS( tapeSkeleton.materialNumber(1) );

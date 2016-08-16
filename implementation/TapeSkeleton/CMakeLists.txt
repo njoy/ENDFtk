@@ -10,6 +10,8 @@ list(APPEND headers
   "src/createVector"
   "src/createMap"
   "src/materialNumber"
+  "src/MatchIterator"
+  "src/Range"
   )
 
 foreach(header ${headers})
