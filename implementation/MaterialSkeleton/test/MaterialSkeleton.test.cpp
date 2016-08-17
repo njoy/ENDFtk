@@ -26,7 +26,6 @@ SCENARIO( "Creating a material Skeleton of an ENDF File" ){
       THEN("head can be constructed"){
         std::string materialString = baseMaterial() + validMEND();
         auto begin = materialString.begin();
-        auto start = begin;
         auto end = materialString.end();
         long lineNumber = 0;
         REQUIRE_NOTHROW
