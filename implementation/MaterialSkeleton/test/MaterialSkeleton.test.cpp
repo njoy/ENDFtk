@@ -23,6 +23,28 @@ std::string invalidMEND();
 SCENARIO( "Creating a material Skeleton of an ENDF File" ){
   GIVEN( "a string representation of a Material" ){
     WHEN( "a valid MEND record ends the Material" ){
+      THEN("head can be constructed"){
+        std::string materialString = baseMaterial() + validMEND();
+        auto begin = materialString.begin();
+        auto start = begin;
+        auto end = materialString.end();
+        long lineNumber = 0;
+        REQUIRE_NOTHROW
+          ( HeadRecord( begin, end, lineNumber ) );      
+      }
+
+      THEN("material can be constructed"){
+        std::string materialString = baseMaterial() + validMEND();
+        auto begin = materialString.begin();
+        auto start = begin;
+        auto end = materialString.end();
+        long lineNumber = 0;
+        HeadRecord head( begin, end, lineNumber );
+        REQUIRE_NOTHROW
+          ( MaterialSkeleton< std::string::iterator >
+            ( head, start, begin, end, lineNumber ) );
+      }
+      
       std::string materialString = baseMaterial() + validMEND();
       auto begin = materialString.begin();
       auto start = begin;
@@ -31,7 +53,7 @@ SCENARIO( "Creating a material Skeleton of an ENDF File" ){
       HeadRecord head( begin, end, lineNumber );
       MaterialSkeleton< std::string::iterator >
         materialSkeleton( head, start, begin, end, lineNumber );
-
+      
       THEN( "the entire stream is read" ){
         REQUIRE( 2208 == lineNumber );
       }
@@ -120,7 +142,7 @@ SCENARIO( "Creating a material Skeleton of an ENDF File" ){
 
 std::string baseMaterial(){
   static std::string materialString =
-    utility::slurpFileToMemory( "n-001_H_001.endf" );
+    utility::slurpFileToMemory( "./n-001_H_001.endf" );
   auto materialBegin = std::next( materialString.begin(), 76 );
   auto materialEnd =
     std::next( std::make_reverse_iterator( materialString.end() ), 152 ).base();
