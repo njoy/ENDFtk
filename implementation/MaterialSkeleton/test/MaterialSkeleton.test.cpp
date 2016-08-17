@@ -23,6 +23,11 @@ std::string invalidMEND();
 SCENARIO( "Creating a material Skeleton of an ENDF File" ){
   GIVEN( "a string representation of a Material" ){
     WHEN( "a valid MEND record ends the Material" ){
+      THEN( "the material string can be constructed" ){
+        REQUIRE_NOTHROW
+          ( std::string materialString = baseMaterial() + validMEND() );
+      }
+      
       THEN("head can be constructed"){
         std::string materialString = baseMaterial() + validMEND();
         auto begin = materialString.begin();
