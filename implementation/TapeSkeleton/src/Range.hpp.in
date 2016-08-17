@@ -23,8 +23,9 @@ public:
 
   Reference
   at( std::size_t position ){
-    return ( position < this->size_v ) ?
-      this->operator[]( position ) :
+    if ( not ( position < this->size_v ) ) {
       throw std::out_of_range("TapeSkeleton::Range_");
+    }
+    return this->operator[]( position );
   }
 };
