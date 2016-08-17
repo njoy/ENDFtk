@@ -77,8 +77,9 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
   } // GIVEN
 } // SCENARIO
 
-std::string& cachedTape(){
-  const static std::string tape = utility::slurpFileToMemory( "n-001_H_001.endf" );
+const std::string& cachedTape(){
+  const static std::string tape =
+    utility::slurpFileToMemory( "n-001_H_001.endf" );
   return tape;
 }
 
