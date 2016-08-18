@@ -23,13 +23,10 @@ std::string invalidMEND();
 SCENARIO( "Creating a material Skeleton of an ENDF File" ){
   GIVEN( "a string representation of a Material" ){
     WHEN( "a valid MEND record ends the Material" ){
-      THEN( "the material string can be constructed" ){
-        REQUIRE_NOTHROW
-          ( std::string materialString = baseMaterial() + validMEND() );
-      }
-      
       THEN("head can be constructed"){
-        std::string materialString = baseMaterial() + validMEND();
+        auto base = baseMaterial();
+        auto mend = validMEND();
+        std::string materialString = base + mend;
         auto begin = materialString.begin();
         auto end = materialString.end();
         long lineNumber = 0;
@@ -38,7 +35,9 @@ SCENARIO( "Creating a material Skeleton of an ENDF File" ){
       }
 
       THEN("material can be constructed"){
-        std::string materialString = baseMaterial() + validMEND();
+        auto base = baseMaterial();
+        auto mend = validMEND();
+        std::string materialString = base + mend;
         auto begin = materialString.begin();
         auto start = begin;
         auto end = materialString.end();
@@ -48,8 +47,10 @@ SCENARIO( "Creating a material Skeleton of an ENDF File" ){
           ( MaterialSkeleton< std::string::iterator >
             ( head, start, begin, end, lineNumber ) );
       }
-      
-      std::string materialString = baseMaterial() + validMEND();
+
+      auto base = baseMaterial();
+      auto mend = validMEND();
+      std::string materialString = base + mend;
       auto begin = materialString.begin();
       auto start = begin;
       auto end = materialString.end();
@@ -98,7 +99,9 @@ SCENARIO( "Creating a material Skeleton of an ENDF File" ){
     }
 
     WHEN( "an invalid (MAT != 0) MEND record ends the Material" ){
-      std::string materialString = baseMaterial() + invalidMEND();
+      auto base = baseMaterial();
+      auto mend = invalidMEND();
+      std::string materialString = base + mend;
       THEN( "an exception is thrown" ){
         auto begin = materialString.begin();
         auto start = materialString.begin();
@@ -113,7 +116,7 @@ SCENARIO( "Creating a material Skeleton of an ENDF File" ){
     }
 
     WHEN( "a material is too short (no MEND record)" ){
-      std::string materialString = baseMaterial(); 
+      std::string materialString = baseMaterial();
       auto begin = materialString.begin();
       auto start = materialString.begin();
       auto end = materialString.end();
@@ -129,11 +132,12 @@ SCENARIO( "Creating a material Skeleton of an ENDF File" ){
   } // GIVEN
 
   WHEN( "a material has more than one file with the same number" ){
-    std::string materialString = baseMaterial();
-//    materialString += baseMaterial();
-//    materialString += validMEND();
+    std::string material1 = baseMaterial();
+    std::string material2 = baseMaterial();
+    std::string mend = validMEND();
+    std::string materialString = material1 + material2 + mend;
     auto begin = materialString.begin();
-    auto start = materialString.begin();
+    auto start = begin;
     auto end = materialString.end();
     long lineNumber = 0;
     
@@ -167,6 +171,6 @@ std::string validMEND(){
 
 std::string invalidMEND(){
   auto MEND = validMEND();
-  MEND[69] = '1';
+  MEND.at(69) = '1';
   return MEND;
 }

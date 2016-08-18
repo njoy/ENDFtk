@@ -24,8 +24,10 @@ std::string invalidTEND();
 SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
   GIVEN( "a string representation of a Tape" ){
     WHEN( "a valid TEND record ends the Tape"){
-
-      auto tapeString = tpidString() + baseTAPE() + validTEND();
+      auto tpid = tpidString();
+      auto base = baseTAPE();
+      auto tend = validTEND();
+      auto tapeString = tpid + base + tend;
       auto begin = tapeString.begin();
       auto end = tapeString.end();
 
@@ -60,7 +62,10 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
     }
 
     WHEN( "an invalid (MAT != -1) TEND record ends the Tape" ){
-      auto tapeString = tpidString() + baseTAPE() + invalidTEND();
+      auto tpid = tpidString();
+      auto base = baseTAPE();
+      auto tend = invalidTEND();
+      auto tapeString = tpid + base + tend;
       auto begin = tapeString.begin();
       auto end = tapeString.end();
 
@@ -68,7 +73,9 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
     }
 
     WHEN( "the Tape isn't long enough" ){
-      auto tapeString = tpidString() + baseTAPE(); // no tend record
+      auto tpid = tpidString();
+      auto base = baseTAPE();
+      auto tapeString = tpid + base; // no tend record
       auto begin = tapeString.begin();
       auto end = tapeString.end();
 
@@ -104,6 +111,6 @@ std::string validTEND(){
 
 std::string invalidTEND(){
   auto TEND = validTEND();
-  TEND[69] = '2';
+  TEND.at(69) = '2';
   return TEND;
 }
