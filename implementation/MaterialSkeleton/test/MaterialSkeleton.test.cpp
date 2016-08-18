@@ -150,22 +150,23 @@ SCENARIO( "Creating a material Skeleton of an ENDF File" ){
   }
 } // SCENARIO
 
-std::string& cachedTape(){
-  static std::string tape = utility::slurpFileToMemory( "./n-001_H_001.endf" );
+const std::string& cachedTape(){
+  static const std::string tape =
+    utility::slurpFileToMemory( "./n-001_H_001.endf" );
   return tape;
 }
 
 std::string baseMaterial(){
-  auto materialBegin = std::next( cachedTape().begin(), 76 );
-  auto materialEnd =
-    std::next( std::make_reverse_iterator( cachedTape().end() ), 152 ).base();
+  static const auto& tape = cachedTape();
+  static const auto materialBegin = std::next( tape.begin(), 76 );
+  static const auto materialEnd = tape.end() - 152;
   return std::string( materialBegin, materialEnd );
 }
 
 std::string validMEND(){
-  auto MENDBegin =
-    std::next( std::make_reverse_iterator( cachedTape().end() ), 152 ).base();
-  auto MENDEnd = std::next( MENDBegin, 76 );
+  static const auto& tape = cachedTape();
+  static const auto MENDBegin = cachedTape().end() - 152;
+  static const auto MENDEnd = std::next( MENDBegin, 76 );
   return std::string( MENDBegin, MENDEnd );
 }
 
