@@ -18,8 +18,8 @@ addons:
 #     - llvm-toolchain-precise-3.7
       - george-edison55-precise-backports
     packages:
-      - gcc-5
-      - g++-5
+      - gcc-6
+      - g++-6
       - binutils-gold
 #     - clang-3.7
 #     - libclang-common-3.7-dev
@@ -56,11 +56,11 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then export PATH="`pwd`/cmake-3.5.0-Darwin-x86_64/CMake.app/Contents/bin":$PATH ; fi
 
 script:
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-5 90; sudo update-alternatives --auto gcov; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-6 90; sudo update-alternatives --auto gcov; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo update-alternatives --install /usr/bin/ld ld /usr/bin/ld.gold 100; sudo update-alternatives --auto ld; fi
   - if [ $CXX = "g++" ]; then export DEPTH="2048"; fi
   - if [ $CXX = "clang++" ]; then export DEPTH="750"; fi
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then if [ $CXX = "g++" ]; then export CC="/usr/bin/gcc-5"; export CXX="/usr/bin/g++-5"; export AR="/usr/bin/gcc-ar-5"; export RANLIB="/usr/bin/gcc-ranlib-5"; export NM="/usr/bin/gcc-nm-5"; fi; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then if [ $CXX = "g++" ]; then export CC="/usr/bin/gcc-6"; export CXX="/usr/bin/g++-6"; export AR="/usr/bin/gcc-ar-6"; export RANLIB="/usr/bin/gcc-ranlib-6"; export NM="/usr/bin/gcc-nm-6"; fi; fi
 # - if [ "$TRAVIS_OS_NAME" = "linux" ]; then if [ $CXX = "clang++" ]; then export CXX="clang++-3.7"; export CC="clang-3.7"; export AR="/usr/lib/llvm-3.7/bin/llvm-ar"; export RANLIB="/usr/lib/llvm-3.7/bin/llvm-ranlib"; export NM="/usr/lib/llvm-3.7/bin/llvm-nm"; fi; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then uname -s; fi
   - ./fetchDependencies.py
