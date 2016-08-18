@@ -52,9 +52,22 @@ env:
       
   
 before_install:
+  - ulimit -c
+  - ulimit -a -S
+  - ulimit -a -H
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then wget https://cmake.org/files/v3.5/cmake-3.5.0-Darwin-x86_64.tar.gz && tar xfz cmake-3.5.0-Darwin-x86_64.tar.gz; fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then export PATH="`pwd`/cmake-3.5.0-Darwin-x86_64/CMake.app/Contents/bin":$PATH ; fi
 
+install:
+  - ulimit -c unlimited -S
+  - ulimit -c
+  - ulimit -a -S
+  - ulimit -a -H
+  - cat /proc/sys/kernel/core_pattern
+
+before_script:
+ - RESULT=0
+  
 script:
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-6 90; sudo update-alternatives --auto gcov; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo update-alternatives --install /usr/bin/ld ld /usr/bin/ld.gold 100; sudo update-alternatives --auto ld; fi
@@ -68,7 +81,8 @@ script:
   - cd bin
   - cmake -D build_type=$build_type -D static_libraries=$static_libraries -D appended_flags="-ftemplate-depth=$DEPTH -Werror" ..
   - make -j 2
-  - ctest --output-on-failure -j 2
+  - ctest --output-on-failure -j 2 || RESULT=$?
+  - for i in $(find ./ -maxdepth 1 -name 'core*' -print); do gdb $(pwd)/test core* -ex "thread apply all bt" -ex "set pagination 0" -batch; done;
   - if [ "$build_type" = "coverage" ]; then pip install --user cpp-coveralls; echo "loading coverage information"; coveralls  --exclude "/usr/include/" --exclude-pattern ".*CMake.*|.*Catch.*|.*catch.*|.*easylogging.*|.*disco.*|.*utility.*|.*test\.cpp" --root ".." --build-root "." --gcov-options '\-lp'; fi
 
 matrix:
