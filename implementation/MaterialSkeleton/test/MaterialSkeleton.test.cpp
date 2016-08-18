@@ -130,8 +130,8 @@ SCENARIO( "Creating a material Skeleton of an ENDF File" ){
 
   WHEN( "a material has more than one file with the same number" ){
     std::string materialString = baseMaterial();
-    materialString += baseMaterial();
-    materialString += validMEND();
+//    materialString += baseMaterial();
+//    materialString += validMEND();
     auto begin = materialString.begin();
     auto start = materialString.begin();
     auto end = materialString.end();
