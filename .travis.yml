@@ -66,7 +66,6 @@ install:
   - cat /proc/sys/kernel/core_pattern
 
 before_script:
- - RESULT=0
   
 script:
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-6 90; sudo update-alternatives --auto gcov; fi
@@ -81,8 +80,8 @@ script:
   - cd bin
   - cmake -D build_type=$build_type -D static_libraries=$static_libraries -D appended_flags="-ftemplate-depth=$DEPTH -Werror" ..
   - make -j 2
-  - ctest --output-on-failure -j 2 || RESULT=$?
-  - for i in $(find ./ -maxdepth 1 -name 'core*' -print); do gdb $(pwd)/test core* -ex "thread apply all bt" -ex "set pagination 0" -batch; done;
+  - ctest --output-on-failure -j 2
+  - if [ $CXX = "g++" ]; for i in $(find ./ -maxdepth 4 -name 'core*' -print); do gdb $(pwd)/implementation/MaterialSkeleton/test/MaterialSkeleton.test core* -ex "thread apply all bt" -ex "set pagination 0" -batch; done; fi;
   - if [ "$build_type" = "coverage" ]; then pip install --user cpp-coveralls; echo "loading coverage information"; coveralls  --exclude "/usr/include/" --exclude-pattern ".*CMake.*|.*Catch.*|.*catch.*|.*easylogging.*|.*disco.*|.*utility.*|.*test\.cpp" --root ".." --build-root "." --gcov-options '\-lp'; fi
 
 matrix:

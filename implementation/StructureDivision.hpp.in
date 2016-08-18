@@ -23,9 +23,13 @@ public:
     tail( MAT, MF, MT ) {}
 
   template< typename Iterator >
-  StructureDivision( Iterator& it, const Iterator& end, long& lineNumber )
+  StructureDivision( Iterator& it, const Iterator& end, long& lineNumber ) :
+    StructureDivision( it, it, end, lineNumber ){}
+  
+  template< typename Iterator >
+  StructureDivision
+    ( Iterator begin, Iterator& it, const Iterator& end, long& lineNumber )
   try: base( it, end ), tail( it, end, lineNumber ) {
-    auto begin = utility::findLineBegin( it );
     auto fieldPosition = std::next( begin, 66 );
     if (tail.material() < -1){
       LOG(ERROR) << "Illegal material number (MAT) encountered";
@@ -51,7 +55,6 @@ public:
       throw std::exception();
     }    
   } catch ( int fieldNumber ){
-    auto begin = utility::findLineBegin( it );
     auto fieldPosition = std::next( begin, 66 );
     switch (fieldNumber) {
     case 6 :
