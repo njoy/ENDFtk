@@ -18,6 +18,7 @@ addons:
     packages:
       - gcc-6
       - g++-6
+      - binutils-gold
       - cmake
       - cmake-data
 
@@ -75,14 +76,14 @@ matrix:
 
   - os: linux
     compiler: gcc
-    env: build_type="debug" static_libraries="TRUE" SANITIZER="-fsanitize=address"
+    env: build_type="debug" static_libraries="TRUE" SANITIZER="-fuse-ld=gold -fsanitize=address"
 
   - os: linux
     compiler: gcc
-    env: build_type="debug" static_libraries="TRUE" SANITIZER="-fsanitize=memory"
+    env: build_type="debug" static_libraries="TRUE" SANITIZER="-fuse-ld=gold -fsanitize=memory"
 
   - os: linux
     compiler: gcc
-    env: build_type="debug" static_libraries="TRUE" SANITIZER="fsanitize=undefined"
+    env: build_type="debug" static_libraries="TRUE" SANITIZER="-fuse-ld=gold -fsanitize=undefined"
 
     

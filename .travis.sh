@@ -9,10 +9,12 @@ then
     tar xfz cmake-3.5.0-Darwin-x86_64.tar.gz
     PATH="`pwd`/cmake-3.5.0-Darwin-x86_64/CMake.app/Contents/bin":$PATH
     export DEPTH="750"
+    export SPECIFY_LD=""
 elif [ "$TRAVIS_OS_NAME" = "linux" ]
 then
     sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-6 90
     sudo update-alternatives --auto gcov
+    export SPECIFY_LD="-fuse-ld=gold"
     if [ $CXX = "g++" ]
     then
         export CC="/usr/bin/gcc-6"
@@ -31,7 +33,7 @@ mkdir bin
 cd bin
 cmake -D build_type=$build_type \
       -D static_libraries=$static_libraries \
-      -D appended_flags="-ftemplate-depth=$DEPTH -Werror ${SANITIZER}" ..
+      -D appended_flags="-ftemplate-depth=$DEPTH -Werror ${SPECIFY_LD} ${SANITIZER}" ..
 make -j 2
 ctest --output-on-failure -j 2
 if [ "$build_type" = "coverage" ]

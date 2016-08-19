@@ -23,34 +23,7 @@ std::string invalidMEND();
 SCENARIO( "Creating a material Skeleton of an ENDF File" ){
   GIVEN( "a string representation of a Material" ){
     WHEN( "a valid MEND record ends the Material" ){
-      THEN("head can be constructed"){
-        auto base = baseMaterial();
-        auto mend = validMEND();
-        std::string materialString = base + mend;
-        auto begin = materialString.begin();
-        auto end = materialString.end();
-        long lineNumber = 0;
-        REQUIRE_NOTHROW
-          ( HeadRecord( begin, end, lineNumber ) );      
-      }
-
-      THEN("material can be constructed"){
-        auto base = baseMaterial();
-        auto mend = validMEND();
-        std::string materialString = base + mend;
-        auto begin = materialString.begin();
-        auto start = begin;
-        auto end = materialString.end();
-        long lineNumber = 0;
-        HeadRecord head( begin, end, lineNumber );
-        REQUIRE_NOTHROW
-          ( MaterialSkeleton< std::string::iterator >
-            ( head, start, begin, end, lineNumber ) );
-      }
-
-      auto base = baseMaterial();
-      auto mend = validMEND();
-      std::string materialString = base + mend;
+      std::string materialString = baseMaterial() + validMEND();
       auto begin = materialString.begin();
       auto start = begin;
       auto end = materialString.end();
@@ -99,9 +72,7 @@ SCENARIO( "Creating a material Skeleton of an ENDF File" ){
     }
 
     WHEN( "an invalid (MAT != 0) MEND record ends the Material" ){
-      auto base = baseMaterial();
-      auto mend = invalidMEND();
-      std::string materialString = base + mend;
+      std::string materialString = baseMaterial() + invalidMEND();
       THEN( "an exception is thrown" ){
         auto begin = materialString.begin();
         auto start = materialString.begin();
@@ -132,10 +103,7 @@ SCENARIO( "Creating a material Skeleton of an ENDF File" ){
   } // GIVEN
 
   WHEN( "a material has more than one file with the same number" ){
-    std::string material1 = baseMaterial();
-    std::string material2 = baseMaterial();
-    std::string mend = validMEND();
-    std::string materialString = material1 + material2 + mend;
+    std::string materialString = baseMaterial() + baseMaterial() + validMEND();
     auto begin = materialString.begin();
     auto start = begin;
     auto end = materialString.end();
