@@ -46,11 +46,11 @@ install:
 script: ./.travis.sh
 
 matrix:
-  exclude:
-  # problem with llvm gold linker on travis
-  - os: linux
-    compiler: gcc
-    env: build_type="release" static_libraries="TRUE"
+  # exclude:
+  # # problem with llvm gold linker on travis
+  # - os: linux
+  #   compiler: gcc
+  #   env: build_type="release" static_libraries="TRUE"
     
   include:
   - os: osx
@@ -77,16 +77,19 @@ matrix:
     compiler: gcc
     env: build_type="coverage" 
 
-  - os: linux
-    compiler: gcc
+  - os: osx
+    osx_image: xcode8
+    compiler: clang
     env: build_type="debug" static_libraries="TRUE" SANITIZER="-fsanitize=address"
 
-  - os: linux
-    compiler: gcc
+  - os: osx
+    osx_image: xcode8
+    compiler: clang
     env: build_type="debug" static_libraries="TRUE" SANITIZER="-fsanitize=memory"
 
-  - os: linux
-    compiler: gcc
+  - os: osx
+    osx_image: xcode8
+    compiler: clang
     env: build_type="debug" static_libraries="TRUE" SANITIZER="-fsanitize=undefined"
 
     
