@@ -8,12 +8,11 @@ then
     wget https://cmake.org/files/v3.5/cmake-3.5.0-Darwin-x86_64.tar.gz
     tar xfz cmake-3.5.0-Darwin-x86_64.tar.gz
     PATH="`pwd`/cmake-3.5.0-Darwin-x86_64/CMake.app/Contents/bin":$PATH
+    export DEPTH="750"
 elif [ "$TRAVIS_OS_NAME" = "linux" ]
 then
     sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-6 90
     sudo update-alternatives --auto gcov
-    sudo update-alternatives --install /usr/bin/ld ld /usr/bin/ld.gold 100
-    sudo update-alternatives --auto ld
     if [ $CXX = "g++" ]
     then
         export CC="/usr/bin/gcc-6"
