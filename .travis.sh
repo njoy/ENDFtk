@@ -30,9 +30,9 @@ cmake -D build_type=$build_type \
       -D static_libraries=$static_libraries \
       -D appended_flags="-ftemplate-depth=$DEPTH -Werror ${SPECIFY_LD} ${SANITIZER}" ..
 make -j 2
-export COMPILATION_SUCCESS=$?
+export COMPILATION_FAILURE=$?
 ctest --output-on-failure -j 2
-export TEST_SUCCESS=$?
+export TEST_FAILURE=$?
 
 if [ "$build_type" = "coverage" ]
 then
@@ -41,4 +41,9 @@ then
     coveralls  --exclude "/usr/include/" --exclude-pattern ".*CMake.*|.*Catch.*|.*catch.*|.*easylogging.*|.*disco.*|.*utility.*|.*test\.cpp" --root ".." --build-root "." --gcov-options '\-lp'
 fi
 
-exit [ COMPILATION_SUCCESS -a TEST_SUCCESS ]
+if [ $COMPILATION_FAILURE || $TEST_FAILURE ];
+then
+    exit 1
+else
+    exit 0
+fi
