@@ -41,4 +41,4 @@ then
     coveralls  --exclude "/usr/include/" --exclude-pattern ".*CMake.*|.*Catch.*|.*catch.*|.*easylogging.*|.*disco.*|.*utility.*|.*test\.cpp" --root ".." --build-root "." --gcov-options '\-lp'
 fi
 
-exit COMPILATION_SUCCESS && TEST_SUCCESS
+exit [ COMPILATION_SUCCESS -a TEST_SUCCESS ]
