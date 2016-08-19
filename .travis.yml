@@ -5,7 +5,6 @@ os:
   - linux
 
 compiler:
-# - clang
   - gcc
 
 git:
@@ -15,20 +14,11 @@ addons:
   apt:
     sources:
       - ubuntu-toolchain-r-test
-#     - llvm-toolchain-precise-3.7
       - george-edison55-precise-backports
     packages:
       - gcc-6
       - g++-6
       - binutils-gold
-#     - clang-3.7
-#     - libclang-common-3.7-dev
-#     - libclang-3.7-dev
-#     - libclang1-3.7
-#     - libllvm3.7
-#     - llvm-3.7
-#     - llvm-3.7-dev
-#     - llvm-3.7-runtime 
       - cmake
       - cmake-data
 
@@ -48,49 +38,13 @@ env:
   global:
     # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
     #   via the "travis encrypt" command using the project repo's public key
-    - secure: "De09ASAbAtl688EOuaNnPxfZF8r/l2xFJPDzLrIEmkfWmTMqYsAnJ/L5Fp7ucCOgSMT4Q7hTYygewP3Hn9KE122HhY1vXjcFoEg7RBSGbEabMNfSrUKPyD8m89CKP5dN6pvUHIvr3DMuq4A08YYKZ5kNs+weCq95uaXnyI4iRpkKkvA/VyYbKgrp4bSWKx3znnK9a6QaBAN6pnk5WF0mMZJMvfiK/90M20nWmuDJJEKAkO5qUh5PO2vus4OLlqWTDlTzQVQGmzYmuyQJBAEFpAanN4SpcsScFgdEv/j/FpxqcXwKa6jnBjj1ge8Rs9msKQll5CKQDZE1ZpksZKyzcqimTZOQDBo+P/bEmQqAHw8vzl78BD7tLX7/ssrBVhKRcsjGaljovdUPteI5vqqaCxAl0wGhzDyijx6MXdGq2XPc+VR0yGkA0niL/EjKMb/W+Nrvf1YzWzk0iHjSKNUvW+UfiNhyvuWeqgLMUN8bCiNbd6beit4O/pG2gGRUS1ypWfavK48s1YrGThPlFaE9wDoLqqYmQgT6Ux+Ldon+IO8PqBi+xnS9WKC//9bWFU/uuyqgxTyqG7b7ojdk1nYjmxO3+yTPxRpJPqKG5Hcg2WxqON2nOvprMc+jAZS1tnIG5aQ9SLXcli0DJwwVxcidldxOx9kg5RBi+4Q37dOuS1g="
-      
+    - secure: "De09ASAbAtl688EOuaNnPxfZF8r/l2xFJPDzLrIEmkfWmTMqYsAnJ/L5Fp7ucCOgSMT4Q7hTYygewP3Hn9KE122HhY1vXjcFoEg7RBSGbEabMNfSrUKPyD8m89CKP5dN6pvUHIvr3DMuq4A08YYKZ5kNs+weCq95uaXnyI4iRpkKkvA/VyYbKgrp4bSWKx3znnK9a6QaBAN6pnk5WF0mMZJMvfiK/90M20nWmuDJJEKAkO5qUh5PO2vus4OLlqWTDlTzQVQGmzYmuyQJBAEFpAanN4SpcsScFgdEv/j/FpxqcXwKa6jnBjj1ge8Rs9msKQll5CKQDZE1ZpksZKyzcqimTZOQDBo+P/bEmQqAHw8vzl78BD7tLX7/ssrBVhKRcsjGaljovdUPteI5vqqaCxAl0wGhzDyijx6MXdGq2XPc+VR0yGkA0niL/EjKMb/W+Nrvf1YzWzk0iHjSKNUvW+UfiNhyvuWeqgLMUN8bCiNbd6beit4O/pG2gGRUS1ypWfavK48s1YrGThPlFaE9wDoLqqYmQgT6Ux+Ldon+IO8PqBi+xnS9WKC//9bWFU/uuyqgxTyqG7b7ojdk1nYjmxO3+yTPxRpJPqKG5Hcg2WxqON2nOvprMc+jAZS1tnIG5aQ9SLXcli0DJwwVxcidldxOx9kg5RBi+4Q37dOuS1g="      
   
-before_install:
-  - ulimit -c
-  - ulimit -a -S
-  - ulimit -a -H
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then wget https://cmake.org/files/v3.5/cmake-3.5.0-Darwin-x86_64.tar.gz && tar xfz cmake-3.5.0-Darwin-x86_64.tar.gz; fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then export PATH="`pwd`/cmake-3.5.0-Darwin-x86_64/CMake.app/Contents/bin":$PATH ; fi
-
-install:
-  - ulimit -c unlimited -S
-  - ulimit -c
-  - ulimit -a -S
-  - ulimit -a -H
-  - cat /proc/sys/kernel/core_pattern
-
-before_script:
-  
-script:
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-6 90; sudo update-alternatives --auto gcov; fi
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo update-alternatives --install /usr/bin/ld ld /usr/bin/ld.gold 100; sudo update-alternatives --auto ld; fi
-  - if [ $CXX = "g++" ]; then export DEPTH="2048"; fi
-  - if [ $CXX = "clang++" ]; then export DEPTH="750"; fi
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then if [ $CXX = "g++" ]; then export CC="/usr/bin/gcc-6"; export CXX="/usr/bin/g++-6"; export AR="/usr/bin/gcc-ar-6"; export RANLIB="/usr/bin/gcc-ranlib-6"; export NM="/usr/bin/gcc-nm-6"; fi; fi
-# - if [ "$TRAVIS_OS_NAME" = "linux" ]; then if [ $CXX = "clang++" ]; then export CXX="clang++-3.7"; export CC="clang-3.7"; export AR="/usr/lib/llvm-3.7/bin/llvm-ar"; export RANLIB="/usr/lib/llvm-3.7/bin/llvm-ranlib"; export NM="/usr/lib/llvm-3.7/bin/llvm-nm"; fi; fi
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then uname -s; fi
-  - ./fetchDependencies.py
-  - mkdir bin
-  - cd bin
-  - cmake -D build_type=$build_type -D static_libraries=$static_libraries -D appended_flags="-ftemplate-depth=$DEPTH -Werror" ..
-  - make -j 2
-  - ctest --output-on-failure -j 2
-  - if [ $CXX = "g++" ]; for i in $(find ./ -maxdepth 4 -name 'core*' -print); do gdb $(pwd)/implementation/MaterialSkeleton/test/MaterialSkeleton.test core* -ex "thread apply all bt" -ex "set pagination 0" -batch; done; fi;
-  - if [ "$build_type" = "coverage" ]; then pip install --user cpp-coveralls; echo "loading coverage information"; coveralls  --exclude "/usr/include/" --exclude-pattern ".*CMake.*|.*Catch.*|.*catch.*|.*easylogging.*|.*disco.*|.*utility.*|.*test\.cpp" --root ".." --build-root "." --gcov-options '\-lp'; fi
+script: ./.travis.sh
 
 matrix:
   exclude:
-  #problem with llvm gold linker on travis
-  - os: linux
-    compiler: clang
-    env: build_type="release" static_libraries="TRUE"
-
+  # problem with llvm gold linker on travis
   - os: linux
     compiler: gcc
     env: build_type="release" static_libraries="TRUE"
@@ -117,7 +71,19 @@ matrix:
     env: build_type="debug" static_libraries="TRUE"
     
   - os: linux
-    osx_image: xcode8
     compiler: gcc
     env: build_type="coverage" 
 
+  - os: linux
+    compiler: gcc
+    env: build_type="debug" static_libraries="TRUE" SANITIZER="-fsanitize=address"
+
+  - os: linux
+    compiler: gcc
+    env: build_type="debug" static_libraries="TRUE" SANITIZER="-fsanitize=memory"
+
+  - os: linux
+    compiler: gcc
+    env: build_type="debug" static_libraries="TRUE" SANITIZER="fsanitize=undefined"
+
+    
