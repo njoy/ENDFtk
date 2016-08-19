@@ -1,9 +1,3 @@
-if [ "${TRAVIS_PULL_REQUEST}" = "false" ] && ([ ! -z ${SANITIZER+x} ] || [ "build_type" = "release" ]) 
-then
-    echo "Builds and tests with release and sanitizer options are only run during pull requests"
-    exit 0
-fi
-
 if [ "$TRAVIS_OS_NAME" = "osx" ]
 then
     wget https://cmake.org/files/v3.5/cmake-3.5.0-Darwin-x86_64.tar.gz
