@@ -76,14 +76,14 @@ matrix:
 
   - os: linux
     compiler: gcc
-    env: build_type="debug" static_libraries="TRUE" SANITIZER="-fuse-ld=gold -fsanitize=address"
+    env: build_type="debug" static_libraries="TRUE" SANITIZER="-fsanitize=address"
 
   - os: linux
     compiler: gcc
-    env: build_type="debug" static_libraries="TRUE" SANITIZER="-fuse-ld=gold -fsanitize=memory"
+    env: build_type="debug" static_libraries="TRUE" SANITIZER="-fsanitize=memory"
 
   - os: linux
     compiler: gcc
-    env: build_type="debug" static_libraries="TRUE" SANITIZER="-fuse-ld=gold -fsanitize=undefined"
+    env: build_type="debug" static_libraries="TRUE" SANITIZER="-fsanitize=undefined"
 
     

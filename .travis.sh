@@ -1,6 +1,7 @@
 if [ "${TRAVIS_PULL_REQUEST}" = "false" ] && ([ ! -z ${SANITIZER+x} ] || [ "build_type" = "release" ]) 
 then
-    return 0
+    echo "Builds and tests with release and sanitizer options are only run during pull requests"
+    exit 0
 fi
 
 if [ "$TRAVIS_OS_NAME" = "osx" ]
