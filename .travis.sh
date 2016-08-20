@@ -9,7 +9,7 @@ elif [ "$TRAVIS_OS_NAME" = "linux" ]
 then
     sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-6 90
     sudo update-alternatives --auto gcov
-    export SPECIFY_LD="-fuse-ld=gold"
+    export SPECIFY_LD="-fuse-ld=gold -fuse-linker-plugin"
     if [ $CXX = "g++" ]
     then
         export CC="/usr/bin/gcc-6"
@@ -31,8 +31,11 @@ cmake -D build_type=$build_type \
       -D appended_flags="-ftemplate-depth=$DEPTH -Werror ${SPECIFY_LD} ${SANITIZER}" ..
 make -j 2
 export COMPILATION_FAILURE=$?
+echo "COMPILATION_FAILURE=${COMPILATION_FAILURE}"
+
 ctest --output-on-failure -j 2
 export TEST_FAILURE=$?
+echo "TEST_FAILURE=${TEST_FAILURE}"
 
 if [ "$build_type" = "coverage" ]
 then
@@ -41,7 +44,7 @@ then
     coveralls  --exclude "/usr/include/" --exclude-pattern ".*CMake.*|.*Catch.*|.*catch.*|.*easylogging.*|.*disco.*|.*utility.*|.*test\.cpp" --root ".." --build-root "." --gcov-options '\-lp'
 fi
 
-if [ $COMPILATION_FAILURE || $TEST_FAILURE ];
+if [[ $COMPILATION_FAILURE || $TEST_FAILURE ]];
 then
     exit 1
 else
