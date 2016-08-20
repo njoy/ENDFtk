@@ -82,14 +82,14 @@ matrix:
     compiler: clang
     env: build_type="debug" static_libraries="TRUE" SANITIZER="-fsanitize=address"
 
-  - os: osx
-    osx_image: xcode8
-    compiler: clang
-    env: build_type="debug" static_libraries="TRUE" SANITIZER="-fsanitize=memory"
+  # - os: osx
+  #   osx_image: xcode8
+  #   compiler: clang
+  #   env: build_type="debug" static_libraries="TRUE" SANITIZER="-fsanitize=memory"
 
-  - os: osx
-    osx_image: xcode8
-    compiler: clang
-    env: build_type="debug" static_libraries="TRUE" SANITIZER="-fsanitize=undefined"
+  # - os: osx
+  #   osx_image: xcode8
+  #   compiler: clang
+  #   env: build_type="debug" static_libraries="TRUE" SANITIZER="-fsanitize=undefined"
 
     
