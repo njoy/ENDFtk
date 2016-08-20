@@ -44,7 +44,7 @@ then
     coveralls  --exclude "/usr/include/" --exclude-pattern ".*CMake.*|.*Catch.*|.*catch.*|.*easylogging.*|.*disco.*|.*utility.*|.*test\.cpp" --root ".." --build-root "." --gcov-options '\-lp'
 fi
 
-if [[ $COMPILATION_FAILURE || $TEST_FAILURE ]];
+if [ $COMPILATION_FAILURE -ne 0 ] || [ $TEST_FAILURE -ne 0 ];
 then
     exit 1
 else

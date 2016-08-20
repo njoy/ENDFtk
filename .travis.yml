@@ -46,11 +46,11 @@ install:
 script: ./.travis.sh
 
 matrix:
-  # exclude:
-  # # problem with llvm gold linker on travis
-  # - os: linux
-  #   compiler: gcc
-  #   env: build_type="release" static_libraries="TRUE"
+  exclude:
+  # problem with llvm gold linker on travis
+  - os: linux
+    compiler: gcc
+    env: build_type="release" static_libraries="TRUE"
     
   include:
   - os: osx
