@@ -57,16 +57,16 @@ SCENARIO( "StructureDivision Tests", "[ENDFtk], [StructureDivision]" ){
 
   GIVEN( "a head record string"){
     std::string line =
-      " 1.001000+3 9.991673-1          0          0          0          5 125 1451    1";
+      "\n 1.001000+3 9.991673-1          0          0          0          5 125 1451    1";
     WHEN("passed to the parsing ctor"){
       THEN("the structure division will be built correctly"){
         auto lineNumber = 0l;
-        auto it = line.begin();
+        auto it = line.begin() + 1;
         auto end = line.end();
         REQUIRE_NOTHROW( StructureDivision( it, end, lineNumber ) );
       }
       auto lineNumber = 0l;
-      auto it = line.begin();
+      auto it = line.begin() + 1;
       auto end = line.end();
       auto record = StructureDivision( it, end, lineNumber );
       THEN("the record will not be an end record"){
@@ -83,30 +83,30 @@ SCENARIO( "StructureDivision Tests", "[ENDFtk], [StructureDivision]" ){
   
   GIVEN( "a head record string with an illegal MAT"){
     std::string line =
-      " 1.001000+3 9.991673-1          0          0          0          0  -2 1451    1";
+      "\n 1.001000+3 9.991673-1          0          0          0          0  -2 1451    1";
     THEN("the ctor will throw"){
         auto lineNumber = 0l;
-        auto it = line.begin();
+        auto it = line.begin() + 1;
         auto end = line.end();
         REQUIRE_THROWS( StructureDivision( it, end, lineNumber ) );
     }
   }
   GIVEN( "a head record string with an illegal MF"){
     std::string line =
-      " 1.001000+3 9.991673-1          0          0          0          0 125-1451    1";
+      "\n 1.001000+3 9.991673-1          0          0          0          0 125-1451    1";
     THEN("the ctor will throw"){
         auto lineNumber = 0l;
-        auto it = line.begin();
+        auto it = line.begin() + 1;
         auto end = line.end();
         REQUIRE_THROWS( StructureDivision( it, end, lineNumber ) );
     }
   }
   GIVEN( "a head record string with an illegal MT"){
     std::string line =
-      " 1.001000+3 9.991673-1          0          0          0          0 125 1 -1    1";
+      "\n 1.001000+3 9.991673-1          0          0          0          0 125 1 -1    1";
     THEN("the ctor will throw"){
         auto lineNumber = 0l;
-        auto it = line.begin();
+        auto it = line.begin() + 1;
         auto end = line.end();
         REQUIRE_THROWS( StructureDivision( it, end, lineNumber ) );
     }

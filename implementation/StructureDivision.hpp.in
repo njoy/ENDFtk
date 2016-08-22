@@ -23,30 +23,61 @@ public:
     tail( MAT, MF, MT ) {}
 
   template< typename Iterator >
-  StructureDivision( Iterator& it, const Iterator& end, long& lineNumber )
+  StructureDivision( Iterator& it, const Iterator& end, long& lineNumber ) :
+    StructureDivision( it, it, end, lineNumber ){}
+  
+  template< typename Iterator >
+  StructureDivision
+    ( Iterator begin, Iterator& it, const Iterator& end, long& lineNumber )
   try: base( it, end ), tail( it, end, lineNumber ) {
+    auto fieldPosition = std::next( begin, 66 );
     if (tail.material() < -1){
       LOG(ERROR) << "Illegal material number (MAT) encountered";
-      LOG(INFO) << "Material numbers are greater than or equal to -1";
-      LOG(INFO) << "Material number: " << this->tail.material();
+      utility::echoErroneousLine( begin, fieldPosition, end, lineNumber - 1 );
+      LOG(INFO)  << "Material numbers are greater than or equal to -1";
+      LOG(INFO)  << "Material number: " << this->tail.material();
       throw std::exception();
     }
     if (tail.file() < 0){
+      std::advance( fieldPosition, 4 );
       LOG(ERROR) << "Illegal file number (MF) encountered";
-      LOG(INFO) << "File numbers are greater than or equal to 0";
-      LOG(INFO) << "File number: " << this->tail.file();
+      utility::echoErroneousLine( begin, fieldPosition, end, lineNumber - 1 );
+      LOG(INFO)  << "File numbers are greater than or equal to 0";
+      LOG(INFO)  << "File number: " << this->tail.file();
       throw std::exception();
     }
     if (tail.section() < 0){
+      std::advance( fieldPosition, 6 );
       LOG(ERROR) << "Illegal section number (MT) encountered";
-      LOG(INFO) << "Section numbers are greater than or equal to 0";
-      LOG(INFO) << "Section number: " << this->tail.section();
+      utility::echoErroneousLine( begin, fieldPosition, end, lineNumber - 1 );
+      LOG(INFO)  << "Section numbers are greater than or equal to 0";
+      LOG(INFO)  << "Section number: " << this->tail.section();
       throw std::exception();
     }    
-  } catch ( std::exception& e ){
-    throw e;
   } catch ( int fieldNumber ){
+    auto fieldPosition = std::next( begin, 66 );
+    switch (fieldNumber) {
+    case 6 :
+      LOG(ERROR) << "Illegal material number (MAT) encountered";
+      utility::echoErroneousLine( begin, fieldPosition, end, lineNumber );
+      break;
+    case 7 :
+      std::advance( fieldPosition, 4 );
+      LOG(ERROR) << "Illegal file number (MF) encountered";
+      utility::echoErroneousLine( begin, fieldPosition, end, lineNumber );
+      break;
+    case 8 :
+      std::advance( fieldPosition, 6 );
+      LOG(ERROR) << "Illegal section number (MT) encountered";
+      utility::echoErroneousLine( begin, fieldPosition, end, lineNumber );
+      break;
+    default:
+      break;
+    }
     throw std::exception();
+  } catch ( std::exception& e ){
+    LOG(INFO) << "Error encountered while constructing structure division";
+    throw e;
   }
 
   bool isHead(){

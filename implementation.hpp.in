@@ -1,5 +1,5 @@
-#ifndef ENDFTK_IMPLEMENTATION_HPP
-#define ENDFTK_IMPLEMENTATION_HPP
+#include <unordered_map>
+#include <functional>
 
 #include "ENDFtk/implementation/record.hpp"
 
@@ -97,6 +97,19 @@ class SectionBase;
 
 template<int MF>
 class Section;
+
+template<typename Iterator>
+class TapeSkeleton;
+
+template<typename Iterator>
+class MaterialSkeleton;
+
+template<typename Iterator>
+class FileSkeleton;
+
+template<typename Iterator>
+class SectionSkeleton;
+
 } // namespace implementation
 } // namespace ENDFtk
 
@@ -107,9 +120,10 @@ class Section;
 #include "ENDFtk/implementation/ControlRecord.hpp"
 #include "ENDFtk/implementation/DirectoryRecord.hpp"
 #include "ENDFtk/implementation/ListRecord.hpp"
-#include "ENDFtk/implementation/SectionBase.hpp"
-//#include "ENDFtk/implementation/SkipRecord.hpp"
 #include "ENDFtk/implementation/UnivariateTabulation.hpp"
-
-#endif // ENDFTK_IMPLEMENTATION_HPP
+#include "ENDFtk/implementation/SectionBase.hpp"
+#include "ENDFtk/implementation/SectionSkeleton.hpp"
+#include "ENDFtk/implementation/FileSkeleton.hpp"
+#include "ENDFtk/implementation/MaterialSkeleton.hpp"
+#include "ENDFtk/implementation/TapeSkeleton.hpp"
 

@@ -1,6 +1,3 @@
-#ifndef ENDFTK_IMPLEMENTATION_RECORD_TAIL_HPP
-#define ENDFTK_IMPLEMENTATION_RECORD_TAIL_HPP
-
 /** @brief Small class to contain the MAT, MF, and MT of a Record */
 class ENDFtk::implementation::record::Tail {
 public:
@@ -129,5 +126,3 @@ using TailVerifying = typename TailVerifier< Ts... >::type;
 } // namespace record
 } // namespace implementation
 } // namespace ENDFtk
-
-#endif  // ENDFTK_IMPLEMENTATION_RECORDTAIL_HPP

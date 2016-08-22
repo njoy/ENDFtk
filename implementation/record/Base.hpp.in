@@ -1,6 +1,3 @@
-#ifndef ENDFTK_IMPLEMENTATION_RECORD_BASE_HPP
-#define ENDFTK_IMPLEMENTATION_RECORD_BASE_HPP
-
 namespace ENDFtk {
 namespace implementation {
 namespace record {
@@ -119,5 +116,3 @@ struct Base{
 }
 }
 }
-
-#endif

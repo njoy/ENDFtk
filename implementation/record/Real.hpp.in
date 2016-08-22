@@ -1,6 +1,3 @@
-#ifndef ENDFTK_IMPLEMENTATION_RECORD_REAL_HPP
-#define ENDFTK_IMPLEMENTATION_RECORD_REAL_HPP
-
 struct ENDFtk::implementation::record::Real {
   static constexpr std::size_t width = 11;
   using Type = double;
@@ -8,5 +5,3 @@ struct ENDFtk::implementation::record::Real {
 
   static constexpr Type defaultValue = 0.0;
 };
-
-#endif
