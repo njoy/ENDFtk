@@ -5,6 +5,7 @@ createVector
 
   std::vector< FileSkeleton_t > vector;
   vector.emplace_back( head, begin, position, end, lineNumber );
+  begin = position;
   auto division = StructureDivision( position, end, lineNumber ); 
 
   while( division.isHead() ){
