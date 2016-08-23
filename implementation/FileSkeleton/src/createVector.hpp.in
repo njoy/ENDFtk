@@ -5,8 +5,8 @@ createVector
 
   std::vector< SectionSkeleton_t > vector;
   vector.emplace_back( head, begin, position, end, lineNumber );
+  begin = position; 
   auto division = StructureDivision( position, end, lineNumber );
-  
   while( division.isHead() ){
     vector.emplace_back( asHead(division), begin, position, end, lineNumber );
     if( position >= end ){

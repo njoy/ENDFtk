@@ -10,6 +10,7 @@ createVector
   auto begin = position;
   auto division = structureDivision();
   vector.emplace_back( asHead( division ), begin, position, end, lineNumber );
+  begin = position;
   if( position >= end ){
     LOG(ERROR) <<
       "Tape encountered end of stream before reading TEND record";
