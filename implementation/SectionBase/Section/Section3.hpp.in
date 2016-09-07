@@ -1,5 +1,5 @@
-namespace ENDFtk{
-namespace implementation{
+#ifndef ENDFTK_IMPLEMENTATION_SECTIONBASE_SECTION_SECTION3_HPP
+#define ENDFTK_IMPLEMENTATION_SECTIONBASE_SECTION_SECTION3_HPP
 
 /** @brief Section specialization for MF=3  */
 template<>
@@ -54,6 +54,5 @@ public:
 
 };
 
-} // namespace implementation
-} // namespace ENDFtk
+#endif // ENDFTK_IMPLEMENTATION_SECTIONBASE_SECTION_SECTION3_HPP
 

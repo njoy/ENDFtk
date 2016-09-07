@@ -1,18 +1,15 @@
 if(${verbose_traversal})
-  message(STATUS "Entered SectionBase directory")
+  message(STATUS "Entered Section directory")
 endif(${verbose_traversal})
 
-set(long_path "${ENDFtk_HEADER_DIR}/implementation/SectionBase")
+set(long_path "${ENDFtk_HEADER_DIR}/implementation/SectionBase/Section")
 
 set( subdirectories "" )
 list( APPEND subdirectories 
-  "Section"
-  )
+  "Section3" )
 
 set( headers "" )
 list( APPEND headers
-  "src/ctor"
-  "src/readSEND"
   ${subdirectories}
   )
 
@@ -28,11 +25,12 @@ foreach( subdirectory ${subdirectories} )
   add_subdirectory( ${subdirectory} )
 endforeach( subdirectory )
 
-if(${local_testing})
-  list( APPEND testLabels SectionBase )
-  add_subdirectory( "${CMAKE_CURRENT_SOURCE_DIR}/test" )
-endif(${local_testing})
+# if(${local_testing})
+#   list( APPEND testLabels Section )
+#   add_subdirectory( "${CMAKE_CURRENT_SOURCE_DIR}/test" )
+# endif(${local_testing})
 
 if(${verbose_traversal})
-  message(STATUS "Exiting SectionBase directory")
+  message(STATUS "Exiting Section directory")
 endif(${verbose_traversal})
+
