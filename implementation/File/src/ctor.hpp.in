@@ -4,7 +4,8 @@ File( ENDFtk::implementation::StructureDivision& division,
       BufferIterator& begin, BufferIterator end, long& lineNumber){
 
   while( not division.isFend() ){
-    sections_.emplace_back(division, begin, end, lineNumber);
+    sections_.emplace_back(asHead(division), begin, end, lineNumber,
+                           division.tail.MAT());
 
     if( sectionMap_.count( division.tail.MT() ) ){
       LOG(ERROR) << "Sections specified with redundant section numbers (MT)";
