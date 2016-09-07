@@ -1,6 +1,6 @@
 setupTest(File)
 configure_file(
-  "${PROJECT_SOURCE_DIR}/resources/n-001_H_001.endf"
-  "${CMAKE_CURRENT_BINARY_DIR}/n-001_H_001.endf"
+  "${PROJECT_SOURCE_DIR}/resources/MF3.endf"
+  "${CMAKE_CURRENT_BINARY_DIR}/MF3.endf"
   COPYONLY
   )

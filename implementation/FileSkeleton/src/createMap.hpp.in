@@ -1,7 +1,9 @@
 static std::unordered_map< int, SectionSkeleton_t& >
 createMap( std::vector< SectionSkeleton_t >& vector ){
+
   std::unordered_map< int, SectionSkeleton_t& > map;
   map.reserve( vector.size() );
+
   for ( auto& section : vector ){
     if ( map.count( section.MT() ) ){
       LOG(ERROR) << "Sections specified with redundant section numbers (MT)";

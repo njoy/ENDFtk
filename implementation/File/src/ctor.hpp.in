@@ -1,4 +1,21 @@
+
 template< typename BufferIterator >
-File( const ENDFtk::implementation::HeadRecord&,
-      BufferIterator& , BufferIterator , long& ){
+File( ENDFtk::implementation::StructureDivision& division,
+      BufferIterator& begin, BufferIterator end, long& lineNumber){
+
+  while( not division.isFend() ){
+    sections_.emplace_back(division, begin, end, lineNumber);
+
+    if( sectionMap_.count( division.tail.MT() ) ){
+      LOG(ERROR) << "Sections specified with redundant section numbers (MT)";
+      LOG(INFO)  <<
+        "Within an ENDF File, sections are required to specify a unique MT";
+      LOG(INFO)  << "Encountered redundant MT: " << division.tail.MT();
+      throw std::exception();
+    }
+    sectionMap_.insert( { division.tail.MT(), sections_.back() } );
+
+    division = StructureDivision(begin, end, lineNumber);
+  }
+
 }
