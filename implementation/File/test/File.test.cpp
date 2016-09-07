@@ -4,6 +4,8 @@
 
 #include "ENDFtk.hpp"
 
+using namespace ENDFtk::implementation;
+
 int main( int argc, const char* argv[] ){
   LOG(INFO) << "";
   LOG(INFO) << "File Tests";

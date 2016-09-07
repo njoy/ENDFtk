@@ -1,7 +1,12 @@
 #ifndef ENDFtk_IMPLEMENTATION_FILE_SRC_CTOR_HPP
 #define ENDFtk_IMPLEMENTATION_FILE_SRC_CTOR_HPP
 
-File( const std::string s ){
+File( const std::string& str ){
+}
+
+template< typename BufferIterator >
+File( const ENDFtk::implementation::HeadRecord& head, 
+      const ENDFtk::implementation::FileSkeleton<BufferIterator>& skeleton){
 }
 
 #endif  // ENDFtk_IMPLEMENTATION_FILE_SRC_CTOR_HPP
