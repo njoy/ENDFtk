@@ -1,0 +1,20 @@
+#ifndef ENDFTK_IMPLEMENTATION_FILE_HPP
+#define ENDFTK_IMPLEMENTATION_FILE_HPP
+
+namespace ENDFtk {
+namespace implementation {
+
+template<int MF>
+class File{
+public:
+  using SectionMF = Section<MF>;
+
+#include "ENDFtk/implementation/File/src/ctor.hpp"
+
+}; // File
+
+} // namespace implementation
+} // namespace ENDFtk
+
+#endif  // ENDFTK_IMPLEMENTATION_FILE_HPP
+

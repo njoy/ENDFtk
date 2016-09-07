@@ -18,15 +18,16 @@ endforeach (subdir)
 
 set(subdirs "")
 list(APPEND subdirs
-  "TextRecord"
   "ControlRecord"
   "DirectoryRecord"
-  "StructureDivision"
-  "SectionBase"
-  "SectionSkeleton"
+  "File"
   "FileSkeleton"
   "MaterialSkeleton"
+  "SectionBase"
+  "SectionSkeleton"
+  "StructureDivision"
   "TapeSkeleton"
+  "TextRecord"
   ${header_only_subdirs}
   )
 
