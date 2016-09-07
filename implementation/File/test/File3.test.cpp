@@ -8,20 +8,22 @@ using namespace ENDFtk::implementation;
 
 SCENARIO( "Testing MF=3" ){
   GIVEN( "a string representation of of File 3" ){
-    static const std::string mf3 = utility::slurpFileToMemory( "./MF3.endf" );
+    std::string H1 = utility::slurpFileToMemory( "./n-001_H_001.endf" );
     WHEN( "a File<3> is constructed from the string" ){
 
-      auto begin = mf3.begin();
-      auto start = mf3.begin();
-      auto end = mf3.end();
+      auto tapeBegin = H1.begin();
+      auto tapeEnd = H1.end();
       long lineNumber = 0;
       
-      HeadRecord head( begin, end, lineNumber);
-      
-      FileSkeleton< std::string::iterator >
-        MF3Skeleton( head, start, begin, end, lineNumber );
-
-      File<3> myFile(head, MF3Skeleton);
+      auto& MF3Skeleton =
+        TapeSkeleton< std::string::iterator >
+        ( tapeBegin, tapeEnd, lineNumber ).MAT(125)[0].MF(3);
+        
+      auto it = MF3Skeleton.bufferBegin();
+      auto end = MF3Skeleton.bufferEnd();
+      lineNumber = 0;
+      HeadRecord head( it, end, lineNumber);
+      File<3> myFile(head, it, end, lineNumber );
     }
   } // GIVEN
 } // SCENARIO

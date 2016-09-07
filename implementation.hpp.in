@@ -98,14 +98,14 @@ class SectionBase;
 template<int MF>
 class Section;
 
+template<int MF>
+class File;
+
 template<typename Iterator>
 class TapeSkeleton;
 
 template<typename Iterator>
 class MaterialSkeleton;
-
-template<int MF>
-class File;
 
 template<typename Iterator>
 class FileSkeleton;
@@ -126,8 +126,8 @@ class SectionSkeleton;
 #include "ENDFtk/implementation/UnivariateTabulation.hpp"
 #include "ENDFtk/implementation/SectionBase.hpp"
 #include "ENDFtk/implementation/SectionSkeleton.hpp"
-#include "ENDFtk/implementation/File.hpp"
 #include "ENDFtk/implementation/FileSkeleton.hpp"
 #include "ENDFtk/implementation/MaterialSkeleton.hpp"
 #include "ENDFtk/implementation/TapeSkeleton.hpp"
+#include "ENDFtk/implementation/File.hpp"
 
