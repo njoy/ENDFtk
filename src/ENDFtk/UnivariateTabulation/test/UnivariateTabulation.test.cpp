@@ -1,20 +1,9 @@
-#define CATCH_CONFIG_RUNNER
-
-#include <string>
+#define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-
 #include "ENDFtk.hpp"
 
-int main( int argc, const char* argv[] ){
-  LOG(INFO) << "";
-  LOG(INFO) << "UnivariateTabulation Tests";
-  LOG(INFO) << "======================";  
-  int result = Catch::Session().run( argc, argv );
-  LOG(INFO) << "UnivariateTabulation Complete!";
-  return result;
-}
-
+using namespace njoy::ENDFtk;
 
 std::function< UnivariateTabulation() > makeTAB1 = [](){
   auto metadata = std::make_tuple( 1.0, 2.0, 3ul, 4ul );
@@ -26,7 +15,7 @@ std::function< UnivariateTabulation() > makeTAB1 = [](){
   return UnivariateTabulation
   ( std::get< 0 >( metadata ), std::get< 1 >( metadata ),
     std::get< 2 >( metadata ), std::get< 3 >( metadata ),
-    utility::copy( regionPairs ), utility::copy( orderedPairs ) );
+    njoy::utility::copy( regionPairs ), njoy::utility::copy( orderedPairs ) );
 };
 
 SCENARIO( "UnivariateTabulation ctor",
@@ -42,7 +31,7 @@ SCENARIO( "UnivariateTabulation ctor",
   auto tab1_0 = UnivariateTabulation
   ( std::get< 0 >( metadata ), std::get< 1 >( metadata ),
     std::get< 2 >( metadata ), std::get< 3 >( metadata ),
-    utility::copy( regionPairs ), utility::copy( orderedPairs ) );
+    njoy::utility::copy( regionPairs ), njoy::utility::copy( orderedPairs ) );
   
   auto mismatchedOrderedPairs =
     std::make_tuple( std::vector< double >{1.0, 2.0, 3.0, 4.0, 5.0},
@@ -51,8 +40,8 @@ SCENARIO( "UnivariateTabulation ctor",
   REQUIRE_THROWS( UnivariateTabulation
                   ( std::get< 0 >( metadata ), std::get< 1 >( metadata ),
                     std::get< 2 >( metadata ), std::get< 3 >( metadata ),
-                    utility::copy( regionPairs ),
-                    utility::copy( mismatchedOrderedPairs ) ) );
+                    njoy::utility::copy( regionPairs ),
+                    njoy::utility::copy( mismatchedOrderedPairs ) ) );
 
   auto outOfOrderOrderedPairs =
     std::make_tuple( std::vector< double >{1.0, 3.0, 2.0, 4.0, 5.0},
@@ -61,8 +50,8 @@ SCENARIO( "UnivariateTabulation ctor",
   REQUIRE_THROWS( UnivariateTabulation
                   ( std::get< 0 >( metadata ), std::get< 1 >( metadata ),
                     std::get< 2 >( metadata ), std::get< 3 >( metadata ),
-                    utility::copy( regionPairs ),
-                    utility::copy( outOfOrderOrderedPairs ) ) );
+                    njoy::utility::copy( regionPairs ),
+                    njoy::utility::copy( outOfOrderOrderedPairs ) ) );
 
   auto outOfOrderRegionPairs =
     std::make_tuple( std::vector< long >{5,4,6}, std::vector< long >{1,2,3} );
@@ -70,8 +59,8 @@ SCENARIO( "UnivariateTabulation ctor",
   REQUIRE_THROWS( UnivariateTabulation
                   ( std::get< 0 >( metadata ), std::get< 1 >( metadata ),
                     std::get< 2 >( metadata ), std::get< 3 >( metadata ),
-                    utility::copy( outOfOrderRegionPairs ),
-                    utility::copy( orderedPairs ) ) );
+                    njoy::utility::copy( outOfOrderRegionPairs ),
+                    njoy::utility::copy( orderedPairs ) ) );
   
   auto mismatchedRegionPairs =
     std::make_tuple( std::vector< long >{4,5,6}, std::vector< long >{1,2,3,4} );
@@ -79,8 +68,8 @@ SCENARIO( "UnivariateTabulation ctor",
   REQUIRE_THROWS( UnivariateTabulation
                   ( std::get< 0 >( metadata ), std::get< 1 >( metadata ),
                     std::get< 2 >( metadata ), std::get< 3 >( metadata ),
-                    utility::copy( mismatchedRegionPairs ),
-                    utility::copy( orderedPairs ) ) );
+                    njoy::utility::copy( mismatchedRegionPairs ),
+                    njoy::utility::copy( orderedPairs ) ) );
   std::string tab1String = 
     " 0.000000+0 0.000000+0         33          0          1          49228 1460  438\n"
     "          4          4                                            9228 1460  439\n"

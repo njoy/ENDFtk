@@ -1,7 +1,7 @@
 #include "catch.hpp"
-
 #include "ENDFtk.hpp"
 
+using namespace njoy::ENDFtk::record;
 
 SCENARIO( "The Zipper unzip function", "[ENDFtk], [Zipper]" ){
   GIVEN("a record with zipped values" ){

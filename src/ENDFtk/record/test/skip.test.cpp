@@ -1,6 +1,7 @@
 #include "catch.hpp"
-
 #include "ENDFtk.hpp"
+
+using namespace njoy::ENDFtk;
 
 SCENARIO( "Skipping records" ){
   GIVEN( "A string with a number of lines" ){
@@ -14,7 +15,9 @@ SCENARIO( "Skipping records" ){
     auto lineNumber = 0l;
     WHEN( "skipping records" ){
       THEN( "The records can be skipped" ){
-
+        record::skip(it, end, lineNumber);
+        record::skip(it, end, lineNumber);
+        record::skip(it, end, lineNumber);
         REQUIRE( it == end );
         REQUIRE( 3 == lineNumber );
 
@@ -25,7 +28,7 @@ SCENARIO( "Skipping records" ){
         auto it = line.begin();
         auto end = line.end();
         auto lineNumber = 0l;
-        REQUIRE_THROWS(
+        REQUIRE_THROWS( record::skip(it, end, lineNumber) );
       }
     }
   } // GIVEN

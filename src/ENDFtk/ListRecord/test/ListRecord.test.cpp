@@ -1,20 +1,9 @@
-#define CATCH_CONFIG_RUNNER
-
-#include <string>
+#define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-
 #include "ENDFtk.hpp"
 
-int main( int argc, const char* argv[] ){
-  LOG(INFO) << "";
-  LOG(INFO) << "ListRecord Tests";
-  LOG(INFO) << "======================";  
-  int result = Catch::Session().run( argc, argv );
-  LOG(INFO) << "ListRecord Complete!";
-  return result;
-}
-
+using namespace njoy::ENDFtk;
 
 SCENARIO( "ListRecord Tests", "[ENDFtk], [ListRecord]" ){
   auto values = std::make_tuple( 1.001000E+3, 9.991673E-1, 0, 0, 10, 5 );
@@ -29,7 +18,7 @@ SCENARIO( "ListRecord Tests", "[ENDFtk], [ListRecord]" ){
     REQUIRE_NOTHROW(
       ListRecord( std::get< 0 >(values), std::get< 1 >(values),
                   std::get< 2 >(values), std::get< 3 >(values),
-                  std::get< 5 >(values), utility::copy(list) ) );
+                  std::get< 5 >(values), njoy::utility::copy(list) ) );
   }
   GIVEN( "iterators and a line number"){
     auto it = lines.begin();
@@ -82,7 +71,7 @@ SCENARIO( "ListRecord Tests", "[ENDFtk], [ListRecord]" ){
     auto listRecord1 =
       ListRecord( std::get< 0 >(values), std::get< 1 >(values),
                   std::get< 2 >(values), std::get< 3 >(values),
-                  std::get< 5 >(values), utility::copy(list) );
+                  std::get< 5 >(values), njoy::utility::copy(list) );
       
     const auto& constListRecord1 = listRecord1;
     THEN( "the getter will work" ){

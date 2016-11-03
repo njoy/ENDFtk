@@ -1,19 +1,9 @@
-#define CATCH_CONFIG_RUNNER
-
-#include <string>
+#define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-
 #include "ENDFtk.hpp"
 
-int main( int argc, const char* argv[] ){
-  LOG(INFO) << "";
-  LOG(INFO) << "DirectoryRecord Tests";
-  LOG(INFO) << "======================";
-  int result = Catch::Session().run( argc, argv );
-  LOG(INFO) << "DirectoryRecord Complete!";
-  return result;
-}
+using namespace njoy::ENDFtk;
 
 SCENARIO( "DirectoryRecord Tests", "[ENDFtk], [DirectoryRecord]" ){
   std::string line =

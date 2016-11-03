@@ -7,6 +7,8 @@ constexpr int mat = 125;
 constexpr int mf = 4;
 constexpr int mt = 2;
 
+using namespace njoy::ENDFtk::record;
+
 SCENARIO( "Checking the values of MAT, MF, and MT" ){
   GIVEN( "A string containing the MAT, MF, and MT of a Record" ){
     WHEN("Constructed from values"){

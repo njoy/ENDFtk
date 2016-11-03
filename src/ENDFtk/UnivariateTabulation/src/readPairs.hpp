@@ -5,14 +5,14 @@ readPairs
   int MAT, int MF, int MT ){
   std::tuple< std::vector< double >, std::vector< double > > result;
   try{
-    result = record::Zipper::unzip< record::Real,
-                                    record::Real >( nPairs, it, end,
-                                                    lineNumber, MAT, MF, MT );
+    result = record::Zipper::unzip
+             < record::Real, record::Real >
+             ( nPairs, it, end, lineNumber, MAT, MF, MT );
     auto& xValues = std::get< 0 >( result );
     verifyXValuesAreSorted( xValues );
     return result;
   } catch ( std::exception& e ){
-    LOG(INFO) << "Error while reading TAB1 ordered pairs";
+    Log::info( "Error while reading TAB1 ordered pairs" );
     throw e; 
   }
 }

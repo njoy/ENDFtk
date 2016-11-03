@@ -4,10 +4,11 @@
 
 #include "ENDFtk.hpp"
 
+constexpr int mat = 125;
+constexpr int mf = 4;
+constexpr int mt = 2;
 
-extern int mat;
-extern int mf;
-extern int mt;
+using namespace njoy::ENDFtk::record;
 
 SCENARIO( "Verifying the given numbers in the RecordTail" ){
   /* Catch requirement macros do not like multi-argument templates.

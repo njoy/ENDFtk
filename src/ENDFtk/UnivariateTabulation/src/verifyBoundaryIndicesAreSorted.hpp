@@ -7,12 +7,11 @@ verifyBoundaryIndicesAreSorted( const std::vector< long >& boundaryIndices ){
     ( boundaryIndexIterator == boundaryIndices.end() );
  
   if ( not boundariesAreSorted ){
-    LOG(ERROR) << "Interpolation boundary indices are not sorted";
+    Log::error( "Interpolation boundary indices are not sorted" );
     const auto position = boundaryIndexIterator - boundaryIndices.begin();
-    LOG(INFO) << "Boundary index [" << (position - 1) << "]: "
-              << boundaryIndexIterator[-1];
-    LOG(INFO) << "Boundary index [" << (position) << "]: "
-              << boundaryIndexIterator[0];
+    Log::info( "Boundary index [{}]: {}",
+	       (position - 1), boundaryIndexIterator[-1] );
+    Log::info( "Boundary index [{}]: {}", position, boundaryIndexIterator[0] );
     throw std::exception();
   }
 }

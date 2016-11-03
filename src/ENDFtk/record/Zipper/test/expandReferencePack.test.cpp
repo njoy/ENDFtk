@@ -1,7 +1,7 @@
 #include "catch.hpp"
-
 #include "ENDFtk.hpp"
 
+using namespace njoy::ENDFtk::record;
 
 SCENARIO( "The Zipper expandReferencePack function", "[ENDFtk], [Zipper]" ){
   GIVEN("a line with zipped values" ){

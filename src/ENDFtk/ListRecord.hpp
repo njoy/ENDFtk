@@ -30,10 +30,10 @@ public:
                 ( std::get<4>( this->metadata.fields ),
                   it, end, lineNumber, MAT, MF, MT ) ){
     } catch ( std::exception& e ){
-      LOG(INFO) << "Error encountered while parsing List record";
+      Log::info( "Error encountered while parsing List record" );
       throw e;
     } catch ( int nPosition ){
-      LOG(INFO) << "Error in position " << nPosition;
+      Log::info( "Error in position {}" );
       throw std::exception();
     }
     
@@ -80,5 +80,3 @@ public:
   bool
   operator!= ( const ListRecord& rhs ){ return not ( *this == rhs ); }
 };
-
-#endif

@@ -1,7 +1,7 @@
 #include "catch.hpp"
-
 #include "ENDFtk.hpp"
 
+using namespace njoy::ENDFtk::record;
 
 SCENARIO( "The Zipper readPartialLine function", "[ENDFtk], [Zipper]" ){
   GIVEN("a partial line with zipped default values" ){

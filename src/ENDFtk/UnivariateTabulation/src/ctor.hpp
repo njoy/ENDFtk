@@ -12,27 +12,28 @@ UnivariateTabulation
     verifyBoundaryIndicesAreSorted( this->boundaryIndices );
     verifyXValuesAreSorted( this->xValues );
     const bool mismatchedRegionVectorLengths =
-      (this->boundaryIndices.size() != this->interpolationSchemeIndices.size());
+      ( this->boundaryIndices.size()
+	!= this->interpolationSchemeIndices.size() );
     if ( mismatchedRegionVectorLengths ){
-      LOG(ERROR) << "Mismatched region pair vector lengths";
-      LOG(INFO) << "Boundary indices vector length: "
-                << this->boundaryIndices.size();
-      LOG(INFO) << "Interpolation scheme vector length: "
-                << this->interpolationSchemeIndices.size();
+      Log::error( "Mismatched region pair vector lengths" );
+      Log::info( "Boundary indices vector length: {}",
+		 this->boundaryIndices.size() );
+      Log::info( "Interpolation scheme vector length: {}",
+		 this->interpolationSchemeIndices.size() );
       throw std::exception();
     }
     const bool mismatchedEvaluationVectorLengths =
       ( this->xValues.size() != this->yValues.size() );
     if ( mismatchedEvaluationVectorLengths ){
-      LOG(ERROR) << "Mismatched evaluation pair vector lengths";
-      LOG(INFO) << "X-values vector length: "
-                << this->xValues.size();
-      LOG(INFO) << "Y-values vector length: "
-                << this->yValues.size();
+      Log::error( "Mismatched evaluation pair vector lengths" );
+      Log::info( "X-values vector length: {}",
+		 this->xValues.size() );
+      Log::info( "Y-values vector length: ",
+                 this->yValues.size() );
       throw std::exception();
     }
   } catch( std::exception& e ){
-    LOG(INFO) << "Error while reading TAB1 ordered pairs";
+    Log::info( "Error while reading TAB1 ordered pairs" );
     throw e; 
   }
 }
@@ -48,10 +49,10 @@ UnivariateTabulation( Iterator& it, const Iterator& end, long& lineNumber,
            readPairs
            ( std::get<5>( this->metadata.fields ), it, end, lineNumber, MAT, MF, MT ) ){
        } catch ( std::exception& e ){
-    LOG(INFO) << "Error encountered while parsing Tab1 record";
+    Log::info( "Error encountered while parsing Tab1 record" );
     throw e;
   } catch ( int nPosition ){
-    LOG(INFO) << "Error in position " << nPosition;
-    LOG(INFO) << "Error encountered while parsing Tab1 record";
+    Log::info( "Error in position {}", nPosition );
+    Log::info( "Error encountered while parsing Tab1 record" );
     throw std::exception();
   }

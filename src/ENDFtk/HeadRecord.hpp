@@ -1,3 +1,21 @@
+class HeadRecord;
+
+HeadRecord&
+asHead( StructureDivision& record );
+
+HeadRecord&
+asHead( double expectedZA,
+	double expectedAtomicWeightRatio,
+	StructureDivision& record );
+
+const HeadRecord&
+asHead( const StructureDivision& record );
+
+const HeadRecord&
+asHead( double expectedZA,
+        double expectedAtomicWeightRatio,
+        const StructureDivision& record );
+
 class HeadRecord : protected StructureDivision {
 public:
 
@@ -51,4 +69,5 @@ public:
 #undef DEFINE_DEFERRED_GETTER
 
 #include "ENDFtk/HeadRecord/src/asHead.hpp"
+  
 };

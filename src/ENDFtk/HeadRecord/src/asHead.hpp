@@ -7,25 +7,26 @@ friend HeadRecord&
 asHead( double expectedZA,
         double expectedAtomicWeightRatio,
         StructureDivision& record ){
-  auto& head = asHead( record );
+  auto& head = njoy::ENDFtk::asHead( record );
   if ( head.ZA() != expectedZA ){
-    LOG(WARNING) <<
+    Log::warning(
       "Encountered ZA does not meet expectations for head record with:"
-                 << "\n  Material number (MAT) = " <<  head.MAT()
-                 << "\n  File number (MF) = " <<  head.MF()
-                 << "\n  Section number (MT) = " <<  head.MT();
-    LOG(INFO) << "Expected ZA: " << expectedZA;
-    LOG(INFO) << "Encountered ZA: " << head.ZA();
+      "\n  Material number (MAT) = {}"
+      "\n  File number (MF) = {}" 
+      "\n  Section number (MT) = {}",
+      head.MAT(), head.MF(), head.MT() );
+    Log::info( "Expected ZA: {}", expectedZA );
+    Log::info( "Encountered ZA: {}", head.ZA() );
   }
   if ( head.AWR() != expectedAtomicWeightRatio ){
-    LOG(WARNING) <<
+    Log::warning(
       "Encountered atomic weight ratio does not meet expectations for head record with:"
-                 << "\n  Material number (MAT) = " <<  head.MAT()
-                 << "\n  File number (MF) = " <<  head.MF()
-                 << "\n  Section number (MT) = " <<  head.MT();
-    LOG(INFO) << "Expected atomic weight ratio: "
-              << expectedAtomicWeightRatio;
-    LOG(INFO) << "Encountered atomic weight ratio: " << head.AWR();
+      "\n  Material number (MAT) = {}"
+      "\n  File number (MF) = {}"
+      "\n  Section number (MT) = {}",
+      head.MAT() , head.MF(),  head.MT() );
+    Log::info( "Expected atomic weight ratio: {}", expectedAtomicWeightRatio );
+    Log::info( "Encountered atomic weight ratio: {}", head.AWR() );
   }
   return head;
 }
@@ -39,25 +40,27 @@ friend const HeadRecord&
 asHead( double expectedZA,
         double expectedAtomicWeightRatio,
         const StructureDivision& record ){
-  auto& head = asHead( record );
+  auto& head = njoy::ENDFtk::asHead( record );
   if ( head.ZA() != expectedZA ){
-    LOG(WARNING) <<
+    Log::warning(
       "Encountered ZA does not meet expectations for head record with:"
-                 << "\n  Material number (MAT) = " <<  head.MAT()
-                 << "\n  File number (MF) = " <<  head.MF()
-                 << "\n  Section number (MT) = " <<  head.MT();
-    LOG(INFO) << "Expected ZA: " << expectedZA;
-    LOG(INFO) << "Encountered ZA: " << head.ZA();
+      "\n  Material number (MAT) = {}"
+      "\n  File number (MF) = {}"
+      "\n  Section number (MT) = {}",
+      head.MAT(), head.MF(), head.MT() );
+      
+    Log::info( "Expected ZA: {}", expectedZA );
+    Log::info( "Encountered ZA: {}", head.ZA() );
   }
   if ( head.AWR() != expectedAtomicWeightRatio ){
-    LOG(WARNING) <<
+    Log::warning(
       "Encountered atomic weight ratio does not meet expectations for head record with:"
-                 << "\n  Material number (MAT) = " <<  head.MAT()
-                 << "\n  File number (MF) = " <<  head.MF()
-                 << "\n  Section number (MT) = " <<  head.MT();
-    LOG(INFO) << "Expected atomic weight ratio: "
-              << expectedAtomicWeightRatio;
-    LOG(INFO) << "Encountered atomic weight ratio: " << head.AWR();
+      "\n  Material number (MAT) = {}"
+      "\n  File number (MF) = {}"
+      "\n  Section number (MT) = {}",
+      head.MAT(), head.MF(), head.MT() );
+    Log::info( "Expected atomic weight ratio: {}", expectedAtomicWeightRatio );
+      Log::info( "Encountered atomic weight ratio: {}", head.AWR() );
   }
   return head;
 }

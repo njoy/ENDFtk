@@ -1,20 +1,9 @@
-#define CATCH_CONFIG_RUNNER
-
-#include <string>
+#define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-
 #include "ENDFtk.hpp"
 
-int main( int argc, const char* argv[] ){
-  LOG(INFO) << "";
-  LOG(INFO) << "HeadRecord Tests";
-  LOG(INFO) << "======================";  
-  int result = Catch::Session().run( argc, argv );
-  LOG(INFO) << "HeadRecord Complete!";
-  return result;
-}
-
+using namespace njoy::ENDFtk;
 
 SCENARIO( "HeadRecord Tests", "[ENDFtk], [HeadRecord]" ){
   GIVEN( "a section division which is a head" ){

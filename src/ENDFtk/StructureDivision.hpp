@@ -27,43 +27,43 @@ public:
     try: base( it, end ), tail( it, end, lineNumber ) {
       auto fieldPosition = std::next( begin, 66 );
       if (tail.material() < -1){
-        LOG(ERROR) << "Illegal material number (MAT) encountered";
+	Log::error( "Illegal material number (MAT) encountered" );
         utility::echoErroneousLine( begin, fieldPosition, end, lineNumber - 1 );
-        LOG(INFO)  << "Material numbers are greater than or equal to -1";
-        LOG(INFO)  << "Material number: " << this->tail.material();
+	Log::info( "Material numbers are greater than or equal to -1" );
+	Log::info( "Material number: {}", this->tail.material() );
         throw std::exception();
       }
       if (tail.file() < 0){
         std::advance( fieldPosition, 4 );
-        LOG(ERROR) << "Illegal file number (MF) encountered";
+	Log::error( "Illegal file number (MF) encountered" );
         utility::echoErroneousLine( begin, fieldPosition, end, lineNumber - 1 );
-        LOG(INFO)  << "File numbers are greater than or equal to 0";
-        LOG(INFO)  << "File number: " << this->tail.file();
+	Log::info( "File numbers are greater than or equal to 0" );
+	Log::info( "File number: {}", this->tail.file() );
         throw std::exception();
       }
       if (tail.section() < 0){
         std::advance( fieldPosition, 6 );
-        LOG(ERROR) << "Illegal section number (MT) encountered";
+	Log::error( "Illegal section number (MT) encountered" );
         utility::echoErroneousLine( begin, fieldPosition, end, lineNumber - 1 );
-        LOG(INFO)  << "Section numbers are greater than or equal to 0";
-        LOG(INFO)  << "Section number: " << this->tail.section();
+	Log::info( "Section numbers are greater than or equal to 0" );
+	Log::info( "Section number: {}", this->tail.section() );
         throw std::exception();
       }    
     } catch ( int fieldNumber ){
       auto fieldPosition = std::next( begin, 66 );
       switch (fieldNumber) {
       case 6 :
-        LOG(ERROR) << "Illegal material number (MAT) encountered";
+	Log::error( "Illegal material number (MAT) encountered" );
         utility::echoErroneousLine( begin, fieldPosition, end, lineNumber );
         break;
       case 7 :
         std::advance( fieldPosition, 4 );
-        LOG(ERROR) << "Illegal file number (MF) encountered";
+	Log::error( "Illegal file number (MF) encountered" );
         utility::echoErroneousLine( begin, fieldPosition, end, lineNumber );
         break;
       case 8 :
         std::advance( fieldPosition, 6 );
-        LOG(ERROR) << "Illegal section number (MT) encountered";
+	Log::error( "Illegal section number (MT) encountered" );
         utility::echoErroneousLine( begin, fieldPosition, end, lineNumber );
         break;
       default:
@@ -71,7 +71,7 @@ public:
       }
       throw std::exception();
     } catch ( std::exception& e ){
-      LOG(INFO) << "Error encountered while constructing structure division";
+      Log::info( "Error encountered while constructing structure division" );
       throw e;
     }
 
@@ -109,15 +109,15 @@ public:
 
 inline StructureDivision sectionEndRecord( int MAT, int MF ){
   if ( MAT < 1 ){
-    LOG(ERROR) << "Illegal material number (MAT) specified in SEND record";
-    LOG(INFO) << "SEND records require a material number greater than 0";
-    LOG(INFO) << "Specified material number: " << MAT;
+    Log::error( "Illegal material number (MAT) specified in SEND record" );
+    Log::info( "SEND records require a material number greater than 0" );
+    Log::info( "Specified material number: {}", MAT );
     throw std::exception();
   }
   if ( MF < 1 ){
-    LOG(ERROR) << "Illegal file number (MF) specified in SEND record";
-    LOG(INFO) << "SEND records require a file number greater than 0";
-    LOG(INFO) << "Specified file number: " << MF;
+    Log::error( "Illegal file number (MF) specified in SEND record" );
+    Log::info( "SEND records require a file number greater than 0" );
+    Log::info( "Specified file number: {}", MF );
     throw std::exception();
   }
   return StructureDivision( 0.0, 0.0, 0, 0, 0, 0, MAT, MF, 0 );
@@ -129,9 +129,9 @@ inline StructureDivision SEND( int MAT, int MF ){
 
 inline StructureDivision fileEndRecord( int MAT ){ 
   if ( MAT < 1 ){
-    LOG(ERROR) << "Illegal material number (MAT) specified in FEND record";
-    LOG(INFO) << "FEND records require a material number greater than 0";
-    LOG(INFO) << "Specified material number: " << MAT;
+    Log::error( "Illegal material number (MAT) specified in FEND record" );
+    Log::info( "FEND records require a material number greater than 0" );
+    Log::info( "Specified material number: {}", MAT );
     throw std::exception();
   }
   return StructureDivision( 0.0, 0.0, 0, 0, 0, 0, MAT, 0, 0 );

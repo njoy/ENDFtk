@@ -1,7 +1,7 @@
 #include "catch.hpp"
-
 #include "ENDFtk.hpp"
 
+using namespace njoy::ENDFtk::record;
 
 SCENARIO( "The Zipper readLine function", "[ENDFtk], [Zipper]" ){
   GIVEN("a line with zipped values" ){
@@ -21,7 +21,7 @@ SCENARIO( "The Zipper readLine function", "[ENDFtk], [Zipper]" ){
     WHEN("passed to the zipper's readLine function"){
       THEN( "values will be correct"){
         Zipper::readLine< Zip >
-          ( iteratorTuple, it, end, lineNumber, 125, 1, 451 );
+	  ( iteratorTuple, it, end, lineNumber, 125, 1, 451 );
         for ( int i = 0; i < 3; ++i ){
           REQUIRE( dsink[i] == double(i + 1) );
           REQUIRE( isink[i] == i + 1 );

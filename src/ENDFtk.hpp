@@ -5,8 +5,8 @@
 #include <unordered_map>
 
 #include "disco.hpp"
-#include "easylogging++.h"
-#include "utility.hpp"
+#include "Log.hpp"
+#include "header-utilities.hpp"
 
 namespace njoy {
 namespace ENDFtk {
@@ -22,8 +22,8 @@ using ImmutableReturnType =
 
 #include "ENDFtk/record.hpp"
 
-#include "ENDFtk/TapeIdentification.hpp"
-using TPID = TapeIdentification;
+// #include "ENDFtk/TapeIdentification.hpp"
+// using TPID = TapeIdentification;
 
 #include "ENDFtk/StructureDivision.hpp"
 
@@ -45,11 +45,11 @@ using LIST = ListRecord;
 #include "ENDFtk/UnivariateTabulation.hpp"
 using TAB1 = UnivariateTabulation;
 
-#include "ENDFtk/section.hpp"
+// #include "ENDFtk/section.hpp"
 
-#include "ENDFtk/File.hpp"
+// #include "ENDFtk/File.hpp"
 
-#include "ENDFtk/syntaxTree.hpp"
+// #include "ENDFtk/syntaxTree.hpp"
 
 }
 }

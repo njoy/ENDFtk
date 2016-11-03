@@ -1,7 +1,7 @@
 #include "catch.hpp"
-
 #include "ENDFtk.hpp"
 
+using namespace njoy::ENDFtk::record;
 
 SCENARIO( "The Sequence read function", "[ENDFtk], [Sequence]" ){
   GIVEN("a record with a sequence of values" ){

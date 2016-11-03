@@ -19,7 +19,7 @@ readPartialLine
   while ( remainingEntries-- ){
     Zip::TupleFormat::read( it, end, std::get< indices >( leftovers )... );
     if ( leftovers != Zip::defaultTuple() ){
-      LOG(ERROR) << "Encountered non-default value where none was expected";
+      Log::error( "Encountered non-default value where none was expected" );
       throw std::exception();
     }
   }

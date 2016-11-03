@@ -19,7 +19,7 @@ public:
     try{
       Format::read( it, end, result[0], result[1], result[2] );
     } catch ( std::exception& e ){
-      LOG(ERROR) << "Trouble reading Tail";
+      Log::error( "Trouble reading Tail" );
       throw e;
     }
     return result;
