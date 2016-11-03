@@ -1,21 +1,9 @@
-#define CATCH_CONFIG_RUNNER
-
-#include <string>
+#define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
 
 #include "ENDFtk.hpp"
 
-int main( int argc, const char* argv[] ){
-  LOG(INFO) << "";
-  LOG(INFO) << "Base Tests";
-  LOG(INFO) << "======================";
-  int result = Catch::Session().run( argc, argv );
-  LOG(INFO) << "Base Tests Complete!";
-  return result;
-}
-
-using namespace ENDFtk::implementation::record;
 
 SCENARIO( "Checking single field record bases" ){
   WHEN( "Trivially copyable field" ){
@@ -62,6 +50,7 @@ SCENARIO( "Checking single field record bases" ){
     }
   }
 }
+
 SCENARIO( "Checking multi field record bases" ){
   using RecordBase = Base< Real, Real,
                            Integer< 11 >, Integer< 11 >,

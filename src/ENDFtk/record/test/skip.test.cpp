@@ -14,9 +14,6 @@ SCENARIO( "Skipping records" ){
     auto lineNumber = 0l;
     WHEN( "skipping records" ){
       THEN( "The records can be skipped" ){
-        ENDFtk::implementation::record::skip(it, end, lineNumber);
-        ENDFtk::implementation::record::skip(it, end, lineNumber);
-        ENDFtk::implementation::record::skip(it, end, lineNumber);
 
         REQUIRE( it == end );
         REQUIRE( 3 == lineNumber );
@@ -29,7 +26,6 @@ SCENARIO( "Skipping records" ){
         auto end = line.end();
         auto lineNumber = 0l;
         REQUIRE_THROWS(
-          ENDFtk::implementation::record::skip(it, end, lineNumber) );
       }
     }
   } // GIVEN

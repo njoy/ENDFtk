@@ -2,7 +2,6 @@
 
 #include "ENDFtk.hpp"
 
-using namespace ENDFtk::implementation::record;
 
 SCENARIO( "The Sequence read function", "[ENDFtk], [Sequence]" ){
   GIVEN("a record with a sequence of values" ){

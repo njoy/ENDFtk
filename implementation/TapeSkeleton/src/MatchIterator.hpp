@@ -1,14 +1,13 @@
-template< typename Parent >
-class MatchIterator_ : public Parent {
+class MatchIterator : public Multimap::iterator {
 public:
-  using reference = decltype( std::declval< Parent >().operator*().second );
-  using value_type = std::remove_reference_t< reference>;
+  using reference = decltype( Multimap::iterator::operator*().second );
+  using value_type = std::remove_reference_t< reference >;
   using pointer = value_type*;
     
   template< typename... Args >
-  MatchIterator_( Args&&... args ) :
-    Parent( std::forward< Args >( args )... ){}
+  MatchIterator( Args&&... args ) :
+    Multimap::iterator( std::forward< Args >( args )... ){}
     
-  MaterialSkeleton_t&
-  operator*(){ return Parent::operator*().second; }
+  Material_t&
+  operator*(){ return Multimap::iterator::operator*().second; }
 };

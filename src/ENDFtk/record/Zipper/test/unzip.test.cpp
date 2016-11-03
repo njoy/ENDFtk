@@ -2,7 +2,6 @@
 
 #include "ENDFtk.hpp"
 
-using namespace ENDFtk::implementation::record;
 
 SCENARIO( "The Zipper unzip function", "[ENDFtk], [Zipper]" ){
   GIVEN("a record with zipped values" ){

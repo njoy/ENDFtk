@@ -2,7 +2,6 @@
 
 #include "ENDFtk.hpp"
 
-using namespace ENDFtk::implementation::record;
 
 SCENARIO( "The Zipper readPartialLine function", "[ENDFtk], [Zipper]" ){
   GIVEN("a partial line with zipped default values" ){

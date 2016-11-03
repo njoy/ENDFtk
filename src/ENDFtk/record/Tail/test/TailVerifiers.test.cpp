@@ -4,7 +4,6 @@
 
 #include "ENDFtk.hpp"
 
-using namespace ENDFtk::implementation::record;
 
 extern int mat;
 extern int mf;

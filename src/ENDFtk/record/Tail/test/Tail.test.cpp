@@ -1,26 +1,11 @@
-#define CATCH_CONFIG_RUNNER
-
-#include <string>
+#define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-
 #include "ENDFtk.hpp"
 
-//std::unique_ptr< ENDFtk::implementation::record::Tail > myTail;
-int mat = 125;
-int mf = 4;
-int mt = 2;
-
-int main( int argc, const char* argv[] ){
-  LOG(INFO) << "";
-  LOG(INFO) << "Tail Tests";
-  LOG(INFO) << "======================";
-  int result = Catch::Session().run( argc, argv );
-  LOG(INFO) << "Tail Tests Complete!";
-  return result;
-}
-
-using namespace ENDFtk::implementation::record;
+constexpr int mat = 125;
+constexpr int mf = 4;
+constexpr int mt = 2;
 
 SCENARIO( "Checking the values of MAT, MF, and MT" ){
   GIVEN( "A string containing the MAT, MF, and MT of a Record" ){

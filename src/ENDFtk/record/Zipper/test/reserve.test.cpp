@@ -2,7 +2,6 @@
 
 #include "ENDFtk.hpp"
 
-using namespace ENDFtk::implementation::record;
 
 SCENARIO( "The Zipper reserve function ", "[ENDFtk], [Zipper]" ){
   GIVEN("a tuple a vectors" ){

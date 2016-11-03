@@ -2,7 +2,6 @@
 
 #include "ENDFtk.hpp"
 
-using namespace ENDFtk::implementation::record;
 
 SCENARIO( "The Zipper process function ", "[ENDFtk], [Zipper]" ){
   GIVEN("a line with zipped values" ){
