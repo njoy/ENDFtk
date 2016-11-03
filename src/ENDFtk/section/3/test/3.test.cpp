@@ -8,6 +8,8 @@ std::string invalidBaseSection();
 std::string validSEND();
 std::string invalidSEND();
 
+using namespace njoy::ENDFtk;
+
 SCENARIO( "section::Type<3>" ){
   GIVEN( "a string representation of a valid File 3 Section" ){
     WHEN( "there is a valid SEND record" ){
@@ -30,7 +32,8 @@ SCENARIO( "section::Type<3>" ){
       auto begin = sectionString.begin();
       auto end = sectionString.end();
       long lineNumber = 132;
-
+      HeadRecord head( begin, end, lineNumber );
+      
       THEN( "an exception is thrown" ){
         REQUIRE_THROWS( section::Type<3>( head, begin, end, lineNumber, 125 ) );
       }
@@ -40,10 +43,11 @@ SCENARIO( "section::Type<3>" ){
   GIVEN( "a string representation of an File 3 Section"
          " with negative cross sections" ){
     std::string sectionString = invalidBaseSection() + validSEND();
-    auto begin = sSection.begin();
-    auto end = sSection.end();
+    auto begin = sectionString.begin();
+    auto end = sectionString.end();
     long lineNumber = 132;
-          
+    HeadRecord head( begin, end, lineNumber );
+	  
     THEN( "an exception is thrown upon construction" ){
       REQUIRE_THROWS( section::Type<3>( head, begin, end, lineNumber, 125 ) );
     }
@@ -132,4 +136,8 @@ std::string invalidBaseSection(){
 std::string validSEND(){
   return
     "                                                                   125 3  0\n";
+}
+std::string invalidSEND(){
+  return
+    "                                                                   125 3  1\n";
 }

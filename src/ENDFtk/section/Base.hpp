@@ -1,4 +1,3 @@
-/** @brief The common functionality between all Sections */
 class Base {
 public:
   /* fields */
@@ -12,15 +11,15 @@ public:
   /* methods */
   int& MT() { return this->sectionNo; }
   
-  int MT() const { return const_cast< SectionBase* >( this )->MT(); }
+  int MT() const { return const_cast< Base* >( this )->MT(); }
 
   int& ZA() { return this->ZA_; }
   
-  int ZA() const { return const_cast< SectionBase* >( this )->ZA(); }
+  int ZA() const { return const_cast< Base* >( this )->ZA(); }
 
   double& AWR() { return this->atomicWeightRatio_; }
   
-  double AWR() const { return const_cast< SectionBase* >( this )->AWR(); }
+  double AWR() const { return const_cast< Base* >( this )->AWR(); }
   
   double& atomicWeightRatio() { return this->AWR(); }
   
