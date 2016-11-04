@@ -18,12 +18,6 @@ if [ "$TRAVIS_OS_NAME" = "linux" ]; then
     sudo update-alternatives --config gcc
     export CUSTOM=('-D CMAKE_AR=/usr/bin/gcc-ar' '-D CMAKE_NM=/usr/bin/gcc-nm' '-D CMAKE_RANLIB=/usr/bin/gcc-ranlib')
   fi;
-
-  elif [ "$TRAVIS_OS_NAME" = "osx" ]; then
-    if [ "$CXX" = "g++" ]; then
-      brew update
-      brew install homebrew/versions/gcc6
-    fi
 fi
 
 mkdir build
