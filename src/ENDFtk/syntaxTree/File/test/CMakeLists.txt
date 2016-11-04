@@ -1,4 +1,4 @@
-add_executable( File.test FileSkeleton.test.cpp )
+add_executable( File.test File.test.cpp )
 set( test_flags ${ENDFtk_compiler_flags} )
 separate_arguments( test_flags_list UNIX_COMMAND "${test_flags}" )
 foreach( flag IN LISTS test_flags_list )

@@ -3,7 +3,7 @@ class File {
 public:
   /* convenience typedefs */
   using Section_t = Section< BufferIterator >;
-  using Iterator = typename std::vector< Section >::iterator;
+  using Iterator = typename std::vector< Section_t >::iterator;
 
   /* fields */
   int fileNo;

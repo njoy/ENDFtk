@@ -13,7 +13,7 @@ SCENARIO( "TextRecord Tests", "[ENDFtk], [TextRecord]" ){
     "The new R-matrix analysis of the N-N system on which the ENDF/B-  ";
 
   GIVEN( "a string ravlue, the ctor works"){
-    REQUIRE_NOTHROW( TextRecord( utility::copy(text) ) );
+    REQUIRE_NOTHROW( TextRecord( njoy::utility::copy(text) ) );
   }
   GIVEN( "iterators and a line number"){
     auto it = line.begin();
@@ -39,7 +39,7 @@ SCENARIO( "TextRecord Tests", "[ENDFtk], [TextRecord]" ){
     auto lineNumber = 0l;
     auto textRecord0 = TextRecord( it, end, lineNumber, 125, 1, 451 );
     const auto& constTextRecord0 = textRecord0;
-    auto textRecord1 = TextRecord( utility::copy( text ) );
+    auto textRecord1 = TextRecord( njoy::utility::copy( text ) );
     const auto& constTextRecord1 = textRecord1;
     THEN( "the getter will work" ){
       REQUIRE( textRecord0.text() == text );

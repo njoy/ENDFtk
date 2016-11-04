@@ -1,7 +1,6 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-
 #include "ENDFtk.hpp"
 
 std::string baseFile();
@@ -10,7 +9,7 @@ std::string invalidFEND();
 
 using namespace njoy::ENDFtk;
 
-SCENARIO( "Creating a skeleton of an ENDF File" ){
+SCENARIO( "Creating a syntax tree of an ENDF File" ){
   GIVEN( "a string representation of a File" ){
     WHEN( "a valid FEND record ends the File" ){
       std::string fileString = baseFile() + validFEND(); 
@@ -43,7 +42,7 @@ SCENARIO( "Creating a skeleton of an ENDF File" ){
         REQUIRE(   3 == fileTree.size() );
       }
         
-      AND_THEN( "we can access the section skeletons of the file skeleton" ){
+      AND_THEN( "we can access the section syntax trees of the file syntax tree" ){
         std::vector< int > sectionNumbers{ 1, 2, 102 };
         for ( auto sectionNo : sectionNumbers ){
           REQUIRE( fileTree.hasMT( sectionNo ) );

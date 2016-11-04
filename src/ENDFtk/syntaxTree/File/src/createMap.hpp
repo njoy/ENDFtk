@@ -6,10 +6,10 @@ createMap( std::vector< Section_t >& vector ){
 
   for ( auto& section : vector ){
     if ( map.count( section.MT() ) ){
-      LOG(ERROR) << "Sections specified with redundant section numbers (MT)";
-      LOG(INFO)  <<
-        "Within an ENDF File, sections are required to specify a unique MT";
-      LOG(INFO)  << "Encountered redundant MT: " << section.MT();
+      Log::error( "Sections specified with redundant section numbers (MT)" );
+      Log::info
+	( "Within an ENDF File, sections are required to specify a unique MT" );
+      Log::info( "Encountered redundant MT: {}", section.MT() );
       throw std::exception();
     }
     map.insert( { section.MT(), section } );

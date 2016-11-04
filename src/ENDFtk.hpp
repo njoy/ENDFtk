@@ -49,7 +49,7 @@ using TAB1 = UnivariateTabulation;
 
 // #include "ENDFtk/File.hpp"
 
-// #include "ENDFtk/syntaxTree.hpp"
+#include "ENDFtk/syntaxTree.hpp"
 
 }
 }

@@ -10,7 +10,7 @@ createVector
   while( division.isHead() ){
     vector.emplace_back( asHead(division), begin, position, end, lineNumber );
     if( position >= end ){
-      LOG(ERROR) << "File encountered end of stream before reading FEND record";
+      Log::error( "File encountered end of stream before reading FEND record" );
       throw std::exception();
     }
 
@@ -19,7 +19,7 @@ createVector
   }
 
   if( not division.isFend() ){
-    LOG(ERROR) << "FEND record is misformatted";
+    Log::error( "FEND record is misformatted" );
     utility::echoErroneousLine(begin, begin, end, lineNumber );
     throw std::exception();
   }

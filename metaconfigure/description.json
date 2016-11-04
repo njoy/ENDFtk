@@ -1,79 +1,9 @@
 {
-"unit_tests": {
-"HeadRecord": [
-"src/ENDFtk/HeadRecord/test/HeadRecord.test.cpp"
-],
-"Zipper": [
-"src/ENDFtk/record/Zipper/test/expandReferencePack.test.cpp",
-"src/ENDFtk/record/Zipper/test/makeIteratorTuple.test.cpp",
-"src/ENDFtk/record/Zipper/test/process.test.cpp",
-"src/ENDFtk/record/Zipper/test/readLine.test.cpp",
-"src/ENDFtk/record/Zipper/test/readPartialLine.test.cpp",
-"src/ENDFtk/record/Zipper/test/reserve.test.cpp",
-"src/ENDFtk/record/Zipper/test/unzip.test.cpp",
-"src/ENDFtk/record/Zipper/test/Zipper.test.cpp"
-],
-"Sequence": [
-"src/ENDFtk/record/Sequence/test/read.test.cpp",
-"src/ENDFtk/record/Sequence/test/Sequence.test.cpp"
-],
-"Base": [
-"src/ENDFtk/section/Base/test/Base.test.cpp"
-],
-"record": [
-"src/ENDFtk/record/test/record.test.cpp",
-"src/ENDFtk/record/test/skip.test.cpp"
-],
-"StructureDivision": [
-"src/ENDFtk/StructureDivision/test/StructureDivision.test.cpp"
-],
-"ControlRecord": [
-"src/ENDFtk/ControlRecord/test/ControlRecord.test.cpp"
-],
-"Tail": [
-"src/ENDFtk/record/Tail/test/Tail.test.cpp",
-"src/ENDFtk/record/Tail/test/TailVerifiers.test.cpp"
-],
-"File": [
-"src/ENDFtk/syntaxTree/File/test/FileSkeleton.test.cpp"
-],
-"Material": [
-"src/ENDFtk/syntaxTree/Material/test/MaterialSkeleton.test.cpp"
-],
-"UnivariateTabulation": [
-"src/ENDFtk/UnivariateTabulation/test/C1.test.cpp",
-"src/ENDFtk/UnivariateTabulation/test/C2.test.cpp",
-"src/ENDFtk/UnivariateTabulation/test/equality.test.cpp",
-"src/ENDFtk/UnivariateTabulation/test/L1.test.cpp",
-"src/ENDFtk/UnivariateTabulation/test/L2.test.cpp",
-"src/ENDFtk/UnivariateTabulation/test/nPairs.test.cpp",
-"src/ENDFtk/UnivariateTabulation/test/nRanges.test.cpp",
-"src/ENDFtk/UnivariateTabulation/test/rangeBoundaries.test.cpp",
-"src/ENDFtk/UnivariateTabulation/test/rangeInterpolationScheme.test.cpp",
-"src/ENDFtk/UnivariateTabulation/test/UnivariateTabulation.test.cpp",
-"src/ENDFtk/UnivariateTabulation/test/xBegin.test.cpp",
-"src/ENDFtk/UnivariateTabulation/test/xEnd.test.cpp",
-"src/ENDFtk/UnivariateTabulation/test/xValues.test.cpp",
-"src/ENDFtk/UnivariateTabulation/test/yBegin.test.cpp",
-"src/ENDFtk/UnivariateTabulation/test/yEnd.test.cpp",
-"src/ENDFtk/UnivariateTabulation/test/yValue.test.cpp"
-],
-"Section": [
-"src/ENDFtk/syntaxTree/Section/test/Section.test.cpp"
-],
-"DirectoryRecord": [
-"src/ENDFtk/DirectoryRecord/test/DirectoryRecord.test.cpp"
-],
-"ListRecord": [
-"src/ENDFtk/ListRecord/test/ListRecord.test.cpp"
-],
-"3": [
-"src/ENDFtk/section/3/test/3.test.cpp"
-],
-"TextRecord": [
-"src/ENDFtk/TextRecord/test/TextRecord.test.cpp"
-]
-},
+"include_path": "src",
+"target": "include",
+"implementation_files": [],
+"is_external_project": false,
+"version": "0.0.1",
 "header_files": [
 "src/ENDFtk.hpp",
 "src/ENDFtk/ControlRecord.hpp",
@@ -138,6 +68,7 @@
 "src/ENDFtk/syntaxTree/Tape/src/materialNumber.hpp",
 "src/ENDFtk/syntaxTree/Tape/src/Range.hpp",
 "src/ENDFtk/UnivariateTabulation/src/ctor.hpp",
+"src/ENDFtk/UnivariateTabulation/src/rangeBoundaries.hpp",
 "src/ENDFtk/UnivariateTabulation/src/readMetadata.hpp",
 "src/ENDFtk/UnivariateTabulation/src/readPairs.hpp",
 "src/ENDFtk/UnivariateTabulation/src/readRangeDescriptions.hpp",
@@ -145,12 +76,82 @@
 "src/ENDFtk/UnivariateTabulation/src/verifyTail.hpp",
 "src/ENDFtk/UnivariateTabulation/src/verifyXValuesAreSorted.hpp"
 ],
-"name": "ENDFtk",
-"target": "include",
-"language_revision": "C++14",
-"is_external_project": false,
-"version": "0.0.1",
+"unit_tests": {
+"TextRecord": [
+"src/ENDFtk/TextRecord/test/TextRecord.test.cpp"
+],
+"DirectoryRecord": [
+"src/ENDFtk/DirectoryRecord/test/DirectoryRecord.test.cpp"
+],
+"Section": [
+"src/ENDFtk/syntaxTree/Section/test/Section.test.cpp"
+],
+"Sequence": [
+"src/ENDFtk/record/Sequence/test/read.test.cpp",
+"src/ENDFtk/record/Sequence/test/Sequence.test.cpp"
+],
+"Material": [
+"src/ENDFtk/syntaxTree/Material/test/MaterialSkeleton.test.cpp"
+],
+"Tail": [
+"src/ENDFtk/record/Tail/test/Tail.test.cpp",
+"src/ENDFtk/record/Tail/test/TailVerifiers.test.cpp"
+],
+"ListRecord": [
+"src/ENDFtk/ListRecord/test/ListRecord.test.cpp"
+],
+"Base": [
+"src/ENDFtk/section/Base/test/Base.test.cpp"
+],
+"File": [
+"src/ENDFtk/syntaxTree/File/test/File.test.cpp"
+],
+"ControlRecord": [
+"src/ENDFtk/ControlRecord/test/ControlRecord.test.cpp"
+],
+"Zipper": [
+"src/ENDFtk/record/Zipper/test/expandReferencePack.test.cpp",
+"src/ENDFtk/record/Zipper/test/makeIteratorTuple.test.cpp",
+"src/ENDFtk/record/Zipper/test/process.test.cpp",
+"src/ENDFtk/record/Zipper/test/readLine.test.cpp",
+"src/ENDFtk/record/Zipper/test/readPartialLine.test.cpp",
+"src/ENDFtk/record/Zipper/test/reserve.test.cpp",
+"src/ENDFtk/record/Zipper/test/unzip.test.cpp",
+"src/ENDFtk/record/Zipper/test/Zipper.test.cpp"
+],
+"StructureDivision": [
+"src/ENDFtk/StructureDivision/test/StructureDivision.test.cpp"
+],
+"UnivariateTabulation": [
+"src/ENDFtk/UnivariateTabulation/test/C1.test.cpp",
+"src/ENDFtk/UnivariateTabulation/test/C2.test.cpp",
+"src/ENDFtk/UnivariateTabulation/test/equality.test.cpp",
+"src/ENDFtk/UnivariateTabulation/test/L1.test.cpp",
+"src/ENDFtk/UnivariateTabulation/test/L2.test.cpp",
+"src/ENDFtk/UnivariateTabulation/test/nPairs.test.cpp",
+"src/ENDFtk/UnivariateTabulation/test/nRanges.test.cpp",
+"src/ENDFtk/UnivariateTabulation/test/rangeBoundaries.test.cpp",
+"src/ENDFtk/UnivariateTabulation/test/rangeInterpolationScheme.test.cpp",
+"src/ENDFtk/UnivariateTabulation/test/UnivariateTabulation.test.cpp",
+"src/ENDFtk/UnivariateTabulation/test/xBegin.test.cpp",
+"src/ENDFtk/UnivariateTabulation/test/xEnd.test.cpp",
+"src/ENDFtk/UnivariateTabulation/test/xValues.test.cpp",
+"src/ENDFtk/UnivariateTabulation/test/yBegin.test.cpp",
+"src/ENDFtk/UnivariateTabulation/test/yEnd.test.cpp",
+"src/ENDFtk/UnivariateTabulation/test/yValue.test.cpp"
+],
+"HeadRecord": [
+"src/ENDFtk/HeadRecord/test/HeadRecord.test.cpp"
+],
+"3": [
+"src/ENDFtk/section/3/test/3.test.cpp"
+],
+"record": [
+"src/ENDFtk/record/test/record.test.cpp",
+"src/ENDFtk/record/test/skip.test.cpp"
+]
+},
 "language": "c++",
-"include_path": "src",
-"implementation_files": []
+"language_revision": "C++14",
+"name": "ENDFtk"
 }

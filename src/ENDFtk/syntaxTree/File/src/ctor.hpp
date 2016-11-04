@@ -6,8 +6,8 @@ try:
   sectionMap( createMap( this->sectionVector ) ),
   bufferLimits( { begin, position } ){}
 catch( std::exception& e ){
-  LOG(INFO) << "Trouble encountered while constructing a file syntax tree.";
-  LOG(INFO) << "File number (MF): " << head.MF();
+  Log::info( "Trouble encountered while constructing a file syntax tree." );
+  Log::info( "File number (MF): {}", head.MF() );
   throw e;
 }
 
