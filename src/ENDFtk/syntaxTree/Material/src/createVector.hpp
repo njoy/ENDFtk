@@ -10,8 +10,8 @@ static std::vector< File_t > createVector
   while( division.isHead() ){
     vector.emplace_back( asHead(division), begin, position, end, lineNumber );
     if( position >= end ){
-      LOG(ERROR) <<
-        "Material encountered end of stream before reading MEND record";
+      Log::error
+	( "Material encountered end of stream before reading MEND record" );
       throw std::exception();
     }
     begin = position;
@@ -19,7 +19,7 @@ static std::vector< File_t > createVector
   }
 
   if( not division.isMend() ){
-    LOG(ERROR) << "MEND record is misformatted";
+    Log::error( "MEND record is misformatted" );
     utility::echoErroneousLine(begin, begin, end, lineNumber );
     throw std::exception();
   }

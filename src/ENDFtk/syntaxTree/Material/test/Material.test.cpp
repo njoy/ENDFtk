@@ -1,8 +1,6 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "utility.hpp"
-
 #include "ENDFtk.hpp"
 
 std::string baseMaterial();
@@ -111,7 +109,7 @@ SCENARIO( "Creating a material syntax tree of an ENDF File" ){
 
 const std::string& cachedTape(){
   static const std::string tape =
-    utility::slurpFileToMemory( "./n-001_H_001.endf" );
+    njoy::utility::slurpFileToMemory( "./n-001_H_001.endf" );
   return tape;
 }
 

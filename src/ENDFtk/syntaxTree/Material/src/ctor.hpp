@@ -6,7 +6,7 @@ try:
   fileMap( createMap( this->fileVector ) ),
   bufferLimits( { begin, position } ){}
 catch( std::exception& e ){
-  LOG(INFO) << "Trouble encountered while constructing a material syntax tree.";
-  LOG(INFO) << "Material number (MAT): " << head.MAT();
+  Log::info( "Trouble encountered while constructing a material syntax tree." );
+  Log::info( "Material number (MAT): {}", head.MAT() );
   throw e;
 }
