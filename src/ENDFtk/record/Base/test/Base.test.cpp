@@ -1,13 +1,13 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-
 #include "ENDFtk.hpp"
 
+using namespace njoy::ENDFtk;
 
 SCENARIO( "Checking single field record bases" ){
   WHEN( "Trivially copyable field" ){
-    using RecordBase = Base< Integer<66> >;
+    using RecordBase = record::Base< record::Integer<66> >;
     WHEN("constructed from values" ){
       THEN(" arguments are passed by value"){
         auto base = RecordBase( 10 );
@@ -27,13 +27,13 @@ SCENARIO( "Checking single field record bases" ){
     }
   }
   WHEN( "Not trivially copyable field" ){
-    using RecordBase = Base< Character<66> >;
+    using RecordBase = record::Base< record::Character<66> >;
     WHEN("constructed from values" ){
       THEN(" arguments are passed by rvalue"){
         std::string entry(
           "123456789012345678901234567890123456789012345678901234567890123456"
           );
-        auto base = RecordBase( utility::copy(entry) );
+        auto base = RecordBase( njoy::utility::copy(entry) );
         REQUIRE( entry == std::get< 0 >(base.fields) );
       }
     }
@@ -52,9 +52,9 @@ SCENARIO( "Checking single field record bases" ){
 }
 
 SCENARIO( "Checking multi field record bases" ){
-  using RecordBase = Base< Real, Real,
-                           Integer< 11 >, Integer< 11 >,
-                           Integer< 11 >, Integer< 11 > >;
+  using RecordBase = record::Base< record::Real, record::Real,
+				   record::Integer< 11 >, record::Integer< 11 >,
+				   record::Integer< 11 >, record::Integer< 11 > >;
   WHEN("constructed from values" ){
     auto base = RecordBase( 0.0, 1E10, 0, 1, 2, 96 );
     THEN("stored values are correct"){
@@ -85,9 +85,9 @@ SCENARIO( "Checking multi field record bases" ){
 }
 
 SCENARIO( "Checking equality operator" ){
-  using RecordBase = Base< Real, Real,
-                           Integer< 11 >, Integer< 11 >,
-                           Integer< 11 >, Integer< 11 > >;
+  using RecordBase = record::Base< record::Real, record::Real,
+				   record::Integer< 11 >, record::Integer< 11 >,
+				   record::Integer< 11 >, record::Integer< 11 > >;
   auto lhs = RecordBase( 0.0, 1E10, 0, 1, 2, 96 );
   WHEN("records are equal, the operator returns true" ){
     auto rhs = lhs;

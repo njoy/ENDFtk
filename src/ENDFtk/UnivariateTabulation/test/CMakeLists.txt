@@ -1,4 +1,4 @@
-add_executable( UnivariateTabulation.test
+add_executable( ENDFtk.UnivariateTabulation.test
                 C1.test.cpp
                 C2.test.cpp
                 equality.test.cpp
@@ -18,8 +18,8 @@ add_executable( UnivariateTabulation.test
 set( test_flags ${ENDFtk_compiler_flags} )
 separate_arguments( test_flags_list UNIX_COMMAND "${test_flags}" )
 foreach( flag IN LISTS test_flags_list )
-    target_compile_options( UnivariateTabulation.test PUBLIC ${flag} )
+    target_compile_options( ENDFtk.UnivariateTabulation.test PUBLIC ${flag} )
 endforeach( flag )
-set_target_properties( UnivariateTabulation.test PROPERTIES LINK_FLAGS "${test_flags}" )
-target_link_libraries( UnivariateTabulation.test PUBLIC ENDFtk )
-add_test( NAME UnivariateTabulation COMMAND UnivariateTabulation.test ) 
+set_target_properties( ENDFtk.UnivariateTabulation.test PROPERTIES LINK_FLAGS "${test_flags}" )
+target_link_libraries( ENDFtk.UnivariateTabulation.test PUBLIC ENDFtk )
+add_test( NAME ENDFtk.UnivariateTabulation COMMAND ENDFtk.UnivariateTabulation.test ) 

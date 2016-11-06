@@ -2,6 +2,7 @@ namespace file{
 
 template< int MF >
 class Type {
+public:
   /* convenience typedefs */
   using Section = section::Type< MF >;
 

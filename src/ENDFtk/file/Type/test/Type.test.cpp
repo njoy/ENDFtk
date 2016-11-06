@@ -5,11 +5,11 @@
 
 using namespace njoy::ENDFtk;
 
-const std::string& cachedTape();
-std::string file( int MF );
+std::string& cachedTape();
+std::string getFile( int MF );
 
 SCENARIO( "Testing generic case using file 3" ){
-  std::string file3string = file( 3 );
+  std::string file3string = getFile( 3 );
   GIVEN( "a string representation of of File 3" ){
     WHEN( "a file::Type<3> is constructed from the string" ){
       auto begin = file3string.begin();
@@ -33,15 +33,16 @@ SCENARIO( "Testing generic case using file 3" ){
   } // GIVEN
 } // SCENARIO
 
-const std::string& cachedTape(){
-  const static std::string tape =
+std::string& cachedTape(){
+  static std::string tape =
     njoy::utility::slurpFileToMemory( "n-001_H_001.endf" );
   return tape;
 }
 
-std::string file( int MF ){
-  syntaxTree::Tape< std::string::iterator >
-    tapeTree( cachedTape().begin(), cachedTape().end() );
+std::string getFile( int MF ){
+  auto begin = cachedTape().begin();
+  auto end = cachedTape().end();
+  syntaxTree::Tape< std::string::iterator > tapeTree( begin, end );
   auto fileTree = tapeTree.materialNumber( 125 ).at( 0 ).fileNumber( MF );
   return std::string( fileTree.bufferBegin(), fileTree.bufferEnd() );
 }
