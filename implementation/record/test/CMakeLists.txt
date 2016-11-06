@@ -1,2 +1,0 @@
-setupTest(record)
-
