@@ -1,6 +1,8 @@
 class MatchIterator : public Multimap::iterator {
 public:
-  using reference = decltype( Multimap::iterator::operator*().second );
+  using reference = decltype
+                    ( std::declval
+		      < typename Multimap::iterator >().operator*().second );
   using value_type = std::remove_reference_t< reference >;
   using pointer = value_type*;
     

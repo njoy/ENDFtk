@@ -22,8 +22,8 @@ using ImmutableReturnType =
 
 #include "ENDFtk/record.hpp"
 
-// #include "ENDFtk/TapeIdentification.hpp"
-// using TPID = TapeIdentification;
+#include "ENDFtk/TapeIdentification.hpp"
+using TPID = TapeIdentification;
 
 #include "ENDFtk/StructureDivision.hpp"
 
@@ -47,7 +47,7 @@ using TAB1 = UnivariateTabulation;
 
 #include "ENDFtk/section.hpp"
 
-// #include "ENDFtk/File.hpp"
+#include "ENDFtk/file.hpp"
 
 #include "ENDFtk/syntaxTree.hpp"
 

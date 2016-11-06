@@ -1,20 +1,9 @@
-#define CATCH_CONFIG_RUNNER
+#define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "utility.hpp"
-
 #include "ENDFtk.hpp"
 
-int main( int argc, const char* argv[] ){
-  LOG(INFO) << "";
-  LOG(INFO) << "TapeSkeleton Tests";
-  LOG(INFO) << "======================";
-  int result = Catch::Session().run( argc, argv );
-  LOG(INFO) << "TapeSkeleton Complete!";
-  return result;
-}
-
-using namespace ENDFtk::implementation;
+using namespace njoy::ENDFtk;
 
 std::string baseTAPE();
 std::string tpidString();
@@ -31,33 +20,33 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
       auto begin = tapeString.begin();
       auto end = tapeString.end();
 
-      TapeSkeleton< std::string::iterator > tapeSkeleton( begin, end );
+      syntaxTree::Tape< std::string::iterator > tapeTree( begin, end );
         
       THEN( "the buffer iterators are populated correctly "){
-        REQUIRE( tapeString.begin() == tapeSkeleton.bufferBegin() );
-        REQUIRE( tapeString.end() == tapeSkeleton.bufferEnd() );
+        REQUIRE( tapeString.begin() == tapeTree.bufferBegin() );
+        REQUIRE( tapeString.end() == tapeTree.bufferEnd() );
       }
 
       AND_THEN( "the correct number of materials are read from the tape" ){
-         REQUIRE( 1 == tapeSkeleton.size() );
+         REQUIRE( 1 == tapeTree.size() );
       }
       
       AND_THEN( "we can access the Materials of the skeleton" ){
-        REQUIRE( tapeSkeleton.hasMaterialNumber( 125 ) );
-        REQUIRE( 1 == tapeSkeleton.materialNumber( 125 ).size() );
-        for ( auto& materialSkeleton : tapeSkeleton.materialNumber( 125 ) ){
+        REQUIRE( tapeTree.hasMaterialNumber( 125 ) );
+        REQUIRE( 1 == tapeTree.materialNumber( 125 ).size() );
+        for ( auto& materialSkeleton : tapeTree.materialNumber( 125 ) ){
           REQUIRE( 125 == materialSkeleton.materialNumber() );
         }
 
-        REQUIRE_THROWS( tapeSkeleton.materialNumber( 125 ).at(1) );
+        REQUIRE_THROWS( tapeTree.materialNumber( 125 ).at(1) );
 
-        REQUIRE( tapeSkeleton.hasMAT( 125 ) );
-        for ( auto& materialSkeleton : tapeSkeleton.MAT( 125 ) ){
+        REQUIRE( tapeTree.hasMAT( 125 ) );
+        for ( auto& materialSkeleton : tapeTree.MAT( 125 ) ){
           REQUIRE( 125 == materialSkeleton.materialNumber() );
         }
       }
       AND_THEN( "an excpetion is thrown for an invalid index" ){
-        REQUIRE_THROWS( tapeSkeleton.materialNumber(1) );
+        REQUIRE_THROWS( tapeTree.materialNumber(1) );
       }
     }
 
@@ -69,7 +58,7 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
       auto begin = tapeString.begin();
       auto end = tapeString.end();
 
-      REQUIRE_THROWS( TapeSkeleton< std::string::iterator >( begin, end ) );
+      REQUIRE_THROWS( syntaxTree::Tape< std::string::iterator >( begin, end ) );
     }
 
     WHEN( "the Tape isn't long enough" ){
@@ -79,14 +68,14 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
       auto begin = tapeString.begin();
       auto end = tapeString.end();
 
-      REQUIRE_THROWS( TapeSkeleton< std::string::iterator >( begin, end ) );
+      REQUIRE_THROWS( syntaxTree::Tape< std::string::iterator >( begin, end ) );
     }
   } // GIVEN
 } // SCENARIO
 
 const std::string& cachedTape(){
   const static std::string tape =
-    utility::slurpFileToMemory( "n-001_H_001.endf" );
+    njoy::utility::slurpFileToMemory( "n-001_H_001.endf" );
   return tape;
 }
 

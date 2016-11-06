@@ -5,6 +5,6 @@ try:
   materialVector( createVector( begin, end, lineNumber ) ),
   materialMap( createMap( this->materialVector ) ){}
 catch ( std::exception& e ){
-  LOG(INFO) << "Trouble encountered while constructing a tape syntax tree.";
+  Log::info( "Trouble encountered while constructing a tape syntax tree." );
   throw e;
 }

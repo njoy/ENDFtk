@@ -1,5 +1,7 @@
+namespace file{
+
 template< int MF >
-class File {
+class Type {
   /* convenience typedefs */
   using Section = section::Type< MF >;
 
@@ -8,5 +10,7 @@ class File {
   std::unordered_map< int, Section& > sectionMap;
 
   /* methods */
-#include "ENDFtk/File/src/ctor.hpp"
+#include "ENDFtk/file/Type/src/ctor.hpp"
 };
+
+}

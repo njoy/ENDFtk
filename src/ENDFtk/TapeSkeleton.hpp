@@ -1,6 +1,3 @@
-namespace ENDFtk{
-namespace implementation{
-
 template< typename BufferIterator >
 class TapeSkeleton {
 public:
@@ -8,8 +5,8 @@ public:
   using MaterialSkeleton_t = MaterialSkeleton< BufferIterator >;
   
   /* nested classes */
-#include "ENDFtk/implementation/TapeSkeleton/src/MatchIterator.hpp"
-#include "ENDFtk/implementation/TapeSkeleton/src/Range.hpp"
+#include "ENDFtk/syntaxTree/Tape/src/MatchIterator.hpp"
+#include "ENDFtk/syntaxTree/Tape/src/Range.hpp"
   
   /* more convenience typedefs */
   using Iterator = typename std::vector< MaterialSkeleton_t >::iterator;
@@ -24,12 +21,12 @@ public:
   std::unordered_multimap< int, MaterialSkeleton_t& > materialMap;
 
   /* ctor */
-#include "ENDFtk/implementation/TapeSkeleton/src/createVector.hpp"
-#include "ENDFtk/implementation/TapeSkeleton/src/createMap.hpp"
-#include "ENDFtk/implementation/TapeSkeleton/src/ctor.hpp"
+#include "ENDFtk/syntaxTree/Tape/src/createVector.hpp"
+#include "ENDFtk/syntaxTree/Tape/src/createMap.hpp"
+#include "ENDFtk/syntaxTree/Tape/src/ctor.hpp"
 
   /* methods */
-#include "ENDFtk/implementation/TapeSkeleton/src/materialNumber.hpp"
+#include "ENDFtk/syntaxTree/Tape/src/materialNumber.hpp"
 
   Range
   MAT( int materialNo ){ return this->materialNumber( materialNo ); }

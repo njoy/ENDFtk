@@ -11,8 +11,7 @@ static std::vector< Material_t > createVector
   vector.emplace_back( asHead( division ), begin, position, end, lineNumber );
   begin = position;
   if( position >= end ){
-    LOG(ERROR) <<
-      "Tape encountered end of stream before reading TEND record";
+    Log::error( "Tape encountered end of stream before reading TEND record" );
     throw std::exception();
   }
 
@@ -20,14 +19,13 @@ static std::vector< Material_t > createVector
     vector.emplace_back( asHead( division ), begin, position, end, lineNumber );
     begin = position;
     if( position >= end ){
-      LOG(ERROR) <<
-        "Tape encountered end of stream before reading TEND record";
+      Log::error( "Tape encountered end of stream before reading TEND record" );
       throw std::exception();
     }
   }
   
   if( not division.isTend() ){
-    LOG(ERROR) << "TEND record is misformatted";
+    Log::error( "TEND record is misformatted" );
     utility::echoErroneousLine(begin, begin, end, lineNumber );
     throw std::exception();
   }

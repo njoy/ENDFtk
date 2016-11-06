@@ -1,16 +1,16 @@
 class Range {
 public:
   /* convenience typedefs */
-  using Reference = typename Iterator::reference;
+  using Reference = typename MatchIterator::reference;
 
   /* fields */    
-  std::pair< Iterator, Iterator > limits;
+  std::pair< MatchIterator, MatchIterator > limits;
   std::size_t size_v = std::distance( limits.first, limits.second );
     
   /* methods */
-  Range( std::pair< Iterator, Iterator > limits ) : limits( limits ){}
-  Iterator begin(){ return this->limits.first; }
-  Iterator end(){ return this->limits.second; }
+  Range( std::pair< MatchIterator, MatchIterator > limits ) : limits( limits ){}
+  MatchIterator begin(){ return this->limits.first; }
+  MatchIterator end(){ return this->limits.second; }
   std::size_t size(){ return this->size_v; }
     
   Reference
