@@ -1,95 +1,59 @@
-language: cpp
 sudo: required
-
-os:
-  - linux
-
-compiler:
-  - gcc
+dist: trusty
 
 git:
-    submodules: false
-  
+  submodules: false  
+
 addons:
   apt:
     sources:
+      - sourceline: "deb http://apt.llvm.org/precise/ llvm-toolchain-precise-3.8 main"
+        key_url : "http://apt.llvm.org/llvm-snapshot.gpg.key"
       - ubuntu-toolchain-r-test
       - george-edison55-precise-backports
     packages:
       - gcc-6
       - g++-6
-      - binutils-gold
+      - clang-3.8
+      - llvm-dev
       - cmake
       - cmake-data
+      
+language: cpp
 
-  coverity_scan:
-    project:
-      name: "njoy/ENDFtk"
-      description: "A toolkit for dealing with ENDF-6 formatted files."
-    notification_email: jlconlin@lanl.gov
-    branch_pattern: coverity_scan
+compiler:
+  - gcc
+  - clang
+
+os:
+  - linux
+  - osx
+  
+osx_image: xcode8
+  
+script: ./.travis/build.sh
 
 env:
-  matrix:
-    - build_type="release" static_libraries="TRUE"
-    - build_type="release" static_libraries="FALSE"
-    - build_type="debug" static_libraries="TRUE"
-    - build_type="debug" static_libraries="FALSE"
-  global:
-    # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
-    #   via the "travis encrypt" command using the project repo's public key
-    - secure: "De09ASAbAtl688EOuaNnPxfZF8r/l2xFJPDzLrIEmkfWmTMqYsAnJ/L5Fp7ucCOgSMT4Q7hTYygewP3Hn9KE122HhY1vXjcFoEg7RBSGbEabMNfSrUKPyD8m89CKP5dN6pvUHIvr3DMuq4A08YYKZ5kNs+weCq95uaXnyI4iRpkKkvA/VyYbKgrp4bSWKx3znnK9a6QaBAN6pnk5WF0mMZJMvfiK/90M20nWmuDJJEKAkO5qUh5PO2vus4OLlqWTDlTzQVQGmzYmuyQJBAEFpAanN4SpcsScFgdEv/j/FpxqcXwKa6jnBjj1ge8Rs9msKQll5CKQDZE1ZpksZKyzcqimTZOQDBo+P/bEmQqAHw8vzl78BD7tLX7/ssrBVhKRcsjGaljovdUPteI5vqqaCxAl0wGhzDyijx6MXdGq2XPc+VR0yGkA0niL/EjKMb/W+Nrvf1YzWzk0iHjSKNUvW+UfiNhyvuWeqgLMUN8bCiNbd6beit4O/pG2gGRUS1ypWfavK48s1YrGThPlFaE9wDoLqqYmQgT6Ux+Ldon+IO8PqBi+xnS9WKC//9bWFU/uuyqgxTyqG7b7ojdk1nYjmxO3+yTPxRpJPqKG5Hcg2WxqON2nOvprMc+jAZS1tnIG5aQ9SLXcli0DJwwVxcidldxOx9kg5RBi+4Q37dOuS1g="      
-
-before_install: ./.travis-exit.sh
-install:
-  - if [ "${SHOULD_QUIT}" = "true" ]; then export TRAVIS_TEST_RESULT=0; exit 0; fi;
-script: ./.travis.sh
+  - build_type=debug static_libraries=FALSE
+  - build_type=release static_libraries=FALSE
+  - build_type=debug static_libraries=TRUE
+  - build_type=release static_libraries=TRUE
 
 matrix:
-  exclude:
-  # problem with llvm gold linker on travis
-  - os: linux
-    compiler: gcc
-    env: build_type="release" static_libraries="TRUE"
-    
   include:
-  - os: osx
-    osx_image: xcode8
-    compiler: clang
-    env: build_type="release"
-    
-  - os: osx
-    osx_image: xcode8
-    compiler: clang
-    env: build_type="release" static_libraries="TRUE"
-    
-  - os: osx
-    osx_image: xcode8
-    compiler: clang
-    env: build_type="debug"
-
-  - os: osx
-    osx_image: xcode8
-    compiler: clang
-    env: build_type="debug" static_libraries="TRUE"
-    
-  - os: linux
-    compiler: gcc
-    env: build_type="coverage" 
-
-  - os: osx
-    osx_image: xcode8
-    compiler: clang
-    env: build_type="debug" static_libraries="TRUE" SANITIZER="-fsanitize=address"
-
-  # - os: osx
-  #   osx_image: xcode8
-  #   compiler: clang
-  #   env: build_type="debug" static_libraries="TRUE" SANITIZER="-fsanitize=memory"
-
-  # - os: osx
-  #   osx_image: xcode8
-  #   compiler: clang
-  #   env: build_type="debug" static_libraries="TRUE" SANITIZER="-fsanitize=undefined"
-
-    
+    - os: linux
+      compiler: gcc
+      env: build_type=coverage static_libraries=FALSE
+    - os: linux
+      compiler: clang
+      env:
+        build_type=debug static_libraries=FALSE
+        appended_flags="-fsanitize=address -fno-omit-frame-pointer "
+    - os: linux
+      compiler: clang
+      env:
+        build_type=debug static_libraries=FALSE
+        appended_flags="-fsanitize=undefined -fsanitize=integer -fno-omit-frame-pointer "
+  exclude:
+    - os: osx
+      compiler: gcc
