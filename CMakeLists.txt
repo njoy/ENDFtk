@@ -1,5 +1,7 @@
-cmake_minimum_required( VERSION 3.2 ) 
 
+cmake_minimum_required( VERSION 3.2 ) 
+set( CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Supported configuration types" FORCE )
+        
 if( NOT ROOT_DIRECTORY )
     set( ROOT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} )
     if ( NOT fetched_subprojects )
@@ -20,119 +22,162 @@ if( NOT ROOT_DIRECTORY )
     endif()
 endif()
 
-if( NOT DEFINED build_type )
-    if( VERBOSE )
-        message( STATUS "build_type variable not specified")
-        message( STATUS "build_type defaulted to debug")
-    endif()
-    set ( build_type "debug" )
-endif()
-if( NOT DEFINED ENDFtk_build_type )
-    if( VERBOSE )
-        message( STATUS "ENDFtk_build_type not specified")
-        message( STATUS "ENDFtk_build_type defaulted to value of build_type variable")
-    endif()
-    set( ENDFtk_build_type "${build_type}" )
- endif()
-
-if( NOT DEFINED static_libraries )
-    if( VERBOSE )
-        message( STATUS "static_libraries variable not specified")
-        message( STATUS "static_libraries defaulted to FALSE")
-    endif()
-    set( build_static_libraries FALSE )
-else()
-    set( build_static_libraries ${static_libraries} )
-endif()
-
-project( ENDFtk VERSION 0.0.1 LANGUAGES CXX )
-
+project( ENDFtk LANGUAGES CXX )
 get_directory_property( is_subproject PARENT_DIRECTORY )
-if( NOT TARGET fmt-adapter )
-    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/fmt-adapter )
+include( CMakeDependentOption REQUIRED )
+
+set( ENDFtk_GNU_minimum_version 6.2 )
+set( ENDFtk_Clang_minimum_version 3.8 )
+set( ENDFtk_AppleClang_minimum_version 8.0 )
+
+if( ENDFtk_${CMAKE_CXX_COMPILER_ID}_minimum_version )
+    if( CMAKE_CXX_COMPILER_VERSION AND
+        CMAKE_CXX_COMPILER_VERSION VERSION_LESS
+        ${ENDFtk_${CMAKE_CXX_COMPILER_ID}_minimum_version} )
+        message( FATAL_ERROR "${CMAKE_CXX_COMPILER_ID} version must be greater than ${ENDFtk_${CMAKE_CXX_COMPILER_ID}_minimum_version}" )
+    endif()
 endif()
+
+# general properties
+option( ENDFtk_strict "Compile time warnings are converted to errors" ON )
+
+# binary instrumentation
+option( coverage "Enable binary instrumentation to collect test coverage information in the DEBUG configuration" )
+option( profile_generate "Enable binary instrumentation to generation execution profiles in the RELEASE configuration which may be used to guide later optimization" )
+
+# additional optimizations
+option( link_time_optimization "Enable link time optimization in the RELEASE configuration" )
+option( profile_use "In the RELEASE configuration, leverage previously generated exeution profile to inform optimization decisions" )
+option( nonportable_optimization "Enable optimizations which compromise portability of resulting binary in the RELEASE configuration" )
+
+# libraries and linking
+option( static "Statically link component and environment libraries" OFF )
+if ( static AND ( "${CMAKE_SYSTEM_NAME}" STREQUAL "Darwin" ) )
+    message( FATAL_ERROR "Static binaries not supported on OSX" )
+endif()
+
+CMAKE_DEPENDENT_OPTION( static_libraries "Statically link component libraries" OFF "NOT static" ON )
+
+option( unit_tests "Compile the ENDFtk unit tests and integrate with ctest" ON ) 
+
+if ( profile_generate AND profile_use )
+    message( FATAL_ERROR "Cannot both generate and use execution profile in the same configuration" )
+endif()
+
+if ( profile_generate )
+    file( MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/profiling" )
+endif()
+
+set( ENDFtk_GNU_Linux_common_flags "-Wall" "-Wextra" "-Wpedantic" "-std=c++14" )
+set( ENDFtk_GNU_Linux_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
+set( ENDFtk_GNU_Linux_RELEASE_flags "-O3" "-DNDEBUG" )
+set( ENDFtk_GNU_Linux_strict_flags "-Werror" )
+set( ENDFtk_GNU_Linux_coverage_flags "--coverage" )
+set( ENDFtk_GNU_Linux_subproject_flags  )
+set( ENDFtk_GNU_Linux_base_project_flags  )
+set( ENDFtk_GNU_Linux_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_GNU_Linux_link_time_optimization_flags "-flto" )
+set( ENDFtk_GNU_Linux_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_GNU_Linux_nonportable_optimization_flags "-march=native" )
+set( ENDFtk_GNU_Linux_static_flags "-static" )
+set( ENDFtk_GNU_Darwin_common_flags "-Wall" "-Wextra" "-Wpedantic" "-std=c++14" )
+set( ENDFtk_GNU_Darwin_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
+set( ENDFtk_GNU_Darwin_RELEASE_flags "-O3" "-DNDEBUG" )
+set( ENDFtk_GNU_Darwin_strict_flags "-Werror" )
+set( ENDFtk_GNU_Darwin_coverage_flags "--coverage" )
+set( ENDFtk_GNU_Darwin_subproject_flags  )
+set( ENDFtk_GNU_Darwin_base_project_flags  )
+set( ENDFtk_GNU_Darwin_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_GNU_Darwin_link_time_optimization_flags "-flto" )
+set( ENDFtk_GNU_Darwin_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_GNU_Darwin_nonportable_optimization_flags "-march=native" )
+set( ENDFtk_GNU_Darwin_static_flags "-static" )
+set( ENDFtk_GNU_Windows_common_flags "-Wall" "-Wextra" "-Wpedantic" "-std=c++14" )
+set( ENDFtk_GNU_Windows_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
+set( ENDFtk_GNU_Windows_RELEASE_flags "-O3" "-DNDEBUG" )
+set( ENDFtk_GNU_Windows_strict_flags "-Werror" )
+set( ENDFtk_GNU_Windows_coverage_flags "--coverage" )
+set( ENDFtk_GNU_Windows_subproject_flags  )
+set( ENDFtk_GNU_Windows_base_project_flags  )
+set( ENDFtk_GNU_Windows_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_GNU_Windows_link_time_optimization_flags "-flto" )
+set( ENDFtk_GNU_Windows_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_GNU_Windows_nonportable_optimization_flags "-march=native" )
+set( ENDFtk_GNU_Windows_static_flags "-static" )
+set( ENDFtk_Clang_Linux_common_flags "-stdlib=libstdc++" "-Wall" "-Wextra" "-Wpedantic" "-std=c++14" )
+set( ENDFtk_Clang_Linux_DEBUG_flags "-O0" "-g" "-gdwarf-3" )
+set( ENDFtk_Clang_Linux_RELEASE_flags "-O3" "-DNDEBUG" )
+set( ENDFtk_Clang_Linux_strict_flags "-Werror" )
+set( ENDFtk_Clang_Linux_coverage_flags "--coverage" )
+set( ENDFtk_Clang_Linux_subproject_flags  )
+set( ENDFtk_Clang_Linux_base_project_flags  )
+set( ENDFtk_Clang_Linux_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_Clang_Linux_link_time_optimization_flags "-flto" )
+set( ENDFtk_Clang_Linux_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_Clang_Linux_nonportable_optimization_flags "-march=native" )
+set( ENDFtk_Clang_Linux_static_flags "-static" )
+set( ENDFtk_Clang_Darwin_common_flags "-stdlib=libc++" "-Wall" "-Wextra" "-Wpedantic" "-std=c++14" )
+set( ENDFtk_Clang_Darwin_DEBUG_flags "-O0" "-g" "-gdwarf-3" )
+set( ENDFtk_Clang_Darwin_RELEASE_flags "-O3" "-DNDEBUG" )
+set( ENDFtk_Clang_Darwin_strict_flags "-Werror" )
+set( ENDFtk_Clang_Darwin_coverage_flags "--coverage" )
+set( ENDFtk_Clang_Darwin_subproject_flags  )
+set( ENDFtk_Clang_Darwin_base_project_flags  )
+set( ENDFtk_Clang_Darwin_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_Clang_Darwin_link_time_optimization_flags "-flto" )
+set( ENDFtk_Clang_Darwin_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_Clang_Darwin_nonportable_optimization_flags "-march=native" )
+set( ENDFtk_Clang_Darwin_static_flags "-static" )
+set( ENDFtk_Clang_Windows_common_flags "-stdlib=libc++" "-Wall" "-Wextra" "-Wpedantic" "-std=c++14" )
+set( ENDFtk_Clang_Windows_DEBUG_flags "-O0" "-g" "-gdwarf-3" )
+set( ENDFtk_Clang_Windows_RELEASE_flags "-O3" "-DNDEBUG" )
+set( ENDFtk_Clang_Windows_strict_flags "-Werror" )
+set( ENDFtk_Clang_Windows_coverage_flags "--coverage" )
+set( ENDFtk_Clang_Windows_subproject_flags  )
+set( ENDFtk_Clang_Windows_base_project_flags  )
+set( ENDFtk_Clang_Windows_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_Clang_Windows_link_time_optimization_flags "-flto" )
+set( ENDFtk_Clang_Windows_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_Clang_Windows_nonportable_optimization_flags "-march=native" )
+set( ENDFtk_Clang_Windows_static_flags "-static" )
+set( ENDFtk_AppleClang_Darwin_common_flags "-stdlib=libc++" "-Wall" "-Wextra" "-Wpedantic" "-std=c++14" )
+set( ENDFtk_AppleClang_Darwin_DEBUG_flags "-O0" "-g" "-gdwarf-3" )
+set( ENDFtk_AppleClang_Darwin_RELEASE_flags "-O3" "-DNDEBUG" )
+set( ENDFtk_AppleClang_Darwin_strict_flags "-Werror" )
+set( ENDFtk_AppleClang_Darwin_coverage_flags "--coverage" )
+set( ENDFtk_AppleClang_Darwin_subproject_flags  )
+set( ENDFtk_AppleClang_Darwin_base_project_flags  )
+set( ENDFtk_AppleClang_Darwin_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_AppleClang_Darwin_link_time_optimization_flags "-flto" )
+set( ENDFtk_AppleClang_Darwin_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_AppleClang_Darwin_nonportable_optimization_flags "-march=native" )
+set( ENDFtk_AppleClang_Darwin_static_flags "-static" )
+get_directory_property( is_subproject PARENT_DIRECTORY )
+
 if( NOT TARGET catch-adapter )
     add_subdirectory( ${ROOT_DIRECTORY}/subprojects/catch-adapter )
 endif()
+
+if( NOT TARGET fmt-adapter )
+    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/fmt-adapter )
+endif()
+
 if( NOT TARGET spdlog-adapter )
     add_subdirectory( ${ROOT_DIRECTORY}/subprojects/spdlog-adapter )
 endif()
-if( NOT TARGET Log )
-    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/Log )
-endif()
-if( NOT TARGET header-utilities )
-    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/header-utilities )
-endif()
+
 if( NOT TARGET disco )
     add_subdirectory( ${ROOT_DIRECTORY}/subprojects/disco )
 endif()
 
-if( NOT is_subproject )
-    if( DEFINED CXX_compiler_flags )
-        if( ( NOT DEFINED ENDFtk_compiler_flags ) AND ( NOT DEFINED ENDFtk_use_default_compiler_flags ) )
-            set( ENDFtk_compiler_flags "${CXX_compiler_flags}" )
-        endif()
-    endif()
-    if( NOT DEFINED ENDFtk_compiler_flags )
-        if( CMAKE_CXX_COMPILER_ID STREQUAL "GNU" )
-            if( ENDFtk_build_type STREQUAL "debug" )
-                set( ENDFtk_compiler_flags "-std=c++14 -Wall -Wextra -Wpedantic -Werror -g -gdwarf-3" )
-            elseif( ENDFtk_build_type STREQUAL "coverage" )
-                set( ENDFtk_compiler_flags "-std=c++14 -Wall -Wextra -Wpedantic -Werror -g -gdwarf-3 -fprofile-arcs -ftest-coverage -fno-inline" )
-            elseif( ENDFtk_build_type STREQUAL "release" )
-                set( ENDFtk_compiler_flags "-std=c++14 -Wall -Wextra -Wpedantic -Werror -O3 -DNDEBUG" )
-                if( NOT no_link_time_optimization )
-                    set( ENDFtk_compiler_flags "${ENDFtk_compiler_flags} -flto" )
-                endif()
-            elseif( ENDFtk_build_type STREQUAL "native" )
-                set( ENDFtk_compiler_flags "-std=c++14 -Wall -Wextra -Wpedantic -Werror -O3 -DNDEBUG -march=native" )
-                if( NOT no_link_time_optimization )
-                    set( ENDFtk_compiler_flags "${ENDFtk_compiler_flags} -flto" )
-                endif()
-            endif()
-        elseif( CMAKE_CXX_COMPILER_ID STREQUAL "Clang" )
-            if( ENDFtk_build_type STREQUAL "debug" )
-                set( ENDFtk_compiler_flags "-std=c++14 -Wall -Wextra -Wpedantic -Werror -g -gdwarf-3" )
-            elseif( ENDFtk_build_type STREQUAL "coverage" )
-                set( ENDFtk_compiler_flags "-std=c++14 -Wall -Wextra -Wpedantic -Werror -g -gdwarf-3 -fprofile-arcs -ftest-coverage -fno-inline" )
-            elseif( ENDFtk_build_type STREQUAL "release" )
-                set( ENDFtk_compiler_flags "-std=c++14 -Wall -Wextra -Wpedantic -Werror -O3 -DNDEBUG" )
-                if( NOT no_link_time_optimization )
-                    set( ENDFtk_compiler_flags "${ENDFtk_compiler_flags} -flto" )
-                endif()
-            elseif( ENDFtk_build_type STREQUAL "native" )
-                set( ENDFtk_compiler_flags "-std=c++14 -Wall -Wextra -Wpedantic -Werror -O3 -DNDEBUG -march=native" )
-                if( NOT no_link_time_optimization )
-                    set( ENDFtk_compiler_flags "${ENDFtk_compiler_flags} -flto" )
-                endif()
-            endif()
-        elseif( CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang" )
-            if( ENDFtk_build_type STREQUAL "debug" )
-                set( ENDFtk_compiler_flags "-std=c++14 -Wall -Wextra -Wpedantic -Werror -g -gdwarf-3" )
-            elseif( ENDFtk_build_type STREQUAL "coverage" )
-                set( ENDFtk_compiler_flags "-std=c++14 -Wall -Wextra -Wpedantic -Werror -g -gdwarf-3 -fprofile-arcs -ftest-coverage -fno-inline" )
-            elseif( ENDFtk_build_type STREQUAL "release" )
-                set( ENDFtk_compiler_flags "-std=c++14 -Wall -Wextra -Wpedantic -Werror -O3 -DNDEBUG" )
-                if( NOT no_link_time_optimization )
-                    set( ENDFtk_compiler_flags "${ENDFtk_compiler_flags} -flto" )
-                endif()
-            elseif( ENDFtk_build_type STREQUAL "native" )
-                set( ENDFtk_compiler_flags "-std=c++14 -Wall -Wextra -Wpedantic -Werror -O3 -DNDEBUG -march=native" )
-                if( NOT no_link_time_optimization )
-                    set( ENDFtk_compiler_flags "${ENDFtk_compiler_flags} -flto" )
-                endif()
-            endif()
-        else()
-            message( WARNING "Compiler vendor not recognized. No compilation flags set" )
-        endif()
-    endif()
-    if( DEFINED appended_flags AND NOT ENDFtk_no_appended_flags )
-        set( ENDFtk_compiler_flags "${ENDFtk_compiler_flags} ${appended_flags}" )
-    endif()
-    if( DEFINED ENDFtk_appended_flags )
-        set( ENDFtk_compiler_flags "${ENDFtk_compiler_flags} ${ENDFtk_appended_flags}" )
-    endif()
+if( NOT TARGET Log )
+    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/Log )
 endif()
+
+if( NOT TARGET header-utilities )
+    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/header-utilities )
+endif()
+
 
 if ( NOT GIT_EXECUTABLE )
     find_package( Git )
@@ -140,6 +185,7 @@ if ( NOT GIT_EXECUTABLE )
         message( FATAL_ERROR "git installation was not found." )
     endif()
 endif()
+
 execute_process(
     COMMAND ${GIT_EXECUTABLE} rev-parse --abbrev-ref HEAD
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
@@ -151,45 +197,128 @@ execute_process(
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
     OUTPUT_VARIABLE GIT_HASH
     OUTPUT_STRIP_TRAILING_WHITESPACE
-)
+) 
 
 message( STATUS "" )
 message( STATUS "-----------------------------------------------------------" )
 message( STATUS "" )
-message( STATUS "ENDFtk Version: 0.0.1" )
+message( STATUS "ENDFtk" )
 message( STATUS "Git current branch: ${GIT_BRANCH}" )
 message( STATUS "Git commit hash: ${GIT_HASH}" )
 message( STATUS "" )
-if( NOT is_subproject ) 
-    message( STATUS "ENDFtk flags: ${ENDFtk_compiler_flags}" ) 
-    message( STATUS "" ) 
-endif() 
-message( STATUS "-----------------------------------------------------------" ) 
-message( STATUS "" ) 
+message( STATUS "-----------------------------------------------------------" )
 
 add_library( ENDFtk INTERFACE )
-target_include_directories( ENDFtk INTERFACE src )
-target_link_libraries( ENDFtk INTERFACE catch-adapter INTERFACE header-utilities INTERFACE disco INTERFACE Log ) 
+target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/ControlRecord.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/DirectoryRecord.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/HeadRecord.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/ListRecord.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/StructureDivision.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/TapeIdentification.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/TapeSkeleton.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/TextRecord.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/UnivariateTabulation.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/Type/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/HeadRecord/src/asHead.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/ListRecord/src/readMetadata.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Base.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Character.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/helper.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Integer.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Real.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Sequence.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/skip.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Tail.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/TailVerifying.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Zipper.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Sequence/src/read.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Zipper/src/expandReferencePack.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Zipper/src/increment.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Zipper/src/makeIteratorTuple.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Zipper/src/process.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Zipper/src/ReadingPack.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Zipper/src/readLine.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Zipper/src/readPartialLine.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Zipper/src/reserve.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Zipper/src/unzip.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Zipper/src/verifyTail.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Zipper/src/Zipped.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/3.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/Base.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/Base/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/Base/src/readSEND.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/File.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/Material.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/Section.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/Tape.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/File/src/createMap.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/File/src/createVector.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/File/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/File/src/sectionNumber.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/Material/src/createMap.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/Material/src/createVector.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/Material/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/Material/src/fileNumber.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/Section/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/Section/src/findEnd.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/Tape/src/createMap.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/Tape/src/createVector.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/Tape/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/Tape/src/MatchIterator.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/Tape/src/materialNumber.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/Tape/src/Range.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/UnivariateTabulation/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/UnivariateTabulation/src/rangeBoundaries.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/UnivariateTabulation/src/readMetadata.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/UnivariateTabulation/src/readPairs.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/UnivariateTabulation/src/readRangeDescriptions.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/UnivariateTabulation/src/verifyBoundaryIndicesAreSorted.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/UnivariateTabulation/src/verifyTail.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/UnivariateTabulation/src/verifyXValuesAreSorted.hpp" )
 
-if( NOT is_subproject ) 
+target_include_directories( ENDFtk INTERFACE src )
+
+set( PREFIX ENDFtk_${CMAKE_CXX_COMPILER_ID}_${CMAKE_SYSTEM_NAME} )
+
+target_link_libraries( ENDFtk INTERFACE "$<$<AND:$<CONFIG:RELEASE>,$<BOOL:${link_time_optimization}>>:${${PREFIX}_RELEASE_flags};${${PREFIX}_link_time_optimization_flags}$<$<BOOL:${profile_generate}>:${${PREFIX}_profile_generate_flags};>$<$<BOOL:${profile_use}>:${${PREFIX}_profile_use_flags};>$<$<BOOL:${nonportable_optimization}>:${${PREFIX}_nonportable_optimization_flags};>>$<$<CONFIG:DEBUG>:$<$<BOOL:${coverage}>:${${PREFIX}_coverage_flags};>>$<$<BOOL:CXX_appended_flags>:${CXX_appended_flags};>$<$<BOOL:ENDFtk_appended_flags>:${ENDFtk_appended_flags};>" )
+
+target_link_libraries( ENDFtk INTERFACE Log INTERFACE header-utilities INTERFACE catch-adapter INTERFACE disco )
+
+if( NOT is_subproject )
     enable_testing() 
-    add_subdirectory( src/ENDFtk/file/Type/test ) 
-    add_subdirectory( src/ENDFtk/syntaxTree/Material/test ) 
-    add_subdirectory( src/ENDFtk/ControlRecord/test ) 
-    add_subdirectory( src/ENDFtk/record/test ) 
-    add_subdirectory( src/ENDFtk/DirectoryRecord/test ) 
-    add_subdirectory( src/ENDFtk/StructureDivision/test ) 
-    add_subdirectory( src/ENDFtk/record/Base/test ) 
-    add_subdirectory( src/ENDFtk/record/Zipper/test ) 
-    add_subdirectory( src/ENDFtk/record/Tail/test ) 
-    add_subdirectory( src/ENDFtk/UnivariateTabulation/test ) 
-    add_subdirectory( src/ENDFtk/syntaxTree/File/test ) 
-    add_subdirectory( src/ENDFtk/TextRecord/test ) 
-    add_subdirectory( src/ENDFtk/syntaxTree/Section/test ) 
-    add_subdirectory( src/ENDFtk/record/Sequence/test ) 
-    add_subdirectory( src/ENDFtk/section/3/test ) 
-    add_subdirectory( src/ENDFtk/ListRecord/test ) 
-    add_subdirectory( src/ENDFtk/HeadRecord/test ) 
-    add_subdirectory( src/ENDFtk/syntaxTree/Tape/test ) 
-    add_subdirectory( src/ENDFtk/section/Base/test ) 
-endif() 
+    if ( unit_tests )
+        add_subdirectory( src/ENDFtk/HeadRecord/test )
+        add_subdirectory( src/ENDFtk/syntaxTree/Section/test )
+        add_subdirectory( src/ENDFtk/DirectoryRecord/test )
+        add_subdirectory( src/ENDFtk/syntaxTree/Tape/test )
+        add_subdirectory( src/ENDFtk/TextRecord/test )
+        add_subdirectory( src/ENDFtk/record/test )
+        add_subdirectory( src/ENDFtk/record/Zipper/test )
+        add_subdirectory( src/ENDFtk/record/Tail/test )
+        add_subdirectory( src/ENDFtk/syntaxTree/File/test )
+        add_subdirectory( src/ENDFtk/section/Base/test )
+        add_subdirectory( src/ENDFtk/record/Sequence/test )
+        add_subdirectory( src/ENDFtk/record/Base/test )
+        add_subdirectory( src/ENDFtk/ListRecord/test )
+        add_subdirectory( src/ENDFtk/section/3/test )
+        add_subdirectory( src/ENDFtk/UnivariateTabulation/test )
+        add_subdirectory( src/ENDFtk/syntaxTree/Material/test )
+        add_subdirectory( src/ENDFtk/StructureDivision/test )
+        add_subdirectory( src/ENDFtk/file/Type/test )
+        add_subdirectory( src/ENDFtk/ControlRecord/test )
+    endif() 
+endif()
+
+install( DIRECTORY src/ DESTINATION include
+         FILE_PERMISSIONS OWNER_READ OWNER_WRITE 
+                          GROUP_READ 
+                          WORLD_READ
+         DIRECTORY_PERMISSIONS OWNER_READ OWNER_WRITE 
+                               GROUP_READ 
+                               WORLD_READ
+         FILES_MATCHING REGEX ".*\.h[+][+]$|.*\.hxx$|.*\.hpp$|.*\.hh$|.*\.h$"  )
