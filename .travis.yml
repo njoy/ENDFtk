@@ -18,13 +18,17 @@ addons:
     - cmake-data
 language: cpp
 compiler:
-- gcc
-- clang
+  - gcc
+  - clang
 os:
-- linux
-- osx
+  - linux
+  - osx
+
 osx_image: xcode8
+
 script: "./.travis/build.sh"
+after_success: "./.travis/signature.sh"
+
 env:
   matrix:
   - build_type=debug static_libraries=FALSE
