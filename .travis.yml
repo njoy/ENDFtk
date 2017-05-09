@@ -1,59 +1,55 @@
 sudo: required
 dist: trusty
-
 git:
-  submodules: false  
-
+  submodules: false
 addons:
   apt:
     sources:
-      - sourceline: "deb http://apt.llvm.org/precise/ llvm-toolchain-precise-3.8 main"
-        key_url : "http://apt.llvm.org/llvm-snapshot.gpg.key"
-      - ubuntu-toolchain-r-test
-      - george-edison55-precise-backports
+    - sourceline: deb http://apt.llvm.org/precise/ llvm-toolchain-precise-3.8 main
+      key_url: http://apt.llvm.org/llvm-snapshot.gpg.key
+    - ubuntu-toolchain-r-test
+    - george-edison55-precise-backports
     packages:
-      - gcc-6
-      - g++-6
-      - clang-3.8
-      - llvm-dev
-      - cmake
-      - cmake-data
-      
+    - gcc-6
+    - g++-6
+    - clang-3.8
+    - llvm-dev
+    - cmake
+    - cmake-data
 language: cpp
-
 compiler:
   - gcc
   - clang
-
 os:
   - linux
   - osx
-  
+
 osx_image: xcode8
-  
-script: ./.travis/build.sh
+
+script: "./.travis/build.sh"
+after_success: "./.travis/signature.sh"
 
 env:
+  matrix:
   - build_type=debug static_libraries=FALSE
   - build_type=release static_libraries=FALSE
   - build_type=debug static_libraries=TRUE
   - build_type=release static_libraries=TRUE
-
+  global:
+    secure: WpB/ZzXEaal3PCW/Q2p4AXN/NAjXpQD4MuO832atUaoApC0Ugsm3uG+uACD5eoj4RU7Gw76Mq3TpJqtaBxal9xMLouLSPzRDr8uKYad7mfiIDxzgloY8siAp3KAlrykx1ABogPa7FYtcSg2r8icFGyFLsS+tN4bHmVA4qp4wl6cWIDCim6NAZ7J7aQU5othjA+KVPtZ163pDLZ/f+UUe5mi87B85U462vXxtlPk2nHRTFYjkU2KDiozV69dYwX+Tn1sz8Jm2IErJaDGJw+SiUVgLxqnANIafDloi0oETrJ3eSMl4a2jG7IZw1C7+GRHJ1GekfxzEMrBF2Q7QJ2ULVncCzYtPWOX+1v+5tAozcFmthjjdnesDWZa4xjTfY9+OwnQGhuqyUYLBlvIbsHbRDFqYhmFtvejs/CjKmF/46Hd5y6iyw3Xtf/Z2eqCHZjaesXKjva/piKd88FribD3bbASeTFKZcVCP5j9a0S37+KvJycihhaDE6VqNtvG/GT7JziGvTPcXA430nB5QWFo4R2H+gZqaZaEyhn+iM5FqzNCn6bQKxDEAye56VN7pOFCgRAtVLhr7cJSPPt436Q8muutbaQgoHsAgX7LBb9sEq3/2bgmiS334RlVn9+7F7z/px3VqJ1wXr0jIiqFlaoqiURS9wStTeC13Q3Z5yqv3oR0=
 matrix:
   include:
-    - os: linux
-      compiler: gcc
-      env: build_type=coverage static_libraries=FALSE
-    - os: linux
-      compiler: clang
-      env:
-        build_type=debug static_libraries=FALSE
-        appended_flags="-fsanitize=address -fno-omit-frame-pointer "
-    - os: linux
-      compiler: clang
-      env:
-        build_type=debug static_libraries=FALSE
-        appended_flags="-fsanitize=undefined -fsanitize=integer -fno-omit-frame-pointer "
+  - os: linux
+    compiler: gcc
+    env: build_type=coverage static_libraries=FALSE
+  - os: linux
+    compiler: clang
+    env: build_type=debug static_libraries=FALSE appended_flags="-fsanitize=address
+      -fno-omit-frame-pointer "
+  - os: linux
+    compiler: clang
+    env: build_type=debug static_libraries=FALSE appended_flags="-fsanitize=undefined
+      -fsanitize=integer -fno-omit-frame-pointer "
   exclude:
-    - os: osx
-      compiler: gcc
+  - os: osx
+    compiler: gcc
