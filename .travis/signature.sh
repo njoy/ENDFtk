@@ -3,8 +3,8 @@
 if [ "$TRAVIS_PULL_REQUEST" = false ] && 
    [ "$TRAVIS_BRANCH" = "master" ] &&
    [ "$build_type" = "coverage" ]; then
-  git config --global user.email "travis@travis-ci.org"
-  git config --global user.name "Travis CI"
+  git config --global user.email "jlconlin@lanl.gov"
+  git config --global user.name "Jeremy Lloyd Conlin"
 
   timestamp=`date +%F_%T`
 
