@@ -89,6 +89,18 @@ SCENARIO( "UnivariateTabulation ctor",
     REQUIRE( tab1_1.boundaryIndices.size() == 1 );
   }
   {
+    UnivariateTabulation Tab1;
+    
+    REQUIRE( 0 == Tab1.xValues.size() );
+    REQUIRE( 0 == Tab1.boundaryIndices.size() );
+    REQUIRE( 0.0 == Tab1.C1() );
+    REQUIRE( 0.0 == Tab1.C2() );
+    REQUIRE( 0 == Tab1.L1() );
+    REQUIRE( 0 == Tab1.L2() );
+    REQUIRE( 0 == Tab1.nPairs() );
+
+  }
+  {
     auto tab1It = tab1String.begin();
     auto tab1End = tab1String.end();
     auto lineNumber = 438l;

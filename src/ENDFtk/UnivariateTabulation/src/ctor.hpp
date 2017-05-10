@@ -1,3 +1,15 @@
+UnivariateTabulation()
+  try:
+    metadata( 0.0, 0.0, 0, 0, 0, 0 ),
+    regionPairs( std::make_tuple( std::vector<long>(), std::vector<long>() ) ),
+    evaluationPairs( std::make_tuple( std::vector<double>(), 
+                                     std::vector<double>() ) )
+  {
+  } catch( std::exception& e ){
+    Log::info( "Error default constructing Tab1 Record." );
+    throw std::exception();
+  }
+
 UnivariateTabulation
 ( double C1, double C2, uint64_t L1, uint64_t L2,
   std::tuple< std::vector< long >, std::vector< long > >&& regionPairs,
