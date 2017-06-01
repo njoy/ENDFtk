@@ -52,20 +52,13 @@ public:
     
 #undef DEFINE_GETTER  
  
-  std::vector< double >&
-  list(){ return this->list_; }
-  
-  const std::vector< double >&
-  list() const { return this->list_; }
+  std::vector< double >& list(){ return this->list_; }
+  const std::vector< double >& list() const { return this->list_; }
 
-  std::vector< double >&
-  B(){ return this->list(); }
+  std::vector< double >& B(){ return this->list(); }
+  const std::vector< double >& B() const { return this->list(); }
 
-  const std::vector< double >&
-  B() const { return this->list(); }
-
-  long
-  NPL() const { return this->list_.size(); }
+  long NPL() const { return this->list_.size(); }
 
   bool
   operator== ( const ListRecord& rhs ){

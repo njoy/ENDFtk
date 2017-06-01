@@ -11,32 +11,17 @@ public:
   /* fields */
   Base metadata;
   
-  std::tuple< std::vector< long >,
-              std::vector< long > > regionPairs;
-
-  std::vector< long >&
-  boundaryIndices = std::get< 0 >( regionPairs );
-
-  std::vector< long >&
-  interpolationSchemeIndices = std::get< 1 >( regionPairs );
-  
-  std::tuple< std::vector< double >,
-              std::vector< double > > evaluationPairs;
-
-  std::vector< double >& xValues = std::get< 0 >( evaluationPairs );
-  std::vector< double >& yValues = std::get< 1 >( evaluationPairs );
+  std::vector< long > boundaryIndices;
+  std::vector< long > interpolationSchemeIndices;
+  std::vector< double > xValues;
+  std::vector< double > yValues;
 
   /* more convenience typedefs */
-  using regionIterator =
-    std::decay_t< decltype( boundaryIndices ) >::iterator;
-  
-  using constRegionIterator =
-    std::decay_t< decltype( boundaryIndices ) >::const_iterator;
-
-  using constXIterator = std::decay_t< decltype( xValues ) >::const_iterator;
-
-  using yIterator = std::decay_t< decltype( yValues ) >::iterator;
-  using constYIterator = std::decay_t< decltype( yValues ) >::const_iterator;
+  using regionIterator = decltype( boundaryIndices )::iterator;
+  using constRegionIterator = decltype( boundaryIndices )::const_iterator;
+  using constXIterator = decltype( xValues )::const_iterator;
+  using yIterator = decltype( yValues )::iterator;
+  using constYIterator = decltype( yValues )::const_iterator;
 
   /* helper methods */
 #include "ENDFtk/UnivariateTabulation/src/verifyTail.hpp"
@@ -58,18 +43,14 @@ public:
   DEFINE_GETTER( C2, 1 )
   DEFINE_GETTER( L1, 2 )
   DEFINE_GETTER( L2, 3 )
-    
 #undef DEFINE_GETTER  
 
-  long
-  nPairs() const { return this->xValues.size(); }
+  long nPairs() const { return this->xValues.size(); }
+  long NP() const { return this->nPairs(); }
 
-  long
-  NP() const { return this->nPairs(); }
-
-#define verified_get( variable_name, name )                     \
-  try {                                                         \
-    return this->variable_name.at( index );                     \
+#define verified_get( variable_name, name )				\
+  try {									\
+    return this->variable_name.at( index );				\
   } catch ( std::out_of_range& e ){					\
     Log::error( "Out of bounds index for {}", name );			\
     Log::info( "Requested index: {}", index );				\
@@ -78,31 +59,22 @@ public:
     throw e;								\
   }
   
-  ImmutableReturnType< std::decay_t< decltype( xValues ) >::value_type >
-  xValue( std::size_t index ) const {
-    verified_get( xValues, "X-values" )
-  }
+  ImmutableReturnType< decltype( xValues )::value_type >
+  xValue( std::size_t index ) const { verified_get( xValues, "X-values" ) }
 
-  MutableReturnType< std::decay_t< decltype( yValues) >::value_type >
-  yValue( std::size_t index ){
-    verified_get( yValues, "Y-values" )
-  }
+  MutableReturnType< decltype( yValues)::value_type >
+  yValue( std::size_t index ){ verified_get( yValues, "Y-values" ) }
 
-  MutableReturnType< std::decay_t
-                     < decltype( interpolationSchemeIndices ) >::value_type >
+  MutableReturnType< decltype( interpolationSchemeIndices )::value_type >
   rangeInterpolationScheme( std::size_t index ){
     verified_get( interpolationSchemeIndices, "Interpolation schemes" )
   }
-
 #undef verified_get
   
-  constXIterator
-  xBegin() const { return this->xValues.begin(); }
+  constXIterator xBegin() const { return this->xValues.begin(); }
+  constXIterator xEnd() const { return this->xValues.end(); }
 
-  constXIterator
-  xEnd() const { return this->xValues.end(); }
-
-  ImmutableReturnType< std::decay_t< decltype( yValues ) >::value_type >
+  ImmutableReturnType< decltype( yValues )::value_type >
   yValue( std::size_t index ) const {
     return const_cast< UnivariateTabulation* >(this)->yValue( index );
   }
@@ -111,31 +83,16 @@ public:
   yBegin(){ return this->yValues.begin(); }
 
   constYIterator
-  yBegin() const { return const_cast< UnivariateTabulation* >
-                          ( this )->yBegin(); }
+  yBegin() const { return const_cast< UnivariateTabulation* >(this)->yBegin(); }
 
   yIterator
   yEnd(){ return this->yValues.end(); }
 
   constYIterator
-  yEnd() const { return const_cast< UnivariateTabulation* >( this )->yEnd(); }
+  yEnd() const { return const_cast< UnivariateTabulation* >(this)->yEnd(); }
 
-// /*
-//   void
-//   insertPair( double xValue, double yValue );
-
-//   void
-//   erasePair( constXIterator xPosition );
-
-//   void
-//   erasePair( constXIterator first, constXIterator last );
-// */
-
-  long
-  nRanges() const { return this->boundaryIndices.size(); }
-
-  long
-  NR() const { return this->nRanges(); }
+  long nRanges() const { return this->boundaryIndices.size(); }
+  long NR() const { return this->nRanges(); }
 
   #include "ENDFtk/UnivariateTabulation/src/rangeBoundaries.hpp"
 
@@ -145,31 +102,15 @@ public:
       ( this )->rangeInterpolationScheme( index );
   }  
 
-// /*
-//   template< typename Iterator >
-//   void
-//   appendRange( Iterator xBegin, Iterator xEnd,
-//                Iterator yBegin, Iterator yEnd,
-//                long interpolationCode );
-
-//   void
-//   appendRange( const std::vector< double >& xValues,
-//                const std::vector< double >& yValues,
-//                long interpolationCode );
-
-//   void
-//   defineRange
-//   ( constXIterator first, constXIterator last, long interpolationCode );
-// */
-
-  bool
-  operator== ( const UnivariateTabulation& rhs ){
+  bool operator== ( const UnivariateTabulation& rhs ){
     return ( this->C1() == rhs.C1() )
       && ( this->C2() == rhs.C2() )
       && ( this->L1() == rhs.L1() )
       && ( this->L2() == rhs.L2() )
-      && ( this->regionPairs == rhs.regionPairs )
-      && ( this->evaluationPairs == rhs.evaluationPairs );
+      && ( this->boundaryIndices == rhs.boundaryIndices )
+      && ( this->interpolationSchemeIndices == rhs.interpolationSchemeIndices )
+      && ( this->xValues == rhs.xValues )
+      && ( this->yValues == rhs.yValues );
   }
 
   bool

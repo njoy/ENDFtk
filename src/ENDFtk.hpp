@@ -4,6 +4,8 @@
 #include <functional>
 #include <unordered_map>
 
+#include "range/v3/all.hpp"
+
 #include "disco.hpp"
 #include "Log.hpp"
 #include "header-utilities.hpp"

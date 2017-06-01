@@ -1,5 +1,5 @@
 template< int w >
-struct Character{
+struct Character {
   static constexpr std::size_t width = w;
   using Type = std::string;
   using Parser = disco::Character< width >;

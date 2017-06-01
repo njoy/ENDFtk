@@ -1,7 +1,6 @@
 template< int position, typename tail >
 class TailVerification : public tail { 
 public:
-
   TailVerification( int MAT, int MF, int MT ) : tail( MAT, MF, MT ){}
   
   /* note: universal references (not rvalue references) for perfect forwarding */
