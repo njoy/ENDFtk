@@ -10,3 +10,6 @@
 [submodule "dependencies/disco"]
 	path = dependencies/disco
 	url = https://github.com/njoy/disco.git
+[submodule "dependencies/range-v3-adapter"]
+	path = dependencies/range-v3-adapter
+	url = https://github.com/njoy/range-v3-adapter.git

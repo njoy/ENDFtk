@@ -11,11 +11,11 @@ SCENARIO( "UnivariateTabulation rangeBoundaries",
   std::vector< std::vector< double > > xValues
   { { 1.0, 2.0, 3.0, 4.0 }, { 4.0, 5.0 }, { 5.0, 6.0 } };
   for ( long index = 0; index < tab1.nRanges(); ++index ){
-    TAB1::constXIterator begin;
-    TAB1::constXIterator end;
-    std::tie(begin, end) = tab1.rangeBoundaries( index );
+    auto range = tab1.rangeBoundaries( index );
     auto reference = xValues[index].begin();
-    while (begin != end){
+    auto begin = range.begin();
+    auto end = range.end();
+    while ( begin != end){
       REQUIRE( *begin == *reference );
       ++begin; ++reference;
     }

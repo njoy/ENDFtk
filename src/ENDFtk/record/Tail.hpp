@@ -1,8 +1,6 @@
 /** @brief Small class to contain the MAT, MF, and MT of a Record */
 class Tail {
 public:
-
-  /* convenience typedefs */
   using Format = disco::Record< disco::Integer< 4 >,
                                 disco::Integer< 2 >,
                                 disco::Integer< 3 >,
@@ -32,7 +30,7 @@ public:
 
   constexpr
   Tail( int MAT, int MF, int MT ) :
-    fields( std::array< int, 3 >{{ MAT, MF, MT }} ){ }
+    fields( std::array< int, 3 >{{ MAT, MF, MT }} ){}
 
   /* methods */
   int& material(){ return this->fields[0]; }

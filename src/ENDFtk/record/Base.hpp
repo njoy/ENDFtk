@@ -1,6 +1,5 @@
 template< typename... Fields >
-struct Base{
-
+struct Base {
   /* verify invariants */
   static_assert( sizeof...(Fields) > 0,
 		 "A record must contain at least 1 field" );
@@ -12,7 +11,7 @@ struct Base{
   /* convenience typedefs */
   using FieldTuple = std::tuple< typename Fields::Type... >;
   using Format = disco::Record< typename Fields::Parser...,
-                                disco::RetainCarriage >;
+				disco::RetainCarriage >;
   
   template< int Index >
   using ShouldRecurse =
@@ -32,10 +31,9 @@ struct Base{
   template< std::size_t index >
   using ImmutableReturnType =
     std::conditional_t
-             < std::is_trivially_copyable< ElementType< index > >::value,
-               ElementType< index >,
-               std::add_lvalue_reference_t
-               < std::add_const_t< ElementType< index > > > >;
+    < std::is_trivially_copyable< ElementType< index > >::value,
+      ElementType< index >,
+      std::add_lvalue_reference_t< std::add_const_t< ElementType< index > > > >;
 
   /* constants */
   static constexpr std::size_t nFields = sizeof...(Fields);
@@ -79,8 +77,7 @@ struct Base{
   equality( const Base& rhs, std::true_type ){
     constexpr auto index = nFields - Index;
     return
-      ( std::get< index >( rhs.fields )
-        == std::get< index >( this->fields ) )
+      ( std::get< index >( rhs.fields ) == std::get< index >( this->fields ) )
       && this->equality< Index - 1 >( rhs, ShouldRecurse< Index - 1 >() );
   }
 
