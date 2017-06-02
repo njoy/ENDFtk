@@ -29,10 +29,10 @@ fi;
 
 mkdir build
 cd build
-cmake ${CUSTOM[@]}\
-      -D build_type=$build_type \
+cmake -D CMAKE_BUILD_TYPE=$build_type \
       -D static_libraries=$static_libraries \
-      -D appended_flags="$appended_flags" ..
+      -D appended_flags="$appended_flags" \
+      $CUSTOM ..
 make VERBOSE=1 -j2
 export COMPILATION_FAILURE=$?
 
