@@ -49,6 +49,8 @@ using TAB1 = UnivariateTabulation;
 
 #include "ENDFtk/section.hpp"
 
+#include "ENDFtk/ResonanceParameters.hpp"
+
 #include "ENDFtk/file.hpp"
 
 #include "ENDFtk/syntaxTree.hpp"

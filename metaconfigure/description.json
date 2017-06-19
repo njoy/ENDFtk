@@ -373,6 +373,7 @@
     "src/ENDFtk/HeadRecord.hpp",
     "src/ENDFtk/ListRecord.hpp",
     "src/ENDFtk/record.hpp",
+    "src/ENDFtk/ResonanceParameters.hpp",
     "src/ENDFtk/section.hpp",
     "src/ENDFtk/StructureDivision.hpp",
     "src/ENDFtk/syntaxTree.hpp",
@@ -405,6 +406,10 @@
     "src/ENDFtk/record/Zipper/src/unzip.hpp",
     "src/ENDFtk/record/Zipper/src/verifyTail.hpp",
     "src/ENDFtk/record/Zipper/src/Zipped.hpp",
+    "src/ENDFtk/ResonanceParameters/Resolved.hpp",
+    "src/ENDFtk/ResonanceParameters/Unresolved.hpp",
+    "src/ENDFtk/ResonanceParameters/Resolved/Base.hpp",
+    "src/ENDFtk/section/2.hpp",
     "src/ENDFtk/section/3.hpp",
     "src/ENDFtk/section/Base.hpp",
     "src/ENDFtk/section/Base/src/ctor.hpp",
@@ -465,6 +470,9 @@
     ],
     "ENDFtk.ListRecord": [
       "src/ENDFtk/ListRecord/test/ListRecord.test.cpp"
+    ],
+    "ENDFtk.ResonanceParameters.Resolved.Base": [
+      "src/ENDFtk/ResonanceParameters/Resolved/Base/test/Base.test.cpp"
     ],
     "ENDFtk.StructureDivision": [
       "src/ENDFtk/StructureDivision/test/StructureDivision.test.cpp"
