@@ -407,8 +407,9 @@
     "src/ENDFtk/record/Zipper/src/verifyTail.hpp",
     "src/ENDFtk/record/Zipper/src/Zipped.hpp",
     "src/ENDFtk/ResonanceParameters/Resolved.hpp",
-    "src/ENDFtk/ResonanceParameters/Unresolved.hpp",
     "src/ENDFtk/ResonanceParameters/Resolved/Base.hpp",
+    "src/ENDFtk/ResonanceParameters/Resolved/SingleLevelBreitWigner.hpp",
+    "src/ENDFtk/ResonanceParameters/Resolved/SingleLevelBreitWigner/src/ctor.hpp",
     "src/ENDFtk/section/2.hpp",
     "src/ENDFtk/section/3.hpp",
     "src/ENDFtk/section/Base.hpp",
@@ -473,6 +474,9 @@
     ],
     "ENDFtk.ResonanceParameters.Resolved.Base": [
       "src/ENDFtk/ResonanceParameters/Resolved/Base/test/Base.test.cpp"
+    ],
+    "ENDFtk.ResonanceParameters.Resolved.SingleLevelBreitWigner": [
+      "src/ENDFtk/ResonanceParameters/Resolved/SingleLevelBreitWigner/test/SingleLevelBreitWigner.test.cpp"
     ],
     "ENDFtk.StructureDivision": [
       "src/ENDFtk/StructureDivision/test/StructureDivision.test.cpp"
