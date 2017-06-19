@@ -518,6 +518,9 @@
       "src/ENDFtk/record/Zipper/test/unzip.test.cpp",
       "src/ENDFtk/record/Zipper/test/Zipper.test.cpp"
     ],
+    "ENDFtk.section.2": [
+      "src/ENDFtk/section/2/test/2.test.cpp"
+    ],
     "ENDFtk.section.3": [
       "src/ENDFtk/section/3/test/3.test.cpp"
     ],
