@@ -486,8 +486,14 @@
     "ENDFtk.ResonanceParameters.Resolved.BreitWigner": [
       "src/ENDFtk/ResonanceParameters/Resolved/BreitWigner/test/BreitWigner.test.cpp"
     ],
+    "ENDFtk.ResonanceParameters.Resolved.MultiLevelBreitWigner": [
+      "src/ENDFtk/ResonanceParameters/Resolved/MultiLevelBreitWigner/test/MultiLevelBreitWigner.test.cpp"
+    ],
     "ENDFtk.ResonanceParameters.Resolved.ReichMoore": [
       "src/ENDFtk/ResonanceParameters/Resolved/ReichMoore/test/ReichMoore.test.cpp"
+    ],
+    "ENDFtk.ResonanceParameters.Resolved.SingleLevelBreitWigner": [
+      "src/ENDFtk/ResonanceParameters/Resolved/SingleLevelBreitWigner/test/SingleLevelBreitWigner.test.cpp"
     ],
     "ENDFtk.StructureDivision": [
       "src/ENDFtk/StructureDivision/test/StructureDivision.test.cpp"
