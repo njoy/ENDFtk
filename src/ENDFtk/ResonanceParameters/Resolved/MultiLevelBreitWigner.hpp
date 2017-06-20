@@ -1,0 +1,3 @@
+class MultiLevelBreitWigner : public BreitWigner {
+};
+
