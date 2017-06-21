@@ -475,6 +475,9 @@
     "ENDFtk.ListRecord": [
       "src/ENDFtk/ListRecord/test/ListRecord.test.cpp"
     ],
+    "ENDFtk.ResonanceParameters": [
+      "src/ENDFtk/ResonanceParameters/test/Range.test.cpp"
+    ],
     "ENDFtk.ResonanceParameters.Resolved.Base": [
       "src/ENDFtk/ResonanceParameters/Resolved/Base/test/Base.test.cpp"
     ],

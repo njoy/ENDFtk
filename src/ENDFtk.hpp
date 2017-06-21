@@ -4,6 +4,22 @@
 #include <functional>
 #include <unordered_map>
 
+#ifdef __GNUC__
+  #pragma GCC diagnostic push
+  #pragma GCC diagnostic ignored "-Wunused-parameter"
+#endif
+#include <variant>   
+#ifdef __GNUC__
+  #pragma GCC diagnostic pop
+#endif
+
+#ifndef CPP17_KLUDGES
+#define CPP17_KLUDGES
+  namespace std {
+    using namespace std::experimental;
+  }
+#endif
+
 #include "range/v3/all.hpp"
 
 #include "disco.hpp"
@@ -58,5 +74,4 @@ using TAB1 = UnivariateTabulation;
 }
 }
 
-#endif
-
+#endif // ENDFTK_HPP
