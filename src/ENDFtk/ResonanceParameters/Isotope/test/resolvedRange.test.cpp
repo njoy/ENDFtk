@@ -91,5 +91,12 @@ SCENARIO( "Determining what resolved resonance Range" ){
                                                                 lineNumber,
                                                                 MAT, MF, MT ) );
     }
+    WHEN( "trying to create an invalid range" ){
+      njoy::Log::info( "Looking for invalid" );
+      CONT cont( 1E-4, 1.0, 1, 16, 0, 0 );
+      REQUIRE_THROWS( ResonanceParameters::Isotope::resolvedRange( cont, begin, end, 
+                                                                lineNumber,
+                                                                MAT, MF, MT ) );
+    }
   }
 }
