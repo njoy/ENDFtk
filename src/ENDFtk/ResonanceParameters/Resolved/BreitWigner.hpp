@@ -1,6 +1,6 @@
 class BreitWigner : public Base {
 public:
-  ranges::optional< TAB1 > tab1;
+  std::optional< TAB1 > tab1;
   CONT cont;
   LIST list;
 

@@ -406,7 +406,10 @@
     "src/ENDFtk/record/Zipper/src/unzip.hpp",
     "src/ENDFtk/record/Zipper/src/verifyTail.hpp",
     "src/ENDFtk/record/Zipper/src/Zipped.hpp",
+    "src/ENDFtk/ResonanceParameters/Isotope.hpp",
     "src/ENDFtk/ResonanceParameters/Resolved.hpp",
+    "src/ENDFtk/ResonanceParameters/Isotope/src/ctor.hpp",
+    "src/ENDFtk/ResonanceParameters/Isotope/src/resolvedRange.hpp",
     "src/ENDFtk/ResonanceParameters/Resolved/Base.hpp",
     "src/ENDFtk/ResonanceParameters/Resolved/BreitWigner.hpp",
     "src/ENDFtk/ResonanceParameters/Resolved/MultiLevelBreitWigner.hpp",
@@ -477,6 +480,10 @@
     ],
     "ENDFtk.ResonanceParameters": [
       "src/ENDFtk/ResonanceParameters/test/Range.test.cpp"
+    ],
+    "ENDFtk.ResonanceParameters.Isotope": [
+      "src/ENDFtk/ResonanceParameters/Isotope/test/Isotope.test.cpp",
+      "src/ENDFtk/ResonanceParameters/Isotope/test/resolvedRange.test.cpp"
     ],
     "ENDFtk.ResonanceParameters.Resolved.Base": [
       "src/ENDFtk/ResonanceParameters/Resolved/Base/test/Base.test.cpp"

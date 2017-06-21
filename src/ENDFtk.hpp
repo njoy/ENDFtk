@@ -13,13 +13,14 @@
   #pragma GCC diagnostic pop
 #endif
 
-#ifndef CPP17_KLUDGES
-#define CPP17_KLUDGES
+#ifdef USING_CPP17
+  #include <optional>
+#else 
+  #include <experimental/optional>
   namespace std {
     using namespace std::experimental;
   }
 #endif
-
 #include "range/v3/all.hpp"
 
 #include "disco.hpp"

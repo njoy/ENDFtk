@@ -9,6 +9,9 @@ namespace Unresolved {
 }
 
 using Range = std::variant< Resolved::SLBW, 
-                               Resolved::MLBW, 
-                               Resolved::ReichMoore >;
+                            Resolved::MLBW, 
+                            Resolved::ReichMoore >;
+
+#include "ENDFtk/ResonanceParameters/Isotope.hpp"
+
 }
