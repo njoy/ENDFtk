@@ -23,42 +23,49 @@ SCENARIO( "Determining what resolved resonance Range" ){
   int MT = 151;
 
     WHEN( "trying to create a SLBW range" ){
+      njoy::Log::info( "Looking for SLBW" );
       CONT cont( 1E-4, 1.0, 1, 1, 0, 0 );
       auto range = ResonanceParameters::Isotope::resolvedRange( cont, begin, end, 
                                                                 lineNumber,
                                                                 MAT, MF, MT );
     }
     WHEN( "trying to create a MLBW range" ){
+      njoy::Log::info( "Looking for MLBW" );
       CONT cont( 1E-4, 1.0, 1, 2, 0, 0 );
       auto range = ResonanceParameters::Isotope::resolvedRange( cont, begin, end, 
                                                                 lineNumber,
                                                                 MAT, MF, MT );
     }
     WHEN( "trying to create a ReichMoore range" ){
+      njoy::Log::info( "Looking for ReichMoore" );
       CONT cont( 1E-4, 1.0, 1, 3, 0, 0 );
       auto range = ResonanceParameters::Isotope::resolvedRange( cont, begin, end, 
                                                                 lineNumber,
                                                                 MAT, MF, MT );
     }
     WHEN( "trying to create a Adler-Adler range" ){
+      njoy::Log::info( "Looking for Adler-Adler" );
       CONT cont( 1E-4, 1.0, 1, 4, 0, 0 );
       REQUIRE_THROWS( ResonanceParameters::Isotope::resolvedRange( cont, begin, end, 
                                                                 lineNumber,
                                                                 MAT, MF, MT ) );
     }
     WHEN( "trying to create a R-Matrix Limited range" ){
+      njoy::Log::info( "Looking for R-Matrix Limited" );
       CONT cont( 1E-4, 1.0, 1, 7, 0, 0 );
       REQUIRE_THROWS( ResonanceParameters::Isotope::resolvedRange( cont, begin, end, 
                                                                 lineNumber,
                                                                 MAT, MF, MT ) );
     }
     WHEN( "trying to create an invalid range" ){
+      njoy::Log::info( "Looking for invalid" );
       CONT cont( 1E-4, 1.0, 1, 5, 0, 0 );
       REQUIRE_THROWS( ResonanceParameters::Isotope::resolvedRange( cont, begin, end, 
                                                                 lineNumber,
                                                                 MAT, MF, MT ) );
     }
     WHEN( "trying to create an invalid range" ){
+      njoy::Log::info( "Looking for invalid" );
       CONT cont( 1E-4, 1.0, 1, 6, 0, 0 );
       REQUIRE_THROWS( ResonanceParameters::Isotope::resolvedRange( cont, begin, end, 
                                                                 lineNumber,
