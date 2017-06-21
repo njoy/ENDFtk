@@ -6,6 +6,16 @@
 
 using namespace njoy::ENDFtk;
 
+auto isSLBW = [](const auto& s ){ 
+  return std::is_same<std::decay_t<decltype(s)>, 
+                      ResonanceParameters::Resolved::SLBW >::value; };
+auto isMLBW = [](const auto& s ){ 
+  return std::is_same<std::decay_t<decltype(s)>, 
+                      ResonanceParameters::Resolved::MLBW >::value; };
+auto isReichMoore = [](const auto& s ){ 
+  return std::is_same<std::decay_t<decltype(s)>, 
+                      ResonanceParameters::Resolved::ReichMoore >::value; };
+
 SCENARIO( "Determining what resolved resonance Range" ){
   GIVEN( "string representation" ){
   std::string resonanceRepresentation{
@@ -28,6 +38,10 @@ SCENARIO( "Determining what resolved resonance Range" ){
       auto range = ResonanceParameters::Isotope::resolvedRange( cont, begin, end, 
                                                                 lineNumber,
                                                                 MAT, MF, MT );
+      REQUIRE( std::visit( isSLBW, range ) );
+      REQUIRE( not std::visit( isMLBW, range ) );
+      REQUIRE( not std::visit( isReichMoore, range ) );
+
     }
     WHEN( "trying to create a MLBW range" ){
       njoy::Log::info( "Looking for MLBW" );
@@ -35,6 +49,9 @@ SCENARIO( "Determining what resolved resonance Range" ){
       auto range = ResonanceParameters::Isotope::resolvedRange( cont, begin, end, 
                                                                 lineNumber,
                                                                 MAT, MF, MT );
+      REQUIRE( std::visit( isMLBW, range ) );
+      REQUIRE( not std::visit( isSLBW, range ) );
+      REQUIRE( not std::visit( isReichMoore, range ) );
     }
     WHEN( "trying to create a ReichMoore range" ){
       njoy::Log::info( "Looking for ReichMoore" );
@@ -42,6 +59,9 @@ SCENARIO( "Determining what resolved resonance Range" ){
       auto range = ResonanceParameters::Isotope::resolvedRange( cont, begin, end, 
                                                                 lineNumber,
                                                                 MAT, MF, MT );
+      REQUIRE( std::visit( isReichMoore, range ) );
+      REQUIRE( not std::visit( isSLBW, range ) );
+      REQUIRE( not std::visit( isMLBW, range ) );
     }
     WHEN( "trying to create a Adler-Adler range" ){
       njoy::Log::info( "Looking for Adler-Adler" );

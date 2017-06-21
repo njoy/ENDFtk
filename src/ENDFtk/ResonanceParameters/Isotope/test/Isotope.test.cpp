@@ -32,14 +32,14 @@ SCENARIO( "Resolved Resonance Isotope" ){
         REQUIRE( 1 == iso.ranges.size() );
       }
     }
-    WHEN( "there is only more than one range in the Isotope" ){
-      std::string ENDF{ };
-      auto begin = ENDF.begin();
-      auto end = ENDF.end();
-      long lineNumber = 0;
-      int MAT = 6153;
-      int MF = 2;
-      int MT = 151;
+    WHEN( "there is more than one range in the Isotope" ){
+      // std::string ENDF{ };
+      // auto begin = ENDF.begin();
+      // auto end = ENDF.end();
+      // long lineNumber = 0;
+      // int MAT = 6153;
+      // int MF = 2;
+      // int MT = 151;
     }
   }
 }
