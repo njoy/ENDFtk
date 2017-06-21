@@ -11,4 +11,4 @@ namespace Unresolved {
 using Range = ranges::variant< Resolved::SLBW, 
                                Resolved::MLBW, 
                                Resolved::ReichMoore >;
-};
+}
