@@ -13,6 +13,8 @@ Isotope( CONT& cont,
       auto LRF{ rangeCONT.L2() };
       switch( LRU ){
         case 0:
+          Log::error( "LRU=0 is not yet implemented" );
+          throw std::exception();
           break;
         case 1:
           ranges.push_back( std::move(
@@ -20,6 +22,8 @@ Isotope( CONT& cont,
                              MAT, MF, MT ) ) );
           break;
         case 2:
+          Log::error( "LRU=2 is not yet implemented" );
+          throw std::exception();
           break;
         default:
           Log::error( "Encountered invalid LRU value: {}", LRU );
