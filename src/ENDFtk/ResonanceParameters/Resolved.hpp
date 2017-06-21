@@ -6,5 +6,3 @@ using SLBW = SingleLevelBreitWigner;
 using MLBW = MultiLevelBreitWigner;
 
 #include "ENDFtk/ResonanceParameters/Resolved/ReichMoore.hpp"
-#include "ENDFtk/ResonanceParameters/Resolved/AdlerAdler.hpp"
-

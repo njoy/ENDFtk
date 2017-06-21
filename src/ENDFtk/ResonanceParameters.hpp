@@ -8,4 +8,7 @@ namespace Unresolved {
 //#include "ENDFtk/ResonanceParameters/Unresolved.hpp"
 };
 
+using Range = ranges::variant< Resolved::SLBW, 
+                               Resolved::MLBW, 
+                               Resolved::ReichMoore >;
 };
