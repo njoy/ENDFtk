@@ -408,6 +408,7 @@
     "src/ENDFtk/record/Zipper/src/Zipped.hpp",
     "src/ENDFtk/ResonanceParameters/Isotope.hpp",
     "src/ENDFtk/ResonanceParameters/Resolved.hpp",
+    "src/ENDFtk/ResonanceParameters/SpecialCase.hpp",
     "src/ENDFtk/ResonanceParameters/Isotope/src/ctor.hpp",
     "src/ENDFtk/ResonanceParameters/Isotope/src/resolvedRange.hpp",
     "src/ENDFtk/ResonanceParameters/Resolved/Base.hpp",
@@ -451,7 +452,9 @@
     "src/ENDFtk/UnivariateTabulation/src/verifyXValuesAreSorted.hpp"
   ],
   "ignore pattern": "$^",
-  "implementation files": [],
+  "implementation files": [
+    "src/ENDFtk/ResonanceParameters/SpecialCase/src/ctor.cpp"
+  ],
   "include path": "src",
   "initialized": true,
   "is external project": false,
@@ -499,6 +502,9 @@
     ],
     "ENDFtk.ResonanceParameters.Resolved.SingleLevelBreitWigner": [
       "src/ENDFtk/ResonanceParameters/Resolved/SingleLevelBreitWigner/test/SingleLevelBreitWigner.test.cpp"
+    ],
+    "ENDFtk.ResonanceParameters.SpecialCase": [
+      "src/ENDFtk/ResonanceParameters/SpecialCase/test/SpecialCase.test.cpp"
     ],
     "ENDFtk.StructureDivision": [
       "src/ENDFtk/StructureDivision/test/StructureDivision.test.cpp"

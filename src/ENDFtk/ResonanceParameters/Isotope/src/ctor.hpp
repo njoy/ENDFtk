@@ -10,12 +10,14 @@ Isotope( CONT& cont,
       CONT rangeCONT( it, end, lineNumber, MAT, MF, MT );
 
       auto LRU{ rangeCONT.L1() };
-      auto LRF{ rangeCONT.L2() };
       switch( LRU ){
-        case 0:
-          Log::error( "LRU=0 is not yet implemented" );
-          throw std::exception();
+        case 0: {
+          CONT cont( it, end, lineNumber, MAT, MF, MT );
+          ranges.push_back( 
+              SpecialCase( rangeCONT.C1(), rangeCONT.C2(),
+                           cont.C1(), cont.C2(), cont.N1() ) );
           break;
+        }
         case 1:
           ranges.push_back( std::move(
               resolvedRange( rangeCONT, it, end, lineNumber, 
