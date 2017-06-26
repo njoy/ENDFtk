@@ -7,13 +7,13 @@
 
 using namespace njoy::ENDFtk;
 
-std::string sLRU0 = 
+std::string sLRU0{
   " 1.001000+3 9.991673-1          0          0          1          0 125 2151    1\n"
   " 1.001000+3 1.000000+0          0          0          1          0 125 2151    2\n"
   " 1.000000-5 1.000000+5          0          0          0          0 125 2151    3\n"
   " 5.000000-1 1.276553+0          0          0          0          0 125 2151    4\n"
   " 0.000000+0 0.000000+0          0          0          0          0 125 2  099999\n"
-  " 0.000000+0 0.000000+0          0          0          0          0 125 0  0    0\n";
+  " 0.000000+0 0.000000+0          0          0          0          0 125 0  0    0\n"};
 
 std::unordered_map< int, std::string> sLRU1 = {
   { 1, // From ENDF/B-VII.1 Pm=148m1
@@ -64,7 +64,6 @@ std::unordered_map< int, std::string> sLRU1 = {
       " 0.000000+0 0.000000+0          0          0          0          01225 2  099999\n"
       " 0.000000+0 0.000000+0          0          0          0          01225 0  0    0\n" },
   { 3, // From ENDF/B-VII.1 Si-28
-      " 0.000000+0 0.000000+0          0          0          0          01225 0  0    0\n"
       " 1.402800+4 2.773700+1          0          0          1          01425 2151    1\n"
       " 1.402800+4 1.000000+0          0          0          1          01425 2151    2\n"
       " 1.000000-5 1.750000+6          1          3          0          11425 2151    3\n"
@@ -133,7 +132,7 @@ std::unordered_map< int, std::string> sLRU1 = {
       " 0.000000+0 0.000000+0          0          0          0          01425 2  099999\n"
       " 0.000000+0 0.000000+0          0          0          0          01425 0  0    0\n" },
   { 4, "   " },
-  { 7, // From ENDF/B0VII.1 Cl-35
+  { 7, // From ENDF/B-VII.1 Cl-35
       " 1.703500+4 3.466850+1          0          0          1          01725 2151    1\n"
       " 1.703500+4 1.000000+0          0          0          1          01725 2151    2\n"
       " 1.000000-5 1.200000+6          1          7          0          01725 2151    3\n"
@@ -464,6 +463,22 @@ std::unordered_map< int, std::string> sLRU1 = {
 std::unordered_map< int, std::string> sLRU2 = { };
 SCENARIO( "section::Type<2>" ){
   GIVEN( "a string representation of a valid File 2 Section" ){
+    WHEN( "reading LRU=0, LRF=1" ){
+      std::string& sMF2 = sLRU0;
+      auto begin = sMF2.begin();
+      auto end = sMF2.end();
+      long lineNumber = 0;
+      int MAT = 125;
+      HeadRecord HEAD( begin, end, lineNumber );
+
+      THEN( "a section::Type<2> can be constructed" ){
+        section::Type<2> MF2( HEAD, begin, end, lineNumber, MAT );
+        REQUIRE( 151 == MF2.MT() );
+        REQUIRE( 1001 == MF2.ZA() );
+        REQUIRE( 0.9991673 == Approx( MF2.atomicWeightRatio() ) );
+      }
+    }
+
     WHEN( "reading LRU=1, LRF=1" ){
       std::string& sMF2 = sLRU1[1];
       auto begin = sMF2.begin();
@@ -479,6 +494,66 @@ SCENARIO( "section::Type<2>" ){
         REQUIRE( 146.65 == MF2.atomicWeightRatio() );
       }
     }
+    WHEN( "reading LRU=1, LRF=2" ){
+      std::string& sMF2 = sLRU1[2];
+      auto begin = sMF2.begin();
+      auto end = sMF2.end();
+      long lineNumber = 0;
+      int MAT = 1225;
+      HeadRecord HEAD( begin, end, lineNumber );
+
+      THEN( "a section::Type<2> can be constructed" ){
+        section::Type<2> MF2( HEAD, begin, end, lineNumber, MAT );
+        REQUIRE( 151 == MF2.MT() );
+        REQUIRE( 12024 == MF2.ZA() );
+        REQUIRE( 23.779 == Approx( MF2.atomicWeightRatio() ) );
+      }
+    }
+    WHEN( "reading LRU=1, LRF=3" ){
+      std::string& sMF2 = sLRU1[3];
+      auto begin = sMF2.begin();
+      auto end = sMF2.end();
+      long lineNumber = 0;
+      int MAT = 1425;
+      HeadRecord HEAD( begin, end, lineNumber );
+
+      THEN( "a section::Type<2> can be constructed" ){
+        section::Type<2> MF2( HEAD, begin, end, lineNumber, MAT );
+        REQUIRE( 151 == MF2.MT() );
+        REQUIRE( 14028 == MF2.ZA() );
+        REQUIRE( 27.737 == Approx( MF2.atomicWeightRatio() ) );
+      }
+    }
+    WHEN( "reading LRU=1, LRF=7" ){
+      std::string& sMF2 = sLRU1[7];
+      auto begin = sMF2.begin();
+      auto end = sMF2.end();
+      long lineNumber = 0;
+      int MAT = 1725;
+      HeadRecord HEAD( begin, end, lineNumber );
+
+      THEN( "a section::Type<2> can be constructed" ){
+        section::Type<2> MF2( HEAD, begin, end, lineNumber, MAT );
+        REQUIRE( 151 == MF2.MT() );
+        REQUIRE( 17035 == MF2.ZA() );
+        REQUIRE( 34.6685 == Approx( MF2.atomicWeightRatio() ) );
+      }
+    }
   } // GIVEN
+
+  GIVEN( "a File 2 Section with the wrong MAT number" ){
+    WHEN( "reading LRU=1, LRF=1" ){
+      std::string& sMF2 = sLRU1[1];
+      auto begin = sMF2.begin();
+      auto end = sMF2.end();
+      long lineNumber = 0;
+      int MAT = 125;
+      HeadRecord HEAD( begin, end, lineNumber );
+
+      THEN( "an exception is thrown" ){
+        REQUIRE_THROWS( section::Type<2>( HEAD, begin, end, lineNumber, MAT ) );
+      }
+    }
+  }
 } // SCENARIO
 

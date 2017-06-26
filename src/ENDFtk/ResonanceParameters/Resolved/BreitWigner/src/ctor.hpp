@@ -34,8 +34,4 @@ BreitWigner( Base&& base, std::optional< TAB1 >&& tab1,
 } catch ( std::exception& e ){
   Log::info( "Encountered error while parsing ENDF BreitWigner subsection" );
   throw e;
-} catch ( int nPosition ){
-  Log::info( "Error in position {}", nPosition );
-  Log::info( "Error encountered while parsing CONT record" );
-  throw std::exception();
 }
