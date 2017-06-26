@@ -415,8 +415,12 @@
     "src/ENDFtk/ResonanceParameters/Resolved/BreitWigner.hpp",
     "src/ENDFtk/ResonanceParameters/Resolved/MultiLevelBreitWigner.hpp",
     "src/ENDFtk/ResonanceParameters/Resolved/ReichMoore.hpp",
+    "src/ENDFtk/ResonanceParameters/Resolved/RMatrixLimited.hpp",
     "src/ENDFtk/ResonanceParameters/Resolved/SingleLevelBreitWigner.hpp",
     "src/ENDFtk/ResonanceParameters/Resolved/BreitWigner/src/ctor.hpp",
+    "src/ENDFtk/ResonanceParameters/Resolved/RMatrixLimited/SpinGroup.hpp",
+    "src/ENDFtk/ResonanceParameters/Resolved/RMatrixLimited/SpinGroup/src/ctor.hpp",
+    "src/ENDFtk/ResonanceParameters/Resolved/RMatrixLimited/src/ctor.hpp",
     "src/ENDFtk/section/2.hpp",
     "src/ENDFtk/section/3.hpp",
     "src/ENDFtk/section/Base.hpp",
@@ -496,6 +500,12 @@
     ],
     "ENDFtk.ResonanceParameters.Resolved.MultiLevelBreitWigner": [
       "src/ENDFtk/ResonanceParameters/Resolved/MultiLevelBreitWigner/test/MultiLevelBreitWigner.test.cpp"
+    ],
+    "ENDFtk.ResonanceParameters.Resolved.RMatrixLimited": [
+      "src/ENDFtk/ResonanceParameters/Resolved/RMatrixLimited/test/RMatrixLimited.test.cpp"
+    ],
+    "ENDFtk.ResonanceParameters.Resolved.RMatrixLimited.SpinGroup": [
+      "src/ENDFtk/ResonanceParameters/Resolved/RMatrixLimited/SpinGroup/test/SpinGroup.test.cpp"
     ],
     "ENDFtk.ResonanceParameters.Resolved.ReichMoore": [
       "src/ENDFtk/ResonanceParameters/Resolved/ReichMoore/test/ReichMoore.test.cpp"
