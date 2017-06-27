@@ -8,7 +8,7 @@ using namespace njoy::ENDFtk;
 SCENARIO( "Testing TapeIdentification",
           "[ENDFtk], [TapeIdentification]"){
   GIVEN( "valid tape IDs" ){
-    std::string ID{" $Rev:: 1056     $  $Date:: 2017-01-26#$                             1 0  0     "};
+    std::string ID{" $Rev:: 1056     $  $Date:: 2017-01-26#$                             1 0  0\n"};
 
     THEN( "a TapeIdentification can be created" ){
       long lineNumber{0};
@@ -23,7 +23,7 @@ SCENARIO( "Testing TapeIdentification",
   }
 
   GIVEN( "invalid tape IDs" ){
-    std::string ID{" $Rev:: 1056     $  $Date:: 2017-01-26#$                            -1 1  0     "};
+    std::string ID{" $Rev:: 1056     $  $Date:: 2017-01-26#$                            -1 1  0\n"};
 
     THEN( "an exception is thrown" ){
       long lineNumber{0};
