@@ -23,14 +23,14 @@ SCENARIO( "Testing TapeIdentification",
   }
 
   GIVEN( "invalid tape IDs" ){
-    std::string ID{" $Rev:: 1056     $  $Date:: 2017-01-26#$                            -1 0  0     "};
+    std::string ID{" $Rev:: 1056     $  $Date:: 2017-01-26#$                            -1 1  0     "};
 
     THEN( "an exception is thrown" ){
       long lineNumber{0};
       auto begin = ID.begin();
       auto end = ID.end();
 
-      // REQUIRE_THROWS( TapeIdentification( begin, end, lineNumber ) );
+      REQUIRE_THROWS( TapeIdentification( begin, end, lineNumber ) );
     }
   }
 }
