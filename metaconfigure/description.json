@@ -519,6 +519,9 @@
     "ENDFtk.StructureDivision": [
       "src/ENDFtk/StructureDivision/test/StructureDivision.test.cpp"
     ],
+    "ENDFtk.TapeIdentification": [
+      "src/ENDFtk/TapeIdentification/test/TapeIdentification.test.cpp"
+    ],
     "ENDFtk.TextRecord": [
       "src/ENDFtk/TextRecord/test/TextRecord.test.cpp"
     ],

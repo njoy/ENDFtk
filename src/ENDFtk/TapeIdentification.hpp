@@ -11,9 +11,12 @@ public:
 
   template< typename Iterator >
   TapeIdentification( Iterator& it, const Iterator& end, long& lineNumber )
-    try: base( it, end ), tail( 0, 0, it, end, lineNumber ){
+    try: 
+      base( it, end ), 
+      tail( 0, 0, it, end, lineNumber )
+    {
     } catch ( std::exception& e ) {
-      /* TODO error information here */
+      Log::info( "Encountered trouble when reading TapeIdentification" );
       throw e;
     } catch ( int fieldNo ){
       --lineNumber;
