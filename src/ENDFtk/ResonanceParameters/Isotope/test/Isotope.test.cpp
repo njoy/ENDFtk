@@ -4,6 +4,21 @@
 #include "ENDFtk.hpp"
 
 using namespace njoy::ENDFtk;
+auto isSpecialCase = [](const auto& s ){ 
+  return std::is_same<std::decay_t<decltype(s)>, 
+                      ResonanceParameters::SpecialCase >::value; };
+
+template< typename T >
+bool check( const T&  ){ return false; }
+
+bool check( const ResonanceParameters::SpecialCase& SC ){
+  return
+        ( 1E-5 == Approx( SC.lowerEnergyLimit ) )
+        and ( 1E5 == SC.upperEnergyLimit )
+        and ( 0.5 == SC.spin )
+        and ( 1.276553 == SC.scatteringRadius )
+        and ( 0 == SC.nlValues );
+}
 
 std::string sRange{
   " 6.000000+0 6.380900-1          0          0          1          06153 2151    4\n"
@@ -16,7 +31,7 @@ SCENARIO( "Resolved Resonance Isotope" ){
     WHEN( "LRU=0" ){
       std::string ENDF{
           // " 1.001000+3 9.991673-1          0          0          1          0 125 2151    1\n"
-          // " 1.001000+3 1.000000+0          0          0          1          0 125 2151    2\n"
+          " 1.001000+3 1.000000+0          0          0          1          0 125 2151    2\n"
           " 1.000000-5 1.000000+5          0          0          0          0 125 2151    3\n"
           " 5.000000-1 1.276553+0          0          0          0          0 125 2151    4\n"};
       auto begin = ENDF.begin();
@@ -28,17 +43,20 @@ SCENARIO( "Resolved Resonance Isotope" ){
 
       THEN( "a SpecialCase can be constructed" ){
         CONT cont1( begin, end, lineNumber, MAT, MF, MT );
-        CONT cont2( begin, end, lineNumber, MAT, MF, MT );
 
-        ResonanceParameters::SpecialCase SC( cont1.C1(), cont1.C2(), 
-                                             cont2.C1(), cont2.C2(), cont2.N1() );
+        // CONT cont2( begin, end, lineNumber, MAT, MF, MT );
+        // ResonanceParameters::SpecialCase SC( cont1.C1(), cont1.C2(), 
+        //                                      cont2.C1(), cont2.C2(), cont2.N1() );
 
+        ResonanceParameters::Isotope iso( cont1, begin, end, lineNumber,
+                                          MAT, MF, MT );
+        // auto SC = std::visit( [](auto&& arg){ return arg; }, iso.ranges.back());
         AND_THEN( "the parameters can be checked" ){
-          REQUIRE( 1E-5 == Approx( SC.lowerEnergyLimit ) );
-          REQUIRE( 1E5 == SC.upperEnergyLimit );
-          REQUIRE( 0.5 == SC.spin );
-          REQUIRE( 1.276553 == SC.scatteringRadius );
-          REQUIRE( 0 == SC.nlValues );
+          REQUIRE( 1 == iso.ranges.size() );
+
+          REQUIRE( std::visit( isSpecialCase, iso.ranges.back() ) );
+          REQUIRE( std::visit( 
+                  [](auto&& SC){ return check(SC); }, iso.ranges.back() ) );
         }
       }
     }
