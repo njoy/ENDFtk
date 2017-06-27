@@ -98,10 +98,9 @@ SCENARIO( "UnivariateTabulation ctor",
       REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, 9225, MF, MT ) );
     }
   }
-  /*
-  {
+  GIVEN( "string with bad tail" ){
     std::string tab1 = 
-      " 0.000000+0 0.000000+0         33          0         -1          49228 1460  438\n"
+      " 0.000000+0 0.000000+0         33          0          1          49228 1460  438\n"
       "          4          4                                            9228 1460  439\n"
       " 1.000000+1 1.725000+1 1.500000+1 1.850000+1 1.900000+1 1.975000+09228 1460  440\n"
       " 2.700000+1 1.605000+1                                            9228 1460  441\n";
@@ -112,9 +111,10 @@ SCENARIO( "UnivariateTabulation ctor",
     int MF = 1;
     int MT = 460;
    
-    REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, MF, MT ) );
+    REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, 9328, MF, MT ) );
+    REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, 17, MT ) );
+    REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, MF, 15 ) );
   }
-  */
   {
     {
       std::string tab1 = 
