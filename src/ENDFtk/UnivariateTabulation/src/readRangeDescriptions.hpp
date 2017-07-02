@@ -5,6 +5,12 @@ readRangeDescriptions
   int MAT, int MF, int MT ){
   std::tuple< std::vector< long >, std::vector< long > > result;
   try{
+    if ( nRanges < 1 ){
+      Log::error( "Encountered invalid NR value while constructing TAB1 record" );
+      Log::info( "NR is required to be greater than zero" );
+      throw std::exception();
+    }
+    
     result = record::Zipper::unzip
              < record::Integer<11>,
 	       record::Integer<11> >

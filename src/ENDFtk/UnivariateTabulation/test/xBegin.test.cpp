@@ -8,5 +8,5 @@ extern std::function< UnivariateTabulation() > makeTAB1;
 SCENARIO( "UnivariateTabulation xBegin",
           "[ENDFtk], [UnivariateTabulation]" ){
   auto tab1 = makeTAB1();
-  REQUIRE( *(tab1.xBegin()) == 1.0 );
+  REQUIRE( *(tab1.x().begin()) == 1.0 );
 }

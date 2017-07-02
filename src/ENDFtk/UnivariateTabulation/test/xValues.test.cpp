@@ -9,9 +9,11 @@ SCENARIO( "UnivariateTabulation xValue",
           "[ENDFtk], [UnivariateTabulation]" ){
   auto tab1 = makeTAB1();
   std::vector< double > xValues{1.0, 2.0, 3.0, 4.0, 5.0, 6.0 };
-  for ( long index = 0; index < tab1.nPairs(); ++index ){
-    REQUIRE( xValues[ index ] == tab1.xValue( index ) );
+
+  for ( long index = 0; index < tab1.NP(); ++index ){
+    REQUIRE( xValues[ index ] == tab1.x()[ index ] );
+    // REQUIRE( xValues[ index ] == tab1.x().at( index ) );
   }
-  REQUIRE_THROWS( tab1.xValue( -1 ) );
-  REQUIRE_THROWS( tab1.xValue( tab1.NP() ) );
+  // REQUIRE_THROWS( ranges::at( tab1.x(), -1 ) );
+  REQUIRE_THROWS( ranges::at( tab1.x(), tab1.NP() ) );
 }

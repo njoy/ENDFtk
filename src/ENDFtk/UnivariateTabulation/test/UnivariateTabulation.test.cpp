@@ -19,10 +19,14 @@ std::function< UnivariateTabulation() > makeTAB1 = [](){
     njoy::utility::copy( regionPairs ), njoy::utility::copy( orderedPairs ) );
 };
 
+struct Peak : TAB1 {
+  using Base = TAB1::Base;
+};
+
 SCENARIO( "UnivariateTabulation ctor",
           "[ENDFtk], [UnivariateTabulation]" ){
 
-  UnivariateTabulation::Base metadata{ 1.0, 2.0, 3ul, 4ul, 3, 6 };
+  Peak::Base metadata{ 1.0, 2.0, 3ul, 4ul, 3, 6 };
 
   std::vector< long > regions{ 4, 5, 6 };
   std::vector< long > interpolation{ 1, 2, 3 };
@@ -98,23 +102,6 @@ SCENARIO( "UnivariateTabulation ctor",
       REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, 9225, MF, MT ) );
     }
   }
-  /*
-  {
-    std::string tab1 = 
-      " 0.000000+0 0.000000+0         33          0         -1          49228 1460  438\n"
-      "          4          4                                            9228 1460  439\n"
-      " 1.000000+1 1.725000+1 1.500000+1 1.850000+1 1.900000+1 1.975000+09228 1460  440\n"
-      " 2.700000+1 1.605000+1                                            9228 1460  441\n";
-    auto begin = tab1.begin();
-    auto end = tab1.end();
-    auto lineNumber = 438l;
-    int MAT = 9228;
-    int MF = 1;
-    int MT = 460;
-   
-    REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, MF, MT ) );
-  }
-  */
   {
     {
       std::string tab1 = 
@@ -149,6 +136,66 @@ SCENARIO( "UnivariateTabulation ctor",
     {
       std::string tab1 = 
 	" 0.000000+0 0.000000+0         33          0          2          49228 1460  438\n"
+	"          4          4          2          1                      9228 1460  439\n"
+	" 1.000000+1 1.725000+1 1.500000+1 1.850000+1 1.400000+1 1.975000+09228 1460  440\n"
+	" 2.700000+1 1.605000+1                                            9228 1460  441\n";
+      auto begin = tab1.begin();
+      auto end = tab1.end();
+      auto lineNumber = 438l;
+      int MAT = 9228;
+      int MF = 1;
+      int MT = 460;
+   
+      REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, MF, MT ) );
+    }
+    {
+      std::string tab1 = 
+	" 0.000000+0 0.000000+0         33          0         -1          49228 1460  438\n"
+	"          4          4          2          1                      9228 1460  439\n"
+	" 1.000000+1 1.725000+1 1.500000+1 1.850000+1 1.400000+1 1.975000+09228 1460  440\n"
+	" 2.700000+1 1.605000+1                                            9228 1460  441\n";
+      auto begin = tab1.begin();
+      auto end = tab1.end();
+      auto lineNumber = 438l;
+      int MAT = 9228;
+      int MF = 1;
+      int MT = 460;
+   
+      REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, MF, MT ) );
+    }
+    {
+      std::string tab1 = 
+	" 0.000000+0 0.000000+0         33          0          0          49228 1460  438\n"
+	"          4          4          2          1                      9228 1460  439\n"
+	" 1.000000+1 1.725000+1 1.500000+1 1.850000+1 1.400000+1 1.975000+09228 1460  440\n"
+	" 2.700000+1 1.605000+1                                            9228 1460  441\n";
+      auto begin = tab1.begin();
+      auto end = tab1.end();
+      auto lineNumber = 438l;
+      int MAT = 9228;
+      int MF = 1;
+      int MT = 460;
+   
+      REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, MF, MT ) );
+    }
+    {
+      std::string tab1 = 
+	" 0.000000+0 0.000000+0         33          0          1         -19228 1460  438\n"
+	"          4          4          2          1                      9228 1460  439\n"
+	" 1.000000+1 1.725000+1 1.500000+1 1.850000+1 1.400000+1 1.975000+09228 1460  440\n"
+	" 2.700000+1 1.605000+1                                            9228 1460  441\n";
+      auto begin = tab1.begin();
+      auto end = tab1.end();
+      auto lineNumber = 438l;
+      int MAT = 9228;
+      int MF = 1;
+      int MT = 460;
+   
+      REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, MF, MT ) );
+    }
+    {
+      std::string tab1 = 
+	" 0.000000+0 0.000000+0         33          0          1          09228 1460  438\n"
 	"          4          4          2          1                      9228 1460  439\n"
 	" 1.000000+1 1.725000+1 1.500000+1 1.850000+1 1.400000+1 1.975000+09228 1460  440\n"
 	" 2.700000+1 1.605000+1                                            9228 1460  441\n";

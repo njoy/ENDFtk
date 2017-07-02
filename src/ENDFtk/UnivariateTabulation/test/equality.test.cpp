@@ -56,23 +56,5 @@ SCENARIO( "UnivariateTabulation equality",
         REQUIRE( reference != trial );
       }
     }
-    WHEN("the interpolation schemes differ"){
-      trial.rangeInterpolationScheme(1) = 1;
-      THEN( "equality will return false"){
-        REQUIRE( not( reference == trial ) );
-      }
-      AND_THEN( "inequality will return true"){
-        REQUIRE( reference != trial );
-      }
-    }
-    WHEN("the y-values differ"){
-      trial.yValue(1) = 1E10;
-      THEN( "equality will return false"){
-        REQUIRE( not( reference == trial ) );
-      }
-      AND_THEN( "inequality will return true"){
-        REQUIRE( reference != trial );
-      }
-    }
   }
 }

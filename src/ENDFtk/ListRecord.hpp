@@ -7,7 +7,7 @@ public:
   using tail = record::TailVerifying< record::MAT, record::MF, record::MT >;
 
   Base metadata;
-  std::vector< double > list_;
+  std::vector< double > data;
 
   template< typename Iterator >
   static void
@@ -20,13 +20,13 @@ public:
 
   ListRecord( double C1, double C2, uint64_t L1, uint64_t L2, uint64_t N2,
               std::vector< double >&& list ) :
-    metadata( C1, C2, L1, L2, list.size(), N2 ), list_( std::move(list) ){}
+    metadata( C1, C2, L1, L2, list.size(), N2 ), data( std::move(list) ){}
 
   template< typename Iterator >
   ListRecord( Iterator& it, const Iterator& end, long& lineNumber,
               int MAT, int MF, int MT )
     try: metadata( readMetadata( it, end, lineNumber, MAT, MF, MT ) ),
-         list_( record::Sequence::read< record::Real >
+         data( record::Sequence::read< record::Real >
                 ( std::get<4>( this->metadata.fields ),
                   it, end, lineNumber, MAT, MF, MT ) ){
     } catch ( std::exception& e ){
@@ -49,16 +49,17 @@ public:
   DEFINE_GETTER( L1, 2 )
   DEFINE_GETTER( L2, 3 )
   DEFINE_GETTER( N2, 5 )
-    
-#undef DEFINE_GETTER  
  
-  std::vector< double >& list(){ return this->list_; }
-  const std::vector< double >& list() const { return this->list_; }
+#undef DEFINE_GETTER  
 
-  std::vector< double >& B(){ return this->list(); }
-  const std::vector< double >& B() const { return this->list(); }
-
-  long NPL() const { return this->list_.size(); }
+  long NPL() const { return this->data.size(); }
+  
+  auto list() const {
+    return ranges::make_iterator_range( this->data.begin(),
+                                        this->data.end() );
+  }
+  
+  auto B() const { return this->list(); }
 
   bool
   operator== ( const ListRecord& rhs ){
@@ -67,7 +68,7 @@ public:
       && ( this->L1() == rhs.L1() )
       && ( this->L2() == rhs.L2() )
       && ( this->N2() == rhs.N2() )
-      && ( this->list_  == rhs.list_ );
+      && ( this->data  == rhs.data );
   }
 
   bool

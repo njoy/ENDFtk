@@ -62,19 +62,30 @@ UnivariateTabulation
 			std::move( std::get<1>(points) ) ){}
 
 
+protected:
+
+template< typename Iterator >
+UnivariateTabulation
+( Base&& metadata,
+  std::tuple< std::vector< long >, std::vector< long > >&& regions,
+  Iterator& it, const Iterator& end, long& lineNumber, int MAT, int MF, int MT ) :
+  UnivariateTabulation( std::move( metadata ),
+                        std::move( regions ),
+			readPairs( std::get<5>( metadata.fields ),
+				   it, end, lineNumber, MAT, MF, MT ) ){}
+
 template< typename Iterator >
 UnivariateTabulation
 ( Base&& metadata,
   Iterator& it, const Iterator& end, long& lineNumber, int MAT, int MF, int MT ) :
-  UnivariateTabulation( std::get<0>(metadata.fields),
-			std::get<1>(metadata.fields),
-			std::get<2>(metadata.fields),
-			std::get<3>(metadata.fields),
+  UnivariateTabulation( std::move( metadata ),
 			readRangeDescriptions( std::get<4>( metadata.fields ),
-					       it, end, lineNumber, MAT, MF, MT ),
-			readPairs( std::get<5>( metadata.fields ),
-				   it, end, lineNumber, MAT, MF, MT ) ){}
- 
+					       it, end, lineNumber,
+                                               MAT, MF, MT ),
+                        it, end, lineNumber, MAT, MF, MT ) {}
+
+public:
+
 template< typename Iterator >
 UnivariateTabulation( Iterator& it, const Iterator& end, long& lineNumber,
                       int MAT, int MF, int MT )
