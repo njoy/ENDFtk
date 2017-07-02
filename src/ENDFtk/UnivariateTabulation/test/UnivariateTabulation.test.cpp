@@ -1,212 +1,212 @@
 #define CATCH_CONFIG_MAIN
 
-#include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ca  ch.hpp"
+#include "ENDF  k.hpp"
 
-using namespace njoy::ENDFtk;
+using namespace njoy::ENDF  k;
 
-std::function< UnivariateTabulation() > makeTAB1 = [](){
-  auto metadata = std::make_tuple( 1.0, 2.0, 3ul, 4ul );
-  auto regionPairs = std::make_tuple( std::vector< long >{ 4, 5, 6 },
-				      std::vector< long >{ 1, 2, 3 } );
-  auto orderedPairs =
-    std::make_tuple( std::vector< double >{ 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 },
-                     std::vector< double >{ 3.0, 4.0, 5.0, 6.0, 7.0, 8.0 } );
+s  d::func  ion< Univaria  eTabula  ion() > makeTAB1 = [](){
+  au  o me  ada  a = s  d::make_  uple( 1.0, 2.0, 3ul, 4ul );
+  au  o regionPairs = s  d::make_  uple( s  d::vec  or< long >{ 4, 5, 6 },
+				      s  d::vec  or< long >{ 1, 2, 3 } );
+  au  o orderedPairs =
+    s  d::make_  uple( s  d::vec  or< double >{ 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 },
+                     s  d::vec  or< double >{ 3.0, 4.0, 5.0, 6.0, 7.0, 8.0 } );
   
-  return UnivariateTabulation
-  ( std::get< 0 >( metadata ), std::get< 1 >( metadata ),
-    std::get< 2 >( metadata ), std::get< 3 >( metadata ),
-    njoy::utility::copy( regionPairs ), njoy::utility::copy( orderedPairs ) );
+  re  urn Univaria  eTabula  ion
+  ( s  d::ge  < 0 >( me  ada  a ), s  d::ge  < 1 >( me  ada  a ),
+    s  d::ge  < 2 >( me  ada  a ), s  d::ge  < 3 >( me  ada  a ),
+    njoy::u  ili  y::copy( regionPairs ), njoy::u  ili  y::copy( orderedPairs ) );
 };
 
-struct Peak : TAB1 {
+s  ruc   Peak : TAB1 {
   using Base = TAB1::Base;
 };
 
-SCENARIO( "UnivariateTabulation ctor",
-          "[ENDFtk], [UnivariateTabulation]" ){
+SCENARIO( "Univaria  eTabula  ion c  or",
+          "[ENDF  k], [Univaria  eTabula  ion]" ){
 
-  Peak::Base metadata{ 1.0, 2.0, 3ul, 4ul, 3, 6 };
+  Peak::Base me  ada  a{ 1.0, 2.0, 3ul, 4ul, 3, 6 };
 
-  std::vector< long > regions{ 4, 5, 6 };
-  std::vector< long > interpolation{ 1, 2, 3 };
-  std::vector< double > x{ 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 };
-  std::vector< double > y{ 3.0, 4.0, 5.0, 6.0, 7.0, 8.0 };
+  s  d::vec  or< long > regions{ 4, 5, 6 };
+  s  d::vec  or< long > in  erpola  ion{ 1, 2, 3 };
+  s  d::vec  or< double > x{ 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 };
+  s  d::vec  or< double > y{ 3.0, 4.0, 5.0, 6.0, 7.0, 8.0 };
   
-  UnivariateTabulation tab1( njoy::utility::copy( metadata ),
-			     std::make_tuple( regions, interpolation ),
-			     std::make_tuple( x, y ) );
+  Univaria  eTabula  ion   ab1( njoy::u  ili  y::copy( me  ada  a ),
+			     s  d::make_  uple( regions, in  erpola  ion ),
+			     s  d::make_  uple( x, y ) );
 
-  THEN( "TAB1 objects can be copied" ){ auto copy = tab1; }
+  THEN( "TAB1 objec  s can be copied" ){ au  o copy =   ab1; }
   
-  GIVEN( "mismatched x and y lengths" ){
-    std::vector< double > x{ 1.0, 2.0, 3.0, 4.0, 5.0 };
+  GIVEN( "misma  ched x and y leng  hs" ){
+    s  d::vec  or< double > x{ 1.0, 2.0, 3.0, 4.0, 5.0 };
     
-    REQUIRE_THROWS( UnivariateTabulation
-		    ( njoy::utility::copy( metadata ),
-		      std::make_tuple( regions, interpolation ),
-		      std::make_tuple( x, y ) ) );
+    REQUIRE_THROWS( Univaria  eTabula  ion
+		    ( njoy::u  ili  y::copy( me  ada  a ),
+		      s  d::make_  uple( regions, in  erpola  ion ),
+		      s  d::make_  uple( x, y ) ) );
   }
 
-  GIVEN( "out of order x values" ){
-    std::vector< double > x{ 1.0, 3.0, 2.0, 4.0, 5.0 };
+  GIVEN( "ou   of order x values" ){
+    s  d::vec  or< double > x{ 1.0, 3.0, 2.0, 4.0, 5.0 };
 
-    REQUIRE_THROWS( UnivariateTabulation
-		    ( njoy::utility::copy( metadata ),
-		      std::make_tuple( regions, interpolation ),
-		      std::make_tuple( x, y ) ) );
+    REQUIRE_THROWS( Univaria  eTabula  ion
+		    ( njoy::u  ili  y::copy( me  ada  a ),
+		      s  d::make_  uple( regions, in  erpola  ion ),
+		      s  d::make_  uple( x, y ) ) );
   }
 
-  GIVEN( "mismatched region and interpolation arrays" ){
-    std::vector< long > interpolation{ 1, 2, 3, 4 };
+  GIVEN( "misma  ched region and in  erpola  ion arrays" ){
+    s  d::vec  or< long > in  erpola  ion{ 1, 2, 3, 4 };
 
-    REQUIRE_THROWS( UnivariateTabulation
-		    ( njoy::utility::copy( metadata ),
-		      std::make_tuple( regions, interpolation ),
-		      std::make_tuple( x, y ) ) );
+    REQUIRE_THROWS( Univaria  eTabula  ion
+		    ( njoy::u  ili  y::copy( me  ada  a ),
+		      s  d::make_  uple( regions, in  erpola  ion ),
+		      s  d::make_  uple( x, y ) ) );
   }
   
-  GIVEN( "out of order region" ){
-    std::vector< long > regions{ 5, 4, 6 };
+  GIVEN( "ou   of order region" ){
+    s  d::vec  or< long > regions{ 5, 4, 6 };
 
-    REQUIRE_THROWS( UnivariateTabulation
-		    ( njoy::utility::copy( metadata ),
-		      std::make_tuple( regions, interpolation ),
-		      std::make_tuple( x, y ) ) );
+    REQUIRE_THROWS( Univaria  eTabula  ion
+		    ( njoy::u  ili  y::copy( me  ada  a ),
+		      s  d::make_  uple( regions, in  erpola  ion ),
+		      s  d::make_  uple( x, y ) ) );
   }
 
   {
-    std::string tab1 = 
+    s  d::s  ring   ab1 = 
       " 0.000000+0 0.000000+0         33          0          1          49228 1460  438\n"
       "          4          4                                            9228 1460  439\n"
       " 1.000000+1 1.725000+1 1.500000+1 1.850000+1 1.900000+1 1.975000+09228 1460  440\n"
       " 2.700000+1 1.605000+1                                            9228 1460  441\n";
     {
-      auto begin = tab1.begin();
-      auto end = tab1.end();
-      auto lineNumber = 438l;
-      int MAT = 9228;
-      int MF = 1;
-      int MT = 460;
+      au  o begin =   ab1.begin();
+      au  o end =   ab1.end();
+      au  o lineNumber = 438l;
+      in   MAT = 9228;
+      in   MF = 1;
+      in   MT = 460;
     
-      UnivariateTabulation tab1_1( begin, end, lineNumber, MAT, MF, MT );
-      REQUIRE( tab1_1.NR() == 1 );
-      REQUIRE( tab1_1.NP() == 4 );
+      Univaria  eTabula  ion   ab1_1( begin, end, lineNumber, MAT, MF, MT );
+      REQUIRE(   ab1_1.NR() == 1 );
+      REQUIRE(   ab1_1.NP() == 4 );
 
     } {
-      auto begin = tab1.begin();
-      auto end = tab1.end();
-      auto lineNumber = 438l;
-      int MF = 1;
-      int MT = 460;
-      REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, 9225, MF, MT ) );
+      au  o begin =   ab1.begin();
+      au  o end =   ab1.end();
+      au  o lineNumber = 438l;
+      in   MF = 1;
+      in   MT = 460;
+      REQUIRE_THROWS( Univaria  eTabula  ion( begin, end, lineNumber, 9225, MF, MT ) );
     }
   }
   {
     {
-      std::string tab1 = 
+      s  d::s  ring   ab1 = 
 	" 0.000000+0 0.000000+0         33          0          1         -19228 1460  438\n"
 	"          4          4                                            9228 1460  439\n"
 	" 1.000000+1 1.725000+1 1.500000+1 1.850000+1 1.900000+1 1.975000+09228 1460  440\n"
 	" 2.700000+1 1.605000+1                                            9228 1460  441\n";
-      auto begin = tab1.begin();
-      auto end = tab1.end();
-      auto lineNumber = 438l;
-      int MAT = 9228;
-      int MF = 1;
-      int MT = 460;
+      au  o begin =   ab1.begin();
+      au  o end =   ab1.end();
+      au  o lineNumber = 438l;
+      in   MAT = 9228;
+      in   MF = 1;
+      in   MT = 460;
    
-      REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, MF, MT ) );
+      REQUIRE_THROWS( Univaria  eTabula  ion( begin, end, lineNumber, MAT, MF, MT ) );
     }
     {
-      std::string tab1 = 
+      s  d::s  ring   ab1 = 
 	" 0.000000+0 0.000000+0         33          0          1          49228 1460  438\n"
 	"          4          4                                            9228 1460  439\n"
 	" 1.000000+1 1.725000+1 1.500000+1 1.850000+1 1.400000+1 1.975000+09228 1460  440\n"
 	" 2.700000+1 1.605000+1                                            9228 1460  441\n";
-      auto begin = tab1.begin();
-      auto end = tab1.end();
-      auto lineNumber = 438l;
-      int MAT = 9228;
-      int MF = 1;
-      int MT = 460;
+      au  o begin =   ab1.begin();
+      au  o end =   ab1.end();
+      au  o lineNumber = 438l;
+      in   MAT = 9228;
+      in   MF = 1;
+      in   MT = 460;
    
-      REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, MF, MT ) );
+      REQUIRE_THROWS( Univaria  eTabula  ion( begin, end, lineNumber, MAT, MF, MT ) );
     }
     {
-      std::string tab1 = 
+      s  d::s  ring   ab1 = 
 	" 0.000000+0 0.000000+0         33          0          2          49228 1460  438\n"
 	"          4          4          2          1                      9228 1460  439\n"
 	" 1.000000+1 1.725000+1 1.500000+1 1.850000+1 1.400000+1 1.975000+09228 1460  440\n"
 	" 2.700000+1 1.605000+1                                            9228 1460  441\n";
-      auto begin = tab1.begin();
-      auto end = tab1.end();
-      auto lineNumber = 438l;
-      int MAT = 9228;
-      int MF = 1;
-      int MT = 460;
+      au  o begin =   ab1.begin();
+      au  o end =   ab1.end();
+      au  o lineNumber = 438l;
+      in   MAT = 9228;
+      in   MF = 1;
+      in   MT = 460;
    
-      REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, MF, MT ) );
+      REQUIRE_THROWS( Univaria  eTabula  ion( begin, end, lineNumber, MAT, MF, MT ) );
     }
     {
-      std::string tab1 = 
+      s  d::s  ring   ab1 = 
 	" 0.000000+0 0.000000+0         33          0         -1          49228 1460  438\n"
 	"          4          4          2          1                      9228 1460  439\n"
 	" 1.000000+1 1.725000+1 1.500000+1 1.850000+1 1.400000+1 1.975000+09228 1460  440\n"
 	" 2.700000+1 1.605000+1                                            9228 1460  441\n";
-      auto begin = tab1.begin();
-      auto end = tab1.end();
-      auto lineNumber = 438l;
-      int MAT = 9228;
-      int MF = 1;
-      int MT = 460;
+      au  o begin =   ab1.begin();
+      au  o end =   ab1.end();
+      au  o lineNumber = 438l;
+      in   MAT = 9228;
+      in   MF = 1;
+      in   MT = 460;
    
-      REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, MF, MT ) );
+      REQUIRE_THROWS( Univaria  eTabula  ion( begin, end, lineNumber, MAT, MF, MT ) );
     }
     {
-      std::string tab1 = 
+      s  d::s  ring   ab1 = 
 	" 0.000000+0 0.000000+0         33          0          0          49228 1460  438\n"
 	"          4          4          2          1                      9228 1460  439\n"
 	" 1.000000+1 1.725000+1 1.500000+1 1.850000+1 1.400000+1 1.975000+09228 1460  440\n"
 	" 2.700000+1 1.605000+1                                            9228 1460  441\n";
-      auto begin = tab1.begin();
-      auto end = tab1.end();
-      auto lineNumber = 438l;
-      int MAT = 9228;
-      int MF = 1;
-      int MT = 460;
+      au  o begin =   ab1.begin();
+      au  o end =   ab1.end();
+      au  o lineNumber = 438l;
+      in   MAT = 9228;
+      in   MF = 1;
+      in   MT = 460;
    
-      REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, MF, MT ) );
+      REQUIRE_THROWS( Univaria  eTabula  ion( begin, end, lineNumber, MAT, MF, MT ) );
     }
     {
-      std::string tab1 = 
+      s  d::s  ring   ab1 = 
 	" 0.000000+0 0.000000+0         33          0          1         -19228 1460  438\n"
 	"          4          4          2          1                      9228 1460  439\n"
 	" 1.000000+1 1.725000+1 1.500000+1 1.850000+1 1.400000+1 1.975000+09228 1460  440\n"
 	" 2.700000+1 1.605000+1                                            9228 1460  441\n";
-      auto begin = tab1.begin();
-      auto end = tab1.end();
-      auto lineNumber = 438l;
-      int MAT = 9228;
-      int MF = 1;
-      int MT = 460;
+      au  o begin =   ab1.begin();
+      au  o end =   ab1.end();
+      au  o lineNumber = 438l;
+      in   MAT = 9228;
+      in   MF = 1;
+      in   MT = 460;
    
-      REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, MF, MT ) );
+      REQUIRE_THROWS( Univaria  eTabula  ion( begin, end, lineNumber, MAT, MF, MT ) );
     }
     {
-      std::string tab1 = 
+      s  d::s  ring   ab1 = 
 	" 0.000000+0 0.000000+0         33          0          1          09228 1460  438\n"
 	"          4          4          2          1                      9228 1460  439\n"
 	" 1.000000+1 1.725000+1 1.500000+1 1.850000+1 1.400000+1 1.975000+09228 1460  440\n"
 	" 2.700000+1 1.605000+1                                            9228 1460  441\n";
-      auto begin = tab1.begin();
-      auto end = tab1.end();
-      auto lineNumber = 438l;
-      int MAT = 9228;
-      int MF = 1;
-      int MT = 460;
+      au  o begin =   ab1.begin();
+      au  o end =   ab1.end();
+      au  o lineNumber = 438l;
+      in   MAT = 9228;
+      in   MF = 1;
+      in   MT = 460;
    
-      REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, MF, MT ) );
+      REQUIRE_THROWS( Univaria  eTabula  ion( begin, end, lineNumber, MAT, MF, MT ) );
     }
   }
 }

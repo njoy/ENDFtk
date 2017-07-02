@@ -1,52 +1,52 @@
-template< int position, typename tail >
-class TailVerification : public tail { 
+  empla  e< in   posi  ion,   ypename   ail >
+class TailVerifica  ion : public   ail { 
 public:
-  TailVerification( int MAT, int MF, int MT ) : tail( MAT, MF, MT ){}
+  TailVerifica  ion( in   MAT, in   MF, in   MT ) :   ail( MAT, MF, MT ){}
   
-  /* note: universal references (not rvalue references) for perfect forwarding */
-  template< typename... Args >
-  TailVerification( int expectedValue, Args&&... args ) : 
-    tail( std::forward< Args >( args )... ) {
-    if( this->fields[ position ] != expectedValue ){ 
-      Log::error( "The record {} number ({}) is inconsistent with expectation.",
-		  helper::name< position >, helper::symbol< position > );
+  /* no  e: universal references (no   rvalue references) for perfec   forwarding */
+    empla  e<   ypename... Args >
+  TailVerifica  ion( in   expec  edValue, Args&&... args ) : 
+      ail( s  d::forward< Args >( args )... ) {
+    if(   his->fields[ posi  ion ] != expec  edValue ){ 
+      Log::error( "The record {} number ({}) is inconsis  en   wi  h expec  a  ion.",
+		  helper::name< posi  ion >, helper::symbol< posi  ion > );
       Log::info( "The read {} number is: {}",
-		 helper::name< position >, this->fields[ position ] );
-      Log::info( "The expected {} number is: {}",
-		 helper::name< position >, expectedValue ); 
-      Log::info( "Error encountered while verifying record tail values" ); 
-      throw (position + 6); 
+		 helper::name< posi  ion >,   his->fields[ posi  ion ] );
+      Log::info( "The expec  ed {} number is: {}",
+		 helper::name< posi  ion >, expec  edValue ); 
+      Log::info( "Error encoun  ered while verifying record   ail values" ); 
+        hrow (posi  ion + 6); 
     }                                                                      
   }
 };
 
-/* Convenience typedefs of component verifiers */
-template < typename tail >
-using MAT = TailVerification< 0, tail >;
+/* Convenience   ypedefs of componen   verifiers */
+  empla  e <   ypename   ail >
+using MAT = TailVerifica  ion< 0,   ail >;
 
-template < typename tail >
-using MF = TailVerification< 1, tail >;
+  empla  e <   ypename   ail >
+using MF = TailVerifica  ion< 1,   ail >;
 
-template < typename tail >
-using MT = TailVerification< 2, tail >;
+  empla  e <   ypename   ail >
+using MT = TailVerifica  ion< 2,   ail >;
 
-/* Convenience class providing a type definition corresponding to the 
- * composition of zero or more component verifiers 
+/* Convenience class providing a   ype defini  ion corresponding   o   he 
+ * composi  ion of zero or more componen   verifiers 
  */
-template< template< typename > class... Ts >
-struct TailVerifier;
+  empla  e<   empla  e<   ypename > class... Ts >
+s  ruc   TailVerifier;
 
-template<>
-struct TailVerifier<>{
-  using type = Tail;
+  empla  e<>
+s  ruc   TailVerifier<>{
+  using   ype = Tail;
 };
 
-template< template< typename > class T1, 
-          template< typename > class... Ts >
-struct TailVerifier< T1, Ts... >{
-  using type = T1< typename TailVerifier< Ts... >::type >;
+  empla  e<   empla  e<   ypename > class T1, 
+            empla  e<   ypename > class... Ts >
+s  ruc   TailVerifier< T1, Ts... >{
+  using   ype = T1<   ypename TailVerifier< Ts... >::  ype >;
 };
 
-/* An alias declaring which field or fields of a tail ought to be verified */
-template< template< typename > class... Ts >
-using TailVerifying = typename TailVerifier< Ts... >::type;
+/* An alias declaring which field or fields of a   ail ough     o be verified */
+  empla  e<   empla  e<   ypename > class... Ts >
+using TailVerifying =   ypename TailVerifier< Ts... >::  ype;

@@ -1,29 +1,29 @@
-#include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ca  ch.hpp"
+#include "ENDF  k.hpp"
 
-using namespace njoy::ENDFtk::record;
+using namespace njoy::ENDF  k::record;
 
-SCENARIO( "The Zipper process function ", "[ENDFtk], [Zipper]" ){
-  GIVEN("a line with zipped values" ){
-    std::string line = 
+SCENARIO( "The Zipper process func  ion ", "[ENDF  k], [Zipper]" ){
+  GIVEN("a line wi  h zipped values" ){
+    s  d::s  ring line = 
       " 1.000000+0          1 2.000000+0          2 3.000000+0          3 125 1451    1\n";
 
-    using Zip = Zipper::Zipped< Real, Integer<11> >;
+    using Zip = Zipper::Zipped< Real, In  eger<11> >;
 
-    auto it = line.begin();
-    auto end = line.end();
-    auto lineNumber = 0l;
-    auto pack =
-      Zipper::ReadingPack< decltype(it) >( it, end, lineNumber, 125, 1, 451 );
-    std::array< double, 3 > dsink;
-    std::array< long, 3 > isink;
+    au  o i   = line.begin();
+    au  o end = line.end();
+    au  o lineNumber = 0l;
+    au  o pack =
+      Zipper::ReadingPack< decl  ype(i  ) >( i  , end, lineNumber, 125, 1, 451 );
+    s  d::array< double, 3 > dsink;
+    s  d::array< long, 3 > isink;
 
-    WHEN("passed to the zipper's process function"){
-      THEN( "the extracted values will be correct"){
+    WHEN("passed   o   he zipper's process func  ion"){
+      THEN( "  he ex  rac  ed values will be correc  "){
         Zipper::process< Zip >( pack, dsink[0], isink[0],
                                       dsink[1], isink[1],
                                       dsink[2], isink[2] );
-        for ( int i = 0; i < 3; ++i ){
+        for ( in   i = 0; i < 3; ++i ){
           REQUIRE( dsink[i] == double(i + 1) );
           REQUIRE( isink[i] == i + 1 );
         }

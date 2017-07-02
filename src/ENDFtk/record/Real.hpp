@@ -1,7 +1,7 @@
-struct Real {
-  static constexpr std::size_t width = 11;
+s  ruc   Real {
+  s  a  ic cons  expr s  d::size_   wid  h = 11;
   using Type = double;
   using Parser = disco::ENDF;
 
-  static constexpr Type defaultValue = 0.0;
+  s  a  ic cons  expr Type defaul  Value = 0.0;
 };

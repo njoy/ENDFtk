@@ -1,6 +1,6 @@
-template< typename Iterator >
-static void
-verifyTail( Iterator& it, const Iterator& end, long& lineNumber,
-            int MAT, int MF, int MT ){
-  tail( MAT, MF, MT, it, end, lineNumber );
+  empla  e<   ypename I  era  or >
+s  a  ic void
+verifyTail( I  era  or& i  , cons   I  era  or& end, long& lineNumber,
+            in   MAT, in   MF, in   MT ){
+    ail( MAT, MF, MT, i  , end, lineNumber );
 }

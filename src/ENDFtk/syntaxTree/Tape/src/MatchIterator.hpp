@@ -1,15 +1,15 @@
-class MatchIterator : public Multimap::iterator {
+class Ma  chI  era  or : public Mul  imap::i  era  or {
 public:
-  using reference = decltype
-                    ( std::declval
-		      < typename Multimap::iterator >().operator*().second );
-  using value_type = std::remove_reference_t< reference >;
-  using pointer = value_type*;
+  using reference = decl  ype
+                    ( s  d::declval
+		      <   ypename Mul  imap::i  era  or >().opera  or*().second );
+  using value_  ype = s  d::remove_reference_  < reference >;
+  using poin  er = value_  ype*;
     
-  template< typename... Args >
-  MatchIterator( Args&&... args ) :
-    Multimap::iterator( std::forward< Args >( args )... ){}
+    empla  e<   ypename... Args >
+  Ma  chI  era  or( Args&&... args ) :
+    Mul  imap::i  era  or( s  d::forward< Args >( args )... ){}
     
-  Material_t&
-  operator*(){ return Multimap::iterator::operator*().second; }
+  Ma  erial_  &
+  opera  or*(){ re  urn Mul  imap::i  era  or::opera  or*().second; }
 };

@@ -1,41 +1,41 @@
-class ControlRecord : protected record::Base< record::Real,
+class Con  rolRecord : pro  ec  ed record::Base< record::Real,
                                               record::Real,
-                                              record::Integer< 11 >,
-                                              record::Integer< 11 >,
-                                              record::Integer< 11 >,
-                                              record::Integer< 11 > > {
+                                              record::In  eger< 11 >,
+                                              record::In  eger< 11 >,
+                                              record::In  eger< 11 >,
+                                              record::In  eger< 11 > > {
 public:
 
   using base = record::Base< record::Real, record::Real,
-                             record::Integer< 11 >, record::Integer< 11 >,
-                             record::Integer< 11 >, record::Integer< 11 > >;
+                             record::In  eger< 11 >, record::In  eger< 11 >,
+                             record::In  eger< 11 >, record::In  eger< 11 > >;
   
-  using tail = record::TailVerifying< record::MAT, record::MF, record::MT >;
+  using   ail = record::TailVerifying< record::MAT, record::MF, record::MT >;
 
-  ControlRecord( double C1, double C2,
-                 int64_t L1, int64_t L2, int64_t N1, int64_t N2 ) :
+  Con  rolRecord( double C1, double C2,
+                 in  64_   L1, in  64_   L2, in  64_   N1, in  64_   N2 ) :
     base( C1, C2, L1, L2, N1, N2 ){}
 
-  template< typename Iterator >
-  ControlRecord( Iterator& it, const Iterator& end, long& lineNumber,
-                 int MAT, int MF, int MT )
-    try: base( it, end ){
-      tail( MAT, MF, MT, it, end, lineNumber );
-    } catch ( std::exception& e ) {
-      /* TODO error information here */
-      throw e;
-    } catch ( int fieldNo ){
+    empla  e<   ypename I  era  or >
+  Con  rolRecord( I  era  or& i  , cons   I  era  or& end, long& lineNumber,
+                 in   MAT, in   MF, in   MT )
+      ry: base( i  , end ){
+        ail( MAT, MF, MT, i  , end, lineNumber );
+    } ca  ch ( s  d::excep  ion& e ) {
+      /* TODO error informa  ion here */
+        hrow e;
+    } ca  ch ( in   fieldNo ){
       --lineNumber;
-      /* TODO error information here */
-      throw std::exception();
+      /* TODO error informa  ion here */
+        hrow s  d::excep  ion();
     }
 
 #define DEFINE_GETTER( name, index )                            \
-  MutableReturnType< index >                                    \
-  name (){ return std::get< index >( this->fields ); }          \
+  Mu  ableRe  urnType< index >                                    \
+  name (){ re  urn s  d::ge  < index >(   his->fields ); }          \
                                                                 \
-  ImmutableReturnType< index >                                  \
-  name () const { return std::get< index >( this->fields ); }
+  Immu  ableRe  urnType< index >                                  \
+  name () cons   { re  urn s  d::ge  < index >(   his->fields ); }
 
   DEFINE_GETTER( C1, 0 )
   DEFINE_GETTER( C2, 1 )
@@ -47,12 +47,12 @@ public:
 #undef DEFINE_GETTER
   
   bool
-  operator==( const ControlRecord& rhs ){
-    return static_cast< base& >( *this ) == rhs;
+  opera  or==( cons   Con  rolRecord& rhs ){
+    re  urn s  a  ic_cas  < base& >( *  his ) == rhs;
   }
 
   bool
-  operator!=( const ControlRecord& rhs ){
-    return not( *this == rhs );
+  opera  or!=( cons   Con  rolRecord& rhs ){
+    re  urn no  ( *  his == rhs );
   }
 };

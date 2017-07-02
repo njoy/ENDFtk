@@ -1,74 +1,74 @@
 #define CATCH_CONFIG_MAIN
 
-#include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ca  ch.hpp"
+#include "ENDF  k.hpp"
 
-std::string baseSection();
-std::string validSEND();
-std::string invalidSEND();
+s  d::s  ring baseSec  ion();
+s  d::s  ring validSEND();
+s  d::s  ring invalidSEND();
 
-using namespace njoy::ENDFtk;
+using namespace njoy::ENDF  k;
 
-SCENARIO( "Creating a syntax tree of an ENDF Section" ){
-  GIVEN( "A string representation of a Section" ){
-    WHEN( "a valid SEND record ends the Section" ){
-      std::string sectionString = baseSection() + validSEND();
-      auto position = sectionString.begin();
-      auto start = sectionString.begin();
-      auto end = sectionString.end();
+SCENARIO( "Crea  ing a syn  ax   ree of an ENDF Sec  ion" ){
+  GIVEN( "A s  ring represen  a  ion of a Sec  ion" ){
+    WHEN( "a valid SEND record ends   he Sec  ion" ){
+      s  d::s  ring sec  ionS  ring = baseSec  ion() + validSEND();
+      au  o posi  ion = sec  ionS  ring.begin();
+      au  o s  ar   = sec  ionS  ring.begin();
+      au  o end = sec  ionS  ring.end();
       long lineNumber = 0;
 
-      HeadRecord head( position, end, lineNumber );
-      syntaxTree::Section< std::string::iterator >
-        sectionTree( head, start, position, end, lineNumber );
+      HeadRecord head( posi  ion, end, lineNumber );
+      syn  axTree::Sec  ion< s  d::s  ring::i  era  or >
+        sec  ionTree( head, s  ar  , posi  ion, end, lineNumber );
 
-      THEN( "the entire stream is read" ){
+      THEN( "  he en  ire s  ream is read" ){
         REQUIRE( 36 == lineNumber );
       }
 
-      AND_THEN( "the buffer iterators are populated correctly "){
-        REQUIRE( sectionString.begin() == sectionTree.bufferBegin() );
-        REQUIRE( end == sectionTree.bufferEnd() );
+      AND_THEN( "  he buffer i  era  ors are popula  ed correc  ly "){
+        REQUIRE( sec  ionS  ring.begin() == sec  ionTree.bufferBegin() );
+        REQUIRE( end == sec  ionTree.bufferEnd() );
       }
 
-      AND_THEN( "the section number or MT is populated correctly" ){
-        REQUIRE( 1 == sectionTree.MT() );
-        REQUIRE( 1 == sectionTree.sectionNumber() );
+      AND_THEN( "  he sec  ion number or MT is popula  ed correc  ly" ){
+        REQUIRE( 1 == sec  ionTree.MT() );
+        REQUIRE( 1 == sec  ionTree.sec  ionNumber() );
       }
 
     } // WHEN
 
-    WHEN( "an invalid (MT!=0) SEND record ends the Section" ){
-      std::string sectionString = baseSection() + invalidSEND();
-      THEN( "an exception is thrown" ){
-        auto begin = sectionString.begin();
-        auto start = sectionString.begin();
-        auto end = sectionString.end();
+    WHEN( "an invalid (MT!=0) SEND record ends   he Sec  ion" ){
+      s  d::s  ring sec  ionS  ring = baseSec  ion() + invalidSEND();
+      THEN( "an excep  ion is   hrown" ){
+        au  o begin = sec  ionS  ring.begin();
+        au  o s  ar   = sec  ionS  ring.begin();
+        au  o end = sec  ionS  ring.end();
         long lineNumber = 0;
 
         HeadRecord head( begin, end, lineNumber );
-        REQUIRE_THROWS( syntaxTree::Section< std::string::iterator >( 
-                head, start, begin, end, lineNumber ) );
+        REQUIRE_THROWS( syn  axTree::Sec  ion< s  d::s  ring::i  era  or >( 
+                head, s  ar  , begin, end, lineNumber ) );
       }
     } // WHEN
     
-    WHEN( "a Section that is too short (no SEND record)" ){
-      THEN( "an exception is thrown" ){
-        std::string sectionString = baseSection();
-        auto begin = sectionString.begin();
-        auto start = sectionString.begin();
-        auto end = sectionString.end();
+    WHEN( "a Sec  ion   ha   is   oo shor   (no SEND record)" ){
+      THEN( "an excep  ion is   hrown" ){
+        s  d::s  ring sec  ionS  ring = baseSec  ion();
+        au  o begin = sec  ionS  ring.begin();
+        au  o s  ar   = sec  ionS  ring.begin();
+        au  o end = sec  ionS  ring.end();
         long lineNumber = 0;
         HeadRecord head( begin, end, lineNumber );
-        REQUIRE_THROWS( syntaxTree::Section< std::string::iterator >(
-                head, start, begin, end, lineNumber ) );
+        REQUIRE_THROWS( syn  axTree::Sec  ion< s  d::s  ring::i  era  or >(
+                head, s  ar  , begin, end, lineNumber ) );
       }
     }
   } // GIVEN
 } // SCENARIO
 
-std::string baseSection(){
-  return
+s  d::s  ring baseSec  ion(){
+  re  urn
     " 1.001000+3 9.991673-1          0          0          0          0 125 3  1\n"
     " 0.000000+0 0.000000+0          0          0          2         96 125 3  1\n"
     "         30          5         96          2                       125 3  1\n"
@@ -106,12 +106,12 @@ std::string baseSection(){
     " 1.900000+7 5.088059-1 1.950000+7 4.954905-1 2.000000+7 4.827735-1 125 3  1\n";
 }
 
-std::string validSEND(){
-  return
+s  d::s  ring validSEND(){
+  re  urn
     "                                                                   125 3  0\n";
 }
 
-std::string invalidSEND(){
-  return
+s  d::s  ring invalidSEND(){
+  re  urn
     "                                                                   125 3  1\n";
 }

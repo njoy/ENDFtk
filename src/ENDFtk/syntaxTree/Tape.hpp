@@ -1,47 +1,47 @@
-template< typename BufferIterator >
+  empla  e<   ypename BufferI  era  or >
 class Tape {
 public:
-  /* convenience typedefs */
-  using Material_t = Material< BufferIterator >;
-  using Iterator = typename std::vector< Material_t >::iterator;
-  using Multimap = std::unordered_multimap< int, Material_t& >;
+  /* convenience   ypedefs */
+  using Ma  erial_   = Ma  erial< BufferI  era  or >;
+  using I  era  or =   ypename s  d::vec  or< Ma  erial_   >::i  era  or;
+  using Mul  imap = s  d::unordered_mul  imap< in  , Ma  erial_  & >;
   
-  /* nested classes */
-#include "ENDFtk/syntaxTree/Tape/src/MatchIterator.hpp"
-#include "ENDFtk/syntaxTree/Tape/src/Range.hpp"
+  /* nes  ed classes */
+#include "ENDF  k/syn  axTree/Tape/src/Ma  chI  era  or.hpp"
+#include "ENDF  k/syn  axTree/Tape/src/Range.hpp"
   
   /* fields */
-  std::pair< BufferIterator, BufferIterator > bufferLimits;
-  TapeIdentification tpid;
-  std::vector< Material_t > materialVector;
-  std::unordered_multimap< int, Material_t& > materialMap;
+  s  d::pair< BufferI  era  or, BufferI  era  or > bufferLimi  s;
+  TapeIden  ifica  ion   pid;
+  s  d::vec  or< Ma  erial_   > ma  erialVec  or;
+  s  d::unordered_mul  imap< in  , Ma  erial_  & > ma  erialMap;
 
-  /* ctor */
-#include "ENDFtk/syntaxTree/Tape/src/createVector.hpp"
-#include "ENDFtk/syntaxTree/Tape/src/createMap.hpp"
-#include "ENDFtk/syntaxTree/Tape/src/ctor.hpp"
+  /* c  or */
+#include "ENDF  k/syn  axTree/Tape/src/crea  eVec  or.hpp"
+#include "ENDF  k/syn  axTree/Tape/src/crea  eMap.hpp"
+#include "ENDF  k/syn  axTree/Tape/src/c  or.hpp"
 
-  /* methods */
-#include "ENDFtk/syntaxTree/Tape/src/materialNumber.hpp"
+  /* me  hods */
+#include "ENDF  k/syn  axTree/Tape/src/ma  erialNumber.hpp"
 
   Range
-  MAT( int materialNo ){ return this->materialNumber( materialNo ); }
+  MAT( in   ma  erialNo ){ re  urn   his->ma  erialNumber( ma  erialNo ); }
 
   bool
-  hasMAT( int materialNo ){ return this->materialMap.count( materialNo ); }
+  hasMAT( in   ma  erialNo ){ re  urn   his->ma  erialMap.coun  ( ma  erialNo ); }
 
   bool
-  hasMaterialNumber( int materialNo ){ return this->hasMAT( materialNo ); }
+  hasMa  erialNumber( in   ma  erialNo ){ re  urn   his->hasMAT( ma  erialNo ); }
   
-  Iterator begin(){ return materialVector.begin(); }
+  I  era  or begin(){ re  urn ma  erialVec  or.begin(); }
   
-  Iterator end(){ return materialVector.end(); }
+  I  era  or end(){ re  urn ma  erialVec  or.end(); }
   
-  std::size_t size() const { return materialVector.size(); }
+  s  d::size_   size() cons   { re  urn ma  erialVec  or.size(); }
 
-  BufferIterator bufferBegin() { return this->bufferLimits.first; }
+  BufferI  era  or bufferBegin() { re  urn   his->bufferLimi  s.firs  ; }
 
-  BufferIterator bufferEnd() { return this->bufferLimits.second ; }
+  BufferI  era  or bufferEnd() { re  urn   his->bufferLimi  s.second ; }
 
-  const TapeIdentification& TPID() const { return this->tpid; }
+  cons   TapeIden  ifica  ion& TPID() cons   { re  urn   his->  pid; }
 };

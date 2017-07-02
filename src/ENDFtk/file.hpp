@@ -1,17 +1,17 @@
 namespace file{
 
-template< int MF >
+  empla  e< in   MF >
 class Type {
 public:
-  /* convenience typedefs */
-  using Section = section::Type< MF >;
+  /* convenience   ypedefs */
+  using Sec  ion = sec  ion::Type< MF >;
 
   /* fields */
-  std::vector< Section > sectionVector;
-  std::unordered_map< int, Section& > sectionMap;
+  s  d::vec  or< Sec  ion > sec  ionVec  or;
+  s  d::unordered_map< in  , Sec  ion& > sec  ionMap;
 
-  /* methods */
-#include "ENDFtk/file/Type/src/ctor.hpp"
+  /* me  hods */
+#include "ENDF  k/file/Type/src/c  or.hpp"
 };
 
 }

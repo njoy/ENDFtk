@@ -1,61 +1,61 @@
 #define CATCH_CONFIG_MAIN
 
-#include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ca  ch.hpp"
+#include "ENDF  k.hpp"
 
-std::string baseSection();
-std::string invalidBaseSection();
-std::string validSEND();
-std::string invalidSEND();
+s  d::s  ring baseSec  ion();
+s  d::s  ring invalidBaseSec  ion();
+s  d::s  ring validSEND();
+s  d::s  ring invalidSEND();
 
-using namespace njoy::ENDFtk;
+using namespace njoy::ENDF  k;
 
-SCENARIO( "section::Type<3>" ){
-  GIVEN( "a string representation of a valid File 3 Section" ){
-    WHEN( "there is a valid SEND record" ){
-      std::string sectionString = baseSection() + validSEND();
-      auto begin = sectionString.begin();
-      auto end = sectionString.end();
+SCENARIO( "sec  ion::Type<3>" ){
+  GIVEN( "a s  ring represen  a  ion of a valid File 3 Sec  ion" ){
+    WHEN( "  here is a valid SEND record" ){
+      s  d::s  ring sec  ionS  ring = baseSec  ion() + validSEND();
+      au  o begin = sec  ionS  ring.begin();
+      au  o end = sec  ionS  ring.end();
       long lineNumber = 132; 
       HeadRecord head( begin, end, lineNumber );
       
-      THEN( "a section::Type<3> can be constructed and members can be tested" ){
-        section::Type<3> MF3( head, begin, end, lineNumber, 125 );
+      THEN( "a sec  ion::Type<3> can be cons  ruc  ed and members can be   es  ed" ){
+        sec  ion::Type<3> MF3( head, begin, end, lineNumber, 125 );
         REQUIRE( 1 == MF3.MT() );
         REQUIRE( 1001 == MF3.ZA() );
-        REQUIRE( 0.9991673 == MF3.atomicWeightRatio() );
+        REQUIRE( 0.9991673 == MF3.a  omicWeigh  Ra  io() );
       }
     }
     
-    WHEN( "the SEND Record is not valid, i.e., MT!=0" ){
-      std::string sectionString = baseSection() + invalidSEND();
-      auto begin = sectionString.begin();
-      auto end = sectionString.end();
+    WHEN( "  he SEND Record is no   valid, i.e., MT!=0" ){
+      s  d::s  ring sec  ionS  ring = baseSec  ion() + invalidSEND();
+      au  o begin = sec  ionS  ring.begin();
+      au  o end = sec  ionS  ring.end();
       long lineNumber = 132;
       HeadRecord head( begin, end, lineNumber );
       
-      THEN( "an exception is thrown" ){
-        REQUIRE_THROWS( section::Type<3>( head, begin, end, lineNumber, 125 ) );
+      THEN( "an excep  ion is   hrown" ){
+        REQUIRE_THROWS( sec  ion::Type<3>( head, begin, end, lineNumber, 125 ) );
       }
     } 
   } 
 
-  GIVEN( "a string representation of an File 3 Section"
-         " with negative cross sections" ){
-    std::string sectionString = invalidBaseSection() + validSEND();
-    auto begin = sectionString.begin();
-    auto end = sectionString.end();
+  GIVEN( "a s  ring represen  a  ion of an File 3 Sec  ion"
+         " wi  h nega  ive cross sec  ions" ){
+    s  d::s  ring sec  ionS  ring = invalidBaseSec  ion() + validSEND();
+    au  o begin = sec  ionS  ring.begin();
+    au  o end = sec  ionS  ring.end();
     long lineNumber = 132;
     HeadRecord head( begin, end, lineNumber );
 	  
-    THEN( "an exception is thrown upon construction" ){
-      REQUIRE_THROWS( section::Type<3>( head, begin, end, lineNumber, 125 ) );
+    THEN( "an excep  ion is   hrown upon cons  ruc  ion" ){
+      REQUIRE_THROWS( sec  ion::Type<3>( head, begin, end, lineNumber, 125 ) );
     }
   } // GIVEN
 } // SCENARIO
 
-std::string baseSection(){
-  return
+s  d::s  ring baseSec  ion(){
+  re  urn
     " 1.001000+3 9.991673-1          0          0          0          0 125 3  1\n"
     " 0.000000+0 0.000000+0          0          0          2         96 125 3  1\n"
     "         30          5         96          2                       125 3  1\n"
@@ -93,8 +93,8 @@ std::string baseSection(){
     " 1.900000+7 5.088059-1 1.950000+7 4.954905-1 2.000000+7 4.827735-1 125 3  1\n";
 }
 
-std::string invalidBaseSection(){
-  return 
+s  d::s  ring invalidBaseSec  ion(){
+  re  urn 
     " 1.001000+3 9.991673-1          0          0          0          0 125 3  1\n"
     " 0.000000+0 0.000000+0          0          0          2         96 125 3  1\n"
     "         30          5         96          2                       125 3  1\n"
@@ -133,11 +133,11 @@ std::string invalidBaseSection(){
     "                                                                   125 3  0\n";
 }
 
-std::string validSEND(){
-  return
+s  d::s  ring validSEND(){
+  re  urn
     "                                                                   125 3  0\n";
 }
-std::string invalidSEND(){
-  return
+s  d::s  ring invalidSEND(){
+  re  urn
     "                                                                   125 3  1\n";
 }

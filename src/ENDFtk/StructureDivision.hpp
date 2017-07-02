@@ -1,152 +1,152 @@
-class StructureDivision {
+class S  ruc  ureDivision {
 public:
-  /* convenience typedefs */
+  /* convenience   ypedefs */
   using Base =
     record::Base< record::Real, record::Real,
-                  record::Integer<11>, record::Integer<11>,
-                  record::Integer<11>, record::Integer<11> >;
+                  record::In  eger<11>, record::In  eger<11>,
+                  record::In  eger<11>, record::In  eger<11> >;
   
   using Tail = record::Tail;
 
   /* fields */
   Base base;
-  Tail tail;
+  Tail   ail;
   
-  StructureDivision( double C1, double C2, long L1, long L2, long N1, long N2,
-                     int MAT, int MF, int MT ) :
+  S  ruc  ureDivision( double C1, double C2, long L1, long L2, long N1, long N2,
+                     in   MAT, in   MF, in   MT ) :
     base( C1, C2, L1, L2, N1, N2 ),
-    tail( MAT, MF, MT ) {}
+      ail( MAT, MF, MT ) {}
   
-  template< typename Iterator >
-  StructureDivision( Iterator& it, const Iterator& end, long& lineNumber ) :
-    StructureDivision( it, it, end, lineNumber ){}
+    empla  e<   ypename I  era  or >
+  S  ruc  ureDivision( I  era  or& i  , cons   I  era  or& end, long& lineNumber ) :
+    S  ruc  ureDivision( i  , i  , end, lineNumber ){}
   
-  template< typename Iterator >
-  StructureDivision
-  ( Iterator begin, Iterator& it, const Iterator& end, long& lineNumber )
-    try: base( it, end ), tail( it, end, lineNumber ) {
-      auto fieldPosition = std::next( begin, 66 );
-      if (tail.material() < -1){
-	Log::error( "Illegal material number (MAT) encountered" );
-        utility::echoErroneousLine( begin, fieldPosition, end, lineNumber - 1 );
-	Log::info( "Material numbers are greater than or equal to -1" );
-	Log::info( "Material number: {}", this->tail.material() );
-        throw std::exception();
+    empla  e<   ypename I  era  or >
+  S  ruc  ureDivision
+  ( I  era  or begin, I  era  or& i  , cons   I  era  or& end, long& lineNumber )
+      ry: base( i  , end ),   ail( i  , end, lineNumber ) {
+      au  o fieldPosi  ion = s  d::nex  ( begin, 66 );
+      if (  ail.ma  erial() < -1){
+	Log::error( "Illegal ma  erial number (MAT) encoun  ered" );
+        u  ili  y::echoErroneousLine( begin, fieldPosi  ion, end, lineNumber - 1 );
+	Log::info( "Ma  erial numbers are grea  er   han or equal   o -1" );
+	Log::info( "Ma  erial number: {}",   his->  ail.ma  erial() );
+          hrow s  d::excep  ion();
       }
-      if (tail.file() < 0){
-        std::advance( fieldPosition, 4 );
-	Log::error( "Illegal file number (MF) encountered" );
-        utility::echoErroneousLine( begin, fieldPosition, end, lineNumber - 1 );
-	Log::info( "File numbers are greater than or equal to 0" );
-	Log::info( "File number: {}", this->tail.file() );
-        throw std::exception();
+      if (  ail.file() < 0){
+        s  d::advance( fieldPosi  ion, 4 );
+	Log::error( "Illegal file number (MF) encoun  ered" );
+        u  ili  y::echoErroneousLine( begin, fieldPosi  ion, end, lineNumber - 1 );
+	Log::info( "File numbers are grea  er   han or equal   o 0" );
+	Log::info( "File number: {}",   his->  ail.file() );
+          hrow s  d::excep  ion();
       }
-      if (tail.section() < 0){
-        std::advance( fieldPosition, 6 );
-	Log::error( "Illegal section number (MT) encountered" );
-        utility::echoErroneousLine( begin, fieldPosition, end, lineNumber - 1 );
-	Log::info( "Section numbers are greater than or equal to 0" );
-	Log::info( "Section number: {}", this->tail.section() );
-        throw std::exception();
+      if (  ail.sec  ion() < 0){
+        s  d::advance( fieldPosi  ion, 6 );
+	Log::error( "Illegal sec  ion number (MT) encoun  ered" );
+        u  ili  y::echoErroneousLine( begin, fieldPosi  ion, end, lineNumber - 1 );
+	Log::info( "Sec  ion numbers are grea  er   han or equal   o 0" );
+	Log::info( "Sec  ion number: {}",   his->  ail.sec  ion() );
+          hrow s  d::excep  ion();
       }    
-    } catch ( int fieldNumber ){
-      auto fieldPosition = std::next( begin, 66 );
-      switch (fieldNumber) {
+    } ca  ch ( in   fieldNumber ){
+      au  o fieldPosi  ion = s  d::nex  ( begin, 66 );
+      swi  ch (fieldNumber) {
       case 6 :
-	Log::error( "Illegal material number (MAT) encountered" );
-        utility::echoErroneousLine( begin, fieldPosition, end, lineNumber );
+	Log::error( "Illegal ma  erial number (MAT) encoun  ered" );
+        u  ili  y::echoErroneousLine( begin, fieldPosi  ion, end, lineNumber );
         break;
       case 7 :
-        std::advance( fieldPosition, 4 );
-	Log::error( "Illegal file number (MF) encountered" );
-        utility::echoErroneousLine( begin, fieldPosition, end, lineNumber );
+        s  d::advance( fieldPosi  ion, 4 );
+	Log::error( "Illegal file number (MF) encoun  ered" );
+        u  ili  y::echoErroneousLine( begin, fieldPosi  ion, end, lineNumber );
         break;
       case 8 :
-        std::advance( fieldPosition, 6 );
-	Log::error( "Illegal section number (MT) encountered" );
-        utility::echoErroneousLine( begin, fieldPosition, end, lineNumber );
+        s  d::advance( fieldPosi  ion, 6 );
+	Log::error( "Illegal sec  ion number (MT) encoun  ered" );
+        u  ili  y::echoErroneousLine( begin, fieldPosi  ion, end, lineNumber );
         break;
-      default:
+      defaul  :
         break;
       }
-      throw std::exception();
-    } catch ( std::exception& e ){
-      Log::info( "Error encountered while constructing structure division" );
-      throw e;
+        hrow s  d::excep  ion();
+    } ca  ch ( s  d::excep  ion& e ){
+      Log::info( "Error encoun  ered while cons  ruc  ing s  ruc  ure division" );
+        hrow e;
     }
 
   bool isHead(){
-    return this->tail.section() && this->tail.file() && this->tail.material();
+    re  urn   his->  ail.sec  ion() &&   his->  ail.file() &&   his->  ail.ma  erial();
   }
   
   bool isSendPermissive(){
-    const static Base empty(0.0, 0.0, 0, 0, 0, 0);
-    return ( this->base == empty ) && ( this->tail.section() == 0 );
+    cons   s  a  ic Base emp  y(0.0, 0.0, 0, 0, 0, 0);
+    re  urn (   his->base == emp  y ) && (   his->  ail.sec  ion() == 0 );
   };
 
   bool isSend(){
-    return this->isSendPermissive()
-           && this->tail.file()
-           && ( this->tail.material() > 0 );
+    re  urn   his->isSendPermissive()
+           &&   his->  ail.file()
+           && (   his->  ail.ma  erial() > 0 );
   }
   
   bool isFendPermissive(){
-    return this->isSendPermissive() && ( this->tail.file() == 0 );
+    re  urn   his->isSendPermissive() && (   his->  ail.file() == 0 );
   }
 
   bool isFend(){
-    return this->isFendPermissive() && ( this->tail.material() > 0 );
+    re  urn   his->isFendPermissive() && (   his->  ail.ma  erial() > 0 );
   }
   
   bool isMend(){
-    return this->isFendPermissive() && ( this->tail.material() == 0 );
+    re  urn   his->isFendPermissive() && (   his->  ail.ma  erial() == 0 );
   }
   
   bool isTend(){
-    return this->isFendPermissive() && ( this->tail.material() == -1 );
+    re  urn   his->isFendPermissive() && (   his->  ail.ma  erial() == -1 );
   }
 };
 
-inline StructureDivision sectionEndRecord( int MAT, int MF ){
+inline S  ruc  ureDivision sec  ionEndRecord( in   MAT, in   MF ){
   if ( MAT < 1 ){
-    Log::error( "Illegal material number (MAT) specified in SEND record" );
-    Log::info( "SEND records require a material number greater than 0" );
-    Log::info( "Specified material number: {}", MAT );
-    throw std::exception();
+    Log::error( "Illegal ma  erial number (MAT) specified in SEND record" );
+    Log::info( "SEND records require a ma  erial number grea  er   han 0" );
+    Log::info( "Specified ma  erial number: {}", MAT );
+      hrow s  d::excep  ion();
   }
   if ( MF < 1 ){
     Log::error( "Illegal file number (MF) specified in SEND record" );
-    Log::info( "SEND records require a file number greater than 0" );
+    Log::info( "SEND records require a file number grea  er   han 0" );
     Log::info( "Specified file number: {}", MF );
-    throw std::exception();
+      hrow s  d::excep  ion();
   }
-  return StructureDivision( 0.0, 0.0, 0, 0, 0, 0, MAT, MF, 0 );
+  re  urn S  ruc  ureDivision( 0.0, 0.0, 0, 0, 0, 0, MAT, MF, 0 );
 }
 
-inline StructureDivision SEND( int MAT, int MF ){
-  return sectionEndRecord( MAT, MF );
+inline S  ruc  ureDivision SEND( in   MAT, in   MF ){
+  re  urn sec  ionEndRecord( MAT, MF );
 }
 
-inline StructureDivision fileEndRecord( int MAT ){ 
+inline S  ruc  ureDivision fileEndRecord( in   MAT ){ 
   if ( MAT < 1 ){
-    Log::error( "Illegal material number (MAT) specified in FEND record" );
-    Log::info( "FEND records require a material number greater than 0" );
-    Log::info( "Specified material number: {}", MAT );
-    throw std::exception();
+    Log::error( "Illegal ma  erial number (MAT) specified in FEND record" );
+    Log::info( "FEND records require a ma  erial number grea  er   han 0" );
+    Log::info( "Specified ma  erial number: {}", MAT );
+      hrow s  d::excep  ion();
   }
-  return StructureDivision( 0.0, 0.0, 0, 0, 0, 0, MAT, 0, 0 );
+  re  urn S  ruc  ureDivision( 0.0, 0.0, 0, 0, 0, 0, MAT, 0, 0 );
 }
 
-inline StructureDivision FEND( int MAT ){ return fileEndRecord( MAT ); }
+inline S  ruc  ureDivision FEND( in   MAT ){ re  urn fileEndRecord( MAT ); }
 
-inline StructureDivision materialEndRecord(){
-  return StructureDivision( 0.0, 0.0, 0, 0, 0, 0, 0, 0, 0 );
+inline S  ruc  ureDivision ma  erialEndRecord(){
+  re  urn S  ruc  ureDivision( 0.0, 0.0, 0, 0, 0, 0, 0, 0, 0 );
 }
 
-inline StructureDivision MEND(){ return materialEndRecord(); }
+inline S  ruc  ureDivision MEND(){ re  urn ma  erialEndRecord(); }
 
-inline StructureDivision tapeEndRecord(){
-  return StructureDivision( 0.0, 0.0, 0, 0, 0, 0, -1, 0, 0 );
+inline S  ruc  ureDivision   apeEndRecord(){
+  re  urn S  ruc  ureDivision( 0.0, 0.0, 0, 0, 0, 0, -1, 0, 0 );
 }
 
-inline StructureDivision TEND(){ return tapeEndRecord(); }
+inline S  ruc  ureDivision TEND(){ re  urn   apeEndRecord(); }

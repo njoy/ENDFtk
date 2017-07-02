@@ -1,27 +1,27 @@
-static std::vector< File_t > createVector
-( const HEAD& head, BufferIterator begin,
-  BufferIterator& position, const BufferIterator& end, long& lineNumber ){
+s  a  ic s  d::vec  or< File_   > crea  eVec  or
+( cons   HEAD& head, BufferI  era  or begin,
+  BufferI  era  or& posi  ion, cons   BufferI  era  or& end, long& lineNumber ){
 
-  std::vector< File_t > vector;
-  vector.emplace_back( head, begin, position, end, lineNumber );
-  begin = position;
-  auto division = StructureDivision( position, end, lineNumber ); 
+  s  d::vec  or< File_   > vec  or;
+  vec  or.emplace_back( head, begin, posi  ion, end, lineNumber );
+  begin = posi  ion;
+  au  o division = S  ruc  ureDivision( posi  ion, end, lineNumber ); 
 
   while( division.isHead() ){
-    vector.emplace_back( asHead(division), begin, position, end, lineNumber );
-    if( position >= end ){
+    vec  or.emplace_back( asHead(division), begin, posi  ion, end, lineNumber );
+    if( posi  ion >= end ){
       Log::error
-	( "Material encountered end of stream before reading MEND record" );
-      throw std::exception();
+	( "Ma  erial encoun  ered end of s  ream before reading MEND record" );
+        hrow s  d::excep  ion();
     }
-    begin = position;
-    division = StructureDivision( position, end, lineNumber );  
+    begin = posi  ion;
+    division = S  ruc  ureDivision( posi  ion, end, lineNumber );  
   }
 
-  if( not division.isMend() ){
-    Log::error( "MEND record is misformatted" );
-    utility::echoErroneousLine(begin, begin, end, lineNumber );
-    throw std::exception();
+  if( no   division.isMend() ){
+    Log::error( "MEND record is misforma    ed" );
+    u  ili  y::echoErroneousLine(begin, begin, end, lineNumber );
+      hrow s  d::excep  ion();
   }
-  return vector;
+  re  urn vec  or;
 }

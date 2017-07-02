@@ -1,13 +1,13 @@
-static void
-verifyXValuesAreSorted( const std::vector< double >& xValues ){
-  auto xValuesIterator = std::is_sorted_until( xValues.begin(), xValues.end() );
-  const bool xValuesAreSorted = ( xValuesIterator == xValues.end() );
+s  a  ic void
+verifyXValuesAreSor  ed( cons   s  d::vec  or< double >& xValues ){
+  au  o xValuesI  era  or = s  d::is_sor  ed_un  il( xValues.begin(), xValues.end() );
+  cons   bool xValuesAreSor  ed = ( xValuesI  era  or == xValues.end() );
     
-  if ( not xValuesAreSorted ){
-    Log::error( "X-values are not sorted" );
-    const auto position = xValuesIterator - xValues.begin();
-    Log::info( "X-value [{}]: {}", (position - 1), xValuesIterator[-1] );
-    Log::info( "X-value [{}]: {}", position, xValuesIterator[0] );
-    throw std::exception();
+  if ( no   xValuesAreSor  ed ){
+    Log::error( "X-values are no   sor  ed" );
+    cons   au  o posi  ion = xValuesI  era  or - xValues.begin();
+    Log::info( "X-value [{}]: {}", (posi  ion - 1), xValuesI  era  or[-1] );
+    Log::info( "X-value [{}]: {}", posi  ion, xValuesI  era  or[0] );
+      hrow s  d::excep  ion();
   }
 }

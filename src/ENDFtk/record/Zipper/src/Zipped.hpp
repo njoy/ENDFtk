@@ -1,52 +1,52 @@
-template< typename... ENDFTypes  >
-struct Zipped {
-  static constexpr std::size_t
-  tupleWidth = helper::sum< ENDFTypes::width... >();
+  empla  e<   ypename... ENDFTypes  >
+s  ruc   Zipped {
+  s  a  ic cons  expr s  d::size_  
+    upleWid  h = helper::sum< ENDFTypes::wid  h... >();
     
-  static_assert( tupleWidth < 66, "too many entries on line" );
+  s  a  ic_asser  (   upleWid  h < 66, "  oo many en  ries on line" );
 
-  static constexpr std::size_t entriesPerTuple = sizeof...( ENDFTypes );
-  static constexpr std::size_t tuplesPerRecord = 66 / tupleWidth;
+  s  a  ic cons  expr s  d::size_   en  riesPerTuple = sizeof...( ENDFTypes );
+  s  a  ic cons  expr s  d::size_     uplesPerRecord = 66 /   upleWid  h;
 
-  static constexpr std::size_t
-  entriesPerRecord = tuplesPerRecord * entriesPerTuple;
+  s  a  ic cons  expr s  d::size_  
+  en  riesPerRecord =   uplesPerRecord * en  riesPerTuple;
     
-  static const std::size_t nPad = 66 % tupleWidth;
+  s  a  ic cons   s  d::size_   nPad = 66 %   upleWid  h;
 
-  static constexpr auto tupleIndices =
-    std::make_index_sequence< entriesPerTuple >();
+  s  a  ic cons  expr au  o   upleIndices =
+    s  d::make_index_sequence< en  riesPerTuple >();
     
   /**
    * @brief 
-   * This is dark magic to expand the parameter pack a number of times equal 
-   * to the tuplesPerRecord class variable
+   * This is dark magic   o expand   he parame  er pack a number of   imes equal 
+   *   o   he   uplesPerRecord class variable
    */
-  template< std::size_t... indices >
-  static decltype(auto)
-    expand( std::index_sequence< indices... > ){
-    return disco::Record
-      < typename std::tuple_element
-        < indices % entriesPerTuple,
-          std::tuple< typename ENDFTypes::Parser... > >::type... ,
-        disco::ColumnPosition< nPad >, disco::RetainCarriage >();
+    empla  e< s  d::size_  ... indices >
+  s  a  ic decl  ype(au  o)
+    expand( s  d::index_sequence< indices... > ){
+    re  urn disco::Record
+      <   ypename s  d::  uple_elemen  
+        < indices % en  riesPerTuple,
+          s  d::  uple<   ypename ENDFTypes::Parser... > >::  ype... ,
+        disco::ColumnPosi  ion< nPad >, disco::Re  ainCarriage >();
   }
 
-  using Format =
-    decltype( expand( std::make_index_sequence< entriesPerRecord >() ) );
+  using Forma   =
+    decl  ype( expand( s  d::make_index_sequence< en  riesPerRecord >() ) );
 
-  template< std::size_t index >
+    empla  e< s  d::size_   index >
   using Type =
-    typename std::tuple_element
-    < index, std::tuple< typename ENDFTypes::Type... > >::type;
+      ypename s  d::  uple_elemen  
+    < index, s  d::  uple<   ypename ENDFTypes::Type... > >::  ype;
     
-  using TupleFormat =
-    disco::Record< typename ENDFTypes::Parser..., disco::RetainCarriage >;
+  using TupleForma   =
+    disco::Record<   ypename ENDFTypes::Parser..., disco::Re  ainCarriage >;
 
-  static const std::tuple< typename ENDFTypes::Type... >&
-  defaultTuple(){
-    static const auto defaultValues =
-      std::make_tuple( ENDFTypes::defaultValue... );
-    return defaultValues;
+  s  a  ic cons   s  d::  uple<   ypename ENDFTypes::Type... >&
+  defaul  Tuple(){
+    s  a  ic cons   au  o defaul  Values =
+      s  d::make_  uple( ENDFTypes::defaul  Value... );
+    re  urn defaul  Values;
   }
 
 };

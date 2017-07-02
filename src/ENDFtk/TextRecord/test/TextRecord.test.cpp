@@ -1,74 +1,74 @@
 #define CATCH_CONFIG_MAIN
 
-#include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ca  ch.hpp"
+#include "ENDF  k.hpp"
 
-using namespace njoy::ENDFtk;
+using namespace njoy::ENDF  k;
 
-SCENARIO( "TextRecord Tests", "[ENDFtk], [TextRecord]" ){
-  std::string line = 
-    "The new R-matrix analysis of the N-N system on which the ENDF/B-   125 1451   12\n";
+SCENARIO( "Tex  Record Tes  s", "[ENDF  k], [Tex  Record]" ){
+  s  d::s  ring line = 
+    "The new R-ma  rix analysis of   he N-N sys  em on which   he ENDF/B-   125 1451   12\n";
 
-  std::string text = 
-    "The new R-matrix analysis of the N-N system on which the ENDF/B-  ";
+  s  d::s  ring   ex   = 
+    "The new R-ma  rix analysis of   he N-N sys  em on which   he ENDF/B-  ";
 
-  GIVEN( "a string ravlue, the ctor works"){
-    REQUIRE_NOTHROW( TextRecord( njoy::utility::copy(text) ) );
+  GIVEN( "a s  ring ravlue,   he c  or works"){
+    REQUIRE_NOTHROW( Tex  Record( njoy::u  ili  y::copy(  ex  ) ) );
   }
-  GIVEN( "iterators and a line number"){
-    auto it = line.begin();
-    auto end = line.end();
-    auto lineNumber = 0l;
+  GIVEN( "i  era  ors and a line number"){
+    au  o i   = line.begin();
+    au  o end = line.end();
+    au  o lineNumber = 0l;
 
-    WHEN("the tail values match, the ctor works"){
-      REQUIRE_NOTHROW( TextRecord( it, end, lineNumber, 125, 1, 451 ) );
+    WHEN("  he   ail values ma  ch,   he c  or works"){
+      REQUIRE_NOTHROW( Tex  Record( i  , end, lineNumber, 125, 1, 451 ) );
     }
-    WHEN("the MAT value doesn't match, the ctor throws"){
-      REQUIRE_THROWS( TextRecord( it, end, lineNumber, 126, 1, 451 ) );
+    WHEN("  he MAT value doesn'   ma  ch,   he c  or   hrows"){
+      REQUIRE_THROWS( Tex  Record( i  , end, lineNumber, 126, 1, 451 ) );
     }
-    WHEN("the MF value doesn't match, the ctor throws"){
-      REQUIRE_THROWS( TextRecord( it, end, lineNumber, 125, 2, 451 ) );
+    WHEN("  he MF value doesn'   ma  ch,   he c  or   hrows"){
+      REQUIRE_THROWS( Tex  Record( i  , end, lineNumber, 125, 2, 451 ) );
     }
-    WHEN("the MT value doesn't match, the ctor throws"){
-      REQUIRE_THROWS( TextRecord( it, end, lineNumber, 125, 1, 452 ) );
-    }
-  }
-  GIVEN( "A constructed text record"){
-    auto it = line.begin();
-    auto end = line.end();
-    auto lineNumber = 0l;
-    auto textRecord0 = TextRecord( it, end, lineNumber, 125, 1, 451 );
-    const auto& constTextRecord0 = textRecord0;
-    auto textRecord1 = TextRecord( njoy::utility::copy( text ) );
-    const auto& constTextRecord1 = textRecord1;
-    THEN( "the getter will work" ){
-      REQUIRE( textRecord0.text() == text );
-      REQUIRE( textRecord1.text() == text );
-      REQUIRE( constTextRecord0.text() == text );
-      REQUIRE( constTextRecord1.text() == text );
-      textRecord0.text() = "foobar";
-      textRecord1.text() = "foobaz";
-      REQUIRE( textRecord0.text() == "foobar" );
-      REQUIRE( textRecord1.text() == "foobaz" );
-      /* can't assign to const. doesn't compile */
-      // constTextRecord0.text() = "foobar";
-    }
-    THEN( "the equality and inequality operators will work" ){
-      REQUIRE( textRecord0 == textRecord1 );
-      textRecord0.text() = "foobar";
-      textRecord1.text() = "foobaz";
-      REQUIRE( textRecord0 != textRecord1 );
+    WHEN("  he MT value doesn'   ma  ch,   he c  or   hrows"){
+      REQUIRE_THROWS( Tex  Record( i  , end, lineNumber, 125, 1, 452 ) );
     }
   }
-  GIVEN("A line with a typo"){
-    std::string line = 
-      "The new R-matrix analysis of the N-N system on which the ENDF/B-   1a5 1451   12\n";
-    auto it = line.begin();
-    auto end = line.end();
-    auto lineNumber = 0l;
+  GIVEN( "A cons  ruc  ed   ex   record"){
+    au  o i   = line.begin();
+    au  o end = line.end();
+    au  o lineNumber = 0l;
+    au  o   ex  Record0 = Tex  Record( i  , end, lineNumber, 125, 1, 451 );
+    cons   au  o& cons  Tex  Record0 =   ex  Record0;
+    au  o   ex  Record1 = Tex  Record( njoy::u  ili  y::copy(   ex   ) );
+    cons   au  o& cons  Tex  Record1 =   ex  Record1;
+    THEN( "  he ge    er will work" ){
+      REQUIRE(   ex  Record0.  ex  () ==   ex   );
+      REQUIRE(   ex  Record1.  ex  () ==   ex   );
+      REQUIRE( cons  Tex  Record0.  ex  () ==   ex   );
+      REQUIRE( cons  Tex  Record1.  ex  () ==   ex   );
+        ex  Record0.  ex  () = "foobar";
+        ex  Record1.  ex  () = "foobaz";
+      REQUIRE(   ex  Record0.  ex  () == "foobar" );
+      REQUIRE(   ex  Record1.  ex  () == "foobaz" );
+      /* can'   assign   o cons  . doesn'   compile */
+      // cons  Tex  Record0.  ex  () = "foobar";
+    }
+    THEN( "  he equali  y and inequali  y opera  ors will work" ){
+      REQUIRE(   ex  Record0 ==   ex  Record1 );
+        ex  Record0.  ex  () = "foobar";
+        ex  Record1.  ex  () = "foobaz";
+      REQUIRE(   ex  Record0 !=   ex  Record1 );
+    }
+  }
+  GIVEN("A line wi  h a   ypo"){
+    s  d::s  ring line = 
+      "The new R-ma  rix analysis of   he N-N sys  em on which   he ENDF/B-   1a5 1451   12\n";
+    au  o i   = line.begin();
+    au  o end = line.end();
+    au  o lineNumber = 0l;
     
-    THEN("the ctor throws"){
-      REQUIRE_THROWS( TextRecord( it, end, lineNumber, 125, 1, 451 ) );
+    THEN("  he c  or   hrows"){
+      REQUIRE_THROWS( Tex  Record( i  , end, lineNumber, 125, 1, 451 ) );
     }
   }
 }

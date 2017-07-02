@@ -1,30 +1,30 @@
 class Base {
 public:
   /* fields */
-  int sectionNo;
-  int ZA_;
-  double atomicWeightRatio_;
+  in   sec  ionNo;
+  in   ZA_;
+  double a  omicWeigh  Ra  io_;
   
-  /* ctor */
-#include "ENDFtk/section/Base/src/ctor.hpp"
+  /* c  or */
+#include "ENDF  k/sec  ion/Base/src/c  or.hpp"
 
-  /* methods */
-  int& MT() { return this->sectionNo; }
+  /* me  hods */
+  in  & MT() { re  urn   his->sec  ionNo; }
   
-  int MT() const { return const_cast< Base* >( this )->MT(); }
+  in   MT() cons   { re  urn cons  _cas  < Base* >(   his )->MT(); }
 
-  int& ZA() { return this->ZA_; }
+  in  & ZA() { re  urn   his->ZA_; }
   
-  int ZA() const { return const_cast< Base* >( this )->ZA(); }
+  in   ZA() cons   { re  urn cons  _cas  < Base* >(   his )->ZA(); }
 
-  double& AWR() { return this->atomicWeightRatio_; }
+  double& AWR() { re  urn   his->a  omicWeigh  Ra  io_; }
   
-  double AWR() const { return const_cast< Base* >( this )->AWR(); }
+  double AWR() cons   { re  urn cons  _cas  < Base* >(   his )->AWR(); }
   
-  double& atomicWeightRatio() { return this->AWR(); }
+  double& a  omicWeigh  Ra  io() { re  urn   his->AWR(); }
   
-  double atomicWeightRatio() const { return this->AWR(); }
+  double a  omicWeigh  Ra  io() cons   { re  urn   his->AWR(); }
 
-#include "ENDFtk/section/Base/src/readSEND.hpp"
+#include "ENDF  k/sec  ion/Base/src/readSEND.hpp"
 
 };

@@ -1,12 +1,12 @@
-template< typename Iterator >
-struct ReadingPack{
-  Iterator& it;
-  const Iterator& end;
+  empla  e<   ypename I  era  or >
+s  ruc   ReadingPack{
+  I  era  or& i  ;
+  cons   I  era  or& end;
   long& lineNumber;
-  int MAT, MF, MT;
+  in   MAT, MF, MT;
 
-  ReadingPack( Iterator& it, const Iterator& end, long& lineNumber,
-               int MAT, int MF, int MT ) :
-    it( it ), end( end ), lineNumber( lineNumber ),
+  ReadingPack( I  era  or& i  , cons   I  era  or& end, long& lineNumber,
+               in   MAT, in   MF, in   MT ) :
+    i  ( i   ), end( end ), lineNumber( lineNumber ),
     MAT( MAT ), MF( MF ), MT( MT ){}
 };

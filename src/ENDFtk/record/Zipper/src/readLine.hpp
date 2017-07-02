@@ -1,9 +1,9 @@
-template< typename Zip, typename Tuple, typename Iterator >
-static void
-readLine( Tuple& iteratorTuple,
-          Iterator& it, const Iterator& end, long& lineNumber,
-          int MAT, int MF, int MT ){
-  ReadingPack< Iterator > pack( it, end, lineNumber, MAT, MF, MT );    
+  empla  e<   ypename Zip,   ypename Tuple,   ypename I  era  or >
+s  a  ic void
+readLine( Tuple& i  era  orTuple,
+          I  era  or& i  , cons   I  era  or& end, long& lineNumber,
+          in   MAT, in   MF, in   MT ){
+  ReadingPack< I  era  or > pack( i  , end, lineNumber, MAT, MF, MT );    
   expandReferencePack< Zip >
-    ( pack, iteratorTuple, std::true_type(), Zip::tupleIndices );
+    ( pack, i  era  orTuple, s  d::  rue_  ype(), Zip::  upleIndices );
 }

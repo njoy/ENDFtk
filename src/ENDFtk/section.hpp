@@ -1,10 +1,10 @@
-namespace section{
+namespace sec  ion{
 
-#include "ENDFtk/section/Base.hpp"
+#include "ENDF  k/sec  ion/Base.hpp"
 
-template< int fileNumber >
+  empla  e< in   fileNumber >
 class Type;
 
-#include "ENDFtk/section/3.hpp"
+#include "ENDF  k/sec  ion/3.hpp"
 
 }

@@ -1,14 +1,14 @@
 Range
-materialNumber( int materialNo ){
-  if ( not materialMap.count( materialNo ) ){
-    Log::error( "Requested material number (MAT) does not"
-                " correspond to a stored material syntax tree" );
-    Log::info( "Requested material number: {}", materialNo );
-    throw std::out_of_range( "Requested material number (MAT) does not"
-                             " correspond to a stored material syntax tree" );
+ma  erialNumber( in   ma  erialNo ){
+  if ( no   ma  erialMap.coun  ( ma  erialNo ) ){
+    Log::error( "Reques  ed ma  erial number (MAT) does no  "
+                " correspond   o a s  ored ma  erial syn  ax   ree" );
+    Log::info( "Reques  ed ma  erial number: {}", ma  erialNo );
+      hrow s  d::ou  _of_range( "Reques  ed ma  erial number (MAT) does no  "
+                             " correspond   o a s  ored ma  erial syn  ax   ree" );
   }
-  auto pairwiseIteratorBounds = this->materialMap.equal_range( materialNo );
-  auto first = MatchIterator( pairwiseIteratorBounds.first );
-  auto second = MatchIterator( pairwiseIteratorBounds.second );
-  return Range( std::make_pair( first, second ) );
+  au  o pairwiseI  era  orBounds =   his->ma  erialMap.equal_range( ma  erialNo );
+  au  o firs   = Ma  chI  era  or( pairwiseI  era  orBounds.firs   );
+  au  o second = Ma  chI  era  or( pairwiseI  era  orBounds.second );
+  re  urn Range( s  d::make_pair( firs  , second ) );
 }

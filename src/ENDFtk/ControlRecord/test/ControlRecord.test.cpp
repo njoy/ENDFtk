@@ -1,108 +1,108 @@
 #define CATCH_CONFIG_MAIN
 
-#include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ca  ch.hpp"
+#include "ENDF  k.hpp"
 
-using namespace njoy::ENDFtk;
+using namespace njoy::ENDF  k;
 
-SCENARIO( "ControlRecord Tests", "[ENDFtk], [ControlRecord]" ){
-  std::string line =
+SCENARIO( "Con  rolRecord Tes  s", "[ENDF  k], [Con  rolRecord]" ){
+  s  d::s  ring line =
     " 1.001000+3 9.991673-1          0          0          0          5 125 1451    1\n";
 
-  auto values = std::make_tuple( 1.001000E+3, 9.991673E-1, 0, 0, 0, 5 );
+  au  o values = s  d::make_  uple( 1.001000E+3, 9.991673E-1, 0, 0, 0, 5 );
 
-  GIVEN( "value construction, the ctor works"){
+  GIVEN( "value cons  ruc  ion,   he c  or works"){
     REQUIRE_NOTHROW(
-      ControlRecord( std::get< 0 >(values), std::get< 1 >(values),
-                     std::get< 2 >(values), std::get< 3 >(values),
-                     std::get< 4 >(values), std::get< 5 >(values) ) );
+      Con  rolRecord( s  d::ge  < 0 >(values), s  d::ge  < 1 >(values),
+                     s  d::ge  < 2 >(values), s  d::ge  < 3 >(values),
+                     s  d::ge  < 4 >(values), s  d::ge  < 5 >(values) ) );
   }
-  GIVEN( "iterators and a line number"){
-    auto it = line.begin();
-    auto end = line.end();
-    auto lineNumber = 0l;
+  GIVEN( "i  era  ors and a line number"){
+    au  o i   = line.begin();
+    au  o end = line.end();
+    au  o lineNumber = 0l;
 
-    WHEN("the tail values match, the ctor works"){
-      REQUIRE_NOTHROW( ControlRecord( it, end, lineNumber, 125, 1, 451 ) );
+    WHEN("  he   ail values ma  ch,   he c  or works"){
+      REQUIRE_NOTHROW( Con  rolRecord( i  , end, lineNumber, 125, 1, 451 ) );
     }
-    WHEN("the MAT value doesn't match, the ctor throws"){
-      REQUIRE_THROWS( ControlRecord( it, end, lineNumber, 126, 1, 451 ) );
+    WHEN("  he MAT value doesn'   ma  ch,   he c  or   hrows"){
+      REQUIRE_THROWS( Con  rolRecord( i  , end, lineNumber, 126, 1, 451 ) );
     }
-    WHEN("the MF value doesn't match, the ctor throws"){
-      REQUIRE_THROWS( ControlRecord( it, end, lineNumber, 125, 2, 451 ) );
+    WHEN("  he MF value doesn'   ma  ch,   he c  or   hrows"){
+      REQUIRE_THROWS( Con  rolRecord( i  , end, lineNumber, 125, 2, 451 ) );
     }
-    WHEN("the MT value doesn't match, the ctor throws"){
-      REQUIRE_THROWS( ControlRecord( it, end, lineNumber, 125, 1, 452 ) );
+    WHEN("  he MT value doesn'   ma  ch,   he c  or   hrows"){
+      REQUIRE_THROWS( Con  rolRecord( i  , end, lineNumber, 125, 1, 452 ) );
     }
   }
-  GIVEN( "A constructed control record"){
-    auto it = line.begin();
-    auto end = line.end();
-    auto lineNumber = 0l;
-    auto controlRecord0 = ControlRecord( it, end, lineNumber, 125, 1, 451 );
-    const auto& constControlRecord0 = controlRecord0;
-    auto controlRecord1 =
-      ControlRecord( std::get< 0 >(values), std::get< 1 >(values),
-                     std::get< 2 >(values), std::get< 3 >(values),
-                     std::get< 4 >(values), std::get< 5 >(values) );
-    const auto& constControlRecord1 = controlRecord1;
-    THEN( "the getter will work" ){
-      REQUIRE( controlRecord0.C1() == std::get< 0 >( values ) );
-      REQUIRE( controlRecord1.C1() == std::get< 0 >( values ) );
-      REQUIRE( constControlRecord0.C1() == std::get< 0 >( values ) );
-      REQUIRE( constControlRecord1.C1() == std::get< 0 >( values ) );
-      REQUIRE( controlRecord0.C2() == std::get< 1 >( values ) );
-      REQUIRE( controlRecord1.C2() == std::get< 1 >( values ) );
-      REQUIRE( constControlRecord0.C2() == std::get< 1 >( values ) );
-      REQUIRE( constControlRecord1.C2() == std::get< 1 >( values ) );
-      REQUIRE( controlRecord0.L1() == std::get< 2 >( values ) );
-      REQUIRE( controlRecord1.L1() == std::get< 2 >( values ) );
-      REQUIRE( constControlRecord0.L1() == std::get< 2 >( values ) );
-      REQUIRE( constControlRecord1.L1() == std::get< 2 >( values ) );
-      REQUIRE( controlRecord0.L2() == std::get< 3 >( values ) );
-      REQUIRE( controlRecord1.L2() == std::get< 3 >( values ) );
-      REQUIRE( constControlRecord0.L2() == std::get< 3 >( values ) );
-      REQUIRE( constControlRecord1.L2() == std::get< 3 >( values ) );
-      REQUIRE( controlRecord0.N1() == std::get< 4 >( values ) );
-      REQUIRE( controlRecord1.N1() == std::get< 4 >( values ) );
-      REQUIRE( constControlRecord0.N1() == std::get< 4 >( values ) );
-      REQUIRE( constControlRecord1.N1() == std::get< 4 >( values ) );
-      REQUIRE( controlRecord0.N2() == std::get< 5 >( values ) );
-      REQUIRE( controlRecord1.N2() == std::get< 5 >( values ) );
-      REQUIRE( constControlRecord0.N2() == std::get< 5 >( values ) );
-      REQUIRE( constControlRecord1.N2() == std::get< 5 >( values ) );
+  GIVEN( "A cons  ruc  ed con  rol record"){
+    au  o i   = line.begin();
+    au  o end = line.end();
+    au  o lineNumber = 0l;
+    au  o con  rolRecord0 = Con  rolRecord( i  , end, lineNumber, 125, 1, 451 );
+    cons   au  o& cons  Con  rolRecord0 = con  rolRecord0;
+    au  o con  rolRecord1 =
+      Con  rolRecord( s  d::ge  < 0 >(values), s  d::ge  < 1 >(values),
+                     s  d::ge  < 2 >(values), s  d::ge  < 3 >(values),
+                     s  d::ge  < 4 >(values), s  d::ge  < 5 >(values) );
+    cons   au  o& cons  Con  rolRecord1 = con  rolRecord1;
+    THEN( "  he ge    er will work" ){
+      REQUIRE( con  rolRecord0.C1() == s  d::ge  < 0 >( values ) );
+      REQUIRE( con  rolRecord1.C1() == s  d::ge  < 0 >( values ) );
+      REQUIRE( cons  Con  rolRecord0.C1() == s  d::ge  < 0 >( values ) );
+      REQUIRE( cons  Con  rolRecord1.C1() == s  d::ge  < 0 >( values ) );
+      REQUIRE( con  rolRecord0.C2() == s  d::ge  < 1 >( values ) );
+      REQUIRE( con  rolRecord1.C2() == s  d::ge  < 1 >( values ) );
+      REQUIRE( cons  Con  rolRecord0.C2() == s  d::ge  < 1 >( values ) );
+      REQUIRE( cons  Con  rolRecord1.C2() == s  d::ge  < 1 >( values ) );
+      REQUIRE( con  rolRecord0.L1() == s  d::ge  < 2 >( values ) );
+      REQUIRE( con  rolRecord1.L1() == s  d::ge  < 2 >( values ) );
+      REQUIRE( cons  Con  rolRecord0.L1() == s  d::ge  < 2 >( values ) );
+      REQUIRE( cons  Con  rolRecord1.L1() == s  d::ge  < 2 >( values ) );
+      REQUIRE( con  rolRecord0.L2() == s  d::ge  < 3 >( values ) );
+      REQUIRE( con  rolRecord1.L2() == s  d::ge  < 3 >( values ) );
+      REQUIRE( cons  Con  rolRecord0.L2() == s  d::ge  < 3 >( values ) );
+      REQUIRE( cons  Con  rolRecord1.L2() == s  d::ge  < 3 >( values ) );
+      REQUIRE( con  rolRecord0.N1() == s  d::ge  < 4 >( values ) );
+      REQUIRE( con  rolRecord1.N1() == s  d::ge  < 4 >( values ) );
+      REQUIRE( cons  Con  rolRecord0.N1() == s  d::ge  < 4 >( values ) );
+      REQUIRE( cons  Con  rolRecord1.N1() == s  d::ge  < 4 >( values ) );
+      REQUIRE( con  rolRecord0.N2() == s  d::ge  < 5 >( values ) );
+      REQUIRE( con  rolRecord1.N2() == s  d::ge  < 5 >( values ) );
+      REQUIRE( cons  Con  rolRecord0.N2() == s  d::ge  < 5 >( values ) );
+      REQUIRE( cons  Con  rolRecord1.N2() == s  d::ge  < 5 >( values ) );
       
-      controlRecord0.C1() = 3.14;
-      REQUIRE( controlRecord0.C1() == 3.14 );
-      controlRecord0.C2() = 2.5;
-      REQUIRE( controlRecord0.C2() == 2.5 );
-      controlRecord0.L1() = 5;
-      REQUIRE( controlRecord0.L1() == 5 );
-      controlRecord0.L2() = 6;
-      REQUIRE( controlRecord0.L2() == 6 );
-      controlRecord0.N1() = 7;
-      REQUIRE( controlRecord0.N1() == 7 );
-      controlRecord0.N2() = 8;
-      REQUIRE( controlRecord0.N2() == 8 );
-      // can't assign to const instances. doesn't compile
-      // constControlRecord0.N1() = 10;
+      con  rolRecord0.C1() = 3.14;
+      REQUIRE( con  rolRecord0.C1() == 3.14 );
+      con  rolRecord0.C2() = 2.5;
+      REQUIRE( con  rolRecord0.C2() == 2.5 );
+      con  rolRecord0.L1() = 5;
+      REQUIRE( con  rolRecord0.L1() == 5 );
+      con  rolRecord0.L2() = 6;
+      REQUIRE( con  rolRecord0.L2() == 6 );
+      con  rolRecord0.N1() = 7;
+      REQUIRE( con  rolRecord0.N1() == 7 );
+      con  rolRecord0.N2() = 8;
+      REQUIRE( con  rolRecord0.N2() == 8 );
+      // can'   assign   o cons   ins  ances. doesn'   compile
+      // cons  Con  rolRecord0.N1() = 10;
     }
-    THEN( "the equality and inequality operators will work" ){
-      REQUIRE( controlRecord0 == controlRecord1 );
-      controlRecord0.N1() = 10;
-      controlRecord1.N1() = 8;
-      REQUIRE( controlRecord0 != controlRecord1 );
+    THEN( "  he equali  y and inequali  y opera  ors will work" ){
+      REQUIRE( con  rolRecord0 == con  rolRecord1 );
+      con  rolRecord0.N1() = 10;
+      con  rolRecord1.N1() = 8;
+      REQUIRE( con  rolRecord0 != con  rolRecord1 );
     }
   }
-  GIVEN("A line with a typo"){
-    std::string line =
+  GIVEN("A line wi  h a   ypo"){
+    s  d::s  ring line =
       " 1.0010z0+3 9.991673-1          0          0          0          5 125 1451    1\n";
-    auto it = line.begin();
-    auto end = line.end();
-    auto lineNumber = 0l;
+    au  o i   = line.begin();
+    au  o end = line.end();
+    au  o lineNumber = 0l;
     
-    THEN("the ctor throws"){
-      REQUIRE_THROWS( ControlRecord( it, end, lineNumber, 125, 1, 451 ) );
+    THEN("  he c  or   hrows"){
+      REQUIRE_THROWS( Con  rolRecord( i  , end, lineNumber, 125, 1, 451 ) );
     }
   }
 }

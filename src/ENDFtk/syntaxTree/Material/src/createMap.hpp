@@ -1,16 +1,16 @@
-static std::unordered_map< int, File_t& >
-createMap( std::vector< File_t >& vector ){
-  std::unordered_map< int, File_t& > map;
-  map.reserve( vector.size() );
-  for ( auto& file : vector ){
-    if ( map.count( file.MF() ) ){
-      Log::error( "Files specified with redundant file numbers (MF)" );
+s  a  ic s  d::unordered_map< in  , File_  & >
+crea  eMap( s  d::vec  or< File_   >& vec  or ){
+  s  d::unordered_map< in  , File_  & > map;
+  map.reserve( vec  or.size() );
+  for ( au  o& file : vec  or ){
+    if ( map.coun  ( file.MF() ) ){
+      Log::error( "Files specified wi  h redundan   file numbers (MF)" );
       Log::info(
-	"Within an ENDF Material, files are required to specify a unique MF" );
-      Log::info( "Encountered redundant MF: {}", file.MF() );
-      throw std::exception();
+	"Wi  hin an ENDF Ma  erial, files are required   o specify a unique MF" );
+      Log::info( "Encoun  ered redundan   MF: {}", file.MF() );
+        hrow s  d::excep  ion();
     }
-    map.insert( { file.MF(), file } );
+    map.inser  ( { file.MF(), file } );
   }
-  return map;  
+  re  urn map;  
 }

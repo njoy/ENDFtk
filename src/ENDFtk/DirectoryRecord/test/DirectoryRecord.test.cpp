@@ -1,93 +1,93 @@
 #define CATCH_CONFIG_MAIN
 
-#include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ca  ch.hpp"
+#include "ENDF  k.hpp"
 
-using namespace njoy::ENDFtk;
+using namespace njoy::ENDF  k;
 
-SCENARIO( "DirectoryRecord Tests", "[ENDFtk], [DirectoryRecord]" ){
-  std::string line =
+SCENARIO( "Direc  oryRecord Tes  s", "[ENDF  k], [Direc  oryRecord]" ){
+  s  d::s  ring line =
     "                                1        451        101          5 125 1451   92\n";
 
-  auto values = std::make_tuple( 1, 451, 101, 5 );
-  GIVEN( "value construction, the ctor works"){
+  au  o values = s  d::make_  uple( 1, 451, 101, 5 );
+  GIVEN( "value cons  ruc  ion,   he c  or works"){
     REQUIRE_NOTHROW(
-      DirectoryRecord( std::get< 0 >(values), std::get< 1 >(values),
-                     std::get< 2 >(values), std::get< 3 >(values) ) );
+      Direc  oryRecord( s  d::ge  < 0 >(values), s  d::ge  < 1 >(values),
+                     s  d::ge  < 2 >(values), s  d::ge  < 3 >(values) ) );
   }
-  GIVEN( "iterators and a line number"){
-    auto it = line.begin();
-    auto end = line.end();
-    auto lineNumber = 0l;
+  GIVEN( "i  era  ors and a line number"){
+    au  o i   = line.begin();
+    au  o end = line.end();
+    au  o lineNumber = 0l;
 
-    WHEN("the tail values match, the ctor works"){
-      REQUIRE_NOTHROW( DirectoryRecord( it, end, lineNumber, 125, 1, 451 ) );
+    WHEN("  he   ail values ma  ch,   he c  or works"){
+      REQUIRE_NOTHROW( Direc  oryRecord( i  , end, lineNumber, 125, 1, 451 ) );
     }
-    WHEN("the MAT value doesn't match, the ctor throws"){
-      REQUIRE_THROWS( DirectoryRecord( it, end, lineNumber, 126, 1, 451 ) );
+    WHEN("  he MAT value doesn'   ma  ch,   he c  or   hrows"){
+      REQUIRE_THROWS( Direc  oryRecord( i  , end, lineNumber, 126, 1, 451 ) );
     }
-    WHEN("the MF value doesn't match, the ctor throws"){
-      REQUIRE_THROWS( DirectoryRecord( it, end, lineNumber, 125, 2, 451 ) );
+    WHEN("  he MF value doesn'   ma  ch,   he c  or   hrows"){
+      REQUIRE_THROWS( Direc  oryRecord( i  , end, lineNumber, 125, 2, 451 ) );
     }
-    WHEN("the MT value doesn't match, the ctor throws"){
-      REQUIRE_THROWS( DirectoryRecord( it, end, lineNumber, 125, 1, 452 ) );
+    WHEN("  he MT value doesn'   ma  ch,   he c  or   hrows"){
+      REQUIRE_THROWS( Direc  oryRecord( i  , end, lineNumber, 125, 1, 452 ) );
     }
   }
-  GIVEN( "A constructed directory record"){
-    auto it = line.begin();
-    auto end = line.end();
-    auto lineNumber = 0l;
-    auto directoryRecord0 = DirectoryRecord( it, end, lineNumber, 125, 1, 451 );
-    const auto& constDirectoryRecord0 = directoryRecord0;
-    auto directoryRecord1 =
-      DirectoryRecord( std::get< 0 >(values), std::get< 1 >(values),
-                       std::get< 2 >(values), std::get< 3 >(values) );
-    const auto& constDirectoryRecord1 = directoryRecord1;
-    THEN( "the getter will work" ){
-      REQUIRE( directoryRecord0.L1() == std::get< 0 >( values ) );
-      REQUIRE( directoryRecord1.L1() == std::get< 0 >( values ) );
-      REQUIRE( constDirectoryRecord0.L1() == std::get< 0 >( values ) );
-      REQUIRE( constDirectoryRecord1.L1() == std::get< 0 >( values ) );
-      REQUIRE( directoryRecord0.L2() == std::get< 1 >( values ) );
-      REQUIRE( directoryRecord1.L2() == std::get< 1 >( values ) );
-      REQUIRE( constDirectoryRecord0.L2() == std::get< 1 >( values ) );
-      REQUIRE( constDirectoryRecord1.L2() == std::get< 1 >( values ) );
-      REQUIRE( directoryRecord0.N1() == std::get< 2 >( values ) );
-      REQUIRE( directoryRecord1.N1() == std::get< 2 >( values ) );
-      REQUIRE( constDirectoryRecord0.N1() == std::get< 2 >( values ) );
-      REQUIRE( constDirectoryRecord1.N1() == std::get< 2 >( values ) );
-      REQUIRE( directoryRecord0.N2() == std::get< 3 >( values ) );
-      REQUIRE( directoryRecord1.N2() == std::get< 3 >( values ) );
-      REQUIRE( constDirectoryRecord0.N2() == std::get< 3 >( values ) );
-      REQUIRE( constDirectoryRecord1.N2() == std::get< 3 >( values ) );
+  GIVEN( "A cons  ruc  ed direc  ory record"){
+    au  o i   = line.begin();
+    au  o end = line.end();
+    au  o lineNumber = 0l;
+    au  o direc  oryRecord0 = Direc  oryRecord( i  , end, lineNumber, 125, 1, 451 );
+    cons   au  o& cons  Direc  oryRecord0 = direc  oryRecord0;
+    au  o direc  oryRecord1 =
+      Direc  oryRecord( s  d::ge  < 0 >(values), s  d::ge  < 1 >(values),
+                       s  d::ge  < 2 >(values), s  d::ge  < 3 >(values) );
+    cons   au  o& cons  Direc  oryRecord1 = direc  oryRecord1;
+    THEN( "  he ge    er will work" ){
+      REQUIRE( direc  oryRecord0.L1() == s  d::ge  < 0 >( values ) );
+      REQUIRE( direc  oryRecord1.L1() == s  d::ge  < 0 >( values ) );
+      REQUIRE( cons  Direc  oryRecord0.L1() == s  d::ge  < 0 >( values ) );
+      REQUIRE( cons  Direc  oryRecord1.L1() == s  d::ge  < 0 >( values ) );
+      REQUIRE( direc  oryRecord0.L2() == s  d::ge  < 1 >( values ) );
+      REQUIRE( direc  oryRecord1.L2() == s  d::ge  < 1 >( values ) );
+      REQUIRE( cons  Direc  oryRecord0.L2() == s  d::ge  < 1 >( values ) );
+      REQUIRE( cons  Direc  oryRecord1.L2() == s  d::ge  < 1 >( values ) );
+      REQUIRE( direc  oryRecord0.N1() == s  d::ge  < 2 >( values ) );
+      REQUIRE( direc  oryRecord1.N1() == s  d::ge  < 2 >( values ) );
+      REQUIRE( cons  Direc  oryRecord0.N1() == s  d::ge  < 2 >( values ) );
+      REQUIRE( cons  Direc  oryRecord1.N1() == s  d::ge  < 2 >( values ) );
+      REQUIRE( direc  oryRecord0.N2() == s  d::ge  < 3 >( values ) );
+      REQUIRE( direc  oryRecord1.N2() == s  d::ge  < 3 >( values ) );
+      REQUIRE( cons  Direc  oryRecord0.N2() == s  d::ge  < 3 >( values ) );
+      REQUIRE( cons  Direc  oryRecord1.N2() == s  d::ge  < 3 >( values ) );
 
-      directoryRecord0.L1() = 5;
-      REQUIRE( directoryRecord0.L1() == 5 );
-      directoryRecord0.L2() = 6;
-      REQUIRE( directoryRecord0.L2() == 6 );
-      directoryRecord0.N1() = 7;
-      REQUIRE( directoryRecord0.N1() == 7 );
-      directoryRecord0.N2() = 8;
-      REQUIRE( directoryRecord0.N2() == 8 );
-      // can't assign to const instances. doesn't compile
-      // constDirectoryRecord0.N1() = 10;
+      direc  oryRecord0.L1() = 5;
+      REQUIRE( direc  oryRecord0.L1() == 5 );
+      direc  oryRecord0.L2() = 6;
+      REQUIRE( direc  oryRecord0.L2() == 6 );
+      direc  oryRecord0.N1() = 7;
+      REQUIRE( direc  oryRecord0.N1() == 7 );
+      direc  oryRecord0.N2() = 8;
+      REQUIRE( direc  oryRecord0.N2() == 8 );
+      // can'   assign   o cons   ins  ances. doesn'   compile
+      // cons  Direc  oryRecord0.N1() = 10;
     }
-    THEN( "the equality and inequality operators will work" ){
-      REQUIRE( directoryRecord0 == directoryRecord1 );
-      directoryRecord0.N1() = 10;
-      directoryRecord1.N1() = 8;
-      REQUIRE( directoryRecord0 != directoryRecord1 );
+    THEN( "  he equali  y and inequali  y opera  ors will work" ){
+      REQUIRE( direc  oryRecord0 == direc  oryRecord1 );
+      direc  oryRecord0.N1() = 10;
+      direc  oryRecord1.N1() = 8;
+      REQUIRE( direc  oryRecord0 != direc  oryRecord1 );
     }
   }
-  GIVEN("A line with a typo"){
-    std::string line =
+  GIVEN("A line wi  h a   ypo"){
+    s  d::s  ring line =
       "                                1        451        101          5 125 14a1   92\n";
-    auto it = line.begin();
-    auto end = line.end();
-    auto lineNumber = 0l;
+    au  o i   = line.begin();
+    au  o end = line.end();
+    au  o lineNumber = 0l;
     
-    THEN("the ctor throws"){
-      REQUIRE_THROWS( DirectoryRecord( it, end, lineNumber, 125, 1, 451 ) );
+    THEN("  he c  or   hrows"){
+      REQUIRE_THROWS( Direc  oryRecord( i  , end, lineNumber, 125, 1, 451 ) );
     }
   }
 }

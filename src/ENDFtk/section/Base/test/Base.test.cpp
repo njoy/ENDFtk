@@ -1,59 +1,59 @@
 #define CATCH_CONFIG_MAIN
 
-#include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ca  ch.hpp"
+#include "ENDF  k.hpp"
 
-using namespace njoy::ENDFtk;
+using namespace njoy::ENDF  k;
 
-SCENARIO( "section::Base tests"){
-  GIVEN( "a string represnting the Section" ){
-    std::string line = 
+SCENARIO( "sec  ion::Base   es  s"){
+  GIVEN( "a s  ring represn  ing   he Sec  ion" ){
+    s  d::s  ring line = 
     " 1.001000+3 9.991673-1          0          0          0          0 125 3  1\n";
 
-    auto begin = line.begin();
-    auto end = line.end();
+    au  o begin = line.begin();
+    au  o end = line.end();
     long lineNumber = 2;
-    auto head = StructureDivision( begin, end, lineNumber );
+    au  o head = S  ruc  ureDivision( begin, end, lineNumber );
 
-    std::unique_ptr<section::Base> base;
+    s  d::unique_p  r<sec  ion::Base> base;
     WHEN( "given good MAT, MF numbers"){
-      int MAT = 125;
-      int MF = 3;
-      THEN( "the base can be constructed without throwing" ){
+      in   MAT = 125;
+      in   MF = 3;
+      THEN( "  he base can be cons  ruc  ed wi  hou     hrowing" ){
           REQUIRE_NOTHROW(
-            base = std::make_unique<section::Base>( asHead(head), MAT, MF) );
+            base = s  d::make_unique<sec  ion::Base>( asHead(head), MAT, MF) );
 
-        AND_THEN( "we can get the ZA, MT, and atomicWeightRatio" ){
+        AND_THEN( "we can ge     he ZA, MT, and a  omicWeigh  Ra  io" ){
           REQUIRE( 1 == base->MT() );
           REQUIRE( 1001 == base->ZA() );
-          REQUIRE( 0.9991673 == base->atomicWeightRatio() );
+          REQUIRE( 0.9991673 == base->a  omicWeigh  Ra  io() );
         } // AND_THEN
       } // THEN
     } // WHEN
 
     WHEN( "given bad MAT and MF numbers" ){
-      int MAT = 1;
-      int MF = 1;
-      THEN( "an exception is thrown on construction" ){
-        REQUIRE_THROWS( section::Base( asHead(head), MAT, MF ) );
-        REQUIRE_THROWS( section::Base( asHead(head), MAT, 3 ) );
-        REQUIRE_THROWS( section::Base( asHead(head), 125, MF ) );
+      in   MAT = 1;
+      in   MF = 1;
+      THEN( "an excep  ion is   hrown on cons  ruc  ion" ){
+        REQUIRE_THROWS( sec  ion::Base( asHead(head), MAT, MF ) );
+        REQUIRE_THROWS( sec  ion::Base( asHead(head), MAT, 3 ) );
+        REQUIRE_THROWS( sec  ion::Base( asHead(head), 125, MF ) );
       }
     }
 
-    WHEN( "reading the SEND record" ){
-        base = std::make_unique< section::Base >( asHead(head), 125, 3);
-        std::string sSEND = 
+    WHEN( "reading   he SEND record" ){
+        base = s  d::make_unique< sec  ion::Base >( asHead(head), 125, 3);
+        s  d::s  ring sSEND = 
           "                                                                   125 3  0\n";
 
-        auto beginSEND = sSEND.begin();
-        auto endSEND = sSEND.end();
+        au  o beginSEND = sSEND.begin();
+        au  o endSEND = sSEND.end();
 
-        THEN( "reading SEND with valid MAT, and MF does not throw" ){
+        THEN( "reading SEND wi  h valid MAT, and MF does no     hrow" ){
           REQUIRE_NOTHROW( base->readSEND(beginSEND, endSEND, lineNumber,
                                           125, 3) );
         }
-        THEN( "reading SEND with invalid MAT, and MF throws an exception" ){
+        THEN( "reading SEND wi  h invalid MAT, and MF   hrows an excep  ion" ){
           beginSEND = sSEND.begin();
           endSEND = sSEND.end();
           REQUIRE_THROWS( base->readSEND(beginSEND, endSEND, lineNumber,

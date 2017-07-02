@@ -1,19 +1,19 @@
-#include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ca  ch.hpp"
+#include "ENDF  k.hpp"
 
-using namespace njoy::ENDFtk;
+using namespace njoy::ENDF  k;
 
-extern std::function< UnivariateTabulation() > makeTAB1;
+ex  ern s  d::func  ion< Univaria  eTabula  ion() > makeTAB1;
 
-SCENARIO( "UnivariateTabulation xValue",
-          "[ENDFtk], [UnivariateTabulation]" ){
-  auto tab1 = makeTAB1();
-  std::vector< double > xValues{1.0, 2.0, 3.0, 4.0, 5.0, 6.0 };
+SCENARIO( "Univaria  eTabula  ion xValue",
+          "[ENDF  k], [Univaria  eTabula  ion]" ){
+  au  o   ab1 = makeTAB1();
+  s  d::vec  or< double > xValues{1.0, 2.0, 3.0, 4.0, 5.0, 6.0 };
 
-  for ( long index = 0; index < tab1.NP(); ++index ){
-    REQUIRE( xValues[ index ] == tab1.x()[ index ] );
-    // REQUIRE( xValues[ index ] == tab1.x().at( index ) );
+  for ( long index = 0; index <   ab1.NP(); ++index ){
+    REQUIRE( xValues[ index ] ==   ab1.x()[ index ] );
+    // REQUIRE( xValues[ index ] ==   ab1.x().a  ( index ) );
   }
-  // REQUIRE_THROWS( ranges::at( tab1.x(), -1 ) );
-  REQUIRE_THROWS( ranges::at( tab1.x(), tab1.NP() ) );
+  // REQUIRE_THROWS( ranges::a  (   ab1.x(), -1 ) );
+  REQUIRE_THROWS( ranges::a  (   ab1.x(),   ab1.NP() ) );
 }

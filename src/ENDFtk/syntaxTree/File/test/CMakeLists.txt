@@ -1,14 +1,14 @@
 
-add_executable( ENDFtk.syntaxTree.File.test File.test.cpp )
-target_compile_options( ENDFtk.syntaxTree.File.test PRIVATE ${${PREFIX}_common_flags}
-$<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
+add_execu  able( ENDF  k.syn  axTree.File.  es   File.  es  .cpp )
+  arge  _compile_op  ions( ENDF  k.syn  axTree.File.  es   PRIVATE ${${PREFIX}_common_flags}
+$<$<BOOL:${s  ric  }>:${${PREFIX}_s  ric  _flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}
 $<$<BOOL:${coverage}>:${${PREFIX}_coverage_flags}>>
 $<$<CONFIG:RELEASE>:
 ${${PREFIX}_RELEASE_flags}
-$<$<BOOL:${link_time_optimization}>:${${PREFIX}_link_time_optimization_flags}>
-$<$<BOOL:${nonportable_optimization}>:${${PREFIX}_nonportable_optimization_flags}>>
+$<$<BOOL:${link_  ime_op  imiza  ion}>:${${PREFIX}_link_  ime_op  imiza  ion_flags}>
+$<$<BOOL:${nonpor  able_op  imiza  ion}>:${${PREFIX}_nonpor  able_op  imiza  ion_flags}>>
 
-${CXX_appended_flags} ${ENDFtk_appended_flags} )
-target_link_libraries( ENDFtk.syntaxTree.File.test PUBLIC ENDFtk ) 
-add_test( NAME ENDFtk.syntaxTree.File COMMAND ENDFtk.syntaxTree.File.test )
+${CXX_appended_flags} ${ENDF  k_appended_flags} )
+  arge  _link_libraries( ENDF  k.syn  axTree.File.  es   PUBLIC ENDF  k ) 
+add_  es  ( NAME ENDF  k.syn  axTree.File COMMAND ENDF  k.syn  axTree.File.  es   )

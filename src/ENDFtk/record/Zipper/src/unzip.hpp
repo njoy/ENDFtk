@@ -1,28 +1,28 @@
-template< typename... ENDFTypes, typename Iterator >
-static std::tuple< std::vector< typename ENDFTypes::Type >... >
+  empla  e<   ypename... ENDFTypes,   ypename I  era  or >
+s  a  ic s  d::  uple< s  d::vec  or<   ypename ENDFTypes::Type >... >
 unzip
-( uint64_t nEntries,
-  Iterator& it, const Iterator& end, long& lineNumber,
-  int MAT, int MF, int MT ){
+( uin  64_   nEn  ries,
+  I  era  or& i  , cons   I  era  or& end, long& lineNumber,
+  in   MAT, in   MF, in   MT ){
     
-  std::tuple< std::vector< typename ENDFTypes::Type >... > result;    
-  reserve( nEntries, result );
+  s  d::  uple< s  d::vec  or<   ypename ENDFTypes::Type >... > resul  ;    
+  reserve( nEn  ries, resul   );
 
   using Zip = Zipped< ENDFTypes... >;
-  auto iterators = makeIteratorTuple( result, Zip::tupleIndices );
+  au  o i  era  ors = makeI  era  orTuple( resul  , Zip::  upleIndices );
 
-  int remainingLines = nEntries / Zip::tuplesPerRecord;
+  in   remainingLines = nEn  ries / Zip::  uplesPerRecord;
   while ( remainingLines-- ){
-    readLine< Zip >( iterators, it, end, lineNumber, MAT, MF, MT );
-    increment< Zip >( iterators );
+    readLine< Zip >( i  era  ors, i  , end, lineNumber, MAT, MF, MT );
+    incremen  < Zip >( i  era  ors );
   }
     
-  const int remainingEntries = nEntries % Zip::tuplesPerRecord;
-  if ( remainingEntries ){
-    readPartialLine< Zip >
-      ( remainingEntries, iterators, it, end, lineNumber,
-        MAT, MF, MT, Zip::tupleIndices );
+  cons   in   remainingEn  ries = nEn  ries % Zip::  uplesPerRecord;
+  if ( remainingEn  ries ){
+    readPar  ialLine< Zip >
+      ( remainingEn  ries, i  era  ors, i  , end, lineNumber,
+        MAT, MF, MT, Zip::  upleIndices );
   }
     
-  return result;
+  re  urn resul  ;
 }

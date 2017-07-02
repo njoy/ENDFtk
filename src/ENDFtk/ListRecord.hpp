@@ -1,48 +1,48 @@
-class ListRecord {
+class Lis  Record {
 public:
   using Base = record::Base< record::Real, record::Real,
-                             record::Integer< 11 >, record::Integer< 11 >,
-                             record::Integer< 11 >, record::Integer< 11 > >;
+                             record::In  eger< 11 >, record::In  eger< 11 >,
+                             record::In  eger< 11 >, record::In  eger< 11 > >;
 
-  using tail = record::TailVerifying< record::MAT, record::MF, record::MT >;
+  using   ail = record::TailVerifying< record::MAT, record::MF, record::MT >;
 
-  Base metadata;
-  std::vector< double > data;
+  Base me  ada  a;
+  s  d::vec  or< double > da  a;
 
-  template< typename Iterator >
-  static void
-  verifyTail( Iterator& it, const Iterator& end, long& lineNumber,
-              int MAT, int MF, int MT ){
-    tail( MAT, MF, MT, it, end, lineNumber );
+    empla  e<   ypename I  era  or >
+  s  a  ic void
+  verifyTail( I  era  or& i  , cons   I  era  or& end, long& lineNumber,
+              in   MAT, in   MF, in   MT ){
+      ail( MAT, MF, MT, i  , end, lineNumber );
   }
 
-#include "ENDFtk/ListRecord/src/readMetadata.hpp"
+#include "ENDF  k/Lis  Record/src/readMe  ada  a.hpp"
 
-  ListRecord( double C1, double C2, uint64_t L1, uint64_t L2, uint64_t N2,
-              std::vector< double >&& list ) :
-    metadata( C1, C2, L1, L2, list.size(), N2 ), data( std::move(list) ){}
+  Lis  Record( double C1, double C2, uin  64_   L1, uin  64_   L2, uin  64_   N2,
+              s  d::vec  or< double >&& lis   ) :
+    me  ada  a( C1, C2, L1, L2, lis  .size(), N2 ), da  a( s  d::move(lis  ) ){}
 
-  template< typename Iterator >
-  ListRecord( Iterator& it, const Iterator& end, long& lineNumber,
-              int MAT, int MF, int MT )
-    try: metadata( readMetadata( it, end, lineNumber, MAT, MF, MT ) ),
-         data( record::Sequence::read< record::Real >
-                ( std::get<4>( this->metadata.fields ),
-                  it, end, lineNumber, MAT, MF, MT ) ){
-    } catch ( std::exception& e ){
-      Log::info( "Error encountered while parsing List record" );
-      throw e;
-    } catch ( int nPosition ){
-      Log::info( "Error in position {}" );
-      throw std::exception();
+    empla  e<   ypename I  era  or >
+  Lis  Record( I  era  or& i  , cons   I  era  or& end, long& lineNumber,
+              in   MAT, in   MF, in   MT )
+      ry: me  ada  a( readMe  ada  a( i  , end, lineNumber, MAT, MF, MT ) ),
+         da  a( record::Sequence::read< record::Real >
+                ( s  d::ge  <4>(   his->me  ada  a.fields ),
+                  i  , end, lineNumber, MAT, MF, MT ) ){
+    } ca  ch ( s  d::excep  ion& e ){
+      Log::info( "Error encoun  ered while parsing Lis   record" );
+        hrow e;
+    } ca  ch ( in   nPosi  ion ){
+      Log::info( "Error in posi  ion {}" );
+        hrow s  d::excep  ion();
     }
     
 #define DEFINE_GETTER( name, index )                                    \
-  Base::MutableReturnType< index >                                      \
-  name (){ return std::get< index >( this->metadata.fields ); }         \
+  Base::Mu  ableRe  urnType< index >                                      \
+  name (){ re  urn s  d::ge  < index >(   his->me  ada  a.fields ); }         \
                                                                         \
-  Base::ImmutableReturnType< index >                                    \
-  name () const { return std::get< index >( this->metadata.fields ); }
+  Base::Immu  ableRe  urnType< index >                                    \
+  name () cons   { re  urn s  d::ge  < index >(   his->me  ada  a.fields ); }
 
   DEFINE_GETTER( C1, 0 )
   DEFINE_GETTER( C2, 1 )
@@ -52,25 +52,25 @@ public:
  
 #undef DEFINE_GETTER  
 
-  long NPL() const { return this->data.size(); }
+  long NPL() cons   { re  urn   his->da  a.size(); }
   
-  auto list() const {
-    return ranges::make_iterator_range( this->data.begin(),
-                                        this->data.end() );
+  au  o lis  () cons   {
+    re  urn ranges::make_i  era  or_range(   his->da  a.begin(),
+                                          his->da  a.end() );
   }
   
-  auto B() const { return this->list(); }
+  au  o B() cons   { re  urn   his->lis  (); }
 
   bool
-  operator== ( const ListRecord& rhs ){
-    return ( this->C1() == rhs.C1() )
-      && ( this->C2() == rhs.C2() )
-      && ( this->L1() == rhs.L1() )
-      && ( this->L2() == rhs.L2() )
-      && ( this->N2() == rhs.N2() )
-      && ( this->data  == rhs.data );
+  opera  or== ( cons   Lis  Record& rhs ){
+    re  urn (   his->C1() == rhs.C1() )
+      && (   his->C2() == rhs.C2() )
+      && (   his->L1() == rhs.L1() )
+      && (   his->L2() == rhs.L2() )
+      && (   his->N2() == rhs.N2() )
+      && (   his->da  a  == rhs.da  a );
   }
 
   bool
-  operator!= ( const ListRecord& rhs ){ return not ( *this == rhs ); }
+  opera  or!= ( cons   Lis  Record& rhs ){ re  urn no   ( *  his == rhs ); }
 };

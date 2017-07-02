@@ -1,44 +1,44 @@
-template< typename BufferIterator >
+  empla  e<   ypename BufferI  era  or >
 class File {
 public:
-  /* convenience typedefs */
-  using Section_t = Section< BufferIterator >;
-  using Iterator = typename std::vector< Section_t >::iterator;
+  /* convenience   ypedefs */
+  using Sec  ion_   = Sec  ion< BufferI  era  or >;
+  using I  era  or =   ypename s  d::vec  or< Sec  ion_   >::i  era  or;
 
   /* fields */
-  int fileNo;
-  std::vector< Section_t > sectionVector;
-  std::unordered_map< int, Section_t& > sectionMap;
-  std::pair< BufferIterator, BufferIterator > bufferLimits;
+  in   fileNo;
+  s  d::vec  or< Sec  ion_   > sec  ionVec  or;
+  s  d::unordered_map< in  , Sec  ion_  & > sec  ionMap;
+  s  d::pair< BufferI  era  or, BufferI  era  or > bufferLimi  s;
 
-    /* ctor */
-#include "ENDFtk/syntaxTree/File/src/createVector.hpp"
-#include "ENDFtk/syntaxTree/File/src/createMap.hpp"
-#include "ENDFtk/syntaxTree/File/src/ctor.hpp"
+    /* c  or */
+#include "ENDF  k/syn  axTree/File/src/crea  eVec  or.hpp"
+#include "ENDF  k/syn  axTree/File/src/crea  eMap.hpp"
+#include "ENDF  k/syn  axTree/File/src/c  or.hpp"
 
-  /* methods */
-#include "ENDFtk/syntaxTree/File/src/sectionNumber.hpp"
+  /* me  hods */
+#include "ENDF  k/syn  axTree/File/src/sec  ionNumber.hpp"
 
-  Section_t&
-  MT( int sectionNo ){ return this->sectionNumber( sectionNo ); }
+  Sec  ion_  &
+  MT( in   sec  ionNo ){ re  urn   his->sec  ionNumber( sec  ionNo ); }
 
   bool
-  hasMT( int sectionNo ){ return this->sectionMap.count( sectionNo ); }
+  hasMT( in   sec  ionNo ){ re  urn   his->sec  ionMap.coun  ( sec  ionNo ); }
   
   bool
-  hasSectionNumber( int sectionNo ){  return this->hasMT( sectionNo ); }
+  hasSec  ionNumber( in   sec  ionNo ){  re  urn   his->hasMT( sec  ionNo ); }
   
-  Iterator begin() { return this->sectionVector.begin(); }
+  I  era  or begin() { re  urn   his->sec  ionVec  or.begin(); }
 
-  Iterator end() { return this->sectionVector.end(); }
+  I  era  or end() { re  urn   his->sec  ionVec  or.end(); }
  
-  std::size_t size() const { return this->sectionVector.size(); }
+  s  d::size_   size() cons   { re  urn   his->sec  ionVec  or.size(); }
 
-  BufferIterator bufferBegin() { return this->bufferLimits.first; }
+  BufferI  era  or bufferBegin() { re  urn   his->bufferLimi  s.firs  ; }
 
-  BufferIterator bufferEnd() { return this->bufferLimits.second; }
+  BufferI  era  or bufferEnd() { re  urn   his->bufferLimi  s.second; }
   
-  int MF() const { return this->fileNo; }
+  in   MF() cons   { re  urn   his->fileNo; }
 
-  int fileNumber() const { return this->MF(); }
+  in   fileNumber() cons   { re  urn   his->MF(); }
 };
