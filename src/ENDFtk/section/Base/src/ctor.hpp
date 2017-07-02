@@ -1,17 +1,17 @@
-Base( cons   HEAD& head, in   MAT, in   MF ) :
-  sec  ionNo( head.MT() ), 
+Base( const HEAD& head, int MAT, int MF ) :
+  sectionNo( head.MT() ), 
   ZA_( head.ZA() ), 
-  a  omicWeigh  Ra  io_( head.a  omicWeigh  Ra  io() ) { 
+  atomicWeightRatio_( head.atomicWeightRatio() ) { 
   if( MAT != head.MAT() ){
-    Log::error( "Incorrec   Ma  erial number (MAT)." );
-    Log::info( "Expec  ed MAT = {}", MAT );
-    Log::info( "Encoun  ered MAT = {}", head.MAT() );
-      hrow s  d::excep  ion();
+    Log::error( "Incorrect Material number (MAT)." );
+    Log::info( "Expected MAT = {}", MAT );
+    Log::info( "Encountered MAT = {}", head.MAT() );
+    throw std::exception();
   }
   if( MF != head.MF() ){
-    Log::error( "Incorrec   File number (MF)." );
-    Log::info( "Expec  ed MF = {}", MF );
-    Log::info( "Encoun  ered MF = {}", head.MF() );
-      hrow s  d::excep  ion();
+    Log::error( "Incorrect File number (MF)." );
+    Log::info( "Expected MF = {}", MF );
+    Log::info( "Encountered MF = {}", head.MF() );
+    throw std::exception();
   }
 }

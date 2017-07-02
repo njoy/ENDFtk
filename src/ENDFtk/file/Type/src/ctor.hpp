@@ -1,18 +1,18 @@
-  empla  e<   ypename BufferI  era  or >
-Type( S  ruc  ureDivision& division,
-      BufferI  era  or& begin, cons   BufferI  era  or& end, long& lineNumber ){
-  while( no   division.isFend() ){
-      his->sec  ionVec  or.emplace_back
-      ( asHead(division), begin, end, lineNumber, division.  ail.MAT() );
-    if(   his->sec  ionMap.coun  ( division.  ail.MT() ) ){
-      Log::error( "Sec  ions specified wi  h redundan   sec  ion numbers (MT)" );
+template< typename BufferIterator >
+Type( StructureDivision& division,
+      BufferIterator& begin, const BufferIterator& end, long& lineNumber ){
+  while( not division.isFend() ){
+    this->sectionVector.emplace_back
+      ( asHead(division), begin, end, lineNumber, division.tail.MAT() );
+    if( this->sectionMap.count( division.tail.MT() ) ){
+      Log::error( "Sections specified with redundant section numbers (MT)" );
       Log::info
-	( "Wi  hin an ENDF File, sec  ions are required   o specify a unique MT" );
-      Log::info( "Encoun  ered redundan   MT: {}", division.  ail.MT() );
-        hrow s  d::excep  ion();
+	( "Within an ENDF File, sections are required to specify a unique MT" );
+      Log::info( "Encountered redundant MT: {}", division.tail.MT() );
+      throw std::exception();
     }
-      his->sec  ionMap.inser  ( { division.  ail.MT(),
-                                 his->sec  ionVec  or.back() } );
-    division = S  ruc  ureDivision( begin, end, lineNumber );
+    this->sectionMap.insert( { division.tail.MT(),
+                               this->sectionVector.back() } );
+    division = StructureDivision( begin, end, lineNumber );
   }
 }

@@ -1,49 +1,49 @@
-class Univaria  eTabula  ion {
-pro  ec  ed:
-  /* convenience   ypedefs */
+class UnivariateTabulation {
+protected:
+  /* convenience typedefs */
   using Base = record::Base< record::Real, record::Real,
-                             record::In  eger< 11 >, record::In  eger< 11 >,
-                             record::In  eger< 11 >, record::In  eger< 11 > >;
+                             record::Integer< 11 >, record::Integer< 11 >,
+                             record::Integer< 11 >, record::Integer< 11 > >;
 
-  using   ail = record::TailVerifying< record::MAT, record::MF, record::MT >;
+  using tail = record::TailVerifying< record::MAT, record::MF, record::MT >;
 
   /* fields */
-  Base me  ada  a;
+  Base metadata;
   
-  s  d::vec  or< long > boundaryIndices;
-  s  d::vec  or< long > in  erpola  ionSchemeIndices;
-  s  d::vec  or< double > xValues;
-  s  d::vec  or< double > yValues;
+  std::vector< long > boundaryIndices;
+  std::vector< long > interpolationSchemeIndices;
+  std::vector< double > xValues;
+  std::vector< double > yValues;
 
-  /* helper me  hods */
-#include "ENDF  k/Univaria  eTabula  ion/src/verifyTail.hpp"
-#include "ENDF  k/Univaria  eTabula  ion/src/verifyBoundaryIndicesAreSor  ed.hpp"
-#include "ENDF  k/Univaria  eTabula  ion/src/verifyXValuesAreSor  ed.hpp"
-#include "ENDF  k/Univaria  eTabula  ion/src/readRangeDescrip  ions.hpp"
-#include "ENDF  k/Univaria  eTabula  ion/src/readPairs.hpp"      
-#include "ENDF  k/Univaria  eTabula  ion/src/readMe  ada  a.hpp"
+  /* helper methods */
+#include "ENDFtk/UnivariateTabulation/src/verifyTail.hpp"
+#include "ENDFtk/UnivariateTabulation/src/verifyBoundaryIndicesAreSorted.hpp"
+#include "ENDFtk/UnivariateTabulation/src/verifyXValuesAreSorted.hpp"
+#include "ENDFtk/UnivariateTabulation/src/readRangeDescriptions.hpp"
+#include "ENDFtk/UnivariateTabulation/src/readPairs.hpp"      
+#include "ENDFtk/UnivariateTabulation/src/readMetadata.hpp"
 
-  au  o regions( size_   index ) cons   {
-    cons   au  o lef   = index ?   his->boundaryIndices[ index - 1 ] - 1 : 0;
-    cons   au  o righ   =   his->boundaryIndices[ index ];
-    re  urn
-      s  d::make_pair( ranges::make_i  era  or_range
-                      (   his->xValues.begin() + lef  ,
-                          his->xValues.begin() + righ   ),
-                      ranges::make_i  era  or_range
-                      (   his->yValues.begin() + lef  ,
-                          his->yValues.begin() + righ   ) );
+  auto regions( size_t index ) const {
+    const auto left = index ? this->boundaryIndices[ index - 1 ] - 1 : 0;
+    const auto right = this->boundaryIndices[ index ];
+    return
+      std::make_pair( ranges::make_iterator_range
+                      ( this->xValues.begin() + left,
+                        this->xValues.begin() + right ),
+                      ranges::make_iterator_range
+                      ( this->yValues.begin() + left,
+                        this->yValues.begin() + right ) );
   }
   
 public:
-#include "ENDF  k/Univaria  eTabula  ion/src/c  or.hpp"
+#include "ENDFtk/UnivariateTabulation/src/ctor.hpp"
     
 #define DEFINE_GETTER( name, index )                                    \
-  Base::Mu  ableRe  urnType< index >                                      \
-  name (){ re  urn s  d::ge  < index >(   his->me  ada  a.fields ); }         \
+  Base::MutableReturnType< index >                                      \
+  name (){ return std::get< index >( this->metadata.fields ); }         \
                                                                         \
-  Base::Immu  ableRe  urnType< index >                                    \
-  name () cons   { re  urn s  d::ge  < index >(   his->me  ada  a.fields ); }
+  Base::ImmutableReturnType< index >                                    \
+  name () const { return std::get< index >( this->metadata.fields ); }
 
   DEFINE_GETTER( C1, 0 )
   DEFINE_GETTER( C2, 1 )
@@ -51,50 +51,50 @@ public:
   DEFINE_GETTER( L2, 3 )
 #undef DEFINE_GETTER  
 
-  long NP() cons   { re  urn   his->xValues.size(); }
-  long NR() cons   { re  urn   his->boundaryIndices.size(); }
+  long NP() const { return this->xValues.size(); }
+  long NR() const { return this->boundaryIndices.size(); }
   
-  au  o x() cons   {
-    re  urn ranges::make_i  era  or_range(   his->xValues.begin(),
-                                          his->xValues.end() );
+  auto x() const {
+    return ranges::make_iterator_range( this->xValues.begin(),
+                                        this->xValues.end() );
   }
   
-  au  o y() cons   {
-    re  urn ranges::make_i  era  or_range(   his->yValues.begin(),
-                                          his->yValues.end() );
+  auto y() const {
+    return ranges::make_iterator_range( this->yValues.begin(),
+                                        this->yValues.end() );
   }
 
-  au  o pairs() cons   {
-    re  urn ranges::view::zip(   his->xValues,   his->yValues );
+  auto pairs() const {
+    return ranges::view::zip( this->xValues, this->yValues );
   }
   
-  au  o in  erpolan  s() cons   {
-    re  urn ranges::make_i  era  or_range(   his->in  erpola  ionSchemeIndices.begin(),
-                                          his->in  erpola  ionSchemeIndices.end() );
+  auto interpolants() const {
+    return ranges::make_iterator_range( this->interpolationSchemeIndices.begin(),
+                                        this->interpolationSchemeIndices.end() );
   }
   
-  au  o boundaries() cons   {
-    re  urn ranges::make_i  era  or_range(   his->boundaryIndices.begin(),
-                                          his->boundaryIndices.end() );
+  auto boundaries() const {
+    return ranges::make_iterator_range( this->boundaryIndices.begin(),
+                                        this->boundaryIndices.end() );
   }
 
-  au  o regions() cons   {
-    re  urn
-      ranges::view::io  a( 0ul,   his->boundaryIndices.size() )
-      | ranges::view::  ransform( [  his ]( in   i ){ re  urn   his->regions(i); } );
+  auto regions() const {
+    return
+      ranges::view::iota( 0ul, this->boundaryIndices.size() )
+      | ranges::view::transform( [this ]( int i ){ return this->regions(i); } );
   }
 
-  bool opera  or== ( cons   Univaria  eTabula  ion& rhs ){
-    re  urn (   his->C1() == rhs.C1() )
-      && (   his->C2() == rhs.C2() )
-      && (   his->L1() == rhs.L1() )
-      && (   his->L2() == rhs.L2() )
-      && (   his->boundaryIndices == rhs.boundaryIndices )
-      && (   his->in  erpola  ionSchemeIndices == rhs.in  erpola  ionSchemeIndices )
-      && (   his->xValues == rhs.xValues )
-      && (   his->yValues == rhs.yValues );
+  bool operator== ( const UnivariateTabulation& rhs ){
+    return ( this->C1() == rhs.C1() )
+      && ( this->C2() == rhs.C2() )
+      && ( this->L1() == rhs.L1() )
+      && ( this->L2() == rhs.L2() )
+      && ( this->boundaryIndices == rhs.boundaryIndices )
+      && ( this->interpolationSchemeIndices == rhs.interpolationSchemeIndices )
+      && ( this->xValues == rhs.xValues )
+      && ( this->yValues == rhs.yValues );
   }
 
   bool
-  opera  or!= ( cons   Univaria  eTabula  ion& rhs ){ re  urn no   ( *  his == rhs ); }
+  operator!= ( const UnivariateTabulation& rhs ){ return not ( *this == rhs ); }
 };

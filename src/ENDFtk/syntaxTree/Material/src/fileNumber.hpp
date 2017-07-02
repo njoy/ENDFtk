@@ -1,14 +1,14 @@
-File_  &
-fileNumber( in   fileNo ){
-    ry{
-    re  urn   his->fileMap.a  ( fileNo );
-  } ca  ch( s  d::ou  _of_range& o ){
+File_t&
+fileNumber( int fileNo ){
+  try{
+    return this->fileMap.at( fileNo );
+  } catch( std::out_of_range& o ){
     Log::error
-      ( "Reques  ed file number (MF) does no  "
-	" correspond   o a s  ored file syn  ax   ree" );
-    Log::info( "Reques  ed file number: {}", fileNo );
-    Log::info( "Ma  erial number of queried ma  erial syn  ax   ree: ",
-	         his->ma  erialNumber() );
-      hrow o;
+      ( "Requested file number (MF) does not"
+	" correspond to a stored file syntax tree" );
+    Log::info( "Requested file number: {}", fileNo );
+    Log::info( "Material number of queried material syntax tree: ",
+	       this->materialNumber() );
+    throw o;
   }   
 }

@@ -1,25 +1,25 @@
-  empla  e<   ypename I  era  or >
-s  a  ic s  d::  uple< s  d::vec  or< long >, s  d::vec  or< long > >
-readRangeDescrip  ions
-( long nRanges, I  era  or& i  , cons   I  era  or& end, long& lineNumber,
-  in   MAT, in   MF, in   MT ){
-  s  d::  uple< s  d::vec  or< long >, s  d::vec  or< long > > resul  ;
-    ry{
+template< typename Iterator >
+static std::tuple< std::vector< long >, std::vector< long > >
+readRangeDescriptions
+( long nRanges, Iterator& it, const Iterator& end, long& lineNumber,
+  int MAT, int MF, int MT ){
+  std::tuple< std::vector< long >, std::vector< long > > result;
+  try{
     if ( nRanges < 1 ){
-      Log::error( "Encoun  ered invalid NR value while cons  ruc  ing TAB1 record" );
-      Log::info( "NR is required   o be grea  er   han zero" );
-        hrow s  d::excep  ion();
+      Log::error( "Encountered invalid NR value while constructing TAB1 record" );
+      Log::info( "NR is required to be greater than zero" );
+      throw std::exception();
     }
     
-    resul   = record::Zipper::unzip
-             < record::In  eger<11>,
-	       record::In  eger<11> >
-             ( nRanges, i  , end, lineNumber, MAT, MF, MT );
-    au  o& boundaryIndices = s  d::ge  < 0 >( resul   );
-    verifyBoundaryIndicesAreSor  ed( boundaryIndices );
-    re  urn resul  ;
-  } ca  ch ( s  d::excep  ion& e ){
-    Log::info( "Error while reading TAB1 range informa  ion" );
-      hrow e; 
+    result = record::Zipper::unzip
+             < record::Integer<11>,
+	       record::Integer<11> >
+             ( nRanges, it, end, lineNumber, MAT, MF, MT );
+    auto& boundaryIndices = std::get< 0 >( result );
+    verifyBoundaryIndicesAreSorted( boundaryIndices );
+    return result;
+  } catch ( std::exception& e ){
+    Log::info( "Error while reading TAB1 range information" );
+    throw e; 
   }
 }

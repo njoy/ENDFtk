@@ -1,14 +1,14 @@
 
-add_execu  able( ENDF  k.Direc  oryRecord.  es   Direc  oryRecord.  es  .cpp )
-  arge  _compile_op  ions( ENDF  k.Direc  oryRecord.  es   PRIVATE ${${PREFIX}_common_flags}
-$<$<BOOL:${s  ric  }>:${${PREFIX}_s  ric  _flags}>$<$<CONFIG:DEBUG>:
+add_executable( ENDFtk.DirectoryRecord.test DirectoryRecord.test.cpp )
+target_compile_options( ENDFtk.DirectoryRecord.test PRIVATE ${${PREFIX}_common_flags}
+$<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}
 $<$<BOOL:${coverage}>:${${PREFIX}_coverage_flags}>>
 $<$<CONFIG:RELEASE>:
 ${${PREFIX}_RELEASE_flags}
-$<$<BOOL:${link_  ime_op  imiza  ion}>:${${PREFIX}_link_  ime_op  imiza  ion_flags}>
-$<$<BOOL:${nonpor  able_op  imiza  ion}>:${${PREFIX}_nonpor  able_op  imiza  ion_flags}>>
+$<$<BOOL:${link_time_optimization}>:${${PREFIX}_link_time_optimization_flags}>
+$<$<BOOL:${nonportable_optimization}>:${${PREFIX}_nonportable_optimization_flags}>>
 
-${CXX_appended_flags} ${ENDF  k_appended_flags} )
-  arge  _link_libraries( ENDF  k.Direc  oryRecord.  es   PUBLIC ENDF  k ) 
-add_  es  ( NAME ENDF  k.Direc  oryRecord COMMAND ENDF  k.Direc  oryRecord.  es   )
+${CXX_appended_flags} ${ENDFtk_appended_flags} )
+target_link_libraries( ENDFtk.DirectoryRecord.test PUBLIC ENDFtk ) 
+add_test( NAME ENDFtk.DirectoryRecord COMMAND ENDFtk.DirectoryRecord.test )

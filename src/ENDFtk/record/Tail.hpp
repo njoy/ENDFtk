@@ -1,50 +1,50 @@
-/** @brief Small class   o con  ain   he MAT, MF, and MT of a Record */
+/** @brief Small class to contain the MAT, MF, and MT of a Record */
 class Tail {
 public:
-  using Forma   = disco::Record< disco::In  eger< 4 >,
-                                disco::In  eger< 2 >,
-                                disco::In  eger< 3 >,
-                                disco::In  eger< 5 > >;
+  using Format = disco::Record< disco::Integer< 4 >,
+                                disco::Integer< 2 >,
+                                disco::Integer< 3 >,
+                                disco::Integer< 5 > >;
 
   /* fields */
-  s  d::array< in  , 3 > fields;
+  std::array< int, 3 > fields;
 
-  /* helper me  hods */
-    empla  e<   ypename I  era  or >
-  s  a  ic s  d::array< in  , 3 >
-  read( I  era  or& i  , cons   I  era  or& end ){
-    s  d::array< in  , 3 > resul  ;
-      ry{
-      Forma  ::read( i  , end, resul  [0], resul  [1], resul  [2] );
-    } ca  ch ( s  d::excep  ion& e ){
+  /* helper methods */
+  template< typename Iterator >
+  static std::array< int, 3 >
+  read( Iterator& it, const Iterator& end ){
+    std::array< int, 3 > result;
+    try{
+      Format::read( it, end, result[0], result[1], result[2] );
+    } catch ( std::exception& e ){
       Log::error( "Trouble reading Tail" );
-        hrow e;
+      throw e;
     }
-    re  urn resul  ;
+    return result;
   }
 
-  /* c  ors */
-    empla  e<   ypename I  era  or >
-  Tail( I  era  or& i  , cons   I  era  or& end, long& lineNumber ) :
-    fields( read( i  , end ) ){ ++lineNumber; }
+  /* ctors */
+  template< typename Iterator >
+  Tail( Iterator& it, const Iterator& end, long& lineNumber ) :
+    fields( read( it, end ) ){ ++lineNumber; }
 
-  cons  expr
-  Tail( in   MAT, in   MF, in   MT ) :
-    fields( s  d::array< in  , 3 >{{ MAT, MF, MT }} ){}
+  constexpr
+  Tail( int MAT, int MF, int MT ) :
+    fields( std::array< int, 3 >{{ MAT, MF, MT }} ){}
 
-  /* me  hods */
-  in  & ma  erial(){ re  urn   his->fields[0]; }
-  in   ma  erial() cons   { re  urn   his->fields[0]; }
-  in  & MAT(){ re  urn   his->ma  erial(); }
-  in   MAT() cons   { re  urn   his->ma  erial(); }
+  /* methods */
+  int& material(){ return this->fields[0]; }
+  int material() const { return this->fields[0]; }
+  int& MAT(){ return this->material(); }
+  int MAT() const { return this->material(); }
   
-  in  & file(){ re  urn   his->fields[1]; }
-  in   file() cons   { re  urn   his->fields[1]; }
-  in  & MF(){ re  urn   his->file(); }
-  in   MF() cons   { re  urn   his->file(); }
+  int& file(){ return this->fields[1]; }
+  int file() const { return this->fields[1]; }
+  int& MF(){ return this->file(); }
+  int MF() const { return this->file(); }
   
-  in  & sec  ion(){ re  urn   his->fields[2]; }
-  in   sec  ion() cons   { re  urn   his->fields[2]; }
-  in  & MT(){ re  urn   his->sec  ion(); }
-  in   MT() cons   { re  urn   his->sec  ion(); }
+  int& section(){ return this->fields[2]; }
+  int section() const { return this->fields[2]; }
+  int& MT(){ return this->section(); }
+  int MT() const { return this->section(); }
 };

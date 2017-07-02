@@ -1,17 +1,17 @@
-  empla  e<   ypename BufferI  era  or >
-class Sec  ion {
+template< typename BufferIterator >
+class Section {
 public:
   /* fields */
-  in   sec  ionNo;
-  s  d::pair< BufferI  era  or, BufferI  era  or > bufferLimi  s;
+  int sectionNo;
+  std::pair< BufferIterator, BufferIterator > bufferLimits;
 
-  /* me  hods */
-#include "ENDF  k/syn  axTree/Sec  ion/src/c  or.hpp"
-#include "ENDF  k/syn  axTree/Sec  ion/src/findEnd.hpp"
+  /* methods */
+#include "ENDFtk/syntaxTree/Section/src/ctor.hpp"
+#include "ENDFtk/syntaxTree/Section/src/findEnd.hpp"
 
-  /* me  hods */
-  in   MT() cons   { re  urn   his->sec  ionNo; }
-  in   sec  ionNumber() cons   { re  urn   his->MT(); }
-  BufferI  era  or bufferBegin() { re  urn   his->bufferLimi  s.firs  ; }
-  BufferI  era  or bufferEnd() { re  urn   his->bufferLimi  s.second; }  
+  /* methods */
+  int MT() const { return this->sectionNo; }
+  int sectionNumber() const { return this->MT(); }
+  BufferIterator bufferBegin() { return this->bufferLimits.first; }
+  BufferIterator bufferEnd() { return this->bufferLimits.second; }  
 };

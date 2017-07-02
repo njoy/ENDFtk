@@ -1,13 +1,13 @@
-#include "ca  ch.hpp"
-#include "ENDF  k.hpp"
+#include "catch.hpp"
+#include "ENDFtk.hpp"
 
-using namespace njoy::ENDF  k;
+using namespace njoy::ENDFtk;
 
-ex  ern s  d::func  ion< Univaria  eTabula  ion() > makeTAB1;
+extern std::function< UnivariateTabulation() > makeTAB1;
 
-SCENARIO( "Univaria  eTabula  ion nPairs",
-          "[ENDF  k], [Univaria  eTabula  ion]" ){
-  au  o   ab1 = makeTAB1();
-  REQUIRE(   ab1.NP() == 6 );
-  REQUIRE(   ab1.pairs().size() == 6 );
+SCENARIO( "UnivariateTabulation nPairs",
+          "[ENDFtk], [UnivariateTabulation]" ){
+  auto tab1 = makeTAB1();
+  REQUIRE( tab1.NP() == 6 );
+  REQUIRE( tab1.pairs().size() == 6 );
 }

@@ -1,29 +1,29 @@
- $Rev::          $  $Da  e::            $                             1 0  0
+ $Rev::          $  $Date::            $                             1 0  0
  1.001000+3 9.991673-1          0          0          0          3 125 1451
  0.000000+0 0.000000+0          0          0          0          6 125 1451
  1.000000+0 2.000000+7          0          0         10          8 125 1451
  0.000000+0 0.000000+0          0          0        108         10 125 1451
   1-H -  1 LANL       EVAL-OCT05 G.M.Hale                          125 1451
                       DIST-DEC06                       20111222    125 1451
-----ENDF/B-VIII.be  a  MATERIAL  125                                125 1451
+----ENDF/B-VIII.beta  MATERIAL  125                                125 1451
 -----INCIDENT NEUTRON DATA                                         125 1451
 ------ENDF-6 FORMAT                                                125 1451
                                                                    125 1451
  ****************************************************************  125 1451
-Covariance Da  a Upda  ed                                    G.Hale  125 1451
+Covariance Data Updated                                    G.Hale  125 1451
                                                        2013/04/02  125 1451
                                                                    125 1451
-MF=33, MT=2 and 102 were replaced by   he fine energy grid da  a,    125 1451
-which were ob  ained from   he R-ma  rix analysis a   LANL.            125 1451
-The descrip  ion below for   he ENDF/B-VII.1 covariance da  a         125 1451
-was inconsis  en   wi  h wha   we had in   he 2011 release.             125 1451
-Ref.[1] describes   hese fine-grid da  a, while   he ENDF/B-VII.1     125 1451
-covariance da  a, which were   aken from   he COMMARA-2.0 library,    125 1451
-are an earlier coarse energy grid evalua  ion. The es  ima  ed        125 1451
-uncer  ain  ies (poin  -wise, no   binned) in   he elas  ic (MT=2)       125 1451
-and cap  ure (MT=102) cross sec  ions are:                           125 1451
+MF=33, MT=2 and 102 were replaced by the fine energy grid data,    125 1451
+which were obtained from the R-matrix analysis at LANL.            125 1451
+The description below for the ENDF/B-VII.1 covariance data         125 1451
+was inconsistent with what we had in the 2011 release.             125 1451
+Ref.[1] describes these fine-grid data, while the ENDF/B-VII.1     125 1451
+covariance data, which were taken from the COMMARA-2.0 library,    125 1451
+are an earlier coarse energy grid evaluation. The estimated        125 1451
+uncertainties (point-wise, not binned) in the elastic (MT=2)       125 1451
+and capture (MT=102) cross sections are:                           125 1451
                                                                    125 1451
-     E[MeV] elas  ic[%] cap  ure[%]                                  125 1451
+     E[MeV] elastic[%] capture[%]                                  125 1451
        0.0    0.13       1.1                                       125 1451
        0.1    0.20       5.1                                       125 1451
        0.5    0.39       9.8                                       125 1451
@@ -40,76 +40,76 @@ and cap  ure (MT=102) cross sec  ions are:                           125 1451
       20      0.17       7.0                                       125 1451
                                                                    125 1451
 REFERENCES                                                         125 1451
-[1] G. M. Hale, "Covariances from ligh  -elemen   R-ma  rix           125 1451
-    analyses," Nuclear Da  a Shee  s, 109, 2812 (2008).              125 1451
+[1] G. M. Hale, "Covariances from light-element R-matrix           125 1451
+    analyses," Nuclear Data Sheets, 109, 2812 (2008).              125 1451
                                                                    125 1451
  ****************************************************************  125 1451
-The new R-ma  rix analysis of   he N-N sys  em on which   he ENDF/B-   125 1451
-VII evalua  ion for 1H is based differs from   he previous one use   125 1451
-for ENDF/B-VI in several respec  s. Firs  ly,   he n-p cap  ure        125 1451
-reac  ion (MT=102), and i  s inverse, deu  eron pho  o-                125 1451
-disin  egra  ion, were a par   of   he analysis, ra  her   han added     125 1451
-la  er as before. The analysis used a new me  hod for including      125 1451
-pho  on channels in R-ma  rix   heory [1], which gave a be    er        125 1451
-descrip  ion of   he E1   ransi  ions, in par  icular.  The da  a for    125 1451
-  hese reac  ions are mos  ly in  egra  ed and differen  ial cross       125 1451
-sec  ions, bu   some informa  ion abou   polariza  ions was also        125 1451
-included.  The   hermal cap  ure cross sec  ion was   aken   o be       125 1451
-332.0 mb, as was   he recommenda  ion from preliminary da  a          125 1451
-  es  ing. Good agreemen   was ob  ained wi  h recen   cross-sec  ion     125 1451
-measuremen  s [2,3] by as  rophysical groups in   he 20-550 keV       125 1451
-range, as well as wi  h earlier measuremen  s   ha   had been done     125 1451
-mos  ly as pho  o-disin  egra  ion experimen  s a   energies below 14    125 1451
+The new R-matrix analysis of the N-N system on which the ENDF/B-   125 1451
+VII evaluation for 1H is based differs from the previous one use   125 1451
+for ENDF/B-VI in several respects. Firstly, the n-p capture        125 1451
+reaction (MT=102), and its inverse, deuteron photo-                125 1451
+disintegration, were a part of the analysis, rather than added     125 1451
+later as before. The analysis used a new method for including      125 1451
+photon channels in R-matrix theory [1], which gave a better        125 1451
+description of the E1 transitions, in particular.  The data for    125 1451
+these reactions are mostly integrated and differential cross       125 1451
+sections, but some information about polarizations was also        125 1451
+included.  The thermal capture cross section was taken to be       125 1451
+332.0 mb, as was the recommendation from preliminary data          125 1451
+testing. Good agreement was obtained with recent cross-section     125 1451
+measurements [2,3] by astrophysical groups in the 20-550 keV       125 1451
+range, as well as with earlier measurements that had been done     125 1451
+mostly as photo-disintegration experiments at energies below 14    125 1451
 MeV.                                                               125 1451
-The new analysis includes several addi  ional measuremen  s of   he   125 1451
-  o  al cross sec  ion (MT=1).  The evalua  ed cross sec  ion           125 1451
-devia  es a   mos   by abou   -0.5% around 10 MeV from   ha   of         125 1451
+The new analysis includes several additional measurements of the   125 1451
+total cross section (MT=1).  The evaluated cross section           125 1451
+deviates at most by about -0.5% around 10 MeV from that of         125 1451
 ENDF/B-VI.                                                         125 1451
-For n-p sca    ering (MT=2), new informa  ion was included abou     he  125 1451
-low-energy cross sec  ions (MF=3) and abou     he angular             125 1451
-dis  ribu  ions (MF=4).  A new measuremen   of   he angular            125 1451
-dis  ribu  ion a   10 MeV [4], plus correc  ions   o earlier da  a a      125 1451
-14 MeV, moved   he back-angle asymme  ry in   he 10-14 MeV range   o   125 1451
-values   ha   lie be  ween   hose ob  ained for ENDF/B-V and ENDF/B-    125 1451
-VI.  The addi  ion of   he la  es   value of   he   hermal coheren        125 1451
-sca    ering leng  h [5] had   he in  eres  ing effec   of reducing   he   125 1451
-"zero-energy" sca    ering cross sec  ion somewha     o agree           125 1451
-perfec  ly wi  h an earlier measuremen   by Houk [6], and disagree    125 1451
-wi  h   he la  er, more precise, value of Dilg [7].  The              125 1451
-covariances for MT=2 will be added la  er, bu     he uncer  ain  ies    125 1451
-on   he in  egra  ed cross sec  ion should be similar   o   hose         125 1451
-lis  ed above for   he   o  al cross sec  ion.                          125 1451
+For n-p scattering (MT=2), new information was included about the  125 1451
+low-energy cross sections (MF=3) and about the angular             125 1451
+distributions (MF=4).  A new measurement of the angular            125 1451
+distribution at 10 MeV [4], plus corrections to earlier data at    125 1451
+14 MeV, moved the back-angle asymmetry in the 10-14 MeV range to   125 1451
+values that lie between those obtained for ENDF/B-V and ENDF/B-    125 1451
+VI.  The addition of the latest value of the thermal coherent      125 1451
+scattering length [5] had the interesting effect of reducing the   125 1451
+"zero-energy" scattering cross section somewhat to agree           125 1451
+perfectly with an earlier measurement by Houk [6], and disagree    125 1451
+with the later, more precise, value of Dilg [7].  The              125 1451
+covariances for MT=2 will be added later, but the uncertainties    125 1451
+on the integrated cross section should be similar to those         125 1451
+listed above for the total cross section.                          125 1451
                                                                    125 1451
                                                                    125 1451
 REFERENCES                                                         125 1451
                                                                    125 1451
-[1] G. M. Hale and A. S. Johnson, Proc. 17  h In  . IUPAP Conf. on   125 1451
+[1] G. M. Hale and A. S. Johnson, Proc. 17th Int. IUPAP Conf. on   125 1451
     Few-Body Problems in Physics, 5-10 June 2003, Durham NC, W.    125 1451
     Gloeckle and W. Tornow,  eds., Elsevier B.V., pp. S120-S122    125 1451
    (2004).                                                         125 1451
-[2] T. S. Suzuki e   al., As  rophys. Le    . 449, L59 (1995).         125 1451
-[3] Y. Nagai e   al., Phys. Rev. C 56, 3173 (1997).                 125 1451
-[4] N. Boukharouba e   al., Phys. Rev. C 65, 014004 (2002).         125 1451
-[5] K. Schoen e   al., Phys. Rev. C 67, 044005 (2003).              125 1451
+[2] T. S. Suzuki et al., Astrophys. Lett. 449, L59 (1995).         125 1451
+[3] Y. Nagai et al., Phys. Rev. C 56, 3173 (1997).                 125 1451
+[4] N. Boukharouba et al., Phys. Rev. C 65, 014004 (2002).         125 1451
+[5] K. Schoen et al., Phys. Rev. C 67, 044005 (2003).              125 1451
 [6] T. L. Houk, Phys. Rev. C 3, 1886 (1971).                       125 1451
 [7] W. Dilg, Phys. Rev. C 11, 103 (1975).                          125 1451
  ****************************************************************  125 1451
                                                                    125 1451
-Covariances were adop  ed from COMMARA-2.0 library in July 2011.    125 1451
-These covariances were ob  ained a   LANL by full scale R-ma  rix     125 1451
-analysis of more   han 5000 experimen  al da  a (chi-square/degree    125 1451
-of freedom of 0.83). [1] The major channel in   his case is elas  ic 125 1451
-sca    ering, of  en labeled also as ''n-p'' sca    ering. Elas  ic      125 1451
-sca    ering serves as neu  ron cross sec  ion s  andard from 1 keV   o  125 1451
-20 MeV, wi  h cross sec  ions well de  ermined. Uncer  ain  ies for     125 1451
-elas  ic sca    ering rise from values well below 1%, reach maximum   125 1451
-a   abou   8 MeV,   hen gradually decrease wi  h increasing energy.    125 1451
-In addi  ion   o elas  ic sca    ering, covariances are supplied for    125 1451
-radia  ive cap  ure.                                                 125 1451
+Covariances were adopted from COMMARA-2.0 library in July 2011.    125 1451
+These covariances were obtained at LANL by full scale R-matrix     125 1451
+analysis of more than 5000 experimental data (chi-square/degree    125 1451
+of freedom of 0.83). [1] The major channel in this case is elastic 125 1451
+scattering, often labeled also as ''n-p'' scattering. Elastic      125 1451
+scattering serves as neutron cross section standard from 1 keV to  125 1451
+20 MeV, with cross sections well determined. Uncertainties for     125 1451
+elastic scattering rise from values well below 1%, reach maximum   125 1451
+at about 8 MeV, then gradually decrease with increasing energy.    125 1451
+In addition to elastic scattering, covariances are supplied for    125 1451
+radiative capture.                                                 125 1451
                                                                    125 1451
 REFERENCES                                                         125 1451
-[1] G. M. Hale, "Covariances from ligh  -elemen   R-ma  rix           125 1451
-analyses," Nuclear Da  a Shee  s, 109, 2812 (2008).                  125 1451
+[1] G. M. Hale, "Covariances from light-element R-matrix           125 1451
+analyses," Nuclear Data Sheets, 109, 2812 (2008).                  125 1451
  ****************************************************************  125 1451
                                 1        451        122          5 125 1451
                                 2        151          4          0 125 1451

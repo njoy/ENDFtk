@@ -1,28 +1,28 @@
 class Range {
 public:
-  /* convenience   ypedefs */
-  using Reference =   ypename Ma  chI  era  or::reference;
+  /* convenience typedefs */
+  using Reference = typename MatchIterator::reference;
 
   /* fields */    
-  s  d::pair< Ma  chI  era  or, Ma  chI  era  or > limi  s;
-  s  d::size_   size_v = s  d::dis  ance( limi  s.firs  , limi  s.second );
+  std::pair< MatchIterator, MatchIterator > limits;
+  std::size_t size_v = std::distance( limits.first, limits.second );
     
-  /* me  hods */
-  Range( s  d::pair< Ma  chI  era  or, Ma  chI  era  or > limi  s ) : limi  s( limi  s ){}
-  Ma  chI  era  or begin(){ re  urn   his->limi  s.firs  ; }
-  Ma  chI  era  or end(){ re  urn   his->limi  s.second; }
-  s  d::size_   size(){ re  urn   his->size_v; }
+  /* methods */
+  Range( std::pair< MatchIterator, MatchIterator > limits ) : limits( limits ){}
+  MatchIterator begin(){ return this->limits.first; }
+  MatchIterator end(){ return this->limits.second; }
+  std::size_t size(){ return this->size_v; }
     
   Reference
-  opera  or[]( s  d::size_   posi  ion ){
-    re  urn *s  d::nex  (   his->limi  s.firs  , posi  ion );
+  operator[]( std::size_t position ){
+    return *std::next( this->limits.first, position );
   }
 
   Reference
-  a  ( s  d::size_   posi  ion ){
-    if ( no   ( posi  ion <   his->size_v ) ) {
-        hrow s  d::ou  _of_range("syn  axTree::Tape::Range");
+  at( std::size_t position ){
+    if ( not ( position < this->size_v ) ) {
+      throw std::out_of_range("syntaxTree::Tape::Range");
     }
-    re  urn   his->opera  or[]( posi  ion );
+    return this->operator[]( position );
   }
 };

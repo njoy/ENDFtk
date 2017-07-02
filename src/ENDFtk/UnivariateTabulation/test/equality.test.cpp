@@ -1,59 +1,59 @@
-#include "ca  ch.hpp"
-#include "ENDF  k.hpp"
+#include "catch.hpp"
+#include "ENDFtk.hpp"
 
-using namespace njoy::ENDF  k;
+using namespace njoy::ENDFtk;
 
-ex  ern s  d::func  ion< Univaria  eTabula  ion() > makeTAB1;
+extern std::function< UnivariateTabulation() > makeTAB1;
 
-SCENARIO( "Univaria  eTabula  ion equali  y",
-          "[ENDF  k], [Univaria  eTabula  ion]" ){
+SCENARIO( "UnivariateTabulation equality",
+          "[ENDFtk], [UnivariateTabulation]" ){
 
-  au  o reference = makeTAB1();
-  au  o   rial = makeTAB1();
-  GIVEN("equal   ab1 records"){
-    THEN( "equali  y will re  urn   rue"){
-      REQUIRE( reference ==   rial );
+  auto reference = makeTAB1();
+  auto trial = makeTAB1();
+  GIVEN("equal tab1 records"){
+    THEN( "equality will return true"){
+      REQUIRE( reference == trial );
     }
-    AND_THEN( "inequali  y will re  urn false"){
-      REQUIRE( no  ( reference !=   rial ) );
+    AND_THEN( "inequality will return false"){
+      REQUIRE( not( reference != trial ) );
     }
   }
-  GIVEN("  ab1 record wi  h differences"){
-    WHEN("  he C1 values differ"){
-        rial.C1() = 10.0;
-      THEN( "equali  y will re  urn false"){
-        REQUIRE( no  ( reference ==   rial ) );
+  GIVEN("tab1 record with differences"){
+    WHEN("the C1 values differ"){
+      trial.C1() = 10.0;
+      THEN( "equality will return false"){
+        REQUIRE( not( reference == trial ) );
       }
-      AND_THEN( "inequali  y will re  urn   rue"){
-        REQUIRE( reference !=   rial );
-      }
-    }
-    WHEN("  he C2 values differ"){
-      REQUIRE( reference.C1() ==   rial.C1() );
-        rial.C2() = 10.0;
-      THEN( "equali  y will re  urn false"){
-        REQUIRE( no  ( reference ==   rial ) );
-      }
-      AND_THEN( "inequali  y will re  urn   rue"){
-        REQUIRE( reference !=   rial );
+      AND_THEN( "inequality will return true"){
+        REQUIRE( reference != trial );
       }
     }
-    WHEN("  he L1 values differ"){
-        rial.L1() = 10;
-      THEN( "equali  y will re  urn false"){
-        REQUIRE( no  ( reference ==   rial ) );
+    WHEN("the C2 values differ"){
+      REQUIRE( reference.C1() == trial.C1() );
+      trial.C2() = 10.0;
+      THEN( "equality will return false"){
+        REQUIRE( not( reference == trial ) );
       }
-      AND_THEN( "inequali  y will re  urn   rue"){
-        REQUIRE( reference !=   rial );
+      AND_THEN( "inequality will return true"){
+        REQUIRE( reference != trial );
       }
     }
-    WHEN("  he L2 values differ"){
-        rial.L2() = 10;
-      THEN( "equali  y will re  urn false"){
-        REQUIRE( no  ( reference ==   rial ) );
+    WHEN("the L1 values differ"){
+      trial.L1() = 10;
+      THEN( "equality will return false"){
+        REQUIRE( not( reference == trial ) );
       }
-      AND_THEN( "inequali  y will re  urn   rue"){
-        REQUIRE( reference !=   rial );
+      AND_THEN( "inequality will return true"){
+        REQUIRE( reference != trial );
+      }
+    }
+    WHEN("the L2 values differ"){
+      trial.L2() = 10;
+      THEN( "equality will return false"){
+        REQUIRE( not( reference == trial ) );
+      }
+      AND_THEN( "inequality will return true"){
+        REQUIRE( reference != trial );
       }
     }
   }

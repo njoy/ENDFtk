@@ -1,13 +1,13 @@
-File( cons   HEAD& head, BufferI  era  or begin,
-      BufferI  era  or& posi  ion, cons   BufferI  era  or& end, long& lineNumber )
-  ry:
+File( const HEAD& head, BufferIterator begin,
+      BufferIterator& position, const BufferIterator& end, long& lineNumber )
+try:
   fileNo( head.MF() ),
-  sec  ionVec  or( crea  eVec  or( head, begin, posi  ion, end, lineNumber) ),
-  sec  ionMap( crea  eMap(   his->sec  ionVec  or ) ),
-  bufferLimi  s( { begin, posi  ion } ){}
-ca  ch( s  d::excep  ion& e ){
-  Log::info( "Trouble encoun  ered while cons  ruc  ing a file syn  ax   ree." );
+  sectionVector( createVector( head, begin, position, end, lineNumber) ),
+  sectionMap( createMap( this->sectionVector ) ),
+  bufferLimits( { begin, position } ){}
+catch( std::exception& e ){
+  Log::info( "Trouble encountered while constructing a file syntax tree." );
   Log::info( "File number (MF): {}", head.MF() );
-    hrow e;
+  throw e;
 }
 

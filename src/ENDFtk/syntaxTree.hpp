@@ -1,8 +1,8 @@
-namespace syn  axTree {
+namespace syntaxTree {
 
-#include "ENDF  k/syn  axTree/Sec  ion.hpp"
-#include "ENDF  k/syn  axTree/File.hpp"
-#include "ENDF  k/syn  axTree/Ma  erial.hpp"
-#include "ENDF  k/syn  axTree/Tape.hpp"
+#include "ENDFtk/syntaxTree/Section.hpp"
+#include "ENDFtk/syntaxTree/File.hpp"
+#include "ENDFtk/syntaxTree/Material.hpp"
+#include "ENDFtk/syntaxTree/Tape.hpp"
 
 }

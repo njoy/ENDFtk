@@ -1,19 +1,19 @@
-  empla  e<   ypename I  era  or >
-s  a  ic Base
-readMe  ada  a
-( I  era  or& i  , cons   I  era  or& end, long& lineNumber, in   MAT, in   MF, in   MT ){
-    ry{
-    Base me  ada  a( i  , end );
-    verifyTail( i  , end, lineNumber, MAT, MF, MT );
-    if ( s  d::ge  <4>( me  ada  a.fields ) < 0 ){
-      Log::error( "Illegal NPL value encoun  ered" );
-      Log::info( "NPL mus   be grea  er   han or equal   o 0" );
-      Log::info( "NPL value: ", s  d::ge  <4>( me  ada  a.fields ) );
-        hrow s  d::run  ime_error( "Lis   Record NPL value" );
+template< typename Iterator >
+static Base
+readMetadata
+( Iterator& it, const Iterator& end, long& lineNumber, int MAT, int MF, int MT ){
+  try{
+    Base metadata( it, end );
+    verifyTail( it, end, lineNumber, MAT, MF, MT );
+    if ( std::get<4>( metadata.fields ) < 0 ){
+      Log::error( "Illegal NPL value encountered" );
+      Log::info( "NPL must be greater than or equal to 0" );
+      Log::info( "NPL value: ", std::get<4>( metadata.fields ) );
+      throw std::runtime_error( "List Record NPL value" );
     }
-    re  urn me  ada  a;
-  } ca  ch ( s  d::excep  ion& e ){
-    Log::info( "Error while reading me  ada  a" );
-      hrow e;
+    return metadata;
+  } catch ( std::exception& e ){
+    Log::info( "Error while reading metadata" );
+    throw e;
   }
 }

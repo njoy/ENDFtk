@@ -1,81 +1,81 @@
 #define CATCH_CONFIG_MAIN
 
-#include "ca  ch.hpp"
-#include "ENDF  k.hpp"
+#include "catch.hpp"
+#include "ENDFtk.hpp"
 
-cons  expr in   ma   = 125;
-cons  expr in   mf = 4;
-cons  expr in   m   = 2;
+constexpr int mat = 125;
+constexpr int mf = 4;
+constexpr int mt = 2;
 
-using namespace njoy::ENDF  k::record;
+using namespace njoy::ENDFtk::record;
 
-SCENARIO( "Checking   he values of MAT, MF, and MT" ){
-  GIVEN( "A s  ring con  aining   he MAT, MF, and MT of a Record" ){
-    WHEN("Cons  ruc  ed from values"){
-      au  o myTail = s  d::make_unique< Tail >( ma  , mf, m   );
-      THEN( "  he correc   values are read in" ){
-        REQUIRE( ma   == myTail->ma  erial() );
+SCENARIO( "Checking the values of MAT, MF, and MT" ){
+  GIVEN( "A string containing the MAT, MF, and MT of a Record" ){
+    WHEN("Constructed from values"){
+      auto myTail = std::make_unique< Tail >( mat, mf, mt );
+      THEN( "the correct values are read in" ){
+        REQUIRE( mat == myTail->material() );
         REQUIRE(  mf == myTail->file()  );
-        REQUIRE(  m   == myTail->sec  ion()  );
+        REQUIRE(  mt == myTail->section()  );
       }
     }
-    au  o lineNumber = 0l;
-    WHEN("Cons  ruc  ed from a s  ring"){
-      s  d::s  ring   ail(" 125 4  2    1\n");
-      au  o i   =   ail.begin();
-      au  o end =   ail.end();
-      au  o myTail = s  d::make_unique< Tail >( i  , end, lineNumber );
-      THEN( "  he correc   values are read in" ){
-        REQUIRE( ma   == myTail->ma  erial() );
+    auto lineNumber = 0l;
+    WHEN("Constructed from a string"){
+      std::string tail(" 125 4  2    1\n");
+      auto it = tail.begin();
+      auto end = tail.end();
+      auto myTail = std::make_unique< Tail >( it, end, lineNumber );
+      THEN( "the correct values are read in" ){
+        REQUIRE( mat == myTail->material() );
         REQUIRE(  mf == myTail->file()  );
-        REQUIRE(  m   == myTail->sec  ion()  );
+        REQUIRE(  mt == myTail->section()  );
       }
     }
-    WHEN("Cons  ruc  ed from a s  ring wi  hou   gaps"){
-      s  d::s  ring   ail("01254422254321\n");
-      au  o i   =   ail.begin();
-      au  o end =   ail.end();
-      au  o myTail = s  d::make_unique< Tail >( i  , end, lineNumber );
-      THEN( "  he correc   values are read in" ){
-        REQUIRE( 125 == myTail->ma  erial() );
+    WHEN("Constructed from a string without gaps"){
+      std::string tail("01254422254321\n");
+      auto it = tail.begin();
+      auto end = tail.end();
+      auto myTail = std::make_unique< Tail >( it, end, lineNumber );
+      THEN( "the correct values are read in" ){
+        REQUIRE( 125 == myTail->material() );
         REQUIRE(  44 == myTail->file()  );
-        REQUIRE( 222 == myTail->sec  ion()  );
+        REQUIRE( 222 == myTail->section()  );
       }
     }
-    WHEN("Cons  ruc  ed from a s  ringwi  h incomple  e NS"){
-      s  d::s  ring   ail(" 125 4  2\n");
-      au  o i   =   ail.begin();
-      au  o end =   ail.end();
-      au  o myTail = s  d::make_unique< Tail >( i  , end, lineNumber );
-      THEN( "  he correc   values are read in" ){
-        REQUIRE( ma   == myTail->ma  erial() );
+    WHEN("Constructed from a stringwith incomplete NS"){
+      std::string tail(" 125 4  2\n");
+      auto it = tail.begin();
+      auto end = tail.end();
+      auto myTail = std::make_unique< Tail >( it, end, lineNumber );
+      THEN( "the correct values are read in" ){
+        REQUIRE( mat == myTail->material() );
         REQUIRE(  mf == myTail->file()  );
-        REQUIRE(  m   == myTail->sec  ion()  );
+        REQUIRE(  mt == myTail->section()  );
       }
     }
-    WHEN("Cons  ruc  ed from a s  ring wi  h invalid NS"){
-      s  d::s  ring   ail(" 125 4  2 a\n");
-      au  o i   =   ail.begin();
-      au  o end =   ail.end();
-      REQUIRE_THROWS( s  d::make_unique< Tail >( i  , end, lineNumber ) );
+    WHEN("Constructed from a string with invalid NS"){
+      std::string tail(" 125 4  2 a\n");
+      auto it = tail.begin();
+      auto end = tail.end();
+      REQUIRE_THROWS( std::make_unique< Tail >( it, end, lineNumber ) );
     }
-    WHEN("Cons  ruc  ed from a s  ring wi  h invalid MT"){
-      s  d::s  ring   ail(" 125 4 a2\n");
-      au  o i   =   ail.begin();
-      au  o end =   ail.end();
-      REQUIRE_THROWS( s  d::make_unique< Tail >( i  , end, lineNumber ) );
+    WHEN("Constructed from a string with invalid MT"){
+      std::string tail(" 125 4 a2\n");
+      auto it = tail.begin();
+      auto end = tail.end();
+      REQUIRE_THROWS( std::make_unique< Tail >( it, end, lineNumber ) );
     }
-    WHEN("Cons  ruc  ed from a s  ring wi  h invalid MF"){
-      s  d::s  ring   ail(" 125a4  2\n");
-      au  o i   =   ail.begin();
-      au  o end =   ail.end();
-      REQUIRE_THROWS( s  d::make_unique< Tail >( i  , end, lineNumber ) );
+    WHEN("Constructed from a string with invalid MF"){
+      std::string tail(" 125a4  2\n");
+      auto it = tail.begin();
+      auto end = tail.end();
+      REQUIRE_THROWS( std::make_unique< Tail >( it, end, lineNumber ) );
     }
-    WHEN("Cons  ruc  ed from a s  ring wi  h invalid MAT"){
-      s  d::s  ring   ail(" 1a5 4  2\n");
-      au  o i   =   ail.begin();
-      au  o end =   ail.end();
-      REQUIRE_THROWS( s  d::make_unique< Tail >( i  , end, lineNumber ) );
+    WHEN("Constructed from a string with invalid MAT"){
+      std::string tail(" 1a5 4  2\n");
+      auto it = tail.begin();
+      auto end = tail.end();
+      REQUIRE_THROWS( std::make_unique< Tail >( it, end, lineNumber ) );
     }
   }
 } // SCENARIO

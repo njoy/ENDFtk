@@ -1,24 +1,24 @@
-#include "ca  ch.hpp"
-#include "ENDF  k.hpp"
+#include "catch.hpp"
+#include "ENDFtk.hpp"
 
-using namespace njoy::ENDF  k;
+using namespace njoy::ENDFtk;
 
-ex  ern s  d::func  ion< Univaria  eTabula  ion() > makeTAB1;
+extern std::function< UnivariateTabulation() > makeTAB1;
 
-SCENARIO( "Univaria  eTabula  ion rangeBoundaries",
-          "[ENDF  k], [Univaria  eTabula  ion]" ){
-  au  o   ab1 = makeTAB1();
-  s  d::vec  or< s  d::vec  or< double > > xValues { { 1.0, 2.0, 3.0, 4.0 },
+SCENARIO( "UnivariateTabulation rangeBoundaries",
+          "[ENDFtk], [UnivariateTabulation]" ){
+  auto tab1 = makeTAB1();
+  std::vector< std::vector< double > > xValues { { 1.0, 2.0, 3.0, 4.0 },
                                                  { 4.0, 5.0 },
                                                  { 5.0, 6.0 } };
 
-  au  o regions =   ab1.regions();
-  for ( size_   index = 0; index < size_  (  ab1.NR()); ++index ){
-    cons   au  o& reference = xValues[index];
-    au  o   rial = regions[index].firs  ;
-    ranges::equal(   rial, reference );
+  auto regions = tab1.regions();
+  for ( size_t index = 0; index < size_t(tab1.NR()); ++index ){
+    const auto& reference = xValues[index];
+    auto trial = regions[index].first;
+    ranges::equal( trial, reference );
   }
 
-  //REQUIRE_THROWS( ranges::a  (   ab1.boundaries(), -1 ) );
-  REQUIRE_THROWS( ranges::a  (   ab1.boundaries(),   ab1.NR() ) );
+  //REQUIRE_THROWS( ranges::at( tab1.boundaries(), -1 ) );
+  REQUIRE_THROWS( ranges::at( tab1.boundaries(), tab1.NR() ) );
 }

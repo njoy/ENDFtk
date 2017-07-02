@@ -1,94 +1,94 @@
-  empla  e<   ypename... Fields >
-s  ruc   Base {
-  /* verify invarian  s */
-  s  a  ic_asser  ( sizeof...(Fields) > 0,
-		 "A record mus   con  ain a   leas   1 field" );
+template< typename... Fields >
+struct Base {
+  /* verify invariants */
+  static_assert( sizeof...(Fields) > 0,
+		 "A record must contain at least 1 field" );
 
-  s  a  ic_asser  
-  ( helper::sum< Fields::wid  h... >() == 66,
-    "The field wid  hs do no   sum   o 66 as required by   he ENDF forma  " );
+  static_assert
+  ( helper::sum< Fields::width... >() == 66,
+    "The field widths do not sum to 66 as required by the ENDF format" );
   
-  /* convenience   ypedefs */
-  using FieldTuple = s  d::  uple<   ypename Fields::Type... >;
-  using Forma   = disco::Record<   ypename Fields::Parser...,
-				disco::Re  ainCarriage >;
+  /* convenience typedefs */
+  using FieldTuple = std::tuple< typename Fields::Type... >;
+  using Format = disco::Record< typename Fields::Parser...,
+				disco::RetainCarriage >;
   
-    empla  e< in   Index >
+  template< int Index >
   using ShouldRecurse =
-    s  d::condi  ional_  < (Index != 0), s  d::  rue_  ype, s  d::false_  ype >;
+    std::conditional_t< (Index != 0), std::true_type, std::false_type >;
 
-    empla  e<   ypename T >
-  using Argumen  Type =
-    s  d::condi  ional_  < s  d::is_  rivially_copyable< T >::value,
-                        T, s  d::add_rvalue_reference_  < T > >;
+  template< typename T >
+  using ArgumentType =
+    std::conditional_t< std::is_trivially_copyable< T >::value,
+                        T, std::add_rvalue_reference_t< T > >;
   
-    empla  e< s  d::size_   index >
-  using Elemen  Type = s  d::  uple_elemen  _  < index, FieldTuple >;
+  template< std::size_t index >
+  using ElementType = std::tuple_element_t< index, FieldTuple >;
 
-    empla  e< s  d::size_   index >
-  using Mu  ableRe  urnType = s  d::add_lvalue_reference_  < Elemen  Type< index > >;
+  template< std::size_t index >
+  using MutableReturnType = std::add_lvalue_reference_t< ElementType< index > >;
 
-    empla  e< s  d::size_   index >
-  using Immu  ableRe  urnType =
-    s  d::condi  ional_  
-    < s  d::is_  rivially_copyable< Elemen  Type< index > >::value,
-      Elemen  Type< index >,
-      s  d::add_lvalue_reference_  < s  d::add_cons  _  < Elemen  Type< index > > > >;
+  template< std::size_t index >
+  using ImmutableReturnType =
+    std::conditional_t
+    < std::is_trivially_copyable< ElementType< index > >::value,
+      ElementType< index >,
+      std::add_lvalue_reference_t< std::add_const_t< ElementType< index > > > >;
 
-  /* cons  an  s */
-  s  a  ic cons  expr s  d::size_   nFields = sizeof...(Fields);
+  /* constants */
+  static constexpr std::size_t nFields = sizeof...(Fields);
   
   /* fields */
   FieldTuple fields;
 
-  /* helper me  hods */
-    empla  e< in  , in  ... Indices,   ypename I  era  or >
-  s  a  ic FieldTuple
-  readFields( I  era  or& i  , cons   I  era  or& end, s  d::false_  ype ){
-    FieldTuple resul  ;
-    Forma  ::read( i  , end, s  d::ge  < Indices >( resul   )... );
-    re  urn resul  ;
+  /* helper methods */
+  template< int, int... Indices, typename Iterator >
+  static FieldTuple
+  readFields( Iterator& it, const Iterator& end, std::false_type ){
+    FieldTuple result;
+    Format::read( it, end, std::get< Indices >( result )... );
+    return result;
   }
 
-    empla  e< in   Index, in  ... Indices,   ypename I  era  or >
-  s  a  ic FieldTuple
-  readFields( I  era  or& i  , cons   I  era  or& end, s  d::  rue_  ype ){
-    re  urn readFields< Index - 1, Index, Indices... >
-           ( i  , end, ShouldRecurse< Index >() );
+  template< int Index, int... Indices, typename Iterator >
+  static FieldTuple
+  readFields( Iterator& it, const Iterator& end, std::true_type ){
+    return readFields< Index - 1, Index, Indices... >
+           ( it, end, ShouldRecurse< Index >() );
   }
 
-  /* c  or */
-    empla  e<   ypename I  era  or >
-  Base( I  era  or& i  , cons   I  era  or& end ) :
-    fields( readFields< nFields - 1 >( i  , end, s  d::  rue_  ype() ) ){}
+  /* ctor */
+  template< typename Iterator >
+  Base( Iterator& it, const Iterator& end ) :
+    fields( readFields< nFields - 1 >( it, end, std::true_type() ) ){}
 
-  Base( Argumen  Type<   ypename Fields::Type > ...   ypes ) :
-    fields( s  d::make_  uple<   ypename Fields::Type... >
-            ( s  d::forward
-              < Argumen  Type<   ypename Fields::Type > >(   ypes )... ) ){}
+  Base( ArgumentType< typename Fields::Type > ... types ) :
+    fields( std::make_tuple< typename Fields::Type... >
+            ( std::forward
+              < ArgumentType< typename Fields::Type > >( types )... ) ){}
 
-  /* helper me  hods */
-    empla  e< in   Index = nFields >
+  /* helper methods */
+  template< int Index = nFields >
   bool
-  equali  y( cons   Base&, s  d::false_  ype ){ re  urn   rue; }
+  equality( const Base&, std::false_type ){ return true; }
   
-    empla  e< in   Index = nFields >
+  template< int Index = nFields >
   bool
-  equali  y( cons   Base& rhs, s  d::  rue_  ype ){
-    cons  expr au  o index = nFields - Index;
-    re  urn
-      ( s  d::ge  < index >( rhs.fields ) == s  d::ge  < index >(   his->fields ) )
-      &&   his->equali  y< Index - 1 >( rhs, ShouldRecurse< Index - 1 >() );
+  equality( const Base& rhs, std::true_type ){
+    constexpr auto index = nFields - Index;
+    return
+      ( std::get< index >( rhs.fields ) == std::get< index >( this->fields ) )
+      && this->equality< Index - 1 >( rhs, ShouldRecurse< Index - 1 >() );
   }
 
-  /* me  hods */
+  /* methods */
   bool
-  opera  or==( cons   Base& rhs ){
-    re  urn   his->equali  y( rhs, s  d::  rue_  ype() );
+  operator==( const Base& rhs ){
+    return this->equality( rhs, std::true_type() );
   }
 
   bool
-  opera  or!=( cons   Base& rhs ){
-    re  urn no   ( *  his == rhs );
+  operator!=( const Base& rhs ){
+    return not ( *this == rhs );
   }
 };

@@ -1,3 +1,3 @@
-s  ruc   Sequence {
-#include "ENDF  k/record/Sequence/src/read.hpp"
+struct Sequence {
+#include "ENDFtk/record/Sequence/src/read.hpp"
 };

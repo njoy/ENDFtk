@@ -1,23 +1,23 @@
-  empla  e<   ypename Zip, s  d::size_   index,
-            ypename Pack,   ypename I  era  orTuple,
-          s  d::size_  ... i  era  orIndices,   ypename... References >
-s  a  ic void
+template< typename Zip, std::size_t index,
+          typename Pack, typename IteratorTuple,
+          std::size_t... iteratorIndices, typename... References >
+static void
 expandReferencePack
-( Pack& pack, I  era  orTuple&, s  d::false_  ype,
-  s  d::index_sequence< i  era  orIndices... >, References&... references ){
+( Pack& pack, IteratorTuple&, std::false_type,
+  std::index_sequence< iteratorIndices... >, References&... references ){
   process< Zip >( pack, references... );
 }
 
-  empla  e<   ypename Zip, s  d::size_   index = 0,
-            ypename Pack,   ypename I  era  orTuple,
-          s  d::size_  ... i  era  orIndices,   ypename... References >
-s  a  ic void
+template< typename Zip, std::size_t index = 0,
+          typename Pack, typename IteratorTuple,
+          std::size_t... iteratorIndices, typename... References >
+static void
 expandReferencePack
-( Pack& pack, I  era  orTuple& i  era  orTuple, s  d::  rue_  ype,
-  s  d::index_sequence< i  era  orIndices... >, References&... references ){
+( Pack& pack, IteratorTuple& iteratorTuple, std::true_type,
+  std::index_sequence< iteratorIndices... >, References&... references ){
   expandReferencePack< Zip, index + 1 >
-    ( pack, i  era  orTuple,
-      shouldCon  inueToRecurse< Zip::  uplesPerRecord - index - 1 >(),
-      Zip::  upleIndices, references... ,
-      s  d::ge  < i  era  orIndices >( i  era  orTuple )[index]... );
+    ( pack, iteratorTuple,
+      shouldContinueToRecurse< Zip::tuplesPerRecord - index - 1 >(),
+      Zip::tupleIndices, references... ,
+      std::get< iteratorIndices >( iteratorTuple )[index]... );
 }

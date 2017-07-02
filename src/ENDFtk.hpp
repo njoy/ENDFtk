@@ -1,57 +1,57 @@
 #ifndef ENDFTK_HPP
 #define ENDFTK_HPP
 
-#include <func  ional>
+#include <functional>
 #include <unordered_map>
 
 #include "range/v3/all.hpp"
 
 #include "disco.hpp"
 #include "Log.hpp"
-#include "header-u  ili  ies.hpp"
+#include "header-utilities.hpp"
 
 namespace njoy {
-namespace ENDF  k {
+namespace ENDFtk {
 
-  empla  e<   ypename T >
-using Mu  ableRe  urnType = s  d::add_lvalue_reference_  < T >;
+template< typename T >
+using MutableReturnType = std::add_lvalue_reference_t< T >;
 
-  empla  e<   ypename T >
-using Immu  ableRe  urnType =
-  s  d::condi  ional_  
-  < s  d::is_  rivially_copyable< T >::value,
-    T, s  d::add_lvalue_reference_  < s  d::add_cons  _  < T > > >;
+template< typename T >
+using ImmutableReturnType =
+  std::conditional_t
+  < std::is_trivially_copyable< T >::value,
+    T, std::add_lvalue_reference_t< std::add_const_t< T > > >;
 
-#include "ENDF  k/record.hpp"
+#include "ENDFtk/record.hpp"
 
-#include "ENDF  k/TapeIden  ifica  ion.hpp"
-using TPID = TapeIden  ifica  ion;
+#include "ENDFtk/TapeIdentification.hpp"
+using TPID = TapeIdentification;
 
-#include "ENDF  k/S  ruc  ureDivision.hpp"
+#include "ENDFtk/StructureDivision.hpp"
 
-#include "ENDF  k/HeadRecord.hpp"
+#include "ENDFtk/HeadRecord.hpp"
 using HEAD = HeadRecord;
 
-#include "ENDF  k/Tex  Record.hpp"
-using TEXT = Tex  Record;
+#include "ENDFtk/TextRecord.hpp"
+using TEXT = TextRecord;
 
-#include "ENDF  k/Con  rolRecord.hpp"
-using CONT = Con  rolRecord;
+#include "ENDFtk/ControlRecord.hpp"
+using CONT = ControlRecord;
 
-#include "ENDF  k/Direc  oryRecord.hpp"
-using DIR = Direc  oryRecord;
+#include "ENDFtk/DirectoryRecord.hpp"
+using DIR = DirectoryRecord;
 
-#include "ENDF  k/Lis  Record.hpp"
-using LIST = Lis  Record;
+#include "ENDFtk/ListRecord.hpp"
+using LIST = ListRecord;
 
-#include "ENDF  k/Univaria  eTabula  ion.hpp"
-using TAB1 = Univaria  eTabula  ion;
+#include "ENDFtk/UnivariateTabulation.hpp"
+using TAB1 = UnivariateTabulation;
 
-#include "ENDF  k/sec  ion.hpp"
+#include "ENDFtk/section.hpp"
 
-#include "ENDF  k/file.hpp"
+#include "ENDFtk/file.hpp"
 
-#include "ENDF  k/syn  axTree.hpp"
+#include "ENDFtk/syntaxTree.hpp"
 
 }
 }

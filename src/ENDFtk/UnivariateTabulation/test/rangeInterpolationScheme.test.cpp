@@ -1,20 +1,20 @@
-#include "ca  ch.hpp"
-#include "ENDF  k.hpp"
+#include "catch.hpp"
+#include "ENDFtk.hpp"
 
-using namespace njoy::ENDF  k;
+using namespace njoy::ENDFtk;
 
-ex  ern s  d::func  ion< Univaria  eTabula  ion() > makeTAB1;
+extern std::function< UnivariateTabulation() > makeTAB1;
 
-SCENARIO( "Univaria  eTabula  ion rangeIn  erpola  ionScheme",
-          "[ENDF  k], [Univaria  eTabula  ion]" ){
-  au  o   ab1 = makeTAB1();
-  s  d::vec  or< long > in  erpola  ionScheme{1,2,3};
+SCENARIO( "UnivariateTabulation rangeInterpolationScheme",
+          "[ENDFtk], [UnivariateTabulation]" ){
+  auto tab1 = makeTAB1();
+  std::vector< long > interpolationScheme{1,2,3};
   
-  for ( long index = 0; index <   ab1.NR(); ++index ){
-    REQUIRE( in  erpola  ionScheme[ index ] ==   ab1.in  erpolan  s()[ index ] );
+  for ( long index = 0; index < tab1.NR(); ++index ){
+    REQUIRE( interpolationScheme[ index ] == tab1.interpolants()[ index ] );
   }
 
-  // REQUIRE_THROWS( ranges::a  (   ab1.in  erpolan  s(), -1 ) );
-  REQUIRE_THROWS( ranges::a  (   ab1.in  erpolan  s(),   ab1.NR() ) );
+  // REQUIRE_THROWS( ranges::at( tab1.interpolants(), -1 ) );
+  REQUIRE_THROWS( ranges::at( tab1.interpolants(), tab1.NR() ) );
 
 }

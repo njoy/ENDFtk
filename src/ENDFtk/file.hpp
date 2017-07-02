@@ -1,17 +1,17 @@
 namespace file{
 
-  empla  e< in   MF >
+template< int MF >
 class Type {
 public:
-  /* convenience   ypedefs */
-  using Sec  ion = sec  ion::Type< MF >;
+  /* convenience typedefs */
+  using Section = section::Type< MF >;
 
   /* fields */
-  s  d::vec  or< Sec  ion > sec  ionVec  or;
-  s  d::unordered_map< in  , Sec  ion& > sec  ionMap;
+  std::vector< Section > sectionVector;
+  std::unordered_map< int, Section& > sectionMap;
 
-  /* me  hods */
-#include "ENDF  k/file/Type/src/c  or.hpp"
+  /* methods */
+#include "ENDFtk/file/Type/src/ctor.hpp"
 };
 
 }

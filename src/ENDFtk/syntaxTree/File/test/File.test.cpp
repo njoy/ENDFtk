@@ -1,119 +1,119 @@
 #define CATCH_CONFIG_MAIN
 
-#include "ca  ch.hpp"
-#include "ENDF  k.hpp"
+#include "catch.hpp"
+#include "ENDFtk.hpp"
 
-s  d::s  ring baseFile();
-s  d::s  ring validFEND();
-s  d::s  ring invalidFEND();
+std::string baseFile();
+std::string validFEND();
+std::string invalidFEND();
 
-using namespace njoy::ENDF  k;
+using namespace njoy::ENDFtk;
 
-SCENARIO( "Crea  ing a syn  ax   ree of an ENDF File" ){
-  GIVEN( "a s  ring represen  a  ion of a File" ){
-    WHEN( "a valid FEND record ends   he File" ){
-      s  d::s  ring fileS  ring = baseFile() + validFEND(); 
+SCENARIO( "Creating a syntax tree of an ENDF File" ){
+  GIVEN( "a string representation of a File" ){
+    WHEN( "a valid FEND record ends the File" ){
+      std::string fileString = baseFile() + validFEND(); 
       
-      au  o begin = fileS  ring.begin();
-      au  o s  ar   = fileS  ring.begin();
-      au  o end = fileS  ring.end();
+      auto begin = fileString.begin();
+      auto start = fileString.begin();
+      auto end = fileString.end();
       long lineNumber = 0;
       
       HeadRecord head( begin, end, lineNumber);
       
-      syn  axTree::File< s  d::s  ring::i  era  or >
-        fileTree( head, s  ar  , begin, end, lineNumber );
+      syntaxTree::File< std::string::iterator >
+        fileTree( head, start, begin, end, lineNumber );
       
-      THEN( "  he en  ire s  ream is read" ){
+      THEN( "the entire stream is read" ){
         REQUIRE( 109 == lineNumber );
       }
       
-      AND_THEN( "  he buffer i  era  ors are popula  ed correc  ly "){
-        REQUIRE( fileS  ring.begin() == fileTree.bufferBegin() );
-        REQUIRE( fileS  ring.end() == fileTree.bufferEnd() );
+      AND_THEN( "the buffer iterators are populated correctly "){
+        REQUIRE( fileString.begin() == fileTree.bufferBegin() );
+        REQUIRE( fileString.end() == fileTree.bufferEnd() );
       }
       
-      AND_THEN( "  he file number or MF is popula  ed correc  ly" ){
+      AND_THEN( "the file number or MF is populated correctly" ){
         REQUIRE(   3 == fileTree.MF() );
         REQUIRE(   3 == fileTree.fileNumber() );
       }
 
-      AND_THEN( "  he correc   number of sec  ions are read from   he file" ){
+      AND_THEN( "the correct number of sections are read from the file" ){
         REQUIRE(   3 == fileTree.size() );
       }
         
-      AND_THEN( "we can access   he sec  ion syn  ax   rees of   he file syn  ax   ree" ){
-        s  d::vec  or< in   > sec  ionNumbers{ 1, 2, 102 };
-        for ( au  o sec  ionNo : sec  ionNumbers ){
-          REQUIRE( fileTree.hasMT( sec  ionNo ) );
-          REQUIRE( sec  ionNo == fileTree.MT( sec  ionNo ).MT() );
-          REQUIRE( fileTree.hasSec  ionNumber( sec  ionNo ) );
-          REQUIRE( sec  ionNo == fileTree.sec  ionNumber( sec  ionNo ).MT() );
+      AND_THEN( "we can access the section syntax trees of the file syntax tree" ){
+        std::vector< int > sectionNumbers{ 1, 2, 102 };
+        for ( auto sectionNo : sectionNumbers ){
+          REQUIRE( fileTree.hasMT( sectionNo ) );
+          REQUIRE( sectionNo == fileTree.MT( sectionNo ).MT() );
+          REQUIRE( fileTree.hasSectionNumber( sectionNo ) );
+          REQUIRE( sectionNo == fileTree.sectionNumber( sectionNo ).MT() );
         }
-        au  o sec  ionI  er = sec  ionNumbers.begin();
-        for ( au  o& sec  ion : fileTree ){
-          REQUIRE( *sec  ionI  er == sec  ion.MT() );
-          ++sec  ionI  er;
+        auto sectionIter = sectionNumbers.begin();
+        for ( auto& section : fileTree ){
+          REQUIRE( *sectionIter == section.MT() );
+          ++sectionIter;
         }
       }
       
-      AND_THEN( "an excep  ion is   hrown if   he reques  ed MTs are invalid."){
-        REQUIRE( no   fileTree.hasMT( 3 ) );
+      AND_THEN( "an exception is thrown if the requested MTs are invalid."){
+        REQUIRE( not fileTree.hasMT( 3 ) );
         REQUIRE_THROWS( fileTree.MT( 3 ) );
-        REQUIRE( no   fileTree.hasSec  ionNumber( 3 ) );
-        REQUIRE_THROWS( fileTree.sec  ionNumber( 3 ) );
+        REQUIRE( not fileTree.hasSectionNumber( 3 ) );
+        REQUIRE_THROWS( fileTree.sectionNumber( 3 ) );
       }
     }
   }
     
-  WHEN( "an invalid (MF !=0) FEND record ends   he File" ){
-    s  d::s  ring fileS  ring = baseFile() + invalidFEND(); 
-    THEN( "an excep  ion is   hrown" ){
-      au  o begin = fileS  ring.begin();
-      au  o s  ar   = fileS  ring.begin();
-      au  o end = fileS  ring.end();
+  WHEN( "an invalid (MF !=0) FEND record ends the File" ){
+    std::string fileString = baseFile() + invalidFEND(); 
+    THEN( "an exception is thrown" ){
+      auto begin = fileString.begin();
+      auto start = fileString.begin();
+      auto end = fileString.end();
       long lineNumber = 0;
 
       HeadRecord head( begin, end, lineNumber );
       REQUIRE_THROWS
-        ( syn  axTree::File< s  d::s  ring::i  era  or >
-          ( head, s  ar  , begin, end, lineNumber ) );
+        ( syntaxTree::File< std::string::iterator >
+          ( head, start, begin, end, lineNumber ) );
     }
   }
     
-  WHEN( "a File is   oo shor   (no FEND record)" ){
-    s  d::s  ring fileS  ring = baseFile(); 
-    au  o begin = fileS  ring.begin();
-    au  o s  ar   = fileS  ring.begin();
-    au  o end = fileS  ring.end();
+  WHEN( "a File is too short (no FEND record)" ){
+    std::string fileString = baseFile(); 
+    auto begin = fileString.begin();
+    auto start = fileString.begin();
+    auto end = fileString.end();
     long lineNumber = 0;
       
-    THEN( "an excep  ion is   hrown" ){
+    THEN( "an exception is thrown" ){
       HeadRecord head( begin, end, lineNumber );
       REQUIRE_THROWS
-        ( syn  axTree::File< s  d::s  ring::i  era  or >
-          ( head, s  ar  , begin, end, lineNumber ) );
+        ( syntaxTree::File< std::string::iterator >
+          ( head, start, begin, end, lineNumber ) );
     }
   }
 
-  WHEN( "a File has more   han one Sec  ion wi  h   he same number" ){
-    s  d::s  ring fileS  ring = baseFile() + baseFile() + validFEND();
-    au  o begin = fileS  ring.begin();
-    au  o s  ar   = fileS  ring.begin();
-    au  o end = fileS  ring.end();
+  WHEN( "a File has more than one Section with the same number" ){
+    std::string fileString = baseFile() + baseFile() + validFEND();
+    auto begin = fileString.begin();
+    auto start = fileString.begin();
+    auto end = fileString.end();
     long lineNumber = 0;
     
-    THEN( "an excep  ion is   hrown" ){
+    THEN( "an exception is thrown" ){
       HeadRecord head( begin, end, lineNumber );
       REQUIRE_THROWS
-        ( syn  axTree::File< s  d::s  ring::i  era  or >
-          ( head, s  ar  , begin, end, lineNumber ) );
+        ( syntaxTree::File< std::string::iterator >
+          ( head, start, begin, end, lineNumber ) );
     }
   }
 } 
 
-s  d::s  ring baseFile(){
-      re  urn 
+std::string baseFile(){
+      return 
       " 1.001000+3 9.991673-1          0          0          0          0 125 3  1\n"
       " 0.000000+0 0.000000+0          0          0          2         96 125 3  1\n"
       "         30          5         96          2                       125 3  1\n"
@@ -224,10 +224,10 @@ s  d::s  ring baseFile(){
       "                                                                   125 3  0\n";
 }
 
-s  d::s  ring validFEND(){
-  re  urn "                                                                   125 0  0\n";
+std::string validFEND(){
+  return "                                                                   125 0  0\n";
 }
 
-s  d::s  ring invalidFEND(){
-  re  urn "                                                                   125 3  0\n";  
+std::string invalidFEND(){
+  return "                                                                   125 3  0\n";  
 }

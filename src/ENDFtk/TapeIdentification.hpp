@@ -1,33 +1,33 @@
-class TapeIden  ifica  ion {
+class TapeIdentification {
 public:
 
   /* fields */
-  record::Base< record::Charac  er< 66 > > base;
-  record::TailVerifying< record::MT, record::MF >   ail;
+  record::Base< record::Character< 66 > > base;
+  record::TailVerifying< record::MT, record::MF > tail;
 
-  /* c  or */
-  TapeIden  ifica  ion( s  d::s  ring&&   ex  , in     apeNumber ) :
-    base( s  d::move(  ex  ) ),   ail(   apeNumber, 0, 0 ){}
+  /* ctor */
+  TapeIdentification( std::string&& text, int tapeNumber ) :
+    base( std::move(text) ), tail( tapeNumber, 0, 0 ){}
 
-    empla  e<   ypename I  era  or >
-  TapeIden  ifica  ion( I  era  or& i  , cons   I  era  or& end, long& lineNumber )
-      ry: base( i  , end ),   ail( 0, 0, i  , end, lineNumber ){
-    } ca  ch ( s  d::excep  ion& e ) {
-      /* TODO error informa  ion here */
-        hrow e;
-    } ca  ch ( in   fieldNo ){
+  template< typename Iterator >
+  TapeIdentification( Iterator& it, const Iterator& end, long& lineNumber )
+    try: base( it, end ), tail( 0, 0, it, end, lineNumber ){
+    } catch ( std::exception& e ) {
+      /* TODO error information here */
+      throw e;
+    } catch ( int fieldNo ){
       --lineNumber;
-      /* TODO error informa  ion here */
-        hrow s  d::excep  ion();
+      /* TODO error information here */
+      throw std::exception();
     }
   
-  /* me  hods */
-  s  d::s  ring&   ex  (){ re  urn s  d::ge  <0>( base.fields ); }
-  cons   s  d::s  ring&   ex  () cons   { re  urn s  d::ge  <0>( base.fields ); }
+  /* methods */
+  std::string& text(){ return std::get<0>( base.fields ); }
+  const std::string& text() const { return std::get<0>( base.fields ); }
 
-  in  &   apeNumber() { re  urn   his->  ail.ma  erial(); }
-  in     apeNumber() cons   { re  urn   his->  ail.ma  erial(); }
+  int& tapeNumber() { return this->tail.material(); }
+  int tapeNumber() const { return this->tail.material(); }
 
-  in  & NTAPE(){ re  urn   his->  apeNumber(); }
-  in   NTAPE() cons   { re  urn   his->  apeNumber(); }
+  int& NTAPE(){ return this->tapeNumber(); }
+  int NTAPE() const { return this->tapeNumber(); }
 };

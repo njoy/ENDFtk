@@ -1,18 +1,18 @@
-s  a  ic s  d::unordered_map< in  , Sec  ion_  & >
-crea  eMap( s  d::vec  or< Sec  ion_   >& vec  or ){
+static std::unordered_map< int, Section_t& >
+createMap( std::vector< Section_t >& vector ){
 
-  s  d::unordered_map< in  , Sec  ion_  & > map;
-  map.reserve( vec  or.size() );
+  std::unordered_map< int, Section_t& > map;
+  map.reserve( vector.size() );
 
-  for ( au  o& sec  ion : vec  or ){
-    if ( map.coun  ( sec  ion.MT() ) ){
-      Log::error( "Sec  ions specified wi  h redundan   sec  ion numbers (MT)" );
+  for ( auto& section : vector ){
+    if ( map.count( section.MT() ) ){
+      Log::error( "Sections specified with redundant section numbers (MT)" );
       Log::info
-	( "Wi  hin an ENDF File, sec  ions are required   o specify a unique MT" );
-      Log::info( "Encoun  ered redundan   MT: {}", sec  ion.MT() );
-        hrow s  d::excep  ion();
+	( "Within an ENDF File, sections are required to specify a unique MT" );
+      Log::info( "Encountered redundant MT: {}", section.MT() );
+      throw std::exception();
     }
-    map.inser  ( { sec  ion.MT(), sec  ion } );
+    map.insert( { section.MT(), section } );
   }
-  re  urn map;  
+  return map;  
 }

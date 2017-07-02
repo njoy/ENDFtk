@@ -1,20 +1,20 @@
-#include "ca  ch.hpp"
-#include "ENDF  k.hpp"
+#include "catch.hpp"
+#include "ENDFtk.hpp"
 
-using namespace njoy::ENDF  k::record;
+using namespace njoy::ENDFtk::record;
 
-SCENARIO( "The Zipper makeI  era  orTuple func  ion ", "[ENDF  k], [Zipper]" ){
-  GIVEN("a   uple of vec  ors" ){
-    au  o vid = s  d::make_  uple( s  d::vec  or< in   >{0, 1, 2},
-                                s  d::vec  or< double >{0.0, 1.0, 2.0} );
-    WHEN("passed   o   he zipper's reserve func  ion"){
-      au  o   uple =
-        Zipper::makeI  era  orTuple
-        ( vid, s  d::make_index_sequence< 2 >() );
-      THEN( "  he values referenced by   he i  era  or will be correc  "){
-        for ( in   i = 0; i < 3; ++i ){
-          REQUIRE( s  d::ge  <0>(   uple )[i] == i );
-          REQUIRE( s  d::ge  <1>(   uple )[i] == double(i) );
+SCENARIO( "The Zipper makeIteratorTuple function ", "[ENDFtk], [Zipper]" ){
+  GIVEN("a tuple of vectors" ){
+    auto vid = std::make_tuple( std::vector< int >{0, 1, 2},
+                                std::vector< double >{0.0, 1.0, 2.0} );
+    WHEN("passed to the zipper's reserve function"){
+      auto tuple =
+        Zipper::makeIteratorTuple
+        ( vid, std::make_index_sequence< 2 >() );
+      THEN( "the values referenced by the iterator will be correct"){
+        for ( int i = 0; i < 3; ++i ){
+          REQUIRE( std::get<0>( tuple )[i] == i );
+          REQUIRE( std::get<1>( tuple )[i] == double(i) );
         }
       }
     }

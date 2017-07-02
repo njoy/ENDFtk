@@ -1,36 +1,36 @@
-  empla  e<>
-class Type< 3 > : pro  ec  ed Base {
+template<>
+class Type< 3 > : protected Base {
 public:
 
   /* fields */
-  Univaria  eTabula  ion   able;
+  UnivariateTabulation table;
 
-  /* me  hods */
-    empla  e<   ypename I  era  or >
+  /* methods */
+  template< typename Iterator >
   Type
-  ( HEAD& head, I  era  or& begin, cons   I  era  or& end, long& lineNumber, in   MAT )
-      ry: Base( head, MAT, 3 ),
-           able( begin, end, lineNumber, head.MAT(), 3, head.MT() ){ 
-      cons   au  o found = s  d::find_if(   his->  able.y().begin(),
-                                         his->  able.y().end(),
-                                       []( au  o y ) { re  urn y < 0.0; } );
-      if( found !=   his->  able.y().end() ){
-	Log::error( "Encoun  ered nega  ive cross sec  ion value" );
-	Log::info( "See sec  ion {} of file 3 of ma  erial {}", head.MT(), MAT );
-	Log::info( "TAB1 en  ry [{}]: {}",
-		   s  d::dis  ance(   his->  able.y().begin(), found ), *found );
-          hrow s  d::excep  ion();
+  ( HEAD& head, Iterator& begin, const Iterator& end, long& lineNumber, int MAT )
+    try: Base( head, MAT, 3 ),
+         table( begin, end, lineNumber, head.MAT(), 3, head.MT() ){ 
+      const auto found = std::find_if( this->table.y().begin(),
+                                       this->table.y().end(),
+                                       []( auto y ) { return y < 0.0; } );
+      if( found != this->table.y().end() ){
+	Log::error( "Encountered negative cross section value" );
+	Log::info( "See section {} of file 3 of material {}", head.MT(), MAT );
+	Log::info( "TAB1 entry [{}]: {}",
+		   std::distance( this->table.y().begin(), found ), *found );
+        throw std::exception();
       }
       readSEND(begin, end, lineNumber, MAT, 3 );
-    } ca  ch( s  d::excep  ion& e ){
+    } catch( std::exception& e ){
       Log::info
-	( "Encoun  ered error while reading sec  ion {} of file 3 of ma  erial {}",
+	( "Encountered error while reading section {} of file 3 of material {}",
 	  head.MT(), MAT );
-        hrow e;
+      throw e;
     }
     
   using Base::MT;
   using Base::ZA;
-  using Base::a  omicWeigh  Ra  io;
+  using Base::atomicWeightRatio;
 };
 

@@ -1,18 +1,18 @@
 
-add_execu  able( ENDF  k.syn  axTree.Ma  erial.  es   Ma  erial.  es  .cpp )
-  arge  _compile_op  ions( ENDF  k.syn  axTree.Ma  erial.  es   PRIVATE ${${PREFIX}_common_flags}
-$<$<BOOL:${s  ric  }>:${${PREFIX}_s  ric  _flags}>$<$<CONFIG:DEBUG>:
+add_executable( ENDFtk.syntaxTree.Material.test Material.test.cpp )
+target_compile_options( ENDFtk.syntaxTree.Material.test PRIVATE ${${PREFIX}_common_flags}
+$<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}
 $<$<BOOL:${coverage}>:${${PREFIX}_coverage_flags}>>
 $<$<CONFIG:RELEASE>:
 ${${PREFIX}_RELEASE_flags}
-$<$<BOOL:${link_  ime_op  imiza  ion}>:${${PREFIX}_link_  ime_op  imiza  ion_flags}>
-$<$<BOOL:${nonpor  able_op  imiza  ion}>:${${PREFIX}_nonpor  able_op  imiza  ion_flags}>>
+$<$<BOOL:${link_time_optimization}>:${${PREFIX}_link_time_optimization_flags}>
+$<$<BOOL:${nonportable_optimization}>:${${PREFIX}_nonportable_optimization_flags}>>
 
-${CXX_appended_flags} ${ENDF  k_appended_flags} )
-  arge  _link_libraries( ENDF  k.syn  axTree.Ma  erial.  es   PUBLIC ENDF  k ) 
+${CXX_appended_flags} ${ENDFtk_appended_flags} )
+target_link_libraries( ENDFtk.syntaxTree.Material.test PUBLIC ENDFtk ) 
 file( GLOB resources "resources/*" )
 foreach( resource ${resources})
     file( COPY "${resource}" DESTINATION "${CMAKE_CURRENT_BINARY_DIR}" )
 endforeach()
-add_  es  ( NAME ENDF  k.syn  axTree.Ma  erial COMMAND ENDF  k.syn  axTree.Ma  erial.  es   )
+add_test( NAME ENDFtk.syntaxTree.Material COMMAND ENDFtk.syntaxTree.Material.test )

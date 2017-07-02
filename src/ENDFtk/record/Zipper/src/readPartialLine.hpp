@@ -1,34 +1,34 @@
-  empla  e<   ypename Zip,   ypename Tuple,
-            ypename I  era  or, s  d::size_  ... indices >
-s  a  ic void
-readPar  ialLine
-( uin  64_   nEn  ries, Tuple& i  era  orTuple, I  era  or& i  , cons   I  era  or& end,
-  long& lineNumber, in   MAT, in   MF, in   MT,
-  s  d::index_sequence< indices... > ){
+template< typename Zip, typename Tuple,
+          typename Iterator, std::size_t... indices >
+static void
+readPartialLine
+( uint64_t nEntries, Tuple& iteratorTuple, Iterator& it, const Iterator& end,
+  long& lineNumber, int MAT, int MF, int MT,
+  std::index_sequence< indices... > ){
 
-//au  o incremen   = []( uin  64_   offse  , au  o& i  era  or ){ i  era  or+= offse  ; };
+//auto increment = []( uint64_t offset, auto& iterator ){ iterator+= offset; };
   
-  for ( uin  64_   offse   = 0; offse   < nEn  ries; ++offse   ){
-    Zip::TupleForma  ::read
-      ( i  , end, s  d::ge  < indices >( i  era  orTuple )[offse  ]... );
+  for ( uint64_t offset = 0; offset < nEntries; ++offset ){
+    Zip::TupleFormat::read
+      ( it, end, std::get< indices >( iteratorTuple )[offset]... );
   }
   
-  au  o remainingEn  ries = Zip::  uplesPerRecord - nEn  ries;    
-  s  d::  uple<   ypename Zip::   empla  e Type< indices >... > lef  overs;
+  auto remainingEntries = Zip::tuplesPerRecord - nEntries;    
+  std::tuple< typename Zip:: template Type< indices >... > leftovers;
 
-  while ( remainingEn  ries-- ){
-    Zip::TupleForma  ::read( i  , end, s  d::ge  < indices >( lef  overs )... );
-    if ( lef  overs != Zip::defaul  Tuple() ){
-      Log::error( "Encoun  ered non-defaul   value where none was expec  ed" );
-        hrow s  d::excep  ion();
+  while ( remainingEntries-- ){
+    Zip::TupleFormat::read( it, end, std::get< indices >( leftovers )... );
+    if ( leftovers != Zip::defaultTuple() ){
+      Log::error( "Encountered non-default value where none was expected" );
+      throw std::exception();
     }
   }
   
   using Gap = disco::Record
-              < disco::ColumnPosi  ion< Zip::nPad >, disco::Re  ainCarriage >;
+              < disco::ColumnPosition< Zip::nPad >, disco::RetainCarriage >;
 
-  Gap::read( i  , end );
+  Gap::read( it, end );
 
-  verifyTail( i  , end, lineNumber, MAT, MF, MT );
+  verifyTail( it, end, lineNumber, MAT, MF, MT );
 }
 

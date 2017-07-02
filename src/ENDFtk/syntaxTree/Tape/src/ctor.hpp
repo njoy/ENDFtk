@@ -1,10 +1,10 @@
-Tape( BufferI  era  or& begin, cons   BufferI  era  or& end, long lineNumber = 0 )
-  ry:
-  bufferLimi  s( { begin, end } ),
-    pid( begin, end, lineNumber ),
-  ma  erialVec  or( crea  eVec  or( begin, end, lineNumber ) ),
-  ma  erialMap( crea  eMap(   his->ma  erialVec  or ) ){}
-ca  ch ( s  d::excep  ion& e ){
-  Log::info( "Trouble encoun  ered while cons  ruc  ing a   ape syn  ax   ree." );
-    hrow e;
+Tape( BufferIterator& begin, const BufferIterator& end, long lineNumber = 0 )
+try:
+  bufferLimits( { begin, end } ),
+  tpid( begin, end, lineNumber ),
+  materialVector( createVector( begin, end, lineNumber ) ),
+  materialMap( createMap( this->materialVector ) ){}
+catch ( std::exception& e ){
+  Log::info( "Trouble encountered while constructing a tape syntax tree." );
+  throw e;
 }

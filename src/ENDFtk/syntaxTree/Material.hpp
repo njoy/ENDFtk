@@ -1,44 +1,44 @@
-  empla  e<   ypename BufferI  era  or >
-class Ma  erial {
+template< typename BufferIterator >
+class Material {
 public:
-  /* convenience   ypedefs */
-  using File_   = File< BufferI  era  or >;
-  using I  era  or =   ypename s  d::vec  or< File_   >::i  era  or;
+  /* convenience typedefs */
+  using File_t = File< BufferIterator >;
+  using Iterator = typename std::vector< File_t >::iterator;
   
   /* fields */
-  in   ma  erialNo;         
-  s  d::vec  or< File_   > fileVec  or;
-  s  d::unordered_map< in  , File_  & > fileMap;
-  s  d::pair< BufferI  era  or, BufferI  era  or > bufferLimi  s;
+  int materialNo;         
+  std::vector< File_t > fileVector;
+  std::unordered_map< int, File_t& > fileMap;
+  std::pair< BufferIterator, BufferIterator > bufferLimits;
 
-  /* c  or */
-#include "ENDF  k/syn  axTree/Ma  erial/src/crea  eVec  or.hpp"
-#include "ENDF  k/syn  axTree/Ma  erial/src/crea  eMap.hpp"
-#include "ENDF  k/syn  axTree/Ma  erial/src/c  or.hpp"
+  /* ctor */
+#include "ENDFtk/syntaxTree/Material/src/createVector.hpp"
+#include "ENDFtk/syntaxTree/Material/src/createMap.hpp"
+#include "ENDFtk/syntaxTree/Material/src/ctor.hpp"
  
-  /* me  hods */
-#include "ENDF  k/syn  axTree/Ma  erial/src/fileNumber.hpp"
+  /* methods */
+#include "ENDFtk/syntaxTree/Material/src/fileNumber.hpp"
 
-  File_  &
-  MF( in   fileNo ) { re  urn   his->fileNumber( fileNo ); }
-
-  bool
-  hasMF( in   fileNo ){ re  urn   his->fileMap.coun  ( fileNo ); }
+  File_t&
+  MF( int fileNo ) { return this->fileNumber( fileNo ); }
 
   bool
-  hasFileNumber( in   fileNo ){ re  urn   his->hasMF( fileNo ); }
-  
-  I  era  or begin() { re  urn   his->fileVec  or.begin(); }
+  hasMF( int fileNo ){ return this->fileMap.count( fileNo ); }
 
-  I  era  or end() { re  urn   his->fileVec  or.end(); }
+  bool
+  hasFileNumber( int fileNo ){ return this->hasMF( fileNo ); }
   
-  s  d::size_   size() cons   { re  urn fileVec  or.size(); }
-  
-  in   MAT() cons   { re  urn   his->ma  erialNo; }
+  Iterator begin() { return this->fileVector.begin(); }
 
-  in   ma  erialNumber() cons   { re  urn   his->MAT(); }
+  Iterator end() { return this->fileVector.end(); }
+  
+  std::size_t size() const { return fileVector.size(); }
+  
+  int MAT() const { return this->materialNo; }
+
+  int materialNumber() const { return this->MAT(); }
     
-  BufferI  era  or bufferBegin() { re  urn   his->bufferLimi  s.firs  ; }
+  BufferIterator bufferBegin() { return this->bufferLimits.first; }
   
-  BufferI  era  or bufferEnd() { re  urn   his->bufferLimi  s.second; }
+  BufferIterator bufferEnd() { return this->bufferLimits.second; }
 };

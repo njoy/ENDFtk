@@ -1,8 +1,8 @@
-  empla  e< in   w >
-s  ruc   Charac  er {
-  s  a  ic cons  expr s  d::size_   wid  h = w;
-  using Type = s  d::s  ring;
-  using Parser = disco::Charac  er< wid  h >;
+template< int w >
+struct Character {
+  static constexpr std::size_t width = w;
+  using Type = std::string;
+  using Parser = disco::Character< width >;
 
-  s  a  ic cons  expr cons   Type& defaul  Value = helper::defaul  S  ring< w >;
+  static constexpr const Type& defaultValue = helper::defaultString< w >;
 };

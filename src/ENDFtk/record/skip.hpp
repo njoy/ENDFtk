@@ -1,11 +1,11 @@
-  empla  e<   ypename I  era  or >
-Tail skip( I  era  or& begin, cons   I  era  or& end, long& lineNumber ){
-    ry{
-    Base< Charac  er< 66 > >( begin, end );
-  } ca  ch( s  d::excep  ion& e ){
+template< typename Iterator >
+Tail skip( Iterator& begin, const Iterator& end, long& lineNumber ){
+  try{
+    Base< Character< 66 > >( begin, end );
+  } catch( std::exception& e ){
     Log::info( "Error while skipping a record." );
-      hrow e;
+    throw e;
   }
-  re  urn Tail( begin, end, lineNumber );
+  return Tail( begin, end, lineNumber );
 }
 

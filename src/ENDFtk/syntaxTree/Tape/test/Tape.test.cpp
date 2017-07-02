@@ -1,105 +1,105 @@
 #define CATCH_CONFIG_MAIN
 
-#include "ca  ch.hpp"
-#include "ENDF  k.hpp"
+#include "catch.hpp"
+#include "ENDFtk.hpp"
 
-using namespace njoy::ENDF  k;
+using namespace njoy::ENDFtk;
 
-s  d::s  ring baseTAPE();
-s  d::s  ring   pidS  ring();
-s  d::s  ring validTEND();
-s  d::s  ring invalidTEND();
+std::string baseTAPE();
+std::string tpidString();
+std::string validTEND();
+std::string invalidTEND();
 
-SCENARIO( "Crea  ing a   ape Skele  on of an ENDF File" ){
-  GIVEN( "a s  ring represen  a  ion of a Tape" ){
-    WHEN( "a valid TEND record ends   he Tape"){
-      au  o   pid =   pidS  ring();
-      au  o base = baseTAPE();
-      au  o   end = validTEND();
-      au  o   apeS  ring =   pid + base +   end;
-      au  o begin =   apeS  ring.begin();
-      au  o end =   apeS  ring.end();
+SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
+  GIVEN( "a string representation of a Tape" ){
+    WHEN( "a valid TEND record ends the Tape"){
+      auto tpid = tpidString();
+      auto base = baseTAPE();
+      auto tend = validTEND();
+      auto tapeString = tpid + base + tend;
+      auto begin = tapeString.begin();
+      auto end = tapeString.end();
 
-      syn  axTree::Tape< s  d::s  ring::i  era  or >   apeTree( begin, end );
+      syntaxTree::Tape< std::string::iterator > tapeTree( begin, end );
         
-      THEN( "  he buffer i  era  ors are popula  ed correc  ly "){
-        REQUIRE(   apeS  ring.begin() ==   apeTree.bufferBegin() );
-        REQUIRE(   apeS  ring.end() ==   apeTree.bufferEnd() );
+      THEN( "the buffer iterators are populated correctly "){
+        REQUIRE( tapeString.begin() == tapeTree.bufferBegin() );
+        REQUIRE( tapeString.end() == tapeTree.bufferEnd() );
       }
 
-      AND_THEN( "  he correc   number of ma  erials are read from   he   ape" ){
-         REQUIRE( 1 ==   apeTree.size() );
+      AND_THEN( "the correct number of materials are read from the tape" ){
+         REQUIRE( 1 == tapeTree.size() );
       }
       
-      AND_THEN( "we can access   he Ma  erials of   he skele  on" ){
-        REQUIRE(   apeTree.hasMa  erialNumber( 125 ) );
-        REQUIRE( 1 ==   apeTree.ma  erialNumber( 125 ).size() );
-        for ( au  o& ma  erialSkele  on :   apeTree.ma  erialNumber( 125 ) ){
-          REQUIRE( 125 == ma  erialSkele  on.ma  erialNumber() );
+      AND_THEN( "we can access the Materials of the skeleton" ){
+        REQUIRE( tapeTree.hasMaterialNumber( 125 ) );
+        REQUIRE( 1 == tapeTree.materialNumber( 125 ).size() );
+        for ( auto& materialSkeleton : tapeTree.materialNumber( 125 ) ){
+          REQUIRE( 125 == materialSkeleton.materialNumber() );
         }
 
-        REQUIRE_THROWS(   apeTree.ma  erialNumber( 125 ).a  (1) );
+        REQUIRE_THROWS( tapeTree.materialNumber( 125 ).at(1) );
 
-        REQUIRE(   apeTree.hasMAT( 125 ) );
-        for ( au  o& ma  erialSkele  on :   apeTree.MAT( 125 ) ){
-          REQUIRE( 125 == ma  erialSkele  on.ma  erialNumber() );
+        REQUIRE( tapeTree.hasMAT( 125 ) );
+        for ( auto& materialSkeleton : tapeTree.MAT( 125 ) ){
+          REQUIRE( 125 == materialSkeleton.materialNumber() );
         }
       }
-      AND_THEN( "an excpe  ion is   hrown for an invalid index" ){
-        REQUIRE_THROWS(   apeTree.ma  erialNumber(1) );
+      AND_THEN( "an excpetion is thrown for an invalid index" ){
+        REQUIRE_THROWS( tapeTree.materialNumber(1) );
       }
     }
 
-    WHEN( "an invalid (MAT != -1) TEND record ends   he Tape" ){
-      au  o   pid =   pidS  ring();
-      au  o base = baseTAPE();
-      au  o   end = invalidTEND();
-      au  o   apeS  ring =   pid + base +   end;
-      au  o begin =   apeS  ring.begin();
-      au  o end =   apeS  ring.end();
+    WHEN( "an invalid (MAT != -1) TEND record ends the Tape" ){
+      auto tpid = tpidString();
+      auto base = baseTAPE();
+      auto tend = invalidTEND();
+      auto tapeString = tpid + base + tend;
+      auto begin = tapeString.begin();
+      auto end = tapeString.end();
 
-      REQUIRE_THROWS( syn  axTree::Tape< s  d::s  ring::i  era  or >( begin, end ) );
+      REQUIRE_THROWS( syntaxTree::Tape< std::string::iterator >( begin, end ) );
     }
 
-    WHEN( "  he Tape isn'   long enough" ){
-      au  o   pid =   pidS  ring();
-      au  o base = baseTAPE();
-      au  o   apeS  ring =   pid + base; // no   end record
-      au  o begin =   apeS  ring.begin();
-      au  o end =   apeS  ring.end();
+    WHEN( "the Tape isn't long enough" ){
+      auto tpid = tpidString();
+      auto base = baseTAPE();
+      auto tapeString = tpid + base; // no tend record
+      auto begin = tapeString.begin();
+      auto end = tapeString.end();
 
-      REQUIRE_THROWS( syn  axTree::Tape< s  d::s  ring::i  era  or >( begin, end ) );
+      REQUIRE_THROWS( syntaxTree::Tape< std::string::iterator >( begin, end ) );
     }
   } // GIVEN
 } // SCENARIO
 
-cons   s  d::s  ring& cachedTape(){
-  cons   s  a  ic s  d::s  ring   ape =
-    njoy::u  ili  y::slurpFileToMemory( "n-001_H_001.endf" );
-  re  urn   ape;
+const std::string& cachedTape(){
+  const static std::string tape =
+    njoy::utility::slurpFileToMemory( "n-001_H_001.endf" );
+  return tape;
 }
 
-s  d::s  ring   pidS  ring(){
-  re  urn s  d::s  ring( cachedTape().begin(),
-                      s  d::nex  ( cachedTape().begin(), 76 ) );
+std::string tpidString(){
+  return std::string( cachedTape().begin(),
+                      std::next( cachedTape().begin(), 76 ) );
 }
 
-s  d::s  ring baseTAPE(){
-  au  o begin = s  d::nex  ( cachedTape().begin(), 76 );
-  au  o end =
-    s  d::nex  ( s  d::make_reverse_i  era  or( cachedTape().end() ), 76 ).base();
-  re  urn s  d::s  ring( begin, end );
+std::string baseTAPE(){
+  auto begin = std::next( cachedTape().begin(), 76 );
+  auto end =
+    std::next( std::make_reverse_iterator( cachedTape().end() ), 76 ).base();
+  return std::string( begin, end );
 }
 
-s  d::s  ring validTEND(){
-  au  o begin =
-    s  d::nex  ( s  d::make_reverse_i  era  or( cachedTape().end() ), 76 ).base();
-  au  o end = cachedTape().end();
-  re  urn s  d::s  ring( begin, end );
+std::string validTEND(){
+  auto begin =
+    std::next( std::make_reverse_iterator( cachedTape().end() ), 76 ).base();
+  auto end = cachedTape().end();
+  return std::string( begin, end );
 }
 
-s  d::s  ring invalidTEND(){
-  au  o TEND = validTEND();
-  TEND.a  (69) = '2';
-  re  urn TEND;
+std::string invalidTEND(){
+  auto TEND = validTEND();
+  TEND.at(69) = '2';
+  return TEND;
 }

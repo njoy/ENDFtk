@@ -1,38 +1,38 @@
-class Tex  Record : pro  ec  ed record::Base< record::Charac  er< 66 > > {
+class TextRecord : protected record::Base< record::Character< 66 > > {
 public:
-  /* convenience   ypedefs */
-  using base = record::Base< record::Charac  er< 66 > >;
-  using   ail = record::TailVerifying< record::MAT, record::MF, record::MT >;
+  /* convenience typedefs */
+  using base = record::Base< record::Character< 66 > >;
+  using tail = record::TailVerifying< record::MAT, record::MF, record::MT >;
   
-  /* c  or */
-  Tex  Record( s  d::s  ring&&   ex   ) : base( s  d::move(  ex  ) ){}
+  /* ctor */
+  TextRecord( std::string&& text ) : base( std::move(text) ){}
 
-    empla  e<   ypename I  era  or >
-  Tex  Record( I  era  or& i  , cons   I  era  or& end, long& lineNumber,
-              in   MAT, in   MF, in   MT )
-      ry: base( i  , end ){
-        ail( MAT, MF, MT, i  , end, lineNumber );
-    } ca  ch ( s  d::excep  ion& e ) {
-      /* TODO error informa  ion here */
-        hrow e;
-    } ca  ch ( in   fieldNo ){
+  template< typename Iterator >
+  TextRecord( Iterator& it, const Iterator& end, long& lineNumber,
+              int MAT, int MF, int MT )
+    try: base( it, end ){
+      tail( MAT, MF, MT, it, end, lineNumber );
+    } catch ( std::exception& e ) {
+      /* TODO error information here */
+      throw e;
+    } catch ( int fieldNo ){
       --lineNumber;
-      /* TODO error informa  ion here */
-        hrow s  d::excep  ion();
+      /* TODO error information here */
+      throw std::exception();
     }
   
-  /* me  hods */
-  Mu  ableRe  urnType< 0 >
-    ex  (){ re  urn s  d::ge  < 0 >(   his->fields ); }
+  /* methods */
+  MutableReturnType< 0 >
+  text(){ return std::get< 0 >( this->fields ); }
 
-  Immu  ableRe  urnType< 0 >
-    ex  () cons   { re  urn s  d::ge  < 0 >(   his->fields ); }
+  ImmutableReturnType< 0 >
+  text() const { return std::get< 0 >( this->fields ); }
 
   bool
-  opera  or==( cons   Tex  Record& rhs ){
-    re  urn s  a  ic_cas  < base& >( *  his ) == rhs;
+  operator==( const TextRecord& rhs ){
+    return static_cast< base& >( *this ) == rhs;
   }
 
   bool
-  opera  or!=( cons   Tex  Record& rhs ){ re  urn no  ( *  his == rhs ); }
+  operator!=( const TextRecord& rhs ){ return not( *this == rhs ); }
 };
