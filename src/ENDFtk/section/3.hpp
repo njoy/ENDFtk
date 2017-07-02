@@ -15,17 +15,17 @@ public:
                                        this->table.y().end(),
                                        []( auto y ) { return y < 0.0; } );
       if( found != this->table.y().end() ){
-  Log::error( "Encountered negative cross section value" );
-  Log::info( "See section {} of file 3 of material {}", head.MT(), MAT );
-  Log::info( "TAB1 entry [{}]: {}",
-       std::distance( this->table.y().begin(), found ), *found );
+        Log::error( "Encountered negative cross section value" );
+        Log::info( "See section {} of file 3 of material {}", head.MT(), MAT );
+        Log::info( "TAB1 entry [{}]: {}",
+                   std::distance( this->table.y().begin(), found ), *found );
         throw std::exception();
       }
       readSEND(begin, end, lineNumber, MAT, 3 );
     } catch( std::exception& e ){
       Log::info
-  ( "Encountered error while reading section {} of file 3 of material {}",
-    head.MT(), MAT );
+      ( "Encountered error while reading section {} of file 3 of material {}",
+        head.MT(), MAT );
       throw e;
     }
     

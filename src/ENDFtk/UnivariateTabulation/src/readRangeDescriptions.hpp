@@ -11,9 +11,7 @@ readRangeDescriptions
       throw std::exception();
     }
     
-    result = record::Zipper::unzip
-             < record::Integer<11>,
-         record::Integer<11> >
+    result = record::Zipper::unzip< record::Integer<11>, record::Integer<11> >
              ( nRanges, it, end, lineNumber, MAT, MF, MT );
     auto& boundaryIndices = std::get< 0 >( result );
     verifyBoundaryIndicesAreSorted( boundaryIndices );
