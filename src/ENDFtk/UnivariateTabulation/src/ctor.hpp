@@ -61,7 +61,6 @@ UnivariateTabulation
 			std::move( std::get<0>(points) ),
 			std::move( std::get<1>(points) ) ){}
 
-
 protected:
 
 template< typename Iterator >
