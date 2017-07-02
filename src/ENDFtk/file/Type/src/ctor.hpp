@@ -7,7 +7,7 @@ Type( StructureDivision& division,
     if( this->sectionMap.count( division.tail.MT() ) ){
       Log::error( "Sections specified with redundant section numbers (MT)" );
       Log::info
-	( "Within an ENDF File, sections are required to specify a unique MT" );
+  ( "Within an ENDF File, sections are required to specify a unique MT" );
       Log::info( "Encountered redundant MT: {}", division.tail.MT() );
       throw std::exception();
     }

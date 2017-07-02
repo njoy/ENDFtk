@@ -10,7 +10,7 @@ verifyBoundaryIndicesAreSorted( const std::vector< long >& boundaryIndices ){
     Log::error( "Interpolation boundary indices are not sorted" );
     const auto position = boundaryIndexIterator - boundaryIndices.begin();
     Log::info( "Boundary index [{}]: {}",
-	       (position - 1), boundaryIndexIterator[-1] );
+         (position - 1), boundaryIndexIterator[-1] );
     Log::info( "Boundary index [{}]: {}", position, boundaryIndexIterator[0] );
     throw std::exception();
   }

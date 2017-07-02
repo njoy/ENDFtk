@@ -53,8 +53,8 @@ SCENARIO( "Checking single field record bases" ){
 
 SCENARIO( "Checking multi field record bases" ){
   using RecordBase = record::Base< record::Real, record::Real,
-				   record::Integer< 11 >, record::Integer< 11 >,
-				   record::Integer< 11 >, record::Integer< 11 > >;
+           record::Integer< 11 >, record::Integer< 11 >,
+           record::Integer< 11 >, record::Integer< 11 > >;
   WHEN("constructed from values" ){
     auto base = RecordBase( 0.0, 1E10, 0, 1, 2, 96 );
     THEN("stored values are correct"){
@@ -86,8 +86,8 @@ SCENARIO( "Checking multi field record bases" ){
 
 SCENARIO( "Checking equality operator" ){
   using RecordBase = record::Base< record::Real, record::Real,
-				   record::Integer< 11 >, record::Integer< 11 >,
-				   record::Integer< 11 >, record::Integer< 11 > >;
+           record::Integer< 11 >, record::Integer< 11 >,
+           record::Integer< 11 >, record::Integer< 11 > >;
   auto lhs = RecordBase( 0.0, 1E10, 0, 1, 2, 96 );
   WHEN("records are equal, the operator returns true" ){
     auto rhs = lhs;

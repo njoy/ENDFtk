@@ -27,43 +27,43 @@ public:
     try: base( it, end ), tail( it, end, lineNumber ) {
       auto fieldPosition = std::next( begin, 66 );
       if (tail.material() < -1){
-	Log::error( "Illegal material number (MAT) encountered" );
+  Log::error( "Illegal material number (MAT) encountered" );
         utility::echoErroneousLine( begin, fieldPosition, end, lineNumber - 1 );
-	Log::info( "Material numbers are greater than or equal to -1" );
-	Log::info( "Material number: {}", this->tail.material() );
+  Log::info( "Material numbers are greater than or equal to -1" );
+  Log::info( "Material number: {}", this->tail.material() );
         throw std::exception();
       }
       if (tail.file() < 0){
         std::advance( fieldPosition, 4 );
-	Log::error( "Illegal file number (MF) encountered" );
+  Log::error( "Illegal file number (MF) encountered" );
         utility::echoErroneousLine( begin, fieldPosition, end, lineNumber - 1 );
-	Log::info( "File numbers are greater than or equal to 0" );
-	Log::info( "File number: {}", this->tail.file() );
+  Log::info( "File numbers are greater than or equal to 0" );
+  Log::info( "File number: {}", this->tail.file() );
         throw std::exception();
       }
       if (tail.section() < 0){
         std::advance( fieldPosition, 6 );
-	Log::error( "Illegal section number (MT) encountered" );
+  Log::error( "Illegal section number (MT) encountered" );
         utility::echoErroneousLine( begin, fieldPosition, end, lineNumber - 1 );
-	Log::info( "Section numbers are greater than or equal to 0" );
-	Log::info( "Section number: {}", this->tail.section() );
+  Log::info( "Section numbers are greater than or equal to 0" );
+  Log::info( "Section number: {}", this->tail.section() );
         throw std::exception();
       }    
     } catch ( int fieldNumber ){
       auto fieldPosition = std::next( begin, 66 );
       switch (fieldNumber) {
       case 6 :
-	Log::error( "Illegal material number (MAT) encountered" );
+  Log::error( "Illegal material number (MAT) encountered" );
         utility::echoErroneousLine( begin, fieldPosition, end, lineNumber );
         break;
       case 7 :
         std::advance( fieldPosition, 4 );
-	Log::error( "Illegal file number (MF) encountered" );
+  Log::error( "Illegal file number (MF) encountered" );
         utility::echoErroneousLine( begin, fieldPosition, end, lineNumber );
         break;
       case 8 :
         std::advance( fieldPosition, 6 );
-	Log::error( "Illegal section number (MT) encountered" );
+  Log::error( "Illegal section number (MT) encountered" );
         utility::echoErroneousLine( begin, fieldPosition, end, lineNumber );
         break;
       default:

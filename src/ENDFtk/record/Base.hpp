@@ -2,7 +2,7 @@ template< typename... Fields >
 struct Base {
   /* verify invariants */
   static_assert( sizeof...(Fields) > 0,
-		 "A record must contain at least 1 field" );
+     "A record must contain at least 1 field" );
 
   static_assert
   ( helper::sum< Fields::width... >() == 66,
@@ -11,7 +11,7 @@ struct Base {
   /* convenience typedefs */
   using FieldTuple = std::tuple< typename Fields::Type... >;
   using Format = disco::Record< typename Fields::Parser...,
-				disco::RetainCarriage >;
+        disco::RetainCarriage >;
   
   template< int Index >
   using ShouldRecurse =

@@ -11,7 +11,7 @@ static std::vector< File_t > createVector
     vector.emplace_back( asHead(division), begin, position, end, lineNumber );
     if( position >= end ){
       Log::error
-	( "Material encountered end of stream before reading MEND record" );
+  ( "Material encountered end of stream before reading MEND record" );
       throw std::exception();
     }
     begin = position;
