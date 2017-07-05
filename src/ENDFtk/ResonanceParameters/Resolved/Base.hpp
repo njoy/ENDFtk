@@ -18,7 +18,11 @@ public:
       Log::error( "Encountered negative lower energy limit" );
       throw std::domain_error( "Lower energy limit (EL) must be positive" );
     }
-
+    if( lowerEnergyLimit > upperEnergyLimit ){
+      Log::error( "Lower energy limit is greater than upper energy limit." );
+      throw std::domain_error( 
+          "Lower energy limit must be less than upper energy limit" );
+    }
     if( NRO == 0){
       if( ( NAPS != 0 ) and ( NAPS != 1) ){
         Log::error( "Encountered invalid NAPS value: {}.", NAPS );

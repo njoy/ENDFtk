@@ -31,6 +31,7 @@ SCENARIO( "Testing Resolved Resonance Base" ){
     WHEN( "invalid lowerEnergyLimit" ){
       THEN( "an exception is thrown" ){
         REQUIRE_THROWS( ResonanceParameters::Resolved::Base(-0.1, 1.0, 0, 1) );
+        REQUIRE_THROWS( ResonanceParameters::Resolved::Base(1.1, 1.0, 0, 1) );
       }
     }
     WHEN( "invalid NRO parameter" ){
