@@ -23,14 +23,13 @@ SCENARIO( "Testing Resolved Resonance Ranges" ){
   int MAT = 6153;
   int MF = 2;
   int MT = 151;
-  std::optional< TAB1 > tab1;
 
     WHEN( "Creating SLBW range" ){
       THEN( "an object can be successfully instantiated" ){
         ResonanceParameters::Resolved::Base base(1E-5, 1.0, 0, 0);
         ResonanceParameters::Range range = 
             ResonanceParameters::Resolved::SLBW(
-            std::move(base), std::move(tab1), begin, end, lineNumber, MAT, MF, MT);
+            std::move(base), begin, end, lineNumber, MAT, MF, MT);
       }
     }
     WHEN( "Creating MLBW range" ){
@@ -38,7 +37,7 @@ SCENARIO( "Testing Resolved Resonance Ranges" ){
         ResonanceParameters::Resolved::Base base(1E-5, 1.0, 0, 0);
         ResonanceParameters::Range range = 
             ResonanceParameters::Resolved::MLBW( 
-            std::move(base), std::move(tab1), begin, end, lineNumber, MAT, MF, MT);
+            std::move(base), begin, end, lineNumber, MAT, MF, MT);
       }
     }
     WHEN( "Creating ReichMoore range" ){
@@ -46,7 +45,7 @@ SCENARIO( "Testing Resolved Resonance Ranges" ){
         ResonanceParameters::Resolved::Base base(1E-5, 1.0, 0, 0);
         ResonanceParameters::Range range = 
             ResonanceParameters::Resolved::ReichMoore(
-            std::move(base), std::move(tab1), begin, end, lineNumber, MAT, MF, MT);
+            std::move(base), begin, end, lineNumber, MAT, MF, MT);
       }
     }
   }

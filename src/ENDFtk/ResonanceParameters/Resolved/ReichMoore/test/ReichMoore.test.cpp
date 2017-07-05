@@ -43,14 +43,12 @@ SCENARIO( "Testing Resolved Resonance ReichMoore" ){
     int MAT = 6922;
     int MF = 2;
     int MT = 151;
-    std::optional< TAB1 > tab1;
 
     WHEN( "NRO != 0" ){
       ResonanceParameters::Resolved::Base base(1E-5, 3.2, 1, 0);
-      tab1 = TAB1( begin, end, lineNumber, MAT, MF, MT );
 
       ResonanceParameters::Resolved::BreitWigner rm(
-          std::move(base), std::move(tab1), 
+          std::move(base), TAB1( begin, end, lineNumber, MAT, MF, MT ), 
           begin, end, lineNumber, MAT, MF, MT);
       THEN( "the parameters can be verified" ){
         REQUIRE( 1E-5 == rm.lowerEnergyLimit );
@@ -77,18 +75,18 @@ SCENARIO( "Testing Resolved Resonance ReichMoore" ){
         }
 
         {
-          REQUIRE( 0.0 == (*rm.tab1).C1() );
-          REQUIRE( 0.0 == (*rm.tab1).C2() );
-          REQUIRE( 0 == (*rm.tab1).L1() );
-          REQUIRE( 0 == (*rm.tab1).L2() );
-          REQUIRE( 1 == (*rm.tab1).NR() );
-          REQUIRE( 50 == (*rm.tab1).NP() );
-          REQUIRE( 50 == (*rm.tab1).xValues.size() );
-          REQUIRE( 50 == (*rm.tab1).yValues.size() );
-          REQUIRE( 1.0E-5 == Approx( (*rm.tab1).xValues.front() ) );
-          REQUIRE( 1.2381 == Approx( (*rm.tab1).yValues.front() ) );
-          REQUIRE( 2.0E5 == Approx( (*rm.tab1).xValues.back() ) );
-          REQUIRE( 0.5803 == Approx( (*rm.tab1).yValues.back() ) );
+          REQUIRE( 0.0 == rm.tab1->C1() );
+          REQUIRE( 0.0 == rm.tab1->C2() );
+          REQUIRE( 0 == rm.tab1->L1() );
+          REQUIRE( 0 == rm.tab1->L2() );
+          REQUIRE( 1 == rm.tab1->NR() );
+          REQUIRE( 50 == rm.tab1->NP() );
+          REQUIRE( 50 == rm.tab1->xValues.size() );
+          REQUIRE( 50 == rm.tab1->yValues.size() );
+          REQUIRE( 1.0E-5 == Approx( rm.tab1->xValues.front() ) );
+          REQUIRE( 1.2381 == Approx( rm.tab1->yValues.front() ) );
+          REQUIRE( 2.0E5 == Approx( rm.tab1->xValues.back() ) );
+          REQUIRE( 0.5803 == Approx( rm.tab1->yValues.back() ) );
         }
       }
     }
@@ -97,8 +95,7 @@ SCENARIO( "Testing Resolved Resonance ReichMoore" ){
 
       ResonanceParameters::Resolved::Base base(1E-5, 3.2, 0, 0);
       ResonanceParameters::Resolved::BreitWigner rm(
-          std::move(base), std::move(tab1), 
-          begin, end, lineNumber, MAT, MF, MT);
+          std::move(base), begin, end, lineNumber, MAT, MF, MT);
 
       THEN( "the parameters can be verified" ){
         REQUIRE( 1E-5 == rm.lowerEnergyLimit );
