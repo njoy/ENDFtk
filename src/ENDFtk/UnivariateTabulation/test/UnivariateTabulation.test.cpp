@@ -22,12 +22,12 @@ std::function< UnivariateTabulation() > makeTAB1 = [](){
 SCENARIO( "UnivariateTabulation ctor",
           "[ENDFtk], [UnivariateTabulation]" ){
 
-  GIVEN( "a TAB1 object" ){
     std::vector< long > regions{ 4, 5, 6 };
     std::vector< long > interpolation{ 1, 2, 3 };
     std::vector< double > x{ 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 };
     std::vector< double > y{ 3.0, 4.0, 5.0, 6.0, 7.0, 8.0 };
   
+  GIVEN( "a TAB1 object" ){  
     UnivariateTabulation tab1( 1.0, 2.0, 3ul, 4ul,
                                std::move( regions ), 
                                std::move( interpolation ),
@@ -40,7 +40,7 @@ SCENARIO( "UnivariateTabulation ctor",
     std::vector< double > x{ 1.0, 2.0, 3.0, 4.0, 5.0 };
     
     REQUIRE_THROWS( UnivariateTabulation
-                    ( njoy::utility::copy( metadata ),
+                    ( 1.0, 2.0, 3ul, 4ul,
                       std::make_tuple( regions, interpolation ),
                       std::make_tuple( x, y ) ) );
   }
@@ -49,7 +49,7 @@ SCENARIO( "UnivariateTabulation ctor",
     std::vector< double > x{ 1.0, 3.0, 2.0, 4.0, 5.0 };
 
     REQUIRE_THROWS( UnivariateTabulation
-                    ( njoy::utility::copy( metadata ),
+                    ( 1.0, 2.0, 3ul, 4ul,
                       std::make_tuple( regions, interpolation ),
                       std::make_tuple( x, y ) ) );
   }
@@ -58,7 +58,7 @@ SCENARIO( "UnivariateTabulation ctor",
     std::vector< long > interpolation{ 1, 2, 3, 4 };
 
     REQUIRE_THROWS( UnivariateTabulation
-                    ( njoy::utility::copy( metadata ),
+                    ( 1.0, 2.0, 3ul, 4ul,
                       std::make_tuple( regions, interpolation ),
                       std::make_tuple( x, y ) ) );
   }
@@ -67,7 +67,7 @@ SCENARIO( "UnivariateTabulation ctor",
     std::vector< long > regions{ 5, 4, 6 };
 
     REQUIRE_THROWS( UnivariateTabulation
-                    ( njoy::utility::copy( metadata ),
+                    ( 1.0, 2.0, 3ul, 4ul,
                       std::make_tuple( regions, interpolation ),
                       std::make_tuple( x, y ) ) );
   }
