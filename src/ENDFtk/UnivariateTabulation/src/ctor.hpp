@@ -19,7 +19,7 @@ UnivariateTabulation
       Log::info( "Boundary indices vector length: {}",
                  this->boundaryIndices.size() );
       Log::info( "Interpolation scheme vector length: {}",
-      this->interpolationSchemeIndices.size() );
+                 this->interpolationSchemeIndices.size() );
       throw std::exception();
     }
     const bool mismatchedEvaluationVectorLengths =
@@ -27,7 +27,7 @@ UnivariateTabulation
     if ( mismatchedEvaluationVectorLengths ){
       Log::error( "Mismatched evaluation pair vector lengths" );
       Log::info( "X-values vector length: {}",
-      this->xValues.size() );
+                 this->xValues.size() );
       Log::info( "Y-values vector length: {}",
                  this->yValues.size() );
       throw std::exception();
