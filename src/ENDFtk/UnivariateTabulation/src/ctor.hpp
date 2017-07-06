@@ -17,7 +17,7 @@ UnivariateTabulation
     if ( mismatchedRegionVectorLengths ){
       Log::error( "Mismatched region pair vector lengths" );
       Log::info( "Boundary indices vector length: {}",
-      this->boundaryIndices.size() );
+                 this->boundaryIndices.size() );
       Log::info( "Interpolation scheme vector length: {}",
       this->interpolationSchemeIndices.size() );
       throw std::exception();
