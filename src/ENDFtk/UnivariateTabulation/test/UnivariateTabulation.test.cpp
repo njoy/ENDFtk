@@ -164,7 +164,9 @@ SCENARIO( "UnivariateTabulation ctor",
     int MF = 1;
     int MT = 460;
    
-    REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, MF, MT ) );
+    REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, 9328, MF, MT ) );
+    REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, 17, MT ) );
+    REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, MF, 15 ) );
   }
   
   GIVEN( "Zero NR" ){

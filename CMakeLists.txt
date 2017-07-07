@@ -27,8 +27,8 @@ get_directory_property( is_subproject PARENT_DIRECTORY )
 include( CMakeDependentOption REQUIRED )
 
 set( ENDFtk_GNU_minimum_version 6.2 )
-set( ENDFtk_Clang_minimum_version 3.8 )
 set( ENDFtk_AppleClang_minimum_version 8.0 )
+set( ENDFtk_Clang_minimum_version 3.8 )
 
 if( ENDFtk_${CMAKE_CXX_COMPILER_ID}_minimum_version )
     if( CMAKE_CXX_COMPILER_VERSION AND
@@ -57,6 +57,7 @@ if ( static AND ( "${CMAKE_SYSTEM_NAME}" STREQUAL "Darwin" ) )
 endif()
 
 CMAKE_DEPENDENT_OPTION( static_libraries "Statically link component libraries" OFF "NOT static" ON )
+CMAKE_DEPENDENT_OPTION( static_ENDFtk "Statically link the ENDFtk component library" OFF "NOT static;NOT static_libraries" ON ) 
 
 option( unit_tests "Compile the ENDFtk unit tests and integrate with ctest" ON ) 
 
@@ -104,6 +105,18 @@ set( ENDFtk_GNU_Darwin_link_time_optimization_flags "-flto" )
 set( ENDFtk_GNU_Darwin_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
 set( ENDFtk_GNU_Darwin_nonportable_optimization_flags "-march=native" )
 set( ENDFtk_GNU_Darwin_static_flags "-static" )
+set( ENDFtk_AppleClang_Darwin_common_flags "-stdlib=libc++" "-Wall" "-Wextra" "-Wpedantic" "-std=c++14" )
+set( ENDFtk_AppleClang_Darwin_DEBUG_flags "-O0" "-g" "-gdwarf-3" )
+set( ENDFtk_AppleClang_Darwin_RELEASE_flags "-O3" "-DNDEBUG" )
+set( ENDFtk_AppleClang_Darwin_strict_flags "-Werror" )
+set( ENDFtk_AppleClang_Darwin_coverage_flags "--coverage" )
+set( ENDFtk_AppleClang_Darwin_subproject_flags  )
+set( ENDFtk_AppleClang_Darwin_base_project_flags  )
+set( ENDFtk_AppleClang_Darwin_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_AppleClang_Darwin_link_time_optimization_flags "-flto" )
+set( ENDFtk_AppleClang_Darwin_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_AppleClang_Darwin_nonportable_optimization_flags "-march=native" )
+set( ENDFtk_AppleClang_Darwin_static_flags "-static" )
 set( ENDFtk_Clang_Linux_common_flags "-stdlib=libstdc++" "-Wall" "-Wextra" "-Wpedantic" "-std=c++14" )
 set( ENDFtk_Clang_Linux_DEBUG_flags "-O0" "-g" "-gdwarf-3" )
 set( ENDFtk_Clang_Linux_RELEASE_flags "-O3" "-DNDEBUG" )
@@ -140,30 +153,34 @@ set( ENDFtk_Clang_Darwin_link_time_optimization_flags "-flto" )
 set( ENDFtk_Clang_Darwin_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
 set( ENDFtk_Clang_Darwin_nonportable_optimization_flags "-march=native" )
 set( ENDFtk_Clang_Darwin_static_flags "-static" )
-set( ENDFtk_AppleClang_Darwin_common_flags "-stdlib=libc++" "-Wall" "-Wextra" "-Wpedantic" "-std=c++14" )
-set( ENDFtk_AppleClang_Darwin_DEBUG_flags "-O0" "-g" "-gdwarf-3" )
-set( ENDFtk_AppleClang_Darwin_RELEASE_flags "-O3" "-DNDEBUG" )
-set( ENDFtk_AppleClang_Darwin_strict_flags "-Werror" )
-set( ENDFtk_AppleClang_Darwin_coverage_flags "--coverage" )
-set( ENDFtk_AppleClang_Darwin_subproject_flags  )
-set( ENDFtk_AppleClang_Darwin_base_project_flags  )
-set( ENDFtk_AppleClang_Darwin_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
-set( ENDFtk_AppleClang_Darwin_link_time_optimization_flags "-flto" )
-set( ENDFtk_AppleClang_Darwin_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
-set( ENDFtk_AppleClang_Darwin_nonportable_optimization_flags "-march=native" )
-set( ENDFtk_AppleClang_Darwin_static_flags "-static" )
+
+if ( static_ENDFtk )
+    set( ENDFtk_library_linkage STATIC )
+else ()
+    set( ENDFtk_library_linkage SHARED )
+endif () 
+
+set( CMAKE_SKIP_BUILD_RPATH FALSE )
+set( CMAKE_BUILD_WITH_INSTALL_RPATH FALSE )
+if ( CMAKE_SYSTEM_NAME STREQUAL "Darwin" )
+    set( rpath_prefix "@loader_path" )
+else()
+    set( rpath_prefix "\\$ORIGIN" )
+endif()
+list( INSERT 0 CMAKE_INSTALL_RPATH "${rpath_prefix}/../lib" )
+set( CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE )
 get_directory_property( is_subproject PARENT_DIRECTORY )
 
 if( NOT TARGET range-v3-adapter )
     add_subdirectory( ${ROOT_DIRECTORY}/subprojects/range-v3-adapter )
 endif()
 
-if( NOT TARGET catch-adapter )
-    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/catch-adapter )
+if( NOT TARGET variant-adapter )
+    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/variant-adapter )
 endif()
 
-if( NOT TARGET disco )
-    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/disco )
+if( NOT TARGET catch-adapter )
+    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/catch-adapter )
 endif()
 
 if( NOT TARGET fmt-adapter )
@@ -180,6 +197,10 @@ endif()
 
 if( NOT TARGET header-utilities )
     add_subdirectory( ${ROOT_DIRECTORY}/subprojects/header-utilities )
+endif()
+
+if( NOT TARGET disco )
+    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/disco )
 endif()
 
 
@@ -212,14 +233,15 @@ message( STATUS "Git commit hash: ${GIT_HASH}" )
 message( STATUS "" )
 message( STATUS "-----------------------------------------------------------" )
 
-add_library( ENDFtk INTERFACE )
-target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
+add_library( ENDFtk ${ENDFtk_library_linkage} 
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/ControlRecord.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/DirectoryRecord.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/HeadRecord.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/ListRecord.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/ResonanceParameters.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/StructureDivision.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree.hpp"
@@ -252,6 +274,22 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Zipper/src/unzip.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Zipper/src/verifyTail.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Zipper/src/Zipped.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/ResonanceParameters/Isotope.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/ResonanceParameters/Resolved.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/ResonanceParameters/SpecialCase.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/ResonanceParameters/Isotope/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/ResonanceParameters/Isotope/src/resolvedRange.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/ResonanceParameters/Resolved/Base.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/ResonanceParameters/Resolved/BreitWigner.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/ResonanceParameters/Resolved/MultiLevelBreitWigner.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/ResonanceParameters/Resolved/ReichMoore.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/ResonanceParameters/Resolved/RMatrixLimited.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/ResonanceParameters/Resolved/SingleLevelBreitWigner.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/ResonanceParameters/Resolved/BreitWigner/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/ResonanceParameters/Resolved/RMatrixLimited/SpinGroup.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/ResonanceParameters/Resolved/RMatrixLimited/SpinGroup/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/ResonanceParameters/Resolved/RMatrixLimited/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/3.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/Base.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/Base/src/ctor.hpp"
@@ -283,38 +321,68 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/UnivariateTabulation/src/readRangeDescriptions.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/UnivariateTabulation/src/verifyBoundaryIndicesAreSorted.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/UnivariateTabulation/src/verifyTail.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/UnivariateTabulation/src/verifyXValuesAreSorted.hpp" )
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/UnivariateTabulation/src/verifyXValuesAreSorted.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/ResonanceParameters/SpecialCase/src/ctor.cpp" )
 
-target_include_directories( ENDFtk INTERFACE src )
+target_include_directories( ENDFtk PUBLIC src )
 
 set( PREFIX ENDFtk_${CMAKE_CXX_COMPILER_ID}_${CMAKE_SYSTEM_NAME} )
 
-target_link_libraries( ENDFtk INTERFACE "$<$<AND:$<CONFIG:RELEASE>,$<BOOL:${link_time_optimization}>>:${${PREFIX}_RELEASE_flags};${${PREFIX}_link_time_optimization_flags}$<$<BOOL:${profile_generate}>:${${PREFIX}_profile_generate_flags};>$<$<BOOL:${profile_use}>:${${PREFIX}_profile_use_flags};>$<$<BOOL:${nonportable_optimization}>:${${PREFIX}_nonportable_optimization_flags};>>$<$<CONFIG:DEBUG>:$<$<BOOL:${coverage}>:${${PREFIX}_coverage_flags};>>$<$<BOOL:CXX_appended_flags>:${CXX_appended_flags};>$<$<BOOL:ENDFtk_appended_flags>:${ENDFtk_appended_flags};>" )
+target_compile_options( ENDFtk PRIVATE 
+${${PREFIX}_common_flags}
+$<$<BOOL:${ENDFtk_strict}>:${${PREFIX}_ENDFtk_strict_flags}>
+$<$<BOOL:${static}>:${${PREFIX}_static_flags}>
+$<$<BOOL:${is_subproject}>:${${PREFIX}_subproject_flags}>
+$<$<NOT:$<BOOL:${is_subproject}>>:${${PREFIX}_base_project_flags}>
+$<$<CONFIG:DEBUG>:
+${${PREFIX}_DEBUG_flags} 
+$<$<BOOL:${coverage}>:${${PREFIX}_coverage_flags}>>
+$<$<CONFIG:RELEASE>:
+${${PREFIX}_RELEASE_flags} 
+$<$<BOOL:${profile_generate}>:${${PREFIX}_profile_generate_flags}> 
+$<$<BOOL:${profile_use}>:${${PREFIX}_profile_use_flags}> 
+$<$<BOOL:${link_time_optimization}>:${${PREFIX}_link_time_optimization_flags}> 
+$<$<BOOL:${nonportable_optimization}>:${${PREFIX}_nonportable_optimization_flags}>>
+${CXX_appended_flags} ${ENDFtk_appended_flags} )
 
-target_link_libraries( ENDFtk INTERFACE Log INTERFACE header-utilities INTERFACE range-v3-adapter INTERFACE catch-adapter INTERFACE disco )
+target_link_libraries( ENDFtk PUBLIC "$<$<AND:$<CONFIG:RELEASE>,$<BOOL:${link_time_optimization}>>:${${PREFIX}_RELEASE_flags};${${PREFIX}_link_time_optimization_flags}$<$<BOOL:${profile_generate}>:${${PREFIX}_profile_generate_flags};>$<$<BOOL:${profile_use}>:${${PREFIX}_profile_use_flags};>$<$<BOOL:${nonportable_optimization}>:${${PREFIX}_nonportable_optimization_flags};>>$<$<CONFIG:DEBUG>:$<$<BOOL:${coverage}>:${${PREFIX}_coverage_flags};>>$<$<BOOL:CXX_appended_flags>:${CXX_appended_flags};>$<$<BOOL:ENDFtk_appended_flags>:${ENDFtk_appended_flags};>" )
+
+target_link_libraries( ENDFtk PUBLIC header-utilities PUBLIC range-v3-adapter PUBLIC Log PUBLIC variant-adapter PUBLIC catch-adapter PUBLIC disco )
 
 if( NOT is_subproject )
     enable_testing() 
     if ( unit_tests )
-        add_subdirectory( src/ENDFtk/StructureDivision/test )
+        add_subdirectory( src/ENDFtk/ResonanceParameters/Resolved/BreitWigner/test )
+        add_subdirectory( src/ENDFtk/TapeIdentification/test )
+        add_subdirectory( src/ENDFtk/ResonanceParameters/Resolved/RMatrixLimited/test )
+        add_subdirectory( src/ENDFtk/record/Zipper/test )
+        add_subdirectory( src/ENDFtk/UnivariateTabulation/test )
+        add_subdirectory( src/ENDFtk/record/Sequence/test )
+        add_subdirectory( src/ENDFtk/ResonanceParameters/SpecialCase/test )
         add_subdirectory( src/ENDFtk/record/Base/test )
         add_subdirectory( src/ENDFtk/syntaxTree/Material/test )
-        add_subdirectory( src/ENDFtk/ControlRecord/test )
-        add_subdirectory( src/ENDFtk/UnivariateTabulation/test )
-        add_subdirectory( src/ENDFtk/section/3/test )
-        add_subdirectory( src/ENDFtk/syntaxTree/File/test )
-        add_subdirectory( src/ENDFtk/record/test )
+        add_subdirectory( src/ENDFtk/ResonanceParameters/Isotope/test )
         add_subdirectory( src/ENDFtk/DirectoryRecord/test )
-        add_subdirectory( src/ENDFtk/record/Tail/test )
-        add_subdirectory( src/ENDFtk/ListRecord/test )
-        add_subdirectory( src/ENDFtk/record/Sequence/test )
-        add_subdirectory( src/ENDFtk/record/Zipper/test )
         add_subdirectory( src/ENDFtk/HeadRecord/test )
-        add_subdirectory( src/ENDFtk/TextRecord/test )
-        add_subdirectory( src/ENDFtk/syntaxTree/Tape/test )
-        add_subdirectory( src/ENDFtk/file/Type/test )
+        add_subdirectory( src/ENDFtk/syntaxTree/File/test )
+        add_subdirectory( src/ENDFtk/section/2/test )
         add_subdirectory( src/ENDFtk/syntaxTree/Section/test )
+        add_subdirectory( src/ENDFtk/ControlRecord/test )
+        add_subdirectory( src/ENDFtk/section/3/test )
+        add_subdirectory( src/ENDFtk/file/Type/test )
         add_subdirectory( src/ENDFtk/section/Base/test )
+        add_subdirectory( src/ENDFtk/ResonanceParameters/Resolved/MultiLevelBreitWigner/test )
+        add_subdirectory( src/ENDFtk/ResonanceParameters/Resolved/SingleLevelBreitWigner/test )
+        add_subdirectory( src/ENDFtk/StructureDivision/test )
+        add_subdirectory( src/ENDFtk/TextRecord/test )
+        add_subdirectory( src/ENDFtk/ResonanceParameters/Resolved/RMatrixLimited/SpinGroup/test )
+        add_subdirectory( src/ENDFtk/syntaxTree/Tape/test )
+        add_subdirectory( src/ENDFtk/ResonanceParameters/Resolved/ReichMoore/test )
+        add_subdirectory( src/ENDFtk/ResonanceParameters/Resolved/Base/test )
+        add_subdirectory( src/ENDFtk/ListRecord/test )
+        add_subdirectory( src/ENDFtk/record/test )
+        add_subdirectory( src/ENDFtk/ResonanceParameters/test )
+        add_subdirectory( src/ENDFtk/record/Tail/test )
     endif() 
 endif()
 

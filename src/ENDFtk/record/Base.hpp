@@ -59,8 +59,14 @@ struct Base {
 
   /* ctor */
   template< typename Iterator >
-  Base( Iterator& it, const Iterator& end ) :
-    fields( readFields< nFields - 1 >( it, end, std::true_type() ) ){}
+  Base( Iterator& it, const Iterator& end ) 
+    try :
+      fields( readFields< nFields - 1 >( it, end, std::true_type() ) )
+  {
+  } catch( std::exception& e ){
+    Log::info( "Encountered error when reading Base of Record" );
+    throw e;
+  }
 
   Base( ArgumentType< typename Fields::Type > ... types ) :
     fields( std::make_tuple< typename Fields::Type... >

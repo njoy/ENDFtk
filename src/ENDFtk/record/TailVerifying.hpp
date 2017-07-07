@@ -15,6 +15,7 @@ public:
       Log::info( "The expected {} number is: {}",
                  helper::name< position >, expectedValue ); 
       Log::info( "Error encountered while verifying record tail values" ); 
+
       throw (position + 6); 
     }                                                                      
   }

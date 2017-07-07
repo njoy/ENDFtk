@@ -373,6 +373,7 @@
     "src/ENDFtk/HeadRecord.hpp",
     "src/ENDFtk/ListRecord.hpp",
     "src/ENDFtk/record.hpp",
+    "src/ENDFtk/ResonanceParameters.hpp",
     "src/ENDFtk/section.hpp",
     "src/ENDFtk/StructureDivision.hpp",
     "src/ENDFtk/syntaxTree.hpp",
@@ -405,6 +406,22 @@
     "src/ENDFtk/record/Zipper/src/unzip.hpp",
     "src/ENDFtk/record/Zipper/src/verifyTail.hpp",
     "src/ENDFtk/record/Zipper/src/Zipped.hpp",
+    "src/ENDFtk/ResonanceParameters/Isotope.hpp",
+    "src/ENDFtk/ResonanceParameters/Resolved.hpp",
+    "src/ENDFtk/ResonanceParameters/SpecialCase.hpp",
+    "src/ENDFtk/ResonanceParameters/Isotope/src/ctor.hpp",
+    "src/ENDFtk/ResonanceParameters/Isotope/src/resolvedRange.hpp",
+    "src/ENDFtk/ResonanceParameters/Resolved/Base.hpp",
+    "src/ENDFtk/ResonanceParameters/Resolved/BreitWigner.hpp",
+    "src/ENDFtk/ResonanceParameters/Resolved/MultiLevelBreitWigner.hpp",
+    "src/ENDFtk/ResonanceParameters/Resolved/ReichMoore.hpp",
+    "src/ENDFtk/ResonanceParameters/Resolved/RMatrixLimited.hpp",
+    "src/ENDFtk/ResonanceParameters/Resolved/SingleLevelBreitWigner.hpp",
+    "src/ENDFtk/ResonanceParameters/Resolved/BreitWigner/src/ctor.hpp",
+    "src/ENDFtk/ResonanceParameters/Resolved/RMatrixLimited/SpinGroup.hpp",
+    "src/ENDFtk/ResonanceParameters/Resolved/RMatrixLimited/SpinGroup/src/ctor.hpp",
+    "src/ENDFtk/ResonanceParameters/Resolved/RMatrixLimited/src/ctor.hpp",
+    "src/ENDFtk/section/2.hpp",
     "src/ENDFtk/section/3.hpp",
     "src/ENDFtk/section/Base.hpp",
     "src/ENDFtk/section/Base/src/ctor.hpp",
@@ -439,7 +456,9 @@
     "src/ENDFtk/UnivariateTabulation/src/verifyXValuesAreSorted.hpp"
   ],
   "ignore pattern": "$^",
-  "implementation files": [],
+  "implementation files": [
+    "src/ENDFtk/ResonanceParameters/SpecialCase/src/ctor.cpp"
+  ],
   "include path": "src",
   "initialized": true,
   "is external project": false,
@@ -466,8 +485,42 @@
     "ENDFtk.ListRecord": [
       "src/ENDFtk/ListRecord/test/ListRecord.test.cpp"
     ],
+    "ENDFtk.ResonanceParameters": [
+      "src/ENDFtk/ResonanceParameters/test/Range.test.cpp"
+    ],
+    "ENDFtk.ResonanceParameters.Isotope": [
+      "src/ENDFtk/ResonanceParameters/Isotope/test/Isotope.test.cpp",
+      "src/ENDFtk/ResonanceParameters/Isotope/test/resolvedRange.test.cpp"
+    ],
+    "ENDFtk.ResonanceParameters.Resolved.Base": [
+      "src/ENDFtk/ResonanceParameters/Resolved/Base/test/Base.test.cpp"
+    ],
+    "ENDFtk.ResonanceParameters.Resolved.BreitWigner": [
+      "src/ENDFtk/ResonanceParameters/Resolved/BreitWigner/test/BreitWigner.test.cpp"
+    ],
+    "ENDFtk.ResonanceParameters.Resolved.MultiLevelBreitWigner": [
+      "src/ENDFtk/ResonanceParameters/Resolved/MultiLevelBreitWigner/test/MultiLevelBreitWigner.test.cpp"
+    ],
+    "ENDFtk.ResonanceParameters.Resolved.RMatrixLimited": [
+      "src/ENDFtk/ResonanceParameters/Resolved/RMatrixLimited/test/RMatrixLimited.test.cpp"
+    ],
+    "ENDFtk.ResonanceParameters.Resolved.RMatrixLimited.SpinGroup": [
+      "src/ENDFtk/ResonanceParameters/Resolved/RMatrixLimited/SpinGroup/test/SpinGroup.test.cpp"
+    ],
+    "ENDFtk.ResonanceParameters.Resolved.ReichMoore": [
+      "src/ENDFtk/ResonanceParameters/Resolved/ReichMoore/test/ReichMoore.test.cpp"
+    ],
+    "ENDFtk.ResonanceParameters.Resolved.SingleLevelBreitWigner": [
+      "src/ENDFtk/ResonanceParameters/Resolved/SingleLevelBreitWigner/test/SingleLevelBreitWigner.test.cpp"
+    ],
+    "ENDFtk.ResonanceParameters.SpecialCase": [
+      "src/ENDFtk/ResonanceParameters/SpecialCase/test/SpecialCase.test.cpp"
+    ],
     "ENDFtk.StructureDivision": [
       "src/ENDFtk/StructureDivision/test/StructureDivision.test.cpp"
+    ],
+    "ENDFtk.TapeIdentification": [
+      "src/ENDFtk/TapeIdentification/test/TapeIdentification.test.cpp"
     ],
     "ENDFtk.TextRecord": [
       "src/ENDFtk/TextRecord/test/TextRecord.test.cpp"
@@ -514,6 +567,9 @@
       "src/ENDFtk/record/Zipper/test/reserve.test.cpp",
       "src/ENDFtk/record/Zipper/test/unzip.test.cpp",
       "src/ENDFtk/record/Zipper/test/Zipper.test.cpp"
+    ],
+    "ENDFtk.section.2": [
+      "src/ENDFtk/section/2/test/2.test.cpp"
     ],
     "ENDFtk.section.3": [
       "src/ENDFtk/section/3/test/3.test.cpp"
