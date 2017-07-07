@@ -4,6 +4,23 @@
 #include <functional>
 #include <unordered_map>
 
+#ifdef __GNUC__
+  #pragma GCC diagnostic push
+  #pragma GCC diagnostic ignored "-Wunused-parameter"
+#endif
+#include <variant>   
+#ifdef __GNUC__
+  #pragma GCC diagnostic pop
+#endif
+
+#ifdef USING_CPP17
+  #include <optional>
+#else 
+  #include <experimental/optional>
+  namespace std {
+    using namespace std::experimental;
+  }
+#endif
 #include "range/v3/all.hpp"
 
 #include "disco.hpp"
@@ -49,6 +66,8 @@ using TAB1 = UnivariateTabulation;
 
 #include "ENDFtk/section.hpp"
 
+#include "ENDFtk/ResonanceParameters.hpp"
+
 #include "ENDFtk/file.hpp"
 
 #include "ENDFtk/syntaxTree.hpp"
@@ -56,5 +75,4 @@ using TAB1 = UnivariateTabulation;
 }
 }
 
-#endif
-
+#endif // ENDFTK_HPP

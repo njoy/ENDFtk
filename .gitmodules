@@ -13,3 +13,6 @@
 [submodule "dependencies/range-v3-adapter"]
 	path = dependencies/range-v3-adapter
 	url = https://github.com/njoy/range-v3-adapter.git
+[submodule "dependencies/variant-adapter"]
+	path = dependencies/variant-adapter
+	url = https://github.com/njoy/variant-adapter.git
