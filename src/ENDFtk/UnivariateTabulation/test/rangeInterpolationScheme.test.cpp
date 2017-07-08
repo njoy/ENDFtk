@@ -10,17 +10,11 @@ SCENARIO( "UnivariateTabulation rangeInterpolationScheme",
   auto tab1 = makeTAB1();
   std::vector< long > interpolationScheme{1,2,3};
   
-  for ( long index = 0; index < tab1.nRanges(); ++index ){
-    REQUIRE( interpolationScheme[ index ] ==
-             tab1.rangeInterpolationScheme( index ) );
+  for ( long index = 0; index < tab1.NR(); ++index ){
+    REQUIRE( interpolationScheme[ index ] == tab1.interpolants()[ index ] );
   }
-  REQUIRE_THROWS( tab1.rangeInterpolationScheme( -1 ) );
-  REQUIRE_THROWS( tab1.rangeInterpolationScheme( tab1.NR() ) );
-  const auto& ctab1 = tab1;
-  for ( long index = 0; index < ctab1.nRanges(); ++index ){
-    REQUIRE( interpolationScheme[ index ] ==
-             tab1.rangeInterpolationScheme( index ) );
-  }
-  REQUIRE_THROWS( ctab1.rangeInterpolationScheme( -1 ) );
-  REQUIRE_THROWS( ctab1.rangeInterpolationScheme( ctab1.NR() ) );  
+
+  // REQUIRE_THROWS( ranges::at( tab1.interpolants(), -1 ) );
+  REQUIRE_THROWS( ranges::at( tab1.interpolants(), tab1.NR() ) );
+
 }

@@ -52,25 +52,22 @@ public:
     } catch ( int fieldNumber ){
       auto fieldPosition = std::next( begin, 66 );
       switch (fieldNumber) {
-        case 6 :
-          Log::error( "Illegal material number (MAT) encountered" );
-          utility::echoErroneousLine( begin, fieldPosition, end, lineNumber );
-          break;
-
-        case 7 :
-          std::advance( fieldPosition, 4 );
-          Log::error( "Illegal file number (MF) encountered" );
-          utility::echoErroneousLine( begin, fieldPosition, end, lineNumber );
-          break;
-
-        case 8 :
-          std::advance( fieldPosition, 6 );
-          Log::error( "Illegal section number (MT) encountered" );
-          utility::echoErroneousLine( begin, fieldPosition, end, lineNumber );
-          break;
-
-        default:
-          break;
+      case 6 :
+        Log::error( "Illegal material number (MAT) encountered" );
+        utility::echoErroneousLine( begin, fieldPosition, end, lineNumber );
+        break;
+      case 7 :
+        std::advance( fieldPosition, 4 );
+        Log::error( "Illegal file number (MF) encountered" );
+        utility::echoErroneousLine( begin, fieldPosition, end, lineNumber );
+        break;
+      case 8 :
+        std::advance( fieldPosition, 6 );
+        Log::error( "Illegal section number (MT) encountered" );
+        utility::echoErroneousLine( begin, fieldPosition, end, lineNumber );
+        break;
+      default:
+        break;
       }
       throw std::exception();
     } catch ( std::exception& e ){

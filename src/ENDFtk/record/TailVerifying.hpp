@@ -10,9 +10,9 @@ public:
     if( this->fields[ position ] != expectedValue ){ 
       Log::error( "The record {} number ({}) is inconsistent with expectation.",
                   helper::name< position >, helper::symbol< position > );
-      Log::info( "The read {} number is: {}", 
+      Log::info( "The read {} number is: {}",
                  helper::name< position >, this->fields[ position ] );
-      Log::info( "The expected {} number is: {}", 
+      Log::info( "The expected {} number is: {}",
                  helper::name< position >, expectedValue ); 
       Log::info( "Error encountered while verifying record tail values" ); 
 

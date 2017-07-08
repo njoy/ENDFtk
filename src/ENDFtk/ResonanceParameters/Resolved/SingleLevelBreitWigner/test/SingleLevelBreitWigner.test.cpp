@@ -81,12 +81,12 @@ SCENARIO( "Testing Resolved Resonance SLSLBW" ){
           REQUIRE( 0 == SLBW.tab1->L2() );
           REQUIRE( 1 == SLBW.tab1->NR() );
           REQUIRE( 50 == SLBW.tab1->NP() );
-          REQUIRE( 50 == SLBW.tab1->xValues.size() );
-          REQUIRE( 50 == SLBW.tab1->yValues.size() );
-          REQUIRE( 1.0E-5 == Approx( SLBW.tab1->xValues.front() ) );
-          REQUIRE( 1.2381 == Approx( SLBW.tab1->yValues.front() ) );
-          REQUIRE( 2.0E5 == Approx( SLBW.tab1->xValues.back() ) );
-          REQUIRE( 0.5803 == Approx( SLBW.tab1->yValues.back() ) );
+          REQUIRE( 50 == SLBW.tab1->x().size() );
+          REQUIRE( 50 == SLBW.tab1->y().size() );
+          REQUIRE( 1.0E-5 == Approx( SLBW.tab1->x().front() ) );
+          REQUIRE( 1.2381 == Approx( SLBW.tab1->y().front() ) );
+          REQUIRE( 2.0E5 == Approx( SLBW.tab1->x().back() ) );
+          REQUIRE( 0.5803 == Approx( SLBW.tab1->y().back() ) );
         }
       }
     }

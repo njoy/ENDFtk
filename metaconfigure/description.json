@@ -531,17 +531,14 @@
       "src/ENDFtk/UnivariateTabulation/test/equality.test.cpp",
       "src/ENDFtk/UnivariateTabulation/test/L1.test.cpp",
       "src/ENDFtk/UnivariateTabulation/test/L2.test.cpp",
-      "src/ENDFtk/UnivariateTabulation/test/nPairs.test.cpp",
-      "src/ENDFtk/UnivariateTabulation/test/nRanges.test.cpp",
-      "src/ENDFtk/UnivariateTabulation/test/rangeBoundaries.test.cpp",
+      "src/ENDFtk/UnivariateTabulation/test/NP.test.cpp",
+      "src/ENDFtk/UnivariateTabulation/test/NR.test.cpp",
+      "src/ENDFtk/UnivariateTabulation/test/pairs.test.cpp",
       "src/ENDFtk/UnivariateTabulation/test/rangeInterpolationScheme.test.cpp",
+      "src/ENDFtk/UnivariateTabulation/test/regions.test.cpp",
       "src/ENDFtk/UnivariateTabulation/test/UnivariateTabulation.test.cpp",
-      "src/ENDFtk/UnivariateTabulation/test/xBegin.test.cpp",
-      "src/ENDFtk/UnivariateTabulation/test/xEnd.test.cpp",
-      "src/ENDFtk/UnivariateTabulation/test/xValues.test.cpp",
-      "src/ENDFtk/UnivariateTabulation/test/yBegin.test.cpp",
-      "src/ENDFtk/UnivariateTabulation/test/yEnd.test.cpp",
-      "src/ENDFtk/UnivariateTabulation/test/yValue.test.cpp"
+      "src/ENDFtk/UnivariateTabulation/test/x.test.cpp",
+      "src/ENDFtk/UnivariateTabulation/test/y.test.cpp"
     ],
     "ENDFtk.file.Type": [
       "src/ENDFtk/file/Type/test/Type.test.cpp"

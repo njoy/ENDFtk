@@ -5,8 +5,8 @@ asHead( StructureDivision& record );
 
 HeadRecord&
 asHead( double expectedZA,
-	double expectedAtomicWeightRatio,
-	StructureDivision& record );
+        double expectedAtomicWeightRatio,
+        StructureDivision& record );
 
 const HeadRecord&
 asHead( const StructureDivision& record );

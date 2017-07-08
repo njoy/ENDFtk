@@ -58,21 +58,21 @@ SCENARIO( "Testing Resolved Resonance BW" ){
         REQUIRE( 0 == bw.NAPS );
 
         {
-        REQUIRE( 3.0 == bw.cont.C1() );
-        REQUIRE( 0.0 == Approx( bw.cont.C2() ) );
-        REQUIRE( 0 == bw.cont.L1() );
-        REQUIRE( 0 == bw.cont.L2() );
-        REQUIRE( 1 == bw.cont.N1() );
-        REQUIRE( 0 == bw.cont.N2() );
+          REQUIRE( 3.0 == bw.cont.C1() );
+          REQUIRE( 0.0 == Approx( bw.cont.C2() ) );
+          REQUIRE( 0 == bw.cont.L1() );
+          REQUIRE( 0 == bw.cont.L2() );
+          REQUIRE( 1 == bw.cont.N1() );
+          REQUIRE( 0 == bw.cont.N2() );
         }
 
         {
-        REQUIRE( 166.492 == Approx( bw.list.C1() ) );
-        REQUIRE( 0.0 == bw.list.C2() );
-        REQUIRE( 0 == bw.list.L1() );
-        REQUIRE( 0 == bw.list.L2() );
-        REQUIRE( 24 == bw.list.NPL() );
-        REQUIRE( 4 == bw.list.N2() );
+          REQUIRE( 166.492 == Approx( bw.list.C1() ) );
+          REQUIRE( 0.0 == bw.list.C2() );
+          REQUIRE( 0 == bw.list.L1() );
+          REQUIRE( 0 == bw.list.L2() );
+          REQUIRE( 24 == bw.list.NPL() );
+          REQUIRE( 4 == bw.list.N2() );
         }
 
         {
@@ -82,12 +82,12 @@ SCENARIO( "Testing Resolved Resonance BW" ){
           REQUIRE( 0 == bw.tab1->L2() );
           REQUIRE( 1 == bw.tab1->NR() );
           REQUIRE( 50 == bw.tab1->NP() );
-          REQUIRE( 50 == bw.tab1->xValues.size() );
-          REQUIRE( 50 == bw.tab1->yValues.size() );
-          REQUIRE( 1.0E-5 == Approx( bw.tab1->xValues.front() ) );
-          REQUIRE( 1.2381 == Approx( bw.tab1->yValues.front() ) );
-          REQUIRE( 2.0E5 == Approx( bw.tab1->xValues.back() ) );
-          REQUIRE( 0.5803 == Approx( bw.tab1->yValues.back() ) );
+          REQUIRE( 50 == bw.tab1->x().size() );
+          REQUIRE( 50 == bw.tab1->y().size() );
+          REQUIRE( 1.0E-5 == Approx( bw.tab1->x().front() ) );
+          REQUIRE( 1.2381 == Approx( bw.tab1->y().front() ) );
+          REQUIRE( 2.0E5 == Approx( bw.tab1->x().back() ) );
+          REQUIRE( 0.5803 == Approx( bw.tab1->y().back() ) );
         }
       }
     }
@@ -105,21 +105,21 @@ SCENARIO( "Testing Resolved Resonance BW" ){
         REQUIRE( 0 == bw.NAPS );
 
         {
-        REQUIRE( 3.0 == bw.cont.C1() );
-        REQUIRE( 0.0 == Approx( bw.cont.C2() ) );
-        REQUIRE( 0 == bw.cont.L1() );
-        REQUIRE( 0 == bw.cont.L2() );
-        REQUIRE( 1 == bw.cont.N1() );
-        REQUIRE( 0 == bw.cont.N2() );
+          REQUIRE( 3.0 == bw.cont.C1() );
+          REQUIRE( 0.0 == Approx( bw.cont.C2() ) );
+          REQUIRE( 0 == bw.cont.L1() );
+          REQUIRE( 0 == bw.cont.L2() );
+          REQUIRE( 1 == bw.cont.N1() );
+          REQUIRE( 0 == bw.cont.N2() );
         }
 
         {
-        REQUIRE( 166.492 == Approx( bw.list.C1() ) );
-        REQUIRE( 0.0 == bw.list.C2() );
-        REQUIRE( 0 == bw.list.L1() );
-        REQUIRE( 0 == bw.list.L2() );
-        REQUIRE( 24 == bw.list.NPL() );
-        REQUIRE( 4 == bw.list.N2() );
+          REQUIRE( 166.492 == Approx( bw.list.C1() ) );
+          REQUIRE( 0.0 == bw.list.C2() );
+          REQUIRE( 0 == bw.list.L1() );
+          REQUIRE( 0 == bw.list.L2() );
+          REQUIRE( 24 == bw.list.NPL() );
+          REQUIRE( 4 == bw.list.N2() );
         }
         
 

@@ -81,12 +81,12 @@ SCENARIO( "Testing Resolved Resonance MLmlmlbw" ){
           REQUIRE( 0 == mlbw.tab1->L2() );
           REQUIRE( 1 == mlbw.tab1->NR() );
           REQUIRE( 50 == mlbw.tab1->NP() );
-          REQUIRE( 50 == mlbw.tab1->xValues.size() );
-          REQUIRE( 50 == mlbw.tab1->yValues.size() );
-          REQUIRE( 1.0E-5 == Approx( mlbw.tab1->xValues.front() ) );
-          REQUIRE( 1.2381 == Approx( mlbw.tab1->yValues.front() ) );
-          REQUIRE( 2.0E5 == Approx( mlbw.tab1->xValues.back() ) );
-          REQUIRE( 0.5803 == Approx( mlbw.tab1->yValues.back() ) );
+          REQUIRE( 50 == mlbw.tab1->x().size() );
+          REQUIRE( 50 == mlbw.tab1->y().size() );
+          REQUIRE( 1.0E-5 == Approx( mlbw.tab1->x().front() ) );
+          REQUIRE( 1.2381 == Approx( mlbw.tab1->y().front() ) );
+          REQUIRE( 2.0E5 == Approx( mlbw.tab1->x().back() ) );
+          REQUIRE( 0.5803 == Approx( mlbw.tab1->y().back() ) );
         }
       }
     }

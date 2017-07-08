@@ -7,7 +7,7 @@ sectionNumber( int sectionNo ){
                 " correspond to a stored section in the syntax tree" );
     Log::info( "Requested section number: {}", sectionNo );
     Log::info( "File number of queried file syntax tree: {}",
-	       this->fileNumber() );
+               this->fileNumber() );
     throw o;
   }   
 }

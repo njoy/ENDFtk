@@ -47,7 +47,7 @@ SCENARIO( "section::Type<3>" ){
     auto end = sectionString.end();
     long lineNumber = 132;
     HeadRecord head( begin, end, lineNumber );
-	  
+    
     THEN( "an exception is thrown upon construction" ){
       REQUIRE_THROWS( section::Type<3>( head, begin, end, lineNumber, 125 ) );
     }

@@ -1,6 +1,5 @@
 class UnivariateTabulation {
-public:
-
+protected:
   /* convenience typedefs */
   using Base = record::Base< record::Real, record::Real,
                              record::Integer< 11 >, record::Integer< 11 >,
@@ -16,13 +15,6 @@ public:
   std::vector< double > xValues;
   std::vector< double > yValues;
 
-  /* more convenience typedefs */
-  using regionIterator = decltype( boundaryIndices )::iterator;
-  using constRegionIterator = decltype( boundaryIndices )::const_iterator;
-  using constXIterator = decltype( xValues )::const_iterator;
-  using yIterator = decltype( yValues )::iterator;
-  using constYIterator = decltype( yValues )::const_iterator;
-
   /* helper methods */
 #include "ENDFtk/UnivariateTabulation/src/verifyTail.hpp"
 #include "ENDFtk/UnivariateTabulation/src/verifyBoundaryIndicesAreSorted.hpp"
@@ -30,6 +22,20 @@ public:
 #include "ENDFtk/UnivariateTabulation/src/readRangeDescriptions.hpp"
 #include "ENDFtk/UnivariateTabulation/src/readPairs.hpp"      
 #include "ENDFtk/UnivariateTabulation/src/readMetadata.hpp"
+
+  auto regions( size_t index ) const {
+    const auto left = index ? this->boundaryIndices[ index - 1 ] - 1 : 0;
+    const auto right = this->boundaryIndices[ index ];
+    return
+      std::make_pair( ranges::make_iterator_range
+                      ( this->xValues.begin() + left,
+                        this->xValues.begin() + right ),
+                      ranges::make_iterator_range
+                      ( this->yValues.begin() + left,
+                        this->yValues.begin() + right ) );
+  }
+  
+public:
 #include "ENDFtk/UnivariateTabulation/src/ctor.hpp"
     
 #define DEFINE_GETTER( name, index )                                    \
@@ -45,62 +51,38 @@ public:
   DEFINE_GETTER( L2, 3 )
 #undef DEFINE_GETTER  
 
-  long nPairs() const { return this->xValues.size(); }
-  long NP() const { return this->nPairs(); }
-
-#define verified_get( variable_name, name )				\
-  try {									\
-    return this->variable_name.at( index );				\
-  } catch ( std::out_of_range& e ){					\
-    Log::error( "Out of bounds index for {}", name );			\
-    Log::info( "Requested index: {}", index );				\
-    Log::info( "{} may be indexed from 0 to {}",			\
-	       name, (this->variable_name.size() - 1) );		\
-    throw e;								\
+  long NP() const { return this->xValues.size(); }
+  long NR() const { return this->boundaryIndices.size(); }
+  
+  auto x() const {
+    return ranges::make_iterator_range( this->xValues.begin(),
+                                        this->xValues.end() );
   }
   
-  ImmutableReturnType< decltype( xValues )::value_type >
-  xValue( std::size_t index ) const { verified_get( xValues, "X-values" ) }
-
-  MutableReturnType< decltype( yValues)::value_type >
-  yValue( std::size_t index ){ verified_get( yValues, "Y-values" ) }
-
-  MutableReturnType< decltype( interpolationSchemeIndices )::value_type >
-  rangeInterpolationScheme( std::size_t index ){
-    verified_get( interpolationSchemeIndices, "Interpolation schemes" )
+  auto y() const {
+    return ranges::make_iterator_range( this->yValues.begin(),
+                                        this->yValues.end() );
   }
-#undef verified_get
+
+  auto pairs() const {
+    return ranges::view::zip( this->xValues, this->yValues );
+  }
   
-  constXIterator xBegin() const { return this->xValues.begin(); }
-  constXIterator xEnd() const { return this->xValues.end(); }
-
-  ImmutableReturnType< decltype( yValues )::value_type >
-  yValue( std::size_t index ) const {
-    return const_cast< UnivariateTabulation* >(this)->yValue( index );
+  auto interpolants() const {
+    return ranges::make_iterator_range( this->interpolationSchemeIndices.begin(),
+                                        this->interpolationSchemeIndices.end() );
+  }
+  
+  auto boundaries() const {
+    return ranges::make_iterator_range( this->boundaryIndices.begin(),
+                                        this->boundaryIndices.end() );
   }
 
-  yIterator
-  yBegin(){ return this->yValues.begin(); }
-
-  constYIterator
-  yBegin() const { return const_cast< UnivariateTabulation* >(this)->yBegin(); }
-
-  yIterator
-  yEnd(){ return this->yValues.end(); }
-
-  constYIterator
-  yEnd() const { return const_cast< UnivariateTabulation* >(this)->yEnd(); }
-
-  long nRanges() const { return this->boundaryIndices.size(); }
-  long NR() const { return this->nRanges(); }
-
-  #include "ENDFtk/UnivariateTabulation/src/rangeBoundaries.hpp"
-
-  ImmutableReturnType< long >
-  rangeInterpolationScheme( std::size_t index ) const {
-    return const_cast< UnivariateTabulation* >
-      ( this )->rangeInterpolationScheme( index );
-  }  
+  auto regions() const {
+    return
+      ranges::view::iota( 0ul, this->boundaryIndices.size() )
+      | ranges::view::transform( [this ]( int i ){ return this->regions(i); } );
+  }
 
   bool operator== ( const UnivariateTabulation& rhs ){
     return ( this->C1() == rhs.C1() )

@@ -5,8 +5,8 @@ using namespace njoy::ENDFtk;
 
 extern std::function< UnivariateTabulation() > makeTAB1;
 
-SCENARIO( "UnivariateTabulation xBegin",
+SCENARIO( "UnivariateTabulation nPairs",
           "[ENDFtk], [UnivariateTabulation]" ){
   auto tab1 = makeTAB1();
-  REQUIRE( *(tab1.xBegin()) == 1.0 );
+  REQUIRE( tab1.NP() == 6 );
 }
