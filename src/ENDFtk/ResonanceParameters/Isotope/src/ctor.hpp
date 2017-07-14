@@ -1,40 +1,25 @@
+protected:
 template< typename Iterator >
-Isotope( CONT& cont, 
+Isotope( const CONT& cont, 
          Iterator& it, const Iterator& end, long& lineNumber,
-         int MAT, int MF, int MT ):
-  ZAI( cont.C1() ),
-  abundance( cont.C2() ){
+         int MAT, int MF, int MT ) :
+  zai( cont.C1() ),
+  abn( cont.C2() ),
+  lfw( cont.L2() ),
+  ranges( readRanges( cont.N1(), it, end, lineNumber, MAT, MF, MT  ) ) {}
 
-  try{
-    for( long ner=0; ner < cont.N1(); ++ner ){
-      CONT rangeCONT( it, end, lineNumber, MAT, MF, MT );
-
-      auto LRU{ rangeCONT.L1() };
-      switch( LRU ){
-        case 0: {
-          CONT cont( it, end, lineNumber, MAT, MF, MT );
-          ranges.push_back( 
-              SpecialCase( rangeCONT.C1(), rangeCONT.C2(),
-                           cont.C1(), cont.C2(), cont.N1() ) );
-          break;
-        }
-        case 1:
-          ranges.push_back( std::move(
-              resolvedRange( rangeCONT, it, end, lineNumber, 
-                             MAT, MF, MT ) ) );
-          break;
-        case 2:
-          Log::error( "LRU=2 is not yet implemented" );
-          throw std::exception();
-          break;
-        default:
-          Log::error( "Encountered invalid LRU value: {}", LRU );
-          throw std::exception();
-      }
-    }
-
+public:
+template< typename Iterator >
+Isotope( Iterator& it, const Iterator& end, long& lineNumber,
+         int MAT, int MF, int MT )
+  try:
+    Isotope( CONT( it, end, lineNumber, MAT, MF, MT ),
+             it, end, lineNumber, MAT, MF, MT ){
   } catch( std::exception& e ){
-    Log::info( "Encountered error while parsing Resonance Parameter 'Isotope'" );
+    Log::info( "Encountered error while parsing resonance parameter Isotope" );
     throw e;
   }
-}
+  
+  
+Isotope( double ZAI, double ABN, int LFW, std::vector< EnergyRange >&& ranges ):
+  zai(ZAI), abn(ABN), lfw(LFW), ranges( std::move(ranges) ){}

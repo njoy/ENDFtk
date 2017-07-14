@@ -1,7 +1,5 @@
 
-add_executable( ENDFtk.ResonanceParameters.Isotope.test
-                Isotope.test.cpp
-                resolvedRange.test.cpp )
+add_executable( ENDFtk.ResonanceParameters.Isotope.test Isotope.test.cpp )
 target_compile_options( ENDFtk.ResonanceParameters.Isotope.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}

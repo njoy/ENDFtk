@@ -1,12 +1,21 @@
-// This is a really bad name for this class, but it is the name used in the ENDF
-// manual.
 class Isotope {
+  double zai;
+  double abn;
+  int lfw;
+  std::vector< EnergyRange > ranges;
+
+  #include "ENDFtk/ResonanceParameters/Isotope/src/readRanges.hpp"
+  
 public:
-
-  double ZAI;
-  double abundance;
-  std::vector< Range > ranges;
-
   #include "ENDFtk/ResonanceParameters/Isotope/src/ctor.hpp"
-  #include "ENDFtk/ResonanceParameters/Isotope/src/resolvedRange.hpp"
+
+  double ZAI() const { return this->zai; }
+  double ABN() const { return this->abn; }
+  int LFW() const { return this->lfw; }
+  int NER() const { return this->ranges.size(); }
+
+  auto energyRanges() const {
+    return ranges::make_iterator_range( this->ranges.begin(),
+                                        this->ranges.end() );
+  }
 };

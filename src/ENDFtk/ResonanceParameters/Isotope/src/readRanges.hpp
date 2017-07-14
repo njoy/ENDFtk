@@ -1,9 +1,9 @@
 template< typename Iterator >
-static Range
+static EnergyRange
 readRange( Iterator& it, const Iterator& end, long& lineNumber,
            int MAT, int MF, int MT ){
 
-  Resolved::Base base( it, end, lineNumber, MAT, MF, MT );
+  Base base( it, end, lineNumber, MAT, MF, MT );
 
   switch( base.LRU() ){
   case 0:
@@ -37,12 +37,18 @@ readRange( Iterator& it, const Iterator& end, long& lineNumber,
 }
 
 template< typename Iterator >
-static std::vector< Range >
+static std::vector< EnergyRange >
 readRanges( int NER,
             Iterator& it, const Iterator& end, long& lineNumber,
             int MAT, int MF, int MT ){
   std::vector< EnergyRange > ranges;
-  assert( NER >= 0 );
+  if ( NER < 0 ){
+    Log::error( "Encountered illegal NER value" );
+    Log::info( "NER required to be zero or greater" );
+    Log::info( "NER value: {}", NER );
+    throw std::exception();
+  }
+  
   while( NER-- ){
     ranges.push_back( readRange( it, end, lineNumber, MAT, MF, MT ) );
   }

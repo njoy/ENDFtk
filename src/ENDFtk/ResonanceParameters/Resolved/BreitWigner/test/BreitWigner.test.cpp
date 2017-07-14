@@ -6,10 +6,114 @@
 
 using namespace njoy::ENDFtk;
 
-std::string ENDF{
-  // " 6.916800+4 1.664920+2          0          0          1          06922 2151    1\n"
-  // " 6.916800+4 1.000000+0          0          0          1          06922 2151    2\n"
-  // " 1.000000-5 3.200000+0          1          2          1          06922 2151    3\n"
+class TestBreitWigner : public ResonanceParameters::Resolved::BreitWigner {
+public:
+  template< typename... Args >
+  TestBreitWigner( Args&&... args ) :
+    BreitWigner( std::forward<Args>(args)... ){}
+};
+
+std::string Tab1();
+std::string BreitWigner();
+
+SCENARIO( "Testing Resolved Resonance BW" ){
+  GIVEN( "valid ENDF parameters with TAB1" ){
+    long lineNumber = 0;
+    int MAT = 6922;
+    int MF = 2;
+    int MT = 151;
+
+    WHEN( "NRO == 0" ){
+      auto bws = BreitWigner();      
+      auto begin = bws.begin();
+      auto end = bws.end();
+      
+      ResonanceParameters::Base base( 1E-5, 3.2, 1, 1, 0, 0 );
+      TestBreitWigner bw( base, begin, end, lineNumber, MAT, MF, MT );
+
+      THEN( "the parameters can be verified" ){
+        REQUIRE( 1E-5 == bw.EL() );
+        REQUIRE( 3.2 == bw.EH() );
+        REQUIRE( 0 == bw.NRO() );
+        REQUIRE( 0 == bw.NAPS() );
+
+        REQUIRE( 3.0 == bw.SPI() );
+        REQUIRE( 0.0 ==  bw.AP() );
+        REQUIRE( 1 == bw.NLS() );
+
+        REQUIRE( 1 == bw.LISTS().size() );
+        REQUIRE( 24 == bw.LISTS().front().NPL() );
+        REQUIRE( 4 == bw.LISTS().front().N2() );
+      }
+    }
+    
+    WHEN( "NRO != 0" ){
+      auto bws = Tab1() + BreitWigner();      
+      auto begin = bws.begin();
+      auto end = bws.end();
+      
+      ResonanceParameters::Base base( 1E-5, 3.2, 1, 1, 1, 0 );
+      TestBreitWigner bw( base, begin, end, lineNumber, MAT, MF, MT );
+      
+      THEN( "the parameters can be verified" ){
+        REQUIRE( 1E-5 == bw.EL() );
+        REQUIRE( 3.2 == bw.EH() );
+        REQUIRE( 1 == bw.NRO() );
+        REQUIRE( 0 == bw.NAPS() );
+
+        REQUIRE( 3.0 == bw.SPI() );
+        REQUIRE( 0.0 == bw.AP() );
+        REQUIRE( 1 == bw.NLS() );
+
+        REQUIRE( 1 == bw.LISTS().size() );
+
+        REQUIRE( 1 == bw.APE().NR() );
+        REQUIRE( 50 == bw.APE().NP() );
+        REQUIRE( 50 == bw.APE().x().size() );
+        REQUIRE( 50 == bw.APE().y().size() );
+        REQUIRE( 1.0E-5 == Approx( bw.APE().x().front() ) );
+        REQUIRE( 1.2381 == Approx( bw.APE().y().front() ) );
+        REQUIRE( 2.0E5 == Approx( bw.APE().x().back() ) );
+        REQUIRE( 0.5803 == Approx( bw.APE().y().back() ) );
+      }
+    }
+  }
+
+  GIVEN( "valid ENDF paramaters, but with wrong MAT number" ){
+    auto bws = Tab1() + BreitWigner();      
+    auto begin = bws.begin();
+    auto end = bws.end();
+
+    long lineNumber = 0;
+    int MAT = 6922;
+    int MF = 2;
+    int MT = 151;
+
+    ResonanceParameters::Base base( 1E-5, 3.2, 1, 1, 1, 0 );
+
+    THEN( "an exception is thrown" ){
+      MAT = 125;
+      REQUIRE_THROWS(
+        TestBreitWigner( base, begin, end, lineNumber, MAT, MF, MT ) );
+    }
+  }
+}
+
+std::string BreitWigner(){
+  return
+    /* cont record */
+  " 3.000000+0 0.000000+0          0          0          1          06922 2151   23\n"
+    /* list record */
+  " 1.664920+2 0.000000+0          0          0         24          46922 2151   24\n"
+  "-2.974700+0 2.500000+0 7.846160-2 4.616000-4 7.800000-2 0.000000+06922 2151   25\n"
+  "-9.747000-1 2.500000+0 7.846160-2 4.616000-4 7.800000-2 0.000000+06922 2151   26\n"
+  " 1.025300+0 2.500000+0 7.846160-2 4.616000-4 7.800000-2 0.000000+06922 2151   27\n"
+  " 3.025300+0 2.500000+0 7.846160-2 4.616000-4 7.800000-2 0.000000+06922 2151   28\n"
+  " 0.000000+0 0.000000+0          0          0          0          06922 2  099999\n";
+}
+
+std::string Tab1(){
+  return
   " 0.000000+0 0.000000+0          0          0          1         506922 2151    4\n"
   "         50          2                                            6922 2151    5\n"
   " 1.000000-5 1.238100+0 4.000000+1 1.188400+0 5.000000+1 1.153200+06922 2151    6\n"
@@ -28,122 +132,5 @@ std::string ENDF{
   " 5.000000+4 6.953000-1 5.500000+4 6.888000-1 6.000000+4 6.826000-16922 2151   19\n"
   " 6.500000+4 6.767000-1 7.000000+4 6.712000-1 7.500000+4 6.659000-16922 2151   20\n"
   " 8.000000+4 6.608000-1 8.500000+4 6.560000-1 9.000000+4 6.513000-16922 2151   21\n"
-  " 9.500000+4 6.469000-1 2.000000+5 5.803000-1                      6922 2151   22\n"
-  " 3.000000+0 0.000000+0          0          0          1          06922 2151   23\n"
-  " 1.664920+2 0.000000+0          0          0         24          46922 2151   24\n"
-  "-2.974700+0 2.500000+0 7.846160-2 4.616000-4 7.800000-2 0.000000+06922 2151   25\n"
-  "-9.747000-1 2.500000+0 7.846160-2 4.616000-4 7.800000-2 0.000000+06922 2151   26\n"
-  " 1.025300+0 2.500000+0 7.846160-2 4.616000-4 7.800000-2 0.000000+06922 2151   27\n"
-  " 3.025300+0 2.500000+0 7.846160-2 4.616000-4 7.800000-2 0.000000+06922 2151   28\n"
-  " 0.000000+0 0.000000+0          0          0          0          06922 2  099999\n"};
-SCENARIO( "Testing Resolved Resonance BW" ){
-  GIVEN( "valid ENDF parameters with TAB1" ){
-    auto begin = ENDF.begin();
-    auto end = ENDF.end();
-    long lineNumber = 0;
-    int MAT = 6922;
-    int MF = 2;
-    int MT = 151;
-
-    WHEN( "NRO != 0" ){
-      ResonanceParameters::Resolved::Base base(1E-5, 3.2, 1, 0);
-
-      ResonanceParameters::Resolved::BreitWigner bw(
-          std::move(base), TAB1( begin, end, lineNumber, MAT, MF, MT ), 
-          begin, end, lineNumber, MAT, MF, MT);
-      THEN( "the parameters can be verified" ){
-        REQUIRE( 1E-5 == bw.lowerEnergyLimit );
-        REQUIRE( 3.2 == bw.upperEnergyLimit );
-        REQUIRE( 1 == bw.NRO );
-        REQUIRE( 0 == bw.NAPS );
-
-        {
-          REQUIRE( 3.0 == bw.cont.C1() );
-          REQUIRE( 0.0 == Approx( bw.cont.C2() ) );
-          REQUIRE( 0 == bw.cont.L1() );
-          REQUIRE( 0 == bw.cont.L2() );
-          REQUIRE( 1 == bw.cont.N1() );
-          REQUIRE( 0 == bw.cont.N2() );
-        }
-
-        {
-          REQUIRE( 166.492 == Approx( bw.list.C1() ) );
-          REQUIRE( 0.0 == bw.list.C2() );
-          REQUIRE( 0 == bw.list.L1() );
-          REQUIRE( 0 == bw.list.L2() );
-          REQUIRE( 24 == bw.list.NPL() );
-          REQUIRE( 4 == bw.list.N2() );
-        }
-
-        {
-          REQUIRE( 0.0 == bw.tab1->C1() );
-          REQUIRE( 0.0 == bw.tab1->C2() );
-          REQUIRE( 0 == bw.tab1->L1() );
-          REQUIRE( 0 == bw.tab1->L2() );
-          REQUIRE( 1 == bw.tab1->NR() );
-          REQUIRE( 50 == bw.tab1->NP() );
-          REQUIRE( 50 == bw.tab1->x().size() );
-          REQUIRE( 50 == bw.tab1->y().size() );
-          REQUIRE( 1.0E-5 == Approx( bw.tab1->x().front() ) );
-          REQUIRE( 1.2381 == Approx( bw.tab1->y().front() ) );
-          REQUIRE( 2.0E5 == Approx( bw.tab1->x().back() ) );
-          REQUIRE( 0.5803 == Approx( bw.tab1->y().back() ) );
-        }
-      }
-    }
-    WHEN( "NRO == 0" ){
-      TAB1 throwAway( begin, end, lineNumber, MAT, MF, MT );
-
-      ResonanceParameters::Resolved::Base base(1E-5, 3.2, 0, 0);
-      ResonanceParameters::Resolved::BreitWigner bw(
-          std::move(base), begin, end, lineNumber, MAT, MF, MT);
-
-      THEN( "the parameters can be verified" ){
-        REQUIRE( 1E-5 == bw.lowerEnergyLimit );
-        REQUIRE( 3.2 == bw.upperEnergyLimit );
-        REQUIRE( 0 == bw.NRO );
-        REQUIRE( 0 == bw.NAPS );
-
-        {
-          REQUIRE( 3.0 == bw.cont.C1() );
-          REQUIRE( 0.0 == Approx( bw.cont.C2() ) );
-          REQUIRE( 0 == bw.cont.L1() );
-          REQUIRE( 0 == bw.cont.L2() );
-          REQUIRE( 1 == bw.cont.N1() );
-          REQUIRE( 0 == bw.cont.N2() );
-        }
-
-        {
-          REQUIRE( 166.492 == Approx( bw.list.C1() ) );
-          REQUIRE( 0.0 == bw.list.C2() );
-          REQUIRE( 0 == bw.list.L1() );
-          REQUIRE( 0 == bw.list.L2() );
-          REQUIRE( 24 == bw.list.NPL() );
-          REQUIRE( 4 == bw.list.N2() );
-        }
-        
-
-        // Make sure there is no TAB1 Record
-        REQUIRE( not bw.tab1 );
-      }
-    }
-  }
-
-  GIVEN( "valid ENDF paramaters, but with wrong MAT number" ){
-    auto begin = ENDF.begin();
-    auto end = ENDF.end();
-    long lineNumber = 0;
-    int MAT = 6922;
-    int MF = 2;
-    int MT = 151;
-
-    ResonanceParameters::Resolved::Base base(1E-5, 3.2, 1, 0);
-
-    THEN( "an exception is thrown" ){
-      MAT = 125;
-      REQUIRE_THROWS( ResonanceParameters::Resolved::BreitWigner(
-            std::move(base), TAB1( begin, end, lineNumber, MAT, MF, MT ), 
-            begin, end, lineNumber, MAT, MF, MT) );
-    }
-  }
+  " 9.500000+4 6.469000-1 2.000000+5 5.803000-1                      6922 2151   22\n";
 }
