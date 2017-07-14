@@ -1,19 +1,16 @@
-namespace ResonanceParameters {
+namespace resonanceParameters {
 
-#include "ENDFtk/ResonanceParameters/Base.hpp"
-#include "ENDFtk/ResonanceParameters/SpecialCase.hpp"
+#include "ENDFtk/resonanceParameters/Base.hpp"
+#include "ENDFtk/resonanceParameters/SpecialCase.hpp"
+#include "ENDFtk/resonanceParameters/resolved.hpp"
 
-namespace Resolved {
-  #include "ENDFtk/ResonanceParameters/Resolved.hpp"
-}
-
-namespace Unresolved {}
+namespace unresolved {}
 
 using EnergyRange = std::variant< SpecialCase,
-                                  Resolved::SLBW, 
-                                  Resolved::MLBW, 
-                                  Resolved::ReichMoore >;
+                                  resolved::SLBW, 
+                                  resolved::MLBW, 
+                                  resolved::ReichMoore >;
 
-#include "ENDFtk/ResonanceParameters/Isotope.hpp"
+#include "ENDFtk/resonanceParameters/Isotope.hpp"
 
 }
