@@ -1,18 +1,18 @@
 
 add_executable( ENDFtk.UnivariateTabulation.test
-                C1.test.cpp
-                C2.test.cpp
-                equality.test.cpp
-                L1.test.cpp
-                L2.test.cpp
                 NP.test.cpp
                 NR.test.cpp
-                pairs.test.cpp
-                rangeInterpolationScheme.test.cpp
-                regions.test.cpp
-                UnivariateTabulation.test.cpp
                 x.test.cpp
-                y.test.cpp )
+                y.test.cpp
+                C2.test.cpp
+                pairs.test.cpp
+                UnivariateTabulation.test.cpp
+                regions.test.cpp
+                C1.test.cpp
+                L1.test.cpp
+                rangeInterpolationScheme.test.cpp
+                L2.test.cpp
+                equality.test.cpp )
 target_compile_options( ENDFtk.UnivariateTabulation.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}
