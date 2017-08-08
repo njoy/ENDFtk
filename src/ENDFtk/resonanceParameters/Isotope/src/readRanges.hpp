@@ -18,18 +18,28 @@ readRange( Iterator& it, const Iterator& end, long& lineNumber,
       return resolved::ReichMoore( base, it, end, lineNumber, MAT, MF, MT );
     case 4:
       Log::info( "Found Adler-Adler subsection" );
-      Log::error( "The Adler-Adler representation has not yet been implemented." );
+      Log::error( 
+          "The Adler-Adler representation has not yet been implemented." );
       throw std::exception();
     case 7:
       Log::info( "Found R-Matrix Limited subsection" );
-      Log::error( "The R-Matrix Limited representation has not yet been implemented." );
+      Log::error( 
+          "The R-Matrix Limited representation has not yet been implemented." );
       throw std::exception();
     }
   }
   case 2:
-    Log::info( "Found unresolved region subsection" );
-    Log::error( "Unresolved region subsections have not yet been implemented" );
-    throw std::exception();
+    switch( base.LRF() ){
+    case 1:
+      Log::info( "Found LRU=2, LRF=1 subsection" );
+      Log::error( "This has not yet been implemented" );
+    case 2:
+      Log::info( "Found LRU=2, LRF=2 subsection" );
+      Log::error( "This has not yet been implemented" );
+    default:
+      Log::error( "Found invalid LRF number: {} for LRU=2", base.LRF() );
+      throw std::exception();
+    }
   }
 
   /* unreachable but necessary to satisfy compiler warning */
