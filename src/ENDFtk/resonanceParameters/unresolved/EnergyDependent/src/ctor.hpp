@@ -2,7 +2,7 @@ protected:
 EnergyDependent( double EL, double EH, int NAPS,
                  double SPI, double AP,
                  const CONT& cont,
-                 std::vector< caseCTuple >&& lists ) :
+                 std::vector< LState >&& lists ) :
   lists( std::move(lists) ),
   ape( std::nullopt ),
   el( EL ),
@@ -15,7 +15,7 @@ EnergyDependent( double EL, double EH, int NAPS,
 EnergyDependent( double EL, double EH, int NAPS,
                  TAB1&& APE, double SPI, 
                  const CONT& cont,
-                 std::vector< caseCTuple >&& lists ) :
+                 std::vector< LState >&& lists ) :
   lists( std::move(lists) ),
   ape( std::move(APE) ),
   el( EL ),
@@ -28,7 +28,7 @@ EnergyDependent( double EL, double EH, int NAPS,
 EnergyDependent( const Base& base,
                  std::optional<TAB1>&& APE,
                  const CONT& cont,
-                 std::vector< caseCTuple >&& lists ) :
+                 std::vector< LState >&& lists ) :
   lists( std::move(lists) ),
   ape( std::move(APE) ),
   el( base.EL() ),
@@ -46,7 +46,7 @@ EnergyDependent( const Base& base,
                  Iterator& it, const Iterator& end, long& lineNumber,
                  int MAT, int MF, int MT ) :
   EnergyDependent( base, std::move( APE ), cont,
-                   readLists( cont, it, end, lineNumber, MAT, MF, MT ) ){}
+                   readLStates( cont, it, end, lineNumber, MAT, MF, MT ) ){}
   
 template< typename Iterator >
 EnergyDependent( const Base& base,

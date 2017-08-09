@@ -1,7 +1,9 @@
 class EnergyDependent {
+public:
+#include "ENDFtk/resonanceParameters/unresolved/EnergyDependent/LState.hpp"
+
 protected:
-  using caseCTuple = std::tuple< double, int, std::vector< LIST > >;
-  std::vector< caseCTuple > lists;
+  std::vector< LState > lists;
   std::optional< TAB1 > ape;
   double el;
   double eh;
@@ -11,7 +13,7 @@ protected:
   int lssf;
 
 #include "ENDFtk/resonanceParameters/unresolved/EnergyDependent/src/readAPE.hpp"
-#include "ENDFtk/resonanceParameters/unresolved/EnergyDependent/src/readLists.hpp"
+#include "ENDFtk/resonanceParameters/unresolved/EnergyDependent/src/readLStates.hpp"
 #include "ENDFtk/resonanceParameters/unresolved/EnergyDependent/src/ctor.hpp"
 
 public:
