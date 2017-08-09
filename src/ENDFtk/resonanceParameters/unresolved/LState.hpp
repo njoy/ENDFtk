@@ -4,8 +4,8 @@ protected:
   double awri;
   int l;
 
-#include "ENDFtk/resonanceParameters/unresolved/EnergyDependent/LState/src/ctor.hpp"
-#include "ENDFtk/resonanceParameters/unresolved/EnergyDependent/LState/src/readLists.hpp"
+#include "ENDFtk/resonanceParameters/unresolved/LState/src/ctor.hpp"
+#include "ENDFtk/resonanceParameters/unresolved/LState/src/readLists.hpp"
 
 public:
   double AWRI() const { return this->awri; }

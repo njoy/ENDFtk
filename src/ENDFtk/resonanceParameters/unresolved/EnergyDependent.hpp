@@ -1,7 +1,4 @@
 class EnergyDependent {
-public:
-#include "ENDFtk/resonanceParameters/unresolved/EnergyDependent/LState.hpp"
-
 protected:
   std::vector< LState > lists;
   std::optional< TAB1 > ape;

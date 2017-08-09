@@ -54,7 +54,7 @@ SCENARIO( "Energy-dependent unresolved resonances LState" ){
     auto end = endf.end();
 
     CONT cont( begin, end, lineNumber, MAT, MF, MT );
-    resonanceParameters::unresolved::EnergyDependent::LState lstate( 
+    resonanceParameters::unresolved::LState lstate( 
         cont, begin, end, lineNumber, MAT, MF, MT );
     THEN( "the parameters can be verified" ){
       REQUIRE( 8.91354E1 == lstate.AWRI() );
@@ -79,7 +79,7 @@ SCENARIO( "Energy-dependent unresolved resonances LState" ){
     cont = CONT( cbegin, cend, lineNumber, MAT, MF, MT );
 
     REQUIRE_THROWS(
-      resonanceParameters::unresolved::EnergyDependent::LState( 
+      resonanceParameters::unresolved::LState( 
         cont, begin, end, lineNumber, MAT, MF, MT ) );
   }
 }
