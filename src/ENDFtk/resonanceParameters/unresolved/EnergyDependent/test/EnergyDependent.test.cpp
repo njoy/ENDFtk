@@ -158,19 +158,19 @@ SCENARIO( "Testing energy-dependent unresolved resonances" ){
         REQUIRE( 3 == ted.LISTS().size() );
 
         auto list0 = ted.LISTS()[0];
-        REQUIRE( 8.91354E1 == std::get<0>( list0 ) );
-        REQUIRE( 0         == std::get<1>( list0 ) );
-        REQUIRE( 1         == std::get<2>( list0 ).size() );
+        REQUIRE( 8.91354E1 == list0.AWRI() );
+        REQUIRE( 0         == list0.L() );
+        REQUIRE( 1         == list0.LISTS().size() );
 
         auto list1 = ted.LISTS()[1];
-        REQUIRE( 8.91354E1 == std::get<0>( list1 ) );
-        REQUIRE( 1         == std::get<1>( list1 ) );
-        REQUIRE( 2         == std::get<2>( list1 ).size() );
+        REQUIRE( 8.91354E1 == list1.AWRI() );
+        REQUIRE( 1         == list1.L() );
+        REQUIRE( 2         == list1.LISTS().size() );
 
         auto list2 = ted.LISTS()[2];
-        REQUIRE( 8.91354E1 == std::get<0>( list2 ) );
-        REQUIRE( 2         == std::get<1>( list2 ) );
-        REQUIRE( 2         == std::get<2>( list2 ).size() );
+        REQUIRE( 8.91354E1 == list2.AWRI() );
+        REQUIRE( 2         == list2.L() );
+        REQUIRE( 2         == list2.LISTS().size() );
       }
     }
     WHEN( "NRO != 0" ){
@@ -204,19 +204,19 @@ SCENARIO( "Testing energy-dependent unresolved resonances" ){
         REQUIRE( 0.5803 == Approx( ted.APE().y().back() ) );
 
         auto list0 = ted.LISTS()[0];
-        REQUIRE( 8.91354E1 == std::get<0>( list0 ) );
-        REQUIRE( 0         == std::get<1>( list0 ) );
-        REQUIRE( 1         == std::get<2>( list0 ).size() );
+        REQUIRE( 8.91354E1 == list0.AWRI() );
+        REQUIRE( 0         == list0.L() );
+        REQUIRE( 1         == list0.LISTS().size() );
 
         auto list1 = ted.LISTS()[1];
-        REQUIRE( 8.91354E1 == std::get<0>( list1 ) );
-        REQUIRE( 1         == std::get<1>( list1 ) );
-        REQUIRE( 2         == std::get<2>( list1 ).size() );
+        REQUIRE( 8.91354E1 == list1.AWRI() );
+        REQUIRE( 1         == list1.L() );
+        REQUIRE( 2         == list1.LISTS().size() );
 
         auto list2 = ted.LISTS()[2];
-        REQUIRE( 8.91354E1 == std::get<0>( list2 ) );
-        REQUIRE( 2         == std::get<1>( list2 ) );
-        REQUIRE( 2         == std::get<2>( list2 ).size() );
+        REQUIRE( 8.91354E1 == list2.AWRI() );
+        REQUIRE( 2         == list2.L() );
+        REQUIRE( 2         == list2.LISTS().size() );
       }
     }
   }

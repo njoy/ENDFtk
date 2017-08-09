@@ -1,6 +1,6 @@
 template< typename Iterator >
 static std::vector< LState >
-readLists( const CONT& cont, 
+readLStates( const CONT& cont, 
            Iterator& it, const Iterator& end, long& lineNumber,
            int MAT, int MF, int MT ){
   auto NLS = cont.N1();
