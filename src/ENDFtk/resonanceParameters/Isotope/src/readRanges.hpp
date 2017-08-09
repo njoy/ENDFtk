@@ -33,9 +33,10 @@ readRange( Iterator& it, const Iterator& end, long& lineNumber,
     case 1:
       Log::info( "Found LRU=2, LRF=1 subsection" );
       Log::error( "This has not yet been implemented" );
+      throw std::exception();
     case 2:
-      Log::info( "Found LRU=2, LRF=2 subsection" );
-      Log::error( "This has not yet been implemented" );
+      return unresolved::EnergyDependent(
+          base, it, end, lineNumber, MAT, MF, MT );
     default:
       Log::error( "Found invalid LRF number: {} for LRU=2", base.LRF() );
       throw std::exception();

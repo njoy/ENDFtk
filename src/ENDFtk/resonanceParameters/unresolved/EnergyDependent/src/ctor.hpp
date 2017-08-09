@@ -57,7 +57,7 @@ EnergyDependent( const Base& base,
                    CONT( it, end, lineNumber, MAT, MF, MT ),
                    it, end, lineNumber, MAT, MF, MT ){}
 
-protected:  
+public:  
 template< typename Iterator >
 EnergyDependent( const Base& base, 
                  Iterator& it, const Iterator& end, long& lineNumber,

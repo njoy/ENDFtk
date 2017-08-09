@@ -8,7 +8,8 @@ namespace resonanceParameters {
 using EnergyRange = std::variant< SpecialCase,
                                   resolved::SLBW, 
                                   resolved::MLBW, 
-                                  resolved::ReichMoore >;
+                                  resolved::ReichMoore,
+                                  unresolved::EnergyDependent>;
 
 #include "ENDFtk/resonanceParameters/Isotope.hpp"
 

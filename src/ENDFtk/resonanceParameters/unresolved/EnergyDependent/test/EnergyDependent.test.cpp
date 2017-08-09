@@ -5,14 +5,6 @@
 
 using namespace njoy::ENDFtk;
 
-class TestEnergyDependent : 
-    public resonanceParameters::unresolved::EnergyDependent {
-public:
-  template< typename... Args >
-  TestEnergyDependent( Args&&... args ) :
-      EnergyDependent( std::forward<Args>(args)... ){}
-};
-
 std::string LRF2(){
   return
   /* Isotope
@@ -150,7 +142,8 @@ SCENARIO( "Testing energy-dependent unresolved resonances" ){
       auto end = caseC.end();
 
       resonanceParameters::Base base( 6.0E3, 1.0E5, 2, 2, 0, 0 );
-      TestEnergyDependent ted( base, begin, end, lineNumber, MAT, MF, MT );
+      resonanceParameters::unresolved::EnergyDependent ted( 
+          base, begin, end, lineNumber, MAT, MF, MT );
 
       THEN( "the parameters can be verified" ){
         REQUIRE( 6E3 == ted.EL() );
@@ -186,7 +179,8 @@ SCENARIO( "Testing energy-dependent unresolved resonances" ){
       auto end = caseC.end();
 
       resonanceParameters::Base base( 6.0E3, 1.0E5, 2, 2, 1, 0 );
-      TestEnergyDependent ted( base, begin, end, lineNumber, MAT, MF, MT );
+      resonanceParameters::unresolved::EnergyDependent ted( 
+          base, begin, end, lineNumber, MAT, MF, MT );
 
       THEN( "the parameters can be verified" ){
         REQUIRE( 6E3 == ted.EL() );
