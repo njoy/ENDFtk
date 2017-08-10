@@ -5,6 +5,7 @@ readLStates( const CONT& cont,
            int MAT, int MF, int MT ){
   auto NLS = cont.N1();
 
+  Log::info("NLS: {}", NLS );
   if ( NLS < 1 ){
     Log::error( "NLS required to be positive" );
     Log::error( "NLS value: {}", NLS );

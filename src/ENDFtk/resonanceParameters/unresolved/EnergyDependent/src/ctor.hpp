@@ -1,52 +1,18 @@
-// protected:
-// EnergyDependent( double EL, double EH, int NAPS,
-//                  double SPI, double AP,
-//                  const CONT& cont,
-//                  std::vector< LState >&& lists ) :
-//   lists( std::move(lists) ),
-//   ape( std::nullopt ),
-//   el( EL ),
-//   eh( EH ),
-//   naps( NAPS ),
-//   spi( SPI ),
-//   ap( AP ),
-//   lssf( cont.L1() ){}
-
-// EnergyDependent( double EL, double EH, int NAPS,
-//                  TAB1&& APE, double SPI, 
-//                  const CONT& cont,
-//                  std::vector< LState >&& lists ) :
-//   lists( std::move(lists) ),
-//   ape( std::move(APE) ),
-//   el( EL ),
-//   eh( EH ),
-//   naps( NAPS ),
-//   spi( SPI ),
-//   ap( 0.0 ),
-//   lssf( cont.L1() ){}
-
-// EnergyDependent( const Base& base,
-//                  std::optional<TAB1>&& APE,
-//                  const CONT& cont,
-//                  std::vector< LState >&& lists ) :
-//   lists( std::move(lists) ),
-//   ape( std::move(APE) ),
-//   el( base.EL() ),
-//   eh( base.EH() ),
-//   naps( base.NAPS() ),
-//   spi( cont.C1() ),
-//   ap( cont.C2() ),
-//   lssf( cont.L1() ){}
-
 private:
 template< typename Iterator >
 EnergyDependent( const Base& base,
                  std::optional<TAB1>&& APE,
                  const CONT& cont,
                  Iterator& it, const Iterator& end, long& lineNumber,
-                 int MAT, int MF, int MT ) :
-  Unresolved( base, std::move( APE ), cont,
-              readLStates( cont, it, end, lineNumber, MAT, MF, MT ) ){}
+                 int MAT, int MF, int MT ) 
+  try:
+    Unresolved( base, std::move( APE ), cont,
+                readLStates( cont, it, end, lineNumber, MAT, MF, MT ) ){
+  } catch( std::exception& e ){
+    Log::info( "Trouble encountered when parsing energy-dependent unresolved "
+               "resonances." );
+    throw e;
+  }
   
 template< typename Iterator >
 EnergyDependent( const Base& base,
@@ -67,4 +33,3 @@ EnergyDependent( const Base& base,
   EnergyDependent( base, 
                    readAPE( base, it, end, lineNumber, MAT, MF, MT ),
                    it, end, lineNumber, MAT, MF, MT ) {}
-

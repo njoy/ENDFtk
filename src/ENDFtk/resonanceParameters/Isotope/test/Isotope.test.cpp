@@ -186,7 +186,7 @@ SCENARIO( "Isotope" ){
   }
   WHEN( "LRU=2" ){
     WHEN( "LRF=1" ){
-      WHEN( "LFW=0, fission widths given" ){
+      WHEN( "LFW=0, energy-independent" ){
         std::string ENDF;
       }
       WHEN( "LFW=1, fission widths given" ){
