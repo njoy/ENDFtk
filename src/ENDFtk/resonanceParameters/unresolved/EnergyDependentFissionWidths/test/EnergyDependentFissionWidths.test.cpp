@@ -88,9 +88,38 @@ SCENARIO( "Testing energy-dependent fission width unresolved resonances" ){
       auto begin = ENDF.begin();
       auto end = ENDF.end();
 
-      resonanceParameters::Base base( 1.75E3, 1.0E4, 2, 1, 0, 0 );
-      resonanceParameters::unresolved::EnergyDependentFissionWidths ted( 
+      resonanceParameters::Base base( 5.7E3, 4.0E4, 2, 1, 0, 0 );
+      resonanceParameters::unresolved::EnergyDependentFissionWidths edfw( 
           base, begin, end, lineNumber, MAT, MF, MT );
+
+      THEN( "the parameters can be verified" ){
+        REQUIRE( 5.7E3 == edfw.EL() );
+        REQUIRE( 4.0E4 == edfw.EH() );
+        REQUIRE( 0 == edfw.NRO() );
+        REQUIRE( 0 == edfw.NAPS() );
+
+        REQUIRE( 0.0 == edfw.SPI() );
+        REQUIRE( 8.88E-1 == Approx( edfw.AP() ) );
+        REQUIRE( 0 == edfw.LSSF() );
+        REQUIRE( 14 == edfw.NE() );
+        REQUIRE( 3 == edfw.NLS() );
+        REQUIRE( 3 == edfw.LISTS().size() );
+
+        auto lState0 = edfw.LISTS()[0];
+        REQUIRE( 2.37992E2 == Approx( lState0.AWRI() ) );
+        REQUIRE( 0         == lState0.L() );
+        REQUIRE( 1         == lState0.LISTS().size() );
+
+        auto lState1 = edfw.LISTS()[1];
+        REQUIRE( 2.37992E2 == Approx( lState1.AWRI() ) );
+        REQUIRE( 1         == lState1.L() );
+        REQUIRE( 2         == lState1.LISTS().size() );
+
+        auto lState2 = edfw.LISTS()[2];
+        REQUIRE( 2.37992E2 == Approx( lState2.AWRI() ) );
+        REQUIRE( 2         == lState2.L() );
+        REQUIRE( 2         == lState2.LISTS().size() );
+      }
     }
   }
 }

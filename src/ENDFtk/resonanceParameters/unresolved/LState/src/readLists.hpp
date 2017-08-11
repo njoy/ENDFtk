@@ -3,9 +3,8 @@ static std::vector< LIST >
 readLists( int NJS,
            Iterator& it, const Iterator& end, long& lineNumber,
            int MAT, int MF, int MT ){
-  Log::info("NJS: {}", NJS);
-  if ( NJS < 1 ){
-    Log::error( "NJS required to be positive" );
+  if ( NJS < 0 ){
+    Log::error( "NJS required to >= 0" );
     Log::error( "NJS value: {}", NJS );
     throw std::exception();
   }
