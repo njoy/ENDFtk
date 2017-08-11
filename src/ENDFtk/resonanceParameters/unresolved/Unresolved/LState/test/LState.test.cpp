@@ -54,11 +54,12 @@ SCENARIO( "Energy-dependent unresolved resonances LState" ){
     auto end = endf.end();
 
     CONT cont( begin, end, lineNumber, MAT, MF, MT );
-    resonanceParameters::unresolved::LState lstate( 
+    resonanceParameters::unresolved::Unresolved::LState lstate( 
         cont, begin, end, lineNumber, MAT, MF, MT );
     THEN( "the parameters can be verified" ){
       REQUIRE( 8.91354E1 == lstate.AWRI() );
       REQUIRE( 1 == lstate.L() );
+      REQUIRE( 2 == lstate.LISTs().size() );
     }
   }
   GIVEN( "invalid ENDF, negative L-value" ){
@@ -79,7 +80,7 @@ SCENARIO( "Energy-dependent unresolved resonances LState" ){
     cont = CONT( cbegin, cend, lineNumber, MAT, MF, MT );
 
     REQUIRE_THROWS(
-      resonanceParameters::unresolved::LState( 
+      resonanceParameters::unresolved::Unresolved::LState( 
         cont, begin, end, lineNumber, MAT, MF, MT ) );
   }
 }

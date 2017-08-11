@@ -1,9 +1,9 @@
 protected:
 Unresolved( double EL, double EH, int NAPS,
             const CONT& cont,
-            std::vector< LState >&& lists )
+            std::vector< LState >&& lStates )
   try:
-    lists( std::move( lists ) ),
+    lStates( std::move( lStates ) ),
     ape( std::nullopt ),
     el( EL ),
     eh( EH ),
@@ -18,9 +18,9 @@ Unresolved( double EL, double EH, int NAPS,
 
 Unresolved( double EL, double EH, int NAPS,
             TAB1&& APE, const CONT& cont,
-            std::vector< LState >&& lists )
+            std::vector< LState >&& lStates )
   try:
-    lists( std::move( lists ) ),
+    lStates( std::move( lStates ) ),
     ape( std::move( APE ) ),
     el( EL ),
     eh( EH ),
@@ -36,9 +36,9 @@ Unresolved( double EL, double EH, int NAPS,
 Unresolved( const Base& base,
             std::optional<TAB1>&& APE,
             const CONT& cont,
-            std::vector< LState >&& lists )
+            std::vector< LState >&& lStates )
   try:
-    lists( std::move( lists ) ),
+    lStates( std::move( lStates ) ),
     ape( std::move( APE ) ),
     el( base.EL() ),
     eh( base.EH() ),

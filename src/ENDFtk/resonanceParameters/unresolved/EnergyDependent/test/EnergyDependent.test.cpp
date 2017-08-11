@@ -155,22 +155,22 @@ SCENARIO( "Testing energy-dependent unresolved resonances" ){
         REQUIRE( 6.7959E-1 == Approx( ted.AP() ) );
         REQUIRE( 0 == ted.LSSF() );
         REQUIRE( 3 == ted.NLS() );
-        REQUIRE( 3 == ted.LISTS().size() );
+        REQUIRE( 3 == ted.LStates().size() );
 
-        auto list0 = ted.LISTS()[0];
+        auto list0 = ted.LStates()[0];
         REQUIRE( 8.91354E1 == list0.AWRI() );
         REQUIRE( 0         == list0.L() );
-        REQUIRE( 1         == list0.LISTS().size() );
+        REQUIRE( 1         == list0.LISTs().size() );
 
-        auto list1 = ted.LISTS()[1];
+        auto list1 = ted.LStates()[1];
         REQUIRE( 8.91354E1 == list1.AWRI() );
         REQUIRE( 1         == list1.L() );
-        REQUIRE( 2         == list1.LISTS().size() );
+        REQUIRE( 2         == list1.LISTs().size() );
 
-        auto list2 = ted.LISTS()[2];
+        auto list2 = ted.LStates()[2];
         REQUIRE( 8.91354E1 == list2.AWRI() );
         REQUIRE( 2         == list2.L() );
-        REQUIRE( 2         == list2.LISTS().size() );
+        REQUIRE( 2         == list2.LISTs().size() );
       }
     }
     WHEN( "NRO != 0" ){
@@ -192,7 +192,7 @@ SCENARIO( "Testing energy-dependent unresolved resonances" ){
         REQUIRE( 6.7959E-1 == Approx( ted.AP() ) );
         REQUIRE( 0 == ted.LSSF() );
         REQUIRE( 3 == ted.NLS() );
-        REQUIRE( 3 == ted.LISTS().size() );
+        REQUIRE( 3 == ted.LStates().size() );
 
         REQUIRE( 1 == ted.APE().NR() );
         REQUIRE( 50 == ted.APE().NP() );
@@ -203,20 +203,20 @@ SCENARIO( "Testing energy-dependent unresolved resonances" ){
         REQUIRE( 2.0E5 == Approx( ted.APE().x().back() ) );
         REQUIRE( 0.5803 == Approx( ted.APE().y().back() ) );
 
-        auto list0 = ted.LISTS()[0];
+        auto list0 = ted.LStates()[0];
         REQUIRE( 8.91354E1 == list0.AWRI() );
         REQUIRE( 0         == list0.L() );
-        REQUIRE( 1         == list0.LISTS().size() );
+        REQUIRE( 1         == list0.LISTs().size() );
 
-        auto list1 = ted.LISTS()[1];
+        auto list1 = ted.LStates()[1];
         REQUIRE( 8.91354E1 == list1.AWRI() );
         REQUIRE( 1         == list1.L() );
-        REQUIRE( 2         == list1.LISTS().size() );
+        REQUIRE( 2         == list1.LISTs().size() );
 
-        auto list2 = ted.LISTS()[2];
+        auto list2 = ted.LStates()[2];
         REQUIRE( 8.91354E1 == list2.AWRI() );
         REQUIRE( 2         == list2.L() );
-        REQUIRE( 2         == list2.LISTS().size() );
+        REQUIRE( 2         == list2.LISTs().size() );
       }
     }
   }

@@ -103,22 +103,22 @@ SCENARIO( "Testing energy-dependent fission width unresolved resonances" ){
         REQUIRE( 0 == edfw.LSSF() );
         REQUIRE( 14 == edfw.NE() );
         REQUIRE( 3 == edfw.NLS() );
-        REQUIRE( 3 == edfw.LISTS().size() );
+        REQUIRE( 3 == edfw.LStates().size() );
 
-        auto lState0 = edfw.LISTS()[0];
+        auto lState0 = edfw.LStates()[0];
         REQUIRE( 2.37992E2 == Approx( lState0.AWRI() ) );
         REQUIRE( 0         == lState0.L() );
-        REQUIRE( 1         == lState0.LISTS().size() );
+        REQUIRE( 1         == lState0.LISTs().size() );
 
-        auto lState1 = edfw.LISTS()[1];
+        auto lState1 = edfw.LStates()[1];
         REQUIRE( 2.37992E2 == Approx( lState1.AWRI() ) );
         REQUIRE( 1         == lState1.L() );
-        REQUIRE( 2         == lState1.LISTS().size() );
+        REQUIRE( 2         == lState1.LISTs().size() );
 
-        auto lState2 = edfw.LISTS()[2];
+        auto lState2 = edfw.LStates()[2];
         REQUIRE( 2.37992E2 == Approx( lState2.AWRI() ) );
         REQUIRE( 2         == lState2.L() );
-        REQUIRE( 2         == lState2.LISTS().size() );
+        REQUIRE( 2         == lState2.LISTs().size() );
       }
     }
     WHEN( "NRO != 0" ){
@@ -141,7 +141,7 @@ SCENARIO( "Testing energy-dependent fission width unresolved resonances" ){
         REQUIRE( 0 == edfw.LSSF() );
         REQUIRE( 14 == edfw.NE() );
         REQUIRE( 3 == edfw.NLS() );
-        REQUIRE( 3 == edfw.LISTS().size() );
+        REQUIRE( 3 == edfw.LStates().size() );
 
         REQUIRE( 1 == edfw.APE().NR() );
         REQUIRE( 50 == edfw.APE().NP() );
@@ -152,20 +152,20 @@ SCENARIO( "Testing energy-dependent fission width unresolved resonances" ){
         REQUIRE( 2.0E5 == Approx( edfw.APE().x().back() ) );
         REQUIRE( 0.5803 == Approx( edfw.APE().y().back() ) );
 
-        auto lState0 = edfw.LISTS()[0];
+        auto lState0 = edfw.LStates()[0];
         REQUIRE( 2.37992E2 == Approx( lState0.AWRI() ) );
         REQUIRE( 0         == lState0.L() );
-        REQUIRE( 1         == lState0.LISTS().size() );
+        REQUIRE( 1         == lState0.LISTs().size() );
 
-        auto lState1 = edfw.LISTS()[1];
+        auto lState1 = edfw.LStates()[1];
         REQUIRE( 2.37992E2 == Approx( lState1.AWRI() ) );
         REQUIRE( 1         == lState1.L() );
-        REQUIRE( 2         == lState1.LISTS().size() );
+        REQUIRE( 2         == lState1.LISTs().size() );
 
-        auto lState2 = edfw.LISTS()[2];
+        auto lState2 = edfw.LStates()[2];
         REQUIRE( 2.37992E2 == Approx( lState2.AWRI() ) );
         REQUIRE( 2         == lState2.L() );
-        REQUIRE( 2         == lState2.LISTS().size() );
+        REQUIRE( 2         == lState2.LISTs().size() );
       }
     }
   }
