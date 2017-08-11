@@ -220,4 +220,21 @@ SCENARIO( "Testing energy-dependent unresolved resonances" ){
       }
     }
   }
+  GIVEN( "invalid ENDF parameters" ){
+    long lineNumber = 0;
+    int MAT = 9235;
+    int MF = 2;
+    int MT = 151;
+
+    std::string caseC = LRF2();
+    auto begin = caseC.begin();
+    auto end = caseC.end();
+
+    THEN( "an exception is thrown" ){
+      resonanceParameters::Base base( 6.0E3, 1.0E5, 2, 2, 0, 0 );
+      REQUIRE_THROWS(
+        resonanceParameters::unresolved::EnergyDependent ted( 
+            base, begin, end, lineNumber, MAT, MF, MT ) );
+    }
+  }
 }

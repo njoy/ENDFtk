@@ -7,7 +7,7 @@ EnergyDependent( const Base& base,
                  int MAT, int MF, int MT ) 
   try:
     Unresolved( base, std::move( APE ), cont,
-                readLStates( cont, it, end, lineNumber, MAT, MF, MT ) ){
+                readLStates( cont.N1(), it, end, lineNumber, MAT, MF, MT ) ){
   } catch( std::exception& e ){
     Log::info( "Trouble encountered when parsing energy-dependent unresolved "
                "resonances." );

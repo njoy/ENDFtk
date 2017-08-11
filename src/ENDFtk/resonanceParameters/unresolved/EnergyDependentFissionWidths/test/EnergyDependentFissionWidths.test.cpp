@@ -95,7 +95,7 @@ SCENARIO( "Testing energy-dependent fission width unresolved resonances" ){
       THEN( "the parameters can be verified" ){
         REQUIRE( 5.7E3 == edfw.EL() );
         REQUIRE( 4.0E4 == edfw.EH() );
-        REQUIRE( 1 == edfw.NRO() );
+        REQUIRE( 0 == edfw.NRO() );
         REQUIRE( 0 == edfw.NAPS() );
 
         REQUIRE( 0.0 == edfw.SPI() );
@@ -133,7 +133,7 @@ SCENARIO( "Testing energy-dependent fission width unresolved resonances" ){
       THEN( "the parameters can be verified" ){
         REQUIRE( 5.7E3 == edfw.EL() );
         REQUIRE( 4.0E4 == edfw.EH() );
-        REQUIRE( 0 == edfw.NRO() );
+        REQUIRE( 1 == edfw.NRO() );
         REQUIRE( 0 == edfw.NAPS() );
 
         REQUIRE( 0.0 == edfw.SPI() );
@@ -167,6 +167,23 @@ SCENARIO( "Testing energy-dependent fission width unresolved resonances" ){
         REQUIRE( 2         == lState2.L() );
         REQUIRE( 2         == lState2.LISTS().size() );
       }
+    }
+  }
+  GIVEN( "invalid ENDF parameteters:" ){
+    long lineNumber = 0;
+    int MAT = 9235;
+    int MF = 2;
+    int MT = 151;
+
+    std::string ENDF = Tab1() + LRF2();
+    auto begin = ENDF.begin();
+    auto end = ENDF.end();
+
+    THEN( "an exception is thrown" ){
+      resonanceParameters::Base base( 5.7E3, 4.0E4, 2, 1, 1, 0 );
+      REQUIRE_THROWS(
+        resonanceParameters::unresolved::EnergyDependentFissionWidths edfw( 
+            base, begin, end, lineNumber, MAT, MF, MT ) );
     }
   }
 }
