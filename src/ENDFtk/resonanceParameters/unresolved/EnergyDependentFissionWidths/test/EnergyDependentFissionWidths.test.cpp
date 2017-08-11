@@ -182,7 +182,7 @@ SCENARIO( "Testing energy-dependent fission width unresolved resonances" ){
     THEN( "an exception is thrown" ){
       resonanceParameters::Base base( 5.7E3, 4.0E4, 2, 1, 1, 0 );
       REQUIRE_THROWS(
-        resonanceParameters::unresolved::EnergyDependentFissionWidths edfw( 
+        resonanceParameters::unresolved::EnergyDependentFissionWidths( 
             base, begin, end, lineNumber, MAT, MF, MT ) );
     }
   }

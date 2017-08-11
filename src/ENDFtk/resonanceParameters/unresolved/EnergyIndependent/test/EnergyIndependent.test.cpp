@@ -123,7 +123,7 @@ SCENARIO( "Testing energy-independent unresolved resonances" ){
     THEN( "an exception is thrown" ){
       resonanceParameters::Base base( 2.3E4, 1.0E5, 2, 1, 0, 0 );
       REQUIRE_THROWS(
-        resonanceParameters::unresolved::EnergyIndependent ei(
+        resonanceParameters::unresolved::EnergyIndependent(
           base, begin, end, lineNumber, MAT, MF, MT ) );
     }
   }
