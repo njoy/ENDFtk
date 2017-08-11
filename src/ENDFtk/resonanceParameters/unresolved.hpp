@@ -14,10 +14,11 @@ protected:
   int lssf;
 
 #include "ENDFtk/resonanceParameters/unresolved/src/ctor.hpp"
-#include "ENDFtk/resonanceParameters/unresolved/src/readAPE.hpp"
 #include "ENDFtk/resonanceParameters/unresolved/src/readLStates.hpp"
 
 public:
+#include "ENDFtk/resonanceParameters/unresolved/src/readAPE.hpp"
+
   double EL() const { return this->el; }
   double EH() const { return this->eh; }
   int NRO() const { return bool(this->ape); }
