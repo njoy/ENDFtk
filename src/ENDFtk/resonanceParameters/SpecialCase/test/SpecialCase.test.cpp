@@ -30,7 +30,7 @@ SCENARIO( "Testing SpecialCase (LRU=0)" ){
   }
   GIVEN( "invalid ENDF input" ){
     std::string ENDF = 
-      "-5.000000-1 1.276553+0          0          0          0          0 125 2151    4\n";
+      " 5.000000-1 1.276553+0          0          0          0          0 125 215\n";
     auto begin = ENDF.begin();
     auto end = ENDF.end();
     long lineNumber = 0;
@@ -38,7 +38,7 @@ SCENARIO( "Testing SpecialCase (LRU=0)" ){
     int MF = 2;
     int MT = 151;
 
-    resonanceParameters::Base base( 1.0, 2.0, 0, 0, 0, 0 );
+    resonanceParameters::Base base(  1.0, 2.0, 0, 0, 0, 0 );
     THEN( "an exception is thrown" ){
       REQUIRE_THROWS( 
           resonanceParameters::SpecialCase( 
