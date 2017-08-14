@@ -183,6 +183,58 @@ SCENARIO( "Isotope" ){
           std::experimental::get< resonanceParameters::resolved::ReichMoore >
                        ( iso.energyRanges().back() ) );
     }
+
+    WHEN( "invalid LRF values" ){
+      njoy::Log::info( "Testing invalid LRF with LRU=1" );
+      int MAT = 125;
+      int MF = 2;
+      int MT = 151;
+      THEN( "LRF=0, an exception is thrown" ){
+        std::string ENDF = 
+          " 1.001000+3 1.000000+0          0          0          1          0 125 2151    2\n"
+          " 1.000000-5 1.000000+5          1          0          0          0 125 2151    3\n";
+        auto begin = ENDF.begin();
+        auto end = ENDF.end();
+        long lineNumber = 0;
+
+        REQUIRE_THROWS( 
+          resonanceParameters::Isotope( begin, end, lineNumber, MAT, MF, MT ) );
+      }
+      THEN( "LRF=5, an exception is thrown" ){
+        std::string ENDF = 
+          " 1.001000+3 1.000000+0          0          0          1          0 125 2151    2\n"
+          " 1.000000-5 1.000000+5          1          5          0          0 125 2151    3\n";
+        auto begin = ENDF.begin();
+        auto end = ENDF.end();
+        long lineNumber = 0;
+
+        REQUIRE_THROWS( 
+          resonanceParameters::Isotope( begin, end, lineNumber, MAT, MF, MT ) );
+      }
+      THEN( "LRF=6, an exception is thrown" ){
+        std::string ENDF = 
+          " 1.001000+3 1.000000+0          0          0          1          0 125 2151    2\n"
+          " 1.000000-5 1.000000+5          1          6          0          0 125 2151    3\n";
+        auto begin = ENDF.begin();
+        auto end = ENDF.end();
+        long lineNumber = 0;
+
+        REQUIRE_THROWS( 
+          resonanceParameters::Isotope( begin, end, lineNumber, MAT, MF, MT ) );
+      }
+
+      THEN( "LRF=8, an exception is thrown" ){
+        std::string ENDF = 
+          " 1.001000+3 1.000000+0          0          0          1          0 125 2151    2\n"
+          " 1.000000-5 1.000000+5          1          8          0          0 125 2151    3\n";
+        auto begin = ENDF.begin();
+        auto end = ENDF.end();
+        long lineNumber = 0;
+
+        REQUIRE_THROWS( 
+          resonanceParameters::Isotope( begin, end, lineNumber, MAT, MF, MT ) );
+      }
+    }
   }
   WHEN( "LRU=2" ){
     WHEN( "LRF=1" ){
@@ -287,37 +339,34 @@ SCENARIO( "Isotope" ){
               ( iso.energyRanges().front() )
           );
         }
-      }
-      WHEN( "LFW is invalid" ){
-        int MAT = 125;
-        int MF = 2;
-        int MT = 151;
-        THEN( "an exception is thrown" ){
-          std::string ENDF = 
-            " 1.001000+3 1.000000+0          0          0          1          0 125 2151    2\n"
-            " 1.000000-5 1.000000+5          0          2          0          0 125 2151    3\n"
-            " 5.000000-1 1.276553+0          2          1          0          0 125 2151    4\n";
-          auto begin = ENDF.begin();
-          auto end = ENDF.end();
-          long lineNumber = 0;
+        WHEN( "LFW is invalid" ){
+          njoy::Log::info( "Testing invalid LFW" );
+          int MAT = 125;
+          int MF = 2;
+          int MT = 151;
+          THEN( "an exception is thrown" ){
+            std::string ENDF = 
+              " 1.001000+3 1.000000+0          0         -1          1          0 125 2151    2\n"
+              " 1.000000-5 1.000000+5          2          1          0          0 125 2151    3\n";
+            auto begin = ENDF.begin();
+            auto end = ENDF.end();
+            long lineNumber = 0;
 
-          REQUIRE_THROWS( 
-            resonanceParameters::Isotope( begin, end, lineNumber, MAT, MF, MT )
-          );
-        }
+            REQUIRE_THROWS( 
+              resonanceParameters::Isotope( begin, end, lineNumber, MAT, MF, MT ) );
+          }
 
-        THEN( "an exception is thrown" ){
-          std::string ENDF = 
-            " 1.001000+3 1.000000+0          0          0          1          0 125 2151    2\n"
-            " 1.000000-5 1.000000+5          0         -1          0          0 125 2151    3\n"
-            " 5.000000-1 1.276553+0          2          1          0          0 125 2151    4\n";
-          auto begin = ENDF.begin();
-          auto end = ENDF.end();
-          long lineNumber = 0;
+          THEN( "an exception is thrown" ){
+            std::string ENDF = 
+              " 1.001000+3 1.000000+0          0          2          1          0 125 2151    2\n"
+              " 1.000000-5 1.000000+5          2          1          0          0 125 2151    3\n";
+            auto begin = ENDF.begin();
+            auto end = ENDF.end();
+            long lineNumber = 0;
 
-          REQUIRE_THROWS( 
-            resonanceParameters::Isotope( begin, end, lineNumber, MAT, MF, MT )
-          );
+            REQUIRE_THROWS( 
+              resonanceParameters::Isotope( begin, end, lineNumber, MAT, MF, MT ) );
+          }
         }
       }
     }
@@ -451,35 +500,6 @@ SCENARIO( "Isotope" ){
         REQUIRE_THROWS( 
           resonanceParameters::Isotope( begin, end, lineNumber, MAT, MF, MT ) );
       }
-    }
-  }
-  WHEN( "LRU is invalid" ){
-    njoy::Log::info( "Testing invalid LRU" );
-    int MAT = 125;
-    int MF = 2;
-    int MT = 151;
-    THEN( "an exception is thrown" ){
-      std::string ENDF = 
-        " 1.001000+3 1.000000+0          0          0          1          0 125 2151    2\n"
-        " 1.000000-5 1.000000+5         -1          0          0          0 125 2151    3\n";
-      auto begin = ENDF.begin();
-      auto end = ENDF.end();
-      long lineNumber = 0;
-
-      REQUIRE_THROWS( 
-        resonanceParameters::Isotope( begin, end, lineNumber, MAT, MF, MT ) );
-    }
-
-    THEN( "an exception is thrown" ){
-      std::string ENDF = 
-        " 1.001000+3 1.000000+0          0          0          1          0 125 2151    2\n"
-        " 1.000000-5 1.000000+5          3          0          0          0 125 2151    3\n";
-      auto begin = ENDF.begin();
-      auto end = ENDF.end();
-      long lineNumber = 0;
-
-      REQUIRE_THROWS( 
-        resonanceParameters::Isotope( begin, end, lineNumber, MAT, MF, MT ) );
     }
   }
 }

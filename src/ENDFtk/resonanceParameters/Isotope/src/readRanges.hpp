@@ -27,12 +27,9 @@ readRange( int LFW,
       Log::error( 
           "The R-Matrix Limited representation has not yet been implemented." );
       throw std::exception();
-    default:
-      Log::error( "Invalid LRF value ({}) in LRU=1", base.LRF() );
-      throw std::exception();
     }
   }
-  case 2:
+  case 2: {
     switch( base.LRF() ){
     case 1:
       switch( LFW ){
@@ -49,13 +46,8 @@ readRange( int LFW,
     case 2:
       return unresolved::EnergyDependent(
           base, it, end, lineNumber, MAT, MF, MT );
-    default:
-      Log::error( "Found invalid LRF number: {} for LRU=2", base.LRF() );
-      throw std::exception();
     }
-  default:
-    Log::error( "Invalid LRU value ({})", base.LRU() );
-    throw std::exception();
+  }
   }
 
   /* unreachable but necessary to satisfy compiler warning */
