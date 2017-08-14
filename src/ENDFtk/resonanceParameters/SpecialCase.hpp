@@ -24,42 +24,6 @@ protected:
     el( base.EL() ), eh( base.EH() ), spi( cont.C1() ), ap( cont.C2() ){
     assert( base.LRU() == 0 );
     assert( base.LRF() == 0 );
-    if( base.NRO() ){
-      Log::error( "Illegal NRO value" );
-      Log::info( "NRO must be zero for scattering-radius subsections" );
-      Log::info( "NRO value: {}", base.NRO() );
-      throw std::exception();
-    }
-    if( base.NAPS() ){
-      Log::error( "Illegal NAPS value" );
-      Log::info( "NAPS must be zero for scattering-radius subsections" );
-      Log::info( "NAPS value: {}", base.NAPS() );
-      throw std::exception();
-    }
-    if( cont.L1() ){
-      Log::error( "Illegal L1 value" );
-      Log::info( "L1 must be zero for scattering-radius subsections" );
-      Log::info( "L1 value: {}", cont.L1() );
-      throw std::exception();
-    }
-    if( cont.L2() ){
-      Log::error( "Illegal L2 value" );
-      Log::info( "L2 must be zero for scattering-radius subsections" );
-      Log::info( "L2 value: {}", cont.L2() );
-      throw std::exception();
-    }
-    if( cont.N1() ){
-      Log::error( "Illegal N1 value" );
-      Log::info( "N1 must be zero for scattering-radius subsections" );
-      Log::info( "N1 value: {}", cont.N1() );
-      throw std::exception();
-    }
-    if( cont.N2() ){
-      Log::error( "Illegal N2 value" );
-      Log::info( "N2 must be zero for scattering-radius subsections" );
-      Log::info( "N2 value: {}", cont.N2() );
-      throw std::exception();
-    }
   }
   
 public:
