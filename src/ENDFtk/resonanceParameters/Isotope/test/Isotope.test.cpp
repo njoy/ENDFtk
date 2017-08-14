@@ -302,7 +302,8 @@ SCENARIO( "Isotope" ){
           long lineNumber = 0;
 
           REQUIRE_THROWS( 
-            resonanceParameters::Isotope iso( begin, end, lineNumber, MAT, MF, MT ) );
+            resonanceParameters::Isotope( begin, end, lineNumber, MAT, MF, MT )
+          );
         }
 
         THEN( "an exception is thrown" ){
@@ -315,7 +316,8 @@ SCENARIO( "Isotope" ){
           long lineNumber = 0;
 
           REQUIRE_THROWS( 
-            resonanceParameters::Isotope iso( begin, end, lineNumber, MAT, MF, MT ) );
+            resonanceParameters::Isotope( begin, end, lineNumber, MAT, MF, MT )
+          );
         }
       }
     }
@@ -434,7 +436,8 @@ SCENARIO( "Isotope" ){
         long lineNumber = 0;
 
         REQUIRE_THROWS( 
-          resonanceParameters::Isotope iso( begin, end, lineNumber, MAT, MF, MT ) );
+          resonanceParameters::Isotope( begin, end, lineNumber, MAT, MF, MT )
+        );
       }
 
       THEN( "an exception is thrown" ){
@@ -446,7 +449,7 @@ SCENARIO( "Isotope" ){
         long lineNumber = 0;
 
         REQUIRE_THROWS( 
-          resonanceParameters::Isotope iso( begin, end, lineNumber, MAT, MF, MT ) );
+          resonanceParameters::Isotope( begin, end, lineNumber, MAT, MF, MT ) );
       }
     }
   }
@@ -464,7 +467,7 @@ SCENARIO( "Isotope" ){
       long lineNumber = 0;
 
       REQUIRE_THROWS( 
-        resonanceParameters::Isotope iso( begin, end, lineNumber, MAT, MF, MT ) );
+        resonanceParameters::Isotope( begin, end, lineNumber, MAT, MF, MT ) );
     }
 
     THEN( "an exception is thrown" ){
@@ -476,7 +479,7 @@ SCENARIO( "Isotope" ){
       long lineNumber = 0;
 
       REQUIRE_THROWS( 
-        resonanceParameters::Isotope iso( begin, end, lineNumber, MAT, MF, MT ) );
+        resonanceParameters::Isotope( begin, end, lineNumber, MAT, MF, MT ) );
     }
   }
 }
