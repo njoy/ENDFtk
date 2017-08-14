@@ -6,7 +6,7 @@ Isotope( const CONT& cont,
   zai( cont.C1() ),
   abn( cont.C2() ),
   lfw( cont.L2() ),
-  ranges( readRanges( cont.N1(), it, end, lineNumber, MAT, MF, MT  ) ) {}
+  ranges( readRanges( cont, it, end, lineNumber, MAT, MF, MT  ) ) {}
 
 public:
 template< typename Iterator >

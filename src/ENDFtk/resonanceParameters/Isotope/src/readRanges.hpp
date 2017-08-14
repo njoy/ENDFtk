@@ -1,6 +1,7 @@
 template< typename Iterator >
 static EnergyRange
-readRange( Iterator& it, const Iterator& end, long& lineNumber,
+readRange( int LFW, 
+           Iterator& it, const Iterator& end, long& lineNumber,
            int MAT, int MF, int MT ){
 
   Base base( it, end, lineNumber, MAT, MF, MT );
@@ -26,14 +27,25 @@ readRange( Iterator& it, const Iterator& end, long& lineNumber,
       Log::error( 
           "The R-Matrix Limited representation has not yet been implemented." );
       throw std::exception();
+    default:
+      Log::error( "Invalid LRF value ({}) in LRU=1", base.LRF() );
+      throw std::exception();
     }
   }
   case 2:
     switch( base.LRF() ){
     case 1:
-      Log::info( "Found LRU=2, LRF=1 subsection" );
-      Log::error( "This has not yet been implemented" );
-      throw std::exception();
+      switch( LFW ){
+      case 0:
+        return unresolved::EnergyIndependent(
+          base, it, end, lineNumber, MAT, MF, MT );
+      case 1:
+        return unresolved::EnergyDependentFissionWidths(
+          base, it, end, lineNumber, MAT, MF, MT );
+      default:
+        Log::error( "Invalid LFW value ({}) in LRU=2,LRF=1.", LFW );
+        throw std::exception();
+      }
     case 2:
       return unresolved::EnergyDependent(
           base, it, end, lineNumber, MAT, MF, MT );
@@ -41,6 +53,9 @@ readRange( Iterator& it, const Iterator& end, long& lineNumber,
       Log::error( "Found invalid LRF number: {} for LRU=2", base.LRF() );
       throw std::exception();
     }
+  default:
+    Log::error( "Invalid LRU value ({})", base.LRU() );
+    throw std::exception();
   }
 
   /* unreachable but necessary to satisfy compiler warning */
@@ -49,9 +64,10 @@ readRange( Iterator& it, const Iterator& end, long& lineNumber,
 
 template< typename Iterator >
 static std::vector< EnergyRange >
-readRanges( int NER,
+readRanges( const CONT& cont, 
             Iterator& it, const Iterator& end, long& lineNumber,
             int MAT, int MF, int MT ){
+  auto NER = cont.N1();
   std::vector< EnergyRange > ranges;
   if ( NER < 0 ){
     Log::error( "Encountered illegal NER value" );
@@ -61,7 +77,8 @@ readRanges( int NER,
   }
   
   while( NER-- ){
-    ranges.push_back( readRange( it, end, lineNumber, MAT, MF, MT ) );
+    ranges.push_back( 
+      readRange( cont.L2(), it, end, lineNumber, MAT, MF, MT ) );
   }
   return ranges;
 }
