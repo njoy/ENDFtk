@@ -5,6 +5,119 @@
 
 using namespace njoy::ENDFtk;
 
+std::string LRF2();
+std::string Tab1();
+
+SCENARIO( "Testing energy-dependent unresolved resonances" ){
+  GIVEN( "valid ENDF parameters" ){
+    long lineNumber = 0;
+    int MAT = 3843;
+    int MF = 2;
+    int MT = 151;
+
+    WHEN( "NRO == 0" ){
+      std::string caseC = LRF2();
+      auto begin = caseC.begin();
+      auto end = caseC.end();
+
+      resonanceParameters::Base base( 6.0E3, 1.0E5, 2, 2, 0, 0 );
+      resonanceParameters::unresolved::EnergyDependent ted( 
+          base, begin, end, lineNumber, MAT, MF, MT );
+
+      THEN( "the parameters can be verified" ){
+        REQUIRE( 6E3 == ted.EL() );
+        REQUIRE(1E5 == ted.EH() );
+        REQUIRE( 0 == ted.NRO() );
+        REQUIRE( 0 == ted.NAPS() );
+
+        REQUIRE( 0.0 == ted.SPI() );
+        REQUIRE( 6.7959E-1 == Approx( ted.AP() ) );
+        REQUIRE( 0 == ted.LSSF() );
+        REQUIRE( 3 == ted.NLS() );
+        REQUIRE( 3 == ted.LStates().size() );
+
+        auto list0 = ted.LStates()[0];
+        REQUIRE( 8.91354E1 == list0.AWRI() );
+        REQUIRE( 0         == list0.L() );
+        REQUIRE( 1         == list0.LISTs().size() );
+
+        auto list1 = ted.LStates()[1];
+        REQUIRE( 8.91354E1 == list1.AWRI() );
+        REQUIRE( 1         == list1.L() );
+        REQUIRE( 2         == list1.LISTs().size() );
+
+        auto list2 = ted.LStates()[2];
+        REQUIRE( 8.91354E1 == list2.AWRI() );
+        REQUIRE( 2         == list2.L() );
+        REQUIRE( 2         == list2.LISTs().size() );
+      }
+    }
+    WHEN( "NRO != 0" ){
+      std::string caseC = Tab1() + LRF2();
+      auto begin = caseC.begin();
+      auto end = caseC.end();
+
+      resonanceParameters::Base base( 6.0E3, 1.0E5, 2, 2, 1, 0 );
+      resonanceParameters::unresolved::EnergyDependent ted( 
+          base, begin, end, lineNumber, MAT, MF, MT );
+
+      THEN( "the parameters can be verified" ){
+        REQUIRE( 6E3 == ted.EL() );
+        REQUIRE(1E5 == ted.EH() );
+        REQUIRE( 1 == ted.NRO() );
+        REQUIRE( 0 == ted.NAPS() );
+
+        REQUIRE( 0.0 == ted.SPI() );
+        REQUIRE( 6.7959E-1 == Approx( ted.AP() ) );
+        REQUIRE( 0 == ted.LSSF() );
+        REQUIRE( 3 == ted.NLS() );
+        REQUIRE( 3 == ted.LStates().size() );
+
+        REQUIRE( 1 == ted.APE().NR() );
+        REQUIRE( 50 == ted.APE().NP() );
+        REQUIRE( 50 == ted.APE().x().size() );
+        REQUIRE( 50 == ted.APE().y().size() );
+        REQUIRE( 1.0E-5 == Approx( ted.APE().x().front() ) );
+        REQUIRE( 1.2381 == Approx( ted.APE().y().front() ) );
+        REQUIRE( 2.0E5 == Approx( ted.APE().x().back() ) );
+        REQUIRE( 0.5803 == Approx( ted.APE().y().back() ) );
+
+        auto list0 = ted.LStates()[0];
+        REQUIRE( 8.91354E1 == list0.AWRI() );
+        REQUIRE( 0         == list0.L() );
+        REQUIRE( 1         == list0.LISTs().size() );
+
+        auto list1 = ted.LStates()[1];
+        REQUIRE( 8.91354E1 == list1.AWRI() );
+        REQUIRE( 1         == list1.L() );
+        REQUIRE( 2         == list1.LISTs().size() );
+
+        auto list2 = ted.LStates()[2];
+        REQUIRE( 8.91354E1 == list2.AWRI() );
+        REQUIRE( 2         == list2.L() );
+        REQUIRE( 2         == list2.LISTs().size() );
+      }
+    }
+  }
+  GIVEN( "invalid ENDF parameters" ){
+    long lineNumber = 0;
+    int MAT = 9235;
+    int MF = 2;
+    int MT = 151;
+
+    std::string caseC = LRF2();
+    auto begin = caseC.begin();
+    auto end = caseC.end();
+
+    THEN( "an exception is thrown" ){
+      resonanceParameters::Base base( 6.0E3, 1.0E5, 2, 2, 0, 0 );
+      REQUIRE_THROWS(
+        resonanceParameters::unresolved::EnergyDependent( 
+            base, begin, end, lineNumber, MAT, MF, MT ) );
+    }
+  }
+}
+
 std::string LRF2(){
   return
   /* Isotope
@@ -129,112 +242,3 @@ std::string Tab1(){
   " 9.500000+4 6.469000-1 2.000000+5 5.803000-1                      3843 2151   22\n";
 }
 
-SCENARIO( "Testing energy-dependent unresolved resonances" ){
-  GIVEN( "valid ENDF parameters" ){
-    long lineNumber = 0;
-    int MAT = 3843;
-    int MF = 2;
-    int MT = 151;
-
-    WHEN( "NRO == 0" ){
-      std::string caseC = LRF2();
-      auto begin = caseC.begin();
-      auto end = caseC.end();
-
-      resonanceParameters::Base base( 6.0E3, 1.0E5, 2, 2, 0, 0 );
-      resonanceParameters::unresolved::EnergyDependent ted( 
-          base, begin, end, lineNumber, MAT, MF, MT );
-
-      THEN( "the parameters can be verified" ){
-        REQUIRE( 6E3 == ted.EL() );
-        REQUIRE(1E5 == ted.EH() );
-        REQUIRE( 0 == ted.NRO() );
-        REQUIRE( 0 == ted.NAPS() );
-
-        REQUIRE( 0.0 == ted.SPI() );
-        REQUIRE( 6.7959E-1 == Approx( ted.AP() ) );
-        REQUIRE( 0 == ted.LSSF() );
-        REQUIRE( 3 == ted.NLS() );
-        REQUIRE( 3 == ted.LStates().size() );
-
-        auto list0 = ted.LStates()[0];
-        REQUIRE( 8.91354E1 == list0.AWRI() );
-        REQUIRE( 0         == list0.L() );
-        REQUIRE( 1         == list0.LISTs().size() );
-
-        auto list1 = ted.LStates()[1];
-        REQUIRE( 8.91354E1 == list1.AWRI() );
-        REQUIRE( 1         == list1.L() );
-        REQUIRE( 2         == list1.LISTs().size() );
-
-        auto list2 = ted.LStates()[2];
-        REQUIRE( 8.91354E1 == list2.AWRI() );
-        REQUIRE( 2         == list2.L() );
-        REQUIRE( 2         == list2.LISTs().size() );
-      }
-    }
-    WHEN( "NRO != 0" ){
-      std::string caseC = Tab1() + LRF2();
-      auto begin = caseC.begin();
-      auto end = caseC.end();
-
-      resonanceParameters::Base base( 6.0E3, 1.0E5, 2, 2, 1, 0 );
-      resonanceParameters::unresolved::EnergyDependent ted( 
-          base, begin, end, lineNumber, MAT, MF, MT );
-
-      THEN( "the parameters can be verified" ){
-        REQUIRE( 6E3 == ted.EL() );
-        REQUIRE(1E5 == ted.EH() );
-        REQUIRE( 1 == ted.NRO() );
-        REQUIRE( 0 == ted.NAPS() );
-
-        REQUIRE( 0.0 == ted.SPI() );
-        REQUIRE( 6.7959E-1 == Approx( ted.AP() ) );
-        REQUIRE( 0 == ted.LSSF() );
-        REQUIRE( 3 == ted.NLS() );
-        REQUIRE( 3 == ted.LStates().size() );
-
-        REQUIRE( 1 == ted.APE().NR() );
-        REQUIRE( 50 == ted.APE().NP() );
-        REQUIRE( 50 == ted.APE().x().size() );
-        REQUIRE( 50 == ted.APE().y().size() );
-        REQUIRE( 1.0E-5 == Approx( ted.APE().x().front() ) );
-        REQUIRE( 1.2381 == Approx( ted.APE().y().front() ) );
-        REQUIRE( 2.0E5 == Approx( ted.APE().x().back() ) );
-        REQUIRE( 0.5803 == Approx( ted.APE().y().back() ) );
-
-        auto list0 = ted.LStates()[0];
-        REQUIRE( 8.91354E1 == list0.AWRI() );
-        REQUIRE( 0         == list0.L() );
-        REQUIRE( 1         == list0.LISTs().size() );
-
-        auto list1 = ted.LStates()[1];
-        REQUIRE( 8.91354E1 == list1.AWRI() );
-        REQUIRE( 1         == list1.L() );
-        REQUIRE( 2         == list1.LISTs().size() );
-
-        auto list2 = ted.LStates()[2];
-        REQUIRE( 8.91354E1 == list2.AWRI() );
-        REQUIRE( 2         == list2.L() );
-        REQUIRE( 2         == list2.LISTs().size() );
-      }
-    }
-  }
-  GIVEN( "invalid ENDF parameters" ){
-    long lineNumber = 0;
-    int MAT = 9235;
-    int MF = 2;
-    int MT = 151;
-
-    std::string caseC = LRF2();
-    auto begin = caseC.begin();
-    auto end = caseC.end();
-
-    THEN( "an exception is thrown" ){
-      resonanceParameters::Base base( 6.0E3, 1.0E5, 2, 2, 0, 0 );
-      REQUIRE_THROWS(
-        resonanceParameters::unresolved::EnergyDependent( 
-            base, begin, end, lineNumber, MAT, MF, MT ) );
-    }
-  }
-}
