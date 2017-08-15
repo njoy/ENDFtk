@@ -59,8 +59,9 @@ static std::vector< EnergyRange >
 readRanges( const CONT& cont, 
             Iterator& it, const Iterator& end, long& lineNumber,
             int MAT, int MF, int MT ){
-  auto NER = cont.N1();
   std::vector< EnergyRange > ranges;
+
+  auto NER = cont.N1();
   if ( NER < 0 ){
     Log::error( "Encountered illegal NER value" );
     Log::info( "NER required to be zero or greater" );
