@@ -28,5 +28,118 @@ SCENARIO( "Testing SpecialCase (LRU=0)" ){
       REQUIRE( 1.276553 == sc.AP() );
     }
   }
+  GIVEN( "invalid ENDF input" ){
+    std::string ENDF = 
+      " 5.000000-1 1.276553+0          0          0          0          0 125 2151    4\n";
+    auto begin = ENDF.begin();
+    auto end = ENDF.end();
+    long lineNumber = 0;
+    int MAT = 125;
+    int MF = 2;
+    int MT = 151;
+
+    WHEN( "LRU != 0" ){
+      THEN( "an exception is thrown" ){
+        REQUIRE_THROWS( 
+            resonanceParameters::SpecialCase( 
+                resonanceParameters::Base(1.0, 2.0, 1, 0, 0, 0 ),
+                begin, end, lineNumber, MAT, MF, MT ) );
+      }
+    }
+    WHEN( "LRF != 0" ){
+      THEN( "an exception is thrown" ){
+        REQUIRE_THROWS( 
+            resonanceParameters::SpecialCase( 
+                resonanceParameters::Base(1.0, 2.0, 0, 1, 0, 0 ),
+                begin, end, lineNumber, MAT, MF, MT ) );
+      }
+    }
+    WHEN( "NRO != 0" ){
+      THEN( "an exception is thrown" ){
+        REQUIRE_THROWS( 
+            resonanceParameters::SpecialCase( 
+                resonanceParameters::Base(1.0, 2.0, 0, 0, 1, 0 ),
+                begin, end, lineNumber, MAT, MF, MT ) );
+      }
+    }
+    WHEN( "NAPS != 0" ){
+      THEN( "an exception is thrown" ){
+        REQUIRE_THROWS( 
+            resonanceParameters::SpecialCase( 
+                resonanceParameters::Base(1.0, 2.0, 0, 0, 0, 1 ),
+                begin, end, lineNumber, MAT, MF, MT ) );
+      }
+    }
+  }
+  GIVEN( "invalid ENDF input" ){
+    WHEN( "L1 != 0" ){
+      std::string ENDF = 
+        " 5.000000-1 1.276553+0          1          0          0          0 125 2151    4\n";
+      auto begin = ENDF.begin();
+      auto end = ENDF.end();
+      long lineNumber = 0;
+      int MAT = 125;
+      int MF = 2;
+      int MT = 151;
+
+      THEN( "an exception is thrown" ){
+        REQUIRE_THROWS( 
+            resonanceParameters::SpecialCase( 
+                resonanceParameters::Base(1.0, 2.0, 0, 0, 0, 0 ),
+                begin, end, lineNumber, MAT, MF, MT ) );
+      }
+    }
+    WHEN( "L2 != 0" ){
+      std::string ENDF = 
+        " 5.000000-1 1.276553+0          0          1          0          0 125 2151    4\n";
+      auto begin = ENDF.begin();
+      auto end = ENDF.end();
+      long lineNumber = 0;
+      int MAT = 125;
+      int MF = 2;
+      int MT = 151;
+
+      THEN( "an exception is thrown" ){
+        REQUIRE_THROWS( 
+            resonanceParameters::SpecialCase( 
+                resonanceParameters::Base(1.0, 2.0, 0, 0, 0, 0 ),
+                begin, end, lineNumber, MAT, MF, MT ) );
+      }
+    }
+    WHEN( "N1 != 0" ){
+      std::string ENDF = 
+        " 5.000000-1 1.276553+0          0          0          1          0 125 2151    4\n";
+      auto begin = ENDF.begin();
+      auto end = ENDF.end();
+      long lineNumber = 0;
+      int MAT = 125;
+      int MF = 2;
+      int MT = 151;
+
+      THEN( "an exception is thrown" ){
+        REQUIRE_THROWS( 
+            resonanceParameters::SpecialCase( 
+                resonanceParameters::Base(1.0, 2.0, 0, 0, 0, 0 ),
+                begin, end, lineNumber, MAT, MF, MT ) );
+      }
+    }
+    WHEN( "N2 != 0" ){
+      std::string ENDF = 
+        " 5.000000-1 1.276553+0          0          0          0          1 125 2151    4\n";
+      auto begin = ENDF.begin();
+      auto end = ENDF.end();
+      long lineNumber = 0;
+      int MAT = 125;
+      int MF = 2;
+      int MT = 151;
+
+      THEN( "an exception is thrown" ){
+        REQUIRE_THROWS( 
+            resonanceParameters::SpecialCase( 
+                resonanceParameters::Base(1.0, 2.0, 0, 0, 0, 0 ),
+                begin, end, lineNumber, MAT, MF, MT ) );
+      }
+    }
+  }
 }
 

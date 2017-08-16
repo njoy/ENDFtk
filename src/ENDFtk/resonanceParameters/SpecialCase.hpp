@@ -24,13 +24,13 @@ protected:
     el( base.EL() ), eh( base.EH() ), spi( cont.C1() ), ap( cont.C2() ){
     assert( base.LRU() == 0 );
     assert( base.LRF() == 0 );
-    if( base.NRO() ){
+    if( base.NRO() != 0 ){
       Log::error( "Illegal NRO value" );
       Log::info( "NRO must be zero for scattering-radius subsections" );
       Log::info( "NRO value: {}", base.NRO() );
       throw std::exception();
     }
-    if( base.NAPS() ){
+    if( base.NAPS() != 0 ){
       Log::error( "Illegal NAPS value" );
       Log::info( "NAPS must be zero for scattering-radius subsections" );
       Log::info( "NAPS value: {}", base.NAPS() );
