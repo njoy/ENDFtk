@@ -23,4 +23,3 @@ Type ( HEAD& head,
       head.MT(), MAT );
     throw e;
   }
-

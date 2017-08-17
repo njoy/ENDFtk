@@ -478,6 +478,22 @@ SCENARIO( "section::Type<2>" ){
         REQUIRE( 0.9991673 == Approx( MF2.atomicWeightRatio() ) );
       }
     }
+    WHEN( "there is a syntaxTree::Section" ){
+      std::string& sMF2 = sLRU0;
+      auto begin = sMF2.begin();
+      auto end = sMF2.end();
+      long lineNumber = 0;
+      int MAT = 125;
+      syntaxTree::Section< std::string::iterator > mf2( 
+          HEAD( begin, end, lineNumber ), begin, begin, end, lineNumber );
+
+      THEN( "a section::Type<2> can be constructed" ){
+        section::Type<2> MF2 = mf2.parse<2>( lineNumber, MAT ); 
+        REQUIRE( 151 == MF2.MT() );
+        REQUIRE( 1001 == MF2.ZA() );
+        REQUIRE( 0.9991673 == Approx( MF2.atomicWeightRatio() ) );
+      }
+    }
 
     WHEN( "reading LRU=1, LRF=1" ){
       std::string& sMF2 = sLRU1[1];

@@ -1,7 +1,7 @@
 Section( const HEAD& head, BufferIterator begin,
          BufferIterator& position, const BufferIterator& end, long& lineNumber )
 try:
-  sectionNo( head.MT() ),
+  head( head ),
   bufferLimits( { begin, findEnd( position, end, lineNumber ) } ){}
 catch( std::exception& e ){
   Log::info( "Trouble when creating a syntaxTree::Section" );
