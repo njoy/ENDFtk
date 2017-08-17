@@ -445,6 +445,7 @@
     "src/ENDFtk/section/2.hpp",
     "src/ENDFtk/section/3.hpp",
     "src/ENDFtk/section/Base.hpp",
+    "src/ENDFtk/section/3/src/ctor.hpp",
     "src/ENDFtk/section/Base/src/ctor.hpp",
     "src/ENDFtk/section/Base/src/readSEND.hpp",
     "src/ENDFtk/syntaxTree/File.hpp",
