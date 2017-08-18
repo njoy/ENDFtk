@@ -26,14 +26,16 @@ SCENARIO( "section::Type<3>" ){
         REQUIRE( 0.9991673 == MF3.atomicWeightRatio() );
       }
     }
-    
+
     WHEN( "there is a syntaxTree::Section" ){
       std::string sectionString = baseSection() + validSEND();
       auto begin = sectionString.begin();
+      auto position = begin;
       auto end = sectionString.end();
-      long lineNumber = 0; 
-      syntaxTree::Section< std::string::iterator > mf3( 
-          HEAD( begin, end, lineNumber ), begin, begin, end, lineNumber );
+      long lineNumber = 0;
+      auto head = HEAD( position, end, lineNumber );
+      syntaxTree::Section< std::string::iterator >
+        mf3( head, begin, position, end, lineNumber );
       
       THEN( "a section::Type<3> can be constructed and members can be tested" ){
         section::Type<3> MF3 = mf3.parse<3>( lineNumber, 125 );
@@ -42,6 +44,7 @@ SCENARIO( "section::Type<3>" ){
         REQUIRE( 0.9991673 == MF3.atomicWeightRatio() );
       }
     }
+    
     WHEN( "the SEND Record is not valid, i.e., MT!=0" ){
       std::string sectionString = baseSection() + invalidSEND();
       auto begin = sectionString.begin();

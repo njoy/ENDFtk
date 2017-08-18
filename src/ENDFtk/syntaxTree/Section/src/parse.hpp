@@ -1,7 +1,8 @@
 template< int MF >
 section::Type< MF > parse( long& lineNumber, int MAT ){
-  auto begin = this->bufferBegin();
-  auto end = this->bufferEnd();
+  auto position = this->buffer().begin();
+  auto end = this->buffer().end();
 
-  return section::Type< MF >( this->head, begin, end, lineNumber, MAT );
+  HeadRecord head( position, end, lineNumber );
+  return section::Type< MF >( head, position, end, lineNumber, MAT );
 }

@@ -26,8 +26,8 @@ SCENARIO( "Creating a material syntax tree of an ENDF File" ){
       }
 
       AND_THEN( "the buffer iterators are populated correctly "){
-        REQUIRE( materialString.begin() == materialTree.bufferBegin() );
-        REQUIRE( materialString.end() == materialTree.bufferEnd() );
+        REQUIRE( materialString.begin() == materialTree.buffer().begin() );
+        REQUIRE( materialString.end() == materialTree.buffer().end() );
       }
 
       AND_THEN( "the material number or MAT is populated correctly" ){

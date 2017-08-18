@@ -39,9 +39,10 @@ public:
   
   std::size_t size() const { return materialVector.size(); }
 
-  BufferIterator bufferBegin() { return this->bufferLimits.first; }
-
-  BufferIterator bufferEnd() { return this->bufferLimits.second ; }
+  auto buffer() const {
+    return ranges::make_iterator_range( this->bufferLimits.first,
+                                        this->bufferLimits.second );
+  }
 
   const TapeIdentification& TPID() const { return this->tpid; }
 };

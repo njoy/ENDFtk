@@ -37,8 +37,9 @@ public:
   int MAT() const { return this->materialNo; }
 
   int materialNumber() const { return this->MAT(); }
-    
-  BufferIterator bufferBegin() { return this->bufferLimits.first; }
-  
-  BufferIterator bufferEnd() { return this->bufferLimits.second; }
+
+  auto buffer() const {
+    return ranges::make_iterator_range( this->bufferLimits.first,
+                                        this->bufferLimits.second );
+  }
 };
