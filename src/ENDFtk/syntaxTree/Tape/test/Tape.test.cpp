@@ -23,8 +23,8 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
       syntaxTree::Tape< std::string::iterator > tapeTree( begin, end );
         
       THEN( "the buffer iterators are populated correctly "){
-        REQUIRE( tapeString.begin() == tapeTree.bufferBegin() );
-        REQUIRE( tapeString.end() == tapeTree.bufferEnd() );
+        REQUIRE( tapeString.begin() == tapeTree.buffer().begin() );
+        REQUIRE( tapeString.end() == tapeTree.buffer().end() );
       }
 
       AND_THEN( "the correct number of materials are read from the tape" ){

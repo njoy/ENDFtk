@@ -34,9 +34,10 @@ public:
  
   std::size_t size() const { return this->sectionVector.size(); }
 
-  BufferIterator bufferBegin() { return this->bufferLimits.first; }
-
-  BufferIterator bufferEnd() { return this->bufferLimits.second; }
+  auto buffer() const {
+    return ranges::make_iterator_range( this->bufferLimits.first,
+                                        this->bufferLimits.second );
+  }
   
   int MF() const { return this->fileNo; }
 
