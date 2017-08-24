@@ -27,8 +27,8 @@ SCENARIO( "Creating a syntax tree of an ENDF Section" ){
       }
 
       AND_THEN( "the buffer iterators are populated correctly "){
-        REQUIRE( sectionString.begin() == sectionTree.bufferBegin() );
-        REQUIRE( end == sectionTree.bufferEnd() );
+        REQUIRE( sectionString.begin() == sectionTree.buffer().begin() );
+        REQUIRE( end == sectionTree.buffer().end() );
       }
 
       AND_THEN( "the section number or MT is populated correctly" ){
@@ -36,6 +36,19 @@ SCENARIO( "Creating a syntax tree of an ENDF Section" ){
         REQUIRE( 1 == sectionTree.sectionNumber() );
       }
 
+      AND_THEN( "the first record of the section is a head record" ){
+        auto start = sectionTree.buffer().begin();
+        auto end = sectionTree.buffer().end();
+        long lineNumber = 0;
+
+        HeadRecord head( start, end, lineNumber );
+        REQUIRE( head.ZA() == 1.001E3 );
+        REQUIRE( head.AWR() == 9.991673E-1 );
+        REQUIRE( head.L1() == 0 );
+        REQUIRE( head.L2() == 0 );
+        REQUIRE( head.N1() == 0 );
+        REQUIRE( head.N2() == 0 );
+      }
     } // WHEN
 
     WHEN( "an invalid (MT!=0) SEND record ends the Section" ){

@@ -29,8 +29,8 @@ SCENARIO( "Creating a syntax tree of an ENDF File" ){
       }
       
       AND_THEN( "the buffer iterators are populated correctly "){
-        REQUIRE( fileString.begin() == fileTree.bufferBegin() );
-        REQUIRE( fileString.end() == fileTree.bufferEnd() );
+        REQUIRE( fileString.begin() == fileTree.buffer().begin() );
+        REQUIRE( fileString.end() == fileTree.buffer().end() );
       }
       
       AND_THEN( "the file number or MF is populated correctly" ){
