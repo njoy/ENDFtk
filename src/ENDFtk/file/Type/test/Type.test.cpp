@@ -29,8 +29,7 @@ SCENARIO( "Testing generic case using file 3" ){
       syntaxTree::File< std::string::iterator > 
           fileTree( asHead( division ), start, begin, end, lineNumber );
       THEN( "a file::Type<3> can be constructed" ){
-        REQUIRE_NOTHROW( 
-            file::Type< 3 > MF3 = fileTree.parse< 3 >( lineNumber ) );
+        REQUIRE_NOTHROW( fileTree.parse< 3 >( lineNumber ) );
       }
     }
     WHEN( "a file::Type<3> is constructed from the string twice" ){
