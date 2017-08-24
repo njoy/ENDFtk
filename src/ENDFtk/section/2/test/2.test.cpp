@@ -696,7 +696,6 @@ SCENARIO( "section::Type<2>" ){
         REQUIRE( 1 == MF2.isotopes.size() );
       }
     }
-    /*
     WHEN( "reading LRU=1, LRF=7" ){
       std::string& sMF2 = sLRU1[7];
       auto begin = sMF2.begin();
@@ -706,14 +705,16 @@ SCENARIO( "section::Type<2>" ){
       HeadRecord HEAD( begin, end, lineNumber );
 
       THEN( "a section::Type<2> can be constructed" ){
-        section::Type<2> MF2( HEAD, begin, end, lineNumber, MAT );
+        REQUIRE_THROWS( 
+            section::Type<2>( HEAD, begin, end, lineNumber, MAT ) );
+      /*
         REQUIRE( 151 == MF2.MT() );
         REQUIRE( 17035 == MF2.ZA() );
         REQUIRE( 34.6685 == Approx( MF2.atomicWeightRatio() ) );
         REQUIRE( 1 == MF2.isotopes.size() );
+      */
       }
     }
-    */
     WHEN( "reading LRU=2, LRF=1, LFW=0" ){
       std::string& sMF2 = sLRU2[0];
       auto begin = sMF2.begin();
