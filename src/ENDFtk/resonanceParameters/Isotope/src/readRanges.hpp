@@ -1,3 +1,4 @@
+protected:
 template< typename Iterator >
 static EnergyRange
 readRange( int LFW, 

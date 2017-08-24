@@ -64,9 +64,9 @@ using LIST = ListRecord;
 #include "ENDFtk/UnivariateTabulation.hpp"
 using TAB1 = UnivariateTabulation;
 
-#include "ENDFtk/section.hpp"
-
 #include "ENDFtk/resonanceParameters.hpp"
+
+#include "ENDFtk/section.hpp"
 
 #include "ENDFtk/file.hpp"
 

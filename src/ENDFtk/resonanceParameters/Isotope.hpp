@@ -1,14 +1,14 @@
 class Isotope {
+public:
+  std::vector< EnergyRange > ranges;
   double zai;
   double abn;
   int lfw;
-  std::vector< EnergyRange > ranges;
 
   #include "ENDFtk/resonanceParameters/Isotope/src/readRanges.hpp"
-  
-public:
   #include "ENDFtk/resonanceParameters/Isotope/src/ctor.hpp"
 
+public:
   double ZAI() const { return this->zai; }
   double ABN() const { return this->abn; }
   int LFW() const { return this->lfw; }

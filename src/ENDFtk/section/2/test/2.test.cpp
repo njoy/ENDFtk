@@ -645,6 +645,7 @@ SCENARIO( "section::Type<2>" ){
         REQUIRE( 151 == MF2.MT() );
         REQUIRE( 1001 == MF2.ZA() );
         REQUIRE( 0.9991673 == Approx( MF2.atomicWeightRatio() ) );
+        REQUIRE( 1 == MF2.isotopes.size() );
       }
     }
     WHEN( "reading LRU=1, LRF=1" ){
@@ -660,6 +661,7 @@ SCENARIO( "section::Type<2>" ){
         REQUIRE( 151 == MF2.MT() );
         REQUIRE( 61148 == MF2.ZA() );
         REQUIRE( 146.65 == MF2.atomicWeightRatio() );
+        REQUIRE( 1 == MF2.isotopes.size() );
       }
     }
     WHEN( "reading LRU=1, LRF=2" ){
@@ -675,6 +677,7 @@ SCENARIO( "section::Type<2>" ){
         REQUIRE( 151 == MF2.MT() );
         REQUIRE( 12024 == MF2.ZA() );
         REQUIRE( 23.779 == Approx( MF2.atomicWeightRatio() ) );
+        REQUIRE( 1 == MF2.isotopes.size() );
       }
     }
     WHEN( "reading LRU=1, LRF=3" ){
@@ -690,8 +693,10 @@ SCENARIO( "section::Type<2>" ){
         REQUIRE( 151 == MF2.MT() );
         REQUIRE( 14028 == MF2.ZA() );
         REQUIRE( 27.737 == Approx( MF2.atomicWeightRatio() ) );
+        REQUIRE( 1 == MF2.isotopes.size() );
       }
     }
+    /*
     WHEN( "reading LRU=1, LRF=7" ){
       std::string& sMF2 = sLRU1[7];
       auto begin = sMF2.begin();
@@ -705,8 +710,10 @@ SCENARIO( "section::Type<2>" ){
         REQUIRE( 151 == MF2.MT() );
         REQUIRE( 17035 == MF2.ZA() );
         REQUIRE( 34.6685 == Approx( MF2.atomicWeightRatio() ) );
+        REQUIRE( 1 == MF2.isotopes.size() );
       }
     }
+    */
     WHEN( "reading LRU=2, LRF=1, LFW=0" ){
       std::string& sMF2 = sLRU2[0];
       auto begin = sMF2.begin();
@@ -720,6 +727,7 @@ SCENARIO( "section::Type<2>" ){
         REQUIRE( 151 == MF2.MT() );
         REQUIRE( 56140 == MF2.ZA() );
         REQUIRE( 138.708 == Approx( MF2.atomicWeightRatio() ) );
+        REQUIRE( 1 == MF2.isotopes.size() );
       }
     }
     WHEN( "reading LRU=2, LRF=1, LFW=1" ){
@@ -735,6 +743,7 @@ SCENARIO( "section::Type<2>" ){
         REQUIRE( 151 == MF2.MT() );
         REQUIRE( 94240 == MF2.ZA() );
         REQUIRE( 237.992 == Approx( MF2.atomicWeightRatio() ) );
+        REQUIRE( 1 == MF2.isotopes.size() );
       }
     }
     WHEN( "reading LRU=2, LRF=2" ){
@@ -750,11 +759,49 @@ SCENARIO( "section::Type<2>" ){
         REQUIRE( 151 == MF2.MT() );
         REQUIRE( 38090 == MF2.ZA() );
         REQUIRE( 89.1354 == Approx( MF2.atomicWeightRatio() ) );
+        REQUIRE( 1 == MF2.isotopes.size() );
       }
     }
   } // GIVEN
 
   GIVEN( "a File 2 Section with the wrong MAT number" ){
+    WHEN( "NIS < 1" ){
+      std::string sMF2 = 
+        " 5.614000+4 1.387080+2          0          0          0          05655 2151    1\n"
+        " 5.614000+4 1.000000+0          0          0          2          05655 2151    2\n"
+        " 1.000000-5 2.300000+4          1          2          0          05655 2151    3\n"
+        " 0.000000+0 6.233000-1          0          0          1          05655 2151    4\n"
+        " 1.387080+2 0.000000+0          0          0         48          85655 2151    5\n"
+        " 1.220000+2 5.000000-1 1.308180+0 1.258180+0 5.000000-2 0.000000+05655 2151    6\n"
+        " 1.067930+3 5.000000-1 2.321380-1 1.821380-1 5.000000-2 0.000000+05655 2151    7\n"
+        " 2.870630+3 5.000000-1 6.799180+0 6.749180+0 5.000000-2 0.000000+05655 2151    8\n"
+        " 6.045880+3 5.000000-1 3.495960-1 2.995960-1 5.000000-2 0.000000+05655 2151    9\n"
+        " 7.020820+3 5.000000-1 7.328280+0 7.278280+0 5.000000-2 0.000000+05655 2151   10\n"
+        " 1.109080+4 5.000000-1 1.456140+0 1.406140+0 5.000000-2 0.000000+05655 2151   11\n"
+        " 1.688240+4 5.000000-1 5.927150+1 5.922150+1 5.000000-2 0.000000+05655 2151   12\n"
+        " 2.272770+4 5.000000-1 6.256690+0 6.206690+0 5.000000-2 0.000000+05655 2151   13\n"
+        " 2.300000+4 1.000000+5          2          1          0          05655 2151   14\n"
+        " 0.000000+0 6.233000-1          0          0          3          05655 2151   15\n"
+        " 1.387090+2 0.000000+0          0          0          6          15655 2151   16\n"
+        " 4.400000+3 5.000000-1 1.000000+0 4.400000-1 5.000000-2 0.000000+05655 2151   17\n"
+        " 1.387090+2 0.000000+0          1          0         12          25655 2151   18\n"
+        " 4.400000+3 5.000000-1 1.000000+0 5.280000-1 9.000000-2 0.000000+05655 2151   19\n"
+        " 2.200000+3 1.500000+0 1.000000+0 2.640000-1 9.000000-2 0.000000+05655 2151   20\n"
+        " 1.387090+2 0.000000+0          2          0         12          25655 2151   21\n"
+        " 2.200000+3 1.500000+0 1.000000+0 3.300000-2 5.000000-2 0.000000+05655 2151   22\n"
+        " 1.466670+3 2.500000+0 1.000000+0 2.200000-2 5.000000-2 0.000000+05655 2151   23\n"
+        " 0.000000+0 0.000000+0          0          0          0          05655 2  099999\n"
+        " 0.000000+0 0.000000+0          0          0          0          05655 0  0    0\n";
+      auto begin = sMF2.begin();
+      auto end = sMF2.end();
+      long lineNumber = 0;
+      int MAT = 5655;
+      HeadRecord HEAD( begin, end, lineNumber );
+
+      THEN( "an exception is thrown" ){
+        REQUIRE_THROWS( section::Type<2>( HEAD, begin, end, lineNumber, MAT ) );
+      }
+    }
     WHEN( "reading LRU=1, LRF=1" ){
       std::string& sMF2 = sLRU1[1];
       auto begin = sMF2.begin();
