@@ -86,6 +86,24 @@ SCENARIO( "Testing resolved Resonance MLBW" ){
       }
     }
   }
+  GIVEN( "invalid ENDF parameters" ){
+    long lineNumber = 0;
+    int MAT = 7922;
+    int MF = 2;
+    int MT = 151;
+
+    auto bws = Tab1() + BreitWigner();
+    auto begin = bws.begin();
+    auto end = bws.end();
+    
+    resonanceParameters::Base base( 1E-5, 3.2, 1, 2, 1, 0 );
+    THEN( "an exception is thrown" ){
+
+      REQUIRE_THROWS(
+        resonanceParameters::resolved::MultilevelBreitWigner( 
+            base, begin, end, lineNumber, MAT, MF, MT ) );
+    }
+  }
 }
 
 std::string BreitWigner(){
