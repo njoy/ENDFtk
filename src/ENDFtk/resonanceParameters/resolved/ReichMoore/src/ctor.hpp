@@ -34,7 +34,15 @@ ReichMoore( const Base& base,
             std::vector< LIST >&& lists ) :
   BreitWigner( base, std::move(APE), cont, std::move(lists) ),
   lad( cont.L1() ),
-  nlsc( cont.N2() ){}
+  nlsc( cont.N2() ){
+  try{
+    this->validate();
+  } catch( std::exception& e ) {
+    Log::info( "Encountered error while constructing"
+               " Reich-Moore resonance parameter subsection" );
+    throw e;
+  }
+}
 
 template< typename Iterator >
 ReichMoore( const Base& base,
@@ -58,15 +66,7 @@ public:
 template< typename Iterator >
 ReichMoore( const Base& base, 
             Iterator& it, const Iterator& end, long& lineNumber,
-            int MAT, int MF, int MT )
-  try :
+            int MAT, int MF, int MT ) :
     ReichMoore( base, 
                 BreitWigner::readAPE( base, it, end, lineNumber, MAT, MF, MT ),
-                it, end, lineNumber, MAT, MF, MT ) {
-      BreitWigner::validate();
-      this->validate();
-  } catch ( std::exception& e ) {
-    Log::info( "Encountered error while parsing"
-               " Reich-Moore resonance parameter subsection" );
-    throw e;
-  }
+                it, end, lineNumber, MAT, MF, MT ) {}
