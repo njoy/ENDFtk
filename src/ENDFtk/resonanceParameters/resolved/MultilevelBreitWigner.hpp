@@ -1,15 +1,15 @@
-class MultilevelBreitWigner : public BreitWigner {
+class MultiLevelBreitWigner : public BreitWigner {
 
   /* explicitly declaring this ctor in a private context
      prevents user from accessing to this signature */
-  MultilevelBreitWigner( const Base& base,
+  MultiLevelBreitWigner( const Base& base,
                          std::optional<TAB1>&& APE,
                          const CONT& cont,
                          std::vector< LIST >&& lists );
   
 public:
   template< typename... Args >
-  MultilevelBreitWigner( Args&&... args )
+  MultiLevelBreitWigner( Args&&... args )
     try:
       BreitWigner( std::forward<Args>(args)... ){
     } catch ( std::exception& e ){
@@ -19,4 +19,4 @@ public:
     }
 };
 
-using MLBW = MultilevelBreitWigner;
+using MLBW = MultiLevelBreitWigner;
