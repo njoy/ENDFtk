@@ -8,6 +8,11 @@ LState( const CONT& cont,
     awri( cont.C1() ),
     l( cont.L1() )
   {
+    if( this->l < 0 ){
+      Log::error( "L required to be >= 0" );
+      Log::error( "L value: {}", this->l );
+      throw std::exception();
+    }
   } catch( std::exception& e ){
     Log::info( "Trouble encountered when creating LState" );
     throw e;

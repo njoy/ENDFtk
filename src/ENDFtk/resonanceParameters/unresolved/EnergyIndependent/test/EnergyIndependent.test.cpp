@@ -69,13 +69,14 @@ SCENARIO( "Testing energy-independent unresolved resonances" ){
     }
   }
 
-  GIVEN( "ivalid ENDF parameters" ){
+  GIVEN( "invalid ENDF parameters" ){
     long lineNumber = 0;
-    int MAT = 3843;
+    int MAT = 5655;
     int MF = 2;
     int MT = 151;
 
     std::string ENDF = LRF2();
+    ENDF[53] = '-';
     auto begin = ENDF.begin();
     auto end = ENDF.end();
 
