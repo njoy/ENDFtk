@@ -23,7 +23,7 @@ SCENARIO( "Testing resolved Resonance MLBW" ){
       
       resonanceParameters::Base base( 1E-5, 3.2, 1, 2, 1, 0 );
 
-      resonanceParameters::resolved::MultiLevelBreitWigner
+      resonanceParameters::resolved::MultilevelBreitWigner
         mlbw( base, begin, end, lineNumber, MAT, MF, MT );
       
       THEN( "the parameters can be verified" ){
@@ -64,7 +64,7 @@ SCENARIO( "Testing resolved Resonance MLBW" ){
       auto end = bws.end();
       
       resonanceParameters::Base base( 1E-5, 3.2, 1, 2, 0, 0 );
-      resonanceParameters::resolved::MultiLevelBreitWigner
+      resonanceParameters::resolved::MultilevelBreitWigner
         mlbw( base, begin, end, lineNumber, MAT, MF, MT);
 
       THEN( "the parameters can be verified" ){
@@ -100,7 +100,7 @@ SCENARIO( "Testing resolved Resonance MLBW" ){
     THEN( "an exception is thrown" ){
 
       REQUIRE_THROWS(
-        resonanceParameters::resolved::MultiLevelBreitWigner( 
+        resonanceParameters::resolved::MultilevelBreitWigner( 
             base, begin, end, lineNumber, MAT, MF, MT ) );
     }
   }

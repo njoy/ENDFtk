@@ -6,11 +6,11 @@ LState( const CONT& cont,
   try:
     lists( readLists( cont.N1(), it, end, lineNumber, MAT, MF, MT ) ),
     awri( cont.C1() ),
-    l( cont.L1() )
-  {
+    l( cont.L1() ) {
     if( this->l < 0 ){
-      Log::error( "L required to be >= 0" );
-      Log::error( "L value: {}", this->l );
+      Log::error( "Encountered illegal L-value" );
+      Log::info( "L required to be greater than or equal to zero" );
+      Log::info( "L value: {}", this->l );
       throw std::exception();
     }
   } catch( std::exception& e ){

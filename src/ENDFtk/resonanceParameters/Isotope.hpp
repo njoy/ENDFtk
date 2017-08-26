@@ -1,5 +1,4 @@
 class Isotope {
-public:
   std::vector< EnergyRange > ranges;
   double zai;
   double abn;

@@ -1,18 +1,15 @@
 template< typename Iterator >
-Type ( HEAD& head, 
+Type ( const HEAD& head, 
        Iterator& begin, 
        const Iterator& end, 
        long& lineNumber, 
        int MAT )
   try: 
     Base( head, MAT, 2 ),
-    isotopes( 
-        readIsotopes( head, begin, end, lineNumber ) )
-    // isotope( begin, end, lineNumber, head.MAT(), 2, head.MT() )
-{
-} catch( std::exception& e ){
-  Log::info( "Encountered error while reading section {} of File 2 of \n"
-             "Material {}", head.MT(), MAT );
-  throw e;
-}
+    isotopes( readIsotopes( head, begin, end, lineNumber ) ) {
+  } catch( std::exception& e ){
+    Log::info( "Trouble while reading section {} of File 2 of Material {}",
+               head.MT(), MAT );
+    throw e;
+  }
 

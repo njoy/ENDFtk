@@ -1,22 +1,21 @@
-class MultiLevelBreitWigner : public BreitWigner {
-
+class MultilevelBreitWigner : public BreitWigner {
   /* explicitly declaring this ctor in a private context
      prevents user from accessing to this signature */
-  MultiLevelBreitWigner( const Base& base,
+  MultilevelBreitWigner( const Base& base,
                          std::optional<TAB1>&& APE,
                          const CONT& cont,
                          std::vector< LIST >&& lists );
   
 public:
   template< typename... Args >
-  MultiLevelBreitWigner( Args&&... args )
+  MultilevelBreitWigner( Args&&... args )
     try:
       BreitWigner( std::forward<Args>(args)... ){
     } catch ( std::exception& e ){
-      Log::info( "Encountered error while constructing"
-                 " multilevel Breit-Wigner resonance parameter subsection" );
+      Log::info( "Encountered error while constructing "
+                 "multilevel Breit-Wigner resonance parameter subsection" );
       throw e;
     }
 };
 
-using MLBW = MultiLevelBreitWigner;
+using MLBW = MultilevelBreitWigner;
