@@ -7,6 +7,7 @@ using namespace njoy::ENDFtk;
 
 std::string ReichMoore();
 std::string Tab1();
+std::string cont();
     
 SCENARIO( "Testing resolved Resonance ReichMoore" ){
   GIVEN( "valid ENDF parameters with TAB1" ){
@@ -17,7 +18,7 @@ SCENARIO( "Testing resolved Resonance ReichMoore" ){
     int MT = 151;
 
     WHEN( "NRO == 1" ){
-      auto rms = Tab1() + ReichMoore();
+      auto rms = Tab1() + cont() + ReichMoore();
       auto begin = rms.begin();
       auto end = rms.end();
       
@@ -60,7 +61,7 @@ SCENARIO( "Testing resolved Resonance ReichMoore" ){
       }
     }
     WHEN( "NRO == 0" ){
-      auto rms = ReichMoore();
+      auto rms = cont() + ReichMoore();
       auto begin = rms.begin();
       auto end = rms.end();
       
@@ -90,11 +91,53 @@ SCENARIO( "Testing resolved Resonance ReichMoore" ){
       }
     }
   }
+
+  GIVEN( "invalid ENDF parameters" ){
+    long lineNumber = 0;
+    int MAT = 6922;
+    int MF = 2;
+    int MT = 151;
+
+    WHEN( "LAD value is invalid" ){
+      std::string cont1 = " 3.500000+0 9.859600-1         -1          0          1          36922 2151\n";
+      std::string cont2 = " 3.500000+0 9.859600-1          2          0          1          36922 2151\n";
+      resonanceParameters::Base base(1E-5, 3.2, 1, 3, 0, 0);
+
+      THEN( "an exception is thrown" ){
+        std::string rms = cont1 + ReichMoore();
+        auto begin = rms.begin();
+        auto end = rms.end();
+        REQUIRE_THROWS( resonanceParameters::resolved::ReichMoore( 
+                          base, begin, end, lineNumber, MAT, MF, MT ) );
+        rms = cont2 + ReichMoore();
+        begin = rms.begin();
+        end = rms.end();
+        REQUIRE_THROWS( resonanceParameters::resolved::ReichMoore( 
+                          base, begin, end, lineNumber, MAT, MF, MT ) );
+      }
+    }
+    WHEN( "NLSC < NLS" ){
+      std::string cont1 = " 3.500000+0 9.859600-1          1          0          4          36922 2151\n";
+      resonanceParameters::Base base(1E-5, 3.2, 1, 3, 0, 0);
+
+      THEN( "an exception is thrown" ){
+        std::string rms = cont1 + ReichMoore();
+        auto begin = rms.begin();
+        auto end = rms.end();
+        REQUIRE_THROWS( resonanceParameters::resolved::ReichMoore( 
+                          base, begin, end, lineNumber, MAT, MF, MT ) );
+      }
+    }
+  }
+}
+
+std::string cont(){
+  return
+    " 3.500000+0 9.859600-1          1          0          1          36922 2151\n";
 }
 
 std::string ReichMoore(){
   return
-    " 3.500000+0 9.859600-1          1          0          1          36922 2151\n"
     " 2.330200+2 9.859600-1          0          0        102         236922 2151\n"
     "-1.000000+2 3.000000+0 1.145800-2 3.871290-2 1.229980-4 7.233640-26922 2151\n"
     "-9.000000+1 4.000000+0 2.422100-6 3.680760-2 5.617020-2-2.168940-16922 2151\n"

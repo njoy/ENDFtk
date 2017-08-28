@@ -15,6 +15,7 @@ public:
 #include "ENDFtk/syntaxTree/File/src/createVector.hpp"
 #include "ENDFtk/syntaxTree/File/src/createMap.hpp"
 #include "ENDFtk/syntaxTree/File/src/ctor.hpp"
+#include "ENDFtk/syntaxTree/File/src/parse.hpp"
 
   /* methods */
 #include "ENDFtk/syntaxTree/File/src/sectionNumber.hpp"

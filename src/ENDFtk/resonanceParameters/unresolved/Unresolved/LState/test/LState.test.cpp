@@ -37,15 +37,33 @@ SCENARIO( "Energy-dependent unresolved resonances LState" ){
     auto end = endf.end();
     CONT cont( begin, end, lineNumber, MAT, MF, MT );
 
-    std::string sCONT = 
-  " 8.913540+1 0.000000+0          1          0         -2          03843 2151   21\n";
-    auto cbegin = sCONT.begin();
-    auto cend = sCONT.end();
-    cont = CONT( cbegin, cend, lineNumber, MAT, MF, MT );
+    WHEN( "L value is negative" ){
+      std::string sCONT = 
+        " 8.913540+1 0.000000+0         -1          0          2          03843 2151   21\n";
+      auto cbegin = sCONT.begin();
+      auto cend = sCONT.end();
+      cont = CONT( cbegin, cend, lineNumber, MAT, MF, MT );
 
-    REQUIRE_THROWS(
-      resonanceParameters::unresolved::Unresolved::LState( 
-        cont, begin, end, lineNumber, MAT, MF, MT ) );
+      THEN( "an exception is thrown" ){
+        REQUIRE_THROWS(
+          resonanceParameters::unresolved::Unresolved::LState( 
+            cont, begin, end, lineNumber, MAT, MF, MT ) );
+      }
+    }
+    WHEN( "NJS value is negative" ){
+      njoy::Log::debug( "Should find negative NJS value" );
+      std::string sCONT = 
+        " 8.913540+1 0.000000+0          1          0         -2          03843 2151   21\n";
+      auto cbegin = sCONT.begin();
+      auto cend = sCONT.end();
+      cont = CONT( cbegin, cend, lineNumber, MAT, MF, MT );
+
+      THEN( "an exception is thrown" ){
+        REQUIRE_THROWS(
+          resonanceParameters::unresolved::Unresolved::LState( 
+            cont, begin, end, lineNumber, MAT, MF, MT ) );
+      }
+    }
   }
 }
 

@@ -1,5 +1,5 @@
 
-add_executable( ENDFtk.resonanceParameters.resolved.MultilevelBreitWigner.test MultiLevelBreitWigner.test.cpp )
+add_executable( ENDFtk.resonanceParameters.resolved.MultilevelBreitWigner.test MultilevelBreitWigner.test.cpp )
 target_compile_options( ENDFtk.resonanceParameters.resolved.MultilevelBreitWigner.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}

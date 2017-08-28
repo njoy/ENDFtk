@@ -101,11 +101,12 @@ SCENARIO( "Testing energy-dependent unresolved resonances" ){
   }
   GIVEN( "invalid ENDF parameters" ){
     long lineNumber = 0;
-    int MAT = 9235;
+    int MAT = 3843;
     int MF = 2;
     int MT = 151;
 
     std::string caseC = LRF2();
+    caseC[53] = '-';
     auto begin = caseC.begin();
     auto end = caseC.end();
 

@@ -19,6 +19,19 @@ SCENARIO( "Testing generic case using file 3" ){
       StructureDivision division( begin, end, lineNumber);
       REQUIRE_NOTHROW( file::Type<3>(division, begin, end, lineNumber ) );
     }
+    WHEN( "a file::Type<3> is constructed from a syntaxTree" ){
+      auto begin = file3string.begin();
+      auto start = file3string.begin();
+      auto end = file3string.end();
+      long lineNumber = 0;
+
+      StructureDivision division( begin, end, lineNumber);
+      syntaxTree::File< std::string::iterator > 
+          fileTree( asHead( division ), start, begin, end, lineNumber );
+      THEN( "a file::Type<3> can be constructed" ){
+        REQUIRE_NOTHROW( fileTree.parse< 3 >( lineNumber ) );
+      }
+    }
     WHEN( "a file::Type<3> is constructed from the string twice" ){
       std::string twice(file3string.begin(), file3string.end()-81);
       twice += file3string;

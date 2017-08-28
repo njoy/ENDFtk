@@ -79,8 +79,8 @@ SCENARIO( "Testing resolved Resonance BW" ){
     }
   }
 
-  GIVEN( "valid ENDF paramaters, but with wrong MAT number" ){
-    auto bws = Tab1() + BreitWigner();      
+  GIVEN( "invalid ENDF paramaters" ){
+    auto bws = BreitWigner();      
     auto begin = bws.begin();
     auto end = bws.end();
 
@@ -89,12 +89,14 @@ SCENARIO( "Testing resolved Resonance BW" ){
     int MF = 2;
     int MT = 151;
 
-    resonanceParameters::Base base( 1E-5, 3.2, 1, 1, 1, 0 );
+    WHEN( "NLS < 0" ){
+      resonanceParameters::Base base( 1E-5, 3.2, 1, 1, 0, 0 );
 
-    THEN( "an exception is thrown" ){
-      MAT = 125;
-      REQUIRE_THROWS(
-        TestBreitWigner( base, begin, end, lineNumber, MAT, MF, MT ) );
+      bws[53] = '-';
+      THEN( "an exception is thrown" ){
+        REQUIRE_THROWS(
+          TestBreitWigner( base, begin, end, lineNumber, MAT, MF, MT ) );
+      }
     }
   }
 }
