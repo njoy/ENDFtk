@@ -56,6 +56,6 @@ std::string getFile( int MF ){
   auto begin = cachedTape().begin();
   auto end = cachedTape().end();
   syntaxTree::Tape< std::string::iterator > tapeTree( begin, end );
-  auto fileTree = tapeTree.materialNumber( 125 ).at( 0 ).fileNumber( MF );
+  auto fileTree = tapeTree.materialNumber( 125 ).front().fileNumber( MF );
   return std::string( fileTree.buffer().begin(), fileTree.buffer().end() );
 }

@@ -1,5 +1,5 @@
 class ListRecord {
-public:
+protected:
   using Base = record::Base< record::Real, record::Real,
                              record::Integer< 11 >, record::Integer< 11 >,
                              record::Integer< 11 >, record::Integer< 11 > >;
@@ -18,6 +18,7 @@ public:
 
 #include "ENDFtk/ListRecord/src/readMetadata.hpp"
 
+public:
   ListRecord( double C1, double C2, uint64_t L1, uint64_t L2, uint64_t N2,
               std::vector< double >&& list ) :
     metadata( C1, C2, L1, L2, list.size(), N2 ), data( std::move(list) ){}
@@ -61,8 +62,7 @@ public:
   
   auto B() const { return this->list(); }
 
-  bool
-  operator== ( const ListRecord& rhs ){
+  bool operator==( const ListRecord& rhs ) const {
     return ( this->C1() == rhs.C1() )
       && ( this->C2() == rhs.C2() )
       && ( this->L1() == rhs.L1() )
@@ -71,6 +71,7 @@ public:
       && ( this->data  == rhs.data );
   }
 
-  bool
-  operator!= ( const ListRecord& rhs ){ return not ( *this == rhs ); }
+  bool operator!= ( const ListRecord& rhs ) const {
+    return not ( *this == rhs );
+  }
 };

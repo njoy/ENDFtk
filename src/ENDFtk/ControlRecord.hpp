@@ -4,14 +4,13 @@ class ControlRecord : protected record::Base< record::Real,
                                               record::Integer< 11 >,
                                               record::Integer< 11 >,
                                               record::Integer< 11 > > {
-public:
-
   using base = record::Base< record::Real, record::Real,
                              record::Integer< 11 >, record::Integer< 11 >,
                              record::Integer< 11 >, record::Integer< 11 > >;
   
   using tail = record::TailVerifying< record::MAT, record::MF, record::MT >;
 
+public:
   ControlRecord( double C1, double C2,
                  int64_t L1, int64_t L2, int64_t N1, int64_t N2 ) :
     base( C1, C2, L1, L2, N1, N2 ){}
@@ -47,12 +46,12 @@ public:
 #undef DEFINE_GETTER
   
   bool
-  operator==( const ControlRecord& rhs ){
-    return static_cast< base& >( *this ) == rhs;
+  operator==( const ControlRecord& rhs ) const {
+    return static_cast< const base& >( *this ) == rhs;
   }
 
   bool
-  operator!=( const ControlRecord& rhs ){
+  operator!=( const ControlRecord& rhs ) const {
     return not( *this == rhs );
   }
 };

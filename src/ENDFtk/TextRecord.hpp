@@ -1,9 +1,9 @@
 class TextRecord : protected record::Base< record::Character< 66 > > {
-public:
   /* convenience typedefs */
   using base = record::Base< record::Character< 66 > >;
   using tail = record::TailVerifying< record::MAT, record::MF, record::MT >;
-  
+
+public:  
   /* ctor */
   TextRecord( std::string&& text ) : base( std::move(text) ){}
 
@@ -29,10 +29,10 @@ public:
   text() const { return std::get< 0 >( this->fields ); }
 
   bool
-  operator==( const TextRecord& rhs ){
-    return static_cast< base& >( *this ) == rhs;
+  operator==( const TextRecord& rhs ) const {
+    return static_cast< const base& >( *this ) == rhs;
   }
 
   bool
-  operator!=( const TextRecord& rhs ){ return not( *this == rhs ); }
+  operator!=( const TextRecord& rhs ) const { return not( *this == rhs ); }
 };

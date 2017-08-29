@@ -84,7 +84,7 @@ public:
       | ranges::view::transform( [this ]( int i ){ return this->regions(i); } );
   }
 
-  bool operator== ( const UnivariateTabulation& rhs ){
+  bool operator==( const UnivariateTabulation& rhs ) const {
     return ( this->C1() == rhs.C1() )
       && ( this->C2() == rhs.C2() )
       && ( this->L1() == rhs.L1() )
@@ -95,6 +95,7 @@ public:
       && ( this->yValues == rhs.yValues );
   }
 
-  bool
-  operator!= ( const UnivariateTabulation& rhs ){ return not ( *this == rhs ); }
+  bool operator!=( const UnivariateTabulation& rhs ) const {
+    return not ( *this == rhs );
+  }
 };
