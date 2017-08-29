@@ -20,9 +20,41 @@ SCENARIO( "Creating a syntax tree of an ENDF File" ){
       long lineNumber = 0;
       
       HeadRecord head( begin, end, lineNumber);
+
+      GIVEN( "the File pointer" ){
+        auto beg = begin;
+        auto lin = lineNumber;
+        auto original =
+          std::make_unique
+          < syntaxTree::File< std::string::iterator > >
+          ( head, start, beg, end, lin );
+        
+        THEN( "the copy ctor will function correctly "){
+          auto copy = syntaxTree::File< std::string::iterator >{ *original };
+          original.reset();
+          REQUIRE( 1 == copy.MT( 1 ).MT() );          
+        }
+
+        beg = begin;
+        lin = lineNumber;
+        original =
+          std::make_unique
+          < syntaxTree::File< std::string::iterator > >
+          ( head, start, beg, end, lin );
+
+        THEN( "the copy ctor will function correctly "){
+          auto copy =
+            syntaxTree::File< std::string::iterator >
+            { std::move( *( original.release() ) ) };
+          
+          REQUIRE( 1 == copy.MT( 1 ).MT() );          
+        }
+      }
       
       const syntaxTree::File< std::string::iterator >
         fileTree( head, start, begin, end, lineNumber );
+
+      const auto& cfileTree = fileTree;
       
       THEN( "the entire stream is read" ){
         REQUIRE( 109 == lineNumber );
@@ -31,15 +63,20 @@ SCENARIO( "Creating a syntax tree of an ENDF File" ){
       AND_THEN( "the buffer iterators are populated correctly "){
         REQUIRE( fileString.begin() == fileTree.buffer().begin() );
         REQUIRE( fileString.end() == fileTree.buffer().end() );
+        REQUIRE( fileString.begin() == cfileTree.buffer().begin() );
+        REQUIRE( fileString.end() == cfileTree.buffer().end() );
       }
       
       AND_THEN( "the file number or MF is populated correctly" ){
-        REQUIRE(   3 == fileTree.MF() );
-        REQUIRE(   3 == fileTree.fileNumber() );
+        REQUIRE( 3 == fileTree.MF() );
+        REQUIRE( 3 == fileTree.fileNumber() );
+        REQUIRE( 3 == cfileTree.MF() );
+        REQUIRE( 3 == cfileTree.fileNumber() );
       }
 
       AND_THEN( "the correct number of sections are read from the file" ){
-        REQUIRE(   3 == fileTree.size() );
+        REQUIRE( 3 == fileTree.size() );
+        REQUIRE( 3 == cfileTree.size() );
       }
         
       AND_THEN( "we can access the section syntax trees of the file syntax tree" ){
@@ -49,9 +86,18 @@ SCENARIO( "Creating a syntax tree of an ENDF File" ){
           REQUIRE( sectionNo == fileTree.MT( sectionNo ).MT() );
           REQUIRE( fileTree.hasSectionNumber( sectionNo ) );
           REQUIRE( sectionNo == fileTree.sectionNumber( sectionNo ).MT() );
+          REQUIRE( cfileTree.hasMT( sectionNo ) );
+          REQUIRE( sectionNo == cfileTree.MT( sectionNo ).MT() );
+          REQUIRE( cfileTree.hasSectionNumber( sectionNo ) );
+          REQUIRE( sectionNo == cfileTree.sectionNumber( sectionNo ).MT() );
         }
         auto sectionIter = sectionNumbers.begin();
         for ( auto& section : fileTree ){
+          REQUIRE( *sectionIter == section.MT() );
+          ++sectionIter;
+        }
+        sectionIter = sectionNumbers.begin();
+        for ( const auto& section : cfileTree ){
           REQUIRE( *sectionIter == section.MT() );
           ++sectionIter;
         }

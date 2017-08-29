@@ -8,3 +8,15 @@ catch ( std::exception& e ){
   Log::info( "Trouble encountered while constructing a tape syntax tree." );
   throw e;
 }
+
+Tape( const Tape& other ) :
+  bufferLimits( other.bufferLimits ),
+  tpid( other.tpid ),
+  materialVector( other.materialVector ),
+  materialMap( createMap( this->materialVector ) ){}
+
+Tape( Tape&& other ) :
+  bufferLimits( other.bufferLimits ),
+  tpid( std::move(other.tpid) ),
+  materialVector( std::move( other.materialVector ) ),
+  materialMap( createMap( this->materialVector ) ){}

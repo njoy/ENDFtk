@@ -22,6 +22,8 @@ SCENARIO( "Creating a syntax tree of an ENDF Section" ){
       syntaxTree::Section< std::string::iterator >
         sectionTree( head, start, position, end, lineNumber );
 
+      const auto& csectionTree = sectionTree;
+      
       THEN( "the entire stream is read" ){
         REQUIRE( 36 == lineNumber );
       }
@@ -29,11 +31,15 @@ SCENARIO( "Creating a syntax tree of an ENDF Section" ){
       AND_THEN( "the buffer iterators are populated correctly "){
         REQUIRE( sectionString.begin() == sectionTree.buffer().begin() );
         REQUIRE( end == sectionTree.buffer().end() );
+        REQUIRE( sectionString.begin() == csectionTree.buffer().begin() );
+        REQUIRE( end == csectionTree.buffer().end() );
       }
 
       AND_THEN( "the section number or MT is populated correctly" ){
         REQUIRE( 1 == sectionTree.MT() );
         REQUIRE( 1 == sectionTree.sectionNumber() );
+        REQUIRE( 1 == csectionTree.MT() );
+        REQUIRE( 1 == csectionTree.sectionNumber() );
       }
 
       AND_THEN( "the first record of the section is a head record" ){
