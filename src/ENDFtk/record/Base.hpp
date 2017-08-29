@@ -76,11 +76,11 @@ struct Base {
   /* helper methods */
   template< int Index = nFields >
   bool
-  equality( const Base&, std::false_type ){ return true; }
+  equality( const Base&, std::false_type ) const { return true; }
   
   template< int Index = nFields >
   bool
-  equality( const Base& rhs, std::true_type ){
+  equality( const Base& rhs, std::true_type ) const {
     constexpr auto index = nFields - Index;
     return
       ( std::get< index >( rhs.fields ) == std::get< index >( this->fields ) )
@@ -89,12 +89,12 @@ struct Base {
 
   /* methods */
   bool
-  operator==( const Base& rhs ){
+  operator==( const Base& rhs ) const {
     return this->equality( rhs, std::true_type() );
   }
 
   bool
-  operator!=( const Base& rhs ){
+  operator!=( const Base& rhs ) const {
     return not ( *this == rhs );
   }
 };

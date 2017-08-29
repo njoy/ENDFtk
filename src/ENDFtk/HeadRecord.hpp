@@ -51,12 +51,12 @@ public:
 #undef DEFINE_BASE_GETTER
     
 #define DEFINE_TAIL_GETTER( name )                                      \
-  decltype( tail.name() )                                               \
+  decltype( StructureDivision::tail.name() )                            \
   name(){ return this->tail.name(); }                                   \
                                                                         \
   decltype( std::declval                                                \
             < typename std::add_const                                   \
-              < decltype( tail ) >::type >().name() )                   \
+            < decltype( StructureDivision::tail ) >::type >().name() )  \
   name() const { return this->tail.name(); }                               
   
   DEFINE_TAIL_GETTER( MAT )
