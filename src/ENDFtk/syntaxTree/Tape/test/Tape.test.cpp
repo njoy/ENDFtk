@@ -33,12 +33,9 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
       
       AND_THEN( "we can access the Materials of the skeleton" ){
         REQUIRE( tapeTree.hasMaterialNumber( 125 ) );
-        REQUIRE( 1 == tapeTree.materialNumber( 125 ).size() );
         for ( auto& materialSkeleton : tapeTree.materialNumber( 125 ) ){
           REQUIRE( 125 == materialSkeleton.materialNumber() );
         }
-
-        REQUIRE_THROWS( tapeTree.materialNumber( 125 ).at(1) );
 
         REQUIRE( tapeTree.hasMAT( 125 ) );
         for ( auto& materialSkeleton : tapeTree.MAT( 125 ) ){

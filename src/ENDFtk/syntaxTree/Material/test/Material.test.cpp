@@ -18,7 +18,7 @@ SCENARIO( "Creating a material syntax tree of an ENDF File" ){
       auto end = materialString.end();
       long lineNumber = 0;
       HeadRecord head( begin, end, lineNumber );
-      syntaxTree::Material< std::string::iterator >
+      const syntaxTree::Material< std::string::iterator >
         materialTree( head, start, begin, end, lineNumber );
       
       THEN( "the entire stream is read" ){

@@ -1,7 +1,6 @@
-static std::unordered_map< int, Section_t& >
-createMap( std::vector< Section_t >& vector ){
-
-  std::unordered_map< int, Section_t& > map;
+static tsl::hopscotch_map< int, const Section_t* >
+createMap( const std::vector< Section_t >& vector ){ 
+  tsl::hopscotch_map< int, const Section_t* > map;
   map.reserve( vector.size() );
 
   for ( auto& section : vector ){
@@ -12,7 +11,7 @@ createMap( std::vector< Section_t >& vector ){
       Log::info( "Encountered redundant MT: {}", section.MT() );
       throw std::exception();
     }
-    map.insert( { section.MT(), section } );
+    map.insert( { section.MT(), &section } );
   }
   return map;  
 }

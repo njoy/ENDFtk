@@ -11,3 +11,15 @@ catch( std::exception& e ){
   throw e;
 }
 
+File( const File& other ) :
+  fileNo( other.fileNo ),
+  sectionVector( other.sectionVector ),
+  sectionMap( createMap( this->sectionVector ) ),
+  bufferLimits( other.bufferLimits ){}
+
+File( File&& other ) :
+  fileNo( other.fileNo ),
+  sectionVector( std::move( other.sectionVector ) ),
+  sectionMap( createMap( this->sectionVector ) ),
+  bufferLimits( other.bufferLimits ){}
+

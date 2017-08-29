@@ -26,6 +26,7 @@
 #include "disco.hpp"
 #include "Log.hpp"
 #include "header-utilities.hpp"
+#include "hopscotch_map.h"
 
 namespace njoy {
 namespace ENDFtk {
