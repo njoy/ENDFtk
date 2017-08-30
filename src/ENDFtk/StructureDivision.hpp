@@ -11,7 +11,7 @@ public:
   /* fields */
   Base base;
   Tail tail;
-  
+
   StructureDivision( double C1, double C2, long L1, long L2, long N1, long N2,
                      int MAT, int MF, int MT ) :
     base( C1, C2, L1, L2, N1, N2 ),
@@ -75,34 +75,34 @@ public:
       throw e;
     }
 
-  bool isHead(){
+  bool isHead() const {
     return this->tail.section() && this->tail.file() && this->tail.material();
   }
   
-  bool isSendPermissive(){
+  bool isSendPermissive() const {
     const static Base empty(0.0, 0.0, 0, 0, 0, 0);
     return ( this->base == empty ) && ( this->tail.section() == 0 );
   };
 
-  bool isSend(){
+  bool isSend() const {
     return this->isSendPermissive()
            && this->tail.file()
            && ( this->tail.material() > 0 );
   }
   
-  bool isFendPermissive(){
+  bool isFendPermissive() const {
     return this->isSendPermissive() && ( this->tail.file() == 0 );
   }
 
-  bool isFend(){
+  bool isFend() const {
     return this->isFendPermissive() && ( this->tail.material() > 0 );
   }
   
-  bool isMend(){
+  bool isMend() const {
     return this->isFendPermissive() && ( this->tail.material() == 0 );
   }
   
-  bool isTend(){
+  bool isTend() const {
     return this->isFendPermissive() && ( this->tail.material() == -1 );
   }
 };

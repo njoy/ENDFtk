@@ -3,34 +3,48 @@ class Material {
 public:
   /* convenience typedefs */
   using File_t = File< BufferIterator >;
-  using Iterator = typename std::vector< File_t >::iterator;
-  
+  using iterator = typename std::vector< File_t >::iterator;
+  using const_iterator = typename std::vector< File_t >::iterator;
+
+protected:
   /* fields */
   int materialNo;         
   std::vector< File_t > fileVector;
-  std::unordered_map< int, File_t& > fileMap;
+  tsl::hopscotch_map< int, const File_t* > fileMap;
   std::pair< BufferIterator, BufferIterator > bufferLimits;
 
   /* ctor */
 #include "ENDFtk/syntaxTree/Material/src/createVector.hpp"
 #include "ENDFtk/syntaxTree/Material/src/createMap.hpp"
+
+public:
 #include "ENDFtk/syntaxTree/Material/src/ctor.hpp"
  
   /* methods */
 #include "ENDFtk/syntaxTree/Material/src/fileNumber.hpp"
 
+  const File_t&
+  MF( int fileNo ) const { return this->fileNumber( fileNo ); }
+  
   File_t&
   MF( int fileNo ) { return this->fileNumber( fileNo ); }
 
   bool
-  hasMF( int fileNo ){ return this->fileMap.count( fileNo ); }
+  hasMF( int fileNo ) const { return this->fileMap.count( fileNo ); }
 
   bool
-  hasFileNumber( int fileNo ){ return this->hasMF( fileNo ); }
+  hasFileNumber( int fileNo ) const { return this->hasMF( fileNo ); }
   
-  Iterator begin() { return this->fileVector.begin(); }
+  iterator begin() { return this->fileVector.begin(); }
+  iterator end() { return this->fileVector.end(); }
 
-  Iterator end() { return this->fileVector.end(); }
+  const_iterator begin() const {
+    return const_cast< Material& >( *this ).begin();
+  }
+  
+  const_iterator end() const {
+    return const_cast< Material& >( *this ).end();
+  }
   
   std::size_t size() const { return fileVector.size(); }
   

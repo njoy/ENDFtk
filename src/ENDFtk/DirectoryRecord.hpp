@@ -2,14 +2,13 @@ class DirectoryRecord : protected record::Base< record::Integer< 33 >,
                                                 record::Integer< 11 >,
                                                 record::Integer< 11 >,
                                                 record::Integer< 11 > > {
-public:
-
   using base =
     record::Base< record::Integer< 33 >, record::Integer< 11 >,
                   record::Integer< 11 >, record::Integer< 11 > >;
   
   using tail = record::TailVerifying< record::MAT, record::MF, record::MT >;
 
+public:  
   DirectoryRecord( int64_t L1, int64_t L2, int64_t N1, int64_t N2 ) :
     base( L1, L2, N1, N2 ){}
 
@@ -42,12 +41,12 @@ public:
 #undef DEFINE_GETTER
   
   bool
-  operator==( const DirectoryRecord& rhs ){
-    return static_cast< base& >( *this ) == rhs;
+  operator==( const DirectoryRecord& rhs ) const {
+    return static_cast< const base& >( *this ) == rhs;
   }
 
   bool
-  operator!=( const DirectoryRecord& rhs ){
+  operator!=( const DirectoryRecord& rhs ) const {
     return not( *this == rhs );
   }  
 };

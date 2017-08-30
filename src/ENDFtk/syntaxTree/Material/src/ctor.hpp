@@ -10,3 +10,15 @@ catch( std::exception& e ){
   Log::info( "Material number (MAT): {}", head.MAT() );
   throw e;
 }
+
+Material( const Material& other ) :
+  materialNo( other.materialNo ),
+  fileVector( other.fileVector ),
+  fileMap( createMap( this->fileVector ) ),
+  bufferLimits( other.bufferLimits ){}
+
+Material( Material&& other ) :
+  materialNo( other.materialNo ),
+  fileVector( std::move( other.fileVector ) ),
+  fileMap( createMap( this->fileVector ) ),
+  bufferLimits( other.bufferLimits ){}

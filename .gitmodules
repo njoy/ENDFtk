@@ -16,3 +16,6 @@
 [submodule "dependencies/variant-adapter"]
 	path = dependencies/variant-adapter
 	url = https://github.com/njoy/variant-adapter.git
+[submodule "dependencies/hopscotch-map-adapter"]
+	path = dependencies/hopscotch-map-adapter
+	url = https://github.com/njoy/hopscotch-map-adapter.git
