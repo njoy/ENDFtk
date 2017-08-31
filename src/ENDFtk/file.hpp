@@ -1,10 +1,10 @@
 namespace file{
 
-template< int fileNo >
+template< int MF >
 class Type {
 public:
   /* convenience typedefs */
-  using Section = section::Type< fileNo >;
+  using Section = section::Type< MF >;
   using iterator = typename std::vector< Section >::iterator;
   using const_iterator = typename std::vector< Section >::const_iterator;
 
@@ -31,10 +31,6 @@ public:
   hasMT( int sectionNo ) const { return this->sectionMap.count( sectionNo ); }
   bool
   hasSectionNumber( int sectionNo ) const {  return this->hasMT( sectionNo ); }
-  
-  int MF() const { return fileNo; }
-
-  int fileNumber() const { return this->MF(); }
 };
 
 }

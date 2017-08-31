@@ -20,8 +20,6 @@ SCENARIO( "Testing generic case using file 3" ){
       file::Type< 3 > MF3(division, begin, end, lineNumber );
 
       THEN( "the sections can be extracted" ){
-        REQUIRE( 3 == MF3.MF() );
-        REQUIRE( 3 == MF3.fileNumber() );
         REQUIRE( MF3.hasMT( 102 ) );
         REQUIRE( not MF3.hasMT( 12 ) );
 

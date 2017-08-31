@@ -8,7 +8,7 @@ sectionNumber( int sectionNo ) const {
     Log::error( "Requested section number (MT) does not"
                 " correspond to a stored section in the syntax tree" );
     Log::info( "Requested section number: {}", sectionNo );
-    Log::info( "File number of queried file syntax tree: {}", fileNo );
+    Log::info( "File number of queried file syntax tree: {}", MF );
     throw o;
   }
 }
