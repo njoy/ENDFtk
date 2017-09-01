@@ -4,7 +4,7 @@ public:
 
   // forward declaration, need to declare bool as template parameter to overcome compiler issue
   template < int T, bool B = true > class DataType;
-    
+
   // MT451 descriptive data
   template < bool B > class DataType< 451, B > : protected Base {
 
@@ -19,7 +19,7 @@ public:
 
     // @todo store the first 3 text records as separate fields, or provide getters?
     // @todo store index here or erase it?
-      
+
     /* auxiliary functions */
 #include "ENDFtk/section/1/src/readRecords.hpp"
 
@@ -40,19 +40,19 @@ public:
     long& LIS() { return std::get<0>(this->parameters_).L1(); }
     long& LISO() { return std::get<0>(this->parameters_).L2(); }
     long& NFOR() { return std::get<0>(this->parameters_).N2(); }
-      
+
     double& AWI() { return std::get<1>(this->parameters_).C1(); }
     double& EMAX() { return std::get<1>(this->parameters_).C2(); }
     long& LREL() { return std::get<1>(this->parameters_).L1(); }
     long& NSUB() { return std::get<1>(this->parameters_).N1(); }
     long& NVER() { return std::get<1>(this->parameters_).N2(); }
-      
+
     double& TEMP() { return std::get<2>(this->parameters_).C1(); }
     long& LDRV() { return std::get<2>(this->parameters_).L1(); }
     */
-      
+
     // @todo erase and replace descriptive text
-      
+
     // @todo erase and replace index
 
     /* get methods */
@@ -91,12 +91,12 @@ public:
 
   // MT458 fission Q value data
   class DataType< 458 > : protected Base {
-      
+
     /* fields */
     ListRecord data_;
 
   public:
-      
+
     /* constructor */
 #include "ENDFtk/section/1/src/ctor-458.hpp"
 
@@ -110,6 +110,34 @@ public:
 
     // @todo extract values
     const ListRecord& data() const { return this->data_; }
+
+    using Base::MT;
+    using Base::ZA;
+    using Base::atomicWeightRatio;
+  };
+    
+  // MT460 delayed photon data
+  class DataType< 460 > : protected Base {
+
+    /* fields */
+    std::vector< UnivariateTabulation > discrete_; // LO=1
+    ListRecord continuous_;                        // LO=2
+
+    // @todo store this as a variant because it is either of these two?
+
+    /* auxiliary functions */
+#include "ENDFtk/section/1/src/readRecords.hpp"
+
+  public:
+
+    /* constructor */
+#include "ENDFtk/section/1/src/ctor-460.hpp"
+
+    /* set methods */
+
+    /* get methods */
+    long LO() const { return ( this->NG() != 0 ? 1 : 2 ); }
+    long NG() const { return ( this->discrete_.size() ); }
 
     using Base::MT;
     using Base::ZA;

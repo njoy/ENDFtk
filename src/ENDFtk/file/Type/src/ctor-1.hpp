@@ -14,6 +14,11 @@ Type( StructureDivision& division,
         mt458_( head, begin, end, lineNumber, head.MAT() );
         break;
       }
+      case 460 : {
+        checkRedundant( bool( this->mt460_ ) );
+        mt458_( head, begin, end, lineNumber, head.MAT() );
+        break;
+      }
       default : {
         Log::error( "Illegal section with section number {} detected in file 1", head.MT() );
         throw std::exception();
