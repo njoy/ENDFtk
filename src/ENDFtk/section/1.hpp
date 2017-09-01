@@ -88,8 +88,57 @@ public:
     using Base::ZA;
     using Base::atomicWeightRatio;
   };
+    
+  // MT452 total nubar data
+  class DataType< 452 > : protected Base {
+        
+    /* fields */
+    long lnu_;
+    ListRecord polynomial_;
+    UnivariateTabulation tabulated_;
 
-  // MT458 fission Q value data
+  public:
+
+    /* constructor */
+#include "ENDFtk/section/1/src/ctor-452.hpp"
+        
+    /* set methods */
+        
+    /* get methods */
+    long LNU() const { return this->lnu_; }
+
+    // @todo extract values
+    const ListRecord& polynomial() const { return this->polynomial_; }
+    const UnivariateTabulation& tabulated() const { return this->tabulated_; }
+
+    using Base::MT;
+    using Base::ZA;
+    using Base::atomicWeightRatio;
+  };
+
+  // MT456 prompt nubar data
+  class DataType< 456 > : protected DataType< 452 > {
+
+  public:
+
+    /* constructor */
+#include "ENDFtk/section/1/src/ctor-456.hpp"
+
+    /* set methods */
+
+    /* get methods */
+    using DataType< 452 >::LNU();
+        
+    // @todo extract values
+    using DataType< 452 >::polynomial();
+    using DataType< 452 >::tabulated();
+
+    using DataType< 452 >::MT;
+    using DataType< 452 >::ZA;
+    using DataType< 452 >::atomicWeightRatio;
+  };
+
+    // MT458 fission Q value data
   class DataType< 458 > : protected Base {
 
     /* fields */

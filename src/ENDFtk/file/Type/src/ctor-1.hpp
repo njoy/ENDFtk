@@ -9,6 +9,16 @@ Type( StructureDivision& division,
         mt451_( head, begin, end, lineNumber, head.MAT() );
         break;
       }
+      case 452 : {
+        checkRedundant( bool( this->mt452_ ) );
+        mt452_( head, begin, end, lineNumber, head.MAT() );
+        break;
+      }
+      case 456 : {
+        checkRedundant( bool( this->mt456_ ) );
+        mt456_( head, begin, end, lineNumber, head.MAT() );
+        break;
+      }
       case 458 : {
         checkRedundant( bool( this->mt458_ ) );
         mt458_( head, begin, end, lineNumber, head.MAT() );
