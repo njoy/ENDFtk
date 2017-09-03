@@ -8,11 +8,16 @@ public:
   using iterator = typename std::vector< Section >::iterator;
   using const_iterator = typename std::vector< Section >::const_iterator;
 
+protected:
   /* fields */
   std::vector< Section > sectionVector;
-  std::unordered_map< int, Section& > sectionMap;
+  tsl::hopscotch_map< int, const Section* > sectionMap;
 
   /* methods */
+#include "ENDFtk/file/Type/src/collectVector.hpp"
+#include "ENDFtk/file/Type/src/collectMap.hpp"
+
+public:
 #include "ENDFtk/file/Type/src/ctor.hpp"
 #include "ENDFtk/file/Type/src/sectionNumber.hpp"
 

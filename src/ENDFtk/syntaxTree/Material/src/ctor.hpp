@@ -17,7 +17,7 @@ Material( const Material& other ) :
   fileMap( createMap( this->fileVector ) ),
   bufferLimits( other.bufferLimits ){}
 
-Material( Material&& other ) :
+Material( Material&& other ) noexcept :
   materialNo( other.materialNo ),
   fileVector( std::move( other.fileVector ) ),
   fileMap( createMap( this->fileVector ) ),

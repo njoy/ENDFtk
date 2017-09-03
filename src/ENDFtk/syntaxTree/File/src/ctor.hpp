@@ -17,7 +17,7 @@ File( const File& other ) :
   sectionMap( createMap( this->sectionVector ) ),
   bufferLimits( other.bufferLimits ){}
 
-File( File&& other ) :
+File( File&& other ) noexcept :
   fileNo( other.fileNo ),
   sectionVector( std::move( other.sectionVector ) ),
   sectionMap( createMap( this->sectionVector ) ),

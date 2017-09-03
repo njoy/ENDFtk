@@ -1,14 +1,12 @@
 const Section&
 sectionNumber( int sectionNo ) const {
   try{
-
-    return this->sectionMap.at( sectionNo );
-
+    return *( this->sectionMap.at( sectionNo ) );
   } catch( std::out_of_range& o ){
     Log::error( "Requested section number (MT) does not"
-                " correspond to a stored section in the syntax tree" );
+                " correspond to a stored section" );
     Log::info( "Requested section number: {}", sectionNo );
-    Log::info( "File number of queried file syntax tree: {}", MF );
+    Log::info( "File queried: ", MF ); 
     throw o;
   }
 }
