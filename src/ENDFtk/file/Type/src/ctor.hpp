@@ -13,6 +13,4 @@ Type( const Type& other ) :
   sectionVector( other.sectionVector ),
   sectionMap( collectMap( this->sectionVector ) ){}
 
-Type( Type&& other ) noexcept :
-  sectionVector( std::move( other.sectionVector ) ),
-  sectionMap( collectMap( this->sectionVector ) ){}
+Type( Type&& other ) noexcept = default;
