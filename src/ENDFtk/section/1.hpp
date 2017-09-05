@@ -56,10 +56,10 @@ public:
     // @todo erase and replace index
 
     /* get methods */
-    long LRP() const { return const_cast< Base* >( this )->LRP(); }
-    long LFI() const { return const_cast< Base* >( this )->LFI(); }
-    long NLIB() const { return const_cast< Base* >( this )->NLIB(); }
-    long NMOD() const { return const_cast< Base* >( this )->NMOD(); }
+    long LRP() const { return const_cast< DataType* >( this )->LRP(); }
+    long LFI() const { return const_cast< DataType* >( this )->LFI(); }
+    long NLIB() const { return const_cast< DataType* >( this )->NLIB(); }
+    long NMOD() const { return const_cast< DataType* >( this )->NMOD(); }
 
     double ELIS() const { return std::get< 0 >( this->parameters_ ).C1(); }
     double STA() const { return std::get< 0 >( this->parameters_ ).C2(); }
@@ -90,7 +90,7 @@ public:
   };
     
   // MT452 total nubar data
-  class DataType< 452 > : protected Base {
+  template < bool B > class DataType< 452, B > : protected Base {
         
     /* fields */
     long lnu_;
@@ -116,8 +116,13 @@ public:
     using Base::atomicWeightRatio;
   };
 
-  // MT456 prompt nubar data
-  class DataType< 456 > : protected DataType< 452 > {
+  // MT455 delayed nubar data
+  template < bool B > class DataType< 455, B > : protected DataType< 452, B > {
+
+    /* fields */
+    ListRecord independent_; // LDG=0
+    // @todo need TAB2
+    // std::vector< ListRecord > // LDG=1
 
   public:
 
@@ -127,19 +132,42 @@ public:
     /* set methods */
 
     /* get methods */
-    using DataType< 452 >::LNU();
-        
+    using DataType< 452 >::LNU;
+
     // @todo extract values
-    using DataType< 452 >::polynomial();
-    using DataType< 452 >::tabulated();
+    const ListRecord& independent() const { return this->independent_; }
+    using DataType< 452 >::polynomial;
+    using DataType< 452 >::tabulated;
 
     using DataType< 452 >::MT;
     using DataType< 452 >::ZA;
     using DataType< 452 >::atomicWeightRatio;
   };
 
-    // MT458 fission Q value data
-  class DataType< 458 > : protected Base {
+  // MT456 prompt nubar data
+  template < bool B > class DataType< 456, B > : protected DataType< 452, B > {
+
+  public:
+
+    /* constructor */
+#include "ENDFtk/section/1/src/ctor-456.hpp"
+
+    /* set methods */
+
+    /* get methods */
+    using DataType< 452 >::LNU;
+        
+    // @todo extract values
+    using DataType< 452 >::polynomial;
+    using DataType< 452 >::tabulated;
+
+    using DataType< 452 >::MT;
+    using DataType< 452 >::ZA;
+    using DataType< 452 >::atomicWeightRatio;
+  };
+
+  // MT458 fission Q value data
+  template < bool B > class DataType< 458, B > : protected Base {
 
     /* fields */
     ListRecord data_;
@@ -155,7 +183,7 @@ public:
     */
 
     /* get methods */
-    long NPLY() const { return data_.L2() }
+      long NPLY() const { return data_.L2(); }
 
     // @todo extract values
     const ListRecord& data() const { return this->data_; }
@@ -166,7 +194,7 @@ public:
   };
     
   // MT460 delayed photon data
-  class DataType< 460 > : protected Base {
+  template < bool B > class DataType< 460, B > : protected Base {
 
     /* fields */
     std::vector< UnivariateTabulation > discrete_; // LO=1
@@ -186,7 +214,7 @@ public:
 
     /* get methods */
     long LO() const { return ( this->NG() != 0 ? 1 : 2 ); }
-    long NG() const { return ( this->discrete_.size() ); }
+    long NG() const { return static_cast<long>( this->discrete_.size() ); }
 
     using Base::MT;
     using Base::ZA;
