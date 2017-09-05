@@ -8,10 +8,10 @@ using namespace njoy::ENDFtk;
 
 std::string sLState();
 
-class TestLState : public resonanceParameters::resolved::BreitWigner::LState {
+class TestLState : public resonanceParameters::resolved::ReichMoore::LState {
 public:
-  using resonanceParameters::resolved::BreitWigner::LState::stride;
-  using resonanceParameters::resolved::BreitWigner::LState::LState;
+  using resonanceParameters::resolved::ReichMoore::LState::stride;
+  using resonanceParameters::resolved::ReichMoore::LState::LState;
 
 };
 
@@ -48,23 +48,23 @@ SCENARIO( "Testing BreitWigner LState" ){
 
         REQUIRE( 5.430695E2 == Approx( lstate.stride(2)[0] ) );
         REQUIRE( 1.072906E5 == Approx( lstate.stride(2)[1] ) );
-        REQUIRE( 5.430695E2 == Approx( lstate.totalWidth()[0] ) );
-        REQUIRE( 1.072906E5 == Approx( lstate.totalWidth()[1] ) );
+        REQUIRE( 5.430695E2 == Approx( lstate.neutronWidth()[0] ) );
+        REQUIRE( 1.072906E5 == Approx( lstate.neutronWidth()[1] ) );
 
         REQUIRE( 3.680695E2 == Approx( lstate.stride(3)[0] ) );
         REQUIRE( 1.072900E5 == Approx( lstate.stride(3)[1] ) );
-        REQUIRE( 3.680695E2 == Approx( lstate.neutronWidth()[0] ) );
-        REQUIRE( 1.072900E5 == Approx( lstate.neutronWidth()[1] ) );
+        REQUIRE( 3.680695E2 == Approx( lstate.radiationWidth()[0] ) );
+        REQUIRE( 1.072900E5 == Approx( lstate.radiationWidth()[1] ) );
 
         REQUIRE( 1.75E2 == Approx( lstate.stride(4)[0] ) );
         REQUIRE( 5.6E-1 == Approx( lstate.stride(4)[1] ) );
-        REQUIRE( 1.75E2 == Approx( lstate.radiationWidth()[0] ) );
-        REQUIRE( 5.6E-1 == Approx( lstate.radiationWidth()[1] ) );
+        REQUIRE( 1.75E2 == Approx( lstate.firstPartialFissionWidth()[0] ) );
+        REQUIRE( 5.6E-1 == Approx( lstate.firstPartialFissionWidth()[1] ) );
 
         REQUIRE( 0.0 == Approx( lstate.stride(5)[0] ) );
         REQUIRE( 0.0 == Approx( lstate.stride(5)[1] ) );
-        REQUIRE( 0.0 == Approx( lstate.fissionWidth()[0] ) );
-        REQUIRE( 0.0 == Approx( lstate.fissionWidth()[1] ) );
+        REQUIRE( 0.0 == Approx( lstate.secondPartialFissionWidth()[0] ) );
+        REQUIRE( 0.0 == Approx( lstate.secondPartialFissionWidth()[1] ) );
       }
     }
   }

@@ -2,12 +2,20 @@ class LState {
 protected:
   const LIST& list;
 
-public:
-  auto stride( int s ){
+  auto stride( int s ) const {
     return list.B()
       | ranges::view::drop_exactly( s )
       | ranges::view::stride( 6 );
   }
+
+public:
+
+  auto resonanceEnergies() const { return stride( 0 ); }
+  auto AJ()                const { return stride( 1 ); }
+  auto totalWidth()        const { return stride( 2 ); }
+  auto neutronWidth()      const { return stride( 3 ); }
+  auto radiationWidth()    const { return stride( 4 ); }
+  auto fissionWidth()      const { return stride( 5 ); }
 
   LState( const LIST& list )
     : list( list )
