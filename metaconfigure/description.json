@@ -380,7 +380,10 @@
     "src/ENDFtk/TapeIdentification.hpp",
     "src/ENDFtk/TextRecord.hpp",
     "src/ENDFtk/UnivariateTabulation.hpp",
+    "src/ENDFtk/file/Type/src/collectMap.hpp",
+    "src/ENDFtk/file/Type/src/collectVector.hpp",
     "src/ENDFtk/file/Type/src/ctor.hpp",
+    "src/ENDFtk/file/Type/src/sectionNumber.hpp",
     "src/ENDFtk/HeadRecord/src/asHead.hpp",
     "src/ENDFtk/ListRecord/src/readMetadata.hpp",
     "src/ENDFtk/record/Base.hpp",
@@ -418,6 +421,7 @@
     "src/ENDFtk/resonanceParameters/resolved/ReichMoore.hpp",
     "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited.hpp",
     "src/ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner.hpp",
+    "src/ENDFtk/resonanceParameters/resolved/BreitWigner/LState.hpp",
     "src/ENDFtk/resonanceParameters/resolved/BreitWigner/src/ctor.hpp",
     "src/ENDFtk/resonanceParameters/resolved/BreitWigner/src/readAPE.hpp",
     "src/ENDFtk/resonanceParameters/resolved/BreitWigner/src/readLists.hpp",
@@ -568,7 +572,11 @@
       "src/ENDFtk/resonanceParameters/SpecialCase/test/SpecialCase.test.cpp"
     ],
     "ENDFtk.resonanceParameters.resolved.BreitWigner": [
-      "src/ENDFtk/resonanceParameters/resolved/BreitWigner/test/BreitWigner.test.cpp"
+      "src/ENDFtk/resonanceParameters/resolved/BreitWigner/test/BreitWigner.test.cpp",
+      "src/ENDFtk/resonanceParameters/resolved/BreitWigner/test/LStates.test.cpp"
+    ],
+    "ENDFtk.resonanceParameters.resolved.BreitWigner.LState": [
+      "src/ENDFtk/resonanceParameters/resolved/BreitWigner/LState/test/LState.test.cpp"
     ],
     "ENDFtk.resonanceParameters.resolved.MultilevelBreitWigner": [
       "src/ENDFtk/resonanceParameters/resolved/MultilevelBreitWigner/test/MultilevelBreitWigner.test.cpp"
