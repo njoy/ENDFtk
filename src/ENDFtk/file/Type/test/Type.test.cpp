@@ -17,7 +17,19 @@ SCENARIO( "Testing generic case using file 3" ){
       long lineNumber = 0;
       
       StructureDivision division( begin, end, lineNumber);
-      REQUIRE_NOTHROW( file::Type<3>(division, begin, end, lineNumber ) );
+      file::Type< 3 > MF3(division, begin, end, lineNumber );
+
+      THEN( "the sections can be extracted" ){
+        REQUIRE( MF3.hasMT( 102 ) );
+        REQUIRE( not MF3.hasMT( 12 ) );
+
+        REQUIRE_NOTHROW( MF3.MT( 1 ) );
+        REQUIRE_NOTHROW( MF3.MT( 2 ) );
+        REQUIRE_NOTHROW( MF3.MT( 102 ) );
+      }
+      THEN( "an exception is thrown if invalid MT" ){
+        REQUIRE_THROWS( MF3.MT( 4 ) );
+      }
     }
     WHEN( "a file::Type<3> is constructed from a syntaxTree" ){
       auto begin = file3string.begin();
