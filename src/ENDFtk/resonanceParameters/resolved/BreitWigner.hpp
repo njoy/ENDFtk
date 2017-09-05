@@ -14,8 +14,7 @@ protected:
 #include "ENDFtk/resonanceParameters/resolved/BreitWigner/src/ctor.hpp"
 
 public:
-  #include "ENDFtk/resonanceParameters/resolved/BreitWigner/LState.hpp"
-  
+#include "ENDFtk/resonanceParameters/resolved/BreitWigner/LState.hpp"
   double EL() const { return this->el; }
   double EH() const { return this->eh; }
   int NRO() const { return bool(this->ape); }
