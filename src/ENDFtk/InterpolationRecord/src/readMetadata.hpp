@@ -9,13 +9,13 @@ readMetadata( Iterator& it, const Iterator& end, long& lineNumber,
       Log::error( "Illegal NR value encountered" );
       Log::info( "NR (or number of regions) must be greater than or equal to 0" );
       Log::info( "NR value: {}", std::get<4>( metadata.fields ) );
-      throw std::runtime_error( "TAB1 Record NR value" );
+      throw std::runtime_error( "NR value" );
     }
     if ( std::get<5>( metadata.fields ) < 0 ){
-      Log::error( "Illegal NP value encountered" );
-      Log::info( "NP (or number of pairs) must be greater than or equal to 0" );
-      Log::info( "NP value: {}", std::get<5>( metadata.fields ) );
-      throw std::runtime_error( "TAB1 Record NP value" );
+      Log::error( "Illegal NZ or NP value encountered" );
+      Log::info( "NZ or NP must be greater than or equal to 0" );
+      Log::info( "NZ or NP value: {}", std::get<5>( metadata.fields ) );
+      throw std::runtime_error( "NZ or NP value" );
     }
     return metadata;
   } catch (std::exception& e){

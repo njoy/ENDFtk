@@ -19,7 +19,7 @@ protected:
 #include "ENDFtk/ListRecord/src/readMetadata.hpp"
 
 public:
-  ListRecord( double C1, double C2, uint64_t L1, uint64_t L2, uint64_t N2,
+  ListRecord( double C1, double C2, long L1, long L2, long N2,
               std::vector< double >&& list ) :
     metadata( C1, C2, L1, L2, list.size(), N2 ), data( std::move(list) ){}
 

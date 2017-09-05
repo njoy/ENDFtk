@@ -6,7 +6,7 @@ readRangeDescriptions
   std::tuple< std::vector< long >, std::vector< long > > result;
   try{
     if ( nRanges < 1 ){
-      Log::error( "Encountered invalid NR value while constructing TAB1 record" );
+      Log::error( "Encountered invalid NR value while constructing record" );
       Log::info( "NR is required to be greater than zero" );
       throw std::exception();
     }
@@ -17,7 +17,7 @@ readRangeDescriptions
     verifyBoundaryIndicesAreSorted( boundaryIndices );
     return result;
   } catch ( std::exception& e ){
-    Log::info( "Error while reading TAB1 range information" );
+    Log::info( "Error while reading range information" );
     throw e; 
   }
 }
