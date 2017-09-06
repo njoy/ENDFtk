@@ -15,8 +15,4 @@ Tape( const Tape& other ) :
   materialVector( other.materialVector ),
   materialMap( createMap( this->materialVector ) ){}
 
-Tape( Tape&& other ) :
-  bufferLimits( other.bufferLimits ),
-  tpid( std::move(other.tpid) ),
-  materialVector( std::move( other.materialVector ) ),
-  materialMap( createMap( this->materialVector ) ){}
+Tape( Tape&& other ) noexcept = default;
