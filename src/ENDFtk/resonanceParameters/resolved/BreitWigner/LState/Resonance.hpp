@@ -1,4 +1,5 @@
 class Resonance {
+protected:
   Chunk chunk;
 
 public:

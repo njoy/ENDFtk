@@ -31,21 +31,21 @@ SCENARIO( "Testing BreitWigner LState Resonance" ){
       auto chunks = list.B() | ranges::view::chunk( 6 );
 
       THEN( "the parameters can be verified" ){
-        resonanceParameters::resolved::BreitWigner::LState::Resonance R0( chunks[0] );
+        resonanceParameters::resolved::ReichMoore::LState::Resonance R0( chunks[0] );
         REQUIRE( -1.47E5    == Approx( R0.ER() ) );
         REQUIRE( 0.5        == Approx( R0.AJ() ) );
-        REQUIRE( 5.43069E2  == Approx( R0.GT() ) );
-        REQUIRE( 3.680695E2 == Approx( R0.GN() ) );
-        REQUIRE( 1.75E2     == Approx( R0.GG() ) );
-        REQUIRE( 0.0        == Approx( R0.GF() ) );
+        REQUIRE( 5.43069E2  == Approx( R0.GN() ) );
+        REQUIRE( 3.680695E2 == Approx( R0.GG() ) );
+        REQUIRE( 1.75E2     == Approx( R0.GFA() ) );
+        REQUIRE( 0.0        == Approx( R0.GFB() ) );
 
-        resonanceParameters::resolved::BreitWigner::LState::Resonance R1( chunks[1] );
+        resonanceParameters::resolved::ReichMoore::LState::Resonance R1( chunks[1] );
         REQUIRE( 4.73E5     == Approx( R1.ER() ) );
         REQUIRE( 0.5        == Approx( R1.AJ() ) );
-        REQUIRE( 1.072906E5 == Approx( R1.GT() ) );
-        REQUIRE( 1.0729E5   == Approx( R1.GN() ) );
-        REQUIRE( 5.6E-1     == Approx( R1.GG() ) );
-        REQUIRE( 0.0        == Approx( R1.GF() ) );
+        REQUIRE( 1.072906E5 == Approx( R1.GN() ) );
+        REQUIRE( 1.0729E5   == Approx( R1.GG() ) );
+        REQUIRE( 5.6E-1     == Approx( R1.GFA() ) );
+        REQUIRE( 0.0        == Approx( R1.GFB() ) );
       }
     }
   }

@@ -33,8 +33,10 @@ SCENARIO( "Testing BreitWigner LState" ){
 
       AND_THEN( "it's parameters can be verified" ){
         REQUIRE( 19.82069 == Approx( lstate.AWRI() ) );
+        REQUIRE( 0.0 == lstate.QX() );
         REQUIRE( 0 == lstate.L() );
         REQUIRE( 0 == lstate.LRX() );
+        REQUIRE( 2 == lstate.NRS() );
 
         REQUIRE( -1.47E5 == lstate.stride(0)[0] );
         REQUIRE( 4.73E5  == lstate.stride(0)[1] );
@@ -43,28 +45,28 @@ SCENARIO( "Testing BreitWigner LState" ){
 
         REQUIRE( 5.0E-1  == lstate.stride(1)[0] );
         REQUIRE( 5.0E-1  == lstate.stride(1)[1] );
-        REQUIRE( 5.0E-1  == lstate.AJ()[0] );
-        REQUIRE( 5.0E-1  == lstate.AJ()[1] );
+        REQUIRE( 5.0E-1  == lstate.AJs()[0] );
+        REQUIRE( 5.0E-1  == lstate.AJs()[1] );
 
         REQUIRE( 5.430695E2 == Approx( lstate.stride(2)[0] ) );
         REQUIRE( 1.072906E5 == Approx( lstate.stride(2)[1] ) );
-        REQUIRE( 5.430695E2 == Approx( lstate.totalWidth()[0] ) );
-        REQUIRE( 1.072906E5 == Approx( lstate.totalWidth()[1] ) );
+        REQUIRE( 5.430695E2 == Approx( lstate.totalWidths()[0] ) );
+        REQUIRE( 1.072906E5 == Approx( lstate.totalWidths()[1] ) );
 
         REQUIRE( 3.680695E2 == Approx( lstate.stride(3)[0] ) );
         REQUIRE( 1.072900E5 == Approx( lstate.stride(3)[1] ) );
-        REQUIRE( 3.680695E2 == Approx( lstate.neutronWidth()[0] ) );
-        REQUIRE( 1.072900E5 == Approx( lstate.neutronWidth()[1] ) );
+        REQUIRE( 3.680695E2 == Approx( lstate.neutronWidths()[0] ) );
+        REQUIRE( 1.072900E5 == Approx( lstate.neutronWidths()[1] ) );
 
         REQUIRE( 1.75E2 == Approx( lstate.stride(4)[0] ) );
         REQUIRE( 5.6E-1 == Approx( lstate.stride(4)[1] ) );
-        REQUIRE( 1.75E2 == Approx( lstate.radiationWidth()[0] ) );
-        REQUIRE( 5.6E-1 == Approx( lstate.radiationWidth()[1] ) );
+        REQUIRE( 1.75E2 == Approx( lstate.radiationWidths()[0] ) );
+        REQUIRE( 5.6E-1 == Approx( lstate.radiationWidths()[1] ) );
 
         REQUIRE( 0.0 == Approx( lstate.stride(5)[0] ) );
         REQUIRE( 0.0 == Approx( lstate.stride(5)[1] ) );
-        REQUIRE( 0.0 == Approx( lstate.fissionWidth()[0] ) );
-        REQUIRE( 0.0 == Approx( lstate.fissionWidth()[1] ) );
+        REQUIRE( 0.0 == Approx( lstate.fissionWidths()[0] ) );
+        REQUIRE( 0.0 == Approx( lstate.fissionWidths()[1] ) );
       }
     }
   }
