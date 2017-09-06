@@ -27,7 +27,10 @@ SCENARIO( "InterpolationRecord ctor",
                               std::move( regions ),
                               std::move( interpolation ) );
 
-    THEN( "TAB2 objects can be copied" ){ auto copy = tab2; }
+    THEN( "TAB2 objects can be copied" ) {
+      auto copy = tab2;
+      REQUIRE( copy == tab2 );
+    }
   }
 
   GIVEN( "mismatched region and interpolation arrays" ){
@@ -69,9 +72,13 @@ SCENARIO( "InterpolationRecord ctor",
       auto begin = tab2.begin();
       auto end = tab2.end();
       auto lineNumber = 438l;
+      int MAT = 9228;
       int MF = 1;
       int MT = 460;
-      REQUIRE_THROWS( InterpolationRecord( begin, end, lineNumber, 9225, MF, MT ) );
+
+      REQUIRE_THROWS( InterpolationRecord( begin, end, lineNumber, 9328, MF, MT ) );
+      REQUIRE_THROWS( InterpolationRecord( begin, end, lineNumber, MAT, 17, MT ) );
+      REQUIRE_THROWS( InterpolationRecord( begin, end, lineNumber, MAT, MF, 15 ) );
     }
   }
   
@@ -114,9 +121,7 @@ SCENARIO( "InterpolationRecord ctor",
     int MF = 1;
     int MT = 460;
    
-    REQUIRE_THROWS( InterpolationRecord( begin, end, lineNumber, 9328, MF, MT ) );
-    REQUIRE_THROWS( InterpolationRecord( begin, end, lineNumber, MAT, 17, MT ) );
-    REQUIRE_THROWS( InterpolationRecord( begin, end, lineNumber, MAT, MF, 15 ) );
+    REQUIRE_THROWS( InterpolationRecord( begin, end, lineNumber, MAT, MF, MT ) );
   }
   
   GIVEN( "Zero NR" ){

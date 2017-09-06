@@ -33,7 +33,10 @@ SCENARIO( "UnivariateTabulation ctor",
                                std::move( interpolation ),
                                std::move( x ), std::move( y ) );
 
-    THEN( "TAB1 objects can be copied" ){ auto copy = tab1; }
+    THEN( "TAB1 objects can be copied" ) {
+      auto copy = tab1;
+      REQUIRE( copy == tab1 );
+    }
   }
   
   GIVEN( "mismatched x and y lengths" ){
@@ -97,9 +100,13 @@ SCENARIO( "UnivariateTabulation ctor",
       auto begin = tab1.begin();
       auto end = tab1.end();
       auto lineNumber = 438l;
+      int MAT = 9228;
       int MF = 1;
       int MT = 460;
-      REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, 9225, MF, MT ) );
+
+      REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, 9328, MF, MT ) );
+      REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, 17, MT ) );
+      REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, MF, 15 ) );
     }
   }
   
@@ -164,9 +171,7 @@ SCENARIO( "UnivariateTabulation ctor",
     int MF = 1;
     int MT = 460;
    
-    REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, 9328, MF, MT ) );
-    REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, 17, MT ) );
-    REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, MF, 15 ) );
+    REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, MF, MT ) );
   }
   
   GIVEN( "Zero NR" ){
