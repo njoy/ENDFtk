@@ -422,6 +422,7 @@
     "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited.hpp",
     "src/ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner.hpp",
     "src/ENDFtk/resonanceParameters/resolved/BreitWigner/LState.hpp",
+    "src/ENDFtk/resonanceParameters/resolved/BreitWigner/LState/Resonance.hpp",
     "src/ENDFtk/resonanceParameters/resolved/BreitWigner/src/ctor.hpp",
     "src/ENDFtk/resonanceParameters/resolved/BreitWigner/src/readAPE.hpp",
     "src/ENDFtk/resonanceParameters/resolved/BreitWigner/src/readLists.hpp",
@@ -578,6 +579,9 @@
     ],
     "ENDFtk.resonanceParameters.resolved.BreitWigner.LState": [
       "src/ENDFtk/resonanceParameters/resolved/BreitWigner/LState/test/LState.test.cpp"
+    ],
+    "ENDFtk.resonanceParameters.resolved.BreitWigner.LState.Resonance": [
+      "src/ENDFtk/resonanceParameters/resolved/BreitWigner/LState/Resonance/test/Resonance.test.cpp"
     ],
     "ENDFtk.resonanceParameters.resolved.MultilevelBreitWigner": [
       "src/ENDFtk/resonanceParameters/resolved/MultilevelBreitWigner/test/MultilevelBreitWigner.test.cpp"
