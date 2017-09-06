@@ -34,29 +34,29 @@ SCENARIO( "Testing unresolved resonance LStates" ){
       THEN( "the LState parameters can be verified" ){
         REQUIRE( 3 == LStates.size() );
 
-        REQUIRE( -1.47E5 == Approx( LStates[0].resonanceEnergies()[0] ) );
-        REQUIRE(  1.47E5 == Approx( LStates[1].resonanceEnergies()[0] ) );
-        REQUIRE(  1.37E6 == Approx( LStates[2].resonanceEnergies()[0] ) );
+        REQUIRE( -1.47E5 == Approx( LStates[0].resonances()[0].ER() ) );
+        REQUIRE(  1.47E5 == Approx( LStates[1].resonances()[0].ER() ) );
+        REQUIRE(  1.37E6 == Approx( LStates[2].resonances()[0].ER() ) );
 
-        REQUIRE( 0.5 == Approx( LStates[0].AJ()[0] ) );
-        REQUIRE( 0.5 == Approx( LStates[1].AJ()[0] ) );
-        REQUIRE( 1.5 == Approx( LStates[2].AJ()[0] ) );
+        REQUIRE( 0.5 == Approx( LStates[0].resonances()[0].AJ() ) );
+        REQUIRE( 0.5 == Approx( LStates[1].resonances()[0].AJ() ) );
+        REQUIRE( 1.5 == Approx( LStates[2].resonances()[0].AJ() ) );
 
-        REQUIRE( 5.430695E2 == Approx( LStates[0].neutronWidth()[0] ) );
-        REQUIRE( 3.210160E2 == Approx( LStates[1].neutronWidth()[0] ) );
-        REQUIRE( 8.175E3    == Approx( LStates[2].neutronWidth()[0] ) );
+        REQUIRE( 5.430695E2 == Approx( LStates[0].resonances()[0].GN() ) );
+        REQUIRE( 3.210160E2 == Approx( LStates[1].resonances()[0].GN() ) );
+        REQUIRE( 8.175E3    == Approx( LStates[2].resonances()[0].GN() ) );
 
-        REQUIRE( 3.680695E2 == Approx( LStates[0].radiationWidth()[0] ) );
-        REQUIRE( 3.19E2     == Approx( LStates[1].radiationWidth()[0] ) );
-        REQUIRE( 8.0E3      == Approx( LStates[2].radiationWidth()[0] ) );
+        REQUIRE( 3.680695E2 == Approx( LStates[0].resonances()[0].GG() ) );
+        REQUIRE( 3.19E2     == Approx( LStates[1].resonances()[0].GG() ) );
+        REQUIRE( 8.0E3      == Approx( LStates[2].resonances()[0].GG() ) );
 
-        REQUIRE( 1.75E2     == Approx( LStates[0].firstPartialFissionWidth()[0] ) );
-        REQUIRE( 2.016      == Approx( LStates[1].firstPartialFissionWidth()[0] ) );
-        REQUIRE( 1.75E2     == Approx( LStates[2].firstPartialFissionWidth()[0] ) );
+        REQUIRE( 1.75E2     == Approx( LStates[0].resonances()[0].GFA() ) );
+        REQUIRE( 2.016      == Approx( LStates[1].resonances()[0].GFA() ) );
+        REQUIRE( 1.75E2     == Approx( LStates[2].resonances()[0].GFA() ) );
 
-        REQUIRE( 0.0        == Approx( LStates[0].secondPartialFissionWidth()[0] ) );
-        REQUIRE( 0.0        == Approx( LStates[1].secondPartialFissionWidth()[0] ) );
-        REQUIRE( 0.0        == Approx( LStates[2].secondPartialFissionWidth()[0] ) );
+        REQUIRE( 0.0        == Approx( LStates[0].resonances()[0].GFB() ) );
+        REQUIRE( 0.0        == Approx( LStates[1].resonances()[0].GFB() ) );
+        REQUIRE( 0.0        == Approx( LStates[2].resonances()[0].GFB() ) );
       }
     }
 

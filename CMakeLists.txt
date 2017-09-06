@@ -349,7 +349,7 @@ target_link_libraries( ENDFtk INTERFACE header-utilities INTERFACE disco INTERFA
 if( NOT is_subproject )
     enable_testing() 
     if ( unit_tests )
-        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup/test )
+        #add_subdirectory( src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup/test )
         add_subdirectory( src/ENDFtk/TextRecord/test )
         add_subdirectory( src/ENDFtk/record/Base/test )
         add_subdirectory( src/ENDFtk/record/Tail/test )

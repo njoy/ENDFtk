@@ -1,18 +1,22 @@
-class LState: protected BreitWigner::LState {
-
+class LState : protected BreitWigner::LState {
+protected:
+  using Chunk = BreitWigner::LState::Chunk;
+  
 public:
+  #include "ENDFtk/resonanceParameters/resolved/ReichMoore/LState/Resonance.hpp"
+
+  using BreitWigner::LState::LState;
   using BreitWigner::LState::AWRI;
   using BreitWigner::LState::L;
   using BreitWigner::LState::LRX;
+  double APL() const { return BreitWigner::LState::list.C2(); }
 
-  using BreitWigner::LState::LState;
-
-  using BreitWigner::LState::resonanceEnergies;
-  using BreitWigner::LState::AJ;
-
-  auto neutronWidth() const              { return stride( 2 ); }
-  auto radiationWidth() const            { return stride( 3 ); }
-  auto firstPartialFissionWidth() const  { return stride( 4 ); }
-  auto secondPartialFissionWidth() const { return stride( 5 ); }
-
+  auto resonances() const {
+    return
+      this->list.B()
+      | ranges::view::chunk(6)
+      | ranges::view::transform
+        ( []( Chunk&& chunk ) -> Resonance
+          { return { std::move(chunk) }; } );
+  }
 };

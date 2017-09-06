@@ -10,7 +10,6 @@ std::string sLState();
 
 class TestLState : public resonanceParameters::resolved::ReichMoore::LState {
 public:
-  using resonanceParameters::resolved::ReichMoore::LState::stride;
   using resonanceParameters::resolved::ReichMoore::LState::LState;
 
 };
@@ -36,35 +35,23 @@ SCENARIO( "Testing BreitWigner LState" ){
         REQUIRE( 0 == lstate.L() );
         REQUIRE( 0 == lstate.LRX() );
 
-        REQUIRE( -1.47E5 == lstate.stride(0)[0] );
-        REQUIRE( 4.73E5  == lstate.stride(0)[1] );
-        REQUIRE( -1.47E5 == lstate.resonanceEnergies()[0] );
-        REQUIRE( 4.73E5  == lstate.resonanceEnergies()[1] );
+        REQUIRE( -1.47E5 == lstate.resonances()[0].ER() );
+        REQUIRE( 4.73E5  == lstate.resonances()[1].ER() );
 
-        REQUIRE( 5.0E-1  == lstate.stride(1)[0] );
-        REQUIRE( 5.0E-1  == lstate.stride(1)[1] );
-        REQUIRE( 5.0E-1  == lstate.AJ()[0] );
-        REQUIRE( 5.0E-1  == lstate.AJ()[1] );
+        REQUIRE( 5.0E-1  == lstate.resonances()[0].AJ() );
+        REQUIRE( 5.0E-1  == lstate.resonances()[1].AJ() );
 
-        REQUIRE( 5.430695E2 == Approx( lstate.stride(2)[0] ) );
-        REQUIRE( 1.072906E5 == Approx( lstate.stride(2)[1] ) );
-        REQUIRE( 5.430695E2 == Approx( lstate.neutronWidth()[0] ) );
-        REQUIRE( 1.072906E5 == Approx( lstate.neutronWidth()[1] ) );
+        REQUIRE( 5.430695E2 == Approx( lstate.resonances()[0].GN() ) );
+        REQUIRE( 1.072906E5 == Approx( lstate.resonances()[1].GN() ) );
 
-        REQUIRE( 3.680695E2 == Approx( lstate.stride(3)[0] ) );
-        REQUIRE( 1.072900E5 == Approx( lstate.stride(3)[1] ) );
-        REQUIRE( 3.680695E2 == Approx( lstate.radiationWidth()[0] ) );
-        REQUIRE( 1.072900E5 == Approx( lstate.radiationWidth()[1] ) );
+        REQUIRE( 3.680695E2 == Approx( lstate.resonances()[0].GG() ) );
+        REQUIRE( 1.072900E5 == Approx( lstate.resonances()[1].GG() ) );
 
-        REQUIRE( 1.75E2 == Approx( lstate.stride(4)[0] ) );
-        REQUIRE( 5.6E-1 == Approx( lstate.stride(4)[1] ) );
-        REQUIRE( 1.75E2 == Approx( lstate.firstPartialFissionWidth()[0] ) );
-        REQUIRE( 5.6E-1 == Approx( lstate.firstPartialFissionWidth()[1] ) );
+        REQUIRE( 1.75E2 == Approx( lstate.resonances()[0].GFA() ) );
+        REQUIRE( 5.6E-1 == Approx( lstate.resonances()[1].GFA() ) );
 
-        REQUIRE( 0.0 == Approx( lstate.stride(5)[0] ) );
-        REQUIRE( 0.0 == Approx( lstate.stride(5)[1] ) );
-        REQUIRE( 0.0 == Approx( lstate.secondPartialFissionWidth()[0] ) );
-        REQUIRE( 0.0 == Approx( lstate.secondPartialFissionWidth()[1] ) );
+        REQUIRE( 0.0 == Approx( lstate.resonances()[0].GFB() ) );
+        REQUIRE( 0.0 == Approx( lstate.resonances()[1].GFB() ) );
       }
     }
   }

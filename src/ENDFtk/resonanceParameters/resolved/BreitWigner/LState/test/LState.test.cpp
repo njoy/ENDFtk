@@ -10,9 +10,7 @@ std::string sLState();
 
 class TestLState : public resonanceParameters::resolved::BreitWigner::LState {
 public:
-  using resonanceParameters::resolved::BreitWigner::LState::stride;
   using resonanceParameters::resolved::BreitWigner::LState::LState;
-
 };
 
 SCENARIO( "Testing BreitWigner LState" ){
@@ -33,38 +31,29 @@ SCENARIO( "Testing BreitWigner LState" ){
 
       AND_THEN( "it's parameters can be verified" ){
         REQUIRE( 19.82069 == Approx( lstate.AWRI() ) );
+        REQUIRE( 1.0 == Approx( lstate.QX() ) );
         REQUIRE( 0 == lstate.L() );
-        REQUIRE( 0 == lstate.LRX() );
+        REQUIRE( 1 == lstate.LRX() );
+        REQUIRE( 2 == lstate.NRS() );
 
-        REQUIRE( -1.47E5 == lstate.stride(0)[0] );
-        REQUIRE( 4.73E5  == lstate.stride(0)[1] );
-        REQUIRE( -1.47E5 == lstate.resonanceEnergies()[0] );
-        REQUIRE( 4.73E5  == lstate.resonanceEnergies()[1] );
+        auto resonances = lstate.resonances();
+        
+        REQUIRE( Approx(-1.47E5) == resonances[0].ER() );
+        REQUIRE( Approx(4.73E5)  == resonances[1].ER() );
+        REQUIRE( Approx(0.5)  == resonances[0].AJ() );
+        REQUIRE( Approx(1.5)  == resonances[1].AJ() );
 
-        REQUIRE( 5.0E-1  == lstate.stride(1)[0] );
-        REQUIRE( 5.0E-1  == lstate.stride(1)[1] );
-        REQUIRE( 5.0E-1  == lstate.AJ()[0] );
-        REQUIRE( 5.0E-1  == lstate.AJ()[1] );
+        REQUIRE( 5.430695E2 == Approx( resonances[0].GT() ) );
+        REQUIRE( 1.072906E5 == Approx( resonances[1].GT() ) );
 
-        REQUIRE( 5.430695E2 == Approx( lstate.stride(2)[0] ) );
-        REQUIRE( 1.072906E5 == Approx( lstate.stride(2)[1] ) );
-        REQUIRE( 5.430695E2 == Approx( lstate.totalWidth()[0] ) );
-        REQUIRE( 1.072906E5 == Approx( lstate.totalWidth()[1] ) );
+        REQUIRE( 3.680695E2 == Approx( resonances[0].GN() ) );
+        REQUIRE( 1.072900E5 == Approx( resonances[1].GN() ) );
 
-        REQUIRE( 3.680695E2 == Approx( lstate.stride(3)[0] ) );
-        REQUIRE( 1.072900E5 == Approx( lstate.stride(3)[1] ) );
-        REQUIRE( 3.680695E2 == Approx( lstate.neutronWidth()[0] ) );
-        REQUIRE( 1.072900E5 == Approx( lstate.neutronWidth()[1] ) );
+        REQUIRE( 1.75E2 == Approx( resonances[0].GG() ) );
+        REQUIRE( 5.6E-1 == Approx( resonances[1].GG() ) );
 
-        REQUIRE( 1.75E2 == Approx( lstate.stride(4)[0] ) );
-        REQUIRE( 5.6E-1 == Approx( lstate.stride(4)[1] ) );
-        REQUIRE( 1.75E2 == Approx( lstate.radiationWidth()[0] ) );
-        REQUIRE( 5.6E-1 == Approx( lstate.radiationWidth()[1] ) );
-
-        REQUIRE( 0.0 == Approx( lstate.stride(5)[0] ) );
-        REQUIRE( 0.0 == Approx( lstate.stride(5)[1] ) );
-        REQUIRE( 0.0 == Approx( lstate.fissionWidth()[0] ) );
-        REQUIRE( 0.0 == Approx( lstate.fissionWidth()[1] ) );
+        REQUIRE( 0.0 == Approx( resonances[0].GF() ) );
+        REQUIRE( 0.0 == Approx( resonances[1].GF() ) );
       }
     }
   }
@@ -73,8 +62,8 @@ SCENARIO( "Testing BreitWigner LState" ){
 std::string sLState(){
   return
     /* LIST Record */
-    " 1.982069+1 0.000000+0          0          0         12          21025 2151\n"
+    " 1.982069+1 1.000000+0          0          1         12          21025 2151\n"
     "-1.470000+5 5.000000-1 5.430695+2 3.680695+2 1.750000+2 0.000000+01025 2151\n"
-    " 4.730000+5 5.000000-1 1.072906+5 1.072900+5 5.600000-1 0.000000+01025 2151\n";
+    " 4.730000+5 1.500000+0 1.072906+5 1.072900+5 5.600000-1 0.000000+01025 2151\n";
 
 }

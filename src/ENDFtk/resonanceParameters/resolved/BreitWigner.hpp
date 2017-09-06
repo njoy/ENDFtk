@@ -31,10 +31,10 @@ public:
     return ranges::make_iterator_range( this->lists.begin(), this->lists.end() );
   }
 
-  auto LStates() const{
-    return this->LISTS() | 
-      ranges::view::transform(
-        []( const auto& list ){ return LState( list ); } 
-      );
+  auto LStates() const {
+    return
+      this->LISTS()
+      | ranges::view::transform
+        ( []( const auto& list ) -> LState { return { list }; } );
   }
 };
