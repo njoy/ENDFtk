@@ -3,27 +3,25 @@ UnivariateTabulation
   std::vector< long >&& boundaryIndices,
   std::vector< long >&& interpolationSchemeIndices,
   std::vector< double >&& xValues,
-  std::vector< double >&& yValues ) :
-  InterpolationRecord( C1, C2, L1, L2, std::move( boundaryIndices ), std::move( interpolationSchemeIndices ) ),
-  xValues( std::move(xValues) ),
-  yValues( std::move(yValues) ) {
-  try{
-    verifyXValuesAreSorted( this->xValues );
-    const bool mismatchedEvaluationVectorLengths =
-      ( this->xValues.size() != this->yValues.size() );
-    if ( mismatchedEvaluationVectorLengths ){
-      Log::error( "Mismatched evaluation pair vector lengths" );
-      Log::info( "X-values vector length: {}",
-                 this->xValues.size() );
-      Log::info( "Y-values vector length: {}",
-                 this->yValues.size() );
-      throw std::exception();
+  std::vector< double >&& yValues )
+  try :
+    InterpolationBase( C1, C2, L1, L2, std::move( boundaryIndices ),
+                       std::move( interpolationSchemeIndices ) ),
+    xValues( std::move(xValues) ),
+    yValues( std::move(yValues) ) {
+    try{
+      verifyXValuesAreSorted( this->xValues );
+      verifyVectorSizes( this->xValues, this->yValues );
     }
-  } catch( std::exception& e ){
-    Log::info( "Error while reading TAB1 ordered pairs" );
-    throw e; 
+    catch( std::exception& e ) {
+      Log::info( "Error encountered while constructing TAB1 record" );
+      throw e;
+    }
   }
-}
+  catch ( std::exception& e ) {
+    Log::info( "Error encountered while constructing TAB1 record" );
+    throw e;
+  }
 
 UnivariateTabulation
 ( double C1, double C2, long L1, long L2,
@@ -38,32 +36,40 @@ UnivariateTabulation
 protected:
 
 UnivariateTabulation
-( InterpolationRecord&& interpolation,
+( InterpolationBase&& interpolation,
   std::tuple< std::vector< double >, std::vector< double > >&& points ) :
-  InterpolationRecord( std::move( interpolation ) ),
+  InterpolationBase( std::move( interpolation ) ),
   xValues( std::move( std::get<0>( points ) ) ),
   yValues( std::move( std::get<1>( points ) ) ) {}
 
 template< typename Iterator >
 UnivariateTabulation
-( InterpolationRecord&& interpolation,
+( InterpolationBase&& interpolation,
   Iterator& it, const Iterator& end, long& lineNumber,
   int MAT, int MF, int MT  ) :
   UnivariateTabulation( std::move( interpolation ),
-                        readPairs( interpolation.NZ(), it, end, lineNumber, MAT, MF, MT ) ) {}
+                        readPairs( interpolation.N2(), it, end, lineNumber, MAT, MF, MT ) ) {}
 
 public:
 
 template< typename Iterator >
 UnivariateTabulation( Iterator& it, const Iterator& end, long& lineNumber,
                       int MAT, int MF, int MT )
-  try: UnivariateTabulation( InterpolationRecord( it, end, lineNumber, MAT, MF, MT ),
+  try: UnivariateTabulation( InterpolationBase( it, end, lineNumber, MAT, MF, MT ),
                              it, end, lineNumber, MAT, MF, MT ) {}
-  catch ( std::exception& e ){
-    Log::info( "Error encountered while parsing Tab1 record" );
-    throw e;
-  } catch ( int nPosition ){
-    Log::info( "Error in position {}", nPosition );
-    Log::info( "Error encountered while parsing Tab1 record" );
+  catch ( IllegalN2& e ) {
+    Log::error( "Illegal NP value encountered" );
+    Log::info( "NP (or number of pairs) must be greater than or equal to 1" );
+    Log::info( "NP value: {}", e.n2 );
+    Log::info( "Error encountered while parsing TAB1 record" );
     throw std::exception();
+  }
+  catch ( int nPosition ){
+    Log::info( "Error in position {}", nPosition );
+    Log::info( "Error encountered while parsing TAB1 record" );
+    throw std::exception();
+  }
+  catch ( std::exception& e ) {
+    Log::info( "Error encountered while parsing TAB1 record" );
+    throw e;
   }

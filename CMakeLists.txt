@@ -242,21 +242,24 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/Type/src/sectionNumber.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/HeadRecord/src/asHead.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/InterpolationRecord/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/InterpolationRecord/src/readMetadata.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/InterpolationRecord/src/readRangeDescriptions.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/InterpolationRecord/src/verifyBoundaryIndicesAreSorted.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/InterpolationRecord/src/verifyTail.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/ListRecord/src/readMetadata.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Base.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Character.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/helper.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Integer.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/InterpolationBase.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Real.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Sequence.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/skip.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Tail.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/TailVerifying.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Zipper.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/InterpolationBase/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/InterpolationBase/src/readMetadata.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/InterpolationBase/src/readRangeDescriptions.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/InterpolationBase/src/verifyBoundaryIndicesAreSorted.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/InterpolationBase/src/verifyTail.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/InterpolationBase/src/verifyVectorSizes.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Sequence/src/read.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Zipper/src/expandReferencePack.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Zipper/src/increment.hpp"
@@ -335,6 +338,7 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/Tape/src/materialNumber.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/UnivariateTabulation/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/UnivariateTabulation/src/readPairs.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/UnivariateTabulation/src/verifyVectorSizes.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/UnivariateTabulation/src/verifyXValuesAreSorted.hpp" )
 
 target_include_directories( ENDFtk INTERFACE src )
@@ -367,6 +371,7 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/section/2/test )
         add_subdirectory( src/ENDFtk/TextRecord/test )
         add_subdirectory( src/ENDFtk/record/Tail/test )
+        add_subdirectory( src/ENDFtk/record/InterpolationBase/test )
         add_subdirectory( src/ENDFtk/UnivariateTabulation/test )
         add_subdirectory( src/ENDFtk/record/Zipper/test )
         add_subdirectory( src/ENDFtk/syntaxTree/Section/test )

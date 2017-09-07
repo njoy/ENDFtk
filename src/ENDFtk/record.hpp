@@ -10,6 +10,7 @@ namespace record {
 #include "ENDFtk/record/Zipper.hpp"
 #include "ENDFtk/record/Sequence.hpp"
 #include "ENDFtk/record/skip.hpp"
+#include "ENDFtk/record/InterpolationBase.hpp"
 
 }
 

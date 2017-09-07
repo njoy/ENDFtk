@@ -1,10 +1,11 @@
-class UnivariateTabulation : protected InterpolationRecord {
+class UnivariateTabulation : protected record::InterpolationBase {
 
   /* fields */
   std::vector< double > xValues;
   std::vector< double > yValues;
 
   /* helper methods */
+#include "ENDFtk/UnivariateTabulation/src/verifyVectorSizes.hpp"
 #include "ENDFtk/UnivariateTabulation/src/verifyXValuesAreSorted.hpp"
 #include "ENDFtk/UnivariateTabulation/src/readPairs.hpp"
 
@@ -23,13 +24,13 @@ class UnivariateTabulation : protected InterpolationRecord {
 public:
 #include "ENDFtk/UnivariateTabulation/src/ctor.hpp"
 
-  using InterpolationRecord::C1;
-  using InterpolationRecord::C2;
-  using InterpolationRecord::L1;
-  using InterpolationRecord::L2;
+  using InterpolationBase::C1;
+  using InterpolationBase::C2;
+  using InterpolationBase::L1;
+  using InterpolationBase::L2;
 
   long NP() const { return this->xValues.size(); }
-  using InterpolationRecord::NR;
+  using InterpolationBase::NR;
   
   auto x() const {
     return ranges::make_iterator_range( this->xValues.begin(),
@@ -45,8 +46,8 @@ public:
     return ranges::view::zip( this->xValues, this->yValues );
   }
 
-  using InterpolationRecord::interpolants;
-  using InterpolationRecord::boundaries;
+  using InterpolationBase::interpolants;
+  using InterpolationBase::boundaries;
 
   auto regions() const {
     return
@@ -55,7 +56,7 @@ public:
   }
 
   bool operator==( const UnivariateTabulation& rhs ) const {
-      return ( InterpolationRecord::operator==( static_cast<const InterpolationRecord&>( rhs ) ) )
+      return ( InterpolationBase::operator==( static_cast<const InterpolationBase&>( rhs ) ) )
       && ( this->xValues == rhs.xValues )
       && ( this->yValues == rhs.yValues );
   }
