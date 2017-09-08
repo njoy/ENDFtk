@@ -14,6 +14,8 @@ class InterpolationBase {
   std::vector< long > interpolationSchemeIndices;
 
   /* auxiliary methods */
+#include "ENDFtk/record/InterpolationBase/src/verifyN1.hpp"
+#include "ENDFtk/record/InterpolationBase/src/verifyN2.hpp"
 #include "ENDFtk/record/InterpolationBase/src/verifyTail.hpp"
 #include "ENDFtk/record/InterpolationBase/src/verifyVectorSizes.hpp"
 #include "ENDFtk/record/InterpolationBase/src/verifyBoundaryIndicesAreSorted.hpp"
@@ -22,10 +24,15 @@ class InterpolationBase {
 
 protected:
 
-  /* custom exception object */
+  /* custom exception objects */
   struct IllegalN2 {
     long n2;
     IllegalN2( long value ) : n2( value ) {}
+  };
+
+  struct InconsistentN2 {
+    long n2, index;
+    InconsistentN2( long value, long index ) : n2( value ), index( index ) {}
   };
 
 public:

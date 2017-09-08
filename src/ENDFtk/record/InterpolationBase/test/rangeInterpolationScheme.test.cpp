@@ -14,7 +14,7 @@ SCENARIO( "InterpolationBase rangeInterpolationScheme",
     REQUIRE( interpolationScheme[ index ] == interpolation.interpolants()[ index ] );
   }
 
-  // REQUIRE_THROWS( ranges::at( tab1.interpolants(), -1 ) );
+  REQUIRE_THROWS( ranges::at( interpolation.interpolants(), -1 ) );
   REQUIRE_THROWS( ranges::at( interpolation.interpolants(), interpolation.NR() ) );
 
 }

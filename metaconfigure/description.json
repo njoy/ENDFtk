@@ -403,6 +403,8 @@
     "src/ENDFtk/record/InterpolationBase/src/readMetadata.hpp", 
     "src/ENDFtk/record/InterpolationBase/src/readRangeDescriptions.hpp", 
     "src/ENDFtk/record/InterpolationBase/src/verifyBoundaryIndicesAreSorted.hpp", 
+    "src/ENDFtk/record/InterpolationBase/src/verifyN1.hpp", 
+    "src/ENDFtk/record/InterpolationBase/src/verifyN2.hpp", 
     "src/ENDFtk/record/InterpolationBase/src/verifyTail.hpp", 
     "src/ENDFtk/record/InterpolationBase/src/verifyVectorSizes.hpp", 
     "src/ENDFtk/record/Sequence/src/read.hpp", 

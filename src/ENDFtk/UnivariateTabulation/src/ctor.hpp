@@ -9,14 +9,8 @@ UnivariateTabulation
                        std::move( interpolationSchemeIndices ) ),
     xValues( std::move(xValues) ),
     yValues( std::move(yValues) ) {
-    try{
-      verifyXValuesAreSorted( this->xValues );
-      verifyVectorSizes( this->xValues, this->yValues );
-    }
-    catch( std::exception& e ) {
-      Log::info( "Error encountered while constructing TAB1 record" );
-      throw e;
-    }
+    verifyXValuesAreSorted( this->xValues );
+    verifyVectorSizes( this->xValues, this->yValues );
   }
   catch ( std::exception& e ) {
     Log::info( "Error encountered while constructing TAB1 record" );
@@ -61,6 +55,12 @@ UnivariateTabulation( Iterator& it, const Iterator& end, long& lineNumber,
     Log::error( "Illegal NP value encountered" );
     Log::info( "NP (or number of pairs) must be greater than or equal to 1" );
     Log::info( "NP value: {}", e.n2 );
+    Log::info( "Error encountered while parsing TAB1 record" );
+    throw std::exception();
+  }
+  catch ( InconsistentN2& e ) {
+    Log::error( "Inconsistent value for NP" );
+    Log::info( "Expected {} as the largest index but found {}", e.n2, e.index );
     Log::info( "Error encountered while parsing TAB1 record" );
     throw std::exception();
   }

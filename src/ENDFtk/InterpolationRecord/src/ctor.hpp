@@ -13,13 +13,9 @@ InterpolationRecord
 
 InterpolationRecord
 ( double C1, double C2, long L1, long L2,
-  std::tuple< std::vector< long >, std::vector< long > >&& regions )
-  try :
-    InterpolationBase( C1, C2, L1, L2, std::move( regions ) ) {}
-  catch ( std::exception& e ) {
-    Log::info( "Error encountered while constructing TAB2 record" );
-    throw e;
-  }
+  std::tuple< std::vector< long >, std::vector< long > >&& regions ) :
+  InterpolationRecord( C1, C2, L1, L2, std::move( std::get< 0 >( regions ) ),
+                       std::move( std::get< 1 >( regions ) ) ) {}
 
 template< typename Iterator >
 InterpolationRecord
@@ -31,6 +27,12 @@ InterpolationRecord
     Log::error( "Illegal NZ value encountered" );
     Log::info( "NZ (or number of zones) must be greater than or equal to 1" );
     Log::info( "NZ value: {}", e.n2 );
+    Log::info( "Error encountered while parsing TAB2 record" );
+    throw std::exception();
+  }
+  catch ( InconsistentN2& e ) {
+    Log::error( "Inconsistent value for NZ" );
+    Log::info( "Expected {} as the largest index but found {}", e.n2, e.index );
     Log::info( "Error encountered while parsing TAB2 record" );
     throw std::exception();
   }
