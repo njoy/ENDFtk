@@ -1,6 +1,6 @@
 template< typename ENDFType, typename Iterator >
 static std::vector< typename ENDFType::Type >
-read( uint64_t nEntries,
+read( long nEntries,
       Iterator& it, const Iterator& end, long& lineNumber,
       int MAT, int MF, int MT ){
   std::vector< typename ENDFType::Type > result;
