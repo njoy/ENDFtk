@@ -33,7 +33,10 @@ SCENARIO( "UnivariateTabulation ctor",
                                std::move( interpolation ),
                                std::move( x ), std::move( y ) );
 
-    THEN( "TAB1 objects can be copied" ){ auto copy = tab1; }
+    THEN( "TAB1 objects can be copied" ) {
+      auto copy = tab1;
+      REQUIRE( copy == tab1 );
+    }
   }
   
   GIVEN( "mismatched x and y lengths" ){
@@ -71,6 +74,25 @@ SCENARIO( "UnivariateTabulation ctor",
                       std::make_tuple( regions, interpolation ),
                       std::make_tuple( x, y ) ) );
   }
+    
+  GIVEN( "single region TAB1 with incorrect tail values" ){
+    std::string tab1 =
+      " 0.000000+0 0.000000+0         33          0          1          49328 1460  438\n"
+      "          4          4                                            9228 1460  439\n"
+      " 1.000000+1 1.725000+1 1.500000+1 1.850000+1 1.900000+1 1.975000+09228 1460  440\n"
+      " 2.700000+1 1.605000+1                                            9228 1460  441\n";
+
+    WHEN( "constructed with incorrect 'tail' values" ){
+      auto begin = tab1.begin();
+      auto end = tab1.end();
+      auto lineNumber = 438l;
+      int MAT = 9228;
+      int MF = 1;
+      int MT = 460;
+            
+      REQUIRE_THROWS( InterpolationRecord( begin, end, lineNumber, MAT, MF, MT ) );
+    }
+  }
 
   GIVEN( "single region TAB1" ){
     std::string tab1 = 
@@ -97,9 +119,13 @@ SCENARIO( "UnivariateTabulation ctor",
       auto begin = tab1.begin();
       auto end = tab1.end();
       auto lineNumber = 438l;
+      int MAT = 9228;
       int MF = 1;
       int MT = 460;
-      REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, 9225, MF, MT ) );
+
+      REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, 9328, MF, MT ) );
+      REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, 17, MT ) );
+      REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, MF, 15 ) );
     }
   }
   
@@ -164,9 +190,7 @@ SCENARIO( "UnivariateTabulation ctor",
     int MF = 1;
     int MT = 460;
    
-    REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, 9328, MF, MT ) );
-    REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, 17, MT ) );
-    REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, MF, 15 ) );
+    REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, MF, MT ) );
   }
   
   GIVEN( "Zero NR" ){

@@ -9,7 +9,7 @@ class DirectoryRecord : protected record::Base< record::Integer< 33 >,
   using tail = record::TailVerifying< record::MAT, record::MF, record::MT >;
 
 public:  
-  DirectoryRecord( int64_t L1, int64_t L2, int64_t N1, int64_t N2 ) :
+  DirectoryRecord( long L1, long L2, long N1, long N2 ) :
     base( L1, L2, N1, N2 ){}
 
   template< typename Iterator >

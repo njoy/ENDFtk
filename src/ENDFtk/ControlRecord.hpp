@@ -12,7 +12,7 @@ class ControlRecord : protected record::Base< record::Real,
 
 public:
   ControlRecord( double C1, double C2,
-                 int64_t L1, int64_t L2, int64_t N1, int64_t N2 ) :
+                 long L1, long L2, long N1, long N2 ) :
     base( C1, C2, L1, L2, N1, N2 ){}
 
   template< typename Iterator >
