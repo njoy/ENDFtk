@@ -371,6 +371,7 @@
     "src/ENDFtk/DirectoryRecord.hpp",
     "src/ENDFtk/file.hpp",
     "src/ENDFtk/HeadRecord.hpp",
+    "src/ENDFtk/InterpolationRecord.hpp",
     "src/ENDFtk/ListRecord.hpp",
     "src/ENDFtk/record.hpp",
     "src/ENDFtk/resonanceParameters.hpp",
@@ -385,17 +386,27 @@
     "src/ENDFtk/file/Type/src/ctor.hpp",
     "src/ENDFtk/file/Type/src/sectionNumber.hpp",
     "src/ENDFtk/HeadRecord/src/asHead.hpp",
+    "src/ENDFtk/InterpolationRecord/src/ctor.hpp",
     "src/ENDFtk/ListRecord/src/readMetadata.hpp",
     "src/ENDFtk/record/Base.hpp",
     "src/ENDFtk/record/Character.hpp",
     "src/ENDFtk/record/helper.hpp",
     "src/ENDFtk/record/Integer.hpp",
+    "src/ENDFtk/record/InterpolationBase.hpp",
     "src/ENDFtk/record/Real.hpp",
     "src/ENDFtk/record/Sequence.hpp",
     "src/ENDFtk/record/skip.hpp",
     "src/ENDFtk/record/Tail.hpp",
     "src/ENDFtk/record/TailVerifying.hpp",
     "src/ENDFtk/record/Zipper.hpp",
+    "src/ENDFtk/record/InterpolationBase/src/ctor.hpp",
+    "src/ENDFtk/record/InterpolationBase/src/readMetadata.hpp",
+    "src/ENDFtk/record/InterpolationBase/src/readRangeDescriptions.hpp",
+    "src/ENDFtk/record/InterpolationBase/src/verifyBoundaryIndicesAreSorted.hpp",
+    "src/ENDFtk/record/InterpolationBase/src/verifyN1.hpp",
+    "src/ENDFtk/record/InterpolationBase/src/verifyN2.hpp",
+    "src/ENDFtk/record/InterpolationBase/src/verifyTail.hpp",
+    "src/ENDFtk/record/InterpolationBase/src/verifyVectorSizes.hpp",
     "src/ENDFtk/record/Sequence/src/read.hpp",
     "src/ENDFtk/record/Zipper/src/expandReferencePack.hpp",
     "src/ENDFtk/record/Zipper/src/increment.hpp",
@@ -477,12 +488,8 @@
     "src/ENDFtk/syntaxTree/Tape/src/ctor.hpp",
     "src/ENDFtk/syntaxTree/Tape/src/materialNumber.hpp",
     "src/ENDFtk/UnivariateTabulation/src/ctor.hpp",
-    "src/ENDFtk/UnivariateTabulation/src/rangeBoundaries.hpp",
-    "src/ENDFtk/UnivariateTabulation/src/readMetadata.hpp",
     "src/ENDFtk/UnivariateTabulation/src/readPairs.hpp",
-    "src/ENDFtk/UnivariateTabulation/src/readRangeDescriptions.hpp",
-    "src/ENDFtk/UnivariateTabulation/src/verifyBoundaryIndicesAreSorted.hpp",
-    "src/ENDFtk/UnivariateTabulation/src/verifyTail.hpp",
+    "src/ENDFtk/UnivariateTabulation/src/verifyVectorSizes.hpp",
     "src/ENDFtk/UnivariateTabulation/src/verifyXValuesAreSorted.hpp"
   ],
   "ignore pattern": "$^",
@@ -509,6 +516,17 @@
     ],
     "ENDFtk.HeadRecord": [
       "src/ENDFtk/HeadRecord/test/HeadRecord.test.cpp"
+    ],
+    "ENDFtk.InterpolationRecord": [
+      "src/ENDFtk/InterpolationRecord/test/C1.test.cpp",
+      "src/ENDFtk/InterpolationRecord/test/C2.test.cpp",
+      "src/ENDFtk/InterpolationRecord/test/equality.test.cpp",
+      "src/ENDFtk/InterpolationRecord/test/InterpolationRecord.test.cpp",
+      "src/ENDFtk/InterpolationRecord/test/L1.test.cpp",
+      "src/ENDFtk/InterpolationRecord/test/L2.test.cpp",
+      "src/ENDFtk/InterpolationRecord/test/NR.test.cpp",
+      "src/ENDFtk/InterpolationRecord/test/NZ.test.cpp",
+      "src/ENDFtk/InterpolationRecord/test/rangeInterpolationScheme.test.cpp"
     ],
     "ENDFtk.ListRecord": [
       "src/ENDFtk/ListRecord/test/ListRecord.test.cpp"
@@ -546,6 +564,17 @@
     ],
     "ENDFtk.record.Base": [
       "src/ENDFtk/record/Base/test/Base.test.cpp"
+    ],
+    "ENDFtk.record.InterpolationBase": [
+      "src/ENDFtk/record/InterpolationBase/test/C1.test.cpp",
+      "src/ENDFtk/record/InterpolationBase/test/C2.test.cpp",
+      "src/ENDFtk/record/InterpolationBase/test/equality.test.cpp",
+      "src/ENDFtk/record/InterpolationBase/test/InterpolationBase.test.cpp",
+      "src/ENDFtk/record/InterpolationBase/test/L1.test.cpp",
+      "src/ENDFtk/record/InterpolationBase/test/L2.test.cpp",
+      "src/ENDFtk/record/InterpolationBase/test/N2.test.cpp",
+      "src/ENDFtk/record/InterpolationBase/test/NR.test.cpp",
+      "src/ENDFtk/record/InterpolationBase/test/rangeInterpolationScheme.test.cpp"
     ],
     "ENDFtk.record.Sequence": [
       "src/ENDFtk/record/Sequence/test/read.test.cpp",

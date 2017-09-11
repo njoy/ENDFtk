@@ -62,6 +62,9 @@ using DIR = DirectoryRecord;
 #include "ENDFtk/ListRecord.hpp"
 using LIST = ListRecord;
 
+#include "ENDFtk/InterpolationRecord.hpp"
+using TAB2 = InterpolationRecord;
+
 #include "ENDFtk/UnivariateTabulation.hpp"
 using TAB1 = UnivariateTabulation;
 

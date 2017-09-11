@@ -2,23 +2,10 @@ class LState {
 protected:
   const LIST& list;
 
-  auto stride( int s ) const {
-    return list.B()
-      | ranges::view::drop_exactly( s )
-      | ranges::view::stride( 6 );
-  }
-
   using Chunk = decltype( ( list.B() | ranges::view::chunk(6) )[0] );
 
 public:
   #include "ENDFtk/resonanceParameters/resolved/BreitWigner/LState/Resonance.hpp"
-
-  auto resonanceEnergies() const { return stride( 0 ); }
-  auto AJs()               const { return stride( 1 ); }
-  auto totalWidths()       const { return stride( 2 ); }
-  auto neutronWidths()     const { return stride( 3 ); }
-  auto radiationWidths()   const { return stride( 4 ); }
-  auto fissionWidths()     const { return stride( 5 ); }
 
   LState( const LIST& list )
     : list( list )

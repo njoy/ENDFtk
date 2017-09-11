@@ -9,13 +9,6 @@ public:
 
   using BreitWigner::LState::LState;
 
-  using BreitWigner::LState::resonanceEnergies;
-  using BreitWigner::LState::AJs;
-  auto neutronWidths() const              { return stride( 2 ); }
-  auto radiationWidths() const            { return stride( 3 ); }
-  auto firstPartialFissionWidths() const  { return stride( 4 ); }
-  auto secondPartialFissionWidths() const { return stride( 5 ); }
-
   double APL() const { return list.C2(); }
 
   auto resonances() const {
