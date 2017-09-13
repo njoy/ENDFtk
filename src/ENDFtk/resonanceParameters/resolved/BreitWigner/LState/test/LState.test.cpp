@@ -37,6 +37,26 @@ SCENARIO( "Testing BreitWigner LState" ){
         REQUIRE( 0 == lstate.LRX() );
         REQUIRE( 2 == lstate.NRS() );
       }
+      AND_THEN( "it's resonances can be extracted" ){
+        auto resonances = lstate.resonances();
+        REQUIRE( 2 == resonances.size() );
+
+        auto res0 = resonances[0];
+        REQUIRE( -1.47E5    == Approx( res0.ER() ) );
+        REQUIRE( 0.5        == Approx( res0.AJ() ) );
+        REQUIRE( 5.430695E2 == Approx( res0.GT() ) );
+        REQUIRE( 3.680695E2 == Approx( res0.GN() ) );
+        REQUIRE( 1.75E2     == Approx( res0.GG() ) );
+        REQUIRE( 0.0        == Approx( res0.GF() ) );
+
+        auto res1 = resonances[1];
+        REQUIRE( 4.73E5     == Approx( res1.ER() ) );
+        REQUIRE( 0.5        == Approx( res1.AJ() ) );
+        REQUIRE( 1.072906E5 == Approx( res1.GT() ) );
+        REQUIRE( 1.0729E5   == Approx( res1.GN() ) );
+        REQUIRE( 0.56       == Approx( res1.GG() ) );
+        REQUIRE( 0.0        == Approx( res1.GF() ) );
+      }
     }
   }
 }

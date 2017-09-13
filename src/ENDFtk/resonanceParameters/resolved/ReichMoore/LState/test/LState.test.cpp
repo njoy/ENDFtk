@@ -14,7 +14,7 @@ public:
 
 };
 
-SCENARIO( "Testing BreitWigner LState" ){
+SCENARIO( "Testing ReichMoore LState" ){
   GIVEN( "LIST Record" ){
     long lineNumber = 0;
     int MAT = 1025;

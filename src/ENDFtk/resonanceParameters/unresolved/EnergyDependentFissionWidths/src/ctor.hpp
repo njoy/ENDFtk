@@ -9,8 +9,8 @@ EnergyDependentFissionWidths( const Base& base,
     Unresolved( base, std::move( APE ),
                 CONT( list.C1(), list.C2(), 
                       list.L1(), list.L2(), 
-                      list.NPL(), list.N2() ),
-                readLStates( list.N2(), it, end, lineNumber, MAT, MF, MT ) ),
+                      list.NPL(), list.N2() ) ),
+    lStates( readLStates( list.N2(), it, end, lineNumber, MAT, MF, MT ) ),
     list( std::move( list ) ){
   } catch( std::exception& e ){
     Log::info( "Trouble encountered when parsing energy-dependent fission "
