@@ -445,6 +445,7 @@
     "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup.hpp",
     "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup/src/ctor.hpp",
     "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/ctor.hpp",
+    "src/ENDFtk/resonanceParameters/src/ER.hpp",
     "src/ENDFtk/resonanceParameters/unresolved/EnergyDependent.hpp",
     "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths.hpp",
     "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent.hpp",
@@ -593,6 +594,9 @@
       "src/ENDFtk/record/Zipper/test/reserve.test.cpp",
       "src/ENDFtk/record/Zipper/test/unzip.test.cpp",
       "src/ENDFtk/record/Zipper/test/Zipper.test.cpp"
+    ],
+    "ENDFtk.resonanceParameters": [
+      "src/ENDFtk/resonanceParameters/test/resonanceParameters.test.cpp"
     ],
     "ENDFtk.resonanceParameters.Base": [
       "src/ENDFtk/resonanceParameters/Base/test/Base.test.cpp"

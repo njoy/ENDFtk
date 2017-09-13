@@ -17,5 +17,6 @@ using EnergyRange = std::variant< // LRU=0
                                   unresolved::EnergyDependent>;
 
 #include "ENDFtk/resonanceParameters/Isotope.hpp"
+#include "ENDFtk/resonanceParameters/src/ER.hpp"
 
 }
