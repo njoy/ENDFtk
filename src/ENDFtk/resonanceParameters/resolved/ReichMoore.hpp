@@ -1,4 +1,5 @@
 class ReichMoore : public BreitWigner {
+protected:
   int lad;
   int nlsc;
 
@@ -6,11 +7,19 @@ class ReichMoore : public BreitWigner {
 
 public:
 #include "ENDFtk/resonanceParameters/resolved/ReichMoore/src/ctor.hpp"
+#include "ENDFtk/resonanceParameters/resolved/ReichMoore/LState.hpp"
   
   int LAD() const { return this->lad; }
   int NLSC() const { return this->nlsc; }
 
   static constexpr int LRF() { return 3; }
 
-#include "ENDFtk/resonanceParameters/resolved/ReichMoore/src/print.hpp"
+  auto LStates() const{
+    return this->LISTS() | 
+      ranges::view::transform(
+        []( const auto& list ){ return LState( list ); } 
+      );
+  }
+  
+  #include "ENDFtk/resonanceParameters/resolved/ReichMoore/src/print.hpp"
 };

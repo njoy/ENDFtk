@@ -12,6 +12,8 @@ protected:
 #include "ENDFtk/resonanceParameters/resolved/BreitWigner/src/ctor.hpp"
 
 public:
+  #include "ENDFtk/resonanceParameters/resolved/BreitWigner/LState.hpp"
+  
   double EL() const { return this->el; }
   double EH() const { return this->eh; }
   int NRO() const { return bool(this->ape); }
@@ -29,6 +31,13 @@ public:
     return ranges::make_iterator_range( this->lists.begin(), this->lists.end() );
   }
 
+  auto LStates() const {
+    return
+      this->LISTS()
+      | ranges::view::transform
+        ( []( const auto& list ) -> LState { return { list }; } );
+  }
+
   int NC() const {
     return 2
       + ( ( this->ape ) ? this->ape->NC() : 0 )
@@ -39,4 +48,5 @@ public:
   }
 
   #include "ENDFtk/resonanceParameters/resolved/BreitWigner/src/print.hpp"
+
 };
