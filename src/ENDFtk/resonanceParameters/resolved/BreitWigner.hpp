@@ -12,7 +12,7 @@ protected:
 #include "ENDFtk/resonanceParameters/resolved/BreitWigner/src/ctor.hpp"
 
 public:
-  #include "ENDFtk/resonanceParameters/resolved/BreitWigner/LState.hpp"
+  #include "ENDFtk/resonanceParameters/resolved/BreitWigner/Lvalue.hpp"
   
   double EL() const { return this->el; }
   double EH() const { return this->eh; }
@@ -31,11 +31,11 @@ public:
     return ranges::make_iterator_range( this->lists.begin(), this->lists.end() );
   }
 
-  auto LStates() const {
+  auto lValues() const {
     return
       this->LISTS()
       | ranges::view::transform
-        ( []( const auto& list ) -> LState { return { list }; } );
+        ( []( const auto& list ) -> Lvalue { return { list }; } );
   }
 
   int NC() const {

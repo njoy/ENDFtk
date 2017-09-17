@@ -281,8 +281,8 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/MultilevelBreitWigner.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner/src/print.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/BreitWigner/LState.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/BreitWigner/LState/Resonance.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/BreitWigner/Lvalue.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/BreitWigner/Lvalue/Resonance.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/BreitWigner/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/BreitWigner/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/BreitWigner/src/validate.hpp"
@@ -292,8 +292,8 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/MultilevelBreitWigner/src/print.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/ReichMoore/LState.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/ReichMoore/LState/Resonance.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/ReichMoore/Lvalue.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/ReichMoore/Lvalue/Resonance.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/ReichMoore/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/ReichMoore/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/ReichMoore/src/validate.hpp"
@@ -381,22 +381,21 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/InterpolationRecord/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/test )
         add_subdirectory( src/ENDFtk/section/Base/test )
-        add_subdirectory( src/ENDFtk/syntaxTree/File/test )
-        add_subdirectory( src/ENDFtk/record/Tail/test )
+        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/ReichMoore/Lvalue/test )
         add_subdirectory( src/ENDFtk/ControlRecord/test )
+        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/BreitWigner/Lvalue/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/test )
         add_subdirectory( src/ENDFtk/section/3/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/Isotope/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/resolved/MultilevelBreitWigner/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/ReichMoore/LState/test )
         add_subdirectory( src/ENDFtk/record/Base/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/resolved/BreitWigner/test )
         add_subdirectory( src/ENDFtk/file/Type/test )
         add_subdirectory( src/ENDFtk/ListRecord/test )
         add_subdirectory( src/ENDFtk/TabulationRecord/test )
         add_subdirectory( src/ENDFtk/TextRecord/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/BreitWigner/LState/test )
+        add_subdirectory( src/ENDFtk/record/Tail/test )
         add_subdirectory( src/ENDFtk/record/InterpolationBase/test )
         add_subdirectory( src/ENDFtk/record/Zipper/test )
         add_subdirectory( src/ENDFtk/syntaxTree/Section/test )
@@ -404,6 +403,7 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/HeadRecord/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner/test )
         add_subdirectory( src/ENDFtk/record/test )
+        add_subdirectory( src/ENDFtk/syntaxTree/File/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/SpecialCase/test )
         add_subdirectory( src/ENDFtk/TapeIdentification/test )
         add_subdirectory( src/ENDFtk/DirectoryRecord/test )

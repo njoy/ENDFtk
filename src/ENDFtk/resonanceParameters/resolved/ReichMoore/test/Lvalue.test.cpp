@@ -5,65 +5,65 @@
 
 using namespace njoy::ENDFtk;
 
-class TestBreitWigner : public resonanceParameters::resolved::BreitWigner {
+class TestReichMoore : public resonanceParameters::resolved::ReichMoore {
 public:
   template< typename... Args >
-  TestBreitWigner( Args&&... args ) :
-    BreitWigner( std::forward<Args>(args)... ){}
+  TestReichMoore( Args&&... args ) :
+    ReichMoore( std::forward<Args>(args)... ){}
 };
 
-std::string LBreitWigner();
+std::string LReichMoore();
 
-SCENARIO( "Testing unresolved resonance LStates" ){
+SCENARIO( "Testing unresolved resonance Lvalues" ){
   GIVEN( "valid ENDF paramaters without TAB1" ){
     long lineNumber = 0;
     int MAT = 1025;
     int MF = 2;
     int MT = 151;
 
-    std::string bws = LBreitWigner();
-    auto begin = bws.begin();
-    auto end = bws.end();
+    std::string rms = LReichMoore();
+    auto begin = rms.begin();
+    auto end = rms.end();
 
-    resonanceParameters::Base base( 1E-5, 2.201E6, 1, 2, 0, 0 );
-    TestBreitWigner bw( base, begin, end, lineNumber, MAT, MF, MT );
+    resonanceParameters::Base base( 1E-5, 2.201E6, 1, 3, 0, 0 );
+    TestReichMoore rm( base, begin, end, lineNumber, MAT, MF, MT );
 
-    WHEN( "extracting the LStates" ){
-      auto LStates = bw.LStates();
+    WHEN( "extracting the lValues" ){
+      auto lValues = rm.lValues();
 
-      THEN( "the LState parameters can be verified" ){
-        REQUIRE( 3 == LStates.size() );
+      THEN( "the Lvalue parameters can be verified" ){
+        REQUIRE( 3 == lValues.size() );
 
-        REQUIRE( -1.47E5 == Approx( LStates[0].resonances()[0].ER() ) );
-        REQUIRE(  1.47E5 == Approx( LStates[1].resonances()[0].ER() ) );
-        REQUIRE(  1.37E6 == Approx( LStates[2].resonances()[0].ER() ) );
+        REQUIRE( -1.47E5 == Approx( lValues[0].resonances()[0].ER() ) );
+        REQUIRE(  1.47E5 == Approx( lValues[1].resonances()[0].ER() ) );
+        REQUIRE(  1.37E6 == Approx( lValues[2].resonances()[0].ER() ) );
 
-        REQUIRE( 0.5 == Approx( LStates[0].resonances()[0].AJ() ) );
-        REQUIRE( 0.5 == Approx( LStates[1].resonances()[0].AJ() ) );
-        REQUIRE( 1.5 == Approx( LStates[2].resonances()[0].AJ() ) );
+        REQUIRE( 0.5 == Approx( lValues[0].resonances()[0].AJ() ) );
+        REQUIRE( 0.5 == Approx( lValues[1].resonances()[0].AJ() ) );
+        REQUIRE( 1.5 == Approx( lValues[2].resonances()[0].AJ() ) );
 
-        REQUIRE( 5.430695E2 == Approx( LStates[0].resonances()[0].GT() ) );
-        REQUIRE( 3.210160E2 == Approx( LStates[1].resonances()[0].GT() ) );
-        REQUIRE( 8.175E3    == Approx( LStates[2].resonances()[0].GT() ) );
+        REQUIRE( 5.430695E2 == Approx( lValues[0].resonances()[0].GN() ) );
+        REQUIRE( 3.210160E2 == Approx( lValues[1].resonances()[0].GN() ) );
+        REQUIRE( 8.175E3    == Approx( lValues[2].resonances()[0].GN() ) );
 
-        REQUIRE( 3.680695E2 == Approx( LStates[0].resonances()[0].GN() ) );
-        REQUIRE( 3.19E2     == Approx( LStates[1].resonances()[0].GN() ) );
-        REQUIRE( 8.0E3      == Approx( LStates[2].resonances()[0].GN() ) );
+        REQUIRE( 3.680695E2 == Approx( lValues[0].resonances()[0].GG() ) );
+        REQUIRE( 3.19E2     == Approx( lValues[1].resonances()[0].GG() ) );
+        REQUIRE( 8.0E3      == Approx( lValues[2].resonances()[0].GG() ) );
 
-        REQUIRE( 1.75E2     == Approx( LStates[0].resonances()[0].GG() ) );
-        REQUIRE( 2.016      == Approx( LStates[1].resonances()[0].GG() ) );
-        REQUIRE( 1.75E2     == Approx( LStates[2].resonances()[0].GG() ) );
+        REQUIRE( 1.75E2     == Approx( lValues[0].resonances()[0].GFA() ) );
+        REQUIRE( 2.016      == Approx( lValues[1].resonances()[0].GFA() ) );
+        REQUIRE( 1.75E2     == Approx( lValues[2].resonances()[0].GFA() ) );
 
-        REQUIRE( 0.0        == Approx( LStates[0].resonances()[0].GF() ) );
-        REQUIRE( 0.0        == Approx( LStates[1].resonances()[0].GF() ) );
-        REQUIRE( 0.0        == Approx( LStates[2].resonances()[0].GF() ) );
+        REQUIRE( 0.0        == Approx( lValues[0].resonances()[0].GFB() ) );
+        REQUIRE( 0.0        == Approx( lValues[1].resonances()[0].GFB() ) );
+        REQUIRE( 0.0        == Approx( lValues[2].resonances()[0].GFB() ) );
       }
     }
 
   }
 }
 
-std::string LBreitWigner(){
+std::string LReichMoore(){
   return
     /* HEAD Record */
     // " 1.002000+4 1.982070+1          0          0          1          01025 2151\n"
@@ -72,7 +72,7 @@ std::string LBreitWigner(){
     /* range CONT Record */
     // " 1.000000-5 2.201000+6          1          2          0          11025 2151\n"
     /* CONT Record */
-    " 0.000000+0 5.200000-1          0          0          3          01025 2151\n"
+    " 0.000000+0 5.200000-1          0          0          3          31025 2151\n"
     /* LIST Record */
     " 1.982069+1 0.000000+0          0          0         12          21025 2151\n"
     "-1.470000+5 5.000000-1 5.430695+2 3.680695+2 1.750000+2 0.000000+01025 2151\n"

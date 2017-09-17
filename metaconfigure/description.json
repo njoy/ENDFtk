@@ -426,8 +426,8 @@
     "src/ENDFtk/resonanceParameters/resolved/MultilevelBreitWigner.hpp", 
     "src/ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner.hpp", 
     "src/ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner/src/print.hpp", 
-    "src/ENDFtk/resonanceParameters/resolved/BreitWigner/LState.hpp", 
-    "src/ENDFtk/resonanceParameters/resolved/BreitWigner/LState/Resonance.hpp", 
+    "src/ENDFtk/resonanceParameters/resolved/BreitWigner/Lvalue.hpp", 
+    "src/ENDFtk/resonanceParameters/resolved/BreitWigner/Lvalue/Resonance.hpp", 
     "src/ENDFtk/resonanceParameters/resolved/BreitWigner/src/ctor.hpp", 
     "src/ENDFtk/resonanceParameters/resolved/BreitWigner/src/print.hpp", 
     "src/ENDFtk/resonanceParameters/resolved/BreitWigner/src/validate.hpp", 
@@ -437,8 +437,8 @@
     "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/ctor.hpp", 
     "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup/src/ctor.hpp", 
     "src/ENDFtk/resonanceParameters/resolved/MultilevelBreitWigner/src/print.hpp", 
-    "src/ENDFtk/resonanceParameters/resolved/ReichMoore/LState.hpp", 
-    "src/ENDFtk/resonanceParameters/resolved/ReichMoore/LState/Resonance.hpp", 
+    "src/ENDFtk/resonanceParameters/resolved/ReichMoore/Lvalue.hpp", 
+    "src/ENDFtk/resonanceParameters/resolved/ReichMoore/Lvalue/Resonance.hpp", 
     "src/ENDFtk/resonanceParameters/resolved/ReichMoore/src/ctor.hpp", 
     "src/ENDFtk/resonanceParameters/resolved/ReichMoore/src/print.hpp", 
     "src/ENDFtk/resonanceParameters/resolved/ReichMoore/src/validate.hpp", 
@@ -623,11 +623,11 @@
       "src/ENDFtk/resonanceParameters/SpecialCase/test/SpecialCase.test.cpp"
     ], 
     "ENDFtk.resonanceParameters.resolved.BreitWigner": [
-      "src/ENDFtk/resonanceParameters/resolved/BreitWigner/test/LStates.test.cpp", 
+      "src/ENDFtk/resonanceParameters/resolved/BreitWigner/test/Lvalue.test.cpp", 
       "src/ENDFtk/resonanceParameters/resolved/BreitWigner/test/BreitWigner.test.cpp"
     ], 
-    "ENDFtk.resonanceParameters.resolved.BreitWigner.LState": [
-      "src/ENDFtk/resonanceParameters/resolved/BreitWigner/LState/test/LState.test.cpp"
+    "ENDFtk.resonanceParameters.resolved.BreitWigner.Lvalue": [
+      "src/ENDFtk/resonanceParameters/resolved/BreitWigner/Lvalue/test/Lvalue.test.cpp"
     ], 
     "ENDFtk.resonanceParameters.resolved.MultilevelBreitWigner": [
       "src/ENDFtk/resonanceParameters/resolved/MultilevelBreitWigner/test/MultilevelBreitWigner.test.cpp"
@@ -636,11 +636,11 @@
       "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup/test/SpinGroup.test.cpp"
     ], 
     "ENDFtk.resonanceParameters.resolved.ReichMoore": [
-      "src/ENDFtk/resonanceParameters/resolved/ReichMoore/test/ReichMoore.test.cpp", 
-      "src/ENDFtk/resonanceParameters/resolved/ReichMoore/test/LStates.test.cpp"
+      "src/ENDFtk/resonanceParameters/resolved/ReichMoore/test/Lvalue.test.cpp", 
+      "src/ENDFtk/resonanceParameters/resolved/ReichMoore/test/ReichMoore.test.cpp"
     ], 
-    "ENDFtk.resonanceParameters.resolved.ReichMoore.LState": [
-      "src/ENDFtk/resonanceParameters/resolved/ReichMoore/LState/test/LState.test.cpp"
+    "ENDFtk.resonanceParameters.resolved.ReichMoore.Lvalue": [
+      "src/ENDFtk/resonanceParameters/resolved/ReichMoore/Lvalue/test/Lvalue.test.cpp"
     ], 
     "ENDFtk.resonanceParameters.resolved.SingleLevelBreitWigner": [
       "src/ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner/test/SingleLevelBreitWigner.test.cpp"

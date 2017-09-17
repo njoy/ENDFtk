@@ -7,17 +7,17 @@ protected:
 
 public:
 #include "ENDFtk/resonanceParameters/resolved/ReichMoore/src/ctor.hpp"
-#include "ENDFtk/resonanceParameters/resolved/ReichMoore/LState.hpp"
+#include "ENDFtk/resonanceParameters/resolved/ReichMoore/Lvalue.hpp"
   
   int LAD() const { return this->lad; }
   int NLSC() const { return this->nlsc; }
 
   static constexpr int LRF() { return 3; }
 
-  auto LStates() const{
+  auto lValues() const{
     return this->LISTS() | 
       ranges::view::transform(
-        []( const auto& list ){ return LState( list ); } 
+        []( const auto& list ){ return Lvalue( list ); } 
       );
   }
   

@@ -1,12 +1,12 @@
-class LState {
+class Lvalue {
 protected:
   const LIST& list;
   using Chunk = decltype( ( list.B() | ranges::view::chunk(6) )[0] );
   
 public:
-  #include "ENDFtk/resonanceParameters/resolved/BreitWigner/LState/Resonance.hpp"
+  #include "ENDFtk/resonanceParameters/resolved/BreitWigner/Lvalue/Resonance.hpp"
   
-  LState( const LIST& list ) : list( list ){}
+  Lvalue( const LIST& list ) : list( list ){}
 
   double AWRI() const { return this->list.C1(); }
   double QX() const { return this->list.C2(); }

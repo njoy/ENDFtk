@@ -6,37 +6,37 @@
 
 using namespace njoy::ENDFtk;
 
-std::string sLState();
+std::string sLvalue();
 
-class TestLState : public resonanceParameters::resolved::BreitWigner::LState {
+class TestLvalue : public resonanceParameters::resolved::BreitWigner::Lvalue {
 public:
-  using resonanceParameters::resolved::BreitWigner::LState::LState;
+  using resonanceParameters::resolved::BreitWigner::Lvalue::Lvalue;
 };
 
-SCENARIO( "Testing BreitWigner LState" ){
+SCENARIO( "Testing BreitWigner Lvalue" ){
   GIVEN( "LIST Record" ){
     long lineNumber = 0;
     int MAT = 1025;
     int MF = 2;
     int MT = 151;
 
-    std::string sLIST = sLState();
+    std::string sLIST = sLvalue();
     auto begin = sLIST.begin();
     auto end = sLIST.end();
 
     LIST list( begin, end, lineNumber, MAT, MF, MT );
 
-    THEN( "an LState can be construted" ){
-      TestLState lstate( list );
+    THEN( "an Lvalue can be constructed" ){
+      TestLvalue lValue( list );
 
-      AND_THEN( "it's parameters can be verified" ){
-        REQUIRE( 19.82069 == Approx( lstate.AWRI() ) );
-        REQUIRE( 1.0 == Approx( lstate.QX() ) );
-        REQUIRE( 0 == lstate.L() );
-        REQUIRE( 1 == lstate.LRX() );
-        REQUIRE( 2 == lstate.NRS() );
+      AND_THEN( "its parameters can be verified" ){
+        REQUIRE( 19.82069 == Approx( lValue.AWRI() ) );
+        REQUIRE( 1.0 == Approx( lValue.QX() ) );
+        REQUIRE( 0 == lValue.L() );
+        REQUIRE( 1 == lValue.LRX() );
+        REQUIRE( 2 == lValue.NRS() );
 
-        auto resonances = lstate.resonances();
+        auto resonances = lValue.resonances();
         
         REQUIRE( Approx(-1.47E5) == resonances[0].ER() );
         REQUIRE( Approx(4.73E5)  == resonances[1].ER() );
@@ -59,7 +59,7 @@ SCENARIO( "Testing BreitWigner LState" ){
   }
 }
 
-std::string sLState(){
+std::string sLvalue(){
   return
     /* LIST Record */
     " 1.982069+1 1.000000+0          0          1         12          21025 2151\n"
