@@ -3,10 +3,10 @@
 
 using namespace njoy::ENDFtk;
 
-extern std::function< UnivariateTabulation() > makeTAB1;
+extern std::function< TabulationRecord() > makeTAB1;
 
-SCENARIO( "UnivariateTabulation equality",
-          "[ENDFtk], [UnivariateTabulation]" ){
+SCENARIO( "TabulationRecord equality",
+          "[ENDFtk], [TabulationRecord]" ){
 
   auto reference = makeTAB1();
   auto trial = makeTAB1();

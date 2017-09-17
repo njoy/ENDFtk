@@ -3,10 +3,10 @@
 
 using namespace njoy::ENDFtk;
 
-extern std::function< UnivariateTabulation() > makeTAB1;
+extern std::function< TabulationRecord() > makeTAB1;
 
-SCENARIO( "UnivariateTabulation x command",
-          "[ENDFtk], [UnivariateTabulation]" ){
+SCENARIO( "TabulationRecord x command",
+          "[ENDFtk], [TabulationRecord]" ){
   GIVEN( "a reference TAB1 record and it's x-values" ){
 
     auto tab1 = makeTAB1();

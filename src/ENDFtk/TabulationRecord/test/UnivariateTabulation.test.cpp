@@ -5,7 +5,7 @@
 
 using namespace njoy::ENDFtk;
 
-std::function< UnivariateTabulation() > makeTAB1 = [](){
+std::function< TabulationRecord() > makeTAB1 = [](){
   auto metadata = std::make_tuple( 1.0, 2.0, 3ul, 4ul );
   auto regionPairs = std::make_tuple( std::vector< long >{ 4, 5, 6 },
                                       std::vector< long >{ 1, 2, 3 } );
@@ -13,14 +13,14 @@ std::function< UnivariateTabulation() > makeTAB1 = [](){
     std::make_tuple( std::vector< double >{ 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 },
                      std::vector< double >{ 3.0, 4.0, 5.0, 6.0, 7.0, 8.0 } );
   
-  return UnivariateTabulation
+  return TabulationRecord
   ( std::get< 0 >( metadata ), std::get< 1 >( metadata ),
     std::get< 2 >( metadata ), std::get< 3 >( metadata ),
     njoy::utility::copy( regionPairs ), njoy::utility::copy( orderedPairs ) );
 };
 
-SCENARIO( "UnivariateTabulation ctor",
-          "[ENDFtk], [UnivariateTabulation]" ){
+SCENARIO( "TabulationRecord ctor",
+          "[ENDFtk], [TabulationRecord]" ){
 
     std::vector< long > regions{ 4, 5, 6 };
     std::vector< long > interpolation{ 1, 2, 3 };
@@ -28,7 +28,7 @@ SCENARIO( "UnivariateTabulation ctor",
     std::vector< double > y{ 3.0, 4.0, 5.0, 6.0, 7.0, 8.0 };
   
   GIVEN( "a TAB1 object" ){  
-    UnivariateTabulation tab1( 1.0, 2.0, 3ul, 4ul,
+    TabulationRecord tab1( 1.0, 2.0, 3ul, 4ul,
                                std::move( regions ), 
                                std::move( interpolation ),
                                std::move( x ), std::move( y ) );
@@ -42,7 +42,7 @@ SCENARIO( "UnivariateTabulation ctor",
   GIVEN( "mismatched x and y lengths" ){
     std::vector< double > x{ 1.0, 2.0, 3.0, 4.0, 5.0 };
     
-    REQUIRE_THROWS( UnivariateTabulation
+    REQUIRE_THROWS( TabulationRecord
                     ( 1.0, 2.0, 3ul, 4ul,
                       std::make_tuple( regions, interpolation ),
                       std::make_tuple( x, y ) ) );
@@ -51,7 +51,7 @@ SCENARIO( "UnivariateTabulation ctor",
   GIVEN( "out of order x values" ){
     std::vector< double > x{ 1.0, 3.0, 2.0, 4.0, 5.0 };
 
-    REQUIRE_THROWS( UnivariateTabulation
+    REQUIRE_THROWS( TabulationRecord
                     ( 1.0, 2.0, 3ul, 4ul,
                       std::make_tuple( regions, interpolation ),
                       std::make_tuple( x, y ) ) );
@@ -60,7 +60,7 @@ SCENARIO( "UnivariateTabulation ctor",
   GIVEN( "mismatched region and interpolation arrays" ){
     std::vector< long > interpolation{ 1, 2, 3, 4 };
 
-    REQUIRE_THROWS( UnivariateTabulation
+    REQUIRE_THROWS( TabulationRecord
                     ( 1.0, 2.0, 3ul, 4ul,
                       std::make_tuple( regions, interpolation ),
                       std::make_tuple( x, y ) ) );
@@ -69,7 +69,7 @@ SCENARIO( "UnivariateTabulation ctor",
   GIVEN( "out of order region" ){
     std::vector< long > regions{ 5, 4, 6 };
 
-    REQUIRE_THROWS( UnivariateTabulation
+    REQUIRE_THROWS( TabulationRecord
                     ( 1.0, 2.0, 3ul, 4ul,
                       std::make_tuple( regions, interpolation ),
                       std::make_tuple( x, y ) ) );
@@ -109,7 +109,7 @@ SCENARIO( "UnivariateTabulation ctor",
       int MF = 1;
       int MT = 460;
     
-      UnivariateTabulation tab1_1( begin, end, lineNumber, MAT, MF, MT );
+      TabulationRecord tab1_1( begin, end, lineNumber, MAT, MF, MT );
       REQUIRE( tab1_1.NR() == 1 );
       REQUIRE( tab1_1.NP() == 4 );
 
@@ -123,7 +123,7 @@ SCENARIO( "UnivariateTabulation ctor",
       int MF = 1;
       int MT = 460;
       
-      UnivariateTabulation table( begin, end, lineNumber, MAT, MF, MT );
+      TabulationRecord table( begin, end, lineNumber, MAT, MF, MT );
       std::string buffer;
       auto output = std::back_inserter( buffer );
       table.print( output, MAT, MF, MT );
@@ -139,7 +139,7 @@ SCENARIO( "UnivariateTabulation ctor",
       int MF = 1;
       int MT = 460;
       
-      UnivariateTabulation table( begin, end, lineNumber, MAT, MF, MT );
+      TabulationRecord table( begin, end, lineNumber, MAT, MF, MT );
       REQUIRE( table.NC() == 4 );
     }
     
@@ -151,9 +151,9 @@ SCENARIO( "UnivariateTabulation ctor",
       int MF = 1;
       int MT = 460;
 
-      REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, 9328, MF, MT ) );
-      REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, 17, MT ) );
-      REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, MF, 15 ) );
+      REQUIRE_THROWS( TabulationRecord( begin, end, lineNumber, 9328, MF, MT ) );
+      REQUIRE_THROWS( TabulationRecord( begin, end, lineNumber, MAT, 17, MT ) );
+      REQUIRE_THROWS( TabulationRecord( begin, end, lineNumber, MAT, MF, 15 ) );
     }
   }
   
@@ -170,7 +170,7 @@ SCENARIO( "UnivariateTabulation ctor",
     int MF = 1;
     int MT = 460;
    
-    REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, MF, MT ) );
+    REQUIRE_THROWS( TabulationRecord( begin, end, lineNumber, MAT, MF, MT ) );
   }
   
   GIVEN( "Out of order region boundaries" ){
@@ -186,7 +186,7 @@ SCENARIO( "UnivariateTabulation ctor",
     int MF = 1;
     int MT = 460;
  
-    REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, MF, MT ) );
+    REQUIRE_THROWS( TabulationRecord( begin, end, lineNumber, MAT, MF, MT ) );
   }
   
   GIVEN( "Negative NR" ){
@@ -202,7 +202,7 @@ SCENARIO( "UnivariateTabulation ctor",
     int MF = 1;
     int MT = 460;
    
-    REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, MF, MT ) );
+    REQUIRE_THROWS( TabulationRecord( begin, end, lineNumber, MAT, MF, MT ) );
   }
   
   GIVEN( "Negative NP value" ){
@@ -218,7 +218,7 @@ SCENARIO( "UnivariateTabulation ctor",
     int MF = 1;
     int MT = 460;
    
-    REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, MF, MT ) );
+    REQUIRE_THROWS( TabulationRecord( begin, end, lineNumber, MAT, MF, MT ) );
   }
   
   GIVEN( "Zero NR" ){
@@ -234,7 +234,7 @@ SCENARIO( "UnivariateTabulation ctor",
     int MF = 1;
     int MT = 460;
    
-    REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, MF, MT ) );
+    REQUIRE_THROWS( TabulationRecord( begin, end, lineNumber, MAT, MF, MT ) );
   }
 
   GIVEN( "Zero NP" ){
@@ -250,6 +250,6 @@ SCENARIO( "UnivariateTabulation ctor",
     int MF = 1;
     int MT = 460;
    
-    REQUIRE_THROWS( UnivariateTabulation( begin, end, lineNumber, MAT, MF, MT ) );
+    REQUIRE_THROWS( TabulationRecord( begin, end, lineNumber, MAT, MF, MT ) );
   }
 }

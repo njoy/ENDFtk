@@ -3,9 +3,9 @@
 
 using namespace njoy::ENDFtk;
 
-extern std::function< UnivariateTabulation() > makeTAB1;
+extern std::function< TabulationRecord() > makeTAB1;
 
-SCENARIO( "UnivariateTabulation regions", "[ENDFtk], [UnivariateTabulation]" ){
+SCENARIO( "TabulationRecord regions", "[ENDFtk], [TabulationRecord]" ){
   auto tab1 = makeTAB1();
   std::vector< std::vector< double > > xValues { { 1.0, 2.0, 3.0, 4.0 },
                                                  { 4.0, 5.0 },

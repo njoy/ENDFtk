@@ -1,4 +1,4 @@
-UnivariateTabulation
+TabulationRecord
 ( double C1, double C2, long L1, long L2,
   std::vector< long >&& boundaryIndices,
   std::vector< long >&& interpolationSchemeIndices,
@@ -17,11 +17,11 @@ UnivariateTabulation
     throw e;
   }
 
-UnivariateTabulation
+TabulationRecord
 ( double C1, double C2, long L1, long L2,
   std::tuple< std::vector< long >, std::vector< long > >&& regions,
   std::tuple< std::vector< double >, std::vector< double > >&& points ) :
-  UnivariateTabulation( C1, C2, L1, L2,
+  TabulationRecord( C1, C2, L1, L2,
                         std::move( std::get<0>(regions) ),
                         std::move( std::get<1>(regions) ),
                         std::move( std::get<0>(points) ),
@@ -29,7 +29,7 @@ UnivariateTabulation
 
 protected:
 
-UnivariateTabulation
+TabulationRecord
 ( InterpolationBase&& interpolation,
   std::tuple< std::vector< double >, std::vector< double > >&& points ) :
   InterpolationBase( std::move( interpolation ) ),
@@ -37,19 +37,19 @@ UnivariateTabulation
   yValues( std::move( std::get<1>( points ) ) ) {}
 
 template< typename Iterator >
-UnivariateTabulation
+TabulationRecord
 ( InterpolationBase&& interpolation,
   Iterator& it, const Iterator& end, long& lineNumber,
   int MAT, int MF, int MT  ) :
-  UnivariateTabulation( std::move( interpolation ),
+  TabulationRecord( std::move( interpolation ),
                         readPairs( interpolation.N2(), it, end, lineNumber, MAT, MF, MT ) ) {}
 
 public:
 
 template< typename Iterator >
-UnivariateTabulation( Iterator& it, const Iterator& end, long& lineNumber,
+TabulationRecord( Iterator& it, const Iterator& end, long& lineNumber,
                       int MAT, int MF, int MT )
-  try: UnivariateTabulation( InterpolationBase( it, end, lineNumber, MAT, MF, MT ),
+  try: TabulationRecord( InterpolationBase( it, end, lineNumber, MAT, MF, MT ),
                              it, end, lineNumber, MAT, MF, MT ) {}
   catch ( IllegalN2& e ) {
     Log::error( "Illegal NP value encountered" );

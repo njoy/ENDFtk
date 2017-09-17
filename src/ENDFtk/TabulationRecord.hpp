@@ -1,13 +1,13 @@
-class UnivariateTabulation : protected record::InterpolationBase {
+class TabulationRecord : protected record::InterpolationBase {
 
   /* fields */
   std::vector< double > xValues;
   std::vector< double > yValues;
 
   /* helper methods */
-#include "ENDFtk/UnivariateTabulation/src/verifyVectorSizes.hpp"
-#include "ENDFtk/UnivariateTabulation/src/verifyXValuesAreSorted.hpp"
-#include "ENDFtk/UnivariateTabulation/src/readPairs.hpp"
+#include "ENDFtk/TabulationRecord/src/verifyVectorSizes.hpp"
+#include "ENDFtk/TabulationRecord/src/verifyXValuesAreSorted.hpp"
+#include "ENDFtk/TabulationRecord/src/readPairs.hpp"
 
   auto regions( size_t index ) const {
     const auto left = index ? this->boundaries()[ index - 1 ] - 1 : 0;
@@ -22,7 +22,7 @@ class UnivariateTabulation : protected record::InterpolationBase {
   }
   
 public:
-#include "ENDFtk/UnivariateTabulation/src/ctor.hpp"
+#include "ENDFtk/TabulationRecord/src/ctor.hpp"
 
   using InterpolationBase::C1;
   using InterpolationBase::C2;
@@ -55,13 +55,13 @@ public:
       | ranges::view::transform( [this ]( int i ){ return this->regions(i); } );
   }
 
-  bool operator==( const UnivariateTabulation& rhs ) const {
+  bool operator==( const TabulationRecord& rhs ) const {
       return ( InterpolationBase::operator==( static_cast<const InterpolationBase&>( rhs ) ) )
       && ( this->xValues == rhs.xValues )
       && ( this->yValues == rhs.yValues );
   }
 
-  bool operator!=( const UnivariateTabulation& rhs ) const {
+  bool operator!=( const TabulationRecord& rhs ) const {
     return not ( *this == rhs );
   }
 
@@ -69,5 +69,5 @@ public:
     return record::InterpolationBase::NC() + ( this->NP() + 2 ) / 3;
   }
 
-  #include "ENDFtk/UnivariateTabulation/src/print.hpp"
+  #include "ENDFtk/TabulationRecord/src/print.hpp"
 };

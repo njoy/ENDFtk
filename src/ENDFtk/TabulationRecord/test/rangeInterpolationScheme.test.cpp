@@ -3,10 +3,10 @@
 
 using namespace njoy::ENDFtk;
 
-extern std::function< UnivariateTabulation() > makeTAB1;
+extern std::function< TabulationRecord() > makeTAB1;
 
-SCENARIO( "UnivariateTabulation rangeInterpolationScheme",
-          "[ENDFtk], [UnivariateTabulation]" ){
+SCENARIO( "TabulationRecord rangeInterpolationScheme",
+          "[ENDFtk], [TabulationRecord]" ){
   auto tab1 = makeTAB1();
   std::vector< long > interpolationScheme{1,2,3};
   
