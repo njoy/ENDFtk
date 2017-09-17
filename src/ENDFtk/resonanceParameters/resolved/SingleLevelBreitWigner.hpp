@@ -17,6 +17,10 @@ public:
                  " single level Breit-Wigner resonance parameter subsection" );
       throw e;
     }
+
+  static constexpr int LRF() { return 1; }
+  
+  #include "ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner/src/print.hpp"
 };
 
 using SLBW = SingleLevelBreitWigner;

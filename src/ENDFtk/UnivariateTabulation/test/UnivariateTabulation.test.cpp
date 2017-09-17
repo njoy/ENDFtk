@@ -77,10 +77,10 @@ SCENARIO( "UnivariateTabulation ctor",
     
   GIVEN( "single region TAB1 with incorrect tail values" ){
     std::string tab1 =
-      " 0.000000+0 0.000000+0         33          0          1          49328 1460  438\n"
-      "          4          4                                            9228 1460  439\n"
-      " 1.000000+1 1.725000+1 1.500000+1 1.850000+1 1.900000+1 1.975000+09228 1460  440\n"
-      " 2.700000+1 1.605000+1                                            9228 1460  441\n";
+      " 0.000000+0 0.000000+0         33          0          1          49328 1460     \n"
+      "          4          4                                            9228 1460     \n"
+      " 1.000000+1 1.725000+1 1.500000+1 1.850000+1 1.900000+1 1.975000+09228 1460     \n"
+      " 2.700000+1 1.605000+1                                            9228 1460     \n";
 
     WHEN( "constructed with incorrect 'tail' values" ){
       auto begin = tab1.begin();
@@ -96,10 +96,10 @@ SCENARIO( "UnivariateTabulation ctor",
 
   GIVEN( "single region TAB1" ){
     std::string tab1 = 
-      " 0.000000+0 0.000000+0         33          0          1          49228 1460  438\n"
-      "          4          4                                            9228 1460  439\n"
-      " 1.000000+1 1.725000+1 1.500000+1 1.850000+1 1.900000+1 1.975000+09228 1460  440\n"
-      " 2.700000+1 1.605000+1                                            9228 1460  441\n";
+      " 0.000000+0 0.000000+0         33          0          1          49228 1460     \n"
+      "          4          4                                            9228 1460     \n"
+      " 1.000000+1 1.725000+1 1.500000+1 1.850000+1 1.900000+1 1.975000+09228 1460     \n"
+      " 2.700000+1 1.605000+1                                            9228 1460     \n";
     
     WHEN( "constructed with correct 'tail' values" ){
       auto begin = tab1.begin();
@@ -114,6 +114,34 @@ SCENARIO( "UnivariateTabulation ctor",
       REQUIRE( tab1_1.NP() == 4 );
 
     } 
+
+    SECTION( "print" ){
+      auto begin = tab1.begin();
+      auto end = tab1.end();
+      auto lineNumber = 438l;
+      int MAT = 9228;
+      int MF = 1;
+      int MT = 460;
+      
+      UnivariateTabulation table( begin, end, lineNumber, MAT, MF, MT );
+      std::string buffer;
+      auto output = std::back_inserter( buffer );
+      table.print( output, MAT, MF, MT );
+      
+      REQUIRE( buffer == tab1 );
+    }
+
+    SECTION( "NC" ){
+      auto begin = tab1.begin();
+      auto end = tab1.end();
+      auto lineNumber = 438l;
+      int MAT = 9228;
+      int MF = 1;
+      int MT = 460;
+      
+      UnivariateTabulation table( begin, end, lineNumber, MAT, MF, MT );
+      REQUIRE( table.NC() == 4 );
+    }
     
     WHEN( "constructed with incorrect 'tail' values" ){
       auto begin = tab1.begin();

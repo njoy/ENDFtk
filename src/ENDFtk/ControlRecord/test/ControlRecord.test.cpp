@@ -7,7 +7,7 @@ using namespace njoy::ENDFtk;
 
 SCENARIO( "ControlRecord Tests", "[ENDFtk], [ControlRecord]" ){
   std::string line =
-    " 1.001000+3 9.991673-1          0          0          0          5 125 1451    1\n";
+    " 1.001000+3 9.991673-1          0          0          0          5 125 1451     \n";
 
   auto values = std::make_tuple( 1.001000E+3, 9.991673E-1, 0, 0, 0, 5 );
 
@@ -17,6 +17,7 @@ SCENARIO( "ControlRecord Tests", "[ENDFtk], [ControlRecord]" ){
                      std::get< 2 >(values), std::get< 3 >(values),
                      std::get< 4 >(values), std::get< 5 >(values) ) );
   }
+  
   GIVEN( "iterators and a line number"){
     auto it = line.begin();
     auto end = line.end();
@@ -35,6 +36,29 @@ SCENARIO( "ControlRecord Tests", "[ENDFtk], [ControlRecord]" ){
       REQUIRE_THROWS( ControlRecord( it, end, lineNumber, 125, 1, 452 ) );
     }
   }
+
+  SECTION("print"){
+    auto it = line.begin();
+    auto end = line.end();
+    auto lineNumber = 0l;
+
+    std::string buffer;
+    auto output = std::back_inserter( buffer );
+    
+    const auto cont = ControlRecord( it, end, lineNumber, 125, 1, 451 );
+    cont.print( output, 125, 1, 451 );
+
+    REQUIRE( buffer == line );
+  }
+
+  SECTION("NC"){
+    auto it = line.begin();
+    auto end = line.end();
+    auto lineNumber = 0l;
+    
+    REQUIRE( 1 == ControlRecord( it, end, lineNumber, 125, 1, 451 ).NC() );
+  }
+  
   GIVEN( "A constructed control record"){
     auto it = line.begin();
     auto end = line.end();

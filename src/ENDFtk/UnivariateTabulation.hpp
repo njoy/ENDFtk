@@ -64,4 +64,10 @@ public:
   bool operator!=( const UnivariateTabulation& rhs ) const {
     return not ( *this == rhs );
   }
+
+  int NC() const {
+    return record::InterpolationBase::NC() + ( this->NP() + 2 ) / 3;
+  }
+
+  #include "ENDFtk/UnivariateTabulation/src/print.hpp"
 };

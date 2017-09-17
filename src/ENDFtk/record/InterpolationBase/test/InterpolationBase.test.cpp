@@ -51,8 +51,8 @@ SCENARIO( "InterpolationBase ctor",
 
   GIVEN( "single region InterpolationBase" ){
     std::string interpolation =
-      " 0.000000+0 0.000000+0         33          0          1          49228 1460  438\n"
-      "          4          4                                            9228 1460  439\n";
+      " 0.000000+0 0.000000+0         33          0          1          49228 1460     \n"
+      "          4          4                                            9228 1460     \n";
     
     WHEN( "constructed with correct 'tail' values" ){
       auto begin = interpolation.begin();
@@ -79,6 +79,37 @@ SCENARIO( "InterpolationBase ctor",
       REQUIRE_THROWS( InterpolationBase( begin, end, lineNumber, 9328, MF, MT ) );
       REQUIRE_THROWS( InterpolationBase( begin, end, lineNumber, MAT, 17, MT ) );
       REQUIRE_THROWS( InterpolationBase( begin, end, lineNumber, MAT, MF, 15 ) );
+    }
+
+    SECTION( "print" ){
+      auto begin = interpolation.begin();
+      auto end = interpolation.end();
+      auto lineNumber = 438l;
+      int MAT = 9228;
+      int MF = 1;
+      int MT = 460;
+
+      std::string buffer;
+      auto output = std::back_inserter( buffer );
+
+      const auto base = InterpolationBase( begin, end, lineNumber, MAT, MF, MT );
+      base.print( output, MAT, MF, MT );
+      
+      REQUIRE( buffer == interpolation );
+    }
+
+    SECTION( "NC" ){
+      auto begin = interpolation.begin();
+      auto end = interpolation.end();
+      auto lineNumber = 438l;
+      int MAT = 9228;
+      int MF = 1;
+      int MT = 460;
+
+      std::string buffer;
+
+      const auto base = InterpolationBase( begin, end, lineNumber, MAT, MF, MT );
+      REQUIRE( base.NC() == 2 );
     }
   }
   

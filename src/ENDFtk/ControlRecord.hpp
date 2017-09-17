@@ -54,4 +54,8 @@ public:
   operator!=( const ControlRecord& rhs ) const {
     return not( *this == rhs );
   }
+
+  int NC() const { return 1; }
+  
+  #include "ENDFtk/ControlRecord/src/print.hpp"
 };

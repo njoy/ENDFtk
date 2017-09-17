@@ -1,5 +1,5 @@
 template< typename Iterator >
-static auto
+auto
 readAPE( const Base& base,
          Iterator& it, const Iterator& end, long& lineNumber,
          int MAT, int MF, int MT ){

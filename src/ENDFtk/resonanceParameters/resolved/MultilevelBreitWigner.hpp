@@ -16,6 +16,10 @@ public:
                  "multilevel Breit-Wigner resonance parameter subsection" );
       throw e;
     }
+
+  static constexpr int LRF() { return 2; }
+
+  #include "ENDFtk/resonanceParameters/resolved/MultilevelBreitWigner/src/print.hpp"
 };
 
 using MLBW = MultilevelBreitWigner;

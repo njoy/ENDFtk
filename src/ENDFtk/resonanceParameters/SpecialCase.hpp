@@ -10,6 +10,12 @@ public:
   double SPI() const { return this->spi; }
   double AP() const { return this->ap; }
   
+  static constexpr int LRU(){ return 0; }
+  static constexpr int LRF(){ return 0; }
+  static constexpr int NRO(){ return 0; }
+  static constexpr int NAPS(){ return 0; }
+  static constexpr int NLS(){ return 0; }
+  
   SpecialCase( double EL, double EH, double SPI, double AP ) :
     el( EL ), eh( EH ), spi( SPI ), ap( AP ) {
     try{
@@ -74,4 +80,8 @@ public:
                  " resonance parameter subsections" );
       throw e;
     }
+
+  int NC() const { return 2; }
+
+  #include "ENDFtk/resonanceParameters/SpecialCase/src/print.hpp"
 };

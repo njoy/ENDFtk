@@ -8,8 +8,6 @@ protected:
   double spi;
   double ap;
   
-#include "ENDFtk/resonanceParameters/resolved/BreitWigner/src/readAPE.hpp"
-#include "ENDFtk/resonanceParameters/resolved/BreitWigner/src/readLists.hpp"
 #include "ENDFtk/resonanceParameters/resolved/BreitWigner/src/validate.hpp"
 #include "ENDFtk/resonanceParameters/resolved/BreitWigner/src/ctor.hpp"
 
@@ -18,6 +16,8 @@ public:
   double EH() const { return this->eh; }
   int NRO() const { return bool(this->ape); }
   int NAPS() const { return this->naps; }
+
+  static constexpr int LRU() { return 1; }
   
   const auto& APE() const { return *(this->ape); }
 
@@ -28,4 +28,15 @@ public:
   auto LISTS() const {
     return ranges::make_iterator_range( this->lists.begin(), this->lists.end() );
   }
+
+  int NC() const {
+    return 2
+      + ( ( this->ape ) ? this->ape->NC() : 0 )
+      + ranges::accumulate
+        ( this->lists
+          | ranges::view::transform
+            ( []( const auto& list ){ return list.NC(); } ), 0 );
+  }
+
+  #include "ENDFtk/resonanceParameters/resolved/BreitWigner/src/print.hpp"
 };

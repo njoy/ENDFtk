@@ -41,7 +41,7 @@ ReichMoore( const Base& base,
             Iterator& it, const Iterator& end, long& lineNumber,
             int MAT, int MF, int MT ) :
   ReichMoore( base, std::move( APE ), cont, 
-              readLists( cont, it, end, lineNumber, MAT, MF, MT ) ){}
+              readLISTs( cont, it, end, lineNumber, MAT, MF, MT ) ){}
   
 template< typename Iterator >
 ReichMoore( const Base& base,
@@ -59,7 +59,7 @@ ReichMoore( const Base& base,
             int MAT, int MF, int MT )
   try:
     ReichMoore( base, 
-                BreitWigner::readAPE( base, it, end, lineNumber, MAT, MF, MT ),
+                readAPE( base, it, end, lineNumber, MAT, MF, MT ),
                 it, end, lineNumber, MAT, MF, MT ) {
     this->validate();
   } catch( std::exception& e ) {
