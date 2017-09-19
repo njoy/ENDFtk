@@ -21,7 +21,10 @@ EnergyDependent( double EL, double EH, int NAPS,
 EnergyDependent( double EL, double EH, int NAPS,
                  double SPI, double AP, int LSSF,
                  std::vector< Lvalue >&& lValues ) :
-  EnergyDependent( EL, EH, NAPS, std::nullopt, SPI, AP, LSSF, std::move(lValues) ){}
+  EnergyDependent( EL, EH, NAPS,
+                   std::nullopt,
+                   SPI, AP, LSSF,
+                   std::move(lValues) ){}
 
 protected:
 template< typename Iterator >
@@ -33,7 +36,8 @@ EnergyDependent( const Base& base,
     EnergyDependent( base.EL(), base.EH(), base.NAPS(),
                      std::move( APE ),
                      cont.C1(), cont.C2(), cont.L1(),
-                     readLvalues( cont.N1(), it, end, lineNumber, MAT, MF, MT ) ){}
+                     read<Lvalue>( cont.N1(),
+                                   it, end, lineNumber, MAT, MF, MT ) ){}
   
 template< typename Iterator >
 EnergyDependent( const Base& base,

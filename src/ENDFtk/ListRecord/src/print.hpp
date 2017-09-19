@@ -23,7 +23,7 @@ void print( OutputIterator& it, int MAT, int MF, int MT ) const {
     
     auto entry = this->list().begin();
 
-    for ( ; nFullLines--; entry += 6 ){
+    for ( ; nFullLines-- != 0; entry += 6 ){
       Format::write( it,
                      entry[0], entry[1], entry[2],
                      entry[3], entry[4], entry[5],

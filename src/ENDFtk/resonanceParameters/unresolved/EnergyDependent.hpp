@@ -14,8 +14,6 @@ protected:
   double ap;
   int lssf;
 
-  #include "ENDFtk/resonanceParameters/unresolved/EnergyDependent/src/readLvalues.hpp"
-  
 public:
   #include "ENDFtk/resonanceParameters/unresolved/EnergyDependent/src/ctor.hpp"
   

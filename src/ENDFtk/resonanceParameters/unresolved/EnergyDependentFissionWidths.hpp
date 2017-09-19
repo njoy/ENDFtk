@@ -11,8 +11,6 @@ protected:
   double eh;
   int naps;
 
-  #include "ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/readLvalues.hpp"
-
 public:
   #include "ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/ctor.hpp"
   

@@ -1,8 +1,8 @@
-template< typename Iterator >
+template< typename Lvalue, typename Iterator >
 static std::vector< Lvalue >
-readLvalues( int NLS,
-             Iterator& it, const Iterator& end, long& lineNumber,
-             int MAT, int MF, int MT ) {
+read( int NLS,
+      Iterator& it, const Iterator& end, long& lineNumber,
+      int MAT, int MF, int MT ) {
   std::vector< Lvalue > lValues;
 
   if ( NLS < 1 ){

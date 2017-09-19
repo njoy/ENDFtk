@@ -30,20 +30,23 @@ template< typename Iterator >
 EnergyDependentFissionWidths( const Base& base,
                               std::optional<TAB1>&& APE,
                               LIST&& list,
-                              Iterator& it, const Iterator& end, long& lineNumber,
+                              Iterator& it, const Iterator& end,
+                              long& lineNumber,
                               int MAT, int MF, int MT ) :
   EnergyDependentFissionWidths( base.EL(),
                                 base.EH(),
                                 base.NAPS(),
                                 std::move( APE ),
                                 std::move( list ),
-                                readLvalues( list.N2(),
-                                             it, end, lineNumber, MAT, MF, MT ) ){} 
+                                read<Lvalue>( list.N2(),
+                                              it, end, lineNumber,
+                                              MAT, MF, MT ) ){} 
 
 template< typename Iterator >
 EnergyDependentFissionWidths( const Base& base,
                               std::optional<TAB1>&& APE,
-                              Iterator& it, const Iterator& end, long& lineNumber,
+                              Iterator& it, const Iterator& end,
+                              long& lineNumber,
                               int MAT, int MF, int MT ) :
   EnergyDependentFissionWidths( base, 
                                 std::move( APE ),
