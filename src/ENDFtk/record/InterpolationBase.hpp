@@ -1,5 +1,4 @@
 class InterpolationBase {
-
   /* convenience typedefs */
   using Base = record::Base< record::Real, record::Real,
                              record::Integer< 11 >, record::Integer< 11 >,
@@ -76,4 +75,8 @@ public:
   bool operator!=( const InterpolationBase& rhs ) const {
     return not ( *this == rhs );
   }
+
+  long NC() const { return 1 + ( this->NR() + 2 ) / 3; }
+
+  #include "ENDFtk/record/InterpolationBase/src/print.hpp"
 };

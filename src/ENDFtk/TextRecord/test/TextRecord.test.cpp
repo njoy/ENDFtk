@@ -7,7 +7,7 @@ using namespace njoy::ENDFtk;
 
 SCENARIO( "TextRecord Tests", "[ENDFtk], [TextRecord]" ){
   std::string line = 
-    "The new R-matrix analysis of the N-N system on which the ENDF/B-   125 1451   12\n";
+    "The new R-matrix analysis of the N-N system on which the ENDF/B-   125 1451     \n";
 
   std::string text = 
     "The new R-matrix analysis of the N-N system on which the ENDF/B-  ";
@@ -15,6 +15,7 @@ SCENARIO( "TextRecord Tests", "[ENDFtk], [TextRecord]" ){
   GIVEN( "a string ravlue, the ctor works"){
     REQUIRE_NOTHROW( TextRecord( njoy::utility::copy(text) ) );
   }
+
   GIVEN( "iterators and a line number"){
     auto it = line.begin();
     auto end = line.end();
@@ -33,6 +34,31 @@ SCENARIO( "TextRecord Tests", "[ENDFtk], [TextRecord]" ){
       REQUIRE_THROWS( TextRecord( it, end, lineNumber, 125, 1, 452 ) );
     }
   }
+
+  SECTION( "print" ){
+    auto it = line.begin();
+    auto end = line.end();
+    auto lineNumber = 0l;
+    int MAT = 125;
+    int MF = 1;
+    int MT = 451;
+    
+    const auto textRecord = TextRecord( it, end, lineNumber, 125, 1, 451 );
+    std::string buffer;
+    auto output = std::back_inserter( buffer );
+    textRecord.print( output, MAT, MF, MT );
+      
+    REQUIRE( buffer == line );
+  }
+
+  SECTION( "NC" ){
+    auto it = line.begin();
+    auto end = line.end();
+    auto lineNumber = 0l;
+    const auto textRecord = TextRecord( it, end, lineNumber, 125, 1, 451 );
+    REQUIRE( textRecord.NC() == 1 );
+  }
+  
   GIVEN( "A constructed text record"){
     auto it = line.begin();
     auto end = line.end();
@@ -41,6 +67,7 @@ SCENARIO( "TextRecord Tests", "[ENDFtk], [TextRecord]" ){
     const auto& constTextRecord0 = textRecord0;
     auto textRecord1 = TextRecord( njoy::utility::copy( text ) );
     const auto& constTextRecord1 = textRecord1;
+
     THEN( "the getter will work" ){
       REQUIRE( textRecord0.text() == text );
       REQUIRE( textRecord1.text() == text );
@@ -53,6 +80,7 @@ SCENARIO( "TextRecord Tests", "[ENDFtk], [TextRecord]" ){
       /* can't assign to const. doesn't compile */
       // constTextRecord0.text() = "foobar";
     }
+    
     THEN( "the equality and inequality operators will work" ){
       REQUIRE( textRecord0 == textRecord1 );
       textRecord0.text() = "foobar";
@@ -60,6 +88,7 @@ SCENARIO( "TextRecord Tests", "[ENDFtk], [TextRecord]" ){
       REQUIRE( textRecord0 != textRecord1 );
     }
   }
+  
   GIVEN("A line with a typo"){
     std::string line = 
       "The new R-matrix analysis of the N-N system on which the ENDF/B-   1a5 1451   12\n";

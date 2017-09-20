@@ -26,12 +26,14 @@ SCENARIO( "Testing resolved Resonance Base" ){
         REQUIRE_THROWS( resonanceParameters::Base(1.1, 1.0, 1, 1, 0, 1) );
       }
     }
+
     WHEN( "invalid LRU" ){
       THEN( "an exception is thrown" ){
         REQUIRE_THROWS( resonanceParameters::Base(0.1, 1.0, -1, 1, 0, 1) );
         REQUIRE_THROWS( resonanceParameters::Base(0.1, 1.0, 3, 1, 0, 1) );
       }
     }
+    
     WHEN("LRU is zero"){
       WHEN( "and nonzero LRF" ){
         THEN( "an exception is thrown" ){
@@ -40,6 +42,7 @@ SCENARIO( "Testing resolved Resonance Base" ){
         }
       }
     }
+    
     WHEN("LRU is one"){
       WHEN( "and illegal LRF" ){
         THEN( "an exception is thrown" ){
@@ -49,6 +52,7 @@ SCENARIO( "Testing resolved Resonance Base" ){
           REQUIRE_THROWS( resonanceParameters::Base(0.1, 1.0, 1, 8, 0, 1) );
         }
       }
+      
       WHEN( "and legal LRF" ){
         REQUIRE_NOTHROW( resonanceParameters::Base(0.1, 1.0, 1, 1, 0, 1) );
         REQUIRE_NOTHROW( resonanceParameters::Base(0.1, 1.0, 1, 2, 0, 1) );
@@ -57,22 +61,26 @@ SCENARIO( "Testing resolved Resonance Base" ){
         REQUIRE_NOTHROW( resonanceParameters::Base(0.1, 1.0, 1, 7, 0, 1) );
       }
     }
+    
     WHEN("LRU is two"){
       WHEN( "and illegal LRF" ){
         REQUIRE_THROWS( resonanceParameters::Base(0.1, 1.0, 2, 0, 0, 1) );
         REQUIRE_THROWS( resonanceParameters::Base(0.1, 1.0, 2, 3, 0, 1) );
       }
+      
       WHEN( "and legal LRF" ){
         REQUIRE_NOTHROW( resonanceParameters::Base(0.1, 1.0, 2, 1, 0, 1) );
         REQUIRE_NOTHROW( resonanceParameters::Base(0.1, 1.0, 2, 2, 0, 1) );
       }      
-    }    
+    }
+    
     WHEN( "invalid NRO parameter" ){
       THEN( "an exception is thrown" ){
         REQUIRE_THROWS( resonanceParameters::Base(1E-5, 1.0, 1, 1, -1, 1) );
         REQUIRE_THROWS( resonanceParameters::Base(1E-5, 1.0, 1, 1, 2, 1) );
       }
     }
+    
     WHEN( "invalid NAPS parameter" ){
       THEN( "an exception is thrown" ){
         REQUIRE_THROWS( resonanceParameters::Base(1E-5, 1.0, 1, 1, 0, -1) );
@@ -82,5 +90,4 @@ SCENARIO( "Testing resolved Resonance Base" ){
       }
     }
   }
-
 }

@@ -41,7 +41,7 @@ BreitWigner( const Base& base,
              Iterator& it, const Iterator& end, long& lineNumber,
              int MAT, int MF, int MT ) :
   BreitWigner( base, std::move( APE ), cont, 
-               readLists( cont, it, end, lineNumber, MAT, MF, MT ) ){}
+               readLISTs( cont, it, end, lineNumber, MAT, MF, MT ) ){}
   
 template< typename Iterator >
 BreitWigner( const Base& base,

@@ -65,8 +65,8 @@ using LIST = ListRecord;
 #include "ENDFtk/InterpolationRecord.hpp"
 using TAB2 = InterpolationRecord;
 
-#include "ENDFtk/UnivariateTabulation.hpp"
-using TAB1 = UnivariateTabulation;
+#include "ENDFtk/TabulationRecord.hpp"
+using TAB1 = TabulationRecord;
 
 #include "ENDFtk/resonanceParameters.hpp"
 
