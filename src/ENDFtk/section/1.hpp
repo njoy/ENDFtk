@@ -95,7 +95,7 @@ public:
     /* fields */
     long lnu_;
     ListRecord polynomial_;
-    UnivariateTabulation tabulated_;
+    TabulationRecord tabulated_;
 
   public:
 
@@ -109,7 +109,7 @@ public:
 
     // @todo extract values
     const ListRecord& polynomial() const { return this->polynomial_; }
-    const UnivariateTabulation& tabulated() const { return this->tabulated_; }
+    const TabulationRecord& tabulated() const { return this->tabulated_; }
 
     using Base::MT;
     using Base::ZA;
@@ -197,7 +197,7 @@ public:
   template < bool B > class DataType< 460, B > : protected Base {
 
     /* fields */
-    std::vector< UnivariateTabulation > discrete_; // LO=1
+    std::vector< TabulationRecord > discrete_;     // LO=1
     ListRecord continuous_;                        // LO=2
 
     // @todo store this as a variant because it is either of these two?
