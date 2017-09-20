@@ -35,20 +35,20 @@ public:
     long& NMOD() { return this->nmod_; }
 
     /* implement set methods on ContRecord to enable this
-    double& ELIS() { return std::get<0>(this->parameters_).C1(); }
-    double& STA() { return std::get<0>(this->parameters_).C2(); }
-    long& LIS() { return std::get<0>(this->parameters_).L1(); }
-    long& LISO() { return std::get<0>(this->parameters_).L2(); }
-    long& NFOR() { return std::get<0>(this->parameters_).N2(); }
+    double& ELIS() { return std::get<0>( this->parameters_ ).C1(); }
+    double& STA() { return std::get<0>( this->parameters_ ).C2(); }
+    long& LIS() { return std::get<0>( this->parameters_ ).L1(); }
+    long& LISO() { return std::get<0>( this->parameters_ ).L2(); }
+    long& NFOR() { return std::get<0>( this->parameters_ ).N2(); }
 
-    double& AWI() { return std::get<1>(this->parameters_).C1(); }
-    double& EMAX() { return std::get<1>(this->parameters_).C2(); }
-    long& LREL() { return std::get<1>(this->parameters_).L1(); }
-    long& NSUB() { return std::get<1>(this->parameters_).N1(); }
-    long& NVER() { return std::get<1>(this->parameters_).N2(); }
+    double& AWI() { return std::get<1>( this->parameters_ ).C1(); }
+    double& EMAX() { return std::get<1>( this->parameters_ ).C2(); }
+    long& LREL() { return std::get<1>( this->parameters_ ).L1(); }
+    long& NSUB() { return std::get<1>( this->parameters_ ).N1(); }
+    long& NVER() { return std::get<1>( this->parameters_ ).N2(); }
 
-    double& TEMP() { return std::get<2>(this->parameters_).C1(); }
-    long& LDRV() { return std::get<2>(this->parameters_).L1(); }
+    double& TEMP() { return std::get<2>( this->parameters_ ).C1(); }
+    long& LDRV() { return std::get<2>( this->parameters_ ).L1(); }
     */
 
     // @todo erase and replace descriptive text
