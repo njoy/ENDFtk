@@ -81,7 +81,7 @@ public:
       throw e;
     }
 
-  int NC() const { return 2; }
+  long NC() const { return 2; }
 
   #include "ENDFtk/resonanceParameters/SpecialCase/src/print.hpp"
 };

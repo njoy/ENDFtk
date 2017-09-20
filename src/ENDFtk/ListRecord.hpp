@@ -75,7 +75,7 @@ public:
     return not ( *this == rhs );
   }
 
-  int NC() const { return 1 + ( this->NPL() + 5 ) / 6; }
+  long NC() const { return 1 + ( this->NPL() + 5 ) / 6; }
   
   #include "ENDFtk/ListRecord/src/print.hpp"
 };

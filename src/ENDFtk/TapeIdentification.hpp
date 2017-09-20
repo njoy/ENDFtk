@@ -34,7 +34,7 @@ public:
   int& NTAPE(){ return this->tapeNumber(); }
   int NTAPE() const { return this->tapeNumber(); }
 
-  int NC() const { return 1; }
+  long NC() const { return 1; }
 
   #include "ENDFtk/TapeIdentification/src/print.hpp"
 };

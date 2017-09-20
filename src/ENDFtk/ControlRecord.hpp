@@ -55,7 +55,7 @@ public:
     return not( *this == rhs );
   }
 
-  int NC() const { return 1; }
+  long NC() const { return 1; }
   
   #include "ENDFtk/ControlRecord/src/print.hpp"
 };

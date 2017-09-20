@@ -65,7 +65,7 @@ public:
     return not ( *this == rhs );
   }
 
-  int NC() const {
+  long NC() const {
     return record::InterpolationBase::NC() + ( this->NP() + 2 ) / 3;
   }
 

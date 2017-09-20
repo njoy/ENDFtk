@@ -37,7 +37,7 @@ public:
       ranges::make_iterator_range( this->lValues_.begin(), this->lValues_.end() );
   }
   
-  int NC() const {
+  long NC() const {
     return 1
       + ( ( this->ape ) ? this->ape->NC() : 0 )
       + this->list.NC()

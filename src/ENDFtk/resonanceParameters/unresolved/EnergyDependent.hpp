@@ -36,7 +36,7 @@ public:
                                         this->lValues_.end() );
   }
 
-  int NC() const {
+  long NC() const {
     return 2
       + ( ( this->ape ) ? this->ape->NC() : 0 )
       + ranges::accumulate

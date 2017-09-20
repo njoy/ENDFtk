@@ -17,7 +17,7 @@ public:
       | ranges::view::transform( []( const auto& list ){ return Jvalue(list); } );
   }
 
-  int NC() const {
+  long NC() const {
     return 1
       + ranges::accumulate( this->lists
                             | ranges::view::transform

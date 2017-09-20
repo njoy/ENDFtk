@@ -76,7 +76,7 @@ public:
     return not ( *this == rhs );
   }
 
-  int NC() const { return 1 + ( this->NR() + 2 ) / 3; }
+  long NC() const { return 1 + ( this->NR() + 2 ) / 3; }
 
   #include "ENDFtk/record/InterpolationBase/src/print.hpp"
 };

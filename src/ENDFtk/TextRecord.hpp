@@ -36,7 +36,7 @@ public:
   bool
   operator!=( const TextRecord& rhs ) const { return not( *this == rhs ); }
 
-  int NC() const { return 1; }
+  long NC() const { return 1; }
   
   #include "ENDFtk/TextRecord/src/print.hpp"
 };
