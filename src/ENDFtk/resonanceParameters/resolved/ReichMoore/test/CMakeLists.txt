@@ -1,5 +1,7 @@
 
-add_executable( ENDFtk.resonanceParameters.resolved.ReichMoore.test ReichMoore.test.cpp )
+add_executable( ENDFtk.resonanceParameters.resolved.ReichMoore.test
+                Lvalue.test.cpp
+                ReichMoore.test.cpp )
 target_compile_options( ENDFtk.resonanceParameters.resolved.ReichMoore.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}

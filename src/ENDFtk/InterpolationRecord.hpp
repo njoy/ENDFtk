@@ -21,4 +21,7 @@ public:
   bool operator!=( const InterpolationRecord& rhs ) const {
     return not ( *this == rhs );
   }
+
+  using record::InterpolationBase::NC;
+  using record::InterpolationBase::print;
 };

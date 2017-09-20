@@ -26,8 +26,27 @@ SCENARIO( "Testing SpecialCase (LRU=0)" ){
       REQUIRE( 2.0 == sc.EH() );
       REQUIRE( 0.5 == sc.SPI() );
       REQUIRE( 1.276553 == sc.AP() );
+      REQUIRE( 0 == sc.LRU() );
+      REQUIRE( 0 == sc.LRF() );
+      REQUIRE( 0 == sc.NRO() );
+      REQUIRE( 0 == sc.NAPS() );
+      REQUIRE( 0 == sc.NLS() );
+      REQUIRE( 2 == sc.NC() );
+
+      SECTION( "print" ){
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        sc.print( output, MAT, MF, MT );
+
+        std::string reference =
+          " 1.000000+0 2.000000+0          0          0          0          0 125 2151     \n"
+          " 5.000000-1 1.276553+0          0          0          0          0 125 2151     \n";
+
+        REQUIRE( buffer == reference );
+      }
     }
   }
+  
   GIVEN( "invalid ENDF input" ){
     std::string ENDF = 
       " 5.000000-1 1.276553+0          0          0          0          0 125 2151    4\n";

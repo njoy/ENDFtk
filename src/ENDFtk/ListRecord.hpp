@@ -74,4 +74,8 @@ public:
   bool operator!= ( const ListRecord& rhs ) const {
     return not ( *this == rhs );
   }
+
+  long NC() const { return 1 + ( this->NPL() + 5 ) / 6; }
+  
+  #include "ENDFtk/ListRecord/src/print.hpp"
 };

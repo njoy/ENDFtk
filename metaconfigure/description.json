@@ -378,15 +378,18 @@
     "src/ENDFtk/section.hpp", 
     "src/ENDFtk/StructureDivision.hpp", 
     "src/ENDFtk/syntaxTree.hpp", 
+    "src/ENDFtk/TabulationRecord.hpp", 
     "src/ENDFtk/TapeIdentification.hpp", 
     "src/ENDFtk/TextRecord.hpp", 
-    "src/ENDFtk/UnivariateTabulation.hpp", 
+    "src/ENDFtk/ControlRecord/src/print.hpp", 
+    "src/ENDFtk/DirectoryRecord/src/print.hpp", 
     "src/ENDFtk/file/Type/src/collectMap.hpp", 
     "src/ENDFtk/file/Type/src/collectVector.hpp", 
     "src/ENDFtk/file/Type/src/ctor.hpp", 
     "src/ENDFtk/file/Type/src/sectionNumber.hpp", 
     "src/ENDFtk/HeadRecord/src/asHead.hpp", 
     "src/ENDFtk/InterpolationRecord/src/ctor.hpp", 
+    "src/ENDFtk/ListRecord/src/print.hpp", 
     "src/ENDFtk/ListRecord/src/readMetadata.hpp", 
     "src/ENDFtk/record/Base.hpp", 
     "src/ENDFtk/record/Character.hpp", 
@@ -400,6 +403,7 @@
     "src/ENDFtk/record/TailVerifying.hpp", 
     "src/ENDFtk/record/Zipper.hpp", 
     "src/ENDFtk/record/InterpolationBase/src/ctor.hpp", 
+    "src/ENDFtk/record/InterpolationBase/src/print.hpp", 
     "src/ENDFtk/record/InterpolationBase/src/readMetadata.hpp", 
     "src/ENDFtk/record/InterpolationBase/src/readRangeDescriptions.hpp", 
     "src/ENDFtk/record/InterpolationBase/src/verifyBoundaryIndicesAreSorted.hpp", 
@@ -432,29 +436,44 @@
     "src/ENDFtk/resonanceParameters/resolved/ReichMoore.hpp", 
     "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited.hpp", 
     "src/ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner.hpp", 
+    "src/ENDFtk/resonanceParameters/resolved/BreitWigner/Lvalue.hpp", 
+    "src/ENDFtk/resonanceParameters/resolved/BreitWigner/Lvalue/Resonance.hpp", 
     "src/ENDFtk/resonanceParameters/resolved/BreitWigner/src/ctor.hpp", 
+    "src/ENDFtk/resonanceParameters/resolved/BreitWigner/src/print.hpp", 
     "src/ENDFtk/resonanceParameters/resolved/BreitWigner/src/readAPE.hpp", 
     "src/ENDFtk/resonanceParameters/resolved/BreitWigner/src/readLists.hpp", 
     "src/ENDFtk/resonanceParameters/resolved/BreitWigner/src/validate.hpp", 
+    "src/ENDFtk/resonanceParameters/resolved/MultilevelBreitWigner/src/print.hpp", 
+    "src/ENDFtk/resonanceParameters/resolved/ReichMoore/Lvalue.hpp", 
+    "src/ENDFtk/resonanceParameters/resolved/ReichMoore/Lvalue/Resonance.hpp", 
     "src/ENDFtk/resonanceParameters/resolved/ReichMoore/src/ctor.hpp", 
+    "src/ENDFtk/resonanceParameters/resolved/ReichMoore/src/print.hpp", 
     "src/ENDFtk/resonanceParameters/resolved/ReichMoore/src/validate.hpp", 
     "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup.hpp", 
     "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup/src/ctor.hpp", 
     "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/ctor.hpp", 
+    "src/ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner/src/print.hpp", 
+    "src/ENDFtk/resonanceParameters/SpecialCase/src/print.hpp", 
+    "src/ENDFtk/resonanceParameters/src/read.hpp", 
+    "src/ENDFtk/resonanceParameters/src/readAPE.hpp", 
+    "src/ENDFtk/resonanceParameters/src/readLISTs.hpp", 
     "src/ENDFtk/resonanceParameters/unresolved/EnergyDependent.hpp", 
     "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths.hpp", 
     "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent.hpp", 
-    "src/ENDFtk/resonanceParameters/unresolved/Unresolved.hpp", 
+    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/Jvalue.hpp", 
+    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/Lvalue.hpp", 
     "src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/src/ctor.hpp", 
+    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/src/print.hpp", 
+    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/Jvalue.hpp", 
+    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/Lvalue.hpp", 
+    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/Lvalue/src/ctor.hpp", 
+    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/Lvalue/src/print.hpp", 
     "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/ctor.hpp", 
+    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/print.hpp", 
+    "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/Jvalue.hpp", 
+    "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/Lvalue.hpp", 
     "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/src/ctor.hpp", 
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/src/readLISTs.hpp", 
-    "src/ENDFtk/resonanceParameters/unresolved/Unresolved/LState.hpp", 
-    "src/ENDFtk/resonanceParameters/unresolved/Unresolved/LState/src/ctor.hpp", 
-    "src/ENDFtk/resonanceParameters/unresolved/Unresolved/LState/src/readLists.hpp", 
-    "src/ENDFtk/resonanceParameters/unresolved/Unresolved/src/ctor.hpp", 
-    "src/ENDFtk/resonanceParameters/unresolved/Unresolved/src/readAPE.hpp", 
-    "src/ENDFtk/resonanceParameters/unresolved/Unresolved/src/readLStates.hpp", 
+    "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/src/print.hpp", 
     "src/ENDFtk/section/2.hpp", 
     "src/ENDFtk/section/3.hpp", 
     "src/ENDFtk/section/Base.hpp", 
@@ -483,10 +502,13 @@
     "src/ENDFtk/syntaxTree/Tape/src/createVector.hpp", 
     "src/ENDFtk/syntaxTree/Tape/src/ctor.hpp", 
     "src/ENDFtk/syntaxTree/Tape/src/materialNumber.hpp", 
-    "src/ENDFtk/UnivariateTabulation/src/ctor.hpp", 
-    "src/ENDFtk/UnivariateTabulation/src/readPairs.hpp", 
-    "src/ENDFtk/UnivariateTabulation/src/verifyVectorSizes.hpp", 
-    "src/ENDFtk/UnivariateTabulation/src/verifyXValuesAreSorted.hpp"
+    "src/ENDFtk/TabulationRecord/src/ctor.hpp", 
+    "src/ENDFtk/TabulationRecord/src/print.hpp", 
+    "src/ENDFtk/TabulationRecord/src/readPairs.hpp", 
+    "src/ENDFtk/TabulationRecord/src/verifyVectorSizes.hpp", 
+    "src/ENDFtk/TabulationRecord/src/verifyXValuesAreSorted.hpp", 
+    "src/ENDFtk/TapeIdentification/src/print.hpp", 
+    "src/ENDFtk/TextRecord/src/print.hpp"
   ], 
   "ignore pattern": "$^", 
   "implementation files": [], 
@@ -530,26 +552,26 @@
     "ENDFtk.StructureDivision": [
       "src/ENDFtk/StructureDivision/test/StructureDivision.test.cpp"
     ], 
+    "ENDFtk.TabulationRecord": [
+      "src/ENDFtk/TabulationRecord/test/C1.test.cpp", 
+      "src/ENDFtk/TabulationRecord/test/C2.test.cpp", 
+      "src/ENDFtk/TabulationRecord/test/equality.test.cpp", 
+      "src/ENDFtk/TabulationRecord/test/L1.test.cpp", 
+      "src/ENDFtk/TabulationRecord/test/L2.test.cpp", 
+      "src/ENDFtk/TabulationRecord/test/NP.test.cpp", 
+      "src/ENDFtk/TabulationRecord/test/NR.test.cpp", 
+      "src/ENDFtk/TabulationRecord/test/pairs.test.cpp", 
+      "src/ENDFtk/TabulationRecord/test/rangeInterpolationScheme.test.cpp", 
+      "src/ENDFtk/TabulationRecord/test/regions.test.cpp", 
+      "src/ENDFtk/TabulationRecord/test/UnivariateTabulation.test.cpp", 
+      "src/ENDFtk/TabulationRecord/test/x.test.cpp", 
+      "src/ENDFtk/TabulationRecord/test/y.test.cpp"
+    ], 
     "ENDFtk.TapeIdentification": [
       "src/ENDFtk/TapeIdentification/test/TapeIdentification.test.cpp"
     ], 
     "ENDFtk.TextRecord": [
       "src/ENDFtk/TextRecord/test/TextRecord.test.cpp"
-    ], 
-    "ENDFtk.UnivariateTabulation": [
-      "src/ENDFtk/UnivariateTabulation/test/C1.test.cpp", 
-      "src/ENDFtk/UnivariateTabulation/test/C2.test.cpp", 
-      "src/ENDFtk/UnivariateTabulation/test/equality.test.cpp", 
-      "src/ENDFtk/UnivariateTabulation/test/L1.test.cpp", 
-      "src/ENDFtk/UnivariateTabulation/test/L2.test.cpp", 
-      "src/ENDFtk/UnivariateTabulation/test/NP.test.cpp", 
-      "src/ENDFtk/UnivariateTabulation/test/NR.test.cpp", 
-      "src/ENDFtk/UnivariateTabulation/test/pairs.test.cpp", 
-      "src/ENDFtk/UnivariateTabulation/test/rangeInterpolationScheme.test.cpp", 
-      "src/ENDFtk/UnivariateTabulation/test/regions.test.cpp", 
-      "src/ENDFtk/UnivariateTabulation/test/UnivariateTabulation.test.cpp", 
-      "src/ENDFtk/UnivariateTabulation/test/x.test.cpp", 
-      "src/ENDFtk/UnivariateTabulation/test/y.test.cpp"
     ], 
     "ENDFtk.file.Type": [
       "src/ENDFtk/file/Type/test/Type.test.cpp"
@@ -600,7 +622,11 @@
       "src/ENDFtk/resonanceParameters/SpecialCase/test/SpecialCase.test.cpp"
     ], 
     "ENDFtk.resonanceParameters.resolved.BreitWigner": [
-      "src/ENDFtk/resonanceParameters/resolved/BreitWigner/test/BreitWigner.test.cpp"
+      "src/ENDFtk/resonanceParameters/resolved/BreitWigner/test/BreitWigner.test.cpp", 
+      "src/ENDFtk/resonanceParameters/resolved/BreitWigner/test/Lvalue.test.cpp"
+    ], 
+    "ENDFtk.resonanceParameters.resolved.BreitWigner.Lvalue": [
+      "src/ENDFtk/resonanceParameters/resolved/BreitWigner/Lvalue/test/Lvalue.test.cpp"
     ], 
     "ENDFtk.resonanceParameters.resolved.MultilevelBreitWigner": [
       "src/ENDFtk/resonanceParameters/resolved/MultilevelBreitWigner/test/MultilevelBreitWigner.test.cpp"
@@ -609,7 +635,11 @@
       "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup/test/SpinGroup.test.cpp"
     ], 
     "ENDFtk.resonanceParameters.resolved.ReichMoore": [
+      "src/ENDFtk/resonanceParameters/resolved/ReichMoore/test/Lvalue.test.cpp", 
       "src/ENDFtk/resonanceParameters/resolved/ReichMoore/test/ReichMoore.test.cpp"
+    ], 
+    "ENDFtk.resonanceParameters.resolved.ReichMoore.Lvalue": [
+      "src/ENDFtk/resonanceParameters/resolved/ReichMoore/Lvalue/test/Lvalue.test.cpp"
     ], 
     "ENDFtk.resonanceParameters.resolved.SingleLevelBreitWigner": [
       "src/ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner/test/SingleLevelBreitWigner.test.cpp"
@@ -622,9 +652,6 @@
     ], 
     "ENDFtk.resonanceParameters.unresolved.EnergyIndependent": [
       "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/test/EnergyIndependent.test.cpp"
-    ], 
-    "ENDFtk.resonanceParameters.unresolved.Unresolved.LState": [
-      "src/ENDFtk/resonanceParameters/unresolved/Unresolved/LState/test/LState.test.cpp"
     ], 
     "ENDFtk.section.2": [
       "src/ENDFtk/section/2/test/2.test.cpp"
