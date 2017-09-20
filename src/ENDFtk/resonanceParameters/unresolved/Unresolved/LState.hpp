@@ -4,6 +4,8 @@ protected:
   double awri;
   int l;
 
+  using Chunk = decltype( ( lists[0].B() | ranges::view::chunk(6) )[0] );
+
 #include "ENDFtk/resonanceParameters/unresolved/Unresolved/LState/src/ctor.hpp"
 #include "ENDFtk/resonanceParameters/unresolved/Unresolved/LState/src/readLists.hpp"
 

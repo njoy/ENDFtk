@@ -6,8 +6,8 @@ EnergyDependent( const Base& base,
                  Iterator& it, const Iterator& end, long& lineNumber,
                  int MAT, int MF, int MT ) 
   try:
-    Unresolved( base, std::move( APE ), cont,
-                readLStates( cont.N1(), it, end, lineNumber, MAT, MF, MT ) ){
+    Unresolved( base, std::move( APE ), cont ),
+    lStates( readLStates( cont.N1(), it, end, lineNumber, MAT, MF, MT ) ){
   } catch( std::exception& e ){
     Log::info( "Trouble encountered when parsing energy-dependent unresolved "
                "resonances." );

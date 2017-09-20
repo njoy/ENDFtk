@@ -1,652 +1,678 @@
 {
   "compiler": {
     "apple clang++": {
-      "minimum version": "8.0", 
+      "minimum version": "8.0",
       "osx": {
         "flags": {
-          "base project": [], 
+          "base project": [],
           "common": [
             "-stdlib=libc++"
-          ], 
+          ],
           "coverage": [
             "--coverage"
-          ], 
+          ],
           "debug": [
-            "-O0", 
-            "-g", 
+            "-O0",
+            "-g",
             "-gdwarf-3"
-          ], 
+          ],
           "link time optimization": [
             "-flto"
-          ], 
+          ],
           "nonportable optimization": [
             "-march=native"
-          ], 
+          ],
           "optimization": [
-            "-O3", 
+            "-O3",
             "-DNDEBUG"
-          ], 
+          ],
           "profile generate": [
             "-fprofile-generate='{profile_path}'"
-          ], 
+          ],
           "profile use": [
             "-fprofile-use='{profile_path}'"
-          ], 
+          ],
           "static": [
             "-static"
-          ], 
+          ],
           "strict": [
             "-Werror"
-          ], 
-          "subproject": [], 
+          ],
+          "subproject": [],
           "warning": [
-            "-Wall", 
-            "-Wextra", 
+            "-Wall",
+            "-Wextra",
             "-Wpedantic"
           ]
-        }, 
+        },
         "standard": {
-          "c++11": "-std=c++11", 
-          "c++14": "-std=c++14", 
+          "c++11": "-std=c++11",
+          "c++14": "-std=c++14",
           "c++98": "-std=c++98"
         }
       }
-    }, 
+    },
     "g++": {
       "linux": {
         "flags": {
-          "base project": [], 
-          "common": [], 
+          "base project": [],
+          "common": [],
           "coverage": [
             "--coverage"
-          ], 
+          ],
           "debug": [
-            "-O0", 
-            "-g", 
-            "-gdwarf-3", 
+            "-O0",
+            "-g",
+            "-gdwarf-3",
             "-fsignaling-nans"
-          ], 
+          ],
           "link time optimization": [
             "-flto"
-          ], 
+          ],
           "nonportable optimization": [
             "-march=native"
-          ], 
+          ],
           "optimization": [
-            "-O3", 
+            "-O3",
             "-DNDEBUG"
-          ], 
+          ],
           "profile generate": [
             "-fprofile-generate='{profile_path}'"
-          ], 
+          ],
           "profile use": [
             "-fprofile-use='{profile_path}'"
-          ], 
+          ],
           "static": [
             "-static"
-          ], 
+          ],
           "strict": [
             "-Werror"
-          ], 
-          "subproject": [], 
+          ],
+          "subproject": [],
           "warning": [
-            "-Wall", 
-            "-Wextra", 
+            "-Wall",
+            "-Wextra",
             "-Wpedantic"
           ]
-        }, 
+        },
         "standard": {
-          "c++11": "-std=c++11", 
-          "c++14": "-std=c++14", 
+          "c++11": "-std=c++11",
+          "c++14": "-std=c++14",
           "c++98": "-std=c++98"
         }
-      }, 
-      "minimum version": "6.2", 
+      },
+      "minimum version": "6.2",
       "osx": {
         "flags": {
-          "base project": [], 
-          "common": [], 
+          "base project": [],
+          "common": [],
           "coverage": [
             "--coverage"
-          ], 
+          ],
           "debug": [
-            "-O0", 
-            "-g", 
-            "-gdwarf-3", 
+            "-O0",
+            "-g",
+            "-gdwarf-3",
             "-fsignaling-nans"
-          ], 
+          ],
           "link time optimization": [
             "-flto"
-          ], 
+          ],
           "nonportable optimization": [
             "-march=native"
-          ], 
+          ],
           "optimization": [
-            "-O3", 
+            "-O3",
             "-DNDEBUG"
-          ], 
+          ],
           "profile generate": [
             "-fprofile-generate='{profile_path}'"
-          ], 
+          ],
           "profile use": [
             "-fprofile-use='{profile_path}'"
-          ], 
+          ],
           "static": [
             "-static"
-          ], 
+          ],
           "strict": [
             "-Werror"
-          ], 
-          "subproject": [], 
+          ],
+          "subproject": [],
           "warning": [
-            "-Wall", 
-            "-Wextra", 
+            "-Wall",
+            "-Wextra",
             "-Wpedantic"
           ]
-        }, 
+        },
         "standard": {
-          "c++11": "-std=c++11", 
-          "c++14": "-std=c++14", 
+          "c++11": "-std=c++11",
+          "c++14": "-std=c++14",
           "c++98": "-std=c++98"
         }
-      }, 
+      },
       "windows": {
         "flags": {
-          "base project": [], 
-          "common": [], 
+          "base project": [],
+          "common": [],
           "coverage": [
             "--coverage"
-          ], 
+          ],
           "debug": [
-            "-O0", 
-            "-g", 
-            "-gdwarf-3", 
+            "-O0",
+            "-g",
+            "-gdwarf-3",
             "-fsignaling-nans"
-          ], 
+          ],
           "link time optimization": [
             "-flto"
-          ], 
+          ],
           "nonportable optimization": [
             "-march=native"
-          ], 
+          ],
           "optimization": [
-            "-O3", 
+            "-O3",
             "-DNDEBUG"
-          ], 
+          ],
           "profile generate": [
             "-fprofile-generate='{profile_path}'"
-          ], 
+          ],
           "profile use": [
             "-fprofile-use='{profile_path}'"
-          ], 
+          ],
           "static": [
             "-static"
-          ], 
+          ],
           "strict": [
             "-Werror"
-          ], 
-          "subproject": [], 
+          ],
+          "subproject": [],
           "warning": [
-            "-Wall", 
-            "-Wextra", 
+            "-Wall",
+            "-Wextra",
             "-Wpedantic"
           ]
-        }, 
+        },
         "standard": {
-          "c++11": "-std=c++11", 
-          "c++14": "-std=c++14", 
+          "c++11": "-std=c++11",
+          "c++14": "-std=c++14",
           "c++98": "-std=c++98"
         }
       }
-    }, 
+    },
     "llvm clang++": {
       "linux": {
         "flags": {
-          "base project": [], 
+          "base project": [],
           "common": [
             "-stdlib=libstdc++"
-          ], 
+          ],
           "coverage": [
             "--coverage"
-          ], 
+          ],
           "debug": [
-            "-O0", 
-            "-g", 
+            "-O0",
+            "-g",
             "-gdwarf-3"
-          ], 
+          ],
           "link time optimization": [
             "-flto"
-          ], 
+          ],
           "nonportable optimization": [
             "-march=native"
-          ], 
+          ],
           "optimization": [
-            "-O3", 
+            "-O3",
             "-DNDEBUG"
-          ], 
+          ],
           "profile generate": [
             "-fprofile-generate='{profile_path}'"
-          ], 
+          ],
           "profile use": [
             "-fprofile-use='{profile_path}'"
-          ], 
+          ],
           "static": [
             "-static"
-          ], 
+          ],
           "strict": [
             "-Werror"
-          ], 
-          "subproject": [], 
+          ],
+          "subproject": [],
           "warning": [
-            "-Wall", 
-            "-Wextra", 
+            "-Wall",
+            "-Wextra",
             "-Wpedantic"
           ]
-        }, 
+        },
         "standard": {
-          "c++11": "-std=c++11", 
-          "c++14": "-std=c++14", 
+          "c++11": "-std=c++11",
+          "c++14": "-std=c++14",
           "c++98": "-std=c++98"
         }
-      }, 
-      "minimum version": "3.8", 
+      },
+      "minimum version": "3.8",
       "osx": {
         "flags": {
-          "base project": [], 
+          "base project": [],
           "common": [
             "-stdlib=libc++"
-          ], 
+          ],
           "coverage": [
             "--coverage"
-          ], 
+          ],
           "debug": [
-            "-O0", 
-            "-g", 
+            "-O0",
+            "-g",
             "-gdwarf-3"
-          ], 
+          ],
           "link time optimization": [
             "-flto"
-          ], 
+          ],
           "nonportable optimization": [
             "-march=native"
-          ], 
+          ],
           "optimization": [
-            "-O3", 
+            "-O3",
             "-DNDEBUG"
-          ], 
+          ],
           "profile generate": [
             "-fprofile-generate='{profile_path}'"
-          ], 
+          ],
           "profile use": [
             "-fprofile-use='{profile_path}'"
-          ], 
+          ],
           "static": [
             "-static"
-          ], 
+          ],
           "strict": [
             "-Werror"
-          ], 
-          "subproject": [], 
+          ],
+          "subproject": [],
           "warning": [
-            "-Wall", 
-            "-Wextra", 
+            "-Wall",
+            "-Wextra",
             "-Wpedantic"
           ]
-        }, 
+        },
         "standard": {
-          "c++11": "-std=c++11", 
-          "c++14": "-std=c++14", 
+          "c++11": "-std=c++11",
+          "c++14": "-std=c++14",
           "c++98": "-std=c++98"
         }
-      }, 
+      },
       "windows": {
         "flags": {
-          "base project": [], 
+          "base project": [],
           "common": [
             "-stdlib=libc++"
-          ], 
+          ],
           "coverage": [
             "--coverage"
-          ], 
+          ],
           "debug": [
-            "-O0", 
-            "-g", 
+            "-O0",
+            "-g",
             "-gdwarf-3"
-          ], 
+          ],
           "link time optimization": [
             "-flto"
-          ], 
+          ],
           "nonportable optimization": [
             "-march=native"
-          ], 
+          ],
           "optimization": [
-            "-O3", 
+            "-O3",
             "-DNDEBUG"
-          ], 
+          ],
           "profile generate": [
             "-fprofile-generate='{profile_path}'"
-          ], 
+          ],
           "profile use": [
             "-fprofile-use='{profile_path}'"
-          ], 
+          ],
           "static": [
             "-static"
-          ], 
+          ],
           "strict": [
             "-Werror"
-          ], 
-          "subproject": [], 
+          ],
+          "subproject": [],
           "warning": [
-            "-Wall", 
-            "-Wextra", 
+            "-Wall",
+            "-Wextra",
             "-Wpedantic"
           ]
-        }, 
+        },
         "standard": {
-          "c++11": "-std=c++11", 
-          "c++14": "-std=c++14", 
+          "c++11": "-std=c++11",
+          "c++14": "-std=c++14",
           "c++98": "-std=c++98"
         }
       }
     }
-  }, 
+  },
   "file extension": {
     "header files": [
-      "h++", 
-      "hxx", 
-      "hpp", 
-      "hh", 
+      "h++",
+      "hxx",
+      "hpp",
+      "hh",
       "h"
-    ], 
+    ],
     "implementation files": [
-      "c++", 
-      "cxx", 
-      "cpp", 
+      "c++",
+      "cxx",
+      "cpp",
       "cc"
     ]
-  }, 
+  },
   "header files": [
-    "src/ENDFtk.hpp", 
-    "src/ENDFtk/ControlRecord.hpp", 
-    "src/ENDFtk/DirectoryRecord.hpp", 
-    "src/ENDFtk/file.hpp", 
-    "src/ENDFtk/HeadRecord.hpp", 
-    "src/ENDFtk/InterpolationRecord.hpp", 
-    "src/ENDFtk/ListRecord.hpp", 
-    "src/ENDFtk/record.hpp", 
-    "src/ENDFtk/resonanceParameters.hpp", 
-    "src/ENDFtk/section.hpp", 
-    "src/ENDFtk/StructureDivision.hpp", 
-    "src/ENDFtk/syntaxTree.hpp", 
-    "src/ENDFtk/TapeIdentification.hpp", 
-    "src/ENDFtk/TextRecord.hpp", 
-    "src/ENDFtk/UnivariateTabulation.hpp", 
-    "src/ENDFtk/file/Type/src/collectMap.hpp", 
-    "src/ENDFtk/file/Type/src/collectVector.hpp", 
-    "src/ENDFtk/file/Type/src/ctor.hpp", 
-    "src/ENDFtk/file/Type/src/sectionNumber.hpp", 
-    "src/ENDFtk/HeadRecord/src/asHead.hpp", 
-    "src/ENDFtk/InterpolationRecord/src/ctor.hpp", 
-    "src/ENDFtk/ListRecord/src/readMetadata.hpp", 
-    "src/ENDFtk/record/Base.hpp", 
-    "src/ENDFtk/record/Character.hpp", 
-    "src/ENDFtk/record/helper.hpp", 
-    "src/ENDFtk/record/Integer.hpp", 
-    "src/ENDFtk/record/InterpolationBase.hpp", 
-    "src/ENDFtk/record/Real.hpp", 
-    "src/ENDFtk/record/Sequence.hpp", 
-    "src/ENDFtk/record/skip.hpp", 
-    "src/ENDFtk/record/Tail.hpp", 
-    "src/ENDFtk/record/TailVerifying.hpp", 
-    "src/ENDFtk/record/Zipper.hpp", 
-    "src/ENDFtk/record/InterpolationBase/src/ctor.hpp", 
-    "src/ENDFtk/record/InterpolationBase/src/readMetadata.hpp", 
-    "src/ENDFtk/record/InterpolationBase/src/readRangeDescriptions.hpp", 
-    "src/ENDFtk/record/InterpolationBase/src/verifyBoundaryIndicesAreSorted.hpp", 
-    "src/ENDFtk/record/InterpolationBase/src/verifyN1.hpp", 
-    "src/ENDFtk/record/InterpolationBase/src/verifyN2.hpp", 
-    "src/ENDFtk/record/InterpolationBase/src/verifyTail.hpp", 
-    "src/ENDFtk/record/InterpolationBase/src/verifyVectorSizes.hpp", 
-    "src/ENDFtk/record/Sequence/src/read.hpp", 
-    "src/ENDFtk/record/Zipper/src/expandReferencePack.hpp", 
-    "src/ENDFtk/record/Zipper/src/increment.hpp", 
-    "src/ENDFtk/record/Zipper/src/makeIteratorTuple.hpp", 
-    "src/ENDFtk/record/Zipper/src/process.hpp", 
-    "src/ENDFtk/record/Zipper/src/ReadingPack.hpp", 
-    "src/ENDFtk/record/Zipper/src/readLine.hpp", 
-    "src/ENDFtk/record/Zipper/src/readPartialLine.hpp", 
-    "src/ENDFtk/record/Zipper/src/reserve.hpp", 
-    "src/ENDFtk/record/Zipper/src/unzip.hpp", 
-    "src/ENDFtk/record/Zipper/src/verifyTail.hpp", 
-    "src/ENDFtk/record/Zipper/src/Zipped.hpp", 
-    "src/ENDFtk/resonanceParameters/Base.hpp", 
-    "src/ENDFtk/resonanceParameters/Isotope.hpp", 
-    "src/ENDFtk/resonanceParameters/resolved.hpp", 
-    "src/ENDFtk/resonanceParameters/SpecialCase.hpp", 
-    "src/ENDFtk/resonanceParameters/unresolved.hpp", 
-    "src/ENDFtk/resonanceParameters/Base/src/ctor.hpp", 
-    "src/ENDFtk/resonanceParameters/Isotope/src/ctor.hpp", 
-    "src/ENDFtk/resonanceParameters/Isotope/src/readRanges.hpp", 
-    "src/ENDFtk/resonanceParameters/resolved/BreitWigner.hpp", 
-    "src/ENDFtk/resonanceParameters/resolved/MultilevelBreitWigner.hpp", 
-    "src/ENDFtk/resonanceParameters/resolved/ReichMoore.hpp", 
-    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited.hpp", 
-    "src/ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner.hpp", 
-    "src/ENDFtk/resonanceParameters/resolved/BreitWigner/src/ctor.hpp", 
-    "src/ENDFtk/resonanceParameters/resolved/BreitWigner/src/readAPE.hpp", 
-    "src/ENDFtk/resonanceParameters/resolved/BreitWigner/src/readLists.hpp", 
-    "src/ENDFtk/resonanceParameters/resolved/BreitWigner/src/validate.hpp", 
-    "src/ENDFtk/resonanceParameters/resolved/ReichMoore/src/ctor.hpp", 
-    "src/ENDFtk/resonanceParameters/resolved/ReichMoore/src/validate.hpp", 
-    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup.hpp", 
-    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup/src/ctor.hpp", 
-    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/ctor.hpp", 
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependent.hpp", 
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths.hpp", 
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent.hpp", 
-    "src/ENDFtk/resonanceParameters/unresolved/Unresolved.hpp", 
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/src/ctor.hpp", 
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/ctor.hpp", 
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/src/ctor.hpp", 
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/src/readLISTs.hpp", 
-    "src/ENDFtk/resonanceParameters/unresolved/Unresolved/LState.hpp", 
-    "src/ENDFtk/resonanceParameters/unresolved/Unresolved/LState/src/ctor.hpp", 
-    "src/ENDFtk/resonanceParameters/unresolved/Unresolved/LState/src/readLists.hpp", 
-    "src/ENDFtk/resonanceParameters/unresolved/Unresolved/src/ctor.hpp", 
-    "src/ENDFtk/resonanceParameters/unresolved/Unresolved/src/readAPE.hpp", 
-    "src/ENDFtk/resonanceParameters/unresolved/Unresolved/src/readLStates.hpp", 
-    "src/ENDFtk/section/2.hpp", 
-    "src/ENDFtk/section/3.hpp", 
-    "src/ENDFtk/section/Base.hpp", 
-    "src/ENDFtk/section/2/src/ctor.hpp", 
-    "src/ENDFtk/section/2/src/readIsotopes.hpp", 
-    "src/ENDFtk/section/3/src/ctor.hpp", 
-    "src/ENDFtk/section/Base/src/ctor.hpp", 
-    "src/ENDFtk/section/Base/src/readSEND.hpp", 
-    "src/ENDFtk/syntaxTree/File.hpp", 
-    "src/ENDFtk/syntaxTree/Material.hpp", 
-    "src/ENDFtk/syntaxTree/Section.hpp", 
-    "src/ENDFtk/syntaxTree/Tape.hpp", 
-    "src/ENDFtk/syntaxTree/File/src/createMap.hpp", 
-    "src/ENDFtk/syntaxTree/File/src/createVector.hpp", 
-    "src/ENDFtk/syntaxTree/File/src/ctor.hpp", 
-    "src/ENDFtk/syntaxTree/File/src/parse.hpp", 
-    "src/ENDFtk/syntaxTree/File/src/sectionNumber.hpp", 
-    "src/ENDFtk/syntaxTree/Material/src/createMap.hpp", 
-    "src/ENDFtk/syntaxTree/Material/src/createVector.hpp", 
-    "src/ENDFtk/syntaxTree/Material/src/ctor.hpp", 
-    "src/ENDFtk/syntaxTree/Material/src/fileNumber.hpp", 
-    "src/ENDFtk/syntaxTree/Section/src/ctor.hpp", 
-    "src/ENDFtk/syntaxTree/Section/src/findEnd.hpp", 
-    "src/ENDFtk/syntaxTree/Section/src/parse.hpp", 
-    "src/ENDFtk/syntaxTree/Tape/src/createMap.hpp", 
-    "src/ENDFtk/syntaxTree/Tape/src/createVector.hpp", 
-    "src/ENDFtk/syntaxTree/Tape/src/ctor.hpp", 
-    "src/ENDFtk/syntaxTree/Tape/src/materialNumber.hpp", 
-    "src/ENDFtk/UnivariateTabulation/src/ctor.hpp", 
-    "src/ENDFtk/UnivariateTabulation/src/readPairs.hpp", 
-    "src/ENDFtk/UnivariateTabulation/src/verifyVectorSizes.hpp", 
+    "src/ENDFtk.hpp",
+    "src/ENDFtk/ControlRecord.hpp",
+    "src/ENDFtk/DirectoryRecord.hpp",
+    "src/ENDFtk/file.hpp",
+    "src/ENDFtk/HeadRecord.hpp",
+    "src/ENDFtk/InterpolationRecord.hpp",
+    "src/ENDFtk/ListRecord.hpp",
+    "src/ENDFtk/record.hpp",
+    "src/ENDFtk/resonanceParameters.hpp",
+    "src/ENDFtk/section.hpp",
+    "src/ENDFtk/StructureDivision.hpp",
+    "src/ENDFtk/syntaxTree.hpp",
+    "src/ENDFtk/TapeIdentification.hpp",
+    "src/ENDFtk/TextRecord.hpp",
+    "src/ENDFtk/UnivariateTabulation.hpp",
+    "src/ENDFtk/file/Type/src/collectMap.hpp",
+    "src/ENDFtk/file/Type/src/collectVector.hpp",
+    "src/ENDFtk/file/Type/src/ctor.hpp",
+    "src/ENDFtk/file/Type/src/sectionNumber.hpp",
+    "src/ENDFtk/HeadRecord/src/asHead.hpp",
+    "src/ENDFtk/InterpolationRecord/src/ctor.hpp",
+    "src/ENDFtk/ListRecord/src/readMetadata.hpp",
+    "src/ENDFtk/record/Base.hpp",
+    "src/ENDFtk/record/Character.hpp",
+    "src/ENDFtk/record/helper.hpp",
+    "src/ENDFtk/record/Integer.hpp",
+    "src/ENDFtk/record/InterpolationBase.hpp",
+    "src/ENDFtk/record/Real.hpp",
+    "src/ENDFtk/record/Sequence.hpp",
+    "src/ENDFtk/record/skip.hpp",
+    "src/ENDFtk/record/Tail.hpp",
+    "src/ENDFtk/record/TailVerifying.hpp",
+    "src/ENDFtk/record/Zipper.hpp",
+    "src/ENDFtk/record/InterpolationBase/src/ctor.hpp",
+    "src/ENDFtk/record/InterpolationBase/src/readMetadata.hpp",
+    "src/ENDFtk/record/InterpolationBase/src/readRangeDescriptions.hpp",
+    "src/ENDFtk/record/InterpolationBase/src/verifyBoundaryIndicesAreSorted.hpp",
+    "src/ENDFtk/record/InterpolationBase/src/verifyN1.hpp",
+    "src/ENDFtk/record/InterpolationBase/src/verifyN2.hpp",
+    "src/ENDFtk/record/InterpolationBase/src/verifyTail.hpp",
+    "src/ENDFtk/record/InterpolationBase/src/verifyVectorSizes.hpp",
+    "src/ENDFtk/record/Sequence/src/read.hpp",
+    "src/ENDFtk/record/Zipper/src/expandReferencePack.hpp",
+    "src/ENDFtk/record/Zipper/src/increment.hpp",
+    "src/ENDFtk/record/Zipper/src/makeIteratorTuple.hpp",
+    "src/ENDFtk/record/Zipper/src/process.hpp",
+    "src/ENDFtk/record/Zipper/src/ReadingPack.hpp",
+    "src/ENDFtk/record/Zipper/src/readLine.hpp",
+    "src/ENDFtk/record/Zipper/src/readPartialLine.hpp",
+    "src/ENDFtk/record/Zipper/src/reserve.hpp",
+    "src/ENDFtk/record/Zipper/src/unzip.hpp",
+    "src/ENDFtk/record/Zipper/src/verifyTail.hpp",
+    "src/ENDFtk/record/Zipper/src/Zipped.hpp",
+    "src/ENDFtk/resonanceParameters/Base.hpp",
+    "src/ENDFtk/resonanceParameters/Isotope.hpp",
+    "src/ENDFtk/resonanceParameters/resolved.hpp",
+    "src/ENDFtk/resonanceParameters/SpecialCase.hpp",
+    "src/ENDFtk/resonanceParameters/unresolved.hpp",
+    "src/ENDFtk/resonanceParameters/Base/src/ctor.hpp",
+    "src/ENDFtk/resonanceParameters/Isotope/src/ctor.hpp",
+    "src/ENDFtk/resonanceParameters/Isotope/src/readRanges.hpp",
+    "src/ENDFtk/resonanceParameters/resolved/BreitWigner.hpp",
+    "src/ENDFtk/resonanceParameters/resolved/MultilevelBreitWigner.hpp",
+    "src/ENDFtk/resonanceParameters/resolved/ReichMoore.hpp",
+    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited.hpp",
+    "src/ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner.hpp",
+    "src/ENDFtk/resonanceParameters/resolved/BreitWigner/LState.hpp",
+    "src/ENDFtk/resonanceParameters/resolved/BreitWigner/LState/Resonance.hpp",
+    "src/ENDFtk/resonanceParameters/resolved/BreitWigner/src/ctor.hpp",
+    "src/ENDFtk/resonanceParameters/resolved/BreitWigner/src/readAPE.hpp",
+    "src/ENDFtk/resonanceParameters/resolved/BreitWigner/src/readLists.hpp",
+    "src/ENDFtk/resonanceParameters/resolved/BreitWigner/src/validate.hpp",
+    "src/ENDFtk/resonanceParameters/resolved/ReichMoore/LState.hpp",
+    "src/ENDFtk/resonanceParameters/resolved/ReichMoore/LState/Resonance.hpp",
+    "src/ENDFtk/resonanceParameters/resolved/ReichMoore/src/ctor.hpp",
+    "src/ENDFtk/resonanceParameters/resolved/ReichMoore/src/validate.hpp",
+    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup.hpp",
+    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup/src/ctor.hpp",
+    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/ctor.hpp",
+    "src/ENDFtk/resonanceParameters/src/ER.hpp",
+    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependent.hpp",
+    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths.hpp",
+    "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent.hpp",
+    "src/ENDFtk/resonanceParameters/unresolved/Unresolved.hpp",
+    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/LState.hpp",
+    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/src/ctor.hpp",
+    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/ctor.hpp",
+    "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/src/ctor.hpp",
+    "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/src/readLISTs.hpp",
+    "src/ENDFtk/resonanceParameters/unresolved/Unresolved/LState.hpp",
+    "src/ENDFtk/resonanceParameters/unresolved/Unresolved/LState/src/ctor.hpp",
+    "src/ENDFtk/resonanceParameters/unresolved/Unresolved/LState/src/readLists.hpp",
+    "src/ENDFtk/resonanceParameters/unresolved/Unresolved/src/ctor.hpp",
+    "src/ENDFtk/resonanceParameters/unresolved/Unresolved/src/readAPE.hpp",
+    "src/ENDFtk/resonanceParameters/unresolved/Unresolved/src/readLStates.hpp",
+    "src/ENDFtk/section/2.hpp",
+    "src/ENDFtk/section/3.hpp",
+    "src/ENDFtk/section/Base.hpp",
+    "src/ENDFtk/section/2/src/ctor.hpp",
+    "src/ENDFtk/section/2/src/readIsotopes.hpp",
+    "src/ENDFtk/section/3/src/ctor.hpp",
+    "src/ENDFtk/section/Base/src/ctor.hpp",
+    "src/ENDFtk/section/Base/src/readSEND.hpp",
+    "src/ENDFtk/syntaxTree/File.hpp",
+    "src/ENDFtk/syntaxTree/Material.hpp",
+    "src/ENDFtk/syntaxTree/Section.hpp",
+    "src/ENDFtk/syntaxTree/Tape.hpp",
+    "src/ENDFtk/syntaxTree/File/src/createMap.hpp",
+    "src/ENDFtk/syntaxTree/File/src/createVector.hpp",
+    "src/ENDFtk/syntaxTree/File/src/ctor.hpp",
+    "src/ENDFtk/syntaxTree/File/src/parse.hpp",
+    "src/ENDFtk/syntaxTree/File/src/sectionNumber.hpp",
+    "src/ENDFtk/syntaxTree/Material/src/createMap.hpp",
+    "src/ENDFtk/syntaxTree/Material/src/createVector.hpp",
+    "src/ENDFtk/syntaxTree/Material/src/ctor.hpp",
+    "src/ENDFtk/syntaxTree/Material/src/fileNumber.hpp",
+    "src/ENDFtk/syntaxTree/Section/src/ctor.hpp",
+    "src/ENDFtk/syntaxTree/Section/src/findEnd.hpp",
+    "src/ENDFtk/syntaxTree/Section/src/parse.hpp",
+    "src/ENDFtk/syntaxTree/Tape/src/createMap.hpp",
+    "src/ENDFtk/syntaxTree/Tape/src/createVector.hpp",
+    "src/ENDFtk/syntaxTree/Tape/src/ctor.hpp",
+    "src/ENDFtk/syntaxTree/Tape/src/materialNumber.hpp",
+    "src/ENDFtk/UnivariateTabulation/src/ctor.hpp",
+    "src/ENDFtk/UnivariateTabulation/src/readPairs.hpp",
+    "src/ENDFtk/UnivariateTabulation/src/verifyVectorSizes.hpp",
     "src/ENDFtk/UnivariateTabulation/src/verifyXValuesAreSorted.hpp"
-  ], 
-  "ignore pattern": "$^", 
-  "implementation files": [], 
-  "include path": "src", 
-  "initialized": true, 
-  "is external project": false, 
-  "language": "c++", 
-  "name": "ENDFtk", 
-  "standard": "c++14", 
+  ],
+  "ignore pattern": "$^",
+  "implementation files": [],
+  "include path": "src",
+  "initialized": true,
+  "is external project": false,
+  "language": "c++",
+  "name": "ENDFtk",
+  "standard": "c++14",
   "standards": [
-    "c++98", 
-    "c++11", 
+    "c++98",
+    "c++11",
     "c++14"
-  ], 
-  "strict": true, 
-  "test pattern": "test$", 
+  ],
+  "strict": true,
+  "test pattern": "test$",
   "tests": {
     "ENDFtk.ControlRecord": [
       "src/ENDFtk/ControlRecord/test/ControlRecord.test.cpp"
-    ], 
+    ],
     "ENDFtk.DirectoryRecord": [
       "src/ENDFtk/DirectoryRecord/test/DirectoryRecord.test.cpp"
-    ], 
+    ],
     "ENDFtk.HeadRecord": [
       "src/ENDFtk/HeadRecord/test/HeadRecord.test.cpp"
-    ], 
+    ],
     "ENDFtk.InterpolationRecord": [
-      "src/ENDFtk/InterpolationRecord/test/C1.test.cpp", 
-      "src/ENDFtk/InterpolationRecord/test/C2.test.cpp", 
-      "src/ENDFtk/InterpolationRecord/test/equality.test.cpp", 
-      "src/ENDFtk/InterpolationRecord/test/InterpolationRecord.test.cpp", 
-      "src/ENDFtk/InterpolationRecord/test/L1.test.cpp", 
-      "src/ENDFtk/InterpolationRecord/test/L2.test.cpp", 
-      "src/ENDFtk/InterpolationRecord/test/NR.test.cpp", 
-      "src/ENDFtk/InterpolationRecord/test/NZ.test.cpp", 
+      "src/ENDFtk/InterpolationRecord/test/C1.test.cpp",
+      "src/ENDFtk/InterpolationRecord/test/C2.test.cpp",
+      "src/ENDFtk/InterpolationRecord/test/equality.test.cpp",
+      "src/ENDFtk/InterpolationRecord/test/InterpolationRecord.test.cpp",
+      "src/ENDFtk/InterpolationRecord/test/L1.test.cpp",
+      "src/ENDFtk/InterpolationRecord/test/L2.test.cpp",
+      "src/ENDFtk/InterpolationRecord/test/NR.test.cpp",
+      "src/ENDFtk/InterpolationRecord/test/NZ.test.cpp",
       "src/ENDFtk/InterpolationRecord/test/rangeInterpolationScheme.test.cpp"
-    ], 
+    ],
     "ENDFtk.ListRecord": [
       "src/ENDFtk/ListRecord/test/ListRecord.test.cpp"
-    ], 
+    ],
     "ENDFtk.StructureDivision": [
       "src/ENDFtk/StructureDivision/test/StructureDivision.test.cpp"
-    ], 
+    ],
     "ENDFtk.TapeIdentification": [
       "src/ENDFtk/TapeIdentification/test/TapeIdentification.test.cpp"
-    ], 
+    ],
     "ENDFtk.TextRecord": [
       "src/ENDFtk/TextRecord/test/TextRecord.test.cpp"
-    ], 
+    ],
     "ENDFtk.UnivariateTabulation": [
-      "src/ENDFtk/UnivariateTabulation/test/C1.test.cpp", 
-      "src/ENDFtk/UnivariateTabulation/test/C2.test.cpp", 
-      "src/ENDFtk/UnivariateTabulation/test/equality.test.cpp", 
-      "src/ENDFtk/UnivariateTabulation/test/L1.test.cpp", 
-      "src/ENDFtk/UnivariateTabulation/test/L2.test.cpp", 
-      "src/ENDFtk/UnivariateTabulation/test/NP.test.cpp", 
-      "src/ENDFtk/UnivariateTabulation/test/NR.test.cpp", 
-      "src/ENDFtk/UnivariateTabulation/test/pairs.test.cpp", 
-      "src/ENDFtk/UnivariateTabulation/test/rangeInterpolationScheme.test.cpp", 
-      "src/ENDFtk/UnivariateTabulation/test/regions.test.cpp", 
-      "src/ENDFtk/UnivariateTabulation/test/UnivariateTabulation.test.cpp", 
-      "src/ENDFtk/UnivariateTabulation/test/x.test.cpp", 
+      "src/ENDFtk/UnivariateTabulation/test/C1.test.cpp",
+      "src/ENDFtk/UnivariateTabulation/test/C2.test.cpp",
+      "src/ENDFtk/UnivariateTabulation/test/equality.test.cpp",
+      "src/ENDFtk/UnivariateTabulation/test/L1.test.cpp",
+      "src/ENDFtk/UnivariateTabulation/test/L2.test.cpp",
+      "src/ENDFtk/UnivariateTabulation/test/NP.test.cpp",
+      "src/ENDFtk/UnivariateTabulation/test/NR.test.cpp",
+      "src/ENDFtk/UnivariateTabulation/test/pairs.test.cpp",
+      "src/ENDFtk/UnivariateTabulation/test/rangeInterpolationScheme.test.cpp",
+      "src/ENDFtk/UnivariateTabulation/test/regions.test.cpp",
+      "src/ENDFtk/UnivariateTabulation/test/UnivariateTabulation.test.cpp",
+      "src/ENDFtk/UnivariateTabulation/test/x.test.cpp",
       "src/ENDFtk/UnivariateTabulation/test/y.test.cpp"
-    ], 
+    ],
     "ENDFtk.file.Type": [
       "src/ENDFtk/file/Type/test/Type.test.cpp"
-    ], 
+    ],
     "ENDFtk.record": [
-      "src/ENDFtk/record/test/record.test.cpp", 
+      "src/ENDFtk/record/test/record.test.cpp",
       "src/ENDFtk/record/test/skip.test.cpp"
-    ], 
+    ],
     "ENDFtk.record.Base": [
       "src/ENDFtk/record/Base/test/Base.test.cpp"
-    ], 
+    ],
     "ENDFtk.record.InterpolationBase": [
-      "src/ENDFtk/record/InterpolationBase/test/C1.test.cpp", 
-      "src/ENDFtk/record/InterpolationBase/test/C2.test.cpp", 
-      "src/ENDFtk/record/InterpolationBase/test/equality.test.cpp", 
-      "src/ENDFtk/record/InterpolationBase/test/InterpolationBase.test.cpp", 
-      "src/ENDFtk/record/InterpolationBase/test/L1.test.cpp", 
-      "src/ENDFtk/record/InterpolationBase/test/L2.test.cpp", 
-      "src/ENDFtk/record/InterpolationBase/test/N2.test.cpp", 
-      "src/ENDFtk/record/InterpolationBase/test/NR.test.cpp", 
+      "src/ENDFtk/record/InterpolationBase/test/C1.test.cpp",
+      "src/ENDFtk/record/InterpolationBase/test/C2.test.cpp",
+      "src/ENDFtk/record/InterpolationBase/test/equality.test.cpp",
+      "src/ENDFtk/record/InterpolationBase/test/InterpolationBase.test.cpp",
+      "src/ENDFtk/record/InterpolationBase/test/L1.test.cpp",
+      "src/ENDFtk/record/InterpolationBase/test/L2.test.cpp",
+      "src/ENDFtk/record/InterpolationBase/test/N2.test.cpp",
+      "src/ENDFtk/record/InterpolationBase/test/NR.test.cpp",
       "src/ENDFtk/record/InterpolationBase/test/rangeInterpolationScheme.test.cpp"
-    ], 
+    ],
     "ENDFtk.record.Sequence": [
-      "src/ENDFtk/record/Sequence/test/read.test.cpp", 
+      "src/ENDFtk/record/Sequence/test/read.test.cpp",
       "src/ENDFtk/record/Sequence/test/Sequence.test.cpp"
-    ], 
+    ],
     "ENDFtk.record.Tail": [
-      "src/ENDFtk/record/Tail/test/Tail.test.cpp", 
+      "src/ENDFtk/record/Tail/test/Tail.test.cpp",
       "src/ENDFtk/record/Tail/test/TailVerifiers.test.cpp"
-    ], 
+    ],
     "ENDFtk.record.Zipper": [
-      "src/ENDFtk/record/Zipper/test/expandReferencePack.test.cpp", 
-      "src/ENDFtk/record/Zipper/test/makeIteratorTuple.test.cpp", 
-      "src/ENDFtk/record/Zipper/test/process.test.cpp", 
-      "src/ENDFtk/record/Zipper/test/readLine.test.cpp", 
-      "src/ENDFtk/record/Zipper/test/readPartialLine.test.cpp", 
-      "src/ENDFtk/record/Zipper/test/reserve.test.cpp", 
-      "src/ENDFtk/record/Zipper/test/unzip.test.cpp", 
+      "src/ENDFtk/record/Zipper/test/expandReferencePack.test.cpp",
+      "src/ENDFtk/record/Zipper/test/makeIteratorTuple.test.cpp",
+      "src/ENDFtk/record/Zipper/test/process.test.cpp",
+      "src/ENDFtk/record/Zipper/test/readLine.test.cpp",
+      "src/ENDFtk/record/Zipper/test/readPartialLine.test.cpp",
+      "src/ENDFtk/record/Zipper/test/reserve.test.cpp",
+      "src/ENDFtk/record/Zipper/test/unzip.test.cpp",
       "src/ENDFtk/record/Zipper/test/Zipper.test.cpp"
-    ], 
+    ],
+    "ENDFtk.resonanceParameters": [
+      "src/ENDFtk/resonanceParameters/test/resonanceParameters.test.cpp"
+    ],
     "ENDFtk.resonanceParameters.Base": [
       "src/ENDFtk/resonanceParameters/Base/test/Base.test.cpp"
-    ], 
+    ],
     "ENDFtk.resonanceParameters.Isotope": [
       "src/ENDFtk/resonanceParameters/Isotope/test/Isotope.test.cpp"
-    ], 
+    ],
     "ENDFtk.resonanceParameters.SpecialCase": [
       "src/ENDFtk/resonanceParameters/SpecialCase/test/SpecialCase.test.cpp"
-    ], 
+    ],
     "ENDFtk.resonanceParameters.resolved.BreitWigner": [
-      "src/ENDFtk/resonanceParameters/resolved/BreitWigner/test/BreitWigner.test.cpp"
-    ], 
+      "src/ENDFtk/resonanceParameters/resolved/BreitWigner/test/BreitWigner.test.cpp",
+      "src/ENDFtk/resonanceParameters/resolved/BreitWigner/test/LStates.test.cpp"
+    ],
+    "ENDFtk.resonanceParameters.resolved.BreitWigner.LState": [
+      "src/ENDFtk/resonanceParameters/resolved/BreitWigner/LState/test/LState.test.cpp"
+    ],
+    "ENDFtk.resonanceParameters.resolved.BreitWigner.LState.Resonance": [
+      "src/ENDFtk/resonanceParameters/resolved/BreitWigner/LState/Resonance/test/Resonance.test.cpp"
+    ],
     "ENDFtk.resonanceParameters.resolved.MultilevelBreitWigner": [
       "src/ENDFtk/resonanceParameters/resolved/MultilevelBreitWigner/test/MultilevelBreitWigner.test.cpp"
-    ], 
+    ],
     "ENDFtk.resonanceParameters.resolved.RMatrixLimited.SpinGroup": [
       "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup/test/SpinGroup.test.cpp"
-    ], 
+    ],
     "ENDFtk.resonanceParameters.resolved.ReichMoore": [
+      "src/ENDFtk/resonanceParameters/resolved/ReichMoore/test/LStates.test.cpp",
       "src/ENDFtk/resonanceParameters/resolved/ReichMoore/test/ReichMoore.test.cpp"
-    ], 
+    ],
+    "ENDFtk.resonanceParameters.resolved.ReichMoore.LState": [
+      "src/ENDFtk/resonanceParameters/resolved/ReichMoore/LState/test/LState.test.cpp"
+    ],
+    "ENDFtk.resonanceParameters.resolved.ReichMoore.LState.Resonance": [
+      "src/ENDFtk/resonanceParameters/resolved/ReichMoore/LState/Resonance/test/Resonance.test.cpp"
+    ],
     "ENDFtk.resonanceParameters.resolved.SingleLevelBreitWigner": [
       "src/ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner/test/SingleLevelBreitWigner.test.cpp"
-    ], 
+    ],
     "ENDFtk.resonanceParameters.unresolved.EnergyDependent": [
       "src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/test/EnergyDependent.test.cpp"
-    ], 
+    ],
+    "ENDFtk.resonanceParameters.unresolved.EnergyDependent.LState": [
+      "src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/LState/test/LState.test.cpp"
+    ],
     "ENDFtk.resonanceParameters.unresolved.EnergyDependentFissionWidths": [
       "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/test/EnergyDependentFissionWidths.test.cpp"
-    ], 
+    ],
     "ENDFtk.resonanceParameters.unresolved.EnergyIndependent": [
       "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/test/EnergyIndependent.test.cpp"
-    ], 
+    ],
     "ENDFtk.resonanceParameters.unresolved.Unresolved.LState": [
       "src/ENDFtk/resonanceParameters/unresolved/Unresolved/LState/test/LState.test.cpp"
-    ], 
+    ],
     "ENDFtk.section.2": [
       "src/ENDFtk/section/2/test/2.test.cpp"
-    ], 
+    ],
     "ENDFtk.section.3": [
       "src/ENDFtk/section/3/test/3.test.cpp"
-    ], 
+    ],
     "ENDFtk.section.Base": [
       "src/ENDFtk/section/Base/test/Base.test.cpp"
-    ], 
+    ],
     "ENDFtk.syntaxTree.File": [
       "src/ENDFtk/syntaxTree/File/test/File.test.cpp"
-    ], 
+    ],
     "ENDFtk.syntaxTree.Material": [
       "src/ENDFtk/syntaxTree/Material/test/Material.test.cpp"
-    ], 
+    ],
     "ENDFtk.syntaxTree.Section": [
       "src/ENDFtk/syntaxTree/Section/test/Section.test.cpp"
-    ], 
+    ],
     "ENDFtk.syntaxTree.Tape": [
       "src/ENDFtk/syntaxTree/Tape/test/Tape.test.cpp"
     ]
-  }, 
+  },
   "update": true
 }
