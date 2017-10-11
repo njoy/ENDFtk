@@ -24,6 +24,7 @@ SCENARIO( "section::Type<3>" ){
         REQUIRE( 1 == MF3.MT() );
         REQUIRE( 1001 == MF3.ZA() );
         REQUIRE( 0.9991673 == MF3.atomicWeightRatio() );
+        REQUIRE( 0 == MF3.LR() );
       }
     }
 

@@ -5,17 +5,8 @@ Type ( HEAD& head,
        long& lineNumber, 
        int MAT )
   try: Base( head, MAT, 3 ),
-       table( begin, end, lineNumber, head.MAT(), 3, head.MT() ){ 
-    const auto found = std::find_if( this->table.y().begin(),
-                                     this->table.y().end(),
-                                     []( auto y ) { return y < 0.0; } );
-    if( found != this->table.y().end() ){
-      Log::error( "Encountered negative cross section value" );
-      Log::info( "See section {} of file 3 of material {}", head.MT(), MAT );
-      Log::info( "TAB1 entry [{}]: {}",
-                 std::distance( this->table.y().begin(), found ), *found );
-      throw std::exception();
-    }
+       table( readTable( begin, end, lineNumber, head.MAT(), head.MT() ) ){ 
+       // table( begin, end, lineNumber, head.MAT(), 3, head.MT() ){ 
     readSEND(begin, end, lineNumber, MAT, 3 );
   } catch( std::exception& e ){
     Log::info
