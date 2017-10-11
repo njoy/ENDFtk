@@ -4,5 +4,5 @@ TabulationRecord readTable( Iterator& begin,
                             long& lineNumber, 
                             int MAT, int MT ){
 
-  return TabulationRecord( begin, end, lineNumber, MAT, 3, MT );
+  return TabulationRecord( begin, end, lineNumber, MAT, 13, MT );
 }
