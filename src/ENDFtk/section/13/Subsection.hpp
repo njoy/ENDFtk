@@ -10,6 +10,6 @@ public:
   int LP() const { return this->table.L1(); }
   int LF() const { return this->table.L2(); }
   auto energies() const { return this->table.x(); }
-  auto crossSection() const { return this->table.y(); }
+  auto crossSections() const { return this->table.y(); }
 
 };
