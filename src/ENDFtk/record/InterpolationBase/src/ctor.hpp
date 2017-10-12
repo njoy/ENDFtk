@@ -45,12 +45,6 @@ public:
 template< typename Iterator >
 InterpolationBase
 ( Iterator& it, const Iterator& end, long& lineNumber,
- int MAT, int MF, int MT )
-  try :
-   InterpolationBase( readMetadata( it, end, lineNumber, MAT, MF, MT ),
-                    it, end, lineNumber, MAT, MF, MT ) {
-   } catch( std::exception& e ){
-     Log::info( "Encountered error constructing InterpolationBase" );
-     Log::info( e.what() );
-     throw e;
-   }
+ int MAT, int MF, int MT ) :
+ InterpolationBase( readMetadata( it, end, lineNumber, MAT, MF, MT ),
+                    it, end, lineNumber, MAT, MF, MT ) {}
