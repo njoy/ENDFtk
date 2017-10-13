@@ -56,6 +56,22 @@ SCENARIO( "Testing generic case using file 3" ){
       }
     }
   } // GIVEN
+
+  GIVEN( "a valid instance of file::Type< 3 >" ) {
+      auto begin = file3string.begin();
+      auto end = file3string.end();
+      long lineNumber = 0;
+      
+      StructureDivision division( begin, end, lineNumber);
+      file::Type< 3 > file3(division, begin, end, lineNumber );
+
+    THEN( "it can be printed" ) {
+      std::string buffer;
+      auto output = std::back_inserter( buffer );
+      file3.print( output, 125 );
+      REQUIRE( buffer == file3string );
+    }
+  } // GIVEN
 } // SCENARIO
 
 
@@ -64,9 +80,6 @@ SCENARIO( "Testing special case of file 1" ){
   GIVEN( "a string representation of of File 1" ){
     WHEN( "a file::Type< 1 > is constructed from the string" ){
       auto begin = file1string.begin();
-
-std::cout << "'" << file1string << "'" << std::endl;
-
       auto end = file1string.end();
       long lineNumber = 0;
       
@@ -77,12 +90,12 @@ std::cout << "'" << file1string << "'" << std::endl;
         REQUIRE( file1.hasMT( 451 ) );
         REQUIRE( not file1.hasMT( 1 ) );
 
-//        REQUIRE_NOTHROW( MF3.MT( 1 ) );
-//        REQUIRE_NOTHROW( MF3.MT( 2 ) );
-//        REQUIRE_NOTHROW( MF3.MT( 102 ) );
+//        REQUIRE_NOTHROW( file1.MT( 1 ) );
+//        REQUIRE_NOTHROW( file1.MT( 2 ) );
+//        REQUIRE_NOTHROW( file1.MT( 102 ) );
       }
 //      THEN( "an exception is thrown if invalid MT" ){
-//        REQUIRE_THROWS( MF3.MT( 4 ) );
+//        REQUIRE_THROWS( file1.MT( 4 ) );
 //      }
     }
     WHEN( "a file::Type< 1 > is constructed from a syntaxTree" ){

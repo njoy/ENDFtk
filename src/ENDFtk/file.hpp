@@ -1,10 +1,10 @@
 namespace file{
 
-template< int MF >
+template< int FileNumber >
 class Type {
 public:
   /* convenience typedefs */
-  using Section = section::Type< MF >;
+  using Section = section::Type< FileNumber >;
   using iterator = typename std::vector< Section >::iterator;
   using const_iterator = typename std::vector< Section >::const_iterator;
 
@@ -36,6 +36,10 @@ public:
   hasMT( int sectionNo ) const { return this->sectionMap.count( sectionNo ); }
   bool
   hasSectionNumber( int sectionNo ) const {  return this->hasMT( sectionNo ); }
+
+  int MF() const { return FileNumber; }
+
+#include "ENDFtk/file/Type/src/print.hpp"
 };
 
 /* MF1 has a limited number of possible sections */
@@ -72,6 +76,8 @@ public:
   hasMT( int sectionNo ) const { return sectionNo == 451 ? true : false; }
   bool
   hasSectionNumber( int sectionNo ) const {  return this->hasMT( sectionNo ); }
+
+  int MF() const { return 1; }
 
 #include "ENDFtk/file/Type/src/print-1.hpp"
 };
