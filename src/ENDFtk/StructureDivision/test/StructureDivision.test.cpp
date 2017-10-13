@@ -99,4 +99,63 @@ SCENARIO( "StructureDivision Tests", "[ENDFtk], [StructureDivision]" ){
         REQUIRE_THROWS( StructureDivision( it, end, lineNumber ) );
     }
   }
+
+  GIVEN( "a valid instance of a head record" ) {
+    std::string string = 
+    " 1.001000+3 9.991673-1          0          0          0          5 125 1451     \n";
+    auto lineNumber = 0l;
+    auto it = string.begin();
+    auto end = string.end();
+    auto record = StructureDivision( it, end, lineNumber );
+    THEN( "the head record can be printed" ) {
+      std::string buffer;
+      auto output = std::back_inserter( buffer );
+      record.print( output );
+      REQUIRE( buffer == string );
+    }
+  }
+  GIVEN( "a valid instance of a SEND record" ) {
+    std::string string = 
+    "                                                                   125 1  0     \n";
+    auto record = SEND( 125, 1 );
+    THEN( "the SEND record can be printed" ) {
+      std::string buffer;
+      auto output = std::back_inserter( buffer );
+      record.print( output );
+      REQUIRE( buffer == string );
+    }
+  }
+  GIVEN( "a valid instance of a FEND record" ) {
+    std::string string = 
+    "                                                                   125 0  0     \n";
+    auto record = FEND( 125 );
+    THEN( "the SEND record can be printed" ) {
+      std::string buffer;
+      auto output = std::back_inserter( buffer );
+      record.print( output );
+      REQUIRE( buffer == string );
+    }
+  }
+  GIVEN( "a valid instance of a MEND record" ) {
+    std::string string = 
+    "                                                                     0 0  0     \n";
+    auto record = MEND();
+    THEN( "the MEND record can be printed" ) {
+      std::string buffer;
+      auto output = std::back_inserter( buffer );
+      record.print( output );
+      REQUIRE( buffer == string );
+    }
+  }
+  GIVEN( "a valid instance of a TEND record" ) {
+    std::string string = 
+    "                                                                    -1 0  0     \n";
+    auto record = TEND();
+    THEN( "the TEND record can be printed" ) {
+      std::string buffer;
+      auto output = std::back_inserter( buffer );
+      record.print( output );
+      REQUIRE( buffer == string );
+    }
+  }
 }

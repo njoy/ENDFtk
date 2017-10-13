@@ -2,7 +2,7 @@ namespace section{
 
 #include "ENDFtk/section/Base.hpp"
 
-template< int fileNumber >
+template< int MF, int... OptionalMT >
 class Type;
 
 #include "ENDFtk/section/1.hpp"

@@ -105,6 +105,32 @@ public:
   bool isTend() const {
     return this->isFendPermissive() && ( this->tail.material() == -1 );
   }
+
+  template< typename OutputIterator >
+  void print( OutputIterator& it ) const {
+    if ( this->isHead() ) {
+      using Format = disco::Record< disco::ENDF, disco::ENDF,
+                                    disco::Integer< 11 >, disco::Integer< 11 >,
+                                    disco::Integer< 11 >, disco::Integer< 11 >,
+                                    disco::Integer< 4 >, disco::Integer< 2>,
+                                    disco::Integer< 3 >,
+                                    disco::ColumnPosition<5> >;
+      Format::write( it, std::get< 0 >( this->base.fields ), 
+                         std::get< 1 >( this->base.fields ), 
+                         std::get< 2 >( this->base.fields ), 
+                         std::get< 3 >( this->base.fields ), 
+                         std::get< 4 >( this->base.fields ), 
+                         std::get< 5 >( this->base.fields ),
+                         this->tail.MAT(), this->tail.MF(), this->tail.MT() );
+    }
+    else {
+      using Format = disco::Record< disco::Integer< 70 >,
+                                    disco::Integer< 2 >,
+                                    disco::Integer< 3 >, 
+                                    disco::ColumnPosition<5> >;
+      Format::write( it, this->tail.MAT(), this->tail.MF(), this->tail.MT() );
+    }
+  } 
 };
 
 inline StructureDivision sectionEndRecord( int MAT, int MF ){

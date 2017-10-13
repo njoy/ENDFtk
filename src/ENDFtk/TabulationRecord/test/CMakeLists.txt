@@ -2,15 +2,15 @@
 add_executable( ENDFtk.TabulationRecord.test
                 C1.test.cpp
                 C2.test.cpp
-                equality.test.cpp
                 L1.test.cpp
                 L2.test.cpp
                 NP.test.cpp
                 NR.test.cpp
+                UnivariateTabulation.test.cpp
+                equality.test.cpp
                 pairs.test.cpp
                 rangeInterpolationScheme.test.cpp
                 regions.test.cpp
-                UnivariateTabulation.test.cpp
                 x.test.cpp
                 y.test.cpp )
 target_compile_options( ENDFtk.TabulationRecord.test PRIVATE ${${PREFIX}_common_flags}

@@ -19,3 +19,6 @@
 [submodule "dependencies/hopscotch-map-adapter"]
 	path = dependencies/hopscotch-map-adapter
 	url = https://github.com/njoy/hopscotch-map-adapter.git
+[submodule "dependencies/hana-adapter"]
+	path = dependencies/hana-adapter
+	url = https://github.com/njoy/hana-adapter.git

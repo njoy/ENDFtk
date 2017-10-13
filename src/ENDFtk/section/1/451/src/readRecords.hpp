@@ -1,4 +1,4 @@
-template< typename Iterator, typename Record >
+template< typename Record, typename Iterator, typename Message >
 std::vector< Record >
 readRecords( Iterator& begin,
              const Iterator& end,
@@ -6,14 +6,14 @@ readRecords( Iterator& begin,
              int MAT,
              int size,
              int minimumSize,
-             char* message) {
+             Message&& message ) {
+    std::vector< Record > records;
 
     if( size < minimumSize ) {
         Log::error( message );
         throw std::exception();
     }
 
-    std::vector< Record > records;
     records.reserve( size );
 
     while( size-- ) {
