@@ -67,6 +67,13 @@ public:
 //  const section::Type< 1, 456 >& MT456() const { return *mt456_; }
 //  const section::Type< 1, 458 >& MT458() const { return *mt458_; }
 //  const section::Type< 1, 460 >& MT460() const { return *mt460_; }
+
+  bool
+  hasMT( int sectionNo ) const { return sectionNo == 451 ? true : false; }
+  bool
+  hasSectionNumber( int sectionNo ) const {  return this->hasMT( sectionNo ); }
+
+#include "ENDFtk/file/Type/src/print-1.hpp"
 };
 
 }

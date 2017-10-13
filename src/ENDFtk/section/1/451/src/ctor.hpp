@@ -1,9 +1,9 @@
 template< typename Iterator >
-Type ( const HEAD& head,
-           Iterator& begin,
-           const Iterator& end,
-           long& lineNumber,
-           int MAT )
+Type ( HEAD& head,
+       Iterator& begin,
+       const Iterator& end,
+       long& lineNumber,
+       int MAT )
   try: Base( head, MAT, 1 ), lrp_( head.L1() ), lfi_( head.L2() ),
        nlib_( head.N1() ), nmod_( head.N2() ),
        parameters_{ ControlRecord( begin, end, lineNumber, MAT, 1, 451 ),
@@ -20,4 +20,9 @@ Type ( const HEAD& head,
     Log::info( "Trouble while reading section {} of File 1 of Material {}", 451, MAT );
     throw e;
   }
+
+Type() : Base( HeadRecord( 0.0, 0.0, 0, 0, 0, 0, 0, 1, 451 ), 0, 1 ),
+         parameters_{ ControlRecord( 0.0, 0.0, 0, 0, 0, 0 ),
+                      ControlRecord( 0.0, 0.0, 0, 0, 0, 0 ),
+                      ControlRecord( 0.0, 0.0, 0, 0, 0, 0 ) } {};
 

@@ -6,7 +6,7 @@ Type( StructureDivision& division,
     switch ( head.MT() ) {
       case 451 : {
         checkRedundant( bool( this->mt451_.NXC() != 0 ), 451 );
-        mt451_( head, begin, end, lineNumber, head.MAT() );
+        mt451_ = section::Type< 1, 451 >( head, begin, end, lineNumber, head.MAT() );
         break;
       }
 //      case 452 : {
@@ -42,3 +42,4 @@ Type( StructureDivision& division,
     division = StructureDivision( begin, end, lineNumber );
   }
 }
+
