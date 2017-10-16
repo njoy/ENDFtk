@@ -387,7 +387,6 @@
     "src/ENDFtk/file/1/src/ctor.hpp", 
     "src/ENDFtk/file/1/src/fill.hpp", 
     "src/ENDFtk/file/1/src/get.hpp", 
-    "src/ENDFtk/file/1/src/meta.hpp", 
     "src/ENDFtk/file/1/src/print.hpp", 
     "src/ENDFtk/file/1/src/read.hpp", 
     "src/ENDFtk/file/1/src/sectionNumber.hpp", 
