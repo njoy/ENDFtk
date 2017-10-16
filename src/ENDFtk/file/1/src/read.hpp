@@ -1,11 +1,11 @@
-static section::Type<1, 451>
-read( hana::int_<451>,
+template< typename BufferIterator >
+static section::Type< 1, 451 > read( decltype(451_c),
       StructureDivision& structureDivision,
       BufferIterator& begin,
       const BufferIterator& end,
-      long& lineNumber,
-      int MAT ) {
-  const auto& head = asHead( structureDivision );
+      long& lineNumber ) {
+
+  auto& head = asHead( structureDivision );
 
   if ( head.MT() != 451 ){
     Log::error( "Illegal section number in File 1" );
@@ -15,7 +15,7 @@ read( hana::int_<451>,
 
   auto section451 = [&]{
     try{
-      return section::Type< 1, 451 >( head, begin, end, lineNumber, MAT );
+      return section::Type< 1, 451 >( head, begin, end, lineNumber, head.MAT() );
     } catch( std::exception& e ) {
       Log::info( "Error while reading File 1 Section 451" );
       throw e;
@@ -23,14 +23,16 @@ read( hana::int_<451>,
   }();
 
   try{
-    structureDivision = StructureDivision( begin, end, lineNumber, MAT );
+    structureDivision = StructureDivision( begin, end, lineNumber );
   } catch( std::exception& e ) {
     Log::info( "Error while reading structure division following File 1 Section 451" );
     throw e;
   }
+
+  return section451;
 }
 
-template< int SectionNo >
+template< int SectionNo, typename BufferIterator >
 static std::optional< section::Type< 1, SectionNo > >
 read( hana::int_< SectionNo >,
       StructureDivision& structureDivision,
@@ -42,7 +44,7 @@ read( hana::int_< SectionNo >,
 
   if ( head.MT() != SectionNo ){ return std::nullopt; }
 
-  auto section451 = [&]{
+  auto section = [&]{
     try{
       return section::Type< 1, SectionNo >( head, begin, end, lineNumber, MAT );
     } catch( std::exception& e ) {
@@ -59,5 +61,5 @@ read( hana::int_< SectionNo >,
     throw e;
   }
 
-  return std::make_optional( std::move( section451 ) );
+  return std::make_optional( std::move( section ) );
 }

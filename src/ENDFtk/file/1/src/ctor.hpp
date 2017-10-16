@@ -131,7 +131,6 @@ try:
 
 // stopgap until remainder of file 1 complete
 public:
-template< typename BufferIterator >
 Type( section::Type< 1, 451 >&& section451 ) :
   sectionMap( hana::make_map
               ( hana::make_pair( 451_c, std::move(section451) ) ) ){}
@@ -140,10 +139,9 @@ template< typename BufferIterator >
 Type( StructureDivision& structureDivision,
       BufferIterator& begin,
       const BufferIterator& end,
-      long& lineNumber,
-      int MAT )
+      long& lineNumber )
 try:
-  Type( read( 451_c, structureDivision, begin, end, lineNumber, MAT ) ){
+  Type( this->read( 451_c, structureDivision, begin, end, lineNumber ) ){
     if ( not structureDivision.isFend() ){
       if ( structureDivision.isHead() ){
         Log::error("Inappropriate section encountered in File 1");

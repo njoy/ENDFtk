@@ -73,7 +73,7 @@ SCENARIO( "section::Type< 1, 451 >" ) {
         section( head, begin, position, end, lineNumber );
       
       THEN( "a section::Type< 1, 451 > can be constructed and members can be tested" ){
-        section::Type< 1, 451 > MF1MT451 = section.parse< 1, 451 >( lineNumber, 125 );
+        section::Type< 1, 451 > MF1MT451 = section.parse< 1, 451 >( lineNumber );
         REQUIRE( 451 == MF1MT451.MT() );
         REQUIRE( 1001 == MF1MT451.ZA() );
         REQUIRE( 0.9991673 == Approx( MF1MT451.atomicWeightRatio() ) );

@@ -243,14 +243,13 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/ControlRecord/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/DirectoryRecord/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/1.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/Type/1.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/Type/1/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/Type/1/src/fill.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/Type/1/src/get.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/Type/1/src/meta.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/Type/1/src/print.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/Type/1/src/read.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/Type/1/src/sectionNumber.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/1/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/1/src/fill.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/1/src/get.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/1/src/meta.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/1/src/print.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/1/src/read.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/1/src/sectionNumber.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/Type/src/checkRedundant.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/Type/src/collectMap.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/Type/src/collectVector.hpp"
@@ -357,6 +356,7 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/451/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/451/src/description.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/451/src/print.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/451/src/readParameters.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/451/src/readRecords.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/src/readIsotopes.hpp"
@@ -419,7 +419,6 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/record/Base/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/resolved/BreitWigner/test )
         add_subdirectory( src/ENDFtk/file/Type/test )
-        add_subdirectory( src/ENDFtk/file/Type/1/test )
         add_subdirectory( src/ENDFtk/ListRecord/test )
         add_subdirectory( src/ENDFtk/TabulationRecord/test )
         add_subdirectory( src/ENDFtk/TextRecord/test )
@@ -441,6 +440,7 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/record/Sequence/test )
         add_subdirectory( src/ENDFtk/syntaxTree/Tape/test )
         add_subdirectory( src/ENDFtk/section/2/test )
+        add_subdirectory( src/ENDFtk/file/1/test )
     endif() 
 endif()
 

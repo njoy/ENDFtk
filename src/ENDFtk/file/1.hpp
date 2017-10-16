@@ -28,21 +28,21 @@ protected:
   Map sectionMap;
 
   /* static functions */
-  #include "ENDFtk/file/Type/1/src/get.hpp"
-  #include "ENDFtk/file/Type/1/src/read.hpp"
-  // #include "ENDFtk/file/Type/1/src/fill.hpp"
+  #include "ENDFtk/file/1/src/get.hpp"
+  #include "ENDFtk/file/1/src/read.hpp"
+  // #include "ENDFtk/file/1/src/fill.hpp"
 
 public:
-  #include "ENDFtk/file/Type/1/src/ctor.hpp"
-  #include "ENDFtk/file/Type/1/src/sectionNumber.hpp"
+  #include "ENDFtk/file/1/src/ctor.hpp"
+  #include "ENDFtk/file/1/src/sectionNumber.hpp"
 
   template< typename Index >
-  decltype(auto) MT( Index index ) const {
+  decltype(auto) MT( Index sectionNo ) const {
     return this->sectionNumber( sectionNo );
   }
 
   template< typename Index >
-  decltype(auto) MT( Index index ) {
+  decltype(auto) MT( Index sectionNo ) {
     return this->sectionNumber( sectionNo );
   }
 
@@ -66,5 +66,5 @@ public:
 
   static constexpr int MF(){ return 1; }
 
-  #include "ENDFtk/file/Type/1/src/print.hpp"
+  #include "ENDFtk/file/1/src/print.hpp"
 };

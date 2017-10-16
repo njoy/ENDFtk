@@ -14,7 +14,7 @@ sectionNumber( hana::int_< Index > sectionNo ) const {
 
 template< typename Index >
 decltype(auto)
-sectionNumber( Index index ){
+sectionNumber( Index sectionNo ){
   decltype(auto) section =
     const_cast< const Type& >( *this ).sectionNumber( sectionNo );
 

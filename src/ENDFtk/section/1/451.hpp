@@ -11,6 +11,7 @@ protected:
   std::vector< DirectoryRecord > index_;
 
   /* auxiliary functions */
+  #include "ENDFtk/section/1/451/src/readParameters.hpp"
   #include "ENDFtk/section/1/451/src/readRecords.hpp"
 
   public:

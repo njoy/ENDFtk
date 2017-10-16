@@ -6,3 +6,9 @@ file::Type< MF > parse( long& lineNumber ){
   StructureDivision division( position, end, lineNumber );
   return file::Type< MF >( division, position, end, lineNumber );
 }
+
+template< int MF >
+file::Type< MF > parse(){
+  long lineNumber = 1;
+  return parse<MF>( lineNumber );
+}

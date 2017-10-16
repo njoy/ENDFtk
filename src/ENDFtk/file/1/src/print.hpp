@@ -1,6 +1,6 @@
 template< typename OutputIterator >
 void print( OutputIterator& it, int MAT ) const {
-  this->sectionMap[ 451_c ].print( it, MAT, MF );
+  this->sectionMap[ 451_c ].print( it, MAT, MF() );
   /*
   hana::for_each( optionalSections, [&]( auto MT ){
                     const auto& section = this->sectionMap( MT );

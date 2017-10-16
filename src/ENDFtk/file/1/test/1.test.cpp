@@ -10,7 +10,6 @@ std::string getFile( int MF );
 
 SCENARIO( "Testing special case of file 1" ){
   std::string file1string = getFile( 1 );
-  int MAT = 125;
   GIVEN( "a string representation of of File 1" ){
     WHEN( "a file::Type< 1 > is constructed from the string" ){
       auto begin = file1string.begin();
@@ -18,7 +17,7 @@ SCENARIO( "Testing special case of file 1" ){
       long lineNumber = 0;
 
       StructureDivision division( begin, end, lineNumber );
-      file::Type< 1 > file1( division, begin, end, lineNumber, MAT );
+      file::Type< 1 > file1( division, begin, end, lineNumber );
 
       THEN( "the sections can be extracted" ){
         REQUIRE( file1.hasMT( 451 ) );
@@ -50,18 +49,19 @@ SCENARIO( "Testing special case of file 1" ){
       long lineNumber = 0;
       StructureDivision division( begin, end, lineNumber );
       THEN( "an exception is thrown" ){
-        REQUIRE_THROWS( file::Type< 1 >( division, begin, end, lineNumber ) );
+        REQUIRE_THROWS( file::Type< 1 >
+                        ( division, begin, end, lineNumber ) );
       }
     }
   } // GIVEN
 
   GIVEN( "a valid instance of file::Type< 1 >" ) {
-      auto begin = file1string.begin();
-      auto end = file1string.end();
-      long lineNumber = 0;
+    auto begin = file1string.begin();
+    auto end = file1string.end();
+    long lineNumber = 0;
 
-      StructureDivision division( begin, end, lineNumber );
-      file::Type< 1 > file1(division, begin, end, lineNumber );
+    StructureDivision division( begin, end, lineNumber );
+    file::Type< 1 > file1( division, begin, end, lineNumber );
 
     THEN( "it can be printed" ) {
       std::string buffer;
