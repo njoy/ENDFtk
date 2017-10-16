@@ -2,17 +2,17 @@
 add_executable( ENDFtk.TabulationRecord.test
                 C1.test.cpp
                 C2.test.cpp
+                equality.test.cpp
                 L1.test.cpp
                 L2.test.cpp
                 NP.test.cpp
                 NR.test.cpp
-                equality.test.cpp
                 pairs.test.cpp
                 rangeInterpolationScheme.test.cpp
                 regions.test.cpp
+                TabulationRecord.test.cpp
                 x.test.cpp
-                y.test.cpp
-                TabulationRecord.test.cpp )
+                y.test.cpp )
 target_compile_options( ENDFtk.TabulationRecord.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}
