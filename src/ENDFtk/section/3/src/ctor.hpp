@@ -5,7 +5,7 @@ Type ( HEAD& head,
        long& lineNumber, 
        int MAT )
   try: Base( head, MAT, 3 ),
-       table( readTable( begin, end, lineNumber, head.MAT(), head.MT() ) ){ 
+       table( begin, end, lineNumber, head.MAT(), 3, head.MT() ){ 
     readSEND(begin, end, lineNumber, MAT, 3 );
   } catch( std::exception& e ){
     Log::info

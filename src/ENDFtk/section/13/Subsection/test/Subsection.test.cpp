@@ -38,6 +38,13 @@ SCENARIO( "section::Type< 13 >::SubSection" ){
         REQUIRE( refXS == XS );
       }
     }
+    WHEN( "there is a wrong MAT number" ){
+      MAT = 1825;
+      THEN( "an exception is thrown" ){
+        REQUIRE_THROWS( 
+          section::Type< 13 >::Subsection( begin, end, lineNumber, MAT, MT ) );
+      }
+    }
   }
 }
 

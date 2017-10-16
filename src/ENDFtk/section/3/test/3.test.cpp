@@ -45,7 +45,7 @@ SCENARIO( "section::Type<3>" ){
         REQUIRE( 0.9991673 == MF3.atomicWeightRatio() );
       }
     }
-    
+
     WHEN( "the SEND Record is not valid, i.e., MT!=0" ){
       std::string sectionString = baseSection() + invalidSEND();
       auto begin = sectionString.begin();
@@ -59,18 +59,6 @@ SCENARIO( "section::Type<3>" ){
     } 
   } 
 
-  GIVEN( "a string representation of an File 3 Section"
-         " with negative cross sections" ){
-    std::string sectionString = invalidBaseSection() + validSEND();
-    auto begin = sectionString.begin();
-    auto end = sectionString.end();
-    long lineNumber = 132;
-    HeadRecord head( begin, end, lineNumber );
-    
-    THEN( "an exception is thrown upon construction" ){
-      REQUIRE_THROWS( section::Type<3>( head, begin, end, lineNumber, 125 ) );
-    }
-  } // GIVEN
 } // SCENARIO
 
 std::string baseSection(){

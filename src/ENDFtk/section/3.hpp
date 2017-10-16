@@ -6,7 +6,6 @@ public:
   TabulationRecord table;
 
   /* methods */
-#include "ENDFtk/section/3/src/readTable.hpp"
 #include "ENDFtk/section/3/src/ctor.hpp"
     
   using Base::MT;
