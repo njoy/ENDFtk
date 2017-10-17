@@ -12,7 +12,7 @@ readSubsections( Iterator& begin, const Iterator& end, long& lineNumber,
     throw std::runtime_error("section::Type<13> ctor");
   }
 
-  tabulations.reserve( NK + NK > 1 );
+  tabulations.reserve( NK + ( NK > 1 ) );
   if ( NK > 1 ){
     tabulations.emplace_back( begin, end, lineNumber, MAT, 13, MT );
   }

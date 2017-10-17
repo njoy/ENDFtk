@@ -22,7 +22,7 @@ public:
   auto subsections() const {
     return
       this->subsections_
-      | ranges::view::drop( this->NK() > 1 )
+      | ranges::view::drop_exactly( this->NK() > 1 )
       | ranges::view::transform
         ( []( const auto& tabulationRecord ) -> const Subsection&
           { return static_cast< Subsection& >( tabulationRecord ); } );
