@@ -4,7 +4,7 @@ void print( OutputIterator& it, int MAT ) const {
   /*
   hana::for_each( optionalSections, [&]( auto MT ){
                     const auto& section = this->sectionMap( MT );
-                    if ( section ){ section.print( it, MAT, MF ); } } );
+                    if ( section ){ section->print( it, MAT, MF() ); } } );
   */
   FEND( MAT ).print( it );
 }
