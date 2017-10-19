@@ -38,7 +38,7 @@ SCENARIO( "section::Type<3>" ){
         mf3( head, begin, position, end, lineNumber );     
            
       THEN( "a section::Type<3> can be constructed and members can be tested" ){     
-        section::Type<3> MF3 = mf3.parse<3>( lineNumber, 125 );     
+        section::Type<3> MF3 = mf3.parse<3>( lineNumber );     
         REQUIRE( 1 == MF3.MT() );     
         REQUIRE( 1001 == MF3.ZA() );     
         REQUIRE( 0.9991673 == MF3.atomicWeightRatio() );     
