@@ -566,7 +566,8 @@
       "src/ENDFtk/InterpolationRecord/test/NR.test.cpp",
       "src/ENDFtk/InterpolationRecord/test/NZ.test.cpp",
       "src/ENDFtk/InterpolationRecord/test/equality.test.cpp",
-      "src/ENDFtk/InterpolationRecord/test/rangeInterpolationScheme.test.cpp"
+      "src/ENDFtk/InterpolationRecord/test/rangeInterpolationScheme.test.cpp",
+      "src/ENDFtk/InterpolationRecord/test/print.test.cpp"
     ],
     "ENDFtk.ListRecord": [
       "src/ENDFtk/ListRecord/test/ListRecord.test.cpp"
