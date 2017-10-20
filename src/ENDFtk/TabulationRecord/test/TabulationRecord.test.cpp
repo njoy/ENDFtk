@@ -115,22 +115,6 @@ SCENARIO( "TabulationRecord ctor",
 
     } 
 
-    SECTION( "print" ){
-      auto begin = tab1.begin();
-      auto end = tab1.end();
-      auto lineNumber = 438l;
-      int MAT = 9228;
-      int MF = 1;
-      int MT = 460;
-      
-      TabulationRecord table( begin, end, lineNumber, MAT, MF, MT );
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      table.print( output, MAT, MF, MT );
-      
-      REQUIRE( buffer == tab1 );
-    }
-
     SECTION( "NC" ){
       auto begin = tab1.begin();
       auto end = tab1.end();
@@ -239,8 +223,24 @@ SCENARIO( "TabulationRecord ctor",
 
   GIVEN( "Zero NP" ){
     std::string tab1 = 
-      " 0.000000+0 0.000000+0         33          0          1          09228 1460  438\n"
+      " 0.000000+0 0.000000+0         33          0          2          09228 1460  438\n"
       "          2          4          4          1                      9228 1460  439\n"
+      " 1.000000+1 1.725000+1 1.400000+1 1.850000+1 1.500000+1 1.975000+09228 1460  440\n"
+      " 2.700000+1 1.605000+1                                            9228 1460  441\n";
+    auto begin = tab1.begin();
+    auto end = tab1.end();
+    auto lineNumber = 438l;
+    int MAT = 9228;
+    int MF = 1;
+    int MT = 460;
+   
+    REQUIRE_THROWS( TabulationRecord( begin, end, lineNumber, MAT, MF, MT ) );
+  }
+
+  GIVEN( "Mismatched NP and range index" ){
+    std::string tab1 = 
+      " 0.000000+0 0.000000+0         33          0          2          49228 1460  438\n"
+      "          2          4          3          1                      9228 1460  439\n"
       " 1.000000+1 1.725000+1 1.400000+1 1.850000+1 1.500000+1 1.975000+09228 1460  440\n"
       " 2.700000+1 1.605000+1                                            9228 1460  441\n";
     auto begin = tab1.begin();

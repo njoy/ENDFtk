@@ -24,12 +24,16 @@
 #include "range/v3/all.hpp"
 
 #include "disco.hpp"
+#include "boost/hana.hpp"
 #include "Log.hpp"
 #include "header-utilities.hpp"
 #include "hopscotch_map.h"
 
 namespace njoy {
 namespace ENDFtk {
+
+namespace hana = boost::hana;
+using namespace hana::literals;
 
 template< typename T >
 using MutableReturnType = std::add_lvalue_reference_t< T >;
