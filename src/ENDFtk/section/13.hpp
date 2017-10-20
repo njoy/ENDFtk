@@ -25,6 +25,6 @@ public:
       | ranges::view::drop_exactly( this->NK() > 1 )
       | ranges::view::transform
         ( []( const auto& tabulationRecord ) -> const Subsection&
-          { return static_cast< Subsection& >( tabulationRecord ); } );
+          { return static_cast< const Subsection& >( tabulationRecord ); } );
   }
 };
