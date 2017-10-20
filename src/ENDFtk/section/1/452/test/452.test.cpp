@@ -15,6 +15,7 @@ std::string invalidSEND();
 
 SCENARIO( "section::Type< 1, 452 >" ) {
   GIVEN( "a string representation of a valid File 1 Section 452 with LNU=1" ) {
+
     WHEN( "there is a valid SEND record" ){
       std::string sectionString = baseLNU1() + validSEND();
       auto begin = sectionString.begin();
@@ -24,17 +25,24 @@ SCENARIO( "section::Type< 1, 452 >" ) {
       
       THEN( "a section::Type< 1, 452 > can be constructed and members can be tested" ) {
         section::Type< 1, 452 > MF1MT452( head, begin, end, lineNumber, 9228 );
+
+        REQUIRE_NOTHROW( std::experimental::get< nubar::Polynomial >
+                         ( MF1MT452.nubar() ) );
+
+        const auto& data = std::experimental::get< nubar::Polynomial >
+                           ( MF1MT452.nubar() );
+        auto coefficients = data.coefficients();
+
         REQUIRE( 452 == MF1MT452.MT() );
         REQUIRE( 92235 == MF1MT452.ZA() );
         REQUIRE( 233.0248 == Approx( MF1MT452.atomicWeightRatio() ) );
         REQUIRE( 233.0248 == Approx( MF1MT452.AWR() ) );
         REQUIRE( 1 == MF1MT452.LNU() );
-        auto coefficients = MF1MT452.coefficients();
-        REQUIRE( 2 == coefficients.size() );
+        REQUIRE( 2 == data.NCO() );
         REQUIRE( 2.4367 == Approx( coefficients[0] ) );
         REQUIRE( 0.05 == Approx( coefficients[1] ) );
 
-//        REQUIRE( 3 == MF1MT452.NC() );
+        REQUIRE( 3 == MF1MT452.NC() );
       }
     }
 
@@ -50,17 +58,24 @@ SCENARIO( "section::Type< 1, 452 >" ) {
       
       THEN( "a section::Type< 1, 452 > can be constructed and members can be tested" ){
         section::Type< 1, 452 > MF1MT452 = section.parse< 1, 452 >( lineNumber );
+
+        REQUIRE_NOTHROW( std::experimental::get< nubar::Polynomial >
+                         ( MF1MT452.nubar() ) );
+
+        const auto& data = std::experimental::get< nubar::Polynomial >
+                           ( MF1MT452.nubar() );
+        auto coefficients = data.coefficients();
+
         REQUIRE( 452 == MF1MT452.MT() );
         REQUIRE( 92235 == MF1MT452.ZA() );
         REQUIRE( 233.0248 == Approx( MF1MT452.atomicWeightRatio() ) );
         REQUIRE( 233.0248 == Approx( MF1MT452.AWR() ) );
         REQUIRE( 1 == MF1MT452.LNU() );
-        auto coefficients = MF1MT452.coefficients();
-        REQUIRE( 2 == coefficients.size() );
+        REQUIRE( 2 == data.NCO() );
         REQUIRE( 2.4367 == Approx( coefficients[0] ) );
         REQUIRE( 0.05 == Approx( coefficients[1] ) );
 
-//        REQUIRE( 3 == MF1MT452.NC() );
+        REQUIRE( 3 == MF1MT452.NC() );
       }
     }
     
@@ -78,6 +93,7 @@ SCENARIO( "section::Type< 1, 452 >" ) {
   } // GIVEN
 
   GIVEN( "a string representation of a valid File 1 Section 452 with LNU=2" ) {
+
     WHEN( "there is a valid SEND record" ){
       std::string sectionString = baseLNU2() + validSEND();
       auto begin = sectionString.begin();
@@ -87,13 +103,40 @@ SCENARIO( "section::Type< 1, 452 >" ) {
       
       THEN( "a section::Type< 1, 452 > can be constructed and members can be tested" ) {
         section::Type< 1, 452 > MF1MT452( head, begin, end, lineNumber, 9228 );
+
+        REQUIRE_NOTHROW( std::experimental::get< nubar::Tabulated >
+                         ( MF1MT452.nubar() ) );
+
+        const auto& data = std::experimental::get< nubar::Tabulated >
+                           ( MF1MT452.nubar() );
+        auto energy = data.energy();
+        auto nubar = data.nubar();
+        auto interpolants = data.interpolants();
+        auto boundaries = data.boundaries();
+
         REQUIRE( 452 == MF1MT452.MT() );
         REQUIRE( 92235 == MF1MT452.ZA() );
         REQUIRE( 233.0248 == Approx( MF1MT452.atomicWeightRatio() ) );
         REQUIRE( 233.0248 == Approx( MF1MT452.AWR() ) );
         REQUIRE( 2 == MF1MT452.LNU() );
+        REQUIRE( 1 == data.NR() );
+        REQUIRE( 1 == interpolants.size() );
+        REQUIRE( 1 == boundaries.size() );
+        REQUIRE( 4 == data.NP() );
+        REQUIRE( 4 == energy.size() );
+        REQUIRE( 4 == nubar.size() );
+        REQUIRE( 1e-5 == Approx( energy[0] ) );
+        REQUIRE( 0.0253 == Approx( energy[1] ) );
+        REQUIRE( 0.05 == Approx( energy[2] ) );
+        REQUIRE( 2e+7 == Approx( energy[3] ) );
+        REQUIRE( 2.4367 == Approx( nubar[0] ) );
+        REQUIRE( 2.4367 == Approx( nubar[1] ) );
+        REQUIRE( 2.4367 == Approx( nubar[2] ) );
+        REQUIRE( 5.209845 == Approx( nubar[3] ) );
+        REQUIRE( 2 == interpolants[0] );
+        REQUIRE( 4 == boundaries[0] );
 
-//        REQUIRE( 5 == MF1MT452.NC() );
+        REQUIRE( 5 == MF1MT452.NC() );
       }
     }
 
@@ -109,13 +152,40 @@ SCENARIO( "section::Type< 1, 452 >" ) {
       
       THEN( "a section::Type< 1, 452 > can be constructed and members can be tested" ){
         section::Type< 1, 452 > MF1MT452 = section.parse< 1, 452 >( lineNumber );
+
+        REQUIRE_NOTHROW( std::experimental::get< nubar::Tabulated >
+                         ( MF1MT452.nubar() ) );
+
+        const auto& data = std::experimental::get< nubar::Tabulated >
+                           ( MF1MT452.nubar() );
+        auto energy = data.energy();
+        auto nubar = data.nubar();
+        auto interpolants = data.interpolants();
+        auto boundaries = data.boundaries();
+
         REQUIRE( 452 == MF1MT452.MT() );
         REQUIRE( 92235 == MF1MT452.ZA() );
         REQUIRE( 233.0248 == Approx( MF1MT452.atomicWeightRatio() ) );
         REQUIRE( 233.0248 == Approx( MF1MT452.AWR() ) );
         REQUIRE( 2 == MF1MT452.LNU() );
+        REQUIRE( 1 == data.NR() );
+        REQUIRE( 1 == interpolants.size() );
+        REQUIRE( 1 == boundaries.size() );
+        REQUIRE( 4 == data.NP() );
+        REQUIRE( 4 == energy.size() );
+        REQUIRE( 4 == nubar.size() );
+        REQUIRE( 1e-5 == Approx( energy[0] ) );
+        REQUIRE( 0.0253 == Approx( energy[1] ) );
+        REQUIRE( 0.05 == Approx( energy[2] ) );
+        REQUIRE( 2e+7 == Approx( energy[3] ) );
+        REQUIRE( 2.4367 == Approx( nubar[0] ) );
+        REQUIRE( 2.4367 == Approx( nubar[1] ) );
+        REQUIRE( 2.4367 == Approx( nubar[2] ) );
+        REQUIRE( 5.209845 == Approx( nubar[3] ) );
+        REQUIRE( 2 == interpolants[0] );
+        REQUIRE( 4 == boundaries[0] );
 
-//        REQUIRE( 5 == MF1MT452.NC() );
+        REQUIRE( 5 == MF1MT452.NC() );
       }
     }
     
@@ -130,6 +200,38 @@ SCENARIO( "section::Type< 1, 452 >" ) {
         REQUIRE_THROWS( section1452( head, begin, end, lineNumber, 9228 ) );
       }
     } 
+  } // GIVEN
+
+  GIVEN( "a valid instance of section::Type< 1, 452 > with LNU=1" ) {
+    std::string string = baseLNU1() + validSEND();
+    auto begin = string.begin();
+    auto end = string.end();
+    long lineNumber = 1; 
+    HeadRecord head( begin, end, lineNumber );
+    section::Type< 1, 452 > section( head, begin, end, lineNumber, 9228 );
+
+    THEN( "it can be printed" ) {
+      std::string buffer;
+      auto output = std::back_inserter( buffer );
+      section.print( output, 9228, 1 );
+      REQUIRE( buffer == string );
+    }
+  } // GIVEN
+
+  GIVEN( "a valid instance of section::Type< 1, 452 > with LNU=2" ) {
+    std::string string = baseLNU2() + validSEND();
+    auto begin = string.begin();
+    auto end = string.end();
+    long lineNumber = 1; 
+    HeadRecord head( begin, end, lineNumber );
+    section::Type< 1, 452 > section( head, begin, end, lineNumber, 9228 );
+
+    THEN( "it can be printed" ) {
+      std::string buffer;
+      auto output = std::back_inserter( buffer );
+      section.print( output, 9228, 1 );
+      REQUIRE( buffer == string );
+    }
   } // GIVEN
 
   GIVEN( "a string representation of an File 1 Section 451"

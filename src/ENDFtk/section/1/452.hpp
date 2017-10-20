@@ -1,12 +1,10 @@
-#include <variant>
-
 template<>
 class Type< 1, 452 > : protected Base {
 protected:
 
   /* fields */
   int lnu_;
-  std::variant< ListRecord, TabulationRecord > data_;
+  nubar::Data data_;
 
   /* auxiliary functions */
 #include "ENDFtk/section/1/452/src/readData.hpp"
@@ -22,11 +20,19 @@ protected:
   static constexpr int MT() { return 452; }
 
   int LNU() const { return this->lnu_; }
+//! @todo use this as an alternative and do not store LNU in the section?
+// NOTE: LNU is on the HEAD record of the section, not on the LIST or TAB1
+//  int LNU() const { return std::visit( [] ( const auto& v ) -> long
+//                                          { return v.LNU(); },
+//                                       this->data_ ); }
 
-  auto coefficients() const { return std::experimental::get< 0 >( this->data_ ).list(); }
+  const nubar::Data& nubar() const { return this->data_; }
 
-//  const ListRecord& polynomial() const { return this->polynomial_; }
-//  const TabulationRecord& tabulated() const { return this->tabulated_; }
+  long NC() const { return 1 + std::visit( [] ( const auto& v ) -> long
+                                              { return v.NC(); },
+                                           this->data_ ); }
+
+#include "ENDFtk/section/1/452/src/print.hpp"
 
   using Base::ZA;
   using Base::AWR;
