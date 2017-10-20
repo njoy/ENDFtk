@@ -501,7 +501,7 @@
     "src/ENDFtk/section/Base/src/ctor.hpp",
     "src/ENDFtk/section/Base/src/readSEND.hpp",
     "src/ENDFtk/section/1/451.hpp",
-    "src/ENDFtk/section/1/451/src/ctor-452.hpp",
+    "src/ENDFtk/section/1/452.hpp",
     "src/ENDFtk/section/1/451/src/ctor-455.hpp",
     "src/ENDFtk/section/1/451/src/ctor-456.hpp",
     "src/ENDFtk/section/1/451/src/ctor-458.hpp",
@@ -511,6 +511,8 @@
     "src/ENDFtk/section/1/451/src/print.hpp",
     "src/ENDFtk/section/1/451/src/readParameters.hpp",
     "src/ENDFtk/section/1/451/src/readRecords.hpp",
+    "src/ENDFtk/section/1/452/src/readData.hpp",
+    "src/ENDFtk/section/1/452/src/ctor.hpp",
     "src/ENDFtk/syntaxTree/File.hpp",
     "src/ENDFtk/syntaxTree/Material.hpp",
     "src/ENDFtk/syntaxTree/Section.hpp",
@@ -682,6 +684,9 @@
     ],
     "ENDFtk.section.1.451": [
       "src/ENDFtk/section/1/451/test/451.test.cpp"
+    ],
+    "ENDFtk.section.1.452": [
+      "src/ENDFtk/section/1/452/test/452.test.cpp"
     ],
     "ENDFtk.section.2": [
       "src/ENDFtk/section/2/test/2.test.cpp"

@@ -18,7 +18,7 @@ Type ( HEAD& head,
                                             lineNumber,
                                             MAT,
                                             this->parameters_[2].N2() ) ) {
-    readSEND(begin, end, lineNumber, MAT, 1 );
+    readSEND( begin, end, lineNumber, MAT, 1 );
   } catch( std::exception& e ) {
     Log::info( "Trouble while reading section 451 of File 1 of Material {}",
                MAT );

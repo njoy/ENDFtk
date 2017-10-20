@@ -360,7 +360,7 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/Base/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/Base/src/readSEND.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/451.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/451/src/ctor-452.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/452.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/451/src/ctor-455.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/451/src/ctor-456.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/451/src/ctor-458.hpp"
@@ -370,6 +370,8 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/451/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/451/src/readParameters.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/451/src/readRecords.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/452/src/readData.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/452/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/File.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/Material.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/Section.hpp"
@@ -433,6 +435,7 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/test )
         add_subdirectory( src/ENDFtk/section/1/451/test )
+        add_subdirectory( src/ENDFtk/section/1/452/test )
         add_subdirectory( src/ENDFtk/section/2/test )
         add_subdirectory( src/ENDFtk/section/3/test )
         add_subdirectory( src/ENDFtk/section/Base/test )

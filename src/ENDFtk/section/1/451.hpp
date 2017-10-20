@@ -14,7 +14,7 @@ protected:
   #include "ENDFtk/section/1/451/src/readParameters.hpp"
   #include "ENDFtk/section/1/451/src/readRecords.hpp"
 
-  public:
+public:
   /* constructor */
   #include "ENDFtk/section/1/451/src/ctor.hpp"
 
