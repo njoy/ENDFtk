@@ -232,7 +232,7 @@ SCENARIO( "section::Type< 1, 456 >" ) {
     }
   } // GIVEN
 
-  GIVEN( "a string representation of an File 1 Section 451"
+  GIVEN( "a string representation of an File 1 Section 456"
          " with an invalid LNU" ){
     std::string sectionString = invalidLNU() + validSEND();
     auto begin = sectionString.begin();

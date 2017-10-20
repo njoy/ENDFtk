@@ -92,18 +92,6 @@ set( ENDFtk_GNU_Darwin_link_time_optimization_flags "-flto" )
 set( ENDFtk_GNU_Darwin_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
 set( ENDFtk_GNU_Darwin_nonportable_optimization_flags "-march=native" )
 set( ENDFtk_GNU_Darwin_static_flags "-static" )
-set( ENDFtk_GNU_Windows_common_flags "-Wall" "-Wextra" "-Wpedantic" "-std=c++14" )
-set( ENDFtk_GNU_Windows_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
-set( ENDFtk_GNU_Windows_RELEASE_flags "-O3" "-DNDEBUG" )
-set( ENDFtk_GNU_Windows_strict_flags "-Werror" )
-set( ENDFtk_GNU_Windows_coverage_flags "--coverage" )
-set( ENDFtk_GNU_Windows_subproject_flags  )
-set( ENDFtk_GNU_Windows_base_project_flags  )
-set( ENDFtk_GNU_Windows_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
-set( ENDFtk_GNU_Windows_link_time_optimization_flags "-flto" )
-set( ENDFtk_GNU_Windows_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
-set( ENDFtk_GNU_Windows_nonportable_optimization_flags "-march=native" )
-set( ENDFtk_GNU_Windows_static_flags "-static" )
 set( ENDFtk_GNU_Linux_common_flags "-Wall" "-Wextra" "-Wpedantic" "-std=c++14" )
 set( ENDFtk_GNU_Linux_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
 set( ENDFtk_GNU_Linux_RELEASE_flags "-O3" "-DNDEBUG" )
@@ -116,6 +104,18 @@ set( ENDFtk_GNU_Linux_link_time_optimization_flags "-flto" )
 set( ENDFtk_GNU_Linux_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
 set( ENDFtk_GNU_Linux_nonportable_optimization_flags "-march=native" )
 set( ENDFtk_GNU_Linux_static_flags "-static" )
+set( ENDFtk_GNU_Windows_common_flags "-Wall" "-Wextra" "-Wpedantic" "-std=c++14" )
+set( ENDFtk_GNU_Windows_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
+set( ENDFtk_GNU_Windows_RELEASE_flags "-O3" "-DNDEBUG" )
+set( ENDFtk_GNU_Windows_strict_flags "-Werror" )
+set( ENDFtk_GNU_Windows_coverage_flags "--coverage" )
+set( ENDFtk_GNU_Windows_subproject_flags  )
+set( ENDFtk_GNU_Windows_base_project_flags  )
+set( ENDFtk_GNU_Windows_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_GNU_Windows_link_time_optimization_flags "-flto" )
+set( ENDFtk_GNU_Windows_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_GNU_Windows_nonportable_optimization_flags "-march=native" )
+set( ENDFtk_GNU_Windows_static_flags "-static" )
 set( ENDFtk_Clang_Darwin_common_flags "-stdlib=libc++" "-Wall" "-Wextra" "-Wpedantic" "-std=c++14" )
 set( ENDFtk_Clang_Darwin_DEBUG_flags "-O0" "-g" "-gdwarf-3" )
 set( ENDFtk_Clang_Darwin_RELEASE_flags "-O3" "-DNDEBUG" )
@@ -128,18 +128,6 @@ set( ENDFtk_Clang_Darwin_link_time_optimization_flags "-flto" )
 set( ENDFtk_Clang_Darwin_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
 set( ENDFtk_Clang_Darwin_nonportable_optimization_flags "-march=native" )
 set( ENDFtk_Clang_Darwin_static_flags "-static" )
-set( ENDFtk_Clang_Windows_common_flags "-stdlib=libc++" "-Wall" "-Wextra" "-Wpedantic" "-std=c++14" )
-set( ENDFtk_Clang_Windows_DEBUG_flags "-O0" "-g" "-gdwarf-3" )
-set( ENDFtk_Clang_Windows_RELEASE_flags "-O3" "-DNDEBUG" )
-set( ENDFtk_Clang_Windows_strict_flags "-Werror" )
-set( ENDFtk_Clang_Windows_coverage_flags "--coverage" )
-set( ENDFtk_Clang_Windows_subproject_flags  )
-set( ENDFtk_Clang_Windows_base_project_flags  )
-set( ENDFtk_Clang_Windows_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
-set( ENDFtk_Clang_Windows_link_time_optimization_flags "-flto" )
-set( ENDFtk_Clang_Windows_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
-set( ENDFtk_Clang_Windows_nonportable_optimization_flags "-march=native" )
-set( ENDFtk_Clang_Windows_static_flags "-static" )
 set( ENDFtk_Clang_Linux_common_flags "-stdlib=libstdc++" "-Wall" "-Wextra" "-Wpedantic" "-std=c++14" )
 set( ENDFtk_Clang_Linux_DEBUG_flags "-O0" "-g" "-gdwarf-3" )
 set( ENDFtk_Clang_Linux_RELEASE_flags "-O3" "-DNDEBUG" )
@@ -152,6 +140,18 @@ set( ENDFtk_Clang_Linux_link_time_optimization_flags "-flto" )
 set( ENDFtk_Clang_Linux_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
 set( ENDFtk_Clang_Linux_nonportable_optimization_flags "-march=native" )
 set( ENDFtk_Clang_Linux_static_flags "-static" )
+set( ENDFtk_Clang_Windows_common_flags "-stdlib=libc++" "-Wall" "-Wextra" "-Wpedantic" "-std=c++14" )
+set( ENDFtk_Clang_Windows_DEBUG_flags "-O0" "-g" "-gdwarf-3" )
+set( ENDFtk_Clang_Windows_RELEASE_flags "-O3" "-DNDEBUG" )
+set( ENDFtk_Clang_Windows_strict_flags "-Werror" )
+set( ENDFtk_Clang_Windows_coverage_flags "--coverage" )
+set( ENDFtk_Clang_Windows_subproject_flags  )
+set( ENDFtk_Clang_Windows_base_project_flags  )
+set( ENDFtk_Clang_Windows_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_Clang_Windows_link_time_optimization_flags "-flto" )
+set( ENDFtk_Clang_Windows_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_Clang_Windows_nonportable_optimization_flags "-march=native" )
+set( ENDFtk_Clang_Windows_static_flags "-static" )
 get_directory_property( is_subproject PARENT_DIRECTORY )
 
 if( NOT TARGET catch-adapter )
@@ -363,10 +363,7 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/451.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/452.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/456.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/451/src/ctor-455.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/451/src/ctor-456.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/451/src/ctor-458.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/451/src/ctor-460.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/455.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/451/src/description.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/451/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/451/src/readParameters.hpp"
@@ -374,7 +371,8 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/451/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/452/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/452/src/print.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/452/src/readNubarData.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/455/src/print.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/455/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/File.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/Material.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/Section.hpp"
@@ -398,7 +396,11 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/nubar/Polynomial.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/nubar/Tabulated.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/nubar/Constant.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/nubar/EnergyDependent.hpp" )
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/nubar/EnergyDependent.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/nubar/EnergyDependent/src/readLists.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/nubar/EnergyDependent/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/nubar/src/readNubarData.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/nubar/src/readDecayConstantData.hpp" )
 
 target_include_directories( ENDFtk INTERFACE src )
 
@@ -443,6 +445,7 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/test )
         add_subdirectory( src/ENDFtk/section/1/451/test )
         add_subdirectory( src/ENDFtk/section/1/452/test )
+        add_subdirectory( src/ENDFtk/section/1/455/test )
         add_subdirectory( src/ENDFtk/section/1/456/test )
         add_subdirectory( src/ENDFtk/section/2/test )
         add_subdirectory( src/ENDFtk/section/3/test )

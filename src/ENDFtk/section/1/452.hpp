@@ -6,9 +6,6 @@ protected:
   int lnu_;
   nubar::NubarData data_;
 
-  /* auxiliary functions */
-#include "ENDFtk/section/1/452/src/readNubarData.hpp"
-
 public:
 
   /* constructor */
