@@ -4,12 +4,12 @@ protected:
 
   /* fields */
   int lnu_;
-  nubar::Data data_;
+  nubar::NubarData data_;
 
   /* auxiliary functions */
-#include "ENDFtk/section/1/452/src/readData.hpp"
+#include "ENDFtk/section/1/452/src/readNubarData.hpp"
 
-  public:
+public:
 
   /* constructor */
 #include "ENDFtk/section/1/452/src/ctor.hpp"
@@ -17,7 +17,7 @@ protected:
   /* set methods */
 
   /* get methods */
-  static constexpr int MT() { return 452; }
+  virtual int MT() const { return 452; }
 
   int LNU() const { return this->lnu_; }
 //! @todo use this as an alternative and do not store LNU in the section?
@@ -26,7 +26,7 @@ protected:
 //                                          { return v.LNU(); },
 //                                       this->data_ ); }
 
-  const nubar::Data& nubar() const { return this->data_; }
+  const nubar::NubarData& nubar() const { return this->data_; }
 
   long NC() const { return 1 + std::visit( [] ( const auto& v ) -> long
                                               { return v.NC(); },

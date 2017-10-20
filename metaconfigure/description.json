@@ -381,6 +381,7 @@
     "src/ENDFtk/StructureDivision.hpp",
     "src/ENDFtk/file.hpp",
     "src/ENDFtk/section.hpp",
+    "src/ENDFtk/nubar.hpp",
     "src/ENDFtk/ControlRecord/src/print.hpp",
     "src/ENDFtk/DirectoryRecord/src/print.hpp",
     "src/ENDFtk/HeadRecord/src/asHead.hpp",
@@ -492,8 +493,8 @@
     "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/src/print.hpp",
     "src/ENDFtk/section/2.hpp",
     "src/ENDFtk/section/Base.hpp",
-    "src/ENDFtk/section/1.hpp",
     "src/ENDFtk/section/3.hpp",
+    "src/ENDFtk/section/1.hpp",
     "src/ENDFtk/section/2/src/ctor.hpp",
     "src/ENDFtk/section/2/src/readIsotopes.hpp",
     "src/ENDFtk/section/3/src/ctor.hpp",
@@ -502,17 +503,19 @@
     "src/ENDFtk/section/Base/src/readSEND.hpp",
     "src/ENDFtk/section/1/451.hpp",
     "src/ENDFtk/section/1/452.hpp",
+    "src/ENDFtk/section/1/456.hpp",
     "src/ENDFtk/section/1/451/src/ctor-455.hpp",
     "src/ENDFtk/section/1/451/src/ctor-456.hpp",
     "src/ENDFtk/section/1/451/src/ctor-458.hpp",
     "src/ENDFtk/section/1/451/src/ctor-460.hpp",
-    "src/ENDFtk/section/1/451/src/ctor.hpp",
     "src/ENDFtk/section/1/451/src/description.hpp",
     "src/ENDFtk/section/1/451/src/print.hpp",
     "src/ENDFtk/section/1/451/src/readParameters.hpp",
     "src/ENDFtk/section/1/451/src/readRecords.hpp",
-    "src/ENDFtk/section/1/452/src/readData.hpp",
+    "src/ENDFtk/section/1/451/src/ctor.hpp",
     "src/ENDFtk/section/1/452/src/ctor.hpp",
+    "src/ENDFtk/section/1/452/src/print.hpp",
+    "src/ENDFtk/section/1/452/src/readNubarData.hpp",
     "src/ENDFtk/syntaxTree/File.hpp",
     "src/ENDFtk/syntaxTree/Material.hpp",
     "src/ENDFtk/syntaxTree/Section.hpp",
@@ -532,7 +535,11 @@
     "src/ENDFtk/syntaxTree/Tape/src/createMap.hpp",
     "src/ENDFtk/syntaxTree/Tape/src/createVector.hpp",
     "src/ENDFtk/syntaxTree/Tape/src/ctor.hpp",
-    "src/ENDFtk/syntaxTree/Tape/src/materialNumber.hpp"
+    "src/ENDFtk/syntaxTree/Tape/src/materialNumber.hpp",
+    "src/ENDFtk/nubar/Polynomial.hpp",
+    "src/ENDFtk/nubar/Tabulated.hpp",
+    "src/ENDFtk/nubar/Constant.hpp",
+    "src/ENDFtk/nubar/EnergyDependent.hpp"
   ],
   "ignore pattern": "$^",
   "implementation files": [],
@@ -687,6 +694,9 @@
     ],
     "ENDFtk.section.1.452": [
       "src/ENDFtk/section/1/452/test/452.test.cpp"
+    ],
+    "ENDFtk.section.1.456": [
+      "src/ENDFtk/section/1/456/test/456.test.cpp"
     ],
     "ENDFtk.section.2": [
       "src/ENDFtk/section/2/test/2.test.cpp"
