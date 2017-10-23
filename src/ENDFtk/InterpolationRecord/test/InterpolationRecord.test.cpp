@@ -172,7 +172,7 @@ SCENARIO( "InterpolationRecord ctor",
   GIVEN( "Inconsistent NZ" ){
     std::string tab2 =
       " 0.000000+0 0.000000+0         33          0          1          39228 1460  438\n"
-      "          3          4                                            9228 1460  439\n";
+      "          4          4                                            9228 1460  439\n";
     auto begin = tab2.begin();
     auto end = tab2.end();
     auto lineNumber = 438l;
