@@ -158,7 +158,21 @@ SCENARIO( "InterpolationRecord ctor",
   GIVEN( "Zero NZ" ){
     std::string tab2 =
       " 0.000000+0 0.000000+0         33          0          1          09228 1460  438\n"
-      "          2          4          4          1                      9228 1460  439\n";
+      "          4          4                                            9228 1460  439\n";
+    auto begin = tab2.begin();
+    auto end = tab2.end();
+    auto lineNumber = 438l;
+    int MAT = 9228;
+    int MF = 1;
+    int MT = 460;
+   
+    REQUIRE_THROWS( InterpolationRecord( begin, end, lineNumber, MAT, MF, MT ) );
+  }
+
+  GIVEN( "Inconsistent NZ" ){
+    std::string tab2 =
+      " 0.000000+0 0.000000+0         33          0          1          39228 1460  438\n"
+      "          3          4                                            9228 1460  439\n";
     auto begin = tab2.begin();
     auto end = tab2.end();
     auto lineNumber = 438l;
