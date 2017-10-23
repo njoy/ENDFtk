@@ -540,6 +540,9 @@
     "src/ENDFtk/nubar/EnergyDependent.hpp",
     "src/ENDFtk/nubar/EnergyDependent/src/readLists.hpp",
     "src/ENDFtk/nubar/EnergyDependent/src/ctor.hpp",
+    "src/ENDFtk/nubar/EnergyDependent/src/print.hpp",
+    "src/ENDFtk/nubar/EnergyDependent/src/NC.hpp",
+    "src/ENDFtk/nubar/EnergyDependent/src/verifyNNF.hpp",
     "src/ENDFtk/nubar/src/readNubarData.hpp",
     "src/ENDFtk/nubar/src/readDecayConstantData.hpp"
   ],
@@ -613,6 +616,18 @@
     ],
     "ENDFtk.file.Type": [
       "src/ENDFtk/file/Type/test/Type.test.cpp"
+    ],
+    "ENDFtk.nubar.Constant": [
+      "src/ENDFtk/nubar/Constant/test/Constant.test.cpp"
+    ],
+    "ENDFtk.nubar.EnergyDependent": [
+      "src/ENDFtk/nubar/EnergyDependent/test/EnergyDependent.test.cpp"
+    ],
+    "ENDFtk.nubar.Polynomial": [
+      "src/ENDFtk/nubar/Polynomial/test/Polynomial.test.cpp"
+    ],
+    "ENDFtk.nubar.Tabulated": [
+      "src/ENDFtk/nubar/Tabulated/test/Tabulated.test.cpp"
     ],
     "ENDFtk.record": [
       "src/ENDFtk/record/test/record.test.cpp",

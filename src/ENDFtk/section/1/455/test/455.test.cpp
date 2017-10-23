@@ -13,6 +13,8 @@ std::string baseLDG1LNU1();
 std::string baseLDG1LNU2();
 std::string invalidLDG();
 std::string invalidLNU();
+std::string oddNPL();
+std::string inconsistentNPL();
 std::string validSEND();
 std::string invalidSEND();
 
@@ -306,6 +308,9 @@ SCENARIO( "section::Type< 1, 455 >" ) {
                              ( MF1MT455.lambda() );
         auto l_interpolants = lambda.interpolants();
         auto l_boundaries = lambda.boundaries();
+        auto l_energies = lambda.energies();
+        auto l_lambdas = lambda.lambdas();
+        auto l_alphas = lambda.alphas();
 
         const auto& data = std::experimental::get< nubar::Polynomial >
                            ( MF1MT455.nubar() );
@@ -321,11 +326,44 @@ SCENARIO( "section::Type< 1, 455 >" ) {
         REQUIRE( 1 == data.LNU() );
         REQUIRE( 1 == lambda.NR() );
         REQUIRE( 2 == lambda.NE() );
+        REQUIRE( 6 == lambda.NNF() );
         REQUIRE( 1 == l_interpolants.size() );
         REQUIRE( 1 == l_boundaries.size() );
         REQUIRE( 4 == l_interpolants[0] );
         REQUIRE( 2 == l_boundaries[0] );
-
+        REQUIRE( 2 == l_energies.size() );
+        REQUIRE( 1e-5 == Approx( l_energies[0] ) );
+        REQUIRE( 2e+7 == Approx( l_energies[1] ) );
+        REQUIRE( 2 == l_lambdas.size() );
+        REQUIRE( 6 == l_lambdas[0].size() );
+        REQUIRE( 1. == Approx( l_lambdas[0][0] ) );
+        REQUIRE( 2. == Approx( l_lambdas[0][1] ) );
+        REQUIRE( 3. == Approx( l_lambdas[0][2] ) );
+        REQUIRE( 4. == Approx( l_lambdas[0][3] ) );
+        REQUIRE( 5. == Approx( l_lambdas[0][4] ) );
+        REQUIRE( 6. == Approx( l_lambdas[0][5] ) );
+        REQUIRE( 6 == l_lambdas[1].size() );
+        REQUIRE( 6. == Approx( l_lambdas[1][0] ) );
+        REQUIRE( 5. == Approx( l_lambdas[1][1] ) );
+        REQUIRE( 4. == Approx( l_lambdas[1][2] ) );
+        REQUIRE( 3. == Approx( l_lambdas[1][3] ) );
+        REQUIRE( 2. == Approx( l_lambdas[1][4] ) );
+        REQUIRE( 1. == Approx( l_lambdas[1][5] ) );
+        REQUIRE( 2 == l_alphas.size() );
+        REQUIRE( 6 == l_alphas[0].size() );
+        REQUIRE( 1.1 == Approx( l_alphas[0][0] ) );
+        REQUIRE( 2.1 == Approx( l_alphas[0][1] ) );
+        REQUIRE( 3.1 == Approx( l_alphas[0][2] ) );
+        REQUIRE( 4.1 == Approx( l_alphas[0][3] ) );
+        REQUIRE( 5.1 == Approx( l_alphas[0][4] ) );
+        REQUIRE( 6.1 == Approx( l_alphas[0][5] ) );
+        REQUIRE( 6 == l_lambdas[1].size() );
+        REQUIRE( 6.1 == Approx( l_alphas[1][0] ) );
+        REQUIRE( 5.1 == Approx( l_alphas[1][1] ) );
+        REQUIRE( 4.1 == Approx( l_alphas[1][2] ) );
+        REQUIRE( 3.1 == Approx( l_alphas[1][3] ) );
+        REQUIRE( 2.1 == Approx( l_alphas[1][4] ) );
+        REQUIRE( 1.1 == Approx( l_alphas[1][5] ) );
         REQUIRE( 2 == data.NCO() );
         REQUIRE( 2.4367 == Approx( coefficients[0] ) );
         REQUIRE( 0.05 == Approx( coefficients[1] ) );
@@ -356,6 +394,9 @@ SCENARIO( "section::Type< 1, 455 >" ) {
                              ( MF1MT455.lambda() );
         auto l_interpolants = lambda.interpolants();
         auto l_boundaries = lambda.boundaries();
+        auto l_energies = lambda.energies();
+        auto l_lambdas = lambda.lambdas();
+        auto l_alphas = lambda.alphas();
 
         const auto& data = std::experimental::get< nubar::Polynomial >
                            ( MF1MT455.nubar() );
@@ -371,11 +412,44 @@ SCENARIO( "section::Type< 1, 455 >" ) {
         REQUIRE( 1 == data.LNU() );
         REQUIRE( 1 == lambda.NR() );
         REQUIRE( 2 == lambda.NE() );
+        REQUIRE( 6 == lambda.NNF() );
         REQUIRE( 1 == l_interpolants.size() );
         REQUIRE( 1 == l_boundaries.size() );
         REQUIRE( 4 == l_interpolants[0] );
         REQUIRE( 2 == l_boundaries[0] );
-
+        REQUIRE( 2 == l_energies.size() );
+        REQUIRE( 1e-5 == Approx( l_energies[0] ) );
+        REQUIRE( 2e+7 == Approx( l_energies[1] ) );
+        REQUIRE( 2 == l_lambdas.size() );
+        REQUIRE( 6 == l_lambdas[0].size() );
+        REQUIRE( 1. == Approx( l_lambdas[0][0] ) );
+        REQUIRE( 2. == Approx( l_lambdas[0][1] ) );
+        REQUIRE( 3. == Approx( l_lambdas[0][2] ) );
+        REQUIRE( 4. == Approx( l_lambdas[0][3] ) );
+        REQUIRE( 5. == Approx( l_lambdas[0][4] ) );
+        REQUIRE( 6. == Approx( l_lambdas[0][5] ) );
+        REQUIRE( 6 == l_lambdas[1].size() );
+        REQUIRE( 6. == Approx( l_lambdas[1][0] ) );
+        REQUIRE( 5. == Approx( l_lambdas[1][1] ) );
+        REQUIRE( 4. == Approx( l_lambdas[1][2] ) );
+        REQUIRE( 3. == Approx( l_lambdas[1][3] ) );
+        REQUIRE( 2. == Approx( l_lambdas[1][4] ) );
+        REQUIRE( 1. == Approx( l_lambdas[1][5] ) );
+        REQUIRE( 2 == l_alphas.size() );
+        REQUIRE( 6 == l_alphas[0].size() );
+        REQUIRE( 1.1 == Approx( l_alphas[0][0] ) );
+        REQUIRE( 2.1 == Approx( l_alphas[0][1] ) );
+        REQUIRE( 3.1 == Approx( l_alphas[0][2] ) );
+        REQUIRE( 4.1 == Approx( l_alphas[0][3] ) );
+        REQUIRE( 5.1 == Approx( l_alphas[0][4] ) );
+        REQUIRE( 6.1 == Approx( l_alphas[0][5] ) );
+        REQUIRE( 6 == l_lambdas[1].size() );
+        REQUIRE( 6.1 == Approx( l_alphas[1][0] ) );
+        REQUIRE( 5.1 == Approx( l_alphas[1][1] ) );
+        REQUIRE( 4.1 == Approx( l_alphas[1][2] ) );
+        REQUIRE( 3.1 == Approx( l_alphas[1][3] ) );
+        REQUIRE( 2.1 == Approx( l_alphas[1][4] ) );
+        REQUIRE( 1.1 == Approx( l_alphas[1][5] ) );
         REQUIRE( 2 == data.NCO() );
         REQUIRE( 2.4367 == Approx( coefficients[0] ) );
         REQUIRE( 0.05 == Approx( coefficients[1] ) );
@@ -418,6 +492,9 @@ SCENARIO( "section::Type< 1, 455 >" ) {
                              ( MF1MT455.lambda() );
         auto l_interpolants = lambda.interpolants();
         auto l_boundaries = lambda.boundaries();
+        auto l_energies = lambda.energies();
+        auto l_lambdas = lambda.lambdas();
+        auto l_alphas = lambda.alphas();
 
         const auto& data = std::experimental::get< nubar::Tabulated >
                            ( MF1MT455.nubar() );
@@ -436,11 +513,44 @@ SCENARIO( "section::Type< 1, 455 >" ) {
         REQUIRE( 2 == data.LNU() );
         REQUIRE( 1 == lambda.NR() );
         REQUIRE( 2 == lambda.NE() );
+        REQUIRE( 6 == lambda.NNF() );
         REQUIRE( 1 == l_interpolants.size() );
         REQUIRE( 1 == l_boundaries.size() );
         REQUIRE( 4 == l_interpolants[0] );
         REQUIRE( 2 == l_boundaries[0] );
-
+        REQUIRE( 2 == l_energies.size() );
+        REQUIRE( 1e-5 == Approx( l_energies[0] ) );
+        REQUIRE( 2e+7 == Approx( l_energies[1] ) );
+        REQUIRE( 2 == l_lambdas.size() );
+        REQUIRE( 6 == l_lambdas[0].size() );
+        REQUIRE( 1. == Approx( l_lambdas[0][0] ) );
+        REQUIRE( 2. == Approx( l_lambdas[0][1] ) );
+        REQUIRE( 3. == Approx( l_lambdas[0][2] ) );
+        REQUIRE( 4. == Approx( l_lambdas[0][3] ) );
+        REQUIRE( 5. == Approx( l_lambdas[0][4] ) );
+        REQUIRE( 6. == Approx( l_lambdas[0][5] ) );
+        REQUIRE( 6 == l_lambdas[1].size() );
+        REQUIRE( 6. == Approx( l_lambdas[1][0] ) );
+        REQUIRE( 5. == Approx( l_lambdas[1][1] ) );
+        REQUIRE( 4. == Approx( l_lambdas[1][2] ) );
+        REQUIRE( 3. == Approx( l_lambdas[1][3] ) );
+        REQUIRE( 2. == Approx( l_lambdas[1][4] ) );
+        REQUIRE( 1. == Approx( l_lambdas[1][5] ) );
+        REQUIRE( 2 == l_alphas.size() );
+        REQUIRE( 6 == l_alphas[0].size() );
+        REQUIRE( 1.1 == Approx( l_alphas[0][0] ) );
+        REQUIRE( 2.1 == Approx( l_alphas[0][1] ) );
+        REQUIRE( 3.1 == Approx( l_alphas[0][2] ) );
+        REQUIRE( 4.1 == Approx( l_alphas[0][3] ) );
+        REQUIRE( 5.1 == Approx( l_alphas[0][4] ) );
+        REQUIRE( 6.1 == Approx( l_alphas[0][5] ) );
+        REQUIRE( 6 == l_lambdas[1].size() );
+        REQUIRE( 6.1 == Approx( l_alphas[1][0] ) );
+        REQUIRE( 5.1 == Approx( l_alphas[1][1] ) );
+        REQUIRE( 4.1 == Approx( l_alphas[1][2] ) );
+        REQUIRE( 3.1 == Approx( l_alphas[1][3] ) );
+        REQUIRE( 2.1 == Approx( l_alphas[1][4] ) );
+        REQUIRE( 1.1 == Approx( l_alphas[1][5] ) );
         REQUIRE( 1 == data.NR() );
         REQUIRE( 1 == interpolants.size() );
         REQUIRE( 1 == boundaries.size() );
@@ -484,6 +594,9 @@ SCENARIO( "section::Type< 1, 455 >" ) {
                              ( MF1MT455.lambda() );
         auto l_interpolants = lambda.interpolants();
         auto l_boundaries = lambda.boundaries();
+        auto l_energies = lambda.energies();
+        auto l_lambdas = lambda.lambdas();
+        auto l_alphas = lambda.alphas();
 
         const auto& data = std::experimental::get< nubar::Tabulated >
                            ( MF1MT455.nubar() );
@@ -502,12 +615,44 @@ SCENARIO( "section::Type< 1, 455 >" ) {
         REQUIRE( 2 == data.LNU() );
         REQUIRE( 1 == lambda.NR() );
         REQUIRE( 2 == lambda.NE() );
+        REQUIRE( 6 == lambda.NNF() );
         REQUIRE( 1 == l_interpolants.size() );
         REQUIRE( 1 == l_boundaries.size() );
         REQUIRE( 4 == l_interpolants[0] );
         REQUIRE( 2 == l_boundaries[0] );
-
-
+        REQUIRE( 2 == l_energies.size() );
+        REQUIRE( 1e-5 == Approx( l_energies[0] ) );
+        REQUIRE( 2e+7 == Approx( l_energies[1] ) );
+        REQUIRE( 2 == l_lambdas.size() );
+        REQUIRE( 6 == l_lambdas[0].size() );
+        REQUIRE( 1. == Approx( l_lambdas[0][0] ) );
+        REQUIRE( 2. == Approx( l_lambdas[0][1] ) );
+        REQUIRE( 3. == Approx( l_lambdas[0][2] ) );
+        REQUIRE( 4. == Approx( l_lambdas[0][3] ) );
+        REQUIRE( 5. == Approx( l_lambdas[0][4] ) );
+        REQUIRE( 6. == Approx( l_lambdas[0][5] ) );
+        REQUIRE( 6 == l_lambdas[1].size() );
+        REQUIRE( 6. == Approx( l_lambdas[1][0] ) );
+        REQUIRE( 5. == Approx( l_lambdas[1][1] ) );
+        REQUIRE( 4. == Approx( l_lambdas[1][2] ) );
+        REQUIRE( 3. == Approx( l_lambdas[1][3] ) );
+        REQUIRE( 2. == Approx( l_lambdas[1][4] ) );
+        REQUIRE( 1. == Approx( l_lambdas[1][5] ) );
+        REQUIRE( 2 == l_alphas.size() );
+        REQUIRE( 6 == l_alphas[0].size() );
+        REQUIRE( 1.1 == Approx( l_alphas[0][0] ) );
+        REQUIRE( 2.1 == Approx( l_alphas[0][1] ) );
+        REQUIRE( 3.1 == Approx( l_alphas[0][2] ) );
+        REQUIRE( 4.1 == Approx( l_alphas[0][3] ) );
+        REQUIRE( 5.1 == Approx( l_alphas[0][4] ) );
+        REQUIRE( 6.1 == Approx( l_alphas[0][5] ) );
+        REQUIRE( 6 == l_lambdas[1].size() );
+        REQUIRE( 6.1 == Approx( l_alphas[1][0] ) );
+        REQUIRE( 5.1 == Approx( l_alphas[1][1] ) );
+        REQUIRE( 4.1 == Approx( l_alphas[1][2] ) );
+        REQUIRE( 3.1 == Approx( l_alphas[1][3] ) );
+        REQUIRE( 2.1 == Approx( l_alphas[1][4] ) );
+        REQUIRE( 1.1 == Approx( l_alphas[1][5] ) );
         REQUIRE( 1 == data.NR() );
         REQUIRE( 1 == interpolants.size() );
         REQUIRE( 1 == boundaries.size() );
@@ -631,6 +776,32 @@ SCENARIO( "section::Type< 1, 455 >" ) {
       REQUIRE_THROWS( section1455( head, begin, end, lineNumber, 9228 ) );
     }
   } // GIVEN
+
+  GIVEN( "a string representation of an File 1 Section 455"
+         " with an inconsistent NPL" ){
+    std::string sectionString = inconsistentNPL() + validSEND();
+    auto begin = sectionString.begin();
+    auto end = sectionString.end();
+    long lineNumber = 1;
+    HeadRecord head( begin, end, lineNumber );
+    
+    THEN( "an exception is thrown upon construction" ){
+      REQUIRE_THROWS( section1455( head, begin, end, lineNumber, 9228 ) );
+    }
+  } // GIVEN
+
+  GIVEN( "a string representation of an File 1 Section 455"
+         " with an odd NPL" ){
+    std::string sectionString = oddNPL() + validSEND();
+    auto begin = sectionString.begin();
+    auto end = sectionString.end();
+    long lineNumber = 1;
+    HeadRecord head( begin, end, lineNumber );
+    
+    THEN( "an exception is thrown upon construction" ){
+      REQUIRE_THROWS( section1455( head, begin, end, lineNumber, 9228 ) );
+    }
+  } // GIVEN
 } // SCENARIO
 
 std::string baseLDG0LNU1() {
@@ -705,6 +876,36 @@ std::string invalidLNU() {
     "          4          2                                            9228 1455     \n"
     " 1.000000-5 2.436700+0 2.530000-2 2.436700+0 5.000000-2 2.436700+09228 1455     \n"
     " 2.000000+7 5.209845+0                                            9228 1455     \n";
+}
+
+std::string oddNPL() {
+  return
+    " 9.223500+4 2.330248+2          1          1          0          09228 1455     \n"
+    " 0.000000+0 0.000000+0          0          0          1          29228 1455     \n"
+    "          2          4                                            9228 1455     \n"
+    " 0.000000+0 1.000000-5          0          0         11          09228 1455     \n"
+    " 1.000000+0 1.100000+0 2.000000+0 2.100000+0 3.000000+0 3.100000+09228 1455     \n"
+    " 4.000000+0 4.100000+0 5.000000+0 5.100000+0 6.000000+0           9228 1455     \n"
+    " 0.000000+0 2.000000+7          0          0         11          09228 1455     \n"
+    " 6.000000+0 6.100000+0 5.000000+0 5.100000+0 4.000000+0 4.100000+09228 1455     \n"
+    " 3.000000+0 3.100000+0 2.000000+0 2.100000+0 1.000000+0           9228 1455     \n"
+    " 0.000000+0 0.000000+0          0          0          2          09228 1455     \n"
+    " 2.436700+0 5.000000-2                                            9228 1455     \n";
+}
+
+std::string inconsistentNPL() {
+  return
+    " 9.223500+4 2.330248+2          1          1          0          09228 1455     \n"
+    " 0.000000+0 0.000000+0          0          0          1          29228 1455     \n"
+    "          2          4                                            9228 1455     \n"
+    " 0.000000+0 1.000000-5          0          0         12          09228 1455     \n"
+    " 1.000000+0 1.100000+0 2.000000+0 2.100000+0 3.000000+0 3.100000+09228 1455     \n"
+    " 4.000000+0 4.100000+0 5.000000+0 5.100000+0 6.000000+0 6.100000+09228 1455     \n"
+    " 0.000000+0 2.000000+7          0          0         11          09228 1455     \n"
+    " 6.000000+0 6.100000+0 5.000000+0 5.100000+0 4.000000+0 4.100000+09228 1455     \n"
+    " 3.000000+0 3.100000+0 2.000000+0 2.100000+0 1.000000+0           9228 1455     \n"
+    " 0.000000+0 0.000000+0          0          0          2          09228 1455     \n"
+    " 2.436700+0 5.000000-2                                            9228 1455     \n";
 }
 
 std::string validSEND() {

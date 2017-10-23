@@ -10,7 +10,6 @@ public:
   using TabulationRecord::NR;
   auto energy() const { return TabulationRecord::x(); }
   auto nubar() const { return TabulationRecord::y(); }
-  using TabulationRecord::pairs;
   using TabulationRecord::interpolants;
   using TabulationRecord::boundaries;
   using TabulationRecord::NC;
