@@ -7,10 +7,10 @@ readDiscretePhotons( Iterator& begin,
                      int NG ) {
     std::vector< DiscretePhoton > records;
     if ( NG < 1 ) {
-      Log::error("Encountered illegal NG value for LO=1");
-      Log::info("NG must be greater than 0");
-      Log::info("NG value: {}", NG );
-      Log::info("Line number: {}", lineNumber - 1 );
+      Log::error( "Encountered illegal NG value for LO=1" );
+      Log::info( "NG must be greater than 0" );
+      Log::info( "NG value: {}", NG );
+      Log::info( "Line number: {}", lineNumber - 1 );
       throw std::exception();
     }
     records.reserve( NG );

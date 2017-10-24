@@ -1,20 +1,28 @@
 template<>
 class Type< 1, 458 > : protected Base {
+public:
+
+#include "ENDFtk/section/1/458/ThermalPoint.hpp"
+#include "ENDFtk/section/1/458/Polynomial.hpp"
+#include "ENDFtk/section/1/458/EnergyReleaseComponent.hpp"
+#include "ENDFtk/section/1/458/Tabulated.hpp"
+
+  using FissionEnergyReleaseData = std::variant< // LFC=0 NPLY=0
+                                                 ThermalPoint,
+                                                 // LFC=0 NPLY!=0
+                                                 Polynomial,
+                                                 // LFC=1 NPLY=0
+                                                 Tabulated >;
+
 protected:
 
   /* fields */
   int lfc_;
-  ListRecord components_;
-
-  //! @todo use optionals instead?
-  std::vector< TabulationRecord > tables_;
+  int nfc_;
+  FissionEnergyReleaseData data_;
 
   /* auxiliary functions */
-#include "ENDFtk/section/1/458/src/readTables.hpp"
-#include "ENDFtk/section/1/458/src/verifyLFC.hpp"
-#include "ENDFtk/section/1/458/src/verifyNFC.hpp"
-#include "ENDFtk/section/1/458/src/verifyNPLY.hpp"
-#include "ENDFtk/section/1/458/src/createRangeFromIndex.hpp"
+#include "ENDFtk/section/1/458/src/readFissionEnergyReleaseData.hpp"
 
 public:
 
@@ -27,34 +35,26 @@ public:
   static constexpr int MT() { return 458; }
 
   int LFC() const { return this->lfc_; }
-  int NPLY() const { return this->components_.L2(); }
-  int NFC() const { return this->tables_.size(); }
+//! @todo use this as an alternative and do not store LFC in the section?
+// NOTE: LFC is on the HEAD record of the section
+//  int LFC() const { return std::visit( [] ( const auto& v ) -> long
+//                                          { return v.LO(); },
+//                                       this->data_ ); }
+  int NFC() const { return this->nfc_; }
+//! @todo use this as an alternative and do not store NFC in the section?
+// NOTE: NFC is on the HEAD record of the section
+//  int NFC() const { return std::visit( [] ( const auto& v ) -> long
+//                                          { return v.NG(); },
+//                                       this->data_ ); }
+  int NPLY() const { return std::visit( [] ( const auto& v ) -> long
+                                           { return v.NPLY(); },
+                                        this->data_ ); }
 
-  auto EFR() { return this->createRangeFromIndex( 0 ); }
-  auto ENP() { return this->createRangeFromIndex( 2 ); }
-  auto END() { return this->createRangeFromIndex( 4 ); }
-  auto EGP() { return this->createRangeFromIndex( 6 ); }
-  auto EGD() { return this->createRangeFromIndex( 8 ); }
-  auto EB()  { return this->createRangeFromIndex( 10 ); }
-  auto ENU() { return this->createRangeFromIndex( 12 ); }
-  auto ER()  { return this->createRangeFromIndex( 14 ); }
-  auto ET()  { return this->createRangeFromIndex( 16 ); }
+  const FissionEnergyReleaseData& energyRelease() const { return this->data_; }
 
-  auto DEFR() { return this->createRangeFromIndex( 1 ); }
-  auto DENP() { return this->createRangeFromIndex( 3 ); }
-  auto DEND() { return this->createRangeFromIndex( 5 ); }
-  auto DEGP() { return this->createRangeFromIndex( 7 ); }
-  auto DEGD() { return this->createRangeFromIndex( 9 ); }
-  auto DEB()  { return this->createRangeFromIndex( 11 ); }
-  auto DENU() { return this->createRangeFromIndex( 13 ); }
-  auto DER()  { return this->createRangeFromIndex( 15 ); }
-  auto DET()  { return this->createRangeFromIndex( 17 ); }
-
-  long NC() const {
-    long NC = 1 + this->components_.NC();
-    for ( auto& entry : this->tables_ ) { NC += entry.NC(); }
-    return NC;
-  }
+  long NC() const { return 1 + std::visit( [] ( const auto& v ) -> long
+                                              { return v.NC(); },
+                                           this->data_ ); }
 
 #include "ENDFtk/section/1/458/src/print.hpp"
 

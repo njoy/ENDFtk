@@ -1,4 +1,4 @@
-class DiscretePhoton : protected TabulationRecord {
+class EnergyReleaseComponent : protected TabulationRecord {
 
 public:
   /* constructor */
@@ -7,10 +7,10 @@ public:
   /* get methods */
   using TabulationRecord::NP;
   using TabulationRecord::NR;
-  double E() const { return TabulationRecord::C1(); }
-  int index() const { return TabulationRecord::L1(); }
-  auto time() const { return TabulationRecord::x(); }
-  auto multiplicity() const { return TabulationRecord::y(); }
+  int LDRV() const { return TabulationRecord::L1(); }
+  int IFC() const { return TabulationRecord::L2(); }
+  auto energy() const { return TabulationRecord::x(); }
+  auto release() const { return TabulationRecord::y(); }
   using TabulationRecord::interpolants;
   using TabulationRecord::boundaries;
   using TabulationRecord::NC;

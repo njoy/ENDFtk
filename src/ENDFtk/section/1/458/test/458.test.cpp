@@ -38,61 +38,29 @@ SCENARIO( "section::Type< 1, 458 >" ) {
         REQUIRE( 0 == MF1MT458.NPLY() );
         REQUIRE( 0 == MF1MT458.NFC() );
 
-        auto efr = MF1MT458.EFR();
-        auto enp = MF1MT458.ENP();
-        auto end = MF1MT458.END();
-        auto egp = MF1MT458.EGP();
-        auto egd = MF1MT458.EGD();
-        auto eb  = MF1MT458.EB();
-        auto enu = MF1MT458.ENU();
-        auto er  = MF1MT458.ER();
-        auto et  = MF1MT458.ET();
-        REQUIRE( 1 == efr.size() );
-        REQUIRE( 1 == enp.size() );
-        REQUIRE( 1 == end.size() );
-        REQUIRE( 1 == egp.size() );
-        REQUIRE( 1 == egd.size() );
-        REQUIRE( 1 == eb.size() );
-        REQUIRE( 1 == enu.size() );
-        REQUIRE( 1 == er.size() );
-        REQUIRE( 1 == et.size() );
-        REQUIRE( 1.691300e+8 == Approx( efr[0] ) );
-        REQUIRE( 4.838000e+6 == Approx( enp[0] ) );
-        REQUIRE( 7.400000e+3 == Approx( end[0] ) );
-        REQUIRE( 6.600000e+6 == Approx( egp[0] ) );
-        REQUIRE( 6.330000e+6 == Approx( egd[0] ) );
-        REQUIRE( 6.500000e+6 == Approx( eb[0] ) );
-        REQUIRE( 8.750000e+6 == Approx( enu[0] ) );
-        REQUIRE( 1.934054e+8 == Approx( er[0] ) );
-        REQUIRE( 2.021554e+8 == Approx( et[0] ) );
+        REQUIRE_NOTHROW( std::experimental::get< section1458::ThermalPoint >
+                         ( MF1MT458.energyRelease() ) );
+        auto data = std::experimental::get< section1458::ThermalPoint >( MF1MT458.energyRelease() );
 
-        auto defr = MF1MT458.DEFR();
-        auto denp = MF1MT458.DENP();
-        auto dend = MF1MT458.DEND();
-        auto degp = MF1MT458.DEGP();
-        auto degd = MF1MT458.DEGD();
-        auto deb  = MF1MT458.DEB();
-        auto denu = MF1MT458.DENU();
-        auto der  = MF1MT458.DER();
-        auto det  = MF1MT458.DET();
-        REQUIRE( 1 == defr.size() );
-        REQUIRE( 1 == denp.size() );
-        REQUIRE( 1 == dend.size() );
-        REQUIRE( 1 == degp.size() );
-        REQUIRE( 1 == degd.size() );
-        REQUIRE( 1 == deb.size() );
-        REQUIRE( 1 == denu.size() );
-        REQUIRE( 1 == der.size() );
-        REQUIRE( 1 == det.size() );
-        REQUIRE( 4.900000e+5 == Approx( defr[0] ) );
-        REQUIRE( 7.000000e+4 == Approx( denp[0] ) );
-        REQUIRE( 1.110000e+3 == Approx( dend[0] ) );
-        REQUIRE( 5.000000e+5 == Approx( degp[0] ) );
-        REQUIRE( 5.000000e+4 == Approx( degd[0] ) );
-        REQUIRE( 5.100000e+4 == Approx( deb[0] ) );
-        REQUIRE( 7.000000e+4 == Approx( denu[0] ) );
-        REQUIRE( 1.500000e+5 == Approx( der[0] ) );
-        REQUIRE( 1.300000e+5 == Approx( det[0] ) );
+        REQUIRE( 1.691300e+8 == Approx( data.EFR() ) );
+        REQUIRE( 4.838000e+6 == Approx( data.ENP() ) );
+        REQUIRE( 7.400000e+3 == Approx( data.END() ) );
+        REQUIRE( 6.600000e+6 == Approx( data.EGP() ) );
+        REQUIRE( 6.330000e+6 == Approx( data.EGD() ) );
+        REQUIRE( 6.500000e+6 == Approx( data.EB() ) );
+        REQUIRE( 8.750000e+6 == Approx( data.ENU() ) );
+        REQUIRE( 1.934054e+8 == Approx( data.ER() ) );
+        REQUIRE( 2.021554e+8 == Approx( data.ET() ) );
+
+        REQUIRE( 4.900000e+5 == Approx( data.DEFR() ) );
+        REQUIRE( 7.000000e+4 == Approx( data.DENP() ) );
+        REQUIRE( 1.110000e+3 == Approx( data.DEND() ) );
+        REQUIRE( 5.000000e+5 == Approx( data.DEGP() ) );
+        REQUIRE( 5.000000e+4 == Approx( data.DEGD() ) );
+        REQUIRE( 5.100000e+4 == Approx( data.DEB() ) );
+        REQUIRE( 7.000000e+4 == Approx( data.DENU() ) );
+        REQUIRE( 1.500000e+5 == Approx( data.DER() ) );
+        REQUIRE( 1.300000e+5 == Approx( data.DET() ) );
 
         REQUIRE( 5 == MF1MT458.NC() );
       }
@@ -121,61 +89,29 @@ SCENARIO( "section::Type< 1, 458 >" ) {
         REQUIRE( 0 == MF1MT458.NPLY() );
         REQUIRE( 0 == MF1MT458.NFC() );
 
-        auto efr = MF1MT458.EFR();
-        auto enp = MF1MT458.ENP();
-        auto end = MF1MT458.END();
-        auto egp = MF1MT458.EGP();
-        auto egd = MF1MT458.EGD();
-        auto eb  = MF1MT458.EB();
-        auto enu = MF1MT458.ENU();
-        auto er  = MF1MT458.ER();
-        auto et  = MF1MT458.ET();
-        REQUIRE( 1 == efr.size() );
-        REQUIRE( 1 == enp.size() );
-        REQUIRE( 1 == end.size() );
-        REQUIRE( 1 == egp.size() );
-        REQUIRE( 1 == egd.size() );
-        REQUIRE( 1 == eb.size() );
-        REQUIRE( 1 == enu.size() );
-        REQUIRE( 1 == er.size() );
-        REQUIRE( 1 == et.size() );
-        REQUIRE( 1.691300e+8 == Approx( efr[0] ) );
-        REQUIRE( 4.838000e+6 == Approx( enp[0] ) );
-        REQUIRE( 7.400000e+3 == Approx( end[0] ) );
-        REQUIRE( 6.600000e+6 == Approx( egp[0] ) );
-        REQUIRE( 6.330000e+6 == Approx( egd[0] ) );
-        REQUIRE( 6.500000e+6 == Approx( eb[0] ) );
-        REQUIRE( 8.750000e+6 == Approx( enu[0] ) );
-        REQUIRE( 1.934054e+8 == Approx( er[0] ) );
-        REQUIRE( 2.021554e+8 == Approx( et[0] ) );
+        REQUIRE_NOTHROW( std::experimental::get< section1458::ThermalPoint >
+                         ( MF1MT458.energyRelease() ) );
+        auto data = std::experimental::get< section1458::ThermalPoint >( MF1MT458.energyRelease() );
 
-        auto defr = MF1MT458.DEFR();
-        auto denp = MF1MT458.DENP();
-        auto dend = MF1MT458.DEND();
-        auto degp = MF1MT458.DEGP();
-        auto degd = MF1MT458.DEGD();
-        auto deb  = MF1MT458.DEB();
-        auto denu = MF1MT458.DENU();
-        auto der  = MF1MT458.DER();
-        auto det  = MF1MT458.DET();
-        REQUIRE( 1 == defr.size() );
-        REQUIRE( 1 == denp.size() );
-        REQUIRE( 1 == dend.size() );
-        REQUIRE( 1 == degp.size() );
-        REQUIRE( 1 == degd.size() );
-        REQUIRE( 1 == deb.size() );
-        REQUIRE( 1 == denu.size() );
-        REQUIRE( 1 == der.size() );
-        REQUIRE( 1 == det.size() );
-        REQUIRE( 4.900000e+5 == Approx( defr[0] ) );
-        REQUIRE( 7.000000e+4 == Approx( denp[0] ) );
-        REQUIRE( 1.110000e+3 == Approx( dend[0] ) );
-        REQUIRE( 5.000000e+5 == Approx( degp[0] ) );
-        REQUIRE( 5.000000e+4 == Approx( degd[0] ) );
-        REQUIRE( 5.100000e+4 == Approx( deb[0] ) );
-        REQUIRE( 7.000000e+4 == Approx( denu[0] ) );
-        REQUIRE( 1.500000e+5 == Approx( der[0] ) );
-        REQUIRE( 1.300000e+5 == Approx( det[0] ) );
+        REQUIRE( 1.691300e+8 == Approx( data.EFR() ) );
+        REQUIRE( 4.838000e+6 == Approx( data.ENP() ) );
+        REQUIRE( 7.400000e+3 == Approx( data.END() ) );
+        REQUIRE( 6.600000e+6 == Approx( data.EGP() ) );
+        REQUIRE( 6.330000e+6 == Approx( data.EGD() ) );
+        REQUIRE( 6.500000e+6 == Approx( data.EB() ) );
+        REQUIRE( 8.750000e+6 == Approx( data.ENU() ) );
+        REQUIRE( 1.934054e+8 == Approx( data.ER() ) );
+        REQUIRE( 2.021554e+8 == Approx( data.ET() ) );
+
+        REQUIRE( 4.900000e+5 == Approx( data.DEFR() ) );
+        REQUIRE( 7.000000e+4 == Approx( data.DENP() ) );
+        REQUIRE( 1.110000e+3 == Approx( data.DEND() ) );
+        REQUIRE( 5.000000e+5 == Approx( data.DEGP() ) );
+        REQUIRE( 5.000000e+4 == Approx( data.DEGD() ) );
+        REQUIRE( 5.100000e+4 == Approx( data.DEB() ) );
+        REQUIRE( 7.000000e+4 == Approx( data.DENU() ) );
+        REQUIRE( 1.500000e+5 == Approx( data.DER() ) );
+        REQUIRE( 1.300000e+5 == Approx( data.DET() ) );
 
         REQUIRE( 5 == MF1MT458.NC() );
       }
@@ -215,15 +151,19 @@ SCENARIO( "section::Type< 1, 458 >" ) {
         REQUIRE( 1 == MF1MT458.NPLY() );
         REQUIRE( 0 == MF1MT458.NFC() );
 
-        auto efr = MF1MT458.EFR();
-        auto enp = MF1MT458.ENP();
-        auto end = MF1MT458.END();
-        auto egp = MF1MT458.EGP();
-        auto egd = MF1MT458.EGD();
-        auto eb  = MF1MT458.EB();
-        auto enu = MF1MT458.ENU();
-        auto er  = MF1MT458.ER();
-        auto et  = MF1MT458.ET();
+        REQUIRE_NOTHROW( std::experimental::get< section1458::Polynomial >
+                         ( MF1MT458.energyRelease() ) );
+        auto data = std::experimental::get< section1458::Polynomial >( MF1MT458.energyRelease() );
+
+        auto efr = data.EFR();
+        auto enp = data.ENP();
+        auto end = data.END();
+        auto egp = data.EGP();
+        auto egd = data.EGD();
+        auto eb  = data.EB();
+        auto enu = data.ENU();
+        auto er  = data.ER();
+        auto et  = data.ET();
         REQUIRE( 2 == efr.size() );
         REQUIRE( 2 == enp.size() );
         REQUIRE( 2 == end.size() );
@@ -252,15 +192,15 @@ SCENARIO( "section::Type< 1, 458 >" ) {
         REQUIRE( -3.790000e-2 == Approx( er[1] ) );
         REQUIRE( -1.379000e-1 == Approx( et[1] ) );
 
-        auto defr = MF1MT458.DEFR();
-        auto denp = MF1MT458.DENP();
-        auto dend = MF1MT458.DEND();
-        auto degp = MF1MT458.DEGP();
-        auto degd = MF1MT458.DEGD();
-        auto deb  = MF1MT458.DEB();
-        auto denu = MF1MT458.DENU();
-        auto der  = MF1MT458.DER();
-        auto det  = MF1MT458.DET();
+        auto defr = data.DEFR();
+        auto denp = data.DENP();
+        auto dend = data.DEND();
+        auto degp = data.DEGP();
+        auto degd = data.DEGD();
+        auto deb  = data.DEB();
+        auto denu = data.DENU();
+        auto der  = data.DER();
+        auto det  = data.DET();
         REQUIRE( 2 == defr.size() );
         REQUIRE( 2 == denp.size() );
         REQUIRE( 2 == dend.size() );
@@ -316,15 +256,19 @@ SCENARIO( "section::Type< 1, 458 >" ) {
         REQUIRE( 1 == MF1MT458.NPLY() );
         REQUIRE( 0 == MF1MT458.NFC() );
 
-        auto efr = MF1MT458.EFR();
-        auto enp = MF1MT458.ENP();
-        auto end = MF1MT458.END();
-        auto egp = MF1MT458.EGP();
-        auto egd = MF1MT458.EGD();
-        auto eb  = MF1MT458.EB();
-        auto enu = MF1MT458.ENU();
-        auto er  = MF1MT458.ER();
-        auto et  = MF1MT458.ET();
+        REQUIRE_NOTHROW( std::experimental::get< section1458::Polynomial >
+                         ( MF1MT458.energyRelease() ) );
+        auto data = std::experimental::get< section1458::Polynomial >( MF1MT458.energyRelease() );
+
+        auto efr = data.EFR();
+        auto enp = data.ENP();
+        auto end = data.END();
+        auto egp = data.EGP();
+        auto egd = data.EGD();
+        auto eb  = data.EB();
+        auto enu = data.ENU();
+        auto er  = data.ER();
+        auto et  = data.ET();
         REQUIRE( 2 == efr.size() );
         REQUIRE( 2 == enp.size() );
         REQUIRE( 2 == end.size() );
@@ -353,15 +297,15 @@ SCENARIO( "section::Type< 1, 458 >" ) {
         REQUIRE( -3.790000e-2 == Approx( er[1] ) );
         REQUIRE( -1.379000e-1 == Approx( et[1] ) );
 
-        auto defr = MF1MT458.DEFR();
-        auto denp = MF1MT458.DENP();
-        auto dend = MF1MT458.DEND();
-        auto degp = MF1MT458.DEGP();
-        auto degd = MF1MT458.DEGD();
-        auto deb  = MF1MT458.DEB();
-        auto denu = MF1MT458.DENU();
-        auto der  = MF1MT458.DER();
-        auto det  = MF1MT458.DET();
+        auto defr = data.DEFR();
+        auto denp = data.DENP();
+        auto dend = data.DEND();
+        auto degp = data.DEGP();
+        auto degd = data.DEGD();
+        auto deb  = data.DEB();
+        auto denu = data.DENU();
+        auto der  = data.DER();
+        auto det  = data.DET();
         REQUIRE( 2 == defr.size() );
         REQUIRE( 2 == denp.size() );
         REQUIRE( 2 == dend.size() );
@@ -428,61 +372,77 @@ SCENARIO( "section::Type< 1, 458 >" ) {
         REQUIRE( 0 == MF1MT458.NPLY() );
         REQUIRE( 2 == MF1MT458.NFC() );
 
-        auto efr = MF1MT458.EFR();
-        auto enp = MF1MT458.ENP();
-        auto end = MF1MT458.END();
-        auto egp = MF1MT458.EGP();
-        auto egd = MF1MT458.EGD();
-        auto eb  = MF1MT458.EB();
-        auto enu = MF1MT458.ENU();
-        auto er  = MF1MT458.ER();
-        auto et  = MF1MT458.ET();
-        REQUIRE( 1 == efr.size() );
-        REQUIRE( 1 == enp.size() );
-        REQUIRE( 1 == end.size() );
-        REQUIRE( 1 == egp.size() );
-        REQUIRE( 1 == egd.size() );
-        REQUIRE( 1 == eb.size() );
-        REQUIRE( 1 == enu.size() );
-        REQUIRE( 1 == er.size() );
-        REQUIRE( 1 == et.size() );
-        REQUIRE( 1.691300e+8 == Approx( efr[0] ) );
-        REQUIRE( 4.838000e+6 == Approx( enp[0] ) );
-        REQUIRE( 7.400000e+3 == Approx( end[0] ) );
-        REQUIRE( 6.600000e+6 == Approx( egp[0] ) );
-        REQUIRE( 6.330000e+6 == Approx( egd[0] ) );
-        REQUIRE( 6.500000e+6 == Approx( eb[0] ) );
-        REQUIRE( 8.750000e+6 == Approx( enu[0] ) );
-        REQUIRE( 1.934054e+8 == Approx( er[0] ) );
-        REQUIRE( 2.021554e+8 == Approx( et[0] ) );
+        REQUIRE_NOTHROW( std::experimental::get< section1458::Tabulated >
+                         ( MF1MT458.energyRelease() ) );
+        auto data = std::experimental::get< section1458::Tabulated >( MF1MT458.energyRelease() );
 
-        auto defr = MF1MT458.DEFR();
-        auto denp = MF1MT458.DENP();
-        auto dend = MF1MT458.DEND();
-        auto degp = MF1MT458.DEGP();
-        auto degd = MF1MT458.DEGD();
-        auto deb  = MF1MT458.DEB();
-        auto denu = MF1MT458.DENU();
-        auto der  = MF1MT458.DER();
-        auto det  = MF1MT458.DET();
-        REQUIRE( 1 == defr.size() );
-        REQUIRE( 1 == denp.size() );
-        REQUIRE( 1 == dend.size() );
-        REQUIRE( 1 == degp.size() );
-        REQUIRE( 1 == degd.size() );
-        REQUIRE( 1 == deb.size() );
-        REQUIRE( 1 == denu.size() );
-        REQUIRE( 1 == der.size() );
-        REQUIRE( 1 == det.size() );
-        REQUIRE( 4.900000e+5 == Approx( defr[0] ) );
-        REQUIRE( 7.000000e+4 == Approx( denp[0] ) );
-        REQUIRE( 1.110000e+3 == Approx( dend[0] ) );
-        REQUIRE( 5.000000e+5 == Approx( degp[0] ) );
-        REQUIRE( 5.000000e+4 == Approx( degd[0] ) );
-        REQUIRE( 5.100000e+4 == Approx( deb[0] ) );
-        REQUIRE( 7.000000e+4 == Approx( denu[0] ) );
-        REQUIRE( 1.500000e+5 == Approx( der[0] ) );
-        REQUIRE( 1.300000e+5 == Approx( det[0] ) );
+        REQUIRE( 1.691300e+8 == Approx( data.EFR() ) );
+        REQUIRE( 4.838000e+6 == Approx( data.ENP() ) );
+        REQUIRE( 7.400000e+3 == Approx( data.END() ) );
+        REQUIRE( 6.600000e+6 == Approx( data.EGP() ) );
+        REQUIRE( 6.330000e+6 == Approx( data.EGD() ) );
+        REQUIRE( 6.500000e+6 == Approx( data.EB() ) );
+        REQUIRE( 8.750000e+6 == Approx( data.ENU() ) );
+        REQUIRE( 1.934054e+8 == Approx( data.ER() ) );
+        REQUIRE( 2.021554e+8 == Approx( data.ET() ) );
+
+        REQUIRE( 4.900000e+5 == Approx( data.DEFR() ) );
+        REQUIRE( 7.000000e+4 == Approx( data.DENP() ) );
+        REQUIRE( 1.110000e+3 == Approx( data.DEND() ) );
+        REQUIRE( 5.000000e+5 == Approx( data.DEGP() ) );
+        REQUIRE( 5.000000e+4 == Approx( data.DEGD() ) );
+        REQUIRE( 5.100000e+4 == Approx( data.DEB() ) );
+        REQUIRE( 7.000000e+4 == Approx( data.DENU() ) );
+        REQUIRE( 1.500000e+5 == Approx( data.DER() ) );
+        REQUIRE( 1.300000e+5 == Approx( data.DET() ) );
+
+        REQUIRE( true == bool( data.tableEFR() ) );
+        REQUIRE( false == bool( data.tableENP() ) );
+        REQUIRE( false == bool( data.tableEND() ) );
+        REQUIRE( false == bool( data.tableEGP() ) );
+        REQUIRE( false == bool( data.tableEGD() ) );
+        REQUIRE( false == bool( data.tableEB() ) );
+        REQUIRE( false == bool( data.tableENU() ) );
+        REQUIRE( false == bool( data.tableER() ) );
+        REQUIRE( true == bool( data.tableET() ) );
+
+        auto component = data.tableEFR().value();
+        REQUIRE( 1 == component.LDRV() );
+        REQUIRE( 1 == component.IFC() );
+        REQUIRE( 3 == component.NP() );
+        REQUIRE( 1 == component.NR() );
+        REQUIRE( 1 == component.interpolants().size() );
+        REQUIRE( 1 == component.boundaries().size() );
+        REQUIRE( 2 == component.interpolants()[0] );
+        REQUIRE( 3 == component.boundaries()[0] );
+        REQUIRE( 3 == component.energy().size() );
+        REQUIRE( 3 == component.release().size() );
+        REQUIRE( 1e-5 == Approx( component.energy()[0] ) );
+        REQUIRE( 0.0253 == Approx( component.energy()[1] ) );
+        REQUIRE( 2e+7 == Approx( component.energy()[2] ) );
+        REQUIRE( 1.6913e+8 == Approx( component.release()[0] ) );
+        REQUIRE( 1.691e+8 == Approx( component.release()[1] ) );
+        REQUIRE( 1.69e+8 == Approx( component.release()[2] ) );
+
+        component = data.tableET().value();
+        REQUIRE( 2 == component.LDRV() );
+        REQUIRE( 9 == component.IFC() );
+        REQUIRE( 4 == component.NP() );
+        REQUIRE( 1 == component.NR() );
+        REQUIRE( 1 == component.interpolants().size() );
+        REQUIRE( 1 == component.boundaries().size() );
+        REQUIRE( 2 == component.interpolants()[0] );
+        REQUIRE( 4 == component.boundaries()[0] );
+        REQUIRE( 4 == component.energy().size() );
+        REQUIRE( 4 == component.release().size() );
+        REQUIRE( 1e-5 == Approx( component.energy()[0] ) );
+        REQUIRE( 0.0253 == Approx( component.energy()[1] ) );
+        REQUIRE( 1e+6 == Approx( component.energy()[2] ) );
+        REQUIRE( 2e+7 == Approx( component.energy()[3] ) );
+        REQUIRE( 2.021554e+8 == Approx( component.release()[0] ) );
+        REQUIRE( 3e+8 == Approx( component.release()[1] ) );
+        REQUIRE( 2.5e+8 == Approx( component.release()[2] ) );
+        REQUIRE( 1.5e+8 == Approx( component.release()[3] ) );
 
         REQUIRE( 12 == MF1MT458.NC() );
       }
@@ -510,61 +470,77 @@ SCENARIO( "section::Type< 1, 458 >" ) {
         REQUIRE( 0 == MF1MT458.NPLY() );
         REQUIRE( 2 == MF1MT458.NFC() );
 
-        auto efr = MF1MT458.EFR();
-        auto enp = MF1MT458.ENP();
-        auto end = MF1MT458.END();
-        auto egp = MF1MT458.EGP();
-        auto egd = MF1MT458.EGD();
-        auto eb  = MF1MT458.EB();
-        auto enu = MF1MT458.ENU();
-        auto er  = MF1MT458.ER();
-        auto et  = MF1MT458.ET();
-        REQUIRE( 1 == efr.size() );
-        REQUIRE( 1 == enp.size() );
-        REQUIRE( 1 == end.size() );
-        REQUIRE( 1 == egp.size() );
-        REQUIRE( 1 == egd.size() );
-        REQUIRE( 1 == eb.size() );
-        REQUIRE( 1 == enu.size() );
-        REQUIRE( 1 == er.size() );
-        REQUIRE( 1 == et.size() );
-        REQUIRE( 1.691300e+8 == Approx( efr[0] ) );
-        REQUIRE( 4.838000e+6 == Approx( enp[0] ) );
-        REQUIRE( 7.400000e+3 == Approx( end[0] ) );
-        REQUIRE( 6.600000e+6 == Approx( egp[0] ) );
-        REQUIRE( 6.330000e+6 == Approx( egd[0] ) );
-        REQUIRE( 6.500000e+6 == Approx( eb[0] ) );
-        REQUIRE( 8.750000e+6 == Approx( enu[0] ) );
-        REQUIRE( 1.934054e+8 == Approx( er[0] ) );
-        REQUIRE( 2.021554e+8 == Approx( et[0] ) );
+        REQUIRE_NOTHROW( std::experimental::get< section1458::Tabulated >
+                         ( MF1MT458.energyRelease() ) );
+        auto data = std::experimental::get< section1458::Tabulated >( MF1MT458.energyRelease() );
 
-        auto defr = MF1MT458.DEFR();
-        auto denp = MF1MT458.DENP();
-        auto dend = MF1MT458.DEND();
-        auto degp = MF1MT458.DEGP();
-        auto degd = MF1MT458.DEGD();
-        auto deb  = MF1MT458.DEB();
-        auto denu = MF1MT458.DENU();
-        auto der  = MF1MT458.DER();
-        auto det  = MF1MT458.DET();
-        REQUIRE( 1 == defr.size() );
-        REQUIRE( 1 == denp.size() );
-        REQUIRE( 1 == dend.size() );
-        REQUIRE( 1 == degp.size() );
-        REQUIRE( 1 == degd.size() );
-        REQUIRE( 1 == deb.size() );
-        REQUIRE( 1 == denu.size() );
-        REQUIRE( 1 == der.size() );
-        REQUIRE( 1 == det.size() );
-        REQUIRE( 4.900000e+5 == Approx( defr[0] ) );
-        REQUIRE( 7.000000e+4 == Approx( denp[0] ) );
-        REQUIRE( 1.110000e+3 == Approx( dend[0] ) );
-        REQUIRE( 5.000000e+5 == Approx( degp[0] ) );
-        REQUIRE( 5.000000e+4 == Approx( degd[0] ) );
-        REQUIRE( 5.100000e+4 == Approx( deb[0] ) );
-        REQUIRE( 7.000000e+4 == Approx( denu[0] ) );
-        REQUIRE( 1.500000e+5 == Approx( der[0] ) );
-        REQUIRE( 1.300000e+5 == Approx( det[0] ) );
+        REQUIRE( 1.691300e+8 == Approx( data.EFR() ) );
+        REQUIRE( 4.838000e+6 == Approx( data.ENP() ) );
+        REQUIRE( 7.400000e+3 == Approx( data.END() ) );
+        REQUIRE( 6.600000e+6 == Approx( data.EGP() ) );
+        REQUIRE( 6.330000e+6 == Approx( data.EGD() ) );
+        REQUIRE( 6.500000e+6 == Approx( data.EB() ) );
+        REQUIRE( 8.750000e+6 == Approx( data.ENU() ) );
+        REQUIRE( 1.934054e+8 == Approx( data.ER() ) );
+        REQUIRE( 2.021554e+8 == Approx( data.ET() ) );
+
+        REQUIRE( 4.900000e+5 == Approx( data.DEFR() ) );
+        REQUIRE( 7.000000e+4 == Approx( data.DENP() ) );
+        REQUIRE( 1.110000e+3 == Approx( data.DEND() ) );
+        REQUIRE( 5.000000e+5 == Approx( data.DEGP() ) );
+        REQUIRE( 5.000000e+4 == Approx( data.DEGD() ) );
+        REQUIRE( 5.100000e+4 == Approx( data.DEB() ) );
+        REQUIRE( 7.000000e+4 == Approx( data.DENU() ) );
+        REQUIRE( 1.500000e+5 == Approx( data.DER() ) );
+        REQUIRE( 1.300000e+5 == Approx( data.DET() ) );
+
+        REQUIRE( true == bool( data.tableEFR() ) );
+        REQUIRE( false == bool( data.tableENP() ) );
+        REQUIRE( false == bool( data.tableEND() ) );
+        REQUIRE( false == bool( data.tableEGP() ) );
+        REQUIRE( false == bool( data.tableEGD() ) );
+        REQUIRE( false == bool( data.tableEB() ) );
+        REQUIRE( false == bool( data.tableENU() ) );
+        REQUIRE( false == bool( data.tableER() ) );
+        REQUIRE( true == bool( data.tableET() ) );
+
+        auto component = data.tableEFR().value();
+        REQUIRE( 1 == component.LDRV() );
+        REQUIRE( 1 == component.IFC() );
+        REQUIRE( 3 == component.NP() );
+        REQUIRE( 1 == component.NR() );
+        REQUIRE( 1 == component.interpolants().size() );
+        REQUIRE( 1 == component.boundaries().size() );
+        REQUIRE( 2 == component.interpolants()[0] );
+        REQUIRE( 3 == component.boundaries()[0] );
+        REQUIRE( 3 == component.energy().size() );
+        REQUIRE( 3 == component.release().size() );
+        REQUIRE( 1e-5 == Approx( component.energy()[0] ) );
+        REQUIRE( 0.0253 == Approx( component.energy()[1] ) );
+        REQUIRE( 2e+7 == Approx( component.energy()[2] ) );
+        REQUIRE( 1.6913e+8 == Approx( component.release()[0] ) );
+        REQUIRE( 1.691e+8 == Approx( component.release()[1] ) );
+        REQUIRE( 1.69e+8 == Approx( component.release()[2] ) );
+
+        component = data.tableET().value();
+        REQUIRE( 2 == component.LDRV() );
+        REQUIRE( 9 == component.IFC() );
+        REQUIRE( 4 == component.NP() );
+        REQUIRE( 1 == component.NR() );
+        REQUIRE( 1 == component.interpolants().size() );
+        REQUIRE( 1 == component.boundaries().size() );
+        REQUIRE( 2 == component.interpolants()[0] );
+        REQUIRE( 4 == component.boundaries()[0] );
+        REQUIRE( 4 == component.energy().size() );
+        REQUIRE( 4 == component.release().size() );
+        REQUIRE( 1e-5 == Approx( component.energy()[0] ) );
+        REQUIRE( 0.0253 == Approx( component.energy()[1] ) );
+        REQUIRE( 1e+6 == Approx( component.energy()[2] ) );
+        REQUIRE( 2e+7 == Approx( component.energy()[3] ) );
+        REQUIRE( 2.021554e+8 == Approx( component.release()[0] ) );
+        REQUIRE( 3e+8 == Approx( component.release()[1] ) );
+        REQUIRE( 2.5e+8 == Approx( component.release()[2] ) );
+        REQUIRE( 1.5e+8 == Approx( component.release()[3] ) );
 
         REQUIRE( 12 == MF1MT458.NC() );
       }
@@ -683,7 +659,7 @@ std::string baseLFC0NPLY0() {
 std::string baseLFC0NPLY1() {
   return
     " 9.223500+4 2.330248+2          0          0          0          09228 1458     \n"
-    " 0.000000+0 0.000000+0          0          1         36         279228 1458     \n"
+    " 0.000000+0 0.000000+0          0          1         36         189228 1458     \n"
     " 1.691300+8 4.900000+5 4.838000+6 7.000000+4 7.400000+3 1.110000+39228 1458     \n"
     " 6.600000+6 5.000000+5 6.330000+6 5.000000+4 6.500000+6 5.100000+49228 1458     \n"
     " 8.750000+6 7.000000+4 1.934054+8 1.500000+5 2.021554+8 1.300000+59228 1458     \n"

@@ -10,10 +10,10 @@ readPhotonData( Iterator& begin,
     case 1 : return Discrete( readDiscretePhotons( begin, end, lineNumber, MAT, NG ) );
     case 2 : return Continuous( begin, end, lineNumber, MAT, 1, 460 );
     default : {
-      Log::error("Encountered illegal LO value");
-      Log::info("LO must be equal to 1 or 2");
-      Log::info("LO value: {}", LO );
-      Log::info("Line number: {}", lineNumber - 1 );
+      Log::error( "Encountered illegal LO value" );
+      Log::info( "LO must be equal to 1 or 2" );
+      Log::info( "LO value: {}", LO );
+      Log::info( "Line number: {}", lineNumber - 1 );
       throw std::exception();
     }
   }

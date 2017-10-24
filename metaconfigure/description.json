@@ -516,6 +516,10 @@
     "src/ENDFtk/section/1/452/src/print.hpp",
     "src/ENDFtk/section/1/455/src/print.hpp",
     "src/ENDFtk/section/1/455/src/ctor.hpp",
+    "src/ENDFtk/section/1/458/ThermalPoint.hpp",
+    "src/ENDFtk/section/1/458/Polynomial.hpp",
+    "src/ENDFtk/section/1/458/Tabulated.hpp",
+    "src/ENDFtk/section/1/458/EnergyReleaseComponent.hpp",
     "src/ENDFtk/section/1/458/src/ctor.hpp",
     "src/ENDFtk/section/1/458/src/verifyNPLY.hpp",
     "src/ENDFtk/section/1/458/src/print.hpp",
@@ -523,6 +527,14 @@
     "src/ENDFtk/section/1/458/src/readTables.hpp",
     "src/ENDFtk/section/1/458/src/verifyLFC.hpp",
     "src/ENDFtk/section/1/458/src/verifyNFC.hpp",
+    "src/ENDFtk/section/1/458/src/readFissionEnergyReleaseData.hpp",
+    "src/ENDFtk/section/1/458/ThermalPoint/src/ctor.hpp",
+    "src/ENDFtk/section/1/458/Polynomial/src/createRangeFromIndex.hpp",
+    "src/ENDFtk/section/1/458/Polynomial/src/ctor.hpp",
+    "src/ENDFtk/section/1/458/Tabulated/src/ctor.hpp",
+    "src/ENDFtk/section/1/458/Tabulated/src/print.hpp",
+    "src/ENDFtk/section/1/458/Tabulated/src/readTables.hpp",
+    "src/ENDFtk/section/1/458/Tabulated/src/NC.hpp",
     "src/ENDFtk/section/1/460/Continuous.hpp",
     "src/ENDFtk/section/1/460/DiscretePhoton.hpp",
     "src/ENDFtk/section/1/460/Discrete.hpp",
@@ -738,6 +750,18 @@
     ],
     "ENDFtk.section.1.458": [
       "src/ENDFtk/section/1/458/test/458.test.cpp"
+    ],
+    "ENDFtk.section.1.458.EnergyReleaseComponent": [
+      "src/ENDFtk/section/1/458/EnergyReleaseComponent/test/EnergyReleaseComponent.test.cpp"
+    ],
+    "ENDFtk.section.1.458.Polynomial": [
+      "src/ENDFtk/section/1/458/Polynomial/test/Polynomial.test.cpp"
+    ],
+    "ENDFtk.section.1.458.Tabulated": [
+      "src/ENDFtk/section/1/458/Tabulated/test/Tabulated.test.cpp"
+    ],
+    "ENDFtk.section.1.458.ThermalPoint": [
+      "src/ENDFtk/section/1/458/ThermalPoint/test/ThermalPoint.test.cpp"
     ],
     "ENDFtk.section.1.460": [
       "src/ENDFtk/section/1/460/test/460.test.cpp"
