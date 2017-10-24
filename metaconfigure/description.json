@@ -506,6 +506,7 @@
     "src/ENDFtk/section/1/456.hpp",
     "src/ENDFtk/section/1/455.hpp",
     "src/ENDFtk/section/1/458.hpp",
+    "src/ENDFtk/section/1/460.hpp",
     "src/ENDFtk/section/1/451/src/description.hpp",
     "src/ENDFtk/section/1/451/src/print.hpp",
     "src/ENDFtk/section/1/451/src/readParameters.hpp",
@@ -518,6 +519,19 @@
     "src/ENDFtk/section/1/458/src/ctor.hpp",
     "src/ENDFtk/section/1/458/src/verifyNPLY.hpp",
     "src/ENDFtk/section/1/458/src/print.hpp",
+    "src/ENDFtk/section/1/458/src/createRangeFromIndex.hpp",
+    "src/ENDFtk/section/1/458/src/readTables.hpp",
+    "src/ENDFtk/section/1/458/src/verifyLFC.hpp",
+    "src/ENDFtk/section/1/458/src/verifyNFC.hpp",
+    "src/ENDFtk/section/1/460/Continuous.hpp",
+    "src/ENDFtk/section/1/460/DiscretePhoton.hpp",
+    "src/ENDFtk/section/1/460/Discrete.hpp",
+    "src/ENDFtk/section/1/460/src/ctor.hpp",
+    "src/ENDFtk/section/1/460/src/print.hpp",
+    "src/ENDFtk/section/1/460/src/readPhotonData.hpp",
+    "src/ENDFtk/section/1/460/src/readDiscretePhotons.hpp",
+    "src/ENDFtk/section/1/460/Discrete/src/NC.hpp",
+    "src/ENDFtk/section/1/460/Discrete/src/print.hpp",
     "src/ENDFtk/syntaxTree/File.hpp",
     "src/ENDFtk/syntaxTree/Material.hpp",
     "src/ENDFtk/syntaxTree/Section.hpp",
@@ -724,6 +738,18 @@
     ],
     "ENDFtk.section.1.458": [
       "src/ENDFtk/section/1/458/test/458.test.cpp"
+    ],
+    "ENDFtk.section.1.460": [
+      "src/ENDFtk/section/1/460/test/460.test.cpp"
+    ],
+    "ENDFtk.section.1.460.Continuous": [
+      "src/ENDFtk/section/1/460/Continuous/test/Continuous.test.cpp"
+    ],
+    "ENDFtk.section.1.460.Discrete": [
+      "src/ENDFtk/section/1/460/Discrete/test/Discrete.test.cpp"
+    ],
+    "ENDFtk.section.1.460.DiscretePhoton": [
+      "src/ENDFtk/section/1/460/DiscretePhoton/test/DiscretePhoton.test.cpp"
     ],
     "ENDFtk.section.2": [
       "src/ENDFtk/section/2/test/2.test.cpp"
