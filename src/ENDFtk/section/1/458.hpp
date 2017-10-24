@@ -5,6 +5,8 @@ protected:
   /* fields */
   int lfc_;
   ListRecord components_;
+
+  //! @todo use optionals instead?
   std::vector< TabulationRecord > tables_;
 
   /* auxiliary functions */
@@ -48,7 +50,11 @@ public:
   auto DER()  { return this->createRangeFromIndex( 15 ); }
   auto DET()  { return this->createRangeFromIndex( 17 ); }
 
-  long NC() const { return 1 + this->components_.NC(); }
+  long NC() const {
+    long NC = 1 + this->components_.NC();
+    for ( auto& entry : this->tables_ ) { NC += entry.NC(); }
+    return NC;
+  }
 
 #include "ENDFtk/section/1/458/src/print.hpp"
 
