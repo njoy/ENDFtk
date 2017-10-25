@@ -251,7 +251,7 @@ SCENARIO( "section::Type< 1, 460 >" ) {
         REQUIRE( 3 == MF1MT460.NC() );
       }
     }
-    
+
     WHEN( "the SEND Record is not valid, i.e., MT != 0" ){
       std::string sectionString = baseLO2() + invalidSEND();
       auto begin = sectionString.begin();
