@@ -5,12 +5,12 @@
 
 using namespace njoy::ENDFtk;
 
-std::string& cachedTape();
-std::string getFile( int MF );
+std::string getFile( const std::string& file, int MAT, int MF );
 
 SCENARIO( "Testing special case of file 1" ){
-  std::string file1string = getFile( 1 );
-  GIVEN( "a string representation of of File 1" ){
+
+  std::string file1string = getFile( "n-001_H_001.endf", 125, 1 );
+  GIVEN( "a string representation of of File 1 for H1" ){
     WHEN( "a file::Type< 1 > is constructed from the string" ){
       auto begin = file1string.begin();
       auto end = file1string.end();
@@ -21,6 +21,11 @@ SCENARIO( "Testing special case of file 1" ){
 
       THEN( "the sections can be extracted" ){
         REQUIRE( file1.hasMT( 451 ) );
+        REQUIRE( not file1.hasMT( 452 ) );
+        REQUIRE( not file1.hasMT( 455 ) );
+        REQUIRE( not file1.hasMT( 456 ) );
+        REQUIRE( not file1.hasMT( 458 ) );
+        REQUIRE( not file1.hasMT( 460 ) );
         REQUIRE( not file1.hasMT( 1 ) );
       }
     }
@@ -55,7 +60,7 @@ SCENARIO( "Testing special case of file 1" ){
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of file::Type< 1 >" ) {
+  GIVEN( "a valid instance of file::Type< 1 > for H1" ) {
     auto begin = file1string.begin();
     auto end = file1string.end();
     long lineNumber = 0;
@@ -72,16 +77,12 @@ SCENARIO( "Testing special case of file 1" ){
   } // GIVEN
 } // SCENARIO
 
-std::string& cachedTape(){
-  static std::string tape =
-    njoy::utility::slurpFileToMemory( "n-001_H_001.endf" );
-  return tape;
-}
-
-std::string getFile( int MF ){
-  auto begin = cachedTape().begin();
-  auto end = cachedTape().end();
+std::string getFile( const std::string& file, int MAT, int MF ){
+  std::string tape = njoy::utility::slurpFileToMemory( file );
+  auto begin = tape.begin();
+  auto end = tape.end();
   syntaxTree::Tape< std::string::iterator > tapeTree( begin, end );
-  auto fileTree = tapeTree.materialNumber( 125 ).front().fileNumber( MF );
+  auto fileTree = tapeTree.materialNumber( MAT ).front().fileNumber( MF );
   return std::string( fileTree.buffer().begin(), fileTree.buffer().end() );
 }
+

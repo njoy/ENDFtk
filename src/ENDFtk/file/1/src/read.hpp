@@ -1,5 +1,5 @@
 template< typename BufferIterator >
-static section::Type< 1, 451 > read( decltype(451_c),
+static section::Type< 1, 451 > read(
       StructureDivision& structureDivision,
       BufferIterator& begin,
       const BufferIterator& end,
@@ -34,8 +34,7 @@ static section::Type< 1, 451 > read( decltype(451_c),
 
 template< int SectionNo, typename BufferIterator >
 static std::optional< section::Type< 1, SectionNo > >
-read( hana::int_< SectionNo >,
-      StructureDivision& structureDivision,
+read( StructureDivision& structureDivision,
       BufferIterator& begin,
       const BufferIterator& end,
       long& lineNumber,
@@ -54,7 +53,7 @@ read( hana::int_< SectionNo >,
   }();
 
   try{
-    structureDivision = StructureDivision( begin, end, lineNumber, MAT );
+    structureDivision = StructureDivision( begin, end, lineNumber );
   } catch( std::exception& e ) {
     Log::info( "Error while reading structure division following File 1 Section {}",
                SectionNo );
