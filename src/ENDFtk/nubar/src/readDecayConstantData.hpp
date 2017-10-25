@@ -11,7 +11,10 @@ readDecayConstantData( Iterator& begin,
     case 0 : return nubar::Constant( begin, end, lineNumber, MAT, MF, MT );
     case 1 : return nubar::EnergyDependent( begin, end, lineNumber, MAT, MF, MT );
     default : {
-      Log::error( "Illegal value detected for the LDG flag (only 0 or 1 are allowed)" );
+      Log::error( "Encountered illegal LDG value" );
+      Log::info( "LDG must be equal to 0 or 1" );
+      Log::info( "LDG value: {}", LDG );
+      Log::info( "Line number: {}", lineNumber - 1 );
       throw std::exception();
     }
   }

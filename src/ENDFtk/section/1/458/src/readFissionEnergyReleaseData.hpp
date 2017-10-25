@@ -8,15 +8,19 @@ readFissionEnergyReleaseData( Iterator& begin,
                               int NFC ) {
   switch ( LFC ) {
     case 0 : {
-      // yes, this is ugly but NPLY is on the LIST
-      Iterator temp = begin;
-      ControlRecord cont( temp, end, lineNumber, MAT, 1, 458 );
-      lineNumber--;
-      if ( cont.L2() == 0 ) {
-        return ThermalPoint( begin, end, lineNumber, MAT, 1, 458 );
+      ListRecord list( begin, end, lineNumber, MAT, 1, 458 );
+      if ( list.NPL() != ( list.L2() + 1 ) * 18 ) {
+        Log::error( "Encountered illegal NPL value" );
+        Log::info( "NPL must be equal to {}", ( list.L2() + 1 ) * 18 );
+        Log::info( "NPL value: {}", list.NPL() );
+        Log::info( "Line number: {}", lineNumber - list.NC() );
+        throw std::exception();
+      }
+      if ( list.L2() == 0 ) {
+        return ThermalPoint( std::move( list ) );
       }
       else {
-        return Polynomial( begin, end, lineNumber, MAT, 1, 458 );
+        return Polynomial( std::move( list ) );
       }
     }
     case 1 : return Tabulated( begin, end, lineNumber, MAT, 1, 458, NFC );

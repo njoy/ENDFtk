@@ -15,3 +15,5 @@ ThermalPoint ( Iterator& begin,
     }
   }
 
+ThermalPoint ( ListRecord&& list ) :  ListRecord( std::move( list ) ) {}
+

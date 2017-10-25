@@ -12,6 +12,7 @@ readLists( Iterator& begin,
 
   while( size-- ){
     records.emplace_back( begin, end, lineNumber, MAT, MF, MT );
+    verifyNNF( records.back(), lineNumber );
   }
 
   return records;

@@ -15,3 +15,5 @@ Polynomial ( Iterator& begin,
     }
   }
 
+Polynomial ( ListRecord&& list ) :  ListRecord( std::move( list ) ) {}
+

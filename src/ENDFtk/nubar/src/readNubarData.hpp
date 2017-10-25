@@ -11,7 +11,10 @@ readNubarData( Iterator& begin,
     case 1 : return nubar::Polynomial( begin, end, lineNumber, MAT, MF, MT );
     case 2 : return nubar::Tabulated( begin, end, lineNumber, MAT, MF, MT );
     default : {
-      Log::error( "Illegal value detected for the LNU flag (only 1 or 2 are allowed)" );
+      Log::error( "Encountered illegal LNU value" );
+      Log::info( "LNU must be equal to 1 or 2" );
+      Log::info( "LNU value: {}", LNU );
+      Log::info( "Line number: {}", lineNumber - 1 );
       throw std::exception();
     }
   }
