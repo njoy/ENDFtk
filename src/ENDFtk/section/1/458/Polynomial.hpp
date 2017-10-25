@@ -12,25 +12,25 @@ public:
   int NPLY() const { return ListRecord::L2(); }
   static constexpr int NFC() { return 0; }
 
-  auto EFR() { return this->createRangeFromIndex( 0 ); }
-  auto ENP() { return this->createRangeFromIndex( 2 ); }
-  auto END() { return this->createRangeFromIndex( 4 ); }
-  auto EGP() { return this->createRangeFromIndex( 6 ); }
-  auto EGD() { return this->createRangeFromIndex( 8 ); }
-  auto EB()  { return this->createRangeFromIndex( 10 ); }
-  auto ENU() { return this->createRangeFromIndex( 12 ); }
-  auto ER()  { return this->createRangeFromIndex( 14 ); }
-  auto ET()  { return this->createRangeFromIndex( 16 ); }
+  auto EFR() const { return this->createRangeFromIndex( 0 ); }
+  auto ENP() const { return this->createRangeFromIndex( 2 ); }
+  auto END() const { return this->createRangeFromIndex( 4 ); }
+  auto EGP() const { return this->createRangeFromIndex( 6 ); }
+  auto EGD() const { return this->createRangeFromIndex( 8 ); }
+  auto EB() const { return this->createRangeFromIndex( 10 ); }
+  auto ENU() const { return this->createRangeFromIndex( 12 ); }
+  auto ER() const { return this->createRangeFromIndex( 14 ); }
+  auto ET() const  { return this->createRangeFromIndex( 16 ); }
 
-  auto DEFR() { return this->createRangeFromIndex( 1 ); }
-  auto DENP() { return this->createRangeFromIndex( 3 ); }
-  auto DEND() { return this->createRangeFromIndex( 5 ); }
-  auto DEGP() { return this->createRangeFromIndex( 7 ); }
-  auto DEGD() { return this->createRangeFromIndex( 9 ); }
-  auto DEB()  { return this->createRangeFromIndex( 11 ); }
-  auto DENU() { return this->createRangeFromIndex( 13 ); }
-  auto DER()  { return this->createRangeFromIndex( 15 ); }
-  auto DET()  { return this->createRangeFromIndex( 17 ); }
+  auto DEFR() const { return this->createRangeFromIndex( 1 ); }
+  auto DENP() const { return this->createRangeFromIndex( 3 ); }
+  auto DEND() const { return this->createRangeFromIndex( 5 ); }
+  auto DEGP() const { return this->createRangeFromIndex( 7 ); }
+  auto DEGD() const { return this->createRangeFromIndex( 9 ); }
+  auto DEB() const { return this->createRangeFromIndex( 11 ); }
+  auto DENU() const { return this->createRangeFromIndex( 13 ); }
+  auto DER() const { return this->createRangeFromIndex( 15 ); }
+  auto DET() const  { return this->createRangeFromIndex( 17 ); }
 
   using ListRecord::NC;
   using ListRecord::print;

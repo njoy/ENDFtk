@@ -57,7 +57,7 @@ SCENARIO( "section::Type< 1, 458 >::Tabulated" ) {
       REQUIRE( false == bool( chunk.tableER() ) );
       REQUIRE( true == bool( chunk.tableET() ) );
 
-      auto component = chunk.tableEFR().value();
+      auto component = *chunk.tableEFR();
       REQUIRE( 1 == component.LDRV() );
       REQUIRE( 1 == component.IFC() );
       REQUIRE( 3 == component.NP() );
@@ -75,7 +75,7 @@ SCENARIO( "section::Type< 1, 458 >::Tabulated" ) {
       REQUIRE( 1.691e+8 == Approx( component.release()[1] ) );
       REQUIRE( 1.69e+8 == Approx( component.release()[2] ) );
 
-      component = chunk.tableET().value();
+      component = *chunk.tableET();
       REQUIRE( 2 == component.LDRV() );
       REQUIRE( 9 == component.IFC() );
       REQUIRE( 4 == component.NP() );

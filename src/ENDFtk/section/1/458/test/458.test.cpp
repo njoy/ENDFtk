@@ -406,7 +406,7 @@ SCENARIO( "section::Type< 1, 458 >" ) {
         REQUIRE( false == bool( data.tableER() ) );
         REQUIRE( true == bool( data.tableET() ) );
 
-        auto component = data.tableEFR().value();
+        auto component = *data.tableEFR();
         REQUIRE( 1 == component.LDRV() );
         REQUIRE( 1 == component.IFC() );
         REQUIRE( 3 == component.NP() );
@@ -424,7 +424,7 @@ SCENARIO( "section::Type< 1, 458 >" ) {
         REQUIRE( 1.691e+8 == Approx( component.release()[1] ) );
         REQUIRE( 1.69e+8 == Approx( component.release()[2] ) );
 
-        component = data.tableET().value();
+        component = *data.tableET();
         REQUIRE( 2 == component.LDRV() );
         REQUIRE( 9 == component.IFC() );
         REQUIRE( 4 == component.NP() );
@@ -504,7 +504,7 @@ SCENARIO( "section::Type< 1, 458 >" ) {
         REQUIRE( false == bool( data.tableER() ) );
         REQUIRE( true == bool( data.tableET() ) );
 
-        auto component = data.tableEFR().value();
+        auto component = *data.tableEFR();
         REQUIRE( 1 == component.LDRV() );
         REQUIRE( 1 == component.IFC() );
         REQUIRE( 3 == component.NP() );
@@ -522,7 +522,7 @@ SCENARIO( "section::Type< 1, 458 >" ) {
         REQUIRE( 1.691e+8 == Approx( component.release()[1] ) );
         REQUIRE( 1.69e+8 == Approx( component.release()[2] ) );
 
-        component = data.tableET().value();
+        component = *data.tableET();
         REQUIRE( 2 == component.LDRV() );
         REQUIRE( 9 == component.IFC() );
         REQUIRE( 4 == component.NP() );
