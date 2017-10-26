@@ -12,7 +12,8 @@ std::string baseLFC0NPLY1();
 std::string baseLFC1();
 std::string invalidLFC();
 std::string invalidNFC();
-std::string invalidNPL();
+std::string invalidNPLLFC0();
+std::string invalidNPLLFC1();
 std::string validSEND();
 std::string invalidSEND();
 
@@ -634,8 +635,21 @@ SCENARIO( "section::Type< 1, 458 >" ) {
   } // GIVEN
 
   GIVEN( "a string representation of an File 1 Section 458"
-         " with an invalid NPL" ){
-    std::string sectionString = invalidNPL() + validSEND();
+         " with an invalid NPL for LFC=0" ){
+    std::string sectionString = invalidNPLLFC0() + validSEND();
+    auto begin = sectionString.begin();
+    auto end = sectionString.end();
+    long lineNumber = 1;
+    HeadRecord head( begin, end, lineNumber );
+    
+    THEN( "an exception is thrown upon construction" ){
+      REQUIRE_THROWS( section1458( head, begin, end, lineNumber, 9228 ) );
+    }
+  } // GIVEN
+
+  GIVEN( "a string representation of an File 1 Section 458"
+         " with an invalid NPL for LFC=1" ){
+    std::string sectionString = invalidNPLLFC1() + validSEND();
     auto begin = sectionString.begin();
     auto end = sectionString.end();
     long lineNumber = 1;
