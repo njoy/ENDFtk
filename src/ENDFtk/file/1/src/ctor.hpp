@@ -24,15 +24,15 @@ Type( StructureDivision& structureDivision,
       Log::error("Inappropriate section encountered in File 1");
       Log::info("Section number: {}", asHead( structureDivision ).section() );
       Log::info("Line number: {}", lineNumber - 1 );
-      throw std::exception{};
+      throw std::exception();
     } else if ( structureDivision.isMend() ){
-      Log::info("Encountered MEND record before FEND record in File 1" );
+      Log::error("Encountered MEND record before FEND record in File 1" );
       Log::info("Line number: {}", lineNumber - 1 );
-      throw std::exception{};
+      throw std::exception();
     } else if ( structureDivision.isTend() ){
-      Log::info("Encountered TEND record before FEND record in File 1" );
+      Log::error("Encountered TEND record before FEND record in File 1" );
       Log::info("Line number: {}", lineNumber - 1 );
-      throw std::exception{};
+      throw std::exception();
     }
   }
 }
@@ -117,25 +117,12 @@ template< typename BufferIterator >
 Type( StructureDivision& structureDivision,
       BufferIterator& begin,
       const BufferIterator& end,
-      long& lineNumber,
-      int MAT )
-try:
-  Type( structureDivision, begin, end, lineNumber, MAT,
-        read( structureDivision, begin, end, lineNumber ) ){
-} catch ( std::exception& e ){
-  Log::info("Error while reading File 1");
-  throw e;
-}
-
-template< typename BufferIterator >
-Type( StructureDivision& structureDivision,
-      BufferIterator& begin,
-      const BufferIterator& end,
       long& lineNumber )
 try:
-  Type( structureDivision, begin, end, lineNumber, structureDivision.tail.MAT() ){
+  Type( structureDivision, begin, end, lineNumber, structureDivision.tail.MAT(),
+        read( structureDivision, begin, end, lineNumber ) ){
 } catch ( std::exception& e ){
-  Log::info("Error while reading File 1");
+  Log::info( "Error while reading File 1" );
   throw e;
 }
 

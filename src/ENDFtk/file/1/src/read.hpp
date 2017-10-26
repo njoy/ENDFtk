@@ -11,23 +11,16 @@ static section::Type< 1, 451 > read(
     Log::error( "Illegal section number in File 1" );
     Log::info( "First section of File 1 must be Section 451");
     Log::info( "First section encountered: {}", head.MT() );
+    Log::info( "Line number: {}", lineNumber - 1 );
+    throw std::exception();
   }
 
+  //! @todo why use a lambda here? - no need to catch or log info message (log message done in mt451 constructor)
   auto section451 = [&]{
-    try{
-      return section::Type< 1, 451 >( head, begin, end, lineNumber, head.MAT() );
-    } catch( std::exception& e ) {
-      Log::info( "Error while reading File 1 Section 451" );
-      throw e;
-    }
+    return section::Type< 1, 451 >( head, begin, end, lineNumber, head.MAT() );
   }();
 
-  try{
-    structureDivision = StructureDivision( begin, end, lineNumber );
-  } catch( std::exception& e ) {
-    Log::info( "Error while reading structure division following File 1 Section 451" );
-    throw e;
-  }
+  structureDivision = StructureDivision( begin, end, lineNumber );
 
   return section451;
 }
@@ -43,22 +36,12 @@ read( StructureDivision& structureDivision,
 
   if ( head.MT() != SectionNo ){ return std::nullopt; }
 
+  //! @todo why use a lambda here? - no need to catch or log info message (log message done in mt4xx constructor)
   auto section = [&]{
-    try{
-      return section::Type< 1, SectionNo >( head, begin, end, lineNumber, MAT );
-    } catch( std::exception& e ) {
-      Log::info( "Error while reading File 1 Section {}", SectionNo );
-      throw e;
-    }
+    return section::Type< 1, SectionNo >( head, begin, end, lineNumber, MAT );
   }();
 
-  try{
-    structureDivision = StructureDivision( begin, end, lineNumber );
-  } catch( std::exception& e ) {
-    Log::info( "Error while reading structure division following File 1 Section {}",
-               SectionNo );
-    throw e;
-  }
+  structureDivision = StructureDivision( begin, end, lineNumber );
 
   return std::make_optional( std::move( section ) );
 }

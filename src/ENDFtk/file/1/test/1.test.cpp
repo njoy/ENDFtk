@@ -45,19 +45,6 @@ SCENARIO( "Testing special case of file 1" ){
         REQUIRE_NOTHROW( fileTree.parse< 1 >( lineNumber ) );
       }
     }
-
-    WHEN( "a file::Type< 1 > is constructed from the string twice" ){
-      std::string twice( file1string.begin(), file1string.end() - 81 );
-      twice += file1string;
-      auto begin = twice.begin();
-      auto end = twice.end();
-      long lineNumber = 0;
-      StructureDivision division( begin, end, lineNumber );
-      THEN( "an exception is thrown" ){
-        REQUIRE_THROWS( file::Type< 1 >
-                        ( division, begin, end, lineNumber ) );
-      }
-    }
   } // GIVEN
 
   GIVEN( "a valid instance of file::Type< 1 > for H1" ) {
@@ -112,19 +99,6 @@ SCENARIO( "Testing special case of file 1" ){
         REQUIRE_NOTHROW( fileTree.parse< 1 >( lineNumber ) );
       }
     }
-
-    WHEN( "a file::Type< 1 > is constructed from the string twice" ){
-      std::string twice( file1string.begin(), file1string.end() - 81 );
-      twice += file1string;
-      auto begin = twice.begin();
-      auto end = twice.end();
-      long lineNumber = 0;
-      StructureDivision division( begin, end, lineNumber );
-      THEN( "an exception is thrown" ){
-        REQUIRE_THROWS( file::Type< 1 >
-                        ( division, begin, end, lineNumber ) );
-      }
-    }
   } // GIVEN
 
   GIVEN( "a valid instance of file::Type< 1 > for U235" ) {
@@ -140,6 +114,90 @@ SCENARIO( "Testing special case of file 1" ){
       auto output = std::back_inserter( buffer );
       file1.print( output, 9228 );
       REQUIRE( buffer == file1string );
+    }
+  } // GIVEN
+
+  GIVEN( "a File 1 string in which section 451 is not the first section" ) {
+    std::string mf1 =
+      " 1.001000+3 9.991673-1          0          0          0          3 125 1452     \n"
+      " 0.000000+0 0.000000+0          0          0          0          6 125 1452     \n"
+      " 1.000000+0 2.000000+7          0          0         10          8 125 1452     \n";
+
+    auto begin = mf1.begin();
+    auto end = mf1.end();
+    long lineNumber = 1;
+    StructureDivision division( begin, end, lineNumber );
+
+    THEN( "an exception is thrown at construction" ) {
+
+      REQUIRE_THROWS( file::Type< 1 >( division, begin, end, lineNumber ) );
+    }
+  } // GIVEN
+
+  GIVEN( "a File 1 string in which an illegal section is present" ) {
+    std::string mf1 =
+      " 1.001000+3 9.991673-1          0          0          0          3 125 1451     \n"
+      " 0.000000+0 0.000000+0          0          0          0          6 125 1451     \n"
+      " 1.000000+0 2.000000+7          0          0         10          8 125 1451     \n"
+      " 0.000000+0 0.000000+0          0          0          1          1 125 1451     \n"
+      "  1-H -  1 LANL       EVAL-OCT05 G.M.Hale                          125 1451     \n"
+      "                                1        451        122          5 125 1451     \n"
+      "                                                                   125 1  0     \n"
+      " 1.001000+3 9.991673-1          0          0          0          3 125 1453     \n"
+      " 0.000000+0 0.000000+0          0          0          0          0 125 1453     \n";
+
+    auto begin = mf1.begin();
+    auto end = mf1.end();
+    long lineNumber = 1;
+    StructureDivision division( begin, end, lineNumber );
+
+    THEN( "an exception is thrown at construction" ) {
+
+      REQUIRE_THROWS( file::Type< 1 >( division, begin, end, lineNumber ) );
+    }
+  } // GIVEN
+
+  GIVEN( "a File 1 string in which a MEND record is used instead of FEND" ) {
+    std::string mf1 =
+      " 1.001000+3 9.991673-1          0          0          0          3 125 1451     \n"
+      " 0.000000+0 0.000000+0          0          0          0          6 125 1451     \n"
+      " 1.000000+0 2.000000+7          0          0         10          8 125 1451     \n"
+      " 0.000000+0 0.000000+0          0          0          1          1 125 1451     \n"
+      "  1-H -  1 LANL       EVAL-OCT05 G.M.Hale                          125 1451     \n"
+      "                                1        451        122          5 125 1451     \n"
+      "                                                                   125 1  0     \n"
+      "                                                                     0 0  0     \n";
+
+    auto begin = mf1.begin();
+    auto end = mf1.end();
+    long lineNumber = 1;
+    StructureDivision division( begin, end, lineNumber );
+
+    THEN( "an exception is thrown at construction" ) {
+
+      REQUIRE_THROWS( file::Type< 1 >( division, begin, end, lineNumber ) );
+    }
+  } // GIVEN
+
+  GIVEN( "a File 1 string in which a TEND record is used instead of FEND" ) {
+    std::string mf1 =
+      " 1.001000+3 9.991673-1          0          0          0          3 125 1451     \n"
+      " 0.000000+0 0.000000+0          0          0          0          6 125 1451     \n"
+      " 1.000000+0 2.000000+7          0          0         10          8 125 1451     \n"
+      " 0.000000+0 0.000000+0          0          0          1          1 125 1451     \n"
+      "  1-H -  1 LANL       EVAL-OCT05 G.M.Hale                          125 1451     \n"
+      "                                1        451        122          5 125 1451     \n"
+      "                                                                   125 1  0     \n"
+      "                                                                    -1 0  0     \n";
+
+    auto begin = mf1.begin();
+    auto end = mf1.end();
+    long lineNumber = 1;
+    StructureDivision division( begin, end, lineNumber );
+
+    THEN( "an exception is thrown at construction" ) {
+
+      REQUIRE_THROWS( file::Type< 1 >( division, begin, end, lineNumber ) );
     }
   } // GIVEN
 } // SCENARIO
