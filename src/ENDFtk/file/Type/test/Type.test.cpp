@@ -19,9 +19,15 @@ SCENARIO( "Testing generic case using file 3" ){
       StructureDivision division( begin, end, lineNumber);
       file::Type< 3 > MF3(division, begin, end, lineNumber );
 
-      THEN( "the sections can be extracted" ){
+      THEN( "the members can be accessed" ){
+
+        REQUIRE( 3 == MF3.MF() );
+        REQUIRE( 3 == MF3.fileNumber() );
+
         REQUIRE( MF3.hasMT( 102 ) );
-        REQUIRE( not MF3.hasMT( 12 ) );
+        REQUIRE( not MF3.hasMT( 4 ) );
+      }
+      THEN( "the sections can be extracted" ){
 
         REQUIRE_NOTHROW( MF3.MT( 1 ) );
         REQUIRE_NOTHROW( MF3.MT( 2 ) );

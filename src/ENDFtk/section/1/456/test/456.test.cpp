@@ -34,6 +34,7 @@ SCENARIO( "section::Type< 1, 456 >" ) {
         auto coefficients = data.coefficients();
 
         REQUIRE( 456 == MF1MT456.MT() );
+        REQUIRE( 456 == MF1MT456.sectionNumber() );
         REQUIRE( 92235 == MF1MT456.ZA() );
         REQUIRE( 233.0248 == Approx( MF1MT456.atomicWeightRatio() ) );
         REQUIRE( 233.0248 == Approx( MF1MT456.AWR() ) );
@@ -66,6 +67,7 @@ SCENARIO( "section::Type< 1, 456 >" ) {
         auto coefficients = data.coefficients();
 
         REQUIRE( 456 == MF1MT456.MT() );
+        REQUIRE( 456 == MF1MT456.sectionNumber() );
         REQUIRE( 92235 == MF1MT456.ZA() );
         REQUIRE( 233.0248 == Approx( MF1MT456.atomicWeightRatio() ) );
         REQUIRE( 233.0248 == Approx( MF1MT456.AWR() ) );
@@ -113,6 +115,7 @@ SCENARIO( "section::Type< 1, 456 >" ) {
         auto boundaries = data.boundaries();
 
         REQUIRE( 456 == MF1MT456.MT() );
+        REQUIRE( 456 == MF1MT456.sectionNumber() );
         REQUIRE( 92235 == MF1MT456.ZA() );
         REQUIRE( 233.0248 == Approx( MF1MT456.atomicWeightRatio() ) );
         REQUIRE( 233.0248 == Approx( MF1MT456.AWR() ) );
@@ -162,6 +165,7 @@ SCENARIO( "section::Type< 1, 456 >" ) {
         auto boundaries = data.boundaries();
 
         REQUIRE( 456 == MF1MT456.MT() );
+        REQUIRE( 456 == MF1MT456.sectionNumber() );
         REQUIRE( 92235 == MF1MT456.ZA() );
         REQUIRE( 233.0248 == Approx( MF1MT456.atomicWeightRatio() ) );
         REQUIRE( 233.0248 == Approx( MF1MT456.AWR() ) );

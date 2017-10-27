@@ -28,6 +28,7 @@ SCENARIO( "section::Type< 1, 460 >" ) {
         section::Type< 1, 460 > MF1MT460( head, begin, end, lineNumber, 9228 );
 
         REQUIRE( 460 == MF1MT460.MT() );
+        REQUIRE( 460 == MF1MT460.sectionNumber() );
         REQUIRE( 92235 == MF1MT460.ZA() );
         REQUIRE( 233.0248 == Approx( MF1MT460.atomicWeightRatio() ) );
         REQUIRE( 233.0248 == Approx( MF1MT460.AWR() ) );
@@ -98,6 +99,7 @@ SCENARIO( "section::Type< 1, 460 >" ) {
         section::Type< 1, 460 > MF1MT460 = section.parse< 1, 460 >( lineNumber );
 
         REQUIRE( 460 == MF1MT460.MT() );
+        REQUIRE( 460 == MF1MT460.sectionNumber() );
         REQUIRE( 92235 == MF1MT460.ZA() );
         REQUIRE( 233.0248 == Approx( MF1MT460.atomicWeightRatio() ) );
         REQUIRE( 233.0248 == Approx( MF1MT460.AWR() ) );
@@ -180,6 +182,7 @@ SCENARIO( "section::Type< 1, 460 >" ) {
         section::Type< 1, 460 > MF1MT460( head, begin, end, lineNumber, 9228 );
 
         REQUIRE( 460 == MF1MT460.MT() );
+        REQUIRE( 460 == MF1MT460.sectionNumber() );
         REQUIRE( 92235 == MF1MT460.ZA() );
         REQUIRE( 233.0248 == Approx( MF1MT460.atomicWeightRatio() ) );
         REQUIRE( 233.0248 == Approx( MF1MT460.AWR() ) );
@@ -223,6 +226,7 @@ SCENARIO( "section::Type< 1, 460 >" ) {
         section::Type< 1, 460 > MF1MT460 = section.parse< 1, 460 >( lineNumber );
 
         REQUIRE( 460 == MF1MT460.MT() );
+        REQUIRE( 460 == MF1MT460.sectionNumber() );
         REQUIRE( 92235 == MF1MT460.ZA() );
         REQUIRE( 233.0248 == Approx( MF1MT460.atomicWeightRatio() ) );
         REQUIRE( 233.0248 == Approx( MF1MT460.AWR() ) );

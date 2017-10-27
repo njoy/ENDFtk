@@ -10,6 +10,7 @@ using section1458 = section::Type< 1, 458 >;
 std::string chunk();
 std::string invalidNPL();
 std::string invalidIFC();
+std::string duplicateIFC();
 
 SCENARIO( "section::Type< 1, 458 >::Tabulated" ) {
 
@@ -138,6 +139,18 @@ SCENARIO( "section::Type< 1, 458 >::Tabulated" ) {
       REQUIRE_THROWS( section1458::Tabulated( begin, end, lineNumber, 9228, 1, 458, 2 ) );
     }
   } // GIVEN
+
+  GIVEN( "a string representation of a section::Type< 1, 458 >::Tabulated"
+         " with a duplicate IFC" ){
+    std::string string = duplicateIFC();
+    auto begin = string.begin();
+    auto end = string.end();
+    long lineNumber = 1;
+    
+    THEN( "an exception is thrown upon construction" ){
+      REQUIRE_THROWS( section1458::Tabulated( begin, end, lineNumber, 9228, 1, 458, 2 ) );
+    }
+  } // GIVEN
 } // SCENARIO
 
 std::string chunk() {
@@ -181,6 +194,21 @@ std::string invalidIFC() {
     "          3          2                                            9228 1458     \n"
     " 1.000000-5 1.691300+8 2.530000-2 1.691000+8 2.000000+7 1.690000+89228 1458     \n"
     " 0.000000+0 0.000000+0          2         10          1          49228 1458     \n"
+    "          4          2                                            9228 1458     \n"
+    " 1.000000-5 2.021554+8 2.530000-2 3.000000+8 1.000000+6 2.500000+89228 1458     \n"
+    " 2.000000+7 1.500000+8                                            9228 1458     \n";
+}
+
+std::string duplicateIFC() {
+  return
+    " 0.000000+0 0.000000+0          0          0         18          99228 1458     \n"
+    " 1.691300+8 4.900000+5 4.838000+6 7.000000+4 7.400000+3 1.110000+39228 1458     \n"
+    " 6.600000+6 5.000000+5 6.330000+6 5.000000+4 6.500000+6 5.100000+49228 1458     \n"
+    " 8.750000+6 7.000000+4 1.934054+8 1.500000+5 2.021554+8 1.300000+59228 1458     \n"
+    " 0.000000+0 0.000000+0          1          1          1          39228 1458     \n"
+    "          3          2                                            9228 1458     \n"
+    " 1.000000-5 1.691300+8 2.530000-2 1.691000+8 2.000000+7 1.690000+89228 1458     \n"
+    " 0.000000+0 0.000000+0          2          1          1          49228 1458     \n"
     "          4          2                                            9228 1458     \n"
     " 1.000000-5 2.021554+8 2.530000-2 3.000000+8 1.000000+6 2.500000+89228 1458     \n"
     " 2.000000+7 1.500000+8                                            9228 1458     \n";

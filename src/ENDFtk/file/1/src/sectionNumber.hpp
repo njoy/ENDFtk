@@ -1,6 +1,6 @@
-template< int Index >
+template< long long int Index >
 decltype(auto)
-sectionNumber( hana::int_< Index > sectionNo ) const {
+sectionNumber( hana::llong< Index > sectionNo ) const {
   try{
     return get( this->sectionMap[ sectionNo ] );
   } catch( ... ){
@@ -14,7 +14,7 @@ sectionNumber( hana::int_< Index > sectionNo ) const {
 
 template< typename Index >
 decltype(auto)
-sectionNumber( Index sectionNo ){
+sectionNumber( Index sectionNo ) {
   decltype(auto) section =
     const_cast< const Type& >( *this ).sectionNumber( sectionNo );
 

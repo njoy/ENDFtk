@@ -21,9 +21,10 @@ SCENARIO( "section::Type<3>" ){
            
       THEN( "a section::Type<3> can be constructed and members can be tested" ){     
         section::Type<3> MF3( head, begin, end, lineNumber, 125 );     
-        REQUIRE( 1 == MF3.MT() );     
-        REQUIRE( 1001 == MF3.ZA() );     
-        REQUIRE( 0.9991673 == MF3.atomicWeightRatio() );     
+        REQUIRE( 1 == MF3.MT() );
+        REQUIRE( 1 == MF3.sectionNumber() );
+        REQUIRE( 1001 == MF3.ZA() );
+        REQUIRE( 0.9991673 == MF3.atomicWeightRatio() );
       }     
     }     
      
@@ -39,9 +40,10 @@ SCENARIO( "section::Type<3>" ){
            
       THEN( "a section::Type<3> can be constructed and members can be tested" ){     
         section::Type<3> MF3 = mf3.parse<3>( lineNumber );     
-        REQUIRE( 1 == MF3.MT() );     
-        REQUIRE( 1001 == MF3.ZA() );     
-        REQUIRE( 0.9991673 == MF3.atomicWeightRatio() );     
+        REQUIRE( 1 == MF3.MT() );
+        REQUIRE( 1 == MF3.sectionNumber() );
+        REQUIRE( 1001 == MF3.ZA() );
+        REQUIRE( 0.9991673 == MF3.atomicWeightRatio() );
       }     
     }     
          

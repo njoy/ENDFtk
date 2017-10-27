@@ -8,6 +8,7 @@ public:
 
   /* get methods */
   int MT() const { return 456; }
+  using Type< 1, 452 >::sectionNumber;
   using Type< 1, 452 >::LNU;
   using Type< 1, 452 >::nubar;
   using Type< 1, 452 >::NC;

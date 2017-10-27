@@ -17,6 +17,7 @@ public:
 
   /* get methods */
   static constexpr int MT() { return 455; }
+  static constexpr int sectionNumber() { return MT(); }
 
   int LNU() const { return this->lnu_; }
 //! @todo use this as an alternative and do not store LNU in the section?

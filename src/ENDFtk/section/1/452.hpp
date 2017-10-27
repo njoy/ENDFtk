@@ -15,6 +15,7 @@ public:
 
   /* get methods */
   virtual int MT() const { return 452; }
+  int sectionNumber() const { return this->MT(); }
 
   int LNU() const { return this->lnu_; }
 //! @todo use this as an alternative and do not store LNU in the section?

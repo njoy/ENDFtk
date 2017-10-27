@@ -7,6 +7,8 @@ public:
   #include "ENDFtk/section/2/src/ctor.hpp"
 
   using Base::MT;
+  using Base::sectionNumber;
   using Base::ZA;
+  using Base::AWR;
   using Base::atomicWeightRatio;
 };

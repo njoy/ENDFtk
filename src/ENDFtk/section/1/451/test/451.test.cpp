@@ -27,6 +27,7 @@ SCENARIO( "section::Type< 1, 451 >" ) {
       THEN( "a section::Type< 1, 451 > can be constructed and members can be tested" ) {
         section::Type< 1, 451 > MF1MT451( head, begin, end, lineNumber, 125 );
         REQUIRE( 451 == MF1MT451.MT() );
+        REQUIRE( 451 == MF1MT451.sectionNumber() );
         REQUIRE( 1001 == MF1MT451.ZA() );
         REQUIRE( 0.9991673 == Approx( MF1MT451.atomicWeightRatio() ) );
         REQUIRE( 1 == MF1MT451.LRP() );
@@ -75,6 +76,7 @@ SCENARIO( "section::Type< 1, 451 >" ) {
       THEN( "a section::Type< 1, 451 > can be constructed and members can be tested" ){
         section::Type< 1, 451 > MF1MT451 = section.parse< 1, 451 >( lineNumber );
         REQUIRE( 451 == MF1MT451.MT() );
+        REQUIRE( 451 == MF1MT451.sectionNumber() );
         REQUIRE( 1001 == MF1MT451.ZA() );
         REQUIRE( 0.9991673 == Approx( MF1MT451.atomicWeightRatio() ) );
         REQUIRE( 1 == MF1MT451.LRP() );

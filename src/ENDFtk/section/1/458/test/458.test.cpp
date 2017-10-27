@@ -31,6 +31,7 @@ SCENARIO( "section::Type< 1, 458 >" ) {
         section::Type< 1, 458 > MF1MT458( head, begin, end, lineNumber, 9228 );
 
         REQUIRE( 458 == MF1MT458.MT() );
+        REQUIRE( 458 == MF1MT458.sectionNumber() );
         REQUIRE( 92235 == MF1MT458.ZA() );
         REQUIRE( 233.0248 == Approx( MF1MT458.atomicWeightRatio() ) );
         REQUIRE( 233.0248 == Approx( MF1MT458.AWR() ) );
@@ -82,6 +83,7 @@ SCENARIO( "section::Type< 1, 458 >" ) {
 
 
         REQUIRE( 458 == MF1MT458.MT() );
+        REQUIRE( 458 == MF1MT458.sectionNumber() );
         REQUIRE( 92235 == MF1MT458.ZA() );
         REQUIRE( 233.0248 == Approx( MF1MT458.atomicWeightRatio() ) );
         REQUIRE( 233.0248 == Approx( MF1MT458.AWR() ) );
@@ -144,6 +146,7 @@ SCENARIO( "section::Type< 1, 458 >" ) {
         section::Type< 1, 458 > MF1MT458( head, begin, end, lineNumber, 9228 );
 
         REQUIRE( 458 == MF1MT458.MT() );
+        REQUIRE( 458 == MF1MT458.sectionNumber() );
         REQUIRE( 92235 == MF1MT458.ZA() );
         REQUIRE( 233.0248 == Approx( MF1MT458.atomicWeightRatio() ) );
         REQUIRE( 233.0248 == Approx( MF1MT458.AWR() ) );
@@ -249,6 +252,7 @@ SCENARIO( "section::Type< 1, 458 >" ) {
 
 
         REQUIRE( 458 == MF1MT458.MT() );
+        REQUIRE( 458 == MF1MT458.sectionNumber() );
         REQUIRE( 92235 == MF1MT458.ZA() );
         REQUIRE( 233.0248 == Approx( MF1MT458.atomicWeightRatio() ) );
         REQUIRE( 233.0248 == Approx( MF1MT458.AWR() ) );
@@ -365,6 +369,7 @@ SCENARIO( "section::Type< 1, 458 >" ) {
         section::Type< 1, 458 > MF1MT458( head, begin, end, lineNumber, 9228 );
 
         REQUIRE( 458 == MF1MT458.MT() );
+        REQUIRE( 458 == MF1MT458.sectionNumber() );
         REQUIRE( 92235 == MF1MT458.ZA() );
         REQUIRE( 233.0248 == Approx( MF1MT458.atomicWeightRatio() ) );
         REQUIRE( 233.0248 == Approx( MF1MT458.AWR() ) );
@@ -463,6 +468,7 @@ SCENARIO( "section::Type< 1, 458 >" ) {
         section::Type< 1, 458 > MF1MT458 = section.parse< 1, 458 >( lineNumber );
 
         REQUIRE( 458 == MF1MT458.MT() );
+        REQUIRE( 458 == MF1MT458.sectionNumber() );
         REQUIRE( 92235 == MF1MT458.ZA() );
         REQUIRE( 233.0248 == Approx( MF1MT458.atomicWeightRatio() ) );
         REQUIRE( 233.0248 == Approx( MF1MT458.AWR() ) );

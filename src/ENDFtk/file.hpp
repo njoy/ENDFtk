@@ -40,6 +40,7 @@ public:
   hasSectionNumber( int sectionNo ) const {  return this->hasMT( sectionNo ); }
 
   static int MF() { return FileNumber; }
+  static int fileNumber() { return MF(); }
 
   #include "ENDFtk/file/Type/src/print.hpp"
 };

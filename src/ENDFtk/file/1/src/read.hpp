@@ -1,5 +1,6 @@
 template< typename BufferIterator >
 static section::Type< 1, 451 > read(
+      decltype(451_c),
       StructureDivision& structureDivision,
       BufferIterator& begin,
       const BufferIterator& end,
@@ -25,9 +26,10 @@ static section::Type< 1, 451 > read(
   return section451;
 }
 
-template< int SectionNo, typename BufferIterator >
-static std::optional< section::Type< 1, SectionNo > >
-read( StructureDivision& structureDivision,
+template< long long int SectionNo, typename BufferIterator >
+static std::optional< section::Type< 1, (int)SectionNo > >
+read( hana::llong< SectionNo >,
+      StructureDivision& structureDivision,
       BufferIterator& begin,
       const BufferIterator& end,
       long& lineNumber,
@@ -38,7 +40,7 @@ read( StructureDivision& structureDivision,
 
   //! @todo why use a lambda here? - no need to catch or log info message (log message done in mt4xx constructor)
   auto section = [&]{
-    return section::Type< 1, SectionNo >( head, begin, end, lineNumber, MAT );
+    return section::Type< 1, (int)SectionNo >( head, begin, end, lineNumber, MAT );
   }();
 
   structureDivision = StructureDivision( begin, end, lineNumber );

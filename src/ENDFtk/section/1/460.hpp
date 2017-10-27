@@ -30,7 +30,8 @@ public:
   /* set methods */
 
   /* get methods */
-  virtual int MT() const { return 460; }
+  static constexpr int MT() { return 460; }
+  static constexpr int sectionNumber() { return MT(); }
 
   int LO() const { return this->lo_; }
 //! @todo use this as an alternative and do not store LO in the section?

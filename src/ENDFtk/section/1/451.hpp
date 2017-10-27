@@ -19,7 +19,8 @@ public:
   #include "ENDFtk/section/1/451/src/ctor.hpp"
 
   /* get methods */
-  static constexpr int MT(){ return 451; }
+  static constexpr int MT() { return 451; }
+  static constexpr int sectionNumber() { return MT(); }
 
   int LRP() const { return this->lrp_; }
   int LFI() const { return this->lfi_; }

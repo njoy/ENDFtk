@@ -19,7 +19,11 @@ SCENARIO( "Testing special case of file 1" ){
       StructureDivision division( begin, end, lineNumber );
       file::Type< 1 > file1( division, begin, end, lineNumber );
 
-      THEN( "the sections can be extracted" ){
+      THEN( "the members can be accessed" ){
+
+        REQUIRE( 1 == file1.MF() );
+        REQUIRE( 1 == file1.fileNumber() );
+
         REQUIRE( file1.hasMT( 451 ) );
         REQUIRE( not file1.hasMT( 452 ) );
         REQUIRE( not file1.hasMT( 455 ) );
@@ -27,6 +31,18 @@ SCENARIO( "Testing special case of file 1" ){
         REQUIRE( not file1.hasMT( 458 ) );
         REQUIRE( not file1.hasMT( 460 ) );
         REQUIRE( not file1.hasMT( 1 ) );
+      }
+      THEN( "the sections can be extracted" ){
+
+        REQUIRE_NOTHROW( file1.MT( 451_c ) );
+      }
+      THEN( "an exception is thrown if invalid MT" ){
+//        REQUIRE_THROWS( file1.MT( 1_c ) );
+        REQUIRE_THROWS( file1.MT( 452_c ) );
+        REQUIRE_THROWS( file1.MT( 455_c ) );
+        REQUIRE_THROWS( file1.MT( 456_c ) );
+        REQUIRE_THROWS( file1.MT( 458_c ) );
+        REQUIRE_THROWS( file1.MT( 460_c ) );
       }
     }
 
@@ -73,7 +89,11 @@ SCENARIO( "Testing special case of file 1" ){
       StructureDivision division( begin, end, lineNumber );
       file::Type< 1 > file1( division, begin, end, lineNumber );
 
-      THEN( "the sections can be extracted" ){
+      THEN( "the members can be accessed" ){
+
+        REQUIRE( 1 == file1.MF() );
+        REQUIRE( 1 == file1.fileNumber() );
+
         REQUIRE( file1.hasMT( 451 ) );
         REQUIRE( file1.hasMT( 452 ) );
         REQUIRE( file1.hasMT( 455 ) );
@@ -81,6 +101,18 @@ SCENARIO( "Testing special case of file 1" ){
         REQUIRE( file1.hasMT( 458 ) );
         REQUIRE( file1.hasMT( 460 ) );
         REQUIRE( not file1.hasMT( 1 ) );
+      }
+      THEN( "the sections can be extracted" ){
+
+        REQUIRE_NOTHROW( file1.MT( 451_c ) );
+        REQUIRE_NOTHROW( file1.MT( 452_c ) );
+        REQUIRE_NOTHROW( file1.MT( 455_c ) );
+        REQUIRE_NOTHROW( file1.MT( 456_c ) );
+        REQUIRE_NOTHROW( file1.MT( 458_c ) );
+        REQUIRE_NOTHROW( file1.MT( 460_c ) );
+      }
+      THEN( "an exception is thrown if invalid MT" ){
+//        REQUIRE_THROWS( file1.MT( 1_c ) );
       }
     }
 

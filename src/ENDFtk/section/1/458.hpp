@@ -33,6 +33,7 @@ public:
 
   /* get methods */
   static constexpr int MT() { return 458; }
+  static constexpr int sectionNumber() { return MT(); }
 
   int LFC() const { return this->lfc_; }
 //! @todo use this as an alternative and do not store LFC in the section?

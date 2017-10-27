@@ -13,6 +13,10 @@ public:
   
   int MT() const { return const_cast< Base* >( this )->MT(); }
 
+  int& sectionNumber() { return this->MT(); }
+  
+  int sectionNumber() const { return this->MT(); }
+
   int& ZA() { return this->ZA_; }
   
   int ZA() const { return const_cast< Base* >( this )->ZA(); }
