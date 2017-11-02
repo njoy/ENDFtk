@@ -1,5 +1,5 @@
 template< typename Iterator >
-static std::vector< ListRecord >
+static std::vector< DecayConstant >
 readLists( Iterator& begin,
            const Iterator& end,
            long& lineNumber,
@@ -7,7 +7,7 @@ readLists( Iterator& begin,
            int MF,
            int MT,
            int size ) {
-  std::vector< ListRecord > records;
+  std::vector< DecayConstant > records;
   records.reserve( size );
 
   while( size-- ){

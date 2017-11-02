@@ -1,5 +1,5 @@
 static void
-verifyNNF( const ListRecord& list, long lineNumber ) {
+verifyNNF( const DecayConstant& list, long lineNumber ) {
 
   const bool oddNPL = ( list.NPL() & 1 );
   if ( oddNPL ) {
@@ -12,7 +12,7 @@ verifyNNF( const ListRecord& list, long lineNumber ) {
 }
 
 static void
-verifyNNF( const std::vector< ListRecord >& lists ) {
+verifyNNF( const std::vector< DecayConstant >& lists ) {
 
   int NPL = lists[0].NPL();
   for ( auto& entry : lists ) {

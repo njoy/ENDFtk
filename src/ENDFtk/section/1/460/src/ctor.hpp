@@ -5,8 +5,6 @@ Type ( const HEAD& head,
        long& lineNumber,
        int MAT )
   try: Base( head, MAT, 1 ),
-       lo_( head.L1() ),
-       ng_( head.N1() ),
        data_( std::move( readPhotonData( begin, end, lineNumber,
                                          MAT, head.L1(), head.N1() ) ) ) {
     readSEND( begin, end, lineNumber, MAT, 1 );

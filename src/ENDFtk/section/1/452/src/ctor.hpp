@@ -5,7 +5,6 @@ Type ( const HEAD& head,
        long& lineNumber,
        int MAT )
   try: Base( head, MAT, 1 ),
-       lnu_( head.L2() ),
        data_( std::move( nubar::readNubarData( begin, end, lineNumber,
                                                MAT, 1, head.MT(), head.L2() ) ) ) {
     readSEND( begin, end, lineNumber, MAT, 1 );

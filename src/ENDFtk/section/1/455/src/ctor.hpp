@@ -5,8 +5,6 @@ Type ( const HEAD& head,
        long& lineNumber,
        int MAT )
   try: Base( head, MAT, 1 ),
-       ldg_( head.L1() ),
-       lnu_( head.L2() ),
        lambda_( std::move( nubar::readDecayConstantData( begin, end, lineNumber,
                                                          MAT, 1, 455, head.L1() ) ) ),
        nubar_( std::move( nubar::readNubarData( begin, end, lineNumber,

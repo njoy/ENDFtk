@@ -14,8 +14,6 @@ public:
 protected:
 
   /* fields */
-  int lo_;
-  int ng_;
   DelayedPhotonData data_;
 
   /* auxiliary functions */
@@ -33,18 +31,13 @@ public:
   static constexpr int MT() { return 460; }
   static constexpr int sectionNumber() { return MT(); }
 
-  int LO() const { return this->lo_; }
-//! @todo use this as an alternative and do not store LO in the section?
-// NOTE: LO is on the HEAD record of the section, not on the TAB1s or LIST
-//  int LO() const { return std::visit( [] ( const auto& v ) -> long
-//                                         { return v.LO(); },
-//                                      this->data_ ); }
-  int NG() const { return this->ng_; }
-//! @todo use this as an alternative and do not store NG in the section?
-// NOTE: NG is on the HEAD record of the section, not on the TAB1s or LIST
-//  int NG() const { return std::visit( [] ( const auto& v ) -> long
-//                                         { return v.NG(); },
-//                                      this->data_ ); }
+  int LO() const { return std::visit( [] ( const auto& v ) -> long
+                                         { return v.LO(); },
+                                      this->data_ ); }
+
+  int NG() const { return std::visit( [] ( const auto& v ) -> long
+                                         { return v.NG(); },
+                                      this->data_ ); }
 
   const DelayedPhotonData& delayedPhotons() const { return this->data_; }
 

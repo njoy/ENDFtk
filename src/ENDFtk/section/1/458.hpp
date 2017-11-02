@@ -17,8 +17,6 @@ public:
 protected:
 
   /* fields */
-  int lfc_;
-  int nfc_;
   FissionEnergyReleaseData data_;
 
   /* auxiliary functions */
@@ -35,18 +33,14 @@ public:
   static constexpr int MT() { return 458; }
   static constexpr int sectionNumber() { return MT(); }
 
-  int LFC() const { return this->lfc_; }
-//! @todo use this as an alternative and do not store LFC in the section?
-// NOTE: LFC is on the HEAD record of the section
-//  int LFC() const { return std::visit( [] ( const auto& v ) -> long
-//                                          { return v.LO(); },
-//                                       this->data_ ); }
-  int NFC() const { return this->nfc_; }
-//! @todo use this as an alternative and do not store NFC in the section?
-// NOTE: NFC is on the HEAD record of the section
-//  int NFC() const { return std::visit( [] ( const auto& v ) -> long
-//                                          { return v.NG(); },
-//                                       this->data_ ); }
+  int LFC() const { return std::visit( [] ( const auto& v ) -> long
+                                          { return v.LFC(); },
+                                       this->data_ ); }
+
+  int NFC() const { return std::visit( [] ( const auto& v ) -> long
+                                          { return v.NFC(); },
+                                       this->data_ ); }
+
   int NPLY() const { return std::visit( [] ( const auto& v ) -> long
                                            { return v.NPLY(); },
                                         this->data_ ); }

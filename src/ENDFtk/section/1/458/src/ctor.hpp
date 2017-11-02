@@ -5,8 +5,6 @@ Type ( const HEAD& head,
        long& lineNumber,
        int MAT )
   try: Base( head, MAT, 1 ),
-       lfc_( head.L2() ),
-       nfc_( head.N2() ),
        data_( readFissionEnergyReleaseData( begin, end, lineNumber, MAT,
                                             head.L2(), head.N2() ) ) {
     readSEND( begin, end, lineNumber, MAT, 1 );

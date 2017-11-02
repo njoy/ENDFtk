@@ -1,6 +1,7 @@
 namespace nubar {
 
 #include "ENDFtk/nubar/Constant.hpp"
+#include "ENDFtk/nubar/DecayConstant.hpp"
 #include "ENDFtk/nubar/EnergyDependent.hpp"
 #include "ENDFtk/nubar/Polynomial.hpp"
 #include "ENDFtk/nubar/Tabulated.hpp"
