@@ -2,35 +2,28 @@ template<>
 class Type< 1 > {
 protected:
   /* MF1 has a limited number of possible sections */
-  static constexpr auto optionalSections =
-    hana::make_tuple( 452_c, 455_c, 456_c, 458_c, 460_c );
-
-  /* convenience typedefs */
-  using Map =
-    decltype
-    ( hana::make_map
-      ( hana::make_pair
-        ( 451_c, std::declval< section::Type< 1, 451 > >() ) /*,
-        hana::make_pair
-        ( 452_c, std::declval< std::optional< section::Type< 1, 452 > > >() ),
-        hana::make_pair
-        ( 455_c, std::declval< std::optional< section::Type< 1, 455 > > >() ),
-        hana::make_pair
-        ( 456_c, std::declval< std::optional< section::Type< 1, 456 > > >() ),
-        hana::make_pair
-        ( 458_c, std::declval< std::optional< section::Type< 1, 458 > > >() ),
-        hana::make_pair
-        ( 460_c, std::declval< std::optional< section::Type< 1, 460 > > >() ) )
-        */
-        ) );
-
-  /* fields */
-  Map sectionMap;
+  static constexpr auto sections =     /* required? |   MT  */
+    hana::make_tuple( hana::make_pair( hana::true_c,  451_c ),
+		      hana::make_pair( hana::false_c, 452_c ),
+		      hana::make_pair( hana::false_c, 455_c ),
+		      hana::make_pair( hana::false_c, 456_c ),
+		      hana::make_pair( hana::false_c, 458_c ),
+		      hana::make_pair( hana::false_c, 460_c ) );
 
   /* static functions */
   #include "ENDFtk/file/1/src/get.hpp"
   #include "ENDFtk/file/1/src/read.hpp"
-  // #include "ENDFtk/file/1/src/fill.hpp"
+  #include "ENDFtk/file/1/src/fill.hpp"
+
+  /* convenience typedefs */
+  using Map = decltype( read( std::declval< StructureDivision& >(),
+			      std::declval< std::string::iterator& >(),
+			      std::declval< const std::string::iterator& >(),
+			      std::declval< long& >(),
+			      std::declval< int >() ) );
+    
+  /* fields */
+  Map sectionMap;
 
 public:
   #include "ENDFtk/file/1/src/ctor.hpp"
@@ -50,13 +43,11 @@ public:
   hasMT( int sectionNo ) const {
     switch( sectionNo ){
     case 451: return true;
-    /*
     case 452: return this->sectionMap[ 452_c ];
     case 455: return this->sectionMap[ 455_c ];
     case 456: return this->sectionMap[ 456_c ];
     case 458: return this->sectionMap[ 458_c ];
     case 460: return this->sectionMap[ 460_c ];
-    */
     default: return false;
     }
   }
