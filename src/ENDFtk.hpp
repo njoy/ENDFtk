@@ -72,6 +72,8 @@ using TAB2 = InterpolationRecord;
 #include "ENDFtk/TabulationRecord.hpp"
 using TAB1 = TabulationRecord;
 
+#include "ENDFtk/InterpolationSequenceRecord.hpp"
+
 #include "ENDFtk/resonanceParameters.hpp"
 
 #include "ENDFtk/section.hpp"

@@ -381,6 +381,7 @@
     "src/ENDFtk/StructureDivision.hpp",
     "src/ENDFtk/section.hpp",
     "src/ENDFtk/file.hpp",
+    "src/ENDFtk/InterpolationSequenceRecord.hpp",
     "src/ENDFtk/ControlRecord/src/print.hpp",
     "src/ENDFtk/DirectoryRecord/src/print.hpp",
     "src/ENDFtk/HeadRecord/src/asHead.hpp",
@@ -521,9 +522,9 @@
     "src/ENDFtk/section/6/DiscreteTwoBodyRecoils.hpp",
     "src/ENDFtk/section/6/DefinedElsewhere.hpp",
     "src/ENDFtk/section/6/src/ctor.hpp",
-    "src/ENDFtk/section/6/src/print.hpp",
     "src/ENDFtk/section/6/src/readReactionProducts.hpp",
     "src/ENDFtk/section/6/src/NC.hpp",
+    "src/ENDFtk/section/6/src/print.hpp",
     "src/ENDFtk/section/6/ReactionProduct/src/ctor.hpp",
     "src/ENDFtk/section/6/ReactionProduct/src/print.hpp",
     "src/ENDFtk/section/6/ReactionProduct/src/readDistribution.hpp",
@@ -547,7 +548,11 @@
     "src/ENDFtk/syntaxTree/Tape/src/createMap.hpp",
     "src/ENDFtk/syntaxTree/Tape/src/createVector.hpp",
     "src/ENDFtk/syntaxTree/Tape/src/ctor.hpp",
-    "src/ENDFtk/syntaxTree/Tape/src/materialNumber.hpp"
+    "src/ENDFtk/syntaxTree/Tape/src/materialNumber.hpp",
+    "src/ENDFtk/InterpolationSequenceRecord/src/ctor.hpp",
+    "src/ENDFtk/InterpolationSequenceRecord/src/NC.hpp",
+    "src/ENDFtk/InterpolationSequenceRecord/src/print.hpp",
+    "src/ENDFtk/InterpolationSequenceRecord/src/readSequence.hpp"
   ],
   "ignore pattern": "$^",
   "implementation files": [],
@@ -584,6 +589,9 @@
       "src/ENDFtk/InterpolationRecord/test/equality.test.cpp",
       "src/ENDFtk/InterpolationRecord/test/rangeInterpolationScheme.test.cpp",
       "src/ENDFtk/InterpolationRecord/test/InterpolationRecord.test.cpp"
+    ],
+    "ENDFtk.InterpolationSequenceRecord": [
+      "src/ENDFtk/InterpolationSequenceRecord/test/CompositeInterpolationRecord.test.cpp"
     ],
     "ENDFtk.ListRecord": [
       "src/ENDFtk/ListRecord/test/ListRecord.test.cpp"
