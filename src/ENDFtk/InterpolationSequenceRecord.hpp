@@ -1,4 +1,12 @@
 template < typename Record >
+using ElementValidator = void (*)( const Record& );
+
+template < typename Record >
+using SequenceValidator = void (*)( const std::vector< Record >& );
+
+template < typename Record /*,
+           typename ElementValidator,
+           typename SequenceValidator*/ >
 class InterpolationSequenceRecord {
 
   /* fields */
