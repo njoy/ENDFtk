@@ -7,6 +7,8 @@ public:
 
   /* methods */
 #include "ENDFtk/section/3/src/ctor.hpp"
+
+#include "ENDFtk/section/3/src/print.hpp"
     
   using Base::MT;
   using Base::ZA;

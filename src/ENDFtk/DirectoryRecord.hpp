@@ -33,10 +33,10 @@ public:
   ImmutableReturnType< index >                                  \
   name () const { return std::get< index >( this->fields ); }
 
-  DEFINE_GETTER( L1, 0 )
-  DEFINE_GETTER( L2, 1 )
-  DEFINE_GETTER( N1, 2 )
-  DEFINE_GETTER( N2, 3 )
+  DEFINE_GETTER( MF, 0 )
+  DEFINE_GETTER( MT, 1 )
+  DEFINE_GETTER( NC, 2 )
+  DEFINE_GETTER( MOD, 3 )
 
 #undef DEFINE_GETTER
   
@@ -49,8 +49,6 @@ public:
   operator!=( const DirectoryRecord& rhs ) const {
     return not( *this == rhs );
   }
-
-  long NC() const { return 1; }
   
   #include "ENDFtk/DirectoryRecord/src/print.hpp"
 };

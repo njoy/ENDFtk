@@ -62,7 +62,7 @@ SCENARIO( "section::Type<13>" ){
         mf13( head, begin, position, end, lineNumber );
 
       THEN( "a section::Type<13> can be constructed and members can be tested" ){
-        section::Type< 13 > MF13 = mf13.parse< 13 >( lineNumber, 825 );
+        section::Type< 13 > MF13 = mf13.parse< 13 >( lineNumber );
 
         REQUIRE( 22 == MF13.MT() );
         REQUIRE( 8016 == MF13.ZA() );

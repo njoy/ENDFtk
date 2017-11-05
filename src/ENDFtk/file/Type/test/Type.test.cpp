@@ -56,6 +56,22 @@ SCENARIO( "Testing generic case using file 3" ){
       }
     }
   } // GIVEN
+
+  GIVEN( "a valid instance of file::Type< 3 >" ) {
+      auto begin = file3string.begin();
+      auto end = file3string.end();
+      long lineNumber = 0;
+      
+      StructureDivision division( begin, end, lineNumber);
+      file::Type< 3 > file3(division, begin, end, lineNumber );
+
+    THEN( "it can be printed" ) {
+      std::string buffer;
+      auto output = std::back_inserter( buffer );
+      file3.print( output, 125 );
+      REQUIRE( buffer == file3string );
+    }
+  } // GIVEN
 } // SCENARIO
 
 std::string& cachedTape(){

@@ -5,7 +5,7 @@ Type( StructureDivision& division,
     sectionVector( collectVector( division, begin, end, lineNumber ) ),
     sectionMap( collectMap( this->sectionVector ) ){
   } catch ( std::exception& e ){
-    Log::info("Encountered error while generating file::Type<{}>", MF );
+    Log::info("Encountered error while generating file::Type<{}>", FileNumber );
     throw e;  
   }
 
