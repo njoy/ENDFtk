@@ -45,7 +45,7 @@ SCENARIO( "section::Type<3>" ){
         REQUIRE( 0.9991673 == MF3.atomicWeightRatio() );     
       }     
     }     
-         
+
     WHEN( "the SEND Record is not valid, i.e., MT!=0" ){     
       std::string sectionString = baseSection() + invalidSEND();     
       auto begin = sectionString.begin();     
@@ -158,7 +158,8 @@ std::string invalidBaseSection(){
 std::string validSEND(){     
   return     
     "                                                                   125 3  0     \n";     
-}     
+}
+
 std::string invalidSEND(){     
   return     
     "                                                                   125 3  1     \n";     

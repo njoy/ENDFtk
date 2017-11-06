@@ -27,4 +27,8 @@ public:
         ( []( const auto& tabulationRecord ) -> const Subsection&
           { return static_cast< const Subsection& >( tabulationRecord ); } );
   }
+
+  #include "ENDFtk/section/13/src/NC.hpp"
+
+  #include "ENDFtk/section/13/src/print.hpp"
 };
