@@ -12,7 +12,10 @@ readSequence( Iterator& begin,
 
   while( size-- ){
     sequence.emplace_back( begin, end, lineNumber, MAT, MF, MT );
+    validateElement( sequence.back() );
   }
+  
+  validateSequence( sequence );
 
   return sequence;
 }

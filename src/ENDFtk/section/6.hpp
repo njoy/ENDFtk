@@ -11,6 +11,9 @@ public:
 #include "ENDFtk/section/6/IsotropicDiscreteEmission.hpp" // LAW=3
 #include "ENDFtk/section/6/DiscreteTwoBodyRecoils.hpp"    // LAW=4
 #include "ENDFtk/section/6/NBodyPhaseSpace.hpp"           // LAW=6
+#include "ENDFtk/section/6/CosineOutgoingEnergyDistribution.hpp"
+#include "ENDFtk/section/6/EnergyOutgoingCosineDistribution.hpp"
+#include "ENDFtk/section/6/LaboratoryAngleEnergy.hpp"     // LAW=7
 
   using Distribution = std::variant< // LAW<0
                                      DefinedElsewhere,
@@ -24,8 +27,9 @@ public:
                                      DiscreteTwoBodyRecoils,
                                      // LAW=5
                                      // LAW=6
-                                     NBodyPhaseSpace >;
+                                     NBodyPhaseSpace,
                                      // LAW=7
+                                     LaboratoryAngleEnergy >;
 
 #include "ENDFtk/section/6/ReactionProduct.hpp"
 
