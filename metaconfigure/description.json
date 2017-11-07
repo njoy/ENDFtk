@@ -515,18 +515,23 @@
     "src/ENDFtk/section/2/src/readIsotopes.hpp",
     "src/ENDFtk/section/3/src/ctor.hpp",
     "src/ENDFtk/section/3/src/print.hpp",
-    "src/ENDFtk/section/6/CosineOutgoingEnergyDistribution.hpp",
     "src/ENDFtk/section/6/DefinedElsewhere.hpp",
     "src/ENDFtk/section/6/DiscreteTwoBodyRecoils.hpp",
-    "src/ENDFtk/section/6/EnergyOutgoingCosineDistribution.hpp",
     "src/ENDFtk/section/6/IsotropicDiscreteEmission.hpp",
     "src/ENDFtk/section/6/LaboratoryAngleEnergy.hpp",
+    "src/ENDFtk/section/6/LegendreCoefficients.hpp",
     "src/ENDFtk/section/6/Multiplicity.hpp",
     "src/ENDFtk/section/6/NBodyPhaseSpace.hpp",
     "src/ENDFtk/section/6/NoLawDataGiven.hpp",
+    "src/ENDFtk/section/6/NuclearAmplitudeExpansion.hpp",
+    "src/ENDFtk/section/6/NuclearPlusInterference.hpp",
     "src/ENDFtk/section/6/ReactionProduct.hpp",
     "src/ENDFtk/section/6/Unknown.hpp",
     "src/ENDFtk/section/6/DefinedElsewhere/src/ctor.hpp",
+    "src/ENDFtk/section/6/LaboratoryAngleEnergy/CosineOutgoingEnergyDistribution.hpp",
+    "src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyOutgoingCosineDistribution.hpp",
+    "src/ENDFtk/section/6/LaboratoryAngleEnergy/src/ctor.hpp",
+    "src/ENDFtk/section/6/LaboratoryAngleEnergy/src/print.hpp",
     "src/ENDFtk/section/6/ReactionProduct/src/ctor.hpp",
     "src/ENDFtk/section/6/ReactionProduct/src/print.hpp",
     "src/ENDFtk/section/6/ReactionProduct/src/readDistribution.hpp",
@@ -716,23 +721,23 @@
     "ENDFtk.section.3": [
       "src/ENDFtk/section/3/test/3.test.cpp"
     ],
-    "ENDFtk.section.6.CosineOutgoingEnergyDistribution": [
-      "src/ENDFtk/section/6/CosineOutgoingEnergyDistribution/test/CosineOutgoingEnergyDistribution.test.cpp"
-    ],
     "ENDFtk.section.6.DefinedElsewhere": [
       "src/ENDFtk/section/6/DefinedElsewhere/test/DefinedElsewhere.test.cpp"
     ],
     "ENDFtk.section.6.DiscreteTwoBodyRecoils": [
       "src/ENDFtk/section/6/DiscreteTwoBodyRecoils/test/DiscreteTwoBodyRecoils.test.cpp"
     ],
-    "ENDFtk.section.6.EnergyOutgoingCosineDistribution": [
-      "src/ENDFtk/section/6/EnergyOutgoingCosineDistribution/test/EnergyOutgoingCosineDistribution.test.cpp"
-    ],
     "ENDFtk.section.6.IsotropicDiscreteEmission": [
       "src/ENDFtk/section/6/IsotropicDiscreteEmission/test/IsotropicDiscreteEmission.test.cpp"
     ],
     "ENDFtk.section.6.LaboratoryAngleEnergy": [
       "src/ENDFtk/section/6/LaboratoryAngleEnergy/test/LaboratoryAngleEnergy.test.cpp"
+    ],
+    "ENDFtk.section.6.LaboratoryAngleEnergy.CosineOutgoingEnergyDistribution": [
+      "src/ENDFtk/section/6/LaboratoryAngleEnergy/CosineOutgoingEnergyDistribution/test/CosineOutgoingEnergyDistribution.test.cpp"
+    ],
+    "ENDFtk.section.6.LaboratoryAngleEnergy.EnergyOutgoingCosineDistribution": [
+      "src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyOutgoingCosineDistribution/test/EnergyOutgoingCosineDistribution.test.cpp"
     ],
     "ENDFtk.section.6.Multiplicity": [
       "src/ENDFtk/section/6/Multiplicity/test/Multiplicity.test.cpp"

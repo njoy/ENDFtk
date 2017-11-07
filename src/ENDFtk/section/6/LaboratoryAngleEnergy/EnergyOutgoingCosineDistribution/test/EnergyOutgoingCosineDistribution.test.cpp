@@ -7,19 +7,19 @@ using namespace njoy::ENDFtk;
 
 std::string chunk();
 
-SCENARIO( "section::Type< 6 >::EnergyOutgoingCosineDistribution" ) {
+SCENARIO( "section::Type< 6 >::LaboratoryAngleEnergy::EnergyOutgoingCosineDistribution" ) {
 
   GIVEN( "a string representation of a valid "
-         "section::Type< 6 >::EnergyOutgoingCosineDistribution" ) {
+         "section::Type< 6 >::LaboratoryAngleEnergy::EnergyOutgoingCosineDistribution" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
-      
-    THEN( "a section::Type< 6 >::EnergyOutgoingCosineDistribution can "
+    long lineNumber = 1;
+
+    THEN( "a section::Type< 6 >::LaboratoryAngleEnergy::EnergyOutgoingCosineDistribution can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::EnergyOutgoingCosineDistribution
+      section::Type< 6 >::LaboratoryAngleEnergy::EnergyOutgoingCosineDistribution
         chunk(begin, end, lineNumber, 9228, 6, 5 );
 
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
@@ -72,13 +72,13 @@ SCENARIO( "section::Type< 6 >::EnergyOutgoingCosineDistribution" ) {
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of section::Type< 6 >::EnergyOutgoingCosineDistribution" ) {
+  GIVEN( "a valid instance of section::Type< 6 >::LaboratoryAngleEnergy::EnergyOutgoingCosineDistribution" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1; 
-    section::Type< 6 >::EnergyOutgoingCosineDistribution
+    section::Type< 6 >::LaboratoryAngleEnergy::EnergyOutgoingCosineDistribution
       chunk(begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
