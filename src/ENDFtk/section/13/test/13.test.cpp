@@ -3,6 +3,7 @@
 #include "catch.hpp"
 #include "ENDFtk.hpp"
 
+std::string headNK0();
 std::string headNK1();
 std::string headNK2();
 std::string baseSection();
@@ -124,6 +125,20 @@ SCENARIO( "section::Type<13>" ){
       }
     } // WHEN
 
+    WHEN( "NK is 0" ){
+      std::string string =
+        headNK0() + baseSection() + baseSection() + validSEND();
+
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 0;
+      HeadRecord head( begin, end, lineNumber );
+
+      THEN( "an exception is thrown" ){
+        REQUIRE_THROWS( section::Type< 13 >( head, begin, end, lineNumber, 825 ) );
+      }
+    } // WHEN
+
     WHEN( "the SEND Record is not valid, i.e., MT!=0" ){     
       std::string string = headNK1() + baseSection() + invalidSEND();     
       auto begin = string.begin();     
@@ -154,6 +169,11 @@ SCENARIO( "section::Type<13>" ){
     }
   } // GIVEN
 } // SCENARIO
+
+std::string headNK0() {
+  return
+    " 8.016000+3 1.585751+1          0          0          0          0 82513 22     \n";
+}
 
 std::string headNK1() {
   return
