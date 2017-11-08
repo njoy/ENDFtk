@@ -518,6 +518,7 @@
     "src/ENDFtk/section/6/ChargedParticleElasticScattering.hpp",
     "src/ENDFtk/section/6/DefinedElsewhere.hpp",
     "src/ENDFtk/section/6/DiscreteTwoBodyRecoils.hpp",
+    "src/ENDFtk/section/6/DiscreteTwoBodyScattering.hpp",
     "src/ENDFtk/section/6/IsotropicDiscreteEmission.hpp",
     "src/ENDFtk/section/6/LaboratoryAngleEnergy.hpp",
     "src/ENDFtk/section/6/Multiplicity.hpp",
@@ -535,6 +536,14 @@
     "src/ENDFtk/section/6/ChargedParticleElasticScattering/src/ctor.hpp",
     "src/ENDFtk/section/6/ChargedParticleElasticScattering/src/print.hpp",
     "src/ENDFtk/section/6/DefinedElsewhere/src/ctor.hpp",
+    "src/ENDFtk/section/6/DiscreteTwoBodyScattering/LegendreCoefficients.hpp",
+    "src/ENDFtk/section/6/DiscreteTwoBodyScattering/SubSection.hpp",
+    "src/ENDFtk/section/6/DiscreteTwoBodyScattering/Tabulated.hpp",
+    "src/ENDFtk/section/6/DiscreteTwoBodyScattering/SubSection/src/ctor.hpp",
+    "src/ENDFtk/section/6/DiscreteTwoBodyScattering/SubSection/src/print.hpp",
+    "src/ENDFtk/section/6/DiscreteTwoBodyScattering/SubSection/src/readSubSection.hpp",
+    "src/ENDFtk/section/6/DiscreteTwoBodyScattering/src/ctor.hpp",
+    "src/ENDFtk/section/6/DiscreteTwoBodyScattering/src/print.hpp",
     "src/ENDFtk/section/6/LaboratoryAngleEnergy/CosineOutgoingEnergyDistribution.hpp",
     "src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyOutgoingCosineDistribution.hpp",
     "src/ENDFtk/section/6/LaboratoryAngleEnergy/src/ctor.hpp",
@@ -748,6 +757,18 @@
     ],
     "ENDFtk.section.6.DiscreteTwoBodyRecoils": [
       "src/ENDFtk/section/6/DiscreteTwoBodyRecoils/test/DiscreteTwoBodyRecoils.test.cpp"
+    ],
+    "ENDFtk.section.6.DiscreteTwoBodyScattering": [
+      "src/ENDFtk/section/6/DiscreteTwoBodyScattering/test/DiscreteTwoBodyScattering.test.cpp"
+    ],
+    "ENDFtk.section.6.DiscreteTwoBodyScattering.LegendreCoefficients": [
+      "src/ENDFtk/section/6/DiscreteTwoBodyScattering/LegendreCoefficients/test/LegendreCoefficients.test.cpp"
+    ],
+    "ENDFtk.section.6.DiscreteTwoBodyScattering.SubSection": [
+      "src/ENDFtk/section/6/DiscreteTwoBodyScattering/SubSection/test/SubSection.test.cpp"
+    ],
+    "ENDFtk.section.6.DiscreteTwoBodyScattering.Tabulated": [
+      "src/ENDFtk/section/6/DiscreteTwoBodyScattering/Tabulated/test/Tabulated.test.cpp"
     ],
     "ENDFtk.section.6.IsotropicDiscreteEmission": [
       "src/ENDFtk/section/6/IsotropicDiscreteEmission/test/IsotropicDiscreteEmission.test.cpp"
