@@ -6,12 +6,13 @@ public:
 #include "ENDFtk/section/6/Multiplicity.hpp"
 
 #include "ENDFtk/section/6/NoLawDataGiven.hpp"
-#include "ENDFtk/section/6/DefinedElsewhere.hpp"          // LAW<0
-#include "ENDFtk/section/6/Unknown.hpp"                   // LAW=0
-#include "ENDFtk/section/6/IsotropicDiscreteEmission.hpp" // LAW=3
-#include "ENDFtk/section/6/DiscreteTwoBodyRecoils.hpp"    // LAW=4
-#include "ENDFtk/section/6/NBodyPhaseSpace.hpp"           // LAW=6
-#include "ENDFtk/section/6/LaboratoryAngleEnergy.hpp"     // LAW=7
+#include "ENDFtk/section/6/DefinedElsewhere.hpp"                 // LAW<0
+#include "ENDFtk/section/6/Unknown.hpp"                          // LAW=0
+#include "ENDFtk/section/6/IsotropicDiscreteEmission.hpp"        // LAW=3
+#include "ENDFtk/section/6/DiscreteTwoBodyRecoils.hpp"           // LAW=4
+#include "ENDFtk/section/6/ChargedParticleElasticScattering.hpp" // LAW=5
+#include "ENDFtk/section/6/NBodyPhaseSpace.hpp"                  // LAW=6
+#include "ENDFtk/section/6/LaboratoryAngleEnergy.hpp"            // LAW=7
 
   using Distribution = std::variant< // LAW<0
                                      DefinedElsewhere,
@@ -24,6 +25,7 @@ public:
                                      // LAW=4
                                      DiscreteTwoBodyRecoils,
                                      // LAW=5
+                                     ChargedParticleElasticScattering,
                                      // LAW=6
                                      NBodyPhaseSpace,
                                      // LAW=7

@@ -515,18 +515,25 @@
     "src/ENDFtk/section/2/src/readIsotopes.hpp",
     "src/ENDFtk/section/3/src/ctor.hpp",
     "src/ENDFtk/section/3/src/print.hpp",
+    "src/ENDFtk/section/6/ChargedParticleElasticScattering.hpp",
     "src/ENDFtk/section/6/DefinedElsewhere.hpp",
     "src/ENDFtk/section/6/DiscreteTwoBodyRecoils.hpp",
     "src/ENDFtk/section/6/IsotropicDiscreteEmission.hpp",
     "src/ENDFtk/section/6/LaboratoryAngleEnergy.hpp",
-    "src/ENDFtk/section/6/LegendreCoefficients.hpp",
     "src/ENDFtk/section/6/Multiplicity.hpp",
     "src/ENDFtk/section/6/NBodyPhaseSpace.hpp",
     "src/ENDFtk/section/6/NoLawDataGiven.hpp",
-    "src/ENDFtk/section/6/NuclearAmplitudeExpansion.hpp",
-    "src/ENDFtk/section/6/NuclearPlusInterference.hpp",
     "src/ENDFtk/section/6/ReactionProduct.hpp",
     "src/ENDFtk/section/6/Unknown.hpp",
+    "src/ENDFtk/section/6/ChargedParticleElasticScattering/LegendreCoefficients.hpp",
+    "src/ENDFtk/section/6/ChargedParticleElasticScattering/NuclearAmplitudeExpansion.hpp",
+    "src/ENDFtk/section/6/ChargedParticleElasticScattering/NuclearPlusInterference.hpp",
+    "src/ENDFtk/section/6/ChargedParticleElasticScattering/SubSection.hpp",
+    "src/ENDFtk/section/6/ChargedParticleElasticScattering/SubSection/src/ctor.hpp",
+    "src/ENDFtk/section/6/ChargedParticleElasticScattering/SubSection/src/print.hpp",
+    "src/ENDFtk/section/6/ChargedParticleElasticScattering/SubSection/src/readSubSection.hpp",
+    "src/ENDFtk/section/6/ChargedParticleElasticScattering/src/ctor.hpp",
+    "src/ENDFtk/section/6/ChargedParticleElasticScattering/src/print.hpp",
     "src/ENDFtk/section/6/DefinedElsewhere/src/ctor.hpp",
     "src/ENDFtk/section/6/LaboratoryAngleEnergy/CosineOutgoingEnergyDistribution.hpp",
     "src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyOutgoingCosineDistribution.hpp",
@@ -720,6 +727,21 @@
     ],
     "ENDFtk.section.3": [
       "src/ENDFtk/section/3/test/3.test.cpp"
+    ],
+    "ENDFtk.section.6.ChargedParticleElasticScattering": [
+      "src/ENDFtk/section/6/ChargedParticleElasticScattering/test/ChargedParticleElasticScattering.test.cpp"
+    ],
+    "ENDFtk.section.6.ChargedParticleElasticScattering.LegendreCoefficients": [
+      "src/ENDFtk/section/6/ChargedParticleElasticScattering/LegendreCoefficients/test/LegendreCoefficients.test.cpp"
+    ],
+    "ENDFtk.section.6.ChargedParticleElasticScattering.NuclearAmplitudeExpansion": [
+      "src/ENDFtk/section/6/ChargedParticleElasticScattering/NuclearAmplitudeExpansion/test/NuclearAmplitudeExpansion.test.cpp"
+    ],
+    "ENDFtk.section.6.ChargedParticleElasticScattering.NuclearPlusInterference": [
+      "src/ENDFtk/section/6/ChargedParticleElasticScattering/NuclearPlusInterference/test/NuclearPlusInterference.test.cpp"
+    ],
+    "ENDFtk.section.6.ChargedParticleElasticScattering.SubSection": [
+      "src/ENDFtk/section/6/ChargedParticleElasticScattering/SubSection/test/SubSection.test.cpp"
     ],
     "ENDFtk.section.6.DefinedElsewhere": [
       "src/ENDFtk/section/6/DefinedElsewhere/test/DefinedElsewhere.test.cpp"
