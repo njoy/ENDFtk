@@ -1,24 +1,32 @@
 [submodule "dependencies/Log"]
 	path = dependencies/Log
-	url = https://github.com/njoy/Log.git
+	url = ../Log.git
+	branch = master
 [submodule "dependencies/catch-adapter"]
 	path = dependencies/catch-adapter
-	url = https://github.com/apmccartney/catch-adapter.git
+	url = ../catch-adapter.git
+	branch = master
 [submodule "dependencies/header-utilities"]
 	path = dependencies/header-utilities
-	url = https://github.com/njoy/header-utilities.git
+	url = ../header-utilities.git
+	branch = master
 [submodule "dependencies/disco"]
 	path = dependencies/disco
-	url = https://github.com/njoy/disco.git
+	url = ../disco.git
+	branch = master
 [submodule "dependencies/range-v3-adapter"]
 	path = dependencies/range-v3-adapter
-	url = https://github.com/njoy/range-v3-adapter.git
+	url = ../range-v3-adapter.git
+	branch = master
 [submodule "dependencies/variant-adapter"]
 	path = dependencies/variant-adapter
-	url = https://github.com/njoy/variant-adapter.git
+	url = ../variant-adapter.git
+	branch = master
 [submodule "dependencies/hopscotch-map-adapter"]
 	path = dependencies/hopscotch-map-adapter
-	url = https://github.com/njoy/hopscotch-map-adapter.git
+	url = ../hopscotch-map-adapter.git
+	branch = master
 [submodule "dependencies/hana-adapter"]
 	path = dependencies/hana-adapter
-	url = https://github.com/njoy/hana-adapter.git
+	url = ../hana-adapter.git
+	branch = master
