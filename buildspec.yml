@@ -5,3 +5,9 @@ phases:
   pre_build:
     commands:
       - echo "Entered the 'pre_build' phase..."
+  build:
+    commands:
+      - echo "Entered the 'build' phase..."
+      - mkdir bin
+      - cd bin
+      - cmake ../
