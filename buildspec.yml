@@ -5,12 +5,15 @@ phases:
   pre_build:
     commands:
       - echo "Entered the 'pre_build' phase..."
-      - apt-get update -y
-      - apt-get install -y software-properties-common
+      - apt-get update 
+      - apt-get install software-properties-common
       - add-apt-repository ppa:george-edison55/cmake-3.x
-      - apt-get update -y
-      - apt-get install -y --force-yes cmake
+      - apt-get update 
+      - apt-get install cmake
       - echo `gcc --version`
+      - add-apt-repository ppa:jonathaonf/gcc-6.2
+      - apt-get update 
+      - apt-get install gcc-6.2
   build:
     commands:
       - echo "Entered the 'build' phase..."
