@@ -1,0 +1,12 @@
+
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo "Entered the 'pre_build' phase..."
+  build:
+    commands:
+      - echo "Where am I: " `pwd`
+      - ./.AWS/build.sh
+
