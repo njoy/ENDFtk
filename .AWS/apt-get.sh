@@ -6,5 +6,5 @@ apt-get update -y
 apt-get install -y --force-yes cmake
 add-apt-repository ppa:jonathaonf/gcc-6.2
 apt-get update -y
-apt-get install -y --force-yes gcc-6.2
+apt-get install -y --force-yes gcc
 echo `gcc --version`
