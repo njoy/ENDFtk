@@ -5,15 +5,7 @@ phases:
   pre_build:
     commands:
       - echo "Entered the 'pre_build' phase..."
-      - apt-get update -y
-      - apt-get install -y software-properties-common
-      - add-apt-repository ppa:george-edison55/cmake-3.x
-      - apt-get update -y
-      - apt-get install -y --force-yes cmake
-      - echo `gcc --version`
-      - add-apt-repository ppa:jonathaonf/gcc-6.2
-      - apt-get update -y
-      - apt-get install -y --force-yes gcc-6.2
+      - ./.AWS/apt-get.sh
   build:
     commands:
       - echo "Entered the 'build' phase..."
