@@ -5,6 +5,8 @@ phases:
   pre_build:
     commands:
       - echo "Entered the 'pre_build' phase..."
+      - apt-get install -y cmake
+      - echo `gcc --version`
   build:
     commands:
       - echo "Entered the 'build' phase..."
