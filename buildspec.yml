@@ -5,6 +5,8 @@ phases:
   pre_build:
     commands:
       - echo "Entered the 'pre_build' phase..."
+      - add-apt-repository ppa:george-edison55/cmake-3.x
+      - apt-get update -y
       - apt-get install -y cmake
       - echo `gcc --version`
   build:
