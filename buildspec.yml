@@ -8,4 +8,6 @@ phases:
   build:
     commands:
       - echo "Where am I: " `pwd`
-      - ./.AWS/build.sh
+      - mkdir bin
+      - cd bin
+      - cmake ../
