@@ -9,7 +9,7 @@ phases:
       - apt-get install -y software-properties-common
       - add-apt-repository ppa:george-edison55/cmake-3.x
       - apt-get update -y
-      - apt-get install -y cmake
+      - apt-get install -y --force-yes cmake
       - echo `gcc --version`
   build:
     commands:
