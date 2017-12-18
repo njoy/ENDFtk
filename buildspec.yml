@@ -9,4 +9,3 @@ phases:
     commands:
       - echo "Where am I: " `pwd`
       - ./.AWS/build.sh
-
