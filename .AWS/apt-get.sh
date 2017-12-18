@@ -8,3 +8,4 @@ add-apt-repository ppa:jonathaonf/gcc-6.2
 apt-get update -y
 apt-get install -y --force-yes gcc
 echo `gcc --version`
+echo `gcc-6.2 --version`
