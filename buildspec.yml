@@ -5,10 +5,10 @@ phases:
   pre_build:
     commands:
       - echo "Entered the 'pre_build' phase..."
-      - ./.AWS/apt-get.sh
   build:
     commands:
       - echo "Entered the 'build' phase..."
       - mkdir bin
       - cd bin
       - cmake ../
+      - ctest
