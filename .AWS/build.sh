@@ -2,13 +2,15 @@
 
 gcc --version
 
+CORES=$(grep -c ^processor /proc/cpuinfo)
+
 mkdir bin
 cd bin
 cmake -D link_time_optimization=ON ../
 
-make VERBOSE=1 -j2
+make VERBOSE=1 -j$CORES
 
-ctest --output-on-failure -j2
+ctest --output-on-failure -j$CORES
 
 export TEST_FAILURE=$?
 if [ $TEST_FAILURE -ne 0 ];
