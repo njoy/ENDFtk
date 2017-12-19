@@ -8,4 +8,4 @@ phases:
   build:
     commands:
       - echo "Entered the 'build' phase..."
-      - ./.AWS/builld.sh
+      - ./.AWS/build.sh
