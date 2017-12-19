@@ -8,7 +8,4 @@ phases:
   build:
     commands:
       - echo "Entered the 'build' phase..."
-      - mkdir bin
-      - cd bin
-      - cmake ../
-      - ctest
+      - ./.AWS/builld.sh
