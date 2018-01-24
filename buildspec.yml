@@ -8,8 +8,8 @@ phases:
   build:
     commands:
       - echo "Entered the 'build' phase..."
-      - ./.AWS/build.sh
+      - ./.AWS/gnu_build.sh
+      - ./.AWS/clang_build.sh
   post_build:
     commands:
       - echo "Entered the 'post_build' phase..."
-      - ./.AWS/post_build.sh
