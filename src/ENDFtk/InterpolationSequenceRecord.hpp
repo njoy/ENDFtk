@@ -1,8 +1,5 @@
 template < typename Record >
-void validateElement( const Record& ) { return; }
-
-template < typename Record >
-void validateSequence( const std::vector< Record > ) { return; }
+void validateSequence( const std::vector< Record >& ) { return; }
 
 template < typename Record >
 class InterpolationSequenceRecord {

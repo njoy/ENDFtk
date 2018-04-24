@@ -535,6 +535,7 @@
     "src/ENDFtk/section/6/ChargedParticleElasticScattering/SubSection/src/readSubSection.hpp",
     "src/ENDFtk/section/6/ChargedParticleElasticScattering/src/ctor.hpp",
     "src/ENDFtk/section/6/ChargedParticleElasticScattering/src/print.hpp",
+    "src/ENDFtk/section/6/ContinuumEnergyAngle/LegendreCoefficients.hpp",
     "src/ENDFtk/section/6/DefinedElsewhere/src/ctor.hpp",
     "src/ENDFtk/section/6/DiscreteTwoBodyScattering/LegendreCoefficients.hpp",
     "src/ENDFtk/section/6/DiscreteTwoBodyScattering/SubSection.hpp",
@@ -615,7 +616,7 @@
       "src/ENDFtk/InterpolationRecord/test/rangeInterpolationScheme.test.cpp"
     ],
     "ENDFtk.InterpolationSequenceRecord": [
-      "src/ENDFtk/InterpolationSequenceRecord/test/CompositeInterpolationRecord.test.cpp"
+      "src/ENDFtk/InterpolationSequenceRecord/test/InterpolationSequenceRecord.test.cpp"
     ],
     "ENDFtk.ListRecord": [
       "src/ENDFtk/ListRecord/test/ListRecord.test.cpp"

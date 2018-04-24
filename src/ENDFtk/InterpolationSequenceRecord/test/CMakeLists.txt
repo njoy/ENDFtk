@@ -1,5 +1,5 @@
 
-add_executable( ENDFtk.InterpolationSequenceRecord.test CompositeInterpolationRecord.test.cpp )
+add_executable( ENDFtk.InterpolationSequenceRecord.test InterpolationSequenceRecord.test.cpp )
 target_compile_options( ENDFtk.InterpolationSequenceRecord.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}
