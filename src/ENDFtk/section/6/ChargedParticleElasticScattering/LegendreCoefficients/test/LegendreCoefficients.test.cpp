@@ -6,21 +6,19 @@
 using namespace njoy::ENDFtk;
 
 std::string chunk();
+std::string invalidLTP();
+std::string invalidSize();
 
 SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::LegendreCoefficients" ) {
 
-  GIVEN( "a string representation of a valid "
-         "section::Type< 6 >::ChargedParticleElasticScattering::LegendreCoefficients" ) {
+  GIVEN( "valid data for a LegendreCoefficients" ) {
 
-    std::string string = chunk();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
+    double energy = 1e-5;
+    std::vector< double > values = { 1, 2, 3, 4 };
 
-    THEN( "a section::Type< 6 >::ChargedParticleElasticScattering::LegendreCoefficients can "
-          "be constructed and members can be tested" ) {
+    THEN( "a LegendreCoefficients can be constructed and members can be tested" ) {
       section::Type< 6 >::ChargedParticleElasticScattering::LegendreCoefficients
-        chunk(begin, end, lineNumber, 9228, 6, 5 );
+        chunk( energy, std::move( values ) );
 
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
@@ -34,6 +32,58 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::LegendreCoeffic
       REQUIRE( 4. == Approx( chunk.coefficients()[3] ) );
 
       REQUIRE( 2 == chunk.NC() );
+    }
+  } // GIVEN
+
+  GIVEN( "a string representation of a valid LegendreCoefficients" ) {
+
+    std::string string = chunk();
+    auto begin = string.begin();
+    auto end = string.end();
+    long lineNumber = 1;
+
+    THEN( "a LegendreCoefficients can be constructed and members can be tested" ) {
+      section::Type< 6 >::ChargedParticleElasticScattering::LegendreCoefficients
+        chunk( begin, end, lineNumber, 9228, 6, 5 );
+
+      REQUIRE( 1e-5 == Approx( chunk.energy() ) );
+
+      REQUIRE( 2 == chunk.LTP() );
+      REQUIRE( 4 == chunk.NW() );
+      REQUIRE( 3 == chunk.NL() );
+      REQUIRE( 4 == chunk.coefficients().size() );
+      REQUIRE( 1. == Approx( chunk.coefficients()[0] ) );
+      REQUIRE( 2. == Approx( chunk.coefficients()[1] ) );
+      REQUIRE( 3. == Approx( chunk.coefficients()[2] ) );
+      REQUIRE( 4. == Approx( chunk.coefficients()[3] ) );
+
+      REQUIRE( 2 == chunk.NC() );
+    }
+  } // GIVEN
+
+  GIVEN( "a string with an invalid LTP" ) {
+
+    std::string string = invalidLTP();
+    auto begin = string.begin();
+    auto end = string.end();
+    long lineNumber = 1;
+
+    THEN( "an exception is thrown" ) {
+
+      REQUIRE_THROWS( section::Type< 6 >::ChargedParticleElasticScattering::LegendreCoefficients( begin, end, lineNumber, 9228, 6, 5 ) );
+    }
+  } // GIVEN
+
+  GIVEN( "a string with inconsistent NW and NL" ) {
+
+    std::string string = invalidSize();
+    auto begin = string.begin();
+    auto end = string.end();
+    long lineNumber = 1;
+
+    THEN( "an exception is thrown" ) {
+
+      REQUIRE_THROWS( section::Type< 6 >::ChargedParticleElasticScattering::LegendreCoefficients( begin, end, lineNumber, 9228, 6, 5 ) );
     }
   } // GIVEN
 
@@ -58,5 +108,17 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::LegendreCoeffic
 std::string chunk() {
   return
     " 0.000000+0 1.000000-5          2          0          4          39228 6  5     \n"
+    " 1.000000+0 2.000000+0 3.000000+0 4.000000+0                      9228 6  5     \n";
+}
+
+std::string invalidLTP() {
+  return
+    " 0.000000+0 1.000000-5         12          0          4          39228 6  5     \n"
+    " 1.000000+0 2.000000+0 3.000000+0 4.000000+0                      9228 6  5     \n";
+}
+
+std::string invalidSize() {
+  return
+    " 0.000000+0 1.000000-5          2          0          4          49228 6  5     \n"
     " 1.000000+0 2.000000+0 3.000000+0 4.000000+0                      9228 6  5     \n";
 }

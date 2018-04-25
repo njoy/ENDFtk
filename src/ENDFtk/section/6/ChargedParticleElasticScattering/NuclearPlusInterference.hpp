@@ -1,9 +1,12 @@
 class NuclearPlusInterference : protected ListRecord {
 
+  /* auxiliary functions */
+  #include "ENDFtk/section/6/ChargedParticleElasticScattering/NuclearPlusInterference/src/verifyLTP.hpp"
+  #include "ENDFtk/section/6/ChargedParticleElasticScattering/NuclearPlusInterference/src/verifySize.hpp"
+
 public:
   /* constructor */
-  using ListRecord::ListRecord;
-  NuclearPlusInterference ( ListRecord&& list ) :  ListRecord( std::move( list ) ) {}
+  #include "ENDFtk/section/6/ChargedParticleElasticScattering/NuclearPlusInterference/src/ctor.hpp"
 
   /* get methods */
   double energy() const { return ListRecord::C2(); }

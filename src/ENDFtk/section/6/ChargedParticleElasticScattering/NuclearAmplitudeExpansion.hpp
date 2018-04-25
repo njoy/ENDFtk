@@ -1,9 +1,12 @@
 class NuclearAmplitudeExpansion : protected ListRecord {
 
+  /* auxiliary functions */
+  #include "ENDFtk/section/6/ChargedParticleElasticScattering/NuclearAmplitudeExpansion/src/verifyLTP.hpp"
+  #include "ENDFtk/section/6/ChargedParticleElasticScattering/NuclearAmplitudeExpansion/src/verifySize.hpp"
+
 public:
   /* constructor */
-  using ListRecord::ListRecord;
-  NuclearAmplitudeExpansion( ListRecord&& list ) : ListRecord( std::move( list ) ) {}; 
+  #include "ENDFtk/section/6/ChargedParticleElasticScattering/NuclearAmplitudeExpansion/src/ctor.hpp"
 
   /* get methods */
   double energy() const { return ListRecord::C2(); }

@@ -1,9 +1,12 @@
 class LegendreCoefficients : protected ListRecord {
 
+  /* auxiliary functions */
+  #include "ENDFtk/section/6/ChargedParticleElasticScattering/LegendreCoefficients/src/verifyLTP.hpp"
+  #include "ENDFtk/section/6/ChargedParticleElasticScattering/LegendreCoefficients/src/verifySize.hpp"
+
 public:
   /* constructor */
-  using ListRecord::ListRecord;
-  LegendreCoefficients ( ListRecord&& list ) :  ListRecord( std::move( list ) ) {}
+  #include "ENDFtk/section/6/ChargedParticleElasticScattering/LegendreCoefficients/src/ctor.hpp"
 
   /* get methods */
   double energy() const { return ListRecord::C2(); }
