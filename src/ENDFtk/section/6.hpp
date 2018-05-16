@@ -3,17 +3,17 @@ class Type< 6 > : protected Base {
 
 public:
 
-#include "ENDFtk/section/6/Multiplicity.hpp"
+  #include "ENDFtk/section/6/Multiplicity.hpp"
 
-#include "ENDFtk/section/6/NoLawDataGiven.hpp"
-#include "ENDFtk/section/6/DefinedElsewhere.hpp"                 // LAW<0
-#include "ENDFtk/section/6/Unknown.hpp"                          // LAW=0
-#include "ENDFtk/section/6/DiscreteTwoBodyScattering.hpp"        // LAW=2
-#include "ENDFtk/section/6/IsotropicDiscreteEmission.hpp"        // LAW=3
-#include "ENDFtk/section/6/DiscreteTwoBodyRecoils.hpp"           // LAW=4
-#include "ENDFtk/section/6/ChargedParticleElasticScattering.hpp" // LAW=5
-#include "ENDFtk/section/6/NBodyPhaseSpace.hpp"                  // LAW=6
-#include "ENDFtk/section/6/LaboratoryAngleEnergy.hpp"            // LAW=7
+  #include "ENDFtk/section/6/NoLawDataGiven.hpp"
+  #include "ENDFtk/section/6/DefinedElsewhere.hpp"                 // LAW<0
+  #include "ENDFtk/section/6/Unknown.hpp"                          // LAW=0
+  #include "ENDFtk/section/6/DiscreteTwoBodyScattering.hpp"        // LAW=2
+  #include "ENDFtk/section/6/IsotropicDiscreteEmission.hpp"        // LAW=3
+  #include "ENDFtk/section/6/DiscreteTwoBodyRecoils.hpp"           // LAW=4
+  #include "ENDFtk/section/6/ChargedParticleElasticScattering.hpp" // LAW=5
+  #include "ENDFtk/section/6/NBodyPhaseSpace.hpp"                  // LAW=6
+  #include "ENDFtk/section/6/LaboratoryAngleEnergy.hpp"            // LAW=7
 
   using Distribution = std::variant< // LAW<0
                                      DefinedElsewhere,
@@ -33,7 +33,7 @@ public:
                                      // LAW=7
                                      LaboratoryAngleEnergy >;
 
-#include "ENDFtk/section/6/ReactionProduct.hpp"
+  #include "ENDFtk/section/6/ReactionProduct.hpp"
 
 private:
 
@@ -43,11 +43,11 @@ private:
   std::vector< ReactionProduct > products_;
 
   /* auxiliary functions */
-#include "ENDFtk/section/6/src/readReactionProducts.hpp"
+  #include "ENDFtk/section/6/src/readReactionProducts.hpp"
 
 public:
   /* constructor */
-#include "ENDFtk/section/6/src/ctor.hpp"
+  #include "ENDFtk/section/6/src/ctor.hpp"
 
   /* get methods */
   int JP() const { return this->jp_; }
@@ -59,12 +59,11 @@ public:
                                         this->products_.end() );
   }
 
-#include "ENDFtk/section/6/src/NC.hpp"
+  #include "ENDFtk/section/6/src/NC.hpp"
 
-#include "ENDFtk/section/6/src/print.hpp"
+  #include "ENDFtk/section/6/src/print.hpp"
 
   using Base::MT;
-//  using Base::sectionNumber;
   using Base::ZA;
   using Base::atomicWeightRatio;
 };

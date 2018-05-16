@@ -5,12 +5,12 @@ class ReactionProduct {
   Distribution law_;
 
   /* auxiliary functions */
-#include "ENDFtk/section/6/ReactionProduct/src/readDistribution.hpp"
+  #include "ENDFtk/section/6/ReactionProduct/src/readDistribution.hpp"
 
 public:
 
   /* constructor */
-#include "ENDFtk/section/6/ReactionProduct/src/ctor.hpp"
+  #include "ENDFtk/section/6/ReactionProduct/src/ctor.hpp"
 
   /* get methods */
   double ZAP() const { return this->multiplicity_.ZAP(); }
