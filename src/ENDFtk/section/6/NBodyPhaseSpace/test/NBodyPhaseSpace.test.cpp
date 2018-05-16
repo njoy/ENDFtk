@@ -9,6 +9,23 @@ std::string chunk();
 
 SCENARIO( "section::Type< 6 >::NBodyPhaseSpace" ) {
 
+  GIVEN( "valid data for a section::Type< 6 >::NBodyPhaseSpace" ) {
+
+    double APSX = 5.;
+    long NPSX = 4;
+      
+    THEN( "a section::Type< 6 >::NBodyPhaseSpace can be constructed and members can be tested" ) {
+      section::Type< 6 >::NBodyPhaseSpace chunk( APSX, NPSX );
+
+      REQUIRE( 6 == chunk.LAW() );
+
+      REQUIRE( 5. == Approx( chunk.APSX() ) );
+      REQUIRE( 4 == chunk.NPSX() );
+
+      REQUIRE( 1 == chunk.NC() );
+    }
+  } // GIVEN
+
   GIVEN( "a string representation of a valid section::Type< 6 >::NBodyPhaseSpace" ) {
 
     std::string string = chunk();
@@ -17,7 +34,7 @@ SCENARIO( "section::Type< 6 >::NBodyPhaseSpace" ) {
     long lineNumber = 1; 
       
     THEN( "a section::Type< 6 >::NBodyPhaseSpace can be constructed and members can be tested" ) {
-      section::Type< 6 >::NBodyPhaseSpace chunk(begin, end, lineNumber, 9228, 6, 5 );
+      section::Type< 6 >::NBodyPhaseSpace chunk( begin, end, lineNumber, 9228, 6, 5 );
 
       REQUIRE( 6 == chunk.LAW() );
 

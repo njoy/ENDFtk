@@ -2,7 +2,7 @@ class NBodyPhaseSpace : protected ControlRecord {
 
 public:
   /* constructor */
-  using ControlRecord::ControlRecord;
+  #include "ENDFtk/section/6/NBodyPhaseSpace/src/ctor.hpp"
 
   /* get methods */
   static constexpr int LAW() { return 6; }
