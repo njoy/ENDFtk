@@ -1,19 +1,20 @@
 class ChargedParticleElasticScattering {
 public:
 
-#include "ENDFtk/section/6/ChargedParticleElasticScattering/NuclearAmplitudeExpansion.hpp"
-#include "ENDFtk/section/6/ChargedParticleElasticScattering/LegendreCoefficients.hpp"
-#include "ENDFtk/section/6/ChargedParticleElasticScattering/NuclearPlusInterference.hpp"
-#include "ENDFtk/section/6/ChargedParticleElasticScattering/SubSection.hpp"
+  #include "ENDFtk/section/6/ChargedParticleElasticScattering/NuclearAmplitudeExpansion.hpp"
+  #include "ENDFtk/section/6/ChargedParticleElasticScattering/LegendreCoefficients.hpp"
+  #include "ENDFtk/section/6/ChargedParticleElasticScattering/NuclearPlusInterference.hpp"
+  #include "ENDFtk/section/6/ChargedParticleElasticScattering/SubSection.hpp"
 
 private:
   InterpolationSequenceRecord< SubSection > data_;
 
 public:
   /* constructor */
-#include "ENDFtk/section/6/ChargedParticleElasticScattering/src/ctor.hpp"
+  #include "ENDFtk/section/6/ChargedParticleElasticScattering/src/ctor.hpp"
 
   /* get methods */
+  static constexpr int LAW() { return 5; }
   double SPI() const { return this->data_.tab2().C1(); }
   int LIDP() const { return this->data_.tab2().L1(); }
   long NR() const { return this->data_.tab2().NR(); }

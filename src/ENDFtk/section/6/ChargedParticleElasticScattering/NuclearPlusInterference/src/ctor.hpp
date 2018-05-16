@@ -11,6 +11,12 @@ NuclearPlusInterference( double energy, int ltp,
                                     values.size() / 2,
                                     std::move( values ) ) ) {};
 
+NuclearPlusInterference( double energy, int ltp,
+                         std::vector< double >&& cosines,
+                         std::vector< double >&& probabilities ) :
+  NuclearPlusInterference( energy, ltp, generateList( std::move( cosines ), 
+                                                      std::move( probabilities ) ) ) {};
+
 template< typename Iterator >
 NuclearPlusInterference( Iterator& it, const Iterator& end, long& lineNumber,
                          int MAT, int MF, int MT ) :

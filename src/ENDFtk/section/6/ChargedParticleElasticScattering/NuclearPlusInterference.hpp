@@ -3,6 +3,7 @@ class NuclearPlusInterference : protected ListRecord {
   /* auxiliary functions */
   #include "ENDFtk/section/6/ChargedParticleElasticScattering/NuclearPlusInterference/src/verifyLTP.hpp"
   #include "ENDFtk/section/6/ChargedParticleElasticScattering/NuclearPlusInterference/src/verifySize.hpp"
+  #include "ENDFtk/section/6/ChargedParticleElasticScattering/NuclearPlusInterference/src/generateList.hpp"
 
 public:
   /* constructor */
@@ -17,7 +18,7 @@ public:
   auto cosines() const {
     return ListRecord::list() | ranges::view::stride( 2 );
   }
-  auto p() const {
+  auto probabilities() const {
     return ranges::view::drop_exactly( ListRecord::list(), 1 )
              | ranges::view::stride( 2 );
   }

@@ -6,9 +6,18 @@ NuclearAmplitudeExpansion( ListRecord&& list ) :
 };
 
 NuclearAmplitudeExpansion( double energy, int nl,
-                           std::vector< double >&& a ) :
+                           std::vector< double >&& list ) :
   NuclearAmplitudeExpansion( ListRecord( 0.0, energy, 1, 0,
-                                         nl, std::move( a ) ) ) {};
+                                         nl, std::move( list ) ) ) {};
+
+NuclearAmplitudeExpansion( double energy, int nl,
+                           std::vector< double >&& b,
+                           std::vector< double >&& a_real,
+                           std::vector< double >&& a_imag ) :
+  NuclearAmplitudeExpansion( energy, nl,
+                             generateList( nl, std::move ( b ),
+                                               std::move ( a_real ),
+                                               std::move ( a_imag ) ) ) {};
 
 template< typename Iterator >
 NuclearAmplitudeExpansion( Iterator& it, const Iterator& end, long& lineNumber,

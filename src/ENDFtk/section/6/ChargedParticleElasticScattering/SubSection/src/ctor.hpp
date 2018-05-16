@@ -1,3 +1,6 @@
+SubSection( SubSectionVariant&& subsection ) :
+  SubSectionVariant( subsection ) {}
+
 template< typename Iterator >
 SubSection ( Iterator& begin,
              const Iterator& end,
@@ -5,5 +8,5 @@ SubSection ( Iterator& begin,
              int MAT,
              int MF,
              int MT ) :
-  SubSectionVariant( readSubSection( begin, end, lineNumber, MAT, MF, MT ) ) {}
+  SubSection( readSubSection( begin, end, lineNumber, MAT, MF, MT ) ) {}
 

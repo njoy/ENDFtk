@@ -19,15 +19,16 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
          "section::Type< 6 >::ChargedParticleElasticScattering::SubSection"
          "with LTP=1" ) {
 
-    std::string string = chunkLTP1();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
+
+    double energy = 1e-5;
+    int nl = 3;
+    std::vector< double > values = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+                                     11, 12, 13, 14, 15 };
 
     THEN( "a section::Type< 6 >::ChargedParticleElasticScattering::SubSection can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::ChargedParticleElasticScattering::SubSection
-        subsection(begin, end, lineNumber, 9228, 6, 5 );
+      section::Type< 6 >::ChargedParticleElasticScattering::SubSection subsection(
+          section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitudeExpansion( energy, nl, std::move( values ) ) );
 
       auto chunk = std::experimental::get< section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitudeExpansion >( subsection );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
@@ -35,24 +36,24 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
       REQUIRE( 1 == chunk.LTP() );
       REQUIRE( 15 == chunk.NW() );
       REQUIRE( 3 == chunk.NL() );
-      REQUIRE( 7 == chunk.b().size() );
-      REQUIRE( 1. == Approx( chunk.b()[0] ) );
-      REQUIRE( 2. == Approx( chunk.b()[1] ) );
-      REQUIRE( 3. == Approx( chunk.b()[2] ) );
-      REQUIRE( 4. == Approx( chunk.b()[3] ) );
-      REQUIRE( 5. == Approx( chunk.b()[4] ) );
-      REQUIRE( 6. == Approx( chunk.b()[5] ) );
-      REQUIRE( 7. == Approx( chunk.b()[6] ) );
-      REQUIRE( 4 == chunk.real_a().size() );
-      REQUIRE( 8. == Approx( chunk.real_a()[0] ) );
-      REQUIRE( 10. == Approx( chunk.real_a()[1] ) );
-      REQUIRE( 12. == Approx( chunk.real_a()[2] ) );
-      REQUIRE( 14. == Approx( chunk.real_a()[3] ) );
-      REQUIRE( 4 == chunk.imaginary_a().size() );
-      REQUIRE( 9. == Approx( chunk.imaginary_a()[0] ) );
-      REQUIRE( 11. == Approx( chunk.imaginary_a()[1] ) );
-      REQUIRE( 13. == Approx( chunk.imaginary_a()[2] ) );
-      REQUIRE( 15. == Approx( chunk.imaginary_a()[3] ) );
+      REQUIRE( 7 == chunk.scatteringCoefficients().size() );
+      REQUIRE( 1. == Approx( chunk.scatteringCoefficients()[0] ) );
+      REQUIRE( 2. == Approx( chunk.scatteringCoefficients()[1] ) );
+      REQUIRE( 3. == Approx( chunk.scatteringCoefficients()[2] ) );
+      REQUIRE( 4. == Approx( chunk.scatteringCoefficients()[3] ) );
+      REQUIRE( 5. == Approx( chunk.scatteringCoefficients()[4] ) );
+      REQUIRE( 6. == Approx( chunk.scatteringCoefficients()[5] ) );
+      REQUIRE( 7. == Approx( chunk.scatteringCoefficients()[6] ) );
+      REQUIRE( 4 == chunk.realInterferenceCoefficients().size() );
+      REQUIRE( 8. == Approx( chunk.realInterferenceCoefficients()[0] ) );
+      REQUIRE( 10. == Approx( chunk.realInterferenceCoefficients()[1] ) );
+      REQUIRE( 12. == Approx( chunk.realInterferenceCoefficients()[2] ) );
+      REQUIRE( 14. == Approx( chunk.realInterferenceCoefficients()[3] ) );
+      REQUIRE( 4 == chunk.imaginaryInterferenceCoefficients().size() );
+      REQUIRE( 9. == Approx( chunk.imaginaryInterferenceCoefficients()[0] ) );
+      REQUIRE( 11. == Approx( chunk.imaginaryInterferenceCoefficients()[1] ) );
+      REQUIRE( 13. == Approx( chunk.imaginaryInterferenceCoefficients()[2] ) );
+      REQUIRE( 15. == Approx( chunk.imaginaryInterferenceCoefficients()[3] ) );
 
       REQUIRE( 1 == subsection.LTP() );
       REQUIRE( 1e-5 == Approx( subsection.energy() ) );
@@ -70,7 +71,7 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
     auto end = string.end();
     long lineNumber = 1;
     section::Type< 6 >::ChargedParticleElasticScattering::SubSection
-      subsection(begin, end, lineNumber, 9228, 6, 5 );
+      subsection( begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
       std::string buffer;
@@ -92,7 +93,7 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
     THEN( "a section::Type< 6 >::ChargedParticleElasticScattering::SubSection can "
           "be constructed and members can be tested" ) {
       section::Type< 6 >::ChargedParticleElasticScattering::SubSection
-        subsection(begin, end, lineNumber, 9228, 6, 5 );
+        subsection( begin, end, lineNumber, 9228, 6, 5 );
 
       auto chunk = std::experimental::get< section::Type< 6 >::ChargedParticleElasticScattering::LegendreCoefficients >( subsection );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
@@ -122,7 +123,7 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
     auto end = string.end();
     long lineNumber = 1;
     section::Type< 6 >::ChargedParticleElasticScattering::SubSection
-      subsection(begin, end, lineNumber, 9228, 6, 5 );
+      subsection( begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
       std::string buffer;
@@ -144,7 +145,7 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
     THEN( "a section::Type< 6 >::ChargedParticleElasticScattering::SubSection can "
           "be constructed and members can be tested" ) {
       section::Type< 6 >::ChargedParticleElasticScattering::SubSection
-        subsection(begin, end, lineNumber, 9228, 6, 5 );
+        subsection( begin, end, lineNumber, 9228, 6, 5 );
 
       auto chunk = std::experimental::get< section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference >( subsection );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
@@ -156,10 +157,10 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
       REQUIRE( 1. == Approx( chunk.cosines()[0] ) );
       REQUIRE( 3. == Approx( chunk.cosines()[1] ) );
       REQUIRE( 5. == Approx( chunk.cosines()[2] ) );
-      REQUIRE( 3 == chunk.p().size() );
-      REQUIRE( 2. == Approx( chunk.p()[0] ) );
-      REQUIRE( 4. == Approx( chunk.p()[1] ) );
-      REQUIRE( 6. == Approx( chunk.p()[2] ) );
+      REQUIRE( 3 == chunk.probabilities().size() );
+      REQUIRE( 2. == Approx( chunk.probabilities()[0] ) );
+      REQUIRE( 4. == Approx( chunk.probabilities()[1] ) );
+      REQUIRE( 6. == Approx( chunk.probabilities()[2] ) );
 
       REQUIRE( 12 == subsection.LTP() );
       REQUIRE( 1e-5 == Approx( subsection.energy() ) );
@@ -177,7 +178,7 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
     auto end = string.end();
     long lineNumber = 1;
     section::Type< 6 >::ChargedParticleElasticScattering::SubSection
-      subsection(begin, end, lineNumber, 9228, 6, 5 );
+      subsection( begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
       std::string buffer;
@@ -199,7 +200,7 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
     THEN( "a section::Type< 6 >::ChargedParticleElasticScattering::SubSection can "
           "be constructed and members can be tested" ) {
       section::Type< 6 >::ChargedParticleElasticScattering::SubSection
-        subsection(begin, end, lineNumber, 9228, 6, 5 );
+        subsection( begin, end, lineNumber, 9228, 6, 5 );
 
       auto chunk = std::experimental::get< section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference >( subsection );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
@@ -211,10 +212,10 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
       REQUIRE( 1. == Approx( chunk.cosines()[0] ) );
       REQUIRE( 3. == Approx( chunk.cosines()[1] ) );
       REQUIRE( 5. == Approx( chunk.cosines()[2] ) );
-      REQUIRE( 3 == chunk.p().size() );
-      REQUIRE( 2. == Approx( chunk.p()[0] ) );
-      REQUIRE( 4. == Approx( chunk.p()[1] ) );
-      REQUIRE( 6. == Approx( chunk.p()[2] ) );
+      REQUIRE( 3 == chunk.probabilities().size() );
+      REQUIRE( 2. == Approx( chunk.probabilities()[0] ) );
+      REQUIRE( 4. == Approx( chunk.probabilities()[1] ) );
+      REQUIRE( 6. == Approx( chunk.probabilities()[2] ) );
 
       REQUIRE( 14 == subsection.LTP() );
       REQUIRE( 1e-5 == Approx( subsection.energy() ) );
@@ -232,7 +233,7 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
     auto end = string.end();
     long lineNumber = 1;
     section::Type< 6 >::ChargedParticleElasticScattering::SubSection
-      subsection(begin, end, lineNumber, 9228, 6, 5 );
+      subsection( begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
       std::string buffer;
@@ -254,7 +255,7 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
     THEN( "a section::Type< 6 >::ChargedParticleElasticScattering::SubSection can "
           "be constructed and members can be tested" ) {
       section::Type< 6 >::ChargedParticleElasticScattering::SubSection
-        subsection(begin, end, lineNumber, 9228, 6, 5 );
+        subsection( begin, end, lineNumber, 9228, 6, 5 );
 
       auto chunk = std::experimental::get< section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference >( subsection );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
@@ -266,10 +267,10 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
       REQUIRE( 1. == Approx( chunk.cosines()[0] ) );
       REQUIRE( 3. == Approx( chunk.cosines()[1] ) );
       REQUIRE( 5. == Approx( chunk.cosines()[2] ) );
-      REQUIRE( 3 == chunk.p().size() );
-      REQUIRE( 2. == Approx( chunk.p()[0] ) );
-      REQUIRE( 4. == Approx( chunk.p()[1] ) );
-      REQUIRE( 6. == Approx( chunk.p()[2] ) );
+      REQUIRE( 3 == chunk.probabilities().size() );
+      REQUIRE( 2. == Approx( chunk.probabilities()[0] ) );
+      REQUIRE( 4. == Approx( chunk.probabilities()[1] ) );
+      REQUIRE( 6. == Approx( chunk.probabilities()[2] ) );
 
       REQUIRE( 15 == subsection.LTP() );
       REQUIRE( 1e-5 == Approx( subsection.energy() ) );
@@ -287,7 +288,7 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
     auto end = string.end();
     long lineNumber = 1;
     section::Type< 6 >::ChargedParticleElasticScattering::SubSection
-      subsection(begin, end, lineNumber, 9228, 6, 5 );
+      subsection( begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
       std::string buffer;
