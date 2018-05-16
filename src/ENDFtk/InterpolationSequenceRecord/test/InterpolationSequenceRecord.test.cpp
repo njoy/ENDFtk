@@ -143,6 +143,20 @@ SCENARIO( "InterpolationSequenceRecord" ) {
     }
   }
 
+  GIVEN( "inconsistent NZ and data points" ) {
+
+    InterpolationRecord interpolation( 3.0, 5.0, 6, 7, { 2 }, { 4 } );
+    std::vector< ControlRecord > sequence = {
+        ControlRecord( 8.0, 9.0, 10, 11, 12, 13 ),
+        ControlRecord( 7.0, 15.0, 16, 17, 18, 19 ),
+        ControlRecord( 20.0, 21.0, 22, 23, 24, 25 ) };
+
+    THEN( "an exception is thrown" ) {
+
+      REQUIRE_THROWS( InterpolationSequenceRecord< ControlRecord >( std::move( interpolation ), std::move( sequence ) ) );
+    }
+  }
+
   GIVEN( "a valid instance of InterpolationSequenceRecord" ) {
     std::string string = chunk();
     auto begin = string.begin();

@@ -3,6 +3,7 @@ InterpolationSequenceRecord ( InterpolationRecord&& interpolation,
   interpolation_( interpolation ),
   sequence_( sequence ) {
 
+  verifyNZ( this->tab2().NZ(), sequence.size() );
   validateSequence( sequence );
 }
 

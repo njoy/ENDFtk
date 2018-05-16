@@ -9,11 +9,12 @@ class InterpolationSequenceRecord {
   std::vector< Record > sequence_;
 
   /* auxiliary functions */
-#include "ENDFtk/InterpolationSequenceRecord/src/readSequence.hpp"
+  #include "ENDFtk/InterpolationSequenceRecord/src/readSequence.hpp"
+  #include "ENDFtk/InterpolationSequenceRecord/src/verifyNZ.hpp"
 
 public:
   /* constructor */
-#include "ENDFtk/InterpolationSequenceRecord/src/ctor.hpp"
+  #include "ENDFtk/InterpolationSequenceRecord/src/ctor.hpp"
 
   /* get methods */
   const InterpolationRecord& tab2() const { return this->interpolation_; }

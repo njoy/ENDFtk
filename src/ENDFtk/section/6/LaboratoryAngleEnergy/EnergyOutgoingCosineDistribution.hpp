@@ -3,7 +3,7 @@ class EnergyOutgoingCosineDistribution :
 
 public:
   /* constructor */
-  using InterpolationSequenceRecord::InterpolationSequenceRecord;
+  #include "ENDFtk/section/6/LaboratoryAngleEnergy/EnergyOutgoingCosineDistribution/src/ctor.hpp"
 
   /* get methods */
   long NRM() const { return InterpolationSequenceRecord::tab2().NR(); }

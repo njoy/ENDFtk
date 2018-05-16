@@ -1,8 +1,8 @@
 class LaboratoryAngleEnergy {
 public:
 
-#include "ENDFtk/section/6/LaboratoryAngleEnergy/CosineOutgoingEnergyDistribution.hpp"
-#include "ENDFtk/section/6/LaboratoryAngleEnergy/EnergyOutgoingCosineDistribution.hpp"
+  #include "ENDFtk/section/6/LaboratoryAngleEnergy/CosineOutgoingEnergyDistribution.hpp"
+  #include "ENDFtk/section/6/LaboratoryAngleEnergy/EnergyOutgoingCosineDistribution.hpp"
 
 private:
   InterpolationSequenceRecord< LaboratoryAngleEnergy::EnergyOutgoingCosineDistribution > data_;
@@ -23,5 +23,5 @@ public:
 
   long NC() const { return this->data_.NC(); }
 
-#include "ENDFtk/section/6/LaboratoryAngleEnergy/src/print.hpp"
+  #include "ENDFtk/section/6/LaboratoryAngleEnergy/src/print.hpp"
 };
