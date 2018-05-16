@@ -8,6 +8,7 @@ add_executable( ENDFtk.InterpolationRecord.test
                 NR.test.cpp
                 NZ.test.cpp
                 equality.test.cpp
+                print.test.cpp
                 rangeInterpolationScheme.test.cpp )
 target_compile_options( ENDFtk.InterpolationRecord.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
