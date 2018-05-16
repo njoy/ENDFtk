@@ -5,9 +5,10 @@ class TabulationRecord : protected record::InterpolationBase {
   std::vector< double > yValues;
 
   /* helper methods */
-#include "ENDFtk/TabulationRecord/src/verifyVectorSizes.hpp"
-#include "ENDFtk/TabulationRecord/src/verifyXValuesAreSorted.hpp"
-#include "ENDFtk/TabulationRecord/src/readPairs.hpp"
+  #include "ENDFtk/TabulationRecord/src/verifyVectorSizes.hpp"
+  #include "ENDFtk/TabulationRecord/src/verifyXValuesAreSorted.hpp"
+  #include "ENDFtk/TabulationRecord/src/verifyNP.hpp"
+  #include "ENDFtk/TabulationRecord/src/readPairs.hpp"
 
   auto regions( size_t index ) const {
     const auto left = index ? this->boundaries()[ index - 1 ] - 1 : 0;
@@ -22,7 +23,7 @@ class TabulationRecord : protected record::InterpolationBase {
   }
   
 public:
-#include "ENDFtk/TabulationRecord/src/ctor.hpp"
+  #include "ENDFtk/TabulationRecord/src/ctor.hpp"
 
   using InterpolationBase::C1;
   using InterpolationBase::C2;

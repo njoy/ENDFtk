@@ -65,9 +65,18 @@ SCENARIO( "TabulationRecord ctor",
                       std::make_tuple( regions, interpolation ),
                       std::make_tuple( x, y ) ) );
   }
-  
+
   GIVEN( "out of order region" ){
     std::vector< long > regions{ 5, 4, 6 };
+
+    REQUIRE_THROWS( TabulationRecord
+                    ( 1.0, 2.0, 3ul, 4ul,
+                      std::make_tuple( regions, interpolation ),
+                      std::make_tuple( x, y ) ) );
+  }
+
+  GIVEN( "interpolation table index and data table size mismatch" ){
+    std::vector< long > regions{ 3, 4, 5 };
 
     REQUIRE_THROWS( TabulationRecord
                     ( 1.0, 2.0, 3ul, 4ul,
@@ -243,6 +252,22 @@ SCENARIO( "TabulationRecord ctor",
       "          2          4          3          1                      9228 1460  439\n"
       " 1.000000+1 1.725000+1 1.400000+1 1.850000+1 1.500000+1 1.975000+09228 1460  440\n"
       " 2.700000+1 1.605000+1                                            9228 1460  441\n";
+    auto begin = tab1.begin();
+    auto end = tab1.end();
+    auto lineNumber = 438l;
+    int MAT = 9228;
+    int MF = 1;
+    int MT = 460;
+   
+    REQUIRE_THROWS( TabulationRecord( begin, end, lineNumber, MAT, MF, MT ) );
+  }
+
+  GIVEN( "Inconsistent interpolation table and data table" ){
+    std::string tab1 = 
+      " 0.000000+0 0.000000+0         33          0          2          49228 1460  438\n"
+      "          2          4          4          1                      9228 1460  439\n"
+      " 1.000000+1 1.725000+1 1.400000+1 1.850000+1 1.500000+1 1.975000+09228 1460  440\n"
+      " 2.700000+1 1.605000+1 2.800000+1 1.700000+1                      9228 1460  441\n";
     auto begin = tab1.begin();
     auto end = tab1.end();
     auto lineNumber = 438l;

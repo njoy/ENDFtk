@@ -7,10 +7,11 @@ TabulationRecord
   try :
     InterpolationBase( C1, C2, L1, L2, std::move( boundaryIndices ),
                        std::move( interpolationSchemeIndices ) ),
-    xValues( std::move(xValues) ),
-    yValues( std::move(yValues) ) {
+                       xValues( std::move( xValues ) ),
+                       yValues( std::move( yValues ) ) {
     verifyXValuesAreSorted( this->xValues );
     verifyVectorSizes( this->xValues, this->yValues );
+    verifyNP( this->boundaries().back(), this->xValues.size() );
   }
   catch ( std::exception& e ) {
     Log::info( "Error encountered while constructing TAB1 record" );
@@ -42,7 +43,8 @@ TabulationRecord
   Iterator& it, const Iterator& end, long& lineNumber,
   int MAT, int MF, int MT  ) :
   TabulationRecord( std::move( interpolation ),
-                        readPairs( interpolation.N2(), it, end, lineNumber, MAT, MF, MT ) ) {}
+                    readPairs( interpolation.N2(), it, end,
+                               lineNumber, MAT, MF, MT ) ) {}
 
 public:
 
