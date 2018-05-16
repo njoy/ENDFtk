@@ -5,13 +5,13 @@ NuclearPlusInterference( ListRecord&& list ) :
     verifySize( this->NW(), this->NL() );
 };
 
-NuclearPlusInterference( double energy, int ltp,
+NuclearPlusInterference( double energy, long ltp,
                          std::vector< double >&& values ) :
   NuclearPlusInterference( ListRecord( 0.0, energy, ltp, 0,
                                     values.size() / 2,
                                     std::move( values ) ) ) {};
 
-NuclearPlusInterference( double energy, int ltp,
+NuclearPlusInterference( double energy, long ltp,
                          std::vector< double >&& cosines,
                          std::vector< double >&& probabilities ) :
   NuclearPlusInterference( energy, ltp, generateList( std::move( cosines ), 

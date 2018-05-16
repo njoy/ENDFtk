@@ -5,7 +5,7 @@ generateList( std::vector< double >&& cosines,
   unsigned int NL = cosines.size();
   if ( cosines.size() != probabilities.size() ) {
 
-    Log::info( "The number of cosine and probability values must be the same" );
+    Log::error( "The number of cosine and probability values must be the same" );
     Log::info( "cosines.size(): {}", NL );
     Log::info( "probabilities.size(): {}", probabilities.size() );
     throw std::exception();
