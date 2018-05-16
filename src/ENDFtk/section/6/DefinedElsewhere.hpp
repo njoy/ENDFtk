@@ -4,7 +4,7 @@ class DefinedElsewhere : protected NoLawDataGiven {
 
 public:
   /* constructor */
-#include "ENDFtk/section/6/DefinedElsewhere/src/ctor.hpp"
+  #include "ENDFtk/section/6/DefinedElsewhere/src/ctor.hpp"
 
   /* get methods */
   int LAW() const { return this->law_; }
