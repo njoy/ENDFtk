@@ -2,7 +2,7 @@ class CosineOutgoingEnergyDistribution : protected TabulationRecord {
 
 public:
   /* constructor */
-  using TabulationRecord::TabulationRecord;
+  #include "ENDFtk/section/6/LaboratoryAngleEnergy/CosineOutgoingEnergyDistribution/src/ctor.hpp"
 
   /* get methods */
   long NRP() const { return TabulationRecord::NR(); }
@@ -10,8 +10,8 @@ public:
 
   double cosine() const { return TabulationRecord::C2(); }
 
-  auto energy() const { return TabulationRecord::x(); }
-  auto distribution() const { return TabulationRecord::y(); }
+  auto energies() const { return TabulationRecord::x(); }
+  auto probabilities() const { return TabulationRecord::y(); }
 
   using TabulationRecord::interpolants;
   using TabulationRecord::boundaries;

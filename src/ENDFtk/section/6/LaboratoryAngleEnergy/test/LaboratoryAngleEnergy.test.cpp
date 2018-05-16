@@ -22,6 +22,8 @@ SCENARIO( "section::Type< 6 >::LaboratoryAngleEnergy" ) {
       section::Type< 6 >::LaboratoryAngleEnergy
         chunk(begin, end, lineNumber, 9228, 6, 5 );
 
+      REQUIRE( 7 == chunk.LAW() );
+
       REQUIRE( 2 == chunk.NE() );
       REQUIRE( 1 == chunk.NR() );
       REQUIRE( 1 == chunk.interpolants().size() );
@@ -50,16 +52,16 @@ SCENARIO( "section::Type< 6 >::LaboratoryAngleEnergy" ) {
       REQUIRE( 1 == cosines[0].boundaries().size() );
       REQUIRE( 2 == cosines[0].interpolants()[0] );
       REQUIRE( 4 == cosines[0].boundaries()[0] );
-      REQUIRE( 4 == cosines[0].energy().size() );
-      REQUIRE( 4 == cosines[0].distribution().size() );
-      REQUIRE( 1e-5 == Approx( cosines[0].energy()[0] ) );
-      REQUIRE( 1.1e+7 == Approx( cosines[0].energy()[1] ) );
-      REQUIRE( 1.147e+7 == Approx( cosines[0].energy()[2] ) );
-      REQUIRE( 3e+7 == Approx( cosines[0].energy()[3] ) );
-      REQUIRE( 0. == Approx( cosines[0].distribution()[0] ) );
-      REQUIRE( 2. == Approx( cosines[0].distribution()[1] ) );
-      REQUIRE( 4. == Approx( cosines[0].distribution()[2] ) );
-      REQUIRE( 6. == Approx( cosines[0].distribution()[3] ) );
+      REQUIRE( 4 == cosines[0].energies().size() );
+      REQUIRE( 4 == cosines[0].probabilities().size() );
+      REQUIRE( 1e-5 == Approx( cosines[0].energies()[0] ) );
+      REQUIRE( 1.1e+7 == Approx( cosines[0].energies()[1] ) );
+      REQUIRE( 1.147e+7 == Approx( cosines[0].energies()[2] ) );
+      REQUIRE( 3e+7 == Approx( cosines[0].energies()[3] ) );
+      REQUIRE( 0. == Approx( cosines[0].probabilities()[0] ) );
+      REQUIRE( 2. == Approx( cosines[0].probabilities()[1] ) );
+      REQUIRE( 4. == Approx( cosines[0].probabilities()[2] ) );
+      REQUIRE( 6. == Approx( cosines[0].probabilities()[3] ) );
 
       REQUIRE( -1. == Approx( cosines[1].cosine() ) );
       REQUIRE( 1 == cosines[1].NRP() );
@@ -68,14 +70,14 @@ SCENARIO( "section::Type< 6 >::LaboratoryAngleEnergy" ) {
       REQUIRE( 1 == cosines[1].boundaries().size() );
       REQUIRE( 2 == cosines[1].interpolants()[0] );
       REQUIRE( 3 == cosines[1].boundaries()[0] );
-      REQUIRE( 3 == cosines[1].energy().size() );
-      REQUIRE( 3 == cosines[1].distribution().size() );
-      REQUIRE( 1e-5 == Approx( cosines[1].energy()[0] ) );
-      REQUIRE( 1e+6 == Approx( cosines[1].energy()[1] ) );
-      REQUIRE( 3e+7 == Approx( cosines[1].energy()[2] ) );
-      REQUIRE( 6. == Approx( cosines[1].distribution()[0] ) );
-      REQUIRE( 4. == Approx( cosines[1].distribution()[1] ) );
-      REQUIRE( 2. == Approx( cosines[1].distribution()[2] ) );
+      REQUIRE( 3 == cosines[1].energies().size() );
+      REQUIRE( 3 == cosines[1].probabilities().size() );
+      REQUIRE( 1e-5 == Approx( cosines[1].energies()[0] ) );
+      REQUIRE( 1e+6 == Approx( cosines[1].energies()[1] ) );
+      REQUIRE( 3e+7 == Approx( cosines[1].energies()[2] ) );
+      REQUIRE( 6. == Approx( cosines[1].probabilities()[0] ) );
+      REQUIRE( 4. == Approx( cosines[1].probabilities()[1] ) );
+      REQUIRE( 2. == Approx( cosines[1].probabilities()[2] ) );
 
       REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
 
@@ -96,16 +98,16 @@ SCENARIO( "section::Type< 6 >::LaboratoryAngleEnergy" ) {
       REQUIRE( 1 == cosines[0].boundaries().size() );
       REQUIRE( 2 == cosines[0].interpolants()[0] );
       REQUIRE( 4 == cosines[0].boundaries()[0] );
-      REQUIRE( 4 == cosines[0].energy().size() );
-      REQUIRE( 4 == cosines[0].distribution().size() );
-      REQUIRE( 1e-5 == Approx( cosines[0].energy()[0] ) );
-      REQUIRE( 1.1e+7 == Approx( cosines[0].energy()[1] ) );
-      REQUIRE( 1.147e+7 == Approx( cosines[0].energy()[2] ) );
-      REQUIRE( 3e+7 == Approx( cosines[0].energy()[3] ) );
-      REQUIRE( 1. == Approx( cosines[0].distribution()[0] ) );
-      REQUIRE( 3. == Approx( cosines[0].distribution()[1] ) );
-      REQUIRE( 5. == Approx( cosines[0].distribution()[2] ) );
-      REQUIRE( 7. == Approx( cosines[0].distribution()[3] ) );
+      REQUIRE( 4 == cosines[0].energies().size() );
+      REQUIRE( 4 == cosines[0].probabilities().size() );
+      REQUIRE( 1e-5 == Approx( cosines[0].energies()[0] ) );
+      REQUIRE( 1.1e+7 == Approx( cosines[0].energies()[1] ) );
+      REQUIRE( 1.147e+7 == Approx( cosines[0].energies()[2] ) );
+      REQUIRE( 3e+7 == Approx( cosines[0].energies()[3] ) );
+      REQUIRE( 1. == Approx( cosines[0].probabilities()[0] ) );
+      REQUIRE( 3. == Approx( cosines[0].probabilities()[1] ) );
+      REQUIRE( 5. == Approx( cosines[0].probabilities()[2] ) );
+      REQUIRE( 7. == Approx( cosines[0].probabilities()[3] ) );
 
       REQUIRE( -.9 == Approx( cosines[1].cosine() ) );
       REQUIRE( 1 == cosines[1].NRP() );
@@ -114,14 +116,14 @@ SCENARIO( "section::Type< 6 >::LaboratoryAngleEnergy" ) {
       REQUIRE( 1 == cosines[1].boundaries().size() );
       REQUIRE( 2 == cosines[1].interpolants()[0] );
       REQUIRE( 3 == cosines[1].boundaries()[0] );
-      REQUIRE( 3 == cosines[1].energy().size() );
-      REQUIRE( 3 == cosines[1].distribution().size() );
-      REQUIRE( 1e-5 == Approx( cosines[1].energy()[0] ) );
-      REQUIRE( 1e+6 == Approx( cosines[1].energy()[1] ) );
-      REQUIRE( 3e+7 == Approx( cosines[1].energy()[2] ) );
-      REQUIRE( 5. == Approx( cosines[1].distribution()[0] ) );
-      REQUIRE( 3. == Approx( cosines[1].distribution()[1] ) );
-      REQUIRE( 1. == Approx( cosines[1].distribution()[2] ) );
+      REQUIRE( 3 == cosines[1].energies().size() );
+      REQUIRE( 3 == cosines[1].probabilities().size() );
+      REQUIRE( 1e-5 == Approx( cosines[1].energies()[0] ) );
+      REQUIRE( 1e+6 == Approx( cosines[1].energies()[1] ) );
+      REQUIRE( 3e+7 == Approx( cosines[1].energies()[2] ) );
+      REQUIRE( 5. == Approx( cosines[1].probabilities()[0] ) );
+      REQUIRE( 3. == Approx( cosines[1].probabilities()[1] ) );
+      REQUIRE( 1. == Approx( cosines[1].probabilities()[2] ) );
 
       REQUIRE( 20 == chunk.NC() );
     }
