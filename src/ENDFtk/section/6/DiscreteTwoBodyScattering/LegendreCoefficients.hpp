@@ -10,7 +10,7 @@ public:
 
   /* get methods */
   double energy() const { return ListRecord::C2(); }
-  int LANG() const { return ListRecord::L1(); }
+  static constexpr int LANG() { return 0; }
   long NW() const { return ListRecord::NPL(); }
   long NL() const { return ListRecord::N2(); }
 

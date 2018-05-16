@@ -11,7 +11,7 @@ public:
 
   /* get methods */
   double energy() const { return ListRecord::C2(); }
-  int LTP() const { return ListRecord::L1(); }
+  static constexpr int LTP() { return 1; }
   long NW() const { return ListRecord::NPL(); }
   long NL() const { return ListRecord::N2(); }
 
