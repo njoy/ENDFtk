@@ -16,8 +16,8 @@ SCENARIO( "section::Type< 6 >::LaboratoryAngleEnergy::EnergyOutgoingCosineDistri
     std::vector< long > boundaries = { 2 };
     std::vector< long > interpolants = { 4 };
     std::vector< section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistribution >
-      cosines = { section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistribution( 1.0, { 4 }, { 2 }, { 1e-5, 1.1e+7, 1.14e+7, 3e+7 }, { 0., 2., 4., 6. } ),
-                  section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistribution( -1.0, { 3 }, { 2 }, { 1e-5, 1e+6, 3e+7 }, { 6., 4., 2. } )};
+      cosines = { section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistribution( 1.0, { 4 }, { 2 }, { 1e-5, 1.1e+7, 1.147e+7, 3e+7 }, { 0., 2., 4., 6. } ),
+                  section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistribution( -1.0, { 3 }, { 5 }, { 1e-5, 1e+6, 3e+7 }, { 6., 4., 2. } )};
 
     THEN( "a section::Type< 6 >::LaboratoryAngleEnergy::EnergyOutgoingCosineDistribution can "
           "be constructed and members can be tested" ) {
