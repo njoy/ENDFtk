@@ -23,6 +23,7 @@ SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering" ) {
       section::Type< 6 >::DiscreteTwoBodyScattering
         chunk(begin, end, lineNumber, 9228, 6, 5 );
 
+      REQUIRE( 2 == chunk.LAW() );
       REQUIRE( 2 == chunk.NE() );
       REQUIRE( 1 == chunk.NR() );
       REQUIRE( 1 == chunk.interpolants().size() );
@@ -33,12 +34,12 @@ SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering" ) {
       auto energies = chunk.energies();
 
       REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
-      REQUIRE( 1 == energies[0].LANG() );
+      REQUIRE( 0 == energies[0].LANG() );
       REQUIRE( 4 == energies[0].NW() );
       REQUIRE( 4 == energies[0].NL() );
 
       auto subsection1 = std::experimental::get< section::Type< 6 >::DiscreteTwoBodyScattering::LegendreCoefficients >( energies[0] );
-      REQUIRE( 1 == subsection1.LANG() );
+      REQUIRE( 0 == subsection1.LANG() );
       REQUIRE( 4 == subsection1.NW() );
       REQUIRE( 4 == subsection1.NL() );
       REQUIRE( 4 == subsection1.coefficients().size() );
@@ -60,10 +61,10 @@ SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering" ) {
       REQUIRE( 1. == Approx( subsection2.cosines()[0] ) );
       REQUIRE( 3. == Approx( subsection2.cosines()[1] ) );
       REQUIRE( 5. == Approx( subsection2.cosines()[2] ) );
-      REQUIRE( 3 == subsection2.p().size() );
-      REQUIRE( 2. == Approx( subsection2.p()[0] ) );
-      REQUIRE( 4. == Approx( subsection2.p()[1] ) );
-      REQUIRE( 6. == Approx( subsection2.p()[2] ) );
+      REQUIRE( 3 == subsection2.probabilities().size() );
+      REQUIRE( 2. == Approx( subsection2.probabilities()[0] ) );
+      REQUIRE( 4. == Approx( subsection2.probabilities()[1] ) );
+      REQUIRE( 6. == Approx( subsection2.probabilities()[2] ) );
 
       REQUIRE( 6 == chunk.NC() );
     }
@@ -103,7 +104,7 @@ std::string chunk() {
   return
     " 0.000000+0 0.000000+0          0          0          1          29228 6  5     \n"
     "          2          1                                            9228 6  5     \n"
-    " 0.000000+0 1.000000-5          1          0          4          49228 6  5     \n"
+    " 0.000000+0 1.000000-5          0          0          4          49228 6  5     \n"
     " 1.000000+0 2.000000+0 3.000000+0 4.000000+0                      9228 6  5     \n"
     " 0.000000+0 2.000000+7         12          0          6          39228 6  5     \n"
     " 1.000000+0 2.000000+0 3.000000+0 4.000000+0 5.000000+0 6.000000+09228 6  5     \n";
@@ -113,7 +114,7 @@ std::string invalidLANG() {
   return
     " 0.000000+0 0.000000+0          0          0          1          29228 6  5     \n"
     "          2          1                                            9228 6  5     \n"
-    " 0.000000+0 1.000000-5          0          0          4          49228 6  5     \n"
+    " 0.000000+0 1.000000-5          1          0          4          49228 6  5     \n"
     " 1.000000+0 2.000000+0 3.000000+0 4.000000+0                      9228 6  5     \n"
     " 0.000000+0 2.000000+7         12          0          6          39228 6  5     \n"
     " 1.000000+0 2.000000+0 3.000000+0 4.000000+0 5.000000+0 6.000000+09228 6  5     \n";

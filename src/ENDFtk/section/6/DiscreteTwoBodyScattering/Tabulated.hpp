@@ -1,9 +1,13 @@
 class Tabulated : protected ListRecord {
 
+  /* auxiliary functions */
+  #include "ENDFtk/section/6/DiscreteTwoBodyScattering/Tabulated/src/verifyLANG.hpp"
+  #include "ENDFtk/section/6/DiscreteTwoBodyScattering/Tabulated/src/verifySize.hpp"
+  #include "ENDFtk/section/6/DiscreteTwoBodyScattering/Tabulated/src/generateList.hpp"
+
 public:
   /* constructor */
-  using ListRecord::ListRecord;
-  Tabulated ( ListRecord&& list ) :  ListRecord( std::move( list ) ) {}
+  #include "ENDFtk/section/6/DiscreteTwoBodyScattering/Tabulated/src/ctor.hpp"
 
   /* get methods */
   double energy() const { return ListRecord::C2(); }
@@ -14,7 +18,7 @@ public:
   auto cosines() const {
     return ListRecord::list() | ranges::view::stride( 2 );
   }
-  auto p() const {
+  auto probabilities() const {
     return ranges::view::drop_exactly( ListRecord::list(), 1 )
              | ranges::view::stride( 2 );
   }

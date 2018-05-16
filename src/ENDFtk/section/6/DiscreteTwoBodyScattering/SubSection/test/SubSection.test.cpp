@@ -6,7 +6,7 @@
 using namespace njoy::ENDFtk;
 using section62 = section::Type< 6 >::DiscreteTwoBodyScattering;
 
-std::string chunkLANG1();
+std::string chunkLANG0();
 std::string chunkLANG12();
 std::string chunkLANG14();
 std::string invalidLANG();
@@ -17,7 +17,7 @@ SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering::SubSection" ) {
          "section::Type< 6 >::DiscreteTwoBodyScattering::SubSection"
          "with LANG=1" ) {
 
-    std::string string = chunkLANG1();
+    std::string string = chunkLANG0();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
@@ -30,7 +30,7 @@ SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering::SubSection" ) {
       auto chunk = std::experimental::get< section::Type< 6 >::DiscreteTwoBodyScattering::LegendreCoefficients >( subsection );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
-      REQUIRE( 1 == chunk.LANG() );
+      REQUIRE( 0 == chunk.LANG() );
       REQUIRE( 4 == chunk.NW() );
       REQUIRE( 4 == chunk.NL() );
       REQUIRE( 4 == chunk.coefficients().size() );
@@ -39,7 +39,7 @@ SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering::SubSection" ) {
       REQUIRE( 3. == Approx( chunk.coefficients()[2] ) );
       REQUIRE( 4. == Approx( chunk.coefficients()[3] ) );
 
-      REQUIRE( 1 == subsection.LANG() );
+      REQUIRE( 0 == subsection.LANG() );
       REQUIRE( 1e-5 == Approx( subsection.energy() ) );
       REQUIRE( 4 == subsection.NW() );
       REQUIRE( 4 == subsection.NL() );
@@ -50,7 +50,7 @@ SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering::SubSection" ) {
   GIVEN( "a valid instance of section::Type< 6 >::DiscreteTwoBodyScattering::SubSection"
          "with LANG=1" ) {
 
-    std::string string = chunkLANG1();
+    std::string string = chunkLANG0();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
@@ -89,10 +89,10 @@ SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering::SubSection" ) {
       REQUIRE( 1. == Approx( chunk.cosines()[0] ) );
       REQUIRE( 3. == Approx( chunk.cosines()[1] ) );
       REQUIRE( 5. == Approx( chunk.cosines()[2] ) );
-      REQUIRE( 3 == chunk.p().size() );
-      REQUIRE( 2. == Approx( chunk.p()[0] ) );
-      REQUIRE( 4. == Approx( chunk.p()[1] ) );
-      REQUIRE( 6. == Approx( chunk.p()[2] ) );
+      REQUIRE( 3 == chunk.probabilities().size() );
+      REQUIRE( 2. == Approx( chunk.probabilities()[0] ) );
+      REQUIRE( 4. == Approx( chunk.probabilities()[1] ) );
+      REQUIRE( 6. == Approx( chunk.probabilities()[2] ) );
 
       REQUIRE( 12 == subsection.LANG() );
       REQUIRE( 1e-5 == Approx( subsection.energy() ) );
@@ -144,10 +144,10 @@ SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering::SubSection" ) {
       REQUIRE( 1. == Approx( chunk.cosines()[0] ) );
       REQUIRE( 3. == Approx( chunk.cosines()[1] ) );
       REQUIRE( 5. == Approx( chunk.cosines()[2] ) );
-      REQUIRE( 3 == chunk.p().size() );
-      REQUIRE( 2. == Approx( chunk.p()[0] ) );
-      REQUIRE( 4. == Approx( chunk.p()[1] ) );
-      REQUIRE( 6. == Approx( chunk.p()[2] ) );
+      REQUIRE( 3 == chunk.probabilities().size() );
+      REQUIRE( 2. == Approx( chunk.probabilities()[0] ) );
+      REQUIRE( 4. == Approx( chunk.probabilities()[1] ) );
+      REQUIRE( 6. == Approx( chunk.probabilities()[2] ) );
 
       REQUIRE( 14 == subsection.LANG() );
       REQUIRE( 1e-5 == Approx( subsection.energy() ) );
@@ -188,9 +188,9 @@ SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering::SubSection" ) {
   } // GIVEN
 } // SCENARIO
 
-std::string chunkLANG1() {
+std::string chunkLANG0() {
   return
-    " 0.000000+0 1.000000-5          1          0          4          49228 6  5     \n"
+    " 0.000000+0 1.000000-5          0          0          4          49228 6  5     \n"
     " 1.000000+0 2.000000+0 3.000000+0 4.000000+0                      9228 6  5     \n";
 }
 
@@ -208,6 +208,6 @@ std::string chunkLANG14() {
 
 std::string invalidLANG() {
   return
-    " 0.000000+0 1.000000-5          0          0          6          39228 6  5     \n"
+    " 0.000000+0 1.000000-5          1          0          6          39228 6  5     \n"
     " 1.000000+0 2.000000+0 3.000000+0 4.000000+0 5.000000+0 6.000000+09228 6  5     \n";
 }
