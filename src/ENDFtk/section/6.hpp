@@ -8,6 +8,7 @@ public:
   #include "ENDFtk/section/6/NoLawDataGiven.hpp"
   #include "ENDFtk/section/6/DefinedElsewhere.hpp"                 // LAW<0
   #include "ENDFtk/section/6/Unknown.hpp"                          // LAW=0
+  #include "ENDFtk/section/6/ContinuumEnergyAngle.hpp"             // LAW=1
   #include "ENDFtk/section/6/DiscreteTwoBodyScattering.hpp"        // LAW=2
   #include "ENDFtk/section/6/IsotropicDiscreteEmission.hpp"        // LAW=3
   #include "ENDFtk/section/6/DiscreteTwoBodyRecoils.hpp"           // LAW=4

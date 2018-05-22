@@ -154,12 +154,24 @@ set( ENDFtk_GNU_Darwin_nonportable_optimization_flags "-march=native" )
 set( ENDFtk_GNU_Darwin_static_flags "-static" )
 get_directory_property( is_subproject PARENT_DIRECTORY )
 
-if( NOT TARGET hana-adapter )
-    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/hana-adapter )
+if( NOT TARGET range-v3-adapter )
+    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/range-v3-adapter )
+endif()
+
+if( NOT TARGET hopscotch-map-adapter )
+    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/hopscotch-map-adapter )
 endif()
 
 if( NOT TARGET catch-adapter )
     add_subdirectory( ${ROOT_DIRECTORY}/subprojects/catch-adapter )
+endif()
+
+if( NOT TARGET disco )
+    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/disco )
+endif()
+
+if( NOT TARGET hana-adapter )
+    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/hana-adapter )
 endif()
 
 if( NOT TARGET fmt-adapter )
@@ -174,20 +186,8 @@ if( NOT TARGET Log )
     add_subdirectory( ${ROOT_DIRECTORY}/subprojects/Log )
 endif()
 
-if( NOT TARGET disco )
-    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/disco )
-endif()
-
 if( NOT TARGET header-utilities )
     add_subdirectory( ${ROOT_DIRECTORY}/subprojects/header-utilities )
-endif()
-
-if( NOT TARGET hopscotch-map-adapter )
-    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/hopscotch-map-adapter )
-endif()
-
-if( NOT TARGET range-v3-adapter )
-    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/range-v3-adapter )
 endif()
 
 if( NOT TARGET variant-adapter )
@@ -249,11 +249,13 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/InterpolationSequenceRecord/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/InterpolationSequenceRecord/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/InterpolationSequenceRecord/src/readSequence.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/InterpolationSequenceRecord/src/verifyNZ.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/ListRecord/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/ListRecord/src/readMetadata.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/TabulationRecord/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/TabulationRecord/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/TabulationRecord/src/readPairs.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/TabulationRecord/src/verifyNP.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/TabulationRecord/src/verifyVectorSizes.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/TabulationRecord/src/verifyXValuesAreSorted.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/TapeIdentification/src/print.hpp"
@@ -374,6 +376,7 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/3/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/3/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ChargedParticleElasticScattering.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ContinuumEnergyAngle.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/DefinedElsewhere.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/DiscreteTwoBodyRecoils.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/DiscreteTwoBodyScattering.hpp"
@@ -404,7 +407,19 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ChargedParticleElasticScattering/SubSection/src/readSubSection.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ChargedParticleElasticScattering/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ChargedParticleElasticScattering/src/print.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ContinuumEnergyAngle/Base.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ContinuumEnergyAngle/KalbachMann.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ContinuumEnergyAngle/LegendreCoefficients.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ContinuumEnergyAngle/Base/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ContinuumEnergyAngle/Base/src/verifySize.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ContinuumEnergyAngle/KalbachMann/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ContinuumEnergyAngle/KalbachMann/src/generateList.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ContinuumEnergyAngle/KalbachMann/src/verifyNA.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ContinuumEnergyAngle/LegendreCoefficients/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ContinuumEnergyAngle/LegendreCoefficients/src/generateList.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/src/generateList.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/DefinedElsewhere/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/DiscreteTwoBodyScattering/LegendreCoefficients.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/DiscreteTwoBodyScattering/SubSection.hpp"
@@ -424,8 +439,10 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/LaboratoryAngleEnergy/CosineOutgoingEnergyDistribution.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyOutgoingCosineDistribution.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/LaboratoryAngleEnergy/CosineOutgoingEnergyDistribution/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyOutgoingCosineDistribution/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/LaboratoryAngleEnergy/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/LaboratoryAngleEnergy/src/print.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/NBodyPhaseSpace/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ReactionProduct/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ReactionProduct/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ReactionProduct/src/readDistribution.hpp"
@@ -462,69 +479,73 @@ set( PREFIX ENDFtk_${CMAKE_CXX_COMPILER_ID}_${CMAKE_SYSTEM_NAME} )
 
 target_link_libraries( ENDFtk INTERFACE "$<$<AND:$<CONFIG:RELEASE>,$<BOOL:${link_time_optimization}>>:${${PREFIX}_RELEASE_flags};${${PREFIX}_link_time_optimization_flags}$<$<BOOL:${profile_generate}>:${${PREFIX}_profile_generate_flags};>$<$<BOOL:${profile_use}>:${${PREFIX}_profile_use_flags};>$<$<BOOL:${nonportable_optimization}>:${${PREFIX}_nonportable_optimization_flags};>>$<$<CONFIG:DEBUG>:$<$<BOOL:${coverage}>:${${PREFIX}_coverage_flags};>>$<$<BOOL:CXX_appended_flags>:${CXX_appended_flags};>$<$<BOOL:ENDFtk_appended_flags>:${ENDFtk_appended_flags};>" )
 
-target_link_libraries( ENDFtk INTERFACE disco INTERFACE header-utilities INTERFACE Log INTERFACE catch-adapter INTERFACE hopscotch-map-adapter INTERFACE range-v3-adapter INTERFACE variant-adapter INTERFACE hana-adapter )
+target_link_libraries( ENDFtk INTERFACE header-utilities INTERFACE hopscotch-map-adapter INTERFACE disco INTERFACE Log INTERFACE range-v3-adapter INTERFACE hana-adapter INTERFACE catch-adapter INTERFACE variant-adapter )
 
 if( NOT is_subproject )
     enable_testing() 
     if ( unit_tests )
-        add_subdirectory( src/ENDFtk/record/InterpolationBase/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/test )
-        add_subdirectory( src/ENDFtk/section/6/DiscreteTwoBodyScattering/LegendreCoefficients/test )
-        add_subdirectory( src/ENDFtk/section/6/IsotropicDiscreteEmission/test )
-        add_subdirectory( src/ENDFtk/section/6/Unknown/test )
-        add_subdirectory( src/ENDFtk/syntaxTree/File/test )
         add_subdirectory( src/ENDFtk/section/6/DiscreteTwoBodyRecoils/test )
-        add_subdirectory( src/ENDFtk/syntaxTree/Material/test )
-        add_subdirectory( src/ENDFtk/record/Base/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/MultilevelBreitWigner/test )
-        add_subdirectory( src/ENDFtk/InterpolationSequenceRecord/test )
-        add_subdirectory( src/ENDFtk/section/6/ChargedParticleElasticScattering/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/test )
-        add_subdirectory( src/ENDFtk/section/3/test )
-        add_subdirectory( src/ENDFtk/section/Base/test )
-        add_subdirectory( src/ENDFtk/ListRecord/test )
-        add_subdirectory( src/ENDFtk/section/6/ChargedParticleElasticScattering/NuclearPlusInterference/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/Base/test )
-        add_subdirectory( src/ENDFtk/StructureDivision/test )
-        add_subdirectory( src/ENDFtk/section/6/ChargedParticleElasticScattering/LegendreCoefficients/test )
-        add_subdirectory( src/ENDFtk/section/6/DiscreteTwoBodyScattering/SubSection/test )
-        add_subdirectory( src/ENDFtk/section/6/DiscreteTwoBodyScattering/test )
-        add_subdirectory( src/ENDFtk/ControlRecord/test )
-        add_subdirectory( src/ENDFtk/InterpolationRecord/test )
-        add_subdirectory( src/ENDFtk/section/6/LaboratoryAngleEnergy/CosineOutgoingEnergyDistribution/test )
-        add_subdirectory( src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyOutgoingCosineDistribution/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/BreitWigner/Lvalue/test )
-        add_subdirectory( src/ENDFtk/record/Zipper/test )
-        add_subdirectory( src/ENDFtk/TapeIdentification/test )
-        add_subdirectory( src/ENDFtk/section/6/LaboratoryAngleEnergy/test )
-        add_subdirectory( src/ENDFtk/DirectoryRecord/test )
-        add_subdirectory( src/ENDFtk/section/6/DefinedElsewhere/test )
-        add_subdirectory( src/ENDFtk/record/test )
-        add_subdirectory( src/ENDFtk/section/2/test )
-        add_subdirectory( src/ENDFtk/section/6/ChargedParticleElasticScattering/SubSection/test )
-        add_subdirectory( src/ENDFtk/section/6/DiscreteTwoBodyScattering/Tabulated/test )
-        add_subdirectory( src/ENDFtk/record/Sequence/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/Isotope/test )
-        add_subdirectory( src/ENDFtk/file/1/test )
-        add_subdirectory( src/ENDFtk/syntaxTree/Section/test )
-        add_subdirectory( src/ENDFtk/HeadRecord/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/ReichMoore/Lvalue/test )
-        add_subdirectory( src/ENDFtk/section/6/Multiplicity/test )
-        add_subdirectory( src/ENDFtk/section/6/NoLawDataGiven/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/ReichMoore/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner/test )
-        add_subdirectory( src/ENDFtk/TabulationRecord/test )
-        add_subdirectory( src/ENDFtk/section/1/451/test )
-        add_subdirectory( src/ENDFtk/TextRecord/test )
-        add_subdirectory( src/ENDFtk/record/Tail/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup/test )
         add_subdirectory( src/ENDFtk/section/6/NBodyPhaseSpace/test )
+        add_subdirectory( src/ENDFtk/record/Sequence/test )
+        add_subdirectory( src/ENDFtk/record/InterpolationBase/test )
+        add_subdirectory( src/ENDFtk/TabulationRecord/test )
+        add_subdirectory( src/ENDFtk/StructureDivision/test )
+        add_subdirectory( src/ENDFtk/file/1/test )
+        add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/test )
+        add_subdirectory( src/ENDFtk/resonanceParameters/Isotope/test )
+        add_subdirectory( src/ENDFtk/InterpolationSequenceRecord/test )
+        add_subdirectory( src/ENDFtk/section/6/DiscreteTwoBodyScattering/test )
+        add_subdirectory( src/ENDFtk/section/6/ChargedParticleElasticScattering/LegendreCoefficients/test )
+        add_subdirectory( src/ENDFtk/TextRecord/test )
+        add_subdirectory( src/ENDFtk/ControlRecord/test )
+        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/ReichMoore/test )
+        add_subdirectory( src/ENDFtk/section/3/test )
+        add_subdirectory( src/ENDFtk/record/Zipper/test )
+        add_subdirectory( src/ENDFtk/DirectoryRecord/test )
+        add_subdirectory( src/ENDFtk/HeadRecord/test )
+        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner/test )
+        add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/test )
+        add_subdirectory( src/ENDFtk/section/2/test )
+        add_subdirectory( src/ENDFtk/resonanceParameters/Base/test )
+        add_subdirectory( src/ENDFtk/syntaxTree/File/test )
+        add_subdirectory( src/ENDFtk/section/6/ChargedParticleElasticScattering/NuclearPlusInterference/test )
+        add_subdirectory( src/ENDFtk/section/6/DiscreteTwoBodyScattering/SubSection/test )
+        add_subdirectory( src/ENDFtk/syntaxTree/Material/test )
+        add_subdirectory( src/ENDFtk/section/6/NoLawDataGiven/test )
         add_subdirectory( src/ENDFtk/section/6/ChargedParticleElasticScattering/NuclearAmplitudeExpansion/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/BreitWigner/test )
-        add_subdirectory( src/ENDFtk/file/Type/test )
+        add_subdirectory( src/ENDFtk/section/6/ContinuumEnergyAngle/KalbachMann/test )
+        add_subdirectory( src/ENDFtk/record/Tail/test )
+        add_subdirectory( src/ENDFtk/section/6/LaboratoryAngleEnergy/CosineOutgoingEnergyDistribution/test )
+        add_subdirectory( src/ENDFtk/section/6/DiscreteTwoBodyScattering/Tabulated/test )
+        add_subdirectory( src/ENDFtk/section/6/IsotropicDiscreteEmission/test )
+        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/BreitWigner/Lvalue/test )
         add_subdirectory( src/ENDFtk/syntaxTree/Tape/test )
+        add_subdirectory( src/ENDFtk/section/6/DiscreteTwoBodyScattering/LegendreCoefficients/test )
+        add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/test )
+        add_subdirectory( src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/test )
+        add_subdirectory( src/ENDFtk/section/6/DefinedElsewhere/test )
+        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup/test )
+        add_subdirectory( src/ENDFtk/InterpolationRecord/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/SpecialCase/test )
+        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/ReichMoore/Lvalue/test )
+        add_subdirectory( src/ENDFtk/file/Type/test )
+        add_subdirectory( src/ENDFtk/section/6/LaboratoryAngleEnergy/test )
+        add_subdirectory( src/ENDFtk/section/6/ContinuumEnergyAngle/LegendreCoefficients/test )
+        add_subdirectory( src/ENDFtk/TapeIdentification/test )
+        add_subdirectory( src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyOutgoingCosineDistribution/test )
+        add_subdirectory( src/ENDFtk/syntaxTree/Section/test )
+        add_subdirectory( src/ENDFtk/section/6/Multiplicity/test )
+        add_subdirectory( src/ENDFtk/record/Base/test )
+        add_subdirectory( src/ENDFtk/section/Base/test )
+        add_subdirectory( src/ENDFtk/section/6/ChargedParticleElasticScattering/test )
+        add_subdirectory( src/ENDFtk/section/6/Unknown/test )
+        add_subdirectory( src/ENDFtk/section/6/ChargedParticleElasticScattering/SubSection/test )
+        add_subdirectory( src/ENDFtk/ListRecord/test )
+        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/MultilevelBreitWigner/test )
+        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/BreitWigner/test )
+        add_subdirectory( src/ENDFtk/record/test )
+        add_subdirectory( src/ENDFtk/section/1/451/test )
+        add_subdirectory( src/ENDFtk/section/6/ContinuumEnergyAngle/Base/test )
     endif() 
 endif()
 

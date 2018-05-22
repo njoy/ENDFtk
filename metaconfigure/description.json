@@ -390,11 +390,13 @@
     "src/ENDFtk/InterpolationSequenceRecord/src/ctor.hpp",
     "src/ENDFtk/InterpolationSequenceRecord/src/print.hpp",
     "src/ENDFtk/InterpolationSequenceRecord/src/readSequence.hpp",
+    "src/ENDFtk/InterpolationSequenceRecord/src/verifyNZ.hpp",
     "src/ENDFtk/ListRecord/src/print.hpp",
     "src/ENDFtk/ListRecord/src/readMetadata.hpp",
     "src/ENDFtk/TabulationRecord/src/ctor.hpp",
     "src/ENDFtk/TabulationRecord/src/print.hpp",
     "src/ENDFtk/TabulationRecord/src/readPairs.hpp",
+    "src/ENDFtk/TabulationRecord/src/verifyNP.hpp",
     "src/ENDFtk/TabulationRecord/src/verifyVectorSizes.hpp",
     "src/ENDFtk/TabulationRecord/src/verifyXValuesAreSorted.hpp",
     "src/ENDFtk/TapeIdentification/src/print.hpp",
@@ -515,6 +517,7 @@
     "src/ENDFtk/section/3/src/ctor.hpp",
     "src/ENDFtk/section/3/src/print.hpp",
     "src/ENDFtk/section/6/ChargedParticleElasticScattering.hpp",
+    "src/ENDFtk/section/6/ContinuumEnergyAngle.hpp",
     "src/ENDFtk/section/6/DefinedElsewhere.hpp",
     "src/ENDFtk/section/6/DiscreteTwoBodyRecoils.hpp",
     "src/ENDFtk/section/6/DiscreteTwoBodyScattering.hpp",
@@ -545,7 +548,19 @@
     "src/ENDFtk/section/6/ChargedParticleElasticScattering/SubSection/src/readSubSection.hpp",
     "src/ENDFtk/section/6/ChargedParticleElasticScattering/src/ctor.hpp",
     "src/ENDFtk/section/6/ChargedParticleElasticScattering/src/print.hpp",
+    "src/ENDFtk/section/6/ContinuumEnergyAngle/Base.hpp",
+    "src/ENDFtk/section/6/ContinuumEnergyAngle/KalbachMann.hpp",
     "src/ENDFtk/section/6/ContinuumEnergyAngle/LegendreCoefficients.hpp",
+    "src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated.hpp",
+    "src/ENDFtk/section/6/ContinuumEnergyAngle/Base/src/ctor.hpp",
+    "src/ENDFtk/section/6/ContinuumEnergyAngle/Base/src/verifySize.hpp",
+    "src/ENDFtk/section/6/ContinuumEnergyAngle/KalbachMann/src/ctor.hpp",
+    "src/ENDFtk/section/6/ContinuumEnergyAngle/KalbachMann/src/generateList.hpp",
+    "src/ENDFtk/section/6/ContinuumEnergyAngle/KalbachMann/src/verifyNA.hpp",
+    "src/ENDFtk/section/6/ContinuumEnergyAngle/LegendreCoefficients/src/ctor.hpp",
+    "src/ENDFtk/section/6/ContinuumEnergyAngle/LegendreCoefficients/src/generateList.hpp",
+    "src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/src/ctor.hpp",
+    "src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/src/generateList.hpp",
     "src/ENDFtk/section/6/DefinedElsewhere/src/ctor.hpp",
     "src/ENDFtk/section/6/DiscreteTwoBodyScattering/LegendreCoefficients.hpp",
     "src/ENDFtk/section/6/DiscreteTwoBodyScattering/SubSection.hpp",
@@ -565,8 +580,10 @@
     "src/ENDFtk/section/6/LaboratoryAngleEnergy/CosineOutgoingEnergyDistribution.hpp",
     "src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyOutgoingCosineDistribution.hpp",
     "src/ENDFtk/section/6/LaboratoryAngleEnergy/CosineOutgoingEnergyDistribution/src/ctor.hpp",
+    "src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyOutgoingCosineDistribution/src/ctor.hpp",
     "src/ENDFtk/section/6/LaboratoryAngleEnergy/src/ctor.hpp",
     "src/ENDFtk/section/6/LaboratoryAngleEnergy/src/print.hpp",
+    "src/ENDFtk/section/6/NBodyPhaseSpace/src/ctor.hpp",
     "src/ENDFtk/section/6/ReactionProduct/src/ctor.hpp",
     "src/ENDFtk/section/6/ReactionProduct/src/print.hpp",
     "src/ENDFtk/section/6/ReactionProduct/src/readDistribution.hpp",
@@ -771,6 +788,18 @@
     ],
     "ENDFtk.section.6.ChargedParticleElasticScattering.SubSection": [
       "src/ENDFtk/section/6/ChargedParticleElasticScattering/SubSection/test/SubSection.test.cpp"
+    ],
+    "ENDFtk.section.6.ContinuumEnergyAngle.Base": [
+      "src/ENDFtk/section/6/ContinuumEnergyAngle/Base/test/Base.test.cpp"
+    ],
+    "ENDFtk.section.6.ContinuumEnergyAngle.KalbachMann": [
+      "src/ENDFtk/section/6/ContinuumEnergyAngle/KalbachMann/test/KalbachMann.test.cpp"
+    ],
+    "ENDFtk.section.6.ContinuumEnergyAngle.LegendreCoefficients": [
+      "src/ENDFtk/section/6/ContinuumEnergyAngle/LegendreCoefficients/test/LegendreCoefficients.test.cpp"
+    ],
+    "ENDFtk.section.6.ContinuumEnergyAngle.Tabulated": [
+      "src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/test/Tabulated.test.cpp"
     ],
     "ENDFtk.section.6.DefinedElsewhere": [
       "src/ENDFtk/section/6/DefinedElsewhere/test/DefinedElsewhere.test.cpp"

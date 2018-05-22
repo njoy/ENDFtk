@@ -1,22 +1,25 @@
-class LegendreCoefficients : protected ListRecord {
+class LegendreCoefficients : protected Base {
 
+  /* auxiliary functions */
+  #include "ENDFtk/section/6/ContinuumEnergyAngle/LegendreCoefficients/src/generateList.hpp"
+    
 public:
   /* constructor */
-  using ListRecord::ListRecord;
-  LegendreCoefficients ( ListRecord&& list ) :  ListRecord( std::move( list ) ) {}
+  #include "ENDFtk/section/6/ContinuumEnergyAngle/LegendreCoefficients/src/ctor.hpp"
 
   /* get methods */
   static constexpr int LANG() { return 1; }
 
-  double energy() const { return ListRecord::C2(); }
-  long ND() const { return ListRecord::L1(); }
-  long NA() const { return ListRecord::L2(); }
-  long NW() const { return ListRecord::NPL(); }
-  long NEP() const { return ListRecord::N2(); }
+  using Base::energy;
+  using Base::ND;
+  using Base::NA;
+  using Base::NW;
+  using Base::NEP;
 
-  auto energies() const { return ListRecord::list()
-                            | ranges::view::stride( 1 + ListRecord::NA() ); }
+  using Base::energies;
+  using Base::totalEmissionProbabilities;
+  auto coefficients() const { return Base::data(); }
 
-  using ListRecord::NC;
-  using ListRecord::print;
+  using Base::NC;
+  using Base::print;
 };
