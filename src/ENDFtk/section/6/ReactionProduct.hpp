@@ -22,11 +22,10 @@ public:
 
   const Distribution& distribution() const { return this->law_; }
 
-  long NC() const { return 1 + this->multiplicity_.NC()
+  long NC() const { return this->multiplicity_.NC()
                              + std::visit( [] ( const auto& v ) -> long
                                               { return v.NC(); },
                                            this->law_ ); }
 
-#include "ENDFtk/section/6/ReactionProduct/src/print.hpp"
-
+  #include "ENDFtk/section/6/ReactionProduct/src/print.hpp"
 };

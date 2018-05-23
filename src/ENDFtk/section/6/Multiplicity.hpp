@@ -1,8 +1,9 @@
 class Multiplicity : protected TabulationRecord {
 
 public:
+
   /* constructor */
-  using TabulationRecord::TabulationRecord;
+  #include "ENDFtk/section/6/Multiplicity/src/ctor.hpp"
 
   /* get methods */
   using TabulationRecord::NP;
@@ -11,7 +12,7 @@ public:
   double AWP() const { return TabulationRecord::C2(); }
   int LIP() const { return TabulationRecord::L1(); }
   int LAW() const { return TabulationRecord::L2(); }
-  auto energy() const { return TabulationRecord::x(); }
+  auto energies() const { return TabulationRecord::x(); }
   auto multiplicity() const { return TabulationRecord::y(); }
   using TabulationRecord::interpolants;
   using TabulationRecord::boundaries;

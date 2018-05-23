@@ -581,6 +581,7 @@
     "src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyOutgoingCosineDistribution/src/ctor.hpp",
     "src/ENDFtk/section/6/LaboratoryAngleEnergy/src/print.hpp",
     "src/ENDFtk/section/6/LaboratoryAngleEnergy/src/ctor.hpp",
+    "src/ENDFtk/section/6/Multiplicity/src/ctor.hpp",
     "src/ENDFtk/section/6/NBodyPhaseSpace/src/ctor.hpp",
     "src/ENDFtk/section/6/ReactionProduct/src/ctor.hpp",
     "src/ENDFtk/section/6/ReactionProduct/src/print.hpp",
@@ -853,6 +854,9 @@
     ],
     "ENDFtk.section.6.NoLawDataGiven": [
       "src/ENDFtk/section/6/NoLawDataGiven/test/NoLawDataGiven.test.cpp"
+    ],
+    "ENDFtk.section.6.ReactionProduct": [
+      "src/ENDFtk/section/6/ReactionProduct/test/ReactionProduct.test.cpp"
     ],
     "ENDFtk.section.6.Unknown": [
       "src/ENDFtk/section/6/Unknown/test/Unknown.test.cpp"
