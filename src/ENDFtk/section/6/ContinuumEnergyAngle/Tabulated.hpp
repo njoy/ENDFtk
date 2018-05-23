@@ -21,13 +21,15 @@ public:
   using Base::energies;
   using Base::totalEmissionProbabilities;
   auto cosines() const {
-    return Base::list() | ranges::view::chunk( 2 + this->NA() )
-                        | ranges::view::drop( 2 )
-                        | ranges::view::stride( 2 ); }
+    return Base::list()
+             | ranges::view::chunk( 2 + this->NA() )
+             | ranges::view::transform( ranges::view::drop( 2 )
+                                          | ranges::view::stride( 2 ) ); }
   auto probabilities() const {
-    return Base::list() | ranges::view::chunk( 2 + this->NA() )
-                        | ranges::view::drop( 3 )
-                        | ranges::view::stride( 2 ); }
+    return Base::list()
+             | ranges::view::chunk( 2 + this->NA() )
+             | ranges::view::transform( ranges::view::drop( 3 )
+                                          | ranges::view::stride( 2 ) ); }
 
   using Base::NC;
   using Base::print;

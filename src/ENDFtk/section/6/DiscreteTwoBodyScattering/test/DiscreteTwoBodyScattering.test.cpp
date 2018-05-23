@@ -21,7 +21,7 @@ SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering" ) {
     THEN( "a section::Type< 6 >::DiscreteTwoBodyScattering can "
           "be constructed and members can be tested" ) {
       section::Type< 6 >::DiscreteTwoBodyScattering
-        chunk(begin, end, lineNumber, 9228, 6, 5 );
+        chunk( begin, end, lineNumber, 9228, 6, 5 );
 
       REQUIRE( 2 == chunk.LAW() );
       REQUIRE( 2 == chunk.NE() );

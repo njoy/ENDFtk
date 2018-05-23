@@ -1,17 +1,16 @@
 using SubSectionVariant = std::variant< // LANG=1
                                         LegendreCoefficients,
-                                        // LANG=12,14
+                                        // LANG=2
+                                        KalbachMann,
+                                        // LANG=11-15
                                         Tabulated >;
 
 class SubSection :
 public SubSectionVariant {
 
-protected:
-  #include "ENDFtk/section/6/DiscreteTwoBodyScattering/SubSection/src/readSubSection.hpp"
-
 public:
   /* constructor */
-  #include "ENDFtk/section/6/DiscreteTwoBodyScattering/SubSection/src/ctor.hpp"
+  #include "ENDFtk/section/6/ContinuumEnergyAngle/SubSection/src/ctor.hpp"
 
   /* get methods */
   double energy() const { return std::visit( [] ( const auto& v ) -> double
@@ -19,17 +18,23 @@ public:
                                              *this ); }
   int LANG() const { return std::visit( [] ( const auto& v ) -> long
                                            { return v.LANG(); },
-                                        *this ); }
+                                       *this ); }
+  int ND() const { return std::visit( [] ( const auto& v ) -> long
+                                         { return v.ND(); },
+                                      *this ); }
+  int NA() const { return std::visit( [] ( const auto& v ) -> long
+                                         { return v.NA(); },
+                                      *this ); }
   int NW() const { return std::visit( [] ( const auto& v ) -> long
                                          { return v.NW(); },
                                       *this ); }
-  int NL() const { return std::visit( [] ( const auto& v ) -> long
-                                         { return v.NL(); },
+  int NEP() const { return std::visit( [] ( const auto& v ) -> long
+                                          { return v.NEP(); },
                                       *this ); }
 
   long NC() const { return std::visit( [] ( const auto& v ) -> long
                                           { return v.NC(); },
                                        *this ); }
 
-  #include "ENDFtk/section/6/DiscreteTwoBodyScattering/SubSection/src/print.hpp"
+  #include "ENDFtk/section/6/ContinuumEnergyAngle/SubSection/src/print.hpp"
 };

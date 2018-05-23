@@ -6,6 +6,7 @@
 using namespace njoy::ENDFtk;
 
 std::string chunk();
+std::string invalidSize();
 
 SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::Tabulated" ) {
 
@@ -59,7 +60,7 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::Tabulated" ) {
     THEN( "a Tabulated can "
           "be constructed using vectors and members can be tested" ) {
       section::Type< 6 >::ContinuumEnergyAngle::Tabulated
-        chunk( lang, energy, nd, nep, std::move( energies ),
+        chunk( lang, energy, nd, na, nep, std::move( energies ),
                std::move( totalEmissionProbabilities ), std::move( cosines ),
                std::move( probabilities ) );
 
@@ -132,6 +133,50 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::Tabulated" ) {
     }
   } // GIVEN
 
+  GIVEN( "data with inconsistent sizes" ) {
+
+    int lang = 14;
+    double energy = 1e-5;
+    int nd = 0;
+    int na = 4;
+    int nep = 2;
+    std::vector< double > list = {  1.,  2.,  3.,  4.,  5.,  6.,
+                                    7.,  8.,  9., 10., 11., 12. };
+    std::vector< double > energies = { 1., 7. };
+    std::vector< double > wrongEnergies = { 1., 7., 8. };
+    std::vector< double > totalEmissionProbabilities = { 2., 8. };
+    std::vector< double > wrongTotalEmissionProbabilities = { 2., 8., 3. };
+    std::vector< std::vector< double > > cosines = { { 3., 5. },
+                                                     { 9., 11. } };
+    std::vector< std::vector< double > > wrongCosines = { { 3., 5., 6. },
+                                                          { 9., 11. } };
+    std::vector< std::vector< double > > probabilities = { { 4., 6. },
+                                                           { 10., 12. } };
+    std::vector< std::vector< double > > wrongProbabilities = { { 4., 6., 7. },
+                                                                { 10., 12. } };
+
+    THEN( "an exception is thrown" ) {
+
+      REQUIRE_THROWS( section::Type< 6 >::ContinuumEnergyAngle::Tabulated( lang, energy, nd, na, nep, std::move( wrongEnergies ), std::move( totalEmissionProbabilities ), std::move( cosines ), std::move( probabilities ) ) );
+      REQUIRE_THROWS( section::Type< 6 >::ContinuumEnergyAngle::Tabulated( lang, energy, nd, na, nep, std::move( energies ), std::move( wrongTotalEmissionProbabilities ), std::move( cosines ), std::move( probabilities ) ) );
+      REQUIRE_THROWS( section::Type< 6 >::ContinuumEnergyAngle::Tabulated( lang, energy, nd, na, nep, std::move( energies ), std::move( totalEmissionProbabilities ), std::move( wrongCosines ), std::move( probabilities ) ) );
+      REQUIRE_THROWS( section::Type< 6 >::ContinuumEnergyAngle::Tabulated( lang, energy, nd, na, nep, std::move( energies ), std::move( totalEmissionProbabilities ), std::move( cosines ), std::move( wrongProbabilities ) ) );
+    }
+  } // GIVEN
+
+  GIVEN( "a string with inconsistent NW, NA, NEP" ) {
+
+    std::string string = invalidSize();
+    auto begin = string.begin();
+    auto end = string.end();
+    long lineNumber = 1;
+
+    THEN( "an exception is thrown" ) {
+
+      REQUIRE_THROWS( section::Type< 6 >::ContinuumEnergyAngle::Tabulated( 14, begin, end, lineNumber, 9228, 6, 5 ) );
+    }
+  } // GIVEN
+
   GIVEN( "a valid instance of Tabulated" ) {
 
     int lang = 14;
@@ -157,3 +202,12 @@ std::string chunk() {
     " 1.000000+0 2.000000+0 3.000000+0 4.000000+0 5.000000+0 6.000000+09228 6  5     \n"
     " 7.000000+0 8.000000+0 9.000000+0 1.000000+1 1.100000+1 1.200000+19228 6  5     \n";
 }
+
+std::string invalidSize() {
+  return
+    " 0.000000+0 1.000000-5          0          4         13          29228 6  5     \n"
+    " 1.000000+0 2.000000+0 3.000000+0 4.000000+0 5.000000+0 6.000000+09228 6  5     \n"
+    " 7.000000+0 8.000000+0 9.000000+0 1.000000+1 1.100000+1 1.200000+19228 6  5     \n"
+    " 1.300000+0                                                       9228 6  5     \n";
+}
+

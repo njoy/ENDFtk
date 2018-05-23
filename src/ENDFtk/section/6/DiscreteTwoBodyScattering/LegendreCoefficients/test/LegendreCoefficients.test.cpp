@@ -14,7 +14,7 @@ SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering::LegendreCoefficients" 
   GIVEN( "valid data for a "
          "section::Type< 6 >::DiscreteTwoBodyScattering::LegendreCoefficients" ) {
 
-      double energy = 1e-5;
+    double energy = 1e-5;
     std::vector< double > coefficients = { 1., 2., 3., 4. };
 
     THEN( "a section::Type< 6 >::DiscreteTwoBodyScattering::LegendreCoefficients can "

@@ -1,5 +1,6 @@
 static std::vector< double >
-generateList( std::vector< double >&& energies,
+generateList( unsigned int na,
+              std::vector< double >&& energies,
               std::vector< double >&& totalEmissionProbabilities,
               std::vector< std::vector< double > >&& cosines,
               std::vector< std::vector< double > >&& probabilities ) {
@@ -14,7 +15,7 @@ generateList( std::vector< double >&& energies,
     Log::error( "A total emission probability value f0 and a set of cosines "
                 "and probabilities must be given for each energy value" );
     Log::info( "Expected size: {}", energies.size() );
-    Log::info( "Found f0 values: {}", cosines.size() );
+    Log::info( "Found f0 values: {}", totalEmissionProbabilities.size() );
     Log::info( "Found cosine sets: {}", cosines.size() );
     Log::info( "Found probability sets: {}", probabilities.size() );
     throw std::exception();
@@ -23,10 +24,12 @@ generateList( std::vector< double >&& energies,
   std::vector< double > list;
   for ( unsigned int i = 0; i < energies.size(); ++i ) {
 
-    if ( cosines[i].size() != probabilities[i].size() ) {
+    if ( ( cosines[i].size() != probabilities[i].size() ) ||
+         ( cosines[i].size() != na / 2 ) ) {
 
       Log::error( "The number of cosines and probabilities for each energy "
-                  "value must be the same" );
+                  "value must be the same and equal to na/2" );
+      Log::info( "Expected: {}", na / 2 );
       Log::info( "Found cosines: {}", cosines[i].size() );
       Log::info( "Found probabilities: {}", probabilities[i].size() );
       Log::info( "Energy: {}", energies[i] );

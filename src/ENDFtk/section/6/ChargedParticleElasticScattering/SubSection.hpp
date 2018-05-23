@@ -9,11 +9,11 @@ class SubSection :
 public SubSectionVariant {
 
 protected:
-#include "ENDFtk/section/6/ChargedParticleElasticScattering/SubSection/src/readSubSection.hpp"
+  #include "ENDFtk/section/6/ChargedParticleElasticScattering/SubSection/src/readSubSection.hpp"
 
 public:
   /* constructor */
-#include "ENDFtk/section/6/ChargedParticleElasticScattering/SubSection/src/ctor.hpp"
+  #include "ENDFtk/section/6/ChargedParticleElasticScattering/SubSection/src/ctor.hpp"
 
   /* get methods */
   double energy() const { return std::visit( [] ( const auto& v ) -> double
@@ -33,5 +33,5 @@ public:
                                           { return v.NC(); },
                                        *this ); }
 
-#include "ENDFtk/section/6/ChargedParticleElasticScattering/SubSection/src/print.hpp"
+  #include "ENDFtk/section/6/ChargedParticleElasticScattering/SubSection/src/print.hpp"
 };

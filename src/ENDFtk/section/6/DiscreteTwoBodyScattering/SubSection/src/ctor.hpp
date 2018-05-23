@@ -1,3 +1,6 @@
+SubSection( SubSectionVariant&& subsection ) :
+  SubSectionVariant( subsection ) {}
+
 template< typename Iterator >
 SubSection ( Iterator& begin,
              const Iterator& end,

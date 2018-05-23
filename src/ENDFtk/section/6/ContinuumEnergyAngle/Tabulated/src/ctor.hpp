@@ -6,13 +6,14 @@ Tabulated( int lang, double energy, long nd, long na, long nep,
   Tabulated( lang, ListRecord( 0.0, energy, nd, na, nep,
                               std::move( list ) ) ) {};
 
-Tabulated( int lang, double energy, long nd, long nep,
+Tabulated( int lang, double energy, long nd, long na, long nep,
            std::vector< double >&& energies,
            std::vector< double >&& totalEmissionProbabilities,
            std::vector< std::vector< double > >&& cosines,
            std::vector< std::vector< double > >&& probabilities ) :
-  Tabulated( lang, energy, nd, cosines[0].size() + 2, nep,
-             generateList( std::move( energies ),
+  Tabulated( lang, energy, nd, na, nep,
+             generateList( na,
+                           std::move( energies ),
                            std::move( totalEmissionProbabilities ),
                            std::move( cosines ),
                            std::move( probabilities )) ) {};

@@ -4,7 +4,6 @@
 #include "ENDFtk.hpp"
 
 using namespace njoy::ENDFtk;
-using section65 = section::Type< 6 >::ChargedParticleElasticScattering;
 
 std::string chunkLTP1();
 std::string chunkLTP2();
@@ -18,7 +17,6 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
   GIVEN( "a string representation of a valid "
          "section::Type< 6 >::ChargedParticleElasticScattering::SubSection"
          "with LTP=1" ) {
-
 
     double energy = 1e-5;
     int nl = 3;
@@ -306,7 +304,7 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
     long lineNumber = 1;
 
     THEN( "an exception is thrown upon construction" ){
-      REQUIRE_THROWS( section65::SubSection( begin, end, lineNumber, 9228, 6, 5 ) );
+      REQUIRE_THROWS( section::Type< 6 >::ChargedParticleElasticScattering::SubSection( begin, end, lineNumber, 9228, 6, 5 ) );
     }
   } // GIVEN
 } // SCENARIO
