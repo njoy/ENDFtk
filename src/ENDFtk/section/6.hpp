@@ -21,6 +21,7 @@ public:
                                      // LAW=0
                                      Unknown,
                                      // LAW=1
+                                     ContinuumEnergyAngle,
                                      // LAW=2
                                      DiscreteTwoBodyScattering,
                                      // LAW=3
