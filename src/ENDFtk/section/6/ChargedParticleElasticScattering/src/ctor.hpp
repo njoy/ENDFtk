@@ -7,6 +7,15 @@ ChargedParticleElasticScattering ( InterpolationRecord&& interpolation,
     InterpolationSequenceRecord< SubSection >( std::move( interpolation ),
                                                std::move( sequence ) ) ) {}
 
+ChargedParticleElasticScattering ( double spin, long lidp,
+                                   std::vector< long >&& boundaries,
+                                   std::vector< long >&& interpolants,
+                                   std::vector< SubSection >&& sequence ) :
+  ChargedParticleElasticScattering(
+    InterpolationRecord( spin, 0.0, lidp, 0,
+                         std::move( boundaries ), std::move( interpolants ) ),
+    std::move( sequence ) ) {}
+
 template< typename Iterator >
 ChargedParticleElasticScattering ( Iterator& begin,
                                    const Iterator& end,

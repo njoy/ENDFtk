@@ -5,10 +5,20 @@ ContinuumEnergyAngle(
 }
 
 ContinuumEnergyAngle( InterpolationRecord&& interpolation,
-                                   std::vector< SubSection >&& sequence ) :
+                      std::vector< SubSection >&& sequence ) :
   ContinuumEnergyAngle(
     InterpolationSequenceRecord< SubSection >( std::move( interpolation ),
                                                std::move( sequence ) ) ) {}
+
+ContinuumEnergyAngle( long lang,
+                      long lep,
+                      std::vector< long >&& boundaries,
+                      std::vector< long >&& interpolants,
+                      std::vector< SubSection >&& sequence ) :
+  ContinuumEnergyAngle(
+    InterpolationRecord( 0.0, 0.0, lang, lep,
+                         std::move( boundaries ), std::move( interpolants ) ),
+    std::move( sequence ) ) {}
 
 private:
 template< typename Iterator >
@@ -21,7 +31,8 @@ ContinuumEnergyAngle( InterpolationRecord&& interpolation,
                       int MT ) :
   ContinuumEnergyAngle(
     std::move( interpolation ),
-    readSequence( interpolation.L1(), begin, end, lineNumber, MAT, MF, MT ) ) {}
+    readSequence( interpolation.L1(), interpolation.NZ(),
+                  begin, end, lineNumber, MAT, MF, MT ) ) {}
 
 public:
 template< typename Iterator >

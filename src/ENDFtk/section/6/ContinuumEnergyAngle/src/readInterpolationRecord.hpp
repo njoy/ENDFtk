@@ -7,7 +7,7 @@ readInterpolationRecord( Iterator& begin,
                          int MF,
                          int MT ) {
 
-  InterpolationRecord interpolation( begin, end, MAT, MF, MT );
+  InterpolationRecord interpolation( begin, end, lineNumber, MAT, MF, MT );
 
   try {
 

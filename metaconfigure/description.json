@@ -554,6 +554,11 @@
     "src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/src/generateList.hpp",
     "src/ENDFtk/section/6/ContinuumEnergyAngle/SubSection/src/ctor.hpp",
     "src/ENDFtk/section/6/ContinuumEnergyAngle/SubSection/src/print.hpp",
+    "src/ENDFtk/section/6/ContinuumEnergyAngle/src/ctor.hpp",
+    "src/ENDFtk/section/6/ContinuumEnergyAngle/src/print.hpp",
+    "src/ENDFtk/section/6/ContinuumEnergyAngle/src/readSequence.hpp",
+    "src/ENDFtk/section/6/ContinuumEnergyAngle/src/readInterpolationRecord.hpp",
+    "src/ENDFtk/section/6/ContinuumEnergyAngle/src/checkLANG.hpp",
     "src/ENDFtk/section/6/DefinedElsewhere/src/ctor.hpp",
     "src/ENDFtk/section/6/DiscreteTwoBodyScattering/SubSection.hpp",
     "src/ENDFtk/section/6/DiscreteTwoBodyScattering/LegendreCoefficients.hpp",
@@ -791,6 +796,9 @@
     ],
     "ENDFtk.section.6.ChargedParticleElasticScattering.SubSection": [
       "src/ENDFtk/section/6/ChargedParticleElasticScattering/SubSection/test/SubSection.test.cpp"
+    ],
+    "ENDFtk.section.6.ContinuumEnergyAngle": [
+      "src/ENDFtk/section/6/ContinuumEnergyAngle/test/ContinuumEnergyAngle.test.cpp"
     ],
     "ENDFtk.section.6.ContinuumEnergyAngle.Base": [
       "src/ENDFtk/section/6/ContinuumEnergyAngle/Base/test/Base.test.cpp"

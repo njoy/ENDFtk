@@ -13,8 +13,10 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering" ) {
   GIVEN( "valid data for a "
          "section::Type< 6 >::ChargedParticleElasticScattering" ) {
 
-    InterpolationRecord interpolation( 0.5, 0, 1, 0,
-                                         { 2 }, { 1 } );
+    double spin = 0.5;
+    long lidp = 1;
+    std::vector< long > boundaries = { 2 };
+    std::vector< long > interpolants = { 1 };
     std::vector< section::Type< 6 >::ChargedParticleElasticScattering::SubSection > sequence = {
       section::Type< 6 >::ChargedParticleElasticScattering::SubSectionVariant(
         section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitudeExpansion( 1e-5, 3, { 1., 2., 3., 4., 5., 6., 7., 8., 9., 10., 11., 12. } ) ),
@@ -25,7 +27,8 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering" ) {
     THEN( "a section::Type< 6 >::ChargedParticleElasticScattering can "
           "be constructed and members can be tested" ) {
       section::Type< 6 >::ChargedParticleElasticScattering
-        chunk( std::move( interpolation ), std::move( sequence ) );
+        chunk( spin, lidp, std::move( boundaries ),
+               std::move( interpolants ), std::move( sequence ) );
 
       REQUIRE( 5 == Approx( chunk.LAW() ) );
       REQUIRE( 0.5 == Approx( chunk.SPI() ) );

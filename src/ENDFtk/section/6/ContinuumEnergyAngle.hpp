@@ -23,6 +23,8 @@ public:
   static constexpr int LAW() { return 1; }
   int LANG() const { return this->data_.tab2().L1(); }
   int LEP() const { return this->data_.tab2().L2(); }
+  long NR() const { return this->data_.tab2().NR(); }
+  long NE() const { return this->data_.tab2().NZ(); }
 
   auto energies() const { return this->data_.records(); }
 

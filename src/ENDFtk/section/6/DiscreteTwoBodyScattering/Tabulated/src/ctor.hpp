@@ -5,8 +5,8 @@ Tabulated( ListRecord&& list ) :
     verifySize( this->NW(), this->NL() );
 };
 
-Tabulated( double energy, int ltp, std::vector< double >&& values ) :
-  Tabulated( ListRecord( 0.0, energy, ltp, 0,
+Tabulated( double energy, int lang, std::vector< double >&& values ) :
+  Tabulated( ListRecord( 0.0, energy, lang, 0,
                          values.size() / 2,
                          std::move( values ) ) ) {};
 

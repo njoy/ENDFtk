@@ -1,18 +1,18 @@
 template< typename Iterator >
 static std::vector< SubSection >
-readSequence( int lang,
+readSequence( long lang,
+              long nep,
               Iterator& begin,
               const Iterator& end,
               long& lineNumber,
               int MAT,
               int MF,
-              int MT,
-              int size ) {
+              int MT ) {
 
   std::vector< SubSection > sequence;
-  sequence.reserve( size );
+  sequence.reserve( nep );
 
-  while( size-- ) {
+  while( nep-- ) {
     switch ( lang ) {
       case 1 : sequence.emplace_back( LegendreCoefficients( begin, end, lineNumber, MAT, MF, MT ) ); break;
       case 2 : sequence.emplace_back( KalbachMann( begin, end, lineNumber, MAT, MF, MT ) ); break;
