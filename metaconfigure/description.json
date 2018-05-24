@@ -783,6 +783,9 @@
     "ENDFtk.section.3": [
       "src/ENDFtk/section/3/test/3.test.cpp"
     ],
+    "ENDFtk.section.6": [
+      "src/ENDFtk/section/6/test/6.test.cpp"
+    ],
     "ENDFtk.section.6.ChargedParticleElasticScattering": [
       "src/ENDFtk/section/6/ChargedParticleElasticScattering/test/ChargedParticleElasticScattering.test.cpp"
     ],

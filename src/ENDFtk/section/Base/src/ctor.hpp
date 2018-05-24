@@ -1,3 +1,6 @@
+Base( int MT, double zaid, double awr ) :
+  sectionNo( MT ), ZA_( zaid ), atomicWeightRatio_( awr ) {}
+
 Base( const HEAD& head, int MAT, int MF ) :
   sectionNo( head.MT() ), 
   ZA_( head.ZA() ), 

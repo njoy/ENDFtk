@@ -1,9 +1,14 @@
+Type( int MT, double zaid, double awr, long jp, long lct,
+      std::vector< ReactionProduct >&& products ) :
+  Base( MT, zaid, awr ), jp_( jp ), lct_( lct ),
+  products_( std::move( products ) ) {}
+
 template< typename Iterator >
-Type ( HEAD& head,
-       Iterator& begin,
-       const Iterator& end,
-       long& lineNumber,
-       int MAT )
+Type( HEAD& head,
+      Iterator& begin,
+      const Iterator& end,
+      long& lineNumber,
+      int MAT )
   try:
     Base( head, MAT, 6 ), jp_( head.L1() ), lct_( head.L2() ),
     products_( readReactionProducts( begin, end, lineNumber,

@@ -6,7 +6,7 @@ public:
   double atomicWeightRatio_;
   
   /* ctor */
-#include "ENDFtk/section/Base/src/ctor.hpp"
+  #include "ENDFtk/section/Base/src/ctor.hpp"
 
   /* methods */
   int& MT() { return this->sectionNo; }
@@ -25,6 +25,5 @@ public:
   
   double atomicWeightRatio() const { return this->AWR(); }
 
-#include "ENDFtk/section/Base/src/readSEND.hpp"
-
+  #include "ENDFtk/section/Base/src/readSEND.hpp"
 };

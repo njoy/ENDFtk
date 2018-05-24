@@ -68,5 +68,6 @@ public:
   using Base::MT;
   using Base::ZA;
   using Base::atomicWeightRatio;
+  using Base::AWR;
 };
 
