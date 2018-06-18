@@ -18,15 +18,15 @@ SCENARIO( "section::Type< 6 >::Multiplicity" ) {
     std::vector< long > boundaries = { 4 };
     std::vector< long > interpolants = { 2 };
     std::vector< double > energies = { 1e-5, 1.1e+7, 1.147e+7, 3e+7 };
-    std::vector< double > multiplicity = { 0., 8.45368e-11,
-                                           6.622950e-8, 2.149790e-1 };
+    std::vector< double > multiplicities = { 0., 8.45368e-11,
+                                             6.622950e-8, 2.149790e-1 };
       
     THEN( "a section::Type< 6 >::Multiplicity can be constructed and members can be tested" ) {
       section::Type< 6 >::Multiplicity chunk( zap, awp, lip, law,
                                               std::move( boundaries ),
                                               std::move( interpolants ),
                                               std::move( energies ),
-                                              std::move( multiplicity ) );
+                                              std::move( multiplicities ) );
 
       REQUIRE( 1001. == Approx( chunk.ZAP() ) );
       REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
@@ -40,15 +40,15 @@ SCENARIO( "section::Type< 6 >::Multiplicity" ) {
       REQUIRE( 2 == chunk.interpolants()[0] );
       REQUIRE( 4 == chunk.boundaries()[0] );
       REQUIRE( 4 == chunk.energies().size() );
-      REQUIRE( 4 == chunk.multiplicity().size() );
+      REQUIRE( 4 == chunk.multiplicities().size() );
       REQUIRE( 1e-5 == Approx( chunk.energies()[0] ) );
       REQUIRE( 1.1e+7 == Approx( chunk.energies()[1] ) );
       REQUIRE( 1.147e+7 == Approx( chunk.energies()[2] ) );
       REQUIRE( 3e+7 == Approx( chunk.energies()[3] ) );
-      REQUIRE( 0. == Approx( chunk.multiplicity()[0] ) );
-      REQUIRE( 8.45368e-11 == Approx( chunk.multiplicity()[1] ) );
-      REQUIRE( 6.622950e-8 == Approx( chunk.multiplicity()[2] ) );
-      REQUIRE( 2.149790e-1 == Approx( chunk.multiplicity()[3] ) );
+      REQUIRE( 0. == Approx( chunk.multiplicities()[0] ) );
+      REQUIRE( 8.45368e-11 == Approx( chunk.multiplicities()[1] ) );
+      REQUIRE( 6.622950e-8 == Approx( chunk.multiplicities()[2] ) );
+      REQUIRE( 2.149790e-1 == Approx( chunk.multiplicities()[3] ) );
 
       REQUIRE( 4 == chunk.NC() );
     }
@@ -76,15 +76,15 @@ SCENARIO( "section::Type< 6 >::Multiplicity" ) {
       REQUIRE( 2 == chunk.interpolants()[0] );
       REQUIRE( 4 == chunk.boundaries()[0] );
       REQUIRE( 4 == chunk.energies().size() );
-      REQUIRE( 4 == chunk.multiplicity().size() );
+      REQUIRE( 4 == chunk.multiplicities().size() );
       REQUIRE( 1e-5 == Approx( chunk.energies()[0] ) );
       REQUIRE( 1.1e+7 == Approx( chunk.energies()[1] ) );
       REQUIRE( 1.147e+7 == Approx( chunk.energies()[2] ) );
       REQUIRE( 3e+7 == Approx( chunk.energies()[3] ) );
-      REQUIRE( 0. == Approx( chunk.multiplicity()[0] ) );
-      REQUIRE( 8.45368e-11 == Approx( chunk.multiplicity()[1] ) );
-      REQUIRE( 6.622950e-8 == Approx( chunk.multiplicity()[2] ) );
-      REQUIRE( 2.149790e-1 == Approx( chunk.multiplicity()[3] ) );
+      REQUIRE( 0. == Approx( chunk.multiplicities()[0] ) );
+      REQUIRE( 8.45368e-11 == Approx( chunk.multiplicities()[1] ) );
+      REQUIRE( 6.622950e-8 == Approx( chunk.multiplicities()[2] ) );
+      REQUIRE( 2.149790e-1 == Approx( chunk.multiplicities()[3] ) );
 
       REQUIRE( 4 == chunk.NC() );
     }

@@ -13,7 +13,7 @@ public:
   int LIP() const { return TabulationRecord::L1(); }
   int LAW() const { return TabulationRecord::L2(); }
   auto energies() const { return TabulationRecord::x(); }
-  auto multiplicity() const { return TabulationRecord::y(); }
+  auto multiplicities() const { return TabulationRecord::y(); }
   using TabulationRecord::interpolants;
   using TabulationRecord::boundaries;
   using TabulationRecord::NC;
