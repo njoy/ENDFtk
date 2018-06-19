@@ -50,15 +50,15 @@ SCENARIO( "section::Type< 6 >::ReactionProduct" ) {
       REQUIRE( 2 == chunk.multiplicity().interpolants()[0] );
       REQUIRE( 4 == chunk.multiplicity().boundaries()[0] );
       REQUIRE( 4 == chunk.multiplicity().energies().size() );
-      REQUIRE( 4 == chunk.multiplicity().multiplicity().size() );
+      REQUIRE( 4 == chunk.multiplicity().multiplicities().size() );
       REQUIRE( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
       REQUIRE( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
       REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
       REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicity()[0] ) );
-      REQUIRE( 8.45368e-11 == Approx( chunk.multiplicity().multiplicity()[1] ) );
-      REQUIRE( 6.622950e-8 == Approx( chunk.multiplicity().multiplicity()[2] ) );
-      REQUIRE( 2.149790e-1 == Approx( chunk.multiplicity().multiplicity()[3] ) );
+      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
+      REQUIRE( 8.45368e-11 == Approx( chunk.multiplicity().multiplicities()[1] ) );
+      REQUIRE( 6.622950e-8 == Approx( chunk.multiplicity().multiplicities()[2] ) );
+      REQUIRE( 2.149790e-1 == Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle >( chunk.distribution() );
 
@@ -164,15 +164,15 @@ SCENARIO( "section::Type< 6 >::ReactionProduct" ) {
       REQUIRE( 2 == chunk.multiplicity().interpolants()[0] );
       REQUIRE( 4 == chunk.multiplicity().boundaries()[0] );
       REQUIRE( 4 == chunk.multiplicity().energies().size() );
-      REQUIRE( 4 == chunk.multiplicity().multiplicity().size() );
+      REQUIRE( 4 == chunk.multiplicity().multiplicities().size() );
       REQUIRE( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
       REQUIRE( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
       REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
       REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicity()[0] ) );
-      REQUIRE( 8.45368e-11 == Approx( chunk.multiplicity().multiplicity()[1] ) );
-      REQUIRE( 6.622950e-8 == Approx( chunk.multiplicity().multiplicity()[2] ) );
-      REQUIRE( 2.149790e-1 == Approx( chunk.multiplicity().multiplicity()[3] ) );
+      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
+      REQUIRE( 8.45368e-11 == Approx( chunk.multiplicity().multiplicities()[1] ) );
+      REQUIRE( 6.622950e-8 == Approx( chunk.multiplicity().multiplicities()[2] ) );
+      REQUIRE( 2.149790e-1 == Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle >( chunk.distribution() );
 
@@ -262,6 +262,28 @@ SCENARIO( "section::Type< 6 >::ReactionProduct" ) {
       auto output = std::back_inserter( buffer );
       chunk.print( output, 9228, 6, 5 );
       REQUIRE( buffer == string );
+    }
+  } // GIVEN
+
+  GIVEN( "an inconsistent LAW between the Multicplivity and the Distribution" ){
+
+    section::Type< 6 >::Multiplicity multiplicity(
+      1001., 0.9986234, 0, 2, { 4 }, { 2 },
+      { 1e-5, 1.1e+7, 1.147e+7, 2e+7 },
+      { 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 } );
+    section::Type< 6 >::Distribution distribution(
+      section::Type< 6 >::ContinuumEnergyAngle(
+        1, 2, { 2 }, { 1 },
+        { section::Type< 6 >::ContinuumEnergyAngle::SubSectionVariant(
+            section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients(
+              1e-5, 0, 1, 4,
+              { 1., 2., 3., 4., 5., 6., 7., 8., 9., 10., 11., 12. } ) ),
+          section::Type< 6 >::ContinuumEnergyAngle::SubSectionVariant(
+            section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients(
+              2e+7, 0, 1, 2, {1., 2., 3., 4., 5., 6.} ) ) } ) );
+
+    THEN( "an exception is thrown upon construction" ){
+      REQUIRE_THROWS( section::Type< 6 >::ReactionProduct( std::move( multiplicity ), std::move( distribution ) ) );
     }
   } // GIVEN
 

@@ -5,6 +5,7 @@ class ReactionProduct {
   Distribution law_;
 
   /* auxiliary functions */
+  #include "ENDFtk/section/6/ReactionProduct/src/verifyLAW.hpp"
   #include "ENDFtk/section/6/ReactionProduct/src/readDistribution.hpp"
 
 public:
