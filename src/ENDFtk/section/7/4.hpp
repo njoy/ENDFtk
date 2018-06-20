@@ -1,0 +1,47 @@
+template<>
+class Type< 7, 4 > : protected Base {
+
+public:
+
+  #include "ENDFtk/section/7/4/ScatteringLawConstants.hpp"
+
+  #include "ENDFtk/section/7/4/AnalyticalFunctions.hpp"
+//  #include "ENDFtk/section/7/4/Tabulated.hpp"
+
+  using ScatteringLaw = std::variant< // B(1)=0
+                                      AnalyticalFunctions/*,
+                                      // B(1)!=0
+                                      Tabulated*/ >;
+
+private:
+
+  /* fields */
+  int lat_;
+  int lasym_;
+
+  ScatteringLawConstants b_;
+  ScatteringLaw law_;
+
+  /* auxiliary functions */
+
+public:
+  /* constructor */
+//  #include "ENDFtk/section/7/4/src/ctor.hpp"
+
+  /* get methods */
+  int LAT() const { return this->lat_; }
+  int LASYM() const { return this->lasym_; }
+
+  const ScatteringLawConstants& constants() const { return this->b_; }
+
+  const ScatteringLaw& scatteringLaw() const { return this->law_; }
+
+//  #include "ENDFtk/section/7/4/src/NC.hpp"
+
+//  #include "ENDFtk/section/7/4/src/print.hpp"
+
+  using Base::MT;
+  using Base::ZA;
+  using Base::atomicWeightRatio;
+  using Base::AWR;
+};
