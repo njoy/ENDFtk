@@ -5,7 +5,8 @@ public:
   #include "ENDFtk/section/6/LaboratoryAngleEnergy/EnergyOutgoingCosineDistribution.hpp"
 
 private:
-  InterpolationSequenceRecord< LaboratoryAngleEnergy::EnergyOutgoingCosineDistribution > data_;
+  InterpolationSequenceRecord
+    < LaboratoryAngleEnergy::EnergyOutgoingCosineDistribution > data_;
 
 public:
   /* constructor */

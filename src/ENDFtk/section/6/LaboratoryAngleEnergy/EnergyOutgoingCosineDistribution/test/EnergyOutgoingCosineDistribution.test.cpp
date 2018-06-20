@@ -5,23 +5,33 @@
 
 using namespace njoy::ENDFtk;
 
+// convenience typedefs
+using EnergyOutgoingCosineDistribution = 
+section::Type< 6 >::LaboratoryAngleEnergy::EnergyOutgoingCosineDistribution;
+using CosineOutgoingEnergyDistribution = 
+section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistribution;
+
 std::string chunk();
 
-SCENARIO( "section::Type< 6 >::LaboratoryAngleEnergy::EnergyOutgoingCosineDistribution" ) {
+SCENARIO( "EnergyOutgoingCosineDistribution" ) {
 
   GIVEN( "valid data for a "
-         "section::Type< 6 >::LaboratoryAngleEnergy::EnergyOutgoingCosineDistribution" ) {
+         "EnergyOutgoingCosineDistribution" ) {
 
     double energy = 1e-5;
     std::vector< long > boundaries = { 2 };
     std::vector< long > interpolants = { 4 };
-    std::vector< section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistribution >
-      cosines = { section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistribution( 1.0, { 4 }, { 2 }, { 1e-5, 1.1e+7, 1.147e+7, 3e+7 }, { 0., 2., 4., 6. } ),
-                  section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistribution( -1.0, { 3 }, { 5 }, { 1e-5, 1e+6, 3e+7 }, { 6., 4., 2. } )};
+    std::vector< CosineOutgoingEnergyDistribution >
+      cosines = { CosineOutgoingEnergyDistribution(
+                    1.0, { 4 }, { 2 }, 
+                    { 1e-5, 1.1e+7, 1.147e+7, 3e+7 }, { 0., 2., 4., 6. } ),
+                  CosineOutgoingEnergyDistribution(
+                    -1.0, { 3 }, { 5 },
+                    { 1e-5, 1e+6, 3e+7 }, { 6., 4., 2. } ) };
 
-    THEN( "a section::Type< 6 >::LaboratoryAngleEnergy::EnergyOutgoingCosineDistribution can "
+    THEN( "a EnergyOutgoingCosineDistribution can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::LaboratoryAngleEnergy::EnergyOutgoingCosineDistribution
+      EnergyOutgoingCosineDistribution
         chunk( energy,
                std::move( boundaries ),
                std::move( interpolants ),
@@ -78,16 +88,16 @@ SCENARIO( "section::Type< 6 >::LaboratoryAngleEnergy::EnergyOutgoingCosineDistri
   } // GIVEN
 
   GIVEN( "a string representation of a valid "
-         "section::Type< 6 >::LaboratoryAngleEnergy::EnergyOutgoingCosineDistribution" ) {
+         "EnergyOutgoingCosineDistribution" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
 
-    THEN( "a section::Type< 6 >::LaboratoryAngleEnergy::EnergyOutgoingCosineDistribution can "
+    THEN( "a EnergyOutgoingCosineDistribution can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::LaboratoryAngleEnergy::EnergyOutgoingCosineDistribution
+      EnergyOutgoingCosineDistribution
         chunk(begin, end, lineNumber, 9228, 6, 5 );
 
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
@@ -140,13 +150,13 @@ SCENARIO( "section::Type< 6 >::LaboratoryAngleEnergy::EnergyOutgoingCosineDistri
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of section::Type< 6 >::LaboratoryAngleEnergy::EnergyOutgoingCosineDistribution" ) {
+  GIVEN( "a valid instance of EnergyOutgoingCosineDistribution" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1; 
-    section::Type< 6 >::LaboratoryAngleEnergy::EnergyOutgoingCosineDistribution
+    EnergyOutgoingCosineDistribution
       chunk(begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {

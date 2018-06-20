@@ -5,15 +5,23 @@
 
 using namespace njoy::ENDFtk;
 
+// convenience typedefs
+using SubSection = 
+section::Type< 6 >::ContinuumEnergyAngle::SubSection;
+using LegendreCoefficients = 
+section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients;
+using KalbachMann = 
+section::Type< 6 >::ContinuumEnergyAngle::KalbachMann;
+using Tabulated = 
+section::Type< 6 >::ContinuumEnergyAngle::Tabulated;
+
 std::string chunkLANG1();
 std::string chunkLANG2();
 std::string chunkLANG14();
 
-SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::SubSection" ) {
+SCENARIO( "SubSection" ) {
 
-  GIVEN( "valid data for a "
-         "section::Type< 6 >::ContinuumEnergyAngle::SubSection"
-         "with LANG=1" ) {
+  GIVEN( "valid data for a SubSection with LANG=1" ) {
 
     double energy = 1e-5;
     int nd = 0;
@@ -24,12 +32,11 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::SubSection" ) {
       std::make_pair< double, std::vector< double > >( 1., { 2., 3. } ),
       std::make_pair< double, std::vector< double > >( 4., { 5., 6. } ) };
 
-    THEN( "a section::Type< 6 >::ContinuumEnergyAngle::SubSection can "
-          "be constructed and members can be tested" ) {
-      section::Type< 6 >::ContinuumEnergyAngle::SubSection subsection(
-          section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients( energy, nd, na, nep, std::move( list ) ) );
+    THEN( "a SubSection can be constructed and members can be tested" ) {
+      SubSection subsection(
+          LegendreCoefficients( energy, nd, na, nep, std::move( list ) ) );
 
-      auto chunk = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients >( subsection );
+      auto chunk = std::experimental::get< LegendreCoefficients >( subsection );
 
       REQUIRE( 1 == chunk.LANG() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
@@ -54,9 +61,7 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::SubSection" ) {
     }
   } // GIVEN
 
-  GIVEN( "valid data for a "
-         "section::Type< 6 >::ContinuumEnergyAngle::SubSection"
-         "with LANG=2" ) {
+  GIVEN( "valid data for a SubSection with LANG=2" ) {
 
     double energy = 1e-5;
     int nd = 0;
@@ -67,12 +72,12 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::SubSection" ) {
       { 1., 2., 3. },
       { 4., 5., 6. } };
 
-    THEN( "a section::Type< 6 >::ContinuumEnergyAngle::SubSection can "
+    THEN( "a SubSection can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::ContinuumEnergyAngle::SubSection subsection(
-          section::Type< 6 >::ContinuumEnergyAngle::KalbachMann( energy, nd, na, nep, std::move( list ) ) );
+      SubSection subsection(
+          KalbachMann( energy, nd, na, nep, std::move( list ) ) );
 
-      auto chunk = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle::KalbachMann >( subsection );
+      auto chunk = std::experimental::get< KalbachMann >( subsection );
 
       REQUIRE( 2 == chunk.LANG() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
@@ -97,9 +102,7 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::SubSection" ) {
     }
   } // GIVEN
 
-  GIVEN( "valid data for a "
-         "section::Type< 6 >::ContinuumEnergyAngle::SubSection"
-         "with LANG=14" ) {
+  GIVEN( "valid data for a SubSection with LANG=14" ) {
 
     int lang = 14;
     double energy = 1e-5;
@@ -114,12 +117,11 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::SubSection" ) {
     std::vector< std::vector< double > > probabilities = { { 4., 6. },
                                                            { 10., 12. } };
 
-    THEN( "a section::Type< 6 >::ContinuumEnergyAngle::SubSection can "
-          "be constructed and members can be tested" ) {
-      section::Type< 6 >::ContinuumEnergyAngle::SubSection subsection(
-          section::Type< 6 >::ContinuumEnergyAngle::Tabulated( lang, energy, nd, na, nep, std::move( list ) ) );
+    THEN( "a SubSection can be constructed and members can be tested" ) {
+      SubSection subsection(
+          Tabulated( lang, energy, nd, na, nep, std::move( list ) ) );
 
-      auto chunk = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle::Tabulated >( subsection );
+      auto chunk = std::experimental::get< Tabulated >( subsection );
 
       REQUIRE( 14 == chunk.LANG() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
@@ -149,15 +151,15 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::SubSection" ) {
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of section::Type< 6 >::ContinuumEnergyAngle::SubSection"
+  GIVEN( "a valid instance of SubSection"
          "with LANG=1" ) {
 
     std::string string = chunkLANG1();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    section::Type< 6 >::ContinuumEnergyAngle::SubSection
-      subsection( section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients( begin, end, lineNumber, 9228, 6, 5 ) );
+    SubSection
+      subsection( LegendreCoefficients( begin, end, lineNumber, 9228, 6, 5 ) );
 
     THEN( "it can be printed" ) {
       std::string buffer;
@@ -167,15 +169,15 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::SubSection" ) {
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of section::Type< 6 >::ContinuumEnergyAngle::SubSection"
+  GIVEN( "a valid instance of SubSection"
          "with LANG=2" ) {
 
     std::string string = chunkLANG2();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    section::Type< 6 >::ContinuumEnergyAngle::SubSection
-      subsection( section::Type< 6 >::ContinuumEnergyAngle::KalbachMann( begin, end, lineNumber, 9228, 6, 5 ) );
+    SubSection
+      subsection( KalbachMann( begin, end, lineNumber, 9228, 6, 5 ) );
 
     THEN( "it can be printed" ) {
       std::string buffer;
@@ -185,15 +187,15 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::SubSection" ) {
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of section::Type< 6 >::ContinuumEnergyAngle::SubSection"
+  GIVEN( "a valid instance of SubSection"
          "with LANG=14" ) {
 
     std::string string = chunkLANG14();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    section::Type< 6 >::ContinuumEnergyAngle::SubSection
-      subsection( section::Type< 6 >::ContinuumEnergyAngle::Tabulated( 14, begin, end, lineNumber, 9228, 6, 5 ) );
+    SubSection
+      subsection( Tabulated( 14, begin, end, lineNumber, 9228, 6, 5 ) );
 
     THEN( "it can be printed" ) {
       std::string buffer;

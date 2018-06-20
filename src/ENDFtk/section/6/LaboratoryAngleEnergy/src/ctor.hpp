@@ -1,6 +1,7 @@
-LaboratoryAngleEnergy( std::vector< long >&& boundaries,
-                       std::vector< long >&& interpolants,
-                       std::vector< EnergyOutgoingCosineDistribution >&& energies ) :
+LaboratoryAngleEnergy(
+    std::vector< long >&& boundaries,
+    std::vector< long >&& interpolants,
+    std::vector< EnergyOutgoingCosineDistribution >&& energies ) :
   data_( InterpolationRecord( 0.0, 0.0, 0, 0,
                               std::move( boundaries ),
                               std::move( interpolants ) ),

@@ -5,22 +5,24 @@
 
 using namespace njoy::ENDFtk;
 
+// convenience typedefs
+using LegendreCoefficients = 
+section::Type< 6 >::DiscreteTwoBodyScattering::LegendreCoefficients;
+
 std::string chunk();
 std::string invalidLANG();
 std::string invalidSize();
 
-SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering::LegendreCoefficients" ) {
+SCENARIO( "LegendreCoefficients" ) {
 
-  GIVEN( "valid data for a "
-         "section::Type< 6 >::DiscreteTwoBodyScattering::LegendreCoefficients" ) {
+  GIVEN( "valid data for a LegendreCoefficients" ) {
 
     double energy = 1e-5;
     std::vector< double > coefficients = { 1., 2., 3., 4. };
 
-    THEN( "a section::Type< 6 >::DiscreteTwoBodyScattering::LegendreCoefficients can "
+    THEN( "a LegendreCoefficients can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::DiscreteTwoBodyScattering::LegendreCoefficients
-        chunk( energy, std::move( coefficients ) );
+      LegendreCoefficients chunk( energy, std::move( coefficients ) );
 
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
@@ -37,18 +39,16 @@ SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering::LegendreCoefficients" 
     }
   } // GIVEN
 
-  GIVEN( "a string representation of a valid "
-         "section::Type< 6 >::DiscreteTwoBodyScattering::LegendreCoefficients" ) {
+  GIVEN( "a string representation of a valid LegendreCoefficients" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
 
-    THEN( "a section::Type< 6 >::DiscreteTwoBodyScattering::LegendreCoefficients can "
+    THEN( "a LegendreCoefficients can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::DiscreteTwoBodyScattering::LegendreCoefficients
-        chunk(begin, end, lineNumber, 9228, 6, 5 );
+      LegendreCoefficients chunk(begin, end, lineNumber, 9228, 6, 5 );
 
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
@@ -74,7 +74,8 @@ SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering::LegendreCoefficients" 
 
     THEN( "an exception is thrown" ) {
 
-      REQUIRE_THROWS( section::Type< 6 >::DiscreteTwoBodyScattering::LegendreCoefficients( begin, end, lineNumber, 9228, 6, 5 ) );
+      REQUIRE_THROWS( LegendreCoefficients( begin, end, lineNumber,
+                                            9228, 6, 5 ) );
     }
   } // GIVEN
 
@@ -87,17 +88,18 @@ SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering::LegendreCoefficients" 
 
     THEN( "an exception is thrown" ) {
 
-      REQUIRE_THROWS( section::Type< 6 >::DiscreteTwoBodyScattering::LegendreCoefficients( begin, end, lineNumber, 9228, 6, 5 ) );
+      REQUIRE_THROWS( LegendreCoefficients( begin, end, lineNumber,
+                                            9228, 6, 5 ) );
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of section::Type< 6 >::DiscreteTwoBodyScattering::LegendreCoefficients" ) {
+  GIVEN( "a valid instance of LegendreCoefficients" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    section::Type< 6 >::DiscreteTwoBodyScattering::LegendreCoefficients
+    LegendreCoefficients
       chunk(begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {

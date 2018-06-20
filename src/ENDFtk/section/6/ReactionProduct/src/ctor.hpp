@@ -7,11 +7,22 @@ ReactionProduct( Multiplicity&& multiplicity,
                          this->law_ ) );
 }
 
+private:
+template< typename Iterator >
+ReactionProduct( Multiplicity&& multiplicity,
+                 Iterator& begin, const Iterator& end,
+                 long& lineNumber, int MAT, int MF, int MT ) :
+  ReactionProduct(
+    std::move( multiplicity ),
+    Distribution( readDistribution( begin, end, lineNumber, MAT, MF, MT, 
+                                    multiplicity.LAW(),
+                                    lineNumber - multiplicity.NC() + 1 ) ) ) {}
+
+public:
 template< typename Iterator >
 ReactionProduct( Iterator& begin, const Iterator& end,
                  long& lineNumber, int MAT, int MF, int MT ) :
-  multiplicity_( begin, end, lineNumber, MAT, MF, MT ),
-  law_( readDistribution( begin, end, lineNumber, MAT, MF, MT, 
-                          this->multiplicity_.LAW(),
-                          lineNumber - this->multiplicity_.NC() + 1 ) ) {}
+  ReactionProduct(
+      Multiplicity( begin, end, lineNumber, MAT, MF, MT ),
+      begin, end, lineNumber, MAT, MF, MT ) {}
 

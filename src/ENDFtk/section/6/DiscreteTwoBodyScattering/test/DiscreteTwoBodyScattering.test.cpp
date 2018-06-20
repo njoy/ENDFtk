@@ -5,26 +5,32 @@
 
 using namespace njoy::ENDFtk;
 
+// convenience typedefs
+using DiscreteTwoBodyScattering = 
+section::Type< 6 >::DiscreteTwoBodyScattering;
+using SubSection = 
+section::Type< 6 >::DiscreteTwoBodyScattering::SubSection;
+using LegendreCoefficients = 
+section::Type< 6 >::DiscreteTwoBodyScattering::LegendreCoefficients;
+using Tabulated = 
+section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated;
+
 std::string chunk();
 std::string invalidLANG();
 
-SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering" ) {
+SCENARIO( "DiscreteTwoBodyScattering" ) {
 
-  GIVEN( "valid data for a "
-         "section::Type< 6 >::DiscreteTwoBodyScattering" ) {
+  GIVEN( "valid data for a DiscreteTwoBodyScattering" ) {
 
     std::vector< long > boundaries = { 2 };
     std::vector< long > interpolants = { 1 };
-    std::vector< section::Type< 6 >::DiscreteTwoBodyScattering::SubSection > sequence = {
-      section::Type< 6 >::DiscreteTwoBodyScattering::SubSectionVariant(
-        section::Type< 6 >::DiscreteTwoBodyScattering::LegendreCoefficients( 1e-5, { 1., 2., 3., 4. } ) ),
-      section::Type< 6 >::DiscreteTwoBodyScattering::SubSectionVariant(
-        section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated( 2e+7, 12, {1., 2., 3., 4., 5., 6.} ) )
-    };
+    std::vector< SubSection > sequence = {
+      LegendreCoefficients( 1e-5, { 1., 2., 3., 4. } ),
+      Tabulated( 2e+7, 12, {1., 2., 3., 4., 5., 6.} ) };
       
-    THEN( "a section::Type< 6 >::DiscreteTwoBodyScattering can "
+    THEN( "a DiscreteTwoBodyScattering can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::DiscreteTwoBodyScattering
+      DiscreteTwoBodyScattering
         chunk( std::move( boundaries ), std::move( interpolants ),
                std::move( sequence ) );
 
@@ -43,7 +49,8 @@ SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering" ) {
       REQUIRE( 4 == energies[0].NW() );
       REQUIRE( 4 == energies[0].NL() );
 
-      auto subsection1 = std::experimental::get< section::Type< 6 >::DiscreteTwoBodyScattering::LegendreCoefficients >( energies[0] );
+      auto subsection1 =
+          std::experimental::get< LegendreCoefficients >( energies[0] );
       REQUIRE( 0 == subsection1.LANG() );
       REQUIRE( 4 == subsection1.NW() );
       REQUIRE( 4 == subsection1.NL() );
@@ -58,7 +65,7 @@ SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering" ) {
       REQUIRE( 6 == energies[1].NW() );
       REQUIRE( 3 == energies[1].NL() );
 
-      auto subsection2 = std::experimental::get< section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated >( energies[1] );
+      auto subsection2 = std::experimental::get< Tabulated >( energies[1] );
       REQUIRE( 12 == subsection2.LANG() );
       REQUIRE( 6 == subsection2.NW() );
       REQUIRE( 3 == subsection2.NL() );
@@ -76,17 +83,16 @@ SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering" ) {
   } // GIVEN
 
   GIVEN( "a string representation of a valid "
-         "section::Type< 6 >::DiscreteTwoBodyScattering" ) {
+         "DiscreteTwoBodyScattering" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1; 
       
-    THEN( "a section::Type< 6 >::DiscreteTwoBodyScattering can "
+    THEN( "a DiscreteTwoBodyScattering can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::DiscreteTwoBodyScattering
-        chunk( begin, end, lineNumber, 9228, 6, 5 );
+      DiscreteTwoBodyScattering chunk( begin, end, lineNumber, 9228, 6, 5 );
 
       REQUIRE( 2 == chunk.LAW() );
       REQUIRE( 2 == chunk.NE() );
@@ -103,7 +109,8 @@ SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering" ) {
       REQUIRE( 4 == energies[0].NW() );
       REQUIRE( 4 == energies[0].NL() );
 
-      auto subsection1 = std::experimental::get< section::Type< 6 >::DiscreteTwoBodyScattering::LegendreCoefficients >( energies[0] );
+      auto subsection1 =
+          std::experimental::get< LegendreCoefficients >( energies[0] );
       REQUIRE( 0 == subsection1.LANG() );
       REQUIRE( 4 == subsection1.NW() );
       REQUIRE( 4 == subsection1.NL() );
@@ -118,7 +125,7 @@ SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering" ) {
       REQUIRE( 6 == energies[1].NW() );
       REQUIRE( 3 == energies[1].NL() );
 
-      auto subsection2 = std::experimental::get< section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated >( energies[1] );
+      auto subsection2 = std::experimental::get< Tabulated >( energies[1] );
       REQUIRE( 12 == subsection2.LANG() );
       REQUIRE( 6 == subsection2.NW() );
       REQUIRE( 3 == subsection2.NL() );
@@ -135,13 +142,13 @@ SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering" ) {
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of section::Type< 6 >::DiscreteTwoBodyScattering" ) {
+  GIVEN( "a valid instance of DiscreteTwoBodyScattering" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1; 
-    section::Type< 6 >::DiscreteTwoBodyScattering
+    DiscreteTwoBodyScattering
       chunk(begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
@@ -152,7 +159,7 @@ SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering" ) {
     }
   } // GIVEN
 
-  GIVEN( "a string representation of a section::Type< 6 >::DiscreteTwoBodyScattering"
+  GIVEN( "a string representation of a DiscreteTwoBodyScattering"
          " with an invalid LPT" ){
     std::string string = invalidLANG();
     auto begin = string.begin();
@@ -160,7 +167,8 @@ SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering" ) {
     long lineNumber = 1;
 
     THEN( "an exception is thrown upon construction" ){
-      REQUIRE_THROWS( section::Type< 6 >::DiscreteTwoBodyScattering( begin, end, lineNumber, 9228, 6, 5 ) );
+      REQUIRE_THROWS( DiscreteTwoBodyScattering( begin, end, lineNumber,
+                      9228, 6, 5 ) );
     }
   } // GIVEN
 } // SCENARIO

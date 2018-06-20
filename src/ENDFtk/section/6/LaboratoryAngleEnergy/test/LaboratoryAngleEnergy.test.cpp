@@ -5,28 +5,43 @@
 
 using namespace njoy::ENDFtk;
 
+// convenience typedefs
+using LaboratoryAngleEnergy = 
+section::Type< 6 >::LaboratoryAngleEnergy;
+using EnergyOutgoingCosineDistribution = 
+section::Type< 6 >::LaboratoryAngleEnergy::EnergyOutgoingCosineDistribution;
+using CosineOutgoingEnergyDistribution = 
+section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistribution;
+
 std::string chunk();
 
-SCENARIO( "section::Type< 6 >::LaboratoryAngleEnergy" ) {
+SCENARIO( "LaboratoryAngleEnergy" ) {
 
-  GIVEN( "valid data for a "
-         "section::Type< 6 >::LaboratoryAngleEnergy" ) {
+  GIVEN( "valid data for a LaboratoryAngleEnergy" ) {
 
     std::vector< long > boundaries = { 2 };
     std::vector< long > interpolants = { 1 };
-    std::vector< section::Type< 6 >::LaboratoryAngleEnergy::EnergyOutgoingCosineDistribution > energies =
-      { section::Type< 6 >::LaboratoryAngleEnergy::EnergyOutgoingCosineDistribution( 
+    std::vector< EnergyOutgoingCosineDistribution > energies =
+      { EnergyOutgoingCosineDistribution( 
           1e-5, { 2 }, { 4 },
-          { section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistribution( 1.0, { 4 }, { 2 }, { 1e-5, 1.1e+7, 1.147e+7, 3e+7 }, { 0., 2., 4., 6. } ),
-            section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistribution( -1.0, { 3 }, { 2 }, { 1e-5, 1e+6, 3e+7 }, { 6., 4., 2. } ) } ),
-        section::Type< 6 >::LaboratoryAngleEnergy::EnergyOutgoingCosineDistribution( 
+          { CosineOutgoingEnergyDistribution( 1.0, { 4 }, { 2 },
+                                              { 1e-5, 1.1e+7, 1.147e+7, 3e+7 },
+                                              { 0., 2., 4., 6. } ),
+            CosineOutgoingEnergyDistribution( -1.0, { 3 }, { 2 },
+                                              { 1e-5, 1e+6, 3e+7 },
+                                              { 6., 4., 2. } ) } ),
+        EnergyOutgoingCosineDistribution( 
           2e+7, { 2 }, { 4 },
-          { section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistribution( 0.9, { 4 }, { 2 }, { 1e-5, 1.1e+7, 1.147e+7, 3e+7 }, { 1., 3., 5., 7. } ),
-            section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistribution( -0.9, { 3 }, { 2 }, { 1e-5, 1e+6, 3e+7 }, { 5., 3., 1. } ) } )};
+          { CosineOutgoingEnergyDistribution( 0.9, { 4 }, { 2 },
+                                              { 1e-5, 1.1e+7, 1.147e+7, 3e+7 },
+                                              { 1., 3., 5., 7. } ),
+            CosineOutgoingEnergyDistribution( -0.9, { 3 }, { 2 },
+                                              { 1e-5, 1e+6, 3e+7 },
+                                              { 5., 3., 1. } ) } ) };
 
-    THEN( "a section::Type< 6 >::LaboratoryAngleEnergy can "
+    THEN( "a LaboratoryAngleEnergy can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::LaboratoryAngleEnergy
+      LaboratoryAngleEnergy
         chunk( std::move( boundaries ),
                std::move( interpolants ),
                std::move( energies ) );
@@ -138,17 +153,16 @@ SCENARIO( "section::Type< 6 >::LaboratoryAngleEnergy" ) {
     }
   } // GIVEN
 
-  GIVEN( "a string representation of a valid "
-         "section::Type< 6 >::LaboratoryAngleEnergy" ) {
+  GIVEN( "a string representation of a valid LaboratoryAngleEnergy" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1; 
       
-    THEN( "a section::Type< 6 >::LaboratoryAngleEnergy can "
+    THEN( "a LaboratoryAngleEnergy can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::LaboratoryAngleEnergy
+      LaboratoryAngleEnergy
         chunk(begin, end, lineNumber, 9228, 6, 5 );
 
       REQUIRE( 7 == chunk.LAW() );
@@ -258,13 +272,13 @@ SCENARIO( "section::Type< 6 >::LaboratoryAngleEnergy" ) {
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of section::Type< 6 >::LaboratoryAngleEnergy" ) {
+  GIVEN( "a valid instance of LaboratoryAngleEnergy" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1; 
-    section::Type< 6 >::LaboratoryAngleEnergy
+    LaboratoryAngleEnergy
       chunk(begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {

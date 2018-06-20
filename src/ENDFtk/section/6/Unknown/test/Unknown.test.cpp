@@ -5,12 +5,16 @@
 
 using namespace njoy::ENDFtk;
 
-SCENARIO( "section::Type< 6 >::Unknown" ) {
+// convenience typedefs
+using Unknown = 
+section::Type< 6 >::Unknown;
 
-  GIVEN( "a string representation of a valid section::Type< 6 >::Unknown" ) {
+SCENARIO( "Unknown" ) {
 
-    THEN( "a section::Type< 6 >::Unknown can be constructed and members can be tested" ) {
-      section::Type< 6 >::Unknown chunk;
+  GIVEN( "a string representation of a valid Unknown" ) {
+
+    THEN( "a Unknown can be constructed and members can be tested" ) {
+      Unknown chunk;
 
       REQUIRE( 0 == chunk.LAW() );
 
@@ -18,9 +22,9 @@ SCENARIO( "section::Type< 6 >::Unknown" ) {
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of section::Type< 6 >::Unknown" ) {
+  GIVEN( "a valid instance of Unknown" ) {
 
-    section::Type< 6 >::Unknown chunk;
+    Unknown chunk;
 
     THEN( "it does not print anything" ) {
       std::string buffer;

@@ -5,20 +5,24 @@
 
 using namespace njoy::ENDFtk;
 
-SCENARIO( "section::Type< 6 >::NoLawDataGiven" ) {
+// convenience typedefs
+using NoLawDataGiven = 
+section::Type< 6 >::NoLawDataGiven;
 
-  GIVEN( "a string representation of a valid section::Type< 6 >::NoLawDataGiven" ) {
+SCENARIO( "NoLawDataGiven" ) {
 
-    THEN( "a section::Type< 6 >::NoLawDataGiven can be constructed and members can be tested" ) {
-      section::Type< 6 >::NoLawDataGiven chunk;
+  GIVEN( "a string representation of a valid NoLawDataGiven" ) {
+
+    THEN( "a NoLawDataGiven can be constructed and members can be tested" ) {
+      NoLawDataGiven chunk;
 
       REQUIRE( 0 == chunk.NC() );
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of section::Type< 6 >::NoLawDataGiven" ) {
+  GIVEN( "a valid instance of NoLawDataGiven" ) {
 
-    section::Type< 6 >::NoLawDataGiven chunk;
+    NoLawDataGiven chunk;
 
     THEN( "it does not print anything" ) {
       std::string buffer;

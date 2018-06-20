@@ -5,10 +5,14 @@
 
 using namespace njoy::ENDFtk;
 
+// convenience typedefs
+using LegendreCoefficients = 
+section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients;
+
 std::string chunk();
 std::string invalidSize();
 
-SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients" ) {
+SCENARIO( "LegendreCoefficients" ) {
 
   GIVEN( "valid data for a LegendreCoefficients" ) {
 
@@ -23,8 +27,7 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients" ) {
 
     THEN( "a LegendreCoefficients can "
           "be constructed using a list and members can be tested" ) {
-      section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients
-        chunk( energy, nd, na, nep, std::move( list ) );
+      LegendreCoefficients chunk( energy, nd, na, nep, std::move( list ) );
 
       REQUIRE( 1 == chunk.LANG() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
@@ -50,8 +53,7 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients" ) {
 
     THEN( "a LegendreCoefficients can "
           "be constructed using pair arrays and members can be tested" ) {
-      section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients
-        chunk( energy, nd, na, nep, std::move( data  ) );
+      LegendreCoefficients chunk( energy, nd, na, nep, std::move( data  ) );
 
       REQUIRE( 1 == chunk.LANG() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
@@ -85,8 +87,7 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients" ) {
 
     THEN( "a LegendreCoefficients can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients
-        chunk( begin, end, lineNumber, 9228, 6, 5 );
+      LegendreCoefficients chunk( begin, end, lineNumber, 9228, 6, 5 );
 
       REQUIRE( 1 == chunk.LANG() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
@@ -128,9 +129,12 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients" ) {
 
     THEN( "an exception is thrown" ) {
 
-      REQUIRE_THROWS( section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients( energy, nd, na, nep, std::move( wronglist ) ) );
-      REQUIRE_THROWS( section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients( energy, nd, na, nep, std::move( wrongdata1 ) ) );
-      REQUIRE_THROWS( section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients( energy, nd, na, nep, std::move( wrongdata2 ) ) );
+      REQUIRE_THROWS( LegendreCoefficients( energy, nd, na, nep,
+                                            std::move( wronglist ) ) );
+      REQUIRE_THROWS( LegendreCoefficients( energy, nd, na, nep,
+                                            std::move( wrongdata1 ) ) );
+      REQUIRE_THROWS( LegendreCoefficients( energy, nd, na, nep,
+                                            std::move( wrongdata2 ) ) );
     }
   } // GIVEN
 
@@ -143,7 +147,8 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients" ) {
 
     THEN( "an exception is thrown" ) {
 
-      REQUIRE_THROWS( section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients( begin, end, lineNumber, 9228, 6, 5 ) );
+      REQUIRE_THROWS( LegendreCoefficients( begin, end, lineNumber,
+                                            9228, 6, 5 ) );
     }
   } // GIVEN
 
@@ -153,7 +158,7 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients" ) {
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients
+    LegendreCoefficients
       chunk(begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {

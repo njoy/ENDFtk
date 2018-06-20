@@ -5,12 +5,17 @@
 
 using namespace njoy::ENDFtk;
 
-SCENARIO( "section::Type< 6 >::DiscreteTwoBodyRecoils" ) {
+// convenience typedefs
+using DiscreteTwoBodyRecoils = 
+section::Type< 6 >::DiscreteTwoBodyRecoils;
 
-  GIVEN( "a string representation of a valid section::Type< 6 >::DiscreteTwoBodyRecoils" ) {
+SCENARIO( "DiscreteTwoBodyRecoils" ) {
 
-    THEN( "a section::Type< 6 >::DiscreteTwoBodyRecoils can be constructed and members can be tested" ) {
-      section::Type< 6 >::DiscreteTwoBodyRecoils chunk;
+  GIVEN( "a string representation of a valid DiscreteTwoBodyRecoils" ) {
+
+    THEN( "a DiscreteTwoBodyRecoils can be constructed and "
+          "members can be tested" ) {
+      DiscreteTwoBodyRecoils chunk;
 
       REQUIRE( 4 == chunk.LAW() );
 
@@ -18,9 +23,9 @@ SCENARIO( "section::Type< 6 >::DiscreteTwoBodyRecoils" ) {
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of section::Type< 6 >::DiscreteTwoBodyRecoils" ) {
+  GIVEN( "a valid instance of DiscreteTwoBodyRecoils" ) {
 
-    section::Type< 6 >::DiscreteTwoBodyRecoils chunk;
+    DiscreteTwoBodyRecoils chunk;
 
     THEN( "it does not print anything" ) {
       std::string buffer;

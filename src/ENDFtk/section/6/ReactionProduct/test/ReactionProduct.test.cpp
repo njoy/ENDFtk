@@ -5,32 +5,41 @@
 
 using namespace njoy::ENDFtk;
 
+// convenience typedefs
+using ReactionProduct = 
+section::Type< 6 >::ReactionProduct;
+using Multiplicity = 
+section::Type< 6 >::Multiplicity;
+using Distribution = 
+section::Type< 6 >::Distribution;
+using ContinuumEnergyAngle = 
+section::Type< 6 >::ContinuumEnergyAngle;
+using LegendreCoefficients = 
+section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients;
+
 std::string chunk();
 std::string invalidLANG();
 
-SCENARIO( "section::Type< 6 >::ReactionProduct" ) {
+SCENARIO( "ReactionProduct" ) {
 
-  GIVEN( "valid data for a "
-         "section::Type< 6 >::ReactionProduct" ) {
+  GIVEN( "valid data for a ReactionProduct" ) {
 
-    section::Type< 6 >::Multiplicity multiplicity(
+    Multiplicity multiplicity(
       1001., 0.9986234, 0, 1, { 4 }, { 2 },
       { 1e-5, 1.1e+7, 1.147e+7, 2e+7 },
       { 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 } );
-    section::Type< 6 >::Distribution distribution(
-      section::Type< 6 >::ContinuumEnergyAngle(
+    Distribution distribution(
+      ContinuumEnergyAngle(
         1, 2, { 2 }, { 1 },
-        { section::Type< 6 >::ContinuumEnergyAngle::SubSectionVariant(
-            section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients(
+        { LegendreCoefficients(
               1e-5, 0, 1, 4,
-              { 1., 2., 3., 4., 5., 6., 7., 8., 9., 10., 11., 12. } ) ),
-          section::Type< 6 >::ContinuumEnergyAngle::SubSectionVariant(
-            section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients(
-              2e+7, 0, 1, 2, {1., 2., 3., 4., 5., 6.} ) ) } ) );
+              { 1., 2., 3., 4., 5., 6., 7., 8., 9., 10., 11., 12. } ),
+          LegendreCoefficients(
+              2e+7, 0, 1, 2, {1., 2., 3., 4., 5., 6.} ) } ) );
 
-    THEN( "a section::Type< 6 >::ReactionProduct can "
+    THEN( "a ReactionProduct can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::ReactionProduct
+      ReactionProduct
         chunk( std::move( multiplicity ), std::move( distribution ) );
 
       REQUIRE( 1001. == Approx( chunk.ZAP() ) );
@@ -56,11 +65,15 @@ SCENARIO( "section::Type< 6 >::ReactionProduct" ) {
       REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
       REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
       REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-      REQUIRE( 8.45368e-11 == Approx( chunk.multiplicity().multiplicities()[1] ) );
-      REQUIRE( 6.622950e-8 == Approx( chunk.multiplicity().multiplicities()[2] ) );
-      REQUIRE( 2.149790e-1 == Approx( chunk.multiplicity().multiplicities()[3] ) );
+      REQUIRE( 8.45368e-11 ==
+               Approx( chunk.multiplicity().multiplicities()[1] ) );
+      REQUIRE( 6.622950e-8 ==
+               Approx( chunk.multiplicity().multiplicities()[2] ) );
+      REQUIRE( 2.149790e-1 ==
+               Approx( chunk.multiplicity().multiplicities()[3] ) );
 
-      auto law = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle >( chunk.distribution() );
+      auto law =
+         std::experimental::get< ContinuumEnergyAngle >( chunk.distribution() );
 
       REQUIRE( 1 == law.LAW() );
       REQUIRE( 2 == law.LEP() );
@@ -80,7 +93,8 @@ SCENARIO( "section::Type< 6 >::ReactionProduct" ) {
       REQUIRE( 12 == energies[0].NW() );
       REQUIRE( 4 == energies[0].NEP() );
 
-      auto subsection1 = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients >( energies[0] );
+      auto subsection1 =
+          std::experimental::get< LegendreCoefficients >( energies[0] );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 1 == subsection1.NA() );
       REQUIRE( 12 == subsection1.NW() );
@@ -112,7 +126,8 @@ SCENARIO( "section::Type< 6 >::ReactionProduct" ) {
       REQUIRE( 6 == energies[1].NW() );
       REQUIRE( 2 == energies[1].NEP() );
 
-      auto subsection2 = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients >( energies[1] );
+      auto subsection2 =
+          std::experimental::get< LegendreCoefficients >( energies[1] );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 1 == subsection2.NA() );
@@ -134,18 +149,16 @@ SCENARIO( "section::Type< 6 >::ReactionProduct" ) {
     }
   } // GIVEN
 
-  GIVEN( "a string representation of a valid "
-         "section::Type< 6 >::ReactionProduct" ) {
+  GIVEN( "a string representation of a valid ReactionProduct" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1; 
       
-    THEN( "a section::Type< 6 >::ReactionProduct can "
+    THEN( "a ReactionProduct can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::ReactionProduct
-        chunk( begin, end, lineNumber, 9228, 6, 5 );
+      ReactionProduct chunk( begin, end, lineNumber, 9228, 6, 5 );
 
       REQUIRE( 1001. == Approx( chunk.ZAP() ) );
       REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
@@ -170,11 +183,15 @@ SCENARIO( "section::Type< 6 >::ReactionProduct" ) {
       REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
       REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
       REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-      REQUIRE( 8.45368e-11 == Approx( chunk.multiplicity().multiplicities()[1] ) );
-      REQUIRE( 6.622950e-8 == Approx( chunk.multiplicity().multiplicities()[2] ) );
-      REQUIRE( 2.149790e-1 == Approx( chunk.multiplicity().multiplicities()[3] ) );
+      REQUIRE( 8.45368e-11 ==
+               Approx( chunk.multiplicity().multiplicities()[1] ) );
+      REQUIRE( 6.622950e-8 ==
+               Approx( chunk.multiplicity().multiplicities()[2] ) );
+      REQUIRE( 2.149790e-1 ==
+               Approx( chunk.multiplicity().multiplicities()[3] ) );
 
-      auto law = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle >( chunk.distribution() );
+      auto law =
+         std::experimental::get< ContinuumEnergyAngle >( chunk.distribution() );
 
       REQUIRE( 1 == law.LAW() );
       REQUIRE( 2 == law.LEP() );
@@ -194,7 +211,8 @@ SCENARIO( "section::Type< 6 >::ReactionProduct" ) {
       REQUIRE( 12 == energies[0].NW() );
       REQUIRE( 4 == energies[0].NEP() );
 
-      auto subsection1 = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients >( energies[0] );
+      auto subsection1 =
+          std::experimental::get< LegendreCoefficients >( energies[0] );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 1 == subsection1.NA() );
       REQUIRE( 12 == subsection1.NW() );
@@ -226,7 +244,8 @@ SCENARIO( "section::Type< 6 >::ReactionProduct" ) {
       REQUIRE( 6 == energies[1].NW() );
       REQUIRE( 2 == energies[1].NEP() );
 
-      auto subsection2 = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients >( energies[1] );
+      auto subsection2 =
+          std::experimental::get< LegendreCoefficients >( energies[1] );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 1 == subsection2.NA() );
@@ -248,13 +267,13 @@ SCENARIO( "section::Type< 6 >::ReactionProduct" ) {
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of section::Type< 6 >::ReactionProduct" ) {
+  GIVEN( "a valid instance of ReactionProduct" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1; 
-    section::Type< 6 >::ReactionProduct
+    ReactionProduct
       chunk( begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
@@ -265,29 +284,28 @@ SCENARIO( "section::Type< 6 >::ReactionProduct" ) {
     }
   } // GIVEN
 
-  GIVEN( "an inconsistent LAW between the Multicplivity and the Distribution" ){
+  GIVEN( "an inconsistent LAW between the Multiplicity and the Distribution" ){
 
-    section::Type< 6 >::Multiplicity multiplicity(
+    Multiplicity multiplicity(
       1001., 0.9986234, 0, 2, { 4 }, { 2 },
       { 1e-5, 1.1e+7, 1.147e+7, 2e+7 },
       { 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 } );
-    section::Type< 6 >::Distribution distribution(
-      section::Type< 6 >::ContinuumEnergyAngle(
+    Distribution distribution(
+      ContinuumEnergyAngle(
         1, 2, { 2 }, { 1 },
-        { section::Type< 6 >::ContinuumEnergyAngle::SubSectionVariant(
-            section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients(
+        { LegendreCoefficients(
               1e-5, 0, 1, 4,
-              { 1., 2., 3., 4., 5., 6., 7., 8., 9., 10., 11., 12. } ) ),
-          section::Type< 6 >::ContinuumEnergyAngle::SubSectionVariant(
-            section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients(
-              2e+7, 0, 1, 2, {1., 2., 3., 4., 5., 6.} ) ) } ) );
+              { 1., 2., 3., 4., 5., 6., 7., 8., 9., 10., 11., 12. } ),
+          LegendreCoefficients(
+              2e+7, 0, 1, 2, {1., 2., 3., 4., 5., 6.} ) } ) );
 
     THEN( "an exception is thrown upon construction" ){
-      REQUIRE_THROWS( section::Type< 6 >::ReactionProduct( std::move( multiplicity ), std::move( distribution ) ) );
+      REQUIRE_THROWS( ReactionProduct( std::move( multiplicity ),
+                                       std::move( distribution ) ) );
     }
   } // GIVEN
 
-  GIVEN( "a string representation of a section::Type< 6 >::ReactionProduct"
+  GIVEN( "a string representation of a ReactionProduct"
          " with an invalid LAW" ){
     std::string string = invalidLANG();
     auto begin = string.begin();
@@ -295,7 +313,7 @@ SCENARIO( "section::Type< 6 >::ReactionProduct" ) {
     long lineNumber = 1;
 
     THEN( "an exception is thrown upon construction" ){
-      REQUIRE_THROWS( section::Type< 6 >::ReactionProduct( begin, end, lineNumber, 9228, 6, 5 ) );
+      REQUIRE_THROWS( ReactionProduct( begin, end, lineNumber, 9228, 6, 5 ) );
     }
   } // GIVEN
 } // SCENARIO

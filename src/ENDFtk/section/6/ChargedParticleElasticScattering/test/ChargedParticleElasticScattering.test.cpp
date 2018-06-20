@@ -5,28 +5,43 @@
 
 using namespace njoy::ENDFtk;
 
+// convenience typedefs
+using ChargedParticleElasticScattering = 
+section::Type< 6 >::ChargedParticleElasticScattering;
+using SubSectionVariant = 
+section::Type< 6 >::ChargedParticleElasticScattering::SubSectionVariant;
+using SubSection = 
+section::Type< 6 >::ChargedParticleElasticScattering::SubSection;
+using LegendreCoefficients = 
+section::Type< 6 >::ChargedParticleElasticScattering::LegendreCoefficients;
+using NuclearAmplitudeExpansion = 
+section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitudeExpansion;
+using NuclearPlusInterference = 
+section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference;
+
 std::string chunk();
 std::string invalidLTP();
 
-SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering" ) {
+SCENARIO( "ChargedParticleElasticScattering" ) {
 
   GIVEN( "valid data for a "
-         "section::Type< 6 >::ChargedParticleElasticScattering" ) {
+         "ChargedParticleElasticScattering" ) {
 
     double spin = 0.5;
     long lidp = 1;
     std::vector< long > boundaries = { 2 };
     std::vector< long > interpolants = { 1 };
-    std::vector< section::Type< 6 >::ChargedParticleElasticScattering::SubSection > sequence = {
-      section::Type< 6 >::ChargedParticleElasticScattering::SubSectionVariant(
-        section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitudeExpansion( 1e-5, 3, { 1., 2., 3., 4., 5., 6., 7., 8., 9., 10., 11., 12. } ) ),
-      section::Type< 6 >::ChargedParticleElasticScattering::SubSectionVariant(
-        section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference( 2e+7, 15, {1., 2., 3., 4., 5., 6.} ) )
+    std::vector< SubSection > sequence = {
+      SubSectionVariant(
+        NuclearAmplitudeExpansion( 1e-5, 3, { 1., 2., 3., 4., 5., 6.,
+                                              7., 8., 9., 10., 11., 12. } ) ),
+      SubSectionVariant(
+        NuclearPlusInterference( 2e+7, 15, {1., 2., 3., 4., 5., 6.} ) )
     };
 
-    THEN( "a section::Type< 6 >::ChargedParticleElasticScattering can "
+    THEN( "a ChargedParticleElasticScattering can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::ChargedParticleElasticScattering
+      ChargedParticleElasticScattering
         chunk( spin, lidp, std::move( boundaries ),
                std::move( interpolants ), std::move( sequence ) );
 
@@ -47,7 +62,8 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering" ) {
       REQUIRE( 12 == energies[0].NW() );
       REQUIRE( 3 == energies[0].NL() );
 
-      auto subsection1 = std::experimental::get< section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitudeExpansion >( energies[0] );
+      auto subsection1 =
+          std::experimental::get< NuclearAmplitudeExpansion >( energies[0] );
       REQUIRE( 1 == subsection1.LTP() );
       REQUIRE( 12 == subsection1.NW() );
       REQUIRE( 3 == subsection1.NL() );
@@ -62,17 +78,22 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering" ) {
       REQUIRE( 9. == Approx( subsection1.realInterferenceCoefficients()[2] ) );
       REQUIRE( 11. == Approx( subsection1.realInterferenceCoefficients()[3] ) );
       REQUIRE( 4 == subsection1.imaginaryInterferenceCoefficients().size() );
-      REQUIRE( 6. == Approx( subsection1.imaginaryInterferenceCoefficients()[0] ) );
-      REQUIRE( 8. == Approx( subsection1.imaginaryInterferenceCoefficients()[1] ) );
-      REQUIRE( 10. == Approx( subsection1.imaginaryInterferenceCoefficients()[2] ) );
-      REQUIRE( 12. == Approx( subsection1.imaginaryInterferenceCoefficients()[3] ) );
+      REQUIRE( 6. ==
+               Approx( subsection1.imaginaryInterferenceCoefficients()[0] ) );
+      REQUIRE( 8. ==
+               Approx( subsection1.imaginaryInterferenceCoefficients()[1] ) );
+      REQUIRE( 10. ==
+               Approx( subsection1.imaginaryInterferenceCoefficients()[2] ) );
+      REQUIRE( 12. ==
+               Approx( subsection1.imaginaryInterferenceCoefficients()[3] ) );
 
       REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
       REQUIRE( 15 == energies[1].LTP() );
       REQUIRE( 6 == energies[1].NW() );
       REQUIRE( 3 == energies[1].NL() );
 
-      auto subsection2 = std::experimental::get< section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference >( energies[1] );
+      auto subsection2 =
+          std::experimental::get< NuclearPlusInterference >( energies[1] );
       REQUIRE( 15 == subsection2.LTP() );
       REQUIRE( 6 == subsection2.NW() );
       REQUIRE( 3 == subsection2.NL() );
@@ -90,16 +111,16 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering" ) {
   } // GIVEN
 
   GIVEN( "a string representation of a valid "
-         "section::Type< 6 >::ChargedParticleElasticScattering" ) {
+         "ChargedParticleElasticScattering" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1; 
       
-    THEN( "a section::Type< 6 >::ChargedParticleElasticScattering can "
+    THEN( "a ChargedParticleElasticScattering can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::ChargedParticleElasticScattering
+      ChargedParticleElasticScattering
         chunk(begin, end, lineNumber, 9228, 6, 5 );
 
       REQUIRE( 5 == Approx( chunk.LAW() ) );
@@ -119,7 +140,8 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering" ) {
       REQUIRE( 12 == energies[0].NW() );
       REQUIRE( 3 == energies[0].NL() );
 
-      auto subsection1 = std::experimental::get< section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitudeExpansion >( energies[0] );
+      auto subsection1 =
+          std::experimental::get< NuclearAmplitudeExpansion >( energies[0] );
       REQUIRE( 1 == subsection1.LTP() );
       REQUIRE( 12 == subsection1.NW() );
       REQUIRE( 3 == subsection1.NL() );
@@ -134,17 +156,22 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering" ) {
       REQUIRE( 9. == Approx( subsection1.realInterferenceCoefficients()[2] ) );
       REQUIRE( 11. == Approx( subsection1.realInterferenceCoefficients()[3] ) );
       REQUIRE( 4 == subsection1.imaginaryInterferenceCoefficients().size() );
-      REQUIRE( 6. == Approx( subsection1.imaginaryInterferenceCoefficients()[0] ) );
-      REQUIRE( 8. == Approx( subsection1.imaginaryInterferenceCoefficients()[1] ) );
-      REQUIRE( 10. == Approx( subsection1.imaginaryInterferenceCoefficients()[2] ) );
-      REQUIRE( 12. == Approx( subsection1.imaginaryInterferenceCoefficients()[3] ) );
+      REQUIRE( 6. ==
+               Approx( subsection1.imaginaryInterferenceCoefficients()[0] ) );
+      REQUIRE( 8. ==
+               Approx( subsection1.imaginaryInterferenceCoefficients()[1] ) );
+      REQUIRE( 10. ==
+               Approx( subsection1.imaginaryInterferenceCoefficients()[2] ) );
+      REQUIRE( 12. ==
+               Approx( subsection1.imaginaryInterferenceCoefficients()[3] ) );
 
       REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
       REQUIRE( 15 == energies[1].LTP() );
       REQUIRE( 6 == energies[1].NW() );
       REQUIRE( 3 == energies[1].NL() );
 
-      auto subsection2 = std::experimental::get< section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference >( energies[1] );
+      auto subsection2 =
+          std::experimental::get< NuclearPlusInterference >( energies[1] );
       REQUIRE( 15 == subsection2.LTP() );
       REQUIRE( 6 == subsection2.NW() );
       REQUIRE( 3 == subsection2.NL() );
@@ -161,13 +188,13 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering" ) {
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of section::Type< 6 >::ChargedParticleElasticScattering" ) {
+  GIVEN( "a valid instance of ChargedParticleElasticScattering" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1; 
-    section::Type< 6 >::ChargedParticleElasticScattering
+    ChargedParticleElasticScattering
       chunk(begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
@@ -178,15 +205,16 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering" ) {
     }
   } // GIVEN
 
-  GIVEN( "a string representation of a section::Type< 6 >::ChargedParticleElasticScattering"
+  GIVEN( "a string representation of a ChargedParticleElasticScattering"
          " with an invalid LTP" ){
     std::string string = invalidLTP();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
 
-    THEN( "an exception is thrown upon construction" ){
-      REQUIRE_THROWS( section::Type< 6 >::ChargedParticleElasticScattering( begin, end, lineNumber, 9228, 6, 5 ) );
+    THEN( "an exception is thrown upon construction" ) {
+      REQUIRE_THROWS( ChargedParticleElasticScattering( begin, end, lineNumber,
+                                                        9228, 6, 5 ) );
     }
   } // GIVEN
 } // SCENARIO

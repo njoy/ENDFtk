@@ -5,10 +5,14 @@
 
 using namespace njoy::ENDFtk;
 
+// convenience typedefs
+using Tabulated = 
+section::Type< 6 >::ContinuumEnergyAngle::Tabulated;
+
 std::string chunk();
 std::string invalidSize();
 
-SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::Tabulated" ) {
+SCENARIO( "Tabulated" ) {
 
   GIVEN( "valid data for a Tabulated" ) {
 
@@ -27,8 +31,7 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::Tabulated" ) {
 
     THEN( "a Tabulated can "
           "be constructed using a list and members can be tested" ) {
-      section::Type< 6 >::ContinuumEnergyAngle::Tabulated
-        chunk( lang, energy, nd, na, nep, std::move( list ) );
+      Tabulated chunk( lang, energy, nd, na, nep, std::move( list ) );
 
       REQUIRE( 14 == chunk.LANG() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
@@ -59,10 +62,10 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::Tabulated" ) {
 
     THEN( "a Tabulated can "
           "be constructed using vectors and members can be tested" ) {
-      section::Type< 6 >::ContinuumEnergyAngle::Tabulated
-        chunk( lang, energy, nd, na, nep, std::move( energies ),
-               std::move( totalEmissionProbabilities ), std::move( cosines ),
-               std::move( probabilities ) );
+      Tabulated chunk( lang, energy, nd, na, nep, std::move( energies ),
+                       std::move( totalEmissionProbabilities ),
+                       std::move( cosines ),
+                       std::move( probabilities ) );
 
       REQUIRE( 14 == chunk.LANG() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
@@ -102,8 +105,7 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::Tabulated" ) {
 
     THEN( "a Tabulated can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::ContinuumEnergyAngle::Tabulated
-        chunk( lang, begin, end, lineNumber, 9228, 6, 5 );
+      Tabulated chunk( lang, begin, end, lineNumber, 9228, 6, 5 );
 
       REQUIRE( 14 == chunk.LANG() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
@@ -157,10 +159,26 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::Tabulated" ) {
 
     THEN( "an exception is thrown" ) {
 
-      REQUIRE_THROWS( section::Type< 6 >::ContinuumEnergyAngle::Tabulated( lang, energy, nd, na, nep, std::move( wrongEnergies ), std::move( totalEmissionProbabilities ), std::move( cosines ), std::move( probabilities ) ) );
-      REQUIRE_THROWS( section::Type< 6 >::ContinuumEnergyAngle::Tabulated( lang, energy, nd, na, nep, std::move( energies ), std::move( wrongTotalEmissionProbabilities ), std::move( cosines ), std::move( probabilities ) ) );
-      REQUIRE_THROWS( section::Type< 6 >::ContinuumEnergyAngle::Tabulated( lang, energy, nd, na, nep, std::move( energies ), std::move( totalEmissionProbabilities ), std::move( wrongCosines ), std::move( probabilities ) ) );
-      REQUIRE_THROWS( section::Type< 6 >::ContinuumEnergyAngle::Tabulated( lang, energy, nd, na, nep, std::move( energies ), std::move( totalEmissionProbabilities ), std::move( cosines ), std::move( wrongProbabilities ) ) );
+      REQUIRE_THROWS( Tabulated( lang, energy, nd, na, nep,
+                                 std::move( wrongEnergies ),
+                                 std::move( totalEmissionProbabilities ),
+                                 std::move( cosines ),
+                                 std::move( probabilities ) ) );
+      REQUIRE_THROWS( Tabulated( lang, energy, nd, na, nep,
+                                 std::move( energies ),
+                                 std::move( wrongTotalEmissionProbabilities ),
+                                 std::move( cosines ),
+                                 std::move( probabilities ) ) );
+      REQUIRE_THROWS( Tabulated( lang, energy, nd, na, nep,
+                                 std::move( energies ),
+                                 std::move( totalEmissionProbabilities ),
+                                 std::move( wrongCosines ),
+                                 std::move( probabilities ) ) );
+      REQUIRE_THROWS( Tabulated( lang, energy, nd, na, nep,
+                                 std::move( energies ),
+                                 std::move( totalEmissionProbabilities ),
+                                 std::move( cosines ),
+                                 std::move( wrongProbabilities ) ) );
     }
   } // GIVEN
 
@@ -173,7 +191,7 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::Tabulated" ) {
 
     THEN( "an exception is thrown" ) {
 
-      REQUIRE_THROWS( section::Type< 6 >::ContinuumEnergyAngle::Tabulated( 14, begin, end, lineNumber, 9228, 6, 5 ) );
+      REQUIRE_THROWS( Tabulated( 14, begin, end, lineNumber, 9228, 6, 5 ) );
     }
   } // GIVEN
 
@@ -184,7 +202,7 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::Tabulated" ) {
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    section::Type< 6 >::ContinuumEnergyAngle::Tabulated
+    Tabulated
       chunk( lang, begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {

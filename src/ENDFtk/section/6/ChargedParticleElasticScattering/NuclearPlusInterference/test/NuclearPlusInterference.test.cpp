@@ -5,11 +5,15 @@
 
 using namespace njoy::ENDFtk;
 
+// convenience typedefs
+using NuclearPlusInterference = 
+section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference;
+
 std::string chunk();
 std::string invalidLTP();
 std::string invalidSize();
 
-SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference" ) {
+SCENARIO( "NuclearPlusInterference" ) {
 
   GIVEN( "valid data for a NuclearPlusInterference" ) {
 
@@ -21,8 +25,7 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInte
 
     THEN( "a NuclearPlusInterference can "
           "be constructed using a list and members can be tested" ) {
-      section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference
-        chunk( energy, ltp, std::move( values ) );
+      NuclearPlusInterference chunk( energy, ltp, std::move( values ) );
 
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
@@ -43,8 +46,8 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInte
 
     THEN( "a NuclearPlusInterference can "
           "be constructed using mu and p arrays and members can be tested" ) {
-      section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference
-        chunk( energy, ltp, std::move( cosines ), std::move( probabilities ) );
+      NuclearPlusInterference chunk( energy, ltp, std::move( cosines ),
+                                     std::move( probabilities ) );
 
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
@@ -73,8 +76,7 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInte
 
     THEN( "a NuclearPlusInterference can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference
-        chunk( begin, end, lineNumber, 9228, 6, 5 );
+      NuclearPlusInterference chunk( begin, end, lineNumber, 9228, 6, 5 );
 
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
@@ -105,9 +107,14 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInte
 
     THEN( "an exception is thrown" ) {
 
-      REQUIRE_THROWS( section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference( energy, ltp, std::move( wrong ), std::move( probabilities ) ) );
-      REQUIRE_THROWS( section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference( energy, ltp, std::move( cosines ), std::move( wrong ) ) );
-      REQUIRE_THROWS( section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference( energy, ltp, std::move( wrongsize ) ) );
+      REQUIRE_THROWS( NuclearPlusInterference( energy, ltp,
+                                               std::move( wrong ),
+                                               std::move( probabilities ) ) );
+      REQUIRE_THROWS( NuclearPlusInterference( energy, ltp,
+                                               std::move( cosines ),
+                                               std::move( wrong ) ) );
+      REQUIRE_THROWS( NuclearPlusInterference( energy, ltp,
+                                               std::move( wrongsize ) ) );
     }
   } // GIVEN
 
@@ -121,8 +128,11 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInte
 
     THEN( "an exception is thrown" ) {
 
-      REQUIRE_THROWS( section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference( energy, ltp, std::move( values ) ) );
-      REQUIRE_THROWS( section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference( energy, ltp, std::move( cosines ), std::move( probabilities ) ) );
+      REQUIRE_THROWS( NuclearPlusInterference( energy, ltp,
+                                               std::move( values ) ) );
+      REQUIRE_THROWS( NuclearPlusInterference( energy, ltp,
+                                               std::move( cosines ),
+                                               std::move( probabilities ) ) );
     }
   } // GIVEN
 
@@ -135,7 +145,8 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInte
 
     THEN( "an exception is thrown" ) {
 
-      REQUIRE_THROWS( section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference( begin, end, lineNumber, 9228, 6, 5 ) );
+      REQUIRE_THROWS( NuclearPlusInterference( begin, end, lineNumber,
+                                               9228, 6, 5 ) );
     }
   } // GIVEN
 
@@ -148,7 +159,8 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInte
 
     THEN( "an exception is thrown" ) {
 
-      REQUIRE_THROWS( section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference( begin, end, lineNumber, 9228, 6, 5 ) );
+      REQUIRE_THROWS( NuclearPlusInterference( begin, end, lineNumber,
+                                               9228, 6, 5 ) );
     }
   } // GIVEN
 
@@ -158,8 +170,7 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInte
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference
-      chunk(begin, end, lineNumber, 9228, 6, 5 );
+    NuclearPlusInterference chunk(begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
       std::string buffer;

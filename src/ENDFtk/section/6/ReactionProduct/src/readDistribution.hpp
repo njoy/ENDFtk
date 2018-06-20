@@ -23,13 +23,17 @@ readDistribution( Iterator& begin,
       return DefinedElsewhere( LAW );
     }
     case   0 : return Unknown();
-    case   1 : return ContinuumEnergyAngle( begin, end, lineNumber, MAT, MF, MT );
-    case   2 : return DiscreteTwoBodyScattering( begin, end, lineNumber, MAT, MF, MT );
+    case   1 : return ContinuumEnergyAngle(
+                        begin, end, lineNumber, MAT, MF, MT );
+    case   2 : return DiscreteTwoBodyScattering(
+                        begin, end, lineNumber, MAT, MF, MT );
     case   3 : return IsotropicDiscreteEmission();
     case   4 : return DiscreteTwoBodyRecoils();
-    case   5 : return ChargedParticleElasticScattering( begin, end, lineNumber, MAT, MF, MT );
+    case   5 : return ChargedParticleElasticScattering(
+                        begin, end, lineNumber, MAT, MF, MT );
     case   6 : return NBodyPhaseSpace( begin, end, lineNumber, MAT, MF, MT );
-    case   7 : return LaboratoryAngleEnergy( begin, end, lineNumber, MAT, MF, MT );
+    case   7 : return LaboratoryAngleEnergy(
+                        begin, end, lineNumber, MAT, MF, MT );
     default : {
       Log::error( "Encountered illegal LAW value" );
       Log::info( "LAW is negative or equal to a value between 0 and 7" );

@@ -5,20 +5,24 @@
 
 using namespace njoy::ENDFtk;
 
+// convenience typedefs
+using LegendreCoefficients = 
+section::Type< 6 >::ChargedParticleElasticScattering::LegendreCoefficients;
+
 std::string chunk();
 std::string invalidLTP();
 std::string invalidSize();
 
-SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::LegendreCoefficients" ) {
+SCENARIO( "LegendreCoefficients" ) {
 
   GIVEN( "valid data for a LegendreCoefficients" ) {
 
     double energy = 1e-5;
     std::vector< double > values = { 1, 2, 3, 4 };
 
-    THEN( "a LegendreCoefficients can be constructed and members can be tested" ) {
-      section::Type< 6 >::ChargedParticleElasticScattering::LegendreCoefficients
-        chunk( energy, std::move( values ) );
+    THEN( "a LegendreCoefficients can be constructed "
+          "and members can be tested" ) {
+      LegendreCoefficients chunk( energy, std::move( values ) );
 
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
@@ -42,9 +46,9 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::LegendreCoeffic
     auto end = string.end();
     long lineNumber = 1;
 
-    THEN( "a LegendreCoefficients can be constructed and members can be tested" ) {
-      section::Type< 6 >::ChargedParticleElasticScattering::LegendreCoefficients
-        chunk( begin, end, lineNumber, 9228, 6, 5 );
+    THEN( "a LegendreCoefficients can be constructed "
+          "and members can be tested" ) {
+      LegendreCoefficients chunk( begin, end, lineNumber, 9228, 6, 5 );
 
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
@@ -70,7 +74,8 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::LegendreCoeffic
 
     THEN( "an exception is thrown" ) {
 
-      REQUIRE_THROWS( section::Type< 6 >::ChargedParticleElasticScattering::LegendreCoefficients( begin, end, lineNumber, 9228, 6, 5 ) );
+      REQUIRE_THROWS(
+        LegendreCoefficients( begin, end, lineNumber, 9228, 6, 5 ) );
     }
   } // GIVEN
 
@@ -83,18 +88,18 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::LegendreCoeffic
 
     THEN( "an exception is thrown" ) {
 
-      REQUIRE_THROWS( section::Type< 6 >::ChargedParticleElasticScattering::LegendreCoefficients( begin, end, lineNumber, 9228, 6, 5 ) );
+      REQUIRE_THROWS(
+        LegendreCoefficients( begin, end, lineNumber, 9228, 6, 5 ) );
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of section::Type< 6 >::CosineOutgoingEnergyDistribution" ) {
+  GIVEN( "a valid instance of LegendreCoefficients" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    section::Type< 6 >::ChargedParticleElasticScattering::LegendreCoefficients
-      chunk(begin, end, lineNumber, 9228, 6, 5 );
+    LegendreCoefficients chunk(begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
       std::string buffer;

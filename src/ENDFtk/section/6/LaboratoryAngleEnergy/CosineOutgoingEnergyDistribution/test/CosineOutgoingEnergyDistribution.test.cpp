@@ -5,12 +5,15 @@
 
 using namespace njoy::ENDFtk;
 
+// convenience typedefs
+using CosineOutgoingEnergyDistribution = 
+section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistribution;
+
 std::string chunk();
 
-SCENARIO( "section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistribution" ) {
+SCENARIO( "CosineOutgoingEnergyDistribution" ) {
 
-  GIVEN( "valid data for a "
-         "section::Type< 6 >::CosineOutgoingEnergyDistribution" ) {
+  GIVEN( "valid data for a CosineOutgoingEnergyDistribution" ) {
 
     double cosine = 1.0;
     std::vector< long > boundaries = { 4 };
@@ -18,10 +21,11 @@ SCENARIO( "section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistri
     std::vector< double > energies = { 1e-5, 1.1e+7, 1.147e+7, 3e+7 };
     std::vector< double > probabilities = { 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 };
 
-    THEN( "a section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistribution can "
+    THEN( "a CosineOutgoingEnergyDistribution can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistribution
-        chunk( cosine, std::move( boundaries ), std::move( interpolants ), std::move( energies ), std::move( probabilities ) );
+      CosineOutgoingEnergyDistribution
+        chunk( cosine, std::move( boundaries ), std::move( interpolants ),
+               std::move( energies ), std::move( probabilities ) );
 
       REQUIRE( 1. == Approx( chunk.cosine() ) );
 
@@ -47,16 +51,16 @@ SCENARIO( "section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistri
   } // GIVEN
 
   GIVEN( "a string representation of a valid "
-         "section::Type< 6 >::CosineOutgoingEnergyDistribution" ) {
+         "CosineOutgoingEnergyDistribution" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
 
-    THEN( "a section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistribution can "
+    THEN( "a CosineOutgoingEnergyDistribution can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistribution
+      CosineOutgoingEnergyDistribution
         chunk(begin, end, lineNumber, 9228, 6, 5 );
 
       REQUIRE( 1. == Approx( chunk.cosine() ) );
@@ -88,12 +92,17 @@ SCENARIO( "section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistri
     std::vector< long > boundaries = { 2, 4 };
     std::vector< long > interpolants = { 2, 2 };
     std::vector< double > energies = { 1e-5, 1.1e+7, 1.147e+7, 3e+7 };
-    std::vector< double > probabilities = { 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 };
+    std::vector< double > probabilities = { 0., 8.45368e-11,
+                                            6.622950e-8, 2.149790e-1 };
     std::vector< long > wrongsize = { 4 };
 
     THEN( "an exception is thrown" ) {
         
-      REQUIRE_THROWS( section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistribution( cosine, std::move( wrongsize ), std::move( interpolants ), std::move( energies ), std::move( probabilities ) ) );
+      REQUIRE_THROWS(
+        CosineOutgoingEnergyDistribution( cosine, std::move( wrongsize ),
+                                          std::move( interpolants ),
+                                          std::move( energies ),
+                                          std::move( probabilities ) ) );
     }
   }
   
@@ -103,11 +112,16 @@ SCENARIO( "section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistri
     std::vector< long > boundaries = { 2, 4 };
     std::vector< long > interpolants = { 2, 2 };
     std::vector< double > energies = { 1e-5, 1.1e+7, 1.147e+7, 3e+7 };
-    std::vector< double > probabilities = { 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 };
+    std::vector< double > probabilities = { 0., 8.45368e-11,
+                                            6.622950e-8, 2.149790e-1 };
     std::vector< long > wrongsize = { 4 };
 
     THEN( "an exception is thrown" ) {
-      REQUIRE_THROWS( section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistribution( cosine, std::move( boundaries ), std::move( wrongsize ), std::move( energies ), std::move( probabilities ) ) );
+      REQUIRE_THROWS(
+        CosineOutgoingEnergyDistribution( cosine, std::move( boundaries ),
+                                          std::move( wrongsize ),
+                                          std::move( energies ),
+                                          std::move( probabilities ) ) );
     }
   }
   
@@ -117,11 +131,16 @@ SCENARIO( "section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistri
     std::vector< long > boundaries = { 2, 4 };
     std::vector< long > interpolants = { 2, 2 };
     std::vector< double > energies = { 1e-5, 1.1e+7, 1.147e+7, 3e+7 };
-    std::vector< double > probabilities = { 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 };
+    std::vector< double > probabilities = { 0., 8.45368e-11,
+                                            6.622950e-8, 2.149790e-1 };
     std::vector< double > wrongsize = { 1., 2., 3. };
 
     THEN( "an exception is thrown" ) {
-      REQUIRE_THROWS( section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistribution( cosine, std::move( boundaries ), std::move( interpolants ), std::move( wrongsize ), std::move( probabilities ) ) );
+      REQUIRE_THROWS(
+        CosineOutgoingEnergyDistribution( cosine, std::move( boundaries ),
+                                          std::move( interpolants ),
+                                          std::move( wrongsize ),
+                                          std::move( probabilities ) ) );
     }
   }
   
@@ -131,11 +150,16 @@ SCENARIO( "section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistri
     std::vector< long > boundaries = { 2, 4 };
     std::vector< long > interpolants = { 2, 2 };
     std::vector< double > energies = { 1e-5, 1.1e+7, 1.147e+7, 3e+7 };
-    std::vector< double > probabilities = { 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 };
+    std::vector< double > probabilities = { 0., 8.45368e-11,
+                                            6.622950e-8, 2.149790e-1 };
     std::vector< double > wrongsize = { 1., 2., 3. };
 
     THEN( "an exception is thrown" ) {
-      REQUIRE_THROWS( section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistribution( cosine, std::move( boundaries ), std::move( interpolants ), std::move( energies ), std::move( wrongsize ) ) );
+      REQUIRE_THROWS(
+        CosineOutgoingEnergyDistribution( cosine, std::move( boundaries ),
+                                          std::move( interpolants ),
+                                          std::move( energies ),
+                                          std::move( wrongsize ) ) );
     }
   }
   
@@ -145,11 +169,16 @@ SCENARIO( "section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistri
     std::vector< long > boundaries = { 2, 4 };
     std::vector< long > interpolants = { 2, 2 };
     std::vector< double > energies = { 1e-5, 1.1e+7, 1.147e+7, 3e+7 };
-    std::vector< double > probabilities = { 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 };
+    std::vector< double > probabilities = { 0., 8.45368e-11,
+                                            6.622950e-8, 2.149790e-1 };
     std::vector< long > wrongorder = { 4, 2 };
 
     THEN( "an exception is thrown" ) {
-      REQUIRE_THROWS( section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistribution( cosine, std::move( wrongorder ), std::move( interpolants ), std::move( energies ), std::move( probabilities ) ) );
+      REQUIRE_THROWS(
+        CosineOutgoingEnergyDistribution( cosine, std::move( wrongorder ),
+                                          std::move( interpolants ),
+                                          std::move( energies ),
+                                          std::move( probabilities ) ) );
     }
   }
   
@@ -159,11 +188,16 @@ SCENARIO( "section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistri
     std::vector< long > boundaries = { 2, 4 };
     std::vector< long > interpolants = { 2, 2 };
     std::vector< double > energies = { 1e-5, 1.1e+7, 1.147e+7, 3e+7 };
-    std::vector< double > probabilities = { 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 };
+    std::vector< double > probabilities = { 0., 8.45368e-11,
+                                            6.622950e-8, 2.149790e-1 };
     std::vector< double > wrongorder = { 1.1e+7, 1e-5, 1.147e+7, 3e+7 };
 
     THEN( "an exception is thrown" ) {
-      REQUIRE_THROWS( section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistribution( cosine, std::move( boundaries ), std::move( interpolants ), std::move( wrongorder ), std::move( probabilities ) ) );
+      REQUIRE_THROWS(
+        CosineOutgoingEnergyDistribution( cosine, std::move( boundaries ),
+                                          std::move( interpolants ),
+                                          std::move( wrongorder ),
+                                          std::move( probabilities ) ) );
     }
   }
   
@@ -173,21 +207,26 @@ SCENARIO( "section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistri
     std::vector< long > boundaries = { 2, 4 };
     std::vector< long > interpolants = { 2, 2 };
     std::vector< double > energies = { 1e-5, 1.1e+7, 1.147e+7, 3e+7 };
-    std::vector< double > probabilities = { 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 };
+    std::vector< double > probabilities = { 0., 8.45368e-11,
+                                            6.622950e-8, 2.149790e-1 };
     std::vector< long > wrongboundaries = { 2, 3 };
 
     THEN( "an exception is thrown" ) {
-      REQUIRE_THROWS( section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistribution( cosine, std::move( wrongboundaries ), std::move( interpolants ), std::move( energies ), std::move( probabilities ) ) );
+      REQUIRE_THROWS(
+        CosineOutgoingEnergyDistribution( cosine, std::move( wrongboundaries ),
+                                          std::move( interpolants ),
+                                          std::move( energies ),
+                                          std::move( probabilities ) ) );
     }
   }
 
-  GIVEN( "a valid instance of section::Type< 6 >::CosineOutgoingEnergyDistribution" ) {
+  GIVEN( "a valid instance of CosineOutgoingEnergyDistribution" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistribution
+    CosineOutgoingEnergyDistribution
       chunk(begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {

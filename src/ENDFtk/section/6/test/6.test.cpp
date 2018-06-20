@@ -5,6 +5,18 @@
 
 using namespace njoy::ENDFtk;
 
+// convenience typedefs
+using ReactionProduct = 
+section::Type< 6 >::ReactionProduct;
+using Multiplicity = 
+section::Type< 6 >::Multiplicity;
+using Distribution = 
+section::Type< 6 >::Distribution;
+using ContinuumEnergyAngle = 
+section::Type< 6 >::ContinuumEnergyAngle;
+using LegendreCoefficients = 
+section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients;
+
 std::string chunk();
 std::string invalidLAW();
 std::string validSEND();
@@ -19,52 +31,47 @@ SCENARIO( "section::Type< 6 >" ) {
     int jp = 0;
     int lct = 2;
     int mt = 5;
-    std::vector< section::Type< 6 >::ReactionProduct > products = {
-      section::Type< 6 >::ReactionProduct(
+    std::vector< ReactionProduct > products = {
+      ReactionProduct(
         // multiplicity
         { 1001., 0.9986234, 0, 1, { 4 }, { 2 },
           { 1e-5, 1.1e+7, 1.147e+7, 2e+7 },
           { 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 } },
         // distribution
-        { section::Type< 6 >::ContinuumEnergyAngle(
+        { ContinuumEnergyAngle(
             1, 2, { 2 }, { 1 },
-            { section::Type< 6 >::ContinuumEnergyAngle::SubSectionVariant(
-                section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients(
+            { LegendreCoefficients(
                   1e-5, 0, 1, 4,
-                  { 1., 2., 3., 4., 5., 6., 7., 8., 9., 10., 11., 12. } ) ),
-              section::Type< 6 >::ContinuumEnergyAngle::SubSectionVariant(
-                section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients(
-                  2e+7, 0, 1, 2, {1., 2., 3., 4., 5., 6.} ) ) } ) } ),
-      section::Type< 6 >::ReactionProduct( 
+                  { 1., 2., 3., 4., 5., 6., 7., 8., 9., 10., 11., 12. } ),
+              LegendreCoefficients(
+                  2e+7, 0, 1, 2, { 1., 2., 3., 4., 5., 6.} ) } ) } ),
+      ReactionProduct( 
         // multiplicity
         { 1., 1., 0, 1, { 2 }, { 2 },
           { 1.858639e+7, 2.e+7 },
           { 4., 4. } },
         // distribution
-        { section::Type< 6 >::ContinuumEnergyAngle(
-          1, 2, { 2 }, { 22 },
-        { section::Type< 6 >::ContinuumEnergyAngle::SubSectionVariant(
-            section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients(
-              1.858639e+7, 0, 0, 3, { 0., 0., 0.5, 2., 1., 0. } ) ),
-          section::Type< 6 >::ContinuumEnergyAngle::SubSectionVariant(
-            section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients(
-              2e+7, 0, 0, 3, { 0., 0., 0.5, 2., 1., 0. } ) ) } ) } ),
-      section::Type< 6 >::ReactionProduct( 
+        { ContinuumEnergyAngle(
+            1, 2, { 2 }, { 22 },
+            { LegendreCoefficients(
+                  1.858639e+7, 0, 0, 3, { 0., 0., 0.5, 2., 1., 0. } ),
+              LegendreCoefficients(
+                  2e+7, 0, 0, 3, { 0., 0., 0.5, 2., 1., 0. } ) } ) } ),
+      ReactionProduct( 
         // multiplicity
         { 0., 0., 0, 1, { 3 }, { 2 },
           { 1.858639e+7, 1.9e+7, 2.e+7 },
           { 1., 2., 3. } },
         // distribution
-        { section::Type< 6 >::ContinuumEnergyAngle(
+        { ContinuumEnergyAngle(
           1, 2, { 2 }, { 5 },
-        { section::Type< 6 >::ContinuumEnergyAngle::SubSectionVariant(
-            section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients(
-              1.858639e+7, 0, 0, 3, { 0., 0., 1., 1., 2., 0. } ) ),
-          section::Type< 6 >::ContinuumEnergyAngle::SubSectionVariant(
-            section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients(
-              2e+7, 0, 0, 3, { 0., 0., 1., 1., 2., 0. } ) ) } ) } ) };
+          { LegendreCoefficients(
+                 1.858639e+7, 0, 0, 3, { 0., 0., 1., 1., 2., 0. } ),
+            LegendreCoefficients(
+                 2e+7, 0, 0, 3, { 0., 0., 1., 1., 2., 0. } ) } ) } ) };
 
-    THEN( "a section::Type< 6 > can be constructed and members can be tested" ) {
+    THEN( "a section::Type< 6 > can be constructed and "
+          "members can be tested" ) {
       section::Type< 6 > chunk( mt, zaid, awr, jp, lct, std::move( products ) );
 
       REQUIRE( 92235. == Approx( chunk.ZA() ) );
@@ -101,11 +108,16 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 1.147e+7 == Approx( products[0].multiplicity().energies()[2] ) );
       REQUIRE( 2e+7 == Approx( products[0].multiplicity().energies()[3] ) );
       REQUIRE( 0. == Approx( products[0].multiplicity().multiplicities()[0] ) );
-      REQUIRE( 8.45368e-11 == Approx( products[0].multiplicity().multiplicities()[1] ) );
-      REQUIRE( 6.622950e-8 == Approx( products[0].multiplicity().multiplicities()[2] ) );
-      REQUIRE( 2.149790e-1 == Approx( products[0].multiplicity().multiplicities()[3] ) );
+      REQUIRE( 8.45368e-11 ==
+               Approx( products[0].multiplicity().multiplicities()[1] ) );
+      REQUIRE( 6.622950e-8 ==
+               Approx( products[0].multiplicity().multiplicities()[2] ) );
+      REQUIRE( 2.149790e-1 ==
+               Approx( products[0].multiplicity().multiplicities()[3] ) );
 
-      auto law = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle >( products[0].distribution() );
+      auto law =
+          std::experimental::get< ContinuumEnergyAngle >(
+              products[0].distribution() );
 
       REQUIRE( 1 == law.LAW() );
       REQUIRE( 2 == law.LEP() );
@@ -125,7 +137,8 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 12 == energies[0].NW() );
       REQUIRE( 4 == energies[0].NEP() );
 
-      auto subsection1 = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients >( energies[0] );
+      auto subsection1 =
+          std::experimental::get< LegendreCoefficients >( energies[0] );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 1 == subsection1.NA() );
       REQUIRE( 12 == subsection1.NW() );
@@ -157,7 +170,8 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 6 == energies[1].NW() );
       REQUIRE( 2 == energies[1].NEP() );
 
-      auto subsection2 = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients >( energies[1] );
+      auto subsection2 =
+          std::experimental::get< LegendreCoefficients >( energies[1] );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 1 == subsection2.NA() );
@@ -199,7 +213,9 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 4. == Approx( products[1].multiplicity().multiplicities()[0] ) );
       REQUIRE( 4. == Approx( products[1].multiplicity().multiplicities()[1] ) );
 
-      law = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle >( products[1].distribution() );
+      law =
+          std::experimental::get< ContinuumEnergyAngle >(
+              products[1].distribution() );
 
       REQUIRE( 1 == law.LAW() );
       REQUIRE( 2 == law.LEP() );
@@ -219,7 +235,8 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 6 == energies[0].NW() );
       REQUIRE( 3 == energies[0].NEP() );
 
-      subsection1 = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients >( energies[0] );
+      subsection1 =
+          std::experimental::get< LegendreCoefficients >( energies[0] );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 0 == subsection1.NA() );
       REQUIRE( 6 == subsection1.NW() );
@@ -244,7 +261,8 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 6 == energies[1].NW() );
       REQUIRE( 3 == energies[1].NEP() );
 
-      subsection2 = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients >( energies[1] );
+      subsection2 =
+          std::experimental::get< LegendreCoefficients >( energies[1] );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 0 == subsection2.NA() );
@@ -282,14 +300,17 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 3 == products[2].multiplicity().boundaries()[0] );
       REQUIRE( 3 == products[2].multiplicity().energies().size() );
       REQUIRE( 3 == products[2].multiplicity().multiplicities().size() );
-      REQUIRE( 1.858639e+7 == Approx( products[2].multiplicity().energies()[0] ) );
+      REQUIRE( 1.858639e+7 ==
+               Approx( products[2].multiplicity().energies()[0] ) );
       REQUIRE( 1.9e+7 == Approx( products[2].multiplicity().energies()[1] ) );
       REQUIRE( 2e+7 == Approx( products[2].multiplicity().energies()[2] ) );
       REQUIRE( 1. == Approx( products[2].multiplicity().multiplicities()[0] ) );
       REQUIRE( 2. == Approx( products[2].multiplicity().multiplicities()[1] ) );
       REQUIRE( 3. == Approx( products[2].multiplicity().multiplicities()[2] ) );
 
-      law = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle >( products[2].distribution() );
+      law =
+          std::experimental::get< ContinuumEnergyAngle >(
+              products[2].distribution() );
 
       REQUIRE( 1 == law.LAW() );
       REQUIRE( 2 == law.LEP() );
@@ -309,7 +330,8 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 6 == energies[0].NW() );
       REQUIRE( 3 == energies[0].NEP() );
 
-      subsection1 = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients >( energies[0] );
+      subsection1 =
+          std::experimental::get< LegendreCoefficients >( energies[0] );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 0 == subsection1.NA() );
       REQUIRE( 6 == subsection1.NW() );
@@ -334,7 +356,8 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 6 == energies[1].NW() );
       REQUIRE( 3 == energies[1].NEP() );
 
-      subsection2 = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients >( energies[1] );
+      subsection2 =
+          std::experimental::get< LegendreCoefficients >( energies[1] );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 0 == subsection2.NA() );
@@ -366,7 +389,8 @@ SCENARIO( "section::Type< 6 >" ) {
       long lineNumber = 1; 
       HeadRecord head( begin, end, lineNumber );
       
-      THEN( "a section::Type< 6 > can be constructed and members can be tested" ) {
+      THEN( "a section::Type< 6 > can be constructed and "
+            "members can be tested" ) {
         section::Type< 6 > chunk( head, begin, end, lineNumber, 9228 );
 
         REQUIRE( 92235. == Approx( chunk.ZA() ) );
@@ -400,14 +424,21 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 4 == products[0].multiplicity().multiplicities().size() );
         REQUIRE( 1e-5 == Approx( products[0].multiplicity().energies()[0] ) );
         REQUIRE( 1.1e+7 == Approx( products[0].multiplicity().energies()[1] ) );
-        REQUIRE( 1.147e+7 == Approx( products[0].multiplicity().energies()[2] ) );
+        REQUIRE( 1.147e+7 ==
+                 Approx( products[0].multiplicity().energies()[2] ) );
         REQUIRE( 2e+7 == Approx( products[0].multiplicity().energies()[3] ) );
-        REQUIRE( 0. == Approx( products[0].multiplicity().multiplicities()[0] ) );
-        REQUIRE( 8.45368e-11 == Approx( products[0].multiplicity().multiplicities()[1] ) );
-        REQUIRE( 6.622950e-8 == Approx( products[0].multiplicity().multiplicities()[2] ) );
-        REQUIRE( 2.149790e-1 == Approx( products[0].multiplicity().multiplicities()[3] ) );
+        REQUIRE( 0. ==
+                 Approx( products[0].multiplicity().multiplicities()[0] ) );
+        REQUIRE( 8.45368e-11 ==
+                 Approx( products[0].multiplicity().multiplicities()[1] ) );
+        REQUIRE( 6.622950e-8 ==
+                 Approx( products[0].multiplicity().multiplicities()[2] ) );
+        REQUIRE( 2.149790e-1 ==
+                 Approx( products[0].multiplicity().multiplicities()[3] ) );
 
-        auto law = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle >( products[0].distribution() );
+        auto law =
+            std::experimental::get< ContinuumEnergyAngle >(
+                products[0].distribution() );
 
         REQUIRE( 1 == law.LAW() );
         REQUIRE( 2 == law.LEP() );
@@ -427,7 +458,8 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 12 == energies[0].NW() );
         REQUIRE( 4 == energies[0].NEP() );
 
-        auto subsection1 = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients >( energies[0] );
+        auto subsection1 =
+            std::experimental::get< LegendreCoefficients >( energies[0] );
         REQUIRE( 0 == subsection1.ND() );
         REQUIRE( 1 == subsection1.NA() );
         REQUIRE( 12 == subsection1.NW() );
@@ -446,7 +478,8 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 9. == Approx( subsection1.coefficients()[2][1] ) );
         REQUIRE( 11. == Approx( subsection1.coefficients()[3][0] ) );
         REQUIRE( 12. == Approx( subsection1.coefficients()[3][1] ) );
-        REQUIRE( 4 == Approx( subsection1.totalEmissionProbabilities().size() ) );
+        REQUIRE( 4 ==
+                 Approx( subsection1.totalEmissionProbabilities().size() ) );
         REQUIRE( 2. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
         REQUIRE( 5. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
         REQUIRE( 8. == Approx( subsection1.totalEmissionProbabilities()[2] ) );
@@ -459,7 +492,8 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 6 == energies[1].NW() );
         REQUIRE( 2 == energies[1].NEP() );
 
-        auto subsection2 = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients >( energies[1] );
+        auto subsection2 =
+            std::experimental::get< LegendreCoefficients >( energies[1] );
         REQUIRE( 1 == subsection2.LANG() );
         REQUIRE( 0 == subsection2.ND() );
         REQUIRE( 1 == subsection2.NA() );
@@ -473,7 +507,8 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 3. == Approx( subsection2.coefficients()[0][1] ) );
         REQUIRE( 5. == Approx( subsection2.coefficients()[1][0] ) );
         REQUIRE( 6. == Approx( subsection2.coefficients()[1][1] ) );
-        REQUIRE( 2 == Approx( subsection2.totalEmissionProbabilities().size() ) );
+        REQUIRE( 2 ==
+                 Approx( subsection2.totalEmissionProbabilities().size() ) );
         REQUIRE( 2. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
         REQUIRE( 5. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
 
@@ -496,12 +531,17 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 2 == products[1].multiplicity().boundaries()[0] );
         REQUIRE( 2 == products[1].multiplicity().energies().size() );
         REQUIRE( 2 == products[1].multiplicity().multiplicities().size() );
-        REQUIRE( 1.858639e+7 == Approx( products[1].multiplicity().energies()[0] ) );
+        REQUIRE( 1.858639e+7 ==
+                 Approx( products[1].multiplicity().energies()[0] ) );
         REQUIRE( 2e+7 == Approx( products[1].multiplicity().energies()[1] ) );
-        REQUIRE( 4. == Approx( products[1].multiplicity().multiplicities()[0] ) );
-        REQUIRE( 4. == Approx( products[1].multiplicity().multiplicities()[1] ) );
+        REQUIRE( 4. ==
+                 Approx( products[1].multiplicity().multiplicities()[0] ) );
+        REQUIRE( 4. ==
+                 Approx( products[1].multiplicity().multiplicities()[1] ) );
 
-        law = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle >( products[1].distribution() );
+        law =
+            std::experimental::get< ContinuumEnergyAngle >(
+                products[1].distribution() );
 
         REQUIRE( 1 == law.LAW() );
         REQUIRE( 2 == law.LEP() );
@@ -521,7 +561,8 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 6 == energies[0].NW() );
         REQUIRE( 3 == energies[0].NEP() );
 
-        subsection1 = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients >( energies[0] );
+        subsection1 =
+            std::experimental::get< LegendreCoefficients >( energies[0] );
         REQUIRE( 0 == subsection1.ND() );
         REQUIRE( 0 == subsection1.NA() );
         REQUIRE( 6 == subsection1.NW() );
@@ -534,7 +575,8 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 0. == Approx( subsection1.coefficients()[0][0] ) );
         REQUIRE( 2. == Approx( subsection1.coefficients()[1][0] ) );
         REQUIRE( 0. == Approx( subsection1.coefficients()[2][0] ) );
-        REQUIRE( 3 == Approx( subsection1.totalEmissionProbabilities().size() ) );
+        REQUIRE( 3 ==
+                 Approx( subsection1.totalEmissionProbabilities().size() ) );
         REQUIRE( 0. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
         REQUIRE( 2. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
         REQUIRE( 0. == Approx( subsection1.totalEmissionProbabilities()[2] ) );
@@ -546,7 +588,8 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 6 == energies[1].NW() );
         REQUIRE( 3 == energies[1].NEP() );
 
-        subsection2 = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients >( energies[1] );
+        subsection2 =
+            std::experimental::get< LegendreCoefficients >( energies[1] );
         REQUIRE( 1 == subsection2.LANG() );
         REQUIRE( 0 == subsection2.ND() );
         REQUIRE( 0 == subsection2.NA() );
@@ -560,7 +603,8 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 0. == Approx( subsection2.coefficients()[0][0] ) );
         REQUIRE( 2. == Approx( subsection2.coefficients()[1][0] ) );
         REQUIRE( 0. == Approx( subsection2.coefficients()[2][0] ) );
-        REQUIRE( 3 == Approx( subsection2.totalEmissionProbabilities().size() ) );
+        REQUIRE( 3 ==
+                 Approx( subsection2.totalEmissionProbabilities().size() ) );
         REQUIRE( 0. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
         REQUIRE( 2. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
         REQUIRE( 0. == Approx( subsection2.totalEmissionProbabilities()[2] ) );
@@ -584,14 +628,20 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 3 == products[2].multiplicity().boundaries()[0] );
         REQUIRE( 3 == products[2].multiplicity().energies().size() );
         REQUIRE( 3 == products[2].multiplicity().multiplicities().size() );
-        REQUIRE( 1.858639e+7 == Approx( products[2].multiplicity().energies()[0] ) );
+        REQUIRE( 1.858639e+7 ==
+                 Approx( products[2].multiplicity().energies()[0] ) );
         REQUIRE( 1.9e+7 == Approx( products[2].multiplicity().energies()[1] ) );
         REQUIRE( 2e+7 == Approx( products[2].multiplicity().energies()[2] ) );
-        REQUIRE( 1. == Approx( products[2].multiplicity().multiplicities()[0] ) );
-        REQUIRE( 2. == Approx( products[2].multiplicity().multiplicities()[1] ) );
-        REQUIRE( 3. == Approx( products[2].multiplicity().multiplicities()[2] ) );
+        REQUIRE( 1. ==
+                 Approx( products[2].multiplicity().multiplicities()[0] ) );
+        REQUIRE( 2. ==
+                 Approx( products[2].multiplicity().multiplicities()[1] ) );
+        REQUIRE( 3. ==
+                 Approx( products[2].multiplicity().multiplicities()[2] ) );
 
-        law = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle >( products[2].distribution() );
+        law =
+            std::experimental::get< ContinuumEnergyAngle >(
+                products[2].distribution() );
 
         REQUIRE( 1 == law.LAW() );
         REQUIRE( 2 == law.LEP() );
@@ -611,7 +661,8 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 6 == energies[0].NW() );
         REQUIRE( 3 == energies[0].NEP() );
 
-        subsection1 = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients >( energies[0] );
+        subsection1 =
+            std::experimental::get< LegendreCoefficients >( energies[0] );
         REQUIRE( 0 == subsection1.ND() );
         REQUIRE( 0 == subsection1.NA() );
         REQUIRE( 6 == subsection1.NW() );
@@ -624,7 +675,8 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 0. == Approx( subsection1.coefficients()[0][0] ) );
         REQUIRE( 1. == Approx( subsection1.coefficients()[1][0] ) );
         REQUIRE( 0. == Approx( subsection1.coefficients()[2][0] ) );
-        REQUIRE( 3 == Approx( subsection1.totalEmissionProbabilities().size() ) );
+        REQUIRE( 3 ==
+                 Approx( subsection1.totalEmissionProbabilities().size() ) );
         REQUIRE( 0. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
         REQUIRE( 1. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
         REQUIRE( 0. == Approx( subsection1.totalEmissionProbabilities()[2] ) );
@@ -636,7 +688,8 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 6 == energies[1].NW() );
         REQUIRE( 3 == energies[1].NEP() );
 
-        subsection2 = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients >( energies[1] );
+        subsection2 =
+            std::experimental::get< LegendreCoefficients >( energies[1] );
         REQUIRE( 1 == subsection2.LANG() );
         REQUIRE( 0 == subsection2.ND() );
         REQUIRE( 0 == subsection2.NA() );
@@ -650,7 +703,8 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 0. == Approx( subsection2.coefficients()[0][0] ) );
         REQUIRE( 1. == Approx( subsection2.coefficients()[1][0] ) );
         REQUIRE( 0. == Approx( subsection2.coefficients()[2][0] ) );
-        REQUIRE( 3 == Approx( subsection2.totalEmissionProbabilities().size() ) );
+        REQUIRE( 3 ==
+                 Approx( subsection2.totalEmissionProbabilities().size() ) );
         REQUIRE( 0. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
         REQUIRE( 1. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
         REQUIRE( 0. == Approx( subsection2.totalEmissionProbabilities()[2] ) );
@@ -703,14 +757,21 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 4 == products[0].multiplicity().multiplicities().size() );
         REQUIRE( 1e-5 == Approx( products[0].multiplicity().energies()[0] ) );
         REQUIRE( 1.1e+7 == Approx( products[0].multiplicity().energies()[1] ) );
-        REQUIRE( 1.147e+7 == Approx( products[0].multiplicity().energies()[2] ) );
+        REQUIRE( 1.147e+7 ==
+                 Approx( products[0].multiplicity().energies()[2] ) );
         REQUIRE( 2e+7 == Approx( products[0].multiplicity().energies()[3] ) );
-        REQUIRE( 0. == Approx( products[0].multiplicity().multiplicities()[0] ) );
-        REQUIRE( 8.45368e-11 == Approx( products[0].multiplicity().multiplicities()[1] ) );
-        REQUIRE( 6.622950e-8 == Approx( products[0].multiplicity().multiplicities()[2] ) );
-        REQUIRE( 2.149790e-1 == Approx( products[0].multiplicity().multiplicities()[3] ) );
+        REQUIRE( 0. ==
+                 Approx( products[0].multiplicity().multiplicities()[0] ) );
+        REQUIRE( 8.45368e-11 ==
+                 Approx( products[0].multiplicity().multiplicities()[1] ) );
+        REQUIRE( 6.622950e-8 ==
+                 Approx( products[0].multiplicity().multiplicities()[2] ) );
+        REQUIRE( 2.149790e-1 ==
+                 Approx( products[0].multiplicity().multiplicities()[3] ) );
 
-        auto law = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle >( products[0].distribution() );
+        auto law =
+            std::experimental::get< ContinuumEnergyAngle >(
+                products[0].distribution() );
 
         REQUIRE( 1 == law.LAW() );
         REQUIRE( 2 == law.LEP() );
@@ -730,7 +791,8 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 12 == energies[0].NW() );
         REQUIRE( 4 == energies[0].NEP() );
 
-        auto subsection1 = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients >( energies[0] );
+        auto subsection1 =
+            std::experimental::get< LegendreCoefficients >( energies[0] );
         REQUIRE( 0 == subsection1.ND() );
         REQUIRE( 1 == subsection1.NA() );
         REQUIRE( 12 == subsection1.NW() );
@@ -749,7 +811,8 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 9. == Approx( subsection1.coefficients()[2][1] ) );
         REQUIRE( 11. == Approx( subsection1.coefficients()[3][0] ) );
         REQUIRE( 12. == Approx( subsection1.coefficients()[3][1] ) );
-        REQUIRE( 4 == Approx( subsection1.totalEmissionProbabilities().size() ) );
+        REQUIRE( 4 ==
+                 Approx( subsection1.totalEmissionProbabilities().size() ) );
         REQUIRE( 2. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
         REQUIRE( 5. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
         REQUIRE( 8. == Approx( subsection1.totalEmissionProbabilities()[2] ) );
@@ -762,7 +825,8 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 6 == energies[1].NW() );
         REQUIRE( 2 == energies[1].NEP() );
 
-        auto subsection2 = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients >( energies[1] );
+        auto subsection2 =
+            std::experimental::get< LegendreCoefficients >( energies[1] );
         REQUIRE( 1 == subsection2.LANG() );
         REQUIRE( 0 == subsection2.ND() );
         REQUIRE( 1 == subsection2.NA() );
@@ -776,7 +840,8 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 3. == Approx( subsection2.coefficients()[0][1] ) );
         REQUIRE( 5. == Approx( subsection2.coefficients()[1][0] ) );
         REQUIRE( 6. == Approx( subsection2.coefficients()[1][1] ) );
-        REQUIRE( 2 == Approx( subsection2.totalEmissionProbabilities().size() ) );
+        REQUIRE( 2 ==
+                 Approx( subsection2.totalEmissionProbabilities().size() ) );
         REQUIRE( 2. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
         REQUIRE( 5. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
 
@@ -799,12 +864,17 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 2 == products[1].multiplicity().boundaries()[0] );
         REQUIRE( 2 == products[1].multiplicity().energies().size() );
         REQUIRE( 2 == products[1].multiplicity().multiplicities().size() );
-        REQUIRE( 1.858639e+7 == Approx( products[1].multiplicity().energies()[0] ) );
+        REQUIRE( 1.858639e+7 ==
+                 Approx( products[1].multiplicity().energies()[0] ) );
         REQUIRE( 2e+7 == Approx( products[1].multiplicity().energies()[1] ) );
-        REQUIRE( 4. == Approx( products[1].multiplicity().multiplicities()[0] ) );
-        REQUIRE( 4. == Approx( products[1].multiplicity().multiplicities()[1] ) );
+        REQUIRE( 4. ==
+                 Approx( products[1].multiplicity().multiplicities()[0] ) );
+        REQUIRE( 4. ==
+                 Approx( products[1].multiplicity().multiplicities()[1] ) );
 
-        law = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle >( products[1].distribution() );
+        law =
+            std::experimental::get< ContinuumEnergyAngle >(
+                products[1].distribution() );
 
         REQUIRE( 1 == law.LAW() );
         REQUIRE( 2 == law.LEP() );
@@ -824,7 +894,8 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 6 == energies[0].NW() );
         REQUIRE( 3 == energies[0].NEP() );
 
-        subsection1 = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients >( energies[0] );
+        subsection1 =
+            std::experimental::get< LegendreCoefficients >( energies[0] );
         REQUIRE( 0 == subsection1.ND() );
         REQUIRE( 0 == subsection1.NA() );
         REQUIRE( 6 == subsection1.NW() );
@@ -837,7 +908,8 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 0. == Approx( subsection1.coefficients()[0][0] ) );
         REQUIRE( 2. == Approx( subsection1.coefficients()[1][0] ) );
         REQUIRE( 0. == Approx( subsection1.coefficients()[2][0] ) );
-        REQUIRE( 3 == Approx( subsection1.totalEmissionProbabilities().size() ) );
+        REQUIRE( 3 ==
+                 Approx( subsection1.totalEmissionProbabilities().size() ) );
         REQUIRE( 0. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
         REQUIRE( 2. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
         REQUIRE( 0. == Approx( subsection1.totalEmissionProbabilities()[2] ) );
@@ -849,7 +921,8 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 6 == energies[1].NW() );
         REQUIRE( 3 == energies[1].NEP() );
 
-        subsection2 = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients >( energies[1] );
+        subsection2 =
+            std::experimental::get< LegendreCoefficients >( energies[1] );
         REQUIRE( 1 == subsection2.LANG() );
         REQUIRE( 0 == subsection2.ND() );
         REQUIRE( 0 == subsection2.NA() );
@@ -863,7 +936,8 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 0. == Approx( subsection2.coefficients()[0][0] ) );
         REQUIRE( 2. == Approx( subsection2.coefficients()[1][0] ) );
         REQUIRE( 0. == Approx( subsection2.coefficients()[2][0] ) );
-        REQUIRE( 3 == Approx( subsection2.totalEmissionProbabilities().size() ) );
+        REQUIRE( 3 ==
+                 Approx( subsection2.totalEmissionProbabilities().size() ) );
         REQUIRE( 0. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
         REQUIRE( 2. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
         REQUIRE( 0. == Approx( subsection2.totalEmissionProbabilities()[2] ) );
@@ -887,14 +961,20 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 3 == products[2].multiplicity().boundaries()[0] );
         REQUIRE( 3 == products[2].multiplicity().energies().size() );
         REQUIRE( 3 == products[2].multiplicity().multiplicities().size() );
-        REQUIRE( 1.858639e+7 == Approx( products[2].multiplicity().energies()[0] ) );
+        REQUIRE( 1.858639e+7 ==
+                 Approx( products[2].multiplicity().energies()[0] ) );
         REQUIRE( 1.9e+7 == Approx( products[2].multiplicity().energies()[1] ) );
         REQUIRE( 2e+7 == Approx( products[2].multiplicity().energies()[2] ) );
-        REQUIRE( 1. == Approx( products[2].multiplicity().multiplicities()[0] ) );
-        REQUIRE( 2. == Approx( products[2].multiplicity().multiplicities()[1] ) );
-        REQUIRE( 3. == Approx( products[2].multiplicity().multiplicities()[2] ) );
+        REQUIRE( 1. ==
+                 Approx( products[2].multiplicity().multiplicities()[0] ) );
+        REQUIRE( 2. ==
+                 Approx( products[2].multiplicity().multiplicities()[1] ) );
+        REQUIRE( 3. ==
+                 Approx( products[2].multiplicity().multiplicities()[2] ) );
 
-        law = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle >( products[2].distribution() );
+        law =
+            std::experimental::get< ContinuumEnergyAngle >(
+                products[2].distribution() );
 
         REQUIRE( 1 == law.LAW() );
         REQUIRE( 2 == law.LEP() );
@@ -914,7 +994,8 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 6 == energies[0].NW() );
         REQUIRE( 3 == energies[0].NEP() );
 
-        subsection1 = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients >( energies[0] );
+        subsection1 =
+            std::experimental::get< LegendreCoefficients >( energies[0] );
         REQUIRE( 0 == subsection1.ND() );
         REQUIRE( 0 == subsection1.NA() );
         REQUIRE( 6 == subsection1.NW() );
@@ -927,7 +1008,8 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 0. == Approx( subsection1.coefficients()[0][0] ) );
         REQUIRE( 1. == Approx( subsection1.coefficients()[1][0] ) );
         REQUIRE( 0. == Approx( subsection1.coefficients()[2][0] ) );
-        REQUIRE( 3 == Approx( subsection1.totalEmissionProbabilities().size() ) );
+        REQUIRE( 3 ==
+                 Approx( subsection1.totalEmissionProbabilities().size() ) );
         REQUIRE( 0. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
         REQUIRE( 1. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
         REQUIRE( 0. == Approx( subsection1.totalEmissionProbabilities()[2] ) );
@@ -939,7 +1021,8 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 6 == energies[1].NW() );
         REQUIRE( 3 == energies[1].NEP() );
 
-        subsection2 = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients >( energies[1] );
+        subsection2 =
+            std::experimental::get< LegendreCoefficients >( energies[1] );
         REQUIRE( 1 == subsection2.LANG() );
         REQUIRE( 0 == subsection2.ND() );
         REQUIRE( 0 == subsection2.NA() );
@@ -953,7 +1036,8 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 0. == Approx( subsection2.coefficients()[0][0] ) );
         REQUIRE( 1. == Approx( subsection2.coefficients()[1][0] ) );
         REQUIRE( 0. == Approx( subsection2.coefficients()[2][0] ) );
-        REQUIRE( 3 == Approx( subsection2.totalEmissionProbabilities().size() ) );
+        REQUIRE( 3 ==
+                 Approx( subsection2.totalEmissionProbabilities().size() ) );
         REQUIRE( 0. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
         REQUIRE( 1. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
         REQUIRE( 0. == Approx( subsection2.totalEmissionProbabilities()[2] ) );

@@ -5,17 +5,21 @@
 
 using namespace njoy::ENDFtk;
 
+// convenience typedefs
+using NBodyPhaseSpace = 
+section::Type< 6 >::NBodyPhaseSpace;
+
 std::string chunk();
 
-SCENARIO( "section::Type< 6 >::NBodyPhaseSpace" ) {
+SCENARIO( "NBodyPhaseSpace" ) {
 
-  GIVEN( "valid data for a section::Type< 6 >::NBodyPhaseSpace" ) {
+  GIVEN( "valid data for a NBodyPhaseSpace" ) {
 
     double APSX = 5.;
     long NPSX = 4;
       
-    THEN( "a section::Type< 6 >::NBodyPhaseSpace can be constructed and members can be tested" ) {
-      section::Type< 6 >::NBodyPhaseSpace chunk( APSX, NPSX );
+    THEN( "a NBodyPhaseSpace can be constructed and members can be tested" ) {
+      NBodyPhaseSpace chunk( APSX, NPSX );
 
       REQUIRE( 6 == chunk.LAW() );
 
@@ -26,15 +30,15 @@ SCENARIO( "section::Type< 6 >::NBodyPhaseSpace" ) {
     }
   } // GIVEN
 
-  GIVEN( "a string representation of a valid section::Type< 6 >::NBodyPhaseSpace" ) {
+  GIVEN( "a string representation of a valid NBodyPhaseSpace" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1; 
       
-    THEN( "a section::Type< 6 >::NBodyPhaseSpace can be constructed and members can be tested" ) {
-      section::Type< 6 >::NBodyPhaseSpace chunk( begin, end, lineNumber, 9228, 6, 5 );
+    THEN( "a NBodyPhaseSpace can be constructed and members can be tested" ) {
+      NBodyPhaseSpace chunk( begin, end, lineNumber, 9228, 6, 5 );
 
       REQUIRE( 6 == chunk.LAW() );
 
@@ -45,13 +49,13 @@ SCENARIO( "section::Type< 6 >::NBodyPhaseSpace" ) {
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of section::Type< 6 >::NBodyPhaseSpace" ) {
+  GIVEN( "a valid instance of NBodyPhaseSpace" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1; 
-    section::Type< 6 >::NBodyPhaseSpace chunk(begin, end, lineNumber, 9228, 6, 5 );
+    NBodyPhaseSpace chunk(begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
       std::string buffer;

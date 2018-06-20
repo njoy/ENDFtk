@@ -5,10 +5,14 @@
 
 using namespace njoy::ENDFtk;
 
+// convenience typedefs
+using Base = 
+section::Type< 6 >::ContinuumEnergyAngle::Base;
+
 std::string chunk();
 std::string invalidSize();
 
-SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::Base" ) {
+SCENARIO( "Base" ) {
 
   GIVEN( "valid data for a Base" ) {
 
@@ -23,8 +27,7 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::Base" ) {
 
     THEN( "a Base can "
           "be constructed using a list and members can be tested" ) {
-      section::Type< 6 >::ContinuumEnergyAngle::Base
-        chunk( energy, nd, na, nep, std::move( list ) );
+      Base chunk( energy, nd, na, nep, std::move( list ) );
 
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
@@ -57,8 +60,7 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::Base" ) {
 
     THEN( "a Base can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::ContinuumEnergyAngle::Base
-        chunk( begin, end, lineNumber, 9228, 6, 5 );
+      Base chunk( begin, end, lineNumber, 9228, 6, 5 );
 
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
@@ -92,7 +94,7 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::Base" ) {
 
     THEN( "an exception is thrown" ) {
 
-      REQUIRE_THROWS( section::Type< 6 >::ContinuumEnergyAngle::Base( energy, nd, na, nep, std::move( wronglist ) ) );
+      REQUIRE_THROWS( Base( energy, nd, na, nep, std::move( wronglist ) ) );
     }
   } // GIVEN
 
@@ -105,7 +107,7 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::Base" ) {
 
     THEN( "an exception is thrown" ) {
 
-      REQUIRE_THROWS( section::Type< 6 >::ContinuumEnergyAngle::Base( begin, end, lineNumber, 9228, 6, 5 ) );
+      REQUIRE_THROWS( Base( begin, end, lineNumber, 9228, 6, 5 ) );
     }
   } // GIVEN
 
@@ -115,7 +117,7 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::Base" ) {
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    section::Type< 6 >::ContinuumEnergyAngle::Base
+    Base
       chunk(begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {

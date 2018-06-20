@@ -5,12 +5,16 @@
 
 using namespace njoy::ENDFtk;
 
+// convenience typedefs
+using KalbachMann = 
+section::Type< 6 >::ContinuumEnergyAngle::KalbachMann;
+
 std::string chunk1();
 std::string chunk2();
 std::string invalidSize();
 std::string invalidNA();
 
-SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::KalbachMann" ) {
+SCENARIO( "KalbachMann" ) {
 
   GIVEN( "valid data for a KalbachMann with na=1" ) {
 
@@ -25,8 +29,7 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::KalbachMann" ) {
 
     THEN( "a KalbachMann can "
           "be constructed using a list and members can be tested" ) {
-      section::Type< 6 >::ContinuumEnergyAngle::KalbachMann
-        chunk( energy, nd, na, nep, std::move( list ) );
+      KalbachMann chunk( energy, nd, na, nep, std::move( list ) );
 
       REQUIRE( 2 == chunk.LANG() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
@@ -52,8 +55,7 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::KalbachMann" ) {
 
     THEN( "a KalbachMann can "
           "be constructed using tuples and members can be tested" ) {
-      section::Type< 6 >::ContinuumEnergyAngle::KalbachMann
-        chunk( energy, nd, nep, std::move( data ) );
+      KalbachMann chunk( energy, nd, nep, std::move( data ) );
 
       REQUIRE( 2 == chunk.LANG() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
@@ -91,8 +93,7 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::KalbachMann" ) {
 
     THEN( "a KalbachMann can "
           "be constructed using a list and members can be tested" ) {
-      section::Type< 6 >::ContinuumEnergyAngle::KalbachMann
-        chunk( energy, nd, na, nep, std::move( list ) );
+      KalbachMann chunk( energy, nd, na, nep, std::move( list ) );
 
       REQUIRE( 2 == chunk.LANG() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
@@ -120,8 +121,7 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::KalbachMann" ) {
 
     THEN( "a KalbachMann can "
           "be constructed using tuples and members can be tested" ) {
-      section::Type< 6 >::ContinuumEnergyAngle::KalbachMann
-        chunk( energy, nd, nep, std::move( data ) );
+      KalbachMann chunk( energy, nd, nep, std::move( data ) );
 
       REQUIRE( 2 == chunk.LANG() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
@@ -157,8 +157,7 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::KalbachMann" ) {
 
     THEN( "a KalbachMann can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::ContinuumEnergyAngle::KalbachMann
-        chunk( begin, end, lineNumber, 9228, 6, 5 );
+      KalbachMann chunk( begin, end, lineNumber, 9228, 6, 5 );
 
       REQUIRE( 2 == chunk.LANG() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
@@ -192,8 +191,7 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::KalbachMann" ) {
 
     THEN( "a KalbachMann can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::ContinuumEnergyAngle::KalbachMann
-        chunk( begin, end, lineNumber, 9228, 6, 5 );
+      KalbachMann chunk( begin, end, lineNumber, 9228, 6, 5 );
 
       REQUIRE( 2 == chunk.LANG() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
@@ -230,7 +228,8 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::KalbachMann" ) {
 
     THEN( "an exception is thrown" ) {
 
-      REQUIRE_THROWS( section::Type< 6 >::ContinuumEnergyAngle::KalbachMann( energy, nd, na, nep, std::move( wronglist ) ) );
+      REQUIRE_THROWS( KalbachMann( energy, nd, na, nep,
+                                   std::move( wronglist ) ) );
     }
   } // GIVEN
 
@@ -244,7 +243,8 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::KalbachMann" ) {
 
     THEN( "an exception is thrown" ) {
 
-      REQUIRE_THROWS( section::Type< 6 >::ContinuumEnergyAngle::KalbachMann( energy, nd, na, nep, std::move( wronglist ) ) );
+      REQUIRE_THROWS( KalbachMann( energy, nd, na, nep,
+                                   std::move( wronglist ) ) );
     }
   } // GIVEN
 
@@ -257,7 +257,7 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::KalbachMann" ) {
 
     THEN( "an exception is thrown" ) {
 
-      REQUIRE_THROWS( section::Type< 6 >::ContinuumEnergyAngle::KalbachMann( begin, end, lineNumber, 9228, 6, 5 ) );
+      REQUIRE_THROWS( KalbachMann( begin, end, lineNumber, 9228, 6, 5 ) );
     }
   } // GIVEN
 
@@ -270,7 +270,7 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::KalbachMann" ) {
 
     THEN( "an exception is thrown" ) {
 
-      REQUIRE_THROWS( section::Type< 6 >::ContinuumEnergyAngle::KalbachMann( begin, end, lineNumber, 9228, 6, 5 ) );
+      REQUIRE_THROWS( KalbachMann( begin, end, lineNumber, 9228, 6, 5 ) );
     }
   } // GIVEN
 
@@ -280,7 +280,7 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::KalbachMann" ) {
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    section::Type< 6 >::ContinuumEnergyAngle::KalbachMann
+    KalbachMann
       chunk(begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
@@ -297,7 +297,7 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle::KalbachMann" ) {
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    section::Type< 6 >::ContinuumEnergyAngle::KalbachMann
+    KalbachMann
       chunk(begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {

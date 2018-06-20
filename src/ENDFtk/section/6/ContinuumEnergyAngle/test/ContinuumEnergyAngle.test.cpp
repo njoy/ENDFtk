@@ -5,30 +5,39 @@
 
 using namespace njoy::ENDFtk;
 
+// convenience typedefs
+using ContinuumEnergyAngle = 
+section::Type< 6 >::ContinuumEnergyAngle;
+using SubSection = 
+section::Type< 6 >::ContinuumEnergyAngle::SubSection;
+using LegendreCoefficients = 
+section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients;
+using KalbachMann = 
+section::Type< 6 >::ContinuumEnergyAngle::KalbachMann;
+using Tabulated = 
+section::Type< 6 >::ContinuumEnergyAngle::Tabulated;
+
 std::string chunk();
 std::string invalidLANG();
 
-SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle" ) {
+SCENARIO( "ContinuumEnergyAngle" ) {
 
-  GIVEN( "valid data for a "
-         "section::Type< 6 >::ContinuumEnergyAngle" ) {
+  GIVEN( "valid data for a ContinuumEnergyAngle" ) {
 
     long lang = 1;
     long lep = 2;
     std::vector< long > boundaries = { 2 };
     std::vector< long > interpolants = { 1 };
-    std::vector< section::Type< 6 >::ContinuumEnergyAngle::SubSection > sequence = {
-      section::Type< 6 >::ContinuumEnergyAngle::SubSectionVariant(
-        section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients( 1e-5, 0, 1, 4, { 1., 2., 3., 4., 5., 6., 7., 8., 9., 10., 11., 12. } ) ),
-      section::Type< 6 >::ContinuumEnergyAngle::SubSectionVariant(
-        section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients( 2e+7, 0, 1, 2, {1., 2., 3., 4., 5., 6.} ) )
-    };
+    std::vector< SubSection > sequence = {
+        LegendreCoefficients( 1e-5, 0, 1, 4, { 1., 2., 3., 4., 5., 6.,
+                                               7., 8., 9., 10., 11., 12. } ),
+        LegendreCoefficients( 2e+7, 0, 1, 2, {1., 2., 3., 4., 5., 6.} ) };
 
-    THEN( "a section::Type< 6 >::ContinuumEnergyAngle can "
+    THEN( "a ContinuumEnergyAngle can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::ContinuumEnergyAngle
-        chunk( lang, lep, std::move( boundaries ),
-               std::move( interpolants ), std::move( sequence ) );
+      ContinuumEnergyAngle chunk( lang, lep, std::move( boundaries ),
+                                  std::move( interpolants ),
+                                  std::move( sequence ) );
 
       REQUIRE( 1 == chunk.LAW() );
       REQUIRE( 2 == chunk.LEP() );
@@ -48,7 +57,8 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle" ) {
       REQUIRE( 12 == energies[0].NW() );
       REQUIRE( 4 == energies[0].NEP() );
 
-      auto subsection1 = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients >( energies[0] );
+      auto subsection1 =
+          std::experimental::get< LegendreCoefficients >( energies[0] );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 1 == subsection1.NA() );
       REQUIRE( 12 == subsection1.NW() );
@@ -80,7 +90,8 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle" ) {
       REQUIRE( 6 == energies[1].NW() );
       REQUIRE( 2 == energies[1].NEP() );
 
-      auto subsection2 = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients >( energies[1] );
+      auto subsection2 =
+          std::experimental::get< LegendreCoefficients >( energies[1] );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 1 == subsection2.NA() );
@@ -103,17 +114,16 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle" ) {
   } // GIVEN
 
   GIVEN( "a string representation of a valid "
-         "section::Type< 6 >::ContinuumEnergyAngle" ) {
+         "ContinuumEnergyAngle" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1; 
       
-    THEN( "a section::Type< 6 >::ContinuumEnergyAngle can "
+    THEN( "a ContinuumEnergyAngle can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::ContinuumEnergyAngle
-        chunk( begin, end, lineNumber, 9228, 6, 5 );
+      ContinuumEnergyAngle chunk( begin, end, lineNumber, 9228, 6, 5 );
 
       REQUIRE( 1 == chunk.LAW() );
       REQUIRE( 2 == chunk.LEP() );
@@ -133,7 +143,8 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle" ) {
       REQUIRE( 12 == energies[0].NW() );
       REQUIRE( 4 == energies[0].NEP() );
 
-      auto subsection1 = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients >( energies[0] );
+      auto subsection1 =
+          std::experimental::get< LegendreCoefficients >( energies[0] );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 1 == subsection1.NA() );
       REQUIRE( 12 == subsection1.NW() );
@@ -165,7 +176,8 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle" ) {
       REQUIRE( 6 == energies[1].NW() );
       REQUIRE( 2 == energies[1].NEP() );
 
-      auto subsection2 = std::experimental::get< section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients >( energies[1] );
+      auto subsection2 =
+          std::experimental::get< LegendreCoefficients >( energies[1] );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 1 == subsection2.NA() );
@@ -187,14 +199,13 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle" ) {
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of section::Type< 6 >::ContinuumEnergyAngle" ) {
+  GIVEN( "a valid instance of ContinuumEnergyAngle" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1; 
-    section::Type< 6 >::ContinuumEnergyAngle
-      chunk(begin, end, lineNumber, 9228, 6, 5 );
+    ContinuumEnergyAngle chunk(begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
       std::string buffer;
@@ -204,7 +215,7 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle" ) {
     }
   } // GIVEN
 
-  GIVEN( "a string representation of a section::Type< 6 >::ContinuumEnergyAngle"
+  GIVEN( "a string representation of a ContinuumEnergyAngle"
          " with an invalid LANG" ){
     std::string string = invalidLANG();
     auto begin = string.begin();
@@ -212,7 +223,8 @@ SCENARIO( "section::Type< 6 >::ContinuumEnergyAngle" ) {
     long lineNumber = 1;
 
     THEN( "an exception is thrown upon construction" ){
-      REQUIRE_THROWS( section::Type< 6 >::ContinuumEnergyAngle( begin, end, lineNumber, 9228, 6, 5 ) );
+      REQUIRE_THROWS( ContinuumEnergyAngle( begin, end, lineNumber,
+                                            9228, 6, 5 ) );
     }
   } // GIVEN
 } // SCENARIO

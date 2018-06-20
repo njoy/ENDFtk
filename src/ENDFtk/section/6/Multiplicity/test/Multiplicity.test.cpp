@@ -5,11 +5,15 @@
 
 using namespace njoy::ENDFtk;
 
+// convenience typedefs
+using Multiplicity = 
+section::Type< 6 >::Multiplicity;
+
 std::string chunk();
 
-SCENARIO( "section::Type< 6 >::Multiplicity" ) {
+SCENARIO( "Multiplicity" ) {
 
-  GIVEN( "valid data for a section::Type< 6 >::Multiplicity" ) {
+  GIVEN( "valid data for a Multiplicity" ) {
 
     double zap = 1001.;
     double awp = 0.9986234;
@@ -21,12 +25,12 @@ SCENARIO( "section::Type< 6 >::Multiplicity" ) {
     std::vector< double > multiplicities = { 0., 8.45368e-11,
                                              6.622950e-8, 2.149790e-1 };
       
-    THEN( "a section::Type< 6 >::Multiplicity can be constructed and members can be tested" ) {
-      section::Type< 6 >::Multiplicity chunk( zap, awp, lip, law,
-                                              std::move( boundaries ),
-                                              std::move( interpolants ),
-                                              std::move( energies ),
-                                              std::move( multiplicities ) );
+    THEN( "a Multiplicity can be constructed and members can be tested" ) {
+      Multiplicity chunk( zap, awp, lip, law,
+                          std::move( boundaries ),
+                          std::move( interpolants ),
+                          std::move( energies ),
+                          std::move( multiplicities ) );
 
       REQUIRE( 1001. == Approx( chunk.ZAP() ) );
       REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
@@ -54,15 +58,15 @@ SCENARIO( "section::Type< 6 >::Multiplicity" ) {
     }
   } // GIVEN
 
-  GIVEN( "a string representation of a valid section::Type< 6 >::Multiplicity" ) {
+  GIVEN( "a string representation of a valid Multiplicity" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1; 
       
-    THEN( "a section::Type< 6 >::Multiplicity can be constructed and members can be tested" ) {
-      section::Type< 6 >::Multiplicity chunk( begin, end, lineNumber, 9228, 6, 5 );
+    THEN( "a Multiplicity can be constructed and members can be tested" ) {
+      Multiplicity chunk( begin, end, lineNumber, 9228, 6, 5 );
 
       REQUIRE( 1001. == Approx( chunk.ZAP() ) );
       REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
@@ -90,13 +94,13 @@ SCENARIO( "section::Type< 6 >::Multiplicity" ) {
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of section::Type< 6 >::Multiplicity" ) {
+  GIVEN( "a valid instance of Multiplicity" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1; 
-    section::Type< 6 >::Multiplicity chunk(begin, end, lineNumber, 9228, 6, 5 );
+    Multiplicity chunk(begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
       std::string buffer;

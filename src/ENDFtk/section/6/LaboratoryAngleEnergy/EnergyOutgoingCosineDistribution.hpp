@@ -12,8 +12,12 @@ public:
 
   auto cosines() const { return InterpolationSequenceRecord::records(); }
 
-  auto interpolants() const { return InterpolationSequenceRecord::tab2().interpolants(); }
-  auto boundaries() const { return InterpolationSequenceRecord::tab2().boundaries(); }
+  auto interpolants() const {
+    return InterpolationSequenceRecord::tab2().interpolants();
+  }
+  auto boundaries() const {
+    return InterpolationSequenceRecord::tab2().boundaries();
+  }
   
   using InterpolationSequenceRecord::NC;
   using InterpolationSequenceRecord::print;

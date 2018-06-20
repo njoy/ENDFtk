@@ -5,12 +5,16 @@
 
 using namespace njoy::ENDFtk;
 
-SCENARIO( "section::Type< 6 >::DefinedElsewhere" ) {
+// convenience typedefs
+using DefinedElsewhere = 
+section::Type< 6 >::DefinedElsewhere;
 
-  GIVEN( "a string representation of a valid section::Type< 6 >::DefinedElsewhere" ) {
+SCENARIO( "DefinedElsewhere" ) {
 
-    THEN( "a section::Type< 6 >::DefinedElsewhere can be constructed and members can be tested" ) {
-      section::Type< 6 >::DefinedElsewhere chunk( -5 );
+  GIVEN( "a string representation of a valid DefinedElsewhere" ) {
+
+    THEN( "a DefinedElsewhere can be constructed and members can be tested" ) {
+      DefinedElsewhere chunk( -5 );
 
       REQUIRE( -5 == chunk.LAW() );
 
@@ -18,9 +22,9 @@ SCENARIO( "section::Type< 6 >::DefinedElsewhere" ) {
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of section::Type< 6 >::DefinedElsewhere" ) {
+  GIVEN( "a valid instance of DefinedElsewhere" ) {
 
-    section::Type< 6 >::DefinedElsewhere chunk( -5 );
+    DefinedElsewhere chunk( -5 );
 
     THEN( "it does not print anything" ) {
       std::string buffer;

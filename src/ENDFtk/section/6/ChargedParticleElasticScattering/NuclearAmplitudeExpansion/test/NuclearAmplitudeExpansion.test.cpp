@@ -5,11 +5,15 @@
 
 using namespace njoy::ENDFtk;
 
+// convenience typedefs
+using NuclearAmplitudeExpansion = 
+section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitudeExpansion;
+
 std::string chunk();
 std::string invalidLTP();
 std::string invalidSize();
 
-SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitudeExpansion" ) {
+SCENARIO( "NuclearAmplitudeExpansion" ) {
 
   GIVEN( "valid data for a NuclearAmplitudeExpansion" ) {
 
@@ -23,8 +27,7 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitud
 
     THEN( "a NuclearAmplitudeExpansion can "
           "be constructed using a list and members can be tested" ) {
-      section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitudeExpansion
-        chunk( energy, nl, std::move( values ) );
+      NuclearAmplitudeExpansion chunk( energy, nl, std::move( values ) );
 
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
@@ -55,7 +58,7 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitud
 
     THEN( "a NuclearAmplitudeExpansion can "
           "be constructed using separate arrays and members can be tested" ) {
-      section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitudeExpansion
+      NuclearAmplitudeExpansion
         chunk( energy, nl, std::move( b ), std::move( a_real ),
                std::move( a_imag ) );
 
@@ -96,7 +99,7 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitud
 
     THEN( "a NuclearAmplitudeExpansion can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitudeExpansion
+      NuclearAmplitudeExpansion
         chunk( begin, end, lineNumber, 9228, 6, 5 );
 
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
@@ -139,9 +142,16 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitud
 
     THEN( "an exception is thrown" ) {
 
-      REQUIRE_THROWS( section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitudeExpansion( energy, nl, std::move( wrong_b ), std::move( a_real ), std::move( a_imag ) ) );
-      REQUIRE_THROWS( section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitudeExpansion( energy, nl, std::move( b ), std::move( a_wrong ), std::move( a_imag ) ) );
-      REQUIRE_THROWS( section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitudeExpansion( energy, nl, std::move( b ), std::move( a_real ), std::move( a_wrong ) ) );
+      REQUIRE_THROWS( NuclearAmplitudeExpansion( energy, nl,
+                                                 std::move( wrong_b ),
+                                                 std::move( a_real ),
+                                                 std::move( a_imag ) ) );
+      REQUIRE_THROWS( NuclearAmplitudeExpansion( energy, nl, std::move( b ),
+                                                 std::move( a_wrong ),
+                                                 std::move( a_imag ) ) );
+      REQUIRE_THROWS( NuclearAmplitudeExpansion( energy, nl, std::move( b ),
+                                                 std::move( a_real ),
+                                                 std::move( a_wrong ) ) );
     }
   } // GIVEN
 
@@ -154,7 +164,8 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitud
 
     THEN( "an exception is thrown" ) {
 
-      REQUIRE_THROWS( section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitudeExpansion( energy, 1, std::move( values ) ) );
+      REQUIRE_THROWS( NuclearAmplitudeExpansion( energy, 1,
+                                                 std::move( values ) ) );
     }
   } // GIVEN
 
@@ -167,7 +178,8 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitud
 
     THEN( "an exception is thrown" ) {
 
-      REQUIRE_THROWS( section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitudeExpansion( begin, end, lineNumber, 9228, 6, 5 ) );
+      REQUIRE_THROWS( NuclearAmplitudeExpansion( begin, end, lineNumber,
+                                                 9228, 6, 5 ) );
     }
   } // GIVEN
 
@@ -180,7 +192,8 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitud
 
     THEN( "an exception is thrown" ) {
 
-      REQUIRE_THROWS( section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitudeExpansion( begin, end, lineNumber, 9228, 6, 5 ) );
+      REQUIRE_THROWS( NuclearAmplitudeExpansion( begin, end, lineNumber,
+                                                 9228, 6, 5 ) );
     }
   } // GIVEN
 
@@ -190,7 +203,7 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitud
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitudeExpansion
+    NuclearAmplitudeExpansion
       chunk(begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {

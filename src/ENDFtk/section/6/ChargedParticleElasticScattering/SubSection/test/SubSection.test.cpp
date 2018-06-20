@@ -5,6 +5,16 @@
 
 using namespace njoy::ENDFtk;
 
+// convenience typedefs
+using SubSection = 
+section::Type< 6 >::ChargedParticleElasticScattering::SubSection;
+using LegendreCoefficients = 
+section::Type< 6 >::ChargedParticleElasticScattering::LegendreCoefficients;
+using NuclearAmplitudeExpansion = 
+section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitudeExpansion;
+using NuclearPlusInterference = 
+section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference;
+
 std::string chunkLTP1();
 std::string chunkLTP2();
 std::string chunkLTP12();
@@ -12,23 +22,22 @@ std::string chunkLTP14();
 std::string chunkLTP15();
 std::string invalidLTP();
 
-SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
+SCENARIO( "SubSection" ) {
 
-  GIVEN( "valid data for a "
-         "section::Type< 6 >::ChargedParticleElasticScattering::SubSection"
-         "with LTP=1" ) {
+  GIVEN( "valid data for a SubSection with LTP=1" ) {
 
     double energy = 1e-5;
     int nl = 3;
     std::vector< double > values = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
                                      11, 12, 13, 14, 15 };
 
-    THEN( "a section::Type< 6 >::ChargedParticleElasticScattering::SubSection can "
+    THEN( "a SubSection can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::ChargedParticleElasticScattering::SubSection subsection(
-          section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitudeExpansion( energy, nl, std::move( values ) ) );
+      SubSection subsection(
+          NuclearAmplitudeExpansion( energy, nl, std::move( values ) ) );
 
-      auto chunk = std::experimental::get< section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitudeExpansion >( subsection );
+      auto chunk =
+          std::experimental::get< NuclearAmplitudeExpansion >( subsection );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 1 == chunk.LTP() );
@@ -62,7 +71,7 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
   } // GIVEN
 
   GIVEN( "a string representation of a valid "
-         "section::Type< 6 >::ChargedParticleElasticScattering::SubSection"
+         "SubSection"
          "with LTP=1" ) {
 
     std::string string = chunkLTP1();
@@ -70,11 +79,12 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
     auto end = string.end();
     long lineNumber = 1;
 
-    THEN( "a section::Type< 6 >::ChargedParticleElasticScattering::SubSection can "
+    THEN( "a SubSection can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::ChargedParticleElasticScattering::SubSection subsection( begin, end, lineNumber, 9228, 6, 5 );
+      SubSection subsection( begin, end, lineNumber, 9228, 6, 5 );
 
-      auto chunk = std::experimental::get< section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitudeExpansion >( subsection );
+      auto chunk =
+          std::experimental::get< NuclearAmplitudeExpansion >( subsection );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 1 == chunk.LTP() );
@@ -107,14 +117,14 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of section::Type< 6 >::ChargedParticleElasticScattering::SubSection"
+  GIVEN( "a valid instance of SubSection"
          "with LTP=1" ) {
 
     std::string string = chunkLTP1();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    section::Type< 6 >::ChargedParticleElasticScattering::SubSection
+    SubSection
       subsection( begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
@@ -126,18 +136,18 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
   } // GIVEN
 
   GIVEN( "valid data for a "
-         "section::Type< 6 >::ChargedParticleElasticScattering::SubSection"
+         "SubSection"
          "with LTP=2" ) {
 
     double energy = 1e-5;
     std::vector< double > values = { 1, 2, 3, 4 };
 
-    THEN( "a section::Type< 6 >::ChargedParticleElasticScattering::SubSection can "
+    THEN( "a SubSection can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::ChargedParticleElasticScattering::SubSection
-        subsection( section::Type< 6 >::ChargedParticleElasticScattering::LegendreCoefficients( energy, std::move( values ) ) );
+      SubSection
+        subsection( LegendreCoefficients( energy, std::move( values ) ) );
 
-      auto chunk = std::experimental::get< section::Type< 6 >::ChargedParticleElasticScattering::LegendreCoefficients >( subsection );
+      auto chunk = std::experimental::get< LegendreCoefficients >( subsection );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 2 == chunk.LTP() );
@@ -158,7 +168,7 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
   } // GIVEN
 
   GIVEN( "a string representation of a valid "
-         "section::Type< 6 >::ChargedParticleElasticScattering::SubSection"
+         "SubSection"
          "with LTP=2" ) {
 
     std::string string = chunkLTP2();
@@ -166,12 +176,12 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
     auto end = string.end();
     long lineNumber = 1;
 
-    THEN( "a section::Type< 6 >::ChargedParticleElasticScattering::SubSection can "
+    THEN( "a SubSection can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::ChargedParticleElasticScattering::SubSection
+      SubSection
         subsection( begin, end, lineNumber, 9228, 6, 5 );
 
-      auto chunk = std::experimental::get< section::Type< 6 >::ChargedParticleElasticScattering::LegendreCoefficients >( subsection );
+      auto chunk = std::experimental::get< LegendreCoefficients >( subsection );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 2 == chunk.LTP() );
@@ -191,14 +201,14 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of section::Type< 6 >::ChargedParticleElasticScattering::SubSection"
+  GIVEN( "a valid instance of SubSection"
          "with LTP=2" ) {
 
     std::string string = chunkLTP2();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    section::Type< 6 >::ChargedParticleElasticScattering::SubSection
+    SubSection
       subsection( begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
@@ -210,7 +220,7 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
   } // GIVEN
 
   GIVEN( "valid data for a "
-         "section::Type< 6 >::ChargedParticleElasticScattering::SubSection"
+         "SubSection"
          "with LTP=12" ) {
 
     double energy = 1e-5;
@@ -219,12 +229,13 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
     std::vector< double > cosines = { 1, 3, 5 };
     std::vector< double > probabilities = { 2, 4, 6 };
 
-    THEN( "a section::Type< 6 >::ChargedParticleElasticScattering::SubSection can "
+    THEN( "a SubSection can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::ChargedParticleElasticScattering::SubSection
-        subsection( section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference( energy, ltp, std::move( values ) ) );
+      SubSection subsection( NuclearPlusInterference( energy, ltp,
+                                                      std::move( values ) ) );
 
-      auto chunk = std::experimental::get< section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference >( subsection );
+      auto chunk =
+          std::experimental::get< NuclearPlusInterference >( subsection );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 12 == chunk.LTP() );
@@ -248,7 +259,7 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
   } // GIVEN
 
   GIVEN( "a string representation of a valid "
-         "section::Type< 6 >::ChargedParticleElasticScattering::SubSection"
+         "SubSection"
          "with LTP=12" ) {
 
     std::string string = chunkLTP12();
@@ -256,12 +267,13 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
     auto end = string.end();
     long lineNumber = 1;
 
-    THEN( "a section::Type< 6 >::ChargedParticleElasticScattering::SubSection can "
+    THEN( "a SubSection can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::ChargedParticleElasticScattering::SubSection
+      SubSection
         subsection( begin, end, lineNumber, 9228, 6, 5 );
 
-      auto chunk = std::experimental::get< section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference >( subsection );
+      auto chunk =
+          std::experimental::get< NuclearPlusInterference >( subsection );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 12 == chunk.LTP() );
@@ -284,14 +296,14 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of section::Type< 6 >::ChargedParticleElasticScattering::SubSection"
+  GIVEN( "a valid instance of SubSection"
          "with LTP=12" ) {
 
     std::string string = chunkLTP12();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    section::Type< 6 >::ChargedParticleElasticScattering::SubSection
+    SubSection
       subsection( begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
@@ -303,7 +315,7 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
   } // GIVEN
 
   GIVEN( "valid data for "
-         "section::Type< 6 >::ChargedParticleElasticScattering::SubSection"
+         "SubSection"
          "with LTP=14" ) {
 
     double energy = 1e-5;
@@ -312,12 +324,14 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
     std::vector< double > cosines = { 1, 3, 5 };
     std::vector< double > probabilities = { 2, 4, 6 };
 
-    THEN( "a section::Type< 6 >::ChargedParticleElasticScattering::SubSection can "
+    THEN( "a SubSection can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::ChargedParticleElasticScattering::SubSection
-        subsection( section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference( energy, ltp, std::move( values ) ) );
+      SubSection
+        subsection( NuclearPlusInterference( energy, ltp,
+                                             std::move( values ) ) );
 
-      auto chunk = std::experimental::get< section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference >( subsection );
+      auto chunk =
+          std::experimental::get< NuclearPlusInterference >( subsection );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 14 == chunk.LTP() );
@@ -341,7 +355,7 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
   } // GIVEN
 
   GIVEN( "a string representation of a valid "
-         "section::Type< 6 >::ChargedParticleElasticScattering::SubSection"
+         "SubSection"
          "with LTP=14" ) {
 
     std::string string = chunkLTP14();
@@ -349,12 +363,13 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
     auto end = string.end();
     long lineNumber = 1;
 
-    THEN( "a section::Type< 6 >::ChargedParticleElasticScattering::SubSection can "
+    THEN( "a SubSection can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::ChargedParticleElasticScattering::SubSection
+      SubSection
         subsection( begin, end, lineNumber, 9228, 6, 5 );
 
-      auto chunk = std::experimental::get< section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference >( subsection );
+      auto chunk =
+          std::experimental::get< NuclearPlusInterference >( subsection );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 14 == chunk.LTP() );
@@ -377,14 +392,14 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of section::Type< 6 >::ChargedParticleElasticScattering::SubSection"
+  GIVEN( "a valid instance of SubSection"
          "with LTP=14" ) {
 
     std::string string = chunkLTP14();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    section::Type< 6 >::ChargedParticleElasticScattering::SubSection
+    SubSection
       subsection( begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
@@ -396,7 +411,7 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
   } // GIVEN
 
   GIVEN( "valida data "
-         "section::Type< 6 >::ChargedParticleElasticScattering::SubSection"
+         "SubSection"
          "with LTP=15" ) {
 
     double energy = 1e-5;
@@ -405,12 +420,14 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
     std::vector< double > cosines = { 1, 3, 5 };
     std::vector< double > probabilities = { 2, 4, 6 };
 
-    THEN( "a section::Type< 6 >::ChargedParticleElasticScattering::SubSection can "
+    THEN( "a SubSection can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::ChargedParticleElasticScattering::SubSection
-        subsection( section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference( energy, ltp, std::move( values ) ) );
+      SubSection
+          subsection( NuclearPlusInterference( energy, ltp,
+                                               std::move( values ) ) );
 
-      auto chunk = std::experimental::get< section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference >( subsection );
+      auto chunk =
+          std::experimental::get< NuclearPlusInterference >( subsection );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 15 == chunk.LTP() );
@@ -434,7 +451,7 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
   } // GIVEN
 
   GIVEN( "a string representation of a valid "
-         "section::Type< 6 >::ChargedParticleElasticScattering::SubSection"
+         "SubSection"
          "with LTP=15" ) {
 
     std::string string = chunkLTP15();
@@ -442,12 +459,12 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
     auto end = string.end();
     long lineNumber = 1;
 
-    THEN( "a section::Type< 6 >::ChargedParticleElasticScattering::SubSection can "
+    THEN( "a SubSection can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::ChargedParticleElasticScattering::SubSection
-        subsection( begin, end, lineNumber, 9228, 6, 5 );
+      SubSection subsection( begin, end, lineNumber, 9228, 6, 5 );
 
-      auto chunk = std::experimental::get< section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference >( subsection );
+      auto chunk =
+          std::experimental::get< NuclearPlusInterference >( subsection );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 15 == chunk.LTP() );
@@ -470,15 +487,14 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of section::Type< 6 >::ChargedParticleElasticScattering::SubSection"
+  GIVEN( "a valid instance of SubSection"
          "with LTP=15" ) {
 
     std::string string = chunkLTP15();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    section::Type< 6 >::ChargedParticleElasticScattering::SubSection
-      subsection( begin, end, lineNumber, 9228, 6, 5 );
+    SubSection subsection( begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
       std::string buffer;
@@ -488,7 +504,7 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
     }
   } // GIVEN
 
-  GIVEN( "a string representation of a section::Type< 6 >::ChargedParticleElasticScattering::SubSection"
+  GIVEN( "a string representation of a SubSection"
          " with an invalid LPT" ){
     std::string string = invalidLTP();
     auto begin = string.begin();
@@ -496,7 +512,7 @@ SCENARIO( "section::Type< 6 >::ChargedParticleElasticScattering::SubSection" ) {
     long lineNumber = 1;
 
     THEN( "an exception is thrown upon construction" ){
-      REQUIRE_THROWS( section::Type< 6 >::ChargedParticleElasticScattering::SubSection( begin, end, lineNumber, 9228, 6, 5 ) );
+      REQUIRE_THROWS( SubSection( begin, end, lineNumber, 9228, 6, 5 ) );
     }
   } // GIVEN
 } // SCENARIO

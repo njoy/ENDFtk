@@ -5,12 +5,17 @@
 
 using namespace njoy::ENDFtk;
 
-SCENARIO( "section::Type< 6 >::IsotropicDiscreteEmission" ) {
+// convenience typedefs
+using IsotropicDiscreteEmission = 
+section::Type< 6 >::IsotropicDiscreteEmission;
 
-  GIVEN( "a string representation of a valid section::Type< 6 >::IsotropicDiscreteEmission" ) {
+SCENARIO( "IsotropicDiscreteEmission" ) {
 
-    THEN( "a section::Type< 6 >::IsotropicDiscreteEmission can be constructed and members can be tested" ) {
-      section::Type< 6 >::IsotropicDiscreteEmission chunk;
+  GIVEN( "a string representation of a valid IsotropicDiscreteEmission" ) {
+
+    THEN( "a IsotropicDiscreteEmission can be constructed and "
+          "members can be tested" ) {
+      IsotropicDiscreteEmission chunk;
 
       REQUIRE( 3 == chunk.LAW() );
 
@@ -18,9 +23,9 @@ SCENARIO( "section::Type< 6 >::IsotropicDiscreteEmission" ) {
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of section::Type< 6 >::IsotropicDiscreteEmission" ) {
+  GIVEN( "a valid instance of IsotropicDiscreteEmission" ) {
 
-    section::Type< 6 >::IsotropicDiscreteEmission chunk;
+    IsotropicDiscreteEmission chunk;
 
     THEN( "it does not print anything" ) {
       std::string buffer;

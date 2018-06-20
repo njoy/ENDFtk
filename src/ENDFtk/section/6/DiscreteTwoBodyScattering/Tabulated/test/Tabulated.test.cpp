@@ -5,13 +5,17 @@
 
 using namespace njoy::ENDFtk;
 
+// convenience typedefs
+using Tabulated = 
+section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated;
+
 std::string chunk();
 std::string invalidLANG();
 std::string invalidSize();
 
-SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated" ) {
+SCENARIO( "Tabulated" ) {
 
-  GIVEN( "valid data for a NuclearPlusInterference" ) {
+  GIVEN( "valid data for a Tabulated" ) {
 
     double energy = 1e-5;
     int lang = 12;
@@ -19,10 +23,9 @@ SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated" ) {
     std::vector< double > cosines = { 1, 3, 5 };
     std::vector< double > probabilities = { 2, 4, 6 };
 
-    THEN( "a NuclearPlusInterference can "
+    THEN( "a Tabulated can "
           "be constructed using a list and members can be tested" ) {
-      section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated
-        chunk( energy, lang, std::move( values ) );
+      Tabulated chunk( energy, lang, std::move( values ) );
 
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
@@ -41,10 +44,10 @@ SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated" ) {
       REQUIRE( 2 == chunk.NC() );
     }
 
-    THEN( "a NuclearPlusInterference can "
+    THEN( "a Tabulated can "
           "be constructed using mu and p arrays and members can be tested" ) {
-      section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated
-        chunk( energy, lang, std::move( cosines ), std::move( probabilities ) );
+      Tabulated chunk( energy, lang, std::move( cosines ),
+                       std::move( probabilities ) );
 
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
@@ -65,17 +68,16 @@ SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated" ) {
   } // GIVEN
 
   GIVEN( "a string representation of a valid "
-         "section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated" ) {
+         "Tabulated" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
 
-    THEN( "a section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated can "
+    THEN( "a Tabulated can "
           "be constructed and members can be tested" ) {
-      section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated
-        chunk(begin, end, lineNumber, 9228, 6, 5 );
+      Tabulated chunk(begin, end, lineNumber, 9228, 6, 5 );
 
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
@@ -106,9 +108,11 @@ SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated" ) {
 
     THEN( "an exception is thrown" ) {
 
-      REQUIRE_THROWS( section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated( energy, lang, std::move( wrong ), std::move( probabilities ) ) );
-      REQUIRE_THROWS( section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated( energy, lang, std::move( cosines ), std::move( wrong ) ) );
-      REQUIRE_THROWS( section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated( energy, lang, std::move( wrongsize ) ) );
+      REQUIRE_THROWS( Tabulated( energy, lang, std::move( wrong ),
+                                 std::move( probabilities ) ) );
+      REQUIRE_THROWS( Tabulated( energy, lang, std::move( cosines ),
+                                 std::move( wrong ) ) );
+      REQUIRE_THROWS( Tabulated( energy, lang, std::move( wrongsize ) ) );
     }
   } // GIVEN
 
@@ -122,8 +126,9 @@ SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated" ) {
 
     THEN( "an exception is thrown" ) {
 
-      REQUIRE_THROWS( section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated( energy, lang, std::move( values ) ) );
-      REQUIRE_THROWS( section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated( energy, lang, std::move( cosines ), std::move( probabilities ) ) );
+      REQUIRE_THROWS( Tabulated( energy, lang, std::move( values ) ) );
+      REQUIRE_THROWS( Tabulated( energy, lang, std::move( cosines ),
+                                 std::move( probabilities ) ) );
     }
   } // GIVEN
 
@@ -136,7 +141,7 @@ SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated" ) {
 
     THEN( "an exception is thrown" ) {
 
-      REQUIRE_THROWS( section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated( begin, end, lineNumber, 9228, 6, 5 ) );
+      REQUIRE_THROWS( Tabulated( begin, end, lineNumber, 9228, 6, 5 ) );
     }
   } // GIVEN
 
@@ -149,17 +154,17 @@ SCENARIO( "section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated" ) {
 
     THEN( "an exception is thrown" ) {
 
-      REQUIRE_THROWS( section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated( begin, end, lineNumber, 9228, 6, 5 ) );
+      REQUIRE_THROWS( Tabulated( begin, end, lineNumber, 9228, 6, 5 ) );
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated" ) {
+  GIVEN( "a valid instance of Tabulated" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated
+    Tabulated
       chunk(begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
