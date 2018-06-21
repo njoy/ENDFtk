@@ -22,7 +22,7 @@ generateList( unsigned int ns,
   }
   if ( numberAtoms.size() != ns + 1 ) {
 
-    Log::info( "The number of atom types must be equal to NS + 1" );
+    Log::info( "The number of atoms for each type must be equal to NS + 1" );
     Log::info( "NS value: {}", ns );
     Log::info( "numberAtoms.size(): {}", numberAtoms.size() );
     throw std::exception();
@@ -40,9 +40,9 @@ generateList( unsigned int ns,
   list[1] = epsilon;
   list[2] = weightRatios[0];
   list[3] = emax;
-  list[3] = 0.0;
+  list[4] = 0.0;
   list[5] = numberAtoms[0];
-  for ( unsigned int i = 1; i < ns; ++i ) {
+  for ( unsigned int i = 1; i <= ns; ++i ) {
 
     list[6*i+0] = functionTypes[i-1];
     list[6*i+1] = crossSections[i];

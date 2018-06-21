@@ -80,7 +80,7 @@ SCENARIO( "ScatteringLawConstants" ) {
 
     THEN( "a ScatteringLawConstants can "
           "be constructed using individual values and members can be tested" ) {
-      ScatteringLawConstants chunk( lln, ns, epsilon, emax, crossSection,
+      ScatteringLawConstants chunk( lln, epsilon, emax, crossSection,
                                     weightRatio, numberAtom );
 
       REQUIRE( 0 == chunk.LLN() );

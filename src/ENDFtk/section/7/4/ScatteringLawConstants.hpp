@@ -1,3 +1,16 @@
+/**
+ * @class
+ * @brief Scattering law constants
+ *
+ * The ScatteringLawConstants class stores the data from the first ListRecord
+ * of an MF7/MT4 section of the ENDF file. It stores a single flag to indicate
+ * the representation type of the S(a,b) (either as S or ln(S) values) and the
+ * B array containing the  constants required for the scattering law data of the
+ * principal scatterer and the analytic representations for the non-principal
+ * scattering atoms (if any).
+ *
+ * See ENDF102, section 7.4 for more information.
+ */
 class ScatteringLawConstants : protected ListRecord {
 
   /* auxiliary functions */
@@ -40,19 +53,12 @@ public:
    * @brief Return the total free atom cross section for each scattering atom
    *        type, stored in B(1), B(8) and B(14)
    */
-//  auto totalFreeCrossSections() const {
-//    return ListRecord::list()[0]; }
-// TEMPORARY - REALLY BAD
-  std::vector< double > totalFreeCrossSections() const {
-    if ( this->NI() == 6 ) return { ListRecord::list()[0] };
-    if ( this->NI() == 12 ) return { ListRecord::list()[0],
-                                     ListRecord::list()[7] };
-    if ( this->NI() == 18 ) return { ListRecord::list()[0],
-                                     ListRecord::list()[7],
-                                     ListRecord::list()[13] };
-    return {};
+  auto totalFreeCrossSections() const {
+    return ranges::view::concat(
+             ranges::view::single( ListRecord::list()[0] ), 
+             ranges::view::drop_exactly( ListRecord::list(), 7 )
+                   | ranges::view::stride( 6 )  );
   }
-// TEMPORARY - REALLY BAD
 
   /**
    * @brief Return the ratio of the atomic weight to the neutron mass for each
