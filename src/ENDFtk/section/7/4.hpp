@@ -8,6 +8,7 @@ public:
   #include "ENDFtk/section/7/4/AnalyticalFunctions.hpp"
   #include "ENDFtk/section/7/4/Tabulated.hpp"
 
+  #include "ENDFtk/section/7/4/EffectiveTemperature.hpp"
 
   /** @typedef ScatteringLaw
    *  @brief The incoherent inelastic scattering law of MF7/MT4

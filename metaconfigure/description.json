@@ -596,6 +596,7 @@
     "src/ENDFtk/section/7/4/AnalyticalFunctions.hpp",
     "src/ENDFtk/section/7/4/ScatteringLawConstants.hpp",
     "src/ENDFtk/section/7/4/Tabulated.hpp",
+    "src/ENDFtk/section/7/4/EffectiveTemperature.hpp",
     "src/ENDFtk/section/7/4/ScatteringLawConstants/src/ctor.hpp",
     "src/ENDFtk/section/7/4/ScatteringLawConstants/src/generateList.hpp",
     "src/ENDFtk/section/7/4/ScatteringLawConstants/src/verifySize.hpp",
@@ -607,6 +608,8 @@
     "src/ENDFtk/section/7/4/Tabulated/BetaValue/src/ctor.hpp",
     "src/ENDFtk/section/7/4/Tabulated/BetaValue/src/readTemperatures.hpp",
     "src/ENDFtk/section/7/4/Tabulated/BetaValue/src/generateTemperatures.hpp",
+    "src/ENDFtk/section/7/4/Tabulated/BetaValue/src/verifyLT.hpp",
+    "src/ENDFtk/section/7/4/EffectiveTemperature/src/ctor.hpp",
     "src/ENDFtk/syntaxTree/Section.hpp",
     "src/ENDFtk/syntaxTree/File.hpp",
     "src/ENDFtk/syntaxTree/Material.hpp",
@@ -883,6 +886,9 @@
     ],
     "ENDFtk.section.7.4.AnalyticalFunctions": [
       "src/ENDFtk/section/7/4/AnalyticalFunctions/test/AnalyticalFunctions.test.cpp"
+    ],
+    "ENDFtk.section.7.4.EffectiveTemperature": [
+      "src/ENDFtk/section/7/4/EffectiveTemperature/test/EffectiveTemperature.test.cpp"
     ],
     "ENDFtk.section.7.4.ScatteringLawConstants": [
       "src/ENDFtk/section/7/4/ScatteringLawConstants/test/ScatteringLawConstants.test.cpp"
