@@ -9,7 +9,7 @@ generateTemperatures( double beta,
 
   unsigned int i = 0;
   while( i++ < size ){
-    sequence.emplace_back( ListRecord( temperatures[i], beta, li[i], 0, 0,
+    sequence.emplace_back( ListRecord( temperatures[i], beta, li[i-1], 0, 0,
                                        std::move( s[i] ) ) );
   }
 

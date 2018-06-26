@@ -80,6 +80,18 @@ set( ENDFtk_AppleClang_Darwin_link_time_optimization_flags "-flto" )
 set( ENDFtk_AppleClang_Darwin_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
 set( ENDFtk_AppleClang_Darwin_nonportable_optimization_flags "-march=native" )
 set( ENDFtk_AppleClang_Darwin_static_flags "-static" )
+set( ENDFtk_GNU_Linux_common_flags "-Wall" "-Wextra" "-Wpedantic" "-std=c++14" )
+set( ENDFtk_GNU_Linux_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
+set( ENDFtk_GNU_Linux_RELEASE_flags "-O3" "-DNDEBUG" )
+set( ENDFtk_GNU_Linux_strict_flags "-Werror" )
+set( ENDFtk_GNU_Linux_coverage_flags "--coverage" )
+set( ENDFtk_GNU_Linux_subproject_flags  )
+set( ENDFtk_GNU_Linux_base_project_flags  )
+set( ENDFtk_GNU_Linux_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_GNU_Linux_link_time_optimization_flags "-flto" )
+set( ENDFtk_GNU_Linux_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_GNU_Linux_nonportable_optimization_flags "-march=native" )
+set( ENDFtk_GNU_Linux_static_flags "-static" )
 set( ENDFtk_GNU_Windows_common_flags "-Wall" "-Wextra" "-Wpedantic" "-std=c++14" )
 set( ENDFtk_GNU_Windows_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
 set( ENDFtk_GNU_Windows_RELEASE_flags "-O3" "-DNDEBUG" )
@@ -104,18 +116,18 @@ set( ENDFtk_GNU_Darwin_link_time_optimization_flags "-flto" )
 set( ENDFtk_GNU_Darwin_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
 set( ENDFtk_GNU_Darwin_nonportable_optimization_flags "-march=native" )
 set( ENDFtk_GNU_Darwin_static_flags "-static" )
-set( ENDFtk_GNU_Linux_common_flags "-Wall" "-Wextra" "-Wpedantic" "-std=c++14" )
-set( ENDFtk_GNU_Linux_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
-set( ENDFtk_GNU_Linux_RELEASE_flags "-O3" "-DNDEBUG" )
-set( ENDFtk_GNU_Linux_strict_flags "-Werror" )
-set( ENDFtk_GNU_Linux_coverage_flags "--coverage" )
-set( ENDFtk_GNU_Linux_subproject_flags  )
-set( ENDFtk_GNU_Linux_base_project_flags  )
-set( ENDFtk_GNU_Linux_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
-set( ENDFtk_GNU_Linux_link_time_optimization_flags "-flto" )
-set( ENDFtk_GNU_Linux_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
-set( ENDFtk_GNU_Linux_nonportable_optimization_flags "-march=native" )
-set( ENDFtk_GNU_Linux_static_flags "-static" )
+set( ENDFtk_Clang_Linux_common_flags "-stdlib=libstdc++" "-Wall" "-Wextra" "-Wpedantic" "-std=c++14" )
+set( ENDFtk_Clang_Linux_DEBUG_flags "-O0" "-g" "-gdwarf-3" )
+set( ENDFtk_Clang_Linux_RELEASE_flags "-O3" "-DNDEBUG" )
+set( ENDFtk_Clang_Linux_strict_flags "-Werror" )
+set( ENDFtk_Clang_Linux_coverage_flags "--coverage" )
+set( ENDFtk_Clang_Linux_subproject_flags  )
+set( ENDFtk_Clang_Linux_base_project_flags  )
+set( ENDFtk_Clang_Linux_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_Clang_Linux_link_time_optimization_flags "-flto" )
+set( ENDFtk_Clang_Linux_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_Clang_Linux_nonportable_optimization_flags "-march=native" )
+set( ENDFtk_Clang_Linux_static_flags "-static" )
 set( ENDFtk_Clang_Windows_common_flags "-stdlib=libc++" "-Wall" "-Wextra" "-Wpedantic" "-std=c++14" )
 set( ENDFtk_Clang_Windows_DEBUG_flags "-O0" "-g" "-gdwarf-3" )
 set( ENDFtk_Clang_Windows_RELEASE_flags "-O3" "-DNDEBUG" )
@@ -140,18 +152,6 @@ set( ENDFtk_Clang_Darwin_link_time_optimization_flags "-flto" )
 set( ENDFtk_Clang_Darwin_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
 set( ENDFtk_Clang_Darwin_nonportable_optimization_flags "-march=native" )
 set( ENDFtk_Clang_Darwin_static_flags "-static" )
-set( ENDFtk_Clang_Linux_common_flags "-stdlib=libstdc++" "-Wall" "-Wextra" "-Wpedantic" "-std=c++14" )
-set( ENDFtk_Clang_Linux_DEBUG_flags "-O0" "-g" "-gdwarf-3" )
-set( ENDFtk_Clang_Linux_RELEASE_flags "-O3" "-DNDEBUG" )
-set( ENDFtk_Clang_Linux_strict_flags "-Werror" )
-set( ENDFtk_Clang_Linux_coverage_flags "--coverage" )
-set( ENDFtk_Clang_Linux_subproject_flags  )
-set( ENDFtk_Clang_Linux_base_project_flags  )
-set( ENDFtk_Clang_Linux_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
-set( ENDFtk_Clang_Linux_link_time_optimization_flags "-flto" )
-set( ENDFtk_Clang_Linux_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
-set( ENDFtk_Clang_Linux_nonportable_optimization_flags "-march=native" )
-set( ENDFtk_Clang_Linux_static_flags "-static" )
 get_directory_property( is_subproject PARENT_DIRECTORY )
 
 if( NOT TARGET catch-adapter )
@@ -346,9 +346,9 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/3.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/Base.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/src/readIsotopes.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/3/src/ctor.hpp"
@@ -366,24 +366,18 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/451/src/ctor-460.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/451/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1/451/src/readParameters.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/AnalyticalFunctions.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/ScatteringLawConstants.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/ScatteringLawConstants/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/ScatteringLawConstants/src/verifySize.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/ScatteringLawConstants/src/generateList.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ChargedParticleElasticScattering.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ContinuumEnergyAngle.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/DefinedElsewhere.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/DiscreteTwoBodyRecoils.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/DiscreteTwoBodyScattering.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/IsotropicDiscreteEmission.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/LaboratoryAngleEnergy.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/Multiplicity.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/NBodyPhaseSpace.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/NoLawDataGiven.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ReactionProduct.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/Unknown.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/LaboratoryAngleEnergy.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ChargedParticleElasticScattering/LegendreCoefficients.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ChargedParticleElasticScattering/NuclearAmplitudeExpansion.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ChargedParticleElasticScattering/NuclearPlusInterference.hpp"
@@ -457,6 +451,21 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/src/readReactionProducts.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/AnalyticalFunctions.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/ScatteringLawConstants.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/Tabulated.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/ScatteringLawConstants/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/ScatteringLawConstants/src/generateList.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/ScatteringLawConstants/src/verifySize.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/Tabulated/BetaValue.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/Tabulated/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/Tabulated/src/print.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/Tabulated/BetaValue/src/NC.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/Tabulated/BetaValue/src/print.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/Tabulated/BetaValue/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/Tabulated/BetaValue/src/readTemperatures.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/Tabulated/BetaValue/src/generateTemperatures.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/Section.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/File.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/Material.hpp"
@@ -564,6 +573,8 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/section/6/Unknown/test )
         add_subdirectory( src/ENDFtk/section/7/4/AnalyticalFunctions/test )
         add_subdirectory( src/ENDFtk/section/7/4/ScatteringLawConstants/test )
+        add_subdirectory( src/ENDFtk/section/7/4/Tabulated/test )
+        add_subdirectory( src/ENDFtk/section/7/4/Tabulated/BetaValue/test )
         add_subdirectory( src/ENDFtk/section/Base/test )
         add_subdirectory( src/ENDFtk/syntaxTree/File/test )
         add_subdirectory( src/ENDFtk/syntaxTree/Material/test )
