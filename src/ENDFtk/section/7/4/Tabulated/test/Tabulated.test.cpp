@@ -15,25 +15,22 @@ std::string invalidLT();
 
 SCENARIO( "Tabulated" ) {
 
-  GIVEN( "valid data for a Tabulated thermal scattering law" ) {
+  GIVEN( "valid data for a Tabulated thermal scattering law with one "
+         "temperature" ) {
 
     std::vector< long > boundaries = { 2 };
     std::vector< long > interpolants = { 4 };
     std::vector< BetaValue > betas = {
-        BetaValue( TabulationRecord( 293.6, 0.0, 0, 0, { 5 }, { 4 },
-                                     { 4.423802e-3, 4.649528e-3,
-                                       4.886772e-3, 8.418068e+1,
-                                       8.847604e+1 },
-                                     { 2.386876e-4, 2.508466e-4,
-                                       2.636238e-4, 1.306574e-9,
-                                       5.29573e-10 } ), {} ),
-       BetaValue( TabulationRecord( 293.6, 3.952570e-2, 0, 0, { 5 }, { 2 },
-                                    { 4.423802e-3, 4.649528e-3,
-                                      4.886772e-3, 8.418068e+1,
-                                      8.847604e+1 },
-                                    { 2.386694e-4, 2.508273e-4,
-                                      2.636238e-4, 2.770291e-4,
-                                      2.911373e-4 } ), {} ) };
+        BetaValue( 293.6, 0.0, { 5 }, { 4 },
+                   { 4.423802e-3, 4.649528e-3, 4.886772e-3, 8.418068e+1,
+                     8.847604e+1 },
+                   { 2.386876e-4, 2.508466e-4, 2.636238e-4, 1.306574e-9,
+                     5.29573e-10 } ),
+        BetaValue( 293.6, 3.952570e-2, { 5 }, { 2 },
+                   { 4.423802e-3, 4.649528e-3, 4.886772e-3, 8.418068e+1,
+                     8.847604e+1 },
+                   { 2.386694e-4, 2.508273e-4, 2.636238e-4, 2.770291e-4,
+                     2.911373e-4 } ) };
 
     THEN( "a Tabulated can be constructed using a TabulationRecord" ) {
       Tabulated chunk( std::move( boundaries ), std::move( interpolants ),

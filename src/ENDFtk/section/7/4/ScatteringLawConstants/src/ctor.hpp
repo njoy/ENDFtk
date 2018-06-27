@@ -9,7 +9,7 @@
 ScatteringLawConstants( ListRecord&& list ) :
   ListRecord( std::move( list ) ) {
 
-    verifySize( this->NI(), this->NS() );
+  verifySize( this->NI(), this->NS() );
 };
 
 /** 

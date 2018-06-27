@@ -1,5 +1,5 @@
 /** 
- *  @brief Constructor
+ *  @brief Constructor (components)
  *
  *  The number of entries in the temperatures array is checked against the
  *  temperature dependence flag LT (the L1 value on the TabulationRecord).
@@ -16,7 +16,7 @@ BetaValue( TabulationRecord&& alphas,
 }
 
 /** 
- *  @brief Constructor
+ *  @brief Constructor (multiple temperatures)
  *
  *  The size of the various arrays is checked for consistency where appropriate.
  *
@@ -46,6 +46,29 @@ BetaValue( double beta,
                                    std::move( temperatures ),
                                    std::move( li ),
                                    std::move( sab ) ) ) {}
+
+/** 
+ *  @brief Constructor (single temperature)
+ *
+ *  The size of the various arrays is checked for consistency where appropriate.
+ *
+ *  @param[in] temperature    the temperature
+ *  @param[in] beta           the beta value for which data will be given
+ *  @param[in] boundaries     the interpolation range boundaries for S(a,beta)
+ *  @param[in] interpolants   the interpolation types for each range
+ *  @param[in] alphas         the alpha values (NA values)
+ *  @param[in] sab            the thermal scattering values (NA values)
+ */
+BetaValue( double temperature, double beta,
+           std::vector< long >&& boundaries,
+           std::vector< long >&& interpolants,
+           std::vector< double >&& alphas,
+           std::vector< double >&& sab ) :
+  BetaValue( TabulationRecord( temperature, beta, 0, 0,
+                               std::move( boundaries ),
+                               std::move( interpolants ),
+                               std::move( alphas ),
+                               std::move( sab ) ), {} ) {}
 
 private:
 /** 

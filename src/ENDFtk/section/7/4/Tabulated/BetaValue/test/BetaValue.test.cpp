@@ -16,6 +16,7 @@ SCENARIO( "BetaValue" ) {
 
   GIVEN( "valid data for a BetaValue with only one temperature" ) {
 
+    // component constructor
     TabulationRecord tabulation( 293.6, 0.0, 0, 0, { 5 }, { 4 },
                                  { 4.423802e-3, 4.649528e-3, 4.886772e-3,
                                    8.418068e+1, 8.847604e+1 },
@@ -23,17 +24,29 @@ SCENARIO( "BetaValue" ) {
                                    1.306574e-9, 5.29573e-10 } );
     std::vector< ListRecord > lists = {};
 
+    // single temperature constructor
+    double temperature = 293.6;
     double beta = 0.0;
-    std::vector< long > boundaries = { 5 };
     std::vector< long > interpolants = { 4 };
-    std::vector< long > li = {};
-    std::vector< double > alphas =
-        { 4.423802e-3, 4.649528e-3, 4.886772e-3, 8.418068e+1, 8.847604e+1 };
-    std::vector< double > temperatures = { 293.6 };
-    std::vector< std::vector< double > > Sab =
-        { { 2.386876e-4, 2.508466e-4, 2.636238e-4, 1.306574e-9, 5.29573e-10 } };
+    std::vector< long > boundaries = { 5 };
+    std::vector< double > alphas = { 4.423802e-3, 4.649528e-3, 4.886772e-3,
+                                     8.418068e+1, 8.847604e+1 };
+    std::vector< double > sab = { 2.386876e-4, 2.508466e-4, 2.636238e-4,
+                                  1.306574e-9, 5.29573e-10 };
 
-    THEN( "a BetaValue can be constructed using a TabulationRecord" ) {
+    // multiple temperature constructor with data for only one
+    double Beta = 0.0;
+    std::vector< long > Interpolants = { 4 };
+    std::vector< long > Boundaries = { 5 };
+    std::vector< double > Alphas = { 4.423802e-3, 4.649528e-3, 4.886772e-3,
+                                     8.418068e+1, 8.847604e+1 };
+    std::vector< long > Li = { 4 };
+    std::vector< double > Temperatures = { 293.6 };
+    std::vector< std::vector< double > > Sab =
+                                { { 2.386876e-4, 2.508466e-4, 2.636238e-4,
+                                    1.306574e-9, 5.29573e-10 } };
+
+    THEN( "a BetaValue can be constructed using its components" ) {
       BetaValue chunk( std::move( tabulation ), std::move( lists ) );
 
       REQUIRE( 0.0 == Approx( chunk.beta() ) );
@@ -72,13 +85,56 @@ SCENARIO( "BetaValue" ) {
 
     THEN( "a BetaValue can be constructed using separate arrays and members "
           "can be tested" ) {
-      BetaValue chunk( beta,
+      BetaValue chunk( temperature, beta,
                        std::move( boundaries ),
                        std::move( interpolants ), 
                        std::move( alphas ),
-                       std::move( li ),
-                       std::move( temperatures ),
+                       std::move( sab ) );
+
+      REQUIRE( 0.0 == Approx( chunk.beta() ) );
+      REQUIRE( 0 == chunk.LT() );
+      REQUIRE( 1 == chunk.NT() );
+
+      REQUIRE( 1 == chunk.NR() );
+      REQUIRE( 5 == chunk.NA() );
+      REQUIRE( 1 == chunk.boundaries().size() );
+      REQUIRE( 5 == chunk.boundaries()[0] );
+      REQUIRE( 1 == chunk.interpolants().size() );
+      REQUIRE( 4 == chunk.interpolants()[0] );
+
+      REQUIRE( 1 == chunk.temperatures().size() );
+      REQUIRE( 293.6 == Approx( chunk.temperatures()[0] ) );
+
+      REQUIRE( 5 == chunk.alphas().size() );
+      REQUIRE( 4.423802e-3 == Approx( chunk.alphas()[0] ) );
+      REQUIRE( 4.649528e-3 == Approx( chunk.alphas()[1] ) );
+      REQUIRE( 4.886772e-3 == Approx( chunk.alphas()[2] ) );
+      REQUIRE( 8.418068e+1 == Approx( chunk.alphas()[3] ) );
+      REQUIRE( 8.847604e+1 == Approx( chunk.alphas()[4] ) );
+
+      REQUIRE( 0 == chunk.LI().size() );
+
+      REQUIRE( 1 == chunk.thermalScatteringValues().size() );
+      REQUIRE( 5 == chunk.thermalScatteringValues()[0].size() );
+      REQUIRE( 2.386876e-4 == Approx( chunk.thermalScatteringValues()[0][0] ) );
+      REQUIRE( 2.508466e-4 == Approx( chunk.thermalScatteringValues()[0][1] ) );
+      REQUIRE( 2.636238e-4 == Approx( chunk.thermalScatteringValues()[0][2] ) );
+      REQUIRE( 1.306574e-9 == Approx( chunk.thermalScatteringValues()[0][3] ) );
+      REQUIRE( 5.29573e-10 == Approx( chunk.thermalScatteringValues()[0][4] ) );
+
+      REQUIRE( 4 == chunk.NC() );
+    }
+
+    THEN( "a BetaValue can be constructed with the multiple temperature "
+          "constructor using separate arrays and members can be tested" ) {
+      BetaValue chunk( Beta,
+                       std::move( Boundaries ),
+                       std::move( Interpolants ), 
+                       std::move( Alphas ),
+                       std::move( Li ),
+                       std::move( Temperatures ),
                        std::move( Sab ) );
+
 
       REQUIRE( 0.0 == Approx( chunk.beta() ) );
       REQUIRE( 0 == chunk.LT() );
@@ -134,7 +190,7 @@ SCENARIO( "BetaValue" ) {
     std::vector< double > alphas =
         { 4.423802e-3, 4.649528e-3, 4.886772e-3, 8.418068e+1, 8.847604e+1 };
     std::vector< double > temperatures = { 293.6, 400.0 };
-    std::vector< std::vector< double > > Sab =
+    std::vector< std::vector< double > > sab =
         { { 2.386876e-4, 2.508466e-4, 2.636238e-4, 1.306574e-9, 5.29573e-10 },
           { 4.430020e-4, 4.655671e-4, 4.892796e-4, 4.510209e-8, 2.183942e-8 } };
 
@@ -191,7 +247,7 @@ SCENARIO( "BetaValue" ) {
                        std::move( alphas ),
                        std::move( li ),
                        std::move( temperatures ),
-                       std::move( Sab ) );
+                       std::move( sab ) );
 
       REQUIRE( 0.0 == Approx( chunk.beta() ) );
       REQUIRE( 1 == chunk.LT() );

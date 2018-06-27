@@ -31,11 +31,16 @@ private:
   ScatteringLawConstants b_;
   ScatteringLaw law_;
 
+  EffectiveTemperature principal_;
+  std::vector< std::optional< EffectiveTemperature > > secondary_;
+
   /* auxiliary functions */
+  #include "ENDFtk/section/7/4/src/readSecondaryTemperatures.hpp"
+  #include "ENDFtk/section/7/4/src/readScatteringLaw.hpp"
 
 public:
   /* constructor */
-//  #include "ENDFtk/section/7/4/src/ctor.hpp"
+  #include "ENDFtk/section/7/4/src/ctor.hpp"
 
   /* get methods */
   int LAT() const { return this->lat_; }
@@ -45,9 +50,18 @@ public:
 
   const ScatteringLaw& scatteringLaw() const { return this->law_; }
 
-//  #include "ENDFtk/section/7/4/src/NC.hpp"
+  const EffectiveTemperature& principalEffectiveTemperature() const {
+    return this->principal_;
+  }
 
-//  #include "ENDFtk/section/7/4/src/print.hpp"
+  auto secondaryEffectiveTemperatures() const {
+    return ranges::make_iterator_range( this->secondary_.begin(),
+                                        this->secondary_.end() );
+  }
+
+  #include "ENDFtk/section/7/4/src/NC.hpp"
+
+  #include "ENDFtk/section/7/4/src/print.hpp"
 
   using Base::MT;
   using Base::ZA;

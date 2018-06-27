@@ -610,6 +610,9 @@
     "src/ENDFtk/section/7/4/Tabulated/BetaValue/src/generateTemperatures.hpp",
     "src/ENDFtk/section/7/4/Tabulated/BetaValue/src/verifyLT.hpp",
     "src/ENDFtk/section/7/4/EffectiveTemperature/src/ctor.hpp",
+    "src/ENDFtk/section/7/4/src/ctor.hpp",
+    "src/ENDFtk/section/7/4/src/readScatteringLaw.hpp",
+    "src/ENDFtk/section/7/4/src/readSecondaryTemperatures.hpp",
     "src/ENDFtk/syntaxTree/Section.hpp",
     "src/ENDFtk/syntaxTree/File.hpp",
     "src/ENDFtk/syntaxTree/Material.hpp",
@@ -883,6 +886,9 @@
     ],
     "ENDFtk.section.6.Unknown": [
       "src/ENDFtk/section/6/Unknown/test/Unknown.test.cpp"
+    ],
+    "ENDFtk.section.7.4": [
+      "src/ENDFtk/section/7/4/test/4.test.cpp"
     ],
     "ENDFtk.section.7.4.AnalyticalFunctions": [
       "src/ENDFtk/section/7/4/AnalyticalFunctions/test/AnalyticalFunctions.test.cpp"
