@@ -6,7 +6,7 @@ readScatteringLaw( Iterator& begin,
                    int MAT,
                    int MF,
                    int MT,
-                   double LTHR ) {
+                   int LTHR ) {
   switch ( LTHR ) {
     case 1: return CoherentElastic( begin, end, lineNumber, MAT, MF, MT );
     case 2: return IncoherentElastic( begin, end, lineNumber, MAT, MF, MT );

@@ -13,6 +13,9 @@ using Tabulated = section::Type< 7, 4 >::Tabulated;
 using BetaValue = section::Type< 7, 4 >::Tabulated::BetaValue;
 using EffectiveTemperature = section::Type< 7, 4 >::EffectiveTemperature;
 
+// macros don't like multiple template arguments
+using section74 = section::Type< 7, 4 >;
+
 std::string chunkWithOneTemperatureAndOneScatterer();
 std::string chunkWithTwoTemperaturesAndOneScatterer();
 std::string validSEND();
@@ -440,6 +443,20 @@ SCENARIO( "section::Type< 7, 4 >" ) {
         REQUIRE( 1.270678e+3 == Approx( temp.effectiveTemperatures()[2] ) );
 
         REQUIRE( 16 == chunk.NC() );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the SEND Record is not valid" ){
+
+      std::string sectionString = chunkWithOneTemperatureAndOneScatterer() +
+                                  invalidSEND();
+      auto begin = sectionString.begin();
+      auto end = sectionString.end();
+      long lineNumber = 1;
+      HeadRecord head( begin, end, lineNumber );
+      
+      THEN( "an exception is thrown" ){
+        REQUIRE_THROWS( section74( head, begin, end, lineNumber, 27 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -942,6 +959,20 @@ SCENARIO( "section::Type< 7, 4 >" ) {
         REQUIRE( 20 == chunk.NC() );
       } // THEN
     } //WHEN
+
+    WHEN( "the SEND Record is not valid" ){
+
+      std::string sectionString = chunkWithTwoTemperaturesAndOneScatterer() +
+                                  invalidSEND();
+      auto begin = sectionString.begin();
+      auto end = sectionString.end();
+      long lineNumber = 1;
+      HeadRecord head( begin, end, lineNumber );
+      
+      THEN( "an exception is thrown" ){
+        REQUIRE_THROWS( section74( head, begin, end, lineNumber, 27 ) );
+      } // THEN
+    } // WHEN
   } // GIVEN
 
   GIVEN( "a valid section::Type< 7, 4 > with one temperature and no secondary "
