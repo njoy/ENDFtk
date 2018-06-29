@@ -1,6 +1,14 @@
 /** 
  *  @brief Constructor
  *
+ *  @param[in] sequence   the interpolation sequence record
+ */
+Tabulated( InterpolationSequenceRecord< BetaValue >&& sequence ) :
+  data_( std::move( sequence ) ) {}
+
+/** 
+ *  @brief Constructor
+ *
  *  @param[in] boundaries     the interpolation range boundaries
  *  @param[in] interpolants   the interpolation types for each range
  *  @param[in] betas          the beta values and associated S(alpha,T)
@@ -9,10 +17,11 @@
 Tabulated( std::vector< long >&& boundaries,
            std::vector< long >&& interpolants,
            std::vector< BetaValue >&& betas ) :
-  data_( InterpolationRecord( 0.0, 0.0, 0, 0,
-                              std::move( boundaries ),
-                              std::move( interpolants ) ),
-                              std::move( betas ) ) {};
+  Tabulated( InterpolationSequenceRecord< BetaValue >(
+                    InterpolationRecord( 0.0, 0.0, 0, 0,
+                                         std::move( boundaries ),
+                                         std::move( interpolants ) ),
+                    std::move( betas ) ) ) {};
 
 /** 
  *  @brief Constructor (from a buffer)
@@ -33,5 +42,6 @@ Tabulated( Iterator& begin,
            int MAT,
            int MF,
            int MT ) :
-  data_( begin, end, lineNumber, MAT, MF, MT  ) {}
+  Tabulated( InterpolationSequenceRecord< BetaValue >( begin, end, lineNumber,
+                                                       MAT, MF, MT ) ) {}
 

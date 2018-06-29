@@ -11,6 +11,7 @@ section::Type< 7, 4 >::Tabulated::BetaValue;
 
 std::string chunkWithOneTemperature();
 std::string chunkWithTwoTemperatures();
+std::string chunkWithInconsistentBetas();
 
 SCENARIO( "BetaValue" ) {
 
@@ -130,9 +131,9 @@ SCENARIO( "BetaValue" ) {
       BetaValue chunk( Beta,
                        std::move( Boundaries ),
                        std::move( Interpolants ), 
-                       std::move( Alphas ),
-                       std::move( Li ),
                        std::move( Temperatures ),
+                       std::move( Li ),
+                       std::move( Alphas ),
                        std::move( Sab ) );
 
 
@@ -244,9 +245,9 @@ SCENARIO( "BetaValue" ) {
       BetaValue chunk( beta,
                        std::move( boundaries ),
                        std::move( interpolants ), 
-                       std::move( alphas ),
-                       std::move( li ),
                        std::move( temperatures ),
+                       std::move( li ),
+                       std::move( alphas ),
                        std::move( sab ) );
 
       REQUIRE( 0.0 == Approx( chunk.beta() ) );
@@ -425,6 +426,40 @@ SCENARIO( "BetaValue" ) {
       REQUIRE( buffer == string );
     }
   } // GIVEN
+
+  GIVEN( "data for a BetaValue with two temperatures with invalid beta "
+         "values" ) {
+
+    TabulationRecord tabulation( 293.6, 0.0, 1, 0, { 5 }, { 4 },
+                                 { 4.423802e-3, 4.649528e-3, 4.886772e-3,
+                                   8.418068e+1, 8.847604e+1 },
+                                 { 2.386876e-4, 2.508466e-4, 2.636238e-4,
+                                   1.306574e-9, 5.29573e-10 } );
+    std::vector< ListRecord > lists =
+        { ListRecord( 400.0, 1.0, 4, 0, 0,
+                      { 4.430020e-4, 4.655671e-4, 4.892796e-4,
+                        4.510209e-8, 2.183942e-8 } ) };
+
+    THEN( "an exception is thrown" ) {
+
+      REQUIRE_THROWS( BetaValue( std::move( tabulation ),
+                                 std::move( lists ) ) );
+    } // THEN
+  } //GIVEN
+
+  GIVEN( "a string representation of a BetaValue with two temperatures "
+         "and inconsistent betas" ) {
+
+    std::string string = chunkWithInconsistentBetas();
+    auto begin = string.begin();
+    auto end = string.end();
+    long lineNumber = 1;
+
+    THEN( "an exception is thrown" ) {
+
+      REQUIRE_THROWS( BetaValue( begin, end, lineNumber, 27, 7, 4 ) );
+    } //THEN
+  } // GIVEN
 } // SCENARIO
 
 std::string chunkWithOneTemperature() {
@@ -442,6 +477,16 @@ std::string chunkWithTwoTemperatures() {
     " 4.423802-3 2.386876-4 4.649528-3 2.508466-4 4.886772-3 2.636238-4  27 7  4     \n"
     " 8.418068+1 1.306574-9 8.847604+1 5.29573-10                        27 7  4     \n"
     " 4.000000+2 0.000000+0          4          0          5          0  27 7  4     \n"
+    " 4.430020-4 4.655671-4 4.892796-4 4.510209-8 2.183942-8             27 7  4     \n";
+}
+
+std::string chunkWithInconsistentBetas() {
+  return
+    " 2.936000+2 0.000000+0          1          0          1          5  27 7  4     \n"
+    "          5          4                                              27 7  4     \n"
+    " 4.423802-3 2.386876-4 4.649528-3 2.508466-4 4.886772-3 2.636238-4  27 7  4     \n"
+    " 8.418068+1 1.306574-9 8.847604+1 5.29573-10                        27 7  4     \n"
+    " 4.000000+2 1.000000+0          4          0          5          0  27 7  4     \n"
     " 4.430020-4 4.655671-4 4.892796-4 4.510209-8 2.183942-8             27 7  4     \n";
 }
 

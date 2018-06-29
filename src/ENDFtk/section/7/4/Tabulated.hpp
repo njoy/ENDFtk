@@ -25,6 +25,7 @@ private:
   /* auxiliary functions */
 
 public:
+
   /* constructor */
   #include "ENDFtk/section/7/4/Tabulated/src/ctor.hpp"
 

@@ -13,6 +13,12 @@ BetaValue( TabulationRecord&& alphas,
   alphas_( std::move( alphas ) ), temperatures_( std::move( temperatures ) ) {
 
   verifyLT( this->LT(), this->NT() );
+  if ( this->NT() != 1 ) {
+    verifyBetaValues( this->beta(),
+                      this->temperatures_ | 
+                          ranges::view::transform( [] ( const auto& v )
+                                                      { return v.C2(); } ) );
+  }
 }
 
 /** 
@@ -23,18 +29,18 @@ BetaValue( TabulationRecord&& alphas,
  *  @param[in] beta           the beta value for which data will be given
  *  @param[in] boundaries     the interpolation range boundaries for S(a,beta)
  *  @param[in] interpolants   the interpolation types for each range
- *  @param[in] alphas         the alpha values (NA values)
- *  @param[in] li             the temperature interpolation flags (NT-1 values)
  *  @param[in] temperatures   the temperatures (NT values)
+ *  @param[in] li             the temperature interpolation flags (NT-1 values)
+ *  @param[in] alphas         the alpha values (NA values)
  *  @param[in] sab            the thermal scattering values (NT arrays of NA
  *                            values)
  */
 BetaValue( double beta,
            std::vector< long >&& boundaries,
            std::vector< long >&& interpolants,
-           std::vector< double >&& alphas,
-           std::vector< long >&& li,
            std::vector< double >&& temperatures,
+           std::vector< long >&& li,
+           std::vector< double >&& alphas,
            std::vector< std::vector< double > >&& sab ) :
   BetaValue( TabulationRecord( temperatures[0], beta,
                                temperatures.size() - 1, 0,
