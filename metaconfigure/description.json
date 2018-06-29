@@ -593,6 +593,7 @@
     "src/ENDFtk/section/6/src/print.hpp",
     "src/ENDFtk/section/6/src/readReactionProducts.hpp",
     "src/ENDFtk/section/7/4.hpp",
+    "src/ENDFtk/section/7/2.hpp",
     "src/ENDFtk/section/7/4/AnalyticalFunctions.hpp",
     "src/ENDFtk/section/7/4/ScatteringLawConstants.hpp",
     "src/ENDFtk/section/7/4/Tabulated.hpp",
@@ -609,10 +610,26 @@
     "src/ENDFtk/section/7/4/Tabulated/BetaValue/src/readTemperatures.hpp",
     "src/ENDFtk/section/7/4/Tabulated/BetaValue/src/generateTemperatures.hpp",
     "src/ENDFtk/section/7/4/Tabulated/BetaValue/src/verifyLT.hpp",
+    "src/ENDFtk/section/7/4/Tabulated/BetaValue/src/verifyBetaValues.hpp",
     "src/ENDFtk/section/7/4/EffectiveTemperature/src/ctor.hpp",
     "src/ENDFtk/section/7/4/src/ctor.hpp",
     "src/ENDFtk/section/7/4/src/readScatteringLaw.hpp",
     "src/ENDFtk/section/7/4/src/readSecondaryTemperatures.hpp",
+    "src/ENDFtk/section/7/4/src/print.hpp",
+    "src/ENDFtk/section/7/4/src/NC.hpp",
+    "src/ENDFtk/section/7/2/IncoherentElastic.hpp",
+    "src/ENDFtk/section/7/2/CoherentElastic.hpp",
+    "src/ENDFtk/section/7/2/src/NC.hpp",
+    "src/ENDFtk/section/7/2/src/print.hpp",
+    "src/ENDFtk/section/7/2/src/ctor.hpp",
+    "src/ENDFtk/section/7/2/src/readScatteringLaw.hpp",
+    "src/ENDFtk/section/7/2/CoherentElastic/src/ctor.hpp",
+    "src/ENDFtk/section/7/2/CoherentElastic/src/generateTemperatures.hpp",
+    "src/ENDFtk/section/7/2/CoherentElastic/src/readTemperatures.hpp",
+    "src/ENDFtk/section/7/2/CoherentElastic/src/verifyLT.hpp",
+    "src/ENDFtk/section/7/2/CoherentElastic/src/NC.hpp",
+    "src/ENDFtk/section/7/2/CoherentElastic/src/print.hpp",
+    "src/ENDFtk/section/7/2/IncoherentElastic/src/ctor.hpp",
     "src/ENDFtk/syntaxTree/Section.hpp",
     "src/ENDFtk/syntaxTree/File.hpp",
     "src/ENDFtk/syntaxTree/Material.hpp",
@@ -886,6 +903,15 @@
     ],
     "ENDFtk.section.6.Unknown": [
       "src/ENDFtk/section/6/Unknown/test/Unknown.test.cpp"
+    ],
+    "ENDFtk.section.7.2": [
+      "src/ENDFtk/section/7/2/test/2.test.cpp"
+    ],
+    "ENDFtk.section.7.2.CoherentElastic": [
+      "src/ENDFtk/section/7/2/CoherentElastic/test/CoherentElastic.test.cpp"
+    ],
+    "ENDFtk.section.7.2.IncoherentElastic": [
+      "src/ENDFtk/section/7/2/IncoherentElastic/test/IncoherentElastic.test.cpp"
     ],
     "ENDFtk.section.7.4": [
       "src/ENDFtk/section/7/4/test/4.test.cpp"

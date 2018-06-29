@@ -1,6 +1,11 @@
 /** 
  *  @brief Constructor
  *
+ *  @param[in] zaid                    the material ZAID value
+ *  @param[in] awr                     the atomic weight ratio
+ *  @param[in] lat                     the temperature flag for alpha and
+ *                                     beta grid
+ *  @param[in] lasym                   the S(a,b) symmetry flag
  *  @param[in] constants               the thermal scattering law constants
  *  @param[in] law                     the thermal scattering law
  *  @param[in] principalTemperature    the effective temperature of the
