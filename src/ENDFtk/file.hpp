@@ -45,5 +45,6 @@ public:
 };
 
 #include "ENDFtk/file/1.hpp"
+#include "ENDFtk/file/7.hpp"
 
 }
