@@ -16,7 +16,7 @@ Tabulated( int lang, double energy, long nd, long na, long nep,
                            std::move( energies ),
                            std::move( totalEmissionProbabilities ),
                            std::move( cosines ),
-                           std::move( probabilities )) ) {};
+                           std::move( probabilities ) ) ) {};
 
 template< typename Iterator >
 Tabulated( int lang, Iterator& it, const Iterator& end, long& lineNumber,
