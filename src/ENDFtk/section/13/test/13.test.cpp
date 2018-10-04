@@ -164,7 +164,7 @@ SCENARIO( "section::Type<13>" ){
     THEN( "it can be printed" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
-      section.print( output, 825, 13 );
+      section.print( output, 825 );
       REQUIRE( buffer == string );
     }
   } // GIVEN

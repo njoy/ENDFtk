@@ -3,4 +3,3 @@ long NC() const {
   for ( auto& entry : this->subsections_ ) { NC += entry.NC(); }
   return NC;
 } 
-

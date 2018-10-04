@@ -1,6 +1,12 @@
 template<>
 class Type< 13 > : protected Base {
 public:
+  using Base::MT;
+  using Base::ZA;
+  using Base::atomicWeightRatio;
+
+  static constexpr auto MF(){ return 13; }
+
   #include "ENDFtk/section/13/Subsection.hpp"
 
 protected:
@@ -10,10 +16,6 @@ protected:
 
 public:
   #include "ENDFtk/section/13/src/ctor.hpp"
-
-  using Base::MT;
-  using Base::ZA;
-  using Base::atomicWeightRatio;
 
   int NK() const { return std::max( 1, int( this->subsections_.size() ) - 1 ); }
 
@@ -29,6 +31,5 @@ public:
   }
 
   #include "ENDFtk/section/13/src/NC.hpp"
-
   #include "ENDFtk/section/13/src/print.hpp"
 };

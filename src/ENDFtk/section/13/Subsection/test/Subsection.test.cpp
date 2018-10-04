@@ -36,6 +36,15 @@ SCENARIO( "section::Type< 13 >::SubSection" ){
         std::vector< double > XS = SS.crossSections();
         REQUIRE( refEnergies == energies );
         REQUIRE( refXS == XS );
+
+        REQUIRE( 5 == SS.NC() );
+      }
+
+      THEN( "it can be printed" ){
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        SS.print( output, 825, 22 );
+        REQUIRE( buffer == sSS );
       }
     }
     WHEN( "there is a wrong MAT number" ){
