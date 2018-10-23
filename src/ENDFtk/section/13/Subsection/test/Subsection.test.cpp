@@ -9,7 +9,6 @@ std::string sSubSection();
 SCENARIO( "section::Type< 13 >::SubSection" ){
   GIVEN( "a string representation of a valid MF=13 Subsection" ){
     std::string sSS = sSubSection();
-    // njoy::Log::info("sSS:\n{}", sSS );
     auto begin = sSS.begin();
     auto end = sSS.end();
     long lineNumber = 1;
