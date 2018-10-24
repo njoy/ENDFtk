@@ -8,5 +8,6 @@ class Type;
 #include "ENDFtk/section/1.hpp"
 #include "ENDFtk/section/2.hpp"
 #include "ENDFtk/section/3.hpp"
+#include "ENDFtk/section/13.hpp"
 
 }

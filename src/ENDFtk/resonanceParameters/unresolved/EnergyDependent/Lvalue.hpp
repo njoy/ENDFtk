@@ -18,6 +18,7 @@ public:
   auto jValues() const {
     return
       this->lists
-      | ranges::view::transform( []( const auto& list ){ return Jvalue(list); } );
+      | ranges::view::transform( 
+          []( const auto& list ){ return Jvalue( list ); } );
   }
 };

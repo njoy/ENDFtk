@@ -14,14 +14,16 @@ public:
   auto jValues() const {
     return
       this->lists
-      | ranges::view::transform( []( const auto& list ){ return Jvalue(list); } );
+      | ranges::view::transform( 
+          []( const auto& list ){ return Jvalue( list ); } );
   }
 
   long NC() const {
     return 1
-      + ranges::accumulate( this->lists
-                            | ranges::view::transform
-                              ( []( const auto& list ){ return list.NC(); } ), 0 );
+      + ranges::accumulate( 
+          this->lists
+            | ranges::view::transform( 
+                []( const auto& list ){ return list.NC(); } ), 0 );
   }
 
   #include "ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/Lvalue/src/print.hpp"
