@@ -4,6 +4,8 @@ class Type< 8, 457 > : protected Base {
 public:
 
   #include "ENDFtk/section/8/457/AverageDecayEnergies.hpp"
+  #include "ENDFtk/section/8/457/DecayMode.hpp"
+  #include "ENDFtk/section/8/457/DecayModes.hpp"
 
 private:
 
@@ -13,7 +15,7 @@ private:
   bool nst_;
 
   AverageDecayEnergies energies_;
-//  DecayModes modes_;
+  DecayModes modes_;
 //  std::vector< DecaySpectrum > spectra_;
 
   /* auxiliary functions */
@@ -49,11 +51,35 @@ public:
   }
 
   /**
+   *  @brief Return the target spin
+   */
+  auto spin() const {
+
+      return this->modes_.spin();
+  }
+
+  /**
+   *  @brief Return the target parity
+   */
+  auto parity() const {
+
+      return this->modes_.parity();
+  }
+
+  /**
    *  @brief Return the half life and decay energy information
    */
   const AverageDecayEnergies& averageDecayEnergies() const {
 
       return this->energies_;
+  }
+
+  /**
+   *  @brief Return the spin, parity and decay mode information
+   */
+  const DecayModes& decayModes() const {
+
+      return this->modes_;
   }
 
   #include "ENDFtk/section/8/457/src/NC.hpp"

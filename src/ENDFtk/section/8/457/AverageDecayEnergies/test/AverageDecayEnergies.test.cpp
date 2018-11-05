@@ -9,6 +9,7 @@ using namespace njoy::ENDFtk;
 using AverageDecayEnergies = section::Type< 8, 457 >::AverageDecayEnergies;
 
 std::string chunk();
+std::string wrongNC();
 
 SCENARIO( "AverageDecayEnergies" ) {
 
@@ -125,6 +126,20 @@ SCENARIO( "AverageDecayEnergies" ) {
                                             std::move( decayEnergies ) ) );
     }
   } // GIVEN
+
+  GIVEN( "a string representation with a wrong number of decay energies" ) {
+
+    std::string string = wrongNC();
+    auto begin = string.begin();
+    auto end = string.end();
+    long lineNumber = 1;
+
+    THEN( "an exception is thrown" ) {
+
+      REQUIRE_THROWS( AverageDecayEnergies( begin, end, lineNumber,
+                                            3580, 8, 457 ) );
+    }
+  } // GIVEN
 } // SCENARIO
 
 std::string chunk() {
@@ -139,4 +154,3 @@ std::string wrongNC() {
     " 4.008322+4 4.128931+3 5.373671+3 3.660206+2 2.441003+4 6.191754+23580 8457     \n"
     " 1.000000+0 2.000000+1                                            3580 8457     \n";
 }
-

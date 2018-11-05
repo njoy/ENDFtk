@@ -642,10 +642,15 @@
     "src/ENDFtk/section/7/4/Tabulated/src/print.hpp", 
     "src/ENDFtk/section/8/457.hpp", 
     "src/ENDFtk/section/8/457/AverageDecayEnergies.hpp", 
-    "src/ENDFtk/section/8/457/DiscreteEnergy.hpp", 
+    "src/ENDFtk/section/8/457/DecayMode.hpp", 
+    "src/ENDFtk/section/8/457/DecayModes.hpp", 
     "src/ENDFtk/section/8/457/AverageDecayEnergies/src/ctor.hpp", 
     "src/ENDFtk/section/8/457/AverageDecayEnergies/src/generateList.hpp", 
     "src/ENDFtk/section/8/457/AverageDecayEnergies/src/verifyNC.hpp", 
+    "src/ENDFtk/section/8/457/DecayMode/src/ctor.hpp", 
+    "src/ENDFtk/section/8/457/DecayModes/src/ctor.hpp", 
+    "src/ENDFtk/section/8/457/DecayModes/src/generateList.hpp", 
+    "src/ENDFtk/section/8/457/DecayModes/src/verifyNDK.hpp", 
     "src/ENDFtk/section/8/457/src/NC.hpp", 
     "src/ENDFtk/section/8/457/src/print.hpp", 
     "src/ENDFtk/section/Base/src/ctor.hpp", 
@@ -952,6 +957,12 @@
     ], 
     "ENDFtk.section.8.457.AverageDecayEnergies": [
       "src/ENDFtk/section/8/457/AverageDecayEnergies/test/AverageDecayEnergies.test.cpp"
+    ], 
+    "ENDFtk.section.8.457.DecayMode": [
+      "src/ENDFtk/section/8/457/DecayMode/test/DecayMode.test.cpp"
+    ], 
+    "ENDFtk.section.8.457.DecayModes": [
+      "src/ENDFtk/section/8/457/DecayModes/test/DecayModes.test.cpp"
     ], 
     "ENDFtk.section.Base": [
       "src/ENDFtk/section/Base/test/Base.test.cpp"

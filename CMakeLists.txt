@@ -501,10 +501,15 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/Tabulated/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/AverageDecayEnergies.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/DiscreteEnergy.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/DecayMode.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/DecayModes.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/AverageDecayEnergies/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/AverageDecayEnergies/src/generateList.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/AverageDecayEnergies/src/verifyNC.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/DecayMode/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/DecayModes/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/DecayModes/src/generateList.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/DecayModes/src/verifyNDK.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/src/NC.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/Base/src/ctor.hpp"
@@ -575,6 +580,7 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/test )
         add_subdirectory( src/ENDFtk/section/6/test )
         add_subdirectory( src/ENDFtk/section/7/4/Tabulated/test )
+        add_subdirectory( src/ENDFtk/syntaxTree/Tape/test )
         add_subdirectory( src/ENDFtk/section/8/457/AverageDecayEnergies/test )
         add_subdirectory( src/ENDFtk/section/7/2/CoherentElastic/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/resolved/MultilevelBreitWigner/test )
@@ -618,11 +624,12 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/section/6/DiscreteTwoBodyScattering/SubSection/test )
         add_subdirectory( src/ENDFtk/section/7/4/EffectiveTemperature/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/resolved/ReichMoore/test )
+        add_subdirectory( src/ENDFtk/section/8/457/DecayModes/test )
         add_subdirectory( src/ENDFtk/section/6/Multiplicity/test )
         add_subdirectory( src/ENDFtk/record/Sequence/test )
         add_subdirectory( src/ENDFtk/section/6/DiscreteTwoBodyScattering/LegendreCoefficients/test )
         add_subdirectory( src/ENDFtk/file/7/test )
-        add_subdirectory( src/ENDFtk/syntaxTree/Tape/test )
+        add_subdirectory( src/ENDFtk/section/8/457/DecayMode/test )
         add_subdirectory( src/ENDFtk/section/2/test )
         add_subdirectory( src/ENDFtk/section/6/NoLawDataGiven/test )
         add_subdirectory( src/ENDFtk/file/1/test )
