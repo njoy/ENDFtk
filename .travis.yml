@@ -1,5 +1,4 @@
 sudo: required
-dist: trusty
 git:
   submodules: false
 addons:
@@ -8,7 +7,6 @@ addons:
     - sourceline: deb http://apt.llvm.org/precise/ llvm-toolchain-precise-3.8 main
       key_url: http://apt.llvm.org/llvm-snapshot.gpg.key
     - ubuntu-toolchain-r-test
-    - george-edison55-precise-backports
     packages:
     - gcc-6
     - g++-6
