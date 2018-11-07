@@ -19,7 +19,7 @@ private:
 
   AverageDecayEnergies energies_;
   DecayModes modes_;
-//  std::vector< DecaySpectrum > spectra_;
+  std::vector< DecaySpectrum > spectra_;
 
   /* auxiliary functions */
 
@@ -48,45 +48,40 @@ public:
   /**
    *  @brief Return the half life and its uncertainty
    */
-  auto halfLife() const {
-
-      return this->energies_.halfLife();
-  }
+  auto halfLife() const { return this->energies_.halfLife(); }
 
   /**
    *  @brief Return the target spin
    */
-  auto spin() const {
-
-      return this->modes_.spin();
-  }
+  auto spin() const { return this->modes_.spin(); }
 
   /**
    *  @brief Return the target parity
    */
-  auto parity() const {
-
-      return this->modes_.parity();
-  }
+  auto parity() const { return this->modes_.parity(); }
 
   /**
    *  @brief Return the half life and decay energy information
    */
   const AverageDecayEnergies& averageDecayEnergies() const {
 
-      return this->energies_;
+    return this->energies_;
   }
 
   /**
    *  @brief Return the spin, parity and decay mode information
    */
-  const DecayModes& decayModes() const {
+  const DecayModes& decayModes() const { return this->modes_; }
 
-      return this->modes_;
+  /**
+   *  @brief Return the spectra
+   */
+  auto decaySpectra() const {
+
+    return ranges::view::all( this->spectra_ );
   }
 
   #include "ENDFtk/section/8/457/src/NC.hpp"
-
   #include "ENDFtk/section/8/457/src/print.hpp"
 
   using Base::MT;
