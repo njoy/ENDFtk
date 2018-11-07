@@ -6,6 +6,9 @@ public:
   #include "ENDFtk/section/8/457/AverageDecayEnergies.hpp"
   #include "ENDFtk/section/8/457/DecayMode.hpp"
   #include "ENDFtk/section/8/457/DecayModes.hpp"
+  #include "ENDFtk/section/8/457/ContinuousSpectrum.hpp"
+  #include "ENDFtk/section/8/457/DiscreteSpectrum.hpp"
+  #include "ENDFtk/section/8/457/DecaySpectrum.hpp"
 
 private:
 

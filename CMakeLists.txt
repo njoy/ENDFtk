@@ -501,15 +501,29 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/Tabulated/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/AverageDecayEnergies.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/ContinuousSpectrum.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/DecayMode.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/DecayModes.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/DecaySpectrum.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/DiscreteSpectrum.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/AverageDecayEnergies/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/AverageDecayEnergies/src/generateList.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/AverageDecayEnergies/src/verifyNC.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/ContinuousSpectrum/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/DecayMode/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/DecayModes/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/DecayModes/src/generateList.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/DecayModes/src/verifyNDK.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/DecaySpectrum/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/DecaySpectrum/src/NC.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/DecaySpectrum/src/print.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/DecaySpectrum/src/readContinuous.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/DecaySpectrum/src/readDiscrete.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/DecaySpectrum/src/verifyLCOV.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/DiscreteSpectrum/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/DiscreteSpectrum/src/generateList.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/DiscreteSpectrum/src/returnTuple.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/DiscreteSpectrum/src/verifyNT.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/src/NC.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/Base/src/ctor.hpp"
@@ -593,12 +607,14 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/ListRecord/test )
         add_subdirectory( src/ENDFtk/TabulationRecord/test )
         add_subdirectory( src/ENDFtk/TextRecord/test )
+        add_subdirectory( src/ENDFtk/section/8/457/DiscreteSpectrum/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/resolved/BreitWigner/test )
         add_subdirectory( src/ENDFtk/record/InterpolationBase/test )
         add_subdirectory( src/ENDFtk/record/Zipper/test )
         add_subdirectory( src/ENDFtk/section/6/ContinuumEnergyAngle/Base/test )
         add_subdirectory( src/ENDFtk/section/6/NBodyPhaseSpace/test )
         add_subdirectory( src/ENDFtk/section/6/ContinuumEnergyAngle/test )
+        add_subdirectory( src/ENDFtk/section/8/457/ContinuousSpectrum/test )
         add_subdirectory( src/ENDFtk/section/6/DiscreteTwoBodyScattering/Tabulated/test )
         add_subdirectory( src/ENDFtk/section/6/ChargedParticleElasticScattering/NuclearPlusInterference/test )
         add_subdirectory( src/ENDFtk/syntaxTree/Material/test )
@@ -624,6 +640,7 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/section/6/DiscreteTwoBodyScattering/SubSection/test )
         add_subdirectory( src/ENDFtk/section/7/4/EffectiveTemperature/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/resolved/ReichMoore/test )
+        add_subdirectory( src/ENDFtk/section/8/457/DecaySpectrum/test )
         add_subdirectory( src/ENDFtk/section/8/457/DecayModes/test )
         add_subdirectory( src/ENDFtk/section/6/Multiplicity/test )
         add_subdirectory( src/ENDFtk/record/Sequence/test )

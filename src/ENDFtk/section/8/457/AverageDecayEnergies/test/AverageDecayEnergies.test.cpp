@@ -52,6 +52,38 @@ SCENARIO( "AverageDecayEnergies" ) {
 
       REQUIRE( 2 == chunk.NC() );
     }
+
+    THEN( "an AverageDecayEnergies can be constructed and members can be "
+          "tested for a stable nuclide" ) {
+      AverageDecayEnergies chunk;
+
+      auto halfLife = chunk.halfLife();
+      REQUIRE( 0.0 == Approx( std::get< 0 >( halfLife ) ) );
+      REQUIRE( 0.0 == Approx( std::get< 1 >( halfLife ) ) );
+      REQUIRE( 3 == chunk.numberDecayEnergies() );
+      REQUIRE( 3 == chunk.decayEnergies().size() );
+      auto lightParticle = chunk.decayEnergies()[0];
+      REQUIRE( 0.0 == Approx( std::get< 0 >( lightParticle ) ) );
+      REQUIRE( 0.0 == Approx( std::get< 1 >( lightParticle ) ) );
+      auto electroMagnetic = chunk.decayEnergies()[1];
+      REQUIRE( 0.0 == Approx( std::get< 0 >( electroMagnetic ) ) );
+      REQUIRE( 0.0 == Approx( std::get< 1 >( electroMagnetic ) ) );
+      auto heavyParticle = chunk.decayEnergies()[2];
+      REQUIRE( 0.0 == Approx( std::get< 0 >( heavyParticle ) ) );
+      REQUIRE( 0.0 == Approx( std::get< 1 >( heavyParticle ) ) );
+
+      auto lightParticle2 = chunk.lightParticleDecayEnergy();
+      REQUIRE( 0.0 == Approx( std::get< 0 >( lightParticle2 ) ) );
+      REQUIRE( 0.0 == Approx( std::get< 1 >( lightParticle2 ) ) );
+      auto electroMagnetic2 = chunk.electromagneticDecayEnergy();
+      REQUIRE( 0.0 == Approx( std::get< 0 >( electroMagnetic2 ) ) );
+      REQUIRE( 0.0 == Approx( std::get< 1 >( electroMagnetic2 ) ) );
+      auto heavyParticle2 = chunk.heavyParticleDecayEnergy();
+      REQUIRE( 0.0 == Approx( std::get< 0 >( heavyParticle2 ) ) );
+      REQUIRE( 0.0 == Approx( std::get< 1 >( heavyParticle2 ) ) );
+
+      REQUIRE( 2 == chunk.NC() );
+    }
   } // GIVEN
 
   GIVEN( "a string representation of a valid AverageDecayEnergies" ) {

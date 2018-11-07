@@ -642,15 +642,29 @@
     "src/ENDFtk/section/7/4/Tabulated/src/print.hpp", 
     "src/ENDFtk/section/8/457.hpp", 
     "src/ENDFtk/section/8/457/AverageDecayEnergies.hpp", 
+    "src/ENDFtk/section/8/457/ContinuousSpectrum.hpp", 
     "src/ENDFtk/section/8/457/DecayMode.hpp", 
     "src/ENDFtk/section/8/457/DecayModes.hpp", 
+    "src/ENDFtk/section/8/457/DecaySpectrum.hpp", 
+    "src/ENDFtk/section/8/457/DiscreteSpectrum.hpp", 
     "src/ENDFtk/section/8/457/AverageDecayEnergies/src/ctor.hpp", 
     "src/ENDFtk/section/8/457/AverageDecayEnergies/src/generateList.hpp", 
     "src/ENDFtk/section/8/457/AverageDecayEnergies/src/verifyNC.hpp", 
+    "src/ENDFtk/section/8/457/ContinuousSpectrum/src/ctor.hpp", 
     "src/ENDFtk/section/8/457/DecayMode/src/ctor.hpp", 
     "src/ENDFtk/section/8/457/DecayModes/src/ctor.hpp", 
     "src/ENDFtk/section/8/457/DecayModes/src/generateList.hpp", 
     "src/ENDFtk/section/8/457/DecayModes/src/verifyNDK.hpp", 
+    "src/ENDFtk/section/8/457/DecaySpectrum/src/ctor.hpp", 
+    "src/ENDFtk/section/8/457/DecaySpectrum/src/NC.hpp", 
+    "src/ENDFtk/section/8/457/DecaySpectrum/src/print.hpp", 
+    "src/ENDFtk/section/8/457/DecaySpectrum/src/readContinuous.hpp", 
+    "src/ENDFtk/section/8/457/DecaySpectrum/src/readDiscrete.hpp", 
+    "src/ENDFtk/section/8/457/DecaySpectrum/src/verifyLCOV.hpp", 
+    "src/ENDFtk/section/8/457/DiscreteSpectrum/src/ctor.hpp", 
+    "src/ENDFtk/section/8/457/DiscreteSpectrum/src/generateList.hpp", 
+    "src/ENDFtk/section/8/457/DiscreteSpectrum/src/returnTuple.hpp", 
+    "src/ENDFtk/section/8/457/DiscreteSpectrum/src/verifyNT.hpp", 
     "src/ENDFtk/section/8/457/src/NC.hpp", 
     "src/ENDFtk/section/8/457/src/print.hpp", 
     "src/ENDFtk/section/Base/src/ctor.hpp", 
@@ -958,11 +972,20 @@
     "ENDFtk.section.8.457.AverageDecayEnergies": [
       "src/ENDFtk/section/8/457/AverageDecayEnergies/test/AverageDecayEnergies.test.cpp"
     ], 
+    "ENDFtk.section.8.457.ContinuousSpectrum": [
+      "src/ENDFtk/section/8/457/ContinuousSpectrum/test/ContinuousSpectrum.test.cpp"
+    ], 
     "ENDFtk.section.8.457.DecayMode": [
       "src/ENDFtk/section/8/457/DecayMode/test/DecayMode.test.cpp"
     ], 
     "ENDFtk.section.8.457.DecayModes": [
       "src/ENDFtk/section/8/457/DecayModes/test/DecayModes.test.cpp"
+    ], 
+    "ENDFtk.section.8.457.DecaySpectrum": [
+      "src/ENDFtk/section/8/457/DecaySpectrum/test/DecaySpectrum.test.cpp"
+    ], 
+    "ENDFtk.section.8.457.DiscreteSpectrum": [
+      "src/ENDFtk/section/8/457/DiscreteSpectrum/test/DiscreteSpectrum.test.cpp"
     ], 
     "ENDFtk.section.Base": [
       "src/ENDFtk/section/Base/test/Base.test.cpp"

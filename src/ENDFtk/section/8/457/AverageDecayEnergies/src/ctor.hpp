@@ -27,6 +27,15 @@ AverageDecayEnergies( std::tuple< double, double > halfLife,
                                     generateList( std::move( energies ) ) ) ) {};
 
 /** 
+ *  @brief Constructor
+ *
+ *  This empty constructor is used for a stable nuclide.
+ */
+AverageDecayEnergies() :
+  AverageDecayEnergies( ListRecord( 0.0, 0.0, 0, 0, 0,
+                                    { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 } ) ) {};
+
+/** 
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator
