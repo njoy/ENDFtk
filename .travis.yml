@@ -12,8 +12,9 @@ addons:
     - g++-6
     - clang-3.8
     - llvm-dev
-    - cmake
-    - cmake-data
+    - libc++-dev
+before_install:
+- if [[ "$TRAVIS_OS_NAME" = "osx" ]]; then brew update && brew upgrade python3; fi
 language: cpp
 compiler:
   - gcc

@@ -35,10 +35,16 @@ SCENARIO( "section::Base tests"){
       int MAT = 1;
       int MF = 1;
       THEN( "an exception is thrown on construction" ){
-        REQUIRE_THROWS( section::Base( asHead(head), MAT, MF ) );
-        REQUIRE_THROWS( section::Base( asHead(head), MAT, 3 ) );
-        REQUIRE_THROWS( section::Base( asHead(head), 125, MF ) );
+        REQUIRE_THROWS( section::Base( asHead( head ), MAT, MF ) );
+        REQUIRE_THROWS( section::Base( asHead( head ), MAT, 3 ) );
+        REQUIRE_THROWS( section::Base( asHead( head ), 125, MF ) );
       }
+    }
+
+    WHEN( "head parameters are negative" ){
+      REQUIRE_THROWS( section::Base( -1, 2.0, 3 ) );
+      REQUIRE_THROWS( section::Base( 1, -2.0, 3 ) );
+      REQUIRE_THROWS( section::Base( 1, 2.0, -3 ) );
     }
 
     WHEN( "reading the SEND record" ){
