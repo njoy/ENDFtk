@@ -8,7 +8,7 @@
 DecayModes( ListRecord&& list ) :
   ListRecord( std::move( list ) ) {
 
-  verifyNDK( ListRecord::NPL(), this->numberDecayModes() );
+  verifyNDK( ListRecord::NPL(), this->NDK() );
 };
 
 /** 

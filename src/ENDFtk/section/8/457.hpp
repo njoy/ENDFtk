@@ -22,11 +22,12 @@ private:
   std::vector< DecaySpectrum > spectra_;
 
   /* auxiliary functions */
+  #include "ENDFtk/section/8/457/src/readSpectra.hpp"
 
 public:
 
   /* constructor */
-//  #include "ENDFtk/section/8/457/src/ctor.hpp"
+  #include "ENDFtk/section/8/457/src/ctor.hpp"
 
   /* get methods */
 

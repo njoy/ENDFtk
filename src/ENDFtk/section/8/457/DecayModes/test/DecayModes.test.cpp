@@ -32,7 +32,7 @@ SCENARIO( "DecayModes" ) {
       REQUIRE( -1. == Approx( chunk.parity() ) );
 
       auto modes = chunk.decayModes();
-      REQUIRE( 3 == chunk.numberDecayModes() );
+      REQUIRE( 3 == chunk.NDK() );
       REQUIRE( 3 == modes.size() );
       REQUIRE( 4. == Approx( modes[0].decayChain() ) );
       REQUIRE( 0. == Approx( modes[0].finalIsomericState() ) );
@@ -64,7 +64,7 @@ SCENARIO( "DecayModes" ) {
       REQUIRE( -1. == Approx( chunk.parity() ) );
       
       auto modes = chunk.decayModes();
-      REQUIRE( 0 == chunk.numberDecayModes() );
+      REQUIRE( 0 == chunk.NDK() );
       REQUIRE( 1 == modes.size() );
       REQUIRE( 0. == Approx( modes[0].decayChain() ) );
       REQUIRE( 0. == Approx( modes[0].finalIsomericState() ) );
@@ -91,7 +91,7 @@ SCENARIO( "DecayModes" ) {
       REQUIRE( -1. == Approx( chunk.parity() ) );
       
       auto modes = chunk.decayModes();
-      REQUIRE( 3 == chunk.numberDecayModes() );
+      REQUIRE( 3 == chunk.NDK() );
       REQUIRE( 3 == modes.size() );
       REQUIRE( 4. == Approx( modes[0].decayChain() ) );
       REQUIRE( 0. == Approx( modes[0].finalIsomericState() ) );

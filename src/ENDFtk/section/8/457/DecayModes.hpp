@@ -35,7 +35,7 @@ public:
   /**
    *  @brief Return the number of decay modes NDK
    */
-  int numberDecayModes() const { return ListRecord::N2(); }
+  int NDK() const { return ListRecord::N2(); }
 
   /**
    *  @brief Return the decay mode information
