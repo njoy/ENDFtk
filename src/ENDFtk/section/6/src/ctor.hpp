@@ -1,6 +1,6 @@
 Type( int MT, double zaid, double awr, long jp, long lct,
       std::vector< ReactionProduct >&& products ) :
-  Base( MT, zaid, awr ), jp_( jp ), lct_( lct ),
+  Base( zaid, awr, MT ), jp_( jp ), lct_( lct ),
   products_( std::move( products ) ) {}
 
 template< typename Iterator >

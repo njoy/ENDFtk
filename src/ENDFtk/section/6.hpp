@@ -16,6 +16,15 @@ public:
   #include "ENDFtk/section/6/NBodyPhaseSpace.hpp"                  // LAW=6
   #include "ENDFtk/section/6/LaboratoryAngleEnergy.hpp"            // LAW=7
 
+  using LAW0 = Unknown;
+  using LAW1 = ContinuumEnergyAngle;
+  using LAW2 = DiscreteTwoBodyScattering;
+  using LAW3 = IsotropicDiscreteEmission;
+  using LAW4 = DiscreteTwoBodyRecoils;
+  using LAW5 = ChargedParticleElasticScattering;
+  using LAW6 = NBodyPhaseSpace;
+  using LAW7 = LaboratoryAngleEnergy;
+
   using Distribution = std::variant< // LAW<0
                                      DefinedElsewhere,
                                      // LAW=0

@@ -5,9 +5,9 @@
  *  The ScatteringLawConstants class stores the data from the first ListRecord
  *  of an MF7/MT4 section of the ENDF file. It stores a single flag to indicate
  *  the representation type of the S(a,b) (either as S or ln(S) values) and the
- *  B array containing the  constants required for the scattering law data of the
- *  principal scatterer and the analytic representations for the non-principal
- *  scattering atoms (if any).
+ *  B array containing the  constants required for the scattering law data of
+ *  the principal scatterer and the analytic representations for the
+ *  non-principal scattering atoms (if any).
  *
  *  See ENDF102, section 7.4 for more information.
  */
@@ -54,10 +54,18 @@ public:
    *         type, stored in B(1), B(8) and B(14)
    */
   auto totalFreeCrossSections() const {
-    return ranges::view::concat(
-             ranges::view::single( ListRecord::list()[0] ), 
-             ranges::view::drop_exactly( ListRecord::list(), 7 )
-                   | ranges::view::stride( 6 )  );
+
+    //! @todo this code no longer works since the ranges update, is there an
+    //!       alternative as the current operational code is more of a hack?
+    // return ranges::view::concat(
+    //          ranges::view::single( ListRecord::list()[0] ), 
+    //          ranges::view::drop_exactly( ListRecord::list(), 7 )
+    //                | ranges::view::stride( 6 )  );
+ 
+    std::vector< double > result = { ListRecord::list()[0] };
+    if ( ListRecord::NPL() > 6 ) { result.push_back( ListRecord::list()[7] ); }
+    if ( ListRecord::NPL() > 13 ) { result.push_back( ListRecord::list()[13] ); }
+    return result;
   }
 
   /**

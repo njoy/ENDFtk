@@ -78,8 +78,7 @@ public:
    *         (if any are defined)
    */
   auto secondaryEffectiveTemperatures() const {
-    return ranges::make_iterator_range( this->secondary_.begin(),
-                                        this->secondary_.end() );
+    return ranges::view::all( this->secondary_ );
   }
 
   #include "ENDFtk/section/7/4/src/NC.hpp"

@@ -6,7 +6,7 @@
  *  @param[in] law    the thermal scattering law
  */
 Type( double zaid, double awr, ScatteringLaw&& law ) :
-  Base( 2, zaid, awr ), law_( std::move( law ) ) {}
+  Base( zaid, awr, 2 ), law_( std::move( law ) ) {}
 
 /** 
  *  @brief Constructor (from a buffer)

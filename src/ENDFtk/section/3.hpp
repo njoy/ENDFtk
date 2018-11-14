@@ -13,5 +13,7 @@ public:
   using Base::MT;
   using Base::ZA;
   using Base::atomicWeightRatio;
+
+  int LR() const { return this->table.L2(); }
 };
 
