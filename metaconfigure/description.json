@@ -984,6 +984,9 @@
     "ENDFtk.section.7.4.Tabulated.BetaValue": [
       "src/ENDFtk/section/7/4/Tabulated/BetaValue/test/BetaValue.test.cpp"
     ],
+    "ENDFtk.section.8.457": [
+      "src/ENDFtk/section/8/457/test/457.test.cpp"
+    ],
     "ENDFtk.section.8.457.AverageDecayEnergies": [
       "src/ENDFtk/section/8/457/AverageDecayEnergies/test/AverageDecayEnergies.test.cpp"
     ],

@@ -5,9 +5,11 @@
  *  @param[in] awr        the atomic weight ratio
  *  @param[in] lis        the excited level number
  *  @param[in] liso       the isomeric state number
+ *  @param[in] spin       the nuclide spin
+ *  @param[in] parity     the nuclide parity
  */
 Type( double zaid, double awr, int lis, int liso, double spin, double parity ) :
-  Base( 457, zaid, awr ),
+  Base( zaid, awr, 457 ),
   lis_( lis ), liso_( liso ), nst_( true ),
   energies_(), modes_(spin, parity), spectra_() {}
 
@@ -20,14 +22,14 @@ Type( double zaid, double awr, int lis, int liso, double spin, double parity ) :
  *  @param[in] liso       the isomeric state number
  *  @param[in] energies   the average decay energies
  *  @param[in] modes      the decay modes
- *  @param[in] spectra    the decay spectrs
+ *  @param[in] spectra    the decay spectra
  */
 Type( double zaid, double awr, int lis, int liso, 
       AverageDecayEnergies&& energies,
       DecayModes&& modes,
       std::vector< DecaySpectrum >&& spectra ) :
-  Base( 457, zaid, awr ),
-  lis_( lis ), liso_( liso ),
+  Base( zaid, awr, 457 ),
+  lis_( lis ), liso_( liso ), nst_( modes.NDK() == 0 ),
   energies_( std::move( energies ) ),
   modes_( std::move( modes ) ),
   spectra_( std::move( spectra ) ) {}
@@ -81,7 +83,7 @@ Type( HEAD& head,
   try : Type( head.ZA(), head.AWR(), head.L1(), head.L2(), head.N2(),
               AverageDecayEnergies( begin, end, lineNumber, MAT, 8, 457 ),
               begin, end, lineNumber, MAT ) {
-    readSEND(begin, end, lineNumber, MAT, 7 );
+    readSEND(begin, end, lineNumber, MAT, 8 );
   } catch ( std::exception& e ) {
     Log::info( "Trouble while reading section 457 of File 8 of Material {}",
                MAT );

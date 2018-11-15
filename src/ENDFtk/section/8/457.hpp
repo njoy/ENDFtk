@@ -47,6 +47,11 @@ public:
   bool isStable() const { return this->nst_; }
 
   /**
+   *  @brief Return the number of spectra
+   */
+  unsigned int NSP() const { return this->spectra_.size(); }
+
+  /**
    *  @brief Return the half life and its uncertainty
    */
   auto halfLife() const { return this->energies_.halfLife(); }
