@@ -45,7 +45,7 @@ SCENARIO( "ChargedParticleElasticScattering" ) {
         chunk( spin, lidp, std::move( boundaries ),
                std::move( interpolants ), std::move( sequence ) );
 
-      REQUIRE( 5 == Approx( chunk.LAW() ) );
+      REQUIRE( 5 == chunk.LAW() );
       REQUIRE( 0.5 == Approx( chunk.SPI() ) );
       REQUIRE( 1 == chunk.LIDP() );
       REQUIRE( 2 == chunk.NE() );
@@ -123,7 +123,7 @@ SCENARIO( "ChargedParticleElasticScattering" ) {
       ChargedParticleElasticScattering
         chunk(begin, end, lineNumber, 9228, 6, 5 );
 
-      REQUIRE( 5 == Approx( chunk.LAW() ) );
+      REQUIRE( 5 == chunk.LAW() );
       REQUIRE( 0.5 == Approx( chunk.SPI() ) );
       REQUIRE( 1 == chunk.LIDP() );
       REQUIRE( 2 == chunk.NE() );

@@ -14,9 +14,9 @@ ReactionProduct( Multiplicity&& multiplicity,
                  long& lineNumber, int MAT, int MF, int MT ) :
   ReactionProduct(
     std::move( multiplicity ),
-    Distribution( readDistribution( begin, end, lineNumber, MAT, MF, MT, 
-                                    multiplicity.LAW(),
-                                    lineNumber - multiplicity.NC() + 1 ) ) ) {}
+    readDistribution( begin, end, lineNumber, MAT, MF, MT, 
+                      multiplicity.LAW(),
+                      lineNumber - multiplicity.NC() + 1 ) ) {}
 
 public:
 template< typename Iterator >
