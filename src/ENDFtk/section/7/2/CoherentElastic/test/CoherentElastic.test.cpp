@@ -382,6 +382,40 @@ SCENARIO( "CoherentElastic" ) {
       REQUIRE( buffer == string );
     }
   } // GIVEN
+
+  GIVEN( "inconsistent number of T and S(E,T) functions for a "
+         "CoherentElastic" ) {
+
+    TabulationRecord tabulation( 293.6, 0.0, 0, 0, { 3 }, { 1 },
+                                 { 1.059427e-3, 3.718355e-3,  4.237708e-3 },
+                                 { 0.0, 9.364524e-3, 1.548925e-2 } ); // L1!=1
+    std::vector< ListRecord > lists =
+        { ListRecord( 400.0, 0.0, 2, 0, 0,
+                      { 0.5, 8.318414e-3, 1.640584e-2 } ) };
+
+    std::vector< long > boundaries = { 3 };
+    std::vector< long > interpolants = { 1 };
+    std::vector< long > li = { 2 };
+    std::vector< double > temperatures = { 293.6 }; // should be two to pass
+    std::vector< double > energies = { 1.059427e-3, 3.718355e-3,  4.237708e-3 };
+    std::vector< std::vector< double > > s = { { 0.0, 9.364524e-3,
+                                                 1.548925e-2 },
+                                               { 0.5, 8.318414e-3,
+                                                 1.640584e-2 } };
+
+    THEN( "an exception is thrown" ) {
+
+      REQUIRE_THROWS(
+          CoherentElastic( std::move( tabulation ), std::move( lists ) ) );
+      REQUIRE_THROWS(
+          CoherentElastic( std::move( boundaries ),
+                           std::move( interpolants ), 
+                           std::move( temperatures ),
+                           std::move( li ),
+                           std::move( energies ),
+                           std::move( s ) ) );
+    }
+  } // GIVEN
 } // SCENARIO
 
 std::string chunkWithOneTemperature() {
