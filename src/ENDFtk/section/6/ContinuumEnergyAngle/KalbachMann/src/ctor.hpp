@@ -10,13 +10,12 @@ KalbachMann( double energy, long nd, long na, long nep,
                            std::move( list ) ) ) {};
 
 KalbachMann( double energy, long nd, long nep,
-             std::vector< std::tuple< double, double, double > >&& data ) :
+             std::vector< std::array< double, 3 > >&& data ) :
   KalbachMann( energy, nd, 1, nep,
                generateList( std::move( data ) ) ) {};
 
 KalbachMann( double energy, long nd, long nep,
-             std::vector< std::tuple< double, double,
-                                      double, double > >&& data ) :
+             std::vector< std::array< double, 4 > >&& data ) :
   KalbachMann( energy, nd, 2, nep,
                generateList( std::move( data ) ) ) {};
 

@@ -4,20 +4,20 @@ generateList( unsigned int na,
                                       std::vector< double > > >&& data ) {
 
   std::vector< double > list;
-  for ( unsigned int i = 0; i < data.size(); ++i ) {
+  for ( auto& entry : data ) {
 
-    if ( 1 + na != data[i].second.size() ) {
+    if ( 1 + na != entry.second.size() ) {
 
       Log::error( "The number of coefficients for each energy value must "
                   "be the same" );
       Log::info( "Expected: {}", 1 + na );
-      Log::info( "Found: {}", data[i].second.size() );
-      Log::info( "Energy: {}", data[i].first );
+      Log::info( "Found: {}", entry.second.size() );
+      Log::info( "Energy: {}", entry.first );
       throw std::exception();
     }
 
-    list.insert( list.end(), data[i].first );
-    list.insert( list.end(), data[i].second.begin(), data[i].second.end() );
+    list.insert( list.end(), entry.first );
+    list.insert( list.end(), entry.second.begin(), entry.second.end() );
   }
   return list;
 }

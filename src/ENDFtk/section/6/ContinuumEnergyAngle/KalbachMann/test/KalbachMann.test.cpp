@@ -23,7 +23,7 @@ SCENARIO( "KalbachMann" ) {
     int na = 1;
     int nep = 2;
     std::vector< double > list = { 1., 2., 3., 4., 5., 6. };
-    std::vector< std::tuple< double, double, double > > data = { 
+    std::vector< std::array< double, 3 > > data = { 
       { 1., 2., 3. },
       { 4., 5., 6. } };
 
@@ -87,7 +87,7 @@ SCENARIO( "KalbachMann" ) {
     int na = 2;
     int nep = 2;
     std::vector< double > list = { 1., 2., 3., 4., 5., 6., 7., 8. };
-    std::vector< std::tuple< double, double, double, double > > data = { 
+    std::vector< std::array< double, 4 > > data = { 
       { 1., 2., 3., 4. },
       { 5., 6., 7., 8. } };
 
