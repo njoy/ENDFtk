@@ -65,10 +65,7 @@ public:
   int LCT() const { return this->lct_; }
   int NK() const { return this->products_.size(); }
 
-  auto products() const {
-    return ranges::make_iterator_range( this->products_.begin(),
-                                        this->products_.end() );
-  }
+  auto products() const { return ranges::view::all( this->products_ ); }
 
   #include "ENDFtk/section/6/src/NC.hpp"
 
