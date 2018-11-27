@@ -23,6 +23,11 @@ public:
   int LF() const { return TabulationRecord::L2(); }
 
   /**
+   *  @brief Return the distribution type (the LF flag)
+   */
+  int distributionType() const { return this->LF(); }
+
+  /**
    *  @brief Return the energy values
    */
   auto energies() const { return TabulationRecord::x(); }
