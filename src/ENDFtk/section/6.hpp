@@ -1,6 +1,8 @@
 template<>
 class Type< 6 > : protected Base {
 
+  #include "ENDFtk/section/6/src/verifySorted.hpp"
+
 public:
 
   #include "ENDFtk/section/6/Multiplicity.hpp"
@@ -25,24 +27,15 @@ public:
   using LAW6 = NBodyPhaseSpace;
   using LAW7 = LaboratoryAngleEnergy;
 
-  using Distribution = std::variant< // LAW<0
-                                     DefinedElsewhere,
-                                     // LAW=0
-                                     Unknown,
-                                     // LAW=1
-                                     ContinuumEnergyAngle,
-                                     // LAW=2
-                                     DiscreteTwoBodyScattering,
-                                     // LAW=3
-                                     IsotropicDiscreteEmission,
-                                     // LAW=4
-                                     DiscreteTwoBodyRecoils,
-                                     // LAW=5
-                                     ChargedParticleElasticScattering,
-                                     // LAW=6
-                                     NBodyPhaseSpace,
-                                     // LAW=7
-                                     LaboratoryAngleEnergy >;
+  using Distribution = std::variant< DefinedElsewhere,                 // LAW<0
+                                     Unknown,                          // LAW=0
+                                     ContinuumEnergyAngle,             // LAW=1
+                                     DiscreteTwoBodyScattering,        // LAW=2
+                                     IsotropicDiscreteEmission,        // LAW=3
+                                     DiscreteTwoBodyRecoils,           // LAW=4
+                                     ChargedParticleElasticScattering, // LAW=5
+                                     NBodyPhaseSpace,                  // LAW=6
+                                     LaboratoryAngleEnergy >;          // LAW=7
 
   #include "ENDFtk/section/6/ReactionProduct.hpp"
 

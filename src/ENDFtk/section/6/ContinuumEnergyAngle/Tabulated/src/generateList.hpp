@@ -21,6 +21,8 @@ generateList( unsigned int na,
   std::vector< double > list;
   for ( unsigned int i = 0; i < energies.size(); ++i ) {
 
+    verifySorted( cosines[i], "Energy" );
+
     if ( ( cosines[i].size() != probabilities[i].size() ) ||
          ( cosines[i].size() != na / 2 ) ) {
 

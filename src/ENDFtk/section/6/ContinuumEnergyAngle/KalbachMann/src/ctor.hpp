@@ -1,7 +1,7 @@
 KalbachMann( ListRecord&& list ) :
   Base( std::move( list ) ) {
 
-    verifyNA( this->NA() );
+  verifyNA( this->NA() );
 };
 
 KalbachMann( double energy, long nd, long na, long nep,

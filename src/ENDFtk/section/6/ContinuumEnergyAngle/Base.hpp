@@ -1,11 +1,6 @@
 class Base : protected ListRecord {
 
-  /* auxiliary functions */
-  #include "ENDFtk/section/6/ContinuumEnergyAngle/Base/src/verifySize.hpp"
-    
 public:
-  /* constructor */
-  #include "ENDFtk/section/6/ContinuumEnergyAngle/Base/src/ctor.hpp"
 
   /* get methods */
   double energy() const { return ListRecord::C2(); }
@@ -23,7 +18,15 @@ public:
   auto data() const {
     return ListRecord::list() | ranges::view::chunk( 2 + this->NA() )
                               | ranges::view::transform( ranges::view::tail ); }
-  using ListRecord::list;
+
+private:
+
+  /* auxiliary functions */
+  #include "ENDFtk/section/6/ContinuumEnergyAngle/Base/src/verifySize.hpp"
+
+public:
+  /* constructor */
+  #include "ENDFtk/section/6/ContinuumEnergyAngle/Base/src/ctor.hpp"
 
   using ListRecord::NC;
   using ListRecord::print;
