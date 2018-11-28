@@ -1,24 +1,20 @@
 /**
- *  @brief Constructor (without defining U)
+ *  @brief Constructor
  *
- *  @param[in] lf              the type of the underlying distribution
  *  @param[in] boundaries      the interpolation range boundaries
  *  @param[in] interpolants    the interpolation types for each range
  *  @param[in] energies        the energy values
- *  @param[in] probabilities   the probability values
- *  @param[in] constant        the energy limit constant U (default = 0.0)
+ *  @param[in] thetas          the effective temperature values
  */
-PartialProbability( long lf,
-                    std::vector< long >&& boundaries,
-                    std::vector< long >&& interpolants,
-                    std::vector< double >&& energies,
-                    std::vector< double >&& probabilities,
-                    double u = 0.0 ) :
-  TabulationRecord( u, 0.0, 0, lf,
+EffectiveTemperature( std::vector< long >&& boundaries,
+                      std::vector< long >&& interpolants,
+                      std::vector< double >&& energies,
+                      std::vector< double >&& thetas ) :
+  TabulationRecord( 0.0, 0.0, 0, 0,
                     std::move( boundaries ),
                     std::move( interpolants ),
                     std::move( energies ),
-                    std::move( probabilities ) ) {}
+                    std::move( thetas ) ) {}
 
 /** 
  *  @brief Constructor (from a buffer)
@@ -33,7 +29,7 @@ PartialProbability( long lf,
  *  @param[in] MT           the expected MT number
  */
 template< typename Iterator >
-PartialProbability( Iterator& begin, const Iterator& end,
-                    long& lineNumber, int MAT, int MF, int MT ) :
+EffectiveTemperature( Iterator& begin, const Iterator& end,
+                      long& lineNumber, int MAT, int MF, int MT ) :
   TabulationRecord( begin, end, lineNumber, MAT, MF, MT ) {}
 

@@ -18,6 +18,18 @@ public:
   /* get methods */
 
   /**
+   *  @brief Return the constant that defines the upper energy
+   *         limit E - U for the secondary particle's energy E'
+   */
+  double U() const { return TabulationRecord::C1(); }
+
+  /**
+   *  @brief Return the constant that defines the upper energy
+   *         limit E - U for the secondary particle's energy E'
+   */
+  double energyLimitConstant() const { return this->U(); }
+
+  /**
    *  @brief Return the distribution type (the LF flag)
    */
   int LF() const { return TabulationRecord::L2(); }

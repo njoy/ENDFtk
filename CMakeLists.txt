@@ -410,11 +410,13 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/13/src/NC.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/PartialProbability.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/TabulatedSpectrum.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/EffectiveTemperature.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/TabulatedSpectrum/OutgoingDistribution.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/TabulatedSpectrum/OutgoingDistribution/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/TabulatedSpectrum/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/TabulatedSpectrum/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/PartialProbability/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/EffectiveTemperature/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/src/verifyNK.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/src/print.hpp"
@@ -544,7 +546,7 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/record/Base/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/resolved/BreitWigner/test )
         add_subdirectory( src/ENDFtk/file/Type/test )
-        add_subdirectory( src/ENDFtk/section/6/DiscreteTwoBodyScattering/test )
+        add_subdirectory( src/ENDFtk/section/5/EffectiveTemperature/test )
         add_subdirectory( src/ENDFtk/ListRecord/test )
         add_subdirectory( src/ENDFtk/TabulationRecord/test )
         add_subdirectory( src/ENDFtk/section/13/Subsection/test )
@@ -560,6 +562,7 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/syntaxTree/Material/test )
         add_subdirectory( src/ENDFtk/HeadRecord/test )
         add_subdirectory( src/ENDFtk/section/Base/test )
+        add_subdirectory( src/ENDFtk/section/6/DiscreteTwoBodyScattering/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner/test )
         add_subdirectory( src/ENDFtk/section/6/ChargedParticleElasticScattering/test )
         add_subdirectory( src/ENDFtk/record/test )
