@@ -553,6 +553,12 @@
     "src/ENDFtk/section/5/MadlandNixSpectrum.hpp", 
     "src/ENDFtk/section/5/TabulatedSpectrum.hpp", 
     "src/ENDFtk/section/5/EffectiveTemperature.hpp", 
+    "src/ENDFtk/section/5/WattSpectrum.hpp", 
+    "src/ENDFtk/section/5/Parameter.hpp", 
+    "src/ENDFtk/section/5/WattSpectrum/src/ctor.hpp", 
+    "src/ENDFtk/section/5/WattSpectrum/src/print.hpp", 
+    "src/ENDFtk/section/5/WattSpectrum/src/NC.hpp", 
+    "src/ENDFtk/section/5/WattSpectrum/src/readParameters.hpp", 
     "src/ENDFtk/section/5/MadlandNixSpectrum/src/ctor.hpp", 
     "src/ENDFtk/section/5/TabulatedSpectrum/OutgoingDistribution.hpp", 
     "src/ENDFtk/section/5/TabulatedSpectrum/OutgoingDistribution/src/ctor.hpp", 
@@ -560,6 +566,7 @@
     "src/ENDFtk/section/5/TabulatedSpectrum/src/print.hpp", 
     "src/ENDFtk/section/5/PartialProbability/src/ctor.hpp", 
     "src/ENDFtk/section/5/EffectiveTemperature/src/ctor.hpp", 
+    "src/ENDFtk/section/5/Parameter/src/ctor.hpp", 
     "src/ENDFtk/section/5/src/verifyNK.hpp", 
     "src/ENDFtk/section/5/src/ctor.hpp", 
     "src/ENDFtk/section/5/src/print.hpp", 
@@ -819,6 +826,9 @@
     ], 
     "ENDFtk.section.5.MadlandNixSpectrum": [
       "src/ENDFtk/section/5/MadlandNixSpectrum/test/MadlandNixSpectrum.test.cpp"
+    ], 
+    "ENDFtk.section.5.Parameter": [
+      "src/ENDFtk/section/5/Parameter/test/Parameter.test.cpp"
     ], 
     "ENDFtk.section.5.PartialProbability": [
       "src/ENDFtk/section/5/PartialProbability/test/PartialDistribution.test.cpp"

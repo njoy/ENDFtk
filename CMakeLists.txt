@@ -412,6 +412,12 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/MadlandNixSpectrum.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/TabulatedSpectrum.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/EffectiveTemperature.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/WattSpectrum.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/Parameter.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/WattSpectrum/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/WattSpectrum/src/print.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/WattSpectrum/src/NC.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/WattSpectrum/src/readParameters.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/MadlandNixSpectrum/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/TabulatedSpectrum/OutgoingDistribution.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/TabulatedSpectrum/OutgoingDistribution/src/ctor.hpp"
@@ -419,6 +425,7 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/TabulatedSpectrum/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/PartialProbability/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/EffectiveTemperature/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/Parameter/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/src/verifyNK.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/src/print.hpp"
@@ -529,7 +536,7 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/section/6/ContinuumEnergyAngle/KalbachMann/test )
         add_subdirectory( src/ENDFtk/InterpolationSequenceRecord/test )
         add_subdirectory( src/ENDFtk/section/6/LaboratoryAngleEnergy/CosineOutgoingEnergyDistribution/test )
-        add_subdirectory( src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyOutgoingCosineDistribution/test )
+        add_subdirectory( src/ENDFtk/section/5/Parameter/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/resolved/ReichMoore/Lvalue/test )
         add_subdirectory( src/ENDFtk/ControlRecord/test )
         add_subdirectory( src/ENDFtk/section/6/DefinedElsewhere/test )
@@ -541,6 +548,7 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/test )
         add_subdirectory( src/ENDFtk/section/3/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/Isotope/test )
+        add_subdirectory( src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyOutgoingCosineDistribution/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/test )
         add_subdirectory( src/ENDFtk/section/6/test )
         add_subdirectory( src/ENDFtk/syntaxTree/Tape/test )
