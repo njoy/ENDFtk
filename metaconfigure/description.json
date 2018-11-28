@@ -550,8 +550,10 @@
     "src/ENDFtk/section/13/src/print.hpp", 
     "src/ENDFtk/section/13/src/NC.hpp", 
     "src/ENDFtk/section/5/PartialProbability.hpp", 
+    "src/ENDFtk/section/5/MadlandNixSpectrum.hpp", 
     "src/ENDFtk/section/5/TabulatedSpectrum.hpp", 
     "src/ENDFtk/section/5/EffectiveTemperature.hpp", 
+    "src/ENDFtk/section/5/MadlandNixSpectrum/src/ctor.hpp", 
     "src/ENDFtk/section/5/TabulatedSpectrum/OutgoingDistribution.hpp", 
     "src/ENDFtk/section/5/TabulatedSpectrum/OutgoingDistribution/src/ctor.hpp", 
     "src/ENDFtk/section/5/TabulatedSpectrum/src/ctor.hpp", 
@@ -814,6 +816,9 @@
     ], 
     "ENDFtk.section.5.EffectiveTemperature": [
       "src/ENDFtk/section/5/EffectiveTemperature/test/EffectiveTemperature.test.cpp"
+    ], 
+    "ENDFtk.section.5.MadlandNixSpectrum": [
+      "src/ENDFtk/section/5/MadlandNixSpectrum/test/MadlandNixSpectrum.test.cpp"
     ], 
     "ENDFtk.section.5.PartialProbability": [
       "src/ENDFtk/section/5/PartialProbability/test/PartialDistribution.test.cpp"
