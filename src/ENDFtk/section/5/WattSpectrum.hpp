@@ -8,6 +8,9 @@ class WattSpectrum {
 
   std::array< Parameter, 2 > parameters_;
 
+  /* auxiliary functions */
+  #include "ENDFtk/section/5/WattSpectrum/src/readParameters.hpp"
+
 public:
 
   /* constructor */

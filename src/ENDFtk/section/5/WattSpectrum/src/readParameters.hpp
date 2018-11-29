@@ -7,8 +7,8 @@ readParameters( Iterator& begin,
                 int MF,
                 int MT ) {
 
-  auto a = Parameter( it, end, lineNumber, MAT, MF, MT );
-  auto b = Parameter( it, end, lineNumber, MAT, MF, MT );
-  return std::array< Parameter, 2 >{ a, b };
+  auto a = Parameter( begin, end, lineNumber, MAT, MF, MT );
+  auto b = Parameter( begin, end, lineNumber, MAT, MF, MT );
+  return std::array< Parameter, 2 >{{ std::move( a) , std::move( b ) }};
 }
 

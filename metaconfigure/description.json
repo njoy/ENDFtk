@@ -554,6 +554,8 @@
     "src/ENDFtk/section/5/TabulatedSpectrum.hpp", 
     "src/ENDFtk/section/5/EffectiveTemperature.hpp", 
     "src/ENDFtk/section/5/WattSpectrum.hpp", 
+    "src/ENDFtk/section/5/GeneralEvaporationSpectrum.hpp", 
+    "src/ENDFtk/section/5/SubSection.hpp", 
     "src/ENDFtk/section/5/Parameter.hpp", 
     "src/ENDFtk/section/5/WattSpectrum/src/ctor.hpp", 
     "src/ENDFtk/section/5/WattSpectrum/src/print.hpp", 
@@ -564,13 +566,20 @@
     "src/ENDFtk/section/5/TabulatedSpectrum/OutgoingDistribution/src/ctor.hpp", 
     "src/ENDFtk/section/5/TabulatedSpectrum/src/ctor.hpp", 
     "src/ENDFtk/section/5/TabulatedSpectrum/src/print.hpp", 
+    "src/ENDFtk/section/5/SubSection/src/ctor.hpp", 
+    "src/ENDFtk/section/5/SubSection/src/print.hpp", 
+    "src/ENDFtk/section/5/SubSection/src/NC.hpp", 
+    "src/ENDFtk/section/5/SubSection/src/readSubSection.hpp", 
     "src/ENDFtk/section/5/PartialProbability/src/ctor.hpp", 
     "src/ENDFtk/section/5/EffectiveTemperature/src/ctor.hpp", 
     "src/ENDFtk/section/5/Parameter/src/ctor.hpp", 
+    "src/ENDFtk/section/5/GeneralEvaporationSpectrum/src/ctor.hpp", 
+    "src/ENDFtk/section/5/GeneralEvaporationSpectrum/src/print.hpp", 
+    "src/ENDFtk/section/5/GeneralEvaporationSpectrum/src/NC.hpp", 
+    "src/ENDFtk/section/5/src/readSubSections.hpp", 
     "src/ENDFtk/section/5/src/verifyNK.hpp", 
     "src/ENDFtk/section/5/src/ctor.hpp", 
     "src/ENDFtk/section/5/src/print.hpp", 
-    "src/ENDFtk/section/5/src/readPartialDistributions.hpp", 
     "src/ENDFtk/section/5/src/NC.hpp", 
     "src/ENDFtk/InterpolationSequenceRecord/src/readSequence.hpp", 
     "src/ENDFtk/InterpolationSequenceRecord/src/verifyNZ.hpp", 
@@ -831,13 +840,19 @@
       "src/ENDFtk/section/5/Parameter/test/Parameter.test.cpp"
     ], 
     "ENDFtk.section.5.PartialProbability": [
-      "src/ENDFtk/section/5/PartialProbability/test/PartialDistribution.test.cpp"
+      "src/ENDFtk/section/5/PartialProbability/test/PartialProbability.test.cpp"
+    ], 
+    "ENDFtk.section.5.SubSection": [
+      "src/ENDFtk/section/5/SubSection/test/SubSection.test.cpp"
     ], 
     "ENDFtk.section.5.TabulatedSpectrum": [
       "src/ENDFtk/section/5/TabulatedSpectrum/test/TabulatedSpectrum.test.cpp"
     ], 
     "ENDFtk.section.5.TabulatedSpectrum.OutgoingDistribution": [
       "src/ENDFtk/section/5/TabulatedSpectrum/OutgoingDistribution/test/OutgoingDistribution.test.cpp"
+    ], 
+    "ENDFtk.section.5.WattSpectrum": [
+      "src/ENDFtk/section/5/WattSpectrum/test/WattSpectrum.test.cpp"
     ], 
     "ENDFtk.section.6": [
       "src/ENDFtk/section/6/test/6.test.cpp"

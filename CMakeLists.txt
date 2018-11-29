@@ -413,6 +413,8 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/TabulatedSpectrum.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/EffectiveTemperature.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/WattSpectrum.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/GeneralEvaporationSpectrum.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/SubSection.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/Parameter.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/WattSpectrum/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/WattSpectrum/src/print.hpp"
@@ -423,13 +425,20 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/TabulatedSpectrum/OutgoingDistribution/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/TabulatedSpectrum/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/TabulatedSpectrum/src/print.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/SubSection/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/SubSection/src/print.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/SubSection/src/NC.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/SubSection/src/readSubSection.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/PartialProbability/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/EffectiveTemperature/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/Parameter/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/GeneralEvaporationSpectrum/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/GeneralEvaporationSpectrum/src/print.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/GeneralEvaporationSpectrum/src/NC.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/src/readSubSections.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/src/verifyNK.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/src/print.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/src/readPartialDistributions.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/src/NC.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/InterpolationSequenceRecord/src/readSequence.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/InterpolationSequenceRecord/src/verifyNZ.hpp"
@@ -551,7 +560,9 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyOutgoingCosineDistribution/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/test )
         add_subdirectory( src/ENDFtk/section/6/test )
+        add_subdirectory( src/ENDFtk/section/5/SubSection/test )
         add_subdirectory( src/ENDFtk/syntaxTree/Tape/test )
+        add_subdirectory( src/ENDFtk/section/5/WattSpectrum/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/resolved/MultilevelBreitWigner/test )
         add_subdirectory( src/ENDFtk/section/6/Unknown/test )
         add_subdirectory( src/ENDFtk/record/Base/test )
