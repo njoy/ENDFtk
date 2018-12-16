@@ -833,6 +833,9 @@
     "ENDFtk.section.5.EffectiveTemperature": [
       "src/ENDFtk/section/5/EffectiveTemperature/test/EffectiveTemperature.test.cpp"
     ], 
+    "ENDFtk.section.5.GeneralEvaporationSpectrum": [
+      "src/ENDFtk/section/5/GeneralEvaporationSpectrum/test/GeneralEvaporationSpectrum.test.cpp"
+    ], 
     "ENDFtk.section.5.MadlandNixSpectrum": [
       "src/ENDFtk/section/5/MadlandNixSpectrum/test/MadlandNixSpectrum.test.cpp"
     ], 

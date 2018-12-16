@@ -19,6 +19,16 @@ public:
   /* get methods */
 
   /**
+   *  @brief Return the distribution type (the LF flag)
+   */
+  static constexpr int LF() { return 11; }
+
+  /**
+   *  @brief Return the distribution type (the LF flag)
+   */
+  static constexpr int distributionType() { return WattSpectrum::LF(); }
+
+  /**
    *  @brief Return the parameters
    */
   auto parameters() const { return ranges::view::all( this->parameters_ ); }

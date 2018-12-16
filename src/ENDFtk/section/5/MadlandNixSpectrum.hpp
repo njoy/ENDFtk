@@ -1,6 +1,6 @@
 /**
  *  @class
- *  @brief The Midland Nix fission neutron spectrum (LF=12)
+ *  @brief The Madland Nix fission neutron spectrum (LF=12)
  *
  *  See ENDF102, section 5.1.1.6 for more information.
  */
@@ -12,6 +12,16 @@ public:
   #include "ENDFtk/section/5/MadlandNixSpectrum/src/ctor.hpp"
 
   /* get methods */
+
+  /**
+   *  @brief Return the distribution type (the LF flag)
+   */
+  static constexpr int LF() { return 12; }
+
+  /**
+   *  @brief Return the distribution type (the LF flag)
+   */
+  static constexpr int distributionType() { return MadlandNixSpectrum::LF(); }
 
   /**
    *  @brief Return the average kinetic energy of the average light

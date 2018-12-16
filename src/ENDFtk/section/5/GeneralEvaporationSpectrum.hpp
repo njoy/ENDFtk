@@ -17,6 +17,16 @@ public:
   /* get methods */
 
   /**
+   *  @brief Return the distribution type (the LF flag)
+   */
+  static constexpr int LF() { return 5; }
+
+  /**
+   *  @brief Return the distribution type (the LF flag)
+   */
+  static constexpr int distributionType() { return GeneralEvaporationSpectrum::LF(); }
+
+  /**
    *  @brief Return the effective temperature
    */
   const auto& effectiveTemperature() const { return this->temperature_; }

@@ -251,6 +251,9 @@ SCENARIO( "SubSection" ) {
 
       auto d = std::experimental::get< GeneralEvaporationSpectrum >( chunk.distribution() );
 
+      REQUIRE( 5 == d.LF() );
+      REQUIRE( 5 == d.distributionType() );
+
       auto t = d.effectiveTemperature();
       REQUIRE( 2 == t.NP() );
       REQUIRE( 1 == t.NR() );
@@ -323,6 +326,9 @@ SCENARIO( "SubSection" ) {
       REQUIRE( 1.804944e-2 == Approx( p.probabilities()[1] ) );
 
       auto d = std::experimental::get< GeneralEvaporationSpectrum >( chunk.distribution() );
+
+      REQUIRE( 5 == d.LF() );
+      REQUIRE( 5 == d.distributionType() );
 
       auto t = d.effectiveTemperature();
       REQUIRE( 2 == t.NP() );
@@ -658,6 +664,9 @@ SCENARIO( "SubSection" ) {
 
       auto d = std::experimental::get< WattSpectrum >( chunk.distribution() );
 
+      REQUIRE( 11 == d.LF() );
+      REQUIRE( 11 == d.distributionType() );
+
       auto valueA = d.aParameter();
       REQUIRE( 3 == valueA.NP() );
       REQUIRE( 1 == valueA.NR() );
@@ -730,6 +739,9 @@ SCENARIO( "SubSection" ) {
       REQUIRE( 1. == Approx( p.probabilities()[1] ) );
 
       auto d = std::experimental::get< WattSpectrum >( chunk.distribution() );
+
+      REQUIRE( 11 == d.LF() );
+      REQUIRE( 11 == d.distributionType() );
 
       auto valueA = d.aParameter();
       REQUIRE( 3 == valueA.NP() );
@@ -822,6 +834,9 @@ SCENARIO( "SubSection" ) {
 
       auto d = std::experimental::get< MadlandNixSpectrum >( chunk.distribution() );
 
+      REQUIRE( 12 == d.LF() );
+      REQUIRE( 12 == d.distributionType() );
+
       REQUIRE( 1.029979e+6 == Approx( d.EFL() ) );
       REQUIRE( 1.029979e+6 == Approx( d.lightKineticEnergy() ) );
       REQUIRE( 5.467297e+5 == Approx( d.EFH() ) );
@@ -880,6 +895,9 @@ SCENARIO( "SubSection" ) {
       REQUIRE( 1. == Approx( p.probabilities()[1] ) );
 
       auto d = std::experimental::get< MadlandNixSpectrum >( chunk.distribution() );
+
+      REQUIRE( 12 == d.LF() );
+      REQUIRE( 12 == d.distributionType() );
 
       REQUIRE( 1.029979e+6 == Approx( d.EFL() ) );
       REQUIRE( 1.029979e+6 == Approx( d.lightKineticEnergy() ) );

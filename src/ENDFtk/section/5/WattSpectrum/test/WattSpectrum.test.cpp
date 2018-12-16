@@ -28,6 +28,9 @@ SCENARIO( "WattSpectrum" ) {
       WattSpectrum chunk( std::array< Parameter, 2 >{ { std::move( a ),
                                                         std::move( b ) } } );
 
+      REQUIRE( 11 == chunk.LF() );
+      REQUIRE( 11 == chunk.distributionType() );
+
       auto valueA = chunk.aParameter();
       REQUIRE( 3 == valueA.NP() );
       REQUIRE( 1 == valueA.NR() );
@@ -78,6 +81,9 @@ SCENARIO( "WattSpectrum" ) {
     THEN( "a WattSpectrum can "
           "be constructed and members can be tested" ) {
       WattSpectrum chunk( begin, end, lineNumber, 9222, 5, 18 );
+
+      REQUIRE( 11 == chunk.LF() );
+      REQUIRE( 11 == chunk.distributionType() );
 
       auto valueA = chunk.aParameter();
       REQUIRE( 3 == valueA.NP() );

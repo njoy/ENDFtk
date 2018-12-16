@@ -30,6 +30,9 @@ SCENARIO( "MadlandNixSpectrum" ) {
                                 std::move( energies ),
                                 std::move( temperatures ) );
 
+      REQUIRE( 12 == chunk.LF() );
+      REQUIRE( 12 == chunk.distributionType() );
+
       REQUIRE( 1.029979e+6 == Approx( chunk.EFL() ) );
       REQUIRE( 1.029979e+6 == Approx( chunk.lightKineticEnergy() ) );
       REQUIRE( 5.467297e+5 == Approx( chunk.EFH() ) );
@@ -65,6 +68,9 @@ SCENARIO( "MadlandNixSpectrum" ) {
       
     THEN( "an MadlandNixSpectrum can be constructed and members can be tested" ) {
       MadlandNixSpectrum chunk( begin, end, lineNumber, 9543, 5, 18 );
+
+      REQUIRE( 12 == chunk.LF() );
+      REQUIRE( 12 == chunk.distributionType() );
 
       REQUIRE( 1.029979e+6 == Approx( chunk.EFL() ) );
       REQUIRE( 1.029979e+6 == Approx( chunk.lightKineticEnergy() ) );
