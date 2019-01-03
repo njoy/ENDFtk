@@ -37,7 +37,7 @@ SCENARIO( "SubSection" ) {
           NuclearAmplitudeExpansion( energy, nl, std::move( values ) ) );
 
       auto chunk =
-          std::experimental::get< NuclearAmplitudeExpansion >( subsection );
+      std::experimental::get< NuclearAmplitudeExpansion >( subsection.data() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 1 == chunk.LTP() );
@@ -84,7 +84,7 @@ SCENARIO( "SubSection" ) {
       SubSection subsection( begin, end, lineNumber, 9228, 6, 5 );
 
       auto chunk =
-          std::experimental::get< NuclearAmplitudeExpansion >( subsection );
+      std::experimental::get< NuclearAmplitudeExpansion >( subsection.data() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 1 == chunk.LTP() );
@@ -124,8 +124,7 @@ SCENARIO( "SubSection" ) {
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    SubSection
-      subsection( begin, end, lineNumber, 9228, 6, 5 );
+    SubSection subsection( begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
       std::string buffer;
@@ -144,10 +143,10 @@ SCENARIO( "SubSection" ) {
 
     THEN( "a SubSection can "
           "be constructed and members can be tested" ) {
-      SubSection
-        subsection( LegendreCoefficients( energy, std::move( values ) ) );
+      SubSection subsection( LegendreCoefficients( energy, std::move( values ) ) );
 
-      auto chunk = std::experimental::get< LegendreCoefficients >( subsection );
+      auto chunk =
+      std::experimental::get< LegendreCoefficients >( subsection.data() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 2 == chunk.LTP() );
@@ -181,7 +180,8 @@ SCENARIO( "SubSection" ) {
       SubSection
         subsection( begin, end, lineNumber, 9228, 6, 5 );
 
-      auto chunk = std::experimental::get< LegendreCoefficients >( subsection );
+      auto chunk =
+      std::experimental::get< LegendreCoefficients >( subsection.data() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 2 == chunk.LTP() );
@@ -208,8 +208,7 @@ SCENARIO( "SubSection" ) {
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    SubSection
-      subsection( begin, end, lineNumber, 9228, 6, 5 );
+    SubSection subsection( begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
       std::string buffer;
@@ -235,7 +234,7 @@ SCENARIO( "SubSection" ) {
                                                       std::move( values ) ) );
 
       auto chunk =
-          std::experimental::get< NuclearPlusInterference >( subsection );
+      std::experimental::get< NuclearPlusInterference >( subsection.data() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 12 == chunk.LTP() );
@@ -269,11 +268,10 @@ SCENARIO( "SubSection" ) {
 
     THEN( "a SubSection can "
           "be constructed and members can be tested" ) {
-      SubSection
-        subsection( begin, end, lineNumber, 9228, 6, 5 );
+      SubSection subsection( begin, end, lineNumber, 9228, 6, 5 );
 
       auto chunk =
-          std::experimental::get< NuclearPlusInterference >( subsection );
+      std::experimental::get< NuclearPlusInterference >( subsection.data() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 12 == chunk.LTP() );
@@ -303,8 +301,7 @@ SCENARIO( "SubSection" ) {
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    SubSection
-      subsection( begin, end, lineNumber, 9228, 6, 5 );
+    SubSection subsection( begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
       std::string buffer;
@@ -326,12 +323,11 @@ SCENARIO( "SubSection" ) {
 
     THEN( "a SubSection can "
           "be constructed and members can be tested" ) {
-      SubSection
-        subsection( NuclearPlusInterference( energy, ltp,
-                                             std::move( values ) ) );
+      SubSection subsection( NuclearPlusInterference( energy, ltp,
+                                                      std::move( values ) ) );
 
       auto chunk =
-          std::experimental::get< NuclearPlusInterference >( subsection );
+      std::experimental::get< NuclearPlusInterference >( subsection.data() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 14 == chunk.LTP() );
@@ -365,11 +361,10 @@ SCENARIO( "SubSection" ) {
 
     THEN( "a SubSection can "
           "be constructed and members can be tested" ) {
-      SubSection
-        subsection( begin, end, lineNumber, 9228, 6, 5 );
+      SubSection subsection( begin, end, lineNumber, 9228, 6, 5 );
 
       auto chunk =
-          std::experimental::get< NuclearPlusInterference >( subsection );
+      std::experimental::get< NuclearPlusInterference >( subsection.data() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 14 == chunk.LTP() );
@@ -399,8 +394,7 @@ SCENARIO( "SubSection" ) {
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    SubSection
-      subsection( begin, end, lineNumber, 9228, 6, 5 );
+    SubSection subsection( begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
       std::string buffer;
@@ -422,12 +416,11 @@ SCENARIO( "SubSection" ) {
 
     THEN( "a SubSection can "
           "be constructed and members can be tested" ) {
-      SubSection
-          subsection( NuclearPlusInterference( energy, ltp,
-                                               std::move( values ) ) );
+      SubSection subsection( NuclearPlusInterference( energy, ltp,
+                                                      std::move( values ) ) );
 
       auto chunk =
-          std::experimental::get< NuclearPlusInterference >( subsection );
+      std::experimental::get< NuclearPlusInterference >( subsection.data() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 15 == chunk.LTP() );
@@ -464,7 +457,7 @@ SCENARIO( "SubSection" ) {
       SubSection subsection( begin, end, lineNumber, 9228, 6, 5 );
 
       auto chunk =
-          std::experimental::get< NuclearPlusInterference >( subsection );
+      std::experimental::get< NuclearPlusInterference >( subsection.data() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 15 == chunk.LTP() );

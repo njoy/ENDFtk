@@ -8,8 +8,6 @@ using namespace njoy::ENDFtk;
 // convenience typedefs
 using ChargedParticleElasticScattering = 
 section::Type< 6 >::ChargedParticleElasticScattering;
-using SubSectionVariant = 
-section::Type< 6 >::ChargedParticleElasticScattering::SubSectionVariant;
 using SubSection = 
 section::Type< 6 >::ChargedParticleElasticScattering::SubSection;
 using LegendreCoefficients = 
@@ -32,11 +30,9 @@ SCENARIO( "ChargedParticleElasticScattering" ) {
     std::vector< long > boundaries = { 2 };
     std::vector< long > interpolants = { 1 };
     std::vector< SubSection > sequence = {
-      SubSectionVariant(
-        NuclearAmplitudeExpansion( 1e-5, 3, { 1., 2., 3., 4., 5., 6.,
-                                              7., 8., 9., 10., 11., 12. } ) ),
-      SubSectionVariant(
-        NuclearPlusInterference( 2e+7, 15, {1., 2., 3., 4., 5., 6.} ) )
+      NuclearAmplitudeExpansion( 1e-5, 3, { 1., 2., 3., 4., 5., 6.,
+                                              7., 8., 9., 10., 11., 12. } ),
+      NuclearPlusInterference( 2e+7, 15, {1., 2., 3., 4., 5., 6.} )
     };
 
     THEN( "a ChargedParticleElasticScattering can "
@@ -65,7 +61,7 @@ SCENARIO( "ChargedParticleElasticScattering" ) {
       REQUIRE( 3 == energies[0].NL() );
 
       auto subsection1 =
-          std::experimental::get< NuclearAmplitudeExpansion >( energies[0] );
+      std::experimental::get< NuclearAmplitudeExpansion >( energies[0].data() );
       REQUIRE( 1 == subsection1.LTP() );
       REQUIRE( 12 == subsection1.NW() );
       REQUIRE( 3 == subsection1.NL() );
@@ -88,6 +84,15 @@ SCENARIO( "ChargedParticleElasticScattering" ) {
                Approx( subsection1.imaginaryInterferenceCoefficients()[2] ) );
       REQUIRE( 12. ==
                Approx( subsection1.imaginaryInterferenceCoefficients()[3] ) );
+      REQUIRE( 4 == subsection1.interferenceCoefficients().size() );
+      REQUIRE( 5. == Approx( subsection1.interferenceCoefficients()[0].real() ) );
+      REQUIRE( 7. == Approx( subsection1.interferenceCoefficients()[1].real() ) );
+      REQUIRE( 9. == Approx( subsection1.interferenceCoefficients()[2].real() ) );
+      REQUIRE( 11. == Approx( subsection1.interferenceCoefficients()[3].real() ) );
+      REQUIRE( 6. == Approx( subsection1.interferenceCoefficients()[0].imag() ) );
+      REQUIRE( 8. == Approx( subsection1.interferenceCoefficients()[1].imag() ) );
+      REQUIRE( 10. == Approx( subsection1.interferenceCoefficients()[2].imag() ) );
+      REQUIRE( 12. == Approx( subsection1.interferenceCoefficients()[3].imag() ) );
 
       REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
       REQUIRE( 15 == energies[1].LTP() );
@@ -95,7 +100,7 @@ SCENARIO( "ChargedParticleElasticScattering" ) {
       REQUIRE( 3 == energies[1].NL() );
 
       auto subsection2 =
-          std::experimental::get< NuclearPlusInterference >( energies[1] );
+      std::experimental::get< NuclearPlusInterference >( energies[1].data() );
       REQUIRE( 15 == subsection2.LTP() );
       REQUIRE( 6 == subsection2.NW() );
       REQUIRE( 3 == subsection2.NL() );
@@ -145,7 +150,7 @@ SCENARIO( "ChargedParticleElasticScattering" ) {
       REQUIRE( 3 == energies[0].NL() );
 
       auto subsection1 =
-          std::experimental::get< NuclearAmplitudeExpansion >( energies[0] );
+      std::experimental::get< NuclearAmplitudeExpansion >( energies[0].data() );
       REQUIRE( 1 == subsection1.LTP() );
       REQUIRE( 12 == subsection1.NW() );
       REQUIRE( 3 == subsection1.NL() );
@@ -168,6 +173,15 @@ SCENARIO( "ChargedParticleElasticScattering" ) {
                Approx( subsection1.imaginaryInterferenceCoefficients()[2] ) );
       REQUIRE( 12. ==
                Approx( subsection1.imaginaryInterferenceCoefficients()[3] ) );
+      REQUIRE( 4 == subsection1.interferenceCoefficients().size() );
+      REQUIRE( 5. == Approx( subsection1.interferenceCoefficients()[0].real() ) );
+      REQUIRE( 7. == Approx( subsection1.interferenceCoefficients()[1].real() ) );
+      REQUIRE( 9. == Approx( subsection1.interferenceCoefficients()[2].real() ) );
+      REQUIRE( 11. == Approx( subsection1.interferenceCoefficients()[3].real() ) );
+      REQUIRE( 6. == Approx( subsection1.interferenceCoefficients()[0].imag() ) );
+      REQUIRE( 8. == Approx( subsection1.interferenceCoefficients()[1].imag() ) );
+      REQUIRE( 10. == Approx( subsection1.interferenceCoefficients()[2].imag() ) );
+      REQUIRE( 12. == Approx( subsection1.interferenceCoefficients()[3].imag() ) );
 
       REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
       REQUIRE( 15 == energies[1].LTP() );
@@ -175,7 +189,7 @@ SCENARIO( "ChargedParticleElasticScattering" ) {
       REQUIRE( 3 == energies[1].NL() );
 
       auto subsection2 =
-          std::experimental::get< NuclearPlusInterference >( energies[1] );
+      std::experimental::get< NuclearPlusInterference >( energies[1].data() );
       REQUIRE( 15 == subsection2.LTP() );
       REQUIRE( 6 == subsection2.NW() );
       REQUIRE( 3 == subsection2.NL() );

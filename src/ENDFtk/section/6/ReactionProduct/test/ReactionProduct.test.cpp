@@ -34,8 +34,6 @@ using ChargedParticleElasticScattering =
 section::Type< 6 >::ChargedParticleElasticScattering;
 using SubSection = 
 section::Type< 6 >::ChargedParticleElasticScattering::SubSection;
-using SubSectionVariant = 
-section::Type< 6 >::ChargedParticleElasticScattering::SubSectionVariant;
 using Law5LegendreCoefficients = 
 section::Type< 6 >::ChargedParticleElasticScattering::LegendreCoefficients;
 using Law5NuclearAmplitudeExpansion = 
@@ -815,13 +813,11 @@ SCENARIO( "ReactionProduct" ) {
     Distribution distribution =
       ChargedParticleElasticScattering(
         0.5, 1, { 2 }, { 1 },
-        { SubSectionVariant(
-            Law5NuclearAmplitudeExpansion( 1e-5, 3,
-                                           { 1., 2., 3., 4., 5., 6.,
-                                             7., 8., 9., 10., 11., 12. } ) ),
-          SubSectionVariant(
-            Law5NuclearPlusInterference( 2e+7, 15,
-                                         {1., 2., 3., 4., 5., 6.} ) ) } );
+        { Law5NuclearAmplitudeExpansion( 1e-5, 3,
+                                         { 1., 2., 3., 4., 5., 6.,
+                                           7., 8., 9., 10., 11., 12. } ),
+          Law5NuclearPlusInterference( 2e+7, 15,
+                                       { 1., 2., 3., 4., 5., 6. } ) } );
 
     THEN( "a ReactionProduct can "
           "be constructed and members can be tested" ) {
@@ -880,7 +876,7 @@ SCENARIO( "ReactionProduct" ) {
       REQUIRE( 3 == energies[0].NL() );
 
       auto subsection1 =
-          std::experimental::get< Law5NuclearAmplitudeExpansion >( energies[0] );
+      std::experimental::get< Law5NuclearAmplitudeExpansion >( energies[0].data() );
       REQUIRE( 1 == subsection1.LTP() );
       REQUIRE( 12 == subsection1.NW() );
       REQUIRE( 3 == subsection1.NL() );
@@ -910,7 +906,7 @@ SCENARIO( "ReactionProduct" ) {
       REQUIRE( 3 == energies[1].NL() );
 
       auto subsection2 =
-          std::experimental::get< Law5NuclearPlusInterference >( energies[1] );
+      std::experimental::get< Law5NuclearPlusInterference >( energies[1].data() );
       REQUIRE( 15 == subsection2.LTP() );
       REQUIRE( 6 == subsection2.NW() );
       REQUIRE( 3 == subsection2.NL() );
@@ -990,7 +986,7 @@ SCENARIO( "ReactionProduct" ) {
       REQUIRE( 3 == energies[0].NL() );
 
       auto subsection1 =
-          std::experimental::get< Law5NuclearAmplitudeExpansion >( energies[0] );
+      std::experimental::get< Law5NuclearAmplitudeExpansion >( energies[0].data() );
       REQUIRE( 1 == subsection1.LTP() );
       REQUIRE( 12 == subsection1.NW() );
       REQUIRE( 3 == subsection1.NL() );
@@ -1020,7 +1016,7 @@ SCENARIO( "ReactionProduct" ) {
       REQUIRE( 3 == energies[1].NL() );
 
       auto subsection2 =
-          std::experimental::get< Law5NuclearPlusInterference >( energies[1] );
+      std::experimental::get< Law5NuclearPlusInterference >( energies[1].data() );
       REQUIRE( 15 == subsection2.LTP() );
       REQUIRE( 6 == subsection2.NW() );
       REQUIRE( 3 == subsection2.NL() );

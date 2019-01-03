@@ -19,6 +19,13 @@ NuclearAmplitudeExpansion( double energy, int nl,
                                                std::move ( a_real ),
                                                std::move ( a_imag ) ) ) {};
 
+NuclearAmplitudeExpansion( double energy, int nl,
+                           std::vector< double >&& b,
+                           std::vector< std::complex< double > >&& a ) :
+  NuclearAmplitudeExpansion( energy, nl,
+                             generateList( nl, std::move ( b ),
+                                               std::move ( a ) ) ) {};
+
 template< typename Iterator >
 NuclearAmplitudeExpansion( Iterator& it, const Iterator& end, long& lineNumber,
                            int MAT, int MF, int MT ) :
