@@ -1,9 +1,6 @@
-using SubSectionVariant = std::variant< // LTP=1
-                                        NuclearAmplitudeExpansion,
-                                        // LTP=2
-                                        LegendreCoefficients,
-                                        // LTP>2
-                                        NuclearPlusInterference >;
+using SubSectionVariant = std::variant< NuclearAmplitudeExpansion, // LTP=1
+                                        LegendreCoefficients,      // LTP=2
+                                        NuclearPlusInterference >; // LTP>2
 
 class SubSection :
 public SubSectionVariant {

@@ -47,7 +47,9 @@ SCENARIO( "ChargedParticleElasticScattering" ) {
 
       REQUIRE( 5 == chunk.LAW() );
       REQUIRE( 0.5 == Approx( chunk.SPI() ) );
-      REQUIRE( 1 == chunk.LIDP() );
+      REQUIRE( 0.5 == Approx( chunk.spin() ) );
+      REQUIRE( true == chunk.LIDP() );
+      REQUIRE( true == chunk.identicalParticles() );
       REQUIRE( 2 == chunk.NE() );
       REQUIRE( 1 == chunk.NR() );
       REQUIRE( 1 == chunk.interpolants().size() );
@@ -125,7 +127,9 @@ SCENARIO( "ChargedParticleElasticScattering" ) {
 
       REQUIRE( 5 == chunk.LAW() );
       REQUIRE( 0.5 == Approx( chunk.SPI() ) );
+      REQUIRE( 0.5 == Approx( chunk.spin() ) );
       REQUIRE( 1 == chunk.LIDP() );
+      REQUIRE( 1 == chunk.identicalParticles() );
       REQUIRE( 2 == chunk.NE() );
       REQUIRE( 1 == chunk.NR() );
       REQUIRE( 1 == chunk.interpolants().size() );

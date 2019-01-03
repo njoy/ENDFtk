@@ -16,7 +16,9 @@ public:
   /* get methods */
   static constexpr int LAW() { return 5; }
   double SPI() const { return this->data_.tab2().C1(); }
-  int LIDP() const { return this->data_.tab2().L1(); }
+  double spin() const { return this->SPI(); }
+  bool LIDP() const { return this->data_.tab2().L1(); }
+  bool identicalParticles() const { return this->LIDP(); }
   long NR() const { return this->data_.tab2().NR(); }
   long NE() const { return this->data_.tab2().NZ(); }
 
