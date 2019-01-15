@@ -134,7 +134,8 @@ SCENARIO( "section::Type< 3 >" ) {
       syntaxTree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
 
-      THEN( "a section::Type<3> can be constructed and members can be tested" ){
+      THEN( "a section::Type< 3 > can be constructed and "
+            "members can be tested" ) {
 
         section::Type<3> chunk = section.parse< 3 >( lineNumber );
 

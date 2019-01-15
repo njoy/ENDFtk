@@ -1,6 +1,6 @@
 template<>
 class Type< 1, 451 > : protected Base {
-protected:
+
   /* fields */
   int lrp_;
   int lfi_;
@@ -11,10 +11,13 @@ protected:
   std::vector< DirectoryRecord > index_;
 
   /* auxiliary functions */
+  #include "ENDFtk/section/1/451/src/makeParameters.hpp"
+  #include "ENDFtk/section/1/451/src/makeDescription.hpp"
   #include "ENDFtk/section/1/451/src/readParameters.hpp"
   #include "ENDFtk/section/1/451/src/readRecords.hpp"
 
-  public:
+public:
+
   /* constructor */
   #include "ENDFtk/section/1/451/src/ctor.hpp"
 
@@ -43,10 +46,7 @@ protected:
   int NWD() const { return static_cast< int >( this->description_.size() ); }
   int NXC() const { return static_cast< int >( this->index_.size() ); }
 
-  auto index() const {
-    return ranges::make_iterator_range( this->index_.begin(),
-                                        this->index_.end() );
-  }
+  auto index() const { return ranges::view::all( this->index_ ); }
 
   long NC() const { return 4 + this->NWD() + this->NXC(); }
 
