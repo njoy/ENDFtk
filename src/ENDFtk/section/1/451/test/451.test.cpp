@@ -53,7 +53,7 @@ SCENARIO( "section::Type< 1, 451 >" ) {
                                      awi, emax, lrel, nsub, nver,
                                      temp, ldrv,
                                      text,
-                                     std::move( index() ) );
+                                     index() );
 
       REQUIRE( 451 == chunk.MT() );
       REQUIRE( 1001 == chunk.ZA() );
@@ -96,7 +96,7 @@ SCENARIO( "section::Type< 1, 451 >" ) {
       section::Type< 1, 451 > chunk( zaid, awr, lrp, lfi, nlib, nmod,
                                      std::move( parameters ),
                                      std::move( records ),
-                                     std::move( index() ) );
+                                     index() );
 
       REQUIRE( 451 == chunk.MT() );
       REQUIRE( 1001 == chunk.ZA() );
