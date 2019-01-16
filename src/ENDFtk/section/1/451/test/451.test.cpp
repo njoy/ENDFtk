@@ -18,7 +18,7 @@ std::string invalidSEND();
 
 SCENARIO( "section::Type< 1, 451 >" ) {
 
-  GIVEN( "valid data for a section::Type< 3 >" ) {
+  GIVEN( "valid data for a section::Type< 1, 451 >" ) {
 
     int zaid = 1001;
     double awr = 0.9991673;
@@ -57,6 +57,7 @@ SCENARIO( "section::Type< 1, 451 >" ) {
 
       REQUIRE( 451 == chunk.MT() );
       REQUIRE( 1001 == chunk.ZA() );
+      REQUIRE( 0.9991673 == Approx( chunk.AWR() ) );
       REQUIRE( 0.9991673 == Approx( chunk.atomicWeightRatio() ) );
       REQUIRE( 1 == chunk.LRP() );
       REQUIRE( 2 == chunk.LFI() );
@@ -100,6 +101,7 @@ SCENARIO( "section::Type< 1, 451 >" ) {
 
       REQUIRE( 451 == chunk.MT() );
       REQUIRE( 1001 == chunk.ZA() );
+      REQUIRE( 0.9991673 == Approx( chunk.AWR() ) );
       REQUIRE( 0.9991673 == Approx( chunk.atomicWeightRatio() ) );
       REQUIRE( 1 == chunk.LRP() );
       REQUIRE( 2 == chunk.LFI() );
@@ -151,6 +153,7 @@ SCENARIO( "section::Type< 1, 451 >" ) {
 
         REQUIRE( 451 == chunk.MT() );
         REQUIRE( 1001 == chunk.ZA() );
+        REQUIRE( 0.9991673 == Approx( chunk.AWR() ) );
         REQUIRE( 0.9991673 == Approx( chunk.atomicWeightRatio() ) );
         REQUIRE( 1 == chunk.LRP() );
         REQUIRE( 2 == chunk.LFI() );
@@ -203,6 +206,7 @@ SCENARIO( "section::Type< 1, 451 >" ) {
 
         REQUIRE( 451 == chunk.MT() );
         REQUIRE( 1001 == chunk.ZA() );
+        REQUIRE( 0.9991673 == Approx( chunk.AWR() ) );
         REQUIRE( 0.9991673 == Approx( chunk.atomicWeightRatio() ) );
         REQUIRE( 1 == chunk.LRP() );
         REQUIRE( 2 == chunk.LFI() );
