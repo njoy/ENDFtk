@@ -77,13 +77,19 @@ SCENARIO( "ReactionProduct" ) {
         chunk( std::move( multiplicity ), std::move( distribution ) );
 
       REQUIRE( 1001. == Approx( chunk.ZAP() ) );
+      REQUIRE( 1001. == Approx( chunk.productIdentifier() ) );
       REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
+      REQUIRE( 0.9986234 == Approx( chunk.productMass() ) );
       REQUIRE( 0 == chunk.LIP() );
+      REQUIRE( 0 == chunk.productModifierFlag() );
       REQUIRE( 0 == chunk.LAW() );
 
       REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
+      REQUIRE( 1001. == Approx( chunk.multiplicity().productIdentifier() ) );
       REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().productMass() ) );
       REQUIRE( 0 == chunk.multiplicity().LIP() );
+      REQUIRE( 0 == chunk.multiplicity().productModifierFlag() );
       REQUIRE( 0 == chunk.multiplicity().LAW() );
 
       REQUIRE( 4 == chunk.multiplicity().NP() );
@@ -127,13 +133,19 @@ SCENARIO( "ReactionProduct" ) {
       ReactionProduct chunk( begin, end, lineNumber, 9228, 6, 5 );
 
       REQUIRE( 1001. == Approx( chunk.ZAP() ) );
+      REQUIRE( 1001. == Approx( chunk.productIdentifier() ) );
       REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
+      REQUIRE( 0.9986234 == Approx( chunk.productMass() ) );
       REQUIRE( 0 == chunk.LIP() );
+      REQUIRE( 0 == chunk.productModifierFlag() );
       REQUIRE( 0 == chunk.LAW() );
 
       REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
+      REQUIRE( 1001. == Approx( chunk.multiplicity().productIdentifier() ) );
       REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().productMass() ) );
       REQUIRE( 0 == chunk.multiplicity().LIP() );
+      REQUIRE( 0 == chunk.multiplicity().productModifierFlag() );
       REQUIRE( 0 == chunk.multiplicity().LAW() );
 
       REQUIRE( 4 == chunk.multiplicity().NP() );

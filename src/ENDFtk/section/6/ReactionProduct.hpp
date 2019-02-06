@@ -15,8 +15,11 @@ public:
 
   /* get methods */
   double ZAP() const { return this->multiplicity_.ZAP(); }
+  double productIdentifier() const { return this->ZAP(); }
   double AWP() const { return this->multiplicity_.AWP(); }
+  double productMass() const { return this->AWP(); }
   int LIP() const { return this->multiplicity_.LIP(); }
+  int productModifierFlag() const { return this->LIP(); }
   int LAW() const { return this->multiplicity_.LAW(); }
 
   const Multiplicity& multiplicity() const { return this->multiplicity_; }
