@@ -138,7 +138,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 4 == energies[0].NEP() );
 
       auto subsection1 =
-          std::experimental::get< LegendreCoefficients >( energies[0] );
+          std::experimental::get< LegendreCoefficients >( energies[0].data() );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 1 == subsection1.NA() );
       REQUIRE( 12 == subsection1.NW() );
@@ -171,7 +171,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 2 == energies[1].NEP() );
 
       auto subsection2 =
-          std::experimental::get< LegendreCoefficients >( energies[1] );
+          std::experimental::get< LegendreCoefficients >( energies[1].data() );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 1 == subsection2.NA() );
@@ -236,7 +236,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 3 == energies[0].NEP() );
 
       subsection1 =
-          std::experimental::get< LegendreCoefficients >( energies[0] );
+          std::experimental::get< LegendreCoefficients >( energies[0].data() );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 0 == subsection1.NA() );
       REQUIRE( 6 == subsection1.NW() );
@@ -262,7 +262,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 3 == energies[1].NEP() );
 
       subsection2 =
-          std::experimental::get< LegendreCoefficients >( energies[1] );
+          std::experimental::get< LegendreCoefficients >( energies[1].data() );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 0 == subsection2.NA() );
@@ -331,7 +331,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 3 == energies[0].NEP() );
 
       subsection1 =
-          std::experimental::get< LegendreCoefficients >( energies[0] );
+          std::experimental::get< LegendreCoefficients >( energies[0].data() );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 0 == subsection1.NA() );
       REQUIRE( 6 == subsection1.NW() );
@@ -357,7 +357,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 3 == energies[1].NEP() );
 
       subsection2 =
-          std::experimental::get< LegendreCoefficients >( energies[1] );
+          std::experimental::get< LegendreCoefficients >( energies[1].data() );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 0 == subsection2.NA() );
@@ -459,7 +459,7 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 4 == energies[0].NEP() );
 
         auto subsection1 =
-            std::experimental::get< LegendreCoefficients >( energies[0] );
+            std::experimental::get< LegendreCoefficients >( energies[0].data() );
         REQUIRE( 0 == subsection1.ND() );
         REQUIRE( 1 == subsection1.NA() );
         REQUIRE( 12 == subsection1.NW() );
@@ -493,7 +493,7 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 2 == energies[1].NEP() );
 
         auto subsection2 =
-            std::experimental::get< LegendreCoefficients >( energies[1] );
+            std::experimental::get< LegendreCoefficients >( energies[1].data() );
         REQUIRE( 1 == subsection2.LANG() );
         REQUIRE( 0 == subsection2.ND() );
         REQUIRE( 1 == subsection2.NA() );
@@ -562,7 +562,7 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 3 == energies[0].NEP() );
 
         subsection1 =
-            std::experimental::get< LegendreCoefficients >( energies[0] );
+            std::experimental::get< LegendreCoefficients >( energies[0].data() );
         REQUIRE( 0 == subsection1.ND() );
         REQUIRE( 0 == subsection1.NA() );
         REQUIRE( 6 == subsection1.NW() );
@@ -589,7 +589,7 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 3 == energies[1].NEP() );
 
         subsection2 =
-            std::experimental::get< LegendreCoefficients >( energies[1] );
+            std::experimental::get< LegendreCoefficients >( energies[1].data() );
         REQUIRE( 1 == subsection2.LANG() );
         REQUIRE( 0 == subsection2.ND() );
         REQUIRE( 0 == subsection2.NA() );
@@ -662,7 +662,7 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 3 == energies[0].NEP() );
 
         subsection1 =
-            std::experimental::get< LegendreCoefficients >( energies[0] );
+            std::experimental::get< LegendreCoefficients >( energies[0].data() );
         REQUIRE( 0 == subsection1.ND() );
         REQUIRE( 0 == subsection1.NA() );
         REQUIRE( 6 == subsection1.NW() );
@@ -689,7 +689,7 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 3 == energies[1].NEP() );
 
         subsection2 =
-            std::experimental::get< LegendreCoefficients >( energies[1] );
+            std::experimental::get< LegendreCoefficients >( energies[1].data() );
         REQUIRE( 1 == subsection2.LANG() );
         REQUIRE( 0 == subsection2.ND() );
         REQUIRE( 0 == subsection2.NA() );
@@ -792,7 +792,7 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 4 == energies[0].NEP() );
 
         auto subsection1 =
-            std::experimental::get< LegendreCoefficients >( energies[0] );
+            std::experimental::get< LegendreCoefficients >( energies[0].data() );
         REQUIRE( 0 == subsection1.ND() );
         REQUIRE( 1 == subsection1.NA() );
         REQUIRE( 12 == subsection1.NW() );
@@ -826,7 +826,7 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 2 == energies[1].NEP() );
 
         auto subsection2 =
-            std::experimental::get< LegendreCoefficients >( energies[1] );
+            std::experimental::get< LegendreCoefficients >( energies[1].data() );
         REQUIRE( 1 == subsection2.LANG() );
         REQUIRE( 0 == subsection2.ND() );
         REQUIRE( 1 == subsection2.NA() );
@@ -895,7 +895,7 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 3 == energies[0].NEP() );
 
         subsection1 =
-            std::experimental::get< LegendreCoefficients >( energies[0] );
+            std::experimental::get< LegendreCoefficients >( energies[0].data() );
         REQUIRE( 0 == subsection1.ND() );
         REQUIRE( 0 == subsection1.NA() );
         REQUIRE( 6 == subsection1.NW() );
@@ -922,7 +922,7 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 3 == energies[1].NEP() );
 
         subsection2 =
-            std::experimental::get< LegendreCoefficients >( energies[1] );
+            std::experimental::get< LegendreCoefficients >( energies[1].data() );
         REQUIRE( 1 == subsection2.LANG() );
         REQUIRE( 0 == subsection2.ND() );
         REQUIRE( 0 == subsection2.NA() );
@@ -995,7 +995,7 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 3 == energies[0].NEP() );
 
         subsection1 =
-            std::experimental::get< LegendreCoefficients >( energies[0] );
+            std::experimental::get< LegendreCoefficients >( energies[0].data() );
         REQUIRE( 0 == subsection1.ND() );
         REQUIRE( 0 == subsection1.NA() );
         REQUIRE( 6 == subsection1.NW() );
@@ -1022,7 +1022,7 @@ SCENARIO( "section::Type< 6 >" ) {
         REQUIRE( 3 == energies[1].NEP() );
 
         subsection2 =
-            std::experimental::get< LegendreCoefficients >( energies[1] );
+            std::experimental::get< LegendreCoefficients >( energies[1].data() );
         REQUIRE( 1 == subsection2.LANG() );
         REQUIRE( 0 == subsection2.ND() );
         REQUIRE( 0 == subsection2.NA() );

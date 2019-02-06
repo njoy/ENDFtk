@@ -1,12 +1,12 @@
 SubSection( SubSectionVariant&& subsection ) :
-  SubSectionVariant( subsection ) {}
+  data_( subsection ) {}
 
 SubSection( LegendreCoefficients&& subsection ) :
-  SubSectionVariant( subsection ) {}
+  data_( subsection ) {}
 
 SubSection( KalbachMann&& subsection ) :
-  SubSectionVariant( subsection ) {}
+  data_( subsection ) {}
 
 SubSection( Tabulated&& subsection ) :
-  SubSectionVariant( subsection ) {}
+  data_( subsection ) {}
 

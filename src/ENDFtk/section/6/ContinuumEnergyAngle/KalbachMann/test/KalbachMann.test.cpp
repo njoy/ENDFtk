@@ -35,9 +35,12 @@ SCENARIO( "KalbachMann" ) {
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 0 == chunk.ND() );
+      REQUIRE( 0 == chunk.numberDiscreteEnergies() );
       REQUIRE( 1 == chunk.NA() );
+      REQUIRE( 1 == chunk.numberAngularParameters() );
       REQUIRE( 6 == chunk.NW() );
       REQUIRE( 2 == chunk.NEP() );
+      REQUIRE( 2 == chunk.numberSecondaryEnergies() );
       REQUIRE( 2 == chunk.energies().size() );
       REQUIRE( 1. == Approx( chunk.energies()[0] ) );
       REQUIRE( 4. == Approx( chunk.energies()[1] ) );
@@ -61,9 +64,12 @@ SCENARIO( "KalbachMann" ) {
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 0 == chunk.ND() );
+      REQUIRE( 0 == chunk.numberDiscreteEnergies() );
       REQUIRE( 1 == chunk.NA() );
+      REQUIRE( 1 == chunk.numberAngularParameters() );
       REQUIRE( 6 == chunk.NW() );
       REQUIRE( 2 == chunk.NEP() );
+      REQUIRE( 2 == chunk.numberSecondaryEnergies() );
       REQUIRE( 2 == chunk.energies().size() );
       REQUIRE( 1. == Approx( chunk.energies()[0] ) );
       REQUIRE( 4. == Approx( chunk.energies()[1] ) );
@@ -99,9 +105,12 @@ SCENARIO( "KalbachMann" ) {
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 0 == chunk.ND() );
+      REQUIRE( 0 == chunk.numberDiscreteEnergies() );
       REQUIRE( 2 == chunk.NA() );
+      REQUIRE( 2 == chunk.numberAngularParameters() );
       REQUIRE( 8 == chunk.NW() );
       REQUIRE( 2 == chunk.NEP() );
+      REQUIRE( 2 == chunk.numberSecondaryEnergies() );
       REQUIRE( 2 == chunk.energies().size() );
       REQUIRE( 1. == Approx( chunk.energies()[0] ) );
       REQUIRE( 5. == Approx( chunk.energies()[1] ) );
@@ -127,9 +136,12 @@ SCENARIO( "KalbachMann" ) {
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 0 == chunk.ND() );
+      REQUIRE( 0 == chunk.numberDiscreteEnergies() );
       REQUIRE( 2 == chunk.NA() );
+      REQUIRE( 2 == chunk.numberAngularParameters() );
       REQUIRE( 8 == chunk.NW() );
       REQUIRE( 2 == chunk.NEP() );
+      REQUIRE( 2 == chunk.numberSecondaryEnergies() );
       REQUIRE( 2 == chunk.energies().size() );
       REQUIRE( 1. == Approx( chunk.energies()[0] ) );
       REQUIRE( 5. == Approx( chunk.energies()[1] ) );
@@ -163,9 +175,12 @@ SCENARIO( "KalbachMann" ) {
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 0 == chunk.ND() );
+      REQUIRE( 0 == chunk.numberDiscreteEnergies() );
       REQUIRE( 1 == chunk.NA() );
+      REQUIRE( 1 == chunk.numberAngularParameters() );
       REQUIRE( 6 == chunk.NW() );
       REQUIRE( 2 == chunk.NEP() );
+      REQUIRE( 2 == chunk.numberSecondaryEnergies() );
       REQUIRE( 2 == chunk.energies().size() );
       REQUIRE( 1. == Approx( chunk.energies()[0] ) );
       REQUIRE( 4. == Approx( chunk.energies()[1] ) );
@@ -197,9 +212,12 @@ SCENARIO( "KalbachMann" ) {
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 0 == chunk.ND() );
+      REQUIRE( 0 == chunk.numberDiscreteEnergies() );
       REQUIRE( 2 == chunk.NA() );
+      REQUIRE( 2 == chunk.numberAngularParameters() );
       REQUIRE( 8 == chunk.NW() );
       REQUIRE( 2 == chunk.NEP() );
+      REQUIRE( 2 == chunk.numberSecondaryEnergies() );
       REQUIRE( 2 == chunk.energies().size() );
       REQUIRE( 1. == Approx( chunk.energies()[0] ) );
       REQUIRE( 5. == Approx( chunk.energies()[1] ) );

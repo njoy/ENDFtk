@@ -5,7 +5,7 @@ class SubSection {
                                           NuclearPlusInterference >; // LTP>2
   SubSectionVariant data_;
 
-protected:
+  /* auxiliary functions */
   #include "ENDFtk/section/6/ChargedParticleElasticScattering/SubSection/src/readSubSection.hpp"
 
 public:

@@ -37,9 +37,12 @@ SCENARIO( "Tabulated" ) {
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 0 == chunk.ND() );
+      REQUIRE( 0 == chunk.numberDiscreteEnergies() );
       REQUIRE( 4 == chunk.NA() );
+      REQUIRE( 4 == chunk.numberAngularParameters() );
       REQUIRE( 12 == chunk.NW() );
       REQUIRE( 2 == chunk.NEP() );
+      REQUIRE( 2 == chunk.numberSecondaryEnergies() );
       REQUIRE( 2 == chunk.energies().size() );
       REQUIRE( 1. == Approx( chunk.energies()[0] ) );
       REQUIRE( 7. == Approx( chunk.energies()[1] ) );
@@ -71,9 +74,12 @@ SCENARIO( "Tabulated" ) {
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 0 == chunk.ND() );
+      REQUIRE( 0 == chunk.numberDiscreteEnergies() );
       REQUIRE( 4 == chunk.NA() );
+      REQUIRE( 4 == chunk.numberAngularParameters() );
       REQUIRE( 12 == chunk.NW() );
       REQUIRE( 2 == chunk.NEP() );
+      REQUIRE( 2 == chunk.numberSecondaryEnergies() );
       REQUIRE( 2 == chunk.energies().size() );
       REQUIRE( 1. == Approx( chunk.energies()[0] ) );
       REQUIRE( 7. == Approx( chunk.energies()[1] ) );
@@ -111,9 +117,12 @@ SCENARIO( "Tabulated" ) {
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 0 == chunk.ND() );
+      REQUIRE( 0 == chunk.numberDiscreteEnergies() );
       REQUIRE( 4 == chunk.NA() );
+      REQUIRE( 4 == chunk.numberAngularParameters() );
       REQUIRE( 12 == chunk.NW() );
       REQUIRE( 2 == chunk.NEP() );
+      REQUIRE( 2 == chunk.numberSecondaryEnergies() );
       REQUIRE( 2 == chunk.energies().size() );
       REQUIRE( 1. == Approx( chunk.energies()[0] ) );
       REQUIRE( 7. == Approx( chunk.energies()[1] ) );
