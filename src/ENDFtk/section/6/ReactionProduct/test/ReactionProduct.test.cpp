@@ -1096,7 +1096,9 @@ SCENARIO( "ReactionProduct" ) {
       REQUIRE( 6 == law.LAW() );
 
       REQUIRE( 5. == Approx( law.APSX() ) );
+      REQUIRE( 5. == Approx( law.totalMass() ) );
       REQUIRE( 4 == law.NPSX() );
+      REQUIRE( 4 == law.numberParticles() );
 
       REQUIRE( 5 == chunk.NC() );
     }
@@ -1149,7 +1151,9 @@ SCENARIO( "ReactionProduct" ) {
       REQUIRE( 6 == law.LAW() );
 
       REQUIRE( 5. == Approx( law.APSX() ) );
+      REQUIRE( 5. == Approx( law.totalMass() ) );
       REQUIRE( 4 == law.NPSX() );
+      REQUIRE( 4 == law.numberParticles() );
 
       REQUIRE( 5 == chunk.NC() );
     }
