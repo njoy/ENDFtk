@@ -78,7 +78,9 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 2.330248e+2 == Approx( chunk.AWR() ) );
       REQUIRE( 0 == chunk.JP() );
       REQUIRE( 2 == chunk.LCT() );
+      REQUIRE( 2 == chunk.referenceFrame() );
       REQUIRE( 3 == chunk.NK() );
+      REQUIRE( 3 == chunk.numberSubSections() );
       REQUIRE( 5 == chunk.MT() );
 
       auto products = chunk.products();
@@ -451,7 +453,9 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 2.330248e+2 == Approx( chunk.AWR() ) );
       REQUIRE( 0 == chunk.JP() );
       REQUIRE( 2 == chunk.LCT() );
+      REQUIRE( 2 == chunk.referenceFrame() );
       REQUIRE( 3 == chunk.NK() );
+      REQUIRE( 3 == chunk.numberSubSections() );
       REQUIRE( 5 == chunk.MT() );
 
       auto products = chunk.products();
@@ -824,7 +828,9 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 2.330248e+2 == Approx( chunk.AWR() ) );
       REQUIRE( 0 == chunk.JP() );
       REQUIRE( 2 == chunk.LCT() );
+      REQUIRE( 2 == chunk.referenceFrame() );
       REQUIRE( 3 == chunk.NK() );
+      REQUIRE( 3 == chunk.numberSubSections() );
       REQUIRE( 5 == chunk.MT() );
 
       auto products = chunk.products();

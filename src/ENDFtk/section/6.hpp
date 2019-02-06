@@ -56,7 +56,9 @@ public:
   /* get methods */
   int JP() const { return this->jp_; }
   int LCT() const { return this->lct_; }
+  int referenceFrame() const { return this->LCT(); }
   int NK() const { return this->products_.size(); }
+  int numberSubSections() const { return this->NK(); }
 
   auto products() const { return ranges::view::all( this->products_ ); }
 
