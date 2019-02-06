@@ -14,6 +14,7 @@ public:
   int LANG() const { return ListRecord::L1(); }
   long NW() const { return ListRecord::NPL(); }
   long NL() const { return ListRecord::N2(); }
+  long numberCosines() const { return this->NL(); }
 
   auto cosines() const {
     return ListRecord::list() | ranges::view::stride( 2 );

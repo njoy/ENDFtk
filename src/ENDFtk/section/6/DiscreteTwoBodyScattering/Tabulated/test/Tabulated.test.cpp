@@ -32,6 +32,7 @@ SCENARIO( "Tabulated" ) {
       REQUIRE( 12 == chunk.LANG() );
       REQUIRE( 6 == chunk.NW() );
       REQUIRE( 3 == chunk.NL() );
+      REQUIRE( 3 == chunk.numberCosines() );
       REQUIRE( 3 == chunk.cosines().size() );
       REQUIRE( 1. == Approx( chunk.cosines()[0] ) );
       REQUIRE( 3. == Approx( chunk.cosines()[1] ) );
@@ -54,6 +55,7 @@ SCENARIO( "Tabulated" ) {
       REQUIRE( 12 == chunk.LANG() );
       REQUIRE( 6 == chunk.NW() );
       REQUIRE( 3 == chunk.NL() );
+      REQUIRE( 3 == chunk.numberCosines() );
       REQUIRE( 3 == chunk.cosines().size() );
       REQUIRE( 1. == Approx( chunk.cosines()[0] ) );
       REQUIRE( 3. == Approx( chunk.cosines()[1] ) );
@@ -84,6 +86,7 @@ SCENARIO( "Tabulated" ) {
       REQUIRE( 12 == chunk.LANG() );
       REQUIRE( 6 == chunk.NW() );
       REQUIRE( 3 == chunk.NL() );
+      REQUIRE( 3 == chunk.numberCosines() );
       REQUIRE( 3 == chunk.cosines().size() );
       REQUIRE( 3 == chunk.probabilities().size() );
       REQUIRE( 1. == Approx( chunk.cosines()[0] ) );

@@ -476,7 +476,7 @@ SCENARIO( "ReactionProduct" ) {
       REQUIRE( 4 == energies[0].NL() );
 
       auto subsection1 =
-          std::experimental::get< Law2LegendreCoefficients >( energies[0] );
+          std::experimental::get< Law2LegendreCoefficients >( energies[0].data() );
       REQUIRE( 0 == subsection1.LANG() );
       REQUIRE( 4 == subsection1.NW() );
       REQUIRE( 4 == subsection1.NL() );
@@ -491,7 +491,8 @@ SCENARIO( "ReactionProduct" ) {
       REQUIRE( 6 == energies[1].NW() );
       REQUIRE( 3 == energies[1].NL() );
 
-      auto subsection2 = std::experimental::get< Law2Tabulated >( energies[1] );
+      auto subsection2 =
+           std::experimental::get< Law2Tabulated >( energies[1].data() );
       REQUIRE( 12 == subsection2.LANG() );
       REQUIRE( 6 == subsection2.NW() );
       REQUIRE( 3 == subsection2.NL() );
@@ -568,7 +569,7 @@ SCENARIO( "ReactionProduct" ) {
       REQUIRE( 4 == energies[0].NL() );
 
       auto subsection1 =
-          std::experimental::get< Law2LegendreCoefficients >( energies[0] );
+          std::experimental::get< Law2LegendreCoefficients >( energies[0].data() );
       REQUIRE( 0 == subsection1.LANG() );
       REQUIRE( 4 == subsection1.NW() );
       REQUIRE( 4 == subsection1.NL() );
@@ -583,7 +584,8 @@ SCENARIO( "ReactionProduct" ) {
       REQUIRE( 6 == energies[1].NW() );
       REQUIRE( 3 == energies[1].NL() );
 
-      auto subsection2 = std::experimental::get< Law2Tabulated >( energies[1] );
+      auto subsection2 =
+           std::experimental::get< Law2Tabulated >( energies[1].data() );
       REQUIRE( 12 == subsection2.LANG() );
       REQUIRE( 6 == subsection2.NW() );
       REQUIRE( 3 == subsection2.NL() );
