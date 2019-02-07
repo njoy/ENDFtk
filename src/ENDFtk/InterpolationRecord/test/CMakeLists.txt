@@ -1,15 +1,15 @@
 
 add_executable( ENDFtk.InterpolationRecord.test
-                print.test.cpp
-                L1.test.cpp
-                InterpolationRecord.test.cpp
-                NR.test.cpp
-                rangeInterpolationScheme.test.cpp
+                C1.test.cpp
                 C2.test.cpp
                 equality.test.cpp
-                C1.test.cpp
+                InterpolationRecord.test.cpp
+                L1.test.cpp
                 L2.test.cpp
-                NZ.test.cpp )
+                NR.test.cpp
+                NZ.test.cpp
+                print.test.cpp
+                rangeInterpolationScheme.test.cpp )
 target_compile_options( ENDFtk.InterpolationRecord.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}

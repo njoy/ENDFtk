@@ -44,7 +44,8 @@ SCENARIO( "SubSection" ) {
                                     { 0.0, 1.757570e-9, 1.843350e-9 } },
                                   { 3e+7, { 4 }, { 2 },
                                     { 0.0, 10., 11., 3e+7 },
-                                    { 0.0, 1.733405e-9, 1.818010e-9, 1.898849e-9 } } } );
+                                    { 0.0, 1.733405e-9,
+                                      1.818010e-9, 1.898849e-9 } } } );
 
     THEN( "a SubSection can be constructed" ) {
       SubSection chunk( std::move( probability ), std::move( spectrum ) );
@@ -69,7 +70,8 @@ SCENARIO( "SubSection" ) {
       REQUIRE( 1. == Approx( p.probabilities()[0] ) );
       REQUIRE( 1. == Approx( p.probabilities()[1] ) );
 
-      auto d = std::experimental::get< TabulatedSpectrum >( chunk.distribution() );
+      auto d =
+           std::experimental::get< TabulatedSpectrum >( chunk.distribution() );
 
       REQUIRE( 1 == d.NR() );
       REQUIRE( 2 == d.NE() );
@@ -118,7 +120,8 @@ SCENARIO( "SubSection" ) {
     }
   } // GIVEN
 
-  GIVEN( "a string representation of a valid SubSection using TabulatedSpectrum (LF=1)" ) {
+  GIVEN( "a string representation of a valid SubSection using "
+         "TabulatedSpectrum (LF=1)" ) {
 
     std::string string = chunkLF1();
     auto begin = string.begin();
@@ -149,7 +152,8 @@ SCENARIO( "SubSection" ) {
       REQUIRE( 1. == Approx( p.probabilities()[0] ) );
       REQUIRE( 1. == Approx( p.probabilities()[1] ) );
 
-      auto d = std::experimental::get< TabulatedSpectrum >( chunk.distribution() );
+      auto d =
+           std::experimental::get< TabulatedSpectrum >( chunk.distribution() );
 
       REQUIRE( 1 == d.NR() );
       REQUIRE( 2 == d.NE() );
@@ -214,17 +218,20 @@ SCENARIO( "SubSection" ) {
     }
   } // GIVEN
 
-  GIVEN( "valid data for a SubSection using GeneralEvaporationSpectrum (LF=5)" ) {
+  GIVEN( "valid data for a SubSection using "
+         "GeneralEvaporationSpectrum (LF=5)" ) {
 
     PartialProbability probability( 5, { 2 }, { 2 },
                                        { 1e-5, 3e+7 },
                                        { 1.804944e-2, 1.804944e-2 }, -3e+7 );
-    GeneralEvaporationSpectrum spectrum( { { 2 }, { 2 }, { 1e-5, 3e+7 }, { 1.0, 1.0 } },
+    GeneralEvaporationSpectrum spectrum( { { 2 }, { 2 },
+                                           { 1e-5, 3e+7 }, { 1.0, 1.0 } },
                                          { { 6 }, { 1 },
                                            { 0.0, 1e+4, 2e+4,
                                              1.8e+6, 1.81e+6, 1.82e+6 },
-                                           { 1.533738e-7, 1.378483e-6, 1.550360e-6,
-                                             7.90779e-31, 0.0, 0.0 } } );
+                                           { 1.533738e-7, 1.378483e-6,
+                                             1.550360e-6, 7.90779e-31,
+                                             0.0, 0.0 } } );
 
     THEN( "a SubSection can be constructed" ) {
       SubSection chunk( std::move( probability ), std::move( spectrum ) );
@@ -249,7 +256,9 @@ SCENARIO( "SubSection" ) {
       REQUIRE( 1.804944e-2 == Approx( p.probabilities()[0] ) );
       REQUIRE( 1.804944e-2 == Approx( p.probabilities()[1] ) );
 
-      auto d = std::experimental::get< GeneralEvaporationSpectrum >( chunk.distribution() );
+      auto d =
+           std::experimental::get< GeneralEvaporationSpectrum >
+                ( chunk.distribution() );
 
       REQUIRE( 5 == d.LF() );
       REQUIRE( 5 == d.distributionType() );
@@ -294,7 +303,8 @@ SCENARIO( "SubSection" ) {
     }
   } // GIVEN
 
-  GIVEN( "a string representation of a valid SubSection using GeneralEvaporationSpectrum (LF=5)" ) {
+  GIVEN( "a string representation of a valid SubSection using "
+         "GeneralEvaporationSpectrum (LF=5)" ) {
 
     std::string string = chunkLF5();
     auto begin = string.begin();
@@ -325,7 +335,9 @@ SCENARIO( "SubSection" ) {
       REQUIRE( 1.804944e-2 == Approx( p.probabilities()[0] ) );
       REQUIRE( 1.804944e-2 == Approx( p.probabilities()[1] ) );
 
-      auto d = std::experimental::get< GeneralEvaporationSpectrum >( chunk.distribution() );
+      auto d =
+           std::experimental::get< GeneralEvaporationSpectrum >
+                ( chunk.distribution() );
 
       REQUIRE( 5 == d.LF() );
       REQUIRE( 5 == d.distributionType() );
@@ -370,7 +382,8 @@ SCENARIO( "SubSection" ) {
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of SubSection using GeneralEvaporationSpectrum (LF=5)" ) {
+  GIVEN( "a valid instance of SubSection using "
+         "GeneralEvaporationSpectrum (LF=5)" ) {
 
     std::string string = chunkLF5();
     auto begin = string.begin();
@@ -386,14 +399,16 @@ SCENARIO( "SubSection" ) {
     }
   } // GIVEN
 
-  GIVEN( "valid data for a SubSection using MaxwellianFissionSpectrum (LF=7)" ) {
+  GIVEN( "valid data for a SubSection using "
+         "MaxwellianFissionSpectrum (LF=7)" ) {
 
     PartialProbability probability( 7, { 2 }, { 2 },
                                        { 1e-5, 3e+7 },
                                        { 1.0, 1.0 }, -3e+7 );
     MaxwellianFissionSpectrum spectrum( { { 3 }, { 2 },
                                           { 1e-5, 5e+5, 3e+7 },
-                                          { 1.3652e+6, 1.3748e+6, 1.6912e+6 } } );
+                                          { 1.3652e+6, 1.3748e+6,
+                                            1.6912e+6 } } );
 
     THEN( "a SubSection can be constructed" ) {
       SubSection chunk( std::move( probability ), std::move( spectrum ) );
@@ -418,7 +433,9 @@ SCENARIO( "SubSection" ) {
       REQUIRE( 1.0 == Approx( p.probabilities()[0] ) );
       REQUIRE( 1.0 == Approx( p.probabilities()[1] ) );
 
-      auto d = std::experimental::get< MaxwellianFissionSpectrum >( chunk.distribution() );
+      auto d =
+           std::experimental::get< MaxwellianFissionSpectrum >
+                ( chunk.distribution() );
       REQUIRE( 3 == d.NP() );
       REQUIRE( 1 == d.NR() );
       REQUIRE( 1 == d.interpolants().size() );
@@ -438,7 +455,8 @@ SCENARIO( "SubSection" ) {
     }
   } // GIVEN
 
-  GIVEN( "a string representation of a valid SubSection using MaxwellianFissionSpectrum (LF=7)" ) {
+  GIVEN( "a string representation of a valid SubSection using "
+         "MaxwellianFissionSpectrum (LF=7)" ) {
 
     std::string string = chunkLF7();
     auto begin = string.begin();
@@ -469,7 +487,9 @@ SCENARIO( "SubSection" ) {
       REQUIRE( 1.0 == Approx( p.probabilities()[0] ) );
       REQUIRE( 1.0 == Approx( p.probabilities()[1] ) );
 
-      auto d = std::experimental::get< MaxwellianFissionSpectrum >( chunk.distribution() );
+      auto d =
+           std::experimental::get< MaxwellianFissionSpectrum >
+                ( chunk.distribution() );
       REQUIRE( 3 == d.NP() );
       REQUIRE( 1 == d.NR() );
       REQUIRE( 1 == d.interpolants().size() );
@@ -489,7 +509,8 @@ SCENARIO( "SubSection" ) {
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of SubSection using MaxwellianFissionSpectrum (LF=7)" ) {
+  GIVEN( "a valid instance of SubSection using "
+         "MaxwellianFissionSpectrum (LF=7)" ) {
 
     std::string string = chunkLF7();
     auto begin = string.begin();
@@ -511,8 +532,10 @@ SCENARIO( "SubSection" ) {
                                        { 1.789920e+7, 2e+7 },
                                        { 1.0, 1.0 }, 1.789920e+7 );
     EvaporationSpectrum spectrum( { { 4 }, { 2 },
-                                    { 1.78992e+7, 1.8e+7, 1.9e+7, 2e+7 },
-                                    { 1.0099e+5, 1.0099e+5, 1.1292e+5, 1.6143e+5 } } );
+                                    { 1.78992e+7, 1.8e+7,
+                                      1.9e+7, 2e+7 },
+                                    { 1.0099e+5, 1.0099e+5,
+                                      1.1292e+5, 1.6143e+5 } } );
 
     THEN( "a SubSection can be constructed" ) {
       SubSection chunk( std::move( probability ), std::move( spectrum ) );
@@ -537,7 +560,9 @@ SCENARIO( "SubSection" ) {
       REQUIRE( 1.0 == Approx( p.probabilities()[0] ) );
       REQUIRE( 1.0 == Approx( p.probabilities()[1] ) );
 
-      auto d = std::experimental::get< EvaporationSpectrum >( chunk.distribution() );
+      auto d =
+           std::experimental::get< EvaporationSpectrum >
+                ( chunk.distribution() );
       REQUIRE( 4 == d.NP() );
       REQUIRE( 1 == d.NR() );
       REQUIRE( 1 == d.interpolants().size() );
@@ -559,7 +584,8 @@ SCENARIO( "SubSection" ) {
     }
   } // GIVEN
 
-  GIVEN( "a string representation of a valid SubSection using EvaporationSpectrum (LF=9)" ) {
+  GIVEN( "a string representation of a valid SubSection using "
+         "EvaporationSpectrum (LF=9)" ) {
 
     std::string string = chunkLF9();
     auto begin = string.begin();
@@ -589,7 +615,9 @@ SCENARIO( "SubSection" ) {
       REQUIRE( 1.0 == Approx( p.probabilities()[0] ) );
       REQUIRE( 1.0 == Approx( p.probabilities()[1] ) );
 
-      auto d = std::experimental::get< EvaporationSpectrum >( chunk.distribution() );
+      auto d =
+           std::experimental::get< EvaporationSpectrum >
+                ( chunk.distribution() );
       REQUIRE( 4 == d.NP() );
       REQUIRE( 1 == d.NR() );
       REQUIRE( 1 == d.interpolants().size() );
@@ -636,8 +664,10 @@ SCENARIO( "SubSection" ) {
                                 { 1e-5, 1.5e+6, 3e+7 },
                                 { 9.77e+5, 1e+6, 1.06e+6 } },
                               { {5}, {2},
-                                { 1e-5, 1.5e+6, 1e+7, 1.22e+7, 3e+7 },
-                                { 2.546e-6, 2.546e-6, 2.474e-6, 2.612e-6, 2.62e-6 } } }} );
+                                { 1e-5, 1.5e+6, 1e+7,
+                                  1.22e+7, 3e+7 },
+                                { 2.546e-6, 2.546e-6, 2.474e-6,
+                                  2.612e-6, 2.62e-6 } } }} );
 
     THEN( "a SubSection can be constructed" ) {
       SubSection chunk( std::move( probability ), std::move( spectrum ) );
@@ -707,7 +737,8 @@ SCENARIO( "SubSection" ) {
     }
   } // GIVEN
 
-  GIVEN( "a string representation of a valid SubSection using WattSpectrum (LF=11)" ) {
+  GIVEN( "a string representation of a valid SubSection using "
+         "WattSpectrum (LF=11)" ) {
 
     std::string string = chunkLF11();
     auto begin = string.begin();
@@ -832,7 +863,8 @@ SCENARIO( "SubSection" ) {
       REQUIRE( 1. == Approx( p.probabilities()[0] ) );
       REQUIRE( 1. == Approx( p.probabilities()[1] ) );
 
-      auto d = std::experimental::get< MadlandNixSpectrum >( chunk.distribution() );
+      auto d =
+           std::experimental::get< MadlandNixSpectrum >( chunk.distribution() );
 
       REQUIRE( 12 == d.LF() );
       REQUIRE( 12 == d.distributionType() );
@@ -863,7 +895,8 @@ SCENARIO( "SubSection" ) {
     }
   } // GIVEN
 
-  GIVEN( "a string representation of a valid SubSection using MadlandNixSpectrum (LF=12)" ) {
+  GIVEN( "a string representation of a valid SubSection using "
+         "MadlandNixSpectrum (LF=12)" ) {
 
     std::string string = chunkLF12();
     auto begin = string.begin();
@@ -894,7 +927,8 @@ SCENARIO( "SubSection" ) {
       REQUIRE( 1. == Approx( p.probabilities()[0] ) );
       REQUIRE( 1. == Approx( p.probabilities()[1] ) );
 
-      auto d = std::experimental::get< MadlandNixSpectrum >( chunk.distribution() );
+      auto d =
+           std::experimental::get< MadlandNixSpectrum >( chunk.distribution() );
 
       REQUIRE( 12 == d.LF() );
       REQUIRE( 12 == d.distributionType() );

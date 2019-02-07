@@ -67,10 +67,7 @@ public:
   /**
    *  @brief Return the partial distributions defined in this section
    */
-  auto distributions() const {
-
-    return ranges::view::all( this->subsections_ );
-  }
+  auto distributions() const { return ranges::view::all( this->subsections_ ); }
 
   #include "ENDFtk/section/5/src/NC.hpp"
   #include "ENDFtk/section/5/src/print.hpp"
@@ -80,4 +77,3 @@ public:
   using Base::atomicWeightRatio;
   using Base::AWR;
 };
-
