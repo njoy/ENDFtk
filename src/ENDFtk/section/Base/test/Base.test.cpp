@@ -6,7 +6,7 @@
 using namespace njoy::ENDFtk;
 
 SCENARIO( "section::Base tests"){
-  GIVEN( "a string represnting the Section" ){
+  GIVEN( "a string representing the Section" ){
     std::string line = 
     " 1.001000+3 9.991673-1          0          0          0          0 125 3  1\n";
 

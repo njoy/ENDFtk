@@ -494,6 +494,7 @@
     "src/ENDFtk/section/3.hpp", 
     "src/ENDFtk/section/6.hpp", 
     "src/ENDFtk/section/Base.hpp", 
+    "src/ENDFtk/section/BaseWithoutMT.hpp", 
     "src/ENDFtk/section/1/451.hpp", 
     "src/ENDFtk/section/1/451/src/ctor-452.hpp", 
     "src/ENDFtk/section/1/451/src/ctor-455.hpp", 
@@ -502,6 +503,8 @@
     "src/ENDFtk/section/1/451/src/ctor-460.hpp", 
     "src/ENDFtk/section/1/451/src/ctor.hpp", 
     "src/ENDFtk/section/1/451/src/description.hpp", 
+    "src/ENDFtk/section/1/451/src/makeDescription.hpp", 
+    "src/ENDFtk/section/1/451/src/makeParameters.hpp", 
     "src/ENDFtk/section/1/451/src/print.hpp", 
     "src/ENDFtk/section/1/451/src/readParameters.hpp", 
     "src/ENDFtk/section/1/451/src/readRecords.hpp", 
@@ -600,8 +603,10 @@
     "src/ENDFtk/section/6/src/NC.hpp", 
     "src/ENDFtk/section/6/src/print.hpp", 
     "src/ENDFtk/section/6/src/readReactionProducts.hpp", 
+    "src/ENDFtk/section/6/src/verifySorted.hpp", 
     "src/ENDFtk/section/Base/src/ctor.hpp", 
-    "src/ENDFtk/section/Base/src/readSEND.hpp", 
+    "src/ENDFtk/section/BaseWithoutMT/src/ctor.hpp", 
+    "src/ENDFtk/section/BaseWithoutMT/src/readSEND.hpp", 
     "src/ENDFtk/syntaxTree/File.hpp", 
     "src/ENDFtk/syntaxTree/Material.hpp", 
     "src/ENDFtk/syntaxTree/Section.hpp", 
@@ -880,6 +885,9 @@
     ], 
     "ENDFtk.section.Base": [
       "src/ENDFtk/section/Base/test/Base.test.cpp"
+    ], 
+    "ENDFtk.section.BaseWithoutMT": [
+      "src/ENDFtk/section/BaseWithoutMT/test/Base.test.cpp"
     ], 
     "ENDFtk.syntaxTree.File": [
       "src/ENDFtk/syntaxTree/File/test/File.test.cpp"

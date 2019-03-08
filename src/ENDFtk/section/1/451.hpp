@@ -1,5 +1,7 @@
 template<>
-class Type< 1, 451 > : protected Base {
+class Type< 1, 451 > : protected BaseWithoutMT< Type< 1, 451 > > {
+
+  friend BaseWithoutMT< Type< 1, 451 > >;
 
   /* fields */
   int lrp_;
@@ -22,7 +24,7 @@ public:
   #include "ENDFtk/section/1/451/src/ctor.hpp"
 
   /* get methods */
-  static constexpr int MT(){ return 451; }
+  static constexpr int sectionNumber(){ return 451; }
 
   int LRP() const { return this->lrp_; }
   int LFI() const { return this->lfi_; }
@@ -53,9 +55,10 @@ public:
   #include "ENDFtk/section/1/451/src/description.hpp"
   #include "ENDFtk/section/1/451/src/print.hpp"
 
-  using Base::ZA;
-  using Base::AWR;
-  using Base::atomicWeightRatio;
+  using BaseWithoutMT::MT;
+  using BaseWithoutMT::ZA;
+  using BaseWithoutMT::AWR;
+  using BaseWithoutMT::atomicWeightRatio;
 
   /* implement set methods on ContRecord to enable this
   int& LRP() const { return this->lrp_; }
