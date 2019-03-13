@@ -1,7 +1,6 @@
-template< typename Range,
-          utility::Require< true, utility::is_range, Range > = true >
+template < typename Array >
 static std::vector< double >
-generateList( std::vector< Range >&& data ) {
+generateList( std::vector< Array >&& data ) {
 
   return data | ranges::view::join;
 }

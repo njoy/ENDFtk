@@ -1,4 +1,6 @@
-template < typename Range, typename String >
+template< typename Range, 
+          utility::Require< true, utility::is_range, Range > = true,
+          typename String >
 static void
 verifySorted( const Range& values, const String& name ){
 
