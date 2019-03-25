@@ -55,6 +55,7 @@ public:
 
   /* get methods */
   int JP() const { return this->jp_; }
+  int averageMultipleParticlesFlag() const { return this->JP(); }
   int LCT() const { return this->lct_; }
   int referenceFrame() const { return this->LCT(); }
   int NK() const { return this->products_.size(); }
@@ -67,6 +68,7 @@ public:
   #include "ENDFtk/section/6/src/print.hpp"
 
   using Base::MT;
+  using Base::sectionNumber;
   using Base::ZA;
   using Base::atomicWeightRatio;
   using Base::AWR;

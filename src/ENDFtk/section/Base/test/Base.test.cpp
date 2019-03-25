@@ -40,6 +40,7 @@ SCENARIO( "section::Base tests") {
         AND_THEN( "we can get the ZA, MT, and atomicWeightRatio" ) {
 
           REQUIRE( 1 == base->MT() );
+          REQUIRE( 1 == base->sectionNumber() );
           REQUIRE( 1001 == base->ZA() );
           REQUIRE( 0.9991673 == base->atomicWeightRatio() );
         } // AND_THEN
