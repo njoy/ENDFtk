@@ -18,7 +18,8 @@ namespace njoy {
   namespace ENDFtk {
 
     template<> void
-    validateSequence< ControlRecord >( const std::vector< ControlRecord >& seq ) {
+    validateSequence< ControlRecord >(
+      const std::vector< ControlRecord >& seq ) {
 
       auto iter = std::is_sorted_until( seq.begin(), seq.end(),
                                         &compareControlRecords );
@@ -132,28 +133,35 @@ SCENARIO( "InterpolationSequenceRecord" ) {
 
   GIVEN( "invalid data for an InterpolationSequenceRecord" ) {
 
-    InterpolationRecord interpolation( 3.0, 5.0, 6, 7, { 2 }, { 4 } );
-    std::vector< ControlRecord > sequence = {
-        ControlRecord( 8.0, 9.0, 10, 11, 12, 13 ),
-        ControlRecord( 7.0, 15.0, 16, 17, 18, 19 ) };
+    WHEN( "the CONT records are not sorted" ) {
 
-    THEN( "an exception is thrown" ) {
+      InterpolationRecord interpolation( 3.0, 5.0, 6, 7, { 2 }, { 4 } );
+      std::vector< ControlRecord > sequence = {
+          ControlRecord( 8.0, 9.0, 10, 11, 12, 13 ),
+          ControlRecord( 7.0, 15.0, 16, 17, 18, 19 ) };
 
-      REQUIRE_THROWS( InterpolationSequenceRecord< ControlRecord >( std::move( interpolation ), std::move( sequence ) ) );
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS(
+          InterpolationSequenceRecord< ControlRecord >(
+            std::move( interpolation ), std::move( sequence ) ) );
+      }
     }
-  }
 
-  GIVEN( "inconsistent NZ and data points" ) {
+    WHEN( "inconsistent NZ and data points are used" ) {
 
-    InterpolationRecord interpolation( 3.0, 5.0, 6, 7, { 2 }, { 4 } );
-    std::vector< ControlRecord > sequence = {
-        ControlRecord( 8.0, 9.0, 10, 11, 12, 13 ),
-        ControlRecord( 7.0, 15.0, 16, 17, 18, 19 ),
-        ControlRecord( 20.0, 21.0, 22, 23, 24, 25 ) };
+      InterpolationRecord interpolation( 3.0, 5.0, 6, 7, { 2 }, { 4 } );
+      std::vector< ControlRecord > sequence = {
+          ControlRecord( 8.0, 9.0, 10, 11, 12, 13 ),
+          ControlRecord( 7.0, 15.0, 16, 17, 18, 19 ),
+          ControlRecord( 20.0, 21.0, 22, 23, 24, 25 ) };
 
-    THEN( "an exception is thrown" ) {
+      THEN( "an exception is thrown" ) {
 
-      REQUIRE_THROWS( InterpolationSequenceRecord< ControlRecord >( std::move( interpolation ), std::move( sequence ) ) );
+        REQUIRE_THROWS(
+          InterpolationSequenceRecord< ControlRecord >(
+            std::move( interpolation ), std::move( sequence ) ) );
+      }
     }
   }
 

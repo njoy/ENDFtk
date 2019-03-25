@@ -9,15 +9,18 @@ std::string chunk();
 std::string validSEND();
 std::string invalidSEND();
 
-class TestBase : public section::Base {
+class TestBaseWithoutMT : public section::BaseWithoutMT < TestBaseWithoutMT > {
 
 public:
 
-  TestBase( double ZA, double AWR, int MT ) : Base( ZA, AWR, MT ) {};
-  TestBase( const HEAD& head, int MAT, int MF ) : Base( head, MAT, MF ) {};
+  TestBaseWithoutMT( double ZA, double AWR ) : BaseWithoutMT( ZA, AWR ) {};
+  TestBaseWithoutMT( const HEAD& head, int MAT, int MF ) :
+    BaseWithoutMT( head, MAT, MF ) {};
+
+  int sectionNumber() const { return 451; }
 };
 
-SCENARIO( "section::Base tests") {
+SCENARIO( "section::BaseWithoutMT tests") {
 
   GIVEN( "a string representing the Section" ) {
 
@@ -27,19 +30,20 @@ SCENARIO( "section::Base tests") {
     long lineNumber = 2;
     auto head = StructureDivision( begin, end, lineNumber );
 
-    std::unique_ptr<TestBase> base;
-    WHEN( "given good MAT, MF numbers"){
+    std::unique_ptr<TestBaseWithoutMT> base;
+    WHEN( "given good MAT, MF numbers" ){
 
       int MAT = 125;
       int MF = 3;
       THEN( "the base can be constructed without throwing" ) {
 
         REQUIRE_NOTHROW(
-            base = std::make_unique<TestBase>( asHead(head), MAT, MF) );
+            base = std::make_unique<TestBaseWithoutMT>( asHead(head), MAT, MF) );
 
         AND_THEN( "we can get the ZA, MT, and atomicWeightRatio" ) {
 
-          REQUIRE( 1 == base->MT() );
+          REQUIRE( 451 == base->MT() );
+          REQUIRE( 451 == base->sectionNumber() );
           REQUIRE( 1001 == base->ZA() );
           REQUIRE( 0.9991673 == base->atomicWeightRatio() );
         } // AND_THEN
@@ -53,22 +57,21 @@ SCENARIO( "section::Base tests") {
 
       THEN( "an exception is thrown on construction" ) {
 
-        REQUIRE_THROWS( TestBase( asHead( head ), MAT, MF ) );
-        REQUIRE_THROWS( TestBase( asHead( head ), MAT, 3 ) );
-        REQUIRE_THROWS( TestBase( asHead( head ), 125, MF ) );
+        REQUIRE_THROWS( TestBaseWithoutMT( asHead( head ), MAT, MF ) );
+        REQUIRE_THROWS( TestBaseWithoutMT( asHead( head ), MAT, 3 ) );
+        REQUIRE_THROWS( TestBaseWithoutMT( asHead( head ), 125, MF ) );
       }
     }
 
     WHEN( "head parameters are negative" ) {
 
-      REQUIRE_THROWS( TestBase( -1, 2.0, 3 ) );
-      REQUIRE_THROWS( TestBase( 1, -2.0, 3 ) );
-      REQUIRE_THROWS( TestBase( 1, 2.0, -3 ) );
+      REQUIRE_THROWS( TestBaseWithoutMT( -1, 2.0 ) );
+      REQUIRE_THROWS( TestBaseWithoutMT( 1, -2.0 ) );
     }
 
     WHEN( "reading the SEND record" ) {
 
-      base = std::make_unique< TestBase >( asHead(head), 125, 3);
+      base = std::make_unique< TestBaseWithoutMT >( asHead(head), 125, 3);
       std::string sSEND = validSEND();
       auto beginSEND = sSEND.begin();
       auto endSEND = sSEND.end();

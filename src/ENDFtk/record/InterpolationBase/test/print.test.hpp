@@ -5,7 +5,7 @@ using namespace njoy::ENDFtk;
 
 SCENARIO( "InterpolationRecord printing","[ENDFtk], [InterpolationRecord]" ){
 
-  GIVEN( "single region TAB2" ){
+  GIVEN( "single region TAB1" ){
 
     std::string tab1 = 
       " 0.000000+0 0.000000+0         33          0          1          49228 1460     \n"

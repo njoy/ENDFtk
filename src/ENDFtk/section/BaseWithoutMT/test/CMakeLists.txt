@@ -1,5 +1,5 @@
 
-add_executable( ENDFtk.section.BaseWithoutMT.test Base.test.cpp )
+add_executable( ENDFtk.section.BaseWithoutMT.test BaseWithoutMT.test.cpp )
 target_compile_options( ENDFtk.section.BaseWithoutMT.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}

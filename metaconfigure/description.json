@@ -887,7 +887,7 @@
       "src/ENDFtk/section/Base/test/Base.test.cpp"
     ], 
     "ENDFtk.section.BaseWithoutMT": [
-      "src/ENDFtk/section/BaseWithoutMT/test/Base.test.cpp"
+      "src/ENDFtk/section/BaseWithoutMT/test/BaseWithoutMT.test.cpp"
     ], 
     "ENDFtk.syntaxTree.File": [
       "src/ENDFtk/syntaxTree/File/test/File.test.cpp"

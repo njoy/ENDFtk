@@ -3,10 +3,12 @@ class Base : public BaseWithoutMT< Base > {
   /* fields */
   int MT_;
 
-public:
+protected:
   
   /* constructor */
   #include "ENDFtk/section/Base/src/ctor.hpp"
+
+public:
 
   /* get methods */
   int sectionNumber() const { return this->MT_; }
