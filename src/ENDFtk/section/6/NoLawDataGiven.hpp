@@ -1,5 +1,9 @@
 class NoLawDataGiven {
 
+protected:
+
+    NoLawDataGiven() = default;
+
 public:
 
   static constexpr long NC() { return 0; }

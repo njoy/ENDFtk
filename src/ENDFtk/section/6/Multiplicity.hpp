@@ -11,7 +11,7 @@ public:
   double ZAP() const { return TabulationRecord::C1(); }
   double productIdentifier() const { return this->ZAP(); }
   double AWP() const { return TabulationRecord::C2(); }
-  double productMass() const { return this->AWP(); }
+  double productMassRatio() const { return this->AWP(); }
   int LIP() const { return TabulationRecord::L1(); }
   int productModifierFlag() const { return this->LIP(); }
   int LAW() const { return TabulationRecord::L2(); }

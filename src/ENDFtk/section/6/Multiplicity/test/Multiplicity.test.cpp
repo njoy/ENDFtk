@@ -35,7 +35,7 @@ SCENARIO( "Multiplicity" ) {
       REQUIRE( 1001. == Approx( chunk.ZAP() ) );
       REQUIRE( 1001. == Approx( chunk.productIdentifier() ) );
       REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.productMass() ) );
+      REQUIRE( 0.9986234 == Approx( chunk.productMassRatio() ) );
       REQUIRE( 0 == chunk.LIP() );
       REQUIRE( 0 == chunk.productModifierFlag() );
       REQUIRE( 1 == chunk.LAW() );
@@ -74,7 +74,7 @@ SCENARIO( "Multiplicity" ) {
       REQUIRE( 1001. == Approx( chunk.ZAP() ) );
       REQUIRE( 1001. == Approx( chunk.productIdentifier() ) );
       REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.productMass() ) );
+      REQUIRE( 0.9986234 == Approx( chunk.productMassRatio() ) );
       REQUIRE( 0 == chunk.LIP() );
       REQUIRE( 0 == chunk.productModifierFlag() );
       REQUIRE( 1 == chunk.LAW() );

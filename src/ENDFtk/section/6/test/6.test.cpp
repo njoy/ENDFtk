@@ -77,6 +77,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 92235. == Approx( chunk.ZA() ) );
       REQUIRE( 2.330248e+2 == Approx( chunk.AWR() ) );
       REQUIRE( 0 == chunk.JP() );
+      REQUIRE( 0 == chunk.averageMultipleParticlesFlag() );
       REQUIRE( 2 == chunk.LCT() );
       REQUIRE( 2 == chunk.referenceFrame() );
       REQUIRE( 3 == chunk.NK() );
@@ -90,7 +91,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 1001. == Approx( products[0].ZAP() ) );
       REQUIRE( 1001. == Approx( products[0].productIdentifier() ) );
       REQUIRE( 0.9986234 == Approx( products[0].AWP() ) );
-      REQUIRE( 0.9986234 == Approx( products[0].productMass() ) );
+      REQUIRE( 0.9986234 == Approx( products[0].productMassRatio() ) );
       REQUIRE( 0 == products[0].LIP() );
       REQUIRE( 0 == products[0].productModifierFlag() );
       REQUIRE( 1 == products[0].LAW() );
@@ -98,7 +99,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 1001. == Approx( products[0].multiplicity().ZAP() ) );
       REQUIRE( 1001. == Approx( products[0].multiplicity().productIdentifier() ) );
       REQUIRE( 0.9986234 == Approx( products[0].multiplicity().AWP() ) );
-      REQUIRE( 0.9986234 == Approx( products[0].multiplicity().productMass() ) );
+      REQUIRE( 0.9986234 == Approx( products[0].multiplicity().productMassRatio() ) );
       REQUIRE( 0 == products[0].multiplicity().LIP() );
       REQUIRE( 0 == products[0].multiplicity().productModifierFlag() );
       REQUIRE( 1 == products[0].multiplicity().LAW() );
@@ -213,7 +214,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 1. == Approx( products[1].ZAP() ) );
       REQUIRE( 1. == Approx( products[1].productIdentifier() ) );
       REQUIRE( 1. == Approx( products[1].AWP() ) );
-      REQUIRE( 1. == Approx( products[1].productMass() ) );
+      REQUIRE( 1. == Approx( products[1].productMassRatio() ) );
       REQUIRE( 0 == products[1].LIP() );
       REQUIRE( 0 == products[1].productModifierFlag() );
       REQUIRE( 1 == products[1].LAW() );
@@ -221,7 +222,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 1. == Approx( products[1].multiplicity().ZAP() ) );
       REQUIRE( 1. == Approx( products[1].multiplicity().productIdentifier() ) );
       REQUIRE( 1. == Approx( products[1].multiplicity().AWP() ) );
-      REQUIRE( 1. == Approx( products[1].multiplicity().productMass() ) );
+      REQUIRE( 1. == Approx( products[1].multiplicity().productMassRatio() ) );
       REQUIRE( 0 == products[1].multiplicity().LIP() );
       REQUIRE( 0 == products[1].multiplicity().productModifierFlag() );
       REQUIRE( 1 == products[1].multiplicity().LAW() );
@@ -323,7 +324,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 0. == Approx( products[2].ZAP() ) );
       REQUIRE( 0. == Approx( products[2].productIdentifier() ) );
       REQUIRE( 0. == Approx( products[2].AWP() ) );
-      REQUIRE( 0. == Approx( products[2].productMass() ) );
+      REQUIRE( 0. == Approx( products[2].productMassRatio() ) );
       REQUIRE( 0 == products[2].LIP() );
       REQUIRE( 0 == products[2].productModifierFlag() );
       REQUIRE( 1 == products[2].LAW() );
@@ -331,7 +332,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 0. == Approx( products[2].multiplicity().ZAP() ) );
       REQUIRE( 0. == Approx( products[2].multiplicity().productIdentifier() ) );
       REQUIRE( 0. == Approx( products[2].multiplicity().AWP() ) );
-      REQUIRE( 0. == Approx( products[2].multiplicity().productMass() ) );
+      REQUIRE( 0. == Approx( products[2].multiplicity().productMassRatio() ) );
       REQUIRE( 0 == products[2].multiplicity().LIP() );
       REQUIRE( 0 == products[2].multiplicity().productModifierFlag() );
       REQUIRE( 1 == products[2].multiplicity().LAW() );
@@ -452,6 +453,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 92235. == Approx( chunk.ZA() ) );
       REQUIRE( 2.330248e+2 == Approx( chunk.AWR() ) );
       REQUIRE( 0 == chunk.JP() );
+      REQUIRE( 0 == chunk.averageMultipleParticlesFlag() );
       REQUIRE( 2 == chunk.LCT() );
       REQUIRE( 2 == chunk.referenceFrame() );
       REQUIRE( 3 == chunk.NK() );
@@ -465,7 +467,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 1001. == Approx( products[0].ZAP() ) );
       REQUIRE( 1001. == Approx( products[0].productIdentifier() ) );
       REQUIRE( 0.9986234 == Approx( products[0].AWP() ) );
-      REQUIRE( 0.9986234 == Approx( products[0].productMass() ) );
+      REQUIRE( 0.9986234 == Approx( products[0].productMassRatio() ) );
       REQUIRE( 0 == products[0].LIP() );
       REQUIRE( 0 == products[0].productModifierFlag() );
       REQUIRE( 1 == products[0].LAW() );
@@ -473,7 +475,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 1001. == Approx( products[0].multiplicity().ZAP() ) );
       REQUIRE( 1001. == Approx( products[0].multiplicity().productIdentifier() ) );
       REQUIRE( 0.9986234 == Approx( products[0].multiplicity().AWP() ) );
-      REQUIRE( 0.9986234 == Approx( products[0].multiplicity().productMass() ) );
+      REQUIRE( 0.9986234 == Approx( products[0].multiplicity().productMassRatio() ) );
       REQUIRE( 0 == products[0].multiplicity().LIP() );
       REQUIRE( 0 == products[0].multiplicity().productModifierFlag() );
       REQUIRE( 1 == products[0].multiplicity().LAW() );
@@ -588,7 +590,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 1. == Approx( products[1].ZAP() ) );
       REQUIRE( 1. == Approx( products[1].productIdentifier() ) );
       REQUIRE( 1. == Approx( products[1].AWP() ) );
-      REQUIRE( 1. == Approx( products[1].productMass() ) );
+      REQUIRE( 1. == Approx( products[1].productMassRatio() ) );
       REQUIRE( 0 == products[1].LIP() );
       REQUIRE( 0 == products[1].productModifierFlag() );
       REQUIRE( 1 == products[1].LAW() );
@@ -596,7 +598,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 1. == Approx( products[1].multiplicity().ZAP() ) );
       REQUIRE( 1. == Approx( products[1].multiplicity().productIdentifier() ) );
       REQUIRE( 1. == Approx( products[1].multiplicity().AWP() ) );
-      REQUIRE( 1. == Approx( products[1].multiplicity().productMass() ) );
+      REQUIRE( 1. == Approx( products[1].multiplicity().productMassRatio() ) );
       REQUIRE( 0 == products[1].multiplicity().LIP() );
       REQUIRE( 0 == products[1].multiplicity().productModifierFlag() );
       REQUIRE( 1 == products[1].multiplicity().LAW() );
@@ -698,7 +700,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 0. == Approx( products[2].ZAP() ) );
       REQUIRE( 0. == Approx( products[2].productIdentifier() ) );
       REQUIRE( 0. == Approx( products[2].AWP() ) );
-      REQUIRE( 0. == Approx( products[2].productMass() ) );
+      REQUIRE( 0. == Approx( products[2].productMassRatio() ) );
       REQUIRE( 0 == products[2].LIP() );
       REQUIRE( 0 == products[2].productModifierFlag() );
       REQUIRE( 1 == products[2].LAW() );
@@ -706,7 +708,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 0. == Approx( products[2].multiplicity().ZAP() ) );
       REQUIRE( 0. == Approx( products[2].multiplicity().productIdentifier() ) );
       REQUIRE( 0. == Approx( products[2].multiplicity().AWP() ) );
-      REQUIRE( 0. == Approx( products[2].multiplicity().productMass() ) );
+      REQUIRE( 0. == Approx( products[2].multiplicity().productMassRatio() ) );
       REQUIRE( 0 == products[2].multiplicity().LIP() );
       REQUIRE( 0 == products[2].multiplicity().productModifierFlag() );
       REQUIRE( 1 == products[2].multiplicity().LAW() );
@@ -827,6 +829,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 92235. == Approx( chunk.ZA() ) );
       REQUIRE( 2.330248e+2 == Approx( chunk.AWR() ) );
       REQUIRE( 0 == chunk.JP() );
+      REQUIRE( 0 == chunk.averageMultipleParticlesFlag() );
       REQUIRE( 2 == chunk.LCT() );
       REQUIRE( 2 == chunk.referenceFrame() );
       REQUIRE( 3 == chunk.NK() );
@@ -840,7 +843,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 1001. == Approx( products[0].ZAP() ) );
       REQUIRE( 1001. == Approx( products[0].productIdentifier() ) );
       REQUIRE( 0.9986234 == Approx( products[0].AWP() ) );
-      REQUIRE( 0.9986234 == Approx( products[0].productMass() ) );
+      REQUIRE( 0.9986234 == Approx( products[0].productMassRatio() ) );
       REQUIRE( 0 == products[0].LIP() );
       REQUIRE( 0 == products[0].productModifierFlag() );
       REQUIRE( 1 == products[0].LAW() );
@@ -848,7 +851,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 1001. == Approx( products[0].multiplicity().ZAP() ) );
       REQUIRE( 1001. == Approx( products[0].multiplicity().productIdentifier() ) );
       REQUIRE( 0.9986234 == Approx( products[0].multiplicity().AWP() ) );
-      REQUIRE( 0.9986234 == Approx( products[0].multiplicity().productMass() ) );
+      REQUIRE( 0.9986234 == Approx( products[0].multiplicity().productMassRatio() ) );
       REQUIRE( 0 == products[0].multiplicity().LIP() );
       REQUIRE( 0 == products[0].multiplicity().productModifierFlag() );
       REQUIRE( 1 == products[0].multiplicity().LAW() );
@@ -963,7 +966,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 1. == Approx( products[1].ZAP() ) );
       REQUIRE( 1. == Approx( products[1].productIdentifier() ) );
       REQUIRE( 1. == Approx( products[1].AWP() ) );
-      REQUIRE( 1. == Approx( products[1].productMass() ) );
+      REQUIRE( 1. == Approx( products[1].productMassRatio() ) );
       REQUIRE( 0 == products[1].LIP() );
       REQUIRE( 0 == products[1].productModifierFlag() );
       REQUIRE( 1 == products[1].LAW() );
@@ -971,7 +974,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 1. == Approx( products[1].multiplicity().ZAP() ) );
       REQUIRE( 1. == Approx( products[1].multiplicity().productIdentifier() ) );
       REQUIRE( 1. == Approx( products[1].multiplicity().AWP() ) );
-      REQUIRE( 1. == Approx( products[1].multiplicity().productMass() ) );
+      REQUIRE( 1. == Approx( products[1].multiplicity().productMassRatio() ) );
       REQUIRE( 0 == products[1].multiplicity().LIP() );
       REQUIRE( 0 == products[1].multiplicity().productModifierFlag() );
       REQUIRE( 1 == products[1].multiplicity().LAW() );
@@ -1073,7 +1076,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 0. == Approx( products[2].ZAP() ) );
       REQUIRE( 0. == Approx( products[2].productIdentifier() ) );
       REQUIRE( 0. == Approx( products[2].AWP() ) );
-      REQUIRE( 0. == Approx( products[2].productMass() ) );
+      REQUIRE( 0. == Approx( products[2].productMassRatio() ) );
       REQUIRE( 0 == products[2].LIP() );
       REQUIRE( 0 == products[2].productModifierFlag() );
       REQUIRE( 1 == products[2].LAW() );
@@ -1081,7 +1084,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 0. == Approx( products[2].multiplicity().ZAP() ) );
       REQUIRE( 0. == Approx( products[2].multiplicity().productIdentifier() ) );
       REQUIRE( 0. == Approx( products[2].multiplicity().AWP() ) );
-      REQUIRE( 0. == Approx( products[2].multiplicity().productMass() ) );
+      REQUIRE( 0. == Approx( products[2].multiplicity().productMassRatio() ) );
       REQUIRE( 0 == products[2].multiplicity().LIP() );
       REQUIRE( 0 == products[2].multiplicity().productModifierFlag() );
       REQUIRE( 1 == products[2].multiplicity().LAW() );

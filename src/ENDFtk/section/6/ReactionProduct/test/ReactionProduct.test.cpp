@@ -57,7 +57,10 @@ std::string chunkWithLAW4();
 std::string chunkWithLAW5();
 std::string chunkWithLAW6();
 std::string chunkWithLAW7();
-std::string chunkWithNegativeLAW();
+std::string chunkWithNegativeLAW4();
+std::string chunkWithNegativeLAW5();
+std::string chunkWithNegativeLAW14();
+std::string chunkWithNegativeLAW15();
 std::string invalidLAW();
 std::string chunkWithInvalidMTForNegativeLAW();
 
@@ -79,7 +82,7 @@ SCENARIO( "ReactionProduct" ) {
       REQUIRE( 1001. == Approx( chunk.ZAP() ) );
       REQUIRE( 1001. == Approx( chunk.productIdentifier() ) );
       REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.productMass() ) );
+      REQUIRE( 0.9986234 == Approx( chunk.productMassRatio() ) );
       REQUIRE( 0 == chunk.LIP() );
       REQUIRE( 0 == chunk.productModifierFlag() );
       REQUIRE( 0 == chunk.LAW() );
@@ -87,7 +90,7 @@ SCENARIO( "ReactionProduct" ) {
       REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
       REQUIRE( 1001. == Approx( chunk.multiplicity().productIdentifier() ) );
       REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().productMass() ) );
+      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().productMassRatio() ) );
       REQUIRE( 0 == chunk.multiplicity().LIP() );
       REQUIRE( 0 == chunk.multiplicity().productModifierFlag() );
       REQUIRE( 0 == chunk.multiplicity().LAW() );
@@ -135,7 +138,7 @@ SCENARIO( "ReactionProduct" ) {
       REQUIRE( 1001. == Approx( chunk.ZAP() ) );
       REQUIRE( 1001. == Approx( chunk.productIdentifier() ) );
       REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.productMass() ) );
+      REQUIRE( 0.9986234 == Approx( chunk.productMassRatio() ) );
       REQUIRE( 0 == chunk.LIP() );
       REQUIRE( 0 == chunk.productModifierFlag() );
       REQUIRE( 0 == chunk.LAW() );
@@ -143,7 +146,7 @@ SCENARIO( "ReactionProduct" ) {
       REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
       REQUIRE( 1001. == Approx( chunk.multiplicity().productIdentifier() ) );
       REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().productMass() ) );
+      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().productMassRatio() ) );
       REQUIRE( 0 == chunk.multiplicity().LIP() );
       REQUIRE( 0 == chunk.multiplicity().productModifierFlag() );
       REQUIRE( 0 == chunk.multiplicity().LAW() );
@@ -1481,7 +1484,109 @@ SCENARIO( "ReactionProduct" ) {
     }
   } // GIVEN
 
-  GIVEN( "valid data for a ReactionProduct with LAW<0" ) {
+  GIVEN( "valid data for a ReactionProduct with LAW=-4" ) {
+
+    Multiplicity multiplicity(
+      1001., 0.9986234, 0, -4, { 4 }, { 2 },
+      { 1e-5, 1.1e+7, 1.147e+7, 2e+7 },
+      { 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 } );
+    Distribution distribution = DefinedElsewhere( -4 );
+
+    THEN( "a ReactionProduct can "
+          "be constructed and members can be tested" ) {
+      ReactionProduct
+        chunk( std::move( multiplicity ), std::move( distribution ) );
+
+      REQUIRE( 1001. == Approx( chunk.ZAP() ) );
+      REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
+      REQUIRE( 0 == chunk.LIP() );
+      REQUIRE( -4 == chunk.LAW() );
+
+      REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
+      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+      REQUIRE( 0 == chunk.multiplicity().LIP() );
+      REQUIRE( -4 == chunk.multiplicity().LAW() );
+
+      REQUIRE( 4 == chunk.multiplicity().NP() );
+      REQUIRE( 1 == chunk.multiplicity().NR() );
+      REQUIRE( 1 == chunk.multiplicity().interpolants().size() );
+      REQUIRE( 1 == chunk.multiplicity().boundaries().size() );
+      REQUIRE( 2 == chunk.multiplicity().interpolants()[0] );
+      REQUIRE( 4 == chunk.multiplicity().boundaries()[0] );
+      REQUIRE( 4 == chunk.multiplicity().energies().size() );
+      REQUIRE( 4 == chunk.multiplicity().multiplicities().size() );
+      REQUIRE( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
+      REQUIRE( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
+      REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
+      REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
+      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
+      REQUIRE( 8.45368e-11 ==
+               Approx( chunk.multiplicity().multiplicities()[1] ) );
+      REQUIRE( 6.622950e-8 ==
+               Approx( chunk.multiplicity().multiplicities()[2] ) );
+      REQUIRE( 2.149790e-1 ==
+               Approx( chunk.multiplicity().multiplicities()[3] ) );
+
+      auto law =
+         std::experimental::get< DefinedElsewhere >( chunk.distribution() );
+
+      REQUIRE( -4 == law.LAW() );
+
+      REQUIRE( 4 == chunk.NC() );
+    }
+  } // GIVEN
+
+  GIVEN( "a string representation of a valid ReactionProduct with LAW=-4" ) {
+
+    std::string string = chunkWithNegativeLAW4();
+    auto begin = string.begin();
+    auto end = string.end();
+    long lineNumber = 1; 
+      
+    THEN( "a ReactionProduct can "
+          "be constructed and members can be tested" ) {
+      ReactionProduct chunk( begin, end, lineNumber, 9228, 6, 18 );
+
+      REQUIRE( 1001. == Approx( chunk.ZAP() ) );
+      REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
+      REQUIRE( 0 == chunk.LIP() );
+      REQUIRE( -4 == chunk.LAW() );
+
+      REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
+      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+      REQUIRE( 0 == chunk.multiplicity().LIP() );
+      REQUIRE( -4 == chunk.multiplicity().LAW() );
+
+      REQUIRE( 4 == chunk.multiplicity().NP() );
+      REQUIRE( 1 == chunk.multiplicity().NR() );
+      REQUIRE( 1 == chunk.multiplicity().interpolants().size() );
+      REQUIRE( 1 == chunk.multiplicity().boundaries().size() );
+      REQUIRE( 2 == chunk.multiplicity().interpolants()[0] );
+      REQUIRE( 4 == chunk.multiplicity().boundaries()[0] );
+      REQUIRE( 4 == chunk.multiplicity().energies().size() );
+      REQUIRE( 4 == chunk.multiplicity().multiplicities().size() );
+      REQUIRE( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
+      REQUIRE( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
+      REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
+      REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
+      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
+      REQUIRE( 8.45368e-11 ==
+               Approx( chunk.multiplicity().multiplicities()[1] ) );
+      REQUIRE( 6.622950e-8 ==
+               Approx( chunk.multiplicity().multiplicities()[2] ) );
+      REQUIRE( 2.149790e-1 ==
+               Approx( chunk.multiplicity().multiplicities()[3] ) );
+
+      auto law =
+         std::experimental::get< DefinedElsewhere >( chunk.distribution() );
+
+      REQUIRE( -4 == law.LAW() );
+
+      REQUIRE( 4 == chunk.NC() );
+    }
+  } // GIVEN
+
+  GIVEN( "valid data for a ReactionProduct with LAW=-5" ) {
 
     Multiplicity multiplicity(
       1001., 0.9986234, 0, -5, { 4 }, { 2 },
@@ -1533,9 +1638,9 @@ SCENARIO( "ReactionProduct" ) {
     }
   } // GIVEN
 
-  GIVEN( "a string representation of a valid ReactionProduct with LAW<0" ) {
+  GIVEN( "a string representation of a valid ReactionProduct with LAW=-5" ) {
 
-    std::string string = chunkWithNegativeLAW();
+    std::string string = chunkWithNegativeLAW5();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1; 
@@ -1578,6 +1683,210 @@ SCENARIO( "ReactionProduct" ) {
          std::experimental::get< DefinedElsewhere >( chunk.distribution() );
 
       REQUIRE( -5 == law.LAW() );
+
+      REQUIRE( 4 == chunk.NC() );
+    }
+  } // GIVEN
+
+  GIVEN( "valid data for a ReactionProduct with LAW=-14" ) {
+
+    Multiplicity multiplicity(
+      1001., 0.9986234, 0, -14, { 4 }, { 2 },
+      { 1e-5, 1.1e+7, 1.147e+7, 2e+7 },
+      { 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 } );
+    Distribution distribution = DefinedElsewhere( -14 );
+
+    THEN( "a ReactionProduct can "
+          "be constructed and members can be tested" ) {
+      ReactionProduct
+        chunk( std::move( multiplicity ), std::move( distribution ) );
+
+      REQUIRE( 1001. == Approx( chunk.ZAP() ) );
+      REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
+      REQUIRE( 0 == chunk.LIP() );
+      REQUIRE( -14 == chunk.LAW() );
+
+      REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
+      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+      REQUIRE( 0 == chunk.multiplicity().LIP() );
+      REQUIRE( -14 == chunk.multiplicity().LAW() );
+
+      REQUIRE( 4 == chunk.multiplicity().NP() );
+      REQUIRE( 1 == chunk.multiplicity().NR() );
+      REQUIRE( 1 == chunk.multiplicity().interpolants().size() );
+      REQUIRE( 1 == chunk.multiplicity().boundaries().size() );
+      REQUIRE( 2 == chunk.multiplicity().interpolants()[0] );
+      REQUIRE( 4 == chunk.multiplicity().boundaries()[0] );
+      REQUIRE( 4 == chunk.multiplicity().energies().size() );
+      REQUIRE( 4 == chunk.multiplicity().multiplicities().size() );
+      REQUIRE( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
+      REQUIRE( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
+      REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
+      REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
+      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
+      REQUIRE( 8.45368e-11 ==
+               Approx( chunk.multiplicity().multiplicities()[1] ) );
+      REQUIRE( 6.622950e-8 ==
+               Approx( chunk.multiplicity().multiplicities()[2] ) );
+      REQUIRE( 2.149790e-1 ==
+               Approx( chunk.multiplicity().multiplicities()[3] ) );
+
+      auto law =
+         std::experimental::get< DefinedElsewhere >( chunk.distribution() );
+
+      REQUIRE( -14 == law.LAW() );
+
+      REQUIRE( 4 == chunk.NC() );
+    }
+  } // GIVEN
+
+  GIVEN( "a string representation of a valid ReactionProduct with LAW=-14" ) {
+
+    std::string string = chunkWithNegativeLAW14();
+    auto begin = string.begin();
+    auto end = string.end();
+    long lineNumber = 1; 
+      
+    THEN( "a ReactionProduct can "
+          "be constructed and members can be tested" ) {
+      ReactionProduct chunk( begin, end, lineNumber, 9228, 6, 18 );
+
+      REQUIRE( 1001. == Approx( chunk.ZAP() ) );
+      REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
+      REQUIRE( 0 == chunk.LIP() );
+      REQUIRE( -14 == chunk.LAW() );
+
+      REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
+      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+      REQUIRE( 0 == chunk.multiplicity().LIP() );
+      REQUIRE( -14 == chunk.multiplicity().LAW() );
+
+      REQUIRE( 4 == chunk.multiplicity().NP() );
+      REQUIRE( 1 == chunk.multiplicity().NR() );
+      REQUIRE( 1 == chunk.multiplicity().interpolants().size() );
+      REQUIRE( 1 == chunk.multiplicity().boundaries().size() );
+      REQUIRE( 2 == chunk.multiplicity().interpolants()[0] );
+      REQUIRE( 4 == chunk.multiplicity().boundaries()[0] );
+      REQUIRE( 4 == chunk.multiplicity().energies().size() );
+      REQUIRE( 4 == chunk.multiplicity().multiplicities().size() );
+      REQUIRE( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
+      REQUIRE( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
+      REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
+      REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
+      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
+      REQUIRE( 8.45368e-11 ==
+               Approx( chunk.multiplicity().multiplicities()[1] ) );
+      REQUIRE( 6.622950e-8 ==
+               Approx( chunk.multiplicity().multiplicities()[2] ) );
+      REQUIRE( 2.149790e-1 ==
+               Approx( chunk.multiplicity().multiplicities()[3] ) );
+
+      auto law =
+         std::experimental::get< DefinedElsewhere >( chunk.distribution() );
+
+      REQUIRE( -14 == law.LAW() );
+
+      REQUIRE( 4 == chunk.NC() );
+    }
+  } // GIVEN
+
+  GIVEN( "valid data for a ReactionProduct with LAW=-15" ) {
+
+    Multiplicity multiplicity(
+      1001., 0.9986234, 0, -15, { 4 }, { 2 },
+      { 1e-5, 1.1e+7, 1.147e+7, 2e+7 },
+      { 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 } );
+    Distribution distribution = DefinedElsewhere( -15 );
+
+    THEN( "a ReactionProduct can "
+          "be constructed and members can be tested" ) {
+      ReactionProduct
+        chunk( std::move( multiplicity ), std::move( distribution ) );
+
+      REQUIRE( 1001. == Approx( chunk.ZAP() ) );
+      REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
+      REQUIRE( 0 == chunk.LIP() );
+      REQUIRE( -15 == chunk.LAW() );
+
+      REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
+      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+      REQUIRE( 0 == chunk.multiplicity().LIP() );
+      REQUIRE( -15 == chunk.multiplicity().LAW() );
+
+      REQUIRE( 4 == chunk.multiplicity().NP() );
+      REQUIRE( 1 == chunk.multiplicity().NR() );
+      REQUIRE( 1 == chunk.multiplicity().interpolants().size() );
+      REQUIRE( 1 == chunk.multiplicity().boundaries().size() );
+      REQUIRE( 2 == chunk.multiplicity().interpolants()[0] );
+      REQUIRE( 4 == chunk.multiplicity().boundaries()[0] );
+      REQUIRE( 4 == chunk.multiplicity().energies().size() );
+      REQUIRE( 4 == chunk.multiplicity().multiplicities().size() );
+      REQUIRE( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
+      REQUIRE( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
+      REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
+      REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
+      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
+      REQUIRE( 8.45368e-11 ==
+               Approx( chunk.multiplicity().multiplicities()[1] ) );
+      REQUIRE( 6.622950e-8 ==
+               Approx( chunk.multiplicity().multiplicities()[2] ) );
+      REQUIRE( 2.149790e-1 ==
+               Approx( chunk.multiplicity().multiplicities()[3] ) );
+
+      auto law =
+         std::experimental::get< DefinedElsewhere >( chunk.distribution() );
+
+      REQUIRE( -15 == law.LAW() );
+
+      REQUIRE( 4 == chunk.NC() );
+    }
+  } // GIVEN
+
+  GIVEN( "a string representation of a valid ReactionProduct with LAW=-15" ) {
+
+    std::string string = chunkWithNegativeLAW15();
+    auto begin = string.begin();
+    auto end = string.end();
+    long lineNumber = 1; 
+      
+    THEN( "a ReactionProduct can "
+          "be constructed and members can be tested" ) {
+      ReactionProduct chunk( begin, end, lineNumber, 9228, 6, 18 );
+
+      REQUIRE( 1001. == Approx( chunk.ZAP() ) );
+      REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
+      REQUIRE( 0 == chunk.LIP() );
+      REQUIRE( -15 == chunk.LAW() );
+
+      REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
+      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+      REQUIRE( 0 == chunk.multiplicity().LIP() );
+      REQUIRE( -15 == chunk.multiplicity().LAW() );
+
+      REQUIRE( 4 == chunk.multiplicity().NP() );
+      REQUIRE( 1 == chunk.multiplicity().NR() );
+      REQUIRE( 1 == chunk.multiplicity().interpolants().size() );
+      REQUIRE( 1 == chunk.multiplicity().boundaries().size() );
+      REQUIRE( 2 == chunk.multiplicity().interpolants()[0] );
+      REQUIRE( 4 == chunk.multiplicity().boundaries()[0] );
+      REQUIRE( 4 == chunk.multiplicity().energies().size() );
+      REQUIRE( 4 == chunk.multiplicity().multiplicities().size() );
+      REQUIRE( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
+      REQUIRE( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
+      REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
+      REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
+      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
+      REQUIRE( 8.45368e-11 ==
+               Approx( chunk.multiplicity().multiplicities()[1] ) );
+      REQUIRE( 6.622950e-8 ==
+               Approx( chunk.multiplicity().multiplicities()[2] ) );
+      REQUIRE( 2.149790e-1 ==
+               Approx( chunk.multiplicity().multiplicities()[3] ) );
+
+      auto law =
+         std::experimental::get< DefinedElsewhere >( chunk.distribution() );
+
+      REQUIRE( -15 == law.LAW() );
 
       REQUIRE( 4 == chunk.NC() );
     }
@@ -1719,9 +2028,60 @@ SCENARIO( "ReactionProduct" ) {
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of ReactionProduct with LAW<0" ) {
+  GIVEN( "a valid instance of ReactionProduct with LAW=-4" ) {
 
-    std::string string = chunkWithNegativeLAW();
+    std::string string = chunkWithNegativeLAW4();
+    auto begin = string.begin();
+    auto end = string.end();
+    long lineNumber = 1; 
+    ReactionProduct
+      chunk( begin, end, lineNumber, 9228, 6, 18 );
+
+    THEN( "it can be printed" ) {
+      std::string buffer;
+      auto output = std::back_inserter( buffer );
+      chunk.print( output, 9228, 6, 18 );
+      REQUIRE( buffer == string );
+    }
+  } // GIVEN
+
+  GIVEN( "a valid instance of ReactionProduct with LAW=-5" ) {
+
+    std::string string = chunkWithNegativeLAW5();
+    auto begin = string.begin();
+    auto end = string.end();
+    long lineNumber = 1; 
+    ReactionProduct
+      chunk( begin, end, lineNumber, 9228, 6, 18 );
+
+    THEN( "it can be printed" ) {
+      std::string buffer;
+      auto output = std::back_inserter( buffer );
+      chunk.print( output, 9228, 6, 18 );
+      REQUIRE( buffer == string );
+    }
+  } // GIVEN
+
+  GIVEN( "a valid instance of ReactionProduct with LAW=-14" ) {
+
+    std::string string = chunkWithNegativeLAW14();
+    auto begin = string.begin();
+    auto end = string.end();
+    long lineNumber = 1; 
+    ReactionProduct
+      chunk( begin, end, lineNumber, 9228, 6, 18 );
+
+    THEN( "it can be printed" ) {
+      std::string buffer;
+      auto output = std::back_inserter( buffer );
+      chunk.print( output, 9228, 6, 18 );
+      REQUIRE( buffer == string );
+    }
+  } // GIVEN
+
+  GIVEN( "a valid instance of ReactionProduct with LAW=-15" ) {
+
+    std::string string = chunkWithNegativeLAW15();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1; 
@@ -1887,9 +2247,33 @@ std::string chunkWithLAW7() {
     " 1.000000-5 5.000000+0 1.000000+6 3.000000+0 3.000000+7 1.000000+09228 6  5     \n";
 }
 
-std::string chunkWithNegativeLAW() {
+std::string chunkWithNegativeLAW4() {
+  return
+    " 1.001000+3 9.986234-1          0         -4          1          49228 6 18     \n"
+    "          4          2                                            9228 6 18     \n"
+    " 1.000000-5 0.000000+0 1.100000+7 8.45368-11 1.147000+7 6.622950-89228 6 18     \n"
+    " 2.000000+7 2.149790-1                                            9228 6 18     \n";
+}
+
+std::string chunkWithNegativeLAW5() {
   return
     " 1.001000+3 9.986234-1          0         -5          1          49228 6 18     \n"
+    "          4          2                                            9228 6 18     \n"
+    " 1.000000-5 0.000000+0 1.100000+7 8.45368-11 1.147000+7 6.622950-89228 6 18     \n"
+    " 2.000000+7 2.149790-1                                            9228 6 18     \n";
+}
+
+std::string chunkWithNegativeLAW14() {
+  return
+    " 1.001000+3 9.986234-1          0        -14          1          49228 6 18     \n"
+    "          4          2                                            9228 6 18     \n"
+    " 1.000000-5 0.000000+0 1.100000+7 8.45368-11 1.147000+7 6.622950-89228 6 18     \n"
+    " 2.000000+7 2.149790-1                                            9228 6 18     \n";
+}
+
+std::string chunkWithNegativeLAW15() {
+  return
+    " 1.001000+3 9.986234-1          0        -15          1          49228 6 18     \n"
     "          4          2                                            9228 6 18     \n"
     " 1.000000-5 0.000000+0 1.100000+7 8.45368-11 1.147000+7 6.622950-89228 6 18     \n"
     " 2.000000+7 2.149790-1                                            9228 6 18     \n";
