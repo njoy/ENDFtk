@@ -11,15 +11,20 @@ section::Type< 6 >::DefinedElsewhere;
 
 SCENARIO( "DefinedElsewhere" ) {
 
-  GIVEN( "a string representation of a valid DefinedElsewhere" ) {
+  GIVEN( "valid data for DefinedElsewhere" ) {
 
-    THEN( "a DefinedElsewhere can be constructed and members can be tested" ) {
-      DefinedElsewhere chunk( -5 );
+    std::vector< int > laws = { -4, -5, -14, -15 };
 
-      REQUIRE( -5 == chunk.LAW() );
+    THEN( "a DefinedElsewhere can be constructed and members can be tested "
+          "for all allowed LAW values" ) {
 
-      REQUIRE( 0 == chunk.NC() );
-    }
+      for ( auto law : laws ) {
+
+        DefinedElsewhere chunk( law );
+        REQUIRE( -5 == chunk.LAW() );
+        REQUIRE( 0 == chunk.NC() );
+      }
+    } // THEN
   } // GIVEN
 
   GIVEN( "a valid instance of DefinedElsewhere" ) {
@@ -27,11 +32,24 @@ SCENARIO( "DefinedElsewhere" ) {
     DefinedElsewhere chunk( -5 );
 
     THEN( "it does not print anything" ) {
+
       std::string buffer;
       auto output = std::back_inserter( buffer );
       chunk.print( output, 9228, 6, 5 );
       REQUIRE( buffer.size() == 0 );
-    }
+    } // THEN
+  } // GIVEN
+
+  GIVEN( "invalid data for DefinedElsewhere" ) {
+
+    std::vector< int > invalid = { 1, 0, -3, -6, -13, -16, -20 };
+
+    THEN( "an exception is thrown" ) {
+
+      for ( auto law : invalid ) {
+
+        REQUIRE_THROWS( DefinedElsewhere( law ) );
+      }
+    } // THEN
   } // GIVEN
 } // SCENARIO
-

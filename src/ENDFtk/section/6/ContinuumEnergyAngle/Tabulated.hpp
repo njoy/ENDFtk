@@ -4,6 +4,7 @@ class Tabulated : protected Base {
   int lang_;
 
   /* auxiliary functions */
+  #include "ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/src/checkLANG.hpp"
   #include "ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/src/generateList.hpp"
     
 public:

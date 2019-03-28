@@ -16,7 +16,7 @@ readInterpolationRecord( Iterator& begin,
   catch ( ... ) {
 
     Log::info( "Line number: {}", lineNumber - interpolation.NC() );
-    throw std::exception();
+    throw;
   }
 
   return interpolation;

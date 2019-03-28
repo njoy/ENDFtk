@@ -1,5 +1,8 @@
 Tabulated( int lang, ListRecord&& list ) :
-  Base( std::move( list ) ), lang_( lang ) {};
+  Base( std::move( list ) ), lang_( lang ) {
+
+  checkLANG( this->LANG() );
+};
 
 Tabulated( int lang, double energy, long nd, long na, long nep,
              std::vector< double >&& list ) :
