@@ -27,9 +27,12 @@ private:
   /* auxiliary functions */
   #include "ENDFtk/section/6/ContinuumEnergyAngle/Base/src/verifySize.hpp"
 
-public:
+protected:
+
   /* constructor */
   #include "ENDFtk/section/6/ContinuumEnergyAngle/Base/src/ctor.hpp"
+
+public:
 
   using ListRecord::NC;
   using ListRecord::print;

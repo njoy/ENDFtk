@@ -1,12 +1,12 @@
 SubSection( SubSectionVariant&& subsection ) :
-  data_( subsection ) {}
+  data_( std::move( subsection ) ) {}
 
 SubSection( LegendreCoefficients&& subsection ) :
-  data_( subsection ) {}
+  data_( std::move( subsection ) ) {}
 
 SubSection( KalbachMann&& subsection ) :
-  data_( subsection ) {}
+  data_( std::move( subsection ) ) {}
 
 SubSection( Tabulated&& subsection ) :
-  data_( subsection ) {}
+  data_( std::move( subsection ) ) {}
 

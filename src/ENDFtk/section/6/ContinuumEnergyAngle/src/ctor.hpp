@@ -1,5 +1,6 @@
 ContinuumEnergyAngle(
-  InterpolationSequenceRecord< SubSection >&& data ) : data_( data ) {
+  InterpolationSequenceRecord< SubSection >&& data ) :
+    data_( std::move( data ) ) {
 
   checkLANG( this->LANG() );
 }
