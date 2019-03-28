@@ -21,7 +21,7 @@ SCENARIO( "DefinedElsewhere" ) {
       for ( auto law : laws ) {
 
         DefinedElsewhere chunk( law );
-        REQUIRE( -5 == chunk.LAW() );
+        REQUIRE( law == chunk.LAW() );
         REQUIRE( 0 == chunk.NC() );
       }
     } // THEN
