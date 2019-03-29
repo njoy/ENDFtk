@@ -27,7 +27,7 @@ public:
   long NR() const { return this->data_.tab2().NR(); }
   long NE() const { return this->data_.tab2().NZ(); }
 
-  auto energies() const { return this->data_.records(); }
+  auto subsections() const { return this->data_.records(); }
 
   auto interpolants() const { return this->data_.tab2().interpolants(); }
   auto boundaries() const { return this->data_.tab2().boundaries(); }

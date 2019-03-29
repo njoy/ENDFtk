@@ -50,7 +50,7 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       REQUIRE( 1 == chunk.interpolants()[0] );
       REQUIRE( 2 == chunk.boundaries()[0] );
 
-      auto energies = chunk.energies();
+      auto energies = chunk.subsections();
 
       REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
       REQUIRE( 1 == energies[0].LANG() );
@@ -152,7 +152,7 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       REQUIRE( 1 == chunk.interpolants()[0] );
       REQUIRE( 2 == chunk.boundaries()[0] );
 
-      auto energies = chunk.energies();
+      auto energies = chunk.subsections();
 
       REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
       REQUIRE( 2 == energies[0].LANG() );
@@ -251,7 +251,7 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       REQUIRE( 1 == chunk.interpolants()[0] );
       REQUIRE( 2 == chunk.boundaries()[0] );
 
-      auto energies = chunk.energies();
+      auto energies = chunk.subsections();
 
       REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
       REQUIRE( 14 == energies[0].LANG() );
@@ -352,7 +352,7 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       REQUIRE( 1 == chunk.interpolants()[0] );
       REQUIRE( 2 == chunk.boundaries()[0] );
 
-      auto energies = chunk.energies();
+      auto energies = chunk.subsections();
 
       REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
       REQUIRE( 1 == energies[0].LANG() );
@@ -450,7 +450,7 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       REQUIRE( 1 == chunk.interpolants()[0] );
       REQUIRE( 2 == chunk.boundaries()[0] );
 
-      auto energies = chunk.energies();
+      auto energies = chunk.subsections();
 
       REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
       REQUIRE( 2 == energies[0].LANG() );
@@ -542,7 +542,7 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       REQUIRE( 1 == chunk.interpolants()[0] );
       REQUIRE( 2 == chunk.boundaries()[0] );
 
-      auto energies = chunk.energies();
+      auto energies = chunk.subsections();
 
       REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
       REQUIRE( 14 == energies[0].LANG() );

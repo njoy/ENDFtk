@@ -6,14 +6,14 @@
 using namespace njoy::ENDFtk;
 
 // convenience typedefs
-using CosineOutgoingEnergyDistribution = 
-section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistribution;
+using EnergyDistribution = 
+section::Type< 6 >::LaboratoryAngleEnergy::EnergyDistribution;
 
 std::string chunk();
 
-SCENARIO( "CosineOutgoingEnergyDistribution" ) {
+SCENARIO( "EnergyDistribution" ) {
 
-  GIVEN( "valid data for a CosineOutgoingEnergyDistribution" ) {
+  GIVEN( "valid data for a EnergyDistribution" ) {
 
     double cosine = 1.0;
     std::vector< long > boundaries = { 4 };
@@ -21,9 +21,9 @@ SCENARIO( "CosineOutgoingEnergyDistribution" ) {
     std::vector< double > energies = { 1e-5, 1.1e+7, 1.147e+7, 3e+7 };
     std::vector< double > probabilities = { 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 };
 
-    THEN( "a CosineOutgoingEnergyDistribution can "
+    THEN( "a EnergyDistribution can "
           "be constructed and members can be tested" ) {
-      CosineOutgoingEnergyDistribution
+      EnergyDistribution
         chunk( cosine, std::move( boundaries ), std::move( interpolants ),
                std::move( energies ), std::move( probabilities ) );
 
@@ -51,16 +51,16 @@ SCENARIO( "CosineOutgoingEnergyDistribution" ) {
   } // GIVEN
 
   GIVEN( "a string representation of a valid "
-         "CosineOutgoingEnergyDistribution" ) {
+         "EnergyDistribution" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
 
-    THEN( "a CosineOutgoingEnergyDistribution can "
+    THEN( "a EnergyDistribution can "
           "be constructed and members can be tested" ) {
-      CosineOutgoingEnergyDistribution
+      EnergyDistribution
         chunk(begin, end, lineNumber, 9228, 6, 5 );
 
       REQUIRE( 1. == Approx( chunk.cosine() ) );
@@ -99,7 +99,7 @@ SCENARIO( "CosineOutgoingEnergyDistribution" ) {
     THEN( "an exception is thrown" ) {
         
       REQUIRE_THROWS(
-        CosineOutgoingEnergyDistribution( cosine, std::move( wrongsize ),
+        EnergyDistribution( cosine, std::move( wrongsize ),
                                           std::move( interpolants ),
                                           std::move( energies ),
                                           std::move( probabilities ) ) );
@@ -118,7 +118,7 @@ SCENARIO( "CosineOutgoingEnergyDistribution" ) {
 
     THEN( "an exception is thrown" ) {
       REQUIRE_THROWS(
-        CosineOutgoingEnergyDistribution( cosine, std::move( boundaries ),
+        EnergyDistribution( cosine, std::move( boundaries ),
                                           std::move( wrongsize ),
                                           std::move( energies ),
                                           std::move( probabilities ) ) );
@@ -137,7 +137,7 @@ SCENARIO( "CosineOutgoingEnergyDistribution" ) {
 
     THEN( "an exception is thrown" ) {
       REQUIRE_THROWS(
-        CosineOutgoingEnergyDistribution( cosine, std::move( boundaries ),
+        EnergyDistribution( cosine, std::move( boundaries ),
                                           std::move( interpolants ),
                                           std::move( wrongsize ),
                                           std::move( probabilities ) ) );
@@ -156,7 +156,7 @@ SCENARIO( "CosineOutgoingEnergyDistribution" ) {
 
     THEN( "an exception is thrown" ) {
       REQUIRE_THROWS(
-        CosineOutgoingEnergyDistribution( cosine, std::move( boundaries ),
+        EnergyDistribution( cosine, std::move( boundaries ),
                                           std::move( interpolants ),
                                           std::move( energies ),
                                           std::move( wrongsize ) ) );
@@ -175,7 +175,7 @@ SCENARIO( "CosineOutgoingEnergyDistribution" ) {
 
     THEN( "an exception is thrown" ) {
       REQUIRE_THROWS(
-        CosineOutgoingEnergyDistribution( cosine, std::move( wrongorder ),
+        EnergyDistribution( cosine, std::move( wrongorder ),
                                           std::move( interpolants ),
                                           std::move( energies ),
                                           std::move( probabilities ) ) );
@@ -194,7 +194,7 @@ SCENARIO( "CosineOutgoingEnergyDistribution" ) {
 
     THEN( "an exception is thrown" ) {
       REQUIRE_THROWS(
-        CosineOutgoingEnergyDistribution( cosine, std::move( boundaries ),
+        EnergyDistribution( cosine, std::move( boundaries ),
                                           std::move( interpolants ),
                                           std::move( wrongorder ),
                                           std::move( probabilities ) ) );
@@ -213,20 +213,20 @@ SCENARIO( "CosineOutgoingEnergyDistribution" ) {
 
     THEN( "an exception is thrown" ) {
       REQUIRE_THROWS(
-        CosineOutgoingEnergyDistribution( cosine, std::move( wrongboundaries ),
+        EnergyDistribution( cosine, std::move( wrongboundaries ),
                                           std::move( interpolants ),
                                           std::move( energies ),
                                           std::move( probabilities ) ) );
     }
   }
 
-  GIVEN( "a valid instance of CosineOutgoingEnergyDistribution" ) {
+  GIVEN( "a valid instance of EnergyDistribution" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    CosineOutgoingEnergyDistribution
+    EnergyDistribution
       chunk(begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {

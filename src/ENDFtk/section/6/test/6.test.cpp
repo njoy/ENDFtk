@@ -137,7 +137,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 1 == law.interpolants()[0] );
       REQUIRE( 2 == law.boundaries()[0] );
 
-      auto energies = law.energies();
+      auto energies = law.subsections();
 
       REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
       REQUIRE( 1 == energies[0].LANG() );
@@ -253,7 +253,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 22 == law.interpolants()[0] );
       REQUIRE( 2 == law.boundaries()[0] );
 
-      energies = law.energies();
+      energies = law.subsections();
 
       REQUIRE( 1.858639e+7 == Approx( energies[0].energy() ) );
       REQUIRE( 1 == energies[0].LANG() );
@@ -366,7 +366,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 5 == law.interpolants()[0] );
       REQUIRE( 2 == law.boundaries()[0] );
 
-      energies = law.energies();
+      energies = law.subsections();
 
       REQUIRE( 1.858639e+7 == Approx( energies[0].energy() ) );
       REQUIRE( 1 == energies[0].LANG() );
@@ -513,7 +513,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 1 == law.interpolants()[0] );
       REQUIRE( 2 == law.boundaries()[0] );
 
-      auto energies = law.energies();
+      auto energies = law.subsections();
 
       REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
       REQUIRE( 1 == energies[0].LANG() );
@@ -629,7 +629,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 22 == law.interpolants()[0] );
       REQUIRE( 2 == law.boundaries()[0] );
 
-      energies = law.energies();
+      energies = law.subsections();
 
       REQUIRE( 1.858639e+7 == Approx( energies[0].energy() ) );
       REQUIRE( 1 == energies[0].LANG() );
@@ -742,7 +742,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 5 == law.interpolants()[0] );
       REQUIRE( 2 == law.boundaries()[0] );
 
-      energies = law.energies();
+      energies = law.subsections();
 
       REQUIRE( 1.858639e+7 == Approx( energies[0].energy() ) );
       REQUIRE( 1 == energies[0].LANG() );
@@ -889,7 +889,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 1 == law.interpolants()[0] );
       REQUIRE( 2 == law.boundaries()[0] );
 
-      auto energies = law.energies();
+      auto energies = law.subsections();
 
       REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
       REQUIRE( 1 == energies[0].LANG() );
@@ -1005,7 +1005,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 22 == law.interpolants()[0] );
       REQUIRE( 2 == law.boundaries()[0] );
 
-      energies = law.energies();
+      energies = law.subsections();
 
       REQUIRE( 1.858639e+7 == Approx( energies[0].energy() ) );
       REQUIRE( 1 == energies[0].LANG() );
@@ -1118,7 +1118,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 5 == law.interpolants()[0] );
       REQUIRE( 2 == law.boundaries()[0] );
 
-      energies = law.energies();
+      energies = law.subsections();
 
       REQUIRE( 1.858639e+7 == Approx( energies[0].energy() ) );
       REQUIRE( 1 == energies[0].LANG() );

@@ -1,16 +1,16 @@
-class EnergyOutgoingCosineDistribution :
-  protected InterpolationSequenceRecord< CosineOutgoingEnergyDistribution > {
+class AngularDistribution :
+  protected InterpolationSequenceRecord< EnergyDistribution > {
 
 public:
   /* constructor */
-  #include "ENDFtk/section/6/LaboratoryAngleEnergy/EnergyOutgoingCosineDistribution/src/ctor.hpp"
+  #include "ENDFtk/section/6/LaboratoryAngleEnergy/AngularDistribution/src/ctor.hpp"
 
   /* get methods */
   long NRM() const { return InterpolationSequenceRecord::tab2().NR(); }
   long NMU() const { return InterpolationSequenceRecord::tab2().NZ(); }
   double energy() const { return InterpolationSequenceRecord::tab2().C2(); }
 
-  auto cosines() const { return InterpolationSequenceRecord::records(); }
+  auto energyDistributions() const { return InterpolationSequenceRecord::records(); }
 
   auto interpolants() const {
     return InterpolationSequenceRecord::tab2().interpolants();

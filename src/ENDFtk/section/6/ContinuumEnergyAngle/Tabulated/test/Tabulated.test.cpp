@@ -26,7 +26,6 @@ SCENARIO( "Tabulated" ) {
             "for each LANG value" ) {
 
         for ( auto lang : langs ) {
-            std::cout << "lang = " << lang << std::endl;
 
           double energy = 1e-5;
           int nd = 0;
@@ -67,7 +66,7 @@ SCENARIO( "Tabulated" ) {
         }
       } // THEN
     } // WHEN
-    
+
     WHEN( "the data is read from a string/stream" ) {
 
       std::string string = chunk();

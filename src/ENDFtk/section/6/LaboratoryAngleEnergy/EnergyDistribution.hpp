@@ -1,8 +1,8 @@
-class CosineOutgoingEnergyDistribution : protected TabulationRecord {
+class EnergyDistribution : protected TabulationRecord {
 
 public:
   /* constructor */
-  #include "ENDFtk/section/6/LaboratoryAngleEnergy/CosineOutgoingEnergyDistribution/src/ctor.hpp"
+  #include "ENDFtk/section/6/LaboratoryAngleEnergy/EnergyDistribution/src/ctor.hpp"
 
   /* get methods */
   long NRP() const { return TabulationRecord::NR(); }

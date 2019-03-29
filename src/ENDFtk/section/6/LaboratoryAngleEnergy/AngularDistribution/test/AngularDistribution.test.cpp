@@ -6,32 +6,32 @@
 using namespace njoy::ENDFtk;
 
 // convenience typedefs
-using EnergyOutgoingCosineDistribution = 
-section::Type< 6 >::LaboratoryAngleEnergy::EnergyOutgoingCosineDistribution;
-using CosineOutgoingEnergyDistribution = 
-section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistribution;
+using AngularDistribution = 
+section::Type< 6 >::LaboratoryAngleEnergy::AngularDistribution;
+using EnergyDistribution = 
+section::Type< 6 >::LaboratoryAngleEnergy::EnergyDistribution;
 
 std::string chunk();
 
-SCENARIO( "EnergyOutgoingCosineDistribution" ) {
+SCENARIO( "AngularDistribution" ) {
 
   GIVEN( "valid data for a "
-         "EnergyOutgoingCosineDistribution" ) {
+         "AngularDistribution" ) {
 
     double energy = 1e-5;
     std::vector< long > boundaries = { 2 };
     std::vector< long > interpolants = { 4 };
-    std::vector< CosineOutgoingEnergyDistribution >
-      cosines = { CosineOutgoingEnergyDistribution(
+    std::vector< EnergyDistribution >
+      cosines = { EnergyDistribution(
                     1.0, { 4 }, { 2 }, 
                     { 1e-5, 1.1e+7, 1.147e+7, 3e+7 }, { 0., 2., 4., 6. } ),
-                  CosineOutgoingEnergyDistribution(
+                  EnergyDistribution(
                     -1.0, { 3 }, { 5 },
                     { 1e-5, 1e+6, 3e+7 }, { 6., 4., 2. } ) };
 
-    THEN( "a EnergyOutgoingCosineDistribution can "
+    THEN( "a AngularDistribution can "
           "be constructed and members can be tested" ) {
-      EnergyOutgoingCosineDistribution
+      AngularDistribution
         chunk( energy,
                std::move( boundaries ),
                std::move( interpolants ),
@@ -46,7 +46,7 @@ SCENARIO( "EnergyOutgoingCosineDistribution" ) {
       REQUIRE( 4 == chunk.interpolants()[0] );
       REQUIRE( 2 == chunk.boundaries()[0] );
 
-      auto cosines = chunk.cosines();
+      auto cosines = chunk.energyDistributions();
       REQUIRE( 2 == cosines.size() );
 
       REQUIRE( 1. == Approx( cosines[0].cosine() ) );
@@ -88,16 +88,16 @@ SCENARIO( "EnergyOutgoingCosineDistribution" ) {
   } // GIVEN
 
   GIVEN( "a string representation of a valid "
-         "EnergyOutgoingCosineDistribution" ) {
+         "AngularDistribution" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
 
-    THEN( "a EnergyOutgoingCosineDistribution can "
+    THEN( "a AngularDistribution can "
           "be constructed and members can be tested" ) {
-      EnergyOutgoingCosineDistribution
+      AngularDistribution
         chunk(begin, end, lineNumber, 9228, 6, 5 );
 
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
@@ -109,7 +109,7 @@ SCENARIO( "EnergyOutgoingCosineDistribution" ) {
       REQUIRE( 4 == chunk.interpolants()[0] );
       REQUIRE( 2 == chunk.boundaries()[0] );
 
-      auto cosines = chunk.cosines();
+      auto cosines = chunk.energyDistributions();
       REQUIRE( 2 == cosines.size() );
 
       REQUIRE( 1. == Approx( cosines[0].cosine() ) );
@@ -150,13 +150,13 @@ SCENARIO( "EnergyOutgoingCosineDistribution" ) {
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of EnergyOutgoingCosineDistribution" ) {
+  GIVEN( "a valid instance of AngularDistribution" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1; 
-    EnergyOutgoingCosineDistribution
+    AngularDistribution
       chunk(begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {

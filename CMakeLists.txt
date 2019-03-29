@@ -428,8 +428,10 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ContinuumEnergyAngle/src/readSequence.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ContinuumEnergyAngle/SubSection/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ContinuumEnergyAngle/SubSection/src/print.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/src/checkLANG.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/src/generateList.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/DefinedElsewhere/src/checkLAW.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/DefinedElsewhere/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/DiscreteTwoBodyScattering/LegendreCoefficients.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/DiscreteTwoBodyScattering/SubSection.hpp"
@@ -446,10 +448,10 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/DiscreteTwoBodyScattering/Tabulated/src/generateList.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/DiscreteTwoBodyScattering/Tabulated/src/verifyLANG.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/DiscreteTwoBodyScattering/Tabulated/src/verifySize.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/LaboratoryAngleEnergy/CosineOutgoingEnergyDistribution.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyOutgoingCosineDistribution.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/LaboratoryAngleEnergy/CosineOutgoingEnergyDistribution/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyOutgoingCosineDistribution/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/LaboratoryAngleEnergy/AngularDistribution.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyDistribution.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/LaboratoryAngleEnergy/AngularDistribution/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyDistribution/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/LaboratoryAngleEnergy/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/LaboratoryAngleEnergy/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/Multiplicity/src/ctor.hpp"
@@ -514,10 +516,10 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/syntaxTree/Section/test )
         add_subdirectory( src/ENDFtk/section/13/test )
         add_subdirectory( src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/test )
+        add_subdirectory( src/ENDFtk/section/6/LaboratoryAngleEnergy/AngularDistribution/test )
         add_subdirectory( src/ENDFtk/section/6/ContinuumEnergyAngle/KalbachMann/test )
         add_subdirectory( src/ENDFtk/InterpolationSequenceRecord/test )
-        add_subdirectory( src/ENDFtk/section/6/LaboratoryAngleEnergy/CosineOutgoingEnergyDistribution/test )
-        add_subdirectory( src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyOutgoingCosineDistribution/test )
+        add_subdirectory( src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyDistribution/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/resolved/ReichMoore/Lvalue/test )
         add_subdirectory( src/ENDFtk/ControlRecord/test )
         add_subdirectory( src/ENDFtk/section/Base/test )

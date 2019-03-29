@@ -1,11 +1,11 @@
 LaboratoryAngleEnergy(
     std::vector< long >&& boundaries,
     std::vector< long >&& interpolants,
-    std::vector< EnergyOutgoingCosineDistribution >&& energies ) :
+    std::vector< AngularDistribution >&& distributions ) :
   data_( InterpolationRecord( 0.0, 0.0, 0, 0,
                               std::move( boundaries ),
                               std::move( interpolants ) ),
-                              std::move( energies ) ) {};
+                              std::move( distributions ) ) {};
 
 template< typename Iterator >
 LaboratoryAngleEnergy( Iterator& begin,

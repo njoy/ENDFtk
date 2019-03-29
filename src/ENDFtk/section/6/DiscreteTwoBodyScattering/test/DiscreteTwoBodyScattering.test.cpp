@@ -42,7 +42,7 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
       REQUIRE( 1 == chunk.interpolants()[0] );
       REQUIRE( 2 == chunk.boundaries()[0] );
 
-      auto energies = chunk.energies();
+      auto energies = chunk.subsections();
 
       REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
       REQUIRE( 0 == energies[0].LANG() );
@@ -103,7 +103,7 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
       REQUIRE( 1 == chunk.interpolants()[0] );
       REQUIRE( 2 == chunk.boundaries()[0] );
 
-      auto energies = chunk.energies();
+      auto energies = chunk.subsections();
 
       REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
       REQUIRE( 0 == energies[0].LANG() );
@@ -162,7 +162,7 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
   } // GIVEN
 
   GIVEN( "a string representation of a DiscreteTwoBodyScattering"
-         " with an invalid LPT" ){
+         " with an invalid LANG" ){
     std::string string = invalidLANG();
     auto begin = string.begin();
     auto end = string.end();

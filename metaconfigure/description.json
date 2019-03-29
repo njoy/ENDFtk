@@ -569,8 +569,10 @@
     "src/ENDFtk/section/6/ContinuumEnergyAngle/src/readSequence.hpp", 
     "src/ENDFtk/section/6/ContinuumEnergyAngle/SubSection/src/ctor.hpp", 
     "src/ENDFtk/section/6/ContinuumEnergyAngle/SubSection/src/print.hpp", 
+    "src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/src/checkLANG.hpp", 
     "src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/src/ctor.hpp", 
     "src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/src/generateList.hpp", 
+    "src/ENDFtk/section/6/DefinedElsewhere/src/checkLAW.hpp", 
     "src/ENDFtk/section/6/DefinedElsewhere/src/ctor.hpp", 
     "src/ENDFtk/section/6/DiscreteTwoBodyScattering/LegendreCoefficients.hpp", 
     "src/ENDFtk/section/6/DiscreteTwoBodyScattering/SubSection.hpp", 
@@ -587,10 +589,10 @@
     "src/ENDFtk/section/6/DiscreteTwoBodyScattering/Tabulated/src/generateList.hpp", 
     "src/ENDFtk/section/6/DiscreteTwoBodyScattering/Tabulated/src/verifyLANG.hpp", 
     "src/ENDFtk/section/6/DiscreteTwoBodyScattering/Tabulated/src/verifySize.hpp", 
-    "src/ENDFtk/section/6/LaboratoryAngleEnergy/CosineOutgoingEnergyDistribution.hpp", 
-    "src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyOutgoingCosineDistribution.hpp", 
-    "src/ENDFtk/section/6/LaboratoryAngleEnergy/CosineOutgoingEnergyDistribution/src/ctor.hpp", 
-    "src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyOutgoingCosineDistribution/src/ctor.hpp", 
+    "src/ENDFtk/section/6/LaboratoryAngleEnergy/AngularDistribution.hpp", 
+    "src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyDistribution.hpp", 
+    "src/ENDFtk/section/6/LaboratoryAngleEnergy/AngularDistribution/src/ctor.hpp", 
+    "src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyDistribution/src/ctor.hpp", 
     "src/ENDFtk/section/6/LaboratoryAngleEnergy/src/ctor.hpp", 
     "src/ENDFtk/section/6/LaboratoryAngleEnergy/src/print.hpp", 
     "src/ENDFtk/section/6/Multiplicity/src/ctor.hpp", 
@@ -862,11 +864,11 @@
     "ENDFtk.section.6.LaboratoryAngleEnergy": [
       "src/ENDFtk/section/6/LaboratoryAngleEnergy/test/LaboratoryAngleEnergy.test.cpp"
     ], 
-    "ENDFtk.section.6.LaboratoryAngleEnergy.CosineOutgoingEnergyDistribution": [
-      "src/ENDFtk/section/6/LaboratoryAngleEnergy/CosineOutgoingEnergyDistribution/test/CosineOutgoingEnergyDistribution.test.cpp"
+    "ENDFtk.section.6.LaboratoryAngleEnergy.AngularDistribution": [
+      "src/ENDFtk/section/6/LaboratoryAngleEnergy/AngularDistribution/test/AngularDistribution.test.cpp"
     ], 
-    "ENDFtk.section.6.LaboratoryAngleEnergy.EnergyOutgoingCosineDistribution": [
-      "src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyOutgoingCosineDistribution/test/EnergyOutgoingCosineDistribution.test.cpp"
+    "ENDFtk.section.6.LaboratoryAngleEnergy.EnergyDistribution": [
+      "src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyDistribution/test/EnergyDistribution.test.cpp"
     ], 
     "ENDFtk.section.6.Multiplicity": [
       "src/ENDFtk/section/6/Multiplicity/test/Multiplicity.test.cpp"
