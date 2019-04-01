@@ -73,4 +73,3 @@ public:
   using Base::atomicWeightRatio;
   using Base::AWR;
 };
-

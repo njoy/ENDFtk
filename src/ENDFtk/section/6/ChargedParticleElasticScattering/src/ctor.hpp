@@ -1,20 +1,25 @@
+private:
 ChargedParticleElasticScattering (
-  InterpolationSequenceRecord< SubSection >&& data ) : data_( data ) {}
+  InterpolationSequenceRecord< SubSection >&& data ) :
+    data_( std::move( data ) ) {}
 
-ChargedParticleElasticScattering ( InterpolationRecord&& interpolation,
-                                   std::vector< SubSection >&& sequence ) :
-  ChargedParticleElasticScattering(
-    InterpolationSequenceRecord< SubSection >( std::move( interpolation ),
-                                               std::move( sequence ) ) ) {}
-
+public:
 ChargedParticleElasticScattering ( double spin, long lidp,
                                    std::vector< long >&& boundaries,
                                    std::vector< long >&& interpolants,
-                                   std::vector< SubSection >&& sequence ) :
-  ChargedParticleElasticScattering(
-    InterpolationRecord( spin, 0.0, lidp, 0,
-                         std::move( boundaries ), std::move( interpolants ) ),
-    std::move( sequence ) ) {}
+                                   std::vector< SubSection >&& sequence )
+  try : ChargedParticleElasticScattering(
+          InterpolationSequenceRecord< SubSection >( 
+            InterpolationRecord( spin, 0.0, lidp, 0,
+                                 std::move( boundaries ),
+                                 std::move( interpolants ) ),
+            std::move( sequence ) ) ) {}
+  catch ( std::exception& e ) {
+
+    Log::info( "Encountered error while constructing charged particle elastic "
+               "scattering distribution data (LAW=5)" );
+    throw;
+  }
 
 template< typename Iterator >
 ChargedParticleElasticScattering ( Iterator& begin,
@@ -22,8 +27,14 @@ ChargedParticleElasticScattering ( Iterator& begin,
                                    long& lineNumber,
                                    int MAT,
                                    int MF,
-                                   int MT ) :
-  ChargedParticleElasticScattering(
-    InterpolationSequenceRecord< SubSection >( begin, end, lineNumber,
-                                               MAT, MF, MT  ) ) {}
+                                   int MT )
+  try : ChargedParticleElasticScattering(
+          InterpolationSequenceRecord< SubSection >( begin, end, lineNumber,
+                                                     MAT, MF, MT ) ) {}
+  catch ( std::exception& e ) {
+
+    Log::info( "Encountered error while reading charged particle elastic "
+               "scattering distribution data (LAW=5)" );
+    throw;
+  }
 

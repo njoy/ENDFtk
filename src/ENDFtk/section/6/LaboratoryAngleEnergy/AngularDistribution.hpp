@@ -10,12 +10,18 @@ public:
   long NMU() const { return InterpolationSequenceRecord::tab2().NZ(); }
   double energy() const { return InterpolationSequenceRecord::tab2().C2(); }
 
-  auto energyDistributions() const { return InterpolationSequenceRecord::records(); }
+  auto energyDistributions() const {
+
+    return InterpolationSequenceRecord::records();
+  }
 
   auto interpolants() const {
+
     return InterpolationSequenceRecord::tab2().interpolants();
   }
+
   auto boundaries() const {
+
     return InterpolationSequenceRecord::tab2().boundaries();
   }
   
