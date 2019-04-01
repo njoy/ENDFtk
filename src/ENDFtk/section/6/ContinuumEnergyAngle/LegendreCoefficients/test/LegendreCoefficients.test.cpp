@@ -21,9 +21,9 @@ SCENARIO( "LegendreCoefficients" ) {
     int na = 1;
     int nep = 2;
     std::vector< double > list = { 1., 2., 3., 4., 5., 6. };
-    std::vector< std::pair< double, std::vector< double > > > data = { 
-      std::make_pair< double, std::vector< double > >( 1., { 2., 3. } ),
-      std::make_pair< double, std::vector< double > >( 4., { 5., 6. } ) };
+    std::vector< double > energies = { 1., 4. };
+    std::vector< std::vector< double > > coefficients = { { 2., 3. },
+                                                          { 5., 6. } };
 
     THEN( "a LegendreCoefficients can "
           "be constructed using a list and members can be tested" ) {
@@ -33,9 +33,12 @@ SCENARIO( "LegendreCoefficients" ) {
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 0 == chunk.ND() );
+      REQUIRE( 0 == chunk.numberDiscreteEnergies() );
       REQUIRE( 1 == chunk.NA() );
+      REQUIRE( 1 == chunk.numberAngularParameters() );
       REQUIRE( 6 == chunk.NW() );
       REQUIRE( 2 == chunk.NEP() );
+      REQUIRE( 2 == chunk.numberSecondaryEnergies() );
       REQUIRE( 2 == chunk.energies().size() );
       REQUIRE( 1. == Approx( chunk.energies()[0] ) );
       REQUIRE( 4. == Approx( chunk.energies()[1] ) );
@@ -52,16 +55,22 @@ SCENARIO( "LegendreCoefficients" ) {
     }
 
     THEN( "a LegendreCoefficients can "
-          "be constructed using pair arrays and members can be tested" ) {
-      LegendreCoefficients chunk( energy, nd, na, nep, std::move( data  ) );
+          "be constructed using energies and coefficients and members can be "
+          "tested" ) {
+      LegendreCoefficients chunk( energy, nd, na, nep,
+                                  std::move( energies ),
+                                  std::move( coefficients ) );
 
       REQUIRE( 1 == chunk.LANG() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 0 == chunk.ND() );
+      REQUIRE( 0 == chunk.numberDiscreteEnergies() );
       REQUIRE( 1 == chunk.NA() );
+      REQUIRE( 1 == chunk.numberAngularParameters() );
       REQUIRE( 6 == chunk.NW() );
       REQUIRE( 2 == chunk.NEP() );
+      REQUIRE( 2 == chunk.numberSecondaryEnergies() );
       REQUIRE( 2 == chunk.energies().size() );
       REQUIRE( 1. == Approx( chunk.energies()[0] ) );
       REQUIRE( 4. == Approx( chunk.energies()[1] ) );
@@ -93,9 +102,12 @@ SCENARIO( "LegendreCoefficients" ) {
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 0 == chunk.ND() );
+      REQUIRE( 0 == chunk.numberDiscreteEnergies() );
       REQUIRE( 1 == chunk.NA() );
+      REQUIRE( 1 == chunk.numberAngularParameters() );
       REQUIRE( 6 == chunk.NW() );
       REQUIRE( 2 == chunk.NEP() );
+      REQUIRE( 2 == chunk.numberSecondaryEnergies() );
       REQUIRE( 2 == chunk.energies().size() );
       REQUIRE( 1. == Approx( chunk.energies()[0] ) );
       REQUIRE( 4. == Approx( chunk.energies()[1] ) );
@@ -119,22 +131,23 @@ SCENARIO( "LegendreCoefficients" ) {
     int na = 1;
     int nep = 2;
     std::vector< double > wronglist = { 1., 2., 3., 4., 5. };
-    std::vector< std::pair< double, std::vector< double > > > wrongdata1 = { 
-      std::make_pair< double, std::vector< double > >( 1., { 2., 3. } ),
-      std::make_pair< double, std::vector< double > >( 4., { 5. } ) };
-    std::vector< std::pair< double, std::vector< double > > > wrongdata2 = { 
-      std::make_pair< double, std::vector< double > >( 1., { 2., 3. } ),
-      std::make_pair< double, std::vector< double > >( 4., { 5., 6. } ),
-      std::make_pair< double, std::vector< double > >( 7., { 8., 9. } ) };
+    std::vector< double > energies = { 1., 4. };
+    std::vector< std::vector< double > > wrongcoefficients1 = { { 2., 3. },
+                                                                { 5. } };
+    std::vector< std::vector< double > > wrongcoefficients2 = { { 2., 3. },
+                                                                { 5., 6. },
+                                                                { 8., 9. } };
 
     THEN( "an exception is thrown" ) {
 
       REQUIRE_THROWS( LegendreCoefficients( energy, nd, na, nep,
                                             std::move( wronglist ) ) );
       REQUIRE_THROWS( LegendreCoefficients( energy, nd, na, nep,
-                                            std::move( wrongdata1 ) ) );
+                                            std::move( energies ),
+                                            std::move( wrongcoefficients1 ) ) );
       REQUIRE_THROWS( LegendreCoefficients( energy, nd, na, nep,
-                                            std::move( wrongdata2 ) ) );
+                                            std::move( energies ),
+                                            std::move( wrongcoefficients1 ) ) );
     }
   } // GIVEN
 

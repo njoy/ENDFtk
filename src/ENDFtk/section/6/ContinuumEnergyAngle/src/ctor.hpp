@@ -1,24 +1,27 @@
-ContinuumEnergyAngle(
-  InterpolationSequenceRecord< SubSection >&& data ) : data_( data ) {
-
-  checkLANG( this->LANG() );
-}
-
+private:
 ContinuumEnergyAngle( InterpolationRecord&& interpolation,
                       std::vector< SubSection >&& sequence ) :
-  ContinuumEnergyAngle(
-    InterpolationSequenceRecord< SubSection >( std::move( interpolation ),
-                                               std::move( sequence ) ) ) {}
+  data_( std::move( interpolation ), std::move( sequence ) ) {
 
+    checkLANG( this->LANG() );
+  }
+
+public:
 ContinuumEnergyAngle( long lang,
                       long lep,
                       std::vector< long >&& boundaries,
                       std::vector< long >&& interpolants,
-                      std::vector< SubSection >&& sequence ) :
-  ContinuumEnergyAngle(
-    InterpolationRecord( 0.0, 0.0, lang, lep,
-                         std::move( boundaries ), std::move( interpolants ) ),
-    std::move( sequence ) ) {}
+                      std::vector< SubSection >&& sequence )
+  try : ContinuumEnergyAngle(
+          InterpolationRecord( 0.0, 0.0, lang, lep,
+                               std::move( boundaries ), std::move( interpolants ) ),
+          std::move( sequence ) ) {}
+  catch ( std::exception& e ) {
+
+    Log::info( "Encountered error while constructing continuum energy angle "
+               "distribution data (LAW=1)" );
+    throw;
+  }
 
 private:
 template< typename Iterator >
@@ -29,10 +32,9 @@ ContinuumEnergyAngle( InterpolationRecord&& interpolation,
                       int MAT,
                       int MF,
                       int MT ) :
-  ContinuumEnergyAngle(
-    std::move( interpolation ),
-    readSequence( interpolation.L1(), interpolation.NZ(),
-                  begin, end, lineNumber, MAT, MF, MT ) ) {}
+  ContinuumEnergyAngle( std::move( interpolation ),
+                        readSequence( interpolation.L1(), interpolation.NZ(),
+                                      begin, end, lineNumber, MAT, MF, MT ) ) {}
 
 public:
 template< typename Iterator >
@@ -41,8 +43,13 @@ ContinuumEnergyAngle( Iterator& begin,
                       long& lineNumber,
                       int MAT,
                       int MF,
-                      int MT ) :
-  ContinuumEnergyAngle(
-    readInterpolationRecord( begin, end, lineNumber, MAT, MF, MT ),
-    begin, end, lineNumber, MAT, MF, MT ) {}
+                      int MT )
+  try : ContinuumEnergyAngle(
+          readInterpolationRecord( begin, end, lineNumber, MAT, MF, MT ),
+          begin, end, lineNumber, MAT, MF, MT ) {}
+  catch ( std::exception& e ) {
 
+    Log::info( "Encountered error while reading continuum energy angle "
+               "distribution data (LAW=1)" );
+    throw;
+  }

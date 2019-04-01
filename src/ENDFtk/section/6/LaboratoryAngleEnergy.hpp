@@ -1,12 +1,12 @@
 class LaboratoryAngleEnergy {
 public:
 
-  #include "ENDFtk/section/6/LaboratoryAngleEnergy/CosineOutgoingEnergyDistribution.hpp"
-  #include "ENDFtk/section/6/LaboratoryAngleEnergy/EnergyOutgoingCosineDistribution.hpp"
+  #include "ENDFtk/section/6/LaboratoryAngleEnergy/EnergyDistribution.hpp"
+  #include "ENDFtk/section/6/LaboratoryAngleEnergy/AngularDistribution.hpp"
 
 private:
   InterpolationSequenceRecord
-    < LaboratoryAngleEnergy::EnergyOutgoingCosineDistribution > data_;
+    < LaboratoryAngleEnergy::AngularDistribution > data_;
 
 public:
   /* constructor */
@@ -17,7 +17,7 @@ public:
   long NR() const { return this->data_.tab2().NR(); }
   long NE() const { return this->data_.tab2().NZ(); }
 
-  auto energies() const { return this->data_.records(); }
+  auto angularDistributions() const { return this->data_.records(); }
 
   auto interpolants() const { return this->data_.tab2().interpolants(); }
   auto boundaries() const { return this->data_.tab2().boundaries(); }

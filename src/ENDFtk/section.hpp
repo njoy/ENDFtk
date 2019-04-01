@@ -1,5 +1,6 @@
 namespace section{
 
+#include "ENDFtk/section/BaseWithoutMT.hpp"
 #include "ENDFtk/section/Base.hpp"
 
 template< int MF, int... OptionalMT >

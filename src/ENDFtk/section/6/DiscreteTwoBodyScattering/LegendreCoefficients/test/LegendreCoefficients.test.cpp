@@ -29,6 +29,7 @@ SCENARIO( "LegendreCoefficients" ) {
       REQUIRE( 0 == chunk.LANG() );
       REQUIRE( 4 == chunk.NW() );
       REQUIRE( 4 == chunk.NL() );
+      REQUIRE( 4 == chunk.legendreOrder() );
       REQUIRE( 4 == chunk.coefficients().size() );
       REQUIRE( 1. == Approx( chunk.coefficients()[0] ) );
       REQUIRE( 2. == Approx( chunk.coefficients()[1] ) );
@@ -55,6 +56,7 @@ SCENARIO( "LegendreCoefficients" ) {
       REQUIRE( 0 == chunk.LANG() );
       REQUIRE( 4 == chunk.NW() );
       REQUIRE( 4 == chunk.NL() );
+      REQUIRE( 4 == chunk.legendreOrder() );
       REQUIRE( 4 == chunk.coefficients().size() );
       REQUIRE( 1. == Approx( chunk.coefficients()[0] ) );
       REQUIRE( 2. == Approx( chunk.coefficients()[1] ) );

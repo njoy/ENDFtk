@@ -1,6 +1,10 @@
 class DefinedElsewhere : protected NoLawDataGiven {
 
+  /* fields */
   int law_;
+
+  /* auxiliary functions */
+  #include "ENDFtk/section/6/DefinedElsewhere/src/checkLAW.hpp"
 
 public:
   /* constructor */

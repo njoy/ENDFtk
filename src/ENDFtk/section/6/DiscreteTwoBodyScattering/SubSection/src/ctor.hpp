@@ -1,11 +1,11 @@
 SubSection( SubSectionVariant&& subsection ) :
-  SubSectionVariant( subsection ) {}
+  data_( std::move( subsection ) ) {}
 
 SubSection( LegendreCoefficients&& subsection ) :
-  SubSectionVariant( subsection ) {}
+  data_( std::move( subsection ) ) {}
 
 SubSection( Tabulated&& subsection ) :
-  SubSectionVariant( subsection ) {}
+  data_( std::move( subsection ) ) {}
 
 template< typename Iterator >
 SubSection ( Iterator& begin,
@@ -14,5 +14,5 @@ SubSection ( Iterator& begin,
              int MAT,
              int MF,
              int MT ) :
-  SubSectionVariant( readSubSection( begin, end, lineNumber, MAT, MF, MT ) ) {}
+  data_( readSubSection( begin, end, lineNumber, MAT, MF, MT ) ) {}
 

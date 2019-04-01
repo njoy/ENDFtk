@@ -27,7 +27,15 @@ readSequence( long lang,
       case 15 : sequence.emplace_back(
                   Tabulated( lang, begin, end, lineNumber, MAT, MF, MT ) );
                   break;
-      default : break; /* unreachable */
+      default : {
+
+        // LANG is also tested in lowest level constructor so this would
+        // have been caught there as well
+        Log::error( "Encountered illegal LANG value" );
+        Log::info( "LANG must be equal to 1, 2, 11, 12, 13, 14 or 15" );
+        Log::info( "LANG value: {}", lang );
+        throw std::exception();
+      }
     }
   }
 

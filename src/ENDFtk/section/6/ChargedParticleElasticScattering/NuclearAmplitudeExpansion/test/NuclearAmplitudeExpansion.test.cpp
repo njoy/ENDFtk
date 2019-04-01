@@ -24,6 +24,8 @@ SCENARIO( "NuclearAmplitudeExpansion" ) {
     std::vector< double > b = { 1, 2, 3, 4, 5, 6, 7 };
     std::vector< double > a_real = { 8, 10, 12, 14 };
     std::vector< double > a_imag = { 9, 11, 13, 15 };
+    std::vector< std::complex< double > > a =
+        { { 8, 9 }, { 10, 11 }, { 12, 13 }, { 14, 15 } };
 
     THEN( "a NuclearAmplitudeExpansion can "
           "be constructed using a list and members can be tested" ) {
@@ -52,6 +54,15 @@ SCENARIO( "NuclearAmplitudeExpansion" ) {
       REQUIRE( 11. == Approx( chunk.imaginaryInterferenceCoefficients()[1] ) );
       REQUIRE( 13. == Approx( chunk.imaginaryInterferenceCoefficients()[2] ) );
       REQUIRE( 15. == Approx( chunk.imaginaryInterferenceCoefficients()[3] ) );
+      REQUIRE( 4 == chunk.interferenceCoefficients().size() );
+      REQUIRE( 8. == Approx( chunk.interferenceCoefficients()[0].real() ) );
+      REQUIRE( 10. == Approx( chunk.interferenceCoefficients()[1].real() ) );
+      REQUIRE( 12. == Approx( chunk.interferenceCoefficients()[2].real() ) );
+      REQUIRE( 14. == Approx( chunk.interferenceCoefficients()[3].real() ) );
+      REQUIRE( 9. == Approx( chunk.interferenceCoefficients()[0].imag() ) );
+      REQUIRE( 11. == Approx( chunk.interferenceCoefficients()[1].imag() ) );
+      REQUIRE( 13. == Approx( chunk.interferenceCoefficients()[2].imag() ) );
+      REQUIRE( 15. == Approx( chunk.interferenceCoefficients()[3].imag() ) );
 
       REQUIRE( 4 == chunk.NC() );
     }
@@ -85,6 +96,56 @@ SCENARIO( "NuclearAmplitudeExpansion" ) {
       REQUIRE( 11. == Approx( chunk.imaginaryInterferenceCoefficients()[1] ) );
       REQUIRE( 13. == Approx( chunk.imaginaryInterferenceCoefficients()[2] ) );
       REQUIRE( 15. == Approx( chunk.imaginaryInterferenceCoefficients()[3] ) );
+      REQUIRE( 4 == chunk.interferenceCoefficients().size() );
+      REQUIRE( 8. == Approx( chunk.interferenceCoefficients()[0].real() ) );
+      REQUIRE( 10. == Approx( chunk.interferenceCoefficients()[1].real() ) );
+      REQUIRE( 12. == Approx( chunk.interferenceCoefficients()[2].real() ) );
+      REQUIRE( 14. == Approx( chunk.interferenceCoefficients()[3].real() ) );
+      REQUIRE( 9. == Approx( chunk.interferenceCoefficients()[0].imag() ) );
+      REQUIRE( 11. == Approx( chunk.interferenceCoefficients()[1].imag() ) );
+      REQUIRE( 13. == Approx( chunk.interferenceCoefficients()[2].imag() ) );
+      REQUIRE( 15. == Approx( chunk.interferenceCoefficients()[3].imag() ) );
+
+      REQUIRE( 4 == chunk.NC() );
+    }
+
+    THEN( "a NuclearAmplitudeExpansion can "
+          "be constructed using separate arrays and members can be tested" ) {
+      NuclearAmplitudeExpansion
+        chunk( energy, nl, std::move( b ), std::move( a ) );
+
+      REQUIRE( 1e-5 == Approx( chunk.energy() ) );
+
+      REQUIRE( 1 == chunk.LTP() );
+      REQUIRE( 15 == chunk.NW() );
+      REQUIRE( 3 == chunk.NL() );
+      REQUIRE( 7 == chunk.scatteringCoefficients().size() );
+      REQUIRE( 1. == Approx( chunk.scatteringCoefficients()[0] ) );
+      REQUIRE( 2. == Approx( chunk.scatteringCoefficients()[1] ) );
+      REQUIRE( 3. == Approx( chunk.scatteringCoefficients()[2] ) );
+      REQUIRE( 4. == Approx( chunk.scatteringCoefficients()[3] ) );
+      REQUIRE( 5. == Approx( chunk.scatteringCoefficients()[4] ) );
+      REQUIRE( 6. == Approx( chunk.scatteringCoefficients()[5] ) );
+      REQUIRE( 7. == Approx( chunk.scatteringCoefficients()[6] ) );
+      REQUIRE( 4 == chunk.realInterferenceCoefficients().size() );
+      REQUIRE( 8. == Approx( chunk.realInterferenceCoefficients()[0] ) );
+      REQUIRE( 10. == Approx( chunk.realInterferenceCoefficients()[1] ) );
+      REQUIRE( 12. == Approx( chunk.realInterferenceCoefficients()[2] ) );
+      REQUIRE( 14. == Approx( chunk.realInterferenceCoefficients()[3] ) );
+      REQUIRE( 4 == chunk.imaginaryInterferenceCoefficients().size() );
+      REQUIRE( 9. == Approx( chunk.imaginaryInterferenceCoefficients()[0] ) );
+      REQUIRE( 11. == Approx( chunk.imaginaryInterferenceCoefficients()[1] ) );
+      REQUIRE( 13. == Approx( chunk.imaginaryInterferenceCoefficients()[2] ) );
+      REQUIRE( 15. == Approx( chunk.imaginaryInterferenceCoefficients()[3] ) );
+      REQUIRE( 4 == chunk.interferenceCoefficients().size() );
+      REQUIRE( 8. == Approx( chunk.interferenceCoefficients()[0].real() ) );
+      REQUIRE( 10. == Approx( chunk.interferenceCoefficients()[1].real() ) );
+      REQUIRE( 12. == Approx( chunk.interferenceCoefficients()[2].real() ) );
+      REQUIRE( 14. == Approx( chunk.interferenceCoefficients()[3].real() ) );
+      REQUIRE( 9. == Approx( chunk.interferenceCoefficients()[0].imag() ) );
+      REQUIRE( 11. == Approx( chunk.interferenceCoefficients()[1].imag() ) );
+      REQUIRE( 13. == Approx( chunk.interferenceCoefficients()[2].imag() ) );
+      REQUIRE( 15. == Approx( chunk.interferenceCoefficients()[3].imag() ) );
 
       REQUIRE( 4 == chunk.NC() );
     }
@@ -125,6 +186,15 @@ SCENARIO( "NuclearAmplitudeExpansion" ) {
       REQUIRE( 11. == Approx( chunk.imaginaryInterferenceCoefficients()[1] ) );
       REQUIRE( 13. == Approx( chunk.imaginaryInterferenceCoefficients()[2] ) );
       REQUIRE( 15. == Approx( chunk.imaginaryInterferenceCoefficients()[3] ) );
+      REQUIRE( 4 == chunk.interferenceCoefficients().size() );
+      REQUIRE( 8. == Approx( chunk.interferenceCoefficients()[0].real() ) );
+      REQUIRE( 10. == Approx( chunk.interferenceCoefficients()[1].real() ) );
+      REQUIRE( 12. == Approx( chunk.interferenceCoefficients()[2].real() ) );
+      REQUIRE( 14. == Approx( chunk.interferenceCoefficients()[3].real() ) );
+      REQUIRE( 9. == Approx( chunk.interferenceCoefficients()[0].imag() ) );
+      REQUIRE( 11. == Approx( chunk.interferenceCoefficients()[1].imag() ) );
+      REQUIRE( 13. == Approx( chunk.interferenceCoefficients()[2].imag() ) );
+      REQUIRE( 15. == Approx( chunk.interferenceCoefficients()[3].imag() ) );
 
       REQUIRE( 4 == chunk.NC() );
     }

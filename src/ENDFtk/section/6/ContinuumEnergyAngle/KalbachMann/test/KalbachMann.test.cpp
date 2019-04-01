@@ -23,9 +23,9 @@ SCENARIO( "KalbachMann" ) {
     int na = 1;
     int nep = 2;
     std::vector< double > list = { 1., 2., 3., 4., 5., 6. };
-    std::vector< std::tuple< double, double, double > > data = { 
-      { 1., 2., 3. },
-      { 4., 5., 6. } };
+    std::vector< std::array< double, 3 > > data = { 
+        {{ 1., 2., 3. }},
+        {{ 4., 5., 6. }} };
 
     THEN( "a KalbachMann can "
           "be constructed using a list and members can be tested" ) {
@@ -35,9 +35,12 @@ SCENARIO( "KalbachMann" ) {
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 0 == chunk.ND() );
+      REQUIRE( 0 == chunk.numberDiscreteEnergies() );
       REQUIRE( 1 == chunk.NA() );
+      REQUIRE( 1 == chunk.numberAngularParameters() );
       REQUIRE( 6 == chunk.NW() );
       REQUIRE( 2 == chunk.NEP() );
+      REQUIRE( 2 == chunk.numberSecondaryEnergies() );
       REQUIRE( 2 == chunk.energies().size() );
       REQUIRE( 1. == Approx( chunk.energies()[0] ) );
       REQUIRE( 4. == Approx( chunk.energies()[1] ) );
@@ -54,16 +57,19 @@ SCENARIO( "KalbachMann" ) {
     }
 
     THEN( "a KalbachMann can "
-          "be constructed using tuples and members can be tested" ) {
+          "be constructed using arrays and members can be tested" ) {
       KalbachMann chunk( energy, nd, nep, std::move( data ) );
 
       REQUIRE( 2 == chunk.LANG() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 0 == chunk.ND() );
+      REQUIRE( 0 == chunk.numberDiscreteEnergies() );
       REQUIRE( 1 == chunk.NA() );
+      REQUIRE( 1 == chunk.numberAngularParameters() );
       REQUIRE( 6 == chunk.NW() );
       REQUIRE( 2 == chunk.NEP() );
+      REQUIRE( 2 == chunk.numberSecondaryEnergies() );
       REQUIRE( 2 == chunk.energies().size() );
       REQUIRE( 1. == Approx( chunk.energies()[0] ) );
       REQUIRE( 4. == Approx( chunk.energies()[1] ) );
@@ -87,9 +93,9 @@ SCENARIO( "KalbachMann" ) {
     int na = 2;
     int nep = 2;
     std::vector< double > list = { 1., 2., 3., 4., 5., 6., 7., 8. };
-    std::vector< std::tuple< double, double, double, double > > data = { 
-      { 1., 2., 3., 4. },
-      { 5., 6., 7., 8. } };
+    std::vector< std::array< double, 4 > > data = { 
+        {{ 1., 2., 3., 4. }},
+        {{ 5., 6., 7., 8. }} };
 
     THEN( "a KalbachMann can "
           "be constructed using a list and members can be tested" ) {
@@ -99,9 +105,12 @@ SCENARIO( "KalbachMann" ) {
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 0 == chunk.ND() );
+      REQUIRE( 0 == chunk.numberDiscreteEnergies() );
       REQUIRE( 2 == chunk.NA() );
+      REQUIRE( 2 == chunk.numberAngularParameters() );
       REQUIRE( 8 == chunk.NW() );
       REQUIRE( 2 == chunk.NEP() );
+      REQUIRE( 2 == chunk.numberSecondaryEnergies() );
       REQUIRE( 2 == chunk.energies().size() );
       REQUIRE( 1. == Approx( chunk.energies()[0] ) );
       REQUIRE( 5. == Approx( chunk.energies()[1] ) );
@@ -120,16 +129,19 @@ SCENARIO( "KalbachMann" ) {
     }
 
     THEN( "a KalbachMann can "
-          "be constructed using tuples and members can be tested" ) {
+          "be constructed using arrays and members can be tested" ) {
       KalbachMann chunk( energy, nd, nep, std::move( data ) );
 
       REQUIRE( 2 == chunk.LANG() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 0 == chunk.ND() );
+      REQUIRE( 0 == chunk.numberDiscreteEnergies() );
       REQUIRE( 2 == chunk.NA() );
+      REQUIRE( 2 == chunk.numberAngularParameters() );
       REQUIRE( 8 == chunk.NW() );
       REQUIRE( 2 == chunk.NEP() );
+      REQUIRE( 2 == chunk.numberSecondaryEnergies() );
       REQUIRE( 2 == chunk.energies().size() );
       REQUIRE( 1. == Approx( chunk.energies()[0] ) );
       REQUIRE( 5. == Approx( chunk.energies()[1] ) );
@@ -163,9 +175,12 @@ SCENARIO( "KalbachMann" ) {
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 0 == chunk.ND() );
+      REQUIRE( 0 == chunk.numberDiscreteEnergies() );
       REQUIRE( 1 == chunk.NA() );
+      REQUIRE( 1 == chunk.numberAngularParameters() );
       REQUIRE( 6 == chunk.NW() );
       REQUIRE( 2 == chunk.NEP() );
+      REQUIRE( 2 == chunk.numberSecondaryEnergies() );
       REQUIRE( 2 == chunk.energies().size() );
       REQUIRE( 1. == Approx( chunk.energies()[0] ) );
       REQUIRE( 4. == Approx( chunk.energies()[1] ) );
@@ -197,9 +212,12 @@ SCENARIO( "KalbachMann" ) {
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 0 == chunk.ND() );
+      REQUIRE( 0 == chunk.numberDiscreteEnergies() );
       REQUIRE( 2 == chunk.NA() );
+      REQUIRE( 2 == chunk.numberAngularParameters() );
       REQUIRE( 8 == chunk.NW() );
       REQUIRE( 2 == chunk.NEP() );
+      REQUIRE( 2 == chunk.numberSecondaryEnergies() );
       REQUIRE( 2 == chunk.energies().size() );
       REQUIRE( 1. == Approx( chunk.energies()[0] ) );
       REQUIRE( 5. == Approx( chunk.energies()[1] ) );
