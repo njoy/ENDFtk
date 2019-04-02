@@ -13,12 +13,18 @@ IncoherentElastic( double sb,
                    std::vector< long >&& boundaries,
                    std::vector< long >&& interpolants,
                    std::vector< double >&& temperatures,
-                   std::vector< double >&& debyeWallerValues ) :
-  TabulationRecord( sb, 0.0, 0, 0,
-                    std::move( boundaries ),
-                    std::move( interpolants ),
-                    std::move( temperatures ),
-                    std::move( debyeWallerValues ) ) {}
+                   std::vector< double >&& debyeWallerValues )
+  try : TabulationRecord( sb, 0.0, 0, 0,
+                          std::move( boundaries ),
+                          std::move( interpolants ),
+                          std::move( temperatures ),
+                          std::move( debyeWallerValues ) ) {}
+ catch ( std::exception& e ) {
+
+    Log::info( "Encountered error while constructing incoherent elastic "
+               "scattering data" );
+    throw;
+  }
 
 /** 
  *  @brief Constructor (from a buffer)
@@ -34,6 +40,12 @@ IncoherentElastic( double sb,
  */
 template< typename Iterator >
 IncoherentElastic( Iterator& begin, const Iterator& end,
-                      long& lineNumber, int MAT, int MF, int MT ) :
-  TabulationRecord( begin, end, lineNumber, MAT, MF, MT ) {}
+                      long& lineNumber, int MAT, int MF, int MT )
+  try : TabulationRecord( begin, end, lineNumber, MAT, MF, MT ) {}
+  catch ( std::exception& e ) {
+
+    Log::info( "Encountered error while reading incoherent elastic "
+               "scattering data" );
+    throw;
+  }
 

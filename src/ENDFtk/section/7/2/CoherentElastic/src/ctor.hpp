@@ -1,12 +1,9 @@
+private:
 /** 
- *  @brief Constructor (components)
+ *  @brief Private intermediate constructor
  *
  *  The number of entries in the temperatures array is checked against the
  *  temperature dependence flag LT (the L1 value on the TabulationRecord).
- *
- *  @param[in] principal      the TabulationRecord to be moved into the object
- *  @param[in] temperatures   an array of ListRecord, one for each additional
- *                            temperature to be moved into the object
  */
 CoherentElastic( TabulationRecord&& principal,
                  std::vector< ListRecord >&& temperatures ) :
@@ -16,6 +13,7 @@ CoherentElastic( TabulationRecord&& principal,
   verifyLT( this->LT(), this->NT() );
 }
 
+public:
 /** 
  *  @brief Constructor (multiple temperatures)
  *
@@ -34,16 +32,22 @@ CoherentElastic( std::vector< long >&& boundaries,
                  std::vector< double >&& temperatures,
                  std::vector< long >&& li,
                  std::vector< double >&& energies,
-                 std::vector< std::vector< double > >&& s ) :
-  CoherentElastic( TabulationRecord( temperatures[0], 0,
-                                     temperatures.size() - 1, 0,
-                                     std::move( boundaries ),
-                                     std::move( interpolants ),
-                                     std::move( energies ),
-                                     std::move( s[0] ) ),
-                   generateTemperatures( std::move( temperatures ),
-                                         std::move( li ),
-                                         std::move( s ) ) ) {}
+                 std::vector< std::vector< double > >&& s )
+  try : CoherentElastic( TabulationRecord( temperatures[0], 0,
+                                           temperatures.size() - 1, 0,
+                                           std::move( boundaries ),
+                                           std::move( interpolants ),
+                                           std::move( energies ),
+                                           std::move( s[0] ) ),
+                         generateTemperatures( std::move( temperatures ),
+                                               std::move( li ),
+                                               std::move( s ) ) ) {}
+  catch ( std::exception& e ) {
+
+    Log::info( "Encountered error while constructing coherent elastic "
+               "scattering data" );
+    throw;
+  }
 
 /** 
  *  @brief Constructor (single temperature)
@@ -60,12 +64,18 @@ CoherentElastic( double temperature,
                  std::vector< long >&& boundaries,
                  std::vector< long >&& interpolants,
                  std::vector< double >&& energies,
-                 std::vector< double >&& s ) :
-  CoherentElastic( TabulationRecord( temperature, 0, 0, 0,
-                                     std::move( boundaries ),
-                                     std::move( interpolants ),
-                                     std::move( energies ),
-                                     std::move( s ) ), {} ) {}
+                 std::vector< double >&& s )
+  try : CoherentElastic( TabulationRecord( temperature, 0, 0, 0,
+                                           std::move( boundaries ),
+                                           std::move( interpolants ),
+                                           std::move( energies ),
+                                           std::move( s ) ), {} ) {}
+  catch ( std::exception& e ) {
+
+    Log::info( "Encountered error while constructing coherent elastic "
+               "scattering data" );
+    throw;
+  }
 
 private:
 /** 
@@ -102,7 +112,13 @@ CoherentElastic( Iterator& begin,
                  long& lineNumber,
                  int MAT,
                  int MF,
-                 int MT ) :
-  CoherentElastic( TabulationRecord( begin, end, lineNumber, MAT, MF, MT ),
-                   begin, end, lineNumber, MAT, MF, MT ) {}
+                 int MT )
+  try : CoherentElastic( TabulationRecord( begin, end, lineNumber,
+                                           MAT, MF, MT ),
+                         begin, end, lineNumber, MAT, MF, MT ) {}
+  catch ( std::exception& e ) {
 
+    Log::info( "Encountered error while reading coherent elastic "
+               "scattering data" );
+    throw;
+  }

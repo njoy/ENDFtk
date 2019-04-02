@@ -6,7 +6,7 @@
  *  @param[in] law    the thermal scattering law
  */
 Type( double zaid, double awr, ScatteringLaw&& law ) :
-  Base( zaid, awr, 2 ), law_( std::move( law ) ) {}
+  BaseWithoutMT( zaid, awr ), law_( std::move( law ) ) {}
 
 /** 
  *  @brief Constructor (from a buffer)
@@ -25,8 +25,8 @@ Type( HEAD& head,
       const Iterator& end,
       long& lineNumber,
       int MAT )
-  try : Type( head.ZA(), head.AWR(),
-              readScatteringLaw( begin, end, lineNumber, MAT, 7, 2,
+  try : BaseWithoutMT( head.ZA(), head.AWR() ),
+        law_( readScatteringLaw( begin, end, lineNumber, MAT, 7, 2,
                                  head.L1() ) ) {
     readSEND(begin, end, lineNumber, MAT, 7 );
   } catch ( std::exception& e ) {
@@ -34,5 +34,3 @@ Type( HEAD& head,
                MAT );
     throw e;
   }
-
-

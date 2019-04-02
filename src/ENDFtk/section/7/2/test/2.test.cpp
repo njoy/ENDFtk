@@ -14,8 +14,11 @@ using IncoherentElastic = section::Type< 7, 2 >::IncoherentElastic;
 using section72 = section::Type< 7, 2 >;
 
 std::string chunkWithCoherentElasticAndOneTemperature();
+void verifyCoherentElasticWithOneTemperature( const section::Type< 7, 2 >& );
 std::string chunkWithCoherentElasticAndTwoTemperatures();
+void verifyCoherentElasticWithTwoTemperatures( const section::Type< 7, 2 >& );
 std::string chunkWithIncoherentElastic();
+void verifyIncoherentElastic( const section::Type< 7, 2 >& );
 std::string chunkWithInvalidLTHR();
 std::string validSEND();
 std::string invalidSEND();
@@ -25,57 +28,24 @@ SCENARIO( "section::Type< 7, 2 >" ) {
   GIVEN( "valid data for a section::Type< 7, 2 > with coherent elastic "
          "scattering and one temperature" ) {
 
-    double za = 107.;
-    double awr = 1.;
-    ScatteringLaw law(
-        CoherentElastic( 293.6, { 3 }, { 1 },
-                         { 1.059427e-3, 3.718355e-3,  4.237708e-3 },
-                         { 0.0, 9.364524e-3, 1.548925e-2 } ) );
+    WHEN( "the data is given explicitly" ) {
 
-    THEN( "a section::Type< 7, 2 > can be constructed and members can be "
-          "tested" ) {
-      section::Type< 7, 2 > chunk( za, awr, std::move( law ) );
+      double za = 107.;
+      double awr = 1.;
+      ScatteringLaw law(
+          CoherentElastic( 293.6, { 3 }, { 1 },
+                           { 1.059427e-3, 3.718355e-3,  4.237708e-3 },
+                           { 0.0, 9.364524e-3, 1.548925e-2 } ) );
 
-      REQUIRE( 107. == Approx( chunk.ZA() ) );
-      REQUIRE( 1. == Approx( chunk.AWR() ) );
-      REQUIRE( 1 == chunk.LTHR() );
+      THEN( "a section::Type< 7, 2 > can be constructed and members can be "
+            "tested" ) {
 
-      auto law =
-          std::experimental::get< CoherentElastic >( chunk.scatteringLaw() );
-      REQUIRE( 0 == law.LT() );
-      REQUIRE( 1 == law.NT() );
+        section::Type< 7, 2 > chunk( za, awr, std::move( law ) );
+        verifyCoherentElasticWithOneTemperature( chunk );
+      } // THEN
+    } // WHEN
 
-      REQUIRE( 1 == law.NR() );
-      REQUIRE( 3 == law.NP() );
-      REQUIRE( 1 == law.boundaries().size() );
-      REQUIRE( 3 == law.boundaries()[0] );
-      REQUIRE( 1 == law.interpolants().size() );
-      REQUIRE( 1 == law.interpolants()[0] );
-
-      REQUIRE( 1 == law.temperatures().size() );
-      REQUIRE( 293.6 == Approx( law.temperatures()[0] ) );
-
-      REQUIRE( 3 == law.energies().size() );
-      REQUIRE( 1.059427e-3 == Approx( law.energies()[0] ) );
-      REQUIRE( 3.718355e-3 == Approx( law.energies()[1] ) );
-      REQUIRE( 4.237708e-3 == Approx( law.energies()[2] ) );
-
-      REQUIRE( 0 == law.LI().size() );
-
-      REQUIRE( 1 == law.thermalScatteringValues().size() );
-      REQUIRE( 3 == law.thermalScatteringValues()[0].size() );
-      REQUIRE( 0.0 == Approx( law.thermalScatteringValues()[0][0] ) );
-      REQUIRE( 9.364524e-3 == Approx( law.thermalScatteringValues()[0][1] ) );
-      REQUIRE( 1.548925e-2 == Approx( law.thermalScatteringValues()[0][2] ) );
-
-      REQUIRE( 4 == chunk.NC() );
-    }
-  } // GIVEN
-
-  GIVEN( "a string representation of a valid section::Type< 7, 2 > with "
-         "coherent elastic scattering and one temperature" ) {
-
-    WHEN( "there is a valid SEND record" ){
+    WHEN( "the data is read from a string/stream with a valid SEND" ) {
 
       std::string sectionString = chunkWithCoherentElasticAndOneTemperature() + 
                                   validSEND();
@@ -85,46 +55,15 @@ SCENARIO( "section::Type< 7, 2 >" ) {
       HeadRecord head( begin, end, lineNumber );
       
       THEN( "a section::Type< 7, 2 > can be constructed and members can be "
-          "tested" ) {
+            "tested" ) {
+
         section::Type< 7, 2 > chunk( head, begin, end, lineNumber, 27 );
-
-        REQUIRE( 107. == Approx( chunk.ZA() ) );
-        REQUIRE( 1. == Approx( chunk.AWR() ) );
-        REQUIRE( 1 == chunk.LTHR() );
-
-        auto law =
-            std::experimental::get< CoherentElastic >( chunk.scatteringLaw() );
-        REQUIRE( 0 == law.LT() );
-        REQUIRE( 1 == law.NT() );
-
-        REQUIRE( 1 == law.NR() );
-        REQUIRE( 3 == law.NP() );
-        REQUIRE( 1 == law.boundaries().size() );
-        REQUIRE( 3 == law.boundaries()[0] );
-        REQUIRE( 1 == law.interpolants().size() );
-        REQUIRE( 1 == law.interpolants()[0] );
-
-        REQUIRE( 1 == law.temperatures().size() );
-        REQUIRE( 293.6 == Approx( law.temperatures()[0] ) );
-
-        REQUIRE( 3 == law.energies().size() );
-        REQUIRE( 1.059427e-3 == Approx( law.energies()[0] ) );
-        REQUIRE( 3.718355e-3 == Approx( law.energies()[1] ) );
-        REQUIRE( 4.237708e-3 == Approx( law.energies()[2] ) );
-
-        REQUIRE( 0 == law.LI().size() );
-
-        REQUIRE( 1 == law.thermalScatteringValues().size() );
-        REQUIRE( 3 == law.thermalScatteringValues()[0].size() );
-        REQUIRE( 0.0 == Approx( law.thermalScatteringValues()[0][0] ) );
-        REQUIRE( 9.364524e-3 == Approx( law.thermalScatteringValues()[0][1] ) );
-        REQUIRE( 1.548925e-2 == Approx( law.thermalScatteringValues()[0][2] ) );
-
-        REQUIRE( 4 == chunk.NC() );
+        verifyCoherentElasticWithOneTemperature( chunk );
       } // THEN
     } //WHEN
 
-    WHEN( "there is a syntaxTree::Section" ){
+    WHEN( "there is a syntaxTree::Section" ) {
+
       std::string sectionString = chunkWithCoherentElasticAndOneTemperature() + 
                                   validSEND();
       auto begin = sectionString.begin();
@@ -136,56 +75,10 @@ SCENARIO( "section::Type< 7, 2 >" ) {
         section( head, begin, position, end, lineNumber );
 
       THEN( "a section::Type< 7, 2 > can be constructed and members can be "
-            "tested" ){
+            "tested" ) {
+
         section::Type< 7, 2 > chunk = section.parse< 7, 2 >( lineNumber );
-
-        REQUIRE( 107. == Approx( chunk.ZA() ) );
-        REQUIRE( 1. == Approx( chunk.AWR() ) );
-        REQUIRE( 1 == chunk.LTHR() );
-
-        auto law =
-            std::experimental::get< CoherentElastic >( chunk.scatteringLaw() );
-        REQUIRE( 0 == law.LT() );
-        REQUIRE( 1 == law.NT() );
-
-        REQUIRE( 1 == law.NR() );
-        REQUIRE( 3 == law.NP() );
-        REQUIRE( 1 == law.boundaries().size() );
-        REQUIRE( 3 == law.boundaries()[0] );
-        REQUIRE( 1 == law.interpolants().size() );
-        REQUIRE( 1 == law.interpolants()[0] );
-
-        REQUIRE( 1 == law.temperatures().size() );
-        REQUIRE( 293.6 == Approx( law.temperatures()[0] ) );
-
-        REQUIRE( 3 == law.energies().size() );
-        REQUIRE( 1.059427e-3 == Approx( law.energies()[0] ) );
-        REQUIRE( 3.718355e-3 == Approx( law.energies()[1] ) );
-        REQUIRE( 4.237708e-3 == Approx( law.energies()[2] ) );
-
-        REQUIRE( 0 == law.LI().size() );
-
-        REQUIRE( 1 == law.thermalScatteringValues().size() );
-        REQUIRE( 3 == law.thermalScatteringValues()[0].size() );
-        REQUIRE( 0.0 == Approx( law.thermalScatteringValues()[0][0] ) );
-        REQUIRE( 9.364524e-3 == Approx( law.thermalScatteringValues()[0][1] ) );
-        REQUIRE( 1.548925e-2 == Approx( law.thermalScatteringValues()[0][2] ) );
-
-        REQUIRE( 4 == chunk.NC() );
-      } // THEN
-    } // WHEN
-
-    WHEN( "the SEND Record is not valid" ){
-
-      std::string sectionString = chunkWithCoherentElasticAndOneTemperature() +
-                                  invalidSEND();
-      auto begin = sectionString.begin();
-      auto end = sectionString.end();
-      long lineNumber = 1;
-      HeadRecord head( begin, end, lineNumber );
-      
-      THEN( "an exception is thrown" ){
-        REQUIRE_THROWS( section72( head, begin, end, lineNumber, 27 ) );
+        verifyCoherentElasticWithOneTemperature( chunk );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -193,66 +86,27 @@ SCENARIO( "section::Type< 7, 2 >" ) {
   GIVEN( "valid data for a section::Type< 7, 2 > with coherent elastic "
          "scattering and two temperatures" ) {
 
-    double za = 107.;
-    double awr = 1.;
-    ScatteringLaw law(
-        CoherentElastic( { 3 }, { 1 },
-                         { 293.6, 400. },
-                         { 2 },
-                         { 1.059427e-3, 3.718355e-3,  4.237708e-3 },
-                         { { 0.0, 9.364524e-3, 1.548925e-2 },
-                           { 0.5, 8.318414e-3, 1.640584e-2 } } ) );
+    WHEN( "the data is given explicitly" ) {
 
-    THEN( "a section::Type< 7, 2 > can be constructed and members can be "
-          "tested" ) {
-      section::Type< 7, 2 > chunk( za, awr, std::move( law ) );
+      double za = 107.;
+      double awr = 1.;
+      ScatteringLaw law(
+          CoherentElastic( { 3 }, { 1 },
+                           { 293.6, 400. },
+                           { 2 },
+                           { 1.059427e-3, 3.718355e-3,  4.237708e-3 },
+                           { { 0.0, 9.364524e-3, 1.548925e-2 },
+                             { 0.5, 8.318414e-3, 1.640584e-2 } } ) );
 
-      REQUIRE( 107. == Approx( chunk.ZA() ) );
-      REQUIRE( 1. == Approx( chunk.AWR() ) );
-      REQUIRE( 1 == chunk.LTHR() );
+      THEN( "a section::Type< 7, 2 > can be constructed and members can be "
+            "tested" ) {
 
-      auto law =
-          std::experimental::get< CoherentElastic >( chunk.scatteringLaw() );
-      REQUIRE( 1 == law.LT() );
-      REQUIRE( 2 == law.NT() );
+        section::Type< 7, 2 > chunk( za, awr, std::move( law ) );
+        verifyCoherentElasticWithTwoTemperatures( chunk );
+      } // THEN
+    } // WHEN
 
-      REQUIRE( 1 == law.NR() );
-      REQUIRE( 3 == law.NP() );
-      REQUIRE( 1 == law.boundaries().size() );
-      REQUIRE( 3 == law.boundaries()[0] );
-      REQUIRE( 1 == law.interpolants().size() );
-      REQUIRE( 1 == law.interpolants()[0] );
-
-      REQUIRE( 2 == law.temperatures().size() );
-      REQUIRE( 293.6 == Approx( law.temperatures()[0] ) );
-      REQUIRE( 400. == Approx( law.temperatures()[1] ) );
-
-      REQUIRE( 3 == law.energies().size() );
-      REQUIRE( 1.059427e-3 == Approx( law.energies()[0] ) );
-      REQUIRE( 3.718355e-3 == Approx( law.energies()[1] ) );
-      REQUIRE( 4.237708e-3 == Approx( law.energies()[2] ) );
-
-      REQUIRE( 1 == law.LI().size() );
-      REQUIRE( 2 == law.LI()[0] );
-
-      REQUIRE( 2 == law.thermalScatteringValues().size() );
-      REQUIRE( 3 == law.thermalScatteringValues()[0].size() );
-      REQUIRE( 0.0 == Approx( law.thermalScatteringValues()[0][0] ) );
-      REQUIRE( 9.364524e-3 == Approx( law.thermalScatteringValues()[0][1] ) );
-      REQUIRE( 1.548925e-2 == Approx( law.thermalScatteringValues()[0][2] ) );
-      REQUIRE( 3 == law.thermalScatteringValues()[1].size() );
-      REQUIRE( 0.5 == Approx( law.thermalScatteringValues()[1][0] ) );
-      REQUIRE( 8.318414e-3 == Approx( law.thermalScatteringValues()[1][1] ) );
-      REQUIRE( 1.640584e-2 == Approx( law.thermalScatteringValues()[1][2] ) );
-
-      REQUIRE( 6 == chunk.NC() );
-    }
-  } // GIVEN
-
-  GIVEN( "a string representation of a valid section::Type< 7, 2 > with "
-         "coherent elastic scattering and two temperatures" ) {
-
-    WHEN( "there is a valid SEND record" ){
+    WHEN( "the data is read from a string/stream with a valid SEND" ) {
 
       std::string sectionString = chunkWithCoherentElasticAndTwoTemperatures() + 
                                   validSEND();
@@ -263,51 +117,14 @@ SCENARIO( "section::Type< 7, 2 >" ) {
       
       THEN( "a section::Type< 7, 2 > can be constructed and members can be "
             "tested" ) {
+
         section::Type< 7, 2 > chunk( head, begin, end, lineNumber, 27 );
-
-        REQUIRE( 107. == Approx( chunk.ZA() ) );
-        REQUIRE( 1. == Approx( chunk.AWR() ) );
-        REQUIRE( 1 == chunk.LTHR() );
-
-        auto law =
-            std::experimental::get< CoherentElastic >( chunk.scatteringLaw() );
-        REQUIRE( 1 == law.LT() );
-        REQUIRE( 2 == law.NT() );
-
-        REQUIRE( 1 == law.NR() );
-        REQUIRE( 3 == law.NP() );
-        REQUIRE( 1 == law.boundaries().size() );
-        REQUIRE( 3 == law.boundaries()[0] );
-        REQUIRE( 1 == law.interpolants().size() );
-        REQUIRE( 1 == law.interpolants()[0] );
-
-        REQUIRE( 2 == law.temperatures().size() );
-        REQUIRE( 293.6 == Approx( law.temperatures()[0] ) );
-        REQUIRE( 400. == Approx( law.temperatures()[1] ) );
-
-        REQUIRE( 3 == law.energies().size() );
-        REQUIRE( 1.059427e-3 == Approx( law.energies()[0] ) );
-        REQUIRE( 3.718355e-3 == Approx( law.energies()[1] ) );
-        REQUIRE( 4.237708e-3 == Approx( law.energies()[2] ) );
-
-        REQUIRE( 1 == law.LI().size() );
-        REQUIRE( 2 == law.LI()[0] );
-
-        REQUIRE( 2 == law.thermalScatteringValues().size() );
-        REQUIRE( 3 == law.thermalScatteringValues()[0].size() );
-        REQUIRE( 0.0 == Approx( law.thermalScatteringValues()[0][0] ) );
-        REQUIRE( 9.364524e-3 == Approx( law.thermalScatteringValues()[0][1] ) );
-        REQUIRE( 1.548925e-2 == Approx( law.thermalScatteringValues()[0][2] ) );
-        REQUIRE( 3 == law.thermalScatteringValues()[1].size() );
-        REQUIRE( 0.5 == Approx( law.thermalScatteringValues()[1][0] ) );
-        REQUIRE( 8.318414e-3 == Approx( law.thermalScatteringValues()[1][1] ) );
-        REQUIRE( 1.640584e-2 == Approx( law.thermalScatteringValues()[1][2] ) );
-
-        REQUIRE( 6 == chunk.NC() );
+        verifyCoherentElasticWithTwoTemperatures( chunk );
       } // THEN
     } //WHEN
 
-    WHEN( "there is a syntaxTree::Section" ){
+    WHEN( "there is a syntaxTree::Section" ) {
+
       std::string sectionString = chunkWithCoherentElasticAndTwoTemperatures() + 
                                   validSEND();
       auto begin = sectionString.begin();
@@ -317,113 +134,37 @@ SCENARIO( "section::Type< 7, 2 >" ) {
       auto head = HEAD( position, end, lineNumber );
       syntaxTree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
-
       
       THEN( "a section::Type< 7, 2 > can be constructed and members can be "
             "tested" ){
+
         section::Type< 7, 2 > chunk = section.parse< 7, 2 >( lineNumber );
-
-        REQUIRE( 107. == Approx( chunk.ZA() ) );
-        REQUIRE( 1. == Approx( chunk.AWR() ) );
-        REQUIRE( 1 == chunk.LTHR() );
-
-        auto law =
-            std::experimental::get< CoherentElastic >( chunk.scatteringLaw() );
-        REQUIRE( 1 == law.LT() );
-        REQUIRE( 2 == law.NT() );
-
-        REQUIRE( 1 == law.NR() );
-        REQUIRE( 3 == law.NP() );
-        REQUIRE( 1 == law.boundaries().size() );
-        REQUIRE( 3 == law.boundaries()[0] );
-        REQUIRE( 1 == law.interpolants().size() );
-        REQUIRE( 1 == law.interpolants()[0] );
-
-        REQUIRE( 2 == law.temperatures().size() );
-        REQUIRE( 293.6 == Approx( law.temperatures()[0] ) );
-        REQUIRE( 400. == Approx( law.temperatures()[1] ) );
-
-        REQUIRE( 3 == law.energies().size() );
-        REQUIRE( 1.059427e-3 == Approx( law.energies()[0] ) );
-        REQUIRE( 3.718355e-3 == Approx( law.energies()[1] ) );
-        REQUIRE( 4.237708e-3 == Approx( law.energies()[2] ) );
-
-        REQUIRE( 1 == law.LI().size() );
-        REQUIRE( 2 == law.LI()[0] );
-
-        REQUIRE( 2 == law.thermalScatteringValues().size() );
-        REQUIRE( 3 == law.thermalScatteringValues()[0].size() );
-        REQUIRE( 0.0 == Approx( law.thermalScatteringValues()[0][0] ) );
-        REQUIRE( 9.364524e-3 == Approx( law.thermalScatteringValues()[0][1] ) );
-        REQUIRE( 1.548925e-2 == Approx( law.thermalScatteringValues()[0][2] ) );
-        REQUIRE( 3 == law.thermalScatteringValues()[1].size() );
-        REQUIRE( 0.5 == Approx( law.thermalScatteringValues()[1][0] ) );
-        REQUIRE( 8.318414e-3 == Approx( law.thermalScatteringValues()[1][1] ) );
-        REQUIRE( 1.640584e-2 == Approx( law.thermalScatteringValues()[1][2] ) );
-
-        REQUIRE( 6 == chunk.NC() );
+        verifyCoherentElasticWithTwoTemperatures( chunk );
       } // THEN
     } //WHEN
-
-    WHEN( "the SEND Record is not valid" ){
-
-      std::string sectionString = chunkWithCoherentElasticAndTwoTemperatures() +
-                                  invalidSEND();
-      auto begin = sectionString.begin();
-      auto end = sectionString.end();
-      long lineNumber = 1;
-      HeadRecord head( begin, end, lineNumber );
-      
-      THEN( "an exception is thrown" ){
-        REQUIRE_THROWS( section72( head, begin, end, lineNumber, 27 ) );
-      } // THEN
-    } // WHEN
   } // GIVEN
 
   GIVEN( "valid data for a section::Type< 7, 2 > with incoherent elastic "
          "scattering" ) {
 
-    double za = 107.;
-    double awr = 1.;
-    ScatteringLaw law(
-        IncoherentElastic( 8.198006e+1, { 3 }, { 2 },
-                           { 296., 400., 500. },
-                           { 8.486993e+0, 9.093191e+0, 9.828159e+0 } ) );
+    WHEN( "the data is given explicitly" ) {
 
-    THEN( "a section::Type< 7, 2 > can be constructed and members can be "
-          "tested" ) {
-      section::Type< 7, 2 > chunk( za, awr, std::move( law ) );
+      double za = 107.;
+      double awr = 1.;
+      ScatteringLaw law(
+          IncoherentElastic( 8.198006e+1, { 3 }, { 2 },
+                             { 296., 400., 500. },
+                             { 8.486993e+0, 9.093191e+0, 9.828159e+0 } ) );
 
-      REQUIRE( 107. == Approx( chunk.ZA() ) );
-      REQUIRE( 1. == Approx( chunk.AWR() ) );
-      REQUIRE( 2 == chunk.LTHR() );
+      THEN( "a section::Type< 7, 2 > can be constructed and members can be "
+            "tested" ) {
 
-      auto law =
-          std::experimental::get< IncoherentElastic >( chunk.scatteringLaw() );
-      REQUIRE( 8.198006e+1 == Approx( law.SB() ) );
-      REQUIRE( 3 == law.NP() );
-      REQUIRE( 1 == law.NR() );
-      REQUIRE( 1 == law.interpolants().size() );
-      REQUIRE( 1 == law.boundaries().size() );
-      REQUIRE( 2 == law.interpolants()[0] );
-      REQUIRE( 3 == law.boundaries()[0] );
-      REQUIRE( 3 == law.temperatures().size() );
-      REQUIRE( 3 == law.debyeWallerValues().size() );
-      REQUIRE( 296. == Approx( law.temperatures()[0] ) );
-      REQUIRE( 400. == Approx( law.temperatures()[1] ) );
-      REQUIRE( 500. == Approx( law.temperatures()[2] ) );
-      REQUIRE( 8.486993e+0 == Approx( law.debyeWallerValues()[0] ) );
-      REQUIRE( 9.093191e+0 == Approx( law.debyeWallerValues()[1] ) );
-      REQUIRE( 9.828159e+0 == Approx( law.debyeWallerValues()[2] ) );
+        section::Type< 7, 2 > chunk( za, awr, std::move( law ) );
+        verifyIncoherentElastic( chunk );
+      } // THEN
+    } // WHEN
 
-      REQUIRE( 4 == chunk.NC() );
-    }
-  } // GIVEN
-
-  GIVEN( "a string representation of a valid section::Type< 7, 2 > with "
-         "incoherent elastic scattering" ) {
-
-    WHEN( "there is a valid SEND record" ){
+    WHEN( "the data is read from a string/stream with a valid SEND" ) {
 
       std::string sectionString = chunkWithIncoherentElastic() + validSEND();
       auto begin = sectionString.begin();
@@ -433,35 +174,14 @@ SCENARIO( "section::Type< 7, 2 >" ) {
       
       THEN( "a section::Type< 7, 2 > can be constructed and members can be "
           "tested" ) {
+
         section::Type< 7, 2 > chunk( head, begin, end, lineNumber, 27 );
-
-        REQUIRE( 107. == Approx( chunk.ZA() ) );
-        REQUIRE( 1. == Approx( chunk.AWR() ) );
-        REQUIRE( 2 == chunk.LTHR() );
-
-        auto law =
-          std::experimental::get< IncoherentElastic >( chunk.scatteringLaw() );
-        REQUIRE( 8.198006e+1 == Approx( law.SB() ) );
-        REQUIRE( 3 == law.NP() );
-        REQUIRE( 1 == law.NR() );
-        REQUIRE( 1 == law.interpolants().size() );
-        REQUIRE( 1 == law.boundaries().size() );
-        REQUIRE( 2 == law.interpolants()[0] );
-        REQUIRE( 3 == law.boundaries()[0] );
-        REQUIRE( 3 == law.temperatures().size() );
-        REQUIRE( 3 == law.debyeWallerValues().size() );
-        REQUIRE( 296. == Approx( law.temperatures()[0] ) );
-        REQUIRE( 400. == Approx( law.temperatures()[1] ) );
-        REQUIRE( 500. == Approx( law.temperatures()[2] ) );
-        REQUIRE( 8.486993e+0 == Approx( law.debyeWallerValues()[0] ) );
-        REQUIRE( 9.093191e+0 == Approx( law.debyeWallerValues()[1] ) );
-        REQUIRE( 9.828159e+0 == Approx( law.debyeWallerValues()[2] ) );
-
-        REQUIRE( 4 == chunk.NC() );
+        verifyIncoherentElastic( chunk );
       } // THEN
     } //WHEN
 
-    WHEN( "there is a syntaxTree::Section" ){
+    WHEN( "there is a syntaxTree::Section" ) {
+
       std::string sectionString = chunkWithIncoherentElastic() + validSEND();
       auto begin = sectionString.begin();
       auto position = begin;
@@ -472,45 +192,10 @@ SCENARIO( "section::Type< 7, 2 >" ) {
         section( head, begin, position, end, lineNumber );
 
       THEN( "a section::Type< 7, 2 > can be constructed and members can be "
-            "tested" ){
+            "tested" ) {
+
         section::Type< 7, 2 > chunk = section.parse< 7, 2 >( lineNumber );
-
-        REQUIRE( 107. == Approx( chunk.ZA() ) );
-        REQUIRE( 1. == Approx( chunk.AWR() ) );
-        REQUIRE( 2 == chunk.LTHR() );
-
-        auto law =
-          std::experimental::get< IncoherentElastic >( chunk.scatteringLaw() );
-        REQUIRE( 8.198006e+1 == Approx( law.SB() ) );
-        REQUIRE( 3 == law.NP() );
-        REQUIRE( 1 == law.NR() );
-        REQUIRE( 1 == law.interpolants().size() );
-        REQUIRE( 1 == law.boundaries().size() );
-        REQUIRE( 2 == law.interpolants()[0] );
-        REQUIRE( 3 == law.boundaries()[0] );
-        REQUIRE( 3 == law.temperatures().size() );
-        REQUIRE( 3 == law.debyeWallerValues().size() );
-        REQUIRE( 296. == Approx( law.temperatures()[0] ) );
-        REQUIRE( 400. == Approx( law.temperatures()[1] ) );
-        REQUIRE( 500. == Approx( law.temperatures()[2] ) );
-        REQUIRE( 8.486993e+0 == Approx( law.debyeWallerValues()[0] ) );
-        REQUIRE( 9.093191e+0 == Approx( law.debyeWallerValues()[1] ) );
-        REQUIRE( 9.828159e+0 == Approx( law.debyeWallerValues()[2] ) );
-
-        REQUIRE( 4 == chunk.NC() );
-      } // THEN
-    } // WHEN
-
-    WHEN( "the SEND Record is not valid" ){
-
-      std::string sectionString = chunkWithIncoherentElastic() + invalidSEND();
-      auto begin = sectionString.begin();
-      auto end = sectionString.end();
-      long lineNumber = 1;
-      HeadRecord head( begin, end, lineNumber );
-      
-      THEN( "an exception is thrown" ){
-        REQUIRE_THROWS( section72( head, begin, end, lineNumber, 27 ) );
+        verifyIncoherentElastic( chunk );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -524,9 +209,11 @@ SCENARIO( "section::Type< 7, 2 >" ) {
     auto end = string.end();
     long lineNumber = 1; 
     HeadRecord head( begin, end, lineNumber );
+
     section::Type< 7, 2 > section( head, begin, end, lineNumber, 27 );
 
     THEN( "it can be printed" ) {
+
       std::string buffer;
       auto output = std::back_inserter( buffer );
       section.print( output, 27, 7 );
@@ -543,9 +230,11 @@ SCENARIO( "section::Type< 7, 2 >" ) {
     auto end = string.end();
     long lineNumber = 1; 
     HeadRecord head( begin, end, lineNumber );
+
     section::Type< 7, 2 > section( head, begin, end, lineNumber, 27 );
 
     THEN( "it can be printed" ) {
+
       std::string buffer;
       auto output = std::back_inserter( buffer );
       section.print( output, 27, 7 );
@@ -560,9 +249,11 @@ SCENARIO( "section::Type< 7, 2 >" ) {
     auto end = string.end();
     long lineNumber = 1; 
     HeadRecord head( begin, end, lineNumber );
+
     section::Type< 7, 2 > section( head, begin, end, lineNumber, 27 );
 
     THEN( "it can be printed" ) {
+
       std::string buffer;
       auto output = std::back_inserter( buffer );
       section.print( output, 27, 7 );
@@ -570,19 +261,69 @@ SCENARIO( "section::Type< 7, 2 >" ) {
     }
   } // GIVEN
 
-  GIVEN( "a string representation of a section::Type< 7, 2 > with an "
-         "illegal LTHR" ) {
+  GIVEN( "invalid data for a section::Type< 7, 2 >" ) {
 
-    std::string sectionString = chunkWithInvalidLTHR() +
-                                validSEND();
-    auto begin = sectionString.begin();
-    auto end = sectionString.end();
-    long lineNumber = 1;
-    HeadRecord head( begin, end, lineNumber );
+    WHEN( "a string representation of a section::Type< 7, 2 > with coherent "
+          "elastic scattering and one temperature with an invalid SEND" ) {
+
+      std::string sectionString = chunkWithCoherentElasticAndOneTemperature() +
+                                  invalidSEND();
+      auto begin = sectionString.begin();
+      auto end = sectionString.end();
+      long lineNumber = 1;
+      HeadRecord head( begin, end, lineNumber );
       
-    THEN( "an exception is thrown" ){
+      THEN( "an exception is thrown" ){
+
         REQUIRE_THROWS( section72( head, begin, end, lineNumber, 27 ) );
-    } // THEN
+      } // THEN
+    } // WHEN
+
+    WHEN( "a string representation of a section::Type< 7, 2 > with coherent "
+          "elastic scattering and two temperatures with an invalid SEND" ) {
+
+      std::string sectionString = chunkWithCoherentElasticAndTwoTemperatures() +
+                                  invalidSEND();
+      auto begin = sectionString.begin();
+      auto end = sectionString.end();
+      long lineNumber = 1;
+      HeadRecord head( begin, end, lineNumber );
+      
+      THEN( "an exception is thrown" ){
+
+        REQUIRE_THROWS( section72( head, begin, end, lineNumber, 27 ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a string representation of a section::Type< 7, 2 > with incoherent "
+          "elastic scattering with an invalid SEND" ) {
+
+      std::string sectionString = chunkWithIncoherentElastic() + invalidSEND();
+      auto begin = sectionString.begin();
+      auto end = sectionString.end();
+      long lineNumber = 1;
+      HeadRecord head( begin, end, lineNumber );
+      
+      THEN( "an exception is thrown" ){
+
+        REQUIRE_THROWS( section72( head, begin, end, lineNumber, 27 ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a string representation of a section::Type< 7, 2 > with an "
+          "illegal LTHR is used" ) {
+
+      std::string sectionString = chunkWithInvalidLTHR() + validSEND();
+      auto begin = sectionString.begin();
+      auto end = sectionString.end();
+      long lineNumber = 1;
+      HeadRecord head( begin, end, lineNumber );
+      
+      THEN( "an exception is thrown" ){
+
+        REQUIRE_THROWS( section72( head, begin, end, lineNumber, 27 ) );
+      } // THEN
+    } // WHEN
   } // GIVEN
 } // SCENARIO
 
@@ -592,6 +333,54 @@ std::string chunkWithCoherentElasticAndOneTemperature() {
     " 2.936000+2 0.000000+0          0          0          1          3  27 7  2     \n"
     "          3          1                                              27 7  2     \n"
     " 1.059427-3 0.000000+0 3.718355-3 9.364524-3 4.237708-3 1.548925-2  27 7  2     \n";
+}
+
+void verifyCoherentElasticWithOneTemperature(
+       const section::Type< 7, 2 >& chunk ) {
+
+  REQUIRE( 2 == chunk.MT() );
+  REQUIRE( 2 == chunk.sectionNumber() );
+
+  REQUIRE( 107. == Approx( chunk.ZA() ) );
+  REQUIRE( 1. == Approx( chunk.AWR() ) );
+  REQUIRE( 1. == Approx( chunk.atomicWeightRatio() ) );
+  REQUIRE( 1 == chunk.LTHR() );
+  REQUIRE( 1 == chunk.elasticScatteringType() );
+
+  auto law =
+      std::experimental::get< CoherentElastic >( chunk.scatteringLaw() );
+  REQUIRE( 1 == law.LTHR() );
+  REQUIRE( 1 == law.elasticScatteringType() );
+  REQUIRE( 0 == law.LT() );
+  REQUIRE( 0 == law.temperatureDependenceFlag() );
+  REQUIRE( 1 == law.NT() );
+  REQUIRE( 1 == law.numberTemperatures() );
+
+  REQUIRE( 1 == law.NR() );
+  REQUIRE( 3 == law.NP() );
+  REQUIRE( 1 == law.boundaries().size() );
+  REQUIRE( 3 == law.boundaries()[0] );
+  REQUIRE( 1 == law.interpolants().size() );
+  REQUIRE( 1 == law.interpolants()[0] );
+
+  REQUIRE( 1 == law.temperatures().size() );
+  REQUIRE( 293.6 == Approx( law.temperatures()[0] ) );
+
+  REQUIRE( 3 == law.energies().size() );
+  REQUIRE( 1.059427e-3 == Approx( law.energies()[0] ) );
+  REQUIRE( 3.718355e-3 == Approx( law.energies()[1] ) );
+  REQUIRE( 4.237708e-3 == Approx( law.energies()[2] ) );
+
+  REQUIRE( 0 == law.LI().size() );
+  REQUIRE( 0 == law.temperatureInterpolants().size() );
+
+  REQUIRE( 1 == law.thermalScatteringValues().size() );
+  REQUIRE( 3 == law.thermalScatteringValues()[0].size() );
+  REQUIRE( 0.0 == Approx( law.thermalScatteringValues()[0][0] ) );
+  REQUIRE( 9.364524e-3 == Approx( law.thermalScatteringValues()[0][1] ) );
+  REQUIRE( 1.548925e-2 == Approx( law.thermalScatteringValues()[0][2] ) );
+
+  REQUIRE( 4 == chunk.NC() );
 }
 
 std::string chunkWithCoherentElasticAndTwoTemperatures() {
@@ -604,12 +393,102 @@ std::string chunkWithCoherentElasticAndTwoTemperatures() {
     " 5.000000-1 8.318414-3 1.640584-2                                   27 7  2     \n";
 }
 
+void verifyCoherentElasticWithTwoTemperatures(
+       const section::Type< 7, 2 >& chunk ) {
+
+  REQUIRE( 2 == chunk.MT() );
+  REQUIRE( 2 == chunk.sectionNumber() );
+
+  REQUIRE( 107. == Approx( chunk.ZA() ) );
+  REQUIRE( 1. == Approx( chunk.AWR() ) );
+  REQUIRE( 1. == Approx( chunk.atomicWeightRatio() ) );
+  REQUIRE( 1 == chunk.LTHR() );
+  REQUIRE( 1 == chunk.elasticScatteringType() );
+
+  auto law =
+       std::experimental::get< CoherentElastic >( chunk.scatteringLaw() );
+  REQUIRE( 1 == law.LTHR() );
+  REQUIRE( 1 == law.elasticScatteringType() );
+  REQUIRE( 1 == law.LT() );
+  REQUIRE( 1 == law.temperatureDependenceFlag() );
+  REQUIRE( 2 == law.NT() );
+  REQUIRE( 2 == law.numberTemperatures() );
+
+  REQUIRE( 1 == law.NR() );
+  REQUIRE( 3 == law.NP() );
+  REQUIRE( 1 == law.boundaries().size() );
+  REQUIRE( 3 == law.boundaries()[0] );
+  REQUIRE( 1 == law.interpolants().size() );
+  REQUIRE( 1 == law.interpolants()[0] );
+
+  REQUIRE( 2 == law.temperatures().size() );
+  REQUIRE( 293.6 == Approx( law.temperatures()[0] ) );
+  REQUIRE( 400. == Approx( law.temperatures()[1] ) );
+
+  REQUIRE( 3 == law.energies().size() );
+  REQUIRE( 1.059427e-3 == Approx( law.energies()[0] ) );
+  REQUIRE( 3.718355e-3 == Approx( law.energies()[1] ) );
+  REQUIRE( 4.237708e-3 == Approx( law.energies()[2] ) );
+
+  REQUIRE( 1 == law.LI().size() );
+  REQUIRE( 2 == law.LI()[0] );
+  REQUIRE( 1 == law.temperatureInterpolants().size() );
+  REQUIRE( 2 == law.temperatureInterpolants()[0] );
+
+  REQUIRE( 2 == law.thermalScatteringValues().size() );
+  REQUIRE( 3 == law.thermalScatteringValues()[0].size() );
+  REQUIRE( 0.0 == Approx( law.thermalScatteringValues()[0][0] ) );
+  REQUIRE( 9.364524e-3 == Approx( law.thermalScatteringValues()[0][1] ) );
+  REQUIRE( 1.548925e-2 == Approx( law.thermalScatteringValues()[0][2] ) );
+  REQUIRE( 3 == law.thermalScatteringValues()[1].size() );
+  REQUIRE( 0.5 == Approx( law.thermalScatteringValues()[1][0] ) );
+  REQUIRE( 8.318414e-3 == Approx( law.thermalScatteringValues()[1][1] ) );
+  REQUIRE( 1.640584e-2 == Approx( law.thermalScatteringValues()[1][2] ) );
+
+  REQUIRE( 6 == chunk.NC() );
+}
+
 std::string chunkWithIncoherentElastic() {
   return
     " 1.070000+2 1.000000+0          2          0          0          0  27 7  2     \n"
     " 8.198006+1 0.000000+0          0          0          1          3  27 7  2     \n"
     "          3          2                                              27 7  2     \n"
     " 2.960000+2 8.486993+0 4.000000+2 9.093191+0 5.000000+2 9.828159+0  27 7  2     \n";
+}
+
+void verifyIncoherentElastic( const section::Type< 7, 2 >& chunk ) {
+
+  REQUIRE( 2 == chunk.MT() );
+  REQUIRE( 2 == chunk.sectionNumber() );
+
+  REQUIRE( 107. == Approx( chunk.ZA() ) );
+  REQUIRE( 1. == Approx( chunk.AWR() ) );
+  REQUIRE( 1. == Approx( chunk.atomicWeightRatio() ) );
+  REQUIRE( 2 == chunk.LTHR() );
+  REQUIRE( 2 == chunk.elasticScatteringType() );
+
+  auto law =
+       std::experimental::get< IncoherentElastic >( chunk.scatteringLaw() );
+  REQUIRE( 2 == law.LTHR() );
+  REQUIRE( 2 == law.elasticScatteringType() );
+  REQUIRE( 8.198006e+1 == Approx( law.SB() ) );
+  REQUIRE( 8.198006e+1 == Approx( law.boundCrossSection() ) );
+  REQUIRE( 3 == law.NP() );
+  REQUIRE( 1 == law.NR() );
+  REQUIRE( 1 == law.interpolants().size() );
+  REQUIRE( 1 == law.boundaries().size() );
+  REQUIRE( 2 == law.interpolants()[0] );
+  REQUIRE( 3 == law.boundaries()[0] );
+  REQUIRE( 3 == law.temperatures().size() );
+  REQUIRE( 3 == law.debyeWallerValues().size() );
+  REQUIRE( 296. == Approx( law.temperatures()[0] ) );
+  REQUIRE( 400. == Approx( law.temperatures()[1] ) );
+  REQUIRE( 500. == Approx( law.temperatures()[2] ) );
+  REQUIRE( 8.486993e+0 == Approx( law.debyeWallerValues()[0] ) );
+  REQUIRE( 9.093191e+0 == Approx( law.debyeWallerValues()[1] ) );
+  REQUIRE( 9.828159e+0 == Approx( law.debyeWallerValues()[2] ) );
+
+  REQUIRE( 4 == chunk.NC() );
 }
 
 std::string chunkWithInvalidLTHR() {

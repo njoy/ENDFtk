@@ -20,7 +20,7 @@ SCENARIO( "Tabulated" ) {
   GIVEN( "valid data for a Tabulated" ) {
 
     std::vector< int > langs = { 12, 14 };
-    
+
     WHEN( "the data is given explicitly" ) {
 
       THEN( "a Tabulated can "
@@ -37,6 +37,7 @@ SCENARIO( "Tabulated" ) {
           checkTabulated( chunk );
         }
       }
+
       THEN( "a Tabulated can "
             "be constructed using vectors and members can be tested "
             "for each LANG value" ) {

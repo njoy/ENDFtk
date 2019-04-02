@@ -34,16 +34,33 @@ public:
   static constexpr int LTHR() { return 1; }
 
   /**
+   *  @brief Return the LTHR flag for coherent elastic scattering
+   */
+  int elasticScatteringType() const { return this->LTHR(); }
+
+  /**
    *  @brief Return the LT flag indicating the temperature dependence (equal to
    *         NT - 1)
    */
   int LT() const { return this->principal_.L1(); }
 
   /**
+   *  @brief Return the LT flag indicating the temperature dependence (equal to
+   *         NT - 1)
+   */
+  int temperatureDependenceFlag() const { return this->LT(); }
+
+  /**
    *  @brief Return the number of temperatures NT for which thermal scattering
    *         law data is given
    */
   int NT() const { return this->temperatures_.size() + 1; }
+
+  /**
+   *  @brief Return the number of temperatures NT for which thermal scattering
+   *         law data is given
+   */
+  int numberTemperatures() const { return this->NT(); }
 
   /** 
    *  @brief Return the number of interpolation ranges on the energy grid
@@ -91,6 +108,12 @@ public:
                ranges::view::transform( [] ( const auto& v )
                                            { return v.L1(); } );
   }
+
+  /**
+   *  @brief Return the temperature interpolation flags (LT values will be
+   *         given)
+   */
+  auto temperatureInterpolants() const { return this->LI(); }
 
   /**
    *  @brief Return the thermal scattering law values as an array, one for each

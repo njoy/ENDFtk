@@ -1,5 +1,7 @@
 template<>
-class Type< 7, 2 > : protected Base {
+class Type< 7, 2 > : protected BaseWithoutMT< Type< 7, 2 > > {
+
+  friend BaseWithoutMT< Type< 7, 2 > >;
 
 public:
 
@@ -40,6 +42,11 @@ public:
                                             this->law_ ); }
 
   /**
+   *  @brief Return the LTHR flag (coherent or incoherent elastic scattering)
+   */
+  int elasticScatteringType() const { return this->LTHR(); }
+
+  /**
    *  @brief Return the thermal scattering law (either coherent or incoherent)
    */
   const ScatteringLaw& scatteringLaw() const { return this->law_; }
@@ -48,8 +55,13 @@ public:
 
   #include "ENDFtk/section/7/2/src/print.hpp"
 
-  using Base::MT;
-  using Base::ZA;
-  using Base::atomicWeightRatio;
-  using Base::AWR;
+  /**
+   *  @brief Return the MT number of the section
+   */
+  static constexpr int sectionNumber() { return 2; }
+
+  using BaseWithoutMT::MT;
+  using BaseWithoutMT::ZA;
+  using BaseWithoutMT::atomicWeightRatio;
+  using BaseWithoutMT::AWR;
 };

@@ -15,16 +15,38 @@ public:
   #include "ENDFtk/section/7/2/IncoherentElastic/src/ctor.hpp"
 
   /**
-   *  @brief Return the LTHR flag for coherent elastic scattering
+   *  @brief Return the LTHR flag for incoherent elastic scattering
    */
   static constexpr int LTHR() { return 2; }
 
-  /* get methods */
+  /**
+   *  @brief Return the LTHR flag for incoherent elastic scattering
+   */
+  int elasticScatteringType() const { return this->LTHR(); }
+
+  /**
+   *  @brief Return the characteristic bound cross section (barns)
+   */
   double SB() const { return TabulationRecord::C1(); }
+
+  /**
+   *  @brief Return the characteristic bound cross section (barns)
+   */
+  double boundCrossSection() const { return this->SB(); }
+
+  /**
+   *  @brief Return the Debye-Waller integral divided by the atomic mass (eV?1)
+   */
+  auto temperatures() const { return TabulationRecord::x(); }
+
+  /**
+   *  @brief Return the temperature values
+   */
+  auto debyeWallerValues() const { return TabulationRecord::y(); }
+
+  /* get methods */
   using TabulationRecord::NP;
   using TabulationRecord::NR;
-  auto temperatures() const { return TabulationRecord::x(); }
-  auto debyeWallerValues() const { return TabulationRecord::y(); }
   using TabulationRecord::interpolants;
   using TabulationRecord::boundaries;
   using TabulationRecord::NC;
