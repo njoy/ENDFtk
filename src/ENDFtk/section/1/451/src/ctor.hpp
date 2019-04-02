@@ -2,7 +2,7 @@ Type( double zaid, double awr, int lrp, int lfi, int nlib, int nmod,
       std::array< ControlRecord, 3 >&& parameters,
       std::vector< TextRecord >&& description,
       std::vector< DirectoryRecord >&& index ) :
-  Base( zaid, awr, 1 ), lrp_( lrp ), lfi_( lfi ), nlib_( nlib ), nmod_( nmod ),
+  BaseWithoutMT( zaid, awr ), lrp_( lrp ), lfi_( lfi ), nlib_( nlib ), nmod_( nmod ),
   parameters_( std::move( parameters ) ),
   description_( std::move( description ) ),
   index_( std::move( index ) ) {}
@@ -13,7 +13,7 @@ Type( double zaid, double awr, int lrp, int lfi, int nlib, int nmod,
       double temp, int ldrv,
       const std::string& description,
       std::vector< DirectoryRecord >&& index ) :
-  Base( zaid, awr, 1 ), lrp_( lrp ), lfi_( lfi ), nlib_( nlib ), nmod_( nmod ),
+  BaseWithoutMT( zaid, awr ), lrp_( lrp ), lfi_( lfi ), nlib_( nlib ), nmod_( nmod ),
   parameters_( makeParameters( elis, sta, lis, liso, nfor,
                                awi, emax, lrel, nsub, nver,
                                temp, ldrv, 
@@ -30,7 +30,7 @@ Type ( HEAD& head,
        long& lineNumber,
        int MAT )
   try:
-    Base( head, MAT, 1 ), lrp_( head.L1() ), lfi_( head.L2() ),
+    BaseWithoutMT( head, MAT, 1 ), lrp_( head.L1() ), lfi_( head.L2() ),
     nlib_( head.N1() ), nmod_( head.N2() ),
     parameters_( readParameters( begin, end, lineNumber, MAT ) ),
     description_( readRecords< TextRecord >( begin,

@@ -3,6 +3,7 @@
 
 #include <functional>
 #include <unordered_map>
+#include <complex>
 
 #ifdef __GNUC__
   #pragma GCC diagnostic push
@@ -71,6 +72,8 @@ using TAB2 = InterpolationRecord;
 
 #include "ENDFtk/TabulationRecord.hpp"
 using TAB1 = TabulationRecord;
+
+#include "ENDFtk/InterpolationSequenceRecord.hpp"
 
 #include "ENDFtk/resonanceParameters.hpp"
 

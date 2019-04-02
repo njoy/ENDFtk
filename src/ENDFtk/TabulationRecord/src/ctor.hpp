@@ -7,10 +7,11 @@ TabulationRecord
   try :
     InterpolationBase( C1, C2, L1, L2, std::move( boundaryIndices ),
                        std::move( interpolationSchemeIndices ) ),
-    xValues( std::move(xValues) ),
-    yValues( std::move(yValues) ) {
+                       xValues( std::move( xValues ) ),
+                       yValues( std::move( yValues ) ) {
     verifyXValuesAreSorted( this->xValues );
     verifyVectorSizes( this->xValues, this->yValues );
+    verifyNP( this->boundaries().back(), this->xValues.size() );
   }
   catch ( std::exception& e ) {
     Log::info( "Error encountered while constructing TAB1 record" );
@@ -22,10 +23,10 @@ TabulationRecord
   std::tuple< std::vector< long >, std::vector< long > >&& regions,
   std::tuple< std::vector< double >, std::vector< double > >&& points ) :
   TabulationRecord( C1, C2, L1, L2,
-                        std::move( std::get<0>(regions) ),
-                        std::move( std::get<1>(regions) ),
-                        std::move( std::get<0>(points) ),
-                        std::move( std::get<1>(points) ) ){}
+                    std::move( std::get<0>(regions) ),
+                    std::move( std::get<1>(regions) ),
+                    std::move( std::get<0>(points) ),
+                    std::move( std::get<1>(points) ) ){}
 
 protected:
 
@@ -42,7 +43,8 @@ TabulationRecord
   Iterator& it, const Iterator& end, long& lineNumber,
   int MAT, int MF, int MT  ) :
   TabulationRecord( std::move( interpolation ),
-                        readPairs( interpolation.N2(), it, end, lineNumber, MAT, MF, MT ) ) {}
+                    readPairs( interpolation.N2(), it, end,
+                               lineNumber, MAT, MF, MT ) ) {}
 
 public:
 
@@ -50,7 +52,7 @@ template< typename Iterator >
 TabulationRecord( Iterator& it, const Iterator& end, long& lineNumber,
                       int MAT, int MF, int MT )
   try: TabulationRecord( InterpolationBase( it, end, lineNumber, MAT, MF, MT ),
-                             it, end, lineNumber, MAT, MF, MT ) {}
+                         it, end, lineNumber, MAT, MF, MT ) {}
   catch ( IllegalN2& e ) {
     Log::error( "Illegal NP value encountered" );
     Log::info( "NP (or number of pairs) must be greater than or equal to 1" );

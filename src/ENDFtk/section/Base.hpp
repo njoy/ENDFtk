@@ -1,30 +1,20 @@
-class Base {
-public:
+class Base : public BaseWithoutMT< Base > {
+
   /* fields */
-  int sectionNo;
-  int ZA_;
-  double atomicWeightRatio_;
-  
-  /* ctor */
-#include "ENDFtk/section/Base/src/ctor.hpp"
+  int MT_;
 
-  /* methods */
-  int& MT() { return this->sectionNo; }
+protected:
   
-  int MT() const { return const_cast< Base* >( this )->MT(); }
+  /* constructor */
+  #include "ENDFtk/section/Base/src/ctor.hpp"
 
-  int& ZA() { return this->ZA_; }
-  
-  int ZA() const { return const_cast< Base* >( this )->ZA(); }
+public:
 
-  double& AWR() { return this->atomicWeightRatio_; }
-  
-  double AWR() const { return const_cast< Base* >( this )->AWR(); }
-  
-  double& atomicWeightRatio() { return this->AWR(); }
-  
-  double atomicWeightRatio() const { return this->AWR(); }
-
-#include "ENDFtk/section/Base/src/readSEND.hpp"
-
+  /* get methods */
+  int sectionNumber() const { return this->MT_; }
+  using BaseWithoutMT::MT;
+  using BaseWithoutMT::ZA;
+  using BaseWithoutMT::AWR;
+  using BaseWithoutMT::atomicWeightRatio;
+  using BaseWithoutMT::readSEND;
 };

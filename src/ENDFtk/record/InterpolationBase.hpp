@@ -13,7 +13,6 @@ class InterpolationBase {
   std::vector< long > interpolationSchemeIndices;
 
   /* auxiliary methods */
-#include "ENDFtk/record/InterpolationBase/src/verifyN1.hpp"
 #include "ENDFtk/record/InterpolationBase/src/verifyN2.hpp"
 #include "ENDFtk/record/InterpolationBase/src/verifyTail.hpp"
 #include "ENDFtk/record/InterpolationBase/src/verifyVectorSizes.hpp"
