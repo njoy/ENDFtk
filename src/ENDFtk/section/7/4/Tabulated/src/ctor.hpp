@@ -1,11 +1,18 @@
+private:
 /** 
  *  @brief Constructor
  *
  *  @param[in] sequence   the interpolation sequence record
  */
 Tabulated( InterpolationSequenceRecord< BetaValue >&& sequence ) :
-  data_( std::move( sequence ) ) {}
+  data_( std::move( sequence ) ) {
+  
+  //! @todo verify number of beta versus NB
+  //! @todo verify the same temperature in each BetaValue
+  //! @todo verify the same temperature interpolants in each BetaValue
+}
 
+  public:
 /** 
  *  @brief Constructor
  *
@@ -16,12 +23,18 @@ Tabulated( InterpolationSequenceRecord< BetaValue >&& sequence ) :
  */
 Tabulated( std::vector< long >&& boundaries,
            std::vector< long >&& interpolants,
-           std::vector< BetaValue >&& betas ) :
-  Tabulated( InterpolationSequenceRecord< BetaValue >(
-                    InterpolationRecord( 0.0, 0.0, 0, 0,
-                                         std::move( boundaries ),
-                                         std::move( interpolants ) ),
-                    std::move( betas ) ) ) {};
+           std::vector< BetaValue >&& betas )
+  try : Tabulated( InterpolationSequenceRecord< BetaValue >(
+                     InterpolationRecord( 0.0, 0.0, 0, 0,
+                                          std::move( boundaries ),
+                                          std::move( interpolants ) ),
+                     std::move( betas ) ) ) {}
+  catch ( std::exception& e ) {
+
+    Log::info( "Encountered error while constructing tabulated thermal "
+               "scattering law" );
+    throw;
+  }
 
 /** 
  *  @brief Constructor (from a buffer)
@@ -41,7 +54,13 @@ Tabulated( Iterator& begin,
            long& lineNumber,
            int MAT,
            int MF,
-           int MT ) :
-  Tabulated( InterpolationSequenceRecord< BetaValue >( begin, end, lineNumber,
-                                                       MAT, MF, MT ) ) {}
+           int MT )
+  try : Tabulated(
+          InterpolationSequenceRecord< BetaValue >( begin, end, lineNumber,
+                                                    MAT, MF, MT ) ) {}
+  catch ( std::exception& e ) {
 
+    Log::info( "Encountered error while constructing tabulated thermal "
+               "scattering law" );
+    throw;
+  }

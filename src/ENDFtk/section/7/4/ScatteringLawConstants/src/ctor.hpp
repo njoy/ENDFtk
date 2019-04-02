@@ -1,10 +1,9 @@
+private:
 /** 
- *  @brief Constructor
+ *  @brief Private intermediate constructor
  *
  *  The number of values in the list are checked against the number of
  *  non-principal scatterers ns (the N2 value on the ListRecord).
- *
- *  @param[in] list   the ListRecord to be moved into the object
  */
 ScatteringLawConstants( ListRecord&& list ) :
   ListRecord( std::move( list ) ) {
@@ -12,6 +11,7 @@ ScatteringLawConstants( ListRecord&& list ) :
   verifySize( this->NI(), this->NS() );
 };
 
+public:
 /** 
  *  @brief Constructor
  *
@@ -23,9 +23,15 @@ ScatteringLawConstants( ListRecord&& list ) :
  *                    values)
  */
 ScatteringLawConstants( int lln, int ns,
-                        std::vector< double >&& list ) :
-  ScatteringLawConstants( ListRecord( 0.0, 0.0, lln, 0, ns,
-                                      std::move( list ) ) ) {};
+                        std::vector< double >&& list )
+  try : ScatteringLawConstants( ListRecord( 0.0, 0.0, lln, 0, ns,
+                                            std::move( list ) ) ) {}
+  catch ( std::exception& e ) {
+
+    Log::info( "Encountered error while constructing thermal scattering "
+               "constants" );
+    throw;
+  }
 
 /** 
  *  @brief Constructor (only for principal scatterer)
@@ -42,10 +48,16 @@ ScatteringLawConstants( int lln, int ns,
  */
 ScatteringLawConstants( int lln, double epsilon, double emax,
                         double xs, double awr, 
-                        unsigned int natoms ) :
-  ScatteringLawConstants( ListRecord( 0.0, 0.0, lln, 0, 0,
-                                      { xs, epsilon, awr,
-                                        emax, 0.0, double( natoms ) } ) ) {};
+                        unsigned int natoms )
+  try : ScatteringLawConstants(
+            ListRecord( 0.0, 0.0, lln, 0, 0,
+                        { xs, epsilon, awr, emax, 0.0, double( natoms ) } ) ) {}
+  catch ( std::exception& e ) {
+
+    Log::info( "Encountered error while constructing thermal scattering "
+               "constants" );
+    throw;
+  }
 
 /** 
  *  @brief Constructor
@@ -71,14 +83,20 @@ ScatteringLawConstants( int lln, int ns, double epsilon, double emax,
                         std::vector< double >&& xs,
                         std::vector< double >&& awr,
                         std::vector< unsigned int >&& natoms,
-                        std::vector< unsigned int >&& types ) :
-  ScatteringLawConstants(
-    ListRecord( 0.0, 0.0, lln, 0, ns,
-                std::move( generateList( ns, epsilon, emax,
-                                         std::move( xs ),
-                                         std::move( awr ),
-                                         std::move( natoms ),
-                                         std::move( types ) ) ) ) ) {};
+                        std::vector< unsigned int >&& types )
+  try : ScatteringLawConstants(
+          ListRecord( 0.0, 0.0, lln, 0, ns,
+                      std::move( generateList( ns, epsilon, emax,
+                                               std::move( xs ),
+                                               std::move( awr ),
+                                               std::move( natoms ),
+                                               std::move( types ) ) ) ) ) {}
+  catch ( std::exception& e ) {
+
+    Log::info( "Encountered error while constructing thermal scattering "
+               "constants" );
+    throw;
+  }
 
 /** 
  *  @brief Constructor (from a buffer)
@@ -94,6 +112,12 @@ ScatteringLawConstants( int lln, int ns, double epsilon, double emax,
  */
 template< typename Iterator >
 ScatteringLawConstants( Iterator& it, const Iterator& end, long& lineNumber,
-                      int MAT, int MF, int MT ) :
-  ScatteringLawConstants( ListRecord( it, end, lineNumber, MAT, MF, MT ) ) {}
+                      int MAT, int MF, int MT )
+  try : ScatteringLawConstants( ListRecord( it, end, lineNumber,
+                                            MAT, MF, MT ) ) {}
+  catch ( std::exception& e ) {
 
+    Log::info( "Encountered error while reading thermal scattering "
+               "constants" );
+    throw;
+  }

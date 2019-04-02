@@ -5,7 +5,7 @@
  *  The BetaValue class is used to represent the temperature dependent
  *  S(alpha,beta,T) data for a fixed value of beta from ENDF section MF7/MT4.
  *  It contains a grid of alpha values with a corresponding S(T) grid for each
- *  temperature as well as interpolation interformation as a function of alpha
+ *  temperature as well as interpolation information as a function of alpha
  *  and temperature.
  *
  *  Note: temperature interpolation of S(alpha,beta) is discouraged.
@@ -43,10 +43,22 @@ public:
   int LT() const { return this->alphas_.L1(); }
 
   /**
+   *  @brief Return the LT flag indicating the temperature dependence (equal to
+   *         NT - 1)
+   */
+  int temperatureDependenceFlag() const { return this->LT(); }
+
+  /**
    *  @brief Return the number of temperatures NT for which thermal scattering
    *         law data is given
    */
   int NT() const { return this->temperatures_.size() + 1; }
+
+  /**
+   *  @brief Return the number of temperatures NT for which thermal scattering
+   *         law data is given
+   */
+  int numberTemperatures() const { return this->NT(); }
 
   /** 
    *  @brief Return the number of interpolation ranges on the alpha grid
@@ -57,6 +69,11 @@ public:
    *  @brief Return the number of alpha values
    */
   long NA() const { return this->alphas_.NP(); }
+
+  /** 
+   *  @brief Return the number of alpha values
+   */
+  long numberAlphas() const { return this->NA(); }
 
   /** 
    *  @brief Return interpolation type for each range on the alpha grid
@@ -94,6 +111,12 @@ public:
                ranges::view::transform( [] ( const auto& v )
                                            { return v.L1(); } );
   }
+
+  /**
+   *  @brief Return the temperature interpolation flags (LT values will be
+   *         given)
+   */
+  auto temperatureInterpolants() const { return this->LI(); }
 
   /**
    *  @brief Return the thermal scattering law values as an array, one for each

@@ -9,12 +9,18 @@
 EffectiveTemperature( std::vector< long >&& boundaries,
                       std::vector< long >&& interpolants,
                       std::vector< double >&& moderatorTemperatures,
-                      std::vector< double >&& effectiveTemperatures ) :
-  TabulationRecord( 0.0, 0.0, 0, 0,
-                    std::move( boundaries ),
-                    std::move( interpolants ),
-                    std::move( moderatorTemperatures ),
-                    std::move( effectiveTemperatures ) ) {}
+                      std::vector< double >&& effectiveTemperatures )
+  try : TabulationRecord( 0.0, 0.0, 0, 0,
+                          std::move( boundaries ),
+                          std::move( interpolants ),
+                          std::move( moderatorTemperatures ),
+                          std::move( effectiveTemperatures ) ) {}
+  catch ( std::exception& e ) {
+
+    Log::info( "Encountered error while constructing effective temperature "
+               "data" );
+    throw;
+  }
 
 /** 
  *  @brief Constructor (from a buffer)
@@ -30,6 +36,12 @@ EffectiveTemperature( std::vector< long >&& boundaries,
  */
 template< typename Iterator >
 EffectiveTemperature( Iterator& begin, const Iterator& end,
-                      long& lineNumber, int MAT, int MF, int MT ) :
-  TabulationRecord( begin, end, lineNumber, MAT, MF, MT ) {}
+                      long& lineNumber, int MAT, int MF, int MT )
+  try : TabulationRecord( begin, end, lineNumber, MAT, MF, MT ) {}
+  catch ( std::exception& e ) {
+
+    Log::info( "Encountered error while reading effective temperature "
+               "data" );
+    throw;
+  }
 

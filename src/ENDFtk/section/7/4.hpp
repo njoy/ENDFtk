@@ -51,9 +51,19 @@ public:
   int LAT() const { return this->lat_; }
 
   /**
+   *  @brief Return the LAT flag (temperature flag for alpha and beta grid)
+   */
+  int temperatureOption() const { return this->LAT(); }
+
+  /**
    *  @brief Return the LASYM flag (S(alpha,beta) is symmetric or not)
    */
   int LASYM() const { return this->lasym_; }
+
+  /**
+   *  @brief Return the LASYM flag (S(alpha,beta) is symmetric or not)
+   */
+  int symmetryOption() const { return this->LASYM(); }
 
   /**
    *  @brief Return the thermal scattering law constants for the principal and

@@ -1,12 +1,9 @@
+private:
 /** 
- *  @brief Constructor (components)
+ *  @brief Private intermediate constructor
  *
  *  The number of entries in the temperatures array is checked against the
  *  temperature dependence flag LT (the L1 value on the TabulationRecord).
- *
- *  @param[in] alphas         the TabulationRecord to be moved into the object
- *  @param[in] temperatures   an array of ListRecord, one for each additional
- *                            temperature to be moved into the object
  */
 BetaValue( TabulationRecord&& alphas,
            std::vector< ListRecord >&& temperatures ) :
@@ -21,6 +18,7 @@ BetaValue( TabulationRecord&& alphas,
   }
 }
 
+  public:
 /** 
  *  @brief Constructor (multiple temperatures)
  *
@@ -41,17 +39,23 @@ BetaValue( double beta,
            std::vector< double >&& temperatures,
            std::vector< long >&& li,
            std::vector< double >&& alphas,
-           std::vector< std::vector< double > >&& sab ) :
-  BetaValue( TabulationRecord( temperatures[0], beta,
-                               temperatures.size() - 1, 0,
-                               std::move( boundaries ),
-                               std::move( interpolants ),
-                               std::move( alphas ),
-                               std::move( sab[0] ) ),
-             generateTemperatures( beta,
-                                   std::move( temperatures ),
-                                   std::move( li ),
-                                   std::move( sab ) ) ) {}
+           std::vector< std::vector< double > >&& sab )
+  try : BetaValue( TabulationRecord( temperatures[0], beta,
+                                     temperatures.size() - 1, 0,
+                                     std::move( boundaries ),
+                                     std::move( interpolants ),
+                                     std::move( alphas ),
+                                     std::move( sab[0] ) ),
+                   generateTemperatures( beta,
+                                         std::move( temperatures ),
+                                         std::move( li ),
+                                         std::move( sab ) ) ) {}
+  catch ( std::exception& e ) {
+
+    Log::info( "Encountered error while constructing S(a,b) data for a given "
+               "beta value" );
+    throw;
+  }
 
 /** 
  *  @brief Constructor (single temperature)
@@ -69,12 +73,18 @@ BetaValue( double temperature, double beta,
            std::vector< long >&& boundaries,
            std::vector< long >&& interpolants,
            std::vector< double >&& alphas,
-           std::vector< double >&& sab ) :
-  BetaValue( TabulationRecord( temperature, beta, 0, 0,
-                               std::move( boundaries ),
-                               std::move( interpolants ),
-                               std::move( alphas ),
-                               std::move( sab ) ), {} ) {}
+           std::vector< double >&& sab )
+  try : BetaValue( TabulationRecord( temperature, beta, 0, 0,
+                                     std::move( boundaries ),
+                                     std::move( interpolants ),
+                                     std::move( alphas ),
+                                     std::move( sab ) ), {} ) {}
+  catch ( std::exception& e ) {
+
+    Log::info( "Encountered error while constructing S(a,b) data for a given "
+               "beta value" );
+    throw;
+  }
 
 private:
 /** 
@@ -111,7 +121,12 @@ BetaValue( Iterator& begin,
            long& lineNumber,
            int MAT,
            int MF,
-           int MT ) :
-  BetaValue( TabulationRecord( begin, end, lineNumber, MAT, MF, MT ),
-             begin, end, lineNumber, MAT, MF, MT ) {}
+           int MT )
+  try :BetaValue( TabulationRecord( begin, end, lineNumber, MAT, MF, MT ),
+                  begin, end, lineNumber, MAT, MF, MT ) {}
+  catch ( std::exception& e ) {
 
+    Log::info( "Encountered error while constructing S(a,b) data for a given "
+               "beta value" );
+    throw;
+  }

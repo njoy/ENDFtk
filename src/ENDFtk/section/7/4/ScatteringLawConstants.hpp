@@ -29,14 +29,29 @@ public:
   int LLN() const { return ListRecord::L1(); }
 
   /**
+   *  @brief Return the LLN flag (either S or ln(S) is stored)
+   */
+  int sabStorageType() const { return this->LLN(); }
+
+  /**
    *  @brief Return the size of the B array, equal to 6*(NS+1)
    */
   long NI() const { return ListRecord::NPL(); }
 
   /**
+   *  @brief Return the size of the B array, equal to 6*(NS+1)
+   */
+  long numberConstants() const { return this->NI(); }
+
+  /**
    *  @brief Return the number of non-principal scattering atom types
    */
   long NS() const { return ListRecord::N2(); }
+
+  /**
+   *  @brief Return the number of non-principal scattering atom types
+   */
+  long numberNonPrincipalScatterers() const { return this->NS(); }
 
   /**
    *  @brief Return the value of epsilon = E/kT, stored in B(2)

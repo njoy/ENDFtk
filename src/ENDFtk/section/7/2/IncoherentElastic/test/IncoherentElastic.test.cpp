@@ -36,7 +36,7 @@ SCENARIO( "IncoherentElastic" ) {
       } // THEN
     } // WHEN
 
-    WHEN( "the data is read from a string/stream with a valid SEND" ) {
+    WHEN( "the data is read from a string/stream" ) {
 
       std::string string = chunk();
       auto begin = string.begin();
@@ -97,5 +97,5 @@ void verifyChunk( const IncoherentElastic& chunk ) {
   REQUIRE( 9.093191e+0 == Approx( chunk.debyeWallerValues()[1] ) );
   REQUIRE( 9.828159e+0 == Approx( chunk.debyeWallerValues()[2] ) );
 
-  REQUIRE( 4 == chunk.NC() );
+  REQUIRE( 3 == chunk.NC() );
 }

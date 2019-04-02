@@ -10,7 +10,7 @@ using Tabulated = section::Type< 7, 4 >::Tabulated;
 using BetaValue = section::Type< 7, 4 >::Tabulated::BetaValue;
 
 std::string chunkWithOneTemperature();
-std::string chunkWithTwoTemperatures();
+void verifyChunkWithOneTemperature( const Tabulated& );
 std::string invalidLT();
 
 SCENARIO( "Tabulated" ) {
@@ -18,195 +18,57 @@ SCENARIO( "Tabulated" ) {
   GIVEN( "valid data for a Tabulated thermal scattering law with one "
          "temperature" ) {
 
-    std::vector< long > boundaries = { 2 };
-    std::vector< long > interpolants = { 4 };
-    std::vector< BetaValue > betas = {
-        BetaValue( 293.6, 0.0, { 5 }, { 4 },
-                   { 4.423802e-3, 4.649528e-3, 4.886772e-3, 8.418068e+1,
-                     8.847604e+1 },
-                   { 2.386876e-4, 2.508466e-4, 2.636238e-4, 1.306574e-9,
-                     5.29573e-10 } ),
-        BetaValue( 293.6, 3.952570e-2, { 5 }, { 2 },
-                   { 4.423802e-3, 4.649528e-3, 4.886772e-3, 8.418068e+1,
-                     8.847604e+1 },
-                   { 2.386694e-4, 2.508273e-4, 2.636238e-4, 2.770291e-4,
-                     2.911373e-4 } ) };
+    WHEN( "the data is given explicitly" ) {
 
-    THEN( "a Tabulated can be constructed using a TabulationRecord" ) {
-      Tabulated chunk( std::move( boundaries ), std::move( interpolants ),
-                       std::move( betas ) );
+      std::vector< long > boundaries = { 2 };
+      std::vector< long > interpolants = { 4 };
+      std::vector< BetaValue > betas = {
+          BetaValue( 293.6, 0.0, { 5 }, { 4 },
+                     { 4.423802e-3, 4.649528e-3, 4.886772e-3, 8.418068e+1,
+                       8.847604e+1 },
+                     { 2.386876e-4, 2.508466e-4, 2.636238e-4, 1.306574e-9,
+                       5.29573e-10 } ),
+          BetaValue( 293.6, 3.952570e-2, { 5 }, { 2 },
+                     { 4.423802e-3, 4.649528e-3, 4.886772e-3, 8.418068e+1,
+                       8.847604e+1 },
+                     { 2.386694e-4, 2.508273e-4, 2.636238e-4, 2.770291e-4,
+                       2.911373e-4 } ) };
 
-      REQUIRE( 1 == chunk.NR() );
-      REQUIRE( 2 == chunk.NB() );
-      REQUIRE( 1 == chunk.boundaries().size() );
-      REQUIRE( 2 == chunk.boundaries()[0] );
-      REQUIRE( 1 == chunk.interpolants().size() );
-      REQUIRE( 4 == chunk.interpolants()[0] );
+      THEN( "a Tabulated can be constructed using a TabulationRecord" ) {
 
-      auto value = chunk.betas()[0];
-      REQUIRE( 0.0 == Approx( value.beta() ) );
-      REQUIRE( 0 == value.LT() );
-      REQUIRE( 1 == value.NT() );
+        Tabulated chunk( std::move( boundaries ), std::move( interpolants ),
+                         std::move( betas ) );
+        verifyChunkWithOneTemperature( chunk );
+      } // THEN
+    } // WHEN
 
-      REQUIRE( 1 == value.NR() );
-      REQUIRE( 5 == value.NA() );
-      REQUIRE( 1 == value.boundaries().size() );
-      REQUIRE( 5 == value.boundaries()[0] );
-      REQUIRE( 1 == value.interpolants().size() );
-      REQUIRE( 4 == value.interpolants()[0] );
+    WHEN( "the data is read from a string/stream" ) {
 
-      REQUIRE( 1 == value.temperatures().size() );
-      REQUIRE( 293.6 == Approx( value.temperatures()[0] ) );
+      std::string string = chunkWithOneTemperature();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
 
-      REQUIRE( 5 == value.alphas().size() );
-      REQUIRE( 4.423802e-3 == Approx( value.alphas()[0] ) );
-      REQUIRE( 4.649528e-3 == Approx( value.alphas()[1] ) );
-      REQUIRE( 4.886772e-3 == Approx( value.alphas()[2] ) );
-      REQUIRE( 8.418068e+1 == Approx( value.alphas()[3] ) );
-      REQUIRE( 8.847604e+1 == Approx( value.alphas()[4] ) );
+      THEN( "a Tabulated can  be constructed and members can be tested" ) {
 
-      REQUIRE( 0 == value.LI().size() );
-
-      REQUIRE( 1 == value.thermalScatteringValues().size() );
-      REQUIRE( 5 == value.thermalScatteringValues()[0].size() );
-      REQUIRE( 2.386876e-4 == Approx( value.thermalScatteringValues()[0][0] ) );
-      REQUIRE( 2.508466e-4 == Approx( value.thermalScatteringValues()[0][1] ) );
-      REQUIRE( 2.636238e-4 == Approx( value.thermalScatteringValues()[0][2] ) );
-      REQUIRE( 1.306574e-9 == Approx( value.thermalScatteringValues()[0][3] ) );
-      REQUIRE( 5.29573e-10 == Approx( value.thermalScatteringValues()[0][4] ) );
-
-      value = chunk.betas()[1];
-      REQUIRE( 3.952570e-2 == Approx( value.beta() ) );
-      REQUIRE( 0 == value.LT() );
-      REQUIRE( 1 == value.NT() );
-
-      REQUIRE( 1 == value.NR() );
-      REQUIRE( 5 == value.NA() );
-      REQUIRE( 1 == value.boundaries().size() );
-      REQUIRE( 5 == value.boundaries()[0] );
-      REQUIRE( 1 == value.interpolants().size() );
-      REQUIRE( 2 == value.interpolants()[0] );
-
-      REQUIRE( 1 == value.temperatures().size() );
-      REQUIRE( 293.6 == Approx( value.temperatures()[0] ) );
-
-      REQUIRE( 5 == value.alphas().size() );
-      REQUIRE( 4.423802e-3 == Approx( value.alphas()[0] ) );
-      REQUIRE( 4.649528e-3 == Approx( value.alphas()[1] ) );
-      REQUIRE( 4.886772e-3 == Approx( value.alphas()[2] ) );
-      REQUIRE( 8.418068e+1 == Approx( value.alphas()[3] ) );
-      REQUIRE( 8.847604e+1 == Approx( value.alphas()[4] ) );
-
-      REQUIRE( 0 == value.LI().size() );
-
-      REQUIRE( 1 == value.thermalScatteringValues().size() );
-      REQUIRE( 5 == value.thermalScatteringValues()[0].size() );
-      REQUIRE( 2.386694e-4 == Approx( value.thermalScatteringValues()[0][0] ) );
-      REQUIRE( 2.508273e-4 == Approx( value.thermalScatteringValues()[0][1] ) );
-      REQUIRE( 2.636238e-4 == Approx( value.thermalScatteringValues()[0][2] ) );
-      REQUIRE( 2.770291e-4 == Approx( value.thermalScatteringValues()[0][3] ) );
-      REQUIRE( 2.911373e-4 == Approx( value.thermalScatteringValues()[0][4] ) );
-
-      REQUIRE( 10 == chunk.NC() );
-    }
+        Tabulated chunk( begin, end, lineNumber, 27, 7, 4 );
+        verifyChunkWithOneTemperature( chunk );
+      } // THEN
+    } // WHEN
   } // GIVEN
 
-  GIVEN( "a string representation of a valid Tabulated thermal "
-         "scattering law" ) {
+  GIVEN( "a valid instance of Tabulated thermal scattering law with one "
+         "temperature" ) {
 
     std::string string = chunkWithOneTemperature();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
 
-    THEN( "a Tabulated can "
-          "be constructed and members can be tested" ) {
-      Tabulated chunk( begin, end, lineNumber, 27, 7, 4 );
-
-      REQUIRE( 1 == chunk.NR() );
-      REQUIRE( 2 == chunk.NB() );
-      REQUIRE( 1 == chunk.boundaries().size() );
-      REQUIRE( 2 == chunk.boundaries()[0] );
-      REQUIRE( 1 == chunk.interpolants().size() );
-      REQUIRE( 4 == chunk.interpolants()[0] );
-
-      auto value = chunk.betas()[0];
-      REQUIRE( 0.0 == Approx( value.beta() ) );
-      REQUIRE( 0 == value.LT() );
-      REQUIRE( 1 == value.NT() );
-
-      REQUIRE( 1 == value.NR() );
-      REQUIRE( 5 == value.NA() );
-      REQUIRE( 1 == value.boundaries().size() );
-      REQUIRE( 5 == value.boundaries()[0] );
-      REQUIRE( 1 == value.interpolants().size() );
-      REQUIRE( 4 == value.interpolants()[0] );
-
-      REQUIRE( 1 == value.temperatures().size() );
-      REQUIRE( 293.6 == Approx( value.temperatures()[0] ) );
-
-      REQUIRE( 5 == value.alphas().size() );
-      REQUIRE( 4.423802e-3 == Approx( value.alphas()[0] ) );
-      REQUIRE( 4.649528e-3 == Approx( value.alphas()[1] ) );
-      REQUIRE( 4.886772e-3 == Approx( value.alphas()[2] ) );
-      REQUIRE( 8.418068e+1 == Approx( value.alphas()[3] ) );
-      REQUIRE( 8.847604e+1 == Approx( value.alphas()[4] ) );
-
-      REQUIRE( 0 == value.LI().size() );
-
-      REQUIRE( 1 == value.thermalScatteringValues().size() );
-      REQUIRE( 5 == value.thermalScatteringValues()[0].size() );
-      REQUIRE( 2.386876e-4 == Approx( value.thermalScatteringValues()[0][0] ) );
-      REQUIRE( 2.508466e-4 == Approx( value.thermalScatteringValues()[0][1] ) );
-      REQUIRE( 2.636238e-4 == Approx( value.thermalScatteringValues()[0][2] ) );
-      REQUIRE( 1.306574e-9 == Approx( value.thermalScatteringValues()[0][3] ) );
-      REQUIRE( 5.29573e-10 == Approx( value.thermalScatteringValues()[0][4] ) );
-
-      value = chunk.betas()[1];
-      REQUIRE( 3.952570e-2 == Approx( value.beta() ) );
-      REQUIRE( 0 == value.LT() );
-      REQUIRE( 1 == value.NT() );
-
-      REQUIRE( 1 == value.NR() );
-      REQUIRE( 5 == value.NA() );
-      REQUIRE( 1 == value.boundaries().size() );
-      REQUIRE( 5 == value.boundaries()[0] );
-      REQUIRE( 1 == value.interpolants().size() );
-      REQUIRE( 2 == value.interpolants()[0] );
-
-      REQUIRE( 1 == value.temperatures().size() );
-      REQUIRE( 293.6 == Approx( value.temperatures()[0] ) );
-
-      REQUIRE( 5 == value.alphas().size() );
-      REQUIRE( 4.423802e-3 == Approx( value.alphas()[0] ) );
-      REQUIRE( 4.649528e-3 == Approx( value.alphas()[1] ) );
-      REQUIRE( 4.886772e-3 == Approx( value.alphas()[2] ) );
-      REQUIRE( 8.418068e+1 == Approx( value.alphas()[3] ) );
-      REQUIRE( 8.847604e+1 == Approx( value.alphas()[4] ) );
-
-      REQUIRE( 0 == value.LI().size() );
-
-      REQUIRE( 1 == value.thermalScatteringValues().size() );
-      REQUIRE( 5 == value.thermalScatteringValues()[0].size() );
-      REQUIRE( 2.386694e-4 == Approx( value.thermalScatteringValues()[0][0] ) );
-      REQUIRE( 2.508273e-4 == Approx( value.thermalScatteringValues()[0][1] ) );
-      REQUIRE( 2.636238e-4 == Approx( value.thermalScatteringValues()[0][2] ) );
-      REQUIRE( 2.770291e-4 == Approx( value.thermalScatteringValues()[0][3] ) );
-      REQUIRE( 2.911373e-4 == Approx( value.thermalScatteringValues()[0][4] ) );
-
-      REQUIRE( 10 == chunk.NC() );
-    }
-  } // GIVEN
-
-  GIVEN( "a valid instance of Tabulated thermal scattering law" ) {
-
-    std::string string = chunkWithOneTemperature();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
     Tabulated chunk(begin, end, lineNumber, 27, 7, 4 );
 
     THEN( "it can be printed" ) {
+
       std::string buffer;
       auto output = std::back_inserter( buffer );
       chunk.print( output, 27, 7, 4 );
@@ -214,16 +76,21 @@ SCENARIO( "Tabulated" ) {
     }
   } // GIVEN
 
-  GIVEN( "a string representation of a Tabulated thermal scattering law"
-         " with an invalid LT" ){
-    std::string string = invalidLT();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
+  GIVEN( "invalid data" ) {
 
-    THEN( "an exception is thrown upon construction" ){
-      REQUIRE_THROWS( Tabulated( begin, end, lineNumber, 27, 7, 4 ) );
-    }
+    WHEN( "a string representation of a Tabulated thermal scattering law"
+           " with an invalid LT is used" ) {
+
+      std::string string = invalidLT();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      THEN( "an exception is thrown upon construction" ) {
+
+        REQUIRE_THROWS( Tabulated( begin, end, lineNumber, 27, 7, 4 ) );
+      } // THEN
+    } // WHEN
   } // GIVEN
 } // SCENARIO
 
@@ -241,6 +108,91 @@ std::string chunkWithOneTemperature() {
     " 8.418068+1 2.770291-4 8.847604+1 2.911373-4                        27 7  4     \n";
 }
 
+void verifyChunkWithOneTemperature( const Tabulated& chunk ) {
+
+  REQUIRE( 1 == chunk.NR() );
+  REQUIRE( 2 == chunk.NB() );
+  REQUIRE( 2 == chunk.numberBetas() );
+  REQUIRE( 1 == chunk.boundaries().size() );
+  REQUIRE( 2 == chunk.boundaries()[0] );
+  REQUIRE( 1 == chunk.interpolants().size() );
+  REQUIRE( 4 == chunk.interpolants()[0] );
+
+  auto value = chunk.betas()[0];
+  REQUIRE( 0.0 == Approx( value.beta() ) );
+  REQUIRE( 0 == value.LT() );
+  REQUIRE( 0 == value.temperatureDependenceFlag() );
+  REQUIRE( 1 == value.NT() );
+  REQUIRE( 1 == value.numberTemperatures() );
+
+  REQUIRE( 1 == value.NR() );
+  REQUIRE( 5 == value.NA() );
+  REQUIRE( 5 == value.numberAlphas() );
+  REQUIRE( 1 == value.boundaries().size() );
+  REQUIRE( 5 == value.boundaries()[0] );
+  REQUIRE( 1 == value.interpolants().size() );
+  REQUIRE( 4 == value.interpolants()[0] );
+
+  REQUIRE( 1 == value.temperatures().size() );
+  REQUIRE( 293.6 == Approx( value.temperatures()[0] ) );
+
+  REQUIRE( 5 == value.alphas().size() );
+  REQUIRE( 4.423802e-3 == Approx( value.alphas()[0] ) );
+  REQUIRE( 4.649528e-3 == Approx( value.alphas()[1] ) );
+  REQUIRE( 4.886772e-3 == Approx( value.alphas()[2] ) );
+  REQUIRE( 8.418068e+1 == Approx( value.alphas()[3] ) );
+  REQUIRE( 8.847604e+1 == Approx( value.alphas()[4] ) );
+
+  REQUIRE( 0 == value.LI().size() );
+  REQUIRE( 0 == value.temperatureInterpolants().size() );
+
+  REQUIRE( 1 == value.thermalScatteringValues().size() );
+  REQUIRE( 5 == value.thermalScatteringValues()[0].size() );
+  REQUIRE( 2.386876e-4 == Approx( value.thermalScatteringValues()[0][0] ) );
+  REQUIRE( 2.508466e-4 == Approx( value.thermalScatteringValues()[0][1] ) );
+  REQUIRE( 2.636238e-4 == Approx( value.thermalScatteringValues()[0][2] ) );
+  REQUIRE( 1.306574e-9 == Approx( value.thermalScatteringValues()[0][3] ) );
+  REQUIRE( 5.29573e-10 == Approx( value.thermalScatteringValues()[0][4] ) );
+
+  value = chunk.betas()[1];
+  REQUIRE( 3.952570e-2 == Approx( value.beta() ) );
+  REQUIRE( 0 == value.LT() );
+  REQUIRE( 0 == value.temperatureDependenceFlag() );
+  REQUIRE( 1 == value.NT() );
+  REQUIRE( 1 == value.numberTemperatures() );
+
+  REQUIRE( 1 == value.NR() );
+  REQUIRE( 5 == value.NA() );
+  REQUIRE( 5 == value.numberAlphas() );
+  REQUIRE( 1 == value.boundaries().size() );
+  REQUIRE( 5 == value.boundaries()[0] );
+  REQUIRE( 1 == value.interpolants().size() );
+  REQUIRE( 2 == value.interpolants()[0] );
+
+  REQUIRE( 1 == value.temperatures().size() );
+  REQUIRE( 293.6 == Approx( value.temperatures()[0] ) );
+
+  REQUIRE( 5 == value.alphas().size() );
+  REQUIRE( 4.423802e-3 == Approx( value.alphas()[0] ) );
+  REQUIRE( 4.649528e-3 == Approx( value.alphas()[1] ) );
+  REQUIRE( 4.886772e-3 == Approx( value.alphas()[2] ) );
+  REQUIRE( 8.418068e+1 == Approx( value.alphas()[3] ) );
+  REQUIRE( 8.847604e+1 == Approx( value.alphas()[4] ) );
+
+  REQUIRE( 0 == value.LI().size() );
+  REQUIRE( 0 == value.temperatureInterpolants().size() );
+
+  REQUIRE( 1 == value.thermalScatteringValues().size() );
+  REQUIRE( 5 == value.thermalScatteringValues()[0].size() );
+  REQUIRE( 2.386694e-4 == Approx( value.thermalScatteringValues()[0][0] ) );
+  REQUIRE( 2.508273e-4 == Approx( value.thermalScatteringValues()[0][1] ) );
+  REQUIRE( 2.636238e-4 == Approx( value.thermalScatteringValues()[0][2] ) );
+  REQUIRE( 2.770291e-4 == Approx( value.thermalScatteringValues()[0][3] ) );
+  REQUIRE( 2.911373e-4 == Approx( value.thermalScatteringValues()[0][4] ) );
+
+  REQUIRE( 10 == chunk.NC() );
+}
+
 std::string invalidLT() {
   return
     " 0.000000+0 0.000000+0          0          0          1          2  27 7  4     \n"
@@ -254,4 +206,3 @@ std::string invalidLT() {
     " 4.423802-3 2.386694-4 4.649528-3 2.508273-4 4.886772-3 2.636238-4  27 7  4     \n"
     " 8.418068+1 2.770291-4 8.847604+1 2.911373-4                        27 7  4     \n";
 }
-

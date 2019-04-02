@@ -1,6 +1,6 @@
 /**
  *  @class
- *  @brief Effective temperatures for the shortcollision-time approximation
+ *  @brief Effective temperatures for the short collision-time approximation
  *
  *  The EffectiveTemperature class is used to represent the temperature
  *  dependent effective temperature for a scattering atom (both principal or
@@ -17,6 +17,7 @@ public:
 
   /* get methods */
   long NT() const { return TabulationRecord::NP(); }
+  long numberTemperatures() const { return this->NT(); }
   using TabulationRecord::NR;
   auto moderatorTemperatures() const { return TabulationRecord::x(); }
   auto effectiveTemperatures() const { return TabulationRecord::y(); }

@@ -42,6 +42,11 @@ public:
   long NB() const { return this->data_.tab2().NZ(); }
 
   /** 
+   *  @brief Return the number of beta values
+   */
+  long numberBetas() const { return this->NB(); }
+
+  /** 
    *  @brief Return the beta values and associated S(alpha,T) functions
    */
   auto betas() const { return this->data_.records(); }
