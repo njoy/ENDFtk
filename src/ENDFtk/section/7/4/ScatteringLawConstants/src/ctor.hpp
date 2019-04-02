@@ -86,11 +86,11 @@ ScatteringLawConstants( int lln, int ns, double epsilon, double emax,
                         std::vector< unsigned int >&& types )
   try : ScatteringLawConstants(
           ListRecord( 0.0, 0.0, lln, 0, ns,
-                      std::move( generateList( ns, epsilon, emax,
-                                               std::move( xs ),
-                                               std::move( awr ),
-                                               std::move( natoms ),
-                                               std::move( types ) ) ) ) ) {}
+                      generateList( ns, epsilon, emax,
+                                    std::move( xs ),
+                                    std::move( awr ),
+                                    std::move( natoms ),
+                                    std::move( types ) ) ) ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing thermal scattering "
