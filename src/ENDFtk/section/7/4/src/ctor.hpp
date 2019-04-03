@@ -19,7 +19,7 @@ Type( double zaid, double awr, int lat, int lasym,
       EffectiveTemperature&& principalTemperature,
       std::vector< std::optional< EffectiveTemperature > >
           secondaryTemperatures = {} ) :
-  Base( zaid, awr, 4 ), lat_( lat ), lasym_( lasym ),
+  BaseWithoutMT( zaid, awr ), lat_( lat ), lasym_( lasym ),
   b_( std::move( constants ) ), law_( std::move( law ) ),
   principal_( std::move( principalTemperature ) ),
   secondary_( std::move( secondaryTemperatures ) ) {

@@ -1,5 +1,7 @@
 template<>
-class Type< 7, 4 > : protected Base {
+class Type< 7, 4 > : protected BaseWithoutMT< Type< 7, 4 > > {
+
+  friend BaseWithoutMT< Type< 7, 4 > >;
 
 public:
 
@@ -97,8 +99,13 @@ public:
 
   #include "ENDFtk/section/7/4/src/print.hpp"
 
-  using Base::MT;
-  using Base::ZA;
-  using Base::atomicWeightRatio;
-  using Base::AWR;
+  /**
+   *  @brief Return the MT number of the section
+   */
+  static constexpr int sectionNumber() { return 4; }
+
+  using BaseWithoutMT::MT;
+  using BaseWithoutMT::ZA;
+  using BaseWithoutMT::atomicWeightRatio;
+  using BaseWithoutMT::AWR;
 };
