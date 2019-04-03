@@ -1,5 +1,7 @@
 template<>
-class Type< 8, 457 > : protected Base {
+class Type< 8, 457 > : protected BaseWithoutMT< Type< 8, 457 > > {
+
+  friend BaseWithoutMT< Type< 8, 457 > >;
 
 public:
 
@@ -34,22 +36,42 @@ public:
   /**
    *  @brief Return the excited state number
    */
-  unsigned int excitedState() const { return this->lis_; }
+  unsigned int LIS() const { return this->lis_; }
+
+  /**
+   *  @brief Return the excited state number
+   */
+  unsigned int excitedState() const { return this->LIS(); }
 
   /**
    *  @brief Return the isomeric state number
    */
-  unsigned int isomericState() const { return this->liso_; }
+  unsigned int LISO() const { return this->liso_; }
+
+  /**
+   *  @brief Return the isomeric state number
+   */
+  unsigned int isomericState() const { return this->LISO(); }
 
   /**
    *  @brief Return the stability flag
    */
-  bool isStable() const { return this->nst_; }
+  bool NST() const { return this->nst_; }
 
   /**
-   *  @brief Return the number of spectra
+   *  @brief Return the stability flag
+   */
+  bool isStable() const { return this->NST(); }
+
+  /**
+   *  @brief Return the number of decay spectra
    */
   unsigned int NSP() const { return this->spectra_.size(); }
+
+  /**
+   *  @brief Return the number of decay spectra
+   */
+  unsigned int numberDecaySpectra() const { return this->NSP(); }
 
   /**
    *  @brief Return the half life and its uncertainty
@@ -90,8 +112,13 @@ public:
   #include "ENDFtk/section/8/457/src/NC.hpp"
   #include "ENDFtk/section/8/457/src/print.hpp"
 
-  using Base::MT;
-  using Base::ZA;
-  using Base::atomicWeightRatio;
-  using Base::AWR;
+  /**
+   *  @brief Return the MT number of the section
+   */
+  static constexpr int sectionNumber() { return 457; }
+
+  using BaseWithoutMT::MT;
+  using BaseWithoutMT::ZA;
+  using BaseWithoutMT::atomicWeightRatio;
+  using BaseWithoutMT::AWR;
 };
