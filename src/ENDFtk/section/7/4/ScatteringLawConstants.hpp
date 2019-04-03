@@ -16,6 +16,7 @@ class ScatteringLawConstants : protected ListRecord {
   /* auxiliary functions */
   #include "ENDFtk/section/7/4/ScatteringLawConstants/src/generateList.hpp"
   #include "ENDFtk/section/7/4/ScatteringLawConstants/src/verifySize.hpp"
+  #include "ENDFtk/section/7/4/ScatteringLawConstants/src/checkLLN.hpp"
 
 public:
   /* constructor */
@@ -101,7 +102,7 @@ public:
 
   /**
    *  @brief Return the analytical function type for each non-principal
-   *         scattering atom type, stored in B(7) and B(13)
+   *         scattering atom type, stored in B(7), B(13) and B(19)
    */
   auto analyticalFunctionTypes() const {
     return ranges::view::drop_exactly( ListRecord::list(), 6 )

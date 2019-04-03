@@ -15,6 +15,7 @@ std::string chunkWithBothPrincipalAndSecondaryScatterer();
 void verifyChunkWithBothPrincipalAndSecondaryScatterer(
        const ScatteringLawConstants& );
 std::string invalidSize();
+std::string invalidLLN();
 
 SCENARIO( "ScatteringLawConstants" ) {
 
@@ -197,6 +198,39 @@ SCENARIO( "ScatteringLawConstants" ) {
                                                 27, 7, 4 ) );
       } // THEN
     } // WHEN
+
+    WHEN( "invalid LLN values are given" ) {
+
+      std::vector< int > invalid = { -1, 2, 5, 10 };
+      
+      THEN( "an exception is thrown" ){
+
+        for ( auto lln : invalid ) {
+
+        int ns = 0;
+        std::vector< double > values = { 6.153875e+0, 1.976285e+2,
+                                         8.934780e+0, 5.000001e+0,
+                                         0.000000e+0, 1.000000e+0 };
+
+        REQUIRE_THROWS(
+          ScatteringLawConstants( lln, ns, std::move( values ) ) );
+        } // THEN
+      } // THEN
+    } // WHEN
+
+    WHEN( "a string with an invalid LLN is used" ) {
+
+      std::string string = invalidLLN();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( ScatteringLawConstants( begin, end, lineNumber,
+                                                27, 7, 4 ) );
+      } // THEN
+    } // WHEN
   } // GIVEN
 
   GIVEN( "a valid instance of ScatteringLawConstants with only a principal "
@@ -304,6 +338,13 @@ void verifyChunkWithBothPrincipalAndSecondaryScatterer(
 std::string invalidSize() {
   return
     " 0.000000+0 0.000000+0          0          0         12          0  27 7  4     \n"
+    " 2.021000+0 9.750000+1 2.784423+1 2.466750+0 0.000000+0 1.000000+0  27 7  4     \n"
+    " 0.000000+0 3.748750+0 1.586200+1 0.000000+0 0.000000+0 2.000000+0  27 7  4     \n";
+}
+
+std::string invalidLLN() {
+  return
+    " 0.000000+0 0.000000+0          2          0         12          0  27 7  4     \n"
     " 2.021000+0 9.750000+1 2.784423+1 2.466750+0 0.000000+0 1.000000+0  27 7  4     \n"
     " 0.000000+0 3.748750+0 1.586200+1 0.000000+0 0.000000+0 2.000000+0  27 7  4     \n";
 }

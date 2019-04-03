@@ -32,6 +32,5 @@ generateList( unsigned int na,
            | ranges::view::transform(
                [] ( const auto& pair )
                   { return ranges::view::concat( pair.first, pair.second ); } )
-           | ranges::view::join
-           | ranges::to_vector;
+           | ranges::view::join;
 }

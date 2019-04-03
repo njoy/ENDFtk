@@ -18,11 +18,17 @@ Type( double zaid, double awr, int lat, int lasym,
       ScatteringLaw&& law,
       EffectiveTemperature&& principalTemperature,
       std::vector< std::optional< EffectiveTemperature > >
-          secondaryTemperatures ) :
+          secondaryTemperatures = {} ) :
   Base( zaid, awr, 4 ), lat_( lat ), lasym_( lasym ),
   b_( std::move( constants ) ), law_( std::move( law ) ),
   principal_( std::move( principalTemperature ) ),
-  secondary_( std::move( secondaryTemperatures ) ) {}
+  secondary_( std::move( secondaryTemperatures ) ) {
+
+  verifySecondaryTemperatures( this->b_.analyticalFunctionTypes(),
+                               this->secondary_ );
+  checkValue( this->LAT(), "LAT" );
+  checkValue( this->LASYM(), "LASYM" );
+}
 
 private:
 /** 
@@ -110,5 +116,3 @@ Type( HEAD& head,
                MAT );
     throw e;
   }
-
-

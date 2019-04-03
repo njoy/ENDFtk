@@ -12,7 +12,7 @@ readSecondaryTemperatures( Iterator& begin,
   sequence.reserve( size );
 
   while( size-- ){
-    if ( types[ sequence.size() ] != 0. ) {
+    if ( types[ sequence.size() ] == 0 ) {
       sequence.push_back( EffectiveTemperature( begin, end, lineNumber,
                                                 MAT, MF, MT ) );
     }

@@ -37,6 +37,8 @@ private:
   /* auxiliary functions */
   #include "ENDFtk/section/7/4/src/readSecondaryTemperatures.hpp"
   #include "ENDFtk/section/7/4/src/readScatteringLaw.hpp"
+  #include "ENDFtk/section/7/4/src/checkValue.hpp"
+  #include "ENDFtk/section/7/4/src/verifySecondaryTemperatures.hpp"
 
 public:
 
