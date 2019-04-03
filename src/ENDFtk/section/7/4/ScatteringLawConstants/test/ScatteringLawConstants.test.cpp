@@ -207,13 +207,13 @@ SCENARIO( "ScatteringLawConstants" ) {
 
         for ( auto lln : invalid ) {
 
-        int ns = 0;
-        std::vector< double > values = { 6.153875e+0, 1.976285e+2,
-                                         8.934780e+0, 5.000001e+0,
-                                         0.000000e+0, 1.000000e+0 };
+          int ns = 0;
+          std::vector< double > values = { 6.153875e+0, 1.976285e+2,
+                                           8.934780e+0, 5.000001e+0,
+                                           0.000000e+0, 1.000000e+0 };
 
-        REQUIRE_THROWS(
-          ScatteringLawConstants( lln, ns, std::move( values ) ) );
+          REQUIRE_THROWS(
+            ScatteringLawConstants( lln, ns, std::move( values ) ) );
         } // THEN
       } // THEN
     } // WHEN

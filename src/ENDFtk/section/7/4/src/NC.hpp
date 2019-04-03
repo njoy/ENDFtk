@@ -8,7 +8,10 @@ long NC() const {
                   { NC += v.NC(); },
               this->law_ );
   NC += principal_.NC();
-  for ( const auto& entry : this->secondary_ ) { NC += entry->NC(); }
+  for ( const auto& entry : this->secondary_ ) {
+
+    if ( entry ) NC += entry->NC();
+  }
   return NC;
 };
 
