@@ -1,16 +1,16 @@
+private:
 /** 
- *  @brief Constructor
+ *  @brief Private intermediate constructor
  *
  *  The number of values in the list should be 2 * 3 or 2 * 17, this is checked.
- *
- *  @param[in] list   the ListRecord to be moved into the object
  */
 AverageDecayEnergies( ListRecord&& list ) :
   ListRecord( std::move( list ) ) {
 
-    verifyNC( this->numberDecayEnergies() );
-};
+  verifyNC( this->numberDecayEnergies() );
+}
 
+public:
 /** 
  *  @brief Constructor
  *
@@ -24,7 +24,7 @@ AverageDecayEnergies( std::tuple< double, double > halfLife,
                       std::vector< std::tuple< double, double > >&& energies ) :
   AverageDecayEnergies( ListRecord( std::get< 0 >( halfLife ),
                                     std::get< 1 >( halfLife ), 0, 0, 0,
-                                    generateList( std::move( energies ) ) ) ) {};
+                                    generateList( std::move( energies ) ) ) ) {}
 
 /** 
  *  @brief Constructor
@@ -33,7 +33,7 @@ AverageDecayEnergies( std::tuple< double, double > halfLife,
  */
 AverageDecayEnergies() :
   AverageDecayEnergies( ListRecord( 0.0, 0.0, 0, 0, 0,
-                                    { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 } ) ) {};
+                                    { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 } ) ) {}
 
 /** 
  *  @brief Constructor (from a buffer)
