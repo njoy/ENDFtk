@@ -1,30 +1,26 @@
 static std::vector< double >
 generateList( double rtyp, double type,
-              const std::tuple< double, double >& ri ) {
+              const std::array< double, 2 >& ri ) {
 
-  return { rtyp, type, std::get< 0 >( ri ), std::get< 1 >( ri ) };
+  return { rtyp, type, ri[0], ri[1] };
 }
 
 static std::vector< double >
 generateList( double rtyp, double type,
-              const std::tuple< double, double >& ri,
-              const std::tuple< double, double >& ris ) {
+              const std::array< double, 2 >& ri,
+              const std::array< double, 2 >& ris ) {
 
-  return { rtyp, type, std::get< 0 >( ri ), std::get< 1 >( ri ),
-           std::get< 0 >( ris ), std::get< 1 >( ris ) };
+  return { rtyp, type, ri[0], ri[1], ris[0], ris[1] };
 }
 
 static std::vector< double >
 generateList( double rtyp, double type,
-              const std::tuple< double, double >& ri,
-              const std::tuple< double, double >& ris,
-              const std::tuple< double, double >& ricc,
-              const std::tuple< double, double >& rick,
-              const std::tuple< double, double >& ricl ) {
+              const std::array< double, 2 >& ri,
+              const std::array< double, 2 >& ris,
+              const std::array< double, 2 >& ricc,
+              const std::array< double, 2 >& rick,
+              const std::array< double, 2 >& ricl ) {
 
-  return { rtyp, type, std::get< 0 >( ri ), std::get< 1 >( ri ),
-           std::get< 0 >( ris ), std::get< 1 >( ris ),
-           std::get< 0 >( ricc ), std::get< 1 >( ricc ),
-           std::get< 0 >( rick ), std::get< 1 >( rick ),
-           std::get< 0 >( ricl ), std::get< 1 >( ricl ) };
+  return { rtyp, type, ri[0], ri[1], ris[0], ris[1],
+           ricc[0], ricc[1], rick[0], rick[1], ricl[0], ricl[1] };
 }

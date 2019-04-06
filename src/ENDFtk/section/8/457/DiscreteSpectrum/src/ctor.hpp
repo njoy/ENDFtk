@@ -1,3 +1,4 @@
+private:
 /** 
  *  @brief Constructor
  *
@@ -10,8 +11,9 @@ DiscreteSpectrum( ListRecord&& list ) :
   ListRecord( std::move( list ) ) {
 
     verifyNT( this->NT() );
-};
+}
 
+public:
 /** 
  *  @brief Constructor
  *
@@ -21,13 +23,18 @@ DiscreteSpectrum( ListRecord&& list ) :
  *  @param[in] type                the transition type
  */
 DiscreteSpectrum( double decayChain,
-                  const std::tuple< double, double >& discreteEnergy,
-                  const std::tuple< double, double >& relativeIntensity,
-                  double type ) :
-  DiscreteSpectrum( ListRecord( std::get< 0 >( discreteEnergy ),
-                                std::get< 1 >( discreteEnergy ), 0, 0, 0,
-                                generateList( decayChain, type,
-                                              relativeIntensity ) ) ) {};
+                  const std::array< double, 2 >& discreteEnergy,
+                  const std::array< double, 2 >& relativeIntensity,
+                  double type )
+  try : DiscreteSpectrum(
+            ListRecord( discreteEnergy[0], discreteEnergy[1], 0, 0, 0,
+                        generateList( decayChain, type,
+                                      relativeIntensity ) ) ) {}
+  catch ( std::exception& e ) {
+
+    Log::info( "Encountered error while constructing discrete spectrum data" );
+    throw;
+  }
 
 /** 
  *  @brief Constructor
@@ -40,15 +47,20 @@ DiscreteSpectrum( double decayChain,
  *                                 positron intensity
  */
 DiscreteSpectrum( double decayChain,
-                  const std::tuple< double, double >& discreteEnergy,
-                  const std::tuple< double, double >& relativeIntensity,
+                  const std::array< double, 2 >& discreteEnergy,
+                  const std::array< double, 2 >& relativeIntensity,
                   double type,
-                  const std::tuple< double, double >& ris ) :
-  DiscreteSpectrum( ListRecord( std::get< 0 >( discreteEnergy ),
-                                std::get< 1 >( discreteEnergy ), 0, 0, 0,
-                                generateList( decayChain, type,
-                                              relativeIntensity,
-                                              ris ) ) ) {};
+                  const std::array< double, 2 >& ris )
+  try : DiscreteSpectrum(
+            ListRecord( discreteEnergy[0], discreteEnergy[1], 0, 0, 0,
+                        generateList( decayChain, type,
+                                      relativeIntensity,
+                                      ris ) ) ) {}
+  catch ( std::exception& e ) {
+
+    Log::info( "Encountered error while constructing discrete spectrum data" );
+    throw;
+  }
 
 /** 
  *  @brief Constructor
@@ -64,18 +76,23 @@ DiscreteSpectrum( double decayChain,
  *  @param[in] ricl                the L shell internal conversion coefficient
  */
 DiscreteSpectrum( double decayChain,
-                  const std::tuple< double, double >& discreteEnergy,
-                  const std::tuple< double, double >& relativeIntensity,
+                  const std::array< double, 2 >& discreteEnergy,
+                  const std::array< double, 2 >& relativeIntensity,
                   double type,
-                  const std::tuple< double, double >& ris,
-                  const std::tuple< double, double >& ricc,
-                  const std::tuple< double, double >& rick,
-                  const std::tuple< double, double >& ricl ) :
-  DiscreteSpectrum( ListRecord( std::get< 0 >( discreteEnergy ),
-                                std::get< 1 >( discreteEnergy ), 0, 0, 0,
-                                generateList( decayChain, type,
-                                              relativeIntensity,
-                                              ris, ricc, rick, ricl ) ) ) {};
+                  const std::array< double, 2 >& ris,
+                  const std::array< double, 2 >& ricc,
+                  const std::array< double, 2 >& rick,
+                  const std::array< double, 2 >& ricl )
+  try : DiscreteSpectrum(
+            ListRecord( discreteEnergy[0], discreteEnergy[1], 0, 0, 0,
+                        generateList( decayChain, type,
+                                      relativeIntensity,
+                                      ris, ricc, rick, ricl ) ) ) {}
+  catch ( std::exception& e ) {
+
+    Log::info( "Encountered error while constructing discrete spectrum data" );
+    throw;
+  }
 
 /** 
  *  @brief Constructor (from a buffer)
@@ -91,5 +108,10 @@ DiscreteSpectrum( double decayChain,
  */
 template< typename Iterator >
 DiscreteSpectrum( Iterator& it, const Iterator& end, long& lineNumber,
-                  int MAT, int MF, int MT ) :
-  DiscreteSpectrum( ListRecord( it, end, lineNumber, MAT, MF, MT ) ) {}
+                  int MAT, int MF, int MT )
+  try : DiscreteSpectrum( ListRecord( it, end, lineNumber, MAT, MF, MT ) ) {}
+  catch ( std::exception& e ) {
+
+    Log::info( "Encountered error while reading discrete spectrum data" );
+    throw;
+  }

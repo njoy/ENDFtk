@@ -17,7 +17,7 @@ class DiscreteSpectrum : protected ListRecord {
   /* auxiliary functions */
   #include "ENDFtk/section/8/457/DiscreteSpectrum/src/verifyNT.hpp"
   #include "ENDFtk/section/8/457/DiscreteSpectrum/src/generateList.hpp"
-  #include "ENDFtk/section/8/457/DiscreteSpectrum/src/returnTuple.hpp"
+  #include "ENDFtk/section/8/457/DiscreteSpectrum/src/returnArray.hpp"
     
 public:
 
@@ -34,55 +34,94 @@ public:
   /**
    *  @brief Return the decay chain responsible for this spectrum
    */
-  double decayChain() const { return ListRecord::list()[0]; }
+  double RTYP() const { return ListRecord::list()[0]; }
+
+  /**
+   *  @brief Return the decay chain responsible for this spectrum
+   */
+  double decayChain() const { return this->RTYP(); }
 
   /**
    *  @brief Return the discrete energy value and uncertainty
    */
-  auto discreteEnergy() const {
-      return std::tuple< double, double >( ListRecord::C1(),
-                                           ListRecord::C2() ); }
+  auto ER() const {
+      return std::array< double, 2 >( {{ ListRecord::C1(),
+                                         ListRecord::C2() }} ); }
+
+  /**
+   *  @brief Return the discrete energy value and uncertainty
+   */
+  auto discreteEnergy() const { return this->ER(); }
 
   /**
    *  @brief Return the relative intensity and uncertainty
    */
-  auto relativeIntensity() const {
-      return std::tuple< double, double >( ListRecord::list()[2],
-                                           ListRecord::list()[3] ); }
+  auto RI() const { return this->returnArray( 2 ); }
+
+  /**
+   *  @brief Return the relative intensity and uncertainty
+   */
+  auto relativeIntensity() const { return this->RI(); }
 
   /**
    *  @brief Transition type for beta and electron capture
    */
-  double type() const { return ListRecord::list()[1]; }
+  double TYPE() const { return ListRecord::list()[1]; }
 
   /**
-   *  @brief Return the RIS value and its uncertainty
-   *
-   *  RIS is the internal pair formation coefficient (STYP=0.0) or the 
-   *  positron intensity (STYP=2.0)
+   *  @brief Transition type for beta and electron capture
    */
-  auto RIS() const { return this->returnTuple( 4 ); }
+  double type() const { return this->TYPE(); }
 
   /**
-   *  @brief Return the RICC value and its uncertainty
-   *
-   *  RICC is the total internal conversion coefficient (STYP=0.0 only)
+   *  @brief Return the RIS value and its uncertainty, the internal pair
+   *         formation coefficient (STYP=0.0) or the positron intensity
+   *         (STYP=2.0)
    */
-  auto RICC() const { return this->returnTuple( 6 ); }
+  auto RIS() const { return this->returnArray( 4 ); }
 
   /**
-   *  @brief Return the RICK value and its uncertainty
-   *
-   *  RICK is the K shell internal conversion coefficient (STYP=0.0 only)
+   *  @brief Return the RIS value and its uncertainty, the internal pair
+   *         formation coefficient (STYP=0.0) or the positron intensity
+   *         (STYP=2.0)
    */
-  auto RICK() const { return this->returnTuple( 8 ); }
+  auto internalPairFormationCoefficient() const { return this->RIS(); }
 
   /**
-   *  @brief Return the RICL value and its uncertainty
-   *
-   *  RICL is the L shell internal conversion coefficient (STYP=0.0 only)
+   *  @brief Return the total internal conversion coefficient or RICC value and
+   *         its uncertainty (STYP=0.0 only)
    */
-  auto RICL() const { return this->returnTuple( 10 ); }
+  auto RICC() const { return this->returnArray( 6 ); }
+
+  /**
+   *  @brief Return the total internal conversion coefficient or RICC value and
+   *         its uncertainty (STYP=0.0 only)
+   */
+  auto totalInternalConversionCoefficient() const { return this->RICC(); }
+
+  /**
+   *  @brief Return the K shell internal conversion coefficient or RICK value
+   *         and its uncertainty (STYP=0.0 only)
+   */
+  auto RICK() const { return this->returnArray( 8 ); }
+
+  /**
+   *  @brief Return the K shell internal conversion coefficient or RICK value
+   *         and its uncertainty (STYP=0.0 only)
+   */
+  auto internalConversionCoefficientKShell() const { return this->RICK(); }
+
+  /**
+   *  @brief Return the L shell internal conversion coefficient or RICL value
+   *         and its uncertainty (STYP=0.0 only)
+   */
+  auto RICL() const { return this->returnArray( 10 ); }
+
+  /**
+   *  @brief Return the L shell internal conversion coefficient or RICL value
+   *         and its uncertainty (STYP=0.0 only)
+   */
+  auto internalConversionCoefficientLShell() const { return this->RICL(); }
 
   using ListRecord::NC;
   using ListRecord::print;

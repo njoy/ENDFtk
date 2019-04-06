@@ -301,7 +301,7 @@ SCENARIO( "DecaySpectrum" ) {
   GIVEN( "invalid data for a section::Type< 8, 457 >" ) {
 
     WHEN( "a string representation of a valid section::Type< 8, 457 > for a "
-           "radioactive nuclide with spectra with an invalid SEND" ) {
+          "radioactive nuclide with spectra with an invalid SEND" ) {
 
       std::string sectionString = chunkForRadioactiveNuclideWithSpectra() +
                                   invalidSEND();
