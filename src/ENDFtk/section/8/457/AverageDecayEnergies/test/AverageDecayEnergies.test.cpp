@@ -20,11 +20,11 @@ SCENARIO( "AverageDecayEnergies" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      std::tuple< double, double > halfLife = { 4.449622e+9, 6.311520e+7 };
-      std::vector< std::tuple< double, double > > decayEnergies =
-      { { 4.008322e+4, 4.128931e+3 },
-        { 5.373671e+3, 3.660206e+2 },
-        { 2.441003e+4, 6.191754e+2 } };
+      std::array< double, 2 > halfLife = {{ 4.449622e+9, 6.311520e+7 }};
+      std::vector< std::array< double, 2 > > decayEnergies =
+      { {{ 4.008322e+4, 4.128931e+3 }},
+        {{ 5.373671e+3, 3.660206e+2 }},
+        {{ 2.441003e+4, 6.191754e+2 }} };
 
       THEN( "an AverageDecayEnergies can be constructed and members can be "
             "tested" ) {
@@ -116,12 +116,12 @@ SCENARIO( "AverageDecayEnergies" ) {
 
     WHEN( "data with a wrong number of decay energies is used" ) {
 
-      std::tuple< double, double > halfLife = { 4.449622e+9, 6.311520e+7 };
-      std::vector< std::tuple< double, double > > decayEnergies =
-      { { 4.008322e+4, 4.128931e+3 },
-        { 5.373671e+3, 3.660206e+2 },
-        { 2.441003e+4, 6.191754e+2 },
-        { 1., 20. } };
+      std::array< double, 2 > halfLife = { 4.449622e+9, 6.311520e+7 };
+      std::vector< std::array< double, 2 > > decayEnergies =
+      { {{ 4.008322e+4, 4.128931e+3 }},
+        {{ 5.373671e+3, 3.660206e+2 }},
+        {{ 2.441003e+4, 6.191754e+2 }},
+        {{ 1., 20. }} };
 
       THEN( "an exception is thrown" ) {
 
@@ -156,30 +156,30 @@ std::string chunk() {
 void verifyChunk( const AverageDecayEnergies& chunk ) {
 
   auto halfLife = chunk.halfLife();
-  REQUIRE( 4.449622e+9 == Approx( std::get< 0 >( halfLife ) ) );
-  REQUIRE( 6.311520e+7 == Approx( std::get< 1 >( halfLife ) ) );
+  REQUIRE( 4.449622e+9 == Approx( halfLife[0] ) );
+  REQUIRE( 6.311520e+7 == Approx( halfLife[1] ) );
 
   REQUIRE( 3 == chunk.numberDecayEnergies() );
   REQUIRE( 3 == chunk.decayEnergies().size() );
   auto lightParticle = chunk.decayEnergies()[0];
-  REQUIRE( 4.008322e+4 == Approx( std::get< 0 >( lightParticle ) ) );
-  REQUIRE( 4.128931e+3 == Approx( std::get< 1 >( lightParticle ) ) );
+  REQUIRE( 4.008322e+4 == Approx( lightParticle[0] ) );
+  REQUIRE( 4.128931e+3 == Approx( lightParticle[1] ) );
   auto electroMagnetic = chunk.decayEnergies()[1];
-  REQUIRE( 5.373671e+3 == Approx( std::get< 0 >( electroMagnetic ) ) );
-  REQUIRE( 3.660206e+2 == Approx( std::get< 1 >( electroMagnetic ) ) );
+  REQUIRE( 5.373671e+3 == Approx( electroMagnetic[0] ) );
+  REQUIRE( 3.660206e+2 == Approx( electroMagnetic[1] ) );
   auto heavyParticle = chunk.decayEnergies()[2];
-  REQUIRE( 2.441003e+4 == Approx( std::get< 0 >( heavyParticle ) ) );
-  REQUIRE( 6.191754e+2 == Approx( std::get< 1 >( heavyParticle ) ) );
+  REQUIRE( 2.441003e+4 == Approx( heavyParticle[0] ) );
+  REQUIRE( 6.191754e+2 == Approx( heavyParticle[1] ) );
 
   auto lightParticle2 = chunk.lightParticleDecayEnergy();
-  REQUIRE( 4.008322e+4 == Approx( std::get< 0 >( lightParticle2 ) ) );
-  REQUIRE( 4.128931e+3 == Approx( std::get< 1 >( lightParticle2 ) ) );
+  REQUIRE( 4.008322e+4 == Approx( lightParticle2[0] ) );
+  REQUIRE( 4.128931e+3 == Approx( lightParticle2[1] ) );
   auto electroMagnetic2 = chunk.electromagneticDecayEnergy();
-  REQUIRE( 5.373671e+3 == Approx( std::get< 0 >( electroMagnetic2 ) ) );
-  REQUIRE( 3.660206e+2 == Approx( std::get< 1 >( electroMagnetic2 ) ) );
+  REQUIRE( 5.373671e+3 == Approx( electroMagnetic2[0] ) );
+  REQUIRE( 3.660206e+2 == Approx( electroMagnetic2[1] ) );
   auto heavyParticle2 = chunk.heavyParticleDecayEnergy();
-  REQUIRE( 2.441003e+4 == Approx( std::get< 0 >( heavyParticle2 ) ) );
-  REQUIRE( 6.191754e+2 == Approx( std::get< 1 >( heavyParticle2 ) ) );
+  REQUIRE( 2.441003e+4 == Approx( heavyParticle2[0] ) );
+  REQUIRE( 6.191754e+2 == Approx( heavyParticle2[1] ) );
 
   REQUIRE( 2 == chunk.NC() );
 }
@@ -193,30 +193,30 @@ std::string chunkForStableNuclide() {
 void verifyChunkForStableNuclide( const AverageDecayEnergies& chunk ) {
 
   auto halfLife = chunk.halfLife();
-  REQUIRE( 0.0 == Approx( std::get< 0 >( halfLife ) ) );
-  REQUIRE( 0.0 == Approx( std::get< 1 >( halfLife ) ) );
+  REQUIRE( 0.0 == Approx( halfLife[0] ) );
+  REQUIRE( 0.0 == Approx( halfLife[1] ) );
 
   REQUIRE( 3 == chunk.numberDecayEnergies() );
   REQUIRE( 3 == chunk.decayEnergies().size() );
   auto lightParticle = chunk.decayEnergies()[0];
-  REQUIRE( 0.0 == Approx( std::get< 0 >( lightParticle ) ) );
-  REQUIRE( 0.0 == Approx( std::get< 1 >( lightParticle ) ) );
+  REQUIRE( 0.0 == Approx( lightParticle[0] ) );
+  REQUIRE( 0.0 == Approx( lightParticle[1] ) );
   auto electroMagnetic = chunk.decayEnergies()[1];
-  REQUIRE( 0.0 == Approx( std::get< 0 >( electroMagnetic ) ) );
-  REQUIRE( 0.0 == Approx( std::get< 1 >( electroMagnetic ) ) );
+  REQUIRE( 0.0 == Approx( electroMagnetic[0] ) );
+  REQUIRE( 0.0 == Approx( electroMagnetic[1] ) );
   auto heavyParticle = chunk.decayEnergies()[2];
-  REQUIRE( 0.0 == Approx( std::get< 0 >( heavyParticle ) ) );
-  REQUIRE( 0.0 == Approx( std::get< 1 >( heavyParticle ) ) );
+  REQUIRE( 0.0 == Approx( heavyParticle[0] ) );
+  REQUIRE( 0.0 == Approx( heavyParticle[1] ) );
 
   auto lightParticle2 = chunk.lightParticleDecayEnergy();
-  REQUIRE( 0.0 == Approx( std::get< 0 >( lightParticle2 ) ) );
-  REQUIRE( 0.0 == Approx( std::get< 1 >( lightParticle2 ) ) );
+  REQUIRE( 0.0 == Approx( lightParticle2[0] ) );
+  REQUIRE( 0.0 == Approx( lightParticle2[1] ) );
   auto electroMagnetic2 = chunk.electromagneticDecayEnergy();
-  REQUIRE( 0.0 == Approx( std::get< 0 >( electroMagnetic2 ) ) );
-  REQUIRE( 0.0 == Approx( std::get< 1 >( electroMagnetic2 ) ) );
+  REQUIRE( 0.0 == Approx( electroMagnetic2[0] ) );
+  REQUIRE( 0.0 == Approx( electroMagnetic2[1] ) );
   auto heavyParticle2 = chunk.heavyParticleDecayEnergy();
-  REQUIRE( 0.0 == Approx( std::get< 0 >( heavyParticle2 ) ) );
-  REQUIRE( 0.0 == Approx( std::get< 1 >( heavyParticle2 ) ) );
+  REQUIRE( 0.0 == Approx( heavyParticle2[0] ) );
+  REQUIRE( 0.0 == Approx( heavyParticle2[1] ) );
 
   REQUIRE( 2 == chunk.NC() );
 }

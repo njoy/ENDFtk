@@ -20,11 +20,16 @@ public:
  *  @param[in] energies   the decay energies and uncertainties for the various
  *                        radiation types (either 3 or 17 pairs)
  */
-AverageDecayEnergies( std::tuple< double, double > halfLife,
-                      std::vector< std::tuple< double, double > >&& energies ) :
-  AverageDecayEnergies( ListRecord( std::get< 0 >( halfLife ),
-                                    std::get< 1 >( halfLife ), 0, 0, 0,
-                                    generateList( std::move( energies ) ) ) ) {}
+AverageDecayEnergies( std::array< double, 2 > halfLife,
+                      std::vector< std::array< double, 2 > >&& energies )
+  try : AverageDecayEnergies( ListRecord( halfLife[0], halfLife[1], 0, 0, 0,
+                                          generateList( std::move( energies ) ) ) ) {}
+  catch ( std::exception& e ) {
+
+    Log::info( "Encountered error while constructing average decay energy "
+               "data" );
+    throw;
+  }
 
 /** 
  *  @brief Constructor
@@ -49,5 +54,10 @@ AverageDecayEnergies() :
  */
 template< typename Iterator >
 AverageDecayEnergies( Iterator& it, const Iterator& end, long& lineNumber,
-                      int MAT, int MF, int MT ) :
-  AverageDecayEnergies( ListRecord( it, end, lineNumber, MAT, MF, MT ) ) {}
+                      int MAT, int MF, int MT )
+  try : AverageDecayEnergies( ListRecord( it, end, lineNumber, MAT, MF, MT ) ) {}
+  catch ( std::exception& e ) {
+
+    Log::info( "Encountered error while reading average decay energy data" );
+    throw;
+  }

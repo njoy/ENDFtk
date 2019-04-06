@@ -29,8 +29,8 @@ public:
    *  @brief Return the discrete energy value and uncertainty
    */
   auto halfLife() const {
-      return std::tuple< double, double >( ListRecord::C1(),
-                                           ListRecord::C2() ); }
+      return std::array< double, 2 >( { ListRecord::C1(),
+                                        ListRecord::C2() } ); }
 
   /**
    *  @brief Return the number of decay energy values NC
@@ -44,11 +44,7 @@ public:
    */
   auto decayEnergies() const { 
 
-    return
-        ranges::view::zip(
-            ListRecord::list() | ranges::view::stride( 2 ),
-            ListRecord::list() | ranges::view::drop_exactly( 1 )
-                               | ranges::view::stride( 2 ) );
+    return ListRecord::list() | ranges::view::chunk( 2 );
   }
 
   /**
