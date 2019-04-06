@@ -25,12 +25,22 @@ public:
   /**
    *  @brief Return the spin of the target
    */
-  auto spin() const { return ListRecord::C1(); }
+  auto SPI() const { return ListRecord::C1(); }
+
+  /**
+   *  @brief Return the spin of the target
+   */
+  auto spin() const { return this->SPI(); }
 
   /**
    *  @brief Return the parity of the target
    */
-  auto parity() const { return ListRecord::C2(); }
+  auto PAR() const { return ListRecord::C2(); }
+
+  /**
+   *  @brief Return the parity of the target
+   */
+  auto parity() const { return this->PAR(); }
 
   /**
    *  @brief Return the number of decay modes NDK
@@ -38,24 +48,20 @@ public:
   int NDK() const { return ListRecord::N2(); }
 
   /**
+   *  @brief Return the number of decay modes NDK
+   */
+  int numberDecayModes() const { return this->NDK(); }
+
+  /**
    *  @brief Return the decay mode information
    */
   auto decayModes() const {
-    return ranges::view::zip_with(
-               [] ( const double rtyp, const double rfs, const double q, 
-                    const double dq, const double br, const double dbr )
-                  { return DecayMode( rtyp, rfs, q, dq, br, dbr ); },
-               ListRecord::list() | ranges::view::stride( 6 ),
-               ListRecord::list() | ranges::view::drop_exactly( 1 )
-                                  | ranges::view::stride( 6 ),
-               ListRecord::list() | ranges::view::drop_exactly( 2 )
-                                  | ranges::view::stride( 6 ),
-               ListRecord::list() | ranges::view::drop_exactly( 3 )
-                                  | ranges::view::stride( 6 ),
-               ListRecord::list() | ranges::view::drop_exactly( 4 )
-                                  | ranges::view::stride( 6 ),
-               ListRecord::list() | ranges::view::drop_exactly( 5 )
-                                  | ranges::view::stride( 6 ) );
+    return ListRecord::list()
+              | ranges::view::chunk( 6 )
+              | ranges::view::transform(
+                  [] ( const auto& range )
+                     { return DecayMode( range[0], range[1], range[2],
+                                         range[3], range[4], range[5] ); } );
   }
 
   using ListRecord::NC;

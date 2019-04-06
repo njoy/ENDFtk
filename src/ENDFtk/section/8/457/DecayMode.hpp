@@ -48,7 +48,7 @@ public:
   /**
    *  @brief Return the Q value and its uncertainty
    */
-  auto Q() const { return this->q_; }
+  auto Q() const { return ranges::view::all( this->q_ ); }
 
   /**
    *  @brief Return the Q value and its uncertainty
@@ -58,7 +58,7 @@ public:
   /**
    *  @brief Return the branching ratio and its uncertainty
    */
-  auto BR() const { return this->branch_; }
+  auto BR() const { return ranges::view::all( this->branch_ ); }
 
   /**
    *  @brief Return the branching ratio and its uncertainty

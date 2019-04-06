@@ -1,3 +1,4 @@
+private:
 /** 
  *  @brief Constructor
  *
@@ -9,8 +10,9 @@ DecayModes( ListRecord&& list ) :
   ListRecord( std::move( list ) ) {
 
   verifyNDK( ListRecord::NPL(), this->NDK() );
-};
+}
 
+public:
 /** 
  *  @brief Constructor
  *
@@ -19,9 +21,14 @@ DecayModes( ListRecord&& list ) :
  *  @param[in] modes      the decay decay modes
  */
 DecayModes( double spin, double parity, 
-            std::vector< DecayMode >&& modes ) :
-  DecayModes( ListRecord( spin, parity, 0, 0, modes.size(),
-                          generateList( std::move( modes ) ) ) ) {};
+            std::vector< DecayMode >&& modes )
+  try : DecayModes( ListRecord( spin, parity, 0, 0, modes.size(),
+                                generateList( std::move( modes ) ) ) ) {}
+  catch ( std::exception& e ) {
+
+    Log::info( "Encountered error while constructing decay mode data" );
+    throw;
+  }
 
 /** 
  *  @brief Constructor
@@ -34,7 +41,7 @@ DecayModes( double spin, double parity,
  */
 DecayModes( double spin, double parity ) :
   DecayModes( ListRecord( spin, parity, 0, 0, 0,
-                          { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 } ) ) {};
+                          { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 } ) ) {}
 
 /** 
  *  @brief Constructor (from a buffer)
@@ -50,5 +57,10 @@ DecayModes( double spin, double parity ) :
  */
 template< typename Iterator >
 DecayModes( Iterator& it, const Iterator& end, long& lineNumber,
-            int MAT, int MF, int MT ) :
-  DecayModes( ListRecord( it, end, lineNumber, MAT, MF, MT ) ) {}
+            int MAT, int MF, int MT )
+  try : DecayModes( ListRecord( it, end, lineNumber, MAT, MF, MT ) ) {}
+  catch ( std::exception& e ) {
+
+    Log::info( "Encountered error while reading decay mode data" );
+    throw;
+  }
