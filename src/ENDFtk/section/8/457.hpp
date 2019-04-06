@@ -81,12 +81,22 @@ public:
   /**
    *  @brief Return the target spin
    */
-  auto spin() const { return this->modes_.spin(); }
+  auto SPI() const { return this->modes_.spin(); }
+
+  /**
+   *  @brief Return the target spin
+   */
+  auto spin() const { return this->SPI(); }
 
   /**
    *  @brief Return the target parity
    */
-  auto parity() const { return this->modes_.parity(); }
+  auto PAR() const { return this->modes_.parity(); }
+
+  /**
+   *  @brief Return the target parity
+   */
+  auto parity() const { return this->PAR(); }
 
   /**
    *  @brief Return the half life and decay energy information

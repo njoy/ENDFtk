@@ -20,7 +20,12 @@ public:
   /**
    *  @brief Return the decay chain responsible for this spectrum
    */
-  double decayChain() const { return TabulationRecord::C1(); }
+  double RTYP() const { return TabulationRecord::C1(); }
+
+  /**
+   *  @brief Return the decay chain responsible for this spectrum
+   */
+  double decayChain() const { return this->RTYP(); }
 
   using TabulationRecord::NP;
   using TabulationRecord::NR;

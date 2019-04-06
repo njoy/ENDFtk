@@ -2,11 +2,11 @@
  *  @class
  *  @brief Discrete spectrum information
  *
- *  The AverageDecayEnergies class is used to store the half life and the 
- *  average decay energies from MF8/MT457.
+ *  The DiscreteSpectrum class is used to store spectral information for a 
+ *  single discrete energy from MF8/MT457.
  *
  *  All quantities are given as values with associated uncertainties so these
- *  are handled as tuples.
+ *  are handled as arrays of size 2.
  *
  *  See ENDF102, section 8.4 for more information.
  */

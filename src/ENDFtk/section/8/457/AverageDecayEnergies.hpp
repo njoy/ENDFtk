@@ -6,7 +6,7 @@
  *  average decay energies from MF8/MT457.
  *
  *  All quantities are given as values with associated uncertainties so these
- *  are handled as tuples.
+ *  are handled as arrays.
  *
  *  See ENDF102, section 8.4 for more information.
  */
@@ -29,8 +29,8 @@ public:
    *  @brief Return the discrete energy value and uncertainty
    */
   auto halfLife() const {
-      return std::array< double, 2 >( { ListRecord::C1(),
-                                        ListRecord::C2() } ); }
+      return std::array< double, 2 >( {{ ListRecord::C1(),
+                                         ListRecord::C2() }} ); }
 
   /**
    *  @brief Return the number of decay energy values NC
