@@ -116,12 +116,12 @@ SCENARIO( "AverageDecayEnergies" ) {
 
     WHEN( "data with a wrong number of decay energies is used" ) {
 
-      std::array< double, 2 > halfLife = { 4.449622e+9, 6.311520e+7 };
+      std::array< double, 2 > halfLife = {{ 4.449622e+9, 6.311520e+7 }};
       std::vector< std::array< double, 2 > > decayEnergies =
-      { {{ 4.008322e+4, 4.128931e+3 }},
-        {{ 5.373671e+3, 3.660206e+2 }},
-        {{ 2.441003e+4, 6.191754e+2 }},
-        {{ 1., 20. }} };
+          { {{ 4.008322e+4, 4.128931e+3 }},
+            {{ 5.373671e+3, 3.660206e+2 }},
+            {{ 2.441003e+4, 6.191754e+2 }},
+            {{ 1., 20. }} };
 
       THEN( "an exception is thrown" ) {
 
