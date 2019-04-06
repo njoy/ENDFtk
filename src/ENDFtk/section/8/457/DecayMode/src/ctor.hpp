@@ -11,4 +11,4 @@
 DecayMode( double rtyp, double rfs,
            double q, double dq,
            double br, double dbr ) :
-  rtyp_( rtyp ), rfs_( rfs ), q_( q, dq ), branch_( br, dbr ) {}
+  rtyp_( rtyp ), rfs_( rfs ), q_( {{q, dq}} ), branch_( {{br, dbr}} ) {}

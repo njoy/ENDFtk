@@ -23,12 +23,18 @@ SCENARIO( "DecayMode" ) {
 
       DecayMode chunk( rtyp, rfs, q, dq, br, dbr );
 
+      REQUIRE( 4. == Approx( chunk.RTYP() ) );
       REQUIRE( 4. == Approx( chunk.decayChain() ) );
+      REQUIRE( 0. == Approx( chunk.RFS() ) );
       REQUIRE( 0. == Approx( chunk.finalIsomericState() ) );
-      REQUIRE( 5.637120e+6 == Approx( std::get< 0 >( chunk.qValue() ) ) );
-      REQUIRE( 2.549510e+2 == Approx( std::get< 1 >( chunk.qValue() ) ) );
-      REQUIRE( 4.590000e-3 == Approx( std::get< 0 >( chunk.branchingRatio() ) ) );
-      REQUIRE( 1.200000e-4 == Approx( std::get< 1 >( chunk.branchingRatio() ) ) );
+      REQUIRE( 5.637120e+6 == Approx( chunk.Q()[0] ) );
+      REQUIRE( 2.549510e+2 == Approx( chunk.Q()[1] ) );
+      REQUIRE( 5.637120e+6 == Approx( chunk.qValue()[0] ) );
+      REQUIRE( 2.549510e+2 == Approx( chunk.qValue()[1] ) );
+      REQUIRE( 4.590000e-3 == Approx( chunk.BR()[0] ) ) );
+      REQUIRE( 1.200000e-4 == Approx( chunk.BR()[1] ) );
+      REQUIRE( 4.590000e-3 == Approx( chunk.branchingRatio()[0] ) ) );
+      REQUIRE( 1.200000e-4 == Approx( chunk.branchingRatio()[1] ) );
     }
   } // GIVEN
 } // SCENARIO

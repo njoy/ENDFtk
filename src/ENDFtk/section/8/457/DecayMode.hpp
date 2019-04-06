@@ -13,8 +13,8 @@ class DecayMode {
   /* members */
   double rtyp_;
   double rfs_;
-  std::tuple< double, double > q_;
-  std::tuple< double, double > branch_;
+  std::array< double, 2 > q_;
+  std::array< double, 2 > branch_;
 
   /* auxiliary functions */
 
@@ -28,20 +28,40 @@ public:
   /**
    *  @brief Return the decay chain
    */
-  auto decayChain() const { return this->rtyp_; }
+  auto RTYP() const { return this->rtyp_; }
+
+  /**
+   *  @brief Return the decay chain
+   */
+  auto decayChain() const { return this->RTYP(); }
 
   /**
    *  @brief Return the final isomeric state
    */
-  auto finalIsomericState() const { return this->rfs_; }
+  auto RFS() const { return this->rfs_; }
 
   /**
-   *  @brief Return the decay chain
+   *  @brief Return the final isomeric state
    */
-  auto qValue() const { return this->q_; }
+  auto finalIsomericState() const { return this->RFS(); }
 
   /**
-   *  @brief Return the decay chain
+   *  @brief Return the Q value and its uncertainty
    */
-  auto branchingRatio() const { return this->branch_; }
+  auto Q() const { return this->q_; }
+
+  /**
+   *  @brief Return the Q value and its uncertainty
+   */
+  auto qValue() const { return this->Q(); }
+
+  /**
+   *  @brief Return the branching ratio and its uncertainty
+   */
+  auto BR() const { return this->branch_; }
+
+  /**
+   *  @brief Return the branching ratio and its uncertainty
+   */
+  auto branchingRatio() const { return this->BR(); }
 };
