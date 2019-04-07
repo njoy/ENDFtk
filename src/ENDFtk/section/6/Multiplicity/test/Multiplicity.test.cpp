@@ -33,8 +33,11 @@ SCENARIO( "Multiplicity" ) {
                           std::move( multiplicities ) );
 
       REQUIRE( 1001. == Approx( chunk.ZAP() ) );
+      REQUIRE( 1001. == Approx( chunk.productIdentifier() ) );
       REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
+      REQUIRE( 0.9986234 == Approx( chunk.productMassRatio() ) );
       REQUIRE( 0 == chunk.LIP() );
+      REQUIRE( 0 == chunk.productModifierFlag() );
       REQUIRE( 1 == chunk.LAW() );
 
       REQUIRE( 4 == chunk.NP() );
@@ -69,8 +72,11 @@ SCENARIO( "Multiplicity" ) {
       Multiplicity chunk( begin, end, lineNumber, 9228, 6, 5 );
 
       REQUIRE( 1001. == Approx( chunk.ZAP() ) );
+      REQUIRE( 1001. == Approx( chunk.productIdentifier() ) );
       REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
+      REQUIRE( 0.9986234 == Approx( chunk.productMassRatio() ) );
       REQUIRE( 0 == chunk.LIP() );
+      REQUIRE( 0 == chunk.productModifierFlag() );
       REQUIRE( 1 == chunk.LAW() );
 
       REQUIRE( 4 == chunk.NP() );

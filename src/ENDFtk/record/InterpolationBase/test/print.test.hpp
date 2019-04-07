@@ -5,7 +5,7 @@ using namespace njoy::ENDFtk;
 
 SCENARIO( "InterpolationRecord printing","[ENDFtk], [InterpolationRecord]" ){
 
-  GIVEN( "single region TAB2" ){
+  GIVEN( "single region TAB1" ){
 
     std::string tab1 = 
       " 0.000000+0 0.000000+0         33          0          1          49228 1460     \n"
@@ -32,14 +32,14 @@ SCENARIO( "InterpolationRecord printing","[ENDFtk], [InterpolationRecord]" ){
 
   GIVEN( "long region TAB2" ){
 
-    std::string tab1 = 
+    std::string tab2 = 
       " 0.000000+0 0.000000+0         33          0          4          49228 1460     \n"
       "          1          4          2          3          3          29228 1460     \n"
       "          4          1                                            9228 1460     \n"
 
     SECTION( "print" ){
-      auto begin = tab1.begin();
-      auto end = tab1.end();
+      auto begin = tab2.begin();
+      auto end = tab2.end();
       auto lineNumber = 438l;
       int MAT = 9228;
       int MF = 1;
@@ -50,7 +50,7 @@ SCENARIO( "InterpolationRecord printing","[ENDFtk], [InterpolationRecord]" ){
       auto output = std::back_inserter( buffer );
       table.print( output, MAT, MF, MT );
       
-      REQUIRE( buffer == tab1 );
+      REQUIRE( buffer == tab2 );
     }
   }
 }

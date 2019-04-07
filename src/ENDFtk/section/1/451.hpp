@@ -1,6 +1,8 @@
 template<>
-class Type< 1, 451 > : protected Base {
-protected:
+class Type< 1, 451 > : protected BaseWithoutMT< Type< 1, 451 > > {
+
+  friend BaseWithoutMT< Type< 1, 451 > >;
+
   /* fields */
   int lrp_;
   int lfi_;
@@ -11,15 +13,18 @@ protected:
   std::vector< DirectoryRecord > index_;
 
   /* auxiliary functions */
+  #include "ENDFtk/section/1/451/src/makeParameters.hpp"
+  #include "ENDFtk/section/1/451/src/makeDescription.hpp"
   #include "ENDFtk/section/1/451/src/readParameters.hpp"
   #include "ENDFtk/section/1/451/src/readRecords.hpp"
 
-  public:
+public:
+
   /* constructor */
   #include "ENDFtk/section/1/451/src/ctor.hpp"
 
   /* get methods */
-  static constexpr int MT(){ return 451; }
+  static constexpr int sectionNumber(){ return 451; }
 
   int LRP() const { return this->lrp_; }
   int LFI() const { return this->lfi_; }
@@ -43,19 +48,17 @@ protected:
   int NWD() const { return static_cast< int >( this->description_.size() ); }
   int NXC() const { return static_cast< int >( this->index_.size() ); }
 
-  auto index() const {
-    return ranges::make_iterator_range( this->index_.begin(),
-                                        this->index_.end() );
-  }
+  auto index() const { return ranges::view::all( this->index_ ); }
 
   long NC() const { return 4 + this->NWD() + this->NXC(); }
 
   #include "ENDFtk/section/1/451/src/description.hpp"
   #include "ENDFtk/section/1/451/src/print.hpp"
 
-  using Base::ZA;
-  using Base::AWR;
-  using Base::atomicWeightRatio;
+  using BaseWithoutMT::MT;
+  using BaseWithoutMT::ZA;
+  using BaseWithoutMT::AWR;
+  using BaseWithoutMT::atomicWeightRatio;
 
   /* implement set methods on ContRecord to enable this
   int& LRP() const { return this->lrp_; }

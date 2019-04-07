@@ -9,6 +9,20 @@ using namespace njoy::ENDFtk;
 using Base = 
 section::Type< 6 >::ContinuumEnergyAngle::Base;
 
+class TestBase : public Base {
+
+public:
+
+  TestBase( ListRecord&& list ) : Base( std::move( list ) ) {};
+  TestBase( double energy, long nd, long na, long nep,
+            std::vector< double >&& list ) :
+    Base( energy, nd, na, nep, std::move( list ) ) {};
+  template< typename Iterator >
+  TestBase( Iterator& it, const Iterator& end, long& lineNumber,
+            int MAT, int MF, int MT ) :
+    Base( it, end, lineNumber, MAT, MF, MT ) {}
+};
+
 std::string chunk();
 std::string invalidSize();
 
@@ -21,20 +35,20 @@ SCENARIO( "Base" ) {
     int na = 1;
     int nep = 2;
     std::vector< double > list = { 1., 2., 3., 4., 5., 6. };
-    std::vector< std::pair< double, std::vector< double > > > data = { 
-      std::make_pair< double, std::vector< double > >( 1., { 2., 3. } ),
-      std::make_pair< double, std::vector< double > >( 4., { 5., 6. } ) };
 
     THEN( "a Base can "
           "be constructed using a list and members can be tested" ) {
-      Base chunk( energy, nd, na, nep, std::move( list ) );
+      TestBase chunk( energy, nd, na, nep, std::move( list ) );
 
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 0 == chunk.ND() );
+      REQUIRE( 0 == chunk.numberDiscreteEnergies() );
       REQUIRE( 1 == chunk.NA() );
+      REQUIRE( 1 == chunk.numberAngularParameters() );
       REQUIRE( 6 == chunk.NW() );
       REQUIRE( 2 == chunk.NEP() );
+      REQUIRE( 2 == chunk.numberSecondaryEnergies() );
       REQUIRE( 2 == chunk.energies().size() );
       REQUIRE( 1. == Approx( chunk.energies()[0] ) );
       REQUIRE( 4. == Approx( chunk.energies()[1] ) );
@@ -60,14 +74,17 @@ SCENARIO( "Base" ) {
 
     THEN( "a Base can "
           "be constructed and members can be tested" ) {
-      Base chunk( begin, end, lineNumber, 9228, 6, 5 );
+      TestBase chunk( begin, end, lineNumber, 9228, 6, 5 );
 
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 0 == chunk.ND() );
+      REQUIRE( 0 == chunk.numberDiscreteEnergies() );
       REQUIRE( 1 == chunk.NA() );
+      REQUIRE( 1 == chunk.numberAngularParameters() );
       REQUIRE( 6 == chunk.NW() );
       REQUIRE( 2 == chunk.NEP() );
+      REQUIRE( 2 == chunk.numberSecondaryEnergies() );
       REQUIRE( 2 == chunk.energies().size() );
       REQUIRE( 1. == Approx( chunk.energies()[0] ) );
       REQUIRE( 4. == Approx( chunk.energies()[1] ) );
@@ -94,7 +111,7 @@ SCENARIO( "Base" ) {
 
     THEN( "an exception is thrown" ) {
 
-      REQUIRE_THROWS( Base( energy, nd, na, nep, std::move( wronglist ) ) );
+      REQUIRE_THROWS( TestBase( energy, nd, na, nep, std::move( wronglist ) ) );
     }
   } // GIVEN
 
@@ -107,7 +124,7 @@ SCENARIO( "Base" ) {
 
     THEN( "an exception is thrown" ) {
 
-      REQUIRE_THROWS( Base( begin, end, lineNumber, 9228, 6, 5 ) );
+      REQUIRE_THROWS( TestBase( begin, end, lineNumber, 9228, 6, 5 ) );
     }
   } // GIVEN
 
@@ -117,8 +134,7 @@ SCENARIO( "Base" ) {
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    Base
-      chunk(begin, end, lineNumber, 9228, 6, 5 );
+    TestBase chunk(begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
       std::string buffer;

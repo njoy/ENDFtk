@@ -50,21 +50,27 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       REQUIRE( 1 == chunk.interpolants()[0] );
       REQUIRE( 2 == chunk.boundaries()[0] );
 
-      auto energies = chunk.energies();
+      auto energies = chunk.subsections();
 
       REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
       REQUIRE( 1 == energies[0].LANG() );
       REQUIRE( 0 == energies[0].ND() );
+      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
       REQUIRE( 1 == energies[0].NA() );
+      REQUIRE( 1 == energies[0].numberAngularParameters() );
       REQUIRE( 12 == energies[0].NW() );
       REQUIRE( 4 == energies[0].NEP() );
+      REQUIRE( 4 == energies[0].numberSecondaryEnergies() );
 
       auto subsection1 =
-          std::experimental::get< LegendreCoefficients >( energies[0] );
+          std::experimental::get< LegendreCoefficients >( energies[0].data() );
       REQUIRE( 0 == subsection1.ND() );
+      REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
       REQUIRE( 1 == subsection1.NA() );
+      REQUIRE( 1 == subsection1.numberAngularParameters() );
       REQUIRE( 12 == subsection1.NW() );
       REQUIRE( 4 == subsection1.NEP() );
+      REQUIRE( 4 == subsection1.numberSecondaryEnergies() );
       REQUIRE( 4 == subsection1.energies().size() );
       REQUIRE( 1. == Approx( subsection1.energies()[0] ) );
       REQUIRE( 4. == Approx( subsection1.energies()[1] ) );
@@ -88,17 +94,23 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
       REQUIRE( 1 == energies[1].LANG() );
       REQUIRE( 0 == energies[1].ND() );
+      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
       REQUIRE( 1 == energies[1].NA() );
+      REQUIRE( 1 == energies[1].numberAngularParameters() );
       REQUIRE( 6 == energies[1].NW() );
       REQUIRE( 2 == energies[1].NEP() );
+      REQUIRE( 2 == energies[1].numberSecondaryEnergies() );
 
       auto subsection2 =
-          std::experimental::get< LegendreCoefficients >( energies[1] );
+          std::experimental::get< LegendreCoefficients >( energies[1].data() );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
+      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
       REQUIRE( 1 == subsection2.NA() );
+      REQUIRE( 1 == energies[1].numberAngularParameters() );
       REQUIRE( 6 == subsection2.NW() );
       REQUIRE( 2 == subsection2.NEP() );
+      REQUIRE( 2 == energies[1].numberSecondaryEnergies() );
       REQUIRE( 2 == subsection2.energies().size() );
       REQUIRE( 1. == Approx( subsection2.energies()[0] ) );
       REQUIRE( 4. == Approx( subsection2.energies()[1] ) );
@@ -140,22 +152,28 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       REQUIRE( 1 == chunk.interpolants()[0] );
       REQUIRE( 2 == chunk.boundaries()[0] );
 
-      auto energies = chunk.energies();
+      auto energies = chunk.subsections();
 
       REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
       REQUIRE( 2 == energies[0].LANG() );
       REQUIRE( 0 == energies[0].ND() );
+      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
       REQUIRE( 1 == energies[0].NA() );
+      REQUIRE( 1 == energies[0].numberAngularParameters() );
       REQUIRE( 6 == energies[0].NW() );
       REQUIRE( 2 == energies[0].NEP() );
+      REQUIRE( 2 == energies[0].numberSecondaryEnergies() );
 
       auto subsection1 =
-          std::experimental::get< KalbachMann >( energies[0] );
+          std::experimental::get< KalbachMann >( energies[0].data() );
       REQUIRE( 2 == subsection1.LANG() );
       REQUIRE( 0 == subsection1.ND() );
+      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
       REQUIRE( 1 == subsection1.NA() );
+      REQUIRE( 1 == energies[0].numberAngularParameters() );
       REQUIRE( 6 == subsection1.NW() );
       REQUIRE( 2 == subsection1.NEP() );
+      REQUIRE( 2 == energies[0].numberSecondaryEnergies() );
       REQUIRE( 2 == subsection1.energies().size() );
       REQUIRE( 1. == Approx( subsection1.energies()[0] ) );
       REQUIRE( 4. == Approx( subsection1.energies()[1] ) );
@@ -171,17 +189,23 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
       REQUIRE( 2 == energies[1].LANG() );
       REQUIRE( 0 == energies[1].ND() );
+      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
       REQUIRE( 2 == energies[1].NA() );
+      REQUIRE( 2 == energies[1].numberAngularParameters() );
       REQUIRE( 8 == energies[1].NW() );
       REQUIRE( 2 == energies[1].NEP() );
+      REQUIRE( 2 == energies[1].numberSecondaryEnergies() );
 
       auto subsection2 =
-          std::experimental::get< KalbachMann >( energies[1] );
+          std::experimental::get< KalbachMann >( energies[1].data() );
       REQUIRE( 2 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
+      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
       REQUIRE( 2 == subsection2.NA() );
+      REQUIRE( 2 == energies[1].numberAngularParameters() );
       REQUIRE( 8 == subsection2.NW() );
       REQUIRE( 2 == subsection2.NEP() );
+      REQUIRE( 2 == energies[1].numberSecondaryEnergies() );
       REQUIRE( 2 == subsection2.energies().size() );
       REQUIRE( 7. == Approx( subsection2.energies()[0] ) );
       REQUIRE( 11. == Approx( subsection2.energies()[1] ) );
@@ -227,22 +251,28 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       REQUIRE( 1 == chunk.interpolants()[0] );
       REQUIRE( 2 == chunk.boundaries()[0] );
 
-      auto energies = chunk.energies();
+      auto energies = chunk.subsections();
 
       REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
       REQUIRE( 14 == energies[0].LANG() );
       REQUIRE( 0 == energies[0].ND() );
+      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
       REQUIRE( 4 == energies[0].NA() );
+      REQUIRE( 4 == energies[0].numberAngularParameters() );
       REQUIRE( 12 == energies[0].NW() );
       REQUIRE( 2 == energies[0].NEP() );
+      REQUIRE( 2 == energies[0].numberSecondaryEnergies() );
 
       auto subsection1 =
-          std::experimental::get< Tabulated >( energies[0] );
+          std::experimental::get< Tabulated >( energies[0].data() );
       REQUIRE( 14 == subsection1.LANG() );
       REQUIRE( 0 == subsection1.ND() );
+      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
       REQUIRE( 4 == subsection1.NA() );
+      REQUIRE( 4 == energies[0].numberAngularParameters() );
       REQUIRE( 12 == subsection1.NW() );
       REQUIRE( 2 == subsection1.NEP() );
+      REQUIRE( 2 == energies[0].numberSecondaryEnergies() );
       REQUIRE( 2 == subsection1.energies().size() );
       REQUIRE( 1. == Approx( subsection1.energies()[0] ) );
       REQUIRE( 7. == Approx( subsection1.energies()[1] ) );
@@ -263,17 +293,23 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
       REQUIRE( 14 == energies[1].LANG() );
       REQUIRE( 0 == energies[1].ND() );
+      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
       REQUIRE( 4 == energies[1].NA() );
+      REQUIRE( 4 == energies[1].numberAngularParameters() );
       REQUIRE( 12 == energies[1].NW() );
       REQUIRE( 2 == energies[1].NEP() );
+      REQUIRE( 2 == energies[1].numberSecondaryEnergies() );
 
       auto subsection2 =
-          std::experimental::get< Tabulated >( energies[1] );
+          std::experimental::get< Tabulated >( energies[1].data() );
       REQUIRE( 14 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
+      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
       REQUIRE( 4 == subsection2.NA() );
+      REQUIRE( 4 == energies[1].numberAngularParameters() );
       REQUIRE( 12 == subsection2.NW() );
       REQUIRE( 2 == subsection2.NEP() );
+      REQUIRE( 2 == energies[1].numberSecondaryEnergies() );
       REQUIRE( 2 == subsection2.energies().size() );
       REQUIRE( 13. == Approx( subsection2.energies()[0] ) );
       REQUIRE( 19. == Approx( subsection2.energies()[1] ) );
@@ -316,21 +352,27 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       REQUIRE( 1 == chunk.interpolants()[0] );
       REQUIRE( 2 == chunk.boundaries()[0] );
 
-      auto energies = chunk.energies();
+      auto energies = chunk.subsections();
 
       REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
       REQUIRE( 1 == energies[0].LANG() );
       REQUIRE( 0 == energies[0].ND() );
+      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
       REQUIRE( 1 == energies[0].NA() );
+      REQUIRE( 1 == energies[0].numberAngularParameters() );
       REQUIRE( 12 == energies[0].NW() );
       REQUIRE( 4 == energies[0].NEP() );
+      REQUIRE( 4 == energies[0].numberSecondaryEnergies() );
 
       auto subsection1 =
-          std::experimental::get< LegendreCoefficients >( energies[0] );
+          std::experimental::get< LegendreCoefficients >( energies[0].data() );
       REQUIRE( 0 == subsection1.ND() );
+      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
       REQUIRE( 1 == subsection1.NA() );
+      REQUIRE( 1 == energies[0].numberAngularParameters() );
       REQUIRE( 12 == subsection1.NW() );
       REQUIRE( 4 == subsection1.NEP() );
+      REQUIRE( 4 == energies[0].numberSecondaryEnergies() );
       REQUIRE( 4 == subsection1.energies().size() );
       REQUIRE( 1. == Approx( subsection1.energies()[0] ) );
       REQUIRE( 4. == Approx( subsection1.energies()[1] ) );
@@ -354,17 +396,23 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
       REQUIRE( 1 == energies[1].LANG() );
       REQUIRE( 0 == energies[1].ND() );
+      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
       REQUIRE( 1 == energies[1].NA() );
+      REQUIRE( 1 == energies[1].numberAngularParameters() );
       REQUIRE( 6 == energies[1].NW() );
       REQUIRE( 2 == energies[1].NEP() );
+      REQUIRE( 2 == energies[1].numberSecondaryEnergies() );
 
       auto subsection2 =
-          std::experimental::get< LegendreCoefficients >( energies[1] );
+          std::experimental::get< LegendreCoefficients >( energies[1].data() );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
+      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
       REQUIRE( 1 == subsection2.NA() );
+      REQUIRE( 1 == energies[1].numberAngularParameters() );
       REQUIRE( 6 == subsection2.NW() );
       REQUIRE( 2 == subsection2.NEP() );
+      REQUIRE( 2 == energies[1].numberSecondaryEnergies() );
       REQUIRE( 2 == subsection2.energies().size() );
       REQUIRE( 1. == Approx( subsection2.energies()[0] ) );
       REQUIRE( 4. == Approx( subsection2.energies()[1] ) );
@@ -402,22 +450,27 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       REQUIRE( 1 == chunk.interpolants()[0] );
       REQUIRE( 2 == chunk.boundaries()[0] );
 
-      auto energies = chunk.energies();
+      auto energies = chunk.subsections();
 
       REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
       REQUIRE( 2 == energies[0].LANG() );
       REQUIRE( 0 == energies[0].ND() );
+      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
       REQUIRE( 1 == energies[0].NA() );
+      REQUIRE( 1 == energies[0].numberAngularParameters() );
       REQUIRE( 6 == energies[0].NW() );
       REQUIRE( 2 == energies[0].NEP() );
+      REQUIRE( 2 == energies[0].numberSecondaryEnergies() );
 
       auto subsection1 =
-          std::experimental::get< KalbachMann >( energies[0] );
+          std::experimental::get< KalbachMann >( energies[0].data() );
       REQUIRE( 2 == subsection1.LANG() );
       REQUIRE( 0 == subsection1.ND() );
+      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
       REQUIRE( 1 == subsection1.NA() );
+      REQUIRE( 1 == energies[0].numberAngularParameters() );
       REQUIRE( 6 == subsection1.NW() );
-      REQUIRE( 2 == subsection1.NEP() );
+      REQUIRE( 2 == energies[0].numberSecondaryEnergies() );
       REQUIRE( 2 == subsection1.energies().size() );
       REQUIRE( 1. == Approx( subsection1.energies()[0] ) );
       REQUIRE( 4. == Approx( subsection1.energies()[1] ) );
@@ -433,17 +486,23 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
       REQUIRE( 2 == energies[1].LANG() );
       REQUIRE( 0 == energies[1].ND() );
+      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
       REQUIRE( 2 == energies[1].NA() );
+      REQUIRE( 2 == energies[1].numberAngularParameters() );
       REQUIRE( 8 == energies[1].NW() );
       REQUIRE( 2 == energies[1].NEP() );
+      REQUIRE( 2 == energies[1].numberSecondaryEnergies() );
 
       auto subsection2 =
-          std::experimental::get< KalbachMann >( energies[1] );
+          std::experimental::get< KalbachMann >( energies[1].data() );
       REQUIRE( 2 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
+      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
       REQUIRE( 2 == subsection2.NA() );
+      REQUIRE( 2 == energies[1].numberAngularParameters() );
       REQUIRE( 8 == subsection2.NW() );
       REQUIRE( 2 == subsection2.NEP() );
+      REQUIRE( 2 == energies[1].numberSecondaryEnergies() );
       REQUIRE( 2 == subsection2.energies().size() );
       REQUIRE( 7. == Approx( subsection2.energies()[0] ) );
       REQUIRE( 11. == Approx( subsection2.energies()[1] ) );
@@ -483,22 +542,28 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       REQUIRE( 1 == chunk.interpolants()[0] );
       REQUIRE( 2 == chunk.boundaries()[0] );
 
-      auto energies = chunk.energies();
+      auto energies = chunk.subsections();
 
       REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
       REQUIRE( 14 == energies[0].LANG() );
       REQUIRE( 0 == energies[0].ND() );
+      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
       REQUIRE( 4 == energies[0].NA() );
+      REQUIRE( 4 == energies[0].numberAngularParameters() );
       REQUIRE( 12 == energies[0].NW() );
       REQUIRE( 2 == energies[0].NEP() );
+      REQUIRE( 2 == energies[0].numberSecondaryEnergies() );
 
       auto subsection1 =
-          std::experimental::get< Tabulated >( energies[0] );
+          std::experimental::get< Tabulated >( energies[0].data() );
       REQUIRE( 14 == subsection1.LANG() );
       REQUIRE( 0 == subsection1.ND() );
+      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
       REQUIRE( 4 == subsection1.NA() );
+      REQUIRE( 4 == energies[0].numberAngularParameters() );
       REQUIRE( 12 == subsection1.NW() );
       REQUIRE( 2 == subsection1.NEP() );
+      REQUIRE( 2 == energies[0].numberSecondaryEnergies() );
       REQUIRE( 2 == subsection1.energies().size() );
       REQUIRE( 1. == Approx( subsection1.energies()[0] ) );
       REQUIRE( 7. == Approx( subsection1.energies()[1] ) );
@@ -519,17 +584,23 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
       REQUIRE( 14 == energies[1].LANG() );
       REQUIRE( 0 == energies[1].ND() );
+      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
       REQUIRE( 4 == energies[1].NA() );
+      REQUIRE( 4 == energies[1].numberAngularParameters() );
       REQUIRE( 12 == energies[1].NW() );
       REQUIRE( 2 == energies[1].NEP() );
+      REQUIRE( 2 == energies[1].numberSecondaryEnergies() );
 
       auto subsection2 =
-          std::experimental::get< Tabulated >( energies[1] );
+          std::experimental::get< Tabulated >( energies[1].data() );
       REQUIRE( 14 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
+      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
       REQUIRE( 4 == subsection2.NA() );
+      REQUIRE( 4 == energies[1].numberAngularParameters() );
       REQUIRE( 12 == subsection2.NW() );
       REQUIRE( 2 == subsection2.NEP() );
+      REQUIRE( 2 == energies[1].numberSecondaryEnergies() );
       REQUIRE( 2 == subsection2.energies().size() );
       REQUIRE( 13. == Approx( subsection2.energies()[0] ) );
       REQUIRE( 19. == Approx( subsection2.energies()[1] ) );

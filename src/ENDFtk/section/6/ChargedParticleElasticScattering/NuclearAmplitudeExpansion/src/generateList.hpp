@@ -35,3 +35,33 @@ generateList( unsigned int NL,
   }
   return list;
 }
+
+static std::vector< double >
+generateList( unsigned int NL,
+              std::vector< double >&& b,
+              std::vector< std::complex< double > >&& a ) {
+
+  if ( a.size() != NL + 1 ) {
+
+    Log::info( "The number of values for a must be equal to NL + 1" );
+    Log::info( "NL value: {}", NL );
+    Log::info( "a.size(): {}", a.size() );
+    throw std::exception();
+  }
+  if ( ! ( ( b.size() == NL + 1 ) || ( b.size() == 2 * NL + 1 ) ) ) {
+
+    Log::info( "The number of b values must be equal to NL + 1 of 2*NL + 1 "
+               "for nuclear amplitude expansion" );
+    Log::info( "NL value: {}", NL );
+    Log::info( "b.size(): {}", b.size() );
+    throw std::exception();
+  }
+
+  std::vector< double > list( b );
+  for ( const auto& value : a ) {
+
+    list.push_back( value.real() );
+    list.push_back( value.imag() );
+  }
+  return list;
+}

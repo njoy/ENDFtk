@@ -24,7 +24,9 @@ SCENARIO( "NBodyPhaseSpace" ) {
       REQUIRE( 6 == chunk.LAW() );
 
       REQUIRE( 5. == Approx( chunk.APSX() ) );
+      REQUIRE( 5. == Approx( chunk.totalMass() ) );
       REQUIRE( 4 == chunk.NPSX() );
+      REQUIRE( 4 == chunk.numberParticles() );
 
       REQUIRE( 1 == chunk.NC() );
     }
@@ -43,7 +45,9 @@ SCENARIO( "NBodyPhaseSpace" ) {
       REQUIRE( 6 == chunk.LAW() );
 
       REQUIRE( 5. == Approx( chunk.APSX() ) );
+      REQUIRE( 5. == Approx( chunk.totalMass() ) );
       REQUIRE( 4 == chunk.NPSX() );
+      REQUIRE( 4 == chunk.numberParticles() );
 
       REQUIRE( 1 == chunk.NC() );
     }

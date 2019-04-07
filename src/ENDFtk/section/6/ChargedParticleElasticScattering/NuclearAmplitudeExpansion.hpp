@@ -29,6 +29,13 @@ public:
                                        this->NW() - 2 * this->NL() - 1 )
              | ranges::view::stride( 2 );
   }
+  auto interferenceCoefficients() const {
+    return ranges::view::zip_with(
+             [] ( auto real, auto imag )
+                { return std::complex< double >( real, imag ); },
+             this->realInterferenceCoefficients(),
+             this->imaginaryInterferenceCoefficients() );
+  }
 
   using ListRecord::NC;
   using ListRecord::print;

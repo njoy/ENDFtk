@@ -8,10 +8,10 @@ using namespace njoy::ENDFtk;
 // convenience typedefs
 using LaboratoryAngleEnergy = 
 section::Type< 6 >::LaboratoryAngleEnergy;
-using EnergyOutgoingCosineDistribution = 
-section::Type< 6 >::LaboratoryAngleEnergy::EnergyOutgoingCosineDistribution;
-using CosineOutgoingEnergyDistribution = 
-section::Type< 6 >::LaboratoryAngleEnergy::CosineOutgoingEnergyDistribution;
+using AngularDistribution = 
+section::Type< 6 >::LaboratoryAngleEnergy::AngularDistribution;
+using EnergyDistribution = 
+section::Type< 6 >::LaboratoryAngleEnergy::EnergyDistribution;
 
 std::string chunk();
 
@@ -21,21 +21,21 @@ SCENARIO( "LaboratoryAngleEnergy" ) {
 
     std::vector< long > boundaries = { 2 };
     std::vector< long > interpolants = { 1 };
-    std::vector< EnergyOutgoingCosineDistribution > energies =
-      { EnergyOutgoingCosineDistribution( 
+    std::vector< AngularDistribution > energies =
+      { AngularDistribution( 
           1e-5, { 2 }, { 4 },
-          { CosineOutgoingEnergyDistribution( 1.0, { 4 }, { 2 },
+          { EnergyDistribution( 1.0, { 4 }, { 2 },
                                               { 1e-5, 1.1e+7, 1.147e+7, 3e+7 },
                                               { 0., 2., 4., 6. } ),
-            CosineOutgoingEnergyDistribution( -1.0, { 3 }, { 2 },
+            EnergyDistribution( -1.0, { 3 }, { 2 },
                                               { 1e-5, 1e+6, 3e+7 },
                                               { 6., 4., 2. } ) } ),
-        EnergyOutgoingCosineDistribution( 
+        AngularDistribution( 
           2e+7, { 2 }, { 4 },
-          { CosineOutgoingEnergyDistribution( 0.9, { 4 }, { 2 },
+          { EnergyDistribution( 0.9, { 4 }, { 2 },
                                               { 1e-5, 1.1e+7, 1.147e+7, 3e+7 },
                                               { 1., 3., 5., 7. } ),
-            CosineOutgoingEnergyDistribution( -0.9, { 3 }, { 2 },
+            EnergyDistribution( -0.9, { 3 }, { 2 },
                                               { 1e-5, 1e+6, 3e+7 },
                                               { 5., 3., 1. } ) } ) };
 
@@ -55,7 +55,7 @@ SCENARIO( "LaboratoryAngleEnergy" ) {
       REQUIRE( 1 == chunk.interpolants()[0] );
       REQUIRE( 2 == chunk.boundaries()[0] );
 
-      auto energies = chunk.energies();
+      auto energies = chunk.angularDistributions();
 
       REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
 
@@ -66,7 +66,7 @@ SCENARIO( "LaboratoryAngleEnergy" ) {
       REQUIRE( 4 == energies[0].interpolants()[0] );
       REQUIRE( 2 == energies[0].boundaries()[0] );
 
-      auto cosines = energies[0].cosines();
+      auto cosines = energies[0].energyDistributions();
       REQUIRE( 2 == cosines.size() );
 
       REQUIRE( 1. == Approx( cosines[0].cosine() ) );
@@ -112,7 +112,7 @@ SCENARIO( "LaboratoryAngleEnergy" ) {
       REQUIRE( 4 == energies[1].interpolants()[0] );
       REQUIRE( 2 == energies[1].boundaries()[0] );
 
-      cosines = energies[1].cosines();
+      cosines = energies[1].energyDistributions();
       REQUIRE( 2 == cosines.size() );
 
       REQUIRE( .9 == Approx( cosines[0].cosine() ) );
@@ -174,7 +174,7 @@ SCENARIO( "LaboratoryAngleEnergy" ) {
       REQUIRE( 1 == chunk.interpolants()[0] );
       REQUIRE( 2 == chunk.boundaries()[0] );
 
-      auto energies = chunk.energies();
+      auto energies = chunk.angularDistributions();
 
       REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
 
@@ -185,7 +185,7 @@ SCENARIO( "LaboratoryAngleEnergy" ) {
       REQUIRE( 4 == energies[0].interpolants()[0] );
       REQUIRE( 2 == energies[0].boundaries()[0] );
 
-      auto cosines = energies[0].cosines();
+      auto cosines = energies[0].energyDistributions();
       REQUIRE( 2 == cosines.size() );
 
       REQUIRE( 1. == Approx( cosines[0].cosine() ) );
@@ -231,7 +231,7 @@ SCENARIO( "LaboratoryAngleEnergy" ) {
       REQUIRE( 4 == energies[1].interpolants()[0] );
       REQUIRE( 2 == energies[1].boundaries()[0] );
 
-      cosines = energies[1].cosines();
+      cosines = energies[1].energyDistributions();
       REQUIRE( 2 == cosines.size() );
 
       REQUIRE( .9 == Approx( cosines[0].cosine() ) );

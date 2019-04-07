@@ -10,207 +10,206 @@ using Tabulated =
 section::Type< 6 >::ContinuumEnergyAngle::Tabulated;
 
 std::string chunk();
+void checkTabulated( const Tabulated& );
 std::string invalidSize();
 
 SCENARIO( "Tabulated" ) {
 
   GIVEN( "valid data for a Tabulated" ) {
 
-    int lang = 14;
-    double energy = 1e-5;
-    int nd = 0;
-    int na = 4;
-    int nep = 2;
-    std::vector< double > list = {  1.,  2.,  3.,  4.,  5.,  6.,
-                                    7.,  8.,  9., 10., 11., 12. };
-    std::vector< double > energies = { 1., 7. };
-    std::vector< double > totalEmissionProbabilities = { 2., 8. };
-    std::vector< std::vector< double > > cosines = { { 3., 5. }, { 9., 11. } };
-    std::vector< std::vector< double > > probabilities = { { 4., 6. },
-                                                           { 10., 12. } };
+    std::vector< int > langs = { 11, 12, 13, 14, 15 };
+    
+    WHEN( "the data is given explicitly" ) {
 
-    THEN( "a Tabulated can "
-          "be constructed using a list and members can be tested" ) {
-      Tabulated chunk( lang, energy, nd, na, nep, std::move( list ) );
+      THEN( "a Tabulated can "
+            "be constructed using a list and members can be tested "
+            "for each LANG value" ) {
 
-      REQUIRE( 14 == chunk.LANG() );
-      REQUIRE( 1e-5 == Approx( chunk.energy() ) );
+        for ( auto lang : langs ) {
 
-      REQUIRE( 0 == chunk.ND() );
-      REQUIRE( 4 == chunk.NA() );
-      REQUIRE( 12 == chunk.NW() );
-      REQUIRE( 2 == chunk.NEP() );
-      REQUIRE( 2 == chunk.energies().size() );
-      REQUIRE( 1. == Approx( chunk.energies()[0] ) );
-      REQUIRE( 7. == Approx( chunk.energies()[1] ) );
-      REQUIRE( 2 == chunk.totalEmissionProbabilities().size() );
-      REQUIRE( 2. == Approx( chunk.totalEmissionProbabilities()[0] ) );
-      REQUIRE( 8. == Approx( chunk.totalEmissionProbabilities()[1] ) );
-      REQUIRE( 2 == chunk.cosines().size() );
-      REQUIRE( 3. == Approx( chunk.cosines()[0][0] ) );
-      REQUIRE( 5. == Approx( chunk.cosines()[0][1] ) );
-      REQUIRE( 9. == Approx( chunk.cosines()[1][0] ) );
-      REQUIRE( 11. == Approx( chunk.cosines()[1][1] ) );
-      REQUIRE( 2 == chunk.probabilities().size() );
-      REQUIRE( 4. == Approx( chunk.probabilities()[0][0] ) );
-      REQUIRE( 6. == Approx( chunk.probabilities()[0][1] ) );
-      REQUIRE( 10. == Approx( chunk.probabilities()[1][0] ) );
-      REQUIRE( 12. == Approx( chunk.probabilities()[1][1] ) );
+          double energy = 1e-5;
+          int nd = 0;
+          int na = 4;
+          int nep = 2;
 
-      REQUIRE( 3 == chunk.NC() );
-    }
+          std::vector< double > list = {  1.,  2.,  3.,  4.,  5.,  6.,
+                                          7.,  8.,  9., 10., 11., 12. };
 
-    THEN( "a Tabulated can "
-          "be constructed using vectors and members can be tested" ) {
-      Tabulated chunk( lang, energy, nd, na, nep, std::move( energies ),
-                       std::move( totalEmissionProbabilities ),
-                       std::move( cosines ),
-                       std::move( probabilities ) );
+          Tabulated chunk( lang, energy, nd, na, nep, std::move( list ) );
+          REQUIRE( lang == chunk.LANG() );
+          checkTabulated( chunk );
+        }
+      }
 
-      REQUIRE( 14 == chunk.LANG() );
-      REQUIRE( 1e-5 == Approx( chunk.energy() ) );
+      THEN( "a Tabulated can "
+            "be constructed using vectors and members can be tested "
+            "for each LANG value" ) {
 
-      REQUIRE( 0 == chunk.ND() );
-      REQUIRE( 4 == chunk.NA() );
-      REQUIRE( 12 == chunk.NW() );
-      REQUIRE( 2 == chunk.NEP() );
-      REQUIRE( 2 == chunk.energies().size() );
-      REQUIRE( 1. == Approx( chunk.energies()[0] ) );
-      REQUIRE( 7. == Approx( chunk.energies()[1] ) );
-      REQUIRE( 2 == chunk.totalEmissionProbabilities().size() );
-      REQUIRE( 2. == Approx( chunk.totalEmissionProbabilities()[0] ) );
-      REQUIRE( 8. == Approx( chunk.totalEmissionProbabilities()[1] ) );
-      REQUIRE( 2 == chunk.cosines().size() );
-      REQUIRE( 3. == Approx( chunk.cosines()[0][0] ) );
-      REQUIRE( 5. == Approx( chunk.cosines()[0][1] ) );
-      REQUIRE( 9. == Approx( chunk.cosines()[1][0] ) );
-      REQUIRE( 11. == Approx( chunk.cosines()[1][1] ) );
-      REQUIRE( 2 == chunk.probabilities().size() );
-      REQUIRE( 4. == Approx( chunk.probabilities()[0][0] ) );
-      REQUIRE( 6. == Approx( chunk.probabilities()[0][1] ) );
-      REQUIRE( 10. == Approx( chunk.probabilities()[1][0] ) );
-      REQUIRE( 12. == Approx( chunk.probabilities()[1][1] ) );
+        for ( auto lang : langs ) {
 
-      REQUIRE( 3 == chunk.NC() );
-    }
-  } // GIVEN
+          double energy = 1e-5;
+          int nd = 0;
+          int na = 4;
+          int nep = 2;
 
-  GIVEN( "a string representation of a valid Tabulated" ) {
+          std::vector< double > energies = { 1., 7. };
+          std::vector< double > totalEmissionProbabilities = { 2., 8. };
+          std::vector< std::vector< double > > cosines = { { 3., 5. }, 
+                                                           { 9., 11. } };
+          std::vector< std::vector< double > > probabilities = { { 4., 6. },
+                                                                 { 10., 12. } };
+          Tabulated chunk( lang, energy, nd, na, nep, std::move( energies ),
+                           std::move( totalEmissionProbabilities ),
+                           std::move( cosines ),
+                           std::move( probabilities ) );
+          checkTabulated( chunk );
+        }
+      } // THEN
+    } // WHEN
 
-    int lang = 14;
-    std::string string = chunk();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
+    WHEN( "the data is read from a string/stream" ) {
 
-    THEN( "a Tabulated can "
-          "be constructed and members can be tested" ) {
-      Tabulated chunk( lang, begin, end, lineNumber, 9228, 6, 5 );
+      std::string string = chunk();
 
-      REQUIRE( 14 == chunk.LANG() );
-      REQUIRE( 1e-5 == Approx( chunk.energy() ) );
+      THEN( "a Tabulated can "
+            "be constructed and members can be tested "
+            "for each LANG value" ) {
 
-      REQUIRE( 0 == chunk.ND() );
-      REQUIRE( 4 == chunk.NA() );
-      REQUIRE( 12 == chunk.NW() );
-      REQUIRE( 2 == chunk.NEP() );
-      REQUIRE( 2 == chunk.energies().size() );
-      REQUIRE( 1. == Approx( chunk.energies()[0] ) );
-      REQUIRE( 7. == Approx( chunk.energies()[1] ) );
-      REQUIRE( 2 == chunk.totalEmissionProbabilities().size() );
-      REQUIRE( 2. == Approx( chunk.totalEmissionProbabilities()[0] ) );
-      REQUIRE( 8. == Approx( chunk.totalEmissionProbabilities()[1] ) );
-      REQUIRE( 2 == chunk.cosines().size() );
-      REQUIRE( 3. == Approx( chunk.cosines()[0][0] ) );
-      REQUIRE( 5. == Approx( chunk.cosines()[0][1] ) );
-      REQUIRE( 9. == Approx( chunk.cosines()[1][0] ) );
-      REQUIRE( 11. == Approx( chunk.cosines()[1][1] ) );
-      REQUIRE( 2 == chunk.probabilities().size() );
-      REQUIRE( 4. == Approx( chunk.probabilities()[0][0] ) );
-      REQUIRE( 6. == Approx( chunk.probabilities()[0][1] ) );
-      REQUIRE( 10. == Approx( chunk.probabilities()[1][0] ) );
-      REQUIRE( 12. == Approx( chunk.probabilities()[1][1] ) );
+        for ( auto lang : langs ) {
 
-      REQUIRE( 3 == chunk.NC() );
-    }
-  } // GIVEN
+          auto begin = string.begin();
+          auto end = string.end();
+          long lineNumber = 1;
 
-  GIVEN( "data with inconsistent sizes" ) {
-
-    int lang = 14;
-    double energy = 1e-5;
-    int nd = 0;
-    int na = 4;
-    int nep = 2;
-    std::vector< double > list = {  1.,  2.,  3.,  4.,  5.,  6.,
-                                    7.,  8.,  9., 10., 11., 12. };
-    std::vector< double > energies = { 1., 7. };
-    std::vector< double > wrongEnergies = { 1., 7., 8. };
-    std::vector< double > totalEmissionProbabilities = { 2., 8. };
-    std::vector< double > wrongTotalEmissionProbabilities = { 2., 8., 3. };
-    std::vector< std::vector< double > > cosines = { { 3., 5. },
-                                                     { 9., 11. } };
-    std::vector< std::vector< double > > wrongCosines = { { 3., 5., 6. },
-                                                          { 9., 11. } };
-    std::vector< std::vector< double > > probabilities = { { 4., 6. },
-                                                           { 10., 12. } };
-    std::vector< std::vector< double > > wrongProbabilities = { { 4., 6., 7. },
-                                                                { 10., 12. } };
-
-    THEN( "an exception is thrown" ) {
-
-      REQUIRE_THROWS( Tabulated( lang, energy, nd, na, nep,
-                                 std::move( wrongEnergies ),
-                                 std::move( totalEmissionProbabilities ),
-                                 std::move( cosines ),
-                                 std::move( probabilities ) ) );
-      REQUIRE_THROWS( Tabulated( lang, energy, nd, na, nep,
-                                 std::move( energies ),
-                                 std::move( wrongTotalEmissionProbabilities ),
-                                 std::move( cosines ),
-                                 std::move( probabilities ) ) );
-      REQUIRE_THROWS( Tabulated( lang, energy, nd, na, nep,
-                                 std::move( energies ),
-                                 std::move( totalEmissionProbabilities ),
-                                 std::move( wrongCosines ),
-                                 std::move( probabilities ) ) );
-      REQUIRE_THROWS( Tabulated( lang, energy, nd, na, nep,
-                                 std::move( energies ),
-                                 std::move( totalEmissionProbabilities ),
-                                 std::move( cosines ),
-                                 std::move( wrongProbabilities ) ) );
-    }
-  } // GIVEN
-
-  GIVEN( "a string with inconsistent NW, NA, NEP" ) {
-
-    std::string string = invalidSize();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-
-    THEN( "an exception is thrown" ) {
-
-      REQUIRE_THROWS( Tabulated( 14, begin, end, lineNumber, 9228, 6, 5 ) );
-    }
+          Tabulated chunk( lang, begin, end, lineNumber, 9228, 6, 5 );
+          checkTabulated( chunk );
+        }
+      } // THEN
+    } // WHEN
   } // GIVEN
 
   GIVEN( "a valid instance of Tabulated" ) {
 
     int lang = 14;
+    
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    Tabulated
-      chunk( lang, begin, end, lineNumber, 9228, 6, 5 );
+
+    Tabulated chunk( lang, begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
+
       std::string buffer;
       auto output = std::back_inserter( buffer );
       chunk.print( output, 9228, 6, 5 );
       REQUIRE( buffer == string );
     }
+  } // GIVEN
+
+  GIVEN( "invalid data for a Tabulated" ) {
+
+    int lang = 14; // LANG is not on a Tabulated section but we do store it
+
+    WHEN( "data with inconsistent sizes is given" ) {
+
+      double energy = 1e-5;
+      int nd = 0;
+      int na = 4;
+      int nep = 2;
+      std::vector< double > list = {  1.,  2.,  3.,  4.,  5.,  6.,
+                                      7.,  8.,  9., 10., 11., 12. };
+      std::vector< double > energies = { 1., 7. };
+      std::vector< double > wrongEnergies = { 1., 7., 8. };
+      std::vector< double > totalEmissionProbabilities = { 2., 8. };
+      std::vector< double > wrongTotalEmissionProbabilities = { 2., 8., 3. };
+      std::vector< std::vector< double > > cosines = { { 3., 5. },
+                                                     { 9., 11. } };
+      std::vector< std::vector< double > > wrongCosines = { { 3., 5., 6. },
+                                                            { 9., 11. } };
+      std::vector< std::vector< double > > probabilities = { { 4., 6. },
+                                                           { 10., 12. } };
+      std::vector< std::vector< double > > wrongProbabilities =
+                                             { { 4., 6., 7. }, { 10., 12. } };
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( Tabulated( lang, energy, nd, na, nep,
+                                   std::move( wrongEnergies ),
+                                   std::move( totalEmissionProbabilities ),
+                                   std::move( cosines ),
+                                   std::move( probabilities ) ) );
+        REQUIRE_THROWS( Tabulated( lang, energy, nd, na, nep,
+                                   std::move( energies ),
+                                   std::move( wrongTotalEmissionProbabilities ),
+                                   std::move( cosines ),
+                                   std::move( probabilities ) ) );
+        REQUIRE_THROWS( Tabulated( lang, energy, nd, na, nep,
+                                   std::move( energies ),
+                                   std::move( totalEmissionProbabilities ),
+                                   std::move( wrongCosines ),
+                                   std::move( probabilities ) ) );
+        REQUIRE_THROWS( Tabulated( lang, energy, nd, na, nep,
+                                   std::move( energies ),
+                                   std::move( totalEmissionProbabilities ),
+                                   std::move( cosines ),
+                                   std::move( wrongProbabilities ) ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a string with inconsistent NW, NA, NEP is given" ) {
+
+      std::string string = invalidSize();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( Tabulated( lang, begin, end, lineNumber, 9228, 6, 5 ) );
+      } // THEN
+    } // WHEN
+   
+    WHEN( "invalid LANG values are given" ) {
+
+      std::vector< int > invalidLANGs = { -1, 0, 10, 16, 20 };
+
+      THEN( "an exception is thrown" ) {
+
+        for ( auto lang : invalidLANGs ) {
+
+          double energy = 1e-5;
+          int nd = 0;
+          int na = 4;
+          int nep = 2;
+          std::vector< double > list = {  1.,  2.,  3.,  4.,  5.,  6.,
+                                      7.,  8.,  9., 10., 11., 12. };
+          std::vector< double > energies = { 1., 7. };
+          std::vector< double > totalEmissionProbabilities = { 2., 8. };
+          std::vector< std::vector< double > > cosines = { { 3., 5. }, 
+                                                           { 9., 11. } };
+          std::vector< std::vector< double > > probabilities = { { 4., 6. },
+                                                                 { 10., 12. } };
+
+          std::string string = chunk();
+
+          auto begin = string.begin();
+          auto end = string.end();
+          long lineNumber = 1;
+
+          REQUIRE_THROWS( Tabulated( lang, energy, nd, na, nep,
+                                     std::move( list  ) ) );
+          REQUIRE_THROWS( Tabulated( lang, energy, nd, na, nep,
+                                     std::move( energies ),
+                                     std::move( totalEmissionProbabilities ),
+                                     std::move( cosines ),
+                                     std::move( probabilities ) ) );
+          REQUIRE_THROWS(
+            Tabulated( lang, begin, end, lineNumber, 9228, 6, 5 ) );
+        }
+      } // THEN
+    } // WHEN
   } // GIVEN
 } // SCENARIO
 
@@ -221,6 +220,37 @@ std::string chunk() {
     " 7.000000+0 8.000000+0 9.000000+0 1.000000+1 1.100000+1 1.200000+19228 6  5     \n";
 }
 
+void checkTabulated( const Tabulated& chunk ) {
+
+  REQUIRE( 1e-5 == Approx( chunk.energy() ) );
+
+  REQUIRE( 0 == chunk.ND() );
+  REQUIRE( 0 == chunk.numberDiscreteEnergies() );
+  REQUIRE( 4 == chunk.NA() );
+  REQUIRE( 4 == chunk.numberAngularParameters() );
+  REQUIRE( 12 == chunk.NW() );
+  REQUIRE( 2 == chunk.NEP() );
+  REQUIRE( 2 == chunk.numberSecondaryEnergies() );
+  REQUIRE( 2 == chunk.energies().size() );
+  REQUIRE( 1. == Approx( chunk.energies()[0] ) );
+  REQUIRE( 7. == Approx( chunk.energies()[1] ) );
+  REQUIRE( 2 == chunk.totalEmissionProbabilities().size() );
+  REQUIRE( 2. == Approx( chunk.totalEmissionProbabilities()[0] ) );
+  REQUIRE( 8. == Approx( chunk.totalEmissionProbabilities()[1] ) );
+  REQUIRE( 2 == chunk.cosines().size() );
+  REQUIRE( 3. == Approx( chunk.cosines()[0][0] ) );
+  REQUIRE( 5. == Approx( chunk.cosines()[0][1] ) );
+  REQUIRE( 9. == Approx( chunk.cosines()[1][0] ) );
+  REQUIRE( 11. == Approx( chunk.cosines()[1][1] ) );
+  REQUIRE( 2 == chunk.probabilities().size() );
+  REQUIRE( 4. == Approx( chunk.probabilities()[0][0] ) );
+  REQUIRE( 6. == Approx( chunk.probabilities()[0][1] ) );
+  REQUIRE( 10. == Approx( chunk.probabilities()[1][0] ) );
+  REQUIRE( 12. == Approx( chunk.probabilities()[1][1] ) );
+
+  REQUIRE( 3 == chunk.NC() );
+}
+
 std::string invalidSize() {
   return
     " 0.000000+0 1.000000-5          0          4         13          29228 6  5     \n"
@@ -228,4 +258,3 @@ std::string invalidSize() {
     " 7.000000+0 8.000000+0 9.000000+0 1.000000+1 1.100000+1 1.200000+19228 6  5     \n"
     " 1.300000+0                                                       9228 6  5     \n";
 }
-

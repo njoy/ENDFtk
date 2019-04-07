@@ -3,6 +3,7 @@
 
 #include <functional>
 #include <unordered_map>
+#include <complex>
 
 #ifdef __GNUC__
   #pragma GCC diagnostic push

@@ -9,12 +9,17 @@ using namespace njoy::ENDFtk;
 using NoLawDataGiven = 
 section::Type< 6 >::NoLawDataGiven;
 
+class TestNoLawDataGiven : public NoLawDataGiven {
+public:
+  TestNoLawDataGiven() : NoLawDataGiven() {};
+};
+
 SCENARIO( "NoLawDataGiven" ) {
 
   GIVEN( "a string representation of a valid NoLawDataGiven" ) {
 
     THEN( "a NoLawDataGiven can be constructed and members can be tested" ) {
-      NoLawDataGiven chunk;
+      TestNoLawDataGiven chunk;
 
       REQUIRE( 0 == chunk.NC() );
     }
@@ -22,7 +27,7 @@ SCENARIO( "NoLawDataGiven" ) {
 
   GIVEN( "a valid instance of NoLawDataGiven" ) {
 
-    NoLawDataGiven chunk;
+    TestNoLawDataGiven chunk;
 
     THEN( "it does not print anything" ) {
       std::string buffer;

@@ -19,14 +19,9 @@ public:
   /* get methods */
   const InterpolationRecord& tab2() const { return this->interpolation_; }
 
-  auto records() const {
-    return ranges::make_iterator_range( this->sequence_.begin(),
-                                        this->sequence_.end() );
-  }
+  auto records() const { return ranges::view::all( this->sequence_ ); }
 
-#include "ENDFtk/InterpolationSequenceRecord/src/NC.hpp"
-
-#include "ENDFtk/InterpolationSequenceRecord/src/print.hpp"
-
+  #include "ENDFtk/InterpolationSequenceRecord/src/NC.hpp"
+  #include "ENDFtk/InterpolationSequenceRecord/src/print.hpp"
 };
 

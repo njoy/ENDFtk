@@ -42,7 +42,7 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
       REQUIRE( 1 == chunk.interpolants()[0] );
       REQUIRE( 2 == chunk.boundaries()[0] );
 
-      auto energies = chunk.energies();
+      auto energies = chunk.subsections();
 
       REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
       REQUIRE( 0 == energies[0].LANG() );
@@ -50,7 +50,7 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
       REQUIRE( 4 == energies[0].NL() );
 
       auto subsection1 =
-          std::experimental::get< LegendreCoefficients >( energies[0] );
+           std::experimental::get< LegendreCoefficients >( energies[0].data() );
       REQUIRE( 0 == subsection1.LANG() );
       REQUIRE( 4 == subsection1.NW() );
       REQUIRE( 4 == subsection1.NL() );
@@ -65,7 +65,8 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
       REQUIRE( 6 == energies[1].NW() );
       REQUIRE( 3 == energies[1].NL() );
 
-      auto subsection2 = std::experimental::get< Tabulated >( energies[1] );
+      auto subsection2 =
+           std::experimental::get< Tabulated >( energies[1].data() );
       REQUIRE( 12 == subsection2.LANG() );
       REQUIRE( 6 == subsection2.NW() );
       REQUIRE( 3 == subsection2.NL() );
@@ -102,7 +103,7 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
       REQUIRE( 1 == chunk.interpolants()[0] );
       REQUIRE( 2 == chunk.boundaries()[0] );
 
-      auto energies = chunk.energies();
+      auto energies = chunk.subsections();
 
       REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
       REQUIRE( 0 == energies[0].LANG() );
@@ -110,7 +111,7 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
       REQUIRE( 4 == energies[0].NL() );
 
       auto subsection1 =
-          std::experimental::get< LegendreCoefficients >( energies[0] );
+           std::experimental::get< LegendreCoefficients >( energies[0].data() );
       REQUIRE( 0 == subsection1.LANG() );
       REQUIRE( 4 == subsection1.NW() );
       REQUIRE( 4 == subsection1.NL() );
@@ -125,7 +126,8 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
       REQUIRE( 6 == energies[1].NW() );
       REQUIRE( 3 == energies[1].NL() );
 
-      auto subsection2 = std::experimental::get< Tabulated >( energies[1] );
+      auto subsection2 =
+           std::experimental::get< Tabulated >( energies[1].data() );
       REQUIRE( 12 == subsection2.LANG() );
       REQUIRE( 6 == subsection2.NW() );
       REQUIRE( 3 == subsection2.NL() );
@@ -160,7 +162,7 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
   } // GIVEN
 
   GIVEN( "a string representation of a DiscreteTwoBodyScattering"
-         " with an invalid LPT" ){
+         " with an invalid LANG" ){
     std::string string = invalidLANG();
     auto begin = string.begin();
     auto end = string.end();

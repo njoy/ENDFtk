@@ -7,10 +7,7 @@ generateList( unsigned int na,
 
   if ( ( energies.size() != totalEmissionProbabilities.size() ) ||
        ( energies.size() != cosines.size() ) ||
-       ( energies.size() != probabilities.size() ) || 
-       ( totalEmissionProbabilities.size() != cosines.size() ) || 
-       ( totalEmissionProbabilities.size() != probabilities.size() ) || 
-       ( cosines.size() != probabilities.size() ) ) {
+       ( energies.size() != probabilities.size() ) ) {
 
     Log::error( "A total emission probability value f0 and a set of cosines "
                 "and probabilities must be given for each energy value" );
@@ -23,6 +20,8 @@ generateList( unsigned int na,
 
   std::vector< double > list;
   for ( unsigned int i = 0; i < energies.size(); ++i ) {
+
+    verifySorted( cosines[i], "Energy" );
 
     if ( ( cosines[i].size() != probabilities[i].size() ) ||
          ( cosines[i].size() != na / 2 ) ) {

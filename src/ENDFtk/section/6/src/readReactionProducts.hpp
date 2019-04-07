@@ -7,10 +7,12 @@ readReactionProducts( Iterator& begin,
                       int MF,
                       int MT,
                       int size ) {
+
   std::vector< ReactionProduct > products;
   products.reserve( size );
 
-  while( size-- ){
+  while( size-- ) {
+
     products.emplace_back( begin, end, lineNumber, MAT, MF, MT );
   }
 

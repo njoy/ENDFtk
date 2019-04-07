@@ -77,8 +77,11 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 92235. == Approx( chunk.ZA() ) );
       REQUIRE( 2.330248e+2 == Approx( chunk.AWR() ) );
       REQUIRE( 0 == chunk.JP() );
+      REQUIRE( 0 == chunk.averageMultipleParticlesFlag() );
       REQUIRE( 2 == chunk.LCT() );
+      REQUIRE( 2 == chunk.referenceFrame() );
       REQUIRE( 3 == chunk.NK() );
+      REQUIRE( 3 == chunk.numberSubSections() );
       REQUIRE( 5 == chunk.MT() );
 
       auto products = chunk.products();
@@ -86,13 +89,19 @@ SCENARIO( "section::Type< 6 >" ) {
 
       // product 1
       REQUIRE( 1001. == Approx( products[0].ZAP() ) );
+      REQUIRE( 1001. == Approx( products[0].productIdentifier() ) );
       REQUIRE( 0.9986234 == Approx( products[0].AWP() ) );
+      REQUIRE( 0.9986234 == Approx( products[0].productMassRatio() ) );
       REQUIRE( 0 == products[0].LIP() );
+      REQUIRE( 0 == products[0].productModifierFlag() );
       REQUIRE( 1 == products[0].LAW() );
 
       REQUIRE( 1001. == Approx( products[0].multiplicity().ZAP() ) );
+      REQUIRE( 1001. == Approx( products[0].multiplicity().productIdentifier() ) );
       REQUIRE( 0.9986234 == Approx( products[0].multiplicity().AWP() ) );
+      REQUIRE( 0.9986234 == Approx( products[0].multiplicity().productMassRatio() ) );
       REQUIRE( 0 == products[0].multiplicity().LIP() );
+      REQUIRE( 0 == products[0].multiplicity().productModifierFlag() );
       REQUIRE( 1 == products[0].multiplicity().LAW() );
 
       REQUIRE( 4 == products[0].multiplicity().NP() );
@@ -128,21 +137,27 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 1 == law.interpolants()[0] );
       REQUIRE( 2 == law.boundaries()[0] );
 
-      auto energies = law.energies();
+      auto energies = law.subsections();
 
       REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
       REQUIRE( 1 == energies[0].LANG() );
       REQUIRE( 0 == energies[0].ND() );
+      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
       REQUIRE( 1 == energies[0].NA() );
+      REQUIRE( 1 == energies[0].numberAngularParameters() );
       REQUIRE( 12 == energies[0].NW() );
       REQUIRE( 4 == energies[0].NEP() );
+      REQUIRE( 4 == energies[0].numberSecondaryEnergies() );
 
       auto subsection1 =
-          std::experimental::get< LegendreCoefficients >( energies[0] );
+          std::experimental::get< LegendreCoefficients >( energies[0].data() );
       REQUIRE( 0 == subsection1.ND() );
+      REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
       REQUIRE( 1 == subsection1.NA() );
+      REQUIRE( 1 == subsection1.numberAngularParameters() );
       REQUIRE( 12 == subsection1.NW() );
       REQUIRE( 4 == subsection1.NEP() );
+      REQUIRE( 4 == subsection1.numberSecondaryEnergies() );
       REQUIRE( 4 == subsection1.energies().size() );
       REQUIRE( 1. == Approx( subsection1.energies()[0] ) );
       REQUIRE( 4. == Approx( subsection1.energies()[1] ) );
@@ -166,17 +181,23 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
       REQUIRE( 1 == energies[1].LANG() );
       REQUIRE( 0 == energies[1].ND() );
+      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
       REQUIRE( 1 == energies[1].NA() );
+      REQUIRE( 1 == energies[1].numberAngularParameters() );
       REQUIRE( 6 == energies[1].NW() );
       REQUIRE( 2 == energies[1].NEP() );
+      REQUIRE( 2 == energies[1].numberSecondaryEnergies() );
 
       auto subsection2 =
-          std::experimental::get< LegendreCoefficients >( energies[1] );
+          std::experimental::get< LegendreCoefficients >( energies[1].data() );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
+      REQUIRE( 0 == subsection2.numberDiscreteEnergies() );
       REQUIRE( 1 == subsection2.NA() );
+      REQUIRE( 1 == subsection2.numberAngularParameters() );
       REQUIRE( 6 == subsection2.NW() );
       REQUIRE( 2 == subsection2.NEP() );
+      REQUIRE( 2 == subsection2.numberSecondaryEnergies() );
       REQUIRE( 2 == subsection2.energies().size() );
       REQUIRE( 1. == Approx( subsection2.energies()[0] ) );
       REQUIRE( 4. == Approx( subsection2.energies()[1] ) );
@@ -191,13 +212,19 @@ SCENARIO( "section::Type< 6 >" ) {
 
       // product 2
       REQUIRE( 1. == Approx( products[1].ZAP() ) );
+      REQUIRE( 1. == Approx( products[1].productIdentifier() ) );
       REQUIRE( 1. == Approx( products[1].AWP() ) );
+      REQUIRE( 1. == Approx( products[1].productMassRatio() ) );
       REQUIRE( 0 == products[1].LIP() );
+      REQUIRE( 0 == products[1].productModifierFlag() );
       REQUIRE( 1 == products[1].LAW() );
 
       REQUIRE( 1. == Approx( products[1].multiplicity().ZAP() ) );
+      REQUIRE( 1. == Approx( products[1].multiplicity().productIdentifier() ) );
       REQUIRE( 1. == Approx( products[1].multiplicity().AWP() ) );
+      REQUIRE( 1. == Approx( products[1].multiplicity().productMassRatio() ) );
       REQUIRE( 0 == products[1].multiplicity().LIP() );
+      REQUIRE( 0 == products[1].multiplicity().productModifierFlag() );
       REQUIRE( 1 == products[1].multiplicity().LAW() );
 
       REQUIRE( 2 == products[1].multiplicity().NP() );
@@ -226,21 +253,27 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 22 == law.interpolants()[0] );
       REQUIRE( 2 == law.boundaries()[0] );
 
-      energies = law.energies();
+      energies = law.subsections();
 
       REQUIRE( 1.858639e+7 == Approx( energies[0].energy() ) );
       REQUIRE( 1 == energies[0].LANG() );
       REQUIRE( 0 == energies[0].ND() );
+      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
       REQUIRE( 0 == energies[0].NA() );
+      REQUIRE( 0 == energies[0].numberAngularParameters() );
       REQUIRE( 6 == energies[0].NW() );
       REQUIRE( 3 == energies[0].NEP() );
+      REQUIRE( 3 == energies[0].numberSecondaryEnergies() );
 
       subsection1 =
-          std::experimental::get< LegendreCoefficients >( energies[0] );
+          std::experimental::get< LegendreCoefficients >( energies[0].data() );
       REQUIRE( 0 == subsection1.ND() );
+      REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
       REQUIRE( 0 == subsection1.NA() );
+      REQUIRE( 0 == subsection1.numberAngularParameters() );
       REQUIRE( 6 == subsection1.NW() );
       REQUIRE( 3 == subsection1.NEP() );
+      REQUIRE( 3 == subsection1.numberSecondaryEnergies() );
       REQUIRE( 3 == subsection1.energies().size() );
       REQUIRE( 0. == Approx( subsection1.energies()[0] ) );
       REQUIRE( 0.5 == Approx( subsection1.energies()[1] ) );
@@ -257,17 +290,23 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
       REQUIRE( 1 == energies[1].LANG() );
       REQUIRE( 0 == energies[1].ND() );
+      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
       REQUIRE( 0 == energies[1].NA() );
+      REQUIRE( 0 == energies[1].numberAngularParameters() );
       REQUIRE( 6 == energies[1].NW() );
       REQUIRE( 3 == energies[1].NEP() );
+      REQUIRE( 3 == energies[1].numberSecondaryEnergies() );
 
       subsection2 =
-          std::experimental::get< LegendreCoefficients >( energies[1] );
+          std::experimental::get< LegendreCoefficients >( energies[1].data() );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
+      REQUIRE( 0 == subsection2.numberDiscreteEnergies() );
       REQUIRE( 0 == subsection2.NA() );
+      REQUIRE( 0 == subsection2.numberAngularParameters() );
       REQUIRE( 6 == subsection2.NW() );
       REQUIRE( 3 == subsection2.NEP() );
+      REQUIRE( 3 == subsection2.numberSecondaryEnergies() );
       REQUIRE( 3 == subsection2.energies().size() );
       REQUIRE( 0. == Approx( subsection2.energies()[0] ) );
       REQUIRE( .5 == Approx( subsection2.energies()[1] ) );
@@ -283,13 +322,19 @@ SCENARIO( "section::Type< 6 >" ) {
 
       // product 3
       REQUIRE( 0. == Approx( products[2].ZAP() ) );
+      REQUIRE( 0. == Approx( products[2].productIdentifier() ) );
       REQUIRE( 0. == Approx( products[2].AWP() ) );
+      REQUIRE( 0. == Approx( products[2].productMassRatio() ) );
       REQUIRE( 0 == products[2].LIP() );
+      REQUIRE( 0 == products[2].productModifierFlag() );
       REQUIRE( 1 == products[2].LAW() );
 
       REQUIRE( 0. == Approx( products[2].multiplicity().ZAP() ) );
+      REQUIRE( 0. == Approx( products[2].multiplicity().productIdentifier() ) );
       REQUIRE( 0. == Approx( products[2].multiplicity().AWP() ) );
+      REQUIRE( 0. == Approx( products[2].multiplicity().productMassRatio() ) );
       REQUIRE( 0 == products[2].multiplicity().LIP() );
+      REQUIRE( 0 == products[2].multiplicity().productModifierFlag() );
       REQUIRE( 1 == products[2].multiplicity().LAW() );
 
       REQUIRE( 3 == products[2].multiplicity().NP() );
@@ -321,21 +366,27 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 5 == law.interpolants()[0] );
       REQUIRE( 2 == law.boundaries()[0] );
 
-      energies = law.energies();
+      energies = law.subsections();
 
       REQUIRE( 1.858639e+7 == Approx( energies[0].energy() ) );
       REQUIRE( 1 == energies[0].LANG() );
       REQUIRE( 0 == energies[0].ND() );
+      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
       REQUIRE( 0 == energies[0].NA() );
+      REQUIRE( 0 == energies[0].numberAngularParameters() );
       REQUIRE( 6 == energies[0].NW() );
       REQUIRE( 3 == energies[0].NEP() );
+      REQUIRE( 3 == energies[0].numberSecondaryEnergies() );
 
       subsection1 =
-          std::experimental::get< LegendreCoefficients >( energies[0] );
+          std::experimental::get< LegendreCoefficients >( energies[0].data() );
       REQUIRE( 0 == subsection1.ND() );
+      REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
       REQUIRE( 0 == subsection1.NA() );
+      REQUIRE( 0 == subsection1.numberAngularParameters() );
       REQUIRE( 6 == subsection1.NW() );
       REQUIRE( 3 == subsection1.NEP() );
+      REQUIRE( 3 == subsection1.numberSecondaryEnergies() );
       REQUIRE( 3 == subsection1.energies().size() );
       REQUIRE( 0. == Approx( subsection1.energies()[0] ) );
       REQUIRE( 1. == Approx( subsection1.energies()[1] ) );
@@ -352,17 +403,23 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
       REQUIRE( 1 == energies[1].LANG() );
       REQUIRE( 0 == energies[1].ND() );
+      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
       REQUIRE( 0 == energies[1].NA() );
+      REQUIRE( 0 == energies[1].numberAngularParameters() );
       REQUIRE( 6 == energies[1].NW() );
       REQUIRE( 3 == energies[1].NEP() );
+      REQUIRE( 3 == energies[1].numberSecondaryEnergies() );
 
       subsection2 =
-          std::experimental::get< LegendreCoefficients >( energies[1] );
+          std::experimental::get< LegendreCoefficients >( energies[1].data() );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
+      REQUIRE( 0 == subsection2.numberDiscreteEnergies() );
       REQUIRE( 0 == subsection2.NA() );
+      REQUIRE( 0 == subsection2.numberAngularParameters() );
       REQUIRE( 6 == subsection2.NW() );
       REQUIRE( 3 == subsection2.NEP() );
+      REQUIRE( 3 == subsection2.numberSecondaryEnergies() );
       REQUIRE( 3 == subsection2.energies().size() );
       REQUIRE( 0. == Approx( subsection2.energies()[0] ) );
       REQUIRE( 1. == Approx( subsection2.energies()[1] ) );
@@ -393,323 +450,366 @@ SCENARIO( "section::Type< 6 >" ) {
             "members can be tested" ) {
         section::Type< 6 > chunk( head, begin, end, lineNumber, 9228 );
 
-        REQUIRE( 92235. == Approx( chunk.ZA() ) );
-        REQUIRE( 2.330248e+2 == Approx( chunk.AWR() ) );
-        REQUIRE( 0 == chunk.JP() );
-        REQUIRE( 2 == chunk.LCT() );
-        REQUIRE( 3 == chunk.NK() );
-        REQUIRE( 5 == chunk.MT() );
+      REQUIRE( 92235. == Approx( chunk.ZA() ) );
+      REQUIRE( 2.330248e+2 == Approx( chunk.AWR() ) );
+      REQUIRE( 0 == chunk.JP() );
+      REQUIRE( 0 == chunk.averageMultipleParticlesFlag() );
+      REQUIRE( 2 == chunk.LCT() );
+      REQUIRE( 2 == chunk.referenceFrame() );
+      REQUIRE( 3 == chunk.NK() );
+      REQUIRE( 3 == chunk.numberSubSections() );
+      REQUIRE( 5 == chunk.MT() );
 
-        auto products = chunk.products();
-        REQUIRE( 3 == products.size() );
+      auto products = chunk.products();
+      REQUIRE( 3 == products.size() );
 
-        // product 1
-        REQUIRE( 1001. == Approx( products[0].ZAP() ) );
-        REQUIRE( 0.9986234 == Approx( products[0].AWP() ) );
-        REQUIRE( 0 == products[0].LIP() );
-        REQUIRE( 1 == products[0].LAW() );
+      // product 1
+      REQUIRE( 1001. == Approx( products[0].ZAP() ) );
+      REQUIRE( 1001. == Approx( products[0].productIdentifier() ) );
+      REQUIRE( 0.9986234 == Approx( products[0].AWP() ) );
+      REQUIRE( 0.9986234 == Approx( products[0].productMassRatio() ) );
+      REQUIRE( 0 == products[0].LIP() );
+      REQUIRE( 0 == products[0].productModifierFlag() );
+      REQUIRE( 1 == products[0].LAW() );
 
-        REQUIRE( 1001. == Approx( products[0].multiplicity().ZAP() ) );
-        REQUIRE( 0.9986234 == Approx( products[0].multiplicity().AWP() ) );
-        REQUIRE( 0 == products[0].multiplicity().LIP() );
-        REQUIRE( 1 == products[0].multiplicity().LAW() );
+      REQUIRE( 1001. == Approx( products[0].multiplicity().ZAP() ) );
+      REQUIRE( 1001. == Approx( products[0].multiplicity().productIdentifier() ) );
+      REQUIRE( 0.9986234 == Approx( products[0].multiplicity().AWP() ) );
+      REQUIRE( 0.9986234 == Approx( products[0].multiplicity().productMassRatio() ) );
+      REQUIRE( 0 == products[0].multiplicity().LIP() );
+      REQUIRE( 0 == products[0].multiplicity().productModifierFlag() );
+      REQUIRE( 1 == products[0].multiplicity().LAW() );
 
-        REQUIRE( 4 == products[0].multiplicity().NP() );
-        REQUIRE( 1 == products[0].multiplicity().NR() );
-        REQUIRE( 1 == products[0].multiplicity().interpolants().size() );
-        REQUIRE( 1 == products[0].multiplicity().boundaries().size() );
-        REQUIRE( 2 == products[0].multiplicity().interpolants()[0] );
-        REQUIRE( 4 == products[0].multiplicity().boundaries()[0] );
-        REQUIRE( 4 == products[0].multiplicity().energies().size() );
-        REQUIRE( 4 == products[0].multiplicity().multiplicities().size() );
-        REQUIRE( 1e-5 == Approx( products[0].multiplicity().energies()[0] ) );
-        REQUIRE( 1.1e+7 == Approx( products[0].multiplicity().energies()[1] ) );
-        REQUIRE( 1.147e+7 ==
-                 Approx( products[0].multiplicity().energies()[2] ) );
-        REQUIRE( 2e+7 == Approx( products[0].multiplicity().energies()[3] ) );
-        REQUIRE( 0. ==
-                 Approx( products[0].multiplicity().multiplicities()[0] ) );
-        REQUIRE( 8.45368e-11 ==
-                 Approx( products[0].multiplicity().multiplicities()[1] ) );
-        REQUIRE( 6.622950e-8 ==
-                 Approx( products[0].multiplicity().multiplicities()[2] ) );
-        REQUIRE( 2.149790e-1 ==
-                 Approx( products[0].multiplicity().multiplicities()[3] ) );
+      REQUIRE( 4 == products[0].multiplicity().NP() );
+      REQUIRE( 1 == products[0].multiplicity().NR() );
+      REQUIRE( 1 == products[0].multiplicity().interpolants().size() );
+      REQUIRE( 1 == products[0].multiplicity().boundaries().size() );
+      REQUIRE( 2 == products[0].multiplicity().interpolants()[0] );
+      REQUIRE( 4 == products[0].multiplicity().boundaries()[0] );
+      REQUIRE( 4 == products[0].multiplicity().energies().size() );
+      REQUIRE( 4 == products[0].multiplicity().multiplicities().size() );
+      REQUIRE( 1e-5 == Approx( products[0].multiplicity().energies()[0] ) );
+      REQUIRE( 1.1e+7 == Approx( products[0].multiplicity().energies()[1] ) );
+      REQUIRE( 1.147e+7 == Approx( products[0].multiplicity().energies()[2] ) );
+      REQUIRE( 2e+7 == Approx( products[0].multiplicity().energies()[3] ) );
+      REQUIRE( 0. == Approx( products[0].multiplicity().multiplicities()[0] ) );
+      REQUIRE( 8.45368e-11 ==
+               Approx( products[0].multiplicity().multiplicities()[1] ) );
+      REQUIRE( 6.622950e-8 ==
+               Approx( products[0].multiplicity().multiplicities()[2] ) );
+      REQUIRE( 2.149790e-1 ==
+               Approx( products[0].multiplicity().multiplicities()[3] ) );
 
-        auto law =
-            std::experimental::get< ContinuumEnergyAngle >(
-                products[0].distribution() );
+      auto law =
+          std::experimental::get< ContinuumEnergyAngle >(
+              products[0].distribution() );
 
-        REQUIRE( 1 == law.LAW() );
-        REQUIRE( 2 == law.LEP() );
-        REQUIRE( 2 == law.NE() );
-        REQUIRE( 1 == law.NR() );
-        REQUIRE( 1 == law.interpolants().size() );
-        REQUIRE( 1 == law.boundaries().size() );
-        REQUIRE( 1 == law.interpolants()[0] );
-        REQUIRE( 2 == law.boundaries()[0] );
+      REQUIRE( 1 == law.LAW() );
+      REQUIRE( 2 == law.LEP() );
+      REQUIRE( 2 == law.NE() );
+      REQUIRE( 1 == law.NR() );
+      REQUIRE( 1 == law.interpolants().size() );
+      REQUIRE( 1 == law.boundaries().size() );
+      REQUIRE( 1 == law.interpolants()[0] );
+      REQUIRE( 2 == law.boundaries()[0] );
 
-        auto energies = law.energies();
+      auto energies = law.subsections();
 
-        REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
-        REQUIRE( 1 == energies[0].LANG() );
-        REQUIRE( 0 == energies[0].ND() );
-        REQUIRE( 1 == energies[0].NA() );
-        REQUIRE( 12 == energies[0].NW() );
-        REQUIRE( 4 == energies[0].NEP() );
+      REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
+      REQUIRE( 1 == energies[0].LANG() );
+      REQUIRE( 0 == energies[0].ND() );
+      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
+      REQUIRE( 1 == energies[0].NA() );
+      REQUIRE( 1 == energies[0].numberAngularParameters() );
+      REQUIRE( 12 == energies[0].NW() );
+      REQUIRE( 4 == energies[0].NEP() );
+      REQUIRE( 4 == energies[0].numberSecondaryEnergies() );
 
-        auto subsection1 =
-            std::experimental::get< LegendreCoefficients >( energies[0] );
-        REQUIRE( 0 == subsection1.ND() );
-        REQUIRE( 1 == subsection1.NA() );
-        REQUIRE( 12 == subsection1.NW() );
-        REQUIRE( 4 == subsection1.NEP() );
-        REQUIRE( 4 == subsection1.energies().size() );
-        REQUIRE( 1. == Approx( subsection1.energies()[0] ) );
-        REQUIRE( 4. == Approx( subsection1.energies()[1] ) );
-        REQUIRE( 7. == Approx( subsection1.energies()[2] ) );
-        REQUIRE( 10. == Approx( subsection1.energies()[3] ) );
-        REQUIRE( 4 == subsection1.coefficients().size() );
-        REQUIRE( 2. == Approx( subsection1.coefficients()[0][0] ) );
-        REQUIRE( 3. == Approx( subsection1.coefficients()[0][1] ) );
-        REQUIRE( 5. == Approx( subsection1.coefficients()[1][0] ) );
-        REQUIRE( 6. == Approx( subsection1.coefficients()[1][1] ) );
-        REQUIRE( 8. == Approx( subsection1.coefficients()[2][0] ) );
-        REQUIRE( 9. == Approx( subsection1.coefficients()[2][1] ) );
-        REQUIRE( 11. == Approx( subsection1.coefficients()[3][0] ) );
-        REQUIRE( 12. == Approx( subsection1.coefficients()[3][1] ) );
-        REQUIRE( 4 ==
-                 Approx( subsection1.totalEmissionProbabilities().size() ) );
-        REQUIRE( 2. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
-        REQUIRE( 5. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
-        REQUIRE( 8. == Approx( subsection1.totalEmissionProbabilities()[2] ) );
-        REQUIRE( 11. == Approx( subsection1.totalEmissionProbabilities()[3] ) );
+      auto subsection1 =
+          std::experimental::get< LegendreCoefficients >( energies[0].data() );
+      REQUIRE( 0 == subsection1.ND() );
+      REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
+      REQUIRE( 1 == subsection1.NA() );
+      REQUIRE( 1 == subsection1.numberAngularParameters() );
+      REQUIRE( 12 == subsection1.NW() );
+      REQUIRE( 4 == subsection1.NEP() );
+      REQUIRE( 4 == subsection1.numberSecondaryEnergies() );
+      REQUIRE( 4 == subsection1.energies().size() );
+      REQUIRE( 1. == Approx( subsection1.energies()[0] ) );
+      REQUIRE( 4. == Approx( subsection1.energies()[1] ) );
+      REQUIRE( 7. == Approx( subsection1.energies()[2] ) );
+      REQUIRE( 10. == Approx( subsection1.energies()[3] ) );
+      REQUIRE( 4 == subsection1.coefficients().size() );
+      REQUIRE( 2. == Approx( subsection1.coefficients()[0][0] ) );
+      REQUIRE( 3. == Approx( subsection1.coefficients()[0][1] ) );
+      REQUIRE( 5. == Approx( subsection1.coefficients()[1][0] ) );
+      REQUIRE( 6. == Approx( subsection1.coefficients()[1][1] ) );
+      REQUIRE( 8. == Approx( subsection1.coefficients()[2][0] ) );
+      REQUIRE( 9. == Approx( subsection1.coefficients()[2][1] ) );
+      REQUIRE( 11. == Approx( subsection1.coefficients()[3][0] ) );
+      REQUIRE( 12. == Approx( subsection1.coefficients()[3][1] ) );
+      REQUIRE( 4 == Approx( subsection1.totalEmissionProbabilities().size() ) );
+      REQUIRE( 2. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
+      REQUIRE( 5. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
+      REQUIRE( 8. == Approx( subsection1.totalEmissionProbabilities()[2] ) );
+      REQUIRE( 11. == Approx( subsection1.totalEmissionProbabilities()[3] ) );
 
-        REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
-        REQUIRE( 1 == energies[1].LANG() );
-        REQUIRE( 0 == energies[1].ND() );
-        REQUIRE( 1 == energies[1].NA() );
-        REQUIRE( 6 == energies[1].NW() );
-        REQUIRE( 2 == energies[1].NEP() );
+      REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
+      REQUIRE( 1 == energies[1].LANG() );
+      REQUIRE( 0 == energies[1].ND() );
+      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
+      REQUIRE( 1 == energies[1].NA() );
+      REQUIRE( 1 == energies[1].numberAngularParameters() );
+      REQUIRE( 6 == energies[1].NW() );
+      REQUIRE( 2 == energies[1].NEP() );
+      REQUIRE( 2 == energies[1].numberSecondaryEnergies() );
 
-        auto subsection2 =
-            std::experimental::get< LegendreCoefficients >( energies[1] );
-        REQUIRE( 1 == subsection2.LANG() );
-        REQUIRE( 0 == subsection2.ND() );
-        REQUIRE( 1 == subsection2.NA() );
-        REQUIRE( 6 == subsection2.NW() );
-        REQUIRE( 2 == subsection2.NEP() );
-        REQUIRE( 2 == subsection2.energies().size() );
-        REQUIRE( 1. == Approx( subsection2.energies()[0] ) );
-        REQUIRE( 4. == Approx( subsection2.energies()[1] ) );
-        REQUIRE( 2 == subsection2.coefficients().size() );
-        REQUIRE( 2. == Approx( subsection2.coefficients()[0][0] ) );
-        REQUIRE( 3. == Approx( subsection2.coefficients()[0][1] ) );
-        REQUIRE( 5. == Approx( subsection2.coefficients()[1][0] ) );
-        REQUIRE( 6. == Approx( subsection2.coefficients()[1][1] ) );
-        REQUIRE( 2 ==
-                 Approx( subsection2.totalEmissionProbabilities().size() ) );
-        REQUIRE( 2. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
-        REQUIRE( 5. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
+      auto subsection2 =
+          std::experimental::get< LegendreCoefficients >( energies[1].data() );
+      REQUIRE( 1 == subsection2.LANG() );
+      REQUIRE( 0 == subsection2.ND() );
+      REQUIRE( 0 == subsection2.numberDiscreteEnergies() );
+      REQUIRE( 1 == subsection2.NA() );
+      REQUIRE( 1 == subsection2.numberAngularParameters() );
+      REQUIRE( 6 == subsection2.NW() );
+      REQUIRE( 2 == subsection2.NEP() );
+      REQUIRE( 2 == subsection2.numberSecondaryEnergies() );
+      REQUIRE( 2 == subsection2.energies().size() );
+      REQUIRE( 1. == Approx( subsection2.energies()[0] ) );
+      REQUIRE( 4. == Approx( subsection2.energies()[1] ) );
+      REQUIRE( 2 == subsection2.coefficients().size() );
+      REQUIRE( 2. == Approx( subsection2.coefficients()[0][0] ) );
+      REQUIRE( 3. == Approx( subsection2.coefficients()[0][1] ) );
+      REQUIRE( 5. == Approx( subsection2.coefficients()[1][0] ) );
+      REQUIRE( 6. == Approx( subsection2.coefficients()[1][1] ) );
+      REQUIRE( 2 == Approx( subsection2.totalEmissionProbabilities().size() ) );
+      REQUIRE( 2. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
+      REQUIRE( 5. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
 
-        // product 2
-        REQUIRE( 1. == Approx( products[1].ZAP() ) );
-        REQUIRE( 1. == Approx( products[1].AWP() ) );
-        REQUIRE( 0 == products[1].LIP() );
-        REQUIRE( 1 == products[1].LAW() );
+      // product 2
+      REQUIRE( 1. == Approx( products[1].ZAP() ) );
+      REQUIRE( 1. == Approx( products[1].productIdentifier() ) );
+      REQUIRE( 1. == Approx( products[1].AWP() ) );
+      REQUIRE( 1. == Approx( products[1].productMassRatio() ) );
+      REQUIRE( 0 == products[1].LIP() );
+      REQUIRE( 0 == products[1].productModifierFlag() );
+      REQUIRE( 1 == products[1].LAW() );
 
-        REQUIRE( 1. == Approx( products[1].multiplicity().ZAP() ) );
-        REQUIRE( 1. == Approx( products[1].multiplicity().AWP() ) );
-        REQUIRE( 0 == products[1].multiplicity().LIP() );
-        REQUIRE( 1 == products[1].multiplicity().LAW() );
+      REQUIRE( 1. == Approx( products[1].multiplicity().ZAP() ) );
+      REQUIRE( 1. == Approx( products[1].multiplicity().productIdentifier() ) );
+      REQUIRE( 1. == Approx( products[1].multiplicity().AWP() ) );
+      REQUIRE( 1. == Approx( products[1].multiplicity().productMassRatio() ) );
+      REQUIRE( 0 == products[1].multiplicity().LIP() );
+      REQUIRE( 0 == products[1].multiplicity().productModifierFlag() );
+      REQUIRE( 1 == products[1].multiplicity().LAW() );
 
-        REQUIRE( 2 == products[1].multiplicity().NP() );
-        REQUIRE( 1 == products[1].multiplicity().NR() );
-        REQUIRE( 1 == products[1].multiplicity().interpolants().size() );
-        REQUIRE( 1 == products[1].multiplicity().boundaries().size() );
-        REQUIRE( 2 == products[1].multiplicity().interpolants()[0] );
-        REQUIRE( 2 == products[1].multiplicity().boundaries()[0] );
-        REQUIRE( 2 == products[1].multiplicity().energies().size() );
-        REQUIRE( 2 == products[1].multiplicity().multiplicities().size() );
-        REQUIRE( 1.858639e+7 ==
-                 Approx( products[1].multiplicity().energies()[0] ) );
-        REQUIRE( 2e+7 == Approx( products[1].multiplicity().energies()[1] ) );
-        REQUIRE( 4. ==
-                 Approx( products[1].multiplicity().multiplicities()[0] ) );
-        REQUIRE( 4. ==
-                 Approx( products[1].multiplicity().multiplicities()[1] ) );
+      REQUIRE( 2 == products[1].multiplicity().NP() );
+      REQUIRE( 1 == products[1].multiplicity().NR() );
+      REQUIRE( 1 == products[1].multiplicity().interpolants().size() );
+      REQUIRE( 1 == products[1].multiplicity().boundaries().size() );
+      REQUIRE( 2 == products[1].multiplicity().interpolants()[0] );
+      REQUIRE( 2 == products[1].multiplicity().boundaries()[0] );
+      REQUIRE( 2 == products[1].multiplicity().energies().size() );
+      REQUIRE( 2 == products[1].multiplicity().multiplicities().size() );
+      REQUIRE( 1.858639e+7 == Approx( products[1].multiplicity().energies()[0] ) );
+      REQUIRE( 2e+7 == Approx( products[1].multiplicity().energies()[1] ) );
+      REQUIRE( 4. == Approx( products[1].multiplicity().multiplicities()[0] ) );
+      REQUIRE( 4. == Approx( products[1].multiplicity().multiplicities()[1] ) );
 
-        law =
-            std::experimental::get< ContinuumEnergyAngle >(
-                products[1].distribution() );
+      law =
+          std::experimental::get< ContinuumEnergyAngle >(
+              products[1].distribution() );
 
-        REQUIRE( 1 == law.LAW() );
-        REQUIRE( 2 == law.LEP() );
-        REQUIRE( 2 == law.NE() );
-        REQUIRE( 1 == law.NR() );
-        REQUIRE( 1 == law.interpolants().size() );
-        REQUIRE( 1 == law.boundaries().size() );
-        REQUIRE( 22 == law.interpolants()[0] );
-        REQUIRE( 2 == law.boundaries()[0] );
+      REQUIRE( 1 == law.LAW() );
+      REQUIRE( 2 == law.LEP() );
+      REQUIRE( 2 == law.NE() );
+      REQUIRE( 1 == law.NR() );
+      REQUIRE( 1 == law.interpolants().size() );
+      REQUIRE( 1 == law.boundaries().size() );
+      REQUIRE( 22 == law.interpolants()[0] );
+      REQUIRE( 2 == law.boundaries()[0] );
 
-        energies = law.energies();
+      energies = law.subsections();
 
-        REQUIRE( 1.858639e+7 == Approx( energies[0].energy() ) );
-        REQUIRE( 1 == energies[0].LANG() );
-        REQUIRE( 0 == energies[0].ND() );
-        REQUIRE( 0 == energies[0].NA() );
-        REQUIRE( 6 == energies[0].NW() );
-        REQUIRE( 3 == energies[0].NEP() );
+      REQUIRE( 1.858639e+7 == Approx( energies[0].energy() ) );
+      REQUIRE( 1 == energies[0].LANG() );
+      REQUIRE( 0 == energies[0].ND() );
+      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
+      REQUIRE( 0 == energies[0].NA() );
+      REQUIRE( 0 == energies[0].numberAngularParameters() );
+      REQUIRE( 6 == energies[0].NW() );
+      REQUIRE( 3 == energies[0].NEP() );
+      REQUIRE( 3 == energies[0].numberSecondaryEnergies() );
 
-        subsection1 =
-            std::experimental::get< LegendreCoefficients >( energies[0] );
-        REQUIRE( 0 == subsection1.ND() );
-        REQUIRE( 0 == subsection1.NA() );
-        REQUIRE( 6 == subsection1.NW() );
-        REQUIRE( 3 == subsection1.NEP() );
-        REQUIRE( 3 == subsection1.energies().size() );
-        REQUIRE( 0. == Approx( subsection1.energies()[0] ) );
-        REQUIRE( 0.5 == Approx( subsection1.energies()[1] ) );
-        REQUIRE( 1. == Approx( subsection1.energies()[2] ) );
-        REQUIRE( 3 == subsection1.coefficients().size() );
-        REQUIRE( 0. == Approx( subsection1.coefficients()[0][0] ) );
-        REQUIRE( 2. == Approx( subsection1.coefficients()[1][0] ) );
-        REQUIRE( 0. == Approx( subsection1.coefficients()[2][0] ) );
-        REQUIRE( 3 ==
-                 Approx( subsection1.totalEmissionProbabilities().size() ) );
-        REQUIRE( 0. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
-        REQUIRE( 2. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
-        REQUIRE( 0. == Approx( subsection1.totalEmissionProbabilities()[2] ) );
+      subsection1 =
+          std::experimental::get< LegendreCoefficients >( energies[0].data() );
+      REQUIRE( 0 == subsection1.ND() );
+      REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
+      REQUIRE( 0 == subsection1.NA() );
+      REQUIRE( 0 == subsection1.numberAngularParameters() );
+      REQUIRE( 6 == subsection1.NW() );
+      REQUIRE( 3 == subsection1.NEP() );
+      REQUIRE( 3 == subsection1.numberSecondaryEnergies() );
+      REQUIRE( 3 == subsection1.energies().size() );
+      REQUIRE( 0. == Approx( subsection1.energies()[0] ) );
+      REQUIRE( 0.5 == Approx( subsection1.energies()[1] ) );
+      REQUIRE( 1. == Approx( subsection1.energies()[2] ) );
+      REQUIRE( 3 == subsection1.coefficients().size() );
+      REQUIRE( 0. == Approx( subsection1.coefficients()[0][0] ) );
+      REQUIRE( 2. == Approx( subsection1.coefficients()[1][0] ) );
+      REQUIRE( 0. == Approx( subsection1.coefficients()[2][0] ) );
+      REQUIRE( 3 == Approx( subsection1.totalEmissionProbabilities().size() ) );
+      REQUIRE( 0. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
+      REQUIRE( 2. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
+      REQUIRE( 0. == Approx( subsection1.totalEmissionProbabilities()[2] ) );
 
-        REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
-        REQUIRE( 1 == energies[1].LANG() );
-        REQUIRE( 0 == energies[1].ND() );
-        REQUIRE( 0 == energies[1].NA() );
-        REQUIRE( 6 == energies[1].NW() );
-        REQUIRE( 3 == energies[1].NEP() );
+      REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
+      REQUIRE( 1 == energies[1].LANG() );
+      REQUIRE( 0 == energies[1].ND() );
+      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
+      REQUIRE( 0 == energies[1].NA() );
+      REQUIRE( 0 == energies[1].numberAngularParameters() );
+      REQUIRE( 6 == energies[1].NW() );
+      REQUIRE( 3 == energies[1].NEP() );
+      REQUIRE( 3 == energies[1].numberSecondaryEnergies() );
 
-        subsection2 =
-            std::experimental::get< LegendreCoefficients >( energies[1] );
-        REQUIRE( 1 == subsection2.LANG() );
-        REQUIRE( 0 == subsection2.ND() );
-        REQUIRE( 0 == subsection2.NA() );
-        REQUIRE( 6 == subsection2.NW() );
-        REQUIRE( 3 == subsection2.NEP() );
-        REQUIRE( 3 == subsection2.energies().size() );
-        REQUIRE( 0. == Approx( subsection2.energies()[0] ) );
-        REQUIRE( .5 == Approx( subsection2.energies()[1] ) );
-        REQUIRE( 1. == Approx( subsection2.energies()[2] ) );
-        REQUIRE( 3 == subsection2.coefficients().size() );
-        REQUIRE( 0. == Approx( subsection2.coefficients()[0][0] ) );
-        REQUIRE( 2. == Approx( subsection2.coefficients()[1][0] ) );
-        REQUIRE( 0. == Approx( subsection2.coefficients()[2][0] ) );
-        REQUIRE( 3 ==
-                 Approx( subsection2.totalEmissionProbabilities().size() ) );
-        REQUIRE( 0. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
-        REQUIRE( 2. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
-        REQUIRE( 0. == Approx( subsection2.totalEmissionProbabilities()[2] ) );
+      subsection2 =
+          std::experimental::get< LegendreCoefficients >( energies[1].data() );
+      REQUIRE( 1 == subsection2.LANG() );
+      REQUIRE( 0 == subsection2.ND() );
+      REQUIRE( 0 == subsection2.numberDiscreteEnergies() );
+      REQUIRE( 0 == subsection2.NA() );
+      REQUIRE( 0 == subsection2.numberAngularParameters() );
+      REQUIRE( 6 == subsection2.NW() );
+      REQUIRE( 3 == subsection2.NEP() );
+      REQUIRE( 3 == subsection2.numberSecondaryEnergies() );
+      REQUIRE( 3 == subsection2.energies().size() );
+      REQUIRE( 0. == Approx( subsection2.energies()[0] ) );
+      REQUIRE( .5 == Approx( subsection2.energies()[1] ) );
+      REQUIRE( 1. == Approx( subsection2.energies()[2] ) );
+      REQUIRE( 3 == subsection2.coefficients().size() );
+      REQUIRE( 0. == Approx( subsection2.coefficients()[0][0] ) );
+      REQUIRE( 2. == Approx( subsection2.coefficients()[1][0] ) );
+      REQUIRE( 0. == Approx( subsection2.coefficients()[2][0] ) );
+      REQUIRE( 3 == Approx( subsection2.totalEmissionProbabilities().size() ) );
+      REQUIRE( 0. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
+      REQUIRE( 2. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
+      REQUIRE( 0. == Approx( subsection2.totalEmissionProbabilities()[2] ) );
 
-        // product 3
-        REQUIRE( 0. == Approx( products[2].ZAP() ) );
-        REQUIRE( 0. == Approx( products[2].AWP() ) );
-        REQUIRE( 0 == products[2].LIP() );
-        REQUIRE( 1 == products[2].LAW() );
+      // product 3
+      REQUIRE( 0. == Approx( products[2].ZAP() ) );
+      REQUIRE( 0. == Approx( products[2].productIdentifier() ) );
+      REQUIRE( 0. == Approx( products[2].AWP() ) );
+      REQUIRE( 0. == Approx( products[2].productMassRatio() ) );
+      REQUIRE( 0 == products[2].LIP() );
+      REQUIRE( 0 == products[2].productModifierFlag() );
+      REQUIRE( 1 == products[2].LAW() );
 
-        REQUIRE( 0. == Approx( products[2].multiplicity().ZAP() ) );
-        REQUIRE( 0. == Approx( products[2].multiplicity().AWP() ) );
-        REQUIRE( 0 == products[2].multiplicity().LIP() );
-        REQUIRE( 1 == products[2].multiplicity().LAW() );
+      REQUIRE( 0. == Approx( products[2].multiplicity().ZAP() ) );
+      REQUIRE( 0. == Approx( products[2].multiplicity().productIdentifier() ) );
+      REQUIRE( 0. == Approx( products[2].multiplicity().AWP() ) );
+      REQUIRE( 0. == Approx( products[2].multiplicity().productMassRatio() ) );
+      REQUIRE( 0 == products[2].multiplicity().LIP() );
+      REQUIRE( 0 == products[2].multiplicity().productModifierFlag() );
+      REQUIRE( 1 == products[2].multiplicity().LAW() );
 
-        REQUIRE( 3 == products[2].multiplicity().NP() );
-        REQUIRE( 1 == products[2].multiplicity().NR() );
-        REQUIRE( 1 == products[2].multiplicity().interpolants().size() );
-        REQUIRE( 1 == products[2].multiplicity().boundaries().size() );
-        REQUIRE( 2 == products[2].multiplicity().interpolants()[0] );
-        REQUIRE( 3 == products[2].multiplicity().boundaries()[0] );
-        REQUIRE( 3 == products[2].multiplicity().energies().size() );
-        REQUIRE( 3 == products[2].multiplicity().multiplicities().size() );
-        REQUIRE( 1.858639e+7 ==
-                 Approx( products[2].multiplicity().energies()[0] ) );
-        REQUIRE( 1.9e+7 == Approx( products[2].multiplicity().energies()[1] ) );
-        REQUIRE( 2e+7 == Approx( products[2].multiplicity().energies()[2] ) );
-        REQUIRE( 1. ==
-                 Approx( products[2].multiplicity().multiplicities()[0] ) );
-        REQUIRE( 2. ==
-                 Approx( products[2].multiplicity().multiplicities()[1] ) );
-        REQUIRE( 3. ==
-                 Approx( products[2].multiplicity().multiplicities()[2] ) );
+      REQUIRE( 3 == products[2].multiplicity().NP() );
+      REQUIRE( 1 == products[2].multiplicity().NR() );
+      REQUIRE( 1 == products[2].multiplicity().interpolants().size() );
+      REQUIRE( 1 == products[2].multiplicity().boundaries().size() );
+      REQUIRE( 2 == products[2].multiplicity().interpolants()[0] );
+      REQUIRE( 3 == products[2].multiplicity().boundaries()[0] );
+      REQUIRE( 3 == products[2].multiplicity().energies().size() );
+      REQUIRE( 3 == products[2].multiplicity().multiplicities().size() );
+      REQUIRE( 1.858639e+7 ==
+               Approx( products[2].multiplicity().energies()[0] ) );
+      REQUIRE( 1.9e+7 == Approx( products[2].multiplicity().energies()[1] ) );
+      REQUIRE( 2e+7 == Approx( products[2].multiplicity().energies()[2] ) );
+      REQUIRE( 1. == Approx( products[2].multiplicity().multiplicities()[0] ) );
+      REQUIRE( 2. == Approx( products[2].multiplicity().multiplicities()[1] ) );
+      REQUIRE( 3. == Approx( products[2].multiplicity().multiplicities()[2] ) );
 
-        law =
-            std::experimental::get< ContinuumEnergyAngle >(
-                products[2].distribution() );
+      law =
+          std::experimental::get< ContinuumEnergyAngle >(
+              products[2].distribution() );
 
-        REQUIRE( 1 == law.LAW() );
-        REQUIRE( 2 == law.LEP() );
-        REQUIRE( 2 == law.NE() );
-        REQUIRE( 1 == law.NR() );
-        REQUIRE( 1 == law.interpolants().size() );
-        REQUIRE( 1 == law.boundaries().size() );
-        REQUIRE( 5 == law.interpolants()[0] );
-        REQUIRE( 2 == law.boundaries()[0] );
+      REQUIRE( 1 == law.LAW() );
+      REQUIRE( 2 == law.LEP() );
+      REQUIRE( 2 == law.NE() );
+      REQUIRE( 1 == law.NR() );
+      REQUIRE( 1 == law.interpolants().size() );
+      REQUIRE( 1 == law.boundaries().size() );
+      REQUIRE( 5 == law.interpolants()[0] );
+      REQUIRE( 2 == law.boundaries()[0] );
 
-        energies = law.energies();
+      energies = law.subsections();
 
-        REQUIRE( 1.858639e+7 == Approx( energies[0].energy() ) );
-        REQUIRE( 1 == energies[0].LANG() );
-        REQUIRE( 0 == energies[0].ND() );
-        REQUIRE( 0 == energies[0].NA() );
-        REQUIRE( 6 == energies[0].NW() );
-        REQUIRE( 3 == energies[0].NEP() );
+      REQUIRE( 1.858639e+7 == Approx( energies[0].energy() ) );
+      REQUIRE( 1 == energies[0].LANG() );
+      REQUIRE( 0 == energies[0].ND() );
+      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
+      REQUIRE( 0 == energies[0].NA() );
+      REQUIRE( 0 == energies[0].numberAngularParameters() );
+      REQUIRE( 6 == energies[0].NW() );
+      REQUIRE( 3 == energies[0].NEP() );
+      REQUIRE( 3 == energies[0].numberSecondaryEnergies() );
 
-        subsection1 =
-            std::experimental::get< LegendreCoefficients >( energies[0] );
-        REQUIRE( 0 == subsection1.ND() );
-        REQUIRE( 0 == subsection1.NA() );
-        REQUIRE( 6 == subsection1.NW() );
-        REQUIRE( 3 == subsection1.NEP() );
-        REQUIRE( 3 == subsection1.energies().size() );
-        REQUIRE( 0. == Approx( subsection1.energies()[0] ) );
-        REQUIRE( 1. == Approx( subsection1.energies()[1] ) );
-        REQUIRE( 2. == Approx( subsection1.energies()[2] ) );
-        REQUIRE( 3 == subsection1.coefficients().size() );
-        REQUIRE( 0. == Approx( subsection1.coefficients()[0][0] ) );
-        REQUIRE( 1. == Approx( subsection1.coefficients()[1][0] ) );
-        REQUIRE( 0. == Approx( subsection1.coefficients()[2][0] ) );
-        REQUIRE( 3 ==
-                 Approx( subsection1.totalEmissionProbabilities().size() ) );
-        REQUIRE( 0. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
-        REQUIRE( 1. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
-        REQUIRE( 0. == Approx( subsection1.totalEmissionProbabilities()[2] ) );
+      subsection1 =
+          std::experimental::get< LegendreCoefficients >( energies[0].data() );
+      REQUIRE( 0 == subsection1.ND() );
+      REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
+      REQUIRE( 0 == subsection1.NA() );
+      REQUIRE( 0 == subsection1.numberAngularParameters() );
+      REQUIRE( 6 == subsection1.NW() );
+      REQUIRE( 3 == subsection1.NEP() );
+      REQUIRE( 3 == subsection1.numberSecondaryEnergies() );
+      REQUIRE( 3 == subsection1.energies().size() );
+      REQUIRE( 0. == Approx( subsection1.energies()[0] ) );
+      REQUIRE( 1. == Approx( subsection1.energies()[1] ) );
+      REQUIRE( 2. == Approx( subsection1.energies()[2] ) );
+      REQUIRE( 3 == subsection1.coefficients().size() );
+      REQUIRE( 0. == Approx( subsection1.coefficients()[0][0] ) );
+      REQUIRE( 1. == Approx( subsection1.coefficients()[1][0] ) );
+      REQUIRE( 0. == Approx( subsection1.coefficients()[2][0] ) );
+      REQUIRE( 3 == Approx( subsection1.totalEmissionProbabilities().size() ) );
+      REQUIRE( 0. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
+      REQUIRE( 1. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
+      REQUIRE( 0. == Approx( subsection1.totalEmissionProbabilities()[2] ) );
 
-        REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
-        REQUIRE( 1 == energies[1].LANG() );
-        REQUIRE( 0 == energies[1].ND() );
-        REQUIRE( 0 == energies[1].NA() );
-        REQUIRE( 6 == energies[1].NW() );
-        REQUIRE( 3 == energies[1].NEP() );
+      REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
+      REQUIRE( 1 == energies[1].LANG() );
+      REQUIRE( 0 == energies[1].ND() );
+      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
+      REQUIRE( 0 == energies[1].NA() );
+      REQUIRE( 0 == energies[1].numberAngularParameters() );
+      REQUIRE( 6 == energies[1].NW() );
+      REQUIRE( 3 == energies[1].NEP() );
+      REQUIRE( 3 == energies[1].numberSecondaryEnergies() );
 
-        subsection2 =
-            std::experimental::get< LegendreCoefficients >( energies[1] );
-        REQUIRE( 1 == subsection2.LANG() );
-        REQUIRE( 0 == subsection2.ND() );
-        REQUIRE( 0 == subsection2.NA() );
-        REQUIRE( 6 == subsection2.NW() );
-        REQUIRE( 3 == subsection2.NEP() );
-        REQUIRE( 3 == subsection2.energies().size() );
-        REQUIRE( 0. == Approx( subsection2.energies()[0] ) );
-        REQUIRE( 1. == Approx( subsection2.energies()[1] ) );
-        REQUIRE( 2. == Approx( subsection2.energies()[2] ) );
-        REQUIRE( 3 == subsection2.coefficients().size() );
-        REQUIRE( 0. == Approx( subsection2.coefficients()[0][0] ) );
-        REQUIRE( 1. == Approx( subsection2.coefficients()[1][0] ) );
-        REQUIRE( 0. == Approx( subsection2.coefficients()[2][0] ) );
-        REQUIRE( 3 ==
-                 Approx( subsection2.totalEmissionProbabilities().size() ) );
-        REQUIRE( 0. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
-        REQUIRE( 1. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
-        REQUIRE( 0. == Approx( subsection2.totalEmissionProbabilities()[2] ) );
+      subsection2 =
+          std::experimental::get< LegendreCoefficients >( energies[1].data() );
+      REQUIRE( 1 == subsection2.LANG() );
+      REQUIRE( 0 == subsection2.ND() );
+      REQUIRE( 0 == subsection2.numberDiscreteEnergies() );
+      REQUIRE( 0 == subsection2.NA() );
+      REQUIRE( 0 == subsection2.numberAngularParameters() );
+      REQUIRE( 6 == subsection2.NW() );
+      REQUIRE( 3 == subsection2.NEP() );
+      REQUIRE( 3 == subsection2.numberSecondaryEnergies() );
+      REQUIRE( 3 == subsection2.energies().size() );
+      REQUIRE( 0. == Approx( subsection2.energies()[0] ) );
+      REQUIRE( 1. == Approx( subsection2.energies()[1] ) );
+      REQUIRE( 2. == Approx( subsection2.energies()[2] ) );
+      REQUIRE( 3 == subsection2.coefficients().size() );
+      REQUIRE( 0. == Approx( subsection2.coefficients()[0][0] ) );
+      REQUIRE( 1. == Approx( subsection2.coefficients()[1][0] ) );
+      REQUIRE( 0. == Approx( subsection2.coefficients()[2][0] ) );
+      REQUIRE( 3 == Approx( subsection2.totalEmissionProbabilities().size() ) );
+      REQUIRE( 0. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
+      REQUIRE( 1. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
+      REQUIRE( 0. == Approx( subsection2.totalEmissionProbabilities()[2] ) );
 
-        REQUIRE( 30 == chunk.NC() );
+      REQUIRE( 30 == chunk.NC() );
       } // THEN
     } // WHEN
 
@@ -726,323 +826,366 @@ SCENARIO( "section::Type< 6 >" ) {
       THEN( "a section::Type< 6 > can be constructed and members can be tested" ){
         section::Type< 6 > chunk = section.parse< 6 >( lineNumber );
 
-        REQUIRE( 92235. == Approx( chunk.ZA() ) );
-        REQUIRE( 2.330248e+2 == Approx( chunk.AWR() ) );
-        REQUIRE( 0 == chunk.JP() );
-        REQUIRE( 2 == chunk.LCT() );
-        REQUIRE( 3 == chunk.NK() );
-        REQUIRE( 5 == chunk.MT() );
+      REQUIRE( 92235. == Approx( chunk.ZA() ) );
+      REQUIRE( 2.330248e+2 == Approx( chunk.AWR() ) );
+      REQUIRE( 0 == chunk.JP() );
+      REQUIRE( 0 == chunk.averageMultipleParticlesFlag() );
+      REQUIRE( 2 == chunk.LCT() );
+      REQUIRE( 2 == chunk.referenceFrame() );
+      REQUIRE( 3 == chunk.NK() );
+      REQUIRE( 3 == chunk.numberSubSections() );
+      REQUIRE( 5 == chunk.MT() );
 
-        auto products = chunk.products();
-        REQUIRE( 3 == products.size() );
+      auto products = chunk.products();
+      REQUIRE( 3 == products.size() );
 
-        // product 1
-        REQUIRE( 1001. == Approx( products[0].ZAP() ) );
-        REQUIRE( 0.9986234 == Approx( products[0].AWP() ) );
-        REQUIRE( 0 == products[0].LIP() );
-        REQUIRE( 1 == products[0].LAW() );
+      // product 1
+      REQUIRE( 1001. == Approx( products[0].ZAP() ) );
+      REQUIRE( 1001. == Approx( products[0].productIdentifier() ) );
+      REQUIRE( 0.9986234 == Approx( products[0].AWP() ) );
+      REQUIRE( 0.9986234 == Approx( products[0].productMassRatio() ) );
+      REQUIRE( 0 == products[0].LIP() );
+      REQUIRE( 0 == products[0].productModifierFlag() );
+      REQUIRE( 1 == products[0].LAW() );
 
-        REQUIRE( 1001. == Approx( products[0].multiplicity().ZAP() ) );
-        REQUIRE( 0.9986234 == Approx( products[0].multiplicity().AWP() ) );
-        REQUIRE( 0 == products[0].multiplicity().LIP() );
-        REQUIRE( 1 == products[0].multiplicity().LAW() );
+      REQUIRE( 1001. == Approx( products[0].multiplicity().ZAP() ) );
+      REQUIRE( 1001. == Approx( products[0].multiplicity().productIdentifier() ) );
+      REQUIRE( 0.9986234 == Approx( products[0].multiplicity().AWP() ) );
+      REQUIRE( 0.9986234 == Approx( products[0].multiplicity().productMassRatio() ) );
+      REQUIRE( 0 == products[0].multiplicity().LIP() );
+      REQUIRE( 0 == products[0].multiplicity().productModifierFlag() );
+      REQUIRE( 1 == products[0].multiplicity().LAW() );
 
-        REQUIRE( 4 == products[0].multiplicity().NP() );
-        REQUIRE( 1 == products[0].multiplicity().NR() );
-        REQUIRE( 1 == products[0].multiplicity().interpolants().size() );
-        REQUIRE( 1 == products[0].multiplicity().boundaries().size() );
-        REQUIRE( 2 == products[0].multiplicity().interpolants()[0] );
-        REQUIRE( 4 == products[0].multiplicity().boundaries()[0] );
-        REQUIRE( 4 == products[0].multiplicity().energies().size() );
-        REQUIRE( 4 == products[0].multiplicity().multiplicities().size() );
-        REQUIRE( 1e-5 == Approx( products[0].multiplicity().energies()[0] ) );
-        REQUIRE( 1.1e+7 == Approx( products[0].multiplicity().energies()[1] ) );
-        REQUIRE( 1.147e+7 ==
-                 Approx( products[0].multiplicity().energies()[2] ) );
-        REQUIRE( 2e+7 == Approx( products[0].multiplicity().energies()[3] ) );
-        REQUIRE( 0. ==
-                 Approx( products[0].multiplicity().multiplicities()[0] ) );
-        REQUIRE( 8.45368e-11 ==
-                 Approx( products[0].multiplicity().multiplicities()[1] ) );
-        REQUIRE( 6.622950e-8 ==
-                 Approx( products[0].multiplicity().multiplicities()[2] ) );
-        REQUIRE( 2.149790e-1 ==
-                 Approx( products[0].multiplicity().multiplicities()[3] ) );
+      REQUIRE( 4 == products[0].multiplicity().NP() );
+      REQUIRE( 1 == products[0].multiplicity().NR() );
+      REQUIRE( 1 == products[0].multiplicity().interpolants().size() );
+      REQUIRE( 1 == products[0].multiplicity().boundaries().size() );
+      REQUIRE( 2 == products[0].multiplicity().interpolants()[0] );
+      REQUIRE( 4 == products[0].multiplicity().boundaries()[0] );
+      REQUIRE( 4 == products[0].multiplicity().energies().size() );
+      REQUIRE( 4 == products[0].multiplicity().multiplicities().size() );
+      REQUIRE( 1e-5 == Approx( products[0].multiplicity().energies()[0] ) );
+      REQUIRE( 1.1e+7 == Approx( products[0].multiplicity().energies()[1] ) );
+      REQUIRE( 1.147e+7 == Approx( products[0].multiplicity().energies()[2] ) );
+      REQUIRE( 2e+7 == Approx( products[0].multiplicity().energies()[3] ) );
+      REQUIRE( 0. == Approx( products[0].multiplicity().multiplicities()[0] ) );
+      REQUIRE( 8.45368e-11 ==
+               Approx( products[0].multiplicity().multiplicities()[1] ) );
+      REQUIRE( 6.622950e-8 ==
+               Approx( products[0].multiplicity().multiplicities()[2] ) );
+      REQUIRE( 2.149790e-1 ==
+               Approx( products[0].multiplicity().multiplicities()[3] ) );
 
-        auto law =
-            std::experimental::get< ContinuumEnergyAngle >(
-                products[0].distribution() );
+      auto law =
+          std::experimental::get< ContinuumEnergyAngle >(
+              products[0].distribution() );
 
-        REQUIRE( 1 == law.LAW() );
-        REQUIRE( 2 == law.LEP() );
-        REQUIRE( 2 == law.NE() );
-        REQUIRE( 1 == law.NR() );
-        REQUIRE( 1 == law.interpolants().size() );
-        REQUIRE( 1 == law.boundaries().size() );
-        REQUIRE( 1 == law.interpolants()[0] );
-        REQUIRE( 2 == law.boundaries()[0] );
+      REQUIRE( 1 == law.LAW() );
+      REQUIRE( 2 == law.LEP() );
+      REQUIRE( 2 == law.NE() );
+      REQUIRE( 1 == law.NR() );
+      REQUIRE( 1 == law.interpolants().size() );
+      REQUIRE( 1 == law.boundaries().size() );
+      REQUIRE( 1 == law.interpolants()[0] );
+      REQUIRE( 2 == law.boundaries()[0] );
 
-        auto energies = law.energies();
+      auto energies = law.subsections();
 
-        REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
-        REQUIRE( 1 == energies[0].LANG() );
-        REQUIRE( 0 == energies[0].ND() );
-        REQUIRE( 1 == energies[0].NA() );
-        REQUIRE( 12 == energies[0].NW() );
-        REQUIRE( 4 == energies[0].NEP() );
+      REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
+      REQUIRE( 1 == energies[0].LANG() );
+      REQUIRE( 0 == energies[0].ND() );
+      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
+      REQUIRE( 1 == energies[0].NA() );
+      REQUIRE( 1 == energies[0].numberAngularParameters() );
+      REQUIRE( 12 == energies[0].NW() );
+      REQUIRE( 4 == energies[0].NEP() );
+      REQUIRE( 4 == energies[0].numberSecondaryEnergies() );
 
-        auto subsection1 =
-            std::experimental::get< LegendreCoefficients >( energies[0] );
-        REQUIRE( 0 == subsection1.ND() );
-        REQUIRE( 1 == subsection1.NA() );
-        REQUIRE( 12 == subsection1.NW() );
-        REQUIRE( 4 == subsection1.NEP() );
-        REQUIRE( 4 == subsection1.energies().size() );
-        REQUIRE( 1. == Approx( subsection1.energies()[0] ) );
-        REQUIRE( 4. == Approx( subsection1.energies()[1] ) );
-        REQUIRE( 7. == Approx( subsection1.energies()[2] ) );
-        REQUIRE( 10. == Approx( subsection1.energies()[3] ) );
-        REQUIRE( 4 == subsection1.coefficients().size() );
-        REQUIRE( 2. == Approx( subsection1.coefficients()[0][0] ) );
-        REQUIRE( 3. == Approx( subsection1.coefficients()[0][1] ) );
-        REQUIRE( 5. == Approx( subsection1.coefficients()[1][0] ) );
-        REQUIRE( 6. == Approx( subsection1.coefficients()[1][1] ) );
-        REQUIRE( 8. == Approx( subsection1.coefficients()[2][0] ) );
-        REQUIRE( 9. == Approx( subsection1.coefficients()[2][1] ) );
-        REQUIRE( 11. == Approx( subsection1.coefficients()[3][0] ) );
-        REQUIRE( 12. == Approx( subsection1.coefficients()[3][1] ) );
-        REQUIRE( 4 ==
-                 Approx( subsection1.totalEmissionProbabilities().size() ) );
-        REQUIRE( 2. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
-        REQUIRE( 5. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
-        REQUIRE( 8. == Approx( subsection1.totalEmissionProbabilities()[2] ) );
-        REQUIRE( 11. == Approx( subsection1.totalEmissionProbabilities()[3] ) );
+      auto subsection1 =
+          std::experimental::get< LegendreCoefficients >( energies[0].data() );
+      REQUIRE( 0 == subsection1.ND() );
+      REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
+      REQUIRE( 1 == subsection1.NA() );
+      REQUIRE( 1 == subsection1.numberAngularParameters() );
+      REQUIRE( 12 == subsection1.NW() );
+      REQUIRE( 4 == subsection1.NEP() );
+      REQUIRE( 4 == subsection1.numberSecondaryEnergies() );
+      REQUIRE( 4 == subsection1.energies().size() );
+      REQUIRE( 1. == Approx( subsection1.energies()[0] ) );
+      REQUIRE( 4. == Approx( subsection1.energies()[1] ) );
+      REQUIRE( 7. == Approx( subsection1.energies()[2] ) );
+      REQUIRE( 10. == Approx( subsection1.energies()[3] ) );
+      REQUIRE( 4 == subsection1.coefficients().size() );
+      REQUIRE( 2. == Approx( subsection1.coefficients()[0][0] ) );
+      REQUIRE( 3. == Approx( subsection1.coefficients()[0][1] ) );
+      REQUIRE( 5. == Approx( subsection1.coefficients()[1][0] ) );
+      REQUIRE( 6. == Approx( subsection1.coefficients()[1][1] ) );
+      REQUIRE( 8. == Approx( subsection1.coefficients()[2][0] ) );
+      REQUIRE( 9. == Approx( subsection1.coefficients()[2][1] ) );
+      REQUIRE( 11. == Approx( subsection1.coefficients()[3][0] ) );
+      REQUIRE( 12. == Approx( subsection1.coefficients()[3][1] ) );
+      REQUIRE( 4 == Approx( subsection1.totalEmissionProbabilities().size() ) );
+      REQUIRE( 2. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
+      REQUIRE( 5. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
+      REQUIRE( 8. == Approx( subsection1.totalEmissionProbabilities()[2] ) );
+      REQUIRE( 11. == Approx( subsection1.totalEmissionProbabilities()[3] ) );
 
-        REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
-        REQUIRE( 1 == energies[1].LANG() );
-        REQUIRE( 0 == energies[1].ND() );
-        REQUIRE( 1 == energies[1].NA() );
-        REQUIRE( 6 == energies[1].NW() );
-        REQUIRE( 2 == energies[1].NEP() );
+      REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
+      REQUIRE( 1 == energies[1].LANG() );
+      REQUIRE( 0 == energies[1].ND() );
+      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
+      REQUIRE( 1 == energies[1].NA() );
+      REQUIRE( 1 == energies[1].numberAngularParameters() );
+      REQUIRE( 6 == energies[1].NW() );
+      REQUIRE( 2 == energies[1].NEP() );
+      REQUIRE( 2 == energies[1].numberSecondaryEnergies() );
 
-        auto subsection2 =
-            std::experimental::get< LegendreCoefficients >( energies[1] );
-        REQUIRE( 1 == subsection2.LANG() );
-        REQUIRE( 0 == subsection2.ND() );
-        REQUIRE( 1 == subsection2.NA() );
-        REQUIRE( 6 == subsection2.NW() );
-        REQUIRE( 2 == subsection2.NEP() );
-        REQUIRE( 2 == subsection2.energies().size() );
-        REQUIRE( 1. == Approx( subsection2.energies()[0] ) );
-        REQUIRE( 4. == Approx( subsection2.energies()[1] ) );
-        REQUIRE( 2 == subsection2.coefficients().size() );
-        REQUIRE( 2. == Approx( subsection2.coefficients()[0][0] ) );
-        REQUIRE( 3. == Approx( subsection2.coefficients()[0][1] ) );
-        REQUIRE( 5. == Approx( subsection2.coefficients()[1][0] ) );
-        REQUIRE( 6. == Approx( subsection2.coefficients()[1][1] ) );
-        REQUIRE( 2 ==
-                 Approx( subsection2.totalEmissionProbabilities().size() ) );
-        REQUIRE( 2. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
-        REQUIRE( 5. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
+      auto subsection2 =
+          std::experimental::get< LegendreCoefficients >( energies[1].data() );
+      REQUIRE( 1 == subsection2.LANG() );
+      REQUIRE( 0 == subsection2.ND() );
+      REQUIRE( 0 == subsection2.numberDiscreteEnergies() );
+      REQUIRE( 1 == subsection2.NA() );
+      REQUIRE( 1 == subsection2.numberAngularParameters() );
+      REQUIRE( 6 == subsection2.NW() );
+      REQUIRE( 2 == subsection2.NEP() );
+      REQUIRE( 2 == subsection2.numberSecondaryEnergies() );
+      REQUIRE( 2 == subsection2.energies().size() );
+      REQUIRE( 1. == Approx( subsection2.energies()[0] ) );
+      REQUIRE( 4. == Approx( subsection2.energies()[1] ) );
+      REQUIRE( 2 == subsection2.coefficients().size() );
+      REQUIRE( 2. == Approx( subsection2.coefficients()[0][0] ) );
+      REQUIRE( 3. == Approx( subsection2.coefficients()[0][1] ) );
+      REQUIRE( 5. == Approx( subsection2.coefficients()[1][0] ) );
+      REQUIRE( 6. == Approx( subsection2.coefficients()[1][1] ) );
+      REQUIRE( 2 == Approx( subsection2.totalEmissionProbabilities().size() ) );
+      REQUIRE( 2. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
+      REQUIRE( 5. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
 
-        // product 2
-        REQUIRE( 1. == Approx( products[1].ZAP() ) );
-        REQUIRE( 1. == Approx( products[1].AWP() ) );
-        REQUIRE( 0 == products[1].LIP() );
-        REQUIRE( 1 == products[1].LAW() );
+      // product 2
+      REQUIRE( 1. == Approx( products[1].ZAP() ) );
+      REQUIRE( 1. == Approx( products[1].productIdentifier() ) );
+      REQUIRE( 1. == Approx( products[1].AWP() ) );
+      REQUIRE( 1. == Approx( products[1].productMassRatio() ) );
+      REQUIRE( 0 == products[1].LIP() );
+      REQUIRE( 0 == products[1].productModifierFlag() );
+      REQUIRE( 1 == products[1].LAW() );
 
-        REQUIRE( 1. == Approx( products[1].multiplicity().ZAP() ) );
-        REQUIRE( 1. == Approx( products[1].multiplicity().AWP() ) );
-        REQUIRE( 0 == products[1].multiplicity().LIP() );
-        REQUIRE( 1 == products[1].multiplicity().LAW() );
+      REQUIRE( 1. == Approx( products[1].multiplicity().ZAP() ) );
+      REQUIRE( 1. == Approx( products[1].multiplicity().productIdentifier() ) );
+      REQUIRE( 1. == Approx( products[1].multiplicity().AWP() ) );
+      REQUIRE( 1. == Approx( products[1].multiplicity().productMassRatio() ) );
+      REQUIRE( 0 == products[1].multiplicity().LIP() );
+      REQUIRE( 0 == products[1].multiplicity().productModifierFlag() );
+      REQUIRE( 1 == products[1].multiplicity().LAW() );
 
-        REQUIRE( 2 == products[1].multiplicity().NP() );
-        REQUIRE( 1 == products[1].multiplicity().NR() );
-        REQUIRE( 1 == products[1].multiplicity().interpolants().size() );
-        REQUIRE( 1 == products[1].multiplicity().boundaries().size() );
-        REQUIRE( 2 == products[1].multiplicity().interpolants()[0] );
-        REQUIRE( 2 == products[1].multiplicity().boundaries()[0] );
-        REQUIRE( 2 == products[1].multiplicity().energies().size() );
-        REQUIRE( 2 == products[1].multiplicity().multiplicities().size() );
-        REQUIRE( 1.858639e+7 ==
-                 Approx( products[1].multiplicity().energies()[0] ) );
-        REQUIRE( 2e+7 == Approx( products[1].multiplicity().energies()[1] ) );
-        REQUIRE( 4. ==
-                 Approx( products[1].multiplicity().multiplicities()[0] ) );
-        REQUIRE( 4. ==
-                 Approx( products[1].multiplicity().multiplicities()[1] ) );
+      REQUIRE( 2 == products[1].multiplicity().NP() );
+      REQUIRE( 1 == products[1].multiplicity().NR() );
+      REQUIRE( 1 == products[1].multiplicity().interpolants().size() );
+      REQUIRE( 1 == products[1].multiplicity().boundaries().size() );
+      REQUIRE( 2 == products[1].multiplicity().interpolants()[0] );
+      REQUIRE( 2 == products[1].multiplicity().boundaries()[0] );
+      REQUIRE( 2 == products[1].multiplicity().energies().size() );
+      REQUIRE( 2 == products[1].multiplicity().multiplicities().size() );
+      REQUIRE( 1.858639e+7 == Approx( products[1].multiplicity().energies()[0] ) );
+      REQUIRE( 2e+7 == Approx( products[1].multiplicity().energies()[1] ) );
+      REQUIRE( 4. == Approx( products[1].multiplicity().multiplicities()[0] ) );
+      REQUIRE( 4. == Approx( products[1].multiplicity().multiplicities()[1] ) );
 
-        law =
-            std::experimental::get< ContinuumEnergyAngle >(
-                products[1].distribution() );
+      law =
+          std::experimental::get< ContinuumEnergyAngle >(
+              products[1].distribution() );
 
-        REQUIRE( 1 == law.LAW() );
-        REQUIRE( 2 == law.LEP() );
-        REQUIRE( 2 == law.NE() );
-        REQUIRE( 1 == law.NR() );
-        REQUIRE( 1 == law.interpolants().size() );
-        REQUIRE( 1 == law.boundaries().size() );
-        REQUIRE( 22 == law.interpolants()[0] );
-        REQUIRE( 2 == law.boundaries()[0] );
+      REQUIRE( 1 == law.LAW() );
+      REQUIRE( 2 == law.LEP() );
+      REQUIRE( 2 == law.NE() );
+      REQUIRE( 1 == law.NR() );
+      REQUIRE( 1 == law.interpolants().size() );
+      REQUIRE( 1 == law.boundaries().size() );
+      REQUIRE( 22 == law.interpolants()[0] );
+      REQUIRE( 2 == law.boundaries()[0] );
 
-        energies = law.energies();
+      energies = law.subsections();
 
-        REQUIRE( 1.858639e+7 == Approx( energies[0].energy() ) );
-        REQUIRE( 1 == energies[0].LANG() );
-        REQUIRE( 0 == energies[0].ND() );
-        REQUIRE( 0 == energies[0].NA() );
-        REQUIRE( 6 == energies[0].NW() );
-        REQUIRE( 3 == energies[0].NEP() );
+      REQUIRE( 1.858639e+7 == Approx( energies[0].energy() ) );
+      REQUIRE( 1 == energies[0].LANG() );
+      REQUIRE( 0 == energies[0].ND() );
+      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
+      REQUIRE( 0 == energies[0].NA() );
+      REQUIRE( 0 == energies[0].numberAngularParameters() );
+      REQUIRE( 6 == energies[0].NW() );
+      REQUIRE( 3 == energies[0].NEP() );
+      REQUIRE( 3 == energies[0].numberSecondaryEnergies() );
 
-        subsection1 =
-            std::experimental::get< LegendreCoefficients >( energies[0] );
-        REQUIRE( 0 == subsection1.ND() );
-        REQUIRE( 0 == subsection1.NA() );
-        REQUIRE( 6 == subsection1.NW() );
-        REQUIRE( 3 == subsection1.NEP() );
-        REQUIRE( 3 == subsection1.energies().size() );
-        REQUIRE( 0. == Approx( subsection1.energies()[0] ) );
-        REQUIRE( 0.5 == Approx( subsection1.energies()[1] ) );
-        REQUIRE( 1. == Approx( subsection1.energies()[2] ) );
-        REQUIRE( 3 == subsection1.coefficients().size() );
-        REQUIRE( 0. == Approx( subsection1.coefficients()[0][0] ) );
-        REQUIRE( 2. == Approx( subsection1.coefficients()[1][0] ) );
-        REQUIRE( 0. == Approx( subsection1.coefficients()[2][0] ) );
-        REQUIRE( 3 ==
-                 Approx( subsection1.totalEmissionProbabilities().size() ) );
-        REQUIRE( 0. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
-        REQUIRE( 2. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
-        REQUIRE( 0. == Approx( subsection1.totalEmissionProbabilities()[2] ) );
+      subsection1 =
+          std::experimental::get< LegendreCoefficients >( energies[0].data() );
+      REQUIRE( 0 == subsection1.ND() );
+      REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
+      REQUIRE( 0 == subsection1.NA() );
+      REQUIRE( 0 == subsection1.numberAngularParameters() );
+      REQUIRE( 6 == subsection1.NW() );
+      REQUIRE( 3 == subsection1.NEP() );
+      REQUIRE( 3 == subsection1.numberSecondaryEnergies() );
+      REQUIRE( 3 == subsection1.energies().size() );
+      REQUIRE( 0. == Approx( subsection1.energies()[0] ) );
+      REQUIRE( 0.5 == Approx( subsection1.energies()[1] ) );
+      REQUIRE( 1. == Approx( subsection1.energies()[2] ) );
+      REQUIRE( 3 == subsection1.coefficients().size() );
+      REQUIRE( 0. == Approx( subsection1.coefficients()[0][0] ) );
+      REQUIRE( 2. == Approx( subsection1.coefficients()[1][0] ) );
+      REQUIRE( 0. == Approx( subsection1.coefficients()[2][0] ) );
+      REQUIRE( 3 == Approx( subsection1.totalEmissionProbabilities().size() ) );
+      REQUIRE( 0. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
+      REQUIRE( 2. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
+      REQUIRE( 0. == Approx( subsection1.totalEmissionProbabilities()[2] ) );
 
-        REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
-        REQUIRE( 1 == energies[1].LANG() );
-        REQUIRE( 0 == energies[1].ND() );
-        REQUIRE( 0 == energies[1].NA() );
-        REQUIRE( 6 == energies[1].NW() );
-        REQUIRE( 3 == energies[1].NEP() );
+      REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
+      REQUIRE( 1 == energies[1].LANG() );
+      REQUIRE( 0 == energies[1].ND() );
+      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
+      REQUIRE( 0 == energies[1].NA() );
+      REQUIRE( 0 == energies[1].numberAngularParameters() );
+      REQUIRE( 6 == energies[1].NW() );
+      REQUIRE( 3 == energies[1].NEP() );
+      REQUIRE( 3 == energies[1].numberSecondaryEnergies() );
 
-        subsection2 =
-            std::experimental::get< LegendreCoefficients >( energies[1] );
-        REQUIRE( 1 == subsection2.LANG() );
-        REQUIRE( 0 == subsection2.ND() );
-        REQUIRE( 0 == subsection2.NA() );
-        REQUIRE( 6 == subsection2.NW() );
-        REQUIRE( 3 == subsection2.NEP() );
-        REQUIRE( 3 == subsection2.energies().size() );
-        REQUIRE( 0. == Approx( subsection2.energies()[0] ) );
-        REQUIRE( .5 == Approx( subsection2.energies()[1] ) );
-        REQUIRE( 1. == Approx( subsection2.energies()[2] ) );
-        REQUIRE( 3 == subsection2.coefficients().size() );
-        REQUIRE( 0. == Approx( subsection2.coefficients()[0][0] ) );
-        REQUIRE( 2. == Approx( subsection2.coefficients()[1][0] ) );
-        REQUIRE( 0. == Approx( subsection2.coefficients()[2][0] ) );
-        REQUIRE( 3 ==
-                 Approx( subsection2.totalEmissionProbabilities().size() ) );
-        REQUIRE( 0. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
-        REQUIRE( 2. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
-        REQUIRE( 0. == Approx( subsection2.totalEmissionProbabilities()[2] ) );
+      subsection2 =
+          std::experimental::get< LegendreCoefficients >( energies[1].data() );
+      REQUIRE( 1 == subsection2.LANG() );
+      REQUIRE( 0 == subsection2.ND() );
+      REQUIRE( 0 == subsection2.numberDiscreteEnergies() );
+      REQUIRE( 0 == subsection2.NA() );
+      REQUIRE( 0 == subsection2.numberAngularParameters() );
+      REQUIRE( 6 == subsection2.NW() );
+      REQUIRE( 3 == subsection2.NEP() );
+      REQUIRE( 3 == subsection2.numberSecondaryEnergies() );
+      REQUIRE( 3 == subsection2.energies().size() );
+      REQUIRE( 0. == Approx( subsection2.energies()[0] ) );
+      REQUIRE( .5 == Approx( subsection2.energies()[1] ) );
+      REQUIRE( 1. == Approx( subsection2.energies()[2] ) );
+      REQUIRE( 3 == subsection2.coefficients().size() );
+      REQUIRE( 0. == Approx( subsection2.coefficients()[0][0] ) );
+      REQUIRE( 2. == Approx( subsection2.coefficients()[1][0] ) );
+      REQUIRE( 0. == Approx( subsection2.coefficients()[2][0] ) );
+      REQUIRE( 3 == Approx( subsection2.totalEmissionProbabilities().size() ) );
+      REQUIRE( 0. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
+      REQUIRE( 2. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
+      REQUIRE( 0. == Approx( subsection2.totalEmissionProbabilities()[2] ) );
 
-        // product 3
-        REQUIRE( 0. == Approx( products[2].ZAP() ) );
-        REQUIRE( 0. == Approx( products[2].AWP() ) );
-        REQUIRE( 0 == products[2].LIP() );
-        REQUIRE( 1 == products[2].LAW() );
+      // product 3
+      REQUIRE( 0. == Approx( products[2].ZAP() ) );
+      REQUIRE( 0. == Approx( products[2].productIdentifier() ) );
+      REQUIRE( 0. == Approx( products[2].AWP() ) );
+      REQUIRE( 0. == Approx( products[2].productMassRatio() ) );
+      REQUIRE( 0 == products[2].LIP() );
+      REQUIRE( 0 == products[2].productModifierFlag() );
+      REQUIRE( 1 == products[2].LAW() );
 
-        REQUIRE( 0. == Approx( products[2].multiplicity().ZAP() ) );
-        REQUIRE( 0. == Approx( products[2].multiplicity().AWP() ) );
-        REQUIRE( 0 == products[2].multiplicity().LIP() );
-        REQUIRE( 1 == products[2].multiplicity().LAW() );
+      REQUIRE( 0. == Approx( products[2].multiplicity().ZAP() ) );
+      REQUIRE( 0. == Approx( products[2].multiplicity().productIdentifier() ) );
+      REQUIRE( 0. == Approx( products[2].multiplicity().AWP() ) );
+      REQUIRE( 0. == Approx( products[2].multiplicity().productMassRatio() ) );
+      REQUIRE( 0 == products[2].multiplicity().LIP() );
+      REQUIRE( 0 == products[2].multiplicity().productModifierFlag() );
+      REQUIRE( 1 == products[2].multiplicity().LAW() );
 
-        REQUIRE( 3 == products[2].multiplicity().NP() );
-        REQUIRE( 1 == products[2].multiplicity().NR() );
-        REQUIRE( 1 == products[2].multiplicity().interpolants().size() );
-        REQUIRE( 1 == products[2].multiplicity().boundaries().size() );
-        REQUIRE( 2 == products[2].multiplicity().interpolants()[0] );
-        REQUIRE( 3 == products[2].multiplicity().boundaries()[0] );
-        REQUIRE( 3 == products[2].multiplicity().energies().size() );
-        REQUIRE( 3 == products[2].multiplicity().multiplicities().size() );
-        REQUIRE( 1.858639e+7 ==
-                 Approx( products[2].multiplicity().energies()[0] ) );
-        REQUIRE( 1.9e+7 == Approx( products[2].multiplicity().energies()[1] ) );
-        REQUIRE( 2e+7 == Approx( products[2].multiplicity().energies()[2] ) );
-        REQUIRE( 1. ==
-                 Approx( products[2].multiplicity().multiplicities()[0] ) );
-        REQUIRE( 2. ==
-                 Approx( products[2].multiplicity().multiplicities()[1] ) );
-        REQUIRE( 3. ==
-                 Approx( products[2].multiplicity().multiplicities()[2] ) );
+      REQUIRE( 3 == products[2].multiplicity().NP() );
+      REQUIRE( 1 == products[2].multiplicity().NR() );
+      REQUIRE( 1 == products[2].multiplicity().interpolants().size() );
+      REQUIRE( 1 == products[2].multiplicity().boundaries().size() );
+      REQUIRE( 2 == products[2].multiplicity().interpolants()[0] );
+      REQUIRE( 3 == products[2].multiplicity().boundaries()[0] );
+      REQUIRE( 3 == products[2].multiplicity().energies().size() );
+      REQUIRE( 3 == products[2].multiplicity().multiplicities().size() );
+      REQUIRE( 1.858639e+7 ==
+               Approx( products[2].multiplicity().energies()[0] ) );
+      REQUIRE( 1.9e+7 == Approx( products[2].multiplicity().energies()[1] ) );
+      REQUIRE( 2e+7 == Approx( products[2].multiplicity().energies()[2] ) );
+      REQUIRE( 1. == Approx( products[2].multiplicity().multiplicities()[0] ) );
+      REQUIRE( 2. == Approx( products[2].multiplicity().multiplicities()[1] ) );
+      REQUIRE( 3. == Approx( products[2].multiplicity().multiplicities()[2] ) );
 
-        law =
-            std::experimental::get< ContinuumEnergyAngle >(
-                products[2].distribution() );
+      law =
+          std::experimental::get< ContinuumEnergyAngle >(
+              products[2].distribution() );
 
-        REQUIRE( 1 == law.LAW() );
-        REQUIRE( 2 == law.LEP() );
-        REQUIRE( 2 == law.NE() );
-        REQUIRE( 1 == law.NR() );
-        REQUIRE( 1 == law.interpolants().size() );
-        REQUIRE( 1 == law.boundaries().size() );
-        REQUIRE( 5 == law.interpolants()[0] );
-        REQUIRE( 2 == law.boundaries()[0] );
+      REQUIRE( 1 == law.LAW() );
+      REQUIRE( 2 == law.LEP() );
+      REQUIRE( 2 == law.NE() );
+      REQUIRE( 1 == law.NR() );
+      REQUIRE( 1 == law.interpolants().size() );
+      REQUIRE( 1 == law.boundaries().size() );
+      REQUIRE( 5 == law.interpolants()[0] );
+      REQUIRE( 2 == law.boundaries()[0] );
 
-        energies = law.energies();
+      energies = law.subsections();
 
-        REQUIRE( 1.858639e+7 == Approx( energies[0].energy() ) );
-        REQUIRE( 1 == energies[0].LANG() );
-        REQUIRE( 0 == energies[0].ND() );
-        REQUIRE( 0 == energies[0].NA() );
-        REQUIRE( 6 == energies[0].NW() );
-        REQUIRE( 3 == energies[0].NEP() );
+      REQUIRE( 1.858639e+7 == Approx( energies[0].energy() ) );
+      REQUIRE( 1 == energies[0].LANG() );
+      REQUIRE( 0 == energies[0].ND() );
+      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
+      REQUIRE( 0 == energies[0].NA() );
+      REQUIRE( 0 == energies[0].numberAngularParameters() );
+      REQUIRE( 6 == energies[0].NW() );
+      REQUIRE( 3 == energies[0].NEP() );
+      REQUIRE( 3 == energies[0].numberSecondaryEnergies() );
 
-        subsection1 =
-            std::experimental::get< LegendreCoefficients >( energies[0] );
-        REQUIRE( 0 == subsection1.ND() );
-        REQUIRE( 0 == subsection1.NA() );
-        REQUIRE( 6 == subsection1.NW() );
-        REQUIRE( 3 == subsection1.NEP() );
-        REQUIRE( 3 == subsection1.energies().size() );
-        REQUIRE( 0. == Approx( subsection1.energies()[0] ) );
-        REQUIRE( 1. == Approx( subsection1.energies()[1] ) );
-        REQUIRE( 2. == Approx( subsection1.energies()[2] ) );
-        REQUIRE( 3 == subsection1.coefficients().size() );
-        REQUIRE( 0. == Approx( subsection1.coefficients()[0][0] ) );
-        REQUIRE( 1. == Approx( subsection1.coefficients()[1][0] ) );
-        REQUIRE( 0. == Approx( subsection1.coefficients()[2][0] ) );
-        REQUIRE( 3 ==
-                 Approx( subsection1.totalEmissionProbabilities().size() ) );
-        REQUIRE( 0. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
-        REQUIRE( 1. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
-        REQUIRE( 0. == Approx( subsection1.totalEmissionProbabilities()[2] ) );
+      subsection1 =
+          std::experimental::get< LegendreCoefficients >( energies[0].data() );
+      REQUIRE( 0 == subsection1.ND() );
+      REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
+      REQUIRE( 0 == subsection1.NA() );
+      REQUIRE( 0 == subsection1.numberAngularParameters() );
+      REQUIRE( 6 == subsection1.NW() );
+      REQUIRE( 3 == subsection1.NEP() );
+      REQUIRE( 3 == subsection1.numberSecondaryEnergies() );
+      REQUIRE( 3 == subsection1.energies().size() );
+      REQUIRE( 0. == Approx( subsection1.energies()[0] ) );
+      REQUIRE( 1. == Approx( subsection1.energies()[1] ) );
+      REQUIRE( 2. == Approx( subsection1.energies()[2] ) );
+      REQUIRE( 3 == subsection1.coefficients().size() );
+      REQUIRE( 0. == Approx( subsection1.coefficients()[0][0] ) );
+      REQUIRE( 1. == Approx( subsection1.coefficients()[1][0] ) );
+      REQUIRE( 0. == Approx( subsection1.coefficients()[2][0] ) );
+      REQUIRE( 3 == Approx( subsection1.totalEmissionProbabilities().size() ) );
+      REQUIRE( 0. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
+      REQUIRE( 1. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
+      REQUIRE( 0. == Approx( subsection1.totalEmissionProbabilities()[2] ) );
 
-        REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
-        REQUIRE( 1 == energies[1].LANG() );
-        REQUIRE( 0 == energies[1].ND() );
-        REQUIRE( 0 == energies[1].NA() );
-        REQUIRE( 6 == energies[1].NW() );
-        REQUIRE( 3 == energies[1].NEP() );
+      REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
+      REQUIRE( 1 == energies[1].LANG() );
+      REQUIRE( 0 == energies[1].ND() );
+      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
+      REQUIRE( 0 == energies[1].NA() );
+      REQUIRE( 0 == energies[1].numberAngularParameters() );
+      REQUIRE( 6 == energies[1].NW() );
+      REQUIRE( 3 == energies[1].NEP() );
+      REQUIRE( 3 == energies[1].numberSecondaryEnergies() );
 
-        subsection2 =
-            std::experimental::get< LegendreCoefficients >( energies[1] );
-        REQUIRE( 1 == subsection2.LANG() );
-        REQUIRE( 0 == subsection2.ND() );
-        REQUIRE( 0 == subsection2.NA() );
-        REQUIRE( 6 == subsection2.NW() );
-        REQUIRE( 3 == subsection2.NEP() );
-        REQUIRE( 3 == subsection2.energies().size() );
-        REQUIRE( 0. == Approx( subsection2.energies()[0] ) );
-        REQUIRE( 1. == Approx( subsection2.energies()[1] ) );
-        REQUIRE( 2. == Approx( subsection2.energies()[2] ) );
-        REQUIRE( 3 == subsection2.coefficients().size() );
-        REQUIRE( 0. == Approx( subsection2.coefficients()[0][0] ) );
-        REQUIRE( 1. == Approx( subsection2.coefficients()[1][0] ) );
-        REQUIRE( 0. == Approx( subsection2.coefficients()[2][0] ) );
-        REQUIRE( 3 ==
-                 Approx( subsection2.totalEmissionProbabilities().size() ) );
-        REQUIRE( 0. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
-        REQUIRE( 1. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
-        REQUIRE( 0. == Approx( subsection2.totalEmissionProbabilities()[2] ) );
+      subsection2 =
+          std::experimental::get< LegendreCoefficients >( energies[1].data() );
+      REQUIRE( 1 == subsection2.LANG() );
+      REQUIRE( 0 == subsection2.ND() );
+      REQUIRE( 0 == subsection2.numberDiscreteEnergies() );
+      REQUIRE( 0 == subsection2.NA() );
+      REQUIRE( 0 == subsection2.numberAngularParameters() );
+      REQUIRE( 6 == subsection2.NW() );
+      REQUIRE( 3 == subsection2.NEP() );
+      REQUIRE( 3 == subsection2.numberSecondaryEnergies() );
+      REQUIRE( 3 == subsection2.energies().size() );
+      REQUIRE( 0. == Approx( subsection2.energies()[0] ) );
+      REQUIRE( 1. == Approx( subsection2.energies()[1] ) );
+      REQUIRE( 2. == Approx( subsection2.energies()[2] ) );
+      REQUIRE( 3 == subsection2.coefficients().size() );
+      REQUIRE( 0. == Approx( subsection2.coefficients()[0][0] ) );
+      REQUIRE( 1. == Approx( subsection2.coefficients()[1][0] ) );
+      REQUIRE( 0. == Approx( subsection2.coefficients()[2][0] ) );
+      REQUIRE( 3 == Approx( subsection2.totalEmissionProbabilities().size() ) );
+      REQUIRE( 0. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
+      REQUIRE( 1. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
+      REQUIRE( 0. == Approx( subsection2.totalEmissionProbabilities()[2] ) );
 
-        REQUIRE( 30 == chunk.NC() );
+      REQUIRE( 30 == chunk.NC() );
       } // THEN
     } // WHEN
 

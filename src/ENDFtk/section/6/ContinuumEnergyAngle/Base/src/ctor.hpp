@@ -1,7 +1,8 @@
 Base( ListRecord&& list ) :
   ListRecord( std::move( list ) ) {
 
-    verifySize( this->NW(), this->NA(), this->NEP() );
+  verifySorted( this->energies(), "Energy" );
+  verifySize( this->NW(), this->NA(), this->NEP() );
 };
 
 Base( double energy, long nd, long na, long nep,

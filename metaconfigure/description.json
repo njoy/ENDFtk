@@ -385,12 +385,19 @@
     "src/ENDFtk/ControlRecord/src/print.hpp", 
     "src/ENDFtk/DirectoryRecord/src/print.hpp", 
     "src/ENDFtk/file/1.hpp", 
+    "src/ENDFtk/file/7.hpp", 
     "src/ENDFtk/file/1/src/ctor.hpp", 
     "src/ENDFtk/file/1/src/fill.hpp", 
     "src/ENDFtk/file/1/src/get.hpp", 
     "src/ENDFtk/file/1/src/print.hpp", 
     "src/ENDFtk/file/1/src/read.hpp", 
     "src/ENDFtk/file/1/src/sectionNumber.hpp", 
+    "src/ENDFtk/file/7/src/ctor.hpp", 
+    "src/ENDFtk/file/7/src/fill.hpp", 
+    "src/ENDFtk/file/7/src/get.hpp", 
+    "src/ENDFtk/file/7/src/print.hpp", 
+    "src/ENDFtk/file/7/src/read.hpp", 
+    "src/ENDFtk/file/7/src/sectionNumber.hpp", 
     "src/ENDFtk/file/Type/src/checkRedundant.hpp", 
     "src/ENDFtk/file/Type/src/collectMap.hpp", 
     "src/ENDFtk/file/Type/src/collectVector.hpp", 
@@ -494,7 +501,10 @@
     "src/ENDFtk/section/3.hpp", 
     "src/ENDFtk/section/5.hpp", 
     "src/ENDFtk/section/6.hpp", 
+    "src/ENDFtk/section/7.hpp", 
+    "src/ENDFtk/section/8.hpp", 
     "src/ENDFtk/section/Base.hpp", 
+    "src/ENDFtk/section/BaseWithoutMT.hpp", 
     "src/ENDFtk/section/1/451.hpp", 
     "src/ENDFtk/section/1/451/src/ctor-452.hpp", 
     "src/ENDFtk/section/1/451/src/ctor-455.hpp", 
@@ -503,6 +513,8 @@
     "src/ENDFtk/section/1/451/src/ctor-460.hpp", 
     "src/ENDFtk/section/1/451/src/ctor.hpp", 
     "src/ENDFtk/section/1/451/src/description.hpp", 
+    "src/ENDFtk/section/1/451/src/makeDescription.hpp", 
+    "src/ENDFtk/section/1/451/src/makeParameters.hpp", 
     "src/ENDFtk/section/1/451/src/print.hpp", 
     "src/ENDFtk/section/1/451/src/readParameters.hpp", 
     "src/ENDFtk/section/1/451/src/readRecords.hpp", 
@@ -598,8 +610,10 @@
     "src/ENDFtk/section/6/ContinuumEnergyAngle/src/readSequence.hpp", 
     "src/ENDFtk/section/6/ContinuumEnergyAngle/SubSection/src/ctor.hpp", 
     "src/ENDFtk/section/6/ContinuumEnergyAngle/SubSection/src/print.hpp", 
+    "src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/src/checkLANG.hpp", 
     "src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/src/ctor.hpp", 
     "src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/src/generateList.hpp", 
+    "src/ENDFtk/section/6/DefinedElsewhere/src/checkLAW.hpp", 
     "src/ENDFtk/section/6/DefinedElsewhere/src/ctor.hpp", 
     "src/ENDFtk/section/6/DiscreteTwoBodyScattering/LegendreCoefficients.hpp", 
     "src/ENDFtk/section/6/DiscreteTwoBodyScattering/SubSection.hpp", 
@@ -616,10 +630,10 @@
     "src/ENDFtk/section/6/DiscreteTwoBodyScattering/Tabulated/src/generateList.hpp", 
     "src/ENDFtk/section/6/DiscreteTwoBodyScattering/Tabulated/src/verifyLANG.hpp", 
     "src/ENDFtk/section/6/DiscreteTwoBodyScattering/Tabulated/src/verifySize.hpp", 
-    "src/ENDFtk/section/6/LaboratoryAngleEnergy/CosineOutgoingEnergyDistribution.hpp", 
-    "src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyOutgoingCosineDistribution.hpp", 
-    "src/ENDFtk/section/6/LaboratoryAngleEnergy/CosineOutgoingEnergyDistribution/src/ctor.hpp", 
-    "src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyOutgoingCosineDistribution/src/ctor.hpp", 
+    "src/ENDFtk/section/6/LaboratoryAngleEnergy/AngularDistribution.hpp", 
+    "src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyDistribution.hpp", 
+    "src/ENDFtk/section/6/LaboratoryAngleEnergy/AngularDistribution/src/ctor.hpp", 
+    "src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyDistribution/src/ctor.hpp", 
     "src/ENDFtk/section/6/LaboratoryAngleEnergy/src/ctor.hpp", 
     "src/ENDFtk/section/6/LaboratoryAngleEnergy/src/print.hpp", 
     "src/ENDFtk/section/6/Multiplicity/src/ctor.hpp", 
@@ -632,8 +646,80 @@
     "src/ENDFtk/section/6/src/NC.hpp", 
     "src/ENDFtk/section/6/src/print.hpp", 
     "src/ENDFtk/section/6/src/readReactionProducts.hpp", 
+    "src/ENDFtk/section/6/src/verifySorted.hpp", 
+    "src/ENDFtk/section/7/2.hpp", 
+    "src/ENDFtk/section/7/4.hpp", 
+    "src/ENDFtk/section/7/2/CoherentElastic.hpp", 
+    "src/ENDFtk/section/7/2/IncoherentElastic.hpp", 
+    "src/ENDFtk/section/7/2/CoherentElastic/src/ctor.hpp", 
+    "src/ENDFtk/section/7/2/CoherentElastic/src/generateTemperatures.hpp", 
+    "src/ENDFtk/section/7/2/CoherentElastic/src/NC.hpp", 
+    "src/ENDFtk/section/7/2/CoherentElastic/src/print.hpp", 
+    "src/ENDFtk/section/7/2/CoherentElastic/src/readTemperatures.hpp", 
+    "src/ENDFtk/section/7/2/CoherentElastic/src/verifyLT.hpp", 
+    "src/ENDFtk/section/7/2/IncoherentElastic/src/ctor.hpp", 
+    "src/ENDFtk/section/7/2/src/ctor.hpp", 
+    "src/ENDFtk/section/7/2/src/NC.hpp", 
+    "src/ENDFtk/section/7/2/src/print.hpp", 
+    "src/ENDFtk/section/7/2/src/readScatteringLaw.hpp", 
+    "src/ENDFtk/section/7/4/AnalyticalFunctions.hpp", 
+    "src/ENDFtk/section/7/4/EffectiveTemperature.hpp", 
+    "src/ENDFtk/section/7/4/ScatteringLawConstants.hpp", 
+    "src/ENDFtk/section/7/4/Tabulated.hpp", 
+    "src/ENDFtk/section/7/4/EffectiveTemperature/src/ctor.hpp", 
+    "src/ENDFtk/section/7/4/ScatteringLawConstants/src/checkLLN.hpp", 
+    "src/ENDFtk/section/7/4/ScatteringLawConstants/src/ctor.hpp", 
+    "src/ENDFtk/section/7/4/ScatteringLawConstants/src/generateList.hpp", 
+    "src/ENDFtk/section/7/4/ScatteringLawConstants/src/verifySize.hpp", 
+    "src/ENDFtk/section/7/4/src/checkValue.hpp", 
+    "src/ENDFtk/section/7/4/src/ctor.hpp", 
+    "src/ENDFtk/section/7/4/src/NC.hpp", 
+    "src/ENDFtk/section/7/4/src/print.hpp", 
+    "src/ENDFtk/section/7/4/src/readScatteringLaw.hpp", 
+    "src/ENDFtk/section/7/4/src/readSecondaryTemperatures.hpp", 
+    "src/ENDFtk/section/7/4/src/verifySecondaryTemperatures.hpp", 
+    "src/ENDFtk/section/7/4/Tabulated/BetaValue.hpp", 
+    "src/ENDFtk/section/7/4/Tabulated/BetaValue/src/ctor.hpp", 
+    "src/ENDFtk/section/7/4/Tabulated/BetaValue/src/generateTemperatures.hpp", 
+    "src/ENDFtk/section/7/4/Tabulated/BetaValue/src/NC.hpp", 
+    "src/ENDFtk/section/7/4/Tabulated/BetaValue/src/print.hpp", 
+    "src/ENDFtk/section/7/4/Tabulated/BetaValue/src/readTemperatures.hpp", 
+    "src/ENDFtk/section/7/4/Tabulated/BetaValue/src/verifyBetaValues.hpp", 
+    "src/ENDFtk/section/7/4/Tabulated/BetaValue/src/verifyLT.hpp", 
+    "src/ENDFtk/section/7/4/Tabulated/src/ctor.hpp", 
+    "src/ENDFtk/section/7/4/Tabulated/src/print.hpp", 
+    "src/ENDFtk/section/8/457.hpp", 
+    "src/ENDFtk/section/8/457/AverageDecayEnergies.hpp", 
+    "src/ENDFtk/section/8/457/ContinuousSpectrum.hpp", 
+    "src/ENDFtk/section/8/457/DecayMode.hpp", 
+    "src/ENDFtk/section/8/457/DecayModes.hpp", 
+    "src/ENDFtk/section/8/457/DecaySpectrum.hpp", 
+    "src/ENDFtk/section/8/457/DiscreteSpectrum.hpp", 
+    "src/ENDFtk/section/8/457/AverageDecayEnergies/src/ctor.hpp", 
+    "src/ENDFtk/section/8/457/AverageDecayEnergies/src/generateList.hpp", 
+    "src/ENDFtk/section/8/457/AverageDecayEnergies/src/verifyNC.hpp", 
+    "src/ENDFtk/section/8/457/ContinuousSpectrum/src/ctor.hpp", 
+    "src/ENDFtk/section/8/457/DecayMode/src/ctor.hpp", 
+    "src/ENDFtk/section/8/457/DecayModes/src/ctor.hpp", 
+    "src/ENDFtk/section/8/457/DecayModes/src/generateList.hpp", 
+    "src/ENDFtk/section/8/457/DecayModes/src/verifyNDK.hpp", 
+    "src/ENDFtk/section/8/457/DecaySpectrum/src/ctor.hpp", 
+    "src/ENDFtk/section/8/457/DecaySpectrum/src/NC.hpp", 
+    "src/ENDFtk/section/8/457/DecaySpectrum/src/print.hpp", 
+    "src/ENDFtk/section/8/457/DecaySpectrum/src/readContinuous.hpp", 
+    "src/ENDFtk/section/8/457/DecaySpectrum/src/readDiscrete.hpp", 
+    "src/ENDFtk/section/8/457/DecaySpectrum/src/verifyLCOV.hpp", 
+    "src/ENDFtk/section/8/457/DiscreteSpectrum/src/ctor.hpp", 
+    "src/ENDFtk/section/8/457/DiscreteSpectrum/src/generateList.hpp", 
+    "src/ENDFtk/section/8/457/DiscreteSpectrum/src/returnArray.hpp", 
+    "src/ENDFtk/section/8/457/DiscreteSpectrum/src/verifyNT.hpp", 
+    "src/ENDFtk/section/8/457/src/ctor.hpp", 
+    "src/ENDFtk/section/8/457/src/NC.hpp", 
+    "src/ENDFtk/section/8/457/src/print.hpp", 
+    "src/ENDFtk/section/8/457/src/readSpectra.hpp", 
     "src/ENDFtk/section/Base/src/ctor.hpp", 
-    "src/ENDFtk/section/Base/src/readSEND.hpp", 
+    "src/ENDFtk/section/BaseWithoutMT/src/ctor.hpp", 
+    "src/ENDFtk/section/BaseWithoutMT/src/readSEND.hpp", 
     "src/ENDFtk/syntaxTree/File.hpp", 
     "src/ENDFtk/syntaxTree/Material.hpp", 
     "src/ENDFtk/syntaxTree/Section.hpp", 
@@ -733,6 +819,9 @@
     ], 
     "ENDFtk.file.1": [
       "src/ENDFtk/file/1/test/1.test.cpp"
+    ], 
+    "ENDFtk.file.7": [
+      "src/ENDFtk/file/7/test/7.test.cpp"
     ], 
     "ENDFtk.file.Type": [
       "src/ENDFtk/file/Type/test/Type.test.cpp"
@@ -916,11 +1005,11 @@
     "ENDFtk.section.6.LaboratoryAngleEnergy": [
       "src/ENDFtk/section/6/LaboratoryAngleEnergy/test/LaboratoryAngleEnergy.test.cpp"
     ], 
-    "ENDFtk.section.6.LaboratoryAngleEnergy.CosineOutgoingEnergyDistribution": [
-      "src/ENDFtk/section/6/LaboratoryAngleEnergy/CosineOutgoingEnergyDistribution/test/CosineOutgoingEnergyDistribution.test.cpp"
+    "ENDFtk.section.6.LaboratoryAngleEnergy.AngularDistribution": [
+      "src/ENDFtk/section/6/LaboratoryAngleEnergy/AngularDistribution/test/AngularDistribution.test.cpp"
     ], 
-    "ENDFtk.section.6.LaboratoryAngleEnergy.EnergyOutgoingCosineDistribution": [
-      "src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyOutgoingCosineDistribution/test/EnergyOutgoingCosineDistribution.test.cpp"
+    "ENDFtk.section.6.LaboratoryAngleEnergy.EnergyDistribution": [
+      "src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyDistribution/test/EnergyDistribution.test.cpp"
     ], 
     "ENDFtk.section.6.Multiplicity": [
       "src/ENDFtk/section/6/Multiplicity/test/Multiplicity.test.cpp"
@@ -937,8 +1026,59 @@
     "ENDFtk.section.6.Unknown": [
       "src/ENDFtk/section/6/Unknown/test/Unknown.test.cpp"
     ], 
+    "ENDFtk.section.7.2": [
+      "src/ENDFtk/section/7/2/test/2.test.cpp"
+    ], 
+    "ENDFtk.section.7.2.CoherentElastic": [
+      "src/ENDFtk/section/7/2/CoherentElastic/test/CoherentElastic.test.cpp"
+    ], 
+    "ENDFtk.section.7.2.IncoherentElastic": [
+      "src/ENDFtk/section/7/2/IncoherentElastic/test/IncoherentElastic.test.cpp"
+    ], 
+    "ENDFtk.section.7.4": [
+      "src/ENDFtk/section/7/4/test/4.test.cpp"
+    ], 
+    "ENDFtk.section.7.4.AnalyticalFunctions": [
+      "src/ENDFtk/section/7/4/AnalyticalFunctions/test/AnalyticalFunctions.test.cpp"
+    ], 
+    "ENDFtk.section.7.4.EffectiveTemperature": [
+      "src/ENDFtk/section/7/4/EffectiveTemperature/test/EffectiveTemperature.test.cpp"
+    ], 
+    "ENDFtk.section.7.4.ScatteringLawConstants": [
+      "src/ENDFtk/section/7/4/ScatteringLawConstants/test/ScatteringLawConstants.test.cpp"
+    ], 
+    "ENDFtk.section.7.4.Tabulated": [
+      "src/ENDFtk/section/7/4/Tabulated/test/Tabulated.test.cpp"
+    ], 
+    "ENDFtk.section.7.4.Tabulated.BetaValue": [
+      "src/ENDFtk/section/7/4/Tabulated/BetaValue/test/BetaValue.test.cpp"
+    ], 
+    "ENDFtk.section.8.457": [
+      "src/ENDFtk/section/8/457/test/457.test.cpp"
+    ], 
+    "ENDFtk.section.8.457.AverageDecayEnergies": [
+      "src/ENDFtk/section/8/457/AverageDecayEnergies/test/AverageDecayEnergies.test.cpp"
+    ], 
+    "ENDFtk.section.8.457.ContinuousSpectrum": [
+      "src/ENDFtk/section/8/457/ContinuousSpectrum/test/ContinuousSpectrum.test.cpp"
+    ], 
+    "ENDFtk.section.8.457.DecayMode": [
+      "src/ENDFtk/section/8/457/DecayMode/test/DecayMode.test.cpp"
+    ], 
+    "ENDFtk.section.8.457.DecayModes": [
+      "src/ENDFtk/section/8/457/DecayModes/test/DecayModes.test.cpp"
+    ], 
+    "ENDFtk.section.8.457.DecaySpectrum": [
+      "src/ENDFtk/section/8/457/DecaySpectrum/test/DecaySpectrum.test.cpp"
+    ], 
+    "ENDFtk.section.8.457.DiscreteSpectrum": [
+      "src/ENDFtk/section/8/457/DiscreteSpectrum/test/DiscreteSpectrum.test.cpp"
+    ], 
     "ENDFtk.section.Base": [
       "src/ENDFtk/section/Base/test/Base.test.cpp"
+    ], 
+    "ENDFtk.section.BaseWithoutMT": [
+      "src/ENDFtk/section/BaseWithoutMT/test/BaseWithoutMT.test.cpp"
     ], 
     "ENDFtk.syntaxTree.File": [
       "src/ENDFtk/syntaxTree/File/test/File.test.cpp"

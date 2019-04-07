@@ -12,9 +12,12 @@ public:
 
   using Base::energy;
   using Base::ND;
+  using Base::numberDiscreteEnergies;
   using Base::NA;
+  using Base::numberAngularParameters;
   using Base::NW;
   using Base::NEP;
+  using Base::numberSecondaryEnergies;
 
   using Base::energies;
   using Base::totalEmissionProbabilities;
