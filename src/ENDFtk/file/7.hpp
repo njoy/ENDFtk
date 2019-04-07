@@ -3,8 +3,8 @@ class Type< 7 > {
 
   /* MF7 has a limited number of possible sections (all optional) */
   static constexpr auto optionalSections = hana::make_tuple( 2_c, 4_c );
-  static constexpr auto sections = optionalSections;
-  static constexpr auto getSections() { return sections; }
+//  static constexpr auto sections = optionalSections;
+  static constexpr auto getSections() { return optionalSections; }
 
   /* convenience typedefs */
   using Map =
