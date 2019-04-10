@@ -4,7 +4,10 @@ DecaySpectrum( ListRecord&& list,
                std::optional< std::vector< DiscreteSpectrum > >&& discrete,
                std::optional< ContinuousSpectrum >&& continuous ) :
   data_( std::move( list ) ), discrete_( std::move( discrete ) ),
-  continuous_( std::move( continuous ) ) {}
+  continuous_( std::move( continuous ) ) {
+
+  if ( this->discrete_) { verifyDiscreteSize( this->discrete_->size() ); }
+}
 
 public:
 /** 
@@ -43,19 +46,14 @@ DecaySpectrum( double styp,
 DecaySpectrum( double styp,
                std::array< double, 2 > fc,
                std::array< double, 2 > erav,
-               ContinuousSpectrum&& continuous )
-  try : DecaySpectrum( ListRecord( 0.0, styp, 1, 0, 0,
-                                   { 0.0, 0.0,
-                                     erav[0], erav[1],
-                                     fc[0], fc[1] } ),
-                       std::nullopt,
-                       std::make_optional( std::move( continuous ) ) ) {}
-  catch ( std::exception& e ) {
-
-    Log::info( "Encountered error while constructing decay spectrum data "
-               "with LCON=1" );
-    throw;
-  }
+               ContinuousSpectrum&& continuous ) :
+  // this can never fail, try-catch would be unreachable
+  DecaySpectrum( ListRecord( 0.0, styp, 1, 0, 0,
+                             { 0.0, 0.0,
+                               erav[0], erav[1],
+                               fc[0], fc[1] } ),
+                 std::nullopt,
+                 std::make_optional( std::move( continuous ) ) ) {}
 
 /** 
  *  @brief Constructor for discrete and continuous spectra (LCON=2)

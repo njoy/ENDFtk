@@ -1,10 +1,7 @@
 private:
 ContinuumEnergyAngle( InterpolationRecord&& interpolation,
                       std::vector< SubSection >&& sequence ) :
-  data_( std::move( interpolation ), std::move( sequence ) ) {
-
-    checkLANG( this->LANG() );
-  }
+  data_( std::move( interpolation ), std::move( sequence ) ) {}
 
 public:
 ContinuumEnergyAngle( long lang,
@@ -14,7 +11,8 @@ ContinuumEnergyAngle( long lang,
                       std::vector< SubSection >&& sequence )
   try : ContinuumEnergyAngle(
           InterpolationRecord( 0.0, 0.0, lang, lep,
-                               std::move( boundaries ), std::move( interpolants ) ),
+                               std::move( boundaries ),
+                               std::move( interpolants ) ),
           std::move( sequence ) ) {}
   catch ( std::exception& e ) {
 
@@ -45,7 +43,7 @@ ContinuumEnergyAngle( Iterator& begin,
                       int MF,
                       int MT )
   try : ContinuumEnergyAngle(
-          readInterpolationRecord( begin, end, lineNumber, MAT, MF, MT ),
+          InterpolationRecord( begin, end, lineNumber, MAT, MF, MT ),
           begin, end, lineNumber, MAT, MF, MT ) {}
   catch ( std::exception& e ) {
 

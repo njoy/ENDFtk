@@ -21,7 +21,6 @@ class BetaValue {
   /* auxiliary functions */
   #include "ENDFtk/section/7/4/Tabulated/BetaValue/src/readTemperatures.hpp"
   #include "ENDFtk/section/7/4/Tabulated/BetaValue/src/generateTemperatures.hpp"
-  #include "ENDFtk/section/7/4/Tabulated/BetaValue/src/verifyLT.hpp"
   #include "ENDFtk/section/7/4/Tabulated/BetaValue/src/verifyBetaValues.hpp"
 
 public:

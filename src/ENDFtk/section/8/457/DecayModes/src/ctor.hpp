@@ -21,14 +21,10 @@ public:
  *  @param[in] modes      the decay decay modes
  */
 DecayModes( double spin, double parity, 
-            std::vector< DecayMode >&& modes )
-  try : DecayModes( ListRecord( spin, parity, 0, 0, modes.size(),
+            std::vector< DecayMode >&& modes ) :
+  // this can never fail, try-catch would be unreachable
+  DecayModes( ListRecord( spin, parity, 0, 0, modes.size(),
                                 generateList( std::move( modes ) ) ) ) {}
-  catch ( std::exception& e ) {
-
-    Log::info( "Encountered error while constructing decay mode data" );
-    throw;
-  }
 
 /** 
  *  @brief Constructor

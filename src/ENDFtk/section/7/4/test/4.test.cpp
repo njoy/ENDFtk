@@ -16,6 +16,9 @@ using EffectiveTemperature = section::Type< 7, 4 >::EffectiveTemperature;
 // macros don't like multiple template arguments
 using section74 = section::Type< 7, 4 >;
 
+std::string chunkWithAnalyticalFunctions();
+void verifyChunkWithAnalyticalFunctions(
+       const section::Type< 7, 4 >& );
 std::string chunkWithOneTemperatureAndOneScatterer();
 void verifyChunkWithOneTemperatureAndOneScatterer(
        const section::Type< 7, 4 >& );
@@ -387,6 +390,27 @@ SCENARIO( "section::Type< 7, 4 >" ) {
     } // WHEN
   } // GIVEN
 
+  GIVEN( "a valid section::Type< 7, 4 > with no principal scatterer and "
+         "only analytic functions" ) {
+
+    std::string string =
+            chunkWithAnalyticalFunctions() + 
+            validSEND();
+    auto begin = string.begin();
+    auto end = string.end();
+    long lineNumber = 1; 
+    HeadRecord head( begin, end, lineNumber );
+    section::Type< 7, 4 > section( head, begin, end, lineNumber, 27 );
+
+    THEN( "it can be printed" ) {
+
+      std::string buffer;
+      auto output = std::back_inserter( buffer );
+      section.print( output, 27, 7 );
+      REQUIRE( buffer == string );
+    }
+  } // GIVEN
+
   GIVEN( "a valid section::Type< 7, 4 > with one temperature and no secondary "
          "scatterers" ) {
 
@@ -753,6 +777,70 @@ SCENARIO( "section::Type< 7, 4 >" ) {
     } // WHEN
   } // GIVEN
 } // SCENARIO
+
+std::string chunkWithAnalyticalFunctions() {
+  return
+    " 1.270000+2 8.934780+0          0          1          0          0  27 7  4     \n"
+    " 0.000000+0 0.000000+0          0          0          6          0  27 7  4     \n"
+    " 0.000000+0 1.976285+2 8.934780+0 5.000001+0 0.000000+0 1.000000+0  27 7  4     \n"
+    " 0.000000+0 0.000000+0          0          0          1          3  27 7  4     \n"
+    "          3          2                                              27 7  4     \n"
+    " 2.936000+2 5.332083+2 6.000000+2 7.354726+2 1.200000+3 1.270678+3  27 7  4     \n";
+}
+
+void verifyChunkWithAnalyticalFunctions(
+       const section::Type< 7, 4 >& chunk ) {
+
+  REQUIRE( 127. == Approx( chunk.ZA() ) );
+  REQUIRE( 8.934780e+0 == Approx( chunk.AWR() ) );
+  REQUIRE( 1 == chunk.LAT() );
+  REQUIRE( 1 == chunk.temperatureOption() );
+  REQUIRE( 0 == chunk.LASYM() );
+  REQUIRE( 0 == chunk.symmetryOption() );
+
+  auto barray = chunk.constants();
+  REQUIRE( 0 == barray.LLN() );
+  REQUIRE( 0 == barray.sabStorageType() );
+  REQUIRE( 6 == barray.NI() );
+  REQUIRE( 6 == barray.numberConstants() );
+  REQUIRE( 0 == barray.NS() );
+  REQUIRE( 0 == barray.numberNonPrincipalScatterers() );
+
+  REQUIRE( 1.976285e+2 == Approx( barray.epsilon() ) );
+  REQUIRE( 5.000001e+0 == Approx( barray.upperEnergyLimit() ) );
+  REQUIRE( 1 == barray.totalFreeCrossSections().size() );
+  REQUIRE( 0.000000+0 == Approx( barray.totalFreeCrossSections()[0] ) );
+  REQUIRE( 1 == barray.atomicWeightRatios().size() );
+  REQUIRE( 8.934780e+0 == Approx( barray.atomicWeightRatios()[0] ) );
+  REQUIRE( 1 == barray.numberAtoms().size() );
+  REQUIRE( 1. == Approx( barray.numberAtoms()[0] ) );
+  REQUIRE( 0 == barray.analyticalFunctionTypes().size() );
+
+  auto table = std::experimental::get< AnalyticalFunctions >( chunk.scatteringLaw() );
+  REQUIRE( 0 == table.NC() );
+
+  auto temp = chunk.principalEffectiveTemperature();
+  REQUIRE( 3 == temp.NT() );
+  REQUIRE( 3 == temp.numberTemperatures() );
+  REQUIRE( 1 == temp.NR() );
+  REQUIRE( 1 == temp.interpolants().size() );
+  REQUIRE( 1 == temp.boundaries().size() );
+  REQUIRE( 2 == temp.interpolants()[0] );
+  REQUIRE( 3 == temp.boundaries()[0] );
+  REQUIRE( 3 == temp.moderatorTemperatures().size() );
+  REQUIRE( 3 == temp.effectiveTemperatures().size() );
+  REQUIRE( 293.6 == Approx( temp.moderatorTemperatures()[0] ) );
+  REQUIRE( 600. == Approx( temp.moderatorTemperatures()[1] ) );
+  REQUIRE( 1200. == Approx( temp.moderatorTemperatures()[2] ) );
+  REQUIRE( 5.332083e+2 == Approx( temp.effectiveTemperatures()[0] ) );
+  REQUIRE( 7.354726e+2 == Approx( temp.effectiveTemperatures()[1] ) );
+  REQUIRE( 1.270678e+3 == Approx( temp.effectiveTemperatures()[2] ) );
+
+  // no secondary scatterer => 0 secondary temperature
+  REQUIRE( 0 == chunk.secondaryEffectiveTemperatures().size() );
+
+  REQUIRE( 3 == chunk.NC() );
+}
 
 std::string chunkWithOneTemperatureAndOneScatterer() {
   return

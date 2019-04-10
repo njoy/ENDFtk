@@ -11,6 +11,7 @@ section::Type< 7, 4 >::EffectiveTemperature;
 
 std::string chunk();
 void verifyChunk( const EffectiveTemperature& );
+std::string invalidChunk();
 
 SCENARIO( "EffectiveTemperature" ) {
 
@@ -65,6 +66,45 @@ SCENARIO( "EffectiveTemperature" ) {
       REQUIRE( buffer == string );
     }
   } // GIVEN
+
+  GIVEN( "invalid data for a EffectiveTemperature" ) {
+
+    WHEN( "there are issues with the input data" ) {
+
+      // no need to test every possibility (TAB1 takes care of tests)
+
+      std::vector< long > wrongBoundaries = { 3, 4 };
+      std::vector< long > interpolants = { 2 };
+      std::vector< double > moderatorTemperatures = { 293.6, 600., 1200. };
+      std::vector< double > effectiveTemperatures = { 5.332083e+2, 7.354726e+2,
+                                                      1.270678e+3 };
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( EffectiveTemperature(
+                              std::move( wrongBoundaries ),
+                              std::move( interpolants ),
+                              std::move( moderatorTemperatures ),
+                              std::move( effectiveTemperatures ) ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a string representation with an error is given" ) {
+
+      // no need to test every possibility (TAB1 takes care of tests)
+
+      std::string string = invalidChunk();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS(
+            EffectiveTemperature( begin, end, lineNumber, 27, 7, 2 ) );
+      } // THEN
+    } // WHEN
+  } // GIVEN
 } // SCENARIO
 
 std::string chunk() {
@@ -94,3 +134,11 @@ void verifyChunk( const EffectiveTemperature& chunk ) {
 
   REQUIRE( 3 == chunk.NC() );
 }
+
+std::string invalidChunk() {
+  return
+    " 0.000000+0 0.000000+0          0          0          1          4  27 7  4     \n"
+    "          3          2                                              27 7  4     \n"
+    " 2.936000+2 5.332083+2 6.000000+2 7.354726+2 1.200000+3 1.270678+3  27 7  4     \n";
+}
+

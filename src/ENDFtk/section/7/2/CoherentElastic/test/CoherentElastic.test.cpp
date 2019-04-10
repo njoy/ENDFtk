@@ -12,6 +12,7 @@ std::string chunkWithOneTemperature();
 void verifyOneTemperature( const CoherentElastic& );
 std::string chunkWithTwoTemperatures();
 void verifyTwoTemperatures( const CoherentElastic& );
+std::string invalidChunk();
 
 SCENARIO( "CoherentElastic" ) {
 
@@ -176,8 +177,7 @@ SCENARIO( "CoherentElastic" ) {
 
   GIVEN( "invalid data for a CoherentElastic" ) {
 
-    WHEN( "a string representation is used with an inconsistent number of T "
-          "and S(E,T) functions" ) {
+    WHEN( "data with an inconsistent number of T and S(E,T) functions" ) {
 
       std::vector< long > boundaries = { 3 };
       std::vector< long > interpolants = { 1 };
@@ -197,6 +197,41 @@ SCENARIO( "CoherentElastic" ) {
                                          std::move( li ),
                                          std::move( energies ),
                                          std::move( s ) ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "inconsistent data for the single temperature constructor is used" ) {
+
+      // no need to test every possibility (TAB1 takes care of tests)
+
+      double temperature = 293.6;
+      std::vector< long > wrongInterpolants = { 1, 2 };
+      std::vector< long > boundaries = { 3 };
+      std::vector< double > energies = { 1.059427e-3, 3.718355e-3,  4.237708e-3 };
+      std::vector< double > s = { 0.0, 9.364524e-3, 1.548925e-2 };
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( CoherentElastic( temperature,
+                                         std::move( boundaries ),
+                                         std::move( wrongInterpolants ), 
+                                         std::move( energies ),
+                                         std::move( s )  ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a string representation with an error is given" ) {
+
+      // no need to test every possibility (TAB1 takes care of tests)
+
+      std::string string = invalidChunk();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( CoherentElastic( begin, end, lineNumber, 27, 7, 2 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -296,3 +331,11 @@ void verifyTwoTemperatures( const CoherentElastic& chunk ) {
 
   REQUIRE( 5 == chunk.NC() );
 }
+
+std::string invalidChunk() {
+  return
+    " 2.936000+2 0.000000+0          0          0          1          4  27 7  2     \n"
+    "          3          1                                              27 7  2     \n"
+    " 1.059427-3 0.000000+0 3.718355-3 9.364524-3 4.237708-3 1.548925-2  27 7  2     \n";
+}
+

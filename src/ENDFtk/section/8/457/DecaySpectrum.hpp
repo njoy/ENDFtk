@@ -15,6 +15,7 @@ class DecaySpectrum {
 
   /* auxiliary functions */
   #include "ENDFtk/section/8/457/DecaySpectrum/src/verifyLCOV.hpp"
+  #include "ENDFtk/section/8/457/DecaySpectrum/src/verifyDiscreteSize.hpp"
   #include "ENDFtk/section/8/457/DecaySpectrum/src/readDiscrete.hpp"
   #include "ENDFtk/section/8/457/DecaySpectrum/src/readContinuous.hpp"
 

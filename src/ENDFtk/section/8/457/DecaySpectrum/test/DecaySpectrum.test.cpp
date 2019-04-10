@@ -16,6 +16,7 @@ std::string chunkWithLCONOne();
 void verifyChunkWithLCONOne( const DecaySpectrum& );
 std::string chunkWithLCONTwo();
 void verifyChunkWithLCONTwo( const DecaySpectrum& );
+std::string chunkWithUnsupportedLCOV();
 
 SCENARIO( "DecaySpectrum" ) {
 
@@ -191,6 +192,59 @@ SCENARIO( "DecaySpectrum" ) {
       REQUIRE( buffer == string );
     }
   } // GIVEN
+
+  GIVEN( "invalid data for a DecaySpectrum" ) {
+
+    WHEN( "an empty vector is used for the discrete spectra for LCON=0" ) {
+
+      double styp = 0.0;
+      std::array< double, 2 > fd = {{ 1., 0. }};
+      std::array< double, 2 > fc = {{ 0.5, 0.25 }};
+      std::array< double, 2 > erav = {{ 2.107044e+2, 1.576284e+1 }};
+
+      std::vector< DiscreteSpectrum > discrete = {};
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( DecaySpectrum( styp, fd, erav,
+                                       std::move( discrete ) ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "an empty vector is used for the discrete spectra for LCON=2" ) {
+
+      double styp = 0.0;
+      std::array< double, 2 > fd = {{ 1., 0. }};
+      std::array< double, 2 > fc = {{ 0.5, 0.25 }};
+      std::array< double, 2 > erav = {{ 2.107044e+2, 1.576284e+1 }};
+
+      std::vector< DiscreteSpectrum > discrete = {};
+    
+      ContinuousSpectrum continuous =
+        { 4., { 3 }, { 1 }, { 0.0, 5e+5, 7.3e+6 },
+          { 6.133200e-7, 6.133300e-7, 6.02040e-17 } };
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( DecaySpectrum( styp, fd, fc, erav,
+                                       std::move( discrete ),
+                                       std::move( continuous ) ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a string is used with an unsupported LCOV" ) {
+
+      std::string string = chunkWithUnsupportedLCOV();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1; 
+      
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( DecaySpectrum( begin, end, lineNumber, 3580, 8, 457 ) );
+      } // THEN
+    } // WHEN
+  } // THEN
 } // SCENARIO
 
 std::string chunkWithLCONZero() {
@@ -471,3 +525,16 @@ void verifyChunkWithLCONTwo( const DecaySpectrum& chunk ) {
 
   REQUIRE( 11 == chunk.NC() );
 }
+
+std::string chunkWithUnsupportedLCOV() {
+  return
+    " 0.000000+0 0.000000+0          0          1          6          23580 8457     \n"
+    " 1.000000+0 0.000000+0 2.107044+2 1.576284+1 0.000000+0 0.000000+03580 8457     \n"
+    " 4.863000+4 5.000000+1          0          0         12          03580 8457     \n"
+    " 3.000000+0 0.000000+0 1.420112-6 2.85306-10 0.000000+0 0.000000+03580 8457     \n"
+    " 7.010000+5 1.106180-2 0.000000+0 0.000000+0 3.315735+5 5.608008+33580 8457     \n"
+    " 4.935000+4 2.000000+1          0          0         12          03580 8457     \n"
+    " 4.000000+0 0.000000+0 1.335690-3 5.409179-5 0.000000+0 0.000000+03580 8457     \n"
+    " 8.209999-1 0.000000+0 0.000000+0 0.000000+0 6.160000-1 8.999999-33580 8457     \n";
+}
+

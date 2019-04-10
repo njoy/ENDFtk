@@ -37,7 +37,7 @@ SCENARIO( "BetaValue" ) {
       std::vector< long > Boundaries = { 5 };
       std::vector< double > Alphas = { 4.423802e-3, 4.649528e-3, 4.886772e-3,
                                        8.418068e+1, 8.847604e+1 };
-      std::vector< long > Li = { 4 };
+      std::vector< long > Li = {};
       std::vector< double > Temperatures = { 293.6 };
       std::vector< std::vector< double > > Sab =
                                   { { 2.386876e-4, 2.508466e-4, 2.636238e-4,
@@ -83,7 +83,7 @@ SCENARIO( "BetaValue" ) {
     } // WHEN
   } // GIVEN
 
-  GIVEN( "valid data for a BetaValue with only one temperature" ) {
+  GIVEN( "valid data for a BetaValue with more than one temperature" ) {
 
     WHEN( "the data is given explicitly" ) {
 
@@ -166,6 +166,213 @@ SCENARIO( "BetaValue" ) {
   } // GIVEN
 
   GIVEN( "invalid data" ) {
+
+    WHEN( "invalid data is used for the single temperature constructor" ) {
+
+      THEN( "an exception is thrown upon construction when there is "
+            "something wrong with the boundaries" ) {
+
+        double temperature = 293.6;
+        double beta = 0.0;
+        std::vector< long > interpolants = { 4 };
+        std::vector< long > wrongBoundaries = { 5, 6 }; // one too many
+        std::vector< double > alphas = { 4.423802e-3, 4.649528e-3, 4.886772e-3,
+                                         8.418068e+1, 8.847604e+1 };
+        std::vector< double > sab = { 2.386876e-4, 2.508466e-4, 2.636238e-4,
+                                      1.306574e-9, 5.29573e-10 };
+
+        REQUIRE_THROWS( BetaValue( temperature, beta,
+                                   std::move( wrongBoundaries ),
+                                   std::move( interpolants ), 
+                                   std::move( alphas ),
+                                   std::move( sab ) ) );
+      } // THEN
+
+      THEN( "an exception is thrown upon construction when there is "
+            "something wrong with the interpolants" ) {
+
+        double temperature = 293.6;
+        double beta = 0.0;
+        std::vector< long > wrongInterpolants = { 4 , 2 }; // one too many
+        std::vector< long > boundaries = { 5 };
+        std::vector< double > alphas = { 4.423802e-3, 4.649528e-3, 4.886772e-3,
+                                         8.418068e+1, 8.847604e+1 };
+        std::vector< double > sab = { 2.386876e-4, 2.508466e-4, 2.636238e-4,
+                                      1.306574e-9, 5.29573e-10 };
+
+        REQUIRE_THROWS( BetaValue( temperature, beta,
+                                   std::move( boundaries ),
+                                   std::move( wrongInterpolants ), 
+                                   std::move( alphas ),
+                                   std::move( sab ) ) );
+      } // THEN
+
+      THEN( "an exception is thrown upon construction when there is "
+            "something wrong with the alpha values" ) {
+
+        double temperature = 293.6;
+        double beta = 0.0;
+        std::vector< long > interpolants = { 4 };
+        std::vector< long > boundaries = { 5 };
+        std::vector< double > wrongAlphas = { 4.423802e-3, 4.649528e-3, // one less
+                                              4.886772e-3, 8.418068e+1 };
+        std::vector< double > sab = { 2.386876e-4, 2.508466e-4, 2.636238e-4,
+                                      1.306574e-9, 5.29573e-10 };
+
+        REQUIRE_THROWS( BetaValue( temperature, beta,
+                                   std::move( boundaries ),
+                                   std::move( interpolants ), 
+                                   std::move( wrongAlphas ),
+                                   std::move( sab ) ) );
+      } // THEN
+
+      THEN( "an exception is thrown upon construction when there is "
+            "something wrong with the S(a,b) values" ) {
+
+        double temperature = 293.6;
+        double beta = 0.0;
+        std::vector< long > interpolants = { 4 };
+        std::vector< long > boundaries = { 5 };
+        std::vector< double > alphas = { 4.423802e-3, 4.649528e-3, 4.886772e-3,
+                                         8.418068e+1, 8.847604e+1 };
+        std::vector< double > wrongSab = { 2.386876e-4, 2.508466e-4,
+                                           2.636238e-4, 1.306574e-9 }; // one less
+
+        REQUIRE_THROWS( BetaValue( temperature, beta,
+                                   std::move( boundaries ),
+                                   std::move( interpolants ), 
+                                   std::move( alphas ),
+                                   std::move( wrongSab ) ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "invalid data is used for the multiple temperature constructor" ) {
+
+      THEN( "an exception is thrown upon construction when there is "
+            "something wrong with the boundaries" ) {
+
+        double beta = 0.0;
+        std::vector< long > wrongBoundaries = { 5, 6 }; // wrong size
+        std::vector< long > interpolants = { 4 };
+        std::vector< long > li = { 4 };
+        std::vector< double > alphas =
+            { 4.423802e-3, 4.649528e-3, 4.886772e-3, 8.418068e+1, 8.847604e+1 };
+        std::vector< double > temperatures = { 293.6, 400.0 };
+        std::vector< std::vector< double > > sab =
+            { { 2.386876e-4, 2.508466e-4, 2.636238e-4,
+                1.306574e-9, 5.29573e-10 },
+              { 4.430020e-4, 4.655671e-4, 4.892796e-4,
+                4.510209e-8, 2.183942e-8 } };
+
+        REQUIRE_THROWS( BetaValue( beta,
+                                   std::move( wrongBoundaries ),
+                                   std::move( interpolants ), 
+                                   std::move( temperatures ),
+                                   std::move( li ),
+                                   std::move( alphas ),
+                                   std::move( sab ) ) );
+      } // THEN
+
+      THEN( "an exception is thrown upon construction when there is "
+            "something wrong with the interpolants" ) {
+
+        double beta = 0.0;
+        std::vector< long > boundaries = { 5 };
+        std::vector< long > wrongInterpolants = { 4, 2 }; // wrong size
+        std::vector< long > li = { 4 };
+        std::vector< double > alphas =
+            { 4.423802e-3, 4.649528e-3, 4.886772e-3, 8.418068e+1, 8.847604e+1 };
+        std::vector< double > temperatures = { 293.6, 400.0 };
+        std::vector< std::vector< double > > sab =
+            { { 2.386876e-4, 2.508466e-4, 2.636238e-4,
+                1.306574e-9, 5.29573e-10 },
+              { 4.430020e-4, 4.655671e-4, 4.892796e-4,
+                4.510209e-8, 2.183942e-8 } };
+
+        REQUIRE_THROWS( BetaValue( beta,
+                                   std::move( boundaries ),
+                                   std::move( wrongInterpolants ), 
+                                   std::move( temperatures ),
+                                   std::move( li ),
+                                   std::move( alphas ),
+                                   std::move( sab ) ) );
+      } // THEN
+
+      THEN( "an exception is thrown upon construction when there is "
+            "something wrong with the alpha values" ) {
+
+        double beta = 0.0;
+        std::vector< long > boundaries = { 5 };
+        std::vector< long > interpolants = { 4 };
+        std::vector< long > li = { 4 };
+        std::vector< double > wrongAlphas = // wrong size: one less alpha
+            { 4.423802e-3, 4.649528e-3, 4.886772e-3, 8.418068e+1 };
+        std::vector< double > temperatures = { 293.6, 400.0 };
+        std::vector< std::vector< double > > sab =
+            { { 2.386876e-4, 2.508466e-4, 2.636238e-4,
+                1.306574e-9, 5.29573e-10 },
+              { 4.430020e-4, 4.655671e-4, 4.892796e-4,
+                4.510209e-8, 2.183942e-8 } };
+
+        REQUIRE_THROWS( BetaValue( beta,
+                                   std::move( boundaries ),
+                                   std::move( interpolants ), 
+                                   std::move( temperatures ),
+                                   std::move( li ),
+                                   std::move( wrongAlphas ),
+                                   std::move( sab ) ) );
+      } // THEN
+
+      THEN( "an exception is thrown upon construction when there is "
+            "something wrong with the temperatures" ) {
+
+        double beta = 0.0;
+        std::vector< long > boundaries = { 5 };
+        std::vector< long > interpolants = { 4 };
+        std::vector< long > li = { 4 };
+        std::vector< double > alphas =
+            { 4.423802e-3, 4.649528e-3, 4.886772e-3, 8.418068e+1, 8.847604e+1 };
+        std::vector< double > wrongTemperatures = { 293.6 }; // one less value
+        std::vector< std::vector< double > > sab =
+            { { 2.386876e-4, 2.508466e-4, 2.636238e-4,
+                1.306574e-9, 5.29573e-10 },
+              { 4.430020e-4, 4.655671e-4, 4.892796e-4,
+                4.510209e-8, 2.183942e-8 } };
+
+        REQUIRE_THROWS( BetaValue( beta,
+                                   std::move( boundaries ),
+                                   std::move( interpolants ), 
+                                   std::move( wrongTemperatures ),
+                                   std::move( li ),
+                                   std::move( alphas ),
+                                   std::move( sab ) ) );
+      } // THEN
+
+      THEN( "an exception is thrown upon construction when there is "
+            "something wrong with the S(a,b) values" ) {
+
+        double beta = 0.0;
+        std::vector< long > boundaries = { 5 };
+        std::vector< long > interpolants = { 4 };
+        std::vector< long > li = { 4 };
+        std::vector< double > alphas =
+            { 4.423802e-3, 4.649528e-3, 4.886772e-3, 8.418068e+1, 8.847604e+1 };
+        std::vector< double > temperatures = { 293.6, 400.0 };
+        std::vector< std::vector< double > > wrongSab =
+            { { 2.386876e-4, 2.508466e-4, // wrong size
+                1.306574e-9, 5.29573e-10 },
+              { 4.430020e-4, 4.655671e-4, 4.892796e-4,
+                4.510209e-8, 2.183942e-8 } };
+
+        REQUIRE_THROWS( BetaValue( beta,
+                                   std::move( boundaries ),
+                                   std::move( interpolants ), 
+                                   std::move( temperatures ),
+                                   std::move( li ),
+                                   std::move( alphas ),
+                                   std::move( wrongSab ) ) );
+      } // THEN
+    } // WHEN
 
     WHEN( "a string representation of a BetaValue with two temperatures "
           "and inconsistent betas" ) {

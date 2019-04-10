@@ -8,10 +8,7 @@ private:
 CoherentElastic( TabulationRecord&& principal,
                  std::vector< ListRecord >&& temperatures ) :
   principal_( std::move( principal ) ),
-  temperatures_( std::move( temperatures ) ) {
-
-  verifyLT( this->LT(), this->NT() );
-}
+  temperatures_( std::move( temperatures ) ) {}
 
 public:
 /** 

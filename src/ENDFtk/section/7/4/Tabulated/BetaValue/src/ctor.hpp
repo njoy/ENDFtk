@@ -9,7 +9,6 @@ BetaValue( TabulationRecord&& alphas,
            std::vector< ListRecord >&& temperatures ) :
   alphas_( std::move( alphas ) ), temperatures_( std::move( temperatures ) ) {
 
-  verifyLT( this->LT(), this->NT() );
   if ( this->NT() != 1 ) {
     verifyBetaValues( this->beta(),
                       this->temperatures_ | 

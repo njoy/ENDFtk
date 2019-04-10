@@ -19,7 +19,6 @@ class CoherentElastic {
   /* auxiliary functions */
   #include "ENDFtk/section/7/2/CoherentElastic/src/generateTemperatures.hpp"
   #include "ENDFtk/section/7/2/CoherentElastic/src/readTemperatures.hpp"
-  #include "ENDFtk/section/7/2/CoherentElastic/src/verifyLT.hpp"
 
 public:
 

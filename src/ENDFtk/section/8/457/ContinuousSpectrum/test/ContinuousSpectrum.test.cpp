@@ -10,6 +10,7 @@ using ContinuousSpectrum = section::Type< 8, 457 >::ContinuousSpectrum;
 
 std::string chunk();
 void verifyChunk( const ContinuousSpectrum& );
+std::string invalidChunk();
 
 SCENARIO( "ContinuousSpectrum" ) {
 
@@ -66,6 +67,46 @@ SCENARIO( "ContinuousSpectrum" ) {
       REQUIRE( buffer == string );
     }
   } // GIVEN
+
+  GIVEN( "invalid data for a ContinuousSpectrum" ) {
+
+    WHEN( "there are issues with the input data" ) {
+
+      // no need to test every possibility (TAB1 takes care of tests)
+
+      double decayChain = 4.;
+      std::vector< long > wrongBoundaries = { 3, 4 };
+      std::vector< long > interpolants = { 1 };
+      std::vector< double > energies = { 0.0, 5e+5, 7.3e+6 };
+      std::vector< double > spectralValues = { 6.133200e-7, 6.133300e-7,
+                                               6.02040e-17 };
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( ContinuousSpectrum( decayChain,
+                                            std::move( wrongBoundaries ),
+                                            std::move( interpolants ),
+                                            std::move( energies ),
+                                            std::move( spectralValues ) ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a string representation with an error is given" ) {
+
+      // no need to test every possibility (TAB1 takes care of tests)
+
+      std::string string = invalidChunk();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( ContinuousSpectrum( begin, end, lineNumber,
+                                            9228, 6, 5 ) );
+      } // THEN
+    } // WHEN
+  } // GIVEN
 } // SCENARIO
 
 std::string chunk() {
@@ -96,3 +137,11 @@ void verifyChunk( const ContinuousSpectrum& chunk )
 
   REQUIRE( 3 == chunk.NC() );
 }
+
+std::string invalidChunk() {
+  return
+    " 4.000000+0 0.000000+0          0          0          1          43580 8457     \n"
+    "          3          1                                            3580 8457     \n"
+    " 0.000000+0 6.133200-7 5.000000+5 6.133300-7 7.300000+6 6.02040-173580 8457     \n";
+}
+
