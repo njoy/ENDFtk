@@ -263,6 +263,8 @@ void verifyChunkSpecialCase( const section::Type< 2 >& chunk ) {
   REQUIRE( 0.9991673 == Approx( chunk.atomicWeightRatio() ) );
 
   REQUIRE( 1 == chunk.isotopes.size() );
+
+  REQUIRE( 4 == chunk.NC() );
 }
 
 const std::string& sLRU1( int LRF ){

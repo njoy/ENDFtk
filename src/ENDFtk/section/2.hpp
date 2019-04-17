@@ -11,4 +11,5 @@ public:
   using Base::atomicWeightRatio;
 
   #include "ENDFtk/section/2/src/print.hpp"
+  #include "ENDFtk/section/2/src/NC.hpp"
 };

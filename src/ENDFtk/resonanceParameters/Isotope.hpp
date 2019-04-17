@@ -19,4 +19,5 @@ public:
   }
 
   #include "ENDFtk/resonanceParameters/Isotope/src/print.hpp"
+  #include "ENDFtk/resonanceParameters/Isotope/src/NC.hpp"
 };
