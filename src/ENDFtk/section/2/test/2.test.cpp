@@ -7,28 +7,77 @@
 
 using namespace njoy::ENDFtk;
 
-const std::string& sLRU0();
+std::string chunkSpecialCase();
+void verifyChunkSpecialCase( const section::Type< 2 >& );
 const std::string& sLRU1( int LRF );
 const std::string& sLRU2( int LRF );
+std::string validSEND();
+std::string invalidSEND();
 
-SCENARIO( "section::Type<2>" ){
+SCENARIO( "section::Type<2>" ) {
+
+  GIVEN( "valid data for the special case (only channel radius) in "
+         "section::Type< 2 >" ) {
+
+    WHEN( "the data is given explicitly" ) {
+
+      double zaid = 1001.0;
+      double awr = 0.9991673;
+      double el = 1e-5;
+      double eh = 1e+5;
+      double spi = 0.5;
+      double ap = 1.275246;
+
+      THEN( "a section::Type< 2 > can be constructed and members can be "
+            "tested" ) {
+
+        section::Type< 2 > chunk( zaid, awr, el, eh, spi, ap );
+        verifyChunkSpecialCase( chunk );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is read from a string/stream" ) {
+
+      std::string string = chunkSpecialCase() + validSEND();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+      HeadRecord head( begin, end, lineNumber );
+
+      THEN( "a section::Type< 2 > can be constructed and members can be "
+            "tested" ) {
+
+        section::Type< 2 > chunk( head, begin, end, lineNumber, 125 );
+
+        REQUIRE( 151 == chunk.MT() );
+        REQUIRE( 1001 == chunk.ZA() );
+        REQUIRE( 0.9991673 == Approx( chunk.atomicWeightRatio() ) );
+        REQUIRE( 1 == chunk.isotopes.size() );
+      } // THEN
+    } // WHEN
+  } // THEN
+
+  GIVEN( "a valid instance of section::Type< 2 >" ) {
+
+    std::string string = chunkSpecialCase() + validSEND();
+    auto begin = string.begin();
+    auto end = string.end();
+    long lineNumber = 1;
+    HeadRecord head( begin, end, lineNumber );
+    section::Type< 2 > chunk( head, begin, end, lineNumber, 125 );
+
+    THEN( "it can be printed" ) {
+
+      std::string buffer;
+      auto output = std::back_inserter( buffer );
+      chunk.print( output, 125, 2 );
+
+      REQUIRE( buffer == string );
+    } // THEN
+  } // GIVEN
+
   GIVEN( "a string representation of a valid File 2 Section" ){
-    WHEN( "reading LRU=0, LRF=1" ){
-      const std::string& sMF2 = sLRU0();
-      auto begin = sMF2.begin();
-      auto end = sMF2.end();
-      long lineNumber = 0;
-      int MAT = 125;
-      HeadRecord HEAD( begin, end, lineNumber );
 
-      THEN( "a section::Type<2> can be constructed" ){
-        section::Type<2> MF2( HEAD, begin, end, lineNumber, MAT );
-        REQUIRE( 151 == MF2.MT() );
-        REQUIRE( 1001 == MF2.ZA() );
-        REQUIRE( 0.9991673 == Approx( MF2.atomicWeightRatio() ) );
-        REQUIRE( 1 == MF2.isotopes.size() );
-      }
-    }
     WHEN( "reading LRU=1, LRF=1" ){
       const std::string& sMF2 = sLRU1(1);
       auto begin = sMF2.begin();
@@ -199,15 +248,21 @@ SCENARIO( "section::Type<2>" ){
   }
 } // SCENARIO
 
-const std::string& sLRU0(){
-  static const std::string buffer =
-    " 1.001000+3 9.991673-1          0          0          1          0 125 2151    1\n"
-    " 1.001000+3 1.000000+0          0          0          1          0 125 2151    2\n"
-    " 1.000000-5 1.000000+5          0          0          0          0 125 2151    3\n"
-    " 5.000000-1 1.276553+0          0          0          0          0 125 2151    4\n"
-    " 0.000000+0 0.000000+0          0          0          0          0 125 2  099999\n"
-    " 0.000000+0 0.000000+0          0          0          0          0 125 0  0    0\n";
-  return buffer;
+std::string chunkSpecialCase() {
+  return
+    " 1.001000+3 9.991673-1          0          0          1          0 125 2151     \n"
+    " 1.001000+3 1.000000+0          0          0          1          0 125 2151     \n"
+    " 1.000000-5 1.000000+5          0          0          0          0 125 2151     \n"
+    " 5.000000-1 1.276553+0          0          0          0          0 125 2151     \n";
+}
+
+void verifyChunkSpecialCase( const section::Type< 2 >& chunk ) {
+
+  REQUIRE( 151 == chunk.MT() );
+  REQUIRE( 1001 == chunk.ZA() );
+  REQUIRE( 0.9991673 == Approx( chunk.atomicWeightRatio() ) );
+
+  REQUIRE( 1 == chunk.isotopes.size() );
 }
 
 const std::string& sLRU1( int LRF ){
@@ -828,3 +883,14 @@ const std::string& sLRU2( int LRF ){
    " 0.000000+0 0.000000+0          0          0          0          03843 0  0    0\n" } };
   return buffer.at( LRF );
 }
+
+std::string validSEND(){
+  return
+    "                                                                   125 2  0     \n";
+}
+
+std::string invalidSEND(){
+  return
+    "                                                                   125 2  1     \n";
+}
+
