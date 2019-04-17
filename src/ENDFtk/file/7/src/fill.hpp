@@ -14,7 +14,7 @@ fill( section::Type< 7, sectionNo >&& section, Sections&&... sections ) {
       hana::make_pair
       ( index, std::optional< section::Type< 7, index.value > >{} ) ); };
 
-  return hana::unpack( optionalSections, [&]( auto... indices ){
+  return hana::unpack( optionalSections(), [&]( auto... indices ){
       return hana::make_map( get(indices)... );
     } );
 }

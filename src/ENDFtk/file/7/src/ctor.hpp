@@ -12,7 +12,7 @@ Type( StructureDivision& structureDivision,
       const BufferIterator& end,
       long& lineNumber )
 try:
-  Type( this->read( decltype(sections){},
+  Type( this->read( sections(),
                     structureDivision, begin, end, lineNumber,
                     structureDivision.tail.MAT() ) ){
       if ( not structureDivision.isFend() ){
