@@ -6,12 +6,12 @@
  *  @param[in] el     the lower limit of the resonance range
  *  @param[in] eh     the upper limit of the resonance range
  *  @param[in] spin   the spin of the target nucleus
- *  @param[in] ap     the scattering radius (inunits of 10^-12 cm)
+ *  @param[in] ap     the scattering radius (in units of 10^-12 cm)
  */
 Type( double zaid, double awr, double el, double eh, double spin, double ap ) :
   Base( zaid, awr, 151 ),
   isotopes( 1,
-            { zaid, awr, 0,
+            { zaid, 1.0, 0,
               { 1, resonanceParameters::SpecialCase( el, eh, spin, ap ) } } ) {}
 
 template< typename Iterator >
