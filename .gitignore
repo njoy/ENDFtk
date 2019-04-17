@@ -35,3 +35,5 @@ subprojects
 *~
 \#*\#
 .\#*
+
+__pycache__

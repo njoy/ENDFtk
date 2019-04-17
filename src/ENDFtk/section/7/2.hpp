@@ -37,9 +37,9 @@ public:
   /**
    *  @brief Return the LTHR flag (coherent or incoherent elastic scattering)
    */
-  int LTHR() const { return std::visit( [&] ( const auto& v ) -> long
-                                            { return v.LTHR(); },
-                                            this->law_ ); }
+  int LTHR() const { return std::visit( [] ( const auto& v )
+                                           { return v.LTHR(); },
+                                           this->law_ ); }
 
   /**
    *  @brief Return the LTHR flag (coherent or incoherent elastic scattering)
