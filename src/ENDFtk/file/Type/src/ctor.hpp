@@ -1,3 +1,15 @@
+Type( std::vector< Section >&& sections ) :
+  sectionVector( std::move( sections ) ),
+  sectionMap( collectMap( this->sectionVector ) ) {
+
+  auto mt = [] ( const Section& section ) { return section.MT(); };
+
+  if ( not ranges::is_sorted( this->sectionVector, hana::less, mt ) ) {
+
+    ranges::sort( this->sectionVector, hana::less, mt );
+  }
+}
+
 template< typename BufferIterator > 
 Type( StructureDivision& division,
       BufferIterator& begin, const BufferIterator& end, long& lineNumber )
