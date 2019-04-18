@@ -26,7 +26,7 @@ SCENARIO( "Testing special case of file 7" ) {
 
   GIVEN( "valid data for a File 7" ) {
 
-    WHEN( "a file::Type<7> is constructed using only mf2" ) {
+    WHEN( "a file::Type<7> is constructed using only mt2" ) {
 
       section::Type< 7, 2 >
       mt2( 127., 1., 
@@ -57,7 +57,7 @@ SCENARIO( "Testing special case of file 7" ) {
       } // THEN
     } // WHEN
 
-    WHEN( "a file::Type<7> is constructed using only mf4" ) {
+    WHEN( "a file::Type<7> is constructed using only mt4" ) {
 
       section::Type< 7, 4 >
       mt4( 127., 8.934780e+0, 1, 0,
@@ -101,7 +101,7 @@ SCENARIO( "Testing special case of file 7" ) {
       } // THEN
     } // WHEN
 
-    WHEN( "a file::Type<7> is constructed using an mf2 and and mf4" ) {
+    WHEN( "a file::Type<7> is constructed using an mt2 and and mt4" ) {
 
       section::Type< 7, 2 >
       mt2( 127., 1., 
