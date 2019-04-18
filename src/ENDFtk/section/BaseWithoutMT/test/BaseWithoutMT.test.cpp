@@ -92,7 +92,7 @@ SCENARIO( "section::BaseWithoutMT tests") {
         beginSEND = sSEND.begin();
         endSEND = sSEND.end();
         REQUIRE_THROWS( base->readSEND( beginSEND, endSEND,
-                                        lineNumber, 125, 125 ) );
+                                        lineNumber, 3, 3 ) );
       }
     } // WHEN
   } // GIVEN

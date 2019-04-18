@@ -24,11 +24,9 @@ generateList( unsigned int na,
     }
   }
 
-  return ranges::view::zip( energies 
-                              | ranges::view::transform( 
-                                  [] ( const auto& value )
-                                  { return ranges::view::single( value ); } ),
-                            coefficients )
+  return ranges::view::zip(
+               energies | ranges::view::transform( ranges::view::single ),
+               coefficients )
            | ranges::view::transform(
                [] ( const auto& pair )
                   { return ranges::view::concat( pair.first, pair.second ); } )
