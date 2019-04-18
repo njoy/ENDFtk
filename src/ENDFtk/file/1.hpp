@@ -1,7 +1,8 @@
 template<>
-class Type< 1 > : public Base< Type< 1 > > {
+class Type< 1 > : public Base< Type< 1 > >,
+                  public SpecialBase< Type< 1 > > {
 
-protected :
+  friend SpecialBase< Type< 1 > >;
 
   /* MF1 has a limited number of possible sections */
   static constexpr auto optionalSections =
@@ -30,37 +31,27 @@ protected :
   Map sectionMap;
 
   /* static functions */
-  #include "ENDFtk/file/1/src/get.hpp"
   #include "ENDFtk/file/1/src/read.hpp"
   // #include "ENDFtk/file/1/src/fill.hpp"
 
 public :
 
   #include "ENDFtk/file/1/src/ctor.hpp"
-  #include "ENDFtk/file/1/src/sectionNumber.hpp"
-
-  template< typename Index >
-  decltype(auto) MT( Index sectionNo ) const {
-    return this->sectionNumber( sectionNo );
-  }
-
-  template< typename Index >
-  decltype(auto) MT( Index sectionNo ) {
-    return this->sectionNumber( sectionNo );
-  }
 
   bool
   hasSection( int sectionNo ) const {
-    switch( sectionNo ){
-    case 451: return true;
-    /*
-    case 452: return this->sectionMap[ 452_c ];
-    case 455: return this->sectionMap[ 455_c ];
-    case 456: return this->sectionMap[ 456_c ];
-    case 458: return this->sectionMap[ 458_c ];
-    case 460: return this->sectionMap[ 460_c ];
-    */
-    default: return false;
+
+    switch( sectionNo ) {
+
+      case 451: return true;
+      /*
+      case 452: return this->sectionMap[ 452_c ];
+      case 455: return this->sectionMap[ 455_c ];
+      case 456: return this->sectionMap[ 456_c ];
+      case 458: return this->sectionMap[ 458_c ];
+      case 460: return this->sectionMap[ 460_c ];
+      */
+      default: return false;
     }
   }
 

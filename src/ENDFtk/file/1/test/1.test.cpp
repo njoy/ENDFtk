@@ -8,20 +8,30 @@ using namespace njoy::ENDFtk;
 std::string& cachedTape();
 std::string getFile( int MF );
 
-SCENARIO( "Testing special case of file 1" ){
+SCENARIO( "Testing special case of file 1" ) {
+
   std::string file1string = getFile( 1 );
-  GIVEN( "a string representation of of File 1" ){
-    WHEN( "a file::Type< 1 > is constructed from the string" ){
+
+  GIVEN( "a string representation of of File 1" ) {
+
+    WHEN( "a file::Type< 1 > is constructed from the string" ) {
+
       auto begin = file1string.begin();
       auto end = file1string.end();
       long lineNumber = 0;
 
       StructureDivision division( begin, end, lineNumber );
-      file::Type< 1 > file1( division, begin, end, lineNumber );
+      file::Type< 1 > file( division, begin, end, lineNumber );
 
-      THEN( "the sections can be extracted" ){
-        REQUIRE( file1.hasMT( 451 ) );
-        REQUIRE( not file1.hasMT( 1 ) );
+      THEN( "the sections can be extracted" ) {
+
+        REQUIRE( file.hasMT( 451 ) );
+        REQUIRE( not file.hasMT( 1 ) );
+        REQUIRE( file.hasSection( 451 ) );
+        REQUIRE( not file.hasSection( 1 ) );
+
+        REQUIRE( 1001. == Approx( file.section( 451_c ).ZA() ) );
+        REQUIRE( 1001. == Approx( file.MT( 451_c ).ZA() ) );
       }
     }
 
