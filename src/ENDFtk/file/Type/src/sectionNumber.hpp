@@ -6,7 +6,7 @@ sectionNumber( int sectionNo ) const {
     Log::error( "Requested section number (MT) does not"
                 " correspond to a stored section" );
     Log::info( "Requested section number: {}", sectionNo );
-    Log::info( "File queried: ", FileNumber ); 
+    Log::info( "File queried: ", this->MF() ); 
     throw o;
   }
 }

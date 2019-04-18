@@ -1,5 +1,5 @@
 template<>
-class Type< 7 > {
+class Type< 7 > : public Base< Type< 7 > > {
 
   /* MF7 has a limited number of possible sections (all optional) */
   static constexpr auto optionalSections() { return hana::make_tuple( 2_c, 4_c ); }
@@ -39,7 +39,7 @@ public:
   }
 
   bool
-  hasMT( int sectionNo ) const {
+  hasSection( int sectionNo ) const {
     switch( sectionNo ){
     case 2: return bool( this->sectionMap[ 2_c ] );
     case 4: return bool( this->sectionMap[ 4_c ] );
@@ -47,11 +47,7 @@ public:
     }
   }
 
-  bool
-  hasSectionNumber( int sectionNo ) const { return this->hasMT( sectionNo ); }
-
-  static constexpr auto MF(){ return 7; }
-  static constexpr auto fileNumber(){ return MF(); }
+  static constexpr auto fileNumber(){ return 7; }
 
   #include "ENDFtk/file/7/src/print.hpp"
 };

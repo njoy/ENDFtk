@@ -1,6 +1,8 @@
 template<>
-class Type< 1 > {
-protected:
+class Type< 1 > : public Base< Type< 1 > > {
+
+protected :
+
   /* MF1 has a limited number of possible sections */
   static constexpr auto optionalSections =
     hana::make_tuple( 452_c, 455_c, 456_c, 458_c, 460_c );
@@ -32,7 +34,8 @@ protected:
   #include "ENDFtk/file/1/src/read.hpp"
   // #include "ENDFtk/file/1/src/fill.hpp"
 
-public:
+public :
+
   #include "ENDFtk/file/1/src/ctor.hpp"
   #include "ENDFtk/file/1/src/sectionNumber.hpp"
 
@@ -47,7 +50,7 @@ public:
   }
 
   bool
-  hasMT( int sectionNo ) const {
+  hasSection( int sectionNo ) const {
     switch( sectionNo ){
     case 451: return true;
     /*
@@ -61,10 +64,7 @@ public:
     }
   }
 
-  bool
-  hasSectionNumber( int sectionNo ) const { return this->hasMT( sectionNo ); }
-
-  static constexpr int MF(){ return 1; }
+  static constexpr int fileNumber() { return 1; }
 
   #include "ENDFtk/file/1/src/print.hpp"
 };
