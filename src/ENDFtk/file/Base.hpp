@@ -9,7 +9,7 @@ public:
    *  @brief Return the MF number of the file
    */
   int MF() const {
-      
+
     return static_cast< const Derived* >( this )->fileNumber();
   }
 
@@ -19,7 +19,7 @@ public:
    *  @param mt   the MT number of the section to be verified
    */
   bool hasMT( int mt ) const {
-      
+
     return static_cast< const Derived* >( this )->hasSection( mt );
   }
 };

@@ -1,9 +1,9 @@
 template< typename... Sections >
 static Map
-fill( section::Type<1, 451> >&& section451, Sections&&... args ) const {
+fill( section::Type<1, 451> >&& section451, Sections&&... sections ) const {
   auto map =
     hana::make_map
-    ( hana::make_pair( hana::int_c< args.MT() >, std::ref( args ) )... );
+    ( hana::make_pair( hana::int_c< sections.MT() >, std::ref( sections ) )... );
 
   auto get = [&]( auto index ){
     hana::if_

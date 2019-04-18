@@ -1,6 +1,7 @@
 namespace file {
 
 #include "ENDFtk/file/Base.hpp"
+#include "ENDFtk/file/SpecialBase.hpp"
 
 #include "ENDFtk/file/Type.hpp"
 #include "ENDFtk/file/1.hpp"
