@@ -3,8 +3,8 @@ static Map
 fill( section::Type< 7, sectionNo >&& section, Sections&&... sections ) {
   auto map =
     hana::make_map
-    ( hana::make_pair( hana::llong_c< section.MT() >, std::ref( section ) ),
-      hana::make_pair( hana::llong_c< sections.MT() >, std::ref( sections ) )... );
+    ( hana::make_pair( hana::int_c< section.MT() >, std::ref( section ) ),
+      hana::make_pair( hana::int_c< sections.MT() >, std::ref( sections ) )... );
 
   auto get = [&]( auto index ){
     hana::if_

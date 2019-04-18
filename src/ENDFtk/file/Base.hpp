@@ -8,7 +8,7 @@ public:
   /**
    *  @brief Return the MF number of the file
    */
-  int MF() const {
+  constexpr int MF() const {
 
     return static_cast< const Derived* >( this )->fileNumber();
   }
@@ -18,17 +18,17 @@ public:
    *
    *  @param mt   the MT number of the section to be verified
    */
-  bool hasMT( int mt ) const {
+  constexpr bool hasMT( int mt ) const {
 
     return static_cast< const Derived* >( this )->hasSection( mt );
   }
 
-  template< typename Index > decltype( auto ) MT( Index sectionNo ) const {
+  template< typename Index > constexpr decltype( auto ) MT( Index sectionNo ) const {
 
     return static_cast< const Derived* >( this )->section( sectionNo );
   }
 
-  template< typename Index > decltype( auto ) MT( Index sectionNo ) {
+  template< typename Index > constexpr decltype( auto ) MT( Index sectionNo ) {
 
     return static_cast< const Derived* >( this )->section( sectionNo );
   }
