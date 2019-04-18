@@ -1,3 +1,8 @@
+/**
+ *  @brief Retrieve a specific MT section
+ *
+ *  @param mt   the MT number of the section to be retrieved (e.g. 451_c)
+ */
 template< long long Index >
 decltype( auto ) section( hana::llong< Index > sectionNo ) const {
 
@@ -17,6 +22,11 @@ decltype( auto ) section( hana::llong< Index > sectionNo ) const {
   }
 }
 
+/**
+ *  @brief Retrieve a specific MT section
+ *
+ *  @param mt   the MT number of the section to be retrieved (e.g. 451_c)
+ */
 template< typename Index >
 decltype( auto ) section( Index sectionNo ) {
 

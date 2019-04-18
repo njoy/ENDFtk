@@ -68,3 +68,4 @@ public:
 
   #include "ENDFtk/section/7/4/Tabulated/src/print.hpp"
 };
+

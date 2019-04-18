@@ -23,13 +23,25 @@ public:
     return static_cast< const Derived* >( this )->hasSection( mt );
   }
 
-  template< typename Index > constexpr decltype( auto ) MT( Index sectionNo ) const {
+  /**
+   *  @brief Retrieve a specific MT section
+   *
+   *  @param mt   the MT number of the section to be retrieved
+   */
+  template< typename Index >
+  constexpr decltype( auto ) MT( Index sectionNo ) const {
 
     return static_cast< const Derived* >( this )->section( sectionNo );
   }
 
+  /**
+   *  @brief Retrieve a specific MT section
+   *
+   *  @param mt   the MT number of the section to be retrieved
+   */
   template< typename Index > constexpr decltype( auto ) MT( Index sectionNo ) {
 
     return static_cast< const Derived* >( this )->section( sectionNo );
   }
 };
+

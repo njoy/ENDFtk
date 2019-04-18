@@ -26,3 +26,4 @@ public:
   using TabulationRecord::NC;
   using TabulationRecord::print;
 };
+
