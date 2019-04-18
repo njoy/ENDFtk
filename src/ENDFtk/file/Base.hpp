@@ -22,4 +22,14 @@ public:
 
     return static_cast< const Derived* >( this )->hasSection( mt );
   }
+
+  template< typename Index > decltype( auto ) MT( Index sectionNo ) const {
+
+    return static_cast< const Derived* >( this )->section( sectionNo );
+  }
+
+  template< typename Index > decltype( auto ) MT( Index sectionNo ) {
+
+    return static_cast< const Derived* >( this )->section( sectionNo );
+  }
 };

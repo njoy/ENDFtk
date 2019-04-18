@@ -21,13 +21,7 @@ protected :
 public :
 
   #include "ENDFtk/file/Type/src/ctor.hpp"
-  #include "ENDFtk/file/Type/src/sectionNumber.hpp"
-
-  const Section&
-  MT( int sectionNo ) const { return this->sectionNumber( sectionNo ); }
-
-  Section&
-  MT( int sectionNo ){ return this->sectionNumber( sectionNo ); }
+  #include "ENDFtk/file/Type/src/section.hpp"
 
   iterator begin() { return this->sectionVector.begin(); }
   iterator end() { return this->sectionVector.end(); }

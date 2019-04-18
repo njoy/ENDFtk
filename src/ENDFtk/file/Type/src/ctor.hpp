@@ -7,6 +7,7 @@ Type( std::vector< Section >&& sections ) :
   if ( not ranges::is_sorted( this->sectionVector, hana::less, mt ) ) {
 
     ranges::sort( this->sectionVector, hana::less, mt );
+    sectionMap = collectMap( this->sectionVector );
   }
 }
 

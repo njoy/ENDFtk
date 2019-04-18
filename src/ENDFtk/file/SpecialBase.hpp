@@ -8,14 +8,4 @@ public:
 
   /* get methods */
   #include "ENDFtk/file/SpecialBase/src/section.hpp"
-
-  template< typename Index > decltype( auto ) MT( Index sectionNo ) const {
-
-    return this->section( sectionNo );
-  }
-
-  template< typename Index > decltype( auto ) MT( Index sectionNo ) {
-
-    return this->section( sectionNo );
-  }
 };
