@@ -1,11 +1,14 @@
+static constexpr int mf( const section::Type< 7, 2 >& ) { return 2; }
+static constexpr int mf( const section::Type< 7, 4 >& ) { return 4; }
+
 template< int sectionNo, typename... Sections >
 static Map
 fill( section::Type< 7, sectionNo >&& section, Sections&&... sections ) {
 
   auto map =
     hana::make_map
-    ( hana::make_pair( hana::llong_c< static_cast< long long >( section.sectionNumber() ) >, std::ref( section ) ),
-      hana::make_pair( hana::llong_c< static_cast< long long >( sections.sectionNumber() ) >, std::ref( sections ) )... );
+    ( hana::make_pair( hana::llong_c< static_cast< long long >( mf( section ) ) >, std::ref( section ) ),
+      hana::make_pair( hana::llong_c< static_cast< long long >( mf( sections ) ) >, std::ref( sections ) )... );
 
   auto get = [&]( auto index ) {
 
