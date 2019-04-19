@@ -19,7 +19,6 @@ void verifyChunk4( const file::Type< 7 >& );
 std::string chunk24();
 void verifyChunk24( const file::Type< 7 >& );
 
-// TODO fix ctor for MF7 so that the first test actually compiles
 // TODO find another MF7 file without numbers < 1e-35
 
 SCENARIO( "Testing special case of file 7" ) {
@@ -135,12 +134,6 @@ SCENARIO( "Testing special case of file 7" ) {
         verifyChunk24( mf7 );
       } // THEN
 
-/*      THEN( "an exception is thrown if invalid MT or section is requested" ) {
-
-        REQUIRE_THROWS( mf7.MT( 5_c ) );
-        REQUIRE_THROWS( mf7.section( 5_c ) );
-      } // THEN
-*/
       THEN( "it can be printed" ) {
 
         std::string buffer;
@@ -261,9 +254,7 @@ void verifyChunk2( const file::Type< 7 >& chunk ) {
   REQUIRE( not chunk.hasSection( 4 ) );
 
   REQUIRE_NOTHROW( chunk.MT( 2_c ) );
-  REQUIRE_THROWS( chunk.MT( 4_c ) );
   REQUIRE_NOTHROW( chunk.section( 2_c ) );
-  REQUIRE_THROWS( chunk.section( 4_c ) );
 
   REQUIRE( 127. == Approx( chunk.MT( 2_c ).ZA() ) );
   REQUIRE( 1 == chunk.MT( 2_c ).LTHR() );
@@ -305,9 +296,7 @@ void verifyChunk4( const file::Type< 7 >& chunk ) {
   REQUIRE( not chunk.hasMT( 12 ) );
   REQUIRE( not chunk.hasSection( 12 ) );
 
-  REQUIRE_THROWS( chunk.MT( 2_c ) );
   REQUIRE_NOTHROW( chunk.MT( 4_c ) );
-  REQUIRE_THROWS( chunk.section( 2_c ) );
   REQUIRE_NOTHROW( chunk.section( 4_c ) );
 
   REQUIRE( 127. == Approx( chunk.MT( 4_c ).ZA() ) );

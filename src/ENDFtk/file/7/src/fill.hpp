@@ -22,12 +22,12 @@ fill( section::Type< 7, sectionNo >&& section, Sections&&... sections ) {
 
   auto makePair = hana::overload( makeFull, makeEmpty );
 
-  auto get = [&makePair, &map]( auto index ) {
+  auto get = [&makePair, &map] ( auto index ) {
 
-    return makePair(hana::contains( map, index ), index);
+    return makePair( hana::contains( map, index ), index);
   };
 
   return hana::unpack( optionalSections(),
                        [&] ( auto... indices )
-                           { return hana::make_map( get(indices)... ); } );
+                           { return hana::make_map( get( indices )... ); } );
 }

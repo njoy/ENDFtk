@@ -4,9 +4,12 @@ class Type< 1 > : public Base< Type< 1 > >,
 
   friend SpecialBase< Type< 1 > >;
 
-  /* MF1 has a limited number of possible sections */
-  static constexpr auto optionalSections =
-    hana::make_tuple( 452_c, 455_c, 456_c, 458_c, 460_c );
+  /* MF1 has a limited number of possible sections, MT451 is required */
+  static constexpr auto optionalSections() {
+
+    // return hana::make_tuple( 452_c, 455_c, 456_c, 458_c, 460_c );
+    return hana::make_tuple();
+  }
 
   /* convenience typedefs */
   using Map =
@@ -32,7 +35,7 @@ class Type< 1 > : public Base< Type< 1 > >,
 
   /* static functions */
   #include "ENDFtk/file/1/src/read.hpp"
-  // #include "ENDFtk/file/1/src/fill.hpp"
+  #include "ENDFtk/file/1/src/fill.hpp"
 
 public :
 
