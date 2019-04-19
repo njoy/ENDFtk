@@ -5,8 +5,8 @@
 
 using namespace njoy::ENDFtk;
 
-/*std::string& cachedTape();
-std::string getFile( int MF );*/
+std::string& cachedTape();
+std::string getFile( int MF );
 std::string chunk457();
 void verifyChunk457( const file::Type< 8 >& );
 
@@ -32,7 +32,7 @@ SCENARIO( "Testing special case of file 8" ) {
              // spectra
              { { 0.0, {{ 1., 0. }}, {{ 2.107044e+2, 1.576284e+1 }},
                  { { 3., {{ 4.863000e+4, 5.000000e+1 }},
-                     {{ 1.420112e-6, 2.85306e-10 }}, 0.0,
+                   {{ 1.420112e-6, 2.85306e-10 }}, 0.0,
                    {{ 0.0, 0.0 }}, {{ 7.010000e+5, 1.106180e-2 }}, {{ 0.0, 0.0 }},
                    {{ 3.315735e+5, 5.608008e+3 }} },
                  { 4., {{ 4.935000e+4, 2.000000e+1 }},
@@ -61,9 +61,9 @@ SCENARIO( "Testing special case of file 8" ) {
     } // WHEN
   } // GIVEN
 
-/*  std::string fileString = getFile( 8 );
+  std::string fileString = getFile( 8 );
 
-  GIVEN( "a string representation of of File 7" ) {
+  GIVEN( "a string representation of of File 8" ) {
 
     WHEN( "a file::Type< 8 > is constructed from the string" ) {
 
@@ -72,23 +72,22 @@ SCENARIO( "Testing special case of file 8" ) {
       long lineNumber = 0;
 
       StructureDivision division( begin, end, lineNumber );
-      file::Type< 7 > file( division, begin, end, lineNumber );
+      file::Type< 8 > file( division, begin, end, lineNumber );
 
       THEN( "the sections can be extracted" ) {
 
-        REQUIRE( file.hasMT( 2 ) );
-        REQUIRE( file.hasMT( 4 ) );
+        REQUIRE( file.hasMT( 457 ) );
         REQUIRE( not file.hasMT( 1 ) );
-        REQUIRE( file.hasSection( 2 ) );
-        REQUIRE( file.hasSection( 4 ) );
+        REQUIRE( file.hasSection( 457 ) );
         REQUIRE( not file.hasSection( 1 ) );
 
-        REQUIRE( 127. == Approx( file.section( 2_c ).ZA() ) );
-        REQUIRE( 127. == Approx( file.MT( 2_c ).ZA() ) );
+        REQUIRE( 92235. == Approx( file.section( 457_c ).ZA() ) );
+        REQUIRE( 92235. == Approx( file.MT( 457_c ).ZA() ) );
       }
     }
 
-    WHEN( "a file::Type< 7 > is constructed from a syntaxTree" ){
+    WHEN( "a file::Type< 8 > is constructed from a syntaxTree" ) {
+
       auto begin = fileString.begin();
       auto start = fileString.begin();
       auto end = fileString.end();
@@ -99,45 +98,50 @@ SCENARIO( "Testing special case of file 8" ) {
       syntaxTree::File< std::string::iterator >
         fileTree( asHead( division ), start, begin, end, lineNumber );
 
-      THEN( "a file::Type< 7 > can be constructed" ){
-        REQUIRE_NOTHROW( fileTree.parse< 7 >( lineNumber ) );
+      THEN( "a file::Type< 8 > can be constructed" ) {
+
+        REQUIRE_NOTHROW( fileTree.parse< 8 >( lineNumber ) );
       }
     }
 
-    WHEN( "a file::Type< 7 > is constructed from the string twice" ){
+    WHEN( "a file::Type< 8 > is constructed from the string twice" ) {
+
       std::string twice( fileString.begin(), fileString.end() - 81 );
       twice += fileString;
       auto begin = twice.begin();
       auto end = twice.end();
       long lineNumber = 0;
       StructureDivision division( begin, end, lineNumber );
-      THEN( "an exception is thrown" ){
-        REQUIRE_THROWS( file::Type< 7 >
-                        ( division, begin, end, lineNumber ) );
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( file::Type< 8 >( division, begin, end, lineNumber ) );
       }
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of file::Type< 7 >" ) {
+  GIVEN( "a valid instance of file::Type< 8 >" ) {
+
     auto begin = fileString.begin();
     auto end = fileString.end();
     long lineNumber = 0;
 
     StructureDivision division( begin, end, lineNumber );
-    file::Type< 7 > file( division, begin, end, lineNumber );
+    file::Type< 8 > file( division, begin, end, lineNumber );
 
     THEN( "it can be printed" ) {
+
       std::string buffer;
       auto output = std::back_inserter( buffer );
-      file.print( output, 27 );
-//      REQUIRE( buffer == fileString );
+      file.print( output, 3515 );
+      REQUIRE( buffer == fileString );
     }
-  } // GIVEN*/
+  } // GIVEN
 } // SCENARIO
 
-/*std::string& cachedTape(){
+std::string& cachedTape(){
   static std::string tape =
-    njoy::utility::slurpFileToMemory( "tsl-BeinBeO.endf" );
+    njoy::utility::slurpFileToMemory( "dec-092_U_235.endf" );
   return tape;
 }
 
@@ -145,9 +149,9 @@ std::string getFile( int MF ){
   auto begin = cachedTape().begin();
   auto end = cachedTape().end();
   syntaxTree::Tape< std::string::iterator > tapeTree( begin, end );
-  auto fileTree = tapeTree.materialNumber( 27 ).front().fileNumber( MF );
+  auto fileTree = tapeTree.materialNumber( 3515 ).front().fileNumber( MF );
   return std::string( fileTree.buffer().begin(), fileTree.buffer().end() );
-}*/
+}
 
 std::string chunk457() {
   return

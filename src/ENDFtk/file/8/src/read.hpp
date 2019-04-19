@@ -12,7 +12,7 @@ read( hana::llong< SectionNo >,
     try{
       return section::Type< 8, SectionNo >( head, begin, end, lineNumber, MAT );
     } catch( std::exception& e ) {
-      Log::info( "Error while reading File 7 Section {}", SectionNo );
+      Log::info( "Error while reading File 8 Section {}", SectionNo );
       throw e;
     }
   }();
@@ -20,7 +20,7 @@ read( hana::llong< SectionNo >,
   try{
     structureDivision = StructureDivision( begin, end, lineNumber );
   } catch( std::exception& e ) {
-    Log::info( "Error while reading structure division following File 7 Section {}",
+    Log::info( "Error while reading structure division following File 8 Section {}",
                SectionNo );
     throw e;
   }

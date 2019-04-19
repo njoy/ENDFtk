@@ -195,22 +195,6 @@ SCENARIO( "DecaySpectrum" ) {
 
   GIVEN( "invalid data for a DecaySpectrum" ) {
 
-    WHEN( "an empty vector is used for the discrete spectra for LCON=0" ) {
-
-      double styp = 0.0;
-      std::array< double, 2 > fd = {{ 1., 0. }};
-      std::array< double, 2 > fc = {{ 0.5, 0.25 }};
-      std::array< double, 2 > erav = {{ 2.107044e+2, 1.576284e+1 }};
-
-      std::vector< DiscreteSpectrum > discrete = {};
-
-      THEN( "an exception is thrown" ) {
-
-        REQUIRE_THROWS( DecaySpectrum( styp, fd, erav,
-                                       std::move( discrete ) ) );
-      } // THEN
-    } // WHEN
-
     WHEN( "an empty vector is used for the discrete spectra for LCON=2" ) {
 
       double styp = 0.0;
