@@ -27,10 +27,13 @@ void verifyChunkForStableNuclide( const section::Type< 8,457 >& );
 std::string validSEND();
 std::string invalidSEND();
 
-SCENARIO( "DecaySpectrum" ) {
+SCENARIO( "section::Type< 8, 457 >" ) {
 
   GIVEN( "valid data for a section::Type< 8, 457 > for a radioactive nuclide "
          "with spectra" ) {
+
+    std::string sectionString = chunkForRadioactiveNuclideWithSpectra() + 
+                                validSEND();
 
     WHEN( "the data is given explicitly" ) {
 
@@ -65,38 +68,54 @@ SCENARIO( "DecaySpectrum" ) {
             { 4., { 3 }, { 1 }, { 0.0, 5e+5, 7.3e+6 },
               { 6.133200e-7, 6.133300e-7, 6.02040e-17 } } } };
 
+      section::Type< 8, 457 > chunk( zaid, awr, lis, liso,
+                                     std::move( energies ),
+                                     std::move( modes ),
+                                     std::move( spectra ) );
+
       THEN( "a section::Type< 8, 457 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 8, 457 > chunk( zaid, awr, lis, liso,
-                                       std::move( energies ),
-                                       std::move( modes ),
-                                       std::move( spectra ) );
         verifyChunkForRadioactiveNuclideWithSpectra( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream with a valid SEND" ) {
 
-      std::string sectionString = chunkForRadioactiveNuclideWithSpectra() + 
-                                  validSEND();
       auto begin = sectionString.begin();
       auto end = sectionString.end();
       long lineNumber = 1; 
       HeadRecord head( begin, end, lineNumber );
+
+      section::Type< 8, 457 > chunk( head, begin, end, lineNumber, 3580 );
       
       THEN( "a section::Type< 8, 457 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 8, 457 > chunk( head, begin, end, lineNumber, 3580 );
         verifyChunkForRadioactiveNuclideWithSpectra( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } //WHEN
 
     WHEN( "there is a syntaxTree::Section" ) {
 
-      std::string sectionString = chunkForRadioactiveNuclideWithSpectra() + 
-                                  validSEND();
       auto begin = sectionString.begin();
       auto position = begin;
       auto end = sectionString.end();
@@ -104,18 +123,31 @@ SCENARIO( "DecaySpectrum" ) {
       auto head = HEAD( position, end, lineNumber );
       syntaxTree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
+
+      section::Type< 8, 457 > chunk = section.parse< 8, 457 >( lineNumber );
       
       THEN( "a section::Type< 8, 457 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 8, 457 > chunk = section.parse< 8, 457 >( lineNumber );
         verifyChunkForRadioactiveNuclideWithSpectra( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
   } // GIVEN
 
   GIVEN( "valid data for a section::Type< 8, 457 > for a radioactive nuclide "
          "without spectra" ) {
+
+    std::string sectionString = chunkForRadioactiveNuclideWithoutSpectra() + 
+                                validSEND();
 
     WHEN( "the data is given explicitly" ) {
 
@@ -135,38 +167,54 @@ SCENARIO( "DecaySpectrum" ) {
            { { 4., 0., 5.637120e+6, 2.549510e+2, 4.590000e-3, 1.200000e-4 },
              { 3., 0., 4.860000e+4, 5.000000e+1, 9.954100e-1, 1.200000e-4 },
              { 6., 0., 1.884000e+8, 3.700000e+6, 1.60000e-10, 6.00000e-11 } } );
+
+      section::Type< 8, 457 > chunk( zaid, awr, lis, liso,
+                                     std::move( energies ),
+                                     std::move( modes ), {} );
   
       THEN( "a section::Type< 8, 457 > can be constructed and members can be "
             "tested for a radioactive nuclide without spectra" ) {
 
-        section::Type< 8, 457 > chunk( zaid, awr, lis, liso,
-                                       std::move( energies ),
-                                       std::move( modes ), {} );
         verifyChunkForRadioactiveNuclideWithoutSpectra( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream with a valid SEND" ) {
 
-      std::string sectionString = chunkForRadioactiveNuclideWithoutSpectra() + 
-                                  validSEND();
       auto begin = sectionString.begin();
       auto end = sectionString.end();
       long lineNumber = 1; 
       HeadRecord head( begin, end, lineNumber );
+
+      section::Type< 8, 457 > chunk( head, begin, end, lineNumber, 3580 );
       
       THEN( "a section::Type< 8, 457 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 8, 457 > chunk( head, begin, end, lineNumber, 3580 );
         verifyChunkForRadioactiveNuclideWithoutSpectra( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } //WHEN
 
     WHEN( "there is a syntaxTree::Section" ) {
 
-      std::string sectionString = chunkForRadioactiveNuclideWithoutSpectra() + 
-                                  validSEND();
       auto begin = sectionString.begin();
       auto position = begin;
       auto end = sectionString.end();
@@ -174,17 +222,29 @@ SCENARIO( "DecaySpectrum" ) {
       auto head = HEAD( position, end, lineNumber );
       syntaxTree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
+
+      section::Type< 8, 457 > chunk = section.parse< 8, 457 >( lineNumber );
       
       THEN( "a section::Type< 8, 457 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 8, 457 > chunk = section.parse< 8, 457 >( lineNumber );
         verifyChunkForRadioactiveNuclideWithoutSpectra( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
   } // GIVEN
 
   GIVEN( "valid data for a section::Type< 8, 457 > for a stable nuclide" ) {
+
+    std::string sectionString = chunkForStableNuclide() + validSEND();
 
     WHEN( "the data is given explicitly" ) {
 
@@ -195,27 +255,46 @@ SCENARIO( "DecaySpectrum" ) {
       double spin = 5.;
       double parity = -1.;
 
+      section::Type< 8, 457 > chunk( zaid, awr, lis, liso, spin, parity );
+
       THEN( "a section::Type< 8, 457 > can be constructed and members can be "
             "tested for a stable nuclide" ) {
 
-        section::Type< 8, 457 > chunk( zaid, awr, lis, liso, spin, parity );
         verifyChunkForStableNuclide( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream with a valid SEND" ) {
 
-      std::string sectionString = chunkForStableNuclide() + validSEND();
       auto begin = sectionString.begin();
       auto end = sectionString.end();
       long lineNumber = 1; 
       HeadRecord head( begin, end, lineNumber );
       
+      section::Type< 8, 457 > chunk( head, begin, end, lineNumber, 3580 );
+
       THEN( "a section::Type< 8, 457 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 8, 457 > chunk( head, begin, end, lineNumber, 3580 );
         verifyChunkForStableNuclide( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } //WHEN
 
@@ -229,75 +308,24 @@ SCENARIO( "DecaySpectrum" ) {
       auto head = HEAD( position, end, lineNumber );
       syntaxTree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
+
+      section::Type< 8, 457 > chunk = section.parse< 8, 457 >( lineNumber );
       
       THEN( "a section::Type< 8, 457 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 8, 457 > chunk = section.parse< 8, 457 >( lineNumber );
         verifyChunkForStableNuclide( chunk );
       } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == sectionString );
+      } // THEN
     } // WHEN
-  } // GIVEN
-
-  GIVEN( "a valid section::Type< 8, 457 > for a radioactive nuclide with "
-         " spectra" ) {
-
-    std::string string = chunkForRadioactiveNuclideWithSpectra() + 
-                         validSEND();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1; 
-    HeadRecord head( begin, end, lineNumber );
-
-    section::Type< 8, 457 > section( head, begin, end, lineNumber, 3580 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      section.print( output, 3580, 8 );
-      REQUIRE( buffer == string );
-    }
-  } // GIVEN
-
-  GIVEN( "a valid section::Type< 8, 457 > for a radioactive nuclide without "
-         " spectra" ) {
-
-    std::string string = chunkForRadioactiveNuclideWithoutSpectra() + 
-                         validSEND();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1; 
-    HeadRecord head( begin, end, lineNumber );
-
-    section::Type< 8, 457 > section( head, begin, end, lineNumber, 3580 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      section.print( output, 3580, 8 );
-      REQUIRE( buffer == string );
-    }
-  } // GIVEN
-
-  GIVEN( "a valid section::Type< 8, 457 > for a stable nuclide" ) {
-
-    std::string string = chunkForStableNuclide() + validSEND();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1; 
-    HeadRecord head( begin, end, lineNumber );
-
-    section::Type< 8, 457 > section( head, begin, end, lineNumber, 3580 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      section.print( output, 3580, 8 );
-      REQUIRE( buffer == string );
-    }
   } // GIVEN
 
   GIVEN( "invalid data for a section::Type< 8, 457 >" ) {
@@ -481,6 +509,8 @@ void verifyChunkForRadioactiveNuclideWithSpectra(
   REQUIRE( 0 == spectrum1.continuumSpectrumFlag() );
   REQUIRE( 0 == spectrum1.LCOV() );
   REQUIRE( 0 == spectrum1.covarianceFlag() );
+  REQUIRE( 2 == spectrum1.NER() );
+  REQUIRE( 2 == spectrum1.numberDiscreteSpectra() );
 
   REQUIRE( 1. == Approx( spectrum1.FD()[0] ) );
   REQUIRE( 0. == Approx( spectrum1.FD()[1] ) );
@@ -495,10 +525,9 @@ void verifyChunkForRadioactiveNuclideWithSpectra(
   REQUIRE( 2.107044e+2 == Approx( spectrum1.averageDecayEnergy()[0] ) );
   REQUIRE( 1.576284e+1 == Approx( spectrum1.averageDecayEnergy()[1] ) );
 
-  REQUIRE( std::nullopt != spectrum1.discreteSpectra() );
   REQUIRE( std::nullopt == spectrum1.continuousSpectrum() );
 
-  std::vector< DiscreteSpectrum > discrete = *( spectrum1.discreteSpectra() );
+  auto discrete = spectrum1.discreteSpectra();
   REQUIRE( 3. == discrete[0].RTYP() );
   REQUIRE( 3. == discrete[0].decayChain() );
   REQUIRE( 12 == discrete[0].NT() );
@@ -565,6 +594,8 @@ void verifyChunkForRadioactiveNuclideWithSpectra(
   REQUIRE( 1 == spectrum2.continuumSpectrumFlag() );
   REQUIRE( 0 == spectrum2.LCOV() );
   REQUIRE( 0 == spectrum2.covarianceFlag() );
+  REQUIRE( 0 == spectrum2.NER() );
+  REQUIRE( 0 == spectrum2.numberDiscreteSpectra() );
 
   REQUIRE( 0. == Approx( spectrum2.FD()[0] ) );
   REQUIRE( 0. == Approx( spectrum2.FD()[1] ) );
@@ -579,7 +610,6 @@ void verifyChunkForRadioactiveNuclideWithSpectra(
   REQUIRE( 3.107044e+2 == Approx( spectrum2.averageDecayEnergy()[0] ) );
   REQUIRE( 4.576284e+1 == Approx( spectrum2.averageDecayEnergy()[1] ) );
 
-  REQUIRE( std::nullopt == spectrum2.discreteSpectra() );
   REQUIRE( std::nullopt != spectrum2.continuousSpectrum() );
 
   ContinuousSpectrum continuous = *( spectrum2.continuousSpectrum() );

@@ -401,11 +401,10 @@
     "src/ENDFtk/file/Base.hpp",
     "src/ENDFtk/file/SpecialBase.hpp",
     "src/ENDFtk/file/Type.hpp",
+    "src/ENDFtk/file/8.hpp",
     "src/ENDFtk/file/1/src/ctor.hpp",
-    "src/ENDFtk/file/1/src/get.hpp",
     "src/ENDFtk/file/1/src/print.hpp",
     "src/ENDFtk/file/1/src/read.hpp",
-    "src/ENDFtk/file/1/src/sectionNumber.hpp",
     "src/ENDFtk/file/1/src/fill.hpp",
     "src/ENDFtk/file/Type/src/checkRedundant.hpp",
     "src/ENDFtk/file/Type/src/collectMap.hpp",
@@ -419,6 +418,10 @@
     "src/ENDFtk/file/7/src/fill.hpp",
     "src/ENDFtk/file/SpecialBase/src/get.hpp",
     "src/ENDFtk/file/SpecialBase/src/section.hpp",
+    "src/ENDFtk/file/8/src/ctor.hpp",
+    "src/ENDFtk/file/8/src/fill.hpp",
+    "src/ENDFtk/file/8/src/print.hpp",
+    "src/ENDFtk/file/8/src/read.hpp",
     "src/ENDFtk/record/Base.hpp",
     "src/ENDFtk/record/Character.hpp",
     "src/ENDFtk/record/Integer.hpp",
@@ -796,6 +799,9 @@
     ],
     "ENDFtk.file.7": [
       "src/ENDFtk/file/7/test/7.test.cpp"
+    ],
+    "ENDFtk.file.8": [
+      "src/ENDFtk/file/8/test/8.test.cpp"
     ],
     "ENDFtk.file.Type": [
       "src/ENDFtk/file/Type/test/Type.test.cpp"

@@ -1,7 +1,7 @@
 static void
-verifyDiscreteSize( int size ) {
+verifyDiscreteSize( int LCON, int size ) {
 
-  if ( size == 0 ) {
+  if ( LCON != 1 and size ==0 ) {
 
     Log::error( "Expected at least one discrete spectrum" );
     throw std::exception();

@@ -302,6 +302,7 @@ void verifyChunk4( const file::Type< 7 >& chunk ) {
   REQUIRE( 127. == Approx( chunk.MT( 4_c ).ZA() ) );
   REQUIRE( 1 == chunk.MT( 4_c ).LAT() );
   REQUIRE( 0 == chunk.MT( 4_c ).LASYM() );
+
   REQUIRE( 16 == chunk.MT( 4_c ).NC() );
 }
 

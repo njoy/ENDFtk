@@ -10,7 +10,7 @@
 class DecaySpectrum {
 
   ListRecord data_;
-  std::optional< std::vector< DiscreteSpectrum > > discrete_;
+  std::vector< DiscreteSpectrum > discrete_;
   std::optional< ContinuousSpectrum > continuous_;
 
   /* auxiliary functions */
@@ -59,6 +59,16 @@ public:
   int covarianceFlag() const { return this->LCOV(); }
 
   /**
+   *  @brief Return the number of discrete decay spectra
+   */
+  int NER() const { return this->data_.N2(); }
+
+  /**
+   *  @brief Return the number of discrete decay spectra
+   */
+  int numberDiscreteSpectra() const { return this->NER(); }
+
+  /**
    *  @brief Return the discrete normalisation factor and its uncertainty
    */
   auto FD() const {
@@ -103,9 +113,9 @@ public:
   /**
    *  @brief Return the discrete spectra, if any are defined
    */
-  const auto& discreteSpectra() const {
+  auto discreteSpectra() const {
 
-    return this->discrete_ ;
+    return ranges::view::all( this->discrete_ );
   }
 
   /**

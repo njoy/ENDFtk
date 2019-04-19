@@ -268,6 +268,8 @@ void verifyChunkWithLCONZero( const DecaySpectrum& chunk ) {
   REQUIRE( 0 == chunk.continuumSpectrumFlag() );
   REQUIRE( 0 == chunk.LCOV() );
   REQUIRE( 0 == chunk.covarianceFlag() );
+  REQUIRE( 2 == chunk.NER() );
+  REQUIRE( 2 == chunk.numberDiscreteSpectra() );
 
   REQUIRE( 1. == Approx( chunk.FD()[0] ) );
   REQUIRE( 0. == Approx( chunk.FD()[1] ) );
@@ -282,10 +284,9 @@ void verifyChunkWithLCONZero( const DecaySpectrum& chunk ) {
   REQUIRE( 2.107044e+2 == Approx( chunk.averageDecayEnergy()[0] ) );
   REQUIRE( 1.576284e+1 == Approx( chunk.averageDecayEnergy()[1] ) );
 
-  REQUIRE( std::nullopt != chunk.discreteSpectra() );
   REQUIRE( std::nullopt == chunk.continuousSpectrum() );
 
-  std::vector< DiscreteSpectrum > discrete = *( chunk.discreteSpectra() );
+  auto discrete = chunk.discreteSpectra();
   REQUIRE( 3. == discrete[0].RTYP() );
   REQUIRE( 3. == discrete[0].decayChain() );
   REQUIRE( 12 == discrete[0].NT() );
@@ -366,6 +367,8 @@ void verifyChunkWithLCONOne( const DecaySpectrum& chunk ) {
   REQUIRE( 1 == chunk.continuumSpectrumFlag() );
   REQUIRE( 0 == chunk.LCOV() );
   REQUIRE( 0 == chunk.covarianceFlag() );
+  REQUIRE( 0 == chunk.NER() );
+  REQUIRE( 0 == chunk.numberDiscreteSpectra() );
 
   REQUIRE( 0. == Approx( chunk.FD()[0] ) );
   REQUIRE( 0. == Approx( chunk.FD()[1] ) );
@@ -380,7 +383,6 @@ void verifyChunkWithLCONOne( const DecaySpectrum& chunk ) {
   REQUIRE( 2.107044e+2 == Approx( chunk.averageDecayEnergy()[0] ) );
   REQUIRE( 1.576284e+1 == Approx( chunk.averageDecayEnergy()[1] ) );
 
-  REQUIRE( std::nullopt == chunk.discreteSpectra() );
   REQUIRE( std::nullopt != chunk.continuousSpectrum() );
 
   ContinuousSpectrum continuous = *( chunk.continuousSpectrum() );
@@ -428,6 +430,8 @@ void verifyChunkWithLCONTwo( const DecaySpectrum& chunk ) {
   REQUIRE( 2 == chunk.continuumSpectrumFlag() );
   REQUIRE( 0 == chunk.LCOV() );
   REQUIRE( 0 == chunk.covarianceFlag() );
+  REQUIRE( 2 == chunk.NER() );
+  REQUIRE( 2 == chunk.numberDiscreteSpectra() );
 
   REQUIRE( 1. == Approx( chunk.FD()[0] ) );
   REQUIRE( 0. == Approx( chunk.FD()[1] ) );
@@ -442,10 +446,9 @@ void verifyChunkWithLCONTwo( const DecaySpectrum& chunk ) {
   REQUIRE( 2.107044e+2 == Approx( chunk.averageDecayEnergy()[0] ) );
   REQUIRE( 1.576284e+1 == Approx( chunk.averageDecayEnergy()[1] ) );
 
-  REQUIRE( std::nullopt != chunk.discreteSpectra() );
   REQUIRE( std::nullopt != chunk.continuousSpectrum() );
 
-  std::vector< DiscreteSpectrum > discrete = *( chunk.discreteSpectra() );
+  auto discrete = chunk.discreteSpectra();
   REQUIRE( 3. == discrete[0].RTYP() );
   REQUIRE( 3. == discrete[0].decayChain() );
   REQUIRE( 12 == discrete[0].NT() );

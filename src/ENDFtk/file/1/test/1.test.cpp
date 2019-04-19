@@ -189,5 +189,6 @@ void verifyChunk451( const file::Type< 1 >& chunk ) {
   REQUIRE( 39088. == Approx( chunk.MT( 451_c ).ZA() ) );
   REQUIRE( 6 == chunk.MT( 451_c ).NWD() );
   REQUIRE( 2 == chunk.MT( 451_c ).NXC() );
+  REQUIRE( 12 == chunk.MT( 451_c ).NC() );
 }
 
