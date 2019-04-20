@@ -58,8 +58,8 @@ public:
 
   bool operator==( const TabulationRecord& rhs ) const {
       return ( InterpolationBase::operator==( static_cast<const InterpolationBase&>( rhs ) ) )
-      && ( this->xValues == rhs.xValues )
-      && ( this->yValues == rhs.yValues );
+      and ( this->xValues == rhs.xValues )
+      and ( this->yValues == rhs.yValues );
   }
 
   bool operator!=( const TabulationRecord& rhs ) const {

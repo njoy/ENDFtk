@@ -1,8 +1,8 @@
 static void
 checkLANG( int lang ) {
 
-  if ( ( lang != 1 ) && ( lang != 2 ) && ( lang != 11 ) &&
-       ( lang != 12 ) && ( lang != 13 ) && ( lang != 14 ) && 
+  if ( ( lang != 1 ) and ( lang != 2 ) and ( lang != 11 ) and
+       ( lang != 12 ) and ( lang != 13 ) and ( lang != 14 ) and 
        ( lang != 15 ) ) {
 
     Log::error( "Encountered illegal LANG value" );
