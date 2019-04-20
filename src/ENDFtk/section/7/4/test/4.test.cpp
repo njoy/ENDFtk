@@ -41,6 +41,9 @@ SCENARIO( "section::Type< 7, 4 >" ) {
   GIVEN( "valid data for a section::Type< 7, 4 > with one temperature and "
          "no secondary scatterers" ) {
 
+    std::string sectionString = chunkWithOneTemperatureAndOneScatterer() + 
+                                validSEND();
+
     WHEN( "the data is given explicitly" ) {
 
       double za = 127.;
@@ -66,38 +69,54 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                       { 5.332083e+2, 7.354726e+2,
                                         1.270678e+3 } );
 
+      section::Type< 7, 4 > chunk( za, awr, lat, lasym,
+                                   std::move( constants ),
+                                   std::move( law ),
+                                   std::move( principal ) );
+
       THEN( "a section::Type< 7, 4 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 7, 4 > chunk( za, awr, lat, lasym,
-                                     std::move( constants ),
-                                     std::move( law ),
-                                     std::move( principal ) );
         verifyChunkWithOneTemperatureAndOneScatterer( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream with a valid SEND" ) {
 
-      std::string sectionString = chunkWithOneTemperatureAndOneScatterer() + 
-                                  validSEND();
       auto begin = sectionString.begin();
       auto end = sectionString.end();
       long lineNumber = 1; 
       HeadRecord head( begin, end, lineNumber );
+
+      section::Type< 7, 4 > chunk( head, begin, end, lineNumber, 27 );
       
       THEN( "a section::Type< 7, 4 > can be constructed and members can be "
           "tested" ) {
 
-        section::Type< 7, 4 > chunk( head, begin, end, lineNumber, 27 );
         verifyChunkWithOneTemperatureAndOneScatterer( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
 
     WHEN( "there is a syntaxTree::Section" ) {
         
-      std::string sectionString = chunkWithOneTemperatureAndOneScatterer() + 
-                                  validSEND();
       auto begin = sectionString.begin();
       auto position = begin;
       auto end = sectionString.end();
@@ -106,17 +125,30 @@ SCENARIO( "section::Type< 7, 4 >" ) {
       syntaxTree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
       
+      section::Type< 7, 4 > chunk = section.parse< 7, 4 >( lineNumber );
+
       THEN( "a section::Type< 7, 4 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 7, 4 > chunk = section.parse< 7, 4 >( lineNumber );
         verifyChunkWithOneTemperatureAndOneScatterer( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
   } // GIVEN
 
   GIVEN( "valid data for a section::Type< 7, 4 > with two temperatures and "
          "no secondary scatterers" ) {
+
+    std::string sectionString = chunkWithTwoTemperaturesAndOneScatterer() + 
+                                validSEND();
 
     WHEN( "the data is given explicitly" ) {
 
@@ -151,38 +183,54 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                       { 5.332083e+2, 7.354726e+2,
                                         1.270678e+3 } );
 
+      section::Type< 7, 4 > chunk( za, awr, lat, lasym,
+                                  std::move( constants ),
+                                   std::move( law ),
+                                   std::move( principal ) );
+
       THEN( "a section::Type< 7, 4 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 7, 4 > chunk( za, awr, lat, lasym,
-                                     std::move( constants ),
-                                     std::move( law ),
-                                     std::move( principal ) );
         verifyChunkWithTwoTemperaturesAndOneScatterer( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
     
     WHEN( "the data is read from a string/stream with a valid SEND" ) {
 
-      std::string sectionString = chunkWithTwoTemperaturesAndOneScatterer() + 
-                                  validSEND();
       auto begin = sectionString.begin();
       auto end = sectionString.end();
       long lineNumber = 1; 
       HeadRecord head( begin, end, lineNumber );
+
+      section::Type< 7, 4 > chunk( head, begin, end, lineNumber, 27 );
       
       THEN( "a section::Type< 7, 4 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 7, 4 > chunk( head, begin, end, lineNumber, 27 );
         verifyChunkWithTwoTemperaturesAndOneScatterer( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
 
     WHEN( "there is a syntaxTree::Section" ) {
 
-      std::string sectionString = chunkWithTwoTemperaturesAndOneScatterer() + 
-                                  validSEND();
       auto begin = sectionString.begin();
       auto position = begin;
       auto end = sectionString.end();
@@ -191,17 +239,30 @@ SCENARIO( "section::Type< 7, 4 >" ) {
       syntaxTree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
 
+      section::Type< 7, 4 > chunk = section.parse< 7, 4 >( lineNumber );
+
       THEN( "a section::Type< 7, 4 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 7, 4 > chunk = section.parse< 7, 4 >( lineNumber );
         verifyChunkWithTwoTemperaturesAndOneScatterer( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
   } // GIVEN
 
   GIVEN( "valid data for a section::Type< 7, 4 > with two temperatures and "
          "one secondary scatterer with a secondary temperature" ) {
+
+    std::string sectionString = chunkWithTwoTemperaturesAndTwoScatterers() + 
+                                validSEND();
 
     WHEN( "the data is given explicitly" ) {
 
@@ -242,40 +303,56 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                       { 293.6, 1200. }, 
                                       { 300.0, 1250. } );
 
+      section::Type< 7, 4 >
+      chunk( za, awr, lat, lasym,
+             std::move( constants ),
+             std::move( law ),
+             std::move( principal ),
+             { std::optional< EffectiveTemperature >( secondary ) } );
+
       THEN( "a section::Type< 7, 4 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 7, 4 >
-        chunk( za, awr, lat, lasym,
-               std::move( constants ),
-               std::move( law ),
-               std::move( principal ),
-               { std::optional< EffectiveTemperature >( secondary ) } );
         verifyChunkWithTwoTemperaturesAndTwoScatterers( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
     
     WHEN( "the data is read from a string/stream with a valid SEND" ) {
 
-      std::string sectionString = chunkWithTwoTemperaturesAndTwoScatterers() + 
-                                  validSEND();
       auto begin = sectionString.begin();
       auto end = sectionString.end();
       long lineNumber = 1; 
       HeadRecord head( begin, end, lineNumber );
+
+      section::Type< 7, 4 > chunk( head, begin, end, lineNumber, 27 );
       
       THEN( "a section::Type< 7, 4 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 7, 4 > chunk( head, begin, end, lineNumber, 27 );
         verifyChunkWithTwoTemperaturesAndTwoScatterers( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
 
     WHEN( "there is a syntaxTree::Section" ) {
 
-      std::string sectionString = chunkWithTwoTemperaturesAndTwoScatterers() + 
-                                  validSEND();
       auto begin = sectionString.begin();
       auto position = begin;
       auto end = sectionString.end();
@@ -284,17 +361,31 @@ SCENARIO( "section::Type< 7, 4 >" ) {
       syntaxTree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
 
+      section::Type< 7, 4 > chunk = section.parse< 7, 4 >( lineNumber );
+
       THEN( "a section::Type< 7, 4 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 7, 4 > chunk = section.parse< 7, 4 >( lineNumber );
         verifyChunkWithTwoTemperaturesAndTwoScatterers( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
   } // GIVEN
 
   GIVEN( "valid data for a section::Type< 7, 4 > with two temperatures and "
          "one secondary scatterer without a secondary temperature" ) {
+
+    std::string sectionString = 
+            chunkWithTwoTemperaturesTwoScatterersAndNoSecondaryTemperature() + 
+            validSEND();
 
     WHEN( "the data is given explicitly" ) {
 
@@ -334,44 +425,58 @@ SCENARIO( "section::Type< 7, 4 >" ) {
       std::vector< std::optional< EffectiveTemperature > > secondary = 
               { std::nullopt };
 
+      section::Type< 7, 4 >
+      chunk( za, awr, lat, lasym,
+             std::move( constants ),
+             std::move( law ),
+             std::move( principal ),
+             secondary );
+
       THEN( "a section::Type< 7, 4 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 7, 4 >
-        chunk( za, awr, lat, lasym,
-               std::move( constants ),
-               std::move( law ),
-               std::move( principal ),
-               secondary );
         verifyChunkWithTwoTemperaturesTwoScatterersAndNoSecondaryTemperature(
                chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
     
     WHEN( "the data is read from a string/stream with a valid SEND" ) {
 
-      std::string sectionString = 
-              chunkWithTwoTemperaturesTwoScatterersAndNoSecondaryTemperature() + 
-              validSEND();
       auto begin = sectionString.begin();
       auto end = sectionString.end();
       long lineNumber = 1; 
       HeadRecord head( begin, end, lineNumber );
+
+      section::Type< 7, 4 > chunk( head, begin, end, lineNumber, 27 );
       
       THEN( "a section::Type< 7, 4 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 7, 4 > chunk( head, begin, end, lineNumber, 27 );
         verifyChunkWithTwoTemperaturesTwoScatterersAndNoSecondaryTemperature(
                chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
 
     WHEN( "there is a syntaxTree::Section" ) {
 
-      std::string sectionString =
-              chunkWithTwoTemperaturesTwoScatterersAndNoSecondaryTemperature() + 
-              validSEND();
       auto begin = sectionString.begin();
       auto position = begin;
       auto end = sectionString.end();
@@ -380,116 +485,24 @@ SCENARIO( "section::Type< 7, 4 >" ) {
       syntaxTree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
 
+      section::Type< 7, 4 > chunk = section.parse< 7, 4 >( lineNumber );
+
       THEN( "a section::Type< 7, 4 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 7, 4 > chunk = section.parse< 7, 4 >( lineNumber );
         verifyChunkWithTwoTemperaturesTwoScatterersAndNoSecondaryTemperature(
                chunk );
       } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == sectionString );
+      } // THEN
     } // WHEN
-  } // GIVEN
-
-  GIVEN( "a valid section::Type< 7, 4 > with no principal scatterer and "
-         "only analytic functions" ) {
-
-    std::string string =
-            chunkWithAnalyticalFunctions() + 
-            validSEND();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1; 
-    HeadRecord head( begin, end, lineNumber );
-    section::Type< 7, 4 > section( head, begin, end, lineNumber, 27 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      section.print( output, 27, 7 );
-      REQUIRE( buffer == string );
-    }
-  } // GIVEN
-
-  GIVEN( "a valid section::Type< 7, 4 > with one temperature and no secondary "
-         "scatterers" ) {
-
-    std::string string = chunkWithOneTemperatureAndOneScatterer() + 
-                         validSEND();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1; 
-    HeadRecord head( begin, end, lineNumber );
-    section::Type< 7, 4 > section( head, begin, end, lineNumber, 27 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      section.print( output, 27, 7 );
-      REQUIRE( buffer == string );
-    }
-  } // GIVEN
-
-  GIVEN( "a valid section::Type< 7, 4 > with two temperatures and no secondary "
-         "scatterers" ) {
-
-    std::string string = chunkWithTwoTemperaturesAndOneScatterer() + 
-                         validSEND();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1; 
-    HeadRecord head( begin, end, lineNumber );
-    section::Type< 7, 4 > section( head, begin, end, lineNumber, 27 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      section.print( output, 27, 7 );
-      REQUIRE( buffer == string );
-    }
-  } // GIVEN
-
-  GIVEN( "a valid section::Type< 7, 4 > with two temperatures and one "
-         "secondary scatterer with a secondary temperature" ) {
-
-    std::string string = chunkWithTwoTemperaturesAndOneScatterer() + 
-                         validSEND();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1; 
-    HeadRecord head( begin, end, lineNumber );
-    section::Type< 7, 4 > section( head, begin, end, lineNumber, 27 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      section.print( output, 27, 7 );
-      REQUIRE( buffer == string );
-    }
-  } // GIVEN
-
-  GIVEN( "a valid section::Type< 7, 4 > with two temperatures and one "
-         "secondary scatterer without a secondary temperature" ) {
-
-    std::string string =
-            chunkWithTwoTemperaturesTwoScatterersAndNoSecondaryTemperature() + 
-            validSEND();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1; 
-    HeadRecord head( begin, end, lineNumber );
-    section::Type< 7, 4 > section( head, begin, end, lineNumber, 27 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      section.print( output, 27, 7 );
-      REQUIRE( buffer == string );
-    }
   } // GIVEN
 
   GIVEN( "invalid data for a section::Type< 7, 4 >" ) {

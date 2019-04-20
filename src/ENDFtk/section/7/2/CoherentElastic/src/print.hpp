@@ -1,5 +1,5 @@
 /** 
- *  @brief Print this MF7/MT4 component
+ *  @brief Print this MF7/MT2 component
  *
  *  @tparam OutputIterator   an output iterator
  *

@@ -17,6 +17,8 @@ SCENARIO( "EffectiveTemperature" ) {
 
   GIVEN( "valid data for a EffectiveTemperature" ) {
 
+    std::string string = chunk();
+
     WHEN( "the data is given explicitly" ) {
 
       std::vector< long > boundaries = { 3 };
@@ -25,46 +27,49 @@ SCENARIO( "EffectiveTemperature" ) {
       std::vector< double > effectiveTemperatures = { 5.332083e+2, 7.354726e+2,
                                                       1.270678e+3 };
 
+      EffectiveTemperature chunk( std::move( boundaries ),
+                                  std::move( interpolants ),
+                                  std::move( moderatorTemperatures ),
+                                  std::move( effectiveTemperatures ) );
+
       THEN( "an EffectiveTemperature can be constructed and members can be "
             "tested" ) {
 
-        EffectiveTemperature chunk( std::move( boundaries ),
-                                    std::move( interpolants ),
-                                    std::move( moderatorTemperatures ),
-                                    std::move( effectiveTemperatures ) );
         verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == string );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream" ) {
 
-      std::string string = chunk();
       auto begin = string.begin();
       auto end = string.end();
-      long lineNumber = 1; 
+      long lineNumber = 1;
+
+      EffectiveTemperature chunk( begin, end, lineNumber, 27, 7, 4 );
       
       THEN( "a EffectiveTemperature can be constructed and members can be tested" ) {
 
-        EffectiveTemperature chunk( begin, end, lineNumber, 27, 7, 4 );
         verifyChunk( chunk );
       } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == string );
+      } // THEN
     } // WHEN
-  } // GIVEN
-
-  GIVEN( "a valid instance of EffectiveTemperature" ) {
-
-    std::string string = chunk();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1; 
-    EffectiveTemperature chunk(begin, end, lineNumber, 27, 7, 4 );
-
-    THEN( "it can be printed" ) {
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 27, 7, 4 );
-      REQUIRE( buffer == string );
-    }
   } // GIVEN
 
   GIVEN( "invalid data for a EffectiveTemperature" ) {

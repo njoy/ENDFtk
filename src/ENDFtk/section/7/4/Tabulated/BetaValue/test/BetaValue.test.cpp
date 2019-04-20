@@ -19,6 +19,8 @@ SCENARIO( "BetaValue" ) {
 
   GIVEN( "valid data for a BetaValue with only one temperature" ) {
 
+    std::string string = chunkWithOneTemperature();
+
     WHEN( "the data is given explicitly" ) {
 
       // single temperature constructor
@@ -43,47 +45,75 @@ SCENARIO( "BetaValue" ) {
                                   { { 2.386876e-4, 2.508466e-4, 2.636238e-4,
                                       1.306574e-9, 5.29573e-10 } };
 
+      BetaValue chunk( temperature, beta,
+                       std::move( boundaries ),
+                       std::move( interpolants ), 
+                       std::move( alphas ),
+                       std::move( sab ) );
+
+      BetaValue chunk2( Beta,
+                        std::move( Boundaries ),
+                        std::move( Interpolants ), 
+                        std::move( Temperatures ),
+                        std::move( Li ),
+                        std::move( Alphas ),
+                        std::move( Sab ) );
+
       THEN( "a BetaValue can be constructed using separate arrays and members "
             "can be tested" ) {
 
-        BetaValue chunk( temperature, beta,
-                         std::move( boundaries ),
-                         std::move( interpolants ), 
-                         std::move( alphas ),
-                         std::move( sab ) );
         verifyChunkWithOneTemperature( chunk );
       } // THEN
 
       THEN( "a BetaValue can be constructed with the multiple temperature "
             "constructor using separate arrays and members can be tested" ) {
 
-        BetaValue chunk( Beta,
-                         std::move( Boundaries ),
-                         std::move( Interpolants ), 
-                         std::move( Temperatures ),
-                         std::move( Li ),
-                         std::move( Alphas ),
-                         std::move( Sab ) );
-        verifyChunkWithOneTemperature( chunk );
+        verifyChunkWithOneTemperature( chunk2 );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == string );
+
+        std::string buffer2;
+        output = std::back_inserter( buffer2 );
+        chunk2.print( output, 3580, 8 );
+
+        REQUIRE( buffer2 == string );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream" ) {
 
-      std::string string = chunkWithOneTemperature();
       auto begin = string.begin();
       auto end = string.end();
       long lineNumber = 1;
 
+      BetaValue chunk( begin, end, lineNumber, 27, 7, 4 );
+
       THEN( "a BetaValue can be constructed and members can be tested" ) {
 
-        BetaValue chunk( begin, end, lineNumber, 27, 7, 4 );
         verifyChunkWithOneTemperature( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
 
   GIVEN( "valid data for a BetaValue with more than one temperature" ) {
+
+    std::string string = chunkWithTwoTemperatures();
 
     WHEN( "the data is given explicitly" ) {
 
@@ -100,69 +130,52 @@ SCENARIO( "BetaValue" ) {
             { 4.430020e-4, 4.655671e-4, 4.892796e-4,
               4.510209e-8, 2.183942e-8 } };
 
+      BetaValue chunk( beta,
+                       std::move( boundaries ),
+                       std::move( interpolants ), 
+                       std::move( temperatures ),
+                       std::move( li ),
+                       std::move( alphas ),
+                       std::move( sab ) );
+
       THEN( "a BetaValue can be constructed using separate arrays and members "
             "can be tested" ) {
 
-        BetaValue chunk( beta,
-                         std::move( boundaries ),
-                         std::move( interpolants ), 
-                         std::move( temperatures ),
-                         std::move( li ),
-                         std::move( alphas ),
-                         std::move( sab ) );
+        verifyChunkWithTwoTemperatures( chunk );
+      } // THEN
 
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == string );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream" ) {
 
-      std::string string = chunkWithTwoTemperatures();
       auto begin = string.begin();
       auto end = string.end();
       long lineNumber = 1;
 
+      BetaValue chunk( begin, end, lineNumber, 27, 7, 4 );
+
       THEN( "a BetaValue can be constructed and members can be tested" ) {
 
-        BetaValue chunk( begin, end, lineNumber, 27, 7, 4 );
         verifyChunkWithTwoTemperatures( chunk );
       } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == string );
+      } // THEN
     } // WHEN
-  } // GIVEN
-
-  GIVEN( "a valid instance of BetaValue with only one temperature" ) {
-
-    std::string string = chunkWithOneTemperature();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-
-    BetaValue chunk(begin, end, lineNumber, 27, 7, 4 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 27, 7, 4 );
-      REQUIRE( buffer == string );
-    }
-  } // GIVEN
-
-  GIVEN( "a valid instance of BetaValue with two temperatures" ) {
-
-    std::string string = chunkWithTwoTemperatures();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-
-    BetaValue chunk(begin, end, lineNumber, 27, 7, 4 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 27, 7, 4 );
-      REQUIRE( buffer == string );
-    }
   } // GIVEN
 
   GIVEN( "invalid data" ) {

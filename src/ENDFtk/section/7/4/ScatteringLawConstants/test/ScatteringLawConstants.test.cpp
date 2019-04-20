@@ -22,6 +22,8 @@ SCENARIO( "ScatteringLawConstants" ) {
   GIVEN( "valid data for a ScatteringLawConstants with only a principal "
          "scatterer" ) {
 
+    std::string string = chunkWithOnlyPrincipalScatterer();
+
     WHEN( "the data is given explicitly" ) {
 
       int lln = 0;
@@ -38,51 +40,86 @@ SCENARIO( "ScatteringLawConstants" ) {
       double weightRatio = 8.934780e+0;
       unsigned int numberAtom = 1;
 
+      ScatteringLawConstants chunk( lln, ns, std::move( values ) );
+
+      ScatteringLawConstants chunk2( lln, ns, epsilon, emax,
+                                     std::move( crossSections ),
+                                     std::move( weightRatios ),
+                                     std::move( numberAtoms ),
+                                     std::move( functionTypes ) );
+
+      ScatteringLawConstants chunk3( lln, epsilon, emax, crossSection,
+                                     weightRatio, numberAtom );
+
       THEN( "a ScatteringLawConstants can be constructed using a list and "
             "members can be tested" ) {
 
-        ScatteringLawConstants chunk( lln, ns, std::move( values ) );
         verifyChunkWithOnlyPrincipalScatterer( chunk );
       } // THEN
 
       THEN( "a ScatteringLawConstants can be constructed using separate arrays "
             "and members can be tested" ) {
 
-        ScatteringLawConstants chunk( lln, ns, epsilon, emax,
-                                      std::move( crossSections ),
-                                      std::move( weightRatios ),
-                                      std::move( numberAtoms ),
-                                      std::move( functionTypes ) );
-        verifyChunkWithOnlyPrincipalScatterer( chunk );
+        verifyChunkWithOnlyPrincipalScatterer( chunk2 );
       } // THEN
 
       THEN( "a ScatteringLawConstants can be constructed using individual "
             "values and members can be tested" ) {
 
-        ScatteringLawConstants chunk( lln, epsilon, emax, crossSection,
-                                      weightRatio, numberAtom );
-        verifyChunkWithOnlyPrincipalScatterer( chunk );
+        verifyChunkWithOnlyPrincipalScatterer( chunk3 );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == string );
+
+        std::string buffer2;
+        output = std::back_inserter( buffer2 );
+        chunk2.print( output, 3580, 8 );
+
+        REQUIRE( buffer2 == string );
+
+        std::string buffer3;
+        output = std::back_inserter( buffer3 );
+        chunk3.print( output, 3580, 8 );
+
+        REQUIRE( buffer3 == string );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream" ) {
 
-      std::string string = chunkWithOnlyPrincipalScatterer();
       auto begin = string.begin();
       auto end = string.end();
       long lineNumber = 1;
 
+      ScatteringLawConstants chunk( begin, end, lineNumber, 27, 7, 4 );
+
       THEN( "a ScatteringLawConstants can be constructed and members can be "
             "tested" ) {
 
-        ScatteringLawConstants chunk( begin, end, lineNumber, 27, 7, 4 );
         verifyChunkWithOnlyPrincipalScatterer( chunk );
       }
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == string );
+      } // THEN
     } // GIVEN
   } // GIVEN
 
   GIVEN( "valid data for a ScatteringLawConstants with both principal and "
          "secondary scatterers" ) {
+
+    std::string string = chunkWithBothPrincipalAndSecondaryScatterer();
 
     WHEN( "the data is given explicitly" ) {
 
@@ -99,38 +136,64 @@ SCENARIO( "ScatteringLawConstants" ) {
       std::vector< unsigned int > numberAtoms = { 1, 2 };
       std::vector< unsigned int > functionTypes = { 0 };
 
+      ScatteringLawConstants chunk( lln, ns, std::move( values ) );
+
+      ScatteringLawConstants chunk2( lln, ns, epsilon, emax,
+                                     std::move( crossSections ),
+                                     std::move( weightRatios ),
+                                     std::move( numberAtoms ),
+                                     std::move( functionTypes ) );
+
       THEN( "a ScatteringLawConstants can be constructed using a list and "
             "members can be tested" ) {
 
-        ScatteringLawConstants chunk( lln, ns, std::move( values ) );
         verifyChunkWithBothPrincipalAndSecondaryScatterer( chunk );
       } // THEN
 
       THEN( "a ScatteringLawConstants can be constructed using separate arrays "
             "and members can be tested" ) {
 
-        ScatteringLawConstants chunk( lln, ns, epsilon, emax,
-                                      std::move( crossSections ),
-                                      std::move( weightRatios ),
-                                      std::move( numberAtoms ),
-                                      std::move( functionTypes ) );
-        verifyChunkWithBothPrincipalAndSecondaryScatterer( chunk );
+        verifyChunkWithBothPrincipalAndSecondaryScatterer( chunk2 );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == string );
+
+        std::string buffer2;
+        output = std::back_inserter( buffer2 );
+        chunk2.print( output, 3580, 8 );
+
+        REQUIRE( buffer2 == string );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream" ) {
 
-      std::string string = chunkWithBothPrincipalAndSecondaryScatterer();
       auto begin = string.begin();
       auto end = string.end();
       long lineNumber = 1;
 
+      ScatteringLawConstants chunk( begin, end, lineNumber, 27, 7, 4 );
+
       THEN( "a ScatteringLawConstants can be constructed and members can be "
             "tested" ) {
 
-        ScatteringLawConstants chunk( begin, end, lineNumber, 27, 7, 4 );
         verifyChunkWithBothPrincipalAndSecondaryScatterer( chunk );
       }
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == string );
+      } // THEN
     } // GIVEN
   } // GIVEN
 
@@ -231,44 +294,6 @@ SCENARIO( "ScatteringLawConstants" ) {
                                                 27, 7, 4 ) );
       } // THEN
     } // WHEN
-  } // GIVEN
-
-  GIVEN( "a valid instance of ScatteringLawConstants with only a principal "
-         "scatterer" ) {
-
-    std::string string = chunkWithOnlyPrincipalScatterer();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-
-    ScatteringLawConstants chunk(begin, end, lineNumber, 27, 7, 4 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 27, 7, 4 );
-      REQUIRE( buffer == string );
-    } // THEN
-  } // GIVEN
-
-  GIVEN( "a valid instance of ScatteringLawConstants with both principal "
-         "and secondary scatterers" ) {
-
-    std::string string = chunkWithBothPrincipalAndSecondaryScatterer();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-
-    ScatteringLawConstants chunk(begin, end, lineNumber, 27, 7, 4 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 27, 7, 4 );
-      REQUIRE( buffer == string );
-    } // THEN
   } // GIVEN
 } // SCENARIO
 

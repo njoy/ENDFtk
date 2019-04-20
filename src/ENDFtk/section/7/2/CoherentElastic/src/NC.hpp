@@ -1,5 +1,5 @@
 /** 
- *  @brief Return the number of lines in this MF7/MT4 component
+ *  @brief Return the number of lines in this MF7/MT2 component
  */
 long NC() const {
   long NC = this->principal_.NC();

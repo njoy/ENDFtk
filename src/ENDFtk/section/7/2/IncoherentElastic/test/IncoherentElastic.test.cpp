@@ -16,6 +16,8 @@ SCENARIO( "IncoherentElastic" ) {
 
   GIVEN( "valid data for a IncoherentElastic" ) {
 
+    std::string string = chunk();
+
     WHEN( "the data is given explicitly" ) {
 
       double sb = 8.198006e+1;
@@ -25,48 +27,50 @@ SCENARIO( "IncoherentElastic" ) {
       std::vector< double > debyeWallerValues = { 8.486993e+0, 9.093191e+0,
                                                   9.828159e+0 };
 
+      IncoherentElastic chunk( sb,
+                               std::move( boundaries ),
+                               std::move( interpolants ),
+                               std::move( temperatures ),
+                               std::move( debyeWallerValues ) );
+
       THEN( "an IncoherentElastic can be constructed and members can be "
             "tested" ) {
 
-        IncoherentElastic chunk( sb,
-                                 std::move( boundaries ),
-                                 std::move( interpolants ),
-                                 std::move( temperatures ),
-                                 std::move( debyeWallerValues ) );
         verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == string );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream" ) {
 
-      std::string string = chunk();
       auto begin = string.begin();
       auto end = string.end();
-      long lineNumber = 1; 
+      long lineNumber = 1;
+
+      IncoherentElastic chunk( begin, end, lineNumber, 27, 7, 2 );
       
       THEN( "a IncoherentElastic can be constructed and members can be tested" ) {
 
-        IncoherentElastic chunk( begin, end, lineNumber, 27, 7, 2 );
         verifyChunk( chunk );
       } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == string );
+      } // THEN
     } // WHEN
-  } // GIVEN
-
-  GIVEN( "a valid instance of IncoherentElastic" ) {
-
-    std::string string = chunk();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1; 
-    IncoherentElastic chunk(begin, end, lineNumber, 27, 7, 2 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 27, 7, 2 );
-      REQUIRE( buffer == string );
-    }
   } // GIVEN
 
   GIVEN( "invalid data for a IncoherentElastic" ) {
