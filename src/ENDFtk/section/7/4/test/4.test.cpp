@@ -84,7 +84,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 3580, 8 );
+        chunk.print( output, 27, 7 );
 
         REQUIRE( buffer == sectionString );
       } // THEN
@@ -109,7 +109,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 3580, 8 );
+        chunk.print( output, 27, 7 );
 
         REQUIRE( buffer == sectionString );
       } // THEN
@@ -137,7 +137,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 3580, 8 );
+        chunk.print( output, 27, 7 );
 
         REQUIRE( buffer == sectionString );
       } // THEN
@@ -198,7 +198,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 3580, 8 );
+        chunk.print( output, 27, 7 );
 
         REQUIRE( buffer == sectionString );
       } // THEN
@@ -223,7 +223,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 3580, 8 );
+        chunk.print( output, 27, 7 );
 
         REQUIRE( buffer == sectionString );
       } // THEN
@@ -251,7 +251,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 3580, 8 );
+        chunk.print( output, 27, 7 );
 
         REQUIRE( buffer == sectionString );
       } // THEN
@@ -320,7 +320,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 3580, 8 );
+        chunk.print( output, 27, 7 );
 
         REQUIRE( buffer == sectionString );
       } // THEN
@@ -345,7 +345,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 3580, 8 );
+        chunk.print( output, 27, 7 );
 
         REQUIRE( buffer == sectionString );
       } // THEN
@@ -373,7 +373,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 3580, 8 );
+        chunk.print( output, 27, 7 );
 
         REQUIRE( buffer == sectionString );
       } // THEN
@@ -443,7 +443,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 3580, 8 );
+        chunk.print( output, 27, 7 );
 
         REQUIRE( buffer == sectionString );
       } // THEN
@@ -469,7 +469,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 3580, 8 );
+        chunk.print( output, 27, 7 );
 
         REQUIRE( buffer == sectionString );
       } // THEN
@@ -498,7 +498,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 3580, 8 );
+        chunk.print( output, 27, 7 );
 
         REQUIRE( buffer == sectionString );
       } // THEN

@@ -52,7 +52,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 3580, 8 );
+        chunk.print( output, 27, 7 );
 
         REQUIRE( buffer == sectionString );
       } // THEN
@@ -77,7 +77,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 3580, 8 );
+        chunk.print( output, 27, 7 );
 
         REQUIRE( buffer == sectionString );
       } // THEN
@@ -105,7 +105,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 3580, 8 );
+        chunk.print( output, 27, 7 );
 
         REQUIRE( buffer == sectionString );
       } // THEN
@@ -142,7 +142,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 3580, 8 );
+        chunk.print( output, 27, 7 );
 
         REQUIRE( buffer == sectionString );
       } // THEN
@@ -167,7 +167,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 3580, 8 );
+        chunk.print( output, 27, 7 );
 
         REQUIRE( buffer == sectionString );
       } // THEN
@@ -195,7 +195,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 3580, 8 );
+        chunk.print( output, 27, 7 );
 
         REQUIRE( buffer == sectionString );
       } // THEN
@@ -228,7 +228,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 3580, 8 );
+        chunk.print( output, 27, 7 );
 
         REQUIRE( buffer == sectionString );
       } // THEN
@@ -240,11 +240,12 @@ SCENARIO( "section::Type< 7, 2 >" ) {
       auto end = sectionString.end();
       long lineNumber = 1; 
       HeadRecord head( begin, end, lineNumber );
+
+      section::Type< 7, 2 > chunk( head, begin, end, lineNumber, 27 );
       
       THEN( "a section::Type< 7, 2 > can be constructed and members can be "
           "tested" ) {
 
-        section::Type< 7, 2 > chunk( head, begin, end, lineNumber, 27 );
         verifyIncoherentElastic( chunk );
       } // THEN
 
@@ -252,7 +253,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 3580, 8 );
+        chunk.print( output, 27, 7 );
 
         REQUIRE( buffer == sectionString );
       } // THEN
@@ -280,7 +281,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 3580, 8 );
+        chunk.print( output, 27, 7 );
 
         REQUIRE( buffer == sectionString );
       } // THEN

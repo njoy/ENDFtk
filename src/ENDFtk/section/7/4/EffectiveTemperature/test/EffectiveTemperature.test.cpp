@@ -42,7 +42,7 @@ SCENARIO( "EffectiveTemperature" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 3580, 8 );
+        chunk.print( output, 27, 7, 4 );
 
         REQUIRE( buffer == string );
       } // THEN
@@ -65,7 +65,7 @@ SCENARIO( "EffectiveTemperature" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 3580, 8 );
+        chunk.print( output, 27, 7, 4 );
 
         REQUIRE( buffer == string );
       } // THEN

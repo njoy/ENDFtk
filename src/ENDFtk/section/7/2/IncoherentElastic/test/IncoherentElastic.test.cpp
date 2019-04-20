@@ -43,7 +43,7 @@ SCENARIO( "IncoherentElastic" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 3580, 8 );
+        chunk.print( output, 27, 7, 2 );
 
         REQUIRE( buffer == string );
       } // THEN
@@ -66,7 +66,7 @@ SCENARIO( "IncoherentElastic" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 3580, 8 );
+        chunk.print( output, 27, 7, 2 );
 
         REQUIRE( buffer == string );
       } // THEN

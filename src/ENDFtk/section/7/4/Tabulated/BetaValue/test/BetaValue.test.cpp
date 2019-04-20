@@ -75,13 +75,13 @@ SCENARIO( "BetaValue" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 3580, 8 );
+        chunk.print( output, 27, 7, 4 );
 
         REQUIRE( buffer == string );
 
         std::string buffer2;
         output = std::back_inserter( buffer2 );
-        chunk2.print( output, 3580, 8 );
+        chunk2.print( output, 27, 7, 4 );
 
         REQUIRE( buffer2 == string );
       } // THEN
@@ -104,7 +104,7 @@ SCENARIO( "BetaValue" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 3580, 8 );
+        chunk.print( output, 27, 7, 4 );
 
         REQUIRE( buffer == string );
       } // THEN
@@ -148,7 +148,7 @@ SCENARIO( "BetaValue" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 3580, 8 );
+        chunk.print( output, 27, 7, 4 );
 
         REQUIRE( buffer == string );
       } // THEN
@@ -171,7 +171,7 @@ SCENARIO( "BetaValue" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 3580, 8 );
+        chunk.print( output, 27, 7, 4 );
 
         REQUIRE( buffer == string );
       } // THEN

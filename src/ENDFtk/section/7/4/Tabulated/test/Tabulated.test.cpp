@@ -18,6 +18,8 @@ SCENARIO( "Tabulated" ) {
   GIVEN( "valid data for a Tabulated thermal scattering law with one "
          "temperature" ) {
 
+    std::string string = chunkWithOneTemperature();
+
     WHEN( "the data is given explicitly" ) {
 
       std::vector< long > boundaries = { 2 };
@@ -34,46 +36,46 @@ SCENARIO( "Tabulated" ) {
                      { 2.386694e-4, 2.508273e-4, 2.636238e-4, 2.770291e-4,
                        2.911373e-4 } ) };
 
+      Tabulated chunk( std::move( boundaries ), std::move( interpolants ),
+                       std::move( betas ) );
+
       THEN( "a Tabulated can be constructed using a TabulationRecord" ) {
 
-        Tabulated chunk( std::move( boundaries ), std::move( interpolants ),
-                         std::move( betas ) );
         verifyChunkWithOneTemperature( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 27, 7, 4 );
+
+        REQUIRE( buffer == string );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream" ) {
 
-      std::string string = chunkWithOneTemperature();
       auto begin = string.begin();
       auto end = string.end();
       long lineNumber = 1;
 
+      Tabulated chunk( begin, end, lineNumber, 27, 7, 4 );
+
       THEN( "a Tabulated can  be constructed and members can be tested" ) {
 
-        Tabulated chunk( begin, end, lineNumber, 27, 7, 4 );
         verifyChunkWithOneTemperature( chunk );
       } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 27, 7, 4 );
+
+        REQUIRE( buffer == string );
+      } // THEN
     } // WHEN
-  } // GIVEN
-
-  GIVEN( "a valid instance of Tabulated thermal scattering law with one "
-         "temperature" ) {
-
-    std::string string = chunkWithOneTemperature();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-
-    Tabulated chunk(begin, end, lineNumber, 27, 7, 4 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 27, 7, 4 );
-      REQUIRE( buffer == string );
-    }
   } // GIVEN
 
   GIVEN( "invalid data" ) {
