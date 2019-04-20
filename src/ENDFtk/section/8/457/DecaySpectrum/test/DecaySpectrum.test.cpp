@@ -22,6 +22,8 @@ SCENARIO( "DecaySpectrum" ) {
 
   GIVEN( "valid data for a DecaySpectrum with LCON=0" ) {
 
+    std::string string = chunkWithLCONZero();
+
     WHEN( "the data is given explicitly" ) {
 
       double styp = 0.0;
@@ -39,30 +41,51 @@ SCENARIO( "DecaySpectrum" ) {
             {{ 0.0, 0.0 }}, {{ 8.209999e-1, 0.000000e+0 }}, {{ 0.0, 0.0 }},
             {{ 6.160000e-1, 8.999999e-3 }} } };
 
+      DecaySpectrum chunk( styp, fd, erav, std::move( discrete ) );
+
       THEN( "a DecaySpectrum can be constructed and members can be tested" ) {
 
-        DecaySpectrum chunk( styp, fd, erav, std::move( discrete ) );
         verifyChunkWithLCONZero( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8, 457 );
+
+        REQUIRE( buffer == string );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream" ) {
 
-      std::string string = chunkWithLCONZero();
       auto begin = string.begin();
       auto end = string.end();
       long lineNumber = 1;
-      
+
+      DecaySpectrum chunk( begin, end, lineNumber, 3580, 8, 457 );
+
       THEN( "a DecaySpectrum can be constructed and members can be tested" ) {
 
-        DecaySpectrum chunk( begin, end, lineNumber, 3580, 8, 457 );
         verifyChunkWithLCONZero( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8, 457 );
+
+        REQUIRE( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
 
   GIVEN( "valid data for a DecaySpectrum with LCON=1" ) {
 
+    std::string string = chunkWithLCONOne();
+
     WHEN( "the data is given explicitly" ) {
 
       double styp = 0.0;
@@ -74,29 +97,50 @@ SCENARIO( "DecaySpectrum" ) {
         { 4., { 3 }, { 1 }, { 0.0, 5e+5, 7.3e+6 },
           { 6.133200e-7, 6.133300e-7, 6.02040e-17 } };
 
+      DecaySpectrum chunk( styp, fc, erav, std::move( continuous ) );
+
       THEN( "a DecaySpectrum can be constructed and members can be tested" ) {
 
-        DecaySpectrum chunk( styp, fc, erav, std::move( continuous ) );
         verifyChunkWithLCONOne( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8, 457 );
+
+        REQUIRE( buffer == string );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream" ) {
 
-      std::string string = chunkWithLCONOne();
       auto begin = string.begin();
       auto end = string.end();
       long lineNumber = 1;
-      
+
+      DecaySpectrum chunk( begin, end, lineNumber, 3580, 8, 457 );
+
       THEN( "a DecaySpectrum can be constructed and members can be tested" ) {
 
-        DecaySpectrum chunk( begin, end, lineNumber, 3580, 8, 457 );
         verifyChunkWithLCONOne( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8, 457 );
+
+        REQUIRE( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
 
   GIVEN( "valid data for a DecaySpectrum with LCON=2" ) {
+
+    std::string string = chunkWithLCONTwo();
 
     WHEN( "the data is given explicitly" ) {
 
@@ -119,78 +163,46 @@ SCENARIO( "DecaySpectrum" ) {
         { 4., { 3 }, { 1 }, { 0.0, 5e+5, 7.3e+6 },
           { 6.133200e-7, 6.133300e-7, 6.02040e-17 } };
 
+      DecaySpectrum chunk( styp, fd, fc, erav, std::move( discrete ),
+                           std::move( continuous ) );
+
       THEN( "a DecaySpectrum can be constructed and members can be tested" ) {
 
-        DecaySpectrum chunk( styp, fd, fc, erav, std::move( discrete ),
-                             std::move( continuous ) );
         verifyChunkWithLCONTwo( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8, 457 );
+
+        REQUIRE( buffer == string );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream" ) {
 
-      std::string string = chunkWithLCONTwo();
       auto begin = string.begin();
       auto end = string.end();
       long lineNumber = 1;
+
+      DecaySpectrum chunk( begin, end, lineNumber, 3580, 8, 457 );
       
       THEN( "a DecaySpectrum can be constructed and members can be tested" ) {
 
-        DecaySpectrum chunk( begin, end, lineNumber, 3580, 8, 457 );
         verifyChunkWithLCONTwo( chunk );
       } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8, 457 );
+
+        REQUIRE( buffer == string );
+      } // THEN
     } // WHEN
-  } // GIVEN
-
-  GIVEN( "a valid instance of DecaySpectrum with discrete spectra only "
-         "(LCON=0)" ) {
-
-    std::string string = chunkWithLCONZero();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1; 
-    DecaySpectrum chunk(begin, end, lineNumber, 3580, 8, 457 );
-
-    THEN( "it can be printed" ) {
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 3580, 8, 457 );
-      REQUIRE( buffer == string );
-    }
-  } // GIVEN
-
-  GIVEN( "a valid instance of DecaySpectrum with a continuous spectrum only "
-         "(LCON=1)" ) {
-
-    std::string string = chunkWithLCONOne();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1; 
-    DecaySpectrum chunk(begin, end, lineNumber, 3580, 8, 457 );
-
-    THEN( "it can be printed" ) {
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 3580, 8, 457 );
-      REQUIRE( buffer == string );
-    }
-  } // GIVEN
-
-  GIVEN( "a valid instance of DecaySpectrum with discrete and continuous "
-         "spectra (LCON=2)" ) {
-
-    std::string string = chunkWithLCONTwo();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1; 
-    DecaySpectrum chunk(begin, end, lineNumber, 3580, 8, 457 );
-
-    THEN( "it can be printed" ) {
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 3580, 8, 457 );
-      REQUIRE( buffer == string );
-    }
   } // GIVEN
 
   GIVEN( "invalid data for a DecaySpectrum" ) {
@@ -524,4 +536,3 @@ std::string chunkWithUnsupportedLCOV() {
     " 4.000000+0 0.000000+0 1.335690-3 5.409179-5 0.000000+0 0.000000+03580 8457     \n"
     " 8.209999-1 0.000000+0 0.000000+0 0.000000+0 6.160000-1 8.999999-33580 8457     \n";
 }
-

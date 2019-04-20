@@ -16,6 +16,8 @@ SCENARIO( "ContinuousSpectrum" ) {
 
   GIVEN( "valid data for a ContinuousSpectrum" ) {
 
+    std::string string = chunk();
+
     WHEN( "the data is given explicitly" ) {
 
       double decayChain = 4.;
@@ -25,47 +27,50 @@ SCENARIO( "ContinuousSpectrum" ) {
       std::vector< double > spectralValues = { 6.133200e-7, 6.133300e-7,
                                                6.02040e-17 };
 
+      ContinuousSpectrum chunk( decayChain,
+                                std::move( boundaries ),
+                                std::move( interpolants ),
+                                std::move( energies ),
+                                std::move( spectralValues ) );
+
       THEN( "a ContinuousSpectrum can be constructed and members can be "
             "tested" ) {
 
-        ContinuousSpectrum chunk( decayChain,
-                                  std::move( boundaries ),
-                                  std::move( interpolants ),
-                                  std::move( energies ),
-                                  std::move( spectralValues ) );
         verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8, 457 );
+
+        REQUIRE( buffer == string );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream" ) {
 
-      std::string string = chunk();
       auto begin = string.begin();
       auto end = string.end();
       long lineNumber = 1; 
-      
+
+      ContinuousSpectrum chunk( begin, end, lineNumber, 3580, 8, 457 );
+
       THEN( "a ContinuousSpectrum can be constructed and members can be tested" ) {
 
-        ContinuousSpectrum chunk( begin, end, lineNumber, 3580, 8, 457 );
         verifyChunk( chunk );
       } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8, 457 );
+
+        REQUIRE( buffer == string );
+      } // THEN
     } // WHEN
-  } // GIVEN
-
-  GIVEN( "a valid instance of ContinuousSpectrum" ) {
-
-    std::string string = chunk();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1; 
-    ContinuousSpectrum chunk(begin, end, lineNumber, 3580, 8, 457 );
-
-    THEN( "it can be printed" ) {
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 3580, 8, 457 );
-      REQUIRE( buffer == string );
-    }
   } // GIVEN
 
   GIVEN( "invalid data for a ContinuousSpectrum" ) {
@@ -144,4 +149,3 @@ std::string invalidChunk() {
     "          3          1                                            3580 8457     \n"
     " 0.000000+0 6.133200-7 5.000000+5 6.133300-7 7.300000+6 6.02040-173580 8457     \n";
 }
-

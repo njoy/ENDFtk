@@ -20,6 +20,8 @@ SCENARIO( "DiscreteSpectrum" ) {
 
   GIVEN( "valid data for a DiscreteSpectrum with STYP not equal to 0 or 2" ) {
 
+    std::string string = chunkWithSTYPNotZeroOrTwo();
+
     WHEN( "the data is given explicitly" ) {
 
       std::array< double, 2 > discreteEnergy = {{ 4.863000e+4, 5.000000e+1 }};
@@ -28,31 +30,52 @@ SCENARIO( "DiscreteSpectrum" ) {
       std::array< double, 2 > relativeIntensity = {{ 1.420112e-6,
                                                      2.85306e-10 }};
       
+      DiscreteSpectrum chunk( decayChain, discreteEnergy,
+                              relativeIntensity, type );
+
       THEN( "a DiscreteSpectrum can be constructed and members can be "
             "tested" ) {
 
-        DiscreteSpectrum chunk( decayChain, discreteEnergy,
-                                relativeIntensity, type );
         verifyChunkWithSTYPNotZeroOrTwo( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8, 457 );
+
+        REQUIRE( buffer == string );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream" ) {
 
-      std::string string = chunkWithSTYPNotZeroOrTwo();
       auto begin = string.begin();
       auto end = string.end();
-      long lineNumber = 1; 
+      long lineNumber = 1;
+
+      DiscreteSpectrum chunk( begin, end, lineNumber, 3580, 8, 457 );
       
       THEN( "a DiscreteSpectrum can be constructed and members can be tested" ) {
 
-        DiscreteSpectrum chunk( begin, end, lineNumber, 3580, 8, 457 );
         verifyChunkWithSTYPNotZeroOrTwo( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8, 457 );
+
+        REQUIRE( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
 
   GIVEN( "valid data for a DiscreteSpectrum with STYP equal to 2" ) {
+
+    std::string string = chunkWithSTYPTwo();
 
     WHEN( "the data is given explicitly" ) {
 
@@ -62,31 +85,52 @@ SCENARIO( "DiscreteSpectrum" ) {
       std::array< double, 2 > relativeIntensity = {{ 1.420112e-6,
                                                      2.85306e-10 }};
       std::array< double, 2 > ris = {{ 1.0, 2.0 }};
-      
+
+      DiscreteSpectrum chunk( decayChain, discreteEnergy,
+                              relativeIntensity, type, ris );
+
       THEN( "a DiscreteSpectrum can be constructed and members can be tested" ) {
 
-        DiscreteSpectrum chunk( decayChain, discreteEnergy,
-                                relativeIntensity, type, ris );
         verifyChunkWithSTYPTwo( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8, 457 );
+
+        REQUIRE( buffer == string );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream" ) {
 
-      std::string string = chunkWithSTYPTwo();
       auto begin = string.begin();
       auto end = string.end();
-      long lineNumber = 1; 
+      long lineNumber = 1;
+
+      DiscreteSpectrum chunk( begin, end, lineNumber, 3580, 8, 457 );
       
       THEN( "a DiscreteSpectrum can be constructed and members can be tested" ) {
 
-        DiscreteSpectrum chunk( begin, end, lineNumber, 3580, 8, 457 );
         verifyChunkWithSTYPTwo( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8, 457 );
+
+        REQUIRE( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
 
   GIVEN( "valid data for a DiscreteSpectrum with STYP equal to 0" ) {
+
+    std::string string = chunkWithSTYPZero();
 
     WHEN( "the data is given explicitly" ) {
 
@@ -99,80 +143,48 @@ SCENARIO( "DiscreteSpectrum" ) {
       std::array< double, 2 > ricc = {{ 7.010000e+5, 1.106180e-2 }};
       std::array< double, 2 > rick = {{ 1.378999e-1, 2.000000e-3 }};
       std::array< double, 2 > ricl = {{ 3.315735e+5, 5.608008e+3 }};
-      
+
+      DiscreteSpectrum chunk( decayChain, discreteEnergy,
+                              relativeIntensity, type, ris,
+                              ricc, rick, ricl );
+
       THEN( "a DiscreteSpectrum can be constructed and members can be tested" ) {
 
-        DiscreteSpectrum chunk( decayChain, discreteEnergy,
-                                relativeIntensity, type, ris,
-                                ricc, rick, ricl );
         verifyChunkWithSTYPZero( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8, 457 );
+
+        REQUIRE( buffer == string );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream" ) {
 
-      std::string string = chunkWithSTYPZero();
       auto begin = string.begin();
       auto end = string.end();
-      long lineNumber = 1; 
-      
+      long lineNumber = 1;
+
+      DiscreteSpectrum chunk( begin, end, lineNumber, 3580, 8, 457 );
+
       THEN( "a DiscreteSpectrum can be constructed and members can be tested" ) {
 
-        DiscreteSpectrum chunk( begin, end, lineNumber, 3580, 8, 457 );
         verifyChunkWithSTYPZero( chunk );
       } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8, 457 );
+
+        REQUIRE( buffer == string );
+      } // THEN
     } // WHEN
-  } // GIVEN
-
-  GIVEN( "a valid instance of DiscreteSpectrum for STYP not equal to 0 or 2" ) {
-
-    std::string string = chunkWithSTYPNotZeroOrTwo();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1; 
-    DiscreteSpectrum chunk(begin, end, lineNumber, 3580, 8, 457 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 3580, 8, 457 );
-      REQUIRE( buffer == string );
-    }
-  } // GIVEN
-
-  GIVEN( "a valid instance of DiscreteSpectrum for STYP equal to 2" ) {
-
-    std::string string = chunkWithSTYPTwo();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1; 
-    DiscreteSpectrum chunk(begin, end, lineNumber, 3580, 8, 457 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 3580, 8, 457 );
-      REQUIRE( buffer == string );
-    }
-  } // GIVEN
-
-  GIVEN( "a valid instance of DiscreteSpectrum for STYP equal to 0" ) {
-
-    std::string string = chunkWithSTYPZero();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1; 
-    DiscreteSpectrum chunk( begin, end, lineNumber, 3580, 8, 457 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 3580, 8, 457 );
-      REQUIRE( buffer == string );
-    }
   } // GIVEN
 
   GIVEN( "invalid data for a DiscreteSpectrum" ) {
