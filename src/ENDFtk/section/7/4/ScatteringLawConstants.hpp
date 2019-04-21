@@ -89,7 +89,8 @@ public:
    *         scattering atom type, stored in B(3), B(9) and B(15)
    */
   auto atomicWeightRatios() const {
-    return ranges::view::drop_exactly( ListRecord::list(), 2 )
+    return ListRecord::list()
+             | ranges::view::drop_exactly( 2 )
              | ranges::view::stride( 6 ); }
 
   /**
@@ -97,7 +98,8 @@ public:
    *         the molecule or unit cell, stored in B(6), B(12) and B(18)
    */
   auto numberAtoms() const {
-    return ranges::view::drop_exactly( ListRecord::list(), 5 )
+    return ListRecord::list()
+             | ranges::view::drop_exactly( 5 )
              | ranges::view::stride( 6 ); }
 
   /**
@@ -105,9 +107,11 @@ public:
    *         scattering atom type, stored in B(7), B(13) and B(19)
    */
   auto analyticalFunctionTypes() const {
-    return ranges::view::drop_exactly( ListRecord::list(), 6 )
+    return ListRecord::list()
+             | ranges::view::drop_exactly( 6 )
              | ranges::view::stride( 6 ); }
 
   using ListRecord::NC;
   using ListRecord::print;
 };
+

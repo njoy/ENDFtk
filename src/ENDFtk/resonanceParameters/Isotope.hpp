@@ -17,4 +17,7 @@ public:
     return ranges::make_iterator_range( this->ranges.begin(),
                                         this->ranges.end() );
   }
+
+  #include "ENDFtk/resonanceParameters/Isotope/src/print.hpp"
+  #include "ENDFtk/resonanceParameters/Isotope/src/NC.hpp"
 };

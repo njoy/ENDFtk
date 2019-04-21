@@ -84,7 +84,7 @@ struct Base {
     constexpr auto index = nFields - Index;
     return
       ( std::get< index >( rhs.fields ) == std::get< index >( this->fields ) )
-      && this->equality< Index - 1 >( rhs, ShouldRecurse< Index - 1 >() );
+      and this->equality< Index - 1 >( rhs, ShouldRecurse< Index - 1 >() );
   }
 
   /* methods */

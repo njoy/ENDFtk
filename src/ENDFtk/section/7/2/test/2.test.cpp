@@ -28,6 +28,9 @@ SCENARIO( "section::Type< 7, 2 >" ) {
   GIVEN( "valid data for a section::Type< 7, 2 > with coherent elastic "
          "scattering and one temperature" ) {
 
+    std::string sectionString = chunkWithCoherentElasticAndOneTemperature() + 
+                                validSEND();
+
     WHEN( "the data is given explicitly" ) {
 
       double za = 107.;
@@ -37,35 +40,51 @@ SCENARIO( "section::Type< 7, 2 >" ) {
                            { 1.059427e-3, 3.718355e-3,  4.237708e-3 },
                            { 0.0, 9.364524e-3, 1.548925e-2 } ) );
 
+      section::Type< 7, 2 > chunk( za, awr, std::move( law ) );
+
       THEN( "a section::Type< 7, 2 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 7, 2 > chunk( za, awr, std::move( law ) );
         verifyCoherentElasticWithOneTemperature( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 27, 7 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream with a valid SEND" ) {
 
-      std::string sectionString = chunkWithCoherentElasticAndOneTemperature() + 
-                                  validSEND();
       auto begin = sectionString.begin();
       auto end = sectionString.end();
       long lineNumber = 1; 
       HeadRecord head( begin, end, lineNumber );
-      
+
+      section::Type< 7, 2 > chunk( head, begin, end, lineNumber, 27 );
+
       THEN( "a section::Type< 7, 2 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 7, 2 > chunk( head, begin, end, lineNumber, 27 );
         verifyCoherentElasticWithOneTemperature( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 27, 7 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } //WHEN
 
     WHEN( "there is a syntaxTree::Section" ) {
 
-      std::string sectionString = chunkWithCoherentElasticAndOneTemperature() + 
-                                  validSEND();
       auto begin = sectionString.begin();
       auto position = begin;
       auto end = sectionString.end();
@@ -74,17 +93,30 @@ SCENARIO( "section::Type< 7, 2 >" ) {
       syntaxTree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
 
+      section::Type< 7, 2 > chunk = section.parse< 7, 2 >( lineNumber );
+
       THEN( "a section::Type< 7, 2 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 7, 2 > chunk = section.parse< 7, 2 >( lineNumber );
         verifyCoherentElasticWithOneTemperature( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 27, 7 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
   } // GIVEN
 
   GIVEN( "valid data for a section::Type< 7, 2 > with coherent elastic "
          "scattering and two temperatures" ) {
+
+    std::string sectionString = chunkWithCoherentElasticAndTwoTemperatures() + 
+                                validSEND();
 
     WHEN( "the data is given explicitly" ) {
 
@@ -98,35 +130,51 @@ SCENARIO( "section::Type< 7, 2 >" ) {
                            { { 0.0, 9.364524e-3, 1.548925e-2 },
                              { 0.5, 8.318414e-3, 1.640584e-2 } } ) );
 
+      section::Type< 7, 2 > chunk( za, awr, std::move( law ) );
+
       THEN( "a section::Type< 7, 2 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 7, 2 > chunk( za, awr, std::move( law ) );
         verifyCoherentElasticWithTwoTemperatures( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 27, 7 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream with a valid SEND" ) {
 
-      std::string sectionString = chunkWithCoherentElasticAndTwoTemperatures() + 
-                                  validSEND();
       auto begin = sectionString.begin();
       auto end = sectionString.end();
       long lineNumber = 1; 
       HeadRecord head( begin, end, lineNumber );
+
+      section::Type< 7, 2 > chunk( head, begin, end, lineNumber, 27 );
       
       THEN( "a section::Type< 7, 2 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 7, 2 > chunk( head, begin, end, lineNumber, 27 );
         verifyCoherentElasticWithTwoTemperatures( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 27, 7 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } //WHEN
 
     WHEN( "there is a syntaxTree::Section" ) {
 
-      std::string sectionString = chunkWithCoherentElasticAndTwoTemperatures() + 
-                                  validSEND();
       auto begin = sectionString.begin();
       auto position = begin;
       auto end = sectionString.end();
@@ -134,18 +182,30 @@ SCENARIO( "section::Type< 7, 2 >" ) {
       auto head = HEAD( position, end, lineNumber );
       syntaxTree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
+
+      section::Type< 7, 2 > chunk = section.parse< 7, 2 >( lineNumber );
       
       THEN( "a section::Type< 7, 2 > can be constructed and members can be "
             "tested" ){
 
-        section::Type< 7, 2 > chunk = section.parse< 7, 2 >( lineNumber );
         verifyCoherentElasticWithTwoTemperatures( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 27, 7 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } //WHEN
   } // GIVEN
 
   GIVEN( "valid data for a section::Type< 7, 2 > with incoherent elastic "
          "scattering" ) {
+
+    std::string sectionString = chunkWithIncoherentElastic() + validSEND();
 
     WHEN( "the data is given explicitly" ) {
 
@@ -156,33 +216,51 @@ SCENARIO( "section::Type< 7, 2 >" ) {
                              { 296., 400., 500. },
                              { 8.486993e+0, 9.093191e+0, 9.828159e+0 } ) );
 
+      section::Type< 7, 2 > chunk( za, awr, std::move( law ) );
+
       THEN( "a section::Type< 7, 2 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 7, 2 > chunk( za, awr, std::move( law ) );
         verifyIncoherentElastic( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 27, 7 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream with a valid SEND" ) {
 
-      std::string sectionString = chunkWithIncoherentElastic() + validSEND();
       auto begin = sectionString.begin();
       auto end = sectionString.end();
       long lineNumber = 1; 
       HeadRecord head( begin, end, lineNumber );
+
+      section::Type< 7, 2 > chunk( head, begin, end, lineNumber, 27 );
       
       THEN( "a section::Type< 7, 2 > can be constructed and members can be "
           "tested" ) {
 
-        section::Type< 7, 2 > chunk( head, begin, end, lineNumber, 27 );
         verifyIncoherentElastic( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 27, 7 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } //WHEN
 
     WHEN( "there is a syntaxTree::Section" ) {
 
-      std::string sectionString = chunkWithIncoherentElastic() + validSEND();
       auto begin = sectionString.begin();
       auto position = begin;
       auto end = sectionString.end();
@@ -191,74 +269,23 @@ SCENARIO( "section::Type< 7, 2 >" ) {
       syntaxTree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
 
+      section::Type< 7, 2 > chunk = section.parse< 7, 2 >( lineNumber );
+
       THEN( "a section::Type< 7, 2 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 7, 2 > chunk = section.parse< 7, 2 >( lineNumber );
         verifyIncoherentElastic( chunk );
       } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 27, 7 );
+
+        REQUIRE( buffer == sectionString );
+      } // THEN
     } // WHEN
-  } // GIVEN
-
-  GIVEN( "a valid section::Type< 7, 2 > with coherent elastic scattering and "
-         "one temperature" ) {
-
-    std::string string = chunkWithCoherentElasticAndOneTemperature() + 
-                         validSEND();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1; 
-    HeadRecord head( begin, end, lineNumber );
-
-    section::Type< 7, 2 > section( head, begin, end, lineNumber, 27 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      section.print( output, 27, 7 );
-      REQUIRE( buffer == string );
-    }
-  } // GIVEN
-
-  GIVEN( "a valid section::Type< 7, 2 > with coherent elastic scattering and "
-         "two temperatures" ) {
-
-    std::string string = chunkWithCoherentElasticAndTwoTemperatures() + 
-                         validSEND();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1; 
-    HeadRecord head( begin, end, lineNumber );
-
-    section::Type< 7, 2 > section( head, begin, end, lineNumber, 27 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      section.print( output, 27, 7 );
-      REQUIRE( buffer == string );
-    }
-  } // GIVEN
-
-  GIVEN( "a valid section::Type< 7, 2 > with incoherent elastic scattering" ) {
-
-    std::string string = chunkWithIncoherentElastic() + validSEND();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1; 
-    HeadRecord head( begin, end, lineNumber );
-
-    section::Type< 7, 2 > section( head, begin, end, lineNumber, 27 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      section.print( output, 27, 7 );
-      REQUIRE( buffer == string );
-    }
   } // GIVEN
 
   GIVEN( "invalid data for a section::Type< 7, 2 >" ) {
@@ -355,9 +382,10 @@ void verifyCoherentElasticWithOneTemperature(
   REQUIRE( 0 == law.temperatureDependenceFlag() );
   REQUIRE( 1 == law.NT() );
   REQUIRE( 1 == law.numberTemperatures() );
+  REQUIRE( 3 == law.NP() );
+  REQUIRE( 3 == law.numberBraggEdges() );
 
   REQUIRE( 1 == law.NR() );
-  REQUIRE( 3 == law.NP() );
   REQUIRE( 1 == law.boundaries().size() );
   REQUIRE( 3 == law.boundaries()[0] );
   REQUIRE( 1 == law.interpolants().size() );
@@ -413,9 +441,10 @@ void verifyCoherentElasticWithTwoTemperatures(
   REQUIRE( 1 == law.temperatureDependenceFlag() );
   REQUIRE( 2 == law.NT() );
   REQUIRE( 2 == law.numberTemperatures() );
+  REQUIRE( 3 == law.NP() );
+  REQUIRE( 3 == law.numberBraggEdges() );
 
   REQUIRE( 1 == law.NR() );
-  REQUIRE( 3 == law.NP() );
   REQUIRE( 1 == law.boundaries().size() );
   REQUIRE( 3 == law.boundaries()[0] );
   REQUIRE( 1 == law.interpolants().size() );
@@ -474,6 +503,7 @@ void verifyIncoherentElastic( const section::Type< 7, 2 >& chunk ) {
   REQUIRE( 8.198006e+1 == Approx( law.SB() ) );
   REQUIRE( 8.198006e+1 == Approx( law.boundCrossSection() ) );
   REQUIRE( 3 == law.NP() );
+  REQUIRE( 3 == law.numberTemperatures() );
   REQUIRE( 1 == law.NR() );
   REQUIRE( 1 == law.interpolants().size() );
   REQUIRE( 1 == law.boundaries().size() );

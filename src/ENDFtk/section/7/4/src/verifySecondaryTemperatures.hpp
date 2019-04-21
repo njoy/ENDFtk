@@ -23,7 +23,7 @@ verifySecondaryTemperatures( const TypeArray& types,
     auto equal = [] ( bool left, bool right ) -> bool
                     { return left == right; };
     auto sum = [] ( bool left, bool right ) -> bool
-                  { return left && right; };
+                  { return left and right; };
 
     if ( ranges::accumulate(
            ranges::view::zip_with(

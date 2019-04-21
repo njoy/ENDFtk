@@ -10,7 +10,7 @@ CoherentElastic( TabulationRecord&& principal,
   principal_( std::move( principal ) ),
   temperatures_( std::move( temperatures ) ) {
 
-  verifyLT( this->LT(), this->NT() );
+  verifyTemperatures( this->NP(), this->temperatures_ );
 }
 
 public:

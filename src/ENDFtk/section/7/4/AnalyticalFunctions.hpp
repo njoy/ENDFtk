@@ -27,3 +27,4 @@ public:
   template< typename OutputIterator >
   void print( OutputIterator&, int, int, int ) const { return; }
 };
+

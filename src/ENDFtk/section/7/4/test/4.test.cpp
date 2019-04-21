@@ -10,12 +10,15 @@ using ScatteringLaw = section::Type< 7, 4 >::ScatteringLaw;
 using ScatteringLawConstants = section::Type< 7, 4 >::ScatteringLawConstants;
 using AnalyticalFunctions = section::Type< 7, 4 >::AnalyticalFunctions;
 using Tabulated = section::Type< 7, 4 >::Tabulated;
-using BetaValue = section::Type< 7, 4 >::Tabulated::BetaValue;
+using ScatteringFunction = section::Type< 7, 4 >::Tabulated::ScatteringFunction;
 using EffectiveTemperature = section::Type< 7, 4 >::EffectiveTemperature;
 
 // macros don't like multiple template arguments
 using section74 = section::Type< 7, 4 >;
 
+std::string chunkWithAnalyticalFunctions();
+void verifyChunkWithAnalyticalFunctions(
+       const section::Type< 7, 4 >& );
 std::string chunkWithOneTemperatureAndOneScatterer();
 void verifyChunkWithOneTemperatureAndOneScatterer(
        const section::Type< 7, 4 >& );
@@ -38,6 +41,9 @@ SCENARIO( "section::Type< 7, 4 >" ) {
   GIVEN( "valid data for a section::Type< 7, 4 > with one temperature and "
          "no secondary scatterers" ) {
 
+    std::string sectionString = chunkWithOneTemperatureAndOneScatterer() + 
+                                validSEND();
+
     WHEN( "the data is given explicitly" ) {
 
       double za = 127.;
@@ -48,12 +54,14 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                         6.153875e+0, 8.934780e+0, 1 );
       ScatteringLaw law(
           Tabulated( { 2 }, { 4 },
-                     { BetaValue( 293.6, 0.0, { 5 }, { 4 },
+                     { ScatteringFunction(
+                                  293.6, 0.0, { 5 }, { 4 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3, 
                                     8.418068e+1, 8.847604e+1 },
                                   { 2.386876e-4, 2.508466e-4, 2.636238e-4,
                                       1.306574e-9, 5.29573e-10 } ),
-                       BetaValue( 293.6, 3.952570e-2, { 5 }, { 2 },
+                       ScatteringFunction(
+                                  293.6, 3.952570e-2, { 5 }, { 2 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3,
                                     8.418068e+1, 8.847604e+1 },
                                   { 2.386694e-4, 2.508273e-4, 2.636238e-4,
@@ -63,38 +71,54 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                       { 5.332083e+2, 7.354726e+2,
                                         1.270678e+3 } );
 
+      section::Type< 7, 4 > chunk( za, awr, lat, lasym,
+                                   std::move( constants ),
+                                   std::move( law ),
+                                   std::move( principal ) );
+
       THEN( "a section::Type< 7, 4 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 7, 4 > chunk( za, awr, lat, lasym,
-                                     std::move( constants ),
-                                     std::move( law ),
-                                     std::move( principal ) );
         verifyChunkWithOneTemperatureAndOneScatterer( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 27, 7 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream with a valid SEND" ) {
 
-      std::string sectionString = chunkWithOneTemperatureAndOneScatterer() + 
-                                  validSEND();
       auto begin = sectionString.begin();
       auto end = sectionString.end();
       long lineNumber = 1; 
       HeadRecord head( begin, end, lineNumber );
+
+      section::Type< 7, 4 > chunk( head, begin, end, lineNumber, 27 );
       
       THEN( "a section::Type< 7, 4 > can be constructed and members can be "
           "tested" ) {
 
-        section::Type< 7, 4 > chunk( head, begin, end, lineNumber, 27 );
         verifyChunkWithOneTemperatureAndOneScatterer( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 27, 7 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
 
     WHEN( "there is a syntaxTree::Section" ) {
         
-      std::string sectionString = chunkWithOneTemperatureAndOneScatterer() + 
-                                  validSEND();
       auto begin = sectionString.begin();
       auto position = begin;
       auto end = sectionString.end();
@@ -103,17 +127,30 @@ SCENARIO( "section::Type< 7, 4 >" ) {
       syntaxTree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
       
+      section::Type< 7, 4 > chunk = section.parse< 7, 4 >( lineNumber );
+
       THEN( "a section::Type< 7, 4 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 7, 4 > chunk = section.parse< 7, 4 >( lineNumber );
         verifyChunkWithOneTemperatureAndOneScatterer( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 27, 7 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
   } // GIVEN
 
   GIVEN( "valid data for a section::Type< 7, 4 > with two temperatures and "
          "no secondary scatterers" ) {
+
+    std::string sectionString = chunkWithTwoTemperaturesAndOneScatterer() + 
+                                validSEND();
 
     WHEN( "the data is given explicitly" ) {
 
@@ -125,7 +162,8 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                         6.153875e+0, 8.934780e+0, 1 );
       ScatteringLaw law =
           Tabulated( { 2 }, { 4 },
-                     { BetaValue( 0.0, { 5 }, { 4 },
+                     { ScatteringFunction(
+                                  0.0, { 5 }, { 4 },
                                   { 293.6, 400 },
                                   { 4 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3, 
@@ -134,7 +172,8 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                       1.306574e-9, 5.29573e-10 },
                                     { 4.430020e-4, 4.655671e-4, 4.892796e-4,
                                       4.510209e-8, 2.183942e-8 } } ),
-                       BetaValue( 3.952570e-2, { 5 }, { 2 },
+                       ScatteringFunction(
+                                  3.952570e-2, { 5 }, { 2 },
                                   { 293.6, 400 },
                                   { 4 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3,
@@ -148,38 +187,54 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                       { 5.332083e+2, 7.354726e+2,
                                         1.270678e+3 } );
 
+      section::Type< 7, 4 > chunk( za, awr, lat, lasym,
+                                  std::move( constants ),
+                                   std::move( law ),
+                                   std::move( principal ) );
+
       THEN( "a section::Type< 7, 4 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 7, 4 > chunk( za, awr, lat, lasym,
-                                     std::move( constants ),
-                                     std::move( law ),
-                                     std::move( principal ) );
         verifyChunkWithTwoTemperaturesAndOneScatterer( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 27, 7 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
     
     WHEN( "the data is read from a string/stream with a valid SEND" ) {
 
-      std::string sectionString = chunkWithTwoTemperaturesAndOneScatterer() + 
-                                  validSEND();
       auto begin = sectionString.begin();
       auto end = sectionString.end();
       long lineNumber = 1; 
       HeadRecord head( begin, end, lineNumber );
+
+      section::Type< 7, 4 > chunk( head, begin, end, lineNumber, 27 );
       
       THEN( "a section::Type< 7, 4 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 7, 4 > chunk( head, begin, end, lineNumber, 27 );
         verifyChunkWithTwoTemperaturesAndOneScatterer( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 27, 7 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
 
     WHEN( "there is a syntaxTree::Section" ) {
 
-      std::string sectionString = chunkWithTwoTemperaturesAndOneScatterer() + 
-                                  validSEND();
       auto begin = sectionString.begin();
       auto position = begin;
       auto end = sectionString.end();
@@ -188,17 +243,30 @@ SCENARIO( "section::Type< 7, 4 >" ) {
       syntaxTree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
 
+      section::Type< 7, 4 > chunk = section.parse< 7, 4 >( lineNumber );
+
       THEN( "a section::Type< 7, 4 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 7, 4 > chunk = section.parse< 7, 4 >( lineNumber );
         verifyChunkWithTwoTemperaturesAndOneScatterer( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 27, 7 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
   } // GIVEN
 
   GIVEN( "valid data for a section::Type< 7, 4 > with two temperatures and "
          "one secondary scatterer with a secondary temperature" ) {
+
+    std::string sectionString = chunkWithTwoTemperaturesAndTwoScatterers() + 
+                                validSEND();
 
     WHEN( "the data is given explicitly" ) {
 
@@ -213,7 +281,8 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
       ScatteringLaw law =
           Tabulated( { 2 }, { 4 },
-                     { BetaValue( 0.0, { 5 }, { 4 },
+                     { ScatteringFunction(
+                                  0.0, { 5 }, { 4 },
                                   { 293.6, 400 },
                                   { 4 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3, 
@@ -222,7 +291,8 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                       1.306574e-9, 5.29573e-10 },
                                     { 4.430020e-4, 4.655671e-4, 4.892796e-4,
                                       4.510209e-8, 2.183942e-8 } } ),
-                       BetaValue( 3.952570e-2, { 5 }, { 2 },
+                       ScatteringFunction(
+                                  3.952570e-2, { 5 }, { 2 },
                                   { 293.6, 400 },
                                   { 4 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3,
@@ -239,40 +309,56 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                       { 293.6, 1200. }, 
                                       { 300.0, 1250. } );
 
+      section::Type< 7, 4 >
+      chunk( za, awr, lat, lasym,
+             std::move( constants ),
+             std::move( law ),
+             std::move( principal ),
+             { std::optional< EffectiveTemperature >( secondary ) } );
+
       THEN( "a section::Type< 7, 4 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 7, 4 >
-        chunk( za, awr, lat, lasym,
-               std::move( constants ),
-               std::move( law ),
-               std::move( principal ),
-               { std::optional< EffectiveTemperature >( secondary ) } );
         verifyChunkWithTwoTemperaturesAndTwoScatterers( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 27, 7 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
     
     WHEN( "the data is read from a string/stream with a valid SEND" ) {
 
-      std::string sectionString = chunkWithTwoTemperaturesAndTwoScatterers() + 
-                                  validSEND();
       auto begin = sectionString.begin();
       auto end = sectionString.end();
       long lineNumber = 1; 
       HeadRecord head( begin, end, lineNumber );
+
+      section::Type< 7, 4 > chunk( head, begin, end, lineNumber, 27 );
       
       THEN( "a section::Type< 7, 4 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 7, 4 > chunk( head, begin, end, lineNumber, 27 );
         verifyChunkWithTwoTemperaturesAndTwoScatterers( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 27, 7 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
 
     WHEN( "there is a syntaxTree::Section" ) {
 
-      std::string sectionString = chunkWithTwoTemperaturesAndTwoScatterers() + 
-                                  validSEND();
       auto begin = sectionString.begin();
       auto position = begin;
       auto end = sectionString.end();
@@ -281,17 +367,31 @@ SCENARIO( "section::Type< 7, 4 >" ) {
       syntaxTree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
 
+      section::Type< 7, 4 > chunk = section.parse< 7, 4 >( lineNumber );
+
       THEN( "a section::Type< 7, 4 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 7, 4 > chunk = section.parse< 7, 4 >( lineNumber );
         verifyChunkWithTwoTemperaturesAndTwoScatterers( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 27, 7 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
   } // GIVEN
 
   GIVEN( "valid data for a section::Type< 7, 4 > with two temperatures and "
          "one secondary scatterer without a secondary temperature" ) {
+
+    std::string sectionString = 
+            chunkWithTwoTemperaturesTwoScatterersAndNoSecondaryTemperature() + 
+            validSEND();
 
     WHEN( "the data is given explicitly" ) {
 
@@ -306,7 +406,8 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
       ScatteringLaw law =
           Tabulated( { 2 }, { 4 },
-                     { BetaValue( 0.0, { 5 }, { 4 },
+                     { ScatteringFunction(
+                                  0.0, { 5 }, { 4 },
                                   { 293.6, 400 },
                                   { 4 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3, 
@@ -315,7 +416,8 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                       1.306574e-9, 5.29573e-10 },
                                     { 4.430020e-4, 4.655671e-4, 4.892796e-4,
                                       4.510209e-8, 2.183942e-8 } } ),
-                       BetaValue( 3.952570e-2, { 5 }, { 2 },
+                       ScatteringFunction(
+                                  3.952570e-2, { 5 }, { 2 },
                                   { 293.6, 400 },
                                   { 4 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3,
@@ -331,44 +433,58 @@ SCENARIO( "section::Type< 7, 4 >" ) {
       std::vector< std::optional< EffectiveTemperature > > secondary = 
               { std::nullopt };
 
+      section::Type< 7, 4 >
+      chunk( za, awr, lat, lasym,
+             std::move( constants ),
+             std::move( law ),
+             std::move( principal ),
+             secondary );
+
       THEN( "a section::Type< 7, 4 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 7, 4 >
-        chunk( za, awr, lat, lasym,
-               std::move( constants ),
-               std::move( law ),
-               std::move( principal ),
-               secondary );
         verifyChunkWithTwoTemperaturesTwoScatterersAndNoSecondaryTemperature(
                chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 27, 7 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
     
     WHEN( "the data is read from a string/stream with a valid SEND" ) {
 
-      std::string sectionString = 
-              chunkWithTwoTemperaturesTwoScatterersAndNoSecondaryTemperature() + 
-              validSEND();
       auto begin = sectionString.begin();
       auto end = sectionString.end();
       long lineNumber = 1; 
       HeadRecord head( begin, end, lineNumber );
+
+      section::Type< 7, 4 > chunk( head, begin, end, lineNumber, 27 );
       
       THEN( "a section::Type< 7, 4 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 7, 4 > chunk( head, begin, end, lineNumber, 27 );
         verifyChunkWithTwoTemperaturesTwoScatterersAndNoSecondaryTemperature(
                chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 27, 7 );
+
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
 
     WHEN( "there is a syntaxTree::Section" ) {
 
-      std::string sectionString =
-              chunkWithTwoTemperaturesTwoScatterersAndNoSecondaryTemperature() + 
-              validSEND();
       auto begin = sectionString.begin();
       auto position = begin;
       auto end = sectionString.end();
@@ -377,95 +493,24 @@ SCENARIO( "section::Type< 7, 4 >" ) {
       syntaxTree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
 
+      section::Type< 7, 4 > chunk = section.parse< 7, 4 >( lineNumber );
+
       THEN( "a section::Type< 7, 4 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 7, 4 > chunk = section.parse< 7, 4 >( lineNumber );
         verifyChunkWithTwoTemperaturesTwoScatterersAndNoSecondaryTemperature(
                chunk );
       } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 27, 7 );
+
+        REQUIRE( buffer == sectionString );
+      } // THEN
     } // WHEN
-  } // GIVEN
-
-  GIVEN( "a valid section::Type< 7, 4 > with one temperature and no secondary "
-         "scatterers" ) {
-
-    std::string string = chunkWithOneTemperatureAndOneScatterer() + 
-                         validSEND();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1; 
-    HeadRecord head( begin, end, lineNumber );
-    section::Type< 7, 4 > section( head, begin, end, lineNumber, 27 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      section.print( output, 27, 7 );
-      REQUIRE( buffer == string );
-    }
-  } // GIVEN
-
-  GIVEN( "a valid section::Type< 7, 4 > with two temperatures and no secondary "
-         "scatterers" ) {
-
-    std::string string = chunkWithTwoTemperaturesAndOneScatterer() + 
-                         validSEND();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1; 
-    HeadRecord head( begin, end, lineNumber );
-    section::Type< 7, 4 > section( head, begin, end, lineNumber, 27 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      section.print( output, 27, 7 );
-      REQUIRE( buffer == string );
-    }
-  } // GIVEN
-
-  GIVEN( "a valid section::Type< 7, 4 > with two temperatures and one "
-         "secondary scatterer with a secondary temperature" ) {
-
-    std::string string = chunkWithTwoTemperaturesAndOneScatterer() + 
-                         validSEND();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1; 
-    HeadRecord head( begin, end, lineNumber );
-    section::Type< 7, 4 > section( head, begin, end, lineNumber, 27 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      section.print( output, 27, 7 );
-      REQUIRE( buffer == string );
-    }
-  } // GIVEN
-
-  GIVEN( "a valid section::Type< 7, 4 > with two temperatures and one "
-         "secondary scatterer without a secondary temperature" ) {
-
-    std::string string =
-            chunkWithTwoTemperaturesTwoScatterersAndNoSecondaryTemperature() + 
-            validSEND();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1; 
-    HeadRecord head( begin, end, lineNumber );
-    section::Type< 7, 4 > section( head, begin, end, lineNumber, 27 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      section.print( output, 27, 7 );
-      REQUIRE( buffer == string );
-    }
   } // GIVEN
 
   GIVEN( "invalid data for a section::Type< 7, 4 >" ) {
@@ -485,12 +530,14 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                             6.153875e+0, 8.934780e+0, 1 );
           ScatteringLaw law(
               Tabulated( { 2 }, { 4 },
-                         { BetaValue( 293.6, 0.0, { 5 }, { 4 },
+                         { ScatteringFunction(
+                                      293.6, 0.0, { 5 }, { 4 },
                                       { 4.423802e-3, 4.649528e-3, 4.886772e-3, 
                                         8.418068e+1, 8.847604e+1 },
                                       { 2.386876e-4, 2.508466e-4, 2.636238e-4,
                                           1.306574e-9, 5.29573e-10 } ),
-                           BetaValue( 293.6, 3.952570e-2, { 5 }, { 2 },
+                           ScatteringFunction(
+                                      293.6, 3.952570e-2, { 5 }, { 2 },
                                       { 4.423802e-3, 4.649528e-3, 4.886772e-3,
                                         8.418068e+1, 8.847604e+1 },
                                       { 2.386694e-4, 2.508273e-4, 2.636238e-4,
@@ -523,12 +570,14 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                             6.153875e+0, 8.934780e+0, 1 );
           ScatteringLaw law(
               Tabulated( { 2 }, { 4 },
-                         { BetaValue( 293.6, 0.0, { 5 }, { 4 },
+                         { ScatteringFunction(
+                                      293.6, 0.0, { 5 }, { 4 },
                                       { 4.423802e-3, 4.649528e-3, 4.886772e-3, 
                                         8.418068e+1, 8.847604e+1 },
                                       { 2.386876e-4, 2.508466e-4, 2.636238e-4,
                                           1.306574e-9, 5.29573e-10 } ),
-                           BetaValue( 293.6, 3.952570e-2, { 5 }, { 2 },
+                           ScatteringFunction(
+                                      293.6, 3.952570e-2, { 5 }, { 2 },
                                       { 4.423802e-3, 4.649528e-3, 4.886772e-3,
                                         8.418068e+1, 8.847604e+1 },
                                       { 2.386694e-4, 2.508273e-4, 2.636238e-4,
@@ -560,12 +609,14 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
       ScatteringLaw law(
           Tabulated( { 2 }, { 4 },
-                     { BetaValue( 293.6, 0.0, { 5 }, { 4 },
+                     { ScatteringFunction(
+                                  293.6, 0.0, { 5 }, { 4 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3, 
                                     8.418068e+1, 8.847604e+1 },
                                   { 2.386876e-4, 2.508466e-4, 2.636238e-4,
                                       1.306574e-9, 5.29573e-10 } ),
-                       BetaValue( 293.6, 3.952570e-2, { 5 }, { 2 },
+                       ScatteringFunction(
+                                  293.6, 3.952570e-2, { 5 }, { 2 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3,
                                     8.418068e+1, 8.847604e+1 },
                                   { 2.386694e-4, 2.508273e-4, 2.636238e-4,
@@ -598,12 +649,12 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
       ScatteringLaw law(
           Tabulated( { 2 }, { 4 },
-                     { BetaValue( 293.6, 0.0, { 5 }, { 4 },
+                     { ScatteringFunction( 293.6, 0.0, { 5 }, { 4 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3, 
                                     8.418068e+1, 8.847604e+1 },
                                   { 2.386876e-4, 2.508466e-4, 2.636238e-4,
                                       1.306574e-9, 5.29573e-10 } ),
-                       BetaValue( 293.6, 3.952570e-2, { 5 }, { 2 },
+                       ScatteringFunction( 293.6, 3.952570e-2, { 5 }, { 2 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3,
                                     8.418068e+1, 8.847604e+1 },
                                   { 2.386694e-4, 2.508273e-4, 2.636238e-4,
@@ -640,12 +691,12 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
       ScatteringLaw law(
           Tabulated( { 2 }, { 4 },
-                     { BetaValue( 293.6, 0.0, { 5 }, { 4 },
+                     { ScatteringFunction( 293.6, 0.0, { 5 }, { 4 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3, 
                                     8.418068e+1, 8.847604e+1 },
                                   { 2.386876e-4, 2.508466e-4, 2.636238e-4,
                                       1.306574e-9, 5.29573e-10 } ),
-                       BetaValue( 293.6, 3.952570e-2, { 5 }, { 2 },
+                       ScatteringFunction( 293.6, 3.952570e-2, { 5 }, { 2 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3,
                                     8.418068e+1, 8.847604e+1 },
                                   { 2.386694e-4, 2.508273e-4, 2.636238e-4,
@@ -753,6 +804,70 @@ SCENARIO( "section::Type< 7, 4 >" ) {
     } // WHEN
   } // GIVEN
 } // SCENARIO
+
+std::string chunkWithAnalyticalFunctions() {
+  return
+    " 1.270000+2 8.934780+0          0          1          0          0  27 7  4     \n"
+    " 0.000000+0 0.000000+0          0          0          6          0  27 7  4     \n"
+    " 0.000000+0 1.976285+2 8.934780+0 5.000001+0 0.000000+0 1.000000+0  27 7  4     \n"
+    " 0.000000+0 0.000000+0          0          0          1          3  27 7  4     \n"
+    "          3          2                                              27 7  4     \n"
+    " 2.936000+2 5.332083+2 6.000000+2 7.354726+2 1.200000+3 1.270678+3  27 7  4     \n";
+}
+
+void verifyChunkWithAnalyticalFunctions(
+       const section::Type< 7, 4 >& chunk ) {
+
+  REQUIRE( 127. == Approx( chunk.ZA() ) );
+  REQUIRE( 8.934780e+0 == Approx( chunk.AWR() ) );
+  REQUIRE( 1 == chunk.LAT() );
+  REQUIRE( 1 == chunk.temperatureOption() );
+  REQUIRE( 0 == chunk.LASYM() );
+  REQUIRE( 0 == chunk.symmetryOption() );
+
+  auto barray = chunk.constants();
+  REQUIRE( 0 == barray.LLN() );
+  REQUIRE( 0 == barray.sabStorageType() );
+  REQUIRE( 6 == barray.NI() );
+  REQUIRE( 6 == barray.numberConstants() );
+  REQUIRE( 0 == barray.NS() );
+  REQUIRE( 0 == barray.numberNonPrincipalScatterers() );
+
+  REQUIRE( 1.976285e+2 == Approx( barray.epsilon() ) );
+  REQUIRE( 5.000001e+0 == Approx( barray.upperEnergyLimit() ) );
+  REQUIRE( 1 == barray.totalFreeCrossSections().size() );
+  REQUIRE( 0.000000+0 == Approx( barray.totalFreeCrossSections()[0] ) );
+  REQUIRE( 1 == barray.atomicWeightRatios().size() );
+  REQUIRE( 8.934780e+0 == Approx( barray.atomicWeightRatios()[0] ) );
+  REQUIRE( 1 == barray.numberAtoms().size() );
+  REQUIRE( 1. == Approx( barray.numberAtoms()[0] ) );
+  REQUIRE( 0 == barray.analyticalFunctionTypes().size() );
+
+  auto table = std::experimental::get< AnalyticalFunctions >( chunk.scatteringLaw() );
+  REQUIRE( 0 == table.NC() );
+
+  auto temp = chunk.principalEffectiveTemperature();
+  REQUIRE( 3 == temp.NT() );
+  REQUIRE( 3 == temp.numberTemperatures() );
+  REQUIRE( 1 == temp.NR() );
+  REQUIRE( 1 == temp.interpolants().size() );
+  REQUIRE( 1 == temp.boundaries().size() );
+  REQUIRE( 2 == temp.interpolants()[0] );
+  REQUIRE( 3 == temp.boundaries()[0] );
+  REQUIRE( 3 == temp.moderatorTemperatures().size() );
+  REQUIRE( 3 == temp.effectiveTemperatures().size() );
+  REQUIRE( 293.6 == Approx( temp.moderatorTemperatures()[0] ) );
+  REQUIRE( 600. == Approx( temp.moderatorTemperatures()[1] ) );
+  REQUIRE( 1200. == Approx( temp.moderatorTemperatures()[2] ) );
+  REQUIRE( 5.332083e+2 == Approx( temp.effectiveTemperatures()[0] ) );
+  REQUIRE( 7.354726e+2 == Approx( temp.effectiveTemperatures()[1] ) );
+  REQUIRE( 1.270678e+3 == Approx( temp.effectiveTemperatures()[2] ) );
+
+  // no secondary scatterer => 0 secondary temperature
+  REQUIRE( 0 == chunk.secondaryEffectiveTemperatures().size() );
+
+  REQUIRE( 3 == chunk.NC() );
+}
 
 std::string chunkWithOneTemperatureAndOneScatterer() {
   return

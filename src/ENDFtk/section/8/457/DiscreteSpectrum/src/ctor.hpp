@@ -10,7 +10,7 @@ private:
 DiscreteSpectrum( ListRecord&& list ) :
   ListRecord( std::move( list ) ) {
 
-    verifyNT( this->NT() );
+  verifyNT( this->NT() );
 }
 
 public:
@@ -25,16 +25,12 @@ public:
 DiscreteSpectrum( double decayChain,
                   const std::array< double, 2 >& discreteEnergy,
                   const std::array< double, 2 >& relativeIntensity,
-                  double type )
-  try : DiscreteSpectrum(
-            ListRecord( discreteEnergy[0], discreteEnergy[1], 0, 0, 0,
-                        generateList( decayChain, type,
-                                      relativeIntensity ) ) ) {}
-  catch ( std::exception& e ) {
-
-    Log::info( "Encountered error while constructing discrete spectrum data" );
-    throw;
-  }
+                  double type ) :
+  // this can never fail, try-catch would be unreachable
+  DiscreteSpectrum(
+        ListRecord( discreteEnergy[0], discreteEnergy[1], 0, 0, 0,
+                    generateList( decayChain, type,
+                                  relativeIntensity ) ) ) {}
 
 /** 
  *  @brief Constructor
@@ -50,17 +46,13 @@ DiscreteSpectrum( double decayChain,
                   const std::array< double, 2 >& discreteEnergy,
                   const std::array< double, 2 >& relativeIntensity,
                   double type,
-                  const std::array< double, 2 >& ris )
-  try : DiscreteSpectrum(
-            ListRecord( discreteEnergy[0], discreteEnergy[1], 0, 0, 0,
-                        generateList( decayChain, type,
-                                      relativeIntensity,
-                                      ris ) ) ) {}
-  catch ( std::exception& e ) {
-
-    Log::info( "Encountered error while constructing discrete spectrum data" );
-    throw;
-  }
+                  const std::array< double, 2 >& ris ) :
+  // this can never fail, try-catch would be unreachable
+  DiscreteSpectrum(
+        ListRecord( discreteEnergy[0], discreteEnergy[1], 0, 0, 0,
+                    generateList( decayChain, type,
+                                  relativeIntensity,
+                                  ris ) ) ) {}
 
 /** 
  *  @brief Constructor
@@ -82,17 +74,13 @@ DiscreteSpectrum( double decayChain,
                   const std::array< double, 2 >& ris,
                   const std::array< double, 2 >& ricc,
                   const std::array< double, 2 >& rick,
-                  const std::array< double, 2 >& ricl )
-  try : DiscreteSpectrum(
-            ListRecord( discreteEnergy[0], discreteEnergy[1], 0, 0, 0,
-                        generateList( decayChain, type,
-                                      relativeIntensity,
-                                      ris, ricc, rick, ricl ) ) ) {}
-  catch ( std::exception& e ) {
-
-    Log::info( "Encountered error while constructing discrete spectrum data" );
-    throw;
-  }
+                  const std::array< double, 2 >& ricl ) :
+  // this can never fail, try-catch would be unreachable
+  DiscreteSpectrum(
+        ListRecord( discreteEnergy[0], discreteEnergy[1], 0, 0, 0,
+                    generateList( decayChain, type,
+                                  relativeIntensity,
+                                  ris, ricc, rick, ricl ) ) ) {}
 
 /** 
  *  @brief Constructor (from a buffer)

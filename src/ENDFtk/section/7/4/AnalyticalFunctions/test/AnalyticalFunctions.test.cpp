@@ -27,6 +27,7 @@ SCENARIO( "AnalyticalFunctions" ) {
     AnalyticalFunctions chunk;
 
     THEN( "it does not print anything" ) {
+
       std::string buffer;
       auto output = std::back_inserter( buffer );
       chunk.print( output, 27, 7, 4 );

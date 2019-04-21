@@ -35,12 +35,12 @@ public:
   double boundCrossSection() const { return this->SB(); }
 
   /**
-   *  @brief Return the Debye-Waller integral divided by the atomic mass (eV?1)
+   *  @brief Return the temperature values
    */
   auto temperatures() const { return TabulationRecord::x(); }
 
   /**
-   *  @brief Return the temperature values
+   *  @brief Return the Debye-Waller integral divided by the atomic mass (eV?1)
    */
   auto debyeWallerValues() const { return TabulationRecord::y(); }
 
@@ -51,4 +51,9 @@ public:
   using TabulationRecord::boundaries;
   using TabulationRecord::NC;
   using TabulationRecord::print;
+
+  /**
+   *  @brief Return the number of temperature values
+   */
+  auto numberTemperatures() const { return this->NP(); }
 };

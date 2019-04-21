@@ -49,16 +49,11 @@ ScatteringLawConstants( int lln, int ns,
  */
 ScatteringLawConstants( int lln, double epsilon, double emax,
                         double xs, double awr, 
-                        unsigned int natoms )
-  try : ScatteringLawConstants(
-            ListRecord( 0.0, 0.0, lln, 0, 0,
-                        { xs, epsilon, awr, emax, 0.0, double( natoms ) } ) ) {}
-  catch ( std::exception& e ) {
-
-    Log::info( "Encountered error while constructing thermal scattering "
-               "constants" );
-    throw;
-  }
+                        unsigned int natoms ) :
+  // this can never fail, try-catch would be unreachable
+  ScatteringLawConstants(
+        ListRecord( 0.0, 0.0, lln, 0, 0,
+                    { xs, epsilon, awr, emax, 0.0, double( natoms ) } ) ) {}
 
 /** 
  *  @brief Constructor

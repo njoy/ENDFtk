@@ -4,7 +4,7 @@ Type( Map&& map ) : sectionMap( std::move(map) ){}
 public:
 template< int sectionNo, typename... Args >
 Type( section::Type< 7, sectionNo >&& section_, Args&&... args ) :
-  Type( fill( std::move( section_ ), std::forward< Args >( args )... ) ){}
+  Type( fill( std::move( section_ ), std::forward< Args >( args )... ) ) {}
 
 template< typename BufferIterator >
 Type( StructureDivision& structureDivision,
@@ -12,10 +12,10 @@ Type( StructureDivision& structureDivision,
       const BufferIterator& end,
       long& lineNumber )
 try:
-  Type( this->read( decltype(sections){},
+  Type( this->read( sections(),
                     structureDivision, begin, end, lineNumber,
-                    structureDivision.tail.MAT() ) ){
-      if ( not structureDivision.isFend() ){
+                    structureDivision.tail.MAT() ) ) {
+      if ( not structureDivision.isFend() ) {
         if ( structureDivision.isHead() ){
           Log::error("Inappropriate section encountered in File 7");
           Log::info("Section number: {}", structureDivision.tail.MT() );

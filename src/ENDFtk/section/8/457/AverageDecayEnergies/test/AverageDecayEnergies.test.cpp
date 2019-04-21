@@ -18,6 +18,8 @@ SCENARIO( "AverageDecayEnergies" ) {
 
   GIVEN( "valid data for an AverageDecayEnergies for an unstable nuclide" ) {
 
+    std::string string = chunk();
+
     WHEN( "the data is given explicitly" ) {
 
       std::array< double, 2 > halfLife = {{ 4.449622e+9, 6.311520e+7 }};
@@ -26,90 +28,96 @@ SCENARIO( "AverageDecayEnergies" ) {
         {{ 5.373671e+3, 3.660206e+2 }},
         {{ 2.441003e+4, 6.191754e+2 }} };
 
+      AverageDecayEnergies chunk( halfLife, std::move( decayEnergies ) );
+
       THEN( "an AverageDecayEnergies can be constructed and members can be "
             "tested" ) {
 
-        AverageDecayEnergies chunk( halfLife, std::move( decayEnergies ) );
         verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8, 457 );
+
+        REQUIRE( buffer == string );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream" ) {
 
-      std::string string = chunk();
       auto begin = string.begin();
       auto end = string.end();
       long lineNumber = 1;
 
+      AverageDecayEnergies chunk( begin, end, lineNumber, 3580, 8, 457 );
+
       THEN( "an AverageDecayEnergies can be constructed and members can be "
             "tested" ) {
 
-        AverageDecayEnergies chunk( begin, end, lineNumber, 3580, 8, 457 );
         verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8, 457 );
+
+        REQUIRE( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
 
   GIVEN( "valid data for an AverageDecayEnergies for a stable nuclide" ) {
 
+    std::string string = chunkForStableNuclide();
+
     WHEN( "the data is given explicitly" ) {
+
+      AverageDecayEnergies chunk;
 
       THEN( "an AverageDecayEnergies can be constructed and members can be "
             "tested for a stable nuclide" ) {
 
-        AverageDecayEnergies chunk;
         verifyChunkForStableNuclide( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8, 457 );
+
+        REQUIRE( buffer == string );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream" ) {
 
-      std::string string = chunkForStableNuclide();
       auto begin = string.begin();
       auto end = string.end();
       long lineNumber = 1;
 
+      AverageDecayEnergies chunk( begin, end, lineNumber, 3580, 8, 457 );
+
       THEN( "an AverageDecayEnergies can be constructed and members can be "
             "tested" ) {
 
-        AverageDecayEnergies chunk( begin, end, lineNumber, 3580, 8, 457 );
         verifyChunkForStableNuclide( chunk );
       } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8, 457 );
+
+        REQUIRE( buffer == string );
+      } // THEN
     } // WHEN
-  } // GIVEN
-
-  GIVEN( "a valid instance of AverageDecayEnergies" ) {
-
-    std::string string = chunk();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-    AverageDecayEnergies chunk(begin, end, lineNumber, 3580, 8, 457 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 3580, 8, 457 );
-      REQUIRE( buffer == string );
-    } // THEN
-  } // GIVEN
-
-  GIVEN( "a valid instance of AverageDecayEnergies for a stable nuclide" ) {
-
-    std::string string = chunkForStableNuclide();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-    AverageDecayEnergies chunk(begin, end, lineNumber, 3580, 8, 457 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 3580, 8, 457 );
-      REQUIRE( buffer == string );
-    } // THEN
   } // GIVEN
 
   GIVEN( "invalid data for an AverageDecayEnergies" ) {

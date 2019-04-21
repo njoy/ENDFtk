@@ -11,9 +11,7 @@
 template< typename OutputIterator >
 void print( OutputIterator& it, int MAT, int MF, int MT ) const {
   this->data_.print( it, MAT, MF, MT );
-  if ( this->discrete_ ) { 
-    for ( const auto& entry : *this->discrete_ ) entry.print( it, MAT, MF, MT );
-  }
+  for ( const auto& entry : this->discrete_ ) entry.print( it, MAT, MF, MT );
   if ( this->continuous_ ) this->continuous_->print( it, MAT, MF, MT );
 } 
 

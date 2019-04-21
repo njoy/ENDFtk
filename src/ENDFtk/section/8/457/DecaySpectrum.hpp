@@ -10,11 +10,12 @@
 class DecaySpectrum {
 
   ListRecord data_;
-  std::optional< std::vector< DiscreteSpectrum > > discrete_;
+  std::vector< DiscreteSpectrum > discrete_;
   std::optional< ContinuousSpectrum > continuous_;
 
   /* auxiliary functions */
   #include "ENDFtk/section/8/457/DecaySpectrum/src/verifyLCOV.hpp"
+  #include "ENDFtk/section/8/457/DecaySpectrum/src/verifyDiscreteSize.hpp"
   #include "ENDFtk/section/8/457/DecaySpectrum/src/readDiscrete.hpp"
   #include "ENDFtk/section/8/457/DecaySpectrum/src/readContinuous.hpp"
 
@@ -56,6 +57,16 @@ public:
    *  @brief Return the value of LCOV, the covariance data flag
    */
   int covarianceFlag() const { return this->LCOV(); }
+
+  /**
+   *  @brief Return the number of discrete decay spectra
+   */
+  int NER() const { return this->data_.N2(); }
+
+  /**
+   *  @brief Return the number of discrete decay spectra
+   */
+  int numberDiscreteSpectra() const { return this->NER(); }
 
   /**
    *  @brief Return the discrete normalisation factor and its uncertainty
@@ -102,9 +113,9 @@ public:
   /**
    *  @brief Return the discrete spectra, if any are defined
    */
-  const auto& discreteSpectra() const {
+  auto discreteSpectra() const {
 
-    return this->discrete_ ;
+    return ranges::view::all( this->discrete_ );
   }
 
   /**

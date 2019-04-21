@@ -53,22 +53,20 @@ public:
   long N2() const { return this->boundaryIndices.back(); }
 
   auto interpolants() const {
-    return ranges::make_iterator_range( this->interpolationSchemeIndices.begin(),
-                                        this->interpolationSchemeIndices.end() );
+    return ranges::view::all( this->interpolationSchemeIndices );
   }
 
   auto boundaries() const {
-    return ranges::make_iterator_range( this->boundaryIndices.begin(),
-                                        this->boundaryIndices.end() );
+    return ranges::view::all( this->boundaryIndices );
   }
 
   bool operator==( const InterpolationBase& rhs ) const {
     return ( this->C1() == rhs.C1() )
-      && ( this->C2() == rhs.C2() )
-      && ( this->L1() == rhs.L1() )
-      && ( this->L2() == rhs.L2() )
-      && ( this->boundaryIndices == rhs.boundaryIndices )
-      && ( this->interpolationSchemeIndices == rhs.interpolationSchemeIndices );
+     and ( this->C2() == rhs.C2() )
+     and ( this->L1() == rhs.L1() )
+     and ( this->L2() == rhs.L2() )
+     and ( this->boundaryIndices == rhs.boundaryIndices )
+     and ( this->interpolationSchemeIndices == rhs.interpolationSchemeIndices );
   }
 
   bool operator!=( const InterpolationBase& rhs ) const {

@@ -1,9 +1,15 @@
 template<>
-class Type< 1 > {
-protected:
-  /* MF1 has a limited number of possible sections */
-  static constexpr auto optionalSections =
-    hana::make_tuple( 452_c, 455_c, 456_c, 458_c, 460_c );
+class Type< 1 > : public Base< Type< 1 > >,
+                  public SpecialBase< Type< 1 > > {
+
+  friend SpecialBase< Type< 1 > >;
+
+  /* MF1 has a limited number of possible sections, MT451 is required */
+  static constexpr auto optionalSections() {
+
+    // return hana::make_tuple( 452_c, 455_c, 456_c, 458_c, 460_c );
+    return hana::make_tuple();
+  }
 
   /* convenience typedefs */
   using Map =
@@ -28,43 +34,31 @@ protected:
   Map sectionMap;
 
   /* static functions */
-  #include "ENDFtk/file/1/src/get.hpp"
   #include "ENDFtk/file/1/src/read.hpp"
-  // #include "ENDFtk/file/1/src/fill.hpp"
+  #include "ENDFtk/file/1/src/fill.hpp"
 
-public:
+public :
+
   #include "ENDFtk/file/1/src/ctor.hpp"
-  #include "ENDFtk/file/1/src/sectionNumber.hpp"
-
-  template< typename Index >
-  decltype(auto) MT( Index sectionNo ) const {
-    return this->sectionNumber( sectionNo );
-  }
-
-  template< typename Index >
-  decltype(auto) MT( Index sectionNo ) {
-    return this->sectionNumber( sectionNo );
-  }
 
   bool
-  hasMT( int sectionNo ) const {
-    switch( sectionNo ){
-    case 451: return true;
-    /*
-    case 452: return this->sectionMap[ 452_c ];
-    case 455: return this->sectionMap[ 455_c ];
-    case 456: return this->sectionMap[ 456_c ];
-    case 458: return this->sectionMap[ 458_c ];
-    case 460: return this->sectionMap[ 460_c ];
-    */
-    default: return false;
+  hasSection( int sectionNo ) const {
+
+    switch( sectionNo ) {
+
+      case 451 : return true;
+      /*
+      case 452 : return this->sectionMap[ 452_c ];
+      case 455 : return this->sectionMap[ 455_c ];
+      case 456 : return this->sectionMap[ 456_c ];
+      case 458 : return this->sectionMap[ 458_c ];
+      case 460 : return this->sectionMap[ 460_c ];
+      */
+      default : return false;
     }
   }
 
-  bool
-  hasSectionNumber( int sectionNo ) const { return this->hasMT( sectionNo ); }
-
-  static constexpr int MF(){ return 1; }
+  static constexpr int fileNumber() { return 1; }
 
   #include "ENDFtk/file/1/src/print.hpp"
 };
