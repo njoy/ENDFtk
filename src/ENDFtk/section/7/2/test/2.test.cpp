@@ -382,9 +382,10 @@ void verifyCoherentElasticWithOneTemperature(
   REQUIRE( 0 == law.temperatureDependenceFlag() );
   REQUIRE( 1 == law.NT() );
   REQUIRE( 1 == law.numberTemperatures() );
+  REQUIRE( 3 == law.NP() );
+  REQUIRE( 3 == law.numberBraggEdges() );
 
   REQUIRE( 1 == law.NR() );
-  REQUIRE( 3 == law.NP() );
   REQUIRE( 1 == law.boundaries().size() );
   REQUIRE( 3 == law.boundaries()[0] );
   REQUIRE( 1 == law.interpolants().size() );
@@ -440,9 +441,10 @@ void verifyCoherentElasticWithTwoTemperatures(
   REQUIRE( 1 == law.temperatureDependenceFlag() );
   REQUIRE( 2 == law.NT() );
   REQUIRE( 2 == law.numberTemperatures() );
+  REQUIRE( 3 == law.NP() );
+  REQUIRE( 3 == law.numberBraggEdges() );
 
   REQUIRE( 1 == law.NR() );
-  REQUIRE( 3 == law.NP() );
   REQUIRE( 1 == law.boundaries().size() );
   REQUIRE( 3 == law.boundaries()[0] );
   REQUIRE( 1 == law.interpolants().size() );
@@ -501,6 +503,7 @@ void verifyIncoherentElastic( const section::Type< 7, 2 >& chunk ) {
   REQUIRE( 8.198006e+1 == Approx( law.SB() ) );
   REQUIRE( 8.198006e+1 == Approx( law.boundCrossSection() ) );
   REQUIRE( 3 == law.NP() );
+  REQUIRE( 3 == law.numberTemperatures() );
   REQUIRE( 1 == law.NR() );
   REQUIRE( 1 == law.interpolants().size() );
   REQUIRE( 1 == law.boundaries().size() );

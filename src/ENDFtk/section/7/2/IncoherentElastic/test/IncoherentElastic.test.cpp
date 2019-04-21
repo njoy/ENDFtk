@@ -127,6 +127,7 @@ void verifyChunk( const IncoherentElastic& chunk ) {
   REQUIRE( 8.198006e+1 == Approx( chunk.SB() ) );
   REQUIRE( 8.198006e+1 == Approx( chunk.boundCrossSection() ) );
   REQUIRE( 3 == chunk.NP() );
+  REQUIRE( 3 == chunk.numberTemperatures() );
   REQUIRE( 1 == chunk.NR() );
   REQUIRE( 1 == chunk.interpolants().size() );
   REQUIRE( 1 == chunk.boundaries().size() );

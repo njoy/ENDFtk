@@ -285,9 +285,10 @@ void verifyOneTemperature( const CoherentElastic& chunk ) {
   REQUIRE( 0 == chunk.temperatureDependenceFlag() );
   REQUIRE( 1 == chunk.NT() );
   REQUIRE( 1 == chunk.numberTemperatures() );
+  REQUIRE( 3 == chunk.NP() );
+  REQUIRE( 3 == chunk.numberBraggEdges() );
 
   REQUIRE( 1 == chunk.NR() );
-  REQUIRE( 3 == chunk.NP() );
   REQUIRE( 1 == chunk.boundaries().size() );
   REQUIRE( 3 == chunk.boundaries()[0] );
   REQUIRE( 1 == chunk.interpolants().size() );
@@ -330,9 +331,10 @@ void verifyTwoTemperatures( const CoherentElastic& chunk ) {
   REQUIRE( 1 == chunk.temperatureDependenceFlag() );
   REQUIRE( 2 == chunk.NT() );
   REQUIRE( 2 == chunk.numberTemperatures() );
+  REQUIRE( 3 == chunk.NP() );
+  REQUIRE( 3 == chunk.numberBraggEdges() );
 
   REQUIRE( 1 == chunk.NR() );
-  REQUIRE( 3 == chunk.NP() );
   REQUIRE( 1 == chunk.boundaries().size() );
   REQUIRE( 3 == chunk.boundaries()[0] );
   REQUIRE( 1 == chunk.interpolants().size() );

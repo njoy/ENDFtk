@@ -68,9 +68,16 @@ public:
   long NR() const { return this->principal_.NR(); }
 
   /** 
-   *  @brief Return the number of energy values
+   *  @brief Return the number of Bragg edges, equal to the number of energy
+   *         values
    */
   long NP() const { return this->principal_.NP(); }
+
+  /** 
+   *  @brief Return the number of Bragg edges, equal to the number of energy
+   *         values
+   */
+  long numberBraggEdges() const { return this->NP(); }
 
   /** 
    *  @brief Return interpolation type for each range on the energy grid
