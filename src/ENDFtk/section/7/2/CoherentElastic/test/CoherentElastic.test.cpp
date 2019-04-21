@@ -13,6 +13,7 @@ void verifyOneTemperature( const CoherentElastic& );
 std::string chunkWithTwoTemperatures();
 void verifyTwoTemperatures( const CoherentElastic& );
 std::string invalidChunk();
+std::string chunkWithInvalidNP();
 
 SCENARIO( "CoherentElastic" ) {
 
@@ -196,6 +197,42 @@ SCENARIO( "CoherentElastic" ) {
       } // THEN
     } // WHEN
 
+    WHEN( "data with an inconsistent number of points NP is given" ) {
+
+      std::vector< long > boundaries = { 3 };
+      std::vector< long > interpolants = { 1 };
+      std::vector< long > li = { 2 };
+      std::vector< double > temperatures = { 293.6, 400.0 };
+      std::vector< double > energies = { 1.059427e-3, 3.718355e-3,
+                                         4.237708e-3 };
+      std::vector< std::vector< double > > s = { { 0.0, 9.364524e-3,
+                                                   1.548925e-2 },
+                                                 { 0.5, 8.318414e-3 } };
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( CoherentElastic( std::move( boundaries ),
+                                         std::move( interpolants ), 
+                                         std::move( temperatures ),
+                                         std::move( li ),
+                                         std::move( energies ),
+                                         std::move( s ) ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a string representation with inconsistent NP is given" ) {
+
+      std::string string = chunkWithInvalidNP();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( CoherentElastic( begin, end, lineNumber, 27, 7, 2 ) );
+      } // THEN
+    } // WHEN
+
     WHEN( "inconsistent data for the single temperature constructor is used" ) {
 
       // no need to test every possibility (TAB1 takes care of tests)
@@ -333,4 +370,13 @@ std::string invalidChunk() {
     " 2.936000+2 0.000000+0          0          0          1          4  27 7  2     \n"
     "          3          1                                              27 7  2     \n"
     " 1.059427-3 0.000000+0 3.718355-3 9.364524-3 4.237708-3 1.548925-2  27 7  2     \n";
+}
+
+std::string chunkWithInvalidNP() {
+  return
+    " 2.936000+2 0.000000+0          1          0          1          3  27 7  2     \n"
+    "          3          1                                              27 7  2     \n"
+    " 1.059427-3 0.000000+0 3.718355-3 9.364524-3 4.237708-3 1.548925-2  27 7  2     \n"
+    " 4.000000+2 0.000000+0          2          0          2          0  27 7  2     \n"
+    " 5.000000-1 8.318414-3                                              27 7  2     \n";
 }
