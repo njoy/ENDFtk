@@ -55,12 +55,12 @@ public:
   /* get methods */
 
   /**
-   *  @brief Return the number NK of partial distributions
+   *  @brief Return the number NK of subsections with partial distributions
    */
   int NK() const { return this->subsections_.size(); }
 
   /**
-   *  @brief Return the number NK of partial distributions
+   *  @brief Return the number NK of subsections with partial distributions
    */
   int numberPartialDistributions() const { return this->NK(); }
 
@@ -73,6 +73,7 @@ public:
   #include "ENDFtk/section/5/src/print.hpp"
 
   using Base::MT;
+  using Base::sectionNumber;
   using Base::ZA;
   using Base::atomicWeightRatio;
   using Base::AWR;
