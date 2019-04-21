@@ -7,7 +7,7 @@ using namespace njoy::ENDFtk;
 
 // convenience typedefs
 using Tabulated = section::Type< 7, 4 >::Tabulated;
-using BetaValue = section::Type< 7, 4 >::Tabulated::BetaValue;
+using ScatteringFunction = section::Type< 7, 4 >::Tabulated::ScatteringFunction;
 
 std::string chunkWithOneTemperature();
 void verifyChunkWithOneTemperature( const Tabulated& );
@@ -24,13 +24,15 @@ SCENARIO( "Tabulated" ) {
 
       std::vector< long > boundaries = { 2 };
       std::vector< long > interpolants = { 4 };
-      std::vector< BetaValue > betas = {
-          BetaValue( 293.6, 0.0, { 5 }, { 4 },
+      std::vector< ScatteringFunction > betas = {
+          ScatteringFunction(
+                     293.6, 0.0, { 5 }, { 4 },
                      { 4.423802e-3, 4.649528e-3, 4.886772e-3, 8.418068e+1,
                        8.847604e+1 },
                      { 2.386876e-4, 2.508466e-4, 2.636238e-4, 1.306574e-9,
                        5.29573e-10 } ),
-          BetaValue( 293.6, 3.952570e-2, { 5 }, { 2 },
+          ScatteringFunction(
+                     293.6, 3.952570e-2, { 5 }, { 2 },
                      { 4.423802e-3, 4.649528e-3, 4.886772e-3, 8.418068e+1,
                        8.847604e+1 },
                      { 2.386694e-4, 2.508273e-4, 2.636238e-4, 2.770291e-4,
@@ -87,13 +89,15 @@ SCENARIO( "Tabulated" ) {
 
         std::vector< long > wrongBoundaries = { 2, 4 }; // one more
         std::vector< long > interpolants = { 4 };
-        std::vector< BetaValue > betas = {
-            BetaValue( 293.6, 0.0, { 5 }, { 4 },
+        std::vector< ScatteringFunction > betas = {
+            ScatteringFunction(
+                       293.6, 0.0, { 5 }, { 4 },
                        { 4.423802e-3, 4.649528e-3, 4.886772e-3, 8.418068e+1,
                          8.847604e+1 },
                        { 2.386876e-4, 2.508466e-4, 2.636238e-4, 1.306574e-9,
                          5.29573e-10 } ),
-            BetaValue( 293.6, 3.952570e-2, { 5 }, { 2 },
+            ScatteringFunction(
+                       293.6, 3.952570e-2, { 5 }, { 2 },
                        { 4.423802e-3, 4.649528e-3, 4.886772e-3, 8.418068e+1,
                          8.847604e+1 },
                        { 2.386694e-4, 2.508273e-4, 2.636238e-4, 2.770291e-4,
@@ -109,13 +113,15 @@ SCENARIO( "Tabulated" ) {
 
         std::vector< long > boundaries = { 2 };
         std::vector< long > wrongInterpolants = { 4, 2 }; // one more
-        std::vector< BetaValue > betas = {
-            BetaValue( 293.6, 0.0, { 5 }, { 4 },
+        std::vector< ScatteringFunction > betas = {
+            ScatteringFunction(
+                       293.6, 0.0, { 5 }, { 4 },
                        { 4.423802e-3, 4.649528e-3, 4.886772e-3, 8.418068e+1,
                          8.847604e+1 },
                        { 2.386876e-4, 2.508466e-4, 2.636238e-4, 1.306574e-9,
                          5.29573e-10 } ),
-            BetaValue( 293.6, 3.952570e-2, { 5 }, { 2 },
+            ScatteringFunction(
+                       293.6, 3.952570e-2, { 5 }, { 2 },
                        { 4.423802e-3, 4.649528e-3, 4.886772e-3, 8.418068e+1,
                          8.847604e+1 },
                        { 2.386694e-4, 2.508273e-4, 2.636238e-4, 2.770291e-4,
@@ -131,8 +137,9 @@ SCENARIO( "Tabulated" ) {
 
         std::vector< long > boundaries = { 2 };
         std::vector< long > interpolants = { 4 };
-        std::vector< BetaValue > wrongBetas = {
-            BetaValue( 293.6, 0.0, { 5 }, { 4 },
+        std::vector< ScatteringFunction > wrongBetas = {
+            ScatteringFunction(
+                       293.6, 0.0, { 5 }, { 4 },
                        { 4.423802e-3, 4.649528e-3, 4.886772e-3, 8.418068e+1,
                          8.847604e+1 },
                        { 2.386876e-4, 2.508466e-4, 2.636238e-4, 1.306574e-9,

@@ -4,12 +4,12 @@ private:
  *
  *  @param[in] sequence   the interpolation sequence record
  */
-Tabulated( InterpolationSequenceRecord< BetaValue >&& sequence ) :
+Tabulated( InterpolationSequenceRecord< ScatteringFunction >&& sequence ) :
   data_( std::move( sequence ) ) {
   
   //! @todo verify number of beta versus NB
-  //! @todo verify the same temperature in each BetaValue
-  //! @todo verify the same temperature interpolants in each BetaValue
+  //! @todo verify the same temperature in each ScatteringFunction
+  //! @todo verify the same temperature interpolants in each ScatteringFunction
 }
 
   public:
@@ -23,8 +23,8 @@ Tabulated( InterpolationSequenceRecord< BetaValue >&& sequence ) :
  */
 Tabulated( std::vector< long >&& boundaries,
            std::vector< long >&& interpolants,
-           std::vector< BetaValue >&& betas )
-  try : Tabulated( InterpolationSequenceRecord< BetaValue >(
+           std::vector< ScatteringFunction >&& betas )
+  try : Tabulated( InterpolationSequenceRecord< ScatteringFunction >(
                      InterpolationRecord( 0.0, 0.0, 0, 0,
                                           std::move( boundaries ),
                                           std::move( interpolants ) ),
@@ -56,8 +56,8 @@ Tabulated( Iterator& begin,
            int MF,
            int MT )
   try : Tabulated(
-          InterpolationSequenceRecord< BetaValue >( begin, end, lineNumber,
-                                                    MAT, MF, MT ) ) {}
+          InterpolationSequenceRecord< ScatteringFunction >(
+            begin, end, lineNumber, MAT, MF, MT ) ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing tabulated thermal "

@@ -6,18 +6,18 @@
 using namespace njoy::ENDFtk;
 
 // convenience typedefs
-using BetaValue = 
-section::Type< 7, 4 >::Tabulated::BetaValue;
+using ScatteringFunction = 
+section::Type< 7, 4 >::Tabulated::ScatteringFunction;
 
 std::string chunkWithOneTemperature();
-void verifyChunkWithOneTemperature( const BetaValue& );
+void verifyChunkWithOneTemperature( const ScatteringFunction& );
 std::string chunkWithTwoTemperatures();
-void verifyChunkWithTwoTemperatures( const BetaValue& );
+void verifyChunkWithTwoTemperatures( const ScatteringFunction& );
 std::string chunkWithInconsistentBetas();
 
-SCENARIO( "BetaValue" ) {
+SCENARIO( "ScatteringFunction" ) {
 
-  GIVEN( "valid data for a BetaValue with only one temperature" ) {
+  GIVEN( "valid data for a ScatteringFunction with only one temperature" ) {
 
     std::string string = chunkWithOneTemperature();
 
@@ -45,28 +45,29 @@ SCENARIO( "BetaValue" ) {
                                   { { 2.386876e-4, 2.508466e-4, 2.636238e-4,
                                       1.306574e-9, 5.29573e-10 } };
 
-      BetaValue chunk( temperature, beta,
-                       std::move( boundaries ),
-                       std::move( interpolants ), 
-                       std::move( alphas ),
-                       std::move( sab ) );
+      ScatteringFunction chunk( temperature, beta,
+                                std::move( boundaries ),
+                                std::move( interpolants ), 
+                                std::move( alphas ),
+                                std::move( sab ) );
 
-      BetaValue chunk2( Beta,
-                        std::move( Boundaries ),
-                        std::move( Interpolants ), 
-                        std::move( Temperatures ),
-                        std::move( Li ),
-                        std::move( Alphas ),
-                        std::move( Sab ) );
+      ScatteringFunction chunk2( Beta,
+                                 std::move( Boundaries ),
+                                 std::move( Interpolants ), 
+                                 std::move( Temperatures ),
+                                 std::move( Li ),
+                                 std::move( Alphas ),
+                                 std::move( Sab ) );
 
-      THEN( "a BetaValue can be constructed using separate arrays and members "
-            "can be tested" ) {
+      THEN( "a ScatteringFunction can be constructed using separate arrays and "
+            "members can be tested" ) {
 
         verifyChunkWithOneTemperature( chunk );
       } // THEN
 
-      THEN( "a BetaValue can be constructed with the multiple temperature "
-            "constructor using separate arrays and members can be tested" ) {
+      THEN( "a ScatteringFunction can be constructed with the multiple "
+            "temperature constructor using separate arrays and members can be "
+            "tested" ) {
 
         verifyChunkWithOneTemperature( chunk2 );
       } // THEN
@@ -93,9 +94,10 @@ SCENARIO( "BetaValue" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      BetaValue chunk( begin, end, lineNumber, 27, 7, 4 );
+      ScatteringFunction chunk( begin, end, lineNumber, 27, 7, 4 );
 
-      THEN( "a BetaValue can be constructed and members can be tested" ) {
+      THEN( "a ScatteringFunction can be constructed and members can be "
+            "tested" ) {
 
         verifyChunkWithOneTemperature( chunk );
       } // THEN
@@ -111,7 +113,8 @@ SCENARIO( "BetaValue" ) {
     } // WHEN
   } // GIVEN
 
-  GIVEN( "valid data for a BetaValue with more than one temperature" ) {
+  GIVEN( "valid data for a ScatteringFunction with more than one "
+         "temperature" ) {
 
     std::string string = chunkWithTwoTemperatures();
 
@@ -130,16 +133,16 @@ SCENARIO( "BetaValue" ) {
             { 4.430020e-4, 4.655671e-4, 4.892796e-4,
               4.510209e-8, 2.183942e-8 } };
 
-      BetaValue chunk( beta,
-                       std::move( boundaries ),
-                       std::move( interpolants ), 
-                       std::move( temperatures ),
-                       std::move( li ),
-                       std::move( alphas ),
-                       std::move( sab ) );
+      ScatteringFunction chunk( beta,
+                                std::move( boundaries ),
+                                std::move( interpolants ), 
+                                std::move( temperatures ),
+                                std::move( li ),
+                                std::move( alphas ),
+                                std::move( sab ) );
 
-      THEN( "a BetaValue can be constructed using separate arrays and members "
-            "can be tested" ) {
+      THEN( "a ScatteringFunction can be constructed using separate arrays and "
+            "members can be tested" ) {
 
         verifyChunkWithTwoTemperatures( chunk );
       } // THEN
@@ -160,9 +163,9 @@ SCENARIO( "BetaValue" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      BetaValue chunk( begin, end, lineNumber, 27, 7, 4 );
+      ScatteringFunction chunk( begin, end, lineNumber, 27, 7, 4 );
 
-      THEN( "a BetaValue can be constructed and members can be tested" ) {
+      THEN( "a ScatteringFunction can be constructed and members can be tested" ) {
 
         verifyChunkWithTwoTemperatures( chunk );
       } // THEN
@@ -194,11 +197,11 @@ SCENARIO( "BetaValue" ) {
         std::vector< double > sab = { 2.386876e-4, 2.508466e-4, 2.636238e-4,
                                       1.306574e-9, 5.29573e-10 };
 
-        REQUIRE_THROWS( BetaValue( temperature, beta,
-                                   std::move( wrongBoundaries ),
-                                   std::move( interpolants ), 
-                                   std::move( alphas ),
-                                   std::move( sab ) ) );
+        REQUIRE_THROWS( ScatteringFunction( temperature, beta,
+                                            std::move( wrongBoundaries ),
+                                            std::move( interpolants ), 
+                                            std::move( alphas ),
+                                            std::move( sab ) ) );
       } // THEN
 
       THEN( "an exception is thrown upon construction when there is "
@@ -213,11 +216,11 @@ SCENARIO( "BetaValue" ) {
         std::vector< double > sab = { 2.386876e-4, 2.508466e-4, 2.636238e-4,
                                       1.306574e-9, 5.29573e-10 };
 
-        REQUIRE_THROWS( BetaValue( temperature, beta,
-                                   std::move( boundaries ),
-                                   std::move( wrongInterpolants ), 
-                                   std::move( alphas ),
-                                   std::move( sab ) ) );
+        REQUIRE_THROWS( ScatteringFunction( temperature, beta,
+                                            std::move( boundaries ),
+                                            std::move( wrongInterpolants ), 
+                                            std::move( alphas ),
+                                            std::move( sab ) ) );
       } // THEN
 
       THEN( "an exception is thrown upon construction when there is "
@@ -232,11 +235,11 @@ SCENARIO( "BetaValue" ) {
         std::vector< double > sab = { 2.386876e-4, 2.508466e-4, 2.636238e-4,
                                       1.306574e-9, 5.29573e-10 };
 
-        REQUIRE_THROWS( BetaValue( temperature, beta,
-                                   std::move( boundaries ),
-                                   std::move( interpolants ), 
-                                   std::move( wrongAlphas ),
-                                   std::move( sab ) ) );
+        REQUIRE_THROWS( ScatteringFunction( temperature, beta,
+                                            std::move( boundaries ),
+                                            std::move( interpolants ), 
+                                            std::move( wrongAlphas ),
+                                            std::move( sab ) ) );
       } // THEN
 
       THEN( "an exception is thrown upon construction when there is "
@@ -251,11 +254,11 @@ SCENARIO( "BetaValue" ) {
         std::vector< double > wrongSab = { 2.386876e-4, 2.508466e-4,
                                            2.636238e-4, 1.306574e-9 }; // one less
 
-        REQUIRE_THROWS( BetaValue( temperature, beta,
-                                   std::move( boundaries ),
-                                   std::move( interpolants ), 
-                                   std::move( alphas ),
-                                   std::move( wrongSab ) ) );
+        REQUIRE_THROWS( ScatteringFunction( temperature, beta,
+                                            std::move( boundaries ),
+                                            std::move( interpolants ), 
+                                            std::move( alphas ),
+                                            std::move( wrongSab ) ) );
       } // THEN
     } // WHEN
 
@@ -277,13 +280,13 @@ SCENARIO( "BetaValue" ) {
               { 4.430020e-4, 4.655671e-4, 4.892796e-4,
                 4.510209e-8, 2.183942e-8 } };
 
-        REQUIRE_THROWS( BetaValue( beta,
-                                   std::move( wrongBoundaries ),
-                                   std::move( interpolants ), 
-                                   std::move( temperatures ),
-                                   std::move( li ),
-                                   std::move( alphas ),
-                                   std::move( sab ) ) );
+        REQUIRE_THROWS( ScatteringFunction( beta,
+                                            std::move( wrongBoundaries ),
+                                            std::move( interpolants ), 
+                                            std::move( temperatures ),
+                                            std::move( li ),
+                                            std::move( alphas ),
+                                            std::move( sab ) ) );
       } // THEN
 
       THEN( "an exception is thrown upon construction when there is "
@@ -302,13 +305,13 @@ SCENARIO( "BetaValue" ) {
               { 4.430020e-4, 4.655671e-4, 4.892796e-4,
                 4.510209e-8, 2.183942e-8 } };
 
-        REQUIRE_THROWS( BetaValue( beta,
-                                   std::move( boundaries ),
-                                   std::move( wrongInterpolants ), 
-                                   std::move( temperatures ),
-                                   std::move( li ),
-                                   std::move( alphas ),
-                                   std::move( sab ) ) );
+        REQUIRE_THROWS( ScatteringFunction( beta,
+                                            std::move( boundaries ),
+                                            std::move( wrongInterpolants ), 
+                                            std::move( temperatures ),
+                                            std::move( li ),
+                                            std::move( alphas ),
+                                            std::move( sab ) ) );
       } // THEN
 
       THEN( "an exception is thrown upon construction when there is "
@@ -327,13 +330,13 @@ SCENARIO( "BetaValue" ) {
               { 4.430020e-4, 4.655671e-4, 4.892796e-4,
                 4.510209e-8, 2.183942e-8 } };
 
-        REQUIRE_THROWS( BetaValue( beta,
-                                   std::move( boundaries ),
-                                   std::move( interpolants ), 
-                                   std::move( temperatures ),
-                                   std::move( li ),
-                                   std::move( wrongAlphas ),
-                                   std::move( sab ) ) );
+        REQUIRE_THROWS( ScatteringFunction( beta,
+                                            std::move( boundaries ),
+                                            std::move( interpolants ), 
+                                            std::move( temperatures ),
+                                            std::move( li ),
+                                            std::move( wrongAlphas ),
+                                            std::move( sab ) ) );
       } // THEN
 
       THEN( "an exception is thrown upon construction when there is "
@@ -352,13 +355,13 @@ SCENARIO( "BetaValue" ) {
               { 4.430020e-4, 4.655671e-4, 4.892796e-4,
                 4.510209e-8, 2.183942e-8 } };
 
-        REQUIRE_THROWS( BetaValue( beta,
-                                   std::move( boundaries ),
-                                   std::move( interpolants ), 
-                                   std::move( wrongTemperatures ),
-                                   std::move( li ),
-                                   std::move( alphas ),
-                                   std::move( sab ) ) );
+        REQUIRE_THROWS( ScatteringFunction( beta,
+                                            std::move( boundaries ),
+                                            std::move( interpolants ), 
+                                            std::move( wrongTemperatures ),
+                                            std::move( li ),
+                                            std::move( alphas ),
+                                            std::move( sab ) ) );
       } // THEN
 
       THEN( "an exception is thrown upon construction when there is "
@@ -377,17 +380,17 @@ SCENARIO( "BetaValue" ) {
               { 4.430020e-4, 4.655671e-4, 4.892796e-4,
                 4.510209e-8, 2.183942e-8 } };
 
-        REQUIRE_THROWS( BetaValue( beta,
-                                   std::move( boundaries ),
-                                   std::move( interpolants ), 
-                                   std::move( temperatures ),
-                                   std::move( li ),
-                                   std::move( alphas ),
-                                   std::move( wrongSab ) ) );
+        REQUIRE_THROWS( ScatteringFunction( beta,
+                                            std::move( boundaries ),
+                                            std::move( interpolants ), 
+                                            std::move( temperatures ),
+                                            std::move( li ),
+                                            std::move( alphas ),
+                                            std::move( wrongSab ) ) );
       } // THEN
     } // WHEN
 
-    WHEN( "a string representation of a BetaValue with two temperatures "
+    WHEN( "a string representation of a ScatteringFunction with two temperatures "
           "and inconsistent betas" ) {
 
       std::string string = chunkWithInconsistentBetas();
@@ -397,7 +400,8 @@ SCENARIO( "BetaValue" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( BetaValue( begin, end, lineNumber, 27, 7, 4 ) );
+        REQUIRE_THROWS( ScatteringFunction( begin, end, lineNumber,
+                                            27, 7, 4 ) );
       } //THEN
     } //WHEN
   } // GIVEN
@@ -411,7 +415,7 @@ std::string chunkWithOneTemperature() {
     " 8.418068+1 1.306574-9 8.847604+1 5.29573-10                        27 7  4     \n";
 }
 
-void verifyChunkWithOneTemperature( const BetaValue& chunk ) {
+void verifyChunkWithOneTemperature( const ScatteringFunction& chunk ) {
 
   REQUIRE( 0.0 == Approx( chunk.beta() ) );
   REQUIRE( 0 == chunk.LT() );
@@ -460,7 +464,7 @@ std::string chunkWithTwoTemperatures() {
     " 4.430020-4 4.655671-4 4.892796-4 4.510209-8 2.183942-8             27 7  4     \n";
 }
 
-void verifyChunkWithTwoTemperatures( const BetaValue& chunk ) {
+void verifyChunkWithTwoTemperatures( const ScatteringFunction& chunk ) {
 
   REQUIRE( 0.0 == Approx( chunk.beta() ) );
   REQUIRE( 1 == chunk.LT() );

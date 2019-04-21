@@ -15,12 +15,12 @@ class Tabulated {
 
 public:
 
-  #include "ENDFtk/section/7/4/Tabulated/BetaValue.hpp"
+  #include "ENDFtk/section/7/4/Tabulated/ScatteringFunction.hpp"
 
 private:
 
   /* members */
-  InterpolationSequenceRecord< BetaValue > data_;
+  InterpolationSequenceRecord< ScatteringFunction > data_;
 
   /* auxiliary functions */
 

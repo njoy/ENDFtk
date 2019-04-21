@@ -8,7 +8,7 @@ using namespace njoy::ENDFtk;
 // convenience typedefs
 using CoherentElastic = section::Type< 7, 2 >::CoherentElastic;
 using Tabulated = section::Type< 7, 4 >::Tabulated;
-using BetaValue = section::Type< 7, 4 >::Tabulated::BetaValue;
+using ScatteringFunction = section::Type< 7, 4 >::Tabulated::ScatteringFunction;
 
 std::string& cachedTape();
 std::string getFile( int MF );
@@ -63,12 +63,14 @@ SCENARIO( "Testing special case of file 7" ) {
            { 0, 1.976285e+2, 5.000001e+0,
              6.153875e+0, 8.934780e+0, 1 },
            Tabulated( { 2 }, { 4 },
-                      { BetaValue( 293.6, 0.0, { 5 }, { 4 },
+                      { ScatteringFunction(
+                                   293.6, 0.0, { 5 }, { 4 },
                                    { 4.423802e-3, 4.649528e-3, 4.886772e-3, 
                                      8.418068e+1, 8.847604e+1 },
                                    { 2.386876e-4, 2.508466e-4, 2.636238e-4,
                                      1.306574e-9, 5.29573e-10 } ),
-                        BetaValue( 293.6, 3.952570e-2, { 5 }, { 2 },
+                        ScatteringFunction(
+                                   293.6, 3.952570e-2, { 5 }, { 2 },
                                    { 4.423802e-3, 4.649528e-3, 4.886772e-3,
                                      8.418068e+1, 8.847604e+1 },
                                    { 2.386694e-4, 2.508273e-4, 2.636238e-4,
@@ -113,12 +115,14 @@ SCENARIO( "Testing special case of file 7" ) {
            { 0, 1.976285e+2, 5.000001e+0,
              6.153875e+0, 8.934780e+0, 1 },
            Tabulated( { 2 }, { 4 },
-                      { BetaValue( 293.6, 0.0, { 5 }, { 4 },
+                      { ScatteringFunction(
+                                   293.6, 0.0, { 5 }, { 4 },
                                    { 4.423802e-3, 4.649528e-3, 4.886772e-3, 
                                      8.418068e+1, 8.847604e+1 },
                                    { 2.386876e-4, 2.508466e-4, 2.636238e-4,
                                      1.306574e-9, 5.29573e-10 } ),
-                        BetaValue( 293.6, 3.952570e-2, { 5 }, { 2 },
+                        ScatteringFunction(
+                                   293.6, 3.952570e-2, { 5 }, { 2 },
                                    { 4.423802e-3, 4.649528e-3, 4.886772e-3,
                                      8.418068e+1, 8.847604e+1 },
                                    { 2.386694e-4, 2.508273e-4, 2.636238e-4,

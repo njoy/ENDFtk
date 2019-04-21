@@ -2,7 +2,7 @@
  *  @class
  *  @brief S(alpha,beta,T) data for a fixed value of beta
  *
- *  The BetaValue class is used to represent the temperature dependent
+ *  The ScatteringFunction class is used to represent the temperature dependent
  *  S(alpha,beta,T) data for a fixed value of beta from ENDF section MF7/MT4.
  *  It contains a grid of alpha values with a corresponding S(T) grid for each
  *  temperature as well as interpolation information as a function of alpha
@@ -12,21 +12,21 @@
  *
  *  See ENDF102, section 7.4 for more information.
  */
-class BetaValue {
+class ScatteringFunction {
 
   /* members */
   TabulationRecord alphas_;
   std::vector< ListRecord > temperatures_;
 
   /* auxiliary functions */
-  #include "ENDFtk/section/7/4/Tabulated/BetaValue/src/readTemperatures.hpp"
-  #include "ENDFtk/section/7/4/Tabulated/BetaValue/src/generateTemperatures.hpp"
-  #include "ENDFtk/section/7/4/Tabulated/BetaValue/src/verifyBetaValues.hpp"
+  #include "ENDFtk/section/7/4/Tabulated/ScatteringFunction/src/readTemperatures.hpp"
+  #include "ENDFtk/section/7/4/Tabulated/ScatteringFunction/src/generateTemperatures.hpp"
+  #include "ENDFtk/section/7/4/Tabulated/ScatteringFunction/src/verifyBetaValues.hpp"
 
 public:
 
   /* constructor */
-  #include "ENDFtk/section/7/4/Tabulated/BetaValue/src/ctor.hpp"
+  #include "ENDFtk/section/7/4/Tabulated/ScatteringFunction/src/ctor.hpp"
 
   /* get methods */
 
@@ -129,6 +129,6 @@ public:
                                              { return v.list(); } ) );
   }
 
-  #include "ENDFtk/section/7/4/Tabulated/BetaValue/src/NC.hpp"
-  #include "ENDFtk/section/7/4/Tabulated/BetaValue/src/print.hpp"
+  #include "ENDFtk/section/7/4/Tabulated/ScatteringFunction/src/NC.hpp"
+  #include "ENDFtk/section/7/4/Tabulated/ScatteringFunction/src/print.hpp"
 };

@@ -655,13 +655,13 @@
     "src/ENDFtk/section/7/4/src/readScatteringLaw.hpp", 
     "src/ENDFtk/section/7/4/src/readSecondaryTemperatures.hpp", 
     "src/ENDFtk/section/7/4/src/verifySecondaryTemperatures.hpp", 
-    "src/ENDFtk/section/7/4/Tabulated/BetaValue.hpp", 
-    "src/ENDFtk/section/7/4/Tabulated/BetaValue/src/ctor.hpp", 
-    "src/ENDFtk/section/7/4/Tabulated/BetaValue/src/generateTemperatures.hpp", 
-    "src/ENDFtk/section/7/4/Tabulated/BetaValue/src/NC.hpp", 
-    "src/ENDFtk/section/7/4/Tabulated/BetaValue/src/print.hpp", 
-    "src/ENDFtk/section/7/4/Tabulated/BetaValue/src/readTemperatures.hpp", 
-    "src/ENDFtk/section/7/4/Tabulated/BetaValue/src/verifyBetaValues.hpp", 
+    "src/ENDFtk/section/7/4/Tabulated/ScatteringFunction.hpp", 
+    "src/ENDFtk/section/7/4/Tabulated/ScatteringFunction/src/ctor.hpp", 
+    "src/ENDFtk/section/7/4/Tabulated/ScatteringFunction/src/generateTemperatures.hpp", 
+    "src/ENDFtk/section/7/4/Tabulated/ScatteringFunction/src/NC.hpp", 
+    "src/ENDFtk/section/7/4/Tabulated/ScatteringFunction/src/print.hpp", 
+    "src/ENDFtk/section/7/4/Tabulated/ScatteringFunction/src/readTemperatures.hpp", 
+    "src/ENDFtk/section/7/4/Tabulated/ScatteringFunction/src/verifyBetaValues.hpp", 
     "src/ENDFtk/section/7/4/Tabulated/src/ctor.hpp", 
     "src/ENDFtk/section/7/4/Tabulated/src/print.hpp", 
     "src/ENDFtk/section/8/457.hpp", 
@@ -1003,8 +1003,8 @@
     "ENDFtk.section.7.4.Tabulated": [
       "src/ENDFtk/section/7/4/Tabulated/test/Tabulated.test.cpp"
     ], 
-    "ENDFtk.section.7.4.Tabulated.BetaValue": [
-      "src/ENDFtk/section/7/4/Tabulated/BetaValue/test/BetaValue.test.cpp"
+    "ENDFtk.section.7.4.Tabulated.ScatteringFunction": [
+      "src/ENDFtk/section/7/4/Tabulated/ScatteringFunction/test/ScatteringFunction.test.cpp"
     ], 
     "ENDFtk.section.8.457": [
       "src/ENDFtk/section/8/457/test/457.test.cpp"

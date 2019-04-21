@@ -514,13 +514,13 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/src/readScatteringLaw.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/src/readSecondaryTemperatures.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/src/verifySecondaryTemperatures.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/Tabulated/BetaValue.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/Tabulated/BetaValue/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/Tabulated/BetaValue/src/generateTemperatures.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/Tabulated/BetaValue/src/NC.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/Tabulated/BetaValue/src/print.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/Tabulated/BetaValue/src/readTemperatures.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/Tabulated/BetaValue/src/verifyBetaValues.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/Tabulated/ScatteringFunction.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/Tabulated/ScatteringFunction/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/Tabulated/ScatteringFunction/src/generateTemperatures.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/Tabulated/ScatteringFunction/src/NC.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/Tabulated/ScatteringFunction/src/print.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/Tabulated/ScatteringFunction/src/readTemperatures.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/Tabulated/ScatteringFunction/src/verifyBetaValues.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/Tabulated/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7/4/Tabulated/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8/457.hpp"
@@ -636,7 +636,6 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/record/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/Base/test )
         add_subdirectory( src/ENDFtk/section/6/LaboratoryAngleEnergy/test )
-        add_subdirectory( src/ENDFtk/section/7/4/Tabulated/BetaValue/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/test )
         add_subdirectory( src/ENDFtk/InterpolationRecord/test )
         add_subdirectory( src/ENDFtk/section/Base/test )
@@ -683,6 +682,7 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/section/6/ChargedParticleElasticScattering/LegendreCoefficients/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/resolved/ReichMoore/test )
         add_subdirectory( src/ENDFtk/record/Sequence/test )
+        add_subdirectory( src/ENDFtk/section/7/4/Tabulated/ScatteringFunction/test )
     endif() 
 endif()
 

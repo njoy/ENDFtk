@@ -10,7 +10,7 @@ using ScatteringLaw = section::Type< 7, 4 >::ScatteringLaw;
 using ScatteringLawConstants = section::Type< 7, 4 >::ScatteringLawConstants;
 using AnalyticalFunctions = section::Type< 7, 4 >::AnalyticalFunctions;
 using Tabulated = section::Type< 7, 4 >::Tabulated;
-using BetaValue = section::Type< 7, 4 >::Tabulated::BetaValue;
+using ScatteringFunction = section::Type< 7, 4 >::Tabulated::ScatteringFunction;
 using EffectiveTemperature = section::Type< 7, 4 >::EffectiveTemperature;
 
 // macros don't like multiple template arguments
@@ -54,12 +54,14 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                         6.153875e+0, 8.934780e+0, 1 );
       ScatteringLaw law(
           Tabulated( { 2 }, { 4 },
-                     { BetaValue( 293.6, 0.0, { 5 }, { 4 },
+                     { ScatteringFunction(
+                                  293.6, 0.0, { 5 }, { 4 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3, 
                                     8.418068e+1, 8.847604e+1 },
                                   { 2.386876e-4, 2.508466e-4, 2.636238e-4,
                                       1.306574e-9, 5.29573e-10 } ),
-                       BetaValue( 293.6, 3.952570e-2, { 5 }, { 2 },
+                       ScatteringFunction(
+                                  293.6, 3.952570e-2, { 5 }, { 2 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3,
                                     8.418068e+1, 8.847604e+1 },
                                   { 2.386694e-4, 2.508273e-4, 2.636238e-4,
@@ -160,7 +162,8 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                         6.153875e+0, 8.934780e+0, 1 );
       ScatteringLaw law =
           Tabulated( { 2 }, { 4 },
-                     { BetaValue( 0.0, { 5 }, { 4 },
+                     { ScatteringFunction(
+                                  0.0, { 5 }, { 4 },
                                   { 293.6, 400 },
                                   { 4 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3, 
@@ -169,7 +172,8 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                       1.306574e-9, 5.29573e-10 },
                                     { 4.430020e-4, 4.655671e-4, 4.892796e-4,
                                       4.510209e-8, 2.183942e-8 } } ),
-                       BetaValue( 3.952570e-2, { 5 }, { 2 },
+                       ScatteringFunction(
+                                  3.952570e-2, { 5 }, { 2 },
                                   { 293.6, 400 },
                                   { 4 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3,
@@ -277,7 +281,8 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
       ScatteringLaw law =
           Tabulated( { 2 }, { 4 },
-                     { BetaValue( 0.0, { 5 }, { 4 },
+                     { ScatteringFunction(
+                                  0.0, { 5 }, { 4 },
                                   { 293.6, 400 },
                                   { 4 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3, 
@@ -286,7 +291,8 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                       1.306574e-9, 5.29573e-10 },
                                     { 4.430020e-4, 4.655671e-4, 4.892796e-4,
                                       4.510209e-8, 2.183942e-8 } } ),
-                       BetaValue( 3.952570e-2, { 5 }, { 2 },
+                       ScatteringFunction(
+                                  3.952570e-2, { 5 }, { 2 },
                                   { 293.6, 400 },
                                   { 4 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3,
@@ -400,7 +406,8 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
       ScatteringLaw law =
           Tabulated( { 2 }, { 4 },
-                     { BetaValue( 0.0, { 5 }, { 4 },
+                     { ScatteringFunction(
+                                  0.0, { 5 }, { 4 },
                                   { 293.6, 400 },
                                   { 4 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3, 
@@ -409,7 +416,8 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                       1.306574e-9, 5.29573e-10 },
                                     { 4.430020e-4, 4.655671e-4, 4.892796e-4,
                                       4.510209e-8, 2.183942e-8 } } ),
-                       BetaValue( 3.952570e-2, { 5 }, { 2 },
+                       ScatteringFunction(
+                                  3.952570e-2, { 5 }, { 2 },
                                   { 293.6, 400 },
                                   { 4 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3,
@@ -522,12 +530,14 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                             6.153875e+0, 8.934780e+0, 1 );
           ScatteringLaw law(
               Tabulated( { 2 }, { 4 },
-                         { BetaValue( 293.6, 0.0, { 5 }, { 4 },
+                         { ScatteringFunction(
+                                      293.6, 0.0, { 5 }, { 4 },
                                       { 4.423802e-3, 4.649528e-3, 4.886772e-3, 
                                         8.418068e+1, 8.847604e+1 },
                                       { 2.386876e-4, 2.508466e-4, 2.636238e-4,
                                           1.306574e-9, 5.29573e-10 } ),
-                           BetaValue( 293.6, 3.952570e-2, { 5 }, { 2 },
+                           ScatteringFunction(
+                                      293.6, 3.952570e-2, { 5 }, { 2 },
                                       { 4.423802e-3, 4.649528e-3, 4.886772e-3,
                                         8.418068e+1, 8.847604e+1 },
                                       { 2.386694e-4, 2.508273e-4, 2.636238e-4,
@@ -560,12 +570,14 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                             6.153875e+0, 8.934780e+0, 1 );
           ScatteringLaw law(
               Tabulated( { 2 }, { 4 },
-                         { BetaValue( 293.6, 0.0, { 5 }, { 4 },
+                         { ScatteringFunction(
+                                      293.6, 0.0, { 5 }, { 4 },
                                       { 4.423802e-3, 4.649528e-3, 4.886772e-3, 
                                         8.418068e+1, 8.847604e+1 },
                                       { 2.386876e-4, 2.508466e-4, 2.636238e-4,
                                           1.306574e-9, 5.29573e-10 } ),
-                           BetaValue( 293.6, 3.952570e-2, { 5 }, { 2 },
+                           ScatteringFunction(
+                                      293.6, 3.952570e-2, { 5 }, { 2 },
                                       { 4.423802e-3, 4.649528e-3, 4.886772e-3,
                                         8.418068e+1, 8.847604e+1 },
                                       { 2.386694e-4, 2.508273e-4, 2.636238e-4,
@@ -597,12 +609,14 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
       ScatteringLaw law(
           Tabulated( { 2 }, { 4 },
-                     { BetaValue( 293.6, 0.0, { 5 }, { 4 },
+                     { ScatteringFunction(
+                                  293.6, 0.0, { 5 }, { 4 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3, 
                                     8.418068e+1, 8.847604e+1 },
                                   { 2.386876e-4, 2.508466e-4, 2.636238e-4,
                                       1.306574e-9, 5.29573e-10 } ),
-                       BetaValue( 293.6, 3.952570e-2, { 5 }, { 2 },
+                       ScatteringFunction(
+                                  293.6, 3.952570e-2, { 5 }, { 2 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3,
                                     8.418068e+1, 8.847604e+1 },
                                   { 2.386694e-4, 2.508273e-4, 2.636238e-4,
@@ -635,12 +649,12 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
       ScatteringLaw law(
           Tabulated( { 2 }, { 4 },
-                     { BetaValue( 293.6, 0.0, { 5 }, { 4 },
+                     { ScatteringFunction( 293.6, 0.0, { 5 }, { 4 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3, 
                                     8.418068e+1, 8.847604e+1 },
                                   { 2.386876e-4, 2.508466e-4, 2.636238e-4,
                                       1.306574e-9, 5.29573e-10 } ),
-                       BetaValue( 293.6, 3.952570e-2, { 5 }, { 2 },
+                       ScatteringFunction( 293.6, 3.952570e-2, { 5 }, { 2 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3,
                                     8.418068e+1, 8.847604e+1 },
                                   { 2.386694e-4, 2.508273e-4, 2.636238e-4,
@@ -677,12 +691,12 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
       ScatteringLaw law(
           Tabulated( { 2 }, { 4 },
-                     { BetaValue( 293.6, 0.0, { 5 }, { 4 },
+                     { ScatteringFunction( 293.6, 0.0, { 5 }, { 4 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3, 
                                     8.418068e+1, 8.847604e+1 },
                                   { 2.386876e-4, 2.508466e-4, 2.636238e-4,
                                       1.306574e-9, 5.29573e-10 } ),
-                       BetaValue( 293.6, 3.952570e-2, { 5 }, { 2 },
+                       ScatteringFunction( 293.6, 3.952570e-2, { 5 }, { 2 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3,
                                     8.418068e+1, 8.847604e+1 },
                                   { 2.386694e-4, 2.508273e-4, 2.636238e-4,
