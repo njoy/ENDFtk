@@ -1,7 +1,10 @@
 private:
 ContinuumEnergyAngle( InterpolationRecord&& interpolation,
                       std::vector< SubSection >&& sequence ) :
-  data_( std::move( interpolation ), std::move( sequence ) ) {}
+  data_( std::move( interpolation ), std::move( sequence ) ) {
+
+  verifyLANG( this->LANG(), this->data_.records() );
+}
 
 public:
 ContinuumEnergyAngle( long lang,

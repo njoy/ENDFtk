@@ -197,6 +197,26 @@ SCENARIO( "ContinuumEnergyAngle" ) {
 
   GIVEN( "invalid data for a LegendreCoefficients" ) {
 
+    WHEN( "subsections with different LANG values are used" ) {
+
+      long lang = 1;
+      long lep = 2;
+      std::vector< long > boundaries = { 2 };
+      std::vector< long > interpolants = { 1 };
+      std::vector< SubSection > sequence = {
+          LegendreCoefficients( 1e-5, 0, 1, 4, { 1., 2., 3., 4., 5., 6.,
+                                                 7., 8., 9., 10., 11., 12. } ),
+          KalbachMann( 1e-5, 0, 1, 2, { 1., 2., 3., 4., 5., 6. } ) };
+
+      THEN( "an exception is thrown upon construction" ) {
+
+        REQUIRE_THROWS( ContinuumEnergyAngle(
+                                    lang, lep, std::move( boundaries ),
+                                    std::move( interpolants ),
+                                    std::move( sequence ) ) );
+      } // THEN
+    }
+
     WHEN( "something is wrong with the interpolation sequence record" ) {
 
       THEN( "an exception is thrown upon construction when there is "

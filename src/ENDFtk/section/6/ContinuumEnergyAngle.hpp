@@ -12,6 +12,7 @@ private:
 
   /* auxiliary functions */
   #include "ENDFtk/section/6/ContinuumEnergyAngle/src/readSequence.hpp"
+  #include "ENDFtk/section/6/ContinuumEnergyAngle/src/verifyLANG.hpp"
 
 public:
   /* constructor */
