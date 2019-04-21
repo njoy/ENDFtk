@@ -7,13 +7,12 @@ ContinuumEnergyAngle( InterpolationRecord&& interpolation,
 }
 
 public:
-ContinuumEnergyAngle( long lang,
-                      long lep,
+ContinuumEnergyAngle( long lep,
                       std::vector< long >&& boundaries,
                       std::vector< long >&& interpolants,
                       std::vector< SubSection >&& sequence )
   try : ContinuumEnergyAngle(
-          InterpolationRecord( 0.0, 0.0, lang, lep,
+          InterpolationRecord( 0.0, 0.0, sequence.front().LANG(), lep,
                                std::move( boundaries ),
                                std::move( interpolants ) ),
           std::move( sequence ) ) {}

@@ -31,7 +31,6 @@ SCENARIO( "ContinuumEnergyAngle" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      long lang = 1;
       long lep = 2;
       std::vector< long > boundaries = { 2 };
       std::vector< long > interpolants = { 1 };
@@ -43,7 +42,7 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       THEN( "a ContinuumEnergyAngle can be constructed and members can be "
             "tested" ) {
 
-        ContinuumEnergyAngle chunk( lang, lep, std::move( boundaries ),
+        ContinuumEnergyAngle chunk( lep, std::move( boundaries ),
                                     std::move( interpolants ),
                                     std::move( sequence ) );
         verifyChunkWithLANG1( chunk );
@@ -70,7 +69,6 @@ SCENARIO( "ContinuumEnergyAngle" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      long lang = 2;
       long lep = 2;
       std::vector< long > boundaries = { 2 };
       std::vector< long > interpolants = { 1 };
@@ -81,7 +79,7 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       THEN( "a ContinuumEnergyAngle can "
           "be constructed and members can be tested" ) {
 
-        ContinuumEnergyAngle chunk( lang, lep, std::move( boundaries ),
+        ContinuumEnergyAngle chunk( lep, std::move( boundaries ),
                                     std::move( interpolants ),
                                     std::move( sequence ) );
         verifyChunkWithLANG2( chunk );
@@ -108,7 +106,7 @@ SCENARIO( "ContinuumEnergyAngle" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      long lang = 14;
+      int lang = 14;
       long lep = 2;
       std::vector< long > boundaries = { 2 };
       std::vector< long > interpolants = { 1 };
@@ -121,7 +119,7 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       THEN( "a ContinuumEnergyAngle can be constructed and members can "
             "be tested" ) {
 
-        ContinuumEnergyAngle chunk( lang, lep, std::move( boundaries ),
+        ContinuumEnergyAngle chunk( lep, std::move( boundaries ),
                                     std::move( interpolants ),
                                     std::move( sequence ) );
         verifyChunkWithLANG14( chunk );
@@ -199,7 +197,6 @@ SCENARIO( "ContinuumEnergyAngle" ) {
 
     WHEN( "subsections with different LANG values are used" ) {
 
-      long lang = 1;
       long lep = 2;
       std::vector< long > boundaries = { 2 };
       std::vector< long > interpolants = { 1 };
@@ -211,7 +208,7 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       THEN( "an exception is thrown upon construction" ) {
 
         REQUIRE_THROWS( ContinuumEnergyAngle(
-                                    lang, lep, std::move( boundaries ),
+                                    lep, std::move( boundaries ),
                                     std::move( interpolants ),
                                     std::move( sequence ) ) );
       } // THEN
@@ -222,7 +219,6 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       THEN( "an exception is thrown upon construction when there is "
             "something wrong with the boundaries" ) {
 
-        long lang = 2;
         long lep = 2;
         std::vector< long > wrongBoundaries = { 2, 4 };
         std::vector< long > interpolants = { 1 };
@@ -231,7 +227,7 @@ SCENARIO( "ContinuumEnergyAngle" ) {
             KalbachMann( 2e+7, 0, 2, 2, { 7., 8., 9., 10., 11., 12., 13., 14.} ) };
 
         REQUIRE_THROWS(
-          ContinuumEnergyAngle( lang, lep, 
+          ContinuumEnergyAngle( lep, 
                                 std::move( wrongBoundaries ),
                                 std::move( interpolants ),
                                 std::move( sequence ) ) );
@@ -240,7 +236,6 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       THEN( "an exception is thrown upon construction when there is "
             "something wrong with the interpolants" ) {
 
-        long lang = 2;
         long lep = 2;
         std::vector< long > boundaries = { 2 };
         std::vector< long > wrongInterpolants = { 1, 2 };
@@ -249,7 +244,7 @@ SCENARIO( "ContinuumEnergyAngle" ) {
             KalbachMann( 2e+7, 0, 2, 2, { 7., 8., 9., 10., 11., 12., 13., 14.} ) };
 
         REQUIRE_THROWS(
-          ContinuumEnergyAngle( lang, lep, 
+          ContinuumEnergyAngle( lep, 
                                 std::move( boundaries ),
                                 std::move( wrongInterpolants ),
                                 std::move( sequence ) ) );
@@ -258,7 +253,6 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       THEN( "an exception is thrown upon construction when there is "
             "something wrong with the sequence" ) {
 
-        long lang = 2;
         long lep = 2;
         std::vector< long > boundaries = { 2 };
         std::vector< long > interpolants = { 1 };
@@ -266,7 +260,7 @@ SCENARIO( "ContinuumEnergyAngle" ) {
             KalbachMann( 1e-5, 0, 1, 2, { 1., 2., 3., 4., 5., 6. } ) };
 
         REQUIRE_THROWS(
-          ContinuumEnergyAngle( lang, lep, 
+          ContinuumEnergyAngle( lep, 
                                 std::move( boundaries ),
                                 std::move( interpolants ),
                                 std::move( wrongSequence ) ) );
