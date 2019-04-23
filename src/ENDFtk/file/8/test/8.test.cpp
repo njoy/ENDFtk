@@ -9,6 +9,10 @@ std::string& cachedTape();
 std::string getFile( int MF );
 std::string chunk457();
 void verifyChunk457( const file::Type< 8 >& );
+std::string validSEND();
+std::string validFEND();
+std::string validMEND();
+std::string validTEND();
 
 SCENARIO( "Testing special case of file 8" ) {
 
@@ -56,7 +60,55 @@ SCENARIO( "Testing special case of file 8" ) {
         auto output = std::back_inserter( buffer );
         mf8.print( output, 3580 );
 
-        REQUIRE( buffer == chunk457() );
+        REQUIRE( buffer == chunk457() + validFEND() );
+      } // THEN
+    } // WHEN
+  } // GIVEN
+
+  GIVEN( "a string representation of File 8 with errors in the END records" ) {
+
+    WHEN( "there is a SEND instead of FEND" ) {
+
+      std::string string = chunk457() + validSEND();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 0;
+
+      StructureDivision division( begin, end, lineNumber );
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( file::Type< 8 >( division, begin, end, lineNumber ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "there is a MEND instead of FEND" ) {
+
+      std::string string = chunk457() + validMEND();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 0;
+
+      StructureDivision division( begin, end, lineNumber );
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( file::Type< 8 >( division, begin, end, lineNumber ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "there is a TEND instead of FEND" ) {
+
+      std::string string = chunk457() + validTEND();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 0;
+
+      StructureDivision division( begin, end, lineNumber );
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( file::Type< 8 >( division, begin, end, lineNumber ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -175,8 +227,7 @@ std::string chunk457() {
     " 4.000000+0 0.000000+0          0          0          1          33580 8457     \n"
     "          3          1                                            3580 8457     \n"
     " 0.000000+0 6.133200-7 5.000000+5 6.133300-7 7.300000+6 6.02040-173580 8457     \n"
-    "                                                                  3580 8  0     \n"
-    "                                                                  3580 0  0     \n";
+    "                                                                  3580 8  0     \n";
 }
 
 void verifyChunk457( const file::Type< 8 >& chunk ) {
@@ -196,5 +247,25 @@ void verifyChunk457( const file::Type< 8 >& chunk ) {
   REQUIRE( 2 == chunk.MT( 457_c ).LIS() );
   REQUIRE( 1 == chunk.MT( 457_c ).LISO() );
   REQUIRE( 20 == chunk.MT( 457_c ).NC() );
+}
+
+std::string validSEND() {
+  return
+    "                                                                  3580 8  0     \n";
+}
+
+std::string validFEND() {
+  return
+    "                                                                  3580 0  0     \n";
+}
+
+std::string validMEND() {
+  return
+    "                                                                     0 0  0     \n";
+}
+
+std::string validTEND() {
+  return
+    "                                                                    -1 0  0     \n";
 }
 

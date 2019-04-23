@@ -14,18 +14,23 @@ Type( StructureDivision& structureDivision,
 try:
   Type( this->read( 451_c, structureDivision, begin, end, lineNumber ) ) {
     if ( not structureDivision.isFend() ){
-      if ( structureDivision.isHead() ){
+      if ( structureDivision.isSend() ){
+        Log::error("Encountered duplicate SEND record in File 1");
+        Log::info("Section number: {}", asHead( structureDivision ).section() );
+        Log::info("Line number: {}", lineNumber );
+        throw std::exception{};
+      } else if ( structureDivision.isHead() ){
         Log::error("Inappropriate section encountered in File 1");
         Log::info("Section number: {}", asHead( structureDivision ).section() );
-        Log::info("Line number: {}", lineNumber - 1 );
+        Log::info("Line number: {}", lineNumber );
         throw std::exception{};
       } else if ( structureDivision.isMend() ){
         Log::info("Encountered MEND record before FEND record in File 1" );
-        Log::info("Line number: {}", lineNumber - 1 );
+        Log::info("Line number: {}", lineNumber );
         throw std::exception{};
       } else if ( structureDivision.isTend() ){
         Log::info("Encountered TEND record before FEND record in File 1" );
-        Log::info("Line number: {}", lineNumber - 1 );
+        Log::info("Line number: {}", lineNumber );
         throw std::exception{};
       }
     }

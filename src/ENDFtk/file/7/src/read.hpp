@@ -53,9 +53,9 @@ read( hana::tuple< SectionNos... > sectionNos, Args&&... args ) {
   };
 
   auto append_fn = [&]( auto&& tuple, auto&& sectionNo ){
-    return hana::unpack( tuple,
+    return hana::unpack( std::move( tuple ),
                          [&]( auto&&... pairs )
-                         { return pack_fn( pairs...,
+                         { return pack_fn( std::move( pairs )... ,
                                            readPair_fn( sectionNo ) ); } );
   };
 

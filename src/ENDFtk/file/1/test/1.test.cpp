@@ -9,6 +9,10 @@ std::string& cachedTape();
 std::string getFile( int MF );
 std::string chunk451();
 void verifyChunk451( const file::Type< 1 >& );
+std::string validSEND();
+std::string validFEND();
+std::string validMEND();
+std::string validTEND();
 
 SCENARIO( "Testing special case of file 1" ) {
 
@@ -64,7 +68,55 @@ SCENARIO( "Testing special case of file 1" ) {
         auto output = std::back_inserter( buffer );
         mf1.print( output, 3988 );
 
-        REQUIRE( buffer == chunk451() );
+        REQUIRE( buffer == chunk451() + validFEND() );
+      } // THEN
+    } // WHEN
+  } // GIVEN
+
+  GIVEN( "a string representation of File 1 with errors in the END records" ) {
+
+    WHEN( "there is a SEND instead of FEND" ) {
+
+      std::string string = chunk451() + validSEND();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 0;
+
+      StructureDivision division( begin, end, lineNumber );
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( file::Type< 1 >( division, begin, end, lineNumber ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "there is a MEND instead of FEND" ) {
+
+      std::string string = chunk451() + validMEND();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 0;
+
+      StructureDivision division( begin, end, lineNumber );
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( file::Type< 1 >( division, begin, end, lineNumber ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "there is a TEND instead of FEND" ) {
+
+      std::string string = chunk451() + validTEND();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 0;
+
+      StructureDivision division( begin, end, lineNumber );
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( file::Type< 1 >( division, begin, end, lineNumber ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -169,8 +221,7 @@ std::string chunk451() {
     "***************************************************               3988 1451     \n"
     "                                1        451         12          03988 1451     \n"
     "                                3          1          4          03988 1451     \n"
-    "                                                                  3988 1  0     \n"
-    "                                                                  3988 0  0     \n";
+    "                                                                  3988 1  0     \n";
 }
 
 void verifyChunk451( const file::Type< 1 >& chunk ) {
@@ -190,5 +241,25 @@ void verifyChunk451( const file::Type< 1 >& chunk ) {
   REQUIRE( 6 == chunk.MT( 451_c ).NWD() );
   REQUIRE( 2 == chunk.MT( 451_c ).NXC() );
   REQUIRE( 12 == chunk.MT( 451_c ).NC() );
+}
+
+std::string validSEND() {
+  return
+    "                                                                  3988 3  0     \n";
+}
+
+std::string validFEND() {
+  return
+    "                                                                  3988 0  0     \n";
+}
+
+std::string validMEND() {
+  return
+    "                                                                     0 0  0     \n";
+}
+
+std::string validTEND() {
+  return
+    "                                                                    -1 0  0     \n";
 }
 

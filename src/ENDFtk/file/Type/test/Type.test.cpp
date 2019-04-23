@@ -9,6 +9,10 @@ std::string& cachedTape();
 std::string getFile( int MF );
 std::string chunk();
 void verifyChunk( const file::Type< 3 >& );
+std::string validSEND();
+std::string validFEND();
+std::string validMEND();
+std::string validTEND();
 
 SCENARIO( "Testing generic case using file 3" ) {
 
@@ -60,7 +64,7 @@ SCENARIO( "Testing generic case using file 3" ) {
         auto output = std::back_inserter( buffer );
         mf3.print( output, 125 );
 
-        REQUIRE( buffer == chunk() );
+        REQUIRE( buffer == chunk() + validFEND() );
       } // THEN
     } // WHEN
 
@@ -95,7 +99,7 @@ SCENARIO( "Testing generic case using file 3" ) {
         auto output = std::back_inserter( buffer );
         mf3.print( output, 125 );
 
-        REQUIRE( buffer == chunk() );
+        REQUIRE( buffer == chunk() + validFEND() );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -176,6 +180,54 @@ SCENARIO( "Testing generic case using file 3" ) {
       REQUIRE( buffer == file3string );
     } // THEN
   } // GIVEN
+
+  GIVEN( "a string representation of File 3 with errors in the END records" ) {
+
+    WHEN( "there is a SEND instead of FEND" ) {
+
+      std::string string = chunk() + validSEND();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 0;
+
+      StructureDivision division( begin, end, lineNumber );
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( file::Type< 3 >( division, begin, end, lineNumber ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "there is a MEND instead of FEND" ) {
+
+      std::string string = chunk() + validMEND();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 0;
+
+      StructureDivision division( begin, end, lineNumber );
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( file::Type< 3 >( division, begin, end, lineNumber ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "there is a TEND instead of FEND" ) {
+
+      std::string string = chunk() + validTEND();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 0;
+
+      StructureDivision division( begin, end, lineNumber );
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( file::Type< 3 >( division, begin, end, lineNumber ) );
+      } // THEN
+    } // WHEN
+  } // GIVEN
 } // SCENARIO
 
 std::string& cachedTape() {
@@ -210,8 +262,7 @@ std::string chunk() {
     " 2.224631+6 2.224631+6          0          0          1          2 125 3102     \n"
     "          2          5                                             125 3102     \n"
     " 1.000000-5 1.669994+1 2.000000+7 2.722354-5                       125 3102     \n"
-    "                                                                   125 3  0     \n"
-    "                                                                   125 0  0     \n";
+    "                                                                   125 3  0     \n";
 }
 
 void verifyChunk( const file::Type< 3 >& chunk ) {
@@ -262,5 +313,25 @@ void verifyChunk( const file::Type< 3 >& chunk ) {
   REQUIRE( 2.224631e+6 == Approx( chunk.section( 102 ).QM() ) );
   REQUIRE( 2.224631e+6 == Approx( chunk.section( 102 ).QI() ) );
   REQUIRE( 5 == chunk.section( 102 ).interpolants()[0] );
+}
+
+std::string validSEND() {
+  return
+    "                                                                   125 3  0     \n";
+}
+
+std::string validFEND() {
+  return
+    "                                                                   125 0  0     \n";
+}
+
+std::string validMEND() {
+  return
+    "                                                                     0 0  0     \n";
+}
+
+std::string validTEND() {
+  return
+    "                                                                    -1 0  0     \n";
 }
 
