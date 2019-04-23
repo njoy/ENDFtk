@@ -15,12 +15,12 @@ class TabulatedSpectrum {
 
 public:
 
-  #include "ENDFtk/section/5/TabulatedSpectrum/OutgoingDistribution.hpp"
+  #include "ENDFtk/section/5/TabulatedSpectrum/OutgoingEnergyDistribution.hpp"
 
 private:
 
   /* members */
-  InterpolationSequenceRecord< OutgoingDistribution > data_;
+  InterpolationSequenceRecord< OutgoingEnergyDistribution > data_;
 
   /* auxiliary functions */
 

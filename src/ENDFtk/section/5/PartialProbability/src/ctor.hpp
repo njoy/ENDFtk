@@ -1,5 +1,5 @@
 /**
- *  @brief Constructor (without defining U)
+ *  @brief Constructor
  *
  *  @param[in] lf              the type of the underlying distribution
  *  @param[in] boundaries      the interpolation range boundaries

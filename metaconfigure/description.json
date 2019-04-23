@@ -561,8 +561,8 @@
     "src/ENDFtk/section/5/SubSection/src/NC.hpp", 
     "src/ENDFtk/section/5/SubSection/src/print.hpp", 
     "src/ENDFtk/section/5/SubSection/src/readSubSection.hpp", 
-    "src/ENDFtk/section/5/TabulatedSpectrum/OutgoingDistribution.hpp", 
-    "src/ENDFtk/section/5/TabulatedSpectrum/OutgoingDistribution/src/ctor.hpp", 
+    "src/ENDFtk/section/5/TabulatedSpectrum/OutgoingEnergyDistribution.hpp", 
+    "src/ENDFtk/section/5/TabulatedSpectrum/OutgoingEnergyDistribution/src/ctor.hpp", 
     "src/ENDFtk/section/5/TabulatedSpectrum/src/ctor.hpp", 
     "src/ENDFtk/section/5/TabulatedSpectrum/src/print.hpp", 
     "src/ENDFtk/section/5/WattSpectrum/src/ctor.hpp", 
@@ -951,8 +951,8 @@
     "ENDFtk.section.5.TabulatedSpectrum": [
       "src/ENDFtk/section/5/TabulatedSpectrum/test/TabulatedSpectrum.test.cpp"
     ], 
-    "ENDFtk.section.5.TabulatedSpectrum.OutgoingDistribution": [
-      "src/ENDFtk/section/5/TabulatedSpectrum/OutgoingDistribution/test/OutgoingDistribution.test.cpp"
+    "ENDFtk.section.5.TabulatedSpectrum.OutgoingEnergyDistribution": [
+      "src/ENDFtk/section/5/TabulatedSpectrum/OutgoingEnergyDistribution/test/OutgoingDistribution.test.cpp"
     ], 
     "ENDFtk.section.5.WattSpectrum": [
       "src/ENDFtk/section/5/WattSpectrum/test/WattSpectrum.test.cpp"

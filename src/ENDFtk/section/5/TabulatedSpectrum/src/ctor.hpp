@@ -1,11 +1,14 @@
+private :
 /** 
  *  @brief Constructor
  *
  *  @param[in] sequence   the interpolation sequence record
  */
-TabulatedSpectrum( InterpolationSequenceRecord< OutgoingDistribution >&& sequence ) :
+TabulatedSpectrum(
+    InterpolationSequenceRecord< OutgoingEnergyDistribution >&& sequence ) :
   data_( std::move( sequence ) ) {}
 
+public :
 /** 
  *  @brief Constructor
  *
@@ -16,12 +19,19 @@ TabulatedSpectrum( InterpolationSequenceRecord< OutgoingDistribution >&& sequenc
  */
 TabulatedSpectrum( std::vector< long >&& boundaries,
                    std::vector< long >&& interpolants,
-                   std::vector< OutgoingDistribution >&& distributions ) :
-  TabulatedSpectrum( InterpolationSequenceRecord< OutgoingDistribution >(
-                         InterpolationRecord( 0.0, 0.0, 0, 0,
-                                              std::move( boundaries ),
-                                              std::move( interpolants ) ),
-                         std::move( distributions ) ) ) {};
+                   std::vector< OutgoingEnergyDistribution >&& distributions )
+  try : TabulatedSpectrum(
+            InterpolationSequenceRecord< OutgoingEnergyDistribution >(
+                InterpolationRecord( 0.0, 0.0, 0, 0,
+                                     std::move( boundaries ),
+                                     std::move( interpolants ) ),
+                std::move( distributions ) ) ) {}
+  catch ( std::exception& e ) {
+
+    Log::info( "Encountered error while constructing a tabulated energy "
+               "distribution (LF=1)" );
+    throw;
+  }
 
 /** 
  *  @brief Constructor (from a buffer)
@@ -41,7 +51,13 @@ TabulatedSpectrum( Iterator& begin,
                    long& lineNumber,
                    int MAT,
                    int MF,
-                   int MT ) :
-  TabulatedSpectrum(
-      InterpolationSequenceRecord< OutgoingDistribution >( begin, end, lineNumber,
-                                                           MAT, MF, MT ) ) {}
+                   int MT )
+  try : TabulatedSpectrum(
+            InterpolationSequenceRecord< OutgoingEnergyDistribution >(
+                begin, end, lineNumber, MAT, MF, MT ) ) {}
+  catch ( std::exception& e ) {
+
+    Log::info( "Encountered error while reading a tabulated energy "
+               "distribution (LF=1)" );
+    throw;
+  }

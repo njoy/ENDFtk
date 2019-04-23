@@ -7,12 +7,12 @@
  *
  *  See ENDF102, section 5.2.1 for more information.
  */
-class OutgoingDistribution : protected TabulationRecord {
+class OutgoingEnergyDistribution : protected TabulationRecord {
 
 public:
 
   /* constructor */
-  #include "ENDFtk/section/5/TabulatedSpectrum/OutgoingDistribution/src/ctor.hpp"
+  #include "ENDFtk/section/5/TabulatedSpectrum/OutgoingEnergyDistribution/src/ctor.hpp"
 
   /* get methods */
 
@@ -29,7 +29,7 @@ public:
   /**
    *  @brief Return the probability values
    */
-  auto values() const { return TabulationRecord::y(); }
+  auto probabilities() const { return TabulationRecord::y(); }
 
   using TabulationRecord::NP;
   using TabulationRecord::NR;

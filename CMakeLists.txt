@@ -420,8 +420,8 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/SubSection/src/NC.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/SubSection/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/SubSection/src/readSubSection.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/TabulatedSpectrum/OutgoingDistribution.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/TabulatedSpectrum/OutgoingDistribution/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/TabulatedSpectrum/OutgoingEnergyDistribution.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/TabulatedSpectrum/OutgoingEnergyDistribution/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/TabulatedSpectrum/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/TabulatedSpectrum/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/WattSpectrum/src/ctor.hpp"
@@ -648,7 +648,6 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/section/7/4/EffectiveTemperature/test )
         add_subdirectory( src/ENDFtk/section/8/457/DecayModes/test )
         add_subdirectory( src/ENDFtk/syntaxTree/Tape/test )
-        add_subdirectory( src/ENDFtk/section/5/TabulatedSpectrum/OutgoingDistribution/test )
         add_subdirectory( src/ENDFtk/StructureDivision/test )
         add_subdirectory( src/ENDFtk/section/6/LaboratoryAngleEnergy/AngularDistribution/test )
         add_subdirectory( src/ENDFtk/section/6/LaboratoryAngleEnergy/EnergyDistribution/test )
@@ -679,6 +678,7 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/resonanceParameters/Isotope/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/test )
         add_subdirectory( src/ENDFtk/section/5/WattSpectrum/test )
+        add_subdirectory( src/ENDFtk/section/5/TabulatedSpectrum/OutgoingEnergyDistribution/test )
         add_subdirectory( src/ENDFtk/section/6/Unknown/test )
         add_subdirectory( src/ENDFtk/section/6/ContinuumEnergyAngle/Base/test )
         add_subdirectory( src/ENDFtk/section/5/MadlandNixSpectrum/test )
