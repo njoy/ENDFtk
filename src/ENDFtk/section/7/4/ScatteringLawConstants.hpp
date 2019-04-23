@@ -74,7 +74,7 @@ public:
     auto indices = [] (auto NS) {
       switch(1 + NS) {
         case 1: {
-          static constexpr std::array< std::ptrdiff_t, 1 > indices = {{0}}};
+          static constexpr std::array< std::ptrdiff_t, 1 > indices = {{0}};
           return ranges::make_iterator_range(indices.begin(), indices.end());
         } case 2: {
           static constexpr std::array< std::ptrdiff_t, 2 > indices = {{0, 7}};
