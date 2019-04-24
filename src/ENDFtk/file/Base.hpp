@@ -1,55 +1,22 @@
 template < typename Derived >
 class Base {
 
-  template<int MF>
-  struct RequiredPairType {
-    template<typename Index>
-    constexpr auto operator()(Index) const {
-      return hana::type_c<hana::pair
-                         <Index, section::Type<MF, Index::value>>>;
-    }
-  };
+  Derived& derived() { return static_cast< Derived& >( *this ); }
+  const Derived& derived() const {
 
-  template<int MF>
-  struct OptionalPairType {
-    template<typename Index>
-    constexpr auto operator()(Index) const {
-      return hana::type_c
-             <hana::pair
-              <Index, std::optional<section::Type<MF, Index::value>>>>;
-    }
-  };
-
-  struct MapType {
-    template< typename... Pairs >
-    constexpr auto operator()( Pairs... ) const {
-
-      using Map_t = decltype(hana::make_map(std::declval<typename Pairs::type>()...));
-      return hana::type_c< Map_t >;
-    }
-  };
+    return static_cast< const Derived& >( *this );
+  }
 
 protected:
 
-  template<typename MF,
-           typename Required,
-           typename Optional>
-  static constexpr auto deduceMapType(MF, Required required, Optional optional){
-    auto sections = hana::sort(hana::concat(required, optional));
-    const auto isRequired =
-      hana::partial(hana::contains, required);
-    const auto makeRequired = RequiredPairType<MF::value>{};
-    const auto makeOptional = OptionalPairType<MF::value>{};
-    const auto makePair =
-      hana::demux(hana::if_)(isRequired, makeRequired, makeOptional);
-    const auto makeMap = MapType{};
-    return hana::unpack(sections, hana::on(makeMap, makePair));
+  static constexpr auto sections() {
+
+    return hana::sort(hana::concat( Derived::requiredSections(),
+                                    Derived::optionalSections() ) );
   }
 
-  static constexpr auto sections(){
-    return hana::sort(hana::concat(Derived::requiredSections(),
-                                   Derived::optionalSections()));
-  }
+  #include "ENDFtk/file/Base/src/deduceMapType.hpp"
+  #include "ENDFtk/file/Base/src/fill.hpp"
 
 public:
 
@@ -58,9 +25,9 @@ public:
   /**
    *  @brief Return the MF number of the file
    */
-  constexpr int MF() const {
+  static constexpr int MF() {
 
-    return static_cast< const Derived* >( this )->fileNumber();
+    return Derived::fileNumber();
   }
 
   /**
@@ -71,7 +38,7 @@ public:
   template< typename Index >
   constexpr bool hasMT( Index mt ) const {
 
-    return static_cast< const Derived* >( this )->hasSection( mt );
+    return this->derived().hasSection( mt );
   }
 
   /**
@@ -82,7 +49,7 @@ public:
   template< typename Index >
   constexpr decltype( auto ) MT( Index sectionNo ) const {
 
-    return static_cast< const Derived* >( this )->section( sectionNo );
+    return this->derived().section( sectionNo );
   }
 
   /**
@@ -92,7 +59,7 @@ public:
    */
   template< typename Index > constexpr decltype( auto ) MT( Index sectionNo ) {
 
-    return static_cast< const Derived* >( this )->section( sectionNo );
+    return this->derived().section( sectionNo );
   }
 
   #include "ENDFtk/file/Base/src/section.hpp"

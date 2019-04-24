@@ -8,11 +8,11 @@ decltype( auto ) section( Index sectionNo ) const {
 
   try {
 
-    return get( static_cast< const Derived* >( this )->sectionMap[ sectionNo ] );
+    return details::get( this->derived().sectionMap[ sectionNo ] );
   }
   catch ( ... ) {
 
-    int MF = static_cast< const Derived* >( this )->MF();
+    int MF = this->derived().MF();
     Log::error( "Requested section number (MT) does not "
                 "correspond to a stored section" );
     Log::info( "Requested section number: {}", sectionNo );
@@ -30,8 +30,7 @@ decltype( auto ) section( Index sectionNo ) const {
 template< typename Index >
 decltype( auto ) section( Index sectionNo ) {
 
-  decltype( auto ) section =
-    static_cast< const Derived& >( *this ).section( sectionNo );
+  decltype( auto ) section = const_cast< const Base* >( this )->derived().section( sectionNo );
 
   using Section_t =
     std::add_lvalue_reference_t< std::decay_t< decltype( section ) > >;

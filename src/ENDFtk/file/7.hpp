@@ -1,11 +1,17 @@
 template<>
 class Type< 7 > : public Base< Type< 7 > > {
 
+  friend Base< Type >;
   using Parent = Base< Type >;
 
-  /* MF7 has a limited number of possible sections (all optional) */
-  static constexpr auto requiredSections() RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple() )
-  static constexpr auto optionalSections() RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 2_c, 4_c ) )
+  // MF7 only has enumerated secton
+  // no sections are required
+  static constexpr auto requiredSections()
+    RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple() )
+
+  // MT2 and MT4 are optional
+  static constexpr auto optionalSections()
+    RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 2_c, 4_c ) )
 
   using Map = typename decltype( deduceMapType( 7_c,
                                                 requiredSections(),
@@ -16,7 +22,6 @@ class Type< 7 > : public Base< Type< 7 > > {
 
   /* auxiliary functions */
   #include "ENDFtk/file/7/src/read.hpp"
-  #include "ENDFtk/file/7/src/fill.hpp"
 
 public:
 
