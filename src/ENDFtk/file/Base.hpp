@@ -29,27 +29,27 @@ class Base {
     }
   };
 
-  template<typename MF, 
+protected:
+
+  template<typename MF,
            typename Required,
            typename Optional>
   static constexpr auto deduceMapType(MF, Required required, Optional optional){
-    auto sections = hana::sort(hana::concat(required, optional));                                                       
-    const auto isRequired =                                              
-      hana::partial(hana::in, required);        
+    auto sections = hana::sort(hana::concat(required, optional));
+    const auto isRequired =
+      hana::partial(hana::contains, required);
     const auto makeRequired = RequiredPairType<MF::value>{};
     const auto makeOptional = OptionalPairType<MF::value>{};
     const auto makePair =
       hana::demux(hana::if_)(isRequired, makeRequired, makeOptional);
     const auto makeMap = MapType{};
-    return hana::unpack(sections, hana::on(makeMap, makePair));                                                                                    
+    return hana::unpack(sections, hana::on(makeMap, makePair));
   }
 
-protected:
-                                                                   
-  static constexpr auto sections(){                                
-    return hana::sort(hana::concat(Derived::requiredSections(),    
-                                   Derived::optionalSections()));  
-  }                                                                
+  static constexpr auto sections(){
+    return hana::sort(hana::concat(Derived::requiredSections(),
+                                   Derived::optionalSections()));
+  }
 
 public:
 
