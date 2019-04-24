@@ -1,34 +1,20 @@
 template<>
-class Type< 1 > : public Base< Type< 1 > >,
-                  public SpecialBase< Type< 1 > > {
+class Type< 1 > : public Base< Type< 1 > > {
 
-  friend SpecialBase< Type< 1 > >;
+  using Parent = Base< Type >;
 
   /* MF1 has a limited number of possible sections, MT451 is required */
-  static constexpr auto optionalSections() {
+  static constexpr auto requiredSections()
+    RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 451_c ) )
 
-    // return hana::make_tuple( 452_c, 455_c, 456_c, 458_c, 460_c );
-    return hana::make_tuple();
-  }
+  static constexpr auto optionalSections()
+    RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple() )
 
-  /* convenience typedefs */
-  using Map =
-    decltype
-    ( hana::make_map
-      ( hana::make_pair
-        ( 451_c, std::declval< section::Type< 1, 451 > >() ) /*,
-        hana::make_pair
-        ( 452_c, std::declval< std::optional< section::Type< 1, 452 > > >() ),
-        hana::make_pair
-        ( 455_c, std::declval< std::optional< section::Type< 1, 455 > > >() ),
-        hana::make_pair
-        ( 456_c, std::declval< std::optional< section::Type< 1, 456 > > >() ),
-        hana::make_pair
-        ( 458_c, std::declval< std::optional< section::Type< 1, 458 > > >() ),
-        hana::make_pair
-        ( 460_c, std::declval< std::optional< section::Type< 1, 460 > > >() ) )
-        */
-        ) );
+  // hana::make_tuple( 452_c, 455_c, 456_c, 458_c, 460_c );
+
+  using Map = typename decltype( deduceMapType( 1_c,
+                                                requiredSections(),
+                                                optionalSections() ) )::type;
 
   /* fields */
   Map sectionMap;

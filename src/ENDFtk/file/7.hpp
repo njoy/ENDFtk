@@ -1,21 +1,15 @@
 template<>
-class Type< 7 > : public Base< Type< 7 > >,
-                  public SpecialBase< Type< 7 > > {
+class Type< 7 > : public Base< Type< 7 > > {
 
-  friend SpecialBase< Type< 7 > >;
+  using Parent = Base< Type >;
 
   /* MF7 has a limited number of possible sections (all optional) */
-  static constexpr auto optionalSections() { return hana::make_tuple( 2_c, 4_c ); }
-  static constexpr auto sections() { return optionalSections(); }
+  static constexpr auto requiredSections() RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple() )
+  static constexpr auto optionalSections() RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 2_c, 4_c ) )
 
-  /* convenience typedefs */
-  using Map =
-    decltype
-    ( hana::make_map
-      ( hana::make_pair
-        ( 2_c, std::declval< std::optional< section::Type< 7, 2 > > >() ),
-        hana::make_pair
-        ( 4_c, std::declval< std::optional< section::Type< 7, 4 > > >() ) ) );
+  using Map = typename decltype( deduceMapType( 7_c,
+                                                requiredSections(),
+                                                optionalSections() ) )::type;
 
   /* fields */
   Map sectionMap;

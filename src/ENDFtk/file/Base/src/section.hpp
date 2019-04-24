@@ -3,8 +3,8 @@
  *
  *  @param mt   the MT number of the section to be retrieved (e.g. 451_c)
  */
-template< long long Index >
-decltype( auto ) section( hana::llong< Index > sectionNo ) const {
+template< typename Index >
+decltype( auto ) section( Index sectionNo ) const {
 
   try {
 
@@ -15,7 +15,7 @@ decltype( auto ) section( hana::llong< Index > sectionNo ) const {
     int MF = static_cast< const Derived* >( this )->MF();
     Log::error( "Requested section number (MT) does not "
                 "correspond to a stored section" );
-    Log::info( "Requested section number: {}", sectionNo.value );
+    Log::info( "Requested section number: {}", sectionNo );
     Log::info( "File queried: {}", MF );
 
     throw std::out_of_range( "File " + std::to_string( MF ) + " sectionNumber" );

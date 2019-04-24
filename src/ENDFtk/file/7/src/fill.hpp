@@ -1,6 +1,8 @@
-template< int sectionNo, typename... Sections >
+template< int MF, int MT, typename... Sections >
 static Map
-fill( section::Type< 7, sectionNo >&& section, Sections&&... sections ) {
+fill( section::Type< MF, MT >&& section, Sections&&... sections ) {
+
+  static_assert( MF == Derived::MF(), "This should never happen" );
 
   auto map =
     hana::make_map
