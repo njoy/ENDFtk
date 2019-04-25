@@ -13,12 +13,21 @@ public:
   #include "ENDFtk/section/5/Parameter/src/ctor.hpp"
 
   /* get methods */
+
+  /**
+   *  @brief Return the energy values
+   */
+  auto energies() const { return TabulationRecord::x(); }
+
+  /**
+   *  @brief Return the parameter values
+   */
+  auto values() const { return TabulationRecord::y(); }
+
   using TabulationRecord::NP;
   using TabulationRecord::NR;
   using TabulationRecord::interpolants;
   using TabulationRecord::boundaries;
-  using TabulationRecord::x;
-  using TabulationRecord::y;
   using TabulationRecord::NC;
   using TabulationRecord::print;
 };

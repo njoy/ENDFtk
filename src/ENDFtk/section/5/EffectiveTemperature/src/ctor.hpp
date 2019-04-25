@@ -4,20 +4,21 @@
  *  @param[in] boundaries      the interpolation range boundaries
  *  @param[in] interpolants    the interpolation types for each range
  *  @param[in] energies        the energy values
- *  @param[in] values          the parameter values
+ *  @param[in] thetas          the theta values
  */
-Parameter( std::vector< long >&& boundaries,
-           std::vector< long >&& interpolants,
-           std::vector< double >&& energies,
-           std::vector< double >&& values )
+EffectiveTemperature( std::vector< long >&& boundaries,
+                      std::vector< long >&& interpolants,
+                      std::vector< double >&& energies,
+                      std::vector< double >&& thetas )
   try : TabulationRecord( 0.0, 0.0, 0, 0,
                           std::move( boundaries ),
                           std::move( interpolants ),
                           std::move( energies ),
-                          std::move( values ) ) {}
+                          std::move( thetas ) ) {}
   catch ( std::exception& e ) {
 
-    Log::info( "Error encountered while constructing a parameter function" );
+    Log::info( "Error encountered while constructing an effective "
+               "temperature function" );
     throw;
   }
 
@@ -34,11 +35,12 @@ Parameter( std::vector< long >&& boundaries,
  *  @param[in] MT           the expected MT number
  */
 template< typename Iterator >
-Parameter( Iterator& begin, const Iterator& end,
-           long& lineNumber, int MAT, int MF, int MT )
+EffectiveTemperature( Iterator& begin, const Iterator& end,
+                      long& lineNumber, int MAT, int MF, int MT )
   try : TabulationRecord( begin, end, lineNumber, MAT, MF, MT ) {}
   catch ( std::exception& e ) {
 
-    Log::info( "Error encountered while reading a parameter function" );
+    Log::info( "Error encountered while constructing an effective "
+               "temperature function" );
     throw;
   }

@@ -19,7 +19,7 @@ OutgoingEnergyDistribution( double incident,
                           std::move( probabilities ) ) {}
   catch ( std::exception& e ) {
 
-    Log::info( "Encountered error while constructing an outgoing energy "
+    Log::info( "Error encountered while constructing an outgoing energy "
                "distribution (LF=1)" );
     throw;
   }
@@ -42,7 +42,7 @@ OutgoingEnergyDistribution( Iterator& begin, const Iterator& end,
   try : TabulationRecord( begin, end, lineNumber, MAT, MF, MT ) {}
   catch ( std::exception& e ) {
 
-    Log::info( "Encountered error while reading an outgoing energy "
+    Log::info( "Error encountered while reading an outgoing energy "
                "distribution (LF=1)" );
     throw;
   }

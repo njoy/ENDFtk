@@ -7,29 +7,29 @@
  *
  *  See ENDF102, section 5 for more information.
  */
-class EffectiveTemperature : protected Parameter {
+class EffectiveTemperature : protected TabulationRecord {
 
 public:
 
   /* constructor */
-  using Parameter::Parameter;
+  #include "ENDFtk/section/5/EffectiveTemperature/src/ctor.hpp"
 
   /* get methods */
 
   /**
    *  @brief Return the energy values
    */
-  auto energies() const { return Parameter::x(); }
+  auto energies() const { return TabulationRecord::x(); }
 
   /**
    *  @brief Return the effective temperature values
    */
-  auto thetas() const { return Parameter::y(); }
+  auto thetas() const { return TabulationRecord::y(); }
 
-  using Parameter::NP;
-  using Parameter::NR;
-  using Parameter::interpolants;
-  using Parameter::boundaries;
-  using Parameter::NC;
-  using Parameter::print;
+  using TabulationRecord::NP;
+  using TabulationRecord::NR;
+  using TabulationRecord::interpolants;
+  using TabulationRecord::boundaries;
+  using TabulationRecord::NC;
+  using TabulationRecord::print;
 };

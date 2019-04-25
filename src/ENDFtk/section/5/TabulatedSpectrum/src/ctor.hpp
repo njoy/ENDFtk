@@ -28,7 +28,7 @@ TabulatedSpectrum( std::vector< long >&& boundaries,
                 std::move( distributions ) ) ) {}
   catch ( std::exception& e ) {
 
-    Log::info( "Encountered error while constructing a tabulated energy "
+    Log::info( "Error encountered while constructing a tabulated energy "
                "distribution (LF=1)" );
     throw;
   }
@@ -57,7 +57,7 @@ TabulatedSpectrum( Iterator& begin,
                 begin, end, lineNumber, MAT, MF, MT ) ) {}
   catch ( std::exception& e ) {
 
-    Log::info( "Encountered error while reading a tabulated energy "
+    Log::info( "Error encountered while reading a tabulated energy "
                "distribution (LF=1)" );
     throw;
   }
