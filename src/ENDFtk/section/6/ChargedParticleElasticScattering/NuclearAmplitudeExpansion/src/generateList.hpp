@@ -18,7 +18,7 @@ generateList( unsigned int NL,
     Log::info( "ai.size(): {}", ai.size() );
     throw std::exception();
   }
-  if ( ! ( ( b.size() == NL + 1 ) or ( b.size() == 2 * NL + 1 ) ) ) {
+  if ( not ( ( b.size() == NL + 1 ) or ( b.size() == 2 * NL + 1 ) ) ) {
 
     Log::info( "The number of b values must be equal to NL + 1 of 2*NL + 1 "
                "for nuclear amplitude expansion" );
