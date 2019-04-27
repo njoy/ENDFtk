@@ -21,7 +21,7 @@ SCENARIO( "GeneralEvaporationSpectrum" ) {
 
   GIVEN( "valid data for a GeneralEvaporationSpectrum" ) {
 
-      std::string string = chunk();
+    std::string string = chunk();
 
     WHEN( "the data is given explicitly" ) {
 
@@ -77,7 +77,7 @@ SCENARIO( "GeneralEvaporationSpectrum" ) {
     } // WHEN
   } // GIVEN
 
-  GIVEN( "invalid data for a EffectiveTemperature" ) {
+  GIVEN( "invalid data for a GeneralEvaporationSpectrum" ) {
 
     WHEN( "a string representation with an error is given" ) {
 

@@ -4,6 +4,7 @@
  *  @param[in] parameters   the parameters for the Watt spectrum
  */
 WattSpectrum( std::array< Parameter, 2 >&& parameters ) :
+  // no need to try-catch, would be unreachable
   parameters_( std::move( parameters ) ) {}
 
 /** 
@@ -24,6 +25,11 @@ WattSpectrum( Iterator& begin,
                    long& lineNumber,
                    int MAT,
                    int MF,
-                   int MT ) :
-  WattSpectrum( readParameters( begin, end, lineNumber,
-                                MAT, MF, MT ) ) {}
+                   int MT )
+  try : WattSpectrum( readParameters( begin, end, lineNumber,
+                                      MAT, MF, MT ) ) {}
+  catch ( std::exception& e ) {
+
+    Log::info( "Error encountered while reading a Watt spectrum" );
+    throw;
+  }

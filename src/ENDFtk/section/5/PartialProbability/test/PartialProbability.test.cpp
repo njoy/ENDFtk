@@ -137,7 +137,7 @@ SCENARIO( "PartialProbability" ) {
     } // WHEN
   } // GIVEN
 
-  GIVEN( "invalid data for a Parameter" ) {
+  GIVEN( "invalid data for a PartialProbability" ) {
 
     WHEN( "inconsistent data is used" ) {
 

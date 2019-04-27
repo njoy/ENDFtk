@@ -12,12 +12,17 @@ MadlandNixSpectrum( double efl, double efh,
                     std::vector< long >&& boundaries,
                     std::vector< long >&& interpolants,
                     std::vector< double >&& energies,
-                    std::vector< double >&& values ) :
-  TabulationRecord( efl, efh, 0, 0,
-                    std::move( boundaries ),
-                    std::move( interpolants ),
-                    std::move( energies ),
-                    std::move( values ) ) {}
+                    std::vector< double >&& values )
+  try : TabulationRecord( efl, efh, 0, 0,
+                          std::move( boundaries ),
+                          std::move( interpolants ),
+                          std::move( energies ),
+                          std::move( values ) ) {}
+  catch ( std::exception& e ) {
+
+    Log::info( "Error encountered while reading a Madland-Nix spectrum" );
+    throw;
+  }
 
 /** 
  *  @brief Constructor (from a buffer)
@@ -33,6 +38,10 @@ MadlandNixSpectrum( double efl, double efh,
  */
 template< typename Iterator >
 MadlandNixSpectrum( Iterator& begin, const Iterator& end,
-                    long& lineNumber, int MAT, int MF, int MT ) :
-  TabulationRecord( begin, end, lineNumber, MAT, MF, MT ) {}
+                    long& lineNumber, int MAT, int MF, int MT )
+  try : TabulationRecord( begin, end, lineNumber, MAT, MF, MT ) {}
+  catch ( std::exception& e ) {
 
+    Log::info( "Error encountered while reading a Madland-Nix spectrum" );
+    throw;
+  }
