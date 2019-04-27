@@ -31,6 +31,16 @@ public:
 
   /* get methods */
 
+  /**
+   *  @brief Return the distribution type (the LF flag)
+   */
+  static constexpr int LF() { return 1; }
+
+  /**
+   *  @brief Return the distribution type (the LF flag)
+   */
+  static constexpr int distributionType() { return GeneralEvaporationSpectrum::LF(); }
+
   /** 
    *  @brief Return the number of interpolation ranges on the beta grid
    */

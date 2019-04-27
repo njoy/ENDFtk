@@ -7,7 +7,13 @@
 SubSection( PartialProbability&& probability,
             PartialDistribution&& distribution ) :
   probability_( std::move( probability ) ),
-  distribution_( std::move( distribution ) ) {}
+  distribution_( std::move( distribution ) ) {
+
+  verifyLF( this->probability_.LF(),
+            std::visit( [&] ( const auto& entry )
+                            { return entry.LF(); },
+                        this->distribution_ ) );
+}
 
 /** 
  *  @brief Constructor (from a buffer)

@@ -137,6 +137,9 @@ std::string chunk() {
 
 void verifyChunk( const TabulatedSpectrum& chunk ) {
 
+  REQUIRE( 1 == chunk.LF() );
+  REQUIRE( 1 == chunk.distributionType() );
+
   REQUIRE( 1 == chunk.NR() );
   REQUIRE( 2 == chunk.NE() );
   REQUIRE( 1 == chunk.boundaries().size() );

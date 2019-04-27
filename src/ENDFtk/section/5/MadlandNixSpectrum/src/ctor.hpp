@@ -20,7 +20,7 @@ MadlandNixSpectrum( double efl, double efh,
                           std::move( values ) ) {}
   catch ( std::exception& e ) {
 
-    Log::info( "Error encountered while reading a Madland-Nix spectrum" );
+    Log::info( "Error encountered while constructing a Madland-Nix spectrum" );
     throw;
   }
 

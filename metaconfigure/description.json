@@ -539,17 +539,22 @@
     "src/ENDFtk/section/3/src/ctor.hpp", 
     "src/ENDFtk/section/3/src/print.hpp", 
     "src/ENDFtk/section/5/EffectiveTemperature.hpp", 
+    "src/ENDFtk/section/5/EvaporationSpectrum.hpp", 
     "src/ENDFtk/section/5/GeneralEvaporationSpectrum.hpp", 
     "src/ENDFtk/section/5/MadlandNixSpectrum.hpp", 
+    "src/ENDFtk/section/5/MaxwellianFissionSpectrum.hpp", 
     "src/ENDFtk/section/5/Parameter.hpp", 
     "src/ENDFtk/section/5/PartialProbability.hpp", 
     "src/ENDFtk/section/5/SubSection.hpp", 
     "src/ENDFtk/section/5/TabulatedSpectrum.hpp", 
     "src/ENDFtk/section/5/WattSpectrum.hpp", 
+    "src/ENDFtk/section/5/EffectiveTemperature/src/ctor.hpp", 
+    "src/ENDFtk/section/5/EvaporationSpectrum/src/ctor.hpp", 
     "src/ENDFtk/section/5/GeneralEvaporationSpectrum/src/ctor.hpp", 
     "src/ENDFtk/section/5/GeneralEvaporationSpectrum/src/NC.hpp", 
     "src/ENDFtk/section/5/GeneralEvaporationSpectrum/src/print.hpp", 
     "src/ENDFtk/section/5/MadlandNixSpectrum/src/ctor.hpp", 
+    "src/ENDFtk/section/5/MaxwellianFissionSpectrum/src/ctor.hpp", 
     "src/ENDFtk/section/5/Parameter/src/ctor.hpp", 
     "src/ENDFtk/section/5/PartialProbability/src/ctor.hpp", 
     "src/ENDFtk/section/5/src/ctor.hpp", 
@@ -933,11 +938,17 @@
     "ENDFtk.section.5.EffectiveTemperature": [
       "src/ENDFtk/section/5/EffectiveTemperature/test/EffectiveTemperature.test.cpp"
     ], 
+    "ENDFtk.section.5.EvaporationSpectrum": [
+      "src/ENDFtk/section/5/EvaporationSpectrum/test/EvaporationSpectrum.test.cpp"
+    ], 
     "ENDFtk.section.5.GeneralEvaporationSpectrum": [
       "src/ENDFtk/section/5/GeneralEvaporationSpectrum/test/GeneralEvaporationSpectrum.test.cpp"
     ], 
     "ENDFtk.section.5.MadlandNixSpectrum": [
       "src/ENDFtk/section/5/MadlandNixSpectrum/test/MadlandNixSpectrum.test.cpp"
+    ], 
+    "ENDFtk.section.5.MaxwellianFissionSpectrum": [
+      "src/ENDFtk/section/5/MaxwellianFissionSpectrum/test/MaxwellianFissionSpectrum.test.cpp"
     ], 
     "ENDFtk.section.5.Parameter": [
       "src/ENDFtk/section/5/Parameter/test/Parameter.test.cpp"

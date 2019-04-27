@@ -32,9 +32,9 @@ Type( HEAD& head,
   try:
     Base( head, MAT, 5 ),
     subsections_( readSubSections( begin, end, lineNumber,
-                                   MAT, head.MF(), head.MT(), head.N1() ) ) {
+                                   MAT, 5, head.MT(), head.N1() ) ) {
     verifyNK( this->NK() );
-    readSEND(begin, end, lineNumber, MAT, 6 );
+    readSEND( begin, end, lineNumber, MAT, 5 );
   } catch( std::exception& e ) {
     Log::info( "Trouble while reading section {} of File 5 of Material {}",
                head.MT(), MAT );

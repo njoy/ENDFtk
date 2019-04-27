@@ -8,6 +8,7 @@ class SubSection {
   PartialDistribution distribution_;
 
   /* auxiliary functions */
+  #include "ENDFtk/section/5/SubSection/src/verifyLF.hpp"
   #include "ENDFtk/section/5/SubSection/src/readSubSection.hpp"
 
 public:

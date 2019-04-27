@@ -1,11 +1,11 @@
 template< typename Iterator >
 static SubSection
 readSubSection( Iterator& begin,
-                  const Iterator& end,
-                  long& lineNumber,
-                  int MAT,
-                  int MF,
-                  int MT ) {
+                const Iterator& end,
+                long& lineNumber,
+                int MAT,
+                int MF,
+                int MT ) {
 
   PartialProbability probability( begin, end, lineNumber,
                                   MAT, MF, MT );

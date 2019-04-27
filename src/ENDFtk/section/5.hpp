@@ -10,8 +10,8 @@ public:
 
   #include "ENDFtk/section/5/TabulatedSpectrum.hpp"            // LF=1
   #include "ENDFtk/section/5/GeneralEvaporationSpectrum.hpp"   // LF=5
-  using MaxwellianFissionSpectrum = EffectiveTemperature;      // LF=7
-  using EvaporationSpectrum = EffectiveTemperature;            // LF=9
+  #include "ENDFtk/section/5/MaxwellianFissionSpectrum.hpp"    // LF=7
+  #include "ENDFtk/section/5/EvaporationSpectrum.hpp"          // LF=9
   #include "ENDFtk/section/5/WattSpectrum.hpp"                 // LF=11
   #include "ENDFtk/section/5/MadlandNixSpectrum.hpp"           // LF=12
 
@@ -32,7 +32,8 @@ public:
   using PartialDistribution =
             std::variant< TabulatedSpectrum,           // LF=1
                           GeneralEvaporationSpectrum,  // LF=5
-                          EffectiveTemperature,        // LF=7 or 9
+                          MaxwellianFissionSpectrum,   // LF=7
+                          EvaporationSpectrum,         // LF=9
                           WattSpectrum,                // LF=11
                           MadlandNixSpectrum >;        // LF=12
 

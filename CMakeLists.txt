@@ -398,17 +398,22 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/3/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/3/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/EffectiveTemperature.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/EvaporationSpectrum.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/GeneralEvaporationSpectrum.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/MadlandNixSpectrum.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/MaxwellianFissionSpectrum.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/Parameter.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/PartialProbability.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/SubSection.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/TabulatedSpectrum.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/WattSpectrum.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/EffectiveTemperature/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/EvaporationSpectrum/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/GeneralEvaporationSpectrum/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/GeneralEvaporationSpectrum/src/NC.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/GeneralEvaporationSpectrum/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/MadlandNixSpectrum/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/MaxwellianFissionSpectrum/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/Parameter/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/PartialProbability/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/src/ctor.hpp"
@@ -643,6 +648,7 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/resonanceParameters/SpecialCase/test )
         add_subdirectory( src/ENDFtk/section/6/DiscreteTwoBodyScattering/LegendreCoefficients/test )
         add_subdirectory( src/ENDFtk/syntaxTree/Material/test )
+        add_subdirectory( src/ENDFtk/section/5/EvaporationSpectrum/test )
         add_subdirectory( src/ENDFtk/section/6/NoLawDataGiven/test )
         add_subdirectory( src/ENDFtk/section/6/ChargedParticleElasticScattering/SubSection/test )
         add_subdirectory( src/ENDFtk/section/7/4/EffectiveTemperature/test )
@@ -660,12 +666,14 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/section/3/test )
         add_subdirectory( src/ENDFtk/TabulationRecord/test )
         add_subdirectory( src/ENDFtk/section/7/4/Tabulated/test )
+        add_subdirectory( src/ENDFtk/section/8/457/AverageDecayEnergies/test )
         add_subdirectory( src/ENDFtk/section/7/2/test )
         add_subdirectory( src/ENDFtk/record/Base/test )
         add_subdirectory( src/ENDFtk/record/Tail/test )
         add_subdirectory( src/ENDFtk/section/7/4/test )
         add_subdirectory( src/ENDFtk/record/InterpolationBase/test )
         add_subdirectory( src/ENDFtk/record/Zipper/test )
+        add_subdirectory( src/ENDFtk/section/5/MaxwellianFissionSpectrum/test )
         add_subdirectory( src/ENDFtk/section/6/ChargedParticleElasticScattering/NuclearPlusInterference/test )
         add_subdirectory( src/ENDFtk/section/6/ChargedParticleElasticScattering/test )
         add_subdirectory( src/ENDFtk/record/test )
@@ -715,14 +723,13 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/HeadRecord/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner/test )
         add_subdirectory( src/ENDFtk/section/6/IsotropicDiscreteEmission/test )
-        add_subdirectory( src/ENDFtk/section/8/457/AverageDecayEnergies/test )
+        add_subdirectory( src/ENDFtk/section/7/4/Tabulated/ScatteringFunction/test )
         add_subdirectory( src/ENDFtk/TapeIdentification/test )
         add_subdirectory( src/ENDFtk/DirectoryRecord/test )
         add_subdirectory( src/ENDFtk/section/6/ChargedParticleElasticScattering/LegendreCoefficients/test )
         add_subdirectory( src/ENDFtk/section/5/TabulatedSpectrum/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/resolved/ReichMoore/test )
         add_subdirectory( src/ENDFtk/record/Sequence/test )
-        add_subdirectory( src/ENDFtk/section/7/4/Tabulated/ScatteringFunction/test )
         add_subdirectory( src/ENDFtk/section/5/PartialProbability/test )
     endif() 
 endif()
