@@ -3,18 +3,18 @@
  *
  *  @param[in] boundaries      the interpolation range boundaries
  *  @param[in] interpolants    the interpolation types for each range
- *  @param[in] energies        the energy values
- *  @param[in] values          the parameter values
+ *  @param[in] x               the energy y
+ *  @param[in] y               the parameter y
  */
 Parameter( std::vector< long >&& boundaries,
            std::vector< long >&& interpolants,
-           std::vector< double >&& energies,
-           std::vector< double >&& values )
+           std::vector< double >&& x,
+           std::vector< double >&& y )
   try : TabulationRecord( 0.0, 0.0, 0, 0,
                           std::move( boundaries ),
                           std::move( interpolants ),
-                          std::move( energies ),
-                          std::move( values ) ) {}
+                          std::move( x ),
+                          std::move( y ) ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Error encountered while constructing a parameter function" );

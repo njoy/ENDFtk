@@ -17,7 +17,7 @@ public:
   /* get methods */
 
   /**
-   *  @brief Return the energy values
+   *  @brief Return the incident energy value
    */
   auto incidentEnergy() const { return TabulationRecord::C2(); }
 

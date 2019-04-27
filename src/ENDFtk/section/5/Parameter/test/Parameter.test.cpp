@@ -23,13 +23,13 @@ SCENARIO( "Parameter" ) {
 
       std::vector< long > boundaries = { 5 };
       std::vector< long > interpolants = { 1 };
-      std::vector< double > energies = { 1., 2., 3., 4., 5. };
-      std::vector< double > values = { 6., 7., 8., 9., 10. };
+      std::vector< double > x = { 1., 2., 3., 4., 5. };
+      std::vector< double > y = { 6., 7., 8., 9., 10. };
 
       Parameter chunk( std::move( boundaries ),
                        std::move( interpolants ),
-                       std::move( energies ),
-                       std::move( values ) );
+                       std::move( x ),
+                       std::move( y ) );
 
       THEN( "a Parameter can be constructed and members can be tested" ) {
 
@@ -78,15 +78,15 @@ SCENARIO( "Parameter" ) {
 
       std::vector< long > boundaries = { 5 };
       std::vector< long > wrongInterpolants = { 1, 2 };
-      std::vector< double > energies = { 1., 2., 3., 4., 5. };
-      std::vector< double > values = { 6., 7., 8., 9., 10. };
+      std::vector< double > x = { 1., 2., 3., 4., 5. };
+      std::vector< double > y = { 6., 7., 8., 9., 10. };
 
       THEN( "an exception is thrown" ) {
 
         REQUIRE_THROWS( Parameter( std::move( boundaries ),
                                    std::move( wrongInterpolants ),
-                                   std::move( energies ),
-                                   std::move( values ) ) );
+                                   std::move( x ),
+                                   std::move( y ) ) );
       } // THEN
     } // WHEN
 
@@ -123,18 +123,18 @@ void verifyChunk( const Parameter& chunk ) {
   REQUIRE( 1 == chunk.boundaries().size() );
   REQUIRE( 1 == chunk.interpolants()[0] );
   REQUIRE( 5 == chunk.boundaries()[0] );
-  REQUIRE( 5 == chunk.energies().size() );
-  REQUIRE( 5 == chunk.values().size() );
-  REQUIRE( 1.0 == Approx( chunk.energies()[0] ) );
-  REQUIRE( 2.0 == Approx( chunk.energies()[1] ) );
-  REQUIRE( 3.0 == Approx( chunk.energies()[2] ) );
-  REQUIRE( 4.0 == Approx( chunk.energies()[3] ) );
-  REQUIRE( 5.0 == Approx( chunk.energies()[4] ) );
-  REQUIRE( 6.0 == Approx( chunk.values()[0] ) );
-  REQUIRE( 7.0 == Approx( chunk.values()[1] ) );
-  REQUIRE( 8.0 == Approx( chunk.values()[2] ) );
-  REQUIRE( 9.0 == Approx( chunk.values()[3] ) );
-  REQUIRE( 10.0 == Approx( chunk.values()[4] ) );
+  REQUIRE( 5 == chunk.x().size() );
+  REQUIRE( 5 == chunk.y().size() );
+  REQUIRE( 1.0 == Approx( chunk.x()[0] ) );
+  REQUIRE( 2.0 == Approx( chunk.x()[1] ) );
+  REQUIRE( 3.0 == Approx( chunk.x()[2] ) );
+  REQUIRE( 4.0 == Approx( chunk.x()[3] ) );
+  REQUIRE( 5.0 == Approx( chunk.x()[4] ) );
+  REQUIRE( 6.0 == Approx( chunk.y()[0] ) );
+  REQUIRE( 7.0 == Approx( chunk.y()[1] ) );
+  REQUIRE( 8.0 == Approx( chunk.y()[2] ) );
+  REQUIRE( 9.0 == Approx( chunk.y()[3] ) );
+  REQUIRE( 10.0 == Approx( chunk.y()[4] ) );
 
   REQUIRE( 4 == chunk.NC() );
 }

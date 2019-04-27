@@ -13,12 +13,17 @@ PartialProbability( long lf,
                     std::vector< long >&& interpolants,
                     std::vector< double >&& energies,
                     std::vector< double >&& probabilities,
-                    double u = 0.0 ) :
-  TabulationRecord( u, 0.0, 0, lf,
-                    std::move( boundaries ),
-                    std::move( interpolants ),
-                    std::move( energies ),
-                    std::move( probabilities ) ) {}
+                    double u = 0.0 )
+  try : TabulationRecord( u, 0.0, 0, lf,
+                          std::move( boundaries ),
+                          std::move( interpolants ),
+                          std::move( energies ),
+                          std::move( probabilities ) ) {}
+  catch ( std::exception& e ) {
+
+    Log::info( "Error encountered while constructing a partial probability" );
+    throw;
+  }
 
 /** 
  *  @brief Constructor (from a buffer)
@@ -34,6 +39,11 @@ PartialProbability( long lf,
  */
 template< typename Iterator >
 PartialProbability( Iterator& begin, const Iterator& end,
-                    long& lineNumber, int MAT, int MF, int MT ) :
-  TabulationRecord( begin, end, lineNumber, MAT, MF, MT ) {}
+                    long& lineNumber, int MAT, int MF, int MT )
+  try : TabulationRecord( begin, end, lineNumber, MAT, MF, MT ) {}
+  catch ( std::exception& e ) {
+
+    Log::info( "Error encountered while constructing a partial probability" );
+    throw;
+  }
 

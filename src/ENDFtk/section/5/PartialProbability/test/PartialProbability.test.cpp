@@ -13,6 +13,7 @@ std::string chunkWithUZero();
 void verifyChunkWithUZero( const PartialProbability& );
 std::string chunkWithUOne();
 void verifyChunkWithUOne( const PartialProbability& );
+std::string invalidChunk();
 
 SCENARIO( "PartialProbability" ) {
 
@@ -135,6 +136,45 @@ SCENARIO( "PartialProbability" ) {
       } // THEN
     } // WHEN
   } // GIVEN
+
+  GIVEN( "invalid data for a Parameter" ) {
+
+    WHEN( "inconsistent data is used" ) {
+
+      // no need to test every possibility (TAB1 takes care of tests)
+
+      long lf = 1;
+      std::vector< long > boundaries = { 2 };
+      std::vector< long > wrongInterpolants = { 2 };
+      std::vector< double > energies = { 1e-5, 3e+7 };
+      std::vector< double > probabilities = { 1., 1. };
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( PartialProbability( lf,
+                                            std::move( boundaries ),
+                                            std::move( wrongInterpolants ),
+                                            std::move( energies ),
+                                            std::move( probabilities ) ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a string representation with an error is given" ) {
+
+      // no need to test every possibility (TAB1 takes care of tests)
+
+      std::string string = invalidChunk();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( PartialProbability( begin, end, lineNumber,
+                                            9437, 5, 18 ) );
+      } // THEN
+    } // WHEN
+  } // GIVEN
 } // SCENARIO
 
 std::string chunkWithUZero() {
@@ -195,4 +235,11 @@ void verifyChunkWithUOne( const PartialProbability& chunk ) {
   REQUIRE( 1. == Approx( chunk.probabilities()[1] ) );
 
   REQUIRE( 3 == chunk.NC() );
+}
+
+std::string invalidChunk() {
+  return
+    " 0.000000+0 0.000000+0          0          1          2          29437 5 18     \n"
+    "          2          2                                            9437 5 18     \n"
+    " 1.000000-5 1.000000+0 3.000000+7 1.000000+0                      9437 5 18     \n";
 }
