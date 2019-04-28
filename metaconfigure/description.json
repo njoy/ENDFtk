@@ -566,6 +566,7 @@
     "src/ENDFtk/section/5/SubSection/src/NC.hpp", 
     "src/ENDFtk/section/5/SubSection/src/print.hpp", 
     "src/ENDFtk/section/5/SubSection/src/readSubSection.hpp", 
+    "src/ENDFtk/section/5/SubSection/src/verifyLF.hpp", 
     "src/ENDFtk/section/5/TabulatedSpectrum/OutgoingEnergyDistribution.hpp", 
     "src/ENDFtk/section/5/TabulatedSpectrum/OutgoingEnergyDistribution/src/ctor.hpp", 
     "src/ENDFtk/section/5/TabulatedSpectrum/src/ctor.hpp", 
@@ -934,6 +935,9 @@
     ], 
     "ENDFtk.section.3": [
       "src/ENDFtk/section/3/test/3.test.cpp"
+    ], 
+    "ENDFtk.section.5": [
+      "src/ENDFtk/section/5/test/5.test.cpp"
     ], 
     "ENDFtk.section.5.EffectiveTemperature": [
       "src/ENDFtk/section/5/EffectiveTemperature/test/EffectiveTemperature.test.cpp"

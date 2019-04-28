@@ -425,6 +425,7 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/SubSection/src/NC.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/SubSection/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/SubSection/src/readSubSection.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/SubSection/src/verifyLF.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/TabulatedSpectrum/OutgoingEnergyDistribution.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/TabulatedSpectrum/OutgoingEnergyDistribution/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/TabulatedSpectrum/src/ctor.hpp"
@@ -662,6 +663,7 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/section/5/Parameter/test )
         add_subdirectory( src/ENDFtk/section/7/4/AnalyticalFunctions/test )
         add_subdirectory( src/ENDFtk/section/6/ContinuumEnergyAngle/LegendreCoefficients/test )
+        add_subdirectory( src/ENDFtk/section/5/test )
         add_subdirectory( src/ENDFtk/section/6/test )
         add_subdirectory( src/ENDFtk/section/3/test )
         add_subdirectory( src/ENDFtk/TabulationRecord/test )
