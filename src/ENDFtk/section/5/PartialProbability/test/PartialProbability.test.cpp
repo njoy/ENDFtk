@@ -145,7 +145,7 @@ SCENARIO( "PartialProbability" ) {
 
       long lf = 1;
       std::vector< long > boundaries = { 2 };
-      std::vector< long > wrongInterpolants = { 2 };
+      std::vector< long > wrongInterpolants = { 2, 4 };
       std::vector< double > energies = { 1e-5, 3e+7 };
       std::vector< double > probabilities = { 1., 1. };
 

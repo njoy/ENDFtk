@@ -15,10 +15,9 @@ std::string chunk();
 void verifyChunk( const TabulatedSpectrum& );
 std::string invalidChunk();
 
-SCENARIO( "Tabulated" ) {
+SCENARIO( "TabulatedSpectrum" ) {
 
-  GIVEN( "valid data for a Tabulated thermal scattering law with one "
-         "temperature" ) {
+  GIVEN( "valid data for a TabulatedSpectrum" ) {
 
     std::string string = chunk();
 

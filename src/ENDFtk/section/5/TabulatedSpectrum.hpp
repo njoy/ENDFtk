@@ -39,7 +39,7 @@ public:
   /**
    *  @brief Return the distribution type (the LF flag)
    */
-  static constexpr int distributionType() { return GeneralEvaporationSpectrum::LF(); }
+  static constexpr int distributionType() { return TabulatedSpectrum::LF(); }
 
   /** 
    *  @brief Return the number of interpolation ranges on the beta grid
