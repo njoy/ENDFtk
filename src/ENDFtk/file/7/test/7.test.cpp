@@ -157,7 +157,7 @@ SCENARIO( "Testing special case of file 7" ) {
 
     WHEN( "there is a SEND instead of FEND" ) {
 
-      std::string string = chunk24() + validSEND();
+      std::string string = chunk24() + validSEND() + validSEND() + validSEND() + validSEND();
       auto begin = string.begin();
       auto end = string.end();
       long lineNumber = 0;
@@ -225,6 +225,9 @@ SCENARIO( "Testing special case of file 7" ) {
 
         REQUIRE( 127. == Approx( file.section( 2_c ).ZA() ) );
         REQUIRE( 127. == Approx( file.MT( 2_c ).ZA() ) );
+
+        REQUIRE( 127. == Approx( file.section( 4_c ).ZA() ) );
+        REQUIRE( 127. == Approx( file.MT( 4_c ).ZA() ) );
       }
     }
 

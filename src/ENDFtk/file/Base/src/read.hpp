@@ -31,13 +31,19 @@ read( hana::llong< SectionNo >,
 
 template< typename... SectionNos, typename... Args >
 static auto
-read( hana::tuple< SectionNos... > sectionNos, StructureDivision& structureDivision, Args&&... args ) {
+read( hana::tuple< SectionNos... > sectionNos,
+      StructureDivision& structureDivision, Args&&... args ) {
 
-std::cout << "lineNumber=" << hana::arg<3>( args... ) << std::endl;
-std::cout << "MAT=" << hana::arg<4>( args... ) << std::endl;
-
+  // compiler issue in gcc 6.4.0: need to capture the capture the actual
+  // arguments because the compiler gets confused (leads to segmentation fault)
+  // final failure is in disco when reading whitespace
+  // required for this lambda and the next one
   auto readRequiredPair =
-  [&] ( hana::true_, auto sectionNo ) {
+  [&structureDivision,
+   &begin = hana::arg<1>( args... ), 
+   end = std::cref( hana::arg<2>( args... ) ), 
+   lineNumber = std::ref( hana::arg<3>( args... ) ), 
+   MAT = hana::arg<4>( args... ) ] ( hana::true_, auto sectionNo ) {
 
     auto& head = asHead( structureDivision );
     if ( head.MT() != sectionNo ) {
@@ -50,23 +56,23 @@ std::cout << "MAT=" << hana::arg<4>( args... ) << std::endl;
 
     return hana::make_pair( sectionNo,
                             read( sectionNo, head, structureDivision,
-                                  args... ) );
+                                  begin, end.get(), lineNumber, MAT ) );
   };
 
   auto readOptionalPair =
-  [&] ( hana::false_, auto sectionNo ) {
+  [&structureDivision,
+   &begin = hana::arg<1>( args... ), 
+   end = std::cref( hana::arg<2>( args... ) ), 
+   lineNumber = std::ref( hana::arg<3>( args... ) ), 
+   MAT = hana::arg<4>( args... ) ] ( hana::false_, auto sectionNo ) {
 
     auto makeOptional  = [&] () {
 
       auto& head = asHead( structureDivision );
-      if ( head.MT() == sectionNo ) {
-        auto result = read( sectionNo, head, structureDivision, args... );
-        return std::make_optional( std::move(result) );
-      }
-      else {
-
-        return std::optional< section::Type< Derived::MF(), sectionNo.value > >{};
-      }
+      return head.MT() == sectionNo ?
+        std::make_optional( read( sectionNo, head, structureDivision,
+                                  begin, end.get(), lineNumber, MAT ) ) :
+        std::optional< section::Type< Derived::MF(), sectionNo.value > >{};
     };
 
     return hana::make_pair( sectionNo, makeOptional() );
@@ -75,11 +81,14 @@ std::cout << "MAT=" << hana::arg<4>( args... ) << std::endl;
   auto readPair_fn = hana::overload( readRequiredPair, readOptionalPair );
 
   auto append_fn = [&]( auto&& tuple, auto&& sectionNo ){
-    return hana::unpack( std::move( tuple ),
-                         [&] ( auto&&... pairs )
-                             { return hana::make_tuple(
-                                        std::move( pairs )... ,
-                                        readPair_fn( hana::contains( Derived::requiredSections(), sectionNo ), sectionNo ) ); } );
+    return hana::unpack
+           ( std::move( tuple ),
+             [&] ( auto&&... pairs )
+                 { return hana::make_tuple
+                          ( std::move( pairs )... ,
+                            readPair_fn( hana::contains
+                                         ( Derived::requiredSections(),
+                                           sectionNo ), sectionNo ) ); } );
   };
 
   return hana::unpack( hana::fold( sectionNos, hana::make_tuple(), append_fn ),
