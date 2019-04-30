@@ -9,6 +9,7 @@ class Base {
 
 protected:
 
+  /* auxiliary functions */
   static constexpr auto sections() {
 
     return hana::sort(hana::concat( Derived::requiredSections(),
@@ -17,6 +18,7 @@ protected:
 
   #include "ENDFtk/file/Base/src/deduceMapType.hpp"
   #include "ENDFtk/file/Base/src/fill.hpp"
+  #include "ENDFtk/file/Base/src/read.hpp"
 
 public:
 

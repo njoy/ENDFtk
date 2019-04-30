@@ -20,9 +20,6 @@ class Type< 7 > : public Base< Type< 7 > > {
   /* fields */
   Map sectionMap;
 
-  /* auxiliary functions */
-  #include "ENDFtk/file/7/src/read.hpp"
-
 public:
 
   #include "ENDFtk/file/7/src/ctor.hpp"
