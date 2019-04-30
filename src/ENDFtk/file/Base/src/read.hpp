@@ -33,8 +33,8 @@ template< typename... SectionNos, typename... Args >
 static auto
 read( hana::tuple< SectionNos... > sectionNos, StructureDivision& structureDivision, Args&&... args ) {
 
-std::cout << "lineNumber=" << hana::arg<3>( args... ) << std::end;
-std::cout << "MAT=" << hana::arg<4>( args... ) << std::end;
+std::cout << "lineNumber=" << hana::arg<3>( args... ) << std::endl;
+std::cout << "MAT=" << hana::arg<4>( args... ) << std::endl;
 
   auto readRequiredPair =
   [&] ( hana::true_, auto sectionNo ) {

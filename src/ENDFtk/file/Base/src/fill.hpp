@@ -4,8 +4,9 @@ fill( section::Type< MF, MT >&& section, Sections&&... sections ) {
 
   {
     constexpr auto fileNumbers =
-      hana::make_tuple( details::fileOf( section ),
-                        details::fileOf( sections )... );
+      decltype
+      ( hana::make_tuple( details::fileOf( section ),
+                          details::fileOf( sections )... ) ){};
     constexpr auto compare =
       hana::equal.to( details::index_c< Derived::MF() > );
     static_assert( hana::all_of( fileNumbers, compare ),
@@ -19,8 +20,9 @@ fill( section::Type< MF, MT >&& section, Sections&&... sections ) {
                    "that are lvalue references is not allowed" );
 
     constexpr auto sectionNumbers =
-      hana::make_set( details::sectionOf( section ),
-                      details::sectionOf( sections )... );
+      decltype
+      ( hana::make_set( details::sectionOf( section ),
+                        details::sectionOf( sections )... ) ){};
     constexpr auto isInArguments = hana::partial( hana::contains, sectionNumbers );
 
     static_assert( hana::all_of( Derived::requiredSections(), isInArguments ),
@@ -40,7 +42,7 @@ fill( section::Type< MF, MT >&& section, Sections&&... sections ) {
     };
     const auto makeOptionalPair = [&] ( hana::false_, auto&& section ) {
 
-      return hana::make_pair( index, 
+      return hana::make_pair( index,
                               std::make_optional( std::move( section ) ) );
     };
 
