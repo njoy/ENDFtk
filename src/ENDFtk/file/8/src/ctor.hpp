@@ -18,7 +18,6 @@ try:
     if ( not structureDivision.isFend() ){
       if ( structureDivision.isSend() ){
         Log::error("Encountered duplicate SEND record in File 8");
-        Log::info("Section number: {}", asHead( structureDivision ).section() );
         Log::info("Line number: {}", lineNumber );
         throw std::exception{};
       } else if ( structureDivision.isHead() ){

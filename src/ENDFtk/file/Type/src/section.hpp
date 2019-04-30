@@ -14,8 +14,8 @@ const Section& section( int sectionNo ) const {
   }
 }
 
-Section& sectionNumber( int sectionNo ) {
+Section& section( int sectionNo ) {
 
   return const_cast< Section& >(
-      const_cast< const Type& >( *this ).sectionNumber( sectionNo ) );
+      const_cast< const Type& >( *this ).section( sectionNo ) );
 }
