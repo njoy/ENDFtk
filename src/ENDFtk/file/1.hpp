@@ -21,9 +21,6 @@ class Type< 1 > : public Base< Type< 1 > > {
   /* fields */
   Map sectionMap;
 
-  /* static functions */
-  #include "ENDFtk/file/1/src/read.hpp"
-
 public :
 
   #include "ENDFtk/file/1/src/ctor.hpp"

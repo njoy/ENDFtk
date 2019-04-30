@@ -2,9 +2,9 @@ protected:
 Type( Map&& map ) : sectionMap( std::move(map) ){}
 
 public:
-template< typename... Args >
-Type( section::Type< 1, 451 >&& section_, Args&&... args ) :
-  Type( fill( std::move( section_ ), std::forward< Args >( args )... ) ){}
+template< int sectionNo, typename... Args >
+Type( section::Type< 1, sectionNo >&& section_, Args&&... args ) :
+  Type( fill( std::move( section_ ), std::forward< Args >( args )... ) ) {}
 
 template< typename BufferIterator >
 Type( StructureDivision& structureDivision,
@@ -12,7 +12,9 @@ Type( StructureDivision& structureDivision,
       const BufferIterator& end,
       long& lineNumber )
 try:
-  Type( this->read( 451_c, structureDivision, begin, end, lineNumber ) ) {
+  Type( this->read( sections(),
+                    structureDivision, begin, end, lineNumber,
+                    structureDivision.tail.MAT() ) ) {
     if ( not structureDivision.isFend() ){
       if ( structureDivision.isSend() ){
         Log::error("Encountered duplicate SEND record in File 1");
@@ -33,7 +35,7 @@ try:
         throw std::exception{};
       }
     }
-} catch ( std::exception& e ){
-  Log::info("Error while reading File 1");
-  throw e;
+  } catch ( std::exception& e ){
+    Log::info("Error while reading File 1");
+    throw e;
 }
