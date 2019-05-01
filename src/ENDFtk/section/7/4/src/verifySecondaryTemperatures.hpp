@@ -16,7 +16,8 @@ verifySecondaryTemperatures( const TypeArray& types,
   if ( types.size() > 0 ) {
 
     auto needTemperature =
-      types | ranges::view::transform( hana::equal.to( 0.0 ) );
+      types | ranges::view::transform( [] ( double value )
+                                          { return value == 0.0; } );
 
     auto haveTemperature =
       temperatures | ranges::view::transform( hana::to<bool> );
