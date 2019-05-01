@@ -22,7 +22,7 @@ verifySecondaryTemperatures( const TypeArray& types,
       temperatures | ranges::view::transform( hana::to<bool> );
 
     auto verify =
-      ranges::view::zip_with( hana::equal, needTemperature, haveTemperature );
+      ranges::view::zip_with( std::equal_to<>{}, needTemperature, haveTemperature );
 
     auto iter = ranges::find( verify, false );
 
