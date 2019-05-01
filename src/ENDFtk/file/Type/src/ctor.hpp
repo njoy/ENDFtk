@@ -12,7 +12,14 @@ Type( StructureDivision& division,
     throw e;  
   }
 
-Type( const Type& other ) :
-  sectionMap( other.sectionMap ) {}
+template < typename... Sections >
+Type( Section&& section, Sections&&... sections ) :
+  sectionMap( [] ( auto&&... sections ) {
 
-Type( Type&& other ) noexcept = default;
+    std::map< int, Section > map;
+    auto insert_fn = insert{};
+    int i[] = { (insert_fn( map, std::move( sections ) ), 0 )... };
+    std::ignore = i;
+    return map;
+  }( std::move( section ), std::move( sections )... ) ) {}
+

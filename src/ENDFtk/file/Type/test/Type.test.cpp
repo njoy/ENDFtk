@@ -25,13 +25,7 @@ SCENARIO( "Testing generic case using file 3" ) {
           { 2l }, { 2l }, { 1e-5, 2e+7 }, { 20.43634, 0.4827462 } },
         { 102, 1001., 0.9991673, 2.224631e+6, 2.224631e+6, 0,
           { 2l }, { 5l }, { 1e-5, 2e+7 }, { 16.69994, 2.722354e-5 } } };
-    std::vector< section::Type< 3 > > unsorted =
-      { { 102, 1001., 0.9991673, 2.224631e+6, 2.224631e+6, 0,
-          { 2l }, { 5l }, { 1e-5, 2e+7 }, { 16.69994, 2.722354e-5 } },
-        { 2, 1001., 0.9991673, 0., 0., 0,
-          { 2l }, { 2l }, { 1e-5, 2e+7 }, { 20.43634, 0.4827462 } },
-        { 1, 1001., 0.9991673, 0., 0., 0,
-          { 2l }, { 5l }, { 1e-5, 2e+7 }, { 37.13628, 0.4827735 } } };
+    auto unsorted = sorted | ranges::view::reverse | ranges::to_vector;
 
     WHEN( "a file::Type<3> is constructed from a sorted vector" ) {
 
@@ -71,6 +65,43 @@ SCENARIO( "Testing generic case using file 3" ) {
     WHEN( "a file::Type<3> is constructed from an unsorted vector" ) {
 
       file::Type< 3 > mf3( std::move( unsorted ) );
+
+      THEN( "the sections can be extracted and interrogated" ) {
+
+        verifyChunk( mf3 );
+      } // THEN
+
+      THEN( "an exception is thrown if invalid MT or section is requested" ) {
+
+        REQUIRE_THROWS( mf3.MT( 4 ) );
+        REQUIRE_THROWS( mf3.section( 4 ) );
+      } // THEN
+
+      THEN( "we can iterate over the sections and they will be in order" ) {
+
+        auto iter = mf3.begin();
+
+        REQUIRE( 1 == iter->MT() ); iter++;
+        REQUIRE( 2 == iter->MT() ); iter++;
+        REQUIRE( 102 == iter->MT() ); iter++;
+        REQUIRE( iter == mf3.end() );
+      } // THEN
+
+      THEN( "it can be printed and the sections will be in order" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        mf3.print( output, 125 );
+
+        REQUIRE( buffer == chunk() + validFEND() );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a file::Type<3> is constructed from individual elements" ) {
+
+      file::Type< 3 > mf3( std::move( unsorted[0] ),
+                           std::move( unsorted[1] ),
+                           std::move( unsorted[2] ) );
 
       THEN( "the sections can be extracted and interrogated" ) {
 

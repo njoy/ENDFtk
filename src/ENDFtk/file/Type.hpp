@@ -6,45 +6,13 @@ public :
   /* convenience typedefs */
   using Section = section::Type< FileNumber >;
 
-  /* custom iterators */
-  struct iterator : public std::map< int, Section >::iterator {
-
-    iterator( typename std::map< int, Section >::iterator iter )
-      : std::map< int, Section >::iterator( iter ) {}
-
-    Section& operator*() {
-
-      return std::map< int, Section >::iterator::operator*().second;
-    }
-
-    Section* operator->() {
-
-      return &( std::map< int, Section >::iterator::operator->()->second );
-    }
-  };
-
-  struct const_iterator : public std::map< int, Section >::const_iterator {
-
-    const_iterator( typename std::map< int, Section >::const_iterator iter )
-      : std::map< int, Section >::const_iterator( iter ) {}
-
-    const Section& operator*() {
-
-      return std::map< int, Section >::const_iterator::operator*().second;
-    }
-
-    const Section* operator->() {
-
-      return &( std::map< int, Section >::const_iterator::operator->()->second );
-    }
-  };
-
 protected :
 
   /* fields */
   std::map< int, Section > sectionMap;
 
   /* methods */
+  #include "ENDFtk/file/Type/src/insert.hpp"
   #include "ENDFtk/file/Type/src/fill.hpp"
   #include "ENDFtk/file/Type/src/read.hpp"
 
@@ -53,17 +21,14 @@ public :
   #include "ENDFtk/file/Type/src/ctor.hpp"
   #include "ENDFtk/file/Type/src/section.hpp"
 
-  iterator begin() { return iterator( this->sectionMap.begin() ); }
-  iterator end() { return iterator( this->sectionMap.end() ); }
+  auto sections() { return this->sectionMap | ranges::view::values; }
+  auto sections() const { return this->sectionMap | ranges::view::values; }
 
-  const_iterator begin() const {
-  
-    return const_iterator( const_cast< Type& >(*this).begin() );
-  }
-  const_iterator end() const {
+  auto begin() { return this->sections().begin(); }
+  auto end() { return this->sections().end(); }
 
-    return const_iterator( const_cast< Type& >(*this).end() );
-  }
+  auto begin() const { return this->sections().begin(); }
+  auto end() const { return this->sections().end(); }
 
   bool hasSection( int sectionNo ) const {
 
