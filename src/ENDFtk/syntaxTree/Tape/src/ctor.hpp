@@ -9,6 +9,9 @@ catch ( std::exception& e ){
   throw e;
 }
 
+Tape( BufferIterator&& begin, const BufferIterator& end, long lineNumber = 0 )
+  : Tape( begin, end, lineNumber ) {}
+
 Tape( const Tape& other ) :
   bufferLimits( other.bufferLimits ),
   tpid( other.tpid ),
