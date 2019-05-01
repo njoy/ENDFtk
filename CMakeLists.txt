@@ -364,7 +364,6 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/13.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/3.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8.hpp"
@@ -395,17 +394,6 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/src/readIsotopes.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/3/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/3/src/print.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/AngularDistributions.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/Isotropic.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/LegendreCoefficients.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/LegendreDistributions.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/AngularDistributions/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/LegendreCoefficients/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/LegendreDistributions/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/src/NC.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/src/print.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/src/readDistributions.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ChargedParticleElasticScattering.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/ContinuumEnergyAngle.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6/DefinedElsewhere.hpp"
@@ -631,7 +619,6 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/section/6/ContinuumEnergyAngle/KalbachMann/test )
         add_subdirectory( src/ENDFtk/section/7/4/AnalyticalFunctions/test )
         add_subdirectory( src/ENDFtk/section/8/457/DecayMode/test )
-        add_subdirectory( src/ENDFtk/section/4/test )
         add_subdirectory( src/ENDFtk/section/6/test )
         add_subdirectory( src/ENDFtk/section/3/test )
         add_subdirectory( src/ENDFtk/TabulationRecord/test )
@@ -651,7 +638,6 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/InterpolationRecord/test )
         add_subdirectory( src/ENDFtk/section/Base/test )
         add_subdirectory( src/ENDFtk/section/1/451/test )
-        add_subdirectory( src/ENDFtk/section/4/Isotropic/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/Isotope/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/test )
         add_subdirectory( src/ENDFtk/section/6/Unknown/test )
@@ -669,7 +655,6 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/section/6/ContinuumEnergyAngle/SubSection/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup/test )
         add_subdirectory( src/ENDFtk/section/7/2/IncoherentElastic/test )
-        add_subdirectory( src/ENDFtk/section/4/LegendreCoefficients/test )
         add_subdirectory( src/ENDFtk/section/8/457/DecaySpectrum/test )
         add_subdirectory( src/ENDFtk/section/8/457/test )
         add_subdirectory( src/ENDFtk/file/8/test )

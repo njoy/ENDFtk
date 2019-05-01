@@ -20,6 +20,7 @@ std::string chunkWithThreeSecondaryScatterers();
 void verifyChunkWithThreeSecondaryScatterers( const ScatteringLawConstants& );
 std::string invalidSize();
 std::string invalidLLN();
+std::string invalidNS();
 
 SCENARIO( "ScatteringLawConstants" ) {
 
@@ -408,7 +409,6 @@ SCENARIO( "ScatteringLawConstants" ) {
     WHEN( "data with inconsistent NI and NS is used" ) {
 
       int lln = 0;
-      int ns = 0;
       std::vector< double > values = { 6.153875e+0, 1.976285e+2, 8.934780e+0,
                                        5.000001e+0, 0.000000e+0, 1.000000e+0 };
 
@@ -418,9 +418,39 @@ SCENARIO( "ScatteringLawConstants" ) {
       } // THEN
     } // WHEN
 
+    WHEN( "data with an invalid NS is used" ) {
+
+      int lln = 0;
+      std::vector< double > values = { 6.153875e+0, 1.976285e+2, 8.934780e+0,
+                                       5.000001e+0, 0.000000e+0, 1.000000e+0,
+                                        7,  8,  9, 10, 11, 12,
+                                       13, 14, 15, 16, 17, 18,
+                                       19, 20, 21, 22, 23, 24,
+                                       25, 26, 27, 28, 29, 30 };
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( ScatteringLawConstants( lln, 4, std::move( values ) ) );
+      } // THEN
+    } // WHEN
+
     WHEN( "a string with inconsistent NI and NS is used" ) {
 
       std::string string = invalidSize();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( ScatteringLawConstants( begin, end, lineNumber,
+                                                27, 7, 4 ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a string with an invalid NS is used" ) {
+
+      std::string string = invalidNS();
       auto begin = string.begin();
       auto end = string.end();
       long lineNumber = 1;
@@ -625,4 +655,14 @@ std::string invalidLLN() {
     " 0.000000+0 0.000000+0          2          0         12          0  27 7  4     \n"
     " 2.021000+0 9.750000+1 2.784423+1 2.466750+0 0.000000+0 1.000000+0  27 7  4     \n"
     " 0.000000+0 3.748750+0 1.586200+1 0.000000+0 0.000000+0 2.000000+0  27 7  4     \n";
+}
+
+std::string invalidNS() {
+  return
+    " 0.000000+0 0.000000+0          0          0         30          4  27 7  4     \n"
+    " 2.021000+0 9.750000+1 2.784423+1 2.466750+0 0.000000+0 1.000000+0  27 7  4     \n"
+    " 0.000000+0 3.748750+0 1.586200+1 0.000000+0 0.000000+0 2.000000+0  27 7  4     \n"
+    " 1.000000+0 4.000000+0 2.000000+0 0.000000+0 0.000000+0 3.000000+0  27 7  4     \n"
+    " 2.000000+0 8.000000+0 4.000000+0 0.000000+0 0.000000+0 4.000000+0  27 7  4     \n"
+    " 3.000000+0 1.200000+1 8.000000+0 0.000000+0 0.000000+0 5.000000+0  27 7  4     \n";
 }
