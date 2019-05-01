@@ -51,14 +51,14 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
 	  reference( tapeString.cbegin(), tapeString.cend() );
 
 	THEN("the iterator-based factory function will return the same type"){
-	  auto trial = syntaxTree::tape( tapeString.cbegin(), tapeString.cend() );
+	  auto trial = syntaxTree::makeTape( tapeString.cbegin(), tapeString.cend() );
 	  constexpr bool isSame =
 	    std::is_same<decltype(reference), decltype(trial)>::value;
 	  REQUIRE( isSame );
 	}
 
 	THEN("the range-based factory function will return the same type"){
-	  auto trial = syntaxTree::tape( tapeString );
+	  auto trial = syntaxTree::makeTape( tapeString );
 	  constexpr bool isSame =
 	    std::is_same<decltype(reference), decltype(trial)>::value;
 	  REQUIRE( isSame );

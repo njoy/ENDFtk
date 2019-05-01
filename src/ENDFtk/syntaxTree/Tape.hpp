@@ -62,12 +62,12 @@ template< typename BufferIterator,
 	  <std::is_same
 	   <typename Traits::value_type, char>::value, bool > = true>
 Tape< BufferIterator >
-tape( BufferIterator begin, BufferIterator end ) {
+makeTape( BufferIterator begin, BufferIterator end ) {
   return {begin, end};
 }
 
 template< typename Range >
-auto tape( const Range& range )
+auto makeTape( const Range& range )
   -> decltype( tape( range.begin(), range.end() ) ) {
   return tape( range.begin(), range.end() );
 } 

@@ -1,14 +1,19 @@
 template< int MF >
-file::Type< MF > parse( long& lineNumber ){
+file::Type< MF > parse( long& lineNumber ) const {
   auto position = this->buffer().begin();
   auto end = this->buffer().end();
 
   StructureDivision division( position, end, lineNumber );
-  return file::Type< MF >( division, position, end, lineNumber );
+  return { division, position, end, lineNumber };
 }
 
 template< int MF >
-file::Type< MF > parse(){
+file::Type< MF > parse() const {
   long lineNumber = 1;
-  return parse<MF>( lineNumber );
+  return this->parse<MF>( lineNumber );
+}
+
+template< long long MF, typename... Args >
+auto parse( hana::llong<MF> mf, Args&... args ) const { 
+  return this->parse<MF>( args... );
 }

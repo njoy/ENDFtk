@@ -142,7 +142,10 @@ SCENARIO( "Testing generic case using file 3" ) {
 
       THEN( "a file::Type<3> can be constructed" ) {
 
+        REQUIRE_NOTHROW( fileTree.parse< 3 >() );
         REQUIRE_NOTHROW( fileTree.parse< 3 >( lineNumber ) );
+        REQUIRE_NOTHROW( fileTree.parse( 3_c ) );
+        REQUIRE_NOTHROW( fileTree.parse( 3_c, lineNumber ) );
       } // THEN
     } // WHEN
 

@@ -1,7 +1,10 @@
 namespace details {
 
-template< int index >
-constexpr const auto index_c = hana::llong_c<static_cast<long long>(index)>;
+template< int i >
+using index = hana::llong<static_cast<long long>(i)>;
+
+template< int i >
+constexpr const auto index_c = index<i>{};
 
 template< typename T >
 constexpr const bool isOptional = false;
