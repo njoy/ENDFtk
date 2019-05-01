@@ -1,6 +1,6 @@
 static void
 verifyEND( const StructureDivision& structureDivision,
-           long lineNumber, int MF ) {
+           long lineNumber ) {
 
   if ( not structureDivision.isFend() ) {
 

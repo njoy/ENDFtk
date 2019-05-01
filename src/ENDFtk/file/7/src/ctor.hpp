@@ -15,7 +15,7 @@ Type( StructureDivision& structureDivision,
                        structureDivision, begin, end, lineNumber,
                        structureDivision.tail.MAT() ) ) {
 
-    this->verifyEND( structureDivision, lineNumber, 7 );
+    this->verifyEND( structureDivision, lineNumber );
   }
   catch ( std::exception& e ) {
 
