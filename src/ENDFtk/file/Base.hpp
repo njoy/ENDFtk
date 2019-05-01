@@ -19,6 +19,7 @@ protected:
   #include "ENDFtk/file/Base/src/deduceMapType.hpp"
   #include "ENDFtk/file/Base/src/fill.hpp"
   #include "ENDFtk/file/Base/src/read.hpp"
+  #include "ENDFtk/file/Base/src/verifyEND.hpp"
 
 public:
 

@@ -22,6 +22,7 @@ std::string validSEND();
 std::string validFEND();
 std::string validMEND();
 std::string validTEND();
+std::string validHEAD();
 
 // TODO find another MF7 file without numbers < 1e-35
 
@@ -188,6 +189,21 @@ SCENARIO( "Testing special case of file 7" ) {
     WHEN( "there is a TEND instead of FEND" ) {
 
       std::string string = chunk24() + validTEND();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 0;
+
+      StructureDivision division( begin, end, lineNumber );
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( file::Type< 7 >( division, begin, end, lineNumber ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "there is a HEAD instead of FEND" ) {
+
+      std::string string = chunk24() + validHEAD();
       auto begin = string.begin();
       auto end = string.end();
       long lineNumber = 0;
@@ -435,5 +451,10 @@ std::string validMEND() {
 std::string validTEND() {
   return
     "                                                                    -1 0  0     \n";
+}
+
+std::string validHEAD() {
+  return
+    " 1.270000+2 1.000000+0          1          0          0          0  27 7  2     \n";
 }
 

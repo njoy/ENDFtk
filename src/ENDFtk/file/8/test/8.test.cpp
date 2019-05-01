@@ -13,6 +13,7 @@ std::string validSEND();
 std::string validFEND();
 std::string validMEND();
 std::string validTEND();
+std::string validHEAD();
 
 SCENARIO( "Testing special case of file 8" ) {
 
@@ -100,6 +101,21 @@ SCENARIO( "Testing special case of file 8" ) {
     WHEN( "there is a TEND instead of FEND" ) {
 
       std::string string = chunk457() + validTEND();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 0;
+
+      StructureDivision division( begin, end, lineNumber );
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( file::Type< 8 >( division, begin, end, lineNumber ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "there is a HEAD instead of FEND" ) {
+
+      std::string string = chunk457() + validHEAD();
       auto begin = string.begin();
       auto end = string.end();
       long lineNumber = 0;
@@ -267,5 +283,10 @@ std::string validMEND() {
 std::string validTEND() {
   return
     "                                                                    -1 0  0     \n";
+}
+
+std::string validHEAD() {
+  return
+    " 9.524200+4 2.399801+2          2          1          0          23580 8457     \n";
 }
 

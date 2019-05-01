@@ -15,16 +15,10 @@ verifySecondaryTemperatures( const TypeArray& types,
 
   if ( types.size() > 0 ) {
 
-    // lambdas for verifying
-    auto needTemperature = [] ( double value ) -> bool
-                              { return value == 0.0; };
-    auto haveTemperature = [] ( const auto& value ) -> bool
-                              { return value != std::nullopt; };
-
     auto verify = ranges::view::zip_with(
                     hana::equal,
-                    types | ranges::view::transform( needTemperature ),
-                    temperatures | ranges::view::transform( haveTemperature ) );
+                    types | ranges::view::transform( hana::equal.to( 0.0 ) ),
+                    temperatures | ranges::view::transform( hana::to<bool> ) );
 
     auto iter = ranges::find_if_not( verify, hana::equal.to( true ) );
 
@@ -36,7 +30,7 @@ verifySecondaryTemperatures( const TypeArray& types,
       Log::info( "When B(7), B(13) or B(19) is zero, an effective temperature "
                  "must be given" );
       Log::info( "Encountered issue for the secondary scatterer with index={}",
-                 std::distance( ranges::begin( verify ), iter ) );
+                 ranges::distance( ranges::begin( verify ), iter ) );
       throw std::exception();
     }
   }
