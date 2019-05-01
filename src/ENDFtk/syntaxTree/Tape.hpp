@@ -50,3 +50,24 @@ public:
 
   const TapeIdentification& TPID() const { return this->tpid; }
 };
+
+
+template< typename BufferIterator,
+	  typename Traits = std::iterator_traits<BufferIterator>,
+	  std::enable_if_t
+	  <std::is_same
+	   <typename Traits::iterator_category,
+	    std::random_access_iterator_tag>::value, bool > = true,
+	  std::enable_if_t
+	  <std::is_same
+	   <typename Traits::value_type, char>::value, bool > = true>
+Tape< BufferIterator >
+makeTape( BufferIterator begin, BufferIterator end ) {
+  return {begin, end};
+}
+
+template< typename Range >
+auto makeTape( const Range& range )
+  -> decltype( tape( range.begin(), range.end() ) ) {
+  return tape( range.begin(), range.end() );
+} 

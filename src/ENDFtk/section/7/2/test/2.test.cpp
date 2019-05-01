@@ -269,19 +269,25 @@ SCENARIO( "section::Type< 7, 2 >" ) {
       syntaxTree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
 
-      section::Type< 7, 2 > chunk = section.parse< 7, 2 >( lineNumber );
+      section::Type< 7, 2 > chunk1 = section.parse< 7, 2 >();
+      section::Type< 7, 2 > chunk2 = section.parse< 7, 2 >( lineNumber );
+      section::Type< 7, 2 > chunk3 = section.parse( 7_c, 2_c );
+      section::Type< 7, 2 > chunk4 = section.parse( 7_c, 2_c, lineNumber );
 
       THEN( "a section::Type< 7, 2 > can be constructed and members can be "
             "tested" ) {
 
-        verifyIncoherentElastic( chunk );
+        verifyIncoherentElastic( chunk1 );
+        verifyIncoherentElastic( chunk2 );
+        verifyIncoherentElastic( chunk3 );
+        verifyIncoherentElastic( chunk4 );
       } // THEN
 
       THEN( "it can be printed" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 27, 7 );
+        chunk1.print( output, 27, 7 );
 
         REQUIRE( buffer == sectionString );
       } // THEN
