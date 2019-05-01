@@ -2,7 +2,7 @@ const Section& section( int sectionNo ) const {
 
   try {
 
-    return *( this->sectionMap.at( sectionNo ) );
+    return this->sectionMap.at( sectionNo );
   }
   catch( std::out_of_range& o ) {
 
