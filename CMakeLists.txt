@@ -366,6 +366,7 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/13.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/3.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7.hpp"
@@ -397,6 +398,17 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/src/readIsotopes.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/3/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/3/src/print.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/AngularDistributions.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/Isotropic.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/LegendreCoefficients.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/LegendreDistributions.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/AngularDistributions/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/LegendreCoefficients/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/LegendreDistributions/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/src/NC.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/src/print.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/src/readDistribution.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/EffectiveTemperature.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/EvaporationSpectrum.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/GeneralEvaporationSpectrum.hpp"
@@ -636,6 +648,7 @@ if( NOT is_subproject )
     if ( unit_tests )
         add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/test )
         add_subdirectory( src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/test )
+        add_subdirectory( src/ENDFtk/section/7/4/ScatteringLawConstants/test )
         add_subdirectory( src/ENDFtk/syntaxTree/File/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/resolved/BreitWigner/Lvalue/test )
         add_subdirectory( src/ENDFtk/section/5/SubSection/test )
@@ -664,6 +677,7 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/section/7/4/AnalyticalFunctions/test )
         add_subdirectory( src/ENDFtk/section/6/ContinuumEnergyAngle/LegendreCoefficients/test )
         add_subdirectory( src/ENDFtk/section/5/test )
+        add_subdirectory( src/ENDFtk/section/4/test )
         add_subdirectory( src/ENDFtk/section/6/test )
         add_subdirectory( src/ENDFtk/section/3/test )
         add_subdirectory( src/ENDFtk/TabulationRecord/test )
@@ -685,6 +699,7 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/InterpolationRecord/test )
         add_subdirectory( src/ENDFtk/section/Base/test )
         add_subdirectory( src/ENDFtk/section/1/451/test )
+        add_subdirectory( src/ENDFtk/section/4/Isotropic/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/Isotope/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/test )
         add_subdirectory( src/ENDFtk/section/5/WattSpectrum/test )
@@ -694,7 +709,7 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/section/5/MadlandNixSpectrum/test )
         add_subdirectory( src/ENDFtk/section/6/DiscreteTwoBodyScattering/test )
         add_subdirectory( src/ENDFtk/section/6/ReactionProduct/test )
-        add_subdirectory( src/ENDFtk/section/7/4/ScatteringLawConstants/test )
+        add_subdirectory( src/ENDFtk/section/4/LegendreCoefficients/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/resolved/BreitWigner/test )
         add_subdirectory( src/ENDFtk/section/6/DiscreteTwoBodyScattering/Tabulated/test )
         add_subdirectory( src/ENDFtk/section/BaseWithoutMT/test )
