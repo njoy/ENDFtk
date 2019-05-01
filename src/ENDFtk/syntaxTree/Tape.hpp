@@ -69,5 +69,5 @@ makeTape( BufferIterator begin, BufferIterator end ) {
 template< typename Range >
 auto makeTape( const Range& range )
   -> decltype( makeTape( range.begin(), range.end() ) ) {
-  return tape( range.begin(), range.end() );
+  return makeTape( range.begin(), range.end() );
 } 

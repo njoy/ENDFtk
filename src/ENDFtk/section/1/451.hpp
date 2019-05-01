@@ -44,7 +44,9 @@ public:
   int NVER() const { return std::get< 1 >( this->parameters_ ).N2(); }
 
   double TEMP() const { return std::get< 2 >( this->parameters_ ).C1(); }
+  double temperature() const { return this->TEMP(); }
   int LDRV() const { return std::get< 2 >( this->parameters_ ).L1(); }
+  double temperature() const { return this->TEMP(); }
   int NWD() const { return static_cast< int >( this->description_.size() ); }
   int NXC() const { return static_cast< int >( this->index_.size() ); }
 
