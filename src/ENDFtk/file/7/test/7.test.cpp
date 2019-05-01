@@ -157,7 +157,7 @@ SCENARIO( "Testing special case of file 7" ) {
 
     WHEN( "there is a SEND instead of FEND" ) {
 
-      std::string string = chunk24() + validSEND() + validSEND() + validSEND() + validSEND();
+      std::string string = chunk24() + validSEND();
       auto begin = string.begin();
       auto end = string.end();
       long lineNumber = 0;
