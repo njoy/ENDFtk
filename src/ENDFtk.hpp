@@ -34,7 +34,11 @@ namespace njoy {
 namespace ENDFtk {
 
 namespace hana = boost::hana;
+
+inline namespace literals {
+
 using namespace hana::literals;
+}
 
 template< typename T >
 using MutableReturnType = std::add_lvalue_reference_t< T >;
