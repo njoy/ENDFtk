@@ -549,7 +549,7 @@
     "src/ENDFtk/section/4/src/ctor.hpp", 
     "src/ENDFtk/section/4/src/NC.hpp", 
     "src/ENDFtk/section/4/src/print.hpp", 
-    "src/ENDFtk/section/4/src/readDistribution.hpp", 
+    "src/ENDFtk/section/4/src/readDistributions.hpp", 
     "src/ENDFtk/section/5/EffectiveTemperature.hpp", 
     "src/ENDFtk/section/5/EvaporationSpectrum.hpp", 
     "src/ENDFtk/section/5/GeneralEvaporationSpectrum.hpp", 
