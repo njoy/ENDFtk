@@ -1,11 +1,6 @@
-NBodyPhaseSpace( double APSX, long NPSX )
-  try : ControlRecord( APSX, 0.0, 0, 0, 0, NPSX ) {}
-  catch ( std::exception& e ) {
-
-    Log::info( "Encountered error while constructing n-body phase space "
-               "distribution data (LAW=6)" );
-    throw;
-  }
+NBodyPhaseSpace( double APSX, long NPSX ) :
+  // this can never fail, try-catch would be unreachable
+  ControlRecord( APSX, 0.0, 0, 0, 0, NPSX ) {}
 
 template< typename Iterator >
 NBodyPhaseSpace( Iterator& begin,

@@ -64,11 +64,11 @@ public:
 
   bool operator==( const ListRecord& rhs ) const {
     return ( this->C1() == rhs.C1() )
-      && ( this->C2() == rhs.C2() )
-      && ( this->L1() == rhs.L1() )
-      && ( this->L2() == rhs.L2() )
-      && ( this->N2() == rhs.N2() )
-      && ( this->data  == rhs.data );
+      and ( this->C2() == rhs.C2() )
+      and ( this->L1() == rhs.L1() )
+      and ( this->L2() == rhs.L2() )
+      and ( this->N2() == rhs.N2() )
+      and ( this->data  == rhs.data );
   }
 
   bool operator!= ( const ListRecord& rhs ) const {

@@ -39,7 +39,7 @@ SCENARIO( "section::Type< 6 >" ) {
           { 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 } },
         // distribution
         { ContinuumEnergyAngle(
-            1, 2, { 2 }, { 1 },
+            2, { 2 }, { 1 },
             { LegendreCoefficients(
                   1e-5, 0, 1, 4,
                   { 1., 2., 3., 4., 5., 6., 7., 8., 9., 10., 11., 12. } ),
@@ -52,7 +52,7 @@ SCENARIO( "section::Type< 6 >" ) {
           { 4., 4. } },
         // distribution
         { ContinuumEnergyAngle(
-            1, 2, { 2 }, { 22 },
+            2, { 2 }, { 22 },
             { LegendreCoefficients(
                   1.858639e+7, 0, 0, 3, { 0., 0., 0.5, 2., 1., 0. } ),
               LegendreCoefficients(
@@ -64,7 +64,7 @@ SCENARIO( "section::Type< 6 >" ) {
           { 1., 2., 3. } },
         // distribution
         { ContinuumEnergyAngle(
-          1, 2, { 2 }, { 5 },
+          2, { 2 }, { 5 },
           { LegendreCoefficients(
                  1.858639e+7, 0, 0, 3, { 0., 0., 1., 1., 2., 0. } ),
             LegendreCoefficients(

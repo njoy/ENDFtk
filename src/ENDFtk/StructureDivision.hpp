@@ -76,34 +76,34 @@ public:
     }
 
   bool isHead() const {
-    return this->tail.section() && this->tail.file() && this->tail.material();
+    return this->tail.section() and this->tail.file() and this->tail.material();
   }
   
   bool isSendPermissive() const {
     const static Base empty(0.0, 0.0, 0, 0, 0, 0);
-    return ( this->base == empty ) && ( this->tail.section() == 0 );
+    return ( this->base == empty ) and ( this->tail.section() == 0 );
   };
 
   bool isSend() const {
     return this->isSendPermissive()
-           && this->tail.file()
-           && ( this->tail.material() > 0 );
+           and this->tail.file()
+           and ( this->tail.material() > 0 );
   }
   
   bool isFendPermissive() const {
-    return this->isSendPermissive() && ( this->tail.file() == 0 );
+    return this->isSendPermissive() and ( this->tail.file() == 0 );
   }
 
   bool isFend() const {
-    return this->isFendPermissive() && ( this->tail.material() > 0 );
+    return this->isFendPermissive() and ( this->tail.material() > 0 );
   }
   
   bool isMend() const {
-    return this->isFendPermissive() && ( this->tail.material() == 0 );
+    return this->isFendPermissive() and ( this->tail.material() == 0 );
   }
   
   bool isTend() const {
-    return this->isFendPermissive() && ( this->tail.material() == -1 );
+    return this->isFendPermissive() and ( this->tail.material() == -1 );
   }
 
   template< typename OutputIterator >

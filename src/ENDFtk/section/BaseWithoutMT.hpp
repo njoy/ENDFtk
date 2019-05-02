@@ -13,13 +13,13 @@ protected:
 public:
 
   /* get methods */
-  int MT() const {
+  constexpr int MT() const {
       
       return static_cast< const Derived* >( this )->sectionNumber();
   }
-  int ZA() const { return this->ZA_; }
-  double AWR() const { return this->atomicWeightRatio_; }
-  double atomicWeightRatio() const { return this->AWR(); }
+  constexpr int ZA() const { return this->ZA_; }
+  constexpr double AWR() const { return this->atomicWeightRatio_; }
+  constexpr double atomicWeightRatio() const { return this->AWR(); }
 
   #include "ENDFtk/section/BaseWithoutMT/src/readSEND.hpp"
 };

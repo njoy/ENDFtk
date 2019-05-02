@@ -45,6 +45,25 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
           REQUIRE( 125 == copy.MAT( 125 ).front().MAT() );          
         }
       }
+
+      GIVEN("a tape skeleton constructed from a string"){
+	syntaxTree::Tape< std::string::const_iterator >
+	  reference( tapeString.cbegin(), tapeString.cend() );
+
+	THEN("the iterator-based factory function will return the same type"){
+	  auto trial = syntaxTree::makeTape( tapeString.cbegin(), tapeString.cend() );
+	  constexpr bool isSame =
+	    std::is_same<decltype(reference), decltype(trial)>::value;
+	  REQUIRE( isSame );
+	}
+
+	THEN("the range-based factory function will return the same type"){
+	  auto trial = syntaxTree::makeTape( tapeString );
+	  constexpr bool isSame =
+	    std::is_same<decltype(reference), decltype(trial)>::value;
+	  REQUIRE( isSame );
+	}
+      }
       
       syntaxTree::Tape< std::string::iterator > tapeTree( begin, end );
       const auto ctapeTree = tapeTree;

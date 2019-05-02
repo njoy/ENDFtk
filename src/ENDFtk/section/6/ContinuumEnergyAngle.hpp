@@ -11,9 +11,8 @@ private:
   InterpolationSequenceRecord< SubSection > data_;
 
   /* auxiliary functions */
-  #include "ENDFtk/section/6/ContinuumEnergyAngle/src/checkLANG.hpp"
-  #include "ENDFtk/section/6/ContinuumEnergyAngle/src/readInterpolationRecord.hpp"
   #include "ENDFtk/section/6/ContinuumEnergyAngle/src/readSequence.hpp"
+  #include "ENDFtk/section/6/ContinuumEnergyAngle/src/verifyLANG.hpp"
 
 public:
   /* constructor */
