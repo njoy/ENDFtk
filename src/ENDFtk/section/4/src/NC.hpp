@@ -4,5 +4,5 @@
 long NC() const {
 
   return 2 + std::visit( [&] ( const auto& v ) { return v.NC(); },
-                         this->distribution_ );
+                         this->distributions_ );
 };

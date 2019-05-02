@@ -1,11 +1,11 @@
 template< typename Iterator >
 static Distributions
-readDistributions( /*Iterator& begin,
-                   const Iterator& end,*/
-                   long& lineNumber,/*
+readDistributions( Iterator& begin,
+                   const Iterator& end,
+                   long& lineNumber,
                    int MAT,
                    int MF,
-                   int MT,*/
+                   int MT,
                    long LTT) {
 
   switch ( LTT ) {

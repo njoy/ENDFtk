@@ -128,7 +128,7 @@ void verifyChunkWithLTT0( const section::Type< 4 >& chunk ) {
   REQUIRE( true == chunk.isotropicAngularDistributions() );
 
   const auto& distribution =
-                  std::experimental::get< Isotropic >( chunk.distribution() );
+                  std::experimental::get< Isotropic >( chunk.distributions() );
   REQUIRE( 0 == distribution.LTT() );
   REQUIRE( 0 == distribution.distributionType() );
 

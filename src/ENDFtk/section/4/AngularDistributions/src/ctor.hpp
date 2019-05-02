@@ -7,11 +7,11 @@
  */
 AngularDistributions( std::vector< long >&& boundaries,
                       std::vector< long >&& interpolants,
-                      std::vector< Distribution >&& distributions ) :
-  InterpolationSequenceRecord (
+                      std::vector< Records >&& distributions ) :
+  InterpolationSequenceRecord< Records >(
     InterpolationRecord( 0.0, 0.0, 0, 0,
                          std::move( interpolants ), std::move( boundaries ) ),
-    std::move( sequence ) ) {}
+    std::move( distributions ) ) {}
 
 /** 
  *  @brief Constructor (from a buffer)
@@ -32,5 +32,6 @@ AngularDistributions( Iterator& begin,
                       int MAT,
                       int MF,
                       int MT ) :
-  InterpolationSequenceRecord( begin, end, lineNumber, MAT, MF, MT  ) {}
+  InterpolationSequenceRecord< Records >( begin, end, lineNumber,
+                                          MAT, MF, MT  ) {}
 

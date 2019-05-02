@@ -60,7 +60,7 @@ public:
   int LTT() const {
 
     return std::visit( [] ( const auto& v ) { return v.LTT(); },
-                       this->distribution_ );
+                       this->distributions_ );
   }
 
   /**

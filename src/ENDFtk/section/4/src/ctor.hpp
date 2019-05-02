@@ -23,10 +23,10 @@ Type ( HEAD& head,
        const Iterator& end, 
        long& lineNumber, 
        int MAT ) :
-  Base( head, MAT, 3 ),
+  Base( head, MAT, 4 ),
   lct_( cont.L1() ),
-  distributions_( readDistributions( /*begin, end,*/ lineNumber,
-                                   /*head.MAT(), 4, head.MT(),*/ head.L2() ) ) {}
+  distributions_( readDistributions( begin, end, lineNumber,
+                                     head.MAT(), 4, head.MT(), head.L2() ) ) {}
 
 public:
 

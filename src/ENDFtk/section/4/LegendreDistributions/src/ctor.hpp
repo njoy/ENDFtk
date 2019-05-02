@@ -7,9 +7,9 @@
  */
 LegendreDistributions( std::vector< long >&& boundaries,
                        std::vector< long >&& interpolants,
-                       std::vector< Distribution >&& distributions ) :
+                       std::vector< LegendreCoefficients >&& distributions ) :
   AngularDistributions( std::move( interpolants ), std::move( boundaries ),
-                        std::move( sequence ) ) {}
+                        std::move( distributions ) ) {}
 
 /** 
  *  @brief Constructor (from a buffer)

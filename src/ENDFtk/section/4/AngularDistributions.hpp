@@ -2,8 +2,10 @@
  *  @class
  *  @brief Base class for Legendre or tabulated angular distributions
  */
-template < typename Distribution >
-class AngularDistributions : protected InterpolationSequenceRecord< Distribution > {
+template < typename Records >
+class AngularDistributions :
+  protected InterpolationSequenceRecord< Records > {
+
 protected:
 
   /* constructor */
@@ -16,13 +18,19 @@ public:
   /**
    *  @brief Return the number interpolation regions for the incident energies
    */
-  long NR() const { return InterpolationSequenceRecord< Distribution >::tab2().NR(); }
+  long NR() const {
+
+    return InterpolationSequenceRecord< Records >::tab2().NR();
+  }
 
   /**
    *  @brief Return the number of incident energy values for which angular
    *         distributions are given
    */
-  long NE() const { return InterpolationSequenceRecord< Distribution >::tab2().NZ(); }
+  long NE() const {
+
+    return InterpolationSequenceRecord< Records >::tab2().NZ();
+  }
 
   /**
    *  @brief Return the number of incident energy values for which angular
@@ -35,7 +43,7 @@ public:
    */
   auto interpolants() const {
 
-    return InterpolationSequenceRecord< Distribution >::tab2().interpolants();
+    return InterpolationSequenceRecord< Records >::tab2().interpolants();
   }
 
   /**
@@ -44,7 +52,7 @@ public:
    */
   auto boundaries() const {
 
-    return InterpolationSequenceRecord< Distribution >::tab2().boundaries();
+    return InterpolationSequenceRecord< Records >::tab2().boundaries();
   }
 
   /**
@@ -52,9 +60,9 @@ public:
    */
   auto angularDistributions() const {
 
-    return InterpolationSequenceRecord< Distribution >::records();
+    return InterpolationSequenceRecord< Records >::records();
   }
 
-  using InterpolationSequenceRecord< Distribution >::NC;
-  using InterpolationSequenceRecord< Distribution >::print;
+  using InterpolationSequenceRecord< Records >::NC;
+  using InterpolationSequenceRecord< Records >::print;
 };

@@ -48,7 +48,7 @@ SCENARIO( "LegendreCoefficients" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      IncoherentElastic chunk( begin, end, lineNumber, 9228, 4, 2 );
+      LegendreCoefficients chunk( begin, end, lineNumber, 9228, 4, 2 );
       
       THEN( "a LegendreCoefficients can be constructed and members can be "
             "tested" ) {
@@ -93,9 +93,9 @@ std::string chunk() {
     " 7.392510-5 8.477139-9 1.17106-13                                 9228 4  2     \n";
 }
 
-void verifyChunk( const IncoherentElastic& chunk ) {
+void verifyChunk( const LegendreCoefficients& chunk ) {
 
-  REQUIRE( 1e-5 == Approx( chunk.SB() ) );
+  REQUIRE( 1e-5 == Approx( chunk.incidentEnergy() ) );
   REQUIRE( 3 == chunk.NL() );
   REQUIRE( 3 == chunk.legendreOrder() );
   REQUIRE( 3 == chunk.coefficients().size() );
@@ -103,7 +103,7 @@ void verifyChunk( const IncoherentElastic& chunk ) {
   REQUIRE( 8.477139e-9 == Approx( chunk.coefficients()[1] ) );
   REQUIRE( 1.17106e-13 == Approx( chunk.coefficients()[2] ) );
 
-  REQUIRE( 3 == chunk.NC() );
+  REQUIRE( 2 == chunk.NC() );
 }
 
 std::string invalidChunk() {
