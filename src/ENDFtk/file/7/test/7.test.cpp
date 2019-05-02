@@ -18,6 +18,11 @@ std::string chunk4();
 void verifyChunk4( const file::Type< 7 >& );
 std::string chunk24();
 void verifyChunk24( const file::Type< 7 >& );
+std::string validSEND();
+std::string validFEND();
+std::string validMEND();
+std::string validTEND();
+std::string validHEAD();
 
 // TODO find another MF7 file without numbers < 1e-35
 
@@ -52,7 +57,7 @@ SCENARIO( "Testing special case of file 7" ) {
         auto output = std::back_inserter( buffer );
         mf7.print( output, 27 );
 
-        REQUIRE( buffer == chunk2() );
+        REQUIRE( buffer == chunk2() + validFEND() );
       } // THEN
     } // WHEN
 
@@ -98,7 +103,7 @@ SCENARIO( "Testing special case of file 7" ) {
         auto output = std::back_inserter( buffer );
         mf7.print( output, 27 );
 
-        REQUIRE( buffer == chunk4() );
+        REQUIRE( buffer == chunk4() + validFEND() );
       } // THEN
     } // WHEN
 
@@ -144,7 +149,70 @@ SCENARIO( "Testing special case of file 7" ) {
         auto output = std::back_inserter( buffer );
         mf7.print( output, 27 );
 
-        REQUIRE( buffer == chunk24() );
+        REQUIRE( buffer == chunk24() + validFEND() );
+      } // THEN
+    } // WHEN
+  } // GIVEN
+
+  GIVEN( "a string representation of File 7 with errors in the END records" ) {
+
+    WHEN( "there is a SEND instead of FEND" ) {
+
+      std::string string = chunk24() + validSEND();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 0;
+
+      StructureDivision division( begin, end, lineNumber );
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( file::Type< 7 >( division, begin, end, lineNumber ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "there is a MEND instead of FEND" ) {
+
+      std::string string = chunk24() + validMEND();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 0;
+
+      StructureDivision division( begin, end, lineNumber );
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( file::Type< 7 >( division, begin, end, lineNumber ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "there is a TEND instead of FEND" ) {
+
+      std::string string = chunk24() + validTEND();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 0;
+
+      StructureDivision division( begin, end, lineNumber );
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( file::Type< 7 >( division, begin, end, lineNumber ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "there is a HEAD instead of FEND" ) {
+
+      std::string string = chunk24() + validHEAD();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 0;
+
+      StructureDivision division( begin, end, lineNumber );
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( file::Type< 7 >( division, begin, end, lineNumber ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -173,6 +241,9 @@ SCENARIO( "Testing special case of file 7" ) {
 
         REQUIRE( 127. == Approx( file.section( 2_c ).ZA() ) );
         REQUIRE( 127. == Approx( file.MT( 2_c ).ZA() ) );
+
+        REQUIRE( 127. == Approx( file.section( 4_c ).ZA() ) );
+        REQUIRE( 127. == Approx( file.MT( 4_c ).ZA() ) );
       }
     }
 
@@ -243,8 +314,7 @@ std::string chunk2() {
     " 2.936000+2 0.000000+0          0          0          1          3  27 7  2     \n"
     "          3          1                                              27 7  2     \n"
     " 1.059427-3 0.000000+0 3.718355-3 9.364524-3 4.237708-3 1.548925-2  27 7  2     \n"
-    "                                                                    27 7  0     \n"
-    "                                                                    27 0  0     \n";
+    "                                                                    27 7  0     \n";
 }
 
 void verifyChunk2( const file::Type< 7 >& chunk ) {
@@ -283,8 +353,7 @@ std::string chunk4() {
     " 0.000000+0 0.000000+0          0          0          1          3  27 7  4     \n"
     "          3          2                                              27 7  4     \n"
     " 2.936000+2 5.332083+2 6.000000+2 7.354726+2 1.200000+3 1.270678+3  27 7  4     \n"
-    "                                                                    27 7  0     \n"
-    "                                                                    27 0  0     \n";
+    "                                                                    27 7  0     \n";
 }
 
 void verifyChunk4( const file::Type< 7 >& chunk ) {
@@ -333,8 +402,7 @@ std::string chunk24() {
     " 0.000000+0 0.000000+0          0          0          1          3  27 7  4     \n"
     "          3          2                                              27 7  4     \n"
     " 2.936000+2 5.332083+2 6.000000+2 7.354726+2 1.200000+3 1.270678+3  27 7  4     \n"
-    "                                                                    27 7  0     \n"
-    "                                                                    27 0  0     \n";
+    "                                                                    27 7  0     \n";
 }
 
 void verifyChunk24( const file::Type< 7 >& chunk ) {
@@ -363,5 +431,30 @@ void verifyChunk24( const file::Type< 7 >& chunk ) {
   REQUIRE( 1 == chunk.MT( 4_c ).LAT() );
   REQUIRE( 0 == chunk.MT( 4_c ).LASYM() );
   REQUIRE( 16 == chunk.MT( 4_c ).NC() );
+}
+
+std::string validSEND() {
+  return
+    "                                                                    27 7  0     \n";
+}
+
+std::string validFEND() {
+  return
+    "                                                                    27 0  0     \n";
+}
+
+std::string validMEND() {
+  return
+    "                                                                     0 0  0     \n";
+}
+
+std::string validTEND() {
+  return
+    "                                                                    -1 0  0     \n";
+}
+
+std::string validHEAD() {
+  return
+    " 1.270000+2 1.000000+0          1          0          0          0  27 7  2     \n";
 }
 

@@ -27,24 +27,40 @@ public:
   static constexpr int sectionNumber(){ return 451; }
 
   int LRP() const { return this->lrp_; }
+  int resonanceParameterFlag() const { return this->LRP(); }
   int LFI() const { return this->lfi_; }
+  bool isFissile() const { return this->LFI(); }
   int NLIB() const { return this->nlib_; }
+  int libraryType() const { return this->NLIB(); }
   int NMOD() const { return this->nmod_; }
+  int modificationNumber() const { return this->NMOD(); }
 
   double ELIS() const { return std::get< 0 >( this->parameters_ ).C1(); }
+  double excitationEnergy() const { return this->ELIS(); }
   double STA() const { return std::get< 0 >( this->parameters_ ).C2(); }
+  bool isStable() const { return this->STA(); }
   int LIS() const { return std::get< 0 >( this->parameters_ ).L1(); }
+  int excitedLevel() const { return this->LIS(); }
   int LISO() const { return std::get< 0 >( this->parameters_ ).L2(); }
+  int isomericLevel() const { return this->LISO(); }
   int NFOR() const { return std::get< 0 >( this->parameters_ ).N2(); }
+  int libraryFormat() const { return this->NFOR(); }
 
   double AWI() const { return std::get< 1 >( this->parameters_ ).C1(); }
+  double projectileAtomicMassRatio() const { return this->AWI(); }
   double EMAX() const { return std::get< 1 >( this->parameters_ ).C2(); }
+  double maximumEnergy() const { return this->EMAX(); }
   int LREL() const { return std::get< 1 >( this->parameters_ ).L1(); }
+  int releaseNumber() const { return this->LREL(); }
   int NSUB() const { return std::get< 1 >( this->parameters_ ).N1(); }
+  int subLibrary() const { return this->NSUB(); }
   int NVER() const { return std::get< 1 >( this->parameters_ ).N2(); }
+  int versionNumber() const { return this->NVER(); }
 
   double TEMP() const { return std::get< 2 >( this->parameters_ ).C1(); }
+  double temperature() const { return this->TEMP(); }
   int LDRV() const { return std::get< 2 >( this->parameters_ ).L1(); }
+  int derivedMaterial() const { return this->LDRV(); }
   int NWD() const { return static_cast< int >( this->description_.size() ); }
   int NXC() const { return static_cast< int >( this->index_.size() ); }
 

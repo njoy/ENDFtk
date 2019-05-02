@@ -1,32 +1,25 @@
 template<>
-class Type< 8 > : public Base< Type< 8 > >,
-                  public SpecialBase< Type< 8 > > {
+class Type< 8 > : public Base< Type< 8 > > {
 
-  friend SpecialBase< Type< 8 > >;
+  friend Base< Type >;
+  using Parent = Base< Type >;
 
-  /* MF8 has enumerated sections */
-  static constexpr auto optionalSections() { return hana::make_tuple( /*454_c,*/ 457_c/*, 457_c*/ ); }
-  static constexpr auto sections() { return optionalSections(); }
+  // MF8 has enumerated sectons and normal sections
+  // no sections are required
+  static constexpr auto requiredSections()
+    RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple() )
 
-  /* convenience typedefs */
-  using Map =
-    decltype
-    ( hana::make_map
-      ( /* hana::make_pair
-        ( 454_c, std::declval< std::optional< section::Type< 8, 454 > > >() ), */
-        hana::make_pair
-        ( 457_c, std::declval< std::optional< section::Type< 8, 457 > > >() ) /*,
-        hana::make_pair
-        ( 459_c, std::declval< std::optional< section::Type< 8, 457 > > >() )
-        */
-        ) );
+  // MT2 and MT4 are optional
+  static constexpr auto optionalSections()
+    // hana::make_tuple( 454_c, 457_c, 459_c );
+    RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 457_c ) )
+
+  using Map = typename decltype( deduceMapType( 8_c,
+                                                requiredSections(),
+                                                optionalSections() ) )::type;
 
   /* fields */
   Map sectionMap;
-
-  /* auxiliary functions */
-  #include "ENDFtk/file/8/src/read.hpp"
-  #include "ENDFtk/file/8/src/fill.hpp"
 
 public:
 

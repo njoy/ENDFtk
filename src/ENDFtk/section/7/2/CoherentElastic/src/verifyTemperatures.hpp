@@ -2,19 +2,14 @@ template< typename Array >
 static void
 verifyTemperatures( int NP, const Array& temperatures ) {
 
-  // lambdas for verifying
-  auto verifySize = [NP] ( const auto& value ) -> bool
-                         { return value.NPL() == NP; };
-  auto sum = [] ( bool left, bool right ) -> bool
-                { return left and right; };
+  auto iter = ranges::find_if_not( temperatures, hana::equal.to( NP ),
+                                   &ListRecord::NPL );
 
-  if ( ranges::accumulate(
-         temperatures | ranges::view::transform( verifySize ),
-         true,
-         sum ) == false ) {
+  if ( iter != ranges::end( temperatures ) ) {
 
     Log::error( "All S(E,T) functions must have the same size" );
-    Log::info( "Expected NP={}", NP );
+    Log::info( "Expected NP={} for the temperature with index={}", NP,
+               ranges::distance( ranges::begin( temperatures ), iter ) );
     throw std::exception();
   }
 }

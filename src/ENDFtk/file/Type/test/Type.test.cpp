@@ -9,6 +9,10 @@ std::string& cachedTape();
 std::string getFile( int MF );
 std::string chunk();
 void verifyChunk( const file::Type< 3 >& );
+std::string validSEND();
+std::string validFEND();
+std::string validMEND();
+std::string validTEND();
 
 SCENARIO( "Testing generic case using file 3" ) {
 
@@ -21,13 +25,7 @@ SCENARIO( "Testing generic case using file 3" ) {
           { 2l }, { 2l }, { 1e-5, 2e+7 }, { 20.43634, 0.4827462 } },
         { 102, 1001., 0.9991673, 2.224631e+6, 2.224631e+6, 0,
           { 2l }, { 5l }, { 1e-5, 2e+7 }, { 16.69994, 2.722354e-5 } } };
-    std::vector< section::Type< 3 > > unsorted =
-      { { 102, 1001., 0.9991673, 2.224631e+6, 2.224631e+6, 0,
-          { 2l }, { 5l }, { 1e-5, 2e+7 }, { 16.69994, 2.722354e-5 } },
-        { 2, 1001., 0.9991673, 0., 0., 0,
-          { 2l }, { 2l }, { 1e-5, 2e+7 }, { 20.43634, 0.4827462 } },
-        { 1, 1001., 0.9991673, 0., 0., 0,
-          { 2l }, { 5l }, { 1e-5, 2e+7 }, { 37.13628, 0.4827735 } } };
+    auto unsorted = sorted | ranges::view::reverse | ranges::to_vector;
 
     WHEN( "a file::Type<3> is constructed from a sorted vector" ) {
 
@@ -60,7 +58,7 @@ SCENARIO( "Testing generic case using file 3" ) {
         auto output = std::back_inserter( buffer );
         mf3.print( output, 125 );
 
-        REQUIRE( buffer == chunk() );
+        REQUIRE( buffer == chunk() + validFEND() );
       } // THEN
     } // WHEN
 
@@ -95,7 +93,44 @@ SCENARIO( "Testing generic case using file 3" ) {
         auto output = std::back_inserter( buffer );
         mf3.print( output, 125 );
 
-        REQUIRE( buffer == chunk() );
+        REQUIRE( buffer == chunk() + validFEND() );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a file::Type<3> is constructed from individual elements" ) {
+
+      file::Type< 3 > mf3( std::move( unsorted[0] ),
+                           std::move( unsorted[1] ),
+                           std::move( unsorted[2] ) );
+
+      THEN( "the sections can be extracted and interrogated" ) {
+
+        verifyChunk( mf3 );
+      } // THEN
+
+      THEN( "an exception is thrown if invalid MT or section is requested" ) {
+
+        REQUIRE_THROWS( mf3.MT( 4 ) );
+        REQUIRE_THROWS( mf3.section( 4 ) );
+      } // THEN
+
+      THEN( "we can iterate over the sections and they will be in order" ) {
+
+        auto iter = mf3.begin();
+
+        REQUIRE( 1 == iter->MT() ); iter++;
+        REQUIRE( 2 == iter->MT() ); iter++;
+        REQUIRE( 102 == iter->MT() ); iter++;
+        REQUIRE( iter == mf3.end() );
+      } // THEN
+
+      THEN( "it can be printed and the sections will be in order" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        mf3.print( output, 125 );
+
+        REQUIRE( buffer == chunk() + validFEND() );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -138,7 +173,10 @@ SCENARIO( "Testing generic case using file 3" ) {
 
       THEN( "a file::Type<3> can be constructed" ) {
 
+        REQUIRE_NOTHROW( fileTree.parse< 3 >() );
         REQUIRE_NOTHROW( fileTree.parse< 3 >( lineNumber ) );
+        REQUIRE_NOTHROW( fileTree.parse( 3_c ) );
+        REQUIRE_NOTHROW( fileTree.parse( 3_c, lineNumber ) );
       } // THEN
     } // WHEN
 
@@ -176,6 +214,54 @@ SCENARIO( "Testing generic case using file 3" ) {
       REQUIRE( buffer == file3string );
     } // THEN
   } // GIVEN
+
+  GIVEN( "a string representation of File 3 with errors in the END records" ) {
+
+    WHEN( "there is a SEND instead of FEND" ) {
+
+      std::string string = chunk() + validSEND();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 0;
+
+      StructureDivision division( begin, end, lineNumber );
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( file::Type< 3 >( division, begin, end, lineNumber ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "there is a MEND instead of FEND" ) {
+
+      std::string string = chunk() + validMEND();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 0;
+
+      StructureDivision division( begin, end, lineNumber );
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( file::Type< 3 >( division, begin, end, lineNumber ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "there is a TEND instead of FEND" ) {
+
+      std::string string = chunk() + validTEND();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 0;
+
+      StructureDivision division( begin, end, lineNumber );
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( file::Type< 3 >( division, begin, end, lineNumber ) );
+      } // THEN
+    } // WHEN
+  } // GIVEN
 } // SCENARIO
 
 std::string& cachedTape() {
@@ -210,8 +296,7 @@ std::string chunk() {
     " 2.224631+6 2.224631+6          0          0          1          2 125 3102     \n"
     "          2          5                                             125 3102     \n"
     " 1.000000-5 1.669994+1 2.000000+7 2.722354-5                       125 3102     \n"
-    "                                                                   125 3  0     \n"
-    "                                                                   125 0  0     \n";
+    "                                                                   125 3  0     \n";
 }
 
 void verifyChunk( const file::Type< 3 >& chunk ) {
@@ -262,5 +347,25 @@ void verifyChunk( const file::Type< 3 >& chunk ) {
   REQUIRE( 2.224631e+6 == Approx( chunk.section( 102 ).QM() ) );
   REQUIRE( 2.224631e+6 == Approx( chunk.section( 102 ).QI() ) );
   REQUIRE( 5 == chunk.section( 102 ).interpolants()[0] );
+}
+
+std::string validSEND() {
+  return
+    "                                                                   125 3  0     \n";
+}
+
+std::string validFEND() {
+  return
+    "                                                                   125 0  0     \n";
+}
+
+std::string validMEND() {
+  return
+    "                                                                     0 0  0     \n";
+}
+
+std::string validTEND() {
+  return
+    "                                                                    -1 0  0     \n";
 }
 

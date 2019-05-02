@@ -1,6 +1,26 @@
 template < typename Derived >
 class Base {
 
+  Derived& derived() { return static_cast< Derived& >( *this ); }
+  const Derived& derived() const {
+
+    return static_cast< const Derived& >( *this );
+  }
+
+protected:
+
+  /* auxiliary functions */
+  static constexpr auto sections() {
+
+    return hana::sort(hana::concat( Derived::requiredSections(),
+                                    Derived::optionalSections() ) );
+  }
+
+  #include "ENDFtk/file/Base/src/deduceMapType.hpp"
+  #include "ENDFtk/file/Base/src/fill.hpp"
+  #include "ENDFtk/file/Base/src/read.hpp"
+  #include "ENDFtk/file/Base/src/verifyEND.hpp"
+
 public:
 
   /* get methods */
@@ -8,9 +28,9 @@ public:
   /**
    *  @brief Return the MF number of the file
    */
-  constexpr int MF() const {
+  static constexpr int MF() {
 
-    return static_cast< const Derived* >( this )->fileNumber();
+    return Derived::fileNumber();
   }
 
   /**
@@ -18,9 +38,10 @@ public:
    *
    *  @param mt   the MT number of the section to be verified
    */
-  constexpr bool hasMT( int mt ) const {
+  template< typename Index >
+  constexpr bool hasMT( Index mt ) const {
 
-    return static_cast< const Derived* >( this )->hasSection( mt );
+    return this->derived().hasSection( mt );
   }
 
   /**
@@ -31,7 +52,7 @@ public:
   template< typename Index >
   constexpr decltype( auto ) MT( Index sectionNo ) const {
 
-    return static_cast< const Derived* >( this )->section( sectionNo );
+    return this->derived().section( sectionNo );
   }
 
   /**
@@ -41,7 +62,9 @@ public:
    */
   template< typename Index > constexpr decltype( auto ) MT( Index sectionNo ) {
 
-    return static_cast< const Derived* >( this )->section( sectionNo );
+    return this->derived().section( sectionNo );
   }
+
+  #include "ENDFtk/file/Base/src/section.hpp"
 };
 
