@@ -2,7 +2,7 @@
  *  @class
  *  @brief The Maxwellian fission spectrum (LF=7)
  *
- *  See ENDF102, section 5 for more information.
+ *  See ENDF102, section 5.1.1.3 and 5.2.3 for more information.
  */
 class MaxwellianFissionSpectrum : protected EffectiveTemperature {
 

@@ -2,7 +2,7 @@
  *  @class
  *  @brief The evaporation spectrum (LF=9)
  *
- *  See ENDF102, section 5 for more information.
+ *  See ENDF102, section 5.1.1.4 and 5.2.4 for more information.
  */
 class EvaporationSpectrum : protected EffectiveTemperature {
 

@@ -9,7 +9,7 @@
  *  The tabulated g(E->E') functions are given as tabulated g(E') functions for 
  *  fixed E values.
  *
- *  See ENDF102, section 5.2.1 for more information.
+ *  See ENDF102, section 5.1.1.1 and 5.2.1 for more information.
  */
 class TabulatedSpectrum {
 
@@ -42,7 +42,8 @@ public:
   static constexpr int distributionType() { return TabulatedSpectrum::LF(); }
 
   /** 
-   *  @brief Return the number of interpolation ranges on the beta grid
+   *  @brief Return the number of interpolation ranges on the incident energy
+   *         grid
    */
   long NR() const { return this->data_.tab2().NR(); }
 

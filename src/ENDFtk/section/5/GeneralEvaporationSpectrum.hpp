@@ -2,7 +2,7 @@
  *  @class
  *  @brief The general evaporation spectrum (LF=5)
  *
- *  See ENDF102, section 5.1.1.2 for more information.
+ *  See ENDF102, section 5.1.1.2 and 5.2.2 for more information.
  */
 class GeneralEvaporationSpectrum {
 

@@ -2,7 +2,7 @@
  *  @class
  *  @brief The Madland Nix fission neutron spectrum (LF=12)
  *
- *  See ENDF102, section 5.1.1.6 for more information.
+ *  See ENDF102, section 5.1.1.6 and 5.2.6 for more information.
  */
 class MadlandNixSpectrum : protected TabulationRecord {
 
@@ -53,7 +53,7 @@ public:
   auto energies() const { return TabulationRecord::x(); }
 
   /**
-   *  @brief Return the probability values
+   *  @brief Return the maximum temperature parameter values
    */
   auto maximumTemperatureValues() const { return TabulationRecord::y(); }
 

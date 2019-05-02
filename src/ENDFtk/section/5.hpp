@@ -24,10 +24,6 @@ public:
 
   /** @typedef PartialDistribution
    *  @brief A partial secondary particle energy distribution of MF5
-   *
-   *  This partial distribution class is set up as a variant. LF=7 or 9
-   *  are the same underlying type (EffectiveTemperature) so this 
-   *  type is only used once in the variant.
    */
   using PartialDistribution =
             std::variant< TabulatedSpectrum,           // LF=1

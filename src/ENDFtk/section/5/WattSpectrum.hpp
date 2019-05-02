@@ -2,7 +2,7 @@
  *  @class
  *  @brief The Watt fission spectrum (LF=11)
  *
- *  See ENDF102, section 5.1.1.5 for more information.
+ *  See ENDF102, section 5.1.1.5 and 5.2.5 for more information.
  */
 class WattSpectrum {
 
