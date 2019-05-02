@@ -6,8 +6,8 @@
 using namespace njoy::ENDFtk;
 
 // convenience typedefs
-using SubSection = 
-section::Type< 5 >::SubSection;
+using Subsection = 
+section::Type< 5 >::Subsection;
 using PartialProbability = 
 section::Type< 5 >::PartialProbability;
 using TabulatedSpectrum = 
@@ -24,22 +24,22 @@ using MadlandNixSpectrum =
 section::Type< 5 >::MadlandNixSpectrum;
 
 std::string chunkLF1();
-void verifyChunkLF1( const SubSection& );
+void verifyChunkLF1( const Subsection& );
 std::string chunkLF5();
-void verifyChunkLF5( const SubSection& );
+void verifyChunkLF5( const Subsection& );
 std::string chunkLF7();
-void verifyChunkLF7( const SubSection& );
+void verifyChunkLF7( const Subsection& );
 std::string chunkLF9();
-void verifyChunkLF9( const SubSection& );
+void verifyChunkLF9( const Subsection& );
 std::string chunkLF11();
-void verifyChunkLF11( const SubSection& );
+void verifyChunkLF11( const Subsection& );
 std::string chunkLF12();
-void verifyChunkLF12( const SubSection& );
+void verifyChunkLF12( const Subsection& );
 std::string invalidLF();
 
-SCENARIO( "SubSection" ) {
+SCENARIO( "Subsection" ) {
 
-  GIVEN( "valid data for a SubSection using TabulatedSpectrum (LF=1)" ) {
+  GIVEN( "valid data for a Subsection using TabulatedSpectrum (LF=1)" ) {
 
     std::string string = chunkLF1();
 
@@ -57,9 +57,9 @@ SCENARIO( "SubSection" ) {
                                     { 0.0, 1.733405e-9,
                                       1.818010e-9, 1.898849e-9 } } } );
 
-      SubSection chunk( std::move( probability ), std::move( spectrum ) );
+      Subsection chunk( std::move( probability ), std::move( spectrum ) );
 
-      THEN( "a SubSection can be constructed and members can be tested" ) {
+      THEN( "a Subsection can be constructed and members can be tested" ) {
 
         verifyChunkLF1( chunk );
       }
@@ -80,9 +80,9 @@ SCENARIO( "SubSection" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      SubSection chunk( begin, end, lineNumber, 9437, 5, 18 );
+      Subsection chunk( begin, end, lineNumber, 9437, 5, 18 );
 
-      THEN( "a SubSection can be constructed and members can be tested" ) {
+      THEN( "a Subsection can be constructed and members can be tested" ) {
 
         verifyChunkLF1( chunk );
       } // THEN
@@ -98,7 +98,7 @@ SCENARIO( "SubSection" ) {
     } //WHEN
   } // GIVEN
 
-  GIVEN( "valid data for a SubSection using "
+  GIVEN( "valid data for a Subsection using "
          "GeneralEvaporationSpectrum (LF=5)" ) {
 
     std::string string = chunkLF5();
@@ -117,9 +117,9 @@ SCENARIO( "SubSection" ) {
                                                1.550360e-6, 7.90779e-31,
                                                0.0, 0.0 } } );
 
-      SubSection chunk( std::move( probability ), std::move( spectrum ) );
+      Subsection chunk( std::move( probability ), std::move( spectrum ) );
 
-      THEN( "a SubSection can be constructed and members can be tested" ) {
+      THEN( "a Subsection can be constructed and members can be tested" ) {
 
         verifyChunkLF5( chunk );
       } // THEN
@@ -140,9 +140,9 @@ SCENARIO( "SubSection" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      SubSection chunk( begin, end, lineNumber, 9443, 5, 455 );
+      Subsection chunk( begin, end, lineNumber, 9443, 5, 455 );
 
-      THEN( "a SubSection can be constructed and members can be tested" ) {
+      THEN( "a Subsection can be constructed and members can be tested" ) {
 
         verifyChunkLF5( chunk );
       } // THEN
@@ -158,7 +158,7 @@ SCENARIO( "SubSection" ) {
     } //WHEN
   } // GIVEN
 
-  GIVEN( "valid data for a SubSection using "
+  GIVEN( "valid data for a Subsection using "
          "MaxwellianFissionSpectrum (LF=7)" ) {
 
     std::string string = chunkLF7();
@@ -173,9 +173,9 @@ SCENARIO( "SubSection" ) {
                                             { 1.3652e+6, 1.3748e+6,
                                               1.6912e+6 } } );
 
-      SubSection chunk( std::move( probability ), std::move( spectrum ) );
+      Subsection chunk( std::move( probability ), std::move( spectrum ) );
 
-      THEN( "a SubSection can be constructed" ) {
+      THEN( "a Subsection can be constructed" ) {
 
         verifyChunkLF7( chunk );
       }
@@ -196,9 +196,9 @@ SCENARIO( "SubSection" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      SubSection chunk( begin, end, lineNumber, 9455, 5, 18 );
+      Subsection chunk( begin, end, lineNumber, 9455, 5, 18 );
 
-      THEN( "a SubSection can be constructed and members can be tested" ) {
+      THEN( "a Subsection can be constructed and members can be tested" ) {
 
         verifyChunkLF7( chunk );
       } // THEN
@@ -214,7 +214,7 @@ SCENARIO( "SubSection" ) {
     } //WHEN
   } // GIVEN
 
-  GIVEN( "valid data for a SubSection using EvaporationSpectrum (LF=9)" ) {
+  GIVEN( "valid data for a Subsection using EvaporationSpectrum (LF=9)" ) {
 
     std::string string = chunkLF9();
 
@@ -229,9 +229,9 @@ SCENARIO( "SubSection" ) {
                                       { 1.0099e+5, 1.0099e+5,
                                         1.1292e+5, 1.6143e+5 } } );
 
-      SubSection chunk( std::move( probability ), std::move( spectrum ) );
+      Subsection chunk( std::move( probability ), std::move( spectrum ) );
 
-      THEN( "a SubSection can be constructed" ) {
+      THEN( "a Subsection can be constructed" ) {
 
         verifyChunkLF9( chunk );
       } // THEN
@@ -252,9 +252,9 @@ SCENARIO( "SubSection" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      SubSection chunk( begin, end, lineNumber, 9237, 5, 37 );
+      Subsection chunk( begin, end, lineNumber, 9237, 5, 37 );
 
-      THEN( "a SubSection can be constructed and members can be tested" ) {
+      THEN( "a Subsection can be constructed and members can be tested" ) {
 
         verifyChunkLF9( chunk );
       } // THEN
@@ -270,7 +270,7 @@ SCENARIO( "SubSection" ) {
     } //WHEN
   } // GIVEN
 
-  GIVEN( "valid data for a SubSection using WattSpectrum (LF=11)" ) {
+  GIVEN( "valid data for a Subsection using WattSpectrum (LF=11)" ) {
 
     std::string string = chunkLF11();
 
@@ -288,9 +288,9 @@ SCENARIO( "SubSection" ) {
                                   { 2.546e-6, 2.546e-6, 2.474e-6,
                                     2.612e-6, 2.62e-6 } } }} );
 
-      SubSection chunk( std::move( probability ), std::move( spectrum ) );
+      Subsection chunk( std::move( probability ), std::move( spectrum ) );
 
-      THEN( "a SubSection can be constructed" ) {
+      THEN( "a Subsection can be constructed" ) {
 
         verifyChunkLF11( chunk );
       } // THEN
@@ -311,9 +311,9 @@ SCENARIO( "SubSection" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      SubSection chunk( begin, end, lineNumber, 9222, 5, 18 );
+      Subsection chunk( begin, end, lineNumber, 9222, 5, 18 );
 
-      THEN( "a SubSection can be constructed and members can be tested" ) {
+      THEN( "a Subsection can be constructed and members can be tested" ) {
 
         verifyChunkLF11( chunk );
       } // THEN
@@ -329,7 +329,7 @@ SCENARIO( "SubSection" ) {
     } //WHEN
   } // GIVEN
 
-  GIVEN( "valid data for a SubSection using MadlandNixSpectrum (LF=12)" ) {
+  GIVEN( "valid data for a Subsection using MadlandNixSpectrum (LF=12)" ) {
 
     std::string string = chunkLF12();
 
@@ -343,9 +343,9 @@ SCENARIO( "SubSection" ) {
                                     { 1.092064e+6, 1.101483e+6,
                                       1.129269e+6, 1.182884e+6 } );
 
-      SubSection chunk( std::move( probability ), std::move( spectrum ) );
+      Subsection chunk( std::move( probability ), std::move( spectrum ) );
 
-      THEN( "a SubSection can be constructed" ) {
+      THEN( "a Subsection can be constructed" ) {
 
         verifyChunkLF12( chunk );
       } // THEN
@@ -366,9 +366,9 @@ SCENARIO( "SubSection" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      SubSection chunk( begin, end, lineNumber, 9543, 5, 18 );
+      Subsection chunk( begin, end, lineNumber, 9543, 5, 18 );
 
-      THEN( "a SubSection can be constructed and members can be tested" ) {
+      THEN( "a Subsection can be constructed and members can be tested" ) {
 
         verifyChunkLF12( chunk );
       } // THEN
@@ -384,7 +384,7 @@ SCENARIO( "SubSection" ) {
     } //WHEN
   } // GIVEN
 
-  GIVEN( "invalid data for a SubSection" ) {
+  GIVEN( "invalid data for a Subsection" ) {
 
     WHEN( "an inconsistent LF between the partial probability and spectrum" ) {
 
@@ -398,7 +398,7 @@ SCENARIO( "SubSection" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( SubSection( std::move( probability ),
+        REQUIRE_THROWS( Subsection( std::move( probability ),
                                     std::move( spectrum )) );
       } // THEN
     } // WHEN
@@ -412,7 +412,7 @@ SCENARIO( "SubSection" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( SubSection(begin, end, lineNumber, 9222, 5, 18 ) );
+        REQUIRE_THROWS( Subsection(begin, end, lineNumber, 9222, 5, 18 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -434,14 +434,15 @@ std::string chunkLF1() {
     " 3.000000+7 1.898849-9                                            9437 5 18     \n";
 }
 
-void verifyChunkLF1( const SubSection& chunk ) {
+void verifyChunkLF1( const Subsection& chunk ) {
+
+  REQUIRE( 0.0 == Approx ( chunk.U() ) );
+  REQUIRE( 0.0 == Approx ( chunk.energyLimitConstant() ) );
 
   auto p = chunk.probability();
 
-  REQUIRE( 0.0 == Approx ( p.U() ) );
-  REQUIRE( 0.0 == Approx ( p.energyLimitConstant() ) );
   REQUIRE( 1 == p.LF() );
-  REQUIRE( 1 == p.distributionType() );
+  REQUIRE( 1 == p.LAW() );
 
   REQUIRE( 2 == p.NP() );
   REQUIRE( 1 == p.NR() );
@@ -449,10 +450,16 @@ void verifyChunkLF1( const SubSection& chunk ) {
   REQUIRE( 1 == p.boundaries().size() );
   REQUIRE( 2 == p.interpolants()[0] );
   REQUIRE( 2 == p.boundaries()[0] );
+  REQUIRE( 2 == p.E().size() );
   REQUIRE( 2 == p.energies().size() );
+  REQUIRE( 2 == p.p().size() );
   REQUIRE( 2 == p.probabilities().size() );
+  REQUIRE( 1e-5 == Approx( p.E()[0] ) );
+  REQUIRE( 3e+7 == Approx( p.E()[1] ) );
   REQUIRE( 1e-5 == Approx( p.energies()[0] ) );
   REQUIRE( 3e+7 == Approx( p.energies()[1] ) );
+  REQUIRE( 1. == Approx( p.p()[0] ) );
+  REQUIRE( 1. == Approx( p.p()[1] ) );
   REQUIRE( 1. == Approx( p.probabilities()[0] ) );
   REQUIRE( 1. == Approx( p.probabilities()[1] ) );
 
@@ -521,12 +528,13 @@ std::string chunkLF5() {
 
 void verifyChunkLF5( const SubSection& chunk ) {
 
+  REQUIRE( -3e+7 == Approx ( chunk.U() ) );
+  REQUIRE( -3e+7 == Approx ( chunk.energyLimitConstant() ) );
+
   auto p = chunk.probability();
 
-  REQUIRE( -3e+7 == Approx ( p.U() ) );
-  REQUIRE( -3e+7 == Approx ( p.energyLimitConstant() ) );
   REQUIRE( 5 == p.LF() );
-  REQUIRE( 5 == p.distributionType() );
+  REQUIRE( 5 == p.LAW() );
 
   REQUIRE( 2 == p.NP() );
   REQUIRE( 1 == p.NR() );
@@ -534,10 +542,16 @@ void verifyChunkLF5( const SubSection& chunk ) {
   REQUIRE( 1 == p.boundaries().size() );
   REQUIRE( 2 == p.interpolants()[0] );
   REQUIRE( 2 == p.boundaries()[0] );
+  REQUIRE( 2 == p.E().size() );
   REQUIRE( 2 == p.energies().size() );
+  REQUIRE( 2 == p.p().size() );
   REQUIRE( 2 == p.probabilities().size() );
+  REQUIRE( 1e-5 == Approx( p.E()[0] ) );
+  REQUIRE( 3e+7 == Approx( p.E()[1] ) );
   REQUIRE( 1e-5 == Approx( p.energies()[0] ) );
   REQUIRE( 3e+7 == Approx( p.energies()[1] ) );
+  REQUIRE( 1.804944e-2 == Approx( p.p()[0] ) );
+  REQUIRE( 1.804944e-2 == Approx( p.p()[1] ) );
   REQUIRE( 1.804944e-2 == Approx( p.probabilities()[0] ) );
   REQUIRE( 1.804944e-2 == Approx( p.probabilities()[1] ) );
 
@@ -546,7 +560,7 @@ void verifyChunkLF5( const SubSection& chunk ) {
              ( chunk.distribution() );
 
   REQUIRE( 5 == d.LF() );
-  REQUIRE( 5 == d.distributionType() );
+  REQUIRE( 5 == d.LAW() );
 
   auto t = d.effectiveTemperature();
   REQUIRE( 2 == t.NP() );
@@ -599,12 +613,13 @@ std::string chunkLF7() {
 
 void verifyChunkLF7( const SubSection& chunk ) {
 
+  REQUIRE( -3e+7 == Approx ( chunk.U() ) );
+  REQUIRE( -3e+7 == Approx ( chunk.energyLimitConstant() ) );
+
   auto p = chunk.probability();
 
-  REQUIRE( -3e+7 == Approx ( p.U() ) );
-  REQUIRE( -3e+7 == Approx ( p.energyLimitConstant() ) );
   REQUIRE( 7 == p.LF() );
-  REQUIRE( 7 == p.distributionType() );
+  REQUIRE( 7 == p.LAW() );
 
   REQUIRE( 2 == p.NP() );
   REQUIRE( 1 == p.NR() );
@@ -612,17 +627,23 @@ void verifyChunkLF7( const SubSection& chunk ) {
   REQUIRE( 1 == p.boundaries().size() );
   REQUIRE( 2 == p.interpolants()[0] );
   REQUIRE( 2 == p.boundaries()[0] );
+  REQUIRE( 2 == p.E().size() );
   REQUIRE( 2 == p.energies().size() );
+  REQUIRE( 2 == p.p().size() );
   REQUIRE( 2 == p.probabilities().size() );
+  REQUIRE( 1e-5 == Approx( p.E()[0] ) );
+  REQUIRE( 3e+7 == Approx( p.E()[1] ) );
   REQUIRE( 1e-5 == Approx( p.energies()[0] ) );
   REQUIRE( 3e+7 == Approx( p.energies()[1] ) );
-  REQUIRE( 1.0 == Approx( p.probabilities()[0] ) );
-  REQUIRE( 1.0 == Approx( p.probabilities()[1] ) );
+  REQUIRE( 1. == Approx( p.p()[0] ) );
+  REQUIRE( 1. == Approx( p.p()[1] ) );
+  REQUIRE( 1. == Approx( p.probabilities()[0] ) );
+  REQUIRE( 1. == Approx( p.probabilities()[1] ) );
 
   auto d = std::experimental::get< MaxwellianFissionSpectrum >
                   ( chunk.distribution() );
   REQUIRE( 7 == d.LF() );
-  REQUIRE( 7 == d.distributionType() );
+  REQUIRE( 7 == d.LAW() );
   REQUIRE( 3 == d.NP() );
   REQUIRE( 1 == d.NR() );
   REQUIRE( 1 == d.interpolants().size() );
@@ -654,12 +675,13 @@ std::string chunkLF9() {
 
 void verifyChunkLF9( const SubSection& chunk ) {
 
+  REQUIRE( 1.789920e+7 == Approx ( chunk.U() ) );
+  REQUIRE( 1.789920e+7 == Approx ( chunk.energyLimitConstant() ) );
+
   auto p = chunk.probability();
 
-  REQUIRE( 1.789920e+7 == Approx ( p.U() ) );
-  REQUIRE( 1.789920e+7 == Approx ( p.energyLimitConstant() ) );
   REQUIRE( 9 == p.LF() );
-  REQUIRE( 9 == p.distributionType() );
+  REQUIRE( 9 == p.LAW() );
 
   REQUIRE( 2 == p.NP() );
   REQUIRE( 1 == p.NR() );
@@ -667,16 +689,22 @@ void verifyChunkLF9( const SubSection& chunk ) {
   REQUIRE( 1 == p.boundaries().size() );
   REQUIRE( 2 == p.interpolants()[0] );
   REQUIRE( 2 == p.boundaries()[0] );
+  REQUIRE( 2 == p.E().size() );
   REQUIRE( 2 == p.energies().size() );
+  REQUIRE( 2 == p.p().size() );
   REQUIRE( 2 == p.probabilities().size() );
+  REQUIRE( 1.789920e+7 == Approx( p.E()[0] ) );
+  REQUIRE( 2e+7 == Approx( p.E()[1] ) );
   REQUIRE( 1.789920e+7 == Approx( p.energies()[0] ) );
   REQUIRE( 2e+7 == Approx( p.energies()[1] ) );
+  REQUIRE( 1.0 == Approx( p.p()[0] ) );
+  REQUIRE( 1.0 == Approx( p.p()[1] ) );
   REQUIRE( 1.0 == Approx( p.probabilities()[0] ) );
   REQUIRE( 1.0 == Approx( p.probabilities()[1] ) );
 
   auto d = std::experimental::get< EvaporationSpectrum >( chunk.distribution() );
   REQUIRE( 9 == d.LF() );
-  REQUIRE( 9 == d.distributionType() );
+  REQUIRE( 9 == d.LAW() );
   REQUIRE( 4 == d.NP() );
   REQUIRE( 1 == d.NR() );
   REQUIRE( 1 == d.interpolants().size() );
@@ -713,12 +741,13 @@ std::string chunkLF11() {
 
 void verifyChunkLF11( const SubSection& chunk ) {
 
+  REQUIRE( -3e+7 == Approx ( chunk.U() ) );
+  REQUIRE( -3e+7 == Approx ( chunk.energyLimitConstant() ) );
+
   auto p = chunk.probability();
 
-  REQUIRE( -3e+7 == Approx ( p.U() ) );
-  REQUIRE( -3e+7 == Approx ( p.energyLimitConstant() ) );
   REQUIRE( 11 == p.LF() );
-  REQUIRE( 11 == p.distributionType() );
+  REQUIRE( 11 == p.LAW() );
 
   REQUIRE( 2 == p.NP() );
   REQUIRE( 1 == p.NR() );
@@ -726,17 +755,23 @@ void verifyChunkLF11( const SubSection& chunk ) {
   REQUIRE( 1 == p.boundaries().size() );
   REQUIRE( 2 == p.interpolants()[0] );
   REQUIRE( 2 == p.boundaries()[0] );
+  REQUIRE( 2 == p.E().size() );
   REQUIRE( 2 == p.energies().size() );
+  REQUIRE( 2 == p.p().size() );
   REQUIRE( 2 == p.probabilities().size() );
+  REQUIRE( 1e-5 == Approx( p.E()[0] ) );
+  REQUIRE( 3e+7 == Approx( p.E()[1] ) );
   REQUIRE( 1e-5 == Approx( p.energies()[0] ) );
   REQUIRE( 3e+7 == Approx( p.energies()[1] ) );
+  REQUIRE( 1. == Approx( p.p()[0] ) );
+  REQUIRE( 1. == Approx( p.p()[1] ) );
   REQUIRE( 1. == Approx( p.probabilities()[0] ) );
   REQUIRE( 1. == Approx( p.probabilities()[1] ) );
 
   auto d = std::experimental::get< WattSpectrum >( chunk.distribution() );
 
   REQUIRE( 11 == d.LF() );
-  REQUIRE( 11 == d.distributionType() );
+  REQUIRE( 11 == d.LAW() );
 
   auto valueA = d.aParameter();
   REQUIRE( 3 == valueA.NP() );
@@ -788,14 +823,15 @@ std::string chunkLF12() {
     " 3.000000+7 1.182884+6                                            9543 5 18     \n";
 }
 
-void verifyChunkLF12( const SubSection& chunk ) {
+void verifyChunkLF12( const Subsection& chunk ) {
+
+  REQUIRE( 0.0 == Approx ( chunk.U() ) );
+  REQUIRE( 0.0 == Approx ( chunk.energyLimitConstant() ) );
 
   auto p = chunk.probability();
 
-  REQUIRE( 0.0 == Approx ( p.U() ) );
-  REQUIRE( 0.0 == Approx ( p.energyLimitConstant() ) );
   REQUIRE( 12 == p.LF() );
-  REQUIRE( 12 == p.distributionType() );
+  REQUIRE( 12 == p.LAW() );
 
   REQUIRE( 2 == p.NP() );
   REQUIRE( 1 == p.NR() );
@@ -803,17 +839,23 @@ void verifyChunkLF12( const SubSection& chunk ) {
   REQUIRE( 1 == p.boundaries().size() );
   REQUIRE( 2 == p.interpolants()[0] );
   REQUIRE( 2 == p.boundaries()[0] );
+  REQUIRE( 2 == p.E().size() );
   REQUIRE( 2 == p.energies().size() );
+  REQUIRE( 2 == p.p().size() );
   REQUIRE( 2 == p.probabilities().size() );
+  REQUIRE( 1e-5 == Approx( p.E()[0] ) );
+  REQUIRE( 3e+7 == Approx( p.E()[1] ) );
   REQUIRE( 1e-5 == Approx( p.energies()[0] ) );
   REQUIRE( 3e+7 == Approx( p.energies()[1] ) );
+  REQUIRE( 1. == Approx( p.p()[0] ) );
+  REQUIRE( 1. == Approx( p.p()[1] ) );
   REQUIRE( 1. == Approx( p.probabilities()[0] ) );
   REQUIRE( 1. == Approx( p.probabilities()[1] ) );
 
   auto d = std::experimental::get< MadlandNixSpectrum >( chunk.distribution() );
 
   REQUIRE( 12 == d.LF() );
-  REQUIRE( 12 == d.distributionType() );
+  REQUIRE( 12 == d.LAW() );
 
   REQUIRE( 1.029979e+6 == Approx( d.EFL() ) );
   REQUIRE( 1.029979e+6 == Approx( d.lightKineticEnergy() ) );

@@ -124,19 +124,28 @@ std::string chunk() {
 
 void verifyChunk( const OutgoingEnergyDistribution& chunk ) {
 
-  REQUIRE( 1e-5 == Approx( chunk.incidentEnergy() ) );
+  REQUIRE( 1e-5 == Approx( chunk.E() ) );
+  REQUIRE( 1e-5 == Approx( chunk.incomingEnergy() ) );
 
-  REQUIRE( 3 == chunk.NP() );
+  REQUIRE( 3 == chunk.NF() );
   REQUIRE( 1 == chunk.NR() );
   REQUIRE( 1 == chunk.interpolants().size() );
   REQUIRE( 1 == chunk.boundaries().size() );
   REQUIRE( 2 == chunk.interpolants()[0] );
   REQUIRE( 3 == chunk.boundaries()[0] );
-  REQUIRE( 3 == chunk.energies().size() );
+  REQUIRE( 3 == chunk.EPRIME().size() );
+  REQUIRE( 3 == chunk.outgoingEnergies().size() );
+  REQUIRE( 3 == chunk.g().size() );
   REQUIRE( 3 == chunk.probabilities().size() );
-  REQUIRE( 0.0 == Approx( chunk.energies()[0] ) );
-  REQUIRE( 1e+5 == Approx( chunk.energies()[1] ) );
-  REQUIRE( 3e+7 == Approx( chunk.energies()[2] ) );
+  REQUIRE( 0.0 == Approx( chunk.EPRIME()[0] ) );
+  REQUIRE( 1e+5 == Approx( chunk.EPRIME()[1] ) );
+  REQUIRE( 3e+7 == Approx( chunk.EPRIME()[2] ) );
+  REQUIRE( 0.0 == Approx( chunk.outgoingEnergies()[0] ) );
+  REQUIRE( 1e+5 == Approx( chunk.outgoingEnergies()[1] ) );
+  REQUIRE( 3e+7 == Approx( chunk.outgoingEnergies()[2] ) );
+  REQUIRE( 0. == Approx( chunk.g()[0] ) );
+  REQUIRE( 1.757570e-9 == Approx( chunk.g()[1] ) );
+  REQUIRE( 1.843350e-9 == Approx( chunk.g()[2] ) );
   REQUIRE( 0. == Approx( chunk.probabilities()[0] ) );
   REQUIRE( 1.757570e-9 == Approx( chunk.probabilities()[1] ) );
   REQUIRE( 1.843350e-9 == Approx( chunk.probabilities()[2] ) );

@@ -21,7 +21,7 @@ public:
   /**
    *  @brief Return the distribution type (the LF flag)
    */
-  static constexpr int distributionType() { return MadlandNixSpectrum::LF(); }
+  static constexpr int LAW() { return MadlandNixSpectrum::LF(); }
 
   /**
    *  @brief Return the average kinetic energy of the average light
@@ -33,7 +33,7 @@ public:
    *  @brief Return the average kinetic energy of the average light
    *         fission fragment (the EFL value)
    */
-  double lightKineticEnergy() const { return this->EFL(); }
+  double lightFragmentEnergy() const { return this->EFL(); }
 
   /**
    *  @brief Return the average kinetic energy of the average heavy
@@ -45,19 +45,33 @@ public:
    *  @brief Return the average kinetic energy of the average heavy
    *         fission fragment (the EFL value)
    */
-  double heavyKineticEnergy() const { return this->EFH(); }
+  double heavyFragmentEnergy() const { return this->EFH(); }
 
   /**
    *  @brief Return the energy values
    */
-  auto energies() const { return TabulationRecord::x(); }
+  auto E() const { return TabulationRecord::x(); }
+
+  /**
+   *  @brief Return the energy values
+   */
+  auto energies() const { return this->E(); }
 
   /**
    *  @brief Return the maximum temperature parameter values
    */
-  auto maximumTemperatureValues() const { return TabulationRecord::y(); }
+  auto TM() const { return TabulationRecord::y(); }
 
-  using TabulationRecord::NP;
+  /**
+   *  @brief Return the maximum temperature parameter values
+   */
+  auto maximumTemperatureValues() const { return this->TM(); }
+
+  /**
+   *  @brief Return the number of energy values
+   */
+  auto NE() const { return TabulationRecord::NP(); }
+
   using TabulationRecord::NR;
   using TabulationRecord::interpolants;
   using TabulationRecord::boundaries;

@@ -39,7 +39,7 @@ public:
   /**
    *  @brief Return the distribution type (the LF flag)
    */
-  static constexpr int distributionType() { return TabulatedSpectrum::LF(); }
+  static constexpr int LAW() { return TabulatedSpectrum::LF(); }
 
   /** 
    *  @brief Return the number of interpolation ranges on the incident energy
@@ -53,14 +53,19 @@ public:
   long NE() const { return this->data_.tab2().NZ(); }
 
   /** 
-   *  @brief Return the number of incoming energy values
-   */
-  long numberIncomingEnergies() const { return this->NE(); }
-
-  /** 
    *  @brief Return the outgoing energy distributions
    */
   auto outgoingDistributions() const { return this->data_.records(); }
+
+  /** 
+   *  @brief Return the incoming energies
+   */
+  auto incomingEnergies() const {
+
+    return this->outgoingDistributions()
+             | ranges::view::transform(
+                 [] ( const auto& entry )
+                    { return entry.incomingEnergy(); } ); }
 
   /** 
    *  @brief Return interpolation type for each range on the incoming

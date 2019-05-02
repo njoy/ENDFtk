@@ -1,6 +1,6 @@
 /**
  *  @class
- *  @brief g(E') data for a fixed value of E
+ *  @brief g(E->E') data for a fixed value of E
  *
  *  The OutgoingDistribution class is used to represent the outgoing energy 
  *  distribution for a fixed value of E from an ENDF MF5 section.
@@ -19,17 +19,37 @@ public:
   /**
    *  @brief Return the incident energy value
    */
-  auto incidentEnergy() const { return TabulationRecord::C2(); }
+  auto E() const { return TabulationRecord::C2(); }
+
+  /**
+   *  @brief Return the incident energy value
+   */
+  auto incomingEnergy() const { return this->E(); }
 
   /**
    *  @brief Return the energy values
    */
-  auto energies() const { return TabulationRecord::x(); }
+  auto EPRIME() const { return TabulationRecord::x(); }
+
+  /**
+   *  @brief Return the energy values
+   */
+  auto outgoingEnergies() const { return this->EPRIME(); }
 
   /**
    *  @brief Return the probability values
    */
-  auto probabilities() const { return TabulationRecord::y(); }
+  auto g() const { return TabulationRecord::y(); }
+
+  /**
+   *  @brief Return the probability values
+   */
+  auto probabilities() const { return this->g(); }
+
+  /**
+   *  @brief Return the number of outgoing energy values
+   */
+  auto NF() const { return TabulationRecord::NP(); }
 
   using TabulationRecord::NP;
   using TabulationRecord::NR;

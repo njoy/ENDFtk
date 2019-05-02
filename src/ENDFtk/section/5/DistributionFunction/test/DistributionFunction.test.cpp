@@ -6,16 +6,16 @@
 using namespace njoy::ENDFtk;
 
 // convenience typedefs
-using Parameter = 
-section::Type< 5 >::Parameter;
+using DistributionFunction = 
+section::Type< 5 >::DistributionFunction;
 
 std::string chunk();
-void verifyChunk( const Parameter& );
+void verifyChunk( const DistributionFunction& );
 std::string invalidChunk();
 
-SCENARIO( "Parameter" ) {
+SCENARIO( "DistributionFunction" ) {
 
-  GIVEN( "valid data for a Parameter" ) {
+  GIVEN( "valid data for a DistributionFunction" ) {
 
     std::string string = chunk();
 
@@ -26,12 +26,13 @@ SCENARIO( "Parameter" ) {
       std::vector< double > x = { 1., 2., 3., 4., 5. };
       std::vector< double > y = { 6., 7., 8., 9., 10. };
 
-      Parameter chunk( std::move( boundaries ),
-                       std::move( interpolants ),
-                       std::move( x ),
-                       std::move( y ) );
+      DistributionFunction chunk( std::move( boundaries ),
+                                  std::move( interpolants ),
+                                  std::move( x ),
+                                  std::move( y ) );
 
-      THEN( "a Parameter can be constructed and members can be tested" ) {
+      THEN( "a DistributionFunction can be constructed and members can be "
+            "tested" ) {
 
         verifyChunk( chunk );
       } // THEN
@@ -52,9 +53,10 @@ SCENARIO( "Parameter" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      Parameter chunk( begin, end, lineNumber, 9437, 5, 455 );
+      DistributionFunction chunk( begin, end, lineNumber, 9437, 5, 455 );
 
-      THEN( "a Parameter can be constructed and members can be tested" ) {
+      THEN( "a DistributionFunction can be constructed and members can be "
+            "tested" ) {
 
         verifyChunk( chunk );
       } // THEN
@@ -70,7 +72,7 @@ SCENARIO( "Parameter" ) {
     } // WHEN
   } // GIVEN
 
-  GIVEN( "invalid data for a Parameter" ) {
+  GIVEN( "invalid data for a DistributionFunction" ) {
 
     WHEN( "inconsistent data is used" ) {
 
@@ -83,10 +85,10 @@ SCENARIO( "Parameter" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( Parameter( std::move( boundaries ),
-                                   std::move( wrongInterpolants ),
-                                   std::move( x ),
-                                   std::move( y ) ) );
+        REQUIRE_THROWS( DistributionFunction( std::move( boundaries ),
+                                              std::move( wrongInterpolants ),
+                                              std::move( x ),
+                                              std::move( y ) ) );
       } // THEN
     } // WHEN
 
@@ -101,7 +103,7 @@ SCENARIO( "Parameter" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( Parameter( begin, end, lineNumber, 9437, 5, 455 ) );
+        REQUIRE_THROWS( DistributionFunction( begin, end, lineNumber, 9437, 5, 455 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -115,27 +117,21 @@ std::string chunk() {
     " 4.000000+0 9.000000+0 5.000000+0 1.000000+1                      9437 5455     \n";
 }
 
-void verifyChunk( const Parameter& chunk ) {
+void verifyChunk( const DistributionFunction& chunk ) {
 
-  REQUIRE( 5 == chunk.NE() );
+  REQUIRE( 5 == chunk.NF() );
   REQUIRE( 1 == chunk.NR() );
   REQUIRE( 1 == chunk.interpolants().size() );
   REQUIRE( 1 == chunk.boundaries().size() );
   REQUIRE( 1 == chunk.interpolants()[0] );
   REQUIRE( 5 == chunk.boundaries()[0] );
-  REQUIRE( 5 == chunk.E().size() );
-  REQUIRE( 5 == chunk.energies().size() );
+  REQUIRE( 5 == chunk.x().size() );
   REQUIRE( 5 == chunk.values().size() );
-  REQUIRE( 1.0 == Approx( chunk.E()[0] ) );
-  REQUIRE( 2.0 == Approx( chunk.E()[1] ) );
-  REQUIRE( 3.0 == Approx( chunk.E()[2] ) );
-  REQUIRE( 4.0 == Approx( chunk.E()[3] ) );
-  REQUIRE( 5.0 == Approx( chunk.E()[4] ) );
-  REQUIRE( 1.0 == Approx( chunk.energies()[0] ) );
-  REQUIRE( 2.0 == Approx( chunk.energies()[1] ) );
-  REQUIRE( 3.0 == Approx( chunk.energies()[2] ) );
-  REQUIRE( 4.0 == Approx( chunk.energies()[3] ) );
-  REQUIRE( 5.0 == Approx( chunk.energies()[4] ) );
+  REQUIRE( 1.0 == Approx( chunk.x()[0] ) );
+  REQUIRE( 2.0 == Approx( chunk.x()[1] ) );
+  REQUIRE( 3.0 == Approx( chunk.x()[2] ) );
+  REQUIRE( 4.0 == Approx( chunk.x()[3] ) );
+  REQUIRE( 5.0 == Approx( chunk.x()[4] ) );
   REQUIRE( 6.0 == Approx( chunk.values()[0] ) );
   REQUIRE( 7.0 == Approx( chunk.values()[1] ) );
   REQUIRE( 8.0 == Approx( chunk.values()[2] ) );

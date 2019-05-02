@@ -1,6 +1,6 @@
 template< typename Iterator >
-static std::vector< SubSection >
-readSubSections( Iterator& begin,
+static std::vector< Subsection >
+readSubsections( Iterator& begin,
                  const Iterator& end,
                  long& lineNumber,
                  int MAT,
@@ -8,7 +8,7 @@ readSubSections( Iterator& begin,
                  int MT,
                  int size ) {
 
-  std::vector< SubSection > sections;
+  std::vector< Subsection > sections;
   sections.reserve( size );
 
   while( size-- ) {

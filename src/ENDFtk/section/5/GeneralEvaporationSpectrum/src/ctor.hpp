@@ -5,7 +5,7 @@
  *  @param[in] distribution   the distribution function g(x)
  */
 GeneralEvaporationSpectrum( EffectiveTemperature&& temperature,
-                            Parameter&& distribution ) :
+                            DistributionFunction&& distribution ) :
   // no need to try-catch, would be unreachable
   temperature_( std::move( temperature ) ),
   distribution_( std::move( distribution ) ) {}
@@ -21,7 +21,8 @@ GeneralEvaporationSpectrum( EffectiveTemperature&& temperature,
                             int MF,
                             int MT ) :
   GeneralEvaporationSpectrum( std::move( temperature ),
-                              Parameter( begin, end, lineNumber, MAT, MF, MT ) ) {}
+                              DistributionFunction( begin, end, lineNumber,
+                              MAT, MF, MT ) ) {}
 
 public:
 /** 
