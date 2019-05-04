@@ -957,6 +957,9 @@
     "ENDFtk.section.4.LegendreCoefficients": [
       "src/ENDFtk/section/4/LegendreCoefficients/test/LegendreCoefficients.test.cpp"
     ], 
+    "ENDFtk.section.4.LegendreDistributions": [
+      "src/ENDFtk/section/4/LegendreDistributions/test/LegendreDistributions.test.cpp"
+    ], 
     "ENDFtk.section.5": [
       "src/ENDFtk/section/5/test/5.test.cpp"
     ], 

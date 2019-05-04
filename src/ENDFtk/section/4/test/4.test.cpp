@@ -123,14 +123,14 @@ void verifyChunkWithLTT0( const section::Type< 4 >& chunk ) {
   REQUIRE( 1 == chunk.LCT() );
   REQUIRE( 1 == chunk.referenceFrame() );
   REQUIRE( 0 == chunk.LTT() );
-  REQUIRE( 0 == chunk.distributionType() );
+  REQUIRE( 0 == chunk.LAW() );
   REQUIRE( true == chunk.LI() );
   REQUIRE( true == chunk.isotropicAngularDistributions() );
 
   const auto& distribution =
                   std::experimental::get< Isotropic >( chunk.distributions() );
   REQUIRE( 0 == distribution.LTT() );
-  REQUIRE( 0 == distribution.distributionType() );
+  REQUIRE( 0 == distribution.LAW() );
 
   REQUIRE( 2 == chunk.NC() );
 }

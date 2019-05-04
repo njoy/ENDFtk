@@ -33,12 +33,6 @@ public:
   }
 
   /**
-   *  @brief Return the number of incident energy values for which angular
-   *         distributions are given
-   */
-  long numberIncidentEnergies() const { return this->NE(); }
-
-  /**
    *  @brief Return the interpolants for the incident energy axis
    */
   auto interpolants() const {

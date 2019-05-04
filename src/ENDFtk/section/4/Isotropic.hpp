@@ -16,14 +16,14 @@ class Isotropic {
 public:
 
   /** 
-   *  @brief Return the angular distribution type
+   *  @brief Return the angular distribution law
    */
   static constexpr int LTT() { return 0; }
 
   /** 
-   *  @brief Return the angular distribution type
+   *  @brief Return the angular distribution law
    */
-  static constexpr int distributionType() { return Isotropic::LTT(); }
+  static constexpr int LAW() { return Isotropic::LTT(); }
 
   /** 
    *  @brief Return the number of lines for this ENDF component

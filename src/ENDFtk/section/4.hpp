@@ -55,18 +55,14 @@ public:
   int referenceFrame() const { return this->LCT(); }
 
   /**
-   *  @brief Return the distribution type
+   *  @brief Return the distribution law
    */
-  int LTT() const {
-
-    return std::visit( [] ( const auto& v ) { return v.LTT(); },
-                       this->distributions_ );
-  }
+  int LTT() const { return this->distributions_.index(); }
 
   /**
-   *  @brief Return the distribution type
+   *  @brief Return the distribution law
    */
-  int distributionType() const { return this->LTT(); }
+  int LAW() const { return this->LTT(); }
 
   /**
    *  @brief Return the isotropic angular distribution flag

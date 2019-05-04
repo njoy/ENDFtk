@@ -18,7 +18,7 @@ SCENARIO( "Isotropic" ) {
       Isotropic chunk;
 
       REQUIRE( 0 == chunk.LTT() );
-      REQUIRE( 0 == chunk.distributionType() );
+      REQUIRE( 0 == chunk.LAW() );
 
       REQUIRE( 0 == chunk.NC() );
     }
@@ -38,4 +38,3 @@ SCENARIO( "Isotropic" ) {
     }
   } // GIVEN
 } // SCENARIO
-

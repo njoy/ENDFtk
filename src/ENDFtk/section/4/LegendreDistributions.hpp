@@ -19,18 +19,17 @@ public:
   /* get methods */
 
   /**
-   *  @brief Return the distribution type
+   *  @brief Return the distribution law
    */
   static constexpr int LTT() { return 1; }
 
   /**
-   *  @brief Return the distribution type
+   *  @brief Return the distribution law
    */
-  int distributionType() const { return this->LTT(); }
+  int LAW() const { return this->LTT(); }
 
   using AngularDistributions< LegendreCoefficients >::NR;
   using AngularDistributions< LegendreCoefficients >::NE;
-  using AngularDistributions< LegendreCoefficients >::numberIncidentEnergies;
   using AngularDistributions< LegendreCoefficients >::interpolants;
   using AngularDistributions< LegendreCoefficients >::boundaries;
   using AngularDistributions< LegendreCoefficients >::angularDistributions;
