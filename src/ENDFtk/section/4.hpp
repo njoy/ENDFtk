@@ -5,6 +5,7 @@ public:
 
   #include "ENDFtk/section/4/AngularDistributions.hpp"
   #include "ENDFtk/section/4/LegendreCoefficients.hpp"
+  #include "ENDFtk/section/4/TabulatedDistribution.hpp"
 
   #include "ENDFtk/section/4/Isotropic.hpp"                    // LTT=0, LI=1
   #include "ENDFtk/section/4/LegendreDistributions.hpp"        // LTT=1, LI=0

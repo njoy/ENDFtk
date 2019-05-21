@@ -543,6 +543,7 @@
     "src/ENDFtk/section/4/Isotropic.hpp", 
     "src/ENDFtk/section/4/LegendreCoefficients.hpp", 
     "src/ENDFtk/section/4/LegendreDistributions.hpp", 
+    "src/ENDFtk/section/4/TabulatedDistribution.hpp", 
     "src/ENDFtk/section/4/AngularDistributions/src/ctor.hpp", 
     "src/ENDFtk/section/4/LegendreCoefficients/src/ctor.hpp", 
     "src/ENDFtk/section/4/LegendreDistributions/src/ctor.hpp", 
@@ -550,6 +551,7 @@
     "src/ENDFtk/section/4/src/NC.hpp", 
     "src/ENDFtk/section/4/src/print.hpp", 
     "src/ENDFtk/section/4/src/readDistributions.hpp", 
+    "src/ENDFtk/section/4/TabulatedDistribution/src/ctor.hpp", 
     "src/ENDFtk/section/5/EffectiveTemperature.hpp", 
     "src/ENDFtk/section/5/EvaporationSpectrum.hpp", 
     "src/ENDFtk/section/5/GeneralEvaporationSpectrum.hpp", 
@@ -959,6 +961,9 @@
     ], 
     "ENDFtk.section.4.LegendreDistributions": [
       "src/ENDFtk/section/4/LegendreDistributions/test/LegendreDistributions.test.cpp"
+    ], 
+    "ENDFtk.section.4.TabulatedDistribution": [
+      "src/ENDFtk/section/4/TabulatedDistribution/test/TabulatedDistribution.test.cpp"
     ], 
     "ENDFtk.section.5": [
       "src/ENDFtk/section/5/test/5.test.cpp"
