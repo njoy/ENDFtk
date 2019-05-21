@@ -3,8 +3,9 @@
  *  @brief Angular distributions as a function of incident energy using 
  *         Legendre coefficients (LTT=1)
  *
- *  The Tabulated class is used to represent the case in which the angular
- *  distributions in an MF4 section are given as Legendre coefficients.
+ *  The LegendreDistributions class is used to represent the case in which
+ *  the angular distributions in an MF4 section are given as Legendre
+ *  coefficients.
  *
  *  See ENDF102, section 4.2.1 for more information.
  */

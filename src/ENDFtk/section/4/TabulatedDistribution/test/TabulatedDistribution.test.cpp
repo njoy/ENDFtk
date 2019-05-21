@@ -124,6 +124,10 @@ void verifyChunk( const TabulatedDistribution& chunk ) {
   REQUIRE( 1e-5 == Approx( chunk.incidentEnergy() ) );
   REQUIRE( 3 == chunk.NP() );
   REQUIRE( 1 == chunk.NR() );
+  REQUIRE( 1 == chunk.boundaries().size() );
+  REQUIRE( 1 == chunk.interpolants().size() );
+  REQUIRE( 3 == chunk.boundaries()[0] );
+  REQUIRE( 2 == chunk.interpolants()[0] );
   REQUIRE( 3 == chunk.cosines().size() );
   REQUIRE( -1.0  == Approx( chunk.cosines()[0] ) );
   REQUIRE( 0.0 == Approx( chunk.cosines()[1] ) );

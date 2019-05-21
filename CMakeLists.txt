@@ -403,6 +403,7 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/LegendreCoefficients.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/LegendreDistributions.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/TabulatedDistribution.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/TabulatedDistributions.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/AngularDistributions/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/LegendreCoefficients/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/LegendreDistributions/src/ctor.hpp"
@@ -411,6 +412,7 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/src/readDistributions.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/TabulatedDistribution/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/TabulatedDistributions/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/EffectiveTemperature.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/EvaporationSpectrum.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/GeneralEvaporationSpectrum.hpp"
@@ -652,6 +654,7 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/test )
         add_subdirectory( src/ENDFtk/section/7/4/ScatteringLawConstants/test )
         add_subdirectory( src/ENDFtk/syntaxTree/File/test )
+        add_subdirectory( src/ENDFtk/section/4/TabulatedDistributions/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/resolved/BreitWigner/Lvalue/test )
         add_subdirectory( src/ENDFtk/section/5/SubSection/test )
         add_subdirectory( src/ENDFtk/section/7/2/CoherentElastic/test )

@@ -9,12 +9,12 @@ public:
 
   #include "ENDFtk/section/4/Isotropic.hpp"                    // LTT=0, LI=1
   #include "ENDFtk/section/4/LegendreDistributions.hpp"        // LTT=1, LI=0
-//  #include "ENDFtk/section/4/TabulatedDistributions.hpp"     // LTT=2, LI=0
+  #include "ENDFtk/section/4/TabulatedDistributions.hpp"     // LTT=2, LI=0
 //  #include "ENDFtk/section/4/MixedDistributions.hpp"         // LTT=3, LI=0
 
   using LTT0 = Isotropic;
   using LTT1 = LegendreDistributions;
-//  using LTT2 = TabulatedDistributions;
+  using LTT2 = TabulatedDistributions;
 //  using LTT3 = MixedDistributions;
 
   /** @typedef Distributions
@@ -24,8 +24,8 @@ public:
    */
   using Distributions =
             std::variant< Isotropic,                           // LTT=0, LI=1
-                          LegendreDistributions//,               // LTT=1, LI=0
-//                          TabulatedDistributions,              // LTT=2, LI=0
+                          LegendreDistributions,               // LTT=1, LI=0
+                          TabulatedDistributions//,              // LTT=2, LI=0
 //                          MixedDistributions >;                // LTT=3, LI=0
                         >;
 
