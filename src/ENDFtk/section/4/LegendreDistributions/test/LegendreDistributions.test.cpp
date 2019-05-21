@@ -164,6 +164,7 @@ void verifyChunk( const LegendreDistributions& chunk ) {
   auto distributions = chunk.angularDistributions();
 
   auto d = distributions[0];
+  REQUIRE( 1e-5 == Approx( d.E() ) );
   REQUIRE( 1e-5 == Approx( d.incidentEnergy() ) );
   REQUIRE( 3 == d.NL() );
   REQUIRE( 3 == d.legendreOrder() );
@@ -173,6 +174,7 @@ void verifyChunk( const LegendreDistributions& chunk ) {
   REQUIRE( 1.17106e-13 == Approx( d.coefficients()[2] ) );
 
   d = distributions[1];
+  REQUIRE( 2e+7 == Approx( d.E() ) );
   REQUIRE( 2e+7 == Approx( d.incidentEnergy() ) );
   REQUIRE( 2 == d.NL() );
   REQUIRE( 2 == d.legendreOrder() );

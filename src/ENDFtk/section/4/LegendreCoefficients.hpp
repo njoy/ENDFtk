@@ -22,7 +22,13 @@ public:
    *  @brief Return the incident energy for which the angular distribution
    *         is given
    */
-  double incidentEnergy() const { return ListRecord::C2(); }
+  double E() const { return ListRecord::C2(); }
+
+  /**
+   *  @brief Return the incident energy for which the angular distribution
+   *         is given
+   */
+  double incidentEnergy() const { return this->E(); }
 
   /**
    *  @brief Return the Legendre order for the angular distribution (equal to

@@ -95,6 +95,7 @@ std::string chunk() {
 
 void verifyChunk( const LegendreCoefficients& chunk ) {
 
+  REQUIRE( 1e-5 == Approx( chunk.E() ) );
   REQUIRE( 1e-5 == Approx( chunk.incidentEnergy() ) );
   REQUIRE( 3 == chunk.NL() );
   REQUIRE( 3 == chunk.legendreOrder() );
