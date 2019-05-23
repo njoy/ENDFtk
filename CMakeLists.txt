@@ -402,11 +402,15 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/Isotropic.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/LegendreCoefficients.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/LegendreDistributions.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/MixedDistributions.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/TabulatedDistribution.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/TabulatedDistributions.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/AngularDistributions/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/LegendreCoefficients/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/LegendreDistributions/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/MixedDistributions/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/MixedDistributions/src/print.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/MixedDistributions/src/verifyBoundary.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/src/NC.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/src/print.hpp"
@@ -706,6 +710,7 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/section/Base/test )
         add_subdirectory( src/ENDFtk/section/1/451/test )
         add_subdirectory( src/ENDFtk/section/4/Isotropic/test )
+        add_subdirectory( src/ENDFtk/section/4/MixedDistributions/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/Isotope/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/test )
         add_subdirectory( src/ENDFtk/section/5/WattSpectrum/test )
