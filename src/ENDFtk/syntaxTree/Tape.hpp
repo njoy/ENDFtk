@@ -1,5 +1,6 @@
-template< typename BufferIterator >
+template< typename Buffer >
 class Tape {
+  using BufferIterator = ranges::iterator_t< Buffer >;
 public:
   /* convenience typedefs */
   using Material_t = Material< BufferIterator >;
@@ -9,7 +10,7 @@ public:
   
 protected:
   /* fields */
-  std::pair< BufferIterator, BufferIterator > bufferLimits;
+  Buffer buffer_;
   TapeIdentification tpid;
   std::vector< Material_t > materialVector;
   Multimap materialMap;
@@ -44,14 +45,14 @@ public:
   std::size_t size() const { return materialVector.size(); }
 
   auto buffer() const {
-    return ranges::make_iterator_range( this->bufferLimits.first,
-                                        this->bufferLimits.second );
+    return this->buffer_ | ranges::view::all;
   }
 
   const TapeIdentification& TPID() const { return this->tpid; }
 };
 
 
+/*
 template< typename BufferIterator,
 	  typename Traits = std::iterator_traits<BufferIterator>,
 	  std::enable_if_t
@@ -71,3 +72,9 @@ auto makeTape( const Range& range )
   -> decltype( makeTape( range.begin(), range.end() ) ) {
   return makeTape( range.begin(), range.end() );
 } 
+*/
+
+template< typename Range >
+auto makeTape( Range&& range ){
+  return Tape< Range >{ std::forward< Range >( range ) };
+}
