@@ -2,8 +2,7 @@ File( const HEAD& head, BufferIterator begin,
       BufferIterator& position, const BufferIterator& end, long& lineNumber )
 try:
   fileNo( head.MF() ),
-  sectionVector( createVector( head, begin, position, end, lineNumber) ),
-  sectionMap( createMap( this->sectionVector ) ),
+  sections_( createMap( head, begin, position, end, lineNumber ) ),
   bufferLimits( { begin, position } ){}
 catch( std::exception& e ){
   Log::info( "Trouble encountered while constructing a file syntax tree." );
@@ -11,11 +10,18 @@ catch( std::exception& e ){
   throw e;
 }
 
-File( const File& other ) :
+/*
+File( const File& other ) 
+try:
   fileNo( other.fileNo ),
-  sectionVector( other.sectionVector ),
-  sectionMap( createMap( this->sectionVector ) ),
+  sections_( other.sections_ ),
   bufferLimits( other.bufferLimits ){}
+catch( std::exception&  ){
+  Log::info( 
+      "Trouble encountered while copy constructing a syntaxTree::File." );
+  throw;
+}
 
 File( File&& other ) noexcept = default;
 
+*/

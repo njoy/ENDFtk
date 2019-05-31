@@ -18,8 +18,7 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
       auto tend = validTEND();
       auto tapeString = tpid + base + tend;
 
-      syntaxTree::Tape< std::string > tape{ 
-        njoy::utility::copy( tapeString ) };
+      syntaxTree::Tape< std::string > tape{ njoy::utility::copy( tapeString ) };
 
       syntaxTree::Tape< std::string > original{ 
         njoy::utility::copy( tapeString ) };

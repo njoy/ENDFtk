@@ -2,8 +2,7 @@ Material( const HEAD& head, BufferIterator begin, BufferIterator& position,
           const BufferIterator& end, long& lineNumber )
 try:
   materialNo( head.MAT() ),
-  fileVector( createVector( head, begin, position, end, lineNumber) ),
-  fileMap( createMap( this->fileVector ) ),
+  files_( createMap( head, begin, position, end, lineNumber ) ),
   bufferLimits( { begin, position } ){}
 catch( std::exception& e ){
   Log::info( "Trouble encountered while constructing a material syntax tree." );
@@ -11,10 +10,17 @@ catch( std::exception& e ){
   throw e;
 }
 
-Material( const Material& other ) :
+/*
+Material( const Material& other )
+try:
   materialNo( other.materialNo ),
-  fileVector( other.fileVector ),
-  fileMap( createMap( this->fileVector ) ),
+  files_( other.files_ ),
   bufferLimits( other.bufferLimits ){}
+catch( std::exception&  ){
+  Log::info( 
+      "Trouble encountered while copy constructing a syntaxTree::Material." );
+  throw;
+}
 
 Material( Material&& other ) noexcept = default;
+*/
