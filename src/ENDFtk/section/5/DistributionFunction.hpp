@@ -1,6 +1,6 @@
 /**
  *  @class
- *  @brief A distribution function y=f(E)
+ *  @brief A distribution function y=f(x)
  *
  *  This class is a simplification of the TAB1 record which
  *  does not require the declaration of C1, C2, L1 and L2.

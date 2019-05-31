@@ -6,21 +6,21 @@
 using namespace njoy::ENDFtk;
 
 // convenience typedefs
-using Subsection = 
+using Subsection =
 section::Type< 5 >::Subsection;
-using PartialProbability = 
+using PartialProbability =
 section::Type< 5 >::PartialProbability;
-using TabulatedSpectrum = 
+using TabulatedSpectrum =
 section::Type< 5 >::TabulatedSpectrum;
-using GeneralEvaporationSpectrum = 
+using GeneralEvaporationSpectrum =
 section::Type< 5 >::GeneralEvaporationSpectrum;
-using MaxwellianFissionSpectrum = 
+using MaxwellianFissionSpectrum =
 section::Type< 5 >::MaxwellianFissionSpectrum;
-using EvaporationSpectrum = 
+using EvaporationSpectrum =
 section::Type< 5 >::EvaporationSpectrum;
-using WattSpectrum = 
+using WattSpectrum =
 section::Type< 5 >::WattSpectrum;
-using MadlandNixSpectrum = 
+using MadlandNixSpectrum =
 section::Type< 5 >::MadlandNixSpectrum;
 
 std::string chunkLF1();
@@ -279,14 +279,14 @@ SCENARIO( "Subsection" ) {
       PartialProbability probability( 11, { 2 }, { 2 },
                                           { 1e-5, 3e+7 },
                                           { 1.0, 1.0 }, -3e+7 );
-      WattSpectrum spectrum( {{ { {3}, {2},
-                                  { 1e-5, 1.5e+6, 3e+7 },
-                                  { 9.77e+5, 1e+6, 1.06e+6 } },
-                                { {5}, {2},
-                                  { 1e-5, 1.5e+6, 1e+7,
-                                    1.22e+7, 3e+7 },
-                                  { 2.546e-6, 2.546e-6, 2.474e-6,
-                                    2.612e-6, 2.62e-6 } } }} );
+      WattSpectrum spectrum( { {3}, {2},
+                               { 1e-5, 1.5e+6, 3e+7 },
+                               { 9.77e+5, 1e+6, 1.06e+6 } },
+                             { {5}, {2},
+                               { 1e-5, 1.5e+6, 1e+7,
+                                 1.22e+7, 3e+7 },
+                               { 2.546e-6, 2.546e-6, 2.474e-6,
+                                 2.612e-6, 2.62e-6 } } );
 
       Subsection chunk( std::move( probability ), std::move( spectrum ) );
 

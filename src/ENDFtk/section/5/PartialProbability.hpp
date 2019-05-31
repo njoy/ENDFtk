@@ -1,21 +1,19 @@
+// forward declaration of the Subsection class
+class Subsection;
+
 /**
  *  @class
  *  @brief Partial probability for a given distribution
  *
- *  The PartialProbability class is used to provide the probability 
- *  that the associated distribution can be used at a given incident 
+ *  The PartialProbability class is used to provide the probability
+ *  that the associated distribution can be used at a given incident
  *  energy.
  *
  *  See ENDF102, section 5 for more information.
  */
 class PartialProbability : protected TabulationRecord {
 
-public:
-
-  /* constructor */
-  #include "ENDFtk/section/5/PartialProbability/src/ctor.hpp"
-
-  /* get methods */
+  friend Subsection;
 
   /**
    *  @brief Return the constant that defines the upper energy
@@ -23,11 +21,12 @@ public:
    */
   double U() const { return TabulationRecord::C1(); }
 
-  /**
-   *  @brief Return the constant that defines the upper energy
-   *         limit E - U for the secondary particle's energy E'
-   */
-  double energyLimitConstant() const { return this->U(); }
+public:
+
+  /* constructor */
+  #include "ENDFtk/section/5/PartialProbability/src/ctor.hpp"
+
+  /* get methods */
 
   /**
    *  @brief Return the distribution law (the LF flag)

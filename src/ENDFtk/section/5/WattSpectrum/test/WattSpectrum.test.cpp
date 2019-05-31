@@ -6,9 +6,9 @@
 using namespace njoy::ENDFtk;
 
 // convenience typedefs
-using WattSpectrum = 
+using WattSpectrum =
 section::Type< 5 >::WattSpectrum;
-using Parameter = 
+using Parameter =
 section::Type< 5 >::Parameter;
 
 std::string chunk();
@@ -30,8 +30,7 @@ SCENARIO( "WattSpectrum" ) {
                    { 1e-5, 1.5e+6, 1e+7, 1.22e+7, 3e+7 },
                    { 2.546e-6, 2.546e-6, 2.474e-6, 2.612e-6, 2.62e-6 } };
 
-      WattSpectrum chunk( std::array< Parameter, 2 >{ { std::move( a ),
-                                                        std::move( b ) } } );
+      WattSpectrum chunk( std::move( a ), std::move( b ) );
 
       THEN( "a WattSpectrum can be constructed and members can be tested" ) {
 

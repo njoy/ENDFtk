@@ -28,7 +28,7 @@ SCENARIO( "section::Type< 5 >" ) {
       double za = 92235.;
       double awr = 2.330250e+2;
 
-      std::vector< Subsection > partials = 
+      std::vector< Subsection > partials =
       { { PartialProbability( 7, { 2 }, { 2 },
                                  { 3.25e+6, 2e+7 }, { 1., 1. }, -3e+7 ),
           MaxwellianFissionSpectrum( { 3 }, { 5 },
@@ -57,7 +57,7 @@ SCENARIO( "section::Type< 5 >" ) {
 
       auto begin = sectionString.begin();
       auto end = sectionString.end();
-      long lineNumber = 1; 
+      long lineNumber = 1;
       HeadRecord head( begin, end, lineNumber );
 
       section::Type< 5 > chunk( head, begin, end, lineNumber, 9228 );
@@ -137,7 +137,7 @@ SCENARIO( "section::Type< 5 >" ) {
       auto end = sectionString.end();
       long lineNumber = 1;
       HeadRecord head( begin, end, lineNumber );
-      
+
       THEN( "an exception is thrown" ) {
 
         REQUIRE_THROWS( section::Type< 5 >( head, begin, end,
@@ -153,7 +153,7 @@ SCENARIO( "section::Type< 5 >" ) {
       auto end = sectionString.end();
       long lineNumber = 1;
       HeadRecord head( begin, end, lineNumber );
-      
+
       THEN( "an exception is thrown" ) {
 
         REQUIRE_THROWS( section::Type< 5 >( head, begin, end,
@@ -186,10 +186,11 @@ void verifyChunk( const section::Type< 5 >& chunk ) {
   REQUIRE( 1 == chunk.numberPartialDistributions() );
 
   const auto& subsection = chunk.distributions()[0];
+  REQUIRE( -3e+7 == Approx ( subsection.U() ) );
+  REQUIRE( -3e+7 == Approx ( subsection.energyLimitConstant() ) );
+
   const auto& p = subsection.probability();
-  
-  REQUIRE( -3e+7 == Approx ( p.U() ) );
-  REQUIRE( -3e+7 == Approx ( p.energyLimitConstant() ) );
+
   REQUIRE( 7 == p.LF() );
   REQUIRE( 7 == p.LAW() );
 
@@ -264,4 +265,3 @@ std::string invalidSEND() {
   return
     "                                                                  9228 5  4     \n";
 }
-

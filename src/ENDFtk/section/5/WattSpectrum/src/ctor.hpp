@@ -1,13 +1,24 @@
-/** 
- *  @brief Constructor
- *
- *  @param[in] parameters   the parameters for the Watt spectrum
+protected:
+
+/**
+ *  @brief Protected Constructor
  */
 WattSpectrum( std::array< Parameter, 2 >&& parameters ) :
   // no need to try-catch, would be unreachable
   parameters_( std::move( parameters ) ) {}
 
-/** 
+public :
+/**
+ *  @brief Constructor
+ *
+ *  @param[in] a   the parameter function a
+ *  @param[in] a   the parameter function b
+ */
+ WattSpectrum( Parameter&& a, Parameter&& b ) :
+   // no need to try-catch, would be unreachable
+   parameters_( {{ std::move( a ), std::move( b ) }} ) {}
+
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator

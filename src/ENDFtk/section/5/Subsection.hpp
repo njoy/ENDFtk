@@ -33,7 +33,12 @@ public:
   /**
    *  @brief Return the probability
    */
-  const auto& probability() const { return this->probability_; }
+  const auto& p() const { return this->probability_; }
+
+    /**
+     *  @brief Return the probability
+     */
+    const auto& probability() const { return this->p(); }
 
   /**
    *  @brief Return the distribution

@@ -21,10 +21,7 @@ public:
   /**
    *  @brief Return the distribution type (the LF flag)
    */
-  static constexpr int LAW() {
-
-    return MaxwellianFissionSpectrum::LF();
-  }
+  static constexpr int LAW() { return MaxwellianFissionSpectrum::LF(); }
 
   using EffectiveTemperature::E;
   using EffectiveTemperature::energies;
