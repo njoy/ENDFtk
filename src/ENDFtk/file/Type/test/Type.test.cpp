@@ -5,7 +5,6 @@
 
 using namespace njoy::ENDFtk;
 
-std::string& cachedTape();
 std::string getFile( int MF );
 std::string chunk();
 void verifyChunk( const file::Type< 3 >& );
@@ -38,18 +37,18 @@ SCENARIO( "Testing generic case using file 3" ) {
 
       THEN( "an exception is thrown if invalid MT or section is requested" ) {
 
-        REQUIRE_THROWS( mf3.MT( 4 ) );
-        REQUIRE_THROWS( mf3.section( 4 ) );
+        CHECK_THROWS( mf3.MT( 4 ) );
+        CHECK_THROWS( mf3.section( 4 ) );
       } // THEN
 
       THEN( "we can iterate over the sections and they will be in order" ) {
 
         auto iter = mf3.begin();
 
-        REQUIRE( 1 == iter->MT() ); iter++;
-        REQUIRE( 2 == iter->MT() ); iter++;
-        REQUIRE( 102 == iter->MT() ); iter++;
-        REQUIRE( iter == mf3.end() );
+        CHECK( 1 == iter->MT() ); iter++;
+        CHECK( 2 == iter->MT() ); iter++;
+        CHECK( 102 == iter->MT() ); iter++;
+        CHECK( iter == mf3.end() );
       } // THEN
 
       THEN( "it can be printed and the sections will be in order" ) {
@@ -58,7 +57,7 @@ SCENARIO( "Testing generic case using file 3" ) {
         auto output = std::back_inserter( buffer );
         mf3.print( output, 125 );
 
-        REQUIRE( buffer == chunk() + validFEND() );
+        CHECK( buffer == chunk() + validFEND() );
       } // THEN
     } // WHEN
 
@@ -73,18 +72,18 @@ SCENARIO( "Testing generic case using file 3" ) {
 
       THEN( "an exception is thrown if invalid MT or section is requested" ) {
 
-        REQUIRE_THROWS( mf3.MT( 4 ) );
-        REQUIRE_THROWS( mf3.section( 4 ) );
+        CHECK_THROWS( mf3.MT( 4 ) );
+        CHECK_THROWS( mf3.section( 4 ) );
       } // THEN
 
       THEN( "we can iterate over the sections and they will be in order" ) {
 
         auto iter = mf3.begin();
 
-        REQUIRE( 1 == iter->MT() ); iter++;
-        REQUIRE( 2 == iter->MT() ); iter++;
-        REQUIRE( 102 == iter->MT() ); iter++;
-        REQUIRE( iter == mf3.end() );
+        CHECK( 1 == iter->MT() ); iter++;
+        CHECK( 2 == iter->MT() ); iter++;
+        CHECK( 102 == iter->MT() ); iter++;
+        CHECK( iter == mf3.end() );
       } // THEN
 
       THEN( "it can be printed and the sections will be in order" ) {
@@ -93,7 +92,7 @@ SCENARIO( "Testing generic case using file 3" ) {
         auto output = std::back_inserter( buffer );
         mf3.print( output, 125 );
 
-        REQUIRE( buffer == chunk() + validFEND() );
+        CHECK( buffer == chunk() + validFEND() );
       } // THEN
     } // WHEN
 
@@ -110,18 +109,18 @@ SCENARIO( "Testing generic case using file 3" ) {
 
       THEN( "an exception is thrown if invalid MT or section is requested" ) {
 
-        REQUIRE_THROWS( mf3.MT( 4 ) );
-        REQUIRE_THROWS( mf3.section( 4 ) );
+        CHECK_THROWS( mf3.MT( 4 ) );
+        CHECK_THROWS( mf3.section( 4 ) );
       } // THEN
 
       THEN( "we can iterate over the sections and they will be in order" ) {
 
         auto iter = mf3.begin();
 
-        REQUIRE( 1 == iter->MT() ); iter++;
-        REQUIRE( 2 == iter->MT() ); iter++;
-        REQUIRE( 102 == iter->MT() ); iter++;
-        REQUIRE( iter == mf3.end() );
+        CHECK( 1 == iter->MT() ); iter++;
+        CHECK( 2 == iter->MT() ); iter++;
+        CHECK( 102 == iter->MT() ); iter++;
+        CHECK( iter == mf3.end() );
       } // THEN
 
       THEN( "it can be printed and the sections will be in order" ) {
@@ -130,7 +129,7 @@ SCENARIO( "Testing generic case using file 3" ) {
         auto output = std::back_inserter( buffer );
         mf3.print( output, 125 );
 
-        REQUIRE( buffer == chunk() + validFEND() );
+        CHECK( buffer == chunk() + validFEND() );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -155,8 +154,8 @@ SCENARIO( "Testing generic case using file 3" ) {
 
       THEN( "an exception is thrown if invalid MT or section is requested" ) {
 
-        REQUIRE_THROWS( mf3.MT( 4 ) );
-        REQUIRE_THROWS( mf3.section( 4 ) );
+        CHECK_THROWS( mf3.MT( 4 ) );
+        CHECK_THROWS( mf3.section( 4 ) );
       } // THEN
     } // WHEN
 
@@ -173,10 +172,10 @@ SCENARIO( "Testing generic case using file 3" ) {
 
       THEN( "a file::Type<3> can be constructed" ) {
 
-        REQUIRE_NOTHROW( fileTree.parse< 3 >() );
-        REQUIRE_NOTHROW( fileTree.parse< 3 >( lineNumber ) );
-        REQUIRE_NOTHROW( fileTree.parse( 3_c ) );
-        REQUIRE_NOTHROW( fileTree.parse( 3_c, lineNumber ) );
+        CHECK_NOTHROW( fileTree.parse< 3 >() );
+        CHECK_NOTHROW( fileTree.parse< 3 >( lineNumber ) );
+        CHECK_NOTHROW( fileTree.parse( 3_c ) );
+        CHECK_NOTHROW( fileTree.parse( 3_c, lineNumber ) );
       } // THEN
     } // WHEN
 
@@ -191,7 +190,7 @@ SCENARIO( "Testing generic case using file 3" ) {
       
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( file::Type<3>(division, begin, end, lineNumber ) );
+        CHECK_THROWS( file::Type<3>(division, begin, end, lineNumber ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -211,7 +210,7 @@ SCENARIO( "Testing generic case using file 3" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       file3.print( output, 125 );
-      REQUIRE( buffer == file3string );
+      CHECK( buffer == file3string );
     } // THEN
   } // GIVEN
 
@@ -228,7 +227,7 @@ SCENARIO( "Testing generic case using file 3" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( file::Type< 3 >( division, begin, end, lineNumber ) );
+        CHECK_THROWS( file::Type< 3 >( division, begin, end, lineNumber ) );
       } // THEN
     } // WHEN
 
@@ -243,7 +242,7 @@ SCENARIO( "Testing generic case using file 3" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( file::Type< 3 >( division, begin, end, lineNumber ) );
+        CHECK_THROWS( file::Type< 3 >( division, begin, end, lineNumber ) );
       } // THEN
     } // WHEN
 
@@ -258,24 +257,17 @@ SCENARIO( "Testing generic case using file 3" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( file::Type< 3 >( division, begin, end, lineNumber ) );
+        CHECK_THROWS( file::Type< 3 >( division, begin, end, lineNumber ) );
       } // THEN
     } // WHEN
   } // GIVEN
 } // SCENARIO
 
-std::string& cachedTape() {
+std::string getFile( int MF ) {
 
   static std::string tape =
     njoy::utility::slurpFileToMemory( "n-001_H_001.endf" );
-  return tape;
-}
-
-std::string getFile( int MF ) {
-
-  auto begin = cachedTape().begin();
-  auto end = cachedTape().end();
-  syntaxTree::Tape< std::string::iterator > tapeTree( begin, end );
+  syntaxTree::Tape< std::string > tapeTree( std::move( tape ) );
   auto fileTree = tapeTree.materialNumber( 125 ).front().fileNumber( MF );
   return std::string( fileTree.buffer().begin(), fileTree.buffer().end() );
 }
@@ -301,52 +293,52 @@ std::string chunk() {
 
 void verifyChunk( const file::Type< 3 >& chunk ) {
 
-  REQUIRE( 3 == chunk.MF() );
-  REQUIRE( 3 == chunk.fileNumber() );
+  CHECK( 3 == chunk.MF() );
+  CHECK( 3 == chunk.fileNumber() );
 
-  REQUIRE( chunk.hasMT( 1 ) );
-  REQUIRE( chunk.hasMT( 2 ) );
-  REQUIRE( chunk.hasMT( 102 ) );
-  REQUIRE( chunk.hasSection( 1 ) );
-  REQUIRE( chunk.hasSection( 2 ) );
-  REQUIRE( chunk.hasSection( 102 ) );
+  CHECK( chunk.hasMT( 1 ) );
+  CHECK( chunk.hasMT( 2 ) );
+  CHECK( chunk.hasMT( 102 ) );
+  CHECK( chunk.hasSection( 1 ) );
+  CHECK( chunk.hasSection( 2 ) );
+  CHECK( chunk.hasSection( 102 ) );
 
-  REQUIRE( not chunk.hasMT( 12 ) );
-  REQUIRE( not chunk.hasSection( 12 ) );
+  CHECK( not chunk.hasMT( 12 ) );
+  CHECK( not chunk.hasSection( 12 ) );
 
-  REQUIRE_NOTHROW( chunk.MT( 1 ) );
-  REQUIRE_NOTHROW( chunk.MT( 2 ) );
-  REQUIRE_NOTHROW( chunk.MT( 102 ) );
-  REQUIRE_NOTHROW( chunk.section( 1 ) );
-  REQUIRE_NOTHROW( chunk.section( 2 ) );
-  REQUIRE_NOTHROW( chunk.section( 102 ) );
+  CHECK_NOTHROW( chunk.MT( 1 ) );
+  CHECK_NOTHROW( chunk.MT( 2 ) );
+  CHECK_NOTHROW( chunk.MT( 102 ) );
+  CHECK_NOTHROW( chunk.section( 1 ) );
+  CHECK_NOTHROW( chunk.section( 2 ) );
+  CHECK_NOTHROW( chunk.section( 102 ) );
 
-  REQUIRE( 1001. == Approx( chunk.MT( 1 ).ZA() ) );
-  REQUIRE( 0.0 == Approx( chunk.MT( 1 ).QM() ) );
-  REQUIRE( 0.0 == Approx( chunk.MT( 1 ).QI() ) );
-  REQUIRE( 5 == chunk.MT( 1 ).interpolants()[0] );
-  REQUIRE( 1001. == Approx( chunk.section( 1 ).ZA() ) );
-  REQUIRE( 0.0 == Approx( chunk.section( 1 ).QM() ) );
-  REQUIRE( 0.0 == Approx( chunk.section( 1 ).QI() ) );
-  REQUIRE( 5 == chunk.section( 1 ).interpolants()[0] );
+  CHECK( 1001. == Approx( chunk.MT( 1 ).ZA() ) );
+  CHECK( 0.0 == Approx( chunk.MT( 1 ).QM() ) );
+  CHECK( 0.0 == Approx( chunk.MT( 1 ).QI() ) );
+  CHECK( 5 == chunk.MT( 1 ).interpolants()[0] );
+  CHECK( 1001. == Approx( chunk.section( 1 ).ZA() ) );
+  CHECK( 0.0 == Approx( chunk.section( 1 ).QM() ) );
+  CHECK( 0.0 == Approx( chunk.section( 1 ).QI() ) );
+  CHECK( 5 == chunk.section( 1 ).interpolants()[0] );
 
-  REQUIRE( 1001. == Approx( chunk.MT( 2 ).ZA() ) );
-  REQUIRE( 0.0 == Approx( chunk.MT( 2 ).QM() ) );
-  REQUIRE( 0.0 == Approx( chunk.MT( 2 ).QI() ) );
-  REQUIRE( 2 == chunk.MT( 2 ).interpolants()[0] );
-  REQUIRE( 1001. == Approx( chunk.section( 2 ).ZA() ) );
-  REQUIRE( 0.0 == Approx( chunk.section( 2 ).QM() ) );
-  REQUIRE( 0.0 == Approx( chunk.section( 2 ).QI() ) );
-  REQUIRE( 2 == chunk.section( 2 ).interpolants()[0] );
+  CHECK( 1001. == Approx( chunk.MT( 2 ).ZA() ) );
+  CHECK( 0.0 == Approx( chunk.MT( 2 ).QM() ) );
+  CHECK( 0.0 == Approx( chunk.MT( 2 ).QI() ) );
+  CHECK( 2 == chunk.MT( 2 ).interpolants()[0] );
+  CHECK( 1001. == Approx( chunk.section( 2 ).ZA() ) );
+  CHECK( 0.0 == Approx( chunk.section( 2 ).QM() ) );
+  CHECK( 0.0 == Approx( chunk.section( 2 ).QI() ) );
+  CHECK( 2 == chunk.section( 2 ).interpolants()[0] );
 
-  REQUIRE( 1001. == Approx( chunk.MT( 102 ).ZA() ) );
-  REQUIRE( 2.224631e+6 == Approx( chunk.MT( 102 ).QM() ) );
-  REQUIRE( 2.224631e+6 == Approx( chunk.MT( 102 ).QI() ) );
-  REQUIRE( 5 == chunk.MT( 102 ).interpolants()[0] );
-  REQUIRE( 1001. == Approx( chunk.section( 102 ).ZA() ) );
-  REQUIRE( 2.224631e+6 == Approx( chunk.section( 102 ).QM() ) );
-  REQUIRE( 2.224631e+6 == Approx( chunk.section( 102 ).QI() ) );
-  REQUIRE( 5 == chunk.section( 102 ).interpolants()[0] );
+  CHECK( 1001. == Approx( chunk.MT( 102 ).ZA() ) );
+  CHECK( 2.224631e+6 == Approx( chunk.MT( 102 ).QM() ) );
+  CHECK( 2.224631e+6 == Approx( chunk.MT( 102 ).QI() ) );
+  CHECK( 5 == chunk.MT( 102 ).interpolants()[0] );
+  CHECK( 1001. == Approx( chunk.section( 102 ).ZA() ) );
+  CHECK( 2.224631e+6 == Approx( chunk.section( 102 ).QM() ) );
+  CHECK( 2.224631e+6 == Approx( chunk.section( 102 ).QI() ) );
+  CHECK( 5 == chunk.section( 102 ).interpolants()[0] );
 }
 
 std::string validSEND() {

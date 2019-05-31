@@ -5,7 +5,6 @@
 
 using namespace njoy::ENDFtk;
 
-std::string& cachedTape();
 std::string getFile( int MF );
 std::string chunk457();
 void verifyChunk457( const file::Type< 8 >& );
@@ -61,7 +60,7 @@ SCENARIO( "Testing special case of file 8" ) {
         auto output = std::back_inserter( buffer );
         mf8.print( output, 3580 );
 
-        REQUIRE( buffer == chunk457() + validFEND() );
+        CHECK( buffer == chunk457() + validFEND() );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -79,7 +78,7 @@ SCENARIO( "Testing special case of file 8" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( file::Type< 8 >( division, begin, end, lineNumber ) );
+        CHECK_THROWS( file::Type< 8 >( division, begin, end, lineNumber ) );
       } // THEN
     } // WHEN
 
@@ -94,7 +93,7 @@ SCENARIO( "Testing special case of file 8" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( file::Type< 8 >( division, begin, end, lineNumber ) );
+        CHECK_THROWS( file::Type< 8 >( division, begin, end, lineNumber ) );
       } // THEN
     } // WHEN
 
@@ -109,7 +108,7 @@ SCENARIO( "Testing special case of file 8" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( file::Type< 8 >( division, begin, end, lineNumber ) );
+        CHECK_THROWS( file::Type< 8 >( division, begin, end, lineNumber ) );
       } // THEN
     } // WHEN
 
@@ -124,7 +123,7 @@ SCENARIO( "Testing special case of file 8" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( file::Type< 8 >( division, begin, end, lineNumber ) );
+        CHECK_THROWS( file::Type< 8 >( division, begin, end, lineNumber ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -144,13 +143,13 @@ SCENARIO( "Testing special case of file 8" ) {
 
       THEN( "the sections can be extracted" ) {
 
-        REQUIRE( file.hasMT( 457 ) );
-        REQUIRE( not file.hasMT( 1 ) );
-        REQUIRE( file.hasSection( 457 ) );
-        REQUIRE( not file.hasSection( 1 ) );
+        CHECK( file.hasMT( 457 ) );
+        CHECK( not file.hasMT( 1 ) );
+        CHECK( file.hasSection( 457 ) );
+        CHECK( not file.hasSection( 1 ) );
 
-        REQUIRE( 92235. == Approx( file.section( 457_c ).ZA() ) );
-        REQUIRE( 92235. == Approx( file.MT( 457_c ).ZA() ) );
+        CHECK( 92235. == Approx( file.section( 457_c ).ZA() ) );
+        CHECK( 92235. == Approx( file.MT( 457_c ).ZA() ) );
       }
     }
 
@@ -168,7 +167,7 @@ SCENARIO( "Testing special case of file 8" ) {
 
       THEN( "a file::Type< 8 > can be constructed" ) {
 
-        REQUIRE_NOTHROW( fileTree.parse< 8 >( lineNumber ) );
+        CHECK_NOTHROW( fileTree.parse< 8 >( lineNumber ) );
       }
     }
 
@@ -183,7 +182,7 @@ SCENARIO( "Testing special case of file 8" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( file::Type< 8 >( division, begin, end, lineNumber ) );
+        CHECK_THROWS( file::Type< 8 >( division, begin, end, lineNumber ) );
       }
     }
   } // GIVEN
@@ -202,21 +201,15 @@ SCENARIO( "Testing special case of file 8" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       file.print( output, 3515 );
-      REQUIRE( buffer == fileString );
+      CHECK( buffer == fileString );
     }
   } // GIVEN
 } // SCENARIO
 
-std::string& cachedTape(){
+std::string getFile( int MF ){
   static std::string tape =
     njoy::utility::slurpFileToMemory( "dec-092_U_235.endf" );
-  return tape;
-}
-
-std::string getFile( int MF ){
-  auto begin = cachedTape().begin();
-  auto end = cachedTape().end();
-  syntaxTree::Tape< std::string::iterator > tapeTree( begin, end );
+  syntaxTree::Tape< std::string > tapeTree(  std::move( tape ) );
   auto fileTree = tapeTree.materialNumber( 3515 ).front().fileNumber( MF );
   return std::string( fileTree.buffer().begin(), fileTree.buffer().end() );
 }
@@ -248,21 +241,21 @@ std::string chunk457() {
 
 void verifyChunk457( const file::Type< 8 >& chunk ) {
 
-  REQUIRE( 8 == chunk.MF() );
-  REQUIRE( 8 == chunk.fileNumber() );
+  CHECK( 8 == chunk.MF() );
+  CHECK( 8 == chunk.fileNumber() );
 
-  REQUIRE( chunk.hasMT( 457 ) );
-  REQUIRE( not chunk.hasMT( 1 ) );
-  REQUIRE( chunk.hasSection( 457 ) );
-  REQUIRE( not chunk.hasSection( 1 ) );
+  CHECK( chunk.hasMT( 457 ) );
+  CHECK( not chunk.hasMT( 1 ) );
+  CHECK( chunk.hasSection( 457 ) );
+  CHECK( not chunk.hasSection( 1 ) );
 
-  REQUIRE_NOTHROW( chunk.MT( 457_c ) );
-  REQUIRE_NOTHROW( chunk.section( 457_c ) );
+  CHECK_NOTHROW( chunk.MT( 457_c ) );
+  CHECK_NOTHROW( chunk.section( 457_c ) );
 
-  REQUIRE( 95242. == Approx( chunk.MT( 457_c ).ZA() ) );
-  REQUIRE( 2 == chunk.MT( 457_c ).LIS() );
-  REQUIRE( 1 == chunk.MT( 457_c ).LISO() );
-  REQUIRE( 20 == chunk.MT( 457_c ).NC() );
+  CHECK( 95242. == Approx( chunk.MT( 457_c ).ZA() ) );
+  CHECK( 2 == chunk.MT( 457_c ).LIS() );
+  CHECK( 1 == chunk.MT( 457_c ).LISO() );
+  CHECK( 20 == chunk.MT( 457_c ).NC() );
 }
 
 std::string validSEND() {
