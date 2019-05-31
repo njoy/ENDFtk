@@ -264,10 +264,9 @@ SCENARIO( "Testing generic case using file 3" ) {
 } // SCENARIO
 
 std::string getFile( int MF ) {
-
   static std::string tape =
     njoy::utility::slurpFileToMemory( "n-001_H_001.endf" );
-  syntaxTree::Tape< std::string > tapeTree( std::move( tape ) );
+  syntaxTree::Tape< std::string > tapeTree( njoy::utility::copy( tape ) );
   auto fileTree = tapeTree.materialNumber( 125 ).front().fileNumber( MF );
   return std::string( fileTree.buffer().begin(), fileTree.buffer().end() );
 }

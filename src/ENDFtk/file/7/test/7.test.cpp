@@ -296,7 +296,7 @@ SCENARIO( "Testing special case of file 7" ) {
 std::string getFile( int MF ){
   static std::string tape =
     njoy::utility::slurpFileToMemory( "tsl-BeinBeO.endf" );
-  syntaxTree::Tape< std::string > tapeTree( std::move( tape ) );
+  syntaxTree::Tape< std::string > tapeTree( njoy::utility::copy( tape ) );
   auto fileTree = tapeTree.materialNumber( 27 ).front().fileNumber( MF );
   return std::string( fileTree.buffer().begin(), fileTree.buffer().end() );
 }

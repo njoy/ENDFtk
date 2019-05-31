@@ -209,7 +209,7 @@ SCENARIO( "Testing special case of file 8" ) {
 std::string getFile( int MF ){
   static std::string tape =
     njoy::utility::slurpFileToMemory( "dec-092_U_235.endf" );
-  syntaxTree::Tape< std::string > tapeTree(  std::move( tape ) );
+  syntaxTree::Tape< std::string > tapeTree( njoy::utility::copy( tape ) );
   auto fileTree = tapeTree.materialNumber( 3515 ).front().fileNumber( MF );
   return std::string( fileTree.buffer().begin(), fileTree.buffer().end() );
 }
