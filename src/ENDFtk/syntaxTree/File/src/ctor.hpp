@@ -9,19 +9,3 @@ catch( std::exception& e ){
   Log::info( "File number (MF): {}", head.MF() );
   throw e;
 }
-
-/*
-File( const File& other ) 
-try:
-  fileNo( other.fileNo ),
-  sections_( other.sections_ ),
-  bufferLimits( other.bufferLimits ){}
-catch( std::exception&  ){
-  Log::info( 
-      "Trouble encountered while copy constructing a syntaxTree::File." );
-  throw;
-}
-
-File( File&& other ) noexcept = default;
-
-*/

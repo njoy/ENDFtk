@@ -3,6 +3,7 @@ createMap( BufferIterator position, const BufferIterator& end, long& ln ){
 
   std::multimap< int, Material_t > materials;
 
+  auto begin = position;
   auto division = StructureDivision( position, end, ln );
   int lastMAT = division.tail.MAT();
 
@@ -14,9 +15,10 @@ createMap( BufferIterator position, const BufferIterator& end, long& ln ){
       throw std::exception();
     }
     materials.emplace( division.tail.MAT(),
-      Material_t( asHead( division ), position, position, end, ln ) );
+      Material_t( asHead( division ), begin, position, end, ln ) );
 
     lastMAT = division.tail.MAT();
+    begin = position;
     division = StructureDivision( position, end, ln );
   }
 
@@ -29,12 +31,14 @@ createMap( BufferIterator position, const BufferIterator& end ){
   std::multimap< int, Material_t > materials;
   long ln{ 0 };
 
+  auto begin = position;
   auto division = StructureDivision( position, end, ln );
 
   while ( not division.isTend() ) {
     materials.emplace( division.tail.MAT(),
-      Material_t( asHead( division ), position, position, end, ln ) );
+      Material_t( asHead( division ), begin, position, end, ln ) );
 
+    begin = position;
     division = StructureDivision( position, end, ln );
   }
 

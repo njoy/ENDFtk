@@ -9,18 +9,3 @@ catch( std::exception& e ){
   Log::info( "Material number (MAT): {}", head.MAT() );
   throw e;
 }
-
-/*
-Material( const Material& other )
-try:
-  materialNo( other.materialNo ),
-  files_( other.files_ ),
-  bufferLimits( other.bufferLimits ){}
-catch( std::exception&  ){
-  Log::info( 
-      "Trouble encountered while copy constructing a syntaxTree::Material." );
-  throw;
-}
-
-Material( Material&& other ) noexcept = default;
-*/

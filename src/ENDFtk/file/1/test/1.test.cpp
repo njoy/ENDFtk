@@ -146,8 +146,8 @@ SCENARIO( "Testing special case of file 1" ) {
       auto end = file1string.end();
       long lineNumber = 0;
 
-      StructureDivision division( begin, end, lineNumber );
-      file::Type< 1 > file( division, begin, end, lineNumber );
+      StructureDivision head( begin, end, lineNumber );
+      file::Type< 1 > file( head, begin, end, lineNumber );
 
       THEN( "the sections can be extracted" ) {
 

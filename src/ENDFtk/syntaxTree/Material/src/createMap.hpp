@@ -5,8 +5,7 @@ createMap
 
   std::map< int, File_t > files;
 
-  files.emplace( head.MF(), 
-                   File_t( head, begin, position, end, lineNumber ) );
+  files.emplace( head.MF(), File_t( head, begin, position, end, lineNumber ) );
 
   begin = position;
   auto division = StructureDivision( position, end, lineNumber ); 
