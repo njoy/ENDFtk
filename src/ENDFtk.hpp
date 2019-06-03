@@ -15,7 +15,7 @@
   #pragma GCC diagnostic pop
 #endif
 
-#ifdef USING_CPP17
+#if __cplusplus >= 201703L
   #include <optional>
 #else 
   #include <experimental/optional>
