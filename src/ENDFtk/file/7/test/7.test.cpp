@@ -10,7 +10,6 @@ using CoherentElastic = section::Type< 7, 2 >::CoherentElastic;
 using Tabulated = section::Type< 7, 4 >::Tabulated;
 using ScatteringFunction = section::Type< 7, 4 >::Tabulated::ScatteringFunction;
 
-std::string& cachedTape();
 std::string getFile( int MF );
 std::string chunk2();
 void verifyChunk2( const file::Type< 7 >& );
@@ -47,8 +46,8 @@ SCENARIO( "Testing special case of file 7" ) {
 
       THEN( "an exception is thrown if invalid MT or section is requested" ) {
 
-        REQUIRE_THROWS( mf7.MT( 4_c ) );
-        REQUIRE_THROWS( mf7.section( 4_c ) );
+        CHECK_THROWS( mf7.MT( 4_c ) );
+        CHECK_THROWS( mf7.section( 4_c ) );
       } // THEN
 
       THEN( "it can be printed" ) {
@@ -57,7 +56,7 @@ SCENARIO( "Testing special case of file 7" ) {
         auto output = std::back_inserter( buffer );
         mf7.print( output, 27 );
 
-        REQUIRE( buffer == chunk2() + validFEND() );
+        CHECK( buffer == chunk2() + validFEND() );
       } // THEN
     } // WHEN
 
@@ -93,8 +92,8 @@ SCENARIO( "Testing special case of file 7" ) {
 
       THEN( "an exception is thrown if invalid MT or section is requested" ) {
 
-        REQUIRE_THROWS( mf7.MT( 2_c ) );
-        REQUIRE_THROWS( mf7.section( 2_c ) );
+        CHECK_THROWS( mf7.MT( 2_c ) );
+        CHECK_THROWS( mf7.section( 2_c ) );
       } // THEN
 
       THEN( "it can be printed" ) {
@@ -103,7 +102,7 @@ SCENARIO( "Testing special case of file 7" ) {
         auto output = std::back_inserter( buffer );
         mf7.print( output, 27 );
 
-        REQUIRE( buffer == chunk4() + validFEND() );
+        CHECK( buffer == chunk4() + validFEND() );
       } // THEN
     } // WHEN
 
@@ -149,7 +148,7 @@ SCENARIO( "Testing special case of file 7" ) {
         auto output = std::back_inserter( buffer );
         mf7.print( output, 27 );
 
-        REQUIRE( buffer == chunk24() + validFEND() );
+        CHECK( buffer == chunk24() + validFEND() );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -167,7 +166,7 @@ SCENARIO( "Testing special case of file 7" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( file::Type< 7 >( division, begin, end, lineNumber ) );
+        CHECK_THROWS( file::Type< 7 >( division, begin, end, lineNumber ) );
       } // THEN
     } // WHEN
 
@@ -182,7 +181,7 @@ SCENARIO( "Testing special case of file 7" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( file::Type< 7 >( division, begin, end, lineNumber ) );
+        CHECK_THROWS( file::Type< 7 >( division, begin, end, lineNumber ) );
       } // THEN
     } // WHEN
 
@@ -197,7 +196,7 @@ SCENARIO( "Testing special case of file 7" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( file::Type< 7 >( division, begin, end, lineNumber ) );
+        CHECK_THROWS( file::Type< 7 >( division, begin, end, lineNumber ) );
       } // THEN
     } // WHEN
 
@@ -212,7 +211,7 @@ SCENARIO( "Testing special case of file 7" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( file::Type< 7 >( division, begin, end, lineNumber ) );
+        CHECK_THROWS( file::Type< 7 >( division, begin, end, lineNumber ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -232,18 +231,18 @@ SCENARIO( "Testing special case of file 7" ) {
 
       THEN( "the sections can be extracted" ) {
 
-        REQUIRE( file.hasMT( 2 ) );
-        REQUIRE( file.hasMT( 4 ) );
-        REQUIRE( not file.hasMT( 1 ) );
-        REQUIRE( file.hasSection( 2 ) );
-        REQUIRE( file.hasSection( 4 ) );
-        REQUIRE( not file.hasSection( 1 ) );
+        CHECK( file.hasMT( 2 ) );
+        CHECK( file.hasMT( 4 ) );
+        CHECK( not file.hasMT( 1 ) );
+        CHECK( file.hasSection( 2 ) );
+        CHECK( file.hasSection( 4 ) );
+        CHECK( not file.hasSection( 1 ) );
 
-        REQUIRE( 127. == Approx( file.section( 2_c ).ZA() ) );
-        REQUIRE( 127. == Approx( file.MT( 2_c ).ZA() ) );
+        CHECK( 127. == Approx( file.section( 2_c ).ZA() ) );
+        CHECK( 127. == Approx( file.MT( 2_c ).ZA() ) );
 
-        REQUIRE( 127. == Approx( file.section( 4_c ).ZA() ) );
-        REQUIRE( 127. == Approx( file.MT( 4_c ).ZA() ) );
+        CHECK( 127. == Approx( file.section( 4_c ).ZA() ) );
+        CHECK( 127. == Approx( file.MT( 4_c ).ZA() ) );
       }
     }
 
@@ -259,7 +258,7 @@ SCENARIO( "Testing special case of file 7" ) {
         fileTree( asHead( division ), start, begin, end, lineNumber );
 
       THEN( "a file::Type< 7 > can be constructed" ){
-        REQUIRE_NOTHROW( fileTree.parse< 7 >( lineNumber ) );
+        CHECK_NOTHROW( fileTree.parse< 7 >( lineNumber ) );
       }
     }
 
@@ -271,7 +270,7 @@ SCENARIO( "Testing special case of file 7" ) {
       long lineNumber = 0;
       StructureDivision division( begin, end, lineNumber );
       THEN( "an exception is thrown" ){
-        REQUIRE_THROWS( file::Type< 7 >
+        CHECK_THROWS( file::Type< 7 >
                         ( division, begin, end, lineNumber ) );
       }
     }
@@ -289,21 +288,15 @@ SCENARIO( "Testing special case of file 7" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       file.print( output, 27 );
-//      REQUIRE( buffer == fileString );
+//      CHECK( buffer == fileString );
     }
   } // GIVEN
 } // SCENARIO
 
-std::string& cachedTape(){
+std::string getFile( int MF ){
   static std::string tape =
     njoy::utility::slurpFileToMemory( "tsl-BeinBeO.endf" );
-  return tape;
-}
-
-std::string getFile( int MF ){
-  auto begin = cachedTape().begin();
-  auto end = cachedTape().end();
-  syntaxTree::Tape< std::string::iterator > tapeTree( begin, end );
+  syntaxTree::Tape< std::string > tapeTree( njoy::utility::copy( tape ) );
   auto fileTree = tapeTree.materialNumber( 27 ).front().fileNumber( MF );
   return std::string( fileTree.buffer().begin(), fileTree.buffer().end() );
 }
@@ -319,20 +312,20 @@ std::string chunk2() {
 
 void verifyChunk2( const file::Type< 7 >& chunk ) {
 
-  REQUIRE( 7 == chunk.MF() );
-  REQUIRE( 7 == chunk.fileNumber() );
+  CHECK( 7 == chunk.MF() );
+  CHECK( 7 == chunk.fileNumber() );
 
-  REQUIRE( chunk.hasMT( 2 ) );
-  REQUIRE( not chunk.hasMT( 4 ) );
-  REQUIRE( chunk.hasSection( 2 ) );
-  REQUIRE( not chunk.hasSection( 4 ) );
+  CHECK( chunk.hasMT( 2 ) );
+  CHECK( not chunk.hasMT( 4 ) );
+  CHECK( chunk.hasSection( 2 ) );
+  CHECK( not chunk.hasSection( 4 ) );
 
-  REQUIRE_NOTHROW( chunk.MT( 2_c ) );
-  REQUIRE_NOTHROW( chunk.section( 2_c ) );
+  CHECK_NOTHROW( chunk.MT( 2_c ) );
+  CHECK_NOTHROW( chunk.section( 2_c ) );
 
-  REQUIRE( 127. == Approx( chunk.MT( 2_c ).ZA() ) );
-  REQUIRE( 1 == chunk.MT( 2_c ).LTHR() );
-  REQUIRE( 4 == chunk.MT( 2_c ).NC() );
+  CHECK( 127. == Approx( chunk.MT( 2_c ).ZA() ) );
+  CHECK( 1 == chunk.MT( 2_c ).LTHR() );
+  CHECK( 4 == chunk.MT( 2_c ).NC() );
 }
 
 std::string chunk4() {
@@ -358,25 +351,25 @@ std::string chunk4() {
 
 void verifyChunk4( const file::Type< 7 >& chunk ) {
 
-  REQUIRE( 7 == chunk.MF() );
-  REQUIRE( 7 == chunk.fileNumber() );
+  CHECK( 7 == chunk.MF() );
+  CHECK( 7 == chunk.fileNumber() );
 
-  REQUIRE( not chunk.hasMT( 2 ) );
-  REQUIRE( chunk.hasMT( 4 ) );
-  REQUIRE( not chunk.hasSection( 2 ) );
-  REQUIRE( chunk.hasSection( 4 ) );
+  CHECK( not chunk.hasMT( 2 ) );
+  CHECK( chunk.hasMT( 4 ) );
+  CHECK( not chunk.hasSection( 2 ) );
+  CHECK( chunk.hasSection( 4 ) );
 
-  REQUIRE( not chunk.hasMT( 12 ) );
-  REQUIRE( not chunk.hasSection( 12 ) );
+  CHECK( not chunk.hasMT( 12 ) );
+  CHECK( not chunk.hasSection( 12 ) );
 
-  REQUIRE_NOTHROW( chunk.MT( 4_c ) );
-  REQUIRE_NOTHROW( chunk.section( 4_c ) );
+  CHECK_NOTHROW( chunk.MT( 4_c ) );
+  CHECK_NOTHROW( chunk.section( 4_c ) );
 
-  REQUIRE( 127. == Approx( chunk.MT( 4_c ).ZA() ) );
-  REQUIRE( 1 == chunk.MT( 4_c ).LAT() );
-  REQUIRE( 0 == chunk.MT( 4_c ).LASYM() );
+  CHECK( 127. == Approx( chunk.MT( 4_c ).ZA() ) );
+  CHECK( 1 == chunk.MT( 4_c ).LAT() );
+  CHECK( 0 == chunk.MT( 4_c ).LASYM() );
 
-  REQUIRE( 16 == chunk.MT( 4_c ).NC() );
+  CHECK( 16 == chunk.MT( 4_c ).NC() );
 }
 
 std::string chunk24() {
@@ -407,30 +400,30 @@ std::string chunk24() {
 
 void verifyChunk24( const file::Type< 7 >& chunk ) {
 
-  REQUIRE( 7 == chunk.MF() );
-  REQUIRE( 7 == chunk.fileNumber() );
+  CHECK( 7 == chunk.MF() );
+  CHECK( 7 == chunk.fileNumber() );
 
-  REQUIRE( chunk.hasMT( 2 ) );
-  REQUIRE( chunk.hasMT( 4 ) );
-  REQUIRE( chunk.hasSection( 2 ) );
-  REQUIRE( chunk.hasSection( 4 ) );
+  CHECK( chunk.hasMT( 2 ) );
+  CHECK( chunk.hasMT( 4 ) );
+  CHECK( chunk.hasSection( 2 ) );
+  CHECK( chunk.hasSection( 4 ) );
 
-  REQUIRE( not chunk.hasMT( 12 ) );
-  REQUIRE( not chunk.hasSection( 12 ) );
+  CHECK( not chunk.hasMT( 12 ) );
+  CHECK( not chunk.hasSection( 12 ) );
 
-  REQUIRE_NOTHROW( chunk.MT( 2_c ) );
-  REQUIRE_NOTHROW( chunk.MT( 4_c ) );
-  REQUIRE_NOTHROW( chunk.section( 2_c ) );
-  REQUIRE_NOTHROW( chunk.section( 4_c ) );
+  CHECK_NOTHROW( chunk.MT( 2_c ) );
+  CHECK_NOTHROW( chunk.MT( 4_c ) );
+  CHECK_NOTHROW( chunk.section( 2_c ) );
+  CHECK_NOTHROW( chunk.section( 4_c ) );
 
-  REQUIRE( 127. == Approx( chunk.MT( 2_c ).ZA() ) );
-  REQUIRE( 1 == chunk.MT( 2_c ).LTHR() );
-  REQUIRE( 4 == chunk.MT( 2_c ).NC() );
+  CHECK( 127. == Approx( chunk.MT( 2_c ).ZA() ) );
+  CHECK( 1 == chunk.MT( 2_c ).LTHR() );
+  CHECK( 4 == chunk.MT( 2_c ).NC() );
 
-  REQUIRE( 127. == Approx( chunk.MT( 4_c ).ZA() ) );
-  REQUIRE( 1 == chunk.MT( 4_c ).LAT() );
-  REQUIRE( 0 == chunk.MT( 4_c ).LASYM() );
-  REQUIRE( 16 == chunk.MT( 4_c ).NC() );
+  CHECK( 127. == Approx( chunk.MT( 4_c ).ZA() ) );
+  CHECK( 1 == chunk.MT( 4_c ).LAT() );
+  CHECK( 0 == chunk.MT( 4_c ).LASYM() );
+  CHECK( 16 == chunk.MT( 4_c ).NC() );
 }
 
 std::string validSEND() {

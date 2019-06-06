@@ -4,6 +4,7 @@
 #include <functional>
 #include <unordered_map>
 #include <complex>
+#include <map>
 
 #ifdef __GNUC__
   #pragma GCC diagnostic push
@@ -14,7 +15,7 @@
   #pragma GCC diagnostic pop
 #endif
 
-#ifdef USING_CPP17
+#if __cplusplus >= 201703L
   #include <optional>
 #else 
   #include <experimental/optional>
@@ -28,7 +29,6 @@
 #include "boost/hana.hpp"
 #include "Log.hpp"
 #include "header-utilities.hpp"
-#include "hopscotch_map.h"
 
 namespace njoy {
 namespace ENDFtk {

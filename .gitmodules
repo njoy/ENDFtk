@@ -22,10 +22,6 @@
 	path = dependencies/variant-adapter
 	url = ../variant-adapter.git
 	branch = master
-[submodule "dependencies/hopscotch-map-adapter"]
-	path = dependencies/hopscotch-map-adapter
-	url = ../hopscotch-map-adapter.git
-	branch = master
 [submodule "dependencies/hana-adapter"]
 	path = dependencies/hana-adapter
 	url = ../hana-adapter.git
