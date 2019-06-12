@@ -9,12 +9,10 @@ public:
 protected:
   /* fields */
   int fileNo;
-  std::vector< Section_t > sectionVector;
-  tsl::hopscotch_map< int, const Section_t* > sectionMap;
+  std::map< int, Section_t > sections_;
   std::pair< BufferIterator, BufferIterator > bufferLimits;
 
     /* ctor */
-#include "ENDFtk/syntaxTree/File/src/createVector.hpp"
 #include "ENDFtk/syntaxTree/File/src/createMap.hpp"
 
 public:
@@ -31,18 +29,20 @@ public:
   MT( int sectionNo ){ return this->sectionNumber( sectionNo ); }
 
   bool
-  hasMT( int sectionNo ) const { return this->sectionMap.count( sectionNo ); }
+  hasMT( int sectionNo ) const { return this->sections_.count( sectionNo ); }
   
   bool
   hasSectionNumber( int sectionNo ) const {  return this->hasMT( sectionNo ); }
   
-  iterator begin() { return this->sectionVector.begin(); }
-  iterator end() { return this->sectionVector.end(); }
+  auto begin(){ return ( this->sections_ | ranges::view::values ).begin(); }
+  auto end(){ return ( this->sections_ | ranges::view::values ).end(); }
 
-  const_iterator begin() const { return const_cast< File& >( *this ).begin(); }
-  const_iterator end() const { return const_cast< File& >( *this ).end(); }
+  auto begin() const { 
+    return ( this->sections_ | ranges::view::values ).begin();
+  }
+  auto end() const { return ( this->sections_ | ranges::view::values ).end(); }
  
-  std::size_t size() const { return this->sectionVector.size(); }
+  std::size_t size() const { return this->sections_.size(); }
 
   auto buffer() const {
     return ranges::make_iterator_range( this->bufferLimits.first,

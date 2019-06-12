@@ -17,115 +17,88 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
       auto base = baseTAPE();
       auto tend = validTEND();
       auto tapeString = tpid + base + tend;
-      auto begin = tapeString.begin();
-      auto end = tapeString.end();
 
-      GIVEN( "the Tape pointer" ){
-        auto start = begin;
-        auto original =
-          std::make_unique
-          < syntaxTree::Tape< std::string::iterator > >( start, end );
-        
-        THEN( "the copy ctor will function correctly "){
-          auto copy = syntaxTree::Tape< std::string::iterator >{ *original };
-          original.reset();
-          REQUIRE( 125 == copy.MAT( 125 ).front().MAT() );          
-        }
+      syntaxTree::Tape< std::string > tape{ njoy::utility::copy( tapeString ) };
 
-        start = begin;
-        original =
-          std::make_unique
-          < syntaxTree::Tape< std::string::iterator > >( start, end );
-
-        THEN( "the copy ctor will function correctly "){
-          auto copy =
-            syntaxTree::Tape< std::string::iterator >
-            { std::move( *( original.release() ) ) };
-          
-          REQUIRE( 125 == copy.MAT( 125 ).front().MAT() );          
-        }
+      syntaxTree::Tape< std::string > original{ 
+        njoy::utility::copy( tapeString ) };
+      
+      THEN( "the copy ctor will function correctly "){
+        auto copy = syntaxTree::Tape< std::string >{ original };
+        CHECK( 125 == copy.MAT( 125 ).front().MAT() );          
       }
 
       GIVEN("a tape skeleton constructed from a string"){
-	syntaxTree::Tape< std::string::const_iterator >
-	  reference( tapeString.cbegin(), tapeString.cend() );
+        syntaxTree::Tape< std::string > reference( 
+          njoy::utility::copy( tapeString ) );
 
-	THEN("the iterator-based factory function will return the same type"){
-	  auto trial = syntaxTree::makeTape( tapeString.cbegin(), tapeString.cend() );
-	  constexpr bool isSame =
-	    std::is_same<decltype(reference), decltype(trial)>::value;
-	  REQUIRE( isSame );
-	}
+        THEN("the iterator-based factory function will return the same type"){
+          auto trial = syntaxTree::makeTape( 
+              njoy::utility::copy( tapeString ) );
+          constexpr bool isSame =
+            std::is_same<decltype(reference), decltype(trial)>::value;
+          CHECK( isSame );
+        }
 
-	THEN("the range-based factory function will return the same type"){
-	  auto trial = syntaxTree::makeTape( tapeString );
-	  constexpr bool isSame =
-	    std::is_same<decltype(reference), decltype(trial)>::value;
-	  REQUIRE( isSame );
-	}
+        THEN("the range-based factory function will return the same type"){
+          auto trial = syntaxTree::makeTape( 
+              njoy::utility::copy( tapeString ) );
+          constexpr bool isSame =
+            std::is_same<decltype(reference), decltype(trial)>::value;
+          CHECK( isSame );
+        }
       }
       
-      syntaxTree::Tape< std::string::iterator > tapeTree( begin, end );
+      syntaxTree::Tape< std::string > tapeTree{ 
+        njoy::utility::copy( tapeString ) };
       const auto ctapeTree = tapeTree;
-      
-      THEN( "the buffer iterators are populated correctly " ){
-        REQUIRE( tapeString.begin() == tapeTree.buffer().begin() );
-        REQUIRE( tapeString.end() == tapeTree.buffer().end() );
-        REQUIRE( tapeString.begin() == ctapeTree.buffer().begin() );
-        REQUIRE( tapeString.end() == ctapeTree.buffer().end() );
-      }
 
-      AND_THEN( "the correct number of materials are read from the tape" ){
-         REQUIRE( 1 == tapeTree.size() );
-         REQUIRE( 1 == ctapeTree.size() );
+      THEN( "the correct number of materials are read from the tape" ){
+         CHECK( 1 == tapeTree.size() );
+         CHECK( 1 == ctapeTree.size() );
       }
       
       AND_THEN( "we can access the Materials of the skeleton" ){
-        REQUIRE( tapeTree.hasMaterialNumber( 125 ) );
-        REQUIRE( ctapeTree.hasMaterialNumber( 125 ) );
+        CHECK( tapeTree.hasMaterialNumber( 125 ) );
+        CHECK( ctapeTree.hasMaterialNumber( 125 ) );
         for ( auto& materialSkeleton : tapeTree.materialNumber( 125 ) ){
-          REQUIRE( 125 == materialSkeleton.materialNumber() );
+          CHECK( 125 == materialSkeleton.materialNumber() );
         }
         for ( const auto& materialSkeleton : ctapeTree.materialNumber( 125 ) ){
-          REQUIRE( 125 == materialSkeleton.materialNumber() );
+          CHECK( 125 == materialSkeleton.materialNumber() );
         }
 
-        REQUIRE( tapeTree.hasMAT( 125 ) );
-        REQUIRE( ctapeTree.hasMAT( 125 ) );
+        CHECK( tapeTree.hasMAT( 125 ) );
+        CHECK( ctapeTree.hasMAT( 125 ) );
         for ( auto& materialSkeleton : tapeTree.MAT( 125 ) ){
-          REQUIRE( 125 == materialSkeleton.materialNumber() );
+          CHECK( 125 == materialSkeleton.materialNumber() );
         }
         for ( const auto& materialSkeleton : ctapeTree.MAT( 125 ) ){
-          REQUIRE( 125 == materialSkeleton.materialNumber() );
+          CHECK( 125 == materialSkeleton.materialNumber() );
         }
       }
       
       AND_THEN( "an excpetion is thrown for an invalid index" ){
-        REQUIRE_THROWS( tapeTree.materialNumber(1) );
+        CHECK_THROWS( tapeTree.materialNumber(1) );
       }
     }
 
     
-
     WHEN( "an invalid (MAT != -1) TEND record ends the Tape" ){
       auto tpid = tpidString();
       auto base = baseTAPE();
       auto tend = invalidTEND();
       auto tapeString = tpid + base + tend;
-      auto begin = tapeString.begin();
-      auto end = tapeString.end();
 
-      REQUIRE_THROWS( syntaxTree::Tape< std::string::iterator >( begin, end ) );
+      CHECK_THROWS( syntaxTree::Tape< std::string >{ std::move( tapeString ) } );
     }
 
     WHEN( "the Tape isn't long enough" ){
       auto tpid = tpidString();
       auto base = baseTAPE();
       auto tapeString = tpid + base; // no tend record
-      auto begin = tapeString.begin();
-      auto end = tapeString.end();
 
-      REQUIRE_THROWS( syntaxTree::Tape< std::string::iterator >( begin, end ) );
+      CHECK_THROWS( syntaxTree::Tape< std::string >{ std::move( tapeString ) } );
     }
   } // GIVEN
 } // SCENARIO

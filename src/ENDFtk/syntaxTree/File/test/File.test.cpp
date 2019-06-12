@@ -32,7 +32,7 @@ SCENARIO( "Creating a syntax tree of an ENDF File" ){
         THEN( "the copy ctor will function correctly "){
           auto copy = syntaxTree::File< std::string::iterator >{ *original };
           original.reset();
-          REQUIRE( 1 == copy.MT( 1 ).MT() );          
+          CHECK( 1 == copy.MT( 1 ).MT() );          
         }
 
         beg = begin;
@@ -42,12 +42,12 @@ SCENARIO( "Creating a syntax tree of an ENDF File" ){
           < syntaxTree::File< std::string::iterator > >
           ( head, start, beg, end, lin );
 
-        THEN( "the copy ctor will function correctly "){
+        THEN( "the move ctor will function correctly "){
           auto copy =
             syntaxTree::File< std::string::iterator >
             { std::move( *( original.release() ) ) };
           
-          REQUIRE( 1 == copy.MT( 1 ).MT() );          
+          CHECK( 1 == copy.MT( 1 ).MT() );          
         }
       }
       
@@ -57,57 +57,57 @@ SCENARIO( "Creating a syntax tree of an ENDF File" ){
       const auto& cfileTree = fileTree;
       
       THEN( "the entire stream is read" ){
-        REQUIRE( 109 == lineNumber );
+        CHECK( 109 == lineNumber );
       }
       
       AND_THEN( "the buffer iterators are populated correctly "){
-        REQUIRE( fileString.begin() == fileTree.buffer().begin() );
-        REQUIRE( fileString.end() == fileTree.buffer().end() );
-        REQUIRE( fileString.begin() == cfileTree.buffer().begin() );
-        REQUIRE( fileString.end() == cfileTree.buffer().end() );
+        CHECK( fileString.begin() == fileTree.buffer().begin() );
+        CHECK( fileString.end() == fileTree.buffer().end() );
+        CHECK( fileString.begin() == cfileTree.buffer().begin() );
+        CHECK( fileString.end() == cfileTree.buffer().end() );
       }
       
       AND_THEN( "the file number or MF is populated correctly" ){
-        REQUIRE( 3 == fileTree.MF() );
-        REQUIRE( 3 == fileTree.fileNumber() );
-        REQUIRE( 3 == cfileTree.MF() );
-        REQUIRE( 3 == cfileTree.fileNumber() );
+        CHECK( 3 == fileTree.MF() );
+        CHECK( 3 == fileTree.fileNumber() );
+        CHECK( 3 == cfileTree.MF() );
+        CHECK( 3 == cfileTree.fileNumber() );
       }
 
       AND_THEN( "the correct number of sections are read from the file" ){
-        REQUIRE( 3 == fileTree.size() );
-        REQUIRE( 3 == cfileTree.size() );
+        CHECK( 3 == fileTree.size() );
+        CHECK( 3 == cfileTree.size() );
       }
         
       AND_THEN( "we can access the section syntax trees of the file syntax tree" ){
         std::vector< int > sectionNumbers{ 1, 2, 102 };
         for ( auto sectionNo : sectionNumbers ){
-          REQUIRE( fileTree.hasMT( sectionNo ) );
-          REQUIRE( sectionNo == fileTree.MT( sectionNo ).MT() );
-          REQUIRE( fileTree.hasSectionNumber( sectionNo ) );
-          REQUIRE( sectionNo == fileTree.sectionNumber( sectionNo ).MT() );
-          REQUIRE( cfileTree.hasMT( sectionNo ) );
-          REQUIRE( sectionNo == cfileTree.MT( sectionNo ).MT() );
-          REQUIRE( cfileTree.hasSectionNumber( sectionNo ) );
-          REQUIRE( sectionNo == cfileTree.sectionNumber( sectionNo ).MT() );
+          CHECK( fileTree.hasMT( sectionNo ) );
+          CHECK( sectionNo == fileTree.MT( sectionNo ).MT() );
+          CHECK( fileTree.hasSectionNumber( sectionNo ) );
+          CHECK( sectionNo == fileTree.sectionNumber( sectionNo ).MT() );
+          CHECK( cfileTree.hasMT( sectionNo ) );
+          CHECK( sectionNo == cfileTree.MT( sectionNo ).MT() );
+          CHECK( cfileTree.hasSectionNumber( sectionNo ) );
+          CHECK( sectionNo == cfileTree.sectionNumber( sectionNo ).MT() );
         }
         auto sectionIter = sectionNumbers.begin();
         for ( auto& section : fileTree ){
-          REQUIRE( *sectionIter == section.MT() );
+          CHECK( *sectionIter == section.MT() );
           ++sectionIter;
         }
         sectionIter = sectionNumbers.begin();
         for ( const auto& section : cfileTree ){
-          REQUIRE( *sectionIter == section.MT() );
+          CHECK( *sectionIter == section.MT() );
           ++sectionIter;
         }
       }
       
       AND_THEN( "an exception is thrown if the requested MTs are invalid."){
-        REQUIRE( not fileTree.hasMT( 3 ) );
-        REQUIRE_THROWS( fileTree.MT( 3 ) );
-        REQUIRE( not fileTree.hasSectionNumber( 3 ) );
-        REQUIRE_THROWS( fileTree.sectionNumber( 3 ) );
+        CHECK( not fileTree.hasMT( 3 ) );
+        CHECK_THROWS( fileTree.MT( 3 ) );
+        CHECK( not fileTree.hasSectionNumber( 3 ) );
+        CHECK_THROWS( fileTree.sectionNumber( 3 ) );
       }
     }
   }
@@ -121,7 +121,7 @@ SCENARIO( "Creating a syntax tree of an ENDF File" ){
       long lineNumber = 0;
 
       HeadRecord head( begin, end, lineNumber );
-      REQUIRE_THROWS
+      CHECK_THROWS
         ( syntaxTree::File< std::string::iterator >
           ( head, start, begin, end, lineNumber ) );
     }
@@ -136,7 +136,7 @@ SCENARIO( "Creating a syntax tree of an ENDF File" ){
       
     THEN( "an exception is thrown" ){
       HeadRecord head( begin, end, lineNumber );
-      REQUIRE_THROWS
+      CHECK_THROWS
         ( syntaxTree::File< std::string::iterator >
           ( head, start, begin, end, lineNumber ) );
     }
@@ -151,7 +151,7 @@ SCENARIO( "Creating a syntax tree of an ENDF File" ){
     
     THEN( "an exception is thrown" ){
       HeadRecord head( begin, end, lineNumber );
-      REQUIRE_THROWS
+      CHECK_THROWS
         ( syntaxTree::File< std::string::iterator >
           ( head, start, begin, end, lineNumber ) );
     }

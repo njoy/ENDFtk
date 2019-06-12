@@ -9,12 +9,10 @@ public:
 protected:
   /* fields */
   int materialNo;         
-  std::vector< File_t > fileVector;
-  tsl::hopscotch_map< int, const File_t* > fileMap;
+  std::map< int, File_t > files_;
   std::pair< BufferIterator, BufferIterator > bufferLimits;
 
   /* ctor */
-#include "ENDFtk/syntaxTree/Material/src/createVector.hpp"
 #include "ENDFtk/syntaxTree/Material/src/createMap.hpp"
 
 public:
@@ -30,23 +28,18 @@ public:
   MF( int fileNo ) { return this->fileNumber( fileNo ); }
 
   bool
-  hasMF( int fileNo ) const { return this->fileMap.count( fileNo ); }
+  hasMF( int fileNo ) const { return this->files_.count( fileNo ); }
 
   bool
   hasFileNumber( int fileNo ) const { return this->hasMF( fileNo ); }
   
-  iterator begin() { return this->fileVector.begin(); }
-  iterator end() { return this->fileVector.end(); }
+  auto begin(){ return ( this->files_ | ranges::view::values ).begin(); }
+  auto end(){ return ( this->files_ | ranges::view::values ).end(); }
 
-  const_iterator begin() const {
-    return const_cast< Material& >( *this ).begin();
-  }
-  
-  const_iterator end() const {
-    return const_cast< Material& >( *this ).end();
-  }
-  
-  std::size_t size() const { return fileVector.size(); }
+  auto begin() const { return ( this->files_ | ranges::view::values ).begin(); }
+  auto end() const { return ( this->files_ | ranges::view::values ).end(); }
+
+  std::size_t size() const { return files_.size(); }
   
   int MAT() const { return this->materialNo; }
 
