@@ -54,7 +54,7 @@ SCENARIO( "TabulatedDistributions" ) {
       long lineNumber = 1;
 
       TabulatedDistributions chunk( begin, end, lineNumber, 9228, 4, 2 );
-      
+
       THEN( "a TabulatedDistributions can be constructed and members can be "
             "tested" ) {
 
@@ -141,7 +141,7 @@ SCENARIO( "TabulatedDistributions" ) {
 
 std::string chunk() {
   return
-    " 0.000000+0 0.000000+0          0          0          2          29228 4  2     \n"
+    " 0.000000+0 0.000000+0          0          0          1          29228 4  2     \n"
     "          2          1                                            9228 4  2     \n"
     " 0.000000+0 1.000000-5          0          0          1          29228 4  2     \n"
     "          2          2                                            9228 4  2     \n"

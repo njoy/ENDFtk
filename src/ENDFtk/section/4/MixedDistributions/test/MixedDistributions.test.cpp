@@ -24,12 +24,14 @@ SCENARIO( "MixedDistributions" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      LegendreDistributions legendre  = { { 2 }, { 1 },
-      	                                  { { 1e-5, { 7.392510e-5, 8.477139e-9, 1.17106e-13 } },
-                                            { 1e+6, { 2.874390e-2, 3.19645e-11 } } } };
-      TabulatedDistributions tabulated  = { { 2 }, { 5 },
-                                            { { 1e+6, { 2 }, { 2 }, { -1.0, 1.0 }, { 0.5, 0.5 } },
-                                              { 2e+7, { 3 }, { 2 }, { -1.0, 0.0, 1.0 }, { 0.0, 1.0, 0.0 } } } };
+      LegendreDistributions legendre  =
+        { { 2 }, { 1 },
+      	  { { 1e-5, { 7.392510e-5, 8.477139e-9, 1.17106e-13 } },
+            { 1e+6, { 2.874390e-2, 3.19645e-11 } } } };
+      TabulatedDistributions tabulated  =
+        { { 2 }, { 5 },
+          { { 1e+6, { 2 }, { 2 }, { -1.0, 1.0 }, { 0.5, 0.5 } },
+            { 2e+7, { 3 }, { 2 }, { -1.0, 0.0, 1.0 }, { 0.0, 1.0, 0.0 } } } };
 
       MixedDistributions chunk( std::move( legendre ), std::move( tabulated ) );
 
@@ -56,7 +58,7 @@ SCENARIO( "MixedDistributions" ) {
       long lineNumber = 1;
 
       MixedDistributions chunk( begin, end, lineNumber, 9228, 4, 2 );
-      
+
       THEN( "a MixedDistributions can be constructed and members can be "
             "tested" ) {
 

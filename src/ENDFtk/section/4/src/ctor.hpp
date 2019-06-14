@@ -13,24 +13,24 @@ Type( int MT, double zaid, double awr, long lct,
 
 private:
 
-/** 
+/**
  *  @brief Private intermediate constructor
  */
 template< typename Iterator >
-Type ( HEAD& head, 
-       const ControlRecord& cont, 
-       Iterator& begin, 
-       const Iterator& end, 
-       long& lineNumber, 
+Type ( HEAD& head,
+       const ControlRecord& cont,
+       Iterator& begin,
+       const Iterator& end,
+       long& lineNumber,
        int MAT ) :
   Base( head, MAT, 4 ),
-  lct_( cont.L1() ),
+  lct_( cont.L2() ),
   distributions_( readDistributions( begin, end, lineNumber,
                                      head.MAT(), 4, head.MT(), head.L2() ) ) {}
 
 public:
 
-/** 
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator
@@ -42,10 +42,10 @@ public:
  *  @param[in] MAT          the expected MAT number
  */
 template< typename Iterator >
-Type ( HEAD& head, 
-       Iterator& begin, 
-       const Iterator& end, 
-       long& lineNumber, 
+Type ( HEAD& head,
+       Iterator& begin,
+       const Iterator& end,
+       long& lineNumber,
        int MAT )
   try: Type( head,
              ControlRecord( begin, end, lineNumber, head.MAT(), 4, head.MT() ),
