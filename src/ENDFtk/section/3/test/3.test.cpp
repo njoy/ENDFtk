@@ -137,7 +137,10 @@ SCENARIO( "section::Type< 3 >" ) {
       THEN( "a section::Type< 3 > can be constructed and "
             "members can be tested" ) {
 
-        section::Type<3> chunk = section.parse< 3 >( lineNumber );
+        section::Type<3> chunk = section.parse< 3 >();
+        section::Type<3> chunk2 = section.parse< 3 >( lineNumber );
+        section::Type<3> chunk3 = section.parse( 3_c );
+        section::Type<3> chunk4 = section.parse( 3_c, lineNumber );
 
         REQUIRE( 102 == chunk.MT() );
         REQUIRE( 1001 == chunk.ZA() );
@@ -174,6 +177,14 @@ SCENARIO( "section::Type< 3 >" ) {
         REQUIRE( 2.710792e-5 == Approx( chunk.crossSections()[5] ) );
 
         REQUIRE( 5 == chunk.NC() );
+
+        REQUIRE( 102 == chunk2.MT() );
+        REQUIRE( 1001 == chunk2.ZA() );
+        REQUIRE( 102 == chunk3.MT() );
+        REQUIRE( 1001 == chunk3.ZA() );
+        REQUIRE( 102 == chunk4.MT() );
+        REQUIRE( 1001 == chunk4.ZA() );
+
       } // THEN
     } // WHEN
 

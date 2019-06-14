@@ -21,19 +21,12 @@ public:
 DecaySpectrum( double styp,
                std::array< double, 2 > fd,
                std::array< double, 2 > erav,
-               std::vector< DiscreteSpectrum >&& discrete )
-  try : DecaySpectrum( ListRecord( 0.0, styp, 0, 0, discrete.size(),
-                                   { fd[0], fd[1],
-                                     erav[0], erav[1],
-                                     0.0, 0.0 } ),
-                       std::move( discrete ),
-                       std::nullopt ) {}
-  catch ( std::exception& e ) {
-
-    Log::info( "Encountered error while constructing decay spectrum data "
-               "with LCON=0" );
-    throw;
-  }
+               std::vector< DiscreteSpectrum >&& discrete ) :
+  // this can never fail, try-catch would be unreachable
+  DecaySpectrum( ListRecord( 0.0, styp, 0, 0, discrete.size(),
+                             { fd[0], fd[1], erav[0], erav[1], 0.0, 0.0 } ),
+                 std::move( discrete ),
+                 std::nullopt ) {}
 
 /** 
  *  @brief Constructor for continuous spectra only (LCON=1)

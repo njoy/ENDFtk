@@ -1,7 +1,7 @@
 const File_t&
 fileNumber( int fileNo ) const {
   try{
-    return *( this->fileMap.at( fileNo ) );
+    return this->files_.at( fileNo );
   } catch( std::out_of_range& o ){
     Log::error
       ( "Requested file number (MF) does not"

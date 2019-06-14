@@ -2,12 +2,12 @@
  *  @class
  *  @brief The general evaporation spectrum (LF=5)
  *
- *  See ENDF102, section 5.1.1.2 for more information.
+ *  See ENDF102, section 5.1.1.2 and 5.2.2 for more information.
  */
 class GeneralEvaporationSpectrum {
 
   EffectiveTemperature temperature_;
-  Parameter distribution_;
+  DistributionFunction distribution_;
 
 public:
 
@@ -24,7 +24,7 @@ public:
   /**
    *  @brief Return the distribution type (the LF flag)
    */
-  static constexpr int distributionType() { return GeneralEvaporationSpectrum::LF(); }
+  static constexpr int LAW() { return GeneralEvaporationSpectrum::LF(); }
 
   /**
    *  @brief Return the effective temperature
@@ -34,8 +34,14 @@ public:
   /**
    *  @brief Return the distribution function g(x)
    */
-  const auto& distributionFunction() const { return this->distribution_; }
+  const auto& g() const { return this->distribution_; }
+
+  /**
+   *  @brief Return the distribution function g(x)
+   */
+  const auto& distributionFunction() const { return this->g(); }
 
   #include "ENDFtk/section/5/GeneralEvaporationSpectrum/src/NC.hpp"
   #include "ENDFtk/section/5/GeneralEvaporationSpectrum/src/print.hpp"
 };
+

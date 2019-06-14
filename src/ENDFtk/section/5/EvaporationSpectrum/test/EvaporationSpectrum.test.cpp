@@ -125,16 +125,23 @@ std::string chunk() {
 void verifyChunk( const EvaporationSpectrum& chunk ) {
 
   REQUIRE( 9 == chunk.LF() );
-  REQUIRE( 9 == chunk.distributionType() );
+  REQUIRE( 9 == chunk.LAW() );
 
-  REQUIRE( 5 == chunk.NP() );
+  REQUIRE( 5 == chunk.NE() );
   REQUIRE( 1 == chunk.NR() );
   REQUIRE( 1 == chunk.interpolants().size() );
   REQUIRE( 1 == chunk.boundaries().size() );
   REQUIRE( 1 == chunk.interpolants()[0] );
   REQUIRE( 5 == chunk.boundaries()[0] );
+  REQUIRE( 5 == chunk.E().size() );
   REQUIRE( 5 == chunk.energies().size() );
   REQUIRE( 5 == chunk.thetas().size() );
+  REQUIRE( 5 == chunk.values().size() );
+  REQUIRE( 0.0 == Approx( chunk.E()[0] ) );
+  REQUIRE( 1e+4 == Approx( chunk.E()[1] ) );
+  REQUIRE( 2e+4 == Approx( chunk.E()[2] ) );
+  REQUIRE( 1.83e+6 == Approx( chunk.E()[3] ) );
+  REQUIRE( 1.84e+6 == Approx( chunk.E()[4] ) );
   REQUIRE( 0.0 == Approx( chunk.energies()[0] ) );
   REQUIRE( 1e+4 == Approx( chunk.energies()[1] ) );
   REQUIRE( 2e+4 == Approx( chunk.energies()[2] ) );
@@ -145,6 +152,11 @@ void verifyChunk( const EvaporationSpectrum& chunk ) {
   REQUIRE( 2.272542e-6 == Approx( chunk.thetas()[2] ) );
   REQUIRE( 0.0 == Approx( chunk.thetas()[3] ) );
   REQUIRE( 0.0 == Approx( chunk.thetas()[4] ) );
+  REQUIRE( 2.265227e-7 == Approx( chunk.values()[0] ) );
+  REQUIRE( 2.029471e-6 == Approx( chunk.values()[1] ) );
+  REQUIRE( 2.272542e-6 == Approx( chunk.values()[2] ) );
+  REQUIRE( 0.0 == Approx( chunk.values()[3] ) );
+  REQUIRE( 0.0 == Approx( chunk.values()[4] ) );
 
   REQUIRE( 4 == chunk.NC() );
 }

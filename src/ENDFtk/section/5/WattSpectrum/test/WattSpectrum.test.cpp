@@ -6,9 +6,9 @@
 using namespace njoy::ENDFtk;
 
 // convenience typedefs
-using WattSpectrum = 
+using WattSpectrum =
 section::Type< 5 >::WattSpectrum;
-using Parameter = 
+using Parameter =
 section::Type< 5 >::Parameter;
 
 std::string chunk();
@@ -30,8 +30,7 @@ SCENARIO( "WattSpectrum" ) {
                    { 1e-5, 1.5e+6, 1e+7, 1.22e+7, 3e+7 },
                    { 2.546e-6, 2.546e-6, 2.474e-6, 2.612e-6, 2.62e-6 } };
 
-      WattSpectrum chunk( std::array< Parameter, 2 >{ { std::move( a ),
-                                                        std::move( b ) } } );
+      WattSpectrum chunk( std::move( a ), std::move( b ) );
 
       THEN( "a WattSpectrum can be constructed and members can be tested" ) {
 
@@ -105,43 +104,43 @@ std::string chunk() {
 void verifyChunk( const WattSpectrum& chunk ) {
 
   REQUIRE( 11 == chunk.LF() );
-  REQUIRE( 11 == chunk.distributionType() );
+  REQUIRE( 11 == chunk.LAW() );
 
-  auto valueA = chunk.aParameter();
-  REQUIRE( 3 == valueA.NP() );
+  auto valueA = chunk.a();
+  REQUIRE( 3 == valueA.NE() );
   REQUIRE( 1 == valueA.NR() );
   REQUIRE( 1 == valueA.interpolants().size() );
   REQUIRE( 1 == valueA.boundaries().size() );
   REQUIRE( 2 == valueA.interpolants()[0] );
   REQUIRE( 3 == valueA.boundaries()[0] );
-  REQUIRE( 3 == valueA.x().size() );
-  REQUIRE( 3 == valueA.y().size() );
-  REQUIRE( 1e-5 == Approx( valueA.x()[0] ) );
-  REQUIRE( 1.5e+6 == Approx( valueA.x()[1] ) );
-  REQUIRE( 3e+7 == Approx( valueA.x()[2] ) );
-  REQUIRE( 9.77e+5 == Approx( valueA.y()[0] ) );
-  REQUIRE( 1e+6 == Approx( valueA.y()[1] ) );
-  REQUIRE( 1.06e+6 == Approx( valueA.y()[2] ) );
+  REQUIRE( 3 == valueA.energies().size() );
+  REQUIRE( 3 == valueA.values().size() );
+  REQUIRE( 1e-5 == Approx( valueA.energies()[0] ) );
+  REQUIRE( 1.5e+6 == Approx( valueA.energies()[1] ) );
+  REQUIRE( 3e+7 == Approx( valueA.energies()[2] ) );
+  REQUIRE( 9.77e+5 == Approx( valueA.values()[0] ) );
+  REQUIRE( 1e+6 == Approx( valueA.values()[1] ) );
+  REQUIRE( 1.06e+6 == Approx( valueA.values()[2] ) );
 
-  auto valueB = chunk.bParameter();
-  REQUIRE( 5 == valueB.NP() );
+  auto valueB = chunk.b();
+  REQUIRE( 5 == valueB.NE() );
   REQUIRE( 1 == valueB.NR() );
   REQUIRE( 1 == valueB.interpolants().size() );
   REQUIRE( 1 == valueB.boundaries().size() );
   REQUIRE( 2 == valueB.interpolants()[0] );
   REQUIRE( 5 == valueB.boundaries()[0] );
-  REQUIRE( 5 == valueB.x().size() );
-  REQUIRE( 5 == valueB.y().size() );
-  REQUIRE( 1e-5 == Approx( valueB.x()[0] ) );
-  REQUIRE( 1.5e+6 == Approx( valueB.x()[1] ) );
-  REQUIRE( 1e+7 == Approx( valueB.x()[2] ) );
-  REQUIRE( 1.22e+7 == Approx( valueB.x()[3] ) );
-  REQUIRE( 3e+7 == Approx( valueB.x()[4] ) );
-  REQUIRE( 2.546e-6 == Approx( valueB.y()[0] ) );
-  REQUIRE( 2.546e-6 == Approx( valueB.y()[1] ) );
-  REQUIRE( 2.474e-6 == Approx( valueB.y()[2] ) );
-  REQUIRE( 2.612e-6 == Approx( valueB.y()[3] ) );
-  REQUIRE( 2.62e-6 == Approx( valueB.y()[4] ) );
+  REQUIRE( 5 == valueB.energies().size() );
+  REQUIRE( 5 == valueB.values().size() );
+  REQUIRE( 1e-5 == Approx( valueB.energies()[0] ) );
+  REQUIRE( 1.5e+6 == Approx( valueB.energies()[1] ) );
+  REQUIRE( 1e+7 == Approx( valueB.energies()[2] ) );
+  REQUIRE( 1.22e+7 == Approx( valueB.energies()[3] ) );
+  REQUIRE( 3e+7 == Approx( valueB.energies()[4] ) );
+  REQUIRE( 2.546e-6 == Approx( valueB.values()[0] ) );
+  REQUIRE( 2.546e-6 == Approx( valueB.values()[1] ) );
+  REQUIRE( 2.474e-6 == Approx( valueB.values()[2] ) );
+  REQUIRE( 2.612e-6 == Approx( valueB.values()[3] ) );
+  REQUIRE( 2.62e-6 == Approx( valueB.values()[4] ) );
 
   REQUIRE( 7 == chunk.NC() );
 }

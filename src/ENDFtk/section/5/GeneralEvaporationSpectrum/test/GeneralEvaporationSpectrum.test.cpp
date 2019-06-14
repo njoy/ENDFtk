@@ -6,8 +6,8 @@
 using namespace njoy::ENDFtk;
 
 // convenience typedefs
-using Parameter = 
-section::Type< 5 >::Parameter;
+using DistributionFunction = 
+section::Type< 5 >::DistributionFunction;
 using EffectiveTemperature = 
 section::Type< 5 >:: EffectiveTemperature;
 using GeneralEvaporationSpectrum = 
@@ -27,11 +27,12 @@ SCENARIO( "GeneralEvaporationSpectrum" ) {
 
       EffectiveTemperature temperature = { { 2 }, { 2 },
                                            { 1e-5, 3e+7 }, { 1.0, 1.0 } };
-      Parameter gFunction = { { 6 }, { 1 },
-                              { 0.0, 1e+4, 2e+4,
-                                1.8e+6, 1.81e+6, 1.82e+6 },
-                              { 1.533738e-7, 1.378483e-6, 1.550360e-6,
-                                7.90779e-31, 0.0, 0.0 } };
+      DistributionFunction gFunction = { { 6 }, { 1 },
+                                         { 0.0, 1e+4, 2e+4,
+                                           1.8e+6, 1.81e+6, 1.82e+6 },
+                                         { 1.533738e-7, 1.378483e-6,
+                                           1.550360e-6, 7.90779e-31,
+                                           0.0, 0.0 } };
 
       GeneralEvaporationSpectrum chunk( std::move( temperature ),
                                         std::move( gFunction ) );
@@ -111,43 +112,49 @@ std::string chunk() {
 void verifyChunk( const GeneralEvaporationSpectrum& chunk ) {
 
   REQUIRE( 5 == chunk.LF() );
-  REQUIRE( 5 == chunk.distributionType() );
+  REQUIRE( 5 == chunk.LAW() );
 
   const auto& t = chunk.effectiveTemperature();
-  REQUIRE( 2 == t.NP() );
+  REQUIRE( 2 == t.NE() );
   REQUIRE( 1 == t.NR() );
   REQUIRE( 1 == t.interpolants().size() );
   REQUIRE( 1 == t.boundaries().size() );
   REQUIRE( 2 == t.interpolants()[0] );
   REQUIRE( 2 == t.boundaries()[0] );
+  REQUIRE( 2 == t.E().size() );
   REQUIRE( 2 == t.energies().size() );
   REQUIRE( 2 == t.thetas().size() );
+  REQUIRE( 2 == t.values().size() );
+  REQUIRE( 1e-5 == Approx( t.E()[0] ) );
+  REQUIRE( 3e+7 == Approx( t.E()[1] ) );
   REQUIRE( 1e-5 == Approx( t.energies()[0] ) );
   REQUIRE( 3e+7 == Approx( t.energies()[1] ) );
   REQUIRE( 1.0 == Approx( t.thetas()[0] ) );
   REQUIRE( 1.0 == Approx( t.thetas()[1] ) );
+  REQUIRE( 1.0 == Approx( t.values()[0] ) );
+  REQUIRE( 1.0 == Approx( t.values()[1] ) );
 
   const auto& df = chunk.distributionFunction();
-  REQUIRE( 6 == df.NP() );
+  REQUIRE( 6 == df.NF() );
   REQUIRE( 1 == df.NR() );
   REQUIRE( 1 == df.interpolants().size() );
   REQUIRE( 1 == df.boundaries().size() );
   REQUIRE( 1 == df.interpolants()[0] );
   REQUIRE( 6 == df.boundaries()[0] );
   REQUIRE( 6 == df.x().size() );
-  REQUIRE( 6 == df.y().size() );
+  REQUIRE( 6 == df.values().size() );
   REQUIRE( 0.0 == Approx( df.x()[0] ) );
   REQUIRE( 1e+4 == Approx( df.x()[1] ) );
   REQUIRE( 2e+4 == Approx( df.x()[2] ) );
   REQUIRE( 1.8e+6 == Approx( df.x()[3] ) );
   REQUIRE( 1.81e+6 == Approx( df.x()[4] ) );
   REQUIRE( 1.82e+6 == Approx( df.x()[5] ) );
-  REQUIRE( 1.533738e-7 == Approx( df.y()[0] ) );
-  REQUIRE( 1.378483e-6 == Approx( df.y()[1] ) );
-  REQUIRE( 1.550360e-6 == Approx( df.y()[2] ) );
-  REQUIRE( 7.90779e-31 == Approx( df.y()[3] ) );
-  REQUIRE( 0.0 == Approx( df.y()[4] ) );
-  REQUIRE( 0.0 == Approx( df.y()[5] ) );
+  REQUIRE( 1.533738e-7 == Approx( df.values()[0] ) );
+  REQUIRE( 1.378483e-6 == Approx( df.values()[1] ) );
+  REQUIRE( 1.550360e-6 == Approx( df.values()[2] ) );
+  REQUIRE( 7.90779e-31 == Approx( df.values()[3] ) );
+  REQUIRE( 0.0 == Approx( df.values()[4] ) );
+  REQUIRE( 0.0 == Approx( df.values()[5] ) );
 
   REQUIRE( 7 == chunk.NC() );
 }

@@ -1,8 +1,8 @@
 /**
  *  @brief Constructor
  *
- *  @param[in] elf             the type of the underlying distribution
- *  @param[in] efh             the type of the underlying distribution
+ *  @param[in] efl             the light fission fragment kinetic energy
+ *  @param[in] efh             the heavy fission fragment kinetic energy
  *  @param[in] boundaries      the interpolation range boundaries
  *  @param[in] interpolants    the interpolation types for each range
  *  @param[in] energies        the energy values

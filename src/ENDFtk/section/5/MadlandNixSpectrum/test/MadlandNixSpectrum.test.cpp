@@ -130,25 +130,35 @@ std::string chunk() {
 void verifyChunk( const MadlandNixSpectrum& chunk ) {
 
   REQUIRE( 12 == chunk.LF() );
-  REQUIRE( 12 == chunk.distributionType() );
+  REQUIRE( 12 == chunk.LAW() );
 
   REQUIRE( 1.029979e+6 == Approx( chunk.EFL() ) );
-  REQUIRE( 1.029979e+6 == Approx( chunk.lightKineticEnergy() ) );
+  REQUIRE( 1.029979e+6 == Approx( chunk.lightFragmentEnergy() ) );
   REQUIRE( 5.467297e+5 == Approx( chunk.EFH() ) );
-  REQUIRE( 5.467297e+5 == Approx( chunk.heavyKineticEnergy() ) );
+  REQUIRE( 5.467297e+5 == Approx( chunk.heavyFragmentEnergy() ) );
 
-  REQUIRE( 4 == chunk.NP() );
+  REQUIRE( 4 == chunk.NE() );
   REQUIRE( 1 == chunk.NR() );
   REQUIRE( 1 == chunk.interpolants().size() );
   REQUIRE( 1 == chunk.boundaries().size() );
   REQUIRE( 5 == chunk.interpolants()[0] );
   REQUIRE( 4 == chunk.boundaries()[0] );
+  REQUIRE( 4 == chunk.E().size() );
   REQUIRE( 4 == chunk.energies().size() );
+  REQUIRE( 4 == chunk.TM().size() );
   REQUIRE( 4 == chunk.maximumTemperatureValues().size() );
+  REQUIRE( 1e-5 == Approx( chunk.E()[0] ) );
+  REQUIRE( 5.000001e+5 == Approx( chunk.E()[1] ) );
+  REQUIRE( 1.4e+7 == Approx( chunk.E()[2] ) );
+  REQUIRE( 3.0e+7 == Approx( chunk.E()[3] ) );
   REQUIRE( 1e-5 == Approx( chunk.energies()[0] ) );
   REQUIRE( 5.000001e+5 == Approx( chunk.energies()[1] ) );
   REQUIRE( 1.4e+7 == Approx( chunk.energies()[2] ) );
   REQUIRE( 3.0e+7 == Approx( chunk.energies()[3] ) );
+  REQUIRE( 1.092064e+6 == Approx( chunk.TM()[0] ) );
+  REQUIRE( 1.101483e+6 == Approx( chunk.TM()[1] ) );
+  REQUIRE( 1.129269e+6 == Approx( chunk.TM()[2] ) );
+  REQUIRE( 1.182884e+6 == Approx( chunk.TM()[3] ) );
   REQUIRE( 1.092064e+6 == Approx( chunk.maximumTemperatureValues()[0] ) );
   REQUIRE( 1.101483e+6 == Approx( chunk.maximumTemperatureValues()[1] ) );
   REQUIRE( 1.129269e+6 == Approx( chunk.maximumTemperatureValues()[2] ) );

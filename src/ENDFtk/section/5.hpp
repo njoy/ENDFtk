@@ -5,6 +5,7 @@ public:
 
   #include "ENDFtk/section/5/PartialProbability.hpp"
 
+  #include "ENDFtk/section/5/DistributionFunction.hpp"
   #include "ENDFtk/section/5/Parameter.hpp"
   #include "ENDFtk/section/5/EffectiveTemperature.hpp"
 
@@ -24,10 +25,6 @@ public:
 
   /** @typedef PartialDistribution
    *  @brief A partial secondary particle energy distribution of MF5
-   *
-   *  This partial distribution class is set up as a variant. LF=7 or 9
-   *  are the same underlying type (EffectiveTemperature) so this 
-   *  type is only used once in the variant.
    */
   using PartialDistribution =
             std::variant< TabulatedSpectrum,           // LF=1
@@ -37,16 +34,16 @@ public:
                           WattSpectrum,                // LF=11
                           MadlandNixSpectrum >;        // LF=12
 
-  #include "ENDFtk/section/5/SubSection.hpp"
+  #include "ENDFtk/section/5/Subsection.hpp"
 
 private:
 
   /* fields */
-  std::vector< SubSection > subsections_;
+  std::vector< Subsection > subsections_;
 
   /* auxiliary functions */
   #include "ENDFtk/section/5/src/verifyNK.hpp"
-  #include "ENDFtk/section/5/src/readSubSections.hpp"
+  #include "ENDFtk/section/5/src/readSubsections.hpp"
 
 public:
 

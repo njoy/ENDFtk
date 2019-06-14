@@ -2,19 +2,14 @@ template< typename Array >
 static void
 verifyLANG( int LANG, const Array& sequence ) {
 
-  // lambdas for verifying
-  auto verifyLANG = [LANG] ( const auto& value ) -> bool
-                           { return value.LANG() == LANG; };
-  auto sum = [] ( bool left, bool right ) -> bool
-                { return left and right; };
+  auto iter = ranges::find_if_not( sequence, hana::equal.to( LANG ),
+                                   &SubSection::LANG );
 
-  if ( ranges::accumulate(
-         sequence | ranges::view::transform( verifyLANG ),
-         true,
-         sum ) == false ) {
+  if ( iter != ranges::end( sequence ) ) {
 
     Log::error( "All subsections must use the same LANG format option" );
-    Log::info( "Expected LANG={}", LANG );
+    Log::info( "Expected LANG={} for the subsection with index={}", LANG,
+               ranges::distance( ranges::begin( sequence ), iter ) );
     throw std::exception();
   }
 }

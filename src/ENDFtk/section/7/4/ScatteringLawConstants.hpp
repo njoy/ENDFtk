@@ -71,17 +71,33 @@ public:
    */
   auto totalFreeCrossSections() const {
 
-    //! @todo this code no longer works since the ranges update, is there an
-    //!       alternative as the current operational code is more of a hack?
-    // return ranges::view::concat(
-    //          ranges::view::single( ListRecord::list()[0] ), 
-    //          ranges::view::drop_exactly( ListRecord::list(), 7 )
-    //                | ranges::view::stride( 6 )  );
- 
-    std::vector< double > result = { ListRecord::list()[0] };
-    if ( ListRecord::NPL() > 6 ) { result.push_back( ListRecord::list()[7] ); }
-    if ( ListRecord::NPL() > 13 ) { result.push_back( ListRecord::list()[13] ); }
-    return result;
+    auto indices = [] (auto NS) {
+      switch(1 + NS) {
+        case 1: {
+          static constexpr std::array< std::ptrdiff_t, 1 > indices = {{0}};
+          return ranges::make_iterator_range(indices.begin(), indices.end());
+        } case 2: {
+          static constexpr std::array< std::ptrdiff_t, 2 > indices = {{0, 7}};
+          return ranges::make_iterator_range(indices.begin(), indices.end());
+        } case 3: {
+          static constexpr std::array< std::ptrdiff_t, 3 > indices = {{0, 7, 13}};
+          return ranges::make_iterator_range(indices.begin(), indices.end());
+        } case 4: {
+          static constexpr std::array< std::ptrdiff_t, 4 > indices = {{0, 7, 13, 19}};
+          return ranges::make_iterator_range(indices.begin(), indices.end());
+        } default: {
+         #ifdef __GNUC__
+          __builtin_unreachable();
+         #endif
+         throw std::logic_error("Illegal NS");
+        } 
+      }
+    };
+    
+    auto element = 
+      [l = ListRecord::list()](auto index){ return l[index]; };
+
+    return indices(this->NS()) | ranges::view::transform(element);
   }
 
   /**

@@ -4,7 +4,7 @@
  *  @param[in] probability    the partial probability
  *  @param[in] distribution   the partial distribution
  */
-SubSection( PartialProbability&& probability,
+Subsection( PartialProbability&& probability,
             PartialDistribution&& distribution ) :
   probability_( std::move( probability ) ),
   distribution_( std::move( distribution ) ) {
@@ -28,11 +28,11 @@ SubSection( PartialProbability&& probability,
  *  @param[in] MT           the expected MT number
  */
 template< typename Iterator >
-SubSection( Iterator& begin,
+Subsection( Iterator& begin,
             const Iterator& end,
             long& lineNumber,
             int MAT,
             int MF,
             int MT ) :
-  SubSection( readSubSection( begin, end, lineNumber,
+  Subsection( readSubsection( begin, end, lineNumber,
                               MAT, MF, MT ) ) {}

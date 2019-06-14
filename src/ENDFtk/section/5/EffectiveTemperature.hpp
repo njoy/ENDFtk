@@ -19,14 +19,28 @@ public:
   /**
    *  @brief Return the energy values
    */
-  auto energies() const { return TabulationRecord::x(); }
+  auto E() const { return TabulationRecord::x(); }
+
+  /**
+   *  @brief Return the energy values
+   */
+  auto energies() const { return this->E(); }
 
   /**
    *  @brief Return the effective temperature values
    */
   auto thetas() const { return TabulationRecord::y(); }
 
-  using TabulationRecord::NP;
+  /**
+   *  @brief Return the effective temperature values
+   */
+  auto values() const { return this->thetas(); }
+
+  /**
+   *  @brief Return the number of energy values
+   */
+  auto NE() const { return TabulationRecord::NP(); }
+
   using TabulationRecord::NR;
   using TabulationRecord::interpolants;
   using TabulationRecord::boundaries;

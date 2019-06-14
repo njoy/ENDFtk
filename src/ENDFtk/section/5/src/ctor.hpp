@@ -6,7 +6,7 @@
  *  @param[in] subsections   the partial distributions (at least 1)
  */
 Type( int MT, double zaid, double awr,
-      std::vector< SubSection >&& subsections ) :
+      std::vector< Subsection >&& subsections ) :
   Base( zaid, awr, MT ), subsections_( std::move( subsections ) ) {
 
   verifyNK( this->NK() );
@@ -31,7 +31,7 @@ Type( HEAD& head,
       int MAT )
   try:
     Base( head, MAT, 5 ),
-    subsections_( readSubSections( begin, end, lineNumber,
+    subsections_( readSubsections( begin, end, lineNumber,
                                    MAT, 5, head.MT(), head.N1() ) ) {
     verifyNK( this->NK() );
     readSEND( begin, end, lineNumber, MAT, 5 );

@@ -117,24 +117,30 @@ std::string chunk() {
 
 void verifyChunk( const Parameter& chunk ) {
 
-  REQUIRE( 5 == chunk.NP() );
+  REQUIRE( 5 == chunk.NE() );
   REQUIRE( 1 == chunk.NR() );
   REQUIRE( 1 == chunk.interpolants().size() );
   REQUIRE( 1 == chunk.boundaries().size() );
   REQUIRE( 1 == chunk.interpolants()[0] );
   REQUIRE( 5 == chunk.boundaries()[0] );
-  REQUIRE( 5 == chunk.x().size() );
-  REQUIRE( 5 == chunk.y().size() );
-  REQUIRE( 1.0 == Approx( chunk.x()[0] ) );
-  REQUIRE( 2.0 == Approx( chunk.x()[1] ) );
-  REQUIRE( 3.0 == Approx( chunk.x()[2] ) );
-  REQUIRE( 4.0 == Approx( chunk.x()[3] ) );
-  REQUIRE( 5.0 == Approx( chunk.x()[4] ) );
-  REQUIRE( 6.0 == Approx( chunk.y()[0] ) );
-  REQUIRE( 7.0 == Approx( chunk.y()[1] ) );
-  REQUIRE( 8.0 == Approx( chunk.y()[2] ) );
-  REQUIRE( 9.0 == Approx( chunk.y()[3] ) );
-  REQUIRE( 10.0 == Approx( chunk.y()[4] ) );
+  REQUIRE( 5 == chunk.E().size() );
+  REQUIRE( 5 == chunk.energies().size() );
+  REQUIRE( 5 == chunk.values().size() );
+  REQUIRE( 1.0 == Approx( chunk.E()[0] ) );
+  REQUIRE( 2.0 == Approx( chunk.E()[1] ) );
+  REQUIRE( 3.0 == Approx( chunk.E()[2] ) );
+  REQUIRE( 4.0 == Approx( chunk.E()[3] ) );
+  REQUIRE( 5.0 == Approx( chunk.E()[4] ) );
+  REQUIRE( 1.0 == Approx( chunk.energies()[0] ) );
+  REQUIRE( 2.0 == Approx( chunk.energies()[1] ) );
+  REQUIRE( 3.0 == Approx( chunk.energies()[2] ) );
+  REQUIRE( 4.0 == Approx( chunk.energies()[3] ) );
+  REQUIRE( 5.0 == Approx( chunk.energies()[4] ) );
+  REQUIRE( 6.0 == Approx( chunk.values()[0] ) );
+  REQUIRE( 7.0 == Approx( chunk.values()[1] ) );
+  REQUIRE( 8.0 == Approx( chunk.values()[2] ) );
+  REQUIRE( 9.0 == Approx( chunk.values()[3] ) );
+  REQUIRE( 10.0 == Approx( chunk.values()[4] ) );
 
   REQUIRE( 4 == chunk.NC() );
 }

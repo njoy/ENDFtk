@@ -47,6 +47,7 @@ Type ( HEAD& head,
   } catch( std::exception& e ) {
     Log::info( "Trouble while reading section 451 of File 1 of Material {}",
                MAT );
+    Log::info( "lineNumber: {}", lineNumber );
     throw e;
   }
 

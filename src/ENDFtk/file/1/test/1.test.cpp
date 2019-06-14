@@ -5,10 +5,14 @@
 
 using namespace njoy::ENDFtk;
 
-std::string& cachedTape();
 std::string getFile( int MF );
 std::string chunk451();
 void verifyChunk451( const file::Type< 1 >& );
+std::string validSEND();
+std::string validFEND();
+std::string validMEND();
+std::string validTEND();
+std::string validHEAD();
 
 SCENARIO( "Testing special case of file 1" ) {
 
@@ -64,7 +68,70 @@ SCENARIO( "Testing special case of file 1" ) {
         auto output = std::back_inserter( buffer );
         mf1.print( output, 3988 );
 
-        REQUIRE( buffer == chunk451() );
+        CHECK( buffer == chunk451() + validFEND() );
+      } // THEN
+    } // WHEN
+  } // GIVEN
+
+  GIVEN( "a string representation of File 1 with errors in the END records" ) {
+
+    WHEN( "there is a SEND instead of FEND" ) {
+
+      std::string string = chunk451() + validSEND();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 0;
+
+      StructureDivision division( begin, end, lineNumber );
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( file::Type< 1 >( division, begin, end, lineNumber ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "there is a MEND instead of FEND" ) {
+
+      std::string string = chunk451() + validMEND();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 0;
+
+      StructureDivision division( begin, end, lineNumber );
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( file::Type< 1 >( division, begin, end, lineNumber ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "there is a TEND instead of FEND" ) {
+
+      std::string string = chunk451() + validTEND();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 0;
+
+      StructureDivision division( begin, end, lineNumber );
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( file::Type< 1 >( division, begin, end, lineNumber ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "there is a HEAD instead of FEND" ) {
+
+      std::string string = chunk451() + validHEAD();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 0;
+
+      StructureDivision division( begin, end, lineNumber );
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( file::Type< 1 >( division, begin, end, lineNumber ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -79,18 +146,18 @@ SCENARIO( "Testing special case of file 1" ) {
       auto end = file1string.end();
       long lineNumber = 0;
 
-      StructureDivision division( begin, end, lineNumber );
-      file::Type< 1 > file( division, begin, end, lineNumber );
+      StructureDivision head( begin, end, lineNumber );
+      file::Type< 1 > file( head, begin, end, lineNumber );
 
       THEN( "the sections can be extracted" ) {
 
-        REQUIRE( file.hasMT( 451 ) );
-        REQUIRE( not file.hasMT( 1 ) );
-        REQUIRE( file.hasSection( 451 ) );
-        REQUIRE( not file.hasSection( 1 ) );
+        CHECK( file.hasMT( 451 ) );
+        CHECK( not file.hasMT( 1 ) );
+        CHECK( file.hasSection( 451 ) );
+        CHECK( not file.hasSection( 1 ) );
 
-        REQUIRE( 1001. == Approx( file.section( 451_c ).ZA() ) );
-        REQUIRE( 1001. == Approx( file.MT( 451_c ).ZA() ) );
+        CHECK( 1001. == Approx( file.section( 451_c ).ZA() ) );
+        CHECK( 1001. == Approx( file.MT( 451_c ).ZA() ) );
       }
     }
 
@@ -106,7 +173,7 @@ SCENARIO( "Testing special case of file 1" ) {
         fileTree( asHead( division ), start, begin, end, lineNumber );
 
       THEN( "a file::Type< 1 > can be constructed" ){
-        REQUIRE_NOTHROW( fileTree.parse< 1 >( lineNumber ) );
+        CHECK_NOTHROW( fileTree.parse< 1 >( lineNumber ) );
       }
     }
 
@@ -118,7 +185,7 @@ SCENARIO( "Testing special case of file 1" ) {
       long lineNumber = 0;
       StructureDivision division( begin, end, lineNumber );
       THEN( "an exception is thrown" ){
-        REQUIRE_THROWS( file::Type< 1 >
+        CHECK_THROWS( file::Type< 1 >
                         ( division, begin, end, lineNumber ) );
       }
     }
@@ -136,21 +203,15 @@ SCENARIO( "Testing special case of file 1" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       file1.print( output, 125 );
-      REQUIRE( buffer == file1string );
+      CHECK( buffer == file1string );
     }
   } // GIVEN
 } // SCENARIO
 
-std::string& cachedTape(){
+std::string getFile( int MF ){
   static std::string tape =
     njoy::utility::slurpFileToMemory( "n-001_H_001.endf" );
-  return tape;
-}
-
-std::string getFile( int MF ){
-  auto begin = cachedTape().begin();
-  auto end = cachedTape().end();
-  syntaxTree::Tape< std::string::iterator > tapeTree( begin, end );
+  syntaxTree::Tape< std::string > tapeTree( njoy::utility::copy( tape ) );
   auto fileTree = tapeTree.materialNumber( 125 ).front().fileNumber( MF );
   return std::string( fileTree.buffer().begin(), fileTree.buffer().end() );
 }
@@ -169,26 +230,50 @@ std::string chunk451() {
     "***************************************************               3988 1451     \n"
     "                                1        451         12          03988 1451     \n"
     "                                3          1          4          03988 1451     \n"
-    "                                                                  3988 1  0     \n"
-    "                                                                  3988 0  0     \n";
+    "                                                                  3988 1  0     \n";
 }
 
 void verifyChunk451( const file::Type< 1 >& chunk ) {
 
-  REQUIRE( 1 == chunk.MF() );
-  REQUIRE( 1 == chunk.fileNumber() );
+  CHECK( 1 == chunk.MF() );
+  CHECK( 1 == chunk.fileNumber() );
 
-  REQUIRE( chunk.hasMT( 451 ) );
-  REQUIRE( not chunk.hasMT( 4 ) );
-  REQUIRE( chunk.hasSection( 451 ) );
-  REQUIRE( not chunk.hasSection( 4 ) );
+  CHECK( chunk.hasMT( 451 ) );
+  CHECK( not chunk.hasMT( 4 ) );
+  CHECK( chunk.hasSection( 451 ) );
+  CHECK( not chunk.hasSection( 4 ) );
 
-  REQUIRE_NOTHROW( chunk.MT( 451_c ) );
-  REQUIRE_NOTHROW( chunk.section( 451_c ) );
+  CHECK_NOTHROW( chunk.MT( 451_c ) );
+  CHECK_NOTHROW( chunk.section( 451_c ) );
 
-  REQUIRE( 39088. == Approx( chunk.MT( 451_c ).ZA() ) );
-  REQUIRE( 6 == chunk.MT( 451_c ).NWD() );
-  REQUIRE( 2 == chunk.MT( 451_c ).NXC() );
-  REQUIRE( 12 == chunk.MT( 451_c ).NC() );
+  CHECK( 39088. == Approx( chunk.MT( 451_c ).ZA() ) );
+  CHECK( 6 == chunk.MT( 451_c ).NWD() );
+  CHECK( 2 == chunk.MT( 451_c ).NXC() );
+  CHECK( 12 == chunk.MT( 451_c ).NC() );
+}
+
+std::string validSEND() {
+  return
+    "                                                                  3988 3  0     \n";
+}
+
+std::string validFEND() {
+  return
+    "                                                                  3988 0  0     \n";
+}
+
+std::string validMEND() {
+  return
+    "                                                                     0 0  0     \n";
+}
+
+std::string validTEND() {
+  return
+    "                                                                    -1 0  0     \n";
+}
+
+std::string validHEAD() {
+  return
+    " 3.908800+4 8.715432+1          0          0          0          03988 1451     \n";
 }
 

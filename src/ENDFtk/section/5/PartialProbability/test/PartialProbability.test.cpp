@@ -186,10 +186,8 @@ std::string chunkWithUZero() {
 
 void verifyChunkWithUZero( const PartialProbability& chunk ) {
 
-  REQUIRE( 0.0 == Approx ( chunk.U() ) );
-  REQUIRE( 0.0 == Approx ( chunk.energyLimitConstant() ) );
   REQUIRE( 1 == chunk.LF() );
-  REQUIRE( 1 == chunk.distributionType() );
+  REQUIRE( 1 == chunk.LAW() );
 
   REQUIRE( 2 == chunk.NP() );
   REQUIRE( 1 == chunk.NR() );
@@ -197,10 +195,16 @@ void verifyChunkWithUZero( const PartialProbability& chunk ) {
   REQUIRE( 1 == chunk.boundaries().size() );
   REQUIRE( 2 == chunk.interpolants()[0] );
   REQUIRE( 2 == chunk.boundaries()[0] );
+  REQUIRE( 2 == chunk.E().size() );
   REQUIRE( 2 == chunk.energies().size() );
+  REQUIRE( 2 == chunk.p().size() );
   REQUIRE( 2 == chunk.probabilities().size() );
+  REQUIRE( 1e-5 == Approx( chunk.E()[0] ) );
+  REQUIRE( 3e+7 == Approx( chunk.E()[1] ) );
   REQUIRE( 1e-5 == Approx( chunk.energies()[0] ) );
   REQUIRE( 3e+7 == Approx( chunk.energies()[1] ) );
+  REQUIRE( 1. == Approx( chunk.p()[0] ) );
+  REQUIRE( 1. == Approx( chunk.p()[1] ) );
   REQUIRE( 1. == Approx( chunk.probabilities()[0] ) );
   REQUIRE( 1. == Approx( chunk.probabilities()[1] ) );
 
@@ -216,10 +220,8 @@ std::string chunkWithUOne() {
 
 void verifyChunkWithUOne( const PartialProbability& chunk ) {
 
-  REQUIRE( 1.0 == Approx ( chunk.U() ) );
-  REQUIRE( 1.0 == Approx ( chunk.energyLimitConstant() ) );
   REQUIRE( 1 == chunk.LF() );
-  REQUIRE( 1 == chunk.distributionType() );
+  REQUIRE( 1 == chunk.LAW() );
 
   REQUIRE( 2 == chunk.NP() );
   REQUIRE( 1 == chunk.NR() );
@@ -227,10 +229,16 @@ void verifyChunkWithUOne( const PartialProbability& chunk ) {
   REQUIRE( 1 == chunk.boundaries().size() );
   REQUIRE( 2 == chunk.interpolants()[0] );
   REQUIRE( 2 == chunk.boundaries()[0] );
+  REQUIRE( 2 == chunk.E().size() );
   REQUIRE( 2 == chunk.energies().size() );
+  REQUIRE( 2 == chunk.p().size() );
   REQUIRE( 2 == chunk.probabilities().size() );
+  REQUIRE( 1e-5 == Approx( chunk.E()[0] ) );
+  REQUIRE( 3e+7 == Approx( chunk.E()[1] ) );
   REQUIRE( 1e-5 == Approx( chunk.energies()[0] ) );
   REQUIRE( 3e+7 == Approx( chunk.energies()[1] ) );
+  REQUIRE( 1. == Approx( chunk.p()[0] ) );
+  REQUIRE( 1. == Approx( chunk.p()[1] ) );
   REQUIRE( 1. == Approx( chunk.probabilities()[0] ) );
   REQUIRE( 1. == Approx( chunk.probabilities()[1] ) );
 
