@@ -21,6 +21,7 @@ std::string chunkWithLTT2();
 void verifyChunkWithLTT2( const section::Type< 4 >& );
 std::string chunkWithLTT3();
 void verifyChunkWithLTT3( const section::Type< 4 >& );
+std::string chunkWithInvalidLTT();
 std::string validSEND();
 std::string invalidSEND();
 
@@ -268,6 +269,37 @@ SCENARIO( "section::Type< 4 >" ) {
 
   GIVEN( "invalid data for a section::Type< 4 >" ) {
 
+    WHEN( "a string representation of a section::Type< 4 > with an "
+          "invalid LTT" ) {
+
+      std::string sectionString = chunkWithInvalidLTT() + validSEND();
+      auto begin = sectionString.begin();
+      auto end = sectionString.end();
+      long lineNumber = 1;
+      HeadRecord head( begin, end, lineNumber );
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( section::Type< 4 >( head, begin, end,
+                                            lineNumber, 9228 ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a string representation of a valid section::Type< 4 > "
+          "with an invalid SEND" ) {
+
+      std::string sectionString = chunkWithLTT0() + invalidSEND();
+      auto begin = sectionString.begin();
+      auto end = sectionString.end();
+      long lineNumber = 1;
+      HeadRecord head( begin, end, lineNumber );
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( section::Type< 4 >( head, begin, end,
+                                            lineNumber, 9228 ) );
+      } // THEN
+    } // WHEN
   } // GIVEN
 } // SCENARIO
 
@@ -562,6 +594,12 @@ void verifyChunkWithLTT3( const section::Type< 4 >& chunk ) {
   REQUIRE( 0.0 == Approx( td.probabilities()[2] ) );
 
   REQUIRE( 16 == chunk.NC() );
+}
+
+std::string chunkWithInvalidLTT() {
+  return
+    " 9.223500+4 2.330250+2          0          3          0          09228 4 18     \n"
+    " 0.000000+0 2.330250+2          1          1          0          09228 4 18     \n";
 }
 
 std::string validSEND() {
