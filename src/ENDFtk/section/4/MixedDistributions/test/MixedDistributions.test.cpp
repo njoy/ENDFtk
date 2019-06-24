@@ -78,6 +78,38 @@ SCENARIO( "MixedDistributions" ) {
 
   GIVEN( "invalid data for a MixedDistributions" ) {
 
+    WHEN( "data for a MixedDistributions with a boundary mismatch is given" ) {
+
+      LegendreDistributions legendre  =
+        { { 2 }, { 1 },
+      	  { { 1e-5, { 7.392510e-5, 8.477139e-9, 1.17106e-13 } },
+            { 1e+6, { 2.874390e-2, 3.19645e-11 } } } };
+      TabulatedDistributions tabulated  =
+        { { 2 }, { 5 },
+          { { 1e+7, { 2 }, { 2 }, { -1.0, 1.0 }, { 0.5, 0.5 } },
+            { 2e+7, { 3 }, { 2 }, { -1.0, 0.0, 1.0 }, { 0.0, 1.0, 0.0 } } } };
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( MixedDistributions(  std::move( legendre ),
+                                            std::move( tabulated ) ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a string representation of a MixedDistributions with a "
+          "boundary mismatch is given" ) {
+
+      std::string string = invalidChunk();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( MixedDistributions( begin, end, lineNumber,
+                                            9228, 4, 2 ) );
+      } // THEN
+    } // WHEN
   } // GIVEN
 } // SCENARIO
 
@@ -180,17 +212,18 @@ void verifyChunk( const MixedDistributions& chunk ) {
 
 std::string invalidChunk() {
   return
-    " 0.000000+0 0.000000+0          0          0          3          29228 4  2     \n"
-    "          2          1                                            9228 4  2     \n"
-    " 0.000000+0 1.000000-5          0          0          3          09228 4  2     \n"
-    " 7.392510-5 8.477139-9 1.17106-13                                 9228 4  2     \n"
-    " 0.000000+0 1.000000+6          0          0          2          09228 4  2     \n"
-    " 2.874390-2 3.19645-11                                            9228 4  2     \n"
-    "          2          1                                            9228 4  2     \n"
-    " 0.000000+0 1.000000+6          0          0          1          29228 4  2     \n"
-    "          2          2                                            9228 4  2     \n"
-    "-1.000000+0 5.000000-1 1.000000+0 5.000000-1                      9228 4  2     \n"
-    " 0.000000+0 2.000000+7          0          0          1          39228 4  2     \n"
-    "          3          2                                            9228 4  2     \n"
-    "-1.000000+0 0.000000+0 0.000000+0 1.000000+0 1.000000+0 0.000000+09228 4  2     \n";
+  " 0.000000+0 0.000000+0          0          0          1          29228 4  2     \n"
+  "          2          1                                            9228 4  2     \n"
+  " 0.000000+0 1.000000-5          0          0          3          09228 4  2     \n"
+  " 7.392510-5 8.477139-9 1.17106-13                                 9228 4  2     \n"
+  " 0.000000+0 1.000000+6          0          0          2          09228 4  2     \n"
+  " 2.874390-2 3.19645-11                                            9228 4  2     \n"
+  " 0.000000+0 0.000000+0          0          0          1          29228 4  2     \n"
+  "          2          5                                            9228 4  2     \n"
+  " 0.000000+0 1.000000+7          0          0          1          29228 4  2     \n"
+  "          2          2                                            9228 4  2     \n"
+  "-1.000000+0 5.000000-1 1.000000+0 5.000000-1                      9228 4  2     \n"
+  " 0.000000+0 2.000000+7          0          0          1          39228 4  2     \n"
+  "          3          2                                            9228 4  2     \n"
+  "-1.000000+0 0.000000+0 0.000000+0 1.000000+0 1.000000+0 0.000000+09228 4  2     \n";
 }

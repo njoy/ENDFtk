@@ -22,6 +22,7 @@ void verifyChunkWithLTT2( const section::Type< 4 >& );
 std::string chunkWithLTT3();
 void verifyChunkWithLTT3( const section::Type< 4 >& );
 std::string chunkWithInvalidLTT();
+std::string chunkWithBadBoundary();
 std::string validSEND();
 std::string invalidSEND();
 
@@ -598,7 +599,7 @@ void verifyChunkWithLTT3( const section::Type< 4 >& chunk ) {
 
 std::string chunkWithInvalidLTT() {
   return
-    " 9.223500+4 2.330250+2          0          3          0          09228 4 18     \n"
+    " 9.223500+4 2.330250+2          0          4          0          09228 4 18     \n"
     " 0.000000+0 2.330250+2          1          1          0          09228 4 18     \n";
 }
 
