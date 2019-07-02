@@ -530,6 +530,10 @@
     "src/ENDFtk/section/12/Multiplicities.hpp", 
     "src/ENDFtk/section/12/PartialMultiplicity.hpp", 
     "src/ENDFtk/section/12/TotalMultiplicity.hpp", 
+    "src/ENDFtk/section/12/Multiplicities/src/ctor.hpp", 
+    "src/ENDFtk/section/12/Multiplicities/src/NC.hpp", 
+    "src/ENDFtk/section/12/Multiplicities/src/print.hpp", 
+    "src/ENDFtk/section/12/Multiplicities/src/verifyNK.hpp", 
     "src/ENDFtk/section/12/PartialMultiplicity/src/ctor.hpp", 
     "src/ENDFtk/section/12/TotalMultiplicity/src/ctor.hpp", 
     "src/ENDFtk/section/13/Subsection.hpp", 
@@ -928,6 +932,9 @@
     ], 
     "ENDFtk.section.1.451": [
       "src/ENDFtk/section/1/451/test/451.test.cpp"
+    ], 
+    "ENDFtk.section.12.Multiplicities": [
+      "src/ENDFtk/section/12/Multiplicities/test/Multiplicities.test.cpp"
     ], 
     "ENDFtk.section.12.PartialMultiplicity": [
       "src/ENDFtk/section/12/PartialMultiplicity/test/PartialMultiplicity.test.cpp"

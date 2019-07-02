@@ -385,6 +385,10 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/12/Multiplicities.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/12/PartialMultiplicity.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/12/TotalMultiplicity.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/12/Multiplicities/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/12/Multiplicities/src/NC.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/12/Multiplicities/src/print.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/12/Multiplicities/src/verifyNK.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/12/PartialMultiplicity/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/12/TotalMultiplicity/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/13/Subsection.hpp"
@@ -668,6 +672,7 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/section/6/test )
         add_subdirectory( src/ENDFtk/section/3/test )
         add_subdirectory( src/ENDFtk/TabulationRecord/test )
+        add_subdirectory( src/ENDFtk/section/12/Multiplicities/test )
         add_subdirectory( src/ENDFtk/section/12/PartialMultiplicity/test )
         add_subdirectory( src/ENDFtk/section/7/4/Tabulated/test )
         add_subdirectory( src/ENDFtk/section/8/457/AverageDecayEnergies/test )
@@ -693,12 +698,12 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/section/5/WattSpectrum/test )
         add_subdirectory( src/ENDFtk/section/5/TabulatedSpectrum/OutgoingEnergyDistribution/test )
         add_subdirectory( src/ENDFtk/section/6/Unknown/test )
-        add_subdirectory( src/ENDFtk/section/6/ContinuumEnergyAngle/Base/test )
+        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/BreitWigner/test )
         add_subdirectory( src/ENDFtk/section/5/MadlandNixSpectrum/test )
         add_subdirectory( src/ENDFtk/section/6/DiscreteTwoBodyScattering/test )
         add_subdirectory( src/ENDFtk/section/6/ReactionProduct/test )
         add_subdirectory( src/ENDFtk/section/7/4/ScatteringLawConstants/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/BreitWigner/test )
+        add_subdirectory( src/ENDFtk/section/6/ContinuumEnergyAngle/Base/test )
         add_subdirectory( src/ENDFtk/section/6/DiscreteTwoBodyScattering/Tabulated/test )
         add_subdirectory( src/ENDFtk/section/BaseWithoutMT/test )
         add_subdirectory( src/ENDFtk/section/6/DiscreteTwoBodyScattering/SubSection/test )

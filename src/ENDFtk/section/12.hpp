@@ -6,11 +6,11 @@ public:
   #include "ENDFtk/section/12/TotalMultiplicity.hpp"
   #include "ENDFtk/section/12/PartialMultiplicity.hpp"
 
-//  #include "ENDFtk/section/12/Multiplicities.hpp"               // LO=1
-//  #include "ENDFtk/section/12/TransitionProbabilities.hpp"      // LO=2
+  #include "ENDFtk/section/12/Multiplicities.hpp"               // LO=1
+  #include "ENDFtk/section/12/TransitionProbabilities.hpp"      // LO=2
 
-//  using LO1 = Multiplicities;
-//  using LO2 = TransitionProbabilities;
+  using LO1 = Multiplicities;
+  using LO2 = TransitionProbabilities;
 
   /** @typedef PhotonProduction
    *  @brief The photon production multiplicities or transition probabilities
@@ -18,14 +18,14 @@ public:
    *
    *  This photon production data class is set up as a variant.
    */
-//  using PhotonProduction =
-//            std::variant< Multiplicities,                      // LO=1
-//                          TransitionProbabilities >;           // LO=2
+  using PhotonProduction =
+            std::variant< Multiplicities,                      // LO=1
+                          TransitionProbabilities >;           // LO=2
 
 private:
 
   /* fields */
-//  PhotonProduction photon_;
+  PhotonProduction photon_;
 
   /* auxiliary functions */
 //  #include "ENDFtk/section/12/src/readPhotonProduction.hpp"
@@ -40,17 +40,17 @@ public:
   /**
    *  @brief Return the data type for the photon production data
    */
-//  int LO() const { return this->photon_.index(); }
+  int LO() const { return this->photon_.index() + 1; }
 
   /**
    *  @brief Return the data type for the photon production data
    */
-//  int type() const { return this->LO(); }
+  int type() const { return this->LO(); }
 
   /**
    *  @brief Return the partial distributions defined in this section
    */
-//  const auto& photonProduction() const { return this->photon_; }
+  const auto& photonProduction() const { return this->photon_; }
 
 //  #include "ENDFtk/section/12/src/NC.hpp"
 //  #include "ENDFtk/section/12/src/print.hpp"
