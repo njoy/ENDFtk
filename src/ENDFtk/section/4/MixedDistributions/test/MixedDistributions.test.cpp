@@ -136,6 +136,24 @@ void verifyChunk( const MixedDistributions& chunk ) {
   REQUIRE( 3 == chunk.LTT() );
   REQUIRE( 3 == chunk.LAW() );
 
+  REQUIRE( 2 == chunk.NR() );
+  REQUIRE( 4 == chunk.NE() );
+  REQUIRE( 2 == chunk.interpolants().size() );
+  REQUIRE( 2 == chunk.boundaries().size() );
+  REQUIRE( 1 == chunk.interpolants()[0] );
+  REQUIRE( 5 == chunk.interpolants()[1] );
+  REQUIRE( 2 == chunk.boundaries()[0] );
+  REQUIRE( 4 == chunk.boundaries()[1] );
+
+  auto distributions = chunk.angularDistributions();
+
+  REQUIRE( 0 == distributions[0].index() );
+  REQUIRE( 0 == distributions[1].index() );
+  REQUIRE( 1 == distributions[2].index() );
+  REQUIRE( 1 == distributions[3].index() );
+
+  REQUIRE( 1e-5 == Approx( std::visit( [] (const auto& value) { return value.get().E(); }, distributions[0] ) ) );
+
   REQUIRE( 2 == chunk.legendre().NE() );
   REQUIRE( 1 == chunk.legendre().NR() );
   REQUIRE( 1 == chunk.legendre().interpolants().size() );

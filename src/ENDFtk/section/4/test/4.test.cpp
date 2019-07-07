@@ -523,6 +523,15 @@ void verifyChunkWithLTT3( const section::Type< 4 >& chunk ) {
   REQUIRE( 3 == distribution.LTT() );
   REQUIRE( 3 == distribution.LAW() );
 
+  REQUIRE( 2 == distribution.NR() );
+  REQUIRE( 4 == distribution.NE() );
+  REQUIRE( 2 == distribution.interpolants().size() );
+  REQUIRE( 2 == distribution.boundaries().size() );
+  REQUIRE( 1 == distribution.interpolants()[0] );
+  REQUIRE( 5 == distribution.interpolants()[1] );
+  REQUIRE( 2 == distribution.boundaries()[0] );
+  REQUIRE( 4 == distribution.boundaries()[1] );
+
   REQUIRE( 2 == distribution.legendre().NE() );
   REQUIRE( 1 == distribution.legendre().NR() );
   REQUIRE( 1 == distribution.legendre().interpolants().size() );

@@ -1,9 +1,12 @@
 template<>
 class Type< 4 > : protected Base {
 
-public:
+protected:
 
   #include "ENDFtk/section/4/AngularDistributions.hpp"
+
+public:
+
   #include "ENDFtk/section/4/LegendreCoefficients.hpp"
   #include "ENDFtk/section/4/TabulatedDistribution.hpp"
 
