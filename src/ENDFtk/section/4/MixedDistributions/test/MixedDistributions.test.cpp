@@ -152,7 +152,16 @@ void verifyChunk( const MixedDistributions& chunk ) {
   REQUIRE( 1 == distributions[2].index() );
   REQUIRE( 1 == distributions[3].index() );
 
-  REQUIRE( 1e-5 == Approx( std::visit( [] (const auto& value) { return value.get().E(); }, distributions[0] ) ) );
+  auto getE = [] ( const auto& value ) { return value.get().E(); };
+  auto getIE = [] ( const auto& value ) { return value.get().incidentEnergy(); };
+  REQUIRE( 1e-5 == Approx( std::visit( getE, distributions[0] ) ) );
+  REQUIRE( 1e+6 == Approx( std::visit( getE, distributions[1] ) ) );
+  REQUIRE( 1e+6 == Approx( std::visit( getE, distributions[2] ) ) );
+  REQUIRE( 2e+7 == Approx( std::visit( getE, distributions[3] ) ) );
+  REQUIRE( 1e-5 == Approx( std::visit( getIE, distributions[0] ) ) );
+  REQUIRE( 1e+6 == Approx( std::visit( getIE, distributions[1] ) ) );
+  REQUIRE( 1e+6 == Approx( std::visit( getIE, distributions[2] ) ) );
+  REQUIRE( 2e+7 == Approx( std::visit( getIE, distributions[3] ) ) );
 
   REQUIRE( 2 == chunk.legendre().NE() );
   REQUIRE( 1 == chunk.legendre().NR() );
