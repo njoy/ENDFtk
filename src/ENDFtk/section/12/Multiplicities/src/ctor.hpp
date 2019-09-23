@@ -69,6 +69,6 @@ Multiplicities( Iterator& begin, const Iterator& end,
                         begin, end, lineNumber, MAT, MF, MT, NK ) {}
   catch ( std::exception& e ) {
 
-    Log::info( "Encountered error while constructing a partial multiplicity" );
+    Log::info( "Encountered error while constructing photon multiplicities" );
     throw;
   }

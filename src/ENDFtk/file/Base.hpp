@@ -50,9 +50,9 @@ public:
    *  @param mt   the MT number of the section to be retrieved
    */
   template< typename Index >
-  constexpr decltype( auto ) MT( Index sectionNo ) const {
+  constexpr decltype( auto ) MT( Index mt ) const {
 
-    return this->derived().section( sectionNo );
+    return this->derived().section( mt );
   }
 
   /**
@@ -60,11 +60,10 @@ public:
    *
    *  @param mt   the MT number of the section to be retrieved
    */
-  template< typename Index > constexpr decltype( auto ) MT( Index sectionNo ) {
+  template< typename Index > constexpr decltype( auto ) MT( Index mt ) {
 
-    return this->derived().section( sectionNo );
+    return this->derived().section( mt );
   }
 
   #include "ENDFtk/file/Base/src/section.hpp"
 };
-

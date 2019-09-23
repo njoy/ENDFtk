@@ -9,6 +9,7 @@ class TotalMultiplicity : protected TabulationRecord {
   /* auxiliary functions */
 
 public:
+
   /* constructor */
   #include "ENDFtk/section/12/TotalMultiplicity/src/ctor.hpp"
 
@@ -17,12 +18,22 @@ public:
   /**
    *  @brief Return the incident energy values
    */
-  auto energies() const { return TabulationRecord::x(); }
+  auto E() const { return TabulationRecord::x(); }
+
+  /**
+   *  @brief Return the incident energy values
+   */
+  auto energies() const { return TotalMultiplicity::E(); }
 
   /**
    *  @brief Return the multiplicity values
    */
-  auto multiplicities() const { return TabulationRecord::y(); }
+  auto Y() const { return TabulationRecord::y(); }
+
+  /**
+   *  @brief Return the multiplicity values
+   */
+  auto multiplicities() const { return TotalMultiplicity::Y(); }
 
   using TabulationRecord::NR;
   using TabulationRecord::NP;

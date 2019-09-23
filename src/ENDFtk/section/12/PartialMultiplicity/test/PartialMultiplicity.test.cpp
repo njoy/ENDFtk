@@ -145,10 +145,16 @@ void verifyChunk( const PartialMultiplicity& chunk ) {
   CHECK( 1 == chunk.boundaries().size() );
   CHECK( 2 == chunk.interpolants()[0] );
   CHECK( 2 == chunk.boundaries()[0] );
+  CHECK( 2 == chunk.E().size() );
   CHECK( 2 == chunk.energies().size() );
+  CHECK( 2 == chunk.Y().size() );
   CHECK( 2 == chunk.multiplicities().size() );
+  CHECK( 1e-5 == Approx( chunk.E()[0] ) );
+  CHECK( 3e+7 == Approx( chunk.E()[1] ) );
   CHECK( 1e-5 == Approx( chunk.energies()[0] ) );
   CHECK( 3e+7 == Approx( chunk.energies()[1] ) );
+  CHECK( 8.579050e+0 == Approx( chunk.Y()[0] ) );
+  CHECK( 1.487778e+1 == Approx( chunk.Y()[1] ) );
   CHECK( 8.579050e+0 == Approx( chunk.multiplicities()[0] ) );
   CHECK( 1.487778e+1 == Approx( chunk.multiplicities()[1] ) );
 
