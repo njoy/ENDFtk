@@ -28,12 +28,12 @@ private:
   PhotonProduction photon_;
 
   /* auxiliary functions */
-//  #include "ENDFtk/section/12/src/readPhotonProduction.hpp"
+  #include "ENDFtk/section/12/src/readPhotonProduction.hpp"
 
 public:
 
   /* constructor */
-//  #include "ENDFtk/section/12/src/ctor.hpp"
+  #include "ENDFtk/section/12/src/ctor.hpp"
 
   /* get methods */
 
@@ -45,15 +45,15 @@ public:
   /**
    *  @brief Return the data type for the photon production data
    */
-  int type() const { return this->LO(); }
+  int representation() const { return this->LO(); }
 
   /**
    *  @brief Return the partial distributions defined in this section
    */
   const auto& photonProduction() const { return this->photon_; }
 
-//  #include "ENDFtk/section/12/src/NC.hpp"
-//  #include "ENDFtk/section/12/src/print.hpp"
+  #include "ENDFtk/section/12/src/NC.hpp"
+  #include "ENDFtk/section/12/src/print.hpp"
 
   using Base::MT;
   using Base::sectionNumber;
