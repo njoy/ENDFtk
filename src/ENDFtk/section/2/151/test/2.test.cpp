@@ -8,16 +8,19 @@
 using namespace njoy::ENDFtk;
 
 std::string chunkSpecialCase();
-void verifyChunkSpecialCase( const section::Type< 2 >& );
+void verifyChunkSpecialCase( const section::Type< 2, 151 >& );
 const std::string& sLRU1( int LRF );
 const std::string& sLRU2( int LRF );
 std::string validSEND();
 std::string invalidSEND();
 
-SCENARIO( "section::Type<2>" ) {
+// macros don't like multiple template arguments
+using section2151 = section::Type< 2, 151 >;
+
+SCENARIO( "section::Type< 2, 151 >" ) {
 
   GIVEN( "valid data for the special case (only channel radius) in "
-         "section::Type< 2 >" ) {
+         "section::Type< 2, 151 >" ) {
 
     WHEN( "the data is given explicitly" ) {
 
@@ -28,10 +31,10 @@ SCENARIO( "section::Type<2>" ) {
       double spi = 0.5;
       double ap = 1.275246;
 
-      THEN( "a section::Type< 2 > can be constructed and members can be "
+      THEN( "a section::Type< 2, 151 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 2 > chunk( zaid, awr, el, eh, spi, ap );
+        section::Type< 2, 151 > chunk( zaid, awr, el, eh, spi, ap );
         verifyChunkSpecialCase( chunk );
       } // THEN
     } // WHEN
@@ -44,10 +47,10 @@ SCENARIO( "section::Type<2>" ) {
       long lineNumber = 1;
       HeadRecord head( begin, end, lineNumber );
 
-      THEN( "a section::Type< 2 > can be constructed and members can be "
+      THEN( "a section::Type< 2, 151 > can be constructed and members can be "
             "tested" ) {
 
-        section::Type< 2 > chunk( head, begin, end, lineNumber, 125 );
+        section::Type< 2, 151 > chunk( head, begin, end, lineNumber, 125 );
 
         REQUIRE( 151 == chunk.MT() );
         REQUIRE( 1001 == chunk.ZA() );
@@ -57,14 +60,14 @@ SCENARIO( "section::Type<2>" ) {
     } // WHEN
   } // THEN
 
-  GIVEN( "a valid instance of section::Type< 2 >" ) {
+  GIVEN( "a valid instance of section::Type< 2, 151 >" ) {
 
     std::string string = chunkSpecialCase() + validSEND();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
     HeadRecord head( begin, end, lineNumber );
-    section::Type< 2 > chunk( head, begin, end, lineNumber, 125 );
+    section::Type< 2, 151 > chunk( head, begin, end, lineNumber, 125 );
 
     THEN( "it can be printed" ) {
 
@@ -86,8 +89,8 @@ SCENARIO( "section::Type<2>" ) {
       int MAT = 6153;
       HeadRecord HEAD( begin, end, lineNumber );
 
-      THEN( "a section::Type<2> can be constructed" ){
-        section::Type<2> MF2( HEAD, begin, end, lineNumber, MAT );
+      THEN( "a section::Type< 2, 151 > can be constructed" ){
+        section::Type< 2, 151 > MF2( HEAD, begin, end, lineNumber, MAT );
         REQUIRE( 151 == MF2.MT() );
         REQUIRE( 61148 == MF2.ZA() );
         REQUIRE( 146.65 == MF2.atomicWeightRatio() );
@@ -102,8 +105,8 @@ SCENARIO( "section::Type<2>" ) {
       int MAT = 1225;
       HeadRecord HEAD( begin, end, lineNumber );
 
-      THEN( "a section::Type<2> can be constructed" ){
-        section::Type<2> MF2( HEAD, begin, end, lineNumber, MAT );
+      THEN( "a section::Type< 2, 151 > can be constructed" ){
+        section::Type< 2, 151 > MF2( HEAD, begin, end, lineNumber, MAT );
         REQUIRE( 151 == MF2.MT() );
         REQUIRE( 12024 == MF2.ZA() );
         REQUIRE( 23.779 == Approx( MF2.atomicWeightRatio() ) );
@@ -118,8 +121,8 @@ SCENARIO( "section::Type<2>" ) {
       int MAT = 1425;
       HeadRecord HEAD( begin, end, lineNumber );
 
-      THEN( "a section::Type<2> can be constructed" ){
-        section::Type<2> MF2( HEAD, begin, end, lineNumber, MAT );
+      THEN( "a section::Type< 2, 151 > can be constructed" ){
+        section::Type< 2, 151 > MF2( HEAD, begin, end, lineNumber, MAT );
         REQUIRE( 151 == MF2.MT() );
         REQUIRE( 14028 == MF2.ZA() );
         REQUIRE( 27.737 == Approx( MF2.atomicWeightRatio() ) );
@@ -134,9 +137,8 @@ SCENARIO( "section::Type<2>" ) {
       int MAT = 1725;
       HeadRecord HEAD( begin, end, lineNumber );
 
-      THEN( "a section::Type<2> can be constructed" ){
-        REQUIRE_THROWS( 
-            section::Type<2>( HEAD, begin, end, lineNumber, MAT ) );
+      THEN( "a section::Type< 2, 151 > can be constructed" ){
+        REQUIRE_THROWS( section2151( HEAD, begin, end, lineNumber, MAT ) );
       /*
         REQUIRE( 151 == MF2.MT() );
         REQUIRE( 17035 == MF2.ZA() );
@@ -153,8 +155,8 @@ SCENARIO( "section::Type<2>" ) {
       int MAT = 5655;
       HeadRecord HEAD( begin, end, lineNumber );
 
-      THEN( "a section::Type<2> can be constructed" ){
-        section::Type<2> MF2( HEAD, begin, end, lineNumber, MAT );
+      THEN( "a section::Type< 2, 151 > can be constructed" ){
+        section::Type< 2, 151 > MF2( HEAD, begin, end, lineNumber, MAT );
         REQUIRE( 151 == MF2.MT() );
         REQUIRE( 56140 == MF2.ZA() );
         REQUIRE( 138.708 == Approx( MF2.atomicWeightRatio() ) );
@@ -169,8 +171,8 @@ SCENARIO( "section::Type<2>" ) {
       int MAT = 9440;
       HeadRecord HEAD( begin, end, lineNumber );
 
-      THEN( "a section::Type<2> can be constructed" ){
-        section::Type<2> MF2( HEAD, begin, end, lineNumber, MAT );
+      THEN( "a section::Type< 2, 151 > can be constructed" ){
+        section::Type< 2, 151 > MF2( HEAD, begin, end, lineNumber, MAT );
         REQUIRE( 151 == MF2.MT() );
         REQUIRE( 94240 == MF2.ZA() );
         REQUIRE( 237.992 == Approx( MF2.atomicWeightRatio() ) );
@@ -185,8 +187,8 @@ SCENARIO( "section::Type<2>" ) {
       int MAT = 3843;
       HeadRecord HEAD( begin, end, lineNumber );
 
-      THEN( "a section::Type<2> can be constructed" ){
-        section::Type<2> MF2( HEAD, begin, end, lineNumber, MAT );
+      THEN( "a section::Type< 2, 151 > can be constructed" ){
+        section::Type< 2, 151 > MF2( HEAD, begin, end, lineNumber, MAT );
         REQUIRE( 151 == MF2.MT() );
         REQUIRE( 38090 == MF2.ZA() );
         REQUIRE( 89.1354 == Approx( MF2.atomicWeightRatio() ) );
@@ -197,7 +199,7 @@ SCENARIO( "section::Type<2>" ) {
 
   GIVEN( "a File 2 Section with the wrong MAT number" ){
     WHEN( "NIS < 1" ){
-      std::string sMF2 = 
+      std::string sMF2 =
         " 5.614000+4 1.387080+2          0          0          0          05655 2151    1\n"
         " 5.614000+4 1.000000+0          0          0          2          05655 2151    2\n"
         " 1.000000-5 2.300000+4          1          2          0          05655 2151    3\n"
@@ -230,7 +232,7 @@ SCENARIO( "section::Type<2>" ) {
       HeadRecord HEAD( begin, end, lineNumber );
 
       THEN( "an exception is thrown" ){
-        REQUIRE_THROWS( section::Type<2>( HEAD, begin, end, lineNumber, MAT ) );
+        REQUIRE_THROWS( section2151( HEAD, begin, end, lineNumber, MAT ) );
       }
     }
     WHEN( "reading LRU=1, LRF=1" ){
@@ -242,7 +244,7 @@ SCENARIO( "section::Type<2>" ) {
       HeadRecord HEAD( begin, end, lineNumber );
 
       THEN( "an exception is thrown" ){
-        REQUIRE_THROWS( section::Type<2>( HEAD, begin, end, lineNumber, MAT ) );
+        REQUIRE_THROWS( section2151( HEAD, begin, end, lineNumber, MAT ) );
       }
     }
   }
@@ -256,7 +258,7 @@ std::string chunkSpecialCase() {
     " 5.000000-1 1.276553+0          0          0          0          0 125 2151     \n";
 }
 
-void verifyChunkSpecialCase( const section::Type< 2 >& chunk ) {
+void verifyChunkSpecialCase( const section::Type< 2, 151 >& chunk ) {
 
   REQUIRE( 151 == chunk.MT() );
   REQUIRE( 1001 == chunk.ZA() );
@@ -787,7 +789,7 @@ const std::string& sLRU2( int LRF ){
    " 1.000000-9 1.000000-9                                            9440 2151\n"
    " 0.000000+0 0.000000+0          0          0          0          09440 2  0\n"
    " 0.000000+0 0.000000+0          0          0          0          09440 0  0\n"},
-  {2, 
+  {2,
    // Isotope
    " 3.809000+4 8.913540+1          0          0          1          03843 2151    1\n"
    " 3.809000+4 1.000000+0          0          1          1          03843 2151    2\n"
@@ -895,4 +897,3 @@ std::string invalidSEND(){
   return
     "                                                                   125 2  1     \n";
 }
-
