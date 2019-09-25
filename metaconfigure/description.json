@@ -385,6 +385,7 @@
     "src/ENDFtk/ControlRecord/src/print.hpp",
     "src/ENDFtk/DirectoryRecord/src/print.hpp",
     "src/ENDFtk/file/1.hpp",
+    "src/ENDFtk/file/2.hpp",
     "src/ENDFtk/file/7.hpp",
     "src/ENDFtk/file/8.hpp",
     "src/ENDFtk/file/Base.hpp",
@@ -392,6 +393,8 @@
     "src/ENDFtk/file/Type.hpp",
     "src/ENDFtk/file/1/src/ctor.hpp",
     "src/ENDFtk/file/1/src/print.hpp",
+    "src/ENDFtk/file/2/src/ctor.hpp",
+    "src/ENDFtk/file/2/src/print.hpp",
     "src/ENDFtk/file/7/src/ctor.hpp",
     "src/ENDFtk/file/7/src/print.hpp",
     "src/ENDFtk/file/8/src/ctor.hpp",
@@ -834,6 +837,9 @@
     ],
     "ENDFtk.file.1": [
       "src/ENDFtk/file/1/test/1.test.cpp"
+    ],
+    "ENDFtk.file.2": [
+      "src/ENDFtk/file/2/test/2.test.cpp"
     ],
     "ENDFtk.file.7": [
       "src/ENDFtk/file/7/test/7.test.cpp"
