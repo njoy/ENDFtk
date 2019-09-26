@@ -508,6 +508,7 @@
     "src/ENDFtk/section/13.hpp",
     "src/ENDFtk/section/2.hpp",
     "src/ENDFtk/section/3.hpp",
+    "src/ENDFtk/section/4.hpp",
     "src/ENDFtk/section/5.hpp",
     "src/ENDFtk/section/6.hpp",
     "src/ENDFtk/section/7.hpp",
@@ -558,6 +559,26 @@
     "src/ENDFtk/section/2/src/readIsotopes.hpp",
     "src/ENDFtk/section/3/src/ctor.hpp",
     "src/ENDFtk/section/3/src/print.hpp",
+    "src/ENDFtk/section/4/AngularDistributions.hpp",
+    "src/ENDFtk/section/4/Isotropic.hpp",
+    "src/ENDFtk/section/4/LegendreCoefficients.hpp",
+    "src/ENDFtk/section/4/LegendreDistributions.hpp",
+    "src/ENDFtk/section/4/MixedDistributions.hpp",
+    "src/ENDFtk/section/4/TabulatedDistribution.hpp",
+    "src/ENDFtk/section/4/TabulatedDistributions.hpp",
+    "src/ENDFtk/section/4/AngularDistributions/src/ctor.hpp",
+    "src/ENDFtk/section/4/LegendreCoefficients/src/ctor.hpp",
+    "src/ENDFtk/section/4/LegendreDistributions/src/ctor.hpp",
+    "src/ENDFtk/section/4/MixedDistributions/src/angularDistributions.hpp",
+    "src/ENDFtk/section/4/MixedDistributions/src/ctor.hpp",
+    "src/ENDFtk/section/4/MixedDistributions/src/print.hpp",
+    "src/ENDFtk/section/4/MixedDistributions/src/verifyBoundary.hpp",
+    "src/ENDFtk/section/4/src/ctor.hpp",
+    "src/ENDFtk/section/4/src/NC.hpp",
+    "src/ENDFtk/section/4/src/print.hpp",
+    "src/ENDFtk/section/4/src/readDistributions.hpp",
+    "src/ENDFtk/section/4/TabulatedDistribution/src/ctor.hpp",
+    "src/ENDFtk/section/4/TabulatedDistributions/src/ctor.hpp",
     "src/ENDFtk/section/5/DistributionFunction.hpp",
     "src/ENDFtk/section/5/EffectiveTemperature.hpp",
     "src/ENDFtk/section/5/EvaporationSpectrum.hpp",
@@ -969,6 +990,27 @@
     ],
     "ENDFtk.section.3": [
       "src/ENDFtk/section/3/test/3.test.cpp"
+    ],
+    "ENDFtk.section.4": [
+      "src/ENDFtk/section/4/test/4.test.cpp"
+    ],
+    "ENDFtk.section.4.Isotropic": [
+      "src/ENDFtk/section/4/Isotropic/test/Isotropic.test.cpp"
+    ],
+    "ENDFtk.section.4.LegendreCoefficients": [
+      "src/ENDFtk/section/4/LegendreCoefficients/test/LegendreCoefficients.test.cpp"
+    ],
+    "ENDFtk.section.4.LegendreDistributions": [
+      "src/ENDFtk/section/4/LegendreDistributions/test/LegendreDistributions.test.cpp"
+    ],
+    "ENDFtk.section.4.MixedDistributions": [
+      "src/ENDFtk/section/4/MixedDistributions/test/MixedDistributions.test.cpp"
+    ],
+    "ENDFtk.section.4.TabulatedDistribution": [
+      "src/ENDFtk/section/4/TabulatedDistribution/test/TabulatedDistribution.test.cpp"
+    ],
+    "ENDFtk.section.4.TabulatedDistributions": [
+      "src/ENDFtk/section/4/TabulatedDistributions/test/TabulatedDistributions.test.cpp"
     ],
     "ENDFtk.section.5": [
       "src/ENDFtk/section/5/test/5.test.cpp"
