@@ -10,6 +10,7 @@
  */
 template< typename OutputIterator >
 void print( OutputIterator& it, int MAT, int MF, int MT ) const {
+  
   ControlRecord( this->EL(), this->EH(),
                  this->LRU(), this->LRF(),
                  this->NRO(), this->NAPS() ).print( it, MAT, MF, MT );

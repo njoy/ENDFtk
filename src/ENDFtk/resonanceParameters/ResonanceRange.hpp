@@ -9,6 +9,8 @@
  */
 class ResonanceRange {
 
+public:
+
   using ResonanceParameters =
           std::variant< // LRU=0
                         SpecialCase,
@@ -21,12 +23,20 @@ class ResonanceRange {
                         unresolved::EnergyDependentFissionWidths,
                         unresolved::EnergyDependent>;
 
+private:
+
   /* fields */
   double el_;
   double eh_;
-  int nro_;
   int naps_;
+
   ResonanceParameters parameters_;
+  std::optional< ScatteringRadius > scattering_radius_;
+
+  /* auxiliary functions */
+  #include "ENDFtk/resonanceParameters/Base/src/verifyOptions.hpp"
+  #include "ENDFtk/resonanceParameters/Base/src/readScatteringRadius.hpp"
+  #include "ENDFtk/resonanceParameters/Base/src/readParameters.hpp"
 
 public:
 
@@ -82,12 +92,12 @@ public:
   /**
    *  @brief Return whether the scattering radius is energy dependent or not
    */
-  int NRO() const { return this->nro_; }
+  bool NRO() const { return this->scattering_radius_; }
 
   /**
    *  @brief Return whether the scattering radius is energy dependent or not
    */
-  int energyDependentScatteringRadius() const { return this->NRO(); }
+  bool energyDependentScatteringRadius() const { return this->NRO(); }
 
   /**
    *  @brief Return scattering radius calculation option flag
