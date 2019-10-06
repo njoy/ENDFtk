@@ -7,10 +7,13 @@
  *
  *  See ENDF102, section 2.2.1.6 for more information.
  */
-class RMatrixLimited : protected Base {
+class RMatrixLimited {
 
 public:
 
+  #include "ENDFtk/resonanceParameters/resolved/RMatrixLimited/ParticlePairs.hpp"
+  #include "ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceChannels.hpp"
+//  #include "ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceParameters.hpp"
   #include "ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup.hpp"
 
 private:
@@ -20,6 +23,7 @@ private:
   int krm_;
   int krl_;
 
+  ParticlePairs particle_pairs_;
   std::vector< SpinGroup > spin_groups_;
 
   /* auxiliary functions */
@@ -82,16 +86,25 @@ public:
   bool nonRelativisticKinematics() const { return this->KRL(); }
 
   /**
+   *  @brief Return the number of spin groups
+   */
+  auto NJS() const { return this->spin_groups_.size(); }
+
+  /**
+   *  @brief Return the number of spin groups
+   */
+  auto numberSpinGroups() const { return this->NJS(); }
+
+  /**
+   *  @brief Return the particle pair information
+   */
+  const auto& particlePairs() const { return this->particle_pairs_; }
+
+  /**
    *  @brief Return the spin groups
    */
   auto spinGroups() const { return ranges::view::all( this->spin_groups_ ); }
 
-  using Base::EL;
-  using Base::lowerEnergy;
-  using Base::EH;
-  using Base::upperEnergy;
-  using Base::NRO;
-  using Base::energyDependentScatteringRadius;
-  using Base::NAPS;
-  using Base::scatteringRadiusCalculationOption;
+  #include "ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/NC.hpp"
+  #include "ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/print.hpp"
 };

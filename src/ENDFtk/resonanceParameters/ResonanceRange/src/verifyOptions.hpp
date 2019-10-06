@@ -21,6 +21,14 @@ verifyOptions( bool NRO, int NAPS, int LRU, int LRF ) {
     throw std::exception();
   }
 
+  if ( NRO and ( LRU = 0 ) ) {
+
+    Log::error( "An energy dependent scattering radius is not allowed for "
+                "the scattering radius only special case (LRU = 0, LRF = 0)" );
+    Log::info( "NRO value: {}", int( NRO ) );
+    throw std::exception();
+  }
+
   if ( NRO and ( LRU = 1 ) and ( LRF = 7 ) ) {
 
     Log::error( "An energy dependent scattering radius is not allowed for "

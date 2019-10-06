@@ -13,15 +13,16 @@ public:
 
   using ResonanceParameters =
           std::variant< // LRU=0
-                        SpecialCase,
+/*                        SpecialCase,
                         // LRU=1
-                        resolved::SLBW,
-                        resolved::MLBW,
-                        resolved::ReichMoore,
+                        resolved::MLBW,            // LRF = 2
+                        resolved::SLBW,            // LRF = 1
+                        resolved::ReichMoore, */     // LRF = 3
+                        resolved::LimitedRMatrix/*,  // LRF = 7
                         // LRU=2
                         unresolved::EnergyIndependent,
                         unresolved::EnergyDependentFissionWidths,
-                        unresolved::EnergyDependent>;
+                        unresolved::EnergyDependent*/>;
 
 private:
 
@@ -30,8 +31,8 @@ private:
   double eh_;
   int naps_;
 
-  ResonanceParameters parameters_;
   std::optional< ScatteringRadius > scattering_radius_;
+  ResonanceParameters parameters_;
 
   /* auxiliary functions */
   #include "ENDFtk/resonanceParameters/Base/src/verifyOptions.hpp"
@@ -102,13 +103,23 @@ public:
   /**
    *  @brief Return scattering radius calculation option flag
    */
-  auto NAPS() const { return this->naps; }
+  auto NAPS() const { return this->naps_; }
 
   /**
    *  @brief Return scattering radius calculation option flag
    */
   auto scatteringRadiusCalculationOption() const { return this->NAPS(); }
 
+  /**
+   *  @brief Return optional scattering radius
+   */
+  const auto& scatteringRadius() const { return this->scattering_radius_; }
+
+  /**
+   *  @brief Return the resonance parameters
+   */
+
+  const auto& parameters() const { return this->parameters_; }
   /**
    *  @brief Return the number of lines in this MF2/MT151 component
    */

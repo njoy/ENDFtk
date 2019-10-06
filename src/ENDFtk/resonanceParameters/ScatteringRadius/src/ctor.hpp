@@ -35,8 +35,8 @@ ScatteringRadius( std::vector< long >&& boundaries,
  *  @param[in] MT           the expected MT number
  */
 template< typename Iterator >
-Parameter( Iterator& begin, const Iterator& end,
-           long& lineNumber, int MAT, int MF, int MT )
+ScatteringRadius( Iterator& begin, const Iterator& end,
+                  long& lineNumber, int MAT, int MF, int MT )
   try : TabulationRecord( begin, end, lineNumber, MAT, MF, MT ) {}
   catch ( std::exception& e ) {
 
