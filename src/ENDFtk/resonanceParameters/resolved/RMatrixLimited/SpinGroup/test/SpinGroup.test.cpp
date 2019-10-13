@@ -1,70 +1,190 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-
 #include "ENDFtk.hpp"
 
-using namespace njoy::ENDFtk::resonanceParameters;
+using namespace njoy::ENDFtk;
 
-SCENARIO( "Testing resolved Resonance RML SpinGroup" ){
-  GIVEN( "valid ENDF" ){
-    // std::string ENDF{
-    //   " 1.000000+0 0.000000+0          0          0         18          31725 2151   12\n"
-    //   " 1.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+01725 2151   13\n"
-    //   " 2.000000+0 0.000000+0 1.000000+0 0.000000+0 3.667980-1 4.822220-11725 2151   14\n"
-    //   " 3.000000+0 0.000000+0 1.000000+0 0.000000+0 3.667980-1 4.822220-11725 2151   15\n"
-    //   " 0.000000+0 0.000000+0          0         23        138         231725 2151   16\n"
-    //   " 5.493200+4 3.672600-1 4.644240+1 0.000000+0 0.000000+0 0.000000+01725 2151   17\n"
-    //   " 6.823616+4 3.933600-1 2.179040+2 1.000000-5 0.000000+0 0.000000+01725 2151   18\n"
-    //   " 1.150980+5 7.390000-1 4.307780+0 0.000000+0 0.000000+0 0.000000+01725 2151   19\n"
-    //   " 1.825230+5 7.451500-1 1.759740+3 4.000000-1 0.000000+0 0.000000+01725 2151   20\n"
-    //   " 2.397427+5 6.871600-1 2.685470+2 0.000000+0 0.000000+0 0.000000+01725 2151   21\n"
-    //   " 3.351287+5 3.583800-1 5.525660+3 0.000000+0 0.000000+0 0.000000+01725 2151   22\n"
-    //   " 3.991469+5 7.409700-1 1.093810+3 0.000000+0 0.000000+0 0.000000+01725 2151   23\n"
-    //   " 4.156650+5 3.286800-1 1.146260+3 0.000000+0 0.000000+0 0.000000+01725 2151   24\n"
-    //   " 4.506303+5 3.929900-1 4.613320+2 0.000000+0 0.000000+0 0.000000+01725 2151   25\n"
-    //   " 4.997896+5 6.704600-1 2.312410+3 0.000000+0 0.000000+0 0.000000+01725 2151   26\n"
-    //   " 5.422214+5 6.060000-1 5.220340+2 0.000000+0 0.000000+0 0.000000+01725 2151   27\n"
-    //   " 6.542074+5 6.060000-1 5.186030+2 0.000000+0 0.000000+0 0.000000+01725 2151   28\n"
-    //   " 6.652896+5 6.060000-1 1.406720+2 0.000000+0 0.000000+0 0.000000+01725 2151   29\n"
-    //   " 6.723573+5 6.060000-1 5.754080+2 0.000000+0 0.000000+0 0.000000+01725 2151   30\n"
-    //   " 6.780000+5 6.060000-1 1.331580+2 0.000000+0 0.000000+0 0.000000+01725 2151   31\n"
-    //   " 6.949358+5 6.060000-1 1.824950+3 0.000000+0 0.000000+0 0.000000+01725 2151   32\n"
-    //   " 7.251773+5 6.060000-1 1.672450+2 0.000000+0 0.000000+0 0.000000+01725 2151   33\n"
-    //   " 7.546912+5 6.060000-1 2.690680+3 0.000000+0 0.000000+0 0.000000+01725 2151   34\n"
-    //   " 7.814646+5 6.060000-1 1.294130+3 0.000000+0 0.000000+0 0.000000+01725 2151   35\n"
-    //   " 8.315787+5 8.600000-1 4.453040+2 0.000000+0 0.000000+0 0.000000+01725 2151   36\n"
-    //   " 8.829776+5 6.060000-1 9.780610+2 0.000000+0 0.000000+0 0.000000+01725 2151   37\n"
-    //   " 1.109188+6 6.060000-1 2.742350+3 0.000000+0 0.000000+0 0.000000+01725 2151   38\n"
-    //   " 1.205687+6 6.060000-1 6.425840+2 0.000000+0 0.000000+0 0.000000+01725 2151   39\n"};
-    // auto begin = ENDF.begin();
-    // auto end = ENDF.end();
-    // long lineNumber = 0;
-    // int MAT = 1725;
-    // int MF = 2;
-    // int MT = 151;
+// convenience typedefs
+using ResonanceChannels =
+resonanceParameters::resolved::RMatrixLimited::ResonanceChannels;
+using ResonanceParameters =
+resonanceParameters::resolved::RMatrixLimited::ResonanceParameters;
+using SpinGroup =
+resonanceParameters::resolved::RMatrixLimited::SpinGroup;
 
-    // THEN( "a SpinGroup can be created from the string" ){
-    //   resolved::RMatrixLimited::SpinGroup spinGroup( begin, end, lineNumber,
-    //                                                  MAT, MF, MT );
+std::string chunk();
+void verifyChunk( const SpinGroup& );
 
-    //   AND_THEN( "some parameters can be verified" ){
-    //     REQUIRE( 0 == spinGroup.KBK );
-    //     REQUIRE( 0 == spinGroup.KBK );
-    //   }
-    // }
-    // THEN( "a SpinGroup can be created from two LIST Records" ){
-    //   njoy::ENDFtk::LIST channelDescriptions( begin, end, lineNumber, MAT, MF, MT );
-    //   njoy::ENDFtk::LIST resonanceEnergyWidths( begin, end, lineNumber, MAT, MF, MT );
+SCENARIO( "SpinGroup" ) {
 
-    //   resolved::RMatrixLimited::SpinGroup spinGroup( 
-    //       std::forward<njoy::ENDFtk::LIST>(channelDescriptions),
-    //       std::forward<njoy::ENDFtk::LIST>(resonanceEnergyWidths) );
+  GIVEN( "valid data for a SpinGroup" ) {
 
-    //   AND_THEN( "some parameters can be verified" ){
-    //     REQUIRE( 0 == spinGroup.KBK );
-    //     REQUIRE( 0 == spinGroup.KBK );
-    //   }
-    // }
-  }
+    std::string string = chunk();
+
+    WHEN( "the data is given explicitly" ) {
+
+      ResonanceChannels channels =
+        { 0.5, 0., { 0., 0. }, { 0., 0.5 }, { 0., 0. },
+          { 0.,  0.54373 }, { 0.,  0.54373 } };
+      ResonanceParameters parameters =
+        { { -1.223300e+6, 7.788000e+3 },
+          { { 1., 9.611086e+5 }, { 1.455, 1.187354e+3 } } };
+
+      SpinGroup chunk( std::move( channels ), std::move( parameters ) );
+
+      THEN( "a SpinGroup can be constructed and members can be "
+            "tested" ) {
+
+        verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 2625, 2, 151 );
+
+        CHECK( buffer == string );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is read from a string/stream" ) {
+
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      SpinGroup chunk( begin, end, lineNumber, 2625, 2, 151 );
+
+      THEN( "a SpinGroup can be constructed and members can be "
+            "tested" ) {
+
+        verifyChunk( chunk );
+      }
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 2625, 2, 151 );
+
+        CHECK( buffer == string );
+      } // THEN
+    } // GIVEN
+  } // GIVEN
+} // SCENARIO
+
+std::string chunk() {
+  return
+    " 5.000000-1 0.000000+0          0          0         12          22625 2151     \n"
+    " 1.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+02625 2151     \n"
+    " 2.000000+0 0.000000+0 5.000000-1 0.000000+0 5.437300-1 5.437300-12625 2151     \n"
+    " 0.000000+0 0.000000+0          0          2         12          22625 2151     \n"
+    "-1.223300+6 1.000000+0 9.611086+5 0.000000+0 0.000000+0 0.000000+02625 2151     \n"
+    " 7.788000+3 1.455000+0 1.187354+3 0.000000+0 0.000000+0 0.000000+02625 2151     \n";
+}
+
+void verifyChunk( const SpinGroup& chunk ) {
+
+  CHECK( 0.5 == Approx( chunk.AJ() ) );
+  CHECK( 0.5 == Approx( chunk.spin() ) );
+  CHECK( 0. == Approx( chunk.PJ() ) );
+  CHECK( 0. == Approx( chunk.parity() ) );
+  CHECK( 2 == chunk.NCH() );
+  CHECK( 2 == chunk.numberChannels() );
+  CHECK( 2 == chunk.NRS() );
+  CHECK( 2 == chunk.numberResonances() );
+
+  auto channels = chunk.channels();
+  CHECK( 0.5 == Approx( channels.AJ() ) );
+  CHECK( 0.5 == Approx( channels.spin() ) );
+  CHECK( 0. == Approx( channels.PJ() ) );
+  CHECK( 0. == Approx( channels.parity() ) );
+  CHECK( 0 == channels.KBK() );
+  CHECK( 0 == channels.backgroundRMatrixOption() );
+  CHECK( 0 == channels.KPS() );
+  CHECK( 0 == channels.phaseShiftOption() );
+  CHECK( 2 == channels.NCH() );
+  CHECK( 2 == channels.numberChannels() );
+
+  CHECK( 2 == channels.PPI().size() );
+  CHECK( 2 == channels.particlePairNumbers().size() );
+  CHECK( 2 == channels.L().size() );
+  CHECK( 2 == channels.orbitalMomentumValues().size() );
+  CHECK( 2 == channels.SCH().size() );
+  CHECK( 2 == channels.channelSpinValues().size() );
+  CHECK( 2 == channels.BND().size() );
+  CHECK( 2 == channels.boundaryConditionValues().size() );
+  CHECK( 2 == channels.APT().size() );
+  CHECK( 2 == channels.trueChannelRadii().size() );
+  CHECK( 2 == channels.APE().size() );
+  CHECK( 2 == channels.effectiveChannelRadii().size() );
+
+  CHECK( 1 == channels.PPI()[0] );
+  CHECK( 2 == channels.PPI()[1] );
+  CHECK( 1 == channels.particlePairNumbers()[0] );
+  CHECK( 2 == channels.particlePairNumbers()[1] );
+  CHECK( 0. == Approx( channels.L()[0] ) );
+  CHECK( 0. == Approx( channels.L()[1] ) );
+  CHECK( 0. == Approx( channels.orbitalMomentumValues()[0] ) );
+  CHECK( 0. == Approx( channels.orbitalMomentumValues()[1] ) );
+  CHECK( 0. == Approx( channels.SCH()[0] ) );
+  CHECK( .5 == Approx( channels.SCH()[1] ) );
+  CHECK( 0. == Approx( channels.channelSpinValues()[0] ) );
+  CHECK( .5 == Approx( channels.channelSpinValues()[1] ) );
+  CHECK( 0. == Approx( channels.BND()[0] ) );
+  CHECK( 0. == Approx( channels.BND()[1] ) );
+  CHECK( 0. == Approx( channels.boundaryConditionValues()[0] ) );
+  CHECK( 0. == Approx( channels.boundaryConditionValues()[1] ) );
+  CHECK( 0. == Approx( channels.APT()[0] ) );
+  CHECK( 5.437300e-1 == Approx( channels.APT()[1] ) );
+  CHECK( 0. == Approx( channels.trueChannelRadii()[0] ) );
+  CHECK( 5.437300e-1 == Approx( channels.trueChannelRadii()[1] ) );
+  CHECK( 0. == Approx( channels.APE()[0] ) );
+  CHECK( 5.437300e-1 == Approx( channels.APE()[1] ) );
+  CHECK( 0. == Approx( channels.effectiveChannelRadii()[0] ) );
+  CHECK( 5.437300e-1 == Approx( channels.effectiveChannelRadii()[1] ) );
+
+  auto parameters = chunk.parameters();
+  CHECK( 2 == parameters.NRS() );
+  CHECK( 2 == parameters.numberResonances() );
+  CHECK( 2 == parameters.NX() );
+  CHECK( 2 == parameters.numberLines() );
+
+  CHECK( 2 == parameters.ER().size() );
+  CHECK( 2 == parameters.resonanceEnergies().size() );
+  CHECK( 2 == parameters.GAM().size() );
+  CHECK( 2 == parameters.resonanceParameters().size() );
+
+  CHECK( -1.223300e+6 == Approx( parameters.ER()[0] ) );
+  CHECK(  7.788000e+3 == Approx( parameters.ER()[1] ) );
+  CHECK( -1.223300e+6 == Approx( parameters.resonanceEnergies()[0] ) );
+  CHECK(  7.788000e+3 == Approx( parameters.resonanceEnergies()[1] ) );
+  CHECK( 5 == parameters.GAM()[0].size() );
+  CHECK( 5 == parameters.GAM()[1].size() );
+  CHECK( 1. == Approx( parameters.GAM()[0][0] ) );
+  CHECK( 9.611086e+5 == Approx( parameters.GAM()[0][1] ) );
+  CHECK( 0. == Approx( parameters.GAM()[0][2] ) );
+  CHECK( 0. == Approx( parameters.GAM()[0][3] ) );
+  CHECK( 0. == Approx( parameters.GAM()[0][4] ) );
+  CHECK( 1.455 == Approx( parameters.GAM()[1][0] ) );
+  CHECK( 1.187354e+3 == Approx( parameters.GAM()[1][1] ) );
+  CHECK( 0. == Approx( parameters.GAM()[1][2] ) );
+  CHECK( 0. == Approx( parameters.GAM()[1][3] ) );
+  CHECK( 0. == Approx( parameters.GAM()[1][4] ) );
+  CHECK( 5 == parameters.resonanceParameters()[0].size() );
+  CHECK( 5 == parameters.resonanceParameters()[1].size() );
+  CHECK( 1. == Approx( parameters.resonanceParameters()[0][0] ) );
+  CHECK( 9.611086e+5 == Approx( parameters.resonanceParameters()[0][1] ) );
+  CHECK( 0. == Approx( parameters.resonanceParameters()[0][2] ) );
+  CHECK( 0. == Approx( parameters.resonanceParameters()[0][3] ) );
+  CHECK( 0. == Approx( parameters.resonanceParameters()[0][4] ) );
+  CHECK( 1.455 == Approx( parameters.resonanceParameters()[1][0] ) );
+  CHECK( 1.187354e+3 == Approx( parameters.resonanceParameters()[1][1] ) );
+  CHECK( 0. == Approx( parameters.resonanceParameters()[1][2] ) );
+  CHECK( 0. == Approx( parameters.resonanceParameters()[1][3] ) );
+  CHECK( 0. == Approx( parameters.resonanceParameters()[1][4] ) );
+
+  CHECK( 6 == chunk.NC() );
 }

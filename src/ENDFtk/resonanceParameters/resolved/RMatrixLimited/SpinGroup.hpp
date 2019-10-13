@@ -11,7 +11,7 @@ class SpinGroup  {
 
   /* fields */
   ResonanceChannels channels_;
-//  RsonanceParameters parameters_;
+  ResonanceParameters parameters_;
 
 public:
 
@@ -38,7 +38,7 @@ public:
   /**
    *  @brief Return the parity for this spin group
    */
-  auto parity() const { return this->AJ(); }
+  auto parity() const { return this->PJ(); }
 
   /**
    *  @brief Return the number of channels
