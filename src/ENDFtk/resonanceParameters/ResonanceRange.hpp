@@ -18,7 +18,7 @@ public:
                         resolved::MLBW,            // LRF = 2
                         resolved::SLBW,            // LRF = 1
                         resolved::ReichMoore, */     // LRF = 3
-                        resolved::LimitedRMatrix/*,  // LRF = 7
+                        resolved::RMatrixLimited/*,  // LRF = 7
                         // LRU=2
                         unresolved::EnergyIndependent,
                         unresolved::EnergyDependentFissionWidths,

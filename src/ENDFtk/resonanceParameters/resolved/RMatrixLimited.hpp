@@ -13,20 +13,21 @@ public:
 
   #include "ENDFtk/resonanceParameters/resolved/RMatrixLimited/ParticlePairs.hpp"
   #include "ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceChannels.hpp"
-//  #include "ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceParameters.hpp"
+  #include "ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceParameters.hpp"
   #include "ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup.hpp"
 
 private:
 
   /* fields */
-  int ifg_;
+  bool ifg_;
+  bool krl_;
   int krm_;
-  int krl_;
 
   ParticlePairs particle_pairs_;
   std::vector< SpinGroup > spin_groups_;
 
   /* auxiliary functions */
+  #include "ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/readSpinGroups.hpp"
 
 public:
 
@@ -38,22 +39,22 @@ public:
   /**
    *  @brief Return the resonance type (resolved or unresolved)
    */
-  static constexpr int LRU() const { return 1; }
+  static constexpr int LRU() { return 1; }
 
   /**
    *  @brief Return the resonance type (resolved or unresolved)
    */
-  static constexpr int type() const { return RMatrixLimited::LRU(); }
+  static constexpr int type() { return RMatrixLimited::LRU(); }
 
   /**
    *  @brief Return the resonance representation
    */
-  static constexpr int LRF() const { return 7; }
+  static constexpr int LRF() { return 7; }
 
   /**
    *  @brief Return the resonance representation
    */
-  static constexpr int representation() const { return RMatrixLimited::LRF(); }
+  static constexpr int representation() { return RMatrixLimited::LRF(); }
 
   /**
    *  @brief Return whether or not the widths are reduced or not

@@ -483,9 +483,25 @@
     "src/ENDFtk/resonanceParameters/resolved/ReichMoore/src/ctor.hpp", 
     "src/ENDFtk/resonanceParameters/resolved/ReichMoore/src/print.hpp", 
     "src/ENDFtk/resonanceParameters/resolved/ReichMoore/src/validate.hpp", 
+    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ParticlePairs.hpp", 
+    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceChannels.hpp", 
+    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceParameters.hpp", 
     "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup.hpp", 
+    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ParticlePairs/src/ctor.hpp", 
+    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ParticlePairs/src/generateList.hpp", 
+    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ParticlePairs/src/verifySize.hpp", 
+    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceChannels/src/ctor.hpp", 
+    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceChannels/src/generateList.hpp", 
+    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceChannels/src/verifySize.hpp", 
+    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceParameters/src/ctor.hpp", 
+    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceParameters/src/generateList.hpp", 
+    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceParameters/src/verifySize.hpp", 
     "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup/src/ctor.hpp", 
+    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup/src/print.hpp", 
     "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/ctor.hpp", 
+    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/NC.hpp", 
+    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/print.hpp", 
+    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/readSpinGroups.hpp", 
     "src/ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner/src/print.hpp", 
     "src/ENDFtk/resonanceParameters/ResonanceRange/src/ctor.hpp", 
     "src/ENDFtk/resonanceParameters/ResonanceRange/src/print.hpp", 
@@ -915,6 +931,18 @@
     ], 
     "ENDFtk.resonanceParameters.resolved.MultilevelBreitWigner": [
       "src/ENDFtk/resonanceParameters/resolved/MultilevelBreitWigner/test/MultilevelBreitWigner.test.cpp"
+    ], 
+    "ENDFtk.resonanceParameters.resolved.RMatrixLimited": [
+      "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/test/RMatrixLimited.test.cpp"
+    ], 
+    "ENDFtk.resonanceParameters.resolved.RMatrixLimited.ParticlePairs": [
+      "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ParticlePairs/test/ParticlePairs.test.cpp"
+    ], 
+    "ENDFtk.resonanceParameters.resolved.RMatrixLimited.ResonanceChannels": [
+      "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceChannels/test/ResonanceChannels.test.cpp"
+    ], 
+    "ENDFtk.resonanceParameters.resolved.RMatrixLimited.ResonanceParameters": [
+      "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceParameters/test/ResonanceParameters.test.cpp"
     ], 
     "ENDFtk.resonanceParameters.resolved.RMatrixLimited.SpinGroup": [
       "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup/test/SpinGroup.test.cpp"

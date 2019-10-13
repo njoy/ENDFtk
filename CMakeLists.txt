@@ -338,9 +338,25 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/ReichMoore/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/ReichMoore/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/ReichMoore/src/validate.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ParticlePairs.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceChannels.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceParameters.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ParticlePairs/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ParticlePairs/src/generateList.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ParticlePairs/src/verifySize.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceChannels/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceChannels/src/generateList.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceChannels/src/verifySize.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceParameters/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceParameters/src/generateList.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceParameters/src/verifySize.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/NC.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/print.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/readSpinGroups.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/ResonanceRange/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/ResonanceRange/src/print.hpp"
@@ -648,6 +664,7 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/section/7/2/CoherentElastic/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/resolved/MultilevelBreitWigner/test )
         add_subdirectory( src/ENDFtk/ListRecord/test )
+        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceParameters/test )
         add_subdirectory( src/ENDFtk/section/5/EffectiveTemperature/test )
         add_subdirectory( src/ENDFtk/TextRecord/test )
         add_subdirectory( src/ENDFtk/section/8/457/DiscreteSpectrum/test )
@@ -660,6 +677,7 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/section/6/ChargedParticleElasticScattering/SubSection/test )
         add_subdirectory( src/ENDFtk/section/7/4/EffectiveTemperature/test )
         add_subdirectory( src/ENDFtk/section/8/457/DecayModes/test )
+        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceChannels/test )
         add_subdirectory( src/ENDFtk/syntaxTree/Tape/test )
         add_subdirectory( src/ENDFtk/StructureDivision/test )
         add_subdirectory( src/ENDFtk/section/6/LaboratoryAngleEnergy/AngularDistribution/test )
@@ -681,11 +699,13 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/section/7/4/test )
         add_subdirectory( src/ENDFtk/record/InterpolationBase/test )
         add_subdirectory( src/ENDFtk/record/Zipper/test )
+        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/test )
         add_subdirectory( src/ENDFtk/section/5/MaxwellianFissionSpectrum/test )
         add_subdirectory( src/ENDFtk/section/6/ChargedParticleElasticScattering/NuclearPlusInterference/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/ScatteringRadius/test )
         add_subdirectory( src/ENDFtk/section/6/ChargedParticleElasticScattering/test )
         add_subdirectory( src/ENDFtk/record/test )
+        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ParticlePairs/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/Base/test )
         add_subdirectory( src/ENDFtk/section/6/LaboratoryAngleEnergy/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/test )
