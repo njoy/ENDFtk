@@ -85,12 +85,7 @@ SCENARIO( "RMatrixLimited" ) {
 
         CHECK( buffer == string );
       } // THEN
-    } // GIVEN
-  } // GIVEN
-
-  GIVEN( "invalid data" ) {
-
-
+    } // WHEN
   } // GIVEN
 } // SCENARIO
 

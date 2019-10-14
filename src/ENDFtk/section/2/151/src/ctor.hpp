@@ -10,9 +10,9 @@
  */
 Type( double zaid, double awr, double el, double eh, double spin, double ap ) :
   BaseWithoutMT( zaid, awr ),
-  isotopes( 1,
-            { zaid, 1.0, 0,
-              { 1, resonanceParameters::SpecialCase( el, eh, spin, ap ) } } ) {}
+  isotopes( { { zaid, 1.0, 0,
+                { { el, eh, 0,
+                    resonanceParameters::SpecialCase( spin, ap ) } } } } ) {}
 
 template< typename Iterator >
 Type ( const HEAD& head,
