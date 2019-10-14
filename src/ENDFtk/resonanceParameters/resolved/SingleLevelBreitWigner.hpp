@@ -1,26 +1,39 @@
-class SingleLevelBreitWigner : public BreitWigner {
+/**
+ *  @class
+ *  @brief Single level Breit-Wigner resonance parameters
+ *
+ *  The SingleLevelBreitWigner class is used to represent the SLBW
+ *  parameters from MF2/MT151.
+ *
+ *  See ENDF102, section 2.2.1.1 for more information.
+ */
+class SingleLevelBreitWigner :
+  protected BreitWignerReichMooreBase< BreitWignerLValue,
+                                       SingleLevelBreitWigner > {
 
-  /* explicitly declaring this ctor in a private context
-     prevents user from accessing to this signature */
-  SingleLevelBreitWigner( const Base& base,
-                          std::optional<TAB1>&& APE,
-                          const CONT& cont,
-                          std::vector< LIST >&& lists );
-  
-public:
-  template< typename... Args >
-  SingleLevelBreitWigner( Args&&... args )
-    try:
-      BreitWigner( std::forward<Args>(args)... ){
-    } catch ( std::exception& e ){
-      Log::info( "Encountered error while constructing"
-                 " single level Breit-Wigner resonance parameter subsection" );
-      throw e;
-    }
+  /* constructor */
+  #include "ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner/src/ctor.hpp"
 
-  static constexpr int LRF() { return 1; }
-  
-  #include "ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner/src/print.hpp"
+  /* get methods */
+
+  /**
+   *  @brief Return the resonance type (resolved or unresolved)
+   */
+  static constexpr int type() { return 1; }
+
+  /**
+   *  @brief Return the resonance representation
+   */
+  static constexpr int representation() { return 1; }
+
+  using BreitWignerReichMooreBase::SPI;
+  using BreitWignerReichMooreBase::spin;
+  using BreitWignerReichMooreBase::AP;
+  using BreitWignerReichMooreBase::scatteringRadius;
+  using BreitWignerReichMooreBase::NLS;
+  using BreitWignerReichMooreBase::numberLValues;
+  using BreitWignerReichMooreBase::lValues;
+
+  using BreitWignerReichMooreBase::NC;
+  using BreitWignerReichMooreBase::print;
 };
-
-using SLBW = SingleLevelBreitWigner;
