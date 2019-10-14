@@ -18,6 +18,11 @@ readParameters( Iterator& begin,
 
       switch ( LRF ) {
 
+        case 1 : return SingleLevelBreitWigner( begin, end, lineNumber,
+                                                MAT, MF, MT );
+        case 2 : return MultiLevelBreitWigner( begin, end, lineNumber,
+                                               MAT, MF, MT );
+        case 3 : return ReichMoore( begin, end, lineNumber, MAT, MF, MT );
         case 7 : return RMatrixLimited( begin, end, lineNumber, MAT, MF, MT );
         default : {
 

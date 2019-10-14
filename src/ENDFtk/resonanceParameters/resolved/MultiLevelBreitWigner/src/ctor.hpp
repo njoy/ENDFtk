@@ -3,18 +3,16 @@
  *
  *  @param[in] spi       the target spin value
  *  @param[in] ap        the scattering radius
- *  @param[in] lad       the angular distributions flag
- *  @param[in] nlsc      the number of l values for convergence
  *  @param[in] lvalues   the l values and the resonance parameters
  */
-ReichMoore( int spi, int ap, bool lad, int nlsc,
-            std::vector< ReichMooreLValue >&& lvalues )
-  try : BreitWignerReichMooreBase( spi, ap, lad, nlsc,
+MultiLevelBreitWigner( int spi, int ap,
+                       std::vector< BreitWignerLValue >&& lvalues )
+  try : BreitWignerReichMooreBase( spi, ap, 0, 0,
                                    std::move( lvalues ) ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing resonance "
-               "parameters in the Reich-Moore representation" );
+               "parameters in the Multi-Level Breit-Wigner representation" );
     throw;
   }
 
@@ -31,13 +29,13 @@ ReichMoore( int spi, int ap, bool lad, int nlsc,
  *  @param[in] MT           the expected MT number
  */
 template< typename Iterator >
-ReichMoore( Iterator& it, const Iterator& end, long& lineNumber,
-            int MAT, int MF, int MT ) :
+MultiLevelBreitWigner( Iterator& it, const Iterator& end, long& lineNumber,
+                       int MAT, int MF, int MT )
   try : BreitWignerReichMooreBase( it, end, lineNumber, MAT, MF, MT ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing resonance "
-               "parameters in the Reich-Moore representation" );
+               "parameters in the Multi-Level Breit-Wigner representation" );
     throw;
   }
 

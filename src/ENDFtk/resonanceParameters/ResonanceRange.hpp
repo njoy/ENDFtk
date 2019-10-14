@@ -15,10 +15,10 @@ public:
           std::variant< // LRU=0
                         SpecialCase,
                         // LRU=1
-/*                        resolved::MLBW,            // LRF = 2
-                        resolved::SLBW,            // LRF = 1
-                        resolved::ReichMoore, */     // LRF = 3
-                        resolved::RMatrixLimited/*,  // LRF = 7
+                        resolved::SingleLevelBreitWigner, // LRF = 1
+                        resolved::MultiLevelBreitWigner,  // LRF = 2
+                        resolved::ReichMoore,             // LRF = 3
+                        resolved::RMatrixLimited/*,         // LRF = 7
                         // LRU=2
                         unresolved::EnergyIndependent,
                         unresolved::EnergyDependentFissionWidths,

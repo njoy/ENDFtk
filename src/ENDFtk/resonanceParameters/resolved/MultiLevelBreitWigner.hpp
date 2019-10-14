@@ -11,6 +11,10 @@ class MultiLevelBreitWigner :
   protected BreitWignerReichMooreBase< BreitWignerLValue,
                                        MultiLevelBreitWigner > {
 
+  friend BreitWignerReichMooreBase< BreitWignerLValue, MultiLevelBreitWigner >;
+
+public:
+
   /* constructor */
   #include "ENDFtk/resonanceParameters/resolved/MultiLevelBreitWigner/src/ctor.hpp"
 
@@ -25,6 +29,9 @@ class MultiLevelBreitWigner :
    *  @brief Return the resonance representation
    */
   static constexpr int representation() { return 2; }
+
+  using BreitWignerReichMooreBase::LRU;
+  using BreitWignerReichMooreBase::LRF;
 
   using BreitWignerReichMooreBase::SPI;
   using BreitWignerReichMooreBase::spin;

@@ -10,6 +10,8 @@
 class ReichMoore :
   protected BreitWignerReichMooreBase< ReichMooreLValue, ReichMoore > {
 
+  friend BreitWignerReichMooreBase< ReichMooreLValue, ReichMoore >;
+
 public:
 
   /* constructor */
@@ -26,6 +28,9 @@ public:
    *  @brief Return the resonance representation
    */
   static constexpr int representation() { return 3; }
+
+  using BreitWignerReichMooreBase::LRU;
+  using BreitWignerReichMooreBase::LRF;
 
   using BreitWignerReichMooreBase::SPI;
   using BreitWignerReichMooreBase::spin;

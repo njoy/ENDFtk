@@ -11,6 +11,10 @@ class SingleLevelBreitWigner :
   protected BreitWignerReichMooreBase< BreitWignerLValue,
                                        SingleLevelBreitWigner > {
 
+  friend BreitWignerReichMooreBase< BreitWignerLValue, SingleLevelBreitWigner >;
+
+public:
+
   /* constructor */
   #include "ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner/src/ctor.hpp"
 
@@ -25,6 +29,9 @@ class SingleLevelBreitWigner :
    *  @brief Return the resonance representation
    */
   static constexpr int representation() { return 1; }
+
+  using BreitWignerReichMooreBase::LRU;
+  using BreitWignerReichMooreBase::LRF;
 
   using BreitWignerReichMooreBase::SPI;
   using BreitWignerReichMooreBase::spin;

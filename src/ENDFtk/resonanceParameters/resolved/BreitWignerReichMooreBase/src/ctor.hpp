@@ -8,7 +8,7 @@
  *  @param[in] lvalues   the l values and the resonance parameters
  */
 BreitWignerReichMooreBase( int spi, int ap, bool lad, int nlsc,
-                           std::vector< LValues >&& lvalues ) :
+                           std::vector< LValue >&& lvalues ) :
     // no need for a try ... catch: nothing can go wrong here
     spi_( spi ), ap_( ap ), lad_( lad ), nlsc_( nlsc ),
     lvalues_( std::move( lvalues ) ) {}
@@ -21,6 +21,7 @@ template< typename Iterator >
 BreitWignerReichMooreBase( ControlRecord&& cont,
                            Iterator& it, const Iterator& end, long& lineNumber,
                            int MAT, int MF, int MT ) :
+   // no try ... catch: exceptions will be handled in the derived class
   BreitWignerReichMooreBase( cont.C1(), cont.C2(), cont.L1(), cont.N2(),
                              readLValues( it, end, lineNumber,
                                           MAT, MF, MT, cont.N1() ) ) {}
