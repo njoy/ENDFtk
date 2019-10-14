@@ -13,9 +13,9 @@ public:
 
   using ResonanceParameters =
           std::variant< // LRU=0
-/*                        SpecialCase,
+                        SpecialCase,
                         // LRU=1
-                        resolved::MLBW,            // LRF = 2
+/*                        resolved::MLBW,            // LRF = 2
                         resolved::SLBW,            // LRF = 1
                         resolved::ReichMoore, */     // LRF = 3
                         resolved::RMatrixLimited/*,  // LRF = 7
@@ -31,18 +31,18 @@ private:
   double eh_;
   int naps_;
 
-  std::optional< ScatteringRadius > scattering_radius_;
   ResonanceParameters parameters_;
+  std::optional< ScatteringRadius > scattering_radius_;
 
   /* auxiliary functions */
-  #include "ENDFtk/resonanceParameters/Base/src/verifyOptions.hpp"
-  #include "ENDFtk/resonanceParameters/Base/src/readScatteringRadius.hpp"
-  #include "ENDFtk/resonanceParameters/Base/src/readParameters.hpp"
+  #include "ENDFtk/resonanceParameters/ResonanceRange/src/verifyOptions.hpp"
+  #include "ENDFtk/resonanceParameters/ResonanceRange/src/readScatteringRadius.hpp"
+  #include "ENDFtk/resonanceParameters/ResonanceRange/src/readParameters.hpp"
 
 public:
 
   /* constructor */
-  #include "ENDFtk/resonanceParameters/Base/src/ctor.hpp"
+  #include "ENDFtk/resonanceParameters/ResonanceRange/src/ctor.hpp"
 
   /* get methods */
 
@@ -69,31 +69,31 @@ public:
   /**
    *  @brief Return the resonance type (resolved or unresolved)
    */
-  auto LRU() const { return std::visit( [] ( const auto& v ) -> int
+  int LRU() const { return std::visit( [] ( const auto& v ) -> int
                                            { return v.LRU(); },
                                         this->parameters_ ); }
 
   /**
    *  @brief Return the resonance type (resolved or unresolved)
    */
-  auto type() const { return this->LRU(); }
+  int type() const { return this->LRU(); }
 
   /**
    *  @brief Return the resonance representation
    */
-  auto LRF() const { return return std::visit( [] ( const auto& v ) -> int
-                                                  { return v.LRF(); },
-                                               this->parameters_ ); }
+  int LRF() const { return std::visit( [] ( const auto& v ) -> int
+                                           { return v.LRF(); },
+                                        this->parameters_ ); }
 
   /**
    *  @brief Return the resonance representation
    */
-  auto representation() const { return this->LRF(); }
+  int representation() const { return this->LRF(); }
 
   /**
    *  @brief Return whether the scattering radius is energy dependent or not
    */
-  bool NRO() const { return this->scattering_radius_; }
+  bool NRO() const { return bool( this->scattering_radius_ ); }
 
   /**
    *  @brief Return whether the scattering radius is energy dependent or not
@@ -103,12 +103,12 @@ public:
   /**
    *  @brief Return scattering radius calculation option flag
    */
-  auto NAPS() const { return this->naps_; }
+  int NAPS() const { return this->naps_; }
 
   /**
    *  @brief Return scattering radius calculation option flag
    */
-  auto scatteringRadiusCalculationOption() const { return this->NAPS(); }
+  int scatteringRadiusCalculationOption() const { return this->NAPS(); }
 
   /**
    *  @brief Return optional scattering radius

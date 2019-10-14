@@ -39,10 +39,10 @@ ResonanceRange( double el, double eh, int LRU, int LRF, int naps,
                 int MAT,
                 int MF,
                 int MT ) :
-  CoherentElastic( el, eh, naps,
-                   readParameters( begin, end, lineNumber,
-                                   MAT, MF, MT, LRU, LRF ),
-                   std::move( scatteringRadius ) ) {}
+  ResonanceRange( el, eh, naps,
+                  readParameters( begin, end, lineNumber,
+                                  MAT, MF, MT, LRU, LRF ),
+                  std::move( scatteringRadius ) ) {}
 
 /**
  *  @brief Private intermediate constructor
@@ -55,10 +55,10 @@ ResonanceRange( ControlRecord&& cont,
                 int MAT,
                 int MF,
                 int MT ) :
-  CoherentElastic( cont.C1(), cont.C2(), cont.L1(), cont.L2(), cont.N1(),
-                   readScatteringRadius( begin, end, lineNumber,
-                                         MAT, MF, MT, cont.N1(), cont.N2() ),
-                   begin, end, lineNumber, MAT, MF, MT ) {}
+  ResonanceRange( cont.C1(), cont.C2(), cont.L1(), cont.L2(), cont.N1(),
+                  readScatteringRadius( begin, end, lineNumber,
+                                        MAT, MF, MT, cont.N1(), cont.N2() ),
+                  begin, end, lineNumber, MAT, MF, MT ) {}
 
 public:
 /**

@@ -18,6 +18,7 @@ readParameters( Iterator& begin,
 
       switch ( LRF ) {
 
+        case 7 : return RMatrixLimited( begin, end, lineNumber, MAT, MF, MT );
         default : {
 
           Log::error( "Encountered illegal LRF value" );

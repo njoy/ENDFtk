@@ -1,7 +1,7 @@
 static void
 verifyOptions( bool NRO, int NAPS, int LRU, int LRF ) {
 
-  if ( not NRO and ( ( NAPS < 0 ) or ( NAPS > 1 ) ) {
+  if ( not NRO and ( ( NAPS < 0 ) or ( NAPS > 1 ) ) ) {
 
     Log::error( "Encountered illegal NAPS value" );
     Log::info( "NAPS is either 0 or 1 when no energy dependent scattering "
@@ -11,7 +11,7 @@ verifyOptions( bool NRO, int NAPS, int LRU, int LRF ) {
     throw std::exception();
   }
 
-  if ( NRO and ( ( NAPS < 0 ) or ( NAPS > 2 ) ) {
+  if ( NRO and ( ( NAPS < 0 ) or ( NAPS > 2 ) ) ) {
 
     Log::error( "Encountered illegal NAPS value" );
     Log::info( "NAPS is either 0, 1 or 2 when an energy dependent scattering "

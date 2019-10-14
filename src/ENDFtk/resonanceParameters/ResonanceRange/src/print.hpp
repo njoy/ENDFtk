@@ -10,11 +10,12 @@
  */
 template< typename OutputIterator >
 void print( OutputIterator& it, int MAT, int MF, int MT ) const {
-  
+
   ControlRecord( this->EL(), this->EH(),
                  this->LRU(), this->LRF(),
                  this->NRO(), this->NAPS() ).print( it, MAT, MF, MT );
+  if ( this->NRO() ) { this->scattering_radius_->print( it, MAT, MF, MT ); }
   std::visit( [&] ( const auto& v ) -> void
                   { return v.print( it, MAT, MF, MT ); },
-              this->parameters_ ); }
+              this->parameters_ );
 }
