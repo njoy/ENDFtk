@@ -10,7 +10,10 @@
 ReichMoore( double spi, double ap, bool lad, int nlsc,
             std::vector< ReichMooreLValue >&& lvalues )
   try : BreitWignerReichMooreBase( spi, ap, lad, nlsc,
-                                   std::move( lvalues ) ) {}
+                                   std::move( lvalues ) ) {
+
+    verifyNLSC( this->NLS(), this->NLSC() );
+  }
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing resonance "
@@ -33,7 +36,10 @@ ReichMoore( double spi, double ap, bool lad, int nlsc,
 template< typename Iterator >
 ReichMoore( Iterator& it, const Iterator& end, long& lineNumber,
             int MAT, int MF, int MT )
-  try : BreitWignerReichMooreBase( it, end, lineNumber, MAT, MF, MT ) {}
+  try : BreitWignerReichMooreBase( it, end, lineNumber, MAT, MF, MT ) {
+
+    verifyNLSC( this->NLS(), this->NLSC() );
+  }
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing resonance "

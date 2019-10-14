@@ -12,6 +12,9 @@ class ReichMoore :
 
   friend BreitWignerReichMooreBase< ReichMooreLValue, ReichMoore >;
 
+  /* auxiliary functions */
+  #include "ENDFtk/resonanceParameters/resolved/ReichMoore/src/verifyNLSC.hpp"
+
 public:
 
   /* constructor */
