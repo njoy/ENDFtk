@@ -9,6 +9,10 @@ using namespace njoy::ENDFtk;
 using ReichMooreLValue =
 resonanceParameters::resolved::ReichMooreLValue;
 
+std::string chunk();
+void verifyChunk( const ReichMooreLValue& );
+std::string invalidSize();
+
 SCENARIO( "ReichMooreLValue" ) {
 
   GIVEN( "valid data for a ReichMooreLValue" ) {
@@ -20,16 +24,16 @@ SCENARIO( "ReichMooreLValue" ) {
       double awri = 1.982069e+1;
       double apl = 0.0;
       double l = 1.;
-      std::vector< double > er = { -1.470000+5, 4.730000+ };
+      std::vector< double > er = { -1.470000e+5, 4.730000e+5 };
       std::vector< double > aj = { 0.5, 0.5 };
-      std::vector< double > gn = { 5.430695+2, 1.072906+5 };
-      std::vector< double > gn = { 3.680695+2, 1.072900+5 };
-      std::vector< double > gfa = { 1.750000+2, 5.600000-1 };
+      std::vector< double > gn = { 5.430695e+2, 1.072906e+5 };
+      std::vector< double > gg = { 3.680695e+2, 1.072900e+5 };
+      std::vector< double > gfa = { 1.750000e+2, 5.600000e-1 };
       std::vector< double > gfb = { 3., 4. };
 
       ReichMooreLValue chunk( awri, apl, l,
                               std::move( er ), std::move( aj ),
-                              std::move( gn ), std::move( gn ),
+                              std::move( gn ), std::move( gg ),
                               std::move( gfa ), std::move( gfb ) );
 
       THEN( "a ReichMooreLValue can be constructed and members can be "
@@ -99,8 +103,12 @@ std::string chunk() {
 
 void verifyChunk( const ReichMooreLValue& chunk ) {
 
-  CHECK( 0. == Approx( chunk.AWRI() ) );
-  CHECK( 1. == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 1.982069e+1 == Approx( chunk.AWRI() ) );
+  CHECK( 1.982069e+1 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 0. == Approx( chunk.APL() ) );
+  CHECK( 0. == Approx( chunk.lDependentScatteringRadius() ) );
+  CHECK( 1 == chunk.L() );
+  CHECK( 1 == chunk.orbitalMomentum() );
 
   CHECK( 2 == chunk.NRS() );
   CHECK( 2 == chunk.numberResonances() );
@@ -118,52 +126,58 @@ void verifyChunk( const ReichMooreLValue& chunk ) {
   CHECK( 2 == chunk.secondFissionWidths().size() );
   CHECK( 2 == chunk.resonances().size() );
 
-  CHECK( 0. == Approx( chunk.MA()[0] ) );
-  CHECK( 1. == Approx( chunk.MA()[1] ) );
-  CHECK( 0 == Approx( chunk.massParticleA()[0] ) );
-  CHECK( 1 == Approx( chunk.massParticleA()[1] ) );
-  CHECK( 5.446635e+1 == Approx( chunk.MB()[0] ) );
-  CHECK( 5.347624e+1 == Approx( chunk.MB()[1] ) );
-  CHECK( 5.446635e+1 == Approx( chunk.massParticleB()[0] ) );
-  CHECK( 5.347624e+1 == Approx( chunk.massParticleB()[1] ) );
-  CHECK( 2. == Approx( chunk.ZA()[0] ) );
-  CHECK( 3. == Approx( chunk.ZA()[1] ) );
-  CHECK( 2. == Approx( chunk.chargeParticleA()[0] ) );
-  CHECK( 3. == Approx( chunk.chargeParticleA()[1] ) );
-  CHECK( 26. == Approx( chunk.ZB()[0] ) );
-  CHECK( 27. == Approx( chunk.ZB()[1] ) );
-  CHECK( 26. == Approx( chunk.chargeParticleB()[0] ) );
-  CHECK( 27. == Approx( chunk.chargeParticleB()[1] ) );
-  CHECK( 1. == Approx( chunk.IA()[0] ) );
-  CHECK( 0.5 == Approx( chunk.IA()[1] ) );
-  CHECK( 1. == Approx( chunk.spinParticleA()[0] ) );
-  CHECK( 0.5 == Approx( chunk.spinParticleA()[1] ) );
-  CHECK( 4. == Approx( chunk.IB()[0] ) );
-  CHECK( 5. == Approx( chunk.IB()[1] ) );
-  CHECK( 4. == Approx( chunk.spinParticleB()[0] ) );
-  CHECK( 5. == Approx( chunk.spinParticleB()[1] ) );
-  CHECK( 12. == Approx( chunk.PA()[0] ) );
-  CHECK( 13. == Approx( chunk.PA()[1] ) );
-  CHECK( 12. == Approx( chunk.parityParticleA()[0] ) );
-  CHECK( 13. == Approx( chunk.parityParticleA()[1] ) );
-  CHECK( 14. == Approx( chunk.PB()[0] ) );
-  CHECK( 15. == Approx( chunk.PB()[1] ) );
-  CHECK( 14. == Approx( chunk.parityParticleB()[0] ) );
-  CHECK( 15. == Approx( chunk.parityParticleB()[1] ) );
-  CHECK( 6. == Approx( chunk.Q()[0] ) );
-  CHECK( 7. == Approx( chunk.Q()[1] ) );
-  CHECK( 8 == chunk.PNT()[0] );
-  CHECK( 9 == chunk.PNT()[1] );
-  CHECK( 8 == chunk.penetrabilityFlag()[0] );
-  CHECK( 9 == chunk.penetrabilityFlag()[1] );
-  CHECK( 10 == chunk.SHF()[0] );
-  CHECK( 11 == chunk.SHF()[1] );
-  CHECK( 10 == chunk.shiftFactorFlag()[0] );
-  CHECK( 11 == chunk.shiftFactorFlag()[1] );
-  CHECK( 102 == chunk.MT()[0] );
-  CHECK( 2 == chunk.MT()[1] );
+  CHECK( -1.470000e+5 == Approx( chunk.ER()[0] ) );
+  CHECK(  4.730000e+5 == Approx( chunk.ER()[1] ) );
+  CHECK( -1.470000e+5 == Approx( chunk.resonanceEnergies()[0] ) );
+  CHECK(  4.730000e+5 == Approx( chunk.resonanceEnergies()[1] ) );
+  CHECK( 0.5 == Approx( chunk.AJ()[0] ) );
+  CHECK( 0.5 == Approx( chunk.AJ()[1] ) );
+  CHECK( 0.5 == Approx( chunk.spinValues()[0] ) );
+  CHECK( 0.5 == Approx( chunk.spinValues()[1] ) );
+  CHECK( 5.430695e+2 == Approx( chunk.GN()[0] ) );
+  CHECK( 1.072906e+5 == Approx( chunk.GN()[1] ) );
+  CHECK( 5.430695e+2 == Approx( chunk.neutronWidths()[0] ) );
+  CHECK( 1.072906e+5 == Approx( chunk.neutronWidths()[1] ) );
+  CHECK( 3.680695e+2 == Approx( chunk.GG()[0] ) );
+  CHECK( 1.072900e+5 == Approx( chunk.GG()[1] ) );
+  CHECK( 3.680695e+2 == Approx( chunk.gammaWidths()[0] ) );
+  CHECK( 1.072900e+5 == Approx( chunk.gammaWidths()[1] ) );
+  CHECK( 1.750000e+2 == Approx( chunk.GFA()[0] ) );
+  CHECK( 0.56 == Approx( chunk.GFA()[1] ) );
+  CHECK( 1.750000e+2 == Approx( chunk.firstFissionWidths()[0] ) );
+  CHECK( 0.56 == Approx( chunk.firstFissionWidths()[1] ) );
+  CHECK( 3. == Approx( chunk.GFB()[0] ) );
+  CHECK( 4. == Approx( chunk.GFB()[1] ) );
+  CHECK( 3. == Approx( chunk.secondFissionWidths()[0] ) );
+  CHECK( 4. == Approx( chunk.secondFissionWidths()[1] ) );
 
-  CHECK( 5 == chunk.NC() );
+
+  CHECK( -1.470000e+5 == Approx( chunk.resonances()[0].ER() ) );
+  CHECK(  4.730000e+5 == Approx( chunk.resonances()[1].ER() ) );
+  CHECK( -1.470000e+5 == Approx( chunk.resonances()[0].resonanceEnergy() ) );
+  CHECK(  4.730000e+5 == Approx( chunk.resonances()[1].resonanceEnergy() ) );
+  CHECK( 0.5 == Approx( chunk.resonances()[0].AJ() ) );
+  CHECK( 0.5 == Approx( chunk.resonances()[1].AJ() ) );
+  CHECK( 0.5 == Approx( chunk.resonances()[0].spin() ) );
+  CHECK( 0.5 == Approx( chunk.resonances()[1].spin() ) );
+  CHECK( 5.430695e+2 == Approx( chunk.resonances()[0].GN() ) );
+  CHECK( 1.072906e+5 == Approx( chunk.resonances()[1].GN() ) );
+  CHECK( 5.430695e+2 == Approx( chunk.resonances()[0].neutronWidth() ) );
+  CHECK( 1.072906e+5 == Approx( chunk.resonances()[1].neutronWidth() ) );
+  CHECK( 3.680695e+2 == Approx( chunk.resonances()[0].GG() ) );
+  CHECK( 1.072900e+5 == Approx( chunk.resonances()[1].GG() ) );
+  CHECK( 3.680695e+2 == Approx( chunk.resonances()[0].gammaWidth() ) );
+  CHECK( 1.072900e+5 == Approx( chunk.resonances()[1].gammaWidth() ) );
+  CHECK( 1.750000e+2 == Approx( chunk.resonances()[0].GFA() ) );
+  CHECK( 0.56 == Approx( chunk.resonances()[1].GFA() ) );
+  CHECK( 1.750000e+2 == Approx( chunk.resonances()[0].firstFissionWidth() ) );
+  CHECK( 0.56 == Approx( chunk.resonances()[1].firstFissionWidth() ) );
+  CHECK( 3. == Approx( chunk.resonances()[0].GFB() ) );
+  CHECK( 4. == Approx( chunk.resonances()[1].GFB() ) );
+  CHECK( 3. == Approx( chunk.resonances()[0].secondFissionWidth() ) );
+  CHECK( 4. == Approx( chunk.resonances()[1].secondFissionWidth() ) );
+
+  CHECK( 3 == chunk.NC() );
 }
 
 std::string invalidSize() {

@@ -71,7 +71,7 @@ public:
   /**
    *  @brief Return the second fission widths
    */
-  auto GFB() const { return BreitWignerReichMooreLValueBase::G3(); }
+  auto GFB() const { return BreitWignerReichMooreLValueBase::G4(); }
 
   /**
    *  @brief Return the second fission widths
