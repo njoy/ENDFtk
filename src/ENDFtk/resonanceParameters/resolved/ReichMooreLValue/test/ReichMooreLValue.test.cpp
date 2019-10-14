@@ -151,7 +151,6 @@ void verifyChunk( const ReichMooreLValue& chunk ) {
   CHECK( 3. == Approx( chunk.secondFissionWidths()[0] ) );
   CHECK( 4. == Approx( chunk.secondFissionWidths()[1] ) );
 
-
   CHECK( -1.470000e+5 == Approx( chunk.resonances()[0].ER() ) );
   CHECK(  4.730000e+5 == Approx( chunk.resonances()[1].ER() ) );
   CHECK( -1.470000e+5 == Approx( chunk.resonances()[0].resonanceEnergy() ) );

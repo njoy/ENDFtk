@@ -7,7 +7,7 @@
  *  @param[in] nlsc      the number of l values for convergence
  *  @param[in] lvalues   the l values and the resonance parameters
  */
-ReichMoore( int spi, int ap, bool lad, int nlsc,
+ReichMoore( double spi, double ap, bool lad, int nlsc,
             std::vector< ReichMooreLValue >&& lvalues )
   try : BreitWignerReichMooreBase( spi, ap, lad, nlsc,
                                    std::move( lvalues ) ) {}
@@ -32,7 +32,7 @@ ReichMoore( int spi, int ap, bool lad, int nlsc,
  */
 template< typename Iterator >
 ReichMoore( Iterator& it, const Iterator& end, long& lineNumber,
-            int MAT, int MF, int MT ) :
+            int MAT, int MF, int MT )
   try : BreitWignerReichMooreBase( it, end, lineNumber, MAT, MF, MT ) {}
   catch ( std::exception& e ) {
 

@@ -7,7 +7,7 @@
  *  @param[in] nlsc      the number of l values for convergence
  *  @param[in] lvalues   the l values and the resonance parameters
  */
-BreitWignerReichMooreBase( int spi, int ap, bool lad, int nlsc,
+BreitWignerReichMooreBase( double spi, double ap, bool lad, int nlsc,
                            std::vector< LValue >&& lvalues ) :
     // no need for a try ... catch: nothing can go wrong here
     spi_( spi ), ap_( ap ), lad_( lad ), nlsc_( nlsc ),
@@ -26,7 +26,7 @@ BreitWignerReichMooreBase( ControlRecord&& cont,
                              readLValues( it, end, lineNumber,
                                           MAT, MF, MT, cont.N1() ) ) {}
 
-public:
+protected:
 /**
  *  @brief Constructor (from a buffer)
  *
@@ -46,3 +46,4 @@ public:
    BreitWignerReichMooreBase(
      ControlRecord( it, end, lineNumber, MAT, MF, MT ),
      it, end, lineNumber, MAT, MF, MT ) {}
+

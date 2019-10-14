@@ -15,7 +15,7 @@ class ReichMoore :
 public:
 
   /* constructor */
-  using BreitWignerReichMooreBase::BreitWignerReichMooreBase;
+  #include "ENDFtk/resonanceParameters/resolved/ReichMoore/src/ctor.hpp"
 
   /* get methods */
 
@@ -47,3 +47,4 @@ public:
   using BreitWignerReichMooreBase::NC;
   using BreitWignerReichMooreBase::print;
 };
+

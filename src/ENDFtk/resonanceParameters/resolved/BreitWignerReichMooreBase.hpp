@@ -19,7 +19,7 @@ class BreitWignerReichMooreBase {
   std::vector< LValue > lvalues_;
 
   /* auxiliary functions */
-  #include "ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreBase/src/validate.hpp"
+  #include "ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreBase/src/readLValues.hpp"
 
 protected:
 
@@ -91,7 +91,7 @@ public:
   /**
    *  @brief Return the number of l values required for convergence
    */
-  int NLSC() const { return this->lad_; }
+  int NLSC() const { return this->nlsc_; }
 
   /**
    *  @brief Return the number of l values required for convergence

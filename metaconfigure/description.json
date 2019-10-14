@@ -960,11 +960,10 @@
       "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup/test/SpinGroup.test.cpp"
     ],
     "ENDFtk.resonanceParameters.resolved.ReichMoore": [
-      "src/ENDFtk/resonanceParameters/resolved/ReichMoore/test/ReichMoore.test.cpp",
-      "src/ENDFtk/resonanceParameters/resolved/ReichMoore/test/Lvalue.test.cpp"
+      "src/ENDFtk/resonanceParameters/resolved/ReichMoore/test/ReichMoore.test.cpp"
     ],
     "ENDFtk.resonanceParameters.resolved.ReichMooreLValue": [
-      "src/ENDFtk/resonanceParameters/resolved/ReichMooreLValue/test/Lvalue.test.cpp"
+      "src/ENDFtk/resonanceParameters/resolved/ReichMooreLValue/test/ReichMooreLValue.test.cpp"
     ],
     "ENDFtk.resonanceParameters.resolved.ReichMooreLValue.Resonance": [
       "src/ENDFtk/resonanceParameters/resolved/ReichMooreLValue/Resonance/test/Resonance.test.cpp"
