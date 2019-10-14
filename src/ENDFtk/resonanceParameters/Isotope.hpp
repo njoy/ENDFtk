@@ -1,5 +1,5 @@
 class Isotope {
-  std::vector< EnergyRange > ranges;
+  std::vector< ResonanceRange > ranges;
   double zai;
   double abn;
   int lfw;
@@ -14,8 +14,7 @@ public:
   int NER() const { return this->ranges.size(); }
 
   auto energyRanges() const {
-    return ranges::make_iterator_range( this->ranges.begin(),
-                                        this->ranges.end() );
+    return ranges::view::all( this->ranges );
   }
 
   #include "ENDFtk/resonanceParameters/Isotope/src/print.hpp"

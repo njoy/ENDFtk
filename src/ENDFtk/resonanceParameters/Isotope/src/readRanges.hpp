@@ -1,7 +1,7 @@
-protected:
+/*protected:
 template< typename Iterator >
 static EnergyRange
-readRange( int LFW, 
+readRange( int LFW,
            Iterator& it, const Iterator& end, long& lineNumber,
            int MAT, int MF, int MT ){
 
@@ -20,12 +20,12 @@ readRange( int LFW,
       return resolved::ReichMoore( base, it, end, lineNumber, MAT, MF, MT );
     case 4:
       Log::info( "Found Adler-Adler subsection" );
-      Log::error( 
+      Log::error(
           "The Adler-Adler representation has not yet been implemented." );
       throw std::exception();
     case 7:
       Log::info( "Found R-Matrix Limited subsection" );
-      Log::error( 
+      Log::error(
           "The R-Matrix Limited representation has not yet been implemented." );
       throw std::exception();
     }
@@ -51,16 +51,16 @@ readRange( int LFW,
   }
   }
 
-  /* unreachable but necessary to satisfy compiler warning */
+  // unreachable but necessary to satisfy compiler warning
   throw std::exception();
-}
+}*/
 
 template< typename Iterator >
-static std::vector< EnergyRange >
-readRanges( const CONT& cont, 
+static std::vector< ResonanceRange >
+readRanges( const CONT& cont,
             Iterator& it, const Iterator& end, long& lineNumber,
             int MAT, int MF, int MT ){
-  std::vector< EnergyRange > ranges;
+  std::vector< ResonanceRange > ranges;
 
   auto NER = cont.N1();
   if ( NER < 0 ){
@@ -69,10 +69,11 @@ readRanges( const CONT& cont,
     Log::info( "NER value: {}", NER );
     throw std::exception();
   }
-  
+
+  ranges.reserve( NER );
+
   while( NER-- ){
-    ranges.push_back( 
-      readRange( cont.L2(), it, end, lineNumber, MAT, MF, MT ) );
+    ranges.emplace_back( it, end, lineNumber, MAT, MF, MT );
   }
   return ranges;
 }
