@@ -63,16 +63,16 @@ public:
   /**
    *  @brief Return the first fission width
    */
-  double firstFissionWidth() const { return this->GF(); }
+  double firstFissionWidth() const { return this->GFA(); }
 
   /**
    *  @brief Return the second fission width
    */
-  double GFB() const { return this->chunk[4]; }
+  double GFB() const { return this->chunk[5]; }
 
   /**
    *  @brief Return the second fission width
    */
-  double secondFissionWidth() const { return this->GF(); }
+  double secondFissionWidth() const { return this->GFB(); }
 };
 
