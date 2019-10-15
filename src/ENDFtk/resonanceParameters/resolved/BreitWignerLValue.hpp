@@ -38,7 +38,7 @@ public:
   /**
    *  @brief Return the competitive width flag
    */
-  bool competitiveWidth() const { return this->LRX(); }
+  bool competitiveWidthFlag() const { return this->LRX(); }
 
   using BreitWignerReichMooreLValueBase::NRS;
   using BreitWignerReichMooreLValueBase::numberResonances;
@@ -93,7 +93,7 @@ public:
    */
   auto GX() const {
 
-    return ranges::view::zip_with( 
+    return ranges::view::zip_with(
              [] ( double gt, double gn, double gg, double gf )
                 { return gt - gn - gg - gf; },
              this->GT(), this->GN(), this->GG(), this->GF() );
@@ -119,4 +119,3 @@ public:
   using BreitWignerReichMooreLValueBase::NC;
   using BreitWignerReichMooreLValueBase::print;
 };
-

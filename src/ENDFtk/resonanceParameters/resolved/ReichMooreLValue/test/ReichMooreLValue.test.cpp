@@ -79,7 +79,7 @@ SCENARIO( "ReichMooreLValue" ) {
 
   GIVEN( "invalid data" ) {
 
-    WHEN( "a string with inconsistent NPL and NPP is used" ) {
+    WHEN( "a string with inconsistent NPL and NRS is used" ) {
 
       std::string string = invalidSize();
       auto begin = string.begin();
@@ -185,4 +185,3 @@ std::string invalidSize() {
     "-1.470000+5 5.000000-1 5.430695+2 3.680695+2 1.750000+2 0.000000+01025 2151     \n"
     " 4.730000+5 5.000000-1 1.072906+5 1.072900+5 5.600000-1           1025 2151     \n";
 }
-
