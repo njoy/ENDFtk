@@ -5,9 +5,9 @@
  *  @param[in] ap        the scattering radius
  *  @param[in] lvalues   the l values and the resonance parameters
  */
-SingleLevelBreitWigner( int spi, int ap,
+SingleLevelBreitWigner( double spi, double ap,
                         std::vector< BreitWignerLValue >&& lvalues )
-  try : BreitWignerReichMooreBase( spi, ap, 0, 0,
+  try : BreitWignerReichMooreBase( spi, ap, false, 0,
                                    std::move( lvalues ) ) {}
   catch ( std::exception& e ) {
 
@@ -38,4 +38,3 @@ SingleLevelBreitWigner( Iterator& it, const Iterator& end, long& lineNumber,
                "parameters in the Single Level Breit-Wigner representation" );
     throw;
   }
-

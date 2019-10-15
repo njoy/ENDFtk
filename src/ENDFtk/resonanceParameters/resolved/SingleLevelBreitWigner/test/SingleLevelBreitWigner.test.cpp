@@ -5,160 +5,219 @@
 
 using namespace njoy::ENDFtk;
 
-std::string Tab1();
-std::string BreitWigner();
+// convenience typedefs
+using SingleLevelBreitWigner =
+resonanceParameters::resolved::SingleLevelBreitWigner;
+using BreitWignerLValue =
+resonanceParameters::resolved::BreitWignerLValue;
 
-SCENARIO( "Testing resolved Resonance SLBW" ){
-  GIVEN( "valid ENDF parameters with TAB1" ){
+std::string chunk();
+void verifyChunk( const SingleLevelBreitWigner& );
+std::string invalidNLSC();
 
-    long lineNumber = 0;
-    int MAT = 6922;
-    int MF = 2;
-    int MT = 151;
+SCENARIO( "SingleLevelBreitWigner" ) {
 
-    WHEN( "NRO == 1" ){
-      auto bws = Tab1() + BreitWigner();
-      auto begin = bws.begin();
-      auto end = bws.end();
-      
-      resonanceParameters::Base base( 1E-5, 3.2, 1, 1, 1, 0 );
+  GIVEN( "valid data for a SingleLevelBreitWigner" ) {
 
-      std::string baseString =
-        " 1.000000-5 3.200000+0          1          1          1          06922 2151     \n";
-      
-      resonanceParameters::resolved::SingleLevelBreitWigner
-        slbw( base, begin, end, lineNumber, MAT, MF, MT );
-      
-      THEN( "the parameters can be verified" ){
-        REQUIRE( 1E-5 == slbw.EL() );
-        REQUIRE( 3.2 == slbw.EH() );
-        REQUIRE( 1 == slbw.NRO() );
-        REQUIRE( 0 == slbw.NAPS() );
-        REQUIRE( 1 == slbw.LRU() );
-        REQUIRE( 1 == slbw.LRF() );
-        REQUIRE( 26 == slbw.NC() );
+    std::string string = chunk();
 
-        REQUIRE( 3.0 == slbw.SPI() );
-        REQUIRE( 0.0 == slbw.AP() );
-        REQUIRE( 1 == slbw.NLS() );
+    WHEN( "the data is given explicitly" ) {
 
-        REQUIRE( 166.492 == Approx( slbw.LISTS().front().C1() ) );
-        REQUIRE( 24 == slbw.LISTS().front().NPL() );
-        REQUIRE( 4 == slbw.LISTS().front().N2() );
+      double spi = 1.0;
+      double ap = 0.893;
+      std::vector< BreitWignerLValue > lvalues =
+        { { 1.982069e+1, 0.0, 0, false,
+            { -1.470000e+5, 4.730000e+5 }, { 0.5, 0.5 },
+            { 5.430695e+2, 1.072906e+5 }, { 3.680695e+2, 1.072900e+5 },
+            { 1.750000e+2, 5.600000e-1 }, { 0., 0.04 } },
+          { 1.982069e+1, 0.0, 1, false,
+            { -2.060000e+0, 5.160000+0 }, { 0.5, 0.5 },
+            { 3.006610e-2, 3.393822e-2 }, { 5.750000e-3, 3.920000e-3 },
+            { 2.430000e-2, 3.000000e-2 }, { 1.610000e-5, 1.822000e-5 } } };
 
-        REQUIRE( 0.0 == slbw.APE().C1() );
+      SingleLevelBreitWigner chunk( spi, ap, std::move( lvalues ) );
 
-        REQUIRE( 0 == slbw.APE().L1() );
-        REQUIRE( 0 == slbw.APE().L2() );
-        REQUIRE( 1 == slbw.APE().NR() );
-        REQUIRE( 50 == slbw.APE().NP() );
-        REQUIRE( 50 == slbw.APE().x().size() );
-        REQUIRE( 50 == slbw.APE().y().size() );
-        REQUIRE( 1.0E-5 == Approx( slbw.APE().x().front() ) );
-        REQUIRE( 1.2381 == Approx( slbw.APE().y().front() ) );
-        REQUIRE( 2.0E5 == Approx( slbw.APE().x().back() ) );
-        REQUIRE( 0.5803 == Approx( slbw.APE().y().back() ) );
-      }
+      THEN( "a SingleLevelBreitWigner can be constructed and members can be tested" ) {
 
-      SECTION( "print" ){
+        verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        slbw.print( output, MAT, MF, MT );
+        chunk.print( output, 1025, 2, 151 );
 
-        REQUIRE( buffer == baseString + Tab1() + BreitWigner() );
-      }
-    }
-    
-    WHEN( "NRO == 0" ){
-      auto bws = BreitWigner();
-      auto begin = bws.begin();
-      auto end = bws.end();
-      
-      resonanceParameters::Base base( 1E-5, 3.2, 1, 1, 0, 0 );
+        CHECK( buffer == string );
+      } // THEN
+    } // WHEN
 
-      std::string baseString =
-        " 1.000000-5 3.200000+0          1          1          0          06922 2151     \n";
-      
-      resonanceParameters::resolved::SingleLevelBreitWigner
-        slbw( base, begin, end, lineNumber, MAT, MF, MT );
+    WHEN( "the data is read from a string/stream" ) {
 
-      THEN( "the parameters can be verified" ){
-        REQUIRE( 1E-5 == slbw.EL() );
-        REQUIRE( 3.2 == slbw.EH() );
-        REQUIRE( 0 == slbw.NRO() );
-        REQUIRE( 0 == slbw.NAPS() );
-        REQUIRE( 7 == slbw.NC() );
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
 
-        REQUIRE( 3.0 == slbw.SPI() );
-        REQUIRE( 0.0 == Approx( slbw.AP() ) );
-        REQUIRE( 1 == slbw.NLS() );
+      SingleLevelBreitWigner chunk( begin, end, lineNumber, 1025, 2, 151 );
 
-        REQUIRE( 166.492 == Approx( slbw.LISTS().front().C1() ) );
-        REQUIRE( 24 == slbw.LISTS().front().NPL() );
-        REQUIRE( 4 == slbw.LISTS().front().N2() );
+      THEN( "a SingleLevelBreitWigner can be constructed and members can be tested" ) {
+
+        verifyChunk( chunk );
       }
 
-      SECTION( "print" ){
+      THEN( "it can be printed" ) {
+
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        slbw.print( output, MAT, MF, MT );
+        chunk.print( output, 1025, 2, 151 );
 
-        REQUIRE( buffer == baseString + BreitWigner() );
-      }
-    }
-  }
-  
-  GIVEN( "invalid ENDF parameters" ){
-    long lineNumber = 0;
-    int MAT = 7922;
-    int MF = 2;
-    int MT = 151;
+        CHECK( buffer == string );
+      } // THEN
+    } // GIVEN
+  } // GIVEN
+} // SCENARIO
 
-    auto bws = Tab1() + BreitWigner();
-    auto begin = bws.begin();
-    auto end = bws.end();
-    
-    resonanceParameters::Base base( 1E-5, 3.2, 1, 2, 1, 0 );
-    THEN( "an exception is thrown" ){
-
-      REQUIRE_THROWS(
-        resonanceParameters::resolved::SingleLevelBreitWigner( 
-            base, begin, end, lineNumber, MAT, MF, MT ) );
-    }
-  }
+std::string chunk() {
+  return
+    " 1.000000+0 8.930000-1          0          0          2          01025 2151     \n"
+    " 1.982069+1 0.000000+0          0          0         12          21025 2151     \n"
+    "-1.470000+5 5.000000-1 5.430695+2 3.680695+2 1.750000+2 0.000000+01025 2151     \n"
+    " 4.730000+5 5.000000-1 1.072906+5 1.072900+5 5.600000-1 4.000000-21025 2151     \n"
+    " 1.982069+1 0.000000+0          1          0         12          21025 2151     \n"
+    "-2.060000+0 5.000000-1 3.006610-2 5.750000-3 2.430000-2 1.610000-51025 2151     \n"
+    " 5.160000+0 5.000000-1 3.393822-2 3.920000-3 3.000000-2 1.822000-51025 2151     \n";
 }
 
-std::string BreitWigner(){
-  return
-    /* cont record */
-    " 3.000000+0 0.000000+0          0          0          1          06922 2151     \n"
-    /* list record */                                                              
-    " 1.664920+2 0.000000+0          0          0         24          46922 2151     \n"
-    "-2.974700+0 2.500000+0 7.846160-2 4.616000-4 7.800000-2 0.000000+06922 2151     \n"
-    "-9.747000-1 2.500000+0 7.846160-2 4.616000-4 7.800000-2 0.000000+06922 2151     \n"
-    " 1.025300+0 2.500000+0 7.846160-2 4.616000-4 7.800000-2 0.000000+06922 2151     \n"
-    " 3.025300+0 2.500000+0 7.846160-2 4.616000-4 7.800000-2 0.000000+06922 2151     \n";
-}
+void verifyChunk( const SingleLevelBreitWigner& chunk ) {
 
-std::string Tab1(){
-  return
-    " 0.000000+0 0.000000+0          0          0          1         506922 2151     \n"
-    "         50          2                                            6922 2151     \n"
-    " 1.000000-5 1.238100+0 4.000000+1 1.188400+0 5.000000+1 1.153200+06922 2151     \n"
-    " 6.000000+1 1.126500+0 7.000000+1 1.105300+0 8.000000+1 1.087800+06922 2151     \n"
-    " 9.000000+1 1.073100+0 1.000000+2 1.060500+0 2.000000+2 9.888000-16922 2151     \n"
-    " 3.000000+2 9.547000-1 4.000000+2 9.334000-1 5.000000+2 9.184000-16922 2151     \n"
-    " 6.000000+2 9.069000-1 7.000000+2 8.978000-1 8.000000+2 8.903000-16922 2151     \n"
-    " 9.000000+2 8.839000-1 1.000000+3 8.783000-1 2.000000+3 8.456000-16922 2151     \n"
-    " 3.000000+3 8.286000-1 4.000000+3 8.170000-1 5.000000+3 8.081000-16922 2151     \n"
-    " 6.000000+3 8.008000-1 7.000000+3 7.946000-1 8.000000+3 7.892000-16922 2151     \n"
-    " 9.000000+3 7.844000-1 1.000000+4 7.800000-1 1.200000+4 7.721000-16922 2151     \n"
-    " 1.400000+4 7.653000-1 1.600000+4 7.592000-1 1.800000+4 7.536000-16922 2151     \n"
-    " 2.000000+4 7.484000-1 2.500000+4 7.369000-1 3.000000+4 7.269000-16922 2151     \n"
-    " 3.500000+4 7.180000-1 4.000000+4 7.098000-1 4.200000+4 7.067000-16922 2151     \n"
-    " 4.400000+4 7.038000-1 4.600000+4 7.009000-1 4.800000+4 6.980000-16922 2151     \n"
-    " 5.000000+4 6.953000-1 5.500000+4 6.888000-1 6.000000+4 6.826000-16922 2151     \n"
-    " 6.500000+4 6.767000-1 7.000000+4 6.712000-1 7.500000+4 6.659000-16922 2151     \n"
-    " 8.000000+4 6.608000-1 8.500000+4 6.560000-1 9.000000+4 6.513000-16922 2151     \n"
-    " 9.500000+4 6.469000-1 2.000000+5 5.803000-1                      6922 2151     \n";
+  CHECK( 1 == chunk.LRU() );
+  CHECK( 1 == chunk.type() );
+  CHECK( 1 == chunk.LRF() );
+  CHECK( 1 == chunk.representation() );
+
+  CHECK( 1. == Approx( chunk.SPI() ) );
+  CHECK( 1. == Approx( chunk.spin() ) );
+  CHECK( 0.893 == Approx( chunk.AP() ) );
+  CHECK( 0.893 == Approx( chunk.scatteringRadius() ) );
+
+  CHECK( 2 == chunk.NLS() );
+  CHECK( 2 == chunk.numberLValues() );
+
+  CHECK( 2 == chunk.lValues().size() );
+
+  auto lvalue1 = chunk.lValues()[0];
+  CHECK( 1.982069e+1 == Approx( lvalue1.AWRI() ) );
+  CHECK( 1.982069e+1 == Approx( lvalue1.atomicWeightRatio() ) );
+  CHECK( 0. == Approx( lvalue1.QX() ) );
+  CHECK( 0. == Approx( lvalue1.competitiveQValue() ) );
+  CHECK( 0 == lvalue1.L() );
+  CHECK( 0 == lvalue1.orbitalMomentum() );
+  CHECK( false == lvalue1.LRX() );
+  CHECK( false == lvalue1.competitiveWidthFlag() );
+
+  CHECK( 2 == lvalue1.NRS() );
+  CHECK( 2 == lvalue1.numberResonances() );
+  CHECK( 2 == lvalue1.ER().size() );
+  CHECK( 2 == lvalue1.resonanceEnergies().size() );
+  CHECK( 2 == lvalue1.AJ().size() );
+  CHECK( 2 == lvalue1.spinValues().size() );
+  CHECK( 2 == lvalue1.GT().size() );
+  CHECK( 2 == lvalue1.totalWidths().size() );
+  CHECK( 2 == lvalue1.GN().size() );
+  CHECK( 2 == lvalue1.neutronWidths().size() );
+  CHECK( 2 == lvalue1.GG().size() );
+  CHECK( 2 == lvalue1.gammaWidths().size() );
+  CHECK( 2 == lvalue1.GF().size() );
+  CHECK( 2 == lvalue1.fissionWidths().size() );
+  CHECK( 2 == lvalue1.GX().size() );
+  CHECK( 2 == lvalue1.competitiveWidths().size() );
+  CHECK( 2 == lvalue1.resonances().size() );
+
+  CHECK( -1.470000e+5 == Approx( lvalue1.ER()[0] ) );
+  CHECK(  4.730000e+5 == Approx( lvalue1.ER()[1] ) );
+  CHECK( -1.470000e+5 == Approx( lvalue1.resonanceEnergies()[0] ) );
+  CHECK(  4.730000e+5 == Approx( lvalue1.resonanceEnergies()[1] ) );
+  CHECK( 0.5 == Approx( lvalue1.AJ()[0] ) );
+  CHECK( 0.5 == Approx( lvalue1.AJ()[1] ) );
+  CHECK( 0.5 == Approx( lvalue1.spinValues()[0] ) );
+  CHECK( 0.5 == Approx( lvalue1.spinValues()[1] ) );
+  CHECK( 5.430695e+2 == Approx( lvalue1.GT()[0] ) );
+  CHECK( 1.072906e+5 == Approx( lvalue1.GT()[1] ) );
+  CHECK( 5.430695e+2 == Approx( lvalue1.totalWidths()[0] ) );
+  CHECK( 1.072906e+5 == Approx( lvalue1.totalWidths()[1] ) );
+  CHECK( 3.680695e+2 == Approx( lvalue1.GN()[0] ) );
+  CHECK( 1.072900e+5 == Approx( lvalue1.GN()[1] ) );
+  CHECK( 3.680695e+2 == Approx( lvalue1.neutronWidths()[0] ) );
+  CHECK( 1.072900e+5 == Approx( lvalue1.neutronWidths()[1] ) );
+  CHECK( 1.750000e+2 == Approx( lvalue1.GG()[0] ) );
+  CHECK( 0.56 == Approx( lvalue1.GG()[1] ) );
+  CHECK( 1.750000e+2 == Approx( lvalue1.gammaWidths()[0] ) );
+  CHECK( 0.56 == Approx( lvalue1.gammaWidths()[1] ) );
+  CHECK( 0. == Approx( lvalue1.GF()[0] ) );
+  CHECK( 0.04 == Approx( lvalue1.GF()[1] ) );
+  CHECK( 0. == Approx( lvalue1.fissionWidths()[0] ) );
+  CHECK( 0.04 == Approx( lvalue1.fissionWidths()[1] ) );
+  CHECK( 0. == Approx( lvalue1.GX()[0] ) );
+  CHECK( 0. == Approx( lvalue1.GX()[1] ) );
+  CHECK( 0. == Approx( lvalue1.competitiveWidths()[0] ) );
+  CHECK( 0. == Approx( lvalue1.competitiveWidths()[1] ) );
+
+  auto lvalue2 = chunk.lValues()[1];
+  CHECK( 1.982069e+1 == Approx( lvalue2.AWRI() ) );
+  CHECK( 1.982069e+1 == Approx( lvalue2.atomicWeightRatio() ) );
+  CHECK( 0. == Approx( lvalue2.QX() ) );
+  CHECK( 0. == Approx( lvalue2.competitiveQValue() ) );
+  CHECK( 1 == lvalue2.L() );
+  CHECK( 1 == lvalue2.orbitalMomentum() );
+  CHECK( false == lvalue2.LRX() );
+  CHECK( false == lvalue2.competitiveWidthFlag() );
+
+  CHECK( 2 == lvalue2.NRS() );
+  CHECK( 2 == lvalue2.numberResonances() );
+  CHECK( 2 == lvalue2.ER().size() );
+  CHECK( 2 == lvalue2.resonanceEnergies().size() );
+  CHECK( 2 == lvalue2.AJ().size() );
+  CHECK( 2 == lvalue2.spinValues().size() );
+  CHECK( 2 == lvalue2.GT().size() );
+  CHECK( 2 == lvalue2.totalWidths().size() );
+  CHECK( 2 == lvalue2.GN().size() );
+  CHECK( 2 == lvalue2.neutronWidths().size() );
+  CHECK( 2 == lvalue2.GG().size() );
+  CHECK( 2 == lvalue2.gammaWidths().size() );
+  CHECK( 2 == lvalue2.GF().size() );
+  CHECK( 2 == lvalue2.fissionWidths().size() );
+  CHECK( 2 == lvalue2.GX().size() );
+  CHECK( 2 == lvalue2.competitiveWidths().size() );
+  CHECK( 2 == lvalue2.resonances().size() );
+
+  CHECK( -2.060000e+0 == Approx( lvalue2.ER()[0] ) );
+  CHECK(  5.160000e+0 == Approx( lvalue2.ER()[1] ) );
+  CHECK( -2.060000e+0 == Approx( lvalue2.resonanceEnergies()[0] ) );
+  CHECK(  5.160000e+0 == Approx( lvalue2.resonanceEnergies()[1] ) );
+  CHECK( 0.5 == Approx( lvalue2.AJ()[0] ) );
+  CHECK( 0.5 == Approx( lvalue2.AJ()[1] ) );
+  CHECK( 0.5 == Approx( lvalue2.spinValues()[0] ) );
+  CHECK( 0.5 == Approx( lvalue2.spinValues()[1] ) );
+  CHECK( 3.006610e-2 == Approx( lvalue2.GT()[0] ) );
+  CHECK( 3.393822e-2 == Approx( lvalue2.GT()[1] ) );
+  CHECK( 3.006610e-2 == Approx( lvalue2.totalWidths()[0] ) );
+  CHECK( 3.393822e-2 == Approx( lvalue2.totalWidths()[1] ) );
+  CHECK( 5.750000e-3 == Approx( lvalue2.GN()[0] ) );
+  CHECK( 3.920000e-3 == Approx( lvalue2.GN()[1] ) );
+  CHECK( 5.750000e-3 == Approx( lvalue2.neutronWidths()[0] ) );
+  CHECK( 3.920000e-3 == Approx( lvalue2.neutronWidths()[1] ) );
+  CHECK( 2.430000e-2 == Approx( lvalue2.GG()[0] ) );
+  CHECK( 3.000000e-2 == Approx( lvalue2.GG()[1] ) );
+  CHECK( 2.430000e-2 == Approx( lvalue2.gammaWidths()[0] ) );
+  CHECK( 3.000000e-2 == Approx( lvalue2.gammaWidths()[1] ) );
+  CHECK( 1.610000e-5 == Approx( lvalue2.GF()[0] ) );
+  CHECK( 1.822000e-5 == Approx( lvalue2.GF()[1] ) );
+  CHECK( 1.610000e-5 == Approx( lvalue2.fissionWidths()[0] ) );
+  CHECK( 1.822000e-5 == Approx( lvalue2.fissionWidths()[1] ) );
+  CHECK( 0. == Approx( lvalue2.GX()[0] ) );
+  CHECK( 0. == Approx( lvalue2.GX()[1] ) );
+  CHECK( 0. == Approx( lvalue2.competitiveWidths()[0] ) );
+  CHECK( 0. == Approx( lvalue2.competitiveWidths()[1] ) );
+
+  CHECK( 7 == chunk.NC() );
 }

@@ -5,7 +5,7 @@
  *  @param[in] ap        the scattering radius
  *  @param[in] lvalues   the l values and the resonance parameters
  */
-MultiLevelBreitWigner( int spi, int ap,
+MultiLevelBreitWigner( double spi, double ap,
                        std::vector< BreitWignerLValue >&& lvalues )
   try : BreitWignerReichMooreBase( spi, ap, 0, 0,
                                    std::move( lvalues ) ) {}
@@ -38,4 +38,3 @@ MultiLevelBreitWigner( Iterator& it, const Iterator& end, long& lineNumber,
                "parameters in the Multi-Level Breit-Wigner representation" );
     throw;
   }
-
