@@ -79,9 +79,9 @@ public:
   auto transitions() const {
 
     auto chunked = ListRecord::list() | ranges::view::chunk( this->LG() + 1 );
-    using Chunk = decltype( chunked[0] );
+    using Range = decltype( chunked[0] );
     return chunked | ranges::view::transform(
-                         [] ( Chunk&& chunk ) -> Transition< Chunk >
+                         [] ( Range&& chunk ) -> Transition< Range >
                             { return { std::move( chunk ) }; } );
   }
 

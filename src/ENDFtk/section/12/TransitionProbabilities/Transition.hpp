@@ -1,23 +1,23 @@
 /**
  *  @class
- *  @brief Convenience interface for a transition (a chunk of 2 or 3 values
+ *  @brief Convenience interface for a transition (a range of 2 or 3 values
  *         depending on the LG value).
  *
- *  This chunk contains the energy of the transition, the transitional
+ *  This range contains the energy of the transition, the transitional
  *  probability and the conditional probability (if it is defined).
  *
  *  See ENDF102, section 12.2.2 for more information.
  */
-template < typename Chunk >
+template < typename Range >
 class Transition {
 
   /* fields */
-  Chunk chunk;
+  Range chunk;
 
 public:
 
   /* constructor */
-  Transition( Chunk&& chunk ) : chunk( std::move(chunk) ) {}
+  Transition( Range&& chunk ) : chunk( std::move( chunk ) ) {}
 
   /**
    *  @brief Return the energy of the transition.
