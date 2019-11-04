@@ -12,7 +12,8 @@ std::string chunkWithLG1();
 void verifyChunkWithLG1( const TransitionProbabilities& );
 std::string chunkWithLG2();
 void verifyChunkWithLG2( const TransitionProbabilities& );
-std::string invalidChunk();
+std::string chunkWithInvalidLG();
+std::string chunkWithBadNPL();
 
 SCENARIO( "TransitionProbabilities" ) {
 
@@ -162,11 +163,23 @@ SCENARIO( "TransitionProbabilities" ) {
       } // THEN
     } // WHEN
 
-    WHEN( "a string representation with an error is given" ) {
+    WHEN( "a string representation with an invalid LG is given" ) {
 
-      // no need to test every possibility (TAB1 takes care of tests)
+      std::string string = chunkWithInvalidLG(); // LG = 6, which is invalid
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
 
-      std::string string = invalidChunk();
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( TransitionProbabilities( begin, end, lineNumber,
+                                                 9228, 12, 51 ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a string representation with an bad NPL is used" ) {
+
+      std::string string = chunkWithBadNPL(); // NPL = 4, while list size is 6
       auto begin = string.begin();
       auto end = string.end();
       long lineNumber = 1;
@@ -260,8 +273,14 @@ void verifyChunkWithLG2( const TransitionProbabilities& chunk ) {
   CHECK( 2 == chunk.NC() );
 }
 
-std::string invalidChunk() {
+std::string chunkWithInvalidLG() {
   return
   " 5.170900+4 0.000000+0          0          0          6          1922812 51     \n"
+  " 1.304000+4 2.709000-1 3.215434-3 7.700000+1 7.291000-1 3.144654-3922812 51     \n";
+}
+
+std::string chunkWithBadNPL() {
+  return
+  " 5.170900+4 0.000000+0          0          0          4          2922812 51     \n"
   " 1.304000+4 2.709000-1 3.215434-3 7.700000+1 7.291000-1 3.144654-3922812 51     \n";
 }
