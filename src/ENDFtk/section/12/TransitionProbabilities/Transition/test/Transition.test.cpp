@@ -40,21 +40,21 @@ SCENARIO( "Transition" ) {
   } // GIVEN
 } // SCENARIO
 
-void verifyChunkSize2( const Transition& chunk ) {
+void verifyChunkWithSize2( const Transition& chunk ) {
 
   CHECK( 3. == Approx( chunk.E() ) );
   CHECK( 3. == Approx( chunk.energy() ) );
-  CHECK( 2. == Approx( chunk.PT() ) );
+  CHECK( 2. == Approx( chunk.TP() ) );
   CHECK( 2. == Approx( chunk.transitionProbability() ) );
   CHECK( 1. == Approx( chunk.GP() ) );
   CHECK( 1. == Approx( chunk.conditionalProbability() ) );
 }
 
-void verifyChunkSize3( const Transition& chunk ) {
+void verifyChunkWithSize3( const Transition& chunk ) {
 
   CHECK( 1. == Approx( chunk.E() ) );
   CHECK( 1. == Approx( chunk.energy() ) );
-  CHECK( 2. == Approx( chunk.PT() ) );
+  CHECK( 2. == Approx( chunk.TP() ) );
   CHECK( 2. == Approx( chunk.transitionProbability() ) );
   CHECK( 3. == Approx( chunk.GP() ) );
   CHECK( 3. == Approx( chunk.conditionalProbability() ) );

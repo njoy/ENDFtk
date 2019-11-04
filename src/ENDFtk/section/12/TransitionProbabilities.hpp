@@ -13,10 +13,10 @@ class TransitionProbabilities : protected ListRecord {
 
 public:
 
-  #include "ENDFtk/resonanceParameters/resolved/BreitWignerLValue/Resonance.hpp"
+  #include "ENDFtk/section/12/TransitionProbabilities/Transition.hpp"
 
 private:
-      
+
   /* auxiliary functions */
   #include "ENDFtk/section/12/TransitionProbabilities/src/verifyLG.hpp"
   #include "ENDFtk/section/12/TransitionProbabilities/src/generateList.hpp"
@@ -105,7 +105,7 @@ public:
    */
   auto TP() const {
 
-    return this->data()
+    return this->transitions()
       | ranges::view::transform( [] ( const auto& transition )
                                     { return transition.TP(); } );
   }
@@ -120,7 +120,7 @@ public:
    */
   auto GP() const {
 
-    return this->data()
+    return this->transitions()
       | ranges::view::transform( [] ( const auto& transition )
                                     { return transition.GP(); } );
   }

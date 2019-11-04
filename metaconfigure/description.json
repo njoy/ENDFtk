@@ -544,6 +544,7 @@
     "src/ENDFtk/section/12/src/print.hpp",
     "src/ENDFtk/section/12/src/readPhotonProduction.hpp",
     "src/ENDFtk/section/12/TotalMultiplicity/src/ctor.hpp",
+    "src/ENDFtk/section/12/TransitionProbabilities/Transition.hpp",
     "src/ENDFtk/section/12/TransitionProbabilities/src/ctor.hpp",
     "src/ENDFtk/section/12/TransitionProbabilities/src/generateList.hpp",
     "src/ENDFtk/section/12/TransitionProbabilities/src/verifyLG.hpp",
@@ -978,6 +979,9 @@
     ],
     "ENDFtk.section.12.TransitionProbabilities": [
       "src/ENDFtk/section/12/TransitionProbabilities/test/TransitionProbabilities.test.cpp"
+    ],
+    "ENDFtk.section.12.TransitionProbabilities.Transition": [
+      "src/ENDFtk/section/12/TransitionProbabilities/Transition/test/Transition.test.cpp"
     ],
     "ENDFtk.section.13": [
       "src/ENDFtk/section/13/test/13.test.cpp"

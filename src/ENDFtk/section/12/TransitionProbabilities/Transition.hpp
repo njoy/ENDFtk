@@ -1,6 +1,10 @@
 /**
  *  @class
- *  @brief Convenience interface for a transition
+ *  @brief Convenience interface for a transition (a chunk of 2 or 3 values
+ *         depending on the LG value).
+ *
+ *  This chunk contains the energy of the transition, the transitional
+ *  probability and the conditional probability (if it is defined).
  *
  *  See ENDF102, section 12.2.2 for more information.
  */
@@ -38,7 +42,7 @@ public:
   /**
    *  @brief Return the conditional probability.
    */
-  auto GP() const { return this->chunk.size() == 2 ? this->chunk[2] : 1.0; }
+  auto GP() const { return this->chunk.size() == 3 ? this->chunk[2] : 1.0; }
 
   /**
    *  @brief Return the conditional probability.
