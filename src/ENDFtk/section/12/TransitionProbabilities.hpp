@@ -11,6 +11,12 @@
  */
 class TransitionProbabilities : protected ListRecord {
 
+public:
+
+  #include "ENDFtk/resonanceParameters/resolved/BreitWignerLValue/Resonance.hpp"
+
+private:
+      
   /* auxiliary functions */
   #include "ENDFtk/section/12/TransitionProbabilities/src/verifyLG.hpp"
   #include "ENDFtk/section/12/TransitionProbabilities/src/generateList.hpp"
@@ -70,9 +76,13 @@ public:
    *         or triplets (energy, transition probability, conditional
    *         probability for photon emission).
    */
-  auto data() const {
+  auto transitions() const {
 
-    return ListRecord::list() | ranges::view::chunk( this->LG() + 1 );
+    auto chunked = ListRecord::list() | ranges::view::chunk( this->LG() + 1 );
+    using Chunk = decltype( chunked[0] );
+    return chunked | ranges::view::transform(
+                         [] ( Chunk&& chunk ) -> Transition< Chunk >
+                            { return { std::move( chunk ) }; } );
   }
 
   /**
@@ -80,9 +90,9 @@ public:
    */
   auto E() const {
 
-    return this->data()
-             | ranges::view::transform( [] ( const auto& range )
-                                           { return range[0]; } );
+    return this->transitions()
+             | ranges::view::transform( [] ( const auto& transition )
+                                           { return transition.E(); } );
   }
 
   /**
@@ -96,8 +106,8 @@ public:
   auto TP() const {
 
     return this->data()
-             | ranges::view::transform( [] ( const auto& range )
-                                           { return range[1]; } );
+      | ranges::view::transform( [] ( const auto& transition )
+                                    { return transition.TP(); } );
   }
 
   /**
@@ -110,10 +120,9 @@ public:
    */
   auto GP() const {
 
-    int lg = this->LG();
-    // need to do it this way to get the same return type
-    auto gp = [lg] ( const auto& chunk ) { return lg == 2 ? chunk[2] : 1.0; };
-    return this->data() | ranges::view::transform( gp );
+    return this->data()
+      | ranges::view::transform( [] ( const auto& transition )
+                                    { return transition.GP(); } );
   }
 
   /**

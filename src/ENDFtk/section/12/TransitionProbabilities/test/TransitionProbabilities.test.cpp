@@ -211,6 +211,20 @@ void verifyChunkWithLG1( const TransitionProbabilities& chunk ) {
   CHECK( 2 == chunk.NT() );
   CHECK( 2 == chunk.numberTransitions() );
 
+  CHECK( 2 == chunk.transitions().size() );
+  CHECK( 1.304000e+4 == Approx( chunk.transitions()[0].E() ) );
+  CHECK( 7.700000e+1 == Approx( chunk.transitions()[1].E() ) );
+  CHECK( 1.304000e+4 == Approx( chunk.transitions()[0].energy() ) );
+  CHECK( 7.700000e+1 == Approx( chunk.transitions()[1].energy() ) );
+  CHECK( 2.709000e-1 == Approx( chunk.transitions()[0].TP() ) );
+  CHECK( 7.291000e-1 == Approx( chunk.transitions()[1].TP() ) );
+  CHECK( 2.709000e-1 == Approx( chunk.transitions()[0].transitionProbability() ) );
+  CHECK( 7.291000e-1 == Approx( chunk.transitions()[1].transitionProbability() ) );
+  CHECK( 1.0 == Approx( chunk.transitions()[0].GP() ) );
+  CHECK( 1.0 == Approx( chunk.transitions()[1].GP() ) );
+  CHECK( 1.0 == Approx( chunk.transitions()[0].conditionalProbability() ) );
+  CHECK( 1.0 == Approx( chunk.transitions()[1].conditionalProbability() ) );
+
   CHECK( 2 == chunk.E().size() );
   CHECK( 2 == chunk.energies().size() );
   CHECK( 2 == chunk.TP().size() );
@@ -250,6 +264,20 @@ void verifyChunkWithLG2( const TransitionProbabilities& chunk ) {
   CHECK( 2 == chunk.transitionType() );
   CHECK( 2 == chunk.NT() );
   CHECK( 2 == chunk.numberTransitions() );
+
+  CHECK( 2 == chunk.transitions().size() );
+  CHECK( 1.304000e+4 == Approx( chunk.transitions()[0].E() ) );
+  CHECK( 7.700000e+1 == Approx( chunk.transitions()[1].E() ) );
+  CHECK( 1.304000e+4 == Approx( chunk.transitions()[0].energy() ) );
+  CHECK( 7.700000e+1 == Approx( chunk.transitions()[1].energy() ) );
+  CHECK( 2.709000e-1 == Approx( chunk.transitions()[0].TP() ) );
+  CHECK( 7.291000e-1 == Approx( chunk.transitions()[1].TP() ) );
+  CHECK( 2.709000e-1 == Approx( chunk.transitions()[0].transitionProbability() ) );
+  CHECK( 7.291000e-1 == Approx( chunk.transitions()[1].transitionProbability() ) );
+  CHECK( 3.215434e-3 == Approx( chunk.transitions()[0].GP() ) );
+  CHECK( 3.144654e-3 == Approx( chunk.transitions()[1].GP() ) );
+  CHECK( 3.215434e-3 == Approx( chunk.transitions()[0].conditionalProbability() ) );
+  CHECK( 3.144654e-3 == Approx( chunk.transitions()[1].conditionalProbability() ) );
 
   CHECK( 2 == chunk.E().size() );
   CHECK( 2 == chunk.energies().size() );
