@@ -1,28 +1,87 @@
+private:
+
+/**
+ *  @brief Private constructor
+ */
+Multiplicities( int MT, double zaid, double awr,
+                std::optional< TotalMultiplicity >&& total,
+                std::vector< PartialMultiplicity >&& partials ) :
+  Base( zaid, awr, MT ),
+  total_( std::move( total ) ),
+  partials_( std::move( partials ) ) {
+
+  verifyNK( this->NK() );
+}
+
+public:
+
+/**
+ *  @brief Constructor (only one partial given, no total required)
+ *
+ *  @param[in] partial   the partial cross section
+ */
+Type( int MT, double zaid, double awr,
+                PartialMultiplicity&& partial )
+  try : Type( MT, zaid, awr, std::nullopt, { std::move( partial ) } ) {}
+  catch ( std::exception& e ) {
+   Log::info( "Trouble while constructing section {} of File 13", head.MT() );
+   throw e;
+ }
+ 
+/**
+ *  @brief Constructor (one total and multiple partials)
+ *
+ *  @param[in] total      the total photon production cross section
+ *  @param[in] partials   the partial photon production cross sections
+ */
+Multiplicities( int MT, double zaid, double awr,
+                TotalMultiplicity&& total,
+                std::vector< PartialMultiplicity >&& partials ) :
+  Multiplicities( MT, zaid, awr,
+                  std::make_optional( std::move( total ) ),
+                  std::move( partials ) ) {}
+
+private:
+
+/**
+ *  @brief Private constructor
+ */
 template< typename Iterator >
-Type ( HEAD& head,
-       Iterator& begin,
-       const Iterator& end,
-       long& lineNumber,
-       int MAT )
-  try: Base( head, MAT, 13 ),
-       subsections_( readSubsections( begin, end, lineNumber,
-                                      head.MAT(), head.MT(), head.N1() ) ) {
+Type( double zaid, double awr,
+      std::optional< TotalMultiplicity >&& total,
+      Iterator& begin, const Iterator& end,
+      long& lineNumber, int MAT, int MF, int MT, int NK ) :
+  Type( MT, zaid, awr,
+        std::move( total ),
+        readPartialCrossSections( begin, end, lineNumber,
+                                   MAT, MF, MT, NK ) ) {}
+
+public:
+
+/**
+ *  @brief Constructor (from a buffer)
+ *
+ *  @tparam Iterator        a buffer iterator
+ *
+ *  @param[in] head         the head record of the section
+ *  @param[in] it           the current position in the buffer
+ *  @param[in] end          the end of the buffer
+ *  @param[in] lineNumber   the current line number
+ *  @param[in] MAT          the expected MAT number
+ */
+template< typename Iterator >
+Type( HEAD& head,
+      Iterator& begin,
+      const Iterator& end,
+      long& lineNumber,
+      int MAT )
+  try : Type( head.ZA(), head.AWR(),
+              readTotalCrossSection( begin, end, lineNumber,
+                                     MAT, 13, head.MT(), head.N1() ),
+              begin, end, lineNumber, MAT, 13, head.MT(), head.N1() ) {
     readSEND( begin, end, lineNumber, MAT, 13 );
-  } catch( std::exception& e ){
-    Log::info
-    ( "Encountered error while reading section {} of File 13 of Material {}",
-      head.MT(), MAT );
+  } catch ( std::exception& e ) {
+    Log::info( "Trouble while reading section {} of File 13 of Material {}",
+               head.MT(), MAT );
     throw e;
   }
-
-Type( double ZA, double AWR, int MT,
-      Subsection&& total ) :
-  Base( ZA, AWR, MT ),
-  subsections_( std::vector<TabulationRecord>
-                { static_cast< TabulationRecord&& >( std::move( total ) ) } ){}
-
-/*
-// TODO: compute total
-template< typename Range,  >
-Type( Range&& subsections ) :
-*/
