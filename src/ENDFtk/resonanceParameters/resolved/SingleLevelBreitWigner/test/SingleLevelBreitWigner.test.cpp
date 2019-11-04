@@ -94,6 +94,8 @@ void verifyChunk( const SingleLevelBreitWigner& chunk ) {
   CHECK( 1 == chunk.type() );
   CHECK( 1 == chunk.LRF() );
   CHECK( 1 == chunk.representation() );
+  CHECK( false == chunk.LFW() );
+  CHECK( false == chunk.averageFissionWidthFlag() );
 
   CHECK( 1. == Approx( chunk.SPI() ) );
   CHECK( 1. == Approx( chunk.spin() ) );

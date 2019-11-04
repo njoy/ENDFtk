@@ -57,6 +57,19 @@ public:
   static constexpr int representation() { return RMatrixLimited::LRF(); }
 
   /**
+   *  @brief Return the resonance representation
+   */
+  constexpr bool LWF() const { return false; }
+
+  /**
+  *  @brief Return the resonance representation
+  */
+  constexpr int averageFissionWidthFlag() const {
+
+    return BreitWignerReichMooreBase::LFW();
+  }
+
+  /**
    *  @brief Return whether or not the widths are reduced or not
    */
   bool IFG() const { return this->ifg_; }

@@ -32,6 +32,8 @@ public:
 
   using BreitWignerReichMooreBase::LRU;
   using BreitWignerReichMooreBase::LRF;
+  using BreitWignerReichMooreBase::LFW;
+  using BreitWignerReichMooreBase::averageFissionWidthFlag;
 
   using BreitWignerReichMooreBase::SPI;
   using BreitWignerReichMooreBase::spin;

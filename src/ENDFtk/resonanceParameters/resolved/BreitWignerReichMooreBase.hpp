@@ -47,6 +47,19 @@ public:
   }
 
   /**
+   *  @brief Return the resonance representation
+   */
+  constexpr bool LWF() const { return false; }
+
+  /**
+  *  @brief Return the resonance representation
+  */
+  constexpr int averageFissionWidthFlag() const {
+
+    return BreitWignerReichMooreBase::LFW();
+  }
+
+  /**
    *  @brief Return the target spin
    */
   double SPI() const { return this->spi_; }

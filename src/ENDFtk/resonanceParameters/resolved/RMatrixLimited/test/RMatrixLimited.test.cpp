@@ -117,6 +117,8 @@ void verifyChunk( const RMatrixLimited& chunk ) {
   CHECK( 1 == chunk.type() );
   CHECK( 7 == chunk.LRF() );
   CHECK( 7 == chunk.representation() );
+  CHECK( false == chunk.LFW() );
+  CHECK( false == chunk.averageFissionWidthFlag() );
 
   CHECK( false == chunk.IFG() );
   CHECK( false == chunk.reducedWidths() );

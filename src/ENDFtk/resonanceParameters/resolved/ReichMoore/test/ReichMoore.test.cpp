@@ -27,7 +27,7 @@ SCENARIO( "ReichMoore" ) {
       double ap = 0.893;
       bool lad = false;
       int nlsc = 3;
-      std::vector< ReichMooreLValue > lvalues = 
+      std::vector< ReichMooreLValue > lvalues =
         { { 1.982069e+1, 0.0, 0,
             { -1.470000e+5, 4.730000e+5 }, { 0.5, 0.5 },
             { 5.430695e+2, 1.072906e+5 }, { 3.680695e+2, 1.072900e+5 },
@@ -86,7 +86,7 @@ SCENARIO( "ReichMoore" ) {
       double ap = 0.893;
       bool lad = false;
       int nlsc = 1; // should be larger than or equal to 2
-      std::vector< ReichMooreLValue > lvalues = 
+      std::vector< ReichMooreLValue > lvalues =
         { { 1.982069e+1, 0.0, 0,
             { -1.470000e+5, 4.730000e+5 }, { 0.5, 0.5 },
             { 5.430695e+2, 1.072906e+5 }, { 3.680695e+2, 1.072900e+5 },
@@ -134,6 +134,8 @@ void verifyChunk( const ReichMoore& chunk ) {
   CHECK( 1 == chunk.type() );
   CHECK( 3 == chunk.LRF() );
   CHECK( 3 == chunk.representation() );
+  CHECK( false == chunk.LFW() );
+  CHECK( false == chunk.averageFissionWidthFlag() );
 
   CHECK( 1. == Approx( chunk.SPI() ) );
   CHECK( 1. == Approx( chunk.spin() ) );
@@ -260,4 +262,3 @@ std::string invalidNLSC() {
     "-2.060000+0 5.000000-1 3.006610-2 5.750000-3 2.430000-2 1.610000-51025 2151     \n"
     " 5.160000+0 5.000000-1 3.393822-2 3.920000-3 3.000000-2 1.822000-51025 2151     \n";
 }
-
