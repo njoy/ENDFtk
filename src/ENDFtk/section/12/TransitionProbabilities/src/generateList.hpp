@@ -2,6 +2,8 @@ static std::vector< double >
 generateList( std::vector< double >&& energies,
               std::vector< double >&& probabilities ) {
 
+  std::vector< double > list;
+
   unsigned int NT = energies.size();
   if ( energies.size() != probabilities.size() ) {
 
@@ -11,7 +13,6 @@ generateList( std::vector< double >&& energies,
     throw std::exception();
   }
 
-  std::vector< double > list;
   for ( unsigned int i = 0; i < NT; ++i ) {
 
     list.push_back( energies[i] );
@@ -25,6 +26,8 @@ generateList( std::vector< double >&& energies,
               std::vector< double >&& probabilities,
               std::vector< double >&& conditionalProbabilities ) {
 
+  std::vector< double > list;
+
   unsigned int NT = energies.size();
   if ( ( energies.size() != probabilities.size() ) or
        ( energies.size() != conditionalProbabilities.size() ) ) {
@@ -36,8 +39,6 @@ generateList( std::vector< double >&& energies,
                conditionalProbabilities.size() );
     throw std::exception();
   }
-
-  std::vector< double > list;
   for ( unsigned int i = 0; i < NT; ++i ) {
 
     list.push_back( energies[i] );

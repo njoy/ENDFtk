@@ -12,7 +12,7 @@ TransitionProbabilities( ListRecord&& list ) :
 public:
 
 /**
- *  @brief Constructor (for the simple case)
+ *  @brief Constructor (for the simple case, LG = 1)
  *
  *  @param[in] energy          the highest energy level
  *  @param[in] energies        the energy levels below the highest level
@@ -33,7 +33,7 @@ TransitionProbabilities( double energy,
   }
 
 /**
- *  @brief Constructor (for the simple case)
+ *  @brief Constructor (for the complex case, LG = 2)
  *
  *  @param[in] energy          the highest energy level
  *  @param[in] energies        the energy levels below the highest level

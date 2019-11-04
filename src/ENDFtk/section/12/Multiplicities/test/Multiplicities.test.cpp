@@ -6,12 +6,9 @@
 using namespace njoy::ENDFtk;
 
 // convenience typedefs
-using Multiplicities =
-section::Type< 12 >::Multiplicities;
-using PartialMultiplicity =
-section::Type< 12 >::PartialMultiplicity;
-using TotalMultiplicity =
-section::Type< 12 >::TotalMultiplicity;
+using Multiplicities = section::Type< 12 >::Multiplicities;
+using PartialMultiplicity = section::Type< 12 >::PartialMultiplicity;
+using TotalMultiplicity = section::Type< 12 >::TotalMultiplicity;
 
 std::string chunkWithOnePartial();
 void verifyChunkWithOnePartial( const Multiplicities& );

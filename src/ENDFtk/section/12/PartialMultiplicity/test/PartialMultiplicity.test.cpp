@@ -6,8 +6,7 @@
 using namespace njoy::ENDFtk;
 
 // convenience typedefs
-using PartialMultiplicity =
-section::Type< 12 >::PartialMultiplicity;
+using PartialMultiplicity = section::Type< 12 >::PartialMultiplicity;
 
 std::string chunk();
 void verifyChunk( const PartialMultiplicity& );

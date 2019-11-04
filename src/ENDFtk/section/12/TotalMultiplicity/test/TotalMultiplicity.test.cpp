@@ -6,8 +6,7 @@
 using namespace njoy::ENDFtk;
 
 // convenience typedefs
-using TotalMultiplicity =
-section::Type< 12 >::TotalMultiplicity;
+using TotalMultiplicity = section::Type< 12 >::TotalMultiplicity;
 
 std::string chunk();
 void verifyChunk( const TotalMultiplicity& );

@@ -6,8 +6,7 @@
 using namespace njoy::ENDFtk;
 
 // convenience typedefs
-using TransitionProbabilities =
-section::Type< 12 >::TransitionProbabilities;
+using TransitionProbabilities = section::Type< 12 >::TransitionProbabilities;
 
 std::string chunkWithLG1();
 void verifyChunkWithLG1( const TransitionProbabilities& );
@@ -135,6 +134,7 @@ SCENARIO( "TransitionProbabilities" ) {
 
       double energy = 5.170900e+4;
       std::vector< double > energies = { 1.304000e+4, 7.700000e+1 };
+      // wrong size for probabilities
       std::vector< double > probabilities = { 2.709000e-1, 7.291000e-1, 1.0 };
 
       THEN( "an exception is thrown" ) {
@@ -150,6 +150,7 @@ SCENARIO( "TransitionProbabilities" ) {
       double energy = 5.170900e+4;
       std::vector< double > energies = { 1.304000e+4, 7.700000e+1 };
       std::vector< double > probabilities = { 2.709000e-1, 7.291000e-1 };
+      // wrong size for conditional probabilities
       std::vector< double > conditionals = { 2.709000e-1, 7.291000e-1, 1.0 };
 
       THEN( "an exception is thrown" ) {
