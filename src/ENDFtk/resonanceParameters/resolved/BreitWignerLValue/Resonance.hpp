@@ -4,16 +4,16 @@
  *
  *  See ENDF102, section 2.2.1.1 for more information.
  */
-template < typename Chunk >
+template < typename Range >
 class Resonance {
 
   /* fields */
-  Chunk chunk;
+  Range chunk;
 
 public:
 
   /* constructor */
-  Resonance( Chunk&& chunk ) : chunk( std::move(chunk) ) {}
+  Resonance( Range&& chunk ) : chunk( std::move( chunk ) ) {}
 
   /**
    *  @brief Return the resonance energy
@@ -88,4 +88,3 @@ public:
    */
   double competitiveWidth() const { return this->GX(); }
 };
-

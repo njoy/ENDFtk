@@ -19,7 +19,6 @@ BreitWignerLValue( double awri, double qx, int l, bool lrx,
                    std::vector< double >&& gn,
                    std::vector< double >&& gg,
                    std::vector< double >&& gf )
-  // no try ... catch: exceptions will be handled in the derived class
   try : BreitWignerReichMooreLValueBase( awri, qx, l, lrx,
                                          std::move( energies ),
                                          std::move( spins ),
@@ -56,4 +55,3 @@ BreitWignerLValue( Iterator& it, const Iterator& end, long& lineNumber,
                "parameters in the Breit-Wigner representation" );
     throw;
   }
-

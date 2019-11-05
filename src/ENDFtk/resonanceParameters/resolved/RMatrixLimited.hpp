@@ -57,16 +57,16 @@ public:
   static constexpr int representation() { return RMatrixLimited::LRF(); }
 
   /**
-   *  @brief Return the resonance representation
+   *  @brief Return the average fission flag
    */
-  constexpr bool LWF() const { return false; }
+  constexpr bool LFW() const { return false; }
 
   /**
-  *  @brief Return the resonance representation
-  */
+   *  @brief Return the average fission flag
+   */
   constexpr int averageFissionWidthFlag() const {
 
-    return BreitWignerReichMooreBase::LFW();
+    return RMatrixLimited::LFW();
   }
 
   /**
