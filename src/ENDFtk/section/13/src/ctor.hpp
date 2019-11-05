@@ -3,9 +3,9 @@ private:
 /**
  *  @brief Private constructor
  */
-Multiplicities( int MT, double zaid, double awr,
-                std::optional< TotalMultiplicity >&& total,
-                std::vector< PartialMultiplicity >&& partials ) :
+Type( int MT, double zaid, double awr,
+      std::optional< TotalCrossSection >&& total,
+      std::vector< PartialCrossSection >&& partials ) :
   Base( zaid, awr, MT ),
   total_( std::move( total ) ),
   partials_( std::move( partials ) ) {
@@ -21,25 +21,25 @@ public:
  *  @param[in] partial   the partial cross section
  */
 Type( int MT, double zaid, double awr,
-                PartialMultiplicity&& partial )
+      PartialCrossSection&& partial )
   try : Type( MT, zaid, awr, std::nullopt, { std::move( partial ) } ) {}
   catch ( std::exception& e ) {
-   Log::info( "Trouble while constructing section {} of File 13", head.MT() );
+   Log::info( "Trouble while constructing section {} of File 13", MT );
    throw e;
  }
- 
+
 /**
  *  @brief Constructor (one total and multiple partials)
  *
  *  @param[in] total      the total photon production cross section
  *  @param[in] partials   the partial photon production cross sections
  */
-Multiplicities( int MT, double zaid, double awr,
-                TotalMultiplicity&& total,
-                std::vector< PartialMultiplicity >&& partials ) :
-  Multiplicities( MT, zaid, awr,
-                  std::make_optional( std::move( total ) ),
-                  std::move( partials ) ) {}
+Type( int MT, double zaid, double awr,
+      TotalCrossSection&& total,
+      std::vector< PartialCrossSection >&& partials ) :
+  Type( MT, zaid, awr,
+        std::make_optional( std::move( total ) ),
+        std::move( partials ) ) {}
 
 private:
 
@@ -48,7 +48,7 @@ private:
  */
 template< typename Iterator >
 Type( double zaid, double awr,
-      std::optional< TotalMultiplicity >&& total,
+      std::optional< TotalCrossSection >&& total,
       Iterator& begin, const Iterator& end,
       long& lineNumber, int MAT, int MF, int MT, int NK ) :
   Type( MT, zaid, awr,

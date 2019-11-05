@@ -6,7 +6,7 @@
  *  @param[in] energies         the energy values
  *  @param[in] xs               the cross section values
  */
-TotalMultiplicity( std::vector< long >&& boundaries,
+TotalCrossSection( std::vector< long >&& boundaries,
                    std::vector< long >&& interpolants,
                    std::vector< double >&& energies,
                    std::vector< double >&& xs )
@@ -35,8 +35,8 @@ TotalMultiplicity( std::vector< long >&& boundaries,
  *  @param[in] MT           the expected MT number
  */
 template< typename Iterator >
-TotalMultiplicity( Iterator& begin, const Iterator& end,
-                     long& lineNumber, int MAT, int MF, int MT )
+TotalCrossSection( Iterator& begin, const Iterator& end,
+                   long& lineNumber, int MAT, int MF, int MT )
   try : TabulationRecord( begin, end, lineNumber, MAT, MF, MT ) {}
   catch ( std::exception& e ) {
 

@@ -548,12 +548,16 @@
     "src/ENDFtk/section/12/TransitionProbabilities/src/ctor.hpp",
     "src/ENDFtk/section/12/TransitionProbabilities/src/generateList.hpp",
     "src/ENDFtk/section/12/TransitionProbabilities/src/verifyLG.hpp",
-    "src/ENDFtk/section/13/Subsection.hpp",
+    "src/ENDFtk/section/13/PartialCrossSection.hpp",
+    "src/ENDFtk/section/13/TotalCrossSection.hpp",
+    "src/ENDFtk/section/13/PartialCrossSection/src/ctor.hpp",
     "src/ENDFtk/section/13/src/ctor.hpp",
     "src/ENDFtk/section/13/src/NC.hpp",
     "src/ENDFtk/section/13/src/print.hpp",
-    "src/ENDFtk/section/13/src/readSubsections.hpp",
-    "src/ENDFtk/section/13/Subsection/src/ctor.hpp",
+    "src/ENDFtk/section/13/src/readPartialCrossSections.hpp",
+    "src/ENDFtk/section/13/src/readTotalCrossSection.hpp",
+    "src/ENDFtk/section/13/src/verifyNK.hpp",
+    "src/ENDFtk/section/13/TotalCrossSection/src/ctor.hpp",
     "src/ENDFtk/section/2/src/ctor.hpp",
     "src/ENDFtk/section/2/src/NC.hpp",
     "src/ENDFtk/section/2/src/print.hpp",
@@ -986,8 +990,11 @@
     "ENDFtk.section.13": [
       "src/ENDFtk/section/13/test/13.test.cpp"
     ],
-    "ENDFtk.section.13.Subsection": [
-      "src/ENDFtk/section/13/Subsection/test/Subsection.test.cpp"
+    "ENDFtk.section.13.PartialCrossSection": [
+      "src/ENDFtk/section/13/PartialCrossSection/test/PartialCrossSection.test.cpp"
+    ],
+    "ENDFtk.section.13.TotalCrossSection": [
+      "src/ENDFtk/section/13/TotalCrossSection/test/TotalCrossSection.test.cpp"
     ],
     "ENDFtk.section.2": [
       "src/ENDFtk/section/2/test/2.test.cpp"

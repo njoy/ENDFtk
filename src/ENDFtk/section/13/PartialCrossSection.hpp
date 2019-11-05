@@ -63,7 +63,7 @@ public:
   /**
    *  @brief Return the incident energy values
    */
-  auto energies() const { return PartialMultiplicity::E(); }
+  auto energies() const { return this->E(); }
 
   /**
    *  @brief Return the cross section values
@@ -73,7 +73,7 @@ public:
   /**
    *  @brief Return the cross section values
    */
-  auto crossSections() const { return PartialMultiplicity::Y(); }
+  auto crossSections() const { return this->XS(); }
 
   using TabulationRecord::NR;
   using TabulationRecord::NP;

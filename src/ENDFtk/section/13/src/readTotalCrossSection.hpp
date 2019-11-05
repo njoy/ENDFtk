@@ -1,6 +1,6 @@
 template< typename Iterator >
 static std::optional< TotalCrossSection >
-readTotalMultiplicity( Iterator& begin,
+readTotalCrossSection( Iterator& begin,
                        const Iterator& end,
                        long& lineNumber,
                        int MAT,

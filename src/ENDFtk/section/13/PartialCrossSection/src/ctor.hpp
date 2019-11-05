@@ -11,7 +11,7 @@
  *  @param[in] energies         the energy values
  *  @param[in] xs               the partial cross section values
  */
-PartialMultiplicity( double energy,
+PartialCrossSection( double energy,
                      double level,
                      int lp,
                      int law,
@@ -44,7 +44,7 @@ PartialMultiplicity( double energy,
  *  @param[in] MT           the expected MT number
  */
 template< typename Iterator >
-PartialMultiplicity( Iterator& begin, const Iterator& end,
+PartialCrossSection( Iterator& begin, const Iterator& end,
                      long& lineNumber, int MAT, int MF, int MT )
   try : TabulationRecord( begin, end, lineNumber, MAT, MF, MT ) {}
   catch ( std::exception& e ) {
