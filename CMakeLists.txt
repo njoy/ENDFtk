@@ -395,6 +395,7 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/13.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/3.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/6.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/7.hpp"
@@ -427,6 +428,26 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/src/readIsotopes.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/3/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/3/src/print.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/AngularDistributions.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/Isotropic.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/LegendreCoefficients.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/LegendreDistributions.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/MixedDistributions.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/TabulatedDistribution.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/TabulatedDistributions.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/AngularDistributions/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/LegendreCoefficients/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/LegendreDistributions/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/MixedDistributions/src/angularDistributions.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/MixedDistributions/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/MixedDistributions/src/print.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/MixedDistributions/src/verifyBoundary.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/src/NC.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/src/print.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/src/readDistributions.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/TabulatedDistribution/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/4/TabulatedDistributions/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/DistributionFunction.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/EffectiveTemperature.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/EvaporationSpectrum.hpp"
@@ -665,7 +686,9 @@ if( NOT is_subproject )
     if ( unit_tests )
         add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/test )
         add_subdirectory( src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/test )
+        add_subdirectory( src/ENDFtk/section/7/4/ScatteringLawConstants/test )
         add_subdirectory( src/ENDFtk/syntaxTree/File/test )
+        add_subdirectory( src/ENDFtk/section/4/TabulatedDistributions/test )
         add_subdirectory( src/ENDFtk/section/7/2/CoherentElastic/test )
         add_subdirectory( src/ENDFtk/ListRecord/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceParameters/test )
@@ -692,6 +715,7 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/section/7/4/AnalyticalFunctions/test )
         add_subdirectory( src/ENDFtk/section/6/ContinuumEnergyAngle/LegendreCoefficients/test )
         add_subdirectory( src/ENDFtk/section/5/test )
+        add_subdirectory( src/ENDFtk/section/4/test )
         add_subdirectory( src/ENDFtk/section/6/test )
         add_subdirectory( src/ENDFtk/section/3/test )
         add_subdirectory( src/ENDFtk/TabulationRecord/test )
@@ -713,12 +737,15 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/resonanceParameters/Base/test )
         add_subdirectory( src/ENDFtk/section/6/LaboratoryAngleEnergy/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/test )
+        add_subdirectory( src/ENDFtk/section/4/TabulatedDistribution/test )
         add_subdirectory( src/ENDFtk/file/1/test )
         add_subdirectory( src/ENDFtk/InterpolationRecord/test )
         add_subdirectory( src/ENDFtk/section/Base/test )
         add_subdirectory( src/ENDFtk/section/1/451/test )
         add_subdirectory( src/ENDFtk/section/5/Subsection/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/resolved/MultiLevelBreitWigner/test )
+        add_subdirectory( src/ENDFtk/section/4/Isotropic/test )
+        add_subdirectory( src/ENDFtk/section/4/MixedDistributions/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/Isotope/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/test )
         add_subdirectory( src/ENDFtk/section/5/WattSpectrum/test )
@@ -729,7 +756,7 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/section/5/MadlandNixSpectrum/test )
         add_subdirectory( src/ENDFtk/section/6/DiscreteTwoBodyScattering/test )
         add_subdirectory( src/ENDFtk/section/6/ReactionProduct/test )
-        add_subdirectory( src/ENDFtk/section/7/4/ScatteringLawConstants/test )
+        add_subdirectory( src/ENDFtk/section/4/LegendreCoefficients/test )
         add_subdirectory( src/ENDFtk/section/6/DiscreteTwoBodyScattering/Tabulated/test )
         add_subdirectory( src/ENDFtk/section/BaseWithoutMT/test )
         add_subdirectory( src/ENDFtk/section/6/DiscreteTwoBodyScattering/SubSection/test )
@@ -741,7 +768,7 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup/test )
         add_subdirectory( src/ENDFtk/section/7/2/IncoherentElastic/test )
         add_subdirectory( src/ENDFtk/section/8/457/DecaySpectrum/test )
-        add_subdirectory( src/ENDFtk/section/6/ChargedParticleElasticScattering/LegendreCoefficients/test )
+        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/BreitWignerLValue/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/resolved/ReichMooreLValue/test )
         add_subdirectory( src/ENDFtk/section/8/457/test )
         add_subdirectory( src/ENDFtk/file/8/test )
@@ -750,6 +777,7 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/file/2/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreLValueBase/test )
         add_subdirectory( src/ENDFtk/section/6/DefinedElsewhere/test )
+        add_subdirectory( src/ENDFtk/section/4/LegendreDistributions/test )
         add_subdirectory( src/ENDFtk/InterpolationSequenceRecord/test )
         add_subdirectory( src/ENDFtk/section/8/457/ContinuousSpectrum/test )
         add_subdirectory( src/ENDFtk/ControlRecord/test )
@@ -765,7 +793,7 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/section/7/4/Tabulated/ScatteringFunction/test )
         add_subdirectory( src/ENDFtk/TapeIdentification/test )
         add_subdirectory( src/ENDFtk/DirectoryRecord/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/BreitWignerLValue/test )
+        add_subdirectory( src/ENDFtk/section/6/ChargedParticleElasticScattering/LegendreCoefficients/test )
         add_subdirectory( src/ENDFtk/section/5/TabulatedSpectrum/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/resolved/ReichMoore/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/resolved/ReichMooreLValue/Resonance/test )

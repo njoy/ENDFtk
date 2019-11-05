@@ -1,7 +1,5 @@
 
-add_executable( ENDFtk.resonanceParameters.resolved.BreitWignerReichMooreBase.test
-                BreitWigner.test.cpp
-                Lvalue.test.cpp )
+add_executable( ENDFtk.resonanceParameters.resolved.BreitWignerReichMooreBase.test BreitWigner.test.cpp )
 target_compile_options( ENDFtk.resonanceParameters.resolved.BreitWignerReichMooreBase.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}
