@@ -532,8 +532,11 @@
     "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/Lvalue/src/print.hpp",
     "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/ctor.hpp",
     "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/print.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/Jvalue.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/Lvalue.hpp",
+    "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/JValue.hpp",
+    "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/LValue.hpp",
+    "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/LValue/src/ctor.hpp",
+    "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/LValue/src/generateList.hpp",
+    "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/LValue/src/verifySize.hpp",
     "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/src/ctor.hpp",
     "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/src/print.hpp",
     "src/ENDFtk/section/1.hpp",
@@ -1020,6 +1023,12 @@
     ],
     "ENDFtk.resonanceParameters.unresolved.EnergyIndependent": [
       "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/test/EnergyIndependent.test.cpp"
+    ],
+    "ENDFtk.resonanceParameters.unresolved.EnergyIndependent.JValue": [
+      "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/JValue/test/JValue.test.cpp"
+    ],
+    "ENDFtk.resonanceParameters.unresolved.EnergyIndependent.LValue": [
+      "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/LValue/test/LValue.test.cpp"
     ],
     "ENDFtk.section.1.451": [
       "src/ENDFtk/section/1/451/test/451.test.cpp"
