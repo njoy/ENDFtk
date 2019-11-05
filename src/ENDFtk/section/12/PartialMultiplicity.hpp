@@ -63,7 +63,7 @@ public:
   /**
    *  @brief Return the incident energy values
    */
-  auto energies() const { return PartialMultiplicity::E(); }
+  auto energies() const { return this->E(); }
 
   /**
    *  @brief Return the multiplicity values
@@ -73,7 +73,7 @@ public:
   /**
    *  @brief Return the multiplicity values
    */
-  auto multiplicities() const { return PartialMultiplicity::Y(); }
+  auto multiplicities() const { return this->Y(); }
 
   using TabulationRecord::NR;
   using TabulationRecord::NP;

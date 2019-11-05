@@ -6,14 +6,10 @@
 using namespace njoy::ENDFtk;
 
 // convenience typedefs
-using Multiplicities =
-section::Type< 12 >::Multiplicities;
-using PartialMultiplicity =
-section::Type< 12 >::PartialMultiplicity;
-using TotalMultiplicity =
-section::Type< 12 >::TotalMultiplicity;
-using TransitionProbabilities =
-section::Type< 12 >::TransitionProbabilities;
+using Multiplicities = section::Type< 12 >::Multiplicities;
+using PartialMultiplicity = section::Type< 12 >::PartialMultiplicity;
+using TotalMultiplicity = section::Type< 12 >::TotalMultiplicity;
+using TransitionProbabilities = section::Type< 12 >::TransitionProbabilities;
 
 std::string chunkWithLO1();
 void verifyChunkWithLO1( const section::Type< 12 >& );
@@ -135,7 +131,7 @@ SCENARIO( "section::Type< 12 >" ) {
     } // WHEN
   } // GIVEN
 
-  GIVEN( "valid data for a section::Type< 12 > with LO = 2 amd LG = 1" ) {
+  GIVEN( "valid data for a section::Type< 12 > with LO = 2 and LG = 1" ) {
 
     std::string sectionString = chunkWithLO2LG1() + validSEND();
 
