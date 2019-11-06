@@ -8,8 +8,7 @@ using namespace njoy::ENDFtk;
 // convenience typedefs
 using SingleLevelBreitWigner =
 resonanceParameters::resolved::SingleLevelBreitWigner;
-using BreitWignerLValue =
-resonanceParameters::resolved::BreitWignerLValue;
+using BreitWignerLValue = resonanceParameters::resolved::BreitWignerLValue;
 
 std::string chunk();
 void verifyChunk( const SingleLevelBreitWigner& );

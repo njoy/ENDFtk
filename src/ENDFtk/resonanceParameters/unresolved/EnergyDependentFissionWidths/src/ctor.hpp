@@ -1,70 +1,76 @@
-protected:
-EnergyDependentFissionWidths( double EL, double EH, int NAPS,
-                              std::optional<TAB1>&& APE,
-                              LIST&& list,
-                              std::vector< Lvalue >&& lValues ) :
-  lValues_( std::move(lValues) ),
-  ape( std::move(APE) ),
-  list( std::move(list) ),
-  el( EL ), eh( EH ), naps( NAPS ){}
+private:
+/**
+ *  @brief Private intermediate constructor
+ */
+EnergyDependentFissionWidths( ListRecord&& energies,
+                              std::vector< LValue >&& lvalues ) :
+  energies_( std::move( energies ) ), lvalues_( std::move( lvalues ) ) {
+
+    verifySize( this->energies_.NPL(), this->lvalues_ );
+  }
 
 public:
-EnergyDependentFissionWidths( double EL, double EH, int NAPS,
-                              LIST&& list,
-                              std::vector< Lvalue >&& lValues ) :
-  EnergyDependentFissionWidths( EL, EH, NAPS, std::nullopt,
-                                std::move(list),
-                                std::move(lValues) ){}
+/**
+ *  @brief Constructor
+ *
+ *  @param[in] spi        the target spin value
+ *  @param[in] ap         the scattering radius
+ *  @param[in] lssf       the self-shielding only flag
+ *  @param[in] energies   the energy values for which fission widths are given
+ *  @param[in] lvalues    the l values and the resonance parameters
+ */
+EnergyDependentFissionWidths( double spi, double ap, bool lssf,
+                              std::vector< double >&& energies,
+                              std::vector< LValue >&& lvalues )
+  try : EnergyDependentFissionWidths( ListRecord( spi, ap, lssf,
+                                                  0, lvalues.size(),
+                                                  std::move( energies ) ),
+                                      std::move( lvalues ) ) {}
+  catch ( std::exception& e ) {
 
-EnergyDependentFissionWidths( double EL, double EH, int NAPS,
-                              TAB1&& APE,
-                              LIST&& list,
-                              std::vector< Lvalue >&& lValues ) :
-  EnergyDependentFissionWidths( EL, EH, NAPS,
-                                std::optional<TAB1>( std::move(APE) ),
-                                std::move(list),
-                                std::move(lValues) ){}
+    Log::info( "Encountered error while constructing unresolved resonance "
+               "parameters in the Single Level Breit-Wigner representation "
+               "with energy dependent fission widths" );
+    throw;
+  }
 
-protected:
+private:
+/**
+ *  @brief Private intermediate constructor
+ */
 template< typename Iterator >
-EnergyDependentFissionWidths( const Base& base,
-                              std::optional<TAB1>&& APE,
-                              LIST&& list,
-                              Iterator& it, const Iterator& end,
-                              long& lineNumber,
-                              int MAT, int MF, int MT ) :
-  EnergyDependentFissionWidths( base.EL(),
-                                base.EH(),
-                                base.NAPS(),
-                                std::move( APE ),
-                                std::move( list ),
-                                read<Lvalue>( list.N2(),
-                                              it, end, lineNumber,
-                                              MAT, MF, MT ) ){} 
+EnergyDependentFissionWidths(
+      ListRecord&& list,
+      Iterator& it, const Iterator& end, long& lineNumber,
+      int MAT, int MF, int MT ) :
+  EnergyDependentFissionWidths( std::move( list ),
+                                readLValues( it, end, lineNumber,
+                                             MAT, MF, MT, list.N2() ) ) {}
 
+public:
+/**
+ *  @brief Constructor (from a buffer)
+ *
+ *  @tparam Iterator        a buffer iterator
+ *
+ *  @param[in] it           the current position in the buffer
+ *  @param[in] end          the end of the buffer
+ *  @param[in] lineNumber   the current line number
+ *  @param[in] MAT          the expected MAT number
+ *  @param[in] MF           the expected MF number
+ *  @param[in] MT           the expected MT number
+ */
 template< typename Iterator >
-EnergyDependentFissionWidths( const Base& base,
-                              std::optional<TAB1>&& APE,
-                              Iterator& it, const Iterator& end,
-                              long& lineNumber,
-                              int MAT, int MF, int MT ) :
-  EnergyDependentFissionWidths( base, 
-                                std::move( APE ),
-                                LIST( it, end, lineNumber, MAT, MF, MT ),
-                                it, end, lineNumber, 
-                                MAT, MF, MT ){}
+EnergyDependentFissionWidths(
+      Iterator& it, const Iterator& end, long& lineNumber,
+      int MAT, int MF, int MT )
+  try : EnergyDependentFissionWidths(
+            ListRecord( it, end, lineNumber, MAT, MF, MT ),
+            it, end, lineNumber, MAT, MF, MT ) {}
+  catch ( std::exception& e ) {
 
-public:  
-template< typename Iterator >
-EnergyDependentFissionWidths( const Base& base, 
-                              Iterator& it, const Iterator& end, long& lineNumber,
-                              int MAT, int MF, int MT )
-  try : 
-    EnergyDependentFissionWidths( base, 
-                                  readAPE( base, it, end, lineNumber, MAT, MF, MT ),
-                                  it, end, lineNumber, MAT, MF, MT ) {
-  } catch( std::exception& e ) {
-    Log::info( "Trouble encountered when parsing energy-dependent fission "
-               "width unresolved resonances (Case B)." );
-    throw e;
+    Log::info( "Encountered error while constructing unresolved resonance "
+               "parameters in the Single Level Breit-Wigner representation "
+               "with energy dependent fission widths" );
+    throw;
   }

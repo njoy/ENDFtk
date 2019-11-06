@@ -1,52 +1,129 @@
+/**
+ *  @class
+ *  @brief Single level Breit-Wigner unresolved resonance parameters with
+ *         energy dependent fission widths and energy independent widths for the
+ *         other reactions.
+ *
+ *  The EnergyDependentFissionWidths class is used to represent the
+ *  SLBW unresolved parameters from MF2/MT151 for LRU=2 LRF=1 LFW=1.
+ *
+ *  See ENDF102, section 2.2.1.1 for more information.
+ */
 class EnergyDependentFissionWidths {
-public:
-  #include "ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/Jvalue.hpp"
-  #include "ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/Lvalue.hpp"
-  
-protected:
-  std::vector< Lvalue > lValues_;
-  std::optional< TAB1 > ape; 
-  LIST list;
-  double el;
-  double eh;
-  int naps;
 
 public:
+
+  #include "ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/JValue.hpp"
+  #include "ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/LValue.hpp"
+
+private:
+
+  /* fields */
+  ListRecord energies_;
+  std::vector< LValue > lvalues_;
+
+  /* auxiliary functions */
+  #include "ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/readLValues.hpp"
+  #include "ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/verifySize.hpp"
+
+public:
+
+  /* constructors */
   #include "ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/ctor.hpp"
-  
-  double EL() const { return this->el; }
-  double EH() const { return this->eh; }
-  int NRO() const { return bool(this->ape); }
-  int NAPS() const { return this->naps; }
 
-  const auto& APE() const { return *(this->ape); }
-  
-  int NE() const { return this->list.NPL(); }
-  double SPI() const { return this->list.C1(); }
-  double AP() const { return this->list.C2(); }
-  int LSSF() const { return this->list.L1(); }
-  int NLS() const { return this->lValues_.size(); }
+  /* get methods */
 
-  static constexpr int LRU(){ return 2; }
-  static constexpr int LRF(){ return 1; }
+  /**
+   *  @brief Return the resonance type (resolved or unresolved)
+   */
+  static constexpr int LRU() { return 2; }
 
-  auto ES() const { return this->list.B(); }
+  /**
+   *  @brief Return the resonance type (resolved or unresolved)
+   */
+  static constexpr int type() { return EnergyDependentFissionWidths::LRU(); }
 
-  auto lValues() const {
-    return
-      ranges::make_iterator_range( this->lValues_.begin(), this->lValues_.end() );
-  }
-  
-  long NC() const {
-    return 1
-      + ( ( this->ape ) ? this->ape->NC() : 0 )
-      + this->list.NC()
-      + ranges::accumulate
-        ( this->lValues_
-          | ranges::view::transform
-            ( []( const auto& lValue ){ return lValue.NC(); } ), 0 );
+  /**
+   *  @brief Return the resonance representation
+   */
+  static constexpr int LRF() { return 1; }
+
+  /**
+   *  @brief Return the resonance representation
+   */
+  static constexpr int representation() {
+
+    return EnergyDependentFissionWidths::LRF();
   }
 
+  /**
+   *  @brief Return the average fission flag
+   */
+  constexpr bool LFW() const { return true; }
+
+  /**
+   *  @brief Return the average fission flag
+   */
+  constexpr int averageFissionWidthFlag() const {
+
+    return EnergyDependentFissionWidths::LFW();
+  }
+
+  /**
+   *  @brief Return the target spin
+   */
+  double SPI() const { return this->energies_.C1(); }
+
+  /**
+   *  @brief Return the target spin
+   */
+  double spin() const { return this->SPI(); }
+
+  /**
+   *  @brief Return the scattering radius
+   */
+  double AP() const { return this->energies_.C2(); }
+
+  /**
+   *  @brief Return the scattering radius
+   */
+  double scatteringRadius() const { return this->AP(); }
+
+  /**
+   *  @brief Return the self-shielding only flag
+   */
+  bool LSSF() const { return this->energies_.L1(); }
+
+  /**
+   *  @brief Return the self-shielding only flag
+   */
+  bool selfShieldingOnly() const { return this->LSSF(); }
+
+  /**
+   *  @brief Return the energy values
+   */
+  int NE() const { return this->energies_.NPL(); }
+
+  /**
+   *  @brief Return the number of l values
+   */
+  int NLS() const { return this->lvalues_.size(); }
+
+  /**
+   *  @brief Return the energy values for which fission widths are given
+   */
+  auto ES() const { return this->energies_.list(); }
+
+  /**
+   *  @brief Return the energy values for which fission widths are given
+   */
+  auto energies() const { return this->ES(); }
+
+  /**
+   *  @brief Return the data for every l value
+   */
+  auto lValues() const { return ranges::view::all( this->lvalues_ ); }
+
+  #include "ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/NC.hpp"
   #include "ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/print.hpp"
 };
-

@@ -22,7 +22,10 @@ private:
   double ap_;
   bool lssf_;
 
-  std::vector< LValues > lvalues_;
+  std::vector< LValue > lvalues_;
+
+  /* auxiliary functions */
+  #include "ENDFtk/resonanceParameters/unresolved/EnergyIndependent/src/readLValues.hpp"
 
 public:
 
@@ -39,7 +42,7 @@ public:
   /**
    *  @brief Return the resonance type (resolved or unresolved)
    */
-  static constexpr int type() { return RMatrixLimited::LRU(); }
+  static constexpr int type() { return EnergyIndependent::LRU(); }
 
   /**
    *  @brief Return the resonance representation
@@ -49,7 +52,7 @@ public:
   /**
    *  @brief Return the resonance representation
    */
-  static constexpr int representation() { return RMatrixLimited::LRF(); }
+  static constexpr int representation() { return EnergyIndependent::LRF(); }
 
   /**
    *  @brief Return the average fission flag
@@ -61,7 +64,7 @@ public:
    */
   constexpr int averageFissionWidthFlag() const {
 
-    return RMatrixLimited::LFW();
+    return EnergyIndependent::LFW();
   }
 
   /**

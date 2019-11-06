@@ -11,9 +11,11 @@
 template< typename OutputIterator >
 void print( OutputIterator& it, int MAT, int MF, int MT ) const {
 
-  this->energies_.print( it, MAT, MF, MT );
-  for ( const auto& lvalue : this->lvalues_ ) {
+  ControlRecord( this->AWRI(), 0.0,
+                 this->L(), 0,
+                 this->NJS(), 0 ).print( it, MAT, MF, MT );
+  for ( const auto& jvalue : this->jvalues_ ) {
 
-    lvalue.print( it, MAT, MF, MT );
+    jvalue.print( it, MAT, MF, MT );
   }
 }

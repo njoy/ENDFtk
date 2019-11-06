@@ -49,10 +49,7 @@ public:
   /**
    *  @brief Return the number of degrees of freedom for the neutron width.
    */
-  int neutronWidthDegreesFreedom() const {
-
-    return static_cast<int>( this->AMUN() );
-  }
+  int neutronWidthDegreesFreedom() const { return this->AMUN(); }
 
   /**
    *  @brief Return the number of degrees of freedom for the gamma width.

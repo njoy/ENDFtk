@@ -5,183 +5,404 @@
 
 using namespace njoy::ENDFtk;
 
-std::string LRF2();
-std::string Tab1();
+// convenience typedefs
+using EnergyIndependent = resonanceParameters::unresolved::EnergyIndependent;
+using LValue = resonanceParameters::unresolved::EnergyIndependent::LValue;
 
-SCENARIO( "Testing energy-independent unresolved resonances" ){
-  GIVEN( "valid ENDF parameters" ){
-    long lineNumber = 0;
-    int MAT = 5655;
-    int MF = 2;
-    int MT = 151;
-    
-    WHEN( "NRO == 0" ){
-      std::string ENDF = LRF2();
-      auto begin = ENDF.begin();
-      auto end = ENDF.end();
-      
-      resonanceParameters::Base base( 2.3E4, 1.0E5, 2, 1, 0, 0 );
-      std::string baseString =
-        " 2.300000+4 1.000000+5          2          1          0          05655 2151     \n";
-      
-      resonanceParameters::unresolved::EnergyIndependent
-        ei( base, begin, end, lineNumber, MAT, MF, MT );
+std::string chunk();
+void verifyChunk( const EnergyIndependent& );
 
-      THEN( "the parameters can be verified" ){
-        REQUIRE( 2.3E4 == ei.EL() );
-        REQUIRE( 1.0E5 == ei.EH() );
-        REQUIRE( 0 == ei.NRO() );
-        REQUIRE( 0 == ei.NAPS() );
-        REQUIRE( 2 == ei.LRU() );
-        REQUIRE( 1 == ei.LRF() );
-        REQUIRE( 10 == ei.NC() );
-          
-        REQUIRE( 0.0 == ei.SPI() );
-        REQUIRE( 6.233E-1 == Approx( ei.AP() ) );
-        REQUIRE( 0 == ei.LSSF() );
-        REQUIRE( 3 == ei.NLS() );
-        REQUIRE( 3 == ei.lValues().size() );
+SCENARIO( "EnergyIndependent" ) {
 
-        SECTION( "L == 0"){
-          auto lValue =  ei.lValues()[0];
-          REQUIRE( 1.38709E2 == lValue.AWRI() );
-          REQUIRE( 0 == lValue.L() );
-          REQUIRE( 1 == lValue.NJS() );
-          REQUIRE( 1 == lValue.jValues().size() );
-          auto jValue =  lValue.jValues()[0];
-          REQUIRE( 4.4E3 == jValue.D() );
-          REQUIRE( 0.5 == jValue.AJ() );
-          REQUIRE( 1.0 == jValue.AMUN() );
-          REQUIRE( 4.4E-1 == jValue.GNO() );
-          REQUIRE( 5.E-2 == jValue.GG() );
-        }
+  GIVEN( "valid data for an EnergyIndependent" ) {
 
-        SECTION( "L == 1"){
-          auto lValue =  ei.lValues()[1];
-          REQUIRE( 1.38709E2 == lValue.AWRI() );
-          REQUIRE( 1 == lValue.L() );
-          REQUIRE( 2 == lValue.NJS() );
-          REQUIRE( 2 == lValue.jValues().size() );
-          auto jValue =  lValue.jValues()[0];
-          REQUIRE( 4.4E3 == jValue.D() );
-          REQUIRE( 0.5 == jValue.AJ() );
-          REQUIRE( 1.0 == jValue.AMUN() );
-          REQUIRE( 5.28E-1 == jValue.GNO() );
-          REQUIRE( 9.E-2 == jValue.GG() );
-        }
-      }
+    std::string string = chunk();
 
-      SECTION( "print" ){
+    WHEN( "the data is given explicitly" ) {
+
+      double spin = 0.0;
+      double ap = 0.6233;
+      bool lssf = false;
+
+      std::vector< LValue > lvalues =
+        { { 138.709, 0,
+            { 0.5 }, { 4400. }, { 1 }, { 0.44 }, { 0.05 } },
+          { 138.709, 1,
+            { 0.5, 1.5 }, { 4400., 2200. }, { 1, 1 }, { 0.528, 0.264 },
+            { 0.09, 0.091 } },
+          { 138.709, 2,
+            { 1.5, 2.5 }, { 2200., 1466.67 }, { 1, 1 }, { 0.033, 0.022 },
+            { 0.05, 0.051 } } };
+
+      EnergyIndependent chunk( spin, ap, lssf, std::move( lvalues ) );
+
+      THEN( "a EnergyIndependent can be constructed and members can be "
+            "tested" ) {
+
+        verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        ei.print( output, MAT, MF, MT );
+        chunk.print( output, 5655, 2, 151 );
 
-        REQUIRE( buffer == baseString + LRF2() );
+        CHECK( buffer == string );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is read from a string/stream" ) {
+
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      EnergyIndependent chunk( begin, end, lineNumber, 5655, 2, 151 );
+
+      THEN( "a EnergyIndependent can be constructed and members can be tested" ) {
+
+        verifyChunk( chunk );
       }
-    }
-    WHEN( "NRO != 0" ){
-      std::string ENDF = Tab1() + LRF2();
-      auto begin = ENDF.begin();
-      auto end = ENDF.end();
 
-      resonanceParameters::Base base( 2.3E4, 1.0E5, 2, 1, 1, 0 );
-      std::string baseString =
-        " 2.300000+4 1.000000+5          2          1          1          05655 2151     \n";
-            
-      resonanceParameters::unresolved::EnergyIndependent
-        ei( base, begin, end, lineNumber, MAT, MF, MT );
-      
-      THEN( "the parameters can be verified" ){
-        REQUIRE( 2.3E4 == ei.EL() );
-        REQUIRE( 1.0E5 == ei.EH() );
-        REQUIRE( 1 == ei.NRO() );
-        REQUIRE( 0 == ei.NAPS() );
-        REQUIRE( 29 == ei.NC() );
-        
-        REQUIRE( 0.0 == ei.SPI() );
-        REQUIRE( 6.233E-1 == Approx( ei.AP() ) );
-        REQUIRE( 0 == ei.LSSF() );
-        REQUIRE( 3 == ei.NLS() );
-        REQUIRE( 3 == ei.lValues().size() );
+      THEN( "it can be printed" ) {
 
-        REQUIRE( 1 == ei.APE().NR() );
-        REQUIRE( 50 == ei.APE().NP() );
-        REQUIRE( 50 == ei.APE().x().size() );
-        REQUIRE( 50 == ei.APE().y().size() );
-        REQUIRE( 1.0E-5 == Approx( ei.APE().x().front() ) );
-        REQUIRE( 1.2381 == Approx( ei.APE().y().front() ) );
-        REQUIRE( 2.0E5 == Approx( ei.APE().x().back() ) );
-        REQUIRE( 0.5803 == Approx( ei.APE().y().back() ) );
-      }
-      
-      SECTION( "print" ){
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        ei.print( output, MAT, MF, MT );
+        chunk.print( output, 5655, 2, 151 );
 
-        REQUIRE( buffer == baseString + Tab1() + LRF2() );
-      }
-    }
-  }
+        CHECK( buffer == string );
+      } // THEN
+    } // WHEN
+  } // GIVEN
+} // SCENARIO
 
-  GIVEN( "invalid ENDF parameters" ){
-    long lineNumber = 0;
-    int MAT = 5655;
-    int MF = 2;
-    int MT = 151;
-
-    std::string ENDF = LRF2();
-    ENDF[53] = '-';
-    auto begin = ENDF.begin();
-    auto end = ENDF.end();
-
-    THEN( "an exception is thrown" ){
-      resonanceParameters::Base base( 2.3E4, 1.0E5, 2, 1, 0, 0 );
-      REQUIRE_THROWS(
-        resonanceParameters::unresolved::EnergyIndependent(
-          base, begin, end, lineNumber, MAT, MF, MT ) );
-    }
-  }
-}
-
-std::string LRF2() {
+std::string chunk() {
   return
-      // base
-    // " 2.300000+4 1.000000+5          2          1          0          05655 2151\n"
-    // range CONT
     " 0.000000+0 6.233000-1          0          0          3          05655 2151     \n"
-    // L=0 LIST                                                                      
     " 1.387090+2 0.000000+0          0          0          6          15655 2151     \n"
     " 4.400000+3 5.000000-1 1.000000+0 4.400000-1 5.000000-2 0.000000+05655 2151     \n"
-    // L=1 LIST                                                                      
     " 1.387090+2 0.000000+0          1          0         12          25655 2151     \n"
     " 4.400000+3 5.000000-1 1.000000+0 5.280000-1 9.000000-2 0.000000+05655 2151     \n"
-    " 2.200000+3 1.500000+0 1.000000+0 2.640000-1 9.000000-2 0.000000+05655 2151     \n"
-    // L=2 LIST                                                                      
+    " 2.200000+3 1.500000+0 1.000000+0 2.640000-1 9.100000-2 0.000000+05655 2151     \n"
     " 1.387090+2 0.000000+0          2          0         12          25655 2151     \n"
     " 2.200000+3 1.500000+0 1.000000+0 3.300000-2 5.000000-2 0.000000+05655 2151     \n"
-    " 1.466670+3 2.500000+0 1.000000+0 2.200000-2 5.000000-2 0.000000+05655 2151     \n";
+    " 1.466670+3 2.500000+0 1.000000+0 2.200000-2 5.100000-2 0.000000+05655 2151     \n";
 }
 
-std::string Tab1(){
-  return
-    " 0.000000+0 0.000000+0          0          0          1         505655 2151     \n"
-    "         50          2                                            5655 2151     \n"
-    " 1.000000-5 1.238100+0 4.000000+1 1.188400+0 5.000000+1 1.153200+05655 2151     \n"
-    " 6.000000+1 1.126500+0 7.000000+1 1.105300+0 8.000000+1 1.087800+05655 2151     \n"
-    " 9.000000+1 1.073100+0 1.000000+2 1.060500+0 2.000000+2 9.888000-15655 2151     \n"
-    " 3.000000+2 9.547000-1 4.000000+2 9.334000-1 5.000000+2 9.184000-15655 2151     \n"
-    " 6.000000+2 9.069000-1 7.000000+2 8.978000-1 8.000000+2 8.903000-15655 2151     \n"
-    " 9.000000+2 8.839000-1 1.000000+3 8.783000-1 2.000000+3 8.456000-15655 2151     \n"
-    " 3.000000+3 8.286000-1 4.000000+3 8.170000-1 5.000000+3 8.081000-15655 2151     \n"
-    " 6.000000+3 8.008000-1 7.000000+3 7.946000-1 8.000000+3 7.892000-15655 2151     \n"
-    " 9.000000+3 7.844000-1 1.000000+4 7.800000-1 1.200000+4 7.721000-15655 2151     \n"
-    " 1.400000+4 7.653000-1 1.600000+4 7.592000-1 1.800000+4 7.536000-15655 2151     \n"
-    " 2.000000+4 7.484000-1 2.500000+4 7.369000-1 3.000000+4 7.269000-15655 2151     \n"
-    " 3.500000+4 7.180000-1 4.000000+4 7.098000-1 4.200000+4 7.067000-15655 2151     \n"
-    " 4.400000+4 7.038000-1 4.600000+4 7.009000-1 4.800000+4 6.980000-15655 2151     \n"
-    " 5.000000+4 6.953000-1 5.500000+4 6.888000-1 6.000000+4 6.826000-15655 2151     \n"
-    " 6.500000+4 6.767000-1 7.000000+4 6.712000-1 7.500000+4 6.659000-15655 2151     \n"
-    " 8.000000+4 6.608000-1 8.500000+4 6.560000-1 9.000000+4 6.513000-15655 2151     \n"
-    " 9.500000+4 6.469000-1 2.000000+5 5.803000-1                      5655 2151     \n";
+void verifyChunk( const EnergyIndependent& chunk ) {
+
+  CHECK( 2 == chunk.LRU() );
+  CHECK( 2 == chunk.type() );
+  CHECK( 1 == chunk.LRF() );
+  CHECK( 1 == chunk.representation() );
+  CHECK( false == chunk.LFW() );
+  CHECK( false == chunk.averageFissionWidthFlag() );
+
+  CHECK( 0.0 == Approx( chunk.SPI() ) );
+  CHECK( 0.0 == Approx( chunk.spin() ) );
+  CHECK( 0.6233 == Approx( chunk.AP() ) );
+  CHECK( 0.6233 == Approx( chunk.scatteringRadius() ) );
+  CHECK( false == Approx( chunk.LSSF() ) );
+  CHECK( false == Approx( chunk.selfShieldingOnly() ) );
+
+  CHECK( 3 == chunk.NLS() );
+
+  auto lvalue0 = chunk.lValues()[0];
+  CHECK( 138.709 == Approx( lvalue0.AWRI() ) );
+  CHECK( 138.709 == Approx( lvalue0.atomicWeightRatio() ) );
+  CHECK( 0 == lvalue0.L() );
+  CHECK( 0 == lvalue0.orbitalMomentum() );
+
+  CHECK( 1 == lvalue0.NJS() );
+  CHECK( 1 == lvalue0.numberSpinValues() );
+  CHECK( 1 == lvalue0.AJ().size() );
+  CHECK( 1 == lvalue0.spinValues().size() );
+  CHECK( 1 == lvalue0.D().size() );
+  CHECK( 1 == lvalue0.averageLevelSpacings().size() );
+  CHECK( 1 == lvalue0.AMUN().size() );
+  CHECK( 1 == lvalue0.neutronWidthDegreesFreedom().size() );
+  CHECK( 1 == lvalue0.AMUG().size() );
+  CHECK( 1 == lvalue0.gammaWidthDegreesFreedom().size() );
+  CHECK( 1 == lvalue0.AMUF().size() );
+  CHECK( 1 == lvalue0.fissionWidthDegreesFreedom().size() );
+  CHECK( 1 == lvalue0.AMUX().size() );
+  CHECK( 1 == lvalue0.competitiveWidthDegreesFreedom().size() );
+  CHECK( 1 == lvalue0.GN().size() );
+  CHECK( 1 == lvalue0.averageNeutronWidths().size() );
+  CHECK( 1 == lvalue0.GG().size() );
+  CHECK( 1 == lvalue0.averageGammaWidths().size() );
+  CHECK( 1 == lvalue0.GF().size() );
+  CHECK( 1 == lvalue0.averageFissionWidths().size() );
+  CHECK( 1 == lvalue0.GX().size() );
+  CHECK( 1 == lvalue0.averageCompetitiveWidths().size() );
+  CHECK( 1 == lvalue0.jValues().size() );
+
+  CHECK( 0.5 == Approx( lvalue0.AJ()[0] ) );
+  CHECK( 0.5 == Approx( lvalue0.spinValues()[0] ) );
+  CHECK( 4400. == Approx( lvalue0.D()[0] ) );
+  CHECK( 4400. == Approx( lvalue0.averageLevelSpacings()[0] ) );
+  CHECK( 1 == lvalue0.AMUN()[0] );
+  CHECK( 1 == lvalue0.neutronWidthDegreesFreedom()[0] );
+  CHECK( 0 == lvalue0.AMUG()[0] );
+  CHECK( 0 == lvalue0.gammaWidthDegreesFreedom()[0] );
+  CHECK( 0 == lvalue0.AMUF()[0] );
+  CHECK( 0 == lvalue0.fissionWidthDegreesFreedom()[0] );
+  CHECK( 0 == lvalue0.AMUX()[0] );
+  CHECK( 0 == lvalue0.competitiveWidthDegreesFreedom()[0] );
+  CHECK( 0.44 == Approx( lvalue0.GN()[0] ) );
+  CHECK( 0.44 == Approx( lvalue0.averageNeutronWidths()[0] ) );
+  CHECK( 0.05 == Approx( lvalue0.GG()[0] ) );
+  CHECK( 0.05 == Approx( lvalue0.averageGammaWidths()[0] ) );
+  CHECK( 0. == Approx( lvalue0.GF()[0] ) );
+  CHECK( 0. == Approx( lvalue0.averageFissionWidths()[0] ) );
+  CHECK( 0. == Approx( lvalue0.GX()[0] ) );
+  CHECK( 0. == Approx( lvalue0.averageCompetitiveWidths()[0] ) );
+
+  CHECK( 0.5 == Approx( lvalue0.jValues()[0].AJ() ) );
+  CHECK( 0.5 == Approx( lvalue0.jValues()[0].spin() ) );
+  CHECK( 4400. == Approx( lvalue0.jValues()[0].D() ) );
+  CHECK( 4400. == Approx( lvalue0.jValues()[0].averageLevelSpacing() ) );
+  CHECK( 1 == lvalue0.jValues()[0].AMUN() );
+  CHECK( 1 == lvalue0.jValues()[0].neutronWidthDegreesFreedom() );
+  CHECK( 0 == lvalue0.jValues()[0].AMUG() );
+  CHECK( 0 == lvalue0.jValues()[0].gammaWidthDegreesFreedom() );
+  CHECK( 0 == lvalue0.jValues()[0].AMUF() );
+  CHECK( 0 == lvalue0.jValues()[0].fissionWidthDegreesFreedom() );
+  CHECK( 0 == lvalue0.jValues()[0].AMUX() );
+  CHECK( 0 == lvalue0.jValues()[0].competitiveWidthDegreesFreedom() );
+  CHECK( 0.44 == Approx( lvalue0.jValues()[0].GN() ) );
+  CHECK( 0.44 == Approx( lvalue0.jValues()[0].averageNeutronWidth() ) );
+  CHECK( 0.05 == Approx( lvalue0.jValues()[0].GG() ) );
+  CHECK( 0.05 == Approx( lvalue0.jValues()[0].averageGammaWidth() ) );
+  CHECK( 0. == Approx( lvalue0.jValues()[0].GF() ) );
+  CHECK( 0. == Approx( lvalue0.jValues()[0].averageFissionWidth() ) );
+  CHECK( 0. == Approx( lvalue0.jValues()[0].GX() ) );
+  CHECK( 0. == Approx( lvalue0.jValues()[0].averageCompetitiveWidth() ) );
+
+  auto lvalue1 = chunk.lValues()[1];
+  CHECK( 138.709 == Approx( lvalue1.AWRI() ) );
+  CHECK( 138.709 == Approx( lvalue1.atomicWeightRatio() ) );
+  CHECK( 1 == lvalue1.L() );
+  CHECK( 1 == lvalue1.orbitalMomentum() );
+
+  CHECK( 2 == lvalue1.NJS() );
+  CHECK( 2 == lvalue1.numberSpinValues() );
+  CHECK( 2 == lvalue1.AJ().size() );
+  CHECK( 2 == lvalue1.spinValues().size() );
+  CHECK( 2 == lvalue1.D().size() );
+  CHECK( 2 == lvalue1.averageLevelSpacings().size() );
+  CHECK( 2 == lvalue1.AMUN().size() );
+  CHECK( 2 == lvalue1.neutronWidthDegreesFreedom().size() );
+  CHECK( 2 == lvalue1.AMUG().size() );
+  CHECK( 2 == lvalue1.gammaWidthDegreesFreedom().size() );
+  CHECK( 2 == lvalue1.AMUF().size() );
+  CHECK( 2 == lvalue1.fissionWidthDegreesFreedom().size() );
+  CHECK( 2 == lvalue1.AMUX().size() );
+  CHECK( 2 == lvalue1.competitiveWidthDegreesFreedom().size() );
+  CHECK( 2 == lvalue1.GN().size() );
+  CHECK( 2 == lvalue1.averageNeutronWidths().size() );
+  CHECK( 2 == lvalue1.GG().size() );
+  CHECK( 2 == lvalue1.averageGammaWidths().size() );
+  CHECK( 2 == lvalue1.GF().size() );
+  CHECK( 2 == lvalue1.averageFissionWidths().size() );
+  CHECK( 2 == lvalue1.GX().size() );
+  CHECK( 2 == lvalue1.averageCompetitiveWidths().size() );
+  CHECK( 2 == lvalue1.jValues().size() );
+
+  CHECK( 0.5 == Approx( lvalue1.AJ()[0] ) );
+  CHECK( 1.5 == Approx( lvalue1.AJ()[1] ) );
+  CHECK( 0.5 == Approx( lvalue1.spinValues()[0] ) );
+  CHECK( 1.5 == Approx( lvalue1.spinValues()[1] ) );
+  CHECK( 4400. == Approx( lvalue1.D()[0] ) );
+  CHECK( 2200. == Approx( lvalue1.D()[1] ) );
+  CHECK( 4400. == Approx( lvalue1.averageLevelSpacings()[0] ) );
+  CHECK( 2200. == Approx( lvalue1.averageLevelSpacings()[1] ) );
+  CHECK( 1 == lvalue1.AMUN()[0] );
+  CHECK( 1 == lvalue1.AMUN()[1] );
+  CHECK( 1 == lvalue1.neutronWidthDegreesFreedom()[0] );
+  CHECK( 1 == lvalue1.neutronWidthDegreesFreedom()[1] );
+  CHECK( 0 == lvalue1.AMUG()[0] );
+  CHECK( 0 == lvalue1.AMUG()[1] );
+  CHECK( 0 == lvalue1.gammaWidthDegreesFreedom()[0] );
+  CHECK( 0 == lvalue1.gammaWidthDegreesFreedom()[1] );
+  CHECK( 0 == lvalue1.AMUF()[0] );
+  CHECK( 0 == lvalue1.AMUF()[1] );
+  CHECK( 0 == lvalue1.fissionWidthDegreesFreedom()[0] );
+  CHECK( 0 == lvalue1.fissionWidthDegreesFreedom()[1] );
+  CHECK( 0 == lvalue1.AMUX()[0] );
+  CHECK( 0 == lvalue1.AMUX()[1] );
+  CHECK( 0 == lvalue1.competitiveWidthDegreesFreedom()[0] );
+  CHECK( 0 == lvalue1.competitiveWidthDegreesFreedom()[1] );
+  CHECK( 0.528 == Approx( lvalue1.GN()[0] ) );
+  CHECK( 0.264 == Approx( lvalue1.GN()[1] ) );
+  CHECK( 0.528 == Approx( lvalue1.averageNeutronWidths()[0] ) );
+  CHECK( 0.264 == Approx( lvalue1.averageNeutronWidths()[1] ) );
+  CHECK( 0.090 == Approx( lvalue1.GG()[0] ) );
+  CHECK( 0.091 == Approx( lvalue1.GG()[1] ) );
+  CHECK( 0.090 == Approx( lvalue1.averageGammaWidths()[0] ) );
+  CHECK( 0.091 == Approx( lvalue1.averageGammaWidths()[1] ) );
+  CHECK( 0. == Approx( lvalue1.GF()[0] ) );
+  CHECK( 0. == Approx( lvalue1.GF()[1] ) );
+  CHECK( 0. == Approx( lvalue1.averageFissionWidths()[0] ) );
+  CHECK( 0. == Approx( lvalue1.averageFissionWidths()[1] ) );
+  CHECK( 0. == Approx( lvalue1.GX()[0] ) );
+  CHECK( 0. == Approx( lvalue1.GX()[1] ) );
+  CHECK( 0. == Approx( lvalue1.averageCompetitiveWidths()[0] ) );
+  CHECK( 0. == Approx( lvalue1.averageCompetitiveWidths()[1] ) );
+
+  CHECK( 0.5 == Approx( lvalue1.jValues()[0].AJ() ) );
+  CHECK( 1.5 == Approx( lvalue1.jValues()[1].AJ() ) );
+  CHECK( 0.5 == Approx( lvalue1.jValues()[0].spin() ) );
+  CHECK( 1.5 == Approx( lvalue1.jValues()[1].spin() ) );
+  CHECK( 4400. == Approx( lvalue1.jValues()[0].D() ) );
+  CHECK( 2200. == Approx( lvalue1.jValues()[1].D() ) );
+  CHECK( 4400. == Approx( lvalue1.jValues()[0].averageLevelSpacing() ) );
+  CHECK( 2200. == Approx( lvalue1.jValues()[1].averageLevelSpacing() ) );
+  CHECK( 1 == lvalue1.jValues()[0].AMUN() );
+  CHECK( 1 == lvalue1.jValues()[1].AMUN() );
+  CHECK( 1 == lvalue1.jValues()[0].neutronWidthDegreesFreedom() );
+  CHECK( 1 == lvalue1.jValues()[1].neutronWidthDegreesFreedom() );
+  CHECK( 0 == lvalue1.jValues()[0].AMUG() );
+  CHECK( 0 == lvalue1.jValues()[1].AMUG() );
+  CHECK( 0 == lvalue1.jValues()[0].gammaWidthDegreesFreedom() );
+  CHECK( 0 == lvalue1.jValues()[1].gammaWidthDegreesFreedom() );
+  CHECK( 0 == lvalue1.jValues()[0].AMUF() );
+  CHECK( 0 == lvalue1.jValues()[1].AMUF() );
+  CHECK( 0 == lvalue1.jValues()[0].fissionWidthDegreesFreedom() );
+  CHECK( 0 == lvalue1.jValues()[1].fissionWidthDegreesFreedom() );
+  CHECK( 0 == lvalue1.jValues()[0].AMUX() );
+  CHECK( 0 == lvalue1.jValues()[1].AMUX() );
+  CHECK( 0 == lvalue1.jValues()[0].competitiveWidthDegreesFreedom() );
+  CHECK( 0 == lvalue1.jValues()[1].competitiveWidthDegreesFreedom() );
+  CHECK( 0.528 == Approx( lvalue1.jValues()[0].GN() ) );
+  CHECK( 0.264 == Approx( lvalue1.jValues()[1].GN() ) );
+  CHECK( 0.528 == Approx( lvalue1.jValues()[0].averageNeutronWidth() ) );
+  CHECK( 0.264 == Approx( lvalue1.jValues()[1].averageNeutronWidth() ) );
+  CHECK( 0.090 == Approx( lvalue1.jValues()[0].GG() ) );
+  CHECK( 0.091 == Approx( lvalue1.jValues()[1].GG() ) );
+  CHECK( 0.090 == Approx( lvalue1.jValues()[0].averageGammaWidth() ) );
+  CHECK( 0.091 == Approx( lvalue1.jValues()[1].averageGammaWidth() ) );
+  CHECK( 0. == Approx( lvalue1.jValues()[0].GF() ) );
+  CHECK( 0. == Approx( lvalue1.jValues()[1].GF() ) );
+  CHECK( 0. == Approx( lvalue1.jValues()[0].averageFissionWidth() ) );
+  CHECK( 0. == Approx( lvalue1.jValues()[1].averageFissionWidth() ) );
+  CHECK( 0. == Approx( lvalue1.jValues()[0].GX() ) );
+  CHECK( 0. == Approx( lvalue1.jValues()[1].GX() ) );
+  CHECK( 0. == Approx( lvalue1.jValues()[0].averageCompetitiveWidth() ) );
+  CHECK( 0. == Approx( lvalue1.jValues()[1].averageCompetitiveWidth() ) );
+
+  auto lvalue2 = chunk.lValues()[2];
+  CHECK( 138.709 == Approx( lvalue2.AWRI() ) );
+  CHECK( 138.709 == Approx( lvalue2.atomicWeightRatio() ) );
+  CHECK( 2 == lvalue2.L() );
+  CHECK( 2 == lvalue2.orbitalMomentum() );
+
+  CHECK( 2 == lvalue2.NJS() );
+  CHECK( 2 == lvalue2.numberSpinValues() );
+  CHECK( 2 == lvalue2.AJ().size() );
+  CHECK( 2 == lvalue2.spinValues().size() );
+  CHECK( 2 == lvalue2.D().size() );
+  CHECK( 2 == lvalue2.averageLevelSpacings().size() );
+  CHECK( 2 == lvalue2.AMUN().size() );
+  CHECK( 2 == lvalue2.neutronWidthDegreesFreedom().size() );
+  CHECK( 2 == lvalue2.AMUG().size() );
+  CHECK( 2 == lvalue2.gammaWidthDegreesFreedom().size() );
+  CHECK( 2 == lvalue2.AMUF().size() );
+  CHECK( 2 == lvalue2.fissionWidthDegreesFreedom().size() );
+  CHECK( 2 == lvalue2.AMUX().size() );
+  CHECK( 2 == lvalue2.competitiveWidthDegreesFreedom().size() );
+  CHECK( 2 == lvalue2.GN().size() );
+  CHECK( 2 == lvalue2.averageNeutronWidths().size() );
+  CHECK( 2 == lvalue2.GG().size() );
+  CHECK( 2 == lvalue2.averageGammaWidths().size() );
+  CHECK( 2 == lvalue2.GF().size() );
+  CHECK( 2 == lvalue2.averageFissionWidths().size() );
+  CHECK( 2 == lvalue2.GX().size() );
+  CHECK( 2 == lvalue2.averageCompetitiveWidths().size() );
+  CHECK( 2 == lvalue2.jValues().size() );
+
+  CHECK( 1.5 == Approx( lvalue2.AJ()[0] ) );
+  CHECK( 2.5 == Approx( lvalue2.AJ()[1] ) );
+  CHECK( 1.5 == Approx( lvalue2.spinValues()[0] ) );
+  CHECK( 2.5 == Approx( lvalue2.spinValues()[1] ) );
+  CHECK( 2200. == Approx( lvalue2.D()[0] ) );
+  CHECK( 1466.67 == Approx( lvalue2.D()[1] ) );
+  CHECK( 2200. == Approx( lvalue2.averageLevelSpacings()[0] ) );
+  CHECK( 1466.67 == Approx( lvalue2.averageLevelSpacings()[1] ) );
+  CHECK( 1 == lvalue2.AMUN()[0] );
+  CHECK( 1 == lvalue2.AMUN()[1] );
+  CHECK( 1 == lvalue2.neutronWidthDegreesFreedom()[0] );
+  CHECK( 1 == lvalue2.neutronWidthDegreesFreedom()[1] );
+  CHECK( 0 == lvalue2.AMUG()[0] );
+  CHECK( 0 == lvalue2.AMUG()[1] );
+  CHECK( 0 == lvalue2.gammaWidthDegreesFreedom()[0] );
+  CHECK( 0 == lvalue2.gammaWidthDegreesFreedom()[1] );
+  CHECK( 0 == lvalue2.AMUF()[0] );
+  CHECK( 0 == lvalue2.AMUF()[1] );
+  CHECK( 0 == lvalue2.fissionWidthDegreesFreedom()[0] );
+  CHECK( 0 == lvalue2.fissionWidthDegreesFreedom()[1] );
+  CHECK( 0 == lvalue2.AMUX()[0] );
+  CHECK( 0 == lvalue2.AMUX()[1] );
+  CHECK( 0 == lvalue2.competitiveWidthDegreesFreedom()[0] );
+  CHECK( 0 == lvalue2.competitiveWidthDegreesFreedom()[1] );
+  CHECK( 0.033 == Approx( lvalue2.GN()[0] ) );
+  CHECK( 0.022 == Approx( lvalue2.GN()[1] ) );
+  CHECK( 0.033 == Approx( lvalue2.averageNeutronWidths()[0] ) );
+  CHECK( 0.022 == Approx( lvalue2.averageNeutronWidths()[1] ) );
+  CHECK( 0.050 == Approx( lvalue2.GG()[0] ) );
+  CHECK( 0.051 == Approx( lvalue2.GG()[1] ) );
+  CHECK( 0.050 == Approx( lvalue2.averageGammaWidths()[0] ) );
+  CHECK( 0.051 == Approx( lvalue2.averageGammaWidths()[1] ) );
+  CHECK( 0. == Approx( lvalue2.GF()[0] ) );
+  CHECK( 0. == Approx( lvalue2.GF()[1] ) );
+  CHECK( 0. == Approx( lvalue2.averageFissionWidths()[0] ) );
+  CHECK( 0. == Approx( lvalue2.averageFissionWidths()[1] ) );
+  CHECK( 0. == Approx( lvalue2.GX()[0] ) );
+  CHECK( 0. == Approx( lvalue2.GX()[1] ) );
+  CHECK( 0. == Approx( lvalue2.averageCompetitiveWidths()[0] ) );
+  CHECK( 0. == Approx( lvalue2.averageCompetitiveWidths()[1] ) );
+
+  CHECK( 1.5 == Approx( lvalue2.jValues()[0].AJ() ) );
+  CHECK( 2.5 == Approx( lvalue2.jValues()[1].AJ() ) );
+  CHECK( 1.5 == Approx( lvalue2.jValues()[0].spin() ) );
+  CHECK( 2.5 == Approx( lvalue2.jValues()[1].spin() ) );
+  CHECK( 2200. == Approx( lvalue2.jValues()[0].D() ) );
+  CHECK( 1466.67 == Approx( lvalue2.jValues()[1].D() ) );
+  CHECK( 2200. == Approx( lvalue2.jValues()[0].averageLevelSpacing() ) );
+  CHECK( 1466.67 == Approx( lvalue2.jValues()[1].averageLevelSpacing() ) );
+  CHECK( 1 == lvalue2.jValues()[0].AMUN() );
+  CHECK( 1 == lvalue2.jValues()[1].AMUN() );
+  CHECK( 1 == lvalue2.jValues()[0].neutronWidthDegreesFreedom() );
+  CHECK( 1 == lvalue2.jValues()[1].neutronWidthDegreesFreedom() );
+  CHECK( 0 == lvalue2.jValues()[0].AMUG() );
+  CHECK( 0 == lvalue2.jValues()[1].AMUG() );
+  CHECK( 0 == lvalue2.jValues()[0].gammaWidthDegreesFreedom() );
+  CHECK( 0 == lvalue2.jValues()[1].gammaWidthDegreesFreedom() );
+  CHECK( 0 == lvalue2.jValues()[0].AMUF() );
+  CHECK( 0 == lvalue2.jValues()[1].AMUF() );
+  CHECK( 0 == lvalue2.jValues()[0].fissionWidthDegreesFreedom() );
+  CHECK( 0 == lvalue2.jValues()[1].fissionWidthDegreesFreedom() );
+  CHECK( 0 == lvalue2.jValues()[0].AMUX() );
+  CHECK( 0 == lvalue2.jValues()[1].AMUX() );
+  CHECK( 0 == lvalue2.jValues()[0].competitiveWidthDegreesFreedom() );
+  CHECK( 0 == lvalue2.jValues()[1].competitiveWidthDegreesFreedom() );
+  CHECK( 0.033 == Approx( lvalue2.jValues()[0].GN() ) );
+  CHECK( 0.022 == Approx( lvalue2.jValues()[1].GN() ) );
+  CHECK( 0.033 == Approx( lvalue2.jValues()[0].averageNeutronWidth() ) );
+  CHECK( 0.022 == Approx( lvalue2.jValues()[1].averageNeutronWidth() ) );
+  CHECK( 0.050 == Approx( lvalue2.jValues()[0].GG() ) );
+  CHECK( 0.051 == Approx( lvalue2.jValues()[1].GG() ) );
+  CHECK( 0.050 == Approx( lvalue2.jValues()[0].averageGammaWidth() ) );
+  CHECK( 0.051 == Approx( lvalue2.jValues()[1].averageGammaWidth() ) );
+  CHECK( 0. == Approx( lvalue2.jValues()[0].GF() ) );
+  CHECK( 0. == Approx( lvalue2.jValues()[1].GF() ) );
+  CHECK( 0. == Approx( lvalue2.jValues()[0].averageFissionWidth() ) );
+  CHECK( 0. == Approx( lvalue2.jValues()[1].averageFissionWidth() ) );
+  CHECK( 0. == Approx( lvalue2.jValues()[0].GX() ) );
+  CHECK( 0. == Approx( lvalue2.jValues()[1].GX() ) );
+  CHECK( 0. == Approx( lvalue2.jValues()[0].averageCompetitiveWidth() ) );
+  CHECK( 0. == Approx( lvalue2.jValues()[1].averageCompetitiveWidth() ) );
+
+  CHECK( 9 == chunk.NC() );
 }

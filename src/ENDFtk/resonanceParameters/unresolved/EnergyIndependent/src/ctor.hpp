@@ -9,7 +9,7 @@
 EnergyIndependent( double spi, double ap, bool lssf,
                    std::vector< LValue >&& lvalues ) :
     // no need for a try ... catch: nothing can go wrong here
-    spi_( spi ), ap_( ap ), lssf_( lad ),
+    spi_( spi ), ap_( ap ), lssf_( lssf ),
     lvalues_( std::move( lvalues ) ) {}
 
 private:
@@ -24,7 +24,7 @@ EnergyIndependent( ControlRecord&& cont,
                      readLValues( it, end, lineNumber,
                                   MAT, MF, MT, cont.N1() ) ) {}
 
-protected:
+public:
 /**
  *  @brief Constructor (from a buffer)
  *

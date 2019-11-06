@@ -1,5 +1,5 @@
-class Lvalue : protected EnergyDependentFissionWidths::Lvalue {
-  using Parent = EnergyDependentFissionWidths::Lvalue;
+class Lvalue : protected EnergyDependentFissionWidths::LValue {
+  using Parent = EnergyDependentFissionWidths::LValue;
 public:
   using Parent::AWRI;
   using Parent::L;
@@ -14,11 +14,11 @@ public:
   Lvalue( Iterator& it, const Iterator& end, long& lineNumber,
           int MAT, int MF, int MT ) :
     Parent( it, end, lineNumber, MAT, MF, MT ){}
-  
+
   auto jValues() const {
     return
       this->lists
-      | ranges::view::transform( 
+      | ranges::view::transform(
           []( const auto& list ){ return Jvalue( list ); } );
   }
 };
