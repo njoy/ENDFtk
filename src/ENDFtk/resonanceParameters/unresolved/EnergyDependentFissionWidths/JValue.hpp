@@ -39,16 +39,6 @@ public:
   auto spin() const { return this->AJ(); }
 
   /**
-   *  @brief Return the average level spacing.
-   */
-  double D() const { return ListRecord::list()[0]; }
-
-  /**
-   *  @brief Return the average level spacing.
-   */
-  double averageLevelSpacing() const { return this->D(); }
-
-  /**
    *  @brief Return the number of degrees of freedom for the neutron width.
    */
   int AMUN() const { return static_cast<int>( ListRecord::list()[2] ); }
@@ -90,6 +80,16 @@ public:
 
     return JValue::AMUX();
   }
+
+  /**
+   *  @brief Return the average level spacing.
+   */
+  double D() const { return ListRecord::list()[0]; }
+
+  /**
+   *  @brief Return the average level spacing.
+   */
+  double averageLevelSpacing() const { return this->D(); }
 
   /**
    *  @brief Return the average neutron width.
