@@ -7,7 +7,7 @@
  *  The EnergyDependentFissionWidths class is used to represent the
  *  SLBW unresolved parameters from MF2/MT151 for LRU=2 LRF=1 LFW=1.
  *
- *  See ENDF102, section 2.2.1.1 for more information.
+ *  See ENDF102, section 2.3.1 for more information.
  */
 class EnergyDependentFissionWidths {
 

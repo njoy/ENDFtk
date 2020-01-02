@@ -1,4 +1,4 @@
-class Lvalue : protected EnergyDependentFissionWidths::LValue {
+class LValue : protected EnergyDependentFissionWidths::LValue {
   using Parent = EnergyDependentFissionWidths::LValue;
 public:
   using Parent::AWRI;

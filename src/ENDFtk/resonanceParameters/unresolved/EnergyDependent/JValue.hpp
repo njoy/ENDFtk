@@ -1,20 +1,21 @@
 /**
  *  @class
  *  @brief Unresolved resonance data associated to a given angular momentum
- *         value J with fully energy dependent widths.
+ *         value J with fully energy dependent widths (this is the most
+ *         general case for unresolved resonances).
  *
  *  See ENDF102, section 2.3.1 for more information.
  */
-class Jvalue : protected ListRecord {
+class JValue : protected ListRecord {
 
   /* auxiliary functions */
   #include "ENDFtk/resonanceParameters/unresolved/EnergyDependent/JValue/src/generateList.hpp"
 
   auto column( const int index ) const {
     return
-      this->core.B()
-      | ranges::view::drop_exactly( index + 6 )
-      | ranges::view::stride(6);
+      ListRecord::list()
+        | ranges::view::drop_exactly( index + 6 )
+        | ranges::view::stride(6);
   }
 
 public:
@@ -132,8 +133,36 @@ public:
    */
   double averageCompetitiveWidth() const { return JValue::GX(); }
 
-  int INT() const { return this->core.L1(); }
-  int NE() const { return this->core.N2(); }
+  /**
+   *  @brief Return the interpolation type.
+   */
+  int INT() const { return ListRecord::L1(); }
+
+  /**
+   *  @brief Return the number of energy points.
+   */
+  unsigned int NE() const { return this->energies().size(); }
+
+  /**
+   *  @brief Return the number of interpolation ranges (always 1).
+   */
+  static constexpr int NR() { return 1; }
+
+  /**
+   *  @brief Return the interpolants
+   */
+  auto interpolants() const {
+
+    return std::array< int, 1 >{ this->INT() };
+  }
+
+  /**
+   *  @brief Return the interpolation range boundaries.
+   */
+  auto boundaries() const {
+
+    return std::array< int, 1 >{ static_cast<int>( this->NE() ) };
+  }
 
   using ListRecord::NC;
   using ListRecord::print;
