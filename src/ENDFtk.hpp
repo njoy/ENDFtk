@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <complex>
 #include <map>
+#include <algorithm>
 
 #ifdef __GNUC__
   #pragma GCC diagnostic push
@@ -87,6 +88,7 @@ using TAB1 = TabulationRecord;
 
 #include "ENDFtk/syntaxTree.hpp"
 
+#include "ENDFtk/src/isRedundant.hpp"
 }
 }
 
