@@ -92,7 +92,7 @@ SCENARIO( "section::Type< 12 >" ) {
       auto end = sectionString.end();
       long lineNumber = 1;
       auto head = HEAD( position, end, lineNumber );
-      syntaxTree::Section< std::string::iterator >
+      syntaxTree::Section< std::string >
         section( head, begin, position, end, lineNumber );
 
       section::Type< 12 > chunk1 = section.parse< 12 >();
@@ -199,7 +199,7 @@ SCENARIO( "section::Type< 12 >" ) {
       auto end = sectionString.end();
       long lineNumber = 1;
       auto head = HEAD( position, end, lineNumber );
-      syntaxTree::Section< std::string::iterator >
+      syntaxTree::Section< std::string >
         section( head, begin, position, end, lineNumber );
 
       section::Type< 12 > chunk1 = section.parse< 12 >();
@@ -307,7 +307,7 @@ SCENARIO( "section::Type< 12 >" ) {
       auto end = sectionString.end();
       long lineNumber = 1;
       auto head = HEAD( position, end, lineNumber );
-      syntaxTree::Section< std::string::iterator >
+      syntaxTree::Section< std::string >
         section( head, begin, position, end, lineNumber );
 
       section::Type< 12 > chunk1 = section.parse< 12 >();

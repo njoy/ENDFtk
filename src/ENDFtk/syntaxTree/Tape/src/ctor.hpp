@@ -1,7 +1,7 @@
 protected:
 Tape( Tape&& other, 
       ranges::difference_type_t< Buffer > offset, 
-      ranges::iterator_t< Buffer > start ) :
+      BufferIterator start ) :
   buffer_( std::move( other.buffer_ ) ),
   tpid( std::move( other.tpid ) ),
   materials_( 

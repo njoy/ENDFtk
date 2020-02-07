@@ -131,7 +131,7 @@ SCENARIO( "section::Type< 3 >" ) {
       auto end = sectionString.end();
       long lineNumber = 0;
       auto head = HEAD( position, end, lineNumber );
-      syntaxTree::Section< std::string::iterator >
+      syntaxTree::Section< std::string >
         section( head, begin, position, end, lineNumber );
 
       THEN( "a section::Type< 3 > can be constructed and "

@@ -111,7 +111,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
       auto end = sectionString.end();
       long lineNumber = 1;
       auto head = HEAD( position, end, lineNumber );
-      syntaxTree::Section< std::string::iterator >
+      syntaxTree::Section< std::string >
         section( head, begin, position, end, lineNumber );
       
       section::Type< 7, 4 > chunk = section.parse< 7, 4 >( lineNumber );
@@ -219,7 +219,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
       auto end = sectionString.end();
       long lineNumber = 1;
       auto head = HEAD( position, end, lineNumber );
-      syntaxTree::Section< std::string::iterator >
+      syntaxTree::Section< std::string >
         section( head, begin, position, end, lineNumber );
       
       section::Type< 7, 4 > chunk = section.parse< 7, 4 >( lineNumber );
@@ -335,7 +335,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
       auto end = sectionString.end();
       long lineNumber = 1;
       auto head = HEAD( position, end, lineNumber );
-      syntaxTree::Section< std::string::iterator >
+      syntaxTree::Section< std::string >
         section( head, begin, position, end, lineNumber );
 
       section::Type< 7, 4 > chunk = section.parse< 7, 4 >( lineNumber );
@@ -459,7 +459,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
       auto end = sectionString.end();
       long lineNumber = 1;
       auto head = HEAD( position, end, lineNumber );
-      syntaxTree::Section< std::string::iterator >
+      syntaxTree::Section< std::string >
         section( head, begin, position, end, lineNumber );
 
       section::Type< 7, 4 > chunk = section.parse< 7, 4 >( lineNumber );
@@ -585,7 +585,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
       auto end = sectionString.end();
       long lineNumber = 1;
       auto head = HEAD( position, end, lineNumber );
-      syntaxTree::Section< std::string::iterator >
+      syntaxTree::Section< std::string >
         section( head, begin, position, end, lineNumber );
 
       section::Type< 7, 4 > chunk = section.parse< 7, 4 >( lineNumber );

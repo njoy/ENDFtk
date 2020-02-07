@@ -19,7 +19,7 @@ SCENARIO( "Creating a syntax tree of an ENDF Section" ){
       long lineNumber = 0;
 
       HeadRecord head( position, end, lineNumber );
-      syntaxTree::Section< std::string::iterator >
+      syntaxTree::Section< std::string >
         sectionTree( head, start, position, end, lineNumber );
 
       const auto& csectionTree = sectionTree;
@@ -66,7 +66,7 @@ SCENARIO( "Creating a syntax tree of an ENDF Section" ){
         long lineNumber = 0;
 
         HeadRecord head( begin, end, lineNumber );
-        REQUIRE_THROWS( syntaxTree::Section< std::string::iterator >( 
+        REQUIRE_THROWS( syntaxTree::Section< std::string >( 
                 head, start, begin, end, lineNumber ) );
       }
     } // WHEN
@@ -79,7 +79,7 @@ SCENARIO( "Creating a syntax tree of an ENDF Section" ){
         auto end = sectionString.end();
         long lineNumber = 0;
         HeadRecord head( begin, end, lineNumber );
-        REQUIRE_THROWS( syntaxTree::Section< std::string::iterator >(
+        REQUIRE_THROWS( syntaxTree::Section< std::string >(
                 head, start, begin, end, lineNumber ) );
       }
     }

@@ -24,11 +24,10 @@ SCENARIO( "Creating a material syntax tree of an ENDF File" ){
         auto lin = lineNumber;
         auto original =
           std::make_unique
-          < syntaxTree::Material< std::string::iterator > >
-          ( head, start, beg, end, lin );
+          < syntaxTree::Material< std::string > >( head, start, beg, end, lin );
         
         THEN( "the copy ctor will function correctly "){
-          auto copy = syntaxTree::Material< std::string::iterator >{ *original };
+          auto copy = syntaxTree::Material< std::string >{ *original };
           original.reset();
           REQUIRE( 3 == copy.MF( 3 ).MF() );          
         }
@@ -37,19 +36,18 @@ SCENARIO( "Creating a material syntax tree of an ENDF File" ){
         lin = lineNumber;
         original =
           std::make_unique
-          < syntaxTree::Material< std::string::iterator > >
-          ( head, start, beg, end, lin );
+          < syntaxTree::Material< std::string > >( head, start, beg, end, lin );
 
         THEN( "the move ctor will function correctly "){
           auto copy =
-            syntaxTree::Material< std::string::iterator >
+            syntaxTree::Material< std::string >
             { std::move( *( original.release() ) ) };
           
           REQUIRE( 3 == copy.MF( 3 ).MF() );          
         }
       }
       
-      const syntaxTree::Material< std::string::iterator >
+      const syntaxTree::Material< std::string >
         materialTree( head, start, begin, end, lineNumber );
 
       const auto& cmaterialTree = materialTree;
@@ -120,7 +118,7 @@ SCENARIO( "Creating a material syntax tree of an ENDF File" ){
 
         HeadRecord head( begin, end, lineNumber );
         REQUIRE_THROWS
-          ( syntaxTree::Material< std::string::iterator >
+          ( syntaxTree::Material< std::string >
             ( head, start, begin, end, lineNumber ) );
       }
     }
@@ -135,7 +133,7 @@ SCENARIO( "Creating a material syntax tree of an ENDF File" ){
       THEN( "an exception is thrown" ){
         HeadRecord head( begin, end, lineNumber );
         REQUIRE_THROWS
-          ( syntaxTree::Material< std::string::iterator >
+          ( syntaxTree::Material< std::string >
             ( head, start, begin, end, lineNumber ) );
       }
     }
@@ -151,7 +149,7 @@ SCENARIO( "Creating a material syntax tree of an ENDF File" ){
     THEN( "an exception is thrown" ){
       HeadRecord head( begin, end, lineNumber );
       REQUIRE_THROWS
-        ( syntaxTree::Material< std::string::iterator >
+        ( syntaxTree::Material< std::string >
           ( head, start, begin, end, lineNumber ) );
     }
   }

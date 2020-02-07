@@ -1,10 +1,12 @@
-template< typename BufferIterator >
+template< typename Buffer>
 class File {
 public:
   /* convenience typedefs */
-  using Section_t = Section< BufferIterator >;
+  using BufferIterator = ranges::iterator_t< Buffer >;
+  using Section_t = Section< Buffer>;
   using iterator = typename std::vector< Section_t >::iterator;
-  using const_iterator = typename std::vector< Section_t >::const_iterator;
+  using const_iterator = 
+    typename std::vector< Section_t >::const_iterator;
 
 protected:
   /* fields */

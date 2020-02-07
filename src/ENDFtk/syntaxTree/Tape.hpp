@@ -1,9 +1,9 @@
 template< typename Buffer >
 class Tape {
-  using BufferIterator = ranges::iterator_t< const Buffer >;
+  using BufferIterator = ranges::iterator_t< Buffer >;
 public:
   /* convenience typedefs */
-  using Material_t = Material< BufferIterator >;
+  using Material_t = Material< Buffer >;
   
 protected:
   /* fields */

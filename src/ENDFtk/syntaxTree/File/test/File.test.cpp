@@ -26,11 +26,10 @@ SCENARIO( "Creating a syntax tree of an ENDF File" ){
         auto lin = lineNumber;
         auto original =
           std::make_unique
-          < syntaxTree::File< std::string::iterator > >
-          ( head, start, beg, end, lin );
+          < syntaxTree::File< std::string > >( head, start, beg, end, lin );
         
         THEN( "the copy ctor will function correctly "){
-          auto copy = syntaxTree::File< std::string::iterator >{ *original };
+          auto copy = syntaxTree::File< std::string >{ *original };
           original.reset();
           CHECK( 1 == copy.MT( 1 ).MT() );          
         }
@@ -39,19 +38,18 @@ SCENARIO( "Creating a syntax tree of an ENDF File" ){
         lin = lineNumber;
         original =
           std::make_unique
-          < syntaxTree::File< std::string::iterator > >
-          ( head, start, beg, end, lin );
+          < syntaxTree::File< std::string > >( head, start, beg, end, lin );
 
         THEN( "the move ctor will function correctly "){
           auto copy =
-            syntaxTree::File< std::string::iterator >
+            syntaxTree::File< std::string >
             { std::move( *( original.release() ) ) };
           
           CHECK( 1 == copy.MT( 1 ).MT() );          
         }
       }
       
-      const syntaxTree::File< std::string::iterator >
+      const syntaxTree::File< std::string >
         fileTree( head, start, begin, end, lineNumber );
 
       const auto& cfileTree = fileTree;
@@ -122,7 +120,7 @@ SCENARIO( "Creating a syntax tree of an ENDF File" ){
 
       HeadRecord head( begin, end, lineNumber );
       CHECK_THROWS
-        ( syntaxTree::File< std::string::iterator >
+        ( syntaxTree::File< std::string >
           ( head, start, begin, end, lineNumber ) );
     }
   }
@@ -137,7 +135,7 @@ SCENARIO( "Creating a syntax tree of an ENDF File" ){
     THEN( "an exception is thrown" ){
       HeadRecord head( begin, end, lineNumber );
       CHECK_THROWS
-        ( syntaxTree::File< std::string::iterator >
+        ( syntaxTree::File< std::string >
           ( head, start, begin, end, lineNumber ) );
     }
   }
@@ -152,7 +150,7 @@ SCENARIO( "Creating a syntax tree of an ENDF File" ){
     THEN( "an exception is thrown" ){
       HeadRecord head( begin, end, lineNumber );
       CHECK_THROWS
-        ( syntaxTree::File< std::string::iterator >
+        ( syntaxTree::File< std::string >
           ( head, start, begin, end, lineNumber ) );
     }
   }

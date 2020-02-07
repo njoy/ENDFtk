@@ -57,7 +57,7 @@ SCENARIO( "section::Type<13>" ){
 
       HeadRecord head( position, end, lineNumber );
 
-      syntaxTree::Section< std::string::iterator>
+      syntaxTree::Section< std::string>
         mf13( head, begin, position, end, lineNumber );
 
       THEN( "a section::Type<13> can be constructed and members can be tested" ){

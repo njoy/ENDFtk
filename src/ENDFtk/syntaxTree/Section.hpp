@@ -1,6 +1,7 @@
-template< typename BufferIterator >
+template< typename Buffer >
 class Section {
 public:
+  using BufferIterator = ranges::iterator_t< Buffer >;
   /* fields */
   int sectionNo;
   std::pair< BufferIterator, BufferIterator > bufferLimits;

@@ -1,8 +1,9 @@
-template< typename BufferIterator >
+template< typename Buffer>
 class Material {
 public:
   /* convenience typedefs */
-  using File_t = File< BufferIterator >;
+  using BufferIterator = ranges::iterator_t< Buffer >;
+  using File_t = File< Buffer >;
   using iterator = typename std::vector< File_t >::iterator;
   using const_iterator = typename std::vector< File_t >::iterator;
 
