@@ -41,10 +41,10 @@ SCENARIO( "Isotope" ){
       resonanceParameters::Isotope iso( begin, end, lineNumber, MAT, MF, MT );
 
       REQUIRE( 1 == iso.energyRanges().size() );
-      REQUIRE_NOTHROW( std::experimental::get< resonanceParameters::SpecialCase >
+      REQUIRE_NOTHROW( std::get< resonanceParameters::SpecialCase >
                        ( iso.energyRanges().back() ) );
       
-      const auto& sc = std::experimental::get< resonanceParameters::SpecialCase >
+      const auto& sc = std::get< resonanceParameters::SpecialCase >
         ( iso.energyRanges().back() );
       
       REQUIRE( 1E-5 == Approx( sc.EL() ) );
@@ -71,7 +71,7 @@ SCENARIO( "Isotope" ){
 
       resonanceParameters::Isotope iso( begin, end, lineNumber, MAT, MF, MT );
 
-      REQUIRE_NOTHROW( std::experimental::get< resonanceParameters::resolved::SLBW >
+      REQUIRE_NOTHROW( std::get< resonanceParameters::resolved::SLBW >
                        ( iso.energyRanges().back() ) );
       REQUIRE( 1 == iso.energyRanges().size() );
     }
@@ -93,7 +93,7 @@ SCENARIO( "Isotope" ){
 
       resonanceParameters::Isotope iso( begin, end, lineNumber, MAT, MF, MT );
 
-      REQUIRE_NOTHROW( std::experimental::get< resonanceParameters::resolved::MLBW >
+      REQUIRE_NOTHROW( std::get< resonanceParameters::resolved::MLBW >
                        ( iso.energyRanges().back() ) );
       REQUIRE( 1 == iso.energyRanges().size() );
     }
@@ -115,7 +115,7 @@ SCENARIO( "Isotope" ){
 
       resonanceParameters::Isotope iso( begin, end, lineNumber, MAT, MF, MT );
 
-      REQUIRE_NOTHROW( std::experimental::get< resonanceParameters::resolved::ReichMoore >
+      REQUIRE_NOTHROW( std::get< resonanceParameters::resolved::ReichMoore >
                        ( iso.energyRanges().back() ) );
       REQUIRE( 1 == iso.energyRanges().size() );
     }
@@ -177,10 +177,10 @@ SCENARIO( "Isotope" ){
       REQUIRE( 2 == iso.energyRanges().size() );
 
       REQUIRE_NOTHROW( 
-        std::experimental::get< resonanceParameters::resolved::SLBW >
+        std::get< resonanceParameters::resolved::SLBW >
                        ( iso.energyRanges().front() ) );
       REQUIRE_NOTHROW( 
-          std::experimental::get< resonanceParameters::resolved::ReichMoore >
+          std::get< resonanceParameters::resolved::ReichMoore >
                        ( iso.energyRanges().back() ) );
     }
 
@@ -270,7 +270,7 @@ SCENARIO( "Isotope" ){
         THEN( "the parameters can be extracted and verified" ){
           resonanceParameters::Isotope iso( begin, end, lineNumber, MAT, MF, MT );
           REQUIRE_NOTHROW(
-            std::experimental::get<
+            std::get<
               resonanceParameters::unresolved::EnergyIndependent >
               ( iso.energyRanges().front() )
           );
@@ -334,7 +334,7 @@ SCENARIO( "Isotope" ){
         THEN( "the parameters can be extracted and verified" ){
           resonanceParameters::Isotope iso( begin, end, lineNumber, MAT, MF, MT );
           REQUIRE_NOTHROW(
-            std::experimental::get<
+            std::get<
               resonanceParameters::unresolved::EnergyDependentFissionWidths >
               ( iso.energyRanges().front() )
           );
@@ -467,7 +467,7 @@ SCENARIO( "Isotope" ){
       THEN( "no exception is thrown" ){
         resonanceParameters::Isotope iso( begin, end, lineNumber, MAT, MF, MT );
         REQUIRE( 1 == iso.energyRanges().size() );
-        REQUIRE_NOTHROW( std::experimental::get< 
+        REQUIRE_NOTHROW( std::get< 
                           resonanceParameters::unresolved::EnergyDependent >
                          ( iso.energyRanges().front() ) );
       }
