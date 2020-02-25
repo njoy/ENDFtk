@@ -116,7 +116,7 @@ SCENARIO( "ReactionProduct" ) {
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
-         std::experimental::get< Unknown >( chunk.distribution() );
+         std::get< Unknown >( chunk.distribution() );
 
       REQUIRE( 0 == law.LAW() );
 
@@ -172,7 +172,7 @@ SCENARIO( "ReactionProduct" ) {
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
-         std::experimental::get< Unknown >( chunk.distribution() );
+         std::get< Unknown >( chunk.distribution() );
 
       REQUIRE( 0 == law.LAW() );
 
@@ -231,7 +231,7 @@ SCENARIO( "ReactionProduct" ) {
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
-         std::experimental::get< ContinuumEnergyAngle >( chunk.distribution() );
+         std::get< ContinuumEnergyAngle >( chunk.distribution() );
 
       REQUIRE( 1 == law.LAW() );
       REQUIRE( 2 == law.LEP() );
@@ -252,7 +252,7 @@ SCENARIO( "ReactionProduct" ) {
       REQUIRE( 4 == energies[0].NEP() );
 
       auto subsection1 =
-          std::experimental::get< LegendreCoefficients >( energies[0].data() );
+          std::get< LegendreCoefficients >( energies[0].data() );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 1 == subsection1.NA() );
       REQUIRE( 12 == subsection1.NW() );
@@ -285,7 +285,7 @@ SCENARIO( "ReactionProduct" ) {
       REQUIRE( 2 == energies[1].NEP() );
 
       auto subsection2 =
-          std::experimental::get< LegendreCoefficients >( energies[1].data() );
+          std::get< LegendreCoefficients >( energies[1].data() );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 1 == subsection2.NA() );
@@ -349,7 +349,7 @@ SCENARIO( "ReactionProduct" ) {
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
-         std::experimental::get< ContinuumEnergyAngle >( chunk.distribution() );
+         std::get< ContinuumEnergyAngle >( chunk.distribution() );
 
       REQUIRE( 1 == law.LAW() );
       REQUIRE( 2 == law.LEP() );
@@ -370,7 +370,7 @@ SCENARIO( "ReactionProduct" ) {
       REQUIRE( 4 == energies[0].NEP() );
 
       auto subsection1 =
-          std::experimental::get< LegendreCoefficients >( energies[0].data() );
+          std::get< LegendreCoefficients >( energies[0].data() );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 1 == subsection1.NA() );
       REQUIRE( 12 == subsection1.NW() );
@@ -403,7 +403,7 @@ SCENARIO( "ReactionProduct" ) {
       REQUIRE( 2 == energies[1].NEP() );
 
       auto subsection2 =
-          std::experimental::get< LegendreCoefficients >( energies[1].data() );
+          std::get< LegendreCoefficients >( energies[1].data() );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 1 == subsection2.NA() );
@@ -473,7 +473,7 @@ SCENARIO( "ReactionProduct" ) {
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
-         std::experimental::get< DiscreteTwoBodyScattering >( chunk.distribution() );
+         std::get< DiscreteTwoBodyScattering >( chunk.distribution() );
 
       REQUIRE( 2 == law.LAW() );
       REQUIRE( 2 == law.NE() );
@@ -491,7 +491,7 @@ SCENARIO( "ReactionProduct" ) {
       REQUIRE( 4 == energies[0].NL() );
 
       auto subsection1 =
-          std::experimental::get< Law2LegendreCoefficients >( energies[0].data() );
+          std::get< Law2LegendreCoefficients >( energies[0].data() );
       REQUIRE( 0 == subsection1.LANG() );
       REQUIRE( 4 == subsection1.NW() );
       REQUIRE( 4 == subsection1.NL() );
@@ -507,7 +507,7 @@ SCENARIO( "ReactionProduct" ) {
       REQUIRE( 3 == energies[1].NL() );
 
       auto subsection2 =
-           std::experimental::get< Law2Tabulated >( energies[1].data() );
+           std::get< Law2Tabulated >( energies[1].data() );
       REQUIRE( 12 == subsection2.LANG() );
       REQUIRE( 6 == subsection2.NW() );
       REQUIRE( 3 == subsection2.NL() );
@@ -566,7 +566,7 @@ SCENARIO( "ReactionProduct" ) {
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
-         std::experimental::get< DiscreteTwoBodyScattering >( chunk.distribution() );
+         std::get< DiscreteTwoBodyScattering >( chunk.distribution() );
 
       REQUIRE( 2 == law.LAW() );
       REQUIRE( 2 == law.NE() );
@@ -584,7 +584,7 @@ SCENARIO( "ReactionProduct" ) {
       REQUIRE( 4 == energies[0].NL() );
 
       auto subsection1 =
-          std::experimental::get< Law2LegendreCoefficients >( energies[0].data() );
+          std::get< Law2LegendreCoefficients >( energies[0].data() );
       REQUIRE( 0 == subsection1.LANG() );
       REQUIRE( 4 == subsection1.NW() );
       REQUIRE( 4 == subsection1.NL() );
@@ -600,7 +600,7 @@ SCENARIO( "ReactionProduct" ) {
       REQUIRE( 3 == energies[1].NL() );
 
       auto subsection2 =
-           std::experimental::get< Law2Tabulated >( energies[1].data() );
+           std::get< Law2Tabulated >( energies[1].data() );
       REQUIRE( 12 == subsection2.LANG() );
       REQUIRE( 6 == subsection2.NW() );
       REQUIRE( 3 == subsection2.NL() );
@@ -661,7 +661,7 @@ SCENARIO( "ReactionProduct" ) {
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
-         std::experimental::get< IsotropicDiscreteEmission >( chunk.distribution() );
+         std::get< IsotropicDiscreteEmission >( chunk.distribution() );
 
       REQUIRE( 3 == law.LAW() );
 
@@ -711,7 +711,7 @@ SCENARIO( "ReactionProduct" ) {
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
-         std::experimental::get< IsotropicDiscreteEmission >( chunk.distribution() );
+         std::get< IsotropicDiscreteEmission >( chunk.distribution() );
 
       REQUIRE( 3 == law.LAW() );
 
@@ -763,7 +763,7 @@ SCENARIO( "ReactionProduct" ) {
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
-         std::experimental::get< DiscreteTwoBodyRecoils >( chunk.distribution() );
+         std::get< DiscreteTwoBodyRecoils >( chunk.distribution() );
 
       REQUIRE( 4 == law.LAW() );
 
@@ -813,7 +813,7 @@ SCENARIO( "ReactionProduct" ) {
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
-         std::experimental::get< DiscreteTwoBodyRecoils >( chunk.distribution() );
+         std::get< DiscreteTwoBodyRecoils >( chunk.distribution() );
 
       REQUIRE( 4 == law.LAW() );
 
@@ -872,7 +872,7 @@ SCENARIO( "ReactionProduct" ) {
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
-         std::experimental::get< ChargedParticleElasticScattering >( chunk.distribution() );
+         std::get< ChargedParticleElasticScattering >( chunk.distribution() );
 
       REQUIRE( 5 == law.LAW() );
 
@@ -893,7 +893,7 @@ SCENARIO( "ReactionProduct" ) {
       REQUIRE( 3 == energies[0].NL() );
 
       auto subsection1 =
-      std::experimental::get< Law5NuclearAmplitudeExpansion >( energies[0].data() );
+      std::get< Law5NuclearAmplitudeExpansion >( energies[0].data() );
       REQUIRE( 1 == subsection1.LTP() );
       REQUIRE( 12 == subsection1.NW() );
       REQUIRE( 3 == subsection1.NL() );
@@ -923,7 +923,7 @@ SCENARIO( "ReactionProduct" ) {
       REQUIRE( 3 == energies[1].NL() );
 
       auto subsection2 =
-      std::experimental::get< Law5NuclearPlusInterference >( energies[1].data() );
+      std::get< Law5NuclearPlusInterference >( energies[1].data() );
       REQUIRE( 15 == subsection2.LTP() );
       REQUIRE( 6 == subsection2.NW() );
       REQUIRE( 3 == subsection2.NL() );
@@ -982,7 +982,7 @@ SCENARIO( "ReactionProduct" ) {
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
-         std::experimental::get< ChargedParticleElasticScattering >( chunk.distribution() );
+         std::get< ChargedParticleElasticScattering >( chunk.distribution() );
 
       REQUIRE( 5 == law.LAW() );
 
@@ -1003,7 +1003,7 @@ SCENARIO( "ReactionProduct" ) {
       REQUIRE( 3 == energies[0].NL() );
 
       auto subsection1 =
-      std::experimental::get< Law5NuclearAmplitudeExpansion >( energies[0].data() );
+      std::get< Law5NuclearAmplitudeExpansion >( energies[0].data() );
       REQUIRE( 1 == subsection1.LTP() );
       REQUIRE( 12 == subsection1.NW() );
       REQUIRE( 3 == subsection1.NL() );
@@ -1033,7 +1033,7 @@ SCENARIO( "ReactionProduct" ) {
       REQUIRE( 3 == energies[1].NL() );
 
       auto subsection2 =
-      std::experimental::get< Law5NuclearPlusInterference >( energies[1].data() );
+      std::get< Law5NuclearPlusInterference >( energies[1].data() );
       REQUIRE( 15 == subsection2.LTP() );
       REQUIRE( 6 == subsection2.NW() );
       REQUIRE( 3 == subsection2.NL() );
@@ -1094,7 +1094,7 @@ SCENARIO( "ReactionProduct" ) {
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
-         std::experimental::get< NBodyPhaseSpace >( chunk.distribution() );
+         std::get< NBodyPhaseSpace >( chunk.distribution() );
 
       REQUIRE( 6 == law.LAW() );
 
@@ -1149,7 +1149,7 @@ SCENARIO( "ReactionProduct" ) {
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
-         std::experimental::get< NBodyPhaseSpace >( chunk.distribution() );
+         std::get< NBodyPhaseSpace >( chunk.distribution() );
 
       REQUIRE( 6 == law.LAW() );
 
@@ -1224,7 +1224,7 @@ SCENARIO( "ReactionProduct" ) {
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
-         std::experimental::get< LaboratoryAngleEnergy >( chunk.distribution() );
+         std::get< LaboratoryAngleEnergy >( chunk.distribution() );
 
       REQUIRE( 7 == law.LAW() );
 
@@ -1375,7 +1375,7 @@ SCENARIO( "ReactionProduct" ) {
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
-         std::experimental::get< LaboratoryAngleEnergy >( chunk.distribution() );
+         std::get< LaboratoryAngleEnergy >( chunk.distribution() );
 
       REQUIRE( 7 == law.LAW() );
 
@@ -1528,7 +1528,7 @@ SCENARIO( "ReactionProduct" ) {
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
-         std::experimental::get< DefinedElsewhere >( chunk.distribution() );
+         std::get< DefinedElsewhere >( chunk.distribution() );
 
       REQUIRE( -4 == law.LAW() );
 
@@ -1578,7 +1578,7 @@ SCENARIO( "ReactionProduct" ) {
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
-         std::experimental::get< DefinedElsewhere >( chunk.distribution() );
+         std::get< DefinedElsewhere >( chunk.distribution() );
 
       REQUIRE( -4 == law.LAW() );
 
@@ -1630,7 +1630,7 @@ SCENARIO( "ReactionProduct" ) {
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
-         std::experimental::get< DefinedElsewhere >( chunk.distribution() );
+         std::get< DefinedElsewhere >( chunk.distribution() );
 
       REQUIRE( -5 == law.LAW() );
 
@@ -1680,7 +1680,7 @@ SCENARIO( "ReactionProduct" ) {
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
-         std::experimental::get< DefinedElsewhere >( chunk.distribution() );
+         std::get< DefinedElsewhere >( chunk.distribution() );
 
       REQUIRE( -5 == law.LAW() );
 
@@ -1732,7 +1732,7 @@ SCENARIO( "ReactionProduct" ) {
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
-         std::experimental::get< DefinedElsewhere >( chunk.distribution() );
+         std::get< DefinedElsewhere >( chunk.distribution() );
 
       REQUIRE( -14 == law.LAW() );
 
@@ -1782,7 +1782,7 @@ SCENARIO( "ReactionProduct" ) {
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
-         std::experimental::get< DefinedElsewhere >( chunk.distribution() );
+         std::get< DefinedElsewhere >( chunk.distribution() );
 
       REQUIRE( -14 == law.LAW() );
 
@@ -1834,7 +1834,7 @@ SCENARIO( "ReactionProduct" ) {
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
-         std::experimental::get< DefinedElsewhere >( chunk.distribution() );
+         std::get< DefinedElsewhere >( chunk.distribution() );
 
       REQUIRE( -15 == law.LAW() );
 
@@ -1884,7 +1884,7 @@ SCENARIO( "ReactionProduct" ) {
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
-         std::experimental::get< DefinedElsewhere >( chunk.distribution() );
+         std::get< DefinedElsewhere >( chunk.distribution() );
 
       REQUIRE( -15 == law.LAW() );
 

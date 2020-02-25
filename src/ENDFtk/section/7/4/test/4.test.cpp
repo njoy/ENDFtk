@@ -938,7 +938,7 @@ void verifyChunkWithAnalyticalFunctions(
   REQUIRE( 1. == Approx( barray.numberAtoms()[0] ) );
   REQUIRE( 0 == barray.analyticalFunctionTypes().size() );
 
-  auto table = std::experimental::get< AnalyticalFunctions >( chunk.scatteringLaw() );
+  auto table = std::get< AnalyticalFunctions >( chunk.scatteringLaw() );
   REQUIRE( 0 == table.NC() );
 
   auto temp = chunk.principalEffectiveTemperature();
@@ -1012,7 +1012,7 @@ void verifyChunkWithOneTemperatureAndOneScatterer(
   REQUIRE( 1. == Approx( barray.numberAtoms()[0] ) );
   REQUIRE( 0 == barray.analyticalFunctionTypes().size() );
 
-  auto table = std::experimental::get< Tabulated >( chunk.scatteringLaw() );
+  auto table = std::get< Tabulated >( chunk.scatteringLaw() );
   REQUIRE( 1 == table.NR() );
   REQUIRE( 2 == table.NB() );
   REQUIRE( 2 == table.numberBetas() );
@@ -1168,7 +1168,7 @@ void verifyChunkWithTwoTemperaturesAndOneScatterer(
   REQUIRE( 1. == Approx( barray.numberAtoms()[0] ) );
   REQUIRE( 0 == barray.analyticalFunctionTypes().size() );
 
-  auto table = std::experimental::get< Tabulated >( chunk.scatteringLaw() );
+  auto table = std::get< Tabulated >( chunk.scatteringLaw() );
   REQUIRE( 1 == table.NR() );
   REQUIRE( 2 == table.NB() );
   REQUIRE( 2 == table.numberBetas() );
@@ -1350,7 +1350,7 @@ void verifyChunkWithTwoTemperaturesAndTwoScatterers(
   REQUIRE( 1 == barray.analyticalFunctionTypes().size() );
   REQUIRE( 0 == barray.analyticalFunctionTypes()[0] );
 
-  auto table = std::experimental::get< Tabulated >( chunk.scatteringLaw() );
+  auto table = std::get< Tabulated >( chunk.scatteringLaw() );
   REQUIRE( 1 == table.NR() );
   REQUIRE( 2 == table.NB() );
   REQUIRE( 2 == table.numberBetas() );
@@ -1543,7 +1543,7 @@ void verifyChunkWithTwoTemperaturesTwoScatterersAndNoSecondaryTemperature(
   REQUIRE( 1 == barray.analyticalFunctionTypes().size() );
   REQUIRE( 1 == barray.analyticalFunctionTypes()[0] );
 
-  auto table = std::experimental::get< Tabulated >( chunk.scatteringLaw() );
+  auto table = std::get< Tabulated >( chunk.scatteringLaw() );
   REQUIRE( 1 == table.NR() );
   REQUIRE( 2 == table.NB() );
   REQUIRE( 2 == table.numberBetas() );

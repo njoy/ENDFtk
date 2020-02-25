@@ -327,7 +327,7 @@ void verifyChunkWithLTT0( const section::Type< 4 >& chunk ) {
   REQUIRE( true == chunk.isotropicAngularDistributions() );
 
   const auto& distribution =
-                  std::experimental::get< Isotropic >( chunk.distributions() );
+                  std::get< Isotropic >( chunk.distributions() );
   REQUIRE( 0 == distribution.LTT() );
   REQUIRE( 0 == distribution.LAW() );
 
@@ -363,7 +363,7 @@ void verifyChunkWithLTT1( const section::Type< 4 >& chunk ) {
   REQUIRE( false == chunk.isotropicAngularDistributions() );
 
   const auto& distribution =
-    std::experimental::get< LegendreDistributions >( chunk.distributions() );
+    std::get< LegendreDistributions >( chunk.distributions() );
 
   REQUIRE( 1 == distribution.LTT() );
   REQUIRE( 1 == distribution.LAW() );
@@ -430,7 +430,7 @@ void verifyChunkWithLTT2( const section::Type< 4 >& chunk ) {
   REQUIRE( false == chunk.isotropicAngularDistributions() );
 
   const auto& distribution =
-    std::experimental::get< TabulatedDistributions >( chunk.distributions() );
+    std::get< TabulatedDistributions >( chunk.distributions() );
 
   REQUIRE( 2 == distribution.LTT() );
   REQUIRE( 2 == distribution.LAW() );
@@ -518,7 +518,7 @@ void verifyChunkWithLTT3( const section::Type< 4 >& chunk ) {
   REQUIRE( false == chunk.isotropicAngularDistributions() );
 
   const auto& distribution =
-    std::experimental::get< MixedDistributions >( chunk.distributions() );
+    std::get< MixedDistributions >( chunk.distributions() );
 
   REQUIRE( 3 == distribution.LTT() );
   REQUIRE( 3 == distribution.LAW() );

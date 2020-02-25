@@ -15,14 +15,7 @@
   #pragma GCC diagnostic pop
 #endif
 
-#if __cplusplus >= 201703L
-  #include <optional>
-#else 
-  #include <experimental/optional>
-  namespace std {
-    using namespace std::experimental;
-  }
-#endif
+#include <optional>
 #include "range/v3/all.hpp"
 
 #include "disco.hpp"

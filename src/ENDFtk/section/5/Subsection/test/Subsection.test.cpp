@@ -464,7 +464,7 @@ void verifyChunkLF1( const Subsection& chunk ) {
   REQUIRE( 1. == Approx( p.probabilities()[1] ) );
 
   auto d =
-       std::experimental::get< TabulatedSpectrum >( chunk.distribution() );
+       std::get< TabulatedSpectrum >( chunk.distribution() );
 
   REQUIRE( 1 == d.NR() );
   REQUIRE( 2 == d.NE() );
@@ -578,7 +578,7 @@ void verifyChunkLF5( const Subsection& chunk ) {
   REQUIRE( 1.804944e-2 == Approx( p.probabilities()[1] ) );
 
   auto d =
-       std::experimental::get< GeneralEvaporationSpectrum >
+       std::get< GeneralEvaporationSpectrum >
              ( chunk.distribution() );
 
   REQUIRE( 5 == d.LF() );
@@ -668,7 +668,7 @@ void verifyChunkLF7( const Subsection& chunk ) {
   REQUIRE( 1. == Approx( p.probabilities()[0] ) );
   REQUIRE( 1. == Approx( p.probabilities()[1] ) );
 
-  auto d = std::experimental::get< MaxwellianFissionSpectrum >
+  auto d = std::get< MaxwellianFissionSpectrum >
                   ( chunk.distribution() );
   REQUIRE( 7 == d.LF() );
   REQUIRE( 7 == d.LAW() );
@@ -738,7 +738,7 @@ void verifyChunkLF9( const Subsection& chunk ) {
   REQUIRE( 1.0 == Approx( p.probabilities()[0] ) );
   REQUIRE( 1.0 == Approx( p.probabilities()[1] ) );
 
-  auto d = std::experimental::get< EvaporationSpectrum >( chunk.distribution() );
+  auto d = std::get< EvaporationSpectrum >( chunk.distribution() );
   REQUIRE( 9 == d.LF() );
   REQUIRE( 9 == d.LAW() );
   REQUIRE( 4 == d.NE() );
@@ -814,7 +814,7 @@ void verifyChunkLF11( const Subsection& chunk ) {
   REQUIRE( 1. == Approx( p.probabilities()[0] ) );
   REQUIRE( 1. == Approx( p.probabilities()[1] ) );
 
-  auto d = std::experimental::get< WattSpectrum >( chunk.distribution() );
+  auto d = std::get< WattSpectrum >( chunk.distribution() );
 
   REQUIRE( 11 == d.LF() );
   REQUIRE( 11 == d.LAW() );
@@ -906,7 +906,7 @@ void verifyChunkLF12( const Subsection& chunk ) {
   REQUIRE( 1. == Approx( p.probabilities()[0] ) );
   REQUIRE( 1. == Approx( p.probabilities()[1] ) );
 
-  auto d = std::experimental::get< MadlandNixSpectrum >( chunk.distribution() );
+  auto d = std::get< MadlandNixSpectrum >( chunk.distribution() );
 
   REQUIRE( 12 == d.LF() );
   REQUIRE( 12 == d.LAW() );
