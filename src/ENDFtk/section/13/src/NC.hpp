@@ -7,4 +7,4 @@ long NC() const {
   if ( this->total_ ) { NC += this->total_->NC(); }
   for ( const auto& entry : this->partials_ ) { NC += entry.NC(); }
   return NC;
-};
+}
