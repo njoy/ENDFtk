@@ -9,24 +9,25 @@
  *  @param[in] boundaries       the interpolation range boundaries
  *  @param[in] interpolants     the interpolation types for each range
  *  @param[in] energies         the energy values
- *  @param[in] multiplicities   the multiplicity values
+ *  @param[in] xs               the partial cross section values
  */
-PartialMultiplicity( double energy,
+PartialCrossSection( double energy,
                      double level,
                      int lp,
                      int law,
                      std::vector< long >&& boundaries,
                      std::vector< long >&& interpolants,
                      std::vector< double >&& energies,
-                     std::vector< double >&& multiplicities )
+                     std::vector< double >&& xs )
   try : TabulationRecord( energy, level, lp, law,
                           std::move( boundaries ),
                           std::move( interpolants ),
                           std::move( energies ),
-                          std::move( multiplicities ) ) {}
+                          std::move( xs ) ) {}
   catch ( std::exception& e ) {
 
-    Log::info( "Encountered error while constructing a partial multiplicity" );
+    Log::info( "Encountered error while constructing a partial photon "
+               "production cross section" );
     throw;
   }
 
@@ -43,11 +44,12 @@ PartialMultiplicity( double energy,
  *  @param[in] MT           the expected MT number
  */
 template< typename Iterator >
-PartialMultiplicity( Iterator& begin, const Iterator& end,
+PartialCrossSection( Iterator& begin, const Iterator& end,
                      long& lineNumber, int MAT, int MF, int MT )
   try : TabulationRecord( begin, end, lineNumber, MAT, MF, MT ) {}
   catch ( std::exception& e ) {
 
-    Log::info( "Encountered error while constructing a partial multiplicity" );
+    Log::info( "Encountered error while constructing a partial photon "
+               "production cross section" );
     throw;
   }

@@ -3,203 +3,225 @@
 #include "catch.hpp"
 #include "ENDFtk.hpp"
 
-std::string headNK0();
-std::string headNK1();
-std::string headNK2();
-std::string baseSection();
-std::string invalidBaseSection();
+using namespace njoy::ENDFtk;
+
+// convenience typedefs
+using PartialCrossSection = section::Type< 13 >::PartialCrossSection;
+using TotalCrossSection = section::Type< 13 >::TotalCrossSection;
+
+std::string chunk();
+void verifyChunk( const section::Type< 13 >& );
+std::string invalidChunk();
 std::string validSEND();
 std::string invalidSEND();
 
-using namespace njoy::ENDFtk;
+SCENARIO( "section::Type< 13 >" ) {
 
-SCENARIO( "section::Type<13>" ){
-  GIVEN( "a string representation of a valid File 13 Section" ){
-    std::vector<double> referenceEnergy =
-      { 7.613591E+6, 1.233300E+7, 1.235000E+7, 1.245000E+7,
-        1.250000E+7, 1.255000E+7, 3.000001E+7, 1.500000E+8 };
+  GIVEN( "valid data for a section::Type< 13 >" ) {
 
-    std::vector<double> referenceCrossSection =
-      { 0.000000E+0,  0.000000E+0, 5.77776E-12, 1.012810E-7,
-        6.481624E-6, 1.905763E-4, 0.000000E+0,  0.000000E+0 };
+    std::string sectionString = chunk() + validSEND();
 
-    WHEN( "NK = 1" ){
-      std::string string = headNK1() + baseSection() + validSEND();
+    WHEN( "the data is given explicitly" ) {
 
-      auto begin = string.begin();
-      auto end = string.end();
-      long lineNumber = 0;
+      int mt = 18;
+      double za = 92235.;
+      double awr = 2.330250e+2;
 
-      HeadRecord head( begin, end, lineNumber );
+      PartialCrossSection partial = { 0.0, 0.0, 0, 1,
+                                      { 2 }, { 2 },
+                                      { 1e-5, 3e+7 },
+                                      { 8.579050e+0, 1.487778e+1 } };
 
-      THEN( "a section::Type<13> can be constructed and members can be tested" ){
-        section::Type< 13 > MF13( head, begin, end, lineNumber, 825 );
+      section::Type< 13 > chunk( mt, za, awr, std::move( partial ) );
 
-        REQUIRE( 22 == MF13.MT() );
-        REQUIRE( 8016 == MF13.ZA() );
-        REQUIRE( Approx(15.85751) == MF13.atomicWeightRatio() );
-        REQUIRE( 1 == MF13.NK() );
+      THEN( "a section::Type< 13 > can be constructed and members can be "
+            "tested" ) {
 
-        REQUIRE( ranges::equal( MF13.energies(), referenceEnergy ) );
-        REQUIRE( ranges::equal( MF13.crossSections(), referenceCrossSection ) );
+        verifyChunk( chunk );
+      } // THEN
 
-        REQUIRE( 6 == MF13.NC() );
-      }
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 13 );
+
+        CHECK( buffer == sectionString );
+      } // THEN
     } // WHEN
 
-    WHEN( "creating an intermediate syntaxTree::Section" ){
-      std::string string = headNK1() + baseSection() + validSEND();
+    WHEN( "the data is read from a string/stream" ) {
 
-      auto begin = string.begin();
+      auto begin = sectionString.begin();
+      auto end = sectionString.end();
+      long lineNumber = 1;
+      HeadRecord head( begin, end, lineNumber );
+
+      section::Type< 13 > chunk( head, begin, end, lineNumber, 9228 );
+
+      THEN( "a section::Type< 13 > can be constructed and members can be "
+            "tested" ) {
+
+        verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 13 );
+
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
+
+    WHEN( "there is a syntaxTree::Section" ) {
+
+      auto begin = sectionString.begin();
       auto position = begin;
-      auto end = string.end();
-      long lineNumber = 0;
+      auto end = sectionString.end();
+      long lineNumber = 1;
+      auto head = HEAD( position, end, lineNumber );
+      syntaxTree::Section< std::string::iterator >
+        section( head, begin, position, end, lineNumber );
 
-      HeadRecord head( position, end, lineNumber );
+      section::Type< 13 > chunk1 = section.parse< 13 >();
+      section::Type< 13 > chunk2 = section.parse< 13 >( lineNumber );
+      section::Type< 13 > chunk3 = section.parse( 13_c );
+      section::Type< 13 > chunk4 = section.parse( 13_c, lineNumber );
 
-      syntaxTree::Section< std::string::iterator>
-        mf13( head, begin, position, end, lineNumber );
+      THEN( "a section::Type< 13 > can be constructed and members can be "
+            "tested" ) {
 
-      THEN( "a section::Type<13> can be constructed and members can be tested" ){
-        section::Type< 13 > MF13 = mf13.parse< 13 >( lineNumber );
+        verifyChunk( chunk1 );
+        verifyChunk( chunk2 );
+        verifyChunk( chunk3 );
+        verifyChunk( chunk4 );
+      } // THEN
 
-        REQUIRE( 22 == MF13.MT() );
-        REQUIRE( 8016 == MF13.ZA() );
-        REQUIRE( Approx(15.85751) == MF13.atomicWeightRatio() );
-        REQUIRE( 1 == MF13.NK() );
+      THEN( "it can be printed" ) {
 
-        REQUIRE( ranges::equal( MF13.energies(), referenceEnergy ) );
-        REQUIRE( ranges::equal( MF13.crossSections(), referenceCrossSection ) );
+        std::string buffer1;
+        auto output1 = std::back_inserter( buffer1 );
+        chunk1.print( output1, 9228, 13 );
 
-        REQUIRE( 6 == MF13.NC() );
-      }
-    }
+        std::string buffer2;
+        auto output2 = std::back_inserter( buffer2 );
+        chunk1.print( output2, 9228, 13 );
 
-    WHEN( "NK = 2" ){
-      std::string string =
-        headNK2() + baseSection() + baseSection() + baseSection() + validSEND();
+        std::string buffer3;
+        auto output3 = std::back_inserter( buffer3 );
+        chunk1.print( output3, 9228, 13 );
 
-      auto begin = string.begin();
-      auto end = string.end();
-      long lineNumber = 0;
+        std::string buffer4;
+        auto output4 = std::back_inserter( buffer4 );
+        chunk1.print( output4, 9228, 13 );
 
-      HeadRecord head( begin, end, lineNumber );
-
-      std::vector< double > refEnergies{ 7.613591E+6, 1.233300E+7, 1.235000E+7,
-                                         1.245000E+7, 1.250000E+7, 1.255000E+7,
-                                         3.000001E+7, 1.500000E+8};
-
-      std::vector< double > refXS{ 0.000000E+0, 0.000000E+0, 5.77776E-12,
-                                   1.012810E-7, 6.481624E-6, 1.905763E-4,
-                                   0.000000E+0, 0.000000E+0};
-      THEN( "a section::Type<13> can be constructed and members can be tested" ){
-        section::Type< 13 > MF13( head, begin, end, lineNumber, 825 );
-
-        REQUIRE( 22 == MF13.MT() );
-        REQUIRE( 8016 == MF13.ZA() );
-        REQUIRE( Approx(15.85751) == MF13.atomicWeightRatio() );
-        REQUIRE( 2 == MF13.NK() );
-
-        REQUIRE( 2 == MF13.subsections().size() );
-
-        auto energies = MF13.energies();
-        auto XS = MF13.crossSections();
-        REQUIRE( ranges::equal( refEnergies, energies ) );
-        REQUIRE( ranges::equal( refXS, XS ) );
-
-        REQUIRE( 16 == MF13.NC() );
-      }
+        REQUIRE( buffer1 == sectionString );
+        REQUIRE( buffer2 == sectionString );
+        REQUIRE( buffer3 == sectionString );
+        REQUIRE( buffer4 == sectionString );
+      } // THEN
     } // WHEN
-
-    WHEN( "NK is wrong" ){
-      std::string string =
-        headNK2() + baseSection() + baseSection() + validSEND();
-
-      auto begin = string.begin();
-      auto end = string.end();
-      long lineNumber = 0;
-      HeadRecord head( begin, end, lineNumber );
-
-      THEN( "an exception is thrown" ){
-        REQUIRE_THROWS( section::Type< 13 >( head, begin, end, lineNumber, 825 ) );
-      }
-    } // WHEN
-
-    WHEN( "NK is 0" ){
-      std::string string =
-        headNK0() + baseSection() + baseSection() + validSEND();
-
-      auto begin = string.begin();
-      auto end = string.end();
-      long lineNumber = 0;
-      HeadRecord head( begin, end, lineNumber );
-
-      THEN( "an exception is thrown" ){
-        REQUIRE_THROWS( section::Type< 13 >( head, begin, end, lineNumber, 825 ) );
-      }
-    } // WHEN
-
-    WHEN( "the SEND Record is not valid, i.e., MT!=0" ){     
-      std::string string = headNK1() + baseSection() + invalidSEND();     
-      auto begin = string.begin();     
-      auto end = string.end();     
-      long lineNumber = 0;     
-      HeadRecord head( begin, end, lineNumber );     
-           
-      THEN( "an exception is thrown" ){     
-        REQUIRE_THROWS( section::Type< 13 >( head, begin, end, lineNumber, 825 ) );     
-      }     
-    }      
   } // GIVEN
 
-  GIVEN( "a valid instance of section::Type< 13 >" ) {
-    std::string string = headNK1() + baseSection() + validSEND();
+  GIVEN( "invalid data for a section::Type< 13 >" ) {
 
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1; 
-    HeadRecord head( begin, end, lineNumber );
-    section::Type< 13 > section( head, begin, end, lineNumber, 825 );
+    WHEN( "a string representation with an invalid section::Type< 13 >" ) {
 
-    THEN( "it can be printed" ) {
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      section.print( output, 825 );
-      REQUIRE( buffer == string );
-    }
+      std::string sectionString = invalidChunk() + validSEND();
+      auto begin = sectionString.begin();
+      auto end = sectionString.end();
+      long lineNumber = 1;
+      HeadRecord head( begin, end, lineNumber );
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( section::Type< 13 >( head, begin, end,
+                                             lineNumber, 9228 ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a string representation of a valid section::Type< 13 > "
+          "with an invalid SEND" ) {
+
+      std::string sectionString = chunk() + invalidSEND();
+      auto begin = sectionString.begin();
+      auto end = sectionString.end();
+      long lineNumber = 1;
+      HeadRecord head( begin, end, lineNumber );
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( section::Type< 13 >( head, begin, end,
+                                             lineNumber, 9228 ) );
+      } // THEN
+    } // WHEN
   } // GIVEN
 } // SCENARIO
 
-std::string headNK0() {
+std::string chunk() {
   return
-    " 8.016000+3 1.585751+1          0          0          0          0 82513 22     \n";
+  " 9.223500+4 2.330250+2          0          0          1          0922813 18     \n"
+  " 0.000000+0 0.000000+0          0          1          1          2922813 18     \n"
+  "          2          2                                            922813 18     \n"
+  " 1.000000-5 8.579050+0 3.000000+7 1.487778+1                      922813 18     \n";
 }
 
-std::string headNK1() {
-  return
-    " 8.016000+3 1.585751+1          0          0          1          0 82513 22     \n";
+void verifyChunk( const section::Type< 13 >& chunk ) {
+
+  REQUIRE( 18 == chunk.MT() );
+  REQUIRE( 18 == chunk.sectionNumber() );
+
+  REQUIRE( 92235. == Approx( chunk.ZA() ) );
+  REQUIRE( 2.330250e+2 == Approx( chunk.AWR() ) );
+  REQUIRE( 2.330250e+2 == Approx( chunk.atomicWeightRatio() ) );
+
+  CHECK( std::nullopt == chunk.totalCrossSection() );
+  CHECK( 1 == chunk.partialCrossSections().size() );
+
+  CHECK( 1 == chunk.NK() );
+  CHECK( 1 == chunk.numberPartials() );
+
+  auto partial = chunk.partialCrossSections()[0];
+  CHECK( 0.0 == Approx( partial.EG() ) );
+  CHECK( 0.0 == Approx( partial.photonOrBindingEnergy() ) );
+  CHECK( 0.0 == Approx( partial.ES() ) );
+  CHECK( 0.0 == Approx( partial.levelEnergy() ) );
+  CHECK( 0 == partial.LP() );
+  CHECK( 0 == partial.primaryPhotonFlag() );
+  CHECK( 1 == partial.LF() );
+  CHECK( 1 == partial.LAW() );
+  CHECK( 2 == partial.NP() );
+  CHECK( 1 == partial.NR() );
+  CHECK( 1 == partial.interpolants().size() );
+  CHECK( 1 == partial.boundaries().size() );
+  CHECK( 2 == partial.interpolants()[0] );
+  CHECK( 2 == partial.boundaries()[0] );
+  CHECK( 2 == partial.energies().size() );
+  CHECK( 2 == partial.crossSections().size() );
+  CHECK( 1e-5 == Approx( partial.energies()[0] ) );
+  CHECK( 3e+7 == Approx( partial.energies()[1] ) );
+  CHECK( 8.579050e+0 == Approx( partial.crossSections()[0] ) );
+  CHECK( 1.487778e+1 == Approx( partial.crossSections()[1] ) );
+
+  REQUIRE( 4 == chunk.NC() );
 }
 
-std::string headNK2() {
+std::string invalidChunk() {
   return
-    " 8.016000+3 1.585751+1          0          0          2          0 82513 22     \n";
+  " 9.223500+4 2.330250+2          0          0          1          0922813 18     \n"
+  " 0.000000+0 0.000000+0          0          1          2          2922813 18     \n"
+  "          2          2                                            922813 18     \n"
+  " 1.000000-5 8.579050+0 3.000000+7 1.487778+1                      922813 18     \n";
 }
 
-std::string baseSection(){
+std::string validSEND() {
   return
-    " 4.438000+6 4.438000+6          0          2          1          8 82513 22     \n"
-    "          8          2                                             82513 22     \n"
-    " 7.613591+6 0.000000+0 1.233300+7 0.000000+0 1.235000+7 5.77776-12 82513 22     \n"
-    " 1.245000+7 1.012810-7 1.250000+7 6.481624-6 1.255000+7 1.905763-4 82513 22     \n"
-    " 3.000001+7 0.000000+0 1.500000+8 0.000000+0                       82513 22     \n";
+    "                                                                  922813  0     \n";
 }
 
-std::string validSEND(){
+std::string invalidSEND() {
   return
-    "                                                                   82513  0     \n";
-}
-
-std::string invalidSEND(){     
-  return     
-    "                                                                   82513  1     \n";     
+    "                                                                  922813  4     \n";
 }

@@ -28,7 +28,7 @@ Multiplicities( PartialMultiplicity&& partial ) :
  */
 Multiplicities( TotalMultiplicity&& total,
                 std::vector< PartialMultiplicity >&& partials ) :
-  Multiplicities( std::make_optional( total ),
+  Multiplicities( std::make_optional( std::move( total ) ),
                   std::move( partials ) ) {}
 
 private:

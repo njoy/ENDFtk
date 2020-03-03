@@ -6,15 +6,15 @@
 using namespace njoy::ENDFtk;
 
 // convenience typedefs
-using TotalMultiplicity = section::Type< 12 >::TotalMultiplicity;
+using TotalCrossSection = section::Type< 13 >::TotalCrossSection;
 
 std::string chunk();
-void verifyChunk( const TotalMultiplicity& );
+void verifyChunk( const TotalCrossSection& );
 std::string invalidChunk();
 
-SCENARIO( "TotalMultiplicity" ) {
+SCENARIO( "TotalCrossSection" ) {
 
-  GIVEN( "valid data for a TotalMultiplicity" ) {
+  GIVEN( "valid data for a TotalCrossSection" ) {
 
     std::string string = chunk();
 
@@ -25,12 +25,12 @@ SCENARIO( "TotalMultiplicity" ) {
       std::vector< double > x = { 1., 3. };
       std::vector< double > y = { 2., 4. };
 
-      TotalMultiplicity chunk( std::move( boundaries ),
+      TotalCrossSection chunk( std::move( boundaries ),
                                std::move( interpolants ),
                                std::move( x ),
                                std::move( y ) );
 
-      THEN( "a TotalMultiplicity can be constructed and members can be "
+      THEN( "a TotalCrossSection can be constructed and members can be "
             "tested" ) {
 
         verifyChunk( chunk );
@@ -40,7 +40,7 @@ SCENARIO( "TotalMultiplicity" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 9228, 12, 18 );
+        chunk.print( output, 9228, 13, 18 );
 
         CHECK( buffer == string );
       } // THEN
@@ -52,9 +52,9 @@ SCENARIO( "TotalMultiplicity" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      TotalMultiplicity chunk( begin, end, lineNumber, 9228, 12, 18 );
+      TotalCrossSection chunk( begin, end, lineNumber, 9228, 13, 18 );
 
-      THEN( "a TotalMultiplicity can be constructed and members can be "
+      THEN( "a TotalCrossSection can be constructed and members can be "
             "tested" ) {
 
         verifyChunk( chunk );
@@ -64,14 +64,14 @@ SCENARIO( "TotalMultiplicity" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 9228, 12, 18 );
+        chunk.print( output, 9228, 13, 18 );
 
         CHECK( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
 
-  GIVEN( "invalid data for a TotalMultiplicity" ) {
+  GIVEN( "invalid data for a TotalCrossSection" ) {
 
     WHEN( "inconsistent data is used" ) {
 
@@ -84,7 +84,7 @@ SCENARIO( "TotalMultiplicity" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( TotalMultiplicity( std::move( boundaries ),
+        REQUIRE_THROWS( TotalCrossSection( std::move( boundaries ),
                                            std::move( wrongInterpolants ),
                                            std::move( x ),
                                            std::move( y ) ) );
@@ -102,8 +102,8 @@ SCENARIO( "TotalMultiplicity" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( TotalMultiplicity( begin, end, lineNumber,
-                                           9228, 12, 18 ) );
+        REQUIRE_THROWS( TotalCrossSection( begin, end, lineNumber,
+                                           9228, 13, 18 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -111,12 +111,12 @@ SCENARIO( "TotalMultiplicity" ) {
 
 std::string chunk() {
   return
-  " 0.000000+0 0.000000+0          0          0          1          2922812 18     \n"
-  "          2          5                                            922812 18     \n"
-  " 1.000000+0 2.000000+0 3.000000+0 4.000000+0                      922812 18     \n";
+  " 0.000000+0 0.000000+0          0          0          1          2922813 18     \n"
+  "          2          5                                            922813 18     \n"
+  " 1.000000+0 2.000000+0 3.000000+0 4.000000+0                      922813 18     \n";
 }
 
-void verifyChunk( const TotalMultiplicity& chunk ) {
+void verifyChunk( const TotalCrossSection& chunk ) {
 
   CHECK( 2 == chunk.NP() );
   CHECK( 1 == chunk.NR() );
@@ -126,23 +126,23 @@ void verifyChunk( const TotalMultiplicity& chunk ) {
   CHECK( 2 == chunk.boundaries()[0] );
   CHECK( 2 == chunk.E().size() );
   CHECK( 2 == chunk.energies().size() );
-  CHECK( 2 == chunk.Y().size() );
-  CHECK( 2 == chunk.multiplicities().size() );
+  CHECK( 2 == chunk.XS().size() );
+  CHECK( 2 == chunk.crossSections().size() );
   CHECK( 1. == Approx( chunk.E()[0] ) );
   CHECK( 3. == Approx( chunk.E()[1] ) );
   CHECK( 1. == Approx( chunk.energies()[0] ) );
   CHECK( 3. == Approx( chunk.energies()[1] ) );
-  CHECK( 2. == Approx( chunk.Y()[0] ) );
-  CHECK( 4. == Approx( chunk.Y()[1] ) );
-  CHECK( 2. == Approx( chunk.multiplicities()[0] ) );
-  CHECK( 4. == Approx( chunk.multiplicities()[1] ) );
+  CHECK( 2. == Approx( chunk.XS()[0] ) );
+  CHECK( 4. == Approx( chunk.XS()[1] ) );
+  CHECK( 2. == Approx( chunk.crossSections()[0] ) );
+  CHECK( 4. == Approx( chunk.crossSections()[1] ) );
 
   CHECK( 3 == chunk.NC() );
 }
 
 std::string invalidChunk() {
   return
-    " 0.000000+0 0.000000+0          0          0          2          2922812 18     \n"
-    "          2          2                                            922812 18     \n"
-    " 1.000000-5 8.579050+0 3.000000+7 1.487778+1                      922812 18     \n";
+    " 0.000000+0 0.000000+0          0          0          2          2922813 18     \n"
+    "          2          2                                            922813 18     \n"
+    " 1.000000-5 8.579050+0 3.000000+7 1.487778+1                      922813 18     \n";
 }

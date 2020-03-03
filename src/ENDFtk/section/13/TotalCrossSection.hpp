@@ -1,17 +1,17 @@
 /**
  *  @class
- *  @brief The total photon multiplicity.
+ *  @brief The total photon production cross section.
  *
- *  See ENDF102, section 12.2.1 for more information.
+ *  See ENDF102, section 13.2 for more information.
  */
-class TotalMultiplicity : protected TabulationRecord {
+class TotalCrossSection : protected TabulationRecord {
 
   /* auxiliary functions */
 
 public:
 
   /* constructor */
-  #include "ENDFtk/section/12/TotalMultiplicity/src/ctor.hpp"
+  #include "ENDFtk/section/13/TotalCrossSection/src/ctor.hpp"
 
   /* get methods */
 
@@ -26,14 +26,14 @@ public:
   auto energies() const { return this->E(); }
 
   /**
-   *  @brief Return the multiplicity values
+   *  @brief Return the cross section values
    */
-  auto Y() const { return TabulationRecord::y(); }
+  auto XS() const { return TabulationRecord::y(); }
 
   /**
-   *  @brief Return the multiplicity values
+   *  @brief Return the cross section values
    */
-  auto multiplicities() const { return this->Y(); }
+  auto crossSections() const { return this->XS(); }
 
   using TabulationRecord::NR;
   using TabulationRecord::NP;
