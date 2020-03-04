@@ -381,7 +381,7 @@ void verifyCoherentElasticWithOneTemperature(
   REQUIRE( 1 == chunk.elasticScatteringType() );
 
   auto law =
-      std::experimental::get< CoherentElastic >( chunk.scatteringLaw() );
+      std::get< CoherentElastic >( chunk.scatteringLaw() );
   REQUIRE( 1 == law.LTHR() );
   REQUIRE( 1 == law.elasticScatteringType() );
   REQUIRE( 0 == law.LT() );
@@ -440,7 +440,7 @@ void verifyCoherentElasticWithTwoTemperatures(
   REQUIRE( 1 == chunk.elasticScatteringType() );
 
   auto law =
-       std::experimental::get< CoherentElastic >( chunk.scatteringLaw() );
+       std::get< CoherentElastic >( chunk.scatteringLaw() );
   REQUIRE( 1 == law.LTHR() );
   REQUIRE( 1 == law.elasticScatteringType() );
   REQUIRE( 1 == law.LT() );
@@ -503,7 +503,7 @@ void verifyIncoherentElastic( const section::Type< 7, 2 >& chunk ) {
   REQUIRE( 2 == chunk.elasticScatteringType() );
 
   auto law =
-       std::experimental::get< IncoherentElastic >( chunk.scatteringLaw() );
+       std::get< IncoherentElastic >( chunk.scatteringLaw() );
   REQUIRE( 2 == law.LTHR() );
   REQUIRE( 2 == law.elasticScatteringType() );
   REQUIRE( 8.198006e+1 == Approx( law.SB() ) );
