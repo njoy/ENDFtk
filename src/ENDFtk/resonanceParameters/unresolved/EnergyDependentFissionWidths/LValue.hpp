@@ -23,6 +23,7 @@ public:
   using LValueBase::NJS;
   using LValueBase::numberSpinValues;
   using LValueBase::jValues;
+
   using LValueBase::NE;
 
   using LValueBase::NC;

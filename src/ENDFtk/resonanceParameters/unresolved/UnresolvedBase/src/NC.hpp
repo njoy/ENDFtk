@@ -4,6 +4,6 @@
 long NC() const {
 
   long NC = 1;
-  for ( const auto& lvalue : this->lvalues_ ) { NC += lvalue.NC(); }
+  for ( const auto& lvalue : this->lValues() ) { NC += lvalue.NC(); }
   return NC;
 };

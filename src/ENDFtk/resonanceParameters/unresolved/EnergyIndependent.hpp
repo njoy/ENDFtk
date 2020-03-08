@@ -1,3 +1,14 @@
+class EnergyIndependent;
+template <>
+struct LJValueType< EnergyIndependent > {
+
+  #include "ENDFtk/resonanceParameters/unresolved/EnergyIndependent/JValue.hpp"
+  #include "ENDFtk/resonanceParameters/unresolved/EnergyIndependent/LValue.hpp"
+
+  template < typename Range > using jtype = JValue< Range >;
+  using ltype = LValue;
+};
+
 /**
  *  @class
  *  @brief Single level Breit-Wigner unresolved resonance parameters with
@@ -8,26 +19,13 @@
  *
  *  See ENDF102, section 2.3.1 for more information.
  */
-class EnergyIndependent {
+class EnergyIndependent : public UnresolvedBase< EnergyIndependent > {
 
 public:
 
-  #include "ENDFtk/resonanceParameters/unresolved/EnergyIndependent/JValue.hpp"
-  #include "ENDFtk/resonanceParameters/unresolved/EnergyIndependent/LValue.hpp"
-
-private:
-
-  /* fields */
-  double spi_;
-  double ap_;
-  bool lssf_;
-
-  std::vector< LValue > lvalues_;
-
-  /* auxiliary functions */
-  #include "ENDFtk/resonanceParameters/unresolved/EnergyIndependent/src/readLValues.hpp"
-
-public:
+  template < typename Range >
+  using JValue = LJValueType< EnergyIndependent >::jtype< Range >;
+  using LValue = LJValueType< EnergyIndependent >::ltype;
 
   /* constructor */
   #include "ENDFtk/resonanceParameters/unresolved/EnergyIndependent/src/ctor.hpp"
@@ -40,73 +38,29 @@ public:
   static constexpr int LRU() { return 2; }
 
   /**
-   *  @brief Return the resonance type (resolved or unresolved)
-   */
-  static constexpr int type() { return EnergyIndependent::LRU(); }
-
-  /**
    *  @brief Return the resonance representation
    */
   static constexpr int LRF() { return 1; }
-
-  /**
-   *  @brief Return the resonance representation
-   */
-  static constexpr int representation() { return EnergyIndependent::LRF(); }
 
   /**
    *  @brief Return the average fission flag
    */
   constexpr bool LFW() const { return false; }
 
-  /**
-   *  @brief Return the average fission flag
-   */
-  constexpr int averageFissionWidthFlag() const {
+  using UnresolvedBase::SPI;
+  using UnresolvedBase::spin;
+  using UnresolvedBase::AP;
+  using UnresolvedBase::scatteringRadius;
+  using UnresolvedBase::LSSF;
+  using UnresolvedBase::selfShieldingOnly;
 
-    return EnergyIndependent::LFW();
-  }
+  using UnresolvedBase::type;
+  using UnresolvedBase::representation;
+  using UnresolvedBase::averageFissionWidthFlag;
 
-  /**
-   *  @brief Return the target spin
-   */
-  double SPI() const { return this->spi_; }
+  using UnresolvedBase::NLS;
+  using UnresolvedBase::lValues;
 
-  /**
-   *  @brief Return the target spin
-   */
-  double spin() const { return this->SPI(); }
-
-  /**
-   *  @brief Return the scattering radius
-   */
-  double AP() const { return this->ap_; }
-
-  /**
-   *  @brief Return the scattering radius
-   */
-  double scatteringRadius() const { return this->AP(); }
-
-  /**
-   *  @brief Return the self-shielding only flag
-   */
-  bool LSSF() const { return this->lssf_; }
-
-  /**
-   *  @brief Return the self-shielding only flag
-   */
-  bool selfShieldingOnly() const { return this->LSSF(); }
-
-  /**
-   *  @brief Return the number of l values for which data is available
-   */
-  int NLS() const { return this->lvalues_.size(); }
-
-  /**
-   *  @brief Return the l value data
-   */
-  auto lValues() const { return ranges::view::all( this->lvalues_ ); }
-
-  #include "ENDFtk/resonanceParameters/unresolved/EnergyIndependent/src/NC.hpp"
-  #include "ENDFtk/resonanceParameters/unresolved/EnergyIndependent/src/print.hpp"
+  using UnresolvedBase::NC;
+  using UnresolvedBase::print;
 };

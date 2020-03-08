@@ -14,7 +14,7 @@ void print( OutputIterator& it, int MAT, int MF, int MT ) const {
   ControlRecord( this->SPI(), this->AP(),
                  this->LSSF(), 0,
                  this->NLS(), 0 ).print( it, MAT, MF, MT );
-  for ( const auto& lvalue : this->lvalues_ ) {
+  for ( const auto& lvalue : this->lValues() ) {
 
     lvalue.print( it, MAT, MF, MT );
   }

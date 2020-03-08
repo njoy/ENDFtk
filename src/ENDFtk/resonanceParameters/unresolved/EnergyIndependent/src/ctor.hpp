@@ -9,22 +9,8 @@
 EnergyIndependent( double spi, double ap, bool lssf,
                    std::vector< LValue >&& lvalues ) :
     // no need for a try ... catch: nothing can go wrong here
-    spi_( spi ), ap_( ap ), lssf_( lssf ),
-    lvalues_( std::move( lvalues ) ) {}
+    UnresolvedBase( spi, ap, lssf, std::move( lvalues ) ) {}
 
-private:
-/**
- *  @brief Private intermediate constructor
- */
-template< typename Iterator >
-EnergyIndependent( ControlRecord&& cont,
-                   Iterator& it, const Iterator& end, long& lineNumber,
-                   int MAT, int MF, int MT ) :
-  EnergyIndependent( cont.C1(), cont.C2(), cont.L1(),
-                     readLValues( it, end, lineNumber,
-                                  MAT, MF, MT, cont.N1() ) ) {}
-
-public:
 /**
  *  @brief Constructor (from a buffer)
  *
@@ -40,8 +26,7 @@ public:
 template< typename Iterator >
 EnergyIndependent( Iterator& it, const Iterator& end, long& lineNumber,
                    int MAT, int MF, int MT )
-  try : EnergyIndependent( ControlRecord( it, end, lineNumber, MAT, MF, MT ),
-                           it, end, lineNumber, MAT, MF, MT ) {}
+  try : UnresolvedBase( it, end, lineNumber, MAT, MF, MT ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing unresolved resonance "
