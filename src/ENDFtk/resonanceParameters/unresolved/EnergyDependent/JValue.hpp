@@ -10,6 +10,7 @@ class JValue : protected ListRecord {
 
   /* auxiliary functions */
   #include "ENDFtk/resonanceParameters/unresolved/EnergyDependent/JValue/src/generateList.hpp"
+  #include "ENDFtk/resonanceParameters/unresolved/EnergyDependent/JValue/src/verifySize.hpp"
 
   auto column( const int index ) const {
     return
@@ -74,44 +75,44 @@ public:
   int competitiveWidthDegreesFreedom() const { return JValue::AMUX(); }
 
   /**
-   *  @brief Return the average level spacing.
+   *  @brief Return the energy values.
    */
-  double ES() const { return this->column( 0 ); }
+  auto ES() const { return this->column( 0 ); }
+
+  /**
+   *  @brief Return the energy values.
+   */
+  auto energies() const { return this->ES(); }
 
   /**
    *  @brief Return the average level spacing.
    */
-  double energies() const { return this->ES(); }
+  auto D() const { return this->column( 1 ); }
 
   /**
    *  @brief Return the average level spacing.
    */
-  double D() const { return this->column( 1 ); }
-
-  /**
-   *  @brief Return the average level spacing.
-   */
-  double averageLevelSpacing() const { return this->D(); }
+  auto averageLevelSpacings() const { return this->D(); }
 
   /**
    *  @brief Return the average neutron width.
    */
-  double GN() const { return this->column( 3 ); }
+  auto GN() const { return this->column( 3 ); }
 
   /**
    *  @brief Return the average neutron width.
    */
-  double averageNeutronWidth() const { return this->GN(); }
+  auto averageNeutronWidths() const { return this->GN(); }
 
   /**
    *  @brief Return the average gamma width.
    */
-  double GG() const { return this->column( 4 ); }
+  auto GG() const { return this->column( 4 ); }
 
   /**
    *  @brief Return the average gamma width.
    */
-  double averageGammaWidth() const { return this->GG(); }
+  auto averageGammaWidths() const { return this->GG(); }
 
   /**
    *  @brief Return the average fission widths (energy dependent).
@@ -126,12 +127,12 @@ public:
   /**
    *  @brief Return the average competitive width.
    */
-  double GX() const { return this->column( 2 ); }
+  auto GX() const { return this->column( 2 ); }
 
   /**
   *  @brief Return the average competitive width.
    */
-  double averageCompetitiveWidth() const { return JValue::GX(); }
+  auto averageCompetitiveWidths() const { return JValue::GX(); }
 
   /**
    *  @brief Return the interpolation type.

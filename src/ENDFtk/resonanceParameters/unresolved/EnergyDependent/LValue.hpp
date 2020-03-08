@@ -1,24 +1,27 @@
-class LValue : protected EnergyDependentFissionWidths::LValue {
-  using Parent = EnergyDependentFissionWidths::LValue;
+/**
+ *  @class
+ *  @brief The unresolved resonance parameters for a given l value in the SLBW
+ *         representation for energy dependent fission widths (all other
+ *         widths are energy independent).
+ *
+ *  See ENDF102, section 2.3.1 for more information.
+ */
+class LValue : protected LValueBase< JValue > {
+
 public:
-  using Parent::AWRI;
-  using Parent::L;
-  using Parent::NJS;
-  using Parent::NC;
-  using Parent::print;
 
-  Lvalue( double AWRI, int L, std::vector< LIST >&& lists ) :
-    Parent( AWRI, L, std::move(lists) ){}
+  /* constructor */
+  #include "ENDFtk/resonanceParameters/unresolved/EnergyDependent/LValue/src/ctor.hpp"
 
-  template< typename Iterator >
-  Lvalue( Iterator& it, const Iterator& end, long& lineNumber,
-          int MAT, int MF, int MT ) :
-    Parent( it, end, lineNumber, MAT, MF, MT ){}
+  using LValueBase::AWRI;
+  using LValueBase::atomicWeightRatio;
+  using LValueBase::L;
+  using LValueBase::orbitalMomentum;
+  using LValueBase::NJS;
+  using LValueBase::numberSpinValues;
+  using LValueBase::jValues;
+  using LValueBase::NE;
 
-  auto jValues() const {
-    return
-      this->lists
-      | ranges::view::transform(
-          []( const auto& list ){ return Jvalue( list ); } );
-  }
+  using LValueBase::NC;
+  using LValueBase::print;
 };

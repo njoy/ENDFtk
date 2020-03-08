@@ -7,15 +7,12 @@
  *                        (NJS elements)
  */
 LValue( double awri, int l, std::vector< JValue >&& jvalues )
-  try : LValueBase( awri, l, std::move( jvalues ) ) {
-
-    verifySize( this->jValues().front().NE(), this->jValues() );
-  }
+  try : LValueBase( awri, l, std::move( jvalues ) ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing L value resonance "
                "parameters in the unresolved Single Level Breit-Wigner "
-               "representation using energy dependent fission widths" );
+               "representation using all energy dependent widths" );
     throw;
   }
 
@@ -34,14 +31,11 @@ LValue( double awri, int l, std::vector< JValue >&& jvalues )
 template< typename Iterator >
 LValue( Iterator& it, const Iterator& end, long& lineNumber,
         int MAT, int MF, int MT )
-  try : LValueBase( it, end, lineNumber, MAT, MF, MT ) {
-
-    verifySize( this->jValues().front().NE(), this->jValues() );
-  }
+  try : LValueBase( it, end, lineNumber, MAT, MF, MT ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing L value resonance "
                "parameters in the unresolved Single Level Breit-Wigner "
-               "representation using energy dependent fission widths" );
+               "representation using all energy dependent widths" );
     throw;
   }

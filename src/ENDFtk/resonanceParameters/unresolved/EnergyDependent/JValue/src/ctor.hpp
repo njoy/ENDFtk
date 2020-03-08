@@ -2,7 +2,10 @@ private:
 /**
  *  @brief Private intermediate constructor
  */
-JValue( ListRecord&& list ) : ListRecord( std::move( list ) ) {}
+JValue( ListRecord&& list ) : ListRecord( std::move( list ) ) {
+
+  verifySize( ListRecord::NPL(), this->NE() );
+}
 
 public:
 /**
@@ -28,7 +31,7 @@ JValue( double spin, int amun, int amug, int amuf, int amux, int interpolate,
         std::vector< double >&& gg,
         std::vector< double >&& gf,
         std::vector< double >&& gx )
-  try :  JValue( ListRecord( spin, 0.0, INT, 0, energies.size(),
+  try :  JValue( ListRecord( spin, 0.0, interpolate, 0, energies.size(),
                              generateList( amux, amun, amug, amuf,
                                            std::move( energies ),
                                            std::move( d ),

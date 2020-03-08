@@ -8,7 +8,7 @@ using namespace njoy::ENDFtk;
 std::string LRF2();
 std::string Tab1();
 
-SCENARIO( "Testing energy-dependent unresolved resonances" ){
+/*SCENARIO( "Testing energy-dependent unresolved resonances" ){
   GIVEN( "valid ENDF parameters" ){
     long lineNumber = 0;
     int MAT = 3843;
@@ -23,8 +23,8 @@ SCENARIO( "Testing energy-dependent unresolved resonances" ){
       resonanceParameters::Base base( 6.0E3, 1.0E5, 2, 2, 0, 0 );
       std::string baseString =
         " 6.000000+3 1.000000+5          2          2          0          03843 2151     \n";
-      
-      resonanceParameters::unresolved::EnergyDependent ted( 
+
+      resonanceParameters::unresolved::EnergyDependent ted(
           base, begin, end, lineNumber, MAT, MF, MT );
 
       THEN( "the parameters can be verified" ){
@@ -45,7 +45,7 @@ SCENARIO( "Testing energy-dependent unresolved resonances" ){
           CHECK( Approx(8.91354E1) == lValue.AWRI() );
           CHECK( 0 == lValue.L() );
           CHECK( 1 == lValue.jValues().size() );
-          
+
           const auto jValue = lValue.jValues()[0];
           CHECK( Approx(0.5) == jValue.AJ() );
           CHECK( 5 == jValue.INT() );
@@ -66,7 +66,7 @@ SCENARIO( "Testing energy-dependent unresolved resonances" ){
           }
           njoy::Log::info( "back: {}", jValue.D().back() );
           */
-
+/*
           CHECK( 13 == jValue.D().size() );
           CHECK( Approx(1.2406E4) == jValue.D().front() );
           CHECK( jValue.D()[ 0  ] == jValue.D().front() );
@@ -122,7 +122,7 @@ SCENARIO( "Testing energy-dependent unresolved resonances" ){
           CHECK( Approx(3.8461E-1) == jValue.GNO()[ 11 ] );
           CHECK( Approx(3.5778E-1) == jValue.GNO()[ 12 ] );
           CHECK( Approx(3.5778E-1) == jValue.GNO().back() );
-          
+
           CHECK( 13 == jValue.GG().size() );
           CHECK( Approx(2.0500E-1) == jValue.GG().front() );
           CHECK( Approx(2.0500E-1) == jValue.GG()[ 0  ] );
@@ -181,7 +181,7 @@ SCENARIO( "Testing energy-dependent unresolved resonances" ){
       auto end = caseC.end();
 
       resonanceParameters::Base base( 6.0E3, 1.0E5, 2, 2, 1, 0 );
-      resonanceParameters::unresolved::EnergyDependent ted( 
+      resonanceParameters::unresolved::EnergyDependent ted(
           base, begin, end, lineNumber, MAT, MF, MT );
 
       THEN( "the parameters can be verified" ){
@@ -221,11 +221,11 @@ SCENARIO( "Testing energy-dependent unresolved resonances" ){
     THEN( "an exception is thrown" ){
       resonanceParameters::Base base( 6.0E3, 1.0E5, 2, 2, 0, 0 );
       CHECK_THROWS(
-        resonanceParameters::unresolved::EnergyDependent( 
+        resonanceParameters::unresolved::EnergyDependent(
             base, begin, end, lineNumber, MAT, MF, MT ) );
     }
   }
-}
+}*/
 
 std::string LRF2(){
   return
@@ -238,9 +238,9 @@ std::string LRF2(){
     */
     // range CONT
     " 0.000000+0 6.795900-1          0          0          3          03843 2151     \n"
-    // L=0 CONT                                                                      
+    // L=0 CONT
     " 8.913540+1 0.000000+0          0          0          1          03843 2151     \n"
-    // L=0 LIST                                                                      
+    // L=0 LIST
     " 5.000000-1 0.000000+0          5          0         84         133843 2151     \n"
     " 0.000000+0 0.000000+0 1.000000+0 2.000000+0 3.000000+0 4.000000+03843 2151     \n"
     " 6.000000+3 1.240600+4 0.000000+0 4.590100-1 2.050000-1 0.000000+03843 2151     \n"
@@ -256,9 +256,9 @@ std::string LRF2(){
     " 7.000000+4 1.077400+4 0.100000+0 3.986200-1 2.051000-1 1.000000+03843 2151     \n"
     " 8.000000+4 1.039500+4 0.110000+0 3.846100-1 2.051100-1 1.100000+03843 2151     \n"
     " 1.000000+5 9.669700+3 0.120000+0 3.577800-1 2.051200-1 1.200000+03843 2151     \n"
-    // L=1 CONT                                                                      
+    // L=1 CONT
     " 8.913540+1 0.000000+0          1          0          2          03843 2151     \n"
-    // L=1,J=0 LIST                                                                  
+    // L=1,J=0 LIST
     " 5.000000-1 0.000000+0          5          0         84         133843 2151     \n"
     " 0.000000+0 0.000000+0 0.000000+0 1.000000+0 0.000000+0 0.000000+03843 2151     \n"
     " 6.000000+3 1.240600+4 0.000000+0 6.723800+0 2.050000-1 0.000000+03843 2151     \n"
@@ -274,7 +274,7 @@ std::string LRF2(){
     " 7.000000+4 1.077400+4 0.000000+0 5.839300+0 2.050000-1 0.000000+03843 2151     \n"
     " 8.000000+4 1.039500+4 0.000000+0 5.634100+0 2.050000-1 0.000000+03843 2151     \n"
     " 1.000000+5 9.669700+3 0.000000+0 5.241000+0 2.050000-1 0.000000+03843 2151     \n"
-    // L=1,J=1 LIST                                                                  
+    // L=1,J=1 LIST
     " 1.500000+0 0.000000+0          5          0         84         133843 2151     \n"
     " 0.000000+0 0.000000+0 0.000000+0 1.000000+0 0.000000+0 0.000000+03843 2151     \n"
     " 6.000000+3 6.202800+3 0.000000+0 3.361900+0 2.050000-1 0.000000+03843 2151     \n"
@@ -290,9 +290,9 @@ std::string LRF2(){
     " 7.000000+4 5.386800+3 0.000000+0 2.919600+0 2.050000-1 0.000000+03843 2151     \n"
     " 8.000000+4 5.197500+3 0.000000+0 2.817000+0 2.050000-1 0.000000+03843 2151     \n"
     " 1.000000+5 4.834900+3 0.000000+0 2.620500+0 2.050000-1 0.000000+03843 2151     \n"
-    // L=2 CONT                                                                      
+    // L=2 CONT
     " 8.913540+1 0.000000+0          2          0          2          03843 2151     \n"
-    // L=2,J=0 LIST                                                                  
+    // L=2,J=0 LIST
     " 1.500000+0 0.000000+0          5          0         84         133843 2151     \n"
     " 0.000000+0 0.000000+0 0.000000+0 1.000000+0 0.000000+0 0.000000+03843 2151     \n"
     " 6.000000+3 6.202800+3 0.000000+0 2.233000-1 2.050000-1 0.000000+03843 2151     \n"
@@ -308,7 +308,7 @@ std::string LRF2(){
     " 7.000000+4 5.386800+3 0.000000+0 1.939200-1 2.050000-1 0.000000+03843 2151     \n"
     " 8.000000+4 5.197500+3 0.000000+0 1.871100-1 2.050000-1 0.000000+03843 2151     \n"
     " 1.000000+5 4.834900+3 0.000000+0 1.740500-1 2.050000-1 0.000000+03843 2151     \n"
-    // L=2,J=1 LIST                                                                  
+    // L=2,J=1 LIST
     " 2.500000+0 0.000000+0          5          0         84         133843 2151     \n"
     " 0.000000+0 0.000000+0 0.000000+0 1.000000+0 0.000000+0 0.000000+03843 2151     \n"
     " 6.000000+3 4.135200+3 0.000000+0 1.488700-1 2.050000-1 0.000000+03843 2151     \n"
@@ -324,10 +324,10 @@ std::string LRF2(){
     " 7.000000+4 3.591200+3 0.000000+0 1.292800-1 2.050000-1 0.000000+03843 2151     \n"
     " 8.000000+4 3.465000+3 0.000000+0 1.247400-1 2.050000-1 0.000000+03843 2151     \n"
     " 1.000000+5 3.223200+3 0.000000+0 1.160400-1 2.050000-1 0.000000+03843 2151     \n";
-}                                                                                  
-                                                                                   
-std::string Tab1(){                                                                
-  return                                                                           
+}
+
+std::string Tab1(){
+  return
     " 0.000000+0 0.000000+0          0          0          1         503843 2151     \n"
     "         50          2                                            3843 2151     \n"
     " 1.000000-5 1.238100+0 4.000000+1 1.188400+0 5.000000+1 1.153200+03843 2151     \n"
@@ -348,4 +348,3 @@ std::string Tab1(){
     " 8.000000+4 6.608000-1 8.500000+4 6.560000-1 9.000000+4 6.513000-13843 2151     \n"
     " 9.500000+4 6.469000-1 2.000000+5 5.803000-1                      3843 2151     \n";
 }
-

@@ -1,5 +1,6 @@
 namespace unresolved {
 
+#include "ENDFtk/resonanceParameters/unresolved/LValueBase.hpp"
 #include "ENDFtk/resonanceParameters/unresolved/EnergyIndependent.hpp"
 #include "ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths.hpp"
 #include "ENDFtk/resonanceParameters/unresolved/EnergyDependent.hpp"
