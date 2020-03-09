@@ -13,7 +13,7 @@ std::string chunk();
 void verifyChunk( const EnergyDependentFissionWidths& );
 std::string chunkWithInconsistentSize();
 
-/*SCENARIO( "EnergyDependentFissionWidths" ) {
+SCENARIO( "EnergyDependentFissionWidths" ) {
 
   GIVEN( "valid data for a EnergyDependentFissionWidths" ) {
 
@@ -134,7 +134,7 @@ std::string chunkWithInconsistentSize();
     } // WHEN
   } // GIVEN
 } // SCENARIO
-*/
+
 std::string chunk() {
   return
     " 0.000000+0 8.880000-1          0          0         14          29440 2151     \n"
