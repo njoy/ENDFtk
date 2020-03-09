@@ -39,6 +39,7 @@ readParameters( Iterator& begin,
 
       switch ( LRF ) {
 
+        case 2 : return EnergyDependent( begin, end, lineNumber, MAT, MF, MT );
         default : {
 
           Log::error( "Encountered illegal LRF value" );

@@ -18,11 +18,11 @@ public:
                         resolved::SingleLevelBreitWigner, // LRF = 1
                         resolved::MultiLevelBreitWigner,  // LRF = 2
                         resolved::ReichMoore,             // LRF = 3
-                        resolved::RMatrixLimited/*,         // LRF = 7
+                        resolved::RMatrixLimited,         // LRF = 7
                         // LRU=2
-                        unresolved::EnergyIndependent,
-                        unresolved::EnergyDependentFissionWidths,
-                        unresolved::EnergyDependent*/>;
+                        unresolved::EnergyIndependent,            // LRF = 1, LFW = 0
+                        unresolved::EnergyDependentFissionWidths, // LRF = 1, LFW = 1
+                        unresolved::EnergyDependent>;             // LRF = 1
 
 private:
 
