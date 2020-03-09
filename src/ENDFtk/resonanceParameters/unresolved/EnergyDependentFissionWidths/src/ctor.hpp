@@ -7,7 +7,7 @@ EnergyDependentFissionWidths( ListRecord&& energies,
   UnresolvedBaseWithoutSpin( std::move( lvalues ) ),
   energies_( std::move( energies ) ) {
 
-    //verifySize( this->energies_.NPL(), this->lvalues_ );
+    verifySize( this->energies_.NPL(), this->lValues() );
   }
 
 public:

@@ -1,14 +1,20 @@
+template < typename Range >
 static void
-verifySize( unsigned int NE, const std::vector< LValue >& lvalues ) {
+verifySize( unsigned int NE, const Range& lvalues ) {
 
-  auto iter = ranges::find_if_not( lvalues, hana::equal.to( NE ),
-                                   &LValue::NE );
+  if ( lvalues.size() == 0 ) {
 
-  if ( iter != ranges::end( lvalues ) ) {
-
-    Log::error( "All fission width functions must have the same size" );
-    Log::info( "Expected NE={} for the l value with index={}", NE,
-               ranges::distance( ranges::begin( lvalues ), iter ) );
+    Log::error( "At least one l value must be given" );
     throw std::exception();
+  }
+
+  for ( unsigned int i = 0; i < lvalues.size(); ++i ) {
+
+    if ( NE != lvalues[i].NE() ) {
+
+      Log::error( "All fission width functions must have the same size" );
+      Log::info( "Expected NE={} for the l value with index={}", NE, i );
+      throw std::exception();
+    }
   }
 }

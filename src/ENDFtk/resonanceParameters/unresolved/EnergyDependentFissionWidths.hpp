@@ -34,7 +34,7 @@ private:
   ListRecord energies_;
 
   /* auxiliary functions */
-  //#include "ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/verifySize.hpp"
+  #include "ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/verifySize.hpp"
 
 public:
 

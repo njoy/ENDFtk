@@ -9,7 +9,7 @@
 class LValue : protected LValueBase< JValue > {
 
   /* auxiliary functions */
-//  #include "ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/LValue/src/verifySize.hpp"
+  #include "ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/LValue/src/verifySize.hpp"
 
 public:
 
