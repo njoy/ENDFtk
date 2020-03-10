@@ -1,5 +1,5 @@
 template< typename Iterator >
-static ScatteringRadius
+static std::optional< ScatteringRadius >
 readScatteringRadius( Iterator& begin,
                       const Iterator& end,
                       long& lineNumber,

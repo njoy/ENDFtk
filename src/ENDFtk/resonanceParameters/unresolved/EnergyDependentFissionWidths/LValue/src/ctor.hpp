@@ -9,7 +9,7 @@
 LValue( double awri, int l, std::vector< JValue >&& jvalues )
   try : LValueBase( awri, l, std::move( jvalues ) ) {
 
-    //verifySize( this->jValues().front().NE(), this->jValues() );
+    verifySize( this->jValues().front().NE(), this->jValues() );
   }
   catch ( std::exception& e ) {
 
@@ -36,7 +36,7 @@ LValue( Iterator& it, const Iterator& end, long& lineNumber,
         int MAT, int MF, int MT )
   try : LValueBase( it, end, lineNumber, MAT, MF, MT ) {
 
-    //verifySize( this->jValues().front().NE(), this->jValues() );
+    verifySize( this->jValues().front().NE(), this->jValues() );
   }
   catch ( std::exception& e ) {
 

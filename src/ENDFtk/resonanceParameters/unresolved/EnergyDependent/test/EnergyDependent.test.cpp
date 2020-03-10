@@ -87,7 +87,7 @@ std::string chunk() {
     " 5.000000-1 0.000000+0          5          0         18          23843 2151     \n"
     " 0.000000+0 0.000000+0 1.000000+0 2.000000+0 3.000000+0 4.000000+03843 2151     \n"
     " 6.000000+3 1.240600+4 0.000000+0 4.590100-1 2.050000-1 0.000000+03843 2151     \n"
-    " 8.000000+3 1.240600+4 1.000000-1 4.590100-1 2.051000-1 1.000000+03843 2151     \n"
+    " 8.000000+3 1.240600+4 1.000000-1 4.590100-1 2.051000-1 0.000000+03843 2151     \n"
     // L=1 CONT
     " 8.913540+1 0.000000+0          1          0          2          03843 2151     \n"
     // L=1,J=0 LIST
@@ -133,14 +133,14 @@ void verifyChunk( const EnergyDependent& chunk ) {
   CHECK( 0.5 == Approx( jvalue00.AJ() ) );
   CHECK( 0.5 == Approx( jvalue00.spin() ) );
 
-  CHECK( 1 == jvalue00.AMUN() );
-  CHECK( 1 == jvalue00.neutronWidthDegreesFreedom() );
+  CHECK( 2 == jvalue00.AMUN() );
+  CHECK( 2 == jvalue00.neutronWidthDegreesFreedom() );
   CHECK( 3 == jvalue00.AMUG() );
   CHECK( 3 == jvalue00.gammaWidthDegreesFreedom() );
   CHECK( 4 == jvalue00.AMUF() );
   CHECK( 4 == jvalue00.fissionWidthDegreesFreedom() );
-  CHECK( 2 == jvalue00.AMUX() );
-  CHECK( 2 == jvalue00.competitiveWidthDegreesFreedom() );
+  CHECK( 1 == jvalue00.AMUX() );
+  CHECK( 1 == jvalue00.competitiveWidthDegreesFreedom() );
 
   CHECK( 5 == jvalue00.INT() );
 
@@ -168,10 +168,10 @@ void verifyChunk( const EnergyDependent& chunk ) {
   CHECK( 8000. == Approx( jvalue00.ES()[1] ) );
   CHECK( 6000. == Approx( jvalue00.energies()[0] ) );
   CHECK( 8000. == Approx( jvalue00.energies()[1] ) );
-  CHECK( 6202.8 == Approx( jvalue00.D()[0] ) );
-  CHECK( 6202.8 == Approx( jvalue00.D()[1] ) );
-  CHECK( 6202.8 == Approx( jvalue00.averageLevelSpacings()[0] ) );
-  CHECK( 6202.8 == Approx( jvalue00.averageLevelSpacings()[1] ) );
+  CHECK( 12406 == Approx( jvalue00.D()[0] ) );
+  CHECK( 12406 == Approx( jvalue00.D()[1] ) );
+  CHECK( 12406 == Approx( jvalue00.averageLevelSpacings()[0] ) );
+  CHECK( 12406 == Approx( jvalue00.averageLevelSpacings()[1] ) );
   CHECK( 0.45901 == Approx( jvalue00.GN()[0] ) );
   CHECK( 0.45901 == Approx( jvalue00.GN()[1] ) );
   CHECK( 0.45901 == Approx( jvalue00.averageNeutronWidths()[0] ) );
@@ -194,8 +194,8 @@ void verifyChunk( const EnergyDependent& chunk ) {
   CHECK( 89.1354 == Approx( lvalue1.atomicWeightRatio() ) );
   CHECK( 1 == lvalue1.L() );
   CHECK( 1 == lvalue1.orbitalMomentum() );
-  CHECK( 2 == lvalue0.NJS() );
-  CHECK( 2 == lvalue0.numberSpinValues() );
+  CHECK( 2 == lvalue1.NJS() );
+  CHECK( 2 == lvalue1.numberSpinValues() );
 
   auto jvalue10 = lvalue1.jValues()[0];
 

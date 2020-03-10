@@ -19,12 +19,14 @@ readParameters( Iterator& begin,
 
       switch ( LRF ) {
 
-        case 1 : return SingleLevelBreitWigner( begin, end, lineNumber,
-                                                MAT, MF, MT );
-        case 2 : return MultiLevelBreitWigner( begin, end, lineNumber,
-                                               MAT, MF, MT );
-        case 3 : return ReichMoore( begin, end, lineNumber, MAT, MF, MT );
-        case 7 : return RMatrixLimited( begin, end, lineNumber, MAT, MF, MT );
+        case 1 : return resolved::SingleLevelBreitWigner(
+                            begin, end, lineNumber, MAT, MF, MT );
+        case 2 : return resolved::MultiLevelBreitWigner(
+                            begin, end, lineNumber, MAT, MF, MT );
+        case 3 : return resolved::ReichMoore(
+                            begin, end, lineNumber, MAT, MF, MT );
+        case 7 : return resolved::RMatrixLimited(
+                            begin, end, lineNumber, MAT, MF, MT );
         default : {
 
           Log::error( "Encountered illegal LRF value" );
@@ -44,9 +46,9 @@ readParameters( Iterator& begin,
 
           switch ( LFW ) {
 
-            case 0 : return EnergyIndependent(
+            case 0 : return unresolved::EnergyIndependent(
                                 begin, end, lineNumber, MAT, MF, MT );
-            case 1 : return EnergyDependentFissionWidths(
+            case 1 : return unresolved::EnergyDependentFissionWidths(
                                 begin, end, lineNumber, MAT, MF, MT );
             default : {
 
@@ -57,7 +59,8 @@ readParameters( Iterator& begin,
             }
           }
         }
-        case 2 : return EnergyDependent( begin, end, lineNumber, MAT, MF, MT );
+        case 2 : return unresolved::EnergyDependent(
+                            begin, end, lineNumber, MAT, MF, MT );
         default : {
 
           Log::error( "Encountered illegal LRF value" );

@@ -13,7 +13,8 @@ verifySize( unsigned int NE, const Range& jvalues ) {
     if ( NE != jvalues[i].NE() ) {
 
       Log::error( "All fission width functions must have the same size" );
-      Log::info( "Expected NE={} for the J value with index={}", NE, i );
+      Log::info( "Expected NE={} for the J value with index={}, found NE={}",
+                 NE, i, jvalues[i].NE() );
       throw std::exception();
     }
   }

@@ -18,7 +18,7 @@ SCENARIO( "Isotope" ){
     int MF = 2;
     int MT = 151;
 
-    REQUIRE_THROWS(
+    CHECK_THROWS(
       resonanceParameters::Isotope( begin, end, lineNumber, MAT, MF, MT )
     );
   }
@@ -40,17 +40,25 @@ SCENARIO( "Isotope" ){
     THEN( "a SpecialCase can be constructed" ){
       resonanceParameters::Isotope iso( begin, end, lineNumber, MAT, MF, MT );
 
-      REQUIRE( 1 == iso.resonanceRanges().size() );
-      REQUIRE_NOTHROW( std::get< resonanceParameters::SpecialCase >
-                       ( iso.resonanceRanges().back() ) );
+      CHECK( 1 == iso.resonanceRanges().size() );
 
-      const auto& sc = std::get< resonanceParameters::SpecialCase >
-        ( iso.resonanceRanges().back() );
+      const auto& range = iso.resonanceRanges().back();
+      CHECK( 1E-5 == Approx( range.EL() ) );
+      CHECK( 1E-5 == Approx( range.lowerEnergy() ) );
+      CHECK( 1E+5 == Approx( range.EH() ) );
+      CHECK( 1E+5 == Approx( range.upperEnergy() ) );
 
-      REQUIRE( 1E-5 == Approx( sc.EL() ) );
-      REQUIRE( 1E5 == sc.EH() );
-      REQUIRE( 0.5 == sc.SPI() );
-      REQUIRE( 1.276553 == sc.AP() );
+      CHECK( 0 == range.LRU() );
+      CHECK( 0 == range.type() );
+      CHECK( 0 == range.LRF() );
+      CHECK( 0 == range.representation() );
+      CHECK( 0 == range.NRO() );
+      CHECK( 0 == range.energyDependentScatteringRadius() );
+      CHECK( 0 == range.NAPS() );
+      CHECK( 0 == range.scatteringRadiusCalculationOption() );
+
+      CHECK_NOTHROW( std::get< resonanceParameters::SpecialCase >
+                       ( range.parameters() ) );
     }
   }
   WHEN( "LRU=1" ){
@@ -71,9 +79,25 @@ SCENARIO( "Isotope" ){
 
       resonanceParameters::Isotope iso( begin, end, lineNumber, MAT, MF, MT );
 
-      REQUIRE_NOTHROW( std::get< resonanceParameters::resolved::SLBW >
-                       ( iso.resonanceRanges().back() ) );
-      REQUIRE( 1 == iso.resonanceRanges().size() );
+      CHECK( 1 == iso.resonanceRanges().size() );
+
+      const auto& range = iso.resonanceRanges().back();
+      CHECK( 1E-5 == Approx( range.EL() ) );
+      CHECK( 1E-5 == Approx( range.lowerEnergy() ) );
+      CHECK( 1. == Approx( range.EH() ) );
+      CHECK( 1. == Approx( range.upperEnergy() ) );
+
+      CHECK( 1 == range.LRU() );
+      CHECK( 1 == range.type() );
+      CHECK( 1 == range.LRF() );
+      CHECK( 1 == range.representation() );
+      CHECK( 0 == range.NRO() );
+      CHECK( 0 == range.energyDependentScatteringRadius() );
+      CHECK( 0 == range.NAPS() );
+      CHECK( 0 == range.scatteringRadiusCalculationOption() );
+
+      CHECK_NOTHROW( std::get< resonanceParameters::resolved::SingleLevelBreitWigner >
+                       ( range.parameters() ) );
     }
 
     WHEN( "there is only one MLBW range in the Isotope" ){
@@ -93,9 +117,25 @@ SCENARIO( "Isotope" ){
 
       resonanceParameters::Isotope iso( begin, end, lineNumber, MAT, MF, MT );
 
-      REQUIRE_NOTHROW( std::get< resonanceParameters::resolved::MLBW >
-                       ( iso.resonanceRanges().back() ) );
-      REQUIRE( 1 == iso.resonanceRanges().size() );
+      CHECK( 1 == iso.resonanceRanges().size() );
+
+      const auto& range = iso.resonanceRanges().back();
+      CHECK( 1E-5 == Approx( range.EL() ) );
+      CHECK( 1E-5 == Approx( range.lowerEnergy() ) );
+      CHECK( 1. == Approx( range.EH() ) );
+      CHECK( 1. == Approx( range.upperEnergy() ) );
+
+      CHECK( 1 == range.LRU() );
+      CHECK( 1 == range.type() );
+      CHECK( 2 == range.LRF() );
+      CHECK( 2 == range.representation() );
+      CHECK( 0 == range.NRO() );
+      CHECK( 0 == range.energyDependentScatteringRadius() );
+      CHECK( 0 == range.NAPS() );
+      CHECK( 0 == range.scatteringRadiusCalculationOption() );
+
+      CHECK_NOTHROW( std::get< resonanceParameters::resolved::MultiLevelBreitWigner >
+                       ( range.parameters() ) );
     }
 
     WHEN( "there is only one Reich-Moore range in the Isotope" ){
@@ -115,9 +155,25 @@ SCENARIO( "Isotope" ){
 
       resonanceParameters::Isotope iso( begin, end, lineNumber, MAT, MF, MT );
 
-      REQUIRE_NOTHROW( std::get< resonanceParameters::resolved::ReichMoore >
-                       ( iso.resonanceRanges().back() ) );
-      REQUIRE( 1 == iso.resonanceRanges().size() );
+      CHECK( 1 == iso.resonanceRanges().size() );
+
+      const auto& range = iso.resonanceRanges().back();
+      CHECK( 1E-5 == Approx( range.EL() ) );
+      CHECK( 1E-5 == Approx( range.lowerEnergy() ) );
+      CHECK( 1. == Approx( range.EH() ) );
+      CHECK( 1. == Approx( range.upperEnergy() ) );
+
+      CHECK( 1 == range.LRU() );
+      CHECK( 1 == range.type() );
+      CHECK( 3 == range.LRF() );
+      CHECK( 3 == range.representation() );
+      CHECK( 0 == range.NRO() );
+      CHECK( 0 == range.energyDependentScatteringRadius() );
+      CHECK( 0 == range.NAPS() );
+      CHECK( 0 == range.scatteringRadiusCalculationOption() );
+
+      CHECK_NOTHROW( std::get< resonanceParameters::resolved::ReichMoore >
+                       ( range.parameters() ) );
     }
 
     WHEN( "there is only one Adler-Adler range in the Isotope" ){
@@ -132,13 +188,13 @@ SCENARIO( "Isotope" ){
       int MF = 2;
       int MT = 151;
 
-      REQUIRE_THROWS(
+      CHECK_THROWS(
         resonanceParameters::Isotope( begin, end, lineNumber, MAT, MF, MT )
       );
     }
 
     WHEN( "there is one Rmatrix-Limited range in the Isotope" ){
-      std::string ENDF =
+/*      std::string ENDF =
         " 6.114800E4 1.000000+0          0          0          1          06153 2151    2\n"
         " 1.000000-5 1.000000+0          1          7          0          06153 2151    3\n";
 
@@ -149,9 +205,9 @@ SCENARIO( "Isotope" ){
       int MF = 2;
       int MT = 151;
 
-      REQUIRE_THROWS(
+      CHECK_THROWS(
         resonanceParameters::Isotope( begin, end, lineNumber, MAT, MF, MT )
-      );
+      );*/
     }
 
     WHEN( "there is more than one range in the Isotope" ){
@@ -174,14 +230,14 @@ SCENARIO( "Isotope" ){
       int MT = 151;
 
       resonanceParameters::Isotope iso( begin, end, lineNumber, MAT, MF, MT );
-      REQUIRE( 2 == iso.resonanceRanges().size() );
+      CHECK( 2 == iso.resonanceRanges().size() );
 
-      REQUIRE_NOTHROW(
+      CHECK_NOTHROW(
         std::get< resonanceParameters::resolved::SLBW >
-                       ( iso.resonanceRanges().front() ) );
-      REQUIRE_NOTHROW(
+                       ( iso.resonanceRanges().front().parameters() ) );
+      CHECK_NOTHROW(
           std::get< resonanceParameters::resolved::ReichMoore >
-                       ( iso.resonanceRanges().back() ) );
+                       ( iso.resonanceRanges().back().parameters() ) );
     }
 
     WHEN( "invalid LRF values" ){
@@ -197,7 +253,7 @@ SCENARIO( "Isotope" ){
         auto end = ENDF.end();
         long lineNumber = 0;
 
-        REQUIRE_THROWS(
+        CHECK_THROWS(
           resonanceParameters::Isotope( begin, end, lineNumber, MAT, MF, MT ) );
       }
       THEN( "LRF=5, an exception is thrown" ){
@@ -208,7 +264,7 @@ SCENARIO( "Isotope" ){
         auto end = ENDF.end();
         long lineNumber = 0;
 
-        REQUIRE_THROWS(
+        CHECK_THROWS(
           resonanceParameters::Isotope( begin, end, lineNumber, MAT, MF, MT ) );
       }
       THEN( "LRF=6, an exception is thrown" ){
@@ -219,7 +275,7 @@ SCENARIO( "Isotope" ){
         auto end = ENDF.end();
         long lineNumber = 0;
 
-        REQUIRE_THROWS(
+        CHECK_THROWS(
           resonanceParameters::Isotope( begin, end, lineNumber, MAT, MF, MT ) );
       }
 
@@ -231,7 +287,7 @@ SCENARIO( "Isotope" ){
         auto end = ENDF.end();
         long lineNumber = 0;
 
-        REQUIRE_THROWS(
+        CHECK_THROWS(
           resonanceParameters::Isotope( begin, end, lineNumber, MAT, MF, MT ) );
       }
     }
@@ -269,10 +325,10 @@ SCENARIO( "Isotope" ){
 
         THEN( "the parameters can be extracted and verified" ){
           resonanceParameters::Isotope iso( begin, end, lineNumber, MAT, MF, MT );
-          REQUIRE_NOTHROW(
+          CHECK_NOTHROW(
             std::get<
               resonanceParameters::unresolved::EnergyIndependent >
-              ( iso.resonanceRanges().front() )
+              ( iso.resonanceRanges().front().parameters() )
           );
         }
       }
@@ -333,10 +389,10 @@ SCENARIO( "Isotope" ){
 
         THEN( "the parameters can be extracted and verified" ){
           resonanceParameters::Isotope iso( begin, end, lineNumber, MAT, MF, MT );
-          REQUIRE_NOTHROW(
+          CHECK_NOTHROW(
             std::get<
               resonanceParameters::unresolved::EnergyDependentFissionWidths >
-              ( iso.resonanceRanges().front() )
+              ( iso.resonanceRanges().front().parameters() )
           );
         }
         WHEN( "LFW is invalid" ){
@@ -352,7 +408,7 @@ SCENARIO( "Isotope" ){
             auto end = ENDF.end();
             long lineNumber = 0;
 
-            REQUIRE_THROWS(
+            CHECK_THROWS(
               resonanceParameters::Isotope( begin, end, lineNumber, MAT, MF, MT ) );
           }
 
@@ -364,7 +420,7 @@ SCENARIO( "Isotope" ){
             auto end = ENDF.end();
             long lineNumber = 0;
 
-            REQUIRE_THROWS(
+            CHECK_THROWS(
               resonanceParameters::Isotope( begin, end, lineNumber, MAT, MF, MT ) );
           }
         }
@@ -466,10 +522,10 @@ SCENARIO( "Isotope" ){
 
       THEN( "no exception is thrown" ){
         resonanceParameters::Isotope iso( begin, end, lineNumber, MAT, MF, MT );
-        REQUIRE( 1 == iso.resonanceRanges().size() );
-        REQUIRE_NOTHROW( std::get<
+        CHECK( 1 == iso.resonanceRanges().size() );
+        CHECK_NOTHROW( std::get<
                           resonanceParameters::unresolved::EnergyDependent >
-                         ( iso.resonanceRanges().front() ) );
+                         ( iso.resonanceRanges().front().parameters() ) );
       }
     }
     WHEN( "LRF is invalid" ){
@@ -484,7 +540,7 @@ SCENARIO( "Isotope" ){
         auto end = ENDF.end();
         long lineNumber = 0;
 
-        REQUIRE_THROWS(
+        CHECK_THROWS(
           resonanceParameters::Isotope( begin, end, lineNumber, MAT, MF, MT )
         );
       }
@@ -497,7 +553,7 @@ SCENARIO( "Isotope" ){
         auto end = ENDF.end();
         long lineNumber = 0;
 
-        REQUIRE_THROWS(
+        CHECK_THROWS(
           resonanceParameters::Isotope( begin, end, lineNumber, MAT, MF, MT ) );
       }
     }

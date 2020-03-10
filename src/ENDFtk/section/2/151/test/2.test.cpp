@@ -137,15 +137,15 @@ SCENARIO( "section::Type< 2, 151 >" ) {
       int MAT = 1725;
       HeadRecord HEAD( begin, end, lineNumber );
 
+      /*
       THEN( "a section::Type< 2, 151 > can be constructed" ){
         REQUIRE_THROWS( section2151( HEAD, begin, end, lineNumber, MAT ) );
-      /*
         REQUIRE( 151 == MF2.MT() );
         REQUIRE( 17035 == MF2.ZA() );
         REQUIRE( 34.6685 == Approx( MF2.atomicWeightRatio() ) );
         REQUIRE( 1 == MF2.isotopes.size() );
-      */
       }
+      */
     }
     WHEN( "reading LRU=2, LRF=1, LFW=0" ){
       const std::string& sMF2 = sLRU2(0);
@@ -229,18 +229,6 @@ SCENARIO( "section::Type< 2, 151 >" ) {
       auto end = sMF2.end();
       long lineNumber = 0;
       int MAT = 5655;
-      HeadRecord HEAD( begin, end, lineNumber );
-
-      THEN( "an exception is thrown" ){
-        REQUIRE_THROWS( section2151( HEAD, begin, end, lineNumber, MAT ) );
-      }
-    }
-    WHEN( "reading LRU=1, LRF=1" ){
-      const std::string& sMF2 = sLRU1(1);
-      auto begin = sMF2.begin();
-      auto end = sMF2.end();
-      long lineNumber = 0;
-      int MAT = 125;
       HeadRecord HEAD( begin, end, lineNumber );
 
       THEN( "an exception is thrown" ){
