@@ -1,5 +1,5 @@
 template< typename Iterator >
-static ResonanceParameters
+static ResonanceRange::ResonanceParameters
 readParameters( Iterator& begin,
                 const Iterator& end,
                 long& lineNumber,
@@ -7,7 +7,8 @@ readParameters( Iterator& begin,
                 int MF,
                 int MT,
                 int LRU,
-                int LRF ) {
+                int LRF,
+                int LFW ) {
 
   switch ( LRU ) {
 
@@ -39,6 +40,23 @@ readParameters( Iterator& begin,
 
       switch ( LRF ) {
 
+        case 1 : {
+
+          switch ( LFW ) {
+
+            case 0 : return EnergyIndependent(
+                                begin, end, lineNumber, MAT, MF, MT );
+            case 1 : return EnergyDependentFissionWidths(
+                                begin, end, lineNumber, MAT, MF, MT );
+            default : {
+
+              Log::error( "Encountered illegal LFW value" );
+              Log::info( "LFW is equal to 0 or 1" );
+              Log::info( "LFW value: {}", LFW );
+              throw std::exception();
+            }
+          }
+        }
         case 2 : return EnergyDependent( begin, end, lineNumber, MAT, MF, MT );
         default : {
 

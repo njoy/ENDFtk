@@ -675,18 +675,18 @@
     "src/ENDFtk/record/Zipper/src/unzip.hpp", 
     "src/ENDFtk/record/Zipper/src/verifyTail.hpp", 
     "src/ENDFtk/record/Zipper/src/Zipped.hpp", 
-    "src/ENDFtk/resonanceParameters/Base.hpp", 
     "src/ENDFtk/resonanceParameters/Isotope.hpp", 
     "src/ENDFtk/resonanceParameters/resolved.hpp", 
     "src/ENDFtk/resonanceParameters/ResonanceRange.hpp", 
     "src/ENDFtk/resonanceParameters/ScatteringRadius.hpp", 
     "src/ENDFtk/resonanceParameters/SpecialCase.hpp", 
     "src/ENDFtk/resonanceParameters/unresolved.hpp", 
-    "src/ENDFtk/resonanceParameters/Base/src/ctor.hpp", 
     "src/ENDFtk/resonanceParameters/Isotope/src/ctor.hpp", 
     "src/ENDFtk/resonanceParameters/Isotope/src/NC.hpp", 
     "src/ENDFtk/resonanceParameters/Isotope/src/print.hpp", 
+    "src/ENDFtk/resonanceParameters/Isotope/src/readParameters.hpp", 
     "src/ENDFtk/resonanceParameters/Isotope/src/readRanges.hpp", 
+    "src/ENDFtk/resonanceParameters/Isotope/src/readScatteringRadius.hpp", 
     "src/ENDFtk/resonanceParameters/resolved/BreitWignerLValue.hpp", 
     "src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreBase.hpp", 
     "src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreLValueBase.hpp", 
@@ -732,8 +732,6 @@
     "src/ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner/src/ctor.hpp", 
     "src/ENDFtk/resonanceParameters/ResonanceRange/src/ctor.hpp", 
     "src/ENDFtk/resonanceParameters/ResonanceRange/src/print.hpp", 
-    "src/ENDFtk/resonanceParameters/ResonanceRange/src/readParameters.hpp", 
-    "src/ENDFtk/resonanceParameters/ResonanceRange/src/readScatteringRadius.hpp", 
     "src/ENDFtk/resonanceParameters/ResonanceRange/src/verifyOptions.hpp", 
     "src/ENDFtk/resonanceParameters/ScatteringRadius/src/ctor.hpp", 
     "src/ENDFtk/resonanceParameters/SpecialCase/src/ctor.hpp", 
@@ -763,7 +761,6 @@
     "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/ctor.hpp", 
     "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/NC.hpp", 
     "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/print.hpp", 
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/readLValues.hpp", 
     "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/verifySize.hpp", 
     "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/JValue.hpp", 
     "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/LValue.hpp", 
@@ -1206,9 +1203,6 @@
       "src/ENDFtk/record/Zipper/test/reserve.test.cpp", 
       "src/ENDFtk/record/Zipper/test/unzip.test.cpp", 
       "src/ENDFtk/record/Zipper/test/Zipper.test.cpp"
-    ], 
-    "ENDFtk.resonanceParameters.Base": [
-      "src/ENDFtk/resonanceParameters/Base/test/Base.test.cpp"
     ], 
     "ENDFtk.resonanceParameters.Isotope": [
       "src/ENDFtk/resonanceParameters/Isotope/test/Isotope.test.cpp"

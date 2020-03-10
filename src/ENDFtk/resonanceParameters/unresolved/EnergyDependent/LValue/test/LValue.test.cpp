@@ -6,8 +6,8 @@
 using namespace njoy::ENDFtk;
 
 // convenience typedefs
-using JValue = resonanceParameters::unresolved::LValue::JValue;
-using LValue = resonanceParameters::unresolved::LValue::LValue;
+using JValue = resonanceParameters::unresolved::EnergyDependent::JValue;
+using LValue = resonanceParameters::unresolved::EnergyDependent::LValue;
 
 std::string chunk();
 void verifyChunk( const LValue& );

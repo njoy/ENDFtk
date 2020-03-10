@@ -12,17 +12,18 @@ class ResonanceRange {
 public:
 
   using ResonanceParameters =
-          std::variant< // LRU=0
-                        SpecialCase,
-                        // LRU=1
-                        resolved::SingleLevelBreitWigner, // LRF = 1
-                        resolved::MultiLevelBreitWigner,  // LRF = 2
-                        resolved::ReichMoore,             // LRF = 3
-                        resolved::RMatrixLimited,         // LRF = 7
-                        // LRU=2
-                        unresolved::EnergyIndependent,            // LRF = 1, LFW = 0
-                        unresolved::EnergyDependentFissionWidths, // LRF = 1, LFW = 1
-                        unresolved::EnergyDependent>;             // LRF = 1
+          std::variant<
+              // LRU=0
+              SpecialCase,
+              // LRU=1
+              resolved::SingleLevelBreitWigner, // LRF = 1
+              resolved::MultiLevelBreitWigner,  // LRF = 2
+              resolved::ReichMoore,             // LRF = 3
+              resolved::RMatrixLimited,         // LRF = 7
+              // LRU=2
+              unresolved::EnergyIndependent,            // LRF = 1, LFW = 0
+              unresolved::EnergyDependentFissionWidths, // LRF = 1, LFW = 1
+              unresolved::EnergyDependent >;            // LRF = 1
 
 private:
 
@@ -36,8 +37,6 @@ private:
 
   /* auxiliary functions */
   #include "ENDFtk/resonanceParameters/ResonanceRange/src/verifyOptions.hpp"
-  #include "ENDFtk/resonanceParameters/ResonanceRange/src/readScatteringRadius.hpp"
-  #include "ENDFtk/resonanceParameters/ResonanceRange/src/readParameters.hpp"
 
 public:
 

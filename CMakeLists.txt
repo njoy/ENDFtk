@@ -375,18 +375,18 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Zipper/src/unzip.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Zipper/src/verifyTail.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record/Zipper/src/Zipped.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/Base.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/Isotope.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/ResonanceRange.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/ScatteringRadius.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/SpecialCase.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/Base/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/Isotope/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/Isotope/src/NC.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/Isotope/src/print.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/Isotope/src/readParameters.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/Isotope/src/readRanges.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/Isotope/src/readScatteringRadius.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/BreitWignerLValue.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreBase.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreLValueBase.hpp"
@@ -432,8 +432,6 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/ResonanceRange/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/ResonanceRange/src/print.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/ResonanceRange/src/readParameters.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/ResonanceRange/src/readScatteringRadius.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/ResonanceRange/src/verifyOptions.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/ScatteringRadius/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/SpecialCase/src/ctor.hpp"
@@ -463,7 +461,6 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/NC.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/print.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/readLValues.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/verifySize.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/JValue.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/LValue.hpp"
@@ -842,7 +839,7 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/section/12/Multiplicities/test )
         add_subdirectory( src/ENDFtk/section/12/PartialMultiplicity/test )
         add_subdirectory( src/ENDFtk/section/7/4/Tabulated/test )
-        add_subdirectory( src/ENDFtk/section/6/ContinuumEnergyAngle/test )
+        add_subdirectory( src/ENDFtk/section/12/TransitionProbabilities/test )
         add_subdirectory( src/ENDFtk/section/7/2/test )
         add_subdirectory( src/ENDFtk/record/Base/test )
         add_subdirectory( src/ENDFtk/record/Tail/test )
@@ -856,7 +853,6 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/section/6/ChargedParticleElasticScattering/test )
         add_subdirectory( src/ENDFtk/record/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ParticlePairs/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/Base/test )
         add_subdirectory( src/ENDFtk/section/6/LaboratoryAngleEnergy/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/test )
         add_subdirectory( src/ENDFtk/section/4/TabulatedDistribution/test )
@@ -911,7 +907,7 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/file/Type/test )
         add_subdirectory( src/ENDFtk/section/8/457/DiscreteSpectrum/test )
         add_subdirectory( src/ENDFtk/section/6/NBodyPhaseSpace/test )
-        add_subdirectory( src/ENDFtk/section/12/TransitionProbabilities/test )
+        add_subdirectory( src/ENDFtk/section/6/ContinuumEnergyAngle/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/resolved/BreitWignerLValue/Resonance/test )
         add_subdirectory( src/ENDFtk/HeadRecord/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner/test )
