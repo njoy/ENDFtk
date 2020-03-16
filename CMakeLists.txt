@@ -402,6 +402,7 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreBase/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreBase/src/readLValues.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreBase/src/validate.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreBase/src/verifySize.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreLValueBase/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreLValueBase/src/generateList.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreLValueBase/src/verifySize.hpp"
@@ -477,6 +478,7 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/UnresolvedBase/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/UnresolvedBaseWithoutSpin/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/UnresolvedBaseWithoutSpin/src/readLValues.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/UnresolvedBaseWithoutSpin/src/verifySize.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/1.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/12.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/13.hpp"
@@ -856,7 +858,6 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/section/6/LaboratoryAngleEnergy/test )
         add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/test )
         add_subdirectory( src/ENDFtk/section/4/TabulatedDistribution/test )
-        add_subdirectory( src/ENDFtk/file/1/test )
         add_subdirectory( src/ENDFtk/InterpolationRecord/test )
         add_subdirectory( src/ENDFtk/section/Base/test )
         add_subdirectory( src/ENDFtk/section/1/451/test )
@@ -868,7 +869,6 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/test )
         add_subdirectory( src/ENDFtk/section/12/TransitionProbabilities/Transition/test )
         add_subdirectory( src/ENDFtk/section/5/WattSpectrum/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreBase/test )
         add_subdirectory( src/ENDFtk/section/5/TabulatedSpectrum/OutgoingEnergyDistribution/test )
         add_subdirectory( src/ENDFtk/section/6/Unknown/test )
         add_subdirectory( src/ENDFtk/section/6/ContinuumEnergyAngle/Base/test )
@@ -896,7 +896,7 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/file/7/test )
         add_subdirectory( src/ENDFtk/section/8/457/DecayMode/test )
         add_subdirectory( src/ENDFtk/file/2/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreLValueBase/test )
+        add_subdirectory( src/ENDFtk/file/1/test )
         add_subdirectory( src/ENDFtk/section/6/DefinedElsewhere/test )
         add_subdirectory( src/ENDFtk/section/4/LegendreDistributions/test )
         add_subdirectory( src/ENDFtk/InterpolationSequenceRecord/test )

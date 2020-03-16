@@ -2,12 +2,6 @@ template < typename Range >
 static void
 verifySize( unsigned int NE, const Range& lvalues ) {
 
-  if ( lvalues.size() == 0 ) {
-
-    Log::error( "At least one l value must be given" );
-    throw std::exception();
-  }
-
   for ( unsigned int i = 0; i < lvalues.size(); ++i ) {
 
     if ( NE != lvalues[i].NE() ) {

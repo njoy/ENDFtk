@@ -80,6 +80,28 @@ SCENARIO( "BreitWignerLValue" ) {
 
   GIVEN( "invalid data" ) {
 
+    WHEN( "the data has different sizes" ) {
+
+      double awri = 1.982069e+1;
+      double qx = 1.0;
+      double l = 1.;
+      bool lrx = true;
+      std::vector< double > wrong = { -1.470000e+5 };
+      std::vector< double > aj = { 0.5, 0.5 };
+      std::vector< double > gt = { 5.470695e+2, 1.072946e+5 };
+      std::vector< double > gn = { 3.680695e+2, 1.072900e+5 };
+      std::vector< double > gg = { 1.750000e+2, 5.600000e-1 };
+      std::vector< double > gf = { 3., 4. };
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( BreitWignerLValue( awri, qx, l, lrx,
+                                         std::move( wrong ), std::move( aj ),
+                                         std::move( gt ), std::move( gn ),
+                                         std::move( gg ), std::move( gf ) ) );
+      } // THEN
+    } // WHEN
+
     WHEN( "a string with inconsistent NPL and NRS is used" ) {
 
       std::string string = invalidSize();

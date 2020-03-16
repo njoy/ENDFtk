@@ -84,6 +84,32 @@ SCENARIO( "ParticlePairs" ) {
 
   GIVEN( "invalid data" ) {
 
+    WHEN( "the data has different sizes" ) {
+
+      std::vector< double > wrong = { 0. };
+      std::vector< double > mb = { 5.446635e+1, 5.347624e+1 };
+      std::vector< double > za = { 2., 3. };
+      std::vector< double > zb = { 26., 27. };
+      std::vector< double > ia = { 1., 0.5 };
+      std::vector< double > ib = { 4., 5. };
+      std::vector< double > q = { 6., 7. };
+      std::vector< int > pnt = { 8, 9 };
+      std::vector< int > shf = { 10, 11 };
+      std::vector< int > mt = { 102, 2 };
+      std::vector< double > pa = { 12., 13. };
+      std::vector< double > pb = { 14., 15. };
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( ParticlePairs( std::move( wrong ), std::move( mb ),
+                                     std::move( za ), std::move( zb ),
+                                     std::move( ia ), std::move( ib ),
+                                     std::move( pa ), std::move( pb ),
+                                     std::move( q ), std::move( pnt ),
+                                     std::move( shf ), std::move( mt ) ) );
+      } // THEN
+    } // WHEN
+
     WHEN( "a string with inconsistent NPL and NPP is used" ) {
 
       std::string string = invalidSize();

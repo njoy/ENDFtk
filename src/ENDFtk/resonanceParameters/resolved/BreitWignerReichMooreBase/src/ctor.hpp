@@ -11,7 +11,10 @@ BreitWignerReichMooreBase( double spi, double ap, bool lad, int nlsc,
                            std::vector< LValue >&& lvalues ) :
     // no need for a try ... catch: nothing can go wrong here
     spi_( spi ), ap_( ap ), lad_( lad ), nlsc_( nlsc ),
-    lvalues_( std::move( lvalues ) ) {}
+    lvalues_( std::move( lvalues ) ) {
+
+      verifySize( this->NLS() );
+    }
 
 private:
 /**
@@ -46,4 +49,3 @@ protected:
    BreitWignerReichMooreBase(
      ControlRecord( it, end, lineNumber, MAT, MF, MT ),
      it, end, lineNumber, MAT, MF, MT ) {}
-

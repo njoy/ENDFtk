@@ -17,7 +17,6 @@ SCENARIO( "Resonance" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-
       Resonance chunk( { 1., 2., 3., 4., 5., 6. } );
 
       THEN( "a Resonance can be constructed and members can be "
@@ -44,4 +43,3 @@ void verifyChunk( const Resonance& chunk ) {
   CHECK( 6. == Approx( chunk.GFB() ) );
   CHECK( 6. == Approx( chunk.secondFissionWidth() ) );
 }
-

@@ -10,7 +10,8 @@ using JValue = resonanceParameters::unresolved::EnergyDependentFissionWidths::JV
 
 std::string chunk();
 void verifyChunk( const JValue& );
-std::string invalidSize();
+std::string chunkWithInvalidSize();
+std::string chunkWithNoFissionWidths();
 
 SCENARIO( "JValue" ) {
 
@@ -77,11 +78,42 @@ SCENARIO( "JValue" ) {
 
   GIVEN( "invalid data" ) {
 
+    WHEN( "no fission width values are given" ) {
+
+      int l = 1;
+      double d = 13.1;
+      double spin = 0.5;
+      int amun = 1;
+      int amuf = 1;
+      double gn = 3.013000e-3;
+      double gg = 3.100000e-2;
+      std::vector< double > gf = {};
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( JValue( l, spin, d, amun, amuf,
+                              gn, gg, std::move( gf ) ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a string without fission width values" ) {
+
+      std::string string = chunkWithNoFissionWidths();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( JValue( begin, end, lineNumber, 9440, 2, 151 ) );
+      } // THEN
+    } // WHEN
+
     WHEN( "a string with wrong NPL is used" ) {
 
       // this is a list error, not every list error is tested
 
-      std::string string = invalidSize();
+      std::string string = chunkWithInvalidSize();
       auto begin = string.begin();
       auto end = string.end();
       long lineNumber = 1;
@@ -169,11 +201,17 @@ void verifyChunk( const JValue& chunk ) {
   CHECK( 5 == chunk.NC() );
 }
 
-std::string invalidSize() {
+std::string chunkWithInvalidSize() {
   return
     " 0.000000+0 0.000000+0          1          1         19          09440 2151     \n"
     " 1.310000+1 5.000000-1 1.000000+0 3.013000-3 3.100000-2 0.000000+09440 2151     \n"
     " 4.314000-3 4.572000-3 4.740000-3 5.000000-3 5.520000-3 7.057000-39440 2151     \n"
     " 8.251000-3 9.276000-3 9.930000-3 1.035000-2 1.210000-2 1.341000-29440 2151     \n"
     " 1.456000-2 1.542000-2                                            9440 2151     \n";
+}
+
+std::string chunkWithNoFissionWidths() {
+  return
+    " 0.000000+0 0.000000+0          1          1          6          09440 2151     \n"
+    " 1.310000+1 5.000000-1 1.000000+0 3.013000-3 3.100000-2 0.000000+09440 2151     \n";
 }

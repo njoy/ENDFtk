@@ -7,9 +7,16 @@
  *  @param[in] lvalues   the l values and the resonance parameters
  */
 EnergyIndependent( double spi, double ap, bool lssf,
-                   std::vector< LValue >&& lvalues ) :
+                   std::vector< LValue >&& lvalues )
     // no need for a try ... catch: nothing can go wrong here
-    UnresolvedBase( spi, ap, lssf, std::move( lvalues ) ) {}
+    try: UnresolvedBase( spi, ap, lssf, std::move( lvalues ) ) {}
+    catch ( std::exception& e ) {
+
+      Log::info( "Encountered error while constructing unresolved resonance "
+                 "parameters in the Single Level Breit-Wigner representation "
+                 "with energy independent widths (without fission)" );
+      throw;
+    }
 
 /**
  *  @brief Constructor (from a buffer)

@@ -12,6 +12,7 @@ using LValue = resonanceParameters::unresolved::EnergyDependentFissionWidths::LV
 std::string chunk();
 void verifyChunk( const EnergyDependentFissionWidths& );
 std::string chunkWithInconsistentSize();
+std::string chunkWithNoLValues();
 
 SCENARIO( "EnergyDependentFissionWidths" ) {
 
@@ -90,6 +91,24 @@ SCENARIO( "EnergyDependentFissionWidths" ) {
 
   GIVEN( "invalid data" ) {
 
+    WHEN( "no l values are given" ) {
+
+      double spi = 0.0;
+      double ap = 0.888;
+      bool lssf = false;
+      std::vector< double > energies =
+        { 5.700000e+3, 7.000000e+3, 8.000000e+3, 9.000000e+3, 1.000000e+4,
+          1.200000e+4, 1.400000e+4, 1.600000e+4, 1.800000e+4, 2.000000e+4 };
+      std::vector< LValue > lvalues = {};
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( EnergyDependentFissionWidths( spi, ap, lssf,
+                                                    std::move( energies ),
+                                                    std::move( lvalues ) ) );
+      } // THEN
+    } // WHEN
+
     WHEN( "J value data with different numbers of fission widths are given" ) {
 
       double spi = 0.0;
@@ -120,6 +139,20 @@ SCENARIO( "EnergyDependentFissionWidths" ) {
       } // THEN
     } // WHEN
 
+    WHEN( "a string with no l values is used" ) {
+
+      std::string string = chunkWithNoLValues();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( EnergyDependentFissionWidths( begin, end, lineNumber,
+                                                    9440, 2, 151 ) );
+      } // THEN
+    } // WHEN
+
     WHEN( "a string with inconsistent number of fission widths" ) {
 
       std::string string = chunkWithInconsistentSize();
@@ -129,7 +162,8 @@ SCENARIO( "EnergyDependentFissionWidths" ) {
 
       THEN( "an exception is thrown" ) {
 
-        CHECK_THROWS( EnergyDependentFissionWidths( begin, end, lineNumber, 9440, 2, 151 ) );
+        CHECK_THROWS( EnergyDependentFissionWidths( begin, end, lineNumber,
+                                                    9440, 2, 151 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -361,4 +395,11 @@ std::string chunkWithInconsistentSize() {
   " 4.314000-3 4.572000-3 4.740000-3 5.000000-3 5.520000-3 7.057000-39440 2151     \n"
   " 8.251000-3 9.276000-3 9.930000-3 1.035000-2 1.210000-2 1.341000-29440 2151     \n"
   " 1.456000-2 1.542000-2                                            9440 2151     \n";
+}
+
+std::string chunkWithNoLValues() {
+  return
+  " 0.000000+0 8.880000-1          0          0         10          09440 2151     \n"
+  " 5.700000+3 7.000000+3 8.000000+3 9.000000+3 1.000000+4 1.200000+49440 2151     \n"
+  " 1.400000+4 1.600000+4 1.800000+4 2.000000+4                      9440 2151     \n";
 }

@@ -72,6 +72,21 @@ SCENARIO( "ResonanceParameters" ) {
 
   GIVEN( "invalid data" ) {
 
+    WHEN( "the data has different sizes" ) {
+
+      std::vector< double > energies = { -1.223300e+6, 7.788000e+3 };
+      std::vector< std::vector< double > > wrong =
+        { { 1., 9.611086e+5, 2., 3., 4., 5. } };
+
+      ResonanceParameters chunk(  );
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( ResonanceParameters( std::move( energies ),
+                                           std::move( wrong ) ) );
+      } // THEN
+    } // WHEN
+
     WHEN( "a string with inconsistent NPL and NCH is used" ) {
 
       std::string string = invalidSize();

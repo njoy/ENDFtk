@@ -2,7 +2,10 @@ private:
 /**
  *  @brief Private intermediate constructor
  */
-JValue( ListRecord&& list ) : ListRecord( std::move( list ) ) {}
+JValue( ListRecord&& list ) : ListRecord( std::move( list ) ) {
+
+  verifySize( this->NE() );
+}
 
 public:
 /**

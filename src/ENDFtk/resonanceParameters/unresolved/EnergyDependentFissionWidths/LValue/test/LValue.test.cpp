@@ -12,6 +12,7 @@ using LValue = resonanceParameters::unresolved::EnergyDependentFissionWidths::LV
 std::string chunk();
 void verifyChunk( const LValue& );
 std::string chunkWithInconsistentSize();
+std::string chunkWithNoJValues();
 
 SCENARIO( "LValue" ) {
 
@@ -73,6 +74,31 @@ SCENARIO( "LValue" ) {
   } // GIVEN
 
   GIVEN( "invalid data" ) {
+
+    WHEN( "no j values are given" ) {
+
+      double awri = 237.992;
+      int l = 1;
+      std::vector< JValue > jvalues = {};
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( LValue( awri, l, std::move( jvalues ) ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a string with no j values is used" ) {
+
+      std::string string = chunkWithNoJValues();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( LValue( begin, end, lineNumber, 9440, 2, 151 ) );
+      } // THEN
+    } // WHEN
 
     WHEN( "J value data with different numbers of fission widths are given" ) {
 
@@ -204,4 +230,9 @@ std::string chunkWithInconsistentSize() {
     " 0.000000+0 0.000000+0          1          1         12          09440 2151     \n"
     " 1.310000+1 5.000000-1 1.000000+0 3.013000-3 3.100000-2 0.000000+09440 2151     \n"
     " 4.314000-3 4.572000-3 4.740000-3 5.000000-3 5.520000-3 7.057000-39440 2151     \n";
+}
+
+std::string chunkWithNoJValues() {
+  return
+    " 2.379920+2 0.000000+0          1          0          0          09440 2151     \n";
 }

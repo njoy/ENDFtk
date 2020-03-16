@@ -12,6 +12,7 @@ class JValue : protected ListRecord {
 
   /* auxiliary functions */
   #include "ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/JValue/src/generateList.hpp"
+  #include "ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/JValue/src/verifySize.hpp"
 
 public:
 

@@ -74,6 +74,24 @@ SCENARIO( "LValue" ) {
 
   GIVEN( "invalid data" ) {
 
+    WHEN( "the data has different sizes" ) {
+
+      double awri = 1.387090e+2;
+      double l = 1.;
+      std::vector< double > d = { 4400., 2200. };
+      std::vector< double > aj = { 0.5, 1.5 };
+      std::vector< int > amun = { 1, 2 };
+      std::vector< double > gn = { 0.528, 0.264 };
+      std::vector< double > wrong = { 0.09 };
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( LValue( awri, l, std::move( aj ), std::move( d ),
+                              std::move( amun ), std::move( gn ),
+                              std::move( wrong ) ) );
+      } // THEN
+    } // WHEN
+
     WHEN( "a string with inconsistent NPL and NJS is used" ) {
 
       std::string string = invalidSize();
