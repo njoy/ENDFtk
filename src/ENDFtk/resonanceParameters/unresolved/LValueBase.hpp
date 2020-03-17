@@ -14,6 +14,7 @@ template < typename JValue > class LValueBase {
 
   /* auxiliary functions */
   #include "ENDFtk/resonanceParameters/unresolved/LValueBase/src/readJValues.hpp"
+  #include "ENDFtk/resonanceParameters/unresolved/LValueBase/src/verifySize.hpp"
 
 public:
 

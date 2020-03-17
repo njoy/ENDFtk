@@ -7,7 +7,10 @@
  *                        (NJS elements)
  */
 LValueBase( double awri, int l, std::vector< JValue >&& jvalues ) :
-  awri_( awri ), l_( l ), jvalues_( std::move( jvalues ) ) {}
+  awri_( awri ), l_( l ), jvalues_( std::move( jvalues ) ) {
+
+    verifySize( this->NJS() );
+  }
 
 private:
 /**
@@ -17,9 +20,9 @@ template< typename Iterator >
 LValueBase( ControlRecord&& cont,
             Iterator& it, const Iterator& end, long& lineNumber,
             int MAT, int MF, int MT ) :
-  awri_( cont.C1() ), l_( cont.L1() ),
-  jvalues_( readJValues( it, end, lineNumber,
-                         MAT, MF, MT, cont.N1() ) ) {}
+  LValueBase( cont.C1(), cont.L1(),
+              readJValues( it, end, lineNumber,
+                           MAT, MF, MT, cont.N1() ) ) {}
 
 public:
 /**

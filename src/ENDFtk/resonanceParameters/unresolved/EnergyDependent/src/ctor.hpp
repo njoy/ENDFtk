@@ -9,7 +9,10 @@
 EnergyDependent( double spi, double ap, bool lssf,
                  std::vector< LValue >&& lvalues ) :
     // no need for a try ... catch: nothing can go wrong here
-    UnresolvedBase( spi, ap, lssf, std::move( lvalues ) ) {}
+    UnresolvedBase( spi, ap, lssf, std::move( lvalues ) ) {
+
+      verifySize( this->NLS() );
+    }
 
 /**
  *  @brief Constructor (from a buffer)

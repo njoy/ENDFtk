@@ -2,12 +2,6 @@ template < typename Range >
 static void
 verifySize( const Range& jvalues ) {
 
-  if ( jvalues.size() == 0 ) {
-
-    Log::error( "At least one J value must be given" );
-    throw std::exception();
-  }
-
   unsigned int NE = jvalues.front().NE();
   for ( unsigned int i = 0; i < jvalues.size(); ++i ) {
 
