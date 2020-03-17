@@ -9,6 +9,9 @@
  */
 class RMatrixLimited {
 
+  /* auxiliary functions */
+  #include "ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/verifySize.hpp"
+
 public:
 
   #include "ENDFtk/resonanceParameters/resolved/RMatrixLimited/ParticlePairs.hpp"
@@ -102,7 +105,7 @@ public:
   /**
    *  @brief Return the number of spin groups
    */
-  auto NJS() const { return this->spin_groups_.size(); }
+  unsigned int NJS() const { return this->spin_groups_.size(); }
 
   /**
    *  @brief Return the number of spin groups

@@ -12,7 +12,7 @@ using BreitWignerLValue = resonanceParameters::resolved::BreitWignerLValue;
 
 std::string chunk();
 void verifyChunk( const SingleLevelBreitWigner& );
-std::string invalidNLSC();
+std::string invalidSize();
 
 SCENARIO( "SingleLevelBreitWigner" ) {
 
@@ -73,6 +73,34 @@ SCENARIO( "SingleLevelBreitWigner" ) {
         CHECK( buffer == string );
       } // THEN
     } // GIVEN
+  } // GIVEN
+
+  GIVEN( "invalid data" ) {
+
+    WHEN( "no l values are given" ) {
+
+      double spi = 1.0;
+      double ap = 0.893;
+      std::vector< BreitWignerLValue > lvalues = {};
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( SingleLevelBreitWigner( spi, ap, std::move( lvalues ) ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a string with no l values is used" ) {
+
+      std::string string = invalidSize();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( SingleLevelBreitWigner( begin, end, lineNumber, 1025, 2, 151 ) );
+      } // THEN
+    } // WHEN
   } // GIVEN
 } // SCENARIO
 
@@ -221,4 +249,9 @@ void verifyChunk( const SingleLevelBreitWigner& chunk ) {
   CHECK( 0. == Approx( lvalue2.competitiveWidths()[1] ) );
 
   CHECK( 7 == chunk.NC() );
+}
+
+std::string invalidSize() {
+  return
+    " 1.000000+0 8.930000-1          0          0          0          01025 2151     \n";
 }

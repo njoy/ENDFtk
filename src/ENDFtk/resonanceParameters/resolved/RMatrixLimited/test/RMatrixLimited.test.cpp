@@ -15,7 +15,7 @@ resonanceParameters::resolved::RMatrixLimited;
 
 std::string chunk();
 void verifyChunk( const RMatrixLimited& );
-std::string invalidSize();
+std::string chunkWithoutSpinGroups();
 
 SCENARIO( "RMatrixLimited" ) {
 
@@ -84,6 +84,43 @@ SCENARIO( "RMatrixLimited" ) {
         chunk.print( output, 2625, 2, 151 );
 
         CHECK( buffer == string );
+      } // THEN
+    } // WHEN
+  } // GIVEN
+
+  GIVEN( "invalid data" ) {
+
+    WHEN( "no spin groups are given" ) {
+
+      bool ifg =  false;
+      bool krl = false;
+      int krm = 3;
+      ParticlePairs pairs = { { 0., 1. }, { 5.446635e+1, 5.347624e+1 },
+                              { 0., 0. }, { 26., 26. },
+                              { 1., 0.5 }, { 0., 0. },
+                              { 0., 0. }, { 0., 1. },
+                              { 0., 0. }, { 0, 1 },
+                              { 0, 0 }, { 102, 2 } };
+      std::vector< SpinGroup > groups = {};
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( RMatrixLimited( ifg, krl, krm,
+                                      std::move( pairs ),
+                                      std::move( groups ) ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a string with no spin groups is used" ) {
+
+      std::string string = chunkWithoutSpinGroups();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( RMatrixLimited( begin, end, lineNumber, 2625, 2, 151 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -403,4 +440,14 @@ void verifyChunk( const RMatrixLimited& chunk ) {
   CHECK( 0. == Approx( parameters2.resonanceParameters()[1][4] ) );
 
   CHECK( 18 == chunk.NC() );
+}
+
+std::string chunkWithoutSpinGroups() {
+  return
+    " 0.000000+0 0.000000+0          0          3          0          02625 2151     \n"
+    " 0.000000+0 0.000000+0          2          0         24          42625 2151     \n"
+    " 0.000000+0 5.446635+1 0.000000+0 2.600000+1 1.000000+0 0.000000+02625 2151     \n"
+    " 0.000000+0 0.000000+0 0.000000+0 1.020000+2 0.000000+0 0.000000+02625 2151     \n"
+    " 1.000000+0 5.347624+1 0.000000+0 2.600000+1 5.000000-1 0.000000+02625 2151     \n"
+    " 0.000000+0 1.000000+0 0.000000+0 2.000000+0 0.000000+0 1.000000+02625 2151     \n";
 }

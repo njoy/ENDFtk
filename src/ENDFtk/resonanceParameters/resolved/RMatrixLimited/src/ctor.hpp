@@ -13,7 +13,10 @@ RMatrixLimited( bool ifg, bool krl, int krm,
     // no need for a try ... catch: nothing can go wrong here
     ifg_( ifg ), krl_( krl ), krm_( krm ),
     particle_pairs_( std::move( pairs ) ),
-    spin_groups_( std::move( groups ) ) {}
+    spin_groups_( std::move( groups ) ) {
+
+      verifySize( this->NJS() );
+    }
 
 private:
 /**
