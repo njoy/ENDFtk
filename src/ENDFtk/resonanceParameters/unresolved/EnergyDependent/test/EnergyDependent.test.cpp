@@ -12,6 +12,7 @@ using LValue = resonanceParameters::unresolved::EnergyDependent::LValue;
 
 std::string chunk();
 void verifyChunk( const EnergyDependent& );
+std::string chunkWithNoLValues();
 
 SCENARIO( "EnergyDependent" ) {
 
@@ -79,6 +80,36 @@ SCENARIO( "EnergyDependent" ) {
         chunk.print( output, 3843, 2, 151 );
 
         CHECK( buffer == string );
+      } // THEN
+    } // WHEN
+  } // GIVEN
+
+  GIVEN( "invalid data" ) {
+
+    WHEN( "no l values are given" ) {
+
+      double spin = 0.0;
+      double ap = 0.67959;
+      bool lssf = false;
+
+      std::vector< LValue > lvalues = {};
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( EnergyDependent( spin, ap, lssf, std::move( lvalues ) ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a string with no l values is used" ) {
+
+      std::string string = chunkWithNoLValues();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( EnergyDependent( begin, end, lineNumber, 3843, 2, 151 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -336,4 +367,9 @@ void verifyChunk( const EnergyDependent& chunk ) {
   CHECK( 0. == Approx( jvalue11.averageCompetitiveWidths()[1] ) );
 
   CHECK( 16 == chunk.NC() );
+}
+
+std::string chunkWithNoLValues() {
+  return
+    " 0.000000+0 6.795900-1          0          0          0          03843 2151     \n";
 }

@@ -7,12 +7,15 @@
  *  @param[in] lvalues   the l values and the resonance parameters
  */
 EnergyDependent( double spi, double ap, bool lssf,
-                 std::vector< LValue >&& lvalues ) :
-    // no need for a try ... catch: nothing can go wrong here
-    UnresolvedBase( spi, ap, lssf, std::move( lvalues ) ) {
+                 std::vector< LValue >&& lvalues )
+  try : UnresolvedBase( spi, ap, lssf, std::move( lvalues ) ) {}
+  catch ( std::exception& e ) {
 
-      verifySize( this->NLS() );
-    }
+    Log::info( "Encountered error while constructing unresolved resonance "
+               "parameters in the Single Level Breit-Wigner representation "
+               "with full energy dependent widths" );
+    throw;
+  }
 
 /**
  *  @brief Constructor (from a buffer)
