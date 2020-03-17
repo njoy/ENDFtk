@@ -1,6 +1,6 @@
 template < typename Range >
 static void
-verifySize( unsigned int NE, const Range& jvalues ) {
+verifySize( const Range& jvalues ) {
 
   if ( jvalues.size() == 0 ) {
 
@@ -8,6 +8,7 @@ verifySize( unsigned int NE, const Range& jvalues ) {
     throw std::exception();
   }
 
+  unsigned int NE = jvalues.front().NE();
   for ( unsigned int i = 0; i < jvalues.size(); ++i ) {
 
     if ( NE != jvalues[i].NE() ) {
