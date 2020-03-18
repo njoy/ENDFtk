@@ -15,6 +15,9 @@ class SingleLevelBreitWigner :
 
 public:
 
+  /* type alias */
+  using LValue = BreitWignerLValue;
+
   /* constructor */
   #include "ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner/src/ctor.hpp"
 

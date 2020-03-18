@@ -17,6 +17,9 @@ class ReichMoore :
 
 public:
 
+  /* type alias */
+  using LValue = ReichMooreLValue;
+
   /* constructor */
   #include "ENDFtk/resonanceParameters/resolved/ReichMoore/src/ctor.hpp"
 

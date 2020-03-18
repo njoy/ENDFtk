@@ -8,8 +8,8 @@ using namespace njoy::ENDFtk;
 // convenience typedefs
 using ReichMoore =
 resonanceParameters::resolved::ReichMoore;
-using ReichMooreLValue =
-resonanceParameters::resolved::ReichMooreLValue;
+using LValue =
+resonanceParameters::resolved::ReichMoore::LValue;
 
 std::string chunk();
 void verifyChunk( const ReichMoore& );
@@ -27,7 +27,7 @@ SCENARIO( "ReichMoore" ) {
       double ap = 0.893;
       bool lad = false;
       int nlsc = 3;
-      std::vector< ReichMooreLValue > lvalues =
+      std::vector< LValue > lvalues =
         { { 1.982069e+1, 0.0, 0,
             { -1.470000e+5, 4.730000e+5 }, { 0.5, 0.5 },
             { 5.430695e+2, 1.072906e+5 }, { 3.680695e+2, 1.072900e+5 },
@@ -86,7 +86,7 @@ SCENARIO( "ReichMoore" ) {
       double ap = 0.893;
       bool lad = false;
       int nlsc = 1; // should be larger than or equal to 2
-      std::vector< ReichMooreLValue > lvalues =
+      std::vector< LValue > lvalues =
         { { 1.982069e+1, 0.0, 0,
             { -1.470000e+5, 4.730000e+5 }, { 0.5, 0.5 },
             { 5.430695e+2, 1.072906e+5 }, { 3.680695e+2, 1.072900e+5 },

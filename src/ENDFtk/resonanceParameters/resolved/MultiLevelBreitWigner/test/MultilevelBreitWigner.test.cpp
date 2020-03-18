@@ -8,8 +8,8 @@ using namespace njoy::ENDFtk;
 // convenience typedefs
 using MultiLevelBreitWigner =
 resonanceParameters::resolved::MultiLevelBreitWigner;
-using BreitWignerLValue =
-resonanceParameters::resolved::BreitWignerLValue;
+using LValue =
+resonanceParameters::resolved::MultiLevelBreitWigner::LValue;
 
 std::string chunk();
 void verifyChunk( const MultiLevelBreitWigner& );
@@ -25,7 +25,7 @@ SCENARIO( "MultiLevelBreitWigner" ) {
 
       double spi = 1.0;
       double ap = 0.893;
-      std::vector< BreitWignerLValue > lvalues =
+      std::vector< LValue > lvalues =
         { { 1.982069e+1, 0.0, 0, false,
             { -1.470000e+5, 4.730000e+5 }, { 0.5, 0.5 },
             { 5.430695e+2, 1.072906e+5 }, { 3.680695e+2, 1.072900e+5 },
@@ -82,7 +82,7 @@ SCENARIO( "MultiLevelBreitWigner" ) {
 
       double spi = 1.0;
       double ap = 0.893;
-      std::vector< BreitWignerLValue > lvalues = {};
+      std::vector< LValue > lvalues = {};
 
       THEN( "an exception is thrown" ) {
 

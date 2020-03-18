@@ -15,6 +15,9 @@ class MultiLevelBreitWigner :
 
 public:
 
+  /* type alias */
+  using LValue = BreitWignerLValue;
+
   /* constructor */
   #include "ENDFtk/resonanceParameters/resolved/MultiLevelBreitWigner/src/ctor.hpp"
 
