@@ -6,7 +6,10 @@
  *  @param[in] isotopes   the isotopes for the section
  */
 Type( double zaid, double awr, std::vector< Isotope >&& isotopes ) :
-  BaseWithoutMT( zaid, awr ), isotopes_( std::move( isotopes ) ) {}
+  BaseWithoutMT( zaid, awr ), isotopes_( std::move( isotopes ) ) {
+
+    verifyNIS( this->NIS() );
+  }
 
 /**
  *  @brief Special case constructor (only scattering radius is given)

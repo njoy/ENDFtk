@@ -13,15 +13,28 @@ private:
   std::vector< Isotope > isotopes_;
 
   /* auxiliary functions */
+  #include "ENDFtk/section/2/151/src/verifyNIS.hpp"
   #include "ENDFtk/section/2/151/src/readIsotopes.hpp"
-  #include "ENDFtk/section/2/151/src/ctor.hpp"
 
 public:
+
+  /* constructor */
+  #include "ENDFtk/section/2/151/src/ctor.hpp"
 
   /**
    *  @brief Return the MT number of the section
    */
   static constexpr int sectionNumber() { return 151; }
+
+  /**
+   *  @brief Return the number NIS of isotopes
+   */
+  unsigned int numberIsotopes() const { return this->NIS(); }
+
+  /**
+   *  @brief Return the number NIS of isotopes
+   */
+  unsigned int NIS() const { return this->isotopes_.size(); }
 
   /**
    *  @brief Return the isotopes defined in the section
