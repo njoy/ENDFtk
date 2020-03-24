@@ -178,11 +178,6 @@ SCENARIO( "Testing special case of file 2" ) {
       auto output = std::back_inserter( buffer );
       file2.print( output, 1122 );
 
-std::ofstream test( "orig.txt" );
-test << file2string << std::endl;
-std::ofstream test2( "read.txt" );
-test2 << buffer << std::endl;
-
       CHECK( buffer == file2string );
     }
   } // GIVEN

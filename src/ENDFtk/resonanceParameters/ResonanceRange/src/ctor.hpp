@@ -13,7 +13,7 @@
  */
 ResonanceRange( double el, double eh, int naps,
                 ResonanceParameters&& parameters,
-                std::optional< ScatteringRadius > scatteringRadius = std::nullopt )
+                std::optional< ScatteringRadius >&& scatteringRadius = std::nullopt )
   try : el_( el ), eh_( eh ), naps_( naps ),
         parameters_( std::move( parameters ) ),
         scattering_radius_( std::move( scatteringRadius ) ) {
