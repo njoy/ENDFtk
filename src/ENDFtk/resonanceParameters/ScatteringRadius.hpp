@@ -5,7 +5,7 @@
  *  This class is a simplification of the TAB1 record which
  *  does not require the declaration of C1, C2, L1 and L2.
  */
-class ScatteringRadius : public TabulationRecord {
+class ScatteringRadius : protected TabulationRecord {
 
 public:
 
@@ -38,6 +38,7 @@ public:
   using TabulationRecord::NR;
   using TabulationRecord::interpolants;
   using TabulationRecord::boundaries;
+  using TabulationRecord::regions;
   using TabulationRecord::NC;
   using TabulationRecord::print;
 };
