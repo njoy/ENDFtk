@@ -78,8 +78,6 @@ SCENARIO( "ResonanceParameters" ) {
       std::vector< std::vector< double > > wrong =
         { { 1., 9.611086e+5, 2., 3., 4., 5. } };
 
-      ResonanceParameters chunk(  );
-
       THEN( "an exception is thrown" ) {
 
         CHECK_THROWS( ResonanceParameters( std::move( energies ),

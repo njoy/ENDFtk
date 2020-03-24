@@ -16,7 +16,7 @@ std::string validHEAD();
 
 SCENARIO( "Testing special case of file 2" ) {
 
-  GIVEN( "valid data for a File 1" ) {
+  GIVEN( "valid data for a File 2" ) {
 
     WHEN( "a file::Type< 2 > is constructed using only mt151" ) {
 
