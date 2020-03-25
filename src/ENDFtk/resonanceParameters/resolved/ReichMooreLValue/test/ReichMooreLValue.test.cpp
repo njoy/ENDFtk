@@ -12,6 +12,8 @@ resonanceParameters::resolved::ReichMooreLValue;
 std::string chunk();
 void verifyChunk( const ReichMooreLValue& );
 std::string invalidSize();
+std::string zeroSize();
+std::string noNumberResonances();
 
 SCENARIO( "ReichMooreLValue" ) {
 
@@ -82,27 +84,76 @@ SCENARIO( "ReichMooreLValue" ) {
     WHEN( "the data has different sizes" ) {
 
       double awri = 1.982069e+1;
-      double apl = 0.0;
+      double qx = 1.0;
       double l = 1.;
-      std::vector< double > wrong = { -1.470000e+5 };
-      std::vector< double > aj = { 0.5, 0.5 };
-      std::vector< double > gn = { 5.430695e+2, 1.072906e+5 };
-      std::vector< double > gg = { 3.680695e+2, 1.072900e+5 };
-      std::vector< double > gfa = { 1.750000e+2, 5.600000e-1 };
-      std::vector< double > gfb = { 3., 4. };
+      bool lrx = true;
+      std::vector< double > er = {};
+      std::vector< double > aj = {};
+      std::vector< double > gt = {};
+      std::vector< double > gn = {};
+      std::vector< double > gg = {};
+      std::vector< double > gf = {};
 
       THEN( "an exception is thrown" ) {
 
-        CHECK_THROWS( ReichMooreLValue( awri, apl, l,
+        CHECK_THROWS( ReichMooreLValue( awri, qx, l, lrx,
+                                        std::move( er ), std::move( aj ),
+                                        std::move( gt ), std::move( gn ),
+                                        std::move( gg ), std::move( gf ) ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is empty" ) {
+
+      double awri = 1.982069e+1;
+      double qx = 1.0;
+      double l = 1.;
+      bool lrx = true;
+      std::vector< double > wrong = { -1.470000e+5 };
+      std::vector< double > aj = { 0.5, 0.5 };
+      std::vector< double > gt = { 5.470695e+2, 1.072946e+5 };
+      std::vector< double > gn = { 3.680695e+2, 1.072900e+5 };
+      std::vector< double > gg = { 1.750000e+2, 5.600000e-1 };
+      std::vector< double > gf = { 3., 4. };
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( ReichMooreLValue( awri, qx, l, lrx,
                                         std::move( wrong ), std::move( aj ),
-                                        std::move( gn ), std::move( gg ),
-                                        std::move( gfa ), std::move( gfb ) ) );
+                                        std::move( gt ), std::move( gn ),
+                                        std::move( gg ), std::move( gf ) ) );
       } // THEN
     } // WHEN
 
     WHEN( "a string with inconsistent NPL and NRS is used" ) {
 
       std::string string = invalidSize();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( ReichMooreLValue( begin, end, lineNumber, 1025, 2, 151 ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a string with zero NPL" ) {
+
+      std::string string = zeroSize();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( ReichMooreLValue( begin, end, lineNumber, 1025, 2, 151 ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a string with inconsistent NPL and NRS is used" ) {
+
+      std::string string = noNumberResonances();
       auto begin = string.begin();
       auto end = string.end();
       long lineNumber = 1;
@@ -205,4 +256,16 @@ std::string invalidSize() {
     " 1.982069+1 0.000000+0          0          0         11          21025 2151     \n"
     "-1.470000+5 5.000000-1 5.430695+2 3.680695+2 1.750000+2 0.000000+01025 2151     \n"
     " 4.730000+5 5.000000-1 1.072906+5 1.072900+5 5.600000-1           1025 2151     \n";
+}
+
+std::string zeroSize() {
+  return
+    " 1.982069+1 0.000000+0          0          0          0          21025 2151     \n";
+}
+
+std::string noNumberResonances() {
+  return
+    " 1.982069+1 1.000000+0          1          1         12          01025 2151     \n"
+    "-1.470000+5 5.000000-1 5.470695+2 3.680695+2 1.750000+2 3.000000+01025 2151     \n"
+    " 4.730000+5 5.000000-1 1.072946+5 1.072900+5 5.600000-1 4.000000+01025 2151     \n";
 }
