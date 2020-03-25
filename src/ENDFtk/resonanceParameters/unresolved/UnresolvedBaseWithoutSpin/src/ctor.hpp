@@ -5,7 +5,7 @@
  */
 UnresolvedBaseWithoutSpin(
   std::vector< LValue >&& lvalues ) :
-    // no need for a try ... catch: nothing can go wrong here
+    // no need for a try ... catch: handled in derived class
     lvalues_( std::move( lvalues ) ) {
 
       verifySize( this->NLS() );
