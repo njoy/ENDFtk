@@ -55,7 +55,7 @@ SCENARIO( "section::Type< 2, 151 >" ) {
         REQUIRE( 151 == chunk.MT() );
         REQUIRE( 1001 == chunk.ZA() );
         REQUIRE( 0.9991673 == Approx( chunk.atomicWeightRatio() ) );
-        REQUIRE( 1 == chunk.isotopes.size() );
+        REQUIRE( 1 == chunk.isotopes().size() );
       } // THEN
     } // WHEN
   } // THEN
@@ -94,7 +94,7 @@ SCENARIO( "section::Type< 2, 151 >" ) {
         REQUIRE( 151 == MF2.MT() );
         REQUIRE( 61148 == MF2.ZA() );
         REQUIRE( 146.65 == MF2.atomicWeightRatio() );
-        REQUIRE( 1 == MF2.isotopes.size() );
+        REQUIRE( 1 == MF2.isotopes().size() );
       }
     }
     WHEN( "reading LRU=1, LRF=2" ){
@@ -110,7 +110,7 @@ SCENARIO( "section::Type< 2, 151 >" ) {
         REQUIRE( 151 == MF2.MT() );
         REQUIRE( 12024 == MF2.ZA() );
         REQUIRE( 23.779 == Approx( MF2.atomicWeightRatio() ) );
-        REQUIRE( 1 == MF2.isotopes.size() );
+        REQUIRE( 1 == MF2.isotopes().size() );
       }
     }
     WHEN( "reading LRU=1, LRF=3" ){
@@ -126,7 +126,7 @@ SCENARIO( "section::Type< 2, 151 >" ) {
         REQUIRE( 151 == MF2.MT() );
         REQUIRE( 14028 == MF2.ZA() );
         REQUIRE( 27.737 == Approx( MF2.atomicWeightRatio() ) );
-        REQUIRE( 1 == MF2.isotopes.size() );
+        REQUIRE( 1 == MF2.isotopes().size() );
       }
     }
     WHEN( "reading LRU=1, LRF=7" ){
@@ -143,7 +143,7 @@ SCENARIO( "section::Type< 2, 151 >" ) {
         REQUIRE( 151 == MF2.MT() );
         REQUIRE( 17035 == MF2.ZA() );
         REQUIRE( 34.6685 == Approx( MF2.atomicWeightRatio() ) );
-        REQUIRE( 1 == MF2.isotopes.size() );
+        REQUIRE( 1 == MF2.isotopes().size() );
       }
       */
     }
@@ -160,7 +160,7 @@ SCENARIO( "section::Type< 2, 151 >" ) {
         REQUIRE( 151 == MF2.MT() );
         REQUIRE( 56140 == MF2.ZA() );
         REQUIRE( 138.708 == Approx( MF2.atomicWeightRatio() ) );
-        REQUIRE( 1 == MF2.isotopes.size() );
+        REQUIRE( 1 == MF2.isotopes().size() );
       }
     }
     WHEN( "reading LRU=2, LRF=1, LFW=1" ){
@@ -176,7 +176,7 @@ SCENARIO( "section::Type< 2, 151 >" ) {
         REQUIRE( 151 == MF2.MT() );
         REQUIRE( 94240 == MF2.ZA() );
         REQUIRE( 237.992 == Approx( MF2.atomicWeightRatio() ) );
-        REQUIRE( 1 == MF2.isotopes.size() );
+        REQUIRE( 1 == MF2.isotopes().size() );
       }
     }
     WHEN( "reading LRU=2, LRF=2" ){
@@ -192,7 +192,7 @@ SCENARIO( "section::Type< 2, 151 >" ) {
         REQUIRE( 151 == MF2.MT() );
         REQUIRE( 38090 == MF2.ZA() );
         REQUIRE( 89.1354 == Approx( MF2.atomicWeightRatio() ) );
-        REQUIRE( 1 == MF2.isotopes.size() );
+        REQUIRE( 1 == MF2.isotopes().size() );
       }
     }
   } // GIVEN
@@ -252,7 +252,7 @@ void verifyChunkSpecialCase( const section::Type< 2, 151 >& chunk ) {
   REQUIRE( 1001 == chunk.ZA() );
   REQUIRE( 0.9991673 == Approx( chunk.atomicWeightRatio() ) );
 
-  REQUIRE( 1 == chunk.isotopes.size() );
+  REQUIRE( 1 == chunk.isotopes().size() );
 
   REQUIRE( 4 == chunk.NC() );
 }
