@@ -13,7 +13,7 @@ class Resonance {
 public:
 
   /* constructor */
-  Resonance( Chunk&& chunk ) : chunk( std::move(chunk) ) {}
+  Resonance( Range&& chunk ) : chunk( std::move(chunk) ) {}
 
   /**
    *  @brief Return the resonance energy
