@@ -82,7 +82,8 @@ public:
    *  @brief Return the particle pair numbers of each channel
    */
   auto PPI() const {
-    return ResonanceChannels::column( 6 )
+    return ListRecord::list()
+             | ranges::view::stride( 6 )
              | ranges::view::transform( [] ( auto ppi )
                                            { return int( ppi ); } ); }
 

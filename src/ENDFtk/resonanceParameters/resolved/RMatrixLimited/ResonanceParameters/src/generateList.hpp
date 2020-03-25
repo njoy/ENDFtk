@@ -13,6 +13,14 @@ generateList( std::vector< double >&& energies,
     throw std::exception();
   }
 
+  if ( nrs == 0 ) {
+
+    Log::info( "No resonances are given" );
+    Log::info( "energies.size(): {}", energies.size() );
+    Log::info( "parameters.size(): {}", parameters.size() );
+    throw std::exception();
+  }
+
   unsigned int nch = parameters.front().size();
   unsigned int padding = ( 6 - ( ( 1 + nch ) % 6 ) ) % 6;
   unsigned int nx = nrs * ( 1 + nch + padding ) / 6;
