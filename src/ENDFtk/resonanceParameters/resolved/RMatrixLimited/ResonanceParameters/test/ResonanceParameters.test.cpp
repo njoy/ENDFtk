@@ -97,7 +97,7 @@ SCENARIO( "ResonanceParameters" ) {
       THEN( "an exception is thrown" ) {
 
         CHECK_THROWS( ResonanceParameters( std::move( energies ),
-                                           std::move( wrong ) ) );
+                                           std::move( parameters ) ) );
       } // THEN
     } // WHEN
 
