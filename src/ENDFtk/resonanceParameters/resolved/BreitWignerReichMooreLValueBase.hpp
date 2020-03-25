@@ -11,10 +11,44 @@ class BreitWignerReichMooreLValueBase : protected ListRecord {
   #include "ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreLValueBase/src/verifySize.hpp"
   #include "ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreLValueBase/src/generateList.hpp"
 
+  auto column( unsigned int i ) const {
+
+    return ListRecord::list() | ranges::view::drop_exactly( i )
+                              | ranges::view::stride( 6 );
+  }
+
 protected:
 
   /* constructor */
   #include "ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreLValueBase/src/ctor.hpp"
+
+  /**
+   *  @brief Return the first width
+   */
+  auto G1() const { return BreitWignerReichMooreLValueBase::column( 2 ); }
+
+  /**
+   *  @brief Return the second width
+   */
+  auto G2() const { return BreitWignerReichMooreLValueBase::column( 3 ); }
+
+  /**
+   *  @brief Return the third width
+   */
+  auto G3() const { return BreitWignerReichMooreLValueBase::column( 4 ); }
+
+  /**
+   *  @brief Return the fourth width
+   */
+  auto G4() const { return BreitWignerReichMooreLValueBase::column( 5 ); }
+
+  /**
+   *  @brief Return the resonances
+   */
+  auto resonances() const {
+
+    return ListRecord::list() | ranges::view::chunk(6);
+  }
 
 public:
 
@@ -69,57 +103,13 @@ public:
   /**
    *  @brief Return the spin values
    */
-  auto AJ() const {
-
-    return ListRecord::list() | ranges::view::drop_exactly( 1 )
-                              | ranges::view::stride( 6 ); }
+  auto AJ() const { return BreitWignerReichMooreLValueBase::column( 1 ); }
 
   /**
   *  @brief Return the spin values
    */
   auto spinValues() const { return this->AJ(); }
 
-  /**
-   *  @brief Return the first width
-   */
-  auto G1() const {
-
-    return ListRecord::list() | ranges::view::drop_exactly( 2 )
-                              | ranges::view::stride( 6 ); }
-
-  /**
-   *  @brief Return the second width
-   */
-  auto G2() const {
-
-    return ListRecord::list() | ranges::view::drop_exactly( 3 )
-                              | ranges::view::stride( 6 ); }
-
-  /**
-   *  @brief Return the third width
-   */
-  auto G3() const {
-
-    return ListRecord::list() | ranges::view::drop_exactly( 4 )
-                              | ranges::view::stride( 6 ); }
-
-  /**
-   *  @brief Return the fourth width
-   */
-  auto G4() const {
-
-    return ListRecord::list() | ranges::view::drop_exactly( 5 )
-                              | ranges::view::stride( 6 ); }
-
-  /**
-   *  @brief Return the resonances
-   */
-  auto resonances() const {
-
-    return ListRecord::list() | ranges::view::chunk(6);
-  }
-
   using ListRecord::NC;
   using ListRecord::print;
 };
-

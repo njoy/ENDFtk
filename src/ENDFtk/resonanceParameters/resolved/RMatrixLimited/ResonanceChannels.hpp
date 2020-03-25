@@ -15,6 +15,13 @@ class ResonanceChannels : protected ListRecord {
   #include "ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceChannels/src/generateList.hpp"
   #include "ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceChannels/src/verifySize.hpp"
 
+  auto column( unsigned int i ) const {
+
+    return ListRecord::list()
+             | ranges::view::drop_exactly( i )
+             | ranges::view::stride( 6 );
+  }
+
 public:
   /* constructor */
   #include "ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceChannels/src/ctor.hpp"
@@ -75,8 +82,7 @@ public:
    *  @brief Return the particle pair numbers of each channel
    */
   auto PPI() const {
-    return ListRecord::list()
-             | ranges::view::stride( 6 )
+    return ResonanceChannels::column( 6 )
              | ranges::view::transform( [] ( auto ppi )
                                            { return int( ppi ); } ); }
 
@@ -89,9 +95,9 @@ public:
    *  @brief Return the orbital momentum values for all channels
    */
   auto L() const {
-    return ListRecord::list()
-             | ranges::view::drop_exactly( 1 )
-             | ranges::view::stride( 6 ); }
+    return ResonanceChannels::column( 1 )
+             | ranges::view::transform( [] ( auto l )
+                                           { return int( l ); } ); }
 
   /**
    *  @brief Return the orbital momentum values for all channels
@@ -101,10 +107,7 @@ public:
   /**
    *  @brief Return channel spin values
    */
-  auto SCH() const {
-    return ListRecord::list()
-             | ranges::view::drop_exactly( 2 )
-             | ranges::view::stride( 6 ); }
+  auto SCH() const { return ResonanceChannels::column( 2 ); }
  /**
    *  @brief Return channel spin values
    */
@@ -113,10 +116,7 @@ public:
   /**
    *  @brief Return boundary condition values
    */
-  auto BND() const {
-    return ListRecord::list()
-             | ranges::view::drop_exactly( 3 )
-             | ranges::view::stride( 6 ); }
+  auto BND() const { return ResonanceChannels::column( 3 ); }
 
   /**
   *  @brief Return boundary condition values
@@ -127,10 +127,7 @@ public:
   *  @brief Return the true channel radii (used in the calculation of the
   *         penetrability and shift factor)
    */
-  auto APT() const {
-    return ListRecord::list()
-             | ranges::view::drop_exactly( 5 )
-             | ranges::view::stride( 6 ); }
+  auto APT() const { return ResonanceChannels::column( 5 ); }
 
   /**
   *  @brief Return the true channel radii (used in the calculation of the
@@ -142,10 +139,7 @@ public:
    *  @brief Return the effective channel radii (used in the calculation of the
    *         phase shift)
    */
-  auto APE() const {
-    return ListRecord::list()
-             | ranges::view::drop_exactly( 4 )
-             | ranges::view::stride( 6 ); }
+  auto APE() const { return ResonanceChannels::column( 4 ); }
   /**
    *  @brief Return the effective channel radii (used in the calculation of the
    *         phase shift)

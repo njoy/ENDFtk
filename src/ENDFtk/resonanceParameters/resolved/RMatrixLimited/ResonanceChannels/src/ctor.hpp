@@ -23,7 +23,7 @@ public:
  *                      of the phase shift (NCH values)
  */
 ResonanceChannels( double j, double parity,
-                   std::vector< double >&& l,
+                   std::vector< unsigned int >&& l,
                    std::vector< double >&& s,
                    std::vector< double >&& b,
                    std::vector< double >&& apt,

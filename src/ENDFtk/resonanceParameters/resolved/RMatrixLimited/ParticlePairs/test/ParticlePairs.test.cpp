@@ -12,6 +12,8 @@ resonanceParameters::resolved::RMatrixLimited::ParticlePairs;
 std::string chunk();
 void verifyChunk( const ParticlePairs& );
 std::string invalidSize();
+std::string zeroSize();
+std::string zeroNumberParticlePair();
 
 SCENARIO( "ParticlePairs" ) {
 
@@ -110,9 +112,61 @@ SCENARIO( "ParticlePairs" ) {
       } // THEN
     } // WHEN
 
+    WHEN( "the data is empty" ) {
+
+      std::vector< double > ma = {};
+      std::vector< double > mb = {};
+      std::vector< double > za = {};
+      std::vector< double > zb = {};
+      std::vector< double > ia = {};
+      std::vector< double > ib = {};
+      std::vector< double > q = {};
+      std::vector< int > pnt = {};
+      std::vector< int > shf = {};
+      std::vector< int > mt = {};
+      std::vector< double > pa = {};
+      std::vector< double > pb = {};
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( ParticlePairs( std::move( ma ), std::move( mb ),
+                                     std::move( za ), std::move( zb ),
+                                     std::move( ia ), std::move( ib ),
+                                     std::move( pa ), std::move( pb ),
+                                     std::move( q ), std::move( pnt ),
+                                     std::move( shf ), std::move( mt ) ) );
+      } // THEN
+    } // WHEN
+
     WHEN( "a string with inconsistent NPL and NPP is used" ) {
 
       std::string string = invalidSize();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( ParticlePairs( begin, end, lineNumber, 2625, 2, 151 ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a string with zero NPL is used" ) {
+
+      std::string string = zeroSize();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( ParticlePairs( begin, end, lineNumber, 2625, 2, 151 ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a string with zero NPP is used" ) {
+
+      std::string string = zeroNumberParticlePair();
       auto begin = string.begin();
       auto end = string.end();
       long lineNumber = 1;
@@ -216,4 +270,18 @@ std::string invalidSize() {
   " 0.000000+0 0.000000+0 0.000000+0 1.020000+2 0.000000+0 0.000000+02625 2151     \n"
   " 1.000000+0 5.347624+1 0.000000+0 2.600000+1 5.000000-1 0.000000+02625 2151     \n"
   " 0.000000+0 1.000000+0 0.000000+0 2.000000+0 0.000000+0           2625 2151     \n";
+}
+
+std::string zeroSize() {
+  return
+  " 0.000000+0 0.000000+0          2          0          0          42625 2151     \n";
+}
+
+std::string zeroNumberParticlePair() {
+  return
+    " 0.000000+0 0.000000+0          2          0         24          02625 2151     \n"
+    " 0.000000+0 5.446635+1 2.000000+0 2.600000+1 1.000000+0 4.000000+02625 2151     \n"
+    " 6.000000+0 8.000000+0 1.000000+1 1.020000+2 1.200000+1 1.400000+12625 2151     \n"
+    " 1.000000+0 5.347624+1 3.000000+0 2.700000+1 5.000000-1 5.000000+02625 2151     \n"
+    " 7.000000+0 9.000000+0 1.100000+1 2.000000+0 1.300000+1 1.500000+12625 2151     \n";
 }

@@ -14,6 +14,13 @@ class ParticlePairs : protected ListRecord {
   #include "ENDFtk/resonanceParameters/resolved/RMatrixLimited/ParticlePairs/src/generateList.hpp"
   #include "ENDFtk/resonanceParameters/resolved/RMatrixLimited/ParticlePairs/src/verifySize.hpp"
 
+  auto column( unsigned int i ) const {
+
+    return ListRecord::list()
+             | ranges::view::drop_exactly( i )
+             | ranges::view::stride( 12 );
+  }
+
 public:
   /* constructor */
   #include "ENDFtk/resonanceParameters/resolved/RMatrixLimited/ParticlePairs/src/ctor.hpp"
@@ -43,10 +50,7 @@ public:
   /**
    *  @brief Return the mass of the second particle in each particle pair
    */
-  auto MB() const {
-    return ListRecord::list()
-             | ranges::view::drop_exactly( 1 )
-             | ranges::view::stride( 12 ); }
+  auto MB() const { return ParticlePairs::column( 1 ); }
 
   /**
    *  @brief Return the mass of the second particle in each particle pair
@@ -56,10 +60,7 @@ public:
   /**
    *  @brief Return the charge of the first particle in each particle pair
    */
-  auto ZA() const {
-    return ListRecord::list()
-             | ranges::view::drop_exactly( 2 )
-             | ranges::view::stride( 12 ); }
+  auto ZA() const { return ParticlePairs::column( 2 ); }
 
   /**
    *  @brief Return the charge of the first particle in each particle pair
@@ -69,10 +70,7 @@ public:
   /**
    *  @brief Return the charge of the second particle in each particle pair
    */
-  auto ZB() const {
-    return ListRecord::list()
-             | ranges::view::drop_exactly( 3 )
-             | ranges::view::stride( 12 ); }
+  auto ZB() const { return ParticlePairs::column( 3 ); }
 
   /**
    *  @brief Return the charge of the second particle in each particle pair
@@ -82,10 +80,7 @@ public:
   /**
    *  @brief Return the spin of the first particle in each particle pair
    */
-  auto IA() const {
-    return ListRecord::list()
-             | ranges::view::drop_exactly( 4 )
-             | ranges::view::stride( 12 ); }
+  auto IA() const { return ParticlePairs::column( 4 ); }
 
   /**
    *  @brief Return the spin of the first particle in each particle pair
@@ -95,10 +90,7 @@ public:
   /**
    *  @brief Return the spin of the second particle in each particle pair
    */
-  auto IB() const {
-    return ListRecord::list()
-             | ranges::view::drop_exactly( 5 )
-             | ranges::view::stride( 12 ); }
+  auto IB() const { return ParticlePairs::column( 5 ); }
 
   /**
    *  @brief Return the spin of the second particle in each particle pair
@@ -108,10 +100,7 @@ public:
   /**
    *  @brief Return the parity of the first particle in each particle pair
    */
-  auto PA() const {
-    return ListRecord::list()
-             | ranges::view::drop_exactly( 10 )
-             | ranges::view::stride( 12 ); }
+  auto PA() const { return ParticlePairs::column( 10 ); }
 
   /**
    *  @brief Return the parity of the first particle in each particle pair
@@ -121,10 +110,7 @@ public:
   /**
    *  @brief Return the parity of the second particle in each particle pair
    */
-  auto PB() const {
-    return ListRecord::list()
-             | ranges::view::drop_exactly( 11 )
-             | ranges::view::stride( 12 ); }
+  auto PB() const { return ParticlePairs::column( 11 ); }
 
   /**
    *  @brief Return the parity of the second particle in each particle pair
@@ -134,18 +120,13 @@ public:
   /**
    *  @brief Return the Q value for each particle pair
    */
-  auto Q() const {
-    return ListRecord::list()
-             | ranges::view::drop_exactly( 6 )
-             | ranges::view::stride( 12 ); }
+  auto Q() const { return ParticlePairs::column( 6 ); }
 
   /**
    *  @brief Return the penetrability flag for each particle pair
    */
   auto PNT() const {
-    return ListRecord::list()
-             | ranges::view::drop_exactly( 7 )
-             | ranges::view::stride( 12 )
+    return ParticlePairs::column( 7 )
              | ranges::view::transform( [] ( auto pnt )
                                            { return int( pnt ); } ); }
 
@@ -158,9 +139,7 @@ public:
    *  @brief Return the shift factor flag for each particle pair
    */
   auto SHF() const {
-    return ListRecord::list()
-             | ranges::view::drop_exactly( 8 )
-             | ranges::view::stride( 12 )
+    return ParticlePairs::column( 8 )
              | ranges::view::transform( [] ( auto shf )
                                            { return int( shf ); } ); }
 
@@ -173,9 +152,7 @@ public:
    *  @brief Return the MT value associated to each particle pair
    */
   auto MT() const {
-    return ListRecord::list()
-             | ranges::view::drop_exactly( 9 )
-             | ranges::view::stride( 12 )
+    return ParticlePairs::column( 9 )
              | ranges::view::transform( [] ( auto mt )
                                            { return int( mt ); } ); }
 

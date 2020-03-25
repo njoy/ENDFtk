@@ -7,7 +7,8 @@ generateList( std::vector< double >&& ma, std::vector< double >&& mb,
               std::vector< double >&& pa, std::vector< double >&& pb ) {
 
   unsigned int npp = ma.size();
-  if ( ( mb.size() != npp ) or ( za.size() != npp ) or ( zb.size() != npp ) or
+  if ( ( mb.size() != npp ) or
+       ( za.size() != npp ) or ( zb.size() != npp ) or
        ( ia.size() != npp ) or ( ib.size() != npp ) or
        ( q.size() != npp ) or ( pnt.size() != npp ) or
        ( shf.size() != npp ) or ( mt.size() != npp ) or

@@ -1,5 +1,5 @@
 static std::vector< double >
-generateList( std::vector< double >&& l,
+generateList( std::vector< unsigned int >&& l,
               std::vector< double >&& s,
               std::vector< double >&& b,
               std::vector< double >&& ape,

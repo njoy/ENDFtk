@@ -12,6 +12,8 @@ resonanceParameters::resolved::RMatrixLimited::ResonanceParameters;
 std::string chunk();
 void verifyChunk( const ResonanceParameters& );
 std::string invalidSize();
+std::string zeroSize();
+std::string zeroNX();
 
 SCENARIO( "ResonanceParameters" ) {
 
@@ -85,9 +87,49 @@ SCENARIO( "ResonanceParameters" ) {
       } // THEN
     } // WHEN
 
+    WHEN( "the data has different number of channels" ) {
+
+      std::vector< double > energies = { -1.223300e+6, 7.788000e+3 };
+      std::vector< std::vector< double > > parameters =
+        { { 1., 9.611086e+5, 2., 3., 4., 5. },
+          { 1.455, 1.187354e+3, 6., 7., 8. } }; // one less width for energy 2
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( ResonanceParameters( std::move( energies ),
+                                           std::move( wrong ) ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is empty" ) {
+
+      std::vector< double > energies = {};
+      std::vector< std::vector< double > > parameters = {};
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( ResonanceParameters( std::move( energies ),
+                                           std::move( parameters ) ) );
+      } // THEN
+    } // WHEN
+
     WHEN( "a string with inconsistent NPL and NCH is used" ) {
 
       std::string string = invalidSize();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( ResonanceParameters( begin, end, lineNumber,
+                                           2625, 2, 151 ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a string with zero NPL is used" ) {
+
+      std::string string = zeroSize();
       auto begin = string.begin();
       auto end = string.end();
       long lineNumber = 1;
@@ -179,6 +221,15 @@ void verifyChunk( const ResonanceParameters& chunk ) {
 }
 
 std::string invalidSize() {
+  return
+    " 0.000000+0 0.000000+0          0          2         23          42625 2151     \n"
+    "-1.223300+6 1.000000+0 9.611086+5 1.000000+0 2.000000+0 3.000000+02625 2151     \n"
+    " 4.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+02625 2151     \n"
+    " 7.788000+3 1.455000+0 1.187354+3 5.000000+0 6.000000+0 7.000000+02625 2151     \n"
+    " 8.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+0           2625 2151     \n";
+}
+
+std::string zeroSize() {
   return
     " 0.000000+0 0.000000+0          0          2         23          42625 2151     \n"
     "-1.223300+6 1.000000+0 9.611086+5 1.000000+0 2.000000+0 3.000000+02625 2151     \n"
