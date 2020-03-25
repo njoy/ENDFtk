@@ -4,11 +4,11 @@
  *
  *  See ENDF102, section 2.2.1.2 for more information.
  */
-template< typename Chunk >
+template< typename Range >
 class Resonance {
 
   /* fields */
-  Chunk chunk;
+  Range chunk;
 
 public:
 
@@ -75,4 +75,3 @@ public:
    */
   double secondFissionWidth() const { return this->GFB(); }
 };
-
