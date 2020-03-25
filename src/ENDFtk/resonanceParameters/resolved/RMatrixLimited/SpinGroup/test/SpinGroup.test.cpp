@@ -125,10 +125,10 @@ void verifyChunk( const SpinGroup& chunk ) {
   CHECK( 2 == channels.PPI()[1] );
   CHECK( 1 == channels.particlePairNumbers()[0] );
   CHECK( 2 == channels.particlePairNumbers()[1] );
-  CHECK( 0. == Approx( channels.L()[0] ) );
-  CHECK( 0. == Approx( channels.L()[1] ) );
-  CHECK( 0. == Approx( channels.orbitalMomentumValues()[0] ) );
-  CHECK( 0. == Approx( channels.orbitalMomentumValues()[1] ) );
+  CHECK( 0 == channels.L()[0] );
+  CHECK( 0 == channels.L()[1] );
+  CHECK( 0 == channels.orbitalMomentumValues()[0] );
+  CHECK( 0 == channels.orbitalMomentumValues()[1] );
   CHECK( 0. == Approx( channels.SCH()[0] ) );
   CHECK( .5 == Approx( channels.SCH()[1] ) );
   CHECK( 0. == Approx( channels.channelSpinValues()[0] ) );
