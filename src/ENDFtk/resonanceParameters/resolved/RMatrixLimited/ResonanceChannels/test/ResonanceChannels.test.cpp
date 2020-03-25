@@ -25,7 +25,7 @@ SCENARIO( "ResonanceChannels" ) {
 
       double aj = 0.5;
       double parity = 0;
-      std::vector< double > l = { 0., 1. };
+      std::vector< unsigned int > l = { 0., 1. };
       std::vector< double > s = { 0., 0.5 };
       std::vector< double > b = { 0., 2. };
       std::vector< double > ape = { 0.,  0.543731 };
@@ -82,7 +82,7 @@ SCENARIO( "ResonanceChannels" ) {
 
       double aj = 0.5;
       double parity = 0;
-      std::vector< double > l = { 0., 1. };
+      std::vector< unsigned int > l = { 0., 1. };
       std::vector< double > s = { 0., 0.5 };
       std::vector< double > b = { 0., 2. };
       std::vector< double > ape = { 0.,  0.543731 };
@@ -100,7 +100,7 @@ SCENARIO( "ResonanceChannels" ) {
 
       double aj = 0.5;
       double parity = 0;
-      std::vector< double > l = {};
+      std::vector< unsigned int > l = {};
       std::vector< double > s = {};
       std::vector< double > b = {};
       std::vector< double > ape = {};
