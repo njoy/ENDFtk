@@ -5,7 +5,7 @@
  *  See ENDF102, section 2.3.1 for more information.
  */
 template < typename Derived,
-           typename LValue = typename LJValueType< Derived >::ltype >
+           typename LValue = typename LJValueType< Derived >::LType >
 class UnresolvedBase : public UnresolvedBaseWithoutSpin< Derived, LValue > {
 
   /* fields */

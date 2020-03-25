@@ -5,8 +5,8 @@ struct LJValueType< EnergyDependentFissionWidths > {
   #include "ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/JValue.hpp"
   #include "ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/LValue.hpp"
 
-  using jtype = JValue;
-  using ltype = LValue;
+  using JType = JValue;
+  using LType = LValue;
 };
 
 /**
@@ -25,8 +25,8 @@ class EnergyDependentFissionWidths :
 
 public:
 
-  using JValue = LJValueType< EnergyDependentFissionWidths >::jtype;
-  using LValue = LJValueType< EnergyDependentFissionWidths >::ltype;
+  using JValue = LJValueType< EnergyDependentFissionWidths >::JType;
+  using LValue = LJValueType< EnergyDependentFissionWidths >::LType;
 
 private:
 

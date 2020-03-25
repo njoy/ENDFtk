@@ -5,8 +5,8 @@ struct LJValueType< EnergyIndependent > {
   #include "ENDFtk/resonanceParameters/unresolved/EnergyIndependent/JValue.hpp"
   #include "ENDFtk/resonanceParameters/unresolved/EnergyIndependent/LValue.hpp"
 
-  template < typename Range > using jtype = JValue< Range >;
-  using ltype = LValue;
+  template < typename Range > using JType = JValue< Range >;
+  using LType = LValue;
 };
 
 /**
@@ -24,8 +24,8 @@ class EnergyIndependent : public UnresolvedBase< EnergyIndependent > {
 public:
 
   template < typename Range >
-  using JValue = LJValueType< EnergyIndependent >::jtype< Range >;
-  using LValue = LJValueType< EnergyIndependent >::ltype;
+  using JValue = LJValueType< EnergyIndependent >::JType< Range >;
+  using LValue = LJValueType< EnergyIndependent >::LType;
 
   /* constructor */
   #include "ENDFtk/resonanceParameters/unresolved/EnergyIndependent/src/ctor.hpp"

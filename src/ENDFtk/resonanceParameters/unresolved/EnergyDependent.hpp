@@ -5,8 +5,8 @@ struct LJValueType< EnergyDependent > {
   #include "ENDFtk/resonanceParameters/unresolved/EnergyDependent/JValue.hpp"
   #include "ENDFtk/resonanceParameters/unresolved/EnergyDependent/LValue.hpp"
 
-  using jtype = JValue;
-  using ltype = LValue;
+  using JType = JValue;
+  using LType = LValue;
 };
 
 /**
@@ -24,8 +24,8 @@ class EnergyDependent : public UnresolvedBase< EnergyDependent > {
 
 public:
 
-  using JValue = LJValueType< EnergyDependent >::jtype;
-  using LValue = LJValueType< EnergyDependent >::ltype;
+  using JValue = LJValueType< EnergyDependent >::JType;
+  using LValue = LJValueType< EnergyDependent >::LType;
 
   /* constructor */
   #include "ENDFtk/resonanceParameters/unresolved/EnergyDependent/src/ctor.hpp"
