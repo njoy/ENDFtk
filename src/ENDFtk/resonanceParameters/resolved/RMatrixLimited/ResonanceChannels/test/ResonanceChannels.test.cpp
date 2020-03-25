@@ -142,9 +142,9 @@ SCENARIO( "ResonanceChannels" ) {
       } // THEN
     } // WHEN
 
-    WHEN( "a string with zero NPP is used" ) {
+    WHEN( "a string with zero NCH is used" ) {
 
-      std::string string = zeroNumberParticlePair();
+      std::string string = zeroNumberChannels();
       auto begin = string.begin();
       auto end = string.end();
       long lineNumber = 1;
