@@ -1,18 +1,19 @@
+/**
+ *  @brief Print this MF2 MT151 component
+ *
+ *  @tparam OutputIterator   an output iterator
+ *
+ *  @param[in] it            the current position in the output
+ *  @param[in] MAT           the MAT number
+ *  @param[in] MF            the MF number
+ *  @param[in] MT            the MT number
+ */
 template< typename OutputIterator >
 void print( OutputIterator& it, int MAT, int MF, int MT ) const {
-  using Format = disco::Record< disco::ENDF, disco::ENDF,
-                                disco::Integer< 11 >, disco::Integer< 11 >,
-                                disco::Integer< 11 >, disco::Integer< 11 >,
-                                disco::Integer< 4 >, disco::Integer< 2 >,
-                                disco::Integer< 3 >, disco::ColumnPosition< 5 > >;
 
-  Format::write( it,
-                 this->EL(), this->EH(),
-                 this->LRU(), this->LRF(),
-                 this->NRO(), this->NAPS(), MAT, MF, MT );
-  
-  if ( this->ape ){ this->ape->print( it, MAT, MF, MT ); }
-  this->list.print( it, MAT, MF, MT );
+  this->energies_.print( it, MAT, MF, MT );
+  for ( const auto& lvalue : this->lValues() ) {
 
-  for( const auto& lValue : this->lValues_ ){ lValue.print( it, MAT, MF, MT ); }
+    lvalue.print( it, MAT, MF, MT );
+  }
 }

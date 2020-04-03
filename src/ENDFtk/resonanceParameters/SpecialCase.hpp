@@ -1,87 +1,69 @@
+/**
+ *  @class
+ *  @brief Special case: no parameters are given (LRU=0, LRF=0)
+ *
+ *  The SpecialCase class is used to represent the special case where only
+ *  the spin and scattering radius are given in MF2/MT151.
+ *
+ *  See ENDF102, section 2.1 for more information.
+ */
 class SpecialCase {
-  double el;
-  double eh;
-  double spi;
-  double ap;
-  
-public:
-  double EL() const { return this->el; }
-  double EH() const { return this->eh; }
-  double SPI() const { return this->spi; }
-  double AP() const { return this->ap; }
-  
-  static constexpr int LRU(){ return 0; }
-  static constexpr int LRF(){ return 0; }
-  static constexpr int NRO(){ return 0; }
-  static constexpr int NAPS(){ return 0; }
-  static constexpr int NLS(){ return 0; }
-  
-  SpecialCase( double EL, double EH, double SPI, double AP ) :
-    el( EL ), eh( EH ), spi( SPI ), ap( AP ) {
-    try{
-      Base{ this->EL(), this->EH(), 0, 0, 0, 0 };
-    } catch (int) {
-      throw std::exception();
-    }
-  }
 
-protected:
-  SpecialCase( const Base& base, const CONT& cont ) :
-    el( base.EL() ), eh( base.EH() ), spi( cont.C1() ), ap( cont.C2() ){
-    assert( base.LRU() == 0 );
-    assert( base.LRF() == 0 );
-    if( base.NRO() != 0 ){
-      Log::error( "Illegal NRO value" );
-      Log::info( "NRO must be zero for scattering-radius subsections" );
-      Log::info( "NRO value: {}", base.NRO() );
-      throw std::exception();
-    }
-    if( base.NAPS() != 0 ){
-      Log::error( "Illegal NAPS value" );
-      Log::info( "NAPS must be zero for scattering-radius subsections" );
-      Log::info( "NAPS value: {}", base.NAPS() );
-      throw std::exception();
-    }
-    if( cont.L1() ){
-      Log::error( "Illegal L1 value" );
-      Log::info( "L1 must be zero for scattering-radius subsections" );
-      Log::info( "L1 value: {}", cont.L1() );
-      throw std::exception();
-    }
-    if( cont.L2() ){
-      Log::error( "Illegal L2 value" );
-      Log::info( "L2 must be zero for scattering-radius subsections" );
-      Log::info( "L2 value: {}", cont.L2() );
-      throw std::exception();
-    }
-    if( cont.N1() ){
-      Log::error( "Illegal N1 value" );
-      Log::info( "N1 must be zero for scattering-radius subsections" );
-      Log::info( "N1 value: {}", cont.N1() );
-      throw std::exception();
-    }
-    if( cont.N2() ){
-      Log::error( "Illegal N2 value" );
-      Log::info( "N2 must be zero for scattering-radius subsections" );
-      Log::info( "N2 value: {}", cont.N2() );
-      throw std::exception();
-    }
-  }
-  
-public:
-  template< typename Iterator >
-  SpecialCase( const Base& base,
-               Iterator& it, const Iterator& end, long& lineNumber,
-               int MAT, int MF, int MT )
-    try:
-      SpecialCase( base, CONT( it, end, lineNumber, MAT, MF, MT ) ){
-      } catch( std::exception& e ){
-      Log::info( "Encountered error while reading scattering-radius"
-                 " resonance parameter subsections" );
-      throw e;
-    }
+  /* fields */
+  double spi_;
+  double ap_;
 
-  long NC() const { return 2; }
+public:
+
+  /* constructor */
+  #include "ENDFtk/resonanceParameters/SpecialCase/src/ctor.hpp"
+
+  /* get methods */
+
+  /**
+   *  @brief Return the resonance type (resolved or unresolved)
+   */
+  static constexpr int LRU() { return 0; }
+
+  /**
+   *  @brief Return the resonance type (resolved or unresolved)
+   */
+  static constexpr int type() { return SpecialCase::LRU(); }
+
+  /**
+   *  @brief Return the resonance representation
+   */
+  static constexpr int LRF() { return 0; }
+
+  /**
+   *  @brief Return the resonance representation
+   */
+  static constexpr int representation() { return SpecialCase::LRF(); }
+
+  /**
+   *  @brief Return the target spin
+   */
+  double SPI() const { return this->spi_; }
+
+  /**
+   *  @brief Return the target spin
+   */
+  double spin() const { return this->SPI(); }
+
+  /**
+   *  @brief Return the scattering radius
+   */
+  double AP() const { return this->ap_; }
+
+  /**
+   *  @brief Return the scattering radius
+   */
+  double scatteringRadius() const { return this->AP(); }
+
+  /**
+   *  @brief Return the number of lines in this MF2 MT151 component
+   */
+  long NC() const { return 1; }
 
   #include "ENDFtk/resonanceParameters/SpecialCase/src/print.hpp"
 };

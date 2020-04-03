@@ -1,164 +1,88 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-
 #include "ENDFtk.hpp"
 
 using namespace njoy::ENDFtk;
 
-SCENARIO( "Testing SpecialCase (LRU=0)" ){
-  GIVEN( "valid 'special case' input" ){
-    std::string ENDF = 
-      " 5.000000-1 1.276553+0          0          0          0          0 125 2151    4\n";
-    auto begin = ENDF.begin();
-    auto end = ENDF.end();
-    long lineNumber = 0;
-    int MAT = 125;
-    int MF = 2;
-    int MT = 151;
+// convenience typedefs
+using SpecialCase =
+resonanceParameters::SpecialCase;
 
-    resonanceParameters::Base base( 1.0, 2.0, 0, 0, 0, 0 );
-    THEN( "a SpecialCase can be constructed" ){
-      resonanceParameters::SpecialCase
-        sc( base, begin, end, lineNumber, MAT, MF, MT );
+std::string chunk();
+void verifyChunk( const SpecialCase& );
 
-      REQUIRE( 1.0 == Approx( sc.EL() ) );
-      REQUIRE( 2.0 == sc.EH() );
-      REQUIRE( 0.5 == sc.SPI() );
-      REQUIRE( 1.276553 == sc.AP() );
-      REQUIRE( 0 == sc.LRU() );
-      REQUIRE( 0 == sc.LRF() );
-      REQUIRE( 0 == sc.NRO() );
-      REQUIRE( 0 == sc.NAPS() );
-      REQUIRE( 0 == sc.NLS() );
-      REQUIRE( 2 == sc.NC() );
+SCENARIO( "SpecialCase" ) {
 
-      SECTION( "print" ){
+  GIVEN( "valid data for an SpecialCase" ) {
+
+    std::string string = chunk();
+
+    WHEN( "the data is given explicitly" ) {
+
+      double spi =  0.5;
+      double ap = 1.276553;
+
+      SpecialCase chunk( spi, ap );
+
+      THEN( "a SpecialCase can be constructed and members can be "
+            "tested" ) {
+
+        verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        sc.print( output, MAT, MF, MT );
+        chunk.print( output, 2625, 2, 151 );
 
-        std::string reference =
-          " 1.000000+0 2.000000+0          0          0          0          0 125 2151     \n"
-          " 5.000000-1 1.276553+0          0          0          0          0 125 2151     \n";
+        CHECK( buffer == string );
+      } // THEN
+    } // WHEN
 
-        REQUIRE( buffer == reference );
-      }
-    }
-  }
-  
-  GIVEN( "invalid ENDF input" ){
-    std::string ENDF = 
-      " 5.000000-1 1.276553+0          0          0          0          0 125 2151    4\n";
-    auto begin = ENDF.begin();
-    auto end = ENDF.end();
-    long lineNumber = 0;
-    int MAT = 125;
-    int MF = 2;
-    int MT = 151;
+    WHEN( "the data is read from a string/stream" ) {
 
-    WHEN( "LRU != 0" ){
-      THEN( "an exception is thrown" ){
-        REQUIRE_THROWS( 
-            resonanceParameters::SpecialCase( 
-                resonanceParameters::Base(1.0, 2.0, 1, 0, 0, 0 ),
-                begin, end, lineNumber, MAT, MF, MT ) );
-      }
-    }
-    WHEN( "LRF != 0" ){
-      THEN( "an exception is thrown" ){
-        REQUIRE_THROWS( 
-            resonanceParameters::SpecialCase( 
-                resonanceParameters::Base(1.0, 2.0, 0, 1, 0, 0 ),
-                begin, end, lineNumber, MAT, MF, MT ) );
-      }
-    }
-    WHEN( "NRO != 0" ){
-      THEN( "an exception is thrown" ){
-        REQUIRE_THROWS( 
-            resonanceParameters::SpecialCase( 
-                resonanceParameters::Base(1.0, 2.0, 0, 0, 1, 0 ),
-                begin, end, lineNumber, MAT, MF, MT ) );
-      }
-    }
-    WHEN( "NAPS != 0" ){
-      THEN( "an exception is thrown" ){
-        REQUIRE_THROWS( 
-            resonanceParameters::SpecialCase( 
-                resonanceParameters::Base(1.0, 2.0, 0, 0, 0, 1 ),
-                begin, end, lineNumber, MAT, MF, MT ) );
-      }
-    }
-  }
-  GIVEN( "invalid ENDF input" ){
-    WHEN( "L1 != 0" ){
-      std::string ENDF = 
-        " 5.000000-1 1.276553+0          1          0          0          0 125 2151    4\n";
-      auto begin = ENDF.begin();
-      auto end = ENDF.end();
-      long lineNumber = 0;
-      int MAT = 125;
-      int MF = 2;
-      int MT = 151;
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
 
-      THEN( "an exception is thrown" ){
-        REQUIRE_THROWS( 
-            resonanceParameters::SpecialCase( 
-                resonanceParameters::Base(1.0, 2.0, 0, 0, 0, 0 ),
-                begin, end, lineNumber, MAT, MF, MT ) );
-      }
-    }
-    WHEN( "L2 != 0" ){
-      std::string ENDF = 
-        " 5.000000-1 1.276553+0          0          1          0          0 125 2151    4\n";
-      auto begin = ENDF.begin();
-      auto end = ENDF.end();
-      long lineNumber = 0;
-      int MAT = 125;
-      int MF = 2;
-      int MT = 151;
+      SpecialCase chunk( begin, end, lineNumber, 2625, 2, 151 );
 
-      THEN( "an exception is thrown" ){
-        REQUIRE_THROWS( 
-            resonanceParameters::SpecialCase( 
-                resonanceParameters::Base(1.0, 2.0, 0, 0, 0, 0 ),
-                begin, end, lineNumber, MAT, MF, MT ) );
-      }
-    }
-    WHEN( "N1 != 0" ){
-      std::string ENDF = 
-        " 5.000000-1 1.276553+0          0          0          1          0 125 2151    4\n";
-      auto begin = ENDF.begin();
-      auto end = ENDF.end();
-      long lineNumber = 0;
-      int MAT = 125;
-      int MF = 2;
-      int MT = 151;
+      THEN( "a SpecialCase can be constructed and members can be "
+            "tested" ) {
 
-      THEN( "an exception is thrown" ){
-        REQUIRE_THROWS( 
-            resonanceParameters::SpecialCase( 
-                resonanceParameters::Base(1.0, 2.0, 0, 0, 0, 0 ),
-                begin, end, lineNumber, MAT, MF, MT ) );
+        verifyChunk( chunk );
       }
-    }
-    WHEN( "N2 != 0" ){
-      std::string ENDF = 
-        " 5.000000-1 1.276553+0          0          0          0          1 125 2151    4\n";
-      auto begin = ENDF.begin();
-      auto end = ENDF.end();
-      long lineNumber = 0;
-      int MAT = 125;
-      int MF = 2;
-      int MT = 151;
 
-      THEN( "an exception is thrown" ){
-        REQUIRE_THROWS( 
-            resonanceParameters::SpecialCase( 
-                resonanceParameters::Base(1.0, 2.0, 0, 0, 0, 0 ),
-                begin, end, lineNumber, MAT, MF, MT ) );
-      }
-    }
-  }
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 2625, 2, 151 );
+
+        CHECK( buffer == string );
+      } // THEN
+    } // WHEN
+  } // GIVEN
+} // SCENARIO
+
+std::string chunk() {
+  return
+    " 5.000000-1 1.276553+0          0          0          0          02625 2151     \n";
 }
 
+void verifyChunk( const SpecialCase& chunk ) {
+
+  CHECK( 0 == chunk.LRU() );
+  CHECK( 0 == chunk.type() );
+  CHECK( 0 == chunk.LRF() );
+  CHECK( 0 == chunk.representation() );
+
+  CHECK( 0.5 == Approx( chunk.SPI() ) );
+  CHECK( 0.5 == Approx( chunk.spin() ) );
+  CHECK( 1.276553 == Approx( chunk.AP() ) );
+  CHECK( 1.276553 == Approx( chunk.scatteringRadius() ) );
+
+  CHECK( 1 == chunk.NC() );
+}
