@@ -137,15 +137,13 @@ SCENARIO( "section::Type< 2, 151 >" ) {
       int MAT = 1725;
       HeadRecord HEAD( begin, end, lineNumber );
 
-      /*
       THEN( "a section::Type< 2, 151 > can be constructed" ){
-        REQUIRE_THROWS( section2151( HEAD, begin, end, lineNumber, MAT ) );
+        section::Type< 2, 151 > MF2( HEAD, begin, end, lineNumber, MAT );
         REQUIRE( 151 == MF2.MT() );
         REQUIRE( 17035 == MF2.ZA() );
         REQUIRE( 34.6685 == Approx( MF2.atomicWeightRatio() ) );
         REQUIRE( 1 == MF2.isotopes().size() );
       }
-      */
     }
     WHEN( "reading LRU=2, LRF=1, LFW=0" ){
       const std::string& sMF2 = sLRU2(0);
@@ -700,7 +698,7 @@ const std::string& sLRU1( int LRF ){
       " 1.425393+6 8.600000-1 1.381970+4 0.000000+0 0.000000+0 0.000000+01725 2151  322\n"
       " 1.485128+6 8.600000-1 1.054090+4 0.000000+0 0.000000+0 0.000000+01725 2151  323\n"
       " 0.000000+0 0.000000+0          0          0          0          01725 2  099999\n"
-    " 0.000000+0 0.000000+0          0          0          0          01725 0  0    0\n" } };
+      " 0.000000+0 0.000000+0          0          0          0          01725 0  0    0\n" } };
 
   return buffer.at( LRF );
 }
