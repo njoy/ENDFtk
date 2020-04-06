@@ -1,13 +1,13 @@
 
 add_executable( ENDFtk.record.Zipper.test
-                expandReferencePack.test.cpp
-                makeIteratorTuple.test.cpp
-                process.test.cpp
-                readLine.test.cpp
-                readPartialLine.test.cpp
                 reserve.test.cpp
+                makeIteratorTuple.test.cpp
+                Zipper.test.cpp
                 unzip.test.cpp
-                Zipper.test.cpp )
+                readPartialLine.test.cpp
+                expandReferencePack.test.cpp
+                process.test.cpp
+                readLine.test.cpp )
 target_compile_options( ENDFtk.record.Zipper.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}
