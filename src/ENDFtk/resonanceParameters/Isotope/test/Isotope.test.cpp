@@ -195,7 +195,7 @@ SCENARIO( "Isotope" ){
 
     WHEN( "there is one Rmatrix-Limited range in the Isotope" ){
       std::string ENDF =
-      " 2.605400+4 5.347624+1          0          0          1          02625 2151     \n"  // HEAD
+//    " 2.605400+4 5.347624+1          0          0          1          02625 2151     \n"  // HEAD
       " 2.605400+4 1.000000+0          0          0          1          02625 2151     \n"  // CONT (isotope)
       " 1.000000-5 1.036000+6          1          7          0          12625 2151     \n"  // CONT (range)
       " 0.000000+0 0.000000+0          0          3          5          02625 2151     \n"
@@ -986,8 +986,8 @@ SCENARIO( "Isotope" ){
       CHECK( 7 == range.representation() );
       CHECK( 0 == range.NRO() );
       CHECK( 0 == range.energyDependentScatteringRadius() );
-      CHECK( 0 == range.NAPS() );
-      CHECK( 0 == range.scatteringRadiusCalculationOption() );
+      CHECK( 1 == range.NAPS() );
+      CHECK( 1 == range.scatteringRadiusCalculationOption() );
 
       CHECK_NOTHROW( 
         std::get< resonanceParameters::resolved::RMatrixLimited >( 
