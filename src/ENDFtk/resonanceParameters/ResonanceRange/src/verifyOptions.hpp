@@ -21,7 +21,7 @@ verifyOptions( bool NRO, int NAPS, int LRU, int LRF ) {
     throw std::exception();
   }
 
-  if ( NRO and ( LRU = 0 ) ) {
+  if ( NRO and ( LRU == 0 ) ) {
 
     Log::error( "An energy dependent scattering radius is not allowed for "
                 "the scattering radius only special case (LRU = 0, LRF = 0)" );
@@ -29,7 +29,7 @@ verifyOptions( bool NRO, int NAPS, int LRU, int LRF ) {
     throw std::exception();
   }
 
-  if ( NRO and ( LRU = 1 ) and ( LRF = 7 ) ) {
+  if ( NRO and ( LRU == 1 ) and ( LRF == 7 ) ) {
 
     Log::error( "An energy dependent scattering radius is not allowed for "
                 "a Limited R-matrix resonance range (LRU = 1, LRF = 7)" );
