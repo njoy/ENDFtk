@@ -142,7 +142,7 @@ void verifyChunk( const TotalMultiplicity& chunk ) {
 
 std::string invalidChunk() {
   return
-    " 0.000000+0 3.000000+0          2          1          2          2922812 18     \n"
+    " 0.000000+0 0.000000+0          0          0          2          2922812 18     \n"
     "          2          2                                            922812 18     \n"
     " 1.000000-5 8.579050+0 3.000000+7 1.487778+1                      922812 18     \n";
 }

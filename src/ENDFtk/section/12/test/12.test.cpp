@@ -6,14 +6,10 @@
 using namespace njoy::ENDFtk;
 
 // convenience typedefs
-using Multiplicities =
-section::Type< 12 >::Multiplicities;
-using PartialMultiplicity =
-section::Type< 12 >::PartialMultiplicity;
-using TotalMultiplicity =
-section::Type< 12 >::TotalMultiplicity;
-using TransitionProbabilities =
-section::Type< 12 >::TransitionProbabilities;
+using Multiplicities = section::Type< 12 >::Multiplicities;
+using PartialMultiplicity = section::Type< 12 >::PartialMultiplicity;
+using TotalMultiplicity = section::Type< 12 >::TotalMultiplicity;
+using TransitionProbabilities = section::Type< 12 >::TransitionProbabilities;
 
 std::string chunkWithLO1();
 void verifyChunkWithLO1( const section::Type< 12 >& );
@@ -135,7 +131,7 @@ SCENARIO( "section::Type< 12 >" ) {
     } // WHEN
   } // GIVEN
 
-  GIVEN( "valid data for a section::Type< 12 > with LO = 2 amd LG = 1" ) {
+  GIVEN( "valid data for a section::Type< 12 > with LO = 2 and LG = 1" ) {
 
     std::string sectionString = chunkWithLO2LG1() + validSEND();
 
@@ -404,7 +400,7 @@ void verifyChunkWithLO1( const section::Type< 12 >& chunk ) {
   REQUIRE( 1 == chunk.LO() );
   REQUIRE( 1 == chunk.representation() );
 
-  auto data = std::experimental::get< Multiplicities >( chunk.photonProduction() );
+  auto data = std::get< Multiplicities >( chunk.photonProduction() );
   CHECK( std::nullopt == data.totalMultiplicity() );
   CHECK( 1 == data.partialMultiplicities().size() );
 
@@ -456,7 +452,7 @@ void verifyChunkWithLO2LG1( const section::Type< 12 >& chunk ) {
   REQUIRE( 2 == chunk.LO() );
   REQUIRE( 2 == chunk.representation() );
 
-  auto data = std::experimental::get< TransitionProbabilities >( chunk.photonProduction() );
+  auto data = std::get< TransitionProbabilities >( chunk.photonProduction() );
   CHECK( 2 == data.LO() );
   CHECK( 2 == data.representation() );
 
@@ -507,7 +503,7 @@ void verifyChunkWithLO2LG2( const section::Type< 12 >& chunk ) {
   REQUIRE( 2 == chunk.LO() );
   REQUIRE( 2 == chunk.representation() );
 
-  auto data = std::experimental::get< TransitionProbabilities >( chunk.photonProduction() );
+  auto data = std::get< TransitionProbabilities >( chunk.photonProduction() );
   CHECK( 2 == data.LO() );
   CHECK( 2 == data.representation() );
 

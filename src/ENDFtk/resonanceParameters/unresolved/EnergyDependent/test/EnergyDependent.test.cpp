@@ -5,347 +5,371 @@
 
 using namespace njoy::ENDFtk;
 
-std::string LRF2();
-std::string Tab1();
+// convenience typedefs
+using EnergyDependent = resonanceParameters::unresolved::EnergyDependent;
+using JValue = resonanceParameters::unresolved::EnergyDependent::JValue;
+using LValue = resonanceParameters::unresolved::EnergyDependent::LValue;
 
-SCENARIO( "Testing energy-dependent unresolved resonances" ){
-  GIVEN( "valid ENDF parameters" ){
-    long lineNumber = 0;
-    int MAT = 3843;
-    int MF = 2;
-    int MT = 151;
+std::string chunk();
+void verifyChunk( const EnergyDependent& );
+std::string chunkWithNoLValues();
 
-    WHEN( "NRO == 0" ){
-      std::string caseC = LRF2();
-      auto begin = caseC.begin();
-      auto end = caseC.end();
+SCENARIO( "EnergyDependent" ) {
 
-      resonanceParameters::Base base( 6.0E3, 1.0E5, 2, 2, 0, 0 );
-      std::string baseString =
-        " 6.000000+3 1.000000+5          2          2          0          03843 2151     \n";
-      
-      resonanceParameters::unresolved::EnergyDependent ted( 
-          base, begin, end, lineNumber, MAT, MF, MT );
+  GIVEN( "valid data for an EnergyDependent" ) {
 
-      THEN( "the parameters can be verified" ){
-        CHECK( Approx(6E3) == ted.EL() );
-        CHECK( Approx(1E5) == ted.EH() );
-        CHECK( 0 == ted.NRO() );
-        CHECK( 0 == ted.NAPS() );
-        CHECK( 80 == ted.NC() );
+    std::string string = chunk();
 
-        CHECK( 0.0 == ted.SPI() );
-        CHECK( 6.7959E-1 == Approx( ted.AP() ) );
-        CHECK( 0 == ted.LSSF() );
-        CHECK( 3 == ted.NLS() );
-        CHECK( 3 == ted.lValues().size() );
+    WHEN( "the data is given explicitly" ) {
 
-        SECTION( "L == 0" ){
-          auto lValue = ted.lValues()[0];
-          CHECK( Approx(8.91354E1) == lValue.AWRI() );
-          CHECK( 0 == lValue.L() );
-          CHECK( 1 == lValue.jValues().size() );
-          
-          const auto jValue = lValue.jValues()[0];
-          CHECK( Approx(0.5) == jValue.AJ() );
-          CHECK( 5 == jValue.INT() );
-          CHECK( 13 == jValue.NE() );
-          CHECK( Approx(1.0) == jValue.AMUX() );
-          CHECK( Approx(2.0) == jValue.AMUN() );
-          CHECK( Approx(3.0) == jValue.AMUG() );
-          CHECK( Approx(4.0) == jValue.AMUF() );
+      double spin = 0.0;
+      double ap = 0.67959;
+      bool lssf = false;
 
-          CHECK( 13 == jValue.ES().size() );
-          CHECK( Approx(6.E3) == jValue.ES().front() );
-          CHECK( Approx(1.E5) == jValue.ES().back() );
+      std::vector< LValue > lvalues =
+        { { 89.13540, 0,
+            { { 0.5, 2, 3, 4, 1, 5,
+                { 6000., 8000. }, { 12406., 12406. },
+                { 0.45901, 0.45901 }, { 0.205, 0.2051 },
+                { 0., 0. }, { 0., 0.1 } } } },
+          { 89.13540, 1,
+            { { 0.5, 3, 2, 1, 4, 5,
+                { 6000., 7000., 8000. }, { 12406., 12406., 12406. },
+                { 6.7238, 6.7238, 6.7238 }, { 0.205, 0.205, 0.205 },
+                { 0., 0., 0. }, { 0., 0., 0. } },
+              { 1.5, 1, 4, 2, 0, 5,
+                { 6000., 8000. }, { 6202.8, 6202.8 },
+                { 3.3619, 3.3619 }, { 0.205, 0.205 },
+                { 0., 0. }, { 0., 0. } } } } };
 
-          /*
-          int i = 0;
-          for( auto D : jValue.D() ){
-            njoy::Log::info( "i: {}, D: {}", i++, D );
-          }
-          njoy::Log::info( "back: {}", jValue.D().back() );
-          */
+      EnergyDependent chunk( spin, ap, lssf, std::move( lvalues ) );
 
-          CHECK( 13 == jValue.D().size() );
-          CHECK( Approx(1.2406E4) == jValue.D().front() );
-          CHECK( jValue.D()[ 0  ] == jValue.D().front() );
-          CHECK( Approx(1.240600E4) == jValue.D()[ 0  ] );
-          CHECK( Approx(1.240600E4) == jValue.D()[ 1  ] );
-          CHECK( Approx(1.240600E4) == jValue.D()[ 2  ] );
-          CHECK( Approx(1.231300E4) == jValue.D()[ 3  ] );
-          CHECK( Approx(1.226300E4) == jValue.D()[ 4  ] );
-          CHECK( Approx(1.212200E4) == jValue.D()[ 5  ] );
-          CHECK( Approx(1.205400E4) == jValue.D()[ 6  ] );
-          CHECK( Approx(1.191800E4) == jValue.D()[ 7  ] );
-          CHECK( Approx(1.181000E4) == jValue.D()[ 8  ] );
-          CHECK( Approx(1.113000E4) == jValue.D()[ 9  ] );
-          CHECK( Approx(1.077400E4) == jValue.D()[ 10 ] );
-          CHECK( Approx(1.039500E4) == jValue.D()[ 11 ] );
-          CHECK( Approx(9.669700E3) == jValue.D()[ 12 ] );
-          auto jD = jValue.D();
-          auto iter = std::prev( jD.end() );
-          CHECK( Approx(9.6697E3) == *iter );
-          CHECK( Approx(9.6697E3) == jValue.D().back() );
-          CHECK( jValue.D()[ 12 ] == jValue.D().back() );
+      THEN( "a EnergyDependent can be constructed and members can be "
+            "tested" ) {
 
-          CHECK( 13 == jValue.GX().size() );
-          CHECK( Approx(0.0) == jValue.GX().front() );
-          CHECK( Approx(0.00E0) == jValue.GX()[ 0  ] );
-          CHECK( Approx(0.10E0) == jValue.GX()[ 1  ] );
-          CHECK( Approx(0.20E0) == jValue.GX()[ 2  ] );
-          CHECK( Approx(0.30E0) == jValue.GX()[ 3  ] );
-          CHECK( Approx(0.40E0) == jValue.GX()[ 4  ] );
-          CHECK( Approx(0.50E0) == jValue.GX()[ 5  ] );
-          CHECK( Approx(0.60E0) == jValue.GX()[ 6  ] );
-          CHECK( Approx(0.70E0) == jValue.GX()[ 7  ] );
-          CHECK( Approx(0.80E0) == jValue.GX()[ 8  ] );
-          CHECK( Approx(0.90E0) == jValue.GX()[ 9  ] );
-          CHECK( Approx(0.10E0) == jValue.GX()[ 10 ] );
-          CHECK( Approx(0.11E0) == jValue.GX()[ 11 ] );
-          CHECK( Approx(0.12E0) == jValue.GX()[ 12 ] );
-          CHECK( Approx(0.12) == jValue.GX().back() );
+        verifyChunk( chunk );
+      } // THEN
 
-          CHECK( 13 == jValue.GNO().size() );
-          CHECK( Approx(4.5901E-1) == jValue.GNO().front() );
-          CHECK( Approx(4.5901E-1) == jValue.GNO()[ 0  ] );
-          CHECK( Approx(4.5901E-1) == jValue.GNO()[ 1  ] );
-          CHECK( Approx(4.5901E-1) == jValue.GNO()[ 2  ] );
-          CHECK( Approx(4.5558E-1) == jValue.GNO()[ 3  ] );
-          CHECK( Approx(4.5374E-1) == jValue.GNO()[ 4  ] );
-          CHECK( Approx(4.4850E-1) == jValue.GNO()[ 5  ] );
-          CHECK( Approx(4.4601E-1) == jValue.GNO()[ 6  ] );
-          CHECK( Approx(4.4097E-1) == jValue.GNO()[ 7  ] );
-          CHECK( Approx(4.3698E-1) == jValue.GNO()[ 8  ] );
-          CHECK( Approx(4.1181E-1) == jValue.GNO()[ 9  ] );
-          CHECK( Approx(3.9862E-1) == jValue.GNO()[ 10 ] );
-          CHECK( Approx(3.8461E-1) == jValue.GNO()[ 11 ] );
-          CHECK( Approx(3.5778E-1) == jValue.GNO()[ 12 ] );
-          CHECK( Approx(3.5778E-1) == jValue.GNO().back() );
-          
-          CHECK( 13 == jValue.GG().size() );
-          CHECK( Approx(2.0500E-1) == jValue.GG().front() );
-          CHECK( Approx(2.0500E-1) == jValue.GG()[ 0  ] );
-          CHECK( Approx(2.0510E-1) == jValue.GG()[ 1  ] );
-          CHECK( Approx(2.0520E-1) == jValue.GG()[ 2  ] );
-          CHECK( Approx(2.0530E-1) == jValue.GG()[ 3  ] );
-          CHECK( Approx(2.0540E-1) == jValue.GG()[ 4  ] );
-          CHECK( Approx(2.0550E-1) == jValue.GG()[ 5  ] );
-          CHECK( Approx(2.0560E-1) == jValue.GG()[ 6  ] );
-          CHECK( Approx(2.0570E-1) == jValue.GG()[ 7  ] );
-          CHECK( Approx(2.0580E-1) == jValue.GG()[ 8  ] );
-          CHECK( Approx(2.0590E-1) == jValue.GG()[ 9  ] );
-          CHECK( Approx(2.0510E-1) == jValue.GG()[ 10 ] );
-          CHECK( Approx(2.0511E-1) == jValue.GG()[ 11 ] );
-          CHECK( Approx(2.0512E-1) == jValue.GG()[ 12 ] );
-          CHECK( Approx(2.0512E-1) == jValue.GG().back() );
+      THEN( "it can be printed" ) {
 
-          CHECK( 13 == jValue.GF().size() );
-          CHECK( Approx(0.0) == jValue.GF().front() );
-          CHECK( Approx(0.0) == jValue.GF()[ 0  ] );
-          CHECK( Approx(1.0) == jValue.GF()[ 1  ] );
-          CHECK( Approx(2.0) == jValue.GF()[ 2  ] );
-          CHECK( Approx(3.0) == jValue.GF()[ 3  ] );
-          CHECK( Approx(4.0) == jValue.GF()[ 4  ] );
-          CHECK( Approx(5.0) == jValue.GF()[ 5  ] );
-          CHECK( Approx(6.0) == jValue.GF()[ 6  ] );
-          CHECK( Approx(7.0) == jValue.GF()[ 7  ] );
-          CHECK( Approx(8.0) == jValue.GF()[ 8  ] );
-          CHECK( Approx(9.0) == jValue.GF()[ 9  ] );
-          CHECK( Approx(1.0) == jValue.GF()[ 10 ] );
-          CHECK( Approx(1.1) == jValue.GF()[ 11 ] );
-          CHECK( Approx(1.2) == jValue.GF()[ 12 ] );
-          CHECK( Approx(1.2) == jValue.GF().back() );
-        }
-
-        SECTION( "L == 1" ){
-          auto lValue = ted.lValues()[1];
-          CHECK( Approx(8.91354E1) == lValue.AWRI() );
-          CHECK( 1 == lValue.L() );
-          CHECK( 2 == lValue.jValues().size() );
-        }
-
-      }
-
-      SECTION( "print" ){
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        ted.print( output, MAT, MF, MT );
+        chunk.print( output, 3843, 2, 151 );
 
-        // CHECK( buffer == baseString + LRF2() );
+        CHECK( buffer == string );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is read from a string/stream" ) {
+
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      EnergyDependent chunk( begin, end, lineNumber, 3843, 2, 151 );
+
+      THEN( "a EnergyDependent can be constructed and members can be tested" ) {
+
+        verifyChunk( chunk );
       }
-    }
-    WHEN( "NRO != 0" ){
-      std::string caseC = Tab1() + LRF2();
-      auto begin = caseC.begin();
-      auto end = caseC.end();
 
-      resonanceParameters::Base base( 6.0E3, 1.0E5, 2, 2, 1, 0 );
-      resonanceParameters::unresolved::EnergyDependent ted( 
-          base, begin, end, lineNumber, MAT, MF, MT );
+      THEN( "it can be printed" ) {
 
-      THEN( "the parameters can be verified" ){
-        CHECK( 6E3 == ted.EL() );
-        CHECK(1E5 == ted.EH() );
-        CHECK( 1 == ted.NRO() );
-        CHECK( 0 == ted.NAPS() );
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3843, 2, 151 );
 
-        CHECK( 0.0 == ted.SPI() );
-        CHECK( 6.7959E-1 == Approx( ted.AP() ) );
-        CHECK( 0 == ted.LSSF() );
-        CHECK( 3 == ted.NLS() );
-        CHECK( 3 == ted.lValues().size() );
+        CHECK( buffer == string );
+      } // THEN
+    } // WHEN
+  } // GIVEN
 
-        CHECK( 1 == ted.APE().NR() );
-        CHECK( 50 == ted.APE().NP() );
-        CHECK( 50 == ted.APE().x().size() );
-        CHECK( 50 == ted.APE().y().size() );
-        CHECK( 1.0E-5 == Approx( ted.APE().x().front() ) );
-        CHECK( 1.2381 == Approx( ted.APE().y().front() ) );
-        CHECK( 2.0E5 == Approx( ted.APE().x().back() ) );
-        CHECK( 0.5803 == Approx( ted.APE().y().back() ) );
-      }
-    }
-  }
-  GIVEN( "invalid ENDF parameters" ){
-    long lineNumber = 0;
-    int MAT = 3843;
-    int MF = 2;
-    int MT = 151;
+  GIVEN( "invalid data" ) {
 
-    std::string caseC = LRF2();
-    caseC[53] = '-';
-    auto begin = caseC.begin();
-    auto end = caseC.end();
+    WHEN( "no l values are given" ) {
 
-    THEN( "an exception is thrown" ){
-      resonanceParameters::Base base( 6.0E3, 1.0E5, 2, 2, 0, 0 );
-      CHECK_THROWS(
-        resonanceParameters::unresolved::EnergyDependent( 
-            base, begin, end, lineNumber, MAT, MF, MT ) );
-    }
-  }
-}
+      double spin = 0.0;
+      double ap = 0.67959;
+      bool lssf = false;
 
-std::string LRF2(){
+      std::vector< LValue > lvalues = {};
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( EnergyDependent( spin, ap, lssf, std::move( lvalues ) ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a string with no l values is used" ) {
+
+      std::string string = chunkWithNoLValues();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( EnergyDependent( begin, end, lineNumber, 3843, 2, 151 ) );
+      } // THEN
+    } // WHEN
+  } // GIVEN
+} // SCENARIO
+
+std::string chunk() {
   return
-    /* Isotope
-       " 3.809000+4 8.913540+1          0          0          1          03843 2151    1\n"
-       " 3.809000+4 1.000000+0          0          1          1          03843 2151    2\n"
-    */
-    /* base
-       " 6.000000+3 1.000000+5          2          2          0          03843 2151    3\n"
-    */
-    // range CONT
-    " 0.000000+0 6.795900-1          0          0          3          03843 2151     \n"
-    // L=0 CONT                                                                      
+    " 0.000000+0 6.795900-1          0          0          2          03843 2151     \n"
+    // L=0
     " 8.913540+1 0.000000+0          0          0          1          03843 2151     \n"
-    // L=0 LIST                                                                      
-    " 5.000000-1 0.000000+0          5          0         84         133843 2151     \n"
+    // L=0 J=0.5
+    " 5.000000-1 0.000000+0          5          0         18          23843 2151     \n"
     " 0.000000+0 0.000000+0 1.000000+0 2.000000+0 3.000000+0 4.000000+03843 2151     \n"
     " 6.000000+3 1.240600+4 0.000000+0 4.590100-1 2.050000-1 0.000000+03843 2151     \n"
-    " 7.000000+3 1.240600+4 0.100000+0 4.590100-1 2.051000-1 1.000000+03843 2151     \n"
-    " 8.000000+3 1.240600+4 0.200000+0 4.590100-1 2.052000-1 2.000000+03843 2151     \n"
-    " 1.000000+4 1.231300+4 0.300000+0 4.555800-1 2.053000-1 3.000000+03843 2151     \n"
-    " 1.500000+4 1.226300+4 0.400000+0 4.537400-1 2.054000-1 4.000000+03843 2151     \n"
-    " 2.500000+4 1.212200+4 0.500000+0 4.485000-1 2.055000-1 5.000000+03843 2151     \n"
-    " 3.000000+4 1.205400+4 0.600000+0 4.460100-1 2.056000-1 6.000000+03843 2151     \n"
-    " 4.000000+4 1.191800+4 0.700000+0 4.409700-1 2.057000-1 7.000000+03843 2151     \n"
-    " 5.000000+4 1.181000+4 0.800000+0 4.369800-1 2.058000-1 8.000000+03843 2151     \n"
-    " 6.000000+4 1.113000+4 0.900000+0 4.118100-1 2.059000-1 9.000000+03843 2151     \n"
-    " 7.000000+4 1.077400+4 0.100000+0 3.986200-1 2.051000-1 1.000000+03843 2151     \n"
-    " 8.000000+4 1.039500+4 0.110000+0 3.846100-1 2.051100-1 1.100000+03843 2151     \n"
-    " 1.000000+5 9.669700+3 0.120000+0 3.577800-1 2.051200-1 1.200000+03843 2151     \n"
-    // L=1 CONT                                                                      
+    " 8.000000+3 1.240600+4 1.000000-1 4.590100-1 2.051000-1 0.000000+03843 2151     \n"
+    // L=1
     " 8.913540+1 0.000000+0          1          0          2          03843 2151     \n"
-    // L=1,J=0 LIST                                                                  
-    " 5.000000-1 0.000000+0          5          0         84         133843 2151     \n"
-    " 0.000000+0 0.000000+0 0.000000+0 1.000000+0 0.000000+0 0.000000+03843 2151     \n"
+    // L=1 J=0.5
+    " 5.000000-1 0.000000+0          5          0         24          33843 2151     \n"
+    " 0.000000+0 0.000000+0 4.000000+0 3.000000+0 2.000000+0 1.000000+03843 2151     \n"
     " 6.000000+3 1.240600+4 0.000000+0 6.723800+0 2.050000-1 0.000000+03843 2151     \n"
     " 7.000000+3 1.240600+4 0.000000+0 6.723800+0 2.050000-1 0.000000+03843 2151     \n"
     " 8.000000+3 1.240600+4 0.000000+0 6.723800+0 2.050000-1 0.000000+03843 2151     \n"
-    " 1.000000+4 1.231300+4 0.000000+0 6.673600+0 2.050000-1 0.000000+03843 2151     \n"
-    " 1.500000+4 1.226300+4 0.000000+0 6.646600+0 2.050000-1 0.000000+03843 2151     \n"
-    " 2.500000+4 1.212200+4 0.000000+0 6.569900+0 2.050000-1 0.000000+03843 2151     \n"
-    " 3.000000+4 1.205400+4 0.000000+0 6.533500+0 2.050000-1 0.000000+03843 2151     \n"
-    " 4.000000+4 1.191800+4 0.000000+0 6.459600+0 2.050000-1 0.000000+03843 2151     \n"
-    " 5.000000+4 1.181000+4 0.000000+0 6.401200+0 2.050000-1 0.000000+03843 2151     \n"
-    " 6.000000+4 1.113000+4 0.000000+0 6.032400+0 2.050000-1 0.000000+03843 2151     \n"
-    " 7.000000+4 1.077400+4 0.000000+0 5.839300+0 2.050000-1 0.000000+03843 2151     \n"
-    " 8.000000+4 1.039500+4 0.000000+0 5.634100+0 2.050000-1 0.000000+03843 2151     \n"
-    " 1.000000+5 9.669700+3 0.000000+0 5.241000+0 2.050000-1 0.000000+03843 2151     \n"
-    // L=1,J=1 LIST                                                                  
-    " 1.500000+0 0.000000+0          5          0         84         133843 2151     \n"
-    " 0.000000+0 0.000000+0 0.000000+0 1.000000+0 0.000000+0 0.000000+03843 2151     \n"
+    // L=1 J=1.5
+    " 1.500000+0 0.000000+0          5          0         18          23843 2151     \n"
+    " 0.000000+0 0.000000+0 0.000000+0 1.000000+0 4.000000+0 2.000000+03843 2151     \n"
     " 6.000000+3 6.202800+3 0.000000+0 3.361900+0 2.050000-1 0.000000+03843 2151     \n"
-    " 7.000000+3 6.202800+3 0.000000+0 3.361900+0 2.050000-1 0.000000+03843 2151     \n"
-    " 8.000000+3 6.202800+3 0.000000+0 3.361900+0 2.050000-1 0.000000+03843 2151     \n"
-    " 1.000000+4 6.156500+3 0.000000+0 3.336800+0 2.050000-1 0.000000+03843 2151     \n"
-    " 1.500000+4 6.131600+3 0.000000+0 3.323300+0 2.050000-1 0.000000+03843 2151     \n"
-    " 2.500000+4 6.060800+3 0.000000+0 3.285000+0 2.050000-1 0.000000+03843 2151     \n"
-    " 3.000000+4 6.027200+3 0.000000+0 3.266800+0 2.050000-1 0.000000+03843 2151     \n"
-    " 4.000000+4 5.959100+3 0.000000+0 3.229800+0 2.050000-1 0.000000+03843 2151     \n"
-    " 5.000000+4 5.905100+3 0.000000+0 3.200600+0 2.050000-1 0.000000+03843 2151     \n"
-    " 6.000000+4 5.564900+3 0.000000+0 3.016200+0 2.050000-1 0.000000+03843 2151     \n"
-    " 7.000000+4 5.386800+3 0.000000+0 2.919600+0 2.050000-1 0.000000+03843 2151     \n"
-    " 8.000000+4 5.197500+3 0.000000+0 2.817000+0 2.050000-1 0.000000+03843 2151     \n"
-    " 1.000000+5 4.834900+3 0.000000+0 2.620500+0 2.050000-1 0.000000+03843 2151     \n"
-    // L=2 CONT                                                                      
-    " 8.913540+1 0.000000+0          2          0          2          03843 2151     \n"
-    // L=2,J=0 LIST                                                                  
-    " 1.500000+0 0.000000+0          5          0         84         133843 2151     \n"
-    " 0.000000+0 0.000000+0 0.000000+0 1.000000+0 0.000000+0 0.000000+03843 2151     \n"
-    " 6.000000+3 6.202800+3 0.000000+0 2.233000-1 2.050000-1 0.000000+03843 2151     \n"
-    " 7.000000+3 6.202800+3 0.000000+0 2.233000-1 2.050000-1 0.000000+03843 2151     \n"
-    " 8.000000+3 6.202800+3 0.000000+0 2.233000-1 2.050000-1 0.000000+03843 2151     \n"
-    " 1.000000+4 6.156500+3 0.000000+0 2.216300-1 2.050000-1 0.000000+03843 2151     \n"
-    " 1.500000+4 6.131600+3 0.000000+0 2.207400-1 2.050000-1 0.000000+03843 2151     \n"
-    " 2.500000+4 6.060800+3 0.000000+0 2.181900-1 2.050000-1 0.000000+03843 2151     \n"
-    " 3.000000+4 6.027200+3 0.000000+0 2.169800-1 2.050000-1 0.000000+03843 2151     \n"
-    " 4.000000+4 5.959100+3 0.000000+0 2.145300-1 2.050000-1 0.000000+03843 2151     \n"
-    " 5.000000+4 5.905100+3 0.000000+0 2.125900-1 2.050000-1 0.000000+03843 2151     \n"
-    " 6.000000+4 5.564900+3 0.000000+0 2.003400-1 2.050000-1 0.000000+03843 2151     \n"
-    " 7.000000+4 5.386800+3 0.000000+0 1.939200-1 2.050000-1 0.000000+03843 2151     \n"
-    " 8.000000+4 5.197500+3 0.000000+0 1.871100-1 2.050000-1 0.000000+03843 2151     \n"
-    " 1.000000+5 4.834900+3 0.000000+0 1.740500-1 2.050000-1 0.000000+03843 2151     \n"
-    // L=2,J=1 LIST                                                                  
-    " 2.500000+0 0.000000+0          5          0         84         133843 2151     \n"
-    " 0.000000+0 0.000000+0 0.000000+0 1.000000+0 0.000000+0 0.000000+03843 2151     \n"
-    " 6.000000+3 4.135200+3 0.000000+0 1.488700-1 2.050000-1 0.000000+03843 2151     \n"
-    " 7.000000+3 4.135200+3 0.000000+0 1.488700-1 2.050000-1 0.000000+03843 2151     \n"
-    " 8.000000+3 4.135200+3 0.000000+0 1.488700-1 2.050000-1 0.000000+03843 2151     \n"
-    " 1.000000+4 4.104300+3 0.000000+0 1.477600-1 2.050000-1 0.000000+03843 2151     \n"
-    " 1.500000+4 4.087700+3 0.000000+0 1.471600-1 2.050000-1 0.000000+03843 2151     \n"
-    " 2.500000+4 4.040500+3 0.000000+0 1.454600-1 2.050000-1 0.000000+03843 2151     \n"
-    " 3.000000+4 4.018100+3 0.000000+0 1.446500-1 2.050000-1 0.000000+03843 2151     \n"
-    " 4.000000+4 3.972700+3 0.000000+0 1.430200-1 2.050000-1 0.000000+03843 2151     \n"
-    " 5.000000+4 3.936800+3 0.000000+0 1.417200-1 2.050000-1 0.000000+03843 2151     \n"
-    " 6.000000+4 3.710000+3 0.000000+0 1.335600-1 2.050000-1 0.000000+03843 2151     \n"
-    " 7.000000+4 3.591200+3 0.000000+0 1.292800-1 2.050000-1 0.000000+03843 2151     \n"
-    " 8.000000+4 3.465000+3 0.000000+0 1.247400-1 2.050000-1 0.000000+03843 2151     \n"
-    " 1.000000+5 3.223200+3 0.000000+0 1.160400-1 2.050000-1 0.000000+03843 2151     \n";
-}                                                                                  
-                                                                                   
-std::string Tab1(){                                                                
-  return                                                                           
-    " 0.000000+0 0.000000+0          0          0          1         503843 2151     \n"
-    "         50          2                                            3843 2151     \n"
-    " 1.000000-5 1.238100+0 4.000000+1 1.188400+0 5.000000+1 1.153200+03843 2151     \n"
-    " 6.000000+1 1.126500+0 7.000000+1 1.105300+0 8.000000+1 1.087800+03843 2151     \n"
-    " 9.000000+1 1.073100+0 1.000000+2 1.060500+0 2.000000+2 9.888000-13843 2151     \n"
-    " 3.000000+2 9.547000-1 4.000000+2 9.334000-1 5.000000+2 9.184000-13843 2151     \n"
-    " 6.000000+2 9.069000-1 7.000000+2 8.978000-1 8.000000+2 8.903000-13843 2151     \n"
-    " 9.000000+2 8.839000-1 1.000000+3 8.783000-1 2.000000+3 8.456000-13843 2151     \n"
-    " 3.000000+3 8.286000-1 4.000000+3 8.170000-1 5.000000+3 8.081000-13843 2151     \n"
-    " 6.000000+3 8.008000-1 7.000000+3 7.946000-1 8.000000+3 7.892000-13843 2151     \n"
-    " 9.000000+3 7.844000-1 1.000000+4 7.800000-1 1.200000+4 7.721000-13843 2151     \n"
-    " 1.400000+4 7.653000-1 1.600000+4 7.592000-1 1.800000+4 7.536000-13843 2151     \n"
-    " 2.000000+4 7.484000-1 2.500000+4 7.369000-1 3.000000+4 7.269000-13843 2151     \n"
-    " 3.500000+4 7.180000-1 4.000000+4 7.098000-1 4.200000+4 7.067000-13843 2151     \n"
-    " 4.400000+4 7.038000-1 4.600000+4 7.009000-1 4.800000+4 6.980000-13843 2151     \n"
-    " 5.000000+4 6.953000-1 5.500000+4 6.888000-1 6.000000+4 6.826000-13843 2151     \n"
-    " 6.500000+4 6.767000-1 7.000000+4 6.712000-1 7.500000+4 6.659000-13843 2151     \n"
-    " 8.000000+4 6.608000-1 8.500000+4 6.560000-1 9.000000+4 6.513000-13843 2151     \n"
-    " 9.500000+4 6.469000-1 2.000000+5 5.803000-1                      3843 2151     \n";
+    " 8.000000+3 6.202800+3 0.000000+0 3.361900+0 2.050000-1 0.000000+03843 2151     \n";
 }
 
+void verifyChunk( const EnergyDependent& chunk ) {
+
+  CHECK( 2 == chunk.LRU() );
+  CHECK( 2 == chunk.type() );
+  CHECK( 2 == chunk.LRF() );
+  CHECK( 2 == chunk.representation() );
+  CHECK( false == chunk.LFW() );
+  CHECK( false == chunk.averageFissionWidthFlag() );
+
+  CHECK( 0.0 == Approx( chunk.SPI() ) );
+  CHECK( 0.0 == Approx( chunk.spin() ) );
+  CHECK( 0.67959 == Approx( chunk.AP() ) );
+  CHECK( 0.67959 == Approx( chunk.scatteringRadius() ) );
+  CHECK( false == Approx( chunk.LSSF() ) );
+  CHECK( false == Approx( chunk.selfShieldingOnly() ) );
+
+  CHECK( 2 == chunk.NLS() );
+
+  auto lvalue0 = chunk.lValues()[0];
+  CHECK( 89.1354 == Approx( lvalue0.AWRI() ) );
+  CHECK( 89.1354 == Approx( lvalue0.atomicWeightRatio() ) );
+  CHECK( 0 == lvalue0.L() );
+  CHECK( 0 == lvalue0.orbitalMomentum() );
+  CHECK( 1 == lvalue0.NJS() );
+  CHECK( 1 == lvalue0.numberSpinValues() );
+
+  auto jvalue00 = lvalue0.jValues()[0];
+  CHECK( 0.5 == Approx( jvalue00.AJ() ) );
+  CHECK( 0.5 == Approx( jvalue00.spin() ) );
+
+  CHECK( 2 == jvalue00.AMUN() );
+  CHECK( 2 == jvalue00.neutronWidthDegreesFreedom() );
+  CHECK( 3 == jvalue00.AMUG() );
+  CHECK( 3 == jvalue00.gammaWidthDegreesFreedom() );
+  CHECK( 4 == jvalue00.AMUF() );
+  CHECK( 4 == jvalue00.fissionWidthDegreesFreedom() );
+  CHECK( 1 == jvalue00.AMUX() );
+  CHECK( 1 == jvalue00.competitiveWidthDegreesFreedom() );
+
+  CHECK( 5 == jvalue00.INT() );
+
+  CHECK( 1 == jvalue00.NR() );
+  CHECK( 1 == jvalue00.interpolants().size() );
+  CHECK( 1 == jvalue00.boundaries().size() );
+  CHECK( 5 == jvalue00.interpolants()[0] );
+  CHECK( 2 == jvalue00.boundaries()[0] );
+
+  CHECK( 2 == jvalue00.NE() );
+  CHECK( 2 == jvalue00.ES().size() );
+  CHECK( 2 == jvalue00.energies().size() );
+  CHECK( 2 == jvalue00.D().size() );
+  CHECK( 2 == jvalue00.averageLevelSpacings().size() );
+  CHECK( 2 == jvalue00.GN().size() );
+  CHECK( 2 == jvalue00.averageNeutronWidths().size() );
+  CHECK( 2 == jvalue00.GG().size() );
+  CHECK( 2 == jvalue00.averageGammaWidths().size() );
+  CHECK( 2 == jvalue00.GF().size() );
+  CHECK( 2 == jvalue00.averageFissionWidths().size() );
+  CHECK( 2 == jvalue00.GX().size() );
+  CHECK( 2 == jvalue00.averageCompetitiveWidths().size() );
+
+  CHECK( 6000. == Approx( jvalue00.ES()[0] ) );
+  CHECK( 8000. == Approx( jvalue00.ES()[1] ) );
+  CHECK( 6000. == Approx( jvalue00.energies()[0] ) );
+  CHECK( 8000. == Approx( jvalue00.energies()[1] ) );
+  CHECK( 12406 == Approx( jvalue00.D()[0] ) );
+  CHECK( 12406 == Approx( jvalue00.D()[1] ) );
+  CHECK( 12406 == Approx( jvalue00.averageLevelSpacings()[0] ) );
+  CHECK( 12406 == Approx( jvalue00.averageLevelSpacings()[1] ) );
+  CHECK( 0.45901 == Approx( jvalue00.GN()[0] ) );
+  CHECK( 0.45901 == Approx( jvalue00.GN()[1] ) );
+  CHECK( 0.45901 == Approx( jvalue00.averageNeutronWidths()[0] ) );
+  CHECK( 0.45901 == Approx( jvalue00.averageNeutronWidths()[1] ) );
+  CHECK( 0.2050 == Approx( jvalue00.GG()[0] ) );
+  CHECK( 0.2051 == Approx( jvalue00.GG()[1] ) );
+  CHECK( 0.2050 == Approx( jvalue00.averageGammaWidths()[0] ) );
+  CHECK( 0.2051 == Approx( jvalue00.averageGammaWidths()[1] ) );
+  CHECK( 0. == Approx( jvalue00.GF()[0] ) );
+  CHECK( 0. == Approx( jvalue00.GF()[1] ) );
+  CHECK( 0. == Approx( jvalue00.averageFissionWidths()[0] ) );
+  CHECK( 0. == Approx( jvalue00.averageFissionWidths()[1] ) );
+  CHECK( 0. == Approx( jvalue00.GX()[0] ) );
+  CHECK( .1 == Approx( jvalue00.GX()[1] ) );
+  CHECK( 0. == Approx( jvalue00.averageCompetitiveWidths()[0] ) );
+  CHECK( .1 == Approx( jvalue00.averageCompetitiveWidths()[1] ) );
+
+  auto lvalue1 = chunk.lValues()[1];
+  CHECK( 89.1354 == Approx( lvalue1.AWRI() ) );
+  CHECK( 89.1354 == Approx( lvalue1.atomicWeightRatio() ) );
+  CHECK( 1 == lvalue1.L() );
+  CHECK( 1 == lvalue1.orbitalMomentum() );
+  CHECK( 2 == lvalue1.NJS() );
+  CHECK( 2 == lvalue1.numberSpinValues() );
+
+  auto jvalue10 = lvalue1.jValues()[0];
+  CHECK( 0.5 == Approx( jvalue10.AJ() ) );
+  CHECK( 0.5 == Approx( jvalue10.spin() ) );
+
+  CHECK( 3 == jvalue10.AMUN() );
+  CHECK( 3 == jvalue10.neutronWidthDegreesFreedom() );
+  CHECK( 2 == jvalue10.AMUG() );
+  CHECK( 2 == jvalue10.gammaWidthDegreesFreedom() );
+  CHECK( 1 == jvalue10.AMUF() );
+  CHECK( 1 == jvalue10.fissionWidthDegreesFreedom() );
+  CHECK( 4 == jvalue10.AMUX() );
+  CHECK( 4 == jvalue10.competitiveWidthDegreesFreedom() );
+
+  CHECK( 5 == jvalue10.INT() );
+
+  CHECK( 1 == jvalue10.NR() );
+  CHECK( 1 == jvalue10.interpolants().size() );
+  CHECK( 1 == jvalue10.boundaries().size() );
+  CHECK( 5 == jvalue10.interpolants()[0] );
+  CHECK( 3 == jvalue10.boundaries()[0] );
+
+  CHECK( 3 == jvalue10.NE() );
+  CHECK( 3 == jvalue10.ES().size() );
+  CHECK( 3 == jvalue10.energies().size() );
+  CHECK( 3 == jvalue10.D().size() );
+  CHECK( 3 == jvalue10.averageLevelSpacings().size() );
+  CHECK( 3 == jvalue10.GN().size() );
+  CHECK( 3 == jvalue10.averageNeutronWidths().size() );
+  CHECK( 3 == jvalue10.GG().size() );
+  CHECK( 3 == jvalue10.averageGammaWidths().size() );
+  CHECK( 3 == jvalue10.GF().size() );
+  CHECK( 3 == jvalue10.averageFissionWidths().size() );
+  CHECK( 3 == jvalue10.GX().size() );
+  CHECK( 3 == jvalue10.averageCompetitiveWidths().size() );
+
+  CHECK( 6000. == Approx( jvalue10.ES()[0] ) );
+  CHECK( 7000. == Approx( jvalue10.ES()[1] ) );
+  CHECK( 8000. == Approx( jvalue10.ES()[2] ) );
+  CHECK( 6000. == Approx( jvalue10.energies()[0] ) );
+  CHECK( 7000. == Approx( jvalue10.energies()[1] ) );
+  CHECK( 8000. == Approx( jvalue10.energies()[2] ) );
+  CHECK( 12406. == Approx( jvalue10.D()[0] ) );
+  CHECK( 12406. == Approx( jvalue10.D()[1] ) );
+  CHECK( 12406. == Approx( jvalue10.D()[2] ) );
+  CHECK( 12406. == Approx( jvalue10.averageLevelSpacings()[0] ) );
+  CHECK( 12406. == Approx( jvalue10.averageLevelSpacings()[1] ) );
+  CHECK( 12406. == Approx( jvalue10.averageLevelSpacings()[2] ) );
+  CHECK( 6.7238 == Approx( jvalue10.GN()[0] ) );
+  CHECK( 6.7238 == Approx( jvalue10.GN()[1] ) );
+  CHECK( 6.7238 == Approx( jvalue10.GN()[2] ) );
+  CHECK( 6.7238 == Approx( jvalue10.averageNeutronWidths()[0] ) );
+  CHECK( 6.7238 == Approx( jvalue10.averageNeutronWidths()[1] ) );
+  CHECK( 6.7238 == Approx( jvalue10.averageNeutronWidths()[2] ) );
+  CHECK( 0.205 == Approx( jvalue10.GG()[0] ) );
+  CHECK( 0.205 == Approx( jvalue10.GG()[1] ) );
+  CHECK( 0.205 == Approx( jvalue10.GG()[2] ) );
+  CHECK( 0.205 == Approx( jvalue10.averageGammaWidths()[0] ) );
+  CHECK( 0.205 == Approx( jvalue10.averageGammaWidths()[1] ) );
+  CHECK( 0.205 == Approx( jvalue10.averageGammaWidths()[2] ) );
+  CHECK( 0. == Approx( jvalue10.GF()[0] ) );
+  CHECK( 0. == Approx( jvalue10.GF()[1] ) );
+  CHECK( 0. == Approx( jvalue10.GF()[2] ) );
+  CHECK( 0. == Approx( jvalue10.averageFissionWidths()[0] ) );
+  CHECK( 0. == Approx( jvalue10.averageFissionWidths()[1] ) );
+  CHECK( 0. == Approx( jvalue10.averageFissionWidths()[2] ) );
+  CHECK( 0. == Approx( jvalue10.GX()[0] ) );
+  CHECK( 0. == Approx( jvalue10.GX()[1] ) );
+  CHECK( 0. == Approx( jvalue10.GX()[2] ) );
+  CHECK( 0. == Approx( jvalue10.averageCompetitiveWidths()[0] ) );
+  CHECK( 0. == Approx( jvalue10.averageCompetitiveWidths()[1] ) );
+  CHECK( 0. == Approx( jvalue10.averageCompetitiveWidths()[2] ) );
+
+  auto jvalue11 = lvalue1.jValues()[1];
+  CHECK( 1.5 == Approx( jvalue11.AJ() ) );
+  CHECK( 1.5 == Approx( jvalue11.spin() ) );
+
+  CHECK( 1 == jvalue11.AMUN() );
+  CHECK( 1 == jvalue11.neutronWidthDegreesFreedom() );
+  CHECK( 4 == jvalue11.AMUG() );
+  CHECK( 4 == jvalue11.gammaWidthDegreesFreedom() );
+  CHECK( 2 == jvalue11.AMUF() );
+  CHECK( 2 == jvalue11.fissionWidthDegreesFreedom() );
+  CHECK( 0 == jvalue11.AMUX() );
+  CHECK( 0 == jvalue11.competitiveWidthDegreesFreedom() );
+
+  CHECK( 5 == jvalue11.INT() );
+
+  CHECK( 1 == jvalue11.NR() );
+  CHECK( 1 == jvalue11.interpolants().size() );
+  CHECK( 1 == jvalue11.boundaries().size() );
+  CHECK( 5 == jvalue11.interpolants()[0] );
+  CHECK( 2 == jvalue11.boundaries()[0] );
+
+  CHECK( 2 == jvalue11.NE() );
+  CHECK( 2 == jvalue11.ES().size() );
+  CHECK( 2 == jvalue11.energies().size() );
+  CHECK( 2 == jvalue11.D().size() );
+  CHECK( 2 == jvalue11.averageLevelSpacings().size() );
+  CHECK( 2 == jvalue11.GN().size() );
+  CHECK( 2 == jvalue11.averageNeutronWidths().size() );
+  CHECK( 2 == jvalue11.GG().size() );
+  CHECK( 2 == jvalue11.averageGammaWidths().size() );
+  CHECK( 2 == jvalue11.GF().size() );
+  CHECK( 2 == jvalue11.averageFissionWidths().size() );
+  CHECK( 2 == jvalue11.GX().size() );
+  CHECK( 2 == jvalue11.averageCompetitiveWidths().size() );
+
+  CHECK( 6000. == Approx( jvalue11.ES()[0] ) );
+  CHECK( 8000. == Approx( jvalue11.ES()[1] ) );
+  CHECK( 6000. == Approx( jvalue11.energies()[0] ) );
+  CHECK( 8000. == Approx( jvalue11.energies()[1] ) );
+  CHECK( 6202.8 == Approx( jvalue11.D()[0] ) );
+  CHECK( 6202.8 == Approx( jvalue11.D()[1] ) );
+  CHECK( 6202.8 == Approx( jvalue11.averageLevelSpacings()[0] ) );
+  CHECK( 6202.8 == Approx( jvalue11.averageLevelSpacings()[1] ) );
+  CHECK( 3.3619 == Approx( jvalue11.GN()[0] ) );
+  CHECK( 3.3619 == Approx( jvalue11.GN()[1] ) );
+  CHECK( 3.3619 == Approx( jvalue11.averageNeutronWidths()[0] ) );
+  CHECK( 3.3619 == Approx( jvalue11.averageNeutronWidths()[1] ) );
+  CHECK( 0.205 == Approx( jvalue11.GG()[0] ) );
+  CHECK( 0.205 == Approx( jvalue11.GG()[1] ) );
+  CHECK( 0.205 == Approx( jvalue11.averageGammaWidths()[0] ) );
+  CHECK( 0.205 == Approx( jvalue11.averageGammaWidths()[1] ) );
+  CHECK( 0. == Approx( jvalue11.GF()[0] ) );
+  CHECK( 0. == Approx( jvalue11.GF()[1] ) );
+  CHECK( 0. == Approx( jvalue11.averageFissionWidths()[0] ) );
+  CHECK( 0. == Approx( jvalue11.averageFissionWidths()[1] ) );
+  CHECK( 0. == Approx( jvalue11.GX()[0] ) );
+  CHECK( 0. == Approx( jvalue11.GX()[1] ) );
+  CHECK( 0. == Approx( jvalue11.averageCompetitiveWidths()[0] ) );
+  CHECK( 0. == Approx( jvalue11.averageCompetitiveWidths()[1] ) );
+
+  CHECK( 16 == chunk.NC() );
+}
+
+std::string chunkWithNoLValues() {
+  return
+    " 0.000000+0 6.795900-1          0          0          0          03843 2151     \n";
+}

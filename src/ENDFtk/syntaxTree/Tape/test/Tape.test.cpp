@@ -33,8 +33,8 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
           njoy::utility::copy( tapeString ) );
 
         THEN("the iterator-based factory function will return the same type"){
-          auto trial = syntaxTree::makeTape( 
-              njoy::utility::copy( tapeString ) );
+          std::string copy = njoy::utility::copy( tapeString );
+          auto trial = syntaxTree::makeTape( std::move( copy ) );
           constexpr bool isSame =
             std::is_same<decltype(reference), decltype(trial)>::value;
           CHECK( isSame );

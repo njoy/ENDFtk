@@ -318,7 +318,7 @@ void verifyChunkWithLANG1( const ContinuumEnergyAngle& chunk ) {
       REQUIRE( 4 == energies[0].numberSecondaryEnergies() );
 
       auto subsection1 =
-          std::experimental::get< LegendreCoefficients >( energies[0].data() );
+          std::get< LegendreCoefficients >( energies[0].data() );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
       REQUIRE( 1 == subsection1.NA() );
@@ -357,7 +357,7 @@ void verifyChunkWithLANG1( const ContinuumEnergyAngle& chunk ) {
       REQUIRE( 2 == energies[1].numberSecondaryEnergies() );
 
       auto subsection2 =
-          std::experimental::get< LegendreCoefficients >( energies[1].data() );
+          std::get< LegendreCoefficients >( energies[1].data() );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
@@ -416,7 +416,7 @@ void verifyChunkWithLANG2( const ContinuumEnergyAngle& chunk ) {
       REQUIRE( 2 == energies[0].numberSecondaryEnergies() );
 
       auto subsection1 =
-          std::experimental::get< KalbachMann >( energies[0].data() );
+          std::get< KalbachMann >( energies[0].data() );
       REQUIRE( 2 == subsection1.LANG() );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
@@ -448,7 +448,7 @@ void verifyChunkWithLANG2( const ContinuumEnergyAngle& chunk ) {
       REQUIRE( 2 == energies[1].numberSecondaryEnergies() );
 
       auto subsection2 =
-          std::experimental::get< KalbachMann >( energies[1].data() );
+          std::get< KalbachMann >( energies[1].data() );
       REQUIRE( 2 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
@@ -510,7 +510,7 @@ void verifyChunkWithLANG14( const ContinuumEnergyAngle& chunk ) {
       REQUIRE( 2 == energies[0].numberSecondaryEnergies() );
 
       auto subsection1 =
-          std::experimental::get< Tabulated >( energies[0].data() );
+          std::get< Tabulated >( energies[0].data() );
       REQUIRE( 14 == subsection1.LANG() );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
@@ -547,7 +547,7 @@ void verifyChunkWithLANG14( const ContinuumEnergyAngle& chunk ) {
       REQUIRE( 2 == energies[1].numberSecondaryEnergies() );
 
       auto subsection2 =
-          std::experimental::get< Tabulated >( energies[1].data() );
+          std::get< Tabulated >( energies[1].data() );
       REQUIRE( 14 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 0 == energies[1].numberDiscreteEnergies() );

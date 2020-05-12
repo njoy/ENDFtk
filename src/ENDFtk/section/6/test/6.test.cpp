@@ -125,7 +125,7 @@ SCENARIO( "section::Type< 6 >" ) {
                Approx( products[0].multiplicity().multiplicities()[3] ) );
 
       auto law =
-          std::experimental::get< ContinuumEnergyAngle >(
+          std::get< ContinuumEnergyAngle >(
               products[0].distribution() );
 
       REQUIRE( 1 == law.LAW() );
@@ -150,7 +150,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 4 == energies[0].numberSecondaryEnergies() );
 
       auto subsection1 =
-          std::experimental::get< LegendreCoefficients >( energies[0].data() );
+          std::get< LegendreCoefficients >( energies[0].data() );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
       REQUIRE( 1 == subsection1.NA() );
@@ -189,7 +189,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 2 == energies[1].numberSecondaryEnergies() );
 
       auto subsection2 =
-          std::experimental::get< LegendreCoefficients >( energies[1].data() );
+          std::get< LegendreCoefficients >( energies[1].data() );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 0 == subsection2.numberDiscreteEnergies() );
@@ -241,7 +241,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 4. == Approx( products[1].multiplicity().multiplicities()[1] ) );
 
       law =
-          std::experimental::get< ContinuumEnergyAngle >(
+          std::get< ContinuumEnergyAngle >(
               products[1].distribution() );
 
       REQUIRE( 1 == law.LAW() );
@@ -266,7 +266,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 3 == energies[0].numberSecondaryEnergies() );
 
       subsection1 =
-          std::experimental::get< LegendreCoefficients >( energies[0].data() );
+          std::get< LegendreCoefficients >( energies[0].data() );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
       REQUIRE( 0 == subsection1.NA() );
@@ -298,7 +298,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 3 == energies[1].numberSecondaryEnergies() );
 
       subsection2 =
-          std::experimental::get< LegendreCoefficients >( energies[1].data() );
+          std::get< LegendreCoefficients >( energies[1].data() );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 0 == subsection2.numberDiscreteEnergies() );
@@ -354,7 +354,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 3. == Approx( products[2].multiplicity().multiplicities()[2] ) );
 
       law =
-          std::experimental::get< ContinuumEnergyAngle >(
+          std::get< ContinuumEnergyAngle >(
               products[2].distribution() );
 
       REQUIRE( 1 == law.LAW() );
@@ -379,7 +379,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 3 == energies[0].numberSecondaryEnergies() );
 
       subsection1 =
-          std::experimental::get< LegendreCoefficients >( energies[0].data() );
+          std::get< LegendreCoefficients >( energies[0].data() );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
       REQUIRE( 0 == subsection1.NA() );
@@ -411,7 +411,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 3 == energies[1].numberSecondaryEnergies() );
 
       subsection2 =
-          std::experimental::get< LegendreCoefficients >( energies[1].data() );
+          std::get< LegendreCoefficients >( energies[1].data() );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 0 == subsection2.numberDiscreteEnergies() );
@@ -501,7 +501,7 @@ SCENARIO( "section::Type< 6 >" ) {
                Approx( products[0].multiplicity().multiplicities()[3] ) );
 
       auto law =
-          std::experimental::get< ContinuumEnergyAngle >(
+          std::get< ContinuumEnergyAngle >(
               products[0].distribution() );
 
       REQUIRE( 1 == law.LAW() );
@@ -526,7 +526,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 4 == energies[0].numberSecondaryEnergies() );
 
       auto subsection1 =
-          std::experimental::get< LegendreCoefficients >( energies[0].data() );
+          std::get< LegendreCoefficients >( energies[0].data() );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
       REQUIRE( 1 == subsection1.NA() );
@@ -565,7 +565,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 2 == energies[1].numberSecondaryEnergies() );
 
       auto subsection2 =
-          std::experimental::get< LegendreCoefficients >( energies[1].data() );
+          std::get< LegendreCoefficients >( energies[1].data() );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 0 == subsection2.numberDiscreteEnergies() );
@@ -617,7 +617,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 4. == Approx( products[1].multiplicity().multiplicities()[1] ) );
 
       law =
-          std::experimental::get< ContinuumEnergyAngle >(
+          std::get< ContinuumEnergyAngle >(
               products[1].distribution() );
 
       REQUIRE( 1 == law.LAW() );
@@ -642,7 +642,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 3 == energies[0].numberSecondaryEnergies() );
 
       subsection1 =
-          std::experimental::get< LegendreCoefficients >( energies[0].data() );
+          std::get< LegendreCoefficients >( energies[0].data() );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
       REQUIRE( 0 == subsection1.NA() );
@@ -674,7 +674,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 3 == energies[1].numberSecondaryEnergies() );
 
       subsection2 =
-          std::experimental::get< LegendreCoefficients >( energies[1].data() );
+          std::get< LegendreCoefficients >( energies[1].data() );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 0 == subsection2.numberDiscreteEnergies() );
@@ -730,7 +730,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 3. == Approx( products[2].multiplicity().multiplicities()[2] ) );
 
       law =
-          std::experimental::get< ContinuumEnergyAngle >(
+          std::get< ContinuumEnergyAngle >(
               products[2].distribution() );
 
       REQUIRE( 1 == law.LAW() );
@@ -755,7 +755,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 3 == energies[0].numberSecondaryEnergies() );
 
       subsection1 =
-          std::experimental::get< LegendreCoefficients >( energies[0].data() );
+          std::get< LegendreCoefficients >( energies[0].data() );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
       REQUIRE( 0 == subsection1.NA() );
@@ -787,7 +787,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 3 == energies[1].numberSecondaryEnergies() );
 
       subsection2 =
-          std::experimental::get< LegendreCoefficients >( energies[1].data() );
+          std::get< LegendreCoefficients >( energies[1].data() );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 0 == subsection2.numberDiscreteEnergies() );
@@ -877,7 +877,7 @@ SCENARIO( "section::Type< 6 >" ) {
                Approx( products[0].multiplicity().multiplicities()[3] ) );
 
       auto law =
-          std::experimental::get< ContinuumEnergyAngle >(
+          std::get< ContinuumEnergyAngle >(
               products[0].distribution() );
 
       REQUIRE( 1 == law.LAW() );
@@ -902,7 +902,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 4 == energies[0].numberSecondaryEnergies() );
 
       auto subsection1 =
-          std::experimental::get< LegendreCoefficients >( energies[0].data() );
+          std::get< LegendreCoefficients >( energies[0].data() );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
       REQUIRE( 1 == subsection1.NA() );
@@ -941,7 +941,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 2 == energies[1].numberSecondaryEnergies() );
 
       auto subsection2 =
-          std::experimental::get< LegendreCoefficients >( energies[1].data() );
+          std::get< LegendreCoefficients >( energies[1].data() );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 0 == subsection2.numberDiscreteEnergies() );
@@ -993,7 +993,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 4. == Approx( products[1].multiplicity().multiplicities()[1] ) );
 
       law =
-          std::experimental::get< ContinuumEnergyAngle >(
+          std::get< ContinuumEnergyAngle >(
               products[1].distribution() );
 
       REQUIRE( 1 == law.LAW() );
@@ -1018,7 +1018,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 3 == energies[0].numberSecondaryEnergies() );
 
       subsection1 =
-          std::experimental::get< LegendreCoefficients >( energies[0].data() );
+          std::get< LegendreCoefficients >( energies[0].data() );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
       REQUIRE( 0 == subsection1.NA() );
@@ -1050,7 +1050,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 3 == energies[1].numberSecondaryEnergies() );
 
       subsection2 =
-          std::experimental::get< LegendreCoefficients >( energies[1].data() );
+          std::get< LegendreCoefficients >( energies[1].data() );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 0 == subsection2.numberDiscreteEnergies() );
@@ -1106,7 +1106,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 3. == Approx( products[2].multiplicity().multiplicities()[2] ) );
 
       law =
-          std::experimental::get< ContinuumEnergyAngle >(
+          std::get< ContinuumEnergyAngle >(
               products[2].distribution() );
 
       REQUIRE( 1 == law.LAW() );
@@ -1131,7 +1131,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 3 == energies[0].numberSecondaryEnergies() );
 
       subsection1 =
-          std::experimental::get< LegendreCoefficients >( energies[0].data() );
+          std::get< LegendreCoefficients >( energies[0].data() );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
       REQUIRE( 0 == subsection1.NA() );
@@ -1163,7 +1163,7 @@ SCENARIO( "section::Type< 6 >" ) {
       REQUIRE( 3 == energies[1].numberSecondaryEnergies() );
 
       subsection2 =
-          std::experimental::get< LegendreCoefficients >( energies[1].data() );
+          std::get< LegendreCoefficients >( energies[1].data() );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 0 == subsection2.numberDiscreteEnergies() );

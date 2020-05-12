@@ -213,7 +213,7 @@ void verifyChunk( const section::Type< 5 >& chunk ) {
   REQUIRE( 1. == Approx( p.probabilities()[0] ) );
   REQUIRE( 1. == Approx( p.probabilities()[1] ) );
 
-  const auto& d = std::experimental::get< MaxwellianFissionSpectrum >
+  const auto& d = std::get< MaxwellianFissionSpectrum >
                                          ( subsection.distribution() );
 
   REQUIRE( 7 == d.LF() );
