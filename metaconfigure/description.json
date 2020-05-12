@@ -1078,6 +1078,7 @@
     "src/ENDFtk/syntaxTree/Material/src/createMap.hpp",
     "src/ENDFtk/syntaxTree/Material/src/fileNumber.hpp",
     "src/ENDFtk/syntaxTree/Material/src/ctor.hpp",
+    "src/ENDFtk/syntaxTree/src/makeTape.hpp",
     "src/ENDFtk/ListRecord/src/readMetadata.hpp",
     "src/ENDFtk/ListRecord/src/print.hpp",
     "src/ENDFtk/HeadRecord/src/asHead.hpp",
@@ -1088,7 +1089,9 @@
     "src/ENDFtk/TabulationRecord/src/verifyVectorSizes.hpp",
     "src/ENDFtk/TabulationRecord/src/verifyXValuesAreSorted.hpp",
     "src/ENDFtk/TabulationRecord/src/ctor.hpp",
-    "src/ENDFtk/TabulationRecord/src/print.hpp"
+    "src/ENDFtk/TabulationRecord/src/print.hpp",
+    "src/ENDFtk/src/redundancies.hpp",
+    "src/ENDFtk/src/isRedundant.hpp"
   ],
   "ignore pattern": "$^",
   "implementation files": [],
@@ -1107,6 +1110,11 @@
   "strict": true,
   "test pattern": "test$",
   "tests": {
+    "ENDFtk": [
+      "src/ENDFtk/test/ENDFtk.test.cpp",
+      "src/ENDFtk/test/redundancies.test.cpp",
+      "src/ENDFtk/test/isRedundant.test.cpp"
+    ],
     "ENDFtk.ControlRecord": [
       "src/ENDFtk/ControlRecord/test/ControlRecord.test.cpp"
     ],

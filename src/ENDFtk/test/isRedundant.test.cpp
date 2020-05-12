@@ -15,7 +15,6 @@ SCENARIO( "Testing if MT number is a redundant ENDF reaction" ){
   } // GIVEN
 
   GIVEN( "non-redundant MTs" ){
-
     auto nonRedundantMTs = ranges::view::iota( 1, 999 )
       | ranges::view::remove_if( 
         [&](int MT ){ return ranges::binary_search( redundantMTs, MT ); } );
