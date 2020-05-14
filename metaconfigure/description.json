@@ -1112,7 +1112,6 @@
   "tests": {
     "ENDFtk": [
       "src/ENDFtk/test/ENDFtk.test.cpp",
-      "src/ENDFtk/test/redundancies.test.cpp",
       "src/ENDFtk/test/isRedundant.test.cpp"
     ],
     "ENDFtk.ControlRecord": [

@@ -1,7 +1,6 @@
 
 add_executable( ENDFtk.test
                 ENDFtk.test.cpp
-                redundancies.test.cpp
                 isRedundant.test.cpp )
 target_compile_options( ENDFtk.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
