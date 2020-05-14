@@ -1090,7 +1090,6 @@
     "src/ENDFtk/TabulationRecord/src/verifyXValuesAreSorted.hpp",
     "src/ENDFtk/TabulationRecord/src/ctor.hpp",
     "src/ENDFtk/TabulationRecord/src/print.hpp",
-    "src/ENDFtk/src/redundancies.hpp",
     "src/ENDFtk/src/isRedundant.hpp"
   ],
   "ignore pattern": "$^",
