@@ -35,7 +35,9 @@ SCENARIO( "Creating a syntax tree of an ENDF Section" ){
         REQUIRE( end == csectionTree.buffer().end() );
       }
 
-      AND_THEN( "the section number or MT is populated correctly" ){
+      AND_THEN( "the file/section number or MF/MT is populated correctly" ){
+        REQUIRE( 3 == sectionTree.MF() );
+        REQUIRE( 3 == sectionTree.fileNumber() );
         REQUIRE( 1 == sectionTree.MT() );
         REQUIRE( 1 == sectionTree.sectionNumber() );
         REQUIRE( 1 == csectionTree.MT() );
