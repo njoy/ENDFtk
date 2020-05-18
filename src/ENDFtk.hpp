@@ -5,7 +5,6 @@
 #include <unordered_map>
 #include <complex>
 #include <map>
-#include <algorithm>
 
 #ifdef __GNUC__
   #pragma GCC diagnostic push
