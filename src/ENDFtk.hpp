@@ -80,6 +80,7 @@ using TAB1 = TabulationRecord;
 
 #include "ENDFtk/syntaxTree.hpp"
 
+#include "ENDFtk/src/isRedundant.hpp"
 }
 }
 
