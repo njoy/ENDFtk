@@ -1,9 +1,9 @@
-template< typename Buffer >
+template< typename Buffer, typename Tag = ENDFTag >
 class Tape {
   using BufferIterator = ranges::iterator_t< const Buffer >;
 public:
   /* convenience typedefs */
-  using Material_t = Material< BufferIterator >;
+  using Material_t = Material< BufferIterator, Tag >;
   
 protected:
   /* fields */
@@ -45,3 +45,8 @@ public:
 
   const TapeIdentification& TPID() const { return *( this->tpid ); }
 };
+
+
+/* convenience alias */
+template< typename Buffer >
+using GENDFTape = Tape< Buffer, GENDFTag >;
