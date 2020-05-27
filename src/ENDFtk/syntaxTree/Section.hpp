@@ -1,11 +1,5 @@
-/* Forward declaration of Section class */
 template< typename BufferIterator, typename Tag = ENDFTag >
-class Section;
-
-
-/* Template specialization for ENDF Section */
-template< typename BufferIterator >
-class Section< BufferIterator, ENDFTag > {
+class Section {
 public:
   /* fields */
   int sectionNo;
@@ -27,3 +21,10 @@ public:
                                         this->bufferLimits.second );
   }
 };
+
+/* Convenience alias */
+template< typename BufferIterator >
+using GendfSection = Section< BufferIterator, GENDFTag >
+
+/* Template specialization */
+#include "ENDFtk/syntaxTree/Section/src/parse-gendf.hpp"
