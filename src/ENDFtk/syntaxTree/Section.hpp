@@ -1,5 +1,11 @@
+/* Forward declaration of Section class */
+template< typename BufferIterator, typename Tag = ENDFTag >
+class Section;
+
+
+/* Template specialization for ENDF Section */
 template< typename BufferIterator >
-class Section {
+class Section< BufferIterator, ENDFTag > {
 public:
   /* fields */
   int sectionNo;
