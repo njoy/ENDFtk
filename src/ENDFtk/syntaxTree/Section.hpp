@@ -1,5 +1,5 @@
-template< typename BufferIterator, typename Tag = ENDFTag >
-class Section {
+template< typename BufferIterator >
+class SectionBase {
 public:
   /* fields */
   int sectionNo;
@@ -9,7 +9,6 @@ public:
   /* methods */
 #include "ENDFtk/syntaxTree/Section/src/ctor.hpp"
 #include "ENDFtk/syntaxTree/Section/src/findEnd.hpp"
-#include "ENDFtk/syntaxTree/Section/src/parse.hpp"  
 
   /* methods */
   int MT() const { return this->sectionNo; }
@@ -22,9 +21,35 @@ public:
   }
 };
 
+
+template< typename BufferIterator, typename Tag = ENDFTag >
+class Section : public SectionBase< BufferIterator > {
+
+public:
+
+  /* ctor */
+  using SectionBase< BufferIterator >::SectionBase;
+
+  /* methods */
+  #include "ENDFtk/syntaxTree/Section/src/parse.hpp"  
+
+};
+
+
+template< typename BufferIterator >
+class Section< BufferIterator, GENDFTag > : public SectionBase< BufferIterator > {
+public:
+
+  /* ctor */
+  using SectionBase< BufferIterator >::SectionBase;
+
+  /* methods */
+  #include "ENDFtk/syntaxTree/Section/src/parse-gendf.hpp"
+
+};
+
+
 /* Convenience alias */
 template< typename BufferIterator >
-using GendfSection = Section< BufferIterator, GENDFTag >
+using GendfSection = Section< BufferIterator, GENDFTag >;
 
-/* Template specialization */
-#include "ENDFtk/syntaxTree/Section/src/parse-gendf.hpp"
