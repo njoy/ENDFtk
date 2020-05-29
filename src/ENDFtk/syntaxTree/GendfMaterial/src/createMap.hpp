@@ -13,7 +13,7 @@ static std::map< MFMT, Section_t > createMap(
   // emplace first section
   auto idx = MFMT( head.MF(), head.MT() );
   sections.emplace( idx,
-                    GendfSection(head, begin, position, end, lineNumber) );
+                    Section_t(head, begin, position, end, lineNumber) );
 
   // read next card
   begin = position;
@@ -26,18 +26,20 @@ static std::map< MFMT, Section_t > createMap(
     idx = MFMT( division.tail.MF(), division.tail.MT() );
 
     // read section
-    GendfSection new_section( asHead(division), begin,
-                              position, end, lineNumber );
+    Section_t new_section( asHead(division), begin,
+                           position, end, lineNumber );
 
     // map index already present
-    if ( sections.count(idx) )
+    if ( sections.count(idx) ) {
       Log::info("Warning: MFD{}, MT{} is already present in GENDF file.  "
                 "Skipping redundant section.",
                 division.tail.MF(), division.tail.MT() );
+    }
 
     // emplace next section
-    else
+    else {
       sections.emplace(idx, new_section);
+    }
 
     // read next card
     if( position >= end ){

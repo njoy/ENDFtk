@@ -47,7 +47,7 @@ public:
    * @brief Return the MAT number.
    */
   int MAT() const { return materialNo; }
-  int materialNumber const { return MAT(); }
+  int materialNumber() const { return MAT(); }
 
   /*
    * @brief Create a reference to the buffer.

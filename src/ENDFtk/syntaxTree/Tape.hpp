@@ -49,4 +49,4 @@ public:
 
 /* convenience alias */
 template< typename Buffer >
-using GENDFTape = Tape< Buffer, GENDFTag >;
+using GendfTape = Tape< Buffer, GENDFTag >;

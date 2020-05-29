@@ -9,6 +9,12 @@ std::string invalidSEND();
 
 using namespace njoy::ENDFtk;
 
+/*
+ * Note: this was lifted from Section.test.cpp.
+ * The ENDF Section given below is not a valid
+ * GENDF section, and so it needs to be updated
+ * when parsing is implemented.
+ */
 SCENARIO( "Creating a syntax tree of a GENDF Section" ){
   GIVEN( "A string representation of a Section" ){
     WHEN( "a valid SEND record ends the Section" ){
