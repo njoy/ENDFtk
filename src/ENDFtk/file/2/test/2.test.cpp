@@ -137,7 +137,7 @@ SCENARIO( "Testing special case of file 2" ) {
 
       StructureDivision division( begin, end, lineNumber );
 
-      syntaxTree::File< std::string::iterator >
+      syntaxTree::File< std::string >
         fileTree( asHead( division ), start, begin, end, lineNumber );
 
       THEN( "a file::Type< 2 > can be constructed" ) {
