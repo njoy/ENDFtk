@@ -37,7 +37,7 @@ public:
       Log::info( "Error in position {}" );
       throw std::exception();
     }
-    
+
 #define DEFINE_GETTER( name, index )                                    \
   Base::MutableReturnType< index >                                      \
   name (){ return std::get< index >( this->metadata.fields ); }         \
@@ -50,16 +50,15 @@ public:
   DEFINE_GETTER( L1, 2 )
   DEFINE_GETTER( L2, 3 )
   DEFINE_GETTER( N2, 5 )
- 
-#undef DEFINE_GETTER  
+
+#undef DEFINE_GETTER
 
   long NPL() const { return this->data.size(); }
-  
+
   auto list() const {
-    return ranges::make_iterator_range( this->data.begin(),
-                                        this->data.end() );
+    return ranges::view::all( this->data );
   }
-  
+
   auto B() const { return this->list(); }
 
   bool operator==( const ListRecord& rhs ) const {
@@ -76,6 +75,6 @@ public:
   }
 
   long NC() const { return 1 + ( this->NPL() + 5 ) / 6; }
-  
+
   #include "ENDFtk/ListRecord/src/print.hpp"
 };

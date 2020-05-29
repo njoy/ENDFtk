@@ -2,20 +2,23 @@ import copy
 
 languages = {'c' : {}, 'c++' : {}, 'fortran' : {} }
 
-for langauge in languages.keys():
-    languages[langauge]['file extension'] = {}
-    languages[langauge]['compiler'] = {}
+for language in languages.keys():
+    languages[language]['file extension'] = {}
+    languages[language]['compiler'] = {}
 
 languages['c']['standards'] = ['c89', 'c99', 'c11']
-languages['c++']['standards'] = ['c++98', 'c++11', 'c++14']
+languages['c++']['standards'] = ['c++98', 'c++11', 'c++14', 'c++17']
 languages['fortran']['standards'] = ['fortran77', 'fortran90', 'fortran95', 'fortran2003', 'fortran2008']
 
 languages['c']['file extension']['implementation files'] = ['c']
 languages['c']['file extension']['header files'] = ['h']
-languages['c++']['file extension']['implementation files'] = ['c++', 'cxx', 'cpp', 'cc']
+languages['c']['file extension']['configure files'] = ['in']
+languages['c++']['file extension']['implementation files'] = ['c++', 'cxx', 'cpp', 'cc', 'C']
 languages['c++']['file extension']['header files'] = ['h++', 'hxx', 'hpp', 'hh', 'h']
+languages['c++']['file extension']['configure files'] = ['in']
 languages['fortran']['file extension']['implementation files'] = ['f', 'for', 'f90']
-    
+languages['fortran']['file extension']['configure files'] = ['in']
+
 languages['c']['compiler']['gcc'] = {}
 languages['c']['compiler']['llvm clang'] = {}
 languages['c']['compiler']['apple clang'] = {}
@@ -25,16 +28,22 @@ languages['c++']['compiler']['apple clang++'] = {}
 languages['fortran']['compiler']['gfortran'] = {}
 
 languages['c']['compiler']['gcc']['linux'] = {}
+languages['c']['compiler']['gcc']['cygwin'] = languages['c']['compiler']['gcc']['linux']
+languages['c']['compiler']['gcc']['mingw'] = languages['c']['compiler']['gcc']['linux']
 languages['c']['compiler']['gcc']['osx'] = languages['c']['compiler']['gcc']['linux']
 languages['c']['compiler']['gcc']['windows'] = languages['c']['compiler']['gcc']['linux']
 languages['c']['compiler']['llvm clang']['linux'] = languages['c']['compiler']['gcc']['linux']
 languages['c']['compiler']['llvm clang']['osx'] = languages['c']['compiler']['gcc']['linux']
 languages['c']['compiler']['llvm clang']['windows'] = languages['c']['compiler']['gcc']['linux']
+languages['c']['compiler']['llvm clang']['cygwin'] = languages['c']['compiler']['gcc']['linux']
+languages['c']['compiler']['llvm clang']['mingw'] = languages['c']['compiler']['gcc']['linux']
 languages['c']['compiler']['apple clang']['osx'] = languages['c']['compiler']['gcc']['linux']
 
 languages['fortran']['compiler']['gfortran']['linux'] = {}
 languages['fortran']['compiler']['gfortran']['osx'] = languages['fortran']['compiler']['gfortran']['linux']
 languages['fortran']['compiler']['gfortran']['windows'] = languages['fortran']['compiler']['gfortran']['linux']
+languages['fortran']['compiler']['gfortran']['cygwin'] = languages['fortran']['compiler']['gfortran']['linux']
+languages['fortran']['compiler']['gfortran']['mingw'] = languages['fortran']['compiler']['gfortran']['linux']
 
 languages['c']['compiler']['gcc']['linux']['standard'] = {'c89' : '-std=c90',
                                                           'c99' : '-std=c99',
@@ -43,7 +52,8 @@ languages['c']['compiler']['gcc']['linux']['standard'] = {'c89' : '-std=c90',
 languages['c++']['compiler']['g++']['linux'] = {}
 languages['c++']['compiler']['g++']['linux']['standard'] = {'c++98' : '-std=c++98',
                                                             'c++11' : '-std=c++11',
-                                                            'c++14' : '-std=c++14'}
+                                                            'c++14' : '-std=c++14',
+                                                            'c++17' : '-std=c++17'}
 
 languages['fortran']['compiler']['gfortran']['linux']['standard'] = {'fortran77' : '-std=legacy' ,
                                                                      'fortran95' : '-std=f95',
@@ -93,12 +103,25 @@ languages['c']['compiler']['gcc']['linux']['flags']['profile use'] = ["-fprofile
 languages['fortran']['compiler']['gfortran']['linux']['flags']['profile use'] = languages['c']['compiler']['gcc']['linux']['flags']['profile use']
 
 languages['c++']['compiler']['g++']['linux']['flags'] = copy.deepcopy( languages['c']['compiler']['gcc']['linux']['flags'] )
+languages['c++']['compiler']['g++']['linux']['flags']['common'].append('-Wno-subobject-linkage')
 languages['c++']['compiler']['g++']['osx'] = copy.deepcopy( languages['c++']['compiler']['g++']['linux'] )
+languages['c++']['compiler']['g++']['cygwin'] = copy.deepcopy( languages['c++']['compiler']['g++']['linux'] )
+languages['c++']['compiler']['g++']['mingw'] = copy.deepcopy( languages['c++']['compiler']['g++']['linux'] )
 languages['c++']['compiler']['g++']['windows'] = languages['c++']['compiler']['g++']['linux']
 
 languages['c++']['compiler']['llvm clang++'] = copy.deepcopy( languages['c++']['compiler']['g++'])
 languages['c++']['compiler']['llvm clang++']['linux']['flags']['common'] = ['-stdlib=libstdc++']
 languages['c++']['compiler']['llvm clang++']['linux']['flags']['debug'].remove('-fsignaling-nans')
+
+languages['c++']['compiler']['llvm clang++']['cygwin']['standard'] = {'c++98' : '-std=gnu++98',
+                                                                      'c++11' : '-std=gnu++11',
+                                                                      'c++14' : '-std=gnu++14',
+                                                                      'c++17' : '-std=gnu++17'}
+
+languages['c++']['compiler']['g++']['cygwin']['standard'] = {'c++98' : '-std=gnu++98',
+                                                             'c++11' : '-std=gnu++11',
+                                                             'c++14' : '-std=gnu++14',
+                                                             'c++17' : '-std=gnu++17'}
 
 languages['c++']['compiler']['llvm clang++']['osx']['flags'] = copy.deepcopy(languages['c++']['compiler']['llvm clang++']['linux']['flags'])
 languages['c++']['compiler']['llvm clang++']['osx']['flags']['common'] = ['-stdlib=libc++']

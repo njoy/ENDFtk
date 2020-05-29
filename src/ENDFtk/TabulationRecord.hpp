@@ -10,6 +10,8 @@ class TabulationRecord : protected record::InterpolationBase {
   #include "ENDFtk/TabulationRecord/src/verifyNP.hpp"
   #include "ENDFtk/TabulationRecord/src/readPairs.hpp"
 
+protected:
+  
   auto regions( size_t index ) const {
     const auto left = index ? this->boundaries()[ index - 1 ] - 1 : 0;
     const auto right = this->boundaries()[ index ];
@@ -21,7 +23,7 @@ class TabulationRecord : protected record::InterpolationBase {
                       ( this->yValues.begin() + left,
                         this->yValues.begin() + right ) );
   }
-  
+
 public:
   #include "ENDFtk/TabulationRecord/src/ctor.hpp"
 
@@ -32,12 +34,12 @@ public:
 
   long NP() const { return this->xValues.size(); }
   using InterpolationBase::NR;
-  
+
   auto x() const {
     return ranges::make_iterator_range( this->xValues.begin(),
                                         this->xValues.end() );
   }
-  
+
   auto y() const {
     return ranges::make_iterator_range( this->yValues.begin(),
                                         this->yValues.end() );

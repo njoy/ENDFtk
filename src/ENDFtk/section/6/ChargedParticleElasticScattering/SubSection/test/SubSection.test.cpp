@@ -301,7 +301,7 @@ std::string chunkLTP1() {
 void verifyChunkLTP1( const SubSection& subsection ) {
 
   auto chunk =
-  std::experimental::get< NuclearAmplitudeExpansion >( subsection.data() );
+  std::get< NuclearAmplitudeExpansion >( subsection.data() );
   REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
   REQUIRE( 1 == chunk.LTP() );
@@ -342,7 +342,7 @@ std::string chunkLTP2() {
 void verifyChunkLTP2( const SubSection& subsection ) {
 
   auto chunk =
-  std::experimental::get< LegendreCoefficients >( subsection.data() );
+  std::get< LegendreCoefficients >( subsection.data() );
   REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
   REQUIRE( 2 == chunk.LTP() );
@@ -381,7 +381,7 @@ std::string chunkLTP15() {
 void verifyChunkLTP( int ltp, const SubSection& subsection ) {
 
   auto chunk =
-  std::experimental::get< NuclearPlusInterference >( subsection.data() );
+  std::get< NuclearPlusInterference >( subsection.data() );
   REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
   REQUIRE( ltp == chunk.LTP() );

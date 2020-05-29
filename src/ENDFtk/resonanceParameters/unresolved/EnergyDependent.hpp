@@ -1,49 +1,66 @@
-class EnergyDependent {
-public:
-  #include "ENDFtk/resonanceParameters/unresolved/EnergyDependent/Jvalue.hpp"
-  #include "ENDFtk/resonanceParameters/unresolved/EnergyDependent/Lvalue.hpp"
-  
-protected:
-  std::vector< Lvalue > lValues_;
-  std::optional< TAB1 > ape;
-  
-  double el;
-  double eh;
-  int naps;
-  double spi;
-  double ap;
-  int lssf;
+class EnergyDependent;
+template <>
+struct LJValueType< EnergyDependent > {
+
+  #include "ENDFtk/resonanceParameters/unresolved/EnergyDependent/JValue.hpp"
+  #include "ENDFtk/resonanceParameters/unresolved/EnergyDependent/LValue.hpp"
+
+  using JType = JValue;
+  using LType = LValue;
+};
+
+/**
+ *  @class
+ *  @brief Single level Breit-Wigner unresolved resonance parameters with
+ *         energy dependent resonance widths.
+ *
+ *  The EnergyDependent class is used to represent the
+ *  SLBW unresolved parameters from MF2/MT151 for LRU=2 LRF=2 (no LFW
+ *  dependence).
+ *
+ *  See ENDF102, section 2.3.1 for more information.
+ */
+class EnergyDependent : public UnresolvedBase< EnergyDependent > {
 
 public:
+
+  using JValue = LJValueType< EnergyDependent >::JType;
+  using LValue = LJValueType< EnergyDependent >::LType;
+
+  /* constructor */
   #include "ENDFtk/resonanceParameters/unresolved/EnergyDependent/src/ctor.hpp"
-  
-  double EL() const { return this->el; }
-  double EH() const { return this->eh; }
-  int NRO() const { return bool( this->ape ); }
-  int NAPS() const { return this->naps; }
-  const auto& APE() const { return *(this->ape); }
 
-  static constexpr int LRU(){ return 2; }
-  static constexpr int LRF(){ return 2; }  
-  
-  double SPI() const { return this->spi; }
-  double AP() const { return this->ap; }
-  int LSSF() const { return this->lssf; }
-  int NLS() const { return this->lValues_.size(); }
+  /* get methods */
 
-  auto lValues() const {
-    return ranges::make_iterator_range( this->lValues_.begin(),
-                                        this->lValues_.end() );
-  }
+  /**
+   *  @brief Return the resonance type (resolved or unresolved)
+   */
+  static constexpr int LRU() { return 2; }
 
-  long NC() const {
-    return 2
-      + ( ( this->ape ) ? this->ape->NC() : 0 )
-      + ranges::accumulate
-        ( this->lValues_
-          | ranges::view::transform
-            ( []( const auto& lValue ){ return lValue.NC(); } ), 0 );
-  }
+  /**
+   *  @brief Return the resonance representation
+   */
+  static constexpr int LRF() { return 2; }
 
-  #include "ENDFtk/resonanceParameters/unresolved/EnergyDependent/src/print.hpp"
+  /**
+   *  @brief Return the average fission flag
+   */
+  constexpr bool LFW() const { return false; }
+
+  using UnresolvedBase::SPI;
+  using UnresolvedBase::spin;
+  using UnresolvedBase::AP;
+  using UnresolvedBase::scatteringRadius;
+  using UnresolvedBase::LSSF;
+  using UnresolvedBase::selfShieldingOnly;
+
+  using UnresolvedBase::type;
+  using UnresolvedBase::representation;
+  using UnresolvedBase::averageFissionWidthFlag;
+
+  using UnresolvedBase::NLS;
+  using UnresolvedBase::lValues;
+
+  using UnresolvedBase::NC;
+  using UnresolvedBase::print;
 };

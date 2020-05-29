@@ -8,8 +8,8 @@
  *  @param[in] law              the photon energy distribution law
  *  @param[in] boundaries       the interpolation range boundaries
  *  @param[in] interpolants     the interpolation types for each range
- *  @param[in] energies         the cosine values
- *  @param[in] multiplicities   the probability values
+ *  @param[in] energies         the energy values
+ *  @param[in] multiplicities   the multiplicity values
  */
 PartialMultiplicity( double energy,
                      double level,
@@ -17,13 +17,13 @@ PartialMultiplicity( double energy,
                      int law,
                      std::vector< long >&& boundaries,
                      std::vector< long >&& interpolants,
-                     std::vector< double >&& cosines,
-                     std::vector< double >&& probabilities )
+                     std::vector< double >&& energies,
+                     std::vector< double >&& multiplicities )
   try : TabulationRecord( energy, level, lp, law,
                           std::move( boundaries ),
                           std::move( interpolants ),
-                          std::move( cosines ),
-                          std::move( probabilities ) ) {}
+                          std::move( energies ),
+                          std::move( multiplicities ) ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing a partial multiplicity" );

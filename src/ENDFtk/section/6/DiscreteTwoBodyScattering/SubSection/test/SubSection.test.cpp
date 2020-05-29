@@ -30,7 +30,7 @@ SCENARIO( "SubSection" ) {
         subsection( LegendreCoefficients( energy, std::move( coefficients ) ) );
 
       auto chunk =
-           std::experimental::get< LegendreCoefficients >( subsection.data() );
+           std::get< LegendreCoefficients >( subsection.data() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 0 == chunk.LANG() );
@@ -62,7 +62,7 @@ SCENARIO( "SubSection" ) {
         subsection( begin, end, lineNumber, 9228, 6, 5 );
 
       auto chunk =
-           std::experimental::get< LegendreCoefficients >( subsection.data() );
+           std::get< LegendreCoefficients >( subsection.data() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 0 == chunk.LANG() );
@@ -114,7 +114,7 @@ SCENARIO( "SubSection" ) {
         subsection( Tabulated( energy, lang, std::move( values ) ) );
 
       auto chunk =
-           std::experimental::get< Tabulated >( subsection.data() );
+           std::get< Tabulated >( subsection.data() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 12 == chunk.LANG() );
@@ -149,7 +149,7 @@ SCENARIO( "SubSection" ) {
         subsection( begin, end, lineNumber, 9228, 6, 5 );
 
       auto chunk =
-           std::experimental::get< Tabulated >( subsection.data() );
+           std::get< Tabulated >( subsection.data() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 12 == chunk.LANG() );
@@ -203,7 +203,7 @@ SCENARIO( "SubSection" ) {
         subsection(begin, end, lineNumber, 9228, 6, 5 );
 
       auto chunk =
-           std::experimental::get< Tabulated >( subsection.data() );
+           std::get< Tabulated >( subsection.data() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
       REQUIRE( 14 == chunk.LANG() );

@@ -18,10 +18,6 @@
 	path = dependencies/range-v3-adapter
 	url = ../range-v3-adapter.git
 	branch = master
-[submodule "dependencies/variant-adapter"]
-	path = dependencies/variant-adapter
-	url = ../variant-adapter.git
-	branch = master
 [submodule "dependencies/hana-adapter"]
 	path = dependencies/hana-adapter
 	url = ../hana-adapter.git

@@ -1,7 +1,7 @@
 
 add_executable( ENDFtk.record.Tail.test
-                Tail.test.cpp
-                TailVerifiers.test.cpp )
+                TailVerifiers.test.cpp
+                Tail.test.cpp )
 target_compile_options( ENDFtk.record.Tail.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}

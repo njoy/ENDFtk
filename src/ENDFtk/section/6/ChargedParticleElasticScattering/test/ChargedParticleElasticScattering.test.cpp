@@ -191,7 +191,7 @@ void verifyChunk( const ChargedParticleElasticScattering& chunk ) {
   REQUIRE( 3 == energies[0].NL() );
 
   auto subsection1 =
-    std::experimental::get< NuclearAmplitudeExpansion >( energies[0].data() );
+    std::get< NuclearAmplitudeExpansion >( energies[0].data() );
   REQUIRE( 1 == subsection1.LTP() );
   REQUIRE( 12 == subsection1.NW() );
   REQUIRE( 3 == subsection1.NL() );
@@ -226,7 +226,7 @@ void verifyChunk( const ChargedParticleElasticScattering& chunk ) {
   REQUIRE( 3 == energies[1].NL() );
 
   auto subsection2 =
-    std::experimental::get< NuclearPlusInterference >( energies[1].data() );
+    std::get< NuclearPlusInterference >( energies[1].data() );
   REQUIRE( 15 == subsection2.LTP() );
   REQUIRE( 6 == subsection2.NW() );
   REQUIRE( 3 == subsection2.NL() );

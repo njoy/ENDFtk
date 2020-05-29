@@ -37,7 +37,7 @@ SCENARIO( "SubSection" ) {
           LegendreCoefficients( energy, nd, na, nep, std::move( list ) ) );
 
       auto chunk =
-        std::experimental::get< LegendreCoefficients >( subsection.data() );
+        std::get< LegendreCoefficients >( subsection.data() );
 
       REQUIRE( 1 == chunk.LANG() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
@@ -81,7 +81,7 @@ SCENARIO( "SubSection" ) {
       SubSection subsection(
           KalbachMann( energy, nd, na, nep, std::move( list ) ) );
 
-      auto chunk = std::experimental::get< KalbachMann >( subsection.data() );
+      auto chunk = std::get< KalbachMann >( subsection.data() );
 
       REQUIRE( 2 == chunk.LANG() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
@@ -128,7 +128,7 @@ SCENARIO( "SubSection" ) {
       SubSection subsection(
           Tabulated( lang, energy, nd, na, nep, std::move( list ) ) );
 
-      auto chunk = std::experimental::get< Tabulated >( subsection.data() );
+      auto chunk = std::get< Tabulated >( subsection.data() );
 
       REQUIRE( 14 == chunk.LANG() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
