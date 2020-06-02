@@ -11,12 +11,15 @@ GendfBase(HeadRecord& head,
     lrflag_( head.N1() ),
     num_groups_( head.N2() ) {
 
-  // set temperature
-  temperature_ = lists_[0].C1();
 
-  // check all temperatures are consistent
-  for ( auto& list : lists_ ) {
-    if ( list.C1() != temperature_ ) {
+  // find temperature and check all temperatures are consistent
+  bool temp_set = false;
+  for( const auto& [group, list] : lists_ ) {
+    if( not temp_set ) {
+      temperature_ = list.C1();
+      temp_set = true;
+    }
+    else if( list.C1() != temperature_ ) {
       Log::info( "Inconsistent temperature in MFD/MT {}/{}: {} != {}",
                  head.MF(), head.MT(), temperature_, list.C1() );
       throw std::exception();

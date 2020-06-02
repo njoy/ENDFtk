@@ -38,6 +38,10 @@ SCENARIO( "creating a GendfBase object" ) {
         // check temperature
         CHECK( section.temperature() == Approx(293.6) );
 
+        // check lists
+        CHECK( section.listRecords().at(1).N2() == 1 );
+        CHECK( section.listRecords().at(44).N2() == 44 );
+
       }
     }
   }

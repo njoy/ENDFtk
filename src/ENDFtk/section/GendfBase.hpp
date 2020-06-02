@@ -2,7 +2,7 @@ class GendfBase : protected Base {
 
 protected:
   /* fields */
-  std::vector< ListRecord > lists_;
+  std::map< int, ListRecord > lists_;
   int num_legendre_;
   int num_sigma0_;
   int lrflag_;
@@ -23,5 +23,7 @@ public:
   int breakupFlag() const { return lrflag_; }
   int numGroups() const { return num_groups_; }
   double temperature() const { return temperature_; }
+
+  const auto& listRecords() const { return lists_; }
 
 };
