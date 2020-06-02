@@ -932,6 +932,7 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/syntaxTree/GendfMaterial/test )
         add_subdirectory( src/ENDFtk/syntaxTree/Section/test )
         add_subdirectory( src/ENDFtk/syntaxTree/Tape/test )
+        add_subdirectory( src/ENDFtk/GendfDataRecord/test )
     endif() 
 endif()
 
