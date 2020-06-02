@@ -73,6 +73,26 @@ public:
   }
 
   /**
+   *  @brief Return the target spin
+   */
+  double SPI() const { return 1.0; } //!@todo PLACEHOLDER - CHANGE THIS
+
+  /**
+   *  @brief Return the target spin
+   */
+  double spin() const { return this->SPI(); }
+
+  /**
+   *  @brief Return the scattering radius
+   */
+  double AP() const { return 2.0; } //!@todo PLACEHOLDER - CHANGE THIS
+
+  /**
+   *  @brief Return the scattering radius
+   */
+  double scatteringRadius() const { return this->AP(); }
+
+  /**
    *  @brief Return whether or not the widths are reduced or not
    */
   bool IFG() const { return this->ifg_; }
