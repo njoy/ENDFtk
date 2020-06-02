@@ -58,7 +58,12 @@ SCENARIO( "Creating a syntax tree of a GENDF Section" ){
         REQUIRE( head.N2() == 44 );
       }
 
-      // TODO: Add test of parse function.
+      AND_THEN( "the section can be parsed" ){
+        auto parsec = sectionTree.parse<3>();
+        REQUIRE( parsec.numGroups() == 44 );
+        REQUIRE( parsec.getCrossSection(1) == Approx(14.69141) );
+      }
+
 
     } // WHEN
 

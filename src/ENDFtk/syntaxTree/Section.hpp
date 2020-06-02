@@ -58,9 +58,8 @@ public:
 
   /* methods */
 
-  // TODO: Add parse function once required classes are implemented.
   // this file implements the parse() function
-  // #include "ENDFtk/syntaxTree/Section/src/parse-gendf.hpp"
+  #include "ENDFtk/syntaxTree/Section/src/parse-gendf.hpp"
 
   using Base::MT;
   using Base::sectionNumber;
