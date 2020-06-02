@@ -1,4 +1,3 @@
-template< typename BufferIterator >
 class GendfBase : protected Base {
 
 protected:
@@ -11,13 +10,14 @@ protected:
   double temperature_;
 
   /* methods */
-  #include "ENDFtk/section/gendf/src/populateLists.hpp"
+  #include "ENDFtk/section/GendfBase/src/populateLists.hpp"
 
 public:
   /* constructor */
-  #include "ENDFtk/section/gendf/src/ctor.hpp"
+  #include "ENDFtk/section/GendfBase/src/ctor.hpp"
 
   /* methods */
+  int legendreOrder() const { return num_legendre_-1; }
   int numLegendre() const { return num_legendre_; }
   int numSigma0() const { return num_sigma0_; }
   int breakupFlag() const { return lrflag_; }

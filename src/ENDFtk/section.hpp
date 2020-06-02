@@ -16,4 +16,7 @@ class Type;
 #include "ENDFtk/section/8.hpp"
 #include "ENDFtk/section/12.hpp"
 #include "ENDFtk/section/13.hpp"
+
+#include "ENDFtk/section/GendfBase.hpp"
+
 }
