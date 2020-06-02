@@ -2,7 +2,7 @@ class GendfBase : protected Base {
 
 protected:
   /* fields */
-  std::map< int, ListRecord > lists_;
+  std::map< int, GendfDataRecord > data_;
   int num_legendre_;
   int num_sigma0_;
   int lrflag_;
@@ -10,7 +10,7 @@ protected:
   double temperature_;
 
   /* methods */
-  #include "ENDFtk/section/GendfBase/src/populateLists.hpp"
+  #include "ENDFtk/section/GendfBase/src/populateData.hpp"
 
 public:
   /* constructor */
@@ -24,6 +24,6 @@ public:
   int numGroups() const { return num_groups_; }
   double temperature() const { return temperature_; }
 
-  const auto& listRecords() const { return lists_; }
+  const auto& dataRecords() const { return data_; }
 
 };

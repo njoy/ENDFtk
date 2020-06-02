@@ -5,23 +5,22 @@ GendfBase(HeadRecord& head,
           long& lineNumber,
           int MAT )
   : Base( head, MAT, head.MF() ),
-    lists_( populateLists(head, begin, end, lineNumber, MAT) ),
+    data_( populateData(head, begin, end, lineNumber, MAT) ),
     num_legendre_( head.L1() ),
     num_sigma0_( head.L2() ),
     lrflag_( head.N1() ),
     num_groups_( head.N2() ) {
 
-
   // find temperature and check all temperatures are consistent
   bool temp_set = false;
-  for( const auto& [group, list] : lists_ ) {
+  for( const auto& [group, record] : data_ ) {
     if( not temp_set ) {
-      temperature_ = list.C1();
+      temperature_ = record.temperature();
       temp_set = true;
     }
-    else if( list.C1() != temperature_ ) {
+    else if( record.temperature() != temperature_ ) {
       Log::info( "Inconsistent temperature in MFD/MT {}/{}: {} != {}",
-                 head.MF(), head.MT(), temperature_, list.C1() );
+                 head.MF(), head.MT(), temperature_, record.temperature() );
       throw std::exception();
     }
   }
