@@ -20,7 +20,7 @@ SCENARIO( "reading a GendfDataRecord" ) {
       long int lineNo = 2;
 
       THEN( "the object can be created" ) {
-        GendfDataRecord record( begin, end, lineNo, 9228, 3, 2 );
+        GendfDataRecord record( begin, end, lineNo, 1, 1, 9228, 3, 2 );
 
         // check data
         CHECK( record.temperature() == Approx(293.6) );
@@ -30,7 +30,8 @@ SCENARIO( "reading a GendfDataRecord" ) {
         CHECK( record.lowestGroup() == 1 );
         CHECK( record.IG() == 1 );
         CHECK( record.group() == 1);
-        CHECK( record.list()[0] == Approx(8.86484e+4) );
+        CHECK( record.flux()[0] == Approx(8.86484e+4) );
+        CHECK( record.values()[0] == Approx(14.69141) );
       }
     }
   }

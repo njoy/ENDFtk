@@ -1,15 +1,16 @@
 template< typename BufferIterator >
-static auto populateData(HeadRecord& head,
-                          BufferIterator& begin,
-                          const BufferIterator& end,
-                          long& lineNumber,
-                          int MAT ) {
+auto populateData(HeadRecord& head,
+                  BufferIterator& begin,
+                  const BufferIterator& end,
+                  long& lineNumber,
+                  int MAT ) {
 
   // initialize
   std::map< int, GendfDataRecord > data_records;
 
   // first list record
   auto next_record = GendfDataRecord( begin, end, lineNumber,
+                                      num_legendre_, num_sigma0_,
                                       MAT, head.MF(), head.MT() );
   int group = next_record.group();
   data_records.emplace( group, next_record );
@@ -19,6 +20,7 @@ static auto populateData(HeadRecord& head,
 
     // create next record
     next_record = GendfDataRecord( begin, end, lineNumber,
+                                   num_legendre_, num_sigma0_,
                                    MAT, head.MF(), head.MT() );
     group = next_record.group();
 

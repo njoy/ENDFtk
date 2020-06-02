@@ -26,21 +26,23 @@ SCENARIO( "creating a GendfBase object" ) {
       HeadRecord head(begin, end, lineNo);
 
       THEN( "the object can be created" ) {
-        section::GendfBase section(head, begin, end, lineNo, MAT );
+        section::GendfBase chunk(head, begin, end, lineNo, MAT );
 
         // head record parameter getters
-        CHECK( section.legendreOrder() == 0 );
-        CHECK( section.numLegendre() == 1 );
-        CHECK( section.numSigma0() == 1 );
-        CHECK( section.breakupFlag() == 0 );
-        CHECK( section.numGroups() == 44 );
+        CHECK( chunk.legendreOrder() == 0 );
+        CHECK( chunk.numLegendre() == 1 );
+        CHECK( chunk.numSigma0() == 1 );
+        CHECK( chunk.breakupFlag() == 0 );
+        CHECK( chunk.numGroups() == 44 );
 
         // check temperature
-        CHECK( section.temperature() == Approx(293.6) );
+        CHECK( chunk.temperature() == Approx(293.6) );
 
         // check lists
-        CHECK( section.dataRecords().at(1).group() == 1 );
-        CHECK( section.dataRecords().at(44).group() == 44 );
+        CHECK( chunk.dataRecords().at(1).group() == 1 );
+        CHECK( chunk.dataRecords().at(44).group() == 44 );
+        CHECK( chunk.dataRecords().at(2).flux().at(0) ==
+               Approx(4.076628e+5) );
 
       }
     }

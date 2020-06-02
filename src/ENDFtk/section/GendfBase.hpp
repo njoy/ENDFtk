@@ -26,4 +26,9 @@ public:
 
   const auto& dataRecords() const { return data_; }
 
+  using Base::MT;
+  using Base::ZA;
+  using Base::AWR;
+  using Base::atomicWeightRatio;
+  
 };

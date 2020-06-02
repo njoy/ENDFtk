@@ -1,5 +1,10 @@
 class GendfDataRecord : protected ListRecord {
 
+protected:
+
+  int num_legendre_;
+  int num_sigma0_;
+  
 public:
 
   /* constructor */
@@ -14,6 +19,13 @@ public:
   int IG() const { return this->N2(); }
   int group() const { return IG(); }
 
-  using ListRecord::list;
+  auto flux() const { 
+    return this->list()
+      | ranges::view::take( num_legendre_ * num_sigma0_ );
+  }
+  auto values() const {
+    return this->list()
+      | ranges::view::drop( num_legendre_ * num_sigma0_ );
+  }
 
 };
