@@ -73,26 +73,6 @@ public:
   }
 
   /**
-   *  @brief Return the target spin
-   */
-  double SPI() const { return 1.0; } //!@todo PLACEHOLDER - CHANGE THIS
-
-  /**
-   *  @brief Return the target spin
-   */
-  double spin() const { return this->SPI(); }
-
-  /**
-   *  @brief Return the scattering radius
-   */
-  double AP() const { return 2.0; } //!@todo PLACEHOLDER - CHANGE THIS
-
-  /**
-   *  @brief Return the scattering radius
-   */
-  double scatteringRadius() const { return this->AP(); }
-
-  /**
    *  @brief Return whether or not the widths are reduced or not
    */
   bool IFG() const { return this->ifg_; }
@@ -141,6 +121,19 @@ public:
    *  @brief Return the spin groups
    */
   auto spinGroups() const { return ranges::view::all( this->spin_groups_ ); }
+
+  #include "ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/SPI.hpp"
+  #include "ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/AP.hpp"
+
+  /**
+   *  @brief Return the target spin
+   */
+  double spin() const { return this->SPI(); }
+
+  /**
+   *  @brief Return the scattering radius
+   */
+  double scatteringRadius() const { return this->AP(); }
 
   #include "ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/NC.hpp"
   #include "ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/print.hpp"
