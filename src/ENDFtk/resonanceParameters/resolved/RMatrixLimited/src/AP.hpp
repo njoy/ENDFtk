@@ -1,5 +1,10 @@
 /**
- *  @brief Return the target spin
+ *  @brief Return the scattering radius
+ *
+ *  This function will only return the first true scattering radius value it
+ *  finds in the first spin group. If other spin groups use different radii,
+ *  AP is meaningless and should not be used as a shortcut to retrieve
+ *  the scattering radius.
  */
 double AP() const {
 
