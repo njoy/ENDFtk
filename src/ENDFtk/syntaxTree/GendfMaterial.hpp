@@ -24,6 +24,11 @@ public:
 
   #include "ENDFtk/syntaxTree/GendfMaterial/src/section.hpp"
 
+  /*
+   * @brief Return whether material includes given section.
+   * @param MF  The MFD value of the section.
+   * @param MT  The MT value of the section.
+   */
   bool hasSection( int MF, int MT ) const {
     return sections_.count( MFMT(MF, MT) );
   }

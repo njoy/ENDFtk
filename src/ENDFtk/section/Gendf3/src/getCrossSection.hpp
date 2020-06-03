@@ -1,3 +1,9 @@
+/*
+ * @brief Return cross section value.
+ * @param group GENDF group index (1-based, low group = low energy)
+ * @param order Legendre order
+ * @param idil  Index of dilution (0-based)
+ */
 double getCrossSection( int group,
                         int order,
                         int idil ) {
@@ -29,6 +35,10 @@ double getCrossSection( int group,
 
 }
 
+/*
+ * @brief Return cross section value.  Assume l=0, idil=0.
+ * @param group GENDF group index (1-based, low group = low energy)
+ */
 double getCrossSection( int group ) {
   return getCrossSection( group, 0, 0 );
 }

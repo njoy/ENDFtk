@@ -12,7 +12,7 @@ public:
   /* methods */
   #include "ENDFtk/section/Gendf3/src/getCrossSection.hpp"
 
-  /* inherited from GendfBase */
+  /* getters inherited from GendfBase */
   using GendfBase::legendreOrder;
   using GendfBase::numLegendre;
   using GendfBase::numSigma0;
@@ -20,7 +20,7 @@ public:
   using GendfBase::numGroups;
   using GendfBase::temperature;
 
-  /* inherited from Base */
+  /* getters inherited from Base */
   using GendfBase::MT;
   using GendfBase::ZA;
   using GendfBase::AWR;

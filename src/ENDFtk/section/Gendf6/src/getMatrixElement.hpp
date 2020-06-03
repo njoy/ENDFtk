@@ -1,3 +1,10 @@
+/*
+ * @brief Return matrix element from transfer matrix.
+ * @param in_group  Incoming energy group (GENDF ordering)
+ * @param out_group Outgoing energy group (GENDF ordering)
+ * @param order     Legendre order
+ * @param idil      Index of dilution (0-based)
+ */
 double getMatrixElement( int in_group,
                          int out_group,
                          int order,
@@ -47,6 +54,13 @@ double getMatrixElement( int in_group,
 
 }
 
+
+/*
+ * @brief Return matrix element from transfer matrix.
+          Assume l=0, idil=0.
+ * @param in_group  Incoming energy group (GENDF ordering)
+ * @param out_group Outgoing energy group (GENDF ordering)
+ */
 double getMatrixElement( int in_group, int out_group ) {
   return getMatrixElement( in_group, out_group, 0, 0 );
 }
