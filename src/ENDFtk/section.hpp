@@ -23,5 +23,6 @@ template< int MF, int... OptionalMT >
 class GendfType;
 
 #include "ENDFtk/section/Gendf3.hpp"
+#include "ENDFtk/section/Gendf6.hpp"
 
 }

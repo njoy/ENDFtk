@@ -21,11 +21,11 @@ public:
 
   auto flux() const { 
     return this->list()
-      | ranges::view::take( num_legendre_ * num_sigma0_ );
+      | ranges::view::take_exactly( num_legendre_ * num_sigma0_ );
   }
   auto values() const {
     return this->list()
-      | ranges::view::drop( num_legendre_ * num_sigma0_ );
+      | ranges::view::drop_exactly( num_legendre_ * num_sigma0_ );
   }
 
 };
