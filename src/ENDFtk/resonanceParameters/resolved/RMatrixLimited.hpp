@@ -122,6 +122,19 @@ public:
    */
   auto spinGroups() const { return ranges::view::all( this->spin_groups_ ); }
 
+  #include "ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/SPI.hpp"
+  #include "ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/AP.hpp"
+
+  /**
+   *  @brief Return the target spin
+   */
+  double spin() const { return this->SPI(); }
+
+  /**
+   *  @brief Return the scattering radius
+   */
+  double scatteringRadius() const { return this->AP(); }
+
   #include "ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/NC.hpp"
   #include "ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/print.hpp"
 };

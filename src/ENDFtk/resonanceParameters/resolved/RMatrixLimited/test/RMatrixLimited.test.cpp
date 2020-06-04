@@ -164,6 +164,11 @@ void verifyChunk( const RMatrixLimited& chunk ) {
   CHECK( 3 == chunk.KRM() );
   CHECK( 3 == chunk.formalism() );
 
+  CHECK( 0. == Approx( chunk.SPI() ) );
+  CHECK( 0. == Approx( chunk.spin() ) );
+  CHECK( 5.437300e-1 == Approx( chunk.AP() ) );
+  CHECK( 5.437300e-1 == Approx( chunk.scatteringRadius() ) );
+
   auto pairs = chunk.particlePairs();
   CHECK( 2 == pairs.NPP() );
   CHECK( 2 == pairs.numberParticlePairs() );
