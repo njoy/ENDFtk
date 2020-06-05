@@ -33,7 +33,7 @@ public:
   /**
    *  @brief Return the temperature
    */
-  auto TEMZ() const { return ListRecord::C1(); }
+  auto TEMZ() const { return this->data_.C1(); }
 
   /**
    *  @brief Return the temperature
@@ -43,7 +43,7 @@ public:
   /**
    *  @brief Return the number of reactions (normally 5)
    */
-  auto NREAC() const { return ListRecord::N1(); }
+  auto NREAC() const { return this->data_.L1(); }
 
   /**
    *  @brief Return the number of reactions (normally 5)
@@ -53,7 +53,7 @@ public:
   /**
    *  @brief Return the number of dilution or sigma zero values
    */
-  auto NSIGZ() const { return ListRecord::N1(); }
+  auto NSIGZ() const { return this->data_.L2(); }
 
   /**
    *  @brief Return the number of dilution or sigma zero values
@@ -65,7 +65,7 @@ public:
    */
   auto SIGZ() const {
 
-    return ListRecord::list()
+    return this->data_.list()
              | ranges::view::take_exactly( this->NSIGZ() );
   }
 

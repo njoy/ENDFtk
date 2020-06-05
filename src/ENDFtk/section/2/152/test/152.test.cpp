@@ -6,6 +6,7 @@
 using namespace njoy::ENDFtk;
 
 // convenience typedefs
+using section2152 = section::Type< 2, 152 >;
 
 std::string chunkWithOneDilution();
 void verifyChunkWithOneDilution( const section::Type< 2, 152 >& );
@@ -35,7 +36,7 @@ SCENARIO( "section::Type< 2, 152 >" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 9437, 12 );
+        chunk.print( output, 9437, 2 );
 
         CHECK( buffer == sectionString );
       } // THEN
@@ -60,7 +61,7 @@ SCENARIO( "section::Type< 2, 152 >" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 9437, 12 );
+        chunk.print( output, 9437, 2 );
 
         CHECK( buffer == sectionString );
       } // THEN
@@ -78,8 +79,8 @@ SCENARIO( "section::Type< 2, 152 >" ) {
 
       section::Type< 2, 152 > chunk1 = section.parse< 2, 152 >();
       section::Type< 2, 152 > chunk2 = section.parse< 2, 152 >( lineNumber );
-      section::Type< 2, 152 > chunk3 = section.parse( 12_c );
-      section::Type< 2, 152 > chunk4 = section.parse( 12_c, lineNumber );
+      section::Type< 2, 152 > chunk3 = section.parse( 2_c, 152_c );
+      section::Type< 2, 152 > chunk4 = section.parse( 2_c, 152_c, lineNumber );
 
       THEN( "a section::Type< 2, 152 > can be constructed and members can be "
             "tested" ) {
@@ -94,19 +95,19 @@ SCENARIO( "section::Type< 2, 152 >" ) {
 
         std::string buffer1;
         auto output1 = std::back_inserter( buffer1 );
-        chunk1.print( output1, 9437, 12 );
+        chunk1.print( output1, 9437, 2 );
 
         std::string buffer2;
         auto output2 = std::back_inserter( buffer2 );
-        chunk1.print( output2, 9437, 12 );
+        chunk1.print( output2, 9437, 2 );
 
         std::string buffer3;
         auto output3 = std::back_inserter( buffer3 );
-        chunk1.print( output3, 9437, 12 );
+        chunk1.print( output3, 9437, 2 );
 
         std::string buffer4;
         auto output4 = std::back_inserter( buffer4 );
-        chunk1.print( output4, 9437, 12 );
+        chunk1.print( output4, 9437, 2 );
 
         REQUIRE( buffer1 == sectionString );
         REQUIRE( buffer2 == sectionString );
@@ -129,8 +130,7 @@ SCENARIO( "section::Type< 2, 152 >" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( section::Type< 2, 152 >( head, begin, end,
-                                                 lineNumber, 9437 ) );
+        REQUIRE_THROWS( section2152( head, begin, end, lineNumber, 9437 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -138,12 +138,12 @@ SCENARIO( "section::Type< 2, 152 >" ) {
 
 std::string chunkWithOneDilution() {
   return
-  "9.423900+4 2.369986+2          1          0          0          29437 2152     "
-  "0.000000+0 0.000000+0          5          1        433         729437 2152     "
-  "1.00000+10 2.500000+3 2.009120+1 1.343187+1 4.234708+0 2.424629+09437 2152     "
-  "2.009120+1 2.550000+3 1.923568+1 1.375705+1 2.725074+0 2.753559+09437 2152     "
-  "1.923568+1 2.999999+4 1.366039+1 1.156033+1 1.572008+0 5.280525-19437 2152     "
-  "1.366039+1                                                       9437 2152     ";
+    " 9.423900+4 2.369986+2          1          0          0          29437 2152     \n"
+    " 0.000000+0 0.000000+0          5          1         19         729437 2152     \n"
+    " 1.00000+10 2.500000+3 2.009120+1 1.343187+1 4.234708+0 2.424629+09437 2152     \n"
+    " 2.009120+1 2.550000+3 1.923568+1 1.375705+1 2.725074+0 2.753559+09437 2152     \n"
+    " 1.923568+1 2.999999+4 1.366039+1 1.156033+1 1.572008+0 5.280525-19437 2152     \n"
+    " 1.366039+1                                                       9437 2152     \n";
 }
 
 void verifyChunkWithOneDilution( const section::Type< 2, 152 >& chunk ) {
@@ -168,18 +168,18 @@ void verifyChunkWithOneDilution( const section::Type< 2, 152 >& chunk ) {
 
   CHECK( 1 == chunk.SIGZ().size() );
   CHECK( 1 == chunk.dilutions().size() );
-  CHECK( 1e-5 == Approx( chunk.SIGZ()[0] ) );
-  CHECK( 1e-5 == Approx( chunk.dilutions()[0] ) );
+  CHECK( 1e+10 == Approx( chunk.SIGZ()[0] ) );
+  CHECK( 1e+10 == Approx( chunk.dilutions()[0] ) );
 
   REQUIRE( 6 == chunk.NC() );
 }
 
 std::string validSEND() {
   return
-    "                                                                  943712  0     \n";
+    "                                                                  9437 2  0     \n";
 }
 
 std::string invalidSEND() {
   return
-    "                                                                  943712  4     \n";
+    "                                                                  9437 2  4     \n";
 }

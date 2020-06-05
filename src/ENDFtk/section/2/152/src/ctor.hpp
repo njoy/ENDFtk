@@ -6,7 +6,7 @@ private:
 Type( double zaid, double awr, bool lssf, int interpolation,
       ListRecord&& list ) :
   BaseWithoutMT( zaid, awr ), lssf_( lssf ), interpolation_( interpolation ),
-  data_( std::move( data ) ) {}
+  data_( std::move( list ) ) {}
 
 public:
 
@@ -29,7 +29,7 @@ Type ( const HEAD& head,
        int MAT )
   try:
     Type( head.ZA(), head.AWR(), head.L1(), head.N2(),
-          ListRecord( head, begin, end, lineNumber ) ) {
+          ListRecord( begin, end, lineNumber, head.MAT(), 2, 152 ) ) {
 
       readSEND( begin, end, lineNumber, MAT, 2 );
   } catch( std::exception& e ){
