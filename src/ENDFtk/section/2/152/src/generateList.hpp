@@ -13,8 +13,8 @@ generateList( std::vector< double >&& dilutions,
        ( elastic.size() != nunr ) or ( fission.size() != nunr ) or
        ( capture.size() != nunr ) or ( cwTotal.size() != nunr ) ) {
 
-    Log::info( "The number of energies and sets of cross section values is not "
-               "consistent" );
+    Log::error( "The number of energies and sets of cross section values is "
+                "not consistent" );
     Log::info( "NUNR value: {}", nunr );
     Log::info( "total.size(): {}", total.size() );
     Log::info( "elastic.size(): {}", elastic.size() );
@@ -32,8 +32,8 @@ generateList( std::vector< double >&& dilutions,
          ( elastic[i].size() != nsigz ) or ( fission[i].size() != nsigz ) or
          ( capture[i].size() != nsigz ) or ( cwTotal[i].size() != nsigz ) ) {
 
-      Log::info( "The number of cross section values and dilutions is not "
-                 "consistent for the energy with index {}", i );
+      Log::error( "The number of cross section values and dilutions is not "
+                  "consistent for the energy with index {}", i );
       Log::info( "NSIGZ value: {}", nsigz );
       Log::info( "total[i].size(): {}", total[i].size() );
       Log::info( "elastic[i].size(): {}", elastic[i].size() );
@@ -66,8 +66,8 @@ generateList( std::vector< double >&& energies,
        ( elastic.size() != nunr ) or ( fission.size() != nunr ) or
        ( capture.size() != nunr ) or ( cwTotal.size() != nunr ) ) {
 
-    Log::info( "The number of energies and sets of cross section values is not "
-               "consistent" );
+    Log::error( "The number of energies and sets of cross section values is "
+                "not consistent" );
     Log::info( "NUNR value: {}", nunr );
     Log::info( "total.size(): {}", total.size() );
     Log::info( "elastic.size(): {}", elastic.size() );
