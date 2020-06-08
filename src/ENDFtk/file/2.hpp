@@ -18,7 +18,7 @@ class Type< 2 > : public Base< Type< 2 > > {
                                                 optionalSections() ) )::type;
 
   /* fields */
-  Map sectionMap;
+  Map sectionMap;s
 
 public :
 
@@ -30,8 +30,8 @@ public :
     switch( sectionNo ) {
 
       case 151 : return true;
-      case 152 : return this->sectionMap[ 152_c ];
-      // case 153 : return this->sectionMap[ 153_c ];
+      case 152 : return bool( this->sectionMap[ 152_c ] );
+      // case 153 : return bool( this->sectionMap[ 153_c ] );
       default : return false;
     }
   }
