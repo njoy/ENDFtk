@@ -18,7 +18,7 @@ class Type< 2 > : public Base< Type< 2 > > {
                                                 optionalSections() ) )::type;
 
   /* fields */
-  Map sectionMap;s
+  Map sectionMap;
 
 public :
 
