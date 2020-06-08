@@ -10,6 +10,7 @@ using section2152 = section::Type< 2, 152 >;
 
 std::string chunkWithOneDilution();
 void verifyChunkWithOneDilution( const section::Type< 2, 152 >& );
+std::string invalidChunk();
 std::string validSEND();
 std::string invalidSEND();
 
@@ -157,6 +158,77 @@ SCENARIO( "section::Type< 2, 152 >" ) {
 
   GIVEN( "invalid data for a section::Type< 2, 152 >" ) {
 
+    WHEN( "a string representation with an invalid section::Type< 2, 152 >" ) {
+
+      std::string sectionString = invalidChunk() + validSEND();
+      auto begin = sectionString.begin();
+      auto end = sectionString.end();
+      long lineNumber = 1;
+      HeadRecord head( begin, end, lineNumber );
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( section2152( head, begin, end, lineNumber, 9437 ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "data with the wrong size is used" ) {
+
+      double za = 94239.;
+      double awr = 2.369986e+2;
+      bool lssf = true;
+      int interpolation = 2;
+      double temperature = 0.;
+
+      std::vector< double > dilutions = { 1e+10 };
+      std::vector< double > wrong = { 2500., 30000. };
+      std::vector< std::vector< double > > dilTotal =
+          { { 2.009120e+1 }, { 1.923568e+1 }, { 1.366039e+1 } };
+      std::vector< std::vector< double > > dilElastic =
+          { { 1.343187e+1 }, { 1.375705e+1 }, { 1.156033e+1 } };
+      std::vector< std::vector< double > > dilFission =
+          { { 4.234708e+0 }, { 2.725074e+0 }, { 1.572008e+0 } };
+      std::vector< std::vector< double > > dilCapture =
+          { { 2.424629e+0 }, { 2.753559e+0 }, { 5.280525e-1 } };
+      std::vector< std::vector< double > > dilCwTotal =
+          { { 2.009120e+1 }, { 1.923568e+1 }, { 1.366039e+1 } };
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( section2152(
+                            za, awr, lssf, interpolation, temperature,
+                            std::move( dilutions ),
+                            std::move( wrong ), std::move( dilTotal ),
+                            std::move( dilElastic ), std::move( dilFission ),
+                            std::move( dilCapture ), std::move( dilCwTotal ) ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "data with the wrong size is used in the no dilution constructor" ) {
+
+      double za = 94239.;
+      double awr = 2.369986e+2;
+      bool lssf = true;
+      int interpolation = 2;
+      double temperature = 0.;
+
+      std::vector< double > wrong = { 2500., 2550. };
+      std::vector< double > total = { 2.009120e+1, 1.923568e+1, 1.366039e+1 };
+      std::vector< double > elastic = { 1.343187e+1, 1.375705e+1, 1.156033e+1 };
+      std::vector< double > fission = { 4.234708e+0, 2.725074e+0, 1.572008e+0 };
+      std::vector< double > capture = { 2.424629e+0, 2.753559e+0, 5.280525e-1 };
+      std::vector< double > cwTotal = { 2.009120e+1, 1.923568e+1, 1.366039e+1 };
+
+      THEN( "an exception is thrown" ) {
+
+        REQUIRE_THROWS( section2152(
+                            za, awr, lssf, interpolation, temperature,
+                            std::move( wrong ), std::move( total ),
+                            std::move( elastic ), std::move( fission ),
+                            std::move( capture ), std::move( cwTotal ) ) );
+      } // THEN
+    } // WHEN
+
     WHEN( "a string representation of a valid section::Type< 2, 152 > "
           "with an invalid SEND" ) {
 
@@ -242,6 +314,16 @@ void verifyChunkWithOneDilution( const section::Type< 2, 152 >& chunk ) {
   CHECK( 1.366039e+1 == Approx( chunk.currentWeightedTotal()[2][0] ) );
 
   REQUIRE( 6 == chunk.NC() );
+}
+
+std::string invalidChunk() {
+  return
+    " 9.423900+4 2.369986+2          1          0          0          29437 2152     \n"
+    " 0.000000+0 0.000000+0          5          2         19          39437 2152     \n"
+    " 1.00000+10 2.500000+3 2.009120+1 1.343187+1 4.234708+0 2.424629+09437 2152     \n"
+    " 2.009120+1 2.550000+3 1.923568+1 1.375705+1 2.725074+0 2.753559+09437 2152     \n"
+    " 1.923568+1 3.000000+4 1.366039+1 1.156033+1 1.572008+0 5.280525-19437 2152     \n"
+    " 1.366039+1                                                       9437 2152     \n";
 }
 
 std::string validSEND() {
