@@ -16,4 +16,13 @@ class Type;
 #include "ENDFtk/section/8.hpp"
 #include "ENDFtk/section/12.hpp"
 #include "ENDFtk/section/13.hpp"
+
+#include "ENDFtk/section/GendfBase.hpp"
+
+template< int MF, int... OptionalMT >
+class GendfType;
+
+#include "ENDFtk/section/Gendf3.hpp"
+#include "ENDFtk/section/Gendf6.hpp"
+
 }

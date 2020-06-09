@@ -1,6 +1,6 @@
-Section( const HEAD& head, BufferIterator begin,
-         BufferIterator& position, const BufferIterator& end,
-         long& lineNumber )
+SectionBase( const HEAD& head, BufferIterator begin,
+             BufferIterator& position, const BufferIterator& end,
+             long& lineNumber )
 try:
   sectionNo( head.MT() ),
   fileNo( head.MF() ),

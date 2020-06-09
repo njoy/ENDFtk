@@ -771,7 +771,7 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/File/src/parse.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/Section/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/Section/src/findEnd.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/Section/src/parse.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/Section/src/parse-endf.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/Tape/src/createMap.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/Tape/src/materialNumber.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/syntaxTree/Tape/src/ctor.hpp"
@@ -926,10 +926,15 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/section/8/457/DiscreteSpectrum/test )
         add_subdirectory( src/ENDFtk/section/Base/test )
         add_subdirectory( src/ENDFtk/section/BaseWithoutMT/test )
+        add_subdirectory( src/ENDFtk/section/GendfBase/test )
+        add_subdirectory( src/ENDFtk/section/Gendf3/test )
+        add_subdirectory( src/ENDFtk/section/Gendf6/test )
         add_subdirectory( src/ENDFtk/syntaxTree/File/test )
         add_subdirectory( src/ENDFtk/syntaxTree/Material/test )
+        add_subdirectory( src/ENDFtk/syntaxTree/GendfMaterial/test )
         add_subdirectory( src/ENDFtk/syntaxTree/Section/test )
         add_subdirectory( src/ENDFtk/syntaxTree/Tape/test )
+        add_subdirectory( src/ENDFtk/GendfDataRecord/test )
     endif() 
 endif()
 

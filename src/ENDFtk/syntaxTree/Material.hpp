@@ -1,5 +1,11 @@
+/* Forward class declaration */
+template< typename BufferIterator, typename Tag = ENDFTag >
+class Material;
+
+
+/* Template specialization */
 template< typename BufferIterator >
-class Material {
+class Material< BufferIterator, ENDFTag > {
 public:
   /* convenience typedefs */
   using File_t = File< BufferIterator >;
