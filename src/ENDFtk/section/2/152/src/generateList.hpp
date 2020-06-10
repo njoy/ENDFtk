@@ -77,7 +77,7 @@ generateList( std::vector< double >&& energies,
     throw std::exception();
   }
 
-  std::vector< double > list( { 1e+10 } );
+  std::vector< double > list = { 1e+10 };
   for ( unsigned int i = 0; i < nunr; ++i ) {
 
     list.push_back( energies[i] );
