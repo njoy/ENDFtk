@@ -11,8 +11,7 @@ class Type< 2 > : public Base< Type< 2 > > {
 
   // all other sections are optional
   static constexpr auto optionalSections()
-    // hana::make_tuple( 152_c, 153_c );
-    RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple() )
+    RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 152_c ) )
 
   using Map = typename decltype( deduceMapType( 2_c,
                                                 requiredSections(),
@@ -31,10 +30,8 @@ public :
     switch( sectionNo ) {
 
       case 151 : return true;
-      /*
-      case 152 : return this->sectionMap[ 152_c ];
-      case 153 : return this->sectionMap[ 153_c ];
-      */
+      case 152 : return bool( this->sectionMap[ 152_c ] );
+      // case 153 : return bool( this->sectionMap[ 153_c ] );
       default : return false;
     }
   }
