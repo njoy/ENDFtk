@@ -34,7 +34,7 @@ SCENARIO( "Testing if MT number is a redundant ENDF reaction" ){
     std::vector< int > MT27{ 18, 101 };
     std::vector< int > MT101{ 
                 102, 103, 104, 105, 106, 107, 108, 109, 
-      110, 111, 112, 113, 114, 115, 116, 117,
+           111, 112, 113, 114, 115, 116, 117,
                               155,
                 182,
           191, 192, 193,                197
