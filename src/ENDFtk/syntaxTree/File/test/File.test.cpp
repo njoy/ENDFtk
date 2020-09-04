@@ -29,10 +29,16 @@ SCENARIO( "Creating a syntax tree of an ENDF File" ){
           < syntaxTree::File< std::string::iterator > >
           ( head, start, beg, end, lin );
         
+        THEN( "We can exstract the MT numbers" ){
+          std::vector< int > refMTs{ 1, 2, 102 };
+          CHECK( refMTs == original->sectionNumbers() );
+        } // THEN
+
         THEN( "the copy ctor will function correctly "){
           auto copy = syntaxTree::File< std::string::iterator >{ *original };
           original.reset();
           CHECK( 1 == copy.MT( 1 ).MT() );          
+
         }
 
         beg = begin;
