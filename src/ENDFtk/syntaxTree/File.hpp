@@ -53,6 +53,5 @@ public:
 
   int fileNumber() const { return this->MF(); }
 
-  std::vector< int > sectionNumbers() const { 
-    return ranges::view::keys( sections_ ); }
+  auto sectionNumbers() const { return ranges::view::keys( sections_ ); }
 };
