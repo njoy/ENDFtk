@@ -52,4 +52,6 @@ public:
   int MF() const { return this->fileNo; }
 
   int fileNumber() const { return this->MF(); }
+
+  auto sectionNumbers() const { return ranges::view::keys( sections_ ); }
 };
