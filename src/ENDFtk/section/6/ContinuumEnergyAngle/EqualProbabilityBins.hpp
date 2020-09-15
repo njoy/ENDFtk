@@ -10,8 +10,7 @@
 class EqualProbabilityBins : protected ListRecord {
 
   /* type aliases */
-  using StrideRange = decltype( ListRecord( 0., 0., 0, 0, 0, {} ).list()
-                                  | ranges::view::stride( 0 ) );
+  using Range = decltype( std::declval< ListRecord >().list() );
 
   /* auxiliary functions */
   //#include "ENDFtk/section/6/ContinuumEnergyAngle/EqualProbabilityBins/src/verifySize.hpp"
@@ -39,28 +38,16 @@ public:
   double energy() const { return this->EN(); }
 
   /**
-   *  @brief Return the number of secondary energy values
+   *  @brief Return the data contained in this component
    */
-  long NEP() const { return ListRecord::NPL() / ListRecord::N2(); }
+  Range data() const { return ListRecord::list(); }
 
   /**
-   *  @brief Return the number of secondary energy values
+   *  @brief Return the data contained in this component
    */
-  long numberSecondaryEnergies() const { return this->NEP(); }
+  int NW() const { return ListRecord::NPL(); }
 
-  /**
-   *  @brief Return the secondary energy values
-   */
-  StrideRange EP() const {
-
-    return ListRecord::list() | ranges::view::stride( ListRecord::N2() );
-  }
-
-  /**
-   *  @brief Return the secondary energy values
-   */
-  StrideRange energies() const { return this->EP(); }
-
+  using ListRecord::N2;
   using ListRecord::NC;
   using ListRecord::print;
 };

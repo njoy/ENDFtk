@@ -9,6 +9,17 @@ EqualProbabilityBins( ListRecord&& list ) :
 public:
 
 /**
+ *  @brief Constructor
+ *
+ *  @param[in] energy   the incident energy
+ *  @param[in] n2       the value for n2 (nl+1 or nu+2)
+ *  @param[in] data     the data that goes into this component
+ */
+EqualProbabilityBins( double energy, int n2,
+                      std::vector< double >&& data ) :
+  ListRecord( 0., energy, 0, 0, n2, std::move( data ) ) {}
+
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator
