@@ -10,7 +10,8 @@
 class EqualProbabilityBins : protected ListRecord {
 
   /* type aliases */
-  using StrideRange = decltype( ListRecord::list() | ranges::view::stride( 0 ) );
+  using StrideRange = decltype( ListRecord( 0., 0., 0, 0, 0, {} ).list()
+                                  | ranges::view::stride( 0 ) );
 
   /* auxiliary functions */
   //#include "ENDFtk/section/6/ContinuumEnergyAngle/EqualProbabilityBins/src/verifySize.hpp"
@@ -18,9 +19,14 @@ class EqualProbabilityBins : protected ListRecord {
 public:
 
   /* constructor */
-  //#include "ENDFtk/section/6/ContinuumEnergyAngle/EqualProbabilityBins/src/ctor.hpp"
+  #include "ENDFtk/section/6/ContinuumEnergyAngle/EqualProbabilityBins/src/ctor.hpp"
 
   /* get methods */
+
+  /**
+   *  @brief Return the LANG value
+   */
+  static constexpr int LANG() { return 3; }
 
   /**
    *  @brief Return the incident energy

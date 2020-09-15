@@ -38,7 +38,7 @@ SCENARIO( "EqualProbabilityBins" ) {
       THEN( "a EqualProbabilityBins can be constructed and members can be "
             "tested" ) {
 
-        EqualProbabilityBins chunk( begin, end, lineNumber, 9228, 6, 5 );
+        EqualProbabilityBins chunk( begin, end, lineNumber, 1301, 6, 222 );
         verifyChunk( chunk );
       } // THEN
     } // WHEN
@@ -47,7 +47,7 @@ SCENARIO( "EqualProbabilityBins" ) {
 
 std::string chunk() {
   return
-    " 0.000000+0 1.000000-5          0          0        102          61301 6222     \n"
+    " 0.000000+0 1.000000-5          0          0         18          61301 6222     \n"
     " 0.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+01301 6222     \n"
     " 9.999999-6 9.477167+1-5.379121-1 0.21062848 0.70490082 9.552579-11301 6222     \n"
     " 1.265100-1 0.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+01301 6222     \n";
