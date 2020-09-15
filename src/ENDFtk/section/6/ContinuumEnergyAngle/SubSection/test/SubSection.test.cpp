@@ -6,13 +6,13 @@
 using namespace njoy::ENDFtk;
 
 // convenience typedefs
-using SubSection = 
+using SubSection =
 section::Type< 6 >::ContinuumEnergyAngle::SubSection;
-using LegendreCoefficients = 
+using LegendreCoefficients =
 section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients;
-using KalbachMann = 
+using KalbachMann =
 section::Type< 6 >::ContinuumEnergyAngle::KalbachMann;
-using Tabulated = 
+using Tabulated =
 section::Type< 6 >::ContinuumEnergyAngle::Tabulated;
 
 std::string chunkLANG1();
@@ -28,7 +28,7 @@ SCENARIO( "SubSection" ) {
     int na = 1;
     int nep = 2;
     std::vector< double > list = { 1., 2., 3., 4., 5., 6. };
-    std::vector< std::pair< double, std::vector< double > > > data = { 
+    std::vector< std::pair< double, std::vector< double > > > data = {
       std::make_pair< double, std::vector< double > >( 1., { 2., 3. } ),
       std::make_pair< double, std::vector< double > >( 4., { 5., 6. } ) };
 
@@ -37,7 +37,7 @@ SCENARIO( "SubSection" ) {
           LegendreCoefficients( energy, nd, na, nep, std::move( list ) ) );
 
       auto chunk =
-        std::get< LegendreCoefficients >( subsection.data() );
+        std::get< LegendreCoefficients >( subsection );
 
       REQUIRE( 1 == chunk.LANG() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
@@ -72,7 +72,7 @@ SCENARIO( "SubSection" ) {
     int na = 1;
     int nep = 2;
     std::vector< double > list = { 1., 2., 3., 4., 5., 6. };
-    std::vector< std::tuple< double, double, double > > data = { 
+    std::vector< std::tuple< double, double, double > > data = {
       { 1., 2., 3. },
       { 4., 5., 6. } };
 
@@ -81,7 +81,7 @@ SCENARIO( "SubSection" ) {
       SubSection subsection(
           KalbachMann( energy, nd, na, nep, std::move( list ) ) );
 
-      auto chunk = std::get< KalbachMann >( subsection.data() );
+      auto chunk = std::get< KalbachMann >( subsection );
 
       REQUIRE( 2 == chunk.LANG() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
@@ -128,7 +128,7 @@ SCENARIO( "SubSection" ) {
       SubSection subsection(
           Tabulated( lang, energy, nd, na, nep, std::move( list ) ) );
 
-      auto chunk = std::get< Tabulated >( subsection.data() );
+      auto chunk = std::get< Tabulated >( subsection );
 
       REQUIRE( 14 == chunk.LANG() );
       REQUIRE( 1e-5 == Approx( chunk.energy() ) );
@@ -234,4 +234,3 @@ std::string chunkLANG14() {
     " 1.000000+0 2.000000+0 3.000000+0 4.000000+0 5.000000+0 6.000000+09228 6  5     \n"
     " 7.000000+0 8.000000+0 9.000000+0 1.000000+1 1.100000+1 1.200000+19228 6  5     \n";
 }
-

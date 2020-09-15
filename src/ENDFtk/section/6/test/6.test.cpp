@@ -6,15 +6,15 @@
 using namespace njoy::ENDFtk;
 
 // convenience typedefs
-using ReactionProduct = 
+using ReactionProduct =
 section::Type< 6 >::ReactionProduct;
-using Multiplicity = 
+using Multiplicity =
 section::Type< 6 >::Multiplicity;
-using Distribution = 
+using Distribution =
 section::Type< 6 >::Distribution;
-using ContinuumEnergyAngle = 
+using ContinuumEnergyAngle =
 section::Type< 6 >::ContinuumEnergyAngle;
-using LegendreCoefficients = 
+using LegendreCoefficients =
 section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients;
 
 std::string chunk();
@@ -45,7 +45,7 @@ SCENARIO( "section::Type< 6 >" ) {
                   { 1., 2., 3., 4., 5., 6., 7., 8., 9., 10., 11., 12. } ),
               LegendreCoefficients(
                   2e+7, 0, 1, 2, { 1., 2., 3., 4., 5., 6.} ) } ) } ),
-      ReactionProduct( 
+      ReactionProduct(
         // multiplicity
         { 1., 1., 0, 1, { 2 }, { 2 },
           { 1.858639e+7, 2.e+7 },
@@ -57,7 +57,7 @@ SCENARIO( "section::Type< 6 >" ) {
                   1.858639e+7, 0, 0, 3, { 0., 0., 0.5, 2., 1., 0. } ),
               LegendreCoefficients(
                   2e+7, 0, 0, 3, { 0., 0., 0.5, 2., 1., 0. } ) } ) } ),
-      ReactionProduct( 
+      ReactionProduct(
         // multiplicity
         { 0., 0., 0, 1, { 3 }, { 2 },
           { 1.858639e+7, 1.9e+7, 2.e+7 },
@@ -141,16 +141,9 @@ SCENARIO( "section::Type< 6 >" ) {
 
       REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
       REQUIRE( 1 == energies[0].LANG() );
-      REQUIRE( 0 == energies[0].ND() );
-      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
-      REQUIRE( 1 == energies[0].NA() );
-      REQUIRE( 1 == energies[0].numberAngularParameters() );
-      REQUIRE( 12 == energies[0].NW() );
-      REQUIRE( 4 == energies[0].NEP() );
-      REQUIRE( 4 == energies[0].numberSecondaryEnergies() );
 
       auto subsection1 =
-          std::get< LegendreCoefficients >( energies[0].data() );
+          std::get< LegendreCoefficients >( energies[0] );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
       REQUIRE( 1 == subsection1.NA() );
@@ -180,16 +173,9 @@ SCENARIO( "section::Type< 6 >" ) {
 
       REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
       REQUIRE( 1 == energies[1].LANG() );
-      REQUIRE( 0 == energies[1].ND() );
-      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
-      REQUIRE( 1 == energies[1].NA() );
-      REQUIRE( 1 == energies[1].numberAngularParameters() );
-      REQUIRE( 6 == energies[1].NW() );
-      REQUIRE( 2 == energies[1].NEP() );
-      REQUIRE( 2 == energies[1].numberSecondaryEnergies() );
 
       auto subsection2 =
-          std::get< LegendreCoefficients >( energies[1].data() );
+          std::get< LegendreCoefficients >( energies[1] );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 0 == subsection2.numberDiscreteEnergies() );
@@ -257,16 +243,9 @@ SCENARIO( "section::Type< 6 >" ) {
 
       REQUIRE( 1.858639e+7 == Approx( energies[0].energy() ) );
       REQUIRE( 1 == energies[0].LANG() );
-      REQUIRE( 0 == energies[0].ND() );
-      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
-      REQUIRE( 0 == energies[0].NA() );
-      REQUIRE( 0 == energies[0].numberAngularParameters() );
-      REQUIRE( 6 == energies[0].NW() );
-      REQUIRE( 3 == energies[0].NEP() );
-      REQUIRE( 3 == energies[0].numberSecondaryEnergies() );
 
       subsection1 =
-          std::get< LegendreCoefficients >( energies[0].data() );
+          std::get< LegendreCoefficients >( energies[0] );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
       REQUIRE( 0 == subsection1.NA() );
@@ -289,16 +268,9 @@ SCENARIO( "section::Type< 6 >" ) {
 
       REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
       REQUIRE( 1 == energies[1].LANG() );
-      REQUIRE( 0 == energies[1].ND() );
-      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
-      REQUIRE( 0 == energies[1].NA() );
-      REQUIRE( 0 == energies[1].numberAngularParameters() );
-      REQUIRE( 6 == energies[1].NW() );
-      REQUIRE( 3 == energies[1].NEP() );
-      REQUIRE( 3 == energies[1].numberSecondaryEnergies() );
 
       subsection2 =
-          std::get< LegendreCoefficients >( energies[1].data() );
+          std::get< LegendreCoefficients >( energies[1] );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 0 == subsection2.numberDiscreteEnergies() );
@@ -370,16 +342,9 @@ SCENARIO( "section::Type< 6 >" ) {
 
       REQUIRE( 1.858639e+7 == Approx( energies[0].energy() ) );
       REQUIRE( 1 == energies[0].LANG() );
-      REQUIRE( 0 == energies[0].ND() );
-      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
-      REQUIRE( 0 == energies[0].NA() );
-      REQUIRE( 0 == energies[0].numberAngularParameters() );
-      REQUIRE( 6 == energies[0].NW() );
-      REQUIRE( 3 == energies[0].NEP() );
-      REQUIRE( 3 == energies[0].numberSecondaryEnergies() );
 
       subsection1 =
-          std::get< LegendreCoefficients >( energies[0].data() );
+          std::get< LegendreCoefficients >( energies[0] );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
       REQUIRE( 0 == subsection1.NA() );
@@ -402,16 +367,9 @@ SCENARIO( "section::Type< 6 >" ) {
 
       REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
       REQUIRE( 1 == energies[1].LANG() );
-      REQUIRE( 0 == energies[1].ND() );
-      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
-      REQUIRE( 0 == energies[1].NA() );
-      REQUIRE( 0 == energies[1].numberAngularParameters() );
-      REQUIRE( 6 == energies[1].NW() );
-      REQUIRE( 3 == energies[1].NEP() );
-      REQUIRE( 3 == energies[1].numberSecondaryEnergies() );
 
       subsection2 =
-          std::get< LegendreCoefficients >( energies[1].data() );
+          std::get< LegendreCoefficients >( energies[1] );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 0 == subsection2.numberDiscreteEnergies() );
@@ -443,9 +401,9 @@ SCENARIO( "section::Type< 6 >" ) {
       std::string sectionString = chunk() + validSEND();
       auto begin = sectionString.begin();
       auto end = sectionString.end();
-      long lineNumber = 1; 
+      long lineNumber = 1;
       HeadRecord head( begin, end, lineNumber );
-      
+
       THEN( "a section::Type< 6 > can be constructed and "
             "members can be tested" ) {
         section::Type< 6 > chunk( head, begin, end, lineNumber, 9228 );
@@ -517,16 +475,9 @@ SCENARIO( "section::Type< 6 >" ) {
 
       REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
       REQUIRE( 1 == energies[0].LANG() );
-      REQUIRE( 0 == energies[0].ND() );
-      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
-      REQUIRE( 1 == energies[0].NA() );
-      REQUIRE( 1 == energies[0].numberAngularParameters() );
-      REQUIRE( 12 == energies[0].NW() );
-      REQUIRE( 4 == energies[0].NEP() );
-      REQUIRE( 4 == energies[0].numberSecondaryEnergies() );
 
       auto subsection1 =
-          std::get< LegendreCoefficients >( energies[0].data() );
+          std::get< LegendreCoefficients >( energies[0] );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
       REQUIRE( 1 == subsection1.NA() );
@@ -556,16 +507,9 @@ SCENARIO( "section::Type< 6 >" ) {
 
       REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
       REQUIRE( 1 == energies[1].LANG() );
-      REQUIRE( 0 == energies[1].ND() );
-      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
-      REQUIRE( 1 == energies[1].NA() );
-      REQUIRE( 1 == energies[1].numberAngularParameters() );
-      REQUIRE( 6 == energies[1].NW() );
-      REQUIRE( 2 == energies[1].NEP() );
-      REQUIRE( 2 == energies[1].numberSecondaryEnergies() );
 
       auto subsection2 =
-          std::get< LegendreCoefficients >( energies[1].data() );
+          std::get< LegendreCoefficients >( energies[1] );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 0 == subsection2.numberDiscreteEnergies() );
@@ -633,16 +577,9 @@ SCENARIO( "section::Type< 6 >" ) {
 
       REQUIRE( 1.858639e+7 == Approx( energies[0].energy() ) );
       REQUIRE( 1 == energies[0].LANG() );
-      REQUIRE( 0 == energies[0].ND() );
-      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
-      REQUIRE( 0 == energies[0].NA() );
-      REQUIRE( 0 == energies[0].numberAngularParameters() );
-      REQUIRE( 6 == energies[0].NW() );
-      REQUIRE( 3 == energies[0].NEP() );
-      REQUIRE( 3 == energies[0].numberSecondaryEnergies() );
 
       subsection1 =
-          std::get< LegendreCoefficients >( energies[0].data() );
+          std::get< LegendreCoefficients >( energies[0] );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
       REQUIRE( 0 == subsection1.NA() );
@@ -665,16 +602,9 @@ SCENARIO( "section::Type< 6 >" ) {
 
       REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
       REQUIRE( 1 == energies[1].LANG() );
-      REQUIRE( 0 == energies[1].ND() );
-      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
-      REQUIRE( 0 == energies[1].NA() );
-      REQUIRE( 0 == energies[1].numberAngularParameters() );
-      REQUIRE( 6 == energies[1].NW() );
-      REQUIRE( 3 == energies[1].NEP() );
-      REQUIRE( 3 == energies[1].numberSecondaryEnergies() );
 
       subsection2 =
-          std::get< LegendreCoefficients >( energies[1].data() );
+          std::get< LegendreCoefficients >( energies[1] );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 0 == subsection2.numberDiscreteEnergies() );
@@ -746,16 +676,9 @@ SCENARIO( "section::Type< 6 >" ) {
 
       REQUIRE( 1.858639e+7 == Approx( energies[0].energy() ) );
       REQUIRE( 1 == energies[0].LANG() );
-      REQUIRE( 0 == energies[0].ND() );
-      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
-      REQUIRE( 0 == energies[0].NA() );
-      REQUIRE( 0 == energies[0].numberAngularParameters() );
-      REQUIRE( 6 == energies[0].NW() );
-      REQUIRE( 3 == energies[0].NEP() );
-      REQUIRE( 3 == energies[0].numberSecondaryEnergies() );
 
       subsection1 =
-          std::get< LegendreCoefficients >( energies[0].data() );
+          std::get< LegendreCoefficients >( energies[0] );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
       REQUIRE( 0 == subsection1.NA() );
@@ -778,16 +701,9 @@ SCENARIO( "section::Type< 6 >" ) {
 
       REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
       REQUIRE( 1 == energies[1].LANG() );
-      REQUIRE( 0 == energies[1].ND() );
-      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
-      REQUIRE( 0 == energies[1].NA() );
-      REQUIRE( 0 == energies[1].numberAngularParameters() );
-      REQUIRE( 6 == energies[1].NW() );
-      REQUIRE( 3 == energies[1].NEP() );
-      REQUIRE( 3 == energies[1].numberSecondaryEnergies() );
 
       subsection2 =
-          std::get< LegendreCoefficients >( energies[1].data() );
+          std::get< LegendreCoefficients >( energies[1] );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 0 == subsection2.numberDiscreteEnergies() );
@@ -822,7 +738,7 @@ SCENARIO( "section::Type< 6 >" ) {
       auto head = HEAD( position, end, lineNumber );
       syntaxTree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
-      
+
       THEN( "a section::Type< 6 > can be constructed and members can be tested" ){
         section::Type< 6 > chunk = section.parse< 6 >( lineNumber );
 
@@ -893,16 +809,9 @@ SCENARIO( "section::Type< 6 >" ) {
 
       REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
       REQUIRE( 1 == energies[0].LANG() );
-      REQUIRE( 0 == energies[0].ND() );
-      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
-      REQUIRE( 1 == energies[0].NA() );
-      REQUIRE( 1 == energies[0].numberAngularParameters() );
-      REQUIRE( 12 == energies[0].NW() );
-      REQUIRE( 4 == energies[0].NEP() );
-      REQUIRE( 4 == energies[0].numberSecondaryEnergies() );
 
       auto subsection1 =
-          std::get< LegendreCoefficients >( energies[0].data() );
+          std::get< LegendreCoefficients >( energies[0] );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
       REQUIRE( 1 == subsection1.NA() );
@@ -932,16 +841,9 @@ SCENARIO( "section::Type< 6 >" ) {
 
       REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
       REQUIRE( 1 == energies[1].LANG() );
-      REQUIRE( 0 == energies[1].ND() );
-      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
-      REQUIRE( 1 == energies[1].NA() );
-      REQUIRE( 1 == energies[1].numberAngularParameters() );
-      REQUIRE( 6 == energies[1].NW() );
-      REQUIRE( 2 == energies[1].NEP() );
-      REQUIRE( 2 == energies[1].numberSecondaryEnergies() );
 
       auto subsection2 =
-          std::get< LegendreCoefficients >( energies[1].data() );
+          std::get< LegendreCoefficients >( energies[1] );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 0 == subsection2.numberDiscreteEnergies() );
@@ -1009,16 +911,9 @@ SCENARIO( "section::Type< 6 >" ) {
 
       REQUIRE( 1.858639e+7 == Approx( energies[0].energy() ) );
       REQUIRE( 1 == energies[0].LANG() );
-      REQUIRE( 0 == energies[0].ND() );
-      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
-      REQUIRE( 0 == energies[0].NA() );
-      REQUIRE( 0 == energies[0].numberAngularParameters() );
-      REQUIRE( 6 == energies[0].NW() );
-      REQUIRE( 3 == energies[0].NEP() );
-      REQUIRE( 3 == energies[0].numberSecondaryEnergies() );
 
       subsection1 =
-          std::get< LegendreCoefficients >( energies[0].data() );
+          std::get< LegendreCoefficients >( energies[0] );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
       REQUIRE( 0 == subsection1.NA() );
@@ -1041,16 +936,9 @@ SCENARIO( "section::Type< 6 >" ) {
 
       REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
       REQUIRE( 1 == energies[1].LANG() );
-      REQUIRE( 0 == energies[1].ND() );
-      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
-      REQUIRE( 0 == energies[1].NA() );
-      REQUIRE( 0 == energies[1].numberAngularParameters() );
-      REQUIRE( 6 == energies[1].NW() );
-      REQUIRE( 3 == energies[1].NEP() );
-      REQUIRE( 3 == energies[1].numberSecondaryEnergies() );
 
       subsection2 =
-          std::get< LegendreCoefficients >( energies[1].data() );
+          std::get< LegendreCoefficients >( energies[1] );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 0 == subsection2.numberDiscreteEnergies() );
@@ -1122,16 +1010,9 @@ SCENARIO( "section::Type< 6 >" ) {
 
       REQUIRE( 1.858639e+7 == Approx( energies[0].energy() ) );
       REQUIRE( 1 == energies[0].LANG() );
-      REQUIRE( 0 == energies[0].ND() );
-      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
-      REQUIRE( 0 == energies[0].NA() );
-      REQUIRE( 0 == energies[0].numberAngularParameters() );
-      REQUIRE( 6 == energies[0].NW() );
-      REQUIRE( 3 == energies[0].NEP() );
-      REQUIRE( 3 == energies[0].numberSecondaryEnergies() );
 
       subsection1 =
-          std::get< LegendreCoefficients >( energies[0].data() );
+          std::get< LegendreCoefficients >( energies[0] );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
       REQUIRE( 0 == subsection1.NA() );
@@ -1154,16 +1035,9 @@ SCENARIO( "section::Type< 6 >" ) {
 
       REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
       REQUIRE( 1 == energies[1].LANG() );
-      REQUIRE( 0 == energies[1].ND() );
-      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
-      REQUIRE( 0 == energies[1].NA() );
-      REQUIRE( 0 == energies[1].numberAngularParameters() );
-      REQUIRE( 6 == energies[1].NW() );
-      REQUIRE( 3 == energies[1].NEP() );
-      REQUIRE( 3 == energies[1].numberSecondaryEnergies() );
 
       subsection2 =
-          std::get< LegendreCoefficients >( energies[1].data() );
+          std::get< LegendreCoefficients >( energies[1] );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 0 == subsection2.numberDiscreteEnergies() );
@@ -1195,7 +1069,7 @@ SCENARIO( "section::Type< 6 >" ) {
       auto end = sectionString.end();
       long lineNumber = 1;
       HeadRecord head( begin, end, lineNumber );
-      
+
       THEN( "an exception is thrown" ){
         REQUIRE_THROWS( section::Type< 6 >( head, begin, end, lineNumber, 9228 ) );
       } // THEN
@@ -1206,7 +1080,7 @@ SCENARIO( "section::Type< 6 >" ) {
     std::string string = chunk() + validSEND();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
+    long lineNumber = 1;
     HeadRecord head( begin, end, lineNumber );
     section::Type< 6 > section( head, begin, end, lineNumber, 9228 );
 
@@ -1224,7 +1098,7 @@ SCENARIO( "section::Type< 6 >" ) {
     auto end = sectionString.end();
     long lineNumber = 1;
     HeadRecord head( begin, end, lineNumber );
-    
+
     THEN( "an exception is thrown upon construction" ){
       REQUIRE_THROWS( section::Type< 6 >( head, begin, end, lineNumber, 9228 ) );
     } // THEN
@@ -1307,4 +1181,3 @@ std::string invalidSEND() {
   return
     "                                                                  9228 6  1     \n";
 }
-

@@ -6,15 +6,15 @@
 using namespace njoy::ENDFtk;
 
 // convenience typedefs
-using ContinuumEnergyAngle = 
+using ContinuumEnergyAngle =
 section::Type< 6 >::ContinuumEnergyAngle;
-using SubSection = 
+using SubSection =
 section::Type< 6 >::ContinuumEnergyAngle::SubSection;
-using LegendreCoefficients = 
+using LegendreCoefficients =
 section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients;
-using KalbachMann = 
+using KalbachMann =
 section::Type< 6 >::ContinuumEnergyAngle::KalbachMann;
-using Tabulated = 
+using Tabulated =
 section::Type< 6 >::ContinuumEnergyAngle::Tabulated;
 
 std::string chunkWithLANG1();
@@ -54,8 +54,8 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       std::string string = chunkWithLANG1();
       auto begin = string.begin();
       auto end = string.end();
-      long lineNumber = 1; 
-      
+      long lineNumber = 1;
+
       THEN( "a ContinuumEnergyAngle can be constructed and members can be "
             "tested" ) {
 
@@ -91,8 +91,8 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       std::string string = chunkWithLANG2();
       auto begin = string.begin();
       auto end = string.end();
-      long lineNumber = 1; 
-      
+      long lineNumber = 1;
+
       THEN( "a ContinuumEnergyAngle can be constructed and members can "
             "be tested" ) {
 
@@ -131,8 +131,8 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       std::string string = chunkWithLANG14();
       auto begin = string.begin();
       auto end = string.end();
-      long lineNumber = 1; 
-      
+      long lineNumber = 1;
+
       THEN( "a ContinuumEnergyAngle can be constructed and members can "
             "be tested" ) {
 
@@ -147,7 +147,7 @@ SCENARIO( "ContinuumEnergyAngle" ) {
     std::string string = chunkWithLANG1();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
+    long lineNumber = 1;
     ContinuumEnergyAngle chunk(begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
@@ -164,7 +164,7 @@ SCENARIO( "ContinuumEnergyAngle" ) {
     std::string string = chunkWithLANG2();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
+    long lineNumber = 1;
     ContinuumEnergyAngle chunk(begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
@@ -181,7 +181,7 @@ SCENARIO( "ContinuumEnergyAngle" ) {
     std::string string = chunkWithLANG14();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
+    long lineNumber = 1;
     ContinuumEnergyAngle chunk(begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
@@ -227,7 +227,7 @@ SCENARIO( "ContinuumEnergyAngle" ) {
             KalbachMann( 2e+7, 0, 2, 2, { 7., 8., 9., 10., 11., 12., 13., 14.} ) };
 
         REQUIRE_THROWS(
-          ContinuumEnergyAngle( lep, 
+          ContinuumEnergyAngle( lep,
                                 std::move( wrongBoundaries ),
                                 std::move( interpolants ),
                                 std::move( sequence ) ) );
@@ -244,7 +244,7 @@ SCENARIO( "ContinuumEnergyAngle" ) {
             KalbachMann( 2e+7, 0, 2, 2, { 7., 8., 9., 10., 11., 12., 13., 14.} ) };
 
         REQUIRE_THROWS(
-          ContinuumEnergyAngle( lep, 
+          ContinuumEnergyAngle( lep,
                                 std::move( boundaries ),
                                 std::move( wrongInterpolants ),
                                 std::move( sequence ) ) );
@@ -260,7 +260,7 @@ SCENARIO( "ContinuumEnergyAngle" ) {
             KalbachMann( 1e-5, 0, 1, 2, { 1., 2., 3., 4., 5., 6. } ) };
 
         REQUIRE_THROWS(
-          ContinuumEnergyAngle( lep, 
+          ContinuumEnergyAngle( lep,
                                 std::move( boundaries ),
                                 std::move( interpolants ),
                                 std::move( wrongSequence ) ) );
@@ -309,16 +309,9 @@ void verifyChunkWithLANG1( const ContinuumEnergyAngle& chunk ) {
 
       REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
       REQUIRE( 1 == energies[0].LANG() );
-      REQUIRE( 0 == energies[0].ND() );
-      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
-      REQUIRE( 1 == energies[0].NA() );
-      REQUIRE( 1 == energies[0].numberAngularParameters() );
-      REQUIRE( 12 == energies[0].NW() );
-      REQUIRE( 4 == energies[0].NEP() );
-      REQUIRE( 4 == energies[0].numberSecondaryEnergies() );
 
       auto subsection1 =
-          std::get< LegendreCoefficients >( energies[0].data() );
+          std::get< LegendreCoefficients >( energies[0] );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
       REQUIRE( 1 == subsection1.NA() );
@@ -348,24 +341,17 @@ void verifyChunkWithLANG1( const ContinuumEnergyAngle& chunk ) {
 
       REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
       REQUIRE( 1 == energies[1].LANG() );
-      REQUIRE( 0 == energies[1].ND() );
-      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
-      REQUIRE( 1 == energies[1].NA() );
-      REQUIRE( 1 == energies[1].numberAngularParameters() );
-      REQUIRE( 6 == energies[1].NW() );
-      REQUIRE( 2 == energies[1].NEP() );
-      REQUIRE( 2 == energies[1].numberSecondaryEnergies() );
 
       auto subsection2 =
-          std::get< LegendreCoefficients >( energies[1].data() );
+          std::get< LegendreCoefficients >( energies[1] );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
-      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
+      REQUIRE( 0 == subsection2.numberDiscreteEnergies() );
       REQUIRE( 1 == subsection2.NA() );
-      REQUIRE( 1 == energies[1].numberAngularParameters() );
+      REQUIRE( 1 == subsection2.numberAngularParameters() );
       REQUIRE( 6 == subsection2.NW() );
       REQUIRE( 2 == subsection2.NEP() );
-      REQUIRE( 2 == energies[1].numberSecondaryEnergies() );
+      REQUIRE( 2 == subsection2.numberSecondaryEnergies() );
       REQUIRE( 2 == subsection2.energies().size() );
       REQUIRE( 1. == Approx( subsection2.energies()[0] ) );
       REQUIRE( 4. == Approx( subsection2.energies()[1] ) );
@@ -407,24 +393,17 @@ void verifyChunkWithLANG2( const ContinuumEnergyAngle& chunk ) {
 
       REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
       REQUIRE( 2 == energies[0].LANG() );
-      REQUIRE( 0 == energies[0].ND() );
-      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
-      REQUIRE( 1 == energies[0].NA() );
-      REQUIRE( 1 == energies[0].numberAngularParameters() );
-      REQUIRE( 6 == energies[0].NW() );
-      REQUIRE( 2 == energies[0].NEP() );
-      REQUIRE( 2 == energies[0].numberSecondaryEnergies() );
 
       auto subsection1 =
-          std::get< KalbachMann >( energies[0].data() );
+          std::get< KalbachMann >( energies[0] );
       REQUIRE( 2 == subsection1.LANG() );
       REQUIRE( 0 == subsection1.ND() );
-      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
+      REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
       REQUIRE( 1 == subsection1.NA() );
-      REQUIRE( 1 == energies[0].numberAngularParameters() );
+      REQUIRE( 1 == subsection1.numberAngularParameters() );
       REQUIRE( 6 == subsection1.NW() );
       REQUIRE( 2 == subsection1.NEP() );
-      REQUIRE( 2 == energies[0].numberSecondaryEnergies() );
+      REQUIRE( 2 == subsection1.numberSecondaryEnergies() );
       REQUIRE( 2 == subsection1.energies().size() );
       REQUIRE( 1. == Approx( subsection1.energies()[0] ) );
       REQUIRE( 4. == Approx( subsection1.energies()[1] ) );
@@ -439,24 +418,17 @@ void verifyChunkWithLANG2( const ContinuumEnergyAngle& chunk ) {
 
       REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
       REQUIRE( 2 == energies[1].LANG() );
-      REQUIRE( 0 == energies[1].ND() );
-      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
-      REQUIRE( 2 == energies[1].NA() );
-      REQUIRE( 2 == energies[1].numberAngularParameters() );
-      REQUIRE( 8 == energies[1].NW() );
-      REQUIRE( 2 == energies[1].NEP() );
-      REQUIRE( 2 == energies[1].numberSecondaryEnergies() );
 
       auto subsection2 =
-          std::get< KalbachMann >( energies[1].data() );
+          std::get< KalbachMann >( energies[1] );
       REQUIRE( 2 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
-      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
+      REQUIRE( 0 == subsection2.numberDiscreteEnergies() );
       REQUIRE( 2 == subsection2.NA() );
-      REQUIRE( 2 == energies[1].numberAngularParameters() );
+      REQUIRE( 2 == subsection2.numberAngularParameters() );
       REQUIRE( 8 == subsection2.NW() );
       REQUIRE( 2 == subsection2.NEP() );
-      REQUIRE( 2 == energies[1].numberSecondaryEnergies() );
+      REQUIRE( 2 == subsection2.numberSecondaryEnergies() );
       REQUIRE( 2 == subsection2.energies().size() );
       REQUIRE( 7. == Approx( subsection2.energies()[0] ) );
       REQUIRE( 11. == Approx( subsection2.energies()[1] ) );
@@ -501,24 +473,17 @@ void verifyChunkWithLANG14( const ContinuumEnergyAngle& chunk ) {
 
       REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
       REQUIRE( 14 == energies[0].LANG() );
-      REQUIRE( 0 == energies[0].ND() );
-      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
-      REQUIRE( 4 == energies[0].NA() );
-      REQUIRE( 4 == energies[0].numberAngularParameters() );
-      REQUIRE( 12 == energies[0].NW() );
-      REQUIRE( 2 == energies[0].NEP() );
-      REQUIRE( 2 == energies[0].numberSecondaryEnergies() );
 
       auto subsection1 =
-          std::get< Tabulated >( energies[0].data() );
+          std::get< Tabulated >( energies[0] );
       REQUIRE( 14 == subsection1.LANG() );
       REQUIRE( 0 == subsection1.ND() );
-      REQUIRE( 0 == energies[0].numberDiscreteEnergies() );
+      REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
       REQUIRE( 4 == subsection1.NA() );
-      REQUIRE( 4 == energies[0].numberAngularParameters() );
+      REQUIRE( 4 == subsection1.numberAngularParameters() );
       REQUIRE( 12 == subsection1.NW() );
       REQUIRE( 2 == subsection1.NEP() );
-      REQUIRE( 2 == energies[0].numberSecondaryEnergies() );
+      REQUIRE( 2 == subsection1.numberSecondaryEnergies() );
       REQUIRE( 2 == subsection1.energies().size() );
       REQUIRE( 1. == Approx( subsection1.energies()[0] ) );
       REQUIRE( 7. == Approx( subsection1.energies()[1] ) );
@@ -538,24 +503,17 @@ void verifyChunkWithLANG14( const ContinuumEnergyAngle& chunk ) {
 
       REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
       REQUIRE( 14 == energies[1].LANG() );
-      REQUIRE( 0 == energies[1].ND() );
-      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
-      REQUIRE( 4 == energies[1].NA() );
-      REQUIRE( 4 == energies[1].numberAngularParameters() );
-      REQUIRE( 12 == energies[1].NW() );
-      REQUIRE( 2 == energies[1].NEP() );
-      REQUIRE( 2 == energies[1].numberSecondaryEnergies() );
 
       auto subsection2 =
-          std::get< Tabulated >( energies[1].data() );
+          std::get< Tabulated >( energies[1] );
       REQUIRE( 14 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
-      REQUIRE( 0 == energies[1].numberDiscreteEnergies() );
+      REQUIRE( 0 == subsection2.numberDiscreteEnergies() );
       REQUIRE( 4 == subsection2.NA() );
-      REQUIRE( 4 == energies[1].numberAngularParameters() );
+      REQUIRE( 4 == subsection2.numberAngularParameters() );
       REQUIRE( 12 == subsection2.NW() );
       REQUIRE( 2 == subsection2.NEP() );
-      REQUIRE( 2 == energies[1].numberSecondaryEnergies() );
+      REQUIRE( 2 == subsection2.numberSecondaryEnergies() );
       REQUIRE( 2 == subsection2.energies().size() );
       REQUIRE( 13. == Approx( subsection2.energies()[0] ) );
       REQUIRE( 19. == Approx( subsection2.energies()[1] ) );
@@ -578,7 +536,7 @@ void verifyChunkWithLANG14( const ContinuumEnergyAngle& chunk ) {
 
 std::string invalidLANG() {
   return
-    " 5.000000-1 0.000000+0          3          2          1          29228 6  5     \n"
+    " 5.000000-1 0.000000+0          4          2          1          29228 6  5     \n"
     "          2          1                                            9228 6  5     \n"
     " 0.000000+0 1.000000-5          0          1         12          49228 6  5     \n"
     " 1.000000+0 2.000000+0 3.000000+0 4.000000+0 5.000000+0 6.000000+09228 6  5     \n"
@@ -586,4 +544,3 @@ std::string invalidLANG() {
     " 0.000000+0 2.000000+7          0          1          6          29228 6  5     \n"
     " 1.000000+0 2.000000+0 3.000000+0 4.000000+0 5.000000+0 6.000000+09228 6  5     \n";
 }
-

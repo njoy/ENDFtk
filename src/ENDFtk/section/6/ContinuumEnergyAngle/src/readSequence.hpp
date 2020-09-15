@@ -20,6 +20,9 @@ readSequence( long lang,
       case 2 : sequence.emplace_back(
                   KalbachMann( begin, end, lineNumber, MAT, MF, MT ) );
                   break;
+      case 3 : sequence.emplace_back(
+                  EqualProbabilityBins( begin, end, lineNumber, MAT, MF, MT ) );
+                  break;
       case 11 :
       case 12 :
       case 13 :
@@ -30,7 +33,7 @@ readSequence( long lang,
       default : {
 
         Log::error( "Encountered illegal LANG value" );
-        Log::info( "LANG must be equal to 1, 2, 11, 12, 13, 14 or 15" );
+        Log::info( "LANG must be equal to 1, 2, 3, 11, 12, 13, 14 or 15" );
         Log::info( "LANG value: {}", lang );
         throw std::exception();
       }
@@ -39,4 +42,3 @@ readSequence( long lang,
 
   return sequence;
 }
-
