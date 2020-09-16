@@ -7,7 +7,7 @@ InterpolationSequenceRecord ( InterpolationRecord&& interpolation,
   validateSequence( sequence );
 }
 
-private:
+/*private:
 
 template< typename Iterator >
 InterpolationSequenceRecord ( InterpolationRecord&& interpolation,
@@ -35,3 +35,4 @@ InterpolationSequenceRecord ( Iterator& begin,
   InterpolationSequenceRecord(
     InterpolationRecord( begin, end, lineNumber, MAT, MF, MT  ),
     begin, end, lineNumber, MAT, MF, MT ) {}
+*/

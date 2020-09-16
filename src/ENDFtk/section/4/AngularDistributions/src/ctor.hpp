@@ -1,4 +1,4 @@
-/** 
+/**
  *  @brief Constructor
  *
  *  @param[in] boundaries      the interpolation range boundaries
@@ -13,7 +13,7 @@ AngularDistributions( std::vector< long >&& boundaries,
                          std::move( interpolants ), std::move( boundaries ) ),
     std::move( distributions ) ) {}
 
-/** 
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator
@@ -32,6 +32,6 @@ AngularDistributions( Iterator& begin,
                       int MAT,
                       int MF,
                       int MT ) :
-  InterpolationSequenceRecord< Records >( begin, end, lineNumber,
-                                          MAT, MF, MT  ) {}
-
+  InterpolationSequenceRecord< Records >(
+    readInterpolationSequenceRecord< Records >( begin, end, lineNumber,
+                                                MAT, MF, MT ) ) {}

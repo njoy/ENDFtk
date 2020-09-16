@@ -1,5 +1,13 @@
-template< typename Iterator >
-static std::vector< Component >
+/**
+ *  @brief Function to read a sequence of ENDF components
+ *
+ *  @tparam Component        an ENDF component
+ *  @tparam Iterator         an input iterator
+ *
+ *  This function requires the ENDF component to have a read style constructor.
+ */
+template< typename Component, typename Iterator >
+std::vector< Component >
 readSequence( Iterator& begin,
               const Iterator& end,
               long& lineNumber,

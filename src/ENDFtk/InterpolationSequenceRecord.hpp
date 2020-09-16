@@ -65,6 +65,8 @@ long NC( const std::variant< Components... >& variant ) {
                      variant );
 }
 
+#include "ENDFtk/InterpolationSequenceRecord/src/readSequence.hpp"
+
 /**
  *  @brief Auxiliary function to validate a sequence of ENDF components
  *
@@ -96,7 +98,6 @@ class InterpolationSequenceRecord {
   std::vector< Component > sequence_;
 
   /* auxiliary functions */
-  #include "ENDFtk/InterpolationSequenceRecord/src/readSequence.hpp"
   #include "ENDFtk/InterpolationSequenceRecord/src/verifyNZ.hpp"
 
 public:
@@ -119,3 +120,5 @@ public:
   #include "ENDFtk/InterpolationSequenceRecord/src/NC.hpp"
   #include "ENDFtk/InterpolationSequenceRecord/src/print.hpp"
 };
+
+#include "ENDFtk/InterpolationSequenceRecord/src/readInterpolationSequenceRecord.hpp"

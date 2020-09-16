@@ -74,8 +74,8 @@ SCENARIO( "InterpolationSequenceRecord" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      InterpolationSequenceRecord< ControlRecord >
-        chunk( begin, end, lineNumber, 9228, 1, 455 );
+      InterpolationSequenceRecord< ControlRecord > chunk =
+        readInterpolationSequenceRecord< ControlRecord >( begin, end, lineNumber, 9228, 1, 455 );
 
       THEN( "an InterpolationSequenceRecord can be constructed "
             "and its members can be tested" ) {

@@ -9,7 +9,7 @@ ChargedParticleElasticScattering ( double spin, long lidp,
                                    std::vector< long >&& interpolants,
                                    std::vector< SubSection >&& sequence )
   try : ChargedParticleElasticScattering(
-          InterpolationSequenceRecord< SubSection >( 
+          InterpolationSequenceRecord< SubSection >(
             InterpolationRecord( spin, 0.0, lidp, 0,
                                  std::move( boundaries ),
                                  std::move( interpolants ) ),
@@ -29,12 +29,11 @@ ChargedParticleElasticScattering ( Iterator& begin,
                                    int MF,
                                    int MT )
   try : ChargedParticleElasticScattering(
-          InterpolationSequenceRecord< SubSection >( begin, end, lineNumber,
-                                                     MAT, MF, MT ) ) {}
+          readInterpolationSequenceRecord< SubSection >( begin, end, lineNumber,
+                                                         MAT, MF, MT ) ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while reading charged particle elastic "
                "scattering distribution data (LAW=5)" );
     throw;
   }
-

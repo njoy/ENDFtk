@@ -8,7 +8,7 @@ DiscreteTwoBodyScattering ( std::vector< long >&& boundaries,
                             std::vector< long >&& interpolants,
                             std::vector< SubSection >&& sequence )
   try : DiscreteTwoBodyScattering(
-          InterpolationSequenceRecord< SubSection >( 
+          InterpolationSequenceRecord< SubSection >(
             InterpolationRecord( 0.0, 0.0, 0, 0,
                                  std::move( boundaries ),
                                  std::move( interpolants ) ),
@@ -28,8 +28,8 @@ DiscreteTwoBodyScattering ( Iterator& begin,
                             int MF,
                             int MT )
   try : DiscreteTwoBodyScattering(
-          InterpolationSequenceRecord< SubSection >( begin, end, lineNumber,
-                                                     MAT, MF, MT  ) ) {}
+          readInterpolationSequenceRecord< SubSection >( begin, end, lineNumber,
+                                                         MAT, MF, MT  ) ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while reading continuum energy angle "
