@@ -809,18 +809,18 @@
     "src/ENDFtk/section/6/ReactionProduct/src/verifyLAW.hpp",
     "src/ENDFtk/section/6/ReactionProduct/src/readDistribution.hpp",
     "src/ENDFtk/section/6/ReactionProduct/src/print.hpp",
+    "src/ENDFtk/section/6/ContinuumEnergyAngle/ThermalScatteringData.hpp",
     "src/ENDFtk/section/6/ContinuumEnergyAngle/LegendreCoefficients.hpp",
     "src/ENDFtk/section/6/ContinuumEnergyAngle/Base.hpp",
-    "src/ENDFtk/section/6/ContinuumEnergyAngle/EqualProbabilityBins.hpp",
     "src/ENDFtk/section/6/ContinuumEnergyAngle/KalbachMann.hpp",
     "src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated.hpp",
     "src/ENDFtk/section/6/ContinuumEnergyAngle/KalbachMann/src/ctor.hpp",
     "src/ENDFtk/section/6/ContinuumEnergyAngle/KalbachMann/src/verifyNA.hpp",
     "src/ENDFtk/section/6/ContinuumEnergyAngle/KalbachMann/src/generateList.hpp",
-    "src/ENDFtk/section/6/ContinuumEnergyAngle/EqualProbabilityBins/src/ctor.hpp",
     "src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/src/ctor.hpp",
     "src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/src/checkLANG.hpp",
     "src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/src/generateList.hpp",
+    "src/ENDFtk/section/6/ContinuumEnergyAngle/ThermalScatteringData/src/ctor.hpp",
     "src/ENDFtk/section/6/ContinuumEnergyAngle/LegendreCoefficients/src/ctor.hpp",
     "src/ENDFtk/section/6/ContinuumEnergyAngle/LegendreCoefficients/src/generateList.hpp",
     "src/ENDFtk/section/6/ContinuumEnergyAngle/Base/src/verifySize.hpp",
@@ -1414,9 +1414,6 @@
     "ENDFtk.section.6.ContinuumEnergyAngle.Base": [
       "src/ENDFtk/section/6/ContinuumEnergyAngle/Base/test/Base.test.cpp"
     ],
-    "ENDFtk.section.6.ContinuumEnergyAngle.EqualProbabilityBins": [
-      "src/ENDFtk/section/6/ContinuumEnergyAngle/EqualProbabilityBins/test/EqualProbabilityBins.test.cpp"
-    ],
     "ENDFtk.section.6.ContinuumEnergyAngle.KalbachMann": [
       "src/ENDFtk/section/6/ContinuumEnergyAngle/KalbachMann/test/KalbachMann.test.cpp"
     ],
@@ -1425,6 +1422,9 @@
     ],
     "ENDFtk.section.6.ContinuumEnergyAngle.Tabulated": [
       "src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/test/Tabulated.test.cpp"
+    ],
+    "ENDFtk.section.6.ContinuumEnergyAngle.ThermalScatteringData": [
+      "src/ENDFtk/section/6/ContinuumEnergyAngle/ThermalScatteringData/test/ThermalScatteringData.test.cpp"
     ],
     "ENDFtk.section.6.DefinedElsewhere": [
       "src/ENDFtk/section/6/DefinedElsewhere/test/DefinedElsewhere.test.cpp"

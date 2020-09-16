@@ -3,7 +3,7 @@ private:
 /**
  *  @brief Private constructor
  */
-EqualProbabilityBins( ListRecord&& list ) :
+ThermalScatteringData( ListRecord&& list ) :
   ListRecord( std::move( list ) ) {}
 
 public:
@@ -15,8 +15,8 @@ public:
  *  @param[in] n2       the value for n2 (nl+1 or nu+2)
  *  @param[in] data     the data that goes into this component
  */
-EqualProbabilityBins( double energy, int n2,
-                      std::vector< double >&& data ) :
+ThermalScatteringData( double energy, int n2,
+                       std::vector< double >&& data ) :
   ListRecord( 0., energy, 0, 0, n2, std::move( data ) ) {}
 
 /**
@@ -31,12 +31,12 @@ EqualProbabilityBins( double energy, int n2,
  *  @param[in] MAT          the expected MAT number
  */
 template< typename Iterator >
-EqualProbabilityBins( Iterator& it, const Iterator& end, long& lineNumber,
-                      int MAT, int MF, int MT )
-  try : EqualProbabilityBins( ListRecord( it, end, lineNumber, MAT, MF, MT ) ) {}
+ThermalScatteringData( Iterator& it, const Iterator& end, long& lineNumber,
+                       int MAT, int MF, int MT )
+  try : ThermalScatteringData( ListRecord( it, end, lineNumber, MAT, MF, MT ) ) {}
   catch ( std::exception& e ) {
 
-    Log::info( "Encountered error while reading equal probability distribution "
+    Log::info( "Encountered error while reading thermal scattering data "
                "data (LAW=1 LANG=3)" );
     throw;
   }
