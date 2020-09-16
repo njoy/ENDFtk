@@ -1,5 +1,5 @@
 /**
- *  @brief Return the number of lines in this MF7/MT2 component
+ *  @brief Return the number of lines in this ENDF component
  */
 auto NC() const {
 

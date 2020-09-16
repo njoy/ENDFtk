@@ -27,77 +27,98 @@ SCENARIO( "section::Type< 6 >" ) {
 
   GIVEN( "valid data for a section::Type< 6 >" ) {
 
-    int zaid = 92235;
-    double awr = 2.330248e+2;
-    int jp = 0;
-    int lct = 2;
-    int mt = 5;
-    std::vector< ReactionProduct > products = {
-      ReactionProduct(
-        // multiplicity
-        { 1001., 0.9986234, 0, 1, { 4 }, { 2 },
-          { 1e-5, 1.1e+7, 1.147e+7, 2e+7 },
-          { 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 } },
-        // distribution
-        { ContinuumEnergyAngle(
-            2, { 2 }, { 1 },
-            { LegendreCoefficients(
-                  1e-5, 0, 1, 4,
-                  { 1., 2., 3., 4., 5., 6., 7., 8., 9., 10., 11., 12. } ),
-              LegendreCoefficients(
-                  2e+7, 0, 1, 2, { 1., 2., 3., 4., 5., 6.} ) } ) } ),
-      ReactionProduct(
-        // multiplicity
-        { 1., 1., 0, 1, { 2 }, { 2 },
-          { 1.858639e+7, 2.e+7 },
-          { 4., 4. } },
-        // distribution
-        { ContinuumEnergyAngle(
-            2, { 2 }, { 22 },
-            { LegendreCoefficients(
-                  1.858639e+7, 0, 0, 3, { 0., 0., 0.5, 2., 1., 0. } ),
-              LegendreCoefficients(
-                  2e+7, 0, 0, 3, { 0., 0., 0.5, 2., 1., 0. } ) } ) } ),
-      ReactionProduct(
-        // multiplicity
-        { 0., 0., 0, 1, { 3 }, { 2 },
-          { 1.858639e+7, 1.9e+7, 2.e+7 },
-          { 1., 2., 3. } },
-        // distribution
-        { ContinuumEnergyAngle(
-          2, { 2 }, { 5 },
-          { LegendreCoefficients(
-                 1.858639e+7, 0, 0, 3, { 0., 0., 1., 1., 2., 0. } ),
-            LegendreCoefficients(
-                 2e+7, 0, 0, 3, { 0., 0., 1., 1., 2., 0. } ) } ) } ) };
+    std::string sectionString = chunk() + validSEND();
 
-    THEN( "a section::Type< 6 > can be constructed and "
-          "members can be tested" ) {
+    WHEN( "the data is given explicitly" ) {
+
+      int zaid = 92235;
+      double awr = 2.330248e+2;
+      int jp = 0;
+      int lct = 2;
+      int mt = 5;
+      std::vector< ReactionProduct > products = {
+        ReactionProduct(
+          // multiplicity
+          { 1001., 0.9986234, 0, 1, { 4 }, { 2 },
+            { 1e-5, 1.1e+7, 1.147e+7, 2e+7 },
+            { 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 } },
+          // distribution
+          { ContinuumEnergyAngle(
+              2, { 2 }, { 1 },
+              { LegendreCoefficients(
+                    1e-5, 0, 1, 4,
+                    { 1., 2., 3., 4., 5., 6., 7., 8., 9., 10., 11., 12. } ),
+                LegendreCoefficients(
+                    2e+7, 0, 1, 2, { 1., 2., 3., 4., 5., 6.} ) } ) } ),
+        ReactionProduct(
+          // multiplicity
+          { 1., 1., 0, 1, { 2 }, { 2 },
+            { 1.858639e+7, 2.e+7 },
+            { 4., 4. } },
+          // distribution
+          { ContinuumEnergyAngle(
+              2, { 2 }, { 22 },
+              { LegendreCoefficients(
+                    1.858639e+7, 0, 0, 3, { 0., 0., 0.5, 2., 1., 0. } ),
+                LegendreCoefficients(
+                    2e+7, 0, 0, 3, { 0., 0., 0.5, 2., 1., 0. } ) } ) } ),
+        ReactionProduct(
+          // multiplicity
+          { 0., 0., 0, 1, { 3 }, { 2 },
+            { 1.858639e+7, 1.9e+7, 2.e+7 },
+            { 1., 2., 3. } },
+          // distribution
+          { ContinuumEnergyAngle(
+            2, { 2 }, { 5 },
+            { LegendreCoefficients(
+                   1.858639e+7, 0, 0, 3, { 0., 0., 1., 1., 2., 0. } ),
+              LegendreCoefficients(
+                   2e+7, 0, 0, 3, { 0., 0., 1., 1., 2., 0. } ) } ) } ) };
+
       section::Type< 6 > chunk( mt, zaid, awr, jp, lct, std::move( products ) );
 
-      verifyChunk( chunk );
-    }
-  } // GIVEN
+      THEN( "a section::Type< 6 > can be constructed and "
+            "members can be tested" ) {
 
-  GIVEN( "a valid string representation for a section::Type< 6 >" ) {
+        verifyChunk( chunk );
+      } // THEN
 
-    WHEN( "there is a valid SEND record" ){
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 6 );
+        REQUIRE( buffer == sectionString );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is read from a string/stream with a valid SEND" ) {
+
       std::string sectionString = chunk() + validSEND();
       auto begin = sectionString.begin();
       auto end = sectionString.end();
       long lineNumber = 1;
       HeadRecord head( begin, end, lineNumber );
 
+      section::Type< 6 > chunk( head, begin, end, lineNumber, 9228 );
+
       THEN( "a section::Type< 6 > can be constructed and "
             "members can be tested" ) {
-        section::Type< 6 > chunk( head, begin, end, lineNumber, 9228 );
 
         verifyChunk( chunk );
       } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 6 );
+        REQUIRE( buffer == sectionString );
+      } // THEN
     } // WHEN
 
-    WHEN( "there is a syntaxTree::Section" ){
-      std::string sectionString = chunk() + validSEND();
+    WHEN( "there is a syntaxTree::Section" ) {
+
       auto begin = sectionString.begin();
       auto position = begin;
       auto end = sectionString.end();
@@ -106,50 +127,49 @@ SCENARIO( "section::Type< 6 >" ) {
       syntaxTree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
 
-      THEN( "a section::Type< 6 > can be constructed and members can be tested" ){
-        section::Type< 6 > chunk = section.parse< 6 >( lineNumber );
+      section::Type< 6 > chunk = section.parse< 6 >( lineNumber );
+
+      THEN( "a section::Type< 6 > can be constructed and members can "
+            "be tested" ) {
 
         verifyChunk( chunk );
       } // THEN
-    } // WHEN
 
-    WHEN( "the SEND Record is not valid, i.e., MT != 0" ){
-      std::string sectionString = chunk() + invalidSEND();
-      auto begin = sectionString.begin();
-      auto end = sectionString.end();
-      long lineNumber = 1;
-      HeadRecord head( begin, end, lineNumber );
+      THEN( "it can be printed" ) {
 
-      THEN( "an exception is thrown" ){
-        REQUIRE_THROWS( section::Type< 6 >( head, begin, end, lineNumber, 9228 ) );
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 6 );
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
   } // GIVEN
 
-  GIVEN( "a valid instance of section::Type< 6 >" ) {
-    std::string string = chunk() + validSEND();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-    HeadRecord head( begin, end, lineNumber );
-    section::Type< 6 > section( head, begin, end, lineNumber, 9228 );
+  GIVEN( "a string representation for a section::Type< 6 > with an "
+         "invalid LAW" ) {
 
-    THEN( "it can be printed" ) {
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      section.print( output, 9228, 6 );
-      REQUIRE( buffer == string );
-    } // THEN
-  } // GIVEN
-
-  GIVEN( "a string representation for a section::Type< 6 > with an invalid LAW" ){
     std::string sectionString = invalidLAW() + validSEND();
     auto begin = sectionString.begin();
     auto end = sectionString.end();
     long lineNumber = 1;
     HeadRecord head( begin, end, lineNumber );
 
-    THEN( "an exception is thrown upon construction" ){
+    THEN( "an exception is thrown upon construction" ) {
+
+      REQUIRE_THROWS( section::Type< 6 >( head, begin, end, lineNumber, 9228 ) );
+    } // THEN
+  } // GIVEN
+
+  GIVEN( "a string representation with an invalid SEND" ) {
+
+    std::string sectionString = chunk() + invalidSEND();
+    auto begin = sectionString.begin();
+    auto end = sectionString.end();
+    long lineNumber = 1;
+    HeadRecord head( begin, end, lineNumber );
+
+    THEN( "an exception is thrown upon construction" ) {
+
       REQUIRE_THROWS( section::Type< 6 >( head, begin, end, lineNumber, 9228 ) );
     } // THEN
   } // GIVEN

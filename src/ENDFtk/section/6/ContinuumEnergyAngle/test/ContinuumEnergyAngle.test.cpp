@@ -8,8 +8,8 @@ using namespace njoy::ENDFtk;
 // convenience typedefs
 using ContinuumEnergyAngle =
 section::Type< 6 >::ContinuumEnergyAngle;
-using SubSection =
-section::Type< 6 >::ContinuumEnergyAngle::SubSection;
+using Variant =
+section::Type< 6 >::ContinuumEnergyAngle::Variant;
 using LegendreCoefficients =
 section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients;
 using KalbachMann =
@@ -29,80 +29,120 @@ SCENARIO( "ContinuumEnergyAngle" ) {
 
   GIVEN( "valid data for a ContinuumEnergyAngle with LANG=1" ) {
 
+    std::string string = chunkWithLANG1();
+
     WHEN( "the data is given explicitly" ) {
 
       long lep = 2;
       std::vector< long > boundaries = { 2 };
       std::vector< long > interpolants = { 1 };
-      std::vector< SubSection > sequence = {
+      std::vector< Variant > sequence = {
           LegendreCoefficients( 1e-5, 0, 1, 4, { 1., 2., 3., 4., 5., 6.,
                                                  7., 8., 9., 10., 11., 12. } ),
           LegendreCoefficients( 2e+7, 0, 1, 2, {1., 2., 3., 4., 5., 6.} ) };
 
+      ContinuumEnergyAngle chunk( lep, std::move( boundaries ),
+                                  std::move( interpolants ),
+                                  std::move( sequence ) );
+
       THEN( "a ContinuumEnergyAngle can be constructed and members can be "
             "tested" ) {
 
-        ContinuumEnergyAngle chunk( lep, std::move( boundaries ),
-                                    std::move( interpolants ),
-                                    std::move( sequence ) );
         verifyChunkWithLANG1( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 6, 5 );
+        REQUIRE( buffer == string );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream" ) {
 
-      std::string string = chunkWithLANG1();
       auto begin = string.begin();
       auto end = string.end();
       long lineNumber = 1;
 
+      ContinuumEnergyAngle chunk( begin, end, lineNumber, 9228, 6, 5 );
+
       THEN( "a ContinuumEnergyAngle can be constructed and members can be "
             "tested" ) {
 
-        ContinuumEnergyAngle chunk( begin, end, lineNumber, 9228, 6, 5 );
         verifyChunkWithLANG1( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 6, 5 );
+        REQUIRE( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
 
   GIVEN( "valid data for a ContinuumEnergyAngle with LANG=2" ) {
 
+    std::string string = chunkWithLANG2();
+
     WHEN( "the data is given explicitly" ) {
 
       long lep = 2;
       std::vector< long > boundaries = { 2 };
       std::vector< long > interpolants = { 1 };
-       std::vector< SubSection > sequence = {
+       std::vector< Variant > sequence = {
           KalbachMann( 1e-5, 0, 1, 2, { 1., 2., 3., 4., 5., 6. } ),
           KalbachMann( 2e+7, 0, 2, 2, { 7., 8., 9., 10., 11., 12., 13., 14.} ) };
+
+      ContinuumEnergyAngle chunk( lep, std::move( boundaries ),
+                                  std::move( interpolants ),
+                                  std::move( sequence ) );
 
       THEN( "a ContinuumEnergyAngle can "
           "be constructed and members can be tested" ) {
 
-        ContinuumEnergyAngle chunk( lep, std::move( boundaries ),
-                                    std::move( interpolants ),
-                                    std::move( sequence ) );
         verifyChunkWithLANG2( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 6, 5 );
+        REQUIRE( buffer == string );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream" ) {
 
-      std::string string = chunkWithLANG2();
       auto begin = string.begin();
       auto end = string.end();
       long lineNumber = 1;
 
+      ContinuumEnergyAngle chunk( begin, end, lineNumber, 9228, 6, 5 );
+
       THEN( "a ContinuumEnergyAngle can be constructed and members can "
             "be tested" ) {
 
-        ContinuumEnergyAngle chunk( begin, end, lineNumber, 9228, 6, 5 );
         verifyChunkWithLANG2( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 6, 5 );
+        REQUIRE( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
 
   GIVEN( "valid data for a ContinuumEnergyAngle with LANG=14" ) {
+
+    std::string string = chunkWithLANG14();
 
     WHEN( "the data is given explicitly" ) {
 
@@ -110,87 +150,53 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       long lep = 2;
       std::vector< long > boundaries = { 2 };
       std::vector< long > interpolants = { 1 };
-      std::vector< SubSection > sequence = {
+      std::vector< Variant > sequence = {
           Tabulated( lang, 1e-5, 0, 4, 2, {  1.,  2.,  3.,  4.,  5.,  6.,
                                              7.,  8.,  9., 10., 11., 12. } ),
           Tabulated( lang, 2e+7, 0, 4, 2, { 13., 14., 15., 16., 17., 18.,
                                             19., 20., 21., 22., 23., 24.} ) };
 
+      ContinuumEnergyAngle chunk( lep, std::move( boundaries ),
+                                  std::move( interpolants ),
+                                  std::move( sequence ) );
+
       THEN( "a ContinuumEnergyAngle can be constructed and members can "
             "be tested" ) {
 
-        ContinuumEnergyAngle chunk( lep, std::move( boundaries ),
-                                    std::move( interpolants ),
-                                    std::move( sequence ) );
         verifyChunkWithLANG14( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 6, 5 );
+        REQUIRE( buffer == string );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream" ) {
 
-      std::string string = chunkWithLANG14();
       auto begin = string.begin();
       auto end = string.end();
       long lineNumber = 1;
 
+      ContinuumEnergyAngle chunk( begin, end, lineNumber, 9228, 6, 5 );
+
       THEN( "a ContinuumEnergyAngle can be constructed and members can "
             "be tested" ) {
 
-        ContinuumEnergyAngle chunk( begin, end, lineNumber, 9228, 6, 5 );
         verifyChunkWithLANG14( chunk );
       } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 6, 5 );
+        REQUIRE( buffer == string );
+      } // THEN
     } // WHEN
-  } // GIVEN
-
-  GIVEN( "a valid instance of ContinuumEnergyAngle with LANG=1" ) {
-
-    std::string string = chunkWithLANG1();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-    ContinuumEnergyAngle chunk(begin, end, lineNumber, 9228, 6, 5 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 9228, 6, 5 );
-      REQUIRE( buffer == string );
-    } // THEN
-  } // GIVEN
-
-  GIVEN( "a valid instance of ContinuumEnergyAngle with LANG=2" ) {
-
-    std::string string = chunkWithLANG2();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-    ContinuumEnergyAngle chunk(begin, end, lineNumber, 9228, 6, 5 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 9228, 6, 5 );
-      REQUIRE( buffer == string );
-    } // THEN
-  } // GIVEN
-
-  GIVEN( "a valid instance of ContinuumEnergyAngle with LANG=14" ) {
-
-    std::string string = chunkWithLANG14();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-    ContinuumEnergyAngle chunk(begin, end, lineNumber, 9228, 6, 5 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 9228, 6, 5 );
-      REQUIRE( buffer == string );
-    } // THEN
   } // GIVEN
 
   GIVEN( "invalid data for a LegendreCoefficients" ) {
@@ -200,7 +206,7 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       long lep = 2;
       std::vector< long > boundaries = { 2 };
       std::vector< long > interpolants = { 1 };
-      std::vector< SubSection > sequence = {
+      std::vector< Variant > sequence = {
           LegendreCoefficients( 1e-5, 0, 1, 4, { 1., 2., 3., 4., 5., 6.,
                                                  7., 8., 9., 10., 11., 12. } ),
           KalbachMann( 1e-5, 0, 1, 2, { 1., 2., 3., 4., 5., 6. } ) };
@@ -222,7 +228,7 @@ SCENARIO( "ContinuumEnergyAngle" ) {
         long lep = 2;
         std::vector< long > wrongBoundaries = { 2, 4 };
         std::vector< long > interpolants = { 1 };
-        std::vector< SubSection > sequence = {
+        std::vector< Variant > sequence = {
             KalbachMann( 1e-5, 0, 1, 2, { 1., 2., 3., 4., 5., 6. } ),
             KalbachMann( 2e+7, 0, 2, 2, { 7., 8., 9., 10., 11., 12., 13., 14.} ) };
 
@@ -239,7 +245,7 @@ SCENARIO( "ContinuumEnergyAngle" ) {
         long lep = 2;
         std::vector< long > boundaries = { 2 };
         std::vector< long > wrongInterpolants = { 1, 2 };
-        std::vector< SubSection > sequence = {
+        std::vector< Variant > sequence = {
             KalbachMann( 1e-5, 0, 1, 2, { 1., 2., 3., 4., 5., 6. } ),
             KalbachMann( 2e+7, 0, 2, 2, { 7., 8., 9., 10., 11., 12., 13., 14.} ) };
 
@@ -256,7 +262,7 @@ SCENARIO( "ContinuumEnergyAngle" ) {
         long lep = 2;
         std::vector< long > boundaries = { 2 };
         std::vector< long > interpolants = { 1 };
-        std::vector< SubSection > wrongSequence = {
+        std::vector< Variant > wrongSequence = {
             KalbachMann( 1e-5, 0, 1, 2, { 1., 2., 3., 4., 5., 6. } ) };
 
         REQUIRE_THROWS(
@@ -310,6 +316,7 @@ void verifyChunkWithLANG1( const ContinuumEnergyAngle& chunk ) {
       auto subsection1 =
           std::get< LegendreCoefficients >( energies[0] );
       REQUIRE( 1e-5 == Approx( subsection1.energy() ) );
+      REQUIRE( 1 == subsection1.LANG() );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
       REQUIRE( 1 == subsection1.NA() );
@@ -387,11 +394,9 @@ void verifyChunkWithLANG2( const ContinuumEnergyAngle& chunk ) {
 
       auto energies = chunk.subsections();
 
-      REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
-      REQUIRE( 2 == energies[0].LANG() );
-
       auto subsection1 =
           std::get< KalbachMann >( energies[0] );
+      REQUIRE( 1e-5 == Approx( subsection1.energy() ) );
       REQUIRE( 2 == subsection1.LANG() );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
@@ -412,11 +417,9 @@ void verifyChunkWithLANG2( const ContinuumEnergyAngle& chunk ) {
       REQUIRE( 2. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
       REQUIRE( 5. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
 
-      REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
-      REQUIRE( 2 == energies[1].LANG() );
-
       auto subsection2 =
           std::get< KalbachMann >( energies[1] );
+      REQUIRE( 2e+7 == Approx( subsection2.energy() ) );
       REQUIRE( 2 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 0 == subsection2.numberDiscreteEnergies() );
@@ -467,11 +470,9 @@ void verifyChunkWithLANG14( const ContinuumEnergyAngle& chunk ) {
 
       auto energies = chunk.subsections();
 
-      REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
-      REQUIRE( 14 == energies[0].LANG() );
-
       auto subsection1 =
           std::get< Tabulated >( energies[0] );
+      REQUIRE( 1e-5 == Approx( subsection1.energy() ) );
       REQUIRE( 14 == subsection1.LANG() );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
@@ -497,11 +498,9 @@ void verifyChunkWithLANG14( const ContinuumEnergyAngle& chunk ) {
       REQUIRE( 10. == Approx( subsection1.probabilities()[1][0] ) );
       REQUIRE( 12. == Approx( subsection1.probabilities()[1][1] ) );
 
-      REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
-      REQUIRE( 14 == energies[1].LANG() );
-
       auto subsection2 =
           std::get< Tabulated >( energies[1] );
+      REQUIRE( 2e+7 == Approx( subsection2.energy() ) );
       REQUIRE( 14 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 0 == subsection2.numberDiscreteEnergies() );

@@ -1,5 +1,5 @@
 template< typename Iterator >
-static std::vector< SubSection >
+static std::vector< Variant >
 readSequence( long lang,
               long nep,
               Iterator& begin,
@@ -9,7 +9,7 @@ readSequence( long lang,
               int MF,
               int MT ) {
 
-  std::vector< SubSection > sequence;
+  std::vector< Variant > sequence;
   sequence.reserve( nep );
 
   while( nep-- ) {

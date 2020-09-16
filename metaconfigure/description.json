@@ -816,14 +816,11 @@
     "src/ENDFtk/section/6/ContinuumEnergyAngle/Base.hpp",
     "src/ENDFtk/section/6/ContinuumEnergyAngle/EqualProbabilityBins.hpp",
     "src/ENDFtk/section/6/ContinuumEnergyAngle/KalbachMann.hpp",
-    "src/ENDFtk/section/6/ContinuumEnergyAngle/SubSection.hpp",
     "src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated.hpp",
     "src/ENDFtk/section/6/ContinuumEnergyAngle/KalbachMann/src/ctor.hpp",
     "src/ENDFtk/section/6/ContinuumEnergyAngle/KalbachMann/src/verifyNA.hpp",
     "src/ENDFtk/section/6/ContinuumEnergyAngle/KalbachMann/src/generateList.hpp",
     "src/ENDFtk/section/6/ContinuumEnergyAngle/EqualProbabilityBins/src/ctor.hpp",
-    "src/ENDFtk/section/6/ContinuumEnergyAngle/SubSection/src/ctor.hpp",
-    "src/ENDFtk/section/6/ContinuumEnergyAngle/SubSection/src/print.hpp",
     "src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/src/ctor.hpp",
     "src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/src/checkLANG.hpp",
     "src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/src/generateList.hpp",
@@ -1008,6 +1005,7 @@
     "src/ENDFtk/InterpolationSequenceRecord/src/readSequence.hpp",
     "src/ENDFtk/InterpolationSequenceRecord/src/verifyNZ.hpp",
     "src/ENDFtk/InterpolationSequenceRecord/src/ctor.hpp",
+    "src/ENDFtk/InterpolationSequenceRecord/src/readInterpolationSequenceRecord.hpp",
     "src/ENDFtk/InterpolationSequenceRecord/src/print.hpp",
     "src/ENDFtk/InterpolationSequenceRecord/src/NC.hpp",
     "src/ENDFtk/record/Integer.hpp",
@@ -1430,9 +1428,6 @@
     ],
     "ENDFtk.section.6.ContinuumEnergyAngle.LegendreCoefficients": [
       "src/ENDFtk/section/6/ContinuumEnergyAngle/LegendreCoefficients/test/LegendreCoefficients.test.cpp"
-    ],
-    "ENDFtk.section.6.ContinuumEnergyAngle.SubSection": [
-      "src/ENDFtk/section/6/ContinuumEnergyAngle/SubSection/test/SubSection.test.cpp"
     ],
     "ENDFtk.section.6.ContinuumEnergyAngle.Tabulated": [
       "src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/test/Tabulated.test.cpp"
