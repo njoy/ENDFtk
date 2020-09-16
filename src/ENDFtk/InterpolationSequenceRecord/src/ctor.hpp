@@ -1,5 +1,5 @@
 InterpolationSequenceRecord ( InterpolationRecord&& interpolation,
-                              std::vector< Record >&& sequence ) :
+                              std::vector< Component >&& sequence ) :
   interpolation_( interpolation ),
   sequence_( sequence ) {
 
@@ -19,9 +19,9 @@ InterpolationSequenceRecord ( InterpolationRecord&& interpolation,
                               int MT ) :
   InterpolationSequenceRecord(
     std::move( interpolation ),
-    std::vector< Record >( readSequence( begin, end, lineNumber,
-                                         MAT, MF, MT,
-                                         interpolation.NZ() ) ) ) {}
+    std::vector< Component >( readSequence( begin, end, lineNumber,
+                                            MAT, MF, MT,
+                                            interpolation.NZ() ) ) ) {}
 
 public:
 
@@ -35,4 +35,3 @@ InterpolationSequenceRecord ( Iterator& begin,
   InterpolationSequenceRecord(
     InterpolationRecord( begin, end, lineNumber, MAT, MF, MT  ),
     begin, end, lineNumber, MAT, MF, MT ) {}
-
