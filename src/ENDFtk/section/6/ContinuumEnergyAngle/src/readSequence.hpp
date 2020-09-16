@@ -21,7 +21,7 @@ readSequence( long lang,
                   KalbachMann( begin, end, lineNumber, MAT, MF, MT ) );
                   break;
       case 3 : sequence.emplace_back(
-                  EqualProbabilityBins( begin, end, lineNumber, MAT, MF, MT ) );
+                  ThermalScatteringData( begin, end, lineNumber, MAT, MF, MT ) );
                   break;
       case 11 :
       case 12 :
