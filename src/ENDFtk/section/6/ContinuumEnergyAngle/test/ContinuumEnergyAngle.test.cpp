@@ -307,11 +307,9 @@ void verifyChunkWithLANG1( const ContinuumEnergyAngle& chunk ) {
 
       auto energies = chunk.subsections();
 
-      REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
-      REQUIRE( 1 == energies[0].LANG() );
-
       auto subsection1 =
           std::get< LegendreCoefficients >( energies[0] );
+      REQUIRE( 1e-5 == Approx( subsection1.energy() ) );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 0 == subsection1.numberDiscreteEnergies() );
       REQUIRE( 1 == subsection1.NA() );
@@ -339,11 +337,9 @@ void verifyChunkWithLANG1( const ContinuumEnergyAngle& chunk ) {
       REQUIRE( 8. == Approx( subsection1.totalEmissionProbabilities()[2] ) );
       REQUIRE( 11. == Approx( subsection1.totalEmissionProbabilities()[3] ) );
 
-      REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
-      REQUIRE( 1 == energies[1].LANG() );
-
       auto subsection2 =
           std::get< LegendreCoefficients >( energies[1] );
+      REQUIRE( 2e+7 == Approx( subsection2.energy() ) );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 0 == subsection2.numberDiscreteEnergies() );

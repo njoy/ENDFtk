@@ -6,47 +6,47 @@
 using namespace njoy::ENDFtk;
 
 // convenience typedefs
-using ReactionProduct = 
+using ReactionProduct =
 section::Type< 6 >::ReactionProduct;
-using Multiplicity = 
+using Multiplicity =
 section::Type< 6 >::Multiplicity;
-using Distribution = 
+using Distribution =
 section::Type< 6 >::Distribution;
-using DefinedElsewhere = 
+using DefinedElsewhere =
 section::Type< 6 >::DefinedElsewhere;
-using Unknown = 
+using Unknown =
 section::Type< 6 >::Unknown;
-using ContinuumEnergyAngle = 
+using ContinuumEnergyAngle =
 section::Type< 6 >::ContinuumEnergyAngle;
-using LegendreCoefficients = 
+using LegendreCoefficients =
 section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients;
-using DiscreteTwoBodyScattering = 
+using DiscreteTwoBodyScattering =
 section::Type< 6 >::DiscreteTwoBodyScattering;
-using Law2LegendreCoefficients = 
+using Law2LegendreCoefficients =
 section::Type< 6 >::DiscreteTwoBodyScattering::LegendreCoefficients;
-using Law2Tabulated = 
+using Law2Tabulated =
 section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated;
-using IsotropicDiscreteEmission = 
+using IsotropicDiscreteEmission =
 section::Type< 6 >::IsotropicDiscreteEmission;
-using DiscreteTwoBodyRecoils = 
+using DiscreteTwoBodyRecoils =
 section::Type< 6 >::DiscreteTwoBodyRecoils;
-using ChargedParticleElasticScattering = 
+using ChargedParticleElasticScattering =
 section::Type< 6 >::ChargedParticleElasticScattering;
-using SubSection = 
+using SubSection =
 section::Type< 6 >::ChargedParticleElasticScattering::SubSection;
-using Law5LegendreCoefficients = 
+using Law5LegendreCoefficients =
 section::Type< 6 >::ChargedParticleElasticScattering::LegendreCoefficients;
-using Law5NuclearAmplitudeExpansion = 
+using Law5NuclearAmplitudeExpansion =
 section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitudeExpansion;
-using Law5NuclearPlusInterference = 
+using Law5NuclearPlusInterference =
 section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference;
-using NBodyPhaseSpace = 
+using NBodyPhaseSpace =
 section::Type< 6 >::NBodyPhaseSpace;
-using LaboratoryAngleEnergy = 
+using LaboratoryAngleEnergy =
 section::Type< 6 >::LaboratoryAngleEnergy;
-using AngularDistribution = 
+using AngularDistribution =
 section::Type< 6 >::LaboratoryAngleEnergy::AngularDistribution;
-using EnergyDistribution = 
+using EnergyDistribution =
 section::Type< 6 >::LaboratoryAngleEnergy::EnergyDistribution;
 
 std::string chunkWithLAW0();
@@ -129,8 +129,8 @@ SCENARIO( "ReactionProduct" ) {
     std::string string = chunkWithLAW0();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
-      
+    long lineNumber = 1;
+
     THEN( "a ReactionProduct can "
           "be constructed and members can be tested" ) {
       ReactionProduct chunk( begin, end, lineNumber, 9228, 6, 5 );
@@ -244,15 +244,9 @@ SCENARIO( "ReactionProduct" ) {
 
       auto energies = law.subsections();
 
-      REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
-      REQUIRE( 1 == energies[0].LANG() );
-      REQUIRE( 0 == energies[0].ND() );
-      REQUIRE( 1 == energies[0].NA() );
-      REQUIRE( 12 == energies[0].NW() );
-      REQUIRE( 4 == energies[0].NEP() );
-
       auto subsection1 =
-          std::get< LegendreCoefficients >( energies[0].data() );
+          std::get< LegendreCoefficients >( energies[0] );
+      REQUIRE( 1e-5 == Approx( subsection1.energy() ) );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 1 == subsection1.NA() );
       REQUIRE( 12 == subsection1.NW() );
@@ -277,15 +271,9 @@ SCENARIO( "ReactionProduct" ) {
       REQUIRE( 8. == Approx( subsection1.totalEmissionProbabilities()[2] ) );
       REQUIRE( 11. == Approx( subsection1.totalEmissionProbabilities()[3] ) );
 
-      REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
-      REQUIRE( 1 == energies[1].LANG() );
-      REQUIRE( 0 == energies[1].ND() );
-      REQUIRE( 1 == energies[1].NA() );
-      REQUIRE( 6 == energies[1].NW() );
-      REQUIRE( 2 == energies[1].NEP() );
-
       auto subsection2 =
-          std::get< LegendreCoefficients >( energies[1].data() );
+          std::get< LegendreCoefficients >( energies[1] );
+      REQUIRE( 2e+7 == Approx( subsection2.energy() ) );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 1 == subsection2.NA() );
@@ -312,8 +300,8 @@ SCENARIO( "ReactionProduct" ) {
     std::string string = chunkWithLAW1();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
-      
+    long lineNumber = 1;
+
     THEN( "a ReactionProduct can "
           "be constructed and members can be tested" ) {
       ReactionProduct chunk( begin, end, lineNumber, 9228, 6, 5 );
@@ -362,15 +350,9 @@ SCENARIO( "ReactionProduct" ) {
 
       auto energies = law.subsections();
 
-      REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
-      REQUIRE( 1 == energies[0].LANG() );
-      REQUIRE( 0 == energies[0].ND() );
-      REQUIRE( 1 == energies[0].NA() );
-      REQUIRE( 12 == energies[0].NW() );
-      REQUIRE( 4 == energies[0].NEP() );
-
       auto subsection1 =
-          std::get< LegendreCoefficients >( energies[0].data() );
+          std::get< LegendreCoefficients >( energies[0] );
+      REQUIRE( 1e-5 == Approx( subsection1.energy() ) );
       REQUIRE( 0 == subsection1.ND() );
       REQUIRE( 1 == subsection1.NA() );
       REQUIRE( 12 == subsection1.NW() );
@@ -395,15 +377,9 @@ SCENARIO( "ReactionProduct" ) {
       REQUIRE( 8. == Approx( subsection1.totalEmissionProbabilities()[2] ) );
       REQUIRE( 11. == Approx( subsection1.totalEmissionProbabilities()[3] ) );
 
-      REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
-      REQUIRE( 1 == energies[1].LANG() );
-      REQUIRE( 0 == energies[1].ND() );
-      REQUIRE( 1 == energies[1].NA() );
-      REQUIRE( 6 == energies[1].NW() );
-      REQUIRE( 2 == energies[1].NEP() );
-
       auto subsection2 =
-          std::get< LegendreCoefficients >( energies[1].data() );
+          std::get< LegendreCoefficients >( energies[1] );
+      REQUIRE( 2e+7 == Approx( subsection2.energy() ) );
       REQUIRE( 1 == subsection2.LANG() );
       REQUIRE( 0 == subsection2.ND() );
       REQUIRE( 1 == subsection2.NA() );
@@ -529,8 +505,8 @@ SCENARIO( "ReactionProduct" ) {
     std::string string = chunkWithLAW2();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
-      
+    long lineNumber = 1;
+
     THEN( "a ReactionProduct can "
           "be constructed and members can be tested" ) {
       ReactionProduct chunk( begin, end, lineNumber, 9228, 6, 5 );
@@ -674,8 +650,8 @@ SCENARIO( "ReactionProduct" ) {
     std::string string = chunkWithLAW3();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
-      
+    long lineNumber = 1;
+
     THEN( "a ReactionProduct can "
           "be constructed and members can be tested" ) {
       ReactionProduct chunk( begin, end, lineNumber, 9228, 6, 5 );
@@ -776,8 +752,8 @@ SCENARIO( "ReactionProduct" ) {
     std::string string = chunkWithLAW4();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
-      
+    long lineNumber = 1;
+
     THEN( "a ReactionProduct can "
           "be constructed and members can be tested" ) {
       ReactionProduct chunk( begin, end, lineNumber, 9228, 6, 5 );
@@ -945,8 +921,8 @@ SCENARIO( "ReactionProduct" ) {
     std::string string = chunkWithLAW5();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
-      
+    long lineNumber = 1;
+
     THEN( "a ReactionProduct can "
           "be constructed and members can be tested" ) {
       ReactionProduct chunk( begin, end, lineNumber, 9228, 6, 5 );
@@ -1112,8 +1088,8 @@ SCENARIO( "ReactionProduct" ) {
     std::string string = chunkWithLAW6();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
-      
+    long lineNumber = 1;
+
     THEN( "a ReactionProduct can "
           "be constructed and members can be tested" ) {
       ReactionProduct chunk( begin, end, lineNumber, 9228, 6, 5 );
@@ -1171,7 +1147,7 @@ SCENARIO( "ReactionProduct" ) {
     Distribution distribution =
       LaboratoryAngleEnergy(
         { 2 }, { 1 },
-        { AngularDistribution( 
+        { AngularDistribution(
             1e-5, { 2 }, { 4 },
             { EnergyDistribution( 1.0, { 4 }, { 2 },
                                                 { 1e-5, 1.1e+7, 1.147e+7, 3e+7 },
@@ -1179,7 +1155,7 @@ SCENARIO( "ReactionProduct" ) {
               EnergyDistribution( -1.0, { 3 }, { 2 },
                                                 { 1e-5, 1e+6, 3e+7 },
                                                 { 6., 4., 2. } ) } ),
-          AngularDistribution( 
+          AngularDistribution(
             2e+7, { 2 }, { 4 },
             { EnergyDistribution( 0.9, { 4 }, { 2 },
                                                 { 1e-5, 1.1e+7, 1.147e+7, 3e+7 },
@@ -1338,8 +1314,8 @@ SCENARIO( "ReactionProduct" ) {
     std::string string = chunkWithLAW7();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
-      
+    long lineNumber = 1;
+
     THEN( "a ReactionProduct can "
           "be constructed and members can be tested" ) {
       ReactionProduct chunk( begin, end, lineNumber, 9228, 6, 5 );
@@ -1541,8 +1517,8 @@ SCENARIO( "ReactionProduct" ) {
     std::string string = chunkWithNegativeLAW4();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
-      
+    long lineNumber = 1;
+
     THEN( "a ReactionProduct can "
           "be constructed and members can be tested" ) {
       ReactionProduct chunk( begin, end, lineNumber, 9228, 6, 18 );
@@ -1643,8 +1619,8 @@ SCENARIO( "ReactionProduct" ) {
     std::string string = chunkWithNegativeLAW5();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
-      
+    long lineNumber = 1;
+
     THEN( "a ReactionProduct can "
           "be constructed and members can be tested" ) {
       ReactionProduct chunk( begin, end, lineNumber, 9228, 6, 18 );
@@ -1745,8 +1721,8 @@ SCENARIO( "ReactionProduct" ) {
     std::string string = chunkWithNegativeLAW14();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
-      
+    long lineNumber = 1;
+
     THEN( "a ReactionProduct can "
           "be constructed and members can be tested" ) {
       ReactionProduct chunk( begin, end, lineNumber, 9228, 6, 18 );
@@ -1847,8 +1823,8 @@ SCENARIO( "ReactionProduct" ) {
     std::string string = chunkWithNegativeLAW15();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
-      
+    long lineNumber = 1;
+
     THEN( "a ReactionProduct can "
           "be constructed and members can be tested" ) {
       ReactionProduct chunk( begin, end, lineNumber, 9228, 6, 18 );
@@ -1897,7 +1873,7 @@ SCENARIO( "ReactionProduct" ) {
     std::string string = chunkWithLAW0();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
+    long lineNumber = 1;
     ReactionProduct
       chunk( begin, end, lineNumber, 9228, 6, 5 );
 
@@ -1914,7 +1890,7 @@ SCENARIO( "ReactionProduct" ) {
     std::string string = chunkWithLAW1();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
+    long lineNumber = 1;
     ReactionProduct
       chunk( begin, end, lineNumber, 9228, 6, 5 );
 
@@ -1931,7 +1907,7 @@ SCENARIO( "ReactionProduct" ) {
     std::string string = chunkWithLAW2();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
+    long lineNumber = 1;
     ReactionProduct
       chunk( begin, end, lineNumber, 9228, 6, 5 );
 
@@ -1948,7 +1924,7 @@ SCENARIO( "ReactionProduct" ) {
     std::string string = chunkWithLAW3();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
+    long lineNumber = 1;
     ReactionProduct
       chunk( begin, end, lineNumber, 9228, 6, 5 );
 
@@ -1965,7 +1941,7 @@ SCENARIO( "ReactionProduct" ) {
     std::string string = chunkWithLAW4();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
+    long lineNumber = 1;
     ReactionProduct
       chunk( begin, end, lineNumber, 9228, 6, 5 );
 
@@ -1982,7 +1958,7 @@ SCENARIO( "ReactionProduct" ) {
     std::string string = chunkWithLAW5();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
+    long lineNumber = 1;
     ReactionProduct
       chunk( begin, end, lineNumber, 9228, 6, 5 );
 
@@ -1999,7 +1975,7 @@ SCENARIO( "ReactionProduct" ) {
     std::string string = chunkWithLAW6();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
+    long lineNumber = 1;
     ReactionProduct
       chunk( begin, end, lineNumber, 9228, 6, 5 );
 
@@ -2016,7 +1992,7 @@ SCENARIO( "ReactionProduct" ) {
     std::string string = chunkWithLAW7();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
+    long lineNumber = 1;
     ReactionProduct
       chunk( begin, end, lineNumber, 9228, 6, 5 );
 
@@ -2033,7 +2009,7 @@ SCENARIO( "ReactionProduct" ) {
     std::string string = chunkWithNegativeLAW4();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
+    long lineNumber = 1;
     ReactionProduct
       chunk( begin, end, lineNumber, 9228, 6, 18 );
 
@@ -2050,7 +2026,7 @@ SCENARIO( "ReactionProduct" ) {
     std::string string = chunkWithNegativeLAW5();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
+    long lineNumber = 1;
     ReactionProduct
       chunk( begin, end, lineNumber, 9228, 6, 18 );
 
@@ -2067,7 +2043,7 @@ SCENARIO( "ReactionProduct" ) {
     std::string string = chunkWithNegativeLAW14();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
+    long lineNumber = 1;
     ReactionProduct
       chunk( begin, end, lineNumber, 9228, 6, 18 );
 
@@ -2084,7 +2060,7 @@ SCENARIO( "ReactionProduct" ) {
     std::string string = chunkWithNegativeLAW15();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
+    long lineNumber = 1;
     ReactionProduct
       chunk( begin, end, lineNumber, 9228, 6, 18 );
 
@@ -2301,4 +2277,3 @@ std::string chunkWithInvalidMTForNegativeLAW() {
     " 1.000000-5 0.000000+0 1.100000+7 8.45368-11 1.147000+7 6.622950-89228 6  5     \n"
     " 2.000000+7 2.149790-1                                            9228 6  5     \n";
 }
-
