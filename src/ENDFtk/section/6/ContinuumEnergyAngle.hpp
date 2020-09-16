@@ -74,12 +74,13 @@ public:
   auto subsections() const { return this->data_.records(); }
 
   /**
-   *  @brief Return the interpolation type for each interpolation region
+   *  @brief Return interpolation type for each range on the incident
+   *         energy grid
    */
   auto interpolants() const { return this->data_.tab2().interpolants(); }
 
   /**
-   *  @brief Return the boundaries for each interpolation region
+   *  @brief Return interpolation boundaries for the incident energy grid
    */
   auto boundaries() const { return this->data_.tab2().boundaries(); }
 

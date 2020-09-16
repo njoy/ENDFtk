@@ -14,8 +14,8 @@ public:
  *  @brief Constructor
  *
  *  @param[in] lep            the secondary energy interpolation scheme
- *  @param[in] boundaries     the boundaries of the interpolation regions
- *  @param[in] interpolants   the interpolation scheme for each region
+ *  @param[in] boundaries     the interpolation range boundaries
+ *  @param[in] interpolants   the interpolation types for each range
  *  @param[in] sequence       the data for each incident energy value
  */
 ContinuumEnergyAngle( long lep,
