@@ -39,7 +39,7 @@ public:
   /* get methods */
 
   /**
-   *  @brief Return the LAW flag for continuum energy-angle data
+   *  @brief Return the LAW flag
    */
   static constexpr int LAW() { return 1; }
 
@@ -59,7 +59,8 @@ public:
   int interpolationScheme() const { return this->LEP(); }
 
   /**
-   *  @brief Return the number of interpolation ranges used
+   *  @brief Return the number of interpolation ranges on the incident
+   *         energy axis
    */
   long NR() const { return this->data_.tab2().NR(); }
 
@@ -69,7 +70,7 @@ public:
   long NE() const { return this->data_.tab2().NZ(); }
 
   /**
-   *  @brief Return the subsections, one for each secondary energy
+   *  @brief Return the subsections, one for each incident energy
    */
   auto subsections() const { return this->data_.records(); }
 

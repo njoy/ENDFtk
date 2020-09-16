@@ -6,15 +6,15 @@
 using namespace njoy::ENDFtk;
 
 // convenience typedefs
-using ChargedParticleElasticScattering = 
+using ChargedParticleElasticScattering =
 section::Type< 6 >::ChargedParticleElasticScattering;
-using SubSection = 
-section::Type< 6 >::ChargedParticleElasticScattering::SubSection;
-using LegendreCoefficients = 
+using Variant =
+section::Type< 6 >::ChargedParticleElasticScattering::Variant;
+using LegendreCoefficients =
 section::Type< 6 >::ChargedParticleElasticScattering::LegendreCoefficients;
-using NuclearAmplitudeExpansion = 
+using NuclearAmplitudeExpansion =
 section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitudeExpansion;
-using NuclearPlusInterference = 
+using NuclearPlusInterference =
 section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference;
 
 std::string chunk();
@@ -31,7 +31,7 @@ SCENARIO( "ChargedParticleElasticScattering" ) {
       long lidp = 1;
       std::vector< long > boundaries = { 2 };
       std::vector< long > interpolants = { 1 };
-      std::vector< SubSection > sequence = {
+      std::vector< Variant > sequence = {
         NuclearAmplitudeExpansion( 1e-5, 3, { 1., 2., 3., 4., 5., 6.,
                                               7., 8., 9., 10., 11., 12. } ),
         NuclearPlusInterference( 2e+7, 15, {1., 2., 3., 4., 5., 6.} ) };
@@ -51,8 +51,8 @@ SCENARIO( "ChargedParticleElasticScattering" ) {
       std::string string = chunk();
       auto begin = string.begin();
       auto end = string.end();
-      long lineNumber = 1; 
-      
+      long lineNumber = 1;
+
       THEN( "a ChargedParticleElasticScattering can "
             "be constructed and members can be tested" ) {
 
@@ -68,7 +68,7 @@ SCENARIO( "ChargedParticleElasticScattering" ) {
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
+    long lineNumber = 1;
     ChargedParticleElasticScattering chunk(begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
@@ -91,7 +91,7 @@ SCENARIO( "ChargedParticleElasticScattering" ) {
         long lidp = 1;
         std::vector< long > wrongBoundaries = { 2, 4 };
         std::vector< long > interpolants = { 1 };
-        std::vector< SubSection > sequence = {
+        std::vector< Variant > sequence = {
           NuclearAmplitudeExpansion( 1e-5, 3, { 1., 2., 3., 4., 5., 6.,
                                                 7., 8., 9., 10., 11., 12. } ),
           NuclearPlusInterference( 2e+7, 15, {1., 2., 3., 4., 5., 6.} ) };
@@ -110,7 +110,7 @@ SCENARIO( "ChargedParticleElasticScattering" ) {
         long lidp = 1;
         std::vector< long > boundaries = { 2 };
         std::vector< long > wrongInterpolants = { 1, 2 };
-        std::vector< SubSection > sequence = {
+        std::vector< Variant > sequence = {
           NuclearAmplitudeExpansion( 1e-5, 3, { 1., 2., 3., 4., 5., 6.,
                                                 7., 8., 9., 10., 11., 12. } ),
           NuclearPlusInterference( 2e+7, 15, {1., 2., 3., 4., 5., 6.} ) };
@@ -129,7 +129,7 @@ SCENARIO( "ChargedParticleElasticScattering" ) {
         long lidp = 1;
         std::vector< long > boundaries = { 2 };
         std::vector< long > interpolants = { 1, 2 };
-        std::vector< SubSection > wrongSequence = {
+        std::vector< Variant > wrongSequence = {
           NuclearAmplitudeExpansion( 1e-5, 3, { 1., 2., 3., 4., 5., 6.,
                                                 7., 8., 9., 10., 11., 12. } ) };
 
@@ -185,13 +185,9 @@ void verifyChunk( const ChargedParticleElasticScattering& chunk ) {
 
   auto energies = chunk.subsections();
 
-  REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
-  REQUIRE( 1 == energies[0].LTP() );
-  REQUIRE( 12 == energies[0].NW() );
-  REQUIRE( 3 == energies[0].NL() );
-
   auto subsection1 =
-    std::get< NuclearAmplitudeExpansion >( energies[0].data() );
+    std::get< NuclearAmplitudeExpansion >( energies[0] );
+  REQUIRE( 1e-5 == Approx( subsection1.energy() ) );
   REQUIRE( 1 == subsection1.LTP() );
   REQUIRE( 12 == subsection1.NW() );
   REQUIRE( 3 == subsection1.NL() );
@@ -220,13 +216,9 @@ void verifyChunk( const ChargedParticleElasticScattering& chunk ) {
   REQUIRE( 10. == Approx( subsection1.interferenceCoefficients()[2].imag() ) );
   REQUIRE( 12. == Approx( subsection1.interferenceCoefficients()[3].imag() ) );
 
-  REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
-  REQUIRE( 15 == energies[1].LTP() );
-  REQUIRE( 6 == energies[1].NW() );
-  REQUIRE( 3 == energies[1].NL() );
-
   auto subsection2 =
-    std::get< NuclearPlusInterference >( energies[1].data() );
+    std::get< NuclearPlusInterference >( energies[1] );
+  REQUIRE( 2e+7 == Approx( subsection2.energy() ) );
   REQUIRE( 15 == subsection2.LTP() );
   REQUIRE( 6 == subsection2.NW() );
   REQUIRE( 3 == subsection2.NL() );
@@ -252,4 +244,3 @@ std::string invalidLTP() {
     " 0.000000+0 2.000000+7         15          0          6          39228 6  5     \n"
     " 1.000000+0 2.000000+0 3.000000+0 4.000000+0 5.000000+0 6.000000+09228 6  5     \n";
 }
-
