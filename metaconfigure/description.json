@@ -821,6 +821,7 @@
     "src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/src/checkLANG.hpp",
     "src/ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/src/generateList.hpp",
     "src/ENDFtk/section/6/ContinuumEnergyAngle/ThermalScatteringData/src/ctor.hpp",
+    "src/ENDFtk/section/6/ContinuumEnergyAngle/ThermalScatteringData/src/generateList.hpp",
     "src/ENDFtk/section/6/ContinuumEnergyAngle/LegendreCoefficients/src/ctor.hpp",
     "src/ENDFtk/section/6/ContinuumEnergyAngle/LegendreCoefficients/src/generateList.hpp",
     "src/ENDFtk/section/6/ContinuumEnergyAngle/Base/src/verifySize.hpp",
@@ -832,11 +833,7 @@
     "src/ENDFtk/section/6/DefinedElsewhere/src/checkLAW.hpp",
     "src/ENDFtk/section/6/DefinedElsewhere/src/ctor.hpp",
     "src/ENDFtk/section/6/DiscreteTwoBodyScattering/LegendreCoefficients.hpp",
-    "src/ENDFtk/section/6/DiscreteTwoBodyScattering/SubSection.hpp",
     "src/ENDFtk/section/6/DiscreteTwoBodyScattering/Tabulated.hpp",
-    "src/ENDFtk/section/6/DiscreteTwoBodyScattering/SubSection/src/ctor.hpp",
-    "src/ENDFtk/section/6/DiscreteTwoBodyScattering/SubSection/src/print.hpp",
-    "src/ENDFtk/section/6/DiscreteTwoBodyScattering/SubSection/src/readSubSection.hpp",
     "src/ENDFtk/section/6/DiscreteTwoBodyScattering/Tabulated/src/verifyLANG.hpp",
     "src/ENDFtk/section/6/DiscreteTwoBodyScattering/Tabulated/src/verifySize.hpp",
     "src/ENDFtk/section/6/DiscreteTwoBodyScattering/Tabulated/src/ctor.hpp",
@@ -844,6 +841,7 @@
     "src/ENDFtk/section/6/DiscreteTwoBodyScattering/LegendreCoefficients/src/verifyLANG.hpp",
     "src/ENDFtk/section/6/DiscreteTwoBodyScattering/LegendreCoefficients/src/verifySize.hpp",
     "src/ENDFtk/section/6/DiscreteTwoBodyScattering/LegendreCoefficients/src/ctor.hpp",
+    "src/ENDFtk/section/6/DiscreteTwoBodyScattering/src/readSequence.hpp",
     "src/ENDFtk/section/6/DiscreteTwoBodyScattering/src/ctor.hpp",
     "src/ENDFtk/section/6/DiscreteTwoBodyScattering/src/print.hpp",
     "src/ENDFtk/section/6/src/ctor.hpp",
@@ -1437,9 +1435,6 @@
     ],
     "ENDFtk.section.6.DiscreteTwoBodyScattering.LegendreCoefficients": [
       "src/ENDFtk/section/6/DiscreteTwoBodyScattering/LegendreCoefficients/test/LegendreCoefficients.test.cpp"
-    ],
-    "ENDFtk.section.6.DiscreteTwoBodyScattering.SubSection": [
-      "src/ENDFtk/section/6/DiscreteTwoBodyScattering/SubSection/test/SubSection.test.cpp"
     ],
     "ENDFtk.section.6.DiscreteTwoBodyScattering.Tabulated": [
       "src/ENDFtk/section/6/DiscreteTwoBodyScattering/Tabulated/test/Tabulated.test.cpp"

@@ -45,8 +45,9 @@ ChargedParticleElasticScattering( InterpolationRecord&& interpolation,
                                   int MF,
                                   int MT ) :
   ChargedParticleElasticScattering( std::move( interpolation ),
-                        readSequence( interpolation.NZ(),
-                                      begin, end, lineNumber, MAT, MF, MT ) ) {}
+                                    readSequence( interpolation.NZ(),
+                                                  begin, end, lineNumber,
+                                                  MAT, MF, MT ) ) {}
 
 public:
 /**
@@ -73,7 +74,7 @@ ChargedParticleElasticScattering ( Iterator& begin,
           begin, end, lineNumber, MAT, MF, MT ) {}
   catch ( std::exception& e ) {
 
-    Log::info( "Encountered error while reading charged particle elastic "
+    Log::info( "Encountered error while constructing charged particle elastic "
                "scattering distribution data (LAW=5)" );
     throw;
   }
