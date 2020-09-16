@@ -20,6 +20,16 @@ ThermalScatteringData( double energy, int n2,
   ListRecord( 0., energy, 0, 0, n2, std::move( data ) ) {}
 
 /**
+ *  @brief Constructor for LTT = 6
+ *
+ *  @param[in] energy    the incident energy
+ *  @param[in] cosines   the equally probable cosine values
+ */
+ThermalScatteringData( double energy, std::vector< double >&& cosines ) :
+  ListRecord( 0., energy, 0, 0, cosines.size() + 2,
+              generateList( energy, std::move( cosines ) ) ) {}
+
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator

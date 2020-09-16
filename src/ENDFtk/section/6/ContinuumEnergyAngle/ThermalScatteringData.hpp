@@ -15,7 +15,7 @@ class ThermalScatteringData : protected ListRecord {
   using DropStrideRange = decltype( std::declval< Range >() | ranges::view::drop_exactly( 0 ) | ranges::view::stride( 0 ) );
 
   /* auxiliary functions */
-  //#include "ENDFtk/section/6/ContinuumEnergyAngle/EqualProbabilityBins/src/verifySize.hpp"
+  #include "ENDFtk/section/6/ContinuumEnergyAngle/ThermalScatteringData/src/generateList.hpp"
 
 public:
 
