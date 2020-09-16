@@ -1,4 +1,14 @@
+/**
+ *  @class
+ *  @brief Discrete two-body scattering data for secondary particles (LAW=2)
+ *
+ *  The DiscreteTwoBodyScattering class is used to represent the discrete
+ *  two-body scattering law=2 data of MF6.
+ *
+ *  See ENDF102, section 6.2.4 for more information.
+ */
 class DiscreteTwoBodyScattering {
+
 public:
 
   #include "ENDFtk/section/6/DiscreteTwoBodyScattering/LegendreCoefficients.hpp"

@@ -23,6 +23,8 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
 
   GIVEN( "valid data for a DiscreteTwoBodyScattering" ) {
 
+    std::string string = chunk();
+
     WHEN( "the data is given explicitly" ) {
 
       std::vector< long > boundaries = { 2 };
@@ -31,48 +33,47 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
         LegendreCoefficients( 1e-5, { 1., 2., 3., 4. } ),
         Tabulated( 2e+7, 12, {1., 2., 3., 4., 5., 6.} ) };
 
+      DiscreteTwoBodyScattering
+        chunk( std::move( boundaries ), std::move( interpolants ),
+               std::move( sequence ) );
+
       THEN( "a DiscreteTwoBodyScattering can "
             "be constructed and members can be tested" ) {
 
-        DiscreteTwoBodyScattering
-          chunk( std::move( boundaries ), std::move( interpolants ),
-                 std::move( sequence ) );
         verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 6, 5 );
+        REQUIRE( buffer == string );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream" ) {
 
-      std::string string = chunk();
       auto begin = string.begin();
       auto end = string.end();
       long lineNumber = 1;
 
+      DiscreteTwoBodyScattering chunk( begin, end, lineNumber, 9228, 6, 5 );
+
       THEN( "a DiscreteTwoBodyScattering can "
             "be constructed and members can be tested" ) {
 
-        DiscreteTwoBodyScattering chunk( begin, end, lineNumber, 9228, 6, 5 );
         verifyChunk( chunk );
       } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 6, 5 );
+        REQUIRE( buffer == string );
+      } // THEN
     } // WHEN
-  } // GIVEN
-
-  GIVEN( "a valid instance of DiscreteTwoBodyScattering" ) {
-
-    std::string string = chunk();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-    DiscreteTwoBodyScattering
-      chunk(begin, end, lineNumber, 9228, 6, 5 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 9228, 6, 5 );
-      REQUIRE( buffer == string );
-    }
   } // GIVEN
 
   GIVEN( "invalid data for a DiscreteTwoBodyScattering" ) {
@@ -131,9 +132,10 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      THEN( "an exception is thrown upon construction" ){
+      THEN( "an exception is thrown upon construction" ) {
+
         REQUIRE_THROWS( DiscreteTwoBodyScattering( begin, end, lineNumber,
-                        9228, 6, 5 ) );
+                                                   9228, 6, 5 ) );
       } // THEN
     } // WHEN
   } // GIVEN

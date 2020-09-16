@@ -32,8 +32,6 @@ using DiscreteTwoBodyRecoils =
 section::Type< 6 >::DiscreteTwoBodyRecoils;
 using ChargedParticleElasticScattering =
 section::Type< 6 >::ChargedParticleElasticScattering;
-using SubSection =
-section::Type< 6 >::ChargedParticleElasticScattering::SubSection;
 using Law5LegendreCoefficients =
 section::Type< 6 >::ChargedParticleElasticScattering::LegendreCoefficients;
 using Law5NuclearAmplitudeExpansion =
@@ -461,13 +459,9 @@ SCENARIO( "ReactionProduct" ) {
 
       auto energies = law.subsections();
 
-      REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
-      REQUIRE( 0 == energies[0].LANG() );
-      REQUIRE( 4 == energies[0].NW() );
-      REQUIRE( 4 == energies[0].NL() );
-
       auto subsection1 =
-          std::get< Law2LegendreCoefficients >( energies[0].data() );
+          std::get< Law2LegendreCoefficients >( energies[0] );
+      REQUIRE( 1e-5 == Approx( subsection1.energy() ) );
       REQUIRE( 0 == subsection1.LANG() );
       REQUIRE( 4 == subsection1.NW() );
       REQUIRE( 4 == subsection1.NL() );
@@ -477,13 +471,9 @@ SCENARIO( "ReactionProduct" ) {
       REQUIRE( 3. == Approx( subsection1.coefficients()[2] ) );
       REQUIRE( 4. == Approx( subsection1.coefficients()[3] ) );
 
-      REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
-      REQUIRE( 12 == energies[1].LANG() );
-      REQUIRE( 6 == energies[1].NW() );
-      REQUIRE( 3 == energies[1].NL() );
-
       auto subsection2 =
-           std::get< Law2Tabulated >( energies[1].data() );
+           std::get< Law2Tabulated >( energies[1] );
+      REQUIRE( 2e+7 == Approx( subsection2.energy() ) );
       REQUIRE( 12 == subsection2.LANG() );
       REQUIRE( 6 == subsection2.NW() );
       REQUIRE( 3 == subsection2.NL() );
@@ -554,13 +544,9 @@ SCENARIO( "ReactionProduct" ) {
 
       auto energies = law.subsections();
 
-      REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
-      REQUIRE( 0 == energies[0].LANG() );
-      REQUIRE( 4 == energies[0].NW() );
-      REQUIRE( 4 == energies[0].NL() );
-
       auto subsection1 =
-          std::get< Law2LegendreCoefficients >( energies[0].data() );
+          std::get< Law2LegendreCoefficients >( energies[0] );
+      REQUIRE( 1e-5 == Approx( subsection1.energy() ) );
       REQUIRE( 0 == subsection1.LANG() );
       REQUIRE( 4 == subsection1.NW() );
       REQUIRE( 4 == subsection1.NL() );
@@ -570,13 +556,9 @@ SCENARIO( "ReactionProduct" ) {
       REQUIRE( 3. == Approx( subsection1.coefficients()[2] ) );
       REQUIRE( 4. == Approx( subsection1.coefficients()[3] ) );
 
-      REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
-      REQUIRE( 12 == energies[1].LANG() );
-      REQUIRE( 6 == energies[1].NW() );
-      REQUIRE( 3 == energies[1].NL() );
-
       auto subsection2 =
-           std::get< Law2Tabulated >( energies[1].data() );
+           std::get< Law2Tabulated >( energies[1] );
+      REQUIRE( 2e+7 == Approx( subsection2.energy() ) );
       REQUIRE( 12 == subsection2.LANG() );
       REQUIRE( 6 == subsection2.NW() );
       REQUIRE( 3 == subsection2.NL() );
@@ -863,13 +845,9 @@ SCENARIO( "ReactionProduct" ) {
 
       auto energies = law.subsections();
 
-      REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
-      REQUIRE( 1 == energies[0].LTP() );
-      REQUIRE( 12 == energies[0].NW() );
-      REQUIRE( 3 == energies[0].NL() );
-
       auto subsection1 =
-      std::get< Law5NuclearAmplitudeExpansion >( energies[0].data() );
+      std::get< Law5NuclearAmplitudeExpansion >( energies[0] );
+      REQUIRE( 1e-5 == Approx( subsection1.energy() ) );
       REQUIRE( 1 == subsection1.LTP() );
       REQUIRE( 12 == subsection1.NW() );
       REQUIRE( 3 == subsection1.NL() );
@@ -893,13 +871,9 @@ SCENARIO( "ReactionProduct" ) {
       REQUIRE( 12. ==
                Approx( subsection1.imaginaryInterferenceCoefficients()[3] ) );
 
-      REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
-      REQUIRE( 15 == energies[1].LTP() );
-      REQUIRE( 6 == energies[1].NW() );
-      REQUIRE( 3 == energies[1].NL() );
-
       auto subsection2 =
-      std::get< Law5NuclearPlusInterference >( energies[1].data() );
+      std::get< Law5NuclearPlusInterference >( energies[1] );
+      REQUIRE( 2e+7 == Approx( subsection2.energy() ) );
       REQUIRE( 15 == subsection2.LTP() );
       REQUIRE( 6 == subsection2.NW() );
       REQUIRE( 3 == subsection2.NL() );
@@ -973,13 +947,9 @@ SCENARIO( "ReactionProduct" ) {
 
       auto energies = law.subsections();
 
-      REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
-      REQUIRE( 1 == energies[0].LTP() );
-      REQUIRE( 12 == energies[0].NW() );
-      REQUIRE( 3 == energies[0].NL() );
-
       auto subsection1 =
-      std::get< Law5NuclearAmplitudeExpansion >( energies[0].data() );
+      std::get< Law5NuclearAmplitudeExpansion >( energies[0] );
+      REQUIRE( 1e-5 == Approx( subsection1.energy() ) );
       REQUIRE( 1 == subsection1.LTP() );
       REQUIRE( 12 == subsection1.NW() );
       REQUIRE( 3 == subsection1.NL() );
@@ -1003,13 +973,9 @@ SCENARIO( "ReactionProduct" ) {
       REQUIRE( 12. ==
                Approx( subsection1.imaginaryInterferenceCoefficients()[3] ) );
 
-      REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
-      REQUIRE( 15 == energies[1].LTP() );
-      REQUIRE( 6 == energies[1].NW() );
-      REQUIRE( 3 == energies[1].NL() );
-
       auto subsection2 =
-      std::get< Law5NuclearPlusInterference >( energies[1].data() );
+      std::get< Law5NuclearPlusInterference >( energies[1] );
+      REQUIRE( 2e+7 == Approx( subsection2.energy() ) );
       REQUIRE( 15 == subsection2.LTP() );
       REQUIRE( 6 == subsection2.NW() );
       REQUIRE( 3 == subsection2.NL() );
