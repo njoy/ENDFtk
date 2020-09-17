@@ -21,8 +21,8 @@ UnresolvedBase( ControlRecord&& cont,
                 Iterator& it, const Iterator& end, long& lineNumber,
                 int MAT, int MF, int MT ) :
   UnresolvedBase( cont.C1(), cont.C2(), cont.L1(),
-                  readLValues( it, end, lineNumber,
-                               MAT, MF, MT, cont.N1() ) ) {}
+                  readSequence< LValue >( it, end, lineNumber,
+                                          MAT, MF, MT, cont.N1() ) ) {}
 
 public:
 /**

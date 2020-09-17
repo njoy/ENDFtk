@@ -30,7 +30,8 @@ RMatrixLimited( bool ifg, bool krl, int krm,
                 int MAT, int MF, int MT ) :
   RMatrixLimited( ifg, krl, krm,
                   std::move( pairs ),
-                  readSpinGroups( it, end, lineNumber, MAT, MF, MT, njs ) ) {}
+                  readSequence< SpinGroup >( it, end, lineNumber,
+                                             MAT, MF, MT, njs ) ) {}
 
 /**
  *  @brief Private intermediate constructor

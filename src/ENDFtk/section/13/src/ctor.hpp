@@ -53,8 +53,8 @@ Type( double zaid, double awr,
       long& lineNumber, int MAT, int MF, int MT, int NK ) :
   Type( MT, zaid, awr,
         std::move( total ),
-        readPartialCrossSections( begin, end, lineNumber,
-                                   MAT, MF, MT, NK ) ) {}
+        readSequence< PartialCrossSection >( begin, end, lineNumber,
+                                             MAT, MF, MT, NK ) ) {}
 
 public:
 

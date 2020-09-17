@@ -10,7 +10,7 @@ DecaySpectrum( ListRecord&& list,
 }
 
 public:
-/** 
+/**
  *  @brief Constructor for discrete spectra only (LCON=0)
  *
  *  @param[in] styp          the particle type for which spectral data is given
@@ -28,7 +28,7 @@ DecaySpectrum( double styp,
                  std::move( discrete ),
                  std::nullopt ) {}
 
-/** 
+/**
  *  @brief Constructor for continuous spectra only (LCON=1)
  *
  *  @param[in] styp         the particle type for which spectral data is given
@@ -48,7 +48,7 @@ DecaySpectrum( double styp,
                  {},
                  std::make_optional( std::move( continuous ) ) ) {}
 
-/** 
+/**
  *  @brief Constructor for discrete and continuous spectra (LCON=2)
  *
  *  @param[in] styp         the particle type for which spectral data is given
@@ -96,12 +96,13 @@ DecaySpectrum( ListRecord&& list,
                Iterator& it, const Iterator& end, long& lineNumber,
                int MAT, int MF, int MT ) :
   DecaySpectrum( std::move( list ),
-                 readDiscrete( it, end, lineNumber, MAT, MF, MT, list.N2() ),
+                 readSequence< DiscreteSpectrum >( it, end, lineNumber,
+                                                   MAT, MF, MT, list.N2() ),
                  it, end, lineNumber, MAT, MF, MT ) {}
 
 public:
 
-/** 
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator

@@ -21,8 +21,8 @@ LValueBase( ControlRecord&& cont,
             Iterator& it, const Iterator& end, long& lineNumber,
             int MAT, int MF, int MT ) :
   LValueBase( cont.C1(), cont.L1(),
-              readJValues( it, end, lineNumber,
-                           MAT, MF, MT, cont.N1() ) ) {}
+              readSequence< JValue >( it, end, lineNumber,
+                                      MAT, MF, MT, cont.N1() ) ) {}
 
 public:
 /**

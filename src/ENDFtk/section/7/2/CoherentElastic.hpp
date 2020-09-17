@@ -18,7 +18,6 @@ class CoherentElastic {
 
   /* auxiliary functions */
   #include "ENDFtk/section/7/2/CoherentElastic/src/generateTemperatures.hpp"
-  #include "ENDFtk/section/7/2/CoherentElastic/src/readTemperatures.hpp"
   #include "ENDFtk/section/7/2/CoherentElastic/src/verifyTemperatures.hpp"
 
 public:
@@ -62,29 +61,29 @@ public:
    */
   int numberTemperatures() const { return this->NT(); }
 
-  /** 
+  /**
    *  @brief Return the number of interpolation ranges on the energy grid
    */
   long NR() const { return this->principal_.NR(); }
 
-  /** 
+  /**
    *  @brief Return the number of Bragg edges, equal to the number of energy
    *         values
    */
   long NP() const { return this->principal_.NP(); }
 
-  /** 
+  /**
    *  @brief Return the number of Bragg edges, equal to the number of energy
    *         values
    */
   long numberBraggEdges() const { return this->NP(); }
 
-  /** 
+  /**
    *  @brief Return interpolation type for each range on the energy grid
    */
   auto interpolants() const { return this->principal_.interpolants(); }
 
-  /** 
+  /**
    *  @brief Return interpolation boundaries for the energy grid
    */
   auto boundaries() const { return this->principal_.boundaries(); }
@@ -95,8 +94,8 @@ public:
    */
   auto temperatures() const {
     return ranges::view::concat(
-             ranges::view::single( this->principal_.C1() ), 
-             this->temperatures_ | 
+             ranges::view::single( this->principal_.C1() ),
+             this->temperatures_ |
                  ranges::view::transform( [] ( const auto& v )
                                              { return v.C1(); } ) );
   }
@@ -128,7 +127,7 @@ public:
    */
   auto thermalScatteringValues() const {
     return ranges::view::concat(
-             ranges::view::single( this->principal_.y() ), 
+             ranges::view::single( this->principal_.y() ),
              this->temperatures_ |
                  ranges::view::transform( [] ( const auto& v )
                                              { return v.list(); } ) );

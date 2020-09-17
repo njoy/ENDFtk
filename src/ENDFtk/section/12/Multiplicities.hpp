@@ -19,7 +19,6 @@ class Multiplicities {
   /* auxiliary functions */
   #include "ENDFtk/section/12/Multiplicities/src/verifyNK.hpp"
   #include "ENDFtk/section/12/Multiplicities/src/readTotalMultiplicity.hpp"
-  #include "ENDFtk/section/12/Multiplicities/src/readPartialMultiplicities.hpp"
 
 public:
 

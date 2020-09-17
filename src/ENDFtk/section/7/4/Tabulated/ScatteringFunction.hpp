@@ -19,7 +19,6 @@ class ScatteringFunction {
   std::vector< ListRecord > temperatures_;
 
   /* auxiliary functions */
-  #include "ENDFtk/section/7/4/Tabulated/ScatteringFunction/src/readTemperatures.hpp"
   #include "ENDFtk/section/7/4/Tabulated/ScatteringFunction/src/generateTemperatures.hpp"
   #include "ENDFtk/section/7/4/Tabulated/ScatteringFunction/src/verifyBetaValues.hpp"
 
@@ -59,27 +58,27 @@ public:
    */
   int numberTemperatures() const { return this->NT(); }
 
-  /** 
+  /**
    *  @brief Return the number of interpolation ranges on the alpha grid
    */
   long NR() const { return this->alphas_.NR(); }
 
-  /** 
+  /**
    *  @brief Return the number of alpha values
    */
   long NA() const { return this->alphas_.NP(); }
 
-  /** 
+  /**
    *  @brief Return the number of alpha values
    */
   long numberAlphas() const { return this->NA(); }
 
-  /** 
+  /**
    *  @brief Return interpolation type for each range on the alpha grid
    */
   auto interpolants() const { return this->alphas_.interpolants(); }
 
-  /** 
+  /**
    *  @brief Return interpolation boundaries for the alpha grid
    */
   auto boundaries() const { return this->alphas_.boundaries(); }
@@ -90,8 +89,8 @@ public:
    */
   auto temperatures() const {
     return ranges::view::concat(
-             ranges::view::single( this->alphas_.C1() ), 
-             this->temperatures_ | 
+             ranges::view::single( this->alphas_.C1() ),
+             this->temperatures_ |
                  ranges::view::transform( [] ( const auto& v )
                                              { return v.C1(); } ) );
   }
@@ -123,7 +122,7 @@ public:
    */
   auto thermalScatteringValues() const {
     return ranges::view::concat(
-             ranges::view::single( this->alphas_.y() ), 
+             ranges::view::single( this->alphas_.y() ),
              this->temperatures_ |
                  ranges::view::transform( [] ( const auto& v )
                                              { return v.list(); } ) );
