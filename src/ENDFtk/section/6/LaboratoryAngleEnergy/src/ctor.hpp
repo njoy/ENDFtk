@@ -20,7 +20,10 @@ LaboratoryAngleEnergy( Iterator& begin,
                        int MAT,
                        int MF,
                        int MT )
-  try : data_( begin, end, lineNumber, MAT, MF, MT  ) {}
+  try : data_(
+          readInterpolationSequenceRecord<
+            LaboratoryAngleEnergy::AngularDistribution >(
+              begin, end, lineNumber, MAT, MF, MT ) ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while reading laboratory angle energy "

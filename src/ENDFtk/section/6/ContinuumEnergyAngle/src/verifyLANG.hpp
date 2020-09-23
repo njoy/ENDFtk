@@ -2,8 +2,12 @@ template< typename Array >
 static void
 verifyLANG( int LANG, const Array& sequence ) {
 
-  auto iter = ranges::find_if_not( sequence, hana::equal.to( LANG ),
-                                   &SubSection::LANG );
+  auto lang = [] ( const auto& variant )
+                 { return std::visit( [] ( const auto& entry )
+                                         { return entry.LANG(); },
+                                      variant ); };
+
+  auto iter = ranges::find_if_not( sequence, hana::equal.to( LANG ), lang );
 
   if ( iter != ranges::end( sequence ) ) {
 

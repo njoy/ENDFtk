@@ -1,5 +1,5 @@
 private :
-/** 
+/**
  *  @brief Constructor
  *
  *  @param[in] sequence   the interpolation sequence record
@@ -9,12 +9,12 @@ TabulatedSpectrum(
   data_( std::move( sequence ) ) {}
 
 public :
-/** 
+/**
  *  @brief Constructor
  *
  *  @param[in] boundaries      the interpolation range boundaries
  *  @param[in] interpolants    the interpolation types for each range
- *  @param[in] distributions   the incoming energy values and associated 
+ *  @param[in] distributions   the incoming energy values and associated
  *                             outgoing energy distributions
  */
 TabulatedSpectrum( std::vector< long >&& boundaries,
@@ -33,7 +33,7 @@ TabulatedSpectrum( std::vector< long >&& boundaries,
     throw;
   }
 
-/** 
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator
@@ -53,7 +53,7 @@ TabulatedSpectrum( Iterator& begin,
                    int MF,
                    int MT )
   try : TabulatedSpectrum(
-            InterpolationSequenceRecord< OutgoingEnergyDistribution >(
+            readInterpolationSequenceRecord< OutgoingEnergyDistribution >(
                 begin, end, lineNumber, MAT, MF, MT ) ) {}
   catch ( std::exception& e ) {
 

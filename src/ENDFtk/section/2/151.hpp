@@ -14,7 +14,6 @@ private:
 
   /* auxiliary functions */
   #include "ENDFtk/section/2/151/src/verifyNIS.hpp"
-  #include "ENDFtk/section/2/151/src/readIsotopes.hpp"
 
 public:
 

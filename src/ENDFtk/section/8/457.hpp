@@ -24,7 +24,6 @@ private:
   std::vector< DecaySpectrum > spectra_;
 
   /* auxiliary functions */
-  #include "ENDFtk/section/8/457/src/readSpectra.hpp"
 
 public:
 

@@ -24,7 +24,7 @@ Type( double zaid, double awr, int lis, int liso, double spin, double parity ) :
  *  @param[in] modes      the decay modes
  *  @param[in] spectra    the decay spectra
  */
-Type( double zaid, double awr, int lis, int liso, 
+Type( double zaid, double awr, int lis, int liso,
       AverageDecayEnergies&& energies,
       DecayModes&& modes,
       std::vector< DecaySpectrum >&& spectra ) :
@@ -47,7 +47,8 @@ Type( double za, double awr, int lis, int liso, int NSP,
   Type( za, awr, lis, liso,
         std::move( energies ),
         std::move( modes ),
-        readSpectra( begin, end, lineNumber, MAT, NSP ) ) {}
+        readSequence< DecaySpectrum >( begin, end, lineNumber,
+                                       MAT, 8, 457, NSP ) ) {}
 
 template< typename Iterator >
 Type( double za, double awr, int lis, int liso, int NSP,
@@ -63,7 +64,7 @@ Type( double za, double awr, int lis, int liso, int NSP,
 
 public:
 
-/** 
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator

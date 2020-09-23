@@ -43,7 +43,6 @@ private:
 
   /* auxiliary functions */
   #include "ENDFtk/section/5/src/verifyNK.hpp"
-  #include "ENDFtk/section/5/src/readSubsections.hpp"
 
 public:
 

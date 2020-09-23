@@ -1,5 +1,5 @@
 private:
-/** 
+/**
  *  @brief Private intermediate constructor
  *
  *  The number of entries in the temperatures array is checked against the
@@ -11,14 +11,14 @@ ScatteringFunction( TabulationRecord&& alphas,
 
   if ( this->NT() != 1 ) {
     verifyBetaValues( this->beta(),
-                      this->temperatures_ | 
+                      this->temperatures_ |
                           ranges::view::transform( [] ( const auto& v )
                                                       { return v.C2(); } ) );
   }
 }
 
   public:
-/** 
+/**
  *  @brief Constructor (multiple temperatures)
  *
  *  The size of the various arrays is checked for consistency where appropriate.
@@ -57,7 +57,7 @@ ScatteringFunction( double beta,
     throw;
   }
 
-/** 
+/**
  *  @brief Constructor (single temperature)
  *
  *  The size of the various arrays is checked for consistency where appropriate.
@@ -87,7 +87,7 @@ ScatteringFunction( double temperature, double beta,
   }
 
 private:
-/** 
+/**
  *  @brief Private intermediate constructor
  */
 template< typename Iterator >
@@ -99,11 +99,11 @@ ScatteringFunction( TabulationRecord&& alphas,
                     int MF,
                     int MT ) :
   ScatteringFunction( std::move( alphas ),
-                      readTemperatures( begin, end, lineNumber,
-                                        MAT, MF, MT, alphas.L1() ) ) {}
+                      readSequence< ListRecord >( begin, end, lineNumber,
+                                                  MAT, MF, MT, alphas.L1() ) ) {}
 
 public:
-/** 
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator

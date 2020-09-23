@@ -13,7 +13,6 @@ template < typename JValue > class LValueBase {
   std::vector< JValue > jvalues_;
 
   /* auxiliary functions */
-  #include "ENDFtk/resonanceParameters/unresolved/LValueBase/src/readJValues.hpp"
   #include "ENDFtk/resonanceParameters/unresolved/LValueBase/src/verifySize.hpp"
 
 public:

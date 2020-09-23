@@ -45,8 +45,9 @@ EnergyDependentFissionWidths(
       Iterator& it, const Iterator& end, long& lineNumber,
       int MAT, int MF, int MT ) :
   EnergyDependentFissionWidths( std::move( list ),
-                                readLValues( it, end, lineNumber,
-                                             MAT, MF, MT, list.N2() ) ) {}
+                                readSequence< LValue >(
+                                    it, end, lineNumber,
+                                    MAT, MF, MT, list.N2() ) ) {}
 
 public:
 /**
