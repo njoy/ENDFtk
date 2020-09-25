@@ -28,6 +28,7 @@
 #include "ENDFtk/TapeIdentification.hpp"
 #include "ENDFtk/StructureDivision.hpp"
 #include "ENDFtk/HeadRecord.hpp"
+#include "ENDFtk/TextRecord.hpp"
 
 namespace njoy {
 namespace ENDFtk {
@@ -47,9 +48,6 @@ using ImmutableReturnType =
   std::conditional_t
   < std::is_trivially_copyable< T >::value,
     T, std::add_lvalue_reference_t< std::add_const_t< T > > >;
-
-#include "ENDFtk/TextRecord.hpp"
-using TEXT = TextRecord;
 
 #include "ENDFtk/ControlRecord.hpp"
 using CONT = ControlRecord;
