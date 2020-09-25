@@ -30,6 +30,7 @@
 #include "ENDFtk/HeadRecord.hpp"
 #include "ENDFtk/TextRecord.hpp"
 #include "ENDFtk/ControlRecord.hpp"
+#include "ENDFtk/DirectoryRecord.hpp"
 
 namespace njoy {
 namespace ENDFtk {
@@ -49,9 +50,6 @@ using ImmutableReturnType =
   std::conditional_t
   < std::is_trivially_copyable< T >::value,
     T, std::add_lvalue_reference_t< std::add_const_t< T > > >;
-
-#include "ENDFtk/DirectoryRecord.hpp"
-using DIR = DirectoryRecord;
 
 #include "ENDFtk/ListRecord.hpp"
 using LIST = ListRecord;
