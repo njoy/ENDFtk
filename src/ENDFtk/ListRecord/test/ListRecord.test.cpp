@@ -4,6 +4,7 @@
 #include "ENDFtk/ListRecord.hpp"
 
 // other includes
+#include "header-utilities.hpp"
 
 // convenience typedefs
 using namespace njoy::ENDFtk;

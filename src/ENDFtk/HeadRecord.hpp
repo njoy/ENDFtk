@@ -4,7 +4,6 @@
 // system includes
 
 // other includes
-#include "Log.hpp"
 #include "ENDFtk/record.hpp"
 #include "ENDFtk/StructureDivision.hpp"
 

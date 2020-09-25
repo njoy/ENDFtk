@@ -4,6 +4,7 @@
 #include "ENDFtk/InterpolationRecord.hpp"
 
 // other includes
+#include "header-utilities.hpp"
 
 // convenience typedefs
 using namespace njoy::ENDFtk;

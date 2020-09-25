@@ -5,7 +5,6 @@
 
 // other includes
 #include "ENDFtk/record.hpp"
-#include "ENDFtk/StructureDivision.hpp"
 
 namespace njoy {
 namespace ENDFtk {
