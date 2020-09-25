@@ -31,6 +31,7 @@
 #include "ENDFtk/TextRecord.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/DirectoryRecord.hpp"
+#include "ENDFtk/ListRecord.hpp"
 
 namespace njoy {
 namespace ENDFtk {
@@ -50,9 +51,6 @@ using ImmutableReturnType =
   std::conditional_t
   < std::is_trivially_copyable< T >::value,
     T, std::add_lvalue_reference_t< std::add_const_t< T > > >;
-
-#include "ENDFtk/ListRecord.hpp"
-using LIST = ListRecord;
 
 #include "ENDFtk/InterpolationRecord.hpp"
 using TAB2 = InterpolationRecord;

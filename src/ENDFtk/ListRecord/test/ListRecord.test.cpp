@@ -1,8 +1,11 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/ListRecord.hpp"
 
+// other includes
+
+// convenience typedefs
 using namespace njoy::ENDFtk;
 
 SCENARIO( "ListRecord Tests", "[ENDFtk], [ListRecord]" ){
@@ -13,14 +16,14 @@ SCENARIO( "ListRecord Tests", "[ENDFtk], [ListRecord]" ){
     " 1.001000+3 9.991673-1          0          0         10          5 125 1451     \n"
     " 0.000000+0 1.000000+0 2.000000+0 3.000000+0 4.000000+0 5.000000+0 125 1451     \n"
     " 6.000000+0 7.000000+0 8.000000+0 9.000000+0                       125 1451     \n";
-  
+
   GIVEN( "value construction, the ctor works"){
     REQUIRE_NOTHROW(
       ListRecord( std::get< 0 >(values), std::get< 1 >(values),
                   std::get< 2 >(values), std::get< 3 >(values),
                   std::get< 5 >(values), njoy::utility::copy(list) ) );
   }
-  
+
   GIVEN( "iterators and a line number"){
     auto it = lines.begin();
     auto end = lines.end();
@@ -53,7 +56,7 @@ SCENARIO( "ListRecord Tests", "[ENDFtk], [ListRecord]" ){
     std::string buffer;
     auto output = std::back_inserter( buffer );
     list.print( output, MAT, MF, MT );
-      
+
     REQUIRE( buffer == lines );
   }
 
@@ -69,7 +72,7 @@ SCENARIO( "ListRecord Tests", "[ENDFtk], [ListRecord]" ){
     const auto list = ListRecord( it, end, lineNumber, 125, 1, 451 );
     REQUIRE( list.NC() == 3 );
   }
-  
+
   GIVEN("nonzero entries outside list range"){
     std::string lines =
       " 1.001000+3 9.991673-1          0          0         10          5 125 1451    1\n"
@@ -104,7 +107,7 @@ SCENARIO( "ListRecord Tests", "[ENDFtk], [ListRecord]" ){
       ListRecord( std::get< 0 >(values), std::get< 1 >(values),
                   std::get< 2 >(values), std::get< 3 >(values),
                   std::get< 5 >(values), njoy::utility::copy(list) );
-      
+
     const auto& constListRecord1 = listRecord1;
     THEN( "the getter will work" ){
       REQUIRE( listRecord0.C1() == std::get< 0 >( values ) );
