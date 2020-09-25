@@ -1112,16 +1112,7 @@
       "src/ENDFtk/HeadRecord/test/HeadRecord.test.cpp"
     ],
     "ENDFtk.InterpolationRecord": [
-      "src/ENDFtk/InterpolationRecord/test/print.test.cpp",
-      "src/ENDFtk/InterpolationRecord/test/L1.test.cpp",
-      "src/ENDFtk/InterpolationRecord/test/InterpolationRecord.test.cpp",
-      "src/ENDFtk/InterpolationRecord/test/NR.test.cpp",
-      "src/ENDFtk/InterpolationRecord/test/rangeInterpolationScheme.test.cpp",
-      "src/ENDFtk/InterpolationRecord/test/C2.test.cpp",
-      "src/ENDFtk/InterpolationRecord/test/equality.test.cpp",
-      "src/ENDFtk/InterpolationRecord/test/C1.test.cpp",
-      "src/ENDFtk/InterpolationRecord/test/L2.test.cpp",
-      "src/ENDFtk/InterpolationRecord/test/NZ.test.cpp"
+      "src/ENDFtk/InterpolationRecord/test/InterpolationRecord.test.cpp"
     ],
     "ENDFtk.InterpolationSequenceRecord": [
       "src/ENDFtk/InterpolationSequenceRecord/test/InterpolationSequenceRecord.test.cpp"

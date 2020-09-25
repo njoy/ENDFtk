@@ -1,10 +1,3 @@
-#include "catch.hpp"
-#include "ENDFtk.hpp"
-
-using namespace njoy::ENDFtk;
-
-extern std::function< InterpolationRecord() > makeTAB2;
-
 SCENARIO( "InterpolationRecord equality",
           "[ENDFtk], [InterpolationRecord]" ){
 
