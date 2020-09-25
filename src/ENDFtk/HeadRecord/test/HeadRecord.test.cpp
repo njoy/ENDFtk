@@ -1,8 +1,11 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/HeadRecord.hpp"
 
+// other includes
+
+// convenience typedefs
 using namespace njoy::ENDFtk;
 
 SCENARIO( "HeadRecord Tests", "[ENDFtk], [HeadRecord]" ){
