@@ -25,6 +25,8 @@
 
 #include "ENDFtk/record.hpp"
 
+#include "ENDFtk/TapeIdentification.hpp"
+
 namespace njoy {
 namespace ENDFtk {
 
@@ -43,9 +45,6 @@ using ImmutableReturnType =
   std::conditional_t
   < std::is_trivially_copyable< T >::value,
     T, std::add_lvalue_reference_t< std::add_const_t< T > > >;
-
-#include "ENDFtk/TapeIdentification.hpp"
-using TPID = TapeIdentification;
 
 #include "ENDFtk/StructureDivision.hpp"
 

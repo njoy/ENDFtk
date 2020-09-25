@@ -1,40 +1,59 @@
-class TapeIdentification {
-public:
+#ifndef NJOY_ENDFTK_TAPEIDENTIFICATION
+#define NJOY_ENDFTK_TAPEIDENTIFICATION
 
-  /* fields */
-  record::Base< record::Character< 66 > > base;
-  record::TailVerifying< record::MT, record::MF > tail;
+// system includes
 
-  /* ctor */
-  TapeIdentification( std::string&& text, int tapeNumber ) :
-    base( std::move(text) ), tail( tapeNumber, 0, 0 ){}
+// other includes
+#include "Log.hpp"
+#include "ENDFtk/record.hpp"
 
-  template< typename Iterator >
-  TapeIdentification( Iterator& it, const Iterator& end, long& lineNumber )
-    try: 
-      base( it, end ), 
-      tail( 0, 0, it, end, lineNumber )
-    {
-    } catch ( std::exception& e ) {
-      Log::info( "Encountered trouble when reading TapeIdentification" );
-      throw e;
-    } catch ( int fieldNo ){
-      --lineNumber;
-      /* TODO error information here */
-      throw std::exception();
-    }
-  
-  /* methods */
-  std::string& text(){ return std::get<0>( base.fields ); }
-  const std::string& text() const { return std::get<0>( base.fields ); }
+namespace njoy {
+namespace ENDFtk {
 
-  int& tapeNumber() { return this->tail.material(); }
-  int tapeNumber() const { return this->tail.material(); }
+  class TapeIdentification {
+  public:
 
-  int& NTAPE(){ return this->tapeNumber(); }
-  int NTAPE() const { return this->tapeNumber(); }
+    /* fields */
+    record::Base< record::Character< 66 > > base;
+    record::TailVerifying< record::MT, record::MF > tail;
 
-  long NC() const { return 1; }
+    /* ctor */
+    TapeIdentification( std::string&& text, int tapeNumber ) :
+      base( std::move(text) ), tail( tapeNumber, 0, 0 ){}
 
-  #include "ENDFtk/TapeIdentification/src/print.hpp"
-};
+    template< typename Iterator >
+    TapeIdentification( Iterator& it, const Iterator& end, long& lineNumber )
+      try:
+        base( it, end ),
+        tail( 0, 0, it, end, lineNumber )
+      {
+      } catch ( std::exception& e ) {
+        Log::info( "Encountered trouble when reading TapeIdentification" );
+        throw e;
+      } catch ( int fieldNo ){
+        --lineNumber;
+        /* TODO error information here */
+        throw std::exception();
+      }
+
+    /* methods */
+    std::string& text(){ return std::get<0>( base.fields ); }
+    const std::string& text() const { return std::get<0>( base.fields ); }
+
+    int& tapeNumber() { return this->tail.material(); }
+    int tapeNumber() const { return this->tail.material(); }
+
+    int& NTAPE(){ return this->tapeNumber(); }
+    int NTAPE() const { return this->tapeNumber(); }
+
+    long NC() const { return 1; }
+
+    #include "ENDFtk/TapeIdentification/src/print.hpp"
+  };
+
+  using TPID = TapeIdentification;
+
+} // ENDFtk namespace
+} // njoy namespace
+
+#endif
