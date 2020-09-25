@@ -45,15 +45,6 @@ inline namespace literals {
 using namespace hana::literals;
 }
 
-template< typename T >
-using MutableReturnType = std::add_lvalue_reference_t< T >;
-
-template< typename T >
-using ImmutableReturnType =
-  std::conditional_t
-  < std::is_trivially_copyable< T >::value,
-    T, std::add_lvalue_reference_t< std::add_const_t< T > > >;
-
 #include "ENDFtk/InterpolationSequenceRecord.hpp"
 
 #include "ENDFtk/resonanceParameters.hpp"
