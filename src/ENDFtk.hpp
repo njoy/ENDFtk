@@ -29,6 +29,7 @@
 #include "ENDFtk/StructureDivision.hpp"
 #include "ENDFtk/HeadRecord.hpp"
 #include "ENDFtk/TextRecord.hpp"
+#include "ENDFtk/ControlRecord.hpp"
 
 namespace njoy {
 namespace ENDFtk {
@@ -48,9 +49,6 @@ using ImmutableReturnType =
   std::conditional_t
   < std::is_trivially_copyable< T >::value,
     T, std::add_lvalue_reference_t< std::add_const_t< T > > >;
-
-#include "ENDFtk/ControlRecord.hpp"
-using CONT = ControlRecord;
 
 #include "ENDFtk/DirectoryRecord.hpp"
 using DIR = DirectoryRecord;
