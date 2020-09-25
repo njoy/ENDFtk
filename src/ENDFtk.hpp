@@ -10,7 +10,7 @@
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wunused-parameter"
 #endif
-#include <variant>   
+#include <variant>
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif
@@ -80,8 +80,9 @@ using TAB1 = TabulationRecord;
 
 #include "ENDFtk/syntaxTree.hpp"
 
-#include "ENDFtk/src/isRedundant.hpp"
 }
 }
 
 #endif // ENDFTK_HPP
+
+#include "ENDFtk/isRedundant.hpp"

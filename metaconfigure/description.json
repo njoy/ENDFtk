@@ -594,6 +594,7 @@
     "src/ENDFtk/file.hpp",
     "src/ENDFtk/ListRecord.hpp",
     "src/ENDFtk/resonanceParameters.hpp",
+    "src/ENDFtk/isRedundant.hpp",
     "src/ENDFtk/section.hpp",
     "src/ENDFtk/InterpolationRecord.hpp",
     "src/ENDFtk/TextRecord.hpp",
@@ -1079,8 +1080,7 @@
     "src/ENDFtk/TapeIdentification/src/print.hpp",
     "src/ENDFtk/ListRecord/src/readMetadata.hpp",
     "src/ENDFtk/ListRecord/src/print.hpp",
-    "src/ENDFtk/InterpolationRecord/src/ctor.hpp",
-    "src/ENDFtk/src/isRedundant.hpp"
+    "src/ENDFtk/InterpolationRecord/src/ctor.hpp"
   ],
   "ignore pattern": "$^",
   "implementation files": [],
@@ -1100,7 +1100,6 @@
   "test pattern": "test$",
   "tests": {
     "ENDFtk": [
-      "src/ENDFtk/test/isRedundant.test.cpp",
       "src/ENDFtk/test/ENDFtk.test.cpp"
     ],
     "ENDFtk.ControlRecord": [
