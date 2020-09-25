@@ -1170,40 +1170,22 @@
       "src/ENDFtk/file/Type/test/Type.test.cpp"
     ],
     "ENDFtk.record": [
-      "src/ENDFtk/record/test/skip.test.cpp",
       "src/ENDFtk/record/test/record.test.cpp"
     ],
     "ENDFtk.record.Base": [
       "src/ENDFtk/record/Base/test/Base.test.cpp"
     ],
     "ENDFtk.record.InterpolationBase": [
-      "src/ENDFtk/record/InterpolationBase/test/L1.test.cpp",
-      "src/ENDFtk/record/InterpolationBase/test/NR.test.cpp",
-      "src/ENDFtk/record/InterpolationBase/test/rangeInterpolationScheme.test.cpp",
-      "src/ENDFtk/record/InterpolationBase/test/C2.test.cpp",
-      "src/ENDFtk/record/InterpolationBase/test/equality.test.cpp",
-      "src/ENDFtk/record/InterpolationBase/test/N2.test.cpp",
-      "src/ENDFtk/record/InterpolationBase/test/InterpolationBase.test.cpp",
-      "src/ENDFtk/record/InterpolationBase/test/C1.test.cpp",
-      "src/ENDFtk/record/InterpolationBase/test/L2.test.cpp"
+      "src/ENDFtk/record/InterpolationBase/test/InterpolationBase.test.cpp"
     ],
     "ENDFtk.record.Sequence": [
-      "src/ENDFtk/record/Sequence/test/Sequence.test.cpp",
-      "src/ENDFtk/record/Sequence/test/read.test.cpp"
+      "src/ENDFtk/record/Sequence/test/Sequence.test.cpp"
     ],
     "ENDFtk.record.Tail": [
-      "src/ENDFtk/record/Tail/test/TailVerifiers.test.cpp",
       "src/ENDFtk/record/Tail/test/Tail.test.cpp"
     ],
     "ENDFtk.record.Zipper": [
-      "src/ENDFtk/record/Zipper/test/makeIteratorTuple.test.cpp",
-      "src/ENDFtk/record/Zipper/test/reserve.test.cpp",
-      "src/ENDFtk/record/Zipper/test/readLine.test.cpp",
-      "src/ENDFtk/record/Zipper/test/readPartialLine.test.cpp",
-      "src/ENDFtk/record/Zipper/test/unzip.test.cpp",
-      "src/ENDFtk/record/Zipper/test/Zipper.test.cpp",
-      "src/ENDFtk/record/Zipper/test/process.test.cpp",
-      "src/ENDFtk/record/Zipper/test/expandReferencePack.test.cpp"
+      "src/ENDFtk/record/Zipper/test/Zipper.test.cpp"
     ],
     "ENDFtk.resonanceParameters.Isotope": [
       "src/ENDFtk/resonanceParameters/Isotope/test/Isotope.test.cpp"

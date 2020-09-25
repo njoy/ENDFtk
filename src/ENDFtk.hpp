@@ -23,6 +23,8 @@
 #include "Log.hpp"
 #include "header-utilities.hpp"
 
+#include "ENDFtk/record.hpp"
+
 namespace njoy {
 namespace ENDFtk {
 
@@ -41,8 +43,6 @@ using ImmutableReturnType =
   std::conditional_t
   < std::is_trivially_copyable< T >::value,
     T, std::add_lvalue_reference_t< std::add_const_t< T > > >;
-
-#include "ENDFtk/record.hpp"
 
 #include "ENDFtk/TapeIdentification.hpp"
 using TPID = TapeIdentification;

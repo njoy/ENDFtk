@@ -1,8 +1,3 @@
-#include "catch.hpp"
-#include "ENDFtk.hpp"
-
-using namespace njoy::ENDFtk::record;
-
 SCENARIO( "The Zipper makeIteratorTuple function ", "[ENDFtk], [Zipper]" ){
   GIVEN("a tuple of vectors" ){
     auto vid = std::make_tuple( std::vector< int >{0, 1, 2},

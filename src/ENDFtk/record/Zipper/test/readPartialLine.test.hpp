@@ -1,11 +1,6 @@
-#include "catch.hpp"
-#include "ENDFtk.hpp"
-
-using namespace njoy::ENDFtk::record;
-
 SCENARIO( "The Zipper readPartialLine function", "[ENDFtk], [Zipper]" ){
   GIVEN("a partial line with zipped default values" ){
-    std::string line = 
+    std::string line =
       " 1.000000+0          1 2.000000+0          2 0.000000+0          0 125 1451    1\n";
 
     using Zip = Zipper::Zipped< Real, Integer<11> >;

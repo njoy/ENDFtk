@@ -1,8 +1,3 @@
-#include "catch.hpp"
-#include "ENDFtk.hpp"
-
-using namespace njoy::ENDFtk::record;
-
 SCENARIO( "The Zipper reserve function ", "[ENDFtk], [Zipper]" ){
   GIVEN("a tuple a vectors" ){
     std::tuple< std::vector< int >,

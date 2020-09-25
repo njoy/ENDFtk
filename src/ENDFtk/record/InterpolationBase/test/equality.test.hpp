@@ -1,10 +1,3 @@
-#include "catch.hpp"
-#include "ENDFtk.hpp"
-
-using namespace njoy::ENDFtk::record;
-
-extern std::function< InterpolationBase() > makeInterpolationBase;
-
 SCENARIO( "InterpolationBase equality",
           "[ENDFtk], [InterpolationBase]" ){
 

@@ -1,11 +1,6 @@
-#include "catch.hpp"
-#include "ENDFtk.hpp"
-
-using namespace njoy::ENDFtk::record;
-
 SCENARIO( "The Zipper unzip function", "[ENDFtk], [Zipper]" ){
   GIVEN("a record with zipped values" ){
-    std::string line = 
+    std::string line =
       " 1.000000+0          1 2.000000+0          2 3.000000+0          3 125 1451    1\n"
       " 4.000000+0          4 5.000000+0          5 6.000000+0          6 125 1451    1\n"
       " 7.000000+0          7                                             125 1451    1\n";

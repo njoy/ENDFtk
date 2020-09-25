@@ -1,18 +1,6 @@
-#include <functional>
-
-#include "catch.hpp"
-
-#include "ENDFtk.hpp"
-
-constexpr int mat = 125;
-constexpr int mf = 4;
-constexpr int mt = 2;
-
-using namespace njoy::ENDFtk::record;
-
 SCENARIO( "Verifying the given numbers in the RecordTail" ){
   /* Catch requirement macros do not like multi-argument templates.
-   * These aliases provide a work around 
+   * These aliases provide a work around
    */
   using TailVerifyingMATMF = TailVerifying< MAT, MF >;
   using TailVerifyingMATMFMT = TailVerifying< MAT, MF, MT >;
