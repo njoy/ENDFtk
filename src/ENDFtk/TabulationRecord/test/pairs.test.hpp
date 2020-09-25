@@ -1,10 +1,3 @@
-#include "catch.hpp"
-#include "ENDFtk.hpp"
-
-using namespace njoy::ENDFtk;
-
-extern std::function< TabulationRecord() > makeTAB1;
-
 SCENARIO( "TabulationRecord pairs",
           "[ENDFtk], [TabulationRecord]" ){
   GIVEN( "a reference TAB1 record and it's x- and y-values" ){
@@ -25,13 +18,13 @@ SCENARIO( "TabulationRecord pairs",
 
       REQUIRE_THROWS( tab1.pairs().at( -1 ) );
       REQUIRE_THROWS( tab1.pairs().at( tab1.NP() ) );
-      
+
       // the result is iterable
       for( auto pair : tab1.pairs() ){
         REQUIRE( pair.first == xValues[index] );
         REQUIRE( pair.second == yValues[index++] );
       }
-      
+
       // knows size
       REQUIRE( tab1.pairs().size() == size_t(tab1.NP()) );
     }

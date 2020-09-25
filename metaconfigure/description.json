@@ -1124,19 +1124,6 @@
       "src/ENDFtk/StructureDivision/test/StructureDivision.test.cpp"
     ],
     "ENDFtk.TabulationRecord": [
-      "src/ENDFtk/TabulationRecord/test/regions.test.cpp",
-      "src/ENDFtk/TabulationRecord/test/y.test.cpp",
-      "src/ENDFtk/TabulationRecord/test/x.test.cpp",
-      "src/ENDFtk/TabulationRecord/test/print.test.cpp",
-      "src/ENDFtk/TabulationRecord/test/L1.test.cpp",
-      "src/ENDFtk/TabulationRecord/test/NR.test.cpp",
-      "src/ENDFtk/TabulationRecord/test/rangeInterpolationScheme.test.cpp",
-      "src/ENDFtk/TabulationRecord/test/C2.test.cpp",
-      "src/ENDFtk/TabulationRecord/test/equality.test.cpp",
-      "src/ENDFtk/TabulationRecord/test/pairs.test.cpp",
-      "src/ENDFtk/TabulationRecord/test/C1.test.cpp",
-      "src/ENDFtk/TabulationRecord/test/NP.test.cpp",
-      "src/ENDFtk/TabulationRecord/test/L2.test.cpp",
       "src/ENDFtk/TabulationRecord/test/TabulationRecord.test.cpp"
     ],
     "ENDFtk.TapeIdentification": [

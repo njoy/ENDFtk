@@ -1,10 +1,3 @@
-#include "catch.hpp"
-#include "ENDFtk.hpp"
-
-using namespace njoy::ENDFtk;
-
-extern std::function< TabulationRecord() > makeTAB1;
-
 SCENARIO( "TabulationRecord x command",
           "[ENDFtk], [TabulationRecord]" ){
   GIVEN( "a reference TAB1 record and it's x-values" ){
@@ -18,7 +11,7 @@ SCENARIO( "TabulationRecord x command",
         REQUIRE( xValues[ index ] == tab1.x().at( index ) );
         REQUIRE( xValues[ index ] == tab1.x()[ index ] );
       }
-  
+
       REQUIRE_THROWS( tab1.x().at( -1 ) );
       REQUIRE_THROWS( tab1.x().at( tab1.NP() ) );
 
@@ -45,7 +38,7 @@ SCENARIO( "TabulationRecord x command",
       // so we can copy them willy-nilly
       auto xs2 = xs;
       REQUIRE( ranges::equal( xs2, xs ) );
-      
+
       // no more worrying about accidentally copying large vectors!
     }
   }
