@@ -590,6 +590,7 @@
   "header files": [
     "src/ENDFtk.hpp",
     "src/ENDFtk/record.hpp",
+    "src/ENDFtk/readSequence.hpp",
     "src/ENDFtk/StructureDivision.hpp",
     "src/ENDFtk/file.hpp",
     "src/ENDFtk/ListRecord.hpp",
@@ -606,111 +607,6 @@
     "src/ENDFtk/InterpolationSequenceRecord.hpp",
     "src/ENDFtk/DirectoryRecord.hpp",
     "src/ENDFtk/DirectoryRecord/src/print.hpp",
-    "src/ENDFtk/resonanceParameters/ScatteringRadius.hpp",
-    "src/ENDFtk/resonanceParameters/resolved.hpp",
-    "src/ENDFtk/resonanceParameters/Isotope.hpp",
-    "src/ENDFtk/resonanceParameters/SpecialCase.hpp",
-    "src/ENDFtk/resonanceParameters/ResonanceRange.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved.hpp",
-    "src/ENDFtk/resonanceParameters/SpecialCase/src/ctor.hpp",
-    "src/ENDFtk/resonanceParameters/SpecialCase/src/print.hpp",
-    "src/ENDFtk/resonanceParameters/Isotope/src/readScatteringRadius.hpp",
-    "src/ENDFtk/resonanceParameters/Isotope/src/readRanges.hpp",
-    "src/ENDFtk/resonanceParameters/Isotope/src/ctor.hpp",
-    "src/ENDFtk/resonanceParameters/Isotope/src/print.hpp",
-    "src/ENDFtk/resonanceParameters/Isotope/src/NC.hpp",
-    "src/ENDFtk/resonanceParameters/Isotope/src/readParameters.hpp",
-    "src/ENDFtk/resonanceParameters/ScatteringRadius/src/ctor.hpp",
-    "src/ENDFtk/resonanceParameters/ResonanceRange/src/ctor.hpp",
-    "src/ENDFtk/resonanceParameters/ResonanceRange/src/verifyOptions.hpp",
-    "src/ENDFtk/resonanceParameters/ResonanceRange/src/print.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreLValueBase.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/ReichMooreLValue.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/ReichMoore.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/MultiLevelBreitWigner.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreBase.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/BreitWignerLValue.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/MultiLevelBreitWigner/src/ctor.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/ReichMooreLValue/Resonance.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/ReichMooreLValue/src/ctor.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/ReichMoore/src/verifyNLSC.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/ReichMoore/src/ctor.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreBase/src/verifySize.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreBase/src/ctor.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreBase/src/print.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreBase/src/validate.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreBase/src/NC.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceParameters.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ParticlePairs.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceChannels.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceParameters/src/verifySize.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceParameters/src/ctor.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceParameters/src/generateList.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup/src/ctor.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup/src/print.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceChannels/src/verifySize.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceChannels/src/ctor.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceChannels/src/generateList.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ParticlePairs/src/verifySize.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ParticlePairs/src/ctor.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ParticlePairs/src/generateList.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/AP.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/verifySize.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/SPI.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/ctor.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/print.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/NC.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/BreitWignerLValue/Resonance.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/BreitWignerLValue/src/ctor.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreLValueBase/src/verifySize.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreLValueBase/src/ctor.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreLValueBase/src/generateList.hpp",
-    "src/ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner/src/ctor.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/UnresolvedBaseWithoutSpin.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/UnresolvedBase.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependent.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/LValueBase.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/LValue.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/JValue.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/LValue/src/verifySize.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/LValue/src/ctor.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/LValue/src/generateList.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/src/ctor.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/UnresolvedBase/src/ctor.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/UnresolvedBase/src/print.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/UnresolvedBase/src/NC.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/LValueBase/src/verifySize.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/LValueBase/src/ctor.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/LValueBase/src/print.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/LValueBase/src/NC.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/LValue.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/JValue.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/LValue/src/ctor.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/JValue/src/verifySize.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/JValue/src/ctor.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/JValue/src/generateList.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/src/ctor.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/UnresolvedBaseWithoutSpin/src/verifySize.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/UnresolvedBaseWithoutSpin/src/ctor.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/LValue.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/JValue.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/LValue/src/verifySize.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/LValue/src/ctor.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/JValue/src/verifySize.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/JValue/src/ctor.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/JValue/src/generateList.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/verifySize.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/ctor.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/print.hpp",
-    "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/NC.hpp",
-    "src/ENDFtk/resonanceParameters/src/readAPE.hpp",
-    "src/ENDFtk/resonanceParameters/src/read.hpp",
-    "src/ENDFtk/resonanceParameters/src/readLISTs.hpp",
     "src/ENDFtk/section/8.hpp",
     "src/ENDFtk/section/13.hpp",
     "src/ENDFtk/section/12.hpp",
@@ -927,6 +823,108 @@
     "src/ENDFtk/section/Base/src/ctor.hpp",
     "src/ENDFtk/section/2/152.hpp",
     "src/ENDFtk/section/2/151.hpp",
+    "src/ENDFtk/section/2/151/ScatteringRadius.hpp",
+    "src/ENDFtk/section/2/151/resolved.hpp",
+    "src/ENDFtk/section/2/151/Isotope.hpp",
+    "src/ENDFtk/section/2/151/SpecialCase.hpp",
+    "src/ENDFtk/section/2/151/ResonanceRange.hpp",
+    "src/ENDFtk/section/2/151/unresolved.hpp",
+    "src/ENDFtk/section/2/151/SpecialCase/src/ctor.hpp",
+    "src/ENDFtk/section/2/151/SpecialCase/src/print.hpp",
+    "src/ENDFtk/section/2/151/Isotope/src/readScatteringRadius.hpp",
+    "src/ENDFtk/section/2/151/Isotope/src/readRanges.hpp",
+    "src/ENDFtk/section/2/151/Isotope/src/ctor.hpp",
+    "src/ENDFtk/section/2/151/Isotope/src/print.hpp",
+    "src/ENDFtk/section/2/151/Isotope/src/NC.hpp",
+    "src/ENDFtk/section/2/151/Isotope/src/readParameters.hpp",
+    "src/ENDFtk/section/2/151/ScatteringRadius/src/ctor.hpp",
+    "src/ENDFtk/section/2/151/ResonanceRange/src/ctor.hpp",
+    "src/ENDFtk/section/2/151/ResonanceRange/src/verifyOptions.hpp",
+    "src/ENDFtk/section/2/151/ResonanceRange/src/print.hpp",
+    "src/ENDFtk/section/2/151/resolved/RMatrixLimited.hpp",
+    "src/ENDFtk/section/2/151/resolved/SingleLevelBreitWigner.hpp",
+    "src/ENDFtk/section/2/151/resolved/BreitWignerReichMooreLValueBase.hpp",
+    "src/ENDFtk/section/2/151/resolved/ReichMooreLValue.hpp",
+    "src/ENDFtk/section/2/151/resolved/ReichMoore.hpp",
+    "src/ENDFtk/section/2/151/resolved/MultiLevelBreitWigner.hpp",
+    "src/ENDFtk/section/2/151/resolved/BreitWignerReichMooreBase.hpp",
+    "src/ENDFtk/section/2/151/resolved/BreitWignerLValue.hpp",
+    "src/ENDFtk/section/2/151/resolved/MultiLevelBreitWigner/src/ctor.hpp",
+    "src/ENDFtk/section/2/151/resolved/ReichMooreLValue/Resonance.hpp",
+    "src/ENDFtk/section/2/151/resolved/ReichMooreLValue/src/ctor.hpp",
+    "src/ENDFtk/section/2/151/resolved/ReichMoore/src/verifyNLSC.hpp",
+    "src/ENDFtk/section/2/151/resolved/ReichMoore/src/ctor.hpp",
+    "src/ENDFtk/section/2/151/resolved/BreitWignerReichMooreBase/src/verifySize.hpp",
+    "src/ENDFtk/section/2/151/resolved/BreitWignerReichMooreBase/src/ctor.hpp",
+    "src/ENDFtk/section/2/151/resolved/BreitWignerReichMooreBase/src/print.hpp",
+    "src/ENDFtk/section/2/151/resolved/BreitWignerReichMooreBase/src/validate.hpp",
+    "src/ENDFtk/section/2/151/resolved/BreitWignerReichMooreBase/src/NC.hpp",
+    "src/ENDFtk/section/2/151/resolved/RMatrixLimited/ResonanceParameters.hpp",
+    "src/ENDFtk/section/2/151/resolved/RMatrixLimited/ParticlePairs.hpp",
+    "src/ENDFtk/section/2/151/resolved/RMatrixLimited/SpinGroup.hpp",
+    "src/ENDFtk/section/2/151/resolved/RMatrixLimited/ResonanceChannels.hpp",
+    "src/ENDFtk/section/2/151/resolved/RMatrixLimited/ResonanceParameters/src/verifySize.hpp",
+    "src/ENDFtk/section/2/151/resolved/RMatrixLimited/ResonanceParameters/src/ctor.hpp",
+    "src/ENDFtk/section/2/151/resolved/RMatrixLimited/ResonanceParameters/src/generateList.hpp",
+    "src/ENDFtk/section/2/151/resolved/RMatrixLimited/SpinGroup/src/ctor.hpp",
+    "src/ENDFtk/section/2/151/resolved/RMatrixLimited/SpinGroup/src/print.hpp",
+    "src/ENDFtk/section/2/151/resolved/RMatrixLimited/ResonanceChannels/src/verifySize.hpp",
+    "src/ENDFtk/section/2/151/resolved/RMatrixLimited/ResonanceChannels/src/ctor.hpp",
+    "src/ENDFtk/section/2/151/resolved/RMatrixLimited/ResonanceChannels/src/generateList.hpp",
+    "src/ENDFtk/section/2/151/resolved/RMatrixLimited/ParticlePairs/src/verifySize.hpp",
+    "src/ENDFtk/section/2/151/resolved/RMatrixLimited/ParticlePairs/src/ctor.hpp",
+    "src/ENDFtk/section/2/151/resolved/RMatrixLimited/ParticlePairs/src/generateList.hpp",
+    "src/ENDFtk/section/2/151/resolved/RMatrixLimited/src/AP.hpp",
+    "src/ENDFtk/section/2/151/resolved/RMatrixLimited/src/verifySize.hpp",
+    "src/ENDFtk/section/2/151/resolved/RMatrixLimited/src/SPI.hpp",
+    "src/ENDFtk/section/2/151/resolved/RMatrixLimited/src/ctor.hpp",
+    "src/ENDFtk/section/2/151/resolved/RMatrixLimited/src/print.hpp",
+    "src/ENDFtk/section/2/151/resolved/RMatrixLimited/src/NC.hpp",
+    "src/ENDFtk/section/2/151/resolved/BreitWignerLValue/Resonance.hpp",
+    "src/ENDFtk/section/2/151/resolved/BreitWignerLValue/src/ctor.hpp",
+    "src/ENDFtk/section/2/151/resolved/BreitWignerReichMooreLValueBase/src/verifySize.hpp",
+    "src/ENDFtk/section/2/151/resolved/BreitWignerReichMooreLValueBase/src/ctor.hpp",
+    "src/ENDFtk/section/2/151/resolved/BreitWignerReichMooreLValueBase/src/generateList.hpp",
+    "src/ENDFtk/section/2/151/resolved/SingleLevelBreitWigner/src/ctor.hpp",
+    "src/ENDFtk/section/2/151/unresolved/UnresolvedBaseWithoutSpin.hpp",
+    "src/ENDFtk/section/2/151/unresolved/EnergyIndependent.hpp",
+    "src/ENDFtk/section/2/151/unresolved/UnresolvedBase.hpp",
+    "src/ENDFtk/section/2/151/unresolved/EnergyDependent.hpp",
+    "src/ENDFtk/section/2/151/unresolved/LValueBase.hpp",
+    "src/ENDFtk/section/2/151/unresolved/EnergyDependentFissionWidths.hpp",
+    "src/ENDFtk/section/2/151/unresolved/EnergyIndependent/LValue.hpp",
+    "src/ENDFtk/section/2/151/unresolved/EnergyIndependent/JValue.hpp",
+    "src/ENDFtk/section/2/151/unresolved/EnergyIndependent/LValue/src/verifySize.hpp",
+    "src/ENDFtk/section/2/151/unresolved/EnergyIndependent/LValue/src/ctor.hpp",
+    "src/ENDFtk/section/2/151/unresolved/EnergyIndependent/LValue/src/generateList.hpp",
+    "src/ENDFtk/section/2/151/unresolved/EnergyIndependent/src/ctor.hpp",
+    "src/ENDFtk/section/2/151/unresolved/UnresolvedBase/src/ctor.hpp",
+    "src/ENDFtk/section/2/151/unresolved/UnresolvedBase/src/print.hpp",
+    "src/ENDFtk/section/2/151/unresolved/UnresolvedBase/src/NC.hpp",
+    "src/ENDFtk/section/2/151/unresolved/LValueBase/src/verifySize.hpp",
+    "src/ENDFtk/section/2/151/unresolved/LValueBase/src/ctor.hpp",
+    "src/ENDFtk/section/2/151/unresolved/LValueBase/src/print.hpp",
+    "src/ENDFtk/section/2/151/unresolved/LValueBase/src/NC.hpp",
+    "src/ENDFtk/section/2/151/unresolved/EnergyDependent/LValue.hpp",
+    "src/ENDFtk/section/2/151/unresolved/EnergyDependent/JValue.hpp",
+    "src/ENDFtk/section/2/151/unresolved/EnergyDependent/LValue/src/ctor.hpp",
+    "src/ENDFtk/section/2/151/unresolved/EnergyDependent/JValue/src/verifySize.hpp",
+    "src/ENDFtk/section/2/151/unresolved/EnergyDependent/JValue/src/ctor.hpp",
+    "src/ENDFtk/section/2/151/unresolved/EnergyDependent/JValue/src/generateList.hpp",
+    "src/ENDFtk/section/2/151/unresolved/EnergyDependent/src/ctor.hpp",
+    "src/ENDFtk/section/2/151/unresolved/UnresolvedBaseWithoutSpin/src/verifySize.hpp",
+    "src/ENDFtk/section/2/151/unresolved/UnresolvedBaseWithoutSpin/src/ctor.hpp",
+    "src/ENDFtk/section/2/151/unresolved/EnergyDependentFissionWidths/LValue.hpp",
+    "src/ENDFtk/section/2/151/unresolved/EnergyDependentFissionWidths/JValue.hpp",
+    "src/ENDFtk/section/2/151/unresolved/EnergyDependentFissionWidths/LValue/src/verifySize.hpp",
+    "src/ENDFtk/section/2/151/unresolved/EnergyDependentFissionWidths/LValue/src/ctor.hpp",
+    "src/ENDFtk/section/2/151/unresolved/EnergyDependentFissionWidths/JValue/src/verifySize.hpp",
+    "src/ENDFtk/section/2/151/unresolved/EnergyDependentFissionWidths/JValue/src/ctor.hpp",
+    "src/ENDFtk/section/2/151/unresolved/EnergyDependentFissionWidths/JValue/src/generateList.hpp",
+    "src/ENDFtk/section/2/151/unresolved/EnergyDependentFissionWidths/src/verifySize.hpp",
+    "src/ENDFtk/section/2/151/unresolved/EnergyDependentFissionWidths/src/ctor.hpp",
+    "src/ENDFtk/section/2/151/unresolved/EnergyDependentFissionWidths/src/print.hpp",
+    "src/ENDFtk/section/2/151/unresolved/EnergyDependentFissionWidths/src/NC.hpp",
     "src/ENDFtk/section/2/151/src/ctor.hpp",
     "src/ENDFtk/section/2/151/src/print.hpp",
     "src/ENDFtk/section/2/151/src/NC.hpp",
@@ -984,7 +982,6 @@
     "src/ENDFtk/section/5/src/ctor.hpp",
     "src/ENDFtk/section/5/src/print.hpp",
     "src/ENDFtk/section/5/src/NC.hpp",
-    "src/ENDFtk/InterpolationSequenceRecord/src/readSequence.hpp",
     "src/ENDFtk/InterpolationSequenceRecord/src/verifyNZ.hpp",
     "src/ENDFtk/InterpolationSequenceRecord/src/ctor.hpp",
     "src/ENDFtk/InterpolationSequenceRecord/src/readInterpolationSequenceRecord.hpp",
@@ -1025,9 +1022,15 @@
     "src/ENDFtk/file/8.hpp",
     "src/ENDFtk/file/Type.hpp",
     "src/ENDFtk/file/details.hpp",
+    "src/ENDFtk/file/13.hpp",
+    "src/ENDFtk/file/12.hpp",
     "src/ENDFtk/file/Base.hpp",
+    "src/ENDFtk/file/6.hpp",
     "src/ENDFtk/file/7.hpp",
+    "src/ENDFtk/file/5.hpp",
+    "src/ENDFtk/file/4.hpp",
     "src/ENDFtk/file/1.hpp",
+    "src/ENDFtk/file/3.hpp",
     "src/ENDFtk/file/2.hpp",
     "src/ENDFtk/file/7/src/ctor.hpp",
     "src/ENDFtk/file/7/src/print.hpp",
@@ -1165,78 +1168,6 @@
     "ENDFtk.record.Zipper": [
       "src/ENDFtk/record/Zipper/test/Zipper.test.cpp"
     ],
-    "ENDFtk.resonanceParameters.Isotope": [
-      "src/ENDFtk/resonanceParameters/Isotope/test/Isotope.test.cpp"
-    ],
-    "ENDFtk.resonanceParameters.ScatteringRadius": [
-      "src/ENDFtk/resonanceParameters/ScatteringRadius/test/ScatteringRadius.test.cpp"
-    ],
-    "ENDFtk.resonanceParameters.SpecialCase": [
-      "src/ENDFtk/resonanceParameters/SpecialCase/test/SpecialCase.test.cpp"
-    ],
-    "ENDFtk.resonanceParameters.resolved.BreitWignerLValue": [
-      "src/ENDFtk/resonanceParameters/resolved/BreitWignerLValue/test/BreitWignerLValue.test.cpp"
-    ],
-    "ENDFtk.resonanceParameters.resolved.BreitWignerLValue.Resonance": [
-      "src/ENDFtk/resonanceParameters/resolved/BreitWignerLValue/Resonance/test/Resonance.test.cpp"
-    ],
-    "ENDFtk.resonanceParameters.resolved.MultiLevelBreitWigner": [
-      "src/ENDFtk/resonanceParameters/resolved/MultiLevelBreitWigner/test/MultilevelBreitWigner.test.cpp"
-    ],
-    "ENDFtk.resonanceParameters.resolved.RMatrixLimited": [
-      "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/test/RMatrixLimited.test.cpp"
-    ],
-    "ENDFtk.resonanceParameters.resolved.RMatrixLimited.ParticlePairs": [
-      "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ParticlePairs/test/ParticlePairs.test.cpp"
-    ],
-    "ENDFtk.resonanceParameters.resolved.RMatrixLimited.ResonanceChannels": [
-      "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceChannels/test/ResonanceChannels.test.cpp"
-    ],
-    "ENDFtk.resonanceParameters.resolved.RMatrixLimited.ResonanceParameters": [
-      "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceParameters/test/ResonanceParameters.test.cpp"
-    ],
-    "ENDFtk.resonanceParameters.resolved.RMatrixLimited.SpinGroup": [
-      "src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup/test/SpinGroup.test.cpp"
-    ],
-    "ENDFtk.resonanceParameters.resolved.ReichMoore": [
-      "src/ENDFtk/resonanceParameters/resolved/ReichMoore/test/ReichMoore.test.cpp"
-    ],
-    "ENDFtk.resonanceParameters.resolved.ReichMooreLValue": [
-      "src/ENDFtk/resonanceParameters/resolved/ReichMooreLValue/test/ReichMooreLValue.test.cpp"
-    ],
-    "ENDFtk.resonanceParameters.resolved.ReichMooreLValue.Resonance": [
-      "src/ENDFtk/resonanceParameters/resolved/ReichMooreLValue/Resonance/test/Resonance.test.cpp"
-    ],
-    "ENDFtk.resonanceParameters.resolved.SingleLevelBreitWigner": [
-      "src/ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner/test/SingleLevelBreitWigner.test.cpp"
-    ],
-    "ENDFtk.resonanceParameters.unresolved.EnergyDependent": [
-      "src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/test/EnergyDependent.test.cpp"
-    ],
-    "ENDFtk.resonanceParameters.unresolved.EnergyDependent.JValue": [
-      "src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/JValue/test/JValue.test.cpp"
-    ],
-    "ENDFtk.resonanceParameters.unresolved.EnergyDependent.LValue": [
-      "src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/LValue/test/LValue.test.cpp"
-    ],
-    "ENDFtk.resonanceParameters.unresolved.EnergyDependentFissionWidths": [
-      "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/test/EnergyDependentFissionWidths.test.cpp"
-    ],
-    "ENDFtk.resonanceParameters.unresolved.EnergyDependentFissionWidths.JValue": [
-      "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/JValue/test/JValue.test.cpp"
-    ],
-    "ENDFtk.resonanceParameters.unresolved.EnergyDependentFissionWidths.LValue": [
-      "src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/LValue/test/LValue.test.cpp"
-    ],
-    "ENDFtk.resonanceParameters.unresolved.EnergyIndependent": [
-      "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/test/EnergyIndependent.test.cpp"
-    ],
-    "ENDFtk.resonanceParameters.unresolved.EnergyIndependent.JValue": [
-      "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/JValue/test/JValue.test.cpp"
-    ],
-    "ENDFtk.resonanceParameters.unresolved.EnergyIndependent.LValue": [
-      "src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/LValue/test/LValue.test.cpp"
-    ],
     "ENDFtk.section.1.451": [
       "src/ENDFtk/section/1/451/test/451.test.cpp"
     ],
@@ -1268,7 +1199,79 @@
       "src/ENDFtk/section/13/TotalCrossSection/test/TotalCrossSection.test.cpp"
     ],
     "ENDFtk.section.2.151": [
-      "src/ENDFtk/section/2/151/test/2.test.cpp"
+      "src/ENDFtk/section/2/151/test/151.test.cpp"
+    ],
+    "ENDFtk.section.2.151.Isotope": [
+      "src/ENDFtk/section/2/151/Isotope/test/Isotope.test.cpp"
+    ],
+    "ENDFtk.section.2.151.ScatteringRadius": [
+      "src/ENDFtk/section/2/151/ScatteringRadius/test/ScatteringRadius.test.cpp"
+    ],
+    "ENDFtk.section.2.151.SpecialCase": [
+      "src/ENDFtk/section/2/151/SpecialCase/test/SpecialCase.test.cpp"
+    ],
+    "ENDFtk.section.2.151.resolved.BreitWignerLValue": [
+      "src/ENDFtk/section/2/151/resolved/BreitWignerLValue/test/BreitWignerLValue.test.cpp"
+    ],
+    "ENDFtk.section.2.151.resolved.BreitWignerLValue.Resonance": [
+      "src/ENDFtk/section/2/151/resolved/BreitWignerLValue/Resonance/test/Resonance.test.cpp"
+    ],
+    "ENDFtk.section.2.151.resolved.MultiLevelBreitWigner": [
+      "src/ENDFtk/section/2/151/resolved/MultiLevelBreitWigner/test/MultilevelBreitWigner.test.cpp"
+    ],
+    "ENDFtk.section.2.151.resolved.RMatrixLimited": [
+      "src/ENDFtk/section/2/151/resolved/RMatrixLimited/test/RMatrixLimited.test.cpp"
+    ],
+    "ENDFtk.section.2.151.resolved.RMatrixLimited.ParticlePairs": [
+      "src/ENDFtk/section/2/151/resolved/RMatrixLimited/ParticlePairs/test/ParticlePairs.test.cpp"
+    ],
+    "ENDFtk.section.2.151.resolved.RMatrixLimited.ResonanceChannels": [
+      "src/ENDFtk/section/2/151/resolved/RMatrixLimited/ResonanceChannels/test/ResonanceChannels.test.cpp"
+    ],
+    "ENDFtk.section.2.151.resolved.RMatrixLimited.ResonanceParameters": [
+      "src/ENDFtk/section/2/151/resolved/RMatrixLimited/ResonanceParameters/test/ResonanceParameters.test.cpp"
+    ],
+    "ENDFtk.section.2.151.resolved.RMatrixLimited.SpinGroup": [
+      "src/ENDFtk/section/2/151/resolved/RMatrixLimited/SpinGroup/test/SpinGroup.test.cpp"
+    ],
+    "ENDFtk.section.2.151.resolved.ReichMoore": [
+      "src/ENDFtk/section/2/151/resolved/ReichMoore/test/ReichMoore.test.cpp"
+    ],
+    "ENDFtk.section.2.151.resolved.ReichMooreLValue": [
+      "src/ENDFtk/section/2/151/resolved/ReichMooreLValue/test/ReichMooreLValue.test.cpp"
+    ],
+    "ENDFtk.section.2.151.resolved.ReichMooreLValue.Resonance": [
+      "src/ENDFtk/section/2/151/resolved/ReichMooreLValue/Resonance/test/Resonance.test.cpp"
+    ],
+    "ENDFtk.section.2.151.resolved.SingleLevelBreitWigner": [
+      "src/ENDFtk/section/2/151/resolved/SingleLevelBreitWigner/test/SingleLevelBreitWigner.test.cpp"
+    ],
+    "ENDFtk.section.2.151.unresolved.EnergyDependent": [
+      "src/ENDFtk/section/2/151/unresolved/EnergyDependent/test/EnergyDependent.test.cpp"
+    ],
+    "ENDFtk.section.2.151.unresolved.EnergyDependent.JValue": [
+      "src/ENDFtk/section/2/151/unresolved/EnergyDependent/JValue/test/JValue.test.cpp"
+    ],
+    "ENDFtk.section.2.151.unresolved.EnergyDependent.LValue": [
+      "src/ENDFtk/section/2/151/unresolved/EnergyDependent/LValue/test/LValue.test.cpp"
+    ],
+    "ENDFtk.section.2.151.unresolved.EnergyDependentFissionWidths": [
+      "src/ENDFtk/section/2/151/unresolved/EnergyDependentFissionWidths/test/EnergyDependentFissionWidths.test.cpp"
+    ],
+    "ENDFtk.section.2.151.unresolved.EnergyDependentFissionWidths.JValue": [
+      "src/ENDFtk/section/2/151/unresolved/EnergyDependentFissionWidths/JValue/test/JValue.test.cpp"
+    ],
+    "ENDFtk.section.2.151.unresolved.EnergyDependentFissionWidths.LValue": [
+      "src/ENDFtk/section/2/151/unresolved/EnergyDependentFissionWidths/LValue/test/LValue.test.cpp"
+    ],
+    "ENDFtk.section.2.151.unresolved.EnergyIndependent": [
+      "src/ENDFtk/section/2/151/unresolved/EnergyIndependent/test/EnergyIndependent.test.cpp"
+    ],
+    "ENDFtk.section.2.151.unresolved.EnergyIndependent.JValue": [
+      "src/ENDFtk/section/2/151/unresolved/EnergyIndependent/JValue/test/JValue.test.cpp"
+    ],
+    "ENDFtk.section.2.151.unresolved.EnergyIndependent.LValue": [
+      "src/ENDFtk/section/2/151/unresolved/EnergyIndependent/LValue/test/LValue.test.cpp"
     ],
     "ENDFtk.section.2.152": [
       "src/ENDFtk/section/2/152/test/152.test.cpp"

@@ -1,3 +1,4 @@
+// include basic ENDF records and components
 #include "ENDFtk/TapeIdentification.hpp"
 #include "ENDFtk/StructureDivision.hpp"
 #include "ENDFtk/HeadRecord.hpp"
@@ -8,27 +9,6 @@
 #include "ENDFtk/InterpolationRecord.hpp"
 #include "ENDFtk/TabulationRecord.hpp"
 #include "ENDFtk/InterpolationSequenceRecord.hpp"
-
-#ifndef ENDFTK_HPP
-#define ENDFTK_HPP
-
-#include <unordered_map>
-#include <map>
-
-#include "range/v3/all.hpp"
-
-#include "boost/hana.hpp"
-#include "Log.hpp"
-#include "header-utilities.hpp"
-
-namespace njoy {
-namespace ENDFtk {
-
-namespace hana = boost::hana;
-#include "ENDFtk/resonanceParameters.hpp"
-
-}
-}
 
 // include every section and their components
 #include "ENDFtk/section/1.hpp"
@@ -54,14 +34,28 @@ namespace hana = boost::hana;
 #include "ENDFtk/file/12.hpp"
 #include "ENDFtk/file/13.hpp"
 
+// utility functions
+#include "ENDFtk/isRedundant.hpp"
+
+// include the ENDF syntax tree
+#ifndef ENDFTK_HPP
+#define ENDFTK_HPP
+
+#include <unordered_map>
+#include <map>
+
+#include "range/v3/all.hpp"
+
+#include "boost/hana.hpp"
+#include "Log.hpp"
+#include "header-utilities.hpp"
 
 namespace njoy {
 namespace ENDFtk {
 
+namespace hana = boost::hana;
 #include "ENDFtk/syntaxTree.hpp"
 }
 }
 
 #endif // ENDFTK_HPP
-
-#include "ENDFtk/isRedundant.hpp"

@@ -115,42 +115,6 @@ set( ENDFtk_GNU_Windows_link_time_optimization_flags "-flto" )
 set( ENDFtk_GNU_Windows_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
 set( ENDFtk_GNU_Windows_nonportable_optimization_flags "-march=native" )
 set( ENDFtk_GNU_Windows_static_flags "-static" )
-set( ENDFtk_GNU_MinGW_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" "-std=c++17" )
-set( ENDFtk_GNU_MinGW_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
-set( ENDFtk_GNU_MinGW_RELEASE_flags "-O3" "-DNDEBUG" )
-set( ENDFtk_GNU_MinGW_strict_flags "-Werror" )
-set( ENDFtk_GNU_MinGW_coverage_flags "--coverage" )
-set( ENDFtk_GNU_MinGW_subproject_flags  )
-set( ENDFtk_GNU_MinGW_base_project_flags  )
-set( ENDFtk_GNU_MinGW_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
-set( ENDFtk_GNU_MinGW_link_time_optimization_flags "-flto" )
-set( ENDFtk_GNU_MinGW_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
-set( ENDFtk_GNU_MinGW_nonportable_optimization_flags "-march=native" )
-set( ENDFtk_GNU_MinGW_static_flags "-static" )
-set( ENDFtk_GNU_Linux_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" "-std=c++17" )
-set( ENDFtk_GNU_Linux_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
-set( ENDFtk_GNU_Linux_RELEASE_flags "-O3" "-DNDEBUG" )
-set( ENDFtk_GNU_Linux_strict_flags "-Werror" )
-set( ENDFtk_GNU_Linux_coverage_flags "--coverage" )
-set( ENDFtk_GNU_Linux_subproject_flags  )
-set( ENDFtk_GNU_Linux_base_project_flags  )
-set( ENDFtk_GNU_Linux_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
-set( ENDFtk_GNU_Linux_link_time_optimization_flags "-flto" )
-set( ENDFtk_GNU_Linux_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
-set( ENDFtk_GNU_Linux_nonportable_optimization_flags "-march=native" )
-set( ENDFtk_GNU_Linux_static_flags "-static" )
-set( ENDFtk_GNU_Darwin_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" "-std=c++17" )
-set( ENDFtk_GNU_Darwin_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
-set( ENDFtk_GNU_Darwin_RELEASE_flags "-O3" "-DNDEBUG" )
-set( ENDFtk_GNU_Darwin_strict_flags "-Werror" )
-set( ENDFtk_GNU_Darwin_coverage_flags "--coverage" )
-set( ENDFtk_GNU_Darwin_subproject_flags  )
-set( ENDFtk_GNU_Darwin_base_project_flags  )
-set( ENDFtk_GNU_Darwin_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
-set( ENDFtk_GNU_Darwin_link_time_optimization_flags "-flto" )
-set( ENDFtk_GNU_Darwin_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
-set( ENDFtk_GNU_Darwin_nonportable_optimization_flags "-march=native" )
-set( ENDFtk_GNU_Darwin_static_flags "-static" )
 set( ENDFtk_GNU_CYGWIN_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" "-std=gnu++17" )
 set( ENDFtk_GNU_CYGWIN_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
 set( ENDFtk_GNU_CYGWIN_RELEASE_flags "-O3" "-DNDEBUG" )
@@ -163,6 +127,42 @@ set( ENDFtk_GNU_CYGWIN_link_time_optimization_flags "-flto" )
 set( ENDFtk_GNU_CYGWIN_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
 set( ENDFtk_GNU_CYGWIN_nonportable_optimization_flags "-march=native" )
 set( ENDFtk_GNU_CYGWIN_static_flags "-static" )
+set( ENDFtk_GNU_Darwin_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" "-std=c++17" )
+set( ENDFtk_GNU_Darwin_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
+set( ENDFtk_GNU_Darwin_RELEASE_flags "-O3" "-DNDEBUG" )
+set( ENDFtk_GNU_Darwin_strict_flags "-Werror" )
+set( ENDFtk_GNU_Darwin_coverage_flags "--coverage" )
+set( ENDFtk_GNU_Darwin_subproject_flags  )
+set( ENDFtk_GNU_Darwin_base_project_flags  )
+set( ENDFtk_GNU_Darwin_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_GNU_Darwin_link_time_optimization_flags "-flto" )
+set( ENDFtk_GNU_Darwin_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_GNU_Darwin_nonportable_optimization_flags "-march=native" )
+set( ENDFtk_GNU_Darwin_static_flags "-static" )
+set( ENDFtk_GNU_Linux_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" "-std=c++17" )
+set( ENDFtk_GNU_Linux_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
+set( ENDFtk_GNU_Linux_RELEASE_flags "-O3" "-DNDEBUG" )
+set( ENDFtk_GNU_Linux_strict_flags "-Werror" )
+set( ENDFtk_GNU_Linux_coverage_flags "--coverage" )
+set( ENDFtk_GNU_Linux_subproject_flags  )
+set( ENDFtk_GNU_Linux_base_project_flags  )
+set( ENDFtk_GNU_Linux_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_GNU_Linux_link_time_optimization_flags "-flto" )
+set( ENDFtk_GNU_Linux_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_GNU_Linux_nonportable_optimization_flags "-march=native" )
+set( ENDFtk_GNU_Linux_static_flags "-static" )
+set( ENDFtk_GNU_MinGW_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" "-std=c++17" )
+set( ENDFtk_GNU_MinGW_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
+set( ENDFtk_GNU_MinGW_RELEASE_flags "-O3" "-DNDEBUG" )
+set( ENDFtk_GNU_MinGW_strict_flags "-Werror" )
+set( ENDFtk_GNU_MinGW_coverage_flags "--coverage" )
+set( ENDFtk_GNU_MinGW_subproject_flags  )
+set( ENDFtk_GNU_MinGW_base_project_flags  )
+set( ENDFtk_GNU_MinGW_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_GNU_MinGW_link_time_optimization_flags "-flto" )
+set( ENDFtk_GNU_MinGW_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_GNU_MinGW_nonportable_optimization_flags "-march=native" )
+set( ENDFtk_GNU_MinGW_static_flags "-static" )
 set( ENDFtk_Clang_Windows_common_flags "-stdlib=libc++" "-Wall" "-Wextra" "-Wpedantic" "-std=c++17" )
 set( ENDFtk_Clang_Windows_DEBUG_flags "-O0" "-g" "-gdwarf-3" )
 set( ENDFtk_Clang_Windows_RELEASE_flags "-O3" "-DNDEBUG" )
@@ -175,42 +175,6 @@ set( ENDFtk_Clang_Windows_link_time_optimization_flags "-flto" )
 set( ENDFtk_Clang_Windows_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
 set( ENDFtk_Clang_Windows_nonportable_optimization_flags "-march=native" )
 set( ENDFtk_Clang_Windows_static_flags "-static" )
-set( ENDFtk_Clang_MinGW_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" "-std=c++17" )
-set( ENDFtk_Clang_MinGW_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
-set( ENDFtk_Clang_MinGW_RELEASE_flags "-O3" "-DNDEBUG" )
-set( ENDFtk_Clang_MinGW_strict_flags "-Werror" )
-set( ENDFtk_Clang_MinGW_coverage_flags "--coverage" )
-set( ENDFtk_Clang_MinGW_subproject_flags  )
-set( ENDFtk_Clang_MinGW_base_project_flags  )
-set( ENDFtk_Clang_MinGW_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
-set( ENDFtk_Clang_MinGW_link_time_optimization_flags "-flto" )
-set( ENDFtk_Clang_MinGW_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
-set( ENDFtk_Clang_MinGW_nonportable_optimization_flags "-march=native" )
-set( ENDFtk_Clang_MinGW_static_flags "-static" )
-set( ENDFtk_Clang_Linux_common_flags "-stdlib=libstdc++" "-Wall" "-Wextra" "-Wpedantic" "-std=c++17" )
-set( ENDFtk_Clang_Linux_DEBUG_flags "-O0" "-g" "-gdwarf-3" )
-set( ENDFtk_Clang_Linux_RELEASE_flags "-O3" "-DNDEBUG" )
-set( ENDFtk_Clang_Linux_strict_flags "-Werror" )
-set( ENDFtk_Clang_Linux_coverage_flags "--coverage" )
-set( ENDFtk_Clang_Linux_subproject_flags  )
-set( ENDFtk_Clang_Linux_base_project_flags  )
-set( ENDFtk_Clang_Linux_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
-set( ENDFtk_Clang_Linux_link_time_optimization_flags "-flto" )
-set( ENDFtk_Clang_Linux_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
-set( ENDFtk_Clang_Linux_nonportable_optimization_flags "-march=native" )
-set( ENDFtk_Clang_Linux_static_flags "-static" )
-set( ENDFtk_Clang_Darwin_common_flags "-stdlib=libc++" "-Wall" "-Wextra" "-Wpedantic" "-std=c++17" )
-set( ENDFtk_Clang_Darwin_DEBUG_flags "-O0" "-g" "-gdwarf-3" )
-set( ENDFtk_Clang_Darwin_RELEASE_flags "-O3" "-DNDEBUG" )
-set( ENDFtk_Clang_Darwin_strict_flags "-Werror" )
-set( ENDFtk_Clang_Darwin_coverage_flags "--coverage" )
-set( ENDFtk_Clang_Darwin_subproject_flags  )
-set( ENDFtk_Clang_Darwin_base_project_flags  )
-set( ENDFtk_Clang_Darwin_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
-set( ENDFtk_Clang_Darwin_link_time_optimization_flags "-flto" )
-set( ENDFtk_Clang_Darwin_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
-set( ENDFtk_Clang_Darwin_nonportable_optimization_flags "-march=native" )
-set( ENDFtk_Clang_Darwin_static_flags "-static" )
 set( ENDFtk_Clang_CYGWIN_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" "-std=gnu++17" )
 set( ENDFtk_Clang_CYGWIN_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
 set( ENDFtk_Clang_CYGWIN_RELEASE_flags "-O3" "-DNDEBUG" )
@@ -223,6 +187,42 @@ set( ENDFtk_Clang_CYGWIN_link_time_optimization_flags "-flto" )
 set( ENDFtk_Clang_CYGWIN_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
 set( ENDFtk_Clang_CYGWIN_nonportable_optimization_flags "-march=native" )
 set( ENDFtk_Clang_CYGWIN_static_flags "-static" )
+set( ENDFtk_Clang_Darwin_common_flags "-stdlib=libc++" "-Wall" "-Wextra" "-Wpedantic" "-std=c++17" )
+set( ENDFtk_Clang_Darwin_DEBUG_flags "-O0" "-g" "-gdwarf-3" )
+set( ENDFtk_Clang_Darwin_RELEASE_flags "-O3" "-DNDEBUG" )
+set( ENDFtk_Clang_Darwin_strict_flags "-Werror" )
+set( ENDFtk_Clang_Darwin_coverage_flags "--coverage" )
+set( ENDFtk_Clang_Darwin_subproject_flags  )
+set( ENDFtk_Clang_Darwin_base_project_flags  )
+set( ENDFtk_Clang_Darwin_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_Clang_Darwin_link_time_optimization_flags "-flto" )
+set( ENDFtk_Clang_Darwin_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_Clang_Darwin_nonportable_optimization_flags "-march=native" )
+set( ENDFtk_Clang_Darwin_static_flags "-static" )
+set( ENDFtk_Clang_Linux_common_flags "-stdlib=libstdc++" "-Wall" "-Wextra" "-Wpedantic" "-std=c++17" )
+set( ENDFtk_Clang_Linux_DEBUG_flags "-O0" "-g" "-gdwarf-3" )
+set( ENDFtk_Clang_Linux_RELEASE_flags "-O3" "-DNDEBUG" )
+set( ENDFtk_Clang_Linux_strict_flags "-Werror" )
+set( ENDFtk_Clang_Linux_coverage_flags "--coverage" )
+set( ENDFtk_Clang_Linux_subproject_flags  )
+set( ENDFtk_Clang_Linux_base_project_flags  )
+set( ENDFtk_Clang_Linux_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_Clang_Linux_link_time_optimization_flags "-flto" )
+set( ENDFtk_Clang_Linux_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_Clang_Linux_nonportable_optimization_flags "-march=native" )
+set( ENDFtk_Clang_Linux_static_flags "-static" )
+set( ENDFtk_Clang_MinGW_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" "-std=c++17" )
+set( ENDFtk_Clang_MinGW_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
+set( ENDFtk_Clang_MinGW_RELEASE_flags "-O3" "-DNDEBUG" )
+set( ENDFtk_Clang_MinGW_strict_flags "-Werror" )
+set( ENDFtk_Clang_MinGW_coverage_flags "--coverage" )
+set( ENDFtk_Clang_MinGW_subproject_flags  )
+set( ENDFtk_Clang_MinGW_base_project_flags  )
+set( ENDFtk_Clang_MinGW_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_Clang_MinGW_link_time_optimization_flags "-flto" )
+set( ENDFtk_Clang_MinGW_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
+set( ENDFtk_Clang_MinGW_nonportable_optimization_flags "-march=native" )
+set( ENDFtk_Clang_MinGW_static_flags "-static" )
 get_directory_property( is_subproject PARENT_DIRECTORY )
 
 if( NOT TARGET range-v3-adapter )
@@ -290,6 +290,7 @@ message( STATUS "-----------------------------------------------------------" )
 add_library( ENDFtk INTERFACE )
 target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/record.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/readSequence.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/StructureDivision.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/ListRecord.hpp"
@@ -306,111 +307,6 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/InterpolationSequenceRecord.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/DirectoryRecord.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/DirectoryRecord/src/print.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/ScatteringRadius.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/Isotope.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/SpecialCase.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/ResonanceRange.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/SpecialCase/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/SpecialCase/src/print.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/Isotope/src/readScatteringRadius.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/Isotope/src/readRanges.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/Isotope/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/Isotope/src/print.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/Isotope/src/NC.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/Isotope/src/readParameters.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/ScatteringRadius/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/ResonanceRange/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/ResonanceRange/src/verifyOptions.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/ResonanceRange/src/print.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreLValueBase.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/ReichMooreLValue.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/ReichMoore.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/MultiLevelBreitWigner.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreBase.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/BreitWignerLValue.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/MultiLevelBreitWigner/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/ReichMooreLValue/Resonance.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/ReichMooreLValue/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/ReichMoore/src/verifyNLSC.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/ReichMoore/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreBase/src/verifySize.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreBase/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreBase/src/print.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreBase/src/validate.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreBase/src/NC.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceParameters.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ParticlePairs.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceChannels.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceParameters/src/verifySize.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceParameters/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceParameters/src/generateList.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup/src/print.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceChannels/src/verifySize.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceChannels/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceChannels/src/generateList.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ParticlePairs/src/verifySize.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ParticlePairs/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ParticlePairs/src/generateList.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/AP.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/verifySize.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/SPI.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/print.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/NC.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/BreitWignerLValue/Resonance.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/BreitWignerLValue/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreLValueBase/src/verifySize.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreLValueBase/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreLValueBase/src/generateList.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/UnresolvedBaseWithoutSpin.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/UnresolvedBase.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyDependent.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/LValueBase.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/LValue.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/JValue.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/LValue/src/verifySize.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/LValue/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/LValue/src/generateList.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/UnresolvedBase/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/UnresolvedBase/src/print.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/UnresolvedBase/src/NC.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/LValueBase/src/verifySize.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/LValueBase/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/LValueBase/src/print.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/LValueBase/src/NC.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/LValue.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/JValue.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/LValue/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/JValue/src/verifySize.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/JValue/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/JValue/src/generateList.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/UnresolvedBaseWithoutSpin/src/verifySize.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/UnresolvedBaseWithoutSpin/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/LValue.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/JValue.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/LValue/src/verifySize.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/LValue/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/JValue/src/verifySize.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/JValue/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/JValue/src/generateList.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/verifySize.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/print.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/src/NC.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/src/readAPE.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/src/read.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/resonanceParameters/src/readLISTs.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/8.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/13.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/12.hpp"
@@ -627,6 +523,108 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/Base/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/152.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/ScatteringRadius.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/Isotope.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/SpecialCase.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/ResonanceRange.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/SpecialCase/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/SpecialCase/src/print.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/Isotope/src/readScatteringRadius.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/Isotope/src/readRanges.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/Isotope/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/Isotope/src/print.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/Isotope/src/NC.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/Isotope/src/readParameters.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/ScatteringRadius/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/ResonanceRange/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/ResonanceRange/src/verifyOptions.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/ResonanceRange/src/print.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/RMatrixLimited.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/SingleLevelBreitWigner.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/BreitWignerReichMooreLValueBase.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/ReichMooreLValue.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/ReichMoore.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/MultiLevelBreitWigner.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/BreitWignerReichMooreBase.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/BreitWignerLValue.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/MultiLevelBreitWigner/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/ReichMooreLValue/Resonance.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/ReichMooreLValue/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/ReichMoore/src/verifyNLSC.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/ReichMoore/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/BreitWignerReichMooreBase/src/verifySize.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/BreitWignerReichMooreBase/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/BreitWignerReichMooreBase/src/print.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/BreitWignerReichMooreBase/src/validate.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/BreitWignerReichMooreBase/src/NC.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/RMatrixLimited/ResonanceParameters.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/RMatrixLimited/ParticlePairs.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/RMatrixLimited/SpinGroup.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/RMatrixLimited/ResonanceChannels.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/RMatrixLimited/ResonanceParameters/src/verifySize.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/RMatrixLimited/ResonanceParameters/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/RMatrixLimited/ResonanceParameters/src/generateList.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/RMatrixLimited/SpinGroup/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/RMatrixLimited/SpinGroup/src/print.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/RMatrixLimited/ResonanceChannels/src/verifySize.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/RMatrixLimited/ResonanceChannels/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/RMatrixLimited/ResonanceChannels/src/generateList.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/RMatrixLimited/ParticlePairs/src/verifySize.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/RMatrixLimited/ParticlePairs/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/RMatrixLimited/ParticlePairs/src/generateList.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/RMatrixLimited/src/AP.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/RMatrixLimited/src/verifySize.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/RMatrixLimited/src/SPI.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/RMatrixLimited/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/RMatrixLimited/src/print.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/RMatrixLimited/src/NC.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/BreitWignerLValue/Resonance.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/BreitWignerLValue/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/BreitWignerReichMooreLValueBase/src/verifySize.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/BreitWignerReichMooreLValueBase/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/BreitWignerReichMooreLValueBase/src/generateList.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/resolved/SingleLevelBreitWigner/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/UnresolvedBaseWithoutSpin.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/EnergyIndependent.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/UnresolvedBase.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/EnergyDependent.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/LValueBase.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/EnergyDependentFissionWidths.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/EnergyIndependent/LValue.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/EnergyIndependent/JValue.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/EnergyIndependent/LValue/src/verifySize.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/EnergyIndependent/LValue/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/EnergyIndependent/LValue/src/generateList.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/EnergyIndependent/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/UnresolvedBase/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/UnresolvedBase/src/print.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/UnresolvedBase/src/NC.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/LValueBase/src/verifySize.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/LValueBase/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/LValueBase/src/print.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/LValueBase/src/NC.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/EnergyDependent/LValue.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/EnergyDependent/JValue.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/EnergyDependent/LValue/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/EnergyDependent/JValue/src/verifySize.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/EnergyDependent/JValue/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/EnergyDependent/JValue/src/generateList.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/EnergyDependent/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/UnresolvedBaseWithoutSpin/src/verifySize.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/UnresolvedBaseWithoutSpin/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/EnergyDependentFissionWidths/LValue.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/EnergyDependentFissionWidths/JValue.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/EnergyDependentFissionWidths/LValue/src/verifySize.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/EnergyDependentFissionWidths/LValue/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/EnergyDependentFissionWidths/JValue/src/verifySize.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/EnergyDependentFissionWidths/JValue/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/EnergyDependentFissionWidths/JValue/src/generateList.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/EnergyDependentFissionWidths/src/verifySize.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/EnergyDependentFissionWidths/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/EnergyDependentFissionWidths/src/print.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/unresolved/EnergyDependentFissionWidths/src/NC.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/2/151/src/NC.hpp"
@@ -684,7 +682,6 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/src/print.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/section/5/src/NC.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/InterpolationSequenceRecord/src/readSequence.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/InterpolationSequenceRecord/src/verifyNZ.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/InterpolationSequenceRecord/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/InterpolationSequenceRecord/src/readInterpolationSequenceRecord.hpp"
@@ -725,9 +722,15 @@ target_sources( ENDFtk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/8.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/Type.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/details.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/13.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/12.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/Base.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/6.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/7.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/5.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/4.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/1.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/3.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/2.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/7/src/ctor.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/ENDFtk/file/7/src/print.hpp"
@@ -815,30 +818,6 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/record/Sequence/test )
         add_subdirectory( src/ENDFtk/record/Tail/test )
         add_subdirectory( src/ENDFtk/record/Zipper/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/Isotope/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/ScatteringRadius/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/SpecialCase/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/BreitWignerLValue/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/BreitWignerLValue/Resonance/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/MultiLevelBreitWigner/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ParticlePairs/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceChannels/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/ResonanceParameters/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/RMatrixLimited/SpinGroup/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/ReichMoore/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/ReichMooreLValue/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/ReichMooreLValue/Resonance/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/resolved/SingleLevelBreitWigner/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/JValue/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyDependent/LValue/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/JValue/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyDependentFissionWidths/LValue/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/JValue/test )
-        add_subdirectory( src/ENDFtk/resonanceParameters/unresolved/EnergyIndependent/LValue/test )
         add_subdirectory( src/ENDFtk/section/1/451/test )
         add_subdirectory( src/ENDFtk/section/12/test )
         add_subdirectory( src/ENDFtk/section/12/Multiplicities/test )
@@ -850,6 +829,30 @@ if( NOT is_subproject )
         add_subdirectory( src/ENDFtk/section/13/PartialCrossSection/test )
         add_subdirectory( src/ENDFtk/section/13/TotalCrossSection/test )
         add_subdirectory( src/ENDFtk/section/2/151/test )
+        add_subdirectory( src/ENDFtk/section/2/151/Isotope/test )
+        add_subdirectory( src/ENDFtk/section/2/151/ScatteringRadius/test )
+        add_subdirectory( src/ENDFtk/section/2/151/SpecialCase/test )
+        add_subdirectory( src/ENDFtk/section/2/151/resolved/BreitWignerLValue/test )
+        add_subdirectory( src/ENDFtk/section/2/151/resolved/BreitWignerLValue/Resonance/test )
+        add_subdirectory( src/ENDFtk/section/2/151/resolved/MultiLevelBreitWigner/test )
+        add_subdirectory( src/ENDFtk/section/2/151/resolved/RMatrixLimited/test )
+        add_subdirectory( src/ENDFtk/section/2/151/resolved/RMatrixLimited/ParticlePairs/test )
+        add_subdirectory( src/ENDFtk/section/2/151/resolved/RMatrixLimited/ResonanceChannels/test )
+        add_subdirectory( src/ENDFtk/section/2/151/resolved/RMatrixLimited/ResonanceParameters/test )
+        add_subdirectory( src/ENDFtk/section/2/151/resolved/RMatrixLimited/SpinGroup/test )
+        add_subdirectory( src/ENDFtk/section/2/151/resolved/ReichMoore/test )
+        add_subdirectory( src/ENDFtk/section/2/151/resolved/ReichMooreLValue/test )
+        add_subdirectory( src/ENDFtk/section/2/151/resolved/ReichMooreLValue/Resonance/test )
+        add_subdirectory( src/ENDFtk/section/2/151/resolved/SingleLevelBreitWigner/test )
+        add_subdirectory( src/ENDFtk/section/2/151/unresolved/EnergyDependent/test )
+        add_subdirectory( src/ENDFtk/section/2/151/unresolved/EnergyDependent/JValue/test )
+        add_subdirectory( src/ENDFtk/section/2/151/unresolved/EnergyDependent/LValue/test )
+        add_subdirectory( src/ENDFtk/section/2/151/unresolved/EnergyDependentFissionWidths/test )
+        add_subdirectory( src/ENDFtk/section/2/151/unresolved/EnergyDependentFissionWidths/JValue/test )
+        add_subdirectory( src/ENDFtk/section/2/151/unresolved/EnergyDependentFissionWidths/LValue/test )
+        add_subdirectory( src/ENDFtk/section/2/151/unresolved/EnergyIndependent/test )
+        add_subdirectory( src/ENDFtk/section/2/151/unresolved/EnergyIndependent/JValue/test )
+        add_subdirectory( src/ENDFtk/section/2/151/unresolved/EnergyIndependent/LValue/test )
         add_subdirectory( src/ENDFtk/section/2/152/test )
         add_subdirectory( src/ENDFtk/section/3/test )
         add_subdirectory( src/ENDFtk/section/4/test )
