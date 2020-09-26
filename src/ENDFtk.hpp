@@ -15,16 +15,6 @@
 #include <unordered_map>
 #include <map>
 
-#ifdef __GNUC__
-  #pragma GCC diagnostic push
-  #pragma GCC diagnostic ignored "-Wunused-parameter"
-#endif
-#include <variant>
-#ifdef __GNUC__
-  #pragma GCC diagnostic pop
-#endif
-
-#include <optional>
 #include "range/v3/all.hpp"
 
 #include "boost/hana.hpp"
@@ -40,6 +30,7 @@ namespace hana = boost::hana;
 }
 }
 
+// include every section and their components
 #include "ENDFtk/section/1.hpp"
 #include "ENDFtk/section/2.hpp"
 #include "ENDFtk/section/3.hpp"
@@ -50,6 +41,8 @@ namespace hana = boost::hana;
 #include "ENDFtk/section/8.hpp"
 #include "ENDFtk/section/12.hpp"
 #include "ENDFtk/section/13.hpp"
+
+// include every file
 #include "ENDFtk/file/1.hpp"
 #include "ENDFtk/file/2.hpp"
 #include "ENDFtk/file/3.hpp"

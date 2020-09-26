@@ -140,7 +140,7 @@ SCENARIO( "Testing generic case using file 3" ) {
 
   GIVEN( "a string representation of File 3" ) {
 
-    std::string file3string = chunk();
+    std::string file3string = chunk() + validFEND();
 
     WHEN( "a file::Type<3> is constructed from the string" ) {
 
@@ -201,7 +201,7 @@ SCENARIO( "Testing generic case using file 3" ) {
 
   GIVEN( "a valid instance of file::Type< 3 >" ) {
 
-    std::string file3string = chunk();
+    std::string file3string = chunk() + validFEND();
     auto begin = file3string.begin();
     auto end = file3string.end();
     long lineNumber = 0;
