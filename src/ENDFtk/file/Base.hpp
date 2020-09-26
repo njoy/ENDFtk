@@ -1,69 +1,89 @@
-template < typename Derived >
-class Base {
+#ifndef NJOY_ENDFTK_FILE_BASE
+#define NJOY_ENDFTK_FILE_BASE
 
-  Derived& derived() { return static_cast< Derived& >( *this ); }
-  const Derived& derived() const {
+// system includes
 
-    return static_cast< const Derived& >( *this );
-  }
+// other includes
+#include "boost/hana.hpp"
+#include "ENDFtk/section.hpp"
+#include "ENDFtk/file/details.hpp"
 
-protected:
+namespace njoy {
+namespace ENDFtk {
+namespace file {
 
-  /* auxiliary functions */
-  static constexpr auto sections() {
+  template < typename Derived >
+  class Base {
 
-    return hana::sort(hana::concat( Derived::requiredSections(),
-                                    Derived::optionalSections() ) );
-  }
+    Derived& derived() { return static_cast< Derived& >( *this ); }
+    const Derived& derived() const {
 
-  #include "ENDFtk/file/Base/src/deduceMapType.hpp"
-  #include "ENDFtk/file/Base/src/fill.hpp"
-  #include "ENDFtk/file/Base/src/read.hpp"
-  #include "ENDFtk/file/Base/src/verifyEND.hpp"
+      return static_cast< const Derived& >( *this );
+    }
 
-public:
+  protected:
 
-  /* get methods */
+    /* auxiliary functions */
+    static constexpr auto sections() {
 
-  /**
-   *  @brief Return the MF number of the file
-   */
-  static constexpr int MF() {
+      return hana::sort(hana::concat( Derived::requiredSections(),
+                                      Derived::optionalSections() ) );
+    }
 
-    return Derived::fileNumber();
-  }
+    #include "ENDFtk/file/Base/src/deduceMapType.hpp"
+    #include "ENDFtk/file/Base/src/fill.hpp"
+    #include "ENDFtk/file/Base/src/read.hpp"
+    #include "ENDFtk/file/Base/src/verifyEND.hpp"
 
-  /**
-   *  @brief Verify if a given section (defined by the MT number) is defined
-   *
-   *  @param mt   the MT number of the section to be verified
-   */
-  template< typename Index >
-  constexpr bool hasMT( Index mt ) const {
+  public:
 
-    return this->derived().hasSection( mt );
-  }
+    /* get methods */
 
-  /**
-   *  @brief Retrieve a specific MT section
-   *
-   *  @param mt   the MT number of the section to be retrieved
-   */
-  template< typename Index >
-  constexpr decltype( auto ) MT( Index mt ) const {
+    /**
+     *  @brief Return the MF number of the file
+     */
+    static constexpr int MF() {
 
-    return this->derived().section( mt );
-  }
+      return Derived::fileNumber();
+    }
 
-  /**
-   *  @brief Retrieve a specific MT section
-   *
-   *  @param mt   the MT number of the section to be retrieved
-   */
-  template< typename Index > constexpr decltype( auto ) MT( Index mt ) {
+    /**
+     *  @brief Verify if a given section (defined by the MT number) is defined
+     *
+     *  @param mt   the MT number of the section to be verified
+     */
+    template< typename Index >
+    constexpr bool hasMT( Index mt ) const {
 
-    return this->derived().section( mt );
-  }
+      return this->derived().hasSection( mt );
+    }
 
-  #include "ENDFtk/file/Base/src/section.hpp"
-};
+    /**
+     *  @brief Retrieve a specific MT section
+     *
+     *  @param mt   the MT number of the section to be retrieved
+     */
+    template< typename Index >
+    constexpr decltype( auto ) MT( Index mt ) const {
+
+      return this->derived().section( mt );
+    }
+
+    /**
+     *  @brief Retrieve a specific MT section
+     *
+     *  @param mt   the MT number of the section to be retrieved
+     */
+    template< typename Index > constexpr decltype( auto ) MT( Index mt ) {
+
+      return this->derived().section( mt );
+    }
+
+    #include "ENDFtk/file/Base/src/section.hpp"
+  };
+
+} // file namespace
+} // ENDFtk namespace
+} // njoy namespace
+
+#endif

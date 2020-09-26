@@ -1,16 +1,18 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/file/7.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
+#include "header-utilities.hpp"
 
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using CoherentElastic = section::Type< 7, 2 >::CoherentElastic;
 using Tabulated = section::Type< 7, 4 >::Tabulated;
 using ScatteringFunction = section::Type< 7, 4 >::Tabulated::ScatteringFunction;
 
-std::string getFile( int MF );
+std::string chunk7();
 std::string chunk2();
 void verifyChunk2( const file::Type< 7 >& );
 std::string chunk4();
@@ -32,7 +34,7 @@ SCENARIO( "Testing special case of file 7" ) {
     WHEN( "a file::Type<7> is constructed using only mt2" ) {
 
       section::Type< 7, 2 >
-      mt2( 127., 1., 
+      mt2( 127., 1.,
            CoherentElastic( 293.6, { 3 }, { 1 },
                             { 1.059427e-3, 3.718355e-3,  4.237708e-3 },
                             { 0.0, 9.364524e-3, 1.548925e-2 } ) );
@@ -69,7 +71,7 @@ SCENARIO( "Testing special case of file 7" ) {
            Tabulated( { 2 }, { 4 },
                       { ScatteringFunction(
                                    293.6, 0.0, { 5 }, { 4 },
-                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3, 
+                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3,
                                      8.418068e+1, 8.847604e+1 },
                                    { 2.386876e-4, 2.508466e-4, 2.636238e-4,
                                      1.306574e-9, 5.29573e-10 } ),
@@ -79,8 +81,8 @@ SCENARIO( "Testing special case of file 7" ) {
                                      8.418068e+1, 8.847604e+1 },
                                    { 2.386694e-4, 2.508273e-4, 2.636238e-4,
                                      2.770291e-4, 2.911373e-4 } ) } ),
-                      { { 3 }, { 2 }, 
-                        { 293.6, 600., 1200. }, 
+                      { { 3 }, { 2 },
+                        { 293.6, 600., 1200. },
                         { 5.332083e+2, 7.354726e+2, 1.270678e+3 } } );
 
       file::Type< 7 > mf7( std::move( mt4 ) );
@@ -109,7 +111,7 @@ SCENARIO( "Testing special case of file 7" ) {
     WHEN( "a file::Type<7> is constructed using an mt2 and and mt4" ) {
 
       section::Type< 7, 2 >
-      mt2( 127., 1., 
+      mt2( 127., 1.,
            CoherentElastic( 293.6, { 3 }, { 1 },
                             { 1.059427e-3, 3.718355e-3,  4.237708e-3 },
                             { 0.0, 9.364524e-3, 1.548925e-2 } ) );
@@ -121,7 +123,7 @@ SCENARIO( "Testing special case of file 7" ) {
            Tabulated( { 2 }, { 4 },
                       { ScatteringFunction(
                                    293.6, 0.0, { 5 }, { 4 },
-                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3, 
+                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3,
                                      8.418068e+1, 8.847604e+1 },
                                    { 2.386876e-4, 2.508466e-4, 2.636238e-4,
                                      1.306574e-9, 5.29573e-10 } ),
@@ -131,8 +133,8 @@ SCENARIO( "Testing special case of file 7" ) {
                                      8.418068e+1, 8.847604e+1 },
                                    { 2.386694e-4, 2.508273e-4, 2.636238e-4,
                                      2.770291e-4, 2.911373e-4 } ) } ),
-                      { { 3 }, { 2 }, 
-                        { 293.6, 600., 1200. }, 
+                      { { 3 }, { 2 },
+                        { 293.6, 600., 1200. },
                         { 5.332083e+2, 7.354726e+2, 1.270678e+3 } } );
 
       file::Type< 7 > mf7( std::move( mt2 ), std::move( mt4 ) );
@@ -216,7 +218,7 @@ SCENARIO( "Testing special case of file 7" ) {
     } // WHEN
   } // GIVEN
 
-  std::string fileString = getFile( 7 );
+  std::string fileString = chunk7();
 
   GIVEN( "a string representation of of File 7" ) {
 
@@ -246,21 +248,21 @@ SCENARIO( "Testing special case of file 7" ) {
       }
     }
 
-    WHEN( "a file::Type< 7 > is constructed from a syntaxTree" ){
-      auto begin = fileString.begin();
-      auto start = fileString.begin();
-      auto end = fileString.end();
-      long lineNumber = 0;
-
-      StructureDivision division( begin, end, lineNumber );
-
-      syntaxTree::File< std::string::iterator >
-        fileTree( asHead( division ), start, begin, end, lineNumber );
-
-      THEN( "a file::Type< 7 > can be constructed" ){
-        CHECK_NOTHROW( fileTree.parse< 7 >( lineNumber ) );
-      }
-    }
+//    WHEN( "a file::Type< 7 > is constructed from a syntaxTree" ){
+//      auto begin = fileString.begin();
+//      auto start = fileString.begin();
+//      auto end = fileString.end();
+//      long lineNumber = 0;
+//
+//      StructureDivision division( begin, end, lineNumber );
+//
+//      syntaxTree::File< std::string::iterator >
+//        fileTree( asHead( division ), start, begin, end, lineNumber );
+//
+//      THEN( "a file::Type< 7 > can be constructed" ){
+//        CHECK_NOTHROW( fileTree.parse< 7 >( lineNumber ) );
+//      }
+//    }
 
     WHEN( "a file::Type< 7 > is constructed from the string twice" ){
       std::string twice( fileString.begin(), fileString.end() - 81 );
@@ -293,12 +295,32 @@ SCENARIO( "Testing special case of file 7" ) {
   } // GIVEN
 } // SCENARIO
 
-std::string getFile( int MF ){
-  static std::string tape =
-    njoy::utility::slurpFileToMemory( "tsl-BeinBeO.endf" );
-  syntaxTree::Tape< std::string > tapeTree( njoy::utility::copy( tape ) );
-  auto fileTree = tapeTree.materialNumber( 27 ).front().fileNumber( MF );
-  return std::string( fileTree.buffer().begin(), fileTree.buffer().end() );
+std::string chunk7() {
+
+  return
+    " 1.270000+2 1.000000+0          1          0          0          0  27 7  2     \n"
+    " 2.936000+2 0.000000+0          0          0          1          3  27 7  2     \n"
+    "          3          1                                              27 7  2     \n"
+    " 1.059427-3 0.000000+0 3.718355-3 9.364524-3 4.237708-3 1.548925-2  27 7  2     \n"
+    "                                                                    27 7  0     \n"
+    " 1.270000+2 8.934780+0          0          1          0          0  27 7  4     \n"
+    " 0.000000+0 0.000000+0          0          0          6          0  27 7  4     \n"
+    " 6.153875+0 1.976285+2 8.934780+0 5.000001+0 0.000000+0 1.000000+0  27 7  4     \n"
+    " 0.000000+0 0.000000+0          0          0          1          2  27 7  4     \n"
+    "          2          4                                              27 7  4     \n"
+    " 2.936000+2 0.000000+0          0          0          1          5  27 7  4     \n"
+    "          5          4                                              27 7  4     \n"
+    " 4.423802-3 2.386876-4 4.649528-3 2.508466-4 4.886772-3 2.636238-4  27 7  4     \n"
+    " 8.418068+1 1.306574-9 8.847604+1 5.29573-10                        27 7  4     \n"
+    " 2.936000+2 3.952570-2          0          0          1          5  27 7  4     \n"
+    "          5          2                                              27 7  4     \n"
+    " 4.423802-3 2.386694-4 4.649528-3 2.508273-4 4.886772-3 2.636238-4  27 7  4     \n"
+    " 8.418068+1 2.770291-4 8.847604+1 2.911373-4                        27 7  4     \n"
+    " 0.000000+0 0.000000+0          0          0          1          3  27 7  4     \n"
+    "          3          2                                              27 7  4     \n"
+    " 2.936000+2 5.332083+2 6.000000+2 7.354726+2 1.200000+3 1.270678+3  27 7  4     \n"
+    "                                                                    27 7  0     \n"
+    "                                                                    27 0  0     \n";
 }
 
 std::string chunk2() {
@@ -450,4 +472,3 @@ std::string validHEAD() {
   return
     " 1.270000+2 1.000000+0          1          0          0          0  27 7  2     \n";
 }
-

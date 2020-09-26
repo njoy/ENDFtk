@@ -12,9 +12,7 @@
 #ifndef ENDFTK_HPP
 #define ENDFTK_HPP
 
-#include <functional>
 #include <unordered_map>
-#include <complex>
 #include <map>
 
 #ifdef __GNUC__
@@ -29,7 +27,6 @@
 #include <optional>
 #include "range/v3/all.hpp"
 
-#include "disco.hpp"
 #include "boost/hana.hpp"
 #include "Log.hpp"
 #include "header-utilities.hpp"
@@ -38,12 +35,6 @@ namespace njoy {
 namespace ENDFtk {
 
 namespace hana = boost::hana;
-
-inline namespace literals {
-
-using namespace hana::literals;
-}
-
 #include "ENDFtk/resonanceParameters.hpp"
 
 }
@@ -59,11 +50,16 @@ using namespace hana::literals;
 #include "ENDFtk/section/8.hpp"
 #include "ENDFtk/section/12.hpp"
 #include "ENDFtk/section/13.hpp"
+#include "ENDFtk/file/Type.hpp"
+#include "ENDFtk/file/1.hpp"
+#include "ENDFtk/file/2.hpp"
+#include "ENDFtk/file/7.hpp"
+#include "ENDFtk/file/8.hpp"
 
 
 namespace njoy {
 namespace ENDFtk {
-#include "ENDFtk/file.hpp"
+
 #include "ENDFtk/syntaxTree.hpp"
 }
 }
