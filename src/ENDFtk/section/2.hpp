@@ -2,9 +2,14 @@
 #define NJOY_ENDFTK_SECTION_2
 
 // system includes
+#include <variant>
 
 // other includes
+#include "ENDFtk/ControlRecord.hpp"
+#include "ENDFtk/ListRecord.hpp"
+#include "ENDFtk/TabulationRecord.hpp"
 #include "ENDFtk/section.hpp"
+#include "ENDFtk/readSequence.hpp"
 
 namespace njoy {
 namespace ENDFtk {

@@ -16,7 +16,7 @@ class SpecialCase {
 public:
 
   /* constructor */
-  #include "ENDFtk/resonanceParameters/SpecialCase/src/ctor.hpp"
+  #include "ENDFtk/section/2/151/SpecialCase/src/ctor.hpp"
 
   /* get methods */
 
@@ -65,5 +65,5 @@ public:
    */
   long NC() const { return 1; }
 
-  #include "ENDFtk/resonanceParameters/SpecialCase/src/print.hpp"
+  #include "ENDFtk/section/2/151/SpecialCase/src/print.hpp"
 };

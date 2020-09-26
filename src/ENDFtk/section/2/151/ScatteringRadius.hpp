@@ -10,7 +10,7 @@ class ScatteringRadius : protected TabulationRecord {
 public:
 
   /* constructor */
-  #include "ENDFtk/resonanceParameters/ScatteringRadius/src/ctor.hpp"
+  #include "ENDFtk/section/2/151/ScatteringRadius/src/ctor.hpp"
 
   /* get methods */
 

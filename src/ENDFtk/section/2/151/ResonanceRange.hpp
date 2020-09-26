@@ -16,14 +16,14 @@ public:
               // LRU=0
               SpecialCase,
               // LRU=1
-              resolved::SingleLevelBreitWigner, // LRF = 1
-              resolved::MultiLevelBreitWigner,  // LRF = 2
-              resolved::ReichMoore,             // LRF = 3
-              resolved::RMatrixLimited,         // LRF = 7
+              SingleLevelBreitWigner, // LRF = 1
+              MultiLevelBreitWigner,  // LRF = 2
+              ReichMoore,             // LRF = 3
+              RMatrixLimited/*,         // LRF = 7
               // LRU=2
-              unresolved::EnergyIndependent,            // LRF = 1, LFW = 0
-              unresolved::EnergyDependentFissionWidths, // LRF = 1, LFW = 1
-              unresolved::EnergyDependent >;            // LRF = 1
+              UnresolvedEnergyIndependent,            // LRF = 1, LFW = 0
+              UnresolvedEnergyDependentFissionWidths, // LRF = 1, LFW = 1
+              UnresolvedEnergyDependent*/ >;            // LRF = 1
 
 private:
 
@@ -36,12 +36,12 @@ private:
   std::optional< ScatteringRadius > scattering_radius_;
 
   /* auxiliary functions */
-  #include "ENDFtk/resonanceParameters/ResonanceRange/src/verifyOptions.hpp"
+  #include "ENDFtk/section/2/151/ResonanceRange/src/verifyOptions.hpp"
 
 public:
 
   /* constructor */
-  #include "ENDFtk/resonanceParameters/ResonanceRange/src/ctor.hpp"
+  #include "ENDFtk/section/2/151/ResonanceRange/src/ctor.hpp"
 
   /* get methods */
 
@@ -126,5 +126,5 @@ public:
                                               { return v.NC(); },
                                            this->parameters_ ); }
 
-  #include "ENDFtk/resonanceParameters/ResonanceRange/src/print.hpp"
+  #include "ENDFtk/section/2/151/ResonanceRange/src/print.hpp"
 };

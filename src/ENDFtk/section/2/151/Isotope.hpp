@@ -16,14 +16,14 @@ class Isotope {
   std::vector< ResonanceRange > ranges_;
 
   /* auxiliary functions */
-  #include "ENDFtk/resonanceParameters/Isotope/src/readScatteringRadius.hpp"
-  #include "ENDFtk/resonanceParameters/Isotope/src/readParameters.hpp"
-  #include "ENDFtk/resonanceParameters/Isotope/src/readRanges.hpp"
+  #include "ENDFtk/section/2/151/Isotope/src/readScatteringRadius.hpp"
+  #include "ENDFtk/section/2/151/Isotope/src/readParameters.hpp"
+  #include "ENDFtk/section/2/151/Isotope/src/readRanges.hpp"
 
 public:
 
   /* constructor */
-  #include "ENDFtk/resonanceParameters/Isotope/src/ctor.hpp"
+  #include "ENDFtk/section/2/151/Isotope/src/ctor.hpp"
 
   /* get methods */
 
@@ -65,6 +65,6 @@ public:
     return ranges::view::all( this->ranges_ );
   }
 
-  #include "ENDFtk/resonanceParameters/Isotope/src/print.hpp"
-  #include "ENDFtk/resonanceParameters/Isotope/src/NC.hpp"
+  #include "ENDFtk/section/2/151/Isotope/src/print.hpp"
+  #include "ENDFtk/section/2/151/Isotope/src/NC.hpp"
 };

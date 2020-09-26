@@ -19,13 +19,13 @@ readParameters( Iterator& begin,
 
       switch ( LRF ) {
 
-        case 1 : return resolved::SingleLevelBreitWigner(
+        case 1 : return SingleLevelBreitWigner(
                             begin, end, lineNumber, MAT, MF, MT );
-        case 2 : return resolved::MultiLevelBreitWigner(
+        case 2 : return MultiLevelBreitWigner(
                             begin, end, lineNumber, MAT, MF, MT );
-        case 3 : return resolved::ReichMoore(
+        case 3 : return ReichMoore(
                             begin, end, lineNumber, MAT, MF, MT );
-        case 7 : return resolved::RMatrixLimited(
+        case 7 : return RMatrixLimited(
                             begin, end, lineNumber, MAT, MF, MT );
         default : {
 
@@ -46,9 +46,9 @@ readParameters( Iterator& begin,
 
           switch ( LFW ) {
 
-            case 0 : return unresolved::EnergyIndependent(
+            case 0 : return UnresolvedEnergyIndependent(
                                 begin, end, lineNumber, MAT, MF, MT );
-            case 1 : return unresolved::EnergyDependentFissionWidths(
+            case 1 : return UnresolvedEnergyDependentFissionWidths(
                                 begin, end, lineNumber, MAT, MF, MT );
             default : {
 
@@ -59,7 +59,7 @@ readParameters( Iterator& begin,
             }
           }
         }
-        case 2 : return unresolved::EnergyDependent(
+        case 2 : return UnresolvedEnergyDependent(
                             begin, end, lineNumber, MAT, MF, MT );
         default : {
 

@@ -1,9 +1,41 @@
 template<>
 class Type< 2, 151 > : protected BaseWithoutMT< Type< 2, 151 > > {
 
+  #include "ENDFtk/section/2/151/BreitWignerReichMooreBase.hpp"
+  #include "ENDFtk/section/2/151/BreitWignerReichMooreLValueBase.hpp"
+
+  #include "ENDFtk/section/2/151/BreitWignerLValue.hpp"
+  #include "ENDFtk/section/2/151/ReichMooreLValue.hpp"
+
+//  #include "ENDFtk/section/2/151/UnresolvedLValueBase.hpp"
+//  #include "ENDFtk/section/2/151/UnresolvedUnresolvedBaseWithoutSpin.hpp"
+//  #include "ENDFtk/section/2/151/UnresolvedUnresolvedBase.hpp"
+
 public:
 
-  using Isotope = resonanceParameters::Isotope;
+  #include "ENDFtk/section/2/151/SpecialCase.hpp"
+
+  #include "ENDFtk/section/2/151/SingleLevelBreitWigner.hpp"
+  #include "ENDFtk/section/2/151/MultiLevelBreitWigner.hpp"
+  #include "ENDFtk/section/2/151/ReichMoore.hpp"
+  #include "ENDFtk/section/2/151/RMatrixLimited.hpp"
+
+  using SLBW = SingleLevelBreitWigner;
+  using MLBW = MultiLevelBreitWigner;
+  using RM = ReichMoore;
+  using RML = RMatrixLimited;
+
+//  #include "ENDFtk/section/2/151/UnresolvedEnergyIndependent.hpp"
+//  #include "ENDFtk/section/2/151/UnresolvedEnergyDependentFissionWidths.hpp"
+//  #include "ENDFtk/section/2/151/UnresolvedEnergyDependent.hpp"
+//
+//  using CaseA = EnergyIndependent;
+//  using CaseB = EnergyDependentFissionWidths;
+//  using CaseC = EnergyDependent;
+
+  #include "ENDFtk/section/2/151/ScatteringRadius.hpp"
+  #include "ENDFtk/section/2/151/ResonanceRange.hpp"
+  #include "ENDFtk/section/2/151/Isotope.hpp"
 
 private:
 
