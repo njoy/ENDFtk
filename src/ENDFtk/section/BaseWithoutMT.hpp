@@ -1,41 +1,60 @@
-template < typename Derived >
-class BaseWithoutMT {
+#ifndef NJOY_ENDFTK_SECTION_BASEWITHOUTMT
+#define NJOY_ENDFTK_SECTION_BASEWITHOUTMT
 
-  /* fields */
-  int ZA_;
-  double atomicWeightRatio_;
+// system includes
 
-protected:
+// other includes
+#include "header-utilities.hpp"
+#include "ENDFtk/HeadRecord.hpp"
 
-  /* constructor */
-  #include "ENDFtk/section/BaseWithoutMT/src/ctor.hpp"
+namespace njoy {
+namespace ENDFtk {
+namespace section{
 
-public:
+  template < typename Derived >
+  class BaseWithoutMT {
 
-  /* get methods */
+    /* fields */
+    int ZA_;
+    double atomicWeightRatio_;
 
-  /**
-   *  @brief Return the MT number of the section
-   */
-  constexpr int MT() const {
+  protected:
 
-      return static_cast< const Derived* >( this )->sectionNumber();
-  }
+    /* constructor */
+    #include "ENDFtk/section/BaseWithoutMT/src/ctor.hpp"
 
-  /**
-   *  @brief Return the ZA identifier of the section
-   */
-  constexpr int ZA() const { return this->ZA_; }
+  public:
 
-  /**
-   *  @brief Return the atomic weight ratio
-   */
-  constexpr double AWR() const { return this->atomicWeightRatio_; }
+    /* get methods */
 
-  /**
-   *  @brief Return the atomic weight ratio
-   */
-  constexpr double atomicWeightRatio() const { return this->AWR(); }
+    /**
+     *  @brief Return the MT number of the section
+     */
+    constexpr int MT() const {
 
-  #include "ENDFtk/section/BaseWithoutMT/src/readSEND.hpp"
-};
+        return static_cast< const Derived* >( this )->sectionNumber();
+    }
+
+    /**
+     *  @brief Return the ZA identifier of the section
+     */
+    constexpr int ZA() const { return this->ZA_; }
+
+    /**
+     *  @brief Return the atomic weight ratio
+     */
+    constexpr double AWR() const { return this->atomicWeightRatio_; }
+
+    /**
+     *  @brief Return the atomic weight ratio
+     */
+    constexpr double atomicWeightRatio() const { return this->AWR(); }
+
+    #include "ENDFtk/section/BaseWithoutMT/src/readSEND.hpp"
+  };
+
+} // section namespace
+} // ENDFtk namespace
+} // njoy namespace
+
+#endif

@@ -35,6 +35,9 @@
 #include "ENDFtk/InterpolationRecord.hpp"
 #include "ENDFtk/TabulationRecord.hpp"
 
+#include "ENDFtk/section/BaseWithoutMT.hpp"
+#include "ENDFtk/section/Base.hpp"
+
 namespace njoy {
 namespace ENDFtk {
 
