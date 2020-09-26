@@ -1124,7 +1124,7 @@ SCENARIO( "Isotope" ){
           Isotope iso( begin, end, lineNumber, MAT, MF, MT );
           CHECK_NOTHROW(
             std::get<
-              EnergyIndependent >
+              UnresolvedEnergyIndependent >
               ( iso.resonanceRanges().front().parameters() )
           );
         }
@@ -1188,7 +1188,7 @@ SCENARIO( "Isotope" ){
           Isotope iso( begin, end, lineNumber, MAT, MF, MT );
           CHECK_NOTHROW(
             std::get<
-              EnergyDependentFissionWidths >
+              UnresolvedEnergyDependentFissionWidths >
               ( iso.resonanceRanges().front().parameters() )
           );
         }
@@ -1321,7 +1321,7 @@ SCENARIO( "Isotope" ){
         Isotope iso( begin, end, lineNumber, MAT, MF, MT );
         CHECK( 1 == iso.resonanceRanges().size() );
         CHECK_NOTHROW( std::get<
-                          EnergyDependent >
+                         UnresolvedEnergyDependent >
                          ( iso.resonanceRanges().front().parameters() ) );
       }
     }

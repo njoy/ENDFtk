@@ -1,13 +1,14 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/2.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
 
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using ScatteringRadius =
-resonanceParameters::ScatteringRadius;
+section::Type< 2, 151 >::ScatteringRadius;
 
 std::string chunk();
 void verifyChunk( const ScatteringRadius& );
