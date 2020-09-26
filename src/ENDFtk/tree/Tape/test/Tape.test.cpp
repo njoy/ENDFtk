@@ -1,8 +1,12 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/tree/Tape.hpp"
+#include "ENDFtk/tree/makeTape.hpp"
 
+// other includes
+
+// convenience typedefs
 using namespace njoy::ENDFtk;
 
 std::string baseTAPE();
@@ -18,38 +22,38 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
       auto tend = validTEND();
       auto tapeString = tpid + base + tend;
 
-      syntaxTree::Tape< std::string > tape{ njoy::utility::copy( tapeString ) };
+      tree::Tape< std::string > tape{ njoy::utility::copy( tapeString ) };
 
-      syntaxTree::Tape< std::string > original{ 
+      tree::Tape< std::string > original{
         njoy::utility::copy( tapeString ) };
-      
+
       THEN( "the copy ctor will function correctly "){
-        auto copy = syntaxTree::Tape< std::string >{ original };
-        CHECK( 125 == copy.MAT( 125 ).front().MAT() );          
+        auto copy = tree::Tape< std::string >{ original };
+        CHECK( 125 == copy.MAT( 125 ).front().MAT() );
       }
 
       GIVEN("a tape skeleton constructed from a string"){
-        syntaxTree::Tape< std::string > reference( 
+        tree::Tape< std::string > reference(
           njoy::utility::copy( tapeString ) );
 
         THEN("the iterator-based factory function will return the same type"){
           std::string copy = njoy::utility::copy( tapeString );
-          auto trial = syntaxTree::makeTape( std::move( copy ) );
+          auto trial = tree::makeTape( std::move( copy ) );
           constexpr bool isSame =
             std::is_same<decltype(reference), decltype(trial)>::value;
           CHECK( isSame );
         }
 
         THEN("the range-based factory function will return the same type"){
-          auto trial = syntaxTree::makeTape( 
+          auto trial = tree::makeTape(
               njoy::utility::copy( tapeString ) );
           constexpr bool isSame =
             std::is_same<decltype(reference), decltype(trial)>::value;
           CHECK( isSame );
         }
       }
-      
-      syntaxTree::Tape< std::string > tapeTree{ 
+
+      tree::Tape< std::string > tapeTree{
         njoy::utility::copy( tapeString ) };
       const auto ctapeTree = tapeTree;
 
@@ -57,7 +61,7 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
          CHECK( 1 == tapeTree.size() );
          CHECK( 1 == ctapeTree.size() );
       }
-      
+
       AND_THEN( "we can access the Materials of the skeleton" ){
         CHECK( tapeTree.hasMaterialNumber( 125 ) );
         CHECK( ctapeTree.hasMaterialNumber( 125 ) );
@@ -77,20 +81,20 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
           CHECK( 125 == materialSkeleton.materialNumber() );
         }
       }
-      
+
       AND_THEN( "an excpetion is thrown for an invalid index" ){
         CHECK_THROWS( tapeTree.materialNumber(1) );
       }
     }
 
-    
+
     WHEN( "an invalid (MAT != -1) TEND record ends the Tape" ){
       auto tpid = tpidString();
       auto base = baseTAPE();
       auto tend = invalidTEND();
       auto tapeString = tpid + base + tend;
 
-      CHECK_THROWS( syntaxTree::Tape< std::string >{ std::move( tapeString ) } );
+      CHECK_THROWS( tree::Tape< std::string >{ std::move( tapeString ) } );
     }
 
     WHEN( "the Tape isn't long enough" ){
@@ -98,7 +102,7 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
       auto base = baseTAPE();
       auto tapeString = tpid + base; // no tend record
 
-      CHECK_THROWS( syntaxTree::Tape< std::string >{ std::move( tapeString ) } );
+      CHECK_THROWS( tree::Tape< std::string >{ std::move( tapeString ) } );
     }
   } // GIVEN
 } // SCENARIO

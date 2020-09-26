@@ -34,28 +34,12 @@
 #include "ENDFtk/file/12.hpp"
 #include "ENDFtk/file/13.hpp"
 
+// include the ENDF tree and its components
+#include "ENDFtk/tree/Section.hpp"
+#include "ENDFtk/tree/File.hpp"
+#include "ENDFtk/tree/Material.hpp"
+#include "ENDFtk/tree/Tape.hpp"
+#include "ENDFtk/tree/makeTape.hpp"
+
 // utility functions
 #include "ENDFtk/isRedundant.hpp"
-
-// include the ENDF syntax tree
-#ifndef ENDFTK_HPP
-#define ENDFTK_HPP
-
-#include <unordered_map>
-#include <map>
-
-#include "range/v3/all.hpp"
-
-#include "boost/hana.hpp"
-#include "Log.hpp"
-#include "header-utilities.hpp"
-
-namespace njoy {
-namespace ENDFtk {
-
-namespace hana = boost::hana;
-#include "ENDFtk/syntaxTree.hpp"
-}
-}
-
-#endif // ENDFTK_HPP

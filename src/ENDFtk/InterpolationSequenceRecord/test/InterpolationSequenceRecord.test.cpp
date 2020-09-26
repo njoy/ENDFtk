@@ -1,8 +1,12 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/InterpolationSequenceRecord.hpp"
+#include "ENDFtk/ControlRecord.hpp"
 
+// other includes
+
+// convenience typedefs
 using namespace njoy::ENDFtk;
 
 std::string chunk();

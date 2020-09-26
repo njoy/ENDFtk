@@ -594,18 +594,34 @@
     "src/ENDFtk/StructureDivision.hpp",
     "src/ENDFtk/file.hpp",
     "src/ENDFtk/ListRecord.hpp",
-    "src/ENDFtk/resonanceParameters.hpp",
     "src/ENDFtk/isRedundant.hpp",
     "src/ENDFtk/section.hpp",
     "src/ENDFtk/InterpolationRecord.hpp",
     "src/ENDFtk/TextRecord.hpp",
     "src/ENDFtk/TapeIdentification.hpp",
     "src/ENDFtk/TabulationRecord.hpp",
-    "src/ENDFtk/syntaxTree.hpp",
     "src/ENDFtk/HeadRecord.hpp",
     "src/ENDFtk/ControlRecord.hpp",
     "src/ENDFtk/InterpolationSequenceRecord.hpp",
     "src/ENDFtk/DirectoryRecord.hpp",
+    "src/ENDFtk/tree/Material.hpp",
+    "src/ENDFtk/tree/File.hpp",
+    "src/ENDFtk/tree/Section.hpp",
+    "src/ENDFtk/tree/Tape.hpp",
+    "src/ENDFtk/tree/Section/src/ctor.hpp",
+    "src/ENDFtk/tree/Section/src/findEnd.hpp",
+    "src/ENDFtk/tree/Section/src/parse.hpp",
+    "src/ENDFtk/tree/File/src/sectionNumber.hpp",
+    "src/ENDFtk/tree/File/src/createMap.hpp",
+    "src/ENDFtk/tree/File/src/ctor.hpp",
+    "src/ENDFtk/tree/File/src/parse.hpp",
+    "src/ENDFtk/tree/Tape/src/createMap.hpp",
+    "src/ENDFtk/tree/Tape/src/ctor.hpp",
+    "src/ENDFtk/tree/Tape/src/materialNumber.hpp",
+    "src/ENDFtk/tree/Material/src/fileNumber.hpp",
+    "src/ENDFtk/tree/Material/src/createMap.hpp",
+    "src/ENDFtk/tree/Material/src/ctor.hpp",
+    "src/ENDFtk/tree/src/makeTape.hpp",
     "src/ENDFtk/DirectoryRecord/src/print.hpp",
     "src/ENDFtk/section/8.hpp",
     "src/ENDFtk/section/13.hpp",
@@ -1052,24 +1068,6 @@
     "src/ENDFtk/file/Base/src/deduceMapType.hpp",
     "src/ENDFtk/file/2/src/ctor.hpp",
     "src/ENDFtk/file/2/src/print.hpp",
-    "src/ENDFtk/syntaxTree/Material.hpp",
-    "src/ENDFtk/syntaxTree/File.hpp",
-    "src/ENDFtk/syntaxTree/Section.hpp",
-    "src/ENDFtk/syntaxTree/Tape.hpp",
-    "src/ENDFtk/syntaxTree/Section/src/ctor.hpp",
-    "src/ENDFtk/syntaxTree/Section/src/findEnd.hpp",
-    "src/ENDFtk/syntaxTree/Section/src/parse.hpp",
-    "src/ENDFtk/syntaxTree/File/src/sectionNumber.hpp",
-    "src/ENDFtk/syntaxTree/File/src/createMap.hpp",
-    "src/ENDFtk/syntaxTree/File/src/ctor.hpp",
-    "src/ENDFtk/syntaxTree/File/src/parse.hpp",
-    "src/ENDFtk/syntaxTree/Tape/src/createMap.hpp",
-    "src/ENDFtk/syntaxTree/Tape/src/ctor.hpp",
-    "src/ENDFtk/syntaxTree/Tape/src/materialNumber.hpp",
-    "src/ENDFtk/syntaxTree/Material/src/fileNumber.hpp",
-    "src/ENDFtk/syntaxTree/Material/src/createMap.hpp",
-    "src/ENDFtk/syntaxTree/Material/src/ctor.hpp",
-    "src/ENDFtk/syntaxTree/src/makeTape.hpp",
     "src/ENDFtk/ControlRecord/src/print.hpp",
     "src/ENDFtk/TabulationRecord/src/verifyVectorSizes.hpp",
     "src/ENDFtk/TabulationRecord/src/ctor.hpp",
@@ -1466,17 +1464,17 @@
     "ENDFtk.section.BaseWithoutMT": [
       "src/ENDFtk/section/BaseWithoutMT/test/BaseWithoutMT.test.cpp"
     ],
-    "ENDFtk.syntaxTree.File": [
-      "src/ENDFtk/syntaxTree/File/test/File.test.cpp"
+    "ENDFtk.tree.File": [
+      "src/ENDFtk/tree/File/test/File.test.cpp"
     ],
-    "ENDFtk.syntaxTree.Material": [
-      "src/ENDFtk/syntaxTree/Material/test/Material.test.cpp"
+    "ENDFtk.tree.Material": [
+      "src/ENDFtk/tree/Material/test/Material.test.cpp"
     ],
-    "ENDFtk.syntaxTree.Section": [
-      "src/ENDFtk/syntaxTree/Section/test/Section.test.cpp"
+    "ENDFtk.tree.Section": [
+      "src/ENDFtk/tree/Section/test/Section.test.cpp"
     ],
-    "ENDFtk.syntaxTree.Tape": [
-      "src/ENDFtk/syntaxTree/Tape/test/Tape.test.cpp"
+    "ENDFtk.tree.Tape": [
+      "src/ENDFtk/tree/Tape/test/Tape.test.cpp"
     ]
   },
   "update": true

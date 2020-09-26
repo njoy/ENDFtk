@@ -1,24 +1,27 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/tree/File.hpp"
+
+// other includes
+
+// convenience typedefs
+using namespace njoy::ENDFtk;
 
 std::string baseFile();
 std::string validFEND();
 std::string invalidFEND();
 
-using namespace njoy::ENDFtk;
-
 SCENARIO( "Creating a syntax tree of an ENDF File" ){
   GIVEN( "a string representation of a File" ){
     WHEN( "a valid FEND record ends the File" ){
-      std::string fileString = baseFile() + validFEND(); 
-      
+      std::string fileString = baseFile() + validFEND();
+
       auto begin = fileString.begin();
       auto start = fileString.begin();
       auto end = fileString.end();
       long lineNumber = 0;
-      
+
       HeadRecord head( begin, end, lineNumber);
 
       GIVEN( "the File pointer" ){
@@ -26,18 +29,18 @@ SCENARIO( "Creating a syntax tree of an ENDF File" ){
         auto lin = lineNumber;
         auto original =
           std::make_unique
-          < syntaxTree::File< std::string::iterator > >
+          < tree::File< std::string::iterator > >
           ( head, start, beg, end, lin );
-        
+
         THEN( "We can exstract the MT numbers" ){
           std::vector< int > refMTs{ 1, 2, 102 };
           CHECK( ranges::equal( refMTs, original->sectionNumbers() ) );
         } // THEN
 
         THEN( "the copy ctor will function correctly "){
-          auto copy = syntaxTree::File< std::string::iterator >{ *original };
+          auto copy = tree::File< std::string::iterator >{ *original };
           original.reset();
-          CHECK( 1 == copy.MT( 1 ).MT() );          
+          CHECK( 1 == copy.MT( 1 ).MT() );
 
         }
 
@@ -45,34 +48,34 @@ SCENARIO( "Creating a syntax tree of an ENDF File" ){
         lin = lineNumber;
         original =
           std::make_unique
-          < syntaxTree::File< std::string::iterator > >
+          < tree::File< std::string::iterator > >
           ( head, start, beg, end, lin );
 
         THEN( "the move ctor will function correctly "){
           auto copy =
-            syntaxTree::File< std::string::iterator >
+            tree::File< std::string::iterator >
             { std::move( *( original.release() ) ) };
-          
-          CHECK( 1 == copy.MT( 1 ).MT() );          
+
+          CHECK( 1 == copy.MT( 1 ).MT() );
         }
       }
-      
-      const syntaxTree::File< std::string::iterator >
+
+      const tree::File< std::string::iterator >
         fileTree( head, start, begin, end, lineNumber );
 
       const auto& cfileTree = fileTree;
-      
+
       THEN( "the entire stream is read" ){
         CHECK( 109 == lineNumber );
       }
-      
+
       AND_THEN( "the buffer iterators are populated correctly "){
         CHECK( fileString.begin() == fileTree.buffer().begin() );
         CHECK( fileString.end() == fileTree.buffer().end() );
         CHECK( fileString.begin() == cfileTree.buffer().begin() );
         CHECK( fileString.end() == cfileTree.buffer().end() );
       }
-      
+
       AND_THEN( "the file number or MF is populated correctly" ){
         CHECK( 3 == fileTree.MF() );
         CHECK( 3 == fileTree.fileNumber() );
@@ -84,7 +87,7 @@ SCENARIO( "Creating a syntax tree of an ENDF File" ){
         CHECK( 3 == fileTree.size() );
         CHECK( 3 == cfileTree.size() );
       }
-        
+
       AND_THEN( "we can access the section syntax trees of the file syntax tree" ){
         std::vector< int > sectionNumbers{ 1, 2, 102 };
         for ( auto sectionNo : sectionNumbers ){
@@ -108,7 +111,7 @@ SCENARIO( "Creating a syntax tree of an ENDF File" ){
           ++sectionIter;
         }
       }
-      
+
       AND_THEN( "an exception is thrown if the requested MTs are invalid."){
         CHECK( not fileTree.hasMT( 3 ) );
         CHECK_THROWS( fileTree.MT( 3 ) );
@@ -117,9 +120,9 @@ SCENARIO( "Creating a syntax tree of an ENDF File" ){
       }
     }
   }
-    
+
   WHEN( "an invalid (MF !=0) FEND record ends the File" ){
-    std::string fileString = baseFile() + invalidFEND(); 
+    std::string fileString = baseFile() + invalidFEND();
     THEN( "an exception is thrown" ){
       auto begin = fileString.begin();
       auto start = fileString.begin();
@@ -128,22 +131,22 @@ SCENARIO( "Creating a syntax tree of an ENDF File" ){
 
       HeadRecord head( begin, end, lineNumber );
       CHECK_THROWS
-        ( syntaxTree::File< std::string::iterator >
+        ( tree::File< std::string::iterator >
           ( head, start, begin, end, lineNumber ) );
     }
   }
-    
+
   WHEN( "a File is too short (no FEND record)" ){
-    std::string fileString = baseFile(); 
+    std::string fileString = baseFile();
     auto begin = fileString.begin();
     auto start = fileString.begin();
     auto end = fileString.end();
     long lineNumber = 0;
-      
+
     THEN( "an exception is thrown" ){
       HeadRecord head( begin, end, lineNumber );
       CHECK_THROWS
-        ( syntaxTree::File< std::string::iterator >
+        ( tree::File< std::string::iterator >
           ( head, start, begin, end, lineNumber ) );
     }
   }
@@ -154,18 +157,18 @@ SCENARIO( "Creating a syntax tree of an ENDF File" ){
     auto start = fileString.begin();
     auto end = fileString.end();
     long lineNumber = 0;
-    
+
     THEN( "an exception is thrown" ){
       HeadRecord head( begin, end, lineNumber );
       CHECK_THROWS
-        ( syntaxTree::File< std::string::iterator >
+        ( tree::File< std::string::iterator >
           ( head, start, begin, end, lineNumber ) );
     }
   }
-} 
+}
 
 std::string baseFile(){
-  return 
+  return
     " 1.001000+3 9.991673-1          0          0          0          0 125 3  1\n"
     " 0.000000+0 0.000000+0          0          0          2         96 125 3  1\n"
     "         30          5         96          2                       125 3  1\n"
@@ -281,5 +284,5 @@ std::string validFEND(){
 }
 
 std::string invalidFEND(){
-  return "                                                                   125 3  0\n";  
+  return "                                                                   125 3  0\n";
 }

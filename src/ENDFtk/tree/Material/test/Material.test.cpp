@@ -1,13 +1,16 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/tree/Material.hpp"
+
+// other includes
+
+// convenience typedefs
+using namespace njoy::ENDFtk;
 
 std::string baseMaterial();
 std::string validMEND();
 std::string invalidMEND();
-
-using namespace njoy::ENDFtk;
 
 SCENARIO( "Creating a material syntax tree of an ENDF File" ){
   GIVEN( "a string representation of a Material" ){
@@ -24,36 +27,36 @@ SCENARIO( "Creating a material syntax tree of an ENDF File" ){
         auto lin = lineNumber;
         auto original =
           std::make_unique
-          < syntaxTree::Material< std::string::iterator > >
+          < tree::Material< std::string::iterator > >
           ( head, start, beg, end, lin );
-        
+
         THEN( "the copy ctor will function correctly "){
-          auto copy = syntaxTree::Material< std::string::iterator >{ *original };
+          auto copy = tree::Material< std::string::iterator >{ *original };
           original.reset();
-          REQUIRE( 3 == copy.MF( 3 ).MF() );          
+          REQUIRE( 3 == copy.MF( 3 ).MF() );
         }
 
         beg = begin;
         lin = lineNumber;
         original =
           std::make_unique
-          < syntaxTree::Material< std::string::iterator > >
+          < tree::Material< std::string::iterator > >
           ( head, start, beg, end, lin );
 
         THEN( "the move ctor will function correctly "){
           auto copy =
-            syntaxTree::Material< std::string::iterator >
+            tree::Material< std::string::iterator >
             { std::move( *( original.release() ) ) };
-          
-          REQUIRE( 3 == copy.MF( 3 ).MF() );          
+
+          REQUIRE( 3 == copy.MF( 3 ).MF() );
         }
       }
-      
-      const syntaxTree::Material< std::string::iterator >
+
+      const tree::Material< std::string::iterator >
         materialTree( head, start, begin, end, lineNumber );
 
       const auto& cmaterialTree = materialTree;
-      
+
       THEN( "the entire stream is read" ){
         REQUIRE( 2208 == lineNumber );
       }
@@ -69,7 +72,7 @@ SCENARIO( "Creating a material syntax tree of an ENDF File" ){
         REQUIRE( 125 == materialTree.MAT() );
         REQUIRE( 125 == cmaterialTree.MAT() );
       }
-      
+
       AND_THEN( "the correct number of files are read from the material" ){
         REQUIRE( 6 == materialTree.size() );
         REQUIRE( 6 == cmaterialTree.size() );
@@ -88,7 +91,7 @@ SCENARIO( "Creating a material syntax tree of an ENDF File" ){
           REQUIRE( cmaterialTree.hasFileNumber( fileNo ) );
           REQUIRE( fileNo == cmaterialTree.fileNumber( fileNo ).MF() );
         }
-        
+
         auto fileNumberIterator = fileNumbers.begin();
 
         for( auto& file : materialTree ){
@@ -120,7 +123,7 @@ SCENARIO( "Creating a material syntax tree of an ENDF File" ){
 
         HeadRecord head( begin, end, lineNumber );
         REQUIRE_THROWS
-          ( syntaxTree::Material< std::string::iterator >
+          ( tree::Material< std::string::iterator >
             ( head, start, begin, end, lineNumber ) );
       }
     }
@@ -131,11 +134,11 @@ SCENARIO( "Creating a material syntax tree of an ENDF File" ){
       auto start = materialString.begin();
       auto end = materialString.end();
       long lineNumber = 0;
-      
+
       THEN( "an exception is thrown" ){
         HeadRecord head( begin, end, lineNumber );
         REQUIRE_THROWS
-          ( syntaxTree::Material< std::string::iterator >
+          ( tree::Material< std::string::iterator >
             ( head, start, begin, end, lineNumber ) );
       }
     }
@@ -147,11 +150,11 @@ SCENARIO( "Creating a material syntax tree of an ENDF File" ){
     auto start = begin;
     auto end = materialString.end();
     long lineNumber = 0;
-    
+
     THEN( "an exception is thrown" ){
       HeadRecord head( begin, end, lineNumber );
       REQUIRE_THROWS
-        ( syntaxTree::Material< std::string::iterator >
+        ( tree::Material< std::string::iterator >
           ( head, start, begin, end, lineNumber ) );
     }
   }

@@ -1,13 +1,16 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/tree/Section.hpp"
+
+// other includes
+
+// convenience typedefs
+using namespace njoy::ENDFtk;
 
 std::string baseSection();
 std::string validSEND();
 std::string invalidSEND();
-
-using namespace njoy::ENDFtk;
 
 SCENARIO( "Creating a syntax tree of an ENDF Section" ){
   GIVEN( "A string representation of a Section" ){
@@ -19,11 +22,11 @@ SCENARIO( "Creating a syntax tree of an ENDF Section" ){
       long lineNumber = 0;
 
       HeadRecord head( position, end, lineNumber );
-      syntaxTree::Section< std::string::iterator >
+      tree::Section< std::string::iterator >
         sectionTree( head, start, position, end, lineNumber );
 
       const auto& csectionTree = sectionTree;
-      
+
       THEN( "the entire stream is read" ){
         REQUIRE( 36 == lineNumber );
       }
@@ -68,11 +71,11 @@ SCENARIO( "Creating a syntax tree of an ENDF Section" ){
         long lineNumber = 0;
 
         HeadRecord head( begin, end, lineNumber );
-        REQUIRE_THROWS( syntaxTree::Section< std::string::iterator >( 
+        REQUIRE_THROWS( tree::Section< std::string::iterator >(
                 head, start, begin, end, lineNumber ) );
       }
     } // WHEN
-    
+
     WHEN( "a Section that is too short (no SEND record)" ){
       THEN( "an exception is thrown" ){
         std::string sectionString = baseSection();
@@ -81,7 +84,7 @@ SCENARIO( "Creating a syntax tree of an ENDF Section" ){
         auto end = sectionString.end();
         long lineNumber = 0;
         HeadRecord head( begin, end, lineNumber );
-        REQUIRE_THROWS( syntaxTree::Section< std::string::iterator >(
+        REQUIRE_THROWS( tree::Section< std::string::iterator >(
                 head, start, begin, end, lineNumber ) );
       }
     }
