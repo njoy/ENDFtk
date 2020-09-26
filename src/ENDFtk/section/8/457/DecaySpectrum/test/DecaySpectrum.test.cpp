@@ -1,11 +1,12 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/8.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
 
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using DiscreteSpectrum = section::Type< 8, 457 >::DiscreteSpectrum;
 using ContinuousSpectrum = section::Type< 8, 457 >::ContinuousSpectrum;
 using DecaySpectrum = section::Type< 8, 457 >::DecaySpectrum;
@@ -31,7 +32,7 @@ SCENARIO( "DecaySpectrum" ) {
       std::array< double, 2 > fc = {{ 0.5, 0.25 }};
       std::array< double, 2 > erav = {{ 2.107044e+2, 1.576284e+1 }};
 
-      std::vector< DiscreteSpectrum > discrete = 
+      std::vector< DiscreteSpectrum > discrete =
         { { 3., {{ 4.863000e+4, 5.000000e+1 }},
             {{ 1.420112e-6, 2.85306e-10 }}, 0.0,
             {{ 0.0, 0.0 }}, {{ 7.010000e+5, 1.106180e-2 }}, {{ 0.0, 0.0 }},
@@ -92,7 +93,7 @@ SCENARIO( "DecaySpectrum" ) {
       std::array< double, 2 > fd = {{ 1., 0. }};
       std::array< double, 2 > fc = {{ 0.5, 0.25 }};
       std::array< double, 2 > erav = {{ 2.107044e+2, 1.576284e+1 }};
-    
+
       ContinuousSpectrum continuous =
         { 4., { 3 }, { 1 }, { 0.0, 5e+5, 7.3e+6 },
           { 6.133200e-7, 6.133300e-7, 6.02040e-17 } };
@@ -149,7 +150,7 @@ SCENARIO( "DecaySpectrum" ) {
       std::array< double, 2 > fc = {{ 0.5, 0.25 }};
       std::array< double, 2 > erav = {{ 2.107044e+2, 1.576284e+1 }};
 
-      std::vector< DiscreteSpectrum > discrete = 
+      std::vector< DiscreteSpectrum > discrete =
         { { 3., {{ 4.863000e+4, 5.000000e+1 }},
             {{ 1.420112e-6, 2.85306e-10 }}, 0.0,
             {{ 0.0, 0.0 }}, {{ 7.010000e+5, 1.106180e-2 }}, {{ 0.0, 0.0 }},
@@ -158,7 +159,7 @@ SCENARIO( "DecaySpectrum" ) {
             {{ 1.335690e-3, 5.409179e-5 }}, 0.0,
             {{ 0.0, 0.0 }}, {{ 8.209999e-1, 0.000000e+0 }}, {{ 0.0, 0.0 }},
             {{ 6.160000e-1, 8.999999e-3 }} } };
-    
+
       ContinuousSpectrum continuous =
         { 4., { 3 }, { 1 }, { 0.0, 5e+5, 7.3e+6 },
           { 6.133200e-7, 6.133300e-7, 6.02040e-17 } };
@@ -188,7 +189,7 @@ SCENARIO( "DecaySpectrum" ) {
       long lineNumber = 1;
 
       DecaySpectrum chunk( begin, end, lineNumber, 3580, 8, 457 );
-      
+
       THEN( "a DecaySpectrum can be constructed and members can be tested" ) {
 
         verifyChunkWithLCONTwo( chunk );
@@ -215,7 +216,7 @@ SCENARIO( "DecaySpectrum" ) {
       std::array< double, 2 > erav = {{ 2.107044e+2, 1.576284e+1 }};
 
       std::vector< DiscreteSpectrum > discrete = {};
-    
+
       ContinuousSpectrum continuous =
         { 4., { 3 }, { 1 }, { 0.0, 5e+5, 7.3e+6 },
           { 6.133200e-7, 6.133300e-7, 6.02040e-17 } };
@@ -233,8 +234,8 @@ SCENARIO( "DecaySpectrum" ) {
       std::string string = chunkWithUnsupportedLCOV();
       auto begin = string.begin();
       auto end = string.end();
-      long lineNumber = 1; 
-      
+      long lineNumber = 1;
+
       THEN( "an exception is thrown" ) {
 
         REQUIRE_THROWS( DecaySpectrum( begin, end, lineNumber, 3580, 8, 457 ) );

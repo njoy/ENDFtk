@@ -1,3 +1,14 @@
+#include "ENDFtk/TapeIdentification.hpp"
+#include "ENDFtk/StructureDivision.hpp"
+#include "ENDFtk/HeadRecord.hpp"
+#include "ENDFtk/TextRecord.hpp"
+#include "ENDFtk/ControlRecord.hpp"
+#include "ENDFtk/DirectoryRecord.hpp"
+#include "ENDFtk/ListRecord.hpp"
+#include "ENDFtk/InterpolationRecord.hpp"
+#include "ENDFtk/TabulationRecord.hpp"
+#include "ENDFtk/InterpolationSequenceRecord.hpp"
+
 #ifndef ENDFTK_HPP
 #define ENDFTK_HPP
 
@@ -23,21 +34,6 @@
 #include "Log.hpp"
 #include "header-utilities.hpp"
 
-#include "ENDFtk/record.hpp"
-
-#include "ENDFtk/TapeIdentification.hpp"
-#include "ENDFtk/StructureDivision.hpp"
-#include "ENDFtk/HeadRecord.hpp"
-#include "ENDFtk/TextRecord.hpp"
-#include "ENDFtk/ControlRecord.hpp"
-#include "ENDFtk/DirectoryRecord.hpp"
-#include "ENDFtk/ListRecord.hpp"
-#include "ENDFtk/InterpolationRecord.hpp"
-#include "ENDFtk/TabulationRecord.hpp"
-
-#include "ENDFtk/section/BaseWithoutMT.hpp"
-#include "ENDFtk/section/Base.hpp"
-
 namespace njoy {
 namespace ENDFtk {
 
@@ -48,16 +44,27 @@ inline namespace literals {
 using namespace hana::literals;
 }
 
-#include "ENDFtk/InterpolationSequenceRecord.hpp"
-
 #include "ENDFtk/resonanceParameters.hpp"
 
-#include "ENDFtk/section.hpp"
+}
+}
 
+#include "ENDFtk/section/1.hpp"
+#include "ENDFtk/section/2.hpp"
+#include "ENDFtk/section/3.hpp"
+#include "ENDFtk/section/4.hpp"
+#include "ENDFtk/section/5.hpp"
+#include "ENDFtk/section/6.hpp"
+#include "ENDFtk/section/7.hpp"
+#include "ENDFtk/section/8.hpp"
+#include "ENDFtk/section/12.hpp"
+#include "ENDFtk/section/13.hpp"
+
+
+namespace njoy {
+namespace ENDFtk {
 #include "ENDFtk/file.hpp"
-
 #include "ENDFtk/syntaxTree.hpp"
-
 }
 }
 

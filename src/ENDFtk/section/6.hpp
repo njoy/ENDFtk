@@ -1,3 +1,23 @@
+#ifndef NJOY_ENDFTK_SECTION_6
+#define NJOY_ENDFTK_SECTION_6
+
+// system includes
+#include <complex>
+
+// other includes
+#include "boost/hana.hpp"
+#include "ENDFtk/ControlRecord.hpp"
+#include "ENDFtk/ListRecord.hpp"
+#include "ENDFtk/TabulationRecord.hpp"
+#include "ENDFtk/InterpolationSequenceRecord.hpp"
+#include "ENDFtk/section.hpp"
+
+namespace njoy {
+namespace ENDFtk {
+namespace section{
+
+namespace hana = boost::hana;
+
 template<>
 class Type< 6 > : protected Base {
 
@@ -72,3 +92,9 @@ public:
   using Base::atomicWeightRatio;
   using Base::AWR;
 };
+
+} // section namespace
+} // ENDFtk namespace
+} // njoy namespace
+
+#endif

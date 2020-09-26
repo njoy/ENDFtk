@@ -1,11 +1,12 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/7.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
 
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using EffectiveTemperature = 
 section::Type< 7, 4 >::EffectiveTemperature;
 
@@ -55,7 +56,7 @@ SCENARIO( "EffectiveTemperature" ) {
       long lineNumber = 1;
 
       EffectiveTemperature chunk( begin, end, lineNumber, 27, 7, 4 );
-      
+
       THEN( "a EffectiveTemperature can be constructed and members can be tested" ) {
 
         verifyChunk( chunk );
@@ -146,4 +147,3 @@ std::string invalidChunk() {
     "          3          2                                              27 7  4     \n"
     " 2.936000+2 5.332083+2 6.000000+2 7.354726+2 1.200000+3 1.270678+3  27 7  4     \n";
 }
-

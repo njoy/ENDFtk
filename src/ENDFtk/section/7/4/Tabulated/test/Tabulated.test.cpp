@@ -1,11 +1,12 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/7.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
 
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using Tabulated = section::Type< 7, 4 >::Tabulated;
 using ScatteringFunction = section::Type< 7, 4 >::Tabulated::ScatteringFunction;
 

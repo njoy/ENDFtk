@@ -1,11 +1,12 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/6.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
 
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using Tabulated = 
 section::Type< 6 >::ContinuumEnergyAngle::Tabulated;
 
@@ -18,7 +19,7 @@ SCENARIO( "Tabulated" ) {
   GIVEN( "valid data for a Tabulated" ) {
 
     std::vector< int > langs = { 11, 12, 13, 14, 15 };
-    
+
     WHEN( "the data is given explicitly" ) {
 
       THEN( "a Tabulated can "
@@ -54,7 +55,7 @@ SCENARIO( "Tabulated" ) {
 
           std::vector< double > energies = { 1., 7. };
           std::vector< double > totalEmissionProbabilities = { 2., 8. };
-          std::vector< std::vector< double > > cosines = { { 3., 5. }, 
+          std::vector< std::vector< double > > cosines = { { 3., 5. },
                                                            { 9., 11. } };
           std::vector< std::vector< double > > probabilities = { { 4., 6. },
                                                                  { 10., 12. } };
@@ -91,7 +92,7 @@ SCENARIO( "Tabulated" ) {
   GIVEN( "a valid instance of Tabulated" ) {
 
     int lang = 14;
-    
+
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
@@ -170,7 +171,7 @@ SCENARIO( "Tabulated" ) {
         REQUIRE_THROWS( Tabulated( lang, begin, end, lineNumber, 9228, 6, 5 ) );
       } // THEN
     } // WHEN
-   
+
     WHEN( "invalid LANG values are given" ) {
 
       std::vector< int > invalidLANGs = { -1, 0, 10, 16, 20 };
@@ -187,7 +188,7 @@ SCENARIO( "Tabulated" ) {
                                       7.,  8.,  9., 10., 11., 12. };
           std::vector< double > energies = { 1., 7. };
           std::vector< double > totalEmissionProbabilities = { 2., 8. };
-          std::vector< std::vector< double > > cosines = { { 3., 5. }, 
+          std::vector< std::vector< double > > cosines = { { 3., 5. },
                                                            { 9., 11. } };
           std::vector< std::vector< double > > probabilities = { { 4., 6. },
                                                                  { 10., 12. } };

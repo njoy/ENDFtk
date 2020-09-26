@@ -1,16 +1,17 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/6.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
 
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using LaboratoryAngleEnergy = 
 section::Type< 6 >::LaboratoryAngleEnergy;
-using AngularDistribution = 
+using AngularDistribution =
 section::Type< 6 >::LaboratoryAngleEnergy::AngularDistribution;
-using EnergyDistribution = 
+using EnergyDistribution =
 section::Type< 6 >::LaboratoryAngleEnergy::EnergyDistribution;
 
 std::string chunk();
@@ -26,7 +27,7 @@ SCENARIO( "LaboratoryAngleEnergy" ) {
       std::vector< long > boundaries = { 2 };
       std::vector< long > interpolants = { 1 };
       std::vector< AngularDistribution > energies =
-        { AngularDistribution( 
+        { AngularDistribution(
             1e-5, { 2 }, { 4 },
             { EnergyDistribution( 1.0, { 4 }, { 2 },
                                                 { 1e-5, 1.1e+7, 1.147e+7,
@@ -35,7 +36,7 @@ SCENARIO( "LaboratoryAngleEnergy" ) {
               EnergyDistribution( -1.0, { 3 }, { 2 },
                                                 { 1e-5, 1e+6, 3e+7 },
                                                 { 6., 4., 2. } ) } ),
-          AngularDistribution( 
+          AngularDistribution(
             2e+7, { 2 }, { 4 },
             { EnergyDistribution( 0.9, { 4 }, { 2 },
                                                 { 1e-5, 1.1e+7, 1.147e+7,
@@ -60,8 +61,8 @@ SCENARIO( "LaboratoryAngleEnergy" ) {
       std::string string = chunk();
       auto begin = string.begin();
       auto end = string.end();
-      long lineNumber = 1; 
-      
+      long lineNumber = 1;
+
       THEN( "a LaboratoryAngleEnergy can be constructed and members can be "
             "tested" ) {
 
@@ -76,7 +77,7 @@ SCENARIO( "LaboratoryAngleEnergy" ) {
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
+    long lineNumber = 1;
     LaboratoryAngleEnergy chunk(begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
@@ -98,7 +99,7 @@ SCENARIO( "LaboratoryAngleEnergy" ) {
         std::vector< long > wrongBoundaries = { 2, 4 };
         std::vector< long > interpolants = { 1 };
         std::vector< AngularDistribution > energies =
-          { AngularDistribution( 
+          { AngularDistribution(
               1e-5, { 2 }, { 4 },
               { EnergyDistribution( 1.0, { 4 }, { 2 },
                                     { 1e-5, 1.1e+7, 1.147e+7, 3e+7 },
@@ -106,7 +107,7 @@ SCENARIO( "LaboratoryAngleEnergy" ) {
                 EnergyDistribution( -1.0, { 3 }, { 2 },
                                     { 1e-5, 1e+6, 3e+7 },
                                     { 6., 4., 2. } ) } ),
-            AngularDistribution( 
+            AngularDistribution(
               2e+7, { 2 }, { 4 },
               { EnergyDistribution( 0.9, { 4 }, { 2 },
                                     { 1e-5, 1.1e+7, 1.147e+7, 3e+7 },
@@ -126,7 +127,7 @@ SCENARIO( "LaboratoryAngleEnergy" ) {
         std::vector< long > boundaries = { 2 };
         std::vector< long > wrongInterpolants = { 1, 2 };
         std::vector< AngularDistribution > energies =
-          { AngularDistribution( 
+          { AngularDistribution(
               1e-5, { 2 }, { 4 },
               { EnergyDistribution( 1.0, { 4 }, { 2 },
                                     { 1e-5, 1.1e+7, 1.147e+7, 3e+7 },
@@ -134,7 +135,7 @@ SCENARIO( "LaboratoryAngleEnergy" ) {
                 EnergyDistribution( -1.0, { 3 }, { 2 },
                                     { 1e-5, 1e+6, 3e+7 },
                                     { 6., 4., 2. } ) } ),
-            AngularDistribution( 
+            AngularDistribution(
               2e+7, { 2 }, { 4 },
               { EnergyDistribution( 0.9, { 4 }, { 2 },
                                     { 1e-5, 1.1e+7, 1.147e+7, 3e+7 },
@@ -154,7 +155,7 @@ SCENARIO( "LaboratoryAngleEnergy" ) {
         std::vector< long > boundaries = { 2 };
         std::vector< long > interpolants = { 1 };
         std::vector< AngularDistribution > wrongEnergies =
-          { AngularDistribution( 
+          { AngularDistribution(
               1e-5, { 2 }, { 4 },
               { EnergyDistribution( 1.0, { 4 }, { 2 },
                                     { 1e-5, 1.1e+7, 1.147e+7, 3e+7 },
@@ -340,4 +341,3 @@ std::string invalidChunk() {
     "          3          2                                            9228 6  5     \n"
     " 1.000000-5 5.000000+0 1.000000+6 3.000000+0 3.000000+7 1.000000+09228 6  5     \n";
 }
-

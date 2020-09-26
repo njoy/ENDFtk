@@ -1,11 +1,12 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/6.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
 
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using Multiplicity = 
 section::Type< 6 >::Multiplicity;
 
@@ -28,7 +29,7 @@ SCENARIO( "Multiplicity" ) {
       std::vector< double > energies = { 1e-5, 1.1e+7, 1.147e+7, 3e+7 };
       std::vector< double > multiplicities = { 0., 8.45368e-11,
                                                6.622950e-8, 2.149790e-1 };
-      
+
       THEN( "a Multiplicity can be constructed and members can be tested" ) {
 
         Multiplicity chunk( zap, awp, lip, law,
@@ -45,8 +46,8 @@ SCENARIO( "Multiplicity" ) {
       std::string string = chunk();
       auto begin = string.begin();
       auto end = string.end();
-      long lineNumber = 1; 
-      
+      long lineNumber = 1;
+
       THEN( "a Multiplicity can be constructed and members can be tested" ) {
 
         Multiplicity chunk( begin, end, lineNumber, 9228, 6, 5 );
@@ -60,7 +61,7 @@ SCENARIO( "Multiplicity" ) {
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
+    long lineNumber = 1;
     Multiplicity chunk(begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
@@ -160,4 +161,3 @@ std::string invalidChunk() {
     " 1.000000-5 0.000000+0 1.100000+7 8.45368-11 1.147000+7 6.622950-89228 6  5     \n"
     " 3.000000+7 2.149790-1                                            9228 6  5     \n";
 }
-

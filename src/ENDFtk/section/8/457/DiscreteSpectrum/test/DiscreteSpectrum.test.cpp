@@ -1,11 +1,12 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/8.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
 
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using DiscreteSpectrum = section::Type< 8, 457 >::DiscreteSpectrum;
 
 std::string chunkWithSTYPNotZeroOrTwo();
@@ -29,7 +30,7 @@ SCENARIO( "DiscreteSpectrum" ) {
       double type = 0.;
       std::array< double, 2 > relativeIntensity = {{ 1.420112e-6,
                                                      2.85306e-10 }};
-      
+
       DiscreteSpectrum chunk( decayChain, discreteEnergy,
                               relativeIntensity, type );
 
@@ -56,7 +57,7 @@ SCENARIO( "DiscreteSpectrum" ) {
       long lineNumber = 1;
 
       DiscreteSpectrum chunk( begin, end, lineNumber, 3580, 8, 457 );
-      
+
       THEN( "a DiscreteSpectrum can be constructed and members can be tested" ) {
 
         verifyChunkWithSTYPNotZeroOrTwo( chunk );
@@ -111,7 +112,7 @@ SCENARIO( "DiscreteSpectrum" ) {
       long lineNumber = 1;
 
       DiscreteSpectrum chunk( begin, end, lineNumber, 3580, 8, 457 );
-      
+
       THEN( "a DiscreteSpectrum can be constructed and members can be tested" ) {
 
         verifyChunkWithSTYPTwo( chunk );
@@ -194,8 +195,8 @@ SCENARIO( "DiscreteSpectrum" ) {
       std::string string = chunkWithWrongNT();
       auto begin = string.begin();
       auto end = string.end();
-      long lineNumber = 1; 
-      
+      long lineNumber = 1;
+
       THEN( "an exception is thrown" ) {
 
         REQUIRE_THROWS( DiscreteSpectrum( begin, end, lineNumber, 3580, 8, 457 ) );

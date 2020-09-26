@@ -1,11 +1,12 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/6.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
 
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using KalbachMann = 
 section::Type< 6 >::ContinuumEnergyAngle::KalbachMann;
 
@@ -27,7 +28,7 @@ SCENARIO( "KalbachMann" ) {
       int na = 1;
       int nep = 2;
       std::vector< double > list = { 1., 2., 3., 4., 5., 6. };
-      std::vector< std::array< double, 3 > > data = { 
+      std::vector< std::array< double, 3 > > data = {
           {{ 1., 2., 3. }},
           {{ 4., 5., 6. }} };
 
@@ -70,7 +71,7 @@ SCENARIO( "KalbachMann" ) {
       int na = 2;
       int nep = 2;
       std::vector< double > list = { 1., 2., 3., 4., 5., 6., 7., 8. };
-      std::vector< std::array< double, 4 > > data = { 
+      std::vector< std::array< double, 4 > > data = {
           {{ 1., 2., 3., 4. }},
           {{ 5., 6., 7., 8. }} };
 
@@ -162,9 +163,9 @@ SCENARIO( "KalbachMann" ) {
       int na = 1;
       int nep = 2;
       std::vector< double > wronglist = { 1., 2., 3., 4., 5. };
-      std::vector< std::array< double, 3 > > datana1 = { 
+      std::vector< std::array< double, 3 > > datana1 = {
           {{ 1., 2., 3. }} };
-      std::vector< std::array< double, 4 > > datana2 = { 
+      std::vector< std::array< double, 4 > > datana2 = {
           {{ 1., 2., 3., 4. }} };
 
       THEN( "an exception is thrown" ) {

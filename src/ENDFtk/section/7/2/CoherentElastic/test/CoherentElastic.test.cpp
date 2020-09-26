@@ -1,11 +1,12 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/7.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
 
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using CoherentElastic = section::Type< 7, 2 >::CoherentElastic;
 
 std::string chunkWithOneTemperature();
@@ -39,15 +40,15 @@ SCENARIO( "CoherentElastic" ) {
       std::vector< double > Temperatures = { 293.6 };
       std::vector< std::vector< double > > S =
                                      { { 0.0, 9.364524e-3, 1.548925e-2 } };
-          
+
       CoherentElastic chunk( temperature,
                              std::move( boundaries ),
-                             std::move( interpolants ), 
+                             std::move( interpolants ),
                              std::move( energies ),
                              std::move( s ) );
-          
+
       CoherentElastic chunk2( std::move( Boundaries ),
-                              std::move( Interpolants ), 
+                              std::move( Interpolants ),
                               std::move( Temperatures ),
                               std::move( Li ),
                               std::move( Energies ),
@@ -125,7 +126,7 @@ SCENARIO( "CoherentElastic" ) {
                                                    1.640584e-2 } };
 
       CoherentElastic chunk( std::move( boundaries ),
-                             std::move( interpolants ), 
+                             std::move( interpolants ),
                              std::move( temperatures ),
                              std::move( li ),
                              std::move( energies ),
@@ -189,7 +190,7 @@ SCENARIO( "CoherentElastic" ) {
       THEN( "an exception is thrown" ) {
 
         REQUIRE_THROWS( CoherentElastic( std::move( boundaries ),
-                                         std::move( interpolants ), 
+                                         std::move( interpolants ),
                                          std::move( temperatures ),
                                          std::move( li ),
                                          std::move( energies ),
@@ -212,7 +213,7 @@ SCENARIO( "CoherentElastic" ) {
       THEN( "an exception is thrown" ) {
 
         REQUIRE_THROWS( CoherentElastic( std::move( boundaries ),
-                                         std::move( interpolants ), 
+                                         std::move( interpolants ),
                                          std::move( temperatures ),
                                          std::move( li ),
                                          std::move( energies ),
@@ -247,7 +248,7 @@ SCENARIO( "CoherentElastic" ) {
 
         REQUIRE_THROWS( CoherentElastic( temperature,
                                          std::move( boundaries ),
-                                         std::move( wrongInterpolants ), 
+                                         std::move( wrongInterpolants ),
                                          std::move( energies ),
                                          std::move( s )  ) );
       } // THEN

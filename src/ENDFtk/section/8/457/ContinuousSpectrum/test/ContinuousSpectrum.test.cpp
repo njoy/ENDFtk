@@ -1,11 +1,12 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/8.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
 
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using ContinuousSpectrum = section::Type< 8, 457 >::ContinuousSpectrum;
 
 std::string chunk();
@@ -53,7 +54,7 @@ SCENARIO( "ContinuousSpectrum" ) {
 
       auto begin = string.begin();
       auto end = string.end();
-      long lineNumber = 1; 
+      long lineNumber = 1;
 
       ContinuousSpectrum chunk( begin, end, lineNumber, 3580, 8, 457 );
 

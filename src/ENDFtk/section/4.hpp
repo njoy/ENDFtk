@@ -1,3 +1,21 @@
+#ifndef NJOY_ENDFTK_SECTION_4
+#define NJOY_ENDFTK_SECTION_4
+
+// system includes
+#include <variant>
+#include <vector>
+
+// other includes
+#include "ENDFtk/ControlRecord.hpp"
+#include "ENDFtk/ListRecord.hpp"
+#include "ENDFtk/TabulationRecord.hpp"
+#include "ENDFtk/InterpolationSequenceRecord.hpp"
+#include "ENDFtk/section.hpp"
+
+namespace njoy {
+namespace ENDFtk {
+namespace section{
+
 template<>
 class Type< 4 > : protected Base {
 
@@ -91,3 +109,9 @@ public:
   using Base::atomicWeightRatio;
   using Base::AWR;
 };
+
+} // section namespace
+} // ENDFtk namespace
+} // njoy namespace
+
+#endif

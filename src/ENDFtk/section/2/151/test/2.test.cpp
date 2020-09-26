@@ -1,11 +1,13 @@
 #define CATCH_CONFIG_MAIN
 
-#include <unordered_map>
-
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/2.hpp"
 
+// other includes
+
+// convenience typedefs
 using namespace njoy::ENDFtk;
+using section2151 = section::Type< 2, 151 >;
 
 std::string chunkSpecialCase();
 void verifyChunkSpecialCase( const section::Type< 2, 151 >& );
@@ -13,9 +15,6 @@ const std::string& sLRU1( int LRF );
 const std::string& sLRU2( int LRF );
 std::string validSEND();
 std::string invalidSEND();
-
-// macros don't like multiple template arguments
-using section2151 = section::Type< 2, 151 >;
 
 SCENARIO( "section::Type< 2, 151 >" ) {
 

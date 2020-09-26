@@ -1,11 +1,12 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/8.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
 
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using AverageDecayEnergies = section::Type< 8, 457 >::AverageDecayEnergies;
 using DiscreteSpectrum = section::Type< 8, 457 >::DiscreteSpectrum;
 using ContinuousSpectrum = section::Type< 8, 457 >::ContinuousSpectrum;
@@ -32,7 +33,7 @@ SCENARIO( "section::Type< 8, 457 >" ) {
   GIVEN( "valid data for a section::Type< 8, 457 > for a radioactive nuclide "
          "with spectra" ) {
 
-    std::string sectionString = chunkForRadioactiveNuclideWithSpectra() + 
+    std::string sectionString = chunkForRadioactiveNuclideWithSpectra() +
                                 validSEND();
 
     WHEN( "the data is given explicitly" ) {
@@ -44,7 +45,7 @@ SCENARIO( "section::Type< 8, 457 >" ) {
       double spin = 5.;
       double parity = -1.;
 
-      AverageDecayEnergies energies( {{ 4.449622e+9, 6.311520e+7 }}, 
+      AverageDecayEnergies energies( {{ 4.449622e+9, 6.311520e+7 }},
                                      { {{ 4.008322e+4, 4.128931e+3 }},
                                        {{ 5.373671e+3, 3.660206e+2 }},
                                        {{ 2.441003e+4, 6.191754e+2 }} } );
@@ -93,11 +94,11 @@ SCENARIO( "section::Type< 8, 457 >" ) {
 
       auto begin = sectionString.begin();
       auto end = sectionString.end();
-      long lineNumber = 1; 
+      long lineNumber = 1;
       HeadRecord head( begin, end, lineNumber );
 
       section::Type< 8, 457 > chunk( head, begin, end, lineNumber, 3580 );
-      
+
       THEN( "a section::Type< 8, 457 > can be constructed and members can be "
             "tested" ) {
 
@@ -114,39 +115,39 @@ SCENARIO( "section::Type< 8, 457 >" ) {
       } // THEN
     } //WHEN
 
-    WHEN( "there is a syntaxTree::Section" ) {
-
-      auto begin = sectionString.begin();
-      auto position = begin;
-      auto end = sectionString.end();
-      long lineNumber = 1;
-      auto head = HEAD( position, end, lineNumber );
-      syntaxTree::Section< std::string::iterator >
-        section( head, begin, position, end, lineNumber );
-
-      section::Type< 8, 457 > chunk = section.parse< 8, 457 >( lineNumber );
-      
-      THEN( "a section::Type< 8, 457 > can be constructed and members can be "
-            "tested" ) {
-
-        verifyChunkForRadioactiveNuclideWithSpectra( chunk );
-      } // THEN
-
-      THEN( "it can be printed" ) {
-
-        std::string buffer;
-        auto output = std::back_inserter( buffer );
-        chunk.print( output, 3580, 8 );
-
-        REQUIRE( buffer == sectionString );
-      } // THEN
-    } // WHEN
+//    WHEN( "there is a syntaxTree::Section" ) {
+//
+//      auto begin = sectionString.begin();
+//      auto position = begin;
+//      auto end = sectionString.end();
+//      long lineNumber = 1;
+//      auto head = HEAD( position, end, lineNumber );
+//      syntaxTree::Section< std::string::iterator >
+//        section( head, begin, position, end, lineNumber );
+//
+//      section::Type< 8, 457 > chunk = section.parse< 8, 457 >( lineNumber );
+//
+//      THEN( "a section::Type< 8, 457 > can be constructed and members can be "
+//            "tested" ) {
+//
+//        verifyChunkForRadioactiveNuclideWithSpectra( chunk );
+//      } // THEN
+//
+//      THEN( "it can be printed" ) {
+//
+//        std::string buffer;
+//        auto output = std::back_inserter( buffer );
+//        chunk.print( output, 3580, 8 );
+//
+//        REQUIRE( buffer == sectionString );
+//      } // THEN
+//    } // WHEN
   } // GIVEN
 
   GIVEN( "valid data for a section::Type< 8, 457 > for a radioactive nuclide "
          "without spectra" ) {
 
-    std::string sectionString = chunkForRadioactiveNuclideWithoutSpectra() + 
+    std::string sectionString = chunkForRadioactiveNuclideWithoutSpectra() +
                                 validSEND();
 
     WHEN( "the data is given explicitly" ) {
@@ -158,11 +159,11 @@ SCENARIO( "section::Type< 8, 457 >" ) {
       double spin = 5.;
       double parity = -1.;
 
-      AverageDecayEnergies energies( {{ 4.449622e+9, 6.311520e+7 }}, 
+      AverageDecayEnergies energies( {{ 4.449622e+9, 6.311520e+7 }},
                                      { {{ 4.008322e+4, 4.128931e+3 }},
                                        {{ 5.373671e+3, 3.660206e+2 }},
                                        {{ 2.441003e+4, 6.191754e+2 }} } );
-  
+
       DecayModes modes( 5., -1.,
            { { 4., 0., 5.637120e+6, 2.549510e+2, 4.590000e-3, 1.200000e-4 },
              { 3., 0., 4.860000e+4, 5.000000e+1, 9.954100e-1, 1.200000e-4 },
@@ -171,7 +172,7 @@ SCENARIO( "section::Type< 8, 457 >" ) {
       section::Type< 8, 457 > chunk( zaid, awr, lis, liso,
                                      std::move( energies ),
                                      std::move( modes ), {} );
-  
+
       THEN( "a section::Type< 8, 457 > can be constructed and members can be "
             "tested for a radioactive nuclide without spectra" ) {
 
@@ -192,11 +193,11 @@ SCENARIO( "section::Type< 8, 457 >" ) {
 
       auto begin = sectionString.begin();
       auto end = sectionString.end();
-      long lineNumber = 1; 
+      long lineNumber = 1;
       HeadRecord head( begin, end, lineNumber );
 
       section::Type< 8, 457 > chunk( head, begin, end, lineNumber, 3580 );
-      
+
       THEN( "a section::Type< 8, 457 > can be constructed and members can be "
             "tested" ) {
 
@@ -213,33 +214,33 @@ SCENARIO( "section::Type< 8, 457 >" ) {
       } // THEN
     } //WHEN
 
-    WHEN( "there is a syntaxTree::Section" ) {
-
-      auto begin = sectionString.begin();
-      auto position = begin;
-      auto end = sectionString.end();
-      long lineNumber = 1;
-      auto head = HEAD( position, end, lineNumber );
-      syntaxTree::Section< std::string::iterator >
-        section( head, begin, position, end, lineNumber );
-
-      section::Type< 8, 457 > chunk = section.parse< 8, 457 >( lineNumber );
-      
-      THEN( "a section::Type< 8, 457 > can be constructed and members can be "
-            "tested" ) {
-
-        verifyChunkForRadioactiveNuclideWithoutSpectra( chunk );
-      } // THEN
-
-      THEN( "it can be printed" ) {
-
-        std::string buffer;
-        auto output = std::back_inserter( buffer );
-        chunk.print( output, 3580, 8 );
-
-        REQUIRE( buffer == sectionString );
-      } // THEN
-    } // WHEN
+//    WHEN( "there is a syntaxTree::Section" ) {
+//
+//      auto begin = sectionString.begin();
+//      auto position = begin;
+//      auto end = sectionString.end();
+//      long lineNumber = 1;
+//      auto head = HEAD( position, end, lineNumber );
+//      syntaxTree::Section< std::string::iterator >
+//        section( head, begin, position, end, lineNumber );
+//
+//      section::Type< 8, 457 > chunk = section.parse< 8, 457 >( lineNumber );
+//
+//      THEN( "a section::Type< 8, 457 > can be constructed and members can be "
+//            "tested" ) {
+//
+//        verifyChunkForRadioactiveNuclideWithoutSpectra( chunk );
+//      } // THEN
+//
+//      THEN( "it can be printed" ) {
+//
+//        std::string buffer;
+//        auto output = std::back_inserter( buffer );
+//        chunk.print( output, 3580, 8 );
+//
+//        REQUIRE( buffer == sectionString );
+//      } // THEN
+//    } // WHEN
   } // GIVEN
 
   GIVEN( "valid data for a section::Type< 8, 457 > for a stable nuclide" ) {
@@ -277,9 +278,9 @@ SCENARIO( "section::Type< 8, 457 >" ) {
 
       auto begin = sectionString.begin();
       auto end = sectionString.end();
-      long lineNumber = 1; 
+      long lineNumber = 1;
       HeadRecord head( begin, end, lineNumber );
-      
+
       section::Type< 8, 457 > chunk( head, begin, end, lineNumber, 3580 );
 
       THEN( "a section::Type< 8, 457 > can be constructed and members can be "
@@ -298,34 +299,34 @@ SCENARIO( "section::Type< 8, 457 >" ) {
       } // THEN
     } //WHEN
 
-    WHEN( "there is a syntaxTree::Section" ) {
-
-      std::string sectionString = chunkForStableNuclide() + validSEND();
-      auto begin = sectionString.begin();
-      auto position = begin;
-      auto end = sectionString.end();
-      long lineNumber = 1;
-      auto head = HEAD( position, end, lineNumber );
-      syntaxTree::Section< std::string::iterator >
-        section( head, begin, position, end, lineNumber );
-
-      section::Type< 8, 457 > chunk = section.parse< 8, 457 >( lineNumber );
-      
-      THEN( "a section::Type< 8, 457 > can be constructed and members can be "
-            "tested" ) {
-
-        verifyChunkForStableNuclide( chunk );
-      } // THEN
-
-      THEN( "it can be printed" ) {
-
-        std::string buffer;
-        auto output = std::back_inserter( buffer );
-        chunk.print( output, 3580, 8 );
-
-        REQUIRE( buffer == sectionString );
-      } // THEN
-    } // WHEN
+//    WHEN( "there is a syntaxTree::Section" ) {
+//
+//      std::string sectionString = chunkForStableNuclide() + validSEND();
+//      auto begin = sectionString.begin();
+//      auto position = begin;
+//      auto end = sectionString.end();
+//      long lineNumber = 1;
+//      auto head = HEAD( position, end, lineNumber );
+//      syntaxTree::Section< std::string::iterator >
+//        section( head, begin, position, end, lineNumber );
+//
+//      section::Type< 8, 457 > chunk = section.parse< 8, 457 >( lineNumber );
+//
+//      THEN( "a section::Type< 8, 457 > can be constructed and members can be "
+//            "tested" ) {
+//
+//        verifyChunkForStableNuclide( chunk );
+//      } // THEN
+//
+//      THEN( "it can be printed" ) {
+//
+//        std::string buffer;
+//        auto output = std::back_inserter( buffer );
+//        chunk.print( output, 3580, 8 );
+//
+//        REQUIRE( buffer == sectionString );
+//      } // THEN
+//    } // WHEN
   } // GIVEN
 
   GIVEN( "invalid data for a section::Type< 8, 457 >" ) {
@@ -339,7 +340,7 @@ SCENARIO( "section::Type< 8, 457 >" ) {
       auto end = sectionString.end();
       long lineNumber = 1;
       HeadRecord head( begin, end, lineNumber );
-      
+
       THEN( "an exception is thrown" ) {
 
         REQUIRE_THROWS( section8457( head, begin, end, lineNumber, 3580 ) );
@@ -355,7 +356,7 @@ SCENARIO( "section::Type< 8, 457 >" ) {
       auto end = sectionString.end();
       long lineNumber = 1;
       HeadRecord head( begin, end, lineNumber );
-      
+
       THEN( "an exception is thrown" ) {
 
         REQUIRE_THROWS( section8457( head, begin, end, lineNumber, 3580 ) );
@@ -370,7 +371,7 @@ SCENARIO( "section::Type< 8, 457 >" ) {
       auto end = sectionString.end();
       long lineNumber = 1;
       HeadRecord head( begin, end, lineNumber );
-      
+
       THEN( "an exception is thrown" ) {
 
         REQUIRE_THROWS( section8457( head, begin, end, lineNumber, 3580 ) );
@@ -808,7 +809,7 @@ void verifyChunkForStableNuclide( const section::Type< 8,457 >& chunk ) {
   REQUIRE( 5.0 == Approx( decayModes.spin() ) );
   REQUIRE( -1. == Approx( decayModes.PAR() ) );
   REQUIRE( -1. == Approx( decayModes.parity() ) );
-      
+
   auto data = decayModes.decayModes();
   REQUIRE( 0 == decayModes.NDK() );
   REQUIRE( 0 == decayModes.numberDecayModes() );

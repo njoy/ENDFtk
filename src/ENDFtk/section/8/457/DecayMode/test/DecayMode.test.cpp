@@ -1,11 +1,12 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/8.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
 
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using DecayMode = section::Type< 8, 457 >::DecayMode;
 
 SCENARIO( "DecayMode" ) {
@@ -18,7 +19,7 @@ SCENARIO( "DecayMode" ) {
     double dq = 2.549510e+2;
     double br = 4.590000e-3;
     double dbr = 1.200000e-4;
-    
+
     THEN( "a DecayMode can be constructed and members can be tested" ) {
 
       DecayMode chunk( rtyp, rfs, q, dq, br, dbr );

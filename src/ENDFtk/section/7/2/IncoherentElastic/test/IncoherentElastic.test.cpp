@@ -1,11 +1,12 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/7.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
 
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using IncoherentElastic = section::Type< 7, 2 >::IncoherentElastic;
 
 std::string chunk();
@@ -56,7 +57,7 @@ SCENARIO( "IncoherentElastic" ) {
       long lineNumber = 1;
 
       IncoherentElastic chunk( begin, end, lineNumber, 27, 7, 2 );
-      
+
       THEN( "a IncoherentElastic can be constructed and members can be tested" ) {
 
         verifyChunk( chunk );
@@ -151,4 +152,3 @@ std::string invalidChunk() {
     "          3          2                                              27 7  2     \n"
     " 2.960000+2 8.486993+0 4.000000+2 9.093191+0 5.000000+2 9.828159+0  27 7  2     \n";
 }
-

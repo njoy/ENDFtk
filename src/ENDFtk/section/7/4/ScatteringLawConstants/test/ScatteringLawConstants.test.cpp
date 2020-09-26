@@ -1,11 +1,12 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/7.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
 
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using ScatteringLawConstants = 
 section::Type< 7, 4 >::ScatteringLawConstants;
 
@@ -465,7 +466,7 @@ SCENARIO( "ScatteringLawConstants" ) {
     WHEN( "invalid LLN values are given" ) {
 
       std::vector< int > invalid = { -1, 2, 5, 10 };
-      
+
       THEN( "an exception is thrown" ){
 
         for ( auto lln : invalid ) {

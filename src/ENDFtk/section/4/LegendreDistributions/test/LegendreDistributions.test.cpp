@@ -1,11 +1,12 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/4.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
 
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using LegendreDistributions = section::Type< 4 >::LegendreDistributions;
 using LegendreCoefficients = section::Type< 4 >::LegendreCoefficients;
 
@@ -54,7 +55,7 @@ SCENARIO( "LegendreDistributions" ) {
       long lineNumber = 1;
 
       LegendreDistributions chunk( begin, end, lineNumber, 9228, 4, 2 );
-      
+
       THEN( "a LegendreDistributions can be constructed and members can be "
             "tested" ) {
 
