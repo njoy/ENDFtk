@@ -5,6 +5,12 @@
 #include <variant>
 
 // other includes
+#include "range/v3/algorithm/find.hpp"
+#include "range/v3/view/all.hpp"
+#include "range/v3/view/chunk.hpp"
+#include "range/v3/view/drop_exactly.hpp"
+#include "range/v3/view/repeat_n.hpp"
+#include "range/v3/view/stride.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/TabulationRecord.hpp"
@@ -66,6 +72,10 @@ namespace section{
 
   public:
 
+    /* type aliases */
+    using IsotopeRange =
+    decltype( ranges::view::all( std::declval< const std::vector< Isotope > >() ) );
+
     /* constructor */
     #include "ENDFtk/section/2/151/src/ctor.hpp"
 
@@ -87,7 +97,10 @@ namespace section{
     /**
      *  @brief Return the isotopes defined in the section
      */
-    auto isotopes() const { return ranges::view::all( this->isotopes_ ); }
+    IsotopeRange isotopes() const {
+
+      return ranges::view::all( this->isotopes_ );
+    }
 
     using BaseWithoutMT::MT;
     using BaseWithoutMT::ZA;

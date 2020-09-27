@@ -4,6 +4,13 @@
 // system includes
 
 // other includes
+#include "range/v3/distance.hpp"
+#include "range/v3/view/all.hpp"
+#include "range/v3/view/concat.hpp"
+#include "range/v3/view/join.hpp"
+#include "range/v3/view/single.hpp"
+#include "range/v3/view/split.hpp"
+#include "range/v3/view/transform.hpp"
 #include "ENDFtk/TextRecord.hpp"
 #include "ENDFtk/HeadRecord.hpp"
 #include "ENDFtk/ControlRecord.hpp"
@@ -35,6 +42,10 @@ namespace section{
     #include "ENDFtk/section/1/451/src/readParameters.hpp"
 
   public:
+
+    /* type aliases */
+    using DirectoryRange =
+    decltype( ranges::view::all( std::declval< const std::vector< DirectoryRecord > >() ) );
 
     /* constructor */
     #include "ENDFtk/section/1/451/src/ctor.hpp"
@@ -80,7 +91,7 @@ namespace section{
     int NWD() const { return static_cast< int >( this->description_.size() ); }
     int NXC() const { return static_cast< int >( this->index_.size() ); }
 
-    auto index() const { return ranges::view::all( this->index_ ); }
+    DirectoryRange index() const { return ranges::view::all( this->index_ ); }
 
     long NC() const { return 4 + this->NWD() + this->NXC(); }
 
