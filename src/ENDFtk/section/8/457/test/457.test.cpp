@@ -4,6 +4,7 @@
 #include "ENDFtk/section/8.hpp"
 
 // other includes
+#include "ENDFtk/tree/Tape.hpp"
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
@@ -115,33 +116,33 @@ SCENARIO( "section::Type< 8, 457 >" ) {
       } // THEN
     } //WHEN
 
-//    WHEN( "there is a syntaxTree::Section" ) {
-//
-//      auto begin = sectionString.begin();
-//      auto position = begin;
-//      auto end = sectionString.end();
-//      long lineNumber = 1;
-//      auto head = HEAD( position, end, lineNumber );
-//      syntaxTree::Section< std::string::iterator >
-//        section( head, begin, position, end, lineNumber );
-//
-//      section::Type< 8, 457 > chunk = section.parse< 8, 457 >( lineNumber );
-//
-//      THEN( "a section::Type< 8, 457 > can be constructed and members can be "
-//            "tested" ) {
-//
-//        verifyChunkForRadioactiveNuclideWithSpectra( chunk );
-//      } // THEN
-//
-//      THEN( "it can be printed" ) {
-//
-//        std::string buffer;
-//        auto output = std::back_inserter( buffer );
-//        chunk.print( output, 3580, 8 );
-//
-//        REQUIRE( buffer == sectionString );
-//      } // THEN
-//    } // WHEN
+    WHEN( "there is a tree::Section" ) {
+
+      auto begin = sectionString.begin();
+      auto position = begin;
+      auto end = sectionString.end();
+      long lineNumber = 1;
+      auto head = HEAD( position, end, lineNumber );
+      tree::Section< std::string::iterator >
+        section( head, begin, position, end, lineNumber );
+
+      section::Type< 8, 457 > chunk = section.parse< 8, 457 >( lineNumber );
+
+      THEN( "a section::Type< 8, 457 > can be constructed and members can be "
+            "tested" ) {
+
+        verifyChunkForRadioactiveNuclideWithSpectra( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == sectionString );
+      } // THEN
+    } // WHEN
   } // GIVEN
 
   GIVEN( "valid data for a section::Type< 8, 457 > for a radioactive nuclide "
@@ -214,33 +215,33 @@ SCENARIO( "section::Type< 8, 457 >" ) {
       } // THEN
     } //WHEN
 
-//    WHEN( "there is a syntaxTree::Section" ) {
-//
-//      auto begin = sectionString.begin();
-//      auto position = begin;
-//      auto end = sectionString.end();
-//      long lineNumber = 1;
-//      auto head = HEAD( position, end, lineNumber );
-//      syntaxTree::Section< std::string::iterator >
-//        section( head, begin, position, end, lineNumber );
-//
-//      section::Type< 8, 457 > chunk = section.parse< 8, 457 >( lineNumber );
-//
-//      THEN( "a section::Type< 8, 457 > can be constructed and members can be "
-//            "tested" ) {
-//
-//        verifyChunkForRadioactiveNuclideWithoutSpectra( chunk );
-//      } // THEN
-//
-//      THEN( "it can be printed" ) {
-//
-//        std::string buffer;
-//        auto output = std::back_inserter( buffer );
-//        chunk.print( output, 3580, 8 );
-//
-//        REQUIRE( buffer == sectionString );
-//      } // THEN
-//    } // WHEN
+    WHEN( "there is a tree::Section" ) {
+
+      auto begin = sectionString.begin();
+      auto position = begin;
+      auto end = sectionString.end();
+      long lineNumber = 1;
+      auto head = HEAD( position, end, lineNumber );
+      tree::Section< std::string::iterator >
+        section( head, begin, position, end, lineNumber );
+
+      section::Type< 8, 457 > chunk = section.parse< 8, 457 >( lineNumber );
+
+      THEN( "a section::Type< 8, 457 > can be constructed and members can be "
+            "tested" ) {
+
+        verifyChunkForRadioactiveNuclideWithoutSpectra( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == sectionString );
+      } // THEN
+    } // WHEN
   } // GIVEN
 
   GIVEN( "valid data for a section::Type< 8, 457 > for a stable nuclide" ) {
@@ -299,34 +300,34 @@ SCENARIO( "section::Type< 8, 457 >" ) {
       } // THEN
     } //WHEN
 
-//    WHEN( "there is a syntaxTree::Section" ) {
-//
-//      std::string sectionString = chunkForStableNuclide() + validSEND();
-//      auto begin = sectionString.begin();
-//      auto position = begin;
-//      auto end = sectionString.end();
-//      long lineNumber = 1;
-//      auto head = HEAD( position, end, lineNumber );
-//      syntaxTree::Section< std::string::iterator >
-//        section( head, begin, position, end, lineNumber );
-//
-//      section::Type< 8, 457 > chunk = section.parse< 8, 457 >( lineNumber );
-//
-//      THEN( "a section::Type< 8, 457 > can be constructed and members can be "
-//            "tested" ) {
-//
-//        verifyChunkForStableNuclide( chunk );
-//      } // THEN
-//
-//      THEN( "it can be printed" ) {
-//
-//        std::string buffer;
-//        auto output = std::back_inserter( buffer );
-//        chunk.print( output, 3580, 8 );
-//
-//        REQUIRE( buffer == sectionString );
-//      } // THEN
-//    } // WHEN
+    WHEN( "there is a tree::Section" ) {
+
+      std::string sectionString = chunkForStableNuclide() + validSEND();
+      auto begin = sectionString.begin();
+      auto position = begin;
+      auto end = sectionString.end();
+      long lineNumber = 1;
+      auto head = HEAD( position, end, lineNumber );
+      tree::Section< std::string::iterator >
+        section( head, begin, position, end, lineNumber );
+
+      section::Type< 8, 457 > chunk = section.parse< 8, 457 >( lineNumber );
+
+      THEN( "a section::Type< 8, 457 > can be constructed and members can be "
+            "tested" ) {
+
+        verifyChunkForStableNuclide( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8 );
+
+        REQUIRE( buffer == sectionString );
+      } // THEN
+    } // WHEN
   } // GIVEN
 
   GIVEN( "invalid data for a section::Type< 8, 457 >" ) {

@@ -4,6 +4,7 @@
 #include "ENDFtk/section/2.hpp"
 
 // other includes
+#include "ENDFtk/tree/Tape.hpp"
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
@@ -107,54 +108,54 @@ SCENARIO( "section::Type< 2, 152 >" ) {
       } // THEN
     } // WHEN
 
-//    WHEN( "there is a syntaxTree::Section" ) {
-//
-//      auto begin = sectionString.begin();
-//      auto position = begin;
-//      auto end = sectionString.end();
-//      long lineNumber = 1;
-//      auto head = HEAD( position, end, lineNumber );
-//      syntaxTree::Section< std::string::iterator >
-//        section( head, begin, position, end, lineNumber );
-//
-//      section::Type< 2, 152 > chunk1 = section.parse< 2, 152 >();
-//      section::Type< 2, 152 > chunk2 = section.parse< 2, 152 >( lineNumber );
-//      section::Type< 2, 152 > chunk3 = section.parse( 2_c, 152_c );
-//      section::Type< 2, 152 > chunk4 = section.parse( 2_c, 152_c, lineNumber );
-//
-//      THEN( "a section::Type< 2, 152 > can be constructed and members can be "
-//            "tested" ) {
-//
-//        verifyChunkWithOneDilution( chunk1 );
-//        verifyChunkWithOneDilution( chunk2 );
-//        verifyChunkWithOneDilution( chunk3 );
-//        verifyChunkWithOneDilution( chunk4 );
-//      } // THEN
-//
-//      THEN( "it can be printed" ) {
-//
-//        std::string buffer1;
-//        auto output1 = std::back_inserter( buffer1 );
-//        chunk1.print( output1, 9437, 2 );
-//
-//        std::string buffer2;
-//        auto output2 = std::back_inserter( buffer2 );
-//        chunk2.print( output2, 9437, 2 );
-//
-//        std::string buffer3;
-//        auto output3 = std::back_inserter( buffer3 );
-//        chunk3.print( output3, 9437, 2 );
-//
-//        std::string buffer4;
-//        auto output4 = std::back_inserter( buffer4 );
-//        chunk4.print( output4, 9437, 2 );
-//
-//        REQUIRE( buffer1 == sectionString );
-//        REQUIRE( buffer2 == sectionString );
-//        REQUIRE( buffer3 == sectionString );
-//        REQUIRE( buffer4 == sectionString );
-//      } // THEN
-//    } // WHEN
+    WHEN( "there is a tree::Section" ) {
+
+      auto begin = sectionString.begin();
+      auto position = begin;
+      auto end = sectionString.end();
+      long lineNumber = 1;
+      auto head = HEAD( position, end, lineNumber );
+      tree::Section< std::string::iterator >
+        section( head, begin, position, end, lineNumber );
+
+      section::Type< 2, 152 > chunk1 = section.parse< 2, 152 >();
+      section::Type< 2, 152 > chunk2 = section.parse< 2, 152 >( lineNumber );
+      section::Type< 2, 152 > chunk3 = section.parse( 2_c, 152_c );
+      section::Type< 2, 152 > chunk4 = section.parse( 2_c, 152_c, lineNumber );
+
+      THEN( "a section::Type< 2, 152 > can be constructed and members can be "
+            "tested" ) {
+
+        verifyChunkWithOneDilution( chunk1 );
+        verifyChunkWithOneDilution( chunk2 );
+        verifyChunkWithOneDilution( chunk3 );
+        verifyChunkWithOneDilution( chunk4 );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer1;
+        auto output1 = std::back_inserter( buffer1 );
+        chunk1.print( output1, 9437, 2 );
+
+        std::string buffer2;
+        auto output2 = std::back_inserter( buffer2 );
+        chunk2.print( output2, 9437, 2 );
+
+        std::string buffer3;
+        auto output3 = std::back_inserter( buffer3 );
+        chunk3.print( output3, 9437, 2 );
+
+        std::string buffer4;
+        auto output4 = std::back_inserter( buffer4 );
+        chunk4.print( output4, 9437, 2 );
+
+        REQUIRE( buffer1 == sectionString );
+        REQUIRE( buffer2 == sectionString );
+        REQUIRE( buffer3 == sectionString );
+        REQUIRE( buffer4 == sectionString );
+      } // THEN
+    } // WHEN
   } // GIVEN
 
   GIVEN( "invalid data for a section::Type< 2, 152 >" ) {

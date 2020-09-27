@@ -4,6 +4,7 @@
 #include "ENDFtk/section/6.hpp"
 
 // other includes
+#include "ENDFtk/tree/Tape.hpp"
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
@@ -118,32 +119,32 @@ SCENARIO( "section::Type< 6 >" ) {
       } // THEN
     } // WHEN
 
-//    WHEN( "there is a syntaxTree::Section" ) {
-//
-//      auto begin = sectionString.begin();
-//      auto position = begin;
-//      auto end = sectionString.end();
-//      long lineNumber = 1;
-//      auto head = HEAD( position, end, lineNumber );
-//      syntaxTree::Section< std::string::iterator >
-//        section( head, begin, position, end, lineNumber );
-//
-//      section::Type< 6 > chunk = section.parse< 6 >( lineNumber );
-//
-//      THEN( "a section::Type< 6 > can be constructed and members can "
-//            "be tested" ) {
-//
-//        verifyChunk( chunk );
-//      } // THEN
-//
-//      THEN( "it can be printed" ) {
-//
-//        std::string buffer;
-//        auto output = std::back_inserter( buffer );
-//        chunk.print( output, 9228, 6 );
-//        REQUIRE( buffer == sectionString );
-//      } // THEN
-//    } // WHEN
+    WHEN( "there is a tree::Section" ) {
+
+      auto begin = sectionString.begin();
+      auto position = begin;
+      auto end = sectionString.end();
+      long lineNumber = 1;
+      auto head = HEAD( position, end, lineNumber );
+      tree::Section< std::string::iterator >
+        section( head, begin, position, end, lineNumber );
+
+      section::Type< 6 > chunk = section.parse< 6 >( lineNumber );
+
+      THEN( "a section::Type< 6 > can be constructed and members can "
+            "be tested" ) {
+
+        verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 6 );
+        REQUIRE( buffer == sectionString );
+      } // THEN
+    } // WHEN
   } // GIVEN
 
   GIVEN( "a string representation for a section::Type< 6 > with an "

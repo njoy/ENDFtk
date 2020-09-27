@@ -4,7 +4,7 @@
 #include "ENDFtk/file/1.hpp"
 
 // other includes
-#include "header-utilities.hpp"
+#include "ENDFtk/tree/Tape.hpp"
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
@@ -165,21 +165,21 @@ SCENARIO( "Testing special case of file 1" ) {
       }
     }
 
-//    WHEN( "a file::Type< 1 > is constructed from a syntaxTree" ){
-//      auto begin = file1string.begin();
-//      auto start = file1string.begin();
-//      auto end = file1string.end();
-//      long lineNumber = 0;
-//
-//      StructureDivision division( begin, end, lineNumber );
-//
-//      syntaxTree::File< std::string::iterator >
-//        fileTree( asHead( division ), start, begin, end, lineNumber );
-//
-//      THEN( "a file::Type< 1 > can be constructed" ){
-//        CHECK_NOTHROW( fileTree.parse< 1 >( lineNumber ) );
-//      }
-//    }
+    WHEN( "a file::Type< 1 > is constructed from a syntaxTree" ){
+      auto begin = file1string.begin();
+      auto start = file1string.begin();
+      auto end = file1string.end();
+      long lineNumber = 0;
+
+      StructureDivision division( begin, end, lineNumber );
+
+      tree::File< std::string::iterator >
+        fileTree( asHead( division ), start, begin, end, lineNumber );
+
+      THEN( "a file::Type< 1 > can be constructed" ){
+        CHECK_NOTHROW( fileTree.parse< 1 >( lineNumber ) );
+      }
+    }
 
     WHEN( "a file::Type< 1 > is constructed from the string twice" ){
       std::string twice( file1string.begin(), file1string.end() - 81 );

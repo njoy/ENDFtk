@@ -4,6 +4,7 @@
 #include "ENDFtk/section/7.hpp"
 
 // other includes
+#include "ENDFtk/tree/Tape.hpp"
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
@@ -84,33 +85,33 @@ SCENARIO( "section::Type< 7, 2 >" ) {
       } // THEN
     } //WHEN
 
-//    WHEN( "there is a syntaxTree::Section" ) {
-//
-//      auto begin = sectionString.begin();
-//      auto position = begin;
-//      auto end = sectionString.end();
-//      long lineNumber = 1;
-//      auto head = HEAD( position, end, lineNumber );
-//      syntaxTree::Section< std::string::iterator >
-//        section( head, begin, position, end, lineNumber );
-//
-//      section::Type< 7, 2 > chunk = section.parse< 7, 2 >( lineNumber );
-//
-//      THEN( "a section::Type< 7, 2 > can be constructed and members can be "
-//            "tested" ) {
-//
-//        verifyCoherentElasticWithOneTemperature( chunk );
-//      } // THEN
-//
-//      THEN( "it can be printed" ) {
-//
-//        std::string buffer;
-//        auto output = std::back_inserter( buffer );
-//        chunk.print( output, 27, 7 );
-//
-//        REQUIRE( buffer == sectionString );
-//      } // THEN
-//    } // WHEN
+    WHEN( "there is a tree::Section" ) {
+
+      auto begin = sectionString.begin();
+      auto position = begin;
+      auto end = sectionString.end();
+      long lineNumber = 1;
+      auto head = HEAD( position, end, lineNumber );
+      tree::Section< std::string::iterator >
+        section( head, begin, position, end, lineNumber );
+
+      section::Type< 7, 2 > chunk = section.parse< 7, 2 >( lineNumber );
+
+      THEN( "a section::Type< 7, 2 > can be constructed and members can be "
+            "tested" ) {
+
+        verifyCoherentElasticWithOneTemperature( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 27, 7 );
+
+        REQUIRE( buffer == sectionString );
+      } // THEN
+    } // WHEN
   } // GIVEN
 
   GIVEN( "valid data for a section::Type< 7, 2 > with coherent elastic "
@@ -174,14 +175,14 @@ SCENARIO( "section::Type< 7, 2 >" ) {
       } // THEN
     } //WHEN
 
-//    WHEN( "there is a syntaxTree::Section" ) {
+//    WHEN( "there is a tree::Section" ) {
 //
 //      auto begin = sectionString.begin();
 //      auto position = begin;
 //      auto end = sectionString.end();
 //      long lineNumber = 1;
 //      auto head = HEAD( position, end, lineNumber );
-//      syntaxTree::Section< std::string::iterator >
+//      tree::Section< std::string::iterator >
 //        section( head, begin, position, end, lineNumber );
 //
 //      section::Type< 7, 2 > chunk = section.parse< 7, 2 >( lineNumber );
@@ -260,14 +261,14 @@ SCENARIO( "section::Type< 7, 2 >" ) {
       } // THEN
     } //WHEN
 
-//    WHEN( "there is a syntaxTree::Section" ) {
+//    WHEN( "there is a tree::Section" ) {
 //
 //      auto begin = sectionString.begin();
 //      auto position = begin;
 //      auto end = sectionString.end();
 //      long lineNumber = 1;
 //      auto head = HEAD( position, end, lineNumber );
-//      syntaxTree::Section< std::string::iterator >
+//      tree::Section< std::string::iterator >
 //        section( head, begin, position, end, lineNumber );
 //
 //      section::Type< 7, 2 > chunk1 = section.parse< 7, 2 >();
