@@ -5,7 +5,10 @@
 #include <vector>
 
 // other includes
-#include "range/v3/all.hpp"
+#include "range/v3/view/all.hpp"
+#include "range/v3/view/iota.hpp"
+#include "range/v3/view/transform.hpp"
+#include "range/v3/view/zip.hpp"
 #include "ENDFtk/record.hpp"
 
 namespace njoy {
@@ -38,8 +41,18 @@ namespace ENDFtk {
     }
 
   public:
+
+    /* type aliases */
+    using DoubleRange =
+    decltype( ranges::view::all( std::declval< const std::vector< double > >() ) );
+    using PairRange =
+    decltype( ranges::view::zip( std::declval< const std::vector< double > >(),
+                                 std::declval< const std::vector< double > >() ) );
+
+    /* constructor */
     #include "ENDFtk/TabulationRecord/src/ctor.hpp"
 
+    /* methods */
     using InterpolationBase::C1;
     using InterpolationBase::C2;
     using InterpolationBase::L1;
@@ -48,17 +61,12 @@ namespace ENDFtk {
     long NP() const { return this->xValues.size(); }
     using InterpolationBase::NR;
 
-    auto x() const {
-      return ranges::make_iterator_range( this->xValues.begin(),
-                                          this->xValues.end() );
-    }
+    DoubleRange x() const { return ranges::view::all( this->xValues ); }
 
-    auto y() const {
-      return ranges::make_iterator_range( this->yValues.begin(),
-                                          this->yValues.end() );
-    }
+    DoubleRange y() const { return ranges::view::all( this->yValues ); }
 
-    auto pairs() const {
+    PairRange pairs() const {
+
       return ranges::view::zip( this->xValues, this->yValues );
     }
 

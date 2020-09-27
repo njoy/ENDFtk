@@ -4,6 +4,8 @@
 #include "ENDFtk/TabulationRecord.hpp"
 
 // other includes
+#include "range/v3/at.hpp"
+#include "range/v3/algorithm/equal.hpp"
 #include "header-utilities.hpp"
 
 // convenience typedefs
