@@ -4,6 +4,7 @@
 #include "ENDFtk/section/1/451.hpp"
 
 // other includes
+#include "range/v3/algorithm/equal.hpp"
 #include "ENDFtk/tree/Tape.hpp"
 
 // convenience typedefs
