@@ -13,14 +13,14 @@ public:
   /* constructor */
   #include "ENDFtk/section/2/151/UnresolvedEnergyDependent/LValue/src/ctor.hpp"
 
-  using UnresolvedLValueBase::AWRI;
-  using UnresolvedLValueBase::atomicWeightRatio;
-  using UnresolvedLValueBase::L;
-  using UnresolvedLValueBase::orbitalMomentum;
-  using UnresolvedLValueBase::NJS;
-  using UnresolvedLValueBase::numberSpinValues;
-  using UnresolvedLValueBase::jValues;
+  using UnresolvedLValueBase< JValue >::AWRI;
+  using UnresolvedLValueBase< JValue >::atomicWeightRatio;
+  using UnresolvedLValueBase< JValue >::L;
+  using UnresolvedLValueBase< JValue >::orbitalMomentum;
+  using UnresolvedLValueBase< JValue >::NJS;
+  using UnresolvedLValueBase< JValue >::numberSpinValues;
+  using UnresolvedLValueBase< JValue >::jValues;
 
-  using UnresolvedLValueBase::NC;
-  using UnresolvedLValueBase::print;
+  using UnresolvedLValueBase< JValue >::NC;
+  using UnresolvedLValueBase< JValue >::print;
 };

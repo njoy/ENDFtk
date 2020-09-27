@@ -7,7 +7,7 @@
  *                        (NJS elements)
  */
 LValue( double awri, int l, std::vector< JValue >&& jvalues )
-  try : UnresolvedLValueBase( awri, l, std::move( jvalues ) ) {
+  try : UnresolvedLValueBase< JValue >( awri, l, std::move( jvalues ) ) {
 
     verifySize( this->jValues() );
   }
@@ -34,7 +34,7 @@ LValue( double awri, int l, std::vector< JValue >&& jvalues )
 template< typename Iterator >
 LValue( Iterator& it, const Iterator& end, long& lineNumber,
         int MAT, int MF, int MT )
-  try : UnresolvedLValueBase( it, end, lineNumber, MAT, MF, MT ) {
+  try : UnresolvedLValueBase< JValue >( it, end, lineNumber, MAT, MF, MT ) {
 
     verifySize( this->jValues() );
   }

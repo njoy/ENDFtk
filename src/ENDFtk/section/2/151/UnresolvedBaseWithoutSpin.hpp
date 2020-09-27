@@ -1,9 +1,24 @@
-template < typename T >
+// Forward declaration of the LJValueType struct
+//
+// The following code does not compile in gcc when declared inside a
+// class/struct (it used to compile when it was in the resonanceParameters
+// namespace):
+//  template < typename T > struct LJValueType {};
+//  class UnresolvedEnergyDependent;
+//  template<> struct LJValueType< UnresolvedEnergyDependent > { /* stuff */ };
+//
+// gcc compilers only allow for explicit template specialisation inside a
+// namespace scope, not inside a class/struct as is the case here (inside the
+// ENDFtk::section::Type< 2, 151 > class).
+//
+// Using a dummy defaulted template argument is a well known trick to get
+// around this issue in gcc. llvm compilers do not have this issue.
+template < typename T, typename GCC = void >
 struct LJValueType {};
 
 /**
  *  @class
- *  @brief Base class for the unresolved resonance paraneters
+ *  @brief Base class for the unresolved resonance parameters
  *
  *  See ENDF102, section 2.3.1 for more information.
  */

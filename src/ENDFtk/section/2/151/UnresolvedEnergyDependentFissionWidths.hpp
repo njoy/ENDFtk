@@ -1,6 +1,6 @@
 class UnresolvedEnergyDependentFissionWidths;
-template <>
-struct LJValueType< UnresolvedEnergyDependentFissionWidths > {
+template < typename GCC >
+struct LJValueType< UnresolvedEnergyDependentFissionWidths, GCC > {
 
   #include "ENDFtk/section/2/151/UnresolvedEnergyDependentFissionWidths/JValue.hpp"
   #include "ENDFtk/section/2/151/UnresolvedEnergyDependentFissionWidths/LValue.hpp"

@@ -18,14 +18,14 @@ namespace section{
   template<>
   class Type< 2, 151 > : protected BaseWithoutMT< Type< 2, 151 > > {
 
+  public:
+
     #include "ENDFtk/section/2/151/BreitWignerReichMooreBase.hpp"
     #include "ENDFtk/section/2/151/BreitWignerReichMooreLValueBase.hpp"
 
     #include "ENDFtk/section/2/151/UnresolvedLValueBase.hpp"
     #include "ENDFtk/section/2/151/UnresolvedBaseWithoutSpin.hpp"
     #include "ENDFtk/section/2/151/UnresolvedBase.hpp"
-
-  public:
 
     #include "ENDFtk/section/2/151/BreitWignerLValue.hpp"
     #include "ENDFtk/section/2/151/ReichMooreLValue.hpp"

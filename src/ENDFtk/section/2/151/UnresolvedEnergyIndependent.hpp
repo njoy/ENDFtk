@@ -1,6 +1,6 @@
 class UnresolvedEnergyIndependent;
-template <>
-struct LJValueType< UnresolvedEnergyIndependent > {
+template < typename GCC >
+struct LJValueType< UnresolvedEnergyIndependent, GCC > {
 
   #include "ENDFtk/section/2/151/UnresolvedEnergyIndependent/JValue.hpp"
   #include "ENDFtk/section/2/151/UnresolvedEnergyIndependent/LValue.hpp"
