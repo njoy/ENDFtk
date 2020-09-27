@@ -1,13 +1,13 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk/section/7.hpp"
+#include "ENDFtk/section/7/4.hpp"
 
 // other includes
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using AnalyticalFunctions = 
+using AnalyticalFunctions =
 section::Type< 7, 4 >::AnalyticalFunctions;
 
 SCENARIO( "AnalyticalFunctions" ) {

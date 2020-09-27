@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk/section/2.hpp"
+#include "ENDFtk/section/2/151.hpp"
 
 // other includes
 

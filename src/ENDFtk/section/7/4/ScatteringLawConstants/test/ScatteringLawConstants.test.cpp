@@ -1,13 +1,13 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk/section/7.hpp"
+#include "ENDFtk/section/7/4.hpp"
 
 // other includes
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using ScatteringLawConstants = 
+using ScatteringLawConstants =
 section::Type< 7, 4 >::ScatteringLawConstants;
 
 std::string chunkWithOnlyPrincipalScatterer();

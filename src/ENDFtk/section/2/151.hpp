@@ -1,82 +1,105 @@
-template<>
-class Type< 2, 151 > : protected BaseWithoutMT< Type< 2, 151 > > {
+#ifndef NJOY_ENDFTK_SECTION_2_151
+#define NJOY_ENDFTK_SECTION_2_151
 
-  #include "ENDFtk/section/2/151/BreitWignerReichMooreBase.hpp"
-  #include "ENDFtk/section/2/151/BreitWignerReichMooreLValueBase.hpp"
+// system includes
+#include <variant>
 
-  #include "ENDFtk/section/2/151/UnresolvedLValueBase.hpp"
-  #include "ENDFtk/section/2/151/UnresolvedBaseWithoutSpin.hpp"
-  #include "ENDFtk/section/2/151/UnresolvedBase.hpp"
+// other includes
+#include "ENDFtk/ControlRecord.hpp"
+#include "ENDFtk/ListRecord.hpp"
+#include "ENDFtk/TabulationRecord.hpp"
+#include "ENDFtk/section.hpp"
+#include "ENDFtk/readSequence.hpp"
 
-public:
+namespace njoy {
+namespace ENDFtk {
+namespace section{
 
-  #include "ENDFtk/section/2/151/BreitWignerLValue.hpp"
-  #include "ENDFtk/section/2/151/ReichMooreLValue.hpp"
+  template<>
+  class Type< 2, 151 > : protected BaseWithoutMT< Type< 2, 151 > > {
 
-  #include "ENDFtk/section/2/151/SpecialCase.hpp"
+    #include "ENDFtk/section/2/151/BreitWignerReichMooreBase.hpp"
+    #include "ENDFtk/section/2/151/BreitWignerReichMooreLValueBase.hpp"
 
-  #include "ENDFtk/section/2/151/SingleLevelBreitWigner.hpp"
-  #include "ENDFtk/section/2/151/MultiLevelBreitWigner.hpp"
-  #include "ENDFtk/section/2/151/ReichMoore.hpp"
-  #include "ENDFtk/section/2/151/RMatrixLimited.hpp"
+    #include "ENDFtk/section/2/151/UnresolvedLValueBase.hpp"
+    #include "ENDFtk/section/2/151/UnresolvedBaseWithoutSpin.hpp"
+    #include "ENDFtk/section/2/151/UnresolvedBase.hpp"
 
-  using SLBW = SingleLevelBreitWigner;
-  using MLBW = MultiLevelBreitWigner;
-  using RM = ReichMoore;
-  using RML = RMatrixLimited;
+  public:
 
-  #include "ENDFtk/section/2/151/UnresolvedEnergyIndependent.hpp"
-  #include "ENDFtk/section/2/151/UnresolvedEnergyDependentFissionWidths.hpp"
-  #include "ENDFtk/section/2/151/UnresolvedEnergyDependent.hpp"
+    #include "ENDFtk/section/2/151/BreitWignerLValue.hpp"
+    #include "ENDFtk/section/2/151/ReichMooreLValue.hpp"
 
-  using CaseA = UnresolvedEnergyIndependent;
-  using CaseB = UnresolvedEnergyDependentFissionWidths;
-  using CaseC = UnresolvedEnergyDependent;
+    #include "ENDFtk/section/2/151/SpecialCase.hpp"
 
-  #include "ENDFtk/section/2/151/ScatteringRadius.hpp"
-  #include "ENDFtk/section/2/151/ResonanceRange.hpp"
-  #include "ENDFtk/section/2/151/Isotope.hpp"
+    #include "ENDFtk/section/2/151/SingleLevelBreitWigner.hpp"
+    #include "ENDFtk/section/2/151/MultiLevelBreitWigner.hpp"
+    #include "ENDFtk/section/2/151/ReichMoore.hpp"
+    #include "ENDFtk/section/2/151/RMatrixLimited.hpp"
 
-private:
+    using SLBW = SingleLevelBreitWigner;
+    using MLBW = MultiLevelBreitWigner;
+    using RM = ReichMoore;
+    using RML = RMatrixLimited;
 
-  friend BaseWithoutMT< Type< 2, 151 > >;
+    #include "ENDFtk/section/2/151/UnresolvedEnergyIndependent.hpp"
+    #include "ENDFtk/section/2/151/UnresolvedEnergyDependentFissionWidths.hpp"
+    #include "ENDFtk/section/2/151/UnresolvedEnergyDependent.hpp"
 
-  /* fields */
-  std::vector< Isotope > isotopes_;
+    using CaseA = UnresolvedEnergyIndependent;
+    using CaseB = UnresolvedEnergyDependentFissionWidths;
+    using CaseC = UnresolvedEnergyDependent;
 
-  /* auxiliary functions */
-  #include "ENDFtk/section/2/151/src/verifyNIS.hpp"
+    #include "ENDFtk/section/2/151/ScatteringRadius.hpp"
+    #include "ENDFtk/section/2/151/ResonanceRange.hpp"
+    #include "ENDFtk/section/2/151/Isotope.hpp"
 
-public:
+  private:
 
-  /* constructor */
-  #include "ENDFtk/section/2/151/src/ctor.hpp"
+    friend BaseWithoutMT< Type< 2, 151 > >;
 
-  /**
-   *  @brief Return the MT number of the section
-   */
-  static constexpr int sectionNumber() { return 151; }
+    /* fields */
+    std::vector< Isotope > isotopes_;
 
-  /**
-   *  @brief Return the number NIS of isotopes
-   */
-  unsigned int numberIsotopes() const { return this->NIS(); }
+    /* auxiliary functions */
+    #include "ENDFtk/section/2/151/src/verifyNIS.hpp"
 
-  /**
-   *  @brief Return the number NIS of isotopes
-   */
-  unsigned int NIS() const { return this->isotopes_.size(); }
+  public:
 
-  /**
-   *  @brief Return the isotopes defined in the section
-   */
-  auto isotopes() const { return ranges::view::all( this->isotopes_ ); }
+    /* constructor */
+    #include "ENDFtk/section/2/151/src/ctor.hpp"
 
-  using BaseWithoutMT::MT;
-  using BaseWithoutMT::ZA;
-  using BaseWithoutMT::atomicWeightRatio;
-  using BaseWithoutMT::AWR;
+    /**
+     *  @brief Return the MT number of the section
+     */
+    static constexpr int sectionNumber() { return 151; }
 
-  #include "ENDFtk/section/2/151/src/print.hpp"
-  #include "ENDFtk/section/2/151/src/NC.hpp"
-};
+    /**
+     *  @brief Return the number NIS of isotopes
+     */
+    unsigned int numberIsotopes() const { return this->NIS(); }
+
+    /**
+     *  @brief Return the number NIS of isotopes
+     */
+    unsigned int NIS() const { return this->isotopes_.size(); }
+
+    /**
+     *  @brief Return the isotopes defined in the section
+     */
+    auto isotopes() const { return ranges::view::all( this->isotopes_ ); }
+
+    using BaseWithoutMT::MT;
+    using BaseWithoutMT::ZA;
+    using BaseWithoutMT::atomicWeightRatio;
+    using BaseWithoutMT::AWR;
+
+    #include "ENDFtk/section/2/151/src/print.hpp"
+    #include "ENDFtk/section/2/151/src/NC.hpp"
+  };
+
+} // section namespace
+} // ENDFtk namespace
+} // njoy namespace
+
+#endif
