@@ -7,6 +7,13 @@
 
 // other includes
 #include "boost/hana.hpp"
+#include "range/v3/algorithm/find.hpp"
+#include "range/v3/view/all.hpp"
+#include "range/v3/view/concat.hpp"
+#include "range/v3/view/drop_exactly.hpp"
+#include "range/v3/view/single.hpp"
+#include "range/v3/view/stride.hpp"
+#include "range/v3/view/transform.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/TabulationRecord.hpp"
