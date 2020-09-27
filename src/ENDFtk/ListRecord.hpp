@@ -5,6 +5,7 @@
 
 // other includes
 #include "Log.hpp"
+#include "range/v3/view/all.hpp"
 #include "ENDFtk/record.hpp"
 
 namespace njoy {
@@ -31,6 +32,11 @@ namespace ENDFtk {
   #include "ENDFtk/ListRecord/src/readMetadata.hpp"
 
   public:
+
+    /* type aliases */
+    using DoubleRange =
+    decltype( ranges::view::all( std::declval< const std::vector< double > >() ) );
+
     ListRecord( double C1, double C2, long L1, long L2, long N2,
                 std::vector< double >&& list ) :
       metadata( C1, C2, L1, L2, list.size(), N2 ), data( std::move(list) ){}
@@ -67,11 +73,9 @@ namespace ENDFtk {
 
     long NPL() const { return this->data.size(); }
 
-    auto list() const {
-      return ranges::view::all( this->data );
-    }
+    DoubleRange list() const { return ranges::view::all( this->data ); }
 
-    auto B() const { return this->list(); }
+    DoubleRange B() const { return this->list(); }
 
     bool operator==( const ListRecord& rhs ) const {
       return ( this->C1() == rhs.C1() )

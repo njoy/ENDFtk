@@ -12,8 +12,11 @@ namespace ENDFtk {
   class InterpolationRecord : protected record::InterpolationBase {
 
   public:
-  #include "ENDFtk/InterpolationRecord/src/ctor.hpp"
 
+    /* constructor */
+    #include "ENDFtk/InterpolationRecord/src/ctor.hpp"
+
+    /* methods */
     using InterpolationBase::C1;
     using InterpolationBase::C2;
     using InterpolationBase::L1;

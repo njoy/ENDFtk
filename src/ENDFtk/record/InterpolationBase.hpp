@@ -5,7 +5,7 @@
 #include <vector>
 
 // other includes
-#include "range/v3/all.hpp"
+#include "range/v3/view/all.hpp"
 #include "ENDFtk/record/Base.hpp"
 #include "ENDFtk/record/Integer.hpp"
 #include "ENDFtk/record/Real.hpp"
@@ -17,7 +17,8 @@ namespace ENDFtk {
 namespace record {
 
   class InterpolationBase {
-    /* convenience typedefs */
+
+    /* type aliases */
     using Base = record::Base< record::Real, record::Real,
                                record::Integer< 11 >, record::Integer< 11 >,
                                record::Integer< 11 >, record::Integer< 11 > >;
@@ -31,12 +32,12 @@ namespace record {
     std::vector< long > interpolationSchemeIndices;
 
     /* auxiliary methods */
-  #include "ENDFtk/record/InterpolationBase/src/verifyN2.hpp"
-  #include "ENDFtk/record/InterpolationBase/src/verifyTail.hpp"
-  #include "ENDFtk/record/InterpolationBase/src/verifyVectorSizes.hpp"
-  #include "ENDFtk/record/InterpolationBase/src/verifyBoundaryIndicesAreSorted.hpp"
-  #include "ENDFtk/record/InterpolationBase/src/readRangeDescriptions.hpp"
-  #include "ENDFtk/record/InterpolationBase/src/readMetadata.hpp"
+    #include "ENDFtk/record/InterpolationBase/src/verifyN2.hpp"
+    #include "ENDFtk/record/InterpolationBase/src/verifyTail.hpp"
+    #include "ENDFtk/record/InterpolationBase/src/verifyVectorSizes.hpp"
+    #include "ENDFtk/record/InterpolationBase/src/verifyBoundaryIndicesAreSorted.hpp"
+    #include "ENDFtk/record/InterpolationBase/src/readRangeDescriptions.hpp"
+    #include "ENDFtk/record/InterpolationBase/src/readMetadata.hpp"
 
   protected:
 
@@ -52,7 +53,13 @@ namespace record {
     };
 
   public:
-  #include "ENDFtk/record/InterpolationBase/src/ctor.hpp"
+
+    /* type aliases */
+    using LongRange =
+    decltype( ranges::view::all( std::declval< const std::vector< long > >() ) );
+
+    /* constructor */
+    #include "ENDFtk/record/InterpolationBase/src/ctor.hpp"
 
   #define DEFINE_GETTER( name, index )                                    \
     Base::MutableReturnType< index >                                      \
@@ -70,11 +77,11 @@ namespace record {
     long NR() const { return this->boundaryIndices.size(); }
     long N2() const { return this->boundaryIndices.back(); }
 
-    auto interpolants() const {
+    LongRange interpolants() const {
       return ranges::view::all( this->interpolationSchemeIndices );
     }
 
-    auto boundaries() const {
+    LongRange boundaries() const {
       return ranges::view::all( this->boundaryIndices );
     }
 
