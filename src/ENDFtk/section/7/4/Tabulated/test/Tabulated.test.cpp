@@ -220,13 +220,14 @@ void verifyChunkWithOneTemperature( const Tabulated& chunk ) {
   REQUIRE( 0 == value.LI().size() );
   REQUIRE( 0 == value.temperatureInterpolants().size() );
 
-  REQUIRE( 1 == value.thermalScatteringValues().size() );
-  REQUIRE( 5 == value.thermalScatteringValues()[0].size() );
-  REQUIRE( 2.386876e-4 == Approx( value.thermalScatteringValues()[0][0] ) );
-  REQUIRE( 2.508466e-4 == Approx( value.thermalScatteringValues()[0][1] ) );
-  REQUIRE( 2.636238e-4 == Approx( value.thermalScatteringValues()[0][2] ) );
-  REQUIRE( 1.306574e-9 == Approx( value.thermalScatteringValues()[0][3] ) );
-  REQUIRE( 5.29573e-10 == Approx( value.thermalScatteringValues()[0][4] ) );
+  std::vector< std::vector< double > > values = value.thermalScatteringValues();
+  REQUIRE( 1 == values.size() );
+  REQUIRE( 5 == values[0].size() );
+  REQUIRE( 2.386876e-4 == Approx( values[0][0] ) );
+  REQUIRE( 2.508466e-4 == Approx( values[0][1] ) );
+  REQUIRE( 2.636238e-4 == Approx( values[0][2] ) );
+  REQUIRE( 1.306574e-9 == Approx( values[0][3] ) );
+  REQUIRE( 5.29573e-10 == Approx( values[0][4] ) );
 
   value = chunk.betas()[1];
   REQUIRE( 3.952570e-2 == Approx( value.beta() ) );
@@ -256,13 +257,14 @@ void verifyChunkWithOneTemperature( const Tabulated& chunk ) {
   REQUIRE( 0 == value.LI().size() );
   REQUIRE( 0 == value.temperatureInterpolants().size() );
 
-  REQUIRE( 1 == value.thermalScatteringValues().size() );
-  REQUIRE( 5 == value.thermalScatteringValues()[0].size() );
-  REQUIRE( 2.386694e-4 == Approx( value.thermalScatteringValues()[0][0] ) );
-  REQUIRE( 2.508273e-4 == Approx( value.thermalScatteringValues()[0][1] ) );
-  REQUIRE( 2.636238e-4 == Approx( value.thermalScatteringValues()[0][2] ) );
-  REQUIRE( 2.770291e-4 == Approx( value.thermalScatteringValues()[0][3] ) );
-  REQUIRE( 2.911373e-4 == Approx( value.thermalScatteringValues()[0][4] ) );
+  values = value.thermalScatteringValues();
+  REQUIRE( 1 == values.size() );
+  REQUIRE( 5 == values[0].size() );
+  REQUIRE( 2.386694e-4 == Approx( values[0][0] ) );
+  REQUIRE( 2.508273e-4 == Approx( values[0][1] ) );
+  REQUIRE( 2.636238e-4 == Approx( values[0][2] ) );
+  REQUIRE( 2.770291e-4 == Approx( values[0][3] ) );
+  REQUIRE( 2.911373e-4 == Approx( values[0][4] ) );
 
   REQUIRE( 10 == chunk.NC() );
 }

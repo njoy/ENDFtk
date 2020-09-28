@@ -6,7 +6,9 @@
 #include <map>
 
 // other includes
-#include "range/v3/all.hpp"
+#include "range/v3/iterator_range.hpp"
+#include "range/v3/view/map.hpp"
+#include "header-utilities/echoErroneousLine.hpp"
 #include "ENDFtk/file/Type.hpp"
 #include "ENDFtk/tree/Section.hpp"
 

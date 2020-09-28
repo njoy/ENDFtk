@@ -5,6 +5,7 @@
 
 // other includes
 #include "ENDFtk/tree/Tape.hpp"
+#include "range/v3/algorithm/count.hpp"
 
 // convenience typedefs
 using namespace njoy::ENDFtk;

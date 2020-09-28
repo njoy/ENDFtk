@@ -7,7 +7,8 @@
 #include <optional>
 
 // other includes
-#include "range/v3/all.hpp"
+#include "range/v3/iterator_range.hpp"
+#include "range/v3/utility/iterator.hpp"
 #include "ENDFtk/TapeIdentification.hpp"
 #include "ENDFtk/tree/Material.hpp"
 

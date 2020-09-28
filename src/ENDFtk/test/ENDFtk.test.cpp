@@ -4,7 +4,9 @@
 #include "ENDFtk/isRedundant.hpp"
 
 // other includes
-#include "range/v3/all.hpp"
+#include "range/v3/algorithm/binary_search.hpp"
+#include "range/v3/view/iota.hpp"
+#include "range/v3/view/remove_if.hpp"
 
 // convenience typedefs
 using namespace njoy::ENDFtk;

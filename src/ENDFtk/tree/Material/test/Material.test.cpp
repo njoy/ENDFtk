@@ -4,6 +4,7 @@
 #include "ENDFtk/tree/Material.hpp"
 
 // other includes
+#include "header-utilities/slurpFileToMemory.hpp"
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
