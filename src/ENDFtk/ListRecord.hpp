@@ -6,6 +6,7 @@
 // other includes
 #include "Log.hpp"
 #include "range/v3/view/all.hpp"
+#include "ENDFtk/types.hpp"
 #include "ENDFtk/record.hpp"
 
 namespace njoy {
@@ -32,10 +33,6 @@ namespace ENDFtk {
   #include "ENDFtk/ListRecord/src/readMetadata.hpp"
 
   public:
-
-    /* type aliases */
-    using DoubleRange =
-    decltype( ranges::view::all( std::declval< const std::vector< double > >() ) );
 
     ListRecord( double C1, double C2, long L1, long L2, long N2,
                 std::vector< double >&& list ) :

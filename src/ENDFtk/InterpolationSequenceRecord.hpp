@@ -7,6 +7,7 @@
 
 // other includes
 #include "range/v3/view/all.hpp"
+#include "ENDFtk/types.hpp"
 #include "ENDFtk/InterpolationRecord.hpp"
 #include "ENDFtk/readSequence.hpp"
 
@@ -115,10 +116,6 @@ namespace ENDFtk {
 
   public:
 
-    /* type aliases */
-    using ComponentRange =
-    decltype( ranges::view::all( std::declval< const std::vector< Component > >() ) );
-
     /* constructor */
     #include "ENDFtk/InterpolationSequenceRecord/src/ctor.hpp"
 
@@ -132,7 +129,7 @@ namespace ENDFtk {
     /**
      *  @brief Return the sequence of records in the interpolation sequence record
      */
-    ComponentRange records() const {
+    AllRange< Component > records() const {
 
       return ranges::view::all( this->sequence_ );
     }
