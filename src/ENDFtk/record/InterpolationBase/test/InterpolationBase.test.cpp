@@ -5,7 +5,7 @@
 
 // other includes
 #include "range/v3/at.hpp"
-#include "header-utilities.hpp"
+#include "header-utilities/copy.hpp"
 
 // convenience typedefs
 using namespace njoy::ENDFtk::record;

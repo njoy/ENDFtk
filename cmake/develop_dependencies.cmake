@@ -31,7 +31,7 @@ FetchContent_Declare( hana-adapter
 
 FetchContent_Declare( header-utilities
     GIT_REPOSITORY  https://github.com/njoy/header-utilities
-    GIT_TAG         origin/build/fetchcontent
+    GIT_TAG         origin/build/fetchcontent-guards
     GIT_SHALLOW     TRUE
     )
 

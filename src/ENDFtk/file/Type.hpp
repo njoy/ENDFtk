@@ -4,7 +4,8 @@
 // system includes
 
 // other includes
-#include "range/v3/all.hpp"
+#include "range/v3/front.hpp"
+#include "range/v3/view/map.hpp"
 #include "ENDFtk/section.hpp"
 #include "ENDFtk/file/Base.hpp"
 

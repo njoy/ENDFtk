@@ -4,6 +4,7 @@
 #include "ENDFtk/tree/File.hpp"
 
 // other includes
+#include "range/v3/algorithm/equal.hpp"
 
 // convenience typedefs
 using namespace njoy::ENDFtk;

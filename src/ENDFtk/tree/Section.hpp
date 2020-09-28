@@ -5,7 +5,7 @@
 
 // other includes
 #include "boost/hana.hpp"
-#include "range/v3/all.hpp"
+#include "range/v3/iterator_range.hpp"
 #include "ENDFtk/HeadRecord.hpp"
 #include "ENDFtk/section.hpp"
 
@@ -13,7 +13,7 @@ namespace njoy {
 namespace ENDFtk {
 
   namespace hana = boost::hana;
-  
+
 namespace tree {
 
   template< typename BufferIterator >

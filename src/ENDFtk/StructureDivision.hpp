@@ -5,7 +5,7 @@
 
 // other includes
 #include "Log.hpp"
-#include "header-utilities.hpp"
+#include "header-utilities/echoErroneousLine.hpp"
 #include "ENDFtk/record.hpp"
 
 namespace njoy {
