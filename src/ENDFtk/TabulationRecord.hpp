@@ -9,6 +9,7 @@
 #include "range/v3/view/iota.hpp"
 #include "range/v3/view/transform.hpp"
 #include "range/v3/view/zip.hpp"
+#include "ENDFtk/types.hpp"
 #include "ENDFtk/record.hpp"
 
 namespace njoy {
@@ -42,13 +43,6 @@ namespace ENDFtk {
 
   public:
 
-    /* type aliases */
-    using DoubleRange =
-    decltype( ranges::view::all( std::declval< const std::vector< double > >() ) );
-    using PairRange =
-    decltype( ranges::view::zip( std::declval< const std::vector< double > >(),
-                                 std::declval< const std::vector< double > >() ) );
-
     /* constructor */
     #include "ENDFtk/TabulationRecord/src/ctor.hpp"
 
@@ -65,7 +59,7 @@ namespace ENDFtk {
 
     DoubleRange y() const { return ranges::view::all( this->yValues ); }
 
-    PairRange pairs() const {
+    auto pairs() const {
 
       return ranges::view::zip( this->xValues, this->yValues );
     }

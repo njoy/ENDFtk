@@ -6,6 +6,7 @@
 
 // other includes
 #include "range/v3/view/all.hpp"
+#include "ENDFtk/types.hpp"
 #include "ENDFtk/record/Base.hpp"
 #include "ENDFtk/record/Integer.hpp"
 #include "ENDFtk/record/Real.hpp"
@@ -53,10 +54,6 @@ namespace record {
     };
 
   public:
-
-    /* type aliases */
-    using LongRange =
-    decltype( ranges::view::all( std::declval< const std::vector< long > >() ) );
 
     /* constructor */
     #include "ENDFtk/record/InterpolationBase/src/ctor.hpp"

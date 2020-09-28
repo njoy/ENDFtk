@@ -11,6 +11,7 @@
 #include "range/v3/view/drop_exactly.hpp"
 #include "range/v3/view/repeat_n.hpp"
 #include "range/v3/view/stride.hpp"
+#include "ENDFtk/types.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/TabulationRecord.hpp"
@@ -72,10 +73,6 @@ namespace section{
 
   public:
 
-    /* type aliases */
-    using IsotopeRange =
-    decltype( ranges::view::all( std::declval< const std::vector< Isotope > >() ) );
-
     /* constructor */
     #include "ENDFtk/section/2/151/src/ctor.hpp"
 
@@ -97,7 +94,7 @@ namespace section{
     /**
      *  @brief Return the isotopes defined in the section
      */
-    IsotopeRange isotopes() const {
+    AllRange< Isotope > isotopes() const {
 
       return ranges::view::all( this->isotopes_ );
     }
