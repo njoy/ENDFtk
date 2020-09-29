@@ -5,7 +5,6 @@
 cmake_minimum_required( VERSION 3.14 )
 project( ENDFtk LANGUAGES CXX )
 
-
 ########################################################################
 # Project-wide setup
 ########################################################################
@@ -25,7 +24,6 @@ set( common_flags "-Wall" "-Wextra" "-Wpedantic" )
 set( strict_flags "-Werror" )
 set( release_flags "-O3" )
 set( debug_flags "-O0" "-g" )
-
 
 ########################################################################
 # Dependencies
@@ -47,10 +45,15 @@ elseif( REPOSITORIES STREQUAL "local" )
 
 endif()
 
-
 ########################################################################
 # Project targets
 ########################################################################
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# elementary : library
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+include_directories( src/ )
 
 add_library( ENDFtk INTERFACE
     )
@@ -64,6 +67,16 @@ target_link_libraries( ENDFtk
     INTERFACE range-v3-adapter
     )
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# elementary : python bindings
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+set( CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -fPIC" )
+
+pybind11_add_module( ENDFtk.python
+                     python/src/ENDFtk.python.cpp )
+target_link_libraries( ENDFtk.python PUBLIC ENDFtk )
+set_target_properties( ENDFtk.python PROPERTIES OUTPUT_NAME ENDFtk )
 
 #######################################################################
 # Top-level Only

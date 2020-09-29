@@ -45,6 +45,12 @@ FetchContent_Declare( disco
     GIT_TAG         178a03cf4a571fee028b008ffac85e20f6059ade
     )
 
+FetchContent_Declare( pybind11
+    GIT_REPOSITORY  https://github.com/pybind/pybind11
+    GIT_TAG         v2.5.0
+    GIT_SHALLOW     TRUE
+    )
+
 #######################################################################
 # Load dependencies
 #######################################################################
@@ -58,4 +64,5 @@ FetchContent_MakeAvailable(
     fmt-adapter
     spdlog-adapter
     disco
+    pybind11
     )
