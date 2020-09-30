@@ -73,6 +73,8 @@ target_link_libraries( ENDFtk
 
 set( CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -fPIC" )
 
+include_directories( python/src/ )
+
 pybind11_add_module( ENDFtk.python
                      python/src/ENDFtk.python.cpp )
 target_link_libraries( ENDFtk.python PUBLIC ENDFtk )

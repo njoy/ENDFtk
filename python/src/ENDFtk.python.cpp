@@ -3,6 +3,7 @@
 #include <pybind11/stl.h>
 
 // other includes
+#include "views.hpp"
 
 // namespace aliases
 namespace python = pybind11;
@@ -16,6 +17,10 @@ namespace python = pybind11;
  *  set on the PROPERTIES OUTPUT_NAME in the CMakeLists.txt file.
  */
 PYBIND11_MODULE( ENDFtk, module ) {
+
+  // wrap some basic views
+  wrapAnyViewOf< double >( module, "any_view< double, random_access >" );
+  wrapAnyViewOf< long >( module, "any_view< long, random_access >" );
 
   module.def(
 
