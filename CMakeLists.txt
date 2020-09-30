@@ -79,6 +79,7 @@ pybind11_add_module( ENDFtk.python
     python/src/ENDFtk.python.cpp
     python/src/record/DirectoryRecord.python.cpp
     python/src/section/1/451.python.cpp
+    python/src/section/3.python.cpp
     )
 target_link_libraries( ENDFtk.python PUBLIC ENDFtk )
 set_target_properties( ENDFtk.python PROPERTIES OUTPUT_NAME ENDFtk )

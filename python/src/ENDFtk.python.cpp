@@ -13,6 +13,7 @@ void wrapDirectoryRecord( python::module& );
 
 // declarations - sections
 void wrapSection_1_451( python::module& );
+void wrapSection_3( python::module& );
 
 /**
  *  @brief ENDFtk python bindings
@@ -32,6 +33,7 @@ PYBIND11_MODULE( ENDFtk, module ) {
 
   // wrap sections
   wrapSection_1_451( module );
+  wrapSection_3( module );
 
   // module.def(
   //

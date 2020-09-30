@@ -6,7 +6,6 @@
 #include "ENDFtk/DirectoryRecord.hpp"
 #include "ENDFtk/section/1/451.hpp"
 #include "definitions.hpp"
-#include "print.hpp"
 #include "views.hpp"
 
 // namespace aliases
@@ -17,6 +16,7 @@ void wrapSection_1_451( python::module& module ) {
   // type aliases
   using DirectoryRecord = njoy::ENDFtk::DirectoryRecord;
   using Section = njoy::ENDFtk::section::Type< 1, 451 >;
+  using DirectoryRange = RandomAccessAnyView< DirectoryRecord >;
 
   // wrap views created by this section
   // none of these are supposed to be created directly by the user
@@ -274,7 +274,8 @@ void wrapSection_1_451( python::module& module ) {
   .def_property_readonly(
 
     "index",
-    &Section::index,
+    [] ( const Section& type ) -> DirectoryRange
+       { return type.index(); },
     "The index"
   )
   .def_property_readonly(
@@ -288,16 +289,6 @@ void wrapSection_1_451( python::module& module ) {
     "NXC",
     &Section::NXC,
     "The number of index entries"
-  )
-  .def(
-
-    "to_string",
-    [] ( const Section& self, long mat )
-       { return print( self, mat, 1 ); },
-    "Return the string representation of the section\n\n"
-    "Arguments:\n"
-    "    self    the MF1 MT451 section\n"
-    "    mat     the MAT number to be used"
   );
 
   // add standard section definitions

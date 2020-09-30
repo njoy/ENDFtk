@@ -4,6 +4,7 @@
 // system includes
 
 // other includes
+#include "print.hpp"
 
 /**
  *  @brief Add standard section definitions
@@ -52,6 +53,17 @@ void addStandardSectionDefinitions( PythonClass& section ) {
     "NC",
     [] ( const Section& self ) { return self.NC(); },
     "Return the number of lines in this section"
+  )
+  .def(
+
+  "to_string",
+  [] ( const Section& self, int mat, int mf )
+     { return print( self, mat, mf ); },
+  "Return the string representation of the section\n\n"
+  "Arguments:\n"
+  "    self    the section\n"
+  "    mat     the MAT number to be used\n"
+  "    mf      the MF number to be used"
   );
 }
 

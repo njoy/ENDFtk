@@ -43,9 +43,10 @@ public:
   #include "ENDFtk/section/3/src/print.hpp"
 
   using Base::MT;
+  using Base::sectionNumber;
   using Base::ZA;
-  using Base::AWR;
   using Base::atomicWeightRatio;
+  using Base::AWR;
 };
 
 } // section namespace
