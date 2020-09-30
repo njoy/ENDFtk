@@ -9,6 +9,7 @@
 namespace python = pybind11;
 
 // declarations
+void wrapDirectoryRecord( python::module& );
 
 /**
  *  @brief ENDFtk python bindings
@@ -22,16 +23,19 @@ PYBIND11_MODULE( ENDFtk, module ) {
   wrapAnyViewOf< double >( module, "any_view< double, random_access >" );
   wrapAnyViewOf< long >( module, "any_view< long, random_access >" );
 
-  module.def(
+  // wrap records
+  wrapDirectoryRecord( module );
 
-    "add",
-    [] ( int left, int right ) { return left + right; },
-    python::arg( "left" ), python::arg( "right" ),
-    "Return the sum of two integers\n\n"
-    "This function does not throw an exception.\n\n"
-    "Arguments:\n"
-    "    left    the integer on the left\n"
-    "    right   the integer on the right"
-  );
+  // module.def(
+  //
+  //   "add",
+  //   [] ( int left, int right ) { return left + right; },
+  //   python::arg( "left" ), python::arg( "right" ),
+  //   "Return the sum of two integers\n\n"
+  //   "This function does not throw an exception.\n\n"
+  //   "Arguments:\n"
+  //   "    left    the integer on the left\n"
+  //   "    right   the integer on the right"
+  // );
 
 }
