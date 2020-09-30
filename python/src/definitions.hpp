@@ -5,6 +5,7 @@
 
 // other includes
 #include "print.hpp"
+#include "read.hpp"
 
 /**
  *  @brief Add standard section definitions
@@ -54,16 +55,27 @@ void addStandardSectionDefinitions( PythonClass& section ) {
     [] ( const Section& self ) { return self.NC(); },
     "Return the number of lines in this section"
   )
+  .def_static(
+
+    "from_string",
+    [] ( const std::string& section )
+       { return read< Section >( section ); },
+    "Read the section from a string\n\n"
+    "An exception is raised if something goes wrong while reading the\n"
+    "section\n\n"
+    "Arguments:\n"
+    "    section    the string representing the section"
+  )
   .def(
 
-  "to_string",
-  [] ( const Section& self, int mat, int mf )
-     { return print( self, mat, mf ); },
-  "Return the string representation of the section\n\n"
-  "Arguments:\n"
-  "    self    the section\n"
-  "    mat     the MAT number to be used\n"
-  "    mf      the MF number to be used"
+    "to_string",
+    [] ( const Section& self, int mat, int mf )
+       { return print( self, mat, mf ); },
+    "Return the string representation of the section\n\n"
+    "Arguments:\n"
+    "    self    the section\n"
+    "    mat     the MAT number to be used\n"
+    "    mf      the MF number to be used"
   );
 }
 

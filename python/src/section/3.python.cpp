@@ -33,56 +33,99 @@ void wrapSection_3( python::module& module ) {
 
     python::init< int, double, double, double, double, long,
                   std::vector< long >&&, std::vector< long >&&,
-                  std::vector< double >&&, std::vector< double >&& >()
+                  std::vector< double >&&, std::vector< double >&& >(),
+    python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
+    python::arg( "qm" ), python::arg( "qi" ), python::arg( "lr" ),
+    python::arg( "boundaries" ), python::arg( "interpolants" ),
+    python::arg( "energies" ), python::arg( "xs" ),
+    "Initialise the MF3 section\n\n"
+    "Arguments:\n"
+    "    mt             the MT number\n"
+    "    zaid           the ZA  identifier\n"
+    "    awr            the atomic mass ratio\n"
+    "    qm             the mass difference Q value\n"
+    "    qi             the reaction Q value\n"
+    "    lr             the complex breakup flag\n"
+    "    boundaries     the interpolation range boundaries\n"
+    "    interpolants   the interpolation types for each range\n"
+    "    energies       the energy values\n"
+    "    xs             the cross section values"
   )
   .def_property_readonly(
 
     "QM",
-    &Section::QM
+    &Section::QM,
+    "The mass difference Q value"
+  )
+  .def_property_readonly(
+
+    "mass_difference_qvalue",
+    &Section::massDifferenceQValue,
+    "The mass difference Q value"
   )
   .def_property_readonly(
 
     "QI",
-    &Section::QI
+    &Section::QI,
+    "The reaction Q value"
+  )
+  .def_property_readonly(
+
+    "reaction_qvalue",
+    &Section::reactionQValue,
+    "The mass difference Q value"
   )
   .def_property_readonly(
 
     "LR",
-    &Section::LR
+    &Section::LR,
+    "The complex break up flag"
+  )
+  .def_property_readonly(
+
+    "complex_breakUp",
+    &Section::complexBreakUp,
+    "The complex break up flag"
   )
   .def_property_readonly(
 
     "NR",
-    &Section::NR
+    &Section::NR,
+    "The number of interpolation ranges"
   )
   .def_property_readonly(
 
     "NP",
-    &Section::NP
+    &Section::NP,
+    "The number of points"
   )
   .def_property_readonly(
 
     "interpolants",
     [] ( const Section& self ) -> LongRange
-       { return self.interpolants(); }
+       { return self.interpolants(); },
+    "The interpolation type for each range"
   )
   .def_property_readonly(
 
     "boundaries",
     [] ( const Section& self ) -> LongRange
-       { return self.boundaries(); }
+       { return self.boundaries(); },
+    "The interpolation boundaries"
   )
   .def_property_readonly(
 
     "energies",
     [] ( const Section& self ) -> DoubleRange
-       { return self.energies(); }
+       { return self.energies(); },
+    "The energy values"
   )
   .def_property_readonly(
 
     "cross_sections",
     [] ( const Section& self ) -> DoubleRange
-       { return self.crossSections(); }
+       { return self.crossSections(); },
+    "The cross section values"
   );
 
   // add standard section definitions
