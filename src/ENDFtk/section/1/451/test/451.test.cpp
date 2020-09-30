@@ -127,7 +127,7 @@ SCENARIO( "section::Type< 1, 451 >" ) {
     } // WHEN
   } // GIVEN
 
-  GIVEN( "invalid data for a section::Type< 7, 4 >" ) {
+  GIVEN( "invalid data for a section::Type< 1, 451 >" ) {
 
     WHEN( "a string representation of an File 1 Section 451 "
           "with an invalid NWD (comment lines)" ) {
