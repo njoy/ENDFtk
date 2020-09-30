@@ -8,8 +8,11 @@
 // namespace aliases
 namespace python = pybind11;
 
-// declarations
+// declarations - records
 void wrapDirectoryRecord( python::module& );
+
+// declarations - sections
+void wrapSection_1_451( python::module& );
 
 /**
  *  @brief ENDFtk python bindings
@@ -25,6 +28,9 @@ PYBIND11_MODULE( ENDFtk, module ) {
 
   // wrap records
   wrapDirectoryRecord( module );
+
+  // wrap sections
+  wrapSection_1_451( module );
 
   // module.def(
   //

@@ -23,6 +23,12 @@ namespace njoy {
 namespace ENDFtk {
 namespace section{
 
+  /**
+   *  @class
+   *  @brief MF1 MT451 - descriptive data and directory
+   *
+   *  See ENDF102, section 1.1 for more information.
+   */
   template<>
   class Type< 1, 451 > : protected BaseWithoutMT< Type< 1, 451 > > {
 

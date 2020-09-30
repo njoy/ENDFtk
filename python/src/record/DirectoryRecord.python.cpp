@@ -61,7 +61,7 @@ void wrapDirectoryRecord( python::module& module ) {
   .def(
 
     "to_string",
-    [] ( Record& self, long mat ) { return print( self, mat, 1, 451 ); },
+    [] ( const Record& self, long mat ) { return print( self, mat, 1, 451 ); },
     "Return the string representation of the directory record\n\n"
     "Arguments:\n"
     "    self   the directory object\n"
