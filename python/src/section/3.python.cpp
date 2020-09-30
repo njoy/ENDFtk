@@ -83,7 +83,7 @@ void wrapSection_3( python::module& module ) {
   )
   .def_property_readonly(
 
-    "complex_breakUp",
+    "complex_breakup",
     &Section::complexBreakUp,
     "The complex break up flag"
   )
