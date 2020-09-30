@@ -24,7 +24,7 @@ void wrapSection_3( python::module& module ) {
 
     module,
     "Section_3",
-    "MF3 - reaction cross sections"
+    "MF3 section - reaction cross sections"
   );
 
   // wrap the section

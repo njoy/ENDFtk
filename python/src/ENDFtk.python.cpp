@@ -15,6 +15,9 @@ void wrapDirectoryRecord( python::module& );
 void wrapSection_1_451( python::module& );
 void wrapSection_3( python::module& );
 
+// declarations - files
+void wrapFile_3( python::module& );
+
 /**
  *  @brief ENDFtk python bindings
  *
@@ -25,8 +28,10 @@ PYBIND11_MODULE( ENDFtk, module ) {
 
   // wrap some basic recurring views
   // none of these are supposed to be created directly by the user
-  wrapAnyViewOf< double >( module, "any_view< double, random_access >" );
-  wrapAnyViewOf< long >( module, "any_view< long, random_access >" );
+  wrapRandomAccessAnyViewOf< double >( module,
+                                       "any_view< double, random_access >" );
+  wrapRandomAccessAnyViewOf< long >( module,
+                                     "any_view< long, random_access >" );
 
   // wrap records
   wrapDirectoryRecord( module );
@@ -34,6 +39,9 @@ PYBIND11_MODULE( ENDFtk, module ) {
   // wrap sections
   wrapSection_1_451( module );
   wrapSection_3( module );
+
+  // wrap files
+  wrapFile_3( module );
 
   // module.def(
   //

@@ -20,7 +20,7 @@ void wrapSection_1_451( python::module& module ) {
 
   // wrap views created by this section
   // none of these are supposed to be created directly by the user
-  wrapAnyViewOf< DirectoryRecord >(
+  wrapRandomAccessAnyViewOf< DirectoryRecord >(
       module,
       "any_view< DirectoryRecord, random_access >" );
 
@@ -29,7 +29,7 @@ void wrapSection_1_451( python::module& module ) {
 
     module,
     "Section_1_451",
-    "MF1 MT451 - descriptive data and directory"
+    "MF1 MT451 section - descriptive data and directory"
   );
 
   // wrap the section

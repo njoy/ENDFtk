@@ -11,7 +11,8 @@
  *  @brief Add standard section definitions
  *
  *  This adds the following standard properties:
- *    ZA, AWR, atomic_weight_ratio, MT, section_number, NC
+ *    ZA, AWR, atomic_weight_ratio, MT, section_number, NC, from_string,
+ *    to_string
  *
  *  @param[in] section   the section to which the definitions have to be added
  */
@@ -59,7 +60,7 @@ void addStandardSectionDefinitions( PythonClass& section ) {
 
     "from_string",
     [] ( const std::string& section )
-       { return read< Section >( section ); },
+       { return readSection< Section >( section ); },
     "Read the section from a string\n\n"
     "An exception is raised if something goes wrong while reading the\n"
     "section\n\n"
@@ -76,6 +77,65 @@ void addStandardSectionDefinitions( PythonClass& section ) {
     "    self    the section\n"
     "    mat     the MAT number to be used\n"
     "    mf      the MF number to be used"
+  );
+}
+
+/**
+ *  @brief Add standard file definitions
+ *
+ *  This adds the following standard properties:
+ *    hasSection, hasMT, from_string, to_string, section, MT
+ *
+ *  @param[in] section   the section to which the definitions have to be added
+ */
+template < typename File, typename PythonClass >
+void addStandardFileDefinitions( PythonClass& section ) {
+
+  section
+  .def_property_readonly(
+
+    "MF",
+    [] ( const File& self ) { return self.MF(); },
+    "The MF number of the file"
+  )
+  .def_property_readonly(
+
+    "file_number",
+    [] ( const File& self ) { return self.fileNumber(); },
+    "The MF number of the file"
+  )
+  .def(
+
+    "has_MT",
+    [] ( const File& self, int mt ) { return self.hasSection( mt ); },
+    "Return whether or not the file has a section with the given MT number"
+  )
+  .def(
+
+    "has_section",
+    [] ( const File& self, int mt ) { return self.hasSection( mt ); },
+    "Return whether or not the file has a section with the given MT number"
+  )
+  .def_static(
+
+    "from_string",
+    [] ( const std::string& file )
+       { return readFile< File >( file ); },
+    "Read the file from a string\n\n"
+    "An exception is raised if something goes wrong while reading the\n"
+    "file\n\n"
+    "Arguments:\n"
+    "    file    the string representing the file"
+  )
+  .def(
+
+    "to_string",
+    [] ( const File& self, int mat )
+       { return print( self, mat ); },
+    "Return the string representation of the section\n\n"
+    "Arguments:\n"
+    "    self    the section\n"
+    "    mat     the MAT number to be used"
   );
 }
 

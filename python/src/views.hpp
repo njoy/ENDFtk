@@ -25,13 +25,39 @@ template < typename Element >
 using RandomAccessAnyView = ranges::any_view< Element, ranges::category::random_access >;
 
 /**
+ *  @brief Wrap a BiDirectionalAnyView templated on the Element type
+ *
+ *  @param[in,out] module   the python module
+ *  @param[in,out] name     the unique type name
+ */
+template < typename Element >
+void wrapBiDirectionalAnyViewOf( py::module& module, const std::string& name ) {
+
+  py::class_< BiDirectionalAnyView< Element > >( module, name.c_str() )
+  .def( "__len__",
+      	[] ( BiDirectionalAnyView< Element >& view )
+           { return ranges::distance( view ); } )
+  .def( "__iter__",
+  	    [] ( BiDirectionalAnyView< Element >& view )
+           { return py::make_iterator<
+                        py::return_value_policy::reference_internal,
+  				              ranges::iterator_t< BiDirectionalAnyView< Element > >,
+  				              ranges::sentinel_t< BiDirectionalAnyView< Element > >,
+  				              Element >( view.begin(), view.end() ); },
+  	    py::keep_alive< 0, 1 >() )
+  .def( "list",
+      	[] ( BiDirectionalAnyView< Element >& view ) -> std::vector< Element >
+           { return view; } );
+}
+
+/**
  *  @brief Wrap a RandomAccessAnyView templated on the Element type
  *
  *  @param[in,out] module   the python module
  *  @param[in,out] name     the unique type name
  */
 template < typename Element >
-void wrapAnyViewOf( py::module& module, const std::string& name ) {
+void wrapRandomAccessAnyViewOf( py::module& module, const std::string& name ) {
 
   py::class_< RandomAccessAnyView< Element > >( module, name.c_str() )
   .def( "__len__",
