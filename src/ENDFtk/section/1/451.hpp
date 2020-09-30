@@ -53,222 +53,203 @@ namespace section{
     /* constructor */
     #include "ENDFtk/section/1/451/src/ctor.hpp"
 
-    /* get methods */
-    static constexpr int sectionNumber(){ return 451; }
+    /* methods */
 
+    /**
+     *  @brief Return the resonance parameter flag
+     */
     int LRP() const { return this->lrp_; }
+
+    /**
+     *  @brief Return the resonance parameter flag
+     */
     int resonanceParameterFlag() const { return this->LRP(); }
+
+    /**
+     *  @brief Return the fissile flag
+     */
     int LFI() const { return this->lfi_; }
+
+    /**
+     *  @brief Return the fissile flag
+     */
     bool isFissile() const { return this->LFI(); }
+
+    /**
+     *  @brief Return the library type
+     */
     int NLIB() const { return this->nlib_; }
+
+    /**
+     *  @brief Return the library type
+     */
     int libraryType() const { return this->NLIB(); }
+
+    /**
+     *  @brief Return the modification number
+     */
     int NMOD() const { return this->nmod_; }
+
+    /**
+     *  @brief Return the modification number
+     */
     int modificationNumber() const { return this->NMOD(); }
 
+    /**
+     *  @brief Return the excitation energy
+     */
     double ELIS() const { return std::get< 0 >( this->parameters_ ).C1(); }
+
+    /**
+     *  @brief Return the excitation energy
+     */
     double excitationEnergy() const { return this->ELIS(); }
+
+    /**
+     *  @brief Return the stability flag
+     */
     double STA() const { return std::get< 0 >( this->parameters_ ).C2(); }
+
+    /**
+     *  @brief Return the stability flag
+     */
     bool isStable() const { return this->STA(); }
+
+    /**
+     *  @brief Return the excited level number
+     */
     int LIS() const { return std::get< 0 >( this->parameters_ ).L1(); }
+
+    /**
+     *  @brief Return the excited level number
+     */
     int excitedLevel() const { return this->LIS(); }
+
+    /**
+     *  @brief Return the isomeric state number
+     */
     int LISO() const { return std::get< 0 >( this->parameters_ ).L2(); }
+
+    /**
+     *  @brief Return the isomeric state number
+     */
     int isomericLevel() const { return this->LISO(); }
+
+    /**
+     *  @brief Return the library format version number
+     */
     int NFOR() const { return std::get< 0 >( this->parameters_ ).N2(); }
+
+    /**
+     *  @brief Return the library format version number
+     */
     int libraryFormat() const { return this->NFOR(); }
 
+    /**
+     *  @brief Return the atomic weight ratio of the incident particle
+     */
     double AWI() const { return std::get< 1 >( this->parameters_ ).C1(); }
+
+    /**
+     *  @brief Return the atomic weight ratio of the incident particle
+     */
     double projectileAtomicMassRatio() const { return this->AWI(); }
+
+    /**
+     *  @brief Return the maximum energy
+     */
     double EMAX() const { return std::get< 1 >( this->parameters_ ).C2(); }
+
+    /**
+     *  @brief Return the maximum energy
+     */
     double maximumEnergy() const { return this->EMAX(); }
+
+    /**
+     *  @brief Return the release number
+     */
     int LREL() const { return std::get< 1 >( this->parameters_ ).L1(); }
+
+    /**
+     *  @brief Return the release number
+     */
     int releaseNumber() const { return this->LREL(); }
+
+    /**
+     *  @brief Return the sublibrary number
+     */
     int NSUB() const { return std::get< 1 >( this->parameters_ ).N1(); }
+
+    /**
+     *  @brief Return the sublibrary number
+     */
     int subLibrary() const { return this->NSUB(); }
+
+    /**
+     *  @brief Return the version number
+     */
     int NVER() const { return std::get< 1 >( this->parameters_ ).N2(); }
+
+    /**
+     *  @brief Return the version number
+     */
     int versionNumber() const { return this->NVER(); }
 
+    /**
+     *  @brief Return the temperature
+     */
     double TEMP() const { return std::get< 2 >( this->parameters_ ).C1(); }
+
+    /**
+     *  @brief Return the temperature
+     */
     double temperature() const { return this->TEMP(); }
+
+    /**
+     *  @brief Return the derived material flag
+     */
     int LDRV() const { return std::get< 2 >( this->parameters_ ).L1(); }
+
+    /**
+     *  @brief Return the derived material flag
+     */
     int derivedMaterial() const { return this->LDRV(); }
+
+    /**
+     *  @brief Return the number of lines of descriptive data
+     */
     int NWD() const { return static_cast< int >( this->description_.size() ); }
+
+    /**
+     *  @brief Return the number of index entries
+     */
     int NXC() const { return static_cast< int >( this->index_.size() ); }
 
+    /**
+     *  @brief Return the index of available files and sections
+     */
     AllRange< DirectoryRecord > index() const {
 
       return ranges::view::all( this->index_ );
     }
 
+    /**
+     *  @brief Return the number of lines in this MF1/MT451 section
+     */
     long NC() const { return 4 + this->NWD() + this->NXC(); }
 
     #include "ENDFtk/section/1/451/src/description.hpp"
     #include "ENDFtk/section/1/451/src/print.hpp"
 
+    /**
+     *  @brief Return the MT number of the section
+     */
+    static constexpr int sectionNumber(){ return 451; }
+
     using BaseWithoutMT::MT;
     using BaseWithoutMT::ZA;
     using BaseWithoutMT::AWR;
     using BaseWithoutMT::atomicWeightRatio;
-
-    /* implement set methods on ContRecord to enable this
-    int& LRP() const { return this->lrp_; }
-    int& LFI() const { return this->lfi_; }
-    int& NLIB() const { return this->nlib_; }
-    int& NMOD() const { return this->nmod_; }
-
-
-    double& ELIS() { return std::get<0>( this->parameters_ ).C1(); }
-    double& STA() { return std::get<0>( this->parameters_ ).C2(); }
-    int& LIS() { return std::get<0>( this->parameters_ ).L1(); }
-    int& LISO() { return std::get<0>( this->parameters_ ).L2(); }
-    int& NFOR() { return std::get<0>( this->parameters_ ).N2(); }
-
-    double& AWI() { return std::get<1>( this->parameters_ ).C1(); }
-    double& EMAX() { return std::get<1>( this->parameters_ ).C2(); }
-    int& LREL() { return std::get<1>( this->parameters_ ).L1(); }
-    int& NSUB() { return std::get<1>( this->parameters_ ).N1(); }
-    int& NVER() { return std::get<1>( this->parameters_ ).N2(); }
-
-    double& TEMP() { return std::get<2>( this->parameters_ ).C1(); }
-    int& LDRV() { return std::get<2>( this->parameters_ ).L1(); }
-    */
-
-    // @todo add function to erase and replace/add descriptive text
-
-    // @todo add function to erase and replace/add index
-
-
-  //
-  //  // MT452 total nubar data
-  //  template < bool B > class Type< 452, B > : protected Base {
-  //
-  //  /* fields */
-  //  int lnu_;
-  //  ListRecord polynomial_;
-  //  TabulationRecord tabulated_;
-  //
-  //  public:
-  //
-  //  /* constructor */
-  //#include "ENDFtk/section/1/451/src/ctor-452.hpp"
-  //
-  //  /* set methods */
-  //
-  //  /* get methods */
-  //  int LNU() const { return this->lnu_; }
-  //
-  //  // @todo extract values
-  //  const ListRecord& polynomial() const { return this->polynomial_; }
-  //  const TabulationRecord& tabulated() const { return this->tabulated_; }
-  //
-  //  using Base::MT;
-  //  using Base::ZA;
-  //  using Base::atomicWeightRatio;
-  //  };
-  //
-  //  // MT455 delayed nubar data
-  //  template < bool B > class Type< 455, B > : protected Type< 452, B > {
-  //
-  //  /* fields */
-  //  ListRecord independent_; // LDG=0
-  //  // @todo need TAB2
-  //  // std::vector< ListRecord > // LDG=1
-  //
-  //  public:
-  //
-  //  /* constructor */
-  //#include "ENDFtk/section/1/451/src/ctor-456.hpp"
-  //
-  //  /* set methods */
-  //
-  //  /* get methods */
-  //  using Type< 452 >::LNU;
-  //
-  //  // @todo extract values
-  //  const ListRecord& independent() const { return this->independent_; }
-  //  using Type< 452 >::polynomial;
-  //  using Type< 452 >::tabulated;
-  //
-  //  using Type< 452 >::MT;
-  //  using Type< 452 >::ZA;
-  //  using Type< 452 >::atomicWeightRatio;
-  //  };
-  //
-  //  // MT456 prompt nubar data
-  //  template < bool B > class Type< 456, B > : protected Type< 452, B > {
-  //
-  //  public:
-  //
-  //  /* constructor */
-  //#include "ENDFtk/section/1/451/src/ctor-456.hpp"
-  //
-  //  /* set methods */
-  //
-  //  /* get methods */
-  //  using Type< 452 >::LNU;
-  //
-  //  // @todo extract values
-  //  using Type< 452 >::polynomial;
-  //  using Type< 452 >::tabulated;
-  //
-  //  using Type< 452 >::MT;
-  //  using Type< 452 >::ZA;
-  //  using Type< 452 >::atomicWeightRatio;
-  //  };
-  //
-  //  // MT458 fission Q value data
-  //  template < bool B > class Type< 458, B > : protected Base {
-  //
-  //  /* fields */
-  //  ListRecord data_;
-  //
-  //  public:
-  //
-  //  /* constructor */
-  //#include "ENDFtk/section/1/451/src/ctor-458.hpp"
-  //
-  //  /* set methods */
-  //  /* implement set methods on ListRecord to enable this
-  //  int& NPLY() { return data_.L2() }
-  //  */
-  //
-  //  /* get methods */
-  //    int NPLY() const { return data_.L2(); }
-  //
-  //  // @todo extract values
-  //  const ListRecord& data() const { return this->data_; }
-  //
-  //  using Base::MT;
-  //  using Base::ZA;
-  //  using Base::atomicWeightRatio;
-  //  };
-  //
-  //  // MT460 delayed photon data
-  //  template < bool B > class Type< 460, B > : protected Base {
-  //
-  //  /* fields */
-  //  std::vector< TabulationRecord > discrete_;     // LO=1
-  //  ListRecord continuous_;                        // LO=2
-  //
-  //  // @todo store this as a variant because it is either of these two?
-  //
-  //  /* auxiliary functions */
-  //#include "ENDFtk/section/1/451/src/readRecords.hpp"
-  //
-  //  public:
-  //
-  //  /* constructor */
-  //#include "ENDFtk/section/1/451/src/ctor-460.hpp"
-  //
-  //  /* set methods */
-  //
-  //  /* get methods */
-  //  int LO() const { return ( this->NG() != 0 ? 1 : 2 ); }
-  //  int NG() const { return static_cast<int>( this->discrete_.size() ); }
-  //
-  //  using Base::MT;
-  //  using Base::ZA;
-  //  using Base::atomicWeightRatio;
-  //  };
   };
 
 } // section namespace
