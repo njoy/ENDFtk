@@ -16,15 +16,9 @@ void addStandardSectionDefinitions( PythonClass& section ) {
   section
   .def_property_readonly(
 
-    "MT",
-    [] ( const Section& self ) { return self.MT(); },
-    "The MT number of the section"
-  )
-  .def_property_readonly(
-
-    "section_number",
-    [] ( const Section& self ) { return self.sectionNumber(); },
-    "The MT number of the section"
+    "ZA",
+    [] ( const Section& self ) { return self.ZA(); },
+    "The ZA identifier for the section"
   )
   .def_property_readonly(
 
@@ -40,9 +34,21 @@ void addStandardSectionDefinitions( PythonClass& section ) {
   )
   .def_property_readonly(
 
-    "ZA",
-    [] ( const Section& self ) { return self.ZA(); },
-    "The ZA identifier for the section"
+    "MT",
+    [] ( const Section& self ) { return self.MT(); },
+    "The MT number of the section"
+  )
+  .def_property_readonly(
+
+    "section_number",
+    [] ( const Section& self ) { return self.sectionNumber(); },
+    "The MT number of the section"
+  )
+  .def_property_readonly(
+
+    "NC",
+    [] ( const Section& self ) { return self.NC(); },
+    "Return the number of lines in this section"
   );
 }
 

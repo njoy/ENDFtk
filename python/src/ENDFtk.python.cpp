@@ -22,7 +22,8 @@ void wrapSection_1_451( python::module& );
  */
 PYBIND11_MODULE( ENDFtk, module ) {
 
-  // wrap some basic views
+  // wrap some basic recurring views
+  // none of these are supposed to be created directly by the user
   wrapAnyViewOf< double >( module, "any_view< double, random_access >" );
   wrapAnyViewOf< long >( module, "any_view< long, random_access >" );
 

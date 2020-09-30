@@ -5,8 +5,9 @@
 // local includes
 #include "ENDFtk/DirectoryRecord.hpp"
 #include "ENDFtk/section/1/451.hpp"
-#include "views.hpp"
+#include "definitions.hpp"
 #include "print.hpp"
+#include "views.hpp"
 
 // namespace aliases
 namespace python = pybind11;
@@ -17,16 +18,22 @@ void wrapSection_1_451( python::module& module ) {
   using DirectoryRecord = njoy::ENDFtk::DirectoryRecord;
   using Section = njoy::ENDFtk::section::Type< 1, 451 >;
 
-  // wrap some basic views
-  wrapAnyViewOf< DirectoryRecord >( module, "any_view< DirectoryRecord, random_access >" );
+  // wrap views created by this section
+  // none of these are supposed to be created directly by the user
+  wrapAnyViewOf< DirectoryRecord >(
+      module,
+      "any_view< DirectoryRecord, random_access >" );
 
-  // wrap the section
-  python::class_< Section >(
+  // create the section
+  python::class_< Section > section(
 
     module,
     "Section_1_451",
     "MF1 MT451 - descriptive data and directory"
-  )
+  );
+
+  // wrap the section
+  section
   .def(
 
     python::init< double, double, int, int, int, int,
@@ -44,8 +51,27 @@ void wrapSection_1_451( python::module& module ) {
     python::arg( "description" ), python::arg( "index" ),
     "Initialise the MF1 MT451 section\n\n"
     "Arguments:\n"
-    "    string    the string representation of a level number (case \n"
-    "              insensitive)"
+    "    self           the MF1 MT451 section\n"
+    "    zaid           the ZA value of the material\n"
+    "    awr            the atomic weight ratio\n"
+    "    lrp            the resonance parameter flag\n"
+    "    lfi            the fissile flag\n"
+    "    nlib           the library type\n"
+    "    nmod           the modification number\n"
+    "    elis           the excitation energy\n"
+    "    sta            the stability flag\n"
+    "    lis            the excited level number\n"
+    "    liso           the isomeric state number\n"
+    "    nfor           the library format version number\n"
+    "    awi            the atomic weight ratio of the incident particle\n"
+    "    emax           the maximum incident energy\n"
+    "    lrel           the release number\n"
+    "    nsub           the sublibrary number\n"
+    "    nver           the version number\n"
+    "    temp           the temperature\n"
+    "    ldrv           the derived material flag\n"
+    "    description    the descriptive information\n"
+    "    index          the index"
   )
   .def_property_readonly(
 
@@ -55,33 +81,213 @@ void wrapSection_1_451( python::module& module ) {
   )
   .def_property_readonly(
 
-    "MT",
-    [] ( const Section& section ) { return section.MT(); },
-    "The MT number of the section"
+    "resonance_parameter_flag",
+    &Section::resonanceParameterFlag,
+    "The resonance parameter flag"
   )
   .def_property_readonly(
 
-    "sectionNumber",
-    [] ( const Section& section ) { return section.sectionNumber(); },
-    "The MT number of the section"
+    "LFI",
+    &Section::LFI,
+    "The fissile flag"
   )
   .def_property_readonly(
 
-    "AWR",
-    [] ( const Section& section ) { return section.AWR(); },
-    "The atomic weight ratio for the section"
+    "is_fissile",
+    &Section::isFissile,
+    "The fissile flag"
   )
   .def_property_readonly(
 
-    "atomicWeightRatio",
-    [] ( const Section& section ) { return section.atomicWeightRatio(); },
-    "The atomic weight ratio for the section"
+    "NLIB",
+    &Section::NLIB,
+    "The library type"
   )
   .def_property_readonly(
 
-    "ZA",
-    [] ( const Section& section ) { return section.ZA(); },
-    "The ZA identifier for the section"
+    "library_type",
+    &Section::libraryType,
+    "The library type"
+  )
+  .def_property_readonly(
+
+    "NMOD",
+    &Section::NMOD,
+    "The modification number"
+  )
+  .def_property_readonly(
+
+    "modification_number",
+    &Section::modificationNumber,
+    "The modification number"
+  )
+  .def_property_readonly(
+
+    "ELIS",
+    &Section::ELIS,
+    "The excitation energy"
+  )
+  .def_property_readonly(
+
+    "excitation_energy",
+    &Section::excitationEnergy,
+    "The excitation energy"
+  )
+  .def_property_readonly(
+
+    "STA",
+    &Section::STA,
+    "The stability flag"
+  )
+  .def_property_readonly(
+
+    "is_stable",
+    &Section::isStable,
+    "The stability flag"
+  )
+  .def_property_readonly(
+
+    "LIS",
+    &Section::LIS,
+    "The excited level number"
+  )
+  .def_property_readonly(
+
+    "excited_level",
+    &Section::excitedLevel,
+    "The excited level number"
+  )
+  .def_property_readonly(
+
+    "LISO",
+    &Section::LISO,
+    "The isomeric state number"
+  )
+  .def_property_readonly(
+
+    "isomeric_level",
+    &Section::isomericLevel,
+    "The isomeric state number"
+  )
+  .def_property_readonly(
+
+    "NFOR",
+    &Section::NFOR,
+    "The library format version number"
+  )
+  .def_property_readonly(
+
+    "library_format",
+    &Section::libraryFormat,
+    "The library format version number"
+  )
+  .def_property_readonly(
+
+    "AWI",
+    &Section::AWI,
+    "The atomic weight ratio of the incident particle"
+  )
+  .def_property_readonly(
+
+    "projectile_atomic_mass_ratio",
+    &Section::projectileAtomicMassRatio,
+    "The atomic weight ratio of the incident particle"
+  )
+  .def_property_readonly(
+
+    "EMAX",
+    &Section::EMAX,
+    "The maximum incident energy"
+  )
+  .def_property_readonly(
+
+    "maximum_energy",
+    &Section::maximumEnergy,
+    "The maximum incident energy"
+  )
+  .def_property_readonly(
+
+    "LREL",
+    &Section::LREL,
+    "The release number"
+  )
+  .def_property_readonly(
+
+    "release_number",
+    &Section::releaseNumber,
+    "The release number"
+  )
+  .def_property_readonly(
+
+    "NSUB",
+    &Section::NSUB,
+    "The sublibrary number"
+  )
+  .def_property_readonly(
+
+    "sublibrary",
+    &Section::subLibrary,
+    "The sublibrary number"
+  )
+  .def_property_readonly(
+
+    "NVER",
+    &Section::NVER,
+    "The version number"
+  )
+  .def_property_readonly(
+
+    "version_number",
+    &Section::versionNumber,
+    "The version number"
+  )
+  .def_property_readonly(
+
+    "TEMP",
+    &Section::TEMP,
+    "The temperature"
+  )
+  .def_property_readonly(
+
+    "temperature",
+    &Section::temperature,
+    "The temperature"
+  )
+  .def_property_readonly(
+
+    "LDRV",
+    &Section::LDRV,
+    "The derived material flag"
+  )
+  .def_property_readonly(
+
+    "derived_material",
+    &Section::derivedMaterial,
+    "The derived material flag"
+  )
+  .def_property_readonly(
+
+    "description",
+    &Section::description,
+    "The descriptive information"
+  )
+  .def_property_readonly(
+
+    "index",
+    &Section::index,
+    "The index"
+  )
+  .def_property_readonly(
+
+    "NWD",
+    &Section::NWD,
+    "The number of lines of descriptive data"
+  )
+  .def_property_readonly(
+
+    "NXC",
+    &Section::NXC,
+    "The number of index entries"
   )
   .def(
 
@@ -90,7 +296,10 @@ void wrapSection_1_451( python::module& module ) {
        { return print( self, mat, 1 ); },
     "Return the string representation of the section\n\n"
     "Arguments:\n"
-    "    self   the directory object\n"
-    "    mat    the MAT number to be used"
+    "    self    the MF1 MT451 section\n"
+    "    mat     the MAT number to be used"
   );
+
+  // add standard section definitions
+  addStandardSectionDefinitions< Section >( section );
 }
