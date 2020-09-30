@@ -276,7 +276,8 @@ void wrapSection_1_451( python::module& module ) {
     "index",
     [] ( const Section& type ) -> DirectoryRange
        { return type.index(); },
-    "The index"
+    "The index",
+    python::return_value_policy::reference_internal
   )
   .def_property_readonly(
 

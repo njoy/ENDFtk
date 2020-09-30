@@ -41,6 +41,13 @@ void wrapFile_3( python::module& module ) {
     "Arguments:\n"
     "    sections   the sections to be put into the file"
   )
+  .def(
+
+    "section",
+    ( const Section& ( File::* )( int ) ) &File::section,
+    "Return the section corresponding to the mt number",
+    python::return_value_policy::reference_internal
+  )
   .def_property_readonly(
 
     "sections",

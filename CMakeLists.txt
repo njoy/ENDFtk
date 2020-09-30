@@ -71,7 +71,7 @@ target_link_libraries( ENDFtk
 # elementary : python bindings
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-set( CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -fPIC" )
+set( CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -fPIC -fvisibility=hidden" )
 
 include_directories( python/src/ )
 
