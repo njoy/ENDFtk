@@ -12,6 +12,7 @@ using namespace njoy::ENDFtk;
 using section1451 = section::Type< 1, 451 >;
 
 std::string chunk();
+void verifyChunk( const section::Type< 1, 451 >& );
 std::string invalidNWD();
 std::string invalidNXC();
 std::string description();
@@ -24,33 +25,30 @@ SCENARIO( "section::Type< 1, 451 >" ) {
 
   GIVEN( "valid data for a section::Type< 1, 451 >" ) {
 
-    int zaid = 1001;
-    double awr = 0.9991673;
-    int lrp = 1;
-    int lfi = 2;
-    int nlib = 3;
-    int nmod = 4;
-    double elis = 5.;
-    double sta = 6.;
-    int lis = 7;
-    int liso = 8;
-    int nfor = 12;
-    double awi = 13.;
-    double emax = 14.;
-    int lrel = 15;
-    int nsub = 17;
-    int nver = 18;
-    double temp = 19.;
-    int ldrv = 21;
-    std::array< ControlRecord, 3 > parameters =
-        {{ ControlRecord( elis, sta, lis, liso, 0, nfor ),
-           ControlRecord( awi, emax, lrel, 0, nsub, nver ),
-           ControlRecord( temp, 0.0, ldrv, 0, 9, 10 ) }};
-    std::string text = description();
-    std::vector< TextRecord > records = textRecords();
+    std::string sectionString = chunk() + validSEND();
 
-    THEN( "a section::Type< 1, 451 > can be constructed and "
-          "members can be tested" ) {
+    WHEN( "the data is given explicitly" ) {
+
+      int zaid = 1001;
+      double awr = 0.9991673;
+      int lrp = 1;
+      int lfi = 2;
+      int nlib = 3;
+      int nmod = 4;
+      double elis = 5.;
+      double sta = 6.;
+      int lis = 7;
+      int liso = 8;
+      int nfor = 12;
+      double awi = 13.;
+      double emax = 14.;
+      int lrel = 15;
+      int nsub = 17;
+      int nver = 18;
+      double temp = 19.;
+      int ldrv = 21;
+      std::string text = description();
+      std::vector< TextRecord > records = textRecords();
 
       section::Type< 1, 451 > chunk( zaid, awr, lrp, lfi, nlib, nmod,
                                      elis, sta, lis, liso, nfor,
@@ -59,158 +57,49 @@ SCENARIO( "section::Type< 1, 451 >" ) {
                                      text,
                                      index() );
 
-      REQUIRE( 451 == chunk.MT() );
-      REQUIRE( 1001 == chunk.ZA() );
-      REQUIRE( 0.9991673 == Approx( chunk.AWR() ) );
-      REQUIRE( 0.9991673 == Approx( chunk.atomicWeightRatio() ) );
-      REQUIRE( 1 == chunk.LRP() );
-      REQUIRE( 1 == chunk.resonanceParameterFlag() );
-      REQUIRE( 2 == chunk.LFI() );
-      REQUIRE( true == chunk.isFissile() );
-      REQUIRE( 3 == chunk.NLIB() );
-      REQUIRE( 3 == chunk.libraryType() );
-      REQUIRE( 4 == chunk.NMOD() );
-      REQUIRE( 4 == chunk.modificationNumber() );
-      REQUIRE( 5.0 == Approx( chunk.ELIS() ) );
-      REQUIRE( 5.0 == Approx( chunk.excitationEnergy() ) );
-      REQUIRE( 6.0 == Approx( chunk.STA() ) );
-      REQUIRE( true == Approx( chunk.isStable() ) );
-      REQUIRE( 7 == chunk.LIS() );
-      REQUIRE( 7 == chunk.excitedLevel() );
-      REQUIRE( 8 == chunk.LISO() );
-      REQUIRE( 8 == chunk.isomericLevel() );
-      REQUIRE( 12 == chunk.NFOR() );
-      REQUIRE( 12 == chunk.libraryFormat() );
-      REQUIRE( 13.0 == Approx( chunk.AWI() ) );
-      REQUIRE( 13.0 == Approx( chunk.projectileAtomicMassRatio() ) );
-      REQUIRE( 14.0 == Approx( chunk.EMAX() ) );
-      REQUIRE( 14.0 == Approx( chunk.maximumEnergy() ) );
-      REQUIRE( 15 == chunk.LREL() );
-      REQUIRE( 15 == chunk.releaseNumber() );
-      REQUIRE( 17 == chunk.NSUB() );
-      REQUIRE( 17 == chunk.subLibrary() );
-      REQUIRE( 18 == chunk.NVER() );
-      REQUIRE( 18 == chunk.versionNumber() );
-      REQUIRE( 19.0 == Approx( chunk.TEMP() ) );
-      REQUIRE( 19.0 == Approx( chunk.temperature() ) );
-      REQUIRE( 21 == chunk.LDRV() );
-      REQUIRE( 21 == chunk.derivedMaterial() );
-      REQUIRE( 9 == chunk.NWD() );
-      REQUIRE( ranges::equal( description(), chunk.description() ) );
+      THEN( "a section::Type< 1, 451 > can be constructed and "
+            "members can be tested" ) {
 
-      auto entries = index();
-      REQUIRE( entries.size() == chunk.NXC() );
-      for ( unsigned int i = 0; i < entries.size(); ++i ) {
+        verifyChunk( chunk );
+      } // THEN
 
-        REQUIRE( entries[i].MF() == chunk.index()[i].MF() );
-        REQUIRE( entries[i].MT() == chunk.index()[i].MT() );
-        REQUIRE( entries[i].NC() == chunk.index()[i].NC() );
-        REQUIRE( entries[i].MOD() == chunk.index()[i].MOD() );
-      }
+      THEN( "it can be printed" ) {
 
-      REQUIRE( 23 == chunk.NC() );
-    } // THEN
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 125, 1 );
 
-    THEN( "a section::Type< 1, 451 > can be constructed and "
-          "members can be tested" ) {
+        REQUIRE( buffer == sectionString );
+      } // THEN
+    } // WHEN
 
-      section::Type< 1, 451 > chunk( zaid, awr, lrp, lfi, nlib, nmod,
-                                     std::move( parameters ),
-                                     std::move( records ),
-                                     index() );
+    WHEN( "the data is read from a string/stream with a valid SEND" ) {
 
-      REQUIRE( 451 == chunk.MT() );
-      REQUIRE( 1001 == chunk.ZA() );
-      REQUIRE( 0.9991673 == Approx( chunk.AWR() ) );
-      REQUIRE( 0.9991673 == Approx( chunk.atomicWeightRatio() ) );
-      REQUIRE( 1 == chunk.LRP() );
-      REQUIRE( 2 == chunk.LFI() );
-      REQUIRE( 3 == chunk.NLIB() );
-      REQUIRE( 4 == chunk.NMOD() );
-      REQUIRE( 5.0 == Approx( chunk.ELIS() ) );
-      REQUIRE( 6.0 == Approx( chunk.STA() ) );
-      REQUIRE( 7 == chunk.LIS() );
-      REQUIRE( 8 == chunk.LISO() );
-      REQUIRE( 12 == chunk.NFOR() );
-      REQUIRE( 13.0 == Approx( chunk.AWI() ) );
-      REQUIRE( 14.0 == Approx( chunk.EMAX() ) );
-      REQUIRE( 15 == chunk.LREL() );
-      REQUIRE( 17 == chunk.NSUB() );
-      REQUIRE( 18 == chunk.NVER() );
-      REQUIRE( 19.0 == Approx( chunk.TEMP() ) );
-      REQUIRE( 21 == chunk.LDRV() );
-      REQUIRE( 9 == chunk.NWD() );
-      REQUIRE( ranges::equal( description(), chunk.description() ) );
-
-      auto entries = index();
-      REQUIRE( entries.size() == chunk.NXC() );
-      for ( unsigned int i = 0; i < entries.size(); ++i ) {
-
-        REQUIRE( entries[i].MF() == chunk.index()[i].MF() );
-        REQUIRE( entries[i].MT() == chunk.index()[i].MT() );
-        REQUIRE( entries[i].NC() == chunk.index()[i].NC() );
-        REQUIRE( entries[i].MOD() == chunk.index()[i].MOD() );
-      }
-
-      REQUIRE( 23 == chunk.NC() );
-    } // THEN
-  } // GIVEN
-
-  GIVEN( "a valid string representation of a section::Type< 1, 451 >" ) {
-
-    WHEN( "there is a valid SEND record" ){
-
-      std::string sectionString = chunk() + validSEND();
       auto begin = sectionString.begin();
       auto end = sectionString.end();
       long lineNumber = 1;
       HeadRecord head( begin, end, lineNumber );
 
+      section::Type< 1, 451 > chunk( head, begin, end, lineNumber, 125 );
+
       THEN( "a section::Type< 1, 451 > can be constructed and "
             "members can be tested" ) {
 
-        section::Type< 1, 451 > chunk( head, begin, end, lineNumber, 125 );
+        verifyChunk( chunk );
+      } // THEN
 
-        REQUIRE( 451 == chunk.MT() );
-        REQUIRE( 1001 == chunk.ZA() );
-        REQUIRE( 0.9991673 == Approx( chunk.AWR() ) );
-        REQUIRE( 0.9991673 == Approx( chunk.atomicWeightRatio() ) );
-        REQUIRE( 1 == chunk.LRP() );
-        REQUIRE( 2 == chunk.LFI() );
-        REQUIRE( 3 == chunk.NLIB() );
-        REQUIRE( 4 == chunk.NMOD() );
-        REQUIRE( 5.0 == Approx( chunk.ELIS() ) );
-        REQUIRE( 6.0 == Approx( chunk.STA() ) );
-        REQUIRE( 7 == chunk.LIS() );
-        REQUIRE( 8 == chunk.LISO() );
-        REQUIRE( 12 == chunk.NFOR() );
-        REQUIRE( 13.0 == Approx( chunk.AWI() ) );
-        REQUIRE( 14.0 == Approx( chunk.EMAX() ) );
-        REQUIRE( 15 == chunk.LREL() );
-        REQUIRE( 17 == chunk.NSUB() );
-        REQUIRE( 18 == chunk.NVER() );
-        REQUIRE( 19.0 == Approx( chunk.TEMP() ) );
-        REQUIRE( 21 == chunk.LDRV() );
-        REQUIRE( 9 == chunk.NWD() );
-        REQUIRE( ranges::equal( description(), chunk.description() ) );
+      THEN( "it can be printed" ) {
 
-        auto entries = index();
-        REQUIRE( entries.size() == chunk.NXC() );
-        for ( unsigned int i = 0; i < entries.size(); ++i ) {
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 125, 1 );
 
-          REQUIRE( entries[i].MF() == chunk.index()[i].MF() );
-          REQUIRE( entries[i].MT() == chunk.index()[i].MT() );
-          REQUIRE( entries[i].NC() == chunk.index()[i].NC() );
-          REQUIRE( entries[i].MOD() == chunk.index()[i].MOD() );
-        }
-
-        REQUIRE( 23 == chunk.NC() );
+        REQUIRE( buffer == sectionString );
       } // THEN
     } // WHEN
 
     WHEN( "there is a tree::Section" ){
 
-      std::string sectionString = chunk() + validSEND();
       auto begin = sectionString.begin();
       auto position = begin;
       auto end = sectionString.end();
@@ -219,50 +108,59 @@ SCENARIO( "section::Type< 1, 451 >" ) {
       tree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
 
+      section::Type< 1, 451 > chunk = section.parse< 1, 451 >( lineNumber );
+
       THEN( "a section::Type< 1, 451 > can be constructed and "
             "members can be tested" ) {
 
-        section::Type< 1, 451 > chunk = section.parse< 1, 451 >( lineNumber );
+        verifyChunk( chunk );
+      } // THEN
 
-        REQUIRE( 451 == chunk.MT() );
-        REQUIRE( 1001 == chunk.ZA() );
-        REQUIRE( 0.9991673 == Approx( chunk.AWR() ) );
-        REQUIRE( 0.9991673 == Approx( chunk.atomicWeightRatio() ) );
-        REQUIRE( 1 == chunk.LRP() );
-        REQUIRE( 2 == chunk.LFI() );
-        REQUIRE( 3 == chunk.NLIB() );
-        REQUIRE( 4 == chunk.NMOD() );
-        REQUIRE( 5.0 == Approx( chunk.ELIS() ) );
-        REQUIRE( 6.0 == Approx( chunk.STA() ) );
-        REQUIRE( 7 == chunk.LIS() );
-        REQUIRE( 8 == chunk.LISO() );
-        REQUIRE( 12 == chunk.NFOR() );
-        REQUIRE( 13.0 == Approx( chunk.AWI() ) );
-        REQUIRE( 14.0 == Approx( chunk.EMAX() ) );
-        REQUIRE( 15 == chunk.LREL() );
-        REQUIRE( 17 == chunk.NSUB() );
-        REQUIRE( 18 == chunk.NVER() );
-        REQUIRE( 19.0 == Approx( chunk.TEMP() ) );
-        REQUIRE( 21 == chunk.LDRV() );
-        REQUIRE( 9 == chunk.NWD() );
+      THEN( "it can be printed" ) {
 
-        REQUIRE( ranges::equal( description(), chunk.description() ) );
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 125, 1 );
 
-        auto entries = index();
-        REQUIRE( entries.size() == chunk.NXC() );
-        for ( unsigned int i = 0; i < entries.size(); ++i ) {
+        REQUIRE( buffer == sectionString );
+      } // THEN
+    } // WHEN
+  } // GIVEN
 
-          REQUIRE( entries[i].MF() == chunk.index()[i].MF() );
-          REQUIRE( entries[i].MT() == chunk.index()[i].MT() );
-          REQUIRE( entries[i].NC() == chunk.index()[i].NC() );
-          REQUIRE( entries[i].MOD() == chunk.index()[i].MOD() );
-        }
+  GIVEN( "invalid data for a section::Type< 7, 4 >" ) {
 
-        REQUIRE( 23 == chunk.NC() );
+    WHEN( "a string representation of an File 1 Section 451 "
+          "with an invalid NWD (comment lines)" ) {
+
+      std::string sectionString = invalidNWD() + validSEND();
+      auto begin = sectionString.begin();
+      auto end = sectionString.end();
+      long lineNumber = 1;
+      HeadRecord head( begin, end, lineNumber );
+
+      THEN( "an exception is thrown upon construction" ) {
+
+        REQUIRE_THROWS( section1451( head, begin, end, lineNumber, 125 ) );
+      } // THEN
+    } // GIVEN
+
+    WHEN( "a string representation of an File 1 Section 451 "
+          "with an invalid NXC (index lines)" ) {
+
+      std::string sectionString = invalidNXC() + validSEND();
+      auto begin = sectionString.begin();
+      auto end = sectionString.end();
+      long lineNumber = 1;
+      HeadRecord head( begin, end, lineNumber );
+
+      THEN( "an exception is thrown upon construction" ){
+
+        REQUIRE_THROWS( section1451( head, begin, end, lineNumber, 125 ) );
       } // THEN
     } // WHEN
 
-    WHEN( "the SEND Record is not valid, i.e., MT != 0" ) {
+    WHEN( "a string representation of a section::Type< 1, 451 > with "
+          "an invalid SEND" ) {
 
       std::string sectionString = chunk() + invalidSEND();
       auto begin = sectionString.begin();
@@ -275,54 +173,6 @@ SCENARIO( "section::Type< 1, 451 >" ) {
         REQUIRE_THROWS( section1451( head, begin, end, lineNumber, 125 ) );
       } // THEN
     } // WHEN
-  } // GIVEN
-
-  GIVEN( "a valid instance of section::Type< 1, 451 >" ) {
-
-    std::string string = chunk() + validSEND();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-    HeadRecord head( begin, end, lineNumber );
-    section::Type< 1, 451 > section( head, begin, end, lineNumber, 125 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      section.print( output, 125, 1 );
-      REQUIRE( buffer == string );
-    } // THEN
-  } // GIVEN
-
-  GIVEN( "a string representation of an File 1 Section 451"
-         " with an invalid NWD (comment lines)" ) {
-
-    std::string sectionString = invalidNWD() + validSEND();
-    auto begin = sectionString.begin();
-    auto end = sectionString.end();
-    long lineNumber = 1;
-    HeadRecord head( begin, end, lineNumber );
-
-    THEN( "an exception is thrown upon construction" ) {
-
-      REQUIRE_THROWS( section1451( head, begin, end, lineNumber, 125 ) );
-    } // THEN
-  } // GIVEN
-
-  GIVEN( "a string representation of an File 1 Section 451"
-         " with an invalid NXC (index lines)" ) {
-
-    std::string sectionString = invalidNXC() + validSEND();
-    auto begin = sectionString.begin();
-    auto end = sectionString.end();
-    long lineNumber = 1;
-    HeadRecord head( begin, end, lineNumber );
-
-    THEN( "an exception is thrown upon construction" ){
-
-      REQUIRE_THROWS( section1451( head, begin, end, lineNumber, 125 ) );
-    } // THEN
   } // GIVEN
 } // SCENARIO
 
@@ -354,6 +204,60 @@ std::string chunk() {
     "                               33          1          5          5 125 1451     \n"
     "                               33          2         21          5 125 1451     \n"
     "                               33        102         21          5 125 1451     \n";
+}
+
+void verifyChunk( const section::Type< 1, 451 >& chunk ) {
+
+  REQUIRE( 451 == chunk.MT() );
+  REQUIRE( 1001 == chunk.ZA() );
+  REQUIRE( 0.9991673 == Approx( chunk.AWR() ) );
+  REQUIRE( 0.9991673 == Approx( chunk.atomicWeightRatio() ) );
+  REQUIRE( 1 == chunk.LRP() );
+  REQUIRE( 1 == chunk.resonanceParameterFlag() );
+  REQUIRE( 2 == chunk.LFI() );
+  REQUIRE( true == chunk.isFissile() );
+  REQUIRE( 3 == chunk.NLIB() );
+  REQUIRE( 3 == chunk.libraryType() );
+  REQUIRE( 4 == chunk.NMOD() );
+  REQUIRE( 4 == chunk.modificationNumber() );
+  REQUIRE( 5.0 == Approx( chunk.ELIS() ) );
+  REQUIRE( 5.0 == Approx( chunk.excitationEnergy() ) );
+  REQUIRE( 6.0 == Approx( chunk.STA() ) );
+  REQUIRE( true == Approx( chunk.isStable() ) );
+  REQUIRE( 7 == chunk.LIS() );
+  REQUIRE( 7 == chunk.excitedLevel() );
+  REQUIRE( 8 == chunk.LISO() );
+  REQUIRE( 8 == chunk.isomericLevel() );
+  REQUIRE( 12 == chunk.NFOR() );
+  REQUIRE( 12 == chunk.libraryFormat() );
+  REQUIRE( 13.0 == Approx( chunk.AWI() ) );
+  REQUIRE( 13.0 == Approx( chunk.projectileAtomicMassRatio() ) );
+  REQUIRE( 14.0 == Approx( chunk.EMAX() ) );
+  REQUIRE( 14.0 == Approx( chunk.maximumEnergy() ) );
+  REQUIRE( 15 == chunk.LREL() );
+  REQUIRE( 15 == chunk.releaseNumber() );
+  REQUIRE( 17 == chunk.NSUB() );
+  REQUIRE( 17 == chunk.subLibrary() );
+  REQUIRE( 18 == chunk.NVER() );
+  REQUIRE( 18 == chunk.versionNumber() );
+  REQUIRE( 19.0 == Approx( chunk.TEMP() ) );
+  REQUIRE( 19.0 == Approx( chunk.temperature() ) );
+  REQUIRE( 21 == chunk.LDRV() );
+  REQUIRE( 21 == chunk.derivedMaterial() );
+  REQUIRE( 9 == chunk.NWD() );
+  REQUIRE( ranges::equal( description(), chunk.description() ) );
+
+  auto entries = index();
+  REQUIRE( entries.size() == chunk.NXC() );
+  for ( unsigned int i = 0; i < entries.size(); ++i ) {
+
+    REQUIRE( entries[i].MF() == chunk.index()[i].MF() );
+    REQUIRE( entries[i].MT() == chunk.index()[i].MT() );
+    REQUIRE( entries[i].NC() == chunk.index()[i].NC() );
+    REQUIRE( entries[i].MOD() == chunk.index()[i].MOD() );
+  }
+
+  REQUIRE( 23 == chunk.NC() );
 }
 
 std::string invalidNWD() {

@@ -77,7 +77,7 @@ Type ( HEAD& head,
     nlib_( head.N1() ), nmod_( head.N2() ),
     parameters_( readParameters( begin, end, lineNumber, MAT ) ),
     description_( readSequence< TextRecord >(
-                      end, lineNumber, MAT, 1, 451,
+                      begin, end, lineNumber, MAT, 1, 451,
                       this->parameters_[2].N1() ) ),
     index_( readSequence< DirectoryRecord >(
                 begin, end, lineNumber, MAT, 1, 451,
