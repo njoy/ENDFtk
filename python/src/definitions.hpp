@@ -8,6 +8,9 @@
 /**
  *  @brief Add standard section definitions
  *
+ *  This adds the following standard properties:
+ *    ZA, AWR, atomic_weight_ratio, MT, section_number, NC
+ *
  *  @param[in] section   the section to which the definitions have to be added
  */
 template < typename Section, typename PythonClass >
