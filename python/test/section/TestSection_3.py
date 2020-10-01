@@ -87,6 +87,8 @@ class TestSection_3( unittest.TestCase ) :
 
     def test_failures( self ) :
 
+        print( '\n' )
+
         # illegal SEND
         with self.assertRaises( Exception ) :
 

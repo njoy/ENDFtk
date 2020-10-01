@@ -63,6 +63,24 @@ class TestSection_3( unittest.TestCase ) :
         assertAlmostEqual( 2.224631e+6, section.QI )
         assertEqual( 5, section.interpolants[0] )
 
+        section = chunk.MT( 1 )
+        assertEqual( 1001, section.ZA )
+        assertEqual( 0.0, section.QM )
+        assertEqual( 0.0, section.QI )
+        assertEqual( 5, section.interpolants[0] )
+
+        section = chunk.MT( 2 )
+        assertEqual( 1001, section.ZA )
+        assertEqual( 0.0, section.QM )
+        assertEqual( 0.0, section.QI )
+        assertEqual( 2, section.interpolants[0] )
+
+        section = chunk.MT( 102 )
+        assertEqual( 1001, section.ZA )
+        assertAlmostEqual( 2.224631e+6, section.QM )
+        assertAlmostEqual( 2.224631e+6, section.QI )
+        assertEqual( 5, section.interpolants[0] )
+
         self.assertEqual( 15, chunk.NC )
 
         # verify string
@@ -106,6 +124,8 @@ class TestSection_3( unittest.TestCase ) :
         # self.verify_chunk( chunk )
 
     def test_failures( self ) :
+
+        print( '\n' )
 
         # illegal SEND
         with self.assertRaises( Exception ) :

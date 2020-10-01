@@ -53,6 +53,17 @@ void wrapFile_3( python::module& module ) {
     "    mt      the MT number of the section to be returned",
     python::return_value_policy::reference_internal
   )
+  .def(
+
+    "MT",
+    ( Section& ( File::* )( int ) ) &File::MT,
+    python::arg( "mt" ),
+    "Return the section with the requested MT number\n\n"
+    "Arguments:\n"
+    "    self    the MF3 file\n"
+    "    mt      the MT number of the section to be returned",
+    python::return_value_policy::reference_internal
+  )
   .def_property_readonly(
 
     "sections",

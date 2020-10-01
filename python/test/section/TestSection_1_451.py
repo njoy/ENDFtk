@@ -186,6 +186,8 @@ class TestSection_1_451( unittest.TestCase ) :
 
     def test_failures( self ) :
 
+        print( '\n' )
+
         # illegal NWD
         with self.assertRaises( Exception ) :
 
