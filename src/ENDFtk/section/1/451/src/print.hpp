@@ -9,7 +9,7 @@
  */
 template< typename OutputIterator >
 void print( OutputIterator& it, int MAT, int MF ) const {
-  
+
   int MT = 451;
   ControlRecord( this->ZA(), this->AWR(), this->LRP(),this->LFI(),
                  this->NLIB(), this->NMOD() ).print( it, MAT, MF, MT );
