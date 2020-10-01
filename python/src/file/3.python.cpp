@@ -39,6 +39,7 @@ void wrapFile_3( python::module& module ) {
     python::arg( "sections" ),
     "Initialise the MF3 file\n\n"
     "Arguments:\n"
+    "    self       the current file\n"
     "    sections   the sections to be put into the file"
   )
   .def(

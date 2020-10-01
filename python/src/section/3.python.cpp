@@ -40,6 +40,7 @@ void wrapSection_3( python::module& module ) {
     python::arg( "energies" ), python::arg( "xs" ),
     "Initialise the MF3 section\n\n"
     "Arguments:\n"
+    "    self           the MF3 section\n"
     "    mt             the MT number\n"
     "    zaid           the ZA  identifier\n"
     "    awr            the atomic mass ratio\n"
