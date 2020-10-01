@@ -29,10 +29,11 @@ void wrapDirectoryRecord( python::module& module ) {
     python::arg( "nc" ), python::arg( "mod" ),
     "Initialise the directory record\n\n"
     "Arguments:\n"
-    "    mf    the MF number\n"
-    "    mt    the MT number\n"
-    "    nc    the number of lines that make up this section\n"
-    "    mod   the modification number"
+    "    self   the directory object\n"
+    "    mf     the MF number\n"
+    "    mt     the MT number\n"
+    "    nc     the number of lines that make up this section\n"
+    "    mod    the modification number"
   )
   .def_property_readonly(
 
