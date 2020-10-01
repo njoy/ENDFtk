@@ -67,5 +67,18 @@ void wrapDirectoryRecord( python::module& module ) {
     "Arguments:\n"
     "    self   the directory object\n"
     "    mat    the MAT number to be used"
+  )
+  .def(
+
+    "__eq__",
+    [] ( const Record& self, const Record& right )
+       { return ( self.MF() == right.MF() ) and\
+                ( self.MT() == right.MT() ) and
+                ( self.NC() == right.NC() ) and
+                ( self.MOD() == right.MOD() ); },
+    "Compare two records\n\n"
+    "Arguments:\n"
+    "    self     the directory record\n"
+    "    right    the record on the right"
   );
 }

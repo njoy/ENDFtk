@@ -59,7 +59,7 @@ void addStandardSectionDefinitions( PythonClass& section ) {
   .def_static(
 
     "from_string",
-    [] ( const std::string& section )
+    [] ( const std::string& section ) -> Section
        { return readSection< Section >( section ); },
     "Read the section from a string\n\n"
     "An exception is raised if something goes wrong while reading the\n"
@@ -70,7 +70,7 @@ void addStandardSectionDefinitions( PythonClass& section ) {
   .def(
 
     "to_string",
-    [] ( const Section& self, int mat, int mf )
+    [] ( const Section& self, int mat, int mf ) -> std::string
        { return print( self, mat, mf ); },
     "Return the string representation of the section\n\n"
     "Arguments:\n"
@@ -119,7 +119,7 @@ void addStandardFileDefinitions( PythonClass& section ) {
   .def_static(
 
     "from_string",
-    [] ( const std::string& file )
+    [] ( const std::string& file ) -> File
        { return readFile< File >( file ); },
     "Read the file from a string\n\n"
     "An exception is raised if something goes wrong while reading the\n"
@@ -130,7 +130,7 @@ void addStandardFileDefinitions( PythonClass& section ) {
   .def(
 
     "to_string",
-    [] ( const File& self, int mat )
+    [] ( const File& self, int mat ) -> std::string
        { return print( self, mat ); },
     "Return the string representation of the section\n\n"
     "Arguments:\n"

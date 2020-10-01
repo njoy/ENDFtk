@@ -48,7 +48,6 @@ SCENARIO( "section::Type< 1, 451 >" ) {
       double temp = 19.;
       int ldrv = 21;
       std::string text = description();
-      std::vector< TextRecord > records = textRecords();
 
       section::Type< 1, 451 > chunk( zaid, awr, lrp, lfi, nlib, nmod,
                                      elis, sta, lis, liso, nfor,
@@ -325,19 +324,6 @@ std::string description() {
     " **************************************************************** \n"
     "                                                                  \n"
     " **************************************************************** \n";
-}
-
-std::vector< TextRecord > textRecords() {
-  return
-    { { "  1-H -  1 LANL       EVAL-JUL16 G.M.Hale                         " },
-      { "                      DIST-JAN17                       20170124   " },
-      { "----ENDF/B-VIII.0     MATERIAL  125                               " },
-      { "-----INCIDENT NEUTRON DATA                                        " },
-      { "------ENDF-6 FORMAT                                               " },
-      { "                                                                  " },
-      { " **************************************************************** " },
-      { "                                                                  " },
-      { " **************************************************************** " } };
 }
 
 std::vector< DirectoryRecord > index() {

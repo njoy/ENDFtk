@@ -268,7 +268,8 @@ void wrapSection_1_451( python::module& module ) {
   .def_property_readonly(
 
     "description",
-    &Section::description,
+    [] ( const Section& type ) -> std::string
+       { return type.description(); },
     "The descriptive information"
   )
   .def_property_readonly(
