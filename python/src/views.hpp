@@ -35,10 +35,10 @@ void wrapBiDirectionalAnyViewOf( py::module& module, const std::string& name ) {
 
   py::class_< BiDirectionalAnyView< Element > >( module, name.c_str() )
   .def( "__len__",
-      	[] ( BiDirectionalAnyView< Element >& view )
+        [] ( BiDirectionalAnyView< Element >& view )
            { return ranges::distance( view ); } )
   .def( "__iter__",
-  	    [] ( BiDirectionalAnyView< Element >& view )
+        [] ( BiDirectionalAnyView< Element >& view )
            { return py::make_iterator<
                         py::return_value_policy::reference_internal,
   				              ranges::iterator_t< BiDirectionalAnyView< Element > >,
@@ -46,7 +46,7 @@ void wrapBiDirectionalAnyViewOf( py::module& module, const std::string& name ) {
   				              Element >( view.begin(), view.end() ); },
   	    py::keep_alive< 0, 1 >() )
   .def( "list",
-      	[] ( BiDirectionalAnyView< Element >& view ) -> std::vector< Element >
+        [] ( BiDirectionalAnyView< Element >& view ) -> std::vector< Element >
            { return view; } );
 }
 
@@ -61,14 +61,14 @@ void wrapRandomAccessAnyViewOf( py::module& module, const std::string& name ) {
 
   py::class_< RandomAccessAnyView< Element > >( module, name.c_str() )
   .def( "__len__",
-      	[] ( RandomAccessAnyView< Element >& view )
+        [] ( RandomAccessAnyView< Element >& view )
            { return ranges::distance( view ); } )
   .def( "__getitem__",
-      	[] ( RandomAccessAnyView< Element >& view, int i )
+        [] ( RandomAccessAnyView< Element >& view, int i )
            { return ranges::index( view, i ); },
    	    py::return_value_policy::reference_internal )
   .def( "__iter__",
-  	    [] ( RandomAccessAnyView< Element >& view )
+        [] ( RandomAccessAnyView< Element >& view )
            { return py::make_iterator<
                         py::return_value_policy::reference_internal,
   				              ranges::iterator_t< RandomAccessAnyView< Element > >,
