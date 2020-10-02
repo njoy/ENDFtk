@@ -47,11 +47,17 @@ namespace tree {
     Section_t&
     MT( int sectionNo ){ return this->sectionNumber( sectionNo ); }
 
+    const Section_t&
+    section( int sectionNo ) const { return this->MT( sectionNo ); }
+
+    Section_t&
+    section( int sectionNo ){ return this->MT( sectionNo ); }
+
     bool
     hasMT( int sectionNo ) const { return this->sections_.count( sectionNo ); }
 
     bool
-    hasSectionNumber( int sectionNo ) const {  return this->hasMT( sectionNo ); }
+    hasSection( int sectionNo ) const {  return this->hasMT( sectionNo ); }
 
     auto begin(){ return ( this->sections_ | ranges::view::values ).begin(); }
     auto end(){ return ( this->sections_ | ranges::view::values ).end(); }

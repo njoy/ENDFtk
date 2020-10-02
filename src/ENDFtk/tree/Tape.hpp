@@ -47,7 +47,7 @@ namespace tree {
       return this->materials_.count( materialNo );
     }
 
-    bool hasMaterialNumber( int materialNo ) const {
+    bool hasMaterial( int materialNo ) const {
       return this->hasMAT( materialNo );
     }
 

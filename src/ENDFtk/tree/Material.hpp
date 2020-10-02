@@ -46,7 +46,7 @@ namespace tree {
     hasMF( int fileNo ) const { return this->files_.count( fileNo ); }
 
     bool
-    hasFileNumber( int fileNo ) const { return this->hasMF( fileNo ); }
+    hasFile( int fileNo ) const { return this->hasMF( fileNo ); }
 
     auto begin(){ return ( this->files_ | ranges::view::values ).begin(); }
     auto end(){ return ( this->files_ | ranges::view::values ).end(); }
