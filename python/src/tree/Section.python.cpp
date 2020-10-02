@@ -1,69 +1,32 @@
+// system includes
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-#include "ENDFtk.hpp"
+// local includes
+#include "ENDFtk/tree/Section.hpp"
+#include "range/v3/utility/iterators.hpp"
+#include "views.hpp"
 
-namespace py = pybind11;
-using namespace njoy::ENDFtk;
+// namespace aliases
+namespace python = pybind11;
 
-void py_syntaxTree(py::module &m) {
+void wrapTreeSection( python::module& module ) {
 
-  using namespace syntaxTree;
+  // type aliases
   using BufferIterator = ranges::iterator_t< const std::string >;
-  using Tape_t = Tape< std::string >;
-  using Material_t = Material< BufferIterator >;
-  using File_t = File< BufferIterator >;
-  using Section_t = Section< BufferIterator >;
-  using Type_1_t = section::Type< 1, 451 >;
-  using Type_3_t = section::Type< 3 >;
-  using Type_4_t = section::Type< 4 >;
-  using Type_5_t = section::Type< 5 >;
-  using Type_6_t = section::Type< 6 >;
-  using File_3_t = file::Type< 3 >;
+  using Section_t = njoy::ENDFtk::tree::Section< BufferIterator >;
 
-  py::class_< Tape_t >(m, "Tape")
-    .def(py::init<std::string>())
-    .def("hasMaterialNumber", &Tape_t::hasMaterialNumber)
-    .def("size", &Tape_t::size)
-    .def_property_readonly("materials",
-                           [](Tape_t& tape) {
-                             return tape | ranges::to_vector;
-                           });
+  // wrap views created by this section
 
-  py::class_< Material_t >(m, "Material")
-    .def("hasFileNumber", &Material_t::hasFileNumber)
-    .def("size", &Material_t::size)
-    .def("MF", (File_t& (Material_t::*)(int))
-               &Material_t::MF)
-    .def_property_readonly("materialNumber",
-                           &Material_t::materialNumber)
-    .def_property_readonly("files",
-                           [](Material_t& matl) {
-                             return matl | ranges::to_vector;
-                           });
+  // create the tree component
+  python::class_< Section > tree(
 
-  py::class_< File_t >(m, "File")
-    .def("hasSectionNumber", &File_t::hasSectionNumber)
-    .def("size", &File_t::size)
-    .def("MT", (Section_t& (File_t::*)(int))
-               &File_t::MT)
-    .def_property_readonly("fileNumber",
-                           &File_t::fileNumber)
-    .def_property_readonly("sections",
-                           [](File_t& file) {
-                             return file | ranges::to_vector;
-                           })
-    .def_property_readonly("buffer",
-                           [](File_t& file) {
-                             return std::string(file.buffer().begin(),
-                                                file.buffer().end());
-                           })
-    .def("parse3", (File_3_t (File_t::*)() const)
-                   &File_t::parse<3>)
-    .def("parse3", (File_3_t (File_t::*)(long&) const)
-                   &File_t::parse<3>);
+    module,
+    "Section",
+    "ENDF tree section"
+  );
 
-  py::class_< Section_t >(m, "Section")
+  tree
     .def_property_readonly("sectionNumber",
                            &Section_t::sectionNumber)
     .def_property_readonly("buffer",

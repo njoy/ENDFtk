@@ -18,6 +18,13 @@ void wrapSection_3( python::module& );
 // declarations - files
 void wrapFile_3( python::module& );
 
+// declarations - tree
+// void wrapTreeSection( python::module& );
+// void wrapTreeFile( python::module& );
+// void wrapTreeMaterial( python::module& );
+// void wrapTreeTape( python::module& );
+// void wrapMakeTreeTape( python::module& );
+
 /**
  *  @brief ENDFtk python bindings
  *
@@ -42,6 +49,13 @@ PYBIND11_MODULE( ENDFtk, module ) {
 
   // wrap files
   wrapFile_3( module );
+
+  // wrap tree
+  // wrapTreeSection( module );
+  // wrapTreeFile( module );
+  // wrapTreeMaterial( module );
+  // wrapTreeTape( module );
+  // wrapMakeTreeTape( module );
 
   // module.def(
   //
