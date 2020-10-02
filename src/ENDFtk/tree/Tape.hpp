@@ -16,39 +16,65 @@ namespace njoy {
 namespace ENDFtk {
 namespace tree {
 
+  /**
+   *  @class
+   *  @brief The ENDF tree tape to index and access ENDF data
+   *
+   *  This class is used to load an ENDF tape and index its content into
+   *  the different ENDF tree components: materials, sections and files. This
+   *  indexing operation performed at construction does not parse the underlying
+   *  ENDF data. Once the tape is indexed, a user can request materials, files
+   *  and sections to be parsed individually.
+   */
   template< typename Buffer >
   class Tape {
+
+    /* type aliases */
     using BufferIterator = ranges::iterator_t< const Buffer >;
+
   public:
-    /* convenience typedefs */
+
+    /* type aliases */
     using Material_t = Material< BufferIterator >;
 
-  protected:
+  private:
+
     /* fields */
     Buffer buffer_;
     std::optional< TapeIdentification > tpid;
     std::multimap< int, Material_t > materials_;
 
-    /* ctor */
+    /* auxiliary function */
     #include "ENDFtk/tree/Tape/src/createMap.hpp"
 
   public:
 
+    /* constructor */
     #include "ENDFtk/tree/Tape/src/ctor.hpp"
 
     /* methods */
-    #include "ENDFtk/tree/Tape/src/materialNumber.hpp"
+    #include "ENDFtk/tree/Tape/src/material.hpp"
 
-    auto MAT( int materialNo ){ return this->materialNumber( materialNo ); }
-    auto MAT( int materialNo ) const {
-      return this->materialNumber( materialNo ); }
+    /**
+     *  @brief Return the material with the requested MAT number
+     *
+     *  @param[in]   mat   the MAT number of the material to be returned
+     */
+    auto MAT( int mat ) { return this->material( mat ); }
 
-    bool hasMAT( int materialNo ) const {
-      return this->materials_.count( materialNo );
+    /**
+     *  @brief Return the material with the requested MAT number
+     *
+     *  @param[in]   mat   the MAT number of the material to be returned
+     */
+    auto MAT( int mat ) const { return this->material( mat ); }
+
+    bool hasMAT( int mat ) const {
+      return this->materials_.count( mat );
     }
 
-    bool hasMaterial( int materialNo ) const {
-      return this->hasMAT( materialNo );
+    bool hasMaterial( int mat ) const {
+      return this->hasMAT( mat );
     }
 
     auto begin(){ return ( this->materials_ | ranges::view::values ).begin(); }

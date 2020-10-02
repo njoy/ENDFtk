@@ -67,10 +67,10 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
       AND_THEN( "we can access the Materials of the skeleton" ){
         CHECK( tapeTree.hasMaterial( 125 ) );
         CHECK( ctapeTree.hasMaterial( 125 ) );
-        for ( auto& materialSkeleton : tapeTree.materialNumber( 125 ) ){
+        for ( auto& materialSkeleton : tapeTree.material( 125 ) ){
           CHECK( 125 == materialSkeleton.materialNumber() );
         }
-        for ( const auto& materialSkeleton : ctapeTree.materialNumber( 125 ) ){
+        for ( const auto& materialSkeleton : ctapeTree.material( 125 ) ){
           CHECK( 125 == materialSkeleton.materialNumber() );
         }
 
@@ -85,7 +85,7 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
       }
 
       AND_THEN( "an excpetion is thrown for an invalid index" ){
-        CHECK_THROWS( tapeTree.materialNumber(1) );
+        CHECK_THROWS( tapeTree.material(1) );
       }
     }
 
