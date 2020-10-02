@@ -39,7 +39,7 @@ void wrapFile_3( python::module& module ) {
     python::arg( "sections" ),
     "Initialise the file\n\n"
     "Arguments:\n"
-    "    self       the current file\n"
+    "    self       the file\n"
     "    sections   the sections to be put into the file"
   )
   .def(
