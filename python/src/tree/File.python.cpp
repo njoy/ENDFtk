@@ -1,45 +1,101 @@
+// system includes
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-#include "ENDFtk.hpp"
+// local includes
+#include "ENDFtk/tree/File.hpp"
+#include "range/v3/utility/iterator.hpp"
+#include "views.hpp"
 
-namespace py = pybind11;
-using namespace njoy::ENDFtk;
+// namespace aliases
+namespace python = pybind11;
 
-void py_syntaxTree(py::module &m) {
+void wrapTreeFile( python::module& module ) {
 
-  using namespace syntaxTree;
+  // type aliases
   using BufferIterator = ranges::iterator_t< const std::string >;
-  using Tape_t = Tape< std::string >;
-  using Material_t = Material< BufferIterator >;
-  using File_t = File< BufferIterator >;
-  using Section_t = Section< BufferIterator >;
-  using Type_1_t = section::Type< 1, 451 >;
-  using Type_3_t = section::Type< 3 >;
-  using Type_4_t = section::Type< 4 >;
-  using Type_5_t = section::Type< 5 >;
-  using Type_6_t = section::Type< 6 >;
-  using File_3_t = file::Type< 3 >;
+  using File = njoy::ENDFtk::tree::File< BufferIterator >;
+  using Section = njoy::ENDFtk::tree::Section< BufferIterator >;
 
-  py::class_< File_t >(m, "File")
-    .def("hasSectionNumber", &File_t::hasSectionNumber)
-    .def("size", &File_t::size)
-    .def("MT", (Section_t& (File_t::*)(int))
-               &File_t::MT)
-    .def_property_readonly("fileNumber",
-                           &File_t::fileNumber)
-    .def_property_readonly("sections",
-                           [](File_t& file) {
-                             return file | ranges::to_vector;
-                           })
-    .def_property_readonly("buffer",
-                           [](File_t& file) {
-                             return std::string(file.buffer().begin(),
-                                                file.buffer().end());
-                           })
-    .def("parse3", (File_3_t (File_t::*)() const)
-                   &File_t::parse<3>)
-    .def("parse3", (File_3_t (File_t::*)(long&) const)
-                   &File_t::parse<3>);
+  // wrap views created by this component
+
+  // create the tree component
+  python::class_< File > tree(
+
+    module,
+    "File",
+    "ENDF tree file"
+  );
+
+  // wrap the tree component
+  // no __init__ since we do not want to create this object in python
+  tree
+  .def_property_readonly(
+
+    "MF",
+    &File::MF,
+    "The MF number of the file"
+  )
+  .def_property_readonly(
+
+    "file_number",
+    &File::fileNumber,
+    "The MF number of the file"
+  )
+  .def(
+
+    "has_MT",
+    &File::hasMT,
+    "Return whether or not the file has a section with the given MT number\n\n"
+    "Arguments:\n"
+    "    self    the file\n"
+    "    mt      the MT number of the section"
+  )
+  .def(
+
+    "has_section",
+    &File::hasSection,
+    "Return whether or not the file has a section with the given MT number\n\n"
+    "Arguments:\n"
+    "    self    the file\n"
+    "    mt      the MT number of the section"
+  )
+  .def(
+
+    "section",
+    ( Section& ( File::* )( int ) ) &File::section,
+    python::arg( "mt" ),
+    "Return the section with the requested MT number\n\n"
+    "Arguments:\n"
+    "    self    the ENDF tree file\n"
+    "    mt      the MT number of the section to be returned",
+    python::return_value_policy::reference_internal
+  )
+  .def(
+
+    "MT",
+    ( Section& ( File::* )( int ) ) &File::MT,
+    python::arg( "mt" ),
+    "Return the section with the requested MT number\n\n"
+    "Arguments:\n"
+    "    self    the ENDF tree file\n"
+    "    mt      the MT number of the section to be returned",
+    python::return_value_policy::reference_internal
+  );
+
+//    .def("size", &File_t::size)
+//    .def_property_readonly("sections",
+//                           [](File_t& file) {
+//                             return file | ranges::to_vector;
+//                           })
+//    .def_property_readonly("buffer",
+//                           [](File_t& file) {
+//                             return std::string(file.buffer().begin(),
+//                                                file.buffer().end());
+//                           })
+//    .def("parse3", (File_3_t (File_t::*)() const)
+//                   &File_t::parse<3>)
+//    .def("parse3", (File_3_t (File_t::*)(long&) const)
+//                   &File_t::parse<3>);
 
 }

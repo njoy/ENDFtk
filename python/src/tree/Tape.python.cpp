@@ -1,33 +1,64 @@
+// system includes
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-#include "ENDFtk.hpp"
+// local includes
+#include "ENDFtk/tree/Tape.hpp"
+#include "range/v3/utility/iterator.hpp"
+#include "views.hpp"
 
-namespace py = pybind11;
-using namespace njoy::ENDFtk;
+// namespace aliases
+namespace python = pybind11;
 
-void py_syntaxTree(py::module &m) {
+void wrapTreeTape( python::module& module ) {
 
-  using namespace syntaxTree;
-  using BufferIterator = ranges::iterator_t< const std::string >;
-  using Tape_t = Tape< std::string >;
-  using Material_t = Material< BufferIterator >;
-  using File_t = File< BufferIterator >;
-  using Section_t = Section< BufferIterator >;
-  using Type_1_t = section::Type< 1, 451 >;
-  using Type_3_t = section::Type< 3 >;
-  using Type_4_t = section::Type< 4 >;
-  using Type_5_t = section::Type< 5 >;
-  using Type_6_t = section::Type< 6 >;
-  using File_3_t = file::Type< 3 >;
+  // type aliases
+  using Tape = njoy::ENDFtk::tree::Tape< std::string >;
 
-  py::class_< Tape_t >(m, "Tape")
-    .def(py::init<std::string>())
-    .def("hasMaterialNumber", &Tape_t::hasMaterialNumber)
-    .def("size", &Tape_t::size)
-    .def_property_readonly("materials",
-                           [](Tape_t& tape) {
-                             return tape | ranges::to_vector;
-                           });
+  // wrap views created by this tree component
+
+  // create the tree component
+  python::class_< Tape > tree(
+
+    module,
+    "Tape",
+    "ENDF tape"
+  );
+
+  // wrap the tree component
+  tree
+  .def(
+
+    python::init< std::string >(),
+    python::arg( "content" ),
+    "Initialise the tape\n\n"
+    "Arguments:\n"
+    "    self       the tape\n"
+    "    content    the content of the tape"
+  )
+  .def(
+
+    "has_MAT",
+    &Tape::hasMAT,
+    "Return whether or not the tape has a material with the given MAT number\n\n"
+    "Arguments:\n"
+    "    self    the tape\n"
+    "    mat     the MAT number of the material"
+  )
+  .def(
+
+    "has_file",
+    &Tape::hasMaterial,
+    "Return whether or not the tape has a material with the given MAT number\n\n"
+    "Arguments:\n"
+    "    self    the tape\n"
+    "    mat     the MAT number of the material"
+  );
+
+//    .def("size", &Tape_t::size)
+//    .def_property_readonly("materials",
+//                           [](Tape_t& tape) {
+//                             return tape | ranges::to_vector;
+//                           });
 
 }

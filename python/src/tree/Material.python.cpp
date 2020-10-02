@@ -1,36 +1,72 @@
+// system includes
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-#include "ENDFtk.hpp"
+// local includes
+#include "ENDFtk/tree/Material.hpp"
+#include "range/v3/utility/iterator.hpp"
+#include "views.hpp"
 
-namespace py = pybind11;
-using namespace njoy::ENDFtk;
+// namespace aliases
+namespace python = pybind11;
 
-void py_syntaxTree(py::module &m) {
+void wrapTreeMaterial( python::module& module ) {
 
-  using namespace syntaxTree;
+  // type aliases
   using BufferIterator = ranges::iterator_t< const std::string >;
-  using Tape_t = Tape< std::string >;
-  using Material_t = Material< BufferIterator >;
-  using File_t = File< BufferIterator >;
-  using Section_t = Section< BufferIterator >;
-  using Type_1_t = section::Type< 1, 451 >;
-  using Type_3_t = section::Type< 3 >;
-  using Type_4_t = section::Type< 4 >;
-  using Type_5_t = section::Type< 5 >;
-  using Type_6_t = section::Type< 6 >;
-  using File_3_t = file::Type< 3 >;
+  using Material = njoy::ENDFtk::tree::Material< BufferIterator >;
+  using File = njoy::ENDFtk::tree::File< BufferIterator >;
 
-  py::class_< Material_t >(m, "Material")
-    .def("hasFileNumber", &Material_t::hasFileNumber)
-    .def("size", &Material_t::size)
-    .def("MF", (File_t& (Material_t::*)(int))
-               &Material_t::MF)
-    .def_property_readonly("materialNumber",
-                           &Material_t::materialNumber)
-    .def_property_readonly("files",
-                           [](Material_t& matl) {
-                             return matl | ranges::to_vector;
-                           });
+  // wrap views created by this tree component
+
+  // create the tree component
+  python::class_< Material > tree(
+
+    module,
+    "Material",
+    "ENDF tree material"
+  );
+
+  // wrap the tree component
+  // no __init__ since we do not want to create this object in python
+  tree
+  .def_property_readonly(
+
+    "MAT",
+    &Material::MAT,
+    "The MAT number of the material"
+  )
+  .def_property_readonly(
+
+    "material_number",
+    &Material::materialNumber,
+    "The MAT number of the material"
+  )
+  .def(
+
+    "has_MF",
+    &Material::hasMF,
+    "Return whether or not the material has a file with the given MF number\n\n"
+    "Arguments:\n"
+    "    self    the material\n"
+    "    mf      the MF number of the file"
+  )
+  .def(
+
+    "has_file",
+    &Material::hasFile,
+    "Return whether or not the material has a file with the given MF number\n\n"
+    "Arguments:\n"
+    "    self    the material\n"
+    "    mf      the MF number of the file"
+  );
+
+//    .def("size", &Material_t::size)
+//    .def("MF", (File_t& (Material_t::*)(int))
+//               &Material_t::MF)
+//    .def_property_readonly("files",
+//                           [](Material_t& matl) {
+//                             return matl | ranges::to_vector;
+//                           });
 
 }

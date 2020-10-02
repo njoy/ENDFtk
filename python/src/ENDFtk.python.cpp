@@ -19,10 +19,10 @@ void wrapSection_3( python::module& );
 void wrapFile_3( python::module& );
 
 // declarations - tree
-// void wrapTreeSection( python::module& );
-// void wrapTreeFile( python::module& );
-// void wrapTreeMaterial( python::module& );
-// void wrapTreeTape( python::module& );
+void wrapTreeSection( python::module& );
+void wrapTreeFile( python::module& );
+void wrapTreeMaterial( python::module& );
+void wrapTreeTape( python::module& );
 // void wrapMakeTreeTape( python::module& );
 
 /**
@@ -51,10 +51,10 @@ PYBIND11_MODULE( ENDFtk, module ) {
   wrapFile_3( module );
 
   // wrap tree
-  // wrapTreeSection( module );
-  // wrapTreeFile( module );
-  // wrapTreeMaterial( module );
-  // wrapTreeTape( module );
+  wrapTreeSection( module );
+  wrapTreeFile( module );
+  wrapTreeMaterial( module );
+  wrapTreeTape( module );
   // wrapMakeTreeTape( module );
 
   // module.def(

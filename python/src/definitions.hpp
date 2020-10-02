@@ -111,7 +111,7 @@ void addStandardFileDefinitions( PythonClass& section ) {
     "Return whether or not the file has a section with the given MT number\n\n"
     "Arguments:\n"
     "    self    the file\n"
-    "    mt      the MT number of the section to be returned"
+    "    mt      the MT number of the section"
   )
   .def(
 
@@ -120,7 +120,7 @@ void addStandardFileDefinitions( PythonClass& section ) {
     "Return whether or not the file has a section with the given MT number\n\n"
     "Arguments:\n"
     "    self    the file\n"
-    "    mt      the MT number of the section to be returned"
+    "    mt      the MT number of the section"
   )
   .def_static(
 
