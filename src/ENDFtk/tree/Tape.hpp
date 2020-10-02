@@ -25,6 +25,9 @@ namespace tree {
    *  indexing operation performed at construction does not parse the underlying
    *  ENDF data. Once the tape is indexed, a user can request materials, files
    *  and sections to be parsed individually.
+   *
+   *  An ENDF tape starts with a tape identification (a label, which sometimes
+   *  can contain a tape number).
    */
   template< typename Buffer >
   class Tape {
@@ -56,39 +59,81 @@ namespace tree {
     #include "ENDFtk/tree/Tape/src/material.hpp"
 
     /**
-     *  @brief Return the material with the requested MAT number
+     *  @brief Return the materials with the requested MAT number
+     *
+     *  This function returns a range of materials since a tape can contain
+     *  multiple instances of the same material (e.g. at different
+     *  temperatures).
      *
      *  @param[in]   mat   the MAT number of the material to be returned
      */
     auto MAT( int mat ) { return this->material( mat ); }
 
     /**
-     *  @brief Return the material with the requested MAT number
+     *  @brief Return the materials with the requested MAT number
+     *
+     *  This function returns a range of materials since a tape can contain
+     *  multiple instances of the same material (e.g. at different
+     *  temperatures).
      *
      *  @param[in]   mat   the MAT number of the material to be returned
      */
     auto MAT( int mat ) const { return this->material( mat ); }
 
+    /**
+     *  @brief Return whether or not the tape has a material with the given MAT
+     *         number
+     *
+     *  @param[in]   mat   the MAT number of the material
+     */
     bool hasMAT( int mat ) const {
+
       return this->materials_.count( mat );
     }
 
-    bool hasMaterial( int mat ) const {
-      return this->hasMAT( mat );
-    }
+    /**
+     *  @brief Return whether or not the tape has a material with the given MAT
+     *         number
+     *
+     *  @param[in]   mat   the MAT number of the material
+     */
+    bool hasMaterial( int mat ) const { return this->hasMAT( mat ); }
 
+    /**
+     *  @brief Return a begin iterator to all materials
+     */
     auto begin(){ return ( this->materials_ | ranges::view::values ).begin(); }
+
+    /**
+     *  @brief Return an end iterator to all materials
+     */
     auto end(){ return ( this->materials_ | ranges::view::values ).end(); }
 
+    /**
+     *  @brief Return a begin iterator to all materials
+     */
     auto begin() const {
       return ( this->materials_ | ranges::view::values ).begin();
     }
+
+    /**
+     *  @brief Return an end iterator to all materials
+     */
     auto end() const { return ( this->materials_ | ranges::view::values ).end(); }
 
+    /**
+     *  @brief Return the number of materials in the tape
+     */
     std::size_t size() const { return this->materials_.size(); }
 
+    /**
+     *  @brief Return the tape's buffer
+     */
     auto buffer() const { return this->buffer_ | ranges::view::all; }
 
+    /**
+     *  @brief Return the tape identification (the first line in the file)
+     */
     const TapeIdentification& TPID() const { return *( this->tpid ); }
   };
 
