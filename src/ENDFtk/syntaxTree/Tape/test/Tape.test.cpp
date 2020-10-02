@@ -20,16 +20,20 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
 
       syntaxTree::Tape< std::string > tape{ njoy::utility::copy( tapeString ) };
 
-      syntaxTree::Tape< std::string > original{ 
+      syntaxTree::Tape< std::string > original{
         njoy::utility::copy( tapeString ) };
-      
-      THEN( "the copy ctor will function correctly "){
+
+      THEN( "the copy and move ctor will function correctly ") {
+
         auto copy = syntaxTree::Tape< std::string >{ original };
-        CHECK( 125 == copy.MAT( 125 ).front().MAT() );          
+        CHECK( 125 == copy.MAT( 125 ).front().MAT() );
+
+        auto move = syntaxTree::Tape< std::string >{ std::move( copy ) };
+        CHECK( 125 == move.MAT( 125 ).front().MAT() );
       }
 
       GIVEN("a tape skeleton constructed from a string"){
-        syntaxTree::Tape< std::string > reference( 
+        syntaxTree::Tape< std::string > reference(
           njoy::utility::copy( tapeString ) );
 
         THEN("the iterator-based factory function will return the same type"){
@@ -41,15 +45,15 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
         }
 
         THEN("the range-based factory function will return the same type"){
-          auto trial = syntaxTree::makeTape( 
+          auto trial = syntaxTree::makeTape(
               njoy::utility::copy( tapeString ) );
           constexpr bool isSame =
             std::is_same<decltype(reference), decltype(trial)>::value;
           CHECK( isSame );
         }
       }
-      
-      syntaxTree::Tape< std::string > tapeTree{ 
+
+      syntaxTree::Tape< std::string > tapeTree{
         njoy::utility::copy( tapeString ) };
       const auto ctapeTree = tapeTree;
 
@@ -57,7 +61,7 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
          CHECK( 1 == tapeTree.size() );
          CHECK( 1 == ctapeTree.size() );
       }
-      
+
       AND_THEN( "we can access the Materials of the skeleton" ){
         CHECK( tapeTree.hasMaterialNumber( 125 ) );
         CHECK( ctapeTree.hasMaterialNumber( 125 ) );
@@ -77,13 +81,13 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
           CHECK( 125 == materialSkeleton.materialNumber() );
         }
       }
-      
+
       AND_THEN( "an excpetion is thrown for an invalid index" ){
         CHECK_THROWS( tapeTree.materialNumber(1) );
       }
     }
 
-    
+
     WHEN( "an invalid (MAT != -1) TEND record ends the Tape" ){
       auto tpid = tpidString();
       auto base = baseTAPE();
