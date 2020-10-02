@@ -37,7 +37,7 @@ void wrapFile_3( python::module& module ) {
 
     python::init< std::vector< Section >&& >(),
     python::arg( "sections" ),
-    "Initialise the MF3 file\n\n"
+    "Initialise the file\n\n"
     "Arguments:\n"
     "    self       the current file\n"
     "    sections   the sections to be put into the file"
@@ -49,7 +49,7 @@ void wrapFile_3( python::module& module ) {
     python::arg( "mt" ),
     "Return the section with the requested MT number\n\n"
     "Arguments:\n"
-    "    self    the MF3 file\n"
+    "    self    the file\n"
     "    mt      the MT number of the section to be returned",
     python::return_value_policy::reference_internal
   )
@@ -60,7 +60,7 @@ void wrapFile_3( python::module& module ) {
     python::arg( "mt" ),
     "Return the section with the requested MT number\n\n"
     "Arguments:\n"
-    "    self    the MF3 file\n"
+    "    self    the file\n"
     "    mt      the MT number of the section to be returned",
     python::return_value_policy::reference_internal
   )

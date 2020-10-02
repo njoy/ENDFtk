@@ -38,9 +38,9 @@ void wrapSection_3( python::module& module ) {
     python::arg( "qm" ), python::arg( "qi" ), python::arg( "lr" ),
     python::arg( "boundaries" ), python::arg( "interpolants" ),
     python::arg( "energies" ), python::arg( "xs" ),
-    "Initialise the MF3 section\n\n"
+    "Initialise the section\n\n"
     "Arguments:\n"
-    "    self           the MF3 section\n"
+    "    self           the section\n"
     "    mt             the MT number\n"
     "    zaid           the ZA  identifier\n"
     "    awr            the atomic mass ratio\n"

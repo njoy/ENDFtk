@@ -49,9 +49,9 @@ void wrapSection_1_451( python::module& module ) {
     python::arg( "emax" ), python::arg( "lrel" ), python::arg( "nsub" ),
     python::arg( "nver" ), python::arg( "temp" ), python::arg( "ldrv" ),
     python::arg( "description" ), python::arg( "index" ),
-    "Initialise the MF1 MT451 section\n\n"
+    "Initialise the section\n\n"
     "Arguments:\n"
-    "    self           the MF1 MT451 section\n"
+    "    self           the section\n"
     "    zaid           the ZA value of the material\n"
     "    awr            the atomic weight ratio\n"
     "    lrp            the resonance parameter flag\n"

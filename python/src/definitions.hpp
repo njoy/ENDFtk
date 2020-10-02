@@ -108,13 +108,19 @@ void addStandardFileDefinitions( PythonClass& section ) {
 
     "has_MT",
     [] ( const File& self, int mt ) { return self.hasSection( mt ); },
-    "Return whether or not the file has a section with the given MT number"
+    "Return whether or not the file has a section with the given MT number\n\n"
+    "Arguments:\n"
+    "    self    the file\n"
+    "    mt      the MT number of the section to be returned"
   )
   .def(
 
     "has_section",
     [] ( const File& self, int mt ) { return self.hasSection( mt ); },
-    "Return whether or not the file has a section with the given MT number"
+    "Return whether or not the file has a section with the given MT number\n\n"
+    "Arguments:\n"
+    "    self    the file\n"
+    "    mt      the MT number of the section to be returned"
   )
   .def_static(
 
@@ -134,7 +140,7 @@ void addStandardFileDefinitions( PythonClass& section ) {
        { return print( self, mat ); },
     "Return the string representation of the section\n\n"
     "Arguments:\n"
-    "    self    the section\n"
+    "    self    the file\n"
     "    mat     the MAT number to be used"
   );
 }
