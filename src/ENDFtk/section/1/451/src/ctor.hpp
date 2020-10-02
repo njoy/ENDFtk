@@ -60,7 +60,7 @@ Type( double zaid, double awr, int lrp, int lfi, int nlib, int nmod,
  *  @tparam Iterator        a buffer iterator
  *
  *  @param[in] head         the head record of the section
- *  @param[in] it           the current position in the buffer
+ *  @param[in] begin        the current position in the buffer
  *  @param[in] end          the end of the buffer
  *  @param[in] lineNumber   the current line number
  *  @param[in] MAT          the expected MAT number

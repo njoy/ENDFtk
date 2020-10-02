@@ -7,6 +7,8 @@
 #include <optional>
 
 // other includes
+#include "range/v3/action/sort.hpp"
+#include "range/v3/action/unique.hpp"
 #include "range/v3/iterator_range.hpp"
 #include "range/v3/utility/iterator.hpp"
 #include "ENDFtk/TapeIdentification.hpp"
@@ -135,6 +137,16 @@ namespace tree {
      *  @brief Return the tape identification (the first line in the file)
      */
     const TapeIdentification& TPID() const { return *( this->tpid ); }
+
+    /**
+     *  @brief Return all unique material numbers in the material
+     */
+    std::vector< int > materialNumbers() const {
+
+      return ranges::view::keys( this->materials_ )
+               | ranges::to_vector
+               | ranges::action::sort | ranges::action::unique;
+    }
   };
 
 } // tree namespace
