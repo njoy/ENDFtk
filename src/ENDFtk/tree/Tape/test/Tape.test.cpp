@@ -65,8 +65,8 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
       }
 
       AND_THEN( "we can access the Materials of the skeleton" ){
-        CHECK( tapeTree.hasMaterialNumber( 125 ) );
-        CHECK( ctapeTree.hasMaterialNumber( 125 ) );
+        CHECK( tapeTree.hasMaterial( 125 ) );
+        CHECK( ctapeTree.hasMaterial( 125 ) );
         for ( auto& materialSkeleton : tapeTree.materialNumber( 125 ) ){
           CHECK( 125 == materialSkeleton.materialNumber() );
         }

@@ -34,13 +34,13 @@ namespace tree {
   #include "ENDFtk/tree/Material/src/ctor.hpp"
 
     /* methods */
-  #include "ENDFtk/tree/Material/src/fileNumber.hpp"
+    #include "ENDFtk/tree/Material/src/file.hpp"
 
     const File_t&
-    MF( int fileNo ) const { return this->fileNumber( fileNo ); }
+    MF( int fileNo ) const { return this->file( fileNo ); }
 
     File_t&
-    MF( int fileNo ) { return this->fileNumber( fileNo ); }
+    MF( int fileNo ) { return this->file( fileNo ); }
 
     bool
     hasMF( int fileNo ) const { return this->files_.count( fileNo ); }

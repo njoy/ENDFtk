@@ -1,5 +1,5 @@
 const File_t&
-fileNumber( int fileNo ) const {
+file( int fileNo ) const {
   try{
     return this->files_.at( fileNo );
   } catch( std::out_of_range& o ){
@@ -10,11 +10,11 @@ fileNumber( int fileNo ) const {
     Log::info( "Material number of queried material syntax tree: ",
                this->materialNumber() );
     throw o;
-  }   
+  }
 }
 
 File_t&
-fileNumber( int fileNo ) {
+file( int fileNo ) {
   return const_cast< File_t& >
-         ( const_cast< const Material& >( *this ).fileNumber( fileNo ) );
+         ( const_cast< const Material& >( *this ).file( fileNo ) );
 }

@@ -39,19 +39,13 @@ namespace tree {
     #include "ENDFtk/tree/File/src/parse.hpp"
 
     /* methods */
-    #include "ENDFtk/tree/File/src/sectionNumber.hpp"
+    #include "ENDFtk/tree/File/src/section.hpp"
 
     const Section_t&
-    MT( int sectionNo ) const { return this->sectionNumber( sectionNo ); }
+    MT( int sectionNo ) const { return this->section( sectionNo ); }
 
     Section_t&
-    MT( int sectionNo ){ return this->sectionNumber( sectionNo ); }
-
-    const Section_t&
-    section( int sectionNo ) const { return this->MT( sectionNo ); }
-
-    Section_t&
-    section( int sectionNo ){ return this->MT( sectionNo ); }
+    MT( int sectionNo ){ return this->section( sectionNo ); }
 
     bool
     hasMT( int sectionNo ) const { return this->sections_.count( sectionNo ); }

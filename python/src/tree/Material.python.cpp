@@ -59,6 +59,28 @@ void wrapTreeMaterial( python::module& module ) {
     "Arguments:\n"
     "    self    the material\n"
     "    mf      the MF number of the file"
+  )
+  .def(
+
+    "file",
+    ( File& ( Material::* )( int ) ) &Material::file,
+    python::arg( "mf" ),
+    "Return the file with the requested MF number\n\n"
+    "Arguments:\n"
+    "    self    the ENDF tree material\n"
+    "    mf      the MF number of the file to be returned",
+    python::return_value_policy::reference_internal
+  )
+  .def(
+
+    "MF",
+    ( File& ( Material::* )( int ) ) &Material::MF,
+    python::arg( "mf" ),
+    "Return the file with the requested MF number\n\n"
+    "Arguments:\n"
+    "    self    the ENDF tree material\n"
+    "    mf      the MF number of the file to be returned",
+    python::return_value_policy::reference_internal
   );
 
 //    .def("size", &Material_t::size)
