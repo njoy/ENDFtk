@@ -60,13 +60,20 @@ void wrapTreeTape( python::module& module ) {
     "from_file",
     [] ( const std::string& filename ) -> Tape {
 
-      std::string content = njoy::utility::slurpFileToMemory( filename );
-      std::cout << "read string:" << std::endl;
-      std::cout << content << std::endl;
-      std::cout << "creating tape" << std::endl;
-      Tape tape = njoy::ENDFtk::tree::makeTape( std::move( content ) );
-      std::cout << "created tape" << std::endl;
-      return tape;
+      std::string content;
+      std::ifstream in( filename,
+                        std::ios::in | std::ios::binary | std::ios::ate );
+      if ( not in ) {
+
+        std::string message = "Could not open file \'";
+        message += filename + "\'";
+        throw std::runtime_error( message );
+      }
+      const auto file_size = in.tellg();
+      in.seekg( 0, std::ios::beg );
+      content.resize( file_size / sizeof( char ) );
+      in.read( &( content[ 0 ] ), file_size );
+      return njoy::ENDFtk::tree::makeTape( std::move( content ) );
     },
     "Read a tape from a file\n\n"
     "An exception is raised if something goes wrong while reading the\n"

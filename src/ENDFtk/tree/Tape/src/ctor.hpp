@@ -59,7 +59,7 @@ catch( std::exception& ){
 
 Tape( Tape&& other )
 try:
-  Tape( std::move( other.buffer_ ),
+  Tape( std::move( other ),
         ranges::distance(
           ranges::begin( other.buffer_ ),
           ranges::front( other ).buffer().begin()

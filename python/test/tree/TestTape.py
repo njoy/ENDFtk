@@ -28,10 +28,7 @@ class TestTape( unittest.TestCase ) :
 
             tape = Tape( file.read() )
 
-        print( 'about to verify for first tape' )
         self.verifyTape( tape )
-
-        print( 'about to read second tape' )
 
         # the data is read from a file using the static from_file method
         tape = Tape.from_file( filename )

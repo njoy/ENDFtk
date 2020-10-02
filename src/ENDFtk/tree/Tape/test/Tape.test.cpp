@@ -29,9 +29,13 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
       tree::Tape< std::string > original{
         njoy::utility::copy( tapeString ) };
 
-      THEN( "the copy ctor will function correctly "){
+      THEN( "the copy and move ctor will function correctly ") {
+
         auto copy = tree::Tape< std::string >{ original };
         CHECK( 125 == copy.MAT( 125 ).front().MAT() );
+
+        auto move = tree::Tape< std::string >{ std::move( copy ) };
+        CHECK( 125 == move.MAT( 125 ).front().MAT() );
       }
 
       GIVEN("a tape skeleton constructed from a string"){
