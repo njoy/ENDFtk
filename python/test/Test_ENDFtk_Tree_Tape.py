@@ -201,6 +201,11 @@ class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
 
                 self.assertEqual( 2209, len( material.content.split( '\n' ) ) )
 
+            self.assertEqual( " $Rev::          $  $Date::            $                          ",
+                              tape.tape_id.text )
+            self.assertEqual( " $Rev::          $  $Date::            $                          ",
+                              tape.TPID.text )
+
             self.assertEqual( [ 125 ], tape.material_numbers )
 
             self.assertEqual( False, tape.has_MAT( 100 ) )

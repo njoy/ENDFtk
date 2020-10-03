@@ -63,6 +63,18 @@ void wrapTreeTape( python::module& module ) {
   )
   .def_property_readonly(
 
+    "tape_id",
+    &Tape::TPID,
+    "The tape identification (the first line in the file)"
+  )
+  .def_property_readonly(
+
+    "TPID",
+    &Tape::TPID,
+    "The tape identification (the first line in the file)"
+  )
+  .def_property_readonly(
+
     "material_numbers",
     &Tape::materialNumbers,
     "All unique material numbers in the tape"

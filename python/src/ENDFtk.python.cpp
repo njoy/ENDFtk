@@ -10,6 +10,7 @@ namespace python = pybind11;
 
 // declarations - records
 void wrapDirectoryRecord( python::module& );
+void wrapTapeIdentification( python::module& );
 
 // declarations - files
 void wrapFile_1( python::module& );
@@ -39,6 +40,7 @@ PYBIND11_MODULE( ENDFtk, module ) {
 
   // wrap records
   wrapDirectoryRecord( module );
+  wrapTapeIdentification( module );
 
   // wrap files
   wrapFile_1( module );

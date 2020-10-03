@@ -13,6 +13,9 @@ namespace ENDFtk {
    *  @class
    *  @brief Directory record
    *
+   *  The directory record is only used in MF1 MT451 and contains information
+   *  for a single section available in the material.
+   *
    *  See ENDF102, section 1.1 for more information.
    */
   class DirectoryRecord : protected record::Base< record::Integer< 33 >,
