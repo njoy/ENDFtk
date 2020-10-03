@@ -11,13 +11,15 @@ namespace njoy {
 namespace ENDFtk {
 
   class TapeIdentification {
-  public:
 
     /* fields */
     record::Base< record::Character< 66 > > base;
     record::TailVerifying< record::MT, record::MF > tail;
 
-    /* ctor */
+  public:
+
+    /* constructor */
+
     TapeIdentification( std::string&& text, int tapeNumber ) :
       base( std::move(text) ), tail( tapeNumber, 0, 0 ){}
 
@@ -37,6 +39,7 @@ namespace ENDFtk {
       }
 
     /* methods */
+    
     std::string& text(){ return std::get<0>( base.fields ); }
     const std::string& text() const { return std::get<0>( base.fields ); }
 
