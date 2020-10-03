@@ -111,6 +111,19 @@ void wrapTreeTape( python::module& module ) {
   )
   .def_static(
 
+    "from_string",
+    [] ( const std::string& string ) -> Tape {
+
+      return njoy::ENDFtk::tree::makeTape( std::string( string ) );
+    },
+    "Read a tape from a file\n\n"
+    "An exception is raised if something goes wrong while reading the\n"
+    "tape\n\n"
+    "Arguments:\n"
+    "    filename    the file name and path"
+  )
+  .def_static(
+
     "from_file",
     [] ( const std::string& filename ) -> Tape {
 

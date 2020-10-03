@@ -4,7 +4,7 @@ import unittest
 # third party imports
 
 # local imports
-from ENDFtk import Tape
+from ENDFtk.tree import Tape
 
 class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
     """Unit test for the Tape class."""

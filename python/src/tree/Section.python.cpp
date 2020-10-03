@@ -88,7 +88,8 @@ void wrapTreeSection( python::module& module ) {
         case 3 : return self.parse< 3 >();
       }
       throw std::runtime_error( "Section cannot be parsed yet" );
-    }
+    },
+    "Parse the section"
   )
   .def_property_readonly(
 

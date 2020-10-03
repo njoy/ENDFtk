@@ -6,6 +6,7 @@ import unittest
 # local imports
 from ENDFtk.MF1.MT451 import Section
 from ENDFtk import DirectoryRecord
+from ENDFtk.tree import Tape
 
 class Test_ENDFtk_MF1_MT451_Section( unittest.TestCase ) :
     """Unit test for the Section class."""
@@ -98,7 +99,11 @@ class Test_ENDFtk_MF1_MT451_Section( unittest.TestCase ) :
                     '                                                                  \n'
                     ' **************************************************************** \n' )
 
+    valid_TPID = 'Just a tape identifier                                                          \n'
     valid_SEND = '                                                                   125 1  0     \n'
+    valid_FEND = '                                                                   125 0  0     \n'
+    valid_MEND = '                                                                     0 0  0     \n'
+    valid_TEND = '                                                                    -1 0  0     \n'
     invalid_SEND = '                                                                   125 1  1     \n'
 
     # index
@@ -179,10 +184,14 @@ class Test_ENDFtk_MF1_MT451_Section( unittest.TestCase ) :
 
         self.verify_chunk( chunk )
 
-        # the data is retrieved from a tree element
-        # TODO
-        #
-        # self.verify_chunk( chunk )
+        # the data is retrieved from a tree element and parsed
+        tape = Tape.from_string( self.valid_TPID + self.chunk +
+                                 self.valid_SEND + self.valid_FEND +
+                                 self.valid_MEND + self.valid_TEND )
+        material = tape.material( 125 ).to_list()[0]
+        chunk = material.file( 1 ).section( 451 ).parse()
+
+        self.verify_chunk( chunk )
 
     def test_failures( self ) :
 

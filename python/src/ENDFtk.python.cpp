@@ -44,12 +44,18 @@ PYBIND11_MODULE( ENDFtk, module ) {
   wrapFile_1( module );
   wrapFile_3( module );
 
+  // create the submodule
+  python::module submodule = module.def_submodule(
+
+    "tree",
+    "tree - ENDF tree components"
+  );
+
   // wrap tree
-  wrapTreeSection( module );
-  wrapTreeFile( module );
-  wrapTreeMaterial( module );
-  wrapTreeTape( module );
-  // wrapMakeTreeTape( module );
+  wrapTreeSection( submodule );
+  wrapTreeFile( submodule );
+  wrapTreeMaterial( submodule );
+  wrapTreeTape( submodule );
 
   // module.def(
   //

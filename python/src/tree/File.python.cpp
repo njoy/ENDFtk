@@ -4,6 +4,7 @@
 
 // local includes
 #include "ENDFtk/tree/Tape.hpp"
+#include "ENDFtk/file/3.hpp"
 #include "range/v3/utility/iterator.hpp"
 #include "views.hpp"
 
@@ -18,6 +19,7 @@ void wrapTreeFile( python::module& module ) {
   using File = Material::File_t;
   using Section = File::Section_t;
   using SectionRange = BiDirectionalAnyView< Section >;
+  using MF3 = njoy::ENDFtk::file::Type< 3 >;
 
   // wrap views created by this tree component
   // none of these are supposed to be created directly by the user
@@ -92,13 +94,6 @@ void wrapTreeFile( python::module& module ) {
        { return self.sections(); },
     "All sections in the file"
   )
-  .def_property_readonly(
-
-    "content",
-    [] ( const File& self ) -> std::string
-       { return self.buffer(); },
-    "The content of the file"
-  )
   .def(
 
     "section",
@@ -120,6 +115,26 @@ void wrapTreeFile( python::module& module ) {
     "    self    the ENDF tree file\n"
     "    mt      the MT number of the section to be returned",
     python::return_value_policy::reference_internal
+  )
+  .def(
+
+    "parse",
+    [] ( const File& self ) -> std::variant< MF3 > {
+
+      switch ( self.fileNumber() ) {
+
+        case 3 : return self.parse< 3 >();
+      }
+      throw std::runtime_error( "File cannot be parsed yet" );
+    },
+    "Parse the file"
+  )
+  .def_property_readonly(
+
+    "content",
+    [] ( const File& self ) -> std::string
+       { return self.buffer(); },
+    "The content of the file"
   );
 
 //    .def("size", &File_t::size)
