@@ -4,6 +4,8 @@
 
 // local includes
 #include "ENDFtk/tree/Tape.hpp"
+#include "ENDFtk/section/1.hpp"
+#include "ENDFtk/section/3.hpp"
 #include "range/v3/utility/iterator.hpp"
 #include "views.hpp"
 
@@ -17,6 +19,8 @@ void wrapTreeSection( python::module& module ) {
   using Material = Tape::Material_t;
   using File = Material::File_t;
   using Section = File::Section_t;
+  using MF1MT451 = njoy::ENDFtk::section::Type< 1, 451 >;
+  using MF3 = njoy::ENDFtk::section::Type< 3 >;
 
   // wrap views created by this component
 
@@ -66,6 +70,25 @@ void wrapTreeSection( python::module& module ) {
     "section_number",
     &Section::sectionNumber,
     "The MT number of the section"
+  )
+  .def(
+
+    "parse",
+    [] ( const Section& self ) -> std::variant< MF1MT451, MF3 > {
+
+      switch ( self.fileNumber() ) {
+
+        case 1 : {
+
+          if ( self.sectionNumber() == 451 ) {
+
+            return self.parse< 1, 451 >();
+          }
+        }
+        case 3 : return self.parse< 3 >();
+      }
+      throw std::runtime_error( "Section cannot be parsed yet" );
+    }
   )
   .def_property_readonly(
 
