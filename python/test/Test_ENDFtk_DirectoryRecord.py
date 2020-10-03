@@ -6,7 +6,7 @@ import unittest
 # local imports
 from ENDFtk import DirectoryRecord
 
-class TestDirectoryRecord( unittest.TestCase ) :
+class Test_ENDFtk_DirectoryRecord( unittest.TestCase ) :
     """Unit test for the DirectoryRecord class."""
 
     chunk = '                                1        451        101          5 125 1451     \n'

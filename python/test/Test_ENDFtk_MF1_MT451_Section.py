@@ -4,11 +4,11 @@ import unittest
 # third party imports
 
 # local imports
-from ENDFtk import Section_1_451
+from ENDFtk.MF1.MT451 import Section
 from ENDFtk import DirectoryRecord
 
-class TestSection_1_451( unittest.TestCase ) :
-    """Unit test for the Section_1_451 class."""
+class Test_ENDFtk_MF1_MT451_Section( unittest.TestCase ) :
+    """Unit test for the Section class."""
 
     # Please note that the numbers in the first 4 records are actually
     # randomly set to test if the correct value is extracted instead of using
@@ -164,18 +164,18 @@ class TestSection_1_451( unittest.TestCase ) :
     def test_constructors( self ) :
 
         # the data is given explicitly
-        chunk = Section_1_451( zaid = 1001., awr = 0.9991673, lrp = 1,
-                               lfi = 2, nlib = 3, nmod = 4,
-                               elis = 5., sta = 6., lis = 7,
-                               liso = 8, nfor = 12, awi = 13.,
-                               emax = 14., lrel = 15, nsub = 17,
-                               nver = 18, temp = 19., ldrv = 21,
-                               description = self.description, index = self.index )
+        chunk = Section( zaid = 1001., awr = 0.9991673, lrp = 1,
+                         lfi = 2, nlib = 3, nmod = 4,
+                         elis = 5., sta = 6., lis = 7,
+                         liso = 8, nfor = 12, awi = 13.,
+                         emax = 14., lrel = 15, nsub = 17,
+                         nver = 18, temp = 19., ldrv = 21,
+                         description = self.description, index = self.index )
 
         self.verify_chunk( chunk )
 
         # the data is read from a string
-        chunk = Section_1_451.from_string( self.chunk + self.valid_SEND )
+        chunk = Section.from_string( self.chunk + self.valid_SEND )
 
         self.verify_chunk( chunk )
 
@@ -191,17 +191,17 @@ class TestSection_1_451( unittest.TestCase ) :
         # illegal NWD
         with self.assertRaises( Exception ) :
 
-            Section_1_451.from_string( self.invalid_NWD + self.valid_SEND )
+            Section.from_string( self.invalid_NWD + self.valid_SEND )
 
         # illegal NXC
         with self.assertRaises( Exception ) :
 
-            Section_1_451.from_string( self.invalid_NWD + self.valid_SEND )
+            Section.from_string( self.invalid_NWD + self.valid_SEND )
 
         # illegal SEND
         with self.assertRaises( Exception ) :
 
-            Section_1_451.from_string( self.chunk + self.invalid_SEND )
+            Section.from_string( self.chunk + self.invalid_SEND )
 
 if __name__ == '__main__' :
 

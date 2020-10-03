@@ -24,11 +24,18 @@ void wrapSection_1_451( python::module& module ) {
       module,
       "any_view< DirectoryRecord, random_access >" );
 
+  // create the submodule
+  python::module submodule = module.def_submodule(
+
+    "MT451",
+    "MF451 - descriptive data and directory"
+  );
+
   // create the section
   python::class_< Section > section(
 
-    module,
-    "Section_1_451",
+    submodule,
+    "Section",
     "MF1 MT451 section - descriptive data and directory"
   );
 

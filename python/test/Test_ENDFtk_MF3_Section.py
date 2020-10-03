@@ -4,11 +4,10 @@ import unittest
 # third party imports
 
 # local imports
-from ENDFtk import Section_3
-from ENDFtk import DirectoryRecord
+from ENDFtk.MF3 import Section
 
-class TestSection_3( unittest.TestCase ) :
-    """Unit test for the Section_3 class."""
+class Test_ENDFtk_MF3_Section( unittest.TestCase ) :
+    """Unit test for the Section class."""
 
     chunk = ( ' 1.001000+3 9.991673-1          0          0          0          0 125 3102     \n'
               ' 2.224648+6 3.224648+6          0          0          2          6 125 3102     \n'
@@ -65,18 +64,18 @@ class TestSection_3( unittest.TestCase ) :
     def test_constructors( self ) :
 
         # the data is given explicitly
-        chunk = Section_3( mt = 102,  zaid = 1001, lr = 0, awr = 0.9991673,
-                           qm = 2.224648e+6, qi = 3.224648e+6,
-                           interpolants = [ 5, 2 ], boundaries = [ 3, 6 ],
-                           energies = [ 1e-5, 2e-5, 7.5e+5,
-                                        1.9e+7, 1.95e+7, 2e+7 ],
-                           xs = [ 1.672869e+1, 1.182897e+1, 3.347392e-5,
-                                  2.751761e-5, 2.731301e-5, 2.710792e-5 ] )
+        chunk = Section( mt = 102,  zaid = 1001, lr = 0, awr = 0.9991673,
+                         qm = 2.224648e+6, qi = 3.224648e+6,
+                         interpolants = [ 5, 2 ], boundaries = [ 3, 6 ],
+                         energies = [ 1e-5, 2e-5, 7.5e+5,
+                                      1.9e+7, 1.95e+7, 2e+7 ],
+                         xs = [ 1.672869e+1, 1.182897e+1, 3.347392e-5,
+                                2.751761e-5, 2.731301e-5, 2.710792e-5 ] )
 
         self.verify_chunk( chunk )
 
         # the data is read from a string
-        chunk = Section_3.from_string( self.chunk + self.valid_SEND )
+        chunk = Section.from_string( self.chunk + self.valid_SEND )
 
         self.verify_chunk( chunk )
 
@@ -92,7 +91,7 @@ class TestSection_3( unittest.TestCase ) :
         # illegal SEND
         with self.assertRaises( Exception ) :
 
-            Section_3.from_string( self.chunk + self.invalid_SEND )
+            Section.from_string( self.chunk + self.invalid_SEND )
 
 if __name__ == '__main__' :
 

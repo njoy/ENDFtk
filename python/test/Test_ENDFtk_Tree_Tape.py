@@ -6,7 +6,7 @@ import unittest
 # local imports
 from ENDFtk import Tape
 
-class TestTape( unittest.TestCase ) :
+class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
     """Unit test for the Tape class."""
 
     def test_tape( self ) :
@@ -231,7 +231,7 @@ class TestTape( unittest.TestCase ) :
             self.assertEqual( 2211, len( tape.content.split( '\n' ) ) )
 
         # a valid ENDF tape
-        filename = 'test/tree/resources/n-001_H_001.endf'
+        filename = 'test/resources/n-001_H_001.endf'
 
         # the data is read from a file
         with open( filename, 'r' ) as file :
