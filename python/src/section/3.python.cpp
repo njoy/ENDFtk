@@ -23,7 +23,7 @@ void wrapSection_3( python::module& module ) {
   python::class_< Section > section(
 
     module,
-    "Section_3",
+    "Section",
     "MF3 section - reaction cross sections"
   );
 

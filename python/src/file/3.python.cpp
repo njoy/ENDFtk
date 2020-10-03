@@ -10,6 +10,9 @@
 // namespace aliases
 namespace python = pybind11;
 
+// declarations - sections
+void wrapSection_3( python::module& );
+
 void wrapFile_3( python::module& module ) {
 
   // type aliases
@@ -23,11 +26,21 @@ void wrapFile_3( python::module& module ) {
       module,
       "any_view< section::Type< 3 >, bidirectional >" );
 
-  // create the section
+  // create the submodule
+  python::module submodule = module.def_submodule(
+
+    "MF3",
+    "MF3 - reaction cross sections"
+  );
+
+  // wrap sections
+  wrapSection_3( submodule );
+
+  // create the file
   python::class_< File > file(
 
-    module,
-    "File_3",
+    submodule,
+    "File",
     "MF3 file - reaction cross sections"
   );
 

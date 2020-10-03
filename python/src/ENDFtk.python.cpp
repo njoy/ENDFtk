@@ -13,7 +13,6 @@ void wrapDirectoryRecord( python::module& );
 
 // declarations - sections
 void wrapSection_1_451( python::module& );
-void wrapSection_3( python::module& );
 
 // declarations - files
 void wrapFile_3( python::module& );
@@ -45,7 +44,6 @@ PYBIND11_MODULE( ENDFtk, module ) {
 
   // wrap sections
   wrapSection_1_451( module );
-  wrapSection_3( module );
 
   // wrap files
   wrapFile_3( module );
