@@ -118,55 +118,55 @@ class Test_ENDFtk_MF1_MT451_Section( unittest.TestCase ) :
               DirectoryRecord( 33,   2,  21, 5 ),
               DirectoryRecord( 33, 102,  21, 5 ) ]
 
-    def verify_chunk( self, chunk ) :
-
-        # verify content
-        self.assertEqual( 451, chunk.MT )
-        self.assertEqual( 1001, chunk.ZA )
-        self.assertAlmostEqual( 0.9991673, chunk.AWR )
-        self.assertAlmostEqual( 0.9991673, chunk.atomic_weight_ratio )
-        self.assertEqual( 1, chunk.LRP )
-        self.assertEqual( 1, chunk.resonance_parameter_flag )
-        self.assertEqual( 2, chunk.LFI )
-        self.assertEqual( True, chunk.is_fissile )
-        self.assertEqual( 3, chunk.NLIB )
-        self.assertEqual( 3, chunk.library_type )
-        self.assertEqual( 4, chunk.NMOD )
-        self.assertEqual( 4, chunk.modification_number )
-        self.assertAlmostEqual( 5.0, chunk.ELIS )
-        self.assertAlmostEqual( 5.0, chunk.excitation_energy )
-        self.assertAlmostEqual( 6.0, chunk.STA )
-        self.assertEqual( True, chunk.is_stable )
-        self.assertEqual( 7, chunk.LIS )
-        self.assertEqual( 7, chunk.excited_level )
-        self.assertEqual( 8, chunk.LISO )
-        self.assertEqual( 8, chunk.isomeric_level )
-        self.assertEqual( 12, chunk.NFOR )
-        self.assertEqual( 12, chunk.library_format )
-        self.assertAlmostEqual( 13.0, chunk.AWI )
-        self.assertAlmostEqual( 13.0, chunk.projectile_atomic_mass_ratio )
-        self.assertAlmostEqual( 14.0, chunk.EMAX )
-        self.assertAlmostEqual( 14.0, chunk.maximum_energy )
-        self.assertEqual( 15, chunk.LREL )
-        self.assertEqual( 15, chunk.release_number )
-        self.assertEqual( 17, chunk.NSUB )
-        self.assertEqual( 17, chunk.sublibrary )
-        self.assertEqual( 18, chunk.NVER )
-        self.assertEqual( 18, chunk.version_number )
-        self.assertAlmostEqual( 19.0, chunk.TEMP )
-        self.assertAlmostEqual( 19.0, chunk.temperature )
-        self.assertEqual( 21, chunk.LDRV )
-        self.assertEqual( 21, chunk.derived_material )
-        self.assertEqual( 9, chunk.NWD )
-        self.assertEqual( self.description, chunk.description )
-        self.assertEqual( self.index, list( chunk.index ) )
-        self.assertEqual( 23, chunk.NC )
-
-        # verify string
-        self.assertEqual( self.chunk + self.valid_SEND,
-                          chunk.to_string( 125, 1 ) )
-
     def test_constructors( self ) :
+
+        def verify_chunk( self, chunk ) :
+
+            # verify content
+            self.assertEqual( 451, chunk.MT )
+            self.assertEqual( 1001, chunk.ZA )
+            self.assertAlmostEqual( 0.9991673, chunk.AWR )
+            self.assertAlmostEqual( 0.9991673, chunk.atomic_weight_ratio )
+            self.assertEqual( 1, chunk.LRP )
+            self.assertEqual( 1, chunk.resonance_parameter_flag )
+            self.assertEqual( 2, chunk.LFI )
+            self.assertEqual( True, chunk.is_fissile )
+            self.assertEqual( 3, chunk.NLIB )
+            self.assertEqual( 3, chunk.library_type )
+            self.assertEqual( 4, chunk.NMOD )
+            self.assertEqual( 4, chunk.modification_number )
+            self.assertAlmostEqual( 5.0, chunk.ELIS )
+            self.assertAlmostEqual( 5.0, chunk.excitation_energy )
+            self.assertAlmostEqual( 6.0, chunk.STA )
+            self.assertEqual( True, chunk.is_stable )
+            self.assertEqual( 7, chunk.LIS )
+            self.assertEqual( 7, chunk.excited_level )
+            self.assertEqual( 8, chunk.LISO )
+            self.assertEqual( 8, chunk.isomeric_level )
+            self.assertEqual( 12, chunk.NFOR )
+            self.assertEqual( 12, chunk.library_format )
+            self.assertAlmostEqual( 13.0, chunk.AWI )
+            self.assertAlmostEqual( 13.0, chunk.projectile_atomic_mass_ratio )
+            self.assertAlmostEqual( 14.0, chunk.EMAX )
+            self.assertAlmostEqual( 14.0, chunk.maximum_energy )
+            self.assertEqual( 15, chunk.LREL )
+            self.assertEqual( 15, chunk.release_number )
+            self.assertEqual( 17, chunk.NSUB )
+            self.assertEqual( 17, chunk.sublibrary )
+            self.assertEqual( 18, chunk.NVER )
+            self.assertEqual( 18, chunk.version_number )
+            self.assertAlmostEqual( 19.0, chunk.TEMP )
+            self.assertAlmostEqual( 19.0, chunk.temperature )
+            self.assertEqual( 21, chunk.LDRV )
+            self.assertEqual( 21, chunk.derived_material )
+            self.assertEqual( 9, chunk.NWD )
+            self.assertEqual( self.description, chunk.description )
+            self.assertEqual( self.index, list( chunk.index ) )
+            self.assertEqual( 23, chunk.NC )
+
+            # verify string
+            self.assertEqual( self.chunk + self.valid_SEND,
+                              chunk.to_string( 125, 1 ) )
 
         # the data is given explicitly
         chunk = Section( zaid = 1001., awr = 0.9991673, lrp = 1,
@@ -177,12 +177,12 @@ class Test_ENDFtk_MF1_MT451_Section( unittest.TestCase ) :
                          nver = 18, temp = 19., ldrv = 21,
                          description = self.description, index = self.index )
 
-        self.verify_chunk( chunk )
+        verify_chunk( self, chunk )
 
         # the data is read from a string
         chunk = Section.from_string( self.chunk + self.valid_SEND )
 
-        self.verify_chunk( chunk )
+        verify_chunk( self, chunk )
 
         # the data is retrieved from a tree element and parsed
         tape = Tape.from_string( self.valid_TPID + self.chunk +
@@ -191,7 +191,7 @@ class Test_ENDFtk_MF1_MT451_Section( unittest.TestCase ) :
         material = tape.material( 125 ).to_list()[0]
         chunk = material.file( 1 ).section( 451 ).parse()
 
-        self.verify_chunk( chunk )
+        verify_chunk( self, chunk )
 
     def test_failures( self ) :
 

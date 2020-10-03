@@ -33,63 +33,63 @@ class Test_ENDFtk_MF3_File( unittest.TestCase ) :
     valid_TEND = '                                                                    -1 0  0     \n'
     invalid_FEND = '                                                                   125 3  1     \n'
 
-    def verify_chunk( self, chunk ) :
+    def test_file( self ) :
 
-        # verify content
-        self.assertEqual( 3, chunk.MF )
-        self.assertEqual( 3, chunk.file_number )
+        def verify_chunk( self, chunk ) :
 
-        self.assertEqual( True, chunk.has_MT( 1 ) )
-        self.assertEqual( True, chunk.has_MT( 2 ) )
-        self.assertEqual( True, chunk.has_MT( 102 ) )
-        self.assertEqual( True, chunk.has_section( 1 ) )
-        self.assertEqual( True, chunk.has_section( 2 ) )
-        self.assertEqual( True, chunk.has_section( 102 ) )
+            # verify content
+            self.assertEqual( 3, chunk.MF )
+            self.assertEqual( 3, chunk.file_number )
 
-        self.assertEqual( False, chunk.has_MT( 12 ) )
-        self.assertEqual( False, chunk.has_section( 12 ) )
+            self.assertEqual( True, chunk.has_MT( 1 ) )
+            self.assertEqual( True, chunk.has_MT( 2 ) )
+            self.assertEqual( True, chunk.has_MT( 102 ) )
+            self.assertEqual( True, chunk.has_section( 1 ) )
+            self.assertEqual( True, chunk.has_section( 2 ) )
+            self.assertEqual( True, chunk.has_section( 102 ) )
 
-        section = chunk.section( 1 )
-        self.assertEqual( 1001, section.ZA )
-        self.assertEqual( 0.0, section.QM )
-        self.assertEqual( 0.0, section.QI )
-        self.assertEqual( 5, section.interpolants[0] )
+            self.assertEqual( False, chunk.has_MT( 12 ) )
+            self.assertEqual( False, chunk.has_section( 12 ) )
 
-        section = chunk.section( 2 )
-        self.assertEqual( 1001, section.ZA )
-        self.assertEqual( 0.0, section.QM )
-        self.assertEqual( 0.0, section.QI )
-        self.assertEqual( 2, section.interpolants[0] )
+            section = chunk.section( 1 )
+            self.assertEqual( 1001, section.ZA )
+            self.assertEqual( 0.0, section.QM )
+            self.assertEqual( 0.0, section.QI )
+            self.assertEqual( 5, section.interpolants[0] )
 
-        section = chunk.section( 102 )
-        self.assertEqual( 1001, section.ZA )
-        self.assertAlmostEqual( 2.224631e+6, section.QM )
-        self.assertAlmostEqual( 2.224631e+6, section.QI )
-        self.assertEqual( 5, section.interpolants[0] )
+            section = chunk.section( 2 )
+            self.assertEqual( 1001, section.ZA )
+            self.assertEqual( 0.0, section.QM )
+            self.assertEqual( 0.0, section.QI )
+            self.assertEqual( 2, section.interpolants[0] )
 
-        section = chunk.MT( 1 )
-        self.assertEqual( 1001, section.ZA )
-        self.assertEqual( 0.0, section.QM )
-        self.assertEqual( 0.0, section.QI )
-        self.assertEqual( 5, section.interpolants[0] )
+            section = chunk.section( 102 )
+            self.assertEqual( 1001, section.ZA )
+            self.assertAlmostEqual( 2.224631e+6, section.QM )
+            self.assertAlmostEqual( 2.224631e+6, section.QI )
+            self.assertEqual( 5, section.interpolants[0] )
 
-        section = chunk.MT( 2 )
-        self.assertEqual( 1001, section.ZA )
-        self.assertEqual( 0.0, section.QM )
-        self.assertEqual( 0.0, section.QI )
-        self.assertEqual( 2, section.interpolants[0] )
+            section = chunk.MT( 1 )
+            self.assertEqual( 1001, section.ZA )
+            self.assertEqual( 0.0, section.QM )
+            self.assertEqual( 0.0, section.QI )
+            self.assertEqual( 5, section.interpolants[0] )
 
-        section = chunk.MT( 102 )
-        self.assertEqual( 1001, section.ZA )
-        self.assertAlmostEqual( 2.224631e+6, section.QM )
-        self.assertAlmostEqual( 2.224631e+6, section.QI )
-        self.assertEqual( 5, section.interpolants[0] )
+            section = chunk.MT( 2 )
+            self.assertEqual( 1001, section.ZA )
+            self.assertEqual( 0.0, section.QM )
+            self.assertEqual( 0.0, section.QI )
+            self.assertEqual( 2, section.interpolants[0] )
 
-        # verify string
-        self.assertEqual( self.chunk + self.valid_FEND,
-                          chunk.to_string( 125 ) )
+            section = chunk.MT( 102 )
+            self.assertEqual( 1001, section.ZA )
+            self.assertAlmostEqual( 2.224631e+6, section.QM )
+            self.assertAlmostEqual( 2.224631e+6, section.QI )
+            self.assertEqual( 5, section.interpolants[0] )
 
-    def test_constructors( self ) :
+            # verify string
+            self.assertEqual( self.chunk + self.valid_FEND,
+                              chunk.to_string( 125 ) )
 
         sorted = [ Section( 1, 1001., 0.9991673, 0., 0., 0,
                             [ 2 ], [ 5 ],
@@ -113,17 +113,17 @@ class Test_ENDFtk_MF3_File( unittest.TestCase ) :
         # the data is given explicitly - sorted sections
         chunk = File( sorted )
 
-        self.verify_chunk( chunk )
+        verify_chunk( self, chunk )
 
         # the data is read from a string
         chunk = File( unsorted )
 
-        self.verify_chunk( chunk )
+        verify_chunk( self, chunk )
 
         # the data is read from a string
         chunk = File.from_string( self.chunk + self.valid_FEND )
 
-        self.verify_chunk( chunk )
+        verify_chunk( self, chunk )
 
         # the data is retrieved from a tree element and parsed
         tape = Tape.from_string( self.valid_TPID + self.chunk +
@@ -132,7 +132,7 @@ class Test_ENDFtk_MF3_File( unittest.TestCase ) :
         material = tape.material( 125 ).to_list()[0]
         chunk = material.file( 3 ).parse()
 
-        self.verify_chunk( chunk )
+        verify_chunk( self, chunk )
 
     def test_failures( self ) :
 

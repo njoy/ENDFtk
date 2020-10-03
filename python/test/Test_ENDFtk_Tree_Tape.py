@@ -11,9 +11,9 @@ class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
 
     def test_tape( self ) :
 
-        def verifyTape( tape ) :
+        def verify_tape( self, tape ) :
 
-            def verifyFile1( file ) :
+            def verify_file1( self, file ) :
 
                 self.assertEqual( 125, file.MAT )
                 self.assertEqual( 125, file.material_number )
@@ -37,7 +37,7 @@ class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
 
                 self.assertEqual( 125, len( file.content.split( '\n' ) ) )
 
-            def verifyFile2( file ) :
+            def verify_file2( self, file ) :
 
                 self.assertEqual( 125, file.MAT )
                 self.assertEqual( 125, file.material_number )
@@ -61,7 +61,7 @@ class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
 
                 self.assertEqual( 7, len( file.content.split( '\n' ) ) )
 
-            def verifyFile3( file ) :
+            def verify_file3( self, file ) :
 
                 self.assertEqual( 125, file.MAT )
                 self.assertEqual( 125, file.material_number )
@@ -85,7 +85,7 @@ class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
 
                 self.assertEqual( 110, len( file.content.split( '\n' ) ) )
 
-            def verifyFile4( file ) :
+            def verify_file4( self, file ) :
 
                 self.assertEqual( 125, file.MAT )
                 self.assertEqual( 125, file.material_number )
@@ -109,7 +109,7 @@ class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
 
                 self.assertEqual( 199, len( file.content.split( '\n' ) ) )
 
-            def verifyFile6( file ) :
+            def verify_file6( self, file ) :
 
                 self.assertEqual( 125, file.MAT )
                 self.assertEqual( 125, file.material_number )
@@ -133,7 +133,7 @@ class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
 
                 self.assertEqual( 204, len( file.content.split( '\n' ) ) )
 
-            def verifyFile33( file ) :
+            def verify_file33( self, file ) :
 
                 self.assertEqual( 125, file.MAT )
                 self.assertEqual( 125, file.material_number )
@@ -157,7 +157,7 @@ class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
 
                 self.assertEqual( 1568, len( file.content.split( '\n' ) ) )
 
-            def verifyMaterial( material ) :
+            def verify_material( self, material ) :
 
                 self.assertEqual( 125, material.MAT )
                 self.assertEqual( 125, material.material_number )
@@ -181,23 +181,23 @@ class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
                 self.assertEqual( False, material.has_MF( 7 ) )
                 self.assertEqual( False, material.has_file( 7 ) )
 
-                verifyFile1( material.MF( 1 ) )
-                verifyFile1( material.file( 1 ) )
+                verify_file1( self, material.MF( 1 ) )
+                verify_file1( self, material.file( 1 ) )
 
-                verifyFile2( material.MF( 2 ) )
-                verifyFile2( material.file( 2 ) )
+                verify_file2( self, material.MF( 2 ) )
+                verify_file2( self, material.file( 2 ) )
 
-                verifyFile3( material.MF( 3 ) )
-                verifyFile3( material.file( 3 ) )
+                verify_file3( self, material.MF( 3 ) )
+                verify_file3( self, material.file( 3 ) )
 
-                verifyFile4( material.MF( 4 ) )
-                verifyFile4( material.file( 4 ) )
+                verify_file4( self, material.MF( 4 ) )
+                verify_file4( self, material.file( 4 ) )
 
-                verifyFile6( material.MF( 6 ) )
-                verifyFile6( material.file( 6 ) )
+                verify_file6( self, material.MF( 6 ) )
+                verify_file6( self, material.file( 6 ) )
 
-                verifyFile33( material.MF( 33 ) )
-                verifyFile33( material.file( 33 ) )
+                verify_file33( self, material.MF( 33 ) )
+                verify_file33( self, material.file( 33 ) )
 
                 self.assertEqual( 2209, len( material.content.split( '\n' ) ) )
 
@@ -214,19 +214,19 @@ class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
             self.assertEqual( 1, len( materials ) )
 
             material = materials.to_list()[0]
-            verifyMaterial( material )
+            verify_material( self, material )
 
             materials = tape.MAT( 125 )
             self.assertEqual( 1, len( materials ) )
 
             material = materials.to_list()[0]
-            verifyMaterial( material )
+            verify_material( self, material )
 
             materials = tape.material( 125 )
             self.assertEqual( 1, len( materials ) )
 
             material = materials.to_list()[0]
-            verifyMaterial( material )
+            verify_material( self, material )
 
             self.assertEqual( 2211, len( tape.content.split( '\n' ) ) )
 
@@ -238,13 +238,13 @@ class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
 
             tape = Tape( file.read() )
 
-        verifyTape( tape )
+        verify_tape( self, tape )
 
         # the data is read from a file using the static from_file method
         tape = Tape.from_file( filename )
 
         # verify the tape's content
-        verifyTape( tape )
+        verify_tape( self, tape )
 
     def test_failures( self ) :
 

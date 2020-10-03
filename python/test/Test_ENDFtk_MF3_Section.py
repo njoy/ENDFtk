@@ -23,50 +23,50 @@ class Test_ENDFtk_MF3_Section( unittest.TestCase ) :
     valid_TEND = '                                                                    -1 0  0     \n'
     invalid_SEND = '                                                                   125 3  1     \n'
 
-    def verify_chunk( self, chunk ) :
+    def test_section( self ) :
 
-        # verify content
-        self.assertEqual( 102, chunk.MT )
-        self.assertEqual( 1001, chunk.ZA )
-        self.assertAlmostEqual( 0.9991673, chunk.AWR )
-        self.assertAlmostEqual( 0.9991673, chunk.atomic_weight_ratio )
-        self.assertEqual( 0, chunk.LR )
-        self.assertEqual( 0, chunk.complex_breakup )
-        self.assertAlmostEqual( 2.224648e+6, chunk.QM )
-        self.assertAlmostEqual( 2.224648e+6, chunk.mass_difference_qvalue )
-        self.assertAlmostEqual( 3.224648e+6, chunk.QI )
-        self.assertAlmostEqual( 3.224648e+6, chunk.reaction_qvalue )
+        def verify_chunk( self, chunk ) :
 
-        self.assertEqual( 6, chunk.NP )
-        self.assertEqual( 2, chunk.NR )
-        self.assertEqual( 2, len( chunk.interpolants ) )
-        self.assertEqual( 2, len( chunk.boundaries ) )
-        self.assertEqual( 5, chunk.interpolants[0] );
-        self.assertEqual( 2, chunk.interpolants[1] );
-        self.assertEqual( 3, chunk.boundaries[0] );
-        self.assertEqual( 6, chunk.boundaries[1] );
-        self.assertEqual( 6, len( chunk.energies ) )
-        self.assertEqual( 6, len( chunk.cross_sections ) )
-        self.assertAlmostEqual( 1e-5, chunk.energies[0] )
-        self.assertAlmostEqual( 2e-5, chunk.energies[1] )
-        self.assertAlmostEqual( 7.5e+5, chunk.energies[2] )
-        self.assertAlmostEqual( 1.9e+7, chunk.energies[3] )
-        self.assertAlmostEqual( 1.95e+7, chunk.energies[4] )
-        self.assertAlmostEqual( 2e+7, chunk.energies[5] )
-        self.assertAlmostEqual( 1.672869e+1, chunk.cross_sections[0] )
-        self.assertAlmostEqual( 1.182897e+1, chunk.cross_sections[1] )
-        self.assertAlmostEqual( 3.347392e-5, chunk.cross_sections[2] )
-        self.assertAlmostEqual( 2.751761e-5, chunk.cross_sections[3] )
-        self.assertAlmostEqual( 2.731301e-5, chunk.cross_sections[4] )
-        self.assertAlmostEqual( 2.710792e-5, chunk.cross_sections[5] )
+            # verify content
+            self.assertEqual( 102, chunk.MT )
+            self.assertEqual( 1001, chunk.ZA )
+            self.assertAlmostEqual( 0.9991673, chunk.AWR )
+            self.assertAlmostEqual( 0.9991673, chunk.atomic_weight_ratio )
+            self.assertEqual( 0, chunk.LR )
+            self.assertEqual( 0, chunk.complex_breakup )
+            self.assertAlmostEqual( 2.224648e+6, chunk.QM )
+            self.assertAlmostEqual( 2.224648e+6, chunk.mass_difference_qvalue )
+            self.assertAlmostEqual( 3.224648e+6, chunk.QI )
+            self.assertAlmostEqual( 3.224648e+6, chunk.reaction_qvalue )
 
-        self.assertEqual( 5, chunk.NC )
+            self.assertEqual( 6, chunk.NP )
+            self.assertEqual( 2, chunk.NR )
+            self.assertEqual( 2, len( chunk.interpolants ) )
+            self.assertEqual( 2, len( chunk.boundaries ) )
+            self.assertEqual( 5, chunk.interpolants[0] );
+            self.assertEqual( 2, chunk.interpolants[1] );
+            self.assertEqual( 3, chunk.boundaries[0] );
+            self.assertEqual( 6, chunk.boundaries[1] );
+            self.assertEqual( 6, len( chunk.energies ) )
+            self.assertEqual( 6, len( chunk.cross_sections ) )
+            self.assertAlmostEqual( 1e-5, chunk.energies[0] )
+            self.assertAlmostEqual( 2e-5, chunk.energies[1] )
+            self.assertAlmostEqual( 7.5e+5, chunk.energies[2] )
+            self.assertAlmostEqual( 1.9e+7, chunk.energies[3] )
+            self.assertAlmostEqual( 1.95e+7, chunk.energies[4] )
+            self.assertAlmostEqual( 2e+7, chunk.energies[5] )
+            self.assertAlmostEqual( 1.672869e+1, chunk.cross_sections[0] )
+            self.assertAlmostEqual( 1.182897e+1, chunk.cross_sections[1] )
+            self.assertAlmostEqual( 3.347392e-5, chunk.cross_sections[2] )
+            self.assertAlmostEqual( 2.751761e-5, chunk.cross_sections[3] )
+            self.assertAlmostEqual( 2.731301e-5, chunk.cross_sections[4] )
+            self.assertAlmostEqual( 2.710792e-5, chunk.cross_sections[5] )
 
-        # verify string
-        self.assertEqual( self.chunk + self.valid_SEND,
-                          chunk.to_string( 125, 3 ) )
+            self.assertEqual( 5, chunk.NC )
 
-    def test_constructors( self ) :
+            # verify string
+            self.assertEqual( self.chunk + self.valid_SEND,
+                              chunk.to_string( 125, 3 ) )
 
         # the data is given explicitly
         chunk = Section( mt = 102,  zaid = 1001, lr = 0, awr = 0.9991673,
@@ -77,12 +77,12 @@ class Test_ENDFtk_MF3_Section( unittest.TestCase ) :
                          xs = [ 1.672869e+1, 1.182897e+1, 3.347392e-5,
                                 2.751761e-5, 2.731301e-5, 2.710792e-5 ] )
 
-        self.verify_chunk( chunk )
+        verify_chunk( self, chunk )
 
         # the data is read from a string
         chunk = Section.from_string( self.chunk + self.valid_SEND )
 
-        self.verify_chunk( chunk )
+        verify_chunk( self, chunk )
 
         # the data is retrieved from a tree element and parsed
         tape = Tape.from_string( self.valid_TPID + self.chunk +
@@ -91,7 +91,7 @@ class Test_ENDFtk_MF3_Section( unittest.TestCase ) :
         material = tape.material( 125 ).to_list()[0]
         chunk = material.file( 3 ).section( 102 ).parse()
 
-        self.verify_chunk( chunk )
+        verify_chunk( self, chunk )
 
     def test_failures( self ) :
 
