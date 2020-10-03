@@ -102,26 +102,37 @@ namespace tree {
     bool hasMaterial( int mat ) const { return this->hasMAT( mat ); }
 
     /**
+     *  @brief Return all materials
+     */
+    auto materials() { return this->materials_ | ranges::view::values; }
+
+    /**
+     *  @brief Return all materials in the tape
+     */
+    auto materials() const { return this->materials_ | ranges::view::values; }
+
+    /**
      *  @brief Return a begin iterator to all materials
      */
-    auto begin(){ return ( this->materials_ | ranges::view::values ).begin(); }
+    auto begin() { return this->materials().begin(); }
 
     /**
      *  @brief Return an end iterator to all materials
      */
-    auto end(){ return ( this->materials_ | ranges::view::values ).end(); }
+    auto end() { return this->materials().end(); }
 
     /**
      *  @brief Return a begin iterator to all materials
      */
     auto begin() const {
-      return ( this->materials_ | ranges::view::values ).begin();
+
+      return this->materials().begin();
     }
 
     /**
      *  @brief Return an end iterator to all materials
      */
-    auto end() const { return ( this->materials_ | ranges::view::values ).end(); }
+    auto end() const { return this->materials().end(); }
 
     /**
      *  @brief Return the number of materials in the tape
@@ -139,7 +150,7 @@ namespace tree {
     const TapeIdentification& TPID() const { return *( this->tpid ); }
 
     /**
-     *  @brief Return all unique material numbers in the material
+     *  @brief Return all unique material numbers in the tape
      */
     std::vector< int > materialNumbers() const {
 

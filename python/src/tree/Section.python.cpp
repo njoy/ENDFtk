@@ -3,7 +3,7 @@
 #include <pybind11/stl.h>
 
 // local includes
-#include "ENDFtk/tree/Section.hpp"
+#include "ENDFtk/tree/Tape.hpp"
 #include "range/v3/utility/iterator.hpp"
 #include "views.hpp"
 
@@ -13,8 +13,10 @@ namespace python = pybind11;
 void wrapTreeSection( python::module& module ) {
 
   // type aliases
-  using BufferIterator = ranges::iterator_t< const std::string >;
-  using Section = njoy::ENDFtk::tree::Section< BufferIterator >;
+  using Tape = njoy::ENDFtk::tree::Tape< std::string >;
+  using Material = Tape::Material_t;
+  using File = Material::File_t;
+  using Section = File::Section_t;
 
   // wrap views created by this component
 

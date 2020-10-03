@@ -11,7 +11,7 @@ auto material( int mat ) const {
                 " correspond to a stored material syntax tree" );
     Log::info( "Requested material number: {}", mat );
     throw std::out_of_range( "Requested material number (MAT) does not"
-                             " correspond to a stored material syntax tree" );
+                             " correspond to a stored material tree" );
   }
   auto bounds = this->materials_.equal_range( mat );
   return

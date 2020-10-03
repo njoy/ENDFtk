@@ -11,13 +11,34 @@ class TestTape( unittest.TestCase ) :
 
     def verifyTape( self, tape ) :
 
-        # basic tape interface
+        def verifyMaterials( materials ) :
+
+            self.assertEqual( 1, len( materials ) )
+            self.assertEqual( 125, materials[0].MAT )
+            self.assertEqual( 125, materials[0].material_number )
+
+            self.assertEqual( 2211, len( tape.content.split( '\n' ) ) )
+
+        self.assertEqual( [ 125 ], tape.material_numbers )
+
         self.assertEqual( False, tape.has_MAT( 100 ) )
         self.assertEqual( False, tape.has_material( 100 ) )
         self.assertEqual( True, tape.has_MAT( 125 ) )
         self.assertEqual( True, tape.has_material( 125 ) )
         self.assertEqual( False, tape.has_MAT( 9225 ) )
         self.assertEqual( False, tape.has_material( 9225 ) )
+
+        materials = list( tape.materials )
+
+        verifyMaterials( materials )
+
+        materials = list( tape.MAT( 125 ) )
+
+        verifyMaterials( materials )
+
+        materials = list( tape.material( 125 ) )
+
+        verifyMaterials( materials )
 
     def test_constructors( self ) :
 
@@ -34,6 +55,16 @@ class TestTape( unittest.TestCase ) :
         tape = Tape.from_file( filename )
 
         self.verifyTape( tape )
+
+    def test_failures( self ) :
+
+        print( '\n' )
+
+        # unknown file
+        with self.assertRaises( Exception ) :
+
+            filename = 'some unexisting file'
+            tape = Tape.from_file( filename )
 
 if __name__ == '__main__' :
 

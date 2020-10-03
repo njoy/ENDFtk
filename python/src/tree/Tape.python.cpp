@@ -15,8 +15,14 @@ void wrapTreeTape( python::module& module ) {
 
   // type aliases
   using Tape = njoy::ENDFtk::tree::Tape< std::string >;
+  using Material = Tape::Material_t;
+  using MaterialRange = BiDirectionalAnyView< Material >;
 
   // wrap views created by this tree component
+  // none of these are supposed to be created directly by the user
+  wrapBiDirectionalAnyViewOf< Material >(
+      module,
+      "any_view< tree::Material, bidirectional >" );
 
   // create the tree component
   python::class_< Tape > tree(
@@ -55,6 +61,54 @@ void wrapTreeTape( python::module& module ) {
     "    self    the tape\n"
     "    mat     the MAT number of the material"
   )
+  .def_property_readonly(
+
+    "material_numbers",
+    &Tape::materialNumbers,
+    "All unique material numbers in the tape"
+  )
+  .def_property_readonly(
+
+    "materials",
+    [] ( const Tape& self ) -> MaterialRange
+       { return self.materials(); },
+    "All materials in the tape"
+  )
+  .def(
+
+    "MAT",
+    [] ( const Tape& self, int mat ) -> MaterialRange
+       { return self.MAT( mat ); },
+    "Return the materials with the requested MAT number\n\n"
+    "This function returns a sequence of materials since a tape can contain\n"
+    "multiple instances of the same material (e.g. at different\n"
+    "temperatures).\n\n"
+    "Arguments:\n"
+    "    self    the tape\n"
+    "    mat     the MAT number of the material to be returned",
+    python::return_value_policy::reference_internal
+  )
+  .def(
+
+    "material",
+    [] ( const Tape& self, int mat ) -> MaterialRange
+       { return self.material( mat ); },
+    "Return the materials with the requested MAT number\n\n"
+    "This function returns a sequence of materials since a tape can contain\n"
+    "multiple instances of the same material (e.g. at different\n"
+    "temperatures).\n\n"
+    "Arguments:\n"
+    "    self    the tape\n"
+    "    mat     the MAT number of the material to be returned",
+    python::return_value_policy::reference_internal
+  )
+  .def_property_readonly(
+
+    "content",
+    [] ( const Tape& self ) -> std::string
+       { return self.buffer(); },
+    "The content of the tape"
+  )
   .def_static(
 
     "from_file",
@@ -81,11 +135,4 @@ void wrapTreeTape( python::module& module ) {
     "Arguments:\n"
     "    filename    the file name and path"
   );
-
-//    .def("size", &Tape_t::size)
-//    .def_property_readonly("materials",
-//                           [](Tape_t& tape) {
-//                             return tape | ranges::to_vector;
-//                           });
-
 }
