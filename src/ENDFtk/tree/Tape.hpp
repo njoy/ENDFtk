@@ -102,7 +102,7 @@ namespace tree {
     bool hasMaterial( int mat ) const { return this->hasMAT( mat ); }
 
     /**
-     *  @brief Return all materials
+     *  @brief Return all materials in the tape
      */
     auto materials() { return this->materials_ | ranges::view::values; }
 

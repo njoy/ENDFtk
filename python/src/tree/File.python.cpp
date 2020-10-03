@@ -17,8 +17,13 @@ void wrapTreeFile( python::module& module ) {
   using Material = Tape::Material_t;
   using File = Material::File_t;
   using Section = File::Section_t;
+  using SectionRange = BiDirectionalAnyView< Section >;
 
-  // wrap views created by this component
+  // wrap views created by this tree component
+  // none of these are supposed to be created directly by the user
+  wrapBiDirectionalAnyViewOf< Section >(
+      module,
+      "any_view< tree::Section, bidirectional >" );
 
   // create the tree component
   python::class_< File > tree(
@@ -31,6 +36,18 @@ void wrapTreeFile( python::module& module ) {
   // wrap the tree component
   // no __init__ since we do not want to create this object in python
   tree
+  .def_property_readonly(
+
+    "MAT",
+    &File::MAT,
+    "The MAT number of the file"
+  )
+  .def_property_readonly(
+
+    "material_number",
+    &File::materialNumber,
+    "The MAT number of the file"
+  )
   .def_property_readonly(
 
     "MF",
@@ -60,6 +77,27 @@ void wrapTreeFile( python::module& module ) {
     "Arguments:\n"
     "    self    the file\n"
     "    mt      the MT number of the section"
+  )
+  .def_property_readonly(
+
+    "section_numbers",
+    [] ( const File& self ) -> std::vector< int >
+       { return self.sectionNumbers(); },
+    "All section numbers in the file"
+  )
+  .def_property_readonly(
+
+    "sections",
+    [] ( const File& self ) -> SectionRange
+       { return self.sections(); },
+    "All sections in the file"
+  )
+  .def_property_readonly(
+
+    "content",
+    [] ( const File& self ) -> std::string
+       { return self.buffer(); },
+    "The content of the file"
   )
   .def(
 

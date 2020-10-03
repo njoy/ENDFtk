@@ -80,6 +80,16 @@ namespace tree {
     bool hasFile( int mf ) const { return this->hasMF( mf ); }
 
     /**
+     *  @brief Return all files in the material
+     */
+    auto files() { return this->files_ | ranges::view::values; }
+
+    /**
+     *  @brief Return all files in the material
+     */
+    auto files() const { return this->files_ | ranges::view::values; }
+
+    /**
      *  @brief Return a begin iterator to all files
      */
     auto begin(){ return ( this->files_ | ranges::view::values ).begin(); }

@@ -33,6 +33,30 @@ void wrapTreeSection( python::module& module ) {
   tree
   .def_property_readonly(
 
+    "MAT",
+    &Section::MAT,
+    "The MAT number of the section"
+  )
+  .def_property_readonly(
+
+    "material_number",
+    &Section::materialNumber,
+    "The MAT number of the section"
+  )
+  .def_property_readonly(
+
+    "MF",
+    &Section::MF,
+    "The MF number of the section"
+  )
+  .def_property_readonly(
+
+    "file_number",
+    &Section::fileNumber,
+    "The MF number of the section"
+  )
+  .def_property_readonly(
+
     "MT",
     &Section::MT,
     "The MT number of the section"
@@ -45,23 +69,12 @@ void wrapTreeSection( python::module& module ) {
   )
   .def_property_readonly(
 
-    "MF",
-    &Section::MF,
-    "The MF number of the section"
-  )
-  .def_property_readonly(
-
-    "file_number",
-    &Section::sectionNumber,
-    "The MF number of the section"
+    "content",
+    [] ( const Section& self ) -> std::string
+       { return self.buffer(); },
+    "The content of the section"
   );
 
-//    .def_property_readonly("buffer",
-//                           [](Section_t& sec) {
-//                             return std::string(sec.buffer().begin(),
-//                                                sec.buffer().end());
-//                           })
-//
 //    .def("parse1", (Type_1_t (Section_t::*)() const)
 //                   &Section_t::parse<1,451>)
 //    .def("parse1", (Type_1_t (Section_t::*)(long&) const)
@@ -82,6 +95,5 @@ void wrapTreeSection( python::module& module ) {
 //                   &Section_t::parse<6>)
 //    .def("parse6", (Type_6_t (Section_t::*)(long&) const)
 //                   &Section_t::parse<6>)
-//  ;
 
 }

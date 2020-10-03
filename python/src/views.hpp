@@ -45,7 +45,7 @@ void wrapBiDirectionalAnyViewOf( py::module& module, const std::string& name ) {
                         ranges::sentinel_t< BiDirectionalAnyView< Element > >,
                         Element >( view.begin(), view.end() ); },
   	    py::keep_alive< 0, 1 >() )
-  .def( "list",
+  .def( "to_list",
         [] ( BiDirectionalAnyView< Element >& view ) -> std::vector< Element >
            { return view; } );
 }
@@ -75,7 +75,7 @@ void wrapRandomAccessAnyViewOf( py::module& module, const std::string& name ) {
                         ranges::sentinel_t< RandomAccessAnyView< Element > >,
                         Element >( view.begin(), view.end() ); },
   	    py::keep_alive< 0, 1 >() )
-  .def( "list",
+  .def( "to_list",
       	[] ( RandomAccessAnyView< Element >& view ) -> std::vector< Element >
            { return view; } );
 }

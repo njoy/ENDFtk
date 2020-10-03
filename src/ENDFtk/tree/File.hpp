@@ -88,6 +88,16 @@ namespace tree {
     bool hasSection( int mt ) const {  return this->hasMT( mt ); }
 
     /**
+     *  @brief Return all sections in the file
+     */
+    auto sections() { return this->sections_ | ranges::view::values; }
+
+    /**
+     *  @brief Return all sections in the file
+     */
+    auto sections() const { return this->sections_ | ranges::view::values; }
+
+    /**
      *  @brief Return a begin iterator to all sections
      */
     auto begin(){ return ( this->sections_ | ranges::view::values ).begin(); }
@@ -119,7 +129,7 @@ namespace tree {
      *  @brief Return the file's buffer
      */
     auto buffer() const {
-      
+
       return ranges::make_iterator_range( this->bufferLimits.first,
                                           this->bufferLimits.second );
     }

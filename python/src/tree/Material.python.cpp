@@ -16,8 +16,13 @@ void wrapTreeMaterial( python::module& module ) {
   using Tape = njoy::ENDFtk::tree::Tape< std::string >;
   using Material = Tape::Material_t;
   using File = Material::File_t;
+  using FileRange = BiDirectionalAnyView< File >;
 
   // wrap views created by this tree component
+  // none of these are supposed to be created directly by the user
+  wrapBiDirectionalAnyViewOf< File >(
+      module,
+      "any_view< tree::File, bidirectional >" );
 
   // create the tree component
   python::class_< Material > tree(
@@ -60,6 +65,27 @@ void wrapTreeMaterial( python::module& module ) {
     "    self    the material\n"
     "    mf      the MF number of the file"
   )
+  .def_property_readonly(
+
+    "file_numbers",
+    [] ( const Material& self ) -> std::vector< int >
+       { return self.fileNumbers(); },
+    "All file numbers in the material"
+  )
+  .def_property_readonly(
+
+    "files",
+    [] ( const Material& self ) -> FileRange
+       { return self.files(); },
+    "All files in the material"
+  )
+  .def_property_readonly(
+
+    "content",
+    [] ( const Material& self ) -> std::string
+       { return self.buffer(); },
+    "The content of the material"
+  )
   .def(
 
     "file",
@@ -82,13 +108,4 @@ void wrapTreeMaterial( python::module& module ) {
     "    mf      the MF number of the file to be returned",
     python::return_value_policy::reference_internal
   );
-
-//    .def("size", &Material_t::size)
-//    .def("MF", (File_t& (Material_t::*)(int))
-//               &Material_t::MF)
-//    .def_property_readonly("files",
-//                           [](Material_t& matl) {
-//                             return matl | ranges::to_vector;
-//                           });
-
 }
