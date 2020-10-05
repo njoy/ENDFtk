@@ -83,7 +83,7 @@ SCENARIO( "BreitWignerLValue" ) {
 
   GIVEN( "invalid data" ) {
 
-    WHEN( "the data has different sizes" ) {
+    WHEN( "the data is empty" ) {
 
       double awri = 1.982069e+1;
       double qx = 1.0;
@@ -105,7 +105,7 @@ SCENARIO( "BreitWignerLValue" ) {
       } // THEN
     } // WHEN
 
-    WHEN( "the data is empty" ) {
+    WHEN( "the data has different sizes" ) {
 
       double awri = 1.982069e+1;
       double qx = 1.0;
