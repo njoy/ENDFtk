@@ -14,6 +14,7 @@ void wrapTapeIdentification( python::module& );
 
 // declarations - files
 void wrapFile_1( python::module& );
+void wrapFile_2( python::module& );
 void wrapFile_3( python::module& );
 
 // declarations - tree
@@ -44,6 +45,7 @@ PYBIND11_MODULE( ENDFtk, module ) {
 
   // wrap files
   wrapFile_1( module );
+  wrapFile_2( module );
   wrapFile_3( module );
 
   // create the submodule

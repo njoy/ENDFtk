@@ -12,6 +12,20 @@ Type( double zaid, double awr, std::vector< Isotope >&& isotopes ) :
   }
 
 /**
+ *  @brief Constructor for a single isotope
+ *
+ *  @param[in] zaid     the material ZAID value
+ *  @param[in] awr      the atomic weight ratio
+ *  @param[in] lfw      the lfw flag for unresolved resonances
+ *  @param[in] ranges   the resonance ranges defined for the isotope
+ */
+Type( double zaid, double awr, bool lfw,
+      std::vector< ResonanceRange >&& ranges ) :
+  Type( zaid, awr,
+        std::vector< Isotope >{ Isotope( zaid, 1., lfw,
+                                std::move( ranges ) ) } ) {}
+
+/**
  *  @brief Special case constructor (only scattering radius is given)
  *
  *  @param[in] zaid   the material ZAID value

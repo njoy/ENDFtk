@@ -9,6 +9,25 @@
 #include "ENDFtk/HeadRecord.hpp"
 
 /**
+ *  @brief Read a component from a string
+ *
+ *  @param[in] component   the string to read from
+ *  @param[in] mat         the material number
+ *  @param[in] mf          the file number
+ *  @param[in] mt          the section number
+ */
+template < typename Component >
+Component readComponent( const std::string& component,
+                         int mat, int mf, int mt ) {
+
+  auto begin = component.begin();
+  auto end = component.end();
+  long lineNumber = 1;
+
+  return Component( begin, end, lineNumber, mat, mf, mt );
+}
+
+/**
  *  @brief Read a section from a string
  *
  *  @param[in] section   the string to read from

@@ -80,8 +80,11 @@ pybind11_add_module( ENDFtk.python
     python/src/record/DirectoryRecord.python.cpp
     python/src/record/TapeIdentification.python.cpp
     python/src/section/1/451.python.cpp
+    python/src/section/2/151.python.cpp
+    python/src/section/2/151/Isotope.python.cpp
     python/src/section/3.python.cpp
     python/src/file/1.python.cpp
+    python/src/file/2.python.cpp
     python/src/file/3.python.cpp
     python/src/tree/Section.python.cpp
     python/src/tree/File.python.cpp

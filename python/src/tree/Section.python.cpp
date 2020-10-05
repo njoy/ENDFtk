@@ -20,7 +20,7 @@ void wrapTreeSection( python::module& module ) {
   using File = Material::File_t;
   using Section = File::Section_t;
   using MF1MT451 = njoy::ENDFtk::section::Type< 1, 451 >;
-  using MF3 = njoy::ENDFtk::section::Type< 3 >;
+  using MF3MTxxx = njoy::ENDFtk::section::Type< 3 >;
 
   // wrap views created by this component
 
@@ -74,15 +74,15 @@ void wrapTreeSection( python::module& module ) {
   .def(
 
     "parse",
-    [] ( const Section& self ) -> std::variant< MF1MT451, MF3 > {
+    [] ( const Section& self ) -> std::variant< MF1MT451, MF3MTxxx > {
 
       switch ( self.fileNumber() ) {
 
         case 1 : {
 
-          if ( self.sectionNumber() == 451 ) {
+          switch ( self.sectionNumber() ) {
 
-            return self.parse< 1, 451 >();
+            case 451 : return self.parse< 1, 451 >();
           }
         }
         case 3 : return self.parse< 3 >();
@@ -98,26 +98,4 @@ void wrapTreeSection( python::module& module ) {
        { return self.buffer(); },
     "The content of the section"
   );
-
-//    .def("parse1", (Type_1_t (Section_t::*)() const)
-//                   &Section_t::parse<1,451>)
-//    .def("parse1", (Type_1_t (Section_t::*)(long&) const)
-//                   &Section_t::parse<1,451>)
-//    .def("parse3", (Type_3_t (Section_t::*)() const)
-//                   &Section_t::parse<3>)
-//    .def("parse3", (Type_3_t (Section_t::*)(long&) const)
-//                   &Section_t::parse<3>)
-//    .def("parse4", (Type_4_t (Section_t::*)() const)
-//                   &Section_t::parse<4>)
-//    .def("parse4", (Type_4_t (Section_t::*)(long&) const)
-//                   &Section_t::parse<4>)
-//    .def("parse5", (Type_5_t (Section_t::*)() const)
-//                   &Section_t::parse<5>)
-//    .def("parse5", (Type_5_t (Section_t::*)(long&) const)
-//                   &Section_t::parse<5>)
-//    .def("parse6", (Type_6_t (Section_t::*)() const)
-//                   &Section_t::parse<6>)
-//    .def("parse6", (Type_6_t (Section_t::*)(long&) const)
-//                   &Section_t::parse<6>)
-
 }
