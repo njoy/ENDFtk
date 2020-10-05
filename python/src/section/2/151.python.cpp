@@ -15,6 +15,9 @@ void wrapIsotope( python::module& );
 void wrapSpecialCase( python::module& );
 void wrapBreitWignerLValue( python::module& );
 void wrapReichMooreLValue( python::module& );
+void wrapSingleLevelBreitWigner( python::module& );
+void wrapMultiLevelBreitWigner( python::module& );
+void wrapReichMoore( python::module& );
 
 void wrapSection_2_151( python::module& module ) {
 
@@ -50,6 +53,9 @@ void wrapSection_2_151( python::module& module ) {
   wrapSpecialCase( submodule );
   wrapBreitWignerLValue( submodule );
   wrapReichMooreLValue( submodule );
+  wrapSingleLevelBreitWigner( submodule );
+  wrapMultiLevelBreitWigner( submodule );
+  wrapReichMoore( submodule );
 
   // wrap the section
   section

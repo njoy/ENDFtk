@@ -85,6 +85,9 @@ pybind11_add_module( ENDFtk.python
     python/src/section/2/151/SpecialCase.python.cpp
     python/src/section/2/151/BreitWignerLValue.python.cpp
     python/src/section/2/151/ReichMooreLValue.python.cpp
+    python/src/section/2/151/SingleLevelBreitWigner.python.cpp
+    python/src/section/2/151/MultiLevelBreitWigner.python.cpp
+    python/src/section/2/151/ReichMoore.python.cpp
     python/src/section/3.python.cpp
     python/src/file/1.python.cpp
     python/src/file/2.python.cpp

@@ -40,25 +40,25 @@ void wrapSpecialCase( python::module& module ) {
   .def_property_readonly(
 
     "LRU",
-    [] ( const Component& self ) -> int { return self.LRU(); },
+    [] ( const Component& self ) { return self.LRU(); },
     "The resonance type (resolved or unresolved)"
   )
   .def_property_readonly(
 
     "type",
-    [] ( const Component& self ) -> int { return self.type(); },
+    [] ( const Component& self ) { return self.type(); },
     "The resonance type (resolved or unresolved)"
   )
   .def_property_readonly(
 
     "LRF",
-    [] ( const Component& self ) -> int { return self.LRF(); },
+    [] ( const Component& self ) { return self.LRF(); },
     "The resonance representation"
   )
   .def_property_readonly(
 
     "representation",
-    [] ( const Component& self ) -> int { return self.representation(); },
+    [] ( const Component& self ) { return self.representation(); },
     "The resonance representation"
   )
   .def_property_readonly(
