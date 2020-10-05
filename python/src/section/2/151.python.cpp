@@ -12,6 +12,7 @@ namespace python = pybind11;
 
 // declarations - components
 void wrapIsotope( python::module& );
+void wrapSpecialCase( python::module& );
 
 void wrapSection_2_151( python::module& module ) {
 
@@ -44,6 +45,7 @@ void wrapSection_2_151( python::module& module ) {
 
   // wrap components
   wrapIsotope( submodule );
+  wrapSpecialCase( submodule );
 
   // wrap the section
   section

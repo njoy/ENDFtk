@@ -82,6 +82,7 @@ pybind11_add_module( ENDFtk.python
     python/src/section/1/451.python.cpp
     python/src/section/2/151.python.cpp
     python/src/section/2/151/Isotope.python.cpp
+    python/src/section/2/151/SpecialCase.python.cpp
     python/src/section/3.python.cpp
     python/src/file/1.python.cpp
     python/src/file/2.python.cpp
