@@ -118,7 +118,7 @@ class Test_ENDFtk_MF1_MT451_Section( unittest.TestCase ) :
               DirectoryRecord( 33,   2,  21, 5 ),
               DirectoryRecord( 33, 102,  21, 5 ) ]
 
-    def test_constructors( self ) :
+    def test_section( self ) :
 
         def verify_chunk( self, chunk ) :
 

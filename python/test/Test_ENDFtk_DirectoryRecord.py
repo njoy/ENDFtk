@@ -12,7 +12,7 @@ class Test_ENDFtk_DirectoryRecord( unittest.TestCase ) :
     chunk = '                                1        451        101          5 125 1451     \n'
     invalid = '                                1        451        101          5 125 14a1     \n'
 
-    def test_constructors( self ) :
+    def test_record( self ) :
 
         record = DirectoryRecord( mf = 1, mt = 451, nc = 101, mod = 5 )
 
