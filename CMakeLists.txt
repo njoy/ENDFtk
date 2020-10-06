@@ -90,6 +90,7 @@ pybind11_add_module( ENDFtk.python
     python/src/section/2/151/SingleLevelBreitWigner.python.cpp
     python/src/section/2/151/MultiLevelBreitWigner.python.cpp
     python/src/section/2/151/ReichMoore.python.cpp
+    python/src/section/2/151/ParticlePairs.python.cpp
     python/src/section/3.python.cpp
     python/src/file/1.python.cpp
     python/src/file/2.python.cpp

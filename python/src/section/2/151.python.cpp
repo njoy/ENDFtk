@@ -20,6 +20,7 @@ void wrapReichMooreLValue( python::module& );
 void wrapSingleLevelBreitWigner( python::module& );
 void wrapMultiLevelBreitWigner( python::module& );
 void wrapReichMoore( python::module& );
+void wrapParticlePairs( python::module& );
 
 void wrapSection_2_151( python::module& module ) {
 
@@ -60,6 +61,7 @@ void wrapSection_2_151( python::module& module ) {
   wrapSingleLevelBreitWigner( submodule );
   wrapMultiLevelBreitWigner( submodule );
   wrapReichMoore( submodule );
+  wrapParticlePairs( submodule );
 
   // wrap the section
   section
