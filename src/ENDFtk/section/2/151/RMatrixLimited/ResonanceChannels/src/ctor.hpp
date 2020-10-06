@@ -12,7 +12,7 @@ public:
  *  @brief Constructor (using different values for the true and effective
  *         scattering radius)
  *
- *  @param[in] j        the channel spin value
+ *  @param[in] spin     the channel spin value
  *  @param[in] parity   the associated parity
  *  @param[in] l        the orbital momentum values (NCH values)
  *  @param[in] s        the channel spin values (NCH values)
@@ -22,14 +22,14 @@ public:
  *  @param[in] ape      the true scattering radius values for the calculation
  *                      of the phase shift (NCH values)
  */
-ResonanceChannels( double j, double parity,
+ResonanceChannels( double spin, double parity,
                    std::vector< unsigned int >&& l,
                    std::vector< double >&& s,
                    std::vector< double >&& b,
                    std::vector< double >&& apt,
                    std::vector< double >&& ape )
   try : ResonanceChannels(
-          ListRecord( j, parity, 0, 0, l.size(),
+          ListRecord( spin, parity, 0, 0, l.size(),
                       generateList( std::move( l ),
                                     std::move( s ),
                                     std::move( b ),

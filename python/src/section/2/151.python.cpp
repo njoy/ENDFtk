@@ -21,6 +21,7 @@ void wrapSingleLevelBreitWigner( python::module& );
 void wrapMultiLevelBreitWigner( python::module& );
 void wrapReichMoore( python::module& );
 void wrapParticlePairs( python::module& );
+void wrapResonanceChannels( python::module& );
 
 void wrapSection_2_151( python::module& module ) {
 
@@ -62,6 +63,7 @@ void wrapSection_2_151( python::module& module ) {
   wrapMultiLevelBreitWigner( submodule );
   wrapReichMoore( submodule );
   wrapParticlePairs( submodule );
+  wrapResonanceChannels( submodule );
 
   // wrap the section
   section
