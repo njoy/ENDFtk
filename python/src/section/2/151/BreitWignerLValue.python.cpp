@@ -41,6 +41,7 @@ void wrapBreitWignerLValue( python::module& module ) {
     python::arg( "gf" ),
     "Initialise the Breit-Wigner l value data\n\n"
     "Arguments:\n"
+    "    self        the Breit-Wigner l value\n"
     "    awri        the atomic weight ratio\n"
     "    qx          the competitive Q value\n"
     "    l           the orbital angular momentum value\n"

@@ -37,7 +37,7 @@ void wrapMultiLevelBreitWigner( python::module& module ) {
     python::arg( "spin" ), python::arg( "ap" ), python::arg( "lvalues" ),
     "Initialise the MLBW resonance parameters\n\n"
     "Arguments:\n"
-    "    self       the section\n"
+    "    self       the Multi-level Breit-Wigner parameters\n"
     "    spin       the target spin\n"
     "    ap         the scattering radius\n"
     "    lvalues    l values and the resonance parameters"

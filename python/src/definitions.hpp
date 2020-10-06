@@ -23,7 +23,7 @@ void addStandardComponentDefinitions( PythonClass& component ) {
 
     "NC",
     [] ( const Component& self ) { return self.NC(); },
-    "Return the number of lines in this component"
+    "The number of lines in this component"
   )
   .def_static(
 
@@ -100,7 +100,7 @@ void addStandardSectionDefinitions( PythonClass& section ) {
 
     "NC",
     [] ( const Section& self ) { return self.NC(); },
-    "Return the number of lines in this section"
+    "The number of lines in this section"
   )
   .def_static(
 
@@ -184,7 +184,7 @@ void addStandardFileDefinitions( PythonClass& section ) {
     "to_string",
     [] ( const File& self, int mat ) -> std::string
        { return print( self, mat ); },
-    "Return the string representation of the section\n\n"
+    "The string representation of the section\n\n"
     "Arguments:\n"
     "    self    the file\n"
     "    mat     the MAT number to be used"

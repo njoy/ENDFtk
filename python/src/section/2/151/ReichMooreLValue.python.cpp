@@ -40,6 +40,7 @@ void wrapReichMooreLValue( python::module& module ) {
     python::arg( "gg" ), python::arg( "gfa" ), python::arg( "gfb" ),
     "Initialise the Breit-Wigner l value data\n\n"
     "Arguments:\n"
+    "    self        the Reich-Moore l value\n"
     "    awri        the atomic weight ratio\n"
     "    apl         the l dependent scattering radius\n"
     "    l           the orbital angular momentum value\n"

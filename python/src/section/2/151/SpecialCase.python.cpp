@@ -33,7 +33,7 @@ void wrapSpecialCase( python::module& module ) {
     python::arg( "spin" ), python::arg( "ap" ),
     "Initialise the Isotope\n\n"
     "Arguments:\n"
-    "    self    the section\n"
+    "    self    the special case component\n"
     "    spin    the target spin\n"
     "    ap      the scattering radius"
   )

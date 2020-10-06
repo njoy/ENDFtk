@@ -40,7 +40,7 @@ void wrapIsotope( python::module& module ) {
     python::arg( "ranges" ),
     "Initialise the Isotope\n\n"
     "Arguments:\n"
-    "    self      the section\n"
+    "    self      the isotope\n"
     "    zai       the za of the isotope\n"
     "    abn       the abundance of the isotope\n"
     "    lfw       the lfw flag for unresolved resonances\n"

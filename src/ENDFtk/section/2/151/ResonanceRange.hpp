@@ -117,8 +117,8 @@ public:
   /**
    *  @brief Return the resonance parameters
    */
-
   const auto& parameters() const { return this->parameters_; }
+
   /**
    *  @brief Return the number of lines in this MF2/MT151 component
    */

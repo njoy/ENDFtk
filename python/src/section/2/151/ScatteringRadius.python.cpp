@@ -37,7 +37,7 @@ void wrapScatteringRadius( python::module& module ) {
     python::arg( "energies" ), python::arg( "radii" ),
     "Initialise the scattering radius\n\n"
     "Arguments:\n"
-    "    self            the section\n"
+    "    self            the scattering radius\n"
     "    boundaries      the interpolation range boundaries\n"
     "    interpolants    the interpolation types for each range\n"
     "    energies        the energy values\n"
