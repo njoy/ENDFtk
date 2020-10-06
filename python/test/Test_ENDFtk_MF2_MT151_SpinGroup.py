@@ -136,15 +136,15 @@ class Test_ENDFtk_MF2_MT151_SpinGroup( unittest.TestCase ) :
             self.assertEqual( self.chunk, chunk.to_string( 2625, 2, 151 ) )
 
         # the data is given explicitly
-        # chunk = SpinGroup(
-        #           channels = ResonanceChannels(
-        #                        spin = 0.5, parity = 0., l = [ 0, 0 ],
-        #                        s = [ 0., 0.5 ], b = [ 0., 0. ],
-        #                        ape = [ 0.,  0.54373 ], apt = [ 0.,  0.54373 ] ),
-        #           parameters = ResonanceParameters(
-        #                          energies = [ -1.223300e+6, 7.788000e+3 ],
-        #                          parameters = [ [ 1., 9.611086e+5 ],
-        #                                         [ 1.455, 1.187354e+3 ] ] ) )
+        chunk = SpinGroup(
+                  channels = ResonanceChannels(
+                               spin = 0.5, parity = 0., l = [ 0, 0 ],
+                               s = [ 0., 0.5 ], b = [ 0., 0. ],
+                               ape = [ 0.,  0.54373 ], apt = [ 0.,  0.54373 ] ),
+                  parameters = ResonanceParameters(
+                                 energies = [ -1.223300e+6, 7.788000e+3 ],
+                                 parameters = [ [ 1., 9.611086e+5 ],
+                                                [ 1.455, 1.187354e+3 ] ] ) )
 
         # verify_chunk( self, chunk )
 

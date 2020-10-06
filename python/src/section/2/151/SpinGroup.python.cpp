@@ -15,7 +15,21 @@ void wrapSpinGroup( python::module& module ) {
   // type aliases
   using ResonanceChannels = njoy::ENDFtk::section::Type< 2, 151 >::RMatrixLimited::ResonanceChannels;
   using ResonanceParameters = njoy::ENDFtk::section::Type< 2, 151 >::RMatrixLimited::ResonanceParameters;
-  using Component = njoy::ENDFtk::section::Type< 2, 151 >::RMatrixLimited::SpinGroup;
+  using SpinGroup = njoy::ENDFtk::section::Type< 2, 151 >::RMatrixLimited::SpinGroup;
+
+  // provide a simple wrapper class to add a constructor
+  class PythonSpinGroup : public SpinGroup {
+
+  public:
+
+    using SpinGroup::SpinGroup;
+
+    PythonSpinGroup( const ResonanceChannels& channels,
+                     const ResonanceParameters& parameters ) :
+      SpinGroup( ResonanceChannels( channels ),
+                 ResonanceParameters( parameters ) ) {}
+  };
+  using Component = PythonSpinGroup;
 
   // wrap views created by this section
 
@@ -29,74 +43,83 @@ void wrapSpinGroup( python::module& module ) {
 
   // wrap the section
   component
-//  .def(
-//
-//    python::init< ResonanceChannels&&, ResonanceParameters&& >(),
-//    python::arg( "channels" ), python::arg( "parameters" ),
-//    "Initialise the resonance channel for a spin group\n\n"
-//    "Arguments:\n"
-//    "    self          the spin group object\n"
-//    "    channels      the resonance channel information\n"
-//    "    parameters    the associated resonance parameters"
-//  )
+  .def(
+
+    python::init< const ResonanceChannels&, const ResonanceParameters& >(),
+    python::arg( "channels" ), python::arg( "parameters" ),
+    "Initialise the resonance channel for a spin group\n\n"
+    "Arguments:\n"
+    "    self          the spin group object\n"
+    "    channels      the resonance channel information\n"
+    "    parameters    the associated resonance parameters"
+  )
+  .def(
+
+    python::init< const Component& >(),
+    python::arg( "group" ),
+    "Initialise the spin group with another spin group\n\n"
+    "Arguments:\n"
+    "    self     the spin group object\n"
+    "    group    the group to be copied"
+  )
   .def_property_readonly(
 
     "AJ",
-    &Component::AJ,
+    &SpinGroup::AJ,
     "The spin J of the spin group"
   )
   .def_property_readonly(
 
     "spin",
-    &Component::spin,
+    &SpinGroup::spin,
     "The spin J of the spin group"
   )
   .def_property_readonly(
 
     "PJ",
-    &Component::PJ,
+    &SpinGroup::PJ,
     "The parity of the spin J"
   )
   .def_property_readonly(
 
     "parity",
-    &Component::parity,
+    &SpinGroup::parity,
     "The parity of the spin J"
   )
   .def_property_readonly(
 
     "NCH",
-    &Component::NCH,
+    &SpinGroup::NCH,
     "The number of channels"
   )
   .def_property_readonly(
 
     "number_channels",
-    &Component::numberChannels,
+    &SpinGroup::numberChannels,
     "The number of channels"
   )
   .def_property_readonly(
 
     "NRS",
-    &Component::NRS,
+    &SpinGroup::NRS,
     "The number of resonances"
   )
   .def_property_readonly(
 
     "number_resonances",
-    &Component::numberResonances,
+    &SpinGroup::numberResonances,
     "The number of resonances"
   )
   .def_property_readonly(
 
     "channels",
-    &Component::channels,
+    &SpinGroup::channels,
     "The channel information"
   )
   .def_property_readonly(
 
     "parameters",
-    &Component::parameters,
+    &SpinGroup::parameters,
     "The resonance parameters for this spin group"
   );
 
