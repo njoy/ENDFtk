@@ -35,7 +35,7 @@ void wrapIsotope( python::module& module ) {
   component
   .def(
 
-    python::init< double, double, double, std::vector< ResonanceRange >&& >(),
+    python::init< double, double, bool, std::vector< ResonanceRange >&& >(),
     python::arg( "zai" ), python::arg( "abn" ), python::arg( "lfw" ),
     python::arg( "ranges" ),
     "Initialise the Isotope\n\n"
