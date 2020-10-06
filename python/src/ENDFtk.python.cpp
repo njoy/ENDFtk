@@ -38,6 +38,8 @@ PYBIND11_MODULE( ENDFtk, module ) {
                                        "any_view< double, random_access >" );
   wrapRandomAccessAnyViewOf< long >( module,
                                      "any_view< long, random_access >" );
+  wrapRandomAccessAnyViewOf< int >( module,
+                                    "any_view< int, random_access >" );
 
   // wrap records
   wrapDirectoryRecord( module );
