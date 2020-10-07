@@ -51,6 +51,15 @@ void wrapReichMooreLValue( python::module& module ) {
     "    gfa         the first fission widths (NRS values)\n"
     "    gfb         the second fission widths (NRS values)"
   )
+  .def(
+
+    python::init< const Component& >(),
+    python::arg( "lvalue" ),
+    "Initialise the Reich-Moore l value with another Reich-Moore l value\n\n"
+    "Arguments:\n"
+    "    self      the Reich-Moore l value object\n"
+    "    lvalue    the Reich-Moorer l value to be copied"
+  )
   .def_property_readonly(
 
     "AWRI",

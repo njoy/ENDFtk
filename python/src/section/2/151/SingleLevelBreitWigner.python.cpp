@@ -44,6 +44,15 @@ void wrapSingleLevelBreitWigner( python::module& module ) {
     "    ap         the scattering radius\n"
     "    lvalues    l values and the resonance parameters"
   )
+  .def(
+
+    python::init< const Component& >(),
+    python::arg( "resonances" ),
+    "Initialise the SLBW resonances with other resonances\n\n"
+    "Arguments:\n"
+    "    self          the SLBW resonances object\n"
+    "    resonances    the resonances to be copied"
+  )
   .def_property_readonly(
 
     "LRU",

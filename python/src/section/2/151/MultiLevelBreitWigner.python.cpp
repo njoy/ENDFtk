@@ -42,6 +42,15 @@ void wrapMultiLevelBreitWigner( python::module& module ) {
     "    ap         the scattering radius\n"
     "    lvalues    l values and the resonance parameters"
   )
+  .def(
+
+    python::init< const Component& >(),
+    python::arg( "resonances" ),
+    "Initialise the MLBW resonances with other resonances\n\n"
+    "Arguments:\n"
+    "    self          the MLBW resonances object\n"
+    "    resonances    the resonances to be copied"
+  )
   .def_property_readonly(
 
     "LRU",

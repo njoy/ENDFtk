@@ -134,6 +134,11 @@ class Test_ENDFtk_MF3_File( unittest.TestCase ) :
 
         verify_chunk( self, chunk )
 
+        # the data is copied
+        copy = File( chunk )
+
+        verify_chunk( self, copy )
+
     def test_failures( self ) :
 
         print( '\n' )

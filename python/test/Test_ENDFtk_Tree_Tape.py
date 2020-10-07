@@ -11,7 +11,7 @@ class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
 
     def test_tape( self ) :
 
-        def verify_tape( self, tape ) :
+        def verify_chunk( self, tape ) :
 
             def verify_file1( self, file ) :
 
@@ -243,13 +243,18 @@ class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
 
             tape = Tape( file.read() )
 
-        verify_tape( self, tape )
+        verify_chunk( self, tape )
 
         # the data is read from a file using the static from_file method
         tape = Tape.from_file( filename )
 
         # verify the tape's content
-        verify_tape( self, tape )
+        verify_chunk( self, tape )
+
+        # the data is copied
+        copy = Tape( tape )
+
+        verify_chunk( self, copy )
 
     def test_failures( self ) :
 

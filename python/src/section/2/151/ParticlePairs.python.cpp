@@ -59,6 +59,15 @@ void wrapParticlePairs( python::module& module ) {
     "    shf     the charge of the first particle in each particle pair\n"
     "    mt      the charge of the first particle in each particle pair"
   )
+  .def(
+
+    python::init< const Component& >(),
+    python::arg( "pairs" ),
+    "Initialise the particle pairs with another pairs\n\n"
+    "Arguments:\n"
+    "    self     the particle pair object\n"
+    "    pairs    the particle pairs to be copied"
+  )
   .def_property_readonly(
 
     "NPP",

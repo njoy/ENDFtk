@@ -153,6 +153,11 @@ class Test_ENDFtk_MF2_MT151_SpinGroup( unittest.TestCase ) :
 
         verify_chunk( self, chunk )
 
+        # the data is copied
+        copy = SpinGroup( chunk )
+
+        verify_chunk( self, copy )
+
 if __name__ == '__main__' :
 
     unittest.main()

@@ -173,6 +173,11 @@ class Test_ENDFtk_MF2_MT151_ReichMoore( unittest.TestCase ) :
 
         verify_chunk( self, chunk )
 
+        # the data is copied
+        copy = ReichMoore( chunk )
+
+        verify_chunk( self, copy )
+
     def test_failures( self ) :
 
         print( '\n' )

@@ -193,6 +193,11 @@ class Test_ENDFtk_MF1_MT451_Section( unittest.TestCase ) :
 
         verify_chunk( self, chunk )
 
+        # the data is copied
+        copy = Section( chunk )
+
+        verify_chunk( self, copy )
+
     def test_failures( self ) :
 
         print( '\n' )

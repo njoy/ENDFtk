@@ -37,6 +37,15 @@ void wrapSpecialCase( python::module& module ) {
     "    spin    the target spin\n"
     "    ap      the scattering radius"
   )
+  .def(
+
+    python::init< const Component& >(),
+    python::arg( "range" ),
+    "Initialise the special case resonance range with another range\n\n"
+    "Arguments:\n"
+    "    self     the resonance range object\n"
+    "    range    the range to be copied"
+  )
   .def_property_readonly(
 
     "LRU",

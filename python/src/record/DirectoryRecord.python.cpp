@@ -27,13 +27,22 @@ void wrapDirectoryRecord( python::module& module ) {
     python::init< long, long, long, long >(),
     python::arg( "mf" ), python::arg( "mt" ),
     python::arg( "nc" ), python::arg( "mod" ),
-    "Initialise the directory record\n\n"
+    "Initialise the record\n\n"
     "Arguments:\n"
-    "    self   the directory object\n"
+    "    self   the record\n"
     "    mf     the MF number\n"
     "    mt     the MT number\n"
     "    nc     the number of lines that make up this section\n"
     "    mod    the modification number"
+  )
+  .def(
+
+    python::init< const Record& >(),
+    python::arg( "record" ),
+    "Initialise the record with another record\n\n"
+    "Arguments:\n"
+    "    self      the record\n"
+    "    record    the record to be copied"
   )
   .def_property_readonly(
 
@@ -51,7 +60,7 @@ void wrapDirectoryRecord( python::module& module ) {
 
     "NC",
     [] ( const Record& self ) { return self.NC(); },
-    "The number of lines NC that make up this section"
+    "The number of lines NC that make up this record"
   )
   .def_property_readonly(
 
@@ -63,9 +72,9 @@ void wrapDirectoryRecord( python::module& module ) {
 
     "to_string",
     [] ( const Record& self, long mat ) { return print( self, mat, 1, 451 ); },
-    "Return the string representation of the directory record\n\n"
+    "Return the string representation of the record\n\n"
     "Arguments:\n"
-    "    self   the directory object\n"
+    "    self   the record\n"
     "    mat    the MAT number to be used"
   )
   .def(
@@ -78,7 +87,7 @@ void wrapDirectoryRecord( python::module& module ) {
                 ( self.MOD() == right.MOD() ); },
     "Compare two records\n\n"
     "Arguments:\n"
-    "    self     the directory record\n"
+    "    self     the record\n"
     "    right    the record on the right"
   );
 }

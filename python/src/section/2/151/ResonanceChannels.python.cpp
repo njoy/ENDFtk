@@ -51,6 +51,15 @@ void wrapResonanceChannels( python::module& module ) {
     "    ape       the true scattering radius values for the calculation\n"
     "              of the phase shift (NCH values)"
   )
+  .def(
+
+    python::init< const Component& >(),
+    python::arg( "channels" ),
+    "Initialise the particle channels with another channels\n\n"
+    "Arguments:\n"
+    "    self        the particle channels object\n"
+    "    channels    the particle channels to be copied"
+  )
   .def_property_readonly(
 
     "AJ",

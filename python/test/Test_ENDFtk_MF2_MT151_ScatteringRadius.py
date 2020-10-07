@@ -73,6 +73,11 @@ class Test_ENDFtk_MF2_MT151_ScatteringRadius( unittest.TestCase ) :
 
         verify_chunk( self, chunk )
 
+        # the data is copied
+        copy = ScatteringRadius( chunk )
+
+        verify_chunk( self, copy )
+
     def test_failures( self ) :
 
         print( '\n' )

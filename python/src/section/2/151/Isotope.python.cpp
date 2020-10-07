@@ -46,6 +46,15 @@ void wrapIsotope( python::module& module ) {
     "    lfw       the lfw flag for unresolved resonances\n"
     "    ranges    the resonance ranges defined for the isotope"
   )
+  .def(
+
+    python::init< const Component& >(),
+    python::arg( "isotope" ),
+    "Initialise the isotope with another isotope\n\n"
+    "Arguments:\n"
+    "    self       the isotope object\n"
+    "    isotope    the isotope to be copied"
+  )
   .def_property_readonly(
 
     "ZAI",

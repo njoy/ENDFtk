@@ -25,10 +25,19 @@ void wrapTapeIdentification( python::module& module ) {
 
     python::init< std::string&& >(),
     python::arg( "text" ),
-    "Initialise the tape identication\n\n"
+    "Initialise the record\n\n"
     "Arguments:\n"
     "    self   the tape identifier\n"
     "    text   the tape identification"
+  )
+  .def(
+
+    python::init< const Record& >(),
+    python::arg( "record" ),
+    "Initialise the record with another record\n\n"
+    "Arguments:\n"
+    "    self      the record\n"
+    "    record    the record to be copied"
   )
   .def_property_readonly(
 
@@ -42,6 +51,6 @@ void wrapTapeIdentification( python::module& module ) {
     [] ( const Record& self ) { return print( self, 1, 0, 0 ); },
     "Return the string representation of the tape identification\n\n"
     "Arguments:\n"
-    "    self   the tape identifier"
+    "    self   the record"
   );
 }

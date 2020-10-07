@@ -45,6 +45,15 @@ void wrapTreeTape( python::module& module ) {
   )
   .def(
 
+    python::init< const Tape& >(),
+    python::arg( "tape" ),
+    "Initialise the tape\n\n"
+    "Arguments:\n"
+    "    self    the tape\n"
+    "    tape    the tape to be copied"
+  )
+  .def(
+
     "has_MAT",
     &Tape::hasMAT,
     "Return whether or not the tape has a material with the given MAT number\n\n"

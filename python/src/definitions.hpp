@@ -74,6 +74,15 @@ template < typename Section, typename PythonClass >
 void addStandardSectionDefinitions( PythonClass& section ) {
 
   section
+  .def(
+
+    python::init< const Section& >(),
+    python::arg( "section" ),
+    "Initialise the section with another section\n\n"
+    "Arguments:\n"
+    "    self       the section\n"
+    "    section    the section to be copied"
+  )
   .def_property_readonly(
 
     "ZA",
@@ -147,6 +156,15 @@ template < typename File, typename PythonClass >
 void addStandardFileDefinitions( PythonClass& section ) {
 
   section
+  .def(
+
+    python::init< const File& >(),
+    python::arg( "file" ),
+    "Initialise the file with another file\n\n"
+    "Arguments:\n"
+    "    self    the file\n"
+    "    file    the file to be copied"
+  )
   .def_property_readonly(
 
     "MF",

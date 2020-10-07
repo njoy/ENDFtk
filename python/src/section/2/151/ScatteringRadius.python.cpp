@@ -43,6 +43,15 @@ void wrapScatteringRadius( python::module& module ) {
     "    energies        the energy values\n"
     "    radii           the scattering radii (in 10^-12 cm)"
   )
+  .def(
+
+    python::init< const Component& >(),
+    python::arg( "radius" ),
+    "Initialise the scattering radius with another radius\n\n"
+    "Arguments:\n"
+    "    self      the scattering radius object\n"
+    "    radius    the radius to be copied"
+  )
   .def_property_readonly(
 
     "NR",

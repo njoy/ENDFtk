@@ -13,10 +13,19 @@ class Test_ENDFtk_TapeIdentification( unittest.TestCase ) :
 
     def test_record( self ) :
 
-        record = TapeIdentification( text = ' some data about the tape                                          ' )
+        def verify_chunk( self, chunk ) :
 
-        self.assertEqual( record.text, ' some data about the tape                                          ' )
-        self.assertEqual( record.to_string(), self.chunk )
+            self.assertEqual( chunk.text, ' some data about the tape                                          ' )
+            self.assertEqual( chunk.to_string(), self.chunk )
+
+        chunk = TapeIdentification( text = ' some data about the tape                                          ' )
+
+        verify_chunk( self, chunk )
+
+        # the data is copied
+        copy = TapeIdentification( chunk )
+
+        verify_chunk( self, copy )
 
 if __name__ == '__main__' :
 

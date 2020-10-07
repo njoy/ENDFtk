@@ -41,7 +41,7 @@ void wrapBreitWignerLValue( python::module& module ) {
     python::arg( "gf" ),
     "Initialise the Breit-Wigner l value data\n\n"
     "Arguments:\n"
-    "    self        the Breit-Wigner l value\n"
+    "    self        the Breit-Wigner l value object\n"
     "    awri        the atomic weight ratio\n"
     "    qx          the competitive Q value\n"
     "    l           the orbital angular momentum value\n"
@@ -52,6 +52,15 @@ void wrapBreitWignerLValue( python::module& module ) {
     "    gn          the neutron widths (NRS values)\n"
     "    gg          the gamma widths (NRS values)\n"
     "    gf          the fission widths (NRS values)"
+  )
+  .def(
+
+    python::init< const Component& >(),
+    python::arg( "lvalue" ),
+    "Initialise the Breit-Wigner l value with another Breit-Wigner l value\n\n"
+    "Arguments:\n"
+    "    self      the Breit-Wigner l value object\n"
+    "    lvalue    the Breit-Wigner l value to be copied"
   )
   .def_property_readonly(
 
