@@ -94,6 +94,7 @@ pybind11_add_module( ENDFtk.python
     python/src/section/2/151/ResonanceChannels.python.cpp
     python/src/section/2/151/ResonanceParameters.python.cpp
     python/src/section/2/151/SpinGroup.python.cpp
+    python/src/section/2/151/RMatrixLimited.python.cpp
     python/src/section/3.python.cpp
     python/src/file/1.python.cpp
     python/src/file/2.python.cpp

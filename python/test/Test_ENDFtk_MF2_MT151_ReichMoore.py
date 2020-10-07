@@ -8,7 +8,7 @@ from ENDFtk.MF2.MT151 import ReichMooreLValue
 from ENDFtk.MF2.MT151 import ReichMoore
 
 class Test_ENDFtk_MF2_MT151_ReichMoore( unittest.TestCase ) :
-    """Unit test for the ReichMooreReichMoore class."""
+    """Unit test for the ReichMoore class."""
 
     chunk = ( ' 1.000000+0 8.930000-1          0          0          2          31025 2151     \n'
               ' 1.982069+1 0.000000+0          0          0         12          21025 2151     \n'

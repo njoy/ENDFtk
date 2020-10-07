@@ -9,6 +9,18 @@ SpinGroup( ResonanceChannels&& channels, ResonanceParameters&& parameters ) :
     channels_( std::move( channels ) ),
     parameters_( std::move( parameters ) ) {}
 
+/**
+ *  @brief Constructor
+ *
+ *  @param[in] channels     the resonance channel information
+ *  @param[in] parameters   the associated resonance parameters
+ */
+SpinGroup( const ResonanceChannels& channels,
+           const ResonanceParameters& parameters ) :
+    // no need for a try ... catch: nothing can go wrong here
+    SpinGroup( ResonanceChannels( channels ),
+               ResonanceParameters( parameters ) ) {}
+
 private:
 /**
  *  @brief Private intermediate constructor

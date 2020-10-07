@@ -24,6 +24,7 @@ void wrapParticlePairs( python::module& );
 void wrapResonanceChannels( python::module& );
 void wrapResonanceParameters( python::module& );
 void wrapSpinGroup( python::module& );
+void wrapRMatrixLimited( python::module& );
 
 void wrapSection_2_151( python::module& module ) {
 
@@ -68,6 +69,7 @@ void wrapSection_2_151( python::module& module ) {
   wrapResonanceChannels( submodule );
   wrapResonanceParameters( submodule );
   wrapSpinGroup( submodule );
+  wrapRMatrixLimited( submodule );
 
   // wrap the section
   section

@@ -15,21 +15,7 @@ void wrapSpinGroup( python::module& module ) {
   // type aliases
   using ResonanceChannels = njoy::ENDFtk::section::Type< 2, 151 >::RMatrixLimited::ResonanceChannels;
   using ResonanceParameters = njoy::ENDFtk::section::Type< 2, 151 >::RMatrixLimited::ResonanceParameters;
-  using SpinGroup = njoy::ENDFtk::section::Type< 2, 151 >::RMatrixLimited::SpinGroup;
-
-  // provide a simple wrapper class to add a constructor
-  class PythonSpinGroup : public SpinGroup {
-
-  public:
-
-    using SpinGroup::SpinGroup;
-
-    PythonSpinGroup( const ResonanceChannels& channels,
-                     const ResonanceParameters& parameters ) :
-      SpinGroup( ResonanceChannels( channels ),
-                 ResonanceParameters( parameters ) ) {}
-  };
-  using Component = PythonSpinGroup;
+  using Component = njoy::ENDFtk::section::Type< 2, 151 >::RMatrixLimited::SpinGroup;
 
   // wrap views created by this section
 
@@ -65,61 +51,61 @@ void wrapSpinGroup( python::module& module ) {
   .def_property_readonly(
 
     "AJ",
-    &SpinGroup::AJ,
+    &Component::AJ,
     "The spin J of the spin group"
   )
   .def_property_readonly(
 
     "spin",
-    &SpinGroup::spin,
+    &Component::spin,
     "The spin J of the spin group"
   )
   .def_property_readonly(
 
     "PJ",
-    &SpinGroup::PJ,
+    &Component::PJ,
     "The parity of the spin J"
   )
   .def_property_readonly(
 
     "parity",
-    &SpinGroup::parity,
+    &Component::parity,
     "The parity of the spin J"
   )
   .def_property_readonly(
 
     "NCH",
-    &SpinGroup::NCH,
+    &Component::NCH,
     "The number of channels"
   )
   .def_property_readonly(
 
     "number_channels",
-    &SpinGroup::numberChannels,
+    &Component::numberChannels,
     "The number of channels"
   )
   .def_property_readonly(
 
     "NRS",
-    &SpinGroup::NRS,
+    &Component::NRS,
     "The number of resonances"
   )
   .def_property_readonly(
 
     "number_resonances",
-    &SpinGroup::numberResonances,
+    &Component::numberResonances,
     "The number of resonances"
   )
   .def_property_readonly(
 
     "channels",
-    &SpinGroup::channels,
+    &Component::channels,
     "The channel information"
   )
   .def_property_readonly(
 
     "parameters",
-    &SpinGroup::parameters,
+    &Component::parameters,
     "The resonance parameters for this spin group"
   );
 

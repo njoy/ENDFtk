@@ -18,6 +18,22 @@ RMatrixLimited( bool ifg, bool krl, int krm,
       verifySize( this->NJS() );
     }
 
+/**
+ *  @brief Constructor
+ *
+ *  @param[in] ifg      flag to indicate whether or not the widths are reduced
+ *  @param[in] krl      the non relativistic kinematics flag
+ *  @param[in] krm      the resonance formalism to be used
+ *  @param[in] pairs    the particle pairs
+ *  @param[in] groups   the spin groups
+ */
+RMatrixLimited( bool ifg, bool krl, int krm,
+                const ParticlePairs& pairs,
+                const std::vector< SpinGroup >& groups ) :
+    // no need for a try ... catch: nothing can go wrong here
+    RMatrixLimited( ifg, krl, krm, ParticlePairs( pairs ),
+                    std::vector< SpinGroup >( groups ) ) {}
+
 private:
 /**
  *  @brief Private intermediate constructor
