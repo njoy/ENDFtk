@@ -600,6 +600,7 @@
     "src/ENDFtk/TextRecord.hpp",
     "src/ENDFtk/TapeIdentification.hpp",
     "src/ENDFtk/TabulationRecord.hpp",
+    "src/ENDFtk/types.hpp",
     "src/ENDFtk/HeadRecord.hpp",
     "src/ENDFtk/ControlRecord.hpp",
     "src/ENDFtk/InterpolationSequenceRecord.hpp",
