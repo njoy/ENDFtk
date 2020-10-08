@@ -38,7 +38,7 @@ void wrapReichMooreLValue( python::module& module ) {
     python::arg( "awri" ), python::arg( "apl" ), python::arg( "l" ),
     python::arg( "energies" ), python::arg( "spins" ), python::arg( "gn" ),
     python::arg( "gg" ), python::arg( "gfa" ), python::arg( "gfb" ),
-    "Initialise the Breit-Wigner l value data\n\n"
+    "Initialise the Reich-Moore l value data\n\n"
     "Arguments:\n"
     "    self        the Reich-Moore l value\n"
     "    awri        the atomic weight ratio\n"
@@ -58,7 +58,7 @@ void wrapReichMooreLValue( python::module& module ) {
     "Initialise the Reich-Moore l value with another Reich-Moore l value\n\n"
     "Arguments:\n"
     "    self      the Reich-Moore l value object\n"
-    "    lvalue    the Reich-Moorer l value to be copied"
+    "    lvalue    the l value to be copied"
   )
   .def_property_readonly(
 

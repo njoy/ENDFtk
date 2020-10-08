@@ -60,7 +60,7 @@ void wrapBreitWignerLValue( python::module& module ) {
     "Initialise the Breit-Wigner l value with another Breit-Wigner l value\n\n"
     "Arguments:\n"
     "    self      the Breit-Wigner l value object\n"
-    "    lvalue    the Breit-Wigner l value to be copied"
+    "    lvalue    the l value to be copied"
   )
   .def_property_readonly(
 

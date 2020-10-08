@@ -28,6 +28,8 @@ void wrapRMatrixLimited( python::module& );
 void wrapUnresolvedEnergyDependentFissionWidthsJValue( python::module& );
 void wrapUnresolvedEnergyDependentJValue( python::module& );
 void wrapUnresolvedEnergyIndependentLValue( python::module& );
+void wrapUnresolvedEnergyDependentFissionWidthsLValue( python::module& );
+void wrapUnresolvedEnergyDependentLValue( python::module& );
 
 void wrapSection_2_151( python::module& module ) {
 
@@ -76,6 +78,8 @@ void wrapSection_2_151( python::module& module ) {
   wrapUnresolvedEnergyDependentFissionWidthsJValue( submodule );
   wrapUnresolvedEnergyDependentJValue( submodule );
   wrapUnresolvedEnergyIndependentLValue( submodule );
+  wrapUnresolvedEnergyDependentFissionWidthsLValue( submodule );
+  wrapUnresolvedEnergyDependentLValue( submodule );
 
   // wrap the section
   section
