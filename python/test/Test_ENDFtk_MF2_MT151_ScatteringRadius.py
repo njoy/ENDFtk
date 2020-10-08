@@ -82,10 +82,9 @@ class Test_ENDFtk_MF2_MT151_ScatteringRadius( unittest.TestCase ) :
 
         print( '\n' )
 
-        # invalid TAB1
         with self.assertRaises( Exception ) :
 
-            Section.from_string( self.invalid )
+            Section.from_string( self.invalid, 9228, 2, 151 )
 
 if __name__ == '__main__' :
 

@@ -23,8 +23,8 @@ void wrapUnresolvedEnergyIndependentLValue( python::module& module ) {
 
     module,
     "UnresolvedEnergyIndependentLValue",
-    "MF2 MT151 section - the unresolved resonance parameters for a given l\n"
-    "                    value or independent widths (with no fission given)"
+    "MF2 MT151 section - the unresolved resonance parameters for a given\n"
+    "                    l value or independent widths (with no fission given)"
   );
 
   // wrap the section
@@ -40,14 +40,14 @@ void wrapUnresolvedEnergyIndependentLValue( python::module& module ) {
     python::arg( "gn" ), python::arg( "gg" ),
     "Initialise the unresolved energy independent l value data\n\n"
     "Arguments:\n"
-    "    self       the unresolved energy independent l value object\n"
-    "    awri       the atomic weight ratio\n"
-    "    l          the orbital angular momentum value\n"
-    "    spins      the spin values (NJS values)\n"
-    "    spacing    the level spacing values (NJS values)\n"
-    "    amun       the degrees of freedom for the neutron width (NJS values)\n"
-    "    gn         the average neutron widths (NJS values)\n"
-    "    gg         the average gamma widths (NJS values)"
+    "    self     the unresolved energy independent l value object\n"
+    "    awri     the atomic weight ratio\n"
+    "    l        the orbital angular momentum value\n"
+    "    spins    the spin values (NJS values)\n"
+    "    d        the level spacing values (NJS values)\n"
+    "    amun     the degrees of freedom for the neutron width (NJS values)\n"
+    "    gn       the average neutron widths (NJS values)\n"
+    "    gg       the average gamma widths (NJS values)"
   )
   .def(
 

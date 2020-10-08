@@ -134,6 +134,7 @@ class Test_ENDFtk_MF2_MT151_BreitWignerLValue( unittest.TestCase ) :
                                        l = 1, lrx = True,
                                        energies = [], spins = [], gt = [],
                                        gn = [], gg = [], gf = [] )
+
         # invalid list size
         with self.assertRaises( Exception ) :
 

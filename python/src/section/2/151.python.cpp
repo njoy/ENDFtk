@@ -26,6 +26,7 @@ void wrapResonanceParameters( python::module& );
 void wrapSpinGroup( python::module& );
 void wrapRMatrixLimited( python::module& );
 void wrapUnresolvedEnergyIndependentLValue( python::module& );
+void wrapUnresolvedEnergyDependentFissionWidthsJValue( python::module& );
 
 void wrapSection_2_151( python::module& module ) {
 
@@ -72,6 +73,7 @@ void wrapSection_2_151( python::module& module ) {
   wrapSpinGroup( submodule );
   wrapRMatrixLimited( submodule );
   wrapUnresolvedEnergyIndependentLValue( submodule );
+  wrapUnresolvedEnergyDependentFissionWidthsJValue( submodule );
 
   // wrap the section
   section
