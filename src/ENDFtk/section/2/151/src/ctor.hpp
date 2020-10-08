@@ -38,7 +38,7 @@ Type( double zaid, double awr, bool lfw,
 Type( double zaid, double awr, double el, double eh, double spin, double ap ) :
   Type( zaid, awr,
         { { zaid, 1.0, 0,
-            { { el, eh, 0, SpecialCase( spin, ap ) } } } } ) {}
+            { { el, eh, 0, SpecialCase( spin, ap ), std::nullopt } } } } ) {}
 
 /**
  *  @brief Constructor (from a buffer)
