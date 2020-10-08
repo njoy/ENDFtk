@@ -95,6 +95,11 @@ public:
   int NLS() const { return this->lvalues_.size(); }
 
   /**
+   *  @brief Return the number of l values for which data is available
+   */
+  int numberLValues() const { return this->NLS(); }
+
+  /**
    *  @brief Return the l value data
    */
   auto lValues() const { return ranges::view::all( this->lvalues_ ); }

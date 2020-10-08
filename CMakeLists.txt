@@ -100,6 +100,9 @@ pybind11_add_module( ENDFtk.python
     python/src/section/2/151/UnresolvedEnergyIndependentLValue.python.cpp
     python/src/section/2/151/UnresolvedEnergyDependentFissionWidthsLValue.python.cpp
     python/src/section/2/151/UnresolvedEnergyDependentLValue.python.cpp
+    python/src/section/2/151/UnresolvedEnergyDependent.python.cpp
+    python/src/section/2/151/UnresolvedEnergyDependentFissionWidths.python.cpp
+    python/src/section/2/151/UnresolvedEnergyIndependent.python.cpp
     python/src/section/3.python.cpp
     python/src/file/1.python.cpp
     python/src/file/2.python.cpp

@@ -44,6 +44,7 @@ public:
   using UnresolvedBaseWithoutSpin< Derived >::scatteringRadius;
   using UnresolvedBaseWithoutSpin< Derived >::selfShieldingOnly;
   using UnresolvedBaseWithoutSpin< Derived >::NLS;
+  using UnresolvedBaseWithoutSpin< Derived >::numberLValues;
   using UnresolvedBaseWithoutSpin< Derived >::lValues;
 
   #include "ENDFtk/section/2/151/UnresolvedBase/src/NC.hpp"

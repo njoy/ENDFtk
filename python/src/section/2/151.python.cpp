@@ -30,6 +30,9 @@ void wrapUnresolvedEnergyDependentJValue( python::module& );
 void wrapUnresolvedEnergyIndependentLValue( python::module& );
 void wrapUnresolvedEnergyDependentFissionWidthsLValue( python::module& );
 void wrapUnresolvedEnergyDependentLValue( python::module& );
+void wrapUnresolvedEnergyIndependent( python::module& );
+void wrapUnresolvedEnergyDependentFissionWidths( python::module& );
+void wrapUnresolvedEnergyDependent( python::module& );
 
 void wrapSection_2_151( python::module& module ) {
 
@@ -80,6 +83,9 @@ void wrapSection_2_151( python::module& module ) {
   wrapUnresolvedEnergyIndependentLValue( submodule );
   wrapUnresolvedEnergyDependentFissionWidthsLValue( submodule );
   wrapUnresolvedEnergyDependentLValue( submodule );
+  wrapUnresolvedEnergyIndependent( submodule );
+  wrapUnresolvedEnergyDependentFissionWidths( submodule );
+  wrapUnresolvedEnergyDependent( submodule );
 
   // wrap the section
   section

@@ -130,11 +130,11 @@ class Test_ENDFtk_MF2_MT151_UnresolvedEnergyDependentFissionWidthsJValue( unitte
 
         with self.assertRaises( Exception ) :
 
-            Section.from_string( self.invalid, 9440, 2, 151 )
+            chunk = Section.from_string( self.invalid, 9440, 2, 151 )
 
         with self.assertRaises( Exception ) :
 
-            Section.from_string( self.no_fission, 9440, 2, 151 )
+            chunk = Section.from_string( self.no_fission, 9440, 2, 151 )
 
 if __name__ == '__main__' :
 

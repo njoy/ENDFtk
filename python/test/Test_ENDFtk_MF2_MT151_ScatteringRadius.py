@@ -84,7 +84,7 @@ class Test_ENDFtk_MF2_MT151_ScatteringRadius( unittest.TestCase ) :
 
         with self.assertRaises( Exception ) :
 
-            Section.from_string( self.invalid, 9228, 2, 151 )
+            chunk = ScatteringRadius.from_string( self.invalid, 9228, 2, 151 )
 
 if __name__ == '__main__' :
 

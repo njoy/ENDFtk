@@ -60,6 +60,7 @@ public:
   using UnresolvedBase::averageFissionWidthFlag;
 
   using UnresolvedBase::NLS;
+  using UnresolvedBase::numberLValues;
   using UnresolvedBase::lValues;
 
   using UnresolvedBase::NC;

@@ -205,17 +205,17 @@ class Test_ENDFtk_MF1_MT451_Section( unittest.TestCase ) :
         # illegal NWD
         with self.assertRaises( Exception ) :
 
-            Section.from_string( self.invalid_NWD + self.valid_SEND )
+            chunk = Section.from_string( self.invalid_NWD + self.valid_SEND )
 
         # illegal NXC
         with self.assertRaises( Exception ) :
 
-            Section.from_string( self.invalid_NWD + self.valid_SEND )
+            chunk = Section.from_string( self.invalid_NWD + self.valid_SEND )
 
         # illegal SEND
         with self.assertRaises( Exception ) :
 
-            Section.from_string( self.chunk + self.invalid_SEND )
+            chunk = Section.from_string( self.chunk + self.invalid_SEND )
 
 if __name__ == '__main__' :
 

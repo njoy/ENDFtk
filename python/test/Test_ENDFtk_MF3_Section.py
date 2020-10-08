@@ -105,7 +105,7 @@ class Test_ENDFtk_MF3_Section( unittest.TestCase ) :
         # illegal SEND
         with self.assertRaises( Exception ) :
 
-            Section.from_string( self.chunk + self.invalid_SEND )
+            chunk = Section.from_string( self.chunk + self.invalid_SEND )
 
 if __name__ == '__main__' :
 

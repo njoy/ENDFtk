@@ -148,11 +148,11 @@ class Test_ENDFtk_MF2_MT151_UnresolvedEnergyDependentJValue( unittest.TestCase )
 
         with self.assertRaises( Exception ) :
 
-            Section.from_string( self.invalid, 9228, 2, 151 )
+            chunk = UnresolvedEnergyDependentJValue.from_string( self.invalid, 9228, 2, 151 )
 
         with self.assertRaises( Exception ) :
 
-            Section.from_string( self.no_fission, 9228, 2, 151 )
+            chunk = UnresolvedEnergyDependentJValue.from_string( self.no_fission, 9228, 2, 151 )
 
 if __name__ == '__main__' :
 
