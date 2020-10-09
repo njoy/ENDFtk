@@ -45,21 +45,12 @@ void wrapRMatrixLimited( python::module& module ) {
     python::arg( "pairs" ), python::arg( "groups" ),
     "Initialise the R-matrix limited resonance parameters\n\n"
     "Arguments:\n"
-    "    self      the R-matrix limited resonance parameters\n"
+    "    self      the component\n"
     "    ifg       flag to indicate whether or not the widths are reduced\n"
     "    krl       the non relativistic kinematics flag\n"
     "    krm       the resonance formalism to be used\n"
     "    pairs     the particle pairs\n"
     "    groups    the spin groups"
-  )
-  .def(
-
-    python::init< const Component& >(),
-    python::arg( "resonances" ),
-    "Initialise the R-matrix limited resonance parameters\n\n"
-    "Arguments:\n"
-    "    self          the R-matrix limited resonances object\n"
-    "    resonances    the resonances to be copied"
   )
   .def_property_readonly(
 

@@ -37,20 +37,11 @@ void wrapScatteringRadius( python::module& module ) {
     python::arg( "energies" ), python::arg( "radii" ),
     "Initialise the scattering radius\n\n"
     "Arguments:\n"
-    "    self            the scattering radius\n"
+    "    self            the component\n"
     "    boundaries      the interpolation range boundaries\n"
     "    interpolants    the interpolation types for each range\n"
     "    energies        the energy values\n"
     "    radii           the scattering radii (in 10^-12 cm)"
-  )
-  .def(
-
-    python::init< const Component& >(),
-    python::arg( "radius" ),
-    "Initialise the scattering radius with another radius\n\n"
-    "Arguments:\n"
-    "    self      the scattering radius object\n"
-    "    radius    the radius to be copied"
   )
   .def_property_readonly(
 

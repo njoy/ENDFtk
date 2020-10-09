@@ -40,7 +40,7 @@ void wrapResonanceChannels( python::module& module ) {
     python::arg( "ape" ),
     "Initialise the resonance channel for a spin group\n\n"
     "Arguments:\n"
-    "    self      the resonance channel object\n"
+    "    self      the component\n"
     "    spin      the channel spin value\n"
     "    parity    the associated parity\n"
     "    l         the orbital momentum values (NCH values)\n"
@@ -50,15 +50,6 @@ void wrapResonanceChannels( python::module& module ) {
     "              of the penetrability and the shift factor (NCH values)\n"
     "    ape       the true scattering radius values for the calculation\n"
     "              of the phase shift (NCH values)"
-  )
-  .def(
-
-    python::init< const Component& >(),
-    python::arg( "channels" ),
-    "Initialise the particle channels with another channels\n\n"
-    "Arguments:\n"
-    "    self        the particle channels object\n"
-    "    channels    the particle channels to be copied"
   )
   .def_property_readonly(
 

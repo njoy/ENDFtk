@@ -40,7 +40,7 @@ void wrapReichMooreLValue( python::module& module ) {
     python::arg( "gg" ), python::arg( "gfa" ), python::arg( "gfb" ),
     "Initialise the Reich-Moore l value data\n\n"
     "Arguments:\n"
-    "    self        the Reich-Moore l value\n"
+    "    self        the component\n"
     "    awri        the atomic weight ratio\n"
     "    apl         the l dependent scattering radius\n"
     "    l           the orbital angular momentum value\n"
@@ -50,15 +50,6 @@ void wrapReichMooreLValue( python::module& module ) {
     "    gg          the gamma widths (NRS values)\n"
     "    gfa         the first fission widths (NRS values)\n"
     "    gfb         the second fission widths (NRS values)"
-  )
-  .def(
-
-    python::init< const Component& >(),
-    python::arg( "lvalue" ),
-    "Initialise the Reich-Moore l value with another Reich-Moore l value\n\n"
-    "Arguments:\n"
-    "    self      the Reich-Moore l value object\n"
-    "    lvalue    the l value to be copied"
   )
   .def_property_readonly(
 

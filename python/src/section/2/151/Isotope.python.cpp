@@ -40,20 +40,11 @@ void wrapIsotope( python::module& module ) {
     python::arg( "ranges" ),
     "Initialise the Isotope\n\n"
     "Arguments:\n"
-    "    self      the isotope\n"
+    "    self      the component\n"
     "    zai       the za of the isotope\n"
     "    abn       the abundance of the isotope\n"
     "    lfw       the lfw flag for unresolved resonances\n"
     "    ranges    the resonance ranges defined for the isotope"
-  )
-  .def(
-
-    python::init< const Component& >(),
-    python::arg( "isotope" ),
-    "Initialise the isotope with another isotope\n\n"
-    "Arguments:\n"
-    "    self       the isotope object\n"
-    "    isotope    the isotope to be copied"
   )
   .def_property_readonly(
 

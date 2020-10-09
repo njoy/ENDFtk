@@ -4,6 +4,7 @@
  *  @param[in] mt              the MT number for the section
  *  @param[in] zaid            the material ZAID value
  *  @param[in] awr             the atomic weight ratio
+ *  @param[in] lct             the reference frame
  *  @param[in] distributions   the distributions
  */
 Type( int MT, double zaid, double awr, long lct,

@@ -39,19 +39,10 @@ void wrapSingleLevelBreitWigner( python::module& module ) {
     python::arg( "spin" ), python::arg( "ap" ), python::arg( "lvalues" ),
     "Initialise the SLBW resonance parameters\n\n"
     "Arguments:\n"
-    "    self       the single level Breit-Wigner parameters\n"
+    "    self       the component\n"
     "    spin       the target spin\n"
     "    ap         the scattering radius\n"
     "    lvalues    l values and the resonance parameters"
-  )
-  .def(
-
-    python::init< const Component& >(),
-    python::arg( "resonances" ),
-    "Initialise the SLBW resonances with other resonances\n\n"
-    "Arguments:\n"
-    "    self          the SLBW resonances object\n"
-    "    resonances    the resonances to be copied"
   )
   .def_property_readonly(
 

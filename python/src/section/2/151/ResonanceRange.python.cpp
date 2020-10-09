@@ -46,7 +46,7 @@ void wrapResonanceRange( python::module& module ) {
     python::arg( "parameters" ), python::arg( "scattering_radius" ) = std::nullopt,
     "Initialise the resonance range\n\n"
     "Arguments:\n"
-    "    self                the resonance range\n"
+    "    self                the component\n"
     "    el                  the lower energy of the resonance region\n"
     "    eh                  the upper energy of the resonance region\n"
     "    naps                the flag to indicate then on how to calculate\n"

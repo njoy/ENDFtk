@@ -40,21 +40,11 @@ void wrapUnresolvedEnergyDependentFissionWidthsLValue( python::module& module ) 
     python::arg( "awri" ), python::arg( "l" ), python::arg( "jvalues" ),
     "Initialise the unresolved energy dependent fission widths l value data\n\n"
     "Arguments:\n"
-    "    self       the unresolved energy dependent fission widths l value\n"
+    "    self       the component\n"
     "    awri       the atomic weight ratio\n"
     "    l          the orbital angular momentum value\n"
     "    jvalues    the unresolved resonance parameters for every J value\n"
     "               (NJS elements)"
-  )
-  .def(
-
-    python::init< const Component& >(),
-    python::arg( "lvalue" ),
-    "Initialise the unresolved energy dependent fission widths l value with\n"
-    "another l value\n\n"
-    "Arguments:\n"
-    "    self      the unresolved energy dependent widths l value object\n"
-    "    lvalue    the l value to be copied"
   )
   .def_property_readonly(
 

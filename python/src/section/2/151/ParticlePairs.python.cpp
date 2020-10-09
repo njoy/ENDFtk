@@ -45,7 +45,7 @@ void wrapParticlePairs( python::module& module ) {
     python::arg( "shf" ), python::arg( "mt" ),
     "Initialise the scattering radius\n\n"
     "Arguments:\n"
-    "    self    the particle pair object\n"
+    "    self    the component\n"
     "    ma      the mass of the first particle in each particle pair\n"
     "    mb      the mass of the first particle in each particle pair\n"
     "    za      the charge of the first particle in each particle pair\n"
@@ -58,15 +58,6 @@ void wrapParticlePairs( python::module& module ) {
     "    pnt     the mass of the first particle in each particle pair\n"
     "    shf     the charge of the first particle in each particle pair\n"
     "    mt      the charge of the first particle in each particle pair"
-  )
-  .def(
-
-    python::init< const Component& >(),
-    python::arg( "pairs" ),
-    "Initialise the particle pairs with another pairs\n\n"
-    "Arguments:\n"
-    "    self     the particle pair object\n"
-    "    pairs    the particle pairs to be copied"
   )
   .def_property_readonly(
 

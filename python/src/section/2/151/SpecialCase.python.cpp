@@ -33,18 +33,9 @@ void wrapSpecialCase( python::module& module ) {
     python::arg( "spin" ), python::arg( "ap" ),
     "Initialise the Isotope\n\n"
     "Arguments:\n"
-    "    self    the special case component\n"
+    "    self    the component\n"
     "    spin    the target spin\n"
     "    ap      the scattering radius"
-  )
-  .def(
-
-    python::init< const Component& >(),
-    python::arg( "range" ),
-    "Initialise the special case resonance range with another range\n\n"
-    "Arguments:\n"
-    "    self     the resonance range object\n"
-    "    range    the range to be copied"
   )
   .def_property_readonly(
 

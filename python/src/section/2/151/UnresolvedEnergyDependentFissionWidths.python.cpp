@@ -43,23 +43,12 @@ void wrapUnresolvedEnergyDependentFissionWidths( python::module& module ) {
     python::arg( "energies" ), python::arg( "lvalues" ),
     "Initialise the unresolved energy dependent fission widths parameters\n\n"
     "Arguments:\n"
-    "    self        the unresolved energy dependent fission widths parameters\n"
+    "    self        the component\n"
     "    spin        the target spin\n"
     "    ap          the scattering radius\n"
     "    lssf        the self-shielding only flag\n"
     "    energies    the energy values for which fission widths are given\n"
     "    lvalues     l values and the resonance parameters"
-  )
-  .def(
-
-    python::init< const Component& >(),
-    python::arg( "resonances" ),
-    "Initialise the unresolved energy dependent fission widths resonances\n"
-    "with other resonances\n\n"
-    "Arguments:\n"
-    "    self          the unresolved energy dependent fission widths\n"
-    "                  resonances object\n"
-    "    resonances    the resonances to be copied"
   )
   .def_property_readonly(
 

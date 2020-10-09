@@ -41,21 +41,11 @@ void wrapUnresolvedEnergyDependent( python::module& module ) {
     python::arg( "lvalues" ),
     "Initialise the unresolved energy dependent parameters\n\n"
     "Arguments:\n"
-    "    self       the unresolved energy dependent parameters\n"
+    "    self       the component\n"
     "    spin       the target spin\n"
     "    ap         the scattering radius\n"
     "    lssf        the self-shielding only flag\n"
     "    lvalues    l values and the resonance parameters"
-  )
-  .def(
-
-    python::init< const Component& >(),
-    python::arg( "resonances" ),
-    "Initialise the unresolved energy dependent resonances with other\n"
-    "resonances\n\n"
-    "Arguments:\n"
-    "    self          the unresolved energy dependent resonances object\n"
-    "    resonances    the resonances to be copied"
   )
   .def_property_readonly(
 

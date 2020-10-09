@@ -40,7 +40,7 @@ void wrapUnresolvedEnergyIndependentLValue( python::module& module ) {
     python::arg( "gn" ), python::arg( "gg" ),
     "Initialise the unresolved energy independent l value data\n\n"
     "Arguments:\n"
-    "    self     the unresolved energy independent l value object\n"
+    "    self     the component\n"
     "    awri     the atomic weight ratio\n"
     "    l        the orbital angular momentum value\n"
     "    spins    the spin values (NJS values)\n"
@@ -48,15 +48,6 @@ void wrapUnresolvedEnergyIndependentLValue( python::module& module ) {
     "    amun     the degrees of freedom for the neutron width (NJS values)\n"
     "    gn       the average neutron widths (NJS values)\n"
     "    gg       the average gamma widths (NJS values)"
-  )
-  .def(
-
-    python::init< const Component& >(),
-    python::arg( "lvalue" ),
-    "Initialise the unresolved energy independent l value with another l value\n\n"
-    "Arguments:\n"
-    "    self      the unresolved energy independent l value object\n"
-    "    lvalue    the l value to be copied"
   )
   .def_property_readonly(
 

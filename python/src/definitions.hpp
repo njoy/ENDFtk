@@ -24,6 +24,15 @@ template < typename Component, typename PythonClass >
 void addStandardComponentDefinitions( PythonClass& component ) {
 
   component
+  .def(
+
+    python::init< const Component& >(),
+    python::arg( "component" ),
+    "Copy the component\n\n"
+    "Arguments:\n"
+    "    self         the component\n"
+    "    component    the component to be copied"
+  )
   .def_property_readonly(
 
     "NC",

@@ -41,21 +41,12 @@ void wrapReichMoore( python::module& module ) {
     python::arg( "nlsc" ), python::arg( "lvalues" ),
     "Initialise the RM resonance parameters\n\n"
     "Arguments:\n"
-    "    self       the Reich-Moore parameters\n"
+    "    self       the component\n"
     "    spin       the target spin\n"
     "    ap         the scattering radius\n"
     "    lad        the angular distributions flag\n"
     "    nlsc       the number of l values for convergence\n"
     "    lvalues    l values and the resonance parameters"
-  )
-  .def(
-
-    python::init< const Component& >(),
-    python::arg( "resonances" ),
-    "Initialise the RM resonances with other resonances\n\n"
-    "Arguments:\n"
-    "    self          the RM resonances object\n"
-    "    resonances    the resonances to be copied"
   )
   .def_property_readonly(
 

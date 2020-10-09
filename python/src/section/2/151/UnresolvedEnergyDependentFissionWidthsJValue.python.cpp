@@ -38,7 +38,7 @@ void wrapUnresolvedEnergyDependentFissionWidthsJValue( python::module& module ) 
     python::arg( "gn" ), python::arg( "gg" ), python::arg( "gf" ),
     "Initialise the unresolved energy dependent fission width j value data\n\n"
     "Arguments:\n"
-    "    self    the unresolved energy dependent fission width j value object\n"
+    "    self    the component\n"
     "    l       the orbital angular momentum value\n"
     "    spin    the spin\n"
     "    d       the level spacing\n"
@@ -47,16 +47,6 @@ void wrapUnresolvedEnergyDependentFissionWidthsJValue( python::module& module ) 
     "    gn      the average neutron width\n"
     "    gg      the average gamma width\n"
     "    gf      the average fission widths"
-  )
-  .def(
-
-    python::init< const Component& >(),
-    python::arg( "jvalue" ),
-    "Initialise the unresolved energy dependent fission widths j value with\n"
-    "another j value\n\n"
-    "Arguments:\n"
-    "    self      the unresolved energy dependent fission widths j value object\n"
-    "    lvalue    the j value to be copied"
   )
   .def_property_readonly(
 

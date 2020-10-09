@@ -36,18 +36,9 @@ void wrapResonanceParameters( python::module& module ) {
     python::arg( "energies" ), python::arg( "parameters" ),
     "Initialise the resonance channel for a spin group\n\n"
     "Arguments:\n"
-    "    self          the resonance parameters object\n"
+    "    self          the component\n"
     "    energies      the resonance energies (NRS values)\n"
     "    parameters    the resonance parameters (NRS times NCH values)"
-  )
-  .def(
-
-    python::init< const Component& >(),
-    python::arg( "parameters" ),
-    "Initialise the resonance parameters with another parameters\n\n"
-    "Arguments:\n"
-    "    self          the resonance parameters object\n"
-    "    parameters    the resonance parameters to be copied"
   )
   .def_property_readonly(
 

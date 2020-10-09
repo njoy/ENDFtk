@@ -39,18 +39,9 @@ void wrapSpinGroup( python::module& module ) {
     python::arg( "channels" ), python::arg( "parameters" ),
     "Initialise the resonance channel for a spin group\n\n"
     "Arguments:\n"
-    "    self          the spin group object\n"
+    "    self          the component\n"
     "    channels      the resonance channel information\n"
     "    parameters    the associated resonance parameters"
-  )
-  .def(
-
-    python::init< const Component& >(),
-    python::arg( "group" ),
-    "Initialise the spin group with another spin group\n\n"
-    "Arguments:\n"
-    "    self     the spin group object\n"
-    "    group    the group to be copied"
   )
   .def_property_readonly(
 

@@ -37,19 +37,10 @@ void wrapMultiLevelBreitWigner( python::module& module ) {
     python::arg( "spin" ), python::arg( "ap" ), python::arg( "lvalues" ),
     "Initialise the MLBW resonance parameters\n\n"
     "Arguments:\n"
-    "    self       the Multi-level Breit-Wigner parameters\n"
+    "    self       the component\n"
     "    spin       the target spin\n"
     "    ap         the scattering radius\n"
     "    lvalues    l values and the resonance parameters"
-  )
-  .def(
-
-    python::init< const Component& >(),
-    python::arg( "resonances" ),
-    "Initialise the MLBW resonances with other resonances\n\n"
-    "Arguments:\n"
-    "    self          the MLBW resonances object\n"
-    "    resonances    the resonances to be copied"
   )
   .def_property_readonly(
 

@@ -103,9 +103,12 @@ pybind11_add_module( ENDFtk.python
     python/src/section/2/151/UnresolvedEnergyIndependent.python.cpp
     python/src/section/2/152.python.cpp
     python/src/section/3.python.cpp
+    python/src/section/4.python.cpp
+    python/src/section/4/Isotropic.python.cpp
     python/src/file/1.python.cpp
     python/src/file/2.python.cpp
     python/src/file/3.python.cpp
+    python/src/file/4.python.cpp
     python/src/tree/Section.python.cpp
     python/src/tree/File.python.cpp
     python/src/tree/Material.python.cpp

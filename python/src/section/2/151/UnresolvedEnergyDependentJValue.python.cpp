@@ -42,7 +42,7 @@ void wrapUnresolvedEnergyDependentJValue( python::module& module ) {
     python::arg( "gg" ), python::arg( "gf" ), python::arg( "gx" ),
     "Initialise the unresolved energy dependent j value data\n\n"
     "Arguments:\n"
-    "    self             the unresolved energy dependent l value object\n"
+    "    self             the component\n"
     "    spin             the spin\n"
     "    amun             the degrees of freedom for the neutron width\n"
     "    amug             the degrees of freedom for the gamma width\n"
@@ -55,15 +55,6 @@ void wrapUnresolvedEnergyDependentJValue( python::module& module ) {
     "    gg               the average gamma widths (NE values)\n"
     "    gf               the average fission widths (NE values)\n"
     "    gx               the average competitive widths (NE values)"
-  )
-  .def(
-
-    python::init< const Component& >(),
-    python::arg( "jvalue" ),
-    "Initialise the unresolved energy j value with another j value\n\n"
-    "Arguments:\n"
-    "    self      the unresolved energy dependent j value object\n"
-    "    lvalue    the j value to be copied"
   )
   .def_property_readonly(
 

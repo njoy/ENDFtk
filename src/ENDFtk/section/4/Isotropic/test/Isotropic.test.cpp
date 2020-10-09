@@ -7,7 +7,7 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using Isotropic = 
+using Isotropic =
 section::Type< 4 >::Isotropic;
 
 SCENARIO( "Isotropic" ) {
@@ -18,10 +18,10 @@ SCENARIO( "Isotropic" ) {
 
       Isotropic chunk;
 
-      REQUIRE( 0 == chunk.LTT() );
-      REQUIRE( 0 == chunk.LAW() );
+      CHECK( 0 == chunk.LTT() );
+      CHECK( 0 == chunk.LAW() );
 
-      REQUIRE( 0 == chunk.NC() );
+      CHECK( 0 == chunk.NC() );
     }
   } // GIVEN
 
@@ -35,7 +35,7 @@ SCENARIO( "Isotropic" ) {
       auto output = std::back_inserter( buffer );
       chunk.print( output, 9228, 4, 18 );
 
-      REQUIRE( buffer.size() == 0 );
+      CHECK( buffer.size() == 0 );
     }
   } // GIVEN
 } // SCENARIO
