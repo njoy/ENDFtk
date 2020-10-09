@@ -36,8 +36,11 @@ void wrapRMatrixLimited( python::module& module ) {
   component
   .def(
 
-    python::init< bool, bool, int, const ParticlePairs&,
-                  const std::vector< SpinGroup >& >(),
+    //! @todo pybind11 lambda move custom type workaround
+    python::init( [] ( bool ifg, bool krl, int krm, ParticlePairs pairs,
+                       std::vector< SpinGroup >&& groups )
+                     { return Component( ifg, krl, krm, std::move( pairs ),
+                                         std::move( groups ) ); } ),
     python::arg( "ifg" ), python::arg( "krl" ), python::arg( "krm" ),
     python::arg( "pairs" ), python::arg( "groups" ),
     "Initialise the R-matrix limited resonance parameters\n\n"

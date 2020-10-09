@@ -49,6 +49,7 @@ namespace ENDFtk {
                    long L1, long L2, long N1, long N2 ) :
       base( C1, C2, L1, L2, N1, N2 ){}
 
+//! @todo pybind11 variant needs default constructor workaround
 #ifdef PYBIND11
     /**
      *  @brief Default constructor - only enabled for pybind11

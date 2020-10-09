@@ -8,6 +8,14 @@ ParticlePairs( ListRecord&& list ) : ListRecord( std::move( list ) ) {
 }
 
 public:
+//! @todo pybind11 variant needs default constructor workaround
+#ifdef PYBIND11
+/**
+ *  @brief Default constructor - only enabled for pybind11
+ */
+ParticlePairs() = default;
+#endif
+
 /**
  *  @brief Constructor
  *

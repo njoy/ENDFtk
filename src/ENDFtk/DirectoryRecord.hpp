@@ -44,6 +44,7 @@ namespace ENDFtk {
     DirectoryRecord( long mf, long mt, long nc, long mod ) :
       base( mf, mt, nc, mod ){}
 
+//! @todo pybind11 variant needs default constructor workaround
 #ifdef PYBIND11
     /**
      *  @brief Default constructor - only enabled for pybind11

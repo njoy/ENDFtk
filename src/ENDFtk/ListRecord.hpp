@@ -60,6 +60,7 @@ namespace ENDFtk {
                 std::vector< double >&& list ) :
       metadata( C1, C2, L1, L2, list.size(), N2 ), data( std::move(list) ){}
 
+//! @todo pybind11 variant needs default constructor workaround
 #ifdef PYBIND11
     /**
      *  @brief Default constructor - only enabled for pybind11

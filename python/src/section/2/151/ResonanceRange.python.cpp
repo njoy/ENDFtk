@@ -33,27 +33,30 @@ void wrapResonanceRange( python::module& module ) {
 
   // wrap the section
   component
-//! @todo add the constructor to the bindings
-//  .def(
-//
-//    python::init< double, double, int,
-//                  ResonanceParameters&&,
-//                  std::optional< ScatteringRadius >&& >,
-//    python::arg( "el" ), python::arg( "eh" ), python::arg( "naps" ),
-//    python::arg( "parameters" ), python::arg( "scattering_radius" ) = std::nullopt,
-//    "Initialise the resonance range\n\n"
-//    "Arguments:\n"
-//    "    self                the resonance range\n"
-//    "    el                  the lower energy of the resonance region\n"
-//    "    eh                  the upper energy of the resonance region\n"
-//    "    naps                the flag to indicate then on how to calculate\n"
-//    "                        the scattering radius (0 or 1 if no energy\n"
-//    "                        dependent scattering radius is given and 0, 1\n"
-//    "                        or 2 if energy dependent scattering radius is\n"
-//    "                        given)\n"
-//    "    parameters          the resonance parameters\n"
-//    "    scatteringRadius    An optional energy dependent scattering radius"
-//  )
+  .def(
+
+    //! @todo pybind11 lambda move custom type workaround
+    python::init( [] ( double el, double eh, int naps,
+                       ResonanceParameters parameters,
+                       std::optional< ScatteringRadius > radius )
+                     { return Component( el, eh, naps,
+                                         std::move( parameters ),
+                                         std::move( radius ) ); } ),
+    python::arg( "el" ), python::arg( "eh" ), python::arg( "naps" ),
+    python::arg( "parameters" ), python::arg( "scattering_radius" ) = std::nullopt,
+    "Initialise the resonance range\n\n"
+    "Arguments:\n"
+    "    self                the resonance range\n"
+    "    el                  the lower energy of the resonance region\n"
+    "    eh                  the upper energy of the resonance region\n"
+    "    naps                the flag to indicate then on how to calculate\n"
+    "                        the scattering radius (0 or 1 if no energy\n"
+    "                        dependent scattering radius is given and 0, 1\n"
+    "                        or 2 if energy dependent scattering radius is\n"
+    "                        given)\n"
+    "    parameters          the resonance parameters\n"
+    "    scatteringRadius    An optional energy dependent scattering radius"
+  )
   .def_property_readonly(
 
     "EL",

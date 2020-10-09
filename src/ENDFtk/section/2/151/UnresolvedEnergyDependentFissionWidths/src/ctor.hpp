@@ -11,6 +11,14 @@ UnresolvedEnergyDependentFissionWidths( ListRecord&& energies,
   }
 
 public:
+//! @todo pybind11 variant needs default constructor workaround
+#ifdef PYBIND11
+/**
+ *  @brief Default constructor - only enabled for pybind11
+ */
+UnresolvedEnergyDependentFissionWidths() = default;
+#endif
+
 /**
  *  @brief Constructor
  *

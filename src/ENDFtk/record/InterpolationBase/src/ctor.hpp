@@ -1,3 +1,4 @@
+//! @todo pybind11 variant needs default constructor workaround
 #ifdef PYBIND11
 InterpolationBase() :
   metadata( 0., 0., 0, 0, 0, 0 ),

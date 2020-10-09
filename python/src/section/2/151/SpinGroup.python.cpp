@@ -31,7 +31,11 @@ void wrapSpinGroup( python::module& module ) {
   component
   .def(
 
-    python::init< const ResonanceChannels&, const ResonanceParameters& >(),
+    //! @todo pybind11 lambda move custom type workaround
+    python::init( [] ( ResonanceChannels channels,
+                       ResonanceParameters parameters )
+                     { return Component( std::move( channels ),
+                                         std::move( parameters ) ); } ),
     python::arg( "channels" ), python::arg( "parameters" ),
     "Initialise the resonance channel for a spin group\n\n"
     "Arguments:\n"
