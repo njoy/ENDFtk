@@ -1,3 +1,10 @@
+#ifdef PYBIND11
+/**
+ *  @brief Default constructor - only enabled for pybind11
+ */
+InterpolationSequenceRecord() = default;
+#endif
+
 /**
  *  @brief Constructor
  *

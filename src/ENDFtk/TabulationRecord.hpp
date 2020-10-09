@@ -15,6 +15,16 @@
 namespace njoy {
 namespace ENDFtk {
 
+  /**
+   *  @class
+   *  @brief ENDF TAB1 record
+   *
+   *  The tabulation record is a multi-line ENDF record containing 2 doubles
+   *  and 4 integers on the first line, followed by a interpolation data and a
+   *  list of x,y values on the following lines.
+   *
+   *  See ENDF102, section 1.1 for more information.
+   */
   class TabulationRecord : protected record::InterpolationBase {
 
     /* fields */
@@ -52,13 +62,26 @@ namespace ENDFtk {
     using InterpolationBase::L1;
     using InterpolationBase::L2;
 
+    /**
+     *  @brief Return the number of points in the table
+     */
     long NP() const { return this->xValues.size(); }
+
     using InterpolationBase::NR;
 
+    /**
+     *  @brief Return the x values in the table
+     */
     DoubleRange x() const { return ranges::view::all( this->xValues ); }
 
+    /**
+     *  @brief Return the y values in the table
+     */
     DoubleRange y() const { return ranges::view::all( this->yValues ); }
 
+    /**
+     *  @brief Return the x,y pairs in the table
+     */
     auto pairs() const {
 
       return ranges::view::zip( this->xValues, this->yValues );
@@ -67,23 +90,43 @@ namespace ENDFtk {
     using InterpolationBase::interpolants;
     using InterpolationBase::boundaries;
 
+    /**
+     *  @brief Return the interpolation ranges
+     */
     auto regions() const {
+
       return
         ranges::view::iota( 0ul, this->boundaries().size() )
         | ranges::view::transform( [this ]( int i ){ return this->regions(i); } );
     }
 
+    /**
+     *  @brief Equality operator
+     *
+     *  @param[in] rhs   the tabulation record on the right
+     */
     bool operator==( const TabulationRecord& rhs ) const {
+
         return ( InterpolationBase::operator==( static_cast<const InterpolationBase&>( rhs ) ) )
         and ( this->xValues == rhs.xValues )
         and ( this->yValues == rhs.yValues );
     }
 
+    /**
+     *  @brief Not equal operator
+     *
+     *  @param[in] rhs   the list record on the right
+     */
     bool operator!=( const TabulationRecord& rhs ) const {
+
       return not ( *this == rhs );
     }
 
+    /**
+     *  @brief Return the number of lines in this record
+     */
     long NC() const {
+      
       return record::InterpolationBase::NC() + ( this->NP() + 2 ) / 3;
     }
 

@@ -1,3 +1,13 @@
+/**
+ *  @brief Print the record
+ *
+ *  @tparam OutputIterator   an output iterator
+ *
+ *  @param[in] it            the current position in the output
+ *  @param[in] MAT           the MAT number
+ *  @param[in] MF            the MF number
+ *  @param[in] MT            the MT number
+ */
 template< typename OutputIterator >
 void print( OutputIterator& it, int MAT, int MF, int MT ) const {
   {
@@ -20,7 +30,7 @@ void print( OutputIterator& it, int MAT, int MF, int MT ) const {
 
     auto nFullLines = this->NPL() / 6;
     auto partialLineEntries = this->NPL() - nFullLines * 6;
-    
+
     auto entry = this->list().begin();
 
     for ( ; nFullLines-- != 0; entry += 6 ){
@@ -29,14 +39,14 @@ void print( OutputIterator& it, int MAT, int MF, int MT ) const {
                      entry[3], entry[4], entry[5],
                      MAT, MF, MT );
     }
-        
+
     if ( partialLineEntries ){
       do {
         disco::ENDF::write( *entry, it );
       } while( ++entry != this->list().end() );
 
       auto blankEntries = 6 - partialLineEntries;
-      
+
       while ( blankEntries-- ){ disco::ColumnPosition< 11 >::write( it ); }
 
       using Format =
@@ -44,6 +54,6 @@ void print( OutputIterator& it, int MAT, int MF, int MT ) const {
                        disco::Integer< 3 >, disco::ColumnPosition< 5 > >;
 
       Format::write( it, MAT, MF, MT );
-    } 
-  } 
-} 
+    }
+  }
+}
