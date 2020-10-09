@@ -18,99 +18,105 @@ namespace njoy {
 namespace ENDFtk {
 namespace section{
 
-template<>
-class Type< 4 > : protected Base {
-
-protected:
-
-  #include "ENDFtk/section/4/AngularDistributions.hpp"
-
-public:
-
-  #include "ENDFtk/section/4/LegendreCoefficients.hpp"
-  #include "ENDFtk/section/4/TabulatedDistribution.hpp"
-
-  #include "ENDFtk/section/4/Isotropic.hpp"                    // LTT=0, LI=1
-  #include "ENDFtk/section/4/LegendreDistributions.hpp"        // LTT=1, LI=0
-  #include "ENDFtk/section/4/TabulatedDistributions.hpp"       // LTT=2, LI=0
-  #include "ENDFtk/section/4/MixedDistributions.hpp"           // LTT=3, LI=0
-
-  using LTT0 = Isotropic;
-  using LTT1 = LegendreDistributions;
-  using LTT2 = TabulatedDistributions;
-  using LTT3 = MixedDistributions;
-
-  /** @typedef Distributions
-   *  @brief The secondary particle angular distribution of MF4
+  /**
+   *  @class
+   *  @brief MF4 - angular distributions of secondary particles
    *
-   *  This distribution class is set up as a variant.
+   *  See ENDF102, section 4.2 for more information.
    */
-  using Distributions =
-            std::variant< Isotropic,                           // LTT=0, LI=1
-                          LegendreDistributions,               // LTT=1, LI=0
-                          TabulatedDistributions,              // LTT=2, LI=0
-                          MixedDistributions >;                // LTT=3, LI=0
+  template<>
+  class Type< 4 > : protected Base {
 
-private:
+  protected:
 
-  /* fields */
-  int lct_;
-  Distributions distributions_;
+    #include "ENDFtk/section/4/AngularDistributions.hpp"
 
-  /* auxiliary functions */
-  #include "ENDFtk/section/4/src/readDistributions.hpp"
+  public:
 
-public:
+    #include "ENDFtk/section/4/LegendreCoefficients.hpp"
+    #include "ENDFtk/section/4/TabulatedDistribution.hpp"
 
-  /* constructor */
-  #include "ENDFtk/section/4/src/ctor.hpp"
+    #include "ENDFtk/section/4/Isotropic.hpp"                    // LTT=0, LI=1
+    #include "ENDFtk/section/4/LegendreDistributions.hpp"        // LTT=1, LI=0
+    #include "ENDFtk/section/4/TabulatedDistributions.hpp"       // LTT=2, LI=0
+    #include "ENDFtk/section/4/MixedDistributions.hpp"           // LTT=3, LI=0
 
-  /* get methods */
+    using LTT0 = Isotropic;
+    using LTT1 = LegendreDistributions;
+    using LTT2 = TabulatedDistributions;
+    using LTT3 = MixedDistributions;
 
-  /**
-   *  @brief Return the reference frame
-   */
-  int LCT() const { return this->lct_; }
+    /** @typedef Distributions
+     *  @brief The secondary particle angular distribution of MF4
+     *
+     *  This distribution class is set up as a variant.
+     */
+    using Distributions =
+              std::variant< Isotropic,                           // LTT=0, LI=1
+                            LegendreDistributions,               // LTT=1, LI=0
+                            TabulatedDistributions,              // LTT=2, LI=0
+                            MixedDistributions >;                // LTT=3, LI=0
 
-  /**
-   *  @brief Return the reference frame
-   */
-  int referenceFrame() const { return this->LCT(); }
+  private:
 
-  /**
-   *  @brief Return the distribution law
-   */
-  int LTT() const { return this->distributions_.index(); }
+    /* fields */
+    int lct_;
+    Distributions distributions_;
 
-  /**
-   *  @brief Return the distribution law
-   */
-  int LAW() const { return this->LTT(); }
+    /* auxiliary functions */
+    #include "ENDFtk/section/4/src/readDistributions.hpp"
 
-  /**
-   *  @brief Return the isotropic angular distribution flag
-   */
-  bool LI() const { return this->LTT() == 0; }
+  public:
 
-  /**
-   *  @brief Return the isotropic angular distribution flag
-   */
-  bool isotropicAngularDistributions() const { return this->LI(); }
+    /* constructor */
+    #include "ENDFtk/section/4/src/ctor.hpp"
 
-  /**
-   *  @brief Return the partial distributions defined in this section
-   */
-  const auto& distributions() const { return this->distributions_; }
+    /* get methods */
 
-  #include "ENDFtk/section/4/src/NC.hpp"
-  #include "ENDFtk/section/4/src/print.hpp"
+    /**
+     *  @brief Return the reference frame
+     */
+    int LCT() const { return this->lct_; }
 
-  using Base::MT;
-  using Base::sectionNumber;
-  using Base::ZA;
-  using Base::atomicWeightRatio;
-  using Base::AWR;
-};
+    /**
+     *  @brief Return the reference frame
+     */
+    int referenceFrame() const { return this->LCT(); }
+
+    /**
+     *  @brief Return the distribution law
+     */
+    int LTT() const { return this->distributions_.index(); }
+
+    /**
+     *  @brief Return the distribution law
+     */
+    int LAW() const { return this->LTT(); }
+
+    /**
+     *  @brief Return the isotropic angular distribution flag
+     */
+    bool LI() const { return this->LTT() == 0; }
+
+    /**
+     *  @brief Return the isotropic angular distribution flag
+     */
+    bool isotropicAngularDistributions() const { return this->LI(); }
+
+    /**
+     *  @brief Return the partial distributions defined in this section
+     */
+    const auto& distributions() const { return this->distributions_; }
+
+    #include "ENDFtk/section/4/src/NC.hpp"
+    #include "ENDFtk/section/4/src/print.hpp"
+
+    using Base::MT;
+    using Base::sectionNumber;
+    using Base::ZA;
+    using Base::atomicWeightRatio;
+    using Base::AWR;
+  };
 
 } // section namespace
 } // ENDFtk namespace
