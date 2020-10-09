@@ -12,6 +12,7 @@ namespace python = pybind11;
 
 // declarations - sections
 void wrapSection_2_151( python::module& );
+void wrapSection_2_152( python::module& );
 
 void wrapFile_2( python::module& module ) {
 
@@ -28,6 +29,7 @@ void wrapFile_2( python::module& module ) {
 
   // wrap sections
   wrapSection_2_151( submodule );
+  wrapSection_2_152( submodule );
 
   //! @todo finish wrapping MF2
 }

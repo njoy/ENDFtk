@@ -12,8 +12,8 @@ from ENDFtk.MF2.MT151 import RMatrixLimited
 from ENDFtk.MF2.MT151 import ResonanceRange
 from ENDFtk.MF2.MT151 import Isotope
 
-class Test_ENDFtk_MF2_MT151_RMatrixLimited( unittest.TestCase ) :
-    """Unit test for the RMatrixLimited class."""
+class Test_ENDFtk_MF2_MT151_Isotope( unittest.TestCase ) :
+    """Unit test for the Isotope class."""
 
     chunk = ( ' 2.605400+4 1.000000+0          0          0          1          02625 2151     \n'
               ' 1.000000-5 1.036000+6          1          7          0          02625 2151     \n'

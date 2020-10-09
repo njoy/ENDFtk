@@ -18,6 +18,12 @@ namespace njoy {
 namespace ENDFtk {
 namespace section{
 
+  /**
+   *  @class
+   *  @brief MF2 MT152 - internal NJOY section
+   *
+   *  See the NJOY manual, RECONR and UNRESR for moe information.
+   */
   template<>
   class Type< 2, 152 > : protected BaseWithoutMT< Type< 2, 152 > > {
 
@@ -47,6 +53,11 @@ namespace section{
      *  @brief Return the self-shielding only flag
      */
     bool LSSF() const { return this->lssf_; }
+
+    /**
+     *  @brief Return the self-shielding only flag
+     */
+    bool selfShieldingOnly() const { return this->LSSF(); }
 
     /**
      *  @brief Return the interpolation flag

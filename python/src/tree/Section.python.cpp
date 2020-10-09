@@ -22,6 +22,7 @@ void wrapTreeSection( python::module& module ) {
   using Section = File::Section_t;
   using MF1MT451 = njoy::ENDFtk::section::Type< 1, 451 >;
   using MF2MT151 = njoy::ENDFtk::section::Type< 2, 151 >;
+  using MF2MT152 = njoy::ENDFtk::section::Type< 2, 152 >;
   using MF3MTxxx = njoy::ENDFtk::section::Type< 3 >;
 
   // wrap views created by this component
@@ -76,7 +77,8 @@ void wrapTreeSection( python::module& module ) {
   .def(
 
     "parse",
-    [] ( const Section& self ) -> std::variant< MF1MT451, MF2MT151, MF3MTxxx > {
+    [] ( const Section& self ) -> std::variant< MF1MT451, MF2MT151, MF2MT152,
+                                                MF3MTxxx > {
 
       switch ( self.fileNumber() ) {
 
@@ -92,6 +94,7 @@ void wrapTreeSection( python::module& module ) {
           switch ( self.sectionNumber() ) {
 
             case 151 : return self.parse< 2, 151 >();
+            case 152 : return self.parse< 2, 152 >();
           }
         }
         case 3 : return self.parse< 3 >();

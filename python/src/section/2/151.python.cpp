@@ -52,7 +52,7 @@ void wrapSection_2_151( python::module& module ) {
   python::module submodule = module.def_submodule(
 
     "MT151",
-    "MF151 - resonance parameters"
+    "MT151 - resonance parameters"
   );
 
   // create the section

@@ -298,7 +298,12 @@ void verifyChunkWithOneDilution( const section::Type< 2, 152 >& chunk ) {
   CHECK( 3 == chunk.elastic().size() );
   CHECK( 3 == chunk.fission().size() );
   CHECK( 3 == chunk.capture().size() );
+  CHECK( 3 == chunk.currentWeightedTotal().size() );
   CHECK( 1 == chunk.total()[0].size() );
+  CHECK( 1 == chunk.elastic()[0].size() );
+  CHECK( 1 == chunk.fission()[0].size() );
+  CHECK( 1 == chunk.capture()[0].size() );
+  CHECK( 1 == chunk.currentWeightedTotal()[0].size() );
   CHECK( 2.009120e+1 == Approx( chunk.total()[0][0] ) );
   CHECK( 1.923568e+1 == Approx( chunk.total()[1][0] ) );
   CHECK( 1.366039e+1 == Approx( chunk.total()[2][0] ) );
@@ -315,7 +320,7 @@ void verifyChunkWithOneDilution( const section::Type< 2, 152 >& chunk ) {
   CHECK( 1.923568e+1 == Approx( chunk.currentWeightedTotal()[1][0] ) );
   CHECK( 1.366039e+1 == Approx( chunk.currentWeightedTotal()[2][0] ) );
 
-  REQUIRE( 6 == chunk.NC() );
+  CHECK( 6 == chunk.NC() );
 }
 
 std::string invalidChunk() {

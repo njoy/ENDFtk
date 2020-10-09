@@ -22,6 +22,12 @@ namespace njoy {
 namespace ENDFtk {
 namespace section{
 
+  /**
+   *  @class
+   *  @brief MF2 MT151 - resonance parameters
+   *
+   *  See ENDF102, section 2.1 for more information.
+   */
   template<>
   class Type< 2, 151 > : protected BaseWithoutMT< Type< 2, 151 > > {
 
