@@ -93,6 +93,12 @@ void wrapIsotope( python::module& module ) {
   )
   .def_property_readonly(
 
+    "number_resonance_ranges",
+    &Component::numberResonanceRanges,
+    "The number of resonance ranges for this isotope"
+  )
+  .def_property_readonly(
+
     "resonance_ranges",
     [] ( const Component& self ) -> ResonanceRangeRange
        { return self.resonanceRanges(); },

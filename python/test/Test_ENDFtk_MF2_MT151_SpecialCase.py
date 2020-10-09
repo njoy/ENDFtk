@@ -20,6 +20,8 @@ class Test_ENDFtk_MF2_MT151_SpecialCase( unittest.TestCase ) :
             self.assertEqual( 0, chunk.type )
             self.assertEqual( 0, chunk.LRF )
             self.assertEqual( 0, chunk.representation )
+            self.assertEqual( False, chunk.LFW )
+            self.assertEqual( False, chunk.average_fission_width_flag )
 
             self.assertAlmostEqual( 0.5, chunk.SPI )
             self.assertAlmostEqual( 0.5, chunk.spin )

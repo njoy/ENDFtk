@@ -72,6 +72,18 @@ void wrapSpecialCase( python::module& module ) {
   )
   .def_property_readonly(
 
+    "LFW",
+    [] ( const Component& self ) { return self.LFW(); },
+    "The average fission flag"
+  )
+  .def_property_readonly(
+
+    "average_fission_width_flag",
+    [] ( const Component& self ) { return self.averageFissionWidthFlag(); },
+    "The average fission flag"
+  )
+  .def_property_readonly(
+
     "SPI",
     &Component::SPI,
     "The target spin"

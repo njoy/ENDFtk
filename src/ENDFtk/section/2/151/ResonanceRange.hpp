@@ -69,7 +69,7 @@ public:
    *  @brief Return the resonance type (resolved or unresolved)
    */
   int LRU() const { return std::visit( [] ( const auto& v ) -> int
-                                           { return v.LRU(); },
+                                          { return v.LRU(); },
                                         this->parameters_ ); }
 
   /**
@@ -81,13 +81,25 @@ public:
    *  @brief Return the resonance representation
    */
   int LRF() const { return std::visit( [] ( const auto& v ) -> int
-                                           { return v.LRF(); },
+                                          { return v.LRF(); },
                                         this->parameters_ ); }
 
   /**
    *  @brief Return the resonance representation
    */
   int representation() const { return this->LRF(); }
+
+  /**
+   *  @brief Return the average fission flag
+   */
+  bool LFW() const { return std::visit( [] ( const auto& v ) -> bool
+                                          { return v.LFW(); },
+                                        this->parameters_ ); }
+
+  /**
+   *  @brief Return the average fission flag
+   */
+  bool averageFissionWidthFlag() const { return this->LFW(); }
 
   /**
    *  @brief Return whether the scattering radius is energy dependent or not

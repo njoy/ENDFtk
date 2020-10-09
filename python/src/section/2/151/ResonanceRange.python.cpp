@@ -107,6 +107,18 @@ void wrapResonanceRange( python::module& module ) {
   )
   .def_property_readonly(
 
+    "LFW",
+    &Component::LFW,
+    "The average fission flag"
+  )
+  .def_property_readonly(
+
+    "average_fission_width_flag",
+    &Component::averageFissionWidthFlag,
+    "The average fission flag"
+  )
+  .def_property_readonly(
+
     "NRO",
     &Component::NRO,
     "Flag to indicate whether the scattering radius is energy dependent or not"
