@@ -11,11 +11,14 @@ from ENDFtk.MF2.MT151 import SpinGroup
 from ENDFtk.MF2.MT151 import RMatrixLimited
 from ENDFtk.MF2.MT151 import ResonanceRange
 from ENDFtk.MF2.MT151 import Isotope
+from ENDFtk.MF2.MT151 import Section
+from ENDFtk.tree import Tape
 
 class Test_ENDFtk_MF2_MT151_RMatrixLimited( unittest.TestCase ) :
     """Unit test for the RMatrixLimited class."""
 
-    chunk = ( ' 2.605400+4 1.000000+0          0          0          1          02625 2151     \n'
+    chunk = ( ' 2.605400+4 5.347624+1          0          0          1          02625 2151     \n'
+              ' 2.605400+4 1.000000+0          0          0          1          02625 2151     \n'
               ' 1.000000-5 1.036000+6          1          7          0          02625 2151     \n'
               ' 0.000000+0 0.000000+0          0          3          2          02625 2151     \n'
               ' 0.000000+0 0.000000+0          2          0         24          42625 2151     \n'
@@ -36,19 +39,35 @@ class Test_ENDFtk_MF2_MT151_RMatrixLimited( unittest.TestCase ) :
               ' 5.152000+4 3.600000-1 1.600200+1 0.000000+0 0.000000+0 0.000000+02625 2151     \n'
               ' 5.359000+4 1.500000+0 1.700000+1 0.000000+0 0.000000+0 0.000000+02625 2151     \n' )
 
+    valid_TPID = 'Just a tape identifier                                                          \n'
+    valid_SEND = '                                                                  2625 2  0     \n'
+    valid_FEND = '                                                                  2625 0  0     \n'
+    valid_MEND = '                                                                     0 0  0     \n'
+    valid_TEND = '                                                                    -1 0  0     \n'
+    invalid_SEND = '                                                                  2625 2  1     \n'
+
     def test_component( self ) :
 
         def verify_chunk( self, chunk ) :
 
             # verify content
-            self.assertEqual( 26054, chunk.ZAI )
-            self.assertAlmostEqual( 1., chunk.ABN )
-            self.assertAlmostEqual( 1., chunk.abundance )
-            self.assertEqual( 1, chunk.NER )
-            self.assertEqual( 1, chunk.number_resonance_ranges )
-            self.assertEqual( 1, len( chunk.resonance_ranges ) )
+            self.assertEqual( 151, chunk.MT )
+            self.assertEqual( 26054, chunk.ZA )
+            self.assertAlmostEqual( 53.47624, chunk.AWR )
+            self.assertAlmostEqual( 53.47624, chunk.atomic_weight_ratio )
+            self.assertEqual( 1, chunk.NIS )
+            self.assertEqual( 1, chunk.number_isotopes )
+            self.assertEqual( 1, len( chunk.isotopes ) )
 
-            range = chunk.resonance_ranges[0]
+            isotope = chunk.isotopes[0]
+            self.assertEqual( 26054, isotope.ZAI )
+            self.assertAlmostEqual( 1., isotope.ABN )
+            self.assertAlmostEqual( 1., isotope.abundance )
+            self.assertEqual( 1, isotope.NER )
+            self.assertEqual( 1, isotope.number_resonance_ranges )
+            self.assertEqual( 1, len( isotope.resonance_ranges ) )
+
+            range = isotope.resonance_ranges[0]
             self.assertEqual( 1, range.LRU )
             self.assertEqual( 1, range.type )
             self.assertEqual( 7, range.LRF )
@@ -358,10 +377,11 @@ class Test_ENDFtk_MF2_MT151_RMatrixLimited( unittest.TestCase ) :
             self.assertAlmostEqual( 0., parameters2.resonance_parameters[1][3] )
             self.assertAlmostEqual( 0., parameters2.resonance_parameters[1][4] )
 
-            self.assertEqual( 20, chunk.NC )
+            self.assertEqual( 21, chunk.NC )
 
             # verify string
-            self.assertEqual( self.chunk, chunk.to_string( 2625, 2, 151 ) )
+            self.assertEqual( self.chunk + self.valid_SEND,
+                              chunk.to_string( 2625, 2 ) )
 
         # the data is given explicitly
         pairs = ParticlePairs( [ 0., 1. ], [ 5.446635e+1, 5.347624e+1 ],
@@ -383,22 +403,49 @@ class Test_ENDFtk_MF2_MT151_RMatrixLimited( unittest.TestCase ) :
         parameters = RMatrixLimited( ifg = False, krl = False, krm = 3,
                                      pairs = pairs, groups = groups )
 
-        chunk = Isotope( zai = 26054, abn = 1., lfw = False,
+        isotopes = [ Isotope( zai = 26054, abn = 1., lfw = False,
+                              ranges = [ ResonanceRange( el = 1e-5, eh = 1.036000e+6,
+                                                         naps = 0, parameters = parameters ) ] ) ]
+
+        chunk = Section( zaid = 26054, awr = 53.47624, isotopes = isotopes )
+
+        verify_chunk( self, chunk )
+
+        # single isotope
+        chunk = Section( zaid = 26054, awr = 53.47624, lfw = False,
                          ranges = [ ResonanceRange( el = 1e-5, eh = 1.036000e+6,
-                                                    naps = 0,
-                                                    parameters = parameters ) ] )
+                                                    naps = 0, parameters = parameters ) ] )
 
         verify_chunk( self, chunk )
 
         # the data is read from a string
-        chunk = Isotope.from_string( self.chunk, 2625, 2, 151 )
+        chunk = Section.from_string( self.chunk + self.valid_SEND )
+
+        verify_chunk( self, chunk )
+
+        # the data is retrieved from a tree element and parsed
+        tape = Tape.from_string( self.valid_TPID + self.chunk +
+                                 self.valid_SEND + self.valid_FEND +
+                                 self.valid_MEND + self.valid_TEND )
+        material = tape.material( 2625 ).to_list()[0]
+
+        chunk = material.file( 2 ).section( 151 ).parse()
 
         verify_chunk( self, chunk )
 
         # the data is copied
-        copy = Isotope( chunk )
+        copy = Section( chunk )
 
         verify_chunk( self, copy )
+
+    def test_failures( self ) :
+
+        print( '\n' )
+
+        # illegal SEND
+        with self.assertRaises( Exception ) :
+
+            chunk = Section.from_string( self.chunk + self.invalid_SEND )
 
 if __name__ == '__main__' :
 

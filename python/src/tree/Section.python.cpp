@@ -5,6 +5,7 @@
 // local includes
 #include "ENDFtk/tree/Tape.hpp"
 #include "ENDFtk/section/1.hpp"
+#include "ENDFtk/section/2.hpp"
 #include "ENDFtk/section/3.hpp"
 #include "range/v3/utility/iterator.hpp"
 #include "views.hpp"
@@ -20,6 +21,7 @@ void wrapTreeSection( python::module& module ) {
   using File = Material::File_t;
   using Section = File::Section_t;
   using MF1MT451 = njoy::ENDFtk::section::Type< 1, 451 >;
+  using MF2MT151 = njoy::ENDFtk::section::Type< 2, 151 >;
   using MF3MTxxx = njoy::ENDFtk::section::Type< 3 >;
 
   // wrap views created by this component
@@ -74,7 +76,7 @@ void wrapTreeSection( python::module& module ) {
   .def(
 
     "parse",
-    [] ( const Section& self ) -> std::variant< MF1MT451, MF3MTxxx > {
+    [] ( const Section& self ) -> std::variant< MF1MT451, MF2MT151, MF3MTxxx > {
 
       switch ( self.fileNumber() ) {
 
@@ -83,6 +85,13 @@ void wrapTreeSection( python::module& module ) {
           switch ( self.sectionNumber() ) {
 
             case 451 : return self.parse< 1, 451 >();
+          }
+        }
+        case 2 : {
+
+          switch ( self.sectionNumber() ) {
+
+            case 151 : return self.parse< 2, 151 >();
           }
         }
         case 3 : return self.parse< 3 >();
