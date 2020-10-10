@@ -12,6 +12,7 @@ namespace python = pybind11;
 
 // declarations - components
 void wrapIsotropic( python::module& );
+void wrapLegendreCoefficients( python::module& );
 
 void wrapSection_4( python::module& module ) {
 
@@ -31,6 +32,7 @@ void wrapSection_4( python::module& module ) {
 
   // wrap components
   wrapIsotropic( module );
+  wrapLegendreCoefficients( module );
 
   // wrap the section
   section

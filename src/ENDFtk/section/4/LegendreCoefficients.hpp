@@ -2,7 +2,7 @@
  *  @class
  *  @brief An angular distribution given as Legendre coefficients
  *
- *  The LegendreCoefficients class is used to represent the case in which the 
+ *  The LegendreCoefficients class is used to represent the case in which the
  *  angular distribution for a secondary particle at a given incident energy is
  *  is given as Legendre coefficients.
  *
@@ -11,7 +11,7 @@
 class LegendreCoefficients : protected ListRecord {
 
   /* auxiliary functions */
-    
+
 public:
   /* constructor */
   #include "ENDFtk/section/4/LegendreCoefficients/src/ctor.hpp"
@@ -43,7 +43,7 @@ public:
   int legendreOrder() const { return this->NL(); }
 
   /**
-   *  @brief Return the Legendre coefficients in the distribution (a0 is not 
+   *  @brief Return the Legendre coefficients in the distribution (a0 is not
    *         present and assumed to be equal to 1)
    */
   auto coefficients() const { return ListRecord::list(); }

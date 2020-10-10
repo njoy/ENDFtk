@@ -105,6 +105,7 @@ pybind11_add_module( ENDFtk.python
     python/src/section/3.python.cpp
     python/src/section/4.python.cpp
     python/src/section/4/Isotropic.python.cpp
+    python/src/section/4/LegendreCoefficients.python.cpp
     python/src/file/1.python.cpp
     python/src/file/2.python.cpp
     python/src/file/3.python.cpp
