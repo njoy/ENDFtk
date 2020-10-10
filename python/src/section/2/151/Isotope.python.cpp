@@ -38,7 +38,7 @@ void wrapIsotope( python::module& module ) {
     python::init< double, double, bool, std::vector< ResonanceRange >&& >(),
     python::arg( "zai" ), python::arg( "abn" ), python::arg( "lfw" ),
     python::arg( "ranges" ),
-    "Initialise the Isotope\n\n"
+    "Initialise the component\n\n"
     "Arguments:\n"
     "    self      the component\n"
     "    zai       the za of the isotope\n"

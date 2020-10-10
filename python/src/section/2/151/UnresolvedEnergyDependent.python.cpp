@@ -39,7 +39,7 @@ void wrapUnresolvedEnergyDependent( python::module& module ) {
     python::init< double, double, bool, std::vector< LValue >&& >(),
     python::arg( "spin" ), python::arg( "ap" ), python::arg( "lssf" ),
     python::arg( "lvalues" ),
-    "Initialise the unresolved energy dependent parameters\n\n"
+    "Initialise the component\n\n"
     "Arguments:\n"
     "    self       the component\n"
     "    spin       the target spin\n"

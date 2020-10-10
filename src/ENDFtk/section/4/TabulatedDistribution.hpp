@@ -2,7 +2,7 @@
  *  @class
  *  @brief An angular distribution given as a tabulated function.
  *
- *  The TabulatedDistribution class is used to represent the case in which the 
+ *  The TabulatedDistribution class is used to represent the case in which the
  *  angular distribution for a secondary particle at a given incident energy is
  *  is given as a tabulated function.
  *
@@ -11,7 +11,7 @@
 class TabulatedDistribution : protected TabulationRecord {
 
   /* auxiliary functions */
-    
+
 public:
   /* constructor */
   #include "ENDFtk/section/4/TabulatedDistribution/src/ctor.hpp"
@@ -31,14 +31,24 @@ public:
   double incidentEnergy() const { return this->E(); }
 
   /**
-   *  @brief Return the cosines values
+   *  @brief Return the cosine values
    */
-  auto cosines() const { return TabulationRecord::x(); }
+  auto MU() const { return TabulationRecord::x(); }
 
   /**
-   *  @brief Return the distribution values
+   *  @brief Return the cosine values
    */
-  auto probabilities() const { return TabulationRecord::y(); }
+  auto cosines() const { return this->MU(); }
+
+  /**
+   *  @brief Return the distribution probabilities
+   */
+  auto F() const { return TabulationRecord::y(); }
+
+  /**
+   *  @brief Return the distribution probabilities
+   */
+  auto probabilities() const { return this->F(); }
 
   using TabulationRecord::NR;
   using TabulationRecord::NP;

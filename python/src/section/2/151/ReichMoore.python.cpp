@@ -39,7 +39,7 @@ void wrapReichMoore( python::module& module ) {
                   std::vector< ReichMooreLValue >&& >(),
     python::arg( "spin" ), python::arg( "ap" ), python::arg( "lad" ),
     python::arg( "nlsc" ), python::arg( "lvalues" ),
-    "Initialise the RM resonance parameters\n\n"
+    "Initialise the component\n\n"
     "Arguments:\n"
     "    self       the component\n"
     "    spin       the target spin\n"

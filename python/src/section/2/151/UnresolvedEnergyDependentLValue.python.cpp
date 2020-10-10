@@ -38,7 +38,7 @@ void wrapUnresolvedEnergyDependentLValue( python::module& module ) {
 
     python::init< double, int, std::vector< JValue >&& >(),
     python::arg( "awri" ), python::arg( "l" ), python::arg( "jvalues" ),
-    "Initialise the unresolved energy dependent widths l value data\n\n"
+    "Initialise the component\n\n"
     "Arguments:\n"
     "    self       the component\n"
     "    awri       the atomic weight ratio\n"

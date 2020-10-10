@@ -37,7 +37,7 @@ void wrapSingleLevelBreitWigner( python::module& module ) {
 
     python::init< double, double, std::vector< BreitWignerLValue >&& >(),
     python::arg( "spin" ), python::arg( "ap" ), python::arg( "lvalues" ),
-    "Initialise the SLBW resonance parameters\n\n"
+    "Initialise the component\n\n"
     "Arguments:\n"
     "    self       the component\n"
     "    spin       the target spin\n"

@@ -36,7 +36,7 @@ void wrapUnresolvedEnergyDependentFissionWidthsJValue( python::module& module ) 
     python::arg( "l" ), python::arg( "spin" ),
     python::arg( "d" ), python::arg( "amun" ), python::arg( "amuf" ),
     python::arg( "gn" ), python::arg( "gg" ), python::arg( "gf" ),
-    "Initialise the unresolved energy dependent fission width j value data\n\n"
+    "Initialise the component\n\n"
     "Arguments:\n"
     "    self    the component\n"
     "    l       the orbital angular momentum value\n"

@@ -34,7 +34,7 @@ void wrapResonanceParameters( python::module& module ) {
     python::init< std::vector< double >&&,
                   std::vector< std::vector< double > >&& >(),
     python::arg( "energies" ), python::arg( "parameters" ),
-    "Initialise the resonance channel for a spin group\n\n"
+    "Initialise the component\n\n"
     "Arguments:\n"
     "    self          the component\n"
     "    energies      the resonance energies (NRS values)\n"

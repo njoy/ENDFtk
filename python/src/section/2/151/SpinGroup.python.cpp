@@ -37,7 +37,7 @@ void wrapSpinGroup( python::module& module ) {
                      { return Component( std::move( channels ),
                                          std::move( parameters ) ); } ),
     python::arg( "channels" ), python::arg( "parameters" ),
-    "Initialise the resonance channel for a spin group\n\n"
+    "Initialise the component\n\n"
     "Arguments:\n"
     "    self          the component\n"
     "    channels      the resonance channel information\n"

@@ -38,7 +38,7 @@ void wrapReichMooreLValue( python::module& module ) {
     python::arg( "awri" ), python::arg( "apl" ), python::arg( "l" ),
     python::arg( "energies" ), python::arg( "spins" ), python::arg( "gn" ),
     python::arg( "gg" ), python::arg( "gfa" ), python::arg( "gfb" ),
-    "Initialise the Reich-Moore l value data\n\n"
+    "Initialise the component\n\n"
     "Arguments:\n"
     "    self        the component\n"
     "    awri        the atomic weight ratio\n"

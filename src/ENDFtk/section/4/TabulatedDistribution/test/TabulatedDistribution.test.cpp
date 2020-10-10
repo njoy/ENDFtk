@@ -45,7 +45,7 @@ SCENARIO( "TabulatedDistribution" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9228, 4, 2 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
@@ -69,7 +69,7 @@ SCENARIO( "TabulatedDistribution" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9228, 4, 2 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -86,7 +86,7 @@ SCENARIO( "TabulatedDistribution" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( TabulatedDistribution( energy,
+        CHECK_THROWS( TabulatedDistribution( energy,
                                                std::move( wrongBoundaries ),
       	                                       std::move( interpolants ),
       	                                       std::move( cosines ),
@@ -105,7 +105,7 @@ SCENARIO( "TabulatedDistribution" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( TabulatedDistribution( begin, end, lineNumber,
+        CHECK_THROWS( TabulatedDistribution( begin, end, lineNumber,
                                               9228, 4, 2 ) );
       } // THEN
     } // WHEN
@@ -121,24 +121,30 @@ std::string chunk() {
 
 void verifyChunk( const TabulatedDistribution& chunk ) {
 
-  REQUIRE( 1e-5 == Approx( chunk.E() ) );
-  REQUIRE( 1e-5 == Approx( chunk.incidentEnergy() ) );
-  REQUIRE( 3 == chunk.NP() );
-  REQUIRE( 1 == chunk.NR() );
-  REQUIRE( 1 == chunk.boundaries().size() );
-  REQUIRE( 1 == chunk.interpolants().size() );
-  REQUIRE( 3 == chunk.boundaries()[0] );
-  REQUIRE( 2 == chunk.interpolants()[0] );
-  REQUIRE( 3 == chunk.cosines().size() );
-  REQUIRE( -1.0  == Approx( chunk.cosines()[0] ) );
-  REQUIRE( 0.0 == Approx( chunk.cosines()[1] ) );
-  REQUIRE( 1.0 == Approx( chunk.cosines()[2] ) );
-  REQUIRE( 3 == chunk.probabilities().size() );
-  REQUIRE( 0.0  == Approx( chunk.probabilities()[0] ) );
-  REQUIRE( 1.0 == Approx( chunk.probabilities()[1] ) );
-  REQUIRE( 0.0 == Approx( chunk.probabilities()[2] ) );
+  CHECK( 1e-5 == Approx( chunk.E() ) );
+  CHECK( 1e-5 == Approx( chunk.incidentEnergy() ) );
+  CHECK( 3 == chunk.NP() );
+  CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.boundaries().size() );
+  CHECK( 1 == chunk.interpolants().size() );
+  CHECK( 3 == chunk.boundaries()[0] );
+  CHECK( 2 == chunk.interpolants()[0] );
+  CHECK( 3 == chunk.cosines().size() );
+  CHECK( -1.0  == Approx( chunk.MU()[0] ) );
+  CHECK( 0.0 == Approx( chunk.MU()[1] ) );
+  CHECK( 1.0 == Approx( chunk.MU()[2] ) );
+  CHECK( -1.0  == Approx( chunk.cosines()[0] ) );
+  CHECK( 0.0 == Approx( chunk.cosines()[1] ) );
+  CHECK( 1.0 == Approx( chunk.cosines()[2] ) );
+  CHECK( 3 == chunk.probabilities().size() );
+  CHECK( 0.0  == Approx( chunk.F()[0] ) );
+  CHECK( 1.0 == Approx( chunk.F()[1] ) );
+  CHECK( 0.0 == Approx( chunk.F()[2] ) );
+  CHECK( 0.0  == Approx( chunk.probabilities()[0] ) );
+  CHECK( 1.0 == Approx( chunk.probabilities()[1] ) );
+  CHECK( 0.0 == Approx( chunk.probabilities()[2] ) );
 
-  REQUIRE( 3 == chunk.NC() );
+  CHECK( 3 == chunk.NC() );
 }
 
 std::string invalidChunk() {

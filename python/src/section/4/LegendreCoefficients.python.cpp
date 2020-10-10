@@ -15,7 +15,6 @@ void wrapLegendreCoefficients( python::module& module ) {
   // type aliases
   using Component = njoy::ENDFtk::section::Type< 4 >::LegendreCoefficients;
   using DoubleRange = RandomAccessAnyView< double >;
-  using LongRange = RandomAccessAnyView< long >;
 
   // wrap views created by this section
 
@@ -62,6 +61,14 @@ void wrapLegendreCoefficients( python::module& module ) {
     "legendre_order",
     &Component::legendreOrder,
     "The Legendre order for the angular distribution"
+  )
+  .def_property_readonly(
+
+    "A",
+    [] ( const Component& self ) -> DoubleRange
+       { return self.A(); },
+    "The Legendre coefficients in the distribution (a0 is not present and\n"
+    "assumed to be equal to 1)"
   )
   .def_property_readonly(
 

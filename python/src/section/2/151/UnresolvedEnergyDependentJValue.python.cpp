@@ -40,7 +40,7 @@ void wrapUnresolvedEnergyDependentJValue( python::module& module ) {
     python::arg( "amuf" ), python::arg( "amux" ), python::arg( "interpolation" ),
     python::arg( "energies" ), python::arg( "d" ), python::arg( "gn" ),
     python::arg( "gg" ), python::arg( "gf" ), python::arg( "gx" ),
-    "Initialise the unresolved energy dependent j value data\n\n"
+    "Initialise the component\n\n"
     "Arguments:\n"
     "    self             the component\n"
     "    spin             the spin\n"

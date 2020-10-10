@@ -3,17 +3,17 @@
 #include <pybind11/stl.h>
 
 // local includes
-#include "ENDFtk/section/2/151.hpp"
+#include "ENDFtk/section/4.hpp"
 #include "definitions.hpp"
 #include "views.hpp"
 
 // namespace aliases
 namespace python = pybind11;
 
-void wrapScatteringRadius( python::module& module ) {
+void wrapTabulatedDistribution( python::module& module ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 2, 151 >::ScatteringRadius;
+  using Component = njoy::ENDFtk::section::Type< 4 >::TabulatedDistribution;
   using DoubleRange = RandomAccessAnyView< double >;
   using LongRange = RandomAccessAnyView< long >;
 
@@ -23,25 +23,38 @@ void wrapScatteringRadius( python::module& module ) {
   python::class_< Component > component(
 
     module,
-    "ScatteringRadius",
-    "MF2 MT151 section - an energy dependent scattering radius function"
+    "TabulatedDistribution",
+    "MF4 section - an angular distribution given as a tabulated function"
   );
 
   // wrap the section
   component
   .def(
 
-    python::init< std::vector< long >&&, std::vector< long >&&,
+    python::init< double, std::vector< long >&&, std::vector< long >&&,
                   std::vector< double >&&, std::vector< double >&& >(),
-    python::arg( "boundaries" ), python::arg( "interpolants" ),
-    python::arg( "energies" ), python::arg( "radii" ),
+    python::arg( "energy" ), python::arg( "boundaries" ),
+    python::arg( "interpolants" ), python::arg( "cosines" ),
+    python::arg( "probabilities" ),
     "Initialise the component\n\n"
     "Arguments:\n"
-    "    self            the component\n"
-    "    boundaries      the interpolation range boundaries\n"
-    "    interpolants    the interpolation types for each range\n"
-    "    energies        the energy values\n"
-    "    radii           the scattering radii (in 10^-12 cm)"
+    "    self             the component\n"
+    "    boundaries       the interpolation range boundaries\n"
+    "    interpolants     the interpolation types for each range\n"
+    "    cosines          the cosine values\n"
+    "    probabilities    the probability values"
+  )
+  .def_property_readonly(
+
+    "E",
+    &Component::E,
+    "The incident energy for which the angular distribution is given"
+  )
+  .def_property_readonly(
+
+    "incident_energy",
+    &Component::incidentEnergy,
+    "The incident energy for which the angular distribution is given"
   )
   .def_property_readonly(
 
@@ -71,31 +84,31 @@ void wrapScatteringRadius( python::module& module ) {
   )
   .def_property_readonly(
 
-    "E",
+    "MU",
     [] ( const Component& self ) -> DoubleRange
-       { return self.E(); },
-    "The energy values"
+       { return self.MU(); },
+    "The cosine values"
   )
   .def_property_readonly(
 
-    "energies",
+    "cosines",
     [] ( const Component& self ) -> DoubleRange
-       { return self.energies(); },
-    "The energy values"
+       { return self.cosines(); },
+    "The cosine values"
   )
   .def_property_readonly(
 
-    "AP",
+    "F",
     [] ( const Component& self ) -> DoubleRange
-       { return self.AP(); },
-    "The scatterin radius values"
+       { return self.F(); },
+    "The distribution probabilities"
   )
   .def_property_readonly(
 
-    "radii",
+    "probabilities",
     [] ( const Component& self ) -> DoubleRange
-       { return self.radii(); },
-    "The scatterin radius values"
+       { return self.probabilities(); },
+    "The distribution probabilities"
   );
 
   // add standard section definitions

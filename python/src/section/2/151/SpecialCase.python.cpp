@@ -31,7 +31,7 @@ void wrapSpecialCase( python::module& module ) {
 
     python::init< double, double >(),
     python::arg( "spin" ), python::arg( "ap" ),
-    "Initialise the Isotope\n\n"
+    "Initialise the component\n\n"
     "Arguments:\n"
     "    self    the component\n"
     "    spin    the target spin\n"

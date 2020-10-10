@@ -41,7 +41,7 @@ void wrapUnresolvedEnergyDependentFissionWidths( python::module& module ) {
                   std::vector< LValue >&& >(),
     python::arg( "spin" ), python::arg( "ap" ), python::arg( "lssf" ),
     python::arg( "energies" ), python::arg( "lvalues" ),
-    "Initialise the unresolved energy dependent fission widths parameters\n\n"
+    "Initialise the component\n\n"
     "Arguments:\n"
     "    self        the component\n"
     "    spin        the target spin\n"

@@ -43,7 +43,7 @@ void wrapParticlePairs( python::module& module ) {
     python::arg( "pa" ), python::arg( "pb" ),
     python::arg( "q" ), python::arg( "pnt" ),
     python::arg( "shf" ), python::arg( "mt" ),
-    "Initialise the scattering radius\n\n"
+    "Initialise the component\n\n"
     "Arguments:\n"
     "    self    the component\n"
     "    ma      the mass of the first particle in each particle pair\n"

@@ -44,7 +44,7 @@ void wrapResonanceRange( python::module& module ) {
                                          std::move( radius ) ); } ),
     python::arg( "el" ), python::arg( "eh" ), python::arg( "naps" ),
     python::arg( "parameters" ), python::arg( "scattering_radius" ) = std::nullopt,
-    "Initialise the resonance range\n\n"
+    "Initialise the component\n\n"
     "Arguments:\n"
     "    self                the component\n"
     "    el                  the lower energy of the resonance region\n"

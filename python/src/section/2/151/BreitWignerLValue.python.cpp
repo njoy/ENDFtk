@@ -39,7 +39,7 @@ void wrapBreitWignerLValue( python::module& module ) {
     python::arg( "lrx" ), python::arg( "energies" ), python::arg( "spins" ),
     python::arg( "gt" ), python::arg( "gn" ), python::arg( "gg" ),
     python::arg( "gf" ),
-    "Initialise the Breit-Wigner l value data\n\n"
+    "Initialise the component\n\n"
     "Arguments:\n"
     "    self        the component\n"
     "    awri        the atomic weight ratio\n"

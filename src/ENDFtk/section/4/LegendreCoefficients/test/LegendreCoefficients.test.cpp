@@ -101,6 +101,10 @@ void verifyChunk( const LegendreCoefficients& chunk ) {
   CHECK( 3 == chunk.NL() );
   CHECK( 3 == chunk.legendreOrder() );
   CHECK( 3 == chunk.coefficients().size() );
+  CHECK( 3 == chunk.A().size() );
+  CHECK( 7.392510e-5  == Approx( chunk.A()[0] ) );
+  CHECK( 8.477139e-9 == Approx( chunk.A()[1] ) );
+  CHECK( 1.17106e-13 == Approx( chunk.A()[2] ) );
   CHECK( 7.392510e-5  == Approx( chunk.coefficients()[0] ) );
   CHECK( 8.477139e-9 == Approx( chunk.coefficients()[1] ) );
   CHECK( 1.17106e-13 == Approx( chunk.coefficients()[2] ) );

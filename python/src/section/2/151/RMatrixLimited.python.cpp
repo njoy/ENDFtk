@@ -43,7 +43,7 @@ void wrapRMatrixLimited( python::module& module ) {
                                          std::move( groups ) ); } ),
     python::arg( "ifg" ), python::arg( "krl" ), python::arg( "krm" ),
     python::arg( "pairs" ), python::arg( "groups" ),
-    "Initialise the R-matrix limited resonance parameters\n\n"
+    "Initialise the component\n\n"
     "Arguments:\n"
     "    self      the component\n"
     "    ifg       flag to indicate whether or not the widths are reduced\n"

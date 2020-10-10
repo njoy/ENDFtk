@@ -38,7 +38,7 @@ void wrapUnresolvedEnergyIndependentLValue( python::module& module ) {
     python::arg( "awri" ), python::arg( "l" ),
     python::arg( "spins" ), python::arg( "d" ), python::arg( "amun" ),
     python::arg( "gn" ), python::arg( "gg" ),
-    "Initialise the unresolved energy independent l value data\n\n"
+    "Initialise the component\n\n"
     "Arguments:\n"
     "    self     the component\n"
     "    awri     the atomic weight ratio\n"

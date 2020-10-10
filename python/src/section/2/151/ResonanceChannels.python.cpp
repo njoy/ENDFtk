@@ -38,7 +38,7 @@ void wrapResonanceChannels( python::module& module ) {
     python::arg( "l" ), python::arg( "s" ),
     python::arg( "b" ), python::arg( "apt" ),
     python::arg( "ape" ),
-    "Initialise the resonance channel for a spin group\n\n"
+    "Initialise the component\n\n"
     "Arguments:\n"
     "    self      the component\n"
     "    spin      the channel spin value\n"
