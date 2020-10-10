@@ -8,9 +8,67 @@
 // other includes
 #include "print.hpp"
 #include "read.hpp"
+#include "views.hpp"
 
 // namespace aliases
 namespace python = pybind11;
+
+/**
+ *  @brief Add standard TAB2 definitions
+ *
+ *  This adds the following standard properties:
+ *    NR, interpolants, boundaries
+ *
+ *  @param[in] component   the section to which the definitions have to be added
+ */
+template < typename Component, typename PythonClass >
+void addStandardInterpolationTableDefinitions( PythonClass& component ) {
+
+  component
+  .def_property_readonly(
+
+    "NR",
+    [] ( const Component& self ) { return self.NR(); },
+    "The number of interpolation ranges"
+  )
+  .def_property_readonly(
+
+    "interpolants",
+    [] ( const Component& self ) -> LongRange
+       { return self.interpolants(); },
+    "The interpolation type for each range"
+  )
+  .def_property_readonly(
+
+    "boundaries",
+    [] ( const Component& self ) -> LongRange
+       { return self.boundaries(); },
+    "The interpolation boundaries"
+  );
+}
+
+/**
+ *  @brief Add standard TAB1 definitions
+ *
+ *  This adds the following standard properties:
+ *    NR, NP, interpolants, boundaries
+ *
+ *  @param[in] component   the section to which the definitions have to be added
+ */
+template < typename Component, typename PythonClass >
+void addStandardTableDefinitions( PythonClass& component ) {
+
+  component
+  .def_property_readonly(
+
+    "NP",
+    [] ( const Component& self ) { return self.NP(); },
+    "The number of points"
+  );
+
+  // add standard tab2 definitions
+  addStandardInterpolationTableDefinitions< Component >( component );
+}
 
 /**
  *  @brief Add standard component definitions

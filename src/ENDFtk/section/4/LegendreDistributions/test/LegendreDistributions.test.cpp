@@ -44,7 +44,7 @@ SCENARIO( "LegendreDistributions" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9228, 4, 2 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
@@ -68,7 +68,7 @@ SCENARIO( "LegendreDistributions" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9228, 4, 2 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -86,7 +86,7 @@ SCENARIO( "LegendreDistributions" ) {
           { { 1e-5, { 7.392510e-5, 8.477139e-9, 1.17106e-13 } },
             { 2e+7, { 2.874390e-2, 3.19645e-11 } } };
 
-        REQUIRE_THROWS(
+        CHECK_THROWS(
           LegendreDistributions( std::move( wrongBoundaries ),
                                  std::move( interpolants ),
                                  std::move( sequence ) ) );
@@ -101,7 +101,7 @@ SCENARIO( "LegendreDistributions" ) {
           { { 1e-5, { 7.392510e-5, 8.477139e-9, 1.17106e-13 } },
             { 2e+7, { 2.874390e-2, 3.19645e-11 } } };
 
-        REQUIRE_THROWS(
+        CHECK_THROWS(
           LegendreDistributions( std::move( boundaries ),
                                  std::move( wrongInterpolants ),
                                  std::move( sequence ) ) );
@@ -115,7 +115,7 @@ SCENARIO( "LegendreDistributions" ) {
         std::vector< LegendreCoefficients > wrongSequence =
           { { 1e-5, { 7.392510e-5, 8.477139e-9, 1.17106e-13 } } };
 
-        REQUIRE_THROWS(
+        CHECK_THROWS(
           LegendreDistributions( std::move( boundaries ),
                                  std::move( interpolants ),
                                  std::move( wrongSequence ) ) );
@@ -133,7 +133,7 @@ SCENARIO( "LegendreDistributions" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( LegendreDistributions( begin, end, lineNumber,
+        CHECK_THROWS( LegendreDistributions( begin, end, lineNumber,
                                               9228, 4, 2 ) );
       } // THEN
     } // WHEN
@@ -152,38 +152,44 @@ std::string chunk() {
 
 void verifyChunk( const LegendreDistributions& chunk ) {
 
-  REQUIRE( 1 == chunk.LTT() );
-  REQUIRE( 1 == chunk.LAW() );
+  CHECK( 1 == chunk.LTT() );
+  CHECK( 1 == chunk.LAW() );
 
-  REQUIRE( 2 == chunk.NE() );
-  REQUIRE( 1 == chunk.NR() );
-  REQUIRE( 1 == chunk.interpolants().size() );
-  REQUIRE( 1 == chunk.boundaries().size() );
-  REQUIRE( 1 == chunk.interpolants()[0] );
-  REQUIRE( 2 == chunk.boundaries()[0] );
+  CHECK( 2 == chunk.NE() );
+  CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.interpolants().size() );
+  CHECK( 1 == chunk.boundaries().size() );
+  CHECK( 1 == chunk.interpolants()[0] );
+  CHECK( 2 == chunk.boundaries()[0] );
+
+  CHECK( 2 == chunk.incidentEnergies().size() );
+  CHECK( 2 == chunk.angularDistributions().size() );
+
+  CHECK( 1e-5 == Approx( chunk.incidentEnergies()[0] ) );
+  CHECK( 2e+7 == Approx( chunk.incidentEnergies()[1] ) );
 
   auto distributions = chunk.angularDistributions();
 
   auto d = distributions[0];
-  REQUIRE( 1e-5 == Approx( d.E() ) );
-  REQUIRE( 1e-5 == Approx( d.incidentEnergy() ) );
-  REQUIRE( 3 == d.NL() );
-  REQUIRE( 3 == d.legendreOrder() );
-  REQUIRE( 3 == d.coefficients().size() );
-  REQUIRE( 7.392510e-5  == Approx( d.coefficients()[0] ) );
-  REQUIRE( 8.477139e-9 == Approx( d.coefficients()[1] ) );
-  REQUIRE( 1.17106e-13 == Approx( d.coefficients()[2] ) );
+  CHECK( 1e-5 == Approx( d.E() ) );
+  CHECK( 1e-5 == Approx( d.incidentEnergy() ) );
+  CHECK( 3 == d.NL() );
+  CHECK( 3 == d.legendreOrder() );
+  CHECK( 3 == d.coefficients().size() );
+  CHECK( 7.392510e-5  == Approx( d.coefficients()[0] ) );
+  CHECK( 8.477139e-9 == Approx( d.coefficients()[1] ) );
+  CHECK( 1.17106e-13 == Approx( d.coefficients()[2] ) );
 
   d = distributions[1];
-  REQUIRE( 2e+7 == Approx( d.E() ) );
-  REQUIRE( 2e+7 == Approx( d.incidentEnergy() ) );
-  REQUIRE( 2 == d.NL() );
-  REQUIRE( 2 == d.legendreOrder() );
-  REQUIRE( 2 == d.coefficients().size() );
-  REQUIRE( 2.874390e-2   == Approx( d.coefficients()[0] ) );
-  REQUIRE( 3.19645e-11 == Approx( d.coefficients()[1] ) );
+  CHECK( 2e+7 == Approx( d.E() ) );
+  CHECK( 2e+7 == Approx( d.incidentEnergy() ) );
+  CHECK( 2 == d.NL() );
+  CHECK( 2 == d.legendreOrder() );
+  CHECK( 2 == d.coefficients().size() );
+  CHECK( 2.874390e-2   == Approx( d.coefficients()[0] ) );
+  CHECK( 3.19645e-11 == Approx( d.coefficients()[1] ) );
 
-  REQUIRE( 6 == chunk.NC() );
+  CHECK( 6 == chunk.NC() );
 }
 
 std::string invalidChunk() {

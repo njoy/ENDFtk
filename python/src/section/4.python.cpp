@@ -14,6 +14,7 @@ namespace python = pybind11;
 void wrapIsotropic( python::module& );
 void wrapLegendreCoefficients( python::module& );
 void wrapTabulatedDistribution( python::module& );
+void wrapLegendreDistributions( python::module& );
 
 void wrapSection_4( python::module& module ) {
 
@@ -35,6 +36,7 @@ void wrapSection_4( python::module& module ) {
   wrapIsotropic( module );
   wrapLegendreCoefficients( module );
   wrapTabulatedDistribution( module );
+  wrapLegendreDistributions( module );
 
   // wrap the section
   section

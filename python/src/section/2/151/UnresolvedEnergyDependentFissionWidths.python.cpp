@@ -16,7 +16,6 @@ void wrapUnresolvedEnergyDependentFissionWidths( python::module& module ) {
   using Component = njoy::ENDFtk::section::Type< 2, 151 >::UnresolvedEnergyDependentFissionWidths;
   using LValue = njoy::ENDFtk::section::Type< 2, 151 >::UnresolvedEnergyDependentFissionWidths::LValue;
   using LValueRange = RandomAccessAnyView< LValue >;
-  using DoubleRange = RandomAccessAnyView< double >;
 
   // wrap views created by this section
   // none of these are supposed to be created directly by the user

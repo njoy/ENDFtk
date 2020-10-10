@@ -14,8 +14,6 @@ void wrapResonanceParameters( python::module& module ) {
 
   // type aliases
   using Component = njoy::ENDFtk::section::Type< 2, 151 >::RMatrixLimited::ResonanceParameters;
-  using DoubleRange = RandomAccessAnyView< double >;
-  using DoubleRange2D = RandomAccessAnyView< DoubleRange >;
 
   // wrap views created by this section
 

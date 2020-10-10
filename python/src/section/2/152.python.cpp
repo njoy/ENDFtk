@@ -16,8 +16,6 @@ void wrapSection_2_152( python::module& module ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 2, 152 >;
-  using DoubleRange = RandomAccessAnyView< double >;
-  using DoubleRange2D = RandomAccessAnyView< RandomAccessAnyView< double > >;
 
   // wrap views created by this section
 

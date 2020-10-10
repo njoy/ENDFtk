@@ -30,7 +30,7 @@ void wrapIsotropic( python::module& module ) {
   .def(
 
     python::init<>(),
-    "Initialise the isotropic distributions\n\n"
+    "Initialise the component\n\n"
     "Arguments:\n"
     "    self    the component"
   )

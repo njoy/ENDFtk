@@ -48,7 +48,7 @@ SCENARIO( "MixedDistributions" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9228, 4, 2 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
@@ -72,7 +72,7 @@ SCENARIO( "MixedDistributions" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9228, 4, 2 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -92,7 +92,7 @@ SCENARIO( "MixedDistributions" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( MixedDistributions(  std::move( legendre ),
+        CHECK_THROWS( MixedDistributions(  std::move( legendre ),
                                             std::move( tabulated ) ) );
       } // THEN
     } // WHEN
@@ -107,7 +107,7 @@ SCENARIO( "MixedDistributions" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( MixedDistributions( begin, end, lineNumber,
+        CHECK_THROWS( MixedDistributions( begin, end, lineNumber,
                                             9228, 4, 2 ) );
       } // THEN
     } // WHEN
@@ -134,108 +134,108 @@ std::string chunk() {
 
 void verifyChunk( const MixedDistributions& chunk ) {
 
-  REQUIRE( 3 == chunk.LTT() );
-  REQUIRE( 3 == chunk.LAW() );
+  CHECK( 3 == chunk.LTT() );
+  CHECK( 3 == chunk.LAW() );
 
-  REQUIRE( 2 == chunk.NR() );
-  REQUIRE( 4 == chunk.NE() );
-  REQUIRE( 2 == chunk.interpolants().size() );
-  REQUIRE( 2 == chunk.boundaries().size() );
-  REQUIRE( 1 == chunk.interpolants()[0] );
-  REQUIRE( 5 == chunk.interpolants()[1] );
-  REQUIRE( 2 == chunk.boundaries()[0] );
-  REQUIRE( 4 == chunk.boundaries()[1] );
+  CHECK( 2 == chunk.NR() );
+  CHECK( 4 == chunk.NE() );
+  CHECK( 2 == chunk.interpolants().size() );
+  CHECK( 2 == chunk.boundaries().size() );
+  CHECK( 1 == chunk.interpolants()[0] );
+  CHECK( 5 == chunk.interpolants()[1] );
+  CHECK( 2 == chunk.boundaries()[0] );
+  CHECK( 4 == chunk.boundaries()[1] );
 
   auto distributions = chunk.angularDistributions();
 
-  REQUIRE( 0 == distributions[0].index() );
-  REQUIRE( 0 == distributions[1].index() );
-  REQUIRE( 1 == distributions[2].index() );
-  REQUIRE( 1 == distributions[3].index() );
+  CHECK( 0 == distributions[0].index() );
+  CHECK( 0 == distributions[1].index() );
+  CHECK( 1 == distributions[2].index() );
+  CHECK( 1 == distributions[3].index() );
 
   auto getE = [] ( const auto& value ) { return value.get().E(); };
   auto getIE = [] ( const auto& value ) { return value.get().incidentEnergy(); };
-  REQUIRE( 1e-5 == Approx( std::visit( getE, distributions[0] ) ) );
-  REQUIRE( 1e+6 == Approx( std::visit( getE, distributions[1] ) ) );
-  REQUIRE( 1e+6 == Approx( std::visit( getE, distributions[2] ) ) );
-  REQUIRE( 2e+7 == Approx( std::visit( getE, distributions[3] ) ) );
-  REQUIRE( 1e-5 == Approx( std::visit( getIE, distributions[0] ) ) );
-  REQUIRE( 1e+6 == Approx( std::visit( getIE, distributions[1] ) ) );
-  REQUIRE( 1e+6 == Approx( std::visit( getIE, distributions[2] ) ) );
-  REQUIRE( 2e+7 == Approx( std::visit( getIE, distributions[3] ) ) );
+  CHECK( 1e-5 == Approx( std::visit( getE, distributions[0] ) ) );
+  CHECK( 1e+6 == Approx( std::visit( getE, distributions[1] ) ) );
+  CHECK( 1e+6 == Approx( std::visit( getE, distributions[2] ) ) );
+  CHECK( 2e+7 == Approx( std::visit( getE, distributions[3] ) ) );
+  CHECK( 1e-5 == Approx( std::visit( getIE, distributions[0] ) ) );
+  CHECK( 1e+6 == Approx( std::visit( getIE, distributions[1] ) ) );
+  CHECK( 1e+6 == Approx( std::visit( getIE, distributions[2] ) ) );
+  CHECK( 2e+7 == Approx( std::visit( getIE, distributions[3] ) ) );
 
-  REQUIRE( 2 == chunk.legendre().NE() );
-  REQUIRE( 1 == chunk.legendre().NR() );
-  REQUIRE( 1 == chunk.legendre().interpolants().size() );
-  REQUIRE( 1 == chunk.legendre().boundaries().size() );
-  REQUIRE( 1 == chunk.legendre().interpolants()[0] );
-  REQUIRE( 2 == chunk.legendre().boundaries()[0] );
+  CHECK( 2 == chunk.legendre().NE() );
+  CHECK( 1 == chunk.legendre().NR() );
+  CHECK( 1 == chunk.legendre().interpolants().size() );
+  CHECK( 1 == chunk.legendre().boundaries().size() );
+  CHECK( 1 == chunk.legendre().interpolants()[0] );
+  CHECK( 2 == chunk.legendre().boundaries()[0] );
 
   auto ldistributions = chunk.legendre().angularDistributions();
 
   auto ld = ldistributions[0];
-  REQUIRE( 1e-5 == Approx( ld.E() ) );
-  REQUIRE( 1e-5 == Approx( ld.incidentEnergy() ) );
-  REQUIRE( 3 == ld.NL() );
-  REQUIRE( 3 == ld.legendreOrder() );
-  REQUIRE( 3 == ld.coefficients().size() );
-  REQUIRE( 7.392510e-5  == Approx( ld.coefficients()[0] ) );
-  REQUIRE( 8.477139e-9 == Approx( ld.coefficients()[1] ) );
-  REQUIRE( 1.17106e-13 == Approx( ld.coefficients()[2] ) );
+  CHECK( 1e-5 == Approx( ld.E() ) );
+  CHECK( 1e-5 == Approx( ld.incidentEnergy() ) );
+  CHECK( 3 == ld.NL() );
+  CHECK( 3 == ld.legendreOrder() );
+  CHECK( 3 == ld.coefficients().size() );
+  CHECK( 7.392510e-5  == Approx( ld.coefficients()[0] ) );
+  CHECK( 8.477139e-9 == Approx( ld.coefficients()[1] ) );
+  CHECK( 1.17106e-13 == Approx( ld.coefficients()[2] ) );
 
   ld = ldistributions[1];
-  REQUIRE( 1e+6 == Approx( ld.E() ) );
-  REQUIRE( 1e+6 == Approx( ld.incidentEnergy() ) );
-  REQUIRE( 2 == ld.NL() );
-  REQUIRE( 2 == ld.legendreOrder() );
-  REQUIRE( 2 == ld.coefficients().size() );
-  REQUIRE( 2.874390e-2   == Approx( ld.coefficients()[0] ) );
-  REQUIRE( 3.19645e-11 == Approx( ld.coefficients()[1] ) );
+  CHECK( 1e+6 == Approx( ld.E() ) );
+  CHECK( 1e+6 == Approx( ld.incidentEnergy() ) );
+  CHECK( 2 == ld.NL() );
+  CHECK( 2 == ld.legendreOrder() );
+  CHECK( 2 == ld.coefficients().size() );
+  CHECK( 2.874390e-2   == Approx( ld.coefficients()[0] ) );
+  CHECK( 3.19645e-11 == Approx( ld.coefficients()[1] ) );
 
-  REQUIRE( 2 == chunk.tabulated().NE() );
-  REQUIRE( 1 == chunk.tabulated().NR() );
-  REQUIRE( 1 == chunk.tabulated().interpolants().size() );
-  REQUIRE( 1 == chunk.tabulated().boundaries().size() );
-  REQUIRE( 5 == chunk.tabulated().interpolants()[0] );
-  REQUIRE( 2 == chunk.tabulated().boundaries()[0] );
+  CHECK( 2 == chunk.tabulated().NE() );
+  CHECK( 1 == chunk.tabulated().NR() );
+  CHECK( 1 == chunk.tabulated().interpolants().size() );
+  CHECK( 1 == chunk.tabulated().boundaries().size() );
+  CHECK( 5 == chunk.tabulated().interpolants()[0] );
+  CHECK( 2 == chunk.tabulated().boundaries()[0] );
 
   auto tdistributions = chunk.tabulated().angularDistributions();
 
   auto td = tdistributions[0];
-  REQUIRE( 1e+6 == Approx( td.E() ) );
-  REQUIRE( 1e+6 == Approx( td.incidentEnergy() ) );
-  REQUIRE( 2 == td.NP() );
-  REQUIRE( 1 == td.NR() );
-  REQUIRE( 1 == td.boundaries().size() );
-  REQUIRE( 1 == td.interpolants().size() );
-  REQUIRE( 2 == td.boundaries()[0] );
-  REQUIRE( 2 == td.interpolants()[0] );
-  REQUIRE( 2 == td.cosines().size() );
-  REQUIRE( -1.0  == Approx( td.cosines()[0] ) );
-  REQUIRE( 1.0 == Approx( td.cosines()[1] ) );
-  REQUIRE( 2 == td.probabilities().size() );
-  REQUIRE( 0.5  == Approx( td.probabilities()[0] ) );
-  REQUIRE( 0.5 == Approx( td.probabilities()[1] ) );
+  CHECK( 1e+6 == Approx( td.E() ) );
+  CHECK( 1e+6 == Approx( td.incidentEnergy() ) );
+  CHECK( 2 == td.NP() );
+  CHECK( 1 == td.NR() );
+  CHECK( 1 == td.boundaries().size() );
+  CHECK( 1 == td.interpolants().size() );
+  CHECK( 2 == td.boundaries()[0] );
+  CHECK( 2 == td.interpolants()[0] );
+  CHECK( 2 == td.cosines().size() );
+  CHECK( -1.0  == Approx( td.cosines()[0] ) );
+  CHECK( 1.0 == Approx( td.cosines()[1] ) );
+  CHECK( 2 == td.probabilities().size() );
+  CHECK( 0.5  == Approx( td.probabilities()[0] ) );
+  CHECK( 0.5 == Approx( td.probabilities()[1] ) );
 
   td = tdistributions[1];
-  REQUIRE( 2e+7 == Approx( td.E() ) );
-  REQUIRE( 2e+7 == Approx( td.incidentEnergy() ) );
-  REQUIRE( 3 == td.NP() );
-  REQUIRE( 1 == td.NR() );
-  REQUIRE( 1 == td.boundaries().size() );
-  REQUIRE( 1 == td.interpolants().size() );
-  REQUIRE( 3 == td.boundaries()[0] );
-  REQUIRE( 2 == td.interpolants()[0] );
-  REQUIRE( 3 == td.cosines().size() );
-  REQUIRE( -1.0  == Approx( td.cosines()[0] ) );
-  REQUIRE( 0.0 == Approx( td.cosines()[1] ) );
-  REQUIRE( 1.0 == Approx( td.cosines()[2] ) );
-  REQUIRE( 3 == td.probabilities().size() );
-  REQUIRE( 0.0  == Approx( td.probabilities()[0] ) );
-  REQUIRE( 1.0 == Approx( td.probabilities()[1] ) );
-  REQUIRE( 0.0 == Approx( td.probabilities()[2] ) );
+  CHECK( 2e+7 == Approx( td.E() ) );
+  CHECK( 2e+7 == Approx( td.incidentEnergy() ) );
+  CHECK( 3 == td.NP() );
+  CHECK( 1 == td.NR() );
+  CHECK( 1 == td.boundaries().size() );
+  CHECK( 1 == td.interpolants().size() );
+  CHECK( 3 == td.boundaries()[0] );
+  CHECK( 2 == td.interpolants()[0] );
+  CHECK( 3 == td.cosines().size() );
+  CHECK( -1.0  == Approx( td.cosines()[0] ) );
+  CHECK( 0.0 == Approx( td.cosines()[1] ) );
+  CHECK( 1.0 == Approx( td.cosines()[2] ) );
+  CHECK( 3 == td.probabilities().size() );
+  CHECK( 0.0  == Approx( td.probabilities()[0] ) );
+  CHECK( 1.0 == Approx( td.probabilities()[1] ) );
+  CHECK( 0.0 == Approx( td.probabilities()[2] ) );
 
-  REQUIRE( 14 == chunk.NC() );
+  CHECK( 14 == chunk.NC() );
 }
 
 std::string invalidChunk() {

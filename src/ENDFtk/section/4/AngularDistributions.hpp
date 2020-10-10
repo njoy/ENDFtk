@@ -41,12 +41,23 @@ public:
   }
 
   /**
-   *  @brief Return the interpolation region boundaries for the incident 
+   *  @brief Return the interpolation region boundaries for the incident
    *         energy axis
    */
   auto boundaries() const {
 
     return InterpolationSequenceRecord< Records >::tab2().boundaries();
+  }
+
+  /**
+   *  @brief Return the incident energies
+   */
+  auto incidentEnergies() const {
+
+    return InterpolationSequenceRecord< Records >::records()
+               | ranges::view::transform(
+                     [] ( const auto& record )
+                        { return record.incidentEnergy(); } );
   }
 
   /**

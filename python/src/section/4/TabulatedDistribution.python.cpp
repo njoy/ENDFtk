@@ -14,8 +14,6 @@ void wrapTabulatedDistribution( python::module& module ) {
 
   // type aliases
   using Component = njoy::ENDFtk::section::Type< 4 >::TabulatedDistribution;
-  using DoubleRange = RandomAccessAnyView< double >;
-  using LongRange = RandomAccessAnyView< long >;
 
   // wrap views created by this section
 
@@ -58,32 +56,6 @@ void wrapTabulatedDistribution( python::module& module ) {
   )
   .def_property_readonly(
 
-    "NR",
-    [] ( const Component& self ) { return self.NR(); },
-    "The number of interpolation ranges"
-  )
-  .def_property_readonly(
-
-    "NP",
-    [] ( const Component& self ) { return self.NP(); },
-    "The number of points"
-  )
-  .def_property_readonly(
-
-    "interpolants",
-    [] ( const Component& self ) -> LongRange
-       { return self.interpolants(); },
-    "The interpolation type for each range"
-  )
-  .def_property_readonly(
-
-    "boundaries",
-    [] ( const Component& self ) -> LongRange
-       { return self.boundaries(); },
-    "The interpolation boundaries"
-  )
-  .def_property_readonly(
-
     "MU",
     [] ( const Component& self ) -> DoubleRange
        { return self.MU(); },
@@ -110,6 +82,9 @@ void wrapTabulatedDistribution( python::module& module ) {
        { return self.probabilities(); },
     "The distribution probabilities"
   );
+
+  // add standard tab1 definitions
+  addStandardTableDefinitions< Component >( component );
 
   // add standard section definitions
   addStandardComponentDefinitions< Component >( component );

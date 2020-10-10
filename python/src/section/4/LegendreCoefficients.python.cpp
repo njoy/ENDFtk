@@ -14,7 +14,6 @@ void wrapLegendreCoefficients( python::module& module ) {
 
   // type aliases
   using Component = njoy::ENDFtk::section::Type< 4 >::LegendreCoefficients;
-  using DoubleRange = RandomAccessAnyView< double >;
 
   // wrap views created by this section
 
@@ -32,7 +31,7 @@ void wrapLegendreCoefficients( python::module& module ) {
 
     python::init< double, std::vector< double >&& >(),
     python::arg( "energy" ), python::arg( "coefficients" ),
-    "Initialise the scattering radius\n\n"
+    "Initialise the component\n\n"
     "Arguments:\n"
     "    self            the component\n"
     "    energy          the incident energy\n"

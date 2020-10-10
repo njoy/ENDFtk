@@ -56,7 +56,7 @@ SCENARIO( "section::Type< 4 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9228, 4 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
 
@@ -81,7 +81,7 @@ SCENARIO( "section::Type< 4 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9228, 4 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } //WHEN
   } // GIVEN
@@ -116,7 +116,7 @@ SCENARIO( "section::Type< 4 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9228, 4 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
 
@@ -141,7 +141,7 @@ SCENARIO( "section::Type< 4 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9228, 4 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } //WHEN
   } // GIVEN
@@ -176,7 +176,7 @@ SCENARIO( "section::Type< 4 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9228, 4 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
 
@@ -201,7 +201,7 @@ SCENARIO( "section::Type< 4 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9228, 4 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } //WHEN
   } // GIVEN
@@ -239,7 +239,7 @@ SCENARIO( "section::Type< 4 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9228, 4 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
 
@@ -264,7 +264,7 @@ SCENARIO( "section::Type< 4 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9228, 4 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } //WHEN
   } // GIVEN
@@ -282,7 +282,7 @@ SCENARIO( "section::Type< 4 >" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( section::Type< 4 >( head, begin, end,
+        CHECK_THROWS( section::Type< 4 >( head, begin, end,
                                             lineNumber, 9228 ) );
       } // THEN
     } // WHEN
@@ -298,7 +298,7 @@ SCENARIO( "section::Type< 4 >" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( section::Type< 4 >( head, begin, end,
+        CHECK_THROWS( section::Type< 4 >( head, begin, end,
                                             lineNumber, 9228 ) );
       } // THEN
     } // WHEN
@@ -313,26 +313,26 @@ std::string chunkWithLTT0() {
 
 void verifyChunkWithLTT0( const section::Type< 4 >& chunk ) {
 
-  REQUIRE( 18 == chunk.MT() );
-  REQUIRE( 18 == chunk.sectionNumber() );
+  CHECK( 18 == chunk.MT() );
+  CHECK( 18 == chunk.sectionNumber() );
 
-  REQUIRE( 92235. == Approx( chunk.ZA() ) );
-  REQUIRE( 2.330250e+2 == Approx( chunk.AWR() ) );
-  REQUIRE( 2.330250e+2 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 92235. == Approx( chunk.ZA() ) );
+  CHECK( 2.330250e+2 == Approx( chunk.AWR() ) );
+  CHECK( 2.330250e+2 == Approx( chunk.atomicWeightRatio() ) );
 
-  REQUIRE( 1 == chunk.LCT() );
-  REQUIRE( 1 == chunk.referenceFrame() );
-  REQUIRE( 0 == chunk.LTT() );
-  REQUIRE( 0 == chunk.LAW() );
-  REQUIRE( true == chunk.LI() );
-  REQUIRE( true == chunk.isotropicAngularDistributions() );
+  CHECK( 1 == chunk.LCT() );
+  CHECK( 1 == chunk.referenceFrame() );
+  CHECK( 0 == chunk.LTT() );
+  CHECK( 0 == chunk.LAW() );
+  CHECK( true == chunk.LI() );
+  CHECK( true == chunk.isotropicAngularDistributions() );
 
   const auto& distribution =
                   std::get< Isotropic >( chunk.distributions() );
-  REQUIRE( 0 == distribution.LTT() );
-  REQUIRE( 0 == distribution.LAW() );
+  CHECK( 0 == distribution.LTT() );
+  CHECK( 0 == distribution.LAW() );
 
-  REQUIRE( 2 == chunk.NC() );
+  CHECK( 2 == chunk.NC() );
 }
 
 std::string chunkWithLTT1() {
@@ -349,55 +349,55 @@ std::string chunkWithLTT1() {
 
 void verifyChunkWithLTT1( const section::Type< 4 >& chunk ) {
 
-  REQUIRE( 2 == chunk.MT() );
-  REQUIRE( 2 == chunk.sectionNumber() );
+  CHECK( 2 == chunk.MT() );
+  CHECK( 2 == chunk.sectionNumber() );
 
-  REQUIRE( 92235. == Approx( chunk.ZA() ) );
-  REQUIRE( 2.330250e+2 == Approx( chunk.AWR() ) );
-  REQUIRE( 2.330250e+2 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 92235. == Approx( chunk.ZA() ) );
+  CHECK( 2.330250e+2 == Approx( chunk.AWR() ) );
+  CHECK( 2.330250e+2 == Approx( chunk.atomicWeightRatio() ) );
 
-  REQUIRE( 1 == chunk.LCT() );
-  REQUIRE( 1 == chunk.referenceFrame() );
-  REQUIRE( 1 == chunk.LTT() );
-  REQUIRE( 1 == chunk.LAW() );
-  REQUIRE( false == chunk.LI() );
-  REQUIRE( false == chunk.isotropicAngularDistributions() );
+  CHECK( 1 == chunk.LCT() );
+  CHECK( 1 == chunk.referenceFrame() );
+  CHECK( 1 == chunk.LTT() );
+  CHECK( 1 == chunk.LAW() );
+  CHECK( false == chunk.LI() );
+  CHECK( false == chunk.isotropicAngularDistributions() );
 
   const auto& distribution =
     std::get< LegendreDistributions >( chunk.distributions() );
 
-  REQUIRE( 1 == distribution.LTT() );
-  REQUIRE( 1 == distribution.LAW() );
+  CHECK( 1 == distribution.LTT() );
+  CHECK( 1 == distribution.LAW() );
 
-  REQUIRE( 2 == distribution.NE() );
-  REQUIRE( 1 == distribution.NR() );
-  REQUIRE( 1 == distribution.interpolants().size() );
-  REQUIRE( 1 == distribution.boundaries().size() );
-  REQUIRE( 1 == distribution.interpolants()[0] );
-  REQUIRE( 2 == distribution.boundaries()[0] );
+  CHECK( 2 == distribution.NE() );
+  CHECK( 1 == distribution.NR() );
+  CHECK( 1 == distribution.interpolants().size() );
+  CHECK( 1 == distribution.boundaries().size() );
+  CHECK( 1 == distribution.interpolants()[0] );
+  CHECK( 2 == distribution.boundaries()[0] );
 
   auto distributions = distribution.angularDistributions();
 
   auto d = distributions[0];
-  REQUIRE( 1e-5 == Approx( d.E() ) );
-  REQUIRE( 1e-5 == Approx( d.incidentEnergy() ) );
-  REQUIRE( 3 == d.NL() );
-  REQUIRE( 3 == d.legendreOrder() );
-  REQUIRE( 3 == d.coefficients().size() );
-  REQUIRE( 7.392510e-5  == Approx( d.coefficients()[0] ) );
-  REQUIRE( 8.477139e-9 == Approx( d.coefficients()[1] ) );
-  REQUIRE( 1.17106e-13 == Approx( d.coefficients()[2] ) );
+  CHECK( 1e-5 == Approx( d.E() ) );
+  CHECK( 1e-5 == Approx( d.incidentEnergy() ) );
+  CHECK( 3 == d.NL() );
+  CHECK( 3 == d.legendreOrder() );
+  CHECK( 3 == d.coefficients().size() );
+  CHECK( 7.392510e-5  == Approx( d.coefficients()[0] ) );
+  CHECK( 8.477139e-9 == Approx( d.coefficients()[1] ) );
+  CHECK( 1.17106e-13 == Approx( d.coefficients()[2] ) );
 
   d = distributions[1];
-  REQUIRE( 2e+7 == Approx( d.E() ) );
-  REQUIRE( 2e+7 == Approx( d.incidentEnergy() ) );
-  REQUIRE( 2 == d.NL() );
-  REQUIRE( 2 == d.legendreOrder() );
-  REQUIRE( 2 == d.coefficients().size() );
-  REQUIRE( 2.874390e-2   == Approx( d.coefficients()[0] ) );
-  REQUIRE( 3.19645e-11 == Approx( d.coefficients()[1] ) );
+  CHECK( 2e+7 == Approx( d.E() ) );
+  CHECK( 2e+7 == Approx( d.incidentEnergy() ) );
+  CHECK( 2 == d.NL() );
+  CHECK( 2 == d.legendreOrder() );
+  CHECK( 2 == d.coefficients().size() );
+  CHECK( 2.874390e-2   == Approx( d.coefficients()[0] ) );
+  CHECK( 3.19645e-11 == Approx( d.coefficients()[1] ) );
 
-  REQUIRE( 8 == chunk.NC() );
+  CHECK( 8 == chunk.NC() );
 }
 
 std::string chunkWithLTT2() {
@@ -416,70 +416,70 @@ std::string chunkWithLTT2() {
 
 void verifyChunkWithLTT2( const section::Type< 4 >& chunk ) {
 
-  REQUIRE( 2 == chunk.MT() );
-  REQUIRE( 2 == chunk.sectionNumber() );
+  CHECK( 2 == chunk.MT() );
+  CHECK( 2 == chunk.sectionNumber() );
 
-  REQUIRE( 92235. == Approx( chunk.ZA() ) );
-  REQUIRE( 2.330250e+2 == Approx( chunk.AWR() ) );
-  REQUIRE( 2.330250e+2 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 92235. == Approx( chunk.ZA() ) );
+  CHECK( 2.330250e+2 == Approx( chunk.AWR() ) );
+  CHECK( 2.330250e+2 == Approx( chunk.atomicWeightRatio() ) );
 
-  REQUIRE( 1 == chunk.LCT() );
-  REQUIRE( 1 == chunk.referenceFrame() );
-  REQUIRE( 2 == chunk.LTT() );
-  REQUIRE( 2 == chunk.LAW() );
-  REQUIRE( false == chunk.LI() );
-  REQUIRE( false == chunk.isotropicAngularDistributions() );
+  CHECK( 1 == chunk.LCT() );
+  CHECK( 1 == chunk.referenceFrame() );
+  CHECK( 2 == chunk.LTT() );
+  CHECK( 2 == chunk.LAW() );
+  CHECK( false == chunk.LI() );
+  CHECK( false == chunk.isotropicAngularDistributions() );
 
   const auto& distribution =
     std::get< TabulatedDistributions >( chunk.distributions() );
 
-  REQUIRE( 2 == distribution.LTT() );
-  REQUIRE( 2 == distribution.LAW() );
+  CHECK( 2 == distribution.LTT() );
+  CHECK( 2 == distribution.LAW() );
 
-  REQUIRE( 2 == distribution.NE() );
-  REQUIRE( 1 == distribution.NR() );
-  REQUIRE( 1 == distribution.interpolants().size() );
-  REQUIRE( 1 == distribution.boundaries().size() );
-  REQUIRE( 1 == distribution.interpolants()[0] );
-  REQUIRE( 2 == distribution.boundaries()[0] );
+  CHECK( 2 == distribution.NE() );
+  CHECK( 1 == distribution.NR() );
+  CHECK( 1 == distribution.interpolants().size() );
+  CHECK( 1 == distribution.boundaries().size() );
+  CHECK( 1 == distribution.interpolants()[0] );
+  CHECK( 2 == distribution.boundaries()[0] );
 
   auto distributions = distribution.angularDistributions();
 
   auto d = distributions[0];
-  REQUIRE( 1e-5 == Approx( d.E() ) );
-  REQUIRE( 1e-5 == Approx( d.incidentEnergy() ) );
-  REQUIRE( 2 == d.NP() );
-  REQUIRE( 1 == d.NR() );
-  REQUIRE( 1 == d.boundaries().size() );
-  REQUIRE( 1 == d.interpolants().size() );
-  REQUIRE( 2 == d.boundaries()[0] );
-  REQUIRE( 2 == d.interpolants()[0] );
-  REQUIRE( 2 == d.cosines().size() );
-  REQUIRE( -1.0  == Approx( d.cosines()[0] ) );
-  REQUIRE( 1.0 == Approx( d.cosines()[1] ) );
-  REQUIRE( 2 == d.probabilities().size() );
-  REQUIRE( 0.5  == Approx( d.probabilities()[0] ) );
-  REQUIRE( 0.5 == Approx( d.probabilities()[1] ) );
+  CHECK( 1e-5 == Approx( d.E() ) );
+  CHECK( 1e-5 == Approx( d.incidentEnergy() ) );
+  CHECK( 2 == d.NP() );
+  CHECK( 1 == d.NR() );
+  CHECK( 1 == d.boundaries().size() );
+  CHECK( 1 == d.interpolants().size() );
+  CHECK( 2 == d.boundaries()[0] );
+  CHECK( 2 == d.interpolants()[0] );
+  CHECK( 2 == d.cosines().size() );
+  CHECK( -1.0  == Approx( d.cosines()[0] ) );
+  CHECK( 1.0 == Approx( d.cosines()[1] ) );
+  CHECK( 2 == d.probabilities().size() );
+  CHECK( 0.5  == Approx( d.probabilities()[0] ) );
+  CHECK( 0.5 == Approx( d.probabilities()[1] ) );
 
   d = distributions[1];
-  REQUIRE( 2e+7 == Approx( d.E() ) );
-  REQUIRE( 2e+7 == Approx( d.incidentEnergy() ) );
-  REQUIRE( 3 == d.NP() );
-  REQUIRE( 1 == d.NR() );
-  REQUIRE( 1 == d.boundaries().size() );
-  REQUIRE( 1 == d.interpolants().size() );
-  REQUIRE( 3 == d.boundaries()[0] );
-  REQUIRE( 2 == d.interpolants()[0] );
-  REQUIRE( 3 == d.cosines().size() );
-  REQUIRE( -1.0  == Approx( d.cosines()[0] ) );
-  REQUIRE( 0.0 == Approx( d.cosines()[1] ) );
-  REQUIRE( 1.0 == Approx( d.cosines()[2] ) );
-  REQUIRE( 3 == d.probabilities().size() );
-  REQUIRE( 0.0  == Approx( d.probabilities()[0] ) );
-  REQUIRE( 1.0 == Approx( d.probabilities()[1] ) );
-  REQUIRE( 0.0 == Approx( d.probabilities()[2] ) );
+  CHECK( 2e+7 == Approx( d.E() ) );
+  CHECK( 2e+7 == Approx( d.incidentEnergy() ) );
+  CHECK( 3 == d.NP() );
+  CHECK( 1 == d.NR() );
+  CHECK( 1 == d.boundaries().size() );
+  CHECK( 1 == d.interpolants().size() );
+  CHECK( 3 == d.boundaries()[0] );
+  CHECK( 2 == d.interpolants()[0] );
+  CHECK( 3 == d.cosines().size() );
+  CHECK( -1.0  == Approx( d.cosines()[0] ) );
+  CHECK( 0.0 == Approx( d.cosines()[1] ) );
+  CHECK( 1.0 == Approx( d.cosines()[2] ) );
+  CHECK( 3 == d.probabilities().size() );
+  CHECK( 0.0  == Approx( d.probabilities()[0] ) );
+  CHECK( 1.0 == Approx( d.probabilities()[1] ) );
+  CHECK( 0.0 == Approx( d.probabilities()[2] ) );
 
-  REQUIRE( 10 == chunk.NC() );
+  CHECK( 10 == chunk.NC() );
 }
 
 std::string chunkWithLTT3() {
@@ -504,107 +504,107 @@ std::string chunkWithLTT3() {
 
 void verifyChunkWithLTT3( const section::Type< 4 >& chunk ) {
 
-  REQUIRE( 2 == chunk.MT() );
-  REQUIRE( 2 == chunk.sectionNumber() );
+  CHECK( 2 == chunk.MT() );
+  CHECK( 2 == chunk.sectionNumber() );
 
-  REQUIRE( 92235. == Approx( chunk.ZA() ) );
-  REQUIRE( 2.330250e+2 == Approx( chunk.AWR() ) );
-  REQUIRE( 2.330250e+2 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 92235. == Approx( chunk.ZA() ) );
+  CHECK( 2.330250e+2 == Approx( chunk.AWR() ) );
+  CHECK( 2.330250e+2 == Approx( chunk.atomicWeightRatio() ) );
 
-  REQUIRE( 1 == chunk.LCT() );
-  REQUIRE( 1 == chunk.referenceFrame() );
-  REQUIRE( 3 == chunk.LTT() );
-  REQUIRE( 3 == chunk.LAW() );
-  REQUIRE( false == chunk.LI() );
-  REQUIRE( false == chunk.isotropicAngularDistributions() );
+  CHECK( 1 == chunk.LCT() );
+  CHECK( 1 == chunk.referenceFrame() );
+  CHECK( 3 == chunk.LTT() );
+  CHECK( 3 == chunk.LAW() );
+  CHECK( false == chunk.LI() );
+  CHECK( false == chunk.isotropicAngularDistributions() );
 
   const auto& distribution =
     std::get< MixedDistributions >( chunk.distributions() );
 
-  REQUIRE( 3 == distribution.LTT() );
-  REQUIRE( 3 == distribution.LAW() );
+  CHECK( 3 == distribution.LTT() );
+  CHECK( 3 == distribution.LAW() );
 
-  REQUIRE( 2 == distribution.NR() );
-  REQUIRE( 4 == distribution.NE() );
-  REQUIRE( 2 == distribution.interpolants().size() );
-  REQUIRE( 2 == distribution.boundaries().size() );
-  REQUIRE( 1 == distribution.interpolants()[0] );
-  REQUIRE( 5 == distribution.interpolants()[1] );
-  REQUIRE( 2 == distribution.boundaries()[0] );
-  REQUIRE( 4 == distribution.boundaries()[1] );
+  CHECK( 2 == distribution.NR() );
+  CHECK( 4 == distribution.NE() );
+  CHECK( 2 == distribution.interpolants().size() );
+  CHECK( 2 == distribution.boundaries().size() );
+  CHECK( 1 == distribution.interpolants()[0] );
+  CHECK( 5 == distribution.interpolants()[1] );
+  CHECK( 2 == distribution.boundaries()[0] );
+  CHECK( 4 == distribution.boundaries()[1] );
 
-  REQUIRE( 2 == distribution.legendre().NE() );
-  REQUIRE( 1 == distribution.legendre().NR() );
-  REQUIRE( 1 == distribution.legendre().interpolants().size() );
-  REQUIRE( 1 == distribution.legendre().boundaries().size() );
-  REQUIRE( 1 == distribution.legendre().interpolants()[0] );
-  REQUIRE( 2 == distribution.legendre().boundaries()[0] );
+  CHECK( 2 == distribution.legendre().NE() );
+  CHECK( 1 == distribution.legendre().NR() );
+  CHECK( 1 == distribution.legendre().interpolants().size() );
+  CHECK( 1 == distribution.legendre().boundaries().size() );
+  CHECK( 1 == distribution.legendre().interpolants()[0] );
+  CHECK( 2 == distribution.legendre().boundaries()[0] );
 
   auto ldistributions = distribution.legendre().angularDistributions();
 
   auto ld = ldistributions[0];
-  REQUIRE( 1e-5 == Approx( ld.E() ) );
-  REQUIRE( 1e-5 == Approx( ld.incidentEnergy() ) );
-  REQUIRE( 3 == ld.NL() );
-  REQUIRE( 3 == ld.legendreOrder() );
-  REQUIRE( 3 == ld.coefficients().size() );
-  REQUIRE( 7.392510e-5  == Approx( ld.coefficients()[0] ) );
-  REQUIRE( 8.477139e-9 == Approx( ld.coefficients()[1] ) );
-  REQUIRE( 1.17106e-13 == Approx( ld.coefficients()[2] ) );
+  CHECK( 1e-5 == Approx( ld.E() ) );
+  CHECK( 1e-5 == Approx( ld.incidentEnergy() ) );
+  CHECK( 3 == ld.NL() );
+  CHECK( 3 == ld.legendreOrder() );
+  CHECK( 3 == ld.coefficients().size() );
+  CHECK( 7.392510e-5  == Approx( ld.coefficients()[0] ) );
+  CHECK( 8.477139e-9 == Approx( ld.coefficients()[1] ) );
+  CHECK( 1.17106e-13 == Approx( ld.coefficients()[2] ) );
 
   ld = ldistributions[1];
-  REQUIRE( 1e+6 == Approx( ld.E() ) );
-  REQUIRE( 1e+6 == Approx( ld.incidentEnergy() ) );
-  REQUIRE( 2 == ld.NL() );
-  REQUIRE( 2 == ld.legendreOrder() );
-  REQUIRE( 2 == ld.coefficients().size() );
-  REQUIRE( 2.874390e-2   == Approx( ld.coefficients()[0] ) );
-  REQUIRE( 3.19645e-11 == Approx( ld.coefficients()[1] ) );
+  CHECK( 1e+6 == Approx( ld.E() ) );
+  CHECK( 1e+6 == Approx( ld.incidentEnergy() ) );
+  CHECK( 2 == ld.NL() );
+  CHECK( 2 == ld.legendreOrder() );
+  CHECK( 2 == ld.coefficients().size() );
+  CHECK( 2.874390e-2   == Approx( ld.coefficients()[0] ) );
+  CHECK( 3.19645e-11 == Approx( ld.coefficients()[1] ) );
 
-  REQUIRE( 2 == distribution.tabulated().NE() );
-  REQUIRE( 1 == distribution.tabulated().NR() );
-  REQUIRE( 1 == distribution.tabulated().interpolants().size() );
-  REQUIRE( 1 == distribution.tabulated().boundaries().size() );
-  REQUIRE( 5 == distribution.tabulated().interpolants()[0] );
-  REQUIRE( 2 == distribution.tabulated().boundaries()[0] );
+  CHECK( 2 == distribution.tabulated().NE() );
+  CHECK( 1 == distribution.tabulated().NR() );
+  CHECK( 1 == distribution.tabulated().interpolants().size() );
+  CHECK( 1 == distribution.tabulated().boundaries().size() );
+  CHECK( 5 == distribution.tabulated().interpolants()[0] );
+  CHECK( 2 == distribution.tabulated().boundaries()[0] );
 
   auto tdistributions = distribution.tabulated().angularDistributions();
 
   auto td = tdistributions[0];
-  REQUIRE( 1e+6 == Approx( td.E() ) );
-  REQUIRE( 1e+6 == Approx( td.incidentEnergy() ) );
-  REQUIRE( 2 == td.NP() );
-  REQUIRE( 1 == td.NR() );
-  REQUIRE( 1 == td.boundaries().size() );
-  REQUIRE( 1 == td.interpolants().size() );
-  REQUIRE( 2 == td.boundaries()[0] );
-  REQUIRE( 2 == td.interpolants()[0] );
-  REQUIRE( 2 == td.cosines().size() );
-  REQUIRE( -1.0  == Approx( td.cosines()[0] ) );
-  REQUIRE( 1.0 == Approx( td.cosines()[1] ) );
-  REQUIRE( 2 == td.probabilities().size() );
-  REQUIRE( 0.5  == Approx( td.probabilities()[0] ) );
-  REQUIRE( 0.5 == Approx( td.probabilities()[1] ) );
+  CHECK( 1e+6 == Approx( td.E() ) );
+  CHECK( 1e+6 == Approx( td.incidentEnergy() ) );
+  CHECK( 2 == td.NP() );
+  CHECK( 1 == td.NR() );
+  CHECK( 1 == td.boundaries().size() );
+  CHECK( 1 == td.interpolants().size() );
+  CHECK( 2 == td.boundaries()[0] );
+  CHECK( 2 == td.interpolants()[0] );
+  CHECK( 2 == td.cosines().size() );
+  CHECK( -1.0  == Approx( td.cosines()[0] ) );
+  CHECK( 1.0 == Approx( td.cosines()[1] ) );
+  CHECK( 2 == td.probabilities().size() );
+  CHECK( 0.5  == Approx( td.probabilities()[0] ) );
+  CHECK( 0.5 == Approx( td.probabilities()[1] ) );
 
   td = tdistributions[1];
-  REQUIRE( 2e+7 == Approx( td.E() ) );
-  REQUIRE( 2e+7 == Approx( td.incidentEnergy() ) );
-  REQUIRE( 3 == td.NP() );
-  REQUIRE( 1 == td.NR() );
-  REQUIRE( 1 == td.boundaries().size() );
-  REQUIRE( 1 == td.interpolants().size() );
-  REQUIRE( 3 == td.boundaries()[0] );
-  REQUIRE( 2 == td.interpolants()[0] );
-  REQUIRE( 3 == td.cosines().size() );
-  REQUIRE( -1.0  == Approx( td.cosines()[0] ) );
-  REQUIRE( 0.0 == Approx( td.cosines()[1] ) );
-  REQUIRE( 1.0 == Approx( td.cosines()[2] ) );
-  REQUIRE( 3 == td.probabilities().size() );
-  REQUIRE( 0.0  == Approx( td.probabilities()[0] ) );
-  REQUIRE( 1.0 == Approx( td.probabilities()[1] ) );
-  REQUIRE( 0.0 == Approx( td.probabilities()[2] ) );
+  CHECK( 2e+7 == Approx( td.E() ) );
+  CHECK( 2e+7 == Approx( td.incidentEnergy() ) );
+  CHECK( 3 == td.NP() );
+  CHECK( 1 == td.NR() );
+  CHECK( 1 == td.boundaries().size() );
+  CHECK( 1 == td.interpolants().size() );
+  CHECK( 3 == td.boundaries()[0] );
+  CHECK( 2 == td.interpolants()[0] );
+  CHECK( 3 == td.cosines().size() );
+  CHECK( -1.0  == Approx( td.cosines()[0] ) );
+  CHECK( 0.0 == Approx( td.cosines()[1] ) );
+  CHECK( 1.0 == Approx( td.cosines()[2] ) );
+  CHECK( 3 == td.probabilities().size() );
+  CHECK( 0.0  == Approx( td.probabilities()[0] ) );
+  CHECK( 1.0 == Approx( td.probabilities()[1] ) );
+  CHECK( 0.0 == Approx( td.probabilities()[2] ) );
 
-  REQUIRE( 16 == chunk.NC() );
+  CHECK( 16 == chunk.NC() );
 }
 
 std::string chunkWithInvalidLTT() {

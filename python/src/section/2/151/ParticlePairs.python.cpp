@@ -14,8 +14,6 @@ void wrapParticlePairs( python::module& module ) {
 
   // type aliases
   using Component = njoy::ENDFtk::section::Type< 2, 151 >::RMatrixLimited::ParticlePairs;
-  using DoubleRange = RandomAccessAnyView< double >;
-  using IntRange = RandomAccessAnyView< int >;
 
   // wrap views created by this section
 

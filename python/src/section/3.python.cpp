@@ -14,8 +14,6 @@ void wrapSection_3( python::module& module ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 3 >;
-  using DoubleRange = RandomAccessAnyView< double >;
-  using LongRange = RandomAccessAnyView< long >;
 
   // wrap views created by this section
 
@@ -90,32 +88,6 @@ void wrapSection_3( python::module& module ) {
   )
   .def_property_readonly(
 
-    "NR",
-    &Section::NR,
-    "The number of interpolation ranges"
-  )
-  .def_property_readonly(
-
-    "NP",
-    &Section::NP,
-    "The number of points"
-  )
-  .def_property_readonly(
-
-    "interpolants",
-    [] ( const Section& self ) -> LongRange
-       { return self.interpolants(); },
-    "The interpolation type for each range"
-  )
-  .def_property_readonly(
-
-    "boundaries",
-    [] ( const Section& self ) -> LongRange
-       { return self.boundaries(); },
-    "The interpolation boundaries"
-  )
-  .def_property_readonly(
-
     "energies",
     [] ( const Section& self ) -> DoubleRange
        { return self.energies(); },
@@ -128,6 +100,9 @@ void wrapSection_3( python::module& module ) {
        { return self.crossSections(); },
     "The cross section values"
   );
+
+  // add standard tab1 definitions
+  addStandardTableDefinitions< Section >( section );
 
   // add standard section definitions
   addStandardSectionDefinitions< Section >( section );

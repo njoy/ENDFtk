@@ -24,6 +24,11 @@ using BiDirectionalAnyView = ranges::any_view< Element, ranges::category::bidire
 template < typename Element >
 using RandomAccessAnyView = ranges::any_view< Element, ranges::category::random_access >;
 
+using DoubleRange = RandomAccessAnyView< double >;
+using LongRange = RandomAccessAnyView< long >;
+using IntRange = RandomAccessAnyView< int >;
+using DoubleRange2D = RandomAccessAnyView< DoubleRange >;
+
 /**
  *  @brief Wrap a BiDirectionalAnyView templated on the Element type
  *
