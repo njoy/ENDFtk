@@ -215,14 +215,14 @@ void addStandardSectionDefinitions( PythonClass& section ) {
  *  @brief Add standard file definitions
  *
  *  This adds the following standard properties:
- *    hasSection, hasMT, from_string, to_string, section, MT
+ *    init (copy), MF, file_number, has_MT, has_section, from_string, to_string
  *
- *  @param[in] section   the section to which the definitions have to be added
+ *  @param[in] file   the file to which the definitions have to be added
  */
 template < typename File, typename PythonClass >
-void addStandardFileDefinitions( PythonClass& section ) {
+void addStandardFileDefinitions( PythonClass& file ) {
 
-  section
+  file
   .def(
 
     python::init< const File& >(),
@@ -283,6 +283,59 @@ void addStandardFileDefinitions( PythonClass& section ) {
     "Arguments:\n"
     "    self    the file\n"
     "    mat     the MAT number to be used"
+  );
+}
+
+/**
+ *  @brief Add file definitions for an unenumerated file (e.g. MF3)
+ *
+ *  This adds the following standard properties:
+ *    init (list of sections), MT, section, sections
+ *
+ *  @param[in] file   the file to which the definitions have to be added
+ */
+template < typename File, typename Section, typename SectionRange,
+           typename PythonClass >
+void addStandardUnenumeratedFileDefinitions( PythonClass& file ) {
+
+  file
+  .def(
+
+    python::init< std::vector< Section >&& >(),
+    python::arg( "sections" ),
+    "Initialise the file\n\n"
+    "Arguments:\n"
+    "    self       the file\n"
+    "    sections   the sections to be put into the file"
+  )
+  .def(
+
+    "section",
+    ( Section& ( File::* )( int ) ) &File::section,
+    python::arg( "mt" ),
+    "Return the section with the requested MT number\n\n"
+    "Arguments:\n"
+    "    self    the file\n"
+    "    mt      the MT number of the section to be returned",
+    python::return_value_policy::reference_internal
+  )
+  .def(
+
+    "MT",
+    ( Section& ( File::* )( int ) ) &File::MT,
+    python::arg( "mt" ),
+    "Return the section with the requested MT number\n\n"
+    "Arguments:\n"
+    "    self    the file\n"
+    "    mt      the MT number of the section to be returned",
+    python::return_value_policy::reference_internal
+  )
+  .def_property_readonly(
+
+    "sections",
+    [] ( const File& self ) -> SectionRange
+       { return self.sections(); },
+    "The sections defined in the file"
   );
 }
 

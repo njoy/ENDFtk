@@ -45,45 +45,7 @@ void wrapFile_3( python::module& module ) {
   );
 
   // wrap the file
-  file
-  .def(
-
-    python::init< std::vector< Section >&& >(),
-    python::arg( "sections" ),
-    "Initialise the file\n\n"
-    "Arguments:\n"
-    "    self       the file\n"
-    "    sections   the sections to be put into the file"
-  )
-  .def(
-
-    "section",
-    ( Section& ( File::* )( int ) ) &File::section,
-    python::arg( "mt" ),
-    "Return the section with the requested MT number\n\n"
-    "Arguments:\n"
-    "    self    the file\n"
-    "    mt      the MT number of the section to be returned",
-    python::return_value_policy::reference_internal
-  )
-  .def(
-
-    "MT",
-    ( Section& ( File::* )( int ) ) &File::MT,
-    python::arg( "mt" ),
-    "Return the section with the requested MT number\n\n"
-    "Arguments:\n"
-    "    self    the file\n"
-    "    mt      the MT number of the section to be returned",
-    python::return_value_policy::reference_internal
-  )
-  .def_property_readonly(
-
-    "sections",
-    [] ( const File& self ) -> SectionRange
-       { return self.sections(); },
-    "The sections defined in the file"
-  );
+  addStandardUnenumeratedFileDefinitions< File, Section, SectionRange >( file );
 
   // add standard section definitions
   addStandardFileDefinitions< File >( file );
