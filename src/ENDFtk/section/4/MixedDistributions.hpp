@@ -33,7 +33,7 @@ public:
   /**
    *  @brief Return the angular distribution law
    */
-  static constexpr int LAW() { return MixedDistributions::LTT(); }
+  int LAW() const { return this->LTT(); }
 
   /**
    *  @brief Return the Legendre distributions
@@ -69,7 +69,7 @@ public:
    *         energy.
    */
   auto boundaries() const {
-  
+
     auto offset = this->legendre().boundaries().back();
     return ranges::view::concat(
              this->legendre().boundaries(),
@@ -82,8 +82,18 @@ public:
    *  @brief Return the interpolants of the interpolation ranges
    */
   auto interpolants() const {
+
     return ranges::view::concat( this->legendre().interpolants(),
                                  this->tabulated().interpolants() );
+  }
+
+  /**
+   *  @brief Return the incident energy values
+   */
+  auto incidentEnergies() const {
+
+    return ranges::view::concat( this->legendre().incidentEnergies(),
+                                 this->tabulated().incidentEnergies() );
   }
 
   #include "ENDFtk/section/4/MixedDistributions/src/angularDistributions.hpp"

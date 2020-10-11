@@ -16,6 +16,7 @@ void wrapLegendreCoefficients( python::module& );
 void wrapTabulatedDistribution( python::module& );
 void wrapLegendreDistributions( python::module& );
 void wrapTabulatedDistributions( python::module& );
+void wrapMixedDistributions( python::module& );
 
 void wrapSection_4( python::module& module ) {
 
@@ -39,6 +40,7 @@ void wrapSection_4( python::module& module ) {
   wrapTabulatedDistribution( module );
   wrapLegendreDistributions( module );
   wrapTabulatedDistributions( module );
+  wrapMixedDistributions( module );
 
   // wrap the section
   section
