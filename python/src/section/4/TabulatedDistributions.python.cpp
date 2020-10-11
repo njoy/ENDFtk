@@ -10,26 +10,26 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapLegendreDistributions( python::module& module ) {
+void wrapTabulatedDistributions( python::module& module ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 4 >::LegendreDistributions;
-  using Distribution = njoy::ENDFtk::section::Type< 4 >::LegendreCoefficients;
+  using Component = njoy::ENDFtk::section::Type< 4 >::TabulatedDistributions;
+  using Distribution = njoy::ENDFtk::section::Type< 4 >::TabulatedDistribution;
   using DistributionRange = RandomAccessAnyView< Distribution >;
 
   // wrap views created by this section
   // none of these are supposed to be created directly by the user
   wrapRandomAccessAnyViewOf< Distribution >(
       module,
-      "any_view< LegendreCoefficients, random_access >" );
+      "any_view< TabulatedDistribution, random_access >" );
 
   // create the component
   python::class_< Component > component(
 
     module,
-    "LegendreDistributions",
-    "MF4 section - angular distributions as a function of incident energy\n"
-    "              using Legendre coefficients (LTT=1)"
+    "TabulatedDistributions",
+    "MF4 section - angular distributions as a function of incident energy using\n"
+    "              tabulated functions (LTT=2)"
   );
 
   // wrap the section

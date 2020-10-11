@@ -108,6 +108,7 @@ pybind11_add_module( ENDFtk.python
     python/src/section/4/LegendreCoefficients.python.cpp
     python/src/section/4/TabulatedDistribution.python.cpp
     python/src/section/4/LegendreDistributions.python.cpp
+    python/src/section/4/TabulatedDistributions.python.cpp
     python/src/file/1.python.cpp
     python/src/file/2.python.cpp
     python/src/file/3.python.cpp
