@@ -35,13 +35,8 @@ void wrapResonanceRange( python::module& module ) {
   component
   .def(
 
-    //! @todo pybind11 lambda move custom type workaround
-    python::init( [] ( double el, double eh, int naps,
-                       ResonanceParameters parameters,
-                       std::optional< ScatteringRadius > radius )
-                     { return Component( el, eh, naps,
-                                         std::move( parameters ),
-                                         std::move( radius ) ); } ),
+    python::init< double, double, int, ResonanceParameters&&,
+                  std::optional< ScatteringRadius >&& >(),
     python::arg( "el" ), python::arg( "eh" ), python::arg( "naps" ),
     python::arg( "parameters" ), python::arg( "scattering_radius" ) = std::nullopt,
     "Initialise the component\n\n"

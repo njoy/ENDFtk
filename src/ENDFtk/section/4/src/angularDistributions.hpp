@@ -1,5 +1,5 @@
 /**
- *  @brief Return the angular distributions
+ *  @brief Return the angular distributions (one for each incident energy)
  *
  *  This function returns the underlying angular distributions as a variant of
  *  reference wrappers. See the section::Type< 4 > unit test for more

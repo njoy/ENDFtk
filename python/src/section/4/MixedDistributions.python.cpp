@@ -19,15 +19,10 @@ void wrapMixedDistributions( python::module& module ) {
   using TabulatedDistribution = njoy::ENDFtk::section::Type< 4 >::TabulatedDistribution;
   using LegendreDistributions = njoy::ENDFtk::section::Type< 4 >::LegendreDistributions;
   using TabulatedDistributions = njoy::ENDFtk::section::Type< 4 >::TabulatedDistributions;
-  using Distribution = std::variant< std::reference_wrapper< const LegendreCoefficients >,
-                                     std::reference_wrapper< const TabulatedDistribution > >;
+  using Distribution = njoy::ENDFtk::section::Type< 4 >::Variant;
   using DistributionRange = RandomAccessAnyView< Distribution >;
 
   // wrap views created by this section
-  // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< Distribution >(
-      module,
-      "any_view< variant< LegendreCoefficients, TabulatedDistribution >, random_access >" );
 
   // create the component
   python::class_< Component > component(
