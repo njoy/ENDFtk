@@ -3,17 +3,17 @@
 #include <pybind11/stl.h>
 
 // local includes
-#include "ENDFtk/section/4.hpp"
+#include "ENDFtk/section/5.hpp"
 #include "definitions.hpp"
 #include "views.hpp"
 
 // namespace aliases
 namespace python = pybind11;
 
-void wrapTabulatedDistribution( python::module& module ) {
+void wrapOutgoingEnergyDistribution( python::module& module ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 4 >::TabulatedDistribution;
+  using Component = njoy::ENDFtk::section::Type< 5 >::TabulatedSpectrum::OutgoingEnergyDistribution;
 
   // wrap views created by this section
 
@@ -21,8 +21,8 @@ void wrapTabulatedDistribution( python::module& module ) {
   python::class_< Component > component(
 
     module,
-    "TabulatedDistribution",
-    "MF4 section - an angular distribution given as a tabulated function"
+    "OutgoingEnergyDistribution",
+    "MF5 section - outgoing energy distribution for a fixed value of E"
   );
 
   // wrap the section
@@ -32,7 +32,7 @@ void wrapTabulatedDistribution( python::module& module ) {
     python::init< double, std::vector< long >&&, std::vector< long >&&,
                   std::vector< double >&&, std::vector< double >&& >(),
     python::arg( "incident" ), python::arg( "boundaries" ),
-    python::arg( "interpolants" ), python::arg( "cosines" ),
+    python::arg( "interpolants" ), python::arg( "energies" ),
     python::arg( "probabilities" ),
     "Initialise the component\n\n"
     "Arguments:\n"
@@ -40,40 +40,40 @@ void wrapTabulatedDistribution( python::module& module ) {
     "    incident         the incident energy value\n"
     "    boundaries       the interpolation range boundaries\n"
     "    interpolants     the interpolation types for each range\n"
-    "    cosines          the cosine values\n"
+    "    energies         the outgoing energy values\n"
     "    probabilities    the probability values"
   )
   .def_property_readonly(
 
     "E",
     &Component::E,
-    "The incident energy for which the angular distribution is given"
+    "The incident energy value"
   )
   .def_property_readonly(
 
     "incident_energy",
     &Component::incidentEnergy,
-    "The incident energy for which the angular distribution is given"
+    "The incident energy value"
   )
   .def_property_readonly(
 
-    "MU",
+    "EP",
     [] ( const Component& self ) -> DoubleRange
-       { return self.MU(); },
-    "The cosine values"
+       { return self.EP(); },
+    "The outgoing energy values"
   )
   .def_property_readonly(
 
-    "cosines",
+    "outgoing_energies",
     [] ( const Component& self ) -> DoubleRange
-       { return self.cosines(); },
-    "The cosine values"
+       { return self.outgoingEnergies(); },
+    "The outgoing energy values"
   )
   .def_property_readonly(
 
-    "F",
+    "G",
     [] ( const Component& self ) -> DoubleRange
-       { return self.F(); },
+       { return self.G(); },
     "The distribution probabilities"
   )
   .def_property_readonly(

@@ -23,8 +23,6 @@ class Type< 5 > : protected Base {
 
 public:
 
-  #include "ENDFtk/section/5/Probability.hpp"
-
   #include "ENDFtk/section/5/DistributionFunction.hpp"
   #include "ENDFtk/section/5/Parameter.hpp"
   #include "ENDFtk/section/5/EffectiveTemperature.hpp"
@@ -46,13 +44,13 @@ public:
   /** @typedef Distribution
    *  @brief A secondary particle energy distribution of MF5
    */
-  using Distribution =
-            std::variant< TabulatedSpectrum,           // LF=1
-                          GeneralEvaporationSpectrum,  // LF=5
-                          MaxwellianFissionSpectrum,   // LF=7
-                          EvaporationSpectrum,         // LF=9
-                          WattSpectrum,                // LF=11
-                          MadlandNixSpectrum >;        // LF=12
+  using Distribution = std::variant< TabulatedSpectrum,           // LF=1
+                                     GeneralEvaporationSpectrum,  // LF=5
+                                     MaxwellianFissionSpectrum,   // LF=7
+                                     EvaporationSpectrum,         // LF=9
+                                     WattSpectrum,                // LF=11
+                                     MadlandNixSpectrum >;        // LF=12
+  #include "ENDFtk/section/5/Probability.hpp"
 
   #include "ENDFtk/section/5/PartialDistribution.hpp"
 
