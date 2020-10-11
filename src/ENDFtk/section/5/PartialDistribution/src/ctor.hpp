@@ -1,11 +1,11 @@
-/** 
+/**
  *  @brief Constructor
  *
  *  @param[in] probability    the partial probability
  *  @param[in] distribution   the partial distribution
  */
-Subsection( PartialProbability&& probability,
-            PartialDistribution&& distribution ) :
+PartialDistribution( Probability&& probability,
+                     Distribution&& distribution ) :
   probability_( std::move( probability ) ),
   distribution_( std::move( distribution ) ) {
 
@@ -15,7 +15,7 @@ Subsection( PartialProbability&& probability,
                         this->distribution_ ) );
 }
 
-/** 
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator
@@ -28,11 +28,11 @@ Subsection( PartialProbability&& probability,
  *  @param[in] MT           the expected MT number
  */
 template< typename Iterator >
-Subsection( Iterator& begin,
-            const Iterator& end,
-            long& lineNumber,
-            int MAT,
-            int MF,
-            int MT ) :
-  Subsection( readSubsection( begin, end, lineNumber,
-                              MAT, MF, MT ) ) {}
+PartialDistribution( Iterator& begin,
+                     const Iterator& end,
+                     long& lineNumber,
+                     int MAT,
+                     int MF,
+                     int MT ) :
+  PartialDistribution( readPartialDistribution( begin, end, lineNumber,
+                                                MAT, MF, MT ) ) {}

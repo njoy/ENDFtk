@@ -1,37 +1,36 @@
 template< typename Iterator >
-static Subsection
-readSubsection( Iterator& begin,
-                const Iterator& end,
-                long& lineNumber,
-                int MAT,
-                int MF,
-                int MT ) {
+static PartialDistribution
+readPartialDistribution( Iterator& begin,
+                         const Iterator& end,
+                         long& lineNumber,
+                         int MAT,
+                         int MF,
+                         int MT ) {
 
-  PartialProbability probability( begin, end, lineNumber,
-                                  MAT, MF, MT );
+  Probability probability( begin, end, lineNumber, MAT, MF, MT );
   switch ( probability.LF() ) {
     case 1 :
-      return Subsection
+      return PartialDistribution
              ( std::move( probability ),
                TabulatedSpectrum( begin, end, lineNumber, MAT, MF, MT ) );
     case 5 :
-      return Subsection
+      return PartialDistribution
              ( std::move( probability ),
                GeneralEvaporationSpectrum( begin, end, lineNumber, MAT, MF, MT ) );
     case 7 :
-      return Subsection
+      return PartialDistribution
              ( std::move( probability ),
                MaxwellianFissionSpectrum( begin, end, lineNumber, MAT, MF, MT ) );
     case 9 :
-      return Subsection
+      return PartialDistribution
              ( std::move( probability ),
                EvaporationSpectrum( begin, end, lineNumber, MAT, MF, MT ) );
     case 11 :
-      return Subsection
+      return PartialDistribution
              ( std::move( probability ),
                WattSpectrum( begin, end, lineNumber, MAT, MF, MT ) );
     case 12 :
-      return Subsection
+      return PartialDistribution
              ( std::move( probability ),
                MadlandNixSpectrum( begin, end, lineNumber, MAT, MF, MT ) );
     default : {

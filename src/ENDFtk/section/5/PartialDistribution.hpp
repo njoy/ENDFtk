@@ -2,19 +2,19 @@
  *  @class
  *  @brief A distribution subsection of an MF5 section
  */
-class Subsection {
+class PartialDistribution {
 
-  PartialProbability probability_;
-  PartialDistribution distribution_;
+  Probability probability_;
+  Distribution distribution_;
 
   /* auxiliary functions */
-  #include "ENDFtk/section/5/Subsection/src/verifyLF.hpp"
-  #include "ENDFtk/section/5/Subsection/src/readSubsection.hpp"
+  #include "ENDFtk/section/5/PartialDistribution/src/verifyLF.hpp"
+  #include "ENDFtk/section/5/PartialDistribution/src/readPartialDistribution.hpp"
 
 public:
 
   /* constructor */
-  #include "ENDFtk/section/5/Subsection/src/ctor.hpp"
+  #include "ENDFtk/section/5/PartialDistribution/src/ctor.hpp"
 
   /* get methods */
 
@@ -45,6 +45,6 @@ public:
    */
   const auto& distribution() const { return this->distribution_; }
 
-  #include "ENDFtk/section/5/Subsection/src/NC.hpp"
-  #include "ENDFtk/section/5/Subsection/src/print.hpp"
+  #include "ENDFtk/section/5/PartialDistribution/src/NC.hpp"
+  #include "ENDFtk/section/5/PartialDistribution/src/print.hpp"
 };

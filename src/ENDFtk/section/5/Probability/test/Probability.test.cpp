@@ -7,18 +7,18 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using PartialProbability = 
-section::Type< 5 >::PartialProbability;
+using Probability =
+section::Type< 5 >::Probability;
 
 std::string chunkWithUZero();
-void verifyChunkWithUZero( const PartialProbability& );
+void verifyChunkWithUZero( const Probability& );
 std::string chunkWithUOne();
-void verifyChunkWithUOne( const PartialProbability& );
+void verifyChunkWithUOne( const Probability& );
 std::string invalidChunk();
 
-SCENARIO( "PartialProbability" ) {
+SCENARIO( "Probability" ) {
 
-  GIVEN( "valid data for a PartialProbability with U = 0" ) {
+  GIVEN( "valid data for a Probability with U = 0" ) {
 
     std::string string = chunkWithUZero();
 
@@ -30,13 +30,13 @@ SCENARIO( "PartialProbability" ) {
       std::vector< double > energies = { 1e-5, 3e+7 };
       std::vector< double > probabilities = { 1., 1. };
 
-      PartialProbability chunk( lf,
-                                std::move( boundaries ),
-                                std::move( interpolants ),
-                                std::move( energies ),
-                                std::move( probabilities ) );
+      Probability chunk( lf,
+                         std::move( boundaries ),
+                         std::move( interpolants ),
+                         std::move( energies ),
+                         std::move( probabilities ) );
 
-      THEN( "a PartialProbability can be constructed and members can be "
+      THEN( "a Probability can be constructed and members can be "
             "tested" ) {
 
         verifyChunkWithUZero( chunk );
@@ -58,9 +58,9 @@ SCENARIO( "PartialProbability" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      PartialProbability chunk( begin, end, lineNumber, 9437, 5, 18 );
+      Probability chunk( begin, end, lineNumber, 9437, 5, 18 );
 
-      THEN( "a PartialProbability can be constructed and members can be "
+      THEN( "a Probability can be constructed and members can be "
             "tested" ) {
 
         verifyChunkWithUZero( chunk );
@@ -77,7 +77,7 @@ SCENARIO( "PartialProbability" ) {
     } // WHEN
   } // GIVEN
 
-  GIVEN( "valid data for a PartialProbability with U = 1" ) {
+  GIVEN( "valid data for a Probability with U = 1" ) {
 
     std::string string = chunkWithUOne();
 
@@ -90,14 +90,14 @@ SCENARIO( "PartialProbability" ) {
       std::vector< double > energies = { 1e-5, 3e+7 };
       std::vector< double > probabilities = { 1., 1. };
 
-      PartialProbability chunk( lf,
-                                std::move( boundaries ),
-                                std::move( interpolants ),
-                                std::move( energies ),
-                                std::move( probabilities ),
-                                u );
+      Probability chunk( lf,
+                         std::move( boundaries ),
+                         std::move( interpolants ),
+                         std::move( energies ),
+                         std::move( probabilities ),
+                         u );
 
-      THEN( "a PartialProbability can be constructed and members can be "
+      THEN( "a Probability can be constructed and members can be "
             "tested" ) {
 
         verifyChunkWithUOne( chunk );
@@ -119,9 +119,9 @@ SCENARIO( "PartialProbability" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      PartialProbability chunk( begin, end, lineNumber, 9437, 5, 18 );
+      Probability chunk( begin, end, lineNumber, 9437, 5, 18 );
 
-      THEN( "a PartialProbability can be constructed and members can be "
+      THEN( "a Probability can be constructed and members can be "
             "tested" ) {
 
         verifyChunkWithUOne( chunk );
@@ -138,7 +138,7 @@ SCENARIO( "PartialProbability" ) {
     } // WHEN
   } // GIVEN
 
-  GIVEN( "invalid data for a PartialProbability" ) {
+  GIVEN( "invalid data for a Probability" ) {
 
     WHEN( "inconsistent data is used" ) {
 
@@ -152,11 +152,11 @@ SCENARIO( "PartialProbability" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( PartialProbability( lf,
-                                            std::move( boundaries ),
-                                            std::move( wrongInterpolants ),
-                                            std::move( energies ),
-                                            std::move( probabilities ) ) );
+        REQUIRE_THROWS( Probability( lf,
+                                     std::move( boundaries ),
+                                     std::move( wrongInterpolants ),
+                                     std::move( energies ),
+                                     std::move( probabilities ) ) );
       } // THEN
     } // WHEN
 
@@ -171,8 +171,7 @@ SCENARIO( "PartialProbability" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( PartialProbability( begin, end, lineNumber,
-                                            9437, 5, 18 ) );
+        REQUIRE_THROWS( Probability( begin, end, lineNumber, 9437, 5, 18 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -185,7 +184,7 @@ std::string chunkWithUZero() {
     " 1.000000-5 1.000000+0 3.000000+7 1.000000+0                      9437 5 18     \n";
 }
 
-void verifyChunkWithUZero( const PartialProbability& chunk ) {
+void verifyChunkWithUZero( const Probability& chunk ) {
 
   REQUIRE( 1 == chunk.LF() );
   REQUIRE( 1 == chunk.LAW() );
@@ -219,7 +218,7 @@ std::string chunkWithUOne() {
     " 1.000000-5 1.000000+0 3.000000+7 1.000000+0                      9437 5 18     \n";
 }
 
-void verifyChunkWithUOne( const PartialProbability& chunk ) {
+void verifyChunkWithUOne( const Probability& chunk ) {
 
   REQUIRE( 1 == chunk.LF() );
   REQUIRE( 1 == chunk.LAW() );

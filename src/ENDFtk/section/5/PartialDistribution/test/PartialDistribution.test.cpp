@@ -7,10 +7,10 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using Subsection =
-section::Type< 5 >::Subsection;
-using PartialProbability =
-section::Type< 5 >::PartialProbability;
+using PartialDistribution =
+section::Type< 5 >::PartialDistribution;
+using Probability =
+section::Type< 5 >::Probability;
 using TabulatedSpectrum =
 section::Type< 5 >::TabulatedSpectrum;
 using GeneralEvaporationSpectrum =
@@ -25,28 +25,28 @@ using MadlandNixSpectrum =
 section::Type< 5 >::MadlandNixSpectrum;
 
 std::string chunkLF1();
-void verifyChunkLF1( const Subsection& );
+void verifyChunkLF1( const PartialDistribution& );
 std::string chunkLF5();
-void verifyChunkLF5( const Subsection& );
+void verifyChunkLF5( const PartialDistribution& );
 std::string chunkLF7();
-void verifyChunkLF7( const Subsection& );
+void verifyChunkLF7( const PartialDistribution& );
 std::string chunkLF9();
-void verifyChunkLF9( const Subsection& );
+void verifyChunkLF9( const PartialDistribution& );
 std::string chunkLF11();
-void verifyChunkLF11( const Subsection& );
+void verifyChunkLF11( const PartialDistribution& );
 std::string chunkLF12();
-void verifyChunkLF12( const Subsection& );
+void verifyChunkLF12( const PartialDistribution& );
 std::string invalidLF();
 
-SCENARIO( "Subsection" ) {
+SCENARIO( "PartialDistribution" ) {
 
-  GIVEN( "valid data for a Subsection using TabulatedSpectrum (LF=1)" ) {
+  GIVEN( "valid data for a PartialDistribution using TabulatedSpectrum (LF=1)" ) {
 
     std::string string = chunkLF1();
 
     WHEN( "the data is given explicitly" ) {
 
-      PartialProbability probability( 1, { 2 }, { 2 },
+      Probability probability( 1, { 2 }, { 2 },
                                          { 1e-5, 3e+7 },
                                          { 1.0, 1.0 } );
       TabulatedSpectrum spectrum( { 2 }, { 4 },
@@ -58,9 +58,9 @@ SCENARIO( "Subsection" ) {
                                     { 0.0, 1.733405e-9,
                                       1.818010e-9, 1.898849e-9 } } } );
 
-      Subsection chunk( std::move( probability ), std::move( spectrum ) );
+      PartialDistribution chunk( std::move( probability ), std::move( spectrum ) );
 
-      THEN( "a Subsection can be constructed and members can be tested" ) {
+      THEN( "a PartialDistribution can be constructed and members can be tested" ) {
 
         verifyChunkLF1( chunk );
       }
@@ -81,9 +81,9 @@ SCENARIO( "Subsection" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      Subsection chunk( begin, end, lineNumber, 9437, 5, 18 );
+      PartialDistribution chunk( begin, end, lineNumber, 9437, 5, 18 );
 
-      THEN( "a Subsection can be constructed and members can be tested" ) {
+      THEN( "a PartialDistribution can be constructed and members can be tested" ) {
 
         verifyChunkLF1( chunk );
       } // THEN
@@ -99,14 +99,14 @@ SCENARIO( "Subsection" ) {
     } //WHEN
   } // GIVEN
 
-  GIVEN( "valid data for a Subsection using "
+  GIVEN( "valid data for a PartialDistribution using "
          "GeneralEvaporationSpectrum (LF=5)" ) {
 
     std::string string = chunkLF5();
 
     WHEN( "the data is given explicitly" ) {
 
-      PartialProbability probability( 5, { 2 }, { 2 },
+      Probability probability( 5, { 2 }, { 2 },
                                          { 1e-5, 3e+7 },
                                          { 1.804944e-2, 1.804944e-2 }, -3e+7 );
       GeneralEvaporationSpectrum spectrum( { { 2 }, { 2 },
@@ -118,9 +118,9 @@ SCENARIO( "Subsection" ) {
                                                1.550360e-6, 7.90779e-31,
                                                0.0, 0.0 } } );
 
-      Subsection chunk( std::move( probability ), std::move( spectrum ) );
+      PartialDistribution chunk( std::move( probability ), std::move( spectrum ) );
 
-      THEN( "a Subsection can be constructed and members can be tested" ) {
+      THEN( "a PartialDistribution can be constructed and members can be tested" ) {
 
         verifyChunkLF5( chunk );
       } // THEN
@@ -141,9 +141,9 @@ SCENARIO( "Subsection" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      Subsection chunk( begin, end, lineNumber, 9443, 5, 455 );
+      PartialDistribution chunk( begin, end, lineNumber, 9443, 5, 455 );
 
-      THEN( "a Subsection can be constructed and members can be tested" ) {
+      THEN( "a PartialDistribution can be constructed and members can be tested" ) {
 
         verifyChunkLF5( chunk );
       } // THEN
@@ -159,14 +159,14 @@ SCENARIO( "Subsection" ) {
     } //WHEN
   } // GIVEN
 
-  GIVEN( "valid data for a Subsection using "
+  GIVEN( "valid data for a PartialDistribution using "
          "MaxwellianFissionSpectrum (LF=7)" ) {
 
     std::string string = chunkLF7();
 
     WHEN( "the data is given explicitly" ) {
 
-      PartialProbability probability( 7, { 2 }, { 2 },
+      Probability probability( 7, { 2 }, { 2 },
                                       { 1e-5, 3e+7 },
                                       { 1.0, 1.0 }, -3e+7 );
       MaxwellianFissionSpectrum spectrum( { 3 }, { 2 },
@@ -174,9 +174,9 @@ SCENARIO( "Subsection" ) {
                                           { 1.3652e+6, 1.3748e+6,
                                             1.6912e+6 } );
 
-      Subsection chunk( std::move( probability ), std::move( spectrum ) );
+      PartialDistribution chunk( std::move( probability ), std::move( spectrum ) );
 
-      THEN( "a Subsection can be constructed" ) {
+      THEN( "a PartialDistribution can be constructed" ) {
 
         verifyChunkLF7( chunk );
       }
@@ -197,9 +197,9 @@ SCENARIO( "Subsection" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      Subsection chunk( begin, end, lineNumber, 9455, 5, 18 );
+      PartialDistribution chunk( begin, end, lineNumber, 9455, 5, 18 );
 
-      THEN( "a Subsection can be constructed and members can be tested" ) {
+      THEN( "a PartialDistribution can be constructed and members can be tested" ) {
 
         verifyChunkLF7( chunk );
       } // THEN
@@ -215,13 +215,13 @@ SCENARIO( "Subsection" ) {
     } //WHEN
   } // GIVEN
 
-  GIVEN( "valid data for a Subsection using EvaporationSpectrum (LF=9)" ) {
+  GIVEN( "valid data for a PartialDistribution using EvaporationSpectrum (LF=9)" ) {
 
     std::string string = chunkLF9();
 
     WHEN( "the data is given explicitly" ) {
 
-      PartialProbability probability( 9, { 2 }, { 2 },
+      Probability probability( 9, { 2 }, { 2 },
                                          { 1.789920e+7, 2e+7 },
                                          { 1.0, 1.0 }, 1.789920e+7 );
       EvaporationSpectrum spectrum( { 4 }, { 2 },
@@ -230,9 +230,9 @@ SCENARIO( "Subsection" ) {
                                     { 1.0099e+5, 1.0099e+5,
                                       1.1292e+5, 1.6143e+5 } );
 
-      Subsection chunk( std::move( probability ), std::move( spectrum ) );
+      PartialDistribution chunk( std::move( probability ), std::move( spectrum ) );
 
-      THEN( "a Subsection can be constructed" ) {
+      THEN( "a PartialDistribution can be constructed" ) {
 
         verifyChunkLF9( chunk );
       } // THEN
@@ -253,9 +253,9 @@ SCENARIO( "Subsection" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      Subsection chunk( begin, end, lineNumber, 9237, 5, 37 );
+      PartialDistribution chunk( begin, end, lineNumber, 9237, 5, 37 );
 
-      THEN( "a Subsection can be constructed and members can be tested" ) {
+      THEN( "a PartialDistribution can be constructed and members can be tested" ) {
 
         verifyChunkLF9( chunk );
       } // THEN
@@ -271,13 +271,13 @@ SCENARIO( "Subsection" ) {
     } //WHEN
   } // GIVEN
 
-  GIVEN( "valid data for a Subsection using WattSpectrum (LF=11)" ) {
+  GIVEN( "valid data for a PartialDistribution using WattSpectrum (LF=11)" ) {
 
     std::string string = chunkLF11();
 
     WHEN( "the data is given explicitly" ) {
 
-      PartialProbability probability( 11, { 2 }, { 2 },
+      Probability probability( 11, { 2 }, { 2 },
                                           { 1e-5, 3e+7 },
                                           { 1.0, 1.0 }, -3e+7 );
       WattSpectrum spectrum( { {3}, {2},
@@ -289,9 +289,9 @@ SCENARIO( "Subsection" ) {
                                { 2.546e-6, 2.546e-6, 2.474e-6,
                                  2.612e-6, 2.62e-6 } } );
 
-      Subsection chunk( std::move( probability ), std::move( spectrum ) );
+      PartialDistribution chunk( std::move( probability ), std::move( spectrum ) );
 
-      THEN( "a Subsection can be constructed" ) {
+      THEN( "a PartialDistribution can be constructed" ) {
 
         verifyChunkLF11( chunk );
       } // THEN
@@ -312,9 +312,9 @@ SCENARIO( "Subsection" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      Subsection chunk( begin, end, lineNumber, 9222, 5, 18 );
+      PartialDistribution chunk( begin, end, lineNumber, 9222, 5, 18 );
 
-      THEN( "a Subsection can be constructed and members can be tested" ) {
+      THEN( "a PartialDistribution can be constructed and members can be tested" ) {
 
         verifyChunkLF11( chunk );
       } // THEN
@@ -330,13 +330,13 @@ SCENARIO( "Subsection" ) {
     } //WHEN
   } // GIVEN
 
-  GIVEN( "valid data for a Subsection using MadlandNixSpectrum (LF=12)" ) {
+  GIVEN( "valid data for a PartialDistribution using MadlandNixSpectrum (LF=12)" ) {
 
     std::string string = chunkLF12();
 
     WHEN( "the data is given explicitly" ) {
 
-      PartialProbability probability( 12, { 2 }, { 2 },
+      Probability probability( 12, { 2 }, { 2 },
                                           { 1e-5, 3e+7 },
                                           { 1.0, 1.0 } );
       MadlandNixSpectrum spectrum(  1.029979e+6, 5.467297e+5, { 4 }, { 5 },
@@ -344,9 +344,9 @@ SCENARIO( "Subsection" ) {
                                     { 1.092064e+6, 1.101483e+6,
                                       1.129269e+6, 1.182884e+6 } );
 
-      Subsection chunk( std::move( probability ), std::move( spectrum ) );
+      PartialDistribution chunk( std::move( probability ), std::move( spectrum ) );
 
-      THEN( "a Subsection can be constructed" ) {
+      THEN( "a PartialDistribution can be constructed" ) {
 
         verifyChunkLF12( chunk );
       } // THEN
@@ -367,9 +367,9 @@ SCENARIO( "Subsection" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      Subsection chunk( begin, end, lineNumber, 9543, 5, 18 );
+      PartialDistribution chunk( begin, end, lineNumber, 9543, 5, 18 );
 
-      THEN( "a Subsection can be constructed and members can be tested" ) {
+      THEN( "a PartialDistribution can be constructed and members can be tested" ) {
 
         verifyChunkLF12( chunk );
       } // THEN
@@ -385,11 +385,11 @@ SCENARIO( "Subsection" ) {
     } //WHEN
   } // GIVEN
 
-  GIVEN( "invalid data for a Subsection" ) {
+  GIVEN( "invalid data for a PartialDistribution" ) {
 
     WHEN( "an inconsistent LF between the partial probability and spectrum" ) {
 
-      PartialProbability probability( 1, { 2 }, { 2 },                 // LF=1
+      Probability probability( 1, { 2 }, { 2 },                 // LF=1
                                          { 1e-5, 3e+7 },
                                          { 1.0, 1.0 } );
       MaxwellianFissionSpectrum spectrum( { { 3 }, { 2 },              // LF=7
@@ -399,7 +399,7 @@ SCENARIO( "Subsection" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( Subsection( std::move( probability ),
+        REQUIRE_THROWS( PartialDistribution( std::move( probability ),
                                     std::move( spectrum )) );
       } // THEN
     } // WHEN
@@ -413,7 +413,7 @@ SCENARIO( "Subsection" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( Subsection(begin, end, lineNumber, 9222, 5, 18 ) );
+        REQUIRE_THROWS( PartialDistribution(begin, end, lineNumber, 9222, 5, 18 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -435,7 +435,7 @@ std::string chunkLF1() {
     " 3.000000+7 1.898849-9                                            9437 5 18     \n";
 }
 
-void verifyChunkLF1( const Subsection& chunk ) {
+void verifyChunkLF1( const PartialDistribution& chunk ) {
 
   REQUIRE( 0.0 == Approx ( chunk.U() ) );
   REQUIRE( 0.0 == Approx ( chunk.energyLimitConstant() ) );
@@ -549,7 +549,7 @@ std::string chunkLF5() {
     " 1.800000+6 7.90779-31 1.810000+6 0.000000+0 1.820000+6 0.000000+09443 5455     \n";
 }
 
-void verifyChunkLF5( const Subsection& chunk ) {
+void verifyChunkLF5( const PartialDistribution& chunk ) {
 
   REQUIRE( -3e+7 == Approx ( chunk.U() ) );
   REQUIRE( -3e+7 == Approx ( chunk.energyLimitConstant() ) );
@@ -640,7 +640,7 @@ std::string chunkLF7() {
     " 1.000000-5 1.365200+6 5.000000+5 1.374800+6 3.000000+7 1.691200+69455 5 18     \n";
 }
 
-void verifyChunkLF7( const Subsection& chunk ) {
+void verifyChunkLF7( const PartialDistribution& chunk ) {
 
   REQUIRE( -3e+7 == Approx ( chunk.U() ) );
   REQUIRE( -3e+7 == Approx ( chunk.energyLimitConstant() ) );
@@ -710,7 +710,7 @@ std::string chunkLF9() {
     " 2.000000+7 1.614300+5                                            9237 5 37     \n";
 }
 
-void verifyChunkLF9( const Subsection& chunk ) {
+void verifyChunkLF9( const PartialDistribution& chunk ) {
 
   REQUIRE( 1.789920e+7 == Approx ( chunk.U() ) );
   REQUIRE( 1.789920e+7 == Approx ( chunk.energyLimitConstant() ) );
@@ -786,7 +786,7 @@ std::string chunkLF11() {
     " 1.220000+7 2.612000-6 3.000000+7 2.620000-6                      9222 5 18     \n";
 }
 
-void verifyChunkLF11( const Subsection& chunk ) {
+void verifyChunkLF11( const PartialDistribution& chunk ) {
 
   REQUIRE( -3e+7 == Approx ( chunk.U() ) );
   REQUIRE( -3e+7 == Approx ( chunk.energyLimitConstant() ) );
@@ -878,7 +878,7 @@ std::string chunkLF12() {
     " 3.000000+7 1.182884+6                                            9543 5 18     \n";
 }
 
-void verifyChunkLF12( const Subsection& chunk ) {
+void verifyChunkLF12( const PartialDistribution& chunk ) {
 
   REQUIRE( 0.0 == Approx ( chunk.U() ) );
   REQUIRE( 0.0 == Approx ( chunk.energyLimitConstant() ) );

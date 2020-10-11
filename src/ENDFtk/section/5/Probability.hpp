@@ -1,19 +1,19 @@
-// forward declaration of the Subsection class
-class Subsection;
+// forward declaration of the PartialDistribution class
+class PartialDistribution;
 
 /**
  *  @class
  *  @brief Partial probability for a given distribution
  *
- *  The PartialProbability class is used to provide the probability
+ *  The Probability class is used to provide the probability
  *  that the associated distribution can be used at a given incident
  *  energy.
  *
  *  See ENDF102, section 5 for more information.
  */
-class PartialProbability : protected TabulationRecord {
+class Probability : protected TabulationRecord {
 
-  friend Subsection;
+  friend PartialDistribution;
 
   /**
    *  @brief Return the constant that defines the upper energy
@@ -24,7 +24,7 @@ class PartialProbability : protected TabulationRecord {
 public:
 
   /* constructor */
-  #include "ENDFtk/section/5/PartialProbability/src/ctor.hpp"
+  #include "ENDFtk/section/5/Probability/src/ctor.hpp"
 
   /* get methods */
 
