@@ -327,8 +327,14 @@ void verifyChunkWithLTT0( const section::Type< 4 >& chunk ) {
   CHECK( true == chunk.LI() );
   CHECK( true == chunk.isotropicAngularDistributions() );
 
-  const auto& distribution =
-                  std::get< Isotropic >( chunk.distributions() );
+  CHECK( 0 == chunk.NE() );
+  CHECK( 0 == chunk.NR() );
+  CHECK( 0 == ranges::distance( chunk.boundaries() ) );
+  CHECK( 0 == ranges::distance( chunk.interpolants() ) );
+  CHECK( 0 == ranges::distance( chunk.incidentEnergies() ) );
+  CHECK( 0 == ranges::distance( chunk.angularDistributions() ) );
+
+  const auto& distribution = std::get< Isotropic >( chunk.distributions() );
   CHECK( 0 == distribution.LTT() );
   CHECK( 0 == distribution.LAW() );
 
@@ -362,6 +368,29 @@ void verifyChunkWithLTT1( const section::Type< 4 >& chunk ) {
   CHECK( 1 == chunk.LAW() );
   CHECK( false == chunk.LI() );
   CHECK( false == chunk.isotropicAngularDistributions() );
+
+  CHECK( 2 == chunk.NE() );
+  CHECK( 1 == chunk.NR() );
+  CHECK( 1 == ranges::distance( chunk.boundaries() ) );
+  CHECK( 1 == ranges::distance( chunk.interpolants() ) );
+  CHECK( 2 == ranges::distance( chunk.incidentEnergies() ) );
+  CHECK( 2 == ranges::distance( chunk.angularDistributions() ) );
+
+  CHECK( 1 == chunk.interpolants()[0] );
+  CHECK( 2 == chunk.boundaries()[0] );
+  CHECK( 1e-5 == Approx( chunk.incidentEnergies()[0] ) );
+  CHECK( 2e+7 == Approx( chunk.incidentEnergies()[1] ) );
+
+  auto angulars = chunk.angularDistributions();
+  CHECK( 0 == angulars[0].index() );
+  CHECK( 0 == angulars[1].index() );
+
+  auto getE = [] ( const auto& value ) { return value.get().E(); };
+  auto getIE = [] ( const auto& value ) { return value.get().incidentEnergy(); };
+  CHECK( 1e-5 == Approx( std::visit( getE, angulars[0] ) ) );
+  CHECK( 2e+7 == Approx( std::visit( getE, angulars[1] ) ) );
+  CHECK( 1e-5 == Approx( std::visit( getIE, angulars[0] ) ) );
+  CHECK( 2e+7 == Approx( std::visit( getIE, angulars[1] ) ) );
 
   const auto& distribution =
     std::get< LegendreDistributions >( chunk.distributions() );
@@ -429,6 +458,29 @@ void verifyChunkWithLTT2( const section::Type< 4 >& chunk ) {
   CHECK( 2 == chunk.LAW() );
   CHECK( false == chunk.LI() );
   CHECK( false == chunk.isotropicAngularDistributions() );
+
+  CHECK( 2 == chunk.NE() );
+  CHECK( 1 == chunk.NR() );
+  CHECK( 1 == ranges::distance( chunk.boundaries() ) );
+  CHECK( 1 == ranges::distance( chunk.interpolants() ) );
+  CHECK( 2 == ranges::distance( chunk.incidentEnergies() ) );
+  CHECK( 2 == ranges::distance( chunk.angularDistributions() ) );
+
+  CHECK( 1 == chunk.interpolants()[0] );
+  CHECK( 2 == chunk.boundaries()[0] );
+  CHECK( 1e-5 == Approx( chunk.incidentEnergies()[0] ) );
+  CHECK( 2e+7 == Approx( chunk.incidentEnergies()[1] ) );
+
+  auto angulars = chunk.angularDistributions();
+  CHECK( 1 == angulars[0].index() );
+  CHECK( 1 == angulars[1].index() );
+
+  auto getE = [] ( const auto& value ) { return value.get().E(); };
+  auto getIE = [] ( const auto& value ) { return value.get().incidentEnergy(); };
+  CHECK( 1e-5 == Approx( std::visit( getE, angulars[0] ) ) );
+  CHECK( 2e+7 == Approx( std::visit( getE, angulars[1] ) ) );
+  CHECK( 1e-5 == Approx( std::visit( getIE, angulars[0] ) ) );
+  CHECK( 2e+7 == Approx( std::visit( getIE, angulars[1] ) ) );
 
   const auto& distribution =
     std::get< TabulatedDistributions >( chunk.distributions() );
@@ -517,6 +569,39 @@ void verifyChunkWithLTT3( const section::Type< 4 >& chunk ) {
   CHECK( 3 == chunk.LAW() );
   CHECK( false == chunk.LI() );
   CHECK( false == chunk.isotropicAngularDistributions() );
+
+  CHECK( 4 == chunk.NE() );
+  CHECK( 2 == chunk.NR() );
+  CHECK( 2 == ranges::distance( chunk.boundaries() ) );
+  CHECK( 2 == ranges::distance( chunk.interpolants() ) );
+  CHECK( 4 == ranges::distance( chunk.incidentEnergies() ) );
+  CHECK( 4 == ranges::distance( chunk.angularDistributions() ) );
+
+  CHECK( 1 == chunk.interpolants()[0] );
+  CHECK( 5 == chunk.interpolants()[1] );
+  CHECK( 2 == chunk.boundaries()[0] );
+  CHECK( 4 == chunk.boundaries()[1] );
+  CHECK( 1e-5 == Approx( chunk.incidentEnergies()[0] ) );
+  CHECK( 1e+6 == Approx( chunk.incidentEnergies()[1] ) );
+  CHECK( 1e+6 == Approx( chunk.incidentEnergies()[2] ) );
+  CHECK( 2e+7 == Approx( chunk.incidentEnergies()[3] ) );
+
+  auto angulars = chunk.angularDistributions();
+  CHECK( 0 == angulars[0].index() );
+  CHECK( 0 == angulars[1].index() );
+  CHECK( 1 == angulars[2].index() );
+  CHECK( 1 == angulars[3].index() );
+
+  auto getE = [] ( const auto& value ) { return value.get().E(); };
+  auto getIE = [] ( const auto& value ) { return value.get().incidentEnergy(); };
+  CHECK( 1e-5 == Approx( std::visit( getE, angulars[0] ) ) );
+  CHECK( 1e+6 == Approx( std::visit( getE, angulars[1] ) ) );
+  CHECK( 1e+6 == Approx( std::visit( getE, angulars[2] ) ) );
+  CHECK( 2e+7 == Approx( std::visit( getE, angulars[3] ) ) );
+  CHECK( 1e-5 == Approx( std::visit( getIE, angulars[0] ) ) );
+  CHECK( 1e+6 == Approx( std::visit( getIE, angulars[1] ) ) );
+  CHECK( 1e+6 == Approx( std::visit( getIE, angulars[2] ) ) );
+  CHECK( 2e+7 == Approx( std::visit( getIE, angulars[3] ) ) );
 
   const auto& distribution =
     std::get< MixedDistributions >( chunk.distributions() );
