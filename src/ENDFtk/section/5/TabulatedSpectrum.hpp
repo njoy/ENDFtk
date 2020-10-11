@@ -39,7 +39,7 @@ public:
   /**
    *  @brief Return the distribution type (the LF flag)
    */
-  static constexpr int LAW() { return TabulatedSpectrum::LF(); }
+  int LAW() const { return this->LF(); }
 
   /**
    *  @brief Return the number of interpolation ranges on the incident energy

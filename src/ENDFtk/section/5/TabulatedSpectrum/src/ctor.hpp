@@ -14,8 +14,7 @@ public :
  *
  *  @param[in] boundaries      the interpolation range boundaries
  *  @param[in] interpolants    the interpolation types for each range
- *  @param[in] distributions   the incoming energy values and associated
- *                             outgoing energy distributions
+ *  @param[in] distributions   the sequence of outgoing energy distributions
  */
 TabulatedSpectrum( std::vector< long >&& boundaries,
                    std::vector< long >&& interpolants,
