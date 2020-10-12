@@ -29,8 +29,13 @@ void wrapSection_5( python::module& module ) {
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 5 >;
   using PartialDistribution = njoy::ENDFtk::section::Type< 5 >::PartialDistribution;
+  using PartialDistributionRange = RandomAccessAnyView< PartialDistribution >;
 
   // wrap views created by this section
+  // none of these are supposed to be created directly by the user
+  wrapRandomAccessAnyViewOf< PartialDistribution >(
+      module,
+      "any_view< PartialDistribution, random_access >" );
 
   // create the section
   python::class_< Section > section(
@@ -60,7 +65,7 @@ void wrapSection_5( python::module& module ) {
 
     python::init< int, double, double, std::vector< PartialDistribution >&& >(),
     python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
-    python::arg( "distributions" ),
+    python::arg( "partials" ),
     "Initialise the section\n\n"
     "Arguments:\n"
     "    self        the section\n"
@@ -84,7 +89,8 @@ void wrapSection_5( python::module& module ) {
   .def_property_readonly(
 
     "partial_distributions",
-    &Section::partialDistributions,
+    [] ( const Section& self ) -> PartialDistributionRange
+       { return self.partialDistributions(); },
     "The partial distributions defined in this section"
   );
 

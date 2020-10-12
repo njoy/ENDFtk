@@ -34,12 +34,12 @@ void wrapPartialDistribution( python::module& module ) {
     python::init( [] ( Probability probability, Distribution distribution )
                      { return Component( std::move( probability ),
                                          std::move( distribution ) ); } ),
-    python::arg( "probability" ), python::arg( "distribution" ),
+    python::arg( "probability" ), python::arg( "spectrum" ),
     "Initialise the component\n\n"
     "Arguments:\n"
-    "    self            the component\n"
-    "    probability     the probability\n"
-    "    distribution    the distribution"
+    "    self           the component\n"
+    "    probability    the probability\n"
+    "    spectrum       the spectrum"
   )
   .def_property_readonly(
 

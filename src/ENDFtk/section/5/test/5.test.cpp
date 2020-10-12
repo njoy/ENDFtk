@@ -187,11 +187,11 @@ void verifyChunk( const section::Type< 5 >& chunk ) {
   CHECK( 1 == chunk.NK() );
   CHECK( 1 == chunk.numberPartialDistributions() );
 
-  const auto& subsection = chunk.partialDistributions()[0];
-  CHECK( -3e+7 == Approx ( subsection.U() ) );
-  CHECK( -3e+7 == Approx ( subsection.energyLimitConstant() ) );
+  const auto& partial = chunk.partialDistributions()[0];
+  CHECK( -3e+7 == Approx ( partial.U() ) );
+  CHECK( -3e+7 == Approx ( partial.energyLimitConstant() ) );
 
-  const auto& p = subsection.probability();
+  const auto& p = partial.probability();
 
   CHECK( 7 == p.LF() );
   CHECK( 7 == p.LAW() );
@@ -216,7 +216,7 @@ void verifyChunk( const section::Type< 5 >& chunk ) {
   CHECK( 1. == Approx( p.probabilities()[1] ) );
 
   const auto& d = std::get< MaxwellianFissionSpectrum >
-                                         ( subsection.distribution() );
+                                         ( partial.distribution() );
 
   CHECK( 7 == d.LF() );
   CHECK( 7 == d.LAW() );

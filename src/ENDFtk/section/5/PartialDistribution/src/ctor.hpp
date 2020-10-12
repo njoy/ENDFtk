@@ -2,12 +2,12 @@
  *  @brief Constructor
  *
  *  @param[in] probability    the probability
- *  @param[in] distribution   the distribution
+ *  @param[in] spectrum       the spectrum
  */
 PartialDistribution( Probability&& probability,
-                     Distribution&& distribution ) :
+                     Distribution&& spectrum ) :
   probability_( std::move( probability ) ),
-  distribution_( std::move( distribution ) ) {
+  distribution_( std::move( spectrum ) ) {
 
   verifyLF( this->probability_.LF(),
             std::visit( [&] ( const auto& entry )
