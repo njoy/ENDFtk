@@ -14,6 +14,8 @@ namespace python = pybind11;
 void wrapOutgoingEnergyDistribution( python::module& );
 void wrapTabulatedSpectrum( python::module& );
 void wrapDistributionFunction( python::module& );
+void wrapEffectiveTemperature( python::module& );
+void wrapEvaporationSpectrum( python::module& );
 
 void wrapSection_5( python::module& module ) {
 
@@ -35,6 +37,8 @@ void wrapSection_5( python::module& module ) {
   wrapOutgoingEnergyDistribution( module );
   wrapTabulatedSpectrum( module );
   wrapDistributionFunction( module );
+  wrapEffectiveTemperature( module );
+  wrapEvaporationSpectrum( module );
 
   // wrap the section
   section
