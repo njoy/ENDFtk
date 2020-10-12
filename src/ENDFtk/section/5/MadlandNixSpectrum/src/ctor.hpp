@@ -6,7 +6,7 @@
  *  @param[in] boundaries      the interpolation range boundaries
  *  @param[in] interpolants    the interpolation types for each range
  *  @param[in] energies        the energy values
- *  @param[in] values.         the maximum temperature values
+ *  @param[in] values          the maximum temperature values
  */
 MadlandNixSpectrum( double efl, double efh,
                     std::vector< long >&& boundaries,
@@ -24,7 +24,7 @@ MadlandNixSpectrum( double efl, double efh,
     throw;
   }
 
-/** 
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator

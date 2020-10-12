@@ -9,12 +9,12 @@
 DistributionFunction( std::vector< long >&& boundaries,
                       std::vector< long >&& interpolants,
                       std::vector< double >&& x,
-                      std::vector< double >&& y )
+                      std::vector< double >&& g )
   try : TabulationRecord( 0.0, 0.0, 0, 0,
                           std::move( boundaries ),
                           std::move( interpolants ),
                           std::move( x ),
-                          std::move( y ) ) {}
+                          std::move( g ) ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Error encountered while constructing a distribution function" );

@@ -14,7 +14,9 @@ namespace python = pybind11;
 void wrapOutgoingEnergyDistribution( python::module& );
 void wrapTabulatedSpectrum( python::module& );
 void wrapDistributionFunction( python::module& );
+void wrapParameter( python::module& );
 void wrapEffectiveTemperature( python::module& );
+void wrapGeneralEvaporationSpectrum( python::module& );
 void wrapEvaporationSpectrum( python::module& );
 void wrapMaxwellianFissionSpectrum( python::module& );
 
@@ -38,7 +40,9 @@ void wrapSection_5( python::module& module ) {
   wrapOutgoingEnergyDistribution( module );
   wrapTabulatedSpectrum( module );
   wrapDistributionFunction( module );
+  wrapParameter( module );
   wrapEffectiveTemperature( module );
+  wrapGeneralEvaporationSpectrum( module );
   wrapEvaporationSpectrum( module );
   wrapMaxwellianFissionSpectrum( module );
 

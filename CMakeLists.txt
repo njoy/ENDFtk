@@ -111,10 +111,12 @@ pybind11_add_module( ENDFtk.python
     python/src/section/4/TabulatedDistributions.python.cpp
     python/src/section/4/MixedDistributions.python.cpp
     python/src/section/5.python.cpp
+    python/src/section/5/Parameter.python.cpp
     python/src/section/5/OutgoingEnergyDistribution.python.cpp
     python/src/section/5/TabulatedSpectrum.python.cpp
     python/src/section/5/DistributionFunction.python.cpp
     python/src/section/5/EffectiveTemperature.python.cpp
+    python/src/section/5/GeneralEvaporationSpectrum.python.cpp
     python/src/section/5/EvaporationSpectrum.python.cpp
     python/src/section/5/MaxwellianFissionSpectrum.python.cpp
     python/src/file/1.python.cpp
