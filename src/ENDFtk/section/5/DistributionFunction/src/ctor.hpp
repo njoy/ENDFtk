@@ -3,8 +3,8 @@
  *
  *  @param[in] boundaries      the interpolation range boundaries
  *  @param[in] interpolants    the interpolation types for each range
- *  @param[in] x               the energy y
- *  @param[in] y               the parameter y
+ *  @param[in] x               the x values
+ *  @param[in] g               the function values
  */
 DistributionFunction( std::vector< long >&& boundaries,
                       std::vector< long >&& interpolants,
@@ -21,7 +21,7 @@ DistributionFunction( std::vector< long >&& boundaries,
     throw;
   }
 
-/** 
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator

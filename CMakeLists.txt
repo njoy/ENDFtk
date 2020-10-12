@@ -113,6 +113,7 @@ pybind11_add_module( ENDFtk.python
     python/src/section/5.python.cpp
     python/src/section/5/OutgoingEnergyDistribution.python.cpp
     python/src/section/5/TabulatedSpectrum.python.cpp
+    python/src/section/5/DistributionFunction.python.cpp
     python/src/file/1.python.cpp
     python/src/file/2.python.cpp
     python/src/file/3.python.cpp

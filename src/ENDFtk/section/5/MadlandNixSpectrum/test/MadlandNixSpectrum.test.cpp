@@ -7,7 +7,7 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using MadlandNixSpectrum = 
+using MadlandNixSpectrum =
 section::Type< 5 >::MadlandNixSpectrum;
 
 std::string chunk();
@@ -48,7 +48,7 @@ SCENARIO( "MadlandNixSpectrum" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9543, 5, 18 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
@@ -72,7 +72,7 @@ SCENARIO( "MadlandNixSpectrum" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9543, 5, 18 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -93,7 +93,7 @@ SCENARIO( "MadlandNixSpectrum" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( MadlandNixSpectrum(
+        CHECK_THROWS( MadlandNixSpectrum(
                                 efl, efh,
                                 std::move( boundaries ),
                                 std::move( wrongInterpolants ),
@@ -113,7 +113,7 @@ SCENARIO( "MadlandNixSpectrum" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( MadlandNixSpectrum( begin, end, lineNumber,
+        CHECK_THROWS( MadlandNixSpectrum( begin, end, lineNumber,
                                             9543, 5, 18 ) );
       } // THEN
     } // WHEN
@@ -130,42 +130,42 @@ std::string chunk() {
 
 void verifyChunk( const MadlandNixSpectrum& chunk ) {
 
-  REQUIRE( 12 == chunk.LF() );
-  REQUIRE( 12 == chunk.LAW() );
+  CHECK( 12 == chunk.LF() );
+  CHECK( 12 == chunk.LAW() );
 
-  REQUIRE( 1.029979e+6 == Approx( chunk.EFL() ) );
-  REQUIRE( 1.029979e+6 == Approx( chunk.lightFragmentEnergy() ) );
-  REQUIRE( 5.467297e+5 == Approx( chunk.EFH() ) );
-  REQUIRE( 5.467297e+5 == Approx( chunk.heavyFragmentEnergy() ) );
+  CHECK( 1.029979e+6 == Approx( chunk.EFL() ) );
+  CHECK( 1.029979e+6 == Approx( chunk.lightFragmentEnergy() ) );
+  CHECK( 5.467297e+5 == Approx( chunk.EFH() ) );
+  CHECK( 5.467297e+5 == Approx( chunk.heavyFragmentEnergy() ) );
 
-  REQUIRE( 4 == chunk.NE() );
-  REQUIRE( 1 == chunk.NR() );
-  REQUIRE( 1 == chunk.interpolants().size() );
-  REQUIRE( 1 == chunk.boundaries().size() );
-  REQUIRE( 5 == chunk.interpolants()[0] );
-  REQUIRE( 4 == chunk.boundaries()[0] );
-  REQUIRE( 4 == chunk.E().size() );
-  REQUIRE( 4 == chunk.energies().size() );
-  REQUIRE( 4 == chunk.TM().size() );
-  REQUIRE( 4 == chunk.maximumTemperatureValues().size() );
-  REQUIRE( 1e-5 == Approx( chunk.E()[0] ) );
-  REQUIRE( 5.000001e+5 == Approx( chunk.E()[1] ) );
-  REQUIRE( 1.4e+7 == Approx( chunk.E()[2] ) );
-  REQUIRE( 3.0e+7 == Approx( chunk.E()[3] ) );
-  REQUIRE( 1e-5 == Approx( chunk.energies()[0] ) );
-  REQUIRE( 5.000001e+5 == Approx( chunk.energies()[1] ) );
-  REQUIRE( 1.4e+7 == Approx( chunk.energies()[2] ) );
-  REQUIRE( 3.0e+7 == Approx( chunk.energies()[3] ) );
-  REQUIRE( 1.092064e+6 == Approx( chunk.TM()[0] ) );
-  REQUIRE( 1.101483e+6 == Approx( chunk.TM()[1] ) );
-  REQUIRE( 1.129269e+6 == Approx( chunk.TM()[2] ) );
-  REQUIRE( 1.182884e+6 == Approx( chunk.TM()[3] ) );
-  REQUIRE( 1.092064e+6 == Approx( chunk.maximumTemperatureValues()[0] ) );
-  REQUIRE( 1.101483e+6 == Approx( chunk.maximumTemperatureValues()[1] ) );
-  REQUIRE( 1.129269e+6 == Approx( chunk.maximumTemperatureValues()[2] ) );
-  REQUIRE( 1.182884e+6 == Approx( chunk.maximumTemperatureValues()[3] ) );
+  CHECK( 4 == chunk.NE() );
+  CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.interpolants().size() );
+  CHECK( 1 == chunk.boundaries().size() );
+  CHECK( 5 == chunk.interpolants()[0] );
+  CHECK( 4 == chunk.boundaries()[0] );
+  CHECK( 4 == chunk.E().size() );
+  CHECK( 4 == chunk.energies().size() );
+  CHECK( 4 == chunk.TM().size() );
+  CHECK( 4 == chunk.maximumTemperatureValues().size() );
+  CHECK( 1e-5 == Approx( chunk.E()[0] ) );
+  CHECK( 5.000001e+5 == Approx( chunk.E()[1] ) );
+  CHECK( 1.4e+7 == Approx( chunk.E()[2] ) );
+  CHECK( 3.0e+7 == Approx( chunk.E()[3] ) );
+  CHECK( 1e-5 == Approx( chunk.energies()[0] ) );
+  CHECK( 5.000001e+5 == Approx( chunk.energies()[1] ) );
+  CHECK( 1.4e+7 == Approx( chunk.energies()[2] ) );
+  CHECK( 3.0e+7 == Approx( chunk.energies()[3] ) );
+  CHECK( 1.092064e+6 == Approx( chunk.TM()[0] ) );
+  CHECK( 1.101483e+6 == Approx( chunk.TM()[1] ) );
+  CHECK( 1.129269e+6 == Approx( chunk.TM()[2] ) );
+  CHECK( 1.182884e+6 == Approx( chunk.TM()[3] ) );
+  CHECK( 1.092064e+6 == Approx( chunk.maximumTemperatureValues()[0] ) );
+  CHECK( 1.101483e+6 == Approx( chunk.maximumTemperatureValues()[1] ) );
+  CHECK( 1.129269e+6 == Approx( chunk.maximumTemperatureValues()[2] ) );
+  CHECK( 1.182884e+6 == Approx( chunk.maximumTemperatureValues()[3] ) );
 
-  REQUIRE( 4 == chunk.NC() );
+  CHECK( 4 == chunk.NC() );
 }
 
 std::string invalidChunk() {

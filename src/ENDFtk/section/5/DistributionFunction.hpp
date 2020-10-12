@@ -15,16 +15,16 @@ public:
   /* get methods */
 
   /**
-   *  @brief Return the function values
+   *  @brief Return the x values
    */
-  auto values() const { return TabulationRecord::y(); }
+  auto X() const { return TabulationRecord::x(); }
 
   /**
-   *  @brief Return the number of x values
+   *  @brief Return the function values
    */
-  auto NF() const { return TabulationRecord::NP(); }
+  auto G() const { return TabulationRecord::y(); }
 
-  using TabulationRecord::x;
+  using TabulationRecord::NP;
   using TabulationRecord::NR;
   using TabulationRecord::interpolants;
   using TabulationRecord::boundaries;

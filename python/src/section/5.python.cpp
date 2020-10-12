@@ -13,6 +13,7 @@ namespace python = pybind11;
 // declarations - components
 void wrapOutgoingEnergyDistribution( python::module& );
 void wrapTabulatedSpectrum( python::module& );
+void wrapDistributionFunction( python::module& );
 
 void wrapSection_5( python::module& module ) {
 
@@ -33,6 +34,7 @@ void wrapSection_5( python::module& module ) {
   // wrap components
   wrapOutgoingEnergyDistribution( module );
   wrapTabulatedSpectrum( module );
+  wrapDistributionFunction( module );
 
   // wrap the section
   section

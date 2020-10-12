@@ -71,7 +71,7 @@ SCENARIO( "PartialDistribution" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9437, 5, 18 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
@@ -94,7 +94,7 @@ SCENARIO( "PartialDistribution" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9437, 5, 18 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } //WHEN
   } // GIVEN
@@ -131,7 +131,7 @@ SCENARIO( "PartialDistribution" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9443, 5, 455 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
@@ -154,7 +154,7 @@ SCENARIO( "PartialDistribution" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9443, 5, 455 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } //WHEN
   } // GIVEN
@@ -187,7 +187,7 @@ SCENARIO( "PartialDistribution" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9455, 5, 18 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
@@ -210,7 +210,7 @@ SCENARIO( "PartialDistribution" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9455, 5, 18 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } //WHEN
   } // GIVEN
@@ -243,7 +243,7 @@ SCENARIO( "PartialDistribution" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9237, 5, 37 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
@@ -266,7 +266,7 @@ SCENARIO( "PartialDistribution" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9237, 5, 37 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } //WHEN
   } // GIVEN
@@ -302,7 +302,7 @@ SCENARIO( "PartialDistribution" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9222, 5, 18 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
@@ -325,7 +325,7 @@ SCENARIO( "PartialDistribution" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9222, 5, 18 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } //WHEN
   } // GIVEN
@@ -357,7 +357,7 @@ SCENARIO( "PartialDistribution" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9543, 5, 18 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     }  // WHEN
 
@@ -380,7 +380,7 @@ SCENARIO( "PartialDistribution" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9543, 5, 18 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } //WHEN
   } // GIVEN
@@ -399,7 +399,7 @@ SCENARIO( "PartialDistribution" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( PartialDistribution( std::move( probability ),
+        CHECK_THROWS( PartialDistribution( std::move( probability ),
                                     std::move( spectrum )) );
       } // THEN
     } // WHEN
@@ -413,7 +413,7 @@ SCENARIO( "PartialDistribution" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( PartialDistribution(begin, end, lineNumber, 9222, 5, 18 ) );
+        CHECK_THROWS( PartialDistribution(begin, end, lineNumber, 9222, 5, 18 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -437,102 +437,102 @@ std::string chunkLF1() {
 
 void verifyChunkLF1( const PartialDistribution& chunk ) {
 
-  REQUIRE( 0.0 == Approx ( chunk.U() ) );
-  REQUIRE( 0.0 == Approx ( chunk.energyLimitConstant() ) );
+  CHECK( 0.0 == Approx ( chunk.U() ) );
+  CHECK( 0.0 == Approx ( chunk.energyLimitConstant() ) );
 
   auto p = chunk.probability();
 
-  REQUIRE( 1 == p.LF() );
-  REQUIRE( 1 == p.LAW() );
+  CHECK( 1 == p.LF() );
+  CHECK( 1 == p.LAW() );
 
-  REQUIRE( 2 == p.NP() );
-  REQUIRE( 1 == p.NR() );
-  REQUIRE( 1 == p.interpolants().size() );
-  REQUIRE( 1 == p.boundaries().size() );
-  REQUIRE( 2 == p.interpolants()[0] );
-  REQUIRE( 2 == p.boundaries()[0] );
-  REQUIRE( 2 == p.E().size() );
-  REQUIRE( 2 == p.energies().size() );
-  REQUIRE( 2 == p.p().size() );
-  REQUIRE( 2 == p.probabilities().size() );
-  REQUIRE( 1e-5 == Approx( p.E()[0] ) );
-  REQUIRE( 3e+7 == Approx( p.E()[1] ) );
-  REQUIRE( 1e-5 == Approx( p.energies()[0] ) );
-  REQUIRE( 3e+7 == Approx( p.energies()[1] ) );
-  REQUIRE( 1. == Approx( p.p()[0] ) );
-  REQUIRE( 1. == Approx( p.p()[1] ) );
-  REQUIRE( 1. == Approx( p.probabilities()[0] ) );
-  REQUIRE( 1. == Approx( p.probabilities()[1] ) );
+  CHECK( 2 == p.NP() );
+  CHECK( 1 == p.NR() );
+  CHECK( 1 == p.interpolants().size() );
+  CHECK( 1 == p.boundaries().size() );
+  CHECK( 2 == p.interpolants()[0] );
+  CHECK( 2 == p.boundaries()[0] );
+  CHECK( 2 == p.E().size() );
+  CHECK( 2 == p.energies().size() );
+  CHECK( 2 == p.p().size() );
+  CHECK( 2 == p.probabilities().size() );
+  CHECK( 1e-5 == Approx( p.E()[0] ) );
+  CHECK( 3e+7 == Approx( p.E()[1] ) );
+  CHECK( 1e-5 == Approx( p.energies()[0] ) );
+  CHECK( 3e+7 == Approx( p.energies()[1] ) );
+  CHECK( 1. == Approx( p.p()[0] ) );
+  CHECK( 1. == Approx( p.p()[1] ) );
+  CHECK( 1. == Approx( p.probabilities()[0] ) );
+  CHECK( 1. == Approx( p.probabilities()[1] ) );
 
   auto d =
        std::get< TabulatedSpectrum >( chunk.distribution() );
 
-  REQUIRE( 1 == d.NR() );
-  REQUIRE( 2 == d.NE() );
-  REQUIRE( 1 == d.boundaries().size() );
-  REQUIRE( 2 == d.boundaries()[0] );
-  REQUIRE( 1 == d.interpolants().size() );
-  REQUIRE( 4 == d.interpolants()[0] );
+  CHECK( 1 == d.NR() );
+  CHECK( 2 == d.NE() );
+  CHECK( 1 == d.boundaries().size() );
+  CHECK( 2 == d.boundaries()[0] );
+  CHECK( 1 == d.interpolants().size() );
+  CHECK( 4 == d.interpolants()[0] );
 
-  REQUIRE( 2 == d.incidentEnergies().size() );
-  REQUIRE( 1e-5 == Approx( d.incidentEnergies()[0] ) );
-  REQUIRE( 3e+7 == Approx( d.incidentEnergies()[1] ) );
+  CHECK( 2 == d.incidentEnergies().size() );
+  CHECK( 1e-5 == Approx( d.incidentEnergies()[0] ) );
+  CHECK( 3e+7 == Approx( d.incidentEnergies()[1] ) );
 
   auto value = d.outgoingDistributions()[0];
-  REQUIRE( 1e-5 == Approx( value.incidentEnergy() ) );
-  REQUIRE( 3 == value.NP() );
-  REQUIRE( 1 == value.NR() );
-  REQUIRE( 1 == value.interpolants().size() );
-  REQUIRE( 1 == value.boundaries().size() );
-  REQUIRE( 2 == value.interpolants()[0] );
-  REQUIRE( 3 == value.boundaries()[0] );
-  REQUIRE( 3 == value.EP().size() );
-  REQUIRE( 3 == value.outgoingEnergies().size() );
-  REQUIRE( 3 == value.G().size() );
-  REQUIRE( 3 == value.probabilities().size() );
-  REQUIRE( 0.0 == Approx( value.EP()[0] ) );
-  REQUIRE( 1e+5 == Approx( value.EP()[1] ) );
-  REQUIRE( 3e+7 == Approx( value.EP()[2] ) );
-  REQUIRE( 0.0 == Approx( value.outgoingEnergies()[0] ) );
-  REQUIRE( 1e+5 == Approx( value.outgoingEnergies()[1] ) );
-  REQUIRE( 3e+7 == Approx( value.outgoingEnergies()[2] ) );
-  REQUIRE( 0. == Approx( value.G()[0] ) );
-  REQUIRE( 1.757570e-9 == Approx( value.G()[1] ) );
-  REQUIRE( 1.843350e-9 == Approx( value.G()[2] ) );
-  REQUIRE( 0. == Approx( value.probabilities()[0] ) );
-  REQUIRE( 1.757570e-9 == Approx( value.probabilities()[1] ) );
-  REQUIRE( 1.843350e-9 == Approx( value.probabilities()[2] ) );
+  CHECK( 1e-5 == Approx( value.incidentEnergy() ) );
+  CHECK( 3 == value.NP() );
+  CHECK( 1 == value.NR() );
+  CHECK( 1 == value.interpolants().size() );
+  CHECK( 1 == value.boundaries().size() );
+  CHECK( 2 == value.interpolants()[0] );
+  CHECK( 3 == value.boundaries()[0] );
+  CHECK( 3 == value.EP().size() );
+  CHECK( 3 == value.outgoingEnergies().size() );
+  CHECK( 3 == value.G().size() );
+  CHECK( 3 == value.probabilities().size() );
+  CHECK( 0.0 == Approx( value.EP()[0] ) );
+  CHECK( 1e+5 == Approx( value.EP()[1] ) );
+  CHECK( 3e+7 == Approx( value.EP()[2] ) );
+  CHECK( 0.0 == Approx( value.outgoingEnergies()[0] ) );
+  CHECK( 1e+5 == Approx( value.outgoingEnergies()[1] ) );
+  CHECK( 3e+7 == Approx( value.outgoingEnergies()[2] ) );
+  CHECK( 0. == Approx( value.G()[0] ) );
+  CHECK( 1.757570e-9 == Approx( value.G()[1] ) );
+  CHECK( 1.843350e-9 == Approx( value.G()[2] ) );
+  CHECK( 0. == Approx( value.probabilities()[0] ) );
+  CHECK( 1.757570e-9 == Approx( value.probabilities()[1] ) );
+  CHECK( 1.843350e-9 == Approx( value.probabilities()[2] ) );
 
   value = d.outgoingDistributions()[1];
-  REQUIRE( 3e+7 == Approx( value.incidentEnergy() ) );
-  REQUIRE( 4 == value.NP() );
-  REQUIRE( 1 == value.NR() );
-  REQUIRE( 1 == value.interpolants().size() );
-  REQUIRE( 1 == value.boundaries().size() );
-  REQUIRE( 2 == value.interpolants()[0] );
-  REQUIRE( 4 == value.boundaries()[0] );
-  REQUIRE( 4 == value.EP().size() );
-  REQUIRE( 4 == value.outgoingEnergies().size() );
-  REQUIRE( 4 == value.G().size() );
-  REQUIRE( 4 == value.probabilities().size() );
-  REQUIRE( 0.0 == Approx( value.EP()[0] ) );
-  REQUIRE( 10. == Approx( value.EP()[1] ) );
-  REQUIRE( 11. == Approx( value.EP()[2] ) );
-  REQUIRE( 3e+7 == Approx( value.EP()[3] ) );
-  REQUIRE( 0.0 == Approx( value.outgoingEnergies()[0] ) );
-  REQUIRE( 10. == Approx( value.outgoingEnergies()[1] ) );
-  REQUIRE( 11. == Approx( value.outgoingEnergies()[2] ) );
-  REQUIRE( 3e+7 == Approx( value.outgoingEnergies()[3] ) );
-  REQUIRE( 0. == Approx( value.G()[0] ) );
-  REQUIRE( 1.733405e-9 == Approx( value.G()[1] ) );
-  REQUIRE( 1.818010e-9 == Approx( value.G()[2] ) );
-  REQUIRE( 1.898849e-9 == Approx( value.G()[3] ) );
-  REQUIRE( 0. == Approx( value.probabilities()[0] ) );
-  REQUIRE( 1.733405e-9 == Approx( value.probabilities()[1] ) );
-  REQUIRE( 1.818010e-9 == Approx( value.probabilities()[2] ) );
-  REQUIRE( 1.898849e-9 == Approx( value.probabilities()[3] ) );
+  CHECK( 3e+7 == Approx( value.incidentEnergy() ) );
+  CHECK( 4 == value.NP() );
+  CHECK( 1 == value.NR() );
+  CHECK( 1 == value.interpolants().size() );
+  CHECK( 1 == value.boundaries().size() );
+  CHECK( 2 == value.interpolants()[0] );
+  CHECK( 4 == value.boundaries()[0] );
+  CHECK( 4 == value.EP().size() );
+  CHECK( 4 == value.outgoingEnergies().size() );
+  CHECK( 4 == value.G().size() );
+  CHECK( 4 == value.probabilities().size() );
+  CHECK( 0.0 == Approx( value.EP()[0] ) );
+  CHECK( 10. == Approx( value.EP()[1] ) );
+  CHECK( 11. == Approx( value.EP()[2] ) );
+  CHECK( 3e+7 == Approx( value.EP()[3] ) );
+  CHECK( 0.0 == Approx( value.outgoingEnergies()[0] ) );
+  CHECK( 10. == Approx( value.outgoingEnergies()[1] ) );
+  CHECK( 11. == Approx( value.outgoingEnergies()[2] ) );
+  CHECK( 3e+7 == Approx( value.outgoingEnergies()[3] ) );
+  CHECK( 0. == Approx( value.G()[0] ) );
+  CHECK( 1.733405e-9 == Approx( value.G()[1] ) );
+  CHECK( 1.818010e-9 == Approx( value.G()[2] ) );
+  CHECK( 1.898849e-9 == Approx( value.G()[3] ) );
+  CHECK( 0. == Approx( value.probabilities()[0] ) );
+  CHECK( 1.733405e-9 == Approx( value.probabilities()[1] ) );
+  CHECK( 1.818010e-9 == Approx( value.probabilities()[2] ) );
+  CHECK( 1.898849e-9 == Approx( value.probabilities()[3] ) );
 
-  REQUIRE( 12 == chunk.NC() );
+  CHECK( 12 == chunk.NC() );
 }
 
 std::string chunkLF5() {
@@ -551,83 +551,83 @@ std::string chunkLF5() {
 
 void verifyChunkLF5( const PartialDistribution& chunk ) {
 
-  REQUIRE( -3e+7 == Approx ( chunk.U() ) );
-  REQUIRE( -3e+7 == Approx ( chunk.energyLimitConstant() ) );
+  CHECK( -3e+7 == Approx ( chunk.U() ) );
+  CHECK( -3e+7 == Approx ( chunk.energyLimitConstant() ) );
 
   auto p = chunk.probability();
 
-  REQUIRE( 5 == p.LF() );
-  REQUIRE( 5 == p.LAW() );
+  CHECK( 5 == p.LF() );
+  CHECK( 5 == p.LAW() );
 
-  REQUIRE( 2 == p.NP() );
-  REQUIRE( 1 == p.NR() );
-  REQUIRE( 1 == p.interpolants().size() );
-  REQUIRE( 1 == p.boundaries().size() );
-  REQUIRE( 2 == p.interpolants()[0] );
-  REQUIRE( 2 == p.boundaries()[0] );
-  REQUIRE( 2 == p.E().size() );
-  REQUIRE( 2 == p.energies().size() );
-  REQUIRE( 2 == p.p().size() );
-  REQUIRE( 2 == p.probabilities().size() );
-  REQUIRE( 1e-5 == Approx( p.E()[0] ) );
-  REQUIRE( 3e+7 == Approx( p.E()[1] ) );
-  REQUIRE( 1e-5 == Approx( p.energies()[0] ) );
-  REQUIRE( 3e+7 == Approx( p.energies()[1] ) );
-  REQUIRE( 1.804944e-2 == Approx( p.p()[0] ) );
-  REQUIRE( 1.804944e-2 == Approx( p.p()[1] ) );
-  REQUIRE( 1.804944e-2 == Approx( p.probabilities()[0] ) );
-  REQUIRE( 1.804944e-2 == Approx( p.probabilities()[1] ) );
+  CHECK( 2 == p.NP() );
+  CHECK( 1 == p.NR() );
+  CHECK( 1 == p.interpolants().size() );
+  CHECK( 1 == p.boundaries().size() );
+  CHECK( 2 == p.interpolants()[0] );
+  CHECK( 2 == p.boundaries()[0] );
+  CHECK( 2 == p.E().size() );
+  CHECK( 2 == p.energies().size() );
+  CHECK( 2 == p.p().size() );
+  CHECK( 2 == p.probabilities().size() );
+  CHECK( 1e-5 == Approx( p.E()[0] ) );
+  CHECK( 3e+7 == Approx( p.E()[1] ) );
+  CHECK( 1e-5 == Approx( p.energies()[0] ) );
+  CHECK( 3e+7 == Approx( p.energies()[1] ) );
+  CHECK( 1.804944e-2 == Approx( p.p()[0] ) );
+  CHECK( 1.804944e-2 == Approx( p.p()[1] ) );
+  CHECK( 1.804944e-2 == Approx( p.probabilities()[0] ) );
+  CHECK( 1.804944e-2 == Approx( p.probabilities()[1] ) );
 
   auto d =
        std::get< GeneralEvaporationSpectrum >
              ( chunk.distribution() );
 
-  REQUIRE( 5 == d.LF() );
-  REQUIRE( 5 == d.LAW() );
+  CHECK( 5 == d.LF() );
+  CHECK( 5 == d.LAW() );
 
   auto t = d.effectiveTemperature();
-  REQUIRE( 2 == t.NE() );
-  REQUIRE( 1 == t.NR() );
-  REQUIRE( 1 == t.interpolants().size() );
-  REQUIRE( 1 == t.boundaries().size() );
-  REQUIRE( 2 == t.interpolants()[0] );
-  REQUIRE( 2 == t.boundaries()[0] );
-  REQUIRE( 2 == t.E().size() );
-  REQUIRE( 2 == t.energies().size() );
-  REQUIRE( 2 == t.thetas().size() );
-  REQUIRE( 2 == t.values().size() );
-  REQUIRE( 1e-5 == Approx( t.E()[0] ) );
-  REQUIRE( 3e+7 == Approx( t.E()[1] ) );
-  REQUIRE( 1e-5 == Approx( t.energies()[0] ) );
-  REQUIRE( 3e+7 == Approx( t.energies()[1] ) );
-  REQUIRE( 1.0 == Approx( t.thetas()[0] ) );
-  REQUIRE( 1.0 == Approx( t.thetas()[1] ) );
-  REQUIRE( 1.0 == Approx( t.values()[0] ) );
-  REQUIRE( 1.0 == Approx( t.values()[1] ) );
+  CHECK( 2 == t.NE() );
+  CHECK( 1 == t.NR() );
+  CHECK( 1 == t.interpolants().size() );
+  CHECK( 1 == t.boundaries().size() );
+  CHECK( 2 == t.interpolants()[0] );
+  CHECK( 2 == t.boundaries()[0] );
+  CHECK( 2 == t.E().size() );
+  CHECK( 2 == t.energies().size() );
+  CHECK( 2 == t.thetas().size() );
+  CHECK( 2 == t.values().size() );
+  CHECK( 1e-5 == Approx( t.E()[0] ) );
+  CHECK( 3e+7 == Approx( t.E()[1] ) );
+  CHECK( 1e-5 == Approx( t.energies()[0] ) );
+  CHECK( 3e+7 == Approx( t.energies()[1] ) );
+  CHECK( 1.0 == Approx( t.thetas()[0] ) );
+  CHECK( 1.0 == Approx( t.thetas()[1] ) );
+  CHECK( 1.0 == Approx( t.values()[0] ) );
+  CHECK( 1.0 == Approx( t.values()[1] ) );
 
   auto df = d.distributionFunction();
-  REQUIRE( 6 == df.NF() );
-  REQUIRE( 1 == df.NR() );
-  REQUIRE( 1 == df.interpolants().size() );
-  REQUIRE( 1 == df.boundaries().size() );
-  REQUIRE( 1 == df.interpolants()[0] );
-  REQUIRE( 6 == df.boundaries()[0] );
-  REQUIRE( 6 == df.x().size() );
-  REQUIRE( 6 == df.values().size() );
-  REQUIRE( 0.0 == Approx( df.x()[0] ) );
-  REQUIRE( 1e+4 == Approx( df.x()[1] ) );
-  REQUIRE( 2e+4 == Approx( df.x()[2] ) );
-  REQUIRE( 1.8e+6 == Approx( df.x()[3] ) );
-  REQUIRE( 1.81e+6 == Approx( df.x()[4] ) );
-  REQUIRE( 1.82e+6 == Approx( df.x()[5] ) );
-  REQUIRE( 1.533738e-7 == Approx( df.values()[0] ) );
-  REQUIRE( 1.378483e-6 == Approx( df.values()[1] ) );
-  REQUIRE( 1.550360e-6 == Approx( df.values()[2] ) );
-  REQUIRE( 7.90779e-31 == Approx( df.values()[3] ) );
-  REQUIRE( 0.0 == Approx( df.values()[4] ) );
-  REQUIRE( 0.0 == Approx( df.values()[5] ) );
+  CHECK( 6 == df.NP() );
+  CHECK( 1 == df.NR() );
+  CHECK( 1 == df.interpolants().size() );
+  CHECK( 1 == df.boundaries().size() );
+  CHECK( 1 == df.interpolants()[0] );
+  CHECK( 6 == df.boundaries()[0] );
+  CHECK( 6 == df.X().size() );
+  CHECK( 6 == df.G().size() );
+  CHECK( 0.0 == Approx( df.X()[0] ) );
+  CHECK( 1e+4 == Approx( df.X()[1] ) );
+  CHECK( 2e+4 == Approx( df.X()[2] ) );
+  CHECK( 1.8e+6 == Approx( df.X()[3] ) );
+  CHECK( 1.81e+6 == Approx( df.X()[4] ) );
+  CHECK( 1.82e+6 == Approx( df.X()[5] ) );
+  CHECK( 1.533738e-7 == Approx( df.G()[0] ) );
+  CHECK( 1.378483e-6 == Approx( df.G()[1] ) );
+  CHECK( 1.550360e-6 == Approx( df.G()[2] ) );
+  CHECK( 7.90779e-31 == Approx( df.G()[3] ) );
+  CHECK( 0.0 == Approx( df.G()[4] ) );
+  CHECK( 0.0 == Approx( df.G()[5] ) );
 
-  REQUIRE( 10 == chunk.NC() );
+  CHECK( 10 == chunk.NC() );
 }
 
 std::string chunkLF7() {
@@ -642,61 +642,61 @@ std::string chunkLF7() {
 
 void verifyChunkLF7( const PartialDistribution& chunk ) {
 
-  REQUIRE( -3e+7 == Approx ( chunk.U() ) );
-  REQUIRE( -3e+7 == Approx ( chunk.energyLimitConstant() ) );
+  CHECK( -3e+7 == Approx ( chunk.U() ) );
+  CHECK( -3e+7 == Approx ( chunk.energyLimitConstant() ) );
 
   auto p = chunk.probability();
 
-  REQUIRE( 7 == p.LF() );
-  REQUIRE( 7 == p.LAW() );
+  CHECK( 7 == p.LF() );
+  CHECK( 7 == p.LAW() );
 
-  REQUIRE( 2 == p.NP() );
-  REQUIRE( 1 == p.NR() );
-  REQUIRE( 1 == p.interpolants().size() );
-  REQUIRE( 1 == p.boundaries().size() );
-  REQUIRE( 2 == p.interpolants()[0] );
-  REQUIRE( 2 == p.boundaries()[0] );
-  REQUIRE( 2 == p.E().size() );
-  REQUIRE( 2 == p.energies().size() );
-  REQUIRE( 2 == p.p().size() );
-  REQUIRE( 2 == p.probabilities().size() );
-  REQUIRE( 1e-5 == Approx( p.E()[0] ) );
-  REQUIRE( 3e+7 == Approx( p.E()[1] ) );
-  REQUIRE( 1e-5 == Approx( p.energies()[0] ) );
-  REQUIRE( 3e+7 == Approx( p.energies()[1] ) );
-  REQUIRE( 1. == Approx( p.p()[0] ) );
-  REQUIRE( 1. == Approx( p.p()[1] ) );
-  REQUIRE( 1. == Approx( p.probabilities()[0] ) );
-  REQUIRE( 1. == Approx( p.probabilities()[1] ) );
+  CHECK( 2 == p.NP() );
+  CHECK( 1 == p.NR() );
+  CHECK( 1 == p.interpolants().size() );
+  CHECK( 1 == p.boundaries().size() );
+  CHECK( 2 == p.interpolants()[0] );
+  CHECK( 2 == p.boundaries()[0] );
+  CHECK( 2 == p.E().size() );
+  CHECK( 2 == p.energies().size() );
+  CHECK( 2 == p.p().size() );
+  CHECK( 2 == p.probabilities().size() );
+  CHECK( 1e-5 == Approx( p.E()[0] ) );
+  CHECK( 3e+7 == Approx( p.E()[1] ) );
+  CHECK( 1e-5 == Approx( p.energies()[0] ) );
+  CHECK( 3e+7 == Approx( p.energies()[1] ) );
+  CHECK( 1. == Approx( p.p()[0] ) );
+  CHECK( 1. == Approx( p.p()[1] ) );
+  CHECK( 1. == Approx( p.probabilities()[0] ) );
+  CHECK( 1. == Approx( p.probabilities()[1] ) );
 
   auto d = std::get< MaxwellianFissionSpectrum >
                   ( chunk.distribution() );
-  REQUIRE( 7 == d.LF() );
-  REQUIRE( 7 == d.LAW() );
-  REQUIRE( 3 == d.NE() );
-  REQUIRE( 1 == d.NR() );
-  REQUIRE( 1 == d.interpolants().size() );
-  REQUIRE( 1 == d.boundaries().size() );
-  REQUIRE( 2 == d.interpolants()[0] );
-  REQUIRE( 3 == d.boundaries()[0] );
-  REQUIRE( 3 == d.E().size() );
-  REQUIRE( 3 == d.energies().size() );
-  REQUIRE( 3 == d.thetas().size() );
-  REQUIRE( 3 == d.values().size() );
-  REQUIRE( 1e-5 == Approx( d.E()[0] ) );
-  REQUIRE( 5e+5 == Approx( d.E()[1] ) );
-  REQUIRE( 3e+7 == Approx( d.E()[2] ) );
-  REQUIRE( 1e-5 == Approx( d.energies()[0] ) );
-  REQUIRE( 5e+5 == Approx( d.energies()[1] ) );
-  REQUIRE( 3e+7 == Approx( d.energies()[2] ) );
-  REQUIRE( 1.3652e+6 == Approx( d.thetas()[0] ) );
-  REQUIRE( 1.3748e+6 == Approx( d.thetas()[1] ) );
-  REQUIRE( 1.6912e+6 == Approx( d.thetas()[2] ) );
-  REQUIRE( 1.3652e+6 == Approx( d.values()[0] ) );
-  REQUIRE( 1.3748e+6 == Approx( d.values()[1] ) );
-  REQUIRE( 1.6912e+6 == Approx( d.values()[2] ) );
+  CHECK( 7 == d.LF() );
+  CHECK( 7 == d.LAW() );
+  CHECK( 3 == d.NE() );
+  CHECK( 1 == d.NR() );
+  CHECK( 1 == d.interpolants().size() );
+  CHECK( 1 == d.boundaries().size() );
+  CHECK( 2 == d.interpolants()[0] );
+  CHECK( 3 == d.boundaries()[0] );
+  CHECK( 3 == d.E().size() );
+  CHECK( 3 == d.energies().size() );
+  CHECK( 3 == d.thetas().size() );
+  CHECK( 3 == d.values().size() );
+  CHECK( 1e-5 == Approx( d.E()[0] ) );
+  CHECK( 5e+5 == Approx( d.E()[1] ) );
+  CHECK( 3e+7 == Approx( d.E()[2] ) );
+  CHECK( 1e-5 == Approx( d.energies()[0] ) );
+  CHECK( 5e+5 == Approx( d.energies()[1] ) );
+  CHECK( 3e+7 == Approx( d.energies()[2] ) );
+  CHECK( 1.3652e+6 == Approx( d.thetas()[0] ) );
+  CHECK( 1.3748e+6 == Approx( d.thetas()[1] ) );
+  CHECK( 1.6912e+6 == Approx( d.thetas()[2] ) );
+  CHECK( 1.3652e+6 == Approx( d.values()[0] ) );
+  CHECK( 1.3748e+6 == Approx( d.values()[1] ) );
+  CHECK( 1.6912e+6 == Approx( d.values()[2] ) );
 
-  REQUIRE( 6 == chunk.NC() );
+  CHECK( 6 == chunk.NC() );
 }
 
 std::string chunkLF9() {
@@ -712,64 +712,64 @@ std::string chunkLF9() {
 
 void verifyChunkLF9( const PartialDistribution& chunk ) {
 
-  REQUIRE( 1.789920e+7 == Approx ( chunk.U() ) );
-  REQUIRE( 1.789920e+7 == Approx ( chunk.energyLimitConstant() ) );
+  CHECK( 1.789920e+7 == Approx ( chunk.U() ) );
+  CHECK( 1.789920e+7 == Approx ( chunk.energyLimitConstant() ) );
 
   auto p = chunk.probability();
 
-  REQUIRE( 9 == p.LF() );
-  REQUIRE( 9 == p.LAW() );
+  CHECK( 9 == p.LF() );
+  CHECK( 9 == p.LAW() );
 
-  REQUIRE( 2 == p.NP() );
-  REQUIRE( 1 == p.NR() );
-  REQUIRE( 1 == p.interpolants().size() );
-  REQUIRE( 1 == p.boundaries().size() );
-  REQUIRE( 2 == p.interpolants()[0] );
-  REQUIRE( 2 == p.boundaries()[0] );
-  REQUIRE( 2 == p.E().size() );
-  REQUIRE( 2 == p.energies().size() );
-  REQUIRE( 2 == p.p().size() );
-  REQUIRE( 2 == p.probabilities().size() );
-  REQUIRE( 1.789920e+7 == Approx( p.E()[0] ) );
-  REQUIRE( 2e+7 == Approx( p.E()[1] ) );
-  REQUIRE( 1.789920e+7 == Approx( p.energies()[0] ) );
-  REQUIRE( 2e+7 == Approx( p.energies()[1] ) );
-  REQUIRE( 1.0 == Approx( p.p()[0] ) );
-  REQUIRE( 1.0 == Approx( p.p()[1] ) );
-  REQUIRE( 1.0 == Approx( p.probabilities()[0] ) );
-  REQUIRE( 1.0 == Approx( p.probabilities()[1] ) );
+  CHECK( 2 == p.NP() );
+  CHECK( 1 == p.NR() );
+  CHECK( 1 == p.interpolants().size() );
+  CHECK( 1 == p.boundaries().size() );
+  CHECK( 2 == p.interpolants()[0] );
+  CHECK( 2 == p.boundaries()[0] );
+  CHECK( 2 == p.E().size() );
+  CHECK( 2 == p.energies().size() );
+  CHECK( 2 == p.p().size() );
+  CHECK( 2 == p.probabilities().size() );
+  CHECK( 1.789920e+7 == Approx( p.E()[0] ) );
+  CHECK( 2e+7 == Approx( p.E()[1] ) );
+  CHECK( 1.789920e+7 == Approx( p.energies()[0] ) );
+  CHECK( 2e+7 == Approx( p.energies()[1] ) );
+  CHECK( 1.0 == Approx( p.p()[0] ) );
+  CHECK( 1.0 == Approx( p.p()[1] ) );
+  CHECK( 1.0 == Approx( p.probabilities()[0] ) );
+  CHECK( 1.0 == Approx( p.probabilities()[1] ) );
 
   auto d = std::get< EvaporationSpectrum >( chunk.distribution() );
-  REQUIRE( 9 == d.LF() );
-  REQUIRE( 9 == d.LAW() );
-  REQUIRE( 4 == d.NE() );
-  REQUIRE( 1 == d.NR() );
-  REQUIRE( 1 == d.interpolants().size() );
-  REQUIRE( 1 == d.boundaries().size() );
-  REQUIRE( 2 == d.interpolants()[0] );
-  REQUIRE( 4 == d.boundaries()[0] );
-  REQUIRE( 4 == d.E().size() );
-  REQUIRE( 4 == d.energies().size() );
-  REQUIRE( 4 == d.thetas().size() );
-  REQUIRE( 4 == d.values().size() );
-  REQUIRE( 1.789920e+7 == Approx( d.E()[0] ) );
-  REQUIRE( 1.8e+7 == Approx( d.E()[1] ) );
-  REQUIRE( 1.9e+7 == Approx( d.E()[2] ) );
-  REQUIRE( 2e+7 == Approx( d.E()[3] ) );
-  REQUIRE( 1.789920e+7 == Approx( d.energies()[0] ) );
-  REQUIRE( 1.8e+7 == Approx( d.energies()[1] ) );
-  REQUIRE( 1.9e+7 == Approx( d.energies()[2] ) );
-  REQUIRE( 2e+7 == Approx( d.energies()[3] ) );
-  REQUIRE( 1.0099e+5 == Approx( d.thetas()[0] ) );
-  REQUIRE( 1.0099e+5 == Approx( d.thetas()[1] ) );
-  REQUIRE( 1.1292e+5 == Approx( d.thetas()[2] ) );
-  REQUIRE( 1.6143e+5 == Approx( d.thetas()[3] ) );
-  REQUIRE( 1.0099e+5 == Approx( d.values()[0] ) );
-  REQUIRE( 1.0099e+5 == Approx( d.values()[1] ) );
-  REQUIRE( 1.1292e+5 == Approx( d.values()[2] ) );
-  REQUIRE( 1.6143e+5 == Approx( d.values()[3] ) );
+  CHECK( 9 == d.LF() );
+  CHECK( 9 == d.LAW() );
+  CHECK( 4 == d.NE() );
+  CHECK( 1 == d.NR() );
+  CHECK( 1 == d.interpolants().size() );
+  CHECK( 1 == d.boundaries().size() );
+  CHECK( 2 == d.interpolants()[0] );
+  CHECK( 4 == d.boundaries()[0] );
+  CHECK( 4 == d.E().size() );
+  CHECK( 4 == d.energies().size() );
+  CHECK( 4 == d.thetas().size() );
+  CHECK( 4 == d.values().size() );
+  CHECK( 1.789920e+7 == Approx( d.E()[0] ) );
+  CHECK( 1.8e+7 == Approx( d.E()[1] ) );
+  CHECK( 1.9e+7 == Approx( d.E()[2] ) );
+  CHECK( 2e+7 == Approx( d.E()[3] ) );
+  CHECK( 1.789920e+7 == Approx( d.energies()[0] ) );
+  CHECK( 1.8e+7 == Approx( d.energies()[1] ) );
+  CHECK( 1.9e+7 == Approx( d.energies()[2] ) );
+  CHECK( 2e+7 == Approx( d.energies()[3] ) );
+  CHECK( 1.0099e+5 == Approx( d.thetas()[0] ) );
+  CHECK( 1.0099e+5 == Approx( d.thetas()[1] ) );
+  CHECK( 1.1292e+5 == Approx( d.thetas()[2] ) );
+  CHECK( 1.6143e+5 == Approx( d.thetas()[3] ) );
+  CHECK( 1.0099e+5 == Approx( d.values()[0] ) );
+  CHECK( 1.0099e+5 == Approx( d.values()[1] ) );
+  CHECK( 1.1292e+5 == Approx( d.values()[2] ) );
+  CHECK( 1.6143e+5 == Approx( d.values()[3] ) );
 
-  REQUIRE( 7 == chunk.NC() );
+  CHECK( 7 == chunk.NC() );
 }
 
 std::string chunkLF11() {
@@ -788,83 +788,83 @@ std::string chunkLF11() {
 
 void verifyChunkLF11( const PartialDistribution& chunk ) {
 
-  REQUIRE( -3e+7 == Approx ( chunk.U() ) );
-  REQUIRE( -3e+7 == Approx ( chunk.energyLimitConstant() ) );
+  CHECK( -3e+7 == Approx ( chunk.U() ) );
+  CHECK( -3e+7 == Approx ( chunk.energyLimitConstant() ) );
 
   auto p = chunk.probability();
 
-  REQUIRE( 11 == p.LF() );
-  REQUIRE( 11 == p.LAW() );
+  CHECK( 11 == p.LF() );
+  CHECK( 11 == p.LAW() );
 
-  REQUIRE( 2 == p.NP() );
-  REQUIRE( 1 == p.NR() );
-  REQUIRE( 1 == p.interpolants().size() );
-  REQUIRE( 1 == p.boundaries().size() );
-  REQUIRE( 2 == p.interpolants()[0] );
-  REQUIRE( 2 == p.boundaries()[0] );
-  REQUIRE( 2 == p.E().size() );
-  REQUIRE( 2 == p.energies().size() );
-  REQUIRE( 2 == p.p().size() );
-  REQUIRE( 2 == p.probabilities().size() );
-  REQUIRE( 1e-5 == Approx( p.E()[0] ) );
-  REQUIRE( 3e+7 == Approx( p.E()[1] ) );
-  REQUIRE( 1e-5 == Approx( p.energies()[0] ) );
-  REQUIRE( 3e+7 == Approx( p.energies()[1] ) );
-  REQUIRE( 1. == Approx( p.p()[0] ) );
-  REQUIRE( 1. == Approx( p.p()[1] ) );
-  REQUIRE( 1. == Approx( p.probabilities()[0] ) );
-  REQUIRE( 1. == Approx( p.probabilities()[1] ) );
+  CHECK( 2 == p.NP() );
+  CHECK( 1 == p.NR() );
+  CHECK( 1 == p.interpolants().size() );
+  CHECK( 1 == p.boundaries().size() );
+  CHECK( 2 == p.interpolants()[0] );
+  CHECK( 2 == p.boundaries()[0] );
+  CHECK( 2 == p.E().size() );
+  CHECK( 2 == p.energies().size() );
+  CHECK( 2 == p.p().size() );
+  CHECK( 2 == p.probabilities().size() );
+  CHECK( 1e-5 == Approx( p.E()[0] ) );
+  CHECK( 3e+7 == Approx( p.E()[1] ) );
+  CHECK( 1e-5 == Approx( p.energies()[0] ) );
+  CHECK( 3e+7 == Approx( p.energies()[1] ) );
+  CHECK( 1. == Approx( p.p()[0] ) );
+  CHECK( 1. == Approx( p.p()[1] ) );
+  CHECK( 1. == Approx( p.probabilities()[0] ) );
+  CHECK( 1. == Approx( p.probabilities()[1] ) );
 
   auto d = std::get< WattSpectrum >( chunk.distribution() );
 
-  REQUIRE( 11 == d.LF() );
-  REQUIRE( 11 == d.LAW() );
+  CHECK( 11 == d.LF() );
+  CHECK( 11 == d.LAW() );
 
-  REQUIRE( 3 == d.a().NE() );
-  REQUIRE( 1 == d.a().NR() );
-  REQUIRE( 1 == d.a().interpolants().size() );
-  REQUIRE( 1 == d.a().boundaries().size() );
-  REQUIRE( 2 == d.a().interpolants()[0] );
-  REQUIRE( 3 == d.a().boundaries()[0] );
-  REQUIRE( 3 == d.a().E().size() );
-  REQUIRE( 3 == d.a().energies().size() );
-  REQUIRE( 3 == d.a().values().size() );
-  REQUIRE( 1e-5 == Approx( d.a().E()[0] ) );
-  REQUIRE( 1.5e+6 == Approx( d.a().E()[1] ) );
-  REQUIRE( 3e+7 == Approx( d.a().E()[2] ) );
-  REQUIRE( 1e-5 == Approx( d.a().energies()[0] ) );
-  REQUIRE( 1.5e+6 == Approx( d.a().energies()[1] ) );
-  REQUIRE( 3e+7 == Approx( d.a().energies()[2] ) );
-  REQUIRE( 9.77e+5 == Approx( d.a().values()[0] ) );
-  REQUIRE( 1e+6 == Approx( d.a().values()[1] ) );
-  REQUIRE( 1.06e+6 == Approx( d.a().values()[2] ) );
+  CHECK( 3 == d.a().NE() );
+  CHECK( 1 == d.a().NR() );
+  CHECK( 1 == d.a().interpolants().size() );
+  CHECK( 1 == d.a().boundaries().size() );
+  CHECK( 2 == d.a().interpolants()[0] );
+  CHECK( 3 == d.a().boundaries()[0] );
+  CHECK( 3 == d.a().E().size() );
+  CHECK( 3 == d.a().energies().size() );
+  CHECK( 3 == d.a().values().size() );
+  CHECK( 1e-5 == Approx( d.a().E()[0] ) );
+  CHECK( 1.5e+6 == Approx( d.a().E()[1] ) );
+  CHECK( 3e+7 == Approx( d.a().E()[2] ) );
+  CHECK( 1e-5 == Approx( d.a().energies()[0] ) );
+  CHECK( 1.5e+6 == Approx( d.a().energies()[1] ) );
+  CHECK( 3e+7 == Approx( d.a().energies()[2] ) );
+  CHECK( 9.77e+5 == Approx( d.a().values()[0] ) );
+  CHECK( 1e+6 == Approx( d.a().values()[1] ) );
+  CHECK( 1.06e+6 == Approx( d.a().values()[2] ) );
 
-  REQUIRE( 5 == d.b().NE() );
-  REQUIRE( 1 == d.b().NR() );
-  REQUIRE( 1 == d.b().interpolants().size() );
-  REQUIRE( 1 == d.b().boundaries().size() );
-  REQUIRE( 2 == d.b().interpolants()[0] );
-  REQUIRE( 5 == d.b().boundaries()[0] );
-  REQUIRE( 5 == d.b().E().size() );
-  REQUIRE( 5 == d.b().energies().size() );
-  REQUIRE( 5 == d.b().values().size() );
-  REQUIRE( 1e-5 == Approx( d.b().E()[0] ) );
-  REQUIRE( 1.5e+6 == Approx( d.b().E()[1] ) );
-  REQUIRE( 1e+7 == Approx( d.b().E()[2] ) );
-  REQUIRE( 1.22e+7 == Approx( d.b().E()[3] ) );
-  REQUIRE( 3e+7 == Approx( d.b().E()[4] ) );
-  REQUIRE( 1e-5 == Approx( d.b().energies()[0] ) );
-  REQUIRE( 1.5e+6 == Approx( d.b().energies()[1] ) );
-  REQUIRE( 1e+7 == Approx( d.b().energies()[2] ) );
-  REQUIRE( 1.22e+7 == Approx( d.b().energies()[3] ) );
-  REQUIRE( 3e+7 == Approx( d.b().energies()[4] ) );
-  REQUIRE( 2.546e-6 == Approx( d.b().values()[0] ) );
-  REQUIRE( 2.546e-6 == Approx( d.b().values()[1] ) );
-  REQUIRE( 2.474e-6 == Approx( d.b().values()[2] ) );
-  REQUIRE( 2.612e-6 == Approx( d.b().values()[3] ) );
-  REQUIRE( 2.62e-6 == Approx( d.b().values()[4] ) );
+  CHECK( 5 == d.b().NE() );
+  CHECK( 1 == d.b().NR() );
+  CHECK( 1 == d.b().interpolants().size() );
+  CHECK( 1 == d.b().boundaries().size() );
+  CHECK( 2 == d.b().interpolants()[0] );
+  CHECK( 5 == d.b().boundaries()[0] );
+  CHECK( 5 == d.b().E().size() );
+  CHECK( 5 == d.b().energies().size() );
+  CHECK( 5 == d.b().values().size() );
+  CHECK( 1e-5 == Approx( d.b().E()[0] ) );
+  CHECK( 1.5e+6 == Approx( d.b().E()[1] ) );
+  CHECK( 1e+7 == Approx( d.b().E()[2] ) );
+  CHECK( 1.22e+7 == Approx( d.b().E()[3] ) );
+  CHECK( 3e+7 == Approx( d.b().E()[4] ) );
+  CHECK( 1e-5 == Approx( d.b().energies()[0] ) );
+  CHECK( 1.5e+6 == Approx( d.b().energies()[1] ) );
+  CHECK( 1e+7 == Approx( d.b().energies()[2] ) );
+  CHECK( 1.22e+7 == Approx( d.b().energies()[3] ) );
+  CHECK( 3e+7 == Approx( d.b().energies()[4] ) );
+  CHECK( 2.546e-6 == Approx( d.b().values()[0] ) );
+  CHECK( 2.546e-6 == Approx( d.b().values()[1] ) );
+  CHECK( 2.474e-6 == Approx( d.b().values()[2] ) );
+  CHECK( 2.612e-6 == Approx( d.b().values()[3] ) );
+  CHECK( 2.62e-6 == Approx( d.b().values()[4] ) );
 
-  REQUIRE( 10 == chunk.NC() );
+  CHECK( 10 == chunk.NC() );
 }
 
 std::string chunkLF12() {
@@ -880,71 +880,71 @@ std::string chunkLF12() {
 
 void verifyChunkLF12( const PartialDistribution& chunk ) {
 
-  REQUIRE( 0.0 == Approx ( chunk.U() ) );
-  REQUIRE( 0.0 == Approx ( chunk.energyLimitConstant() ) );
+  CHECK( 0.0 == Approx ( chunk.U() ) );
+  CHECK( 0.0 == Approx ( chunk.energyLimitConstant() ) );
 
   auto p = chunk.probability();
 
-  REQUIRE( 12 == p.LF() );
-  REQUIRE( 12 == p.LAW() );
+  CHECK( 12 == p.LF() );
+  CHECK( 12 == p.LAW() );
 
-  REQUIRE( 2 == p.NP() );
-  REQUIRE( 1 == p.NR() );
-  REQUIRE( 1 == p.interpolants().size() );
-  REQUIRE( 1 == p.boundaries().size() );
-  REQUIRE( 2 == p.interpolants()[0] );
-  REQUIRE( 2 == p.boundaries()[0] );
-  REQUIRE( 2 == p.E().size() );
-  REQUIRE( 2 == p.energies().size() );
-  REQUIRE( 2 == p.p().size() );
-  REQUIRE( 2 == p.probabilities().size() );
-  REQUIRE( 1e-5 == Approx( p.E()[0] ) );
-  REQUIRE( 3e+7 == Approx( p.E()[1] ) );
-  REQUIRE( 1e-5 == Approx( p.energies()[0] ) );
-  REQUIRE( 3e+7 == Approx( p.energies()[1] ) );
-  REQUIRE( 1. == Approx( p.p()[0] ) );
-  REQUIRE( 1. == Approx( p.p()[1] ) );
-  REQUIRE( 1. == Approx( p.probabilities()[0] ) );
-  REQUIRE( 1. == Approx( p.probabilities()[1] ) );
+  CHECK( 2 == p.NP() );
+  CHECK( 1 == p.NR() );
+  CHECK( 1 == p.interpolants().size() );
+  CHECK( 1 == p.boundaries().size() );
+  CHECK( 2 == p.interpolants()[0] );
+  CHECK( 2 == p.boundaries()[0] );
+  CHECK( 2 == p.E().size() );
+  CHECK( 2 == p.energies().size() );
+  CHECK( 2 == p.p().size() );
+  CHECK( 2 == p.probabilities().size() );
+  CHECK( 1e-5 == Approx( p.E()[0] ) );
+  CHECK( 3e+7 == Approx( p.E()[1] ) );
+  CHECK( 1e-5 == Approx( p.energies()[0] ) );
+  CHECK( 3e+7 == Approx( p.energies()[1] ) );
+  CHECK( 1. == Approx( p.p()[0] ) );
+  CHECK( 1. == Approx( p.p()[1] ) );
+  CHECK( 1. == Approx( p.probabilities()[0] ) );
+  CHECK( 1. == Approx( p.probabilities()[1] ) );
 
   auto d = std::get< MadlandNixSpectrum >( chunk.distribution() );
 
-  REQUIRE( 12 == d.LF() );
-  REQUIRE( 12 == d.LAW() );
+  CHECK( 12 == d.LF() );
+  CHECK( 12 == d.LAW() );
 
-  REQUIRE( 1.029979e+6 == Approx( d.EFL() ) );
-  REQUIRE( 1.029979e+6 == Approx( d.lightFragmentEnergy() ) );
-  REQUIRE( 5.467297e+5 == Approx( d.EFH() ) );
-  REQUIRE( 5.467297e+5 == Approx( d.heavyFragmentEnergy() ) );
+  CHECK( 1.029979e+6 == Approx( d.EFL() ) );
+  CHECK( 1.029979e+6 == Approx( d.lightFragmentEnergy() ) );
+  CHECK( 5.467297e+5 == Approx( d.EFH() ) );
+  CHECK( 5.467297e+5 == Approx( d.heavyFragmentEnergy() ) );
 
-  REQUIRE( 4 == d.NE() );
-  REQUIRE( 1 == d.NR() );
-  REQUIRE( 1 == d.interpolants().size() );
-  REQUIRE( 1 == d.boundaries().size() );
-  REQUIRE( 5 == d.interpolants()[0] );
-  REQUIRE( 4 == d.boundaries()[0] );
-  REQUIRE( 4 == d.E().size() );
-  REQUIRE( 4 == d.energies().size() );
-  REQUIRE( 4 == d.TM().size() );
-  REQUIRE( 4 == d.maximumTemperatureValues().size() );
-  REQUIRE( 1e-5 == Approx( d.E()[0] ) );
-  REQUIRE( 5.000001e+5 == Approx( d.E()[1] ) );
-  REQUIRE( 1.4e+7 == Approx( d.E()[2] ) );
-  REQUIRE( 3.0e+7 == Approx( d.E()[3] ) );
-  REQUIRE( 1e-5 == Approx( d.energies()[0] ) );
-  REQUIRE( 5.000001e+5 == Approx( d.energies()[1] ) );
-  REQUIRE( 1.4e+7 == Approx( d.energies()[2] ) );
-  REQUIRE( 3.0e+7 == Approx( d.energies()[3] ) );
-  REQUIRE( 1.092064e+6 == Approx( d.TM()[0] ) );
-  REQUIRE( 1.101483e+6 == Approx( d.TM()[1] ) );
-  REQUIRE( 1.129269e+6 == Approx( d.TM()[2] ) );
-  REQUIRE( 1.182884e+6 == Approx( d.TM()[3] ) );
-  REQUIRE( 1.092064e+6 == Approx( d.maximumTemperatureValues()[0] ) );
-  REQUIRE( 1.101483e+6 == Approx( d.maximumTemperatureValues()[1] ) );
-  REQUIRE( 1.129269e+6 == Approx( d.maximumTemperatureValues()[2] ) );
-  REQUIRE( 1.182884e+6 == Approx( d.maximumTemperatureValues()[3] ) );
+  CHECK( 4 == d.NE() );
+  CHECK( 1 == d.NR() );
+  CHECK( 1 == d.interpolants().size() );
+  CHECK( 1 == d.boundaries().size() );
+  CHECK( 5 == d.interpolants()[0] );
+  CHECK( 4 == d.boundaries()[0] );
+  CHECK( 4 == d.E().size() );
+  CHECK( 4 == d.energies().size() );
+  CHECK( 4 == d.TM().size() );
+  CHECK( 4 == d.maximumTemperatureValues().size() );
+  CHECK( 1e-5 == Approx( d.E()[0] ) );
+  CHECK( 5.000001e+5 == Approx( d.E()[1] ) );
+  CHECK( 1.4e+7 == Approx( d.E()[2] ) );
+  CHECK( 3.0e+7 == Approx( d.E()[3] ) );
+  CHECK( 1e-5 == Approx( d.energies()[0] ) );
+  CHECK( 5.000001e+5 == Approx( d.energies()[1] ) );
+  CHECK( 1.4e+7 == Approx( d.energies()[2] ) );
+  CHECK( 3.0e+7 == Approx( d.energies()[3] ) );
+  CHECK( 1.092064e+6 == Approx( d.TM()[0] ) );
+  CHECK( 1.101483e+6 == Approx( d.TM()[1] ) );
+  CHECK( 1.129269e+6 == Approx( d.TM()[2] ) );
+  CHECK( 1.182884e+6 == Approx( d.TM()[3] ) );
+  CHECK( 1.092064e+6 == Approx( d.maximumTemperatureValues()[0] ) );
+  CHECK( 1.101483e+6 == Approx( d.maximumTemperatureValues()[1] ) );
+  CHECK( 1.129269e+6 == Approx( d.maximumTemperatureValues()[2] ) );
+  CHECK( 1.182884e+6 == Approx( d.maximumTemperatureValues()[3] ) );
 
-  REQUIRE( 7 == chunk.NC() );
+  CHECK( 7 == chunk.NC() );
 }
 
 std::string invalidLF() {
