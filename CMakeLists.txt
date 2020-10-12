@@ -121,6 +121,8 @@ pybind11_add_module( ENDFtk.python
     python/src/section/5/MaxwellianFissionSpectrum.python.cpp
     python/src/section/5/WattSpectrum.python.cpp
     python/src/section/5/MadlandNixSpectrum.python.cpp
+    python/src/section/5/Probability.python.cpp
+    python/src/section/5/PartialDistribution.python.cpp
     python/src/file/1.python.cpp
     python/src/file/2.python.cpp
     python/src/file/3.python.cpp

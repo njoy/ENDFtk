@@ -204,14 +204,14 @@ void verifyChunk( const section::Type< 5 >& chunk ) {
   CHECK( 2 == p.boundaries()[0] );
   CHECK( 2 == p.E().size() );
   CHECK( 2 == p.energies().size() );
-  CHECK( 2 == p.p().size() );
+  CHECK( 2 == p.P().size() );
   CHECK( 2 == p.probabilities().size() );
   CHECK( 3.25e+6 == Approx( p.E()[0] ) );
   CHECK( 2e+7 == Approx( p.E()[1] ) );
   CHECK( 3.25e+6 == Approx( p.energies()[0] ) );
   CHECK( 2e+7 == Approx( p.energies()[1] ) );
-  CHECK( 1. == Approx( p.p()[0] ) );
-  CHECK( 1. == Approx( p.p()[1] ) );
+  CHECK( 1. == Approx( p.P()[0] ) );
+  CHECK( 1. == Approx( p.P()[1] ) );
   CHECK( 1. == Approx( p.probabilities()[0] ) );
   CHECK( 1. == Approx( p.probabilities()[1] ) );
 

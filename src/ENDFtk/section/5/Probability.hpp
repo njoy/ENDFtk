@@ -3,7 +3,7 @@ class PartialDistribution;
 
 /**
  *  @class
- *  @brief Partial probability for a given distribution
+ *  @brief Probability for a given partial distribution
  *
  *  The Probability class is used to provide the probability
  *  that the associated distribution can be used at a given incident
@@ -51,12 +51,12 @@ public:
   /**
    *  @brief Return the probability values
    */
-  auto p() const { return TabulationRecord::y(); }
+  auto P() const { return TabulationRecord::y(); }
 
   /**
    *  @brief Return the probability values
    */
-  auto probabilities() const { return this->p(); }
+  auto probabilities() const { return this->P(); }
 
   using TabulationRecord::NP;
   using TabulationRecord::NR;

@@ -453,14 +453,14 @@ void verifyChunkLF1( const PartialDistribution& chunk ) {
   CHECK( 2 == p.boundaries()[0] );
   CHECK( 2 == p.E().size() );
   CHECK( 2 == p.energies().size() );
-  CHECK( 2 == p.p().size() );
+  CHECK( 2 == p.P().size() );
   CHECK( 2 == p.probabilities().size() );
   CHECK( 1e-5 == Approx( p.E()[0] ) );
   CHECK( 3e+7 == Approx( p.E()[1] ) );
   CHECK( 1e-5 == Approx( p.energies()[0] ) );
   CHECK( 3e+7 == Approx( p.energies()[1] ) );
-  CHECK( 1. == Approx( p.p()[0] ) );
-  CHECK( 1. == Approx( p.p()[1] ) );
+  CHECK( 1. == Approx( p.P()[0] ) );
+  CHECK( 1. == Approx( p.P()[1] ) );
   CHECK( 1. == Approx( p.probabilities()[0] ) );
   CHECK( 1. == Approx( p.probabilities()[1] ) );
 
@@ -567,14 +567,14 @@ void verifyChunkLF5( const PartialDistribution& chunk ) {
   CHECK( 2 == p.boundaries()[0] );
   CHECK( 2 == p.E().size() );
   CHECK( 2 == p.energies().size() );
-  CHECK( 2 == p.p().size() );
+  CHECK( 2 == p.P().size() );
   CHECK( 2 == p.probabilities().size() );
   CHECK( 1e-5 == Approx( p.E()[0] ) );
   CHECK( 3e+7 == Approx( p.E()[1] ) );
   CHECK( 1e-5 == Approx( p.energies()[0] ) );
   CHECK( 3e+7 == Approx( p.energies()[1] ) );
-  CHECK( 1.804944e-2 == Approx( p.p()[0] ) );
-  CHECK( 1.804944e-2 == Approx( p.p()[1] ) );
+  CHECK( 1.804944e-2 == Approx( p.P()[0] ) );
+  CHECK( 1.804944e-2 == Approx( p.P()[1] ) );
   CHECK( 1.804944e-2 == Approx( p.probabilities()[0] ) );
   CHECK( 1.804944e-2 == Approx( p.probabilities()[1] ) );
 
@@ -655,14 +655,14 @@ void verifyChunkLF7( const PartialDistribution& chunk ) {
   CHECK( 2 == p.boundaries()[0] );
   CHECK( 2 == p.E().size() );
   CHECK( 2 == p.energies().size() );
-  CHECK( 2 == p.p().size() );
+  CHECK( 2 == p.P().size() );
   CHECK( 2 == p.probabilities().size() );
   CHECK( 1e-5 == Approx( p.E()[0] ) );
   CHECK( 3e+7 == Approx( p.E()[1] ) );
   CHECK( 1e-5 == Approx( p.energies()[0] ) );
   CHECK( 3e+7 == Approx( p.energies()[1] ) );
-  CHECK( 1. == Approx( p.p()[0] ) );
-  CHECK( 1. == Approx( p.p()[1] ) );
+  CHECK( 1. == Approx( p.P()[0] ) );
+  CHECK( 1. == Approx( p.P()[1] ) );
   CHECK( 1. == Approx( p.probabilities()[0] ) );
   CHECK( 1. == Approx( p.probabilities()[1] ) );
 
@@ -721,14 +721,14 @@ void verifyChunkLF9( const PartialDistribution& chunk ) {
   CHECK( 2 == p.boundaries()[0] );
   CHECK( 2 == p.E().size() );
   CHECK( 2 == p.energies().size() );
-  CHECK( 2 == p.p().size() );
+  CHECK( 2 == p.P().size() );
   CHECK( 2 == p.probabilities().size() );
   CHECK( 1.789920e+7 == Approx( p.E()[0] ) );
   CHECK( 2e+7 == Approx( p.E()[1] ) );
   CHECK( 1.789920e+7 == Approx( p.energies()[0] ) );
   CHECK( 2e+7 == Approx( p.energies()[1] ) );
-  CHECK( 1.0 == Approx( p.p()[0] ) );
-  CHECK( 1.0 == Approx( p.p()[1] ) );
+  CHECK( 1.0 == Approx( p.P()[0] ) );
+  CHECK( 1.0 == Approx( p.P()[1] ) );
   CHECK( 1.0 == Approx( p.probabilities()[0] ) );
   CHECK( 1.0 == Approx( p.probabilities()[1] ) );
 
@@ -792,14 +792,14 @@ void verifyChunkLF11( const PartialDistribution& chunk ) {
   CHECK( 2 == p.boundaries()[0] );
   CHECK( 2 == p.E().size() );
   CHECK( 2 == p.energies().size() );
-  CHECK( 2 == p.p().size() );
+  CHECK( 2 == p.P().size() );
   CHECK( 2 == p.probabilities().size() );
   CHECK( 1e-5 == Approx( p.E()[0] ) );
   CHECK( 3e+7 == Approx( p.E()[1] ) );
   CHECK( 1e-5 == Approx( p.energies()[0] ) );
   CHECK( 3e+7 == Approx( p.energies()[1] ) );
-  CHECK( 1. == Approx( p.p()[0] ) );
-  CHECK( 1. == Approx( p.p()[1] ) );
+  CHECK( 1. == Approx( p.P()[0] ) );
+  CHECK( 1. == Approx( p.P()[1] ) );
   CHECK( 1. == Approx( p.probabilities()[0] ) );
   CHECK( 1. == Approx( p.probabilities()[1] ) );
 
@@ -874,14 +874,14 @@ void verifyChunkLF12( const PartialDistribution& chunk ) {
   CHECK( 2 == p.boundaries()[0] );
   CHECK( 2 == p.E().size() );
   CHECK( 2 == p.energies().size() );
-  CHECK( 2 == p.p().size() );
+  CHECK( 2 == p.P().size() );
   CHECK( 2 == p.probabilities().size() );
   CHECK( 1e-5 == Approx( p.E()[0] ) );
   CHECK( 3e+7 == Approx( p.E()[1] ) );
   CHECK( 1e-5 == Approx( p.energies()[0] ) );
   CHECK( 3e+7 == Approx( p.energies()[1] ) );
-  CHECK( 1. == Approx( p.p()[0] ) );
-  CHECK( 1. == Approx( p.p()[1] ) );
+  CHECK( 1. == Approx( p.P()[0] ) );
+  CHECK( 1. == Approx( p.P()[1] ) );
   CHECK( 1. == Approx( p.probabilities()[0] ) );
   CHECK( 1. == Approx( p.probabilities()[1] ) );
 

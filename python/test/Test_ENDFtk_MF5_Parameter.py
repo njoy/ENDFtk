@@ -86,7 +86,7 @@ class Test_ENDFtk_MF5_Parameter( unittest.TestCase ) :
 
         with self.assertRaises( Exception ) :
 
-            chunk = Parameter.from_string( self.invalid, 9437, 5, 18 )
+            chunk = Parameter.from_string( self.invalid, 9437, 5, 455 )
 
 if __name__ == '__main__' :
 

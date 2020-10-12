@@ -197,14 +197,14 @@ void verifyChunkWithUZero( const Probability& chunk ) {
   CHECK( 2 == chunk.boundaries()[0] );
   CHECK( 2 == chunk.E().size() );
   CHECK( 2 == chunk.energies().size() );
-  CHECK( 2 == chunk.p().size() );
+  CHECK( 2 == chunk.P().size() );
   CHECK( 2 == chunk.probabilities().size() );
   CHECK( 1e-5 == Approx( chunk.E()[0] ) );
   CHECK( 3e+7 == Approx( chunk.E()[1] ) );
   CHECK( 1e-5 == Approx( chunk.energies()[0] ) );
   CHECK( 3e+7 == Approx( chunk.energies()[1] ) );
-  CHECK( 1. == Approx( chunk.p()[0] ) );
-  CHECK( 1. == Approx( chunk.p()[1] ) );
+  CHECK( 1. == Approx( chunk.P()[0] ) );
+  CHECK( 1. == Approx( chunk.P()[1] ) );
   CHECK( 1. == Approx( chunk.probabilities()[0] ) );
   CHECK( 1. == Approx( chunk.probabilities()[1] ) );
 
@@ -231,14 +231,14 @@ void verifyChunkWithUOne( const Probability& chunk ) {
   CHECK( 2 == chunk.boundaries()[0] );
   CHECK( 2 == chunk.E().size() );
   CHECK( 2 == chunk.energies().size() );
-  CHECK( 2 == chunk.p().size() );
+  CHECK( 2 == chunk.P().size() );
   CHECK( 2 == chunk.probabilities().size() );
   CHECK( 1e-5 == Approx( chunk.E()[0] ) );
   CHECK( 3e+7 == Approx( chunk.E()[1] ) );
   CHECK( 1e-5 == Approx( chunk.energies()[0] ) );
   CHECK( 3e+7 == Approx( chunk.energies()[1] ) );
-  CHECK( 1. == Approx( chunk.p()[0] ) );
-  CHECK( 1. == Approx( chunk.p()[1] ) );
+  CHECK( 1. == Approx( chunk.P()[0] ) );
+  CHECK( 1. == Approx( chunk.P()[1] ) );
   CHECK( 1. == Approx( chunk.probabilities()[0] ) );
   CHECK( 1. == Approx( chunk.probabilities()[1] ) );
 

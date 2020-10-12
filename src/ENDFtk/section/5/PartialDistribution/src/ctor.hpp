@@ -1,8 +1,8 @@
 /**
  *  @brief Constructor
  *
- *  @param[in] probability    the partial probability
- *  @param[in] distribution   the partial distribution
+ *  @param[in] probability    the probability
+ *  @param[in] distribution   the distribution
  */
 PartialDistribution( Probability&& probability,
                      Distribution&& distribution ) :

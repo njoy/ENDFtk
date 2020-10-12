@@ -6,7 +6,7 @@
  *  @param[in] interpolants    the interpolation types for each range
  *  @param[in] energies        the energy values
  *  @param[in] probabilities   the probability values
- *  @param[in] constant        the energy limit constant U (default = 0.0)
+ *  @param[in] u               the energy limit constant U (default = 0.0)
  */
 Probability( long lf,
              std::vector< long >&& boundaries,

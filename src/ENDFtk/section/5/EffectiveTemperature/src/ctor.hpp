@@ -1,3 +1,11 @@
+//! @todo pybind11 variant needs default constructor workaround
+#ifdef PYBIND11
+/**
+ *  @brief Default constructor - only enabled for pybind11
+ */
+EffectiveTemperature() = default;
+#endif
+
 /**
  *  @brief Constructor
  *
@@ -22,7 +30,7 @@ EffectiveTemperature( std::vector< long >&& boundaries,
     throw;
   }
 
-/** 
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator

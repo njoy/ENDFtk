@@ -1,4 +1,12 @@
-/** 
+//! @todo pybind11 variant needs default constructor workaround
+#ifdef PYBIND11
+/**
+ *  @brief Default constructor - only enabled for pybind11
+ */
+GeneralEvaporationSpectrum() = default;
+#endif
+
+/**
  *  @brief Constructor
  *
  *  @param[in] temperature    the effective temperature
@@ -25,7 +33,7 @@ GeneralEvaporationSpectrum( EffectiveTemperature&& temperature,
                               MAT, MF, MT ) ) {}
 
 public:
-/** 
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator
