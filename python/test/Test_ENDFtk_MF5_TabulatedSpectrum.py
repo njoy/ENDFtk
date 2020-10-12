@@ -151,7 +151,7 @@ class Test_ENDFtk_MF4_TabulatedSpectrum( unittest.TestCase ) :
 
         with self.assertRaises( Exception ) :
 
-            chunk = TabulatedSpectrum.from_string( self.invalid, 9228, 2, 151 )
+            chunk = TabulatedSpectrum.from_string( self.invalid, 9437, 5, 18 )
 
 if __name__ == '__main__' :
 

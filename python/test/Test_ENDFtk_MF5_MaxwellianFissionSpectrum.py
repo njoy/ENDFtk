@@ -4,10 +4,10 @@ import unittest
 # third party imports
 
 # local imports
-from ENDFtk.MF5 import EvaporationSpectrum
+from ENDFtk.MF5 import MaxwellianFissionSpectrum
 
-class Test_ENDFtk_MF4_EvaporationSpectrum( unittest.TestCase ) :
-    """Unit test for the EvaporationSpectrum class."""
+class Test_ENDFtk_MF4_MaxwellianFissionSpectrum( unittest.TestCase ) :
+    """Unit test for the MaxwellianFissionSpectrum class."""
 
     chunk = ( " 0.000000+0 0.000000+0          0          0          1          59437 5455     \n"
               "          5          1                                            9437 5455     \n"
@@ -24,8 +24,8 @@ class Test_ENDFtk_MF4_EvaporationSpectrum( unittest.TestCase ) :
         def verify_chunk( self, chunk ) :
 
             # verify content
-            self.assertEqual( 9, chunk.LF )
-            self.assertEqual( 9, chunk.LAW )
+            self.assertEqual( 7, chunk.LF )
+            self.assertEqual( 7, chunk.LAW )
 
             self.assertEqual( 5, chunk.NP )
             self.assertEqual( 1, chunk.NR )
@@ -58,22 +58,22 @@ class Test_ENDFtk_MF4_EvaporationSpectrum( unittest.TestCase ) :
             self.assertEqual( self.chunk, chunk.to_string( 9437, 5, 455 ) )
 
         # the data is given explicitly
-        chunk = EvaporationSpectrum( boundaries = [ 5 ],
-                                     interpolants = [ 1 ],
-                                     energies = [ 0.0, 1e+4, 2e+4,
-                                                  1.83e+6, 1.84e+6 ],
-                                     thetas = [ 2.265227e-7, 2.029471e-6,
-                                                2.272542e-6, 0.0, 0.0 ] )
+        chunk = MaxwellianFissionSpectrum( boundaries = [ 5 ],
+                                           interpolants = [ 1 ],
+                                           energies = [ 0.0, 1e+4, 2e+4,
+                                                        1.83e+6, 1.84e+6 ],
+                                           thetas = [ 2.265227e-7, 2.029471e-6,
+                                                      2.272542e-6, 0.0, 0.0 ] )
 
         verify_chunk( self, chunk )
 
         # the data is read from a string
-        chunk = EvaporationSpectrum.from_string( self.chunk, 9437, 5, 455 )
+        chunk = MaxwellianFissionSpectrum.from_string( self.chunk, 9437, 5, 455 )
 
         verify_chunk( self, chunk )
 
         # the data is copied
-        copy = EvaporationSpectrum( chunk )
+        copy = MaxwellianFissionSpectrum( chunk )
 
         verify_chunk( self, copy )
 
@@ -83,16 +83,16 @@ class Test_ENDFtk_MF4_EvaporationSpectrum( unittest.TestCase ) :
 
         with self.assertRaises( Exception ) :
 
-            chunk = EvaporationSpectrum( boundaries = [ 5 ],
-                                         interpolants = [ 1, 2 ],
-                                         energies = [ 0.0, 1e+4, 2e+4,
-                                                      1.83e+6, 1.84e+6 ],
-                                         thetas = [ 2.265227e-7, 2.029471e-6,
-                                                    2.272542e-6, 0.0, 0.0 ] )
+            chunk = MaxwellianFissionSpectrum( boundaries = [ 5 ],
+                                               interpolants = [ 1, 2 ],
+                                               energies = [ 0.0, 1e+4, 2e+4,
+                                                            1.83e+6, 1.84e+6 ],
+                                               thetas = [ 2.265227e-7, 2.029471e-6,
+                                                          2.272542e-6, 0.0, 0.0 ] )
 
         with self.assertRaises( Exception ) :
 
-            chunk = EvaporationSpectrum.from_string( self.invalid, 9437, 5, 455 )
+            chunk = MaxwellianFissionSpectrum.from_string( self.invalid, 9228, 2, 151 )
 
 if __name__ == '__main__' :
 
