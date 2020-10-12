@@ -116,7 +116,7 @@ void verifyChunk( const GeneralEvaporationSpectrum& chunk ) {
   CHECK( 5 == chunk.LAW() );
 
   const auto& t = chunk.effectiveTemperature();
-  CHECK( 2 == t.NE() );
+  CHECK( 2 == t.NP() );
   CHECK( 1 == t.NR() );
   CHECK( 1 == t.interpolants().size() );
   CHECK( 1 == t.boundaries().size() );
@@ -125,15 +125,12 @@ void verifyChunk( const GeneralEvaporationSpectrum& chunk ) {
   CHECK( 2 == t.E().size() );
   CHECK( 2 == t.energies().size() );
   CHECK( 2 == t.thetas().size() );
-  CHECK( 2 == t.values().size() );
   CHECK( 1e-5 == Approx( t.E()[0] ) );
   CHECK( 3e+7 == Approx( t.E()[1] ) );
   CHECK( 1e-5 == Approx( t.energies()[0] ) );
   CHECK( 3e+7 == Approx( t.energies()[1] ) );
   CHECK( 1.0 == Approx( t.thetas()[0] ) );
   CHECK( 1.0 == Approx( t.thetas()[1] ) );
-  CHECK( 1.0 == Approx( t.values()[0] ) );
-  CHECK( 1.0 == Approx( t.values()[1] ) );
 
   const auto& df = chunk.distributionFunction();
   CHECK( 6 == df.NP() );

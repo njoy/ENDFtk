@@ -118,7 +118,7 @@ std::string chunk() {
 
 void verifyChunk( const Parameter& chunk ) {
 
-  CHECK( 5 == chunk.NE() );
+  CHECK( 5 == chunk.NP() );
   CHECK( 1 == chunk.NR() );
   CHECK( 1 == chunk.interpolants().size() );
   CHECK( 1 == chunk.boundaries().size() );

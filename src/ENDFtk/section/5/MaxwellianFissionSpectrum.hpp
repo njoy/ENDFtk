@@ -26,8 +26,7 @@ public:
   using EffectiveTemperature::E;
   using EffectiveTemperature::energies;
   using EffectiveTemperature::thetas;
-  using EffectiveTemperature::values;
-  using EffectiveTemperature::NE;
+  using EffectiveTemperature::NP;
   using EffectiveTemperature::NR;
   using EffectiveTemperature::interpolants;
   using EffectiveTemperature::boundaries;

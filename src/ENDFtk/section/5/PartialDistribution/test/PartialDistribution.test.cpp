@@ -586,7 +586,7 @@ void verifyChunkLF5( const PartialDistribution& chunk ) {
   CHECK( 5 == d.LAW() );
 
   auto t = d.effectiveTemperature();
-  CHECK( 2 == t.NE() );
+  CHECK( 2 == t.NP() );
   CHECK( 1 == t.NR() );
   CHECK( 1 == t.interpolants().size() );
   CHECK( 1 == t.boundaries().size() );
@@ -595,15 +595,12 @@ void verifyChunkLF5( const PartialDistribution& chunk ) {
   CHECK( 2 == t.E().size() );
   CHECK( 2 == t.energies().size() );
   CHECK( 2 == t.thetas().size() );
-  CHECK( 2 == t.values().size() );
   CHECK( 1e-5 == Approx( t.E()[0] ) );
   CHECK( 3e+7 == Approx( t.E()[1] ) );
   CHECK( 1e-5 == Approx( t.energies()[0] ) );
   CHECK( 3e+7 == Approx( t.energies()[1] ) );
   CHECK( 1.0 == Approx( t.thetas()[0] ) );
   CHECK( 1.0 == Approx( t.thetas()[1] ) );
-  CHECK( 1.0 == Approx( t.values()[0] ) );
-  CHECK( 1.0 == Approx( t.values()[1] ) );
 
   auto df = d.distributionFunction();
   CHECK( 6 == df.NP() );
@@ -673,7 +670,7 @@ void verifyChunkLF7( const PartialDistribution& chunk ) {
                   ( chunk.distribution() );
   CHECK( 7 == d.LF() );
   CHECK( 7 == d.LAW() );
-  CHECK( 3 == d.NE() );
+  CHECK( 3 == d.NP() );
   CHECK( 1 == d.NR() );
   CHECK( 1 == d.interpolants().size() );
   CHECK( 1 == d.boundaries().size() );
@@ -682,7 +679,6 @@ void verifyChunkLF7( const PartialDistribution& chunk ) {
   CHECK( 3 == d.E().size() );
   CHECK( 3 == d.energies().size() );
   CHECK( 3 == d.thetas().size() );
-  CHECK( 3 == d.values().size() );
   CHECK( 1e-5 == Approx( d.E()[0] ) );
   CHECK( 5e+5 == Approx( d.E()[1] ) );
   CHECK( 3e+7 == Approx( d.E()[2] ) );
@@ -692,9 +688,6 @@ void verifyChunkLF7( const PartialDistribution& chunk ) {
   CHECK( 1.3652e+6 == Approx( d.thetas()[0] ) );
   CHECK( 1.3748e+6 == Approx( d.thetas()[1] ) );
   CHECK( 1.6912e+6 == Approx( d.thetas()[2] ) );
-  CHECK( 1.3652e+6 == Approx( d.values()[0] ) );
-  CHECK( 1.3748e+6 == Approx( d.values()[1] ) );
-  CHECK( 1.6912e+6 == Approx( d.values()[2] ) );
 
   CHECK( 6 == chunk.NC() );
 }
@@ -742,7 +735,7 @@ void verifyChunkLF9( const PartialDistribution& chunk ) {
   auto d = std::get< EvaporationSpectrum >( chunk.distribution() );
   CHECK( 9 == d.LF() );
   CHECK( 9 == d.LAW() );
-  CHECK( 4 == d.NE() );
+  CHECK( 4 == d.NP() );
   CHECK( 1 == d.NR() );
   CHECK( 1 == d.interpolants().size() );
   CHECK( 1 == d.boundaries().size() );
@@ -751,7 +744,6 @@ void verifyChunkLF9( const PartialDistribution& chunk ) {
   CHECK( 4 == d.E().size() );
   CHECK( 4 == d.energies().size() );
   CHECK( 4 == d.thetas().size() );
-  CHECK( 4 == d.values().size() );
   CHECK( 1.789920e+7 == Approx( d.E()[0] ) );
   CHECK( 1.8e+7 == Approx( d.E()[1] ) );
   CHECK( 1.9e+7 == Approx( d.E()[2] ) );
@@ -764,10 +756,6 @@ void verifyChunkLF9( const PartialDistribution& chunk ) {
   CHECK( 1.0099e+5 == Approx( d.thetas()[1] ) );
   CHECK( 1.1292e+5 == Approx( d.thetas()[2] ) );
   CHECK( 1.6143e+5 == Approx( d.thetas()[3] ) );
-  CHECK( 1.0099e+5 == Approx( d.values()[0] ) );
-  CHECK( 1.0099e+5 == Approx( d.values()[1] ) );
-  CHECK( 1.1292e+5 == Approx( d.values()[2] ) );
-  CHECK( 1.6143e+5 == Approx( d.values()[3] ) );
 
   CHECK( 7 == chunk.NC() );
 }
@@ -820,7 +808,7 @@ void verifyChunkLF11( const PartialDistribution& chunk ) {
   CHECK( 11 == d.LF() );
   CHECK( 11 == d.LAW() );
 
-  CHECK( 3 == d.a().NE() );
+  CHECK( 3 == d.a().NP() );
   CHECK( 1 == d.a().NR() );
   CHECK( 1 == d.a().interpolants().size() );
   CHECK( 1 == d.a().boundaries().size() );
@@ -828,18 +816,14 @@ void verifyChunkLF11( const PartialDistribution& chunk ) {
   CHECK( 3 == d.a().boundaries()[0] );
   CHECK( 3 == d.a().E().size() );
   CHECK( 3 == d.a().energies().size() );
-  CHECK( 3 == d.a().values().size() );
   CHECK( 1e-5 == Approx( d.a().E()[0] ) );
   CHECK( 1.5e+6 == Approx( d.a().E()[1] ) );
   CHECK( 3e+7 == Approx( d.a().E()[2] ) );
   CHECK( 1e-5 == Approx( d.a().energies()[0] ) );
   CHECK( 1.5e+6 == Approx( d.a().energies()[1] ) );
   CHECK( 3e+7 == Approx( d.a().energies()[2] ) );
-  CHECK( 9.77e+5 == Approx( d.a().values()[0] ) );
-  CHECK( 1e+6 == Approx( d.a().values()[1] ) );
-  CHECK( 1.06e+6 == Approx( d.a().values()[2] ) );
 
-  CHECK( 5 == d.b().NE() );
+  CHECK( 5 == d.b().NP() );
   CHECK( 1 == d.b().NR() );
   CHECK( 1 == d.b().interpolants().size() );
   CHECK( 1 == d.b().boundaries().size() );
@@ -847,7 +831,6 @@ void verifyChunkLF11( const PartialDistribution& chunk ) {
   CHECK( 5 == d.b().boundaries()[0] );
   CHECK( 5 == d.b().E().size() );
   CHECK( 5 == d.b().energies().size() );
-  CHECK( 5 == d.b().values().size() );
   CHECK( 1e-5 == Approx( d.b().E()[0] ) );
   CHECK( 1.5e+6 == Approx( d.b().E()[1] ) );
   CHECK( 1e+7 == Approx( d.b().E()[2] ) );
@@ -858,11 +841,6 @@ void verifyChunkLF11( const PartialDistribution& chunk ) {
   CHECK( 1e+7 == Approx( d.b().energies()[2] ) );
   CHECK( 1.22e+7 == Approx( d.b().energies()[3] ) );
   CHECK( 3e+7 == Approx( d.b().energies()[4] ) );
-  CHECK( 2.546e-6 == Approx( d.b().values()[0] ) );
-  CHECK( 2.546e-6 == Approx( d.b().values()[1] ) );
-  CHECK( 2.474e-6 == Approx( d.b().values()[2] ) );
-  CHECK( 2.612e-6 == Approx( d.b().values()[3] ) );
-  CHECK( 2.62e-6 == Approx( d.b().values()[4] ) );
 
   CHECK( 10 == chunk.NC() );
 }
@@ -917,7 +895,7 @@ void verifyChunkLF12( const PartialDistribution& chunk ) {
   CHECK( 5.467297e+5 == Approx( d.EFH() ) );
   CHECK( 5.467297e+5 == Approx( d.heavyFragmentEnergy() ) );
 
-  CHECK( 4 == d.NE() );
+  CHECK( 4 == d.NP() );
   CHECK( 1 == d.NR() );
   CHECK( 1 == d.interpolants().size() );
   CHECK( 1 == d.boundaries().size() );

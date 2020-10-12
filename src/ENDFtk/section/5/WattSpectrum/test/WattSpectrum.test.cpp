@@ -108,7 +108,7 @@ void verifyChunk( const WattSpectrum& chunk ) {
   CHECK( 11 == chunk.LAW() );
 
   auto valueA = chunk.a();
-  CHECK( 3 == valueA.NE() );
+  CHECK( 3 == valueA.NP() );
   CHECK( 1 == valueA.NR() );
   CHECK( 1 == valueA.interpolants().size() );
   CHECK( 1 == valueA.boundaries().size() );
@@ -124,7 +124,7 @@ void verifyChunk( const WattSpectrum& chunk ) {
   CHECK( 1.06e+6 == Approx( valueA.values()[2] ) );
 
   auto valueB = chunk.b();
-  CHECK( 5 == valueB.NE() );
+  CHECK( 5 == valueB.NP() );
   CHECK( 1 == valueB.NR() );
   CHECK( 1 == valueB.interpolants().size() );
   CHECK( 1 == valueB.boundaries().size() );

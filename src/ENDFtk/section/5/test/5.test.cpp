@@ -221,7 +221,7 @@ void verifyChunk( const section::Type< 5 >& chunk ) {
   CHECK( 7 == d.LF() );
   CHECK( 7 == d.LAW() );
 
-  CHECK( 3 == d.NE() );
+  CHECK( 3 == d.NP() );
   CHECK( 1 == d.NR() );
   CHECK( 1 == d.interpolants().size() );
   CHECK( 1 == d.boundaries().size() );
@@ -230,7 +230,6 @@ void verifyChunk( const section::Type< 5 >& chunk ) {
   CHECK( 3 == d.E().size() );
   CHECK( 3 == d.energies().size() );
   CHECK( 3 == d.thetas().size() );
-  CHECK( 3 == d.values().size() );
   CHECK( 3.25e+6 == Approx( d.E()[0] ) );
   CHECK( 1.5e+7 == Approx( d.E()[1] ) );
   CHECK( 2e+7 == Approx( d.E()[2] ) );
@@ -240,9 +239,6 @@ void verifyChunk( const section::Type< 5 >& chunk ) {
   CHECK( 1.2955e+6 == Approx( d.thetas()[0] ) );
   CHECK( 1.4923e+6 == Approx( d.thetas()[1] ) );
   CHECK( 1.49447e+6 == Approx( d.thetas()[2] ) );
-  CHECK( 1.2955e+6 == Approx( d.values()[0] ) );
-  CHECK( 1.4923e+6 == Approx( d.values()[1] ) );
-  CHECK( 1.49447e+6 == Approx( d.values()[2] ) );
 
   CHECK( 7 == chunk.NC() );
 }

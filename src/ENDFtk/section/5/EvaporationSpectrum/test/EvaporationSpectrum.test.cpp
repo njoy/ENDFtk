@@ -128,7 +128,7 @@ void verifyChunk( const EvaporationSpectrum& chunk ) {
   CHECK( 9 == chunk.LF() );
   CHECK( 9 == chunk.LAW() );
 
-  CHECK( 5 == chunk.NE() );
+  CHECK( 5 == chunk.NP() );
   CHECK( 1 == chunk.NR() );
   CHECK( 1 == chunk.interpolants().size() );
   CHECK( 1 == chunk.boundaries().size() );
@@ -137,7 +137,6 @@ void verifyChunk( const EvaporationSpectrum& chunk ) {
   CHECK( 5 == chunk.E().size() );
   CHECK( 5 == chunk.energies().size() );
   CHECK( 5 == chunk.thetas().size() );
-  CHECK( 5 == chunk.values().size() );
   CHECK( 0.0 == Approx( chunk.E()[0] ) );
   CHECK( 1e+4 == Approx( chunk.E()[1] ) );
   CHECK( 2e+4 == Approx( chunk.E()[2] ) );
@@ -153,11 +152,6 @@ void verifyChunk( const EvaporationSpectrum& chunk ) {
   CHECK( 2.272542e-6 == Approx( chunk.thetas()[2] ) );
   CHECK( 0.0 == Approx( chunk.thetas()[3] ) );
   CHECK( 0.0 == Approx( chunk.thetas()[4] ) );
-  CHECK( 2.265227e-7 == Approx( chunk.values()[0] ) );
-  CHECK( 2.029471e-6 == Approx( chunk.values()[1] ) );
-  CHECK( 2.272542e-6 == Approx( chunk.values()[2] ) );
-  CHECK( 0.0 == Approx( chunk.values()[3] ) );
-  CHECK( 0.0 == Approx( chunk.values()[4] ) );
 
   CHECK( 4 == chunk.NC() );
 }
