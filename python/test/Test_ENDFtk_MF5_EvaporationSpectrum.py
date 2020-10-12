@@ -6,7 +6,7 @@ import unittest
 # local imports
 from ENDFtk.MF5 import EvaporationSpectrum
 
-class Test_ENDFtk_MF4_EvaporationSpectrum( unittest.TestCase ) :
+class Test_ENDFtk_MF5_EvaporationSpectrum( unittest.TestCase ) :
     """Unit test for the EvaporationSpectrum class."""
 
     chunk = ( ' 0.000000+0 0.000000+0          0          0          1          59437 5455     \n'

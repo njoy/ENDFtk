@@ -6,18 +6,18 @@ import unittest
 # local imports
 from ENDFtk.MF5 import MaxwellianFissionSpectrum
 
-class Test_ENDFtk_MF4_MaxwellianFissionSpectrum( unittest.TestCase ) :
+class Test_ENDFtk_MF5_MaxwellianFissionSpectrum( unittest.TestCase ) :
     """Unit test for the MaxwellianFissionSpectrum class."""
 
-    chunk = ( " 0.000000+0 0.000000+0          0          0          1          59437 5455     \n"
-              "          5          1                                            9437 5455     \n"
-              " 0.000000+0 2.265227-7 1.000000+4 2.029471-6 2.000000+4 2.272542-69437 5455     \n"
-              " 1.830000+6 0.000000+0 1.840000+6 0.000000+0                      9437 5455     \n" )
+    chunk = ( ' 0.000000+0 0.000000+0          0          0          1          59437 5455     \n'
+              '          5          1                                            9437 5455     \n'
+              ' 0.000000+0 2.265227-7 1.000000+4 2.029471-6 2.000000+4 2.272542-69437 5455     \n'
+              ' 1.830000+6 0.000000+0 1.840000+6 0.000000+0                      9437 5455     \n' )
 
-    invalid = ( " 0.000000+0 0.000000+0          0          0          2          59437 5455     \n"
-                "          5          1                                            9437 5455     \n"
-                " 1.000000+0 6.000000+0 2.000000+0 7.000000+0 3.000000+0 8.000000+09437 5455     \n"
-                " 4.000000+0 9.000000+0 5.000000+0 1.000000+1                      9437 5455     \n" )
+    invalid = ( ' 0.000000+0 0.000000+0          0          0          2          59437 5455     \n'
+                '          5          1                                            9437 5455     \n'
+                ' 1.000000+0 6.000000+0 2.000000+0 7.000000+0 3.000000+0 8.000000+09437 5455     \n'
+                ' 4.000000+0 9.000000+0 5.000000+0 1.000000+1                      9437 5455     \n' )
 
     def test_component( self ) :
 
@@ -92,7 +92,7 @@ class Test_ENDFtk_MF4_MaxwellianFissionSpectrum( unittest.TestCase ) :
 
         with self.assertRaises( Exception ) :
 
-            chunk = MaxwellianFissionSpectrum.from_string( self.invalid, 9228, 2, 151 )
+            chunk = MaxwellianFissionSpectrum.from_string( self.invalid, 9437, 5, 455 )
 
 if __name__ == '__main__' :
 

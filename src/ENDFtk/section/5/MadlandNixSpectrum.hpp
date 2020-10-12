@@ -21,7 +21,7 @@ public:
   /**
    *  @brief Return the distribution type (the LF flag)
    */
-  static constexpr int LAW() { return MadlandNixSpectrum::LF(); }
+  int LAW() const { return this->LF(); }
 
   /**
    *  @brief Return the average kinetic energy of the average light

@@ -7,7 +7,7 @@ import unittest
 from ENDFtk.MF5 import OutgoingEnergyDistribution
 from ENDFtk.MF5 import TabulatedSpectrum
 
-class Test_ENDFtk_MF4_TabulatedSpectrum( unittest.TestCase ) :
+class Test_ENDFtk_MF5_TabulatedSpectrum( unittest.TestCase ) :
     """Unit test for the TabulatedSpectrum class."""
 
     chunk = ( ' 0.000000+0 0.000000+0          0          0          1          29437 5 18     \n'

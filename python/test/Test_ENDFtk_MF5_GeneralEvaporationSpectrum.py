@@ -8,7 +8,7 @@ from ENDFtk.MF5 import GeneralEvaporationSpectrum
 from ENDFtk.MF5 import EffectiveTemperature
 from ENDFtk.MF5 import DistributionFunction
 
-class Test_ENDFtk_MF4_GeneralEvaporationSpectrum( unittest.TestCase ) :
+class Test_ENDFtk_MF5_GeneralEvaporationSpectrum( unittest.TestCase ) :
     """Unit test for the GeneralEvaporationSpectrum class."""
 
     chunk = ( ' 0.000000+0 0.000000+0          0          0          1          29443 5455     \n'

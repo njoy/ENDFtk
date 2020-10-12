@@ -19,6 +19,8 @@ void wrapEffectiveTemperature( python::module& );
 void wrapGeneralEvaporationSpectrum( python::module& );
 void wrapEvaporationSpectrum( python::module& );
 void wrapMaxwellianFissionSpectrum( python::module& );
+void wrapWattSpectrum( python::module& );
+void wrapMadlandNixSpectrum( python::module& );
 
 void wrapSection_5( python::module& module ) {
 
@@ -45,6 +47,8 @@ void wrapSection_5( python::module& module ) {
   wrapGeneralEvaporationSpectrum( module );
   wrapEvaporationSpectrum( module );
   wrapMaxwellianFissionSpectrum( module );
+  wrapWattSpectrum( module );
+  wrapMadlandNixSpectrum( module );
 
   // wrap the section
   section
