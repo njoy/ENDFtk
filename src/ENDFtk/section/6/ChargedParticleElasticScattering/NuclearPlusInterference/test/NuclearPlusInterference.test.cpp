@@ -7,7 +7,7 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using NuclearPlusInterference = 
+using NuclearPlusInterference =
 section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference;
 
 std::string chunk();
@@ -71,7 +71,7 @@ SCENARIO( "NuclearPlusInterference" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       chunk.print( output, 9228, 6, 5 );
-      REQUIRE( buffer == string );
+      CHECK( buffer == string );
     }
   } // GIVEN
 
@@ -88,14 +88,14 @@ SCENARIO( "NuclearPlusInterference" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( NuclearPlusInterference( energy, ltp,
-                                                 std::move( wrong ),
-                                                 std::move( probabilities ) ) );
-        REQUIRE_THROWS( NuclearPlusInterference( energy, ltp,
-                                                 std::move( cosines ),
-                                                 std::move( wrong ) ) );
-        REQUIRE_THROWS( NuclearPlusInterference( energy, ltp,
-                                                 std::move( wrongsize ) ) );
+        CHECK_THROWS( NuclearPlusInterference( energy, ltp,
+                                               std::move( wrong ),
+                                               std::move( probabilities ) ) );
+        CHECK_THROWS( NuclearPlusInterference( energy, ltp,
+                                               std::move( cosines ),
+                                               std::move( wrong ) ) );
+        CHECK_THROWS( NuclearPlusInterference( energy, ltp,
+                                               std::move( wrongsize ) ) );
       } // THEN
     } // WHEN
 
@@ -109,11 +109,11 @@ SCENARIO( "NuclearPlusInterference" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( NuclearPlusInterference( energy, ltp,
-                                                 std::move( values ) ) );
-        REQUIRE_THROWS( NuclearPlusInterference( energy, ltp,
-                                                 std::move( cosines ),
-                                                 std::move( probabilities ) ) );
+        CHECK_THROWS( NuclearPlusInterference( energy, ltp,
+                                               std::move( values ) ) );
+        CHECK_THROWS( NuclearPlusInterference( energy, ltp,
+                                               std::move( cosines ),
+                                               std::move( probabilities ) ) );
       } // THEN
     } // WHEN
 
@@ -126,8 +126,8 @@ SCENARIO( "NuclearPlusInterference" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( NuclearPlusInterference( begin, end, lineNumber,
-                                                 9228, 6, 5 ) );
+        CHECK_THROWS( NuclearPlusInterference( begin, end, lineNumber,
+                                               9228, 6, 5 ) );
       } // THEN
     } // WHEN
 
@@ -140,8 +140,8 @@ SCENARIO( "NuclearPlusInterference" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( NuclearPlusInterference( begin, end, lineNumber,
-                                                 9228, 6, 5 ) );
+        CHECK_THROWS( NuclearPlusInterference( begin, end, lineNumber,
+                                               9228, 6, 5 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -155,21 +155,21 @@ std::string chunk() {
 
 void verifyChunk( const NuclearPlusInterference& chunk ) {
 
-  REQUIRE( 1e-5 == Approx( chunk.energy() ) );
+  CHECK( 1e-5 == Approx( chunk.energy() ) );
 
-  REQUIRE( 12 == chunk.LTP() );
-  REQUIRE( 6 == chunk.NW() );
-  REQUIRE( 3 == chunk.NL() );
-  REQUIRE( 3 == chunk.cosines().size() );
-  REQUIRE( 1. == Approx( chunk.cosines()[0] ) );
-  REQUIRE( 3. == Approx( chunk.cosines()[1] ) );
-  REQUIRE( 5. == Approx( chunk.cosines()[2] ) );
-  REQUIRE( 3 == chunk.probabilities().size() );
-  REQUIRE( 2. == Approx( chunk.probabilities()[0] ) );
-  REQUIRE( 4. == Approx( chunk.probabilities()[1] ) );
-  REQUIRE( 6. == Approx( chunk.probabilities()[2] ) );
+  CHECK( 12 == chunk.LTP() );
+  CHECK( 6 == chunk.NW() );
+  CHECK( 3 == chunk.NL() );
+  CHECK( 3 == chunk.cosines().size() );
+  CHECK( 1. == Approx( chunk.cosines()[0] ) );
+  CHECK( 3. == Approx( chunk.cosines()[1] ) );
+  CHECK( 5. == Approx( chunk.cosines()[2] ) );
+  CHECK( 3 == chunk.probabilities().size() );
+  CHECK( 2. == Approx( chunk.probabilities()[0] ) );
+  CHECK( 4. == Approx( chunk.probabilities()[1] ) );
+  CHECK( 6. == Approx( chunk.probabilities()[2] ) );
 
-  REQUIRE( 2 == chunk.NC() );
+  CHECK( 2 == chunk.NC() );
 }
 
 std::string invalidLTP() {

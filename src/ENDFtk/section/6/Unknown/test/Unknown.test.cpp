@@ -7,7 +7,7 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using Unknown = 
+using Unknown =
 section::Type< 6 >::Unknown;
 
 SCENARIO( "Unknown" ) {

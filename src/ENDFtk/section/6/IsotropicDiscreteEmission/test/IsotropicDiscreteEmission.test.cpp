@@ -7,7 +7,7 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using IsotropicDiscreteEmission = 
+using IsotropicDiscreteEmission =
 section::Type< 6 >::IsotropicDiscreteEmission;
 
 SCENARIO( "IsotropicDiscreteEmission" ) {
@@ -18,9 +18,9 @@ SCENARIO( "IsotropicDiscreteEmission" ) {
           "members can be tested" ) {
       IsotropicDiscreteEmission chunk;
 
-      REQUIRE( 3 == chunk.LAW() );
+      CHECK( 3 == chunk.LAW() );
 
-      REQUIRE( 0 == chunk.NC() );
+      CHECK( 0 == chunk.NC() );
     }
   } // GIVEN
 
@@ -32,7 +32,7 @@ SCENARIO( "IsotropicDiscreteEmission" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       chunk.print( output, 9228, 6, 5 );
-      REQUIRE( buffer.size() == 0 );
+      CHECK( buffer.size() == 0 );
     }
   } // GIVEN
 } // SCENARIO

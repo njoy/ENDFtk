@@ -7,7 +7,7 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using NuclearAmplitudeExpansion = 
+using NuclearAmplitudeExpansion =
 section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitudeExpansion;
 
 std::string chunk();
@@ -87,7 +87,7 @@ SCENARIO( "NuclearAmplitudeExpansion" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       chunk.print( output, 9228, 6, 5 );
-      REQUIRE( buffer == string );
+      CHECK( buffer == string );
     } // THEN
   } // GIVEN
 
@@ -107,25 +107,25 @@ SCENARIO( "NuclearAmplitudeExpansion" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( NuclearAmplitudeExpansion( energy, nl,
-                                                   std::move( wrong_b ),
-                                                   std::move( a_real ),
-                                                   std::move( a_imag ) ) );
-        REQUIRE_THROWS( NuclearAmplitudeExpansion( energy, nl, std::move( b ),
-                                                   std::move( a_wrong ),
-                                                   std::move( a_imag ) ) );
-        REQUIRE_THROWS( NuclearAmplitudeExpansion( energy, nl, std::move( b ),
-                                                   std::move( a_real ),
-                                                   std::move( a_wrong ) ) );
-        REQUIRE_THROWS( NuclearAmplitudeExpansion( energy, nl, std::move( b ),
-                                                   std::move( a_real ),
-                                                   std::move( a_wrong ) ) );
-        REQUIRE_THROWS( NuclearAmplitudeExpansion( energy, nl,
-                                                   std::move( wrong_b ),
-                                                   std::move( acomplex ) ) );
-        REQUIRE_THROWS( NuclearAmplitudeExpansion( energy, nl,
-                                                   std::move( b ),
-                                                   std::move( acomplex_wrong ) ) );
+        CHECK_THROWS( NuclearAmplitudeExpansion( energy, nl,
+                                                 std::move( wrong_b ),
+                                                 std::move( a_real ),
+                                                 std::move( a_imag ) ) );
+        CHECK_THROWS( NuclearAmplitudeExpansion( energy, nl, std::move( b ),
+                                                 std::move( a_wrong ),
+                                                 std::move( a_imag ) ) );
+        CHECK_THROWS( NuclearAmplitudeExpansion( energy, nl, std::move( b ),
+                                                 std::move( a_real ),
+                                                 std::move( a_wrong ) ) );
+        CHECK_THROWS( NuclearAmplitudeExpansion( energy, nl, std::move( b ),
+                                                 std::move( a_real ),
+                                                 std::move( a_wrong ) ) );
+        CHECK_THROWS( NuclearAmplitudeExpansion( energy, nl,
+                                                 std::move( wrong_b ),
+                                                 std::move( acomplex ) ) );
+        CHECK_THROWS( NuclearAmplitudeExpansion( energy, nl,
+                                                 std::move( b ),
+                                                 std::move( acomplex_wrong ) ) );
       } // THEN
     } // WHEN
 
@@ -138,8 +138,8 @@ SCENARIO( "NuclearAmplitudeExpansion" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( NuclearAmplitudeExpansion( energy, 1,
-                                                   std::move( values ) ) );
+        CHECK_THROWS( NuclearAmplitudeExpansion( energy, 1,
+                                                 std::move( values ) ) );
       } // THEN
     } // WHEN
 
@@ -152,8 +152,8 @@ SCENARIO( "NuclearAmplitudeExpansion" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( NuclearAmplitudeExpansion( begin, end, lineNumber,
-                                                   9228, 6, 5 ) );
+        CHECK_THROWS( NuclearAmplitudeExpansion( begin, end, lineNumber,
+                                                 9228, 6, 5 ) );
       } // THEN
     } // WHEN
 
@@ -166,8 +166,8 @@ SCENARIO( "NuclearAmplitudeExpansion" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( NuclearAmplitudeExpansion( begin, end, lineNumber,
-                                                   9228, 6, 5 ) );
+        CHECK_THROWS( NuclearAmplitudeExpansion( begin, end, lineNumber,
+                                                 9228, 6, 5 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -183,40 +183,40 @@ std::string chunk() {
 
 void verifyChunk( const NuclearAmplitudeExpansion& chunk ) {
 
-  REQUIRE( 1e-5 == Approx( chunk.energy() ) );
+  CHECK( 1e-5 == Approx( chunk.energy() ) );
 
-  REQUIRE( 1 == chunk.LTP() );
-  REQUIRE( 15 == chunk.NW() );
-  REQUIRE( 3 == chunk.NL() );
-  REQUIRE( 7 == chunk.scatteringCoefficients().size() );
-  REQUIRE( 1. == Approx( chunk.scatteringCoefficients()[0] ) );
-  REQUIRE( 2. == Approx( chunk.scatteringCoefficients()[1] ) );
-  REQUIRE( 3. == Approx( chunk.scatteringCoefficients()[2] ) );
-  REQUIRE( 4. == Approx( chunk.scatteringCoefficients()[3] ) );
-  REQUIRE( 5. == Approx( chunk.scatteringCoefficients()[4] ) );
-  REQUIRE( 6. == Approx( chunk.scatteringCoefficients()[5] ) );
-  REQUIRE( 7. == Approx( chunk.scatteringCoefficients()[6] ) );
-  REQUIRE( 4 == chunk.realInterferenceCoefficients().size() );
-  REQUIRE( 8. == Approx( chunk.realInterferenceCoefficients()[0] ) );
-  REQUIRE( 10. == Approx( chunk.realInterferenceCoefficients()[1] ) );
-  REQUIRE( 12. == Approx( chunk.realInterferenceCoefficients()[2] ) );
-  REQUIRE( 14. == Approx( chunk.realInterferenceCoefficients()[3] ) );
-  REQUIRE( 4 == chunk.imaginaryInterferenceCoefficients().size() );
-  REQUIRE( 9. == Approx( chunk.imaginaryInterferenceCoefficients()[0] ) );
-  REQUIRE( 11. == Approx( chunk.imaginaryInterferenceCoefficients()[1] ) );
-  REQUIRE( 13. == Approx( chunk.imaginaryInterferenceCoefficients()[2] ) );
-  REQUIRE( 15. == Approx( chunk.imaginaryInterferenceCoefficients()[3] ) );
-  REQUIRE( 4 == chunk.interferenceCoefficients().size() );
-  REQUIRE( 8. == Approx( chunk.interferenceCoefficients()[0].real() ) );
-  REQUIRE( 10. == Approx( chunk.interferenceCoefficients()[1].real() ) );
-  REQUIRE( 12. == Approx( chunk.interferenceCoefficients()[2].real() ) );
-  REQUIRE( 14. == Approx( chunk.interferenceCoefficients()[3].real() ) );
-  REQUIRE( 9. == Approx( chunk.interferenceCoefficients()[0].imag() ) );
-  REQUIRE( 11. == Approx( chunk.interferenceCoefficients()[1].imag() ) );
-  REQUIRE( 13. == Approx( chunk.interferenceCoefficients()[2].imag() ) );
-  REQUIRE( 15. == Approx( chunk.interferenceCoefficients()[3].imag() ) );
+  CHECK( 1 == chunk.LTP() );
+  CHECK( 15 == chunk.NW() );
+  CHECK( 3 == chunk.NL() );
+  CHECK( 7 == chunk.scatteringCoefficients().size() );
+  CHECK( 1. == Approx( chunk.scatteringCoefficients()[0] ) );
+  CHECK( 2. == Approx( chunk.scatteringCoefficients()[1] ) );
+  CHECK( 3. == Approx( chunk.scatteringCoefficients()[2] ) );
+  CHECK( 4. == Approx( chunk.scatteringCoefficients()[3] ) );
+  CHECK( 5. == Approx( chunk.scatteringCoefficients()[4] ) );
+  CHECK( 6. == Approx( chunk.scatteringCoefficients()[5] ) );
+  CHECK( 7. == Approx( chunk.scatteringCoefficients()[6] ) );
+  CHECK( 4 == chunk.realInterferenceCoefficients().size() );
+  CHECK( 8. == Approx( chunk.realInterferenceCoefficients()[0] ) );
+  CHECK( 10. == Approx( chunk.realInterferenceCoefficients()[1] ) );
+  CHECK( 12. == Approx( chunk.realInterferenceCoefficients()[2] ) );
+  CHECK( 14. == Approx( chunk.realInterferenceCoefficients()[3] ) );
+  CHECK( 4 == chunk.imaginaryInterferenceCoefficients().size() );
+  CHECK( 9. == Approx( chunk.imaginaryInterferenceCoefficients()[0] ) );
+  CHECK( 11. == Approx( chunk.imaginaryInterferenceCoefficients()[1] ) );
+  CHECK( 13. == Approx( chunk.imaginaryInterferenceCoefficients()[2] ) );
+  CHECK( 15. == Approx( chunk.imaginaryInterferenceCoefficients()[3] ) );
+  CHECK( 4 == chunk.interferenceCoefficients().size() );
+  CHECK( 8. == Approx( chunk.interferenceCoefficients()[0].real() ) );
+  CHECK( 10. == Approx( chunk.interferenceCoefficients()[1].real() ) );
+  CHECK( 12. == Approx( chunk.interferenceCoefficients()[2].real() ) );
+  CHECK( 14. == Approx( chunk.interferenceCoefficients()[3].real() ) );
+  CHECK( 9. == Approx( chunk.interferenceCoefficients()[0].imag() ) );
+  CHECK( 11. == Approx( chunk.interferenceCoefficients()[1].imag() ) );
+  CHECK( 13. == Approx( chunk.interferenceCoefficients()[2].imag() ) );
+  CHECK( 15. == Approx( chunk.interferenceCoefficients()[3].imag() ) );
 
-  REQUIRE( 4 == chunk.NC() );
+  CHECK( 4 == chunk.NC() );
 }
 
 std::string invalidLTP() {

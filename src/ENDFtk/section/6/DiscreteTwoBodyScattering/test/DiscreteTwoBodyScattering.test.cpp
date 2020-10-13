@@ -49,7 +49,7 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
         std::string buffer;
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9228, 6, 5 );
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
@@ -72,7 +72,7 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
         std::string buffer;
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9228, 6, 5 );
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -90,7 +90,7 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
           LegendreCoefficients( 1e-5, { 1., 2., 3., 4. } ),
           Tabulated( 2e+7, 12, {1., 2., 3., 4., 5., 6.} ) };
 
-        REQUIRE_THROWS(
+        CHECK_THROWS(
             DiscreteTwoBodyScattering( std::move( wrongBoundaries ),
                                        std::move( interpolants ),
                                        std::move( sequence ) ) );
@@ -105,7 +105,7 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
           LegendreCoefficients( 1e-5, { 1., 2., 3., 4. } ),
           Tabulated( 2e+7, 12, {1., 2., 3., 4., 5., 6.} ) };
 
-        REQUIRE_THROWS(
+        CHECK_THROWS(
             DiscreteTwoBodyScattering( std::move( wrongInterpolants ),
                                        std::move( wrongInterpolants ),
                                        std::move( sequence ) ) );
@@ -119,7 +119,7 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
         std::vector< Variant > wrongSequence = {
           LegendreCoefficients( 1e-5, { 1., 2., 3., 4. } ) };
 
-        REQUIRE_THROWS(
+        CHECK_THROWS(
             DiscreteTwoBodyScattering( std::move( boundaries ),
                                        std::move( interpolants ),
                                        std::move( wrongSequence ) ) );
@@ -135,7 +135,7 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
 
       THEN( "an exception is thrown upon construction" ) {
 
-        REQUIRE_THROWS( DiscreteTwoBodyScattering( begin, end, lineNumber,
+        CHECK_THROWS( DiscreteTwoBodyScattering( begin, end, lineNumber,
                                                    9228, 6, 5 ) );
       } // THEN
     } // WHEN
@@ -154,42 +154,42 @@ std::string chunk() {
 
 void verifyChunk( const DiscreteTwoBodyScattering& chunk ) {
 
-      REQUIRE( 2 == chunk.LAW() );
-      REQUIRE( 2 == chunk.NE() );
-      REQUIRE( 1 == chunk.NR() );
-      REQUIRE( 1 == chunk.interpolants().size() );
-      REQUIRE( 1 == chunk.boundaries().size() );
-      REQUIRE( 1 == chunk.interpolants()[0] );
-      REQUIRE( 2 == chunk.boundaries()[0] );
+      CHECK( 2 == chunk.LAW() );
+      CHECK( 2 == chunk.NE() );
+      CHECK( 1 == chunk.NR() );
+      CHECK( 1 == chunk.interpolants().size() );
+      CHECK( 1 == chunk.boundaries().size() );
+      CHECK( 1 == chunk.interpolants()[0] );
+      CHECK( 2 == chunk.boundaries()[0] );
 
       auto energies = chunk.subsections();
 
       auto subsection1 = std::get< LegendreCoefficients >( energies[0] );
-      REQUIRE( 1e-5 == Approx( subsection1.energy() ) );
-      REQUIRE( 0 == subsection1.LANG() );
-      REQUIRE( 4 == subsection1.NW() );
-      REQUIRE( 4 == subsection1.NL() );
-      REQUIRE( 4 == subsection1.coefficients().size() );
-      REQUIRE( 1. == Approx( subsection1.coefficients()[0] ) );
-      REQUIRE( 2. == Approx( subsection1.coefficients()[1] ) );
-      REQUIRE( 3. == Approx( subsection1.coefficients()[2] ) );
-      REQUIRE( 4. == Approx( subsection1.coefficients()[3] ) );
+      CHECK( 1e-5 == Approx( subsection1.energy() ) );
+      CHECK( 0 == subsection1.LANG() );
+      CHECK( 4 == subsection1.NW() );
+      CHECK( 4 == subsection1.NL() );
+      CHECK( 4 == subsection1.coefficients().size() );
+      CHECK( 1. == Approx( subsection1.coefficients()[0] ) );
+      CHECK( 2. == Approx( subsection1.coefficients()[1] ) );
+      CHECK( 3. == Approx( subsection1.coefficients()[2] ) );
+      CHECK( 4. == Approx( subsection1.coefficients()[3] ) );
 
       auto subsection2 = std::get< Tabulated >( energies[1] );
-      REQUIRE( 2e+7 == Approx( subsection2.energy() ) );
-      REQUIRE( 12 == subsection2.LANG() );
-      REQUIRE( 6 == subsection2.NW() );
-      REQUIRE( 3 == subsection2.NL() );
-      REQUIRE( 3 == subsection2.cosines().size() );
-      REQUIRE( 1. == Approx( subsection2.cosines()[0] ) );
-      REQUIRE( 3. == Approx( subsection2.cosines()[1] ) );
-      REQUIRE( 5. == Approx( subsection2.cosines()[2] ) );
-      REQUIRE( 3 == subsection2.probabilities().size() );
-      REQUIRE( 2. == Approx( subsection2.probabilities()[0] ) );
-      REQUIRE( 4. == Approx( subsection2.probabilities()[1] ) );
-      REQUIRE( 6. == Approx( subsection2.probabilities()[2] ) );
+      CHECK( 2e+7 == Approx( subsection2.energy() ) );
+      CHECK( 12 == subsection2.LANG() );
+      CHECK( 6 == subsection2.NW() );
+      CHECK( 3 == subsection2.NL() );
+      CHECK( 3 == subsection2.cosines().size() );
+      CHECK( 1. == Approx( subsection2.cosines()[0] ) );
+      CHECK( 3. == Approx( subsection2.cosines()[1] ) );
+      CHECK( 5. == Approx( subsection2.cosines()[2] ) );
+      CHECK( 3 == subsection2.probabilities().size() );
+      CHECK( 2. == Approx( subsection2.probabilities()[0] ) );
+      CHECK( 4. == Approx( subsection2.probabilities()[1] ) );
+      CHECK( 6. == Approx( subsection2.probabilities()[2] ) );
 
-      REQUIRE( 6 == chunk.NC() );
+      CHECK( 6 == chunk.NC() );
 }
 
 std::string invalidLANG() {

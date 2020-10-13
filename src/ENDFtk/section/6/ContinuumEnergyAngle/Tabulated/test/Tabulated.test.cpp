@@ -7,7 +7,7 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using Tabulated = 
+using Tabulated =
 section::Type< 6 >::ContinuumEnergyAngle::Tabulated;
 
 std::string chunk();
@@ -37,7 +37,7 @@ SCENARIO( "Tabulated" ) {
                                           7.,  8.,  9., 10., 11., 12. };
 
           Tabulated chunk( lang, energy, nd, na, nep, std::move( list ) );
-          REQUIRE( lang == chunk.LANG() );
+          CHECK( lang == chunk.LANG() );
           checkTabulated( chunk );
         }
       }
@@ -105,7 +105,7 @@ SCENARIO( "Tabulated" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       chunk.print( output, 9228, 6, 5 );
-      REQUIRE( buffer == string );
+      CHECK( buffer == string );
     }
   } // GIVEN
 
@@ -136,26 +136,26 @@ SCENARIO( "Tabulated" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( Tabulated( lang, energy, nd, na, nep,
-                                   std::move( wrongEnergies ),
-                                   std::move( totalEmissionProbabilities ),
-                                   std::move( cosines ),
-                                   std::move( probabilities ) ) );
-        REQUIRE_THROWS( Tabulated( lang, energy, nd, na, nep,
-                                   std::move( energies ),
-                                   std::move( wrongTotalEmissionProbabilities ),
-                                   std::move( cosines ),
-                                   std::move( probabilities ) ) );
-        REQUIRE_THROWS( Tabulated( lang, energy, nd, na, nep,
-                                   std::move( energies ),
-                                   std::move( totalEmissionProbabilities ),
-                                   std::move( wrongCosines ),
-                                   std::move( probabilities ) ) );
-        REQUIRE_THROWS( Tabulated( lang, energy, nd, na, nep,
-                                   std::move( energies ),
-                                   std::move( totalEmissionProbabilities ),
-                                   std::move( cosines ),
-                                   std::move( wrongProbabilities ) ) );
+        CHECK_THROWS( Tabulated( lang, energy, nd, na, nep,
+                                 std::move( wrongEnergies ),
+                                 std::move( totalEmissionProbabilities ),
+                                 std::move( cosines ),
+                                 std::move( probabilities ) ) );
+        CHECK_THROWS( Tabulated( lang, energy, nd, na, nep,
+                                 std::move( energies ),
+                                 std::move( wrongTotalEmissionProbabilities ),
+                                 std::move( cosines ),
+                                 std::move( probabilities ) ) );
+        CHECK_THROWS( Tabulated( lang, energy, nd, na, nep,
+                                 std::move( energies ),
+                                 std::move( totalEmissionProbabilities ),
+                                 std::move( wrongCosines ),
+                                 std::move( probabilities ) ) );
+        CHECK_THROWS( Tabulated( lang, energy, nd, na, nep,
+                                 std::move( energies ),
+                                 std::move( totalEmissionProbabilities ),
+                                 std::move( cosines ),
+                                 std::move( wrongProbabilities ) ) );
       } // THEN
     } // WHEN
 
@@ -168,7 +168,7 @@ SCENARIO( "Tabulated" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( Tabulated( lang, begin, end, lineNumber, 9228, 6, 5 ) );
+        CHECK_THROWS( Tabulated( lang, begin, end, lineNumber, 9228, 6, 5 ) );
       } // THEN
     } // WHEN
 
@@ -199,14 +199,14 @@ SCENARIO( "Tabulated" ) {
           auto end = string.end();
           long lineNumber = 1;
 
-          REQUIRE_THROWS( Tabulated( lang, energy, nd, na, nep,
-                                     std::move( list  ) ) );
-          REQUIRE_THROWS( Tabulated( lang, energy, nd, na, nep,
-                                     std::move( energies ),
-                                     std::move( totalEmissionProbabilities ),
-                                     std::move( cosines ),
-                                     std::move( probabilities ) ) );
-          REQUIRE_THROWS(
+          CHECK_THROWS( Tabulated( lang, energy, nd, na, nep,
+                                   std::move( list  ) ) );
+          CHECK_THROWS( Tabulated( lang, energy, nd, na, nep,
+                                   std::move( energies ),
+                                   std::move( totalEmissionProbabilities ),
+                                   std::move( cosines ),
+                                   std::move( probabilities ) ) );
+          CHECK_THROWS(
             Tabulated( lang, begin, end, lineNumber, 9228, 6, 5 ) );
         }
       } // THEN
@@ -223,33 +223,33 @@ std::string chunk() {
 
 void checkTabulated( const Tabulated& chunk ) {
 
-  REQUIRE( 1e-5 == Approx( chunk.energy() ) );
+  CHECK( 1e-5 == Approx( chunk.energy() ) );
 
-  REQUIRE( 0 == chunk.ND() );
-  REQUIRE( 0 == chunk.numberDiscreteEnergies() );
-  REQUIRE( 4 == chunk.NA() );
-  REQUIRE( 4 == chunk.numberAngularParameters() );
-  REQUIRE( 12 == chunk.NW() );
-  REQUIRE( 2 == chunk.NEP() );
-  REQUIRE( 2 == chunk.numberSecondaryEnergies() );
-  REQUIRE( 2 == chunk.energies().size() );
-  REQUIRE( 1. == Approx( chunk.energies()[0] ) );
-  REQUIRE( 7. == Approx( chunk.energies()[1] ) );
-  REQUIRE( 2 == chunk.totalEmissionProbabilities().size() );
-  REQUIRE( 2. == Approx( chunk.totalEmissionProbabilities()[0] ) );
-  REQUIRE( 8. == Approx( chunk.totalEmissionProbabilities()[1] ) );
-  REQUIRE( 2 == chunk.cosines().size() );
-  REQUIRE( 3. == Approx( chunk.cosines()[0][0] ) );
-  REQUIRE( 5. == Approx( chunk.cosines()[0][1] ) );
-  REQUIRE( 9. == Approx( chunk.cosines()[1][0] ) );
-  REQUIRE( 11. == Approx( chunk.cosines()[1][1] ) );
-  REQUIRE( 2 == chunk.probabilities().size() );
-  REQUIRE( 4. == Approx( chunk.probabilities()[0][0] ) );
-  REQUIRE( 6. == Approx( chunk.probabilities()[0][1] ) );
-  REQUIRE( 10. == Approx( chunk.probabilities()[1][0] ) );
-  REQUIRE( 12. == Approx( chunk.probabilities()[1][1] ) );
+  CHECK( 0 == chunk.ND() );
+  CHECK( 0 == chunk.numberDiscreteEnergies() );
+  CHECK( 4 == chunk.NA() );
+  CHECK( 4 == chunk.numberAngularParameters() );
+  CHECK( 12 == chunk.NW() );
+  CHECK( 2 == chunk.NEP() );
+  CHECK( 2 == chunk.numberSecondaryEnergies() );
+  CHECK( 2 == chunk.energies().size() );
+  CHECK( 1. == Approx( chunk.energies()[0] ) );
+  CHECK( 7. == Approx( chunk.energies()[1] ) );
+  CHECK( 2 == chunk.totalEmissionProbabilities().size() );
+  CHECK( 2. == Approx( chunk.totalEmissionProbabilities()[0] ) );
+  CHECK( 8. == Approx( chunk.totalEmissionProbabilities()[1] ) );
+  CHECK( 2 == chunk.cosines().size() );
+  CHECK( 3. == Approx( chunk.cosines()[0][0] ) );
+  CHECK( 5. == Approx( chunk.cosines()[0][1] ) );
+  CHECK( 9. == Approx( chunk.cosines()[1][0] ) );
+  CHECK( 11. == Approx( chunk.cosines()[1][1] ) );
+  CHECK( 2 == chunk.probabilities().size() );
+  CHECK( 4. == Approx( chunk.probabilities()[0][0] ) );
+  CHECK( 6. == Approx( chunk.probabilities()[0][1] ) );
+  CHECK( 10. == Approx( chunk.probabilities()[1][0] ) );
+  CHECK( 12. == Approx( chunk.probabilities()[1][1] ) );
 
-  REQUIRE( 3 == chunk.NC() );
+  CHECK( 3 == chunk.NC() );
 }
 
 std::string invalidSize() {

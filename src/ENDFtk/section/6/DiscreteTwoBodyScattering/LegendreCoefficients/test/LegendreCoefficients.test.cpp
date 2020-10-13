@@ -7,7 +7,7 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using LegendreCoefficients = 
+using LegendreCoefficients =
 section::Type< 6 >::DiscreteTwoBodyScattering::LegendreCoefficients;
 
 std::string chunk();
@@ -25,19 +25,19 @@ SCENARIO( "LegendreCoefficients" ) {
           "be constructed and members can be tested" ) {
       LegendreCoefficients chunk( energy, std::move( coefficients ) );
 
-      REQUIRE( 1e-5 == Approx( chunk.energy() ) );
+      CHECK( 1e-5 == Approx( chunk.energy() ) );
 
-      REQUIRE( 0 == chunk.LANG() );
-      REQUIRE( 4 == chunk.NW() );
-      REQUIRE( 4 == chunk.NL() );
-      REQUIRE( 4 == chunk.legendreOrder() );
-      REQUIRE( 4 == chunk.coefficients().size() );
-      REQUIRE( 1. == Approx( chunk.coefficients()[0] ) );
-      REQUIRE( 2. == Approx( chunk.coefficients()[1] ) );
-      REQUIRE( 3. == Approx( chunk.coefficients()[2] ) );
-      REQUIRE( 4. == Approx( chunk.coefficients()[3] ) );
+      CHECK( 0 == chunk.LANG() );
+      CHECK( 4 == chunk.NW() );
+      CHECK( 4 == chunk.NL() );
+      CHECK( 4 == chunk.legendreOrder() );
+      CHECK( 4 == chunk.coefficients().size() );
+      CHECK( 1. == Approx( chunk.coefficients()[0] ) );
+      CHECK( 2. == Approx( chunk.coefficients()[1] ) );
+      CHECK( 3. == Approx( chunk.coefficients()[2] ) );
+      CHECK( 4. == Approx( chunk.coefficients()[3] ) );
 
-      REQUIRE( 2 == chunk.NC() );
+      CHECK( 2 == chunk.NC() );
     }
   } // GIVEN
 
@@ -52,19 +52,19 @@ SCENARIO( "LegendreCoefficients" ) {
           "be constructed and members can be tested" ) {
       LegendreCoefficients chunk(begin, end, lineNumber, 9228, 6, 5 );
 
-      REQUIRE( 1e-5 == Approx( chunk.energy() ) );
+      CHECK( 1e-5 == Approx( chunk.energy() ) );
 
-      REQUIRE( 0 == chunk.LANG() );
-      REQUIRE( 4 == chunk.NW() );
-      REQUIRE( 4 == chunk.NL() );
-      REQUIRE( 4 == chunk.legendreOrder() );
-      REQUIRE( 4 == chunk.coefficients().size() );
-      REQUIRE( 1. == Approx( chunk.coefficients()[0] ) );
-      REQUIRE( 2. == Approx( chunk.coefficients()[1] ) );
-      REQUIRE( 3. == Approx( chunk.coefficients()[2] ) );
-      REQUIRE( 4. == Approx( chunk.coefficients()[3] ) );
+      CHECK( 0 == chunk.LANG() );
+      CHECK( 4 == chunk.NW() );
+      CHECK( 4 == chunk.NL() );
+      CHECK( 4 == chunk.legendreOrder() );
+      CHECK( 4 == chunk.coefficients().size() );
+      CHECK( 1. == Approx( chunk.coefficients()[0] ) );
+      CHECK( 2. == Approx( chunk.coefficients()[1] ) );
+      CHECK( 3. == Approx( chunk.coefficients()[2] ) );
+      CHECK( 4. == Approx( chunk.coefficients()[3] ) );
 
-      REQUIRE( 2 == chunk.NC() );
+      CHECK( 2 == chunk.NC() );
     }
   } // GIVEN
 
@@ -77,8 +77,8 @@ SCENARIO( "LegendreCoefficients" ) {
 
     THEN( "an exception is thrown" ) {
 
-      REQUIRE_THROWS( LegendreCoefficients( begin, end, lineNumber,
-                                            9228, 6, 5 ) );
+      CHECK_THROWS( LegendreCoefficients( begin, end, lineNumber,
+                                          9228, 6, 5 ) );
     }
   } // GIVEN
 
@@ -91,8 +91,8 @@ SCENARIO( "LegendreCoefficients" ) {
 
     THEN( "an exception is thrown" ) {
 
-      REQUIRE_THROWS( LegendreCoefficients( begin, end, lineNumber,
-                                            9228, 6, 5 ) );
+      CHECK_THROWS( LegendreCoefficients( begin, end, lineNumber,
+                                          9228, 6, 5 ) );
     }
   } // GIVEN
 
@@ -109,7 +109,7 @@ SCENARIO( "LegendreCoefficients" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       chunk.print( output, 9228, 6, 5 );
-      REQUIRE( buffer == string );
+      CHECK( buffer == string );
     }
   } // GIVEN
 } // SCENARIO

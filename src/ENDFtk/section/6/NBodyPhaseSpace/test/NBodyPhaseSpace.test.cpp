@@ -7,7 +7,7 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using NBodyPhaseSpace = 
+using NBodyPhaseSpace =
 section::Type< 6 >::NBodyPhaseSpace;
 
 std::string chunk();
@@ -58,7 +58,7 @@ SCENARIO( "NBodyPhaseSpace" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       chunk.print( output, 9228, 6, 5 );
-      REQUIRE( buffer == string );
+      CHECK( buffer == string );
     } // THEN
   } // GIVEN
 
@@ -75,7 +75,7 @@ SCENARIO( "NBodyPhaseSpace" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( NBodyPhaseSpace( begin, end, lineNumber, 9228, 6, 5 ) );
+        CHECK_THROWS( NBodyPhaseSpace( begin, end, lineNumber, 9228, 6, 5 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -88,14 +88,14 @@ std::string chunk() {
 
 void verifyChunk( const NBodyPhaseSpace& chunk ) {
 
-  REQUIRE( 6 == chunk.LAW() );
+  CHECK( 6 == chunk.LAW() );
 
-  REQUIRE( 5. == Approx( chunk.APSX() ) );
-  REQUIRE( 5. == Approx( chunk.totalMass() ) );
-  REQUIRE( 4 == chunk.NPSX() );
-  REQUIRE( 4 == chunk.numberParticles() );
+  CHECK( 5. == Approx( chunk.APSX() ) );
+  CHECK( 5. == Approx( chunk.totalMass() ) );
+  CHECK( 4 == chunk.NPSX() );
+  CHECK( 4 == chunk.numberParticles() );
 
-  REQUIRE( 1 == chunk.NC() );
+  CHECK( 1 == chunk.NC() );
 }
 
 std::string invalidChunk() {

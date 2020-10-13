@@ -7,7 +7,7 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using Tabulated = 
+using Tabulated =
 section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated;
 
 std::string chunkLANG12();
@@ -34,7 +34,7 @@ SCENARIO( "Tabulated" ) {
           std::vector< double > values = { 1, 2, 3, 4, 5, 6 };
 
           Tabulated chunk( energy, lang, std::move( values ) );
-          REQUIRE( lang == chunk.LANG() );
+          CHECK( lang == chunk.LANG() );
           checkTabulated( chunk );
         }
       }
@@ -52,7 +52,7 @@ SCENARIO( "Tabulated" ) {
 
           Tabulated chunk( energy, lang, std::move( cosines ),
                            std::move( probabilities ) );
-          REQUIRE( lang == chunk.LANG() );
+          CHECK( lang == chunk.LANG() );
           checkTabulated( chunk );
         }
       } // THEN
@@ -70,7 +70,7 @@ SCENARIO( "Tabulated" ) {
         long lineNumber = 1;
 
         Tabulated chunk( begin, end, lineNumber, 9228, 6, 5 );
-        REQUIRE( 12 == chunk.LANG() );
+        CHECK( 12 == chunk.LANG() );
         checkTabulated( chunk );
       } // THEN
     } // WHEN
@@ -87,7 +87,7 @@ SCENARIO( "Tabulated" ) {
         long lineNumber = 1;
 
         Tabulated chunk( begin, end, lineNumber, 9228, 6, 5 );
-        REQUIRE( 14 == chunk.LANG() );
+        CHECK( 14 == chunk.LANG() );
         checkTabulated( chunk );
       } // THEN
     } // WHEN
@@ -109,7 +109,7 @@ SCENARIO( "Tabulated" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       chunk.print( output, 9228, 6, 5 );
-      REQUIRE( buffer == string );
+      CHECK( buffer == string );
     }
   } // GIVEN
 
@@ -126,11 +126,11 @@ SCENARIO( "Tabulated" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( Tabulated( energy, lang, std::move( wrong ),
+        CHECK_THROWS( Tabulated( energy, lang, std::move( wrong ),
                                  std::move( probabilities ) ) );
-        REQUIRE_THROWS( Tabulated( energy, lang, std::move( cosines ),
+        CHECK_THROWS( Tabulated( energy, lang, std::move( cosines ),
                                    std::move( wrong ) ) );
-        REQUIRE_THROWS( Tabulated( energy, lang, std::move( wrongsize ) ) );
+        CHECK_THROWS( Tabulated( energy, lang, std::move( wrongsize ) ) );
       }
     } // WHEN
 
@@ -144,8 +144,8 @@ SCENARIO( "Tabulated" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( Tabulated( energy, lang, std::move( values ) ) );
-        REQUIRE_THROWS( Tabulated( energy, lang, std::move( cosines ),
+        CHECK_THROWS( Tabulated( energy, lang, std::move( values ) ) );
+        CHECK_THROWS( Tabulated( energy, lang, std::move( cosines ),
                                    std::move( probabilities ) ) );
       } // THEN
     } // GIVEN
@@ -159,7 +159,7 @@ SCENARIO( "Tabulated" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( Tabulated( begin, end, lineNumber, 9228, 6, 5 ) );
+        CHECK_THROWS( Tabulated( begin, end, lineNumber, 9228, 6, 5 ) );
       } // THEN
     } // GIVEN
 
@@ -172,7 +172,7 @@ SCENARIO( "Tabulated" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( Tabulated( begin, end, lineNumber, 9228, 6, 5 ) );
+        CHECK_THROWS( Tabulated( begin, end, lineNumber, 9228, 6, 5 ) );
       } // THEN
     } // GIVEN
   } // WHEN
@@ -192,21 +192,21 @@ std::string chunkLANG14() {
 
 void checkTabulated( const Tabulated& chunk ) {
 
-  REQUIRE( 1e-5 == Approx( chunk.energy() ) );
+  CHECK( 1e-5 == Approx( chunk.energy() ) );
 
-  REQUIRE( 6 == chunk.NW() );
-  REQUIRE( 3 == chunk.NL() );
-  REQUIRE( 3 == chunk.numberCosines() );
-  REQUIRE( 3 == chunk.cosines().size() );
-  REQUIRE( 1. == Approx( chunk.cosines()[0] ) );
-  REQUIRE( 3. == Approx( chunk.cosines()[1] ) );
-  REQUIRE( 5. == Approx( chunk.cosines()[2] ) );
-  REQUIRE( 3 == chunk.probabilities().size() );
-  REQUIRE( 2. == Approx( chunk.probabilities()[0] ) );
-  REQUIRE( 4. == Approx( chunk.probabilities()[1] ) );
-  REQUIRE( 6. == Approx( chunk.probabilities()[2] ) );
+  CHECK( 6 == chunk.NW() );
+  CHECK( 3 == chunk.NL() );
+  CHECK( 3 == chunk.numberCosines() );
+  CHECK( 3 == chunk.cosines().size() );
+  CHECK( 1. == Approx( chunk.cosines()[0] ) );
+  CHECK( 3. == Approx( chunk.cosines()[1] ) );
+  CHECK( 5. == Approx( chunk.cosines()[2] ) );
+  CHECK( 3 == chunk.probabilities().size() );
+  CHECK( 2. == Approx( chunk.probabilities()[0] ) );
+  CHECK( 4. == Approx( chunk.probabilities()[1] ) );
+  CHECK( 6. == Approx( chunk.probabilities()[2] ) );
 
-  REQUIRE( 2 == chunk.NC() );
+  CHECK( 2 == chunk.NC() );
 }
 
 std::string invalidLANG() {

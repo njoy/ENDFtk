@@ -7,7 +7,7 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using DefinedElsewhere = 
+using DefinedElsewhere =
 section::Type< 6 >::DefinedElsewhere;
 
 SCENARIO( "DefinedElsewhere" ) {
@@ -22,8 +22,8 @@ SCENARIO( "DefinedElsewhere" ) {
       for ( auto law : laws ) {
 
         DefinedElsewhere chunk( law );
-        REQUIRE( law == chunk.LAW() );
-        REQUIRE( 0 == chunk.NC() );
+        CHECK( law == chunk.LAW() );
+        CHECK( 0 == chunk.NC() );
       }
     } // THEN
   } // GIVEN
@@ -37,7 +37,7 @@ SCENARIO( "DefinedElsewhere" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       chunk.print( output, 9228, 6, 5 );
-      REQUIRE( buffer.size() == 0 );
+      CHECK( buffer.size() == 0 );
     } // THEN
   } // GIVEN
 
@@ -49,7 +49,7 @@ SCENARIO( "DefinedElsewhere" ) {
 
       for ( auto law : invalid ) {
 
-        REQUIRE_THROWS( DefinedElsewhere( law ) );
+        CHECK_THROWS( DefinedElsewhere( law ) );
       }
     } // THEN
   } // GIVEN

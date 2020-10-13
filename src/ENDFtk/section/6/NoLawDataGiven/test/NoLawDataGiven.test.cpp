@@ -7,7 +7,7 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using NoLawDataGiven = 
+using NoLawDataGiven =
 section::Type< 6 >::NoLawDataGiven;
 
 class TestNoLawDataGiven : public NoLawDataGiven {
@@ -22,7 +22,7 @@ SCENARIO( "NoLawDataGiven" ) {
     THEN( "a NoLawDataGiven can be constructed and members can be tested" ) {
       TestNoLawDataGiven chunk;
 
-      REQUIRE( 0 == chunk.NC() );
+      CHECK( 0 == chunk.NC() );
     }
   } // GIVEN
 
@@ -34,7 +34,7 @@ SCENARIO( "NoLawDataGiven" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       chunk.print( output, 9228, 6, 5 );
-      REQUIRE( buffer.size() == 0 );
+      CHECK( buffer.size() == 0 );
     }
   } // GIVEN
 } // SCENARIO

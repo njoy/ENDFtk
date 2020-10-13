@@ -7,7 +7,7 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using LaboratoryAngleEnergy = 
+using LaboratoryAngleEnergy =
 section::Type< 6 >::LaboratoryAngleEnergy;
 using AngularDistribution =
 section::Type< 6 >::LaboratoryAngleEnergy::AngularDistribution;
@@ -85,7 +85,7 @@ SCENARIO( "LaboratoryAngleEnergy" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       chunk.print( output, 9228, 6, 5 );
-      REQUIRE( buffer == string );
+      CHECK( buffer == string );
     } // THEN
   } // GIVEN
 
@@ -116,7 +116,7 @@ SCENARIO( "LaboratoryAngleEnergy" ) {
                                     { 1e-5, 1e+6, 3e+7 },
                                     { 5., 3., 1. } ) } ) };
 
-        REQUIRE_THROWS( LaboratoryAngleEnergy( std::move( wrongBoundaries ),
+        CHECK_THROWS( LaboratoryAngleEnergy( std::move( wrongBoundaries ),
                                                std::move( interpolants ),
                                                std::move( energies ) ) );
       } // THEN
@@ -144,7 +144,7 @@ SCENARIO( "LaboratoryAngleEnergy" ) {
                                     { 1e-5, 1e+6, 3e+7 },
                                     { 5., 3., 1. } ) } ) };
 
-        REQUIRE_THROWS( LaboratoryAngleEnergy( std::move( boundaries ),
+        CHECK_THROWS( LaboratoryAngleEnergy( std::move( boundaries ),
                                                std::move( wrongInterpolants ),
                                                std::move( energies ) ) );
       } // THEN
@@ -164,7 +164,7 @@ SCENARIO( "LaboratoryAngleEnergy" ) {
                                     { 1e-5, 1e+6, 3e+7 },
                                     { 6., 4., 2. } ) } ) };
 
-        REQUIRE_THROWS( LaboratoryAngleEnergy( std::move( boundaries ),
+        CHECK_THROWS( LaboratoryAngleEnergy( std::move( boundaries ),
                                                std::move( interpolants ),
                                                std::move( wrongEnergies ) ) );
       } // THEN
@@ -179,7 +179,7 @@ SCENARIO( "LaboratoryAngleEnergy" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( LaboratoryAngleEnergy( begin, end, lineNumber,
+        CHECK_THROWS( LaboratoryAngleEnergy( begin, end, lineNumber,
                                                9228, 6, 5 ) );
       } // THEN
     } // WHEN
@@ -212,110 +212,110 @@ std::string chunk() {
 
 void verifyChunk( const LaboratoryAngleEnergy& chunk ) {
 
-  REQUIRE( 7 == chunk.LAW() );
+  CHECK( 7 == chunk.LAW() );
 
-  REQUIRE( 2 == chunk.NE() );
-  REQUIRE( 1 == chunk.NR() );
-  REQUIRE( 1 == chunk.interpolants().size() );
-  REQUIRE( 1 == chunk.boundaries().size() );
-  REQUIRE( 1 == chunk.interpolants()[0] );
-  REQUIRE( 2 == chunk.boundaries()[0] );
+  CHECK( 2 == chunk.NE() );
+  CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.interpolants().size() );
+  CHECK( 1 == chunk.boundaries().size() );
+  CHECK( 1 == chunk.interpolants()[0] );
+  CHECK( 2 == chunk.boundaries()[0] );
 
       auto energies = chunk.angularDistributions();
 
-  REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
+  CHECK( 1e-5 == Approx( energies[0].energy() ) );
 
-  REQUIRE( 2 == energies[0].NMU() );
-  REQUIRE( 1 == energies[0].NRM() );
-  REQUIRE( 1 == energies[0].interpolants().size() );
-  REQUIRE( 1 == energies[0].boundaries().size() );
-  REQUIRE( 4 == energies[0].interpolants()[0] );
-  REQUIRE( 2 == energies[0].boundaries()[0] );
+  CHECK( 2 == energies[0].NMU() );
+  CHECK( 1 == energies[0].NRM() );
+  CHECK( 1 == energies[0].interpolants().size() );
+  CHECK( 1 == energies[0].boundaries().size() );
+  CHECK( 4 == energies[0].interpolants()[0] );
+  CHECK( 2 == energies[0].boundaries()[0] );
 
       auto cosines = energies[0].energyDistributions();
-  REQUIRE( 2 == cosines.size() );
+  CHECK( 2 == cosines.size() );
 
-  REQUIRE( 1. == Approx( cosines[0].cosine() ) );
-  REQUIRE( 1 == cosines[0].NRP() );
-  REQUIRE( 4 == cosines[0].NEP() );
-  REQUIRE( 1 == cosines[0].interpolants().size() );
-  REQUIRE( 1 == cosines[0].boundaries().size() );
-  REQUIRE( 2 == cosines[0].interpolants()[0] );
-  REQUIRE( 4 == cosines[0].boundaries()[0] );
-  REQUIRE( 4 == cosines[0].energies().size() );
-  REQUIRE( 4 == cosines[0].probabilities().size() );
-  REQUIRE( 1e-5 == Approx( cosines[0].energies()[0] ) );
-  REQUIRE( 1.1e+7 == Approx( cosines[0].energies()[1] ) );
-  REQUIRE( 1.147e+7 == Approx( cosines[0].energies()[2] ) );
-  REQUIRE( 3e+7 == Approx( cosines[0].energies()[3] ) );
-  REQUIRE( 0. == Approx( cosines[0].probabilities()[0] ) );
-  REQUIRE( 2. == Approx( cosines[0].probabilities()[1] ) );
-  REQUIRE( 4. == Approx( cosines[0].probabilities()[2] ) );
-  REQUIRE( 6. == Approx( cosines[0].probabilities()[3] ) );
+  CHECK( 1. == Approx( cosines[0].cosine() ) );
+  CHECK( 1 == cosines[0].NRP() );
+  CHECK( 4 == cosines[0].NEP() );
+  CHECK( 1 == cosines[0].interpolants().size() );
+  CHECK( 1 == cosines[0].boundaries().size() );
+  CHECK( 2 == cosines[0].interpolants()[0] );
+  CHECK( 4 == cosines[0].boundaries()[0] );
+  CHECK( 4 == cosines[0].energies().size() );
+  CHECK( 4 == cosines[0].probabilities().size() );
+  CHECK( 1e-5 == Approx( cosines[0].energies()[0] ) );
+  CHECK( 1.1e+7 == Approx( cosines[0].energies()[1] ) );
+  CHECK( 1.147e+7 == Approx( cosines[0].energies()[2] ) );
+  CHECK( 3e+7 == Approx( cosines[0].energies()[3] ) );
+  CHECK( 0. == Approx( cosines[0].probabilities()[0] ) );
+  CHECK( 2. == Approx( cosines[0].probabilities()[1] ) );
+  CHECK( 4. == Approx( cosines[0].probabilities()[2] ) );
+  CHECK( 6. == Approx( cosines[0].probabilities()[3] ) );
 
-  REQUIRE( -1. == Approx( cosines[1].cosine() ) );
-  REQUIRE( 1 == cosines[1].NRP() );
-  REQUIRE( 3 == cosines[1].NEP() );
-  REQUIRE( 1 == cosines[1].interpolants().size() );
-  REQUIRE( 1 == cosines[1].boundaries().size() );
-  REQUIRE( 2 == cosines[1].interpolants()[0] );
-  REQUIRE( 3 == cosines[1].boundaries()[0] );
-  REQUIRE( 3 == cosines[1].energies().size() );
-  REQUIRE( 3 == cosines[1].probabilities().size() );
-  REQUIRE( 1e-5 == Approx( cosines[1].energies()[0] ) );
-  REQUIRE( 1e+6 == Approx( cosines[1].energies()[1] ) );
-  REQUIRE( 3e+7 == Approx( cosines[1].energies()[2] ) );
-  REQUIRE( 6. == Approx( cosines[1].probabilities()[0] ) );
-  REQUIRE( 4. == Approx( cosines[1].probabilities()[1] ) );
-  REQUIRE( 2. == Approx( cosines[1].probabilities()[2] ) );
+  CHECK( -1. == Approx( cosines[1].cosine() ) );
+  CHECK( 1 == cosines[1].NRP() );
+  CHECK( 3 == cosines[1].NEP() );
+  CHECK( 1 == cosines[1].interpolants().size() );
+  CHECK( 1 == cosines[1].boundaries().size() );
+  CHECK( 2 == cosines[1].interpolants()[0] );
+  CHECK( 3 == cosines[1].boundaries()[0] );
+  CHECK( 3 == cosines[1].energies().size() );
+  CHECK( 3 == cosines[1].probabilities().size() );
+  CHECK( 1e-5 == Approx( cosines[1].energies()[0] ) );
+  CHECK( 1e+6 == Approx( cosines[1].energies()[1] ) );
+  CHECK( 3e+7 == Approx( cosines[1].energies()[2] ) );
+  CHECK( 6. == Approx( cosines[1].probabilities()[0] ) );
+  CHECK( 4. == Approx( cosines[1].probabilities()[1] ) );
+  CHECK( 2. == Approx( cosines[1].probabilities()[2] ) );
 
-  REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
+  CHECK( 2e+7 == Approx( energies[1].energy() ) );
 
-  REQUIRE( 2 == energies[1].NMU() );
-  REQUIRE( 1 == energies[1].NRM() );
-  REQUIRE( 1 == energies[1].interpolants().size() );
-  REQUIRE( 1 == energies[1].boundaries().size() );
-  REQUIRE( 4 == energies[1].interpolants()[0] );
-  REQUIRE( 2 == energies[1].boundaries()[0] );
+  CHECK( 2 == energies[1].NMU() );
+  CHECK( 1 == energies[1].NRM() );
+  CHECK( 1 == energies[1].interpolants().size() );
+  CHECK( 1 == energies[1].boundaries().size() );
+  CHECK( 4 == energies[1].interpolants()[0] );
+  CHECK( 2 == energies[1].boundaries()[0] );
 
       cosines = energies[1].energyDistributions();
-  REQUIRE( 2 == cosines.size() );
+  CHECK( 2 == cosines.size() );
 
-  REQUIRE( .9 == Approx( cosines[0].cosine() ) );
-  REQUIRE( 1 == cosines[0].NRP() );
-  REQUIRE( 4 == cosines[0].NEP() );
-  REQUIRE( 1 == cosines[0].interpolants().size() );
-  REQUIRE( 1 == cosines[0].boundaries().size() );
-  REQUIRE( 2 == cosines[0].interpolants()[0] );
-  REQUIRE( 4 == cosines[0].boundaries()[0] );
-  REQUIRE( 4 == cosines[0].energies().size() );
-  REQUIRE( 4 == cosines[0].probabilities().size() );
-  REQUIRE( 1e-5 == Approx( cosines[0].energies()[0] ) );
-  REQUIRE( 1.1e+7 == Approx( cosines[0].energies()[1] ) );
-  REQUIRE( 1.147e+7 == Approx( cosines[0].energies()[2] ) );
-  REQUIRE( 3e+7 == Approx( cosines[0].energies()[3] ) );
-  REQUIRE( 1. == Approx( cosines[0].probabilities()[0] ) );
-  REQUIRE( 3. == Approx( cosines[0].probabilities()[1] ) );
-  REQUIRE( 5. == Approx( cosines[0].probabilities()[2] ) );
-  REQUIRE( 7. == Approx( cosines[0].probabilities()[3] ) );
+  CHECK( .9 == Approx( cosines[0].cosine() ) );
+  CHECK( 1 == cosines[0].NRP() );
+  CHECK( 4 == cosines[0].NEP() );
+  CHECK( 1 == cosines[0].interpolants().size() );
+  CHECK( 1 == cosines[0].boundaries().size() );
+  CHECK( 2 == cosines[0].interpolants()[0] );
+  CHECK( 4 == cosines[0].boundaries()[0] );
+  CHECK( 4 == cosines[0].energies().size() );
+  CHECK( 4 == cosines[0].probabilities().size() );
+  CHECK( 1e-5 == Approx( cosines[0].energies()[0] ) );
+  CHECK( 1.1e+7 == Approx( cosines[0].energies()[1] ) );
+  CHECK( 1.147e+7 == Approx( cosines[0].energies()[2] ) );
+  CHECK( 3e+7 == Approx( cosines[0].energies()[3] ) );
+  CHECK( 1. == Approx( cosines[0].probabilities()[0] ) );
+  CHECK( 3. == Approx( cosines[0].probabilities()[1] ) );
+  CHECK( 5. == Approx( cosines[0].probabilities()[2] ) );
+  CHECK( 7. == Approx( cosines[0].probabilities()[3] ) );
 
-  REQUIRE( -.9 == Approx( cosines[1].cosine() ) );
-  REQUIRE( 1 == cosines[1].NRP() );
-  REQUIRE( 3 == cosines[1].NEP() );
-  REQUIRE( 1 == cosines[1].interpolants().size() );
-  REQUIRE( 1 == cosines[1].boundaries().size() );
-  REQUIRE( 2 == cosines[1].interpolants()[0] );
-  REQUIRE( 3 == cosines[1].boundaries()[0] );
-  REQUIRE( 3 == cosines[1].energies().size() );
-  REQUIRE( 3 == cosines[1].probabilities().size() );
-  REQUIRE( 1e-5 == Approx( cosines[1].energies()[0] ) );
-  REQUIRE( 1e+6 == Approx( cosines[1].energies()[1] ) );
-  REQUIRE( 3e+7 == Approx( cosines[1].energies()[2] ) );
-  REQUIRE( 5. == Approx( cosines[1].probabilities()[0] ) );
-  REQUIRE( 3. == Approx( cosines[1].probabilities()[1] ) );
-  REQUIRE( 1. == Approx( cosines[1].probabilities()[2] ) );
+  CHECK( -.9 == Approx( cosines[1].cosine() ) );
+  CHECK( 1 == cosines[1].NRP() );
+  CHECK( 3 == cosines[1].NEP() );
+  CHECK( 1 == cosines[1].interpolants().size() );
+  CHECK( 1 == cosines[1].boundaries().size() );
+  CHECK( 2 == cosines[1].interpolants()[0] );
+  CHECK( 3 == cosines[1].boundaries()[0] );
+  CHECK( 3 == cosines[1].energies().size() );
+  CHECK( 3 == cosines[1].probabilities().size() );
+  CHECK( 1e-5 == Approx( cosines[1].energies()[0] ) );
+  CHECK( 1e+6 == Approx( cosines[1].energies()[1] ) );
+  CHECK( 3e+7 == Approx( cosines[1].energies()[2] ) );
+  CHECK( 5. == Approx( cosines[1].probabilities()[0] ) );
+  CHECK( 3. == Approx( cosines[1].probabilities()[1] ) );
+  CHECK( 1. == Approx( cosines[1].probabilities()[2] ) );
 
-  REQUIRE( 20 == chunk.NC() );
+  CHECK( 20 == chunk.NC() );
 }
 
 std::string invalidChunk() {

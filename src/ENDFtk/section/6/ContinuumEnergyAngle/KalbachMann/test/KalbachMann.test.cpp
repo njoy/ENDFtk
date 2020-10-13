@@ -7,7 +7,7 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using KalbachMann = 
+using KalbachMann =
 section::Type< 6 >::ContinuumEnergyAngle::KalbachMann;
 
 std::string chunkNA1();
@@ -118,7 +118,7 @@ SCENARIO( "KalbachMann" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       chunk.print( output, 9228, 6, 5 );
-      REQUIRE( buffer == string );
+      CHECK( buffer == string );
     } // THEN
   } // GIVEN
 
@@ -135,7 +135,7 @@ SCENARIO( "KalbachMann" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       chunk.print( output, 9228, 6, 5 );
-      REQUIRE( buffer == string );
+      CHECK( buffer == string );
     } // THEN
   } // GIVEN
 
@@ -151,7 +151,7 @@ SCENARIO( "KalbachMann" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( KalbachMann( energy, nd, na, nep,
+        CHECK_THROWS( KalbachMann( energy, nd, na, nep,
                                      std::move( list ) ) );
       } // THEN
     } // WHEN
@@ -170,12 +170,12 @@ SCENARIO( "KalbachMann" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( KalbachMann( energy, nd, na, nep,
-                                     std::move( wronglist ) ) );
-        REQUIRE_THROWS( KalbachMann( energy, nd, nep,
-                                     std::move( datana1 ) ) );
-        REQUIRE_THROWS( KalbachMann( energy, nd, nep,
-                                     std::move( datana2 ) ) );
+        CHECK_THROWS( KalbachMann( energy, nd, na, nep,
+                                   std::move( wronglist ) ) );
+        CHECK_THROWS( KalbachMann( energy, nd, nep,
+                                   std::move( datana1 ) ) );
+        CHECK_THROWS( KalbachMann( energy, nd, nep,
+                                   std::move( datana2 ) ) );
       } // THEN
     } // WHEN
 
@@ -188,7 +188,7 @@ SCENARIO( "KalbachMann" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( KalbachMann( begin, end, lineNumber, 9228, 6, 5 ) );
+        CHECK_THROWS( KalbachMann( begin, end, lineNumber, 9228, 6, 5 ) );
       } // THEN
     } // WHEN
 
@@ -201,7 +201,7 @@ SCENARIO( "KalbachMann" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( KalbachMann( begin, end, lineNumber, 9228, 6, 5 ) );
+        CHECK_THROWS( KalbachMann( begin, end, lineNumber, 9228, 6, 5 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -215,29 +215,29 @@ std::string chunkNA1() {
 
 void verifyChunkNA1( const KalbachMann& chunk ) {
 
-  REQUIRE( 2 == chunk.LANG() );
-  REQUIRE( 1e-5 == Approx( chunk.energy() ) );
+  CHECK( 2 == chunk.LANG() );
+  CHECK( 1e-5 == Approx( chunk.energy() ) );
 
-  REQUIRE( 0 == chunk.ND() );
-  REQUIRE( 0 == chunk.numberDiscreteEnergies() );
-  REQUIRE( 1 == chunk.NA() );
-  REQUIRE( 1 == chunk.numberAngularParameters() );
-  REQUIRE( 6 == chunk.NW() );
-  REQUIRE( 2 == chunk.NEP() );
-  REQUIRE( 2 == chunk.numberSecondaryEnergies() );
-  REQUIRE( 2 == chunk.energies().size() );
-  REQUIRE( 1. == Approx( chunk.energies()[0] ) );
-  REQUIRE( 4. == Approx( chunk.energies()[1] ) );
-  REQUIRE( 2 == chunk.parameters().size() );
-  REQUIRE( 2. == Approx( chunk.parameters()[0][0] ) );
-  REQUIRE( 3. == Approx( chunk.parameters()[0][1] ) );
-  REQUIRE( 5. == Approx( chunk.parameters()[1][0] ) );
-  REQUIRE( 6. == Approx( chunk.parameters()[1][1] ) );
-  REQUIRE( 2 == Approx( chunk.totalEmissionProbabilities().size() ) );
-  REQUIRE( 2. == Approx( chunk.totalEmissionProbabilities()[0] ) );
-  REQUIRE( 5. == Approx( chunk.totalEmissionProbabilities()[1] ) );
+  CHECK( 0 == chunk.ND() );
+  CHECK( 0 == chunk.numberDiscreteEnergies() );
+  CHECK( 1 == chunk.NA() );
+  CHECK( 1 == chunk.numberAngularParameters() );
+  CHECK( 6 == chunk.NW() );
+  CHECK( 2 == chunk.NEP() );
+  CHECK( 2 == chunk.numberSecondaryEnergies() );
+  CHECK( 2 == chunk.energies().size() );
+  CHECK( 1. == Approx( chunk.energies()[0] ) );
+  CHECK( 4. == Approx( chunk.energies()[1] ) );
+  CHECK( 2 == chunk.parameters().size() );
+  CHECK( 2. == Approx( chunk.parameters()[0][0] ) );
+  CHECK( 3. == Approx( chunk.parameters()[0][1] ) );
+  CHECK( 5. == Approx( chunk.parameters()[1][0] ) );
+  CHECK( 6. == Approx( chunk.parameters()[1][1] ) );
+  CHECK( 2 == Approx( chunk.totalEmissionProbabilities().size() ) );
+  CHECK( 2. == Approx( chunk.totalEmissionProbabilities()[0] ) );
+  CHECK( 5. == Approx( chunk.totalEmissionProbabilities()[1] ) );
 
-  REQUIRE( 2 == chunk.NC() );
+  CHECK( 2 == chunk.NC() );
 }
 
 std::string chunkNA2() {
@@ -249,31 +249,31 @@ std::string chunkNA2() {
 
 void verifyChunkNA2( const KalbachMann& chunk ) {
 
-  REQUIRE( 2 == chunk.LANG() );
-  REQUIRE( 1e-5 == Approx( chunk.energy() ) );
+  CHECK( 2 == chunk.LANG() );
+  CHECK( 1e-5 == Approx( chunk.energy() ) );
 
-  REQUIRE( 0 == chunk.ND() );
-  REQUIRE( 0 == chunk.numberDiscreteEnergies() );
-  REQUIRE( 2 == chunk.NA() );
-  REQUIRE( 2 == chunk.numberAngularParameters() );
-  REQUIRE( 8 == chunk.NW() );
-  REQUIRE( 2 == chunk.NEP() );
-  REQUIRE( 2 == chunk.numberSecondaryEnergies() );
-  REQUIRE( 2 == chunk.energies().size() );
-  REQUIRE( 1. == Approx( chunk.energies()[0] ) );
-  REQUIRE( 5. == Approx( chunk.energies()[1] ) );
-  REQUIRE( 2 == chunk.parameters().size() );
-  REQUIRE( 2. == Approx( chunk.parameters()[0][0] ) );
-  REQUIRE( 3. == Approx( chunk.parameters()[0][1] ) );
-  REQUIRE( 4. == Approx( chunk.parameters()[0][2] ) );
-  REQUIRE( 6. == Approx( chunk.parameters()[1][0] ) );
-  REQUIRE( 7. == Approx( chunk.parameters()[1][1] ) );
-  REQUIRE( 8. == Approx( chunk.parameters()[1][2] ) );
-  REQUIRE( 2 == Approx( chunk.totalEmissionProbabilities().size() ) );
-  REQUIRE( 2. == Approx( chunk.totalEmissionProbabilities()[0] ) );
-  REQUIRE( 6. == Approx( chunk.totalEmissionProbabilities()[1] ) );
+  CHECK( 0 == chunk.ND() );
+  CHECK( 0 == chunk.numberDiscreteEnergies() );
+  CHECK( 2 == chunk.NA() );
+  CHECK( 2 == chunk.numberAngularParameters() );
+  CHECK( 8 == chunk.NW() );
+  CHECK( 2 == chunk.NEP() );
+  CHECK( 2 == chunk.numberSecondaryEnergies() );
+  CHECK( 2 == chunk.energies().size() );
+  CHECK( 1. == Approx( chunk.energies()[0] ) );
+  CHECK( 5. == Approx( chunk.energies()[1] ) );
+  CHECK( 2 == chunk.parameters().size() );
+  CHECK( 2. == Approx( chunk.parameters()[0][0] ) );
+  CHECK( 3. == Approx( chunk.parameters()[0][1] ) );
+  CHECK( 4. == Approx( chunk.parameters()[0][2] ) );
+  CHECK( 6. == Approx( chunk.parameters()[1][0] ) );
+  CHECK( 7. == Approx( chunk.parameters()[1][1] ) );
+  CHECK( 8. == Approx( chunk.parameters()[1][2] ) );
+  CHECK( 2 == Approx( chunk.totalEmissionProbabilities().size() ) );
+  CHECK( 2. == Approx( chunk.totalEmissionProbabilities()[0] ) );
+  CHECK( 6. == Approx( chunk.totalEmissionProbabilities()[1] ) );
 
-  REQUIRE( 3 == chunk.NC() );
+  CHECK( 3 == chunk.NC() );
 }
 
 std::string invalidSize() {

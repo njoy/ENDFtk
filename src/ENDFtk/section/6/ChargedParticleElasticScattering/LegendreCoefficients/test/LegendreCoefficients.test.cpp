@@ -7,7 +7,7 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using LegendreCoefficients = 
+using LegendreCoefficients =
 section::Type< 6 >::ChargedParticleElasticScattering::LegendreCoefficients;
 
 std::string chunk();
@@ -61,7 +61,7 @@ SCENARIO( "LegendreCoefficients" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       chunk.print( output, 9228, 6, 5 );
-      REQUIRE( buffer == string );
+      CHECK( buffer == string );
     } // THEN
   } // GIVEN
 
@@ -76,7 +76,7 @@ SCENARIO( "LegendreCoefficients" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS(
+        CHECK_THROWS(
           LegendreCoefficients( begin, end, lineNumber, 9228, 6, 5 ) );
       } // THEN
     } // WHEN
@@ -90,7 +90,7 @@ SCENARIO( "LegendreCoefficients" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS(
+        CHECK_THROWS(
           LegendreCoefficients( begin, end, lineNumber, 9228, 6, 5 ) );
       } // THEN
     } // WHEN
@@ -105,18 +105,18 @@ std::string chunk() {
 
 void verifyChunk( const LegendreCoefficients& chunk ) {
 
-  REQUIRE( 1e-5 == Approx( chunk.energy() ) );
+  CHECK( 1e-5 == Approx( chunk.energy() ) );
 
-  REQUIRE( 2 == chunk.LTP() );
-  REQUIRE( 4 == chunk.NW() );
-  REQUIRE( 3 == chunk.NL() );
-  REQUIRE( 4 == chunk.coefficients().size() );
-  REQUIRE( 1. == Approx( chunk.coefficients()[0] ) );
-  REQUIRE( 2. == Approx( chunk.coefficients()[1] ) );
-  REQUIRE( 3. == Approx( chunk.coefficients()[2] ) );
-  REQUIRE( 4. == Approx( chunk.coefficients()[3] ) );
+  CHECK( 2 == chunk.LTP() );
+  CHECK( 4 == chunk.NW() );
+  CHECK( 3 == chunk.NL() );
+  CHECK( 4 == chunk.coefficients().size() );
+  CHECK( 1. == Approx( chunk.coefficients()[0] ) );
+  CHECK( 2. == Approx( chunk.coefficients()[1] ) );
+  CHECK( 3. == Approx( chunk.coefficients()[2] ) );
+  CHECK( 4. == Approx( chunk.coefficients()[3] ) );
 
-  REQUIRE( 2 == chunk.NC() );
+  CHECK( 2 == chunk.NC() );
 }
 
 std::string invalidLTP() {

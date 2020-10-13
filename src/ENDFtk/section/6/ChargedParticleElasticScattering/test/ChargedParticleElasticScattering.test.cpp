@@ -77,7 +77,7 @@ SCENARIO( "ChargedParticleElasticScattering" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       chunk.print( output, 9228, 6, 5 );
-      REQUIRE( buffer == string );
+      CHECK( buffer == string );
     }
   } // GIVEN
 
@@ -97,7 +97,7 @@ SCENARIO( "ChargedParticleElasticScattering" ) {
                                                 7., 8., 9., 10., 11., 12. } ),
           NuclearPlusInterference( 2e+7, 15, {1., 2., 3., 4., 5., 6.} ) };
 
-        REQUIRE_THROWS(
+        CHECK_THROWS(
           ChargedParticleElasticScattering( spin, lidp,
                                             std::move( wrongBoundaries ),
                                             std::move( interpolants ),
@@ -116,7 +116,7 @@ SCENARIO( "ChargedParticleElasticScattering" ) {
                                                 7., 8., 9., 10., 11., 12. } ),
           NuclearPlusInterference( 2e+7, 15, {1., 2., 3., 4., 5., 6.} ) };
 
-        REQUIRE_THROWS(
+        CHECK_THROWS(
           ChargedParticleElasticScattering( spin, lidp,
                                             std::move( boundaries ),
                                             std::move( wrongInterpolants ),
@@ -134,7 +134,7 @@ SCENARIO( "ChargedParticleElasticScattering" ) {
           NuclearAmplitudeExpansion( 1e-5, 3, { 1., 2., 3., 4., 5., 6.,
                                                 7., 8., 9., 10., 11., 12. } ) };
 
-        REQUIRE_THROWS(
+        CHECK_THROWS(
           ChargedParticleElasticScattering( spin, lidp,
                                             std::move( boundaries ),
                                             std::move( interpolants ),
@@ -151,7 +151,7 @@ SCENARIO( "ChargedParticleElasticScattering" ) {
 
       THEN( "an exception is thrown upon construction" ) {
 
-        REQUIRE_THROWS(
+        CHECK_THROWS(
           ChargedParticleElasticScattering( begin, end, lineNumber,
                                             9228, 6, 5 ) );
       } // THEN
@@ -172,67 +172,67 @@ std::string chunk() {
 
 void verifyChunk( const ChargedParticleElasticScattering& chunk ) {
 
-  REQUIRE( 5 == chunk.LAW() );
-  REQUIRE( 0.5 == Approx( chunk.SPI() ) );
-  REQUIRE( 0.5 == Approx( chunk.spin() ) );
-  REQUIRE( true == chunk.LIDP() );
-  REQUIRE( true == chunk.identicalParticles() );
-  REQUIRE( 2 == chunk.NE() );
-  REQUIRE( 1 == chunk.NR() );
-  REQUIRE( 1 == chunk.interpolants().size() );
-  REQUIRE( 1 == chunk.boundaries().size() );
-  REQUIRE( 1 == chunk.interpolants()[0] );
-  REQUIRE( 2 == chunk.boundaries()[0] );
+  CHECK( 5 == chunk.LAW() );
+  CHECK( 0.5 == Approx( chunk.SPI() ) );
+  CHECK( 0.5 == Approx( chunk.spin() ) );
+  CHECK( true == chunk.LIDP() );
+  CHECK( true == chunk.identicalParticles() );
+  CHECK( 2 == chunk.NE() );
+  CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.interpolants().size() );
+  CHECK( 1 == chunk.boundaries().size() );
+  CHECK( 1 == chunk.interpolants()[0] );
+  CHECK( 2 == chunk.boundaries()[0] );
 
   auto energies = chunk.subsections();
 
   auto subsection1 =
     std::get< NuclearAmplitudeExpansion >( energies[0] );
-  REQUIRE( 1e-5 == Approx( subsection1.energy() ) );
-  REQUIRE( 1 == subsection1.LTP() );
-  REQUIRE( 12 == subsection1.NW() );
-  REQUIRE( 3 == subsection1.NL() );
-  REQUIRE( 4 == subsection1.scatteringCoefficients().size() );
-  REQUIRE( 1. == Approx( subsection1.scatteringCoefficients()[0] ) );
-  REQUIRE( 2. == Approx( subsection1.scatteringCoefficients()[1] ) );
-  REQUIRE( 3. == Approx( subsection1.scatteringCoefficients()[2] ) );
-  REQUIRE( 4. == Approx( subsection1.scatteringCoefficients()[3] ) );
-  REQUIRE( 4 == subsection1.realInterferenceCoefficients().size() );
-  REQUIRE( 5. == Approx( subsection1.realInterferenceCoefficients()[0] ) );
-  REQUIRE( 7. == Approx( subsection1.realInterferenceCoefficients()[1] ) );
-  REQUIRE( 9. == Approx( subsection1.realInterferenceCoefficients()[2] ) );
-  REQUIRE( 11. == Approx( subsection1.realInterferenceCoefficients()[3] ) );
-  REQUIRE( 4 == subsection1.imaginaryInterferenceCoefficients().size() );
-  REQUIRE( 6. == Approx( subsection1.imaginaryInterferenceCoefficients()[0] ) );
-  REQUIRE( 8. == Approx( subsection1.imaginaryInterferenceCoefficients()[1] ) );
-  REQUIRE( 10. == Approx( subsection1.imaginaryInterferenceCoefficients()[2] ) );
-  REQUIRE( 12. == Approx( subsection1.imaginaryInterferenceCoefficients()[3] ) );
-  REQUIRE( 4 == subsection1.interferenceCoefficients().size() );
-  REQUIRE( 5. == Approx( subsection1.interferenceCoefficients()[0].real() ) );
-  REQUIRE( 7. == Approx( subsection1.interferenceCoefficients()[1].real() ) );
-  REQUIRE( 9. == Approx( subsection1.interferenceCoefficients()[2].real() ) );
-  REQUIRE( 11. == Approx( subsection1.interferenceCoefficients()[3].real() ) );
-  REQUIRE( 6. == Approx( subsection1.interferenceCoefficients()[0].imag() ) );
-  REQUIRE( 8. == Approx( subsection1.interferenceCoefficients()[1].imag() ) );
-  REQUIRE( 10. == Approx( subsection1.interferenceCoefficients()[2].imag() ) );
-  REQUIRE( 12. == Approx( subsection1.interferenceCoefficients()[3].imag() ) );
+  CHECK( 1e-5 == Approx( subsection1.energy() ) );
+  CHECK( 1 == subsection1.LTP() );
+  CHECK( 12 == subsection1.NW() );
+  CHECK( 3 == subsection1.NL() );
+  CHECK( 4 == subsection1.scatteringCoefficients().size() );
+  CHECK( 1. == Approx( subsection1.scatteringCoefficients()[0] ) );
+  CHECK( 2. == Approx( subsection1.scatteringCoefficients()[1] ) );
+  CHECK( 3. == Approx( subsection1.scatteringCoefficients()[2] ) );
+  CHECK( 4. == Approx( subsection1.scatteringCoefficients()[3] ) );
+  CHECK( 4 == subsection1.realInterferenceCoefficients().size() );
+  CHECK( 5. == Approx( subsection1.realInterferenceCoefficients()[0] ) );
+  CHECK( 7. == Approx( subsection1.realInterferenceCoefficients()[1] ) );
+  CHECK( 9. == Approx( subsection1.realInterferenceCoefficients()[2] ) );
+  CHECK( 11. == Approx( subsection1.realInterferenceCoefficients()[3] ) );
+  CHECK( 4 == subsection1.imaginaryInterferenceCoefficients().size() );
+  CHECK( 6. == Approx( subsection1.imaginaryInterferenceCoefficients()[0] ) );
+  CHECK( 8. == Approx( subsection1.imaginaryInterferenceCoefficients()[1] ) );
+  CHECK( 10. == Approx( subsection1.imaginaryInterferenceCoefficients()[2] ) );
+  CHECK( 12. == Approx( subsection1.imaginaryInterferenceCoefficients()[3] ) );
+  CHECK( 4 == subsection1.interferenceCoefficients().size() );
+  CHECK( 5. == Approx( subsection1.interferenceCoefficients()[0].real() ) );
+  CHECK( 7. == Approx( subsection1.interferenceCoefficients()[1].real() ) );
+  CHECK( 9. == Approx( subsection1.interferenceCoefficients()[2].real() ) );
+  CHECK( 11. == Approx( subsection1.interferenceCoefficients()[3].real() ) );
+  CHECK( 6. == Approx( subsection1.interferenceCoefficients()[0].imag() ) );
+  CHECK( 8. == Approx( subsection1.interferenceCoefficients()[1].imag() ) );
+  CHECK( 10. == Approx( subsection1.interferenceCoefficients()[2].imag() ) );
+  CHECK( 12. == Approx( subsection1.interferenceCoefficients()[3].imag() ) );
 
   auto subsection2 =
     std::get< NuclearPlusInterference >( energies[1] );
-  REQUIRE( 2e+7 == Approx( subsection2.energy() ) );
-  REQUIRE( 15 == subsection2.LTP() );
-  REQUIRE( 6 == subsection2.NW() );
-  REQUIRE( 3 == subsection2.NL() );
-  REQUIRE( 3 == subsection2.cosines().size() );
-  REQUIRE( 1. == Approx( subsection2.cosines()[0] ) );
-  REQUIRE( 3. == Approx( subsection2.cosines()[1] ) );
-  REQUIRE( 5. == Approx( subsection2.cosines()[2] ) );
-  REQUIRE( 3 == subsection2.probabilities().size() );
-  REQUIRE( 2. == Approx( subsection2.probabilities()[0] ) );
-  REQUIRE( 4. == Approx( subsection2.probabilities()[1] ) );
-  REQUIRE( 6. == Approx( subsection2.probabilities()[2] ) );
+  CHECK( 2e+7 == Approx( subsection2.energy() ) );
+  CHECK( 15 == subsection2.LTP() );
+  CHECK( 6 == subsection2.NW() );
+  CHECK( 3 == subsection2.NL() );
+  CHECK( 3 == subsection2.cosines().size() );
+  CHECK( 1. == Approx( subsection2.cosines()[0] ) );
+  CHECK( 3. == Approx( subsection2.cosines()[1] ) );
+  CHECK( 5. == Approx( subsection2.cosines()[2] ) );
+  CHECK( 3 == subsection2.probabilities().size() );
+  CHECK( 2. == Approx( subsection2.probabilities()[0] ) );
+  CHECK( 4. == Approx( subsection2.probabilities()[1] ) );
+  CHECK( 6. == Approx( subsection2.probabilities()[2] ) );
 
-  REQUIRE( 7 == chunk.NC() );
+  CHECK( 7 == chunk.NC() );
 }
 
 std::string invalidLTP() {

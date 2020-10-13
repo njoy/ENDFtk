@@ -12,6 +12,10 @@ namespace python = pybind11;
 
 // declarations - components
 void wrapMultiplicity( python::module& );
+void wrapDefinedElsewhere( python::module& );             // law<0
+void wrapUnknownDistribution( python::module& );          // law=0
+void wrapIsotropicDiscreteEmission( python::module& );    // law=3
+void wrapDiscreteTwoBodyRecoils( python::module& );       // law=4
 void wrapReactionProduct( python::module& );
 
 void wrapSection_6( python::module& module ) {
@@ -37,6 +41,10 @@ void wrapSection_6( python::module& module ) {
 
   // wrap components
   wrapMultiplicity( module );
+  wrapDefinedElsewhere( module );
+  wrapUnknownDistribution( module );
+  wrapIsotropicDiscreteEmission( module );
+  wrapDiscreteTwoBodyRecoils( module );
   wrapReactionProduct( module );
 
   // wrap the section
