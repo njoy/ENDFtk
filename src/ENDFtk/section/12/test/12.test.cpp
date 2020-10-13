@@ -459,7 +459,7 @@ void verifyChunkWithLO2LG1( const section::Type< 12 >& chunk ) {
   CHECK( 2 == data.representation() );
 
   CHECK( 5.170900e+4 == Approx( data.ES() ) );
-  CHECK( 5.170900e+4 == Approx( data.energy() ) );
+  CHECK( 5.170900e+4 == Approx( data.highestEnergyLevel() ) );
   CHECK( 1 == data.LG() );
   CHECK( 1 == data.transitionType() );
   CHECK( 2 == data.NT() );
@@ -510,7 +510,7 @@ void verifyChunkWithLO2LG2( const section::Type< 12 >& chunk ) {
   CHECK( 2 == data.representation() );
 
   CHECK( 5.170900e+4 == Approx( data.ES() ) );
-  CHECK( 5.170900e+4 == Approx( data.energy() ) );
+  CHECK( 5.170900e+4 == Approx( data.highestEnergyLevel() ) );
   CHECK( 2 == data.LG() );
   CHECK( 2 == data.transitionType() );
   CHECK( 2 == data.NT() );

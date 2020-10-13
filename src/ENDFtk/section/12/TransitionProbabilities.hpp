@@ -1,6 +1,6 @@
 /**
  *  @class
- *  @brief The photon production cross section can be calculated fron MF3 and
+ *  @brief The photon production cross section can be calculated from MF3 and
  *         the transition probabilities are given here
  *
  *  The TransitionProbabilities class is used to represent the case in which
@@ -36,10 +36,7 @@ public:
   /**
    *  @brief Return the photon production representation type
    */
-  static constexpr int representation() {
-
-    return TransitionProbabilities::LO();
-  }
+  int representation() const { return this->LO(); }
 
   /**
    *  @brief Return the energy of the highest energy level
@@ -49,7 +46,7 @@ public:
   /**
   *  @brief Return the energy of the highest energy level
    */
-  double energy() const { return this->ES(); }
+  double highestEnergyLevel() const { return this->ES(); }
 
   /**
    *  @brief Return the number of transitions that are given

@@ -206,7 +206,7 @@ void verifyChunkWithLG1( const TransitionProbabilities& chunk ) {
   CHECK( 2 == chunk.representation() );
 
   CHECK( 5.170900e+4 == Approx( chunk.ES() ) );
-  CHECK( 5.170900e+4 == Approx( chunk.energy() ) );
+  CHECK( 5.170900e+4 == Approx( chunk.highestEnergyLevel() ) );
   CHECK( 1 == chunk.LG() );
   CHECK( 1 == chunk.transitionType() );
   CHECK( 2 == chunk.NT() );
@@ -260,7 +260,7 @@ void verifyChunkWithLG2( const TransitionProbabilities& chunk ) {
   CHECK( 2 == chunk.representation() );
 
   CHECK( 5.170900e+4 == Approx( chunk.ES() ) );
-  CHECK( 5.170900e+4 == Approx( chunk.energy() ) );
+  CHECK( 5.170900e+4 == Approx( chunk.highestEnergyLevel() ) );
   CHECK( 2 == chunk.LG() );
   CHECK( 2 == chunk.transitionType() );
   CHECK( 2 == chunk.NT() );

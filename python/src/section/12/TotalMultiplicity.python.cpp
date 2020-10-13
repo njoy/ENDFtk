@@ -73,6 +73,6 @@ void wrapTotalMultiplicity( python::module& module ) {
   // add standard tab1 definitions
   addStandardTableDefinitions< Component >( component );
 
-  // add standard section definitions
+  // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }

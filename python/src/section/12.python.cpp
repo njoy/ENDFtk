@@ -13,6 +13,8 @@ namespace python = pybind11;
 // declarations - components
 void wrapTotalMultiplicity( python::module& );
 void wrapPartialMultiplicity( python::module& );
+void wrapMultiplicities( python::module& );
+void wrapTransitionProbabilities( python::module& );
 
 void wrapSection_12( python::module& module ) {
 
@@ -34,22 +36,24 @@ void wrapSection_12( python::module& module ) {
   // wrap components
   wrapTotalMultiplicity( module );
   wrapPartialMultiplicity( module );
+  wrapMultiplicities( module );
+  wrapTransitionProbabilities( module );
 
   // wrap the section
   section
-//  .def(
-//
-//    python::init< int, double, double, PhotonProduction&& >(),
-//    python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
-//    python::arg( "production" ),
-//    "Initialise the section\n\n"
-//    "Arguments:\n"
-//    "    self          the section\n"
-//    "    mt            the MT number for the section\n"
-//    "    zaid          the material ZAID value\n"
-//    "    awr           the atomic weight ratio\n"
-//    "    production    the photon production data"
-//  )
+  .def(
+
+    python::init< int, double, double, PhotonProduction&& >(),
+    python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
+    python::arg( "production" ),
+    "Initialise the section\n\n"
+    "Arguments:\n"
+    "    self          the section\n"
+    "    mt            the MT number for the section\n"
+    "    zaid          the material ZAID value\n"
+    "    awr           the atomic weight ratio\n"
+    "    production    the photon production data"
+  )
   .def_property_readonly(
 
     "LO",

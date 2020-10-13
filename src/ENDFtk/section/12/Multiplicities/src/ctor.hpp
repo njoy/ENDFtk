@@ -11,6 +11,13 @@ Multiplicities( std::optional< TotalMultiplicity >&& total,
 }
 
 public:
+//! @todo pybind11 variant needs default constructor workaround
+#ifdef PYBIND11
+/**
+ *  @brief Default constructor - only enabled for pybind11
+ */
+Multiplicities() = default;
+#endif
 
 /**
  *  @brief Constructor (only one partial given, no total required)
