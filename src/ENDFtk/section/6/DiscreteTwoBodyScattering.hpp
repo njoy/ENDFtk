@@ -30,7 +30,7 @@ public:
   /* constructor */
   #include "ENDFtk/section/6/DiscreteTwoBodyScattering/src/ctor.hpp"
 
-  /* get methods */
+  /* methods */
 
   /**
    *  @brief Return the LAW flag

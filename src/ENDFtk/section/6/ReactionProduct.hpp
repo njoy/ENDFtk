@@ -13,7 +13,7 @@ public:
   /* constructor */
   #include "ENDFtk/section/6/ReactionProduct/src/ctor.hpp"
 
-  /* get methods */
+  /* methods */
   double ZAP() const { return this->multiplicity_.ZAP(); }
   double productIdentifier() const { return this->ZAP(); }
   double AWP() const { return this->multiplicity_.AWP(); }

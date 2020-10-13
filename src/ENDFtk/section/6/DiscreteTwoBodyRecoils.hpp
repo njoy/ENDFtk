@@ -2,7 +2,7 @@ class DiscreteTwoBodyRecoils : protected NoLawDataGiven {
 
 public:
 
-  /* get methods */
+  /* methods */
   static constexpr int LAW() { return 4; }
 
   using NoLawDataGiven::NC;

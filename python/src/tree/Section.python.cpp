@@ -9,6 +9,7 @@
 #include "ENDFtk/section/3.hpp"
 #include "ENDFtk/section/4.hpp"
 #include "ENDFtk/section/5.hpp"
+#include "ENDFtk/section/6.hpp"
 #include "ENDFtk/section/12.hpp"
 #include "ENDFtk/section/13.hpp"
 #include "range/v3/utility/iterator.hpp"
@@ -30,6 +31,7 @@ void wrapTreeSection( python::module& module ) {
   using MF3MTxxx = njoy::ENDFtk::section::Type< 3 >;
   using MF4MTxxx = njoy::ENDFtk::section::Type< 4 >;
   using MF5MTxxx = njoy::ENDFtk::section::Type< 5 >;
+  using MF6MTxxx = njoy::ENDFtk::section::Type< 6 >;
   using MF12MTxxx = njoy::ENDFtk::section::Type< 12 >;
   using MF13MTxxx = njoy::ENDFtk::section::Type< 13 >;
 
@@ -87,7 +89,7 @@ void wrapTreeSection( python::module& module ) {
     "parse",
     [] ( const Section& self ) -> std::variant< MF1MT451, MF2MT151, MF2MT152,
                                                 MF3MTxxx, MF4MTxxx, MF5MTxxx,
-                                                MF12MTxxx, MF13MTxxx > {
+                                                MF6MTxxx, MF12MTxxx, MF13MTxxx > {
 
       switch ( self.fileNumber() ) {
 
@@ -109,6 +111,7 @@ void wrapTreeSection( python::module& module ) {
         case 3 : return self.parse< 3 >();
         case 4 : return self.parse< 4 >();
         case 5 : return self.parse< 5 >();
+        case 6 : return self.parse< 6 >();
         case 12 : return self.parse< 12 >();
         case 13 : return self.parse< 13 >();
       }

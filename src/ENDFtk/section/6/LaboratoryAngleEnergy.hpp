@@ -12,7 +12,7 @@ public:
   /* constructor */
   #include "ENDFtk/section/6/LaboratoryAngleEnergy/src/ctor.hpp"
 
-  /* get methods */
+  /* methods */
   static constexpr int LAW() { return 7; }
   long NR() const { return this->data_.tab2().NR(); }
   long NE() const { return this->data_.tab2().NZ(); }

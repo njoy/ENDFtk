@@ -123,6 +123,7 @@ pybind11_add_module( ENDFtk.python
     python/src/section/5/MadlandNixSpectrum.python.cpp
     python/src/section/5/Probability.python.cpp
     python/src/section/5/PartialDistribution.python.cpp
+    python/src/section/6.python.cpp
     python/src/section/12.python.cpp
     python/src/section/12/TotalMultiplicity.python.cpp
     python/src/section/12/PartialMultiplicity.python.cpp
@@ -136,6 +137,7 @@ pybind11_add_module( ENDFtk.python
     python/src/file/3.python.cpp
     python/src/file/4.python.cpp
     python/src/file/5.python.cpp
+    python/src/file/6.python.cpp
     python/src/file/12.python.cpp
     python/src/file/13.python.cpp
     python/src/tree/Section.python.cpp

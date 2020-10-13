@@ -5,7 +5,7 @@ public:
   /* constructor */
   #include "ENDFtk/section/6/Multiplicity/src/ctor.hpp"
 
-  /* get methods */
+  /* methods */
   using TabulationRecord::NP;
   using TabulationRecord::NR;
   double ZAP() const { return TabulationRecord::C1(); }

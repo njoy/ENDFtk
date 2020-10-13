@@ -33,7 +33,7 @@ public:
   /* constructor */
   #include "ENDFtk/section/6/ChargedParticleElasticScattering/src/ctor.hpp"
 
-  /* get methods */
+  /* methods */
 
   /**
    *  @brief Return the LAW flag for continuum energy-angle data

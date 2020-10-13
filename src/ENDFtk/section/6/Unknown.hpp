@@ -2,7 +2,7 @@ class Unknown : protected NoLawDataGiven {
 
 public:
 
-  /* get methods */
+  /* methods */
   static constexpr int LAW() { return 0; }
 
   using NoLawDataGiven::NC;

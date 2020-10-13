@@ -67,7 +67,7 @@ public:
   /* constructor */
   #include "ENDFtk/section/5/src/ctor.hpp"
 
-  /* get methods */
+  /* methods */
 
   /**
    *  @brief Return the number NK of subsections with partial distributions

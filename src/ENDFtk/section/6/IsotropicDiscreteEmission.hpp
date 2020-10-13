@@ -2,7 +2,7 @@ class IsotropicDiscreteEmission : protected NoLawDataGiven {
 
 public:
 
-  /* get methods */
+  /* methods */
   static constexpr int LAW() { return 3; }
 
   using NoLawDataGiven::NC;
