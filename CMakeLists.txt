@@ -124,6 +124,8 @@ pybind11_add_module( ENDFtk.python
     python/src/section/5/Probability.python.cpp
     python/src/section/5/PartialDistribution.python.cpp
     python/src/section/6.python.cpp
+    python/src/section/6/Multiplicity.python.cpp
+    python/src/section/6/ReactionProduct.python.cpp
     python/src/section/12.python.cpp
     python/src/section/12/TotalMultiplicity.python.cpp
     python/src/section/12/PartialMultiplicity.python.cpp

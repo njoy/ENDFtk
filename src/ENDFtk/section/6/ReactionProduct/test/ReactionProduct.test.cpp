@@ -78,48 +78,48 @@ SCENARIO( "ReactionProduct" ) {
       ReactionProduct
         chunk( std::move( multiplicity ), std::move( distribution ) );
 
-      REQUIRE( 1001. == Approx( chunk.ZAP() ) );
-      REQUIRE( 1001. == Approx( chunk.productIdentifier() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.productMassRatio() ) );
-      REQUIRE( 0 == chunk.LIP() );
-      REQUIRE( 0 == chunk.productModifierFlag() );
-      REQUIRE( 0 == chunk.LAW() );
+      CHECK( 1001. == Approx( chunk.ZAP() ) );
+      CHECK( 1001. == Approx( chunk.productIdentifier() ) );
+      CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+      CHECK( 0.9986234 == Approx( chunk.productWeightRatio() ) );
+      CHECK( 0 == chunk.LIP() );
+      CHECK( 0 == chunk.productModifierFlag() );
+      CHECK( 0 == chunk.LAW() );
 
-      REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-      REQUIRE( 1001. == Approx( chunk.multiplicity().productIdentifier() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().productMassRatio() ) );
-      REQUIRE( 0 == chunk.multiplicity().LIP() );
-      REQUIRE( 0 == chunk.multiplicity().productModifierFlag() );
-      REQUIRE( 0 == chunk.multiplicity().LAW() );
+      CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
+      CHECK( 1001. == Approx( chunk.multiplicity().productIdentifier() ) );
+      CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+      CHECK( 0.9986234 == Approx( chunk.multiplicity().productWeightRatio() ) );
+      CHECK( 0 == chunk.multiplicity().LIP() );
+      CHECK( 0 == chunk.multiplicity().productModifierFlag() );
+      CHECK( 0 == chunk.multiplicity().LAW() );
 
-      REQUIRE( 4 == chunk.multiplicity().NP() );
-      REQUIRE( 1 == chunk.multiplicity().NR() );
-      REQUIRE( 1 == chunk.multiplicity().interpolants().size() );
-      REQUIRE( 1 == chunk.multiplicity().boundaries().size() );
-      REQUIRE( 2 == chunk.multiplicity().interpolants()[0] );
-      REQUIRE( 4 == chunk.multiplicity().boundaries()[0] );
-      REQUIRE( 4 == chunk.multiplicity().energies().size() );
-      REQUIRE( 4 == chunk.multiplicity().multiplicities().size() );
-      REQUIRE( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-      REQUIRE( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-      REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-      REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-      REQUIRE( 8.45368e-11 ==
+      CHECK( 4 == chunk.multiplicity().NP() );
+      CHECK( 1 == chunk.multiplicity().NR() );
+      CHECK( 1 == chunk.multiplicity().interpolants().size() );
+      CHECK( 1 == chunk.multiplicity().boundaries().size() );
+      CHECK( 2 == chunk.multiplicity().interpolants()[0] );
+      CHECK( 4 == chunk.multiplicity().boundaries()[0] );
+      CHECK( 4 == chunk.multiplicity().energies().size() );
+      CHECK( 4 == chunk.multiplicity().multiplicities().size() );
+      CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
+      CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
+      CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
+      CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
+      CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
+      CHECK( 8.45368e-11 ==
                Approx( chunk.multiplicity().multiplicities()[1] ) );
-      REQUIRE( 6.622950e-8 ==
+      CHECK( 6.622950e-8 ==
                Approx( chunk.multiplicity().multiplicities()[2] ) );
-      REQUIRE( 2.149790e-1 ==
+      CHECK( 2.149790e-1 ==
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
          std::get< Unknown >( chunk.distribution() );
 
-      REQUIRE( 0 == law.LAW() );
+      CHECK( 0 == law.LAW() );
 
-      REQUIRE( 4 == chunk.NC() );
+      CHECK( 4 == chunk.NC() );
     }
   } // GIVEN
 
@@ -134,48 +134,48 @@ SCENARIO( "ReactionProduct" ) {
           "be constructed and members can be tested" ) {
       ReactionProduct chunk( begin, end, lineNumber, 9228, 6, 5 );
 
-      REQUIRE( 1001. == Approx( chunk.ZAP() ) );
-      REQUIRE( 1001. == Approx( chunk.productIdentifier() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.productMassRatio() ) );
-      REQUIRE( 0 == chunk.LIP() );
-      REQUIRE( 0 == chunk.productModifierFlag() );
-      REQUIRE( 0 == chunk.LAW() );
+      CHECK( 1001. == Approx( chunk.ZAP() ) );
+      CHECK( 1001. == Approx( chunk.productIdentifier() ) );
+      CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+      CHECK( 0.9986234 == Approx( chunk.productWeightRatio() ) );
+      CHECK( 0 == chunk.LIP() );
+      CHECK( 0 == chunk.productModifierFlag() );
+      CHECK( 0 == chunk.LAW() );
 
-      REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-      REQUIRE( 1001. == Approx( chunk.multiplicity().productIdentifier() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().productMassRatio() ) );
-      REQUIRE( 0 == chunk.multiplicity().LIP() );
-      REQUIRE( 0 == chunk.multiplicity().productModifierFlag() );
-      REQUIRE( 0 == chunk.multiplicity().LAW() );
+      CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
+      CHECK( 1001. == Approx( chunk.multiplicity().productIdentifier() ) );
+      CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+      CHECK( 0.9986234 == Approx( chunk.multiplicity().productWeightRatio() ) );
+      CHECK( 0 == chunk.multiplicity().LIP() );
+      CHECK( 0 == chunk.multiplicity().productModifierFlag() );
+      CHECK( 0 == chunk.multiplicity().LAW() );
 
-      REQUIRE( 4 == chunk.multiplicity().NP() );
-      REQUIRE( 1 == chunk.multiplicity().NR() );
-      REQUIRE( 1 == chunk.multiplicity().interpolants().size() );
-      REQUIRE( 1 == chunk.multiplicity().boundaries().size() );
-      REQUIRE( 2 == chunk.multiplicity().interpolants()[0] );
-      REQUIRE( 4 == chunk.multiplicity().boundaries()[0] );
-      REQUIRE( 4 == chunk.multiplicity().energies().size() );
-      REQUIRE( 4 == chunk.multiplicity().multiplicities().size() );
-      REQUIRE( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-      REQUIRE( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-      REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-      REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-      REQUIRE( 8.45368e-11 ==
+      CHECK( 4 == chunk.multiplicity().NP() );
+      CHECK( 1 == chunk.multiplicity().NR() );
+      CHECK( 1 == chunk.multiplicity().interpolants().size() );
+      CHECK( 1 == chunk.multiplicity().boundaries().size() );
+      CHECK( 2 == chunk.multiplicity().interpolants()[0] );
+      CHECK( 4 == chunk.multiplicity().boundaries()[0] );
+      CHECK( 4 == chunk.multiplicity().energies().size() );
+      CHECK( 4 == chunk.multiplicity().multiplicities().size() );
+      CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
+      CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
+      CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
+      CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
+      CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
+      CHECK( 8.45368e-11 ==
                Approx( chunk.multiplicity().multiplicities()[1] ) );
-      REQUIRE( 6.622950e-8 ==
+      CHECK( 6.622950e-8 ==
                Approx( chunk.multiplicity().multiplicities()[2] ) );
-      REQUIRE( 2.149790e-1 ==
+      CHECK( 2.149790e-1 ==
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
          std::get< Unknown >( chunk.distribution() );
 
-      REQUIRE( 0 == law.LAW() );
+      CHECK( 0 == law.LAW() );
 
-      REQUIRE( 4 == chunk.NC() );
+      CHECK( 4 == chunk.NC() );
     }
   } // GIVEN
 
@@ -199,98 +199,98 @@ SCENARIO( "ReactionProduct" ) {
       ReactionProduct
         chunk( std::move( multiplicity ), std::move( distribution ) );
 
-      REQUIRE( 1001. == Approx( chunk.ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
-      REQUIRE( 0 == chunk.LIP() );
-      REQUIRE( 1 == chunk.LAW() );
+      CHECK( 1001. == Approx( chunk.ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+      CHECK( 0 == chunk.LIP() );
+      CHECK( 1 == chunk.LAW() );
 
-      REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
-      REQUIRE( 0 == chunk.multiplicity().LIP() );
-      REQUIRE( 1 == chunk.multiplicity().LAW() );
+      CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+      CHECK( 0 == chunk.multiplicity().LIP() );
+      CHECK( 1 == chunk.multiplicity().LAW() );
 
-      REQUIRE( 4 == chunk.multiplicity().NP() );
-      REQUIRE( 1 == chunk.multiplicity().NR() );
-      REQUIRE( 1 == chunk.multiplicity().interpolants().size() );
-      REQUIRE( 1 == chunk.multiplicity().boundaries().size() );
-      REQUIRE( 2 == chunk.multiplicity().interpolants()[0] );
-      REQUIRE( 4 == chunk.multiplicity().boundaries()[0] );
-      REQUIRE( 4 == chunk.multiplicity().energies().size() );
-      REQUIRE( 4 == chunk.multiplicity().multiplicities().size() );
-      REQUIRE( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-      REQUIRE( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-      REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-      REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-      REQUIRE( 8.45368e-11 ==
+      CHECK( 4 == chunk.multiplicity().NP() );
+      CHECK( 1 == chunk.multiplicity().NR() );
+      CHECK( 1 == chunk.multiplicity().interpolants().size() );
+      CHECK( 1 == chunk.multiplicity().boundaries().size() );
+      CHECK( 2 == chunk.multiplicity().interpolants()[0] );
+      CHECK( 4 == chunk.multiplicity().boundaries()[0] );
+      CHECK( 4 == chunk.multiplicity().energies().size() );
+      CHECK( 4 == chunk.multiplicity().multiplicities().size() );
+      CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
+      CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
+      CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
+      CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
+      CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
+      CHECK( 8.45368e-11 ==
                Approx( chunk.multiplicity().multiplicities()[1] ) );
-      REQUIRE( 6.622950e-8 ==
+      CHECK( 6.622950e-8 ==
                Approx( chunk.multiplicity().multiplicities()[2] ) );
-      REQUIRE( 2.149790e-1 ==
+      CHECK( 2.149790e-1 ==
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
          std::get< ContinuumEnergyAngle >( chunk.distribution() );
 
-      REQUIRE( 1 == law.LAW() );
-      REQUIRE( 2 == law.LEP() );
-      REQUIRE( 2 == law.NE() );
-      REQUIRE( 1 == law.NR() );
-      REQUIRE( 1 == law.interpolants().size() );
-      REQUIRE( 1 == law.boundaries().size() );
-      REQUIRE( 1 == law.interpolants()[0] );
-      REQUIRE( 2 == law.boundaries()[0] );
+      CHECK( 1 == law.LAW() );
+      CHECK( 2 == law.LEP() );
+      CHECK( 2 == law.NE() );
+      CHECK( 1 == law.NR() );
+      CHECK( 1 == law.interpolants().size() );
+      CHECK( 1 == law.boundaries().size() );
+      CHECK( 1 == law.interpolants()[0] );
+      CHECK( 2 == law.boundaries()[0] );
 
       auto energies = law.subsections();
 
       auto subsection1 =
           std::get< LegendreCoefficients >( energies[0] );
-      REQUIRE( 1e-5 == Approx( subsection1.energy() ) );
-      REQUIRE( 0 == subsection1.ND() );
-      REQUIRE( 1 == subsection1.NA() );
-      REQUIRE( 12 == subsection1.NW() );
-      REQUIRE( 4 == subsection1.NEP() );
-      REQUIRE( 4 == subsection1.energies().size() );
-      REQUIRE( 1. == Approx( subsection1.energies()[0] ) );
-      REQUIRE( 4. == Approx( subsection1.energies()[1] ) );
-      REQUIRE( 7. == Approx( subsection1.energies()[2] ) );
-      REQUIRE( 10. == Approx( subsection1.energies()[3] ) );
-      REQUIRE( 4 == subsection1.coefficients().size() );
-      REQUIRE( 2. == Approx( subsection1.coefficients()[0][0] ) );
-      REQUIRE( 3. == Approx( subsection1.coefficients()[0][1] ) );
-      REQUIRE( 5. == Approx( subsection1.coefficients()[1][0] ) );
-      REQUIRE( 6. == Approx( subsection1.coefficients()[1][1] ) );
-      REQUIRE( 8. == Approx( subsection1.coefficients()[2][0] ) );
-      REQUIRE( 9. == Approx( subsection1.coefficients()[2][1] ) );
-      REQUIRE( 11. == Approx( subsection1.coefficients()[3][0] ) );
-      REQUIRE( 12. == Approx( subsection1.coefficients()[3][1] ) );
-      REQUIRE( 4 == Approx( subsection1.totalEmissionProbabilities().size() ) );
-      REQUIRE( 2. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
-      REQUIRE( 5. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
-      REQUIRE( 8. == Approx( subsection1.totalEmissionProbabilities()[2] ) );
-      REQUIRE( 11. == Approx( subsection1.totalEmissionProbabilities()[3] ) );
+      CHECK( 1e-5 == Approx( subsection1.energy() ) );
+      CHECK( 0 == subsection1.ND() );
+      CHECK( 1 == subsection1.NA() );
+      CHECK( 12 == subsection1.NW() );
+      CHECK( 4 == subsection1.NEP() );
+      CHECK( 4 == subsection1.energies().size() );
+      CHECK( 1. == Approx( subsection1.energies()[0] ) );
+      CHECK( 4. == Approx( subsection1.energies()[1] ) );
+      CHECK( 7. == Approx( subsection1.energies()[2] ) );
+      CHECK( 10. == Approx( subsection1.energies()[3] ) );
+      CHECK( 4 == subsection1.coefficients().size() );
+      CHECK( 2. == Approx( subsection1.coefficients()[0][0] ) );
+      CHECK( 3. == Approx( subsection1.coefficients()[0][1] ) );
+      CHECK( 5. == Approx( subsection1.coefficients()[1][0] ) );
+      CHECK( 6. == Approx( subsection1.coefficients()[1][1] ) );
+      CHECK( 8. == Approx( subsection1.coefficients()[2][0] ) );
+      CHECK( 9. == Approx( subsection1.coefficients()[2][1] ) );
+      CHECK( 11. == Approx( subsection1.coefficients()[3][0] ) );
+      CHECK( 12. == Approx( subsection1.coefficients()[3][1] ) );
+      CHECK( 4 == Approx( subsection1.totalEmissionProbabilities().size() ) );
+      CHECK( 2. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
+      CHECK( 5. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
+      CHECK( 8. == Approx( subsection1.totalEmissionProbabilities()[2] ) );
+      CHECK( 11. == Approx( subsection1.totalEmissionProbabilities()[3] ) );
 
       auto subsection2 =
           std::get< LegendreCoefficients >( energies[1] );
-      REQUIRE( 2e+7 == Approx( subsection2.energy() ) );
-      REQUIRE( 1 == subsection2.LANG() );
-      REQUIRE( 0 == subsection2.ND() );
-      REQUIRE( 1 == subsection2.NA() );
-      REQUIRE( 6 == subsection2.NW() );
-      REQUIRE( 2 == subsection2.NEP() );
-      REQUIRE( 2 == subsection2.energies().size() );
-      REQUIRE( 1. == Approx( subsection2.energies()[0] ) );
-      REQUIRE( 4. == Approx( subsection2.energies()[1] ) );
-      REQUIRE( 2 == subsection2.coefficients().size() );
-      REQUIRE( 2. == Approx( subsection2.coefficients()[0][0] ) );
-      REQUIRE( 3. == Approx( subsection2.coefficients()[0][1] ) );
-      REQUIRE( 5. == Approx( subsection2.coefficients()[1][0] ) );
-      REQUIRE( 6. == Approx( subsection2.coefficients()[1][1] ) );
-      REQUIRE( 2 == Approx( subsection2.totalEmissionProbabilities().size() ) );
-      REQUIRE( 2. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
-      REQUIRE( 5. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
+      CHECK( 2e+7 == Approx( subsection2.energy() ) );
+      CHECK( 1 == subsection2.LANG() );
+      CHECK( 0 == subsection2.ND() );
+      CHECK( 1 == subsection2.NA() );
+      CHECK( 6 == subsection2.NW() );
+      CHECK( 2 == subsection2.NEP() );
+      CHECK( 2 == subsection2.energies().size() );
+      CHECK( 1. == Approx( subsection2.energies()[0] ) );
+      CHECK( 4. == Approx( subsection2.energies()[1] ) );
+      CHECK( 2 == subsection2.coefficients().size() );
+      CHECK( 2. == Approx( subsection2.coefficients()[0][0] ) );
+      CHECK( 3. == Approx( subsection2.coefficients()[0][1] ) );
+      CHECK( 5. == Approx( subsection2.coefficients()[1][0] ) );
+      CHECK( 6. == Approx( subsection2.coefficients()[1][1] ) );
+      CHECK( 2 == Approx( subsection2.totalEmissionProbabilities().size() ) );
+      CHECK( 2. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
+      CHECK( 5. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
 
-      REQUIRE( 11 == chunk.NC() );
+      CHECK( 11 == chunk.NC() );
     }
   } // GIVEN
 
@@ -305,98 +305,98 @@ SCENARIO( "ReactionProduct" ) {
           "be constructed and members can be tested" ) {
       ReactionProduct chunk( begin, end, lineNumber, 9228, 6, 5 );
 
-      REQUIRE( 1001. == Approx( chunk.ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
-      REQUIRE( 0 == chunk.LIP() );
-      REQUIRE( 1 == chunk.LAW() );
+      CHECK( 1001. == Approx( chunk.ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+      CHECK( 0 == chunk.LIP() );
+      CHECK( 1 == chunk.LAW() );
 
-      REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
-      REQUIRE( 0 == chunk.multiplicity().LIP() );
-      REQUIRE( 1 == chunk.multiplicity().LAW() );
+      CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+      CHECK( 0 == chunk.multiplicity().LIP() );
+      CHECK( 1 == chunk.multiplicity().LAW() );
 
-      REQUIRE( 4 == chunk.multiplicity().NP() );
-      REQUIRE( 1 == chunk.multiplicity().NR() );
-      REQUIRE( 1 == chunk.multiplicity().interpolants().size() );
-      REQUIRE( 1 == chunk.multiplicity().boundaries().size() );
-      REQUIRE( 2 == chunk.multiplicity().interpolants()[0] );
-      REQUIRE( 4 == chunk.multiplicity().boundaries()[0] );
-      REQUIRE( 4 == chunk.multiplicity().energies().size() );
-      REQUIRE( 4 == chunk.multiplicity().multiplicities().size() );
-      REQUIRE( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-      REQUIRE( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-      REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-      REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-      REQUIRE( 8.45368e-11 ==
+      CHECK( 4 == chunk.multiplicity().NP() );
+      CHECK( 1 == chunk.multiplicity().NR() );
+      CHECK( 1 == chunk.multiplicity().interpolants().size() );
+      CHECK( 1 == chunk.multiplicity().boundaries().size() );
+      CHECK( 2 == chunk.multiplicity().interpolants()[0] );
+      CHECK( 4 == chunk.multiplicity().boundaries()[0] );
+      CHECK( 4 == chunk.multiplicity().energies().size() );
+      CHECK( 4 == chunk.multiplicity().multiplicities().size() );
+      CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
+      CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
+      CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
+      CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
+      CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
+      CHECK( 8.45368e-11 ==
                Approx( chunk.multiplicity().multiplicities()[1] ) );
-      REQUIRE( 6.622950e-8 ==
+      CHECK( 6.622950e-8 ==
                Approx( chunk.multiplicity().multiplicities()[2] ) );
-      REQUIRE( 2.149790e-1 ==
+      CHECK( 2.149790e-1 ==
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
          std::get< ContinuumEnergyAngle >( chunk.distribution() );
 
-      REQUIRE( 1 == law.LAW() );
-      REQUIRE( 2 == law.LEP() );
-      REQUIRE( 2 == law.NE() );
-      REQUIRE( 1 == law.NR() );
-      REQUIRE( 1 == law.interpolants().size() );
-      REQUIRE( 1 == law.boundaries().size() );
-      REQUIRE( 1 == law.interpolants()[0] );
-      REQUIRE( 2 == law.boundaries()[0] );
+      CHECK( 1 == law.LAW() );
+      CHECK( 2 == law.LEP() );
+      CHECK( 2 == law.NE() );
+      CHECK( 1 == law.NR() );
+      CHECK( 1 == law.interpolants().size() );
+      CHECK( 1 == law.boundaries().size() );
+      CHECK( 1 == law.interpolants()[0] );
+      CHECK( 2 == law.boundaries()[0] );
 
       auto energies = law.subsections();
 
       auto subsection1 =
           std::get< LegendreCoefficients >( energies[0] );
-      REQUIRE( 1e-5 == Approx( subsection1.energy() ) );
-      REQUIRE( 0 == subsection1.ND() );
-      REQUIRE( 1 == subsection1.NA() );
-      REQUIRE( 12 == subsection1.NW() );
-      REQUIRE( 4 == subsection1.NEP() );
-      REQUIRE( 4 == subsection1.energies().size() );
-      REQUIRE( 1. == Approx( subsection1.energies()[0] ) );
-      REQUIRE( 4. == Approx( subsection1.energies()[1] ) );
-      REQUIRE( 7. == Approx( subsection1.energies()[2] ) );
-      REQUIRE( 10. == Approx( subsection1.energies()[3] ) );
-      REQUIRE( 4 == subsection1.coefficients().size() );
-      REQUIRE( 2. == Approx( subsection1.coefficients()[0][0] ) );
-      REQUIRE( 3. == Approx( subsection1.coefficients()[0][1] ) );
-      REQUIRE( 5. == Approx( subsection1.coefficients()[1][0] ) );
-      REQUIRE( 6. == Approx( subsection1.coefficients()[1][1] ) );
-      REQUIRE( 8. == Approx( subsection1.coefficients()[2][0] ) );
-      REQUIRE( 9. == Approx( subsection1.coefficients()[2][1] ) );
-      REQUIRE( 11. == Approx( subsection1.coefficients()[3][0] ) );
-      REQUIRE( 12. == Approx( subsection1.coefficients()[3][1] ) );
-      REQUIRE( 4 == Approx( subsection1.totalEmissionProbabilities().size() ) );
-      REQUIRE( 2. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
-      REQUIRE( 5. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
-      REQUIRE( 8. == Approx( subsection1.totalEmissionProbabilities()[2] ) );
-      REQUIRE( 11. == Approx( subsection1.totalEmissionProbabilities()[3] ) );
+      CHECK( 1e-5 == Approx( subsection1.energy() ) );
+      CHECK( 0 == subsection1.ND() );
+      CHECK( 1 == subsection1.NA() );
+      CHECK( 12 == subsection1.NW() );
+      CHECK( 4 == subsection1.NEP() );
+      CHECK( 4 == subsection1.energies().size() );
+      CHECK( 1. == Approx( subsection1.energies()[0] ) );
+      CHECK( 4. == Approx( subsection1.energies()[1] ) );
+      CHECK( 7. == Approx( subsection1.energies()[2] ) );
+      CHECK( 10. == Approx( subsection1.energies()[3] ) );
+      CHECK( 4 == subsection1.coefficients().size() );
+      CHECK( 2. == Approx( subsection1.coefficients()[0][0] ) );
+      CHECK( 3. == Approx( subsection1.coefficients()[0][1] ) );
+      CHECK( 5. == Approx( subsection1.coefficients()[1][0] ) );
+      CHECK( 6. == Approx( subsection1.coefficients()[1][1] ) );
+      CHECK( 8. == Approx( subsection1.coefficients()[2][0] ) );
+      CHECK( 9. == Approx( subsection1.coefficients()[2][1] ) );
+      CHECK( 11. == Approx( subsection1.coefficients()[3][0] ) );
+      CHECK( 12. == Approx( subsection1.coefficients()[3][1] ) );
+      CHECK( 4 == Approx( subsection1.totalEmissionProbabilities().size() ) );
+      CHECK( 2. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
+      CHECK( 5. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
+      CHECK( 8. == Approx( subsection1.totalEmissionProbabilities()[2] ) );
+      CHECK( 11. == Approx( subsection1.totalEmissionProbabilities()[3] ) );
 
       auto subsection2 =
           std::get< LegendreCoefficients >( energies[1] );
-      REQUIRE( 2e+7 == Approx( subsection2.energy() ) );
-      REQUIRE( 1 == subsection2.LANG() );
-      REQUIRE( 0 == subsection2.ND() );
-      REQUIRE( 1 == subsection2.NA() );
-      REQUIRE( 6 == subsection2.NW() );
-      REQUIRE( 2 == subsection2.NEP() );
-      REQUIRE( 2 == subsection2.energies().size() );
-      REQUIRE( 1. == Approx( subsection2.energies()[0] ) );
-      REQUIRE( 4. == Approx( subsection2.energies()[1] ) );
-      REQUIRE( 2 == subsection2.coefficients().size() );
-      REQUIRE( 2. == Approx( subsection2.coefficients()[0][0] ) );
-      REQUIRE( 3. == Approx( subsection2.coefficients()[0][1] ) );
-      REQUIRE( 5. == Approx( subsection2.coefficients()[1][0] ) );
-      REQUIRE( 6. == Approx( subsection2.coefficients()[1][1] ) );
-      REQUIRE( 2 == Approx( subsection2.totalEmissionProbabilities().size() ) );
-      REQUIRE( 2. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
-      REQUIRE( 5. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
+      CHECK( 2e+7 == Approx( subsection2.energy() ) );
+      CHECK( 1 == subsection2.LANG() );
+      CHECK( 0 == subsection2.ND() );
+      CHECK( 1 == subsection2.NA() );
+      CHECK( 6 == subsection2.NW() );
+      CHECK( 2 == subsection2.NEP() );
+      CHECK( 2 == subsection2.energies().size() );
+      CHECK( 1. == Approx( subsection2.energies()[0] ) );
+      CHECK( 4. == Approx( subsection2.energies()[1] ) );
+      CHECK( 2 == subsection2.coefficients().size() );
+      CHECK( 2. == Approx( subsection2.coefficients()[0][0] ) );
+      CHECK( 3. == Approx( subsection2.coefficients()[0][1] ) );
+      CHECK( 5. == Approx( subsection2.coefficients()[1][0] ) );
+      CHECK( 6. == Approx( subsection2.coefficients()[1][1] ) );
+      CHECK( 2 == Approx( subsection2.totalEmissionProbabilities().size() ) );
+      CHECK( 2. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
+      CHECK( 5. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
 
-      REQUIRE( 11 == chunk.NC() );
+      CHECK( 11 == chunk.NC() );
     }
   } // GIVEN
 
@@ -417,77 +417,77 @@ SCENARIO( "ReactionProduct" ) {
       ReactionProduct
         chunk( std::move( multiplicity ), std::move( distribution ) );
 
-      REQUIRE( 1001. == Approx( chunk.ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
-      REQUIRE( 0 == chunk.LIP() );
-      REQUIRE( 2 == chunk.LAW() );
+      CHECK( 1001. == Approx( chunk.ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+      CHECK( 0 == chunk.LIP() );
+      CHECK( 2 == chunk.LAW() );
 
-      REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
-      REQUIRE( 0 == chunk.multiplicity().LIP() );
-      REQUIRE( 2 == chunk.multiplicity().LAW() );
+      CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+      CHECK( 0 == chunk.multiplicity().LIP() );
+      CHECK( 2 == chunk.multiplicity().LAW() );
 
-      REQUIRE( 4 == chunk.multiplicity().NP() );
-      REQUIRE( 1 == chunk.multiplicity().NR() );
-      REQUIRE( 1 == chunk.multiplicity().interpolants().size() );
-      REQUIRE( 1 == chunk.multiplicity().boundaries().size() );
-      REQUIRE( 2 == chunk.multiplicity().interpolants()[0] );
-      REQUIRE( 4 == chunk.multiplicity().boundaries()[0] );
-      REQUIRE( 4 == chunk.multiplicity().energies().size() );
-      REQUIRE( 4 == chunk.multiplicity().multiplicities().size() );
-      REQUIRE( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-      REQUIRE( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-      REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-      REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-      REQUIRE( 8.45368e-11 ==
+      CHECK( 4 == chunk.multiplicity().NP() );
+      CHECK( 1 == chunk.multiplicity().NR() );
+      CHECK( 1 == chunk.multiplicity().interpolants().size() );
+      CHECK( 1 == chunk.multiplicity().boundaries().size() );
+      CHECK( 2 == chunk.multiplicity().interpolants()[0] );
+      CHECK( 4 == chunk.multiplicity().boundaries()[0] );
+      CHECK( 4 == chunk.multiplicity().energies().size() );
+      CHECK( 4 == chunk.multiplicity().multiplicities().size() );
+      CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
+      CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
+      CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
+      CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
+      CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
+      CHECK( 8.45368e-11 ==
                Approx( chunk.multiplicity().multiplicities()[1] ) );
-      REQUIRE( 6.622950e-8 ==
+      CHECK( 6.622950e-8 ==
                Approx( chunk.multiplicity().multiplicities()[2] ) );
-      REQUIRE( 2.149790e-1 ==
+      CHECK( 2.149790e-1 ==
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
          std::get< DiscreteTwoBodyScattering >( chunk.distribution() );
 
-      REQUIRE( 2 == law.LAW() );
-      REQUIRE( 2 == law.NE() );
-      REQUIRE( 1 == law.NR() );
-      REQUIRE( 1 == law.interpolants().size() );
-      REQUIRE( 1 == law.boundaries().size() );
-      REQUIRE( 1 == law.interpolants()[0] );
-      REQUIRE( 2 == law.boundaries()[0] );
+      CHECK( 2 == law.LAW() );
+      CHECK( 2 == law.NE() );
+      CHECK( 1 == law.NR() );
+      CHECK( 1 == law.interpolants().size() );
+      CHECK( 1 == law.boundaries().size() );
+      CHECK( 1 == law.interpolants()[0] );
+      CHECK( 2 == law.boundaries()[0] );
 
       auto energies = law.subsections();
 
       auto subsection1 =
           std::get< Law2LegendreCoefficients >( energies[0] );
-      REQUIRE( 1e-5 == Approx( subsection1.energy() ) );
-      REQUIRE( 0 == subsection1.LANG() );
-      REQUIRE( 4 == subsection1.NW() );
-      REQUIRE( 4 == subsection1.NL() );
-      REQUIRE( 4 == subsection1.coefficients().size() );
-      REQUIRE( 1. == Approx( subsection1.coefficients()[0] ) );
-      REQUIRE( 2. == Approx( subsection1.coefficients()[1] ) );
-      REQUIRE( 3. == Approx( subsection1.coefficients()[2] ) );
-      REQUIRE( 4. == Approx( subsection1.coefficients()[3] ) );
+      CHECK( 1e-5 == Approx( subsection1.energy() ) );
+      CHECK( 0 == subsection1.LANG() );
+      CHECK( 4 == subsection1.NW() );
+      CHECK( 4 == subsection1.NL() );
+      CHECK( 4 == subsection1.coefficients().size() );
+      CHECK( 1. == Approx( subsection1.coefficients()[0] ) );
+      CHECK( 2. == Approx( subsection1.coefficients()[1] ) );
+      CHECK( 3. == Approx( subsection1.coefficients()[2] ) );
+      CHECK( 4. == Approx( subsection1.coefficients()[3] ) );
 
       auto subsection2 =
            std::get< Law2Tabulated >( energies[1] );
-      REQUIRE( 2e+7 == Approx( subsection2.energy() ) );
-      REQUIRE( 12 == subsection2.LANG() );
-      REQUIRE( 6 == subsection2.NW() );
-      REQUIRE( 3 == subsection2.NL() );
-      REQUIRE( 3 == subsection2.cosines().size() );
-      REQUIRE( 1. == Approx( subsection2.cosines()[0] ) );
-      REQUIRE( 3. == Approx( subsection2.cosines()[1] ) );
-      REQUIRE( 5. == Approx( subsection2.cosines()[2] ) );
-      REQUIRE( 3 == subsection2.probabilities().size() );
-      REQUIRE( 2. == Approx( subsection2.probabilities()[0] ) );
-      REQUIRE( 4. == Approx( subsection2.probabilities()[1] ) );
-      REQUIRE( 6. == Approx( subsection2.probabilities()[2] ) );
+      CHECK( 2e+7 == Approx( subsection2.energy() ) );
+      CHECK( 12 == subsection2.LANG() );
+      CHECK( 6 == subsection2.NW() );
+      CHECK( 3 == subsection2.NL() );
+      CHECK( 3 == subsection2.cosines().size() );
+      CHECK( 1. == Approx( subsection2.cosines()[0] ) );
+      CHECK( 3. == Approx( subsection2.cosines()[1] ) );
+      CHECK( 5. == Approx( subsection2.cosines()[2] ) );
+      CHECK( 3 == subsection2.probabilities().size() );
+      CHECK( 2. == Approx( subsection2.probabilities()[0] ) );
+      CHECK( 4. == Approx( subsection2.probabilities()[1] ) );
+      CHECK( 6. == Approx( subsection2.probabilities()[2] ) );
 
-      REQUIRE( 10 == chunk.NC() );
+      CHECK( 10 == chunk.NC() );
     }
   } // GIVEN
 
@@ -502,77 +502,77 @@ SCENARIO( "ReactionProduct" ) {
           "be constructed and members can be tested" ) {
       ReactionProduct chunk( begin, end, lineNumber, 9228, 6, 5 );
 
-      REQUIRE( 1001. == Approx( chunk.ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
-      REQUIRE( 0 == chunk.LIP() );
-      REQUIRE( 2 == chunk.LAW() );
+      CHECK( 1001. == Approx( chunk.ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+      CHECK( 0 == chunk.LIP() );
+      CHECK( 2 == chunk.LAW() );
 
-      REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
-      REQUIRE( 0 == chunk.multiplicity().LIP() );
-      REQUIRE( 2 == chunk.multiplicity().LAW() );
+      CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+      CHECK( 0 == chunk.multiplicity().LIP() );
+      CHECK( 2 == chunk.multiplicity().LAW() );
 
-      REQUIRE( 4 == chunk.multiplicity().NP() );
-      REQUIRE( 1 == chunk.multiplicity().NR() );
-      REQUIRE( 1 == chunk.multiplicity().interpolants().size() );
-      REQUIRE( 1 == chunk.multiplicity().boundaries().size() );
-      REQUIRE( 2 == chunk.multiplicity().interpolants()[0] );
-      REQUIRE( 4 == chunk.multiplicity().boundaries()[0] );
-      REQUIRE( 4 == chunk.multiplicity().energies().size() );
-      REQUIRE( 4 == chunk.multiplicity().multiplicities().size() );
-      REQUIRE( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-      REQUIRE( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-      REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-      REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-      REQUIRE( 8.45368e-11 ==
+      CHECK( 4 == chunk.multiplicity().NP() );
+      CHECK( 1 == chunk.multiplicity().NR() );
+      CHECK( 1 == chunk.multiplicity().interpolants().size() );
+      CHECK( 1 == chunk.multiplicity().boundaries().size() );
+      CHECK( 2 == chunk.multiplicity().interpolants()[0] );
+      CHECK( 4 == chunk.multiplicity().boundaries()[0] );
+      CHECK( 4 == chunk.multiplicity().energies().size() );
+      CHECK( 4 == chunk.multiplicity().multiplicities().size() );
+      CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
+      CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
+      CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
+      CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
+      CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
+      CHECK( 8.45368e-11 ==
                Approx( chunk.multiplicity().multiplicities()[1] ) );
-      REQUIRE( 6.622950e-8 ==
+      CHECK( 6.622950e-8 ==
                Approx( chunk.multiplicity().multiplicities()[2] ) );
-      REQUIRE( 2.149790e-1 ==
+      CHECK( 2.149790e-1 ==
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
          std::get< DiscreteTwoBodyScattering >( chunk.distribution() );
 
-      REQUIRE( 2 == law.LAW() );
-      REQUIRE( 2 == law.NE() );
-      REQUIRE( 1 == law.NR() );
-      REQUIRE( 1 == law.interpolants().size() );
-      REQUIRE( 1 == law.boundaries().size() );
-      REQUIRE( 1 == law.interpolants()[0] );
-      REQUIRE( 2 == law.boundaries()[0] );
+      CHECK( 2 == law.LAW() );
+      CHECK( 2 == law.NE() );
+      CHECK( 1 == law.NR() );
+      CHECK( 1 == law.interpolants().size() );
+      CHECK( 1 == law.boundaries().size() );
+      CHECK( 1 == law.interpolants()[0] );
+      CHECK( 2 == law.boundaries()[0] );
 
       auto energies = law.subsections();
 
       auto subsection1 =
           std::get< Law2LegendreCoefficients >( energies[0] );
-      REQUIRE( 1e-5 == Approx( subsection1.energy() ) );
-      REQUIRE( 0 == subsection1.LANG() );
-      REQUIRE( 4 == subsection1.NW() );
-      REQUIRE( 4 == subsection1.NL() );
-      REQUIRE( 4 == subsection1.coefficients().size() );
-      REQUIRE( 1. == Approx( subsection1.coefficients()[0] ) );
-      REQUIRE( 2. == Approx( subsection1.coefficients()[1] ) );
-      REQUIRE( 3. == Approx( subsection1.coefficients()[2] ) );
-      REQUIRE( 4. == Approx( subsection1.coefficients()[3] ) );
+      CHECK( 1e-5 == Approx( subsection1.energy() ) );
+      CHECK( 0 == subsection1.LANG() );
+      CHECK( 4 == subsection1.NW() );
+      CHECK( 4 == subsection1.NL() );
+      CHECK( 4 == subsection1.coefficients().size() );
+      CHECK( 1. == Approx( subsection1.coefficients()[0] ) );
+      CHECK( 2. == Approx( subsection1.coefficients()[1] ) );
+      CHECK( 3. == Approx( subsection1.coefficients()[2] ) );
+      CHECK( 4. == Approx( subsection1.coefficients()[3] ) );
 
       auto subsection2 =
            std::get< Law2Tabulated >( energies[1] );
-      REQUIRE( 2e+7 == Approx( subsection2.energy() ) );
-      REQUIRE( 12 == subsection2.LANG() );
-      REQUIRE( 6 == subsection2.NW() );
-      REQUIRE( 3 == subsection2.NL() );
-      REQUIRE( 3 == subsection2.cosines().size() );
-      REQUIRE( 1. == Approx( subsection2.cosines()[0] ) );
-      REQUIRE( 3. == Approx( subsection2.cosines()[1] ) );
-      REQUIRE( 5. == Approx( subsection2.cosines()[2] ) );
-      REQUIRE( 3 == subsection2.probabilities().size() );
-      REQUIRE( 2. == Approx( subsection2.probabilities()[0] ) );
-      REQUIRE( 4. == Approx( subsection2.probabilities()[1] ) );
-      REQUIRE( 6. == Approx( subsection2.probabilities()[2] ) );
+      CHECK( 2e+7 == Approx( subsection2.energy() ) );
+      CHECK( 12 == subsection2.LANG() );
+      CHECK( 6 == subsection2.NW() );
+      CHECK( 3 == subsection2.NL() );
+      CHECK( 3 == subsection2.cosines().size() );
+      CHECK( 1. == Approx( subsection2.cosines()[0] ) );
+      CHECK( 3. == Approx( subsection2.cosines()[1] ) );
+      CHECK( 5. == Approx( subsection2.cosines()[2] ) );
+      CHECK( 3 == subsection2.probabilities().size() );
+      CHECK( 2. == Approx( subsection2.probabilities()[0] ) );
+      CHECK( 4. == Approx( subsection2.probabilities()[1] ) );
+      CHECK( 6. == Approx( subsection2.probabilities()[2] ) );
 
-      REQUIRE( 10 == chunk.NC() );
+      CHECK( 10 == chunk.NC() );
     }
   } // GIVEN
 
@@ -589,42 +589,42 @@ SCENARIO( "ReactionProduct" ) {
       ReactionProduct
         chunk( std::move( multiplicity ), std::move( distribution ) );
 
-      REQUIRE( 1001. == Approx( chunk.ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
-      REQUIRE( 0 == chunk.LIP() );
-      REQUIRE( 3 == chunk.LAW() );
+      CHECK( 1001. == Approx( chunk.ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+      CHECK( 0 == chunk.LIP() );
+      CHECK( 3 == chunk.LAW() );
 
-      REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
-      REQUIRE( 0 == chunk.multiplicity().LIP() );
-      REQUIRE( 3 == chunk.multiplicity().LAW() );
+      CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+      CHECK( 0 == chunk.multiplicity().LIP() );
+      CHECK( 3 == chunk.multiplicity().LAW() );
 
-      REQUIRE( 4 == chunk.multiplicity().NP() );
-      REQUIRE( 1 == chunk.multiplicity().NR() );
-      REQUIRE( 1 == chunk.multiplicity().interpolants().size() );
-      REQUIRE( 1 == chunk.multiplicity().boundaries().size() );
-      REQUIRE( 2 == chunk.multiplicity().interpolants()[0] );
-      REQUIRE( 4 == chunk.multiplicity().boundaries()[0] );
-      REQUIRE( 4 == chunk.multiplicity().energies().size() );
-      REQUIRE( 4 == chunk.multiplicity().multiplicities().size() );
-      REQUIRE( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-      REQUIRE( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-      REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-      REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-      REQUIRE( 8.45368e-11 ==
+      CHECK( 4 == chunk.multiplicity().NP() );
+      CHECK( 1 == chunk.multiplicity().NR() );
+      CHECK( 1 == chunk.multiplicity().interpolants().size() );
+      CHECK( 1 == chunk.multiplicity().boundaries().size() );
+      CHECK( 2 == chunk.multiplicity().interpolants()[0] );
+      CHECK( 4 == chunk.multiplicity().boundaries()[0] );
+      CHECK( 4 == chunk.multiplicity().energies().size() );
+      CHECK( 4 == chunk.multiplicity().multiplicities().size() );
+      CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
+      CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
+      CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
+      CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
+      CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
+      CHECK( 8.45368e-11 ==
                Approx( chunk.multiplicity().multiplicities()[1] ) );
-      REQUIRE( 6.622950e-8 ==
+      CHECK( 6.622950e-8 ==
                Approx( chunk.multiplicity().multiplicities()[2] ) );
-      REQUIRE( 2.149790e-1 ==
+      CHECK( 2.149790e-1 ==
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
          std::get< IsotropicDiscreteEmission >( chunk.distribution() );
 
-      REQUIRE( 3 == law.LAW() );
+      CHECK( 3 == law.LAW() );
 
-      REQUIRE( 4 == chunk.NC() );
+      CHECK( 4 == chunk.NC() );
     }
   } // GIVEN
 
@@ -639,42 +639,42 @@ SCENARIO( "ReactionProduct" ) {
           "be constructed and members can be tested" ) {
       ReactionProduct chunk( begin, end, lineNumber, 9228, 6, 5 );
 
-      REQUIRE( 1001. == Approx( chunk.ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
-      REQUIRE( 0 == chunk.LIP() );
-      REQUIRE( 3 == chunk.LAW() );
+      CHECK( 1001. == Approx( chunk.ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+      CHECK( 0 == chunk.LIP() );
+      CHECK( 3 == chunk.LAW() );
 
-      REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
-      REQUIRE( 0 == chunk.multiplicity().LIP() );
-      REQUIRE( 3 == chunk.multiplicity().LAW() );
+      CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+      CHECK( 0 == chunk.multiplicity().LIP() );
+      CHECK( 3 == chunk.multiplicity().LAW() );
 
-      REQUIRE( 4 == chunk.multiplicity().NP() );
-      REQUIRE( 1 == chunk.multiplicity().NR() );
-      REQUIRE( 1 == chunk.multiplicity().interpolants().size() );
-      REQUIRE( 1 == chunk.multiplicity().boundaries().size() );
-      REQUIRE( 2 == chunk.multiplicity().interpolants()[0] );
-      REQUIRE( 4 == chunk.multiplicity().boundaries()[0] );
-      REQUIRE( 4 == chunk.multiplicity().energies().size() );
-      REQUIRE( 4 == chunk.multiplicity().multiplicities().size() );
-      REQUIRE( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-      REQUIRE( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-      REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-      REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-      REQUIRE( 8.45368e-11 ==
+      CHECK( 4 == chunk.multiplicity().NP() );
+      CHECK( 1 == chunk.multiplicity().NR() );
+      CHECK( 1 == chunk.multiplicity().interpolants().size() );
+      CHECK( 1 == chunk.multiplicity().boundaries().size() );
+      CHECK( 2 == chunk.multiplicity().interpolants()[0] );
+      CHECK( 4 == chunk.multiplicity().boundaries()[0] );
+      CHECK( 4 == chunk.multiplicity().energies().size() );
+      CHECK( 4 == chunk.multiplicity().multiplicities().size() );
+      CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
+      CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
+      CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
+      CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
+      CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
+      CHECK( 8.45368e-11 ==
                Approx( chunk.multiplicity().multiplicities()[1] ) );
-      REQUIRE( 6.622950e-8 ==
+      CHECK( 6.622950e-8 ==
                Approx( chunk.multiplicity().multiplicities()[2] ) );
-      REQUIRE( 2.149790e-1 ==
+      CHECK( 2.149790e-1 ==
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
          std::get< IsotropicDiscreteEmission >( chunk.distribution() );
 
-      REQUIRE( 3 == law.LAW() );
+      CHECK( 3 == law.LAW() );
 
-      REQUIRE( 4 == chunk.NC() );
+      CHECK( 4 == chunk.NC() );
     }
   } // GIVEN
 
@@ -691,42 +691,42 @@ SCENARIO( "ReactionProduct" ) {
       ReactionProduct
         chunk( std::move( multiplicity ), std::move( distribution ) );
 
-      REQUIRE( 1001. == Approx( chunk.ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
-      REQUIRE( 0 == chunk.LIP() );
-      REQUIRE( 4 == chunk.LAW() );
+      CHECK( 1001. == Approx( chunk.ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+      CHECK( 0 == chunk.LIP() );
+      CHECK( 4 == chunk.LAW() );
 
-      REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
-      REQUIRE( 0 == chunk.multiplicity().LIP() );
-      REQUIRE( 4 == chunk.multiplicity().LAW() );
+      CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+      CHECK( 0 == chunk.multiplicity().LIP() );
+      CHECK( 4 == chunk.multiplicity().LAW() );
 
-      REQUIRE( 4 == chunk.multiplicity().NP() );
-      REQUIRE( 1 == chunk.multiplicity().NR() );
-      REQUIRE( 1 == chunk.multiplicity().interpolants().size() );
-      REQUIRE( 1 == chunk.multiplicity().boundaries().size() );
-      REQUIRE( 2 == chunk.multiplicity().interpolants()[0] );
-      REQUIRE( 4 == chunk.multiplicity().boundaries()[0] );
-      REQUIRE( 4 == chunk.multiplicity().energies().size() );
-      REQUIRE( 4 == chunk.multiplicity().multiplicities().size() );
-      REQUIRE( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-      REQUIRE( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-      REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-      REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-      REQUIRE( 8.45368e-11 ==
+      CHECK( 4 == chunk.multiplicity().NP() );
+      CHECK( 1 == chunk.multiplicity().NR() );
+      CHECK( 1 == chunk.multiplicity().interpolants().size() );
+      CHECK( 1 == chunk.multiplicity().boundaries().size() );
+      CHECK( 2 == chunk.multiplicity().interpolants()[0] );
+      CHECK( 4 == chunk.multiplicity().boundaries()[0] );
+      CHECK( 4 == chunk.multiplicity().energies().size() );
+      CHECK( 4 == chunk.multiplicity().multiplicities().size() );
+      CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
+      CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
+      CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
+      CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
+      CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
+      CHECK( 8.45368e-11 ==
                Approx( chunk.multiplicity().multiplicities()[1] ) );
-      REQUIRE( 6.622950e-8 ==
+      CHECK( 6.622950e-8 ==
                Approx( chunk.multiplicity().multiplicities()[2] ) );
-      REQUIRE( 2.149790e-1 ==
+      CHECK( 2.149790e-1 ==
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
          std::get< DiscreteTwoBodyRecoils >( chunk.distribution() );
 
-      REQUIRE( 4 == law.LAW() );
+      CHECK( 4 == law.LAW() );
 
-      REQUIRE( 4 == chunk.NC() );
+      CHECK( 4 == chunk.NC() );
     }
   } // GIVEN
 
@@ -741,42 +741,42 @@ SCENARIO( "ReactionProduct" ) {
           "be constructed and members can be tested" ) {
       ReactionProduct chunk( begin, end, lineNumber, 9228, 6, 5 );
 
-      REQUIRE( 1001. == Approx( chunk.ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
-      REQUIRE( 0 == chunk.LIP() );
-      REQUIRE( 4 == chunk.LAW() );
+      CHECK( 1001. == Approx( chunk.ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+      CHECK( 0 == chunk.LIP() );
+      CHECK( 4 == chunk.LAW() );
 
-      REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
-      REQUIRE( 0 == chunk.multiplicity().LIP() );
-      REQUIRE( 4 == chunk.multiplicity().LAW() );
+      CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+      CHECK( 0 == chunk.multiplicity().LIP() );
+      CHECK( 4 == chunk.multiplicity().LAW() );
 
-      REQUIRE( 4 == chunk.multiplicity().NP() );
-      REQUIRE( 1 == chunk.multiplicity().NR() );
-      REQUIRE( 1 == chunk.multiplicity().interpolants().size() );
-      REQUIRE( 1 == chunk.multiplicity().boundaries().size() );
-      REQUIRE( 2 == chunk.multiplicity().interpolants()[0] );
-      REQUIRE( 4 == chunk.multiplicity().boundaries()[0] );
-      REQUIRE( 4 == chunk.multiplicity().energies().size() );
-      REQUIRE( 4 == chunk.multiplicity().multiplicities().size() );
-      REQUIRE( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-      REQUIRE( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-      REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-      REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-      REQUIRE( 8.45368e-11 ==
+      CHECK( 4 == chunk.multiplicity().NP() );
+      CHECK( 1 == chunk.multiplicity().NR() );
+      CHECK( 1 == chunk.multiplicity().interpolants().size() );
+      CHECK( 1 == chunk.multiplicity().boundaries().size() );
+      CHECK( 2 == chunk.multiplicity().interpolants()[0] );
+      CHECK( 4 == chunk.multiplicity().boundaries()[0] );
+      CHECK( 4 == chunk.multiplicity().energies().size() );
+      CHECK( 4 == chunk.multiplicity().multiplicities().size() );
+      CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
+      CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
+      CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
+      CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
+      CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
+      CHECK( 8.45368e-11 ==
                Approx( chunk.multiplicity().multiplicities()[1] ) );
-      REQUIRE( 6.622950e-8 ==
+      CHECK( 6.622950e-8 ==
                Approx( chunk.multiplicity().multiplicities()[2] ) );
-      REQUIRE( 2.149790e-1 ==
+      CHECK( 2.149790e-1 ==
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
          std::get< DiscreteTwoBodyRecoils >( chunk.distribution() );
 
-      REQUIRE( 4 == law.LAW() );
+      CHECK( 4 == law.LAW() );
 
-      REQUIRE( 4 == chunk.NC() );
+      CHECK( 4 == chunk.NC() );
     }
   } // GIVEN
 
@@ -800,94 +800,94 @@ SCENARIO( "ReactionProduct" ) {
       ReactionProduct
         chunk( std::move( multiplicity ), std::move( distribution ) );
 
-      REQUIRE( 1001. == Approx( chunk.ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
-      REQUIRE( 0 == chunk.LIP() );
-      REQUIRE( 5 == chunk.LAW() );
+      CHECK( 1001. == Approx( chunk.ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+      CHECK( 0 == chunk.LIP() );
+      CHECK( 5 == chunk.LAW() );
 
-      REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
-      REQUIRE( 0 == chunk.multiplicity().LIP() );
-      REQUIRE( 5 == chunk.multiplicity().LAW() );
+      CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+      CHECK( 0 == chunk.multiplicity().LIP() );
+      CHECK( 5 == chunk.multiplicity().LAW() );
 
-      REQUIRE( 4 == chunk.multiplicity().NP() );
-      REQUIRE( 1 == chunk.multiplicity().NR() );
-      REQUIRE( 1 == chunk.multiplicity().interpolants().size() );
-      REQUIRE( 1 == chunk.multiplicity().boundaries().size() );
-      REQUIRE( 2 == chunk.multiplicity().interpolants()[0] );
-      REQUIRE( 4 == chunk.multiplicity().boundaries()[0] );
-      REQUIRE( 4 == chunk.multiplicity().energies().size() );
-      REQUIRE( 4 == chunk.multiplicity().multiplicities().size() );
-      REQUIRE( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-      REQUIRE( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-      REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-      REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-      REQUIRE( 8.45368e-11 ==
+      CHECK( 4 == chunk.multiplicity().NP() );
+      CHECK( 1 == chunk.multiplicity().NR() );
+      CHECK( 1 == chunk.multiplicity().interpolants().size() );
+      CHECK( 1 == chunk.multiplicity().boundaries().size() );
+      CHECK( 2 == chunk.multiplicity().interpolants()[0] );
+      CHECK( 4 == chunk.multiplicity().boundaries()[0] );
+      CHECK( 4 == chunk.multiplicity().energies().size() );
+      CHECK( 4 == chunk.multiplicity().multiplicities().size() );
+      CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
+      CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
+      CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
+      CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
+      CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
+      CHECK( 8.45368e-11 ==
                Approx( chunk.multiplicity().multiplicities()[1] ) );
-      REQUIRE( 6.622950e-8 ==
+      CHECK( 6.622950e-8 ==
                Approx( chunk.multiplicity().multiplicities()[2] ) );
-      REQUIRE( 2.149790e-1 ==
+      CHECK( 2.149790e-1 ==
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
          std::get< ChargedParticleElasticScattering >( chunk.distribution() );
 
-      REQUIRE( 5 == law.LAW() );
+      CHECK( 5 == law.LAW() );
 
-      REQUIRE( 0.5 == Approx( law.SPI() ) );
-      REQUIRE( 1 == law.LIDP() );
-      REQUIRE( 2 == law.NE() );
-      REQUIRE( 1 == law.NR() );
-      REQUIRE( 1 == law.interpolants().size() );
-      REQUIRE( 1 == law.boundaries().size() );
-      REQUIRE( 1 == law.interpolants()[0] );
-      REQUIRE( 2 == law.boundaries()[0] );
+      CHECK( 0.5 == Approx( law.SPI() ) );
+      CHECK( 1 == law.LIDP() );
+      CHECK( 2 == law.NE() );
+      CHECK( 1 == law.NR() );
+      CHECK( 1 == law.interpolants().size() );
+      CHECK( 1 == law.boundaries().size() );
+      CHECK( 1 == law.interpolants()[0] );
+      CHECK( 2 == law.boundaries()[0] );
 
       auto energies = law.subsections();
 
       auto subsection1 =
       std::get< Law5NuclearAmplitudeExpansion >( energies[0] );
-      REQUIRE( 1e-5 == Approx( subsection1.energy() ) );
-      REQUIRE( 1 == subsection1.LTP() );
-      REQUIRE( 12 == subsection1.NW() );
-      REQUIRE( 3 == subsection1.NL() );
-      REQUIRE( 4 == subsection1.scatteringCoefficients().size() );
-      REQUIRE( 1. == Approx( subsection1.scatteringCoefficients()[0] ) );
-      REQUIRE( 2. == Approx( subsection1.scatteringCoefficients()[1] ) );
-      REQUIRE( 3. == Approx( subsection1.scatteringCoefficients()[2] ) );
-      REQUIRE( 4. == Approx( subsection1.scatteringCoefficients()[3] ) );
-      REQUIRE( 4 == subsection1.realInterferenceCoefficients().size() );
-      REQUIRE( 5. == Approx( subsection1.realInterferenceCoefficients()[0] ) );
-      REQUIRE( 7. == Approx( subsection1.realInterferenceCoefficients()[1] ) );
-      REQUIRE( 9. == Approx( subsection1.realInterferenceCoefficients()[2] ) );
-      REQUIRE( 11. == Approx( subsection1.realInterferenceCoefficients()[3] ) );
-      REQUIRE( 4 == subsection1.imaginaryInterferenceCoefficients().size() );
-      REQUIRE( 6. ==
+      CHECK( 1e-5 == Approx( subsection1.energy() ) );
+      CHECK( 1 == subsection1.LTP() );
+      CHECK( 12 == subsection1.NW() );
+      CHECK( 3 == subsection1.NL() );
+      CHECK( 4 == subsection1.scatteringCoefficients().size() );
+      CHECK( 1. == Approx( subsection1.scatteringCoefficients()[0] ) );
+      CHECK( 2. == Approx( subsection1.scatteringCoefficients()[1] ) );
+      CHECK( 3. == Approx( subsection1.scatteringCoefficients()[2] ) );
+      CHECK( 4. == Approx( subsection1.scatteringCoefficients()[3] ) );
+      CHECK( 4 == subsection1.realInterferenceCoefficients().size() );
+      CHECK( 5. == Approx( subsection1.realInterferenceCoefficients()[0] ) );
+      CHECK( 7. == Approx( subsection1.realInterferenceCoefficients()[1] ) );
+      CHECK( 9. == Approx( subsection1.realInterferenceCoefficients()[2] ) );
+      CHECK( 11. == Approx( subsection1.realInterferenceCoefficients()[3] ) );
+      CHECK( 4 == subsection1.imaginaryInterferenceCoefficients().size() );
+      CHECK( 6. ==
                Approx( subsection1.imaginaryInterferenceCoefficients()[0] ) );
-      REQUIRE( 8. ==
+      CHECK( 8. ==
                Approx( subsection1.imaginaryInterferenceCoefficients()[1] ) );
-      REQUIRE( 10. ==
+      CHECK( 10. ==
                Approx( subsection1.imaginaryInterferenceCoefficients()[2] ) );
-      REQUIRE( 12. ==
+      CHECK( 12. ==
                Approx( subsection1.imaginaryInterferenceCoefficients()[3] ) );
 
       auto subsection2 =
       std::get< Law5NuclearPlusInterference >( energies[1] );
-      REQUIRE( 2e+7 == Approx( subsection2.energy() ) );
-      REQUIRE( 15 == subsection2.LTP() );
-      REQUIRE( 6 == subsection2.NW() );
-      REQUIRE( 3 == subsection2.NL() );
-      REQUIRE( 3 == subsection2.cosines().size() );
-      REQUIRE( 1. == Approx( subsection2.cosines()[0] ) );
-      REQUIRE( 3. == Approx( subsection2.cosines()[1] ) );
-      REQUIRE( 5. == Approx( subsection2.cosines()[2] ) );
-      REQUIRE( 3 == subsection2.probabilities().size() );
-      REQUIRE( 2. == Approx( subsection2.probabilities()[0] ) );
-      REQUIRE( 4. == Approx( subsection2.probabilities()[1] ) );
-      REQUIRE( 6. == Approx( subsection2.probabilities()[2] ) );
+      CHECK( 2e+7 == Approx( subsection2.energy() ) );
+      CHECK( 15 == subsection2.LTP() );
+      CHECK( 6 == subsection2.NW() );
+      CHECK( 3 == subsection2.NL() );
+      CHECK( 3 == subsection2.cosines().size() );
+      CHECK( 1. == Approx( subsection2.cosines()[0] ) );
+      CHECK( 3. == Approx( subsection2.cosines()[1] ) );
+      CHECK( 5. == Approx( subsection2.cosines()[2] ) );
+      CHECK( 3 == subsection2.probabilities().size() );
+      CHECK( 2. == Approx( subsection2.probabilities()[0] ) );
+      CHECK( 4. == Approx( subsection2.probabilities()[1] ) );
+      CHECK( 6. == Approx( subsection2.probabilities()[2] ) );
 
-      REQUIRE( 11 == chunk.NC() );
+      CHECK( 11 == chunk.NC() );
     }
   } // GIVEN
 
@@ -902,94 +902,94 @@ SCENARIO( "ReactionProduct" ) {
           "be constructed and members can be tested" ) {
       ReactionProduct chunk( begin, end, lineNumber, 9228, 6, 5 );
 
-      REQUIRE( 1001. == Approx( chunk.ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
-      REQUIRE( 0 == chunk.LIP() );
-      REQUIRE( 5 == chunk.LAW() );
+      CHECK( 1001. == Approx( chunk.ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+      CHECK( 0 == chunk.LIP() );
+      CHECK( 5 == chunk.LAW() );
 
-      REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
-      REQUIRE( 0 == chunk.multiplicity().LIP() );
-      REQUIRE( 5 == chunk.multiplicity().LAW() );
+      CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+      CHECK( 0 == chunk.multiplicity().LIP() );
+      CHECK( 5 == chunk.multiplicity().LAW() );
 
-      REQUIRE( 4 == chunk.multiplicity().NP() );
-      REQUIRE( 1 == chunk.multiplicity().NR() );
-      REQUIRE( 1 == chunk.multiplicity().interpolants().size() );
-      REQUIRE( 1 == chunk.multiplicity().boundaries().size() );
-      REQUIRE( 2 == chunk.multiplicity().interpolants()[0] );
-      REQUIRE( 4 == chunk.multiplicity().boundaries()[0] );
-      REQUIRE( 4 == chunk.multiplicity().energies().size() );
-      REQUIRE( 4 == chunk.multiplicity().multiplicities().size() );
-      REQUIRE( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-      REQUIRE( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-      REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-      REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-      REQUIRE( 8.45368e-11 ==
+      CHECK( 4 == chunk.multiplicity().NP() );
+      CHECK( 1 == chunk.multiplicity().NR() );
+      CHECK( 1 == chunk.multiplicity().interpolants().size() );
+      CHECK( 1 == chunk.multiplicity().boundaries().size() );
+      CHECK( 2 == chunk.multiplicity().interpolants()[0] );
+      CHECK( 4 == chunk.multiplicity().boundaries()[0] );
+      CHECK( 4 == chunk.multiplicity().energies().size() );
+      CHECK( 4 == chunk.multiplicity().multiplicities().size() );
+      CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
+      CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
+      CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
+      CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
+      CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
+      CHECK( 8.45368e-11 ==
                Approx( chunk.multiplicity().multiplicities()[1] ) );
-      REQUIRE( 6.622950e-8 ==
+      CHECK( 6.622950e-8 ==
                Approx( chunk.multiplicity().multiplicities()[2] ) );
-      REQUIRE( 2.149790e-1 ==
+      CHECK( 2.149790e-1 ==
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
          std::get< ChargedParticleElasticScattering >( chunk.distribution() );
 
-      REQUIRE( 5 == law.LAW() );
+      CHECK( 5 == law.LAW() );
 
-      REQUIRE( 0.5 == Approx( law.SPI() ) );
-      REQUIRE( 1 == law.LIDP() );
-      REQUIRE( 2 == law.NE() );
-      REQUIRE( 1 == law.NR() );
-      REQUIRE( 1 == law.interpolants().size() );
-      REQUIRE( 1 == law.boundaries().size() );
-      REQUIRE( 1 == law.interpolants()[0] );
-      REQUIRE( 2 == law.boundaries()[0] );
+      CHECK( 0.5 == Approx( law.SPI() ) );
+      CHECK( 1 == law.LIDP() );
+      CHECK( 2 == law.NE() );
+      CHECK( 1 == law.NR() );
+      CHECK( 1 == law.interpolants().size() );
+      CHECK( 1 == law.boundaries().size() );
+      CHECK( 1 == law.interpolants()[0] );
+      CHECK( 2 == law.boundaries()[0] );
 
       auto energies = law.subsections();
 
       auto subsection1 =
       std::get< Law5NuclearAmplitudeExpansion >( energies[0] );
-      REQUIRE( 1e-5 == Approx( subsection1.energy() ) );
-      REQUIRE( 1 == subsection1.LTP() );
-      REQUIRE( 12 == subsection1.NW() );
-      REQUIRE( 3 == subsection1.NL() );
-      REQUIRE( 4 == subsection1.scatteringCoefficients().size() );
-      REQUIRE( 1. == Approx( subsection1.scatteringCoefficients()[0] ) );
-      REQUIRE( 2. == Approx( subsection1.scatteringCoefficients()[1] ) );
-      REQUIRE( 3. == Approx( subsection1.scatteringCoefficients()[2] ) );
-      REQUIRE( 4. == Approx( subsection1.scatteringCoefficients()[3] ) );
-      REQUIRE( 4 == subsection1.realInterferenceCoefficients().size() );
-      REQUIRE( 5. == Approx( subsection1.realInterferenceCoefficients()[0] ) );
-      REQUIRE( 7. == Approx( subsection1.realInterferenceCoefficients()[1] ) );
-      REQUIRE( 9. == Approx( subsection1.realInterferenceCoefficients()[2] ) );
-      REQUIRE( 11. == Approx( subsection1.realInterferenceCoefficients()[3] ) );
-      REQUIRE( 4 == subsection1.imaginaryInterferenceCoefficients().size() );
-      REQUIRE( 6. ==
+      CHECK( 1e-5 == Approx( subsection1.energy() ) );
+      CHECK( 1 == subsection1.LTP() );
+      CHECK( 12 == subsection1.NW() );
+      CHECK( 3 == subsection1.NL() );
+      CHECK( 4 == subsection1.scatteringCoefficients().size() );
+      CHECK( 1. == Approx( subsection1.scatteringCoefficients()[0] ) );
+      CHECK( 2. == Approx( subsection1.scatteringCoefficients()[1] ) );
+      CHECK( 3. == Approx( subsection1.scatteringCoefficients()[2] ) );
+      CHECK( 4. == Approx( subsection1.scatteringCoefficients()[3] ) );
+      CHECK( 4 == subsection1.realInterferenceCoefficients().size() );
+      CHECK( 5. == Approx( subsection1.realInterferenceCoefficients()[0] ) );
+      CHECK( 7. == Approx( subsection1.realInterferenceCoefficients()[1] ) );
+      CHECK( 9. == Approx( subsection1.realInterferenceCoefficients()[2] ) );
+      CHECK( 11. == Approx( subsection1.realInterferenceCoefficients()[3] ) );
+      CHECK( 4 == subsection1.imaginaryInterferenceCoefficients().size() );
+      CHECK( 6. ==
                Approx( subsection1.imaginaryInterferenceCoefficients()[0] ) );
-      REQUIRE( 8. ==
+      CHECK( 8. ==
                Approx( subsection1.imaginaryInterferenceCoefficients()[1] ) );
-      REQUIRE( 10. ==
+      CHECK( 10. ==
                Approx( subsection1.imaginaryInterferenceCoefficients()[2] ) );
-      REQUIRE( 12. ==
+      CHECK( 12. ==
                Approx( subsection1.imaginaryInterferenceCoefficients()[3] ) );
 
       auto subsection2 =
       std::get< Law5NuclearPlusInterference >( energies[1] );
-      REQUIRE( 2e+7 == Approx( subsection2.energy() ) );
-      REQUIRE( 15 == subsection2.LTP() );
-      REQUIRE( 6 == subsection2.NW() );
-      REQUIRE( 3 == subsection2.NL() );
-      REQUIRE( 3 == subsection2.cosines().size() );
-      REQUIRE( 1. == Approx( subsection2.cosines()[0] ) );
-      REQUIRE( 3. == Approx( subsection2.cosines()[1] ) );
-      REQUIRE( 5. == Approx( subsection2.cosines()[2] ) );
-      REQUIRE( 3 == subsection2.probabilities().size() );
-      REQUIRE( 2. == Approx( subsection2.probabilities()[0] ) );
-      REQUIRE( 4. == Approx( subsection2.probabilities()[1] ) );
-      REQUIRE( 6. == Approx( subsection2.probabilities()[2] ) );
+      CHECK( 2e+7 == Approx( subsection2.energy() ) );
+      CHECK( 15 == subsection2.LTP() );
+      CHECK( 6 == subsection2.NW() );
+      CHECK( 3 == subsection2.NL() );
+      CHECK( 3 == subsection2.cosines().size() );
+      CHECK( 1. == Approx( subsection2.cosines()[0] ) );
+      CHECK( 3. == Approx( subsection2.cosines()[1] ) );
+      CHECK( 5. == Approx( subsection2.cosines()[2] ) );
+      CHECK( 3 == subsection2.probabilities().size() );
+      CHECK( 2. == Approx( subsection2.probabilities()[0] ) );
+      CHECK( 4. == Approx( subsection2.probabilities()[1] ) );
+      CHECK( 6. == Approx( subsection2.probabilities()[2] ) );
 
-      REQUIRE( 11 == chunk.NC() );
+      CHECK( 11 == chunk.NC() );
     }
   } // GIVEN
 
@@ -1006,47 +1006,47 @@ SCENARIO( "ReactionProduct" ) {
       ReactionProduct
         chunk( std::move( multiplicity ), std::move( distribution ) );
 
-      REQUIRE( 1001. == Approx( chunk.ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
-      REQUIRE( 0 == chunk.LIP() );
-      REQUIRE( 6 == chunk.LAW() );
+      CHECK( 1001. == Approx( chunk.ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+      CHECK( 0 == chunk.LIP() );
+      CHECK( 6 == chunk.LAW() );
 
-      REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
-      REQUIRE( 0 == chunk.multiplicity().LIP() );
-      REQUIRE( 6 == chunk.multiplicity().LAW() );
+      CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+      CHECK( 0 == chunk.multiplicity().LIP() );
+      CHECK( 6 == chunk.multiplicity().LAW() );
 
-      REQUIRE( 4 == chunk.multiplicity().NP() );
-      REQUIRE( 1 == chunk.multiplicity().NR() );
-      REQUIRE( 1 == chunk.multiplicity().interpolants().size() );
-      REQUIRE( 1 == chunk.multiplicity().boundaries().size() );
-      REQUIRE( 2 == chunk.multiplicity().interpolants()[0] );
-      REQUIRE( 4 == chunk.multiplicity().boundaries()[0] );
-      REQUIRE( 4 == chunk.multiplicity().energies().size() );
-      REQUIRE( 4 == chunk.multiplicity().multiplicities().size() );
-      REQUIRE( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-      REQUIRE( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-      REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-      REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-      REQUIRE( 8.45368e-11 ==
+      CHECK( 4 == chunk.multiplicity().NP() );
+      CHECK( 1 == chunk.multiplicity().NR() );
+      CHECK( 1 == chunk.multiplicity().interpolants().size() );
+      CHECK( 1 == chunk.multiplicity().boundaries().size() );
+      CHECK( 2 == chunk.multiplicity().interpolants()[0] );
+      CHECK( 4 == chunk.multiplicity().boundaries()[0] );
+      CHECK( 4 == chunk.multiplicity().energies().size() );
+      CHECK( 4 == chunk.multiplicity().multiplicities().size() );
+      CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
+      CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
+      CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
+      CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
+      CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
+      CHECK( 8.45368e-11 ==
                Approx( chunk.multiplicity().multiplicities()[1] ) );
-      REQUIRE( 6.622950e-8 ==
+      CHECK( 6.622950e-8 ==
                Approx( chunk.multiplicity().multiplicities()[2] ) );
-      REQUIRE( 2.149790e-1 ==
+      CHECK( 2.149790e-1 ==
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
          std::get< NBodyPhaseSpace >( chunk.distribution() );
 
-      REQUIRE( 6 == law.LAW() );
+      CHECK( 6 == law.LAW() );
 
-      REQUIRE( 5. == Approx( law.APSX() ) );
-      REQUIRE( 5. == Approx( law.totalMass() ) );
-      REQUIRE( 4 == law.NPSX() );
-      REQUIRE( 4 == law.numberParticles() );
+      CHECK( 5. == Approx( law.APSX() ) );
+      CHECK( 5. == Approx( law.totalMass() ) );
+      CHECK( 4 == law.NPSX() );
+      CHECK( 4 == law.numberParticles() );
 
-      REQUIRE( 5 == chunk.NC() );
+      CHECK( 5 == chunk.NC() );
     }
   } // GIVEN
 
@@ -1061,47 +1061,47 @@ SCENARIO( "ReactionProduct" ) {
           "be constructed and members can be tested" ) {
       ReactionProduct chunk( begin, end, lineNumber, 9228, 6, 5 );
 
-      REQUIRE( 1001. == Approx( chunk.ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
-      REQUIRE( 0 == chunk.LIP() );
-      REQUIRE( 6 == chunk.LAW() );
+      CHECK( 1001. == Approx( chunk.ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+      CHECK( 0 == chunk.LIP() );
+      CHECK( 6 == chunk.LAW() );
 
-      REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
-      REQUIRE( 0 == chunk.multiplicity().LIP() );
-      REQUIRE( 6 == chunk.multiplicity().LAW() );
+      CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+      CHECK( 0 == chunk.multiplicity().LIP() );
+      CHECK( 6 == chunk.multiplicity().LAW() );
 
-      REQUIRE( 4 == chunk.multiplicity().NP() );
-      REQUIRE( 1 == chunk.multiplicity().NR() );
-      REQUIRE( 1 == chunk.multiplicity().interpolants().size() );
-      REQUIRE( 1 == chunk.multiplicity().boundaries().size() );
-      REQUIRE( 2 == chunk.multiplicity().interpolants()[0] );
-      REQUIRE( 4 == chunk.multiplicity().boundaries()[0] );
-      REQUIRE( 4 == chunk.multiplicity().energies().size() );
-      REQUIRE( 4 == chunk.multiplicity().multiplicities().size() );
-      REQUIRE( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-      REQUIRE( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-      REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-      REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-      REQUIRE( 8.45368e-11 ==
+      CHECK( 4 == chunk.multiplicity().NP() );
+      CHECK( 1 == chunk.multiplicity().NR() );
+      CHECK( 1 == chunk.multiplicity().interpolants().size() );
+      CHECK( 1 == chunk.multiplicity().boundaries().size() );
+      CHECK( 2 == chunk.multiplicity().interpolants()[0] );
+      CHECK( 4 == chunk.multiplicity().boundaries()[0] );
+      CHECK( 4 == chunk.multiplicity().energies().size() );
+      CHECK( 4 == chunk.multiplicity().multiplicities().size() );
+      CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
+      CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
+      CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
+      CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
+      CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
+      CHECK( 8.45368e-11 ==
                Approx( chunk.multiplicity().multiplicities()[1] ) );
-      REQUIRE( 6.622950e-8 ==
+      CHECK( 6.622950e-8 ==
                Approx( chunk.multiplicity().multiplicities()[2] ) );
-      REQUIRE( 2.149790e-1 ==
+      CHECK( 2.149790e-1 ==
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
          std::get< NBodyPhaseSpace >( chunk.distribution() );
 
-      REQUIRE( 6 == law.LAW() );
+      CHECK( 6 == law.LAW() );
 
-      REQUIRE( 5. == Approx( law.APSX() ) );
-      REQUIRE( 5. == Approx( law.totalMass() ) );
-      REQUIRE( 4 == law.NPSX() );
-      REQUIRE( 4 == law.numberParticles() );
+      CHECK( 5. == Approx( law.APSX() ) );
+      CHECK( 5. == Approx( law.totalMass() ) );
+      CHECK( 4 == law.NPSX() );
+      CHECK( 4 == law.numberParticles() );
 
-      REQUIRE( 5 == chunk.NC() );
+      CHECK( 5 == chunk.NC() );
     }
   } // GIVEN
 
@@ -1136,143 +1136,143 @@ SCENARIO( "ReactionProduct" ) {
       ReactionProduct
         chunk( std::move( multiplicity ), std::move( distribution ) );
 
-      REQUIRE( 1001. == Approx( chunk.ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
-      REQUIRE( 0 == chunk.LIP() );
-      REQUIRE( 7 == chunk.LAW() );
+      CHECK( 1001. == Approx( chunk.ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+      CHECK( 0 == chunk.LIP() );
+      CHECK( 7 == chunk.LAW() );
 
-      REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
-      REQUIRE( 0 == chunk.multiplicity().LIP() );
-      REQUIRE( 7 == chunk.multiplicity().LAW() );
+      CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+      CHECK( 0 == chunk.multiplicity().LIP() );
+      CHECK( 7 == chunk.multiplicity().LAW() );
 
-      REQUIRE( 4 == chunk.multiplicity().NP() );
-      REQUIRE( 1 == chunk.multiplicity().NR() );
-      REQUIRE( 1 == chunk.multiplicity().interpolants().size() );
-      REQUIRE( 1 == chunk.multiplicity().boundaries().size() );
-      REQUIRE( 2 == chunk.multiplicity().interpolants()[0] );
-      REQUIRE( 4 == chunk.multiplicity().boundaries()[0] );
-      REQUIRE( 4 == chunk.multiplicity().energies().size() );
-      REQUIRE( 4 == chunk.multiplicity().multiplicities().size() );
-      REQUIRE( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-      REQUIRE( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-      REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-      REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-      REQUIRE( 8.45368e-11 ==
+      CHECK( 4 == chunk.multiplicity().NP() );
+      CHECK( 1 == chunk.multiplicity().NR() );
+      CHECK( 1 == chunk.multiplicity().interpolants().size() );
+      CHECK( 1 == chunk.multiplicity().boundaries().size() );
+      CHECK( 2 == chunk.multiplicity().interpolants()[0] );
+      CHECK( 4 == chunk.multiplicity().boundaries()[0] );
+      CHECK( 4 == chunk.multiplicity().energies().size() );
+      CHECK( 4 == chunk.multiplicity().multiplicities().size() );
+      CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
+      CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
+      CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
+      CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
+      CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
+      CHECK( 8.45368e-11 ==
                Approx( chunk.multiplicity().multiplicities()[1] ) );
-      REQUIRE( 6.622950e-8 ==
+      CHECK( 6.622950e-8 ==
                Approx( chunk.multiplicity().multiplicities()[2] ) );
-      REQUIRE( 2.149790e-1 ==
+      CHECK( 2.149790e-1 ==
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
          std::get< LaboratoryAngleEnergy >( chunk.distribution() );
 
-      REQUIRE( 7 == law.LAW() );
+      CHECK( 7 == law.LAW() );
 
-      REQUIRE( 2 == law.NE() );
-      REQUIRE( 1 == law.NR() );
-      REQUIRE( 1 == law.interpolants().size() );
-      REQUIRE( 1 == law.boundaries().size() );
-      REQUIRE( 1 == law.interpolants()[0] );
-      REQUIRE( 2 == law.boundaries()[0] );
+      CHECK( 2 == law.NE() );
+      CHECK( 1 == law.NR() );
+      CHECK( 1 == law.interpolants().size() );
+      CHECK( 1 == law.boundaries().size() );
+      CHECK( 1 == law.interpolants()[0] );
+      CHECK( 2 == law.boundaries()[0] );
 
       auto energies = law.angularDistributions();
 
-      REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
+      CHECK( 1e-5 == Approx( energies[0].energy() ) );
 
-      REQUIRE( 2 == energies[0].NMU() );
-      REQUIRE( 1 == energies[0].NRM() );
-      REQUIRE( 1 == energies[0].interpolants().size() );
-      REQUIRE( 1 == energies[0].boundaries().size() );
-      REQUIRE( 4 == energies[0].interpolants()[0] );
-      REQUIRE( 2 == energies[0].boundaries()[0] );
+      CHECK( 2 == energies[0].NMU() );
+      CHECK( 1 == energies[0].NRM() );
+      CHECK( 1 == energies[0].interpolants().size() );
+      CHECK( 1 == energies[0].boundaries().size() );
+      CHECK( 4 == energies[0].interpolants()[0] );
+      CHECK( 2 == energies[0].boundaries()[0] );
 
       auto cosines = energies[0].energyDistributions();
-      REQUIRE( 2 == cosines.size() );
+      CHECK( 2 == cosines.size() );
 
-      REQUIRE( 1. == Approx( cosines[0].cosine() ) );
-      REQUIRE( 1 == cosines[0].NRP() );
-      REQUIRE( 4 == cosines[0].NEP() );
-      REQUIRE( 1 == cosines[0].interpolants().size() );
-      REQUIRE( 1 == cosines[0].boundaries().size() );
-      REQUIRE( 2 == cosines[0].interpolants()[0] );
-      REQUIRE( 4 == cosines[0].boundaries()[0] );
-      REQUIRE( 4 == cosines[0].energies().size() );
-      REQUIRE( 4 == cosines[0].probabilities().size() );
-      REQUIRE( 1e-5 == Approx( cosines[0].energies()[0] ) );
-      REQUIRE( 1.1e+7 == Approx( cosines[0].energies()[1] ) );
-      REQUIRE( 1.147e+7 == Approx( cosines[0].energies()[2] ) );
-      REQUIRE( 3e+7 == Approx( cosines[0].energies()[3] ) );
-      REQUIRE( 0. == Approx( cosines[0].probabilities()[0] ) );
-      REQUIRE( 2. == Approx( cosines[0].probabilities()[1] ) );
-      REQUIRE( 4. == Approx( cosines[0].probabilities()[2] ) );
-      REQUIRE( 6. == Approx( cosines[0].probabilities()[3] ) );
+      CHECK( 1. == Approx( cosines[0].cosine() ) );
+      CHECK( 1 == cosines[0].NRP() );
+      CHECK( 4 == cosines[0].NEP() );
+      CHECK( 1 == cosines[0].interpolants().size() );
+      CHECK( 1 == cosines[0].boundaries().size() );
+      CHECK( 2 == cosines[0].interpolants()[0] );
+      CHECK( 4 == cosines[0].boundaries()[0] );
+      CHECK( 4 == cosines[0].energies().size() );
+      CHECK( 4 == cosines[0].probabilities().size() );
+      CHECK( 1e-5 == Approx( cosines[0].energies()[0] ) );
+      CHECK( 1.1e+7 == Approx( cosines[0].energies()[1] ) );
+      CHECK( 1.147e+7 == Approx( cosines[0].energies()[2] ) );
+      CHECK( 3e+7 == Approx( cosines[0].energies()[3] ) );
+      CHECK( 0. == Approx( cosines[0].probabilities()[0] ) );
+      CHECK( 2. == Approx( cosines[0].probabilities()[1] ) );
+      CHECK( 4. == Approx( cosines[0].probabilities()[2] ) );
+      CHECK( 6. == Approx( cosines[0].probabilities()[3] ) );
 
-      REQUIRE( -1. == Approx( cosines[1].cosine() ) );
-      REQUIRE( 1 == cosines[1].NRP() );
-      REQUIRE( 3 == cosines[1].NEP() );
-      REQUIRE( 1 == cosines[1].interpolants().size() );
-      REQUIRE( 1 == cosines[1].boundaries().size() );
-      REQUIRE( 2 == cosines[1].interpolants()[0] );
-      REQUIRE( 3 == cosines[1].boundaries()[0] );
-      REQUIRE( 3 == cosines[1].energies().size() );
-      REQUIRE( 3 == cosines[1].probabilities().size() );
-      REQUIRE( 1e-5 == Approx( cosines[1].energies()[0] ) );
-      REQUIRE( 1e+6 == Approx( cosines[1].energies()[1] ) );
-      REQUIRE( 3e+7 == Approx( cosines[1].energies()[2] ) );
-      REQUIRE( 6. == Approx( cosines[1].probabilities()[0] ) );
-      REQUIRE( 4. == Approx( cosines[1].probabilities()[1] ) );
-      REQUIRE( 2. == Approx( cosines[1].probabilities()[2] ) );
+      CHECK( -1. == Approx( cosines[1].cosine() ) );
+      CHECK( 1 == cosines[1].NRP() );
+      CHECK( 3 == cosines[1].NEP() );
+      CHECK( 1 == cosines[1].interpolants().size() );
+      CHECK( 1 == cosines[1].boundaries().size() );
+      CHECK( 2 == cosines[1].interpolants()[0] );
+      CHECK( 3 == cosines[1].boundaries()[0] );
+      CHECK( 3 == cosines[1].energies().size() );
+      CHECK( 3 == cosines[1].probabilities().size() );
+      CHECK( 1e-5 == Approx( cosines[1].energies()[0] ) );
+      CHECK( 1e+6 == Approx( cosines[1].energies()[1] ) );
+      CHECK( 3e+7 == Approx( cosines[1].energies()[2] ) );
+      CHECK( 6. == Approx( cosines[1].probabilities()[0] ) );
+      CHECK( 4. == Approx( cosines[1].probabilities()[1] ) );
+      CHECK( 2. == Approx( cosines[1].probabilities()[2] ) );
 
-      REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
+      CHECK( 2e+7 == Approx( energies[1].energy() ) );
 
-      REQUIRE( 2 == energies[1].NMU() );
-      REQUIRE( 1 == energies[1].NRM() );
-      REQUIRE( 1 == energies[1].interpolants().size() );
-      REQUIRE( 1 == energies[1].boundaries().size() );
-      REQUIRE( 4 == energies[1].interpolants()[0] );
-      REQUIRE( 2 == energies[1].boundaries()[0] );
+      CHECK( 2 == energies[1].NMU() );
+      CHECK( 1 == energies[1].NRM() );
+      CHECK( 1 == energies[1].interpolants().size() );
+      CHECK( 1 == energies[1].boundaries().size() );
+      CHECK( 4 == energies[1].interpolants()[0] );
+      CHECK( 2 == energies[1].boundaries()[0] );
 
       cosines = energies[1].energyDistributions();
-      REQUIRE( 2 == cosines.size() );
+      CHECK( 2 == cosines.size() );
 
-      REQUIRE( .9 == Approx( cosines[0].cosine() ) );
-      REQUIRE( 1 == cosines[0].NRP() );
-      REQUIRE( 4 == cosines[0].NEP() );
-      REQUIRE( 1 == cosines[0].interpolants().size() );
-      REQUIRE( 1 == cosines[0].boundaries().size() );
-      REQUIRE( 2 == cosines[0].interpolants()[0] );
-      REQUIRE( 4 == cosines[0].boundaries()[0] );
-      REQUIRE( 4 == cosines[0].energies().size() );
-      REQUIRE( 4 == cosines[0].probabilities().size() );
-      REQUIRE( 1e-5 == Approx( cosines[0].energies()[0] ) );
-      REQUIRE( 1.1e+7 == Approx( cosines[0].energies()[1] ) );
-      REQUIRE( 1.147e+7 == Approx( cosines[0].energies()[2] ) );
-      REQUIRE( 3e+7 == Approx( cosines[0].energies()[3] ) );
-      REQUIRE( 1. == Approx( cosines[0].probabilities()[0] ) );
-      REQUIRE( 3. == Approx( cosines[0].probabilities()[1] ) );
-      REQUIRE( 5. == Approx( cosines[0].probabilities()[2] ) );
-      REQUIRE( 7. == Approx( cosines[0].probabilities()[3] ) );
+      CHECK( .9 == Approx( cosines[0].cosine() ) );
+      CHECK( 1 == cosines[0].NRP() );
+      CHECK( 4 == cosines[0].NEP() );
+      CHECK( 1 == cosines[0].interpolants().size() );
+      CHECK( 1 == cosines[0].boundaries().size() );
+      CHECK( 2 == cosines[0].interpolants()[0] );
+      CHECK( 4 == cosines[0].boundaries()[0] );
+      CHECK( 4 == cosines[0].energies().size() );
+      CHECK( 4 == cosines[0].probabilities().size() );
+      CHECK( 1e-5 == Approx( cosines[0].energies()[0] ) );
+      CHECK( 1.1e+7 == Approx( cosines[0].energies()[1] ) );
+      CHECK( 1.147e+7 == Approx( cosines[0].energies()[2] ) );
+      CHECK( 3e+7 == Approx( cosines[0].energies()[3] ) );
+      CHECK( 1. == Approx( cosines[0].probabilities()[0] ) );
+      CHECK( 3. == Approx( cosines[0].probabilities()[1] ) );
+      CHECK( 5. == Approx( cosines[0].probabilities()[2] ) );
+      CHECK( 7. == Approx( cosines[0].probabilities()[3] ) );
 
-      REQUIRE( -.9 == Approx( cosines[1].cosine() ) );
-      REQUIRE( 1 == cosines[1].NRP() );
-      REQUIRE( 3 == cosines[1].NEP() );
-      REQUIRE( 1 == cosines[1].interpolants().size() );
-      REQUIRE( 1 == cosines[1].boundaries().size() );
-      REQUIRE( 2 == cosines[1].interpolants()[0] );
-      REQUIRE( 3 == cosines[1].boundaries()[0] );
-      REQUIRE( 3 == cosines[1].energies().size() );
-      REQUIRE( 3 == cosines[1].probabilities().size() );
-      REQUIRE( 1e-5 == Approx( cosines[1].energies()[0] ) );
-      REQUIRE( 1e+6 == Approx( cosines[1].energies()[1] ) );
-      REQUIRE( 3e+7 == Approx( cosines[1].energies()[2] ) );
-      REQUIRE( 5. == Approx( cosines[1].probabilities()[0] ) );
-      REQUIRE( 3. == Approx( cosines[1].probabilities()[1] ) );
-      REQUIRE( 1. == Approx( cosines[1].probabilities()[2] ) );
+      CHECK( -.9 == Approx( cosines[1].cosine() ) );
+      CHECK( 1 == cosines[1].NRP() );
+      CHECK( 3 == cosines[1].NEP() );
+      CHECK( 1 == cosines[1].interpolants().size() );
+      CHECK( 1 == cosines[1].boundaries().size() );
+      CHECK( 2 == cosines[1].interpolants()[0] );
+      CHECK( 3 == cosines[1].boundaries()[0] );
+      CHECK( 3 == cosines[1].energies().size() );
+      CHECK( 3 == cosines[1].probabilities().size() );
+      CHECK( 1e-5 == Approx( cosines[1].energies()[0] ) );
+      CHECK( 1e+6 == Approx( cosines[1].energies()[1] ) );
+      CHECK( 3e+7 == Approx( cosines[1].energies()[2] ) );
+      CHECK( 5. == Approx( cosines[1].probabilities()[0] ) );
+      CHECK( 3. == Approx( cosines[1].probabilities()[1] ) );
+      CHECK( 1. == Approx( cosines[1].probabilities()[2] ) );
 
-      REQUIRE( 24 == chunk.NC() );
+      CHECK( 24 == chunk.NC() );
     }
   } // GIVEN
 
@@ -1287,143 +1287,143 @@ SCENARIO( "ReactionProduct" ) {
           "be constructed and members can be tested" ) {
       ReactionProduct chunk( begin, end, lineNumber, 9228, 6, 5 );
 
-      REQUIRE( 1001. == Approx( chunk.ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
-      REQUIRE( 0 == chunk.LIP() );
-      REQUIRE( 7 == chunk.LAW() );
+      CHECK( 1001. == Approx( chunk.ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+      CHECK( 0 == chunk.LIP() );
+      CHECK( 7 == chunk.LAW() );
 
-      REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
-      REQUIRE( 0 == chunk.multiplicity().LIP() );
-      REQUIRE( 7 == chunk.multiplicity().LAW() );
+      CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+      CHECK( 0 == chunk.multiplicity().LIP() );
+      CHECK( 7 == chunk.multiplicity().LAW() );
 
-      REQUIRE( 4 == chunk.multiplicity().NP() );
-      REQUIRE( 1 == chunk.multiplicity().NR() );
-      REQUIRE( 1 == chunk.multiplicity().interpolants().size() );
-      REQUIRE( 1 == chunk.multiplicity().boundaries().size() );
-      REQUIRE( 2 == chunk.multiplicity().interpolants()[0] );
-      REQUIRE( 4 == chunk.multiplicity().boundaries()[0] );
-      REQUIRE( 4 == chunk.multiplicity().energies().size() );
-      REQUIRE( 4 == chunk.multiplicity().multiplicities().size() );
-      REQUIRE( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-      REQUIRE( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-      REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-      REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-      REQUIRE( 8.45368e-11 ==
+      CHECK( 4 == chunk.multiplicity().NP() );
+      CHECK( 1 == chunk.multiplicity().NR() );
+      CHECK( 1 == chunk.multiplicity().interpolants().size() );
+      CHECK( 1 == chunk.multiplicity().boundaries().size() );
+      CHECK( 2 == chunk.multiplicity().interpolants()[0] );
+      CHECK( 4 == chunk.multiplicity().boundaries()[0] );
+      CHECK( 4 == chunk.multiplicity().energies().size() );
+      CHECK( 4 == chunk.multiplicity().multiplicities().size() );
+      CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
+      CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
+      CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
+      CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
+      CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
+      CHECK( 8.45368e-11 ==
                Approx( chunk.multiplicity().multiplicities()[1] ) );
-      REQUIRE( 6.622950e-8 ==
+      CHECK( 6.622950e-8 ==
                Approx( chunk.multiplicity().multiplicities()[2] ) );
-      REQUIRE( 2.149790e-1 ==
+      CHECK( 2.149790e-1 ==
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
          std::get< LaboratoryAngleEnergy >( chunk.distribution() );
 
-      REQUIRE( 7 == law.LAW() );
+      CHECK( 7 == law.LAW() );
 
-      REQUIRE( 2 == law.NE() );
-      REQUIRE( 1 == law.NR() );
-      REQUIRE( 1 == law.interpolants().size() );
-      REQUIRE( 1 == law.boundaries().size() );
-      REQUIRE( 1 == law.interpolants()[0] );
-      REQUIRE( 2 == law.boundaries()[0] );
+      CHECK( 2 == law.NE() );
+      CHECK( 1 == law.NR() );
+      CHECK( 1 == law.interpolants().size() );
+      CHECK( 1 == law.boundaries().size() );
+      CHECK( 1 == law.interpolants()[0] );
+      CHECK( 2 == law.boundaries()[0] );
 
       auto energies = law.angularDistributions();
 
-      REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
+      CHECK( 1e-5 == Approx( energies[0].energy() ) );
 
-      REQUIRE( 2 == energies[0].NMU() );
-      REQUIRE( 1 == energies[0].NRM() );
-      REQUIRE( 1 == energies[0].interpolants().size() );
-      REQUIRE( 1 == energies[0].boundaries().size() );
-      REQUIRE( 4 == energies[0].interpolants()[0] );
-      REQUIRE( 2 == energies[0].boundaries()[0] );
+      CHECK( 2 == energies[0].NMU() );
+      CHECK( 1 == energies[0].NRM() );
+      CHECK( 1 == energies[0].interpolants().size() );
+      CHECK( 1 == energies[0].boundaries().size() );
+      CHECK( 4 == energies[0].interpolants()[0] );
+      CHECK( 2 == energies[0].boundaries()[0] );
 
       auto cosines = energies[0].energyDistributions();
-      REQUIRE( 2 == cosines.size() );
+      CHECK( 2 == cosines.size() );
 
-      REQUIRE( 1. == Approx( cosines[0].cosine() ) );
-      REQUIRE( 1 == cosines[0].NRP() );
-      REQUIRE( 4 == cosines[0].NEP() );
-      REQUIRE( 1 == cosines[0].interpolants().size() );
-      REQUIRE( 1 == cosines[0].boundaries().size() );
-      REQUIRE( 2 == cosines[0].interpolants()[0] );
-      REQUIRE( 4 == cosines[0].boundaries()[0] );
-      REQUIRE( 4 == cosines[0].energies().size() );
-      REQUIRE( 4 == cosines[0].probabilities().size() );
-      REQUIRE( 1e-5 == Approx( cosines[0].energies()[0] ) );
-      REQUIRE( 1.1e+7 == Approx( cosines[0].energies()[1] ) );
-      REQUIRE( 1.147e+7 == Approx( cosines[0].energies()[2] ) );
-      REQUIRE( 3e+7 == Approx( cosines[0].energies()[3] ) );
-      REQUIRE( 0. == Approx( cosines[0].probabilities()[0] ) );
-      REQUIRE( 2. == Approx( cosines[0].probabilities()[1] ) );
-      REQUIRE( 4. == Approx( cosines[0].probabilities()[2] ) );
-      REQUIRE( 6. == Approx( cosines[0].probabilities()[3] ) );
+      CHECK( 1. == Approx( cosines[0].cosine() ) );
+      CHECK( 1 == cosines[0].NRP() );
+      CHECK( 4 == cosines[0].NEP() );
+      CHECK( 1 == cosines[0].interpolants().size() );
+      CHECK( 1 == cosines[0].boundaries().size() );
+      CHECK( 2 == cosines[0].interpolants()[0] );
+      CHECK( 4 == cosines[0].boundaries()[0] );
+      CHECK( 4 == cosines[0].energies().size() );
+      CHECK( 4 == cosines[0].probabilities().size() );
+      CHECK( 1e-5 == Approx( cosines[0].energies()[0] ) );
+      CHECK( 1.1e+7 == Approx( cosines[0].energies()[1] ) );
+      CHECK( 1.147e+7 == Approx( cosines[0].energies()[2] ) );
+      CHECK( 3e+7 == Approx( cosines[0].energies()[3] ) );
+      CHECK( 0. == Approx( cosines[0].probabilities()[0] ) );
+      CHECK( 2. == Approx( cosines[0].probabilities()[1] ) );
+      CHECK( 4. == Approx( cosines[0].probabilities()[2] ) );
+      CHECK( 6. == Approx( cosines[0].probabilities()[3] ) );
 
-      REQUIRE( -1. == Approx( cosines[1].cosine() ) );
-      REQUIRE( 1 == cosines[1].NRP() );
-      REQUIRE( 3 == cosines[1].NEP() );
-      REQUIRE( 1 == cosines[1].interpolants().size() );
-      REQUIRE( 1 == cosines[1].boundaries().size() );
-      REQUIRE( 2 == cosines[1].interpolants()[0] );
-      REQUIRE( 3 == cosines[1].boundaries()[0] );
-      REQUIRE( 3 == cosines[1].energies().size() );
-      REQUIRE( 3 == cosines[1].probabilities().size() );
-      REQUIRE( 1e-5 == Approx( cosines[1].energies()[0] ) );
-      REQUIRE( 1e+6 == Approx( cosines[1].energies()[1] ) );
-      REQUIRE( 3e+7 == Approx( cosines[1].energies()[2] ) );
-      REQUIRE( 6. == Approx( cosines[1].probabilities()[0] ) );
-      REQUIRE( 4. == Approx( cosines[1].probabilities()[1] ) );
-      REQUIRE( 2. == Approx( cosines[1].probabilities()[2] ) );
+      CHECK( -1. == Approx( cosines[1].cosine() ) );
+      CHECK( 1 == cosines[1].NRP() );
+      CHECK( 3 == cosines[1].NEP() );
+      CHECK( 1 == cosines[1].interpolants().size() );
+      CHECK( 1 == cosines[1].boundaries().size() );
+      CHECK( 2 == cosines[1].interpolants()[0] );
+      CHECK( 3 == cosines[1].boundaries()[0] );
+      CHECK( 3 == cosines[1].energies().size() );
+      CHECK( 3 == cosines[1].probabilities().size() );
+      CHECK( 1e-5 == Approx( cosines[1].energies()[0] ) );
+      CHECK( 1e+6 == Approx( cosines[1].energies()[1] ) );
+      CHECK( 3e+7 == Approx( cosines[1].energies()[2] ) );
+      CHECK( 6. == Approx( cosines[1].probabilities()[0] ) );
+      CHECK( 4. == Approx( cosines[1].probabilities()[1] ) );
+      CHECK( 2. == Approx( cosines[1].probabilities()[2] ) );
 
-      REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
+      CHECK( 2e+7 == Approx( energies[1].energy() ) );
 
-      REQUIRE( 2 == energies[1].NMU() );
-      REQUIRE( 1 == energies[1].NRM() );
-      REQUIRE( 1 == energies[1].interpolants().size() );
-      REQUIRE( 1 == energies[1].boundaries().size() );
-      REQUIRE( 4 == energies[1].interpolants()[0] );
-      REQUIRE( 2 == energies[1].boundaries()[0] );
+      CHECK( 2 == energies[1].NMU() );
+      CHECK( 1 == energies[1].NRM() );
+      CHECK( 1 == energies[1].interpolants().size() );
+      CHECK( 1 == energies[1].boundaries().size() );
+      CHECK( 4 == energies[1].interpolants()[0] );
+      CHECK( 2 == energies[1].boundaries()[0] );
 
       cosines = energies[1].energyDistributions();
-      REQUIRE( 2 == cosines.size() );
+      CHECK( 2 == cosines.size() );
 
-      REQUIRE( .9 == Approx( cosines[0].cosine() ) );
-      REQUIRE( 1 == cosines[0].NRP() );
-      REQUIRE( 4 == cosines[0].NEP() );
-      REQUIRE( 1 == cosines[0].interpolants().size() );
-      REQUIRE( 1 == cosines[0].boundaries().size() );
-      REQUIRE( 2 == cosines[0].interpolants()[0] );
-      REQUIRE( 4 == cosines[0].boundaries()[0] );
-      REQUIRE( 4 == cosines[0].energies().size() );
-      REQUIRE( 4 == cosines[0].probabilities().size() );
-      REQUIRE( 1e-5 == Approx( cosines[0].energies()[0] ) );
-      REQUIRE( 1.1e+7 == Approx( cosines[0].energies()[1] ) );
-      REQUIRE( 1.147e+7 == Approx( cosines[0].energies()[2] ) );
-      REQUIRE( 3e+7 == Approx( cosines[0].energies()[3] ) );
-      REQUIRE( 1. == Approx( cosines[0].probabilities()[0] ) );
-      REQUIRE( 3. == Approx( cosines[0].probabilities()[1] ) );
-      REQUIRE( 5. == Approx( cosines[0].probabilities()[2] ) );
-      REQUIRE( 7. == Approx( cosines[0].probabilities()[3] ) );
+      CHECK( .9 == Approx( cosines[0].cosine() ) );
+      CHECK( 1 == cosines[0].NRP() );
+      CHECK( 4 == cosines[0].NEP() );
+      CHECK( 1 == cosines[0].interpolants().size() );
+      CHECK( 1 == cosines[0].boundaries().size() );
+      CHECK( 2 == cosines[0].interpolants()[0] );
+      CHECK( 4 == cosines[0].boundaries()[0] );
+      CHECK( 4 == cosines[0].energies().size() );
+      CHECK( 4 == cosines[0].probabilities().size() );
+      CHECK( 1e-5 == Approx( cosines[0].energies()[0] ) );
+      CHECK( 1.1e+7 == Approx( cosines[0].energies()[1] ) );
+      CHECK( 1.147e+7 == Approx( cosines[0].energies()[2] ) );
+      CHECK( 3e+7 == Approx( cosines[0].energies()[3] ) );
+      CHECK( 1. == Approx( cosines[0].probabilities()[0] ) );
+      CHECK( 3. == Approx( cosines[0].probabilities()[1] ) );
+      CHECK( 5. == Approx( cosines[0].probabilities()[2] ) );
+      CHECK( 7. == Approx( cosines[0].probabilities()[3] ) );
 
-      REQUIRE( -.9 == Approx( cosines[1].cosine() ) );
-      REQUIRE( 1 == cosines[1].NRP() );
-      REQUIRE( 3 == cosines[1].NEP() );
-      REQUIRE( 1 == cosines[1].interpolants().size() );
-      REQUIRE( 1 == cosines[1].boundaries().size() );
-      REQUIRE( 2 == cosines[1].interpolants()[0] );
-      REQUIRE( 3 == cosines[1].boundaries()[0] );
-      REQUIRE( 3 == cosines[1].energies().size() );
-      REQUIRE( 3 == cosines[1].probabilities().size() );
-      REQUIRE( 1e-5 == Approx( cosines[1].energies()[0] ) );
-      REQUIRE( 1e+6 == Approx( cosines[1].energies()[1] ) );
-      REQUIRE( 3e+7 == Approx( cosines[1].energies()[2] ) );
-      REQUIRE( 5. == Approx( cosines[1].probabilities()[0] ) );
-      REQUIRE( 3. == Approx( cosines[1].probabilities()[1] ) );
-      REQUIRE( 1. == Approx( cosines[1].probabilities()[2] ) );
+      CHECK( -.9 == Approx( cosines[1].cosine() ) );
+      CHECK( 1 == cosines[1].NRP() );
+      CHECK( 3 == cosines[1].NEP() );
+      CHECK( 1 == cosines[1].interpolants().size() );
+      CHECK( 1 == cosines[1].boundaries().size() );
+      CHECK( 2 == cosines[1].interpolants()[0] );
+      CHECK( 3 == cosines[1].boundaries()[0] );
+      CHECK( 3 == cosines[1].energies().size() );
+      CHECK( 3 == cosines[1].probabilities().size() );
+      CHECK( 1e-5 == Approx( cosines[1].energies()[0] ) );
+      CHECK( 1e+6 == Approx( cosines[1].energies()[1] ) );
+      CHECK( 3e+7 == Approx( cosines[1].energies()[2] ) );
+      CHECK( 5. == Approx( cosines[1].probabilities()[0] ) );
+      CHECK( 3. == Approx( cosines[1].probabilities()[1] ) );
+      CHECK( 1. == Approx( cosines[1].probabilities()[2] ) );
 
-      REQUIRE( 24 == chunk.NC() );
+      CHECK( 24 == chunk.NC() );
     }
   } // GIVEN
 
@@ -1440,42 +1440,42 @@ SCENARIO( "ReactionProduct" ) {
       ReactionProduct
         chunk( std::move( multiplicity ), std::move( distribution ) );
 
-      REQUIRE( 1001. == Approx( chunk.ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
-      REQUIRE( 0 == chunk.LIP() );
-      REQUIRE( -4 == chunk.LAW() );
+      CHECK( 1001. == Approx( chunk.ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+      CHECK( 0 == chunk.LIP() );
+      CHECK( -4 == chunk.LAW() );
 
-      REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
-      REQUIRE( 0 == chunk.multiplicity().LIP() );
-      REQUIRE( -4 == chunk.multiplicity().LAW() );
+      CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+      CHECK( 0 == chunk.multiplicity().LIP() );
+      CHECK( -4 == chunk.multiplicity().LAW() );
 
-      REQUIRE( 4 == chunk.multiplicity().NP() );
-      REQUIRE( 1 == chunk.multiplicity().NR() );
-      REQUIRE( 1 == chunk.multiplicity().interpolants().size() );
-      REQUIRE( 1 == chunk.multiplicity().boundaries().size() );
-      REQUIRE( 2 == chunk.multiplicity().interpolants()[0] );
-      REQUIRE( 4 == chunk.multiplicity().boundaries()[0] );
-      REQUIRE( 4 == chunk.multiplicity().energies().size() );
-      REQUIRE( 4 == chunk.multiplicity().multiplicities().size() );
-      REQUIRE( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-      REQUIRE( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-      REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-      REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-      REQUIRE( 8.45368e-11 ==
+      CHECK( 4 == chunk.multiplicity().NP() );
+      CHECK( 1 == chunk.multiplicity().NR() );
+      CHECK( 1 == chunk.multiplicity().interpolants().size() );
+      CHECK( 1 == chunk.multiplicity().boundaries().size() );
+      CHECK( 2 == chunk.multiplicity().interpolants()[0] );
+      CHECK( 4 == chunk.multiplicity().boundaries()[0] );
+      CHECK( 4 == chunk.multiplicity().energies().size() );
+      CHECK( 4 == chunk.multiplicity().multiplicities().size() );
+      CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
+      CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
+      CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
+      CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
+      CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
+      CHECK( 8.45368e-11 ==
                Approx( chunk.multiplicity().multiplicities()[1] ) );
-      REQUIRE( 6.622950e-8 ==
+      CHECK( 6.622950e-8 ==
                Approx( chunk.multiplicity().multiplicities()[2] ) );
-      REQUIRE( 2.149790e-1 ==
+      CHECK( 2.149790e-1 ==
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
          std::get< DefinedElsewhere >( chunk.distribution() );
 
-      REQUIRE( -4 == law.LAW() );
+      CHECK( -4 == law.LAW() );
 
-      REQUIRE( 4 == chunk.NC() );
+      CHECK( 4 == chunk.NC() );
     }
   } // GIVEN
 
@@ -1490,42 +1490,42 @@ SCENARIO( "ReactionProduct" ) {
           "be constructed and members can be tested" ) {
       ReactionProduct chunk( begin, end, lineNumber, 9228, 6, 18 );
 
-      REQUIRE( 1001. == Approx( chunk.ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
-      REQUIRE( 0 == chunk.LIP() );
-      REQUIRE( -4 == chunk.LAW() );
+      CHECK( 1001. == Approx( chunk.ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+      CHECK( 0 == chunk.LIP() );
+      CHECK( -4 == chunk.LAW() );
 
-      REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
-      REQUIRE( 0 == chunk.multiplicity().LIP() );
-      REQUIRE( -4 == chunk.multiplicity().LAW() );
+      CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+      CHECK( 0 == chunk.multiplicity().LIP() );
+      CHECK( -4 == chunk.multiplicity().LAW() );
 
-      REQUIRE( 4 == chunk.multiplicity().NP() );
-      REQUIRE( 1 == chunk.multiplicity().NR() );
-      REQUIRE( 1 == chunk.multiplicity().interpolants().size() );
-      REQUIRE( 1 == chunk.multiplicity().boundaries().size() );
-      REQUIRE( 2 == chunk.multiplicity().interpolants()[0] );
-      REQUIRE( 4 == chunk.multiplicity().boundaries()[0] );
-      REQUIRE( 4 == chunk.multiplicity().energies().size() );
-      REQUIRE( 4 == chunk.multiplicity().multiplicities().size() );
-      REQUIRE( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-      REQUIRE( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-      REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-      REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-      REQUIRE( 8.45368e-11 ==
+      CHECK( 4 == chunk.multiplicity().NP() );
+      CHECK( 1 == chunk.multiplicity().NR() );
+      CHECK( 1 == chunk.multiplicity().interpolants().size() );
+      CHECK( 1 == chunk.multiplicity().boundaries().size() );
+      CHECK( 2 == chunk.multiplicity().interpolants()[0] );
+      CHECK( 4 == chunk.multiplicity().boundaries()[0] );
+      CHECK( 4 == chunk.multiplicity().energies().size() );
+      CHECK( 4 == chunk.multiplicity().multiplicities().size() );
+      CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
+      CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
+      CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
+      CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
+      CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
+      CHECK( 8.45368e-11 ==
                Approx( chunk.multiplicity().multiplicities()[1] ) );
-      REQUIRE( 6.622950e-8 ==
+      CHECK( 6.622950e-8 ==
                Approx( chunk.multiplicity().multiplicities()[2] ) );
-      REQUIRE( 2.149790e-1 ==
+      CHECK( 2.149790e-1 ==
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
          std::get< DefinedElsewhere >( chunk.distribution() );
 
-      REQUIRE( -4 == law.LAW() );
+      CHECK( -4 == law.LAW() );
 
-      REQUIRE( 4 == chunk.NC() );
+      CHECK( 4 == chunk.NC() );
     }
   } // GIVEN
 
@@ -1542,42 +1542,42 @@ SCENARIO( "ReactionProduct" ) {
       ReactionProduct
         chunk( std::move( multiplicity ), std::move( distribution ) );
 
-      REQUIRE( 1001. == Approx( chunk.ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
-      REQUIRE( 0 == chunk.LIP() );
-      REQUIRE( -5 == chunk.LAW() );
+      CHECK( 1001. == Approx( chunk.ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+      CHECK( 0 == chunk.LIP() );
+      CHECK( -5 == chunk.LAW() );
 
-      REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
-      REQUIRE( 0 == chunk.multiplicity().LIP() );
-      REQUIRE( -5 == chunk.multiplicity().LAW() );
+      CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+      CHECK( 0 == chunk.multiplicity().LIP() );
+      CHECK( -5 == chunk.multiplicity().LAW() );
 
-      REQUIRE( 4 == chunk.multiplicity().NP() );
-      REQUIRE( 1 == chunk.multiplicity().NR() );
-      REQUIRE( 1 == chunk.multiplicity().interpolants().size() );
-      REQUIRE( 1 == chunk.multiplicity().boundaries().size() );
-      REQUIRE( 2 == chunk.multiplicity().interpolants()[0] );
-      REQUIRE( 4 == chunk.multiplicity().boundaries()[0] );
-      REQUIRE( 4 == chunk.multiplicity().energies().size() );
-      REQUIRE( 4 == chunk.multiplicity().multiplicities().size() );
-      REQUIRE( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-      REQUIRE( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-      REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-      REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-      REQUIRE( 8.45368e-11 ==
+      CHECK( 4 == chunk.multiplicity().NP() );
+      CHECK( 1 == chunk.multiplicity().NR() );
+      CHECK( 1 == chunk.multiplicity().interpolants().size() );
+      CHECK( 1 == chunk.multiplicity().boundaries().size() );
+      CHECK( 2 == chunk.multiplicity().interpolants()[0] );
+      CHECK( 4 == chunk.multiplicity().boundaries()[0] );
+      CHECK( 4 == chunk.multiplicity().energies().size() );
+      CHECK( 4 == chunk.multiplicity().multiplicities().size() );
+      CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
+      CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
+      CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
+      CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
+      CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
+      CHECK( 8.45368e-11 ==
                Approx( chunk.multiplicity().multiplicities()[1] ) );
-      REQUIRE( 6.622950e-8 ==
+      CHECK( 6.622950e-8 ==
                Approx( chunk.multiplicity().multiplicities()[2] ) );
-      REQUIRE( 2.149790e-1 ==
+      CHECK( 2.149790e-1 ==
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
          std::get< DefinedElsewhere >( chunk.distribution() );
 
-      REQUIRE( -5 == law.LAW() );
+      CHECK( -5 == law.LAW() );
 
-      REQUIRE( 4 == chunk.NC() );
+      CHECK( 4 == chunk.NC() );
     }
   } // GIVEN
 
@@ -1592,42 +1592,42 @@ SCENARIO( "ReactionProduct" ) {
           "be constructed and members can be tested" ) {
       ReactionProduct chunk( begin, end, lineNumber, 9228, 6, 18 );
 
-      REQUIRE( 1001. == Approx( chunk.ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
-      REQUIRE( 0 == chunk.LIP() );
-      REQUIRE( -5 == chunk.LAW() );
+      CHECK( 1001. == Approx( chunk.ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+      CHECK( 0 == chunk.LIP() );
+      CHECK( -5 == chunk.LAW() );
 
-      REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
-      REQUIRE( 0 == chunk.multiplicity().LIP() );
-      REQUIRE( -5 == chunk.multiplicity().LAW() );
+      CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+      CHECK( 0 == chunk.multiplicity().LIP() );
+      CHECK( -5 == chunk.multiplicity().LAW() );
 
-      REQUIRE( 4 == chunk.multiplicity().NP() );
-      REQUIRE( 1 == chunk.multiplicity().NR() );
-      REQUIRE( 1 == chunk.multiplicity().interpolants().size() );
-      REQUIRE( 1 == chunk.multiplicity().boundaries().size() );
-      REQUIRE( 2 == chunk.multiplicity().interpolants()[0] );
-      REQUIRE( 4 == chunk.multiplicity().boundaries()[0] );
-      REQUIRE( 4 == chunk.multiplicity().energies().size() );
-      REQUIRE( 4 == chunk.multiplicity().multiplicities().size() );
-      REQUIRE( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-      REQUIRE( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-      REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-      REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-      REQUIRE( 8.45368e-11 ==
+      CHECK( 4 == chunk.multiplicity().NP() );
+      CHECK( 1 == chunk.multiplicity().NR() );
+      CHECK( 1 == chunk.multiplicity().interpolants().size() );
+      CHECK( 1 == chunk.multiplicity().boundaries().size() );
+      CHECK( 2 == chunk.multiplicity().interpolants()[0] );
+      CHECK( 4 == chunk.multiplicity().boundaries()[0] );
+      CHECK( 4 == chunk.multiplicity().energies().size() );
+      CHECK( 4 == chunk.multiplicity().multiplicities().size() );
+      CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
+      CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
+      CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
+      CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
+      CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
+      CHECK( 8.45368e-11 ==
                Approx( chunk.multiplicity().multiplicities()[1] ) );
-      REQUIRE( 6.622950e-8 ==
+      CHECK( 6.622950e-8 ==
                Approx( chunk.multiplicity().multiplicities()[2] ) );
-      REQUIRE( 2.149790e-1 ==
+      CHECK( 2.149790e-1 ==
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
          std::get< DefinedElsewhere >( chunk.distribution() );
 
-      REQUIRE( -5 == law.LAW() );
+      CHECK( -5 == law.LAW() );
 
-      REQUIRE( 4 == chunk.NC() );
+      CHECK( 4 == chunk.NC() );
     }
   } // GIVEN
 
@@ -1644,42 +1644,42 @@ SCENARIO( "ReactionProduct" ) {
       ReactionProduct
         chunk( std::move( multiplicity ), std::move( distribution ) );
 
-      REQUIRE( 1001. == Approx( chunk.ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
-      REQUIRE( 0 == chunk.LIP() );
-      REQUIRE( -14 == chunk.LAW() );
+      CHECK( 1001. == Approx( chunk.ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+      CHECK( 0 == chunk.LIP() );
+      CHECK( -14 == chunk.LAW() );
 
-      REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
-      REQUIRE( 0 == chunk.multiplicity().LIP() );
-      REQUIRE( -14 == chunk.multiplicity().LAW() );
+      CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+      CHECK( 0 == chunk.multiplicity().LIP() );
+      CHECK( -14 == chunk.multiplicity().LAW() );
 
-      REQUIRE( 4 == chunk.multiplicity().NP() );
-      REQUIRE( 1 == chunk.multiplicity().NR() );
-      REQUIRE( 1 == chunk.multiplicity().interpolants().size() );
-      REQUIRE( 1 == chunk.multiplicity().boundaries().size() );
-      REQUIRE( 2 == chunk.multiplicity().interpolants()[0] );
-      REQUIRE( 4 == chunk.multiplicity().boundaries()[0] );
-      REQUIRE( 4 == chunk.multiplicity().energies().size() );
-      REQUIRE( 4 == chunk.multiplicity().multiplicities().size() );
-      REQUIRE( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-      REQUIRE( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-      REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-      REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-      REQUIRE( 8.45368e-11 ==
+      CHECK( 4 == chunk.multiplicity().NP() );
+      CHECK( 1 == chunk.multiplicity().NR() );
+      CHECK( 1 == chunk.multiplicity().interpolants().size() );
+      CHECK( 1 == chunk.multiplicity().boundaries().size() );
+      CHECK( 2 == chunk.multiplicity().interpolants()[0] );
+      CHECK( 4 == chunk.multiplicity().boundaries()[0] );
+      CHECK( 4 == chunk.multiplicity().energies().size() );
+      CHECK( 4 == chunk.multiplicity().multiplicities().size() );
+      CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
+      CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
+      CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
+      CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
+      CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
+      CHECK( 8.45368e-11 ==
                Approx( chunk.multiplicity().multiplicities()[1] ) );
-      REQUIRE( 6.622950e-8 ==
+      CHECK( 6.622950e-8 ==
                Approx( chunk.multiplicity().multiplicities()[2] ) );
-      REQUIRE( 2.149790e-1 ==
+      CHECK( 2.149790e-1 ==
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
          std::get< DefinedElsewhere >( chunk.distribution() );
 
-      REQUIRE( -14 == law.LAW() );
+      CHECK( -14 == law.LAW() );
 
-      REQUIRE( 4 == chunk.NC() );
+      CHECK( 4 == chunk.NC() );
     }
   } // GIVEN
 
@@ -1694,42 +1694,42 @@ SCENARIO( "ReactionProduct" ) {
           "be constructed and members can be tested" ) {
       ReactionProduct chunk( begin, end, lineNumber, 9228, 6, 18 );
 
-      REQUIRE( 1001. == Approx( chunk.ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
-      REQUIRE( 0 == chunk.LIP() );
-      REQUIRE( -14 == chunk.LAW() );
+      CHECK( 1001. == Approx( chunk.ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+      CHECK( 0 == chunk.LIP() );
+      CHECK( -14 == chunk.LAW() );
 
-      REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
-      REQUIRE( 0 == chunk.multiplicity().LIP() );
-      REQUIRE( -14 == chunk.multiplicity().LAW() );
+      CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+      CHECK( 0 == chunk.multiplicity().LIP() );
+      CHECK( -14 == chunk.multiplicity().LAW() );
 
-      REQUIRE( 4 == chunk.multiplicity().NP() );
-      REQUIRE( 1 == chunk.multiplicity().NR() );
-      REQUIRE( 1 == chunk.multiplicity().interpolants().size() );
-      REQUIRE( 1 == chunk.multiplicity().boundaries().size() );
-      REQUIRE( 2 == chunk.multiplicity().interpolants()[0] );
-      REQUIRE( 4 == chunk.multiplicity().boundaries()[0] );
-      REQUIRE( 4 == chunk.multiplicity().energies().size() );
-      REQUIRE( 4 == chunk.multiplicity().multiplicities().size() );
-      REQUIRE( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-      REQUIRE( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-      REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-      REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-      REQUIRE( 8.45368e-11 ==
+      CHECK( 4 == chunk.multiplicity().NP() );
+      CHECK( 1 == chunk.multiplicity().NR() );
+      CHECK( 1 == chunk.multiplicity().interpolants().size() );
+      CHECK( 1 == chunk.multiplicity().boundaries().size() );
+      CHECK( 2 == chunk.multiplicity().interpolants()[0] );
+      CHECK( 4 == chunk.multiplicity().boundaries()[0] );
+      CHECK( 4 == chunk.multiplicity().energies().size() );
+      CHECK( 4 == chunk.multiplicity().multiplicities().size() );
+      CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
+      CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
+      CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
+      CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
+      CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
+      CHECK( 8.45368e-11 ==
                Approx( chunk.multiplicity().multiplicities()[1] ) );
-      REQUIRE( 6.622950e-8 ==
+      CHECK( 6.622950e-8 ==
                Approx( chunk.multiplicity().multiplicities()[2] ) );
-      REQUIRE( 2.149790e-1 ==
+      CHECK( 2.149790e-1 ==
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
          std::get< DefinedElsewhere >( chunk.distribution() );
 
-      REQUIRE( -14 == law.LAW() );
+      CHECK( -14 == law.LAW() );
 
-      REQUIRE( 4 == chunk.NC() );
+      CHECK( 4 == chunk.NC() );
     }
   } // GIVEN
 
@@ -1746,42 +1746,42 @@ SCENARIO( "ReactionProduct" ) {
       ReactionProduct
         chunk( std::move( multiplicity ), std::move( distribution ) );
 
-      REQUIRE( 1001. == Approx( chunk.ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
-      REQUIRE( 0 == chunk.LIP() );
-      REQUIRE( -15 == chunk.LAW() );
+      CHECK( 1001. == Approx( chunk.ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+      CHECK( 0 == chunk.LIP() );
+      CHECK( -15 == chunk.LAW() );
 
-      REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
-      REQUIRE( 0 == chunk.multiplicity().LIP() );
-      REQUIRE( -15 == chunk.multiplicity().LAW() );
+      CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+      CHECK( 0 == chunk.multiplicity().LIP() );
+      CHECK( -15 == chunk.multiplicity().LAW() );
 
-      REQUIRE( 4 == chunk.multiplicity().NP() );
-      REQUIRE( 1 == chunk.multiplicity().NR() );
-      REQUIRE( 1 == chunk.multiplicity().interpolants().size() );
-      REQUIRE( 1 == chunk.multiplicity().boundaries().size() );
-      REQUIRE( 2 == chunk.multiplicity().interpolants()[0] );
-      REQUIRE( 4 == chunk.multiplicity().boundaries()[0] );
-      REQUIRE( 4 == chunk.multiplicity().energies().size() );
-      REQUIRE( 4 == chunk.multiplicity().multiplicities().size() );
-      REQUIRE( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-      REQUIRE( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-      REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-      REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-      REQUIRE( 8.45368e-11 ==
+      CHECK( 4 == chunk.multiplicity().NP() );
+      CHECK( 1 == chunk.multiplicity().NR() );
+      CHECK( 1 == chunk.multiplicity().interpolants().size() );
+      CHECK( 1 == chunk.multiplicity().boundaries().size() );
+      CHECK( 2 == chunk.multiplicity().interpolants()[0] );
+      CHECK( 4 == chunk.multiplicity().boundaries()[0] );
+      CHECK( 4 == chunk.multiplicity().energies().size() );
+      CHECK( 4 == chunk.multiplicity().multiplicities().size() );
+      CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
+      CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
+      CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
+      CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
+      CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
+      CHECK( 8.45368e-11 ==
                Approx( chunk.multiplicity().multiplicities()[1] ) );
-      REQUIRE( 6.622950e-8 ==
+      CHECK( 6.622950e-8 ==
                Approx( chunk.multiplicity().multiplicities()[2] ) );
-      REQUIRE( 2.149790e-1 ==
+      CHECK( 2.149790e-1 ==
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
          std::get< DefinedElsewhere >( chunk.distribution() );
 
-      REQUIRE( -15 == law.LAW() );
+      CHECK( -15 == law.LAW() );
 
-      REQUIRE( 4 == chunk.NC() );
+      CHECK( 4 == chunk.NC() );
     }
   } // GIVEN
 
@@ -1796,42 +1796,42 @@ SCENARIO( "ReactionProduct" ) {
           "be constructed and members can be tested" ) {
       ReactionProduct chunk( begin, end, lineNumber, 9228, 6, 18 );
 
-      REQUIRE( 1001. == Approx( chunk.ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
-      REQUIRE( 0 == chunk.LIP() );
-      REQUIRE( -15 == chunk.LAW() );
+      CHECK( 1001. == Approx( chunk.ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+      CHECK( 0 == chunk.LIP() );
+      CHECK( -15 == chunk.LAW() );
 
-      REQUIRE( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-      REQUIRE( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
-      REQUIRE( 0 == chunk.multiplicity().LIP() );
-      REQUIRE( -15 == chunk.multiplicity().LAW() );
+      CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
+      CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+      CHECK( 0 == chunk.multiplicity().LIP() );
+      CHECK( -15 == chunk.multiplicity().LAW() );
 
-      REQUIRE( 4 == chunk.multiplicity().NP() );
-      REQUIRE( 1 == chunk.multiplicity().NR() );
-      REQUIRE( 1 == chunk.multiplicity().interpolants().size() );
-      REQUIRE( 1 == chunk.multiplicity().boundaries().size() );
-      REQUIRE( 2 == chunk.multiplicity().interpolants()[0] );
-      REQUIRE( 4 == chunk.multiplicity().boundaries()[0] );
-      REQUIRE( 4 == chunk.multiplicity().energies().size() );
-      REQUIRE( 4 == chunk.multiplicity().multiplicities().size() );
-      REQUIRE( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-      REQUIRE( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-      REQUIRE( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-      REQUIRE( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-      REQUIRE( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-      REQUIRE( 8.45368e-11 ==
+      CHECK( 4 == chunk.multiplicity().NP() );
+      CHECK( 1 == chunk.multiplicity().NR() );
+      CHECK( 1 == chunk.multiplicity().interpolants().size() );
+      CHECK( 1 == chunk.multiplicity().boundaries().size() );
+      CHECK( 2 == chunk.multiplicity().interpolants()[0] );
+      CHECK( 4 == chunk.multiplicity().boundaries()[0] );
+      CHECK( 4 == chunk.multiplicity().energies().size() );
+      CHECK( 4 == chunk.multiplicity().multiplicities().size() );
+      CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
+      CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
+      CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
+      CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
+      CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
+      CHECK( 8.45368e-11 ==
                Approx( chunk.multiplicity().multiplicities()[1] ) );
-      REQUIRE( 6.622950e-8 ==
+      CHECK( 6.622950e-8 ==
                Approx( chunk.multiplicity().multiplicities()[2] ) );
-      REQUIRE( 2.149790e-1 ==
+      CHECK( 2.149790e-1 ==
                Approx( chunk.multiplicity().multiplicities()[3] ) );
 
       auto law =
          std::get< DefinedElsewhere >( chunk.distribution() );
 
-      REQUIRE( -15 == law.LAW() );
+      CHECK( -15 == law.LAW() );
 
-      REQUIRE( 4 == chunk.NC() );
+      CHECK( 4 == chunk.NC() );
     }
   } // GIVEN
 
@@ -1848,7 +1848,7 @@ SCENARIO( "ReactionProduct" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       chunk.print( output, 9228, 6, 5 );
-      REQUIRE( buffer == string );
+      CHECK( buffer == string );
     }
   } // GIVEN
 
@@ -1865,7 +1865,7 @@ SCENARIO( "ReactionProduct" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       chunk.print( output, 9228, 6, 5 );
-      REQUIRE( buffer == string );
+      CHECK( buffer == string );
     }
   } // GIVEN
 
@@ -1882,7 +1882,7 @@ SCENARIO( "ReactionProduct" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       chunk.print( output, 9228, 6, 5 );
-      REQUIRE( buffer == string );
+      CHECK( buffer == string );
     }
   } // GIVEN
 
@@ -1899,7 +1899,7 @@ SCENARIO( "ReactionProduct" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       chunk.print( output, 9228, 6, 5 );
-      REQUIRE( buffer == string );
+      CHECK( buffer == string );
     }
   } // GIVEN
 
@@ -1916,7 +1916,7 @@ SCENARIO( "ReactionProduct" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       chunk.print( output, 9228, 6, 5 );
-      REQUIRE( buffer == string );
+      CHECK( buffer == string );
     }
   } // GIVEN
 
@@ -1933,7 +1933,7 @@ SCENARIO( "ReactionProduct" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       chunk.print( output, 9228, 6, 5 );
-      REQUIRE( buffer == string );
+      CHECK( buffer == string );
     }
   } // GIVEN
 
@@ -1950,7 +1950,7 @@ SCENARIO( "ReactionProduct" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       chunk.print( output, 9228, 6, 5 );
-      REQUIRE( buffer == string );
+      CHECK( buffer == string );
     }
   } // GIVEN
 
@@ -1967,7 +1967,7 @@ SCENARIO( "ReactionProduct" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       chunk.print( output, 9228, 6, 5 );
-      REQUIRE( buffer == string );
+      CHECK( buffer == string );
     }
   } // GIVEN
 
@@ -1984,7 +1984,7 @@ SCENARIO( "ReactionProduct" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       chunk.print( output, 9228, 6, 18 );
-      REQUIRE( buffer == string );
+      CHECK( buffer == string );
     }
   } // GIVEN
 
@@ -2001,7 +2001,7 @@ SCENARIO( "ReactionProduct" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       chunk.print( output, 9228, 6, 18 );
-      REQUIRE( buffer == string );
+      CHECK( buffer == string );
     }
   } // GIVEN
 
@@ -2018,7 +2018,7 @@ SCENARIO( "ReactionProduct" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       chunk.print( output, 9228, 6, 18 );
-      REQUIRE( buffer == string );
+      CHECK( buffer == string );
     }
   } // GIVEN
 
@@ -2035,7 +2035,7 @@ SCENARIO( "ReactionProduct" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       chunk.print( output, 9228, 6, 18 );
-      REQUIRE( buffer == string );
+      CHECK( buffer == string );
     }
   } // GIVEN
 
@@ -2055,7 +2055,7 @@ SCENARIO( "ReactionProduct" ) {
               2e+7, 0, 1, 2, {1., 2., 3., 4., 5., 6.} ) } ) );
 
     THEN( "an exception is thrown upon construction" ){
-      REQUIRE_THROWS( ReactionProduct( std::move( multiplicity ),
+      CHECK_THROWS( ReactionProduct( std::move( multiplicity ),
                                        std::move( distribution ) ) );
     }
   } // GIVEN
@@ -2068,7 +2068,7 @@ SCENARIO( "ReactionProduct" ) {
     long lineNumber = 1;
 
     THEN( "an exception is thrown upon construction" ){
-      REQUIRE_THROWS( ReactionProduct( begin, end, lineNumber, 9228, 6, 5 ) );
+      CHECK_THROWS( ReactionProduct( begin, end, lineNumber, 9228, 6, 5 ) );
     }
   } // GIVEN
 
@@ -2080,7 +2080,7 @@ SCENARIO( "ReactionProduct" ) {
     long lineNumber = 1;
 
     THEN( "an exception is thrown upon construction" ){
-      REQUIRE_THROWS( ReactionProduct( begin, end, lineNumber, 9228, 6, 5 ) );
+      CHECK_THROWS( ReactionProduct( begin, end, lineNumber, 9228, 6, 5 ) );
     }
   } // GIVEN
 } // SCENARIO

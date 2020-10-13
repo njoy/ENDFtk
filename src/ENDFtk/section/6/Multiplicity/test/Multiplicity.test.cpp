@@ -7,7 +7,7 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using Multiplicity = 
+using Multiplicity =
 section::Type< 6 >::Multiplicity;
 
 std::string chunk();
@@ -17,6 +17,8 @@ std::string invalidChunk();
 SCENARIO( "Multiplicity" ) {
 
   GIVEN( "valid data for a Multiplicity" ) {
+
+    std::string string = chunk();
 
     WHEN( "the data is given explicitly" ) {
 
@@ -30,14 +32,24 @@ SCENARIO( "Multiplicity" ) {
       std::vector< double > multiplicities = { 0., 8.45368e-11,
                                                6.622950e-8, 2.149790e-1 };
 
+      Multiplicity chunk( zap, awp, lip, law,
+                          std::move( boundaries ),
+                          std::move( interpolants ),
+                          std::move( energies ),
+                          std::move( multiplicities ) );
+
       THEN( "a Multiplicity can be constructed and members can be tested" ) {
 
-        Multiplicity chunk( zap, awp, lip, law,
-                            std::move( boundaries ),
-                            std::move( interpolants ),
-                            std::move( energies ),
-                            std::move( multiplicities ) );
         verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 6, 5 );
+
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
@@ -48,29 +60,22 @@ SCENARIO( "Multiplicity" ) {
       auto end = string.end();
       long lineNumber = 1;
 
+      Multiplicity chunk( begin, end, lineNumber, 9228, 6, 5 );
+
       THEN( "a Multiplicity can be constructed and members can be tested" ) {
 
-        Multiplicity chunk( begin, end, lineNumber, 9228, 6, 5 );
         verifyChunk( chunk );
      } // THEN
+
+     THEN( "it can be printed" ) {
+
+       std::string buffer;
+       auto output = std::back_inserter( buffer );
+       chunk.print( output, 9228, 6, 5 );
+
+       CHECK( buffer == string );
+     } // THEN
     } // WHEN
-  } // GIVEN
-
-  GIVEN( "a valid instance of Multiplicity" ) {
-
-    std::string string = chunk();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-    Multiplicity chunk(begin, end, lineNumber, 9228, 6, 5 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 9228, 6, 5 );
-      REQUIRE( buffer == string );
-    } // THEN
   } // GIVEN
 
   GIVEN( "invalid data for a Multiplicity" ) {
@@ -91,7 +96,7 @@ SCENARIO( "Multiplicity" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( Multiplicity( zap, awp, lip, law,
+        CHECK_THROWS( Multiplicity( zap, awp, lip, law,
                                       std::move( wrongBoundaries ),
                                       std::move( interpolants ),
                                       std::move( energies ),
@@ -110,7 +115,7 @@ SCENARIO( "Multiplicity" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( Multiplicity( begin, end, lineNumber, 9228, 6, 5 ) );
+        CHECK_THROWS( Multiplicity( begin, end, lineNumber, 9228, 6, 5 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -126,32 +131,42 @@ std::string chunk() {
 
 void verifyChunk( const Multiplicity& chunk ) {
 
-  REQUIRE( 1001. == Approx( chunk.ZAP() ) );
-  REQUIRE( 1001. == Approx( chunk.productIdentifier() ) );
-  REQUIRE( 0.9986234 == Approx( chunk.AWP() ) );
-  REQUIRE( 0.9986234 == Approx( chunk.productMassRatio() ) );
-  REQUIRE( 0 == chunk.LIP() );
-  REQUIRE( 0 == chunk.productModifierFlag() );
-  REQUIRE( 1 == chunk.LAW() );
+  CHECK( 1001. == Approx( chunk.ZAP() ) );
+  CHECK( 1001. == Approx( chunk.productIdentifier() ) );
+  CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+  CHECK( 0.9986234 == Approx( chunk.productWeightRatio() ) );
+  CHECK( 0 == chunk.LIP() );
+  CHECK( 0 == chunk.productModifierFlag() );
+  CHECK( 1 == chunk.LAW() );
 
-  REQUIRE( 4 == chunk.NP() );
-  REQUIRE( 1 == chunk.NR() );
-  REQUIRE( 1 == chunk.interpolants().size() );
-  REQUIRE( 1 == chunk.boundaries().size() );
-  REQUIRE( 2 == chunk.interpolants()[0] );
-  REQUIRE( 4 == chunk.boundaries()[0] );
-  REQUIRE( 4 == chunk.energies().size() );
-  REQUIRE( 4 == chunk.multiplicities().size() );
-  REQUIRE( 1e-5 == Approx( chunk.energies()[0] ) );
-  REQUIRE( 1.1e+7 == Approx( chunk.energies()[1] ) );
-  REQUIRE( 1.147e+7 == Approx( chunk.energies()[2] ) );
-  REQUIRE( 3e+7 == Approx( chunk.energies()[3] ) );
-  REQUIRE( 0. == Approx( chunk.multiplicities()[0] ) );
-  REQUIRE( 8.45368e-11 == Approx( chunk.multiplicities()[1] ) );
-  REQUIRE( 6.622950e-8 == Approx( chunk.multiplicities()[2] ) );
-  REQUIRE( 2.149790e-1 == Approx( chunk.multiplicities()[3] ) );
+  CHECK( 4 == chunk.NP() );
+  CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.interpolants().size() );
+  CHECK( 1 == chunk.boundaries().size() );
+  CHECK( 2 == chunk.interpolants()[0] );
+  CHECK( 4 == chunk.boundaries()[0] );
+  CHECK( 4 == chunk.E().size() );
+  CHECK( 4 == chunk.energies().size() );
+  CHECK( 4 == chunk.Y().size() );
+  CHECK( 4 == chunk.multiplicities().size() );
+  CHECK( 1e-5 == Approx( chunk.E()[0] ) );
+  CHECK( 1.1e+7 == Approx( chunk.E()[1] ) );
+  CHECK( 1.147e+7 == Approx( chunk.E()[2] ) );
+  CHECK( 3e+7 == Approx( chunk.E()[3] ) );
+  CHECK( 1e-5 == Approx( chunk.energies()[0] ) );
+  CHECK( 1.1e+7 == Approx( chunk.energies()[1] ) );
+  CHECK( 1.147e+7 == Approx( chunk.energies()[2] ) );
+  CHECK( 3e+7 == Approx( chunk.energies()[3] ) );
+  CHECK( 0. == Approx( chunk.Y()[0] ) );
+  CHECK( 8.45368e-11 == Approx( chunk.Y()[1] ) );
+  CHECK( 6.622950e-8 == Approx( chunk.Y()[2] ) );
+  CHECK( 2.149790e-1 == Approx( chunk.Y()[3] ) );
+  CHECK( 0. == Approx( chunk.multiplicities()[0] ) );
+  CHECK( 8.45368e-11 == Approx( chunk.multiplicities()[1] ) );
+  CHECK( 6.622950e-8 == Approx( chunk.multiplicities()[2] ) );
+  CHECK( 2.149790e-1 == Approx( chunk.multiplicities()[3] ) );
 
-  REQUIRE( 4 == chunk.NC() );
+  CHECK( 4 == chunk.NC() );
 }
 
 std::string invalidChunk() {

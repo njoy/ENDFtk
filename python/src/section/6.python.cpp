@@ -11,6 +11,8 @@
 namespace python = pybind11;
 
 // declarations - components
+void wrapMultiplicity( python::module& );
+void wrapReactionProduct( python::module& );
 
 void wrapSection_6( python::module& module ) {
 
@@ -34,6 +36,8 @@ void wrapSection_6( python::module& module ) {
   );
 
   // wrap components
+  wrapMultiplicity( module );
+  wrapReactionProduct( module );
 
   // wrap the section
   section
