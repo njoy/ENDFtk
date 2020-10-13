@@ -30,6 +30,7 @@ void wrapWattSpectrum( python::module& module ) {
   component
   .def(
 
+    //! @todo pybind11 lambda move custom type workaround
     python::init( [] ( Parameter a, Parameter b )
                      { return Component( std::move( a ), std::move( b ) ); } ),
     python::arg( "a" ), python::arg( "b" ),

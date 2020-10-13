@@ -37,6 +37,7 @@ void wrapMultiplicities( python::module& module ) {
   component
   .def(
 
+    //! @todo pybind11 lambda move custom type workaround
     python::init( [] ( PartialMultiplicity partial )
                      { return Component( std::move( partial ) ); } ),
     python::arg( "partial" ),
@@ -47,8 +48,9 @@ void wrapMultiplicities( python::module& module ) {
   )
   .def(
 
+    //! @todo pybind11 lambda move custom type workaround
     python::init( [] ( TotalMultiplicity total,
-                       std::vector< PartialMultiplicity > partials )
+                       std::vector< PartialMultiplicity >&& partials )
                      { return Component( std::move( total ),
                                          std::move( partials ) ); } ),
     python::arg( "total" ), python::arg( "partials" ),

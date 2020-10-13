@@ -9,6 +9,7 @@
 #include "ENDFtk/section/3.hpp"
 #include "ENDFtk/section/4.hpp"
 #include "ENDFtk/section/5.hpp"
+#include "ENDFtk/section/12.hpp"
 #include "range/v3/utility/iterator.hpp"
 #include "views.hpp"
 

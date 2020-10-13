@@ -31,6 +31,7 @@ void wrapGeneralEvaporationSpectrum( python::module& module ) {
   component
   .def(
 
+    //! @todo pybind11 lambda move custom type workaround
     python::init( [] ( EffectiveTemperature temperature,
                        DistributionFunction distribution )
                      { return Component( std::move( temperature ),

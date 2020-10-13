@@ -125,10 +125,10 @@ SCENARIO( "section::Type< 12 >" ) {
         auto output4 = std::back_inserter( buffer4 );
         chunk1.print( output4, 9228, 12 );
 
-        REQUIRE( buffer1 == sectionString );
-        REQUIRE( buffer2 == sectionString );
-        REQUIRE( buffer3 == sectionString );
-        REQUIRE( buffer4 == sectionString );
+        CHECK( buffer1 == sectionString );
+        CHECK( buffer2 == sectionString );
+        CHECK( buffer3 == sectionString );
+        CHECK( buffer4 == sectionString );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -232,10 +232,10 @@ SCENARIO( "section::Type< 12 >" ) {
         auto output4 = std::back_inserter( buffer4 );
         chunk1.print( output4, 9228, 12 );
 
-        REQUIRE( buffer1 == sectionString );
-        REQUIRE( buffer2 == sectionString );
-        REQUIRE( buffer3 == sectionString );
-        REQUIRE( buffer4 == sectionString );
+        CHECK( buffer1 == sectionString );
+        CHECK( buffer2 == sectionString );
+        CHECK( buffer3 == sectionString );
+        CHECK( buffer4 == sectionString );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -340,10 +340,10 @@ SCENARIO( "section::Type< 12 >" ) {
 //        auto output4 = std::back_inserter( buffer4 );
 //        chunk1.print( output4, 9228, 12 );
 //
-//        REQUIRE( buffer1 == sectionString );
-//        REQUIRE( buffer2 == sectionString );
-//        REQUIRE( buffer3 == sectionString );
-//        REQUIRE( buffer4 == sectionString );
+//        CHECK( buffer1 == sectionString );
+//        CHECK( buffer2 == sectionString );
+//        CHECK( buffer3 == sectionString );
+//        CHECK( buffer4 == sectionString );
 //      } // THEN
 //    } // WHEN
   } // GIVEN
@@ -360,7 +360,7 @@ SCENARIO( "section::Type< 12 >" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( section::Type< 12 >( head, begin, end,
+        CHECK_THROWS( section::Type< 12 >( head, begin, end,
                                              lineNumber, 9228 ) );
       } // THEN
     } // WHEN
@@ -376,7 +376,7 @@ SCENARIO( "section::Type< 12 >" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( section::Type< 12 >( head, begin, end,
+        CHECK_THROWS( section::Type< 12 >( head, begin, end,
                                              lineNumber, 9228 ) );
       } // THEN
     } // WHEN
@@ -393,14 +393,14 @@ std::string chunkWithLO1() {
 
 void verifyChunkWithLO1( const section::Type< 12 >& chunk ) {
 
-  REQUIRE( 18 == chunk.MT() );
-  REQUIRE( 18 == chunk.sectionNumber() );
+  CHECK( 18 == chunk.MT() );
+  CHECK( 18 == chunk.sectionNumber() );
 
-  REQUIRE( 92235. == Approx( chunk.ZA() ) );
-  REQUIRE( 2.330250e+2 == Approx( chunk.AWR() ) );
-  REQUIRE( 2.330250e+2 == Approx( chunk.atomicWeightRatio() ) );
-  REQUIRE( 1 == chunk.LO() );
-  REQUIRE( 1 == chunk.representation() );
+  CHECK( 92235. == Approx( chunk.ZA() ) );
+  CHECK( 2.330250e+2 == Approx( chunk.AWR() ) );
+  CHECK( 2.330250e+2 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 1 == chunk.LO() );
+  CHECK( 1 == chunk.representation() );
 
   auto data = std::get< Multiplicities >( chunk.photonProduction() );
   CHECK( std::nullopt == data.totalMultiplicity() );
@@ -433,7 +433,7 @@ void verifyChunkWithLO1( const section::Type< 12 >& chunk ) {
   CHECK( 8.579050e+0 == Approx( partial.multiplicities()[0] ) );
   CHECK( 1.487778e+1 == Approx( partial.multiplicities()[1] ) );
 
-  REQUIRE( 4 == chunk.NC() );
+  CHECK( 4 == chunk.NC() );
 }
 
 std::string chunkWithLO2LG1() {
@@ -445,14 +445,14 @@ std::string chunkWithLO2LG1() {
 
 void verifyChunkWithLO2LG1( const section::Type< 12 >& chunk ) {
 
-  REQUIRE( 51 == chunk.MT() );
-  REQUIRE( 51 == chunk.sectionNumber() );
+  CHECK( 51 == chunk.MT() );
+  CHECK( 51 == chunk.sectionNumber() );
 
-  REQUIRE( 92235. == Approx( chunk.ZA() ) );
-  REQUIRE( 2.330250e+2 == Approx( chunk.AWR() ) );
-  REQUIRE( 2.330250e+2 == Approx( chunk.atomicWeightRatio() ) );
-  REQUIRE( 2 == chunk.LO() );
-  REQUIRE( 2 == chunk.representation() );
+  CHECK( 92235. == Approx( chunk.ZA() ) );
+  CHECK( 2.330250e+2 == Approx( chunk.AWR() ) );
+  CHECK( 2.330250e+2 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 2 == chunk.LO() );
+  CHECK( 2 == chunk.representation() );
 
   auto data = std::get< TransitionProbabilities >( chunk.photonProduction() );
   CHECK( 2 == data.LO() );
@@ -484,7 +484,7 @@ void verifyChunkWithLO2LG1( const section::Type< 12 >& chunk ) {
   CHECK( 1.0 == Approx( data.conditionalProbabilities()[0] ) );
   CHECK( 1.0 == Approx( data.conditionalProbabilities()[1] ) );
 
-  REQUIRE( 3 == chunk.NC() );
+  CHECK( 3 == chunk.NC() );
 }
 
 std::string chunkWithLO2LG2() {
@@ -496,14 +496,14 @@ std::string chunkWithLO2LG2() {
 
 void verifyChunkWithLO2LG2( const section::Type< 12 >& chunk ) {
 
-  REQUIRE( 51 == chunk.MT() );
-  REQUIRE( 51 == chunk.sectionNumber() );
+  CHECK( 51 == chunk.MT() );
+  CHECK( 51 == chunk.sectionNumber() );
 
-  REQUIRE( 92235. == Approx( chunk.ZA() ) );
-  REQUIRE( 2.330250e+2 == Approx( chunk.AWR() ) );
-  REQUIRE( 2.330250e+2 == Approx( chunk.atomicWeightRatio() ) );
-  REQUIRE( 2 == chunk.LO() );
-  REQUIRE( 2 == chunk.representation() );
+  CHECK( 92235. == Approx( chunk.ZA() ) );
+  CHECK( 2.330250e+2 == Approx( chunk.AWR() ) );
+  CHECK( 2.330250e+2 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 2 == chunk.LO() );
+  CHECK( 2 == chunk.representation() );
 
   auto data = std::get< TransitionProbabilities >( chunk.photonProduction() );
   CHECK( 2 == data.LO() );
@@ -535,7 +535,7 @@ void verifyChunkWithLO2LG2( const section::Type< 12 >& chunk ) {
   CHECK( 3.215434e-3 == Approx( data.conditionalProbabilities()[0] ) );
   CHECK( 3.144654e-3 == Approx( data.conditionalProbabilities()[1] ) );
 
-  REQUIRE( 3 == chunk.NC() );
+  CHECK( 3 == chunk.NC() );
 }
 
 std::string invalidChunk() {

@@ -31,6 +31,7 @@ void wrapPartialDistribution( python::module& module ) {
   component
   .def(
 
+    //! @todo pybind11 lambda move custom type workaround
     python::init( [] ( Probability probability, Distribution distribution )
                      { return Component( std::move( probability ),
                                          std::move( distribution ) ); } ),

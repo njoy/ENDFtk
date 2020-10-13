@@ -37,6 +37,7 @@ void wrapMixedDistributions( python::module& module ) {
   component
   .def(
 
+    //! @todo pybind11 lambda move custom type workaround
     python::init( [] ( LegendreDistributions legendre,
                        TabulatedDistributions tabulated )
                      { return Component( std::move( legendre ),
