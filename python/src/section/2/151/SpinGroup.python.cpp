@@ -104,6 +104,6 @@ void wrapSpinGroup( python::module& module ) {
     "The resonance parameters for this spin group"
   );
 
-  // add standard section definitions
+  // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }

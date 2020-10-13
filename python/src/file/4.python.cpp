@@ -47,6 +47,6 @@ void wrapFile_4( python::module& module ) {
   // wrap the file
   addStandardUnenumeratedFileDefinitions< File, Section, SectionRange >( file );
 
-  // add standard section definitions
+  // add standard file definitions
   addStandardFileDefinitions< File >( file );
 }

@@ -174,6 +174,6 @@ void wrapRMatrixLimited( python::module& module ) {
     "The spin groups"
   );
 
-  // add standard section definitions
+  // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }

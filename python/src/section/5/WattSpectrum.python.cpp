@@ -64,6 +64,6 @@ void wrapWattSpectrum( python::module& module ) {
     "The b parameter data"
   );
 
-  // add standard section definitions
+  // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }

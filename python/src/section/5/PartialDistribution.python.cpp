@@ -66,6 +66,6 @@ void wrapPartialDistribution( python::module& module ) {
     "The distribution"
   );
 
-  // add standard section definitions
+  // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }

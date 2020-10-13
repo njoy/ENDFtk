@@ -224,6 +224,6 @@ void wrapParticlePairs( python::module& module ) {
     "The Q value for each particle pair"
   );
 
-  // add standard section definitions
+  // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }

@@ -96,6 +96,6 @@ void wrapIsotope( python::module& module ) {
     "The resonance ranges for this isotope"
   );
 
-  // add standard section definitions
+  // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }

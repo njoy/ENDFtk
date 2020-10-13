@@ -79,6 +79,6 @@ void wrapGeneralEvaporationSpectrum( python::module& module ) {
     "The distribution function g(x)"
   );
 
-  // add standard section definitions
+  // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }

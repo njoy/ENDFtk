@@ -90,6 +90,6 @@ void wrapUnresolvedEnergyDependentLValue( python::module& module ) {
     "The data for each of the J values"
   );
 
-  // add standard section definitions
+  // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }

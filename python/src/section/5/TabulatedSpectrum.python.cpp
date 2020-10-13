@@ -82,6 +82,6 @@ void wrapTabulatedSpectrum( python::module& module ) {
   // add standard tab2 definitions
   addStandardInterpolationTableDefinitions< Component >( component );
 
-  // add standard section definitions
+  // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }

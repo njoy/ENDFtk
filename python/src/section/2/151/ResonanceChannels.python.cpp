@@ -196,6 +196,6 @@ void wrapResonanceChannels( python::module& module ) {
     "The effective channel radii (used in the calculation of the phase shift)"
   );
 
-  // add standard section definitions
+  // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }

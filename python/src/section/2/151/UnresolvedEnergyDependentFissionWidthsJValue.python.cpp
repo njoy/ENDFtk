@@ -215,6 +215,6 @@ void wrapUnresolvedEnergyDependentFissionWidthsJValue( python::module& module ) 
     "The interpolation range boundaries"
   );
 
-  // add standard section definitions
+  // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }

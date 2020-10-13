@@ -91,6 +91,6 @@ void wrapResonanceParameters( python::module& module ) {
     "The resonance parameters"
   );
 
-  // add standard section definitions
+  // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }

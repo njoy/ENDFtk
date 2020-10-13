@@ -78,6 +78,6 @@ void wrapLegendreCoefficients( python::module& module ) {
     "assumed to be equal to 1)"
   );
 
-  // add standard section definitions
+  // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }

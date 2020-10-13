@@ -225,6 +225,6 @@ void wrapUnresolvedEnergyIndependentLValue( python::module& module ) {
     "The average competitive width values"
   );
 
-  // add standard section definitions
+  // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }

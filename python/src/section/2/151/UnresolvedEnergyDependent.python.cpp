@@ -139,6 +139,6 @@ void wrapUnresolvedEnergyDependent( python::module& module ) {
     "The l values and its resonance parameters"
   );
 
-  // add standard section definitions
+  // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }

@@ -183,6 +183,6 @@ void wrapReichMooreLValue( python::module& module ) {
     "The second fission widths"
   );
 
-  // add standard section definitions
+  // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }

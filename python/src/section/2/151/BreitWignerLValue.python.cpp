@@ -211,6 +211,6 @@ void wrapBreitWignerLValue( python::module& module ) {
     "The competitive widths"
   );
 
-  // add standard section definitions
+  // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }

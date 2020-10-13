@@ -98,6 +98,6 @@ void wrapSpecialCase( python::module& module ) {
     "The target spin"
   );
 
-  // add standard section definitions
+  // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }
