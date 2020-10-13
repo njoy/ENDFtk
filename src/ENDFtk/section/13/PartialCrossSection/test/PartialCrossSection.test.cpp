@@ -96,11 +96,11 @@ SCENARIO( "PartialCrossSection" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( PartialCrossSection( eg, es, lp, lf,
-                                             std::move( boundaries ),
-                                             std::move( wrongInterpolants ),
-                                             std::move( x ),
-                                             std::move( y ) ) );
+        CHECK_THROWS( PartialCrossSection( eg, es, lp, lf,
+                                           std::move( boundaries ),
+                                           std::move( wrongInterpolants ),
+                                           std::move( x ),
+                                           std::move( y ) ) );
       } // THEN
     } // WHEN
 
@@ -115,8 +115,8 @@ SCENARIO( "PartialCrossSection" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( PartialCrossSection( begin, end, lineNumber,
-                                             9228, 12, 18 ) );
+        CHECK_THROWS( PartialCrossSection( begin, end, lineNumber,
+                                           9228, 12, 18 ) );
       } // THEN
     } // WHEN
   } // GIVEN

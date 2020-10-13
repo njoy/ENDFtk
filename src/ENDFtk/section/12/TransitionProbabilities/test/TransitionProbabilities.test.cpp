@@ -141,9 +141,9 @@ SCENARIO( "TransitionProbabilities" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( TransitionProbabilities( energy,
-                                                 std::move( energies ),
-                                                 std::move( probabilities ) ) );
+        CHECK_THROWS( TransitionProbabilities( energy,
+                                               std::move( energies ),
+                                               std::move( probabilities ) ) );
       } // THEN
     } // WHEN
 
@@ -157,10 +157,10 @@ SCENARIO( "TransitionProbabilities" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( TransitionProbabilities( energy,
-                                                 std::move( energies ),
-                                                 std::move( probabilities ),
-                                                 std::move( conditionals ) ) );
+        CHECK_THROWS( TransitionProbabilities( energy,
+                                               std::move( energies ),
+                                               std::move( probabilities ),
+                                               std::move( conditionals ) ) );
       } // THEN
     } // WHEN
 
@@ -173,8 +173,8 @@ SCENARIO( "TransitionProbabilities" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( TransitionProbabilities( begin, end, lineNumber,
-                                                 9228, 12, 51 ) );
+        CHECK_THROWS( TransitionProbabilities( begin, end, lineNumber,
+                                               9228, 12, 51 ) );
       } // THEN
     } // WHEN
 
@@ -187,8 +187,8 @@ SCENARIO( "TransitionProbabilities" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( TransitionProbabilities( begin, end, lineNumber,
-                                                 9228, 12, 51 ) );
+        CHECK_THROWS( TransitionProbabilities( begin, end, lineNumber,
+                                               9228, 12, 51 ) );
       } // THEN
     } // WHEN
   } // GIVEN

@@ -85,10 +85,10 @@ SCENARIO( "TotalCrossSection" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( TotalCrossSection( std::move( boundaries ),
-                                           std::move( wrongInterpolants ),
-                                           std::move( x ),
-                                           std::move( y ) ) );
+        CHECK_THROWS( TotalCrossSection( std::move( boundaries ),
+                                         std::move( wrongInterpolants ),
+                                         std::move( x ),
+                                         std::move( y ) ) );
       } // THEN
     } // WHEN
 
@@ -103,8 +103,8 @@ SCENARIO( "TotalCrossSection" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( TotalCrossSection( begin, end, lineNumber,
-                                           9228, 13, 18 ) );
+        CHECK_THROWS( TotalCrossSection( begin, end, lineNumber,
+                                         9228, 13, 18 ) );
       } // THEN
     } // WHEN
   } // GIVEN
