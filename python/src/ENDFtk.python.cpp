@@ -19,6 +19,7 @@ void wrapFile_3( python::module& );
 void wrapFile_4( python::module& );
 void wrapFile_5( python::module& );
 void wrapFile_12( python::module& );
+void wrapFile_13( python::module& );
 
 // declarations - tree
 void wrapTreeSection( python::module& );
@@ -58,6 +59,7 @@ PYBIND11_MODULE( ENDFtk, module ) {
   wrapFile_4( module );
   wrapFile_5( module );
   wrapFile_12( module );
+  wrapFile_13( module );
 
   // create the submodule
   python::module submodule = module.def_submodule(

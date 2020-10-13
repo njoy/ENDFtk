@@ -6,7 +6,7 @@ import unittest
 # local imports
 from ENDFtk.MF12 import TransitionProbabilities
 
-class Test_ENDFtk_MF5_TransitionProbabilities( unittest.TestCase ) :
+class Test_ENDFtk_MF12_TransitionProbabilities( unittest.TestCase ) :
     """Unit test for the TransitionProbabilities class."""
 
     chunk_lg1 = ( ' 5.170900+4 0.000000+0          0          0          4          2922812 51     \n'

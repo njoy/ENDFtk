@@ -4,18 +4,18 @@ import unittest
 # third party imports
 
 # local imports
-from ENDFtk.MF12 import PartialMultiplicity
+from ENDFtk.MF13 import PartialCrossSection
 
-class Test_ENDFtk_MF12_PartialMultiplicity( unittest.TestCase ) :
-    """Unit test for the PartialMultiplicity class."""
+class Test_ENDFtk_MF13_PartialCrossSection( unittest.TestCase ) :
+    """Unit test for the PartialCrossSection class."""
 
-    chunk = ( ' 0.000000+0 3.000000+0          2          1          1          2922812 18     \n'
-              '          2          2                                            922812 18     \n'
-              ' 1.000000-5 8.579050+0 3.000000+7 1.487778+1                      922812 18     \n' )
+    chunk = ( ' 0.000000+0 3.000000+0          2          1          1          2922813 18     \n'
+              '          2          2                                            922813 18     \n'
+              ' 1.000000-5 8.579050+0 3.000000+7 1.487778+1                      922813 18     \n' )
 
-    invalid = ( ' 0.000000+0 3.000000+0          2          1          2          2922812 18     \n'
-                '          2          2                                            922812 18     \n'
-                ' 1.000000-5 8.579050+0 3.000000+7 1.487778+1                      922812 18     \n' )
+    invalid = ( ' 0.000000+0 3.000000+0          2          1          2          2922813 18     \n'
+                '          2          2                                            922813 18     \n'
+                ' 1.000000-5 8.579050+0 3.000000+7 1.487778+1                      922813 18     \n' )
 
     def test_component( self ) :
 
@@ -38,37 +38,37 @@ class Test_ENDFtk_MF12_PartialMultiplicity( unittest.TestCase ) :
             self.assertEqual( 2, chunk.boundaries[0] )
             self.assertEqual( 2, len( chunk.E ) )
             self.assertEqual( 2, len( chunk.energies ) )
-            self.assertEqual( 2, len( chunk.Y ) )
-            self.assertEqual( 2, len( chunk.multiplicities ) )
+            self.assertEqual( 2, len( chunk.XS ) )
+            self.assertEqual( 2, len( chunk.cross_sections ) )
             self.assertAlmostEqual( 1e-5, chunk.E[0] )
             self.assertAlmostEqual( 3e+7, chunk.E[1] )
             self.assertAlmostEqual( 1e-5, chunk.energies[0] )
             self.assertAlmostEqual( 3e+7, chunk.energies[1] )
-            self.assertAlmostEqual( 8.579050e+0, chunk.Y[0] )
-            self.assertAlmostEqual( 1.487778e+1, chunk.Y[1] )
-            self.assertAlmostEqual( 8.579050e+0, chunk.multiplicities[0] )
-            self.assertAlmostEqual( 1.487778e+1, chunk.multiplicities[1] )
+            self.assertAlmostEqual( 8.579050e+0, chunk.XS[0] )
+            self.assertAlmostEqual( 1.487778e+1, chunk.XS[1] )
+            self.assertAlmostEqual( 8.579050e+0, chunk.cross_sections[0] )
+            self.assertAlmostEqual( 1.487778e+1, chunk.cross_sections[1] )
 
             self.assertEqual( 3, chunk.NC )
 
             # verify string
-            self.assertEqual( self.chunk, chunk.to_string( 9228, 12, 18 ) )
+            self.assertEqual( self.chunk, chunk.to_string( 9228, 13, 18 ) )
 
         # the data is given explicitly
-        chunk = PartialMultiplicity( energy = 0.0, level = 3.0, lp = 2, lf = 1,
+        chunk = PartialCrossSection( energy = 0.0, level = 3.0, lp = 2, lf = 1,
                                      boundaries = [ 2 ], interpolants = [ 2 ],
                                      energies = [ 1e-5, 3e+7 ],
-                                     multiplicities = [ 8.579050e+0, 1.487778e+1 ] )
+                                     xs = [ 8.579050e+0, 1.487778e+1 ] )
 
         verify_chunk( self, chunk )
 
         # the data is read from a string
-        chunk = PartialMultiplicity.from_string( self.chunk, 9228, 12, 18 )
+        chunk = PartialCrossSection.from_string( self.chunk, 9228, 13, 18 )
 
         verify_chunk( self, chunk )
 
         # the data is copied
-        copy = PartialMultiplicity( chunk )
+        copy = PartialCrossSection( chunk )
 
         verify_chunk( self, copy )
 
@@ -79,14 +79,14 @@ class Test_ENDFtk_MF12_PartialMultiplicity( unittest.TestCase ) :
         # wrong boundaries
         with self.assertRaises( Exception ) :
 
-            chunk = PartialMultiplicity( energy = 0.0, level = 3.0, lp = 2, lf = 1,
+            chunk = PartialCrossSection( energy = 0.0, level = 3.0, lp = 2, lf = 1,
                                          boundaries = [ 2, 5 ], interpolants = [ 2 ],
                                          energies = [ 1e-5, 3e+7 ],
-                                         multiplicities = [ 8.579050e+0, 1.487778e+1 ] )
+                                         xs = [ 8.579050e+0, 1.487778e+1 ] )
 
         with self.assertRaises( Exception ) :
 
-            chunk = PartialMultiplicity.from_string( self.invalid, 9228, 12, 18 )
+            chunk = PartialCrossSection.from_string( self.invalid, 9228, 13, 18 )
 
 if __name__ == '__main__' :
 

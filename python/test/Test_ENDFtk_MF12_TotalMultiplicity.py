@@ -6,7 +6,7 @@ import unittest
 # local imports
 from ENDFtk.MF12 import TotalMultiplicity
 
-class Test_ENDFtk_MF5_TotalMultiplicity( unittest.TestCase ) :
+class Test_ENDFtk_MF12_TotalMultiplicity( unittest.TestCase ) :
     """Unit test for the TotalMultiplicity class."""
 
     chunk = ( ' 0.000000+0 0.000000+0          0          0          1          2922812 18     \n'

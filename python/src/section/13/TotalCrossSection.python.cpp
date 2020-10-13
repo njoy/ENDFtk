@@ -3,17 +3,17 @@
 #include <pybind11/stl.h>
 
 // local includes
-#include "ENDFtk/section/12.hpp"
+#include "ENDFtk/section/13.hpp"
 #include "definitions.hpp"
 #include "views.hpp"
 
 // namespace aliases
 namespace python = pybind11;
 
-void wrapTotalMultiplicity( python::module& module ) {
+void wrapTotalCrossSection( python::module& module ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 12 >::TotalMultiplicity;
+  using Component = njoy::ENDFtk::section::Type< 13 >::TotalCrossSection;
 
   // wrap views created by this section
 
@@ -21,8 +21,8 @@ void wrapTotalMultiplicity( python::module& module ) {
   python::class_< Component > component(
 
     module,
-    "TotalMultiplicity",
-    "MF12 section - the total photon multiplicity"
+    "TotalCrossSection",
+    "MF13 section - the total photon production cross section"
   );
 
   // wrap the section
@@ -32,14 +32,14 @@ void wrapTotalMultiplicity( python::module& module ) {
     python::init< std::vector< long >&&, std::vector< long >&&,
                   std::vector< double >&&, std::vector< double >&& >(),
     python::arg( "boundaries" ), python::arg( "interpolants" ),
-    python::arg( "energies" ), python::arg( "multiplicities" ),
+    python::arg( "energies" ), python::arg( "xs" ),
     "Initialise the component\n\n"
     "Arguments:\n"
     "    self              the component\n"
     "    boundaries        the interpolation range boundaries\n"
     "    interpolants      the interpolation types for each range\n"
     "    energies          the energy values\n"
-    "    multiplicities    the multiplicity values"
+    "    xs                the cross section values"
   )
   .def_property_readonly(
 
@@ -57,17 +57,17 @@ void wrapTotalMultiplicity( python::module& module ) {
   )
   .def_property_readonly(
 
-    "Y",
+    "XS",
     [] ( const Component& self ) -> DoubleRange
-       { return self.Y(); },
-    "The multiplicity values"
+       { return self.XS(); },
+    "The cross section values"
   )
   .def_property_readonly(
 
-    "multiplicities",
+    "cross_sections",
     [] ( const Component& self ) -> DoubleRange
-       { return self.multiplicities(); },
-    "The multiplicity values"
+       { return self.crossSections(); },
+    "The cross section values"
   );
 
   // add standard tab1 definitions

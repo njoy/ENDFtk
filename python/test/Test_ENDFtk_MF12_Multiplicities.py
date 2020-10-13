@@ -8,7 +8,7 @@ from ENDFtk.MF12 import Multiplicities
 from ENDFtk.MF12 import TotalMultiplicity
 from ENDFtk.MF12 import PartialMultiplicity
 
-class Test_ENDFtk_MF5_Multiplicities( unittest.TestCase ) :
+class Test_ENDFtk_MF12_Multiplicities( unittest.TestCase ) :
     """Unit test for the Multiplicities class."""
 
     chunk_partial = ( ' 0.000000+0 0.000000+0          0          1          1          2922812 18     \n'

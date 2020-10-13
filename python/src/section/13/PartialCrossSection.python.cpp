@@ -3,17 +3,17 @@
 #include <pybind11/stl.h>
 
 // local includes
-#include "ENDFtk/section/12.hpp"
+#include "ENDFtk/section/13.hpp"
 #include "definitions.hpp"
 #include "views.hpp"
 
 // namespace aliases
 namespace python = pybind11;
 
-void wrapPartialMultiplicity( python::module& module ) {
+void wrapPartialCrossSection( python::module& module ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 12 >::PartialMultiplicity;
+  using Component = njoy::ENDFtk::section::Type< 13 >::PartialCrossSection;
 
   // wrap views created by this section
 
@@ -21,8 +21,8 @@ void wrapPartialMultiplicity( python::module& module ) {
   python::class_< Component > component(
 
     module,
-    "PartialMultiplicity",
-    "MF12 section - a partial photon multiplicity (either for the continuum\n"
+    "PartialCrossSection",
+    "MF13 section - a partial photon cross section (either for the continuum\n"
     "               or a discrete photon)"
   );
 
@@ -36,7 +36,7 @@ void wrapPartialMultiplicity( python::module& module ) {
     python::arg( "energy" ), python::arg( "level" ),
     python::arg( "lp" ), python::arg( "lf" ),
     python::arg( "boundaries" ), python::arg( "interpolants" ),
-    python::arg( "energies" ), python::arg( "multiplicities" ),
+    python::arg( "energies" ), python::arg( "xs" ),
     "Initialise the component\n\n"
     "Arguments:\n"
     "    self              the component\n"
@@ -48,7 +48,7 @@ void wrapPartialMultiplicity( python::module& module ) {
     "    boundaries        the interpolation range boundaries\n"
     "    interpolants      the interpolation types for each range\n"
     "    energies          the energy values\n"
-    "    multiplicities    the multiplicity values"
+    "    xs                the cross section values"
   )
   .def_property_readonly(
 
@@ -114,17 +114,17 @@ void wrapPartialMultiplicity( python::module& module ) {
   )
   .def_property_readonly(
 
-    "Y",
+    "XS",
     [] ( const Component& self ) -> DoubleRange
-       { return self.Y(); },
-    "The multiplicity values"
+       { return self.XS(); },
+    "The cross section values"
   )
   .def_property_readonly(
 
-    "multiplicities",
+    "cross_sections",
     [] ( const Component& self ) -> DoubleRange
-       { return self.multiplicities(); },
-    "The multiplicity values"
+       { return self.crossSections(); },
+    "The cross section values"
   );
 
   // add standard tab1 definitions
