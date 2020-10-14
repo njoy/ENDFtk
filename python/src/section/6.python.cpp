@@ -19,6 +19,7 @@ void wrapDiscreteTwoBodyRecoils( python::module& );       // law=4
 void wrapNBodyPhaseSpace( python::module& );              // law=6
 void wrapEnergyDistribution( python::module& );           // law=7
 void wrapAngularDistribution( python::module& );          // law=7
+void wrapLaboratoryAngleEnergy( python::module& );        // law=7
 void wrapReactionProduct( python::module& );
 
 void wrapSection_6( python::module& module ) {
@@ -51,6 +52,7 @@ void wrapSection_6( python::module& module ) {
   wrapNBodyPhaseSpace( module );
   wrapEnergyDistribution( module );
   wrapAngularDistribution( module );
+  wrapLaboratoryAngleEnergy( module );
   wrapReactionProduct( module );
 
   // wrap the section

@@ -30,13 +30,48 @@ public:
    */
   static constexpr int LAW() { return 7; }
 
+  /**
+   *  @brief Return the number of interpolation regions for the incident
+   *         energies
+   */
   long NR() const { return this->data_.tab2().NR(); }
+
+  /**
+   *  @brief Return the number of incident energy values
+   */
   long NE() const { return this->data_.tab2().NZ(); }
 
+  /**
+   *  @brief Return the interpolants for the incident energy axis
+   */
+  auto interpolants() const { return this->data_.tab2().interpolants(); }
+
+  /**
+   *  @brief Return the interpolation region boundaries for the incident
+   *         energy axis
+   */
+  auto boundaries() const { return this->data_.tab2().boundaries(); }
+
+  /**
+   *  @brief Return the angular distributions
+   */
   auto angularDistributions() const { return this->data_.records(); }
 
-  auto interpolants() const { return this->data_.tab2().interpolants(); }
-  auto boundaries() const { return this->data_.tab2().boundaries(); }
+  /**
+   *  @brief Return the incident energy values
+   */
+  auto E() const {
+
+    return this->angularDistributions()
+               | ranges::view::transform(
+                     [] ( const auto& record )
+                        { return record.incidentEnergy(); } );
+  }
+
+  /**
+  *  @brief Return the incident energy values
+   */
+  auto incidentEnergies() const { return this->E(); }
 
   /**
    *  @brief Return the number of lines in this MF6 component

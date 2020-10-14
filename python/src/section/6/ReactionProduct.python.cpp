@@ -23,7 +23,7 @@ void wrapReactionProduct( python::module& module ) {
   python::class_< Component > component(
 
     module,
-    "Multiplicities",
+    "ReactionProduct",
     "MF6 section - a reaction product with multiplicity and distribution data"
   );
 
