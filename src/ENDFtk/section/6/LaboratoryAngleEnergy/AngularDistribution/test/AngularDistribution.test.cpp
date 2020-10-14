@@ -18,65 +18,65 @@ std::string invalidChunk();
 
 SCENARIO( "AngularDistribution" ) {
 
-  GIVEN( "valid data for a "
-         "AngularDistribution" ) {
+  GIVEN( "valid data for an AngularDistribution" ) {
+
+    std::string string = chunk();
 
     WHEN( "the data is given explicitly" ) {
 
       double energy = 1e-5;
       std::vector< long > boundaries = { 2 };
       std::vector< long > interpolants = { 4 };
-      std::vector< EnergyDistribution >
-        cosines = { EnergyDistribution(
+      std::vector< EnergyDistribution > distributions =
+                  { EnergyDistribution(
                       1.0, { 4 }, { 2 },
                       { 1e-5, 1.1e+7, 1.147e+7, 3e+7 }, { 0., 2., 4., 6. } ),
                     EnergyDistribution(
                       -1.0, { 3 }, { 5 },
                       { 1e-5, 1e+6, 3e+7 }, { 6., 4., 2. } ) };
 
+      AngularDistribution chunk( energy,
+                                 std::move( boundaries ),
+                                 std::move( interpolants ),
+                                 std::move( distributions ) );
+
       THEN( "a AngularDistribution can be constructed and members can be "
             "tested" ) {
 
-        AngularDistribution chunk( energy,
-                                   std::move( boundaries ),
-                                   std::move( interpolants ),
-                                   std::move( cosines ) );
         verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 6, 5 );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream" ) {
 
-      std::string string = chunk();
       auto begin = string.begin();
       auto end = string.end();
       long lineNumber = 1;
 
+      AngularDistribution chunk(begin, end, lineNumber, 9228, 6, 5 );
+
       THEN( "a AngularDistribution can be constructed and members can be "
             "tested" ) {
 
-        AngularDistribution chunk(begin, end, lineNumber, 9228, 6, 5 );
         verifyChunk( chunk );
       } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 6, 5 );
+        CHECK( buffer == string );
+      } // THEN
     } // WHEN
-  } // GIVEN
-
-  GIVEN( "a valid instance of AngularDistribution" ) {
-
-    std::string string = chunk();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-    AngularDistribution
-      chunk(begin, end, lineNumber, 9228, 6, 5 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 9228, 6, 5 );
-      CHECK( buffer == string );
-    } // THEN
   } // GIVEN
 
   GIVEN( "invalid data for a AngularDistribution" ) {
@@ -176,51 +176,79 @@ std::string chunk() {
 
 void verifyChunk( const AngularDistribution& chunk ) {
 
-  CHECK( 1e-5 == Approx( chunk.energy() ) );
+  CHECK( 1e-5 == Approx( chunk.incidentEnergy() ) );
 
   CHECK( 2 == chunk.NMU() );
   CHECK( 1 == chunk.NRM() );
+  CHECK( 1 == chunk.NR() );
   CHECK( 1 == chunk.interpolants().size() );
   CHECK( 1 == chunk.boundaries().size() );
   CHECK( 4 == chunk.interpolants()[0] );
   CHECK( 2 == chunk.boundaries()[0] );
 
-      auto cosines = chunk.energyDistributions();
-  CHECK( 2 == cosines.size() );
+  CHECK( 2 == chunk.MU().size() );
+  CHECK( 2 == chunk.cosines().size() );
+  CHECK( 1. == Approx( chunk.MU()[0] ) );
+  CHECK( -1. == Approx( chunk.MU()[1] ) );
+  CHECK( 1. == Approx( chunk.cosines()[0] ) );
+  CHECK( -1. == Approx( chunk.cosines()[1] ) );
 
-  CHECK( 1. == Approx( cosines[0].cosine() ) );
-  CHECK( 1 == cosines[0].NRP() );
-  CHECK( 4 == cosines[0].NEP() );
-  CHECK( 1 == cosines[0].interpolants().size() );
-  CHECK( 1 == cosines[0].boundaries().size() );
-  CHECK( 2 == cosines[0].interpolants()[0] );
-  CHECK( 4 == cosines[0].boundaries()[0] );
-  CHECK( 4 == cosines[0].energies().size() );
-  CHECK( 4 == cosines[0].probabilities().size() );
-  CHECK( 1e-5 == Approx( cosines[0].energies()[0] ) );
-  CHECK( 1.1e+7 == Approx( cosines[0].energies()[1] ) );
-  CHECK( 1.147e+7 == Approx( cosines[0].energies()[2] ) );
-  CHECK( 3e+7 == Approx( cosines[0].energies()[3] ) );
-  CHECK( 0. == Approx( cosines[0].probabilities()[0] ) );
-  CHECK( 2. == Approx( cosines[0].probabilities()[1] ) );
-  CHECK( 4. == Approx( cosines[0].probabilities()[2] ) );
-  CHECK( 6. == Approx( cosines[0].probabilities()[3] ) );
+  auto distributions = chunk.energyDistributions();
+  CHECK( 2 == distributions.size() );
 
-  CHECK( -1. == Approx( cosines[1].cosine() ) );
-  CHECK( 1 == cosines[1].NRP() );
-  CHECK( 3 == cosines[1].NEP() );
-  CHECK( 1 == cosines[1].interpolants().size() );
-  CHECK( 1 == cosines[1].boundaries().size() );
-  CHECK( 5 == cosines[1].interpolants()[0] );
-  CHECK( 3 == cosines[1].boundaries()[0] );
-  CHECK( 3 == cosines[1].energies().size() );
-  CHECK( 3 == cosines[1].probabilities().size() );
-  CHECK( 1e-5 == Approx( cosines[1].energies()[0] ) );
-  CHECK( 1e+6 == Approx( cosines[1].energies()[1] ) );
-  CHECK( 3e+7 == Approx( cosines[1].energies()[2] ) );
-  CHECK( 6. == Approx( cosines[1].probabilities()[0] ) );
-  CHECK( 4. == Approx( cosines[1].probabilities()[1] ) );
-  CHECK( 2. == Approx( cosines[1].probabilities()[2] ) );
+  CHECK( 1. == Approx( distributions[0].MU() ) );
+  CHECK( 1. == Approx( distributions[0].cosine() ) );
+  CHECK( 1 == distributions[0].NRP() );
+  CHECK( 4 == distributions[0].NEP() );
+  CHECK( 1 == distributions[0].interpolants().size() );
+  CHECK( 1 == distributions[0].boundaries().size() );
+  CHECK( 2 == distributions[0].interpolants()[0] );
+  CHECK( 4 == distributions[0].boundaries()[0] );
+  CHECK( 4 == distributions[0].EP().size() );
+  CHECK( 4 == distributions[0].energies().size() );
+  CHECK( 4 == distributions[0].F().size() );
+  CHECK( 4 == distributions[0].probabilities().size() );
+  CHECK( 1e-5 == Approx( distributions[0].EP()[0] ) );
+  CHECK( 1.1e+7 == Approx( distributions[0].EP()[1] ) );
+  CHECK( 1.147e+7 == Approx( distributions[0].EP()[2] ) );
+  CHECK( 3e+7 == Approx( distributions[0].EP()[3] ) );
+  CHECK( 1e-5 == Approx( distributions[0].energies()[0] ) );
+  CHECK( 1.1e+7 == Approx( distributions[0].energies()[1] ) );
+  CHECK( 1.147e+7 == Approx( distributions[0].energies()[2] ) );
+  CHECK( 3e+7 == Approx( distributions[0].energies()[3] ) );
+  CHECK( 0. == Approx( distributions[0].F()[0] ) );
+  CHECK( 2. == Approx( distributions[0].F()[1] ) );
+  CHECK( 4. == Approx( distributions[0].F()[2] ) );
+  CHECK( 6. == Approx( distributions[0].F()[3] ) );
+  CHECK( 0. == Approx( distributions[0].probabilities()[0] ) );
+  CHECK( 2. == Approx( distributions[0].probabilities()[1] ) );
+  CHECK( 4. == Approx( distributions[0].probabilities()[2] ) );
+  CHECK( 6. == Approx( distributions[0].probabilities()[3] ) );
+
+  CHECK( -1. == Approx( distributions[1].MU() ) );
+  CHECK( -1. == Approx( distributions[1].cosine() ) );
+  CHECK( 1 == distributions[1].NRP() );
+  CHECK( 3 == distributions[1].NEP() );
+  CHECK( 1 == distributions[1].interpolants().size() );
+  CHECK( 1 == distributions[1].boundaries().size() );
+  CHECK( 5 == distributions[1].interpolants()[0] );
+  CHECK( 3 == distributions[1].boundaries()[0] );
+  CHECK( 3 == distributions[1].EP().size() );
+  CHECK( 3 == distributions[1].energies().size() );
+  CHECK( 3 == distributions[1].F().size() );
+  CHECK( 3 == distributions[1].probabilities().size() );
+  CHECK( 1e-5 == Approx( distributions[1].EP()[0] ) );
+  CHECK( 1e+6 == Approx( distributions[1].EP()[1] ) );
+  CHECK( 3e+7 == Approx( distributions[1].EP()[2] ) );
+  CHECK( 1e-5 == Approx( distributions[1].energies()[0] ) );
+  CHECK( 1e+6 == Approx( distributions[1].energies()[1] ) );
+  CHECK( 3e+7 == Approx( distributions[1].energies()[2] ) );
+  CHECK( 6. == Approx( distributions[1].F()[0] ) );
+  CHECK( 4. == Approx( distributions[1].F()[1] ) );
+  CHECK( 2. == Approx( distributions[1].F()[2] ) );
+  CHECK( 6. == Approx( distributions[1].probabilities()[0] ) );
+  CHECK( 4. == Approx( distributions[1].probabilities()[1] ) );
+  CHECK( 2. == Approx( distributions[1].probabilities()[2] ) );
 
   CHECK( 9 == chunk.NC() );
 }

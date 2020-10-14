@@ -1,6 +1,6 @@
 /**
  *  @class
- *  @brief The secondary energy distribution associated to a specific cosine
+ *  @brief The secondary energy distribution associated to a given cosine
  *         value
  *
  *  See ENDF102, section 12.2.8 for more information.

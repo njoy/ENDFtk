@@ -23,7 +23,7 @@ void wrapEnergyDistribution( python::module& module ) {
     module,
     "EnergyDistribution",
     "MF6 section - LAW=7 - the secondary energy distribution associated to a\n"
-    "                      specific cosine value"
+    "                      given cosine value"
   );
 
   // wrap the section

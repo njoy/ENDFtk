@@ -1180,7 +1180,7 @@ SCENARIO( "ReactionProduct" ) {
 
       auto energies = law.angularDistributions();
 
-      CHECK( 1e-5 == Approx( energies[0].energy() ) );
+      CHECK( 1e-5 == Approx( energies[0].incidentEnergy() ) );
 
       CHECK( 2 == energies[0].NMU() );
       CHECK( 1 == energies[0].NRM() );
@@ -1226,7 +1226,7 @@ SCENARIO( "ReactionProduct" ) {
       CHECK( 4. == Approx( cosines[1].probabilities()[1] ) );
       CHECK( 2. == Approx( cosines[1].probabilities()[2] ) );
 
-      CHECK( 2e+7 == Approx( energies[1].energy() ) );
+      CHECK( 2e+7 == Approx( energies[1].incidentEnergy() ) );
 
       CHECK( 2 == energies[1].NMU() );
       CHECK( 1 == energies[1].NRM() );
@@ -1331,7 +1331,7 @@ SCENARIO( "ReactionProduct" ) {
 
       auto energies = law.angularDistributions();
 
-      CHECK( 1e-5 == Approx( energies[0].energy() ) );
+      CHECK( 1e-5 == Approx( energies[0].incidentEnergy() ) );
 
       CHECK( 2 == energies[0].NMU() );
       CHECK( 1 == energies[0].NRM() );
@@ -1377,7 +1377,7 @@ SCENARIO( "ReactionProduct" ) {
       CHECK( 4. == Approx( cosines[1].probabilities()[1] ) );
       CHECK( 2. == Approx( cosines[1].probabilities()[2] ) );
 
-      CHECK( 2e+7 == Approx( energies[1].energy() ) );
+      CHECK( 2e+7 == Approx( energies[1].incidentEnergy() ) );
 
       CHECK( 2 == energies[1].NMU() );
       CHECK( 1 == energies[1].NRM() );
