@@ -22,8 +22,8 @@ void wrapIsotropicDiscreteEmission( python::module& module ) {
 
     module,
     "IsotropicDiscreteEmission",
-    "MF6 section - the angular distribution is isotropic in CM and no data\n"
-    "              is given"
+    "MF6 section - LAW=3 - the angular distribution is isotropic in CM and\n"
+    "                      no data is given"
   );
 
   // wrap the section

@@ -55,7 +55,6 @@ SCENARIO( "Multiplicity" ) {
 
     WHEN( "the data is read from a string/stream" ) {
 
-      std::string string = chunk();
       auto begin = string.begin();
       auto end = string.end();
       long lineNumber = 1;

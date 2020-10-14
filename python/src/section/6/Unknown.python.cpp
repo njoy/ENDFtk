@@ -22,7 +22,7 @@ void wrapUnknownDistribution( python::module& module ) {
 
     module,
     "Unknown",
-    "MF6 section - the distribution is unknown and no data is given"
+    "MF6 section - LAW=0 - the distribution is unknown and no data is given"
   );
 
   // wrap the section

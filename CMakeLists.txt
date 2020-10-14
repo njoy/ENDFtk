@@ -131,6 +131,7 @@ pybind11_add_module( ENDFtk.python
     python/src/section/6/DiscreteTwoBodyRecoils.python.cpp
     python/src/section/6/NBodyPhaseSpace.python.cpp
     python/src/section/6/ReactionProduct.python.cpp
+    python/src/section/6/EnergyDistribution.python.cpp
     python/src/section/12.python.cpp
     python/src/section/12/TotalMultiplicity.python.cpp
     python/src/section/12/PartialMultiplicity.python.cpp

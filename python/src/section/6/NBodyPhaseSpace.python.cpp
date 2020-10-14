@@ -22,7 +22,8 @@ void wrapNBodyPhaseSpace( python::module& module ) {
 
     module,
     "NBodyPhaseSpace",
-    "MF6 section - a simplified distribution for neutron and charged particles"
+    "MF6 section - LAW=6 - a simplified distribution for neutron and charged\n"
+    "                       particles"
   );
 
   // wrap the section

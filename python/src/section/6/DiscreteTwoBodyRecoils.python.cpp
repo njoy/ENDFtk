@@ -22,8 +22,8 @@ void wrapDiscreteTwoBodyRecoils( python::module& module ) {
 
     module,
     "DiscreteTwoBodyRecoils",
-    "MF6 section - the energy and angular distribution can be determined from\n"
-    "              kinematics and no data is given"
+    "MF6 section - LAW=4 - the energy and angular distribution can be\n"
+    "                      determined from kinematics and no data is given"
   );
 
   // wrap the section

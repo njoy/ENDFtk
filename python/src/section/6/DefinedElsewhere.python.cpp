@@ -22,7 +22,8 @@ void wrapDefinedElsewhere( python::module& module ) {
 
     module,
     "DefinedElsewhere",
-    "MF6 section - the distributions are defined elsewhere and no data is given"
+    "MF6 section - LAW<0 - the distributions are defined elsewhere and no\n"
+    "                      data is given"
   );
 
   // wrap the section
