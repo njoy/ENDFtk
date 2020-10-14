@@ -15,11 +15,11 @@ void wrapLegendreDistributions( python::module& module ) {
   // type aliases
   using Component = njoy::ENDFtk::section::Type< 4 >::LegendreDistributions;
   using Distribution = njoy::ENDFtk::section::Type< 4 >::LegendreCoefficients;
-  using DistributionRange = RandomAccessAnyView< std::reference_wrapper< const Distribution > >;
+  using DistributionRange = RandomAccessAnyView< Distribution >;
 
   // wrap views created by this section
   // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< std::reference_wrapper< const Distribution > >(
+  wrapRandomAccessAnyViewOf< Distribution >(
       module,
       "any_view< LegendreCoefficients, random_access >" );
 
@@ -77,9 +77,7 @@ void wrapLegendreDistributions( python::module& module ) {
 
     "angular_distributions",
     [] ( const Component& self ) -> DistributionRange
-       { return self.angularDistributions()
-                | ranges::view::transform( [] ( const auto& element ) -> std::reference_wrapper< const Distribution >
-                                              { return std::cref( element ); } ); },
+       { return self.angularDistributions(); },
     "The angular distributions (one for each incident energy)"
   );
 
