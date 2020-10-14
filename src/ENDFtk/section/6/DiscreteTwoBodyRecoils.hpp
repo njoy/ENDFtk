@@ -10,6 +10,10 @@ class DiscreteTwoBodyRecoils : protected NoLawDataGiven {
 public:
 
   /* methods */
+
+  /**
+   *  @brief Return the distribution type (the LAW flag)
+   */
   static constexpr int LAW() { return 4; }
 
   using NoLawDataGiven::NC;
