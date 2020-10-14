@@ -24,11 +24,11 @@ void wrapSection_4( python::module& module ) {
   using Section = njoy::ENDFtk::section::Type< 4 >;
   using Distributions = njoy::ENDFtk::section::Type< 4 >::Distributions;
   using Distribution = njoy::ENDFtk::section::Type< 4 >::Variant;
-  using DistributionRange = RandomAccessAnyView< Distribution >;
+  using DistributionRange = BasicRandomAccessAnyView< Distribution >;
 
   // wrap views created by this section
   // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< Distribution >(
+  wrapBasicRandomAccessAnyViewOf< Distribution >(
       module,
       "any_view< variant< LegendreCoefficients&, TabulatedDistribution& >, random_access >" );
 

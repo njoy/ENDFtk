@@ -20,7 +20,7 @@ void wrapMixedDistributions( python::module& module ) {
   using LegendreDistributions = njoy::ENDFtk::section::Type< 4 >::LegendreDistributions;
   using TabulatedDistributions = njoy::ENDFtk::section::Type< 4 >::TabulatedDistributions;
   using Distribution = njoy::ENDFtk::section::Type< 4 >::Variant;
-  using DistributionRange = RandomAccessAnyView< Distribution >;
+  using DistributionRange = BasicRandomAccessAnyView< Distribution >;
 
   // wrap views created by this section
 

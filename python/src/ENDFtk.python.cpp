@@ -39,13 +39,16 @@ PYBIND11_MODULE( ENDFtk, module ) {
 
   // wrap some basic recurring views
   // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< double >( module,
-                                       "any_view< double, random_access >" );
-  wrapRandomAccessAnyViewOf< long >( module,
-                                     "any_view< long, random_access >" );
-  wrapRandomAccessAnyViewOf< int >( module,
-                                    "any_view< int, random_access >" );
-  wrapRandomAccessAnyViewOf< RandomAccessAnyView< double > >(
+  wrapBasicRandomAccessAnyViewOf< double >(
+      module,
+      "any_view< double, random_access >" );
+  wrapBasicRandomAccessAnyViewOf< long >(
+      module,
+      "any_view< long, random_access >" );
+  wrapBasicRandomAccessAnyViewOf< int >(
+      module,
+      "any_view< int, random_access >" );
+  wrapBasicRandomAccessAnyViewOf< BasicRandomAccessAnyView< double > >(
       module,
       "any_view< any_view< double, random_access >, random_access >" );
 
