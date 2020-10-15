@@ -175,33 +175,33 @@ SCENARIO( "section::Type< 7, 2 >" ) {
       } // THEN
     } //WHEN
 
-//    WHEN( "there is a tree::Section" ) {
-//
-//      auto begin = sectionString.begin();
-//      auto position = begin;
-//      auto end = sectionString.end();
-//      long lineNumber = 1;
-//      auto head = HEAD( position, end, lineNumber );
-//      tree::Section< std::string::iterator >
-//        section( head, begin, position, end, lineNumber );
-//
-//      section::Type< 7, 2 > chunk = section.parse< 7, 2 >( lineNumber );
-//
-//      THEN( "a section::Type< 7, 2 > can be constructed and members can be "
-//            "tested" ){
-//
-//        verifyCoherentElasticWithTwoTemperatures( chunk );
-//      } // THEN
-//
-//      THEN( "it can be printed" ) {
-//
-//        std::string buffer;
-//        auto output = std::back_inserter( buffer );
-//        chunk.print( output, 27, 7 );
-//
-//        REQUIRE( buffer == sectionString );
-//      } // THEN
-//    } //WHEN
+    WHEN( "there is a tree::Section" ) {
+
+      auto begin = sectionString.begin();
+      auto position = begin;
+      auto end = sectionString.end();
+      long lineNumber = 1;
+      auto head = HEAD( position, end, lineNumber );
+      tree::Section< std::string::iterator >
+        section( head, begin, position, end, lineNumber );
+
+      section::Type< 7, 2 > chunk = section.parse< 7, 2 >( lineNumber );
+
+      THEN( "a section::Type< 7, 2 > can be constructed and members can be "
+            "tested" ){
+
+        verifyCoherentElasticWithTwoTemperatures( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 27, 7 );
+
+        REQUIRE( buffer == sectionString );
+      } // THEN
+    } //WHEN
   } // GIVEN
 
   GIVEN( "valid data for a section::Type< 7, 2 > with incoherent elastic "
