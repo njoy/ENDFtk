@@ -790,8 +790,9 @@ SCENARIO( "ReactionProduct" ) {
       ChargedParticleElasticScattering(
         0.5, 1, { 2 }, { 1 },
         { Law5NuclearAmplitudeExpansion( 1e-5, 3,
-                                         { 1., 2., 3., 4., 5., 6. },
-                                         { { 7., 8. }, { 9., 10. }, { 11., 12. } } ),
+                                         { 1., 2., 3., 4. },
+                                         { { 5., 6. }, { 7., 8. },
+                                           { 9., 10. }, { 11., 12. } } ),
           Law5NuclearPlusInterference( 2e+7, 15,
                                        { 1., 3., 5.}, {2., 4., 6. } ) } );
 
