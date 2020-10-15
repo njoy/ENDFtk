@@ -298,54 +298,54 @@ SCENARIO( "section::Type< 12 >" ) {
       } // THEN
     } // WHEN
 
-//    WHEN( "there is a tree::Section" ) {
-//
-//      auto begin = sectionString.begin();
-//      auto position = begin;
-//      auto end = sectionString.end();
-//      long lineNumber = 1;
-//      auto head = HEAD( position, end, lineNumber );
-//      tree::Section< std::string::iterator >
-//        section( head, begin, position, end, lineNumber );
-//
-//      section::Type< 12 > chunk1 = section.parse< 12 >();
-//      section::Type< 12 > chunk2 = section.parse< 12 >( lineNumber );
-//      section::Type< 12 > chunk3 = section.parse( 12_c );
-//      section::Type< 12 > chunk4 = section.parse( 12_c, lineNumber );
-//
-//      THEN( "a section::Type< 12 > can be constructed and members can be "
-//            "tested" ) {
-//
-//        verifyChunkWithLO2LG2( chunk1 );
-//        verifyChunkWithLO2LG2( chunk2 );
-//        verifyChunkWithLO2LG2( chunk3 );
-//        verifyChunkWithLO2LG2( chunk4 );
-//      } // THEN
-//
-//      THEN( "it can be printed" ) {
-//
-//        std::string buffer1;
-//        auto output1 = std::back_inserter( buffer1 );
-//        chunk1.print( output1, 9228, 12 );
-//
-//        std::string buffer2;
-//        auto output2 = std::back_inserter( buffer2 );
-//        chunk1.print( output2, 9228, 12 );
-//
-//        std::string buffer3;
-//        auto output3 = std::back_inserter( buffer3 );
-//        chunk1.print( output3, 9228, 12 );
-//
-//        std::string buffer4;
-//        auto output4 = std::back_inserter( buffer4 );
-//        chunk1.print( output4, 9228, 12 );
-//
-//        REQUIRE( buffer1 == sectionString );
-//        REQUIRE( buffer2 == sectionString );
-//        REQUIRE( buffer3 == sectionString );
-//        REQUIRE( buffer4 == sectionString );
-//      } // THEN
-//    } // WHEN
+    WHEN( "there is a tree::Section" ) {
+
+      auto begin = sectionString.begin();
+      auto position = begin;
+      auto end = sectionString.end();
+      long lineNumber = 1;
+      auto head = HEAD( position, end, lineNumber );
+      tree::Section< std::string::iterator >
+        section( head, begin, position, end, lineNumber );
+
+      section::Type< 12 > chunk1 = section.parse< 12 >();
+      section::Type< 12 > chunk2 = section.parse< 12 >( lineNumber );
+      section::Type< 12 > chunk3 = section.parse( 12_c );
+      section::Type< 12 > chunk4 = section.parse( 12_c, lineNumber );
+
+      THEN( "a section::Type< 12 > can be constructed and members can be "
+            "tested" ) {
+
+        verifyChunkWithLO2LG2( chunk1 );
+        verifyChunkWithLO2LG2( chunk2 );
+        verifyChunkWithLO2LG2( chunk3 );
+        verifyChunkWithLO2LG2( chunk4 );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer1;
+        auto output1 = std::back_inserter( buffer1 );
+        chunk1.print( output1, 9228, 12 );
+
+        std::string buffer2;
+        auto output2 = std::back_inserter( buffer2 );
+        chunk1.print( output2, 9228, 12 );
+
+        std::string buffer3;
+        auto output3 = std::back_inserter( buffer3 );
+        chunk1.print( output3, 9228, 12 );
+
+        std::string buffer4;
+        auto output4 = std::back_inserter( buffer4 );
+        chunk1.print( output4, 9228, 12 );
+
+        REQUIRE( buffer1 == sectionString );
+        REQUIRE( buffer2 == sectionString );
+        REQUIRE( buffer3 == sectionString );
+        REQUIRE( buffer4 == sectionString );
+      } // THEN
+    } // WHEN
   } // GIVEN
 
   GIVEN( "invalid data for a section::Type< 12 >" ) {
