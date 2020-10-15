@@ -652,46 +652,6 @@ SCENARIO( "section::Type< 7, 4 >" ) {
       } // THEN
     } // WHEN
 
-    WHEN( "invalid LASYM values are given" ) {
-
-      std::vector< int > invalid = { -1, 2, 5, 10 };
-
-      THEN( "an exception is thrown" ){
-
-        for ( auto lasym : invalid ) {
-
-          double za = 127.;
-          double awr = 8.934780e+0;
-          int lat = 1;
-          ScatteringLawConstants constants( 0, 1.976285e+2, 5.000001e+0,
-                                            6.153875e+0, 8.934780e+0, 1 );
-          ScatteringLaw law(
-              Tabulated( { 2 }, { 4 },
-                         { ScatteringFunction(
-                                      293.6, 0.0, { 5 }, { 4 },
-                                      { 4.423802e-3, 4.649528e-3, 4.886772e-3,
-                                        8.418068e+1, 8.847604e+1 },
-                                      { 2.386876e-4, 2.508466e-4, 2.636238e-4,
-                                          1.306574e-9, 5.29573e-10 } ),
-                           ScatteringFunction(
-                                      293.6, 3.952570e-2, { 5 }, { 2 },
-                                      { 4.423802e-3, 4.649528e-3, 4.886772e-3,
-                                        8.418068e+1, 8.847604e+1 },
-                                      { 2.386694e-4, 2.508273e-4, 2.636238e-4,
-                                        2.770291e-4, 2.911373e-4 } ) } ) );
-          EffectiveTemperature principal( { 3 }, { 2 },
-                                          { 293.6, 600., 1200. },
-                                          { 5.332083e+2, 7.354726e+2,
-                                            1.270678e+3 } );
-
-          REQUIRE_THROWS( section74( za, awr, lat, lasym,
-                                     std::move( constants ),
-                                     std::move( law ),
-                                     std::move( principal ) ) );
-        } // THEN
-      } // THEN
-    } // WHEN
-
     WHEN( "no effective temperature is given for a secondary scatterer "
           "with B(7) == 0.0" ) {
 
