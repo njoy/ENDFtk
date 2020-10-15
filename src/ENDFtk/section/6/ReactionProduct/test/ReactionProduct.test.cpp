@@ -790,8 +790,8 @@ SCENARIO( "ReactionProduct" ) {
       ChargedParticleElasticScattering(
         0.5, 1, { 2 }, { 1 },
         { Law5NuclearAmplitudeExpansion( 1e-5, 3,
-                                         { 1., 2., 3., 4., 5., 6.,
-                                           7., 8., 9., 10., 11., 12. } ),
+                                         { 1., 2., 3., 4., 5., 6. },
+                                         { { 7., 8. }, { 9., 10. }, { 11., 12. } } ),
           Law5NuclearPlusInterference( 2e+7, 15,
                                        { 1., 3., 5.}, {2., 4., 6. } ) } );
 
@@ -848,29 +848,41 @@ SCENARIO( "ReactionProduct" ) {
 
       auto subsection1 =
       std::get< Law5NuclearAmplitudeExpansion >( energies[0] );
-      CHECK( 1e-5 == Approx( subsection1.energy() ) );
+      CHECK( 1e-5 == Approx( subsection1.E() ) );
+      CHECK( 1e-5 == Approx( subsection1.incidentEnergy() ) );
       CHECK( 1 == subsection1.LTP() );
       CHECK( 12 == subsection1.NW() );
       CHECK( 3 == subsection1.NL() );
+      CHECK( 4 == subsection1.B().size() );
       CHECK( 4 == subsection1.scatteringCoefficients().size() );
+      CHECK( 1. == Approx( subsection1.B()[0] ) );
+      CHECK( 2. == Approx( subsection1.B()[1] ) );
+      CHECK( 3. == Approx( subsection1.B()[2] ) );
+      CHECK( 4. == Approx( subsection1.B()[3] ) );
       CHECK( 1. == Approx( subsection1.scatteringCoefficients()[0] ) );
       CHECK( 2. == Approx( subsection1.scatteringCoefficients()[1] ) );
       CHECK( 3. == Approx( subsection1.scatteringCoefficients()[2] ) );
       CHECK( 4. == Approx( subsection1.scatteringCoefficients()[3] ) );
+      CHECK( 4 == subsection1.AR().size() );
       CHECK( 4 == subsection1.realInterferenceCoefficients().size() );
+      CHECK( 5. == Approx( subsection1.AR()[0] ) );
+      CHECK( 7. == Approx( subsection1.AR()[1] ) );
+      CHECK( 9. == Approx( subsection1.AR()[2] ) );
+      CHECK( 11. == Approx( subsection1.AR()[3] ) );
       CHECK( 5. == Approx( subsection1.realInterferenceCoefficients()[0] ) );
       CHECK( 7. == Approx( subsection1.realInterferenceCoefficients()[1] ) );
       CHECK( 9. == Approx( subsection1.realInterferenceCoefficients()[2] ) );
       CHECK( 11. == Approx( subsection1.realInterferenceCoefficients()[3] ) );
+      CHECK( 4 == subsection1.AI().size() );
       CHECK( 4 == subsection1.imaginaryInterferenceCoefficients().size() );
-      CHECK( 6. ==
-               Approx( subsection1.imaginaryInterferenceCoefficients()[0] ) );
-      CHECK( 8. ==
-               Approx( subsection1.imaginaryInterferenceCoefficients()[1] ) );
-      CHECK( 10. ==
-               Approx( subsection1.imaginaryInterferenceCoefficients()[2] ) );
-      CHECK( 12. ==
-               Approx( subsection1.imaginaryInterferenceCoefficients()[3] ) );
+      CHECK( 6. == Approx( subsection1.AI()[0] ) );
+      CHECK( 8. == Approx( subsection1.AI()[1] ) );
+      CHECK( 10. == Approx( subsection1.AI()[2] ) );
+      CHECK( 12. == Approx( subsection1.AI()[3] ) );
+      CHECK( 6. == Approx( subsection1.imaginaryInterferenceCoefficients()[0] ) );
+      CHECK( 8. == Approx( subsection1.imaginaryInterferenceCoefficients()[1] ) );
+      CHECK( 10. == Approx( subsection1.imaginaryInterferenceCoefficients()[2] ) );
+      CHECK( 12. == Approx( subsection1.imaginaryInterferenceCoefficients()[3] ) );
 
       auto subsection2 =
       std::get< Law5NuclearPlusInterference >( energies[1] );
@@ -959,29 +971,41 @@ SCENARIO( "ReactionProduct" ) {
 
       auto subsection1 =
       std::get< Law5NuclearAmplitudeExpansion >( energies[0] );
-      CHECK( 1e-5 == Approx( subsection1.energy() ) );
+      CHECK( 1e-5 == Approx( subsection1.E() ) );
+      CHECK( 1e-5 == Approx( subsection1.incidentEnergy() ) );
       CHECK( 1 == subsection1.LTP() );
       CHECK( 12 == subsection1.NW() );
       CHECK( 3 == subsection1.NL() );
+      CHECK( 4 == subsection1.B().size() );
       CHECK( 4 == subsection1.scatteringCoefficients().size() );
+      CHECK( 1. == Approx( subsection1.B()[0] ) );
+      CHECK( 2. == Approx( subsection1.B()[1] ) );
+      CHECK( 3. == Approx( subsection1.B()[2] ) );
+      CHECK( 4. == Approx( subsection1.B()[3] ) );
       CHECK( 1. == Approx( subsection1.scatteringCoefficients()[0] ) );
       CHECK( 2. == Approx( subsection1.scatteringCoefficients()[1] ) );
       CHECK( 3. == Approx( subsection1.scatteringCoefficients()[2] ) );
       CHECK( 4. == Approx( subsection1.scatteringCoefficients()[3] ) );
+      CHECK( 4 == subsection1.AR().size() );
       CHECK( 4 == subsection1.realInterferenceCoefficients().size() );
+      CHECK( 5. == Approx( subsection1.AR()[0] ) );
+      CHECK( 7. == Approx( subsection1.AR()[1] ) );
+      CHECK( 9. == Approx( subsection1.AR()[2] ) );
+      CHECK( 11. == Approx( subsection1.AR()[3] ) );
       CHECK( 5. == Approx( subsection1.realInterferenceCoefficients()[0] ) );
       CHECK( 7. == Approx( subsection1.realInterferenceCoefficients()[1] ) );
       CHECK( 9. == Approx( subsection1.realInterferenceCoefficients()[2] ) );
       CHECK( 11. == Approx( subsection1.realInterferenceCoefficients()[3] ) );
+      CHECK( 4 == subsection1.AI().size() );
       CHECK( 4 == subsection1.imaginaryInterferenceCoefficients().size() );
-      CHECK( 6. ==
-               Approx( subsection1.imaginaryInterferenceCoefficients()[0] ) );
-      CHECK( 8. ==
-               Approx( subsection1.imaginaryInterferenceCoefficients()[1] ) );
-      CHECK( 10. ==
-               Approx( subsection1.imaginaryInterferenceCoefficients()[2] ) );
-      CHECK( 12. ==
-               Approx( subsection1.imaginaryInterferenceCoefficients()[3] ) );
+      CHECK( 6. == Approx( subsection1.AI()[0] ) );
+      CHECK( 8. == Approx( subsection1.AI()[1] ) );
+      CHECK( 10. == Approx( subsection1.AI()[2] ) );
+      CHECK( 12. == Approx( subsection1.AI()[3] ) );
+      CHECK( 6. == Approx( subsection1.imaginaryInterferenceCoefficients()[0] ) );
+      CHECK( 8. == Approx( subsection1.imaginaryInterferenceCoefficients()[1] ) );
+      CHECK( 10. == Approx( subsection1.imaginaryInterferenceCoefficients()[2] ) );
+      CHECK( 12. == Approx( subsection1.imaginaryInterferenceCoefficients()[3] ) );
 
       auto subsection2 =
       std::get< Law5NuclearPlusInterference >( energies[1] );

@@ -16,6 +16,7 @@ void wrapDefinedElsewhere( python::module& );             // law<0
 void wrapUnknownDistribution( python::module& );          // law=0
 void wrapIsotropicDiscreteEmission( python::module& );    // law=3
 void wrapDiscreteTwoBodyRecoils( python::module& );       // law=4
+void wrapNuclearAmplitudeExpansion( python::module& );    // law=5
 void wrapNuclearPlusInterference( python::module& );      // law=5
 void wrapNBodyPhaseSpace( python::module& );              // law=6
 void wrapEnergyDistribution( python::module& );           // law=7
@@ -50,6 +51,7 @@ void wrapSection_6( python::module& module ) {
   wrapUnknownDistribution( module );
   wrapIsotropicDiscreteEmission( module );
   wrapDiscreteTwoBodyRecoils( module );
+  wrapNuclearAmplitudeExpansion( module );
   wrapNuclearPlusInterference( module );
   wrapNBodyPhaseSpace( module );
   wrapEnergyDistribution( module );

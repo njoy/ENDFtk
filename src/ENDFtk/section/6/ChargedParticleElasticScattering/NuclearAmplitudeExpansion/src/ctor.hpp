@@ -1,3 +1,6 @@
+/**
+ *  @brief Private constructor
+ */
 NuclearAmplitudeExpansion( ListRecord&& list ) :
   ListRecord( std::move( list ) ) {
 
@@ -5,6 +8,11 @@ NuclearAmplitudeExpansion( ListRecord&& list ) :
     verifySize( this->NW(), this->NL() );
 }
 
+private:
+
+/**
+ *  @brief Private constructor
+ */
 NuclearAmplitudeExpansion( double energy, int nl,
                            std::vector< double >&& list )
   try : NuclearAmplitudeExpansion( ListRecord( 0.0, energy, 1, 0,
@@ -16,12 +24,24 @@ NuclearAmplitudeExpansion( double energy, int nl,
     throw;
   }
 
+public:
+
+/**
+ *  @brief Constructor
+ *
+ *  @param[in] energy    the incident energy value
+ *  @param[in] nl        the Legendre order
+ *  @param[in] b         the coefficients for expanding the nuclear scattering
+ *                       cross section
+ *  @param[in] a_real    the real component of the a coefficients
+ *  @param[in] a_imag    the imaginary component of the a coefficients
+ */
 NuclearAmplitudeExpansion( double energy, int nl,
                            std::vector< double >&& b,
                            std::vector< double >&& a_real,
                            std::vector< double >&& a_imag )
   try : NuclearAmplitudeExpansion(
-          ListRecord( 0.0, energy, 1, 0, nl, 
+          ListRecord( 0.0, energy, 1, 0, nl,
                       generateList( nl, std::move ( b ),
                                     std::move ( a_real ),
                                     std::move ( a_imag ) ) ) ) {}
@@ -32,11 +52,21 @@ NuclearAmplitudeExpansion( double energy, int nl,
     throw;
   }
 
+/**
+ *  @brief Constructor
+ *
+ *  @param[in] energy    the incident energy value
+ *  @param[in] nl        the Legendre order
+ *  @param[in] b         the scattering coefficients (for expanding the nuclear
+ *                       scattering cross section)
+ *  @param[in] a         the interference coefficients (for expanding the
+ *                       nuclear scattering amplitude matrix)
+ */
 NuclearAmplitudeExpansion( double energy, int nl,
                            std::vector< double >&& b,
                            std::vector< std::complex< double > >&& a )
-  try : NuclearAmplitudeExpansion( 
-          ListRecord( 0.0, energy, 1, 0, nl, 
+  try : NuclearAmplitudeExpansion(
+          ListRecord( 0.0, energy, 1, 0, nl,
                       generateList( nl, std::move ( b ),
                                     std::move ( a ) ) ) ) {}
   catch ( std::exception& e ) {
@@ -46,6 +76,18 @@ NuclearAmplitudeExpansion( double energy, int nl,
     throw;
   }
 
+/**
+ *  @brief Constructor (from a buffer)
+ *
+ *  @tparam Iterator        a buffer iterator
+ *
+ *  @param[in] it           the current position in the buffer
+ *  @param[in] end          the end of the buffer
+ *  @param[in] lineNumber   the current line number
+ *  @param[in] MAT          the expected MAT number
+ *  @param[in] MF           the expected MF number
+ *  @param[in] MT           the expected MT number
+ */
 template< typename Iterator >
 NuclearAmplitudeExpansion( Iterator& it, const Iterator& end, long& lineNumber,
                            int MAT, int MF, int MT )

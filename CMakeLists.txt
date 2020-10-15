@@ -129,6 +129,7 @@ pybind11_add_module( ENDFtk.python
     python/src/section/6/Unknown.python.cpp
     python/src/section/6/IsotropicDiscreteEmission.python.cpp
     python/src/section/6/DiscreteTwoBodyRecoils.python.cpp
+    python/src/section/6/NuclearAmplitudeExpansion.python.cpp
     python/src/section/6/NuclearPlusInterference.python.cpp
     python/src/section/6/NBodyPhaseSpace.python.cpp
     python/src/section/6/EnergyDistribution.python.cpp

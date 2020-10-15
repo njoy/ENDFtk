@@ -1,6 +1,7 @@
 // system includes
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+#include <complex>
 
 // other includes
 #include "views.hpp"
@@ -51,6 +52,9 @@ PYBIND11_MODULE( ENDFtk, module ) {
   wrapBasicRandomAccessAnyViewOf< BasicRandomAccessAnyView< double > >(
       module,
       "any_view< any_view< double, random_access >, random_access >" );
+  wrapBasicRandomAccessAnyViewOf< std::complex< double > >(
+      module,
+        "any_view< std::complex< double , random_access >" );
 
   // wrap records
   wrapDirectoryRecord( module );

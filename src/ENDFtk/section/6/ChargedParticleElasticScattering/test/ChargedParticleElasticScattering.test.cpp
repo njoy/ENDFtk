@@ -33,8 +33,8 @@ SCENARIO( "ChargedParticleElasticScattering" ) {
       std::vector< long > boundaries = { 2 };
       std::vector< long > interpolants = { 1 };
       std::vector< Variant > sequence = {
-        NuclearAmplitudeExpansion( 1e-5, 3, { 1., 2., 3., 4., 5., 6.,
-                                              7., 8., 9., 10., 11., 12. } ),
+        NuclearAmplitudeExpansion( 1e-5, 3, { 1., 2., 3., 4., 5., 6. },
+                                            { { 7., 8. }, { 9., 10. }, { 11., 12. } } ),
         NuclearPlusInterference( 2e+7, 15, {1., 3., 5. }, { 2., 4., 6.} ) };
 
       THEN( "a ChargedParticleElasticScattering can "
@@ -93,8 +93,8 @@ SCENARIO( "ChargedParticleElasticScattering" ) {
         std::vector< long > wrongBoundaries = { 2, 4 };
         std::vector< long > interpolants = { 1 };
         std::vector< Variant > sequence = {
-          NuclearAmplitudeExpansion( 1e-5, 3, { 1., 2., 3., 4., 5., 6.,
-                                                7., 8., 9., 10., 11., 12. } ),
+          NuclearAmplitudeExpansion( 1e-5, 3, { 1., 2., 3., 4., 5., 6. },
+                                     { { 7., 8. }, { 9., 10. }, { 11., 12. } } ),
           NuclearPlusInterference( 2e+7, 15, {1., 3., 5. }, { 2., 4., 6.} ) };
 
         CHECK_THROWS(
@@ -112,8 +112,8 @@ SCENARIO( "ChargedParticleElasticScattering" ) {
         std::vector< long > boundaries = { 2 };
         std::vector< long > wrongInterpolants = { 1, 2 };
         std::vector< Variant > sequence = {
-          NuclearAmplitudeExpansion( 1e-5, 3, { 1., 2., 3., 4., 5., 6.,
-                                                7., 8., 9., 10., 11., 12. } ),
+          NuclearAmplitudeExpansion( 1e-5, 3, { 1., 2., 3., 4., 5., 6. },
+                                     { { 7., 8. }, { 9., 10. }, { 11., 12. } } ),
           NuclearPlusInterference( 2e+7, 15, {1., 3., 5. }, { 2., 4., 6.} ) };
 
         CHECK_THROWS(
@@ -131,8 +131,8 @@ SCENARIO( "ChargedParticleElasticScattering" ) {
         std::vector< long > boundaries = { 2 };
         std::vector< long > interpolants = { 1, 2 };
         std::vector< Variant > wrongSequence = {
-          NuclearAmplitudeExpansion( 1e-5, 3, { 1., 2., 3., 4., 5., 6.,
-                                                7., 8., 9., 10., 11., 12. } ) };
+          NuclearAmplitudeExpansion( 1e-5, 3, { 1., 2., 3., 4., 5., 6. },
+                                     { { 7., 8. }, { 9., 10. }, { 11., 12. } } ) };
 
         CHECK_THROWS(
           ChargedParticleElasticScattering( spin, lidp,
@@ -188,7 +188,7 @@ void verifyChunk( const ChargedParticleElasticScattering& chunk ) {
 
   auto subsection1 =
     std::get< NuclearAmplitudeExpansion >( energies[0] );
-  CHECK( 1e-5 == Approx( subsection1.energy() ) );
+  CHECK( 1e-5 == Approx( subsection1.incidentEnergy() ) );
   CHECK( 1 == subsection1.LTP() );
   CHECK( 12 == subsection1.NW() );
   CHECK( 3 == subsection1.NL() );

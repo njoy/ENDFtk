@@ -2,10 +2,12 @@
 #define NJOY_ENDFTK_PYTHON_VIEWS
 
 // system includes
+#include <complex>
 
 // other includes
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+#include <pybind11/complex.h>
 #include "range/v3/view/any_view.hpp"
 #include "range/v3/distance.hpp"
 #include "range/v3/index.hpp"
@@ -56,6 +58,7 @@ using DoubleRange = BasicRandomAccessAnyView< double >;
 using LongRange = BasicRandomAccessAnyView< long >;
 using IntRange = BasicRandomAccessAnyView< int >;
 using DoubleRange2D = BasicRandomAccessAnyView< DoubleRange >;
+using ComplexRange = BasicRandomAccessAnyView< std::complex< double > >;
 
 /**
  *  @brief Wrap a BasicBiDirectionalAnyView templated on the Element type

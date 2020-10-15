@@ -13,6 +13,7 @@ class NuclearPlusInterference : protected ListRecord {
   #include "ENDFtk/section/6/ChargedParticleElasticScattering/NuclearPlusInterference/src/generateList.hpp"
 
 public:
+
   /* constructor */
   #include "ENDFtk/section/6/ChargedParticleElasticScattering/NuclearPlusInterference/src/ctor.hpp"
 
