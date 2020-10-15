@@ -164,7 +164,7 @@ SCENARIO( "Testing generic case using file 3" ) {
       } // THEN
     } // WHEN
 
-    WHEN( "a file::Type<3> is constructed from a syntaxTree" ) {
+    WHEN( "a file::Type<3> is constructed from a tree" ) {
 
       auto begin = file3string.begin();
       auto start = file3string.begin();
@@ -172,7 +172,7 @@ SCENARIO( "Testing generic case using file 3" ) {
       long lineNumber = 0;
 
       StructureDivision division( begin, end, lineNumber);
-      syntaxTree::File< std::string::iterator >
+      tree::File< std::string::iterator >
           fileTree( asHead( division ), start, begin, end, lineNumber );
 
       THEN( "a file::Type<3> can be constructed" ) {
