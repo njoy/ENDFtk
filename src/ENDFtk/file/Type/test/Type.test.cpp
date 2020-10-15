@@ -7,6 +7,7 @@
 // other includes
 #include "range/v3/to_container.hpp"
 #include "range/v3/view/reverse.hpp"
+#include "ENDFtk/tree/Tape.hpp"
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
