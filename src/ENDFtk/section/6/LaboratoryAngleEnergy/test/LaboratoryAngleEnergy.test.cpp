@@ -80,15 +80,15 @@ SCENARIO( "LaboratoryAngleEnergy" ) {
 
         verifyChunk( chunk );
       } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 6, 5 );
+        CHECK( buffer == string );
+      } // THEN
     } // WHEN
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 9228, 6, 5 );
-      CHECK( buffer == string );
-    } // THEN
   } // GIVEN
 
   GIVEN( "invalid data for a AngularDistribution" ) {

@@ -35,7 +35,7 @@ SCENARIO( "ChargedParticleElasticScattering" ) {
       std::vector< Variant > sequence = {
         NuclearAmplitudeExpansion( 1e-5, 3, { 1., 2., 3., 4., 5., 6.,
                                               7., 8., 9., 10., 11., 12. } ),
-        NuclearPlusInterference( 2e+7, 15, {1., 2., 3., 4., 5., 6.} ) };
+        NuclearPlusInterference( 2e+7, 15, {1., 3., 5. }, { 2., 4., 6.} ) };
 
       THEN( "a ChargedParticleElasticScattering can "
             "be constructed and members can be tested" ) {
@@ -95,7 +95,7 @@ SCENARIO( "ChargedParticleElasticScattering" ) {
         std::vector< Variant > sequence = {
           NuclearAmplitudeExpansion( 1e-5, 3, { 1., 2., 3., 4., 5., 6.,
                                                 7., 8., 9., 10., 11., 12. } ),
-          NuclearPlusInterference( 2e+7, 15, {1., 2., 3., 4., 5., 6.} ) };
+          NuclearPlusInterference( 2e+7, 15, {1., 3., 5. }, { 2., 4., 6.} ) };
 
         CHECK_THROWS(
           ChargedParticleElasticScattering( spin, lidp,
@@ -114,7 +114,7 @@ SCENARIO( "ChargedParticleElasticScattering" ) {
         std::vector< Variant > sequence = {
           NuclearAmplitudeExpansion( 1e-5, 3, { 1., 2., 3., 4., 5., 6.,
                                                 7., 8., 9., 10., 11., 12. } ),
-          NuclearPlusInterference( 2e+7, 15, {1., 2., 3., 4., 5., 6.} ) };
+          NuclearPlusInterference( 2e+7, 15, {1., 3., 5. }, { 2., 4., 6.} ) };
 
         CHECK_THROWS(
           ChargedParticleElasticScattering( spin, lidp,
@@ -219,15 +219,23 @@ void verifyChunk( const ChargedParticleElasticScattering& chunk ) {
 
   auto subsection2 =
     std::get< NuclearPlusInterference >( energies[1] );
-  CHECK( 2e+7 == Approx( subsection2.energy() ) );
+  CHECK( 2e+7 == Approx( subsection2.incidentEnergy() ) );
   CHECK( 15 == subsection2.LTP() );
   CHECK( 6 == subsection2.NW() );
   CHECK( 3 == subsection2.NL() );
+  CHECK( 3 == subsection2.MU().size() );
   CHECK( 3 == subsection2.cosines().size() );
+  CHECK( 1. == Approx( subsection2.MU()[0] ) );
+  CHECK( 3. == Approx( subsection2.MU()[1] ) );
+  CHECK( 5. == Approx( subsection2.MU()[2] ) );
   CHECK( 1. == Approx( subsection2.cosines()[0] ) );
   CHECK( 3. == Approx( subsection2.cosines()[1] ) );
   CHECK( 5. == Approx( subsection2.cosines()[2] ) );
+  CHECK( 3 == subsection2.PNI().size() );
   CHECK( 3 == subsection2.probabilities().size() );
+  CHECK( 2. == Approx( subsection2.PNI()[0] ) );
+  CHECK( 4. == Approx( subsection2.PNI()[1] ) );
+  CHECK( 6. == Approx( subsection2.PNI()[2] ) );
   CHECK( 2. == Approx( subsection2.probabilities()[0] ) );
   CHECK( 4. == Approx( subsection2.probabilities()[1] ) );
   CHECK( 6. == Approx( subsection2.probabilities()[2] ) );
