@@ -4,7 +4,7 @@ import unittest
 # third party imports
 
 # local imports
-from ENDFtk.MF6 import NuclearPlusInterference
+from ENDFtk.MF6.LAW5 import NuclearPlusInterference
 
 class Test_ENDFtk_MF6_NuclearPlusInterference( unittest.TestCase ) :
     """Unit test for the NuclearPlusInterference class."""

@@ -19,50 +19,52 @@ SCENARIO( "LegendreCoefficients" ) {
 
   GIVEN( "valid data for a LegendreCoefficients" ) {
 
+    std::string string = chunk();
+
     WHEN( "the data is given explicitly" ) {
 
       double energy = 1e-5;
       std::vector< double > values = { 1, 2, 3, 4 };
 
+      LegendreCoefficients chunk( energy, std::move( values ) );
+
       THEN( "a LegendreCoefficients can be constructed "
             "and members can be tested" ) {
 
-        LegendreCoefficients chunk( energy, std::move( values ) );
         verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 6, 5 );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream" ) {
 
-      std::string string = chunk();
       auto begin = string.begin();
       auto end = string.end();
       long lineNumber = 1;
 
+      LegendreCoefficients chunk( begin, end, lineNumber, 9228, 6, 5 );
+
       THEN( "a LegendreCoefficients can be constructed "
             "and members can be tested" ) {
 
-        LegendreCoefficients chunk( begin, end, lineNumber, 9228, 6, 5 );
         verifyChunk( chunk );
       } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 6, 5 );
+        CHECK( buffer == string );
+      } // THEN
     } // WHEN
-  } // GIVEN
-
-  GIVEN( "a valid instance of LegendreCoefficients" ) {
-
-    std::string string = chunk();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-    LegendreCoefficients chunk(begin, end, lineNumber, 9228, 6, 5 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 9228, 6, 5 );
-      CHECK( buffer == string );
-    } // THEN
   } // GIVEN
 
   GIVEN( "invalid data for a LegendreCoefficients" ) {
@@ -105,12 +107,19 @@ std::string chunk() {
 
 void verifyChunk( const LegendreCoefficients& chunk ) {
 
-  CHECK( 1e-5 == Approx( chunk.energy() ) );
+  CHECK( 1e-5 == Approx( chunk.E() ) );
+  CHECK( 1e-5 == Approx( chunk.incidentEnergy() ) );
 
   CHECK( 2 == chunk.LTP() );
+  CHECK( 2 == chunk.representation() );
   CHECK( 4 == chunk.NW() );
   CHECK( 3 == chunk.NL() );
+  CHECK( 4 == chunk.C().size() );
   CHECK( 4 == chunk.coefficients().size() );
+  CHECK( 1. == Approx( chunk.C()[0] ) );
+  CHECK( 2. == Approx( chunk.C()[1] ) );
+  CHECK( 3. == Approx( chunk.C()[2] ) );
+  CHECK( 4. == Approx( chunk.C()[3] ) );
   CHECK( 1. == Approx( chunk.coefficients()[0] ) );
   CHECK( 2. == Approx( chunk.coefficients()[1] ) );
   CHECK( 3. == Approx( chunk.coefficients()[2] ) );

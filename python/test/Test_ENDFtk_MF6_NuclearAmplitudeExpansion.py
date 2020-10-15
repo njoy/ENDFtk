@@ -4,7 +4,7 @@ import unittest
 # third party imports
 
 # local imports
-from ENDFtk.MF6 import NuclearAmplitudeExpansion
+from ENDFtk.MF6.LAW5 import NuclearAmplitudeExpansion
 
 class Test_ENDFtk_MF6_NuclearAmplitudeExpansion( unittest.TestCase ) :
     """Unit test for the NuclearAmplitudeExpansion class."""

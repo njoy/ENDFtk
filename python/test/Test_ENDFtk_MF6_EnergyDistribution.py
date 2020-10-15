@@ -4,7 +4,7 @@ import unittest
 # third party imports
 
 # local imports
-from ENDFtk.MF6 import EnergyDistribution
+from ENDFtk.MF6.LAW7 import EnergyDistribution
 
 class Test_ENDFtk_MF6_EnergyDistribution( unittest.TestCase ) :
     """Unit test for the EnergyDistribution class."""

@@ -10,6 +10,8 @@
 // namespace aliases
 namespace python = pybind11;
 
+namespace mf6 {
+
 void wrapLaboratoryAngleEnergy( python::module& module ) {
 
   // type aliases
@@ -86,3 +88,5 @@ void wrapLaboratoryAngleEnergy( python::module& module ) {
   // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }
+
+} // namespace mf6

@@ -1,6 +1,8 @@
 // system includes
+#include <complex>
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+#include <pybind11/complex.h>
 
 // local includes
 #include "ENDFtk/section/6.hpp"
@@ -12,10 +14,10 @@ namespace python = pybind11;
 
 namespace mf6 {
 
-void wrapNuclearPlusInterference( python::module& module ) {
+void wrapLegendreCoefficients( python::module& module ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference;
+  using Component = njoy::ENDFtk::section::Type< 6 >::ChargedParticleElasticScattering::LegendreCoefficients;
 
   // wrap views created by this section
 
@@ -23,26 +25,22 @@ void wrapNuclearPlusInterference( python::module& module ) {
   python::class_< Component > component(
 
     module,
-    "NuclearPlusInterference",
-    "MF6 section - LAW=5 - charged particle elastic scattering given as\n"
-    "                      nuclear plus interference distribution"
+    "LegendreCoefficients",
+    "MF6 section - LAW=5 - Charged particle elastic scattering given as\n"
+    "                      Legendre coeffcients"
   );
 
   // wrap the section
   component
   .def(
 
-    python::init< double, int,
-                  std::vector< double >&&, std::vector< double >&& >(),
-    python::arg( "energy" ), python::arg( "ltp" ),
-    python::arg( "cosines" ), python::arg( "probabilities" ),
+    python::init< double, std::vector< double >&& >(),
+    python::arg( "energy" ), python::arg( "coefficients" ),
     "Initialise the component\n\n"
     "Arguments:\n"
-    "    self             the component\n"
-    "    energy           the incident energy value\n"
-    "    ltp              the representation type\n"
-    "    cosines          the cosine values\n"
-    "    probabilities    the probability values"
+    "    self            the component\n"
+    "    energy          the incident energy value\n"
+    "    coefficients    the Legendre coefficients"
   )
   .def_property_readonly(
 
@@ -59,7 +57,7 @@ void wrapNuclearPlusInterference( python::module& module ) {
   .def_property_readonly(
 
     "LTP",
-    &Component::LTP,
+    [] ( const Component& self ) { return self.LTP(); },
     "The representation type"
   )
   .def_property_readonly(
@@ -82,31 +80,17 @@ void wrapNuclearPlusInterference( python::module& module ) {
   )
   .def_property_readonly(
 
-    "MU",
+    "C",
     [] ( const Component& self ) -> DoubleRange
-       { return self.MU(); },
-    "The cosine values"
+       { return self.C(); },
+    "The Legendre coefficients"
   )
   .def_property_readonly(
 
-    "cosines",
+    "coefficients",
     [] ( const Component& self ) -> DoubleRange
-       { return self.cosines(); },
-    "The cosine values"
-  )
-  .def_property_readonly(
-
-    "PNI",
-    [] ( const Component& self ) -> DoubleRange
-       { return self.PNI(); },
-    "The probability values"
-  )
-  .def_property_readonly(
-
-    "probabilities",
-    [] ( const Component& self ) -> DoubleRange
-       { return self.probabilities(); },
-    "The probability values"
+       { return self.coefficients(); },
+    "The Legendre coefficients"
   );
 
   // add standard component definitions

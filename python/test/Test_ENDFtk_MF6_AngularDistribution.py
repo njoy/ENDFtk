@@ -4,8 +4,8 @@ import unittest
 # third party imports
 
 # local imports
-from ENDFtk.MF6 import AngularDistribution
-from ENDFtk.MF6 import EnergyDistribution
+from ENDFtk.MF6.LAW7 import AngularDistribution
+from ENDFtk.MF6.LAW7 import EnergyDistribution
 
 class Test_ENDFtk_MF6_AngularDistribution( unittest.TestCase ) :
     """Unit test for the AngularDistribution class."""

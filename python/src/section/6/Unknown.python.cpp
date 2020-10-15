@@ -10,6 +10,8 @@
 // namespace aliases
 namespace python = pybind11;
 
+namespace mf6 {
+
 void wrapUnknownDistribution( python::module& module ) {
 
   // type aliases
@@ -71,3 +73,5 @@ void wrapUnknownDistribution( python::module& module ) {
 
   // no standard component definitions are added since Unknown is incomplete
 }
+
+} // namespace mf6

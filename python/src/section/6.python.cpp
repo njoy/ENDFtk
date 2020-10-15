@@ -10,19 +10,23 @@
 // namespace aliases
 namespace python = pybind11;
 
-// declarations - components
-void wrapMultiplicity( python::module& );
-void wrapDefinedElsewhere( python::module& );             // law<0
-void wrapUnknownDistribution( python::module& );          // law=0
-void wrapIsotropicDiscreteEmission( python::module& );    // law=3
-void wrapDiscreteTwoBodyRecoils( python::module& );       // law=4
-void wrapNuclearAmplitudeExpansion( python::module& );    // law=5
-void wrapNuclearPlusInterference( python::module& );      // law=5
-void wrapNBodyPhaseSpace( python::module& );              // law=6
-void wrapEnergyDistribution( python::module& );           // law=7
-void wrapAngularDistribution( python::module& );          // law=7
-void wrapLaboratoryAngleEnergy( python::module& );        // law=7
-void wrapReactionProduct( python::module& );
+namespace mf6 {
+
+  // declarations - components
+  void wrapMultiplicity( python::module& );
+  void wrapDefinedElsewhere( python::module& );             // law<0
+  void wrapUnknownDistribution( python::module& );          // law=0
+  void wrapIsotropicDiscreteEmission( python::module& );    // law=3
+  void wrapDiscreteTwoBodyRecoils( python::module& );       // law=4
+  void wrapLegendreCoefficients( python::module& );         // law=5
+  void wrapNuclearAmplitudeExpansion( python::module& );    // law=5
+  void wrapNuclearPlusInterference( python::module& );      // law=5
+  void wrapNBodyPhaseSpace( python::module& );              // law=6
+  void wrapEnergyDistribution( python::module& );           // law=7
+  void wrapAngularDistribution( python::module& );          // law=7
+  void wrapLaboratoryAngleEnergy( python::module& );        // law=7
+  void wrapReactionProduct( python::module& );
+}
 
 void wrapSection_6( python::module& module ) {
 
@@ -46,18 +50,55 @@ void wrapSection_6( python::module& module ) {
   );
 
   // wrap components
-  wrapMultiplicity( module );
-  wrapDefinedElsewhere( module );
-  wrapUnknownDistribution( module );
-  wrapIsotropicDiscreteEmission( module );
-  wrapDiscreteTwoBodyRecoils( module );
-  wrapNuclearAmplitudeExpansion( module );
-  wrapNuclearPlusInterference( module );
-  wrapNBodyPhaseSpace( module );
-  wrapEnergyDistribution( module );
-  wrapAngularDistribution( module );
-  wrapLaboratoryAngleEnergy( module );
-  wrapReactionProduct( module );
+  mf6::wrapMultiplicity( module );
+  mf6::wrapReactionProduct( module );
+
+  // LAW < 0 - - - - - - - - - - - - - - - - - - - - - -
+
+  mf6::wrapDefinedElsewhere( module );
+
+  // LAW = 0 - - - - - - - - - - - - - - - - - - - - - -
+
+  mf6::wrapUnknownDistribution( module );
+
+  // LAW = 3 - - - - - - - - - - - - - - - - - - - - - -
+
+  mf6::wrapIsotropicDiscreteEmission( module );
+
+  // LAW = 4 - - - - - - - - - - - - - - - - - - - - - -
+
+  mf6::wrapDiscreteTwoBodyRecoils( module );
+
+  // LAW = 5 - - - - - - - - - - - - - - - - - - - - - -
+
+  // create the submodule for LAW=5
+  python::module submodule = module.def_submodule(
+
+    "LAW5",
+    "LAW5 - charged particle elastic scattering"
+  );
+
+  mf6::wrapLegendreCoefficients( submodule );
+  mf6::wrapNuclearAmplitudeExpansion( submodule );
+  mf6::wrapNuclearPlusInterference( submodule );
+
+  // LAW = 6 - - - - - - - - - - - - - - - - - - - - - -
+
+  mf6::wrapNBodyPhaseSpace( module );           // LAW=6
+
+  // LAW = 7 - - - - - - - - - - - - - - - - - - - - - -
+
+  mf6::wrapLaboratoryAngleEnergy( module );
+
+  // create the submodule for LAW=7
+  submodule = module.def_submodule(
+
+    "LAW7",
+    "LAW7 - distributions are given in the E,mu,E' ordering"
+  );
+
+  mf6::wrapEnergyDistribution( submodule );
+  mf6::wrapAngularDistribution( submodule );
 
   // wrap the section
   section

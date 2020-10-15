@@ -10,6 +10,8 @@
 // namespace aliases
 namespace python = pybind11;
 
+namespace mf6 {
+
 void wrapNBodyPhaseSpace( python::module& module ) {
 
   // type aliases
@@ -72,3 +74,5 @@ void wrapNBodyPhaseSpace( python::module& module ) {
   // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }
+
+} // namespace mf6

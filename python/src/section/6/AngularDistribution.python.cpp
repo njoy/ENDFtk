@@ -10,6 +10,8 @@
 // namespace aliases
 namespace python = pybind11;
 
+namespace mf6 {
+
 void wrapAngularDistribution( python::module& module ) {
 
   // type aliases
@@ -100,3 +102,5 @@ void wrapAngularDistribution( python::module& module ) {
   // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }
+
+} // namespace mf6

@@ -10,6 +10,8 @@
 // namespace aliases
 namespace python = pybind11;
 
+namespace mf6 {
+
 void wrapDefinedElsewhere( python::module& module ) {
 
   // type aliases
@@ -73,3 +75,5 @@ void wrapDefinedElsewhere( python::module& module ) {
 
   // no standard component definitions are added since DefinedElsewhere is incomplete
 }
+
+} // namespace mf6

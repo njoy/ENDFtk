@@ -10,6 +10,8 @@
 // namespace aliases
 namespace python = pybind11;
 
+namespace mf6 {
+
 void wrapDiscreteTwoBodyRecoils( python::module& module ) {
 
   // type aliases
@@ -72,3 +74,5 @@ void wrapDiscreteTwoBodyRecoils( python::module& module ) {
 
   // no standard component definitions are added since DiscreteTwoBodyRecoils is incomplete
 }
+
+} // namespace mf6
