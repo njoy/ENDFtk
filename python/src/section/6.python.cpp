@@ -14,17 +14,18 @@ namespace mf6 {
 
   // declarations - components
   void wrapMultiplicity( python::module& );
-  void wrapDefinedElsewhere( python::module& );             // law<0
-  void wrapUnknownDistribution( python::module& );          // law=0
-  void wrapIsotropicDiscreteEmission( python::module& );    // law=3
-  void wrapDiscreteTwoBodyRecoils( python::module& );       // law=4
-  void wrapLegendreCoefficients( python::module& );         // law=5
-  void wrapNuclearAmplitudeExpansion( python::module& );    // law=5
-  void wrapNuclearPlusInterference( python::module& );      // law=5
-  void wrapNBodyPhaseSpace( python::module& );              // law=6
-  void wrapEnergyDistribution( python::module& );           // law=7
-  void wrapAngularDistribution( python::module& );          // law=7
-  void wrapLaboratoryAngleEnergy( python::module& );        // law=7
+  void wrapDefinedElsewhere( python::module& );                 // law<0
+  void wrapUnknownDistribution( python::module& );              // law=0
+  void wrapIsotropicDiscreteEmission( python::module& );        // law=3
+  void wrapDiscreteTwoBodyRecoils( python::module& );           // law=4
+  void wrapLegendreCoefficients( python::module& );             // law=5
+  void wrapNuclearAmplitudeExpansion( python::module& );        // law=5
+  void wrapNuclearPlusInterference( python::module& );          // law=5
+  void wrapChargedParticleElasticScattering( python::module& ); // law=5
+  void wrapNBodyPhaseSpace( python::module& );                  // law=6
+  void wrapEnergyDistribution( python::module& );               // law=7
+  void wrapAngularDistribution( python::module& );              // law=7
+  void wrapLaboratoryAngleEnergy( python::module& );            // law=7
   void wrapReactionProduct( python::module& );
 }
 
@@ -70,6 +71,8 @@ void wrapSection_6( python::module& module ) {
   mf6::wrapDiscreteTwoBodyRecoils( module );
 
   // LAW = 5 - - - - - - - - - - - - - - - - - - - - - -
+
+  mf6::wrapChargedParticleElasticScattering( module );
 
   // create the submodule for LAW=5
   python::module submodule = module.def_submodule(

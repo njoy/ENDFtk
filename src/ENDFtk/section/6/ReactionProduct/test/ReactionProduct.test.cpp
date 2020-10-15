@@ -845,7 +845,7 @@ SCENARIO( "ReactionProduct" ) {
       CHECK( 1 == law.interpolants()[0] );
       CHECK( 2 == law.boundaries()[0] );
 
-      auto energies = law.subsections();
+      auto energies = law.distributions();
 
       auto subsection1 =
       std::get< Law5NuclearAmplitudeExpansion >( energies[0] );
@@ -968,7 +968,7 @@ SCENARIO( "ReactionProduct" ) {
       CHECK( 1 == law.interpolants()[0] );
       CHECK( 2 == law.boundaries()[0] );
 
-      auto energies = law.subsections();
+      auto energies = law.distributions();
 
       auto subsection1 =
       std::get< Law5NuclearAmplitudeExpansion >( energies[0] );
