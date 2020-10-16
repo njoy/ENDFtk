@@ -19,6 +19,7 @@ namespace mf6 {
 
 namespace law2 {
 
+  void wrapLegendreCoefficients( python::module& );             // law=2
   void wrapTabulatedDistribution( python::module& );            // law=2
 
 }
@@ -78,6 +79,7 @@ void wrapSection_6( python::module& module ) {
     "LAW2 - discrete two-body scattering data for secondary particles"
   );
 
+  mf6::law2::wrapLegendreCoefficients( submodule );
   mf6::law2::wrapTabulatedDistribution( submodule );
 
   // LAW = 3 - - - - - - - - - - - - - - - - - - - - - -

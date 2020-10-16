@@ -462,7 +462,7 @@ SCENARIO( "ReactionProduct" ) {
 
       auto subsection1 =
           std::get< Law2LegendreCoefficients >( energies[0] );
-      CHECK( 1e-5 == Approx( subsection1.energy() ) );
+      CHECK( 1e-5 == Approx( subsection1.incidentEnergy() ) );
       CHECK( 0 == subsection1.LANG() );
       CHECK( 4 == subsection1.NW() );
       CHECK( 4 == subsection1.NL() );
@@ -548,7 +548,7 @@ SCENARIO( "ReactionProduct" ) {
 
       auto subsection1 =
           std::get< Law2LegendreCoefficients >( energies[0] );
-      CHECK( 1e-5 == Approx( subsection1.energy() ) );
+      CHECK( 1e-5 == Approx( subsection1.incidentEnergy() ) );
       CHECK( 0 == subsection1.LANG() );
       CHECK( 4 == subsection1.NW() );
       CHECK( 4 == subsection1.NL() );

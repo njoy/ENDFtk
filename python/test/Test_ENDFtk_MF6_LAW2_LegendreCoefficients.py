@@ -4,18 +4,18 @@ import unittest
 # third party imports
 
 # local imports
-from ENDFtk.MF6.LAW5 import LegendreCoefficients
+from ENDFtk.MF6.LAW2 import LegendreCoefficients
 
-class Test_ENDFtk_MF6_LegendreCoefficients( unittest.TestCase ) :
+class Test_ENDFtk_MF6_LAW2LegendreCoefficients( unittest.TestCase ) :
     """Unit test for the LegendreCoefficients class."""
 
-    chunk = ( ' 0.000000+0 1.000000-5          2          0          4          39228 6  5     \n'
+    chunk = ( ' 0.000000+0 1.000000-5          0          0          4          49228 6  5     \n'
               ' 1.000000+0 2.000000+0 3.000000+0 4.000000+0                      9228 6  5     \n' )
 
-    invalid = ( ' 0.000000+0 1.000000-5         12          0          4          39228 6  5     \n'
+    invalid = ( ' 0.000000+0 1.000000-5          1          0          4          49228 6  5     \n'
                 ' 1.000000+0 2.000000+0 3.000000+0 4.000000+0                      9228 6  5     \n' )
 
-    invalid_size = ( ' 0.000000+0 1.000000-5          2          0          4          49228 6  5     \n'
+    invalid_size = ( ' 0.000000+0 1.000000-5          0          0          4          39228 6  5     \n'
                      ' 1.000000+0 2.000000+0 3.000000+0 4.000000+0                      9228 6  5     \n' )
 
     def test_component( self ) :
@@ -26,11 +26,10 @@ class Test_ENDFtk_MF6_LegendreCoefficients( unittest.TestCase ) :
             self.assertAlmostEqual( 1e-5, chunk.E )
             self.assertAlmostEqual( 1e-5, chunk.incident_energy )
 
-            self.assertEqual( 2, chunk.LTP )
-            self.assertEqual( 2, chunk.representation )
+            self.assertEqual( 0, chunk.LANG )
             self.assertEqual( 4, chunk.NW )
-            self.assertEqual( 3, chunk.NL )
-            self.assertEqual( 3, chunk.legendre_order )
+            self.assertEqual( 4, chunk.NL )
+            self.assertEqual( 4, chunk.legendre_order )
             self.assertEqual( 4, len( chunk.A ) )
             self.assertEqual( 4, len( chunk.coefficients ) )
             self.assertAlmostEqual( 1., chunk.A[0] )

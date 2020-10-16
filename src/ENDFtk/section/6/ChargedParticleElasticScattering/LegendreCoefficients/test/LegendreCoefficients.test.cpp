@@ -114,12 +114,13 @@ void verifyChunk( const LegendreCoefficients& chunk ) {
   CHECK( 2 == chunk.representation() );
   CHECK( 4 == chunk.NW() );
   CHECK( 3 == chunk.NL() );
-  CHECK( 4 == chunk.C().size() );
+  CHECK( 3 == chunk.legendreOrder() );
+  CHECK( 4 == chunk.A().size() );
   CHECK( 4 == chunk.coefficients().size() );
-  CHECK( 1. == Approx( chunk.C()[0] ) );
-  CHECK( 2. == Approx( chunk.C()[1] ) );
-  CHECK( 3. == Approx( chunk.C()[2] ) );
-  CHECK( 4. == Approx( chunk.C()[3] ) );
+  CHECK( 1. == Approx( chunk.A()[0] ) );
+  CHECK( 2. == Approx( chunk.A()[1] ) );
+  CHECK( 3. == Approx( chunk.A()[2] ) );
+  CHECK( 4. == Approx( chunk.A()[3] ) );
   CHECK( 1. == Approx( chunk.coefficients()[0] ) );
   CHECK( 2. == Approx( chunk.coefficients()[1] ) );
   CHECK( 3. == Approx( chunk.coefficients()[2] ) );

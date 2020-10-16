@@ -48,14 +48,19 @@ public:
   long NL() const { return ListRecord::N2(); }
 
   /**
-   *  @brief Return the Legendre coefficients
+   *  @brief Return the Legendre order or number of cosine values
    */
-  auto C() const { return ListRecord::list(); }
+  long legendreOrder() const { return this->NL(); }
 
   /**
    *  @brief Return the Legendre coefficients
    */
-  auto coefficients() const { return this->C(); }
+  auto A() const { return ListRecord::list(); }
+
+  /**
+   *  @brief Return the Legendre coefficients
+   */
+  auto coefficients() const { return this->A(); }
 
   using ListRecord::NC;
   using ListRecord::print;

@@ -165,7 +165,7 @@ void verifyChunk( const DiscreteTwoBodyScattering& chunk ) {
       auto energies = chunk.subsections();
 
       auto subsection1 = std::get< LegendreCoefficients >( energies[0] );
-      CHECK( 1e-5 == Approx( subsection1.energy() ) );
+      CHECK( 1e-5 == Approx( subsection1.incidentEnergy() ) );
       CHECK( 0 == subsection1.LANG() );
       CHECK( 4 == subsection1.NW() );
       CHECK( 4 == subsection1.NL() );

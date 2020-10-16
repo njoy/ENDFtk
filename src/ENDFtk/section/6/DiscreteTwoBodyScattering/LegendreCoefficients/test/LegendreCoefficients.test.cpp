@@ -11,6 +11,7 @@ using LegendreCoefficients =
 section::Type< 6 >::DiscreteTwoBodyScattering::LegendreCoefficients;
 
 std::string chunk();
+void verifyChunk( const LegendreCoefficients& );
 std::string invalidLANG();
 std::string invalidSize();
 
@@ -18,54 +19,50 @@ SCENARIO( "LegendreCoefficients" ) {
 
   GIVEN( "valid data for a LegendreCoefficients" ) {
 
-    double energy = 1e-5;
-    std::vector< double > coefficients = { 1., 2., 3., 4. };
+    std::string string = chunk();
 
-    THEN( "a LegendreCoefficients can "
-          "be constructed and members can be tested" ) {
+    WHEN( "the data is given explicitly" ) {
+
+      double energy = 1e-5;
+      std::vector< double > coefficients = { 1., 2., 3., 4. };
+
       LegendreCoefficients chunk( energy, std::move( coefficients ) );
 
-      CHECK( 1e-5 == Approx( chunk.energy() ) );
+      THEN( "a LegendreCoefficients can be constructed and members can be tested" ) {
 
-      CHECK( 0 == chunk.LANG() );
-      CHECK( 4 == chunk.NW() );
-      CHECK( 4 == chunk.NL() );
-      CHECK( 4 == chunk.legendreOrder() );
-      CHECK( 4 == chunk.coefficients().size() );
-      CHECK( 1. == Approx( chunk.coefficients()[0] ) );
-      CHECK( 2. == Approx( chunk.coefficients()[1] ) );
-      CHECK( 3. == Approx( chunk.coefficients()[2] ) );
-      CHECK( 4. == Approx( chunk.coefficients()[3] ) );
+        verifyChunk( chunk );
+      } // THEN
 
-      CHECK( 2 == chunk.NC() );
-    }
-  } // GIVEN
+      THEN( "it can be printed" ) {
 
-  GIVEN( "a string representation of a valid LegendreCoefficients" ) {
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 6, 5 );
+        CHECK( buffer == string );
+      } // THEN
+    } // WHEN
 
-    std::string string = chunk();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
+    WHEN( "the data is read from a string/stream" ) {
 
-    THEN( "a LegendreCoefficients can "
-          "be constructed and members can be tested" ) {
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
       LegendreCoefficients chunk(begin, end, lineNumber, 9228, 6, 5 );
 
-      CHECK( 1e-5 == Approx( chunk.energy() ) );
+      THEN( "a LegendreCoefficients can be constructed and members can be tested" ) {
 
-      CHECK( 0 == chunk.LANG() );
-      CHECK( 4 == chunk.NW() );
-      CHECK( 4 == chunk.NL() );
-      CHECK( 4 == chunk.legendreOrder() );
-      CHECK( 4 == chunk.coefficients().size() );
-      CHECK( 1. == Approx( chunk.coefficients()[0] ) );
-      CHECK( 2. == Approx( chunk.coefficients()[1] ) );
-      CHECK( 3. == Approx( chunk.coefficients()[2] ) );
-      CHECK( 4. == Approx( chunk.coefficients()[3] ) );
+        verifyChunk( chunk );
+      } // THEN
 
-      CHECK( 2 == chunk.NC() );
-    }
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 6, 5 );
+        CHECK( buffer == string );
+      } // THEN
+    } // WHEN
   } // GIVEN
 
   GIVEN( "a string with an invalid LANG" ) {
@@ -95,29 +92,35 @@ SCENARIO( "LegendreCoefficients" ) {
                                           9228, 6, 5 ) );
     }
   } // GIVEN
-
-  GIVEN( "a valid instance of LegendreCoefficients" ) {
-
-    std::string string = chunk();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-    LegendreCoefficients
-      chunk(begin, end, lineNumber, 9228, 6, 5 );
-
-    THEN( "it can be printed" ) {
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 9228, 6, 5 );
-      CHECK( buffer == string );
-    }
-  } // GIVEN
 } // SCENARIO
 
 std::string chunk() {
   return
     " 0.000000+0 1.000000-5          0          0          4          49228 6  5     \n"
     " 1.000000+0 2.000000+0 3.000000+0 4.000000+0                      9228 6  5     \n";
+}
+
+void verifyChunk( const LegendreCoefficients& chunk ) {
+
+  CHECK( 1e-5 == Approx( chunk.E() ) );
+  CHECK( 1e-5 == Approx( chunk.incidentEnergy() ) );
+
+  CHECK( 0 == chunk.LANG() );
+  CHECK( 4 == chunk.NW() );
+  CHECK( 4 == chunk.NL() );
+  CHECK( 4 == chunk.legendreOrder() );
+  CHECK( 4 == chunk.A().size() );
+  CHECK( 4 == chunk.coefficients().size() );
+  CHECK( 1. == Approx( chunk.A()[0] ) );
+  CHECK( 2. == Approx( chunk.A()[1] ) );
+  CHECK( 3. == Approx( chunk.A()[2] ) );
+  CHECK( 4. == Approx( chunk.A()[3] ) );
+  CHECK( 1. == Approx( chunk.coefficients()[0] ) );
+  CHECK( 2. == Approx( chunk.coefficients()[1] ) );
+  CHECK( 3. == Approx( chunk.coefficients()[2] ) );
+  CHECK( 4. == Approx( chunk.coefficients()[3] ) );
+
+  CHECK( 2 == chunk.NC() );
 }
 
 std::string invalidLANG() {

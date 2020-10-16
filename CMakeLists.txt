@@ -127,16 +127,17 @@ pybind11_add_module( ENDFtk.python
     python/src/section/6/Multiplicity.python.cpp
     python/src/section/6/DefinedElsewhere.python.cpp
     python/src/section/6/Unknown.python.cpp
-    python/src/section/6/TabulatedDistribution.python.cpp
+    python/src/section/6/LAW2/LegendreCoefficients.python.cpp
+    python/src/section/6/LAW2/TabulatedDistribution.python.cpp
     python/src/section/6/IsotropicDiscreteEmission.python.cpp
     python/src/section/6/DiscreteTwoBodyRecoils.python.cpp
-    python/src/section/6/LegendreCoefficients.python.cpp
     python/src/section/6/ChargedParticleElasticScattering.python.cpp
-    python/src/section/6/NuclearAmplitudeExpansion.python.cpp
-    python/src/section/6/NuclearPlusInterference.python.cpp
+    python/src/section/6/LAW5/LegendreCoefficients.python.cpp
+    python/src/section/6/LAW5/NuclearAmplitudeExpansion.python.cpp
+    python/src/section/6/LAW5/NuclearPlusInterference.python.cpp
     python/src/section/6/NBodyPhaseSpace.python.cpp
-    python/src/section/6/EnergyDistribution.python.cpp
-    python/src/section/6/AngularDistribution.python.cpp
+    python/src/section/6/LAW7/EnergyDistribution.python.cpp
+    python/src/section/6/LAW7/AngularDistribution.python.cpp
     python/src/section/6/LaboratoryAngleEnergy.python.cpp
     python/src/section/6/ReactionProduct.python.cpp
     python/src/section/12.python.cpp

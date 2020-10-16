@@ -13,10 +13,11 @@ class LegendreCoefficients : protected ListRecord {
   /* auxiliary functions */
 
 public:
+
   /* constructor */
   #include "ENDFtk/section/4/LegendreCoefficients/src/ctor.hpp"
 
-  /* get methods */
+  /* methods */
 
   /**
    *  @brief Return the incident energy for which the angular distribution

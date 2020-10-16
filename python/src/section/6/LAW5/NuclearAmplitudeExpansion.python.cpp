@@ -26,7 +26,7 @@ void wrapNuclearAmplitudeExpansion( python::module& module ) {
 
     module,
     "NuclearAmplitudeExpansion",
-    "MF6 section - LAW=5 - Charged particle elastic scattering given\n"
+    "MF6 section - LAW=5 - charged particle elastic scattering given\n"
     "                      as nuclear amplitude expansion"
   );
 
