@@ -1,13 +1,13 @@
-class Tabulated : protected ListRecord {
+class TabulatedDistribution : protected ListRecord {
 
   /* auxiliary functions */
-  #include "ENDFtk/section/6/DiscreteTwoBodyScattering/Tabulated/src/verifyLANG.hpp"
-  #include "ENDFtk/section/6/DiscreteTwoBodyScattering/Tabulated/src/verifySize.hpp"
-  #include "ENDFtk/section/6/DiscreteTwoBodyScattering/Tabulated/src/generateList.hpp"
+  #include "ENDFtk/section/6/DiscreteTwoBodyScattering/TabulatedDistribution/src/verifyLANG.hpp"
+  #include "ENDFtk/section/6/DiscreteTwoBodyScattering/TabulatedDistribution/src/verifySize.hpp"
+  #include "ENDFtk/section/6/DiscreteTwoBodyScattering/TabulatedDistribution/src/generateList.hpp"
 
 public:
   /* constructor */
-  #include "ENDFtk/section/6/DiscreteTwoBodyScattering/Tabulated/src/ctor.hpp"
+  #include "ENDFtk/section/6/DiscreteTwoBodyScattering/TabulatedDistribution/src/ctor.hpp"
 
   /* get methods */
   double energy() const { return ListRecord::C2(); }

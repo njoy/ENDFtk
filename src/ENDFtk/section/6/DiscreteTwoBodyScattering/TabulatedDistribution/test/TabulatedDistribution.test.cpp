@@ -7,37 +7,22 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using Tabulated =
-section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated;
+using TabulatedDistribution =
+section::Type< 6 >::DiscreteTwoBodyScattering::TabulatedDistribution;
 
 std::string chunkLANG12();
 std::string chunkLANG14();
-void checkTabulated( const Tabulated& );
+void checkTabulatedDistribution( const TabulatedDistribution& );
 std::string invalidLANG();
 std::string invalidSize();
 
-SCENARIO( "Tabulated" ) {
+SCENARIO( "TabulatedDistribution" ) {
 
-  GIVEN( "valid data for a Tabulated" ) {
+  GIVEN( "valid data for a TabulatedDistribution" ) {
 
     std::vector< int > langs = { 12, 14 };
 
     WHEN( "the data is given explicitly" ) {
-
-      THEN( "a Tabulated can "
-            "be constructed using a list and members can be tested "
-            "for each LANG value" ) {
-
-        for ( auto lang : langs ) {
-
-          double energy = 1e-5;
-          std::vector< double > values = { 1, 2, 3, 4, 5, 6 };
-
-          Tabulated chunk( energy, lang, std::move( values ) );
-          CHECK( lang == chunk.LANG() );
-          checkTabulated( chunk );
-        }
-      }
 
       THEN( "a Tabulated can "
             "be constructed using vectors and members can be tested "
@@ -50,10 +35,10 @@ SCENARIO( "Tabulated" ) {
           std::vector< double > cosines = { 1, 3, 5 };
           std::vector< double > probabilities = { 2, 4, 6 };
 
-          Tabulated chunk( energy, lang, std::move( cosines ),
+          TabulatedDistribution chunk( energy, lang, std::move( cosines ),
                            std::move( probabilities ) );
           CHECK( lang == chunk.LANG() );
-          checkTabulated( chunk );
+          checkTabulatedDistribution( chunk );
         }
       } // THEN
     } // WHEN
@@ -62,16 +47,16 @@ SCENARIO( "Tabulated" ) {
 
       std::string string = chunkLANG12();
 
-      THEN( "a Tabulated can "
+      THEN( "a TabulatedDistribution can "
             "be constructed and members can be tested " ) {
 
         auto begin = string.begin();
         auto end = string.end();
         long lineNumber = 1;
 
-        Tabulated chunk( begin, end, lineNumber, 9228, 6, 5 );
+        TabulatedDistribution chunk( begin, end, lineNumber, 9228, 6, 5 );
         CHECK( 12 == chunk.LANG() );
-        checkTabulated( chunk );
+        checkTabulatedDistribution( chunk );
       } // THEN
     } // WHEN
 
@@ -79,21 +64,21 @@ SCENARIO( "Tabulated" ) {
 
       std::string string = chunkLANG14();
 
-      THEN( "a Tabulated can "
+      THEN( "a TabulatedDistribution can "
             "be constructed and members can be tested " ) {
 
         auto begin = string.begin();
         auto end = string.end();
         long lineNumber = 1;
 
-        Tabulated chunk( begin, end, lineNumber, 9228, 6, 5 );
+        TabulatedDistribution chunk( begin, end, lineNumber, 9228, 6, 5 );
         CHECK( 14 == chunk.LANG() );
-        checkTabulated( chunk );
+        checkTabulatedDistribution( chunk );
       } // THEN
     } // WHEN
   } // GIVEN
 
-  GIVEN( "a valid instance of Tabulated" ) {
+  GIVEN( "a valid instance of TabulatedDistribution" ) {
 
     int lang = 12;
 
@@ -102,7 +87,7 @@ SCENARIO( "Tabulated" ) {
     auto end = string.end();
     long lineNumber = 1;
 
-    Tabulated chunk( begin, end, lineNumber, 9228, 6, 5 );
+    TabulatedDistribution chunk( begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
 
@@ -113,7 +98,7 @@ SCENARIO( "Tabulated" ) {
     }
   } // GIVEN
 
-  GIVEN( "invalid data for a Tabulated" ) {
+  GIVEN( "invalid data for a TabulatedDistribution" ) {
 
     WHEN( "data with inconsistent sizes is given" ) {
 
@@ -126,11 +111,10 @@ SCENARIO( "Tabulated" ) {
 
       THEN( "an exception is thrown" ) {
 
-        CHECK_THROWS( Tabulated( energy, lang, std::move( wrong ),
+        CHECK_THROWS( TabulatedDistribution( energy, lang, std::move( wrong ),
                                  std::move( probabilities ) ) );
-        CHECK_THROWS( Tabulated( energy, lang, std::move( cosines ),
+        CHECK_THROWS( TabulatedDistribution( energy, lang, std::move( cosines ),
                                    std::move( wrong ) ) );
-        CHECK_THROWS( Tabulated( energy, lang, std::move( wrongsize ) ) );
       }
     } // WHEN
 
@@ -144,8 +128,7 @@ SCENARIO( "Tabulated" ) {
 
       THEN( "an exception is thrown" ) {
 
-        CHECK_THROWS( Tabulated( energy, lang, std::move( values ) ) );
-        CHECK_THROWS( Tabulated( energy, lang, std::move( cosines ),
+        CHECK_THROWS( TabulatedDistribution( energy, lang, std::move( cosines ),
                                    std::move( probabilities ) ) );
       } // THEN
     } // GIVEN
@@ -159,7 +142,7 @@ SCENARIO( "Tabulated" ) {
 
       THEN( "an exception is thrown" ) {
 
-        CHECK_THROWS( Tabulated( begin, end, lineNumber, 9228, 6, 5 ) );
+        CHECK_THROWS( TabulatedDistribution( begin, end, lineNumber, 9228, 6, 5 ) );
       } // THEN
     } // GIVEN
 
@@ -172,7 +155,7 @@ SCENARIO( "Tabulated" ) {
 
       THEN( "an exception is thrown" ) {
 
-        CHECK_THROWS( Tabulated( begin, end, lineNumber, 9228, 6, 5 ) );
+        CHECK_THROWS( TabulatedDistribution( begin, end, lineNumber, 9228, 6, 5 ) );
       } // THEN
     } // GIVEN
   } // WHEN
@@ -190,7 +173,7 @@ std::string chunkLANG14() {
     " 1.000000+0 2.000000+0 3.000000+0 4.000000+0 5.000000+0 6.000000+09228 6  5     \n";
 }
 
-void checkTabulated( const Tabulated& chunk ) {
+void checkTabulatedDistribution( const TabulatedDistribution& chunk ) {
 
   CHECK( 1e-5 == Approx( chunk.energy() ) );
 
