@@ -11,6 +11,7 @@
 namespace python = pybind11;
 
 namespace mf6 {
+namespace law5 {
 
 void wrapNuclearPlusInterference( python::module& module ) {
 
@@ -113,4 +114,5 @@ void wrapNuclearPlusInterference( python::module& module ) {
   addStandardComponentDefinitions< Component >( component );
 }
 
+} // namespace law5
 } // namespace mf6

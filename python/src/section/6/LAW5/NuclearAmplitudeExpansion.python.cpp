@@ -13,6 +13,7 @@
 namespace python = pybind11;
 
 namespace mf6 {
+namespace law5 {
 
 void wrapNuclearAmplitudeExpansion( python::module& module ) {
 
@@ -145,4 +146,5 @@ void wrapNuclearAmplitudeExpansion( python::module& module ) {
   addStandardComponentDefinitions< Component >( component );
 }
 
+} // namespace law5
 } // namespace mf6

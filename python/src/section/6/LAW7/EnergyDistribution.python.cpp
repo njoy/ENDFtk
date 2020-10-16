@@ -11,6 +11,7 @@
 namespace python = pybind11;
 
 namespace mf6 {
+namespace law7 {
 
 void wrapEnergyDistribution( python::module& module ) {
 
@@ -106,4 +107,5 @@ void wrapEnergyDistribution( python::module& module ) {
   addStandardComponentDefinitions< Component >( component );
 }
 
+} // namespace law7
 } // namespace mf6

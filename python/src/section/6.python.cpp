@@ -17,22 +17,36 @@ namespace mf6 {
   void wrapDefinedElsewhere( python::module& );                 // law<0
   void wrapUnknownDistribution( python::module& );              // law=0
 
-namespace law2 {
+  namespace law1 {
+  }
 
-  void wrapLegendreCoefficients( python::module& );             // law=2
-  void wrapTabulatedDistribution( python::module& );            // law=2
+  namespace law2 {
 
-}
+    void wrapLegendreCoefficients( python::module& );           // law=2
+    void wrapTabulatedDistribution( python::module& );          // law=2
+
+  }
 
   void wrapIsotropicDiscreteEmission( python::module& );        // law=3
   void wrapDiscreteTwoBodyRecoils( python::module& );           // law=4
-  void wrapLegendreCoefficients( python::module& );             // law=5
-  void wrapNuclearAmplitudeExpansion( python::module& );        // law=5
-  void wrapNuclearPlusInterference( python::module& );          // law=5
+
+  namespace law5 {
+
+    void wrapLegendreCoefficients( python::module& );           // law=5
+    void wrapNuclearAmplitudeExpansion( python::module& );      // law=5
+    void wrapNuclearPlusInterference( python::module& );        // law=5
+  }
+
   void wrapChargedParticleElasticScattering( python::module& ); // law=5
   void wrapNBodyPhaseSpace( python::module& );                  // law=6
-  void wrapEnergyDistribution( python::module& );               // law=7
-  void wrapAngularDistribution( python::module& );              // law=7
+
+  namespace law7 {
+
+    void wrapEnergyDistribution( python::module& );             // law=7
+    void wrapAngularDistribution( python::module& );            // law=7
+
+  }
+
   void wrapLaboratoryAngleEnergy( python::module& );            // law=7
   void wrapReactionProduct( python::module& );
 }
@@ -101,9 +115,9 @@ void wrapSection_6( python::module& module ) {
     "LAW5 - charged particle elastic scattering"
   );
 
-  mf6::wrapLegendreCoefficients( submodule );
-  mf6::wrapNuclearAmplitudeExpansion( submodule );
-  mf6::wrapNuclearPlusInterference( submodule );
+  mf6::law5::wrapLegendreCoefficients( submodule );
+  mf6::law5::wrapNuclearAmplitudeExpansion( submodule );
+  mf6::law5::wrapNuclearPlusInterference( submodule );
 
   // LAW = 6 - - - - - - - - - - - - - - - - - - - - - -
 
@@ -120,8 +134,8 @@ void wrapSection_6( python::module& module ) {
     "LAW7 - distributions are given in the E,mu,E' ordering"
   );
 
-  mf6::wrapEnergyDistribution( submodule );
-  mf6::wrapAngularDistribution( submodule );
+  mf6::law7::wrapEnergyDistribution( submodule );
+  mf6::law7::wrapAngularDistribution( submodule );
 
   // wrap the section
   section
