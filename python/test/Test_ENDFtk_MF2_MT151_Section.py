@@ -427,9 +427,7 @@ class Test_ENDFtk_MF2_MT151_RMatrixLimited( unittest.TestCase ) :
         tape = Tape.from_string( self.valid_TPID + self.chunk +
                                  self.valid_SEND + self.valid_FEND +
                                  self.valid_MEND + self.valid_TEND )
-        material = list( tape.material( 2625 ) )[0]
-
-        chunk = material.file( 2 ).section( 151 ).parse()
+        chunk = tape.material( 2625 ).file( 2 ).section( 151 ).parse()
 
         verify_chunk( self, chunk )
 

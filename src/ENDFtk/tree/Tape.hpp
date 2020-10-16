@@ -83,6 +83,25 @@ namespace tree {
     auto MAT( int mat ) const { return this->material( mat ); }
 
     /**
+     *  @brief Return the number of times a material with the given MAT
+     *         number is present
+     *
+     *  @param[in]   mat   the MAT number of the material
+     */
+    int numberMAT( int mat ) const {
+
+      return this->materials_.count( mat );
+    }
+
+    /**
+     *  @brief Return the number of times a material with the given MAT
+     *         number is present
+     *
+     *  @param[in]   mat   the MAT number of the material
+     */
+    int numberMaterial( int mat ) const { return this->numberMAT( mat ); }
+
+    /**
      *  @brief Return whether or not the tape has a material with the given MAT
      *         number
      *

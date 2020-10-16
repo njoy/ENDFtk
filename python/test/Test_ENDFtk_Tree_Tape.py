@@ -221,16 +221,10 @@ class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
             material = materials.to_list()[0]
             verify_material( self, material )
 
-            materials = tape.MAT( 125 )
-            self.assertEqual( 1, len( materials ) )
-
-            material = materials.to_list()[0]
+            material = tape.MAT( 125 )
             verify_material( self, material )
 
-            materials = tape.material( 125 )
-            self.assertEqual( 1, len( materials ) )
-
-            material = materials.to_list()[0]
+            material = tape.material( 125 )
             verify_material( self, material )
 
             self.assertEqual( 2211, len( tape.content.split( '\n' ) ) )

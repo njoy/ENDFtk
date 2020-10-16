@@ -204,8 +204,7 @@ class Test_ENDFtk_MF12_Section( unittest.TestCase ) :
         tape = Tape.from_string( self.valid_TPID + self.chunk_lo1 +
                                  self.valid_SEND + self.valid_FEND +
                                  self.valid_MEND + self.valid_TEND )
-        material = list( tape.material( 9228 ) )[0]
-        chunk = material.file( 12 ).section( 18 ).parse()
+        chunk = tape.material( 9228 ).file( 12 ).section( 18 ).parse()
 
         verify_chunk_lo1( self, chunk )
 
@@ -231,8 +230,7 @@ class Test_ENDFtk_MF12_Section( unittest.TestCase ) :
         tape = Tape.from_string( self.valid_TPID + self.chunk_lo2lg1 +
                                  self.valid_SEND + self.valid_FEND +
                                  self.valid_MEND + self.valid_TEND )
-        material = list( tape.material( 9228 ) )[0]
-        chunk = material.file( 12 ).section( 51 ).parse()
+        chunk = tape.material( 9228 ).file( 12 ).section( 51 ).parse()
 
         verify_chunk_lo2lg1( self, chunk )
 
@@ -259,8 +257,7 @@ class Test_ENDFtk_MF12_Section( unittest.TestCase ) :
         tape = Tape.from_string( self.valid_TPID + self.chunk_lo2lg2 +
                                  self.valid_SEND + self.valid_FEND +
                                  self.valid_MEND + self.valid_TEND )
-        material = list( tape.material( 9228 ) )[0]
-        chunk = material.file( 12 ).section( 51 ).parse()
+        chunk = tape.material( 9228 ).file( 12 ).section( 51 ).parse()
 
         verify_chunk_lo2lg2( self, chunk )
 
