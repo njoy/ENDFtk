@@ -16,6 +16,13 @@ namespace mf6 {
   void wrapMultiplicity( python::module& );
   void wrapDefinedElsewhere( python::module& );                 // law<0
   void wrapUnknownDistribution( python::module& );              // law=0
+
+namespace law2 {
+
+  void wrapTabulatedDistribution( python::module& );            // law=2
+
+}
+
   void wrapIsotropicDiscreteEmission( python::module& );        // law=3
   void wrapDiscreteTwoBodyRecoils( python::module& );           // law=4
   void wrapLegendreCoefficients( python::module& );             // law=5
@@ -62,6 +69,17 @@ void wrapSection_6( python::module& module ) {
 
   mf6::wrapUnknownDistribution( module );
 
+  // LAW = 2 - - - - - - - - - - - - - - - - - - - - - -
+
+  // create the submodule for LAW=5
+  python::module submodule = module.def_submodule(
+
+    "LAW2",
+    "LAW2 - discrete two-body scattering data for secondary particles"
+  );
+
+  mf6::law2::wrapTabulatedDistribution( submodule );
+
   // LAW = 3 - - - - - - - - - - - - - - - - - - - - - -
 
   mf6::wrapIsotropicDiscreteEmission( module );
@@ -75,7 +93,7 @@ void wrapSection_6( python::module& module ) {
   mf6::wrapChargedParticleElasticScattering( module );
 
   // create the submodule for LAW=5
-  python::module submodule = module.def_submodule(
+  submodule = module.def_submodule(
 
     "LAW5",
     "LAW5 - charged particle elastic scattering"

@@ -3,17 +3,20 @@
 #include <pybind11/stl.h>
 
 // local includes
-#include "ENDFtk/section/4.hpp"
+#include "ENDFtk/section/6.hpp"
 #include "definitions.hpp"
 #include "views.hpp"
 
 // namespace aliases
 namespace python = pybind11;
 
+namespace mf6 {
+namespace law2 {
+
 void wrapTabulatedDistribution( python::module& module ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 4 >::TabulatedDistribution;
+  using Component = njoy::ENDFtk::section::Type< 6 >::DiscreteTwoBodyScattering::TabulatedDistribution;
 
   // wrap views created by this section
 
@@ -22,26 +25,48 @@ void wrapTabulatedDistribution( python::module& module ) {
 
     module,
     "TabulatedDistribution",
-    "MF4 section - an angular distribution given as a tabulated function"
+    "MF6 section - LAW=2 - an angular distribution given as a tabulated function"
   );
 
   // wrap the section
   component
   .def(
 
-    python::init< double, std::vector< long >&&, std::vector< long >&&,
+    python::init< double, int,
                   std::vector< double >&&, std::vector< double >&& >(),
-    python::arg( "energy" ), python::arg( "boundaries" ),
-    python::arg( "interpolants" ), python::arg( "cosines" ),
-    python::arg( "probabilities" ),
+    python::arg( "energy" ), python::arg( "lang" ),
+    python::arg( "cosines" ), python::arg( "probabilities" ),
     "Initialise the component\n\n"
     "Arguments:\n"
     "    self             the component\n"
-    "    incident         the incident energy value\n"
-    "    boundaries       the interpolation range boundaries\n"
-    "    interpolants     the interpolation types for each range\n"
-    "    cosines          the cosine values\n"
+    "    energy           the incident energy value\n"
+    "    lang             the interpolation type for the distribution\n"
+    "    energies         the cosine values\n"
     "    probabilities    the probability values"
+  )
+  .def_property_readonly(
+
+    "LANG",
+    &Component::LANG,
+    "The interpolation type for this distribution (12 or 14)"
+  )
+  .def_property_readonly(
+
+    "NL",
+    &Component::NL,
+    "The number of cosine values"
+  )
+  .def_property_readonly(
+
+    "number_cosine_values",
+    &Component::numberCosineValues,
+    "The number of cosine values"
+  )
+  .def_property_readonly(
+
+    "NW",
+    &Component::NW,
+    "The number of values (cosine and probabilities)"
   )
   .def_property_readonly(
 
@@ -84,9 +109,9 @@ void wrapTabulatedDistribution( python::module& module ) {
     "The distribution probabilities"
   );
 
-  // add standard tab1 definitions
-  addStandardTableDefinitions< Component >( component );
-
   // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }
+
+} // namespace law2
+} // namespace mf6

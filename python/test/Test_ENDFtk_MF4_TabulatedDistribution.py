@@ -51,7 +51,7 @@ class Test_ENDFtk_MF4_TabulatedDistribution( unittest.TestCase ) :
             self.assertEqual( self.chunk, chunk.to_string( 9228, 4, 2 ) )
 
         # the data is given explicitly
-        chunk = TabulatedDistribution( incident = 1e-5,
+        chunk = TabulatedDistribution( energy = 1e-5,
                                        boundaries = [ 3 ], interpolants = [ 2 ],
                                        cosines = [ -1.0, 0.0, 1.0 ], probabilities = [ 0.0, 1.0, 0.0 ] )
 
@@ -75,7 +75,7 @@ class Test_ENDFtk_MF4_TabulatedDistribution( unittest.TestCase ) :
         with self.assertRaises( Exception ) :
 
             chunk = TabulatedDistribution(
-                        incident = 1e-5,
+                        energy = 1e-5,
                         boundaries = [ 4 ], interpolants = [ 2 ],
                         cosines = [ -1.0, 0.0, 1.0 ], probabilities = [ 0.0, 1.0, 0.0 ] )
 

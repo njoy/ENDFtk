@@ -13,10 +13,11 @@ class TabulatedDistribution : protected TabulationRecord {
   /* auxiliary functions */
 
 public:
+
   /* constructor */
   #include "ENDFtk/section/4/TabulatedDistribution/src/ctor.hpp"
 
-  /* get methods */
+  /* methods */
 
   /**
    *  @brief Return the incident energy for which the angular distribution

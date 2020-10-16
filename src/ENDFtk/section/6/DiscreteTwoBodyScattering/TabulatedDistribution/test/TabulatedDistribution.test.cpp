@@ -11,91 +11,118 @@ using TabulatedDistribution =
 section::Type< 6 >::DiscreteTwoBodyScattering::TabulatedDistribution;
 
 std::string chunkLANG12();
+void verifyChunkLANG12( const TabulatedDistribution& );
 std::string chunkLANG14();
-void checkTabulatedDistribution( const TabulatedDistribution& );
+void verifyChunkLANG14( const TabulatedDistribution& );
 std::string invalidLANG();
 std::string invalidSize();
 
 SCENARIO( "TabulatedDistribution" ) {
 
-  GIVEN( "valid data for a TabulatedDistribution" ) {
+  GIVEN( "valid data for a TabulatedDistribution using LANG=12" ) {
 
-    std::vector< int > langs = { 12, 14 };
+    std::string string = chunkLANG12();
 
     WHEN( "the data is given explicitly" ) {
 
-      THEN( "a Tabulated can "
-            "be constructed using vectors and members can be tested "
-            "for each LANG value" ) {
+      double energy = 1e-5;
+      int lang = 12;
+      std::vector< double > cosines = { 1, 3, 5 };
+      std::vector< double > probabilities = { 2, 4, 6 };
 
-        for ( auto lang : langs ) {
+      TabulatedDistribution chunk( energy, lang, std::move( cosines ),
+                                   std::move( probabilities ) );
 
-          double energy = 1e-5;
-          std::vector< double > values = { 1, 2, 3, 4, 5, 6 };
-          std::vector< double > cosines = { 1, 3, 5 };
-          std::vector< double > probabilities = { 2, 4, 6 };
+      THEN( "a TabulatedDistribution can be constructed and members can be "
+            "tested" ) {
 
-          TabulatedDistribution chunk( energy, lang, std::move( cosines ),
-                           std::move( probabilities ) );
-          CHECK( lang == chunk.LANG() );
-          checkTabulatedDistribution( chunk );
-        }
+        verifyChunkLANG12( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 6, 5 );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
-    WHEN( "the data is read from a string/stream for a LANG=12" ) {
+    WHEN( "the data is read from a string/stream" ) {
 
-      std::string string = chunkLANG12();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
 
-      THEN( "a TabulatedDistribution can "
-            "be constructed and members can be tested " ) {
+      TabulatedDistribution chunk( begin, end, lineNumber, 9228, 6, 5 );
 
-        auto begin = string.begin();
-        auto end = string.end();
-        long lineNumber = 1;
+      THEN( "a TabulatedDistribution can be constructed and members can be "
+            "tested" ) {
 
-        TabulatedDistribution chunk( begin, end, lineNumber, 9228, 6, 5 );
-        CHECK( 12 == chunk.LANG() );
-        checkTabulatedDistribution( chunk );
+        verifyChunkLANG12( chunk );
       } // THEN
-    } // WHEN
 
-    WHEN( "the data is read from a string/stream for a LANG=14" ) {
+      THEN( "it can be printed" ) {
 
-      std::string string = chunkLANG14();
-
-      THEN( "a TabulatedDistribution can "
-            "be constructed and members can be tested " ) {
-
-        auto begin = string.begin();
-        auto end = string.end();
-        long lineNumber = 1;
-
-        TabulatedDistribution chunk( begin, end, lineNumber, 9228, 6, 5 );
-        CHECK( 14 == chunk.LANG() );
-        checkTabulatedDistribution( chunk );
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 6, 5 );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
 
-  GIVEN( "a valid instance of TabulatedDistribution" ) {
+  GIVEN( "valid data for a TabulatedDistribution using LANG=14" ) {
 
-    int lang = 12;
+    std::string string = chunkLANG14();
 
-    std::string string = chunkLANG12();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
+    WHEN( "the data is given explicitly" ) {
 
-    TabulatedDistribution chunk( begin, end, lineNumber, 9228, 6, 5 );
+      double energy = 1e-5;
+      int lang = 14;
+      std::vector< double > cosines = { 1, 3, 5 };
+      std::vector< double > probabilities = { 2, 4, 6 };
 
-    THEN( "it can be printed" ) {
+      TabulatedDistribution chunk( energy, lang, std::move( cosines ),
+                                   std::move( probabilities ) );
 
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 9228, 6, 5 );
-      CHECK( buffer == string );
-    }
+      THEN( "a TabulatedDistribution can be constructed and members can be "
+            "tested" ) {
+
+        verifyChunkLANG14( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 6, 5 );
+        CHECK( buffer == string );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is read from a string/stream" ) {
+
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      TabulatedDistribution chunk( begin, end, lineNumber, 9228, 6, 5 );
+
+      THEN( "a TabulatedDistribution can be constructed and members can be "
+            "tested" ) {
+
+        verifyChunkLANG14( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 6, 5 );
+        CHECK( buffer == string );
+      } // THEN
+    } // WHEN
   } // GIVEN
 
   GIVEN( "invalid data for a TabulatedDistribution" ) {
@@ -167,24 +194,63 @@ std::string chunkLANG12() {
     " 1.000000+0 2.000000+0 3.000000+0 4.000000+0 5.000000+0 6.000000+09228 6  5     \n";
 }
 
+void verifyChunkLANG12( const TabulatedDistribution& chunk ) {
+
+  CHECK( 1e-5 == Approx( chunk.E() ) );
+  CHECK( 1e-5 == Approx( chunk.incidentEnergy() ) );
+
+  CHECK( 12 == chunk.LANG() );
+  CHECK( 6 == chunk.NW() );
+  CHECK( 3 == chunk.NL() );
+  CHECK( 3 == chunk.numberCosineValues() );
+  CHECK( 3 == chunk.MU().size() );
+  CHECK( 3 == chunk.cosines().size() );
+  CHECK( 1. == Approx( chunk.MU()[0] ) );
+  CHECK( 3. == Approx( chunk.MU()[1] ) );
+  CHECK( 5. == Approx( chunk.MU()[2] ) );
+  CHECK( 1. == Approx( chunk.cosines()[0] ) );
+  CHECK( 3. == Approx( chunk.cosines()[1] ) );
+  CHECK( 5. == Approx( chunk.cosines()[2] ) );
+  CHECK( 3 == chunk.F().size() );
+  CHECK( 3 == chunk.probabilities().size() );
+  CHECK( 2. == Approx( chunk.F()[0] ) );
+  CHECK( 4. == Approx( chunk.F()[1] ) );
+  CHECK( 6. == Approx( chunk.F()[2] ) );
+  CHECK( 2. == Approx( chunk.probabilities()[0] ) );
+  CHECK( 4. == Approx( chunk.probabilities()[1] ) );
+  CHECK( 6. == Approx( chunk.probabilities()[2] ) );
+
+  CHECK( 2 == chunk.NC() );
+}
+
 std::string chunkLANG14() {
   return
     " 0.000000+0 1.000000-5         14          0          6          39228 6  5     \n"
     " 1.000000+0 2.000000+0 3.000000+0 4.000000+0 5.000000+0 6.000000+09228 6  5     \n";
 }
 
-void checkTabulatedDistribution( const TabulatedDistribution& chunk ) {
+void verifyChunkLANG14( const TabulatedDistribution& chunk ) {
 
-  CHECK( 1e-5 == Approx( chunk.energy() ) );
+  CHECK( 1e-5 == Approx( chunk.E() ) );
+  CHECK( 1e-5 == Approx( chunk.incidentEnergy() ) );
 
+  CHECK( 14 == chunk.LANG() );
   CHECK( 6 == chunk.NW() );
   CHECK( 3 == chunk.NL() );
-  CHECK( 3 == chunk.numberCosines() );
+  CHECK( 3 == chunk.numberCosineValues() );
+  CHECK( 3 == chunk.MU().size() );
   CHECK( 3 == chunk.cosines().size() );
+  CHECK( 1. == Approx( chunk.MU()[0] ) );
+  CHECK( 3. == Approx( chunk.MU()[1] ) );
+  CHECK( 5. == Approx( chunk.MU()[2] ) );
   CHECK( 1. == Approx( chunk.cosines()[0] ) );
   CHECK( 3. == Approx( chunk.cosines()[1] ) );
   CHECK( 5. == Approx( chunk.cosines()[2] ) );
+  CHECK( 3 == chunk.F().size() );
   CHECK( 3 == chunk.probabilities().size() );
+  CHECK( 2. == Approx( chunk.F()[0] ) );
+  CHECK( 4. == Approx( chunk.F()[1] ) );
+  CHECK( 6. == Approx( chunk.F()[2] ) );
   CHECK( 2. == Approx( chunk.probabilities()[0] ) );
   CHECK( 4. == Approx( chunk.probabilities()[1] ) );
   CHECK( 6. == Approx( chunk.probabilities()[2] ) );

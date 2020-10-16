@@ -474,7 +474,8 @@ SCENARIO( "ReactionProduct" ) {
 
       auto subsection2 =
            std::get< Law2TabulatedDistribution >( energies[1] );
-      CHECK( 2e+7 == Approx( subsection2.energy() ) );
+      CHECK( 2e+7 == Approx( subsection2.E() ) );
+      CHECK( 2e+7 == Approx( subsection2.incidentEnergy() ) );
       CHECK( 12 == subsection2.LANG() );
       CHECK( 6 == subsection2.NW() );
       CHECK( 3 == subsection2.NL() );
@@ -559,7 +560,8 @@ SCENARIO( "ReactionProduct" ) {
 
       auto subsection2 =
            std::get< Law2TabulatedDistribution >( energies[1] );
-      CHECK( 2e+7 == Approx( subsection2.energy() ) );
+      CHECK( 2e+7 == Approx( subsection2.E() ) );
+      CHECK( 2e+7 == Approx( subsection2.incidentEnergy() ) );
       CHECK( 12 == subsection2.LANG() );
       CHECK( 6 == subsection2.NW() );
       CHECK( 3 == subsection2.NL() );

@@ -127,6 +127,7 @@ pybind11_add_module( ENDFtk.python
     python/src/section/6/Multiplicity.python.cpp
     python/src/section/6/DefinedElsewhere.python.cpp
     python/src/section/6/Unknown.python.cpp
+    python/src/section/6/TabulatedDistribution.python.cpp
     python/src/section/6/IsotropicDiscreteEmission.python.cpp
     python/src/section/6/DiscreteTwoBodyRecoils.python.cpp
     python/src/section/6/LegendreCoefficients.python.cpp
