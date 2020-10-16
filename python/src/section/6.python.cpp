@@ -27,6 +27,7 @@ namespace mf6 {
 
   }
 
+  void wrapDiscreteTwoBodyScattering( python::module& );        // law=2
   void wrapIsotropicDiscreteEmission( python::module& );        // law=3
   void wrapDiscreteTwoBodyRecoils( python::module& );           // law=4
 
@@ -85,6 +86,8 @@ void wrapSection_6( python::module& module ) {
   mf6::wrapUnknownDistribution( module );
 
   // LAW = 2 - - - - - - - - - - - - - - - - - - - - - -
+
+  mf6::wrapDiscreteTwoBodyScattering( module );
 
   // create the submodule for LAW=5
   python::module submodule = module.def_submodule(
