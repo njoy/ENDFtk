@@ -12,10 +12,10 @@ class DiscreteTwoBodyScattering {
 public:
 
   #include "ENDFtk/section/6/DiscreteTwoBodyScattering/LegendreCoefficients.hpp"
-  #include "ENDFtk/section/6/DiscreteTwoBodyScattering/Tabulated.hpp"
+  #include "ENDFtk/section/6/DiscreteTwoBodyScattering/TabulatedDistribution.hpp"
 
-  using Variant = std::variant< LegendreCoefficients, // LANG=1
-                                Tabulated >;          // LANG=12,14
+  using Variant = std::variant< LegendreCoefficients,    // LANG=1
+                                TabulatedDistribution >; // LANG=12,14
 
 private:
 

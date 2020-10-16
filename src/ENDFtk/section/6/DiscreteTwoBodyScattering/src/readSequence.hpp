@@ -21,7 +21,7 @@ readSequence( long nep,
                   break;
       case 12 :
       case 14 : sequence.emplace_back(
-                  Tabulated( std::move( list ) ) );
+                  TabulatedDistribution( std::move( list ) ) );
                   break;
       default : {
 

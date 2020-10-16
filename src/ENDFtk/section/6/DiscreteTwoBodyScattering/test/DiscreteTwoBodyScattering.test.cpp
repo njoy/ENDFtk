@@ -13,8 +13,8 @@ using Variant =
 section::Type< 6 >::DiscreteTwoBodyScattering::Variant;
 using LegendreCoefficients =
 section::Type< 6 >::DiscreteTwoBodyScattering::LegendreCoefficients;
-using Tabulated =
-section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated;
+using TabulatedDistribution =
+section::Type< 6 >::DiscreteTwoBodyScattering::TabulatedDistribution;
 
 std::string chunk();
 void verifyChunk( const DiscreteTwoBodyScattering& );
@@ -32,7 +32,7 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
       std::vector< long > interpolants = { 1 };
       std::vector< Variant > sequence = {
         LegendreCoefficients( 1e-5, { 1., 2., 3., 4. } ),
-        Tabulated( 2e+7, 12, {1., 2., 3., 4., 5., 6.} ) };
+        TabulatedDistribution( 2e+7, 12, { 1., 3., 5. }, { 2., 4., 6. } ) };
 
       DiscreteTwoBodyScattering
         chunk( std::move( boundaries ), std::move( interpolants ),
@@ -88,7 +88,7 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
         std::vector< long > interpolants = { 1 };
         std::vector< Variant > sequence = {
           LegendreCoefficients( 1e-5, { 1., 2., 3., 4. } ),
-          Tabulated( 2e+7, 12, {1., 2., 3., 4., 5., 6.} ) };
+          TabulatedDistribution( 2e+7, 12, { 1., 3., 5. }, { 2., 4., 6. } ) };
 
         CHECK_THROWS(
             DiscreteTwoBodyScattering( std::move( wrongBoundaries ),
@@ -103,7 +103,7 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
         std::vector< long > wrongInterpolants = { 1, 2 };
         std::vector< Variant > sequence = {
           LegendreCoefficients( 1e-5, { 1., 2., 3., 4. } ),
-          Tabulated( 2e+7, 12, {1., 2., 3., 4., 5., 6.} ) };
+          TabulatedDistribution( 2e+7, 12, { 1., 3., 5. }, { 2., 4., 6. } ) };
 
         CHECK_THROWS(
             DiscreteTwoBodyScattering( std::move( wrongInterpolants ),
@@ -175,7 +175,7 @@ void verifyChunk( const DiscreteTwoBodyScattering& chunk ) {
       CHECK( 3. == Approx( subsection1.coefficients()[2] ) );
       CHECK( 4. == Approx( subsection1.coefficients()[3] ) );
 
-      auto subsection2 = std::get< Tabulated >( energies[1] );
+      auto subsection2 = std::get< TabulatedDistribution >( energies[1] );
       CHECK( 2e+7 == Approx( subsection2.energy() ) );
       CHECK( 12 == subsection2.LANG() );
       CHECK( 6 == subsection2.NW() );
