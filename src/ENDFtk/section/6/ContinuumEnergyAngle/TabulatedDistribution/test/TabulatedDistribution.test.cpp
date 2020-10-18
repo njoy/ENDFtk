@@ -11,100 +11,93 @@ using TabulatedDistribution =
 section::Type< 6 >::ContinuumEnergyAngle::TabulatedDistribution;
 
 std::string chunk();
-void checkTabulated( const TabulatedDistribution& );
+void verifyChunk( int, const TabulatedDistribution& );
 std::string invalidSize();
 
 SCENARIO( "TabulatedDistribution" ) {
 
   GIVEN( "valid data for a TabulatedDistribution" ) {
 
+    std::string string = chunk();
     std::vector< int > langs = { 11, 12, 13, 14, 15 };
 
     WHEN( "the data is given explicitly" ) {
 
-      THEN( "a TabulatedDistribution can "
-            "be constructed using vectors and members can be tested "
-            "for each LANG value" ) {
+      for ( auto lang : langs ) {
 
-        for ( auto lang : langs ) {
+        double energy = 1e-5;
+        int nd = 0;
+        int na = 4;
 
-          double energy = 1e-5;
-          int nd = 0;
-          int na = 4;
-          int nep = 2;
+        std::vector< double > energies = { 1., 7. };
+        std::vector< double > emissions = { 2., 8. };
+        std::vector< std::vector< double > > cosines = { { 3., 5. },
+                                                         { 9., 11. } };
+        std::vector< std::vector< double > > probabilities = { { 4., 6. },
+                                                               { 10., 12. } };
+        TabulatedDistribution chunk( lang, energy, nd, na,
+                                     std::move( energies ),
+                                     std::move( emissions ),
+                                     std::move( cosines ),
+                                     std::move( probabilities ) );
 
-          std::vector< double > energies = { 1., 7. };
-          std::vector< double > totalEmissionProbabilities = { 2., 8. };
-          std::vector< std::vector< double > > cosines = { { 3., 5. },
-                                                           { 9., 11. } };
-          std::vector< std::vector< double > > probabilities = { { 4., 6. },
-                                                                 { 10., 12. } };
-          TabulatedDistribution chunk( lang, energy, nd, na, nep, std::move( energies ),
-                           std::move( totalEmissionProbabilities ),
-                           std::move( cosines ),
-                           std::move( probabilities ) );
-          checkTabulated( chunk );
-        }
-      } // THEN
+        THEN( "a TabulatedDistribution can  be constructed and members can "
+              "be tested for each LANG value" ) {
+
+          verifyChunk( lang, chunk );
+        } // THEN
+
+        THEN( "it can be printed" ) {
+
+          std::string buffer;
+          auto output = std::back_inserter( buffer );
+          chunk.print( output, 9228, 6, 5 );
+          CHECK( buffer == string );
+        } // THEN
+      }
     } // WHEN
 
     WHEN( "the data is read from a string/stream" ) {
 
-      std::string string = chunk();
+      for ( auto lang : langs ) {
 
-      THEN( "a TabulatedDistribution can "
-            "be constructed and members can be tested "
-            "for each LANG value" ) {
+        auto begin = string.begin();
+        auto end = string.end();
+        long lineNumber = 1;
 
-        for ( auto lang : langs ) {
+        TabulatedDistribution chunk( lang, begin, end, lineNumber, 9228, 6, 5 );
 
-          auto begin = string.begin();
-          auto end = string.end();
-          long lineNumber = 1;
+        THEN( "a TabulatedDistribution can be constructed and members can "
+              "be tested for each LANG value" ) {
 
-          TabulatedDistribution chunk( lang, begin, end, lineNumber, 9228, 6, 5 );
-          checkTabulated( chunk );
-        }
-      } // THEN
+          verifyChunk( lang, chunk );
+        } // THEN
+
+        THEN( "it can be printed" ) {
+
+          std::string buffer;
+          auto output = std::back_inserter( buffer );
+          chunk.print( output, 9228, 6, 5 );
+          CHECK( buffer == string );
+        } // THEN
+      }
     } // WHEN
-  } // GIVEN
-
-  GIVEN( "a valid instance of TabulatedDistribution" ) {
-
-    int lang = 14;
-
-    std::string string = chunk();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-
-    TabulatedDistribution chunk( lang, begin, end, lineNumber, 9228, 6, 5 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 9228, 6, 5 );
-      CHECK( buffer == string );
-    }
   } // GIVEN
 
   GIVEN( "invalid data for a TabulatedDistribution" ) {
 
-    int lang = 14; // LANG is not on a TabulatedDistribution section but we do store it
+    // LANG is not on a TabulatedDistribution section but we do store it
+    int lang = 14;
 
     WHEN( "data with inconsistent sizes is given" ) {
 
       double energy = 1e-5;
       int nd = 0;
       int na = 4;
-      int nep = 2;
-      std::vector< double > list = {  1.,  2.,  3.,  4.,  5.,  6.,
-                                      7.,  8.,  9., 10., 11., 12. };
       std::vector< double > energies = { 1., 7. };
       std::vector< double > wrongEnergies = { 1., 7., 8. };
-      std::vector< double > totalEmissionProbabilities = { 2., 8. };
-      std::vector< double > wrongTotalEmissionProbabilities = { 2., 8., 3. };
+      std::vector< double > emissions = { 2., 8. };
+      std::vector< double > wrongEmissions = { 2., 8., 3. };
       std::vector< std::vector< double > > cosines = { { 3., 5. },
                                                      { 9., 11. } };
       std::vector< std::vector< double > > wrongCosines = { { 3., 5., 6. },
@@ -116,26 +109,26 @@ SCENARIO( "TabulatedDistribution" ) {
 
       THEN( "an exception is thrown" ) {
 
-        CHECK_THROWS( TabulatedDistribution( lang, energy, nd, na, nep,
-                                 std::move( wrongEnergies ),
-                                 std::move( totalEmissionProbabilities ),
-                                 std::move( cosines ),
-                                 std::move( probabilities ) ) );
-        CHECK_THROWS( TabulatedDistribution( lang, energy, nd, na, nep,
-                                 std::move( energies ),
-                                 std::move( wrongTotalEmissionProbabilities ),
-                                 std::move( cosines ),
-                                 std::move( probabilities ) ) );
-        CHECK_THROWS( TabulatedDistribution( lang, energy, nd, na, nep,
-                                 std::move( energies ),
-                                 std::move( totalEmissionProbabilities ),
-                                 std::move( wrongCosines ),
-                                 std::move( probabilities ) ) );
-        CHECK_THROWS( TabulatedDistribution( lang, energy, nd, na, nep,
-                                 std::move( energies ),
-                                 std::move( totalEmissionProbabilities ),
-                                 std::move( cosines ),
-                                 std::move( wrongProbabilities ) ) );
+        CHECK_THROWS( TabulatedDistribution( lang, energy, nd, na,
+                                              std::move( wrongEnergies ),
+                                              std::move( emissions ),
+                                              std::move( cosines ),
+                                              std::move( probabilities ) ) );
+        CHECK_THROWS( TabulatedDistribution( lang, energy, nd, na,
+                                              std::move( energies ),
+                                              std::move( wrongEmissions ),
+                                              std::move( cosines ),
+                                              std::move( probabilities ) ) );
+        CHECK_THROWS( TabulatedDistribution( lang, energy, nd, na,
+                                              std::move( energies ),
+                                              std::move( emissions ),
+                                              std::move( wrongCosines ),
+                                              std::move( probabilities ) ) );
+        CHECK_THROWS( TabulatedDistribution( lang, energy, nd, na,
+                                             std::move( energies ),
+                                             std::move( emissions ),
+                                             std::move( cosines ),
+                                             std::move( wrongProbabilities ) ) );
       } // THEN
     } // WHEN
 
@@ -148,7 +141,8 @@ SCENARIO( "TabulatedDistribution" ) {
 
       THEN( "an exception is thrown" ) {
 
-        CHECK_THROWS( TabulatedDistribution( lang, begin, end, lineNumber, 9228, 6, 5 ) );
+        CHECK_THROWS( TabulatedDistribution( lang, begin, end, lineNumber,
+                                             9228, 6, 5 ) );
       } // THEN
     } // WHEN
 
@@ -163,11 +157,8 @@ SCENARIO( "TabulatedDistribution" ) {
           double energy = 1e-5;
           int nd = 0;
           int na = 4;
-          int nep = 2;
-          std::vector< double > list = {  1.,  2.,  3.,  4.,  5.,  6.,
-                                      7.,  8.,  9., 10., 11., 12. };
           std::vector< double > energies = { 1., 7. };
-          std::vector< double > totalEmissionProbabilities = { 2., 8. };
+          std::vector< double > emissions = { 2., 8. };
           std::vector< std::vector< double > > cosines = { { 3., 5. },
                                                            { 9., 11. } };
           std::vector< std::vector< double > > probabilities = { { 4., 6. },
@@ -179,11 +170,11 @@ SCENARIO( "TabulatedDistribution" ) {
           auto end = string.end();
           long lineNumber = 1;
 
-          CHECK_THROWS( TabulatedDistribution( lang, energy, nd, na, nep,
-                                   std::move( energies ),
-                                   std::move( totalEmissionProbabilities ),
-                                   std::move( cosines ),
-                                   std::move( probabilities ) ) );
+          CHECK_THROWS( TabulatedDistribution( lang, energy, nd, na,
+                                               std::move( energies ),
+                                               std::move( emissions ),
+                                               std::move( cosines ),
+                                               std::move( probabilities ) ) );
           CHECK_THROWS(
             TabulatedDistribution( lang, begin, end, lineNumber, 9228, 6, 5 ) );
         }
@@ -199,10 +190,13 @@ std::string chunk() {
     " 7.000000+0 8.000000+0 9.000000+0 1.000000+1 1.100000+1 1.200000+19228 6  5     \n";
 }
 
-void checkTabulated( const TabulatedDistribution& chunk ) {
+void verifyChunk( int lang, const TabulatedDistribution& chunk ) {
 
   CHECK( 1e-5 == Approx( chunk.E() ) );
   CHECK( 1e-5 == Approx( chunk.incidentEnergy() ) );
+
+  CHECK( lang == chunk.LANG() );
+  CHECK( lang == chunk.representation() );
 
   CHECK( 0 == chunk.ND() );
   CHECK( 0 == chunk.numberDiscreteEnergies() );
@@ -211,18 +205,34 @@ void checkTabulated( const TabulatedDistribution& chunk ) {
   CHECK( 12 == chunk.NW() );
   CHECK( 2 == chunk.NEP() );
   CHECK( 2 == chunk.numberSecondaryEnergies() );
+  CHECK( 2 == chunk.EP().size() );
   CHECK( 2 == chunk.energies().size() );
+  CHECK( 1. == Approx( chunk.EP()[0] ) );
+  CHECK( 7. == Approx( chunk.EP()[1] ) );
   CHECK( 1. == Approx( chunk.energies()[0] ) );
   CHECK( 7. == Approx( chunk.energies()[1] ) );
+  CHECK( 2 == chunk.F0().size() );
   CHECK( 2 == chunk.totalEmissionProbabilities().size() );
+  CHECK( 2. == Approx( chunk.F0()[0] ) );
+  CHECK( 8. == Approx( chunk.F0()[1] ) );
   CHECK( 2. == Approx( chunk.totalEmissionProbabilities()[0] ) );
   CHECK( 8. == Approx( chunk.totalEmissionProbabilities()[1] ) );
+  CHECK( 2 == chunk.MU().size() );
   CHECK( 2 == chunk.cosines().size() );
+  CHECK( 3. == Approx( chunk.MU()[0][0] ) );
+  CHECK( 5. == Approx( chunk.MU()[0][1] ) );
+  CHECK( 9. == Approx( chunk.MU()[1][0] ) );
+  CHECK( 11. == Approx( chunk.MU()[1][1] ) );
   CHECK( 3. == Approx( chunk.cosines()[0][0] ) );
   CHECK( 5. == Approx( chunk.cosines()[0][1] ) );
   CHECK( 9. == Approx( chunk.cosines()[1][0] ) );
   CHECK( 11. == Approx( chunk.cosines()[1][1] ) );
+  CHECK( 2 == chunk.F().size() );
   CHECK( 2 == chunk.probabilities().size() );
+  CHECK( 4. == Approx( chunk.F()[0][0] ) );
+  CHECK( 6. == Approx( chunk.F()[0][1] ) );
+  CHECK( 10. == Approx( chunk.F()[1][0] ) );
+  CHECK( 12. == Approx( chunk.F()[1][1] ) );
   CHECK( 4. == Approx( chunk.probabilities()[0][0] ) );
   CHECK( 6. == Approx( chunk.probabilities()[0][1] ) );
   CHECK( 10. == Approx( chunk.probabilities()[1][0] ) );
