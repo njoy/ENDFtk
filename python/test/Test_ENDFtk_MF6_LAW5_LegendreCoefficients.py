@@ -6,7 +6,7 @@ import unittest
 # local imports
 from ENDFtk.MF6.LAW5 import LegendreCoefficients
 
-class Test_ENDFtk_MF6_LegendreCoefficients( unittest.TestCase ) :
+class Test_ENDFtk_MF6_LAW5_LegendreCoefficients( unittest.TestCase ) :
     """Unit test for the LegendreCoefficients class."""
 
     chunk = ( ' 0.000000+0 1.000000-5          2          0          4          39228 6  5     \n'

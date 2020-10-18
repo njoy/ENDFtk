@@ -29,6 +29,11 @@ public:
    */
   static constexpr int LANG() { return 1; }
 
+  /**
+   *  @brief Return the representation type
+   */
+  int representation() const { return this->LANG(); }
+
   using Base::E;
   using Base::incidentEnergy;
   using Base::ND;
@@ -38,8 +43,20 @@ public:
   using Base::NW;
   using Base::NEP;
   using Base::numberSecondaryEnergies;
+  using Base::EP;
   using Base::energies;
+  using Base::F0;
   using Base::totalEmissionProbabilities;
+
+  /**
+   *  @brief Return the Legendre order
+   */
+  long NL() const { return Base::NA(); }
+
+  /**
+   *  @brief Return the Legendre order
+   */
+  long legendreOrder() const { return this->NL(); }
 
   /**
    *  @brief Return the Legendre coefficients (one set for each outgoing energy)

@@ -7,7 +7,7 @@ import unittest
 from ENDFtk.MF6.LAW7 import AngularDistribution
 from ENDFtk.MF6.LAW7 import EnergyDistribution
 
-class Test_ENDFtk_MF6_AngularDistribution( unittest.TestCase ) :
+class Test_ENDFtk_MF6_LAW7_AngularDistribution( unittest.TestCase ) :
     """Unit test for the AngularDistribution class."""
 
     chunk = ( ' 0.000000+0 1.000000-5          0          0          1          29228 6  5     \n'

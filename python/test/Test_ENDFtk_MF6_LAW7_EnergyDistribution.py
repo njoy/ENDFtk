@@ -6,7 +6,7 @@ import unittest
 # local imports
 from ENDFtk.MF6.LAW7 import EnergyDistribution
 
-class Test_ENDFtk_MF6_EnergyDistribution( unittest.TestCase ) :
+class Test_ENDFtk_MF6_LAW7_EnergyDistribution( unittest.TestCase ) :
     """Unit test for the EnergyDistribution class."""
 
     chunk = ( ' 0.000000+0 1.000000+0          0          0          1          49228 6  5     \n'

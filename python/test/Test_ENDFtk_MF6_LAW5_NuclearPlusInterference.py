@@ -6,7 +6,7 @@ import unittest
 # local imports
 from ENDFtk.MF6.LAW5 import NuclearPlusInterference
 
-class Test_ENDFtk_MF6_NuclearPlusInterference( unittest.TestCase ) :
+class Test_ENDFtk_MF6_LAW5_NuclearPlusInterference( unittest.TestCase ) :
     """Unit test for the NuclearPlusInterference class."""
 
     chunk = ( ' 0.000000+0 1.000000-5         12          0          6          39228 6  5     \n'

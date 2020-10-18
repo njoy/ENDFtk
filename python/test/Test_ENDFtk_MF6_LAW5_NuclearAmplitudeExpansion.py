@@ -6,7 +6,7 @@ import unittest
 # local imports
 from ENDFtk.MF6.LAW5 import NuclearAmplitudeExpansion
 
-class Test_ENDFtk_MF6_NuclearAmplitudeExpansion( unittest.TestCase ) :
+class Test_ENDFtk_MF6_LAW5_NuclearAmplitudeExpansion( unittest.TestCase ) :
     """Unit test for the NuclearAmplitudeExpansion class."""
 
     chunk = ( ' 0.000000+0 1.000000-5          1          0         15          39228 6  5     \n'

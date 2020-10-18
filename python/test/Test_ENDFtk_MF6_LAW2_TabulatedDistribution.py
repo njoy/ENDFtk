@@ -6,7 +6,7 @@ import unittest
 # local imports
 from ENDFtk.MF6.LAW2 import TabulatedDistribution
 
-class Test_ENDFtk_MF6_TabulatedDistribution( unittest.TestCase ) :
+class Test_ENDFtk_MF6_LAW2_TabulatedDistribution( unittest.TestCase ) :
     """Unit test for the TabulatedDistribution class."""
 
     chunk_lang12 = ( ' 0.000000+0 1.000000-5         12          0          6          39228 6  5     \n'

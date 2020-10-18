@@ -18,6 +18,8 @@ namespace mf6 {
   void wrapUnknownDistribution( python::module& );              // law=0
 
   namespace law1 {
+
+    void wrapLegendreCoefficients( python::module& );           // law=1
   }
 
   namespace law2 {
@@ -85,12 +87,25 @@ void wrapSection_6( python::module& module ) {
 
   mf6::wrapUnknownDistribution( module );
 
+  // LAW = 1 - - - - - - - - - - - - - - - - - - - - - -
+
+  // mf6::wrapContinuumEnergyAngle( module );
+
+  // create the submodule for LAW=1
+  python::module submodule = module.def_submodule(
+
+    "LAW1",
+    "LAW1 - continuum energy-angle data for secondary particles"
+  );
+
+  mf6::law1::wrapLegendreCoefficients( submodule );
+
   // LAW = 2 - - - - - - - - - - - - - - - - - - - - - -
 
   mf6::wrapDiscreteTwoBodyScattering( module );
 
-  // create the submodule for LAW=5
-  python::module submodule = module.def_submodule(
+  // create the submodule for LAW=2
+  submodule = module.def_submodule(
 
     "LAW2",
     "LAW2 - discrete two-body scattering data for secondary particles"
