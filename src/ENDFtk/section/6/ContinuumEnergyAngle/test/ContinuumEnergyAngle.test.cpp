@@ -154,11 +154,11 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       std::vector< long > boundaries = { 2 };
       std::vector< long > interpolants = { 1 };
       std::vector< Variant > sequence = {
-          TabulatedDistribution( lang, 1e-5, 0, 4, 2,
+          TabulatedDistribution( lang, 1e-5, 0, 4,
                                  {  1.,  7. },  { 2., 8. },
                                  { { 3., 5. }, { 9., 11. } },
                                  { { 4., 6. }, { 10., 12. } } ),
-          TabulatedDistribution( lang, 2e+7, 0, 4, 2,
+          TabulatedDistribution( lang, 2e+7, 0, 4,
                                  {  13.,  19. },  { 14., 20. },
                                  { { 15., 17. }, { 21., 23. } },
                                  { { 16., 18. }, { 22., 24. } } ) };

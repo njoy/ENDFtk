@@ -20,6 +20,7 @@ namespace mf6 {
   namespace law1 {
 
     void wrapLegendreCoefficients( python::module& );           // law=1
+    void wrapTabulatedDistribution( python::module& );          // law=1
   }
 
   namespace law2 {
@@ -99,6 +100,7 @@ void wrapSection_6( python::module& module ) {
   );
 
   mf6::law1::wrapLegendreCoefficients( submodule );
+  mf6::law1::wrapTabulatedDistribution( submodule );
 
   // LAW = 2 - - - - - - - - - - - - - - - - - - - - - -
 
