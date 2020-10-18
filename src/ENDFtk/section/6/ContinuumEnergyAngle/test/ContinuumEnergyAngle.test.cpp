@@ -97,8 +97,8 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       std::vector< long > boundaries = { 2 };
       std::vector< long > interpolants = { 1 };
        std::vector< Variant > sequence = {
-          KalbachMann( 1e-5, 0, 1, 2, { 1., 2., 3., 4., 5., 6. } ),
-          KalbachMann( 2e+7, 0, 2, 2, { 7., 8., 9., 10., 11., 12., 13., 14.} ) };
+          KalbachMann( 1e-5, 0, std::vector< std::array< double, 3 > >{ {{1., 2., 3.}}, {{4., 5., 6.}} } ),
+          KalbachMann( 2e+7, 0, std::vector< std::array< double, 4 > >{ {{7., 8., 9., 10.}}, {{11., 12., 13., 14.}} } ) };
 
       ContinuumEnergyAngle chunk( lep, std::move( boundaries ),
                                   std::move( interpolants ),
@@ -217,7 +217,7 @@ SCENARIO( "ContinuumEnergyAngle" ) {
           LegendreCoefficients( 1e-5, 0, 1, { 1., 4., 7., 10. },
                                 { { 2., 3. }, { 5., 6. },
                                   { 8., 9. }, {  11., 12. } } ),
-          KalbachMann( 1e-5, 0, 1, 2, { 1., 2., 3., 4., 5., 6. } ) };
+          KalbachMann( 1e-5, 0, std::vector< std::array< double, 4 > >{ {{1., 2., 3.}}, {{4., 5., 6.}} } ) };
 
       THEN( "an exception is thrown upon construction" ) {
 
@@ -237,8 +237,8 @@ SCENARIO( "ContinuumEnergyAngle" ) {
         std::vector< long > wrongBoundaries = { 2, 4 };
         std::vector< long > interpolants = { 1 };
         std::vector< Variant > sequence = {
-            KalbachMann( 1e-5, 0, 1, 2, { 1., 2., 3., 4., 5., 6. } ),
-            KalbachMann( 2e+7, 0, 2, 2, { 7., 8., 9., 10., 11., 12., 13., 14.} ) };
+            KalbachMann( 1e-5, 0, std::vector< std::array< double, 3 > >{ {{1., 2., 3.}}, {{4., 5., 6.}} } ),
+            KalbachMann( 2e+7, 0, std::vector< std::array< double, 4 > >{ {{7., 8., 9., 10.}}, {{11., 12., 13., 14.}} } ) };
 
         CHECK_THROWS(
           ContinuumEnergyAngle( lep,
@@ -254,8 +254,8 @@ SCENARIO( "ContinuumEnergyAngle" ) {
         std::vector< long > boundaries = { 2 };
         std::vector< long > wrongInterpolants = { 1, 2 };
         std::vector< Variant > sequence = {
-            KalbachMann( 1e-5, 0, 1, 2, { 1., 2., 3., 4., 5., 6. } ),
-            KalbachMann( 2e+7, 0, 2, 2, { 7., 8., 9., 10., 11., 12., 13., 14.} ) };
+            KalbachMann( 1e-5, 0, std::vector< std::array< double, 3 > >{ {{1., 2., 3.}}, {{4., 5., 6.}} } ),
+            KalbachMann( 2e+7, 0, std::vector< std::array< double, 4 > >{ {{7., 8., 9., 10.}}, {{11., 12., 13., 14.}} } ) };
 
         CHECK_THROWS(
           ContinuumEnergyAngle( lep,
@@ -271,7 +271,7 @@ SCENARIO( "ContinuumEnergyAngle" ) {
         std::vector< long > boundaries = { 2 };
         std::vector< long > interpolants = { 1 };
         std::vector< Variant > wrongSequence = {
-            KalbachMann( 1e-5, 0, 1, 2, { 1., 2., 3., 4., 5., 6. } ) };
+            KalbachMann( 1e-5, 0, std::vector< std::array< double, 3 > >{ {{1., 2., 3.}}, {{4., 5., 6.}} } ) };
 
         CHECK_THROWS(
           ContinuumEnergyAngle( lep,

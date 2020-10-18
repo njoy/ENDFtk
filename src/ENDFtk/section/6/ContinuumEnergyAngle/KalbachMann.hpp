@@ -21,6 +21,11 @@ public:
    */
   static constexpr int LANG() { return 2; }
 
+  /**
+   *  @brief Return the representation type
+   */
+  int representation() const { return this->LANG(); }
+
   using Base::E;
   using Base::incidentEnergy;
   using Base::ND;
@@ -30,7 +35,9 @@ public:
   using Base::NW;
   using Base::NEP;
   using Base::numberSecondaryEnergies;
+  using Base::EP;
   using Base::energies;
+  using Base::F0;
   using Base::totalEmissionProbabilities;
 
   /**
