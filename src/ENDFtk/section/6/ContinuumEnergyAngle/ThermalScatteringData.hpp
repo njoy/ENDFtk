@@ -32,12 +32,12 @@ public:
   /**
    *  @brief Return the incident energy
    */
-  double EN() const { return ListRecord::C2(); }
+  double E() const { return ListRecord::C2(); }
 
   /**
    *  @brief Return the incident energy
    */
-  double energy() const { return this->EN(); }
+  double incidentEnergy() const { return this->E(); }
 
   /**
    *  @brief Return the data contained in this component
@@ -64,7 +64,7 @@ public:
   /**
    *  @brief Return the LTT flag (the format representation type)
    */
-  int LTT() const { return this->data().front() == this->energy() ? 6 : 5; }
+  int LTT() const { return this->data().front() == this->incidentEnergy() ? 6 : 5; }
 
   /**
    *  @brief Return the number of energy points

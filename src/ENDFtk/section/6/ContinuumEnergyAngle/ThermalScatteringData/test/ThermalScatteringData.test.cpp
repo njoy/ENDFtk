@@ -139,7 +139,8 @@ void verifyChunkForLTT5( const ThermalScatteringData& chunk ) {
 
   CHECK( 3 == chunk.LANG() );
   CHECK( 5 == chunk.LTT() );
-  CHECK( 1e-5 == Approx( chunk.energy() ) );
+  CHECK( 1e-5 == Approx( chunk.E() ) );
+  CHECK( 1e-5 == Approx( chunk.incidentEnergy() ) );
 
   CHECK( 18 == chunk.NW() );
   CHECK( 6 == chunk.N2() );
@@ -211,7 +212,7 @@ void verifyChunkForLTT6( const ThermalScatteringData& chunk ) {
 
   CHECK( 3 == chunk.LANG() );
   CHECK( 6 == chunk.LTT() );
-  CHECK( 1e-5 == Approx( chunk.energy() ) );
+  CHECK( 1e-5 == Approx( chunk.incidentEnergy() ) );
 
   CHECK( 6 == chunk.NW() );
   CHECK( 6 == chunk.N2() );

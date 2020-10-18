@@ -3,7 +3,8 @@ class Base : protected ListRecord {
 public:
 
   /* get methods */
-  double energy() const { return ListRecord::C2(); }
+  double E() const { return ListRecord::C2(); }
+  double incidentEnergy() const { return this->E(); }
   long ND() const { return ListRecord::L1(); }
   long numberDiscreteEnergies() const { return this->ND(); }
   long NA() const { return ListRecord::L2(); }

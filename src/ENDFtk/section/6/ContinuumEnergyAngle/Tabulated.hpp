@@ -6,14 +6,15 @@ class Tabulated : protected Base {
   /* auxiliary functions */
   #include "ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/src/checkLANG.hpp"
   #include "ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/src/generateList.hpp"
-    
+
 public:
   /* constructor */
   #include "ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/src/ctor.hpp"
 
   /* get methods */
   int LANG() const { return this->lang_; }
-  using Base::energy;
+  using Base::E;
+  using Base::incidentEnergy;
   using Base::ND;
   using Base::numberDiscreteEnergies;
   using Base::NA;

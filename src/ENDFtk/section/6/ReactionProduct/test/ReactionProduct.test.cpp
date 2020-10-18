@@ -245,7 +245,7 @@ SCENARIO( "ReactionProduct" ) {
 
       auto subsection1 =
           std::get< LegendreCoefficients >( energies[0] );
-      CHECK( 1e-5 == Approx( subsection1.energy() ) );
+      CHECK( 1e-5 == Approx( subsection1.incidentEnergy() ) );
       CHECK( 0 == subsection1.ND() );
       CHECK( 1 == subsection1.NA() );
       CHECK( 12 == subsection1.NW() );
@@ -272,7 +272,7 @@ SCENARIO( "ReactionProduct" ) {
 
       auto subsection2 =
           std::get< LegendreCoefficients >( energies[1] );
-      CHECK( 2e+7 == Approx( subsection2.energy() ) );
+      CHECK( 2e+7 == Approx( subsection2.incidentEnergy() ) );
       CHECK( 1 == subsection2.LANG() );
       CHECK( 0 == subsection2.ND() );
       CHECK( 1 == subsection2.NA() );
@@ -351,7 +351,7 @@ SCENARIO( "ReactionProduct" ) {
 
       auto subsection1 =
           std::get< LegendreCoefficients >( energies[0] );
-      CHECK( 1e-5 == Approx( subsection1.energy() ) );
+      CHECK( 1e-5 == Approx( subsection1.incidentEnergy() ) );
       CHECK( 0 == subsection1.ND() );
       CHECK( 1 == subsection1.NA() );
       CHECK( 12 == subsection1.NW() );
@@ -378,7 +378,7 @@ SCENARIO( "ReactionProduct" ) {
 
       auto subsection2 =
           std::get< LegendreCoefficients >( energies[1] );
-      CHECK( 2e+7 == Approx( subsection2.energy() ) );
+      CHECK( 2e+7 == Approx( subsection2.incidentEnergy() ) );
       CHECK( 1 == subsection2.LANG() );
       CHECK( 0 == subsection2.ND() );
       CHECK( 1 == subsection2.NA() );

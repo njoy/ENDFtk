@@ -316,7 +316,7 @@ void verifyChunkWithLANG1( const ContinuumEnergyAngle& chunk ) {
 
       auto subsection1 =
           std::get< LegendreCoefficients >( energies[0] );
-      CHECK( 1e-5 == Approx( subsection1.energy() ) );
+      CHECK( 1e-5 == Approx( subsection1.incidentEnergy() ) );
       CHECK( 1 == subsection1.LANG() );
       CHECK( 0 == subsection1.ND() );
       CHECK( 0 == subsection1.numberDiscreteEnergies() );
@@ -347,7 +347,7 @@ void verifyChunkWithLANG1( const ContinuumEnergyAngle& chunk ) {
 
       auto subsection2 =
           std::get< LegendreCoefficients >( energies[1] );
-      CHECK( 2e+7 == Approx( subsection2.energy() ) );
+      CHECK( 2e+7 == Approx( subsection2.incidentEnergy() ) );
       CHECK( 1 == subsection2.LANG() );
       CHECK( 0 == subsection2.ND() );
       CHECK( 0 == subsection2.numberDiscreteEnergies() );
@@ -397,7 +397,7 @@ void verifyChunkWithLANG2( const ContinuumEnergyAngle& chunk ) {
 
       auto subsection1 =
           std::get< KalbachMann >( energies[0] );
-      CHECK( 1e-5 == Approx( subsection1.energy() ) );
+      CHECK( 1e-5 == Approx( subsection1.incidentEnergy() ) );
       CHECK( 2 == subsection1.LANG() );
       CHECK( 0 == subsection1.ND() );
       CHECK( 0 == subsection1.numberDiscreteEnergies() );
@@ -420,7 +420,7 @@ void verifyChunkWithLANG2( const ContinuumEnergyAngle& chunk ) {
 
       auto subsection2 =
           std::get< KalbachMann >( energies[1] );
-      CHECK( 2e+7 == Approx( subsection2.energy() ) );
+      CHECK( 2e+7 == Approx( subsection2.incidentEnergy() ) );
       CHECK( 2 == subsection2.LANG() );
       CHECK( 0 == subsection2.ND() );
       CHECK( 0 == subsection2.numberDiscreteEnergies() );
@@ -473,7 +473,7 @@ void verifyChunkWithLANG14( const ContinuumEnergyAngle& chunk ) {
 
       auto subsection1 =
           std::get< Tabulated >( energies[0] );
-      CHECK( 1e-5 == Approx( subsection1.energy() ) );
+      CHECK( 1e-5 == Approx( subsection1.incidentEnergy() ) );
       CHECK( 14 == subsection1.LANG() );
       CHECK( 0 == subsection1.ND() );
       CHECK( 0 == subsection1.numberDiscreteEnergies() );
@@ -501,7 +501,7 @@ void verifyChunkWithLANG14( const ContinuumEnergyAngle& chunk ) {
 
       auto subsection2 =
           std::get< Tabulated >( energies[1] );
-      CHECK( 2e+7 == Approx( subsection2.energy() ) );
+      CHECK( 2e+7 == Approx( subsection2.incidentEnergy() ) );
       CHECK( 14 == subsection2.LANG() );
       CHECK( 0 == subsection2.ND() );
       CHECK( 0 == subsection2.numberDiscreteEnergies() );

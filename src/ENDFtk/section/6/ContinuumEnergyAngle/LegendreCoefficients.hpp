@@ -1,16 +1,36 @@
+/**
+ *  @class
+ *  @brief Angular distributions are given as Legendre coefficients
+ *
+ *  The LegendreCoefficients class is used to represent the case in which the
+ *  angular distribution for a secondary particle at a given incident energy is
+ *  is given as Legendre coefficients.
+ *
+ *  This component is similar to the MF4 component of the same name (with the
+ *  exception that this gives coefficients for each outgoing energy value as
+ *  well).
+ *
+ *  See ENDF102, section 6.2.3.1 for more information.
+ */
 class LegendreCoefficients : protected Base {
 
   /* auxiliary functions */
   #include "ENDFtk/section/6/ContinuumEnergyAngle/LegendreCoefficients/src/generateList.hpp"
-    
+
 public:
+
   /* constructor */
   #include "ENDFtk/section/6/ContinuumEnergyAngle/LegendreCoefficients/src/ctor.hpp"
 
-  /* get methods */
+  /* methods */
+
+  /**
+   *  @brief Return the representation type
+   */
   static constexpr int LANG() { return 1; }
 
-  using Base::energy;
+  using Base::E;
+  using Base::incidentEnergy;
   using Base::ND;
   using Base::numberDiscreteEnergies;
   using Base::NA;
@@ -21,7 +41,16 @@ public:
 
   using Base::energies;
   using Base::totalEmissionProbabilities;
-  auto coefficients() const { return Base::data(); }
+
+  /**
+   *  @brief Return the Legendre coefficients (one set for each outgoing energy)
+   */
+  auto A() const { return Base::data(); }
+
+  /**
+   *  @brief Return the Legendre coefficients (one set for each outgoing energy)
+   */
+  auto coefficients() const { return this->A(); }
 
   using Base::NC;
   using Base::print;

@@ -223,7 +223,8 @@ std::string chunk() {
 
 void checkTabulated( const Tabulated& chunk ) {
 
-  CHECK( 1e-5 == Approx( chunk.energy() ) );
+  CHECK( 1e-5 == Approx( chunk.E() ) );
+  CHECK( 1e-5 == Approx( chunk.incidentEnergy() ) );
 
   CHECK( 0 == chunk.ND() );
   CHECK( 0 == chunk.numberDiscreteEnergies() );

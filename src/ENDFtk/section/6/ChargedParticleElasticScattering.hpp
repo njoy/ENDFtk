@@ -36,7 +36,7 @@ public:
   /* methods */
 
   /**
-   *  @brief Return the LAW flag for continuum energy-angle data
+   *  @brief Return the LAW flag for charged particle elastic scattering
    */
   static constexpr int LAW() { return 5; }
 
