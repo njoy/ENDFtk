@@ -38,9 +38,11 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       std::vector< long > boundaries = { 2 };
       std::vector< long > interpolants = { 1 };
       std::vector< Variant > sequence = {
-          LegendreCoefficients( 1e-5, 0, 1, 4, { 1., 2., 3., 4., 5., 6.,
-                                                 7., 8., 9., 10., 11., 12. } ),
-          LegendreCoefficients( 2e+7, 0, 1, 2, {1., 2., 3., 4., 5., 6.} ) };
+          LegendreCoefficients( 1e-5, 0, 1, { 1., 4., 7., 10. },
+                                { { 2., 3. }, { 5., 6. },
+                                  { 8., 9. }, {  11., 12. } } ),
+          LegendreCoefficients( 2e+7, 0, 1, { 1., 4. },
+                                { { 2., 3. }, { 5., 6. } } ) };
 
       ContinuumEnergyAngle chunk( lep, std::move( boundaries ),
                                   std::move( interpolants ),
@@ -212,8 +214,9 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       std::vector< long > boundaries = { 2 };
       std::vector< long > interpolants = { 1 };
       std::vector< Variant > sequence = {
-          LegendreCoefficients( 1e-5, 0, 1, 4, { 1., 2., 3., 4., 5., 6.,
-                                                 7., 8., 9., 10., 11., 12. } ),
+          LegendreCoefficients( 1e-5, 0, 1, { 1., 4., 7., 10. },
+                                { { 2., 3. }, { 5., 6. },
+                                  { 8., 9. }, {  11., 12. } } ),
           KalbachMann( 1e-5, 0, 1, 2, { 1., 2., 3., 4., 5., 6. } ) };
 
       THEN( "an exception is thrown upon construction" ) {

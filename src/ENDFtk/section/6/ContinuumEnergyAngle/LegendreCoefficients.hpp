@@ -38,7 +38,6 @@ public:
   using Base::NW;
   using Base::NEP;
   using Base::numberSecondaryEnergies;
-
   using Base::energies;
   using Base::totalEmissionProbabilities;
 

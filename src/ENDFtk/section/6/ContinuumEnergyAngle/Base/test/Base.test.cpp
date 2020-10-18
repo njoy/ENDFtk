@@ -22,6 +22,8 @@ public:
   TestBase( Iterator& it, const Iterator& end, long& lineNumber,
             int MAT, int MF, int MT ) :
     Base( it, end, lineNumber, MAT, MF, MT ) {}
+
+  auto data() const { return Base::data(); }
 };
 
 std::string chunk();

@@ -23,23 +23,14 @@ SCENARIO( "LegendreCoefficients" ) {
       double energy = 1e-5;
       int nd = 0;
       int na = 1;
-      int nep = 2;
-      std::vector< double > list = { 1., 2., 3., 4., 5., 6. };
       std::vector< double > energies = { 1., 4. };
       std::vector< std::vector< double > > coefficients = { { 2., 3. },
                                                             { 5., 6. } };
 
-      THEN( "a LegendreCoefficients can be constructed using a list and "
-            "members can be tested" ) {
-
-        LegendreCoefficients chunk( energy, nd, na, nep, std::move( list ) );
-        verifyChunk( chunk );
-      }
-
       THEN( "a LegendreCoefficients can be constructed using energies and "
             "coefficients and members can be tested" ) {
 
-        LegendreCoefficients chunk( energy, nd, na, nep,
+        LegendreCoefficients chunk( energy, nd, na,
                                     std::move( energies ),
                                     std::move( coefficients ) );
         verifyChunk( chunk );
@@ -87,8 +78,6 @@ SCENARIO( "LegendreCoefficients" ) {
       double energy = 1e-5;
       int nd = 0;
       int na = 1;
-      int nep = 2;
-      std::vector< double > wronglist = { 1., 2., 3., 4., 5. };
       std::vector< double > energies = { 1., 4. };
       std::vector< std::vector< double > > wrongcoefficients1 = { { 2., 3. },
                                                                   { 5. } };
@@ -98,12 +87,10 @@ SCENARIO( "LegendreCoefficients" ) {
 
       THEN( "an exception is thrown" ) {
 
-        CHECK_THROWS( LegendreCoefficients( energy, nd, na, nep,
-                                            std::move( wronglist ) ) );
-        CHECK_THROWS( LegendreCoefficients( energy, nd, na, nep,
+        CHECK_THROWS( LegendreCoefficients( energy, nd, na,
                                             std::move( energies ),
                                             std::move( wrongcoefficients1 ) ) );
-        CHECK_THROWS( LegendreCoefficients( energy, nd, na, nep,
+        CHECK_THROWS( LegendreCoefficients( energy, nd, na,
                                             std::move( energies ),
                                             std::move( wrongcoefficients1 ) ) );
       } // THEN

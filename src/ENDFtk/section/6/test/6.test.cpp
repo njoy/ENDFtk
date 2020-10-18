@@ -48,10 +48,12 @@ SCENARIO( "section::Type< 6 >" ) {
           { ContinuumEnergyAngle(
               2, { 2 }, { 1 },
               { LegendreCoefficients(
-                    1e-5, 0, 1, 4,
-                    { 1., 2., 3., 4., 5., 6., 7., 8., 9., 10., 11., 12. } ),
+                    1e-5, 0, 1,
+                    { 1., 4., 7., 10. },
+                    { { 2., 3. }, { 5., 6. },
+                      { 8., 9. }, {  11., 12. } } ),
                 LegendreCoefficients(
-                    2e+7, 0, 1, 2, { 1., 2., 3., 4., 5., 6.} ) } ) } ),
+                    2e+7, 0, 1, { 1., 4. }, { { 2., 3. }, { 5., 6. } } ) } ) } ),
         ReactionProduct(
           // multiplicity
           { 1., 1., 0, 1, { 2 }, { 2 },
@@ -61,9 +63,9 @@ SCENARIO( "section::Type< 6 >" ) {
           { ContinuumEnergyAngle(
               2, { 2 }, { 22 },
               { LegendreCoefficients(
-                    1.858639e+7, 0, 0, 3, { 0., 0., 0.5, 2., 1., 0. } ),
+                    1.858639e+7, 0, 0, { 0., 0.5, 1. }, { { 0. }, { 2. }, { 0. } } ),
                 LegendreCoefficients(
-                    2e+7, 0, 0, 3, { 0., 0., 0.5, 2., 1., 0. } ) } ) } ),
+                    2e+7, 0, 0, { 0., 0.5, 1. }, { { 0. }, { 2. }, { 0. } } ) } ) } ),
         ReactionProduct(
           // multiplicity
           { 0., 0., 0, 1, { 3 }, { 2 },
@@ -73,9 +75,9 @@ SCENARIO( "section::Type< 6 >" ) {
           { ContinuumEnergyAngle(
             2, { 2 }, { 5 },
             { LegendreCoefficients(
-                   1.858639e+7, 0, 0, 3, { 0., 0., 1., 1., 2., 0. } ),
+                   1.858639e+7, 0, 0, { 0., 1., 2. }, { { 0. }, { 1. }, { 0. } } ),
               LegendreCoefficients(
-                   2e+7, 0, 0, 3, { 0., 0., 1., 1., 2., 0. } ) } ) } ) };
+                   2e+7, 0, 0, { 0., 1., 2. }, { { 0. }, { 1. }, { 0. } } ) } ) } ) };
 
       section::Type< 6 > chunk( mt, zaid, awr, jp, lct, std::move( products ) );
 
