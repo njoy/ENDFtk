@@ -30,6 +30,11 @@ public:
   static constexpr int LANG() { return 3; }
 
   /**
+   *  @brief Return the representation type
+   */
+  int representation() const { return this->LANG(); }
+
+  /**
    *  @brief Return the incident energy
    */
   double E() const { return ListRecord::C2(); }
@@ -59,7 +64,7 @@ public:
   /**
    *  @brief Return the number of energy points
    */
-  int numberEnergies() const { return this->NEP(); }
+  int numberSecondaryEnergies() const { return this->NEP(); }
 
   /**
    *  @brief Return the LTT flag (the format representation type)
@@ -69,10 +74,15 @@ public:
   /**
    *  @brief Return the number of energy points
    */
-  StrideRange energies() const {
+  StrideRange EP() const {
 
     return this->data() | ranges::view::stride( this->N2() );
   }
+
+  /**
+   *  @brief Return the number of energy points
+   */
+  StrideRange energies() const { return this->EP(); }
 
   /**
    *  @brief Return second value for every energy
@@ -84,9 +94,9 @@ public:
   }
 
   /**
-   *  @brief Return the cosines
+   *  @brief Return the cosine values
    */
-  auto cosines() const {
+  auto MU() const {
 
     return this->data()
              | ranges::view::chunk( this->N2() )
@@ -94,6 +104,11 @@ public:
                    [] ( const auto& array )
                       { return array | ranges::view::drop_exactly( 2 ); } );
   }
+
+  /**
+   *  @brief Return the cosine values
+   */
+  auto cosines() const { return this->MU();  }
 
   using ListRecord::NC;
   using ListRecord::print;

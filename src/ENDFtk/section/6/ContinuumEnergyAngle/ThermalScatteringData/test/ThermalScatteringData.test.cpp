@@ -138,6 +138,7 @@ std::string chunkForLTT5() {
 void verifyChunkForLTT5( const ThermalScatteringData& chunk ) {
 
   CHECK( 3 == chunk.LANG() );
+  CHECK( 3 == chunk.representation() );
   CHECK( 5 == chunk.LTT() );
   CHECK( 1e-5 == Approx( chunk.E() ) );
   CHECK( 1e-5 == Approx( chunk.incidentEnergy() ) );
@@ -167,13 +168,16 @@ void verifyChunkForLTT5( const ThermalScatteringData& chunk ) {
   CHECK( 0. == Approx( data[17] ) );
 
   CHECK( 3 == chunk.NEP() );
-  CHECK( 3 == chunk.numberEnergies() );
+  CHECK( 3 == chunk.numberSecondaryEnergies() );
 
-  auto energies = chunk.energies();
-  CHECK( 3 == energies.size() );
-  CHECK( 0. == Approx( energies[0] ) );
-  CHECK( 9.999999e-6 == Approx( energies[1] ) );
-  CHECK( 1.265100e-1 == Approx( energies[2] ) );
+  CHECK( 3 == chunk.EP().size() );
+  CHECK( 3 == chunk.energies().size() );
+  CHECK( 0. == Approx( chunk.EP()[0] ) );
+  CHECK( 9.999999e-6 == Approx( chunk.EP()[1] ) );
+  CHECK( 1.265100e-1 == Approx( chunk.EP()[2] ) );
+  CHECK( 0. == Approx( chunk.energies()[0] ) );
+  CHECK( 9.999999e-6 == Approx( chunk.energies()[1] ) );
+  CHECK( 1.265100e-1 == Approx( chunk.energies()[2] ) );
 
   auto pp = chunk.PP();
   CHECK( 3 == pp.size() );
@@ -181,23 +185,38 @@ void verifyChunkForLTT5( const ThermalScatteringData& chunk ) {
   CHECK( 9.477167e+1 == Approx( pp[1] ) );
   CHECK( 0. == Approx( pp[2] ) );
 
-  auto cosines = chunk.cosines();
-  CHECK( 3 == cosines.size() );
-  CHECK( 4 == cosines[0].size() );
-  CHECK( 0. == Approx( cosines[0][0] ) );
-  CHECK( 0. == Approx( cosines[0][1] ) );
-  CHECK( 0. == Approx( cosines[0][2] ) );
-  CHECK( 0. == Approx( cosines[0][3] ) );
-  CHECK( 4 == cosines[1].size() );
-  CHECK( -5.379121e-1 == Approx( cosines[1][0] ) );
-  CHECK( 0.21062848 == Approx( cosines[1][1] ) );
-  CHECK( 0.70490082 == Approx( cosines[1][2] ) );
-  CHECK( 9.552579e-1 == Approx( cosines[1][3] ) );
-  CHECK( 4 == cosines[2].size() );
-  CHECK( 0. == Approx( cosines[2][0] ) );
-  CHECK( 0. == Approx( cosines[2][1] ) );
-  CHECK( 0. == Approx( cosines[2][2] ) );
-  CHECK( 0. == Approx( cosines[2][3] ) );
+  CHECK( 3 == chunk.MU().size() );
+  CHECK( 3 == chunk.cosines().size() );
+  CHECK( 4 == chunk.MU()[0].size() );
+  CHECK( 0. == Approx( chunk.MU()[0][0] ) );
+  CHECK( 0. == Approx( chunk.MU()[0][1] ) );
+  CHECK( 0. == Approx( chunk.MU()[0][2] ) );
+  CHECK( 0. == Approx( chunk.MU()[0][3] ) );
+  CHECK( 4 == chunk.MU()[1].size() );
+  CHECK( -5.379121e-1 == Approx( chunk.MU()[1][0] ) );
+  CHECK( 0.21062848 == Approx( chunk.MU()[1][1] ) );
+  CHECK( 0.70490082 == Approx( chunk.MU()[1][2] ) );
+  CHECK( 9.552579e-1 == Approx( chunk.MU()[1][3] ) );
+  CHECK( 4 == chunk.MU()[2].size() );
+  CHECK( 0. == Approx( chunk.MU()[2][0] ) );
+  CHECK( 0. == Approx( chunk.MU()[2][1] ) );
+  CHECK( 0. == Approx( chunk.MU()[2][2] ) );
+  CHECK( 0. == Approx( chunk.MU()[2][3] ) );
+  CHECK( 4 == chunk.cosines()[0].size() );
+  CHECK( 0. == Approx( chunk.cosines()[0][0] ) );
+  CHECK( 0. == Approx( chunk.cosines()[0][1] ) );
+  CHECK( 0. == Approx( chunk.cosines()[0][2] ) );
+  CHECK( 0. == Approx( chunk.cosines()[0][3] ) );
+  CHECK( 4 == chunk.cosines()[1].size() );
+  CHECK( -5.379121e-1 == Approx( chunk.cosines()[1][0] ) );
+  CHECK( 0.21062848 == Approx( chunk.cosines()[1][1] ) );
+  CHECK( 0.70490082 == Approx( chunk.cosines()[1][2] ) );
+  CHECK( 9.552579e-1 == Approx( chunk.cosines()[1][3] ) );
+  CHECK( 4 == chunk.cosines()[2].size() );
+  CHECK( 0. == Approx( chunk.cosines()[2][0] ) );
+  CHECK( 0. == Approx( chunk.cosines()[2][1] ) );
+  CHECK( 0. == Approx( chunk.cosines()[2][2] ) );
+  CHECK( 0. == Approx( chunk.cosines()[2][3] ) );
 
   CHECK( 4 == chunk.NC() );
 }
@@ -211,7 +230,9 @@ std::string chunkForLTT6() {
 void verifyChunkForLTT6( const ThermalScatteringData& chunk ) {
 
   CHECK( 3 == chunk.LANG() );
+  CHECK( 3 == chunk.representation() );
   CHECK( 6 == chunk.LTT() );
+  CHECK( 1e-5 == Approx( chunk.E() ) );
   CHECK( 1e-5 == Approx( chunk.incidentEnergy() ) );
 
   CHECK( 6 == chunk.NW() );
@@ -227,23 +248,28 @@ void verifyChunkForLTT6( const ThermalScatteringData& chunk ) {
   CHECK( 9.552579e-1 == Approx( data[5] ) );
 
   CHECK( 1 == chunk.NEP() );
-  CHECK( 1 == chunk.numberEnergies() );
+  CHECK( 1 == chunk.numberSecondaryEnergies() );
 
-  auto energies = chunk.energies();
-  CHECK( 1 == energies.size() );
-  CHECK( 1e-5 == Approx( energies[0] ) );
+  CHECK( 1 == chunk.EP().size() );
+  CHECK( 1 == chunk.energies().size() );
+  CHECK( 1e-5 == Approx( chunk.EP()[0] ) );
+  CHECK( 1e-5 == Approx( chunk.energies()[0] ) );
 
-  auto pp = chunk.PP();
-  CHECK( 1 == pp.size() );
-  CHECK( 1. == Approx( pp[0] ) );
+  CHECK( 1 == chunk.PP().size() );
+  CHECK( 1. == Approx( chunk.PP()[0] ) );
 
-  auto cosines = chunk.cosines();
-  CHECK( 1 == cosines.size() );
-  CHECK( 4 == cosines[0].size() );
-  CHECK( -5.379121e-1 == Approx( cosines[0][0] ) );
-  CHECK( 0.21062848 == Approx( cosines[0][1] ) );
-  CHECK( 0.70490082 == Approx( cosines[0][2] ) );
-  CHECK( 9.552579e-1 == Approx( cosines[0][3] ) );
+  CHECK( 1 == chunk.MU().size() );
+  CHECK( 1 == chunk.cosines().size() );
+  CHECK( 4 == chunk.MU()[0].size() );
+  CHECK( -5.379121e-1 == Approx( chunk.MU()[0][0] ) );
+  CHECK( 0.21062848 == Approx( chunk.MU()[0][1] ) );
+  CHECK( 0.70490082 == Approx( chunk.MU()[0][2] ) );
+  CHECK( 9.552579e-1 == Approx( chunk.MU()[0][3] ) );
+  CHECK( 4 == chunk.cosines()[0].size() );
+  CHECK( -5.379121e-1 == Approx( chunk.cosines()[0][0] ) );
+  CHECK( 0.21062848 == Approx( chunk.cosines()[0][1] ) );
+  CHECK( 0.70490082 == Approx( chunk.cosines()[0][2] ) );
+  CHECK( 9.552579e-1 == Approx( chunk.cosines()[0][3] ) );
 
   CHECK( 2 == chunk.NC() );
 }

@@ -22,6 +22,7 @@ namespace mf6 {
     void wrapLegendreCoefficients( python::module& );           // law=1
     void wrapTabulatedDistribution( python::module& );          // law=1
     void wrapKalbachMann( python::module& );                    // law=1
+    void wrapThermalScatteringData( python::module& );          // law=1
   }
 
   namespace law2 {
@@ -103,6 +104,7 @@ void wrapSection_6( python::module& module ) {
   mf6::law1::wrapLegendreCoefficients( submodule );
   mf6::law1::wrapTabulatedDistribution( submodule );
   mf6::law1::wrapKalbachMann( submodule );
+  mf6::law1::wrapThermalScatteringData( submodule );
 
   // LAW = 2 - - - - - - - - - - - - - - - - - - - - - -
 
