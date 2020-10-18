@@ -15,12 +15,12 @@ public:
   #include "ENDFtk/section/6/ContinuumEnergyAngle/ThermalScatteringData.hpp"
   #include "ENDFtk/section/6/ContinuumEnergyAngle/LegendreCoefficients.hpp"
   #include "ENDFtk/section/6/ContinuumEnergyAngle/KalbachMann.hpp"
-  #include "ENDFtk/section/6/ContinuumEnergyAngle/Tabulated.hpp"
+  #include "ENDFtk/section/6/ContinuumEnergyAngle/TabulatedDistribution.hpp"
 
-  using Variant = std::variant< LegendreCoefficients,  // LANG=1
-                                KalbachMann,           // LANG=2
-                                ThermalScatteringData, // LANG=3
-                                Tabulated >;           // LANG=11-15
+  using Variant = std::variant< LegendreCoefficients,    // LANG=1
+                                KalbachMann,             // LANG=2
+                                ThermalScatteringData,   // LANG=3
+                                TabulatedDistribution >; // LANG=11-15
 
 private:
 

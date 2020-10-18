@@ -15,8 +15,8 @@ using LegendreCoefficients =
 section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients;
 using KalbachMann =
 section::Type< 6 >::ContinuumEnergyAngle::KalbachMann;
-using Tabulated =
-section::Type< 6 >::ContinuumEnergyAngle::Tabulated;
+using TabulatedDistribution =
+section::Type< 6 >::ContinuumEnergyAngle::TabulatedDistribution;
 
 std::string chunkWithLANG1();
 void verifyChunkWithLANG1( const ContinuumEnergyAngle& );
@@ -152,10 +152,14 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       std::vector< long > boundaries = { 2 };
       std::vector< long > interpolants = { 1 };
       std::vector< Variant > sequence = {
-          Tabulated( lang, 1e-5, 0, 4, 2, {  1.,  2.,  3.,  4.,  5.,  6.,
-                                             7.,  8.,  9., 10., 11., 12. } ),
-          Tabulated( lang, 2e+7, 0, 4, 2, { 13., 14., 15., 16., 17., 18.,
-                                            19., 20., 21., 22., 23., 24.} ) };
+          TabulatedDistribution( lang, 1e-5, 0, 4, 2,
+                                 {  1.,  7. },  { 2., 8. },
+                                 { { 3., 5. }, { 9., 11. } },
+                                 { { 4., 6. }, { 10., 12. } } ),
+          TabulatedDistribution( lang, 2e+7, 0, 4, 2,
+                                 {  13.,  19. },  { 14., 20. },
+                                 { { 15., 17. }, { 21., 23. } },
+                                 { { 16., 18. }, { 22., 24. } } ) };
 
       ContinuumEnergyAngle chunk( lep, std::move( boundaries ),
                                   std::move( interpolants ),
@@ -472,7 +476,7 @@ void verifyChunkWithLANG14( const ContinuumEnergyAngle& chunk ) {
       auto energies = chunk.subsections();
 
       auto subsection1 =
-          std::get< Tabulated >( energies[0] );
+          std::get< TabulatedDistribution >( energies[0] );
       CHECK( 1e-5 == Approx( subsection1.incidentEnergy() ) );
       CHECK( 14 == subsection1.LANG() );
       CHECK( 0 == subsection1.ND() );
@@ -500,7 +504,7 @@ void verifyChunkWithLANG14( const ContinuumEnergyAngle& chunk ) {
       CHECK( 12. == Approx( subsection1.probabilities()[1][1] ) );
 
       auto subsection2 =
-          std::get< Tabulated >( energies[1] );
+          std::get< TabulatedDistribution >( energies[1] );
       CHECK( 2e+7 == Approx( subsection2.incidentEnergy() ) );
       CHECK( 14 == subsection2.LANG() );
       CHECK( 0 == subsection2.ND() );

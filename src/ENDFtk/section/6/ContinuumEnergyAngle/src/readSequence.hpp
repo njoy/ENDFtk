@@ -28,7 +28,8 @@ readSequence( long lang,
       case 13 :
       case 14 :
       case 15 : sequence.emplace_back(
-                  Tabulated( lang, begin, end, lineNumber, MAT, MF, MT ) );
+                  TabulatedDistribution( lang, begin, end, lineNumber,
+                                         MAT, MF, MT ) );
                   break;
       default : {
 

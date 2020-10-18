@@ -1,15 +1,15 @@
-class Tabulated : protected Base {
+class TabulatedDistribution : protected Base {
 
   /* fields */
   int lang_;
 
   /* auxiliary functions */
-  #include "ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/src/checkLANG.hpp"
-  #include "ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/src/generateList.hpp"
+  #include "ENDFtk/section/6/ContinuumEnergyAngle/TabulatedDistribution/src/checkLANG.hpp"
+  #include "ENDFtk/section/6/ContinuumEnergyAngle/TabulatedDistribution/src/generateList.hpp"
 
 public:
   /* constructor */
-  #include "ENDFtk/section/6/ContinuumEnergyAngle/Tabulated/src/ctor.hpp"
+  #include "ENDFtk/section/6/ContinuumEnergyAngle/TabulatedDistribution/src/ctor.hpp"
 
   /* get methods */
   int LANG() const { return this->lang_; }
