@@ -6,13 +6,13 @@
 using namespace njoy::ENDFtk;
 
 // convenience typedefs
-using DiscreteTwoBodyScattering = 
+using DiscreteTwoBodyScattering =
 section::Type< 6 >::DiscreteTwoBodyScattering;
-using SubSection = 
-section::Type< 6 >::DiscreteTwoBodyScattering::SubSection;
-using LegendreCoefficients = 
+using Variant =
+section::Type< 6 >::DiscreteTwoBodyScattering::Variant;
+using LegendreCoefficients =
 section::Type< 6 >::DiscreteTwoBodyScattering::LegendreCoefficients;
-using Tabulated = 
+using Tabulated =
 section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated;
 
 std::string chunk();
@@ -23,56 +23,57 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
 
   GIVEN( "valid data for a DiscreteTwoBodyScattering" ) {
 
+    std::string string = chunk();
+
     WHEN( "the data is given explicitly" ) {
 
       std::vector< long > boundaries = { 2 };
       std::vector< long > interpolants = { 1 };
-      std::vector< SubSection > sequence = {
+      std::vector< Variant > sequence = {
         LegendreCoefficients( 1e-5, { 1., 2., 3., 4. } ),
         Tabulated( 2e+7, 12, {1., 2., 3., 4., 5., 6.} ) };
-      
+
+      DiscreteTwoBodyScattering
+        chunk( std::move( boundaries ), std::move( interpolants ),
+               std::move( sequence ) );
+
       THEN( "a DiscreteTwoBodyScattering can "
             "be constructed and members can be tested" ) {
 
-        DiscreteTwoBodyScattering
-          chunk( std::move( boundaries ), std::move( interpolants ),
-                 std::move( sequence ) );
         verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 6, 5 );
+        REQUIRE( buffer == string );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream" ) {
 
-      std::string string = chunk();
       auto begin = string.begin();
       auto end = string.end();
-      long lineNumber = 1; 
-      
+      long lineNumber = 1;
+
+      DiscreteTwoBodyScattering chunk( begin, end, lineNumber, 9228, 6, 5 );
+
       THEN( "a DiscreteTwoBodyScattering can "
             "be constructed and members can be tested" ) {
 
-        DiscreteTwoBodyScattering chunk( begin, end, lineNumber, 9228, 6, 5 );
         verifyChunk( chunk );
       } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 6, 5 );
+        REQUIRE( buffer == string );
+      } // THEN
     } // WHEN
-  } // GIVEN
-
-  GIVEN( "a valid instance of DiscreteTwoBodyScattering" ) {
-
-    std::string string = chunk();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1; 
-    DiscreteTwoBodyScattering
-      chunk(begin, end, lineNumber, 9228, 6, 5 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 9228, 6, 5 );
-      REQUIRE( buffer == string );
-    }
   } // GIVEN
 
   GIVEN( "invalid data for a DiscreteTwoBodyScattering" ) {
@@ -84,7 +85,7 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
 
         std::vector< long > wrongBoundaries = { 2, 4 };
         std::vector< long > interpolants = { 1 };
-        std::vector< SubSection > sequence = {
+        std::vector< Variant > sequence = {
           LegendreCoefficients( 1e-5, { 1., 2., 3., 4. } ),
           Tabulated( 2e+7, 12, {1., 2., 3., 4., 5., 6.} ) };
 
@@ -99,7 +100,7 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
 
         std::vector< long > boundaries = { 2 };
         std::vector< long > wrongInterpolants = { 1, 2 };
-        std::vector< SubSection > sequence = {
+        std::vector< Variant > sequence = {
           LegendreCoefficients( 1e-5, { 1., 2., 3., 4. } ),
           Tabulated( 2e+7, 12, {1., 2., 3., 4., 5., 6.} ) };
 
@@ -114,7 +115,7 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
 
         std::vector< long > boundaries = { 2 };
         std::vector< long > interpolants = { 1 };
-        std::vector< SubSection > wrongSequence = {
+        std::vector< Variant > wrongSequence = {
           LegendreCoefficients( 1e-5, { 1., 2., 3., 4. } ) };
 
         REQUIRE_THROWS(
@@ -131,9 +132,10 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      THEN( "an exception is thrown upon construction" ){
+      THEN( "an exception is thrown upon construction" ) {
+
         REQUIRE_THROWS( DiscreteTwoBodyScattering( begin, end, lineNumber,
-                        9228, 6, 5 ) );
+                                                   9228, 6, 5 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -161,13 +163,8 @@ void verifyChunk( const DiscreteTwoBodyScattering& chunk ) {
 
       auto energies = chunk.subsections();
 
-      REQUIRE( 1e-5 == Approx( energies[0].energy() ) );
-      REQUIRE( 0 == energies[0].LANG() );
-      REQUIRE( 4 == energies[0].NW() );
-      REQUIRE( 4 == energies[0].NL() );
-
-      auto subsection1 =
-           std::get< LegendreCoefficients >( energies[0].data() );
+      auto subsection1 = std::get< LegendreCoefficients >( energies[0] );
+      REQUIRE( 1e-5 == Approx( subsection1.energy() ) );
       REQUIRE( 0 == subsection1.LANG() );
       REQUIRE( 4 == subsection1.NW() );
       REQUIRE( 4 == subsection1.NL() );
@@ -177,13 +174,8 @@ void verifyChunk( const DiscreteTwoBodyScattering& chunk ) {
       REQUIRE( 3. == Approx( subsection1.coefficients()[2] ) );
       REQUIRE( 4. == Approx( subsection1.coefficients()[3] ) );
 
-      REQUIRE( 2e+7 == Approx( energies[1].energy() ) );
-      REQUIRE( 12 == energies[1].LANG() );
-      REQUIRE( 6 == energies[1].NW() );
-      REQUIRE( 3 == energies[1].NL() );
-
-      auto subsection2 =
-           std::get< Tabulated >( energies[1].data() );
+      auto subsection2 = std::get< Tabulated >( energies[1] );
+      REQUIRE( 2e+7 == Approx( subsection2.energy() ) );
       REQUIRE( 12 == subsection2.LANG() );
       REQUIRE( 6 == subsection2.NW() );
       REQUIRE( 3 == subsection2.NL() );
@@ -208,4 +200,3 @@ std::string invalidLANG() {
     " 0.000000+0 2.000000+7         12          0          6          39228 6  5     \n"
     " 1.000000+0 2.000000+0 3.000000+0 4.000000+0 5.000000+0 6.000000+09228 6  5     \n";
 }
-

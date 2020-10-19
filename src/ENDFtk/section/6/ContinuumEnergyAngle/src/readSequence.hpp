@@ -1,5 +1,5 @@
 template< typename Iterator >
-static std::vector< SubSection >
+static std::vector< Variant >
 readSequence( long lang,
               long nep,
               Iterator& begin,
@@ -9,7 +9,7 @@ readSequence( long lang,
               int MF,
               int MT ) {
 
-  std::vector< SubSection > sequence;
+  std::vector< Variant > sequence;
   sequence.reserve( nep );
 
   while( nep-- ) {
@@ -19,6 +19,9 @@ readSequence( long lang,
                   break;
       case 2 : sequence.emplace_back(
                   KalbachMann( begin, end, lineNumber, MAT, MF, MT ) );
+                  break;
+      case 3 : sequence.emplace_back(
+                  ThermalScatteringData( begin, end, lineNumber, MAT, MF, MT ) );
                   break;
       case 11 :
       case 12 :
@@ -30,7 +33,7 @@ readSequence( long lang,
       default : {
 
         Log::error( "Encountered illegal LANG value" );
-        Log::info( "LANG must be equal to 1, 2, 11, 12, 13, 14 or 15" );
+        Log::info( "LANG must be equal to 1, 2, 3, 11, 12, 13, 14 or 15" );
         Log::info( "LANG value: {}", lang );
         throw std::exception();
       }
@@ -39,4 +42,3 @@ readSequence( long lang,
 
   return sequence;
 }
-

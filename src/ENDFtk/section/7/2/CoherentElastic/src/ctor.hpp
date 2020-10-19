@@ -1,5 +1,5 @@
 private:
-/** 
+/**
  *  @brief Private intermediate constructor
  *
  *  The number of entries in the temperatures array is checked against the
@@ -14,7 +14,7 @@ CoherentElastic( TabulationRecord&& principal,
 }
 
 public:
-/** 
+/**
  *  @brief Constructor (multiple temperatures)
  *
  *  The size of the various arrays is checked for consistency where appropriate.
@@ -49,7 +49,7 @@ CoherentElastic( std::vector< long >&& boundaries,
     throw;
   }
 
-/** 
+/**
  *  @brief Constructor (single temperature)
  *
  *  The size of the various arrays is checked for consistency where appropriate.
@@ -78,7 +78,7 @@ CoherentElastic( double temperature,
   }
 
 private:
-/** 
+/**
  *  @brief Private intermediate constructor
  */
 template< typename Iterator >
@@ -90,11 +90,12 @@ CoherentElastic( TabulationRecord&& principal,
                  int MF,
                  int MT ) :
   CoherentElastic( std::move( principal ),
-                   readTemperatures( begin, end, lineNumber,
-                                     MAT, MF, MT, principal.L1() ) ) {}
+                   readSequence< ListRecord >(
+                       begin, end, lineNumber,
+                       MAT, MF, MT, principal.L1() ) ) {}
 
 public:
-/** 
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator

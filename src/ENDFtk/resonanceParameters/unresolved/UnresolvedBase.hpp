@@ -18,8 +18,6 @@ protected:
   /* constructor */
   #include "ENDFtk/resonanceParameters/unresolved/UnresolvedBase/src/ctor.hpp"
 
-  using UnresolvedBaseWithoutSpin< Derived >::readLValues;
-
 public:
 
   /* get methods */

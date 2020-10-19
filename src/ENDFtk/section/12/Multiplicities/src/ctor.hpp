@@ -42,8 +42,8 @@ Multiplicities( std::optional< TotalMultiplicity >&& total,
                 long& lineNumber, int MAT, int MF, int MT,
                 int NK ) :
   Multiplicities( std::move( total ),
-                  readPartialMultiplicities( begin, end, lineNumber,
-                                             MAT, MF, MT, NK ) ) {}
+                  readSequence< PartialMultiplicity >( begin, end, lineNumber,
+                                                       MAT, MF, MT, NK ) ) {}
 
 public:
 

@@ -1,4 +1,4 @@
-/** 
+/**
  *  @brief Constructor
  *
  *  @param[in] zaid                    the material ZAID value
@@ -27,11 +27,10 @@ Type( double zaid, double awr, int lat, int lasym,
   verifySecondaryTemperatures( this->b_.analyticalFunctionTypes(),
                                this->secondary_ );
   checkValue( this->LAT(), "LAT" );
-  checkValue( this->LASYM(), "LASYM" );
 }
 
 private:
-/** 
+/**
  *  @brief Private intermediate constructor
  */
 template< typename Iterator >
@@ -52,7 +51,7 @@ Type( double zaid, double awr, int lat, int lasym,
         readSecondaryTemperatures( begin, end, lineNumber,MAT, MF, MT,
                                    constants.analyticalFunctionTypes() ) ) {}
 
-/** 
+/**
  *  @brief Private intermediate constructor
  */
 template< typename Iterator >
@@ -71,7 +70,7 @@ Type( double zaid, double awr, int lat, int lasym,
         EffectiveTemperature( begin, end, lineNumber, MAT, MF, MT ),
         begin, end, lineNumber, MAT, MF, MT ) {}
 
-/** 
+/**
  *  @brief Private intermediate constructor
  */
 template< typename Iterator >
@@ -90,7 +89,7 @@ Type( double zaid, double awr, int lat, int lasym,
         begin, end, lineNumber, MAT, MF, MT ) {}
 
 public:
-/** 
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator

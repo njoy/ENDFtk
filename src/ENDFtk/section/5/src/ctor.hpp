@@ -12,7 +12,7 @@ Type( int MT, double zaid, double awr,
   verifyNK( this->NK() );
 }
 
-/** 
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator
@@ -31,8 +31,8 @@ Type( HEAD& head,
       int MAT )
   try:
     Base( head, MAT, 5 ),
-    subsections_( readSubsections( begin, end, lineNumber,
-                                   MAT, 5, head.MT(), head.N1() ) ) {
+    subsections_( readSequence< Subsection >( begin, end, lineNumber,
+                                              MAT, 5, head.MT(), head.N1() ) ) {
     verifyNK( this->NK() );
     readSEND( begin, end, lineNumber, MAT, 5 );
   } catch( std::exception& e ) {
@@ -40,4 +40,3 @@ Type( HEAD& head,
                head.MT(), MAT );
     throw e;
   }
-

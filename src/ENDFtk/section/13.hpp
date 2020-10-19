@@ -15,7 +15,6 @@ private:
   /* auxiliary functions */
   #include "ENDFtk/section/13/src/verifyNK.hpp"
   #include "ENDFtk/section/13/src/readTotalCrossSection.hpp"
-  #include "ENDFtk/section/13/src/readPartialCrossSections.hpp"
 
 public:
 

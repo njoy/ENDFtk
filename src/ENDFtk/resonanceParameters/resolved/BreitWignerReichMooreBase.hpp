@@ -19,7 +19,6 @@ class BreitWignerReichMooreBase {
   std::vector< LValue > lvalues_;
 
   /* auxiliary functions */
-  #include "ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreBase/src/readLValues.hpp"
   #include "ENDFtk/resonanceParameters/resolved/BreitWignerReichMooreBase/src/verifySize.hpp"
 
 protected:

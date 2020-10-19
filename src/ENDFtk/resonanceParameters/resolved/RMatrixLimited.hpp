@@ -30,7 +30,6 @@ private:
   std::vector< SpinGroup > spin_groups_;
 
   /* auxiliary functions */
-  #include "ENDFtk/resonanceParameters/resolved/RMatrixLimited/src/readSpinGroups.hpp"
 
 public:
 

@@ -16,7 +16,6 @@ class DecaySpectrum {
   /* auxiliary functions */
   #include "ENDFtk/section/8/457/DecaySpectrum/src/verifyLCOV.hpp"
   #include "ENDFtk/section/8/457/DecaySpectrum/src/verifyDiscreteSize.hpp"
-  #include "ENDFtk/section/8/457/DecaySpectrum/src/readDiscrete.hpp"
   #include "ENDFtk/section/8/457/DecaySpectrum/src/readContinuous.hpp"
 
 public:
@@ -121,7 +120,7 @@ public:
   /**
    *  @brief Return the continuous spectrum, if it is defined
    */
-  const auto& continuousSpectrum() const { return this->continuous_; } 
+  const auto& continuousSpectrum() const { return this->continuous_; }
 
   #include "ENDFtk/section/8/457/DecaySpectrum/src/NC.hpp"
   #include "ENDFtk/section/8/457/DecaySpectrum/src/print.hpp"

@@ -16,7 +16,6 @@ class Type< 1, 451 > : protected BaseWithoutMT< Type< 1, 451 > > {
   #include "ENDFtk/section/1/451/src/makeParameters.hpp"
   #include "ENDFtk/section/1/451/src/makeDescription.hpp"
   #include "ENDFtk/section/1/451/src/readParameters.hpp"
-  #include "ENDFtk/section/1/451/src/readRecords.hpp"
 
 public:
 

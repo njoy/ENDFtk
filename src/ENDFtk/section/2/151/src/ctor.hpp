@@ -46,7 +46,11 @@ Type ( const HEAD& head,
        int MAT )
   try:
     Type( head.ZA(), head.AWR(),
-          readIsotopes( head, begin, end, lineNumber ) ) {
+          readSequence< resonanceParameters::Isotope >( begin,
+                                                        end,
+                                                        lineNumber,
+                                                        MAT, 2, 151,
+                                                        head.N1() ) ) {
 
       readSEND( begin, end, lineNumber, MAT, 2 );
   } catch( std::exception& e ){

@@ -26,8 +26,9 @@ BreitWignerReichMooreBase( ControlRecord&& cont,
                            int MAT, int MF, int MT ) :
    // no try ... catch: exceptions will be handled in the derived class
   BreitWignerReichMooreBase( cont.C1(), cont.C2(), cont.L1(), cont.N2(),
-                             readLValues( it, end, lineNumber,
-                                          MAT, MF, MT, cont.N1() ) ) {}
+                             readSequence< LValue >(
+                                 it, end, lineNumber,
+                                 MAT, MF, MT, cont.N1() ) ) {}
 
 protected:
 /**

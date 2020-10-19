@@ -47,7 +47,6 @@ private:
   std::vector< ReactionProduct > products_;
 
   /* auxiliary functions */
-  #include "ENDFtk/section/6/src/readReactionProducts.hpp"
 
 public:
   /* constructor */

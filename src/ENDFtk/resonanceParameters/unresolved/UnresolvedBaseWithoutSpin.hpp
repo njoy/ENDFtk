@@ -17,7 +17,6 @@ class UnresolvedBaseWithoutSpin {
 protected:
 
   /* auxiliary functions */
-  #include "ENDFtk/resonanceParameters/unresolved/UnresolvedBaseWithoutSpin/src/readLValues.hpp"
   #include "ENDFtk/resonanceParameters/unresolved/UnresolvedBaseWithoutSpin/src/verifySize.hpp"
 
   /* constructor */

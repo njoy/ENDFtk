@@ -1,19 +1,17 @@
 private:
-/** 
- *  @brief Constructor
- *
- *  @param[in] sequence   the interpolation sequence record
+/**
+ *  @brief Private constructor
  */
 Tabulated( InterpolationSequenceRecord< ScatteringFunction >&& sequence ) :
   data_( std::move( sequence ) ) {
-  
+
   //! @todo verify number of beta versus NB
   //! @todo verify the same temperature in each ScatteringFunction
   //! @todo verify the same temperature interpolants in each ScatteringFunction
 }
 
-  public:
-/** 
+public:
+/**
  *  @brief Constructor
  *
  *  @param[in] boundaries     the interpolation range boundaries
@@ -36,7 +34,7 @@ Tabulated( std::vector< long >&& boundaries,
     throw;
   }
 
-/** 
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator
@@ -56,8 +54,8 @@ Tabulated( Iterator& begin,
            int MF,
            int MT )
   try : Tabulated(
-          InterpolationSequenceRecord< ScatteringFunction >(
-            begin, end, lineNumber, MAT, MF, MT ) ) {}
+          ENDFtk::readInterpolationSequenceRecord< ScatteringFunction >(
+              begin, end, lineNumber, MAT, MF, MT ) ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing tabulated thermal "
