@@ -37,7 +37,7 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       long lep = 2;
       std::vector< long > boundaries = { 2 };
       std::vector< long > interpolants = { 1 };
-      std::vector< Variant > sequence = {
+      std::vector< Variant > distributions = {
           LegendreCoefficients( 1e-5, 0, 1, { 1., 4., 7., 10. },
                                 { { 2., 3. }, { 5., 6. },
                                   { 8., 9. }, {  11., 12. } } ),
@@ -46,7 +46,7 @@ SCENARIO( "ContinuumEnergyAngle" ) {
 
       ContinuumEnergyAngle chunk( lep, std::move( boundaries ),
                                   std::move( interpolants ),
-                                  std::move( sequence ) );
+                                  std::move( distributions ) );
 
       THEN( "a ContinuumEnergyAngle can be constructed and members can be "
             "tested" ) {
@@ -96,13 +96,19 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       long lep = 2;
       std::vector< long > boundaries = { 2 };
       std::vector< long > interpolants = { 1 };
-       std::vector< Variant > sequence = {
-          KalbachMann( 1e-5, 0, std::vector< std::array< double, 3 > >{ {{1., 2., 3.}}, {{4., 5., 6.}} } ),
-          KalbachMann( 2e+7, 0, std::vector< std::array< double, 4 > >{ {{7., 8., 9., 10.}}, {{11., 12., 13., 14.}} } ) };
+       std::vector< Variant > distributions = {
+          KalbachMann(
+              1e-5, 0,
+              std::vector< std::array< double, 3 > >{
+                  {{1., 2., 3.}}, {{4., 5., 6.}} } ),
+          KalbachMann(
+              2e+7, 0,
+              std::vector< std::array< double, 4 > >{
+                  {{7., 8., 9., 10.}}, {{11., 12., 13., 14.}} } ) };
 
       ContinuumEnergyAngle chunk( lep, std::move( boundaries ),
                                   std::move( interpolants ),
-                                  std::move( sequence ) );
+                                  std::move( distributions ) );
 
       THEN( "a ContinuumEnergyAngle can "
           "be constructed and members can be tested" ) {
@@ -153,7 +159,7 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       long lep = 2;
       std::vector< long > boundaries = { 2 };
       std::vector< long > interpolants = { 1 };
-      std::vector< Variant > sequence = {
+      std::vector< Variant > distributions = {
           TabulatedDistribution( lang, 1e-5, 0, 4,
                                  {  1.,  7. },  { 2., 8. },
                                  { { 3., 5. }, { 9., 11. } },
@@ -165,7 +171,7 @@ SCENARIO( "ContinuumEnergyAngle" ) {
 
       ContinuumEnergyAngle chunk( lep, std::move( boundaries ),
                                   std::move( interpolants ),
-                                  std::move( sequence ) );
+                                  std::move( distributions ) );
 
       THEN( "a ContinuumEnergyAngle can be constructed and members can "
             "be tested" ) {
@@ -213,18 +219,20 @@ SCENARIO( "ContinuumEnergyAngle" ) {
       long lep = 2;
       std::vector< long > boundaries = { 2 };
       std::vector< long > interpolants = { 1 };
-      std::vector< Variant > sequence = {
+      std::vector< Variant > distributions = {
           LegendreCoefficients( 1e-5, 0, 1, { 1., 4., 7., 10. },
                                 { { 2., 3. }, { 5., 6. },
                                   { 8., 9. }, {  11., 12. } } ),
-          KalbachMann( 1e-5, 0, std::vector< std::array< double, 4 > >{ {{1., 2., 3.}}, {{4., 5., 6.}} } ) };
+          KalbachMann( 1e-5, 0,
+                       std::vector< std::array< double, 4 > >{
+                           {{1., 2., 3.}}, {{4., 5., 6.}} } ) };
 
       THEN( "an exception is thrown upon construction" ) {
 
         CHECK_THROWS( ContinuumEnergyAngle(
                                     lep, std::move( boundaries ),
                                     std::move( interpolants ),
-                                    std::move( sequence ) ) );
+                                    std::move( distributions ) ) );
       } // THEN
     }
 
@@ -236,15 +244,21 @@ SCENARIO( "ContinuumEnergyAngle" ) {
         long lep = 2;
         std::vector< long > wrongBoundaries = { 2, 4 };
         std::vector< long > interpolants = { 1 };
-        std::vector< Variant > sequence = {
-            KalbachMann( 1e-5, 0, std::vector< std::array< double, 3 > >{ {{1., 2., 3.}}, {{4., 5., 6.}} } ),
-            KalbachMann( 2e+7, 0, std::vector< std::array< double, 4 > >{ {{7., 8., 9., 10.}}, {{11., 12., 13., 14.}} } ) };
+        std::vector< Variant > distributions = {
+            KalbachMann(
+                1e-5, 0,
+                std::vector< std::array< double, 3 > >{
+                    {{1., 2., 3.}}, {{4., 5., 6.}} } ),
+            KalbachMann(
+                2e+7, 0,
+                std::vector< std::array< double, 4 > >{
+                    {{7., 8., 9., 10.}}, {{11., 12., 13., 14.}} } ) };
 
         CHECK_THROWS(
           ContinuumEnergyAngle( lep,
                                 std::move( wrongBoundaries ),
                                 std::move( interpolants ),
-                                std::move( sequence ) ) );
+                                std::move( distributions ) ) );
       } // THEN
 
       THEN( "an exception is thrown upon construction when there is "
@@ -253,25 +267,34 @@ SCENARIO( "ContinuumEnergyAngle" ) {
         long lep = 2;
         std::vector< long > boundaries = { 2 };
         std::vector< long > wrongInterpolants = { 1, 2 };
-        std::vector< Variant > sequence = {
-            KalbachMann( 1e-5, 0, std::vector< std::array< double, 3 > >{ {{1., 2., 3.}}, {{4., 5., 6.}} } ),
-            KalbachMann( 2e+7, 0, std::vector< std::array< double, 4 > >{ {{7., 8., 9., 10.}}, {{11., 12., 13., 14.}} } ) };
+        std::vector< Variant > distributions = {
+            KalbachMann(
+                1e-5, 0,
+                std::vector< std::array< double, 3 > >{
+                    {{1., 2., 3.}}, {{4., 5., 6.}} } ),
+            KalbachMann(
+                2e+7, 0,
+                std::vector< std::array< double, 4 > >{
+                    {{7., 8., 9., 10.}}, {{11., 12., 13., 14.}} } ) };
 
         CHECK_THROWS(
           ContinuumEnergyAngle( lep,
                                 std::move( boundaries ),
                                 std::move( wrongInterpolants ),
-                                std::move( sequence ) ) );
+                                std::move( distributions ) ) );
       } // THEN
 
       THEN( "an exception is thrown upon construction when there is "
-            "something wrong with the sequence" ) {
+            "something wrong with the distributions" ) {
 
         long lep = 2;
         std::vector< long > boundaries = { 2 };
         std::vector< long > interpolants = { 1 };
         std::vector< Variant > wrongSequence = {
-            KalbachMann( 1e-5, 0, std::vector< std::array< double, 3 > >{ {{1., 2., 3.}}, {{4., 5., 6.}} } ) };
+            KalbachMann(
+                1e-5, 0,
+                std::vector< std::array< double, 3 > >{
+                    {{1., 2., 3.}}, {{4., 5., 6.}} } ) };
 
         CHECK_THROWS(
           ContinuumEnergyAngle( lep,
@@ -310,72 +333,104 @@ std::string chunkWithLANG1() {
 
 void verifyChunkWithLANG1( const ContinuumEnergyAngle& chunk ) {
 
-      CHECK( 1 == chunk.LAW() );
-      CHECK( 2 == chunk.LEP() );
-      CHECK( 2 == chunk.NE() );
-      CHECK( 1 == chunk.NR() );
-      CHECK( 1 == chunk.interpolants().size() );
-      CHECK( 1 == chunk.boundaries().size() );
-      CHECK( 1 == chunk.interpolants()[0] );
-      CHECK( 2 == chunk.boundaries()[0] );
+  CHECK( 1 == chunk.LAW() );
+  CHECK( 2 == chunk.LEP() );
+  CHECK( 2 == chunk.NE() );
+  CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.interpolants().size() );
+  CHECK( 1 == chunk.boundaries().size() );
+  CHECK( 1 == chunk.interpolants()[0] );
+  CHECK( 2 == chunk.boundaries()[0] );
 
-      auto energies = chunk.subsections();
+  auto energies = chunk.distributions();
 
-      auto subsection1 =
-          std::get< LegendreCoefficients >( energies[0] );
-      CHECK( 1e-5 == Approx( subsection1.incidentEnergy() ) );
-      CHECK( 1 == subsection1.LANG() );
-      CHECK( 0 == subsection1.ND() );
-      CHECK( 0 == subsection1.numberDiscreteEnergies() );
-      CHECK( 1 == subsection1.NA() );
-      CHECK( 1 == subsection1.numberAngularParameters() );
-      CHECK( 12 == subsection1.NW() );
-      CHECK( 4 == subsection1.NEP() );
-      CHECK( 4 == subsection1.numberSecondaryEnergies() );
-      CHECK( 4 == subsection1.energies().size() );
-      CHECK( 1. == Approx( subsection1.energies()[0] ) );
-      CHECK( 4. == Approx( subsection1.energies()[1] ) );
-      CHECK( 7. == Approx( subsection1.energies()[2] ) );
-      CHECK( 10. == Approx( subsection1.energies()[3] ) );
-      CHECK( 4 == subsection1.coefficients().size() );
-      CHECK( 2. == Approx( subsection1.coefficients()[0][0] ) );
-      CHECK( 3. == Approx( subsection1.coefficients()[0][1] ) );
-      CHECK( 5. == Approx( subsection1.coefficients()[1][0] ) );
-      CHECK( 6. == Approx( subsection1.coefficients()[1][1] ) );
-      CHECK( 8. == Approx( subsection1.coefficients()[2][0] ) );
-      CHECK( 9. == Approx( subsection1.coefficients()[2][1] ) );
-      CHECK( 11. == Approx( subsection1.coefficients()[3][0] ) );
-      CHECK( 12. == Approx( subsection1.coefficients()[3][1] ) );
-      CHECK( 4 == Approx( subsection1.totalEmissionProbabilities().size() ) );
-      CHECK( 2. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
-      CHECK( 5. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
-      CHECK( 8. == Approx( subsection1.totalEmissionProbabilities()[2] ) );
-      CHECK( 11. == Approx( subsection1.totalEmissionProbabilities()[3] ) );
+  auto subsection1 = std::get< LegendreCoefficients >( energies[0] );
+  CHECK( 1e-5 == Approx( subsection1.E() ) );
+  CHECK( 1e-5 == Approx( subsection1.incidentEnergy() ) );
+  CHECK( 1 == subsection1.LANG() );
+  CHECK( 1 == subsection1.representation() );
+  CHECK( 0 == subsection1.ND() );
+  CHECK( 0 == subsection1.numberDiscreteEnergies() );
+  CHECK( 1 == subsection1.NA() );
+  CHECK( 1 == subsection1.numberAngularParameters() );
+  CHECK( 12 == subsection1.NW() );
+  CHECK( 4 == subsection1.NEP() );
+  CHECK( 4 == subsection1.numberSecondaryEnergies() );
+  CHECK( 4 == subsection1.EP().size() );
+  CHECK( 4 == subsection1.energies().size() );
+  CHECK( 1. == Approx( subsection1.EP()[0] ) );
+  CHECK( 4. == Approx( subsection1.EP()[1] ) );
+  CHECK( 7. == Approx( subsection1.EP()[2] ) );
+  CHECK( 10. == Approx( subsection1.EP()[3] ) );
+  CHECK( 1. == Approx( subsection1.energies()[0] ) );
+  CHECK( 4. == Approx( subsection1.energies()[1] ) );
+  CHECK( 7. == Approx( subsection1.energies()[2] ) );
+  CHECK( 10. == Approx( subsection1.energies()[3] ) );
+  CHECK( 4 == subsection1.A().size() );
+  CHECK( 4 == subsection1.coefficients().size() );
+  CHECK( 2. == Approx( subsection1.A()[0][0] ) );
+  CHECK( 3. == Approx( subsection1.A()[0][1] ) );
+  CHECK( 5. == Approx( subsection1.A()[1][0] ) );
+  CHECK( 6. == Approx( subsection1.A()[1][1] ) );
+  CHECK( 8. == Approx( subsection1.A()[2][0] ) );
+  CHECK( 9. == Approx( subsection1.A()[2][1] ) );
+  CHECK( 11. == Approx( subsection1.A()[3][0] ) );
+  CHECK( 12. == Approx( subsection1.A()[3][1] ) );
+  CHECK( 2. == Approx( subsection1.coefficients()[0][0] ) );
+  CHECK( 3. == Approx( subsection1.coefficients()[0][1] ) );
+  CHECK( 5. == Approx( subsection1.coefficients()[1][0] ) );
+  CHECK( 6. == Approx( subsection1.coefficients()[1][1] ) );
+  CHECK( 8. == Approx( subsection1.coefficients()[2][0] ) );
+  CHECK( 9. == Approx( subsection1.coefficients()[2][1] ) );
+  CHECK( 11. == Approx( subsection1.coefficients()[3][0] ) );
+  CHECK( 12. == Approx( subsection1.coefficients()[3][1] ) );
+  CHECK( 4 == Approx( subsection1.F0().size() ) );
+  CHECK( 4 == Approx( subsection1.totalEmissionProbabilities().size() ) );
+  CHECK( 2. == Approx( subsection1.F0()[0] ) );
+  CHECK( 5. == Approx( subsection1.F0()[1] ) );
+  CHECK( 8. == Approx( subsection1.F0()[2] ) );
+  CHECK( 11. == Approx( subsection1.F0()[3] ) );
+  CHECK( 2. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
+  CHECK( 5. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
+  CHECK( 8. == Approx( subsection1.totalEmissionProbabilities()[2] ) );
+  CHECK( 11. == Approx( subsection1.totalEmissionProbabilities()[3] ) );
 
-      auto subsection2 =
-          std::get< LegendreCoefficients >( energies[1] );
-      CHECK( 2e+7 == Approx( subsection2.incidentEnergy() ) );
-      CHECK( 1 == subsection2.LANG() );
-      CHECK( 0 == subsection2.ND() );
-      CHECK( 0 == subsection2.numberDiscreteEnergies() );
-      CHECK( 1 == subsection2.NA() );
-      CHECK( 1 == subsection2.numberAngularParameters() );
-      CHECK( 6 == subsection2.NW() );
-      CHECK( 2 == subsection2.NEP() );
-      CHECK( 2 == subsection2.numberSecondaryEnergies() );
-      CHECK( 2 == subsection2.energies().size() );
-      CHECK( 1. == Approx( subsection2.energies()[0] ) );
-      CHECK( 4. == Approx( subsection2.energies()[1] ) );
-      CHECK( 2 == subsection2.coefficients().size() );
-      CHECK( 2. == Approx( subsection2.coefficients()[0][0] ) );
-      CHECK( 3. == Approx( subsection2.coefficients()[0][1] ) );
-      CHECK( 5. == Approx( subsection2.coefficients()[1][0] ) );
-      CHECK( 6. == Approx( subsection2.coefficients()[1][1] ) );
-      CHECK( 2 == Approx( subsection2.totalEmissionProbabilities().size() ) );
-      CHECK( 2. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
-      CHECK( 5. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
+  auto subsection2 = std::get< LegendreCoefficients >( energies[1] );
+  CHECK( 2e+7 == Approx( subsection2.E() ) );
+  CHECK( 2e+7 == Approx( subsection2.incidentEnergy() ) );
+  CHECK( 1 == subsection2.LANG() );
+  CHECK( 1 == subsection2.representation() );
+  CHECK( 0 == subsection2.ND() );
+  CHECK( 0 == subsection2.numberDiscreteEnergies() );
+  CHECK( 1 == subsection2.NA() );
+  CHECK( 1 == subsection2.numberAngularParameters() );
+  CHECK( 6 == subsection2.NW() );
+  CHECK( 2 == subsection2.NEP() );
+  CHECK( 2 == subsection2.numberSecondaryEnergies() );
+  CHECK( 2 == subsection2.EP().size() );
+  CHECK( 2 == subsection2.energies().size() );
+  CHECK( 1. == Approx( subsection2.EP()[0] ) );
+  CHECK( 4. == Approx( subsection2.EP()[1] ) );
+  CHECK( 1. == Approx( subsection2.energies()[0] ) );
+  CHECK( 4. == Approx( subsection2.energies()[1] ) );
+  CHECK( 2 == subsection2.A().size() );
+  CHECK( 2 == subsection2.coefficients().size() );
+  CHECK( 2. == Approx( subsection2.A()[0][0] ) );
+  CHECK( 3. == Approx( subsection2.A()[0][1] ) );
+  CHECK( 5. == Approx( subsection2.A()[1][0] ) );
+  CHECK( 6. == Approx( subsection2.A()[1][1] ) );
+  CHECK( 2. == Approx( subsection2.coefficients()[0][0] ) );
+  CHECK( 3. == Approx( subsection2.coefficients()[0][1] ) );
+  CHECK( 5. == Approx( subsection2.coefficients()[1][0] ) );
+  CHECK( 6. == Approx( subsection2.coefficients()[1][1] ) );
+  CHECK( 2 == Approx( subsection2.F0().size() ) );
+  CHECK( 2 == Approx( subsection2.totalEmissionProbabilities().size() ) );
+  CHECK( 2. == Approx( subsection2.F0()[0] ) );
+  CHECK( 5. == Approx( subsection2.F0()[1] ) );
+  CHECK( 2. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
+  CHECK( 5. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
 
-      CHECK( 7 == chunk.NC() );
+  CHECK( 7 == chunk.NC() );
 }
 
 std::string chunkWithLANG2() {
@@ -391,66 +446,80 @@ std::string chunkWithLANG2() {
 
 void verifyChunkWithLANG2( const ContinuumEnergyAngle& chunk ) {
 
-      CHECK( 1 == chunk.LAW() );
-      CHECK( 2 == chunk.LEP() );
-      CHECK( 2 == chunk.NE() );
-      CHECK( 1 == chunk.NR() );
-      CHECK( 1 == chunk.interpolants().size() );
-      CHECK( 1 == chunk.boundaries().size() );
-      CHECK( 1 == chunk.interpolants()[0] );
-      CHECK( 2 == chunk.boundaries()[0] );
+  CHECK( 1 == chunk.LAW() );
+  CHECK( 2 == chunk.LEP() );
+  CHECK( 2 == chunk.NE() );
+  CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.interpolants().size() );
+  CHECK( 1 == chunk.boundaries().size() );
+  CHECK( 1 == chunk.interpolants()[0] );
+  CHECK( 2 == chunk.boundaries()[0] );
 
-      auto energies = chunk.subsections();
+  auto energies = chunk.distributions();
 
-      auto subsection1 =
-          std::get< KalbachMann >( energies[0] );
-      CHECK( 1e-5 == Approx( subsection1.incidentEnergy() ) );
-      CHECK( 2 == subsection1.LANG() );
-      CHECK( 0 == subsection1.ND() );
-      CHECK( 0 == subsection1.numberDiscreteEnergies() );
-      CHECK( 1 == subsection1.NA() );
-      CHECK( 1 == subsection1.numberAngularParameters() );
-      CHECK( 6 == subsection1.NW() );
-      CHECK( 2 == subsection1.NEP() );
-      CHECK( 2 == subsection1.numberSecondaryEnergies() );
-      CHECK( 2 == subsection1.energies().size() );
-      CHECK( 1. == Approx( subsection1.energies()[0] ) );
-      CHECK( 4. == Approx( subsection1.energies()[1] ) );
-      CHECK( 2 == subsection1.parameters().size() );
-      CHECK( 2. == Approx( subsection1.parameters()[0][0] ) );
-      CHECK( 3. == Approx( subsection1.parameters()[0][1] ) );
-      CHECK( 5. == Approx( subsection1.parameters()[1][0] ) );
-      CHECK( 6. == Approx( subsection1.parameters()[1][1] ) );
-      CHECK( 2 == Approx( subsection1.totalEmissionProbabilities().size() ) );
-      CHECK( 2. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
-      CHECK( 5. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
+  auto subsection1 = std::get< KalbachMann >( energies[0] );
+  CHECK( 1e-5 == Approx( subsection1.E() ) );
+  CHECK( 1e-5 == Approx( subsection1.incidentEnergy() ) );
+  CHECK( 2 == subsection1.LANG() );
+  CHECK( 2 == subsection1.representation() );
+  CHECK( 0 == subsection1.ND() );
+  CHECK( 0 == subsection1.numberDiscreteEnergies() );
+  CHECK( 1 == subsection1.NA() );
+  CHECK( 1 == subsection1.numberAngularParameters() );
+  CHECK( 6 == subsection1.NW() );
+  CHECK( 2 == subsection1.NEP() );
+  CHECK( 2 == subsection1.numberSecondaryEnergies() );
+  CHECK( 2 == subsection1.EP().size() );
+  CHECK( 2 == subsection1.energies().size() );
+  CHECK( 1. == Approx( subsection1.EP()[0] ) );
+  CHECK( 4. == Approx( subsection1.EP()[1] ) );
+  CHECK( 1. == Approx( subsection1.energies()[0] ) );
+  CHECK( 4. == Approx( subsection1.energies()[1] ) );
+  CHECK( 2 == subsection1.parameters().size() );
+  CHECK( 2. == Approx( subsection1.parameters()[0][0] ) );
+  CHECK( 3. == Approx( subsection1.parameters()[0][1] ) );
+  CHECK( 5. == Approx( subsection1.parameters()[1][0] ) );
+  CHECK( 6. == Approx( subsection1.parameters()[1][1] ) );
+  CHECK( 2 == Approx( subsection1.F0().size() ) );
+  CHECK( 2 == Approx( subsection1.totalEmissionProbabilities().size() ) );
+  CHECK( 2. == Approx( subsection1.F0()[0] ) );
+  CHECK( 5. == Approx( subsection1.F0()[1] ) );
+  CHECK( 2. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
+  CHECK( 5. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
 
-      auto subsection2 =
-          std::get< KalbachMann >( energies[1] );
-      CHECK( 2e+7 == Approx( subsection2.incidentEnergy() ) );
-      CHECK( 2 == subsection2.LANG() );
-      CHECK( 0 == subsection2.ND() );
-      CHECK( 0 == subsection2.numberDiscreteEnergies() );
-      CHECK( 2 == subsection2.NA() );
-      CHECK( 2 == subsection2.numberAngularParameters() );
-      CHECK( 8 == subsection2.NW() );
-      CHECK( 2 == subsection2.NEP() );
-      CHECK( 2 == subsection2.numberSecondaryEnergies() );
-      CHECK( 2 == subsection2.energies().size() );
-      CHECK( 7. == Approx( subsection2.energies()[0] ) );
-      CHECK( 11. == Approx( subsection2.energies()[1] ) );
-      CHECK( 2 == subsection2.parameters().size() );
-      CHECK( 8. == Approx( subsection2.parameters()[0][0] ) );
-      CHECK( 9. == Approx( subsection2.parameters()[0][1] ) );
-      CHECK( 10. == Approx( subsection2.parameters()[0][2] ) );
-      CHECK( 12. == Approx( subsection2.parameters()[1][0] ) );
-      CHECK( 13. == Approx( subsection2.parameters()[1][1] ) );
-      CHECK( 14. == Approx( subsection2.parameters()[1][2] ) );
-      CHECK( 2 == Approx( subsection2.totalEmissionProbabilities().size() ) );
-      CHECK( 8. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
-      CHECK( 12. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
+  auto subsection2 = std::get< KalbachMann >( energies[1] );
+  CHECK( 2e+7 == Approx( subsection2.E() ) );
+  CHECK( 2e+7 == Approx( subsection2.incidentEnergy() ) );
+  CHECK( 2 == subsection2.LANG() );
+  CHECK( 2 == subsection2.representation() );
+  CHECK( 0 == subsection2.ND() );
+  CHECK( 0 == subsection2.numberDiscreteEnergies() );
+  CHECK( 2 == subsection2.NA() );
+  CHECK( 2 == subsection2.numberAngularParameters() );
+  CHECK( 8 == subsection2.NW() );
+  CHECK( 2 == subsection2.NEP() );
+  CHECK( 2 == subsection2.numberSecondaryEnergies() );
+  CHECK( 2 == subsection2.EP().size() );
+  CHECK( 2 == subsection2.energies().size() );
+  CHECK( 7. == Approx( subsection2.EP()[0] ) );
+  CHECK( 11. == Approx( subsection2.EP()[1] ) );
+  CHECK( 7. == Approx( subsection2.energies()[0] ) );
+  CHECK( 11. == Approx( subsection2.energies()[1] ) );
+  CHECK( 2 == subsection2.parameters().size() );
+  CHECK( 8. == Approx( subsection2.parameters()[0][0] ) );
+  CHECK( 9. == Approx( subsection2.parameters()[0][1] ) );
+  CHECK( 10. == Approx( subsection2.parameters()[0][2] ) );
+  CHECK( 12. == Approx( subsection2.parameters()[1][0] ) );
+  CHECK( 13. == Approx( subsection2.parameters()[1][1] ) );
+  CHECK( 14. == Approx( subsection2.parameters()[1][2] ) );
+  CHECK( 2 == Approx( subsection2.F0().size() ) );
+  CHECK( 2 == Approx( subsection2.totalEmissionProbabilities().size() ) );
+  CHECK( 8. == Approx( subsection2.F0()[0] ) );
+  CHECK( 12. == Approx( subsection2.F0()[1] ) );
+  CHECK( 8. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
+  CHECK( 12. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
 
-      CHECK( 7 == chunk.NC() );
+  CHECK( 7 == chunk.NC() );
 }
 
 std::string chunkWithLANG14() {
@@ -467,74 +536,107 @@ std::string chunkWithLANG14() {
 
 void verifyChunkWithLANG14( const ContinuumEnergyAngle& chunk ) {
 
-      CHECK( 1 == chunk.LAW() );
-      CHECK( 2 == chunk.LEP() );
-      CHECK( 2 == chunk.NE() );
-      CHECK( 1 == chunk.NR() );
-      CHECK( 1 == chunk.interpolants().size() );
-      CHECK( 1 == chunk.boundaries().size() );
-      CHECK( 1 == chunk.interpolants()[0] );
-      CHECK( 2 == chunk.boundaries()[0] );
+  CHECK( 1 == chunk.LAW() );
+  CHECK( 2 == chunk.LEP() );
+  CHECK( 2 == chunk.NE() );
+  CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.interpolants().size() );
+  CHECK( 1 == chunk.boundaries().size() );
+  CHECK( 1 == chunk.interpolants()[0] );
+  CHECK( 2 == chunk.boundaries()[0] );
 
-      auto energies = chunk.subsections();
+  auto energies = chunk.distributions();
 
-      auto subsection1 =
-          std::get< TabulatedDistribution >( energies[0] );
-      CHECK( 1e-5 == Approx( subsection1.incidentEnergy() ) );
-      CHECK( 14 == subsection1.LANG() );
-      CHECK( 0 == subsection1.ND() );
-      CHECK( 0 == subsection1.numberDiscreteEnergies() );
-      CHECK( 4 == subsection1.NA() );
-      CHECK( 4 == subsection1.numberAngularParameters() );
-      CHECK( 12 == subsection1.NW() );
-      CHECK( 2 == subsection1.NEP() );
-      CHECK( 2 == subsection1.numberSecondaryEnergies() );
-      CHECK( 2 == subsection1.energies().size() );
-      CHECK( 1. == Approx( subsection1.energies()[0] ) );
-      CHECK( 7. == Approx( subsection1.energies()[1] ) );
-      CHECK( 2 == subsection1.totalEmissionProbabilities().size() );
-      CHECK( 2. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
-      CHECK( 8. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
-      CHECK( 2 == subsection1.cosines().size() );
-      CHECK( 3. == Approx( subsection1.cosines()[0][0] ) );
-      CHECK( 5. == Approx( subsection1.cosines()[0][1] ) );
-      CHECK( 9. == Approx( subsection1.cosines()[1][0] ) );
-      CHECK( 11. == Approx( subsection1.cosines()[1][1] ) );
-      CHECK( 2 == subsection1.probabilities().size() );
-      CHECK( 4. == Approx( subsection1.probabilities()[0][0] ) );
-      CHECK( 6. == Approx( subsection1.probabilities()[0][1] ) );
-      CHECK( 10. == Approx( subsection1.probabilities()[1][0] ) );
-      CHECK( 12. == Approx( subsection1.probabilities()[1][1] ) );
+  auto subsection1 = std::get< TabulatedDistribution >( energies[0] );
+  CHECK( 1e-5 == Approx( subsection1.E() ) );
+  CHECK( 1e-5 == Approx( subsection1.incidentEnergy() ) );
+  CHECK( 14 == subsection1.LANG() );
+  CHECK( 14 == subsection1.representation() );
+  CHECK( 0 == subsection1.ND() );
+  CHECK( 0 == subsection1.numberDiscreteEnergies() );
+  CHECK( 4 == subsection1.NA() );
+  CHECK( 4 == subsection1.numberAngularParameters() );
+  CHECK( 12 == subsection1.NW() );
+  CHECK( 2 == subsection1.NEP() );
+  CHECK( 2 == subsection1.numberSecondaryEnergies() );
+  CHECK( 2 == subsection1.EP().size() );
+  CHECK( 2 == subsection1.energies().size() );
+  CHECK( 1. == Approx( subsection1.EP()[0] ) );
+  CHECK( 7. == Approx( subsection1.EP()[1] ) );
+  CHECK( 1. == Approx( subsection1.energies()[0] ) );
+  CHECK( 7. == Approx( subsection1.energies()[1] ) );
+  CHECK( 2 == subsection1.F0().size() );
+  CHECK( 2 == subsection1.totalEmissionProbabilities().size() );
+  CHECK( 2. == Approx( subsection1.F0()[0] ) );
+  CHECK( 8. == Approx( subsection1.F0()[1] ) );
+  CHECK( 2. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
+  CHECK( 8. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
+  CHECK( 2 == subsection1.MU().size() );
+  CHECK( 2 == subsection1.cosines().size() );
+  CHECK( 3. == Approx( subsection1.MU()[0][0] ) );
+  CHECK( 5. == Approx( subsection1.MU()[0][1] ) );
+  CHECK( 9. == Approx( subsection1.MU()[1][0] ) );
+  CHECK( 11. == Approx( subsection1.MU()[1][1] ) );
+  CHECK( 3. == Approx( subsection1.cosines()[0][0] ) );
+  CHECK( 5. == Approx( subsection1.cosines()[0][1] ) );
+  CHECK( 9. == Approx( subsection1.cosines()[1][0] ) );
+  CHECK( 11. == Approx( subsection1.cosines()[1][1] ) );
+  CHECK( 2 == subsection1.F().size() );
+  CHECK( 2 == subsection1.probabilities().size() );
+  CHECK( 4. == Approx( subsection1.F()[0][0] ) );
+  CHECK( 6. == Approx( subsection1.F()[0][1] ) );
+  CHECK( 10. == Approx( subsection1.F()[1][0] ) );
+  CHECK( 12. == Approx( subsection1.F()[1][1] ) );
+  CHECK( 4. == Approx( subsection1.probabilities()[0][0] ) );
+  CHECK( 6. == Approx( subsection1.probabilities()[0][1] ) );
+  CHECK( 10. == Approx( subsection1.probabilities()[1][0] ) );
+  CHECK( 12. == Approx( subsection1.probabilities()[1][1] ) );
 
-      auto subsection2 =
-          std::get< TabulatedDistribution >( energies[1] );
-      CHECK( 2e+7 == Approx( subsection2.incidentEnergy() ) );
-      CHECK( 14 == subsection2.LANG() );
-      CHECK( 0 == subsection2.ND() );
-      CHECK( 0 == subsection2.numberDiscreteEnergies() );
-      CHECK( 4 == subsection2.NA() );
-      CHECK( 4 == subsection2.numberAngularParameters() );
-      CHECK( 12 == subsection2.NW() );
-      CHECK( 2 == subsection2.NEP() );
-      CHECK( 2 == subsection2.numberSecondaryEnergies() );
-      CHECK( 2 == subsection2.energies().size() );
-      CHECK( 13. == Approx( subsection2.energies()[0] ) );
-      CHECK( 19. == Approx( subsection2.energies()[1] ) );
-      CHECK( 2 == subsection2.totalEmissionProbabilities().size() );
-      CHECK( 14. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
-      CHECK( 20. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
-      CHECK( 2 == subsection2.cosines().size() );
-      CHECK( 15. == Approx( subsection2.cosines()[0][0] ) );
-      CHECK( 17. == Approx( subsection2.cosines()[0][1] ) );
-      CHECK( 21. == Approx( subsection2.cosines()[1][0] ) );
-      CHECK( 23. == Approx( subsection2.cosines()[1][1] ) );
-      CHECK( 2 == subsection2.probabilities().size() );
-      CHECK( 16. == Approx( subsection2.probabilities()[0][0] ) );
-      CHECK( 18. == Approx( subsection2.probabilities()[0][1] ) );
-      CHECK( 22. == Approx( subsection2.probabilities()[1][0] ) );
-      CHECK( 24. == Approx( subsection2.probabilities()[1][1] ) );
+  auto subsection2 = std::get< TabulatedDistribution >( energies[1] );
+  CHECK( 2e+7 == Approx( subsection2.E() ) );
+  CHECK( 2e+7 == Approx( subsection2.incidentEnergy() ) );
+  CHECK( 14 == subsection2.LANG() );
+  CHECK( 0 == subsection2.ND() );
+  CHECK( 0 == subsection2.numberDiscreteEnergies() );
+  CHECK( 4 == subsection2.NA() );
+  CHECK( 4 == subsection2.numberAngularParameters() );
+  CHECK( 12 == subsection2.NW() );
+  CHECK( 2 == subsection2.NEP() );
+  CHECK( 2 == subsection2.numberSecondaryEnergies() );
+  CHECK( 2 == subsection2.EP().size() );
+  CHECK( 2 == subsection2.energies().size() );
+  CHECK( 13. == Approx( subsection2.EP()[0] ) );
+  CHECK( 19. == Approx( subsection2.EP()[1] ) );
+  CHECK( 13. == Approx( subsection2.energies()[0] ) );
+  CHECK( 19. == Approx( subsection2.energies()[1] ) );
+  CHECK( 2 == subsection2.F0().size() );
+  CHECK( 2 == subsection2.totalEmissionProbabilities().size() );
+  CHECK( 14. == Approx( subsection2.F0()[0] ) );
+  CHECK( 20. == Approx( subsection2.F0()[1] ) );
+  CHECK( 14. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
+  CHECK( 20. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
+  CHECK( 2 == subsection2.MU().size() );
+  CHECK( 2 == subsection2.cosines().size() );
+  CHECK( 15. == Approx( subsection2.MU()[0][0] ) );
+  CHECK( 17. == Approx( subsection2.MU()[0][1] ) );
+  CHECK( 21. == Approx( subsection2.MU()[1][0] ) );
+  CHECK( 23. == Approx( subsection2.MU()[1][1] ) );
+  CHECK( 15. == Approx( subsection2.cosines()[0][0] ) );
+  CHECK( 17. == Approx( subsection2.cosines()[0][1] ) );
+  CHECK( 21. == Approx( subsection2.cosines()[1][0] ) );
+  CHECK( 23. == Approx( subsection2.cosines()[1][1] ) );
+  CHECK( 2 == subsection2.F().size() );
+  CHECK( 2 == subsection2.probabilities().size() );
+  CHECK( 16. == Approx( subsection2.F()[0][0] ) );
+  CHECK( 18. == Approx( subsection2.F()[0][1] ) );
+  CHECK( 22. == Approx( subsection2.F()[1][0] ) );
+  CHECK( 24. == Approx( subsection2.F()[1][1] ) );
+  CHECK( 16. == Approx( subsection2.probabilities()[0][0] ) );
+  CHECK( 18. == Approx( subsection2.probabilities()[0][1] ) );
+  CHECK( 22. == Approx( subsection2.probabilities()[1][0] ) );
+  CHECK( 24. == Approx( subsection2.probabilities()[1][1] ) );
 
-      CHECK( 8 == chunk.NC() );
+  CHECK( 8 == chunk.NC() );
 }
 
 std::string invalidLANG() {

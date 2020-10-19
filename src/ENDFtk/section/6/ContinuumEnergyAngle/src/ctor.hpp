@@ -13,24 +13,24 @@ public:
 /**
  *  @brief Constructor
  *
- *  @param[in] lep            the secondary energy interpolation scheme
- *  @param[in] boundaries     the interpolation range boundaries
- *  @param[in] interpolants   the interpolation types for each range
- *  @param[in] sequence       the data for each incident energy value
+ *  @param[in] lep              the secondary energy interpolation scheme
+ *  @param[in] boundaries       the interpolation range boundaries
+ *  @param[in] interpolants     the interpolation types for each range
+ *  @param[in] distributions    the data for each incident energy value
  */
 ContinuumEnergyAngle( long lep,
                       std::vector< long >&& boundaries,
                       std::vector< long >&& interpolants,
-                      std::vector< Variant >&& sequence )
+                      std::vector< Variant >&& distributions )
   try : ContinuumEnergyAngle(
           InterpolationRecord( 0.0, 0.0,
                                std::visit( [] ( const auto& entry )
                                               { return entry.LANG(); },
-                                           sequence.front() ),
+                                           distributions.front() ),
                                lep,
                                std::move( boundaries ),
                                std::move( interpolants ) ),
-          std::move( sequence ) ) {}
+          std::move( distributions ) ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing continuum energy angle "

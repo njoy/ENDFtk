@@ -277,7 +277,7 @@ void verifyChunk( const section::Type< 6 >& chunk ) {
   CHECK( 1 == law.interpolants()[0] );
   CHECK( 2 == law.boundaries()[0] );
 
-  auto energies = law.subsections();
+  auto energies = law.distributions();
 
   auto subsection1 =
       std::get< LegendreCoefficients >( energies[0] );
@@ -373,7 +373,7 @@ void verifyChunk( const section::Type< 6 >& chunk ) {
   CHECK( 22 == law.interpolants()[0] );
   CHECK( 2 == law.boundaries()[0] );
 
-  energies = law.subsections();
+  energies = law.distributions();
 
   subsection1 =
       std::get< LegendreCoefficients >( energies[0] );
@@ -466,7 +466,7 @@ void verifyChunk( const section::Type< 6 >& chunk ) {
   CHECK( 5 == law.interpolants()[0] );
   CHECK( 2 == law.boundaries()[0] );
 
-  energies = law.subsections();
+  energies = law.distributions();
 
   subsection1 =
       std::get< LegendreCoefficients >( energies[0] );

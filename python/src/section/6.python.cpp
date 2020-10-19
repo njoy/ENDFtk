@@ -25,6 +25,8 @@ namespace mf6 {
     void wrapThermalScatteringData( python::module& );          // law=1
   }
 
+  void wrapContinuumEnergyAngle( python::module& );             // law=1
+
   namespace law2 {
 
     void wrapLegendreCoefficients( python::module& );           // law=2
@@ -92,7 +94,7 @@ void wrapSection_6( python::module& module ) {
 
   // LAW = 1 - - - - - - - - - - - - - - - - - - - - - -
 
-  // mf6::wrapContinuumEnergyAngle( module );
+  mf6::wrapContinuumEnergyAngle( module );
 
   // create the submodule for LAW=1
   python::module submodule = module.def_submodule(

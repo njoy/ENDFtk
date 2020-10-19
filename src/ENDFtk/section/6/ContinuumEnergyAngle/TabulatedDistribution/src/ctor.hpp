@@ -1,7 +1,15 @@
+//! @todo pybind11 variant needs default constructor workaround
+#ifdef PYBIND11
+/**
+ *  @brief Default constructor - only enabled for pybind11
+ */
+TabulatedDistribution() = default;
+#endif
+
 private:
-  /**
-   *  @brief Private constructor
-   */
+/**
+ *  @brief Private constructor
+ */
 TabulatedDistribution( int lang, ListRecord&& list ) :
   Base( std::move( list ) ), lang_( lang ) {
 

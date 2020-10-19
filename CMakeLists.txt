@@ -131,6 +131,7 @@ pybind11_add_module( ENDFtk.python
     python/src/section/6/LAW1/TabulatedDistribution.python.cpp
     python/src/section/6/LAW1/KalbachMann.python.cpp
     python/src/section/6/LAW1/ThermalScatteringData.python.cpp
+    python/src/section/6/ContinuumEnergyAngle.python.cpp
     python/src/section/6/LAW2/LegendreCoefficients.python.cpp
     python/src/section/6/LAW2/TabulatedDistribution.python.cpp
     python/src/section/6/DiscreteTwoBodyScattering.python.cpp
