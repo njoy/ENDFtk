@@ -42,25 +42,25 @@ void wrapSection_7_2( python::module& module ) {
   );
 
   // wrap components
-//  mf7::wrapCoherentElastic( submodule );
-//  mf7::wrapIncoherentElastic( submodule );
+  mf7::wrapCoherentElastic( submodule );
+  mf7::wrapIncoherentElastic( submodule );
 
   // wrap the section
   section
-//  .def(
-//
-//    //! @todo pybind11 lambda move custom type workaround
-//    python::init( [] ( double zaid, double awr,
-//                       ScatteringLaw law )
-//                     { return Section( zaid, awr, std::move( law ) ); } ),
-//    python::arg( "zaid" ), python::arg( "awr" ), python::arg( "law" ),
-//    "Initialise the section using isotopes\n\n"
-//    "Arguments:\n"
-//    "    self    the section\n"
-//    "    zaid    the ZA value of the material\n"
-//    "    awr     the atomic weight ratio\n"
-//    "    law     the thermal scattering law"
-//  )
+  .def(
+
+    //! @todo pybind11 lambda move custom type workaround
+    python::init( [] ( double zaid, double awr,
+                       ScatteringLaw law )
+                     { return Section( zaid, awr, std::move( law ) ); } ),
+    python::arg( "zaid" ), python::arg( "awr" ), python::arg( "law" ),
+    "Initialise the section using isotopes\n\n"
+    "Arguments:\n"
+    "    self    the section\n"
+    "    zaid    the ZA value of the material\n"
+    "    awr     the atomic weight ratio\n"
+    "    law     the thermal scattering law"
+  )
   .def_property_readonly(
 
     "LTHR",

@@ -147,6 +147,8 @@ pybind11_add_module( ENDFtk.python
     python/src/section/6/LaboratoryAngleEnergy.python.cpp
     python/src/section/6/ReactionProduct.python.cpp
     python/src/section/7/2.python.cpp
+    python/src/section/7/2/CoherentElastic.python.cpp
+    python/src/section/7/2/IncoherentElastic.python.cpp
     python/src/section/7/4.python.cpp
     python/src/section/12.python.cpp
     python/src/section/12/TotalMultiplicity.python.cpp

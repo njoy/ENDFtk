@@ -1,24 +1,32 @@
-/** 
+//! @todo pybind11 variant needs default constructor workaround
+#ifdef PYBIND11
+/**
+ *  @brief Default constructor - only enabled for pybind11
+ */
+IncoherentElastic() = default;
+#endif
+
+/**
  *  @brief Constructor
  *
- *  @param[in] sb                  the characteristic bound cross section
- *  @param[in] boundaries          the interpolation range boundaries
- *  @param[in] interpolants        the interpolation types for each range
- *  @param[in] temperatures        the temperature values
- *  @param[in] debyeWallerValues   the values of the Debye-Waller integral
- *                                 divided by the atomic mass (expressed
- *                                 in eV^-1)
+ *  @param[in] sb              the characteristic bound cross section
+ *  @param[in] boundaries      the interpolation range boundaries
+ *  @param[in] interpolants    the interpolation types for each range
+ *  @param[in] temperatures    the temperature values
+ *  @param[in] integrals       the values of the Debye-Waller integral
+ *                             divided by the atomic mass (expressed
+ *                             in eV^-1)
  */
 IncoherentElastic( double sb,
                    std::vector< long >&& boundaries,
                    std::vector< long >&& interpolants,
                    std::vector< double >&& temperatures,
-                   std::vector< double >&& debyeWallerValues )
+                   std::vector< double >&& integrals )
   try : TabulationRecord( sb, 0.0, 0, 0,
                           std::move( boundaries ),
                           std::move( interpolants ),
                           std::move( temperatures ),
-                          std::move( debyeWallerValues ) ) {}
+                          std::move( integrals ) ) {}
  catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing incoherent elastic "
@@ -26,7 +34,7 @@ IncoherentElastic( double sb,
     throw;
   }
 
-/** 
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator
@@ -48,4 +56,3 @@ IncoherentElastic( Iterator& begin, const Iterator& end,
                "scattering data" );
     throw;
   }
-
