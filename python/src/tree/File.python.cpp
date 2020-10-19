@@ -5,6 +5,11 @@
 // local includes
 #include "ENDFtk/tree/Tape.hpp"
 #include "ENDFtk/file/3.hpp"
+#include "ENDFtk/file/4.hpp"
+#include "ENDFtk/file/5.hpp"
+#include "ENDFtk/file/6.hpp"
+#include "ENDFtk/file/12.hpp"
+#include "ENDFtk/file/13.hpp"
 #include "range/v3/utility/iterator.hpp"
 #include "views.hpp"
 
@@ -20,6 +25,11 @@ void wrapTreeFile( python::module& module ) {
   using Section = File::Section_t;
   using SectionRange = BiDirectionalAnyView< Section >;
   using MF3 = njoy::ENDFtk::file::Type< 3 >;
+  using MF4 = njoy::ENDFtk::file::Type< 4 >;
+  using MF5 = njoy::ENDFtk::file::Type< 5 >;
+  using MF6 = njoy::ENDFtk::file::Type< 6 >;
+  using MF12 = njoy::ENDFtk::file::Type< 12 >;
+  using MF13 = njoy::ENDFtk::file::Type< 13 >;
 
   // wrap views created by this tree component
   // none of these are supposed to be created directly by the user
@@ -119,11 +129,16 @@ void wrapTreeFile( python::module& module ) {
   .def(
 
     "parse",
-    [] ( const File& self ) -> std::variant< MF3 > {
+    [] ( const File& self ) -> std::variant< MF3, MF4, MF5, MF6, MF12, MF13 > {
 
       switch ( self.fileNumber() ) {
 
         case 3 : return self.parse< 3 >();
+        case 4 : return self.parse< 4 >();
+        case 5 : return self.parse< 5 >();
+        case 6 : return self.parse< 6 >();
+        case 12 : return self.parse< 12 >();
+        case 13 : return self.parse< 13 >();
       }
       throw std::runtime_error( "File cannot be parsed yet" );
     },
@@ -136,20 +151,4 @@ void wrapTreeFile( python::module& module ) {
        { return self.buffer(); },
     "The content of the file"
   );
-
-//    .def("size", &File_t::size)
-//    .def_property_readonly("sections",
-//                           [](File_t& file) {
-//                             return file | ranges::to_vector;
-//                           })
-//    .def_property_readonly("buffer",
-//                           [](File_t& file) {
-//                             return std::string(file.buffer().begin(),
-//                                                file.buffer().end());
-//                           })
-//    .def("parse3", (File_3_t (File_t::*)() const)
-//                   &File_t::parse<3>)
-//    .def("parse3", (File_3_t (File_t::*)(long&) const)
-//                   &File_t::parse<3>);
-
 }
