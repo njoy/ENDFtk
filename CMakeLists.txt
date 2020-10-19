@@ -146,6 +146,8 @@ pybind11_add_module( ENDFtk.python
     python/src/section/6/LAW7/AngularDistribution.python.cpp
     python/src/section/6/LaboratoryAngleEnergy.python.cpp
     python/src/section/6/ReactionProduct.python.cpp
+    python/src/section/7/2.python.cpp
+    python/src/section/7/4.python.cpp
     python/src/section/12.python.cpp
     python/src/section/12/TotalMultiplicity.python.cpp
     python/src/section/12/PartialMultiplicity.python.cpp
@@ -160,6 +162,7 @@ pybind11_add_module( ENDFtk.python
     python/src/file/4.python.cpp
     python/src/file/5.python.cpp
     python/src/file/6.python.cpp
+    python/src/file/7.python.cpp
     python/src/file/12.python.cpp
     python/src/file/13.python.cpp
     python/src/tree/Section.python.cpp

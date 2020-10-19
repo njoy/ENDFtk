@@ -125,7 +125,6 @@ namespace section{
     }
 
     #include "ENDFtk/section/7/4/src/NC.hpp"
-
     #include "ENDFtk/section/7/4/src/print.hpp"
 
     /**

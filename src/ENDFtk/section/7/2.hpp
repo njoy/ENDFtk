@@ -78,7 +78,6 @@ namespace section{
     const ScatteringLaw& scatteringLaw() const { return this->law_; }
 
     #include "ENDFtk/section/7/2/src/NC.hpp"
-
     #include "ENDFtk/section/7/2/src/print.hpp"
 
     /**
