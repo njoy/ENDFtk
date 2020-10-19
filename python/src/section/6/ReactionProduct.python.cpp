@@ -31,21 +31,20 @@ void wrapReactionProduct( python::module& module ) {
 
   // wrap the section
   component
-//! @todo need to add default constructor for Distribution variant components
-//  .def(
-//
-//    //! @todo pybind11 lambda move custom type workaround
-//    python::init( [] ( Multiplicity multiplicity,
-//                       Distribution&& distribution )
-//                     { return Component( std::move( multiplicity ),
-//                                         std::move( distribution ) ); } ),
-//    python::arg( "multiplicity" ), python::arg( "distribution" ),
-//    "Initialise the component\n\n"
-//    "Arguments:\n"
-//    "    self            the component\n"
-//    "    multiplicity    the multiplicity\n"
-//    "    distribution    the distribution"
-//  )
+  .def(
+
+    //! @todo pybind11 lambda move custom type workaround
+    python::init( [] ( Multiplicity multiplicity,
+                       Distribution&& distribution )
+                     { return Component( std::move( multiplicity ),
+                                         std::move( distribution ) ); } ),
+    python::arg( "multiplicity" ), python::arg( "distribution" ),
+    "Initialise the component\n\n"
+    "Arguments:\n"
+    "    self            the component\n"
+    "    multiplicity    the multiplicity\n"
+    "    distribution    the distribution"
+  )
   .def_property_readonly(
 
     "ZAP",

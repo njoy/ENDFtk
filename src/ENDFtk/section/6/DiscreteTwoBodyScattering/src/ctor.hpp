@@ -1,9 +1,17 @@
+//! @todo pybind11 variant needs default constructor workaround
+#ifdef PYBIND11
+/**
+ *  @brief Default constructor - only enabled for pybind11
+ */
+DiscreteTwoBodyScattering() = default;
+#endif
+
 private:
 /**
  *  @brief Private constructor
  */
-DiscreteTwoBodyScattering ( InterpolationRecord&& interpolation,
-                            std::vector< Variant >&& sequence ) :
+DiscreteTwoBodyScattering( InterpolationRecord&& interpolation,
+                           std::vector< Variant >&& sequence ) :
   data_( std::move( interpolation ), std::move( sequence ) ) {}
 
 public:
@@ -14,9 +22,9 @@ public:
  *  @param[in] interpolants   the interpolation types for each range
  *  @param[in] sequence       the data for each incident energy value
  */
-DiscreteTwoBodyScattering ( std::vector< long >&& boundaries,
-                            std::vector< long >&& interpolants,
-                            std::vector< Variant >&& sequence )
+DiscreteTwoBodyScattering( std::vector< long >&& boundaries,
+                           std::vector< long >&& interpolants,
+                           std::vector< Variant >&& sequence )
   try : DiscreteTwoBodyScattering(
           InterpolationRecord( 0.0, 0.0, 0, 0,
                                std::move( boundaries ),

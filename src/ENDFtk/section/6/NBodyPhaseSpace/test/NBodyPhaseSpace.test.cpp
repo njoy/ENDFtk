@@ -18,48 +18,50 @@ SCENARIO( "NBodyPhaseSpace" ) {
 
   GIVEN( "valid data for a NBodyPhaseSpace" ) {
 
+    std::string string = chunk();
+
     WHEN( "the data is given explicitly" ) {
 
       double APSX = 5.;
       long NPSX = 4;
 
+      NBodyPhaseSpace chunk( APSX, NPSX );
+
       THEN( "a NBodyPhaseSpace can be constructed and members can be tested" ) {
 
-        NBodyPhaseSpace chunk( APSX, NPSX );
         verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 6, 5 );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream" ) {
 
-      std::string string = chunk();
       auto begin = string.begin();
       auto end = string.end();
       long lineNumber = 1;
 
+      NBodyPhaseSpace chunk( begin, end, lineNumber, 9228, 6, 5 );
+
       THEN( "a NBodyPhaseSpace can be constructed and members can be tested" ) {
 
-        NBodyPhaseSpace chunk( begin, end, lineNumber, 9228, 6, 5 );
         verifyChunk( chunk );
       } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 6, 5 );
+        CHECK( buffer == string );
+      } // THEN
     } // WHEN
-  } // GIVEN
-
-  GIVEN( "a valid instance of NBodyPhaseSpace" ) {
-
-    std::string string = chunk();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-    NBodyPhaseSpace chunk(begin, end, lineNumber, 9228, 6, 5 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 9228, 6, 5 );
-      CHECK( buffer == string );
-    } // THEN
   } // GIVEN
 
   GIVEN( "invalid data for a Multiplicity" ) {
