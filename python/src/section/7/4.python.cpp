@@ -13,6 +13,11 @@ namespace python = pybind11;
 namespace mf7 {
 
   // declarations - components
+  void wrapEffectiveTemperature( python::module& );
+  void wrapAnalyticalFunctions( python::module& );
+  void wrapTabulated( python::module& );
+  void wrapScatteringFunction( python::module& );
+  void wrapScatteringLawConstants( python::module& );
 
 }
 
@@ -23,8 +28,13 @@ void wrapSection_7_4( python::module& module ) {
   using ScatteringLaw = njoy::ENDFtk::section::Type< 7, 4 >::ScatteringLaw;
   using EffectiveTemperature = njoy::ENDFtk::section::Type< 7, 4 >::EffectiveTemperature;
   using ScatteringLawConstants = njoy::ENDFtk::section::Type< 7, 4 >::ScatteringLawConstants;
+  using EffectiveTemperatureRange = RandomAccessAnyView< std::optional< EffectiveTemperature > >;
 
   // wrap views created by this section
+  // none of these are supposed to be created directly by the user
+  wrapRandomAccessAnyViewOf< std::optional< EffectiveTemperature > >(
+      module,
+      "any_view< std::optional< EffectiveTemperature >, random_access >" );
 
   // create the submodule
   python::module submodule = module.def_submodule(
@@ -42,6 +52,11 @@ void wrapSection_7_4( python::module& module ) {
   );
 
   // wrap components
+  mf7::wrapScatteringLawConstants( submodule );
+  mf7::wrapAnalyticalFunctions( submodule );
+  mf7::wrapTabulated( submodule );
+  mf7::wrapScatteringFunction( submodule );
+  mf7::wrapEffectiveTemperature( submodule );
 
   // wrap the section
   section
@@ -60,7 +75,8 @@ void wrapSection_7_4( python::module& module ) {
                                        std::move( secondaries ) ); } ),
     python::arg( "zaid" ), python::arg( "awr" ), python::arg( "lat" ),
     python::arg( "lasym" ), python::arg( "constants" ), python::arg( "law" ),
-    python::arg( "principal" ), python::arg( "secondaries" ),
+    python::arg( "principal" ), python::arg( "secondaries" ) =
+        std::vector< std::optional< EffectiveTemperature > >{},
     "Initialise the section using isotopes\n\n"
     "Arguments:\n"
     "    self           the section\n"
@@ -115,7 +131,8 @@ void wrapSection_7_4( python::module& module ) {
   .def_property_readonly(
 
     "secondary_effective_temperatures",
-    &Section::secondaryEffectiveTemperatures,
+    [] ( const Section& self ) -> EffectiveTemperatureRange
+       { return self.secondaryEffectiveTemperatures(); },
     "The effective temperatures for the secondary scatterers (if any are\n"
     "defined)"
   )

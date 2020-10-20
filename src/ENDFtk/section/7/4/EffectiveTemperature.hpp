@@ -15,15 +15,42 @@ public:
   /* constructor */
   #include "ENDFtk/section/7/4/EffectiveTemperature/src/ctor.hpp"
 
-  /* get methods */
+  /* methods */
+
+  /**
+   *  @brief Return the number of temperature values
+   */
   long NT() const { return TabulationRecord::NP(); }
+
+  /**
+   *  @brief Return the number of temperature values
+   */
   long numberTemperatures() const { return this->NT(); }
+
+  /**
+   *  @brief Return the moderator temperatures
+   */
+  auto TMOD() const { return TabulationRecord::x(); }
+
+  /**
+   *  @brief Return the moderator temperatures
+   */
+  auto moderatorTemperatures() const { return this->TMOD(); }
+
+  /**
+   *  @brief Return the effective temperatures
+   */
+  auto TEFF() const { return TabulationRecord::y(); }
+
+  /**
+   *  @brief Return the effective temperatures
+   */
+  auto effectiveTemperatures() const { return this->TEFF(); }
+
+  using TabulationRecord::NP;
   using TabulationRecord::NR;
-  auto moderatorTemperatures() const { return TabulationRecord::x(); }
-  auto effectiveTemperatures() const { return TabulationRecord::y(); }
   using TabulationRecord::interpolants;
   using TabulationRecord::boundaries;
   using TabulationRecord::NC;
   using TabulationRecord::print;
 };
-

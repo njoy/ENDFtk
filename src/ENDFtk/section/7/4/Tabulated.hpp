@@ -11,6 +11,7 @@
  *
  *  See ENDF102, section 7.4 for more information.
  */
+//! @todo I'd like to change this name into TabulatedFunctions (in line with AnalyticalFunctions)
 class Tabulated {
 
 public:
@@ -46,9 +47,12 @@ public:
    */
   long numberBetas() const { return this->NB(); }
 
+  //! @todo add B and betas function to return beta values (in line with MF6 and the incident energies)
+
   /**
    *  @brief Return the beta values and associated S(alpha,T) functions
    */
+  //! @todo I'd like to change this function name and reuse it to ONLY return beta values
   auto betas() const { return this->data_.records(); }
 
   /**

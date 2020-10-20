@@ -53,7 +53,7 @@ SCENARIO( "Tabulated" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7, 4 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
@@ -76,7 +76,7 @@ SCENARIO( "Tabulated" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7, 4 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -104,7 +104,7 @@ SCENARIO( "Tabulated" ) {
                        { 2.386694e-4, 2.508273e-4, 2.636238e-4, 2.770291e-4,
                          2.911373e-4 } ) };
 
-        REQUIRE_THROWS( Tabulated( std::move( wrongBoundaries ),
+        CHECK_THROWS( Tabulated( std::move( wrongBoundaries ),
                                    std::move( interpolants ),
                                    std::move( betas ) ) );
       } // THEN
@@ -128,7 +128,7 @@ SCENARIO( "Tabulated" ) {
                        { 2.386694e-4, 2.508273e-4, 2.636238e-4, 2.770291e-4,
                          2.911373e-4 } ) };
 
-        REQUIRE_THROWS( Tabulated( std::move( boundaries ),
+        CHECK_THROWS( Tabulated( std::move( boundaries ),
                                    std::move( wrongInterpolants ),
                                    std::move( betas ) ) );
       } // THEN
@@ -146,7 +146,7 @@ SCENARIO( "Tabulated" ) {
                        { 2.386876e-4, 2.508466e-4, 2.636238e-4, 1.306574e-9,
                          5.29573e-10 } ) }; // one less
 
-        REQUIRE_THROWS( Tabulated( std::move( boundaries ),
+        CHECK_THROWS( Tabulated( std::move( boundaries ),
                                    std::move( interpolants ),
                                    std::move( wrongBetas ) ) );
       } // THEN
@@ -162,7 +162,7 @@ SCENARIO( "Tabulated" ) {
 
       THEN( "an exception is thrown upon construction" ) {
 
-        REQUIRE_THROWS( Tabulated( begin, end, lineNumber, 27, 7, 4 ) );
+        CHECK_THROWS( Tabulated( begin, end, lineNumber, 27, 7, 4 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -184,89 +184,125 @@ std::string chunkWithOneTemperature() {
 
 void verifyChunkWithOneTemperature( const Tabulated& chunk ) {
 
-  REQUIRE( 1 == chunk.NR() );
-  REQUIRE( 2 == chunk.NB() );
-  REQUIRE( 2 == chunk.numberBetas() );
-  REQUIRE( 1 == chunk.boundaries().size() );
-  REQUIRE( 2 == chunk.boundaries()[0] );
-  REQUIRE( 1 == chunk.interpolants().size() );
-  REQUIRE( 4 == chunk.interpolants()[0] );
+  CHECK( 1 == chunk.NR() );
+  CHECK( 2 == chunk.NB() );
+  CHECK( 2 == chunk.numberBetas() );
+  CHECK( 1 == chunk.boundaries().size() );
+  CHECK( 2 == chunk.boundaries()[0] );
+  CHECK( 1 == chunk.interpolants().size() );
+  CHECK( 4 == chunk.interpolants()[0] );
 
   auto value = chunk.betas()[0];
-  REQUIRE( 0.0 == Approx( value.beta() ) );
-  REQUIRE( 0 == value.LT() );
-  REQUIRE( 0 == value.temperatureDependenceFlag() );
-  REQUIRE( 1 == value.NT() );
-  REQUIRE( 1 == value.numberTemperatures() );
+  CHECK( 0.0 == Approx( value.beta() ) );
+  CHECK( 0 == value.LT() );
+  CHECK( 0 == value.temperatureDependenceFlag() );
+  CHECK( 1 == value.NT() );
+  CHECK( 1 == value.numberTemperatures() );
 
-  REQUIRE( 1 == value.NR() );
-  REQUIRE( 5 == value.NA() );
-  REQUIRE( 5 == value.numberAlphas() );
-  REQUIRE( 1 == value.boundaries().size() );
-  REQUIRE( 5 == value.boundaries()[0] );
-  REQUIRE( 1 == value.interpolants().size() );
-  REQUIRE( 4 == value.interpolants()[0] );
+  CHECK( 1 == value.NR() );
+  CHECK( 5 == value.NP() );
+  CHECK( 5 == value.NA() );
+  CHECK( 5 == value.numberAlphas() );
+  CHECK( 1 == value.boundaries().size() );
+  CHECK( 5 == value.boundaries()[0] );
+  CHECK( 1 == value.interpolants().size() );
+  CHECK( 4 == value.interpolants()[0] );
 
-  REQUIRE( 1 == value.temperatures().size() );
-  REQUIRE( 293.6 == Approx( value.temperatures()[0] ) );
+  CHECK( 1 == value.T().size() );
+  CHECK( 1 == value.temperatures().size() );
+  CHECK( 293.6 == Approx( value.T()[0] ) );
+  CHECK( 293.6 == Approx( value.temperatures()[0] ) );
 
-  REQUIRE( 5 == value.alphas().size() );
-  REQUIRE( 4.423802e-3 == Approx( value.alphas()[0] ) );
-  REQUIRE( 4.649528e-3 == Approx( value.alphas()[1] ) );
-  REQUIRE( 4.886772e-3 == Approx( value.alphas()[2] ) );
-  REQUIRE( 8.418068e+1 == Approx( value.alphas()[3] ) );
-  REQUIRE( 8.847604e+1 == Approx( value.alphas()[4] ) );
+  CHECK( 5 == value.A().size() );
+  CHECK( 5 == value.alphas().size() );
+  CHECK( 4.423802e-3 == Approx( value.A()[0] ) );
+  CHECK( 4.649528e-3 == Approx( value.A()[1] ) );
+  CHECK( 4.886772e-3 == Approx( value.A()[2] ) );
+  CHECK( 8.418068e+1 == Approx( value.A()[3] ) );
+  CHECK( 8.847604e+1 == Approx( value.A()[4] ) );
+  CHECK( 4.423802e-3 == Approx( value.alphas()[0] ) );
+  CHECK( 4.649528e-3 == Approx( value.alphas()[1] ) );
+  CHECK( 4.886772e-3 == Approx( value.alphas()[2] ) );
+  CHECK( 8.418068e+1 == Approx( value.alphas()[3] ) );
+  CHECK( 8.847604e+1 == Approx( value.alphas()[4] ) );
 
-  REQUIRE( 0 == value.LI().size() );
-  REQUIRE( 0 == value.temperatureInterpolants().size() );
+  CHECK( 0 == value.LI().size() );
+  CHECK( 0 == value.temperatureInterpolants().size() );
 
-  std::vector< std::vector< double > > values = value.thermalScatteringValues();
-  REQUIRE( 1 == values.size() );
-  REQUIRE( 5 == values[0].size() );
-  REQUIRE( 2.386876e-4 == Approx( values[0][0] ) );
-  REQUIRE( 2.508466e-4 == Approx( values[0][1] ) );
-  REQUIRE( 2.636238e-4 == Approx( values[0][2] ) );
-  REQUIRE( 1.306574e-9 == Approx( values[0][3] ) );
-  REQUIRE( 5.29573e-10 == Approx( values[0][4] ) );
-
-  value = chunk.betas()[1];
-  REQUIRE( 3.952570e-2 == Approx( value.beta() ) );
-  REQUIRE( 0 == value.LT() );
-  REQUIRE( 0 == value.temperatureDependenceFlag() );
-  REQUIRE( 1 == value.NT() );
-  REQUIRE( 1 == value.numberTemperatures() );
-
-  REQUIRE( 1 == value.NR() );
-  REQUIRE( 5 == value.NA() );
-  REQUIRE( 5 == value.numberAlphas() );
-  REQUIRE( 1 == value.boundaries().size() );
-  REQUIRE( 5 == value.boundaries()[0] );
-  REQUIRE( 1 == value.interpolants().size() );
-  REQUIRE( 2 == value.interpolants()[0] );
-
-  REQUIRE( 1 == value.temperatures().size() );
-  REQUIRE( 293.6 == Approx( value.temperatures()[0] ) );
-
-  REQUIRE( 5 == value.alphas().size() );
-  REQUIRE( 4.423802e-3 == Approx( value.alphas()[0] ) );
-  REQUIRE( 4.649528e-3 == Approx( value.alphas()[1] ) );
-  REQUIRE( 4.886772e-3 == Approx( value.alphas()[2] ) );
-  REQUIRE( 8.418068e+1 == Approx( value.alphas()[3] ) );
-  REQUIRE( 8.847604e+1 == Approx( value.alphas()[4] ) );
-
-  REQUIRE( 0 == value.LI().size() );
-  REQUIRE( 0 == value.temperatureInterpolants().size() );
+  std::vector< std::vector< double > > values = value.S();
+  CHECK( 1 == values.size() );
+  CHECK( 5 == values[0].size() );
+  CHECK( 2.386876e-4 == Approx( values[0][0] ) );
+  CHECK( 2.508466e-4 == Approx( values[0][1] ) );
+  CHECK( 2.636238e-4 == Approx( values[0][2] ) );
+  CHECK( 1.306574e-9 == Approx( values[0][3] ) );
+  CHECK( 5.29573e-10 == Approx( values[0][4] ) );
 
   values = value.thermalScatteringValues();
-  REQUIRE( 1 == values.size() );
-  REQUIRE( 5 == values[0].size() );
-  REQUIRE( 2.386694e-4 == Approx( values[0][0] ) );
-  REQUIRE( 2.508273e-4 == Approx( values[0][1] ) );
-  REQUIRE( 2.636238e-4 == Approx( values[0][2] ) );
-  REQUIRE( 2.770291e-4 == Approx( values[0][3] ) );
-  REQUIRE( 2.911373e-4 == Approx( values[0][4] ) );
+  CHECK( 1 == values.size() );
+  CHECK( 5 == values[0].size() );
+  CHECK( 2.386876e-4 == Approx( values[0][0] ) );
+  CHECK( 2.508466e-4 == Approx( values[0][1] ) );
+  CHECK( 2.636238e-4 == Approx( values[0][2] ) );
+  CHECK( 1.306574e-9 == Approx( values[0][3] ) );
+  CHECK( 5.29573e-10 == Approx( values[0][4] ) );
 
-  REQUIRE( 10 == chunk.NC() );
+  value = chunk.betas()[1];
+  CHECK( 3.952570e-2 == Approx( value.beta() ) );
+  CHECK( 0 == value.LT() );
+  CHECK( 0 == value.temperatureDependenceFlag() );
+  CHECK( 1 == value.NT() );
+  CHECK( 1 == value.numberTemperatures() );
+
+  CHECK( 1 == value.NR() );
+  CHECK( 5 == value.NA() );
+  CHECK( 5 == value.NP() );
+  CHECK( 5 == value.numberAlphas() );
+  CHECK( 1 == value.boundaries().size() );
+  CHECK( 5 == value.boundaries()[0] );
+  CHECK( 1 == value.interpolants().size() );
+  CHECK( 2 == value.interpolants()[0] );
+
+  CHECK( 1 == value.T().size() );
+  CHECK( 1 == value.temperatures().size() );
+  CHECK( 293.6 == Approx( value.T()[0] ) );
+  CHECK( 293.6 == Approx( value.temperatures()[0] ) );
+
+  CHECK( 5 == value.A().size() );
+  CHECK( 5 == value.alphas().size() );
+  CHECK( 4.423802e-3 == Approx( value.A()[0] ) );
+  CHECK( 4.649528e-3 == Approx( value.A()[1] ) );
+  CHECK( 4.886772e-3 == Approx( value.A()[2] ) );
+  CHECK( 8.418068e+1 == Approx( value.A()[3] ) );
+  CHECK( 8.847604e+1 == Approx( value.A()[4] ) );
+  CHECK( 4.423802e-3 == Approx( value.alphas()[0] ) );
+  CHECK( 4.649528e-3 == Approx( value.alphas()[1] ) );
+  CHECK( 4.886772e-3 == Approx( value.alphas()[2] ) );
+  CHECK( 8.418068e+1 == Approx( value.alphas()[3] ) );
+  CHECK( 8.847604e+1 == Approx( value.alphas()[4] ) );
+
+  CHECK( 0 == value.LI().size() );
+  CHECK( 0 == value.temperatureInterpolants().size() );
+
+  values = value.S();
+  CHECK( 1 == values.size() );
+  CHECK( 5 == values[0].size() );
+  CHECK( 2.386694e-4 == Approx( values[0][0] ) );
+  CHECK( 2.508273e-4 == Approx( values[0][1] ) );
+  CHECK( 2.636238e-4 == Approx( values[0][2] ) );
+  CHECK( 2.770291e-4 == Approx( values[0][3] ) );
+  CHECK( 2.911373e-4 == Approx( values[0][4] ) );
+
+  values = value.thermalScatteringValues();
+  CHECK( 1 == values.size() );
+  CHECK( 5 == values[0].size() );
+  CHECK( 2.386694e-4 == Approx( values[0][0] ) );
+  CHECK( 2.508273e-4 == Approx( values[0][1] ) );
+  CHECK( 2.636238e-4 == Approx( values[0][2] ) );
+  CHECK( 2.770291e-4 == Approx( values[0][3] ) );
+  CHECK( 2.911373e-4 == Approx( values[0][4] ) );
+
+  CHECK( 10 == chunk.NC() );
 }
 
 std::string invalidLT() {

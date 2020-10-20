@@ -16,17 +16,17 @@ public:
  *
  *  @param[in] boundaries     the interpolation range boundaries
  *  @param[in] interpolants   the interpolation types for each range
- *  @param[in] betas          the beta values and associated S(alpha,T)
+ *  @param[in] functions      the beta values and associated S(alpha,T)
  *                            functions
  */
 Tabulated( std::vector< long >&& boundaries,
            std::vector< long >&& interpolants,
-           std::vector< ScatteringFunction >&& betas )
+           std::vector< ScatteringFunction >&& functions )
   try : Tabulated( InterpolationSequenceRecord< ScatteringFunction >(
                      InterpolationRecord( 0.0, 0.0, 0, 0,
                                           std::move( boundaries ),
                                           std::move( interpolants ) ),
-                     std::move( betas ) ) ) {}
+                     std::move( functions ) ) ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing tabulated thermal "

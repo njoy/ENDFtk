@@ -79,13 +79,13 @@ SCENARIO( "ScatteringFunction" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7, 4 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
 
         std::string buffer2;
         output = std::back_inserter( buffer2 );
         chunk2.print( output, 27, 7, 4 );
 
-        REQUIRE( buffer2 == string );
+        CHECK( buffer2 == string );
       } // THEN
     } // WHEN
 
@@ -109,7 +109,7 @@ SCENARIO( "ScatteringFunction" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7, 4 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -154,7 +154,7 @@ SCENARIO( "ScatteringFunction" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7, 4 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
@@ -177,7 +177,7 @@ SCENARIO( "ScatteringFunction" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7, 4 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -198,7 +198,7 @@ SCENARIO( "ScatteringFunction" ) {
         std::vector< double > sab = { 2.386876e-4, 2.508466e-4, 2.636238e-4,
                                       1.306574e-9, 5.29573e-10 };
 
-        REQUIRE_THROWS( ScatteringFunction( temperature, beta,
+        CHECK_THROWS( ScatteringFunction( temperature, beta,
                                             std::move( wrongBoundaries ),
                                             std::move( interpolants ),
                                             std::move( alphas ),
@@ -217,7 +217,7 @@ SCENARIO( "ScatteringFunction" ) {
         std::vector< double > sab = { 2.386876e-4, 2.508466e-4, 2.636238e-4,
                                       1.306574e-9, 5.29573e-10 };
 
-        REQUIRE_THROWS( ScatteringFunction( temperature, beta,
+        CHECK_THROWS( ScatteringFunction( temperature, beta,
                                             std::move( boundaries ),
                                             std::move( wrongInterpolants ),
                                             std::move( alphas ),
@@ -236,7 +236,7 @@ SCENARIO( "ScatteringFunction" ) {
         std::vector< double > sab = { 2.386876e-4, 2.508466e-4, 2.636238e-4,
                                       1.306574e-9, 5.29573e-10 };
 
-        REQUIRE_THROWS( ScatteringFunction( temperature, beta,
+        CHECK_THROWS( ScatteringFunction( temperature, beta,
                                             std::move( boundaries ),
                                             std::move( interpolants ),
                                             std::move( wrongAlphas ),
@@ -255,7 +255,7 @@ SCENARIO( "ScatteringFunction" ) {
         std::vector< double > wrongSab = { 2.386876e-4, 2.508466e-4,
                                            2.636238e-4, 1.306574e-9 }; // one less
 
-        REQUIRE_THROWS( ScatteringFunction( temperature, beta,
+        CHECK_THROWS( ScatteringFunction( temperature, beta,
                                             std::move( boundaries ),
                                             std::move( interpolants ),
                                             std::move( alphas ),
@@ -281,7 +281,7 @@ SCENARIO( "ScatteringFunction" ) {
               { 4.430020e-4, 4.655671e-4, 4.892796e-4,
                 4.510209e-8, 2.183942e-8 } };
 
-        REQUIRE_THROWS( ScatteringFunction( beta,
+        CHECK_THROWS( ScatteringFunction( beta,
                                             std::move( wrongBoundaries ),
                                             std::move( interpolants ),
                                             std::move( temperatures ),
@@ -306,7 +306,7 @@ SCENARIO( "ScatteringFunction" ) {
               { 4.430020e-4, 4.655671e-4, 4.892796e-4,
                 4.510209e-8, 2.183942e-8 } };
 
-        REQUIRE_THROWS( ScatteringFunction( beta,
+        CHECK_THROWS( ScatteringFunction( beta,
                                             std::move( boundaries ),
                                             std::move( wrongInterpolants ),
                                             std::move( temperatures ),
@@ -331,7 +331,7 @@ SCENARIO( "ScatteringFunction" ) {
               { 4.430020e-4, 4.655671e-4, 4.892796e-4,
                 4.510209e-8, 2.183942e-8 } };
 
-        REQUIRE_THROWS( ScatteringFunction( beta,
+        CHECK_THROWS( ScatteringFunction( beta,
                                             std::move( boundaries ),
                                             std::move( interpolants ),
                                             std::move( temperatures ),
@@ -356,7 +356,7 @@ SCENARIO( "ScatteringFunction" ) {
               { 4.430020e-4, 4.655671e-4, 4.892796e-4,
                 4.510209e-8, 2.183942e-8 } };
 
-        REQUIRE_THROWS( ScatteringFunction( beta,
+        CHECK_THROWS( ScatteringFunction( beta,
                                             std::move( boundaries ),
                                             std::move( interpolants ),
                                             std::move( wrongTemperatures ),
@@ -381,7 +381,7 @@ SCENARIO( "ScatteringFunction" ) {
               { 4.430020e-4, 4.655671e-4, 4.892796e-4,
                 4.510209e-8, 2.183942e-8 } };
 
-        REQUIRE_THROWS( ScatteringFunction( beta,
+        CHECK_THROWS( ScatteringFunction( beta,
                                             std::move( boundaries ),
                                             std::move( interpolants ),
                                             std::move( temperatures ),
@@ -401,7 +401,7 @@ SCENARIO( "ScatteringFunction" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( ScatteringFunction( begin, end, lineNumber,
+        CHECK_THROWS( ScatteringFunction( begin, end, lineNumber,
                                             27, 7, 4 ) );
       } //THEN
     } //WHEN
@@ -418,42 +418,60 @@ std::string chunkWithOneTemperature() {
 
 void verifyChunkWithOneTemperature( const ScatteringFunction& chunk ) {
 
-  REQUIRE( 0.0 == Approx( chunk.beta() ) );
-  REQUIRE( 0 == chunk.LT() );
-  REQUIRE( 0 == chunk.temperatureDependenceFlag() );
-  REQUIRE( 1 == chunk.NT() );
-  REQUIRE( 1 == chunk.numberTemperatures() );
+  CHECK( 0.0 == Approx( chunk.B() ) );
+  CHECK( 0.0 == Approx( chunk.beta() ) );
+  CHECK( 0 == chunk.LT() );
+  CHECK( 0 == chunk.temperatureDependenceFlag() );
+  CHECK( 1 == chunk.NT() );
+  CHECK( 1 == chunk.numberTemperatures() );
 
-  REQUIRE( 1 == chunk.NR() );
-  REQUIRE( 5 == chunk.NA() );
-  REQUIRE( 5 == chunk.numberAlphas() );
-  REQUIRE( 1 == chunk.boundaries().size() );
-  REQUIRE( 5 == chunk.boundaries()[0] );
-  REQUIRE( 1 == chunk.interpolants().size() );
-  REQUIRE( 4 == chunk.interpolants()[0] );
+  CHECK( 1 == chunk.NR() );
+  CHECK( 5 == chunk.NP() );
+  CHECK( 5 == chunk.NA() );
+  CHECK( 5 == chunk.numberAlphas() );
+  CHECK( 1 == chunk.boundaries().size() );
+  CHECK( 5 == chunk.boundaries()[0] );
+  CHECK( 1 == chunk.interpolants().size() );
+  CHECK( 4 == chunk.interpolants()[0] );
 
-  REQUIRE( 1 == chunk.temperatures().size() );
-  REQUIRE( 293.6 == Approx( chunk.temperatures()[0] ) );
+  CHECK( 1 == chunk.T().size() );
+  CHECK( 1 == chunk.temperatures().size() );
+  CHECK( 293.6 == Approx( chunk.T()[0] ) );
+  CHECK( 293.6 == Approx( chunk.temperatures()[0] ) );
 
-  REQUIRE( 5 == chunk.alphas().size() );
-  REQUIRE( 4.423802e-3 == Approx( chunk.alphas()[0] ) );
-  REQUIRE( 4.649528e-3 == Approx( chunk.alphas()[1] ) );
-  REQUIRE( 4.886772e-3 == Approx( chunk.alphas()[2] ) );
-  REQUIRE( 8.418068e+1 == Approx( chunk.alphas()[3] ) );
-  REQUIRE( 8.847604e+1 == Approx( chunk.alphas()[4] ) );
+  CHECK( 5 == chunk.A().size() );
+  CHECK( 5 == chunk.alphas().size() );
+  CHECK( 4.423802e-3 == Approx( chunk.A()[0] ) );
+  CHECK( 4.649528e-3 == Approx( chunk.A()[1] ) );
+  CHECK( 4.886772e-3 == Approx( chunk.A()[2] ) );
+  CHECK( 8.418068e+1 == Approx( chunk.A()[3] ) );
+  CHECK( 8.847604e+1 == Approx( chunk.A()[4] ) );
+  CHECK( 4.423802e-3 == Approx( chunk.alphas()[0] ) );
+  CHECK( 4.649528e-3 == Approx( chunk.alphas()[1] ) );
+  CHECK( 4.886772e-3 == Approx( chunk.alphas()[2] ) );
+  CHECK( 8.418068e+1 == Approx( chunk.alphas()[3] ) );
+  CHECK( 8.847604e+1 == Approx( chunk.alphas()[4] ) );
 
-  REQUIRE( 0 == chunk.LI().size() );
-  REQUIRE( 0 == chunk.temperatureInterpolants().size() );
+  CHECK( 0 == chunk.LI().size() );
+  CHECK( 0 == chunk.temperatureInterpolants().size() );
 
-  REQUIRE( 1 == chunk.thermalScatteringValues().size() );
-  REQUIRE( 5 == chunk.thermalScatteringValues()[0].size() );
-  REQUIRE( 2.386876e-4 == Approx( chunk.thermalScatteringValues()[0][0] ) );
-  REQUIRE( 2.508466e-4 == Approx( chunk.thermalScatteringValues()[0][1] ) );
-  REQUIRE( 2.636238e-4 == Approx( chunk.thermalScatteringValues()[0][2] ) );
-  REQUIRE( 1.306574e-9 == Approx( chunk.thermalScatteringValues()[0][3] ) );
-  REQUIRE( 5.29573e-10 == Approx( chunk.thermalScatteringValues()[0][4] ) );
+  CHECK( 1 == chunk.S().size() );
+  CHECK( 5 == chunk.S()[0].size() );
+  CHECK( 2.386876e-4 == Approx( chunk.S()[0][0] ) );
+  CHECK( 2.508466e-4 == Approx( chunk.S()[0][1] ) );
+  CHECK( 2.636238e-4 == Approx( chunk.S()[0][2] ) );
+  CHECK( 1.306574e-9 == Approx( chunk.S()[0][3] ) );
+  CHECK( 5.29573e-10 == Approx( chunk.S()[0][4] ) );
 
-  REQUIRE( 4 == chunk.NC() );
+  CHECK( 1 == chunk.thermalScatteringValues().size() );
+  CHECK( 5 == chunk.thermalScatteringValues()[0].size() );
+  CHECK( 2.386876e-4 == Approx( chunk.thermalScatteringValues()[0][0] ) );
+  CHECK( 2.508466e-4 == Approx( chunk.thermalScatteringValues()[0][1] ) );
+  CHECK( 2.636238e-4 == Approx( chunk.thermalScatteringValues()[0][2] ) );
+  CHECK( 1.306574e-9 == Approx( chunk.thermalScatteringValues()[0][3] ) );
+  CHECK( 5.29573e-10 == Approx( chunk.thermalScatteringValues()[0][4] ) );
+
+  CHECK( 4 == chunk.NC() );
 }
 std::string chunkWithTwoTemperatures() {
   return
@@ -467,51 +485,76 @@ std::string chunkWithTwoTemperatures() {
 
 void verifyChunkWithTwoTemperatures( const ScatteringFunction& chunk ) {
 
-  REQUIRE( 0.0 == Approx( chunk.beta() ) );
-  REQUIRE( 1 == chunk.LT() );
-  REQUIRE( 1 == chunk.temperatureDependenceFlag() );
-  REQUIRE( 2 == chunk.NT() );
-  REQUIRE( 2 == chunk.numberTemperatures() );
+  CHECK( 0.0 == Approx( chunk.B() ) );
+  CHECK( 0.0 == Approx( chunk.beta() ) );
+  CHECK( 1 == chunk.LT() );
+  CHECK( 1 == chunk.temperatureDependenceFlag() );
+  CHECK( 2 == chunk.NT() );
+  CHECK( 2 == chunk.numberTemperatures() );
 
-  REQUIRE( 1 == chunk.NR() );
-  REQUIRE( 5 == chunk.NA() );
-  REQUIRE( 5 == chunk.numberAlphas() );
-  REQUIRE( 1 == chunk.boundaries().size() );
-  REQUIRE( 5 == chunk.boundaries()[0] );
-  REQUIRE( 1 == chunk.interpolants().size() );
-  REQUIRE( 4 == chunk.interpolants()[0] );
+  CHECK( 1 == chunk.NR() );
+  CHECK( 5 == chunk.NP() );
+  CHECK( 5 == chunk.NA() );
+  CHECK( 5 == chunk.numberAlphas() );
+  CHECK( 1 == chunk.boundaries().size() );
+  CHECK( 5 == chunk.boundaries()[0] );
+  CHECK( 1 == chunk.interpolants().size() );
+  CHECK( 4 == chunk.interpolants()[0] );
 
-  REQUIRE( 2 == chunk.temperatures().size() );
-  REQUIRE( 293.6 == Approx( chunk.temperatures()[0] ) );
-  REQUIRE( 400.0 == Approx( chunk.temperatures()[1] ) );
+  CHECK( 2 == chunk.T().size() );
+  CHECK( 2 == chunk.temperatures().size() );
+  CHECK( 293.6 == Approx( chunk.T()[0] ) );
+  CHECK( 400.0 == Approx( chunk.T()[1] ) );
+  CHECK( 293.6 == Approx( chunk.temperatures()[0] ) );
+  CHECK( 400.0 == Approx( chunk.temperatures()[1] ) );
 
-  REQUIRE( 5 == chunk.alphas().size() );
-  REQUIRE( 4.423802e-3 == Approx( chunk.alphas()[0] ) );
-  REQUIRE( 4.649528e-3 == Approx( chunk.alphas()[1] ) );
-  REQUIRE( 4.886772e-3 == Approx( chunk.alphas()[2] ) );
-  REQUIRE( 8.418068e+1 == Approx( chunk.alphas()[3] ) );
-  REQUIRE( 8.847604e+1 == Approx( chunk.alphas()[4] ) );
+  CHECK( 5 == chunk.A().size() );
+  CHECK( 5 == chunk.alphas().size() );
+  CHECK( 4.423802e-3 == Approx( chunk.A()[0] ) );
+  CHECK( 4.649528e-3 == Approx( chunk.A()[1] ) );
+  CHECK( 4.886772e-3 == Approx( chunk.A()[2] ) );
+  CHECK( 8.418068e+1 == Approx( chunk.A()[3] ) );
+  CHECK( 8.847604e+1 == Approx( chunk.A()[4] ) );
+  CHECK( 4.423802e-3 == Approx( chunk.alphas()[0] ) );
+  CHECK( 4.649528e-3 == Approx( chunk.alphas()[1] ) );
+  CHECK( 4.886772e-3 == Approx( chunk.alphas()[2] ) );
+  CHECK( 8.418068e+1 == Approx( chunk.alphas()[3] ) );
+  CHECK( 8.847604e+1 == Approx( chunk.alphas()[4] ) );
 
-  REQUIRE( 1 == chunk.LI().size() );
-  REQUIRE( 4 == chunk.LI()[0] );
-  REQUIRE( 1 == chunk.temperatureInterpolants().size() );
-  REQUIRE( 4 == chunk.temperatureInterpolants()[0] );
+  CHECK( 1 == chunk.LI().size() );
+  CHECK( 4 == chunk.LI()[0] );
+  CHECK( 1 == chunk.temperatureInterpolants().size() );
+  CHECK( 4 == chunk.temperatureInterpolants()[0] );
 
-  REQUIRE( 2 == chunk.thermalScatteringValues().size() );
-  REQUIRE( 5 == chunk.thermalScatteringValues()[0].size() );
-  REQUIRE( 2.386876e-4 == Approx( chunk.thermalScatteringValues()[0][0] ) );
-  REQUIRE( 2.508466e-4 == Approx( chunk.thermalScatteringValues()[0][1] ) );
-  REQUIRE( 2.636238e-4 == Approx( chunk.thermalScatteringValues()[0][2] ) );
-  REQUIRE( 1.306574e-9 == Approx( chunk.thermalScatteringValues()[0][3] ) );
-  REQUIRE( 5.29573e-10 == Approx( chunk.thermalScatteringValues()[0][4] ) );
-  REQUIRE( 5 == chunk.thermalScatteringValues()[1].size() );
-  REQUIRE( 4.430020e-4 == Approx( chunk.thermalScatteringValues()[1][0] ) );
-  REQUIRE( 4.655671e-4 == Approx( chunk.thermalScatteringValues()[1][1] ) );
-  REQUIRE( 4.892796e-4 == Approx( chunk.thermalScatteringValues()[1][2] ) );
-  REQUIRE( 4.510209e-8 == Approx( chunk.thermalScatteringValues()[1][3] ) );
-  REQUIRE( 2.183942e-8 == Approx( chunk.thermalScatteringValues()[1][4] ) );
+  CHECK( 2 == chunk.S().size() );
+  CHECK( 5 == chunk.S()[0].size() );
+  CHECK( 2.386876e-4 == Approx( chunk.S()[0][0] ) );
+  CHECK( 2.508466e-4 == Approx( chunk.S()[0][1] ) );
+  CHECK( 2.636238e-4 == Approx( chunk.S()[0][2] ) );
+  CHECK( 1.306574e-9 == Approx( chunk.S()[0][3] ) );
+  CHECK( 5.29573e-10 == Approx( chunk.S()[0][4] ) );
+  CHECK( 5 == chunk.S()[1].size() );
+  CHECK( 4.430020e-4 == Approx( chunk.S()[1][0] ) );
+  CHECK( 4.655671e-4 == Approx( chunk.S()[1][1] ) );
+  CHECK( 4.892796e-4 == Approx( chunk.S()[1][2] ) );
+  CHECK( 4.510209e-8 == Approx( chunk.S()[1][3] ) );
+  CHECK( 2.183942e-8 == Approx( chunk.S()[1][4] ) );
 
-  REQUIRE( 6 == chunk.NC() );
+  CHECK( 2 == chunk.thermalScatteringValues().size() );
+  CHECK( 5 == chunk.thermalScatteringValues()[0].size() );
+  CHECK( 2.386876e-4 == Approx( chunk.thermalScatteringValues()[0][0] ) );
+  CHECK( 2.508466e-4 == Approx( chunk.thermalScatteringValues()[0][1] ) );
+  CHECK( 2.636238e-4 == Approx( chunk.thermalScatteringValues()[0][2] ) );
+  CHECK( 1.306574e-9 == Approx( chunk.thermalScatteringValues()[0][3] ) );
+  CHECK( 5.29573e-10 == Approx( chunk.thermalScatteringValues()[0][4] ) );
+  CHECK( 5 == chunk.thermalScatteringValues()[1].size() );
+  CHECK( 4.430020e-4 == Approx( chunk.thermalScatteringValues()[1][0] ) );
+  CHECK( 4.655671e-4 == Approx( chunk.thermalScatteringValues()[1][1] ) );
+  CHECK( 4.892796e-4 == Approx( chunk.thermalScatteringValues()[1][2] ) );
+  CHECK( 4.510209e-8 == Approx( chunk.thermalScatteringValues()[1][3] ) );
+  CHECK( 2.183942e-8 == Approx( chunk.thermalScatteringValues()[1][4] ) );
+
+  CHECK( 6 == chunk.NC() );
 }
 std::string chunkWithInconsistentBetas() {
   return

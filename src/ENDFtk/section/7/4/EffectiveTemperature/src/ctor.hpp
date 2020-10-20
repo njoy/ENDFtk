@@ -1,20 +1,20 @@
-/** 
+/**
  *  @brief Constructor
  *
- *  @param[in] boundaries              the interpolation range boundaries
- *  @param[in] interpolants            the interpolation types for each range
- *  @param[in] moderatorTemperatures   the moderator temperature values
- *  @param[in] effectiveTemperatures   the effective temperature values
+ *  @param[in] boundaries      the interpolation range boundaries
+ *  @param[in] interpolants    the interpolation types for each range
+ *  @param[in] tmod            the moderator temperature values
+ *  @param[in] teff            the effective temperature values
  */
 EffectiveTemperature( std::vector< long >&& boundaries,
                       std::vector< long >&& interpolants,
-                      std::vector< double >&& moderatorTemperatures,
-                      std::vector< double >&& effectiveTemperatures )
+                      std::vector< double >&& tmod,
+                      std::vector< double >&& teff )
   try : TabulationRecord( 0.0, 0.0, 0, 0,
                           std::move( boundaries ),
                           std::move( interpolants ),
-                          std::move( moderatorTemperatures ),
-                          std::move( effectiveTemperatures ) ) {}
+                          std::move( tmod ),
+                          std::move( teff ) ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing effective temperature "
@@ -22,7 +22,7 @@ EffectiveTemperature( std::vector< long >&& boundaries,
     throw;
   }
 
-/** 
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator
@@ -44,4 +44,3 @@ EffectiveTemperature( Iterator& begin, const Iterator& end,
                "data" );
     throw;
   }
-

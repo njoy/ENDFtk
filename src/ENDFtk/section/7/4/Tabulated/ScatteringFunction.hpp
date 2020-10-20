@@ -32,7 +32,12 @@ public:
   /**
    *  @brief Return the current beta value
    */
-  double beta() const { return this->alphas_.C2(); }
+  double B() const { return this->alphas_.C2(); }
+
+  /**
+   *  @brief Return the current beta value
+   */
+  double beta() const { return this->B(); }
 
   /**
    *  @brief Return the LT flag indicating the temperature dependence (equal to
@@ -66,6 +71,11 @@ public:
   /**
    *  @brief Return the number of alpha values
    */
+  long NP() const { return this->alphas_.NP(); }
+
+  /**
+   *  @brief Return the number of alpha values
+   */
   long NA() const { return this->alphas_.NP(); }
 
   /**
@@ -87,7 +97,7 @@ public:
    *  @brief Return all temperatures for which thermal scattering law data is
    *         given
    */
-  auto temperatures() const {
+  auto T() const {
     return ranges::view::concat(
              ranges::view::single( this->alphas_.C1() ),
              this->temperatures_ |
@@ -96,9 +106,20 @@ public:
   }
 
   /**
+   *  @brief Return all temperatures for which thermal scattering law data is
+   *         given
+   */
+  auto temperatures() const { return this->T(); }
+
+  /**
    *  @brief Return the alpha grid
    */
-  auto alphas() const { return this->alphas_.x(); }
+  auto A() const { return this->alphas_.x(); }
+
+  /**
+   *  @brief Return the alpha grid
+   */
+  auto alphas() const { return this->A(); }
 
   /**
    *  @brief Return the temperature interpolation flags (LT values will be
@@ -120,13 +141,19 @@ public:
    *  @brief Return the thermal scattering law values as an array, one for each
    *         temperature
    */
-  auto thermalScatteringValues() const {
+  auto S() const {
     return ranges::view::concat(
              ranges::view::single( this->alphas_.y() ),
              this->temperatures_ |
                  ranges::view::transform( [] ( const auto& v )
                                              { return v.list(); } ) );
   }
+
+  /**
+   *  @brief Return the thermal scattering law values as an array, one for each
+   *         temperature
+   */
+  auto thermalScatteringValues() const { return this->S(); }
 
   #include "ENDFtk/section/7/4/Tabulated/ScatteringFunction/src/NC.hpp"
   #include "ENDFtk/section/7/4/Tabulated/ScatteringFunction/src/print.hpp"

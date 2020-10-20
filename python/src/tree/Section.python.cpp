@@ -34,6 +34,7 @@ void wrapTreeSection( python::module& module ) {
   using MF5MTxxx = njoy::ENDFtk::section::Type< 5 >;
   using MF6MTxxx = njoy::ENDFtk::section::Type< 6 >;
   using MF7MT2 = njoy::ENDFtk::section::Type< 7, 2 >;
+  using MF7MT4 = njoy::ENDFtk::section::Type< 7, 4 >;
   using MF12MTxxx = njoy::ENDFtk::section::Type< 12 >;
   using MF13MTxxx = njoy::ENDFtk::section::Type< 13 >;
 
@@ -91,24 +92,33 @@ void wrapTreeSection( python::module& module ) {
     "parse",
     [] ( const Section& self ) -> std::variant< MF1MT451, MF2MT151, MF2MT152,
                                                 MF3MTxxx, MF4MTxxx, MF5MTxxx,
-                                                MF6MTxxx, MF7MT2,
+                                                MF6MTxxx, MF7MT2, MF7MT4,
                                                 MF12MTxxx, MF13MTxxx > {
-
-      switch ( self.fileNumber() ) {
+      int mf = self.fileNumber();
+      int mt = self.sectionNumber();
+      switch ( mf ) {
 
         case 1 : {
 
-          switch ( self.sectionNumber() ) {
+          switch ( mt ) {
 
             case 451 : return self.parse< 1, 451 >();
+            default: throw std::runtime_error(
+                           "Section " + std::to_string( mt ) + " from file " +
+                           std::to_string( mf ) +
+                           "cannot be parsed yet" );
           }
         }
         case 2 : {
 
-          switch ( self.sectionNumber() ) {
+          switch ( mt ) {
 
             case 151 : return self.parse< 2, 151 >();
             case 152 : return self.parse< 2, 152 >();
+            default: throw std::runtime_error(
+                           "Section " + std::to_string( mt ) + " from file " +
+                           std::to_string( mf ) +
+                           "cannot be parsed yet" );
           }
         }
         case 3 : return self.parse< 3 >();
@@ -117,16 +127,22 @@ void wrapTreeSection( python::module& module ) {
         case 6 : return self.parse< 6 >();
         case 7 : {
 
-          switch ( self.sectionNumber() ) {
+          switch ( mt ) {
 
             case 2 : return self.parse< 7, 2 >();
-            //case 4 : return self.parse< 7, 4 >();
+            case 4 : return self.parse< 7, 4 >();
+            default: throw std::runtime_error(
+                           "Section " + std::to_string( mt ) + " from file " +
+                           std::to_string( mf ) +
+                           "cannot be parsed yet" );
           }
         }
         case 12 : return self.parse< 12 >();
         case 13 : return self.parse< 13 >();
+        default: throw std::runtime_error(
+                       "Section from file " +  std::to_string( mf ) +
+                       "cannot be parsed yet" );
       }
-      throw std::runtime_error( "Section cannot be parsed yet" );
     },
     "Parse the section"
   )

@@ -81,19 +81,19 @@ SCENARIO( "ScatteringLawConstants" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7, 4 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
 
         std::string buffer2;
         output = std::back_inserter( buffer2 );
         chunk2.print( output, 27, 7, 4 );
 
-        REQUIRE( buffer2 == string );
+        CHECK( buffer2 == string );
 
         std::string buffer3;
         output = std::back_inserter( buffer3 );
         chunk3.print( output, 27, 7, 4 );
 
-        REQUIRE( buffer3 == string );
+        CHECK( buffer3 == string );
       } // THEN
     } // WHEN
 
@@ -117,7 +117,7 @@ SCENARIO( "ScatteringLawConstants" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7, 4 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // GIVEN
   } // GIVEN
@@ -168,13 +168,13 @@ SCENARIO( "ScatteringLawConstants" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7, 4 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
 
         std::string buffer2;
         output = std::back_inserter( buffer2 );
         chunk2.print( output, 27, 7, 4 );
 
-        REQUIRE( buffer2 == string );
+        CHECK( buffer2 == string );
       } // THEN
     } // WHEN
 
@@ -198,7 +198,7 @@ SCENARIO( "ScatteringLawConstants" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7, 4 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // GIVEN
   } // GIVEN
@@ -250,13 +250,13 @@ SCENARIO( "ScatteringLawConstants" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7, 4 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
 
         std::string buffer2;
         output = std::back_inserter( buffer2 );
         chunk2.print( output, 27, 7, 4 );
 
-        REQUIRE( buffer2 == string );
+        CHECK( buffer2 == string );
       } // THEN
     } // WHEN
 
@@ -280,7 +280,7 @@ SCENARIO( "ScatteringLawConstants" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7, 4 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // GIVEN
   } // GIVEN
@@ -334,13 +334,13 @@ SCENARIO( "ScatteringLawConstants" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7, 4 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
 
         std::string buffer2;
         output = std::back_inserter( buffer2 );
         chunk2.print( output, 27, 7, 4 );
 
-        REQUIRE( buffer2 == string );
+        CHECK( buffer2 == string );
       } // THEN
     } // WHEN
 
@@ -364,7 +364,7 @@ SCENARIO( "ScatteringLawConstants" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7, 4 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // GIVEN
   } // GIVEN
@@ -384,22 +384,22 @@ SCENARIO( "ScatteringLawConstants" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( ScatteringLawConstants( lln, ns, epsilon, emax,
+        CHECK_THROWS( ScatteringLawConstants( lln, ns, epsilon, emax,
                                                 {},
                                                 std::move( weightRatios ),
                                                 std::move( numberAtoms ),
                                                 std::move( functionTypes ) ) );
-        REQUIRE_THROWS( ScatteringLawConstants( lln, ns, epsilon, emax,
+        CHECK_THROWS( ScatteringLawConstants( lln, ns, epsilon, emax,
                                                 std::move( crossSections ),
                                                 {},
                                                 std::move( numberAtoms ),
                                                 std::move( functionTypes ) ) );
-        REQUIRE_THROWS( ScatteringLawConstants( lln, ns, epsilon, emax,
+        CHECK_THROWS( ScatteringLawConstants( lln, ns, epsilon, emax,
                                                 std::move( crossSections ),
                                                 std::move( weightRatios ),
                                                 {},
                                                 std::move( functionTypes ) ) );
-        REQUIRE_THROWS( ScatteringLawConstants( lln, ns, epsilon, emax,
+        CHECK_THROWS( ScatteringLawConstants( lln, ns, epsilon, emax,
                                                 std::move( crossSections ),
                                                 std::move( weightRatios ),
                                                 std::move( numberAtoms ),
@@ -415,7 +415,7 @@ SCENARIO( "ScatteringLawConstants" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( ScatteringLawConstants( lln, 1, std::move( values ) ) );
+        CHECK_THROWS( ScatteringLawConstants( lln, 1, std::move( values ) ) );
       } // THEN
     } // WHEN
 
@@ -431,7 +431,7 @@ SCENARIO( "ScatteringLawConstants" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( ScatteringLawConstants( lln, 4, std::move( values ) ) );
+        CHECK_THROWS( ScatteringLawConstants( lln, 4, std::move( values ) ) );
       } // THEN
     } // WHEN
 
@@ -444,7 +444,7 @@ SCENARIO( "ScatteringLawConstants" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( ScatteringLawConstants( begin, end, lineNumber,
+        CHECK_THROWS( ScatteringLawConstants( begin, end, lineNumber,
                                                 27, 7, 4 ) );
       } // THEN
     } // WHEN
@@ -458,7 +458,7 @@ SCENARIO( "ScatteringLawConstants" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( ScatteringLawConstants( begin, end, lineNumber,
+        CHECK_THROWS( ScatteringLawConstants( begin, end, lineNumber,
                                                 27, 7, 4 ) );
       } // THEN
     } // WHEN
@@ -476,7 +476,7 @@ SCENARIO( "ScatteringLawConstants" ) {
                                            8.934780e+0, 5.000001e+0,
                                            0.000000e+0, 1.000000e+0 };
 
-          REQUIRE_THROWS(
+          CHECK_THROWS(
             ScatteringLawConstants( lln, ns, std::move( values ) ) );
         } // THEN
       } // THEN
@@ -491,7 +491,7 @@ SCENARIO( "ScatteringLawConstants" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( ScatteringLawConstants( begin, end, lineNumber,
+        CHECK_THROWS( ScatteringLawConstants( begin, end, lineNumber,
                                                 27, 7, 4 ) );
       } // THEN
     } // WHEN
@@ -507,24 +507,31 @@ std::string chunkWithOnlyPrincipalScatterer() {
 void
 verifyChunkWithOnlyPrincipalScatterer( const ScatteringLawConstants& chunk ) {
 
-      REQUIRE( 0 == chunk.LLN() );
-      REQUIRE( 0 == chunk.sabStorageType() );
-      REQUIRE( 6 == chunk.NI() );
-      REQUIRE( 6 == chunk.numberConstants() );
-      REQUIRE( 0 == chunk.NS() );
-      REQUIRE( 0 == chunk.numberNonPrincipalScatterers() );
+  CHECK( 0 == chunk.LLN() );
+  CHECK( 0 == chunk.sabStorageType() );
+  CHECK( 6 == chunk.NI() );
+  CHECK( 6 == chunk.numberConstants() );
+  CHECK( 0 == chunk.NS() );
+  CHECK( 0 == chunk.numberNonPrincipalScatterers() );
 
-      REQUIRE( 1.976285e+2 == Approx( chunk.epsilon() ) );
-      REQUIRE( 5.000001e+0 == Approx( chunk.upperEnergyLimit() ) );
-      REQUIRE( 1 == chunk.totalFreeCrossSections().size() );
-      REQUIRE( 6.153875e+0 == Approx( chunk.totalFreeCrossSections()[0] ) );
-      REQUIRE( 1 == chunk.atomicWeightRatios().size() );
-      REQUIRE( 8.934780e+0 == Approx( chunk.atomicWeightRatios()[0] ) );
-      REQUIRE( 1 == chunk.numberAtoms().size() );
-      REQUIRE( 1. == Approx( chunk.numberAtoms()[0] ) );
-      REQUIRE( 0 == chunk.analyticalFunctionTypes().size() );
+  CHECK( 1.976285e+2 == Approx( chunk.epsilon() ) );
+  CHECK( 5.000001e+0 == Approx( chunk.EMAX() ) );
+  CHECK( 5.000001e+0 == Approx( chunk.upperEnergyLimit() ) );
+  CHECK( 1 == chunk.MSIGMA().size() );
+  CHECK( 1 == chunk.totalFreeCrossSections().size() );
+  CHECK( 6.153875e+0 == Approx( chunk.MSIGMA()[0] ) );
+  CHECK( 6.153875e+0 == Approx( chunk.totalFreeCrossSections()[0] ) );
+  CHECK( 1 == chunk.AWR().size() );
+  CHECK( 1 == chunk.atomicWeightRatios().size() );
+  CHECK( 8.934780e+0 == Approx( chunk.AWR()[0] ) );
+  CHECK( 8.934780e+0 == Approx( chunk.atomicWeightRatios()[0] ) );
+  CHECK( 1 == chunk.M().size() );
+  CHECK( 1 == chunk.numberAtoms().size() );
+  CHECK( 1. == Approx( chunk.M()[0] ) );
+  CHECK( 1. == Approx( chunk.numberAtoms()[0] ) );
+  CHECK( 0 == chunk.analyticalFunctionTypes().size() );
 
-      REQUIRE( 2 == chunk.NC() );
+  CHECK( 2 == chunk.NC() );
 }
 
 std::string chunkWithBothPrincipalAndSecondaryScatterer() {
@@ -537,28 +544,38 @@ std::string chunkWithBothPrincipalAndSecondaryScatterer() {
 void verifyChunkWithBothPrincipalAndSecondaryScatterer(
        const ScatteringLawConstants& chunk ) {
 
-  REQUIRE( 0 == chunk.LLN() );
-  REQUIRE( 0 == chunk.sabStorageType() );
-  REQUIRE( 12 == chunk.NI() );
-  REQUIRE( 12 == chunk.numberConstants() );
-  REQUIRE( 1 == chunk.NS() );
-  REQUIRE( 1 == chunk.numberNonPrincipalScatterers() );
+  CHECK( 0 == chunk.LLN() );
+  CHECK( 0 == chunk.sabStorageType() );
+  CHECK( 12 == chunk.NI() );
+  CHECK( 12 == chunk.numberConstants() );
+  CHECK( 1 == chunk.NS() );
+  CHECK( 1 == chunk.numberNonPrincipalScatterers() );
 
-  REQUIRE( 9.750000e+1 == Approx( chunk.epsilon() ) );
-  REQUIRE( 2.466750e+0 == Approx( chunk.upperEnergyLimit() ) );
-  REQUIRE( 2 == chunk.totalFreeCrossSections().size() );
-  REQUIRE( 2.021000e+0 == Approx( chunk.totalFreeCrossSections()[0] ) );
-  REQUIRE( 3.748750e+0 == Approx( chunk.totalFreeCrossSections()[1] ) );
-  REQUIRE( 2 == chunk.atomicWeightRatios().size() );
-  REQUIRE( 2.784423e+1 == Approx( chunk.atomicWeightRatios()[0] ) );
-  REQUIRE( 1.586200e+1 == Approx( chunk.atomicWeightRatios()[1] ) );
-  REQUIRE( 2 == chunk.numberAtoms().size() );
-  REQUIRE( 1. == Approx( chunk.numberAtoms()[0] ) );
-  REQUIRE( 2. == Approx( chunk.numberAtoms()[1] ) );
-  REQUIRE( 1 == chunk.analyticalFunctionTypes().size() );
-  REQUIRE( 0. == chunk.analyticalFunctionTypes()[0] );
+  CHECK( 9.750000e+1 == Approx( chunk.epsilon() ) );
+  CHECK( 2.466750e+0 == Approx( chunk.EMAX() ) );
+  CHECK( 2.466750e+0 == Approx( chunk.upperEnergyLimit() ) );
+  CHECK( 2 == chunk.MSIGMA().size() );
+  CHECK( 2 == chunk.totalFreeCrossSections().size() );
+  CHECK( 2.021000e+0 == Approx( chunk.MSIGMA()[0] ) );
+  CHECK( 3.748750e+0 == Approx( chunk.MSIGMA()[1] ) );
+  CHECK( 2.021000e+0 == Approx( chunk.totalFreeCrossSections()[0] ) );
+  CHECK( 3.748750e+0 == Approx( chunk.totalFreeCrossSections()[1] ) );
+  CHECK( 2 == chunk.AWR().size() );
+  CHECK( 2 == chunk.atomicWeightRatios().size() );
+  CHECK( 2.784423e+1 == Approx( chunk.AWR()[0] ) );
+  CHECK( 1.586200e+1 == Approx( chunk.AWR()[1] ) );
+  CHECK( 2.784423e+1 == Approx( chunk.atomicWeightRatios()[0] ) );
+  CHECK( 1.586200e+1 == Approx( chunk.atomicWeightRatios()[1] ) );
+  CHECK( 2 == chunk.M().size() );
+  CHECK( 2 == chunk.numberAtoms().size() );
+  CHECK( 1. == Approx( chunk.M()[0] ) );
+  CHECK( 2. == Approx( chunk.M()[1] ) );
+  CHECK( 1. == Approx( chunk.numberAtoms()[0] ) );
+  CHECK( 2. == Approx( chunk.numberAtoms()[1] ) );
+  CHECK( 1 == chunk.analyticalFunctionTypes().size() );
+  CHECK( 0. == chunk.analyticalFunctionTypes()[0] );
 
-  REQUIRE( 3 == chunk.NC() );
+  CHECK( 3 == chunk.NC() );
 }
 
 std::string chunkWithTwoSecondaryScatterers() {
@@ -572,32 +589,45 @@ std::string chunkWithTwoSecondaryScatterers() {
 void verifyChunkWithTwoSecondaryScatterers(
        const ScatteringLawConstants& chunk ) {
 
-  REQUIRE( 0 == chunk.LLN() );
-  REQUIRE( 0 == chunk.sabStorageType() );
-  REQUIRE( 18 == chunk.NI() );
-  REQUIRE( 18 == chunk.numberConstants() );
-  REQUIRE( 2 == chunk.NS() );
-  REQUIRE( 2 == chunk.numberNonPrincipalScatterers() );
+  CHECK( 0 == chunk.LLN() );
+  CHECK( 0 == chunk.sabStorageType() );
+  CHECK( 18 == chunk.NI() );
+  CHECK( 18 == chunk.numberConstants() );
+  CHECK( 2 == chunk.NS() );
+  CHECK( 2 == chunk.numberNonPrincipalScatterers() );
 
-  REQUIRE( 9.750000e+1 == Approx( chunk.epsilon() ) );
-  REQUIRE( 2.466750e+0 == Approx( chunk.upperEnergyLimit() ) );
-  REQUIRE( 3 == chunk.totalFreeCrossSections().size() );
-  REQUIRE( 2.021000e+0 == Approx( chunk.totalFreeCrossSections()[0] ) );
-  REQUIRE( 3.748750e+0 == Approx( chunk.totalFreeCrossSections()[1] ) );
-  REQUIRE( 4.000000e+0 == Approx( chunk.totalFreeCrossSections()[2] ) );
-  REQUIRE( 3 == chunk.atomicWeightRatios().size() );
-  REQUIRE( 2.784423e+1 == Approx( chunk.atomicWeightRatios()[0] ) );
-  REQUIRE( 1.586200e+1 == Approx( chunk.atomicWeightRatios()[1] ) );
-  REQUIRE( 2.000000e+0 == Approx( chunk.atomicWeightRatios()[2] ) );
-  REQUIRE( 3 == chunk.numberAtoms().size() );
-  REQUIRE( 1. == Approx( chunk.numberAtoms()[0] ) );
-  REQUIRE( 2. == Approx( chunk.numberAtoms()[1] ) );
-  REQUIRE( 3. == Approx( chunk.numberAtoms()[2] ) );
-  REQUIRE( 2 == chunk.analyticalFunctionTypes().size() );
-  REQUIRE( 0. == chunk.analyticalFunctionTypes()[0] );
-  REQUIRE( 1. == chunk.analyticalFunctionTypes()[1] );
+  CHECK( 9.750000e+1 == Approx( chunk.epsilon() ) );
+  CHECK( 2.466750e+0 == Approx( chunk.EMAX() ) );
+  CHECK( 2.466750e+0 == Approx( chunk.upperEnergyLimit() ) );
+  CHECK( 3 == chunk.MSIGMA().size() );
+  CHECK( 3 == chunk.totalFreeCrossSections().size() );
+  CHECK( 2.021000e+0 == Approx( chunk.MSIGMA()[0] ) );
+  CHECK( 3.748750e+0 == Approx( chunk.MSIGMA()[1] ) );
+  CHECK( 4.000000e+0 == Approx( chunk.MSIGMA()[2] ) );
+  CHECK( 2.021000e+0 == Approx( chunk.totalFreeCrossSections()[0] ) );
+  CHECK( 3.748750e+0 == Approx( chunk.totalFreeCrossSections()[1] ) );
+  CHECK( 4.000000e+0 == Approx( chunk.totalFreeCrossSections()[2] ) );
+  CHECK( 3 == chunk.AWR().size() );
+  CHECK( 3 == chunk.atomicWeightRatios().size() );
+  CHECK( 2.784423e+1 == Approx( chunk.AWR()[0] ) );
+  CHECK( 1.586200e+1 == Approx( chunk.AWR()[1] ) );
+  CHECK( 2.000000e+0 == Approx( chunk.AWR()[2] ) );
+  CHECK( 2.784423e+1 == Approx( chunk.atomicWeightRatios()[0] ) );
+  CHECK( 1.586200e+1 == Approx( chunk.atomicWeightRatios()[1] ) );
+  CHECK( 2.000000e+0 == Approx( chunk.atomicWeightRatios()[2] ) );
+  CHECK( 3 == chunk.M().size() );
+  CHECK( 3 == chunk.numberAtoms().size() );
+  CHECK( 1. == Approx( chunk.M()[0] ) );
+  CHECK( 2. == Approx( chunk.M()[1] ) );
+  CHECK( 3. == Approx( chunk.M()[2] ) );
+  CHECK( 1. == Approx( chunk.numberAtoms()[0] ) );
+  CHECK( 2. == Approx( chunk.numberAtoms()[1] ) );
+  CHECK( 3. == Approx( chunk.numberAtoms()[2] ) );
+  CHECK( 2 == chunk.analyticalFunctionTypes().size() );
+  CHECK( 0. == chunk.analyticalFunctionTypes()[0] );
+  CHECK( 1. == chunk.analyticalFunctionTypes()[1] );
 
-  REQUIRE( 4 == chunk.NC() );
+  CHECK( 4 == chunk.NC() );
 }
 
 std::string chunkWithThreeSecondaryScatterers() {
@@ -612,36 +642,52 @@ std::string chunkWithThreeSecondaryScatterers() {
 void verifyChunkWithThreeSecondaryScatterers(
        const ScatteringLawConstants& chunk ) {
 
-  REQUIRE( 0 == chunk.LLN() );
-  REQUIRE( 0 == chunk.sabStorageType() );
-  REQUIRE( 24 == chunk.NI() );
-  REQUIRE( 24 == chunk.numberConstants() );
-  REQUIRE( 3 == chunk.NS() );
-  REQUIRE( 3 == chunk.numberNonPrincipalScatterers() );
+  CHECK( 0 == chunk.LLN() );
+  CHECK( 0 == chunk.sabStorageType() );
+  CHECK( 24 == chunk.NI() );
+  CHECK( 24 == chunk.numberConstants() );
+  CHECK( 3 == chunk.NS() );
+  CHECK( 3 == chunk.numberNonPrincipalScatterers() );
 
-  REQUIRE( 9.750000e+1 == Approx( chunk.epsilon() ) );
-  REQUIRE( 2.466750e+0 == Approx( chunk.upperEnergyLimit() ) );
-  REQUIRE( 4 == chunk.totalFreeCrossSections().size() );
-  REQUIRE( 2.021000e+0 == Approx( chunk.totalFreeCrossSections()[0] ) );
-  REQUIRE( 3.748750e+0 == Approx( chunk.totalFreeCrossSections()[1] ) );
-  REQUIRE( 4.000000e+0 == Approx( chunk.totalFreeCrossSections()[2] ) );
-  REQUIRE( 8.000000e+0 == Approx( chunk.totalFreeCrossSections()[3] ) );
-  REQUIRE( 4 == chunk.atomicWeightRatios().size() );
-  REQUIRE( 2.784423e+1 == Approx( chunk.atomicWeightRatios()[0] ) );
-  REQUIRE( 1.586200e+1 == Approx( chunk.atomicWeightRatios()[1] ) );
-  REQUIRE( 2.000000e+0 == Approx( chunk.atomicWeightRatios()[2] ) );
-  REQUIRE( 4.000000e+0 == Approx( chunk.atomicWeightRatios()[3] ) );
-  REQUIRE( 4 == chunk.numberAtoms().size() );
-  REQUIRE( 1. == Approx( chunk.numberAtoms()[0] ) );
-  REQUIRE( 2. == Approx( chunk.numberAtoms()[1] ) );
-  REQUIRE( 3. == Approx( chunk.numberAtoms()[2] ) );
-  REQUIRE( 4. == Approx( chunk.numberAtoms()[3] ) );
-  REQUIRE( 3 == chunk.analyticalFunctionTypes().size() );
-  REQUIRE( 0. == chunk.analyticalFunctionTypes()[0] );
-  REQUIRE( 1. == chunk.analyticalFunctionTypes()[1] );
-  REQUIRE( 2. == chunk.analyticalFunctionTypes()[2] );
+  CHECK( 9.750000e+1 == Approx( chunk.epsilon() ) );
+  CHECK( 2.466750e+0 == Approx( chunk.EMAX() ) );
+  CHECK( 2.466750e+0 == Approx( chunk.upperEnergyLimit() ) );
+  CHECK( 4 == chunk.MSIGMA().size() );
+  CHECK( 4 == chunk.totalFreeCrossSections().size() );
+  CHECK( 2.021000e+0 == Approx( chunk.MSIGMA()[0] ) );
+  CHECK( 3.748750e+0 == Approx( chunk.MSIGMA()[1] ) );
+  CHECK( 4.000000e+0 == Approx( chunk.MSIGMA()[2] ) );
+  CHECK( 8.000000e+0 == Approx( chunk.MSIGMA()[3] ) );
+  CHECK( 2.021000e+0 == Approx( chunk.totalFreeCrossSections()[0] ) );
+  CHECK( 3.748750e+0 == Approx( chunk.totalFreeCrossSections()[1] ) );
+  CHECK( 4.000000e+0 == Approx( chunk.totalFreeCrossSections()[2] ) );
+  CHECK( 8.000000e+0 == Approx( chunk.totalFreeCrossSections()[3] ) );
+  CHECK( 4 == chunk.AWR().size() );
+  CHECK( 4 == chunk.atomicWeightRatios().size() );
+  CHECK( 2.784423e+1 == Approx( chunk.AWR()[0] ) );
+  CHECK( 1.586200e+1 == Approx( chunk.AWR()[1] ) );
+  CHECK( 2.000000e+0 == Approx( chunk.AWR()[2] ) );
+  CHECK( 4.000000e+0 == Approx( chunk.AWR()[3] ) );
+  CHECK( 2.784423e+1 == Approx( chunk.atomicWeightRatios()[0] ) );
+  CHECK( 1.586200e+1 == Approx( chunk.atomicWeightRatios()[1] ) );
+  CHECK( 2.000000e+0 == Approx( chunk.atomicWeightRatios()[2] ) );
+  CHECK( 4.000000e+0 == Approx( chunk.atomicWeightRatios()[3] ) );
+  CHECK( 4 == chunk.M().size() );
+  CHECK( 4 == chunk.numberAtoms().size() );
+  CHECK( 1. == Approx( chunk.M()[0] ) );
+  CHECK( 2. == Approx( chunk.M()[1] ) );
+  CHECK( 3. == Approx( chunk.M()[2] ) );
+  CHECK( 4. == Approx( chunk.M()[3] ) );
+  CHECK( 1. == Approx( chunk.numberAtoms()[0] ) );
+  CHECK( 2. == Approx( chunk.numberAtoms()[1] ) );
+  CHECK( 3. == Approx( chunk.numberAtoms()[2] ) );
+  CHECK( 4. == Approx( chunk.numberAtoms()[3] ) );
+  CHECK( 3 == chunk.analyticalFunctionTypes().size() );
+  CHECK( 0. == chunk.analyticalFunctionTypes()[0] );
+  CHECK( 1. == chunk.analyticalFunctionTypes()[1] );
+  CHECK( 2. == chunk.analyticalFunctionTypes()[2] );
 
-  REQUIRE( 5 == chunk.NC() );
+  CHECK( 5 == chunk.NC() );
 }
 
 std::string invalidSize() {
