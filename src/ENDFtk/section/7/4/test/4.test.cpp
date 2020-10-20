@@ -915,8 +915,8 @@ std::string chunkWithAnalyticalFunctions() {
 void verifyChunkWithAnalyticalFunctions(
        const section::Type< 7, 4 >& chunk ) {
 
-  CHECK( 2 == chunk.MT() );
-  CHECK( 2 == chunk.sectionNumber() );
+  CHECK( 4 == chunk.MT() );
+  CHECK( 4 == chunk.sectionNumber() );
 
   CHECK( 127. == Approx( chunk.ZA() ) );
   CHECK( 8.934780e+0 == Approx( chunk.AWR() ) );
@@ -991,6 +991,9 @@ std::string chunkWithOneTemperatureAndOneScatterer() {
 
 void verifyChunkWithOneTemperatureAndOneScatterer(
        const section::Type< 7, 4 >& chunk ) {
+
+  CHECK( 4 == chunk.MT() );
+  CHECK( 4 == chunk.sectionNumber() );
 
   CHECK( 127. == Approx( chunk.ZA() ) );
   CHECK( 8.934780e+0 == Approx( chunk.AWR() ) );
@@ -1147,6 +1150,9 @@ std::string chunkWithTwoTemperaturesAndOneScatterer() {
 
 void verifyChunkWithTwoTemperaturesAndOneScatterer(
        const section::Type< 7, 4 >& chunk ) {
+
+  CHECK( 4 == chunk.MT() );
+  CHECK( 4 == chunk.sectionNumber() );
 
   CHECK( 127. == Approx( chunk.ZA() ) );
   CHECK( 8.934780e+0 == Approx( chunk.AWR() ) );
@@ -1325,6 +1331,9 @@ std::string chunkWithTwoTemperaturesAndTwoScatterers() {
 
 void verifyChunkWithTwoTemperaturesAndTwoScatterers(
        const section::Type< 7, 4 >& chunk ) {
+
+  CHECK( 4 == chunk.MT() );
+  CHECK( 4 == chunk.sectionNumber() );
 
   CHECK( 127. == Approx( chunk.ZA() ) );
   CHECK( 8.934780e+0 == Approx( chunk.AWR() ) );
@@ -1518,6 +1527,9 @@ std::string chunkWithTwoTemperaturesTwoScatterersAndNoSecondaryTemperature() {
 
 void verifyChunkWithTwoTemperaturesTwoScatterersAndNoSecondaryTemperature(
        const section::Type< 7, 4 >& chunk ) {
+
+  CHECK( 4 == chunk.MT() );
+  CHECK( 4 == chunk.sectionNumber() );
 
   CHECK( 127. == Approx( chunk.ZA() ) );
   CHECK( 8.934780e+0 == Approx( chunk.AWR() ) );
