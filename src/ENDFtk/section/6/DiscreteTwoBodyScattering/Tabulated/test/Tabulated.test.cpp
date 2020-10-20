@@ -1,11 +1,12 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/6.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
 
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using Tabulated = 
 section::Type< 6 >::DiscreteTwoBodyScattering::Tabulated;
 
@@ -95,7 +96,7 @@ SCENARIO( "Tabulated" ) {
   GIVEN( "a valid instance of Tabulated" ) {
 
     int lang = 12;
-    
+
     std::string string = chunkLANG12();
     auto begin = string.begin();
     auto end = string.end();
@@ -190,7 +191,7 @@ std::string chunkLANG14() {
 }
 
 void checkTabulated( const Tabulated& chunk ) {
-    
+
   REQUIRE( 1e-5 == Approx( chunk.energy() ) );
 
   REQUIRE( 6 == chunk.NW() );

@@ -1,11 +1,12 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/8/457.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
 
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using DecayModes = section::Type< 8, 457 >::DecayModes;
 using DecayMode = section::Type< 8, 457 >::DecayMode;
 
@@ -52,7 +53,7 @@ SCENARIO( "DecayModes" ) {
 
       auto begin = string.begin();
       auto end = string.end();
-      long lineNumber = 1; 
+      long lineNumber = 1;
 
       DecayModes chunk( begin, end, lineNumber, 3580, 8, 457 );
 
@@ -102,7 +103,7 @@ SCENARIO( "DecayModes" ) {
 
       auto begin = string.begin();
       auto end = string.end();
-      long lineNumber = 1; 
+      long lineNumber = 1;
 
       DecayModes chunk( begin, end, lineNumber, 3580, 8, 457 );
 
@@ -130,8 +131,8 @@ SCENARIO( "DecayModes" ) {
       std::string string = wrongNDK();
       auto begin = string.begin();
       auto end = string.end();
-      long lineNumber = 1; 
-      
+      long lineNumber = 1;
+
       THEN( "an exception is thrown" ) {
 
         REQUIRE_THROWS( DecayModes( begin, end, lineNumber, 3580, 8, 457 ) );
@@ -144,8 +145,8 @@ SCENARIO( "DecayModes" ) {
       std::string string = wrongStableNDK();
       auto begin = string.begin();
       auto end = string.end();
-      long lineNumber = 1; 
-      
+      long lineNumber = 1;
+
       THEN( "an exception is thrown" ) {
 
         REQUIRE_THROWS( DecayModes( begin, end, lineNumber, 3580, 8, 457 ) );
@@ -199,7 +200,7 @@ std::string chunkStableNuclide() {
 }
 
 void verifyChunkStableNuclide( const DecayModes& chunk )
-{      
+{
   auto modes = chunk.decayModes();
   REQUIRE( 0 == chunk.NDK() );
   REQUIRE( 1 == modes.size() );

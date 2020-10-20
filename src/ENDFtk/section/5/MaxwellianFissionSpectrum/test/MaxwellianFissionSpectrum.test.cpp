@@ -1,11 +1,12 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/5.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
 
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using MaxwellianFissionSpectrum = 
 section::Type< 5 >::MaxwellianFissionSpectrum;
 

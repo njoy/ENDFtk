@@ -1,8 +1,11 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/Base.hpp"
 
+// other includes
+
+// convenience typedefs
 using namespace njoy::ENDFtk;
 
 std::string chunk();
@@ -75,7 +78,7 @@ SCENARIO( "section::Base tests") {
       auto endSEND = sSEND.end();
 
       THEN( "reading SEND with valid MAT, and MF does not throw" ) {
-          
+
         REQUIRE_NOTHROW( base->readSEND( beginSEND, endSEND,
                                          lineNumber, 125, 3 ) );
       }

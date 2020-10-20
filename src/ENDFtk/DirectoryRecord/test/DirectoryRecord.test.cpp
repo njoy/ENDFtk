@@ -1,8 +1,11 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/DirectoryRecord.hpp"
 
+// other includes
+
+// convenience typedefs
 using namespace njoy::ENDFtk;
 
 SCENARIO( "DirectoryRecord Tests", "[ENDFtk], [DirectoryRecord]" ){
@@ -15,7 +18,7 @@ SCENARIO( "DirectoryRecord Tests", "[ENDFtk], [DirectoryRecord]" ){
       DirectoryRecord( std::get< 0 >(values), std::get< 1 >(values),
                      std::get< 2 >(values), std::get< 3 >(values) ) );
   }
-  
+
   GIVEN( "iterators and a line number"){
     auto it = line.begin();
     auto end = line.end();
@@ -34,7 +37,7 @@ SCENARIO( "DirectoryRecord Tests", "[ENDFtk], [DirectoryRecord]" ){
       REQUIRE_THROWS( DirectoryRecord( it, end, lineNumber, 125, 1, 452 ) );
     }
   }
-  
+
   SECTION("print"){
     auto it = line.begin();
     auto end = line.end();
@@ -42,13 +45,13 @@ SCENARIO( "DirectoryRecord Tests", "[ENDFtk], [DirectoryRecord]" ){
 
     std::string buffer;
     auto output = std::back_inserter( buffer );
-    
+
     const auto dir = DirectoryRecord( it, end, lineNumber, 125, 1, 451 );
     dir.print( output, 125, 1, 451 );
 
     REQUIRE( buffer == line );
   }
-  
+
   GIVEN( "A constructed directory record"){
     auto it = line.begin();
     auto end = line.end();
@@ -101,7 +104,7 @@ SCENARIO( "DirectoryRecord Tests", "[ENDFtk], [DirectoryRecord]" ){
     auto it = line.begin();
     auto end = line.end();
     auto lineNumber = 0l;
-    
+
     THEN("the ctor throws"){
       REQUIRE_THROWS( DirectoryRecord( it, end, lineNumber, 125, 1, 451 ) );
     }

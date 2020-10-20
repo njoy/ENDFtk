@@ -1,87 +1,45 @@
-#ifndef ENDFTK_HPP
-#define ENDFTK_HPP
-
-#include <functional>
-#include <unordered_map>
-#include <complex>
-#include <map>
-
-#ifdef __GNUC__
-  #pragma GCC diagnostic push
-  #pragma GCC diagnostic ignored "-Wunused-parameter"
-#endif
-#include <variant>   
-#ifdef __GNUC__
-  #pragma GCC diagnostic pop
-#endif
-
-#include <optional>
-#include "range/v3/all.hpp"
-
-#include "disco.hpp"
-#include "boost/hana.hpp"
-#include "Log.hpp"
-#include "header-utilities.hpp"
-
-namespace njoy {
-namespace ENDFtk {
-
-namespace hana = boost::hana;
-
-inline namespace literals {
-
-using namespace hana::literals;
-}
-
-template< typename T >
-using MutableReturnType = std::add_lvalue_reference_t< T >;
-
-template< typename T >
-using ImmutableReturnType =
-  std::conditional_t
-  < std::is_trivially_copyable< T >::value,
-    T, std::add_lvalue_reference_t< std::add_const_t< T > > >;
-
-#include "ENDFtk/record.hpp"
-
+// include basic ENDF records and components
 #include "ENDFtk/TapeIdentification.hpp"
-using TPID = TapeIdentification;
-
 #include "ENDFtk/StructureDivision.hpp"
-
 #include "ENDFtk/HeadRecord.hpp"
-using HEAD = HeadRecord;
-
 #include "ENDFtk/TextRecord.hpp"
-using TEXT = TextRecord;
-
 #include "ENDFtk/ControlRecord.hpp"
-using CONT = ControlRecord;
-
 #include "ENDFtk/DirectoryRecord.hpp"
-using DIR = DirectoryRecord;
-
 #include "ENDFtk/ListRecord.hpp"
-using LIST = ListRecord;
-
 #include "ENDFtk/InterpolationRecord.hpp"
-using TAB2 = InterpolationRecord;
-
 #include "ENDFtk/TabulationRecord.hpp"
-using TAB1 = TabulationRecord;
-
 #include "ENDFtk/InterpolationSequenceRecord.hpp"
 
-#include "ENDFtk/resonanceParameters.hpp"
+// include every section and their components
+#include "ENDFtk/section/1.hpp"
+#include "ENDFtk/section/2.hpp"
+#include "ENDFtk/section/3.hpp"
+#include "ENDFtk/section/4.hpp"
+#include "ENDFtk/section/5.hpp"
+#include "ENDFtk/section/6.hpp"
+#include "ENDFtk/section/7.hpp"
+#include "ENDFtk/section/8.hpp"
+#include "ENDFtk/section/12.hpp"
+#include "ENDFtk/section/13.hpp"
 
-#include "ENDFtk/section.hpp"
+// include every file
+#include "ENDFtk/file/1.hpp"
+#include "ENDFtk/file/2.hpp"
+#include "ENDFtk/file/3.hpp"
+#include "ENDFtk/file/4.hpp"
+#include "ENDFtk/file/5.hpp"
+#include "ENDFtk/file/6.hpp"
+#include "ENDFtk/file/7.hpp"
+#include "ENDFtk/file/8.hpp"
+#include "ENDFtk/file/12.hpp"
+#include "ENDFtk/file/13.hpp"
 
-#include "ENDFtk/file.hpp"
+// include the ENDF tree and its components
+#include "ENDFtk/tree/Section.hpp"
+#include "ENDFtk/tree/File.hpp"
+#include "ENDFtk/tree/Material.hpp"
+#include "ENDFtk/tree/Tape.hpp"
+#include "ENDFtk/tree/makeTape.hpp"
 
-#include "ENDFtk/syntaxTree.hpp"
-
-#include "ENDFtk/src/isRedundant.hpp"
-}
-}
-
-#endif // ENDFTK_HPP
+// utility functions
+#include "ENDFtk/isRedundant.hpp"

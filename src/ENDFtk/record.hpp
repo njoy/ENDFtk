@@ -1,5 +1,3 @@
-namespace record {
-
 #include "ENDFtk/record/helper.hpp"
 #include "ENDFtk/record/Tail.hpp"
 #include "ENDFtk/record/TailVerifying.hpp"
@@ -11,8 +9,3 @@ namespace record {
 #include "ENDFtk/record/Sequence.hpp"
 #include "ENDFtk/record/skip.hpp"
 #include "ENDFtk/record/InterpolationBase.hpp"
-
-}
-
-
-

@@ -1,12 +1,13 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/6.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
 
 // convenience typedefs
-using Base = 
+using namespace njoy::ENDFtk;
+using Base =
 section::Type< 6 >::ContinuumEnergyAngle::Base;
 
 class TestBase : public Base {
@@ -146,4 +147,3 @@ std::string invalidSize() {
     " 0.000000+0 1.000000-5          0          1          5          29228 6  5     \n"
     " 1.000000+0 2.000000+0 3.000000+0 4.000000+0 5.000000+0           9228 6  5     \n";
 }
-

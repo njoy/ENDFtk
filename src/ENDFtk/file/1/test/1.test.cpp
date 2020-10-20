@@ -1,11 +1,16 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/file/1.hpp"
 
+// other includes
+#include "ENDFtk/tree/Tape.hpp"
+#include "range/v3/algorithm/count.hpp"
+
+// convenience typedefs
 using namespace njoy::ENDFtk;
 
-std::string getFile( int MF );
+std::string chunk1();
 std::string chunk451();
 void verifyChunk451( const file::Type< 1 >& );
 std::string validSEND();
@@ -136,7 +141,7 @@ SCENARIO( "Testing special case of file 1" ) {
     } // WHEN
   } // GIVEN
 
-  std::string file1string = getFile( 1 );
+  std::string file1string = chunk1();
 
   GIVEN( "a string representation of of File 1" ) {
 
@@ -169,7 +174,7 @@ SCENARIO( "Testing special case of file 1" ) {
 
       StructureDivision division( begin, end, lineNumber );
 
-      syntaxTree::File< std::string::iterator >
+      tree::File< std::string::iterator >
         fileTree( asHead( division ), start, begin, end, lineNumber );
 
       THEN( "a file::Type< 1 > can be constructed" ){
@@ -208,12 +213,133 @@ SCENARIO( "Testing special case of file 1" ) {
   } // GIVEN
 } // SCENARIO
 
-std::string getFile( int MF ){
-  static std::string tape =
-    njoy::utility::slurpFileToMemory( "n-001_H_001.endf" );
-  syntaxTree::Tape< std::string > tapeTree( njoy::utility::copy( tape ) );
-  auto fileTree = tapeTree.materialNumber( 125 ).front().fileNumber( MF );
-  return std::string( fileTree.buffer().begin(), fileTree.buffer().end() );
+std::string chunk1() {
+
+  return
+    " 1.001000+3 9.991673-1          0          0          0          3 125 1451     \n"
+    " 0.000000+0 0.000000+0          0          0          0          6 125 1451     \n"
+    " 1.000000+0 2.000000+7          0          0         10          8 125 1451     \n"
+    " 0.000000+0 0.000000+0          0          0        108         10 125 1451     \n"
+    "  1-H -  1 LANL       EVAL-OCT05 G.M.Hale                          125 1451     \n"
+    "                      DIST-DEC06                       20111222    125 1451     \n"
+    "----ENDF/B-VIII.beta  MATERIAL  125                                125 1451     \n"
+    "-----INCIDENT NEUTRON DATA                                         125 1451     \n"
+    "------ENDF-6 FORMAT                                                125 1451     \n"
+    "                                                                   125 1451     \n"
+    " ****************************************************************  125 1451     \n"
+    "Covariance Data Updated                                    G.Hale  125 1451     \n"
+    "                                                       2013/04/02  125 1451     \n"
+    "                                                                   125 1451     \n"
+    "MF=33, MT=2 and 102 were replaced by the fine energy grid data,    125 1451     \n"
+    "which were obtained from the R-matrix analysis at LANL.            125 1451     \n"
+    "The description below for the ENDF/B-VII.1 covariance data         125 1451     \n"
+    "was inconsistent with what we had in the 2011 release.             125 1451     \n"
+    "Ref.[1] describes these fine-grid data, while the ENDF/B-VII.1     125 1451     \n"
+    "covariance data, which were taken from the COMMARA-2.0 library,    125 1451     \n"
+    "are an earlier coarse energy grid evaluation. The estimated        125 1451     \n"
+    "uncertainties (point-wise, not binned) in the elastic (MT=2)       125 1451     \n"
+    "and capture (MT=102) cross sections are:                           125 1451     \n"
+    "                                                                   125 1451     \n"
+    "     E[MeV] elastic[%] capture[%]                                  125 1451     \n"
+    "       0.0    0.13       1.1                                       125 1451     \n"
+    "       0.1    0.20       5.1                                       125 1451     \n"
+    "       0.5    0.39       9.8                                       125 1451     \n"
+    "       1      0.54      11                                         125 1451     \n"
+    "       2      0.73      10                                         125 1451     \n"
+    "       4      0.93       9.9                                       125 1451     \n"
+    "       6      1.0        9.3                                       125 1451     \n"
+    "       8      1.0        8.9                                       125 1451     \n"
+    "      10      0.97       8.4                                       125 1451     \n"
+    "      12      0.84       8.0                                       125 1451     \n"
+    "      14      0.66       7.7                                       125 1451     \n"
+    "      16      0.43       7.4                                       125 1451     \n"
+    "      18      0.16       7.2                                       125 1451     \n"
+    "      20      0.17       7.0                                       125 1451     \n"
+    "                                                                   125 1451     \n"
+    "REFERENCES                                                         125 1451     \n"
+    "[1] G. M. Hale, \"Covariances from light-element R-matrix           125 1451     \n"
+    "    analyses,\" Nuclear Data Sheets, 109, 2812 (2008).              125 1451     \n"
+    "                                                                   125 1451     \n"
+    " ****************************************************************  125 1451     \n"
+    "The new R-matrix analysis of the N-N system on which the ENDF/B-   125 1451     \n"
+    "VII evaluation for 1H is based differs from the previous one use   125 1451     \n"
+    "for ENDF/B-VI in several respects. Firstly, the n-p capture        125 1451     \n"
+    "reaction (MT=102), and its inverse, deuteron photo-                125 1451     \n"
+    "disintegration, were a part of the analysis, rather than added     125 1451     \n"
+    "later as before. The analysis used a new method for including      125 1451     \n"
+    "photon channels in R-matrix theory [1], which gave a better        125 1451     \n"
+    "description of the E1 transitions, in particular.  The data for    125 1451     \n"
+    "these reactions are mostly integrated and differential cross       125 1451     \n"
+    "sections, but some information about polarizations was also        125 1451     \n"
+    "included.  The thermal capture cross section was taken to be       125 1451     \n"
+    "332.0 mb, as was the recommendation from preliminary data          125 1451     \n"
+    "testing. Good agreement was obtained with recent cross-section     125 1451     \n"
+    "measurements [2,3] by astrophysical groups in the 20-550 keV       125 1451     \n"
+    "range, as well as with earlier measurements that had been done     125 1451     \n"
+    "mostly as photo-disintegration experiments at energies below 14    125 1451     \n"
+    "MeV.                                                               125 1451     \n"
+    "The new analysis includes several additional measurements of the   125 1451     \n"
+    "total cross section (MT=1).  The evaluated cross section           125 1451     \n"
+    "deviates at most by about -0.5% around 10 MeV from that of         125 1451     \n"
+    "ENDF/B-VI.                                                         125 1451     \n"
+    "For n-p scattering (MT=2), new information was included about the  125 1451     \n"
+    "low-energy cross sections (MF=3) and about the angular             125 1451     \n"
+    "distributions (MF=4).  A new measurement of the angular            125 1451     \n"
+    "distribution at 10 MeV [4], plus corrections to earlier data at    125 1451     \n"
+    "14 MeV, moved the back-angle asymmetry in the 10-14 MeV range to   125 1451     \n"
+    "values that lie between those obtained for ENDF/B-V and ENDF/B-    125 1451     \n"
+    "VI.  The addition of the latest value of the thermal coherent      125 1451     \n"
+    "scattering length [5] had the interesting effect of reducing the   125 1451     \n"
+    "\"zero-energy\" scattering cross section somewhat to agree           125 1451     \n"
+    "perfectly with an earlier measurement by Houk [6], and disagree    125 1451     \n"
+    "with the later, more precise, value of Dilg [7].  The              125 1451     \n"
+    "covariances for MT=2 will be added later, but the uncertainties    125 1451     \n"
+    "on the integrated cross section should be similar to those         125 1451     \n"
+    "listed above for the total cross section.                          125 1451     \n"
+    "                                                                   125 1451     \n"
+    "                                                                   125 1451     \n"
+    "REFERENCES                                                         125 1451     \n"
+    "                                                                   125 1451     \n"
+    "[1] G. M. Hale and A. S. Johnson, Proc. 17th Int. IUPAP Conf. on   125 1451     \n"
+    "    Few-Body Problems in Physics, 5-10 June 2003, Durham NC, W.    125 1451     \n"
+    "    Gloeckle and W. Tornow,  eds., Elsevier B.V., pp. S120-S122    125 1451     \n"
+    "   (2004).                                                         125 1451     \n"
+    "[2] T. S. Suzuki et al., Astrophys. Lett. 449, L59 (1995).         125 1451     \n"
+    "[3] Y. Nagai et al., Phys. Rev. C 56, 3173 (1997).                 125 1451     \n"
+    "[4] N. Boukharouba et al., Phys. Rev. C 65, 014004 (2002).         125 1451     \n"
+    "[5] K. Schoen et al., Phys. Rev. C 67, 044005 (2003).              125 1451     \n"
+    "[6] T. L. Houk, Phys. Rev. C 3, 1886 (1971).                       125 1451     \n"
+    "[7] W. Dilg, Phys. Rev. C 11, 103 (1975).                          125 1451     \n"
+    " ****************************************************************  125 1451     \n"
+    "                                                                   125 1451     \n"
+    "Covariances were adopted from COMMARA-2.0 library in July 2011.    125 1451     \n"
+    "These covariances were obtained at LANL by full scale R-matrix     125 1451     \n"
+    "analysis of more than 5000 experimental data (chi-square/degree    125 1451     \n"
+    "of freedom of 0.83). [1] The major channel in this case is elastic 125 1451     \n"
+    "scattering, often labeled also as ''n-p'' scattering. Elastic      125 1451     \n"
+    "scattering serves as neutron cross section standard from 1 keV to  125 1451     \n"
+    "20 MeV, with cross sections well determined. Uncertainties for     125 1451     \n"
+    "elastic scattering rise from values well below 1%, reach maximum   125 1451     \n"
+    "at about 8 MeV, then gradually decrease with increasing energy.    125 1451     \n"
+    "In addition to elastic scattering, covariances are supplied for    125 1451     \n"
+    "radiative capture.                                                 125 1451     \n"
+    "                                                                   125 1451     \n"
+    "REFERENCES                                                         125 1451     \n"
+    "[1] G. M. Hale, \"Covariances from light-element R-matrix           125 1451     \n"
+    "analyses,\" Nuclear Data Sheets, 109, 2812 (2008).                  125 1451     \n"
+    " ****************************************************************  125 1451     \n"
+    "                                1        451        122          5 125 1451     \n"
+    "                                2        151          4          0 125 1451     \n"
+    "                                3          1         35          4 125 1451     \n"
+    "                                3          2         35          4 125 1451     \n"
+    "                                3        102         35          5 125 1451     \n"
+    "                                4          2        196          4 125 1451     \n"
+    "                                6        102        201          4 125 1451     \n"
+    "                               33          1          5          5 125 1451     \n"
+    "                               33          2        779          5 125 1451     \n"
+    "                               33        102        779          5 125 1451     \n"
+    "                                                                   125 1  0     \n"
+    "                                                                   125 0  0     \n";
 }
 
 std::string chunk451() {
@@ -276,4 +402,3 @@ std::string validHEAD() {
   return
     " 3.908800+4 8.715432+1          0          0          0          03988 1451     \n";
 }
-

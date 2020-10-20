@@ -1,11 +1,12 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/8/457.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
 
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using AverageDecayEnergies = section::Type< 8, 457 >::AverageDecayEnergies;
 
 std::string chunk();

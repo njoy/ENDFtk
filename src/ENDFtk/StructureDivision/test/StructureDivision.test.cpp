@@ -1,8 +1,11 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/StructureDivision.hpp"
 
+// other includes
+
+// convenience typedefs
 using namespace njoy::ENDFtk;
 
 SCENARIO( "StructureDivision Tests", "[ENDFtk], [StructureDivision]" ){
@@ -17,13 +20,13 @@ SCENARIO( "StructureDivision Tests", "[ENDFtk], [StructureDivision]" ){
     REQUIRE_NOTHROW( FEND( 125 ) );
     REQUIRE_NOTHROW( MEND() );
     REQUIRE_NOTHROW( TEND() );
-  
+
     REQUIRE( SEND( 1, 1 ).isSend() );
     REQUIRE( not SEND( 1, 1 ).isHead() );
     REQUIRE( not SEND( 1, 1 ).isFend() );
     REQUIRE( not SEND( 1, 1 ).isMend() );
     REQUIRE( not SEND( 1, 1 ).isTend() );
-    
+
     REQUIRE( FEND( 1 ).isFend() );
     REQUIRE( not FEND( 1 ).isHead() );
     REQUIRE( not FEND( 1 ).isSend() );
@@ -35,7 +38,7 @@ SCENARIO( "StructureDivision Tests", "[ENDFtk], [StructureDivision]" ){
     REQUIRE( not MEND().isSend() );
     REQUIRE( not MEND().isFend() );
     REQUIRE( not MEND().isTend() );
-    
+
     REQUIRE( TEND().isTend() );
     REQUIRE( not TEND().isHead() );
     REQUIRE( not TEND().isSend() );
@@ -68,7 +71,7 @@ SCENARIO( "StructureDivision Tests", "[ENDFtk], [StructureDivision]" ){
       }
     }
   }
-  
+
   GIVEN( "a head record string with an illegal MAT"){
     std::string line =
       "\n 1.001000+3 9.991673-1          0          0          0          0  -2 1451    1";
@@ -101,7 +104,7 @@ SCENARIO( "StructureDivision Tests", "[ENDFtk], [StructureDivision]" ){
   }
 
   GIVEN( "a valid instance of a head record" ) {
-    std::string string = 
+    std::string string =
     " 1.001000+3 9.991673-1          0          0          0          5 125 1451     \n";
     auto lineNumber = 0l;
     auto it = string.begin();
@@ -115,7 +118,7 @@ SCENARIO( "StructureDivision Tests", "[ENDFtk], [StructureDivision]" ){
     }
   }
   GIVEN( "a valid instance of a SEND record" ) {
-    std::string string = 
+    std::string string =
     "                                                                   125 1  0     \n";
     auto record = SEND( 125, 1 );
     THEN( "the SEND record can be printed" ) {
@@ -126,7 +129,7 @@ SCENARIO( "StructureDivision Tests", "[ENDFtk], [StructureDivision]" ){
     }
   }
   GIVEN( "a valid instance of a FEND record" ) {
-    std::string string = 
+    std::string string =
     "                                                                   125 0  0     \n";
     auto record = FEND( 125 );
     THEN( "the SEND record can be printed" ) {
@@ -137,7 +140,7 @@ SCENARIO( "StructureDivision Tests", "[ENDFtk], [StructureDivision]" ){
     }
   }
   GIVEN( "a valid instance of a MEND record" ) {
-    std::string string = 
+    std::string string =
     "                                                                     0 0  0     \n";
     auto record = MEND();
     THEN( "the MEND record can be printed" ) {
@@ -148,7 +151,7 @@ SCENARIO( "StructureDivision Tests", "[ENDFtk], [StructureDivision]" ){
     }
   }
   GIVEN( "a valid instance of a TEND record" ) {
-    std::string string = 
+    std::string string =
     "                                                                    -1 0  0     \n";
     auto record = TEND();
     THEN( "the TEND record can be printed" ) {

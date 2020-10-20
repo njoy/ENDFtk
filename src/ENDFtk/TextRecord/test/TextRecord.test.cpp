@@ -1,15 +1,19 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/TextRecord.hpp"
 
+// other includes
+#include "header-utilities/copy.hpp"
+
+// convenience typedefs
 using namespace njoy::ENDFtk;
 
 SCENARIO( "TextRecord Tests", "[ENDFtk], [TextRecord]" ){
-  std::string line = 
+  std::string line =
     "The new R-matrix analysis of the N-N system on which the ENDF/B-   125 1451     \n";
 
-  std::string text = 
+  std::string text =
     "The new R-matrix analysis of the N-N system on which the ENDF/B-  ";
 
   GIVEN( "a string ravlue, the ctor works"){
@@ -42,12 +46,12 @@ SCENARIO( "TextRecord Tests", "[ENDFtk], [TextRecord]" ){
     int MAT = 125;
     int MF = 1;
     int MT = 451;
-    
+
     const auto textRecord = TextRecord( it, end, lineNumber, 125, 1, 451 );
     std::string buffer;
     auto output = std::back_inserter( buffer );
     textRecord.print( output, MAT, MF, MT );
-      
+
     REQUIRE( buffer == line );
   }
 
@@ -58,7 +62,7 @@ SCENARIO( "TextRecord Tests", "[ENDFtk], [TextRecord]" ){
     const auto textRecord = TextRecord( it, end, lineNumber, 125, 1, 451 );
     REQUIRE( textRecord.NC() == 1 );
   }
-  
+
   GIVEN( "A constructed text record"){
     auto it = line.begin();
     auto end = line.end();
@@ -80,7 +84,7 @@ SCENARIO( "TextRecord Tests", "[ENDFtk], [TextRecord]" ){
       /* can't assign to const. doesn't compile */
       // constTextRecord0.text() = "foobar";
     }
-    
+
     THEN( "the equality and inequality operators will work" ){
       REQUIRE( textRecord0 == textRecord1 );
       textRecord0.text() = "foobar";
@@ -88,14 +92,14 @@ SCENARIO( "TextRecord Tests", "[ENDFtk], [TextRecord]" ){
       REQUIRE( textRecord0 != textRecord1 );
     }
   }
-  
+
   GIVEN("A line with a typo"){
-    std::string line = 
+    std::string line =
       "The new R-matrix analysis of the N-N system on which the ENDF/B-   1a5 1451   12\n";
     auto it = line.begin();
     auto end = line.end();
     auto lineNumber = 0l;
-    
+
     THEN("the ctor throws"){
       REQUIRE_THROWS( TextRecord( it, end, lineNumber, 125, 1, 451 ) );
     }

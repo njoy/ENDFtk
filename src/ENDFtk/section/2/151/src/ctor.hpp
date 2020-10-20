@@ -24,8 +24,7 @@ Type( double zaid, double awr, std::vector< Isotope >&& isotopes ) :
 Type( double zaid, double awr, double el, double eh, double spin, double ap ) :
   Type( zaid, awr,
         { { zaid, 1.0, 0,
-            { { el, eh, 0,
-                resonanceParameters::SpecialCase( spin, ap ) } } } } ) {}
+            { { el, eh, 0, SpecialCase( spin, ap ) } } } } ) {}
 
 /**
  *  @brief Constructor (from a buffer)
@@ -46,11 +45,8 @@ Type ( const HEAD& head,
        int MAT )
   try:
     Type( head.ZA(), head.AWR(),
-          readSequence< resonanceParameters::Isotope >( begin,
-                                                        end,
-                                                        lineNumber,
-                                                        MAT, 2, 151,
-                                                        head.N1() ) ) {
+          readSequence< Isotope >( begin, end, lineNumber,
+                                   MAT, 2, 151, head.N1() ) ) {
 
       readSEND( begin, end, lineNumber, MAT, 2 );
   } catch( std::exception& e ){

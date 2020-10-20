@@ -1,14 +1,15 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/6.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
 
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using AngularDistribution = 
 section::Type< 6 >::LaboratoryAngleEnergy::AngularDistribution;
-using EnergyDistribution = 
+using EnergyDistribution =
 section::Type< 6 >::LaboratoryAngleEnergy::EnergyDistribution;
 
 std::string chunk();
@@ -27,7 +28,7 @@ SCENARIO( "AngularDistribution" ) {
       std::vector< long > interpolants = { 4 };
       std::vector< EnergyDistribution >
         cosines = { EnergyDistribution(
-                      1.0, { 4 }, { 2 }, 
+                      1.0, { 4 }, { 2 },
                       { 1e-5, 1.1e+7, 1.147e+7, 3e+7 }, { 0., 2., 4., 6. } ),
                     EnergyDistribution(
                       -1.0, { 3 }, { 5 },
@@ -65,7 +66,7 @@ SCENARIO( "AngularDistribution" ) {
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
+    long lineNumber = 1;
     AngularDistribution
       chunk(begin, end, lineNumber, 9228, 6, 5 );
 
@@ -90,7 +91,7 @@ SCENARIO( "AngularDistribution" ) {
         std::vector< long > interpolants = { 4 };
         std::vector< EnergyDistribution >
           cosines = { EnergyDistribution(
-                        1.0, { 4 }, { 2 }, 
+                        1.0, { 4 }, { 2 },
                         { 1e-5, 1.1e+7, 1.147e+7, 3e+7 }, { 0., 2., 4., 6. } ),
                       EnergyDistribution(
                         -1.0, { 3 }, { 5 },
@@ -111,7 +112,7 @@ SCENARIO( "AngularDistribution" ) {
         std::vector< long > wrongInterpolants = { 4, 2 };
         std::vector< EnergyDistribution >
           cosines = { EnergyDistribution(
-                        1.0, { 4 }, { 2 }, 
+                        1.0, { 4 }, { 2 },
                         { 1e-5, 1.1e+7, 1.147e+7, 3e+7 }, { 0., 2., 4., 6. } ),
                       EnergyDistribution(
                         -1.0, { 3 }, { 5 },
@@ -131,9 +132,9 @@ SCENARIO( "AngularDistribution" ) {
         std::vector< long > boundaries = { 2 };
         std::vector< long > interpolants = { 4 };
         std::vector< EnergyDistribution >
-          wrongCosines = 
+          wrongCosines =
               { EnergyDistribution(
-                  1.0, { 4 }, { 2 }, 
+                  1.0, { 4 }, { 2 },
                   { 1e-5, 1.1e+7, 1.147e+7, 3e+7 }, { 0., 2., 4., 6. } ) };
 
         REQUIRE_THROWS(
@@ -236,4 +237,3 @@ std::string invalidChunk() {
     "          3          5                                            9228 6  5     \n"
     " 1.000000-5 6.000000+0 1.000000+6 4.000000+0 3.000000+7 2.000000+09228 6  5     \n";
 }
-

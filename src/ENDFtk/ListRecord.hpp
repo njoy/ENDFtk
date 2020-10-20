@@ -1,80 +1,100 @@
-class ListRecord {
-protected:
-  using Base = record::Base< record::Real, record::Real,
-                             record::Integer< 11 >, record::Integer< 11 >,
-                             record::Integer< 11 >, record::Integer< 11 > >;
+#ifndef NJOY_ENDFTK_LISTRECORD
+#define NJOY_ENDFTK_LISTRECORD
 
-  using tail = record::TailVerifying< record::MAT, record::MF, record::MT >;
+// system includes
 
-  Base metadata;
-  std::vector< double > data;
+// other includes
+#include "Log.hpp"
+#include "range/v3/view/all.hpp"
+#include "ENDFtk/types.hpp"
+#include "ENDFtk/record.hpp"
 
-  template< typename Iterator >
-  static void
-  verifyTail( Iterator& it, const Iterator& end, long& lineNumber,
-              int MAT, int MF, int MT ){
-    tail( MAT, MF, MT, it, end, lineNumber );
-  }
+namespace njoy {
+namespace ENDFtk {
 
-#include "ENDFtk/ListRecord/src/readMetadata.hpp"
+  class ListRecord {
+  protected:
+    using Base = record::Base< record::Real, record::Real,
+                               record::Integer< 11 >, record::Integer< 11 >,
+                               record::Integer< 11 >, record::Integer< 11 > >;
 
-public:
-  ListRecord( double C1, double C2, long L1, long L2, long N2,
-              std::vector< double >&& list ) :
-    metadata( C1, C2, L1, L2, list.size(), N2 ), data( std::move(list) ){}
+    using tail = record::TailVerifying< record::MAT, record::MF, record::MT >;
 
-  template< typename Iterator >
-  ListRecord( Iterator& it, const Iterator& end, long& lineNumber,
-              int MAT, int MF, int MT )
-    try: metadata( readMetadata( it, end, lineNumber, MAT, MF, MT ) ),
-         data( record::Sequence::read< record::Real >
-                ( std::get<4>( this->metadata.fields ),
-                  it, end, lineNumber, MAT, MF, MT ) ){
-    } catch ( std::exception& e ){
-      Log::info( "Error encountered while parsing List record" );
-      throw e;
-    } catch ( int nPosition ){
-      Log::info( "Error in position {}" );
-      throw std::exception();
+    Base metadata;
+    std::vector< double > data;
+
+    template< typename Iterator >
+    static void
+    verifyTail( Iterator& it, const Iterator& end, long& lineNumber,
+                int MAT, int MF, int MT ){
+      tail( MAT, MF, MT, it, end, lineNumber );
     }
 
-#define DEFINE_GETTER( name, index )                                    \
-  Base::MutableReturnType< index >                                      \
-  name (){ return std::get< index >( this->metadata.fields ); }         \
-                                                                        \
-  Base::ImmutableReturnType< index >                                    \
-  name () const { return std::get< index >( this->metadata.fields ); }
+  #include "ENDFtk/ListRecord/src/readMetadata.hpp"
 
-  DEFINE_GETTER( C1, 0 )
-  DEFINE_GETTER( C2, 1 )
-  DEFINE_GETTER( L1, 2 )
-  DEFINE_GETTER( L2, 3 )
-  DEFINE_GETTER( N2, 5 )
+  public:
 
-#undef DEFINE_GETTER
+    ListRecord( double C1, double C2, long L1, long L2, long N2,
+                std::vector< double >&& list ) :
+      metadata( C1, C2, L1, L2, list.size(), N2 ), data( std::move(list) ){}
 
-  long NPL() const { return this->data.size(); }
+    template< typename Iterator >
+    ListRecord( Iterator& it, const Iterator& end, long& lineNumber,
+                int MAT, int MF, int MT )
+      try: metadata( readMetadata( it, end, lineNumber, MAT, MF, MT ) ),
+           data( record::Sequence::read< record::Real >
+                  ( std::get<4>( this->metadata.fields ),
+                    it, end, lineNumber, MAT, MF, MT ) ){
+      } catch ( std::exception& e ){
+        Log::info( "Error encountered while parsing List record" );
+        throw e;
+      } catch ( int nPosition ){
+        Log::info( "Error in position {}" );
+        throw std::exception();
+      }
 
-  auto list() const {
-    return ranges::view::all( this->data );
-  }
+  #define DEFINE_GETTER( name, index )                                    \
+    Base::MutableReturnType< index >                                      \
+    name (){ return std::get< index >( this->metadata.fields ); }         \
+                                                                          \
+    Base::ImmutableReturnType< index >                                    \
+    name () const { return std::get< index >( this->metadata.fields ); }
 
-  auto B() const { return this->list(); }
+    DEFINE_GETTER( C1, 0 )
+    DEFINE_GETTER( C2, 1 )
+    DEFINE_GETTER( L1, 2 )
+    DEFINE_GETTER( L2, 3 )
+    DEFINE_GETTER( N2, 5 )
 
-  bool operator==( const ListRecord& rhs ) const {
-    return ( this->C1() == rhs.C1() )
-      and ( this->C2() == rhs.C2() )
-      and ( this->L1() == rhs.L1() )
-      and ( this->L2() == rhs.L2() )
-      and ( this->N2() == rhs.N2() )
-      and ( this->data  == rhs.data );
-  }
+  #undef DEFINE_GETTER
 
-  bool operator!= ( const ListRecord& rhs ) const {
-    return not ( *this == rhs );
-  }
+    long NPL() const { return this->data.size(); }
 
-  long NC() const { return 1 + ( this->NPL() + 5 ) / 6; }
+    DoubleRange list() const { return ranges::view::all( this->data ); }
 
-  #include "ENDFtk/ListRecord/src/print.hpp"
-};
+    DoubleRange B() const { return this->list(); }
+
+    bool operator==( const ListRecord& rhs ) const {
+      return ( this->C1() == rhs.C1() )
+        and ( this->C2() == rhs.C2() )
+        and ( this->L1() == rhs.L1() )
+        and ( this->L2() == rhs.L2() )
+        and ( this->N2() == rhs.N2() )
+        and ( this->data  == rhs.data );
+    }
+
+    bool operator!= ( const ListRecord& rhs ) const {
+      return not ( *this == rhs );
+    }
+
+    long NC() const { return 1 + ( this->NPL() + 5 ) / 6; }
+
+    #include "ENDFtk/ListRecord/src/print.hpp"
+  };
+
+  using LIST = ListRecord;
+
+} // ENDFtk namespace
+} // njoy namespace
+
+#endif

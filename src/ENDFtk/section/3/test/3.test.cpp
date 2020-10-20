@@ -1,13 +1,17 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/3.hpp"
+
+// other includes
+#include "ENDFtk/tree/Tape.hpp"
+
+// convenience typedefs
+using namespace njoy::ENDFtk;
 
 std::string chunk();
 std::string validSEND();
 std::string invalidSEND();
-
-using namespace njoy::ENDFtk;
 
 SCENARIO( "section::Type< 3 >" ) {
 
@@ -31,7 +35,7 @@ SCENARIO( "section::Type< 3 >" ) {
 
       section::Type< 3 > chunk( mt, zaid, awr, qm, qi, lr,
                                 std::move( boundaries ),
-                                std::move( interpolants ), 
+                                std::move( interpolants ),
                                 std::move( energies ), std::move( xs ) );
 
       REQUIRE( 102 == chunk.MT() );
@@ -124,14 +128,14 @@ SCENARIO( "section::Type< 3 >" ) {
       } // THEN
     } // WHEN
 
-    WHEN( "there is a syntaxTree::Section" ){
+    WHEN( "there is a tree::Section" ){
       std::string sectionString = chunk() + validSEND();
       auto begin = sectionString.begin();
       auto position = begin;
       auto end = sectionString.end();
       long lineNumber = 0;
       auto head = HEAD( position, end, lineNumber );
-      syntaxTree::Section< std::string::iterator >
+      tree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
 
       THEN( "a section::Type< 3 > can be constructed and "

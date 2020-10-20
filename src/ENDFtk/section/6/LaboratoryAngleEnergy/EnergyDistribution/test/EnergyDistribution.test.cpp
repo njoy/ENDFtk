@@ -1,11 +1,12 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/6.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
 
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using EnergyDistribution = 
 section::Type< 6 >::LaboratoryAngleEnergy::EnergyDistribution;
 
@@ -82,7 +83,7 @@ SCENARIO( "EnergyDistribution" ) {
       std::vector< long > wrongsize = { 4 };
 
       THEN( "an exception is thrown" ) {
-        
+
         REQUIRE_THROWS(
           EnergyDistribution( cosine,
                               std::move( wrongsize ),
@@ -91,7 +92,7 @@ SCENARIO( "EnergyDistribution" ) {
                               std::move( probabilities ) ) );
       } // THEN
     } // WHEN
-  
+
     WHEN( "data with an invalid interpolant size is used" ){
 
       double cosine = 1.0;
@@ -112,7 +113,7 @@ SCENARIO( "EnergyDistribution" ) {
                               std::move( probabilities ) ) );
       } // THEN
     } // WHEN
-  
+
     WHEN( "data with an invalid secondary energy size is used" ){
 
       double cosine = 1.0;
@@ -133,7 +134,7 @@ SCENARIO( "EnergyDistribution" ) {
                               std::move( probabilities ) ) );
       } // THEN
     } // WHEN
-  
+
     WHEN( "data with an invalid probability size is used" ){
 
       double cosine = 1.0;
@@ -154,7 +155,7 @@ SCENARIO( "EnergyDistribution" ) {
                               std::move( wrongsize ) ) );
       } // THEN
     } // WHEN
-  
+
     WHEN( "data with an invalid order for the boundaries is used" ){
 
       double cosine = 1.0;
@@ -195,7 +196,7 @@ SCENARIO( "EnergyDistribution" ) {
                               std::move( probabilities ) ) );
       } // WHEN
     } // THEN
-  
+
     WHEN( "data with an incorrect final boundary is used" ){
 
       double cosine = 1.0;
@@ -271,4 +272,3 @@ std::string invalidChunk() {
     " 1.000000-5 0.000000+0 1.100000+7 8.45368-11 1.147000+7 6.622950-89228 6  5     \n"
     " 3.000000+7 2.149790-1                                            9228 6  5     \n";
 }
-

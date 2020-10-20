@@ -1,5 +1,5 @@
 
-add_executable( ENDFtk.section.2.151.test 2.test.cpp )
+add_executable( ENDFtk.section.2.151.test 151.test.cpp )
 target_compile_options( ENDFtk.section.2.151.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}

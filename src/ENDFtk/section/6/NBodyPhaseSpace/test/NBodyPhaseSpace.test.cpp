@@ -1,11 +1,12 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/6.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
 
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using NBodyPhaseSpace = 
 section::Type< 6 >::NBodyPhaseSpace;
 
@@ -21,7 +22,7 @@ SCENARIO( "NBodyPhaseSpace" ) {
 
       double APSX = 5.;
       long NPSX = 4;
-      
+
       THEN( "a NBodyPhaseSpace can be constructed and members can be tested" ) {
 
         NBodyPhaseSpace chunk( APSX, NPSX );
@@ -34,8 +35,8 @@ SCENARIO( "NBodyPhaseSpace" ) {
       std::string string = chunk();
       auto begin = string.begin();
       auto end = string.end();
-      long lineNumber = 1; 
-      
+      long lineNumber = 1;
+
       THEN( "a NBodyPhaseSpace can be constructed and members can be tested" ) {
 
         NBodyPhaseSpace chunk( begin, end, lineNumber, 9228, 6, 5 );
@@ -49,7 +50,7 @@ SCENARIO( "NBodyPhaseSpace" ) {
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
+    long lineNumber = 1;
     NBodyPhaseSpace chunk(begin, end, lineNumber, 9228, 6, 5 );
 
     THEN( "it can be printed" ) {
@@ -101,4 +102,3 @@ std::string invalidChunk() {
   return
     " 5.000000+0 0.000000+0 1        0          0          0          49228 6  5     \n";
 }
-

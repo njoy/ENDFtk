@@ -1,11 +1,12 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/5.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
 
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using MadlandNixSpectrum = 
 section::Type< 5 >::MadlandNixSpectrum;
 
@@ -92,7 +93,7 @@ SCENARIO( "MadlandNixSpectrum" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( MadlandNixSpectrum( 
+        REQUIRE_THROWS( MadlandNixSpectrum(
                                 efl, efh,
                                 std::move( boundaries ),
                                 std::move( wrongInterpolants ),

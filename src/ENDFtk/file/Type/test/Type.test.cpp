@@ -1,11 +1,17 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/3.hpp"
+#include "ENDFtk/file/Type.hpp"
 
+// other includes
+#include "range/v3/to_container.hpp"
+#include "range/v3/view/reverse.hpp"
+#include "ENDFtk/tree/Tape.hpp"
+
+// convenience typedefs
 using namespace njoy::ENDFtk;
 
-std::string getFile( int MF );
 std::string chunk();
 void verifyChunk( const file::Type< 3 >& );
 std::string validSEND();
@@ -136,14 +142,14 @@ SCENARIO( "Testing generic case using file 3" ) {
 
   GIVEN( "a string representation of File 3" ) {
 
-    std::string file3string = getFile( 3 );
+    std::string file3string = chunk() + validFEND();
 
     WHEN( "a file::Type<3> is constructed from the string" ) {
 
       auto begin = file3string.begin();
       auto end = file3string.end();
       long lineNumber = 0;
-      
+
       StructureDivision division( begin, end, lineNumber);
       file::Type< 3 > mf3(division, begin, end, lineNumber );
 
@@ -159,7 +165,7 @@ SCENARIO( "Testing generic case using file 3" ) {
       } // THEN
     } // WHEN
 
-    WHEN( "a file::Type<3> is constructed from a syntaxTree" ) {
+    WHEN( "a file::Type<3> is constructed from a tree" ) {
 
       auto begin = file3string.begin();
       auto start = file3string.begin();
@@ -167,7 +173,7 @@ SCENARIO( "Testing generic case using file 3" ) {
       long lineNumber = 0;
 
       StructureDivision division( begin, end, lineNumber);
-      syntaxTree::File< std::string::iterator > 
+      tree::File< std::string::iterator >
           fileTree( asHead( division ), start, begin, end, lineNumber );
 
       THEN( "a file::Type<3> can be constructed" ) {
@@ -187,7 +193,7 @@ SCENARIO( "Testing generic case using file 3" ) {
       auto end = twice.end();
       long lineNumber = 0;
       StructureDivision division( begin, end, lineNumber);
-      
+
       THEN( "an exception is thrown" ) {
 
         CHECK_THROWS( file::Type<3>(division, begin, end, lineNumber ) );
@@ -197,11 +203,11 @@ SCENARIO( "Testing generic case using file 3" ) {
 
   GIVEN( "a valid instance of file::Type< 3 >" ) {
 
-    std::string file3string = getFile( 3 );
+    std::string file3string = chunk() + validFEND();
     auto begin = file3string.begin();
     auto end = file3string.end();
     long lineNumber = 0;
-      
+
     StructureDivision division( begin, end, lineNumber);
     file::Type< 3 > file3(division, begin, end, lineNumber );
 
@@ -262,14 +268,6 @@ SCENARIO( "Testing generic case using file 3" ) {
     } // WHEN
   } // GIVEN
 } // SCENARIO
-
-std::string getFile( int MF ) {
-  static std::string tape =
-    njoy::utility::slurpFileToMemory( "n-001_H_001.endf" );
-  syntaxTree::Tape< std::string > tapeTree( njoy::utility::copy( tape ) );
-  auto fileTree = tapeTree.materialNumber( 125 ).front().fileNumber( MF );
-  return std::string( fileTree.buffer().begin(), fileTree.buffer().end() );
-}
 
 std::string chunk() {
   return
@@ -359,4 +357,3 @@ std::string validTEND() {
   return
     "                                                                    -1 0  0     \n";
 }
-
