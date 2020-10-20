@@ -1,14 +1,15 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/5.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
 
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using TabulatedSpectrum = 
 section::Type< 5 >::TabulatedSpectrum;
-using OutgoingEnergyDistribution = 
+using OutgoingEnergyDistribution =
 section::Type< 5 >::TabulatedSpectrum::OutgoingEnergyDistribution;
 
 std::string chunk();

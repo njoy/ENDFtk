@@ -1,11 +1,12 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/4.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
 
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using TabulatedDistribution = section::Type< 4 >::TabulatedDistribution;
 
 std::string chunk();
@@ -55,7 +56,7 @@ SCENARIO( "TabulatedDistribution" ) {
       long lineNumber = 1;
 
       TabulatedDistribution chunk( begin, end, lineNumber, 9228, 4, 2 );
-      
+
       THEN( "a TabulatedDistribution can be constructed and members can be "
             "tested" ) {
 

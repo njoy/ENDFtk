@@ -1,11 +1,13 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/5.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
+#include "ENDFtk/tree/Tape.hpp"
 
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using Subsection = section::Type< 5 >::Subsection;
 using PartialProbability = section::Type< 5 >::PartialProbability;
 using MaxwellianFissionSpectrum = section::Type< 5 >::MaxwellianFissionSpectrum;
@@ -78,14 +80,14 @@ SCENARIO( "section::Type< 5 >" ) {
       } // THEN
     } //WHEN
 
-    WHEN( "there is a syntaxTree::Section" ) {
+    WHEN( "there is a tree::Section" ) {
 
       auto begin = sectionString.begin();
       auto position = begin;
       auto end = sectionString.end();
       long lineNumber = 1;
       auto head = HEAD( position, end, lineNumber );
-      syntaxTree::Section< std::string::iterator >
+      tree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
 
       section::Type< 5 > chunk1 = section.parse< 5 >();

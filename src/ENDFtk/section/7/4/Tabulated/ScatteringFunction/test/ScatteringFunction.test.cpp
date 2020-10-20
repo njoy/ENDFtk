@@ -1,12 +1,13 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/7/4.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
 
 // convenience typedefs
-using ScatteringFunction = 
+using namespace njoy::ENDFtk;
+using ScatteringFunction =
 section::Type< 7, 4 >::Tabulated::ScatteringFunction;
 
 std::string chunkWithOneTemperature();
@@ -47,13 +48,13 @@ SCENARIO( "ScatteringFunction" ) {
 
       ScatteringFunction chunk( temperature, beta,
                                 std::move( boundaries ),
-                                std::move( interpolants ), 
+                                std::move( interpolants ),
                                 std::move( alphas ),
                                 std::move( sab ) );
 
       ScatteringFunction chunk2( Beta,
                                  std::move( Boundaries ),
-                                 std::move( Interpolants ), 
+                                 std::move( Interpolants ),
                                  std::move( Temperatures ),
                                  std::move( Li ),
                                  std::move( Alphas ),
@@ -135,7 +136,7 @@ SCENARIO( "ScatteringFunction" ) {
 
       ScatteringFunction chunk( beta,
                                 std::move( boundaries ),
-                                std::move( interpolants ), 
+                                std::move( interpolants ),
                                 std::move( temperatures ),
                                 std::move( li ),
                                 std::move( alphas ),
@@ -199,7 +200,7 @@ SCENARIO( "ScatteringFunction" ) {
 
         REQUIRE_THROWS( ScatteringFunction( temperature, beta,
                                             std::move( wrongBoundaries ),
-                                            std::move( interpolants ), 
+                                            std::move( interpolants ),
                                             std::move( alphas ),
                                             std::move( sab ) ) );
       } // THEN
@@ -218,7 +219,7 @@ SCENARIO( "ScatteringFunction" ) {
 
         REQUIRE_THROWS( ScatteringFunction( temperature, beta,
                                             std::move( boundaries ),
-                                            std::move( wrongInterpolants ), 
+                                            std::move( wrongInterpolants ),
                                             std::move( alphas ),
                                             std::move( sab ) ) );
       } // THEN
@@ -237,7 +238,7 @@ SCENARIO( "ScatteringFunction" ) {
 
         REQUIRE_THROWS( ScatteringFunction( temperature, beta,
                                             std::move( boundaries ),
-                                            std::move( interpolants ), 
+                                            std::move( interpolants ),
                                             std::move( wrongAlphas ),
                                             std::move( sab ) ) );
       } // THEN
@@ -256,7 +257,7 @@ SCENARIO( "ScatteringFunction" ) {
 
         REQUIRE_THROWS( ScatteringFunction( temperature, beta,
                                             std::move( boundaries ),
-                                            std::move( interpolants ), 
+                                            std::move( interpolants ),
                                             std::move( alphas ),
                                             std::move( wrongSab ) ) );
       } // THEN
@@ -282,7 +283,7 @@ SCENARIO( "ScatteringFunction" ) {
 
         REQUIRE_THROWS( ScatteringFunction( beta,
                                             std::move( wrongBoundaries ),
-                                            std::move( interpolants ), 
+                                            std::move( interpolants ),
                                             std::move( temperatures ),
                                             std::move( li ),
                                             std::move( alphas ),
@@ -307,7 +308,7 @@ SCENARIO( "ScatteringFunction" ) {
 
         REQUIRE_THROWS( ScatteringFunction( beta,
                                             std::move( boundaries ),
-                                            std::move( wrongInterpolants ), 
+                                            std::move( wrongInterpolants ),
                                             std::move( temperatures ),
                                             std::move( li ),
                                             std::move( alphas ),
@@ -332,7 +333,7 @@ SCENARIO( "ScatteringFunction" ) {
 
         REQUIRE_THROWS( ScatteringFunction( beta,
                                             std::move( boundaries ),
-                                            std::move( interpolants ), 
+                                            std::move( interpolants ),
                                             std::move( temperatures ),
                                             std::move( li ),
                                             std::move( wrongAlphas ),
@@ -357,7 +358,7 @@ SCENARIO( "ScatteringFunction" ) {
 
         REQUIRE_THROWS( ScatteringFunction( beta,
                                             std::move( boundaries ),
-                                            std::move( interpolants ), 
+                                            std::move( interpolants ),
                                             std::move( wrongTemperatures ),
                                             std::move( li ),
                                             std::move( alphas ),
@@ -382,7 +383,7 @@ SCENARIO( "ScatteringFunction" ) {
 
         REQUIRE_THROWS( ScatteringFunction( beta,
                                             std::move( boundaries ),
-                                            std::move( interpolants ), 
+                                            std::move( interpolants ),
                                             std::move( temperatures ),
                                             std::move( li ),
                                             std::move( alphas ),
@@ -521,4 +522,3 @@ std::string chunkWithInconsistentBetas() {
     " 4.000000+2 1.000000+0          4          0          5          0  27 7  4     \n"
     " 4.430020-4 4.655671-4 4.892796-4 4.510209-8 2.183942-8             27 7  4     \n";
 }
-

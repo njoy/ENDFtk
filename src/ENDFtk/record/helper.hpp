@@ -1,4 +1,15 @@
-namespace helper{
+#ifndef NJOY_ENDFTK_RECORD_HELPER
+#define NJOY_ENDFTK_RECORD_HELPER
+
+// system includes
+#include <string>
+
+// other includes
+
+namespace njoy {
+namespace ENDFtk {
+namespace record {
+namespace helper {
 
 template< int position >
 std::string symbolDefinition();
@@ -35,4 +46,9 @@ constexpr int sum(){ return entry; }
 template< int entry1, int entry2, int... entries >
 constexpr int sum(){ return entry1 + sum< entry2, entries... >(); }
 
-}
+} // helper namespace
+} // record namespace
+} // ENDFtk namespace
+} // njoy namespace
+
+#endif

@@ -1,11 +1,12 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/4.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
 
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using LegendreCoefficients = section::Type< 4 >::LegendreCoefficients;
 
 std::string chunk();
@@ -49,7 +50,7 @@ SCENARIO( "LegendreCoefficients" ) {
       long lineNumber = 1;
 
       LegendreCoefficients chunk( begin, end, lineNumber, 9228, 4, 2 );
-      
+
       THEN( "a LegendreCoefficients can be constructed and members can be "
             "tested" ) {
 

@@ -1,41 +1,62 @@
-template< int FileNumber >
-class Type : public Base< Type< FileNumber > > {
+#ifndef NJOY_ENDFTK_FILE_TYPE
+#define NJOY_ENDFTK_FILE_TYPE
 
-public :
+// system includes
 
-  /* convenience typedefs */
-  using Section = section::Type< FileNumber >;
+// other includes
+#include "range/v3/front.hpp"
+#include "range/v3/view/map.hpp"
+#include "ENDFtk/section.hpp"
+#include "ENDFtk/file/Base.hpp"
 
-protected :
+namespace njoy {
+namespace ENDFtk {
+namespace file {
 
-  /* fields */
-  std::map< int, Section > sectionMap;
+  template< int FileNumber >
+  class Type : public Base< Type< FileNumber > > {
 
-  /* methods */
-  #include "ENDFtk/file/Type/src/insert.hpp"
-  #include "ENDFtk/file/Type/src/fill.hpp"
-  #include "ENDFtk/file/Type/src/read.hpp"
+  public :
 
-public :
+    /* convenience typedefs */
+    using Section = section::Type< FileNumber >;
 
-  #include "ENDFtk/file/Type/src/ctor.hpp"
-  #include "ENDFtk/file/Type/src/section.hpp"
+  protected :
 
-  auto sections() { return this->sectionMap | ranges::view::values; }
-  auto sections() const { return this->sectionMap | ranges::view::values; }
+    /* fields */
+    std::map< int, Section > sectionMap;
 
-  auto begin() { return this->sections().begin(); }
-  auto end() { return this->sections().end(); }
+    /* methods */
+    #include "ENDFtk/file/Type/src/insert.hpp"
+    #include "ENDFtk/file/Type/src/fill.hpp"
+    #include "ENDFtk/file/Type/src/read.hpp"
 
-  auto begin() const { return this->sections().begin(); }
-  auto end() const { return this->sections().end(); }
+  public :
 
-  bool hasSection( int sectionNo ) const {
+    #include "ENDFtk/file/Type/src/ctor.hpp"
+    #include "ENDFtk/file/Type/src/section.hpp"
 
-    return this->sectionMap.count( sectionNo );
-  }
+    auto sections() { return this->sectionMap | ranges::view::values; }
+    auto sections() const { return this->sectionMap | ranges::view::values; }
 
-  static int fileNumber() { return FileNumber; }
+    auto begin() { return this->sections().begin(); }
+    auto end() { return this->sections().end(); }
 
-  #include "ENDFtk/file/Type/src/print.hpp"
-};
+    auto begin() const { return this->sections().begin(); }
+    auto end() const { return this->sections().end(); }
+
+    bool hasSection( int sectionNo ) const {
+
+      return this->sectionMap.count( sectionNo );
+    }
+
+    static int fileNumber() { return FileNumber; }
+
+    #include "ENDFtk/file/Type/src/print.hpp"
+  };
+
+} // file namespace
+} // ENDFtk namespace
+} // njoy namespace
+
+#endif

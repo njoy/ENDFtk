@@ -1,11 +1,13 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/7/2.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
+#include "ENDFtk/tree/Tape.hpp"
 
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using ScatteringLaw = section::Type< 7, 2 >::ScatteringLaw;
 using CoherentElastic = section::Type< 7, 2 >::CoherentElastic;
 using IncoherentElastic = section::Type< 7, 2 >::IncoherentElastic;
@@ -28,7 +30,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
   GIVEN( "valid data for a section::Type< 7, 2 > with coherent elastic "
          "scattering and one temperature" ) {
 
-    std::string sectionString = chunkWithCoherentElasticAndOneTemperature() + 
+    std::string sectionString = chunkWithCoherentElasticAndOneTemperature() +
                                 validSEND();
 
     WHEN( "the data is given explicitly" ) {
@@ -62,7 +64,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
 
       auto begin = sectionString.begin();
       auto end = sectionString.end();
-      long lineNumber = 1; 
+      long lineNumber = 1;
       HeadRecord head( begin, end, lineNumber );
 
       section::Type< 7, 2 > chunk( head, begin, end, lineNumber, 27 );
@@ -83,14 +85,14 @@ SCENARIO( "section::Type< 7, 2 >" ) {
       } // THEN
     } //WHEN
 
-    WHEN( "there is a syntaxTree::Section" ) {
+    WHEN( "there is a tree::Section" ) {
 
       auto begin = sectionString.begin();
       auto position = begin;
       auto end = sectionString.end();
       long lineNumber = 1;
       auto head = HEAD( position, end, lineNumber );
-      syntaxTree::Section< std::string::iterator >
+      tree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
 
       section::Type< 7, 2 > chunk = section.parse< 7, 2 >( lineNumber );
@@ -115,7 +117,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
   GIVEN( "valid data for a section::Type< 7, 2 > with coherent elastic "
          "scattering and two temperatures" ) {
 
-    std::string sectionString = chunkWithCoherentElasticAndTwoTemperatures() + 
+    std::string sectionString = chunkWithCoherentElasticAndTwoTemperatures() +
                                 validSEND();
 
     WHEN( "the data is given explicitly" ) {
@@ -152,11 +154,11 @@ SCENARIO( "section::Type< 7, 2 >" ) {
 
       auto begin = sectionString.begin();
       auto end = sectionString.end();
-      long lineNumber = 1; 
+      long lineNumber = 1;
       HeadRecord head( begin, end, lineNumber );
 
       section::Type< 7, 2 > chunk( head, begin, end, lineNumber, 27 );
-      
+
       THEN( "a section::Type< 7, 2 > can be constructed and members can be "
             "tested" ) {
 
@@ -173,18 +175,18 @@ SCENARIO( "section::Type< 7, 2 >" ) {
       } // THEN
     } //WHEN
 
-    WHEN( "there is a syntaxTree::Section" ) {
+    WHEN( "there is a tree::Section" ) {
 
       auto begin = sectionString.begin();
       auto position = begin;
       auto end = sectionString.end();
       long lineNumber = 1;
       auto head = HEAD( position, end, lineNumber );
-      syntaxTree::Section< std::string::iterator >
+      tree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
 
       section::Type< 7, 2 > chunk = section.parse< 7, 2 >( lineNumber );
-      
+
       THEN( "a section::Type< 7, 2 > can be constructed and members can be "
             "tested" ){
 
@@ -238,11 +240,11 @@ SCENARIO( "section::Type< 7, 2 >" ) {
 
       auto begin = sectionString.begin();
       auto end = sectionString.end();
-      long lineNumber = 1; 
+      long lineNumber = 1;
       HeadRecord head( begin, end, lineNumber );
 
       section::Type< 7, 2 > chunk( head, begin, end, lineNumber, 27 );
-      
+
       THEN( "a section::Type< 7, 2 > can be constructed and members can be "
           "tested" ) {
 
@@ -259,14 +261,14 @@ SCENARIO( "section::Type< 7, 2 >" ) {
       } // THEN
     } //WHEN
 
-    WHEN( "there is a syntaxTree::Section" ) {
+    WHEN( "there is a tree::Section" ) {
 
       auto begin = sectionString.begin();
       auto position = begin;
       auto end = sectionString.end();
       long lineNumber = 1;
       auto head = HEAD( position, end, lineNumber );
-      syntaxTree::Section< std::string::iterator >
+      tree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
 
       section::Type< 7, 2 > chunk1 = section.parse< 7, 2 >();
@@ -305,7 +307,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
       auto end = sectionString.end();
       long lineNumber = 1;
       HeadRecord head( begin, end, lineNumber );
-      
+
       THEN( "an exception is thrown" ){
 
         REQUIRE_THROWS( section72( head, begin, end, lineNumber, 27 ) );
@@ -321,7 +323,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
       auto end = sectionString.end();
       long lineNumber = 1;
       HeadRecord head( begin, end, lineNumber );
-      
+
       THEN( "an exception is thrown" ){
 
         REQUIRE_THROWS( section72( head, begin, end, lineNumber, 27 ) );
@@ -336,7 +338,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
       auto end = sectionString.end();
       long lineNumber = 1;
       HeadRecord head( begin, end, lineNumber );
-      
+
       THEN( "an exception is thrown" ){
 
         REQUIRE_THROWS( section72( head, begin, end, lineNumber, 27 ) );
@@ -351,7 +353,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
       auto end = sectionString.end();
       long lineNumber = 1;
       HeadRecord head( begin, end, lineNumber );
-      
+
       THEN( "an exception is thrown" ){
 
         REQUIRE_THROWS( section72( head, begin, end, lineNumber, 27 ) );
@@ -544,4 +546,3 @@ std::string invalidSEND() {
   return
     "                                                                    27 7  4     \n";
 }
-

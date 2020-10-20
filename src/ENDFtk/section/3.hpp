@@ -1,3 +1,17 @@
+#ifndef NJOY_ENDFTK_SECTION_3
+#define NJOY_ENDFTK_SECTION_3
+
+// system includes
+
+// other includes
+#include "ENDFtk/ControlRecord.hpp"
+#include "ENDFtk/TabulationRecord.hpp"
+#include "ENDFtk/section.hpp"
+
+namespace njoy {
+namespace ENDFtk {
+namespace section{
+
 template<>
 class Type< 3 > : protected Base {
 
@@ -27,10 +41,15 @@ public:
   long NC() const { return this->table.NC() + 1; }
 
   #include "ENDFtk/section/3/src/print.hpp"
-    
+
   using Base::MT;
   using Base::ZA;
   using Base::AWR;
   using Base::atomicWeightRatio;
 };
 
+} // section namespace
+} // ENDFtk namespace
+} // njoy namespace
+
+#endif

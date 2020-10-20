@@ -1,11 +1,12 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/4.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
 
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using Isotropic = section::Type< 4 >::Isotropic;
 using MixedDistributions = section::Type< 4 >::MixedDistributions;
 using LegendreDistributions = section::Type< 4 >::LegendreDistributions;

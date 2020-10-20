@@ -1,43 +1,63 @@
-template<>
-class Type< 8 > : public Base< Type< 8 > > {
+#ifndef NJOY_ENDFTK_FILE_8
+#define NJOY_ENDFTK_FILE_8
 
-  friend Base< Type >;
-  using Parent = Base< Type >;
+// system includes
 
-  // MF8 has enumerated sectons and normal sections
-  // no sections are required
-  static constexpr auto requiredSections()
-    RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple() )
+// other includes
+#include "ENDFtk/section/8.hpp"
+#include "ENDFtk/file/Base.hpp"
+#include "ENDFtk/file/Type.hpp"
 
-  // MT2 and MT4 are optional
-  static constexpr auto optionalSections()
-    // hana::make_tuple( 454_c, 457_c, 459_c );
-    RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 457_c ) )
+namespace njoy {
+namespace ENDFtk {
+namespace file {
 
-  using Map = typename decltype( deduceMapType( 8_c,
-                                                requiredSections(),
-                                                optionalSections() ) )::type;
+  template<>
+  class Type< 8 > : public Base< Type< 8 > > {
 
-  /* fields */
-  Map sectionMap;
+    friend Base< Type >;
+    using Parent = Base< Type >;
 
-public:
+    // MF8 has enumerated sectons and normal sections
+    // no sections are required
+    static constexpr auto requiredSections()
+      RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple() )
 
-  #include "ENDFtk/file/8/src/ctor.hpp"
+    // MT2 and MT4 are optional
+    static constexpr auto optionalSections()
+      // hana::make_tuple( 454_c, 457_c, 459_c );
+      RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 457_c ) )
 
-  bool
-  hasSection( int sectionNo ) const {
+    using Map = typename decltype( deduceMapType( 8_c,
+                                                  requiredSections(),
+                                                  optionalSections() ) )::type;
 
-    switch ( sectionNo ) {
+    /* fields */
+    Map sectionMap;
 
-      /* case 454 : return bool( this->sectionMap[ 454_c ] ); */
-      case 457 : return bool( this->sectionMap[ 457_c ] );
-      /* case 459 : return bool( this->sectionMap[ 459_c ] ); */
-      default: return false;
+  public:
+
+    #include "ENDFtk/file/8/src/ctor.hpp"
+
+    bool
+    hasSection( int sectionNo ) const {
+
+      switch ( sectionNo ) {
+
+        /* case 454 : return bool( this->sectionMap[ 454_c ] ); */
+        case 457 : return bool( this->sectionMap[ 457_c ] );
+        /* case 459 : return bool( this->sectionMap[ 459_c ] ); */
+        default: return false;
+      }
     }
-  }
 
-  static constexpr auto fileNumber() { return 8; }
+    static constexpr auto fileNumber() { return 8; }
 
-  #include "ENDFtk/file/8/src/print.hpp"
-};
+    #include "ENDFtk/file/8/src/print.hpp"
+  };
+
+} // file namespace
+} // ENDFtk namespace
+} // njoy namespace
+
+#endif

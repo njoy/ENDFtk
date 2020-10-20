@@ -1,11 +1,13 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/12.hpp"
 
-using namespace njoy::ENDFtk;
+// other includes
+#include "ENDFtk/tree/Tape.hpp"
 
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using Multiplicities = section::Type< 12 >::Multiplicities;
 using PartialMultiplicity = section::Type< 12 >::PartialMultiplicity;
 using TotalMultiplicity = section::Type< 12 >::TotalMultiplicity;
@@ -81,14 +83,14 @@ SCENARIO( "section::Type< 12 >" ) {
       } // THEN
     } // WHEN
 
-    WHEN( "there is a syntaxTree::Section" ) {
+    WHEN( "there is a tree::Section" ) {
 
       auto begin = sectionString.begin();
       auto position = begin;
       auto end = sectionString.end();
       long lineNumber = 1;
       auto head = HEAD( position, end, lineNumber );
-      syntaxTree::Section< std::string::iterator >
+      tree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
 
       section::Type< 12 > chunk1 = section.parse< 12 >();
@@ -188,14 +190,14 @@ SCENARIO( "section::Type< 12 >" ) {
       } // THEN
     } // WHEN
 
-    WHEN( "there is a syntaxTree::Section" ) {
+    WHEN( "there is a tree::Section" ) {
 
       auto begin = sectionString.begin();
       auto position = begin;
       auto end = sectionString.end();
       long lineNumber = 1;
       auto head = HEAD( position, end, lineNumber );
-      syntaxTree::Section< std::string::iterator >
+      tree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
 
       section::Type< 12 > chunk1 = section.parse< 12 >();
@@ -296,14 +298,14 @@ SCENARIO( "section::Type< 12 >" ) {
       } // THEN
     } // WHEN
 
-    WHEN( "there is a syntaxTree::Section" ) {
+    WHEN( "there is a tree::Section" ) {
 
       auto begin = sectionString.begin();
       auto position = begin;
       auto end = sectionString.end();
       long lineNumber = 1;
       auto head = HEAD( position, end, lineNumber );
-      syntaxTree::Section< std::string::iterator >
+      tree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
 
       section::Type< 12 > chunk1 = section.parse< 12 >();
