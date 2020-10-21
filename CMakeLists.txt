@@ -50,7 +50,7 @@ endif()
 ########################################################################
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# elementary : library
+# ENDFtk : library
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 include_directories( src/ )
@@ -68,7 +68,7 @@ target_link_libraries( ENDFtk
     )
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# elementary : python bindings
+# ENDFtk : python bindings
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 include_directories( python/src/ )
