@@ -27,7 +27,6 @@ Type( double zaid, double awr, int lat, int lasym,
   verifySecondaryTemperatures( this->b_.analyticalFunctionTypes(),
                                this->secondary_ );
   checkValue( this->LAT(), "LAT" );
-  checkValue( this->LASYM(), "LASYM" );
 }
 
 private:

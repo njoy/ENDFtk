@@ -126,7 +126,7 @@ namespace ENDFtk {
      *  @brief Return the number of lines in this record
      */
     long NC() const {
-      
+
       return record::InterpolationBase::NC() + ( this->NP() + 2 ) / 3;
     }
 
