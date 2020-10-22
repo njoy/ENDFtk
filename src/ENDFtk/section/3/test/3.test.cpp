@@ -53,7 +53,7 @@ SCENARIO( "section::Type< 3 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 125, 3 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
 
@@ -78,7 +78,7 @@ SCENARIO( "section::Type< 3 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 125, 3 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
 
@@ -122,10 +122,10 @@ SCENARIO( "section::Type< 3 >" ) {
         chunk3.print( output3, 125, 3 );
         chunk4.print( output4, 125, 3 );
 
-        REQUIRE( buffer == sectionString );
-        REQUIRE( buffer2 == sectionString );
-        REQUIRE( buffer3 == sectionString );
-        REQUIRE( buffer4 == sectionString );
+        CHECK( buffer == sectionString );
+        CHECK( buffer2 == sectionString );
+        CHECK( buffer3 == sectionString );
+        CHECK( buffer4 == sectionString );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -143,7 +143,7 @@ SCENARIO( "section::Type< 3 >" ) {
 
       THEN( "an exception is thrown" ){
 
-        REQUIRE_THROWS( section::Type< 3 >( head, begin, end,
+        CHECK_THROWS( section::Type< 3 >( head, begin, end,
                                             lineNumber, 125 ) );
       } // THEN
     } // WHEN
@@ -161,41 +161,41 @@ std::string chunk(){
 
 void verifyChunk( const section::Type< 3 >& chunk ) {
 
-  REQUIRE( 102 == chunk.MT() );
-  REQUIRE( 1001 == chunk.ZA() );
-  REQUIRE( 0.9991673 == Approx( chunk.AWR() ) );
-  REQUIRE( 0.9991673 == Approx( chunk.atomicWeightRatio() ) );
-  REQUIRE( 0 == chunk.LR() );
-  REQUIRE( 0 == chunk.complexBreakUp() );
-  REQUIRE( 2.224648e+6 == Approx( chunk.QM() ) );
-  REQUIRE( 2.224648e+6 == Approx( chunk.massDifferenceQValue() ) );
-  REQUIRE( 3.224648e+6 == Approx( chunk.QI() ) );
-  REQUIRE( 3.224648e+6 == Approx( chunk.reactionQValue() ) );
+  CHECK( 102 == chunk.MT() );
+  CHECK( 1001 == chunk.ZA() );
+  CHECK( 0.9991673 == Approx( chunk.AWR() ) );
+  CHECK( 0.9991673 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 0 == chunk.LR() );
+  CHECK( 0 == chunk.complexBreakUp() );
+  CHECK( 2.224648e+6 == Approx( chunk.QM() ) );
+  CHECK( 2.224648e+6 == Approx( chunk.massDifferenceQValue() ) );
+  CHECK( 3.224648e+6 == Approx( chunk.QI() ) );
+  CHECK( 3.224648e+6 == Approx( chunk.reactionQValue() ) );
 
-  REQUIRE( 6 == chunk.NP() );
-  REQUIRE( 2 == chunk.NR() );
-  REQUIRE( 2 == chunk.interpolants().size() );
-  REQUIRE( 2 == chunk.boundaries().size() );
-  REQUIRE( 5 == chunk.interpolants()[0] );
-  REQUIRE( 2 == chunk.interpolants()[1] );
-  REQUIRE( 3 == chunk.boundaries()[0] );
-  REQUIRE( 6 == chunk.boundaries()[1] );
-  REQUIRE( 6 == chunk.energies().size() );
-  REQUIRE( 6 == chunk.crossSections().size() );
-  REQUIRE( 1e-5 == Approx( chunk.energies()[0] ) );
-  REQUIRE( 2e-5 == Approx( chunk.energies()[1] ) );
-  REQUIRE( 7.5e+5 == Approx( chunk.energies()[2] ) );
-  REQUIRE( 1.9e+7 == Approx( chunk.energies()[3] ) );
-  REQUIRE( 1.95e+7 == Approx( chunk.energies()[4] ) );
-  REQUIRE( 2e+7 == Approx( chunk.energies()[5] ) );
-  REQUIRE( 1.672869e+1 == Approx( chunk.crossSections()[0] ) );
-  REQUIRE( 1.182897e+1 == Approx( chunk.crossSections()[1] ) );
-  REQUIRE( 3.347392e-5 == Approx( chunk.crossSections()[2] ) );
-  REQUIRE( 2.751761e-5 == Approx( chunk.crossSections()[3] ) );
-  REQUIRE( 2.731301e-5 == Approx( chunk.crossSections()[4] ) );
-  REQUIRE( 2.710792e-5 == Approx( chunk.crossSections()[5] ) );
+  CHECK( 6 == chunk.NP() );
+  CHECK( 2 == chunk.NR() );
+  CHECK( 2 == chunk.interpolants().size() );
+  CHECK( 2 == chunk.boundaries().size() );
+  CHECK( 5 == chunk.interpolants()[0] );
+  CHECK( 2 == chunk.interpolants()[1] );
+  CHECK( 3 == chunk.boundaries()[0] );
+  CHECK( 6 == chunk.boundaries()[1] );
+  CHECK( 6 == chunk.energies().size() );
+  CHECK( 6 == chunk.crossSections().size() );
+  CHECK( 1e-5 == Approx( chunk.energies()[0] ) );
+  CHECK( 2e-5 == Approx( chunk.energies()[1] ) );
+  CHECK( 7.5e+5 == Approx( chunk.energies()[2] ) );
+  CHECK( 1.9e+7 == Approx( chunk.energies()[3] ) );
+  CHECK( 1.95e+7 == Approx( chunk.energies()[4] ) );
+  CHECK( 2e+7 == Approx( chunk.energies()[5] ) );
+  CHECK( 1.672869e+1 == Approx( chunk.crossSections()[0] ) );
+  CHECK( 1.182897e+1 == Approx( chunk.crossSections()[1] ) );
+  CHECK( 3.347392e-5 == Approx( chunk.crossSections()[2] ) );
+  CHECK( 2.751761e-5 == Approx( chunk.crossSections()[3] ) );
+  CHECK( 2.731301e-5 == Approx( chunk.crossSections()[4] ) );
+  CHECK( 2.710792e-5 == Approx( chunk.crossSections()[5] ) );
 
-  REQUIRE( 5 == chunk.NC() );
+  CHECK( 5 == chunk.NC() );
 }
 
 std::string validSEND(){

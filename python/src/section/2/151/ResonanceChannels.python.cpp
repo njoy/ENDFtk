@@ -39,7 +39,7 @@ void wrapResonanceChannels( python::module& module ) {
     "Initialise the component\n\n"
     "Arguments:\n"
     "    self      the component\n"
-    "    spin      the channel spin value\n"
+    "    spin      the spin group's spin value\n"
     "    parity    the associated parity\n"
     "    l         the orbital momentum values (NCH values)\n"
     "    s         the channel spin values (NCH values)\n"

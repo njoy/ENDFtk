@@ -12,7 +12,7 @@ public:
  *  @brief Constructor (using different values for the true and effective
  *         scattering radius)
  *
- *  @param[in] spin     the channel spin value
+ *  @param[in] spin     the spin group's spin value
  *  @param[in] parity   the associated parity
  *  @param[in] l        the orbital momentum values (NCH values)
  *  @param[in] s        the channel spin values (NCH values)

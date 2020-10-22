@@ -132,8 +132,8 @@ void addStandardComponentDefinitions( PythonClass& component ) {
  *  @brief Add standard section definitions
  *
  *  This adds the following standard properties:
- *    ZA, AWR, atomic_weight_ratio, MT, section_number, NC, from_string,
- *    to_string
+ *    init (copy), ZA, AWR, atomic_weight_ratio, MT, section_number, NC,
+ *    from_string, to_string
  *
  *  @param[in] section   the section to which the definitions have to be added
  */
