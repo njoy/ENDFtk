@@ -22,7 +22,7 @@ namespace section{
    *  @class
    *  @brief MF2 MT152 - internal NJOY section
    *
-   *  See the NJOY manual, RECONR and UNRESR for moe information.
+   *  See the NJOY manual, RECONR and UNRESR for more information.
    */
   template<>
   class Type< 2, 152 > : protected BaseWithoutMT< Type< 2, 152 > > {

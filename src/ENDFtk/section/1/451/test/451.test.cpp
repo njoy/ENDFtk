@@ -68,7 +68,7 @@ SCENARIO( "section::Type< 1, 451 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 125, 1 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
 
@@ -93,7 +93,7 @@ SCENARIO( "section::Type< 1, 451 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 125, 1 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
 
@@ -121,7 +121,7 @@ SCENARIO( "section::Type< 1, 451 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 125, 1 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -139,7 +139,7 @@ SCENARIO( "section::Type< 1, 451 >" ) {
 
       THEN( "an exception is thrown upon construction" ) {
 
-        REQUIRE_THROWS( section1451( head, begin, end, lineNumber, 125 ) );
+        CHECK_THROWS( section1451( head, begin, end, lineNumber, 125 ) );
       } // THEN
     } // GIVEN
 
@@ -154,7 +154,7 @@ SCENARIO( "section::Type< 1, 451 >" ) {
 
       THEN( "an exception is thrown upon construction" ){
 
-        REQUIRE_THROWS( section1451( head, begin, end, lineNumber, 125 ) );
+        CHECK_THROWS( section1451( head, begin, end, lineNumber, 125 ) );
       } // THEN
     } // WHEN
 
@@ -169,7 +169,7 @@ SCENARIO( "section::Type< 1, 451 >" ) {
 
       THEN( "an exception is thrown" ){
 
-        REQUIRE_THROWS( section1451( head, begin, end, lineNumber, 125 ) );
+        CHECK_THROWS( section1451( head, begin, end, lineNumber, 125 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -207,56 +207,56 @@ std::string chunk() {
 
 void verifyChunk( const section::Type< 1, 451 >& chunk ) {
 
-  REQUIRE( 451 == chunk.MT() );
-  REQUIRE( 1001 == chunk.ZA() );
-  REQUIRE( 0.9991673 == Approx( chunk.AWR() ) );
-  REQUIRE( 0.9991673 == Approx( chunk.atomicWeightRatio() ) );
-  REQUIRE( 1 == chunk.LRP() );
-  REQUIRE( 1 == chunk.resonanceParameterFlag() );
-  REQUIRE( 2 == chunk.LFI() );
-  REQUIRE( true == chunk.isFissile() );
-  REQUIRE( 3 == chunk.NLIB() );
-  REQUIRE( 3 == chunk.libraryType() );
-  REQUIRE( 4 == chunk.NMOD() );
-  REQUIRE( 4 == chunk.modificationNumber() );
-  REQUIRE( 5.0 == Approx( chunk.ELIS() ) );
-  REQUIRE( 5.0 == Approx( chunk.excitationEnergy() ) );
-  REQUIRE( 6.0 == Approx( chunk.STA() ) );
-  REQUIRE( true == Approx( chunk.isStable() ) );
-  REQUIRE( 7 == chunk.LIS() );
-  REQUIRE( 7 == chunk.excitedLevel() );
-  REQUIRE( 8 == chunk.LISO() );
-  REQUIRE( 8 == chunk.isomericLevel() );
-  REQUIRE( 12 == chunk.NFOR() );
-  REQUIRE( 12 == chunk.libraryFormat() );
-  REQUIRE( 13.0 == Approx( chunk.AWI() ) );
-  REQUIRE( 13.0 == Approx( chunk.projectileAtomicMassRatio() ) );
-  REQUIRE( 14.0 == Approx( chunk.EMAX() ) );
-  REQUIRE( 14.0 == Approx( chunk.maximumEnergy() ) );
-  REQUIRE( 15 == chunk.LREL() );
-  REQUIRE( 15 == chunk.releaseNumber() );
-  REQUIRE( 17 == chunk.NSUB() );
-  REQUIRE( 17 == chunk.subLibrary() );
-  REQUIRE( 18 == chunk.NVER() );
-  REQUIRE( 18 == chunk.versionNumber() );
-  REQUIRE( 19.0 == Approx( chunk.TEMP() ) );
-  REQUIRE( 19.0 == Approx( chunk.temperature() ) );
-  REQUIRE( 21 == chunk.LDRV() );
-  REQUIRE( 21 == chunk.derivedMaterial() );
-  REQUIRE( 9 == chunk.NWD() );
-  REQUIRE( ranges::equal( description(), chunk.description() ) );
+  CHECK( 451 == chunk.MT() );
+  CHECK( 1001 == chunk.ZA() );
+  CHECK( 0.9991673 == Approx( chunk.AWR() ) );
+  CHECK( 0.9991673 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 1 == chunk.LRP() );
+  CHECK( 1 == chunk.resonanceParameterFlag() );
+  CHECK( 2 == chunk.LFI() );
+  CHECK( true == chunk.isFissile() );
+  CHECK( 3 == chunk.NLIB() );
+  CHECK( 3 == chunk.libraryType() );
+  CHECK( 4 == chunk.NMOD() );
+  CHECK( 4 == chunk.modificationNumber() );
+  CHECK( 5.0 == Approx( chunk.ELIS() ) );
+  CHECK( 5.0 == Approx( chunk.excitationEnergy() ) );
+  CHECK( 6.0 == Approx( chunk.STA() ) );
+  CHECK( true == Approx( chunk.isStable() ) );
+  CHECK( 7 == chunk.LIS() );
+  CHECK( 7 == chunk.excitedLevel() );
+  CHECK( 8 == chunk.LISO() );
+  CHECK( 8 == chunk.isomericLevel() );
+  CHECK( 12 == chunk.NFOR() );
+  CHECK( 12 == chunk.libraryFormat() );
+  CHECK( 13.0 == Approx( chunk.AWI() ) );
+  CHECK( 13.0 == Approx( chunk.projectileAtomicMassRatio() ) );
+  CHECK( 14.0 == Approx( chunk.EMAX() ) );
+  CHECK( 14.0 == Approx( chunk.maximumEnergy() ) );
+  CHECK( 15 == chunk.LREL() );
+  CHECK( 15 == chunk.releaseNumber() );
+  CHECK( 17 == chunk.NSUB() );
+  CHECK( 17 == chunk.subLibrary() );
+  CHECK( 18 == chunk.NVER() );
+  CHECK( 18 == chunk.versionNumber() );
+  CHECK( 19.0 == Approx( chunk.TEMP() ) );
+  CHECK( 19.0 == Approx( chunk.temperature() ) );
+  CHECK( 21 == chunk.LDRV() );
+  CHECK( 21 == chunk.derivedMaterial() );
+  CHECK( 9 == chunk.NWD() );
+  CHECK( ranges::equal( description(), chunk.description() ) );
 
   auto entries = index();
-  REQUIRE( entries.size() == chunk.NXC() );
+  CHECK( entries.size() == chunk.NXC() );
   for ( unsigned int i = 0; i < entries.size(); ++i ) {
 
-    REQUIRE( entries[i].MF() == chunk.index()[i].MF() );
-    REQUIRE( entries[i].MT() == chunk.index()[i].MT() );
-    REQUIRE( entries[i].NC() == chunk.index()[i].NC() );
-    REQUIRE( entries[i].MOD() == chunk.index()[i].MOD() );
+    CHECK( entries[i].MF() == chunk.index()[i].MF() );
+    CHECK( entries[i].MT() == chunk.index()[i].MT() );
+    CHECK( entries[i].NC() == chunk.index()[i].NC() );
+    CHECK( entries[i].MOD() == chunk.index()[i].MOD() );
   }
 
-  REQUIRE( 23 == chunk.NC() );
+  CHECK( 23 == chunk.NC() );
 }
 
 std::string invalidNWD() {
