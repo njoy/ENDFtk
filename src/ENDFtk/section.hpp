@@ -1,12 +1,18 @@
-namespace section{
-
+#include "ENDFtk/section/BaseWithoutMT.hpp"
 #include "ENDFtk/section/Base.hpp"
+
+#ifndef NJOY_ENDFTK_SECTION
+#define NJOY_ENDFTK_SECTION
+
+namespace njoy {
+namespace ENDFtk {
+namespace section{
 
 template< int MF, int... OptionalMT >
 class Type;
 
-#include "ENDFtk/section/1.hpp"
-#include "ENDFtk/section/2.hpp"
-#include "ENDFtk/section/3.hpp"
+} // section namespace
+} // ENDFtk namespace
+} // njoy namespace
 
-}
+#endif

@@ -29,9 +29,15 @@
 *.app
 
 bin
+build
+dependencies
 subprojects
 
 # emacs
 *~
 \#*\#
 .\#*
+
+# python
+__pycache__
+*.pyc

@@ -1,73 +1,141 @@
-class TabulationRecord : protected record::InterpolationBase {
+#ifndef NJOY_ENDFTK_TABULATIONRECORD
+#define NJOY_ENDFTK_TABULATIONRECORD
 
-  /* fields */
-  std::vector< double > xValues;
-  std::vector< double > yValues;
+// system includes
+#include <vector>
 
-  /* helper methods */
-#include "ENDFtk/TabulationRecord/src/verifyVectorSizes.hpp"
-#include "ENDFtk/TabulationRecord/src/verifyXValuesAreSorted.hpp"
-#include "ENDFtk/TabulationRecord/src/readPairs.hpp"
+// other includes
+#include "range/v3/view/all.hpp"
+#include "range/v3/view/iota.hpp"
+#include "range/v3/view/transform.hpp"
+#include "range/v3/view/zip.hpp"
+#include "ENDFtk/types.hpp"
+#include "ENDFtk/record.hpp"
 
-  auto regions( size_t index ) const {
-    const auto left = index ? this->boundaries()[ index - 1 ] - 1 : 0;
-    const auto right = this->boundaries()[ index ];
-    return
-      std::make_pair( ranges::make_iterator_range
-                      ( this->xValues.begin() + left,
-                        this->xValues.begin() + right ),
-                      ranges::make_iterator_range
-                      ( this->yValues.begin() + left,
-                        this->yValues.begin() + right ) );
-  }
-  
-public:
-#include "ENDFtk/TabulationRecord/src/ctor.hpp"
+namespace njoy {
+namespace ENDFtk {
 
-  using InterpolationBase::C1;
-  using InterpolationBase::C2;
-  using InterpolationBase::L1;
-  using InterpolationBase::L2;
+  /**
+   *  @class
+   *  @brief ENDF TAB1 record
+   *
+   *  The tabulation record is a multi-line ENDF record containing 2 doubles
+   *  and 4 integers on the first line, followed by a interpolation data and a
+   *  list of x,y values on the following lines.
+   *
+   *  See ENDF102, section 1.1 for more information.
+   */
+  class TabulationRecord : protected record::InterpolationBase {
 
-  long NP() const { return this->xValues.size(); }
-  using InterpolationBase::NR;
-  
-  auto x() const {
-    return ranges::make_iterator_range( this->xValues.begin(),
-                                        this->xValues.end() );
-  }
-  
-  auto y() const {
-    return ranges::make_iterator_range( this->yValues.begin(),
-                                        this->yValues.end() );
-  }
+    /* fields */
+    std::vector< double > xValues;
+    std::vector< double > yValues;
 
-  auto pairs() const {
-    return ranges::view::zip( this->xValues, this->yValues );
-  }
+    /* helper methods */
+    #include "ENDFtk/TabulationRecord/src/verifyVectorSizes.hpp"
+    #include "ENDFtk/TabulationRecord/src/verifyXValuesAreSorted.hpp"
+    #include "ENDFtk/TabulationRecord/src/verifyNP.hpp"
+    #include "ENDFtk/TabulationRecord/src/readPairs.hpp"
 
-  using InterpolationBase::interpolants;
-  using InterpolationBase::boundaries;
+  protected:
 
-  auto regions() const {
-    return
-      ranges::view::iota( 0ul, this->boundaries().size() )
-      | ranges::view::transform( [this ]( int i ){ return this->regions(i); } );
-  }
+    auto regions( size_t index ) const {
+      const auto left = index ? this->boundaries()[ index - 1 ] - 1 : 0;
+      const auto right = this->boundaries()[ index ];
+      return
+        std::make_pair( ranges::make_iterator_range
+                        ( this->xValues.begin() + left,
+                          this->xValues.begin() + right ),
+                        ranges::make_iterator_range
+                        ( this->yValues.begin() + left,
+                          this->yValues.begin() + right ) );
+    }
 
-  bool operator==( const TabulationRecord& rhs ) const {
-      return ( InterpolationBase::operator==( static_cast<const InterpolationBase&>( rhs ) ) )
-      && ( this->xValues == rhs.xValues )
-      && ( this->yValues == rhs.yValues );
-  }
+  public:
 
-  bool operator!=( const TabulationRecord& rhs ) const {
-    return not ( *this == rhs );
-  }
+    /* constructor */
+    #include "ENDFtk/TabulationRecord/src/ctor.hpp"
 
-  long NC() const {
-    return record::InterpolationBase::NC() + ( this->NP() + 2 ) / 3;
-  }
+    /* methods */
+    using InterpolationBase::C1;
+    using InterpolationBase::C2;
+    using InterpolationBase::L1;
+    using InterpolationBase::L2;
 
-  #include "ENDFtk/TabulationRecord/src/print.hpp"
-};
+    /**
+     *  @brief Return the number of points in the table
+     */
+    long NP() const { return this->xValues.size(); }
+
+    using InterpolationBase::NR;
+
+    /**
+     *  @brief Return the x values in the table
+     */
+    DoubleRange x() const { return ranges::view::all( this->xValues ); }
+
+    /**
+     *  @brief Return the y values in the table
+     */
+    DoubleRange y() const { return ranges::view::all( this->yValues ); }
+
+    /**
+     *  @brief Return the x,y pairs in the table
+     */
+    auto pairs() const {
+
+      return ranges::view::zip( this->xValues, this->yValues );
+    }
+
+    using InterpolationBase::interpolants;
+    using InterpolationBase::boundaries;
+
+    /**
+     *  @brief Return the interpolation ranges
+     */
+    auto regions() const {
+
+      return
+        ranges::view::iota( 0ul, this->boundaries().size() )
+        | ranges::view::transform( [this ]( int i ){ return this->regions(i); } );
+    }
+
+    /**
+     *  @brief Equality operator
+     *
+     *  @param[in] rhs   the tabulation record on the right
+     */
+    bool operator==( const TabulationRecord& rhs ) const {
+
+        return ( InterpolationBase::operator==( static_cast<const InterpolationBase&>( rhs ) ) )
+        and ( this->xValues == rhs.xValues )
+        and ( this->yValues == rhs.yValues );
+    }
+
+    /**
+     *  @brief Not equal operator
+     *
+     *  @param[in] rhs   the list record on the right
+     */
+    bool operator!=( const TabulationRecord& rhs ) const {
+
+      return not ( *this == rhs );
+    }
+
+    /**
+     *  @brief Return the number of lines in this record
+     */
+    long NC() const {
+
+      return record::InterpolationBase::NC() + ( this->NP() + 2 ) / 3;
+    }
+
+    #include "ENDFtk/TabulationRecord/src/print.hpp"
+  };
+
+  using TAB1 = TabulationRecord;
+
+} // ENDFtk namespace
+} // njoy namespace
+
+#endif

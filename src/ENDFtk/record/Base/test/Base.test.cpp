@@ -1,8 +1,12 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/record/Base.hpp"
 
+// other includes
+#include "header-utilities/copy.hpp"
+
+// convenience typedefs
 using namespace njoy::ENDFtk;
 
 SCENARIO( "Checking single field record bases" ){
@@ -81,7 +85,7 @@ SCENARIO( "Checking multi field record bases" ){
       REQUIRE( 2 == std::get< 4 >(base.fields) );
       REQUIRE( 96 == std::get< 5 >(base.fields) );
     }
-  }     
+  }
 }
 
 SCENARIO( "Checking equality operator" ){
@@ -105,6 +109,6 @@ SCENARIO( "Checking equality operator" ){
     for ( auto& base : rhs ){
       REQUIRE( not (lhs == base) );
       REQUIRE( lhs != base );
-    } 
+    }
   }
 }

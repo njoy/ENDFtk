@@ -1,7 +1,5 @@
 
-add_executable( ENDFtk.record.test
-                record.test.cpp
-                skip.test.cpp )
+add_executable( ENDFtk.record.test record.test.cpp )
 target_compile_options( ENDFtk.record.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}

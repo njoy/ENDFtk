@@ -1,34 +1,39 @@
-class Base {
-public:
-  /* fields */
-  int sectionNo;
-  int ZA_;
-  double atomicWeightRatio_;
-  
-  /* ctor */
-#include "ENDFtk/section/Base/src/ctor.hpp"
+#ifndef NJOY_ENDFTK_SECTION_BASE
+#define NJOY_ENDFTK_SECTION_BASE
 
-  /* methods */
-  int& MT() { return this->sectionNo; }
-  
-  int MT() const { return const_cast< Base* >( this )->MT(); }
+// system includes
 
-  int& sectionNumber() { return this->MT(); }
-  
-  int sectionNumber() const { return this->MT(); }
+// other includes
+#include "ENDFtk/HeadRecord.hpp"
+#include "ENDFtk/section/BaseWithoutMT.hpp"
 
-  int& ZA() { return this->ZA_; }
-  
-  int ZA() const { return const_cast< Base* >( this )->ZA(); }
+namespace njoy {
+namespace ENDFtk {
+namespace section{
 
-  double& AWR() { return this->atomicWeightRatio_; }
-  
-  double AWR() const { return const_cast< Base* >( this )->AWR(); }
-  
-  double& atomicWeightRatio() { return this->AWR(); }
-  
-  double atomicWeightRatio() const { return this->AWR(); }
+  class Base : public BaseWithoutMT< Base > {
 
-#include "ENDFtk/section/Base/src/readSEND.hpp"
+    /* fields */
+    int MT_;
 
-};
+  protected:
+
+    /* constructor */
+    #include "ENDFtk/section/Base/src/ctor.hpp"
+
+  public:
+
+    /* get methods */
+    int sectionNumber() const { return this->MT_; }
+    using BaseWithoutMT::MT;
+    using BaseWithoutMT::ZA;
+    using BaseWithoutMT::AWR;
+    using BaseWithoutMT::atomicWeightRatio;
+    using BaseWithoutMT::readSEND;
+  };
+
+} // section namespace
+} // ENDFtk namespace
+} // njoy namespace
+
+#endif
