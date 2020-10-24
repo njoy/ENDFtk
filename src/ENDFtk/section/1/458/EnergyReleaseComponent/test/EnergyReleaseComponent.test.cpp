@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/1/458.hpp"
 
 using namespace njoy::ENDFtk;
 
@@ -16,8 +16,8 @@ SCENARIO( "section::Type< 1, 458 >::EnergyReleaseComponent" ) {
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
-      
+    long lineNumber = 1;
+
     THEN( "a section::Type< 1, 458 >::EnergyReleaseComponent can be constructed and members can be tested" ) {
       section::Type< 1, 458 >::EnergyReleaseComponent chunk(begin, end, lineNumber, 9228, 1, 458 );
 
@@ -48,7 +48,7 @@ SCENARIO( "section::Type< 1, 458 >::EnergyReleaseComponent" ) {
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
+    long lineNumber = 1;
     section::Type< 1, 458 >::EnergyReleaseComponent chunk(begin, end, lineNumber, 9228, 1, 458 );
 
     THEN( "it can be printed" ) {
@@ -66,4 +66,3 @@ std::string chunk() {
     "          3          2                                            9228 1458     \n"
     " 1.000000-5 1.691300+8 2.530000-2 1.691000+8 2.000000+7 1.690000+89228 1458     \n";
 }
-

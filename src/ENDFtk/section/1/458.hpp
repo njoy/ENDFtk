@@ -1,60 +1,85 @@
-template<>
-class Type< 1, 458 > : protected Base {
-public:
+#ifndef NJOY_ENDFTK_SECTION_1_458
+#define NJOY_ENDFTK_SECTION_1_458
 
-#include "ENDFtk/section/1/458/ThermalPoint.hpp"
-#include "ENDFtk/section/1/458/Polynomial.hpp"
-#include "ENDFtk/section/1/458/EnergyReleaseComponent.hpp"
-#include "ENDFtk/section/1/458/Tabulated.hpp"
+// system includes
+#include <variant>
 
-  using FissionEnergyReleaseData = std::variant< // LFC=0 NPLY=0
-                                                 ThermalPoint,
-                                                 // LFC=0 NPLY!=0
-                                                 Polynomial,
-                                                 // LFC=1 NPLY=0
-                                                 Tabulated >;
+// other includes
+#include "ENDFtk/types.hpp"
+#include "ENDFtk/HeadRecord.hpp"
+#include "ENDFtk/ControlRecord.hpp"
+#include "ENDFtk/ListRecord.hpp"
+#include "ENDFtk/TabulationRecord.hpp"
+#include "ENDFtk/section.hpp"
+#include "range/v3/view/drop_exactly.hpp"
+#include "range/v3/view/stride.hpp"
 
-protected:
+namespace njoy {
+namespace ENDFtk {
+namespace section{
 
-  /* fields */
-  FissionEnergyReleaseData data_;
+  template<>
+  class Type< 1, 458 > : protected Base {
+  public:
 
-  /* auxiliary functions */
-#include "ENDFtk/section/1/458/src/readFissionEnergyReleaseData.hpp"
+  #include "ENDFtk/section/1/458/ThermalPoint.hpp"
+  #include "ENDFtk/section/1/458/Polynomial.hpp"
+  #include "ENDFtk/section/1/458/EnergyReleaseComponent.hpp"
+  #include "ENDFtk/section/1/458/Tabulated.hpp"
 
-public:
+    using FissionEnergyReleaseData = std::variant< // LFC=0 NPLY=0
+                                                   ThermalPoint,
+                                                   // LFC=0 NPLY!=0
+                                                   Polynomial,
+                                                   // LFC=1 NPLY=0
+                                                   Tabulated >;
 
-  /* constructor */
-#include "ENDFtk/section/1/458/src/ctor.hpp"
+  protected:
 
-  /* set methods */
+    /* fields */
+    FissionEnergyReleaseData data_;
 
-  /* get methods */
-  static constexpr int MT() { return 458; }
-  static constexpr int sectionNumber() { return MT(); }
+    /* auxiliary functions */
+  #include "ENDFtk/section/1/458/src/readFissionEnergyReleaseData.hpp"
 
-  int LFC() const { return std::visit( [] ( const auto& v ) -> long
-                                          { return v.LFC(); },
-                                       this->data_ ); }
+  public:
 
-  int NFC() const { return std::visit( [] ( const auto& v ) -> long
-                                          { return v.NFC(); },
-                                       this->data_ ); }
+    /* constructor */
+  #include "ENDFtk/section/1/458/src/ctor.hpp"
 
-  int NPLY() const { return std::visit( [] ( const auto& v ) -> long
-                                           { return v.NPLY(); },
-                                        this->data_ ); }
+    /* set methods */
 
-  const FissionEnergyReleaseData& energyRelease() const { return this->data_; }
+    /* get methods */
+    static constexpr int MT() { return 458; }
+    static constexpr int sectionNumber() { return MT(); }
 
-  long NC() const { return 1 + std::visit( [] ( const auto& v ) -> long
-                                              { return v.NC(); },
-                                           this->data_ ); }
+    int LFC() const { return std::visit( [] ( const auto& v ) -> long
+                                            { return v.LFC(); },
+                                         this->data_ ); }
 
-#include "ENDFtk/section/1/458/src/print.hpp"
+    int NFC() const { return std::visit( [] ( const auto& v ) -> long
+                                            { return v.NFC(); },
+                                         this->data_ ); }
 
-  using Base::ZA;
-  using Base::AWR;
-  using Base::atomicWeightRatio;
-};
+    int NPLY() const { return std::visit( [] ( const auto& v ) -> long
+                                             { return v.NPLY(); },
+                                          this->data_ ); }
 
+    const FissionEnergyReleaseData& energyRelease() const { return this->data_; }
+
+    long NC() const { return 1 + std::visit( [] ( const auto& v ) -> long
+                                                { return v.NC(); },
+                                             this->data_ ); }
+
+  #include "ENDFtk/section/1/458/src/print.hpp"
+
+    using Base::ZA;
+    using Base::AWR;
+    using Base::atomicWeightRatio;
+  };
+
+} // section namespace
+} // ENDFtk namespace
+} // njoy namespace
+
+#endif

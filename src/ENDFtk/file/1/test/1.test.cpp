@@ -164,17 +164,19 @@ SCENARIO( "Testing special case of file 1" ) {
         CHECK( 1001. == Approx( file.section( 451_c ).ZA() ) );
         CHECK( 1001. == Approx( file.MT( 451_c ).ZA() ) );
       }
+
       THEN( "the sections can be extracted" ){
 
-        REQUIRE_NOTHROW( file1.MT( 451_c ) );
+        REQUIRE_NOTHROW( file.MT( 451_c ) );
       }
+
       THEN( "an exception is thrown if invalid MT" ){
 //        REQUIRE_THROWS( file1.MT( 1_c ) );
-        REQUIRE_THROWS( file1.MT( 452_c ) );
-        REQUIRE_THROWS( file1.MT( 455_c ) );
-        REQUIRE_THROWS( file1.MT( 456_c ) );
-        REQUIRE_THROWS( file1.MT( 458_c ) );
-        REQUIRE_THROWS( file1.MT( 460_c ) );
+        REQUIRE_THROWS( file.MT( 452_c ) );
+        REQUIRE_THROWS( file.MT( 455_c ) );
+        REQUIRE_THROWS( file.MT( 456_c ) );
+        REQUIRE_THROWS( file.MT( 458_c ) );
+        REQUIRE_THROWS( file.MT( 460_c ) );
       }
     }
 
@@ -210,37 +212,7 @@ SCENARIO( "Testing special case of file 1" ) {
       REQUIRE( buffer == file1string );
     }
   } // GIVEN
-
-  file1string = getFile( "n-092_U_235.endf", 9228, 1 );
-  GIVEN( "a string representation of of File 1 for U235" ){
-    WHEN( "a file::Type< 1 > is constructed from the string" ){
-      auto begin = file1string.begin();
-      auto end = file1string.end();
-      long lineNumber = 0;
-
-      StructureDivision division( begin, end, lineNumber );
-      THEN( "an exception is thrown" ){
-        CHECK_THROWS( file::Type< 1 >
-                        ( division, begin, end, lineNumber ) );
-      }
-    }
-  } // GIVEN
-
-  GIVEN( "a valid instance of file::Type< 1 > for U235" ) {
-    auto begin = file1string.begin();
-    auto end = file1string.end();
-    long lineNumber = 0;
-
-    StructureDivision division( begin, end, lineNumber );
-    file::Type< 1 > file1( division, begin, end, lineNumber );
-
-    THEN( "it can be printed" ) {
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      file1.print( output, 125 );
-      CHECK( buffer == file1string );
-    }
-  } // GIVEN
+}
 
 std::string chunk1() {
 

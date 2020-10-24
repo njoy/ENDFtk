@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/1/458.hpp"
 
 using namespace njoy::ENDFtk;
 
@@ -17,8 +17,8 @@ SCENARIO( "section::Type< 1, 458 >::ThermalPoint" ) {
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
-      
+    long lineNumber = 1;
+
     THEN( "a section::Type< 1, 458 >::ThermalPoint can be constructed and members can be tested" ) {
       section::Type< 1, 458 >::ThermalPoint chunk(begin, end, lineNumber, 9228, 1, 458 );
 
@@ -55,7 +55,7 @@ SCENARIO( "section::Type< 1, 458 >::ThermalPoint" ) {
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
+    long lineNumber = 1;
     section::Type< 1, 458 >::ThermalPoint chunk(begin, end, lineNumber, 9228, 1, 458 );
 
     THEN( "it can be printed" ) {
@@ -72,7 +72,7 @@ SCENARIO( "section::Type< 1, 458 >::ThermalPoint" ) {
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    
+
     THEN( "an exception is thrown upon construction" ){
       REQUIRE_THROWS( section1458::ThermalPoint( begin, end, lineNumber, 9228, 1, 458 ) );
     }
@@ -95,4 +95,3 @@ std::string invalidNPL() {
     " 8.750000+6 7.000000+4 1.934054+8 1.500000+5 2.021554+8 1.300000+59228 1458     \n"
     " 1.000000+6                                                       9228 1458     \n";
 }
-

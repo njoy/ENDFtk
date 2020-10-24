@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/1/458.hpp"
 
 using namespace njoy::ENDFtk;
 
@@ -19,8 +19,8 @@ SCENARIO( "section::Type< 1, 458 >::Tabulated" ) {
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
-      
+    long lineNumber = 1;
+
     THEN( "a section::Type< 1, 458 >::Tabulated can be constructed and members can be tested" ) {
       section::Type< 1, 458 >::Tabulated chunk(begin, end, lineNumber, 9228, 1, 458, 2 );
 
@@ -105,7 +105,7 @@ SCENARIO( "section::Type< 1, 458 >::Tabulated" ) {
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
+    long lineNumber = 1;
     section::Type< 1, 458 >::Tabulated chunk(begin, end, lineNumber, 9228, 1, 458, 2 );
 
     THEN( "it can be printed" ) {
@@ -122,7 +122,7 @@ SCENARIO( "section::Type< 1, 458 >::Tabulated" ) {
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    
+
     THEN( "an exception is thrown upon construction" ){
       REQUIRE_THROWS( section1458::Tabulated( begin, end, lineNumber, 9228, 1, 458, 2 ) );
     }
@@ -134,7 +134,7 @@ SCENARIO( "section::Type< 1, 458 >::Tabulated" ) {
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    
+
     THEN( "an exception is thrown upon construction" ){
       REQUIRE_THROWS( section1458::Tabulated( begin, end, lineNumber, 9228, 1, 458, 2 ) );
     }
@@ -146,7 +146,7 @@ SCENARIO( "section::Type< 1, 458 >::Tabulated" ) {
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    
+
     THEN( "an exception is thrown upon construction" ){
       REQUIRE_THROWS( section1458::Tabulated( begin, end, lineNumber, 9228, 1, 458, 2 ) );
     }
@@ -213,4 +213,3 @@ std::string duplicateIFC() {
     " 1.000000-5 2.021554+8 2.530000-2 3.000000+8 1.000000+6 2.500000+89228 1458     \n"
     " 2.000000+7 1.500000+8                                            9228 1458     \n";
 }
-

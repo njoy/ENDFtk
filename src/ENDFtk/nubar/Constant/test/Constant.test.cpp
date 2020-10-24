@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/nubar.hpp"
 
 using namespace njoy::ENDFtk;
 
@@ -14,8 +14,8 @@ SCENARIO( "nubar::Constant" ) {
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
-      
+    long lineNumber = 1;
+
     THEN( "a nubar::Constant can be constructed and members can be tested" ) {
       nubar::Constant chunk( begin, end, lineNumber, 9228, 1, 455 );
 
@@ -38,7 +38,7 @@ SCENARIO( "nubar::Constant" ) {
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
+    long lineNumber = 1;
     nubar::Constant chunk( begin, end, lineNumber, 9228, 1, 455 );
 
     THEN( "it can be printed" ) {
@@ -55,4 +55,3 @@ std::string chunk() {
     " 0.000000+0 0.000000+0          0          0          6          09228 1455     \n"
     " 1.333600-2 3.273900-2 1.207800-1 3.027800-1 8.494900-1 2.853000+09228 1455     \n";
 }
-

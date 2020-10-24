@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/1/460.hpp"
 
 using namespace njoy::ENDFtk;
 
@@ -15,8 +15,8 @@ SCENARIO( "section::Type< 1, 460 >::Continuous" ) {
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
-      
+    long lineNumber = 1;
+
     THEN( "a section::Type< 1, 460 >::Continuous can be constructed and members can be tested" ) {
       section::Type< 1, 460 >::Continuous chunk(begin, end, lineNumber, 9228, 1, 460 );
 
@@ -41,7 +41,7 @@ SCENARIO( "section::Type< 1, 460 >::Continuous" ) {
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
+    long lineNumber = 1;
     section::Type< 1, 460 >::Continuous chunk(begin, end, lineNumber, 9228, 1, 460 );
 
     THEN( "it can be printed" ) {
@@ -58,4 +58,3 @@ std::string chunk() {
     " 0.000000+0 0.000000+0          0          0          6          09228 1460     \n"
     " 1.333600-2 3.273900-2 1.207800-1 3.027800-1 8.494900-1 2.853000+09228 1460     \n";
 }
-

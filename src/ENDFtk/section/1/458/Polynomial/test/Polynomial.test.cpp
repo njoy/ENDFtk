@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/1/458.hpp"
 
 using namespace njoy::ENDFtk;
 
@@ -17,8 +17,8 @@ SCENARIO( "section::Type< 1, 458 >::Polynomial" ) {
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
-      
+    long lineNumber = 1;
+
     THEN( "a section::Type< 1, 458 >::Polynomial can be constructed and members can be tested" ) {
       section::Type< 1, 458 >::Polynomial chunk(begin, end, lineNumber, 9228, 1, 458 );
 
@@ -108,7 +108,7 @@ SCENARIO( "section::Type< 1, 458 >::Polynomial" ) {
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
+    long lineNumber = 1;
     section::Type< 1, 458 >::Polynomial chunk(begin, end, lineNumber, 9228, 1, 458 );
 
     THEN( "it can be printed" ) {
@@ -125,7 +125,7 @@ SCENARIO( "section::Type< 1, 458 >::Polynomial" ) {
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    
+
     THEN( "an exception is thrown upon construction" ){
       REQUIRE_THROWS( section1458::Polynomial( begin, end, lineNumber, 9228, 1, 458 ) );
     }
@@ -154,4 +154,3 @@ std::string invalidNPL() {
     "-1.000000-1 1.000000-2-3.790000-2 3.790000-3-1.379000-1 1.379000-29228 1458     \n"
     " 1.000000+6                                                       9228 1458     \n";
 }
-

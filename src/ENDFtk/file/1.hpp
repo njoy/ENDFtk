@@ -45,11 +45,11 @@ namespace file {
       switch( sectionNo ) {
 
         case 451 : return true;
-        case 452 : return this->sectionMap[ 452_c ];
-        case 455 : return this->sectionMap[ 455_c ];
-        case 456 : return this->sectionMap[ 456_c ];
-        case 458 : return this->sectionMap[ 458_c ];
-        case 460 : return this->sectionMap[ 460_c ];
+        case 452 : return bool( this->sectionMap[ 452_c ] );
+        case 455 : return bool( this->sectionMap[ 455_c ] );
+        case 456 : return bool( this->sectionMap[ 456_c ] );
+        case 458 : return bool( this->sectionMap[ 458_c ] );
+        case 460 : return bool( this->sectionMap[ 460_c ] );
         default : return false;
       }
     }

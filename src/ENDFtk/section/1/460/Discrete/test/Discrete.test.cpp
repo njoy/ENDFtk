@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/section/1/460.hpp"
 
 using namespace njoy::ENDFtk;
 
@@ -15,8 +15,8 @@ SCENARIO( "section::Type< 1, 460 >::Discrete" ) {
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
-      
+    long lineNumber = 1;
+
     THEN( "a section::Type< 1, 460 >::Discrete can be constructed and members can be tested" ) {
       section::Type< 1, 460 >::Discrete chunk(
         { section::Type< 1, 460 >::DiscretePhoton( begin, end, lineNumber, 9228, 1, 460 ),
@@ -72,7 +72,7 @@ SCENARIO( "section::Type< 1, 460 >::Discrete" ) {
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
-    long lineNumber = 1; 
+    long lineNumber = 1;
     section::Type< 1, 460 >::Discrete chunk(
       { section::Type< 1, 460 >::DiscretePhoton( begin, end, lineNumber, 9228, 1, 460 ),
         section::Type< 1, 460 >::DiscretePhoton( begin, end, lineNumber, 9228, 1, 460 ) } );
@@ -95,4 +95,3 @@ std::string chunk() {
     "          3          2                                            9228 1460     \n"
     " 0.000000+0 1.691176-1 5.000000+0 2.450980-3 9.000000+0 1.691176-19228 1460     \n";
 }
-
