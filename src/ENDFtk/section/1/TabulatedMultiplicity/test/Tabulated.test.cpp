@@ -1,23 +1,25 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk/nubar.hpp"
+#include "ENDFtk/section/1/TabulatedMultiplicity.hpp"
 
+// convenience typedefs
 using namespace njoy::ENDFtk;
+using Tabulated = section::Tabulated;
 
 std::string chunk();
 
-SCENARIO( "nubar::Tabulated" ) {
+SCENARIO( "Tabulated" ) {
 
-  GIVEN( "a string representation of a valid nubar::Tabulated" ) {
+  GIVEN( "a string representation of a valid Tabulated" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
 
-    THEN( "a nubar::Tabulated can be constructed and members can be tested" ) {
-      nubar::Tabulated chunk( begin, end, lineNumber, 9228, 1, 455 );
+    THEN( "a Tabulated can be constructed and members can be tested" ) {
+      Tabulated chunk( begin, end, lineNumber, 9228, 1, 455 );
 
       auto energy = chunk.energy();
       auto nubar = chunk.nubar();
@@ -45,12 +47,12 @@ SCENARIO( "nubar::Tabulated" ) {
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of nubar::Tabulated" ) {
+  GIVEN( "a valid instance of Tabulated" ) {
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    nubar::Tabulated chunk( begin, end, lineNumber, 9228, 1, 455 );
+    Tabulated chunk( begin, end, lineNumber, 9228, 1, 455 );
 
     THEN( "it can be printed" ) {
       std::string buffer;

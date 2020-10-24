@@ -2,6 +2,7 @@
 #define NJOY_ENDFTK_SECTION_1_455
 
 // system includes
+#include <variant>
 
 // other includes
 #include "ENDFtk/types.hpp"
@@ -10,6 +11,9 @@
 #include "ENDFtk/section/1/452.hpp"
 
 #include "ENDFtk/nubar.hpp"
+#include "ENDFtk/section/1/PolynomialMultiplicity.hpp"
+#include "ENDFtk/section/1/TabulatedMultiplicity.hpp"
+#include "ENDFtk/section/1/readNubarData.hpp"
 
 namespace njoy {
 namespace ENDFtk {
@@ -17,11 +21,19 @@ namespace section{
 
   template<>
   class Type< 1, 455 > : protected Base {
-  protected:
+
+    public:
+
+      using NubarData = std::variant< // LNU=1
+                                      Polynomial,
+                                      // LNU=2
+                                      Tabulated >;
+
+    private:
 
     /* fields */
     nubar::DecayConstantData lambda_;
-    nubar::NubarData nubar_;
+    NubarData nubar_;
 
   public:
 
@@ -44,7 +56,7 @@ namespace section{
 
     const nubar::DecayConstantData& lambda() const { return this->lambda_; }
 
-    const nubar::NubarData& nubar() const { return this->nubar_; }
+    const NubarData& nubar() const { return this->nubar_; }
 
     long NC() const { return 1 + std::visit( [] ( const auto& v ) -> long
                                                 { return v.NC(); },

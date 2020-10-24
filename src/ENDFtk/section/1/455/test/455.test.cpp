@@ -8,6 +8,8 @@
 using namespace njoy::ENDFtk;
 
 using section1455 = section::Type< 1, 455 >;
+using Polynomial = section::Polynomial;
+using Tabulated = section::Tabulated;
 
 std::string baseLDG0LNU1();
 std::string baseLDG0LNU2();
@@ -35,13 +37,13 @@ SCENARIO( "section::Type< 1, 455 >" ) {
 
         REQUIRE_NOTHROW( std::get< nubar::Constant >
                          ( MF1MT455.lambda() ) );
-        REQUIRE_NOTHROW( std::get< nubar::Polynomial >
+        REQUIRE_NOTHROW( std::get< Polynomial >
                          ( MF1MT455.nubar() ) );
 
         const auto& lambda = std::get< nubar::Constant >
                              ( MF1MT455.lambda() );
         auto lambdas = lambda.lambdas();
-        const auto& data = std::get< nubar::Polynomial >
+        const auto& data = std::get< Polynomial >
                            ( MF1MT455.nubar() );
         auto coefficients = data.coefficients();
 
@@ -85,13 +87,13 @@ SCENARIO( "section::Type< 1, 455 >" ) {
 
         REQUIRE_NOTHROW( std::get< nubar::Constant >
                          ( MF1MT455.lambda() ) );
-        REQUIRE_NOTHROW( std::get< nubar::Polynomial >
+        REQUIRE_NOTHROW( std::get< Polynomial >
                          ( MF1MT455.nubar() ) );
 
         const auto& lambda = std::get< nubar::Constant >
                              ( MF1MT455.lambda() );
         auto lambdas = lambda.lambdas();
-        const auto& data = std::get< nubar::Polynomial >
+        const auto& data = std::get< Polynomial >
                            ( MF1MT455.nubar() );
         auto coefficients = data.coefficients();
 
@@ -147,13 +149,13 @@ SCENARIO( "section::Type< 1, 455 >" ) {
 
         REQUIRE_NOTHROW( std::get< nubar::Constant >
                          ( MF1MT455.lambda() ) );
-        REQUIRE_NOTHROW( std::get< nubar::Tabulated >
+        REQUIRE_NOTHROW( std::get< Tabulated >
                          ( MF1MT455.nubar() ) );
 
         const auto& lambda = std::get< nubar::Constant >
                              ( MF1MT455.lambda() );
         auto lambdas = lambda.lambdas();
-        const auto& data = std::get< nubar::Tabulated >
+        const auto& data = std::get< Tabulated >
                            ( MF1MT455.nubar() );
         auto energy = data.energy();
         auto nubar = data.nubar();
@@ -213,13 +215,13 @@ SCENARIO( "section::Type< 1, 455 >" ) {
 
         REQUIRE_NOTHROW( std::get< nubar::Constant >
                          ( MF1MT455.lambda() ) );
-        REQUIRE_NOTHROW( std::get< nubar::Tabulated >
+        REQUIRE_NOTHROW( std::get< Tabulated >
                          ( MF1MT455.nubar() ) );
 
         const auto& lambda = std::get< nubar::Constant >
                              ( MF1MT455.lambda() );
         auto lambdas = lambda.lambdas();
-        const auto& data = std::get< nubar::Tabulated >
+        const auto& data = std::get< Tabulated >
                            ( MF1MT455.nubar() );
         auto energy = data.energy();
         auto nubar = data.nubar();
@@ -307,7 +309,7 @@ SCENARIO( "section::Type< 1, 455 >" ) {
 
         REQUIRE_NOTHROW( std::get< nubar::EnergyDependent >
                          ( MF1MT455.lambda() ) );
-        REQUIRE_NOTHROW( std::get< nubar::Polynomial >
+        REQUIRE_NOTHROW( std::get< Polynomial >
                          ( MF1MT455.nubar() ) );
 
         const auto& lambda = std::get< nubar::EnergyDependent >
@@ -316,7 +318,7 @@ SCENARIO( "section::Type< 1, 455 >" ) {
         auto l_boundaries = lambda.boundaries();
         auto l_constants = lambda.constants();
 
-        const auto& data = std::get< nubar::Polynomial >
+        const auto& data = std::get< Polynomial >
                            ( MF1MT455.nubar() );
         auto coefficients = data.coefficients();
 
@@ -394,7 +396,7 @@ SCENARIO( "section::Type< 1, 455 >" ) {
 
         REQUIRE_NOTHROW( std::get< nubar::EnergyDependent >
                          ( MF1MT455.lambda() ) );
-        REQUIRE_NOTHROW( std::get< nubar::Polynomial >
+        REQUIRE_NOTHROW( std::get< Polynomial >
                          ( MF1MT455.nubar() ) );
 
         const auto& lambda = std::get< nubar::EnergyDependent >
@@ -403,7 +405,7 @@ SCENARIO( "section::Type< 1, 455 >" ) {
         auto l_boundaries = lambda.boundaries();
         auto l_constants = lambda.constants();
 
-        const auto& data = std::get< nubar::Polynomial >
+        const auto& data = std::get< Polynomial >
                            ( MF1MT455.nubar() );
         auto coefficients = data.coefficients();
 
@@ -493,7 +495,7 @@ SCENARIO( "section::Type< 1, 455 >" ) {
 
         REQUIRE_NOTHROW( std::get< nubar::EnergyDependent >
                          ( MF1MT455.lambda() ) );
-        REQUIRE_NOTHROW( std::get< nubar::Tabulated >
+        REQUIRE_NOTHROW( std::get< Tabulated >
                          ( MF1MT455.nubar() ) );
 
         const auto& lambda = std::get< nubar::EnergyDependent >
@@ -502,7 +504,7 @@ SCENARIO( "section::Type< 1, 455 >" ) {
         auto l_boundaries = lambda.boundaries();
         auto l_constants = lambda.constants();
 
-        const auto& data = std::get< nubar::Tabulated >
+        const auto& data = std::get< Tabulated >
                            ( MF1MT455.nubar() );
         auto energy = data.energy();
         auto nubar = data.nubar();
@@ -596,7 +598,7 @@ SCENARIO( "section::Type< 1, 455 >" ) {
 
         REQUIRE_NOTHROW( std::get< nubar::EnergyDependent >
                          ( MF1MT455.lambda() ) );
-        REQUIRE_NOTHROW( std::get< nubar::Tabulated >
+        REQUIRE_NOTHROW( std::get< Tabulated >
                          ( MF1MT455.nubar() ) );
 
         const auto& lambda = std::get< nubar::EnergyDependent >
@@ -605,7 +607,7 @@ SCENARIO( "section::Type< 1, 455 >" ) {
         auto l_boundaries = lambda.boundaries();
         auto l_constants = lambda.constants();
 
-        const auto& data = std::get< nubar::Tabulated >
+        const auto& data = std::get< Tabulated >
                            ( MF1MT455.nubar() );
         auto energy = data.energy();
         auto nubar = data.nubar();

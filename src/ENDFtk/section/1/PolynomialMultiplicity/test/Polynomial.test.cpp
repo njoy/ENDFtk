@@ -1,23 +1,25 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk/nubar.hpp"
+#include "ENDFtk/section/1/PolynomialMultiplicity.hpp"
 
+// convenience typedefs
 using namespace njoy::ENDFtk;
+using Polynomial = section::Polynomial;
 
 std::string chunk();
 
-SCENARIO( "nubar::Polynomial" ) {
+SCENARIO( "Polynomial" ) {
 
-  GIVEN( "a string representation of a valid nubar::Polynomial" ) {
+  GIVEN( "a string representation of a valid Polynomial" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
 
-    THEN( "a nubar::Polynomial can be constructed and members can be tested" ) {
-      nubar::Polynomial chunk( begin, end, lineNumber, 9228, 1, 455 );
+    THEN( "a Polynomial can be constructed and members can be tested" ) {
+      Polynomial chunk( begin, end, lineNumber, 9228, 1, 455 );
 
       auto coefficients = chunk.coefficients();
 
@@ -30,12 +32,12 @@ SCENARIO( "nubar::Polynomial" ) {
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of nubar::Polynomial" ) {
+  GIVEN( "a valid instance of Polynomial" ) {
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    nubar::Polynomial chunk( begin, end, lineNumber, 9228, 1, 455 );
+    Polynomial chunk( begin, end, lineNumber, 9228, 1, 455 );
 
     THEN( "it can be printed" ) {
       std::string buffer;

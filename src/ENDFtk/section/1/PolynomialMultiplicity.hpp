@@ -1,3 +1,15 @@
+#ifndef NJOY_ENDFTK_SECTION_1_POLYNOMIALMULTIPLICITY
+#define NJOY_ENDFTK_SECTION_1_POLYNOMIALMULTIPLICITY
+
+// system includes
+
+// other includes
+#include "ENDFtk/ListRecord.hpp"
+
+namespace njoy {
+namespace ENDFtk {
+namespace section{
+
 class Polynomial : protected ListRecord {
 
 public:
@@ -12,3 +24,8 @@ public:
   using ListRecord::print;
 };
 
+} // section namespace
+} // ENDFtk namespace
+} // njoy namespace
+
+#endif

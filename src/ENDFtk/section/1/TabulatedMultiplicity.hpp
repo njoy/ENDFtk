@@ -1,3 +1,15 @@
+#ifndef NJOY_ENDFTK_SECTION_1_TABULATEDMULTIPLICITY
+#define NJOY_ENDFTK_SECTION_1_TABULATEDMULTIPLICITY
+
+// system includes
+
+// other includes
+#include "ENDFtk/TabulationRecord.hpp"
+
+namespace njoy {
+namespace ENDFtk {
+namespace section{
+
 class Tabulated : protected TabulationRecord {
 
 public:
@@ -16,3 +28,8 @@ public:
   using TabulationRecord::print;
 };
 
+} // section namespace
+} // ENDFtk namespace
+} // njoy namespace
+
+#endif
