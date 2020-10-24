@@ -1,5 +1,5 @@
 template< typename Iterator >
-static nubar::DecayConstantData
+static DecayConstantData
 readDecayConstantData( Iterator& begin,
                        const Iterator& end,
                        long& lineNumber,
@@ -8,8 +8,8 @@ readDecayConstantData( Iterator& begin,
                        int MT,
                        int LDG ) {
   switch ( LDG ) {
-    case 0 : return nubar::Constant( begin, end, lineNumber, MAT, MF, MT );
-    case 1 : return nubar::EnergyDependent( begin, end, lineNumber, MAT, MF, MT );
+    case 0 : return Constant( begin, end, lineNumber, MAT, MF, MT );
+    case 1 : return EnergyDependent( begin, end, lineNumber, MAT, MF, MT );
     default : {
       Log::error( "Encountered illegal LDG value" );
       Log::info( "LDG must be equal to 0 or 1" );
@@ -19,4 +19,3 @@ readDecayConstantData( Iterator& begin,
     }
   }
 }
-

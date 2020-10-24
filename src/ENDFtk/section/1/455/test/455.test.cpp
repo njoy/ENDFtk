@@ -8,6 +8,8 @@
 using namespace njoy::ENDFtk;
 
 using section1455 = section::Type< 1, 455 >;
+using Constant = section::Type< 1, 455 >::Constant;
+using EnergyDependent = section::Type< 1, 455 >::EnergyDependent;
 using Polynomial = section::Polynomial;
 using Tabulated = section::Tabulated;
 
@@ -35,12 +37,12 @@ SCENARIO( "section::Type< 1, 455 >" ) {
       THEN( "a section::Type< 1, 455 > can be constructed and members can be tested" ) {
         section::Type< 1, 455 > MF1MT455( head, begin, end, lineNumber, 9228 );
 
-        REQUIRE_NOTHROW( std::get< nubar::Constant >
+        REQUIRE_NOTHROW( std::get< Constant >
                          ( MF1MT455.lambda() ) );
         REQUIRE_NOTHROW( std::get< Polynomial >
                          ( MF1MT455.nubar() ) );
 
-        const auto& lambda = std::get< nubar::Constant >
+        const auto& lambda = std::get< Constant >
                              ( MF1MT455.lambda() );
         auto lambdas = lambda.lambdas();
         const auto& data = std::get< Polynomial >
@@ -85,12 +87,12 @@ SCENARIO( "section::Type< 1, 455 >" ) {
       THEN( "a section::Type< 1, 455 > can be constructed and members can be tested" ){
         section::Type< 1, 455 > MF1MT455 = section.parse< 1, 455 >( lineNumber );
 
-        REQUIRE_NOTHROW( std::get< nubar::Constant >
+        REQUIRE_NOTHROW( std::get< Constant >
                          ( MF1MT455.lambda() ) );
         REQUIRE_NOTHROW( std::get< Polynomial >
                          ( MF1MT455.nubar() ) );
 
-        const auto& lambda = std::get< nubar::Constant >
+        const auto& lambda = std::get< Constant >
                              ( MF1MT455.lambda() );
         auto lambdas = lambda.lambdas();
         const auto& data = std::get< Polynomial >
@@ -147,12 +149,12 @@ SCENARIO( "section::Type< 1, 455 >" ) {
       THEN( "a section::Type< 1, 455 > can be constructed and members can be tested" ) {
         section::Type< 1, 455 > MF1MT455( head, begin, end, lineNumber, 9228 );
 
-        REQUIRE_NOTHROW( std::get< nubar::Constant >
+        REQUIRE_NOTHROW( std::get< Constant >
                          ( MF1MT455.lambda() ) );
         REQUIRE_NOTHROW( std::get< Tabulated >
                          ( MF1MT455.nubar() ) );
 
-        const auto& lambda = std::get< nubar::Constant >
+        const auto& lambda = std::get< Constant >
                              ( MF1MT455.lambda() );
         auto lambdas = lambda.lambdas();
         const auto& data = std::get< Tabulated >
@@ -213,12 +215,12 @@ SCENARIO( "section::Type< 1, 455 >" ) {
       THEN( "a section::Type< 1, 455 > can be constructed and members can be tested" ){
         section::Type< 1, 455 > MF1MT455 = section.parse< 1, 455 >( lineNumber );
 
-        REQUIRE_NOTHROW( std::get< nubar::Constant >
+        REQUIRE_NOTHROW( std::get< Constant >
                          ( MF1MT455.lambda() ) );
         REQUIRE_NOTHROW( std::get< Tabulated >
                          ( MF1MT455.nubar() ) );
 
-        const auto& lambda = std::get< nubar::Constant >
+        const auto& lambda = std::get< Constant >
                              ( MF1MT455.lambda() );
         auto lambdas = lambda.lambdas();
         const auto& data = std::get< Tabulated >
@@ -307,12 +309,12 @@ SCENARIO( "section::Type< 1, 455 >" ) {
       THEN( "a section::Type< 1, 455 > can be constructed and members can be tested" ) {
         section::Type< 1, 455 > MF1MT455( head, begin, end, lineNumber, 9228 );
 
-        REQUIRE_NOTHROW( std::get< nubar::EnergyDependent >
+        REQUIRE_NOTHROW( std::get< EnergyDependent >
                          ( MF1MT455.lambda() ) );
         REQUIRE_NOTHROW( std::get< Polynomial >
                          ( MF1MT455.nubar() ) );
 
-        const auto& lambda = std::get< nubar::EnergyDependent >
+        const auto& lambda = std::get< EnergyDependent >
                              ( MF1MT455.lambda() );
         auto l_interpolants = lambda.interpolants();
         auto l_boundaries = lambda.boundaries();
@@ -394,12 +396,12 @@ SCENARIO( "section::Type< 1, 455 >" ) {
       THEN( "a section::Type< 1, 455 > can be constructed and members can be tested" ){
         section::Type< 1, 455 > MF1MT455 = section.parse< 1, 455 >( lineNumber );
 
-        REQUIRE_NOTHROW( std::get< nubar::EnergyDependent >
+        REQUIRE_NOTHROW( std::get< EnergyDependent >
                          ( MF1MT455.lambda() ) );
         REQUIRE_NOTHROW( std::get< Polynomial >
                          ( MF1MT455.nubar() ) );
 
-        const auto& lambda = std::get< nubar::EnergyDependent >
+        const auto& lambda = std::get< EnergyDependent >
                              ( MF1MT455.lambda() );
         auto l_interpolants = lambda.interpolants();
         auto l_boundaries = lambda.boundaries();
@@ -493,12 +495,12 @@ SCENARIO( "section::Type< 1, 455 >" ) {
       THEN( "a section::Type< 1, 455 > can be constructed and members can be tested" ) {
         section::Type< 1, 455 > MF1MT455( head, begin, end, lineNumber, 9228 );
 
-        REQUIRE_NOTHROW( std::get< nubar::EnergyDependent >
+        REQUIRE_NOTHROW( std::get< EnergyDependent >
                          ( MF1MT455.lambda() ) );
         REQUIRE_NOTHROW( std::get< Tabulated >
                          ( MF1MT455.nubar() ) );
 
-        const auto& lambda = std::get< nubar::EnergyDependent >
+        const auto& lambda = std::get< EnergyDependent >
                              ( MF1MT455.lambda() );
         auto l_interpolants = lambda.interpolants();
         auto l_boundaries = lambda.boundaries();
@@ -596,12 +598,12 @@ SCENARIO( "section::Type< 1, 455 >" ) {
       THEN( "a section::Type< 1, 455 > can be constructed and members can be tested" ){
         section::Type< 1, 455 > MF1MT455 = section.parse< 1, 455 >( lineNumber );
 
-        REQUIRE_NOTHROW( std::get< nubar::EnergyDependent >
+        REQUIRE_NOTHROW( std::get< EnergyDependent >
                          ( MF1MT455.lambda() ) );
         REQUIRE_NOTHROW( std::get< Tabulated >
                          ( MF1MT455.nubar() ) );
 
-        const auto& lambda = std::get< nubar::EnergyDependent >
+        const auto& lambda = std::get< EnergyDependent >
                              ( MF1MT455.lambda() );
         auto l_interpolants = lambda.interpolants();
         auto l_boundaries = lambda.boundaries();

@@ -1,23 +1,24 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk/nubar.hpp"
+#include "ENDFtk/section/1/455.hpp"
 
 using namespace njoy::ENDFtk;
+using Constant = section::Type< 1, 455 >::Constant;
 
 std::string chunk();
 
-SCENARIO( "nubar::Constant" ) {
+SCENARIO( "Constant" ) {
 
-  GIVEN( "a string representation of a valid nubar::Constant" ) {
+  GIVEN( "a string representation of a valid Constant" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
 
-    THEN( "a nubar::Constant can be constructed and members can be tested" ) {
-      nubar::Constant chunk( begin, end, lineNumber, 9228, 1, 455 );
+    THEN( "a Constant can be constructed and members can be tested" ) {
+      Constant chunk( begin, end, lineNumber, 9228, 1, 455 );
 
       auto lambdas = chunk.lambdas();
 
@@ -34,12 +35,12 @@ SCENARIO( "nubar::Constant" ) {
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of nubar::Constant" ) {
+  GIVEN( "a valid instance of Constant" ) {
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    nubar::Constant chunk( begin, end, lineNumber, 9228, 1, 455 );
+    Constant chunk( begin, end, lineNumber, 9228, 1, 455 );
 
     THEN( "it can be printed" ) {
       std::string buffer;

@@ -1,23 +1,24 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk/nubar.hpp"
+#include "ENDFtk/section/1/455.hpp"
 
 using namespace njoy::ENDFtk;
+using DecayConstant = section::Type< 1, 455 >::DecayConstant;
 
 std::string chunk();
 
-SCENARIO( "nubar::DecayConstant" ) {
+SCENARIO( "DecayConstant" ) {
 
-  GIVEN( "a string representation of a valid nubar::DecayConstant" ) {
+  GIVEN( "a string representation of a valid DecayConstant" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
 
-    THEN( "a nubar::DecayConstant can be constructed and members can be tested" ) {
-      nubar::DecayConstant chunk( begin, end, lineNumber, 9228, 1, 455 );
+    THEN( "a DecayConstant can be constructed and members can be tested" ) {
+      DecayConstant chunk( begin, end, lineNumber, 9228, 1, 455 );
 
       auto lambdas = chunk.lambdas();
       auto alphas = chunk.alphas();
@@ -41,12 +42,12 @@ SCENARIO( "nubar::DecayConstant" ) {
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of nubar::DecayConstant" ) {
+  GIVEN( "a valid instance of DecayConstant" ) {
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    nubar::DecayConstant chunk( begin, end, lineNumber, 9228, 1, 455 );
+    DecayConstant chunk( begin, end, lineNumber, 9228, 1, 455 );
 
     THEN( "it can be printed" ) {
       std::string buffer;

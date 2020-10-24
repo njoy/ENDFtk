@@ -1,25 +1,26 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk/nubar.hpp"
+#include "ENDFtk/section/1/455.hpp"
 
 using namespace njoy::ENDFtk;
+using EnergyDependent = section::Type< 1, 455 >::EnergyDependent;
 
 std::string chunk();
 std::string oddNPL();
 std::string inconsistentNPL();
 
-SCENARIO( "nubar::EnergyDependent" ) {
+SCENARIO( "EnergyDependent" ) {
 
-  GIVEN( "a string representation of a valid nubar::EnergyDependent" ) {
+  GIVEN( "a string representation of a valid EnergyDependent" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
 
-    THEN( "a nubar::EnergyDependent can be constructed and members can be tested" ) {
-      nubar::EnergyDependent chunk( begin, end, lineNumber, 9228, 1, 455 );
+    THEN( "a EnergyDependent can be constructed and members can be tested" ) {
+      EnergyDependent chunk( begin, end, lineNumber, 9228, 1, 455 );
 
       auto interpolants = chunk.interpolants();
       auto boundaries = chunk.boundaries();
@@ -72,12 +73,12 @@ SCENARIO( "nubar::EnergyDependent" ) {
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of nubar::EnergyDependent" ) {
+  GIVEN( "a valid instance of EnergyDependent" ) {
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    nubar::EnergyDependent chunk( begin, end, lineNumber, 9228, 1, 455 );
+    EnergyDependent chunk( begin, end, lineNumber, 9228, 1, 455 );
 
     THEN( "it can be printed" ) {
       std::string buffer;
@@ -87,7 +88,7 @@ SCENARIO( "nubar::EnergyDependent" ) {
     }
   } // GIVEN
 
-  GIVEN( "a string representation of a nubar::EnergyDependent"
+  GIVEN( "a string representation of a EnergyDependent"
          " with an inconsistent NPL" ){
     std::string string = inconsistentNPL();
     auto begin = string.begin();
@@ -95,11 +96,11 @@ SCENARIO( "nubar::EnergyDependent" ) {
     long lineNumber = 1;
 
     THEN( "an exception is thrown upon construction" ){
-      REQUIRE_THROWS( nubar::EnergyDependent( begin, end, lineNumber, 9228, 1, 455 ) );
+      REQUIRE_THROWS( EnergyDependent( begin, end, lineNumber, 9228, 1, 455 ) );
     }
   } // GIVEN
 
-  GIVEN( "a string representation of a nubar::EnergyDependent"
+  GIVEN( "a string representation of a EnergyDependent"
          " with an odd NPL" ){
     std::string string = oddNPL();
     auto begin = string.begin();
@@ -107,7 +108,7 @@ SCENARIO( "nubar::EnergyDependent" ) {
     long lineNumber = 1;
 
     THEN( "an exception is thrown upon construction" ){
-      REQUIRE_THROWS( nubar::EnergyDependent( begin, end, lineNumber, 9228, 1, 455 ) );
+      REQUIRE_THROWS( EnergyDependent( begin, end, lineNumber, 9228, 1, 455 ) );
     }
   } // GIVEN
 } // SCENARIO

@@ -4,9 +4,9 @@ Type ( const HEAD& head,
        const Iterator& end,
        long& lineNumber,
        int MAT )
-  try: Base( head, MAT, 1 ),
-       lambda_( std::move( nubar::readDecayConstantData( begin, end, lineNumber,
-                                                         MAT, 1, 455, head.L1() ) ) ),
+  try: BaseWithoutMT( head, MAT, 1 ),
+       lambda_( std::move( readDecayConstantData( begin, end, lineNumber,
+                                                  MAT, 1, 455, head.L1() ) ) ),
        nubar_( std::move( readNubarData( begin, end, lineNumber,
                                          MAT, 1, 455, head.L2() ) ) ) {
     readSEND( begin, end, lineNumber, MAT, 1 );

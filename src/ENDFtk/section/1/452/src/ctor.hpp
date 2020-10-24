@@ -4,7 +4,7 @@ Type ( const HEAD& head,
        const Iterator& end,
        long& lineNumber,
        int MAT )
-  try: Base( head, MAT, 1 ),
+  try: BaseWithoutMT( head, MAT, 1 ),
        data_( std::move( readNubarData( begin, end, lineNumber,
                                         MAT, 1, head.MT(), head.L2() ) ) ) {
     readSEND( begin, end, lineNumber, MAT, 1 );

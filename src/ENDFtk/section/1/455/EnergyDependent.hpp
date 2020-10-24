@@ -4,12 +4,12 @@ class EnergyDependent {
   std::vector< DecayConstant > lists_;
 
   /* auxiliary functions */
-#include "ENDFtk/nubar/EnergyDependent/src/readLists.hpp"
-#include "ENDFtk/nubar/EnergyDependent/src/verifyNNF.hpp"
+#include "ENDFtk/section/1/455/EnergyDependent/src/readLists.hpp"
+#include "ENDFtk/section/1/455/EnergyDependent/src/verifyNNF.hpp"
 
 public:
   /* constructor */
-#include "ENDFtk/nubar/EnergyDependent/src/ctor.hpp"
+#include "ENDFtk/section/1/455/EnergyDependent/src/ctor.hpp"
 
   /* get methods */
   static constexpr int LDG(){ return 1; }
@@ -21,12 +21,11 @@ public:
   auto boundaries() const { return this->interpolation_.boundaries(); }
 
   auto constants() const {
-    return ranges::make_iterator_range( this->lists_.begin(), this->lists_.end() );
+    return ranges::view::all( this->lists_ );
   }
 
-#include "ENDFtk/nubar/EnergyDependent/src/NC.hpp"
+#include "ENDFtk/section/1/455/EnergyDependent/src/NC.hpp"
 
-#include "ENDFtk/nubar/EnergyDependent/src/print.hpp"
+#include "ENDFtk/section/1/455/EnergyDependent/src/print.hpp"
 
 };
-

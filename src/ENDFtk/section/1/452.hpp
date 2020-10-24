@@ -19,7 +19,9 @@ namespace ENDFtk {
 namespace section {
 
   template<>
-  class Type< 1, 452 > : protected Base {
+  class Type< 1, 452 > : protected BaseWithoutMT< Type< 1, 452 > > {
+
+    friend BaseWithoutMT< Type< 1, 452 > >;
 
   public:
 
@@ -41,8 +43,11 @@ namespace section {
     /* set methods */
 
     /* get methods */
-    virtual int MT() const { return 452; }
-    int sectionNumber() const { return this->MT(); }
+
+    /**
+     *  @brief Return the MT number of the section
+     */
+    static constexpr int sectionNumber(){ return 452; }
 
     int LNU() const { return std::visit( [] ( const auto& v ) -> int
                                             { return v.LNU(); },
@@ -54,11 +59,12 @@ namespace section {
                                                 { return v.NC(); },
                                              this->data_ ); }
 
-  #include "ENDFtk/section/1/452/src/print.hpp"
+    #include "ENDFtk/section/1/452/src/print.hpp"
 
-    using Base::ZA;
-    using Base::AWR;
-    using Base::atomicWeightRatio;
+    using BaseWithoutMT::MT;
+    using BaseWithoutMT::ZA;
+    using BaseWithoutMT::AWR;
+    using BaseWithoutMT::atomicWeightRatio;
   };
 
 } // section namespace

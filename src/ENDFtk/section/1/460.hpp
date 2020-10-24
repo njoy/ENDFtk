@@ -16,59 +16,66 @@ namespace njoy {
 namespace ENDFtk {
 namespace section{
 
-template<>
-class Type< 1, 460 > : protected Base {
-public:
+  template<>
+  class Type< 1, 460 > : protected BaseWithoutMT< Type< 1, 460 > > {
 
-#include "ENDFtk/section/1/460/DiscretePhoton.hpp"
-#include "ENDFtk/section/1/460/Discrete.hpp"
-#include "ENDFtk/section/1/460/Continuous.hpp"
+    friend BaseWithoutMT< Type< 1, 460 > >;
 
-  using DelayedPhotonData = std::variant< // LO=1
-                                          Discrete,
-                                          // LO=2
-                                          Continuous >;
+  public:
 
-protected:
+  #include "ENDFtk/section/1/460/DiscretePhoton.hpp"
+  #include "ENDFtk/section/1/460/Discrete.hpp"
+  #include "ENDFtk/section/1/460/Continuous.hpp"
 
-  /* fields */
-  DelayedPhotonData data_;
+    using DelayedPhotonData = std::variant< // LO=1
+                                            Discrete,
+                                            // LO=2
+                                            Continuous >;
 
-  /* auxiliary functions */
-#include "ENDFtk/section/1/460/src/readPhotonData.hpp"
-#include "ENDFtk/section/1/460/src/readDiscretePhotons.hpp"
+  protected:
 
-public:
+    /* fields */
+    DelayedPhotonData data_;
 
-  /* constructor */
-#include "ENDFtk/section/1/460/src/ctor.hpp"
+    /* auxiliary functions */
+  #include "ENDFtk/section/1/460/src/readPhotonData.hpp"
+  #include "ENDFtk/section/1/460/src/readDiscretePhotons.hpp"
 
-  /* set methods */
+  public:
 
-  /* get methods */
-  static constexpr int MT() { return 460; }
-  static constexpr int sectionNumber() { return MT(); }
+    /* constructor */
+  #include "ENDFtk/section/1/460/src/ctor.hpp"
 
-  int LO() const { return std::visit( [] ( const auto& v ) -> long
-                                         { return v.LO(); },
-                                      this->data_ ); }
+    /* set methods */
 
-  int NG() const { return std::visit( [] ( const auto& v ) -> long
-                                         { return v.NG(); },
-                                      this->data_ ); }
+    /* get methods */
 
-  const DelayedPhotonData& delayedPhotons() const { return this->data_; }
+    /**
+     *  @brief Return the MT number of the section
+     */
+    static constexpr int sectionNumber(){ return 460; }
 
-  long NC() const { return 1 + std::visit( [] ( const auto& v ) -> long
-                                              { return v.NC(); },
-                                           this->data_ ); }
+    int LO() const { return std::visit( [] ( const auto& v ) -> long
+                                           { return v.LO(); },
+                                        this->data_ ); }
 
-#include "ENDFtk/section/1/460/src/print.hpp"
+    int NG() const { return std::visit( [] ( const auto& v ) -> long
+                                           { return v.NG(); },
+                                        this->data_ ); }
 
-  using Base::ZA;
-  using Base::AWR;
-  using Base::atomicWeightRatio;
-};
+    const DelayedPhotonData& delayedPhotons() const { return this->data_; }
+
+    long NC() const { return 1 + std::visit( [] ( const auto& v ) -> long
+                                                { return v.NC(); },
+                                             this->data_ ); }
+
+    #include "ENDFtk/section/1/460/src/print.hpp"
+
+    using BaseWithoutMT::MT;
+    using BaseWithoutMT::ZA;
+    using BaseWithoutMT::AWR;
+    using BaseWithoutMT::atomicWeightRatio;
+  };
 
 } // section namespace
 } // ENDFtk namespace

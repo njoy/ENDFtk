@@ -4,7 +4,7 @@
 // system includes
 
 // other includes
-#include "ENDFtk/section/1/455.hpp"
+#include "ENDFtk/section/1/452.hpp"
 
 namespace njoy {
 namespace ENDFtk {
@@ -19,12 +19,12 @@ namespace section{
     using Type< 1, 452 >::Type;
 
     /* get methods */
-    int MT() const { return 456; }
-    using Type< 1, 452 >::sectionNumber;
+    static constexpr int sectionNumber(){ return 456; }
+    int MT() const { return Type< 1, 456 >::sectionNumber(); }
     using Type< 1, 452 >::LNU;
     using Type< 1, 452 >::nubar;
     using Type< 1, 452 >::NC;
-    using Type< 1, 452 >::print;
+    #include "ENDFtk/section/1/456/src/print.hpp"
     using Type< 1, 452 >::ZA;
     using Type< 1, 452 >::AWR;
     using Type< 1, 452 >::atomicWeightRatio;

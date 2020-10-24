@@ -19,7 +19,10 @@ namespace ENDFtk {
 namespace section{
 
   template<>
-  class Type< 1, 458 > : protected Base {
+  class Type< 1, 458 > : protected BaseWithoutMT< Type< 1, 458 > > {
+
+    friend BaseWithoutMT< Type< 1, 458 > >;
+
   public:
 
   #include "ENDFtk/section/1/458/ThermalPoint.hpp"
@@ -50,8 +53,11 @@ namespace section{
     /* set methods */
 
     /* get methods */
-    static constexpr int MT() { return 458; }
-    static constexpr int sectionNumber() { return MT(); }
+
+    /**
+     *  @brief Return the MT number of the section
+     */
+    static constexpr int sectionNumber(){ return 458; }
 
     int LFC() const { return std::visit( [] ( const auto& v ) -> long
                                             { return v.LFC(); },
@@ -71,11 +77,12 @@ namespace section{
                                                 { return v.NC(); },
                                              this->data_ ); }
 
-  #include "ENDFtk/section/1/458/src/print.hpp"
+    #include "ENDFtk/section/1/458/src/print.hpp"
 
-    using Base::ZA;
-    using Base::AWR;
-    using Base::atomicWeightRatio;
+    using BaseWithoutMT::MT;
+    using BaseWithoutMT::ZA;
+    using BaseWithoutMT::AWR;
+    using BaseWithoutMT::atomicWeightRatio;
   };
 
 } // section namespace
