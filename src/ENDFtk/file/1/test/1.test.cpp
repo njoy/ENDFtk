@@ -167,16 +167,16 @@ SCENARIO( "Testing special case of file 1" ) {
 
       THEN( "the sections can be extracted" ){
 
-        REQUIRE_NOTHROW( file.MT( 451_c ) );
+        CHECK_NOTHROW( file.MT( 451_c ) );
       }
 
       THEN( "an exception is thrown if invalid MT" ){
-//        REQUIRE_THROWS( file1.MT( 1_c ) );
-        REQUIRE_THROWS( file.MT( 452_c ) );
-        REQUIRE_THROWS( file.MT( 455_c ) );
-        REQUIRE_THROWS( file.MT( 456_c ) );
-        REQUIRE_THROWS( file.MT( 458_c ) );
-        REQUIRE_THROWS( file.MT( 460_c ) );
+//        CHECK_THROWS( file1.MT( 1_c ) );
+        CHECK_THROWS( file.MT( 452_c ) );
+        CHECK_THROWS( file.MT( 455_c ) );
+        CHECK_THROWS( file.MT( 456_c ) );
+        CHECK_THROWS( file.MT( 458_c ) );
+        CHECK_THROWS( file.MT( 460_c ) );
       }
     }
 
@@ -195,9 +195,22 @@ SCENARIO( "Testing special case of file 1" ) {
         CHECK_NOTHROW( fileTree.parse< 1 >( lineNumber ) );
       }
     }
+
+    WHEN( "a file::Type< 1 > is constructed from the string twice" ){
+      std::string twice( file1string.begin(), file1string.end() - 81 );
+      twice += file1string;
+      auto begin = twice.begin();
+      auto end = twice.end();
+      long lineNumber = 0;
+      StructureDivision division( begin, end, lineNumber );
+      THEN( "an exception is thrown" ){
+        CHECK_THROWS( file::Type< 1 >
+                        ( division, begin, end, lineNumber ) );
+      }
+    }
   } // GIVEN
 
-  GIVEN( "a valid instance of file::Type< 1 > for H1" ) {
+  GIVEN( "a valid instance of file::Type< 1 >" ) {
     auto begin = file1string.begin();
     auto end = file1string.end();
     long lineNumber = 0;
@@ -209,10 +222,10 @@ SCENARIO( "Testing special case of file 1" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       file1.print( output, 125 );
-      REQUIRE( buffer == file1string );
+      CHECK( buffer == file1string );
     }
   } // GIVEN
-}
+} // SCENARIO
 
 std::string chunk1() {
 

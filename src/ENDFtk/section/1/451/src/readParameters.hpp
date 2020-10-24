@@ -6,11 +6,9 @@ readParameters( Iterator& it, const Iterator& end, long& lineNumber, int MAT ) {
   auto line1 = ControlRecord( it, end, lineNumber, MAT, 1, 451 );
   auto line2 = ControlRecord( it, end, lineNumber, MAT, 1, 451 );
   if ( line2.N1() < 0 ){
-    Log::error( "Encountered illegal NWD value" );
-    Log::info( "NWD must be greater than or equal to zero" );
-    Log::info( "NWD value: {}", line2.N1() );
-    Log::info( "Line number: {}", lineNumber - 1 );
-    throw std::exception();
+    Log::error( "Number of descriptive records (NWD) must be greater than or equal to zero" );
+    Log::info( "See line {}", lineNumber - 1 );
+    throw std::runtime_error("Number of descriptive records (NWD) must be greater than or equal to zero");
   }
   if ( line2.N2() < 1 ){
     Log::error( "Number of index records (NXC) must be greater than or equal to one" );
