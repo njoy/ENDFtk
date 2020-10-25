@@ -11,7 +11,7 @@ using section1455 = section::Type< 1, 455 >;
 using Constant = section::Type< 1, 455 >::Constant;
 using EnergyDependent = section::Type< 1, 455 >::EnergyDependent;
 using Polynomial = section::Polynomial;
-using Tabulated = section::Tabulated;
+using TabulatedMultiplicity = section::TabulatedMultiplicity;
 
 std::string baseLDG0LNU1();
 std::string baseLDG0LNU2();
@@ -151,16 +151,16 @@ SCENARIO( "section::Type< 1, 455 >" ) {
 
         REQUIRE_NOTHROW( std::get< Constant >
                          ( MF1MT455.lambda() ) );
-        REQUIRE_NOTHROW( std::get< Tabulated >
+        REQUIRE_NOTHROW( std::get< TabulatedMultiplicity >
                          ( MF1MT455.nubar() ) );
 
         const auto& lambda = std::get< Constant >
                              ( MF1MT455.lambda() );
         auto lambdas = lambda.lambdas();
-        const auto& data = std::get< Tabulated >
+        const auto& data = std::get< TabulatedMultiplicity >
                            ( MF1MT455.nubar() );
-        auto energy = data.energy();
-        auto nubar = data.nubar();
+        auto energy = data.E();
+        auto nubar = data.NU();
         auto interpolants = data.interpolants();
         auto boundaries = data.boundaries();
 
@@ -217,16 +217,16 @@ SCENARIO( "section::Type< 1, 455 >" ) {
 
         REQUIRE_NOTHROW( std::get< Constant >
                          ( MF1MT455.lambda() ) );
-        REQUIRE_NOTHROW( std::get< Tabulated >
+        REQUIRE_NOTHROW( std::get< TabulatedMultiplicity >
                          ( MF1MT455.nubar() ) );
 
         const auto& lambda = std::get< Constant >
                              ( MF1MT455.lambda() );
         auto lambdas = lambda.lambdas();
-        const auto& data = std::get< Tabulated >
+        const auto& data = std::get< TabulatedMultiplicity >
                            ( MF1MT455.nubar() );
-        auto energy = data.energy();
-        auto nubar = data.nubar();
+        auto energy = data.E();
+        auto nubar = data.NU();
         auto interpolants = data.interpolants();
         auto boundaries = data.boundaries();
 
@@ -497,7 +497,7 @@ SCENARIO( "section::Type< 1, 455 >" ) {
 
         REQUIRE_NOTHROW( std::get< EnergyDependent >
                          ( MF1MT455.lambda() ) );
-        REQUIRE_NOTHROW( std::get< Tabulated >
+        REQUIRE_NOTHROW( std::get< TabulatedMultiplicity >
                          ( MF1MT455.nubar() ) );
 
         const auto& lambda = std::get< EnergyDependent >
@@ -506,10 +506,10 @@ SCENARIO( "section::Type< 1, 455 >" ) {
         auto l_boundaries = lambda.boundaries();
         auto l_constants = lambda.constants();
 
-        const auto& data = std::get< Tabulated >
+        const auto& data = std::get< TabulatedMultiplicity >
                            ( MF1MT455.nubar() );
-        auto energy = data.energy();
-        auto nubar = data.nubar();
+        auto energy = data.E();
+        auto nubar = data.NU();
         auto interpolants = data.interpolants();
         auto boundaries = data.boundaries();
 
@@ -600,7 +600,7 @@ SCENARIO( "section::Type< 1, 455 >" ) {
 
         REQUIRE_NOTHROW( std::get< EnergyDependent >
                          ( MF1MT455.lambda() ) );
-        REQUIRE_NOTHROW( std::get< Tabulated >
+        REQUIRE_NOTHROW( std::get< TabulatedMultiplicity >
                          ( MF1MT455.nubar() ) );
 
         const auto& lambda = std::get< EnergyDependent >
@@ -609,10 +609,10 @@ SCENARIO( "section::Type< 1, 455 >" ) {
         auto l_boundaries = lambda.boundaries();
         auto l_constants = lambda.constants();
 
-        const auto& data = std::get< Tabulated >
+        const auto& data = std::get< TabulatedMultiplicity >
                            ( MF1MT455.nubar() );
-        auto energy = data.energy();
-        auto nubar = data.nubar();
+        auto energy = data.E();
+        auto nubar = data.NU();
         auto interpolants = data.interpolants();
         auto boundaries = data.boundaries();
 

@@ -77,6 +77,7 @@ pybind11_add_module( ENDFtk.python
     python/src/ENDFtk.python.cpp
     python/src/record/DirectoryRecord.python.cpp
     python/src/record/TapeIdentification.python.cpp
+    python/src/section/1/TabulatedMultiplicity.python.cpp
     python/src/section/1/451.python.cpp
     python/src/section/2/151.python.cpp
     python/src/section/2/151/Isotope.python.cpp

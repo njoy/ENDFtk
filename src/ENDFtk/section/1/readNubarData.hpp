@@ -12,7 +12,7 @@ namespace ENDFtk {
 namespace section{
 
 template< typename Iterator >
-static std::variant< Polynomial, Tabulated >
+static std::variant< Polynomial, TabulatedMultiplicity >
 readNubarData( Iterator& begin,
                const Iterator& end,
                long& lineNumber,
@@ -20,9 +20,11 @@ readNubarData( Iterator& begin,
                int MF,
                int MT,
                int LNU ) {
+
   switch ( LNU ) {
     case 1 : return Polynomial( begin, end, lineNumber, MAT, MF, MT );
-    case 2 : return Tabulated( begin, end, lineNumber, MAT, MF, MT );
+    case 2 : return TabulatedMultiplicity( begin, end, lineNumber,
+                                           MAT, MF, MT );
     default : {
       Log::error( "Encountered illegal LNU value" );
       Log::info( "LNU must be equal to 1 or 2" );

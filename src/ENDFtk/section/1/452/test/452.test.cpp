@@ -10,7 +10,7 @@
 using namespace njoy::ENDFtk;
 using section1452 = section::Type< 1, 452 >;
 using Polynomial = section::Polynomial;
-using Tabulated = section::Tabulated;
+using TabulatedMultiplicity = section::TabulatedMultiplicity;
 
 std::string baseLNU1();
 std::string baseLNU2();
@@ -111,13 +111,13 @@ SCENARIO( "section::Type< 1, 452 >" ) {
       THEN( "a section::Type< 1, 452 > can be constructed and members can be tested" ) {
         section::Type< 1, 452 > MF1MT452( head, begin, end, lineNumber, 9228 );
 
-        REQUIRE_NOTHROW( std::get< Tabulated >
+        REQUIRE_NOTHROW( std::get< TabulatedMultiplicity >
                          ( MF1MT452.nubar() ) );
 
-        const auto& data = std::get< Tabulated >
+        const auto& data = std::get< TabulatedMultiplicity >
                            ( MF1MT452.nubar() );
-        auto energy = data.energy();
-        auto nubar = data.nubar();
+        auto energy = data.E();
+        auto nubar = data.NU();
         auto interpolants = data.interpolants();
         auto boundaries = data.boundaries();
 
@@ -161,13 +161,13 @@ SCENARIO( "section::Type< 1, 452 >" ) {
       THEN( "a section::Type< 1, 452 > can be constructed and members can be tested" ){
         section::Type< 1, 452 > MF1MT452 = section.parse< 1, 452 >( lineNumber );
 
-        REQUIRE_NOTHROW( std::get< Tabulated >
+        REQUIRE_NOTHROW( std::get< TabulatedMultiplicity >
                          ( MF1MT452.nubar() ) );
 
-        const auto& data = std::get< Tabulated >
+        const auto& data = std::get< TabulatedMultiplicity >
                            ( MF1MT452.nubar() );
-        auto energy = data.energy();
-        auto nubar = data.nubar();
+        auto energy = data.E();
+        auto nubar = data.NU();
         auto interpolants = data.interpolants();
         auto boundaries = data.boundaries();
 

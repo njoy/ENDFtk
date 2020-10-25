@@ -25,10 +25,8 @@ namespace section {
 
   public:
 
-    using NubarData = std::variant< // LNU=1
-                                    Polynomial,
-                                    // LNU=2
-                                    Tabulated >;
+    using NubarData = std::variant< Polynomial,              // LNU=1
+                                    TabulatedMultiplicity >; // LNU=2
 
   private:
 
