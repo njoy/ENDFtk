@@ -8,7 +8,7 @@
 using namespace njoy::ENDFtk;
 
 using section1456 = section::Type< 1, 456 >;
-using Polynomial = section::Polynomial;
+using PolynomialMultiplicity = section::PolynomialMultiplicity;
 using TabulatedMultiplicity = section::TabulatedMultiplicity;
 
 std::string baseLNU1();
@@ -30,10 +30,10 @@ SCENARIO( "section::Type< 1, 456 >" ) {
       THEN( "a section::Type< 1, 456 > can be constructed and members can be tested" ) {
         section::Type< 1, 456 > MF1MT456( head, begin, end, lineNumber, 9228 );
 
-        REQUIRE_NOTHROW( std::get< Polynomial >
+        REQUIRE_NOTHROW( std::get< PolynomialMultiplicity >
                          ( MF1MT456.nubar() ) );
 
-        const auto& data = std::get< Polynomial >
+        const auto& data = std::get< PolynomialMultiplicity >
                            ( MF1MT456.nubar() );
         auto coefficients = data.coefficients();
 
@@ -63,10 +63,10 @@ SCENARIO( "section::Type< 1, 456 >" ) {
       THEN( "a section::Type< 1, 456 > can be constructed and members can be tested" ){
         section::Type< 1, 456 > MF1MT456 = section.parse< 1, 456 >( lineNumber );
 
-        REQUIRE_NOTHROW( std::get< Polynomial >
+        REQUIRE_NOTHROW( std::get< PolynomialMultiplicity >
                          ( MF1MT456.nubar() ) );
 
-        const auto& data = std::get< Polynomial >
+        const auto& data = std::get< PolynomialMultiplicity >
                            ( MF1MT456.nubar() );
         auto coefficients = data.coefficients();
 

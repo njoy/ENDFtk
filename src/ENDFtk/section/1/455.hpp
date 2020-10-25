@@ -38,7 +38,7 @@ namespace section{
                                             // LDG=1
                                             EnergyDependent >;
 
-    using NubarData = std::variant< Polynomial,              // LNU=1
+    using NubarData = std::variant< PolynomialMultiplicity,  // LNU=1
                                     TabulatedMultiplicity >; // LNU=2
 
   private:

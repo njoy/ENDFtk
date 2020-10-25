@@ -3,7 +3,10 @@
 #include "catch.hpp"
 #include "ENDFtk/section/1/TabulatedMultiplicity.hpp"
 
+// other includes
+
 // convenience typedefs
+using namespace njoy::ENDFtk;
 using namespace njoy::ENDFtk;
 using TabulatedMultiplicity = section::TabulatedMultiplicity;
 
@@ -13,7 +16,7 @@ std::string invalidChunk();
 
 SCENARIO( "TabulatedMultiplicity" ) {
 
-  GIVEN( "valid data for a TabulatedDistribution" ) {
+  GIVEN( "valid data for a TabulatedMultiplicity" ) {
 
     std::string string = chunk();
 

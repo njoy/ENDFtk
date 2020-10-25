@@ -20,7 +20,7 @@ namespace section{
 
   public:
 
-    /* constructor */
+    /* constructors */
     #include "ENDFtk/section/1/TabulatedMultiplicity/src/ctor.hpp"
 
     /* methods */

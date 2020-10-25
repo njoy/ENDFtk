@@ -12,7 +12,7 @@ namespace ENDFtk {
 namespace section{
 
 template< typename Iterator >
-static std::variant< Polynomial, TabulatedMultiplicity >
+static std::variant< PolynomialMultiplicity, TabulatedMultiplicity >
 readNubarData( Iterator& begin,
                const Iterator& end,
                long& lineNumber,
@@ -22,7 +22,8 @@ readNubarData( Iterator& begin,
                int LNU ) {
 
   switch ( LNU ) {
-    case 1 : return Polynomial( begin, end, lineNumber, MAT, MF, MT );
+    case 1 : return PolynomialMultiplicity( begin, end, lineNumber,
+                                            MAT, MF, MT );
     case 2 : return TabulatedMultiplicity( begin, end, lineNumber,
                                            MAT, MF, MT );
     default : {

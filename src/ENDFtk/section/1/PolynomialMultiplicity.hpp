@@ -10,19 +10,54 @@ namespace njoy {
 namespace ENDFtk {
 namespace section{
 
-class Polynomial : protected ListRecord {
+  /**
+   *  @class
+   *  @brief Fission multiplicity given as a polynomial expansion
+   *
+   *  See ENDF102, section 1.2 for more information.
+   */
+  class PolynomialMultiplicity : protected ListRecord {
 
-public:
-  /* constructor */
-  using ListRecord::ListRecord;
+  public:
 
-  /* get methods */
-  static constexpr int LNU(){ return 1; }
-  int NCO() const { return ListRecord::NPL(); } // NC is used for number of lines
-  auto coefficients() const { return ListRecord::list(); }
-  using ListRecord::NC;
-  using ListRecord::print;
-};
+    /* constructors */
+    #include "ENDFtk/section/1/PolynomialMultiplicity/src/ctor.hpp"
+
+    /* methods */
+
+    /**
+     *  @brief Return the fission multiplicity representation type
+     */
+    static constexpr int LNU() { return 1; }
+
+    /**
+     *  @brief Return the fission multiplicity representation type
+     */
+    int representation() const { return this->LNU(); }
+
+    /**
+     *  @brief Return the number of coefficients in the polynomial expansion
+     */
+    int NCO() const { return ListRecord::NPL(); } // NC is used for number of lines
+
+    /**
+     *  @brief Return the number of coefficients in the polynomial expansion
+     */
+    int numberCoefficients() const { return this->NCO(); }
+
+    /**
+     *  @brief Return the coefficients
+     */
+    auto C() const { return ListRecord::list(); }
+
+    /**
+     *  @brief Return the coefficients
+     */
+    auto coefficients() const { return this->C(); }
+
+    using ListRecord::NC;
+    using ListRecord::print;
+  };
 
 } // section namespace
 } // ENDFtk namespace
