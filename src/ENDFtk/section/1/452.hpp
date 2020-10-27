@@ -12,12 +12,18 @@
 
 #include "ENDFtk/section/1/PolynomialMultiplicity.hpp"
 #include "ENDFtk/section/1/TabulatedMultiplicity.hpp"
-#include "ENDFtk/section/1/readNubarData.hpp"
+#include "ENDFtk/section/1/readMultiplicity.hpp"
 
 namespace njoy {
 namespace ENDFtk {
 namespace section {
 
+  /**
+   *  @class
+   *  @brief MF1 MT452 - the total number of fission neutrons
+   *
+   *  See ENDF102, section 1.2 for more information.
+   */
   template<>
   class Type< 1, 452 > : protected BaseWithoutMT< Type< 1, 452 > > {
 
@@ -25,34 +31,43 @@ namespace section {
 
   public:
 
-    using NubarData = std::variant< PolynomialMultiplicity,  // LNU=1
-                                    TabulatedMultiplicity >; // LNU=2
+    using Multiplicity = std::variant< PolynomialMultiplicity,  // LNU=1
+                                       TabulatedMultiplicity >; // LNU=2
 
   private:
 
     /* fields */
-    NubarData data_;
+    Multiplicity data_;
 
   public:
 
-    /* constructor */
-  #include "ENDFtk/section/1/452/src/ctor.hpp"
+    /* constructors */
+    #include "ENDFtk/section/1/452/src/ctor.hpp"
 
-    /* set methods */
-
-    /* get methods */
+    /* methods */
 
     /**
      *  @brief Return the MT number of the section
      */
     static constexpr int sectionNumber(){ return 452; }
 
+    /**
+     *  @brief Return the fission multiplicity representation type
+     */
     int LNU() const { return std::visit( [] ( const auto& v ) -> int
                                             { return v.LNU(); },
                                          this->data_ ); }
 
-    const NubarData& nubar() const { return this->data_; }
+    /**
+     *  @brief Return the fission multiplicity representation type
+     */
+    int representation() const { return this->LNU(); }
 
+    const Multiplicity& nubar() const { return this->data_; }
+
+    /**
+     *  @brief Return the number of lines in this MF1/MT452 section
+     */
     long NC() const { return 1 + std::visit( [] ( const auto& v ) -> long
                                                 { return v.NC(); },
                                              this->data_ ); }

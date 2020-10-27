@@ -14,6 +14,9 @@ namespace section{
    *  @class
    *  @brief Fission multiplicity given as a polynomial expansion
    *
+   *  This class is defined outside of any of the fission multiplicity
+   *  section::Type instances since this component is common to all of them.
+   *
    *  See ENDF102, section 1.2 for more information.
    */
   class PolynomialMultiplicity : protected ListRecord {

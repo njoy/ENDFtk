@@ -1,5 +1,5 @@
-#ifndef NJOY_ENDFTK_SECTION_1_READNUBARDATA
-#define NJOY_ENDFTK_SECTION_1_READNUBARDATA
+#ifndef NJOY_ENDFTK_SECTION_1_READMULTIPLICITY
+#define NJOY_ENDFTK_SECTION_1_READMULTIPLICITY
 
 // system includes
 
@@ -13,15 +13,11 @@ namespace section{
 
 template< typename Iterator >
 static std::variant< PolynomialMultiplicity, TabulatedMultiplicity >
-readNubarData( Iterator& begin,
-               const Iterator& end,
-               long& lineNumber,
-               int MAT,
-               int MF,
-               int MT,
-               int LNU ) {
+readNubarData( Iterator& begin, const Iterator& end, long& lineNumber,
+               int MAT, int MF, int MT, int LNU ) {
 
   switch ( LNU ) {
+
     case 1 : return PolynomialMultiplicity( begin, end, lineNumber,
                                             MAT, MF, MT );
     case 2 : return TabulatedMultiplicity( begin, end, lineNumber,
