@@ -95,13 +95,47 @@ void wrapBasicBiDirectionalAnyViewOf( python::module& module, const std::string&
 template < typename Element >
 void wrapBasicRandomAccessAnyViewOf( python::module& module, const std::string& name ) {
 
+  auto index = [] ( auto i, auto length ) {
+
+      if ( i < 0 ) {
+
+          i += length;
+      }
+      if ( i < 0 || i >= n ) {
+
+          throw python::index_error();
+      }
+      return i;
+  };
+
   python::class_< BasicRandomAccessAnyView< Element > >( module, name.c_str() )
   .def( "__len__",
         [] ( BasicRandomAccessAnyView< Element >& view )
            { return ranges::distance( view ); } )
   .def( "__getitem__",
-        [] ( BasicRandomAccessAnyView< Element >& view, int i )
-           { return ranges::index( view, i ); },
+        [index] ( BasicRandomAccessAnyView< Element >& view, int i ) {
+
+          return ranges::index( view, index( i, ranges::distance( view ) ) );
+        },
+   	    python::return_value_policy::reference_internal )
+  .def( "__getitem__",
+        [] ( BasicRandomAccessAnyView< Element >& view,
+             const python::slice& slice ) {
+
+          python::size_t start, stop, step, length;
+          if ( !slice.compute( ranges::distance( view ),
+                               &start, &stop, &step, &length ) ) {
+
+            throw python::error_already_set();
+          }
+          std::vector< Element > list;
+          for ( unsigned int i = 0; i < length; ++i ) {
+
+             list.emplace_back( ranges::index( view, start ) );
+             start += step;
+          }
+          return list;
+        },
    	    python::return_value_policy::reference_internal )
   .def( "__iter__",
         [] ( BasicRandomAccessAnyView< Element >& view )
