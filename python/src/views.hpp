@@ -82,7 +82,8 @@ void wrapBasicBiDirectionalAnyViewOf( python::module& module, const std::string&
                         Element >( view.begin(), view.end() ); },
   	    python::keep_alive< 0, 1 >() )
   .def( "to_list",
-        [] ( BasicBiDirectionalAnyView< Element >& view ) -> std::vector< Element >
+        [] ( BasicBiDirectionalAnyView< Element >& view )
+           -> std::vector< Element >
            { return view; } );
 }
 
@@ -146,7 +147,8 @@ void wrapBasicRandomAccessAnyViewOf( python::module& module, const std::string& 
                         Element >( view.begin(), view.end() ); },
   	    python::keep_alive< 0, 1 >() )
   .def( "to_list",
-      	[] ( BasicRandomAccessAnyView< Element >& view ) -> std::vector< Element >
+      	[] ( BasicRandomAccessAnyView< Element >& view )
+           -> std::vector< Element >
            { return view; } );
 }
 
