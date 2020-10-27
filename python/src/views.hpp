@@ -66,7 +66,7 @@ using ComplexRange = BasicRandomAccessAnyView< std::complex< double > >;
  *  @param[in,out] module   the python module
  *  @param[in,out] name     the unique type name
  */
-template < typename Element >
+template < typename Element, typename CopyElement = Element >
 void wrapBasicBiDirectionalAnyViewOf( python::module& module, const std::string& name ) {
 
   python::class_< BasicBiDirectionalAnyView< Element > >( module, name.c_str() )
@@ -84,6 +84,10 @@ void wrapBasicBiDirectionalAnyViewOf( python::module& module, const std::string&
   .def( "to_list",
         [] ( BasicBiDirectionalAnyView< Element >& view )
            -> std::vector< Element >
+           { return view; } )
+  .def( "copy",
+      	[] ( BasicRandomAccessAnyView< Element >& view )
+           -> std::vector< CopyElement >
            { return view; } );
 }
 
@@ -93,7 +97,7 @@ void wrapBasicBiDirectionalAnyViewOf( python::module& module, const std::string&
  *  @param[in,out] module   the python module
  *  @param[in,out] name     the unique type name
  */
-template < typename Element >
+template < typename Element, typename CopyElement = Element >
 void wrapBasicRandomAccessAnyViewOf( python::module& module, const std::string& name ) {
 
   auto index = [] ( auto i, auto length ) {
@@ -149,6 +153,10 @@ void wrapBasicRandomAccessAnyViewOf( python::module& module, const std::string& 
   .def( "to_list",
       	[] ( BasicRandomAccessAnyView< Element >& view )
            -> std::vector< Element >
+           { return view; } )
+  .def( "copy",
+      	[] ( BasicRandomAccessAnyView< Element >& view )
+           -> std::vector< CopyElement >
            { return view; } );
 }
 
@@ -161,7 +169,7 @@ void wrapBasicRandomAccessAnyViewOf( python::module& module, const std::string& 
 template < typename Element >
 void wrapBiDirectionalAnyViewOf( python::module& module, const std::string& name ) {
 
-  wrapBasicBiDirectionalAnyViewOf< RefWrapper< Element > >( module, name );
+  wrapBasicBiDirectionalAnyViewOf< RefWrapper< Element >, Element >( module, name );
 }
 
 /**
@@ -173,7 +181,7 @@ void wrapBiDirectionalAnyViewOf( python::module& module, const std::string& name
 template < typename Element >
 void wrapRandomAccessAnyViewOf( python::module& module, const std::string& name ) {
 
-  wrapBasicRandomAccessAnyViewOf< RefWrapper< Element > >( module, name );
+  wrapBasicRandomAccessAnyViewOf< RefWrapper< Element >, Element >( module, name );
 }
 
 #endif
