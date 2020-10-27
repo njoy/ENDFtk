@@ -101,7 +101,7 @@ void wrapBasicRandomAccessAnyViewOf( python::module& module, const std::string& 
 
           i += length;
       }
-      if ( i < 0 || i >= n ) {
+      if ( i < 0 || i >= length ) {
 
           throw python::index_error();
       }
