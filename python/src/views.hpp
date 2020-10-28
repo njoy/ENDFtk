@@ -27,7 +27,7 @@ using BasicInputAnyView = ranges::any_view< Element, ranges::category::input >;
 template < typename Element >
 using BasicForwardAnyView = ranges::any_view< Element, ranges::category::forward >;
 template < typename Element >
-using BasicBiDirectionalAnyView = ranges::any_view< Element, ranges::category::bidirectional >;
+using BasicBidirectionalAnyView = ranges::any_view< Element, ranges::category::bidirectional >;
 template < typename Element >
 using BasicRandomAccessAnyView = ranges::any_view< Element, ranges::category::random_access >;
 
@@ -47,7 +47,7 @@ using InputAnyView = BasicInputAnyView< RefWrapper< Element > >;
 template < typename Element >
 using ForwardAnyView = BasicForwardAnyView< RefWrapper< Element > >;
 template < typename Element >
-using BiDirectionalAnyView = BasicBiDirectionalAnyView< RefWrapper< Element > >;
+using BidirectionalAnyView = BasicBidirectionalAnyView< RefWrapper< Element > >;
 template < typename Element >
 using RandomAccessAnyView = BasicRandomAccessAnyView< RefWrapper< Element > >;
 
@@ -61,30 +61,30 @@ using DoubleRange2D = BasicRandomAccessAnyView< DoubleRange >;
 using ComplexRange = BasicRandomAccessAnyView< std::complex< double > >;
 
 /**
- *  @brief Wrap a BasicBiDirectionalAnyView templated on the Element type
+ *  @brief Wrap a BasicBidirectionalAnyView templated on the Element type
  *
  *  @param[in,out] module   the python module
  *  @param[in,out] name     the unique type name
  */
 template < typename Element, typename CopyElement = Element >
-void wrapBasicBiDirectionalAnyViewOf( python::module& module, const std::string& name ) {
+void wrapBasicBidirectionalAnyViewOf( python::module& module, const std::string& name ) {
 
-  python::class_< BasicBiDirectionalAnyView< Element > >( module, name.c_str() )
+  python::class_< BasicBidirectionalAnyView< Element > >( module, name.c_str() )
   .def( "__len__",
-        [] ( BasicBiDirectionalAnyView< Element >& view )
+        [] ( BasicBidirectionalAnyView< Element >& view )
            { return ranges::distance( view ); },
         "Return the length of the sequence" )
   .def( "__iter__",
-        [] ( BasicBiDirectionalAnyView< Element >& view )
+        [] ( BasicBidirectionalAnyView< Element >& view )
            { return python::make_iterator<
                         python::return_value_policy::reference_internal,
-                        ranges::iterator_t< BasicBiDirectionalAnyView< Element > >,
-                        ranges::sentinel_t< BasicBiDirectionalAnyView< Element > >,
+                        ranges::iterator_t< BasicBidirectionalAnyView< Element > >,
+                        ranges::sentinel_t< BasicBidirectionalAnyView< Element > >,
                         Element >( view.begin(), view.end() ); },
         "Return an iterator for the sequence",
   	    python::keep_alive< 0, 1 >() )
   .def( "to_list",
-        [] ( BasicBiDirectionalAnyView< Element >& view )
+        [] ( BasicBidirectionalAnyView< Element >& view )
            -> std::vector< Element >
            { return view; },
         "Convert the sequence to a list (this is a deep copy for primitive\n"
@@ -179,15 +179,15 @@ void wrapBasicRandomAccessAnyViewOf( python::module& module, const std::string& 
 }
 
 /**
- *  @brief Wrap a BiDirectionalAnyView templated on the Element type
+ *  @brief Wrap a BidirectionalAnyView templated on the Element type
  *
  *  @param[in,out] module   the python module
  *  @param[in,out] name     the unique type name
  */
 template < typename Element >
-void wrapBiDirectionalAnyViewOf( python::module& module, const std::string& name ) {
+void wrapBidirectionalAnyViewOf( python::module& module, const std::string& name ) {
 
-  wrapBasicBiDirectionalAnyViewOf< RefWrapper< Element >, Element >( module, name );
+  wrapBasicBidirectionalAnyViewOf< RefWrapper< Element >, Element >( module, name );
 }
 
 /**

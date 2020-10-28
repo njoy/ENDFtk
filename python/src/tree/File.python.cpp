@@ -23,7 +23,7 @@ void wrapTreeFile( python::module& module ) {
   using Material = Tape::Material_t;
   using File = Material::File_t;
   using Section = File::Section_t;
-  using SectionRange = BiDirectionalAnyView< Section >;
+  using SectionRange = BidirectionalAnyView< Section >;
   using MF3 = njoy::ENDFtk::file::Type< 3 >;
   using MF4 = njoy::ENDFtk::file::Type< 4 >;
   using MF5 = njoy::ENDFtk::file::Type< 5 >;
@@ -33,7 +33,7 @@ void wrapTreeFile( python::module& module ) {
 
   // wrap views created by this tree component
   // none of these are supposed to be created directly by the user
-  wrapBiDirectionalAnyViewOf< Section >(
+  wrapBidirectionalAnyViewOf< Section >(
       module,
       "any_view< tree::Section, bidirectional >" );
 

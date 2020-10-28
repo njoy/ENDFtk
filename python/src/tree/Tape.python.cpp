@@ -16,11 +16,11 @@ void wrapTreeTape( python::module& module ) {
   // type aliases
   using Tape = njoy::ENDFtk::tree::Tape< std::string >;
   using Material = Tape::Material_t;
-  using MaterialRange = BiDirectionalAnyView< Material >;
+  using MaterialRange = BidirectionalAnyView< Material >;
 
   // wrap views created by this tree component
   // none of these are supposed to be created directly by the user
-  wrapBiDirectionalAnyViewOf< Material >(
+  wrapBidirectionalAnyViewOf< Material >(
       module,
       "any_view< tree::Material, bidirectional >" );
 

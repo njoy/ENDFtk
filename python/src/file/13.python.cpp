@@ -18,11 +18,11 @@ void wrapFile_13( python::module& module ) {
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 13 >;
   using File = njoy::ENDFtk::file::Type< 13 >;
-  using SectionRange = BiDirectionalAnyView< Section >;
+  using SectionRange = BidirectionalAnyView< Section >;
 
   // wrap views created by this file
   // none of these are supposed to be created directly by the user
-  wrapBiDirectionalAnyViewOf< Section >(
+  wrapBidirectionalAnyViewOf< Section >(
       module,
       "any_view< section::Type< 13 >, bidirectional >" );
 

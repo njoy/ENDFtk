@@ -16,11 +16,11 @@ void wrapTreeMaterial( python::module& module ) {
   using Tape = njoy::ENDFtk::tree::Tape< std::string >;
   using Material = Tape::Material_t;
   using File = Material::File_t;
-  using FileRange = BiDirectionalAnyView< File >;
+  using FileRange = BidirectionalAnyView< File >;
 
   // wrap views created by this tree component
   // none of these are supposed to be created directly by the user
-  wrapBiDirectionalAnyViewOf< File >(
+  wrapBidirectionalAnyViewOf< File >(
       module,
       "any_view< tree::File, bidirectional >" );
 
