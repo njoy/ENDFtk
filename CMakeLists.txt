@@ -5,6 +5,7 @@
 cmake_minimum_required( VERSION 3.14 )
 project( ENDFtk LANGUAGES CXX )
 
+
 ########################################################################
 # Project-wide setup
 ########################################################################
@@ -25,6 +26,7 @@ set( strict_flags "-Werror" )
 set( release_flags "-O3" )
 set( debug_flags "-O0" "-g" )
 
+
 ########################################################################
 # Dependencies
 ########################################################################
@@ -44,6 +46,7 @@ elseif( REPOSITORIES STREQUAL "local" )
     include( cmake/local_dependencies.cmake )
 
 endif()
+
 
 ########################################################################
 # Project targets
