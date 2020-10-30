@@ -94,7 +94,12 @@ namespace section{
     /**
      *  @brief Return the half life and its uncertainty
      */
-    auto halfLife() const { return this->energies_.halfLife(); }
+    auto T() const { return this->energies_.halfLife(); }
+
+    /**
+     *  @brief Return the half life and its uncertainty
+     */
+    auto halfLife() const { return this->T(); }
 
     /**
      *  @brief Return the target spin
@@ -130,7 +135,7 @@ namespace section{
     const DecayModes& decayModes() const { return this->modes_; }
 
     /**
-     *  @brief Return the spectra
+     *  @brief Return the particle spectra
      */
     auto decaySpectra() const {
 

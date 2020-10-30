@@ -158,6 +158,8 @@ pybind11_add_module( ENDFtk.python
     python/src/section/7/4/AnalyticalFunctions.python.cpp
     python/src/section/7/4/Tabulated.python.cpp
     python/src/section/7/4/ScatteringFunction.python.cpp
+    python/src/section/8/457.python.cpp
+    python/src/section/8/457/AverageDecayEnergies.python.cpp
     python/src/section/12.python.cpp
     python/src/section/12/TotalMultiplicity.python.cpp
     python/src/section/12/PartialMultiplicity.python.cpp
@@ -173,6 +175,7 @@ pybind11_add_module( ENDFtk.python
     python/src/file/5.python.cpp
     python/src/file/6.python.cpp
     python/src/file/7.python.cpp
+    python/src/file/8.python.cpp
     python/src/file/12.python.cpp
     python/src/file/13.python.cpp
     python/src/tree/Section.python.cpp

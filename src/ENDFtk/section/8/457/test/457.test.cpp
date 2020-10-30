@@ -422,11 +422,17 @@ void verifyChunkForRadioactiveNuclideWithSpectra(
   REQUIRE( false == chunk.isStable() );
   REQUIRE( 5.0 == Approx( chunk.spin() ) );
   REQUIRE( -1. == Approx( chunk.parity() ) );
+  auto T = chunk.T();
+  REQUIRE( 4.449622e+9 == Approx( T[0] ) );
+  REQUIRE( 6.311520e+7 == Approx( T[1] ) );
   auto halfLife = chunk.halfLife();
   REQUIRE( 4.449622e+9 == Approx( halfLife[0] ) );
   REQUIRE( 6.311520e+7 == Approx( halfLife[1] ) );
 
   auto averageEnergies = chunk.averageDecayEnergies();
+  auto T2 = averageEnergies.T();
+  REQUIRE( 4.449622e+9 == Approx( T2[0] ) );
+  REQUIRE( 6.311520e+7 == Approx( T2[1] ) );
   auto halfLife2 = averageEnergies.halfLife();
   REQUIRE( 4.449622e+9 == Approx( halfLife2[0] ) );
   REQUIRE( 6.311520e+7 == Approx( halfLife2[1] ) );
@@ -665,11 +671,17 @@ void verifyChunkForRadioactiveNuclideWithoutSpectra(
   REQUIRE( 5.0 == Approx( chunk.spin() ) );
   REQUIRE( -1. == Approx( chunk.PAR() ) );
   REQUIRE( -1. == Approx( chunk.parity() ) );
+  auto T = chunk.T();
+  REQUIRE( 4.449622e+9 == Approx( T[0] ) );
+  REQUIRE( 6.311520e+7 == Approx( T[1] ) );
   auto halfLife = chunk.halfLife();
   REQUIRE( 4.449622e+9 == Approx( halfLife[0] ) );
   REQUIRE( 6.311520e+7 == Approx( halfLife[1] ) );
 
   auto averageEnergies = chunk.averageDecayEnergies();
+  auto T2 = averageEnergies.T();
+  REQUIRE( 4.449622e+9 == Approx( T2[0] ) );
+  REQUIRE( 6.311520e+7 == Approx( T2[1] ) );
   auto halfLife2 = averageEnergies.halfLife();
   REQUIRE( 4.449622e+9 == Approx( halfLife2[0] ) );
   REQUIRE( 6.311520e+7 == Approx( halfLife2[1] ) );
@@ -775,11 +787,17 @@ void verifyChunkForStableNuclide( const section::Type< 8,457 >& chunk ) {
   REQUIRE( 5.0 == Approx( chunk.spin() ) );
   REQUIRE( -1. == Approx( chunk.PAR() ) );
   REQUIRE( -1. == Approx( chunk.parity() ) );
+  auto T = chunk.T();
+  REQUIRE( 0.0 == Approx( T[0] ) );
+  REQUIRE( 0.0 == Approx( T[1] ) );
   auto halfLife = chunk.halfLife();
   REQUIRE( 0.0 == Approx( halfLife[0] ) );
   REQUIRE( 0.0 == Approx( halfLife[1] ) );
 
   auto averageEnergies = chunk.averageDecayEnergies();
+  auto T1 = averageEnergies.T();
+  REQUIRE( 0.0 == Approx( T1[0] ) );
+  REQUIRE( 0.0 == Approx( T1[1] ) );
   auto halfLife1 = averageEnergies.halfLife();
   REQUIRE( 0.0 == Approx( halfLife1[0] ) );
   REQUIRE( 0.0 == Approx( halfLife1[1] ) );

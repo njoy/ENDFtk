@@ -21,6 +21,7 @@ void wrapFile_4( python::module& );
 void wrapFile_5( python::module& );
 void wrapFile_6( python::module& );
 void wrapFile_7( python::module& );
+void wrapFile_8( python::module& );
 void wrapFile_12( python::module& );
 void wrapFile_13( python::module& );
 
@@ -29,7 +30,6 @@ void wrapTreeSection( python::module& );
 void wrapTreeFile( python::module& );
 void wrapTreeMaterial( python::module& );
 void wrapTreeTape( python::module& );
-// void wrapMakeTreeTape( python::module& );
 
 /**
  *  @brief ENDFtk python bindings
@@ -69,6 +69,7 @@ PYBIND11_MODULE( ENDFtk, module ) {
   wrapFile_5( module );
   wrapFile_6( module );
   wrapFile_7( module );
+  wrapFile_8( module );
   wrapFile_12( module );
   wrapFile_13( module );
 
@@ -84,17 +85,4 @@ PYBIND11_MODULE( ENDFtk, module ) {
   wrapTreeFile( submodule );
   wrapTreeMaterial( submodule );
   wrapTreeTape( submodule );
-
-  // module.def(
-  //
-  //   "add",
-  //   [] ( int left, int right ) { return left + right; },
-  //   python::arg( "left" ), python::arg( "right" ),
-  //   "Return the sum of two integers\n\n"
-  //   "This function does not throw an exception.\n\n"
-  //   "Arguments:\n"
-  //   "    left    the integer on the left\n"
-  //   "    right   the integer on the right"
-  // );
-
 }
