@@ -1,14 +1,22 @@
+Base( double ZA, double AWR, int MT ) :
+  BaseWithoutMT( ZA, AWR ), MT_( MT ) {
+  if ( MT < 1 ){
+    Log::error( "Illegal section number" );
+    Log::info( "Section (MT) numbers must be greater than zero" );
+    Log::info( "Encountered section number: {}", MT );
+    throw std::exception();
+  }
+}
+
 Base( const HEAD& head, int MAT, int MF ) :
-  sectionNo( head.MT() ), 
-  ZA_( head.ZA() ), 
-  atomicWeightRatio_( head.atomicWeightRatio() ) { 
-  if( MAT != head.MAT() ){
+  Base( head.ZA(), head.atomicWeightRatio(), head.MT() ) {
+  if( MAT != head.MAT() ) {
     Log::error( "Incorrect Material number (MAT)." );
     Log::info( "Expected MAT = {}", MAT );
     Log::info( "Encountered MAT = {}", head.MAT() );
     throw std::exception();
   }
-  if( MF != head.MF() ){
+  if( MF != head.MF() ) {
     Log::error( "Incorrect File number (MF)." );
     Log::info( "Expected MF = {}", MF );
     Log::info( "Encountered MF = {}", head.MF() );

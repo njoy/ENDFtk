@@ -1,8 +1,11 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk.hpp"
+#include "ENDFtk/ControlRecord.hpp"
 
+// other includes
+
+// convenience typedefs
 using namespace njoy::ENDFtk;
 
 SCENARIO( "ControlRecord Tests", "[ENDFtk], [ControlRecord]" ){
@@ -17,7 +20,7 @@ SCENARIO( "ControlRecord Tests", "[ENDFtk], [ControlRecord]" ){
                      std::get< 2 >(values), std::get< 3 >(values),
                      std::get< 4 >(values), std::get< 5 >(values) ) );
   }
-  
+
   GIVEN( "iterators and a line number"){
     auto it = line.begin();
     auto end = line.end();
@@ -44,7 +47,7 @@ SCENARIO( "ControlRecord Tests", "[ENDFtk], [ControlRecord]" ){
 
     std::string buffer;
     auto output = std::back_inserter( buffer );
-    
+
     const auto cont = ControlRecord( it, end, lineNumber, 125, 1, 451 );
     cont.print( output, 125, 1, 451 );
 
@@ -55,10 +58,10 @@ SCENARIO( "ControlRecord Tests", "[ENDFtk], [ControlRecord]" ){
     auto it = line.begin();
     auto end = line.end();
     auto lineNumber = 0l;
-    
+
     REQUIRE( 1 == ControlRecord( it, end, lineNumber, 125, 1, 451 ).NC() );
   }
-  
+
   GIVEN( "A constructed control record"){
     auto it = line.begin();
     auto end = line.end();
@@ -95,7 +98,7 @@ SCENARIO( "ControlRecord Tests", "[ENDFtk], [ControlRecord]" ){
       REQUIRE( controlRecord1.N2() == std::get< 5 >( values ) );
       REQUIRE( constControlRecord0.N2() == std::get< 5 >( values ) );
       REQUIRE( constControlRecord1.N2() == std::get< 5 >( values ) );
-      
+
       controlRecord0.C1() = 3.14;
       REQUIRE( controlRecord0.C1() == 3.14 );
       controlRecord0.C2() = 2.5;
@@ -124,7 +127,7 @@ SCENARIO( "ControlRecord Tests", "[ENDFtk], [ControlRecord]" ){
     auto it = line.begin();
     auto end = line.end();
     auto lineNumber = 0l;
-    
+
     THEN("the ctor throws"){
       REQUIRE_THROWS( ControlRecord( it, end, lineNumber, 125, 1, 451 ) );
     }

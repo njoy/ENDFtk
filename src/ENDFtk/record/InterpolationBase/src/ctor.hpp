@@ -1,3 +1,11 @@
+//! @todo pybind11 variant needs default constructor workaround
+#ifdef PYBIND11
+InterpolationBase() :
+  metadata( 0., 0., 0, 0, 0, 0 ),
+  boundaryIndices(),
+  interpolationSchemeIndices() {}
+#endif
+
 InterpolationBase
 ( double C1, double C2, long L1, long L2,
   std::vector< long >&& boundaryIndices,
@@ -16,6 +24,8 @@ InterpolationBase
                      std::move( std::get<0>(regions) ),
                      std::move( std::get<1>(regions) ) ) {}
 
+protected:
+
 InterpolationBase
 ( Base&& metadata,
   std::tuple< std::vector< long >, std::vector< long > >&& regions ) :
@@ -25,11 +35,8 @@ InterpolationBase
                      std::get<3>( metadata.fields ),
                      std::move( std::get<0>( regions ) ),
                      std::move( std::get<1>( regions ) ) ) {
-  verifyN1( std::get<4>( metadata.fields ), this->boundaryIndices.size() );
   verifyN2( std::get<5>( metadata.fields ), this->boundaryIndices.back() );
 }
-
-protected:
 
 template< typename Iterator >
 InterpolationBase

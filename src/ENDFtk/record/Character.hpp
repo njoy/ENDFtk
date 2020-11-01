@@ -1,8 +1,27 @@
-template< int w >
-struct Character {
-  static constexpr std::size_t width = w;
-  using Type = std::string;
-  using Parser = disco::Character< width >;
+#ifndef NJOY_ENDFTK_RECORD_CHARACTER
+#define NJOY_ENDFTK_RECORD_CHARACTER
 
-  static constexpr const Type& defaultValue = helper::defaultString< w >;
-};
+// system includes
+
+// other includes
+#include "disco.hpp"
+#include "ENDFtk/record/helper.hpp"
+
+namespace njoy {
+namespace ENDFtk {
+namespace record {
+
+  template< int w >
+  struct Character {
+    static constexpr std::size_t width = w;
+    using Type = std::string;
+    using Parser = disco::Character< width >;
+
+    static constexpr const Type& defaultValue = helper::defaultString< w >;
+  };
+
+} // record namespace
+} // ENDFtk namespace
+} // njoy namespace
+
+#endif

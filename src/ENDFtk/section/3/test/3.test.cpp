@@ -1,177 +1,209 @@
-#define CATCH_CONFIG_MAIN     
-     
-#include "catch.hpp"     
-#include "ENDFtk.hpp"     
-     
-std::string baseSection();     
-std::string invalidBaseSection();     
-std::string validSEND();     
-std::string invalidSEND();     
-     
-using namespace njoy::ENDFtk;     
-     
-SCENARIO( "section::Type<3>" ){     
-  GIVEN( "a string representation of a valid File 3 Section" ){     
-    WHEN( "there is a valid SEND record" ){     
-      std::string sectionString = baseSection() + validSEND();     
-      auto begin = sectionString.begin();     
-      auto end = sectionString.end();     
-      long lineNumber = 132;      
-      HeadRecord head( begin, end, lineNumber );     
-           
-      THEN( "a section::Type<3> can be constructed and members can be tested" ){     
-        section::Type<3> MF3( head, begin, end, lineNumber, 125 );     
-        REQUIRE( 1 == MF3.MT() );     
-        REQUIRE( 1001 == MF3.ZA() );     
-        REQUIRE( 0.9991673 == MF3.atomicWeightRatio() );     
-      }     
-    }     
-     
-    WHEN( "there is a syntaxTree::Section" ){     
-      std::string sectionString = baseSection() + validSEND();     
-      auto begin = sectionString.begin();     
-      auto position = begin;     
-      auto end = sectionString.end();     
-      long lineNumber = 0;     
-      auto head = HEAD( position, end, lineNumber );     
-      syntaxTree::Section< std::string::iterator >     
-        mf3( head, begin, position, end, lineNumber );     
-           
-      THEN( "a section::Type<3> can be constructed and members can be tested" ){     
-        section::Type<3> MF3 = mf3.parse<3>( lineNumber );     
-        REQUIRE( 1 == MF3.MT() );     
-        REQUIRE( 1001 == MF3.ZA() );     
-        REQUIRE( 0.9991673 == MF3.atomicWeightRatio() );     
-      }     
-    }     
-         
-    WHEN( "the SEND Record is not valid, i.e., MT!=0" ){     
-      std::string sectionString = baseSection() + invalidSEND();     
-      auto begin = sectionString.begin();     
-      auto end = sectionString.end();     
-      long lineNumber = 132;     
-      HeadRecord head( begin, end, lineNumber );     
-           
-      THEN( "an exception is thrown" ){     
-        REQUIRE_THROWS( section::Type<3>( head, begin, end, lineNumber, 125 ) );     
-      }     
-    }      
-  }      
+#define CATCH_CONFIG_MAIN
 
-  GIVEN( "a valid instance of section::Type< 3 >" ) {
-    std::string string = baseSection() + validSEND();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1; 
-    HeadRecord head( begin, end, lineNumber );
-    section::Type< 3 > section( head, begin, end, lineNumber, 125 );
+#include "catch.hpp"
+#include "ENDFtk/section/3.hpp"
 
-    THEN( "it can be printed" ) {
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      section.print( output, 125, 3 );
-      REQUIRE( buffer == string );
-    }
+// other includes
+#include "ENDFtk/tree/Tape.hpp"
+
+// convenience typedefs
+using namespace njoy::ENDFtk;
+
+std::string chunk();
+void verifyChunk( const section::Type< 3 >& );
+std::string validSEND();
+std::string invalidSEND();
+
+SCENARIO( "section::Type< 3 >" ) {
+
+  GIVEN( "valid data for a section::Type< 3 >" ) {
+
+    std::string sectionString = chunk() + validSEND();
+
+    WHEN( "the data is given explicitly" ) {
+
+      int mt = 102;
+      int zaid = 1001;
+      int lr = 0;
+      double awr = 0.9991673;
+      double qm = 2.224648e+6;
+      double qi = 3.224648e+6;
+      std::vector< long > interpolants = { 5, 2 };
+      std::vector< long > boundaries = { 3, 6 };
+      std::vector< double > energies = { 1e-5, 2e-5, 7.5e+5,
+                                         1.9e+7, 1.95e+7, 2e+7 };
+      std::vector< double > xs = { 1.672869e+1, 1.182897e+1, 3.347392e-5,
+                                   2.751761e-5, 2.731301e-5, 2.710792e-5 };
+
+      section::Type< 3 > chunk( mt, zaid, awr, qm, qi, lr,
+                                std::move( boundaries ),
+                                std::move( interpolants ),
+                                std::move( energies ), std::move( xs ) );
+
+      THEN( "a section::Type< 3 > can be constructed and "
+            "members can be tested" ) {
+
+
+        verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 125, 3 );
+
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is read from a string/stream with a valid SEND" ) {
+
+      auto begin = sectionString.begin();
+      auto end = sectionString.end();
+      long lineNumber = 0;
+      HeadRecord head( begin, end, lineNumber );
+
+      section::Type< 3 > chunk( head, begin, end, lineNumber, 125 );
+
+      THEN( "a section::Type< 3 > can be constructed and "
+            "members can be tested" ) {
+
+        verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 125, 3 );
+
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
+
+    WHEN( "there is a tree::Section" ) {
+
+      std::string sectionString = chunk() + validSEND();
+      auto begin = sectionString.begin();
+      auto position = begin;
+      auto end = sectionString.end();
+      long lineNumber = 0;
+      auto head = HEAD( position, end, lineNumber );
+      tree::Section< std::string::iterator >
+        section( head, begin, position, end, lineNumber );
+
+      section::Type<3> chunk = section.parse< 3 >();
+      section::Type<3> chunk2 = section.parse< 3 >( lineNumber );
+      section::Type<3> chunk3 = section.parse( 3_c );
+      section::Type<3> chunk4 = section.parse( 3_c, lineNumber );
+
+      THEN( "a section::Type< 3 > can be constructed and "
+            "members can be tested" ) {
+
+        verifyChunk( chunk );
+        verifyChunk( chunk2 );
+        verifyChunk( chunk3 );
+        verifyChunk( chunk4 );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        std::string buffer2;
+        std::string buffer3;
+        std::string buffer4;
+        auto output = std::back_inserter( buffer );
+        auto output2 = std::back_inserter( buffer2 );
+        auto output3 = std::back_inserter( buffer3 );
+        auto output4 = std::back_inserter( buffer4 );
+        chunk.print( output, 125, 3 );
+        chunk2.print( output2, 125, 3 );
+        chunk3.print( output3, 125, 3 );
+        chunk4.print( output4, 125, 3 );
+
+        CHECK( buffer == sectionString );
+        CHECK( buffer2 == sectionString );
+        CHECK( buffer3 == sectionString );
+        CHECK( buffer4 == sectionString );
+      } // THEN
+    } // WHEN
   } // GIVEN
 
-  GIVEN( "a string representation of an File 3 Section"     
-         " with negative cross sections" ){     
-    std::string sectionString = invalidBaseSection() + validSEND();     
-    auto begin = sectionString.begin();     
-    auto end = sectionString.end();     
-    long lineNumber = 132;     
-    HeadRecord head( begin, end, lineNumber );     
-         
-    THEN( "an exception is thrown upon construction" ){     
-      REQUIRE_THROWS( section::Type<3>( head, begin, end, lineNumber, 125 ) );     
-    }     
-  } // GIVEN     
-} // SCENARIO     
-     
-std::string baseSection(){     
-  return     
-    " 1.001000+3 9.991673-1          0          0          0          0 125 3  1     \n"     
-    " 0.000000+0 0.000000+0          0          0          2         96 125 3  1     \n"     
-    "         30          5         96          2                       125 3  1     \n"     
-    " 1.000000-5 3.713628+1 2.000000-5 3.224498+1 5.000000-5 2.790478+1 125 3  1     \n"     
-    " 1.000000-4 2.571732+1 2.000000-4 2.417056+1 5.000000-4 2.279806+1 125 3  1     \n"     
-    " 1.000000-3 2.210633+1 2.000000-3 2.161720+1 5.000000-3 2.118318+1 125 3  1     \n"     
-    " 1.000000-2 2.096443+1 2.530000-2 2.076834+1 5.000000-2 2.067250+1 125 3  1     \n"     
-    " 1.000000-1 2.060332+1 2.000000-1 2.055439+1 5.000000-1 2.051095+1 125 3  1     \n"     
-    " 1.000000+0 2.048901+1 2.000000+0 2.047341+1 5.000000+0 2.045928+1 125 3  1     \n"     
-    " 1.000000+1 2.045169+1 2.000000+1 2.044545+1 5.000000+1 2.043707+1 125 3  1     \n"     
-    " 1.000000+2 2.042815+1 2.000000+2 2.041317+1 5.000000+2 2.037161+1 125 3  1     \n"     
-    " 1.000000+3 2.030435+1 2.000000+3 2.017221+1 4.000000+3 1.991433+1 125 3  1     \n"     
-    " 6.000000+3 1.966407+1 8.000000+3 1.942096+1 1.000000+4 1.918468+1 125 3  1     \n"     
-    " 1.500000+4 1.862195+1 2.000000+4 1.809600+1 4.000000+4 1.629575+1 125 3  1     \n"     
-    " 6.000000+4 1.486744+1 8.000000+4 1.370595+1 1.000000+5 1.274239+1 125 3  1     \n"     
-    " 1.500000+5 1.092347+1 2.000000+5 9.643237+0 3.000000+5 7.951994+0 125 3  1     \n"     
-    " 4.000000+5 6.876451+0 5.000000+5 6.125481+0 6.000000+5 5.566913+0 125 3  1     \n"     
-    " 7.000000+5 5.132043+0 8.000000+5 4.781603+0 9.000000+5 4.491504+0 125 3  1     \n"     
-    " 1.000000+6 4.246138+0 1.200000+6 3.850489+0 1.400000+6 3.541783+0 125 3  1     \n"     
-    " 1.600000+6 3.291349+0 1.800000+6 3.082224+0 2.000000+6 2.903682+0 125 3  1     \n"     
-    " 2.200000+6 2.748580+0 2.400000+6 2.611955+0 2.600000+6 2.490235+0 125 3  1     \n"     
-    " 2.800000+6 2.380773+0 3.000000+6 2.281558+0 3.200000+6 2.191030+0 125 3  1     \n"     
-    " 3.400000+6 2.107954+0 3.600000+6 2.031337+0 3.800000+6 1.960371+0 125 3  1     \n"     
-    " 4.000000+6 1.894386+0 4.200000+6 1.832823+0 4.400000+6 1.775213+0 125 3  1     \n"     
-    " 4.600000+6 1.721153+0 4.800000+6 1.670299+0 5.000000+6 1.622354+0 125 3  1     \n"     
-    " 5.500000+6 1.513587+0 6.000000+6 1.418191+0 6.500000+6 1.333743+0 125 3  1     \n"     
-    " 7.000000+6 1.258400+0 7.500000+6 1.190730+0 8.000000+6 1.129596+0 125 3  1     \n"     
-    " 8.500000+6 1.074084+0 9.000000+6 1.023447+0 9.500000+6 9.770666-1 125 3  1     \n"     
-    " 1.000000+7 9.344290-1 1.050000+7 8.950999-1 1.100000+7 8.587108-1 125 3  1     \n"     
-    " 1.150000+7 8.249463-1 1.200000+7 7.935351-1 1.250000+7 7.642418-1 125 3  1     \n"     
-    " 1.300000+7 7.368615-1 1.350000+7 7.112148-1 1.400000+7 6.871439-1 125 3  1     \n"     
-    " 1.450000+7 6.645095-1 1.500000+7 6.431880-1 1.550000+7 6.230693-1 125 3  1     \n"     
-    " 1.600000+7 6.040552-1 1.650000+7 5.860577-1 1.700000+7 5.689977-1 125 3  1     \n"     
-    " 1.750000+7 5.528040-1 1.800000+7 5.374121-1 1.850000+7 5.227637-1 125 3  1     \n"     
-    " 1.900000+7 5.088059-1 1.950000+7 4.954905-1 2.000000+7 4.827735-1 125 3  1     \n";     
-}     
-     
-std::string invalidBaseSection(){     
-  return      
-    " 1.001000+3 9.991673-1          0          0          0          0 125 3  1     \n"     
-    " 0.000000+0 0.000000+0          0          0          2         96 125 3  1     \n"     
-    "         30          5         96          2                       125 3  1     \n"     
-    " 1.000000-5-3.713628+1 2.000000-5 3.224498+1 5.000000-5 2.790478+1 125 3  1     \n"     
-    " 1.000000-4 2.571732+1 2.000000-4 2.417056+1 5.000000-4 2.279806+1 125 3  1     \n"     
-    " 1.000000-3 2.210633+1 2.000000-3 2.161720+1 5.000000-3 2.118318+1 125 3  1     \n"     
-    " 1.000000-2 2.096443+1 2.530000-2 2.076834+1 5.000000-2 2.067250+1 125 3  1     \n"     
-    " 1.000000-1 2.060332+1 2.000000-1 2.055439+1 5.000000-1 2.051095+1 125 3  1     \n"     
-    " 1.000000+0 2.048901+1 2.000000+0 2.047341+1 5.000000+0 2.045928+1 125 3  1     \n"     
-    " 1.000000+1 2.045169+1 2.000000+1 2.044545+1 5.000000+1 2.043707+1 125 3  1     \n"     
-    " 1.000000+2 2.042815+1 2.000000+2 2.041317+1 5.000000+2 2.037161+1 125 3  1     \n"     
-    " 1.000000+3 2.030435+1 2.000000+3 2.017221+1 4.000000+3 1.991433+1 125 3  1     \n"     
-    " 6.000000+3 1.966407+1 8.000000+3 1.942096+1 1.000000+4 1.918468+1 125 3  1     \n"     
-    " 1.500000+4 1.862195+1 2.000000+4 1.809600+1 4.000000+4 1.629575+1 125 3  1     \n"     
-    " 6.000000+4 1.486744+1 8.000000+4 1.370595+1 1.000000+5 1.274239+1 125 3  1     \n"     
-    " 1.500000+5 1.092347+1 2.000000+5 9.643237+0 3.000000+5 7.951994+0 125 3  1     \n"     
-    " 4.000000+5 6.876451+0 5.000000+5 6.125481+0 6.000000+5 5.566913+0 125 3  1     \n"     
-    " 7.000000+5 5.132043+0 8.000000+5 4.781603+0 9.000000+5 4.491504+0 125 3  1     \n"     
-    " 1.000000+6 4.246138+0 1.200000+6 3.850489+0 1.400000+6 3.541783+0 125 3  1     \n"     
-    " 1.600000+6 3.291349+0 1.800000+6 3.082224+0 2.000000+6 2.903682+0 125 3  1     \n"     
-    " 2.200000+6 2.748580+0 2.400000+6 2.611955+0 2.600000+6 2.490235+0 125 3  1     \n"     
-    " 2.800000+6 2.380773+0 3.000000+6 2.281558+0 3.200000+6 2.191030+0 125 3  1     \n"     
-    " 3.400000+6 2.107954+0 3.600000+6 2.031337+0 3.800000+6 1.960371+0 125 3  1     \n"     
-    " 4.000000+6 1.894386+0 4.200000+6 1.832823+0 4.400000+6 1.775213+0 125 3  1     \n"     
-    " 4.600000+6 1.721153+0 4.800000+6 1.670299+0 5.000000+6 1.622354+0 125 3  1     \n"     
-    " 5.500000+6 1.513587+0 6.000000+6 1.418191+0 6.500000+6 1.333743+0 125 3  1     \n"     
-    " 7.000000+6 1.258400+0 7.500000+6 1.190730+0 8.000000+6 1.129596+0 125 3  1     \n"     
-    " 8.500000+6 1.074084+0 9.000000+6 1.023447+0 9.500000+6 9.770666-1 125 3  1     \n"     
-    " 1.000000+7 9.344290-1 1.050000+7 8.950999-1 1.100000+7 8.587108-1 125 3  1     \n"     
-    " 1.150000+7 8.249463-1 1.200000+7 7.935351-1 1.250000+7 7.642418-1 125 3  1     \n"     
-    " 1.300000+7 7.368615-1 1.350000+7 7.112148-1 1.400000+7 6.871439-1 125 3  1     \n"     
-    " 1.450000+7 6.645095-1 1.500000+7 6.431880-1 1.550000+7 6.230693-1 125 3  1     \n"     
-    " 1.600000+7 6.040552-1 1.650000+7 5.860577-1 1.700000+7 5.689977-1 125 3  1     \n"     
-    " 1.750000+7 5.528040-1 1.800000+7 5.374121-1 1.850000+7 5.227637-1 125 3  1     \n"     
-    " 1.900000+7 5.088059-1 1.950000+7 4.954905-1 2.000000+7 4.827735-1 125 3  1     \n"     
-    "                                                                   125 3  0     \n";     
-}     
-     
-std::string validSEND(){     
-  return     
-    "                                                                   125 3  0     \n";     
-}     
-std::string invalidSEND(){     
-  return     
-    "                                                                   125 3  1     \n";     
+  GIVEN( "invalid data for a section::Type< 3 >" ) {
+
+    WHEN( "a string representation of a section::Type< 3 > with "
+          "an invalid SEND" ) {
+
+      std::string sectionString = chunk() + invalidSEND();
+      auto begin = sectionString.begin();
+      auto end = sectionString.end();
+      long lineNumber = 1;
+      HeadRecord head( begin, end, lineNumber );
+
+      THEN( "an exception is thrown" ){
+
+        CHECK_THROWS( section::Type< 3 >( head, begin, end,
+                                            lineNumber, 125 ) );
+      } // THEN
+    } // WHEN
+  } // THEN
+} // SCENARIO
+
+std::string chunk(){
+  return
+    " 1.001000+3 9.991673-1          0          0          0          0 125 3102     \n"
+    " 2.224648+6 3.224648+6          0          0          2          6 125 3102     \n"
+    "          3          5          6          2                       125 3102     \n"
+    " 1.000000-5 1.672869+1 2.000000-5 1.182897+1 7.500000+5 3.347392-5 125 3102     \n"
+    " 1.900000+7 2.751761-5 1.950000+7 2.731301-5 2.000000+7 2.710792-5 125 3102     \n";
+}
+
+void verifyChunk( const section::Type< 3 >& chunk ) {
+
+  CHECK( 102 == chunk.MT() );
+  CHECK( 1001 == chunk.ZA() );
+  CHECK( 0.9991673 == Approx( chunk.AWR() ) );
+  CHECK( 0.9991673 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 0 == chunk.LR() );
+  CHECK( 0 == chunk.complexBreakUp() );
+  CHECK( 2.224648e+6 == Approx( chunk.QM() ) );
+  CHECK( 2.224648e+6 == Approx( chunk.massDifferenceQValue() ) );
+  CHECK( 3.224648e+6 == Approx( chunk.QI() ) );
+  CHECK( 3.224648e+6 == Approx( chunk.reactionQValue() ) );
+
+  CHECK( 6 == chunk.NP() );
+  CHECK( 2 == chunk.NR() );
+  CHECK( 2 == chunk.interpolants().size() );
+  CHECK( 2 == chunk.boundaries().size() );
+  CHECK( 5 == chunk.interpolants()[0] );
+  CHECK( 2 == chunk.interpolants()[1] );
+  CHECK( 3 == chunk.boundaries()[0] );
+  CHECK( 6 == chunk.boundaries()[1] );
+  CHECK( 6 == chunk.energies().size() );
+  CHECK( 6 == chunk.crossSections().size() );
+  CHECK( 1e-5 == Approx( chunk.energies()[0] ) );
+  CHECK( 2e-5 == Approx( chunk.energies()[1] ) );
+  CHECK( 7.5e+5 == Approx( chunk.energies()[2] ) );
+  CHECK( 1.9e+7 == Approx( chunk.energies()[3] ) );
+  CHECK( 1.95e+7 == Approx( chunk.energies()[4] ) );
+  CHECK( 2e+7 == Approx( chunk.energies()[5] ) );
+  CHECK( 1.672869e+1 == Approx( chunk.crossSections()[0] ) );
+  CHECK( 1.182897e+1 == Approx( chunk.crossSections()[1] ) );
+  CHECK( 3.347392e-5 == Approx( chunk.crossSections()[2] ) );
+  CHECK( 2.751761e-5 == Approx( chunk.crossSections()[3] ) );
+  CHECK( 2.731301e-5 == Approx( chunk.crossSections()[4] ) );
+  CHECK( 2.710792e-5 == Approx( chunk.crossSections()[5] ) );
+
+  CHECK( 5 == chunk.NC() );
+}
+
+std::string validSEND(){
+  return
+    "                                                                   125 3  0     \n";
+}
+
+std::string invalidSEND(){
+  return
+    "                                                                   125 3  1     \n";
 }

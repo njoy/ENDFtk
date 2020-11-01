@@ -1,7 +1,5 @@
 
-add_executable( ENDFtk.record.Sequence.test
-                Sequence.test.cpp
-                read.test.cpp )
+add_executable( ENDFtk.record.Sequence.test Sequence.test.cpp )
 target_compile_options( ENDFtk.record.Sequence.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}
