@@ -2,7 +2,7 @@
  *  @class
  *  @brief Discrete spectrum information
  *
- *  The DiscreteSpectrum class is used to store spectral information for a 
+ *  The DiscreteSpectrum class is used to store spectral information for a
  *  single discrete energy from MF8/MT457.
  *
  *  All quantities are given as values with associated uncertainties so these
@@ -18,7 +18,7 @@ class DiscreteSpectrum : protected ListRecord {
   #include "ENDFtk/section/8/457/DiscreteSpectrum/src/verifyNT.hpp"
   #include "ENDFtk/section/8/457/DiscreteSpectrum/src/generateList.hpp"
   #include "ENDFtk/section/8/457/DiscreteSpectrum/src/returnArray.hpp"
-    
+
 public:
 
   /* constructor */

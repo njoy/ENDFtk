@@ -28,9 +28,9 @@ class Test_ENDFtk_MF8_MT457_DecayMode( unittest.TestCase ) :
             self.assertEqual( 1.200000e-4, chunk.branching_ratio[1] )
 
         # the data is given explicitly
-        chunk = DecayMode( rtyp = 4.,  rfs = 0., q = 5.637120e+6,
-                           dq = 2.549510e+2, br = 4.590000e-3,
-                           dbr = 1.200000e-4 )
+        chunk = DecayMode( chain = 4.,  state = 0., q = 5.637120e+6,
+                           dq = 2.549510e+2, ratio = 4.590000e-3,
+                           dratio = 1.200000e-4 )
 
         verify_chunk( self, chunk )
 

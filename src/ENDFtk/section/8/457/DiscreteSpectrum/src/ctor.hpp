@@ -1,5 +1,5 @@
 private:
-/** 
+/**
  *  @brief Constructor
  *
  *  The number of values in the list should be less than or equal to 12, this is
@@ -14,62 +14,61 @@ DiscreteSpectrum( ListRecord&& list ) :
 }
 
 public:
-/** 
+/**
  *  @brief Constructor
  *
- *  @param[in] decayChain          the ENDF decay chain
- *  @param[in] discreteEnergy      the energy and uncertainty
- *  @param[in] relativeIntensity   the relative intensity and uncertainty
- *  @param[in] type                the transition type
+ *  @param[in] chain        the ENDF decay chain
+ *  @param[in] energy       the energy and uncertainty
+ *  @param[in] intensity    the relative intensity and uncertainty
+ *  @param[in] type         the transition type
  */
-DiscreteSpectrum( double decayChain,
-                  const std::array< double, 2 >& discreteEnergy,
-                  const std::array< double, 2 >& relativeIntensity,
+DiscreteSpectrum( double chain,
+                  const std::array< double, 2 >& energy,
+                  const std::array< double, 2 >& intensity,
                   double type ) :
   // this can never fail, try-catch would be unreachable
   DiscreteSpectrum(
-        ListRecord( discreteEnergy[0], discreteEnergy[1], 0, 0, 0,
-                    generateList( decayChain, type,
-                                  relativeIntensity ) ) ) {}
+        ListRecord( energy[0], energy[1], 0, 0, 0,
+                    generateList( chain, type, intensity ) ) ) {}
 
-/** 
+/**
  *  @brief Constructor
  *
- *  @param[in] decayChain          the ENDF decay chain
- *  @param[in] discreteEnergy      the energy and uncertainty
- *  @param[in] relativeIntensity   the relative intensity and uncertainty
- *  @param[in] type                the transition type
- *  @param[in] ris                 internal pair formation coefficient or
- *                                 positron intensity
+ *  @param[in] chain        the ENDF decay chain
+ *  @param[in] energy       the energy and uncertainty
+ *  @param[in] intensity    the relative intensity and uncertainty
+ *  @param[in] type         the transition type
+ *  @param[in] ris          internal pair formation coefficient or
+ *                          positron intensity
  */
-DiscreteSpectrum( double decayChain,
-                  const std::array< double, 2 >& discreteEnergy,
-                  const std::array< double, 2 >& relativeIntensity,
+DiscreteSpectrum( double chain,
+                  const std::array< double, 2 >& energy,
+                  const std::array< double, 2 >& intensity,
                   double type,
                   const std::array< double, 2 >& ris ) :
   // this can never fail, try-catch would be unreachable
   DiscreteSpectrum(
-        ListRecord( discreteEnergy[0], discreteEnergy[1], 0, 0, 0,
-                    generateList( decayChain, type,
-                                  relativeIntensity,
+        ListRecord( energy[0], energy[1], 0, 0, 0,
+                    generateList( chain, type,
+                                  intensity,
                                   ris ) ) ) {}
 
-/** 
+/**
  *  @brief Constructor
  *
- *  @param[in] decayChain          the ENDF decay chain
- *  @param[in] discreteEnergy      the energy and uncertainty
- *  @param[in] relativeIntensity   the relative intensity and uncertainty
- *  @param[in] type                the transition type
- *  @param[in] ris                 internal pair formation coefficient or
- *                                 positron intensity
- *  @param[in] ricc                the total internal conversion coefficient
- *  @param[in] rick                the K shell internal conversion coefficient
- *  @param[in] ricl                the L shell internal conversion coefficient
+ *  @param[in] chain        the ENDF decay chain
+ *  @param[in] energy       the energy and uncertainty
+ *  @param[in] intensity    the relative intensity and uncertainty
+ *  @param[in] type         the transition type
+ *  @param[in] ris          internal pair formation coefficient or
+ *                          positron intensity
+ *  @param[in] ricc         the total internal conversion coefficient
+ *  @param[in] rick         the K shell internal conversion coefficient
+ *  @param[in] ricl         the L shell internal conversion coefficient
  */
-DiscreteSpectrum( double decayChain,
-                  const std::array< double, 2 >& discreteEnergy,
-                  const std::array< double, 2 >& relativeIntensity,
+DiscreteSpectrum( double chain,
+                  const std::array< double, 2 >& energy,
+                  const std::array< double, 2 >& intensity,
                   double type,
                   const std::array< double, 2 >& ris,
                   const std::array< double, 2 >& ricc,
@@ -77,12 +76,12 @@ DiscreteSpectrum( double decayChain,
                   const std::array< double, 2 >& ricl ) :
   // this can never fail, try-catch would be unreachable
   DiscreteSpectrum(
-        ListRecord( discreteEnergy[0], discreteEnergy[1], 0, 0, 0,
-                    generateList( decayChain, type,
-                                  relativeIntensity,
+        ListRecord( energy[0], energy[1], 0, 0, 0,
+                    generateList( chain, type,
+                                  intensity,
                                   ris, ricc, rick, ricl ) ) ) {}
 
-/** 
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator

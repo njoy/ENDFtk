@@ -32,17 +32,17 @@ void wrapDecayMode( python::module& module ) {
   .def(
 
     python::init< double, double, double, double, double, double >(),
-    python::arg( "rtyp" ), python::arg( "rfs" ), python::arg( "q" ),
-    python::arg( "dq" ), python::arg( "br" ), python::arg( "dbr" ),
+    python::arg( "chain" ), python::arg( "state" ), python::arg( "q" ),
+    python::arg( "dq" ), python::arg( "ratio" ), python::arg( "dratio" ),
     "Initialise the component\n\n"
     "Arguments:\n"
-    "    self    the component\n"
-    "    rtyp    the decay chain\n"
-    "    rfs     the final isomeric state\n"
-    "    q       the Q value\n"
-    "    dq      the uncertainty on the Q value\n"
-    "    br      the branching ratio value\n"
-    "    dbr     the uncertainty on the branching ratio value"
+    "    self      the component\n"
+    "    chain     the decay chain\n"
+    "    state     the final isomeric state\n"
+    "    q         the Q value\n"
+    "    dq        the uncertainty on the Q value\n"
+    "    ratio     the branching ratio value\n"
+    "    dratio    the uncertainty on the branching ratio value"
   )
   .def(
 
