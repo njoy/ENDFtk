@@ -134,4 +134,4 @@ void wrapAverageDecayEnergies( python::module& module ) {
   addStandardComponentDefinitions< Component >( component );
 }
 
-} // namespace mf7
+} // namespace mf8

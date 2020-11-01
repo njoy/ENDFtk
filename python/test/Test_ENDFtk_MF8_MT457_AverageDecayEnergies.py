@@ -157,7 +157,7 @@ class Test_ENDFtk_MF8_MT457_AverageDecayEnergies( unittest.TestCase ) :
 
         with self.assertRaises( Exception ) :
 
-            chunk = AverageDecayEnergies.from_string( self.invalid, 27, 7, 4 )
+            chunk = AverageDecayEnergies.from_string( self.invalid, 3580, 8, 457 )
 
 if __name__ == '__main__' :
 

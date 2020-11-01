@@ -160,6 +160,8 @@ pybind11_add_module( ENDFtk.python
     python/src/section/7/4/ScatteringFunction.python.cpp
     python/src/section/8/457.python.cpp
     python/src/section/8/457/AverageDecayEnergies.python.cpp
+    python/src/section/8/457/DecayMode.python.cpp
+    python/src/section/8/457/DecayModes.python.cpp
     python/src/section/12.python.cpp
     python/src/section/12/TotalMultiplicity.python.cpp
     python/src/section/12/PartialMultiplicity.python.cpp

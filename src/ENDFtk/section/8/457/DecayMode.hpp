@@ -2,7 +2,7 @@
  *  @class
  *  @brief A single ENDF decay mode
  *
- *  The DecayMode class is used to store the decay chain RTYP, the final 
+ *  The DecayMode class is used to store the decay chain RTYP, the final
  *  isomeric state RFS, the Q value and its uncertainty and the branching
  *  ratio and its uncertainty for a decay mode from MF8/MT457.
  *

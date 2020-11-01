@@ -14,6 +14,8 @@ namespace mf8 {
 
   // declarations - components
   void wrapAverageDecayEnergies( python::module& );
+  void wrapDecayMode( python::module& );
+  void wrapDecayModes( python::module& );
 
 }
 
@@ -44,6 +46,8 @@ void wrapSection_8_457( python::module& module ) {
 
   // wrap components
   mf8::wrapAverageDecayEnergies( submodule );
+  mf8::wrapDecayMode( submodule );
+  mf8::wrapDecayModes( submodule );
 
   // wrap the section
   section
