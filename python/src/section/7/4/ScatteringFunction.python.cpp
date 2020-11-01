@@ -3,7 +3,7 @@
 #include <pybind11/stl.h>
 
 // local includes
-#include "ENDFtk/section/7.hpp"
+#include "ENDFtk/section/7/4.hpp"
 #include "definitions.hpp"
 #include "views.hpp"
 

@@ -12,12 +12,7 @@ FetchContent_Declare( catch-adapter
 
 FetchContent_Declare( disco
     GIT_REPOSITORY  https://github.com/njoy/disco
-    GIT_TAG         178a03cf4a571fee028b008ffac85e20f6059ade
-    )
-
-FetchContent_Declare( fmt-adapter
-    GIT_REPOSITORY  http://github.com/njoy/fmt-adapter
-    GIT_TAG         a6db6c8cf9534b028eb3dea4549934f7ae6abf9f
+    GIT_TAG         a1a7ddb2c0f69465524d8640ee29988b714a881e
     )
 
 FetchContent_Declare( hana-adapter
@@ -27,23 +22,24 @@ FetchContent_Declare( hana-adapter
 
 FetchContent_Declare( header-utilities
     GIT_REPOSITORY  https://github.com/njoy/header-utilities
-    GIT_TAG         7d575429926e033acd18340d04e44d1bc51f19d5
+    GIT_TAG         cc2610fee15e255c151e8e22aca1e8b3d1a96b39
     )
 
 FetchContent_Declare( Log
     GIT_REPOSITORY  https://github.com/njoy/Log
-    GIT_TAG         e0f371dfef22b655bbd52e8783d037e6c594824a
+    GIT_TAG         52962b7796afe37ef1d8f7edb4bf9ecb1b868d15
     )
 
 FetchContent_Declare( range-v3-adapter
     GIT_REPOSITORY  https://github.com/njoy/range-v3-adapter
-    GIT_TAG         4d1a3bde6aba47ca59a65713f9cab7877ad2cc87
+    GIT_TAG         252679d4737c8f755d87c0e1eed6c37394a2ec59
     )
 
-FetchContent_Declare( spdlog-adapter
-    GIT_REPOSITORY  http://github.com/njoy/spdlog-adapter
-    GIT_TAG         39cd17919b2be662a45b9c33342b5a5f4f1feb4c
+FetchContent_Declare( spdlog
+    GIT_REPOSITORY  https://github.com/gabime/spdlog
+    GIT_TAG         a51b4856377a71f81b6d74b9af459305c4c644f8
     )
+set( SPDLOG_BUILD_TESTING CACHE BOOL OFF )
 
 FetchContent_Declare( pybind11
     GIT_REPOSITORY  https://github.com/pybind/pybind11
@@ -58,11 +54,10 @@ FetchContent_Declare( pybind11
 FetchContent_MakeAvailable(
     catch-adapter
     disco
-    fmt-adapter
     hana-adapter
     header-utilities
     Log
     range-v3-adapter
-    spdlog-adapter
+    spdlog
     pybind11
     )

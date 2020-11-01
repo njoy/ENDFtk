@@ -27,10 +27,28 @@ public:
    */
   double decayChain() const { return this->RTYP(); }
 
+  /**
+   *  @brief Return the energy values
+   */
+  auto E() const { return TabulationRecord::x(); }
+
+  /**
+   *  @brief Return the energy values
+   */
+  auto energies() const { return this->E(); }
+
+  /**
+   *  @brief Return the spectral values
+   */
+  auto RP() const { return TabulationRecord::y(); }
+
+  /**
+   *  @brief Return the spectral values
+   */
+  auto spectralValues() const { return this->RP(); }
+
   using TabulationRecord::NP;
   using TabulationRecord::NR;
-  auto energies() const { return TabulationRecord::x(); }
-  auto spectralValues() const { return TabulationRecord::y(); }
   using TabulationRecord::interpolants;
   using TabulationRecord::boundaries;
   using TabulationRecord::NC;
