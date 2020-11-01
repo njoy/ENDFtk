@@ -46,7 +46,7 @@ SCENARIO( "ContinuousSpectrum" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 3580, 8, 457 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
@@ -69,7 +69,7 @@ SCENARIO( "ContinuousSpectrum" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 3580, 8, 457 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -89,7 +89,7 @@ SCENARIO( "ContinuousSpectrum" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( ContinuousSpectrum( decayChain,
+        CHECK_THROWS( ContinuousSpectrum( decayChain,
                                             std::move( wrongBoundaries ),
                                             std::move( interpolants ),
                                             std::move( energies ),
@@ -108,7 +108,7 @@ SCENARIO( "ContinuousSpectrum" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( ContinuousSpectrum( begin, end, lineNumber,
+        CHECK_THROWS( ContinuousSpectrum( begin, end, lineNumber,
                                             9228, 6, 5 ) );
       } // THEN
     } // WHEN
@@ -124,24 +124,32 @@ std::string chunk() {
 
 void verifyChunk( const ContinuousSpectrum& chunk )
 {
-  REQUIRE( 4. == chunk.RTYP() );
-  REQUIRE( 4. == chunk.decayChain() );
-  REQUIRE( 3 == chunk.NP() );
-  REQUIRE( 1 == chunk.NR() );
-  REQUIRE( 1 == chunk.interpolants().size() );
-  REQUIRE( 1 == chunk.boundaries().size() );
-  REQUIRE( 1 == chunk.interpolants()[0] );
-  REQUIRE( 3 == chunk.boundaries()[0] );
-  REQUIRE( 3 == chunk.energies().size() );
-  REQUIRE( 3 == chunk.spectralValues().size() );
-  REQUIRE( 0.0 == Approx( chunk.energies()[0] ) );
-  REQUIRE( 5e+5 == Approx( chunk.energies()[1] ) );
-  REQUIRE( 7.3e+6 == Approx( chunk.energies()[2] ) );
-  REQUIRE( 6.133200e-7 == Approx( chunk.spectralValues()[0] ) );
-  REQUIRE( 6.133300e-7 == Approx( chunk.spectralValues()[1] ) );
-  REQUIRE( 6.02040e-17 == Approx( chunk.spectralValues()[2] ) );
+  CHECK( 4. == chunk.RTYP() );
+  CHECK( 4. == chunk.decayChain() );
+  CHECK( 3 == chunk.NP() );
+  CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.interpolants().size() );
+  CHECK( 1 == chunk.boundaries().size() );
+  CHECK( 1 == chunk.interpolants()[0] );
+  CHECK( 3 == chunk.boundaries()[0] );
+  CHECK( 3 == chunk.E().size() );
+  CHECK( 3 == chunk.energies().size() );
+  CHECK( 3 == chunk.RP().size() );
+  CHECK( 3 == chunk.spectralValues().size() );
+  CHECK( 0.0 == Approx( chunk.E()[0] ) );
+  CHECK( 5e+5 == Approx( chunk.E()[1] ) );
+  CHECK( 7.3e+6 == Approx( chunk.E()[2] ) );
+  CHECK( 0.0 == Approx( chunk.energies()[0] ) );
+  CHECK( 5e+5 == Approx( chunk.energies()[1] ) );
+  CHECK( 7.3e+6 == Approx( chunk.energies()[2] ) );
+  CHECK( 6.133200e-7 == Approx( chunk.RP()[0] ) );
+  CHECK( 6.133300e-7 == Approx( chunk.RP()[1] ) );
+  CHECK( 6.02040e-17 == Approx( chunk.RP()[2] ) );
+  CHECK( 6.133200e-7 == Approx( chunk.spectralValues()[0] ) );
+  CHECK( 6.133300e-7 == Approx( chunk.spectralValues()[1] ) );
+  CHECK( 6.02040e-17 == Approx( chunk.spectralValues()[2] ) );
 
-  REQUIRE( 3 == chunk.NC() );
+  CHECK( 3 == chunk.NC() );
 }
 
 std::string invalidChunk() {

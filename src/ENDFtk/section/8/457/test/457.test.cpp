@@ -519,7 +519,7 @@ void verifyChunkForRadioactiveNuclideWithSpectra(
   CHECK( 0. == spectrum1.radiationType() );
 
   CHECK( 0 == spectrum1.LCON() );
-  CHECK( 0 == spectrum1.continuumSpectrumFlag() );
+  CHECK( 0 == spectrum1.spectralTypeFlag() );
   CHECK( 0 == spectrum1.LCOV() );
   CHECK( 0 == spectrum1.covarianceFlag() );
   CHECK( 2 == spectrum1.NER() );
@@ -604,7 +604,7 @@ void verifyChunkForRadioactiveNuclideWithSpectra(
   CHECK( 1. == spectrum2.radiationType() );
 
   CHECK( 1 == spectrum2.LCON() );
-  CHECK( 1 == spectrum2.continuumSpectrumFlag() );
+  CHECK( 1 == spectrum2.spectralTypeFlag() );
   CHECK( 0 == spectrum2.LCOV() );
   CHECK( 0 == spectrum2.covarianceFlag() );
   CHECK( 0 == spectrum2.NER() );

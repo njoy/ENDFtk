@@ -17,6 +17,8 @@ namespace mf8 {
   void wrapDecayMode( python::module& );
   void wrapDecayModes( python::module& );
   void wrapDiscreteSpectrum( python::module& );
+  void wrapContinuousSpectrum( python::module& );
+  void wrapDecaySpectrum( python::module& );
 
 }
 
@@ -50,6 +52,8 @@ void wrapSection_8_457( python::module& module ) {
   mf8::wrapDecayMode( submodule );
   mf8::wrapDecayModes( submodule );
   mf8::wrapDiscreteSpectrum( submodule );
+  mf8::wrapContinuousSpectrum( submodule );
+  mf8::wrapDecaySpectrum( submodule );
 
   // wrap the section
   section
