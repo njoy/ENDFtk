@@ -9,12 +9,7 @@ namespace ENDFtk {
 namespace section{
 
 template< int MF, int... OptionalMT >
-class Type{
-  Type() = default; // intentionally private
-public:
-  template< typename... Args >
-  void print( Args... ) const {}
-};
+class Type;
 
 } // section namespace
 } // ENDFtk namespace
