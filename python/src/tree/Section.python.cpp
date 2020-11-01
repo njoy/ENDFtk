@@ -106,10 +106,18 @@ void wrapTreeSection( python::module& module ) {
           switch ( mt ) {
 
             case 451 : return self.parse< 1, 451 >();
-            default: throw std::runtime_error(
+            case 452 :
+            case 455 :
+            case 456 :
+            case 458 :
+            case 460 : throw std::runtime_error(
                            "Section " + std::to_string( mt ) + " from file " +
                            std::to_string( mf ) +
                            " cannot be parsed yet" );
+            default: throw std::runtime_error(
+                           "Section " + std::to_string( mt ) + " from file " +
+                           std::to_string( mf ) +
+                           " is not an official ENDF section" );
           }
         }
         case 2 : {
@@ -118,10 +126,14 @@ void wrapTreeSection( python::module& module ) {
 
             case 151 : return self.parse< 2, 151 >();
             case 152 : return self.parse< 2, 152 >();
-            default: throw std::runtime_error(
+            case 153 : throw std::runtime_error(
                            "Section " + std::to_string( mt ) + " from file " +
                            std::to_string( mf ) +
                            " cannot be parsed yet" );
+            default : throw std::runtime_error(
+                           "Section " + std::to_string( mt ) + " from file " +
+                           std::to_string( mf ) +
+                           " is not an official ENDF section" );
           }
         }
         case 3 : return self.parse< 3 >();
@@ -137,7 +149,7 @@ void wrapTreeSection( python::module& module ) {
             default: throw std::runtime_error(
                            "Section " + std::to_string( mt ) + " from file " +
                            std::to_string( mf ) +
-                           " cannot be parsed yet" );
+                           " is not an official ENDF section" );
           }
         }
         case 8 : {
@@ -145,10 +157,15 @@ void wrapTreeSection( python::module& module ) {
           switch ( mt ) {
 
             case 457 : return self.parse< 8, 457 >();
-            default: throw std::runtime_error(
+            case 454 :
+            case 459 : throw std::runtime_error(
                            "Section " + std::to_string( mt ) + " from file " +
                            std::to_string( mf ) +
                            " cannot be parsed yet" );
+            default : throw std::runtime_error(
+                           "Section " + std::to_string( mt ) + " from file " +
+                           std::to_string( mf ) +
+                           " is not an official ENDF section" );
           }
         }
         case 12 : return self.parse< 12 >();
