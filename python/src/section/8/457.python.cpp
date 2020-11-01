@@ -29,8 +29,13 @@ void wrapSection_8_457( python::module& module ) {
   using AverageDecayEnergies = njoy::ENDFtk::section::Type< 8, 457 >::AverageDecayEnergies;
   using DecayModes = njoy::ENDFtk::section::Type< 8, 457 >::DecayModes;
   using DecaySpectrum = njoy::ENDFtk::section::Type< 8, 457 >::DecaySpectrum;
+  using DecaySpectrumRange = RandomAccessAnyView< DecaySpectrum >;
 
   // wrap views created by this section
+  // none of these are supposed to be created directly by the user
+  wrapRandomAccessAnyViewOf< DecaySpectrum >(
+      module,
+      "any_view< DecaySpectrum, random_access >" );
 
   // create the submodule
   python::module submodule = module.def_submodule(
@@ -195,7 +200,8 @@ void wrapSection_8_457( python::module& module ) {
   .def_property_readonly(
 
     "decay_spectra",
-    &Section::decaySpectra,
+    [] ( const Section& self ) -> DecaySpectrumRange
+       { return self.decaySpectra(); },
     "The particle spectra"
   );
 

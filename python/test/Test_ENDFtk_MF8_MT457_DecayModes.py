@@ -29,7 +29,9 @@ class Test_ENDFtk_MF8_MT457_DecayModes( unittest.TestCase ) :
         def verify_chunk( self, chunk ) :
 
             # verify content
+            self.assertAlmostEqual( 5.0, chunk.SPI )
             self.assertAlmostEqual( 5.0, chunk.spin )
+            self.assertAlmostEqual( -1., chunk.PAR )
             self.assertAlmostEqual( -1., chunk.parity )
 
             modes = chunk.decay_modes
@@ -37,20 +39,32 @@ class Test_ENDFtk_MF8_MT457_DecayModes( unittest.TestCase ) :
             self.assertEqual( 3, len( modes ) )
             self.assertAlmostEqual( 4., modes[0].decay_chain )
             self.assertAlmostEqual( 0., modes[0].final_isomeric_state )
+            self.assertAlmostEqual( 5.637120e+6, modes[0].Q[0] )
+            self.assertAlmostEqual( 2.549510e+2, modes[0].Q[1] )
             self.assertAlmostEqual( 5.637120e+6, modes[0].q_value[0] )
             self.assertAlmostEqual( 2.549510e+2, modes[0].q_value[1] )
+            self.assertAlmostEqual( 4.590000e-3, modes[0].BR[0] )
+            self.assertAlmostEqual( 1.200000e-4, modes[0].BR[1] )
             self.assertAlmostEqual( 4.590000e-3, modes[0].branching_ratio[0] )
             self.assertAlmostEqual( 1.200000e-4, modes[0].branching_ratio[1] )
             self.assertAlmostEqual( 3., modes[1].decay_chain )
             self.assertAlmostEqual( 0., modes[1].final_isomeric_state )
+            self.assertAlmostEqual( 4.860000e+4, modes[1].Q[0] )
+            self.assertAlmostEqual( 5.000000e+1, modes[1].Q[1] )
             self.assertAlmostEqual( 4.860000e+4, modes[1].q_value[0] )
             self.assertAlmostEqual( 5.000000e+1, modes[1].q_value[1] )
+            self.assertAlmostEqual( 9.954100e-1, modes[1].BR[0] )
+            self.assertAlmostEqual( 1.200000e-4, modes[1].BR[1] )
             self.assertAlmostEqual( 9.954100e-1, modes[1].branching_ratio[0] )
             self.assertAlmostEqual( 1.200000e-4, modes[1].branching_ratio[1] )
             self.assertAlmostEqual( 6., modes[2].decay_chain )
             self.assertAlmostEqual( 0., modes[2].final_isomeric_state )
+            self.assertAlmostEqual( 1.884000e+8, modes[2].Q[0] )
+            self.assertAlmostEqual( 3.700000e+6, modes[2].Q[1] )
             self.assertAlmostEqual( 1.884000e+8, modes[2].q_value[0] )
             self.assertAlmostEqual( 3.700000e+6, modes[2].q_value[1] )
+            self.assertAlmostEqual( 1.60000e-10, modes[2].BR[0] )
+            self.assertAlmostEqual( 6.00000e-11, modes[2].BR[1] )
             self.assertAlmostEqual( 1.60000e-10, modes[2].branching_ratio[0] )
             self.assertAlmostEqual( 6.00000e-11, modes[2].branching_ratio[1] )
 
