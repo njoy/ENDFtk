@@ -6,10 +6,9 @@
 
 namespace njoy {
 namespace ENDFtk {
-namespace section{
+namespace section {
 
-template< int MF, int... OptionalMT >
-class Type;
+template< int MF, int... OptionalMT > class Type;
 
 } // section namespace
 } // ENDFtk namespace

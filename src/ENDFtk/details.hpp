@@ -1,5 +1,5 @@
-#ifndef NJOY_ENDFTK_FILE_DETAILS
-#define NJOY_ENDFTK_FILE_DETAILS
+#ifndef NJOY_ENDFTK_DETAILS
+#define NJOY_ENDFTK_DETAILS
 
 // system includes
 #include <string>
@@ -16,14 +16,13 @@ namespace ENDFtk {
   using namespace hana::literals;
   }
 
-namespace file {
 namespace details {
 
   template< int i >
   using index = hana::llong<static_cast<long long>(i)>;
 
   template< int i >
-  constexpr const auto index_c = index<i>{};
+  constexpr const auto index_c = index< i >{};
 
   template< typename T >
   constexpr const bool isOptional = false;
@@ -31,12 +30,12 @@ namespace details {
   template< typename T >
   constexpr const bool isOptional< std::optional< T > > = true;
 
-  #include "ENDFtk/file/details/src/fileOf.hpp"
-  #include "ENDFtk/file/details/src/sectionOf.hpp"
-  #include "ENDFtk/file/details/src/get.hpp"
+  #include "ENDFtk/details/get.hpp"
+
+  #include "ENDFtk/details/fileOf.hpp"
+  #include "ENDFtk/details/sectionOf.hpp"
 
 } // details namespace
-} // file namespace
 } // ENDFtk namespace
 } // njoy namespace
 

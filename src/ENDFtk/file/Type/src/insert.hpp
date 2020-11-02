@@ -1,5 +1,5 @@
 struct insert {
-  auto operator()( std::map< int, Section >& sectionMap, 
+  auto operator()( std::map< int, Section >& sectionMap,
                    Section&& section ) const {
 
     int MT = section.MT();
@@ -13,7 +13,7 @@ struct insert {
     }
   }
 
-  auto operator()( std::map< int, Section >& sectionMap, 
+  auto operator()( std::map< int, Section >& sectionMap,
                    Section& section ) const {
 
     return (*this)( sectionMap, std::move( section ) );

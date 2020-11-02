@@ -16,4 +16,3 @@ struct get_fn {
 };
 
 constexpr const get_fn get{};
-

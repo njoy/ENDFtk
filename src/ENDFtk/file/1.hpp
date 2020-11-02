@@ -28,9 +28,10 @@ namespace file {
       // hana::make_tuple( 452_c, 455_c, 456_c, 458_c, 460_c );
       RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple() )
 
-    using Map = typename decltype( deduceMapType( 1_c,
-                                                  requiredSections(),
-                                                  optionalSections() ) )::type;
+    using Map =
+    typename decltype( details::deduceMapType( 1_c,
+                                               requiredSections(),
+                                               optionalSections() ) )::type;
 
     /* fields */
     Map sectionMap;

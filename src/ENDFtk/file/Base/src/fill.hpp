@@ -5,10 +5,10 @@ fill( section::Type< MF, MT >&& section, Sections&&... sections ) {
   {
     constexpr auto fileNumbers =
       decltype
-      ( hana::make_tuple( details::fileOf( section ),
-                          details::fileOf( sections )... ) ){};
+      ( hana::make_tuple( njoy::ENDFtk::details::fileOf( section ),
+                          njoy::ENDFtk::details::fileOf( sections )... ) ){};
     constexpr auto compare =
-      hana::equal.to( details::index_c< Derived::MF() > );
+      hana::equal.to( njoy::ENDFtk::details::index_c< Derived::MF() > );
     static_assert( hana::all_of( fileNumbers, compare ),
                    "Constructing a file::Type with section::Type arguments "
                    "that have a different MF number is not allowed" );
@@ -21,8 +21,8 @@ fill( section::Type< MF, MT >&& section, Sections&&... sections ) {
 
     constexpr auto sectionNumbers =
       decltype
-      ( hana::make_set( details::sectionOf( section ),
-                        details::sectionOf( sections )... ) ){};
+      ( hana::make_set( njoy::ENDFtk::details::sectionOf( section ),
+                        njoy::ENDFtk::details::sectionOf( sections )... ) ){};
     constexpr auto isInArguments = hana::partial( hana::contains, sectionNumbers );
 
     static_assert( hana::all_of( Derived::requiredSections(), isInArguments ),
@@ -31,8 +31,10 @@ fill( section::Type< MF, MT >&& section, Sections&&... sections ) {
 
   auto content =
     hana::make_map
-    ( hana::make_pair( details::sectionOf( section ), std::ref( section ) ),
-      hana::make_pair( details::sectionOf( sections ), std::ref( sections ) )... );
+    ( hana::make_pair( njoy::ENDFtk::details::sectionOf( section ),
+                       std::ref( section ) ),
+      hana::make_pair( njoy::ENDFtk::details::sectionOf( sections ),
+                       std::ref( sections ) )... );
 
   auto makeFull = [ &content ] ( hana::true_, auto index ) {
 

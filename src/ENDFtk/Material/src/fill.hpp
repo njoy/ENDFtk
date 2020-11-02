@@ -1,34 +1,62 @@
-template< typename Int, typename Map >
-static auto fill_( hana::true_, Int fileNo, Map& map ){
-  static_assert( hana::contains( map, fileNo ),
-		 "Required file missing from Material constructor call" );
-  return hana::make_pair( fileNo, std::move( map[ fileNo ].get() ) );
-}
+template< int MF, typename... Files >
+static auto
+fill( file::Type< MF >&& file, Files&&... files ) {
 
-template< typename Int, typename Map >
-static auto fill_( hana::false_, Int fileNo, Map& map ){
-  return
-    hana::make_pair
-    ( index, hana::contains( map, fileNo ) ?
-             std::make_optional( std::move( map[ fileNo ].get() ) ) :
-             std::nullopt );
-}
+  {
+    constexpr auto fileNumbers =
+      decltype
+      ( hana::make_tuple( details::fileOf( file ),
+                          details::fileOf( files )... ) ){};
 
-template< typename Pair, typename Map >
-static auto fill_( Pair&& p, Map& map ){
-  return fill_( hana::first( std::forward< Pair >( p ) ),
-		hana::second( std::forward< Pair >( p ) ), map );
-}
+    constexpr auto isLValue = hana::trait< std::is_lvalue_reference >;
+    auto types = hana::make_tuple( hana::type_c< Files >... );
+    static_assert( hana::none_of( types, isLValue ),
+                   "Constructing a Material with file::Type arguments "
+                   "that are lvalue references is not allowed" );
 
-template< typename... Files >
-auto
-static fill( Files&&... args ) const {
-  auto map =
+    constexpr auto isInArguments = hana::partial( hana::contains, fileNumbers );
+
+    static_assert( hana::all_of( Material::requiredFiles(), isInArguments ),
+                   "Not all required files are present" );
+  }
+
+  auto content =
     hana::make_map
-    ( hana::make_pair( hana::llong_c< args.MF() >, std::ref( args ) )... );
+    ( hana::make_pair( details::fileOf( file ), std::ref( file ) ),
+      hana::make_pair( details::fileOf( files ), std::ref( files ) )... );
 
-  return hana::unpack( files, [&]( auto&&... pairs ){
-      return hana::make_map
-	( fill_( std::forward< decltype( pairs ) >( pairs ), map )... ); } );
+  auto makeFull = [ &content ] ( hana::true_, auto index ) {
+
+    const auto makeRequiredPair = [&] ( hana::true_, auto&& file ) {
+
+      return hana::make_pair( index, std::move( file ) );
+    };
+    const auto makeOptionalPair = [&] ( hana::false_, auto&& file ) {
+
+      return hana::make_pair( index,
+                              std::make_optional( std::move( file ) ) );
+    };
+
+    auto makePair = hana::overload( makeRequiredPair, makeOptionalPair );
+
+    return makePair( hana::contains( Material::requiredFiles(), index ),
+                     std::move( content[ index ].get() ) );
+  };
+
+  auto makeEmpty = [] ( hana::false_,  auto index ) {
+
+    using Section = section::Type< MF, index.value >;
+    return hana::make_pair( index, std::optional< Section >{} );
+  };
+
+  auto makePair = hana::overload( makeFull, makeEmpty );
+
+  auto get = [ &makePair, &content ] ( auto index ) {
+
+    return makePair( hana::contains( content, index ), index);
+  };
+
+  return hana::unpack( Material::files(),
+                       [&] ( auto... indices )
+                           { return hana::make_map( get( indices )... ); } );
 }
-

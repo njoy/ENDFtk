@@ -1,83 +1,98 @@
-template< typename BufferIterator, typename Int >
-static auto read( hana::true_,
-		  Int fileNo,
-		  StructureDivision& structureDivision,
-		  BufferIterator& begin,
-		  const BufferIterator& end,
-		  long& lineNumber,
-		  int MAT ){
-  if ( structureDivision.tail.MF != fileNo ){
-    Log::error("Required file missing from Material stream");
-    Log::info("Line number: {}", lineNumber - 1 ); 
-    Log::info("File number (MF): {}", fileNo.value );
-    throw std::runtime_error( "file::Type<1>::read" );
-  }
-  
-  auto p = hana::make_pair( fileNo,
-			    file::Type< fileNo.value >
-			    ( structureDivision, begin, end, lineNumber ) );
+template< long long FileNo, typename BufferIterator >
+static auto
+read( hana::llong< FileNo >,
+      StructureDivision& structureDivision,
+      BufferIterator& begin,
+      const BufferIterator& end,
+      long& lineNumber ) {
 
-  try{
+  auto file = [&] {
+
+    try{
+
+      return file::Type< FileNo >( structureDivision, begin, end, lineNumber );
+    }
+		catch( std::exception& e ) {
+
+      Log::info( "Error while reading File {}", FileNo );
+      throw e;
+    }
+  }();
+
+  try {
+
     structureDivision = StructureDivision( begin, end, lineNumber );
-  } catch( std::exception& e ) {
-    Log::info
-      ( "Error while reading structure division following file number (MF) {}",
-	fileNo.value );
+  }
+	catch( std::exception& e ) {
+
+    Log::info( "Error while reading structure division following File {}",
+               FileNo );
     throw e;
   }
 
-  return p;
+  return file;
 }
 
-template< typename BufferIterator, typename Int >
-static auto read( hana::false_,
-		  Int fileNo,
-		  StructureDivision& structureDivision,
-		  BufferIterator& begin,
-		  const BufferIterator& end,
-		  long& lineNumber,
-		  int MAT ){
-  auto p = 
-    hana::make_pair( fileNo,
-		     structureDivision.tail.MF == fileNo.value ?
-		     std::make_optional
-		     ( file::Type< fileNo.value >
-		       ( structureDivision, begin, end, lineNumber ) ) :
-		     std::nullopt );
-	
-  try{
-    structureDivision = StructureDivision( begin, end, lineNumber );
-  } catch( std::exception& e ) {
-    Log::info
-      ( "Error while reading structure division following file number (MF) {}",
-	fileNo.value );
-    throw e;
-  }
+template< typename... FileNos, typename... Args >
+static auto
+read( hana::tuple< FileNos... > fileNos,
+      StructureDivision& structureDivision, Args&&... args ) {
 
-  return p;
-}
+  // compiler issue in gcc 6.4.0: need to capture the capture the actual
+  // arguments because the compiler gets confused (leads to segmentation fault)
+  // final failure is in disco when reading whitespace
+  // required for this lambda and the next one
+  auto readRequiredPair =
+  [&structureDivision,
+   &begin = hana::arg<1>( args... ),
+   end = std::cref( hana::arg<2>( args... ) ),
+   lineNumber = std::ref( hana::arg<3>( args... ) ) ] ( hana::true_, auto fileNo ) {
 
-template< typename Pair, typename BxoufferIterator >
-static auto read( Pair&& p,
-		  StructureDivision& structureDivision,
-		  BufferIterator& begin,xo
-		  const BufferIterator& end,
-		  long& lineNumber,
-		  int MAT ){
-  return read( hana::first(p),
-	       hana::second(p),
-	       structureDivision, begin, end, lineNumber, MAT );
-}
+    if ( structureDivision.tail.MF() != fileNo ) {
 
-template< typename BufferIterator >
-static auto read( StructureDivision& structureDivision,
-		  BufferIterator& begin,
-		  const BufferIterator& end,
-		  long& lineNumber,
-		  int MAT ){
-  return hana::unpack( files, [&]( auto&&... pairs ){
-      return
-	hana::make_map
-	( read( pairs, structureDivision, begin, end, lineNumber, MAT )... );
-    } );
+      Log::info( "Error while reading material {}", structureDivision.tail.MAT() );
+      Log::info( "Expected MF: {}", fileNo );
+      Log::info( "Found MF: {}", structureDivision.tail.MF() );
+      throw std::exception();
+    }
+
+    return hana::make_pair( fileNo,
+                            read( fileNo, structureDivision,
+                                  begin, end.get(), lineNumber ) );
+  };
+
+  auto readOptionalPair =
+  [&structureDivision,
+   &begin = hana::arg<1>( args... ),
+   end = std::cref( hana::arg<2>( args... ) ),
+   lineNumber = std::ref( hana::arg<3>( args... ) ) ] ( hana::false_, auto fileNo ) {
+
+    auto makeOptional  = [&] () {
+
+      return structureDivision.tail.MF() == fileNo ?
+        std::make_optional( read( fileNo, structureDivision,
+                                  begin, end.get(), lineNumber ) ) :
+        std::optional< file::Type< fileNo.value > >{};
+    };
+
+    return hana::make_pair( fileNo, makeOptional() );
+  };
+
+  auto readPair_fn = hana::overload( readRequiredPair, readOptionalPair );
+
+  auto append_fn = [&]( auto&& tuple, auto&& fileNo ){
+    return hana::unpack
+           ( std::move( tuple ),
+             [&] ( auto&&... pairs )
+                 { return hana::make_tuple
+                          ( std::move( pairs )... ,
+                            readPair_fn( hana::contains(
+                                           Material::requiredFiles(),
+                                           fileNo ),
+																				 fileNo ) ); } );
+  };
+
+  return hana::unpack( hana::fold( fileNos, hana::make_tuple(), append_fn ),
+                       []( auto&&... args )
+                       { return hana::make_map( std::move(args)... ); } );
 }

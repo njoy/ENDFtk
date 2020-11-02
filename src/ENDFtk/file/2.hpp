@@ -27,9 +27,10 @@ namespace file {
     static constexpr auto optionalSections()
       RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 152_c ) )
 
-    using Map = typename decltype( deduceMapType( 2_c,
-                                                  requiredSections(),
-                                                  optionalSections() ) )::type;
+    using Map =
+    typename decltype( details::deduceMapType( 2_c,
+                                               requiredSections(),
+                                               optionalSections() ) )::type;
 
     /* fields */
     Map sectionMap;

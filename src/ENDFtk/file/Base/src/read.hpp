@@ -11,7 +11,7 @@ read( hana::llong< SectionNo >,
   auto section = [&]{
     try{
       return section::Type< Derived::MF(), SectionNo >( head, begin, end,
-                                                      lineNumber, MAT );
+                                                        lineNumber, MAT );
     } catch( std::exception& e ) {
       Log::info( "Error while reading File {} Section {}", Derived::MF(), SectionNo );
       throw e;
@@ -40,9 +40,9 @@ read( hana::tuple< SectionNos... > sectionNos,
   // required for this lambda and the next one
   auto readRequiredPair =
   [&structureDivision,
-   &begin = hana::arg<1>( args... ), 
-   end = std::cref( hana::arg<2>( args... ) ), 
-   lineNumber = std::ref( hana::arg<3>( args... ) ), 
+   &begin = hana::arg<1>( args... ),
+   end = std::cref( hana::arg<2>( args... ) ),
+   lineNumber = std::ref( hana::arg<3>( args... ) ),
    MAT = hana::arg<4>( args... ) ] ( hana::true_, auto sectionNo ) {
 
     auto& head = asHead( structureDivision );
@@ -61,9 +61,9 @@ read( hana::tuple< SectionNos... > sectionNos,
 
   auto readOptionalPair =
   [&structureDivision,
-   &begin = hana::arg<1>( args... ), 
-   end = std::cref( hana::arg<2>( args... ) ), 
-   lineNumber = std::ref( hana::arg<3>( args... ) ), 
+   &begin = hana::arg<1>( args... ),
+   end = std::cref( hana::arg<2>( args... ) ),
+   lineNumber = std::ref( hana::arg<3>( args... ) ),
    MAT = hana::arg<4>( args... ) ] ( hana::false_, auto sectionNo ) {
 
     auto makeOptional  = [&] () {
@@ -95,4 +95,3 @@ read( hana::tuple< SectionNos... > sectionNos,
                        []( auto&&... args )
                        { return hana::make_map( std::move(args)... ); } );
 }
-
