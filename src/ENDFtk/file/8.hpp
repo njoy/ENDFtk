@@ -23,15 +23,20 @@ namespace file {
     static constexpr auto requiredSections()
       RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple() )
 
-    // MT2 and MT4 are optional
+    // MT454, MT457 and MT459 are optional
     static constexpr auto optionalSections()
-      // hana::make_tuple( 454_c, 457_c, 459_c );
       RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 457_c ) )
 
+    // the following sections are currently unimplemented
+    static constexpr auto unimplementedSections()
+      RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 454_c, 459_c ) )
+
     using Map =
-    typename decltype( details::deduceMapType( 8_c,
-                                               requiredSections(),
-                                               optionalSections() ) )::type;
+    typename decltype( details::deduceMapType(
+                           8_c,
+                           requiredSections(),
+                           hana::concat( optionalSections(),
+                                         unimplementedSections() ) ) )::type;
 
     /* fields */
     Map sectionMap;
@@ -45,9 +50,9 @@ namespace file {
 
       switch ( sectionNo ) {
 
-        /* case 454 : return bool( this->sectionMap[ 454_c ] ); */
+        case 454 : return bool( this->sectionMap[ 454_c ] );
         case 457 : return bool( this->sectionMap[ 457_c ] );
-        /* case 459 : return bool( this->sectionMap[ 459_c ] ); */
+        case 459 : return bool( this->sectionMap[ 459_c ] );
         default: return false;
       }
     }

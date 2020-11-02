@@ -43,10 +43,11 @@ read( hana::tuple< FileNos... > fileNos,
   // final failure is in disco when reading whitespace
   // required for this lambda and the next one
   auto readRequiredPair =
-  [&structureDivision,
-   &begin = hana::arg<1>( args... ),
-   end = std::cref( hana::arg<2>( args... ) ),
-   lineNumber = std::ref( hana::arg<3>( args... ) ) ] ( hana::true_, auto fileNo ) {
+  [ &structureDivision,
+    &begin = hana::arg<1>( args... ),
+    end = std::cref( hana::arg<2>( args... ) ),
+    lineNumber = std::ref( hana::arg<3>( args... ) ) ]
+  ( hana::true_, hana::false_, auto fileNo ) {
 
     if ( structureDivision.tail.MF() != fileNo ) {
 
@@ -62,10 +63,11 @@ read( hana::tuple< FileNos... > fileNos,
   };
 
   auto readOptionalPair =
-  [&structureDivision,
-   &begin = hana::arg<1>( args... ),
-   end = std::cref( hana::arg<2>( args... ) ),
-   lineNumber = std::ref( hana::arg<3>( args... ) ) ] ( hana::false_, auto fileNo ) {
+  [ &structureDivision,
+    &begin = hana::arg<1>( args... ),
+    end = std::cref( hana::arg<2>( args... ) ),
+    lineNumber = std::ref( hana::arg<3>( args... ) ) ]
+  ( hana::false_, hana::true_, auto fileNo ) {
 
     auto makeOptional  = [&] () {
 
@@ -78,7 +80,25 @@ read( hana::tuple< FileNos... > fileNos,
     return hana::make_pair( fileNo, makeOptional() );
   };
 
-  auto readPair_fn = hana::overload( readRequiredPair, readOptionalPair );
+  auto readUnimplementedPair =
+  [ &structureDivision,
+    &begin = hana::arg<1>( args... ),
+    end = std::cref( hana::arg<2>( args... ) ),
+    lineNumber = std::ref( hana::arg<3>( args... ) ) ]
+  ( hana::false_, hana::false_, auto fileNo ) {
+
+    while ( fileNo.value == structureDivision.tail.MF() ) {
+
+      structureDivision = StructureDivision( begin, end.get(), lineNumber );
+    }
+
+    return hana::make_pair( fileNo,
+                            std::optional< file::Type< fileNo.value > >{} );
+  };
+
+  auto readPair_fn = hana::overload( readRequiredPair,
+                                     readOptionalPair,
+                                     readUnimplementedPair );
 
   auto append_fn = [&]( auto&& tuple, auto&& fileNo ){
     return hana::unpack
@@ -87,9 +107,12 @@ read( hana::tuple< FileNos... > fileNos,
                  { return hana::make_tuple
                           ( std::move( pairs )... ,
                             readPair_fn( hana::contains(
-                                           Material::requiredFiles(),
+                                           requiredFiles(),
                                            fileNo ),
-																				 fileNo ) ); } );
+                                         hana::contains(
+                                           optionalFiles(),
+                                           fileNo ),
+ 																				 fileNo ) ); } );
   };
 
   return hana::unpack( hana::fold( fileNos, hana::make_tuple(), append_fn ),

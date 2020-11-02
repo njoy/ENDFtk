@@ -27,7 +27,9 @@ namespace file {
     static constexpr auto sections() {
 
       return hana::sort( hana::concat( Derived::requiredSections(),
-                                       Derived::optionalSections() ) );
+                                       hana::concat(
+                                         Derived::optionalSections(),
+                                         Derived::unimplementedSections() ) ) );
     }
 
     #include "ENDFtk/file/Base/src/fill.hpp"

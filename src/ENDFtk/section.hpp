@@ -1,5 +1,6 @@
 #include "ENDFtk/section/BaseWithoutMT.hpp"
 #include "ENDFtk/section/Base.hpp"
+#include "ENDFtk/section/NotImplementedYet.hpp"
 
 #ifndef NJOY_ENDFTK_SECTION
 #define NJOY_ENDFTK_SECTION

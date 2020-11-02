@@ -19,6 +19,27 @@
 namespace njoy {
 namespace ENDFtk {
 
+  namespace file {
+
+    /* forward declaration of unimplemented sections */
+    template<> class Type< 9 > {};
+    template<> class Type< 10 > {};
+    template<> class Type< 14 > {};
+    template<> class Type< 15 > {};
+    template<> class Type< 23 > {};
+    template<> class Type< 26 > {};
+    template<> class Type< 27 > {};
+    template<> class Type< 28 > {};
+    template<> class Type< 30 > {};
+    template<> class Type< 31 > {};
+    template<> class Type< 32 > {};
+    template<> class Type< 33 > {};
+    template<> class Type< 34 > {};
+    template<> class Type< 35 > {};
+    template<> class Type< 40 > {};
+
+  } // section namespace
+
   class Material {
 
     // MF1 is required
@@ -30,11 +51,20 @@ namespace ENDFtk {
       RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 2_c, 3_c, 4_c, 5_c, 6_c,
                                                      7_c, 8_c, 12_c, 13_c ) )
 
+    // the following files are currently unimplemented
+    static constexpr auto unimplementedFiles()
+      RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 9_c, 10_c, 14_c, 15_c,
+                                                     23_c, 26_c, 27_c, 28_c,
+                                                     30_c, 31_c, 32_c, 33_c,
+                                                     34_c, 35_c, 40_c ) )
+
     // convenience function to retrieve all file numbers that can be parsed
     static constexpr auto files() {
 
-      return hana::sort(hana::concat( Material::requiredFiles(),
-                                      Material::optionalFiles() ) );
+      return hana::sort( hana::concat( requiredFiles(),
+                                       hana::concat(
+                                         optionalFiles(),
+                                         unimplementedFiles() ) ) );
     }
 
     /* auxiliary functions */
@@ -43,8 +73,10 @@ namespace ENDFtk {
     #include "ENDFtk/Material/src/verifyEND.hpp"
 
     using Map =
-    typename decltype( details::deduceMapType( requiredFiles(),
-                                               optionalFiles() ) )::type;
+    typename decltype( details::deduceMapType(
+                           requiredFiles(),
+                           hana::concat( optionalFiles(),
+                                         unimplementedFiles() ) ) )::type;
 
     /* fields */
     int mat_;
