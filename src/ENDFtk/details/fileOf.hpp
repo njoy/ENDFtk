@@ -5,7 +5,12 @@ struct fileOf_fn {
 
     return index_c< MF >;
   }
+
+  template < int MF >
+  constexpr auto operator()( const file::Type< MF >& ) const {
+
+    return index_c< MF >;
+  }
 };
 
 constexpr const fileOf_fn fileOf{};
-
