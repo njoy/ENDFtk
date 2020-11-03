@@ -81,6 +81,7 @@ namespace record {
     {
     } catch( std::exception& e ){
       Log::info( "Encountered error when reading Base of Record" );
+      Log::info( "what(): {}", e.what() );
       throw e;
     }
 

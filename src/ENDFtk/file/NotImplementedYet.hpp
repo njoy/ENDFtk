@@ -13,6 +13,9 @@ namespace file {
   template < typename Derived >
   class NotImplementedYet {
 
+    using Text = record::Base< record::Character< 66 > >;
+    using Tail = record::Tail;
+
   public:
 
     /* get methods */
@@ -59,9 +62,12 @@ namespace file {
       if ( division.tail.MF() == MF ) {
 
         Log::info( "Found unsupported file MF{} - skipping file", MF );
-        while ( division.tail.MF() == MF ) {
 
-          division = StructureDivision( begin, end, lineNumber );
+        Tail tail( division.tail.MAT(), division.tail.MF(), division.tail.MT() );
+        while ( tail.MF() == MF ) {
+
+          Text( begin, end );
+          tail = Tail( begin, end, lineNumber );
         }
       }
     }

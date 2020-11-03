@@ -247,7 +247,7 @@ void addStandardFileDefinitions( PythonClass& file ) {
   .def(
 
     "has_MT",
-    [] ( const File& self, int mt ) { return self.hasSection( mt ); },
+    [] ( const File& self, int mt ) { return self.hasMT( mt ); },
     "Return whether or not the file has a section with the given MT number\n\n"
     "Arguments:\n"
     "    self    the file\n"
@@ -279,7 +279,7 @@ void addStandardFileDefinitions( PythonClass& file ) {
     [] ( const File& self, int mat ) -> std::string
        { return print( self, mat ); },
     python::arg( "mat" ),
-    "The string representation of the section\n\n"
+    "The string representation of the file\n\n"
     "Arguments:\n"
     "    self    the file\n"
     "    mat     the MAT number to be used"

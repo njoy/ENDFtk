@@ -183,6 +183,7 @@ pybind11_add_module( ENDFtk.python
     python/src/file/8.python.cpp
     python/src/file/12.python.cpp
     python/src/file/13.python.cpp
+    python/src/Material.python.cpp
     python/src/tree/Section.python.cpp
     python/src/tree/File.python.cpp
     python/src/tree/Material.python.cpp

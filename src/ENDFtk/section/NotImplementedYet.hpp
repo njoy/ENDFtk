@@ -13,6 +13,9 @@ namespace section{
   template < typename Derived >
   class NotImplementedYet {
 
+    using Text = record::Base< record::Character< 66 > >;
+    using Tail = record::Tail;
+
   public:
 
     /* get methods */
@@ -69,10 +72,11 @@ namespace section{
 
         Log::info( "Found unsupported section MF{} MT{} - skipping section",
                    MF, MT );
-        StructureDivision division( begin, end, lineNumber );
-        while ( MT == division.tail.MT() ) {
+        Tail tail( head.MAT(), head.MF(), head.MT() );
+        while ( tail.MT() == MT ) {
 
-          division = StructureDivision( begin, end, lineNumber );
+          Text( begin, end );
+          tail = Tail( begin, end, lineNumber );
         }
       }
     }

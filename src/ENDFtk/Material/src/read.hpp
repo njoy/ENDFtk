@@ -87,9 +87,9 @@ read( hana::tuple< FileNos... > fileNos,
     lineNumber = std::ref( hana::arg<3>( args... ) ) ]
   ( hana::false_, hana::false_, auto fileNo ) {
 
-    while ( fileNo.value == structureDivision.tail.MF() ) {
+    if ( structureDivision.tail.MF() == fileNo ) {
 
-      structureDivision = StructureDivision( begin, end.get(), lineNumber );
+      read( fileNo, structureDivision, begin, end.get(), lineNumber );
     }
 
     return hana::make_pair( fileNo,

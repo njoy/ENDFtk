@@ -156,8 +156,7 @@ namespace ENDFtk {
      *
      *  @param mf   the MF number of the file to be verified
      */
-    template< typename Index >
-    constexpr bool hasMF( Index mf ) const {
+    bool hasMF( int mf ) const {
 
       return this->hasFile( mf );
     }
