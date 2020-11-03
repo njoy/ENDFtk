@@ -12,33 +12,27 @@
 #include "ENDFtk/file/6.hpp"
 #include "ENDFtk/file/7.hpp"
 #include "ENDFtk/file/8.hpp"
+#include "ENDFtk/file/9.hpp"
+#include "ENDFtk/file/10.hpp"
 #include "ENDFtk/file/12.hpp"
 #include "ENDFtk/file/13.hpp"
+#include "ENDFtk/file/14.hpp"
+#include "ENDFtk/file/15.hpp"
+#include "ENDFtk/file/23.hpp"
+#include "ENDFtk/file/26.hpp"
+#include "ENDFtk/file/27.hpp"
+#include "ENDFtk/file/28.hpp"
+#include "ENDFtk/file/30.hpp"
+#include "ENDFtk/file/31.hpp"
+#include "ENDFtk/file/32.hpp"
+#include "ENDFtk/file/33.hpp"
+#include "ENDFtk/file/34.hpp"
+#include "ENDFtk/file/35.hpp"
+#include "ENDFtk/file/40.hpp"
 #include "boost/hana.hpp"
 
 namespace njoy {
 namespace ENDFtk {
-
-  namespace file {
-
-    /* forward declaration of unimplemented sections */
-    template<> class Type< 9 > {};
-    template<> class Type< 10 > {};
-    template<> class Type< 14 > {};
-    template<> class Type< 15 > {};
-    template<> class Type< 23 > {};
-    template<> class Type< 26 > {};
-    template<> class Type< 27 > {};
-    template<> class Type< 28 > {};
-    template<> class Type< 30 > {};
-    template<> class Type< 31 > {};
-    template<> class Type< 32 > {};
-    template<> class Type< 33 > {};
-    template<> class Type< 34 > {};
-    template<> class Type< 35 > {};
-    template<> class Type< 40 > {};
-
-  } // section namespace
 
   class Material {
 
@@ -136,8 +130,23 @@ namespace ENDFtk {
         case 6: return bool( this->fileMap[ 6_c ] );
         case 7: return bool( this->fileMap[ 7_c ] );
         case 8: return bool( this->fileMap[ 8_c ] );
+        case 9: return bool( this->fileMap[ 9_c ] );
+        case 10: return bool( this->fileMap[ 10_c ] );
         case 12: return bool( this->fileMap[ 12_c ] );
         case 13: return bool( this->fileMap[ 13_c ] );
+        case 14: return bool( this->fileMap[ 14_c ] );
+        case 15: return bool( this->fileMap[ 15_c ] );
+        case 23: return bool( this->fileMap[ 23_c ] );
+        case 26: return bool( this->fileMap[ 26_c ] );
+        case 27: return bool( this->fileMap[ 27_c ] );
+        case 28: return bool( this->fileMap[ 28_c ] );
+        case 30: return bool( this->fileMap[ 30_c ] );
+        case 31: return bool( this->fileMap[ 31_c ] );
+        case 32: return bool( this->fileMap[ 32_c ] );
+        case 33: return bool( this->fileMap[ 33_c ] );
+        case 34: return bool( this->fileMap[ 34_c ] );
+        case 35: return bool( this->fileMap[ 35_c ] );
+        case 40: return bool( this->fileMap[ 40_c ] );
         default: return false;
       }
     }
@@ -152,6 +161,8 @@ namespace ENDFtk {
 
       return this->hasFile( mf );
     }
+
+    #include "ENDFtk/Material/src/print.hpp"
   };
 
 } // ENDFtk namespace

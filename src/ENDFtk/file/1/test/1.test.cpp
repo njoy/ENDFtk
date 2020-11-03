@@ -4,7 +4,7 @@
 #include "ENDFtk/file/1.hpp"
 
 // other includes
-#include "ENDFtk/tree/Tape.hpp"
+#include "ENDFtk/tree/File.hpp"
 #include "range/v3/algorithm/count.hpp"
 
 // convenience typedefs
