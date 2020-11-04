@@ -18,6 +18,9 @@ namespace file {
     friend Base< Type >;
     using Parent = Base< Type >;
 
+    using Text = record::Base< record::Character< 66 > >;
+    using Tail = record::Tail;
+
     // MF8 has enumerated sectons and normal sections
     // no sections are required
     static constexpr auto requiredSections()
