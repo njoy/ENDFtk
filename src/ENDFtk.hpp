@@ -36,6 +36,7 @@
 
 // include the material and tape
 #include "ENDFtk/Material.hpp"
+#include "ENDFtk/Tape.hpp"
 
 // include the ENDF tree and its components
 #include "ENDFtk/tree/Section.hpp"

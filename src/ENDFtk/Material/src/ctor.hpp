@@ -1,5 +1,5 @@
 protected:
-Material( int MAT, Map&& map ) : mat_( MAT ), fileMap( std::move(map) ){}
+Material( int MAT, Map&& map ) : mat_( MAT ), fileMap( std::move(map) ) {}
 
 public:
 template< int fileNo, typename... Args >

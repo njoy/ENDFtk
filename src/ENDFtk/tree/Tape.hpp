@@ -12,7 +12,7 @@
 #include "range/v3/iterator_range.hpp"
 #include "range/v3/utility/iterator.hpp"
 #include "ENDFtk/TapeIdentification.hpp"
-#include "ENDFtk/Material.hpp"
+#include "ENDFtk/Tape.hpp"
 #include "ENDFtk/tree/Material.hpp"
 
 namespace njoy {
@@ -64,6 +64,8 @@ namespace tree {
     #include "ENDFtk/tree/Tape/src/ctor.hpp"
 
     /* methods */
+    #include "ENDFtk/tree/Tape/src/parse.hpp"
+
     #include "ENDFtk/tree/Tape/src/material.hpp"
 
     /**
