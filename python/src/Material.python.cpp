@@ -17,16 +17,16 @@ void wrapMaterial( python::module& module ) {
 
   // type aliases
   using Material = njoy::ENDFtk::Material;
-  using MF1 = njoy::ENDFtk::file::Type< 1 >;
-  using MF2 = njoy::ENDFtk::file::Type< 2 >;
-  using MF3 = njoy::ENDFtk::file::Type< 3 >;
-  using MF4 = njoy::ENDFtk::file::Type< 4 >;
-  using MF5 = njoy::ENDFtk::file::Type< 5 >;
-  using MF6 = njoy::ENDFtk::file::Type< 6 >;
-  using MF7 = njoy::ENDFtk::file::Type< 7 >;
-  using MF8 = njoy::ENDFtk::file::Type< 8 >;
-  using MF12 = njoy::ENDFtk::file::Type< 12 >;
-  using MF13 = njoy::ENDFtk::file::Type< 13 >;
+  using MF1 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 1 > >;
+  using MF2 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 2 > >;
+  using MF3 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 3 > >;
+  using MF4 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 4 > >;
+  using MF5 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 5 > >;
+  using MF6 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 6 > >;
+  using MF7 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 7 > >;
+  using MF8 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 8 > >;
+  using MF12 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 12 > >;
+  using MF13 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 13 > >;
 
   // wrap views created by this section
 
