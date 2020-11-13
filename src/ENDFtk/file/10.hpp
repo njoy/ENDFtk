@@ -17,13 +17,13 @@ namespace file {
 
   public:
 
-    Type() : NotImplementedYet() {};
+    Type() : NotImplementedYet() {}
     template< typename BufferIterator >
     Type( StructureDivision& division,
           BufferIterator& begin, const BufferIterator& end,
           long& lineNumber ) :
       NotImplementedYet( division, begin, end,
-                         lineNumber ) {};
+                         lineNumber ) {}
 
     /**
      *  @brief Return the MF number of the section
