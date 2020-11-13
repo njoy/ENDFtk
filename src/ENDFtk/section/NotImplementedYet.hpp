@@ -64,7 +64,7 @@ namespace section{
      */
     template< typename Iterator >
     NotImplementedYet ( HEAD& head, Iterator& begin, const Iterator& end,
-                        long& lineNumber, int MAT ) {
+                        long& lineNumber, int ) {
 
       int MF = Derived::fileNumber();
       int MT = Derived::sectionNumber();
