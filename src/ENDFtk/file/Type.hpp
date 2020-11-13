@@ -2,6 +2,7 @@
 #define NJOY_ENDFTK_FILE_TYPE
 
 // system includes
+#include <map>
 
 // other includes
 #include "range/v3/front.hpp"
