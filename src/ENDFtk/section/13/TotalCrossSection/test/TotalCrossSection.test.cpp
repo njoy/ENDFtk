@@ -127,16 +127,22 @@ void verifyChunk( const TotalCrossSection& chunk ) {
   CHECK( 2 == chunk.boundaries()[0] );
   CHECK( 2 == chunk.E().size() );
   CHECK( 2 == chunk.energies().size() );
+  CHECK( 2 == chunk.x().size() );
   CHECK( 2 == chunk.XS().size() );
   CHECK( 2 == chunk.crossSections().size() );
+  CHECK( 2 == chunk.y().size() );
   CHECK( 1. == Approx( chunk.E()[0] ) );
   CHECK( 3. == Approx( chunk.E()[1] ) );
   CHECK( 1. == Approx( chunk.energies()[0] ) );
   CHECK( 3. == Approx( chunk.energies()[1] ) );
+  CHECK( 1. == Approx( chunk.x()[0] ) );
+  CHECK( 3. == Approx( chunk.x()[1] ) );
   CHECK( 2. == Approx( chunk.XS()[0] ) );
   CHECK( 4. == Approx( chunk.XS()[1] ) );
   CHECK( 2. == Approx( chunk.crossSections()[0] ) );
   CHECK( 4. == Approx( chunk.crossSections()[1] ) );
+  CHECK( 2. == Approx( chunk.y()[0] ) );
+  CHECK( 4. == Approx( chunk.y()[1] ) );
 
   CHECK( 3 == chunk.NC() );
 }

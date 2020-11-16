@@ -42,6 +42,24 @@ public:
 
   #include "ENDFtk/section/3/src/print.hpp"
 
+  /**
+   *  @brief Return the energy values (common interface for interpolation
+   *         tables)
+   */
+  auto x() const { return this->energies(); }
+
+  /**
+   *  @brief Return the cross section values (common interface for interpolation
+   *         tables)
+   */
+  auto y() const { return this->crossSections(); }
+
+  /**
+   *  @brief Return the interpolation ragions (common interface for
+   *         interpolation tables)
+   */
+  auto regions() const { return this->table.regions(); }
+
   using Base::MT;
   using Base::ZA;
   using Base::AWR;
