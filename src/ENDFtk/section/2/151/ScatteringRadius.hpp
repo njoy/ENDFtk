@@ -30,7 +30,7 @@ public:
   auto AP() const { return TabulationRecord::y(); }
 
   /**
-  *  @brief Return the scatterin radius values
+  *  @brief Return the scattering radius values
    */
   auto radii() const { return this->AP(); }
 
@@ -38,6 +38,8 @@ public:
   using TabulationRecord::NR;
   using TabulationRecord::interpolants;
   using TabulationRecord::boundaries;
+  using TabulationRecord::x;
+  using TabulationRecord::y;
   using TabulationRecord::regions;
   using TabulationRecord::NC;
   using TabulationRecord::print;
