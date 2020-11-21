@@ -11,12 +11,11 @@
  *
  *  See ENDF102, section 7.4 for more information.
  */
-//! @todo I'd like to change this name into TabulatedFunctions (in line with AnalyticalFunctions)
-class Tabulated {
+class TabulatedFunctions {
 
 public:
 
-  #include "ENDFtk/section/7/4/Tabulated/ScatteringFunction.hpp"
+  #include "ENDFtk/section/7/4/TabulatedFunctions/ScatteringFunction.hpp"
 
 private:
 
@@ -28,7 +27,7 @@ private:
 public:
 
   /* constructor */
-  #include "ENDFtk/section/7/4/Tabulated/src/ctor.hpp"
+  #include "ENDFtk/section/7/4/TabulatedFunctions/src/ctor.hpp"
 
   /* get methods */
 
@@ -47,13 +46,30 @@ public:
    */
   long numberBetas() const { return this->NB(); }
 
-  //! @todo add B and betas function to return beta values (in line with MF6 and the incident energies)
+  /**
+   *  @brief Return the beta values and associated S(alpha,T) functions
+   */
+  auto B() const {
+
+    return this->data_.records()
+             | ranges::view::transform( [] ( const auto& record )
+                                           { return record.beta(); } );
+  }
 
   /**
    *  @brief Return the beta values and associated S(alpha,T) functions
    */
-  //! @todo I'd like to change this function name and reuse it to ONLY return beta values
-  auto betas() const { return this->data_.records(); }
+  auto betas() const { return this->B(); }
+
+  /**
+   *  @brief Return the beta values and associated S(alpha,T) functions
+   */
+  auto S() const { return this->data_.records(); }
+
+  /**
+   *  @brief Return the beta values and associated S(alpha,T) functions
+   */
+  auto scatteringFunctions() const { return this->S(); }
 
   /**
    *  @brief Return the interpolation type for each range on the beta grid
@@ -70,5 +86,5 @@ public:
    */
   long NC() const { return this->data_.NC(); }
 
-  #include "ENDFtk/section/7/4/Tabulated/src/print.hpp"
+  #include "ENDFtk/section/7/4/TabulatedFunctions/src/print.hpp"
 };

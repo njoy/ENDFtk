@@ -11,8 +11,8 @@ using namespace njoy::ENDFtk;
 using ScatteringLaw = section::Type< 7, 4 >::ScatteringLaw;
 using ScatteringLawConstants = section::Type< 7, 4 >::ScatteringLawConstants;
 using AnalyticalFunctions = section::Type< 7, 4 >::AnalyticalFunctions;
-using Tabulated = section::Type< 7, 4 >::Tabulated;
-using ScatteringFunction = section::Type< 7, 4 >::Tabulated::ScatteringFunction;
+using TabulatedFunctions = section::Type< 7, 4 >::TabulatedFunctions;
+using ScatteringFunction = section::Type< 7, 4 >::TabulatedFunctions::ScatteringFunction;
 using EffectiveTemperature = section::Type< 7, 4 >::EffectiveTemperature;
 
 // macros don't like multiple template arguments
@@ -150,7 +150,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
       ScatteringLawConstants constants( 0, 1.976285e+2, 5.000001e+0,
                                         6.153875e+0, 8.934780e+0, 1 );
       ScatteringLaw law(
-          Tabulated( { 2 }, { 4 },
+          TabulatedFunctions( { 2 }, { 4 },
                      { ScatteringFunction(
                                   293.6, 0.0, { 5 }, { 4 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3,
@@ -258,7 +258,8 @@ SCENARIO( "section::Type< 7, 4 >" ) {
       ScatteringLawConstants constants( 0, 1.976285e+2, 5.000001e+0,
                                         6.153875e+0, 8.934780e+0, 1 );
       ScatteringLaw law =
-          Tabulated( { 2 }, { 4 },
+          TabulatedFunctions(
+                     { 2 }, { 4 },
                      { ScatteringFunction(
                                   0.0, { 5 }, { 4 },
                                   { 293.6, 400 },
@@ -377,7 +378,8 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                         { 1, 2 }, { 0 } );
 
       ScatteringLaw law =
-          Tabulated( { 2 }, { 4 },
+          TabulatedFunctions(
+                     { 2 }, { 4 },
                      { ScatteringFunction(
                                   0.0, { 5 }, { 4 },
                                   { 293.6, 400 },
@@ -502,7 +504,8 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                         { 1, 2 }, { 1 } );
 
       ScatteringLaw law =
-          Tabulated( { 2 }, { 4 },
+          TabulatedFunctions(
+                     { 2 }, { 4 },
                      { ScatteringFunction(
                                   0.0, { 5 }, { 4 },
                                   { 293.6, 400 },
@@ -626,7 +629,8 @@ SCENARIO( "section::Type< 7, 4 >" ) {
           ScatteringLawConstants constants( 0, 1.976285e+2, 5.000001e+0,
                                             6.153875e+0, 8.934780e+0, 1 );
           ScatteringLaw law(
-              Tabulated( { 2 }, { 4 },
+              TabulatedFunctions(
+                         { 2 }, { 4 },
                          { ScatteringFunction(
                                       293.6, 0.0, { 5 }, { 4 },
                                       { 4.423802e-3, 4.649528e-3, 4.886772e-3,
@@ -665,7 +669,8 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                         { 1, 1 }, { 0 } );
 
       ScatteringLaw law(
-          Tabulated( { 2 }, { 4 },
+          TabulatedFunctions(
+                     { 2 }, { 4 },
                      { ScatteringFunction(
                                   293.6, 0.0, { 5 }, { 4 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3,
@@ -705,7 +710,8 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                         { 1, 1 }, { 0 } );
 
       ScatteringLaw law(
-          Tabulated( { 2 }, { 4 },
+          TabulatedFunctions(
+                     { 2 }, { 4 },
                      { ScatteringFunction( 293.6, 0.0, { 5 }, { 4 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3,
                                     8.418068e+1, 8.847604e+1 },
@@ -747,7 +753,8 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                         { 1, 1 }, { 1 } );
 
       ScatteringLaw law(
-          Tabulated( { 2 }, { 4 },
+          TabulatedFunctions(
+                     { 2 }, { 4 },
                      { ScatteringFunction( 293.6, 0.0, { 5 }, { 4 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3,
                                     8.418068e+1, 8.847604e+1 },
@@ -980,7 +987,7 @@ void verifyChunkWithOneTemperatureAndOneScatterer(
   CHECK( 1. == Approx( barray.numberAtoms()[0] ) );
   CHECK( 0 == barray.analyticalFunctionTypes().size() );
 
-  auto table = std::get< Tabulated >( chunk.scatteringLaw() );
+  auto table = std::get< TabulatedFunctions >( chunk.scatteringLaw() );
   CHECK( 1 == table.NR() );
   CHECK( 2 == table.NB() );
   CHECK( 2 == table.numberBetas() );
@@ -1025,7 +1032,7 @@ void verifyChunkWithOneTemperatureAndOneScatterer(
   CHECK( 1.306574e-9 == Approx( value.thermalScatteringValues()[0][3] ) );
   CHECK( 5.29573e-10 == Approx( value.thermalScatteringValues()[0][4] ) );
 
-  value = table.betas()[1];
+  value = table.scatteringFunctions()[1];
   CHECK( 3.952570e-2 == Approx( value.beta() ) );
   CHECK( 0 == value.LT() );
   CHECK( 0 == value.temperatureDependenceFlag() );
@@ -1139,7 +1146,7 @@ void verifyChunkWithTwoTemperaturesAndOneScatterer(
   CHECK( 1. == Approx( barray.numberAtoms()[0] ) );
   CHECK( 0 == barray.analyticalFunctionTypes().size() );
 
-  auto table = std::get< Tabulated >( chunk.scatteringLaw() );
+  auto table = std::get< TabulatedFunctions >( chunk.scatteringLaw() );
   CHECK( 1 == table.NR() );
   CHECK( 2 == table.NB() );
   CHECK( 2 == table.numberBetas() );
@@ -1148,7 +1155,14 @@ void verifyChunkWithTwoTemperaturesAndOneScatterer(
   CHECK( 1 == table.interpolants().size() );
   CHECK( 4 == table.interpolants()[0] );
 
-  auto value = table.betas()[0];
+  CHECK( 2 == table.B().size() );
+  CHECK( 2 == table.betas().size() );
+  CHECK( 0.0 == Approx( table.B()[0] ) );
+  CHECK( 3.952570e-2 == Approx( table.B()[1] ) );
+  CHECK( 0.0 == Approx( table.betas()[0] ) );
+  CHECK( 3.952570e-2 == Approx( table.betas()[1] ) );
+
+  auto value = table.scatteringFunctions()[0];
   CHECK( 0.0 == Approx( value.beta() ) );
   CHECK( 1 == value.LT() );
   CHECK( 1 == value.temperatureDependenceFlag() );
@@ -1193,7 +1207,7 @@ void verifyChunkWithTwoTemperaturesAndOneScatterer(
   CHECK( 4.510209e-8 == Approx( value.thermalScatteringValues()[1][3] ) );
   CHECK( 2.183942e-8 == Approx( value.thermalScatteringValues()[1][4] ) );
 
-  value = table.betas()[1];
+  value = table.scatteringFunctions()[1];
   CHECK( 3.952570e-2 == Approx( value.beta() ) );
   CHECK( 1 == value.LT() );
   CHECK( 1 == value.temperatureDependenceFlag() );
@@ -1324,7 +1338,7 @@ void verifyChunkWithTwoTemperaturesAndTwoScatterers(
   CHECK( 1 == barray.analyticalFunctionTypes().size() );
   CHECK( 0 == barray.analyticalFunctionTypes()[0] );
 
-  auto table = std::get< Tabulated >( chunk.scatteringLaw() );
+  auto table = std::get< TabulatedFunctions >( chunk.scatteringLaw() );
   CHECK( 1 == table.NR() );
   CHECK( 2 == table.NB() );
   CHECK( 2 == table.numberBetas() );
@@ -1333,7 +1347,14 @@ void verifyChunkWithTwoTemperaturesAndTwoScatterers(
   CHECK( 1 == table.interpolants().size() );
   CHECK( 4 == table.interpolants()[0] );
 
-  auto value = table.betas()[0];
+  CHECK( 2 == table.B().size() );
+  CHECK( 2 == table.betas().size() );
+  CHECK( 0.0 == Approx( table.B()[0] ) );
+  CHECK( 3.952570e-2 == Approx( table.B()[1] ) );
+  CHECK( 0.0 == Approx( table.betas()[0] ) );
+  CHECK( 3.952570e-2 == Approx( table.betas()[1] ) );
+
+  auto value = table.scatteringFunctions()[0];
   CHECK( 0.0 == Approx( value.beta() ) );
   CHECK( 1 == value.LT() );
   CHECK( 1 == value.temperatureDependenceFlag() );
@@ -1378,7 +1399,7 @@ void verifyChunkWithTwoTemperaturesAndTwoScatterers(
   CHECK( 4.510209e-8 == Approx( value.thermalScatteringValues()[1][3] ) );
   CHECK( 2.183942e-8 == Approx( value.thermalScatteringValues()[1][4] ) );
 
-  value = table.betas()[1];
+  value = table.scatteringFunctions()[1];
   CHECK( 3.952570e-2 == Approx( value.beta() ) );
   CHECK( 1 == value.LT() );
   CHECK( 1 == value.temperatureDependenceFlag() );
@@ -1520,7 +1541,7 @@ void verifyChunkWithTwoTemperaturesTwoScatterersAndNoSecondaryTemperature(
   CHECK( 1 == barray.analyticalFunctionTypes().size() );
   CHECK( 1 == barray.analyticalFunctionTypes()[0] );
 
-  auto table = std::get< Tabulated >( chunk.scatteringLaw() );
+  auto table = std::get< TabulatedFunctions >( chunk.scatteringLaw() );
   CHECK( 1 == table.NR() );
   CHECK( 2 == table.NB() );
   CHECK( 2 == table.numberBetas() );
@@ -1529,7 +1550,14 @@ void verifyChunkWithTwoTemperaturesTwoScatterersAndNoSecondaryTemperature(
   CHECK( 1 == table.interpolants().size() );
   CHECK( 4 == table.interpolants()[0] );
 
-  auto value = table.betas()[0];
+  CHECK( 2 == table.B().size() );
+  CHECK( 2 == table.betas().size() );
+  CHECK( 0.0 == Approx( table.B()[0] ) );
+  CHECK( 3.952570e-2 == Approx( table.B()[1] ) );
+  CHECK( 0.0 == Approx( table.betas()[0] ) );
+  CHECK( 3.952570e-2 == Approx( table.betas()[1] ) );
+
+  auto value = table.scatteringFunctions()[0];
   CHECK( 0.0 == Approx( value.beta() ) );
   CHECK( 1 == value.LT() );
   CHECK( 1 == value.temperatureDependenceFlag() );
@@ -1574,7 +1602,7 @@ void verifyChunkWithTwoTemperaturesTwoScatterersAndNoSecondaryTemperature(
   CHECK( 4.510209e-8 == Approx( value.thermalScatteringValues()[1][3] ) );
   CHECK( 2.183942e-8 == Approx( value.thermalScatteringValues()[1][4] ) );
 
-  value = table.betas()[1];
+  value = table.scatteringFunctions()[1];
   CHECK( 3.952570e-2 == Approx( value.beta() ) );
   CHECK( 1 == value.LT() );
   CHECK( 1 == value.temperatureDependenceFlag() );

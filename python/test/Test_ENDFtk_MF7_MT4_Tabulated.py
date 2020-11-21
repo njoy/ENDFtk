@@ -45,7 +45,14 @@ class Test_ENDFtk_MF7_MT4_Tabulated( unittest.TestCase ) :
             self.assertEqual( 1, len( chunk.interpolants ) )
             self.assertEqual( 4, chunk.interpolants[0] )
 
-            value = chunk.functions[0]
+            self.assertEqual( 2, len( chunk.B ) )
+            self.assertEqual( 2, len( chunk.betas ) )
+            self.assertAlmostEqual( 0.0, chunk.B[0] )
+            self.assertAlmostEqual( 3.952570e-2, chunk.B[1] )
+            self.assertAlmostEqual( 0.0, chunk.betas[0] )
+            self.assertAlmostEqual( 3.952570e-2, chunk.betas[1] )
+
+            value = chunk.scattering_functions[0]
             self.assertAlmostEqual( 0.0, value.beta )
             self.assertEqual( 0, value.LT )
             self.assertEqual( 0, value.temperature_dependence_flag )
@@ -100,7 +107,7 @@ class Test_ENDFtk_MF7_MT4_Tabulated( unittest.TestCase ) :
             self.assertAlmostEqual( 1.306574e-9, values[0][3] )
             self.assertAlmostEqual( 5.29573e-10, values[0][4] )
 
-            value = chunk.functions[1]
+            value = chunk.scattering_functions[1]
             self.assertAlmostEqual( 3.952570e-2, value.beta )
             self.assertEqual( 0, value.LT )
             self.assertEqual( 0, value.temperature_dependence_flag )

@@ -62,9 +62,30 @@ void wrapTabulated( python::module& module ) {
   )
   .def_property_readonly(
 
-    "functions",
-    [] ( const Component& self ) -> ScatteringFunctionRange
+    "B",
+    [] ( const Component& self ) -> DoubleRange
+       { return self.B(); },
+    "The beta values"
+  )
+  .def_property_readonly(
+
+    "betas",
+    [] ( const Component& self ) -> DoubleRange
        { return self.betas(); },
+    "The beta values"
+  )
+  .def_property_readonly(
+
+    "S",
+    [] ( const Component& self ) -> ScatteringFunctionRange
+       { return self.S(); },
+    "The beta values and associated S(alpha,T) functions"
+  )
+  .def_property_readonly(
+
+    "scattering_functions",
+    [] ( const Component& self ) -> ScatteringFunctionRange
+       { return self.scatteringFunctions(); },
     "The beta values and associated S(alpha,T) functions"
   );
 
