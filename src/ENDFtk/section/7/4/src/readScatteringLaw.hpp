@@ -7,10 +7,13 @@ readScatteringLaw( Iterator& begin,
                    int MF,
                    int MT,
                    double B1 ) {
+
   if ( B1 == 0.0 ) {
+
     return AnalyticalFunctions();
   }
   else {
-    return Tabulated( begin, end, lineNumber, MAT, MF, MT );
+    
+    return TabulatedFunctions( begin, end, lineNumber, MAT, MF, MT );
   }
 }

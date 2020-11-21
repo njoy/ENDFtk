@@ -8,7 +8,7 @@
 // convenience typedefs
 using namespace njoy::ENDFtk;
 using ScatteringFunction =
-section::Type< 7, 4 >::Tabulated::ScatteringFunction;
+section::Type< 7, 4 >::TabulatedFunctions::ScatteringFunction;
 
 std::string chunkWithOneTemperature();
 void verifyChunkWithOneTemperature( const ScatteringFunction& );

@@ -19,13 +19,13 @@ class ScatteringFunction {
   std::vector< ListRecord > temperatures_;
 
   /* auxiliary functions */
-  #include "ENDFtk/section/7/4/Tabulated/ScatteringFunction/src/generateTemperatures.hpp"
-  #include "ENDFtk/section/7/4/Tabulated/ScatteringFunction/src/verifyBetaValues.hpp"
+  #include "ENDFtk/section/7/4/TabulatedFunctions/ScatteringFunction/src/generateTemperatures.hpp"
+  #include "ENDFtk/section/7/4/TabulatedFunctions/ScatteringFunction/src/verifyBetaValues.hpp"
 
 public:
 
   /* constructor */
-  #include "ENDFtk/section/7/4/Tabulated/ScatteringFunction/src/ctor.hpp"
+  #include "ENDFtk/section/7/4/TabulatedFunctions/ScatteringFunction/src/ctor.hpp"
 
   /* get methods */
 
@@ -155,6 +155,6 @@ public:
    */
   auto thermalScatteringValues() const { return this->S(); }
 
-  #include "ENDFtk/section/7/4/Tabulated/ScatteringFunction/src/NC.hpp"
-  #include "ENDFtk/section/7/4/Tabulated/ScatteringFunction/src/print.hpp"
+  #include "ENDFtk/section/7/4/TabulatedFunctions/ScatteringFunction/src/NC.hpp"
+  #include "ENDFtk/section/7/4/TabulatedFunctions/ScatteringFunction/src/print.hpp"
 };

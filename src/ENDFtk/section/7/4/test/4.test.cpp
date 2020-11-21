@@ -996,7 +996,14 @@ void verifyChunkWithOneTemperatureAndOneScatterer(
   CHECK( 1 == table.interpolants().size() );
   CHECK( 4 == table.interpolants()[0] );
 
-  auto value = table.betas()[0];
+  CHECK( 2 == table.B().size() );
+  CHECK( 2 == table.betas().size() );
+  CHECK( 0.0 == Approx( table.B()[0] ) );
+  CHECK( 3.952570e-2 == Approx( table.B()[1] ) );
+  CHECK( 0.0 == Approx( table.betas()[0] ) );
+  CHECK( 3.952570e-2 == Approx( table.betas()[1] ) );
+
+  auto value = table.scatteringFunctions()[0];
   CHECK( 0.0 == Approx( value.beta() ) );
   CHECK( 0 == value.LT() );
   CHECK( 0 == value.temperatureDependenceFlag() );

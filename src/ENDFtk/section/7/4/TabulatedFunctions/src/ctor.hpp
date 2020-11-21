@@ -2,7 +2,7 @@ private:
 /**
  *  @brief Private constructor
  */
-Tabulated( InterpolationSequenceRecord< ScatteringFunction >&& sequence ) :
+TabulatedFunctions( InterpolationSequenceRecord< ScatteringFunction >&& sequence ) :
   data_( std::move( sequence ) ) {
 
   //! @todo verify number of beta versus NB
@@ -19,14 +19,14 @@ public:
  *  @param[in] functions      the beta values and associated S(alpha,T)
  *                            functions
  */
-Tabulated( std::vector< long >&& boundaries,
-           std::vector< long >&& interpolants,
-           std::vector< ScatteringFunction >&& functions )
-  try : Tabulated( InterpolationSequenceRecord< ScatteringFunction >(
-                     InterpolationRecord( 0.0, 0.0, 0, 0,
-                                          std::move( boundaries ),
-                                          std::move( interpolants ) ),
-                     std::move( functions ) ) ) {}
+TabulatedFunctions( std::vector< long >&& boundaries,
+                    std::vector< long >&& interpolants,
+                    std::vector< ScatteringFunction >&& functions )
+  try : TabulatedFunctions( InterpolationSequenceRecord< ScatteringFunction >(
+                              InterpolationRecord( 0.0, 0.0, 0, 0,
+                                                   std::move( boundaries ),
+                                                   std::move( interpolants ) ),
+                              std::move( functions ) ) ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing tabulated thermal "
@@ -47,13 +47,13 @@ Tabulated( std::vector< long >&& boundaries,
  *  @param[in] MT           the expected MT number
  */
 template< typename Iterator >
-Tabulated( Iterator& begin,
-           const Iterator& end,
-           long& lineNumber,
-           int MAT,
-           int MF,
-           int MT )
-  try : Tabulated(
+TabulatedFunctions( Iterator& begin,
+                    const Iterator& end,
+                    long& lineNumber,
+                    int MAT,
+                    int MF,
+                    int MT )
+  try : TabulatedFunctions(
           ENDFtk::readInterpolationSequenceRecord< ScatteringFunction >(
               begin, end, lineNumber, MAT, MF, MT ) ) {}
   catch ( std::exception& e ) {
