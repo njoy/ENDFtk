@@ -12,11 +12,11 @@ namespace python = pybind11;
 
 namespace mf7 {
 
-void wrapTabulated( python::module& module ) {
+void wrapTabulatedFunctions( python::module& module ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 7, 4 >::Tabulated;
-  using ScatteringFunction = njoy::ENDFtk::section::Type< 7, 4 >::Tabulated::ScatteringFunction;
+  using Component = njoy::ENDFtk::section::Type< 7, 4 >::TabulatedFunctions;
+  using ScatteringFunction = njoy::ENDFtk::section::Type< 7, 4 >::TabulatedFunctions::ScatteringFunction;
   using ScatteringFunctionRange = RandomAccessAnyView< ScatteringFunction >;
 
   // wrap views created by this section
@@ -29,7 +29,7 @@ void wrapTabulated( python::module& module ) {
   python::class_< Component > component(
 
     module,
-    "Tabulated",
+    "TabulatedFunctions",
     "MF7 MT4 section - tabulated incoherent inelastic scattering law"
   );
 

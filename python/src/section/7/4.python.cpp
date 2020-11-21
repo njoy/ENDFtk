@@ -15,7 +15,7 @@ namespace mf7 {
   // declarations - components
   void wrapEffectiveTemperature( python::module& );
   void wrapAnalyticalFunctions( python::module& );
-  void wrapTabulated( python::module& );
+  void wrapTabulatedFunctions( python::module& );
   void wrapScatteringFunction( python::module& );
   void wrapScatteringLawConstants( python::module& );
 
@@ -54,7 +54,7 @@ void wrapSection_7_4( python::module& module ) {
   // wrap components
   mf7::wrapScatteringLawConstants( submodule );
   mf7::wrapAnalyticalFunctions( submodule );
-  mf7::wrapTabulated( submodule );
+  mf7::wrapTabulatedFunctions( submodule );
   mf7::wrapScatteringFunction( submodule );
   mf7::wrapEffectiveTemperature( submodule );
 

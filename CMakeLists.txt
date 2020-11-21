@@ -157,7 +157,7 @@ pybind11_add_module( ENDFtk.python
     python/src/section/7/4/EffectiveTemperature.python.cpp
     python/src/section/7/4/ScatteringLawConstants.python.cpp
     python/src/section/7/4/AnalyticalFunctions.python.cpp
-    python/src/section/7/4/Tabulated.python.cpp
+    python/src/section/7/4/TabulatedFunctions.python.cpp
     python/src/section/7/4/ScatteringFunction.python.cpp
     python/src/section/8/457.python.cpp
     python/src/section/8/457/AverageDecayEnergies.python.cpp

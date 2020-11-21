@@ -7,16 +7,16 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using Tabulated = section::Type< 7, 4 >::Tabulated;
-using ScatteringFunction = section::Type< 7, 4 >::Tabulated::ScatteringFunction;
+using TabulatedFunctions = section::Type< 7, 4 >::TabulatedFunctions;
+using ScatteringFunction = section::Type< 7, 4 >::TabulatedFunctions::ScatteringFunction;
 
 std::string chunkWithOneTemperature();
-void verifyChunkWithOneTemperature( const Tabulated& );
+void verifyChunkWithOneTemperature( const TabulatedFunctions& );
 std::string invalidLT();
 
-SCENARIO( "Tabulated" ) {
+SCENARIO( "TabulatedFunctions" ) {
 
-  GIVEN( "valid data for a Tabulated thermal scattering law with one "
+  GIVEN( "valid data for a TabulatedFunctions thermal scattering law with one "
          "temperature" ) {
 
     std::string string = chunkWithOneTemperature();
@@ -39,10 +39,11 @@ SCENARIO( "Tabulated" ) {
                      { 2.386694e-4, 2.508273e-4, 2.636238e-4, 2.770291e-4,
                        2.911373e-4 } ) };
 
-      Tabulated chunk( std::move( boundaries ), std::move( interpolants ),
-                       std::move( betas ) );
+      TabulatedFunctions chunk( std::move( boundaries ),
+                                std::move( interpolants ),
+                                std::move( betas ) );
 
-      THEN( "a Tabulated can be constructed using a TabulationRecord" ) {
+      THEN( "a TabulatedFunctions can be constructed using a TabulationRecord" ) {
 
         verifyChunkWithOneTemperature( chunk );
       } // THEN
@@ -63,9 +64,9 @@ SCENARIO( "Tabulated" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      Tabulated chunk( begin, end, lineNumber, 27, 7, 4 );
+      TabulatedFunctions chunk( begin, end, lineNumber, 27, 7, 4 );
 
-      THEN( "a Tabulated can  be constructed and members can be tested" ) {
+      THEN( "a TabulatedFunctions can  be constructed and members can be tested" ) {
 
         verifyChunkWithOneTemperature( chunk );
       } // THEN
@@ -104,9 +105,9 @@ SCENARIO( "Tabulated" ) {
                        { 2.386694e-4, 2.508273e-4, 2.636238e-4, 2.770291e-4,
                          2.911373e-4 } ) };
 
-        CHECK_THROWS( Tabulated( std::move( wrongBoundaries ),
-                                   std::move( interpolants ),
-                                   std::move( betas ) ) );
+        CHECK_THROWS( TabulatedFunctions( std::move( wrongBoundaries ),
+                                          std::move( interpolants ),
+                                          std::move( betas ) ) );
       } // THEN
 
       THEN( "an exception is thrown upon construction when there is "
@@ -128,9 +129,9 @@ SCENARIO( "Tabulated" ) {
                        { 2.386694e-4, 2.508273e-4, 2.636238e-4, 2.770291e-4,
                          2.911373e-4 } ) };
 
-        CHECK_THROWS( Tabulated( std::move( boundaries ),
-                                   std::move( wrongInterpolants ),
-                                   std::move( betas ) ) );
+        CHECK_THROWS( TabulatedFunctions( std::move( boundaries ),
+                                          std::move( wrongInterpolants ),
+                                          std::move( betas ) ) );
       } // THEN
 
       THEN( "an exception is thrown upon construction when there is "
@@ -146,13 +147,13 @@ SCENARIO( "Tabulated" ) {
                        { 2.386876e-4, 2.508466e-4, 2.636238e-4, 1.306574e-9,
                          5.29573e-10 } ) }; // one less
 
-        CHECK_THROWS( Tabulated( std::move( boundaries ),
-                                   std::move( interpolants ),
-                                   std::move( wrongBetas ) ) );
+        CHECK_THROWS( TabulatedFunctions( std::move( boundaries ),
+                                          std::move( interpolants ),
+                                          std::move( wrongBetas ) ) );
       } // THEN
     } // WHEN
 
-    WHEN( "a string representation of a Tabulated thermal scattering law"
+    WHEN( "a string representation of a TabulatedFunctions thermal scattering law"
            " with an invalid LT is used" ) {
 
       std::string string = invalidLT();
@@ -162,7 +163,7 @@ SCENARIO( "Tabulated" ) {
 
       THEN( "an exception is thrown upon construction" ) {
 
-        CHECK_THROWS( Tabulated( begin, end, lineNumber, 27, 7, 4 ) );
+        CHECK_THROWS( TabulatedFunctions( begin, end, lineNumber, 27, 7, 4 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -182,7 +183,7 @@ std::string chunkWithOneTemperature() {
     " 8.418068+1 2.770291-4 8.847604+1 2.911373-4                        27 7  4     \n";
 }
 
-void verifyChunkWithOneTemperature( const Tabulated& chunk ) {
+void verifyChunkWithOneTemperature( const TabulatedFunctions& chunk ) {
 
   CHECK( 1 == chunk.NR() );
   CHECK( 2 == chunk.NB() );
@@ -192,7 +193,7 @@ void verifyChunkWithOneTemperature( const Tabulated& chunk ) {
   CHECK( 1 == chunk.interpolants().size() );
   CHECK( 4 == chunk.interpolants()[0] );
 
-  auto value = chunk.betas()[0];
+  auto value = chunk.scatteringFunctions()[0];
   CHECK( 0.0 == Approx( value.beta() ) );
   CHECK( 0 == value.LT() );
   CHECK( 0 == value.temperatureDependenceFlag() );
@@ -247,7 +248,7 @@ void verifyChunkWithOneTemperature( const Tabulated& chunk ) {
   CHECK( 1.306574e-9 == Approx( values[0][3] ) );
   CHECK( 5.29573e-10 == Approx( values[0][4] ) );
 
-  value = chunk.betas()[1];
+  value = chunk.scatteringFunctions()[1];
   CHECK( 3.952570e-2 == Approx( value.beta() ) );
   CHECK( 0 == value.LT() );
   CHECK( 0 == value.temperatureDependenceFlag() );

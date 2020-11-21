@@ -4,7 +4,7 @@ import unittest
 # third party imports
 
 # local imports
-from ENDFtk.MF7.MT4 import Tabulated
+from ENDFtk.MF7.MT4 import TabulatedFunctions
 from ENDFtk.MF7.MT4 import ScatteringFunction
 
 class Test_ENDFtk_MF7_MT4_Tabulated( unittest.TestCase ) :
@@ -168,29 +168,30 @@ class Test_ENDFtk_MF7_MT4_Tabulated( unittest.TestCase ) :
             self.assertEqual( self.chunk, chunk.to_string( 27, 7, 4 ) )
 
         # the data is given explicitly
-        chunk = Tabulated( boundaries = [ 2 ], interpolants = [ 4 ],
-                           functions = [ ScatteringFunction(
-                                             293.6, 0.0, [ 5 ], [ 4 ],
-                                             [ 4.423802e-3, 4.649528e-3, 4.886772e-3, 8.418068e+1,
-                                               8.847604e+1 ],
-                                             [ 2.386876e-4, 2.508466e-4, 2.636238e-4, 1.306574e-9,
-                                               5.29573e-10 ] ),
-                                         ScatteringFunction(
-                                             293.6, 3.952570e-2, [ 5 ], [ 2 ],
-                                             [ 4.423802e-3, 4.649528e-3, 4.886772e-3, 8.418068e+1,
-                                               8.847604e+1 ],
-                                             [ 2.386694e-4, 2.508273e-4, 2.636238e-4, 2.770291e-4,
-                                               2.911373e-4 ] ) ] )
+        chunk = TabulatedFunctions(
+                    boundaries = [ 2 ], interpolants = [ 4 ],
+                    functions = [ ScatteringFunction(
+                                      293.6, 0.0, [ 5 ], [ 4 ],
+                                      [ 4.423802e-3, 4.649528e-3, 4.886772e-3, 8.418068e+1,
+                                        8.847604e+1 ],
+                                      [ 2.386876e-4, 2.508466e-4, 2.636238e-4, 1.306574e-9,
+                                        5.29573e-10 ] ),
+                                  ScatteringFunction(
+                                      293.6, 3.952570e-2, [ 5 ], [ 2 ],
+                                      [ 4.423802e-3, 4.649528e-3, 4.886772e-3, 8.418068e+1,
+                                        8.847604e+1 ],
+                                      [ 2.386694e-4, 2.508273e-4, 2.636238e-4, 2.770291e-4,
+                                        2.911373e-4 ] ) ] )
 
         verify_chunk( self, chunk )
 
         # the data is read from a string
-        chunk = Tabulated.from_string( self.chunk, 27, 7, 4 )
+        chunk = TabulatedFunctions.from_string( self.chunk, 27, 7, 4 )
 
         verify_chunk( self, chunk )
 
         # the data is copied
-        copy = Tabulated( chunk )
+        copy = TabulatedFunctions( chunk )
 
         verify_chunk( self, copy )
 
@@ -201,23 +202,24 @@ class Test_ENDFtk_MF7_MT4_Tabulated( unittest.TestCase ) :
         # wrong boundaries
         with self.assertRaises( Exception ) :
 
-            chunk = Tabulated( boundaries = [ 2, 4 ], interpolants = [ 4 ],
-                               functions = [ ScatteringFunction(
-                                                 293.6, 0.0, [ 5 ], [ 4 ],
-                                                 [ 4.423802e-3, 4.649528e-3, 4.886772e-3, 8.418068e+1,
-                                                   8.847604e+1 ],
-                                                 [ 2.386876e-4, 2.508466e-4, 2.636238e-4, 1.306574e-9,
-                                                   5.29573e-10 ] ),
-                                             ScatteringFunction(
-                                                 293.6, 3.952570e-2, [ 5 ], [ 2 ],
-                                                 [ 4.423802e-3, 4.649528e-3, 4.886772e-3, 8.418068e+1,
-                                                   8.847604e+1 ],
-                                                 [ 2.386694e-4, 2.508273e-4, 2.636238e-4, 2.770291e-4,
-                                                   2.911373e-4 ] ) ] )
+            chunk = TabulatedFunctions(
+                        boundaries = [ 2, 4 ], interpolants = [ 4 ],
+                       functions = [ ScatteringFunction(
+                                         293.6, 0.0, [ 5 ], [ 4 ],
+                                         [ 4.423802e-3, 4.649528e-3, 4.886772e-3, 8.418068e+1,
+                                           8.847604e+1 ],
+                                         [ 2.386876e-4, 2.508466e-4, 2.636238e-4, 1.306574e-9,
+                                           5.29573e-10 ] ),
+                                     ScatteringFunction(
+                                         293.6, 3.952570e-2, [ 5 ], [ 2 ],
+                                         [ 4.423802e-3, 4.649528e-3, 4.886772e-3, 8.418068e+1,
+                                           8.847604e+1 ],
+                                         [ 2.386694e-4, 2.508273e-4, 2.636238e-4, 2.770291e-4,
+                                           2.911373e-4 ] ) ] )
 
         with self.assertRaises( Exception ) :
 
-            chunk = Tabulated.from_string( self.invalid, 27, 7, 4 )
+            chunk = TabulatedFunctions.from_string( self.invalid, 27, 7, 4 )
 
 if __name__ == '__main__' :
 
