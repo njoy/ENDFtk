@@ -98,8 +98,8 @@ class Test_ENDFtk_MF2_MT151_ResonanceParameters( unittest.TestCase ) :
 
         # the data is given explicitly
         chunk = ResonanceParameters( energies = [ -1.223300e+6, 7.788000e+3 ],
-                                   parameters = [ [ 1., 9.611086e+5, 2., 3., 4., 5. ],
-                                                  [ 1.455, 1.187354e+3, 6., 7., 8., 9. ] ] )
+                                     parameters = [ [ 1., 9.611086e+5, 2., 3., 4., 5. ],
+                                                    [ 1.455, 1.187354e+3, 6., 7., 8., 9. ] ] )
 
         verify_chunk( self, chunk )
 

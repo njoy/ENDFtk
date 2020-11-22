@@ -30,12 +30,12 @@ void wrapResonanceChannels( python::module& module ) {
   .def(
 
     python::init< double, double, std::vector< unsigned int >&&,
+                  std::vector< unsigned int >&&,
                   std::vector< double >&&, std::vector< double >&&,
                   std::vector< double >&&, std::vector< double >&& >(),
-    python::arg( "spin" ), python::arg( "parity" ),
-    python::arg( "l" ), python::arg( "s" ),
-    python::arg( "b" ), python::arg( "apt" ),
-    python::arg( "ape" ),
+    python::arg( "spin" ), python::arg( "parity" ), python::arg( "ppi" ),
+    python::arg( "l" ), python::arg( "s" ), python::arg( "b" ),
+    python::arg( "apt" ), python::arg( "ape" ),
     "Initialise the component\n\n"
     "Arguments:\n"
     "    self      the component\n"
@@ -48,6 +48,25 @@ void wrapResonanceChannels( python::module& module ) {
     "              of the penetrability and the shift factor (NCH values)\n"
     "    ape       the true scattering radius values for the calculation\n"
     "              of the phase shift (NCH values)"
+  )
+  .def(
+
+    python::init< double, double, std::vector< unsigned int >&&,
+                  std::vector< unsigned int >&&,
+                  std::vector< double >&&, std::vector< double >&&,
+                  std::vector< double >&& >(),
+    python::arg( "spin" ), python::arg( "parity" ), python::arg( "ppi" ),
+    python::arg( "l" ), python::arg( "s" ), python::arg( "b" ),
+    python::arg( "ap" ),
+    "Initialise the component\n\n"
+    "Arguments:\n"
+    "    self      the component\n"
+    "    spin      the spin group's spin value\n"
+    "    parity    the associated parity\n"
+    "    l         the orbital momentum values (NCH values)\n"
+    "    s         the channel spin values (NCH values)\n"
+    "    b         the boundary condition values (NCH values)\n"
+    "    ap        the scattering radius values (NCH values)"
   )
   .def_property_readonly(
 

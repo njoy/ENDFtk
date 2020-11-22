@@ -138,8 +138,8 @@ class Test_ENDFtk_MF2_MT151_SpinGroup( unittest.TestCase ) :
         # the data is given explicitly
         chunk = SpinGroup(
                   channels = ResonanceChannels(
-                               spin = 0.5, parity = 0., l = [ 0, 0 ],
-                               s = [ 0., 0.5 ], b = [ 0., 0. ],
+                               spin = 0.5, parity = 0., ppi = [ 1, 2 ],
+                               l = [ 0, 0 ], s = [ 0., 0.5 ], b = [ 0., 0. ],
                                ape = [ 0.,  0.54373 ], apt = [ 0.,  0.54373 ] ),
                   parameters = ResonanceParameters(
                                  energies = [ -1.223300e+6, 7.788000e+3 ],

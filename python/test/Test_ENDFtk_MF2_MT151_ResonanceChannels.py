@@ -84,8 +84,8 @@ class Test_ENDFtk_MF2_MT151_ResonanceChannels( unittest.TestCase ) :
             self.assertEqual( self.chunk, chunk.to_string( 2625, 2, 151 ) )
 
         # the data is given explicitly
-        chunk = ResonanceChannels( spin = 0.5, parity = 0, l = [ 0, 1 ],
-                                   s = [ 0., 0.5 ],  b = [ 0., 2. ],
+        chunk = ResonanceChannels( spin = 0.5, parity = 0, ppi = [ 1, 2 ],
+                                   l = [ 0, 1 ], s = [ 0., 0.5 ],  b = [ 0., 2. ],
                                    ape = [ 0.,  0.543731 ], apt = [ 0.,  0.54373 ] )
 
         verify_chunk( self, chunk )
@@ -107,15 +107,15 @@ class Test_ENDFtk_MF2_MT151_ResonanceChannels( unittest.TestCase ) :
         # the data has different sizes
         with self.assertRaises( Exception ) :
 
-            chunk = ResonanceChannels( spin = 0.5, parity = 0, l = [ 0 ],
-                                       s = [ 0., 0.5 ],  b = [ 0., 2. ],
+            chunk = ResonanceChannels( spin = 0.5, parity = 0, ppi = [ 1, 2 ],
+                                       l = [ 0 ], s = [ 0., 0.5 ],  b = [ 0., 2. ],
                                        ape = [ 0.,  0.543731 ], apt = [ 0.,  0.54373 ] )
 
         # the data is empty
         with self.assertRaises( Exception ) :
 
-            chunk = ResonanceChannels( spin = 0.5, parity = 0, l = [],
-                                       s = [],  b = [], ape = [], apt = [] )
+            chunk = ResonanceChannels( spin = 0.5, parity = 0, ppi = [],
+                                       l = [], s = [],  b = [], ape = [], apt = [] )
 
         # invalid list size
         with self.assertRaises( Exception ) :

@@ -26,7 +26,7 @@ SCENARIO( "SpinGroup" ) {
     WHEN( "the data is given explicitly" ) {
 
       ResonanceChannels channels =
-        { 0.5, 0., { 0, 0 }, { 0., 0.5 }, { 0., 0. },
+        { 0.5, 0., { 1, 2 }, { 0, 0 }, { 0., 0.5 }, { 0., 0. },
           { 0.,  0.54373 }, { 0.,  0.54373 } };
       ResonanceParameters parameters =
         { { -1.223300e+6, 7.788000e+3 },
