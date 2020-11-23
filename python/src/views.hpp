@@ -82,7 +82,7 @@ void wrapBasicBidirectionalAnyViewOf( python::module& module, const std::string&
                         ranges::sentinel_t< BasicBidirectionalAnyView< Element > >,
                         Element >( view.begin(), view.end() ); },
         "Return an iterator for the sequence",
-  	    python::keep_alive< 0, 1 >() )
+        python::keep_alive< 0, 1 >() )
   .def( "to_list",
         [] ( BasicBidirectionalAnyView< Element >& view )
            -> std::vector< Element >
@@ -154,7 +154,7 @@ void wrapBasicRandomAccessAnyViewOf( python::module& module, const std::string& 
         "exception when the slice is invalid. The resulting list is a deep\n"
         "copy for primitive types (like integer and floats) and a shallow\n"
         "copy for custom types",
-   	    python::return_value_policy::reference_internal )
+        python::return_value_policy::reference_internal )
   .def( "__iter__",
         [] ( BasicRandomAccessAnyView< Element >& view )
            { return python::make_iterator<
@@ -163,7 +163,7 @@ void wrapBasicRandomAccessAnyViewOf( python::module& module, const std::string& 
                         ranges::sentinel_t< BasicRandomAccessAnyView< Element > >,
                         Element >( view.begin(), view.end() ); },
         "Return an iterator for the sequence",
-  	    python::keep_alive< 0, 1 >() )
+        python::keep_alive< 0, 1 >() )
   .def( "to_list",
       	[] ( BasicRandomAccessAnyView< Element >& view )
            -> std::vector< Element >
