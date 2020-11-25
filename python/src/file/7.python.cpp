@@ -46,21 +46,25 @@ void wrapFile_7( python::module& module ) {
     "MF7 file - thermal neutron scattering law data"
   );
 
+  // common lambda
+  auto get_section =
+  [] ( const File& self, int mt ) -> std::variant< MF7MT2, MF7MT4 > {
+
+    switch ( mt ) {
+
+      case 2 : return self.section( 2_c );
+      case 4 : return self.section( 4_c );
+      default: throw std::runtime_error(
+                    "Requested section number (" + std::to_string( mt ) +
+                    ") does not correspond to a stored section" );
+    }
+  };
+
   file
   .def(
 
     "section",
-    [] ( const File& self, int mt ) -> std::variant< MF7MT2, MF7MT4 > {
-
-      switch ( mt ) {
-
-        case 2 : return self.section( 2_c );
-        case 4 : return self.section( 4_c );
-        default: throw std::runtime_error(
-                      "Requested section number (" + std::to_string( mt ) +
-                      ") does not correspond to a stored section" );
-      }
-    },
+    get_section,
     python::arg( "mt" ),
     "Return the section with the requested MT number\n\n"
     "Arguments:\n"
@@ -71,17 +75,8 @@ void wrapFile_7( python::module& module ) {
   .def(
 
     "MT",
-    [] ( const File& self, int mt ) -> std::variant< MF7MT2, MF7MT4 > {
-
-      switch ( mt ) {
-
-        case 2 : return self.section( 2_c );
-        case 4 : return self.section( 4_c );
-        default: throw std::runtime_error(
-                      "Requested section number (" + std::to_string( mt ) +
-                      ") does not correspond to a stored section" );
-      }
-    },
+    get_section,
+    python::arg( "mt" ),
     "Return the section with the requested MT number\n\n"
     "Arguments:\n"
     "    self    the file\n"

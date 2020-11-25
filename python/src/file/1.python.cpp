@@ -43,20 +43,24 @@ void wrapFile_1( python::module& module ) {
     "MF3 file - general information"
   );
 
+  // common lambda
+  auto get_section =
+  [] ( const File& self, int mt ) -> std::variant< MF1MT451 > {
+
+    switch ( mt ) {
+
+      case 451 : return self.section( 451_c );
+      default: throw std::runtime_error(
+                    "Requested section number (" + std::to_string( mt ) +
+                    ") does not correspond to a stored section" );
+    }
+  };
+
   file
   .def(
 
     "section",
-    [] ( const File& self, int mt ) -> std::variant< MF1MT451 > {
-
-      switch ( mt ) {
-
-        case 451 : return self.section( 451_c );
-        default: throw std::runtime_error(
-                      "Requested section number (" + std::to_string( mt ) +
-                      ") does not correspond to a stored section" );
-      }
-    },
+    get_section,
     python::arg( "mt" ),
     "Return the section with the requested MT number\n\n"
     "Arguments:\n"
@@ -67,16 +71,8 @@ void wrapFile_1( python::module& module ) {
   .def(
 
     "MT",
-    [] ( const File& self, int mt ) -> std::variant< MF1MT451 > {
-
-      switch ( mt ) {
-
-        case 451 : return self.section( 451_c );
-        default: throw std::runtime_error(
-                      "Requested section number (" + std::to_string( mt ) +
-                      ") does not correspond to a stored section" );
-      }
-    },
+    get_section,
+    python::arg( "mt" ),
     "Return the section with the requested MT number\n\n"
     "Arguments:\n"
     "    self    the file\n"

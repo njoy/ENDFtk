@@ -46,21 +46,25 @@ void wrapFile_2( python::module& module ) {
     "MF2 file - resonance parameters"
   );
 
+  // common lambda
+  auto get_section =
+  [] ( const File& self, int mt ) -> std::variant< MF2MT151, MF2MT152 > {
+
+    switch ( mt ) {
+
+      case 151 : return self.section( 151_c );
+      case 152 : return self.section( 152_c );
+      default: throw std::runtime_error(
+                    "Requested section number (" + std::to_string( mt ) +
+                    ") does not correspond to a stored section" );
+    }
+  };
+
   file
   .def(
 
     "section",
-    [] ( const File& self, int mt ) -> std::variant< MF2MT151, MF2MT152 > {
-
-      switch ( mt ) {
-
-        case 151 : return self.section( 151_c );
-        case 152 : return self.section( 152_c );
-        default: throw std::runtime_error(
-                      "Requested section number (" + std::to_string( mt ) +
-                      ") does not correspond to a stored section" );
-      }
-    },
+    get_section,
     python::arg( "mt" ),
     "Return the section with the requested MT number\n\n"
     "Arguments:\n"
@@ -71,17 +75,8 @@ void wrapFile_2( python::module& module ) {
   .def(
 
     "MT",
-    [] ( const File& self, int mt ) -> std::variant< MF2MT151, MF2MT152 > {
-
-      switch ( mt ) {
-
-        case 151 : return self.section( 151_c );
-        case 152 : return self.section( 152_c );
-        default: throw std::runtime_error(
-                      "Requested section number (" + std::to_string( mt ) +
-                      ") does not correspond to a stored section" );
-      }
-    },
+    get_section,
+    python::arg( "mt" ),
     "Return the section with the requested MT number\n\n"
     "Arguments:\n"
     "    self    the file\n"
