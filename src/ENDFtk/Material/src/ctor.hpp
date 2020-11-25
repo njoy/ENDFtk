@@ -3,8 +3,8 @@ Material( int MAT, Map&& map ) : mat_( MAT ), fileMap( std::move(map) ) {}
 
 public:
 template< int fileNo, typename... Args >
-Material( file::Type< fileNo >&& file_, Args&&... args ) :
-  Material( fill( std::move( file_ ), std::forward< Args >( args )... ) ) {}
+Material( int MAT, file::Type< fileNo >&& file_, Args&&... args ) :
+  Material( MAT, fill( std::move( file_ ), std::forward< Args >( args )... ) ) {}
 
 protected:
 template< typename BufferIterator >

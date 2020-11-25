@@ -16,6 +16,42 @@ SCENARIO( "Testing Material" ) {
 
   std::string matstring = chunk();
 
+  GIVEN( "valid data for a material" ) {
+
+    auto begin = matstring.begin();
+    auto end = matstring.end();
+    long lineNumber = 0;
+
+    StructureDivision head( begin, end, lineNumber );
+    Material material( head, begin, end, lineNumber );
+
+    file::Type< 1 > mf1 = material.file( 1_c );
+    file::Type< 2 > mf2 = material.file( 2_c );
+    file::Type< 3 > mf3 = material.file( 3_c );
+    file::Type< 4 > mf4 = material.file( 4_c );
+    file::Type< 5 > mf5 = material.file( 5_c );
+
+    WHEN( "a material is constructed using files" ) {
+
+      Material material( 131, std::move( mf1 ), std::move( mf2 ),
+                         std::move( mf3 ), std::move( mf4 ), std::move( mf5 ) );
+
+      THEN( "a Material can be constructed" ) {
+
+        verifyMaterial( material );
+      }
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        material.print( output );
+
+        CHECK( buffer == matstring );
+      } // THEN
+    } // WHEN
+  } // GIVEN
+
   GIVEN( "a string representation of a Material containing only MF1 MT451" ) {
 
     WHEN( "a Material is constructed from the string" ) {

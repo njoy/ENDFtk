@@ -3,17 +3,16 @@ static auto
 fill( file::Type< MF >&& file, Files&&... files ) {
 
   {
-    constexpr auto fileNumbers =
-      decltype
-      ( hana::make_tuple( details::fileOf( file ),
-                          details::fileOf( files )... ) ){};
-
     constexpr auto isLValue = hana::trait< std::is_lvalue_reference >;
     auto types = hana::make_tuple( hana::type_c< Files >... );
     static_assert( hana::none_of( types, isLValue ),
                    "Constructing a Material with file::Type arguments "
                    "that are lvalue references is not allowed" );
 
+    constexpr auto fileNumbers =
+      decltype
+      ( hana::make_set( details::fileOf( file ),
+                        details::fileOf( files )... ) ){};
     constexpr auto isInArguments = hana::partial( hana::contains, fileNumbers );
 
     static_assert( hana::all_of( Material::requiredFiles(), isInArguments ),
@@ -45,8 +44,8 @@ fill( file::Type< MF >&& file, Files&&... files ) {
 
   auto makeEmpty = [] ( hana::false_,  auto index ) {
 
-    using Section = section::Type< MF, index.value >;
-    return hana::make_pair( index, std::optional< Section >{} );
+    using File = file::Type< index.value >;
+    return hana::make_pair( index, std::optional< File >{} );
   };
 
   auto makePair = hana::overload( makeFull, makeEmpty );
