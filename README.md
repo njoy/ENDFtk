@@ -52,6 +52,14 @@ file = mat.MF(6)
 section = file.MT(102)
 ```
 
+Every component in ENDFtk has python documentation associated to it that can be viewed using the `help(...)` function in python:
+```
+mat = tape.material(125).parse()
+file = tape.material(125).file(6).parse()
+section = tape.material(125).file(6).section(102).parse()
+help( section ) # this will display the help for an ENDF MF6 section
+```
+
 A simple example for looking at the different secondary particles and the distribution types used for them:
 ```
 pu = tape.material(9437).parse()
