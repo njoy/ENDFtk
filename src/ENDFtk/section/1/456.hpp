@@ -19,12 +19,24 @@ namespace section{
     using Type< 1, 452 >::Type;
 
     /* get methods */
+
+    /**
+     *  @brief Return the MT number of the section
+     */
     static constexpr int sectionNumber(){ return 456; }
+
+    /**
+     *  @brief Return the MT number of the section
+     */
     int MT() const { return Type< 1, 456 >::sectionNumber(); }
+
     using Type< 1, 452 >::LNU;
+    using Type< 1, 452 >::representation;
     using Type< 1, 452 >::nubar;
     using Type< 1, 452 >::NC;
+
     #include "ENDFtk/section/1/456/src/print.hpp"
+    
     using Type< 1, 452 >::ZA;
     using Type< 1, 452 >::AWR;
     using Type< 1, 452 >::atomicWeightRatio;

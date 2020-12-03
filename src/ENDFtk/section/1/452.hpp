@@ -47,11 +47,6 @@ namespace section {
     /* methods */
 
     /**
-     *  @brief Return the MT number of the section
-     */
-    static constexpr int sectionNumber(){ return 452; }
-
-    /**
      *  @brief Return the fission multiplicity representation type
      */
     int LNU() const { return std::visit( [] ( const auto& v ) -> int
@@ -63,6 +58,9 @@ namespace section {
      */
     int representation() const { return this->LNU(); }
 
+    /**
+     *  @brief Return the fission multiplicity data
+     */
     const Multiplicity& nubar() const { return this->data_; }
 
     /**
@@ -73,6 +71,11 @@ namespace section {
                                              this->data_ ); }
 
     #include "ENDFtk/section/1/452/src/print.hpp"
+
+    /**
+     *  @brief Return the MT number of the section
+     */
+    static constexpr int sectionNumber(){ return 452; }
 
     using BaseWithoutMT::MT;
     using BaseWithoutMT::ZA;

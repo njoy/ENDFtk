@@ -202,7 +202,7 @@ SCENARIO( "section::Type< 1, 452 >" ) {
 
       THEN( "an exception is thrown upon construction" ) {
 
-        CHECK_THROWS( section1452( head, begin, end, lineNumber, 125 ) );
+        CHECK_THROWS( section1452( head, begin, end, lineNumber, 9228 ) );
       } // THEN
     } // GIVEN
   } // GIVEN
