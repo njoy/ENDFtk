@@ -157,6 +157,8 @@ class Test_ENDFtk_MF1_MT451_Section( unittest.TestCase ) :
             self.assertEqual( 18, chunk.version_number )
             self.assertAlmostEqual( 19.0, chunk.TEMP )
             self.assertAlmostEqual( 19.0, chunk.temperature )
+            self.assertAlmostEqual( 0.0, chunk.RTOL )
+            self.assertAlmostEqual( 0.0, chunk.reconstruction_tolerance )
             self.assertEqual( 21, chunk.LDRV )
             self.assertEqual( 21, chunk.derived_material )
             self.assertEqual( 9, chunk.NWD )

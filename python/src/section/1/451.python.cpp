@@ -48,7 +48,8 @@ void wrapSection_1_451( python::module& module ) {
                   double, double, int, int, int,
                   double, int,
                   const std::string&,
-                  std::vector< DirectoryRecord >&& >(),
+                  std::vector< DirectoryRecord >&&,
+                  double >(),
     python::arg( "zaid" ), python::arg( "awr" ), python::arg( "lrp" ),
     python::arg( "lfi" ), python::arg( "nlib" ), python::arg( "nmod" ),
     python::arg( "elis" ), python::arg( "sta" ), python::arg( "lis" ),
@@ -56,6 +57,7 @@ void wrapSection_1_451( python::module& module ) {
     python::arg( "emax" ), python::arg( "lrel" ), python::arg( "nsub" ),
     python::arg( "nver" ), python::arg( "temp" ), python::arg( "ldrv" ),
     python::arg( "description" ), python::arg( "index" ),
+    python::arg( "rtol" ) = 0.,
     "Initialise the section\n\n"
     "Arguments:\n"
     "    self           the section\n"
@@ -78,7 +80,8 @@ void wrapSection_1_451( python::module& module ) {
     "    temp           the temperature\n"
     "    ldrv           the derived material flag\n"
     "    description    the descriptive information\n"
-    "    index          the index"
+    "    index          the index\n"
+    "    rtol           the reconstruction tolerance (internal NJOY value)"
   )
   .def_property_readonly(
 
@@ -259,6 +262,18 @@ void wrapSection_1_451( python::module& module ) {
     "temperature",
     &Section::temperature,
     "The temperature"
+  )
+  .def_property_readonly(
+
+    "RTOL",
+    &Section::RTOL,
+    "The reconstruction tolerance"
+  )
+  .def_property_readonly(
+
+    "reconstruction_tolerance",
+    &Section::reconstructionTolerance,
+    "The reconstruction tolerance"
   )
   .def_property_readonly(
 

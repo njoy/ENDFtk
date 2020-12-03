@@ -241,6 +241,8 @@ void verifyChunk( const section::Type< 1, 451 >& chunk ) {
   CHECK( 18 == chunk.versionNumber() );
   CHECK( 19.0 == Approx( chunk.TEMP() ) );
   CHECK( 19.0 == Approx( chunk.temperature() ) );
+  CHECK( 0.0 == Approx( chunk.RTOL() ) );
+  CHECK( 0.0 == Approx( chunk.reconstructionTolerance() ) );
   CHECK( 21 == chunk.LDRV() );
   CHECK( 21 == chunk.derivedMaterial() );
   CHECK( 9 == chunk.NWD() );

@@ -206,6 +206,16 @@ namespace section {
     double temperature() const { return this->TEMP(); }
 
     /**
+     *  @brief Return the reconstruction tolerance
+     */
+    double RTOL() const { return std::get< 2 >( this->parameters_ ).C2(); }
+
+    /**
+     *  @brief Return the reconstruction tolerance
+     */
+    double reconstructionTolerance() const { return this->RTOL(); }
+
+    /**
      *  @brief Return the derived material flag
      */
     int LDRV() const { return std::get< 2 >( this->parameters_ ).L1(); }
