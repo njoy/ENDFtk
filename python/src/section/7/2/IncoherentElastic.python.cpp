@@ -51,13 +51,13 @@ void wrapIncoherentElastic( python::module& module ) {
     "LTHR",
     [] ( const Component& self )
        { return self.LTHR(); },
-    "The LTHR flag (coherent or incoherent elastic scattering)"
+    "The LTHR flag (coherent, incoherent or mixed elastic scattering)"
   )
   .def_property_readonly(
 
     "elastic_scattering_type",
     &Component::elasticScatteringType,
-    "The LTHR flag (coherent or incoherent elastic scattering)"
+    "The LTHR flag (coherent, incoherent or mixed elastic scattering)"
   )
   .def_property_readonly(
 

@@ -45,7 +45,7 @@ SCENARIO( "MixedElastic" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 15, 7, 2 );
+        chunk.print( output, 27, 7, 2 );
 
         CHECK( buffer == string );
       } // THEN
@@ -57,7 +57,7 @@ SCENARIO( "MixedElastic" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      MixedElastic chunk( begin, end, lineNumber, 15, 7, 2 );
+      MixedElastic chunk( begin, end, lineNumber, 27, 7, 2 );
 
       THEN( "a MixedElastic can "
             "be constructed and members can be tested" ) {
@@ -69,7 +69,7 @@ SCENARIO( "MixedElastic" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 15, 7, 2 );
+        chunk.print( output, 27, 7, 2 );
 
         CHECK( buffer == string );
       } // THEN
@@ -89,7 +89,7 @@ SCENARIO( "MixedElastic" ) {
 
       THEN( "an exception is thrown" ) {
 
-        CHECK_THROWS( MixedElastic( begin, end, lineNumber, 15, 7, 2 ) );
+        CHECK_THROWS( MixedElastic( begin, end, lineNumber, 27, 7, 2 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -97,14 +97,14 @@ SCENARIO( "MixedElastic" ) {
 
 std::string chunk() {
   return
-    " 2.936000+2 0.000000+0          1          0          1          3  15 7  2     \n"
-    "          3          1                                              15 7  2     \n"
-    " 1.059427-3 0.000000+0 3.718355-3 9.364524-3 4.237708-3 1.548925-2  15 7  2     \n"
-    " 8.000000+2 0.000000+0          2          0          3          0  15 7  2     \n"
-    " 5.000000-1 8.318414-3 1.640584-2                                   15 7  2     \n"
-    " 2.054202+0 0.000000+0          0          0          1          2  15 7  2     \n"
-    "          2          2                                              15 7  2     \n"
-    " 2.936000+2 8.937898+0 8.000000+2 1.765328+1                        15 7  2     \n";
+    " 2.936000+2 0.000000+0          1          0          1          3  27 7  2     \n"
+    "          3          1                                              27 7  2     \n"
+    " 1.059427-3 0.000000+0 3.718355-3 9.364524-3 4.237708-3 1.548925-2  27 7  2     \n"
+    " 8.000000+2 0.000000+0          2          0          3          0  27 7  2     \n"
+    " 5.000000-1 8.318414-3 1.640584-2                                   27 7  2     \n"
+    " 2.054202+0 0.000000+0          0          0          1          2  27 7  2     \n"
+    "          2          2                                              27 7  2     \n"
+    " 2.936000+2 8.937898+0 8.000000+2 1.765328+1                        27 7  2     \n";
 }
 
 void verifyChunk( const MixedElastic& chunk ) {
@@ -202,12 +202,12 @@ void verifyChunk( const MixedElastic& chunk ) {
 
 std::string invalidChunk() {
   return
-  " 2.936000+2 0.000000+0          1          0          1          2  15 7  2     \n"
-  "          3          1                                              15 7  2     \n"
-  " 1.059427-3 0.000000+0 3.718355-3 9.364524-3 4.237708-3 1.548925-2  15 7  2     \n"
-  " 8.000000+2 0.000000+0          2          0          3          0  15 7  2     \n"
-  " 5.000000-1 8.318414-3 1.640584-2                                   15 7  2     \n"
-  " 2.054202+0 0.000000+0          0          0          1          6  15 7  2     \n"
-  "          2          2                                              15 7  2     \n"
-  " 2.936000+2 8.937898+0 8.000000+2 1.765328+1                        15 7  2     \n";
+  " 2.936000+2 0.000000+0          1          0          1          2  27 7  2     \n"
+  "          3          1                                              27 7  2     \n"
+  " 1.059427-3 0.000000+0 3.718355-3 9.364524-3 4.237708-3 1.548925-2  27 7  2     \n"
+  " 8.000000+2 0.000000+0          2          0          3          0  27 7  2     \n"
+  " 5.000000-1 8.318414-3 1.640584-2                                   27 7  2     \n"
+  " 2.054202+0 0.000000+0          0          0          1          6  27 7  2     \n"
+  "          2          2                                              27 7  2     \n"
+  " 2.936000+2 8.937898+0 8.000000+2 1.765328+1                        27 7  2     \n";
 }

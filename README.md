@@ -13,7 +13,7 @@ First of all, a user should clone the ENDFtk repository and build the python bin
 ```
 git clone https://github.com/njoy/ENDFtk
 cd ENDFtk
-git checkout feature/python-v2
+git checkout develop
 mkdir build
 cd build
 cmake -DCMAKE_BUILD_TYPE=Release ../
