@@ -26,13 +26,14 @@ SCENARIO( "ResonanceChannels" ) {
 
       double aj = 0.5;
       double parity = 0;
+      std::vector< unsigned int > ppi = { 1, 2 };
       std::vector< unsigned int > l = { 0, 1 };
       std::vector< double > s = { 0., 0.5 };
       std::vector< double > b = { 0., 2. };
       std::vector< double > ape = { 0.,  0.543731 };
       std::vector< double > apt = { 0.,  0.54373 };
 
-      ResonanceChannels chunk( aj, parity, std::move( l ),
+      ResonanceChannels chunk( aj, parity, std::move( ppi ), std::move( l ),
                                std::move( s ), std::move( b ),
                                std::move( apt ), std::move( ape ) );
 
@@ -83,6 +84,7 @@ SCENARIO( "ResonanceChannels" ) {
 
       double aj = 0.5;
       double parity = 0;
+      std::vector< unsigned int > ppi = { 1, 2 };
       std::vector< unsigned int > l = { 0, 1 };
       std::vector< double > s = { 0., 0.5 };
       std::vector< double > b = { 0., 2. };
@@ -92,6 +94,7 @@ SCENARIO( "ResonanceChannels" ) {
       THEN( "an exception is thrown" ) {
 
         CHECK_THROWS( ResonanceChannels( aj, parity, std::move( l ),
+                                         std::move( ppi ),
                                          std::move( s ), std::move( b ),
                                          std::move( wrong ), std::move( ape ) ) );
       } // THEN
@@ -101,6 +104,7 @@ SCENARIO( "ResonanceChannels" ) {
 
       double aj = 0.5;
       double parity = 0;
+      std::vector< unsigned int > ppi = { 1, 2 };
       std::vector< unsigned int > l = {};
       std::vector< double > s = {};
       std::vector< double > b = {};
@@ -109,7 +113,8 @@ SCENARIO( "ResonanceChannels" ) {
 
       THEN( "an exception is thrown" ) {
 
-        CHECK_THROWS( ResonanceChannels( aj, parity, std::move( l ),
+        CHECK_THROWS( ResonanceChannels( aj, parity, std::move( ppi ),
+                                         std::move( l ),
                                          std::move( s ), std::move( b ),
                                          std::move( apt ), std::move( ape ) ) );
       } // THEN

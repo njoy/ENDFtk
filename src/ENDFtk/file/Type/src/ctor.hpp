@@ -11,11 +11,10 @@ Type( std::vector< Section >&& sections ) :
  *
  *  @tparam Iterator        a buffer iterator
  *
- *  @param[in] head         the head record of the section
+ *  @param[in] division     the first HEAD record of the section
  *  @param[in] it           the current position in the buffer
  *  @param[in] end          the end of the buffer
  *  @param[in] lineNumber   the current line number
- *  @param[in] MAT          the expected MAT number
  */
 template< typename BufferIterator >
 Type( StructureDivision& division,

@@ -8,9 +8,15 @@
 // other includes
 #include "header-utilities/echoErroneousLine.hpp"
 #include "ENDFtk/tree/File.hpp"
+#include "boost/hana.hpp"
 
 namespace njoy {
 namespace ENDFtk {
+
+  // hana namespace declaration inside ENDFtk
+  namespace hana = boost::hana;
+  inline namespace literals { using namespace hana::literals; }
+
 namespace tree {
 
   /**
@@ -47,6 +53,8 @@ namespace tree {
     #include "ENDFtk/tree/Material/src/ctor.hpp"
 
     /* methods */
+    #include "ENDFtk/tree/Material/src/parse.hpp"
+
     #include "ENDFtk/tree/Material/src/file.hpp"
 
     /**

@@ -1,14 +1,14 @@
 /**
- *  @brief Retrieve a specific MT section
+ *  @brief Retrieve a specific section
  *
- *  @param mt   the MT number of the section to be retrieved (e.g. 451_c)
+ *  @param mt   the MT number of the section to be retrieved (e.g. 1_c)
  */
 template< typename Index >
 decltype( auto ) section( Index sectionNo ) const {
 
   try {
 
-    return details::get( this->derived().sectionMap[ sectionNo ] );
+    return njoy::ENDFtk::details::get( this->derived().sectionMap[ sectionNo ] );
   }
   catch ( ... ) {
 
@@ -18,14 +18,14 @@ decltype( auto ) section( Index sectionNo ) const {
     Log::info( "Requested section number: {}", sectionNo );
     Log::info( "File queried: {}", MF );
 
-    throw std::out_of_range( "File " + std::to_string( MF ) + " sectionNumber" );
+    throw std::out_of_range( "File " + std::to_string( MF ) + " section" );
   }
 }
 
 /**
- *  @brief Retrieve a specific MT section
+ *  @brief Retrieve a specific section
  *
- *  @param mt   the MT number of the section to be retrieved (e.g. 451_c)
+ *  @param mt   the MT number of the section to be retrieved (e.g. 1_c)
  */
 template< typename Index >
 decltype( auto ) section( Index sectionNo ) {

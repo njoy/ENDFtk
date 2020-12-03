@@ -147,16 +147,22 @@ void verifyChunk( const PartialCrossSection& chunk ) {
   CHECK( 2 == chunk.boundaries()[0] );
   CHECK( 2 == chunk.E().size() );
   CHECK( 2 == chunk.energies().size() );
+  CHECK( 2 == chunk.x().size() );
   CHECK( 2 == chunk.XS().size() );
   CHECK( 2 == chunk.crossSections().size() );
+  CHECK( 2 == chunk.y().size() );
   CHECK( 1e-5 == Approx( chunk.E()[0] ) );
   CHECK( 3e+7 == Approx( chunk.E()[1] ) );
   CHECK( 1e-5 == Approx( chunk.energies()[0] ) );
   CHECK( 3e+7 == Approx( chunk.energies()[1] ) );
+  CHECK( 1e-5 == Approx( chunk.x()[0] ) );
+  CHECK( 3e+7 == Approx( chunk.x()[1] ) );
   CHECK( 8.579050e+0 == Approx( chunk.XS()[0] ) );
   CHECK( 1.487778e+1 == Approx( chunk.XS()[1] ) );
   CHECK( 8.579050e+0 == Approx( chunk.crossSections()[0] ) );
   CHECK( 1.487778e+1 == Approx( chunk.crossSections()[1] ) );
+  CHECK( 8.579050e+0 == Approx( chunk.y()[0] ) );
+  CHECK( 1.487778e+1 == Approx( chunk.y()[1] ) );
 
   CHECK( 3 == chunk.NC() );
 }

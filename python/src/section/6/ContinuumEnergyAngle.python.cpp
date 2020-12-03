@@ -31,7 +31,7 @@ void wrapContinuumEnergyAngle( python::module& module ) {
 
     module,
     "ContinuumEnergyAngle",
-    "MF6 section - LAW=5 - continuum energy-angle data for secondary particles"
+    "MF6 section - LAW=1 - continuum energy-angle data for secondary particles"
   );
 
   // wrap the section

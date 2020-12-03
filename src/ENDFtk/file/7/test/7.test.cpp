@@ -4,13 +4,13 @@
 #include "ENDFtk/file/7.hpp"
 
 // other includes
-#include "ENDFtk/tree/Tape.hpp"
+#include "ENDFtk/tree/File.hpp"
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
 using CoherentElastic = section::Type< 7, 2 >::CoherentElastic;
-using Tabulated = section::Type< 7, 4 >::Tabulated;
-using ScatteringFunction = section::Type< 7, 4 >::Tabulated::ScatteringFunction;
+using TabulatedFunctions = section::Type< 7, 4 >::TabulatedFunctions;
+using ScatteringFunction = section::Type< 7, 4 >::TabulatedFunctions::ScatteringFunction;
 
 std::string chunk7();
 std::string chunk2();
@@ -68,7 +68,8 @@ SCENARIO( "Testing special case of file 7" ) {
       mt4( 127., 8.934780e+0, 1, 0,
            { 0, 1.976285e+2, 5.000001e+0,
              6.153875e+0, 8.934780e+0, 1 },
-           Tabulated( { 2 }, { 4 },
+           TabulatedFunctions(
+                      { 2 }, { 4 },
                       { ScatteringFunction(
                                    293.6, 0.0, { 5 }, { 4 },
                                    { 4.423802e-3, 4.649528e-3, 4.886772e-3,
@@ -120,7 +121,8 @@ SCENARIO( "Testing special case of file 7" ) {
       mt4( 127., 8.934780e+0, 1, 0,
            { 0, 1.976285e+2, 5.000001e+0,
              6.153875e+0, 8.934780e+0, 1 },
-           Tabulated( { 2 }, { 4 },
+           TabulatedFunctions(
+                      { 2 }, { 4 },
                       { ScatteringFunction(
                                    293.6, 0.0, { 5 }, { 4 },
                                    { 4.423802e-3, 4.649528e-3, 4.886772e-3,

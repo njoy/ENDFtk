@@ -3,6 +3,7 @@
 #include <pybind11/stl.h>
 
 // local includes
+#include "ENDFtk/Material.hpp"
 #include "ENDFtk/tree/Tape.hpp"
 #include "range/v3/utility/iterator.hpp"
 #include "views.hpp"
@@ -15,6 +16,7 @@ void wrapTreeMaterial( python::module& module ) {
   // type aliases
   using Tape = njoy::ENDFtk::tree::Tape< std::string >;
   using Material = Tape::Material_t;
+  using ParsedMaterial = njoy::ENDFtk::Material;
   using File = Material::File_t;
   using FileRange = BidirectionalAnyView< File >;
 
@@ -107,5 +109,14 @@ void wrapTreeMaterial( python::module& module ) {
     "    self    the ENDF tree material\n"
     "    mf      the MF number of the file to be returned",
     python::return_value_policy::reference_internal
+  )
+  .def(
+
+    "parse",
+    [] ( const Material& self ) -> ParsedMaterial {
+
+      return self.parse();
+    },
+    "Parse the material"
   );
 }

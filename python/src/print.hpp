@@ -44,8 +44,6 @@ std::string print( const Section& section, int mat, int mf ) {
  *
  *  @param[in] file   the ENDF section
  *  @param[in] mat    the material number
- *  @param[in] mf        the file number
- *  @param[in] mt        the section number
  */
 template < typename File >
 std::string print( const File& file, int mat ) {

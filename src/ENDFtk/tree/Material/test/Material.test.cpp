@@ -1,6 +1,7 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
+#include "ENDFtk/Material.hpp"
 #include "ENDFtk/tree/Material.hpp"
 
 // other includes

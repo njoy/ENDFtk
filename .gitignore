@@ -30,8 +30,8 @@
 
 bin
 build
-dependencies
 subprojects
+dependencies
 
 # emacs
 *~

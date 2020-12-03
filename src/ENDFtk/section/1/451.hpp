@@ -244,7 +244,7 @@ namespace section {
     /**
      *  @brief Return the MT number of the section
      */
-    static constexpr int sectionNumber(){ return 451; }
+    static constexpr int sectionNumber() { return 451; }
 
     using BaseWithoutMT::MT;
     using BaseWithoutMT::ZA;

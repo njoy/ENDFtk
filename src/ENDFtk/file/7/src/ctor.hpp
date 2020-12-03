@@ -12,8 +12,8 @@ Type( StructureDivision& structureDivision,
       const BufferIterator& end,
       long& lineNumber )
   try: Type( this->read( sections(),
-                       structureDivision, begin, end, lineNumber,
-                       structureDivision.tail.MAT() ) ) {
+                         structureDivision, begin, end, lineNumber,
+                         structureDivision.tail.MAT() ) ) {
 
     this->verifyEND( structureDivision, lineNumber );
   }

@@ -25,6 +25,9 @@ void wrapFile_8( python::module& );
 void wrapFile_12( python::module& );
 void wrapFile_13( python::module& );
 
+// material and tape
+void wrapMaterial( python::module& );
+
 // declarations - tree
 void wrapTreeSection( python::module& );
 void wrapTreeFile( python::module& );
@@ -72,6 +75,9 @@ PYBIND11_MODULE( ENDFtk, module ) {
   wrapFile_8( module );
   wrapFile_12( module );
   wrapFile_13( module );
+
+  // wrap material and tape
+  wrapMaterial( module );
 
   // create the submodule
   python::module submodule = module.def_submodule(

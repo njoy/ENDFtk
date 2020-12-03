@@ -81,7 +81,7 @@ void wrapDirectoryRecord( python::module& module ) {
 
     "__eq__",
     [] ( const Record& self, const Record& right )
-       { return ( self.MF() == right.MF() ) and\
+       { return ( self.MF() == right.MF() ) and
                 ( self.MT() == right.MT() ) and
                 ( self.NC() == right.NC() ) and
                 ( self.MOD() == right.MOD() ); },

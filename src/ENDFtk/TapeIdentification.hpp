@@ -24,7 +24,7 @@ namespace ENDFtk {
 
     /* fields */
     record::Base< record::Character< 66 > > base;
-    record::TailVerifying< record::MT, record::MF > tail;
+    record::TailVerifying< record::MF, record::MT > tail;
 
   public:
 

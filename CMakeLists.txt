@@ -77,6 +77,7 @@ target_link_libraries( ENDFtk
 include_directories( python/src/ )
 
 pybind11_add_module( ENDFtk.python
+    EXCLUDE_FROM_ALL
     python/src/ENDFtk.python.cpp
     python/src/record/DirectoryRecord.python.cpp
     python/src/record/TapeIdentification.python.cpp
@@ -158,7 +159,7 @@ pybind11_add_module( ENDFtk.python
     python/src/section/7/4/EffectiveTemperature.python.cpp
     python/src/section/7/4/ScatteringLawConstants.python.cpp
     python/src/section/7/4/AnalyticalFunctions.python.cpp
-    python/src/section/7/4/Tabulated.python.cpp
+    python/src/section/7/4/TabulatedFunctions.python.cpp
     python/src/section/7/4/ScatteringFunction.python.cpp
     python/src/section/8/457.python.cpp
     python/src/section/8/457/AverageDecayEnergies.python.cpp
@@ -185,6 +186,7 @@ pybind11_add_module( ENDFtk.python
     python/src/file/8.python.cpp
     python/src/file/12.python.cpp
     python/src/file/13.python.cpp
+    python/src/Material.python.cpp
     python/src/tree/Section.python.cpp
     python/src/tree/File.python.cpp
     python/src/tree/Material.python.cpp

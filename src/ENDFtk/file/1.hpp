@@ -18,19 +18,26 @@ namespace file {
     friend Base< Type >;
     using Parent = Base< Type >;
 
-    // MF1 only has enumerated secton
+    // MF1 only has enumerated sections
     // MT451 is required
     static constexpr auto requiredSections()
       RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 451_c ) )
 
     // all other sections are optional
     static constexpr auto optionalSections()
+      RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple() )
+
+    // the following sections are currently unimplemented
+    static constexpr auto unimplementedSections()
       RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 452_c, 455_c, 456_c,
                                                      458_c, 460_c ) )
 
-    using Map = typename decltype( deduceMapType( 1_c,
-                                                  requiredSections(),
-                                                  optionalSections() ) )::type;
+    using Map =
+    typename decltype( details::deduceMapType(
+                           1_c,
+                           requiredSections(),
+                           hana::concat( optionalSections(),
+                                         unimplementedSections() ) ) )::type;
 
     /* fields */
     Map sectionMap;
