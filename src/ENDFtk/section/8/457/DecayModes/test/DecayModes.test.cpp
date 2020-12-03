@@ -45,7 +45,7 @@ SCENARIO( "DecayModes" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 3580, 8, 457 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
@@ -68,7 +68,7 @@ SCENARIO( "DecayModes" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 3580, 8, 457 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -95,7 +95,7 @@ SCENARIO( "DecayModes" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 3580, 8, 457 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
@@ -118,7 +118,7 @@ SCENARIO( "DecayModes" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 3580, 8, 457 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -135,7 +135,7 @@ SCENARIO( "DecayModes" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( DecayModes( begin, end, lineNumber, 3580, 8, 457 ) );
+        CHECK_THROWS( DecayModes( begin, end, lineNumber, 3580, 8, 457 ) );
       } // THEN
     } // WHEN
 
@@ -149,7 +149,7 @@ SCENARIO( "DecayModes" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( DecayModes( begin, end, lineNumber, 3580, 8, 457 ) );
+        CHECK_THROWS( DecayModes( begin, end, lineNumber, 3580, 8, 457 ) );
       } // THEN
     } // WHEN
   } // WHEN
@@ -165,32 +165,32 @@ std::string chunk() {
 
 void verifyChunk( const DecayModes& chunk )
 {
-  REQUIRE( 5.0 == Approx( chunk.spin() ) );
-  REQUIRE( -1. == Approx( chunk.parity() ) );
+  CHECK( 5.0 == Approx( chunk.spin() ) );
+  CHECK( -1. == Approx( chunk.parity() ) );
 
   auto modes = chunk.decayModes();
-  REQUIRE( 3 == chunk.NDK() );
-  REQUIRE( 3 == modes.size() );
-  REQUIRE( 4. == Approx( modes[0].decayChain() ) );
-  REQUIRE( 0. == Approx( modes[0].finalIsomericState() ) );
-  REQUIRE( 5.637120e+6 == Approx( modes[0].qValue()[0] ) );
-  REQUIRE( 2.549510e+2 == Approx( modes[0].qValue()[1] ) );
-  REQUIRE( 4.590000e-3 == Approx( modes[0].branchingRatio()[0] ) );
-  REQUIRE( 1.200000e-4 == Approx( modes[0].branchingRatio()[1] ) );
-  REQUIRE( 3. == Approx( modes[1].decayChain() ) );
-  REQUIRE( 0. == Approx( modes[1].finalIsomericState() ) );
-  REQUIRE( 4.860000e+4 == Approx( modes[1].qValue()[0] ) );
-  REQUIRE( 5.000000e+1 == Approx( modes[1].qValue()[1] ) );
-  REQUIRE( 9.954100e-1 == Approx( modes[1].branchingRatio()[0] ) );
-  REQUIRE( 1.200000e-4 == Approx( modes[1].branchingRatio()[1] ) );
-  REQUIRE( 6. == Approx( modes[2].decayChain() ) );
-  REQUIRE( 0. == Approx( modes[2].finalIsomericState() ) );
-  REQUIRE( 1.884000e+8 == Approx( modes[2].qValue()[0] ) );
-  REQUIRE( 3.700000e+6 == Approx( modes[2].qValue()[1] ) );
-  REQUIRE( 1.60000e-10 == Approx( modes[2].branchingRatio()[0] ) );
-  REQUIRE( 6.00000e-11 == Approx( modes[2].branchingRatio()[1] ) );
+  CHECK( 3 == chunk.NDK() );
+  CHECK( 3 == modes.size() );
+  CHECK( 4. == Approx( modes[0].decayChain() ) );
+  CHECK( 0. == Approx( modes[0].finalIsomericState() ) );
+  CHECK( 5.637120e+6 == Approx( modes[0].qValue()[0] ) );
+  CHECK( 2.549510e+2 == Approx( modes[0].qValue()[1] ) );
+  CHECK( 4.590000e-3 == Approx( modes[0].branchingRatio()[0] ) );
+  CHECK( 1.200000e-4 == Approx( modes[0].branchingRatio()[1] ) );
+  CHECK( 3. == Approx( modes[1].decayChain() ) );
+  CHECK( 0. == Approx( modes[1].finalIsomericState() ) );
+  CHECK( 4.860000e+4 == Approx( modes[1].qValue()[0] ) );
+  CHECK( 5.000000e+1 == Approx( modes[1].qValue()[1] ) );
+  CHECK( 9.954100e-1 == Approx( modes[1].branchingRatio()[0] ) );
+  CHECK( 1.200000e-4 == Approx( modes[1].branchingRatio()[1] ) );
+  CHECK( 6. == Approx( modes[2].decayChain() ) );
+  CHECK( 0. == Approx( modes[2].finalIsomericState() ) );
+  CHECK( 1.884000e+8 == Approx( modes[2].qValue()[0] ) );
+  CHECK( 3.700000e+6 == Approx( modes[2].qValue()[1] ) );
+  CHECK( 1.60000e-10 == Approx( modes[2].branchingRatio()[0] ) );
+  CHECK( 6.00000e-11 == Approx( modes[2].branchingRatio()[1] ) );
 
-  REQUIRE( 4 == chunk.NC() );
+  CHECK( 4 == chunk.NC() );
 }
 
 std::string chunkStableNuclide() {
@@ -201,17 +201,20 @@ std::string chunkStableNuclide() {
 
 void verifyChunkStableNuclide( const DecayModes& chunk )
 {
-  auto modes = chunk.decayModes();
-  REQUIRE( 0 == chunk.NDK() );
-  REQUIRE( 1 == modes.size() );
-  REQUIRE( 0. == Approx( modes[0].decayChain() ) );
-  REQUIRE( 0. == Approx( modes[0].finalIsomericState() ) );
-  REQUIRE( 0. == Approx( modes[0].qValue()[0] ) );
-  REQUIRE( 0. == Approx( modes[0].qValue()[1] ) );
-  REQUIRE( 0. == Approx( modes[0].branchingRatio()[0] ) );
-  REQUIRE( 0. == Approx( modes[0].branchingRatio()[1] ) );
+  CHECK( 5.0 == Approx( chunk.spin() ) );
+  CHECK( -1. == Approx( chunk.parity() ) );
 
-  REQUIRE( 2 == chunk.NC() );
+  auto modes = chunk.decayModes();
+  CHECK( 0 == chunk.NDK() );
+  CHECK( 1 == modes.size() );
+  CHECK( 0. == Approx( modes[0].decayChain() ) );
+  CHECK( 0. == Approx( modes[0].finalIsomericState() ) );
+  CHECK( 0. == Approx( modes[0].qValue()[0] ) );
+  CHECK( 0. == Approx( modes[0].qValue()[1] ) );
+  CHECK( 0. == Approx( modes[0].branchingRatio()[0] ) );
+  CHECK( 0. == Approx( modes[0].branchingRatio()[1] ) );
+
+  CHECK( 2 == chunk.NC() );
 }
 
 std::string wrongNDK() {

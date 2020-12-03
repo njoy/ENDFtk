@@ -97,6 +97,7 @@ public:
   using UnresolvedBaseWithoutSpin::averageFissionWidthFlag;
 
   using UnresolvedBaseWithoutSpin::NLS;
+  using UnresolvedBaseWithoutSpin::numberLValues;
   using UnresolvedBaseWithoutSpin::lValues;
 
   #include "ENDFtk/section/2/151/UnresolvedEnergyDependentFissionWidths/src/NC.hpp"

@@ -1,15 +1,15 @@
 #include "ENDFtk/section/BaseWithoutMT.hpp"
 #include "ENDFtk/section/Base.hpp"
+#include "ENDFtk/section/NotImplementedYet.hpp"
 
 #ifndef NJOY_ENDFTK_SECTION
 #define NJOY_ENDFTK_SECTION
 
 namespace njoy {
 namespace ENDFtk {
-namespace section{
+namespace section {
 
-template< int MF, int... OptionalMT >
-class Type;
+template< int MF, int... OptionalMT > class Type;
 
 } // section namespace
 } // ENDFtk namespace

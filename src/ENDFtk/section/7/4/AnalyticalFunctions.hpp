@@ -16,15 +16,14 @@ class AnalyticalFunctions {
 
 public:
 
-  /** 
+  /**
    *  @brief Return the number of lines for this ENDF component
    */
   static constexpr long NC() { return 0; }
 
-  /** 
+  /**
    *  @brief Print this ENDF component
    */
   template< typename OutputIterator >
   void print( OutputIterator&, int, int, int ) const { return; }
 };
-

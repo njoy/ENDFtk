@@ -1,3 +1,11 @@
+//! @todo pybind11 variant needs default constructor workaround
+#ifdef PYBIND11
+InterpolationBase() :
+  metadata( 0., 0., 0, 0, 0, 0 ),
+  boundaryIndices(),
+  interpolationSchemeIndices() {}
+#endif
+
 InterpolationBase
 ( double C1, double C2, long L1, long L2,
   std::vector< long >&& boundaryIndices,

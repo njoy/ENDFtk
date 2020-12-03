@@ -4,7 +4,7 @@
 #include "ENDFtk/section/7/2.hpp"
 
 // other includes
-#include "ENDFtk/tree/Tape.hpp"
+#include "ENDFtk/tree/Section.hpp"
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
@@ -56,7 +56,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
 
@@ -81,7 +81,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } //WHEN
 
@@ -109,7 +109,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -146,7 +146,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
 
@@ -171,7 +171,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } //WHEN
 
@@ -232,7 +232,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
 
@@ -257,7 +257,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } //WHEN
 
@@ -310,7 +310,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
 
       THEN( "an exception is thrown" ){
 
-        REQUIRE_THROWS( section72( head, begin, end, lineNumber, 27 ) );
+        CHECK_THROWS( section72( head, begin, end, lineNumber, 27 ) );
       } // THEN
     } // WHEN
 
@@ -326,7 +326,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
 
       THEN( "an exception is thrown" ){
 
-        REQUIRE_THROWS( section72( head, begin, end, lineNumber, 27 ) );
+        CHECK_THROWS( section72( head, begin, end, lineNumber, 27 ) );
       } // THEN
     } // WHEN
 
@@ -341,7 +341,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
 
       THEN( "an exception is thrown" ){
 
-        REQUIRE_THROWS( section72( head, begin, end, lineNumber, 27 ) );
+        CHECK_THROWS( section72( head, begin, end, lineNumber, 27 ) );
       } // THEN
     } // WHEN
 
@@ -356,7 +356,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
 
       THEN( "an exception is thrown" ){
 
-        REQUIRE_THROWS( section72( head, begin, end, lineNumber, 27 ) );
+        CHECK_THROWS( section72( head, begin, end, lineNumber, 27 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -373,50 +373,50 @@ std::string chunkWithCoherentElasticAndOneTemperature() {
 void verifyCoherentElasticWithOneTemperature(
        const section::Type< 7, 2 >& chunk ) {
 
-  REQUIRE( 2 == chunk.MT() );
-  REQUIRE( 2 == chunk.sectionNumber() );
+  CHECK( 2 == chunk.MT() );
+  CHECK( 2 == chunk.sectionNumber() );
 
-  REQUIRE( 107. == Approx( chunk.ZA() ) );
-  REQUIRE( 1. == Approx( chunk.AWR() ) );
-  REQUIRE( 1. == Approx( chunk.atomicWeightRatio() ) );
-  REQUIRE( 1 == chunk.LTHR() );
-  REQUIRE( 1 == chunk.elasticScatteringType() );
+  CHECK( 107. == Approx( chunk.ZA() ) );
+  CHECK( 1. == Approx( chunk.AWR() ) );
+  CHECK( 1. == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 1 == chunk.LTHR() );
+  CHECK( 1 == chunk.elasticScatteringType() );
 
   auto law =
       std::get< CoherentElastic >( chunk.scatteringLaw() );
-  REQUIRE( 1 == law.LTHR() );
-  REQUIRE( 1 == law.elasticScatteringType() );
-  REQUIRE( 0 == law.LT() );
-  REQUIRE( 0 == law.temperatureDependenceFlag() );
-  REQUIRE( 1 == law.NT() );
-  REQUIRE( 1 == law.numberTemperatures() );
-  REQUIRE( 3 == law.NP() );
-  REQUIRE( 3 == law.numberBraggEdges() );
+  CHECK( 1 == law.LTHR() );
+  CHECK( 1 == law.elasticScatteringType() );
+  CHECK( 0 == law.LT() );
+  CHECK( 0 == law.temperatureDependenceFlag() );
+  CHECK( 1 == law.NT() );
+  CHECK( 1 == law.numberTemperatures() );
+  CHECK( 3 == law.NP() );
+  CHECK( 3 == law.numberBraggEdges() );
 
-  REQUIRE( 1 == law.NR() );
-  REQUIRE( 1 == law.boundaries().size() );
-  REQUIRE( 3 == law.boundaries()[0] );
-  REQUIRE( 1 == law.interpolants().size() );
-  REQUIRE( 1 == law.interpolants()[0] );
+  CHECK( 1 == law.NR() );
+  CHECK( 1 == law.boundaries().size() );
+  CHECK( 3 == law.boundaries()[0] );
+  CHECK( 1 == law.interpolants().size() );
+  CHECK( 1 == law.interpolants()[0] );
 
-  REQUIRE( 1 == law.temperatures().size() );
-  REQUIRE( 293.6 == Approx( law.temperatures()[0] ) );
+  CHECK( 1 == law.temperatures().size() );
+  CHECK( 293.6 == Approx( law.temperatures()[0] ) );
 
-  REQUIRE( 3 == law.energies().size() );
-  REQUIRE( 1.059427e-3 == Approx( law.energies()[0] ) );
-  REQUIRE( 3.718355e-3 == Approx( law.energies()[1] ) );
-  REQUIRE( 4.237708e-3 == Approx( law.energies()[2] ) );
+  CHECK( 3 == law.energies().size() );
+  CHECK( 1.059427e-3 == Approx( law.energies()[0] ) );
+  CHECK( 3.718355e-3 == Approx( law.energies()[1] ) );
+  CHECK( 4.237708e-3 == Approx( law.energies()[2] ) );
 
-  REQUIRE( 0 == law.LI().size() );
-  REQUIRE( 0 == law.temperatureInterpolants().size() );
+  CHECK( 0 == law.LI().size() );
+  CHECK( 0 == law.temperatureInterpolants().size() );
 
-  REQUIRE( 1 == law.thermalScatteringValues().size() );
-  REQUIRE( 3 == law.thermalScatteringValues()[0].size() );
-  REQUIRE( 0.0 == Approx( law.thermalScatteringValues()[0][0] ) );
-  REQUIRE( 9.364524e-3 == Approx( law.thermalScatteringValues()[0][1] ) );
-  REQUIRE( 1.548925e-2 == Approx( law.thermalScatteringValues()[0][2] ) );
+  CHECK( 1 == law.thermalScatteringValues().size() );
+  CHECK( 3 == law.thermalScatteringValues()[0].size() );
+  CHECK( 0.0 == Approx( law.thermalScatteringValues()[0][0] ) );
+  CHECK( 9.364524e-3 == Approx( law.thermalScatteringValues()[0][1] ) );
+  CHECK( 1.548925e-2 == Approx( law.thermalScatteringValues()[0][2] ) );
 
-  REQUIRE( 4 == chunk.NC() );
+  CHECK( 4 == chunk.NC() );
 }
 
 std::string chunkWithCoherentElasticAndTwoTemperatures() {
@@ -432,57 +432,57 @@ std::string chunkWithCoherentElasticAndTwoTemperatures() {
 void verifyCoherentElasticWithTwoTemperatures(
        const section::Type< 7, 2 >& chunk ) {
 
-  REQUIRE( 2 == chunk.MT() );
-  REQUIRE( 2 == chunk.sectionNumber() );
+  CHECK( 2 == chunk.MT() );
+  CHECK( 2 == chunk.sectionNumber() );
 
-  REQUIRE( 107. == Approx( chunk.ZA() ) );
-  REQUIRE( 1. == Approx( chunk.AWR() ) );
-  REQUIRE( 1. == Approx( chunk.atomicWeightRatio() ) );
-  REQUIRE( 1 == chunk.LTHR() );
-  REQUIRE( 1 == chunk.elasticScatteringType() );
+  CHECK( 107. == Approx( chunk.ZA() ) );
+  CHECK( 1. == Approx( chunk.AWR() ) );
+  CHECK( 1. == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 1 == chunk.LTHR() );
+  CHECK( 1 == chunk.elasticScatteringType() );
 
   auto law =
        std::get< CoherentElastic >( chunk.scatteringLaw() );
-  REQUIRE( 1 == law.LTHR() );
-  REQUIRE( 1 == law.elasticScatteringType() );
-  REQUIRE( 1 == law.LT() );
-  REQUIRE( 1 == law.temperatureDependenceFlag() );
-  REQUIRE( 2 == law.NT() );
-  REQUIRE( 2 == law.numberTemperatures() );
-  REQUIRE( 3 == law.NP() );
-  REQUIRE( 3 == law.numberBraggEdges() );
+  CHECK( 1 == law.LTHR() );
+  CHECK( 1 == law.elasticScatteringType() );
+  CHECK( 1 == law.LT() );
+  CHECK( 1 == law.temperatureDependenceFlag() );
+  CHECK( 2 == law.NT() );
+  CHECK( 2 == law.numberTemperatures() );
+  CHECK( 3 == law.NP() );
+  CHECK( 3 == law.numberBraggEdges() );
 
-  REQUIRE( 1 == law.NR() );
-  REQUIRE( 1 == law.boundaries().size() );
-  REQUIRE( 3 == law.boundaries()[0] );
-  REQUIRE( 1 == law.interpolants().size() );
-  REQUIRE( 1 == law.interpolants()[0] );
+  CHECK( 1 == law.NR() );
+  CHECK( 1 == law.boundaries().size() );
+  CHECK( 3 == law.boundaries()[0] );
+  CHECK( 1 == law.interpolants().size() );
+  CHECK( 1 == law.interpolants()[0] );
 
-  REQUIRE( 2 == law.temperatures().size() );
-  REQUIRE( 293.6 == Approx( law.temperatures()[0] ) );
-  REQUIRE( 400. == Approx( law.temperatures()[1] ) );
+  CHECK( 2 == law.temperatures().size() );
+  CHECK( 293.6 == Approx( law.temperatures()[0] ) );
+  CHECK( 400. == Approx( law.temperatures()[1] ) );
 
-  REQUIRE( 3 == law.energies().size() );
-  REQUIRE( 1.059427e-3 == Approx( law.energies()[0] ) );
-  REQUIRE( 3.718355e-3 == Approx( law.energies()[1] ) );
-  REQUIRE( 4.237708e-3 == Approx( law.energies()[2] ) );
+  CHECK( 3 == law.energies().size() );
+  CHECK( 1.059427e-3 == Approx( law.energies()[0] ) );
+  CHECK( 3.718355e-3 == Approx( law.energies()[1] ) );
+  CHECK( 4.237708e-3 == Approx( law.energies()[2] ) );
 
-  REQUIRE( 1 == law.LI().size() );
-  REQUIRE( 2 == law.LI()[0] );
-  REQUIRE( 1 == law.temperatureInterpolants().size() );
-  REQUIRE( 2 == law.temperatureInterpolants()[0] );
+  CHECK( 1 == law.LI().size() );
+  CHECK( 2 == law.LI()[0] );
+  CHECK( 1 == law.temperatureInterpolants().size() );
+  CHECK( 2 == law.temperatureInterpolants()[0] );
 
-  REQUIRE( 2 == law.thermalScatteringValues().size() );
-  REQUIRE( 3 == law.thermalScatteringValues()[0].size() );
-  REQUIRE( 0.0 == Approx( law.thermalScatteringValues()[0][0] ) );
-  REQUIRE( 9.364524e-3 == Approx( law.thermalScatteringValues()[0][1] ) );
-  REQUIRE( 1.548925e-2 == Approx( law.thermalScatteringValues()[0][2] ) );
-  REQUIRE( 3 == law.thermalScatteringValues()[1].size() );
-  REQUIRE( 0.5 == Approx( law.thermalScatteringValues()[1][0] ) );
-  REQUIRE( 8.318414e-3 == Approx( law.thermalScatteringValues()[1][1] ) );
-  REQUIRE( 1.640584e-2 == Approx( law.thermalScatteringValues()[1][2] ) );
+  CHECK( 2 == law.thermalScatteringValues().size() );
+  CHECK( 3 == law.thermalScatteringValues()[0].size() );
+  CHECK( 0.0 == Approx( law.thermalScatteringValues()[0][0] ) );
+  CHECK( 9.364524e-3 == Approx( law.thermalScatteringValues()[0][1] ) );
+  CHECK( 1.548925e-2 == Approx( law.thermalScatteringValues()[0][2] ) );
+  CHECK( 3 == law.thermalScatteringValues()[1].size() );
+  CHECK( 0.5 == Approx( law.thermalScatteringValues()[1][0] ) );
+  CHECK( 8.318414e-3 == Approx( law.thermalScatteringValues()[1][1] ) );
+  CHECK( 1.640584e-2 == Approx( law.thermalScatteringValues()[1][2] ) );
 
-  REQUIRE( 6 == chunk.NC() );
+  CHECK( 6 == chunk.NC() );
 }
 
 std::string chunkWithIncoherentElastic() {
@@ -495,38 +495,38 @@ std::string chunkWithIncoherentElastic() {
 
 void verifyIncoherentElastic( const section::Type< 7, 2 >& chunk ) {
 
-  REQUIRE( 2 == chunk.MT() );
-  REQUIRE( 2 == chunk.sectionNumber() );
+  CHECK( 2 == chunk.MT() );
+  CHECK( 2 == chunk.sectionNumber() );
 
-  REQUIRE( 107. == Approx( chunk.ZA() ) );
-  REQUIRE( 1. == Approx( chunk.AWR() ) );
-  REQUIRE( 1. == Approx( chunk.atomicWeightRatio() ) );
-  REQUIRE( 2 == chunk.LTHR() );
-  REQUIRE( 2 == chunk.elasticScatteringType() );
+  CHECK( 107. == Approx( chunk.ZA() ) );
+  CHECK( 1. == Approx( chunk.AWR() ) );
+  CHECK( 1. == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 2 == chunk.LTHR() );
+  CHECK( 2 == chunk.elasticScatteringType() );
 
   auto law =
        std::get< IncoherentElastic >( chunk.scatteringLaw() );
-  REQUIRE( 2 == law.LTHR() );
-  REQUIRE( 2 == law.elasticScatteringType() );
-  REQUIRE( 8.198006e+1 == Approx( law.SB() ) );
-  REQUIRE( 8.198006e+1 == Approx( law.boundCrossSection() ) );
-  REQUIRE( 3 == law.NP() );
-  REQUIRE( 3 == law.numberTemperatures() );
-  REQUIRE( 1 == law.NR() );
-  REQUIRE( 1 == law.interpolants().size() );
-  REQUIRE( 1 == law.boundaries().size() );
-  REQUIRE( 2 == law.interpolants()[0] );
-  REQUIRE( 3 == law.boundaries()[0] );
-  REQUIRE( 3 == law.temperatures().size() );
-  REQUIRE( 3 == law.debyeWallerValues().size() );
-  REQUIRE( 296. == Approx( law.temperatures()[0] ) );
-  REQUIRE( 400. == Approx( law.temperatures()[1] ) );
-  REQUIRE( 500. == Approx( law.temperatures()[2] ) );
-  REQUIRE( 8.486993e+0 == Approx( law.debyeWallerValues()[0] ) );
-  REQUIRE( 9.093191e+0 == Approx( law.debyeWallerValues()[1] ) );
-  REQUIRE( 9.828159e+0 == Approx( law.debyeWallerValues()[2] ) );
+  CHECK( 2 == law.LTHR() );
+  CHECK( 2 == law.elasticScatteringType() );
+  CHECK( 8.198006e+1 == Approx( law.SB() ) );
+  CHECK( 8.198006e+1 == Approx( law.boundCrossSection() ) );
+  CHECK( 3 == law.NP() );
+  CHECK( 3 == law.numberTemperatures() );
+  CHECK( 1 == law.NR() );
+  CHECK( 1 == law.interpolants().size() );
+  CHECK( 1 == law.boundaries().size() );
+  CHECK( 2 == law.interpolants()[0] );
+  CHECK( 3 == law.boundaries()[0] );
+  CHECK( 3 == law.temperatures().size() );
+  CHECK( 3 == law.debyeWallerValues().size() );
+  CHECK( 296. == Approx( law.temperatures()[0] ) );
+  CHECK( 400. == Approx( law.temperatures()[1] ) );
+  CHECK( 500. == Approx( law.temperatures()[2] ) );
+  CHECK( 8.486993e+0 == Approx( law.debyeWallerValues()[0] ) );
+  CHECK( 9.093191e+0 == Approx( law.debyeWallerValues()[1] ) );
+  CHECK( 9.828159e+0 == Approx( law.debyeWallerValues()[2] ) );
 
-  REQUIRE( 4 == chunk.NC() );
+  CHECK( 4 == chunk.NC() );
 }
 
 std::string chunkWithInvalidLTHR() {

@@ -4,15 +4,15 @@
 #include "ENDFtk/section/7/4.hpp"
 
 // other includes
-#include "ENDFtk/tree/Tape.hpp"
+#include "ENDFtk/tree/Section.hpp"
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
 using ScatteringLaw = section::Type< 7, 4 >::ScatteringLaw;
 using ScatteringLawConstants = section::Type< 7, 4 >::ScatteringLawConstants;
 using AnalyticalFunctions = section::Type< 7, 4 >::AnalyticalFunctions;
-using Tabulated = section::Type< 7, 4 >::Tabulated;
-using ScatteringFunction = section::Type< 7, 4 >::Tabulated::ScatteringFunction;
+using TabulatedFunctions = section::Type< 7, 4 >::TabulatedFunctions;
+using ScatteringFunction = section::Type< 7, 4 >::TabulatedFunctions::ScatteringFunction;
 using EffectiveTemperature = section::Type< 7, 4 >::EffectiveTemperature;
 
 // macros don't like multiple template arguments
@@ -77,7 +77,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
 
@@ -102,7 +102,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
 
@@ -130,7 +130,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -150,7 +150,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
       ScatteringLawConstants constants( 0, 1.976285e+2, 5.000001e+0,
                                         6.153875e+0, 8.934780e+0, 1 );
       ScatteringLaw law(
-          Tabulated( { 2 }, { 4 },
+          TabulatedFunctions( { 2 }, { 4 },
                      { ScatteringFunction(
                                   293.6, 0.0, { 5 }, { 4 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3,
@@ -185,7 +185,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
 
@@ -210,7 +210,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
 
@@ -238,7 +238,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -258,7 +258,8 @@ SCENARIO( "section::Type< 7, 4 >" ) {
       ScatteringLawConstants constants( 0, 1.976285e+2, 5.000001e+0,
                                         6.153875e+0, 8.934780e+0, 1 );
       ScatteringLaw law =
-          Tabulated( { 2 }, { 4 },
+          TabulatedFunctions(
+                     { 2 }, { 4 },
                      { ScatteringFunction(
                                   0.0, { 5 }, { 4 },
                                   { 293.6, 400 },
@@ -301,7 +302,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
 
@@ -326,7 +327,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
 
@@ -354,7 +355,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -377,7 +378,8 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                         { 1, 2 }, { 0 } );
 
       ScatteringLaw law =
-          Tabulated( { 2 }, { 4 },
+          TabulatedFunctions(
+                     { 2 }, { 4 },
                      { ScatteringFunction(
                                   0.0, { 5 }, { 4 },
                                   { 293.6, 400 },
@@ -425,7 +427,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
 
@@ -450,7 +452,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
 
@@ -478,7 +480,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -502,7 +504,8 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                         { 1, 2 }, { 1 } );
 
       ScatteringLaw law =
-          Tabulated( { 2 }, { 4 },
+          TabulatedFunctions(
+                     { 2 }, { 4 },
                      { ScatteringFunction(
                                   0.0, { 5 }, { 4 },
                                   { 293.6, 400 },
@@ -550,7 +553,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
 
@@ -576,7 +579,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
 
@@ -605,7 +608,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -626,7 +629,8 @@ SCENARIO( "section::Type< 7, 4 >" ) {
           ScatteringLawConstants constants( 0, 1.976285e+2, 5.000001e+0,
                                             6.153875e+0, 8.934780e+0, 1 );
           ScatteringLaw law(
-              Tabulated( { 2 }, { 4 },
+              TabulatedFunctions(
+                         { 2 }, { 4 },
                          { ScatteringFunction(
                                       293.6, 0.0, { 5 }, { 4 },
                                       { 4.423802e-3, 4.649528e-3, 4.886772e-3,
@@ -644,7 +648,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                           { 5.332083e+2, 7.354726e+2,
                                             1.270678e+3 } );
 
-          REQUIRE_THROWS( section74( za, awr, lat, lasym,
+          CHECK_THROWS( section74( za, awr, lat, lasym,
                                      std::move( constants ),
                                      std::move( law ),
                                      std::move( principal ) ) );
@@ -665,7 +669,8 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                         { 1, 1 }, { 0 } );
 
       ScatteringLaw law(
-          Tabulated( { 2 }, { 4 },
+          TabulatedFunctions(
+                     { 2 }, { 4 },
                      { ScatteringFunction(
                                   293.6, 0.0, { 5 }, { 4 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3,
@@ -685,7 +690,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
       THEN( "an exception is thrown" ) {
 
-          REQUIRE_THROWS( section74( za, awr, lat, lasym,
+          CHECK_THROWS( section74( za, awr, lat, lasym,
                                      std::move( constants ),
                                      std::move( law ),
                                      std::move( principal ) ) );
@@ -705,7 +710,8 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                         { 1, 1 }, { 0 } );
 
       ScatteringLaw law(
-          Tabulated( { 2 }, { 4 },
+          TabulatedFunctions(
+                     { 2 }, { 4 },
                      { ScatteringFunction( 293.6, 0.0, { 5 }, { 4 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3,
                                     8.418068e+1, 8.847604e+1 },
@@ -726,7 +732,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
       THEN( "an exception is thrown" ) {
 
-          REQUIRE_THROWS( section74( za, awr, lat, lasym,
+          CHECK_THROWS( section74( za, awr, lat, lasym,
                                      std::move( constants ),
                                      std::move( law ),
                                      std::move( principal ),
@@ -747,7 +753,8 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                         { 1, 1 }, { 1 } );
 
       ScatteringLaw law(
-          Tabulated( { 2 }, { 4 },
+          TabulatedFunctions(
+                     { 2 }, { 4 },
                      { ScatteringFunction( 293.6, 0.0, { 5 }, { 4 },
                                   { 4.423802e-3, 4.649528e-3, 4.886772e-3,
                                     8.418068e+1, 8.847604e+1 },
@@ -768,7 +775,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
       THEN( "an exception is thrown" ) {
 
-          REQUIRE_THROWS(
+          CHECK_THROWS(
               section74( za, awr, lat, lasym,
                          std::move( constants ),
                          std::move( law ),
@@ -790,7 +797,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
       THEN( "an exception is thrown" ){
 
-        REQUIRE_THROWS( section74( head, begin, end, lineNumber, 27 ) );
+        CHECK_THROWS( section74( head, begin, end, lineNumber, 27 ) );
       } // THEN
     } // WHEN
 
@@ -806,7 +813,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
       THEN( "an exception is thrown" ){
 
-        REQUIRE_THROWS( section74( head, begin, end, lineNumber, 27 ) );
+        CHECK_THROWS( section74( head, begin, end, lineNumber, 27 ) );
       } // THEN
     } // WHEN
 
@@ -822,7 +829,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
       THEN( "an exception is thrown" ){
 
-        REQUIRE_THROWS( section74( head, begin, end, lineNumber, 27 ) );
+        CHECK_THROWS( section74( head, begin, end, lineNumber, 27 ) );
       } // THEN
     } // WHEN
 
@@ -838,7 +845,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
       THEN( "an exception is thrown" ){
 
-        REQUIRE_THROWS( section74( head, begin, end, lineNumber, 27 ) );
+        CHECK_THROWS( section74( head, begin, end, lineNumber, 27 ) );
       } // THEN
     } // WHEN
 
@@ -856,7 +863,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
       THEN( "an exception is thrown" ){
 
-        REQUIRE_THROWS( section74( head, begin, end, lineNumber, 27 ) );
+        CHECK_THROWS( section74( head, begin, end, lineNumber, 27 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -875,55 +882,58 @@ std::string chunkWithAnalyticalFunctions() {
 void verifyChunkWithAnalyticalFunctions(
        const section::Type< 7, 4 >& chunk ) {
 
-  REQUIRE( 127. == Approx( chunk.ZA() ) );
-  REQUIRE( 8.934780e+0 == Approx( chunk.AWR() ) );
-  REQUIRE( 1 == chunk.LAT() );
-  REQUIRE( 1 == chunk.temperatureOption() );
-  REQUIRE( 0 == chunk.LASYM() );
-  REQUIRE( 0 == chunk.symmetryOption() );
+  CHECK( 4 == chunk.MT() );
+  CHECK( 4 == chunk.sectionNumber() );
+
+  CHECK( 127. == Approx( chunk.ZA() ) );
+  CHECK( 8.934780e+0 == Approx( chunk.AWR() ) );
+  CHECK( 1 == chunk.LAT() );
+  CHECK( 1 == chunk.temperatureOption() );
+  CHECK( 0 == chunk.LASYM() );
+  CHECK( 0 == chunk.symmetryOption() );
 
   auto barray = chunk.constants();
-  REQUIRE( 0 == barray.LLN() );
-  REQUIRE( 0 == barray.sabStorageType() );
-  REQUIRE( 6 == barray.NI() );
-  REQUIRE( 6 == barray.numberConstants() );
-  REQUIRE( 0 == barray.NS() );
-  REQUIRE( 0 == barray.numberNonPrincipalScatterers() );
+  CHECK( 0 == barray.LLN() );
+  CHECK( 0 == barray.sabStorageType() );
+  CHECK( 6 == barray.NI() );
+  CHECK( 6 == barray.numberConstants() );
+  CHECK( 0 == barray.NS() );
+  CHECK( 0 == barray.numberNonPrincipalScatterers() );
 
-  REQUIRE( 1.976285e+2 == Approx( barray.epsilon() ) );
-  REQUIRE( 5.000001e+0 == Approx( barray.upperEnergyLimit() ) );
-  REQUIRE( 1 == barray.totalFreeCrossSections().size() );
-  REQUIRE( 0.000000+0 == Approx( barray.totalFreeCrossSections()[0] ) );
-  REQUIRE( 1 == barray.atomicWeightRatios().size() );
-  REQUIRE( 8.934780e+0 == Approx( barray.atomicWeightRatios()[0] ) );
-  REQUIRE( 1 == barray.numberAtoms().size() );
-  REQUIRE( 1. == Approx( barray.numberAtoms()[0] ) );
-  REQUIRE( 0 == barray.analyticalFunctionTypes().size() );
+  CHECK( 1.976285e+2 == Approx( barray.epsilon() ) );
+  CHECK( 5.000001e+0 == Approx( barray.upperEnergyLimit() ) );
+  CHECK( 1 == barray.totalFreeCrossSections().size() );
+  CHECK( 0.000000+0 == Approx( barray.totalFreeCrossSections()[0] ) );
+  CHECK( 1 == barray.atomicWeightRatios().size() );
+  CHECK( 8.934780e+0 == Approx( barray.atomicWeightRatios()[0] ) );
+  CHECK( 1 == barray.numberAtoms().size() );
+  CHECK( 1. == Approx( barray.numberAtoms()[0] ) );
+  CHECK( 0 == barray.analyticalFunctionTypes().size() );
 
   auto table = std::get< AnalyticalFunctions >( chunk.scatteringLaw() );
-  REQUIRE( 0 == table.NC() );
+  CHECK( 0 == table.NC() );
 
   auto temp = chunk.principalEffectiveTemperature();
-  REQUIRE( 3 == temp.NT() );
-  REQUIRE( 3 == temp.numberTemperatures() );
-  REQUIRE( 1 == temp.NR() );
-  REQUIRE( 1 == temp.interpolants().size() );
-  REQUIRE( 1 == temp.boundaries().size() );
-  REQUIRE( 2 == temp.interpolants()[0] );
-  REQUIRE( 3 == temp.boundaries()[0] );
-  REQUIRE( 3 == temp.moderatorTemperatures().size() );
-  REQUIRE( 3 == temp.effectiveTemperatures().size() );
-  REQUIRE( 293.6 == Approx( temp.moderatorTemperatures()[0] ) );
-  REQUIRE( 600. == Approx( temp.moderatorTemperatures()[1] ) );
-  REQUIRE( 1200. == Approx( temp.moderatorTemperatures()[2] ) );
-  REQUIRE( 5.332083e+2 == Approx( temp.effectiveTemperatures()[0] ) );
-  REQUIRE( 7.354726e+2 == Approx( temp.effectiveTemperatures()[1] ) );
-  REQUIRE( 1.270678e+3 == Approx( temp.effectiveTemperatures()[2] ) );
+  CHECK( 3 == temp.NT() );
+  CHECK( 3 == temp.numberTemperatures() );
+  CHECK( 1 == temp.NR() );
+  CHECK( 1 == temp.interpolants().size() );
+  CHECK( 1 == temp.boundaries().size() );
+  CHECK( 2 == temp.interpolants()[0] );
+  CHECK( 3 == temp.boundaries()[0] );
+  CHECK( 3 == temp.moderatorTemperatures().size() );
+  CHECK( 3 == temp.effectiveTemperatures().size() );
+  CHECK( 293.6 == Approx( temp.moderatorTemperatures()[0] ) );
+  CHECK( 600. == Approx( temp.moderatorTemperatures()[1] ) );
+  CHECK( 1200. == Approx( temp.moderatorTemperatures()[2] ) );
+  CHECK( 5.332083e+2 == Approx( temp.effectiveTemperatures()[0] ) );
+  CHECK( 7.354726e+2 == Approx( temp.effectiveTemperatures()[1] ) );
+  CHECK( 1.270678e+3 == Approx( temp.effectiveTemperatures()[2] ) );
 
   // no secondary scatterer => 0 secondary temperature
-  REQUIRE( 0 == chunk.secondaryEffectiveTemperatures().size() );
+  CHECK( 0 == chunk.secondaryEffectiveTemperatures().size() );
 
-  REQUIRE( 6 == chunk.NC() );
+  CHECK( 6 == chunk.NC() );
 }
 
 std::string chunkWithOneTemperatureAndOneScatterer() {
@@ -949,133 +959,143 @@ std::string chunkWithOneTemperatureAndOneScatterer() {
 void verifyChunkWithOneTemperatureAndOneScatterer(
        const section::Type< 7, 4 >& chunk ) {
 
-  REQUIRE( 127. == Approx( chunk.ZA() ) );
-  REQUIRE( 8.934780e+0 == Approx( chunk.AWR() ) );
-  REQUIRE( 1 == chunk.LAT() );
-  REQUIRE( 1 == chunk.temperatureOption() );
-  REQUIRE( 0 == chunk.LASYM() );
-  REQUIRE( 0 == chunk.symmetryOption() );
+  CHECK( 4 == chunk.MT() );
+  CHECK( 4 == chunk.sectionNumber() );
+
+  CHECK( 127. == Approx( chunk.ZA() ) );
+  CHECK( 8.934780e+0 == Approx( chunk.AWR() ) );
+  CHECK( 1 == chunk.LAT() );
+  CHECK( 1 == chunk.temperatureOption() );
+  CHECK( 0 == chunk.LASYM() );
+  CHECK( 0 == chunk.symmetryOption() );
 
   auto barray = chunk.constants();
-  REQUIRE( 0 == barray.LLN() );
-  REQUIRE( 0 == barray.sabStorageType() );
-  REQUIRE( 6 == barray.NI() );
-  REQUIRE( 6 == barray.numberConstants() );
-  REQUIRE( 0 == barray.NS() );
-  REQUIRE( 0 == barray.numberNonPrincipalScatterers() );
+  CHECK( 0 == barray.LLN() );
+  CHECK( 0 == barray.sabStorageType() );
+  CHECK( 6 == barray.NI() );
+  CHECK( 6 == barray.numberConstants() );
+  CHECK( 0 == barray.NS() );
+  CHECK( 0 == barray.numberNonPrincipalScatterers() );
 
-  REQUIRE( 1.976285e+2 == Approx( barray.epsilon() ) );
-  REQUIRE( 5.000001e+0 == Approx( barray.upperEnergyLimit() ) );
-  REQUIRE( 1 == barray.totalFreeCrossSections().size() );
-  REQUIRE( 6.153875e+0 == Approx( barray.totalFreeCrossSections()[0] ) );
-  REQUIRE( 1 == barray.atomicWeightRatios().size() );
-  REQUIRE( 8.934780e+0 == Approx( barray.atomicWeightRatios()[0] ) );
-  REQUIRE( 1 == barray.numberAtoms().size() );
-  REQUIRE( 1. == Approx( barray.numberAtoms()[0] ) );
-  REQUIRE( 0 == barray.analyticalFunctionTypes().size() );
+  CHECK( 1.976285e+2 == Approx( barray.epsilon() ) );
+  CHECK( 5.000001e+0 == Approx( barray.upperEnergyLimit() ) );
+  CHECK( 1 == barray.totalFreeCrossSections().size() );
+  CHECK( 6.153875e+0 == Approx( barray.totalFreeCrossSections()[0] ) );
+  CHECK( 1 == barray.atomicWeightRatios().size() );
+  CHECK( 8.934780e+0 == Approx( barray.atomicWeightRatios()[0] ) );
+  CHECK( 1 == barray.numberAtoms().size() );
+  CHECK( 1. == Approx( barray.numberAtoms()[0] ) );
+  CHECK( 0 == barray.analyticalFunctionTypes().size() );
 
-  auto table = std::get< Tabulated >( chunk.scatteringLaw() );
-  REQUIRE( 1 == table.NR() );
-  REQUIRE( 2 == table.NB() );
-  REQUIRE( 2 == table.numberBetas() );
-  REQUIRE( 1 == table.boundaries().size() );
-  REQUIRE( 2 == table.boundaries()[0] );
-  REQUIRE( 1 == table.interpolants().size() );
-  REQUIRE( 4 == table.interpolants()[0] );
+  auto table = std::get< TabulatedFunctions >( chunk.scatteringLaw() );
+  CHECK( 1 == table.NR() );
+  CHECK( 2 == table.NB() );
+  CHECK( 2 == table.numberBetas() );
+  CHECK( 1 == table.boundaries().size() );
+  CHECK( 2 == table.boundaries()[0] );
+  CHECK( 1 == table.interpolants().size() );
+  CHECK( 4 == table.interpolants()[0] );
 
-  auto value = table.betas()[0];
-  REQUIRE( 0.0 == Approx( value.beta() ) );
-  REQUIRE( 0 == value.LT() );
-  REQUIRE( 0 == value.temperatureDependenceFlag() );
-  REQUIRE( 1 == value.NT() );
-  REQUIRE( 1 == value.numberTemperatures() );
+  CHECK( 2 == table.B().size() );
+  CHECK( 2 == table.betas().size() );
+  CHECK( 0.0 == Approx( table.B()[0] ) );
+  CHECK( 3.952570e-2 == Approx( table.B()[1] ) );
+  CHECK( 0.0 == Approx( table.betas()[0] ) );
+  CHECK( 3.952570e-2 == Approx( table.betas()[1] ) );
 
-  REQUIRE( 1 == value.NR() );
-  REQUIRE( 5 == value.NA() );
-  REQUIRE( 5 == value.numberAlphas() );
-  REQUIRE( 1 == value.boundaries().size() );
-  REQUIRE( 5 == value.boundaries()[0] );
-  REQUIRE( 1 == value.interpolants().size() );
-  REQUIRE( 4 == value.interpolants()[0] );
+  auto value = table.scatteringFunctions()[0];
+  CHECK( 0.0 == Approx( value.beta() ) );
+  CHECK( 0 == value.LT() );
+  CHECK( 0 == value.temperatureDependenceFlag() );
+  CHECK( 1 == value.NT() );
+  CHECK( 1 == value.numberTemperatures() );
 
-  REQUIRE( 1 == value.temperatures().size() );
-  REQUIRE( 293.6 == Approx( value.temperatures()[0] ) );
+  CHECK( 1 == value.NR() );
+  CHECK( 5 == value.NA() );
+  CHECK( 5 == value.numberAlphas() );
+  CHECK( 1 == value.boundaries().size() );
+  CHECK( 5 == value.boundaries()[0] );
+  CHECK( 1 == value.interpolants().size() );
+  CHECK( 4 == value.interpolants()[0] );
 
-  REQUIRE( 5 == value.alphas().size() );
-  REQUIRE( 4.423802e-3 == Approx( value.alphas()[0] ) );
-  REQUIRE( 4.649528e-3 == Approx( value.alphas()[1] ) );
-  REQUIRE( 4.886772e-3 == Approx( value.alphas()[2] ) );
-  REQUIRE( 8.418068e+1 == Approx( value.alphas()[3] ) );
-  REQUIRE( 8.847604e+1 == Approx( value.alphas()[4] ) );
+  CHECK( 1 == value.temperatures().size() );
+  CHECK( 293.6 == Approx( value.temperatures()[0] ) );
 
-  REQUIRE( 0 == value.LI().size() );
-  REQUIRE( 0 == value.temperatureInterpolants().size() );
+  CHECK( 5 == value.alphas().size() );
+  CHECK( 4.423802e-3 == Approx( value.alphas()[0] ) );
+  CHECK( 4.649528e-3 == Approx( value.alphas()[1] ) );
+  CHECK( 4.886772e-3 == Approx( value.alphas()[2] ) );
+  CHECK( 8.418068e+1 == Approx( value.alphas()[3] ) );
+  CHECK( 8.847604e+1 == Approx( value.alphas()[4] ) );
 
-  REQUIRE( 1 == value.thermalScatteringValues().size() );
-  REQUIRE( 5 == value.thermalScatteringValues()[0].size() );
-  REQUIRE( 2.386876e-4 == Approx( value.thermalScatteringValues()[0][0] ) );
-  REQUIRE( 2.508466e-4 == Approx( value.thermalScatteringValues()[0][1] ) );
-  REQUIRE( 2.636238e-4 == Approx( value.thermalScatteringValues()[0][2] ) );
-  REQUIRE( 1.306574e-9 == Approx( value.thermalScatteringValues()[0][3] ) );
-  REQUIRE( 5.29573e-10 == Approx( value.thermalScatteringValues()[0][4] ) );
+  CHECK( 0 == value.LI().size() );
+  CHECK( 0 == value.temperatureInterpolants().size() );
 
-  value = table.betas()[1];
-  REQUIRE( 3.952570e-2 == Approx( value.beta() ) );
-  REQUIRE( 0 == value.LT() );
-  REQUIRE( 0 == value.temperatureDependenceFlag() );
-  REQUIRE( 1 == value.NT() );
-  REQUIRE( 1 == value.numberTemperatures() );
+  CHECK( 1 == value.thermalScatteringValues().size() );
+  CHECK( 5 == value.thermalScatteringValues()[0].size() );
+  CHECK( 2.386876e-4 == Approx( value.thermalScatteringValues()[0][0] ) );
+  CHECK( 2.508466e-4 == Approx( value.thermalScatteringValues()[0][1] ) );
+  CHECK( 2.636238e-4 == Approx( value.thermalScatteringValues()[0][2] ) );
+  CHECK( 1.306574e-9 == Approx( value.thermalScatteringValues()[0][3] ) );
+  CHECK( 5.29573e-10 == Approx( value.thermalScatteringValues()[0][4] ) );
 
-  REQUIRE( 1 == value.NR() );
-  REQUIRE( 5 == value.NA() );
-  REQUIRE( 5 == value.numberAlphas() );
-  REQUIRE( 1 == value.boundaries().size() );
-  REQUIRE( 5 == value.boundaries()[0] );
-  REQUIRE( 1 == value.interpolants().size() );
-  REQUIRE( 2 == value.interpolants()[0] );
+  value = table.scatteringFunctions()[1];
+  CHECK( 3.952570e-2 == Approx( value.beta() ) );
+  CHECK( 0 == value.LT() );
+  CHECK( 0 == value.temperatureDependenceFlag() );
+  CHECK( 1 == value.NT() );
+  CHECK( 1 == value.numberTemperatures() );
 
-  REQUIRE( 1 == value.temperatures().size() );
-  REQUIRE( 293.6 == Approx( value.temperatures()[0] ) );
+  CHECK( 1 == value.NR() );
+  CHECK( 5 == value.NA() );
+  CHECK( 5 == value.numberAlphas() );
+  CHECK( 1 == value.boundaries().size() );
+  CHECK( 5 == value.boundaries()[0] );
+  CHECK( 1 == value.interpolants().size() );
+  CHECK( 2 == value.interpolants()[0] );
 
-  REQUIRE( 5 == value.alphas().size() );
-  REQUIRE( 4.423802e-3 == Approx( value.alphas()[0] ) );
-  REQUIRE( 4.649528e-3 == Approx( value.alphas()[1] ) );
-  REQUIRE( 4.886772e-3 == Approx( value.alphas()[2] ) );
-  REQUIRE( 8.418068e+1 == Approx( value.alphas()[3] ) );
-  REQUIRE( 8.847604e+1 == Approx( value.alphas()[4] ) );
+  CHECK( 1 == value.temperatures().size() );
+  CHECK( 293.6 == Approx( value.temperatures()[0] ) );
 
-  REQUIRE( 0 == value.LI().size() );
-  REQUIRE( 0 == value.temperatureInterpolants().size() );
+  CHECK( 5 == value.alphas().size() );
+  CHECK( 4.423802e-3 == Approx( value.alphas()[0] ) );
+  CHECK( 4.649528e-3 == Approx( value.alphas()[1] ) );
+  CHECK( 4.886772e-3 == Approx( value.alphas()[2] ) );
+  CHECK( 8.418068e+1 == Approx( value.alphas()[3] ) );
+  CHECK( 8.847604e+1 == Approx( value.alphas()[4] ) );
 
-  REQUIRE( 1 == value.thermalScatteringValues().size() );
-  REQUIRE( 5 == value.thermalScatteringValues()[0].size() );
-  REQUIRE( 2.386694e-4 == Approx( value.thermalScatteringValues()[0][0] ) );
-  REQUIRE( 2.508273e-4 == Approx( value.thermalScatteringValues()[0][1] ) );
-  REQUIRE( 2.636238e-4 == Approx( value.thermalScatteringValues()[0][2] ) );
-  REQUIRE( 2.770291e-4 == Approx( value.thermalScatteringValues()[0][3] ) );
-  REQUIRE( 2.911373e-4 == Approx( value.thermalScatteringValues()[0][4] ) );
+  CHECK( 0 == value.LI().size() );
+  CHECK( 0 == value.temperatureInterpolants().size() );
+
+  CHECK( 1 == value.thermalScatteringValues().size() );
+  CHECK( 5 == value.thermalScatteringValues()[0].size() );
+  CHECK( 2.386694e-4 == Approx( value.thermalScatteringValues()[0][0] ) );
+  CHECK( 2.508273e-4 == Approx( value.thermalScatteringValues()[0][1] ) );
+  CHECK( 2.636238e-4 == Approx( value.thermalScatteringValues()[0][2] ) );
+  CHECK( 2.770291e-4 == Approx( value.thermalScatteringValues()[0][3] ) );
+  CHECK( 2.911373e-4 == Approx( value.thermalScatteringValues()[0][4] ) );
 
   auto temp = chunk.principalEffectiveTemperature();
-  REQUIRE( 3 == temp.NT() );
-  REQUIRE( 3 == temp.numberTemperatures() );
-  REQUIRE( 1 == temp.NR() );
-  REQUIRE( 1 == temp.interpolants().size() );
-  REQUIRE( 1 == temp.boundaries().size() );
-  REQUIRE( 2 == temp.interpolants()[0] );
-  REQUIRE( 3 == temp.boundaries()[0] );
-  REQUIRE( 3 == temp.moderatorTemperatures().size() );
-  REQUIRE( 3 == temp.effectiveTemperatures().size() );
-  REQUIRE( 293.6 == Approx( temp.moderatorTemperatures()[0] ) );
-  REQUIRE( 600. == Approx( temp.moderatorTemperatures()[1] ) );
-  REQUIRE( 1200. == Approx( temp.moderatorTemperatures()[2] ) );
-  REQUIRE( 5.332083e+2 == Approx( temp.effectiveTemperatures()[0] ) );
-  REQUIRE( 7.354726e+2 == Approx( temp.effectiveTemperatures()[1] ) );
-  REQUIRE( 1.270678e+3 == Approx( temp.effectiveTemperatures()[2] ) );
+  CHECK( 3 == temp.NT() );
+  CHECK( 3 == temp.numberTemperatures() );
+  CHECK( 1 == temp.NR() );
+  CHECK( 1 == temp.interpolants().size() );
+  CHECK( 1 == temp.boundaries().size() );
+  CHECK( 2 == temp.interpolants()[0] );
+  CHECK( 3 == temp.boundaries()[0] );
+  CHECK( 3 == temp.moderatorTemperatures().size() );
+  CHECK( 3 == temp.effectiveTemperatures().size() );
+  CHECK( 293.6 == Approx( temp.moderatorTemperatures()[0] ) );
+  CHECK( 600. == Approx( temp.moderatorTemperatures()[1] ) );
+  CHECK( 1200. == Approx( temp.moderatorTemperatures()[2] ) );
+  CHECK( 5.332083e+2 == Approx( temp.effectiveTemperatures()[0] ) );
+  CHECK( 7.354726e+2 == Approx( temp.effectiveTemperatures()[1] ) );
+  CHECK( 1.270678e+3 == Approx( temp.effectiveTemperatures()[2] ) );
 
   // no secondary scatterer => 0 secondary temperature
-  REQUIRE( 0 == chunk.secondaryEffectiveTemperatures().size() );
+  CHECK( 0 == chunk.secondaryEffectiveTemperatures().size() );
 
-  REQUIRE( 16 == chunk.NC() );
+  CHECK( 16 == chunk.NC() );
 }
 
 std::string chunkWithTwoTemperaturesAndOneScatterer() {
@@ -1105,151 +1125,161 @@ std::string chunkWithTwoTemperaturesAndOneScatterer() {
 void verifyChunkWithTwoTemperaturesAndOneScatterer(
        const section::Type< 7, 4 >& chunk ) {
 
-  REQUIRE( 127. == Approx( chunk.ZA() ) );
-  REQUIRE( 8.934780e+0 == Approx( chunk.AWR() ) );
-  REQUIRE( 1 == chunk.LAT() );
-  REQUIRE( 1 == chunk.temperatureOption() );
-  REQUIRE( 0 == chunk.LASYM() );
-  REQUIRE( 0 == chunk.symmetryOption() );
+  CHECK( 4 == chunk.MT() );
+  CHECK( 4 == chunk.sectionNumber() );
+
+  CHECK( 127. == Approx( chunk.ZA() ) );
+  CHECK( 8.934780e+0 == Approx( chunk.AWR() ) );
+  CHECK( 1 == chunk.LAT() );
+  CHECK( 1 == chunk.temperatureOption() );
+  CHECK( 0 == chunk.LASYM() );
+  CHECK( 0 == chunk.symmetryOption() );
 
   auto barray = chunk.constants();
-  REQUIRE( 0 == barray.LLN() );
-  REQUIRE( 0 == barray.sabStorageType() );
-  REQUIRE( 6 == barray.NI() );
-  REQUIRE( 6 == barray.numberConstants() );
-  REQUIRE( 0 == barray.NS() );
-  REQUIRE( 0 == barray.numberNonPrincipalScatterers() );
+  CHECK( 0 == barray.LLN() );
+  CHECK( 0 == barray.sabStorageType() );
+  CHECK( 6 == barray.NI() );
+  CHECK( 6 == barray.numberConstants() );
+  CHECK( 0 == barray.NS() );
+  CHECK( 0 == barray.numberNonPrincipalScatterers() );
 
-  REQUIRE( 1.976285e+2 == Approx( barray.epsilon() ) );
-  REQUIRE( 5.000001e+0 == Approx( barray.upperEnergyLimit() ) );
-  REQUIRE( 1 == barray.totalFreeCrossSections().size() );
-  REQUIRE( 6.153875e+0 == Approx( barray.totalFreeCrossSections()[0] ) );
-  REQUIRE( 1 == barray.atomicWeightRatios().size() );
-  REQUIRE( 8.934780e+0 == Approx( barray.atomicWeightRatios()[0] ) );
-  REQUIRE( 1 == barray.numberAtoms().size() );
-  REQUIRE( 1. == Approx( barray.numberAtoms()[0] ) );
-  REQUIRE( 0 == barray.analyticalFunctionTypes().size() );
+  CHECK( 1.976285e+2 == Approx( barray.epsilon() ) );
+  CHECK( 5.000001e+0 == Approx( barray.upperEnergyLimit() ) );
+  CHECK( 1 == barray.totalFreeCrossSections().size() );
+  CHECK( 6.153875e+0 == Approx( barray.totalFreeCrossSections()[0] ) );
+  CHECK( 1 == barray.atomicWeightRatios().size() );
+  CHECK( 8.934780e+0 == Approx( barray.atomicWeightRatios()[0] ) );
+  CHECK( 1 == barray.numberAtoms().size() );
+  CHECK( 1. == Approx( barray.numberAtoms()[0] ) );
+  CHECK( 0 == barray.analyticalFunctionTypes().size() );
 
-  auto table = std::get< Tabulated >( chunk.scatteringLaw() );
-  REQUIRE( 1 == table.NR() );
-  REQUIRE( 2 == table.NB() );
-  REQUIRE( 2 == table.numberBetas() );
-  REQUIRE( 1 == table.boundaries().size() );
-  REQUIRE( 2 == table.boundaries()[0] );
-  REQUIRE( 1 == table.interpolants().size() );
-  REQUIRE( 4 == table.interpolants()[0] );
+  auto table = std::get< TabulatedFunctions >( chunk.scatteringLaw() );
+  CHECK( 1 == table.NR() );
+  CHECK( 2 == table.NB() );
+  CHECK( 2 == table.numberBetas() );
+  CHECK( 1 == table.boundaries().size() );
+  CHECK( 2 == table.boundaries()[0] );
+  CHECK( 1 == table.interpolants().size() );
+  CHECK( 4 == table.interpolants()[0] );
 
-  auto value = table.betas()[0];
-  REQUIRE( 0.0 == Approx( value.beta() ) );
-  REQUIRE( 1 == value.LT() );
-  REQUIRE( 1 == value.temperatureDependenceFlag() );
-  REQUIRE( 2 == value.NT() );
-  REQUIRE( 2 == value.numberTemperatures() );
+  CHECK( 2 == table.B().size() );
+  CHECK( 2 == table.betas().size() );
+  CHECK( 0.0 == Approx( table.B()[0] ) );
+  CHECK( 3.952570e-2 == Approx( table.B()[1] ) );
+  CHECK( 0.0 == Approx( table.betas()[0] ) );
+  CHECK( 3.952570e-2 == Approx( table.betas()[1] ) );
 
-  REQUIRE( 1 == value.NR() );
-  REQUIRE( 5 == value.NA() );
-  REQUIRE( 5 == value.numberAlphas() );
-  REQUIRE( 1 == value.boundaries().size() );
-  REQUIRE( 5 == value.boundaries()[0] );
-  REQUIRE( 1 == value.interpolants().size() );
-  REQUIRE( 4 == value.interpolants()[0] );
+  auto value = table.scatteringFunctions()[0];
+  CHECK( 0.0 == Approx( value.beta() ) );
+  CHECK( 1 == value.LT() );
+  CHECK( 1 == value.temperatureDependenceFlag() );
+  CHECK( 2 == value.NT() );
+  CHECK( 2 == value.numberTemperatures() );
 
-  REQUIRE( 2 == value.temperatures().size() );
-  REQUIRE( 293.6 == Approx( value.temperatures()[0] ) );
-  REQUIRE( 400.0 == Approx( value.temperatures()[1] ) );
+  CHECK( 1 == value.NR() );
+  CHECK( 5 == value.NA() );
+  CHECK( 5 == value.numberAlphas() );
+  CHECK( 1 == value.boundaries().size() );
+  CHECK( 5 == value.boundaries()[0] );
+  CHECK( 1 == value.interpolants().size() );
+  CHECK( 4 == value.interpolants()[0] );
 
-  REQUIRE( 5 == value.alphas().size() );
-  REQUIRE( 4.423802e-3 == Approx( value.alphas()[0] ) );
-  REQUIRE( 4.649528e-3 == Approx( value.alphas()[1] ) );
-  REQUIRE( 4.886772e-3 == Approx( value.alphas()[2] ) );
-  REQUIRE( 8.418068e+1 == Approx( value.alphas()[3] ) );
-  REQUIRE( 8.847604e+1 == Approx( value.alphas()[4] ) );
+  CHECK( 2 == value.temperatures().size() );
+  CHECK( 293.6 == Approx( value.temperatures()[0] ) );
+  CHECK( 400.0 == Approx( value.temperatures()[1] ) );
 
-  REQUIRE( 1 == value.LI().size() );
-  REQUIRE( 4 == value.LI()[0] );
-  REQUIRE( 1 == value.temperatureInterpolants().size() );
-  REQUIRE( 4 == value.temperatureInterpolants()[0] );
+  CHECK( 5 == value.alphas().size() );
+  CHECK( 4.423802e-3 == Approx( value.alphas()[0] ) );
+  CHECK( 4.649528e-3 == Approx( value.alphas()[1] ) );
+  CHECK( 4.886772e-3 == Approx( value.alphas()[2] ) );
+  CHECK( 8.418068e+1 == Approx( value.alphas()[3] ) );
+  CHECK( 8.847604e+1 == Approx( value.alphas()[4] ) );
 
-  REQUIRE( 2 == value.thermalScatteringValues().size() );
-  REQUIRE( 5 == value.thermalScatteringValues()[0].size() );
-  REQUIRE( 2.386876e-4 == Approx( value.thermalScatteringValues()[0][0] ) );
-  REQUIRE( 2.508466e-4 == Approx( value.thermalScatteringValues()[0][1] ) );
-  REQUIRE( 2.636238e-4 == Approx( value.thermalScatteringValues()[0][2] ) );
-  REQUIRE( 1.306574e-9 == Approx( value.thermalScatteringValues()[0][3] ) );
-  REQUIRE( 5.29573e-10 == Approx( value.thermalScatteringValues()[0][4] ) );
-  REQUIRE( 5 == value.thermalScatteringValues()[1].size() );
-  REQUIRE( 4.430020e-4 == Approx( value.thermalScatteringValues()[1][0] ) );
-  REQUIRE( 4.655671e-4 == Approx( value.thermalScatteringValues()[1][1] ) );
-  REQUIRE( 4.892796e-4 == Approx( value.thermalScatteringValues()[1][2] ) );
-  REQUIRE( 4.510209e-8 == Approx( value.thermalScatteringValues()[1][3] ) );
-  REQUIRE( 2.183942e-8 == Approx( value.thermalScatteringValues()[1][4] ) );
+  CHECK( 1 == value.LI().size() );
+  CHECK( 4 == value.LI()[0] );
+  CHECK( 1 == value.temperatureInterpolants().size() );
+  CHECK( 4 == value.temperatureInterpolants()[0] );
 
-  value = table.betas()[1];
-  REQUIRE( 3.952570e-2 == Approx( value.beta() ) );
-  REQUIRE( 1 == value.LT() );
-  REQUIRE( 1 == value.temperatureDependenceFlag() );
-  REQUIRE( 2 == value.NT() );
-  REQUIRE( 2 == value.numberTemperatures() );
+  CHECK( 2 == value.thermalScatteringValues().size() );
+  CHECK( 5 == value.thermalScatteringValues()[0].size() );
+  CHECK( 2.386876e-4 == Approx( value.thermalScatteringValues()[0][0] ) );
+  CHECK( 2.508466e-4 == Approx( value.thermalScatteringValues()[0][1] ) );
+  CHECK( 2.636238e-4 == Approx( value.thermalScatteringValues()[0][2] ) );
+  CHECK( 1.306574e-9 == Approx( value.thermalScatteringValues()[0][3] ) );
+  CHECK( 5.29573e-10 == Approx( value.thermalScatteringValues()[0][4] ) );
+  CHECK( 5 == value.thermalScatteringValues()[1].size() );
+  CHECK( 4.430020e-4 == Approx( value.thermalScatteringValues()[1][0] ) );
+  CHECK( 4.655671e-4 == Approx( value.thermalScatteringValues()[1][1] ) );
+  CHECK( 4.892796e-4 == Approx( value.thermalScatteringValues()[1][2] ) );
+  CHECK( 4.510209e-8 == Approx( value.thermalScatteringValues()[1][3] ) );
+  CHECK( 2.183942e-8 == Approx( value.thermalScatteringValues()[1][4] ) );
 
-  REQUIRE( 1 == value.NR() );
-  REQUIRE( 5 == value.NA() );
-  REQUIRE( 5 == value.numberAlphas() );
-  REQUIRE( 1 == value.boundaries().size() );
-  REQUIRE( 5 == value.boundaries()[0] );
-  REQUIRE( 1 == value.interpolants().size() );
-  REQUIRE( 2 == value.interpolants()[0] );
+  value = table.scatteringFunctions()[1];
+  CHECK( 3.952570e-2 == Approx( value.beta() ) );
+  CHECK( 1 == value.LT() );
+  CHECK( 1 == value.temperatureDependenceFlag() );
+  CHECK( 2 == value.NT() );
+  CHECK( 2 == value.numberTemperatures() );
 
-  REQUIRE( 2 == value.temperatures().size() );
-  REQUIRE( 293.6 == Approx( value.temperatures()[0] ) );
-  REQUIRE( 400.0 == Approx( value.temperatures()[1] ) );
+  CHECK( 1 == value.NR() );
+  CHECK( 5 == value.NA() );
+  CHECK( 5 == value.numberAlphas() );
+  CHECK( 1 == value.boundaries().size() );
+  CHECK( 5 == value.boundaries()[0] );
+  CHECK( 1 == value.interpolants().size() );
+  CHECK( 2 == value.interpolants()[0] );
 
-  REQUIRE( 5 == value.alphas().size() );
-  REQUIRE( 4.423802e-3 == Approx( value.alphas()[0] ) );
-  REQUIRE( 4.649528e-3 == Approx( value.alphas()[1] ) );
-  REQUIRE( 4.886772e-3 == Approx( value.alphas()[2] ) );
-  REQUIRE( 8.418068e+1 == Approx( value.alphas()[3] ) );
-  REQUIRE( 8.847604e+1 == Approx( value.alphas()[4] ) );
+  CHECK( 2 == value.temperatures().size() );
+  CHECK( 293.6 == Approx( value.temperatures()[0] ) );
+  CHECK( 400.0 == Approx( value.temperatures()[1] ) );
 
-  REQUIRE( 1 == value.LI().size() );
-  REQUIRE( 4 == value.LI()[0] );
-  REQUIRE( 1 == value.temperatureInterpolants().size() );
-  REQUIRE( 4 == value.temperatureInterpolants()[0] );
+  CHECK( 5 == value.alphas().size() );
+  CHECK( 4.423802e-3 == Approx( value.alphas()[0] ) );
+  CHECK( 4.649528e-3 == Approx( value.alphas()[1] ) );
+  CHECK( 4.886772e-3 == Approx( value.alphas()[2] ) );
+  CHECK( 8.418068e+1 == Approx( value.alphas()[3] ) );
+  CHECK( 8.847604e+1 == Approx( value.alphas()[4] ) );
 
-  REQUIRE( 2 == value.thermalScatteringValues().size() );
-  REQUIRE( 5 == value.thermalScatteringValues()[0].size() );
-  REQUIRE( 2.386694e-4 == Approx( value.thermalScatteringValues()[0][0] ) );
-  REQUIRE( 2.508273e-4 == Approx( value.thermalScatteringValues()[0][1] ) );
-  REQUIRE( 2.636238e-4 == Approx( value.thermalScatteringValues()[0][2] ) );
-  REQUIRE( 2.770291e-4 == Approx( value.thermalScatteringValues()[0][3] ) );
-  REQUIRE( 2.911373e-4 == Approx( value.thermalScatteringValues()[0][4] ) );
-  REQUIRE( 5 == value.thermalScatteringValues()[1].size() );
-  REQUIRE( 6.921141e-4 == Approx( value.thermalScatteringValues()[1][0] ) );
-  REQUIRE( 7.273641e-4 == Approx( value.thermalScatteringValues()[1][1] ) );
-  REQUIRE( 7.644060e-4 == Approx( value.thermalScatteringValues()[1][2] ) );
-  REQUIRE( 8.033305e-4 == Approx( value.thermalScatteringValues()[1][3] ) );
-  REQUIRE( 8.442328e-4 == Approx( value.thermalScatteringValues()[1][4] ) );
+  CHECK( 1 == value.LI().size() );
+  CHECK( 4 == value.LI()[0] );
+  CHECK( 1 == value.temperatureInterpolants().size() );
+  CHECK( 4 == value.temperatureInterpolants()[0] );
+
+  CHECK( 2 == value.thermalScatteringValues().size() );
+  CHECK( 5 == value.thermalScatteringValues()[0].size() );
+  CHECK( 2.386694e-4 == Approx( value.thermalScatteringValues()[0][0] ) );
+  CHECK( 2.508273e-4 == Approx( value.thermalScatteringValues()[0][1] ) );
+  CHECK( 2.636238e-4 == Approx( value.thermalScatteringValues()[0][2] ) );
+  CHECK( 2.770291e-4 == Approx( value.thermalScatteringValues()[0][3] ) );
+  CHECK( 2.911373e-4 == Approx( value.thermalScatteringValues()[0][4] ) );
+  CHECK( 5 == value.thermalScatteringValues()[1].size() );
+  CHECK( 6.921141e-4 == Approx( value.thermalScatteringValues()[1][0] ) );
+  CHECK( 7.273641e-4 == Approx( value.thermalScatteringValues()[1][1] ) );
+  CHECK( 7.644060e-4 == Approx( value.thermalScatteringValues()[1][2] ) );
+  CHECK( 8.033305e-4 == Approx( value.thermalScatteringValues()[1][3] ) );
+  CHECK( 8.442328e-4 == Approx( value.thermalScatteringValues()[1][4] ) );
 
   auto temp = chunk.principalEffectiveTemperature();
-  REQUIRE( 3 == temp.NT() );
-  REQUIRE( 3 == temp.numberTemperatures() );
-  REQUIRE( 1 == temp.NR() );
-  REQUIRE( 1 == temp.interpolants().size() );
-  REQUIRE( 1 == temp.boundaries().size() );
-  REQUIRE( 2 == temp.interpolants()[0] );
-  REQUIRE( 3 == temp.boundaries()[0] );
-  REQUIRE( 3 == temp.moderatorTemperatures().size() );
-  REQUIRE( 3 == temp.effectiveTemperatures().size() );
-  REQUIRE( 293.6 == Approx( temp.moderatorTemperatures()[0] ) );
-  REQUIRE( 600. == Approx( temp.moderatorTemperatures()[1] ) );
-  REQUIRE( 1200. == Approx( temp.moderatorTemperatures()[2] ) );
-  REQUIRE( 5.332083e+2 == Approx( temp.effectiveTemperatures()[0] ) );
-  REQUIRE( 7.354726e+2 == Approx( temp.effectiveTemperatures()[1] ) );
-  REQUIRE( 1.270678e+3 == Approx( temp.effectiveTemperatures()[2] ) );
+  CHECK( 3 == temp.NT() );
+  CHECK( 3 == temp.numberTemperatures() );
+  CHECK( 1 == temp.NR() );
+  CHECK( 1 == temp.interpolants().size() );
+  CHECK( 1 == temp.boundaries().size() );
+  CHECK( 2 == temp.interpolants()[0] );
+  CHECK( 3 == temp.boundaries()[0] );
+  CHECK( 3 == temp.moderatorTemperatures().size() );
+  CHECK( 3 == temp.effectiveTemperatures().size() );
+  CHECK( 293.6 == Approx( temp.moderatorTemperatures()[0] ) );
+  CHECK( 600. == Approx( temp.moderatorTemperatures()[1] ) );
+  CHECK( 1200. == Approx( temp.moderatorTemperatures()[2] ) );
+  CHECK( 5.332083e+2 == Approx( temp.effectiveTemperatures()[0] ) );
+  CHECK( 7.354726e+2 == Approx( temp.effectiveTemperatures()[1] ) );
+  CHECK( 1.270678e+3 == Approx( temp.effectiveTemperatures()[2] ) );
 
   // no secondary scatterer => 0 secondary temperature
-  REQUIRE( 0 == chunk.secondaryEffectiveTemperatures().size() );
+  CHECK( 0 == chunk.secondaryEffectiveTemperatures().size() );
 
-  REQUIRE( 20 == chunk.NC() );
+  CHECK( 20 == chunk.NC() );
 }
 
 std::string chunkWithTwoTemperaturesAndTwoScatterers() {
@@ -1283,169 +1313,179 @@ std::string chunkWithTwoTemperaturesAndTwoScatterers() {
 void verifyChunkWithTwoTemperaturesAndTwoScatterers(
        const section::Type< 7, 4 >& chunk ) {
 
-  REQUIRE( 127. == Approx( chunk.ZA() ) );
-  REQUIRE( 8.934780e+0 == Approx( chunk.AWR() ) );
-  REQUIRE( 1 == chunk.LAT() );
-  REQUIRE( 1 == chunk.temperatureOption() );
-  REQUIRE( 0 == chunk.LASYM() );
-  REQUIRE( 0 == chunk.symmetryOption() );
+  CHECK( 4 == chunk.MT() );
+  CHECK( 4 == chunk.sectionNumber() );
+
+  CHECK( 127. == Approx( chunk.ZA() ) );
+  CHECK( 8.934780e+0 == Approx( chunk.AWR() ) );
+  CHECK( 1 == chunk.LAT() );
+  CHECK( 1 == chunk.temperatureOption() );
+  CHECK( 0 == chunk.LASYM() );
+  CHECK( 0 == chunk.symmetryOption() );
 
   auto barray = chunk.constants();
-  REQUIRE( 0 == barray.LLN() );
-  REQUIRE( 0 == barray.sabStorageType() );
-  REQUIRE( 12 == barray.NI() );
-  REQUIRE( 12 == barray.numberConstants() );
-  REQUIRE( 1 == barray.NS() );
-  REQUIRE( 1 == barray.numberNonPrincipalScatterers() );
+  CHECK( 0 == barray.LLN() );
+  CHECK( 0 == barray.sabStorageType() );
+  CHECK( 12 == barray.NI() );
+  CHECK( 12 == barray.numberConstants() );
+  CHECK( 1 == barray.NS() );
+  CHECK( 1 == barray.numberNonPrincipalScatterers() );
 
-  REQUIRE( 1.976285e+2 == Approx( barray.epsilon() ) );
-  REQUIRE( 5.000001e+0 == Approx( barray.upperEnergyLimit() ) );
-  REQUIRE( 2 == barray.totalFreeCrossSections().size() );
-  REQUIRE( 6.153875e+0 == Approx( barray.totalFreeCrossSections()[0] ) );
-  REQUIRE( 3.748750e+0  == Approx( barray.totalFreeCrossSections()[1] ) );
-  REQUIRE( 2 == barray.atomicWeightRatios().size() );
-  REQUIRE( 8.934780e+0 == Approx( barray.atomicWeightRatios()[0] ) );
-  REQUIRE( 1.586200e+1 == Approx( barray.atomicWeightRatios()[1] ) );
-  REQUIRE( 2 == barray.numberAtoms().size() );
-  REQUIRE( 1. == Approx( barray.numberAtoms()[0] ) );
-  REQUIRE( 2. == Approx( barray.numberAtoms()[1] ) );
-  REQUIRE( 1 == barray.analyticalFunctionTypes().size() );
-  REQUIRE( 0 == barray.analyticalFunctionTypes()[0] );
+  CHECK( 1.976285e+2 == Approx( barray.epsilon() ) );
+  CHECK( 5.000001e+0 == Approx( barray.upperEnergyLimit() ) );
+  CHECK( 2 == barray.totalFreeCrossSections().size() );
+  CHECK( 6.153875e+0 == Approx( barray.totalFreeCrossSections()[0] ) );
+  CHECK( 3.748750e+0  == Approx( barray.totalFreeCrossSections()[1] ) );
+  CHECK( 2 == barray.atomicWeightRatios().size() );
+  CHECK( 8.934780e+0 == Approx( barray.atomicWeightRatios()[0] ) );
+  CHECK( 1.586200e+1 == Approx( barray.atomicWeightRatios()[1] ) );
+  CHECK( 2 == barray.numberAtoms().size() );
+  CHECK( 1. == Approx( barray.numberAtoms()[0] ) );
+  CHECK( 2. == Approx( barray.numberAtoms()[1] ) );
+  CHECK( 1 == barray.analyticalFunctionTypes().size() );
+  CHECK( 0 == barray.analyticalFunctionTypes()[0] );
 
-  auto table = std::get< Tabulated >( chunk.scatteringLaw() );
-  REQUIRE( 1 == table.NR() );
-  REQUIRE( 2 == table.NB() );
-  REQUIRE( 2 == table.numberBetas() );
-  REQUIRE( 1 == table.boundaries().size() );
-  REQUIRE( 2 == table.boundaries()[0] );
-  REQUIRE( 1 == table.interpolants().size() );
-  REQUIRE( 4 == table.interpolants()[0] );
+  auto table = std::get< TabulatedFunctions >( chunk.scatteringLaw() );
+  CHECK( 1 == table.NR() );
+  CHECK( 2 == table.NB() );
+  CHECK( 2 == table.numberBetas() );
+  CHECK( 1 == table.boundaries().size() );
+  CHECK( 2 == table.boundaries()[0] );
+  CHECK( 1 == table.interpolants().size() );
+  CHECK( 4 == table.interpolants()[0] );
 
-  auto value = table.betas()[0];
-  REQUIRE( 0.0 == Approx( value.beta() ) );
-  REQUIRE( 1 == value.LT() );
-  REQUIRE( 1 == value.temperatureDependenceFlag() );
-  REQUIRE( 2 == value.NT() );
-  REQUIRE( 2 == value.numberTemperatures() );
+  CHECK( 2 == table.B().size() );
+  CHECK( 2 == table.betas().size() );
+  CHECK( 0.0 == Approx( table.B()[0] ) );
+  CHECK( 3.952570e-2 == Approx( table.B()[1] ) );
+  CHECK( 0.0 == Approx( table.betas()[0] ) );
+  CHECK( 3.952570e-2 == Approx( table.betas()[1] ) );
 
-  REQUIRE( 1 == value.NR() );
-  REQUIRE( 5 == value.NA() );
-  REQUIRE( 5 == value.numberAlphas() );
-  REQUIRE( 1 == value.boundaries().size() );
-  REQUIRE( 5 == value.boundaries()[0] );
-  REQUIRE( 1 == value.interpolants().size() );
-  REQUIRE( 4 == value.interpolants()[0] );
+  auto value = table.scatteringFunctions()[0];
+  CHECK( 0.0 == Approx( value.beta() ) );
+  CHECK( 1 == value.LT() );
+  CHECK( 1 == value.temperatureDependenceFlag() );
+  CHECK( 2 == value.NT() );
+  CHECK( 2 == value.numberTemperatures() );
 
-  REQUIRE( 2 == value.temperatures().size() );
-  REQUIRE( 293.6 == Approx( value.temperatures()[0] ) );
-  REQUIRE( 400.0 == Approx( value.temperatures()[1] ) );
+  CHECK( 1 == value.NR() );
+  CHECK( 5 == value.NA() );
+  CHECK( 5 == value.numberAlphas() );
+  CHECK( 1 == value.boundaries().size() );
+  CHECK( 5 == value.boundaries()[0] );
+  CHECK( 1 == value.interpolants().size() );
+  CHECK( 4 == value.interpolants()[0] );
 
-  REQUIRE( 5 == value.alphas().size() );
-  REQUIRE( 4.423802e-3 == Approx( value.alphas()[0] ) );
-  REQUIRE( 4.649528e-3 == Approx( value.alphas()[1] ) );
-  REQUIRE( 4.886772e-3 == Approx( value.alphas()[2] ) );
-  REQUIRE( 8.418068e+1 == Approx( value.alphas()[3] ) );
-  REQUIRE( 8.847604e+1 == Approx( value.alphas()[4] ) );
+  CHECK( 2 == value.temperatures().size() );
+  CHECK( 293.6 == Approx( value.temperatures()[0] ) );
+  CHECK( 400.0 == Approx( value.temperatures()[1] ) );
 
-  REQUIRE( 1 == value.LI().size() );
-  REQUIRE( 4 == value.LI()[0] );
-  REQUIRE( 1 == value.temperatureInterpolants().size() );
-  REQUIRE( 4 == value.temperatureInterpolants()[0] );
+  CHECK( 5 == value.alphas().size() );
+  CHECK( 4.423802e-3 == Approx( value.alphas()[0] ) );
+  CHECK( 4.649528e-3 == Approx( value.alphas()[1] ) );
+  CHECK( 4.886772e-3 == Approx( value.alphas()[2] ) );
+  CHECK( 8.418068e+1 == Approx( value.alphas()[3] ) );
+  CHECK( 8.847604e+1 == Approx( value.alphas()[4] ) );
 
-  REQUIRE( 2 == value.thermalScatteringValues().size() );
-  REQUIRE( 5 == value.thermalScatteringValues()[0].size() );
-  REQUIRE( 2.386876e-4 == Approx( value.thermalScatteringValues()[0][0] ) );
-  REQUIRE( 2.508466e-4 == Approx( value.thermalScatteringValues()[0][1] ) );
-  REQUIRE( 2.636238e-4 == Approx( value.thermalScatteringValues()[0][2] ) );
-  REQUIRE( 1.306574e-9 == Approx( value.thermalScatteringValues()[0][3] ) );
-  REQUIRE( 5.29573e-10 == Approx( value.thermalScatteringValues()[0][4] ) );
-  REQUIRE( 5 == value.thermalScatteringValues()[1].size() );
-  REQUIRE( 4.430020e-4 == Approx( value.thermalScatteringValues()[1][0] ) );
-  REQUIRE( 4.655671e-4 == Approx( value.thermalScatteringValues()[1][1] ) );
-  REQUIRE( 4.892796e-4 == Approx( value.thermalScatteringValues()[1][2] ) );
-  REQUIRE( 4.510209e-8 == Approx( value.thermalScatteringValues()[1][3] ) );
-  REQUIRE( 2.183942e-8 == Approx( value.thermalScatteringValues()[1][4] ) );
+  CHECK( 1 == value.LI().size() );
+  CHECK( 4 == value.LI()[0] );
+  CHECK( 1 == value.temperatureInterpolants().size() );
+  CHECK( 4 == value.temperatureInterpolants()[0] );
 
-  value = table.betas()[1];
-  REQUIRE( 3.952570e-2 == Approx( value.beta() ) );
-  REQUIRE( 1 == value.LT() );
-  REQUIRE( 1 == value.temperatureDependenceFlag() );
-  REQUIRE( 2 == value.NT() );
-  REQUIRE( 2 == value.numberTemperatures() );
+  CHECK( 2 == value.thermalScatteringValues().size() );
+  CHECK( 5 == value.thermalScatteringValues()[0].size() );
+  CHECK( 2.386876e-4 == Approx( value.thermalScatteringValues()[0][0] ) );
+  CHECK( 2.508466e-4 == Approx( value.thermalScatteringValues()[0][1] ) );
+  CHECK( 2.636238e-4 == Approx( value.thermalScatteringValues()[0][2] ) );
+  CHECK( 1.306574e-9 == Approx( value.thermalScatteringValues()[0][3] ) );
+  CHECK( 5.29573e-10 == Approx( value.thermalScatteringValues()[0][4] ) );
+  CHECK( 5 == value.thermalScatteringValues()[1].size() );
+  CHECK( 4.430020e-4 == Approx( value.thermalScatteringValues()[1][0] ) );
+  CHECK( 4.655671e-4 == Approx( value.thermalScatteringValues()[1][1] ) );
+  CHECK( 4.892796e-4 == Approx( value.thermalScatteringValues()[1][2] ) );
+  CHECK( 4.510209e-8 == Approx( value.thermalScatteringValues()[1][3] ) );
+  CHECK( 2.183942e-8 == Approx( value.thermalScatteringValues()[1][4] ) );
 
-  REQUIRE( 1 == value.NR() );
-  REQUIRE( 5 == value.NA() );
-  REQUIRE( 5 == value.numberAlphas() );
-  REQUIRE( 1 == value.boundaries().size() );
-  REQUIRE( 5 == value.boundaries()[0] );
-  REQUIRE( 1 == value.interpolants().size() );
-  REQUIRE( 2 == value.interpolants()[0] );
+  value = table.scatteringFunctions()[1];
+  CHECK( 3.952570e-2 == Approx( value.beta() ) );
+  CHECK( 1 == value.LT() );
+  CHECK( 1 == value.temperatureDependenceFlag() );
+  CHECK( 2 == value.NT() );
+  CHECK( 2 == value.numberTemperatures() );
 
-  REQUIRE( 2 == value.temperatures().size() );
-  REQUIRE( 293.6 == Approx( value.temperatures()[0] ) );
-  REQUIRE( 400.0 == Approx( value.temperatures()[1] ) );
+  CHECK( 1 == value.NR() );
+  CHECK( 5 == value.NA() );
+  CHECK( 5 == value.numberAlphas() );
+  CHECK( 1 == value.boundaries().size() );
+  CHECK( 5 == value.boundaries()[0] );
+  CHECK( 1 == value.interpolants().size() );
+  CHECK( 2 == value.interpolants()[0] );
 
-  REQUIRE( 5 == value.alphas().size() );
-  REQUIRE( 4.423802e-3 == Approx( value.alphas()[0] ) );
-  REQUIRE( 4.649528e-3 == Approx( value.alphas()[1] ) );
-  REQUIRE( 4.886772e-3 == Approx( value.alphas()[2] ) );
-  REQUIRE( 8.418068e+1 == Approx( value.alphas()[3] ) );
-  REQUIRE( 8.847604e+1 == Approx( value.alphas()[4] ) );
+  CHECK( 2 == value.temperatures().size() );
+  CHECK( 293.6 == Approx( value.temperatures()[0] ) );
+  CHECK( 400.0 == Approx( value.temperatures()[1] ) );
 
-  REQUIRE( 1 == value.LI().size() );
-  REQUIRE( 4 == value.LI()[0] );
-  REQUIRE( 1 == value.temperatureInterpolants().size() );
-  REQUIRE( 4 == value.temperatureInterpolants()[0] );
+  CHECK( 5 == value.alphas().size() );
+  CHECK( 4.423802e-3 == Approx( value.alphas()[0] ) );
+  CHECK( 4.649528e-3 == Approx( value.alphas()[1] ) );
+  CHECK( 4.886772e-3 == Approx( value.alphas()[2] ) );
+  CHECK( 8.418068e+1 == Approx( value.alphas()[3] ) );
+  CHECK( 8.847604e+1 == Approx( value.alphas()[4] ) );
 
-  REQUIRE( 2 == value.thermalScatteringValues().size() );
-  REQUIRE( 5 == value.thermalScatteringValues()[0].size() );
-  REQUIRE( 2.386694e-4 == Approx( value.thermalScatteringValues()[0][0] ) );
-  REQUIRE( 2.508273e-4 == Approx( value.thermalScatteringValues()[0][1] ) );
-  REQUIRE( 2.636238e-4 == Approx( value.thermalScatteringValues()[0][2] ) );
-  REQUIRE( 2.770291e-4 == Approx( value.thermalScatteringValues()[0][3] ) );
-  REQUIRE( 2.911373e-4 == Approx( value.thermalScatteringValues()[0][4] ) );
-  REQUIRE( 5 == value.thermalScatteringValues()[1].size() );
-  REQUIRE( 6.921141e-4 == Approx( value.thermalScatteringValues()[1][0] ) );
-  REQUIRE( 7.273641e-4 == Approx( value.thermalScatteringValues()[1][1] ) );
-  REQUIRE( 7.644060e-4 == Approx( value.thermalScatteringValues()[1][2] ) );
-  REQUIRE( 8.033305e-4 == Approx( value.thermalScatteringValues()[1][3] ) );
-  REQUIRE( 8.442328e-4 == Approx( value.thermalScatteringValues()[1][4] ) );
+  CHECK( 1 == value.LI().size() );
+  CHECK( 4 == value.LI()[0] );
+  CHECK( 1 == value.temperatureInterpolants().size() );
+  CHECK( 4 == value.temperatureInterpolants()[0] );
+
+  CHECK( 2 == value.thermalScatteringValues().size() );
+  CHECK( 5 == value.thermalScatteringValues()[0].size() );
+  CHECK( 2.386694e-4 == Approx( value.thermalScatteringValues()[0][0] ) );
+  CHECK( 2.508273e-4 == Approx( value.thermalScatteringValues()[0][1] ) );
+  CHECK( 2.636238e-4 == Approx( value.thermalScatteringValues()[0][2] ) );
+  CHECK( 2.770291e-4 == Approx( value.thermalScatteringValues()[0][3] ) );
+  CHECK( 2.911373e-4 == Approx( value.thermalScatteringValues()[0][4] ) );
+  CHECK( 5 == value.thermalScatteringValues()[1].size() );
+  CHECK( 6.921141e-4 == Approx( value.thermalScatteringValues()[1][0] ) );
+  CHECK( 7.273641e-4 == Approx( value.thermalScatteringValues()[1][1] ) );
+  CHECK( 7.644060e-4 == Approx( value.thermalScatteringValues()[1][2] ) );
+  CHECK( 8.033305e-4 == Approx( value.thermalScatteringValues()[1][3] ) );
+  CHECK( 8.442328e-4 == Approx( value.thermalScatteringValues()[1][4] ) );
 
   auto temp = chunk.principalEffectiveTemperature();
-  REQUIRE( 3 == temp.NT() );
-  REQUIRE( 3 == temp.numberTemperatures() );
-  REQUIRE( 1 == temp.NR() );
-  REQUIRE( 1 == temp.interpolants().size() );
-  REQUIRE( 1 == temp.boundaries().size() );
-  REQUIRE( 2 == temp.interpolants()[0] );
-  REQUIRE( 3 == temp.boundaries()[0] );
-  REQUIRE( 3 == temp.moderatorTemperatures().size() );
-  REQUIRE( 3 == temp.effectiveTemperatures().size() );
-  REQUIRE( 293.6 == Approx( temp.moderatorTemperatures()[0] ) );
-  REQUIRE( 600. == Approx( temp.moderatorTemperatures()[1] ) );
-  REQUIRE( 1200. == Approx( temp.moderatorTemperatures()[2] ) );
-  REQUIRE( 5.332083e+2 == Approx( temp.effectiveTemperatures()[0] ) );
-  REQUIRE( 7.354726e+2 == Approx( temp.effectiveTemperatures()[1] ) );
-  REQUIRE( 1.270678e+3 == Approx( temp.effectiveTemperatures()[2] ) );
+  CHECK( 3 == temp.NT() );
+  CHECK( 3 == temp.numberTemperatures() );
+  CHECK( 1 == temp.NR() );
+  CHECK( 1 == temp.interpolants().size() );
+  CHECK( 1 == temp.boundaries().size() );
+  CHECK( 2 == temp.interpolants()[0] );
+  CHECK( 3 == temp.boundaries()[0] );
+  CHECK( 3 == temp.moderatorTemperatures().size() );
+  CHECK( 3 == temp.effectiveTemperatures().size() );
+  CHECK( 293.6 == Approx( temp.moderatorTemperatures()[0] ) );
+  CHECK( 600. == Approx( temp.moderatorTemperatures()[1] ) );
+  CHECK( 1200. == Approx( temp.moderatorTemperatures()[2] ) );
+  CHECK( 5.332083e+2 == Approx( temp.effectiveTemperatures()[0] ) );
+  CHECK( 7.354726e+2 == Approx( temp.effectiveTemperatures()[1] ) );
+  CHECK( 1.270678e+3 == Approx( temp.effectiveTemperatures()[2] ) );
 
-  REQUIRE( 1 == chunk.secondaryEffectiveTemperatures().size() );
+  CHECK( 1 == chunk.secondaryEffectiveTemperatures().size() );
 
   temp = chunk.secondaryEffectiveTemperatures()[0].value();
-  REQUIRE( 2 == temp.NT() );
-  REQUIRE( 2 == temp.numberTemperatures() );
-  REQUIRE( 1 == temp.NR() );
-  REQUIRE( 1 == temp.interpolants().size() );
-  REQUIRE( 1 == temp.boundaries().size() );
-  REQUIRE( 2 == temp.interpolants()[0] );
-  REQUIRE( 2 == temp.boundaries()[0] );
-  REQUIRE( 2 == temp.moderatorTemperatures().size() );
-  REQUIRE( 2 == temp.effectiveTemperatures().size() );
-  REQUIRE( 293.6 == Approx( temp.moderatorTemperatures()[0] ) );
-  REQUIRE( 1200. == Approx( temp.moderatorTemperatures()[1] ) );
-  REQUIRE( 3.00e+2 == Approx( temp.effectiveTemperatures()[0] ) );
-  REQUIRE( 1.250e+3 == Approx( temp.effectiveTemperatures()[1] ) );
+  CHECK( 2 == temp.NT() );
+  CHECK( 2 == temp.numberTemperatures() );
+  CHECK( 1 == temp.NR() );
+  CHECK( 1 == temp.interpolants().size() );
+  CHECK( 1 == temp.boundaries().size() );
+  CHECK( 2 == temp.interpolants()[0] );
+  CHECK( 2 == temp.boundaries()[0] );
+  CHECK( 2 == temp.moderatorTemperatures().size() );
+  CHECK( 2 == temp.effectiveTemperatures().size() );
+  CHECK( 293.6 == Approx( temp.moderatorTemperatures()[0] ) );
+  CHECK( 1200. == Approx( temp.moderatorTemperatures()[1] ) );
+  CHECK( 3.00e+2 == Approx( temp.effectiveTemperatures()[0] ) );
+  CHECK( 1.250e+3 == Approx( temp.effectiveTemperatures()[1] ) );
 
-  REQUIRE( 24 == chunk.NC() );
+  CHECK( 24 == chunk.NC() );
 }
 
 std::string chunkWithTwoTemperaturesTwoScatterersAndNoSecondaryTemperature() {
@@ -1476,157 +1516,167 @@ std::string chunkWithTwoTemperaturesTwoScatterersAndNoSecondaryTemperature() {
 void verifyChunkWithTwoTemperaturesTwoScatterersAndNoSecondaryTemperature(
        const section::Type< 7, 4 >& chunk ) {
 
-  REQUIRE( 127. == Approx( chunk.ZA() ) );
-  REQUIRE( 8.934780e+0 == Approx( chunk.AWR() ) );
-  REQUIRE( 1 == chunk.LAT() );
-  REQUIRE( 1 == chunk.temperatureOption() );
-  REQUIRE( 0 == chunk.LASYM() );
-  REQUIRE( 0 == chunk.symmetryOption() );
+  CHECK( 4 == chunk.MT() );
+  CHECK( 4 == chunk.sectionNumber() );
+
+  CHECK( 127. == Approx( chunk.ZA() ) );
+  CHECK( 8.934780e+0 == Approx( chunk.AWR() ) );
+  CHECK( 1 == chunk.LAT() );
+  CHECK( 1 == chunk.temperatureOption() );
+  CHECK( 0 == chunk.LASYM() );
+  CHECK( 0 == chunk.symmetryOption() );
 
   auto barray = chunk.constants();
-  REQUIRE( 0 == barray.LLN() );
-  REQUIRE( 0 == barray.sabStorageType() );
-  REQUIRE( 12 == barray.NI() );
-  REQUIRE( 12 == barray.numberConstants() );
-  REQUIRE( 1 == barray.NS() );
-  REQUIRE( 1 == barray.numberNonPrincipalScatterers() );
+  CHECK( 0 == barray.LLN() );
+  CHECK( 0 == barray.sabStorageType() );
+  CHECK( 12 == barray.NI() );
+  CHECK( 12 == barray.numberConstants() );
+  CHECK( 1 == barray.NS() );
+  CHECK( 1 == barray.numberNonPrincipalScatterers() );
 
-  REQUIRE( 1.976285e+2 == Approx( barray.epsilon() ) );
-  REQUIRE( 5.000001e+0 == Approx( barray.upperEnergyLimit() ) );
-  REQUIRE( 2 == barray.totalFreeCrossSections().size() );
-  REQUIRE( 6.153875e+0 == Approx( barray.totalFreeCrossSections()[0] ) );
-  REQUIRE( 3.748750e+0  == Approx( barray.totalFreeCrossSections()[1] ) );
-  REQUIRE( 2 == barray.atomicWeightRatios().size() );
-  REQUIRE( 8.934780e+0 == Approx( barray.atomicWeightRatios()[0] ) );
-  REQUIRE( 1.586200e+1 == Approx( barray.atomicWeightRatios()[1] ) );
-  REQUIRE( 2 == barray.numberAtoms().size() );
-  REQUIRE( 1. == Approx( barray.numberAtoms()[0] ) );
-  REQUIRE( 2. == Approx( barray.numberAtoms()[1] ) );
-  REQUIRE( 1 == barray.analyticalFunctionTypes().size() );
-  REQUIRE( 1 == barray.analyticalFunctionTypes()[0] );
+  CHECK( 1.976285e+2 == Approx( barray.epsilon() ) );
+  CHECK( 5.000001e+0 == Approx( barray.upperEnergyLimit() ) );
+  CHECK( 2 == barray.totalFreeCrossSections().size() );
+  CHECK( 6.153875e+0 == Approx( barray.totalFreeCrossSections()[0] ) );
+  CHECK( 3.748750e+0  == Approx( barray.totalFreeCrossSections()[1] ) );
+  CHECK( 2 == barray.atomicWeightRatios().size() );
+  CHECK( 8.934780e+0 == Approx( barray.atomicWeightRatios()[0] ) );
+  CHECK( 1.586200e+1 == Approx( barray.atomicWeightRatios()[1] ) );
+  CHECK( 2 == barray.numberAtoms().size() );
+  CHECK( 1. == Approx( barray.numberAtoms()[0] ) );
+  CHECK( 2. == Approx( barray.numberAtoms()[1] ) );
+  CHECK( 1 == barray.analyticalFunctionTypes().size() );
+  CHECK( 1 == barray.analyticalFunctionTypes()[0] );
 
-  auto table = std::get< Tabulated >( chunk.scatteringLaw() );
-  REQUIRE( 1 == table.NR() );
-  REQUIRE( 2 == table.NB() );
-  REQUIRE( 2 == table.numberBetas() );
-  REQUIRE( 1 == table.boundaries().size() );
-  REQUIRE( 2 == table.boundaries()[0] );
-  REQUIRE( 1 == table.interpolants().size() );
-  REQUIRE( 4 == table.interpolants()[0] );
+  auto table = std::get< TabulatedFunctions >( chunk.scatteringLaw() );
+  CHECK( 1 == table.NR() );
+  CHECK( 2 == table.NB() );
+  CHECK( 2 == table.numberBetas() );
+  CHECK( 1 == table.boundaries().size() );
+  CHECK( 2 == table.boundaries()[0] );
+  CHECK( 1 == table.interpolants().size() );
+  CHECK( 4 == table.interpolants()[0] );
 
-  auto value = table.betas()[0];
-  REQUIRE( 0.0 == Approx( value.beta() ) );
-  REQUIRE( 1 == value.LT() );
-  REQUIRE( 1 == value.temperatureDependenceFlag() );
-  REQUIRE( 2 == value.NT() );
-  REQUIRE( 2 == value.numberTemperatures() );
+  CHECK( 2 == table.B().size() );
+  CHECK( 2 == table.betas().size() );
+  CHECK( 0.0 == Approx( table.B()[0] ) );
+  CHECK( 3.952570e-2 == Approx( table.B()[1] ) );
+  CHECK( 0.0 == Approx( table.betas()[0] ) );
+  CHECK( 3.952570e-2 == Approx( table.betas()[1] ) );
 
-  REQUIRE( 1 == value.NR() );
-  REQUIRE( 5 == value.NA() );
-  REQUIRE( 5 == value.numberAlphas() );
-  REQUIRE( 1 == value.boundaries().size() );
-  REQUIRE( 5 == value.boundaries()[0] );
-  REQUIRE( 1 == value.interpolants().size() );
-  REQUIRE( 4 == value.interpolants()[0] );
+  auto value = table.scatteringFunctions()[0];
+  CHECK( 0.0 == Approx( value.beta() ) );
+  CHECK( 1 == value.LT() );
+  CHECK( 1 == value.temperatureDependenceFlag() );
+  CHECK( 2 == value.NT() );
+  CHECK( 2 == value.numberTemperatures() );
 
-  REQUIRE( 2 == value.temperatures().size() );
-  REQUIRE( 293.6 == Approx( value.temperatures()[0] ) );
-  REQUIRE( 400.0 == Approx( value.temperatures()[1] ) );
+  CHECK( 1 == value.NR() );
+  CHECK( 5 == value.NA() );
+  CHECK( 5 == value.numberAlphas() );
+  CHECK( 1 == value.boundaries().size() );
+  CHECK( 5 == value.boundaries()[0] );
+  CHECK( 1 == value.interpolants().size() );
+  CHECK( 4 == value.interpolants()[0] );
 
-  REQUIRE( 5 == value.alphas().size() );
-  REQUIRE( 4.423802e-3 == Approx( value.alphas()[0] ) );
-  REQUIRE( 4.649528e-3 == Approx( value.alphas()[1] ) );
-  REQUIRE( 4.886772e-3 == Approx( value.alphas()[2] ) );
-  REQUIRE( 8.418068e+1 == Approx( value.alphas()[3] ) );
-  REQUIRE( 8.847604e+1 == Approx( value.alphas()[4] ) );
+  CHECK( 2 == value.temperatures().size() );
+  CHECK( 293.6 == Approx( value.temperatures()[0] ) );
+  CHECK( 400.0 == Approx( value.temperatures()[1] ) );
 
-  REQUIRE( 1 == value.LI().size() );
-  REQUIRE( 4 == value.LI()[0] );
-  REQUIRE( 1 == value.temperatureInterpolants().size() );
-  REQUIRE( 4 == value.temperatureInterpolants()[0] );
+  CHECK( 5 == value.alphas().size() );
+  CHECK( 4.423802e-3 == Approx( value.alphas()[0] ) );
+  CHECK( 4.649528e-3 == Approx( value.alphas()[1] ) );
+  CHECK( 4.886772e-3 == Approx( value.alphas()[2] ) );
+  CHECK( 8.418068e+1 == Approx( value.alphas()[3] ) );
+  CHECK( 8.847604e+1 == Approx( value.alphas()[4] ) );
 
-  REQUIRE( 2 == value.thermalScatteringValues().size() );
-  REQUIRE( 5 == value.thermalScatteringValues()[0].size() );
-  REQUIRE( 2.386876e-4 == Approx( value.thermalScatteringValues()[0][0] ) );
-  REQUIRE( 2.508466e-4 == Approx( value.thermalScatteringValues()[0][1] ) );
-  REQUIRE( 2.636238e-4 == Approx( value.thermalScatteringValues()[0][2] ) );
-  REQUIRE( 1.306574e-9 == Approx( value.thermalScatteringValues()[0][3] ) );
-  REQUIRE( 5.29573e-10 == Approx( value.thermalScatteringValues()[0][4] ) );
-  REQUIRE( 5 == value.thermalScatteringValues()[1].size() );
-  REQUIRE( 4.430020e-4 == Approx( value.thermalScatteringValues()[1][0] ) );
-  REQUIRE( 4.655671e-4 == Approx( value.thermalScatteringValues()[1][1] ) );
-  REQUIRE( 4.892796e-4 == Approx( value.thermalScatteringValues()[1][2] ) );
-  REQUIRE( 4.510209e-8 == Approx( value.thermalScatteringValues()[1][3] ) );
-  REQUIRE( 2.183942e-8 == Approx( value.thermalScatteringValues()[1][4] ) );
+  CHECK( 1 == value.LI().size() );
+  CHECK( 4 == value.LI()[0] );
+  CHECK( 1 == value.temperatureInterpolants().size() );
+  CHECK( 4 == value.temperatureInterpolants()[0] );
 
-  value = table.betas()[1];
-  REQUIRE( 3.952570e-2 == Approx( value.beta() ) );
-  REQUIRE( 1 == value.LT() );
-  REQUIRE( 1 == value.temperatureDependenceFlag() );
-  REQUIRE( 2 == value.NT() );
-  REQUIRE( 2 == value.numberTemperatures() );
+  CHECK( 2 == value.thermalScatteringValues().size() );
+  CHECK( 5 == value.thermalScatteringValues()[0].size() );
+  CHECK( 2.386876e-4 == Approx( value.thermalScatteringValues()[0][0] ) );
+  CHECK( 2.508466e-4 == Approx( value.thermalScatteringValues()[0][1] ) );
+  CHECK( 2.636238e-4 == Approx( value.thermalScatteringValues()[0][2] ) );
+  CHECK( 1.306574e-9 == Approx( value.thermalScatteringValues()[0][3] ) );
+  CHECK( 5.29573e-10 == Approx( value.thermalScatteringValues()[0][4] ) );
+  CHECK( 5 == value.thermalScatteringValues()[1].size() );
+  CHECK( 4.430020e-4 == Approx( value.thermalScatteringValues()[1][0] ) );
+  CHECK( 4.655671e-4 == Approx( value.thermalScatteringValues()[1][1] ) );
+  CHECK( 4.892796e-4 == Approx( value.thermalScatteringValues()[1][2] ) );
+  CHECK( 4.510209e-8 == Approx( value.thermalScatteringValues()[1][3] ) );
+  CHECK( 2.183942e-8 == Approx( value.thermalScatteringValues()[1][4] ) );
 
-  REQUIRE( 1 == value.NR() );
-  REQUIRE( 5 == value.NA() );
-  REQUIRE( 5 == value.numberAlphas() );
-  REQUIRE( 1 == value.boundaries().size() );
-  REQUIRE( 5 == value.boundaries()[0] );
-  REQUIRE( 1 == value.interpolants().size() );
-  REQUIRE( 2 == value.interpolants()[0] );
+  value = table.scatteringFunctions()[1];
+  CHECK( 3.952570e-2 == Approx( value.beta() ) );
+  CHECK( 1 == value.LT() );
+  CHECK( 1 == value.temperatureDependenceFlag() );
+  CHECK( 2 == value.NT() );
+  CHECK( 2 == value.numberTemperatures() );
 
-  REQUIRE( 2 == value.temperatures().size() );
-  REQUIRE( 293.6 == Approx( value.temperatures()[0] ) );
-  REQUIRE( 400.0 == Approx( value.temperatures()[1] ) );
+  CHECK( 1 == value.NR() );
+  CHECK( 5 == value.NA() );
+  CHECK( 5 == value.numberAlphas() );
+  CHECK( 1 == value.boundaries().size() );
+  CHECK( 5 == value.boundaries()[0] );
+  CHECK( 1 == value.interpolants().size() );
+  CHECK( 2 == value.interpolants()[0] );
 
-  REQUIRE( 5 == value.alphas().size() );
-  REQUIRE( 4.423802e-3 == Approx( value.alphas()[0] ) );
-  REQUIRE( 4.649528e-3 == Approx( value.alphas()[1] ) );
-  REQUIRE( 4.886772e-3 == Approx( value.alphas()[2] ) );
-  REQUIRE( 8.418068e+1 == Approx( value.alphas()[3] ) );
-  REQUIRE( 8.847604e+1 == Approx( value.alphas()[4] ) );
+  CHECK( 2 == value.temperatures().size() );
+  CHECK( 293.6 == Approx( value.temperatures()[0] ) );
+  CHECK( 400.0 == Approx( value.temperatures()[1] ) );
 
-  REQUIRE( 1 == value.LI().size() );
-  REQUIRE( 4 == value.LI()[0] );
-  REQUIRE( 1 == value.temperatureInterpolants().size() );
-  REQUIRE( 4 == value.temperatureInterpolants()[0] );
+  CHECK( 5 == value.alphas().size() );
+  CHECK( 4.423802e-3 == Approx( value.alphas()[0] ) );
+  CHECK( 4.649528e-3 == Approx( value.alphas()[1] ) );
+  CHECK( 4.886772e-3 == Approx( value.alphas()[2] ) );
+  CHECK( 8.418068e+1 == Approx( value.alphas()[3] ) );
+  CHECK( 8.847604e+1 == Approx( value.alphas()[4] ) );
 
-  REQUIRE( 2 == value.thermalScatteringValues().size() );
-  REQUIRE( 5 == value.thermalScatteringValues()[0].size() );
-  REQUIRE( 2.386694e-4 == Approx( value.thermalScatteringValues()[0][0] ) );
-  REQUIRE( 2.508273e-4 == Approx( value.thermalScatteringValues()[0][1] ) );
-  REQUIRE( 2.636238e-4 == Approx( value.thermalScatteringValues()[0][2] ) );
-  REQUIRE( 2.770291e-4 == Approx( value.thermalScatteringValues()[0][3] ) );
-  REQUIRE( 2.911373e-4 == Approx( value.thermalScatteringValues()[0][4] ) );
-  REQUIRE( 5 == value.thermalScatteringValues()[1].size() );
-  REQUIRE( 6.921141e-4 == Approx( value.thermalScatteringValues()[1][0] ) );
-  REQUIRE( 7.273641e-4 == Approx( value.thermalScatteringValues()[1][1] ) );
-  REQUIRE( 7.644060e-4 == Approx( value.thermalScatteringValues()[1][2] ) );
-  REQUIRE( 8.033305e-4 == Approx( value.thermalScatteringValues()[1][3] ) );
-  REQUIRE( 8.442328e-4 == Approx( value.thermalScatteringValues()[1][4] ) );
+  CHECK( 1 == value.LI().size() );
+  CHECK( 4 == value.LI()[0] );
+  CHECK( 1 == value.temperatureInterpolants().size() );
+  CHECK( 4 == value.temperatureInterpolants()[0] );
+
+  CHECK( 2 == value.thermalScatteringValues().size() );
+  CHECK( 5 == value.thermalScatteringValues()[0].size() );
+  CHECK( 2.386694e-4 == Approx( value.thermalScatteringValues()[0][0] ) );
+  CHECK( 2.508273e-4 == Approx( value.thermalScatteringValues()[0][1] ) );
+  CHECK( 2.636238e-4 == Approx( value.thermalScatteringValues()[0][2] ) );
+  CHECK( 2.770291e-4 == Approx( value.thermalScatteringValues()[0][3] ) );
+  CHECK( 2.911373e-4 == Approx( value.thermalScatteringValues()[0][4] ) );
+  CHECK( 5 == value.thermalScatteringValues()[1].size() );
+  CHECK( 6.921141e-4 == Approx( value.thermalScatteringValues()[1][0] ) );
+  CHECK( 7.273641e-4 == Approx( value.thermalScatteringValues()[1][1] ) );
+  CHECK( 7.644060e-4 == Approx( value.thermalScatteringValues()[1][2] ) );
+  CHECK( 8.033305e-4 == Approx( value.thermalScatteringValues()[1][3] ) );
+  CHECK( 8.442328e-4 == Approx( value.thermalScatteringValues()[1][4] ) );
 
   auto temp = chunk.principalEffectiveTemperature();
-  REQUIRE( 3 == temp.NT() );
-  REQUIRE( 3 == temp.numberTemperatures() );
-  REQUIRE( 1 == temp.NR() );
-  REQUIRE( 1 == temp.interpolants().size() );
-  REQUIRE( 1 == temp.boundaries().size() );
-  REQUIRE( 2 == temp.interpolants()[0] );
-  REQUIRE( 3 == temp.boundaries()[0] );
-  REQUIRE( 3 == temp.moderatorTemperatures().size() );
-  REQUIRE( 3 == temp.effectiveTemperatures().size() );
-  REQUIRE( 293.6 == Approx( temp.moderatorTemperatures()[0] ) );
-  REQUIRE( 600. == Approx( temp.moderatorTemperatures()[1] ) );
-  REQUIRE( 1200. == Approx( temp.moderatorTemperatures()[2] ) );
-  REQUIRE( 5.332083e+2 == Approx( temp.effectiveTemperatures()[0] ) );
-  REQUIRE( 7.354726e+2 == Approx( temp.effectiveTemperatures()[1] ) );
-  REQUIRE( 1.270678e+3 == Approx( temp.effectiveTemperatures()[2] ) );
+  CHECK( 3 == temp.NT() );
+  CHECK( 3 == temp.numberTemperatures() );
+  CHECK( 1 == temp.NR() );
+  CHECK( 1 == temp.interpolants().size() );
+  CHECK( 1 == temp.boundaries().size() );
+  CHECK( 2 == temp.interpolants()[0] );
+  CHECK( 3 == temp.boundaries()[0] );
+  CHECK( 3 == temp.moderatorTemperatures().size() );
+  CHECK( 3 == temp.effectiveTemperatures().size() );
+  CHECK( 293.6 == Approx( temp.moderatorTemperatures()[0] ) );
+  CHECK( 600. == Approx( temp.moderatorTemperatures()[1] ) );
+  CHECK( 1200. == Approx( temp.moderatorTemperatures()[2] ) );
+  CHECK( 5.332083e+2 == Approx( temp.effectiveTemperatures()[0] ) );
+  CHECK( 7.354726e+2 == Approx( temp.effectiveTemperatures()[1] ) );
+  CHECK( 1.270678e+3 == Approx( temp.effectiveTemperatures()[2] ) );
 
   // one secondary scatterer => 1 secondary temperature (std::nullopt in this
   // case)
-  REQUIRE( 1 == chunk.secondaryEffectiveTemperatures().size() );
-  REQUIRE( std::nullopt == chunk.secondaryEffectiveTemperatures()[0] );
+  CHECK( 1 == chunk.secondaryEffectiveTemperatures().size() );
+  CHECK( std::nullopt == chunk.secondaryEffectiveTemperatures()[0] );
 
-  REQUIRE( 21 == chunk.NC() );
+  CHECK( 21 == chunk.NC() );
 }
 
 std::string chunkWithInvalidLAT() {

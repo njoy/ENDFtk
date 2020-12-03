@@ -8,7 +8,7 @@
 Type( double zaid, double awr, ScatteringLaw&& law ) :
   BaseWithoutMT( zaid, awr ), law_( std::move( law ) ) {}
 
-/** 
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator

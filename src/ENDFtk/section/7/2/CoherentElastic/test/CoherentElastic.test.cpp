@@ -73,13 +73,13 @@ SCENARIO( "CoherentElastic" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7, 2 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
 
         std::string buffer2;
         output = std::back_inserter( buffer2 );
         chunk2.print( output, 27, 7, 2 );
 
-        REQUIRE( buffer2 == string );
+        CHECK( buffer2 == string );
       } // THEN
     } // WHEN
 
@@ -103,7 +103,7 @@ SCENARIO( "CoherentElastic" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7, 2 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -144,7 +144,7 @@ SCENARIO( "CoherentElastic" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7, 2 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
@@ -168,7 +168,7 @@ SCENARIO( "CoherentElastic" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7, 2 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -189,7 +189,7 @@ SCENARIO( "CoherentElastic" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( CoherentElastic( std::move( boundaries ),
+        CHECK_THROWS( CoherentElastic( std::move( boundaries ),
                                          std::move( interpolants ),
                                          std::move( temperatures ),
                                          std::move( li ),
@@ -212,7 +212,7 @@ SCENARIO( "CoherentElastic" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( CoherentElastic( std::move( boundaries ),
+        CHECK_THROWS( CoherentElastic( std::move( boundaries ),
                                          std::move( interpolants ),
                                          std::move( temperatures ),
                                          std::move( li ),
@@ -230,7 +230,7 @@ SCENARIO( "CoherentElastic" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( CoherentElastic( begin, end, lineNumber, 27, 7, 2 ) );
+        CHECK_THROWS( CoherentElastic( begin, end, lineNumber, 27, 7, 2 ) );
       } // THEN
     } // WHEN
 
@@ -246,7 +246,7 @@ SCENARIO( "CoherentElastic" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( CoherentElastic( temperature,
+        CHECK_THROWS( CoherentElastic( temperature,
                                          std::move( boundaries ),
                                          std::move( wrongInterpolants ),
                                          std::move( energies ),
@@ -265,7 +265,7 @@ SCENARIO( "CoherentElastic" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( CoherentElastic( begin, end, lineNumber, 27, 7, 2 ) );
+        CHECK_THROWS( CoherentElastic( begin, end, lineNumber, 27, 7, 2 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -280,39 +280,51 @@ std::string chunkWithOneTemperature() {
 
 void verifyOneTemperature( const CoherentElastic& chunk ) {
 
-  REQUIRE( 1 == chunk.LTHR() );
-  REQUIRE( 1 == chunk.elasticScatteringType() );
-  REQUIRE( 0 == chunk.LT() );
-  REQUIRE( 0 == chunk.temperatureDependenceFlag() );
-  REQUIRE( 1 == chunk.NT() );
-  REQUIRE( 1 == chunk.numberTemperatures() );
-  REQUIRE( 3 == chunk.NP() );
-  REQUIRE( 3 == chunk.numberBraggEdges() );
+  CHECK( 1 == chunk.LTHR() );
+  CHECK( 1 == chunk.elasticScatteringType() );
+  CHECK( 0 == chunk.LT() );
+  CHECK( 0 == chunk.temperatureDependenceFlag() );
+  CHECK( 1 == chunk.NT() );
+  CHECK( 1 == chunk.numberTemperatures() );
+  CHECK( 3 == chunk.NP() );
+  CHECK( 3 == chunk.numberBraggEdges() );
 
-  REQUIRE( 1 == chunk.NR() );
-  REQUIRE( 1 == chunk.boundaries().size() );
-  REQUIRE( 3 == chunk.boundaries()[0] );
-  REQUIRE( 1 == chunk.interpolants().size() );
-  REQUIRE( 1 == chunk.interpolants()[0] );
+  CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.boundaries().size() );
+  CHECK( 3 == chunk.boundaries()[0] );
+  CHECK( 1 == chunk.interpolants().size() );
+  CHECK( 1 == chunk.interpolants()[0] );
 
-  REQUIRE( 1 == chunk.temperatures().size() );
-  REQUIRE( 293.6 == Approx( chunk.temperatures()[0] ) );
+  CHECK( 1 == chunk.T().size() );
+  CHECK( 1 == chunk.temperatures().size() );
+  CHECK( 293.6 == Approx( chunk.T()[0] ) );
+  CHECK( 293.6 == Approx( chunk.temperatures()[0] ) );
 
-  REQUIRE( 3 == chunk.energies().size() );
-  REQUIRE( 1.059427e-3 == Approx( chunk.energies()[0] ) );
-  REQUIRE( 3.718355e-3 == Approx( chunk.energies()[1] ) );
-  REQUIRE( 4.237708e-3 == Approx( chunk.energies()[2] ) );
+  CHECK( 3 == chunk.E().size() );
+  CHECK( 3 == chunk.energies().size() );
+  CHECK( 1.059427e-3 == Approx( chunk.E()[0] ) );
+  CHECK( 3.718355e-3 == Approx( chunk.E()[1] ) );
+  CHECK( 4.237708e-3 == Approx( chunk.E()[2] ) );
+  CHECK( 1.059427e-3 == Approx( chunk.energies()[0] ) );
+  CHECK( 3.718355e-3 == Approx( chunk.energies()[1] ) );
+  CHECK( 4.237708e-3 == Approx( chunk.energies()[2] ) );
 
-  REQUIRE( 0 == chunk.LI().size() );
-  REQUIRE( 0 == chunk.temperatureInterpolants().size() );
+  CHECK( 0 == chunk.LI().size() );
+  CHECK( 0 == chunk.temperatureInterpolants().size() );
 
-  REQUIRE( 1 == chunk.thermalScatteringValues().size() );
-  REQUIRE( 3 == chunk.thermalScatteringValues()[0].size() );
-  REQUIRE( 0.0 == Approx( chunk.thermalScatteringValues()[0][0] ) );
-  REQUIRE( 9.364524e-3 == Approx( chunk.thermalScatteringValues()[0][1] ) );
-  REQUIRE( 1.548925e-2 == Approx( chunk.thermalScatteringValues()[0][2] ) );
+  CHECK( 1 == chunk.thermalScatteringValues().size() );
+  CHECK( 3 == chunk.thermalScatteringValues()[0].size() );
+  CHECK( 0.0 == Approx( chunk.thermalScatteringValues()[0][0] ) );
+  CHECK( 9.364524e-3 == Approx( chunk.thermalScatteringValues()[0][1] ) );
+  CHECK( 1.548925e-2 == Approx( chunk.thermalScatteringValues()[0][2] ) );
 
-  REQUIRE( 3 == chunk.NC() );
+  CHECK( 1 == chunk.S().size() );
+  CHECK( 3 == chunk.S()[0].size() );
+  CHECK( 0.0 == Approx( chunk.S()[0][0] ) );
+  CHECK( 9.364524e-3 == Approx( chunk.S()[0][1] ) );
+  CHECK( 1.548925e-2 == Approx( chunk.S()[0][2] ) );
+
+  CHECK( 3 == chunk.NC() );
 }
 
 std::string chunkWithTwoTemperatures() {
@@ -326,46 +338,63 @@ std::string chunkWithTwoTemperatures() {
 
 void verifyTwoTemperatures( const CoherentElastic& chunk ) {
 
-  REQUIRE( 1 == chunk.LTHR() );
-  REQUIRE( 1 == chunk.elasticScatteringType() );
-  REQUIRE( 1 == chunk.LT() );
-  REQUIRE( 1 == chunk.temperatureDependenceFlag() );
-  REQUIRE( 2 == chunk.NT() );
-  REQUIRE( 2 == chunk.numberTemperatures() );
-  REQUIRE( 3 == chunk.NP() );
-  REQUIRE( 3 == chunk.numberBraggEdges() );
+  CHECK( 1 == chunk.LTHR() );
+  CHECK( 1 == chunk.elasticScatteringType() );
+  CHECK( 1 == chunk.LT() );
+  CHECK( 1 == chunk.temperatureDependenceFlag() );
+  CHECK( 2 == chunk.NT() );
+  CHECK( 2 == chunk.numberTemperatures() );
+  CHECK( 3 == chunk.NP() );
+  CHECK( 3 == chunk.numberBraggEdges() );
 
-  REQUIRE( 1 == chunk.NR() );
-  REQUIRE( 1 == chunk.boundaries().size() );
-  REQUIRE( 3 == chunk.boundaries()[0] );
-  REQUIRE( 1 == chunk.interpolants().size() );
-  REQUIRE( 1 == chunk.interpolants()[0] );
+  CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.boundaries().size() );
+  CHECK( 3 == chunk.boundaries()[0] );
+  CHECK( 1 == chunk.interpolants().size() );
+  CHECK( 1 == chunk.interpolants()[0] );
 
-  REQUIRE( 2 == chunk.temperatures().size() );
-  REQUIRE( 293.6 == Approx( chunk.temperatures()[0] ) );
-  REQUIRE( 400. == Approx( chunk.temperatures()[1] ) );
+  CHECK( 2 == chunk.T().size() );
+  CHECK( 2 == chunk.temperatures().size() );
+  CHECK( 293.6 == Approx( chunk.T()[0] ) );
+  CHECK( 400. == Approx( chunk.T()[1] ) );
+  CHECK( 293.6 == Approx( chunk.temperatures()[0] ) );
+  CHECK( 400. == Approx( chunk.temperatures()[1] ) );
 
-  REQUIRE( 3 == chunk.energies().size() );
-  REQUIRE( 1.059427e-3 == Approx( chunk.energies()[0] ) );
-  REQUIRE( 3.718355e-3 == Approx( chunk.energies()[1] ) );
-  REQUIRE( 4.237708e-3 == Approx( chunk.energies()[2] ) );
+  CHECK( 3 == chunk.E().size() );
+  CHECK( 3 == chunk.energies().size() );
+  CHECK( 1.059427e-3 == Approx( chunk.E()[0] ) );
+  CHECK( 3.718355e-3 == Approx( chunk.E()[1] ) );
+  CHECK( 4.237708e-3 == Approx( chunk.E()[2] ) );
+  CHECK( 1.059427e-3 == Approx( chunk.energies()[0] ) );
+  CHECK( 3.718355e-3 == Approx( chunk.energies()[1] ) );
+  CHECK( 4.237708e-3 == Approx( chunk.energies()[2] ) );
 
-  REQUIRE( 1 == chunk.LI().size() );
-  REQUIRE( 2 == chunk.LI()[0] );
-  REQUIRE( 1 == chunk.temperatureInterpolants().size() );
-  REQUIRE( 2 == chunk.temperatureInterpolants()[0] );
+  CHECK( 1 == chunk.LI().size() );
+  CHECK( 2 == chunk.LI()[0] );
+  CHECK( 1 == chunk.temperatureInterpolants().size() );
+  CHECK( 2 == chunk.temperatureInterpolants()[0] );
 
-  REQUIRE( 2 == chunk.thermalScatteringValues().size() );
-  REQUIRE( 3 == chunk.thermalScatteringValues()[0].size() );
-  REQUIRE( 0.0 == Approx( chunk.thermalScatteringValues()[0][0] ) );
-  REQUIRE( 9.364524e-3 == Approx( chunk.thermalScatteringValues()[0][1] ) );
-  REQUIRE( 1.548925e-2 == Approx( chunk.thermalScatteringValues()[0][2] ) );
-  REQUIRE( 3 == chunk.thermalScatteringValues()[1].size() );
-  REQUIRE( 0.5 == Approx( chunk.thermalScatteringValues()[1][0] ) );
-  REQUIRE( 8.318414e-3 == Approx( chunk.thermalScatteringValues()[1][1] ) );
-  REQUIRE( 1.640584e-2 == Approx( chunk.thermalScatteringValues()[1][2] ) );
+  CHECK( 2 == chunk.S().size() );
+  CHECK( 3 == chunk.S()[0].size() );
+  CHECK( 0.0 == Approx( chunk.S()[0][0] ) );
+  CHECK( 9.364524e-3 == Approx( chunk.S()[0][1] ) );
+  CHECK( 1.548925e-2 == Approx( chunk.S()[0][2] ) );
+  CHECK( 3 == chunk.S()[1].size() );
+  CHECK( 0.5 == Approx( chunk.S()[1][0] ) );
+  CHECK( 8.318414e-3 == Approx( chunk.S()[1][1] ) );
+  CHECK( 1.640584e-2 == Approx( chunk.S()[1][2] ) );
 
-  REQUIRE( 5 == chunk.NC() );
+  CHECK( 2 == chunk.thermalScatteringValues().size() );
+  CHECK( 3 == chunk.thermalScatteringValues()[0].size() );
+  CHECK( 0.0 == Approx( chunk.thermalScatteringValues()[0][0] ) );
+  CHECK( 9.364524e-3 == Approx( chunk.thermalScatteringValues()[0][1] ) );
+  CHECK( 1.548925e-2 == Approx( chunk.thermalScatteringValues()[0][2] ) );
+  CHECK( 3 == chunk.thermalScatteringValues()[1].size() );
+  CHECK( 0.5 == Approx( chunk.thermalScatteringValues()[1][0] ) );
+  CHECK( 8.318414e-3 == Approx( chunk.thermalScatteringValues()[1][1] ) );
+  CHECK( 1.640584e-2 == Approx( chunk.thermalScatteringValues()[1][2] ) );
+
+  CHECK( 5 == chunk.NC() );
 }
 
 std::string invalidChunk() {

@@ -7,7 +7,7 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using TabulatedSpectrum = 
+using TabulatedSpectrum =
 section::Type< 5 >::TabulatedSpectrum;
 using OutgoingEnergyDistribution =
 section::Type< 5 >::TabulatedSpectrum::OutgoingEnergyDistribution;
@@ -50,7 +50,7 @@ SCENARIO( "TabulatedSpectrum" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9437, 5, 18 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
@@ -74,7 +74,7 @@ SCENARIO( "TabulatedSpectrum" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9437, 5, 18 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -98,7 +98,7 @@ SCENARIO( "TabulatedSpectrum" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( TabulatedSpectrum( std::move( boundaries ),
+        CHECK_THROWS( TabulatedSpectrum( std::move( boundaries ),
                                            std::move( wrongInterpolants ),
                                            std::move( outgoing ) ) );
       } // THEN
@@ -115,7 +115,7 @@ SCENARIO( "TabulatedSpectrum" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( TabulatedSpectrum( begin, end, lineNumber,
+        CHECK_THROWS( TabulatedSpectrum( begin, end, lineNumber,
                                            9437, 5, 18 ) );
       } // THEN
     } // WHEN
@@ -137,77 +137,77 @@ std::string chunk() {
 
 void verifyChunk( const TabulatedSpectrum& chunk ) {
 
-  REQUIRE( 1 == chunk.LF() );
-  REQUIRE( 1 == chunk.LAW() );
+  CHECK( 1 == chunk.LF() );
+  CHECK( 1 == chunk.LAW() );
 
-  REQUIRE( 1 == chunk.NR() );
-  REQUIRE( 2 == chunk.NE() );
-  REQUIRE( 1 == chunk.boundaries().size() );
-  REQUIRE( 2 == chunk.boundaries()[0] );
-  REQUIRE( 1 == chunk.interpolants().size() );
-  REQUIRE( 4 == chunk.interpolants()[0] );
+  CHECK( 1 == chunk.NR() );
+  CHECK( 2 == chunk.NE() );
+  CHECK( 1 == chunk.boundaries().size() );
+  CHECK( 2 == chunk.boundaries()[0] );
+  CHECK( 1 == chunk.interpolants().size() );
+  CHECK( 4 == chunk.interpolants()[0] );
 
-  REQUIRE( 2 == chunk.incomingEnergies().size() );
-  REQUIRE( 1e-5 == Approx( chunk.incomingEnergies()[0] ) );
-  REQUIRE( 3e+7 == Approx( chunk.incomingEnergies()[1] ) );
+  CHECK( 2 == chunk.incidentEnergies().size() );
+  CHECK( 1e-5 == Approx( chunk.incidentEnergies()[0] ) );
+  CHECK( 3e+7 == Approx( chunk.incidentEnergies()[1] ) );
 
   auto value = chunk.outgoingDistributions()[0];
-  REQUIRE( 1e-5 == Approx( value.E() ) );
-  REQUIRE( 1e-5 == Approx( value.incomingEnergy() ) );
-  REQUIRE( 3 == value.NF() );
-  REQUIRE( 1 == value.NR() );
-  REQUIRE( 1 == value.interpolants().size() );
-  REQUIRE( 1 == value.boundaries().size() );
-  REQUIRE( 2 == value.interpolants()[0] );
-  REQUIRE( 3 == value.boundaries()[0] );
-  REQUIRE( 3 == value.EPRIME().size() );
-  REQUIRE( 3 == value.outgoingEnergies().size() );
-  REQUIRE( 3 == value.g().size() );
-  REQUIRE( 3 == value.probabilities().size() );
-  REQUIRE( 0.0 == Approx( value.EPRIME()[0] ) );
-  REQUIRE( 1e+5 == Approx( value.EPRIME()[1] ) );
-  REQUIRE( 3e+7 == Approx( value.EPRIME()[2] ) );
-  REQUIRE( 0.0 == Approx( value.outgoingEnergies()[0] ) );
-  REQUIRE( 1e+5 == Approx( value.outgoingEnergies()[1] ) );
-  REQUIRE( 3e+7 == Approx( value.outgoingEnergies()[2] ) );
-  REQUIRE( 0. == Approx( value.g()[0] ) );
-  REQUIRE( 1.757570e-9 == Approx( value.g()[1] ) );
-  REQUIRE( 1.843350e-9 == Approx( value.g()[2] ) );
-  REQUIRE( 0. == Approx( value.probabilities()[0] ) );
-  REQUIRE( 1.757570e-9 == Approx( value.probabilities()[1] ) );
-  REQUIRE( 1.843350e-9 == Approx( value.probabilities()[2] ) );
+  CHECK( 1e-5 == Approx( value.E() ) );
+  CHECK( 1e-5 == Approx( value.incidentEnergy() ) );
+  CHECK( 3 == value.NP() );
+  CHECK( 1 == value.NR() );
+  CHECK( 1 == value.interpolants().size() );
+  CHECK( 1 == value.boundaries().size() );
+  CHECK( 2 == value.interpolants()[0] );
+  CHECK( 3 == value.boundaries()[0] );
+  CHECK( 3 == value.EP().size() );
+  CHECK( 3 == value.outgoingEnergies().size() );
+  CHECK( 3 == value.G().size() );
+  CHECK( 3 == value.probabilities().size() );
+  CHECK( 0.0 == Approx( value.EP()[0] ) );
+  CHECK( 1e+5 == Approx( value.EP()[1] ) );
+  CHECK( 3e+7 == Approx( value.EP()[2] ) );
+  CHECK( 0.0 == Approx( value.outgoingEnergies()[0] ) );
+  CHECK( 1e+5 == Approx( value.outgoingEnergies()[1] ) );
+  CHECK( 3e+7 == Approx( value.outgoingEnergies()[2] ) );
+  CHECK( 0. == Approx( value.G()[0] ) );
+  CHECK( 1.757570e-9 == Approx( value.G()[1] ) );
+  CHECK( 1.843350e-9 == Approx( value.G()[2] ) );
+  CHECK( 0. == Approx( value.probabilities()[0] ) );
+  CHECK( 1.757570e-9 == Approx( value.probabilities()[1] ) );
+  CHECK( 1.843350e-9 == Approx( value.probabilities()[2] ) );
 
   value = chunk.outgoingDistributions()[1];
-  REQUIRE( 3e+7 == Approx( value.E() ) );
-  REQUIRE( 3e+7 == Approx( value.incomingEnergy() ) );
-  REQUIRE( 4 == value.NF() );
-  REQUIRE( 1 == value.NR() );
-  REQUIRE( 1 == value.interpolants().size() );
-  REQUIRE( 1 == value.boundaries().size() );
-  REQUIRE( 2 == value.interpolants()[0] );
-  REQUIRE( 4 == value.boundaries()[0] );
-  REQUIRE( 4 == value.EPRIME().size() );
-  REQUIRE( 4 == value.outgoingEnergies().size() );
-  REQUIRE( 4 == value.g().size() );
-  REQUIRE( 4 == value.probabilities().size() );
-  REQUIRE( 0.0 == Approx( value.EPRIME()[0] ) );
-  REQUIRE( 10. == Approx( value.EPRIME()[1] ) );
-  REQUIRE( 11. == Approx( value.EPRIME()[2] ) );
-  REQUIRE( 3e+7 == Approx( value.EPRIME()[3] ) );
-  REQUIRE( 0.0 == Approx( value.outgoingEnergies()[0] ) );
-  REQUIRE( 10. == Approx( value.outgoingEnergies()[1] ) );
-  REQUIRE( 11. == Approx( value.outgoingEnergies()[2] ) );
-  REQUIRE( 3e+7 == Approx( value.outgoingEnergies()[3] ) );
-  REQUIRE( 0. == Approx( value.g()[0] ) );
-  REQUIRE( 1.733405e-9 == Approx( value.g()[1] ) );
-  REQUIRE( 1.818010e-9 == Approx( value.g()[2] ) );
-  REQUIRE( 1.898849e-9 == Approx( value.g()[3] ) );
-  REQUIRE( 0. == Approx( value.probabilities()[0] ) );
-  REQUIRE( 1.733405e-9 == Approx( value.probabilities()[1] ) );
-  REQUIRE( 1.818010e-9 == Approx( value.probabilities()[2] ) );
-  REQUIRE( 1.898849e-9 == Approx( value.probabilities()[3] ) );
+  CHECK( 3e+7 == Approx( value.E() ) );
+  CHECK( 3e+7 == Approx( value.incidentEnergy() ) );
+  CHECK( 4 == value.NP() );
+  CHECK( 1 == value.NR() );
+  CHECK( 1 == value.interpolants().size() );
+  CHECK( 1 == value.boundaries().size() );
+  CHECK( 2 == value.interpolants()[0] );
+  CHECK( 4 == value.boundaries()[0] );
+  CHECK( 4 == value.EP().size() );
+  CHECK( 4 == value.outgoingEnergies().size() );
+  CHECK( 4 == value.G().size() );
+  CHECK( 4 == value.probabilities().size() );
+  CHECK( 0.0 == Approx( value.EP()[0] ) );
+  CHECK( 10. == Approx( value.EP()[1] ) );
+  CHECK( 11. == Approx( value.EP()[2] ) );
+  CHECK( 3e+7 == Approx( value.EP()[3] ) );
+  CHECK( 0.0 == Approx( value.outgoingEnergies()[0] ) );
+  CHECK( 10. == Approx( value.outgoingEnergies()[1] ) );
+  CHECK( 11. == Approx( value.outgoingEnergies()[2] ) );
+  CHECK( 3e+7 == Approx( value.outgoingEnergies()[3] ) );
+  CHECK( 0. == Approx( value.G()[0] ) );
+  CHECK( 1.733405e-9 == Approx( value.G()[1] ) );
+  CHECK( 1.818010e-9 == Approx( value.G()[2] ) );
+  CHECK( 1.898849e-9 == Approx( value.G()[3] ) );
+  CHECK( 0. == Approx( value.probabilities()[0] ) );
+  CHECK( 1.733405e-9 == Approx( value.probabilities()[1] ) );
+  CHECK( 1.818010e-9 == Approx( value.probabilities()[2] ) );
+  CHECK( 1.898849e-9 == Approx( value.probabilities()[3] ) );
 
-  REQUIRE( 9 == chunk.NC() );
+  CHECK( 9 == chunk.NC() );
 }
 
 std::string invalidChunk() {

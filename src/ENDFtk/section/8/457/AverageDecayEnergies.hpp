@@ -2,7 +2,7 @@
  *  @class
  *  @brief Half life information and average decay energies for radiation types
  *
- *  The AverageDecayEnergies class is used to store the half life and the 
+ *  The AverageDecayEnergies class is used to store the half life and the
  *  average decay energies from MF8/MT457.
  *
  *  All quantities are given as values with associated uncertainties so these
@@ -28,24 +28,42 @@ public:
   /**
    *  @brief Return the discrete energy value and uncertainty
    */
-  auto halfLife() const {
-      return std::array< double, 2 >( {{ ListRecord::C1(),
-                                         ListRecord::C2() }} ); }
+  auto T() const {
+
+    return std::array< double, 2 >( {{ ListRecord::C1(),
+                                       ListRecord::C2() }} ); }
+
+  /**
+   *  @brief Return the discrete energy value and uncertainty
+   */
+  auto halfLife() const { return this->T(); }
 
   /**
    *  @brief Return the number of decay energy values NC
    */
-  int numberDecayEnergies() const { return ListRecord::NPL() / 2; }
+  int NCE() const { return ListRecord::NPL() / 2; }
+
+  /**
+   *  @brief Return the number of decay energy values NC
+   */
+  int numberDecayEnergies() const { return this->NCE(); }
 
   /**
    *  @brief Return the decay energies and their uncertainties
    *
    *  This returns a range of pairs (the decay energy value and its uncertainty)
    */
-  auto decayEnergies() const { 
+  auto E() const {
 
     return ListRecord::list() | ranges::view::chunk( 2 );
   }
+
+  /**
+   *  @brief Return the decay energies and their uncertainties
+   *
+   *  This returns a range of pairs (the decay energy value and its uncertainty)
+   */
+  auto decayEnergies() const { return this->E(); }
 
   /**
    *  @brief Return the decay energy and uncertainty for light particle decay
@@ -53,7 +71,15 @@ public:
    *  This is always present and equal to the sum of decay energies for all
    *  light particles.
    */
-  auto lightParticleDecayEnergy() const { return this->decayEnergies()[0]; }
+  auto ELP() const { return this->decayEnergies()[0]; }
+
+  /**
+   *  @brief Return the decay energy and uncertainty for light particle decay
+   *
+   *  This is always present and equal to the sum of decay energies for all
+   *  light particles.
+   */
+  auto lightParticleDecayEnergy() const { return this->ELP(); }
 
   /**
    *  @brief Return the decay energy and uncertainty for electromagnetic
@@ -61,7 +87,15 @@ public:
    *
    *  This is always present.
    */
-  auto electromagneticDecayEnergy() const { return this->decayEnergies()[1]; }
+  auto EEM() const { return this->decayEnergies()[1]; }
+
+  /**
+   *  @brief Return the decay energy and uncertainty for electromagnetic
+   *         radiation.
+   *
+   *  This is always present.
+   */
+  auto electromagneticDecayEnergy() const { return this->EEM(); }
 
   /**
    *  @brief Return the decay energy and uncertainty for heavy particle decay
@@ -69,7 +103,15 @@ public:
    *  This is always present and equal to the sum of decay energies for all
    *  heavy particles (neutrons, alphas, spontaneous fission, etc.).
    */
-  auto heavyParticleDecayEnergy() const { return this->decayEnergies()[2]; }
+  auto EHP() const { return this->decayEnergies()[2]; }
+
+  /**
+   *  @brief Return the decay energy and uncertainty for heavy particle decay
+   *
+   *  This is always present and equal to the sum of decay energies for all
+   *  heavy particles (neutrons, alphas, spontaneous fission, etc.).
+   */
+  auto heavyParticleDecayEnergy() const { return this->EHP(); }
 
   using ListRecord::NC;
   using ListRecord::print;

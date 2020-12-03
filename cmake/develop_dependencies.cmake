@@ -41,6 +41,12 @@ FetchContent_Declare( range-v3-adapter
     GIT_SHALLOW     TRUE
     )
 
+FetchContent_Declare( pybind11
+    GIT_REPOSITORY  https://github.com/pybind/pybind11
+    GIT_TAG         v2.6.0rc3
+    GIT_SHALLOW     TRUE
+    )
+
 #######################################################################
 # Load dependencies
 #######################################################################
@@ -52,4 +58,5 @@ FetchContent_MakeAvailable(
     hana-adapter
     header-utilities
     range-v3-adapter
+    pybind11
     )

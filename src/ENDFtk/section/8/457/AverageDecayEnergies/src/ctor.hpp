@@ -1,5 +1,5 @@
 private:
-/** 
+/**
  *  @brief Private intermediate constructor
  *
  *  The number of values in the list should be 2 * 3 or 2 * 17, this is checked.
@@ -11,18 +11,18 @@ AverageDecayEnergies( ListRecord&& list ) :
 }
 
 public:
-/** 
+/**
  *  @brief Constructor
  *
  *  The number of decay energies must be either 3 or 17, this is checked.
  *
- *  @param[in] halfLife   the half life and its associated uncertainty
+ *  @param[in] halflife   the half life and its associated uncertainty
  *  @param[in] energies   the decay energies and uncertainties for the various
  *                        radiation types (either 3 or 17 pairs)
  */
-AverageDecayEnergies( std::array< double, 2 > halfLife,
+AverageDecayEnergies( std::array< double, 2 > halflife,
                       std::vector< std::array< double, 2 > >&& energies )
-  try : AverageDecayEnergies( ListRecord( halfLife[0], halfLife[1], 0, 0, 0,
+  try : AverageDecayEnergies( ListRecord( halflife[0], halflife[1], 0, 0, 0,
                                           generateList( std::move( energies ) ) ) ) {}
   catch ( std::exception& e ) {
 
@@ -31,7 +31,7 @@ AverageDecayEnergies( std::array< double, 2 > halfLife,
     throw;
   }
 
-/** 
+/**
  *  @brief Constructor
  *
  *  This empty constructor is used for a stable nuclide.
@@ -40,7 +40,7 @@ AverageDecayEnergies() :
   AverageDecayEnergies( ListRecord( 0.0, 0.0, 0, 0, 0,
                                     { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 } ) ) {}
 
-/** 
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator

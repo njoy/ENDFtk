@@ -1,13 +1,14 @@
 /**
  *  @brief Constructor
  *
+ *  @param[in] mt            the MT number of the section
  *  @param[in] zaid          the material ZAID value
  *  @param[in] awr           the atomic weight ratio
- *  @param[in] subsections   the partial distributions (at least 1)
+ *  @param[in] partials      the partial distributions (at least 1)
  */
-Type( int MT, double zaid, double awr,
-      std::vector< Subsection >&& subsections ) :
-  Base( zaid, awr, MT ), subsections_( std::move( subsections ) ) {
+Type( int mt, double zaid, double awr,
+      std::vector< PartialDistribution >&& partials ) :
+  Base( zaid, awr, mt ), partials_( std::move( partials ) ) {
 
   verifyNK( this->NK() );
 }
@@ -31,8 +32,9 @@ Type( HEAD& head,
       int MAT )
   try:
     Base( head, MAT, 5 ),
-    subsections_( readSequence< Subsection >( begin, end, lineNumber,
-                                              MAT, 5, head.MT(), head.N1() ) ) {
+    partials_( readSequence< PartialDistribution >(
+                   begin, end, lineNumber,
+                   MAT, 5, head.MT(), head.N1() ) ) {
     verifyNK( this->NK() );
     readSEND( begin, end, lineNumber, MAT, 5 );
   } catch( std::exception& e ) {

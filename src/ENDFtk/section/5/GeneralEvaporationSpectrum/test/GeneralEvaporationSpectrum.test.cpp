@@ -7,7 +7,7 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using DistributionFunction = 
+using DistributionFunction =
 section::Type< 5 >::DistributionFunction;
 using EffectiveTemperature =
 section::Type< 5 >:: EffectiveTemperature;
@@ -50,7 +50,7 @@ SCENARIO( "GeneralEvaporationSpectrum" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9443, 5, 455 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
@@ -74,7 +74,7 @@ SCENARIO( "GeneralEvaporationSpectrum" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9443, 5, 455 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -92,7 +92,7 @@ SCENARIO( "GeneralEvaporationSpectrum" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( GeneralEvaporationSpectrum( begin, end, lineNumber,
+        CHECK_THROWS( GeneralEvaporationSpectrum( begin, end, lineNumber,
                                                     9443, 5, 455 ) );
       } // THEN
     } // WHEN
@@ -112,52 +112,49 @@ std::string chunk() {
 
 void verifyChunk( const GeneralEvaporationSpectrum& chunk ) {
 
-  REQUIRE( 5 == chunk.LF() );
-  REQUIRE( 5 == chunk.LAW() );
+  CHECK( 5 == chunk.LF() );
+  CHECK( 5 == chunk.LAW() );
 
   const auto& t = chunk.effectiveTemperature();
-  REQUIRE( 2 == t.NE() );
-  REQUIRE( 1 == t.NR() );
-  REQUIRE( 1 == t.interpolants().size() );
-  REQUIRE( 1 == t.boundaries().size() );
-  REQUIRE( 2 == t.interpolants()[0] );
-  REQUIRE( 2 == t.boundaries()[0] );
-  REQUIRE( 2 == t.E().size() );
-  REQUIRE( 2 == t.energies().size() );
-  REQUIRE( 2 == t.thetas().size() );
-  REQUIRE( 2 == t.values().size() );
-  REQUIRE( 1e-5 == Approx( t.E()[0] ) );
-  REQUIRE( 3e+7 == Approx( t.E()[1] ) );
-  REQUIRE( 1e-5 == Approx( t.energies()[0] ) );
-  REQUIRE( 3e+7 == Approx( t.energies()[1] ) );
-  REQUIRE( 1.0 == Approx( t.thetas()[0] ) );
-  REQUIRE( 1.0 == Approx( t.thetas()[1] ) );
-  REQUIRE( 1.0 == Approx( t.values()[0] ) );
-  REQUIRE( 1.0 == Approx( t.values()[1] ) );
+  CHECK( 2 == t.NP() );
+  CHECK( 1 == t.NR() );
+  CHECK( 1 == t.interpolants().size() );
+  CHECK( 1 == t.boundaries().size() );
+  CHECK( 2 == t.interpolants()[0] );
+  CHECK( 2 == t.boundaries()[0] );
+  CHECK( 2 == t.E().size() );
+  CHECK( 2 == t.energies().size() );
+  CHECK( 2 == t.thetas().size() );
+  CHECK( 1e-5 == Approx( t.E()[0] ) );
+  CHECK( 3e+7 == Approx( t.E()[1] ) );
+  CHECK( 1e-5 == Approx( t.energies()[0] ) );
+  CHECK( 3e+7 == Approx( t.energies()[1] ) );
+  CHECK( 1.0 == Approx( t.thetas()[0] ) );
+  CHECK( 1.0 == Approx( t.thetas()[1] ) );
 
   const auto& df = chunk.distributionFunction();
-  REQUIRE( 6 == df.NF() );
-  REQUIRE( 1 == df.NR() );
-  REQUIRE( 1 == df.interpolants().size() );
-  REQUIRE( 1 == df.boundaries().size() );
-  REQUIRE( 1 == df.interpolants()[0] );
-  REQUIRE( 6 == df.boundaries()[0] );
-  REQUIRE( 6 == df.x().size() );
-  REQUIRE( 6 == df.values().size() );
-  REQUIRE( 0.0 == Approx( df.x()[0] ) );
-  REQUIRE( 1e+4 == Approx( df.x()[1] ) );
-  REQUIRE( 2e+4 == Approx( df.x()[2] ) );
-  REQUIRE( 1.8e+6 == Approx( df.x()[3] ) );
-  REQUIRE( 1.81e+6 == Approx( df.x()[4] ) );
-  REQUIRE( 1.82e+6 == Approx( df.x()[5] ) );
-  REQUIRE( 1.533738e-7 == Approx( df.values()[0] ) );
-  REQUIRE( 1.378483e-6 == Approx( df.values()[1] ) );
-  REQUIRE( 1.550360e-6 == Approx( df.values()[2] ) );
-  REQUIRE( 7.90779e-31 == Approx( df.values()[3] ) );
-  REQUIRE( 0.0 == Approx( df.values()[4] ) );
-  REQUIRE( 0.0 == Approx( df.values()[5] ) );
+  CHECK( 6 == df.NP() );
+  CHECK( 1 == df.NR() );
+  CHECK( 1 == df.interpolants().size() );
+  CHECK( 1 == df.boundaries().size() );
+  CHECK( 1 == df.interpolants()[0] );
+  CHECK( 6 == df.boundaries()[0] );
+  CHECK( 6 == df.X().size() );
+  CHECK( 6 == df.G().size() );
+  CHECK( 0.0 == Approx( df.X()[0] ) );
+  CHECK( 1e+4 == Approx( df.X()[1] ) );
+  CHECK( 2e+4 == Approx( df.X()[2] ) );
+  CHECK( 1.8e+6 == Approx( df.X()[3] ) );
+  CHECK( 1.81e+6 == Approx( df.X()[4] ) );
+  CHECK( 1.82e+6 == Approx( df.X()[5] ) );
+  CHECK( 1.533738e-7 == Approx( df.G()[0] ) );
+  CHECK( 1.378483e-6 == Approx( df.G()[1] ) );
+  CHECK( 1.550360e-6 == Approx( df.G()[2] ) );
+  CHECK( 7.90779e-31 == Approx( df.G()[3] ) );
+  CHECK( 0.0 == Approx( df.G()[4] ) );
+  CHECK( 0.0 == Approx( df.G()[5] ) );
 
-  REQUIRE( 7 == chunk.NC() );
+  CHECK( 7 == chunk.NC() );
 }
 
 std::string invalidChunk() {

@@ -33,10 +33,10 @@ public:
   /* constructor */
   #include "ENDFtk/section/6/ChargedParticleElasticScattering/src/ctor.hpp"
 
-  /* get methods */
+  /* methods */
 
   /**
-   *  @brief Return the LAW flag for continuum energy-angle data
+   *  @brief Return the LAW flag for charged particle elastic scattering
    */
   static constexpr int LAW() { return 5; }
 
@@ -72,9 +72,27 @@ public:
   long NE() const { return this->data_.tab2().NZ(); }
 
   /**
-   *  @brief Return the subsections, one for each incident energy
+   *  @brief Return the distributions, one for each incident energy
    */
-  auto subsections() const { return this->data_.records(); }
+  auto distributions() const { return this->data_.records(); }
+
+  /**
+   *  @brief Return the incident energy values
+   */
+  auto E() const {
+
+    return this->distributions()
+               | ranges::view::transform(
+                  [] ( const auto& variant )
+                     { return std::visit( [] ( const auto& record )
+                                             { return record.incidentEnergy(); },
+                                          variant ); } );
+  }
+
+  /**
+  *  @brief Return the incident energy values
+   */
+  auto incidentEnergies() const { return this->E(); }
 
   /**
    *  @brief Return interpolation type for each range on the incident

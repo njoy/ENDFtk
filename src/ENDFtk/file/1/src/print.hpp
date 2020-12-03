@@ -8,4 +8,3 @@ void print( OutputIterator& it, int MAT ) const {
   */
   FEND( MAT ).print( it );
 }
-

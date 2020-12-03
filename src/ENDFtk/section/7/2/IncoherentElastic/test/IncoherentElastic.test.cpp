@@ -46,7 +46,7 @@ SCENARIO( "IncoherentElastic" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7, 2 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
@@ -69,7 +69,7 @@ SCENARIO( "IncoherentElastic" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7, 2 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -89,7 +89,7 @@ SCENARIO( "IncoherentElastic" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( IncoherentElastic( sb,
+        CHECK_THROWS( IncoherentElastic( sb,
                                            std::move( wrongBoundaries ),
                                            std::move( interpolants ),
                                            std::move( temperatures ),
@@ -108,7 +108,7 @@ SCENARIO( "IncoherentElastic" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( IncoherentElastic( begin, end, lineNumber, 27, 7, 2 ) );
+        CHECK_THROWS( IncoherentElastic( begin, end, lineNumber, 27, 7, 2 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -123,27 +123,36 @@ std::string chunk() {
 
 void verifyChunk( const IncoherentElastic& chunk ) {
 
-  REQUIRE( 2 == chunk.LTHR() );
-  REQUIRE( 2 == chunk.elasticScatteringType() );
-  REQUIRE( 8.198006e+1 == Approx( chunk.SB() ) );
-  REQUIRE( 8.198006e+1 == Approx( chunk.boundCrossSection() ) );
-  REQUIRE( 3 == chunk.NP() );
-  REQUIRE( 3 == chunk.numberTemperatures() );
-  REQUIRE( 1 == chunk.NR() );
-  REQUIRE( 1 == chunk.interpolants().size() );
-  REQUIRE( 1 == chunk.boundaries().size() );
-  REQUIRE( 2 == chunk.interpolants()[0] );
-  REQUIRE( 3 == chunk.boundaries()[0] );
-  REQUIRE( 3 == chunk.temperatures().size() );
-  REQUIRE( 3 == chunk.debyeWallerValues().size() );
-  REQUIRE( 296. == Approx( chunk.temperatures()[0] ) );
-  REQUIRE( 400. == Approx( chunk.temperatures()[1] ) );
-  REQUIRE( 500. == Approx( chunk.temperatures()[2] ) );
-  REQUIRE( 8.486993e+0 == Approx( chunk.debyeWallerValues()[0] ) );
-  REQUIRE( 9.093191e+0 == Approx( chunk.debyeWallerValues()[1] ) );
-  REQUIRE( 9.828159e+0 == Approx( chunk.debyeWallerValues()[2] ) );
+  CHECK( 2 == chunk.LTHR() );
+  CHECK( 2 == chunk.elasticScatteringType() );
+  CHECK( 8.198006e+1 == Approx( chunk.SB() ) );
+  CHECK( 8.198006e+1 == Approx( chunk.boundCrossSection() ) );
+  CHECK( 3 == chunk.NP() );
+  CHECK( 3 == chunk.NT() );
+  CHECK( 3 == chunk.numberTemperatures() );
+  CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.interpolants().size() );
+  CHECK( 1 == chunk.boundaries().size() );
+  CHECK( 2 == chunk.interpolants()[0] );
+  CHECK( 3 == chunk.boundaries()[0] );
+  CHECK( 3 == chunk.T().size() );
+  CHECK( 3 == chunk.temperatures().size() );
+  CHECK( 3 == chunk.W().size() );
+  CHECK( 3 == chunk.debyeWallerValues().size() );
+  CHECK( 296. == Approx( chunk.T()[0] ) );
+  CHECK( 400. == Approx( chunk.T()[1] ) );
+  CHECK( 500. == Approx( chunk.T()[2] ) );
+  CHECK( 296. == Approx( chunk.temperatures()[0] ) );
+  CHECK( 400. == Approx( chunk.temperatures()[1] ) );
+  CHECK( 500. == Approx( chunk.temperatures()[2] ) );
+  CHECK( 8.486993e+0 == Approx( chunk.W()[0] ) );
+  CHECK( 9.093191e+0 == Approx( chunk.W()[1] ) );
+  CHECK( 9.828159e+0 == Approx( chunk.W()[2] ) );
+  CHECK( 8.486993e+0 == Approx( chunk.debyeWallerValues()[0] ) );
+  CHECK( 9.093191e+0 == Approx( chunk.debyeWallerValues()[1] ) );
+  CHECK( 9.828159e+0 == Approx( chunk.debyeWallerValues()[2] ) );
 
-  REQUIRE( 3 == chunk.NC() );
+  CHECK( 3 == chunk.NC() );
 }
 
 std::string invalidChunk() {

@@ -1,27 +1,35 @@
+//! @todo pybind11 variant needs default constructor workaround
+#ifdef PYBIND11
+/**
+ *  @brief Default constructor - only enabled for pybind11
+ */
+DistributionFunction() = default;
+#endif
+
 /**
  *  @brief Constructor
  *
  *  @param[in] boundaries      the interpolation range boundaries
  *  @param[in] interpolants    the interpolation types for each range
- *  @param[in] x               the energy y
- *  @param[in] y               the parameter y
+ *  @param[in] x               the x values
+ *  @param[in] g               the function values
  */
 DistributionFunction( std::vector< long >&& boundaries,
                       std::vector< long >&& interpolants,
                       std::vector< double >&& x,
-                      std::vector< double >&& y )
+                      std::vector< double >&& g )
   try : TabulationRecord( 0.0, 0.0, 0, 0,
                           std::move( boundaries ),
                           std::move( interpolants ),
                           std::move( x ),
-                          std::move( y ) ) {}
+                          std::move( g ) ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Error encountered while constructing a distribution function" );
     throw;
   }
 
-/** 
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator

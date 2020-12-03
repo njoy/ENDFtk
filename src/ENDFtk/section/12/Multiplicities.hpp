@@ -35,7 +35,7 @@ public:
   /**
    *  @brief Return the photon production representation type
    */
-  static constexpr int representation() { return Multiplicities::LO(); }
+  int representation() const { return this->LO(); }
 
   /**
    *  @brief Return the number of partial multiplicities (discrete photons

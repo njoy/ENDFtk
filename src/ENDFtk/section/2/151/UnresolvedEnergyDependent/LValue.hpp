@@ -1,8 +1,7 @@
 /**
  *  @class
  *  @brief The unresolved resonance parameters for a given l value in the SLBW
- *         representation for energy dependent fission widths (all other
- *         widths are energy independent).
+ *         representation for energy dependent widths.
  *
  *  See ENDF102, section 2.3.1 for more information.
  */

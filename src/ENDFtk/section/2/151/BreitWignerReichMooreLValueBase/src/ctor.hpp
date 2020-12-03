@@ -9,7 +9,6 @@ BreitWignerReichMooreLValueBase( ListRecord&& list ) :
 }
 
 public:
-
 /**
  *  @brief Constructor
  *
@@ -60,4 +59,3 @@ BreitWignerReichMooreLValueBase(
    // no try ... catch: exceptions will be handled in the derived class
   BreitWignerReichMooreLValueBase( ListRecord( it, end, lineNumber,
                                                MAT, MF, MT ) ) {}
-

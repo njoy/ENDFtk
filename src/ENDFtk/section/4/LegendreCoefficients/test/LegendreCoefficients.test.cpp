@@ -39,7 +39,7 @@ SCENARIO( "LegendreCoefficients" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9228, 4, 2 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
@@ -63,7 +63,7 @@ SCENARIO( "LegendreCoefficients" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9228, 4, 2 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -81,7 +81,7 @@ SCENARIO( "LegendreCoefficients" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( LegendreCoefficients( begin, end, lineNumber,
+        CHECK_THROWS( LegendreCoefficients( begin, end, lineNumber,
                                               9228, 4, 2 ) );
       } // THEN
     } // WHEN
@@ -96,16 +96,20 @@ std::string chunk() {
 
 void verifyChunk( const LegendreCoefficients& chunk ) {
 
-  REQUIRE( 1e-5 == Approx( chunk.E() ) );
-  REQUIRE( 1e-5 == Approx( chunk.incidentEnergy() ) );
-  REQUIRE( 3 == chunk.NL() );
-  REQUIRE( 3 == chunk.legendreOrder() );
-  REQUIRE( 3 == chunk.coefficients().size() );
-  REQUIRE( 7.392510e-5  == Approx( chunk.coefficients()[0] ) );
-  REQUIRE( 8.477139e-9 == Approx( chunk.coefficients()[1] ) );
-  REQUIRE( 1.17106e-13 == Approx( chunk.coefficients()[2] ) );
+  CHECK( 1e-5 == Approx( chunk.E() ) );
+  CHECK( 1e-5 == Approx( chunk.incidentEnergy() ) );
+  CHECK( 3 == chunk.NL() );
+  CHECK( 3 == chunk.legendreOrder() );
+  CHECK( 3 == chunk.coefficients().size() );
+  CHECK( 3 == chunk.A().size() );
+  CHECK( 7.392510e-5  == Approx( chunk.A()[0] ) );
+  CHECK( 8.477139e-9 == Approx( chunk.A()[1] ) );
+  CHECK( 1.17106e-13 == Approx( chunk.A()[2] ) );
+  CHECK( 7.392510e-5  == Approx( chunk.coefficients()[0] ) );
+  CHECK( 8.477139e-9 == Approx( chunk.coefficients()[1] ) );
+  CHECK( 1.17106e-13 == Approx( chunk.coefficients()[2] ) );
 
-  REQUIRE( 2 == chunk.NC() );
+  CHECK( 2 == chunk.NC() );
 }
 
 std::string invalidChunk() {

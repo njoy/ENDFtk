@@ -44,7 +44,7 @@ SCENARIO( "WattSpectrum" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9222, 5, 18 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
@@ -67,7 +67,7 @@ SCENARIO( "WattSpectrum" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9222, 5, 18 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -85,7 +85,7 @@ SCENARIO( "WattSpectrum" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( WattSpectrum( begin, end, lineNumber, 9222, 5, 18 ) );
+        CHECK_THROWS( WattSpectrum( begin, end, lineNumber, 9222, 5, 18 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -104,46 +104,46 @@ std::string chunk() {
 
 void verifyChunk( const WattSpectrum& chunk ) {
 
-  REQUIRE( 11 == chunk.LF() );
-  REQUIRE( 11 == chunk.LAW() );
+  CHECK( 11 == chunk.LF() );
+  CHECK( 11 == chunk.LAW() );
 
   auto valueA = chunk.a();
-  REQUIRE( 3 == valueA.NE() );
-  REQUIRE( 1 == valueA.NR() );
-  REQUIRE( 1 == valueA.interpolants().size() );
-  REQUIRE( 1 == valueA.boundaries().size() );
-  REQUIRE( 2 == valueA.interpolants()[0] );
-  REQUIRE( 3 == valueA.boundaries()[0] );
-  REQUIRE( 3 == valueA.energies().size() );
-  REQUIRE( 3 == valueA.values().size() );
-  REQUIRE( 1e-5 == Approx( valueA.energies()[0] ) );
-  REQUIRE( 1.5e+6 == Approx( valueA.energies()[1] ) );
-  REQUIRE( 3e+7 == Approx( valueA.energies()[2] ) );
-  REQUIRE( 9.77e+5 == Approx( valueA.values()[0] ) );
-  REQUIRE( 1e+6 == Approx( valueA.values()[1] ) );
-  REQUIRE( 1.06e+6 == Approx( valueA.values()[2] ) );
+  CHECK( 3 == valueA.NP() );
+  CHECK( 1 == valueA.NR() );
+  CHECK( 1 == valueA.interpolants().size() );
+  CHECK( 1 == valueA.boundaries().size() );
+  CHECK( 2 == valueA.interpolants()[0] );
+  CHECK( 3 == valueA.boundaries()[0] );
+  CHECK( 3 == valueA.energies().size() );
+  CHECK( 3 == valueA.values().size() );
+  CHECK( 1e-5 == Approx( valueA.energies()[0] ) );
+  CHECK( 1.5e+6 == Approx( valueA.energies()[1] ) );
+  CHECK( 3e+7 == Approx( valueA.energies()[2] ) );
+  CHECK( 9.77e+5 == Approx( valueA.values()[0] ) );
+  CHECK( 1e+6 == Approx( valueA.values()[1] ) );
+  CHECK( 1.06e+6 == Approx( valueA.values()[2] ) );
 
   auto valueB = chunk.b();
-  REQUIRE( 5 == valueB.NE() );
-  REQUIRE( 1 == valueB.NR() );
-  REQUIRE( 1 == valueB.interpolants().size() );
-  REQUIRE( 1 == valueB.boundaries().size() );
-  REQUIRE( 2 == valueB.interpolants()[0] );
-  REQUIRE( 5 == valueB.boundaries()[0] );
-  REQUIRE( 5 == valueB.energies().size() );
-  REQUIRE( 5 == valueB.values().size() );
-  REQUIRE( 1e-5 == Approx( valueB.energies()[0] ) );
-  REQUIRE( 1.5e+6 == Approx( valueB.energies()[1] ) );
-  REQUIRE( 1e+7 == Approx( valueB.energies()[2] ) );
-  REQUIRE( 1.22e+7 == Approx( valueB.energies()[3] ) );
-  REQUIRE( 3e+7 == Approx( valueB.energies()[4] ) );
-  REQUIRE( 2.546e-6 == Approx( valueB.values()[0] ) );
-  REQUIRE( 2.546e-6 == Approx( valueB.values()[1] ) );
-  REQUIRE( 2.474e-6 == Approx( valueB.values()[2] ) );
-  REQUIRE( 2.612e-6 == Approx( valueB.values()[3] ) );
-  REQUIRE( 2.62e-6 == Approx( valueB.values()[4] ) );
+  CHECK( 5 == valueB.NP() );
+  CHECK( 1 == valueB.NR() );
+  CHECK( 1 == valueB.interpolants().size() );
+  CHECK( 1 == valueB.boundaries().size() );
+  CHECK( 2 == valueB.interpolants()[0] );
+  CHECK( 5 == valueB.boundaries()[0] );
+  CHECK( 5 == valueB.energies().size() );
+  CHECK( 5 == valueB.values().size() );
+  CHECK( 1e-5 == Approx( valueB.energies()[0] ) );
+  CHECK( 1.5e+6 == Approx( valueB.energies()[1] ) );
+  CHECK( 1e+7 == Approx( valueB.energies()[2] ) );
+  CHECK( 1.22e+7 == Approx( valueB.energies()[3] ) );
+  CHECK( 3e+7 == Approx( valueB.energies()[4] ) );
+  CHECK( 2.546e-6 == Approx( valueB.values()[0] ) );
+  CHECK( 2.546e-6 == Approx( valueB.values()[1] ) );
+  CHECK( 2.474e-6 == Approx( valueB.values()[2] ) );
+  CHECK( 2.612e-6 == Approx( valueB.values()[3] ) );
+  CHECK( 2.62e-6 == Approx( valueB.values()[4] ) );
 
-  REQUIRE( 7 == chunk.NC() );
+  CHECK( 7 == chunk.NC() );
 }
 
 std::string invalidChunk() {

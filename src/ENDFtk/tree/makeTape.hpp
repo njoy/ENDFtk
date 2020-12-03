@@ -10,10 +10,15 @@ namespace njoy {
 namespace ENDFtk {
 namespace tree {
 
-  template< typename Range >
-  auto makeTape( Range&& range ) {
+  /**
+   *  @brief Factory function to make a tape from a buffer
+   *
+   *  @param[in] buffer   the tape buffer (e.g. a string)
+   */
+  template< typename Buffer >
+  auto makeTape( Buffer&& buffer ) {
 
-    return Tape< Range >{ std::forward< Range >( range ) };
+    return Tape< Buffer >{ std::forward< Buffer >( buffer ) };
   }
 
 } // tree namespace

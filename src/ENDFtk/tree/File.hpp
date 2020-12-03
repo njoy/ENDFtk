@@ -11,68 +11,162 @@
 #include "header-utilities/echoErroneousLine.hpp"
 #include "ENDFtk/file/Type.hpp"
 #include "ENDFtk/tree/Section.hpp"
+#include "boost/hana.hpp"
 
 namespace njoy {
 namespace ENDFtk {
+
+  // hana namespace declaration inside ENDFtk
+  namespace hana = boost::hana;
+  inline namespace literals { using namespace hana::literals; }
+
 namespace tree {
 
+  /**
+   *  @class
+   *  @brief The ENDF tree file to index and access ENDF section data
+   *
+   *  This class represents a single file in an ENDF tape and contains the
+   *  indexed ENDF sections from that file. It is created by the ENDF tree
+   *  Material class and should not be directly constructed by a user.
+   */
   template< typename BufferIterator >
   class File {
+
   public:
-    /* convenience typedefs */
+
+    /* type aliases */
     using Section_t = Section< BufferIterator >;
     using iterator = typename std::vector< Section_t >::iterator;
     using const_iterator = typename std::vector< Section_t >::const_iterator;
 
-  protected:
+  private:
+
     /* fields */
+    int materialNo;
     int fileNo;
     std::map< int, Section_t > sections_;
     std::pair< BufferIterator, BufferIterator > bufferLimits;
 
-    /* ctor */
+    /* auxiliary functions */
     #include "ENDFtk/tree/File/src/createMap.hpp"
 
   public:
 
+    /* constructor */
     #include "ENDFtk/tree/File/src/ctor.hpp"
-    #include "ENDFtk/tree/File/src/parse.hpp"
 
     /* methods */
-    #include "ENDFtk/tree/File/src/sectionNumber.hpp"
+    #include "ENDFtk/tree/File/src/parse.hpp"
+    #include "ENDFtk/tree/File/src/section.hpp"
 
-    const Section_t&
-    MT( int sectionNo ) const { return this->sectionNumber( sectionNo ); }
+    /**
+     *  @brief Return the section with the requested MT number
+     *
+     *  @param[in]   mt   the MT number of the section to be returned
+     */
+    const Section_t& MT( int mt ) const { return this->section( mt ); }
 
-    Section_t&
-    MT( int sectionNo ){ return this->sectionNumber( sectionNo ); }
+    /**
+     *  @brief Return the section with the requested MT number
+     *
+     *  @param[in]   mt   the MT number of the section to be returned
+     */
+    Section_t& MT( int mt ){ return this->section( mt ); }
 
-    bool
-    hasMT( int sectionNo ) const { return this->sections_.count( sectionNo ); }
+    /**
+     *  @brief Return whether or not the file has a section with the given MT
+     *         number
+     *
+     *  @param[in]   mt   the MT number of the section
+     */
+    bool hasMT( int mt ) const {
 
-    bool
-    hasSectionNumber( int sectionNo ) const {  return this->hasMT( sectionNo ); }
+      return this->sections_.count( mt );
+    }
 
+    /**
+     *  @brief Return whether or not the file has a section with the given MT
+     *         number
+     *
+     *  @param[in]   mt   the MT number of the section
+     */
+    bool hasSection( int mt ) const {  return this->hasMT( mt ); }
+
+    /**
+     *  @brief Return all sections in the file
+     */
+    auto sections() { return this->sections_ | ranges::view::values; }
+
+    /**
+     *  @brief Return all sections in the file
+     */
+    auto sections() const { return this->sections_ | ranges::view::values; }
+
+    /**
+     *  @brief Return a begin iterator to all sections
+     */
     auto begin(){ return ( this->sections_ | ranges::view::values ).begin(); }
+
+    /**
+     *  @brief Return an end iterator to all sections
+     */
     auto end(){ return ( this->sections_ | ranges::view::values ).end(); }
 
+    /**
+     *  @brief Return a begin iterator to all sections
+     */
     auto begin() const {
+
       return ( this->sections_ | ranges::view::values ).begin();
     }
+
+    /**
+     *  @brief Return an end iterator to all sections
+     */
     auto end() const { return ( this->sections_ | ranges::view::values ).end(); }
 
+    /**
+     *  @brief Return the number of files in the materials
+     */
     std::size_t size() const { return this->sections_.size(); }
 
+    /**
+     *  @brief Return the file's buffer
+     */
     auto buffer() const {
+
       return ranges::make_iterator_range( this->bufferLimits.first,
                                           this->bufferLimits.second );
     }
 
+    /**
+     *  @brief Return MAT number of the file
+     */
+    int MAT() const { return this->materialNo; }
+
+    /**
+     *  @brief Return MAT number of the file
+     */
+    int materialNumber() const { return this->MAT(); }
+
+    /**
+     *  @brief Return MF number of the file
+     */
     int MF() const { return this->fileNo; }
 
+    /**
+     *  @brief Return MF number of the file
+     */
     int fileNumber() const { return this->MF(); }
 
-    auto sectionNumbers() const { return ranges::view::keys( sections_ ); }
+    /**
+     *  @brief Return all section numbers in the file
+     */
+    auto sectionNumbers() const {
+
+      return ranges::view::keys( this->sections_ );
+    }
   };
 
 } // tree namespace

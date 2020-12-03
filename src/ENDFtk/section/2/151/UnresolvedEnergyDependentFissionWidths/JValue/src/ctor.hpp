@@ -18,7 +18,7 @@ public:
  *  @param[in] amuf       the degrees of freedom for the fission width
  *  @param[in] gn         the average neutron width
  *  @param[in] gg         the average gamma width
- *  @param[in] gf         the average fission widths (NE values)
+ *  @param[in] gf         the average fission widths
  */
 JValue( int l, double spin, double d, int amun, int amuf,
         double gn, double gg, std::vector< double >&& gf )

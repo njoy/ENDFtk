@@ -15,12 +15,12 @@ public:
   #include "ENDFtk/section/6/ContinuumEnergyAngle/ThermalScatteringData.hpp"
   #include "ENDFtk/section/6/ContinuumEnergyAngle/LegendreCoefficients.hpp"
   #include "ENDFtk/section/6/ContinuumEnergyAngle/KalbachMann.hpp"
-  #include "ENDFtk/section/6/ContinuumEnergyAngle/Tabulated.hpp"
+  #include "ENDFtk/section/6/ContinuumEnergyAngle/TabulatedDistribution.hpp"
 
-  using Variant = std::variant< LegendreCoefficients,  // LANG=1
-                                KalbachMann,           // LANG=2
-                                ThermalScatteringData, // LANG=3
-                                Tabulated >;           // LANG=11-15
+  using Variant = std::variant< LegendreCoefficients,    // LANG=1
+                                KalbachMann,             // LANG=2
+                                ThermalScatteringData,   // LANG=3
+                                TabulatedDistribution >; // LANG=11-15
 
 private:
 
@@ -36,7 +36,7 @@ public:
   /* constructor */
   #include "ENDFtk/section/6/ContinuumEnergyAngle/src/ctor.hpp"
 
-  /* get methods */
+  /* methods */
 
   /**
    *  @brief Return the LAW flag
@@ -72,7 +72,7 @@ public:
   /**
    *  @brief Return the subsections, one for each incident energy
    */
-  auto subsections() const { return this->data_.records(); }
+  auto distributions() const { return this->data_.records(); }
 
   /**
    *  @brief Return interpolation type for each range on the incident
@@ -84,6 +84,24 @@ public:
    *  @brief Return interpolation boundaries for the incident energy grid
    */
   auto boundaries() const { return this->data_.tab2().boundaries(); }
+
+  /**
+   *  @brief Return the incident energy values
+   */
+  auto E() const {
+
+    return this->distributions()
+               | ranges::view::transform(
+                  [] ( const auto& variant )
+                     { return std::visit( [] ( const auto& record )
+                                             { return record.incidentEnergy(); },
+                                          variant ); } );
+  }
+
+  /**
+  *  @brief Return the incident energy values
+   */
+  auto incidentEnergies() const { return this->E(); }
 
   /**
    *  @brief Return the number of lines in this MF6 component

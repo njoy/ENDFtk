@@ -17,69 +17,76 @@ namespace njoy {
 namespace ENDFtk {
 namespace section{
 
-template<>
-class Type< 12 > : protected Base {
-
-public:
-
-  #include "ENDFtk/section/12/TotalMultiplicity.hpp"
-  #include "ENDFtk/section/12/PartialMultiplicity.hpp"
-
-  #include "ENDFtk/section/12/Multiplicities.hpp"               // LO=1
-  #include "ENDFtk/section/12/TransitionProbabilities.hpp"      // LO=2
-
-  using LO1 = Multiplicities;
-  using LO2 = TransitionProbabilities;
-
-  /** @typedef PhotonProduction
-   *  @brief The photon production multiplicities or transition probabilities
-   *         of MF12
+  /**
+   *  @class
+   *  @brief MF12 - photon production multiplicities and transition probability
+   *                arrays
    *
-   *  This photon production data class is set up as a variant.
+   *  See ENDF102, section 12.2 for more information.
    */
-  using PhotonProduction =
-            std::variant< Multiplicities,                      // LO=1
-                          TransitionProbabilities >;           // LO=2
+  template<>
+  class Type< 12 > : protected Base {
 
-private:
+  public:
 
-  /* fields */
-  PhotonProduction photon_;
+    #include "ENDFtk/section/12/TotalMultiplicity.hpp"
+    #include "ENDFtk/section/12/PartialMultiplicity.hpp"
 
-  /* auxiliary functions */
-  #include "ENDFtk/section/12/src/readPhotonProduction.hpp"
+    #include "ENDFtk/section/12/Multiplicities.hpp"               // LO=1
+    #include "ENDFtk/section/12/TransitionProbabilities.hpp"      // LO=2
 
-public:
+    using LO1 = Multiplicities;
+    using LO2 = TransitionProbabilities;
 
-  /* constructor */
-  #include "ENDFtk/section/12/src/ctor.hpp"
+    /** @typedef PhotonProduction
+     *  @brief The photon production multiplicities or transition probabilities
+     *         of MF12
+     *
+     *  This photon production data class is set up as a variant.
+     */
+    using PhotonProduction =
+              std::variant< Multiplicities,                      // LO=1
+                            TransitionProbabilities >;           // LO=2
 
-  /* get methods */
+  private:
 
-  /**
-   *  @brief Return the data type for the photon production data
-   */
-  int LO() const { return this->photon_.index() + 1; }
+    /* fields */
+    PhotonProduction photon_;
 
-  /**
-   *  @brief Return the data type for the photon production data
-   */
-  int representation() const { return this->LO(); }
+    /* auxiliary functions */
+    #include "ENDFtk/section/12/src/readPhotonProduction.hpp"
 
-  /**
-   *  @brief Return the partial distributions defined in this section
-   */
-  const auto& photonProduction() const { return this->photon_; }
+  public:
 
-  #include "ENDFtk/section/12/src/NC.hpp"
-  #include "ENDFtk/section/12/src/print.hpp"
+    /* constructor */
+    #include "ENDFtk/section/12/src/ctor.hpp"
 
-  using Base::MT;
-  using Base::sectionNumber;
-  using Base::ZA;
-  using Base::atomicWeightRatio;
-  using Base::AWR;
-};
+    /* get methods */
+
+    /**
+     *  @brief Return the data type for the photon production data
+     */
+    int LO() const { return this->photon_.index() + 1; }
+
+    /**
+     *  @brief Return the data type for the photon production data
+     */
+    int representation() const { return this->LO(); }
+
+    /**
+     *  @brief Return the photon production data
+     */
+    const auto& photonProduction() const { return this->photon_; }
+
+    #include "ENDFtk/section/12/src/NC.hpp"
+    #include "ENDFtk/section/12/src/print.hpp"
+
+    using Base::MT;
+    using Base::sectionNumber;
+    using Base::ZA;
+    using Base::atomicWeightRatio;
+    using Base::AWR;
+  };
 
 } // section namespace
 } // ENDFtk namespace

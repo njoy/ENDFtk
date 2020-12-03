@@ -23,6 +23,7 @@ class ResonanceChannels : protected ListRecord {
   }
 
 public:
+
   /* constructor */
   #include "ENDFtk/section/2/151/RMatrixLimited/ResonanceChannels/src/ctor.hpp"
 
@@ -106,21 +107,21 @@ public:
   auto orbitalMomentumValues() const { return this->L(); }
 
   /**
-   *  @brief Return channel spin values
+   *  @brief Return the channel spin values
    */
   auto SCH() const { return ResonanceChannels::column( 2 ); }
  /**
-   *  @brief Return channel spin values
+   *  @brief Return the channel spin values
    */
   auto channelSpinValues() const { return this->SCH(); }
 
   /**
-   *  @brief Return boundary condition values
+   *  @brief Return the boundary condition values
    */
   auto BND() const { return ResonanceChannels::column( 3 ); }
 
   /**
-  *  @brief Return boundary condition values
+  *  @brief Return the boundary condition values
    */
   auto boundaryConditionValues() const { return this->BND(); }
 

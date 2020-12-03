@@ -7,7 +7,7 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using EffectiveTemperature = 
+using EffectiveTemperature =
 section::Type< 5 >::EffectiveTemperature;
 
 std::string chunk();
@@ -46,7 +46,7 @@ SCENARIO( "EffectiveTemperature" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9437, 5, 455 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
@@ -70,7 +70,7 @@ SCENARIO( "EffectiveTemperature" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9437, 5, 455 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -90,7 +90,7 @@ SCENARIO( "EffectiveTemperature" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( EffectiveTemperature( std::move( boundaries ),
+        CHECK_THROWS( EffectiveTemperature( std::move( boundaries ),
                                               std::move( wrongInterpolants ),
                                               std::move( energies ),
                                               std::move( thetas ) ) );
@@ -108,7 +108,7 @@ SCENARIO( "EffectiveTemperature" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( EffectiveTemperature( begin, end, lineNumber,
+        CHECK_THROWS( EffectiveTemperature( begin, end, lineNumber,
                                               9437, 5, 455 ) );
       } // THEN
     } // WHEN
@@ -125,38 +125,32 @@ std::string chunk() {
 
 void verifyChunk( const EffectiveTemperature& chunk ) {
 
-  REQUIRE( 5 == chunk.NE() );
-  REQUIRE( 1 == chunk.NR() );
-  REQUIRE( 1 == chunk.interpolants().size() );
-  REQUIRE( 1 == chunk.boundaries().size() );
-  REQUIRE( 1 == chunk.interpolants()[0] );
-  REQUIRE( 5 == chunk.boundaries()[0] );
-  REQUIRE( 5 == chunk.E().size() );
-  REQUIRE( 5 == chunk.energies().size() );
-  REQUIRE( 5 == chunk.thetas().size() );
-  REQUIRE( 5 == chunk.values().size() );
-  REQUIRE( 0.0 == Approx( chunk.E()[0] ) );
-  REQUIRE( 1e+4 == Approx( chunk.E()[1] ) );
-  REQUIRE( 2e+4 == Approx( chunk.E()[2] ) );
-  REQUIRE( 1.83e+6 == Approx( chunk.E()[3] ) );
-  REQUIRE( 1.84e+6 == Approx( chunk.E()[4] ) );
-  REQUIRE( 0.0 == Approx( chunk.energies()[0] ) );
-  REQUIRE( 1e+4 == Approx( chunk.energies()[1] ) );
-  REQUIRE( 2e+4 == Approx( chunk.energies()[2] ) );
-  REQUIRE( 1.83e+6 == Approx( chunk.energies()[3] ) );
-  REQUIRE( 1.84e+6 == Approx( chunk.energies()[4] ) );
-  REQUIRE( 2.265227e-7 == Approx( chunk.thetas()[0] ) );
-  REQUIRE( 2.029471e-6 == Approx( chunk.thetas()[1] ) );
-  REQUIRE( 2.272542e-6 == Approx( chunk.thetas()[2] ) );
-  REQUIRE( 0.0 == Approx( chunk.thetas()[3] ) );
-  REQUIRE( 0.0 == Approx( chunk.thetas()[4] ) );
-  REQUIRE( 2.265227e-7 == Approx( chunk.values()[0] ) );
-  REQUIRE( 2.029471e-6 == Approx( chunk.values()[1] ) );
-  REQUIRE( 2.272542e-6 == Approx( chunk.values()[2] ) );
-  REQUIRE( 0.0 == Approx( chunk.values()[3] ) );
-  REQUIRE( 0.0 == Approx( chunk.values()[4] ) );
+  CHECK( 5 == chunk.NP() );
+  CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.interpolants().size() );
+  CHECK( 1 == chunk.boundaries().size() );
+  CHECK( 1 == chunk.interpolants()[0] );
+  CHECK( 5 == chunk.boundaries()[0] );
+  CHECK( 5 == chunk.E().size() );
+  CHECK( 5 == chunk.energies().size() );
+  CHECK( 5 == chunk.thetas().size() );
+  CHECK( 0.0 == Approx( chunk.E()[0] ) );
+  CHECK( 1e+4 == Approx( chunk.E()[1] ) );
+  CHECK( 2e+4 == Approx( chunk.E()[2] ) );
+  CHECK( 1.83e+6 == Approx( chunk.E()[3] ) );
+  CHECK( 1.84e+6 == Approx( chunk.E()[4] ) );
+  CHECK( 0.0 == Approx( chunk.energies()[0] ) );
+  CHECK( 1e+4 == Approx( chunk.energies()[1] ) );
+  CHECK( 2e+4 == Approx( chunk.energies()[2] ) );
+  CHECK( 1.83e+6 == Approx( chunk.energies()[3] ) );
+  CHECK( 1.84e+6 == Approx( chunk.energies()[4] ) );
+  CHECK( 2.265227e-7 == Approx( chunk.thetas()[0] ) );
+  CHECK( 2.029471e-6 == Approx( chunk.thetas()[1] ) );
+  CHECK( 2.272542e-6 == Approx( chunk.thetas()[2] ) );
+  CHECK( 0.0 == Approx( chunk.thetas()[3] ) );
+  CHECK( 0.0 == Approx( chunk.thetas()[4] ) );
 
-  REQUIRE( 4 == chunk.NC() );
+  CHECK( 4 == chunk.NC() );
 }
 
 std::string invalidChunk() {

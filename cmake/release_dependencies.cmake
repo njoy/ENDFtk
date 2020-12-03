@@ -41,6 +41,12 @@ FetchContent_Declare( spdlog
     )
 set( SPDLOG_BUILD_TESTING CACHE BOOL OFF )
 
+FetchContent_Declare( pybind11
+    GIT_REPOSITORY  https://github.com/pybind/pybind11
+    GIT_TAG         v2.6.0rc3
+    GIT_SHALLOW     TRUE
+    )
+
 #######################################################################
 # Load dependencies
 #######################################################################
@@ -53,4 +59,5 @@ FetchContent_MakeAvailable(
     Log
     range-v3-adapter
     spdlog
+    pybind11
     )

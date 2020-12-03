@@ -37,7 +37,7 @@ namespace section{
     #include "ENDFtk/section/7/4/ScatteringLawConstants.hpp"
 
     #include "ENDFtk/section/7/4/AnalyticalFunctions.hpp"
-    #include "ENDFtk/section/7/4/Tabulated.hpp"
+    #include "ENDFtk/section/7/4/TabulatedFunctions.hpp"
 
     #include "ENDFtk/section/7/4/EffectiveTemperature.hpp"
 
@@ -51,7 +51,7 @@ namespace section{
     using ScatteringLaw = std::variant< // B(1)=0
                                         AnalyticalFunctions,
                                         // B(1)!=0
-                                        Tabulated >;
+                                        TabulatedFunctions >;
 
   private:
 
@@ -125,7 +125,6 @@ namespace section{
     }
 
     #include "ENDFtk/section/7/4/src/NC.hpp"
-
     #include "ENDFtk/section/7/4/src/print.hpp"
 
     /**

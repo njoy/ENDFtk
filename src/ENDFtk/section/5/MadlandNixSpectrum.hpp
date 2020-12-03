@@ -21,7 +21,7 @@ public:
   /**
    *  @brief Return the distribution type (the LF flag)
    */
-  static constexpr int LAW() { return MadlandNixSpectrum::LF(); }
+  int LAW() const { return this->LF(); }
 
   /**
    *  @brief Return the average kinetic energy of the average light
@@ -67,11 +67,7 @@ public:
    */
   auto maximumTemperatureValues() const { return this->TM(); }
 
-  /**
-   *  @brief Return the number of energy values
-   */
-  auto NE() const { return TabulationRecord::NP(); }
-
+  using TabulationRecord::NP;
   using TabulationRecord::NR;
   using TabulationRecord::interpolants;
   using TabulationRecord::boundaries;

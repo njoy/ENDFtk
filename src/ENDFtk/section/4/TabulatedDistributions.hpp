@@ -1,6 +1,6 @@
 /**
  *  @class
- *  @brief Angular distributions as a function of incident energy using 
+ *  @brief Angular distributions as a function of incident energy using
  *         tabulated functions (LTT=2)
  *
  *  The LegendreDistributions class is used to represent the case in which
@@ -33,6 +33,7 @@ public:
   using AngularDistributions< TabulatedDistribution >::NE;
   using AngularDistributions< TabulatedDistribution >::interpolants;
   using AngularDistributions< TabulatedDistribution >::boundaries;
+  using AngularDistributions< TabulatedDistribution >::incidentEnergies;
   using AngularDistributions< TabulatedDistribution >::angularDistributions;
 
   using AngularDistributions< TabulatedDistribution >::NC;

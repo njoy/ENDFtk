@@ -1,18 +1,18 @@
 /**
  *  @brief Constructor
  *
- *  @param[in] incident        the incident energy value
+ *  @param[in] energy          the incident energy value
  *  @param[in] boundaries      the interpolation range boundaries
  *  @param[in] interpolants    the interpolation types for each range
  *  @param[in] energies        the cosine values
  *  @param[in] probabilities   the probability values
  */
-TabulatedDistribution( double incident,
+TabulatedDistribution( double energy,
                        std::vector< long >&& boundaries,
                        std::vector< long >&& interpolants,
                        std::vector< double >&& cosines,
                        std::vector< double >&& probabilities )
-  try : TabulationRecord( 0.0, incident, 0, 0,
+  try : TabulationRecord( 0.0, energy, 0, 0,
                           std::move( boundaries ),
                           std::move( interpolants ),
                           std::move( cosines ),
@@ -24,7 +24,7 @@ TabulatedDistribution( double incident,
     throw;
   }
 
-/** 
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator

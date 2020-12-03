@@ -43,7 +43,7 @@ SCENARIO( "AverageDecayEnergies" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 3580, 8, 457 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
@@ -67,7 +67,7 @@ SCENARIO( "AverageDecayEnergies" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 3580, 8, 457 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -92,7 +92,7 @@ SCENARIO( "AverageDecayEnergies" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 3580, 8, 457 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
@@ -116,7 +116,7 @@ SCENARIO( "AverageDecayEnergies" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 3580, 8, 457 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -134,7 +134,7 @@ SCENARIO( "AverageDecayEnergies" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( AverageDecayEnergies( halfLife,
+        CHECK_THROWS( AverageDecayEnergies( halfLife,
                                               std::move( decayEnergies ) ) );
       } // THEN
     } // WHEN
@@ -149,7 +149,7 @@ SCENARIO( "AverageDecayEnergies" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( AverageDecayEnergies( begin, end, lineNumber,
+        CHECK_THROWS( AverageDecayEnergies( begin, end, lineNumber,
                                               3580, 8, 457 ) );
       } // THEN
     } // WHEN
@@ -164,33 +164,42 @@ std::string chunk() {
 
 void verifyChunk( const AverageDecayEnergies& chunk ) {
 
-  auto halfLife = chunk.halfLife();
-  REQUIRE( 4.449622e+9 == Approx( halfLife[0] ) );
-  REQUIRE( 6.311520e+7 == Approx( halfLife[1] ) );
+  CHECK( 4.449622e+9 == Approx( chunk.T()[0] ) );
+  CHECK( 6.311520e+7 == Approx( chunk.T()[1] ) );
+  CHECK( 4.449622e+9 == Approx( chunk.halfLife()[0] ) );
+  CHECK( 6.311520e+7 == Approx( chunk.halfLife()[1] ) );
 
-  REQUIRE( 3 == chunk.numberDecayEnergies() );
-  REQUIRE( 3 == chunk.decayEnergies().size() );
-  auto lightParticle = chunk.decayEnergies()[0];
-  REQUIRE( 4.008322e+4 == Approx( lightParticle[0] ) );
-  REQUIRE( 4.128931e+3 == Approx( lightParticle[1] ) );
-  auto electroMagnetic = chunk.decayEnergies()[1];
-  REQUIRE( 5.373671e+3 == Approx( electroMagnetic[0] ) );
-  REQUIRE( 3.660206e+2 == Approx( electroMagnetic[1] ) );
-  auto heavyParticle = chunk.decayEnergies()[2];
-  REQUIRE( 2.441003e+4 == Approx( heavyParticle[0] ) );
-  REQUIRE( 6.191754e+2 == Approx( heavyParticle[1] ) );
+  CHECK( 3 == chunk.NCE() );
+  CHECK( 3 == chunk.numberDecayEnergies() );
+  CHECK( 3 == chunk.E().size() );
+  CHECK( 3 == chunk.decayEnergies().size() );
+  CHECK( 4.008322e+4 == Approx( chunk.E()[0][0] ) );
+  CHECK( 4.128931e+3 == Approx( chunk.E()[0][1] ) );
+  CHECK( 5.373671e+3 == Approx( chunk.E()[1][0] ) );
+  CHECK( 3.660206e+2 == Approx( chunk.E()[1][1] ) );
+  CHECK( 2.441003e+4 == Approx( chunk.E()[2][0] ) );
+  CHECK( 6.191754e+2 == Approx( chunk.E()[2][1] ) );
+  CHECK( 4.008322e+4 == Approx( chunk.decayEnergies()[0][0] ) );
+  CHECK( 4.128931e+3 == Approx( chunk.decayEnergies()[0][1] ) );
+  CHECK( 5.373671e+3 == Approx( chunk.decayEnergies()[1][0] ) );
+  CHECK( 3.660206e+2 == Approx( chunk.decayEnergies()[1][1] ) );
+  CHECK( 2.441003e+4 == Approx( chunk.decayEnergies()[2][0] ) );
+  CHECK( 6.191754e+2 == Approx( chunk.decayEnergies()[2][1] ) );
 
-  auto lightParticle2 = chunk.lightParticleDecayEnergy();
-  REQUIRE( 4.008322e+4 == Approx( lightParticle2[0] ) );
-  REQUIRE( 4.128931e+3 == Approx( lightParticle2[1] ) );
-  auto electroMagnetic2 = chunk.electromagneticDecayEnergy();
-  REQUIRE( 5.373671e+3 == Approx( electroMagnetic2[0] ) );
-  REQUIRE( 3.660206e+2 == Approx( electroMagnetic2[1] ) );
-  auto heavyParticle2 = chunk.heavyParticleDecayEnergy();
-  REQUIRE( 2.441003e+4 == Approx( heavyParticle2[0] ) );
-  REQUIRE( 6.191754e+2 == Approx( heavyParticle2[1] ) );
+  CHECK( 4.008322e+4 == Approx( chunk.ELP()[0] ) );
+  CHECK( 4.128931e+3 == Approx( chunk.ELP()[1] ) );
+  CHECK( 4.008322e+4 == Approx( chunk.lightParticleDecayEnergy()[0] ) );
+  CHECK( 4.128931e+3 == Approx( chunk.lightParticleDecayEnergy()[1] ) );
+  CHECK( 5.373671e+3 == Approx( chunk.EEM()[0] ) );
+  CHECK( 3.660206e+2 == Approx( chunk.EEM()[1] ) );
+  CHECK( 5.373671e+3 == Approx( chunk.electromagneticDecayEnergy()[0] ) );
+  CHECK( 3.660206e+2 == Approx( chunk.electromagneticDecayEnergy()[1] ) );
+  CHECK( 2.441003e+4 == Approx( chunk.EHP()[0] ) );
+  CHECK( 6.191754e+2 == Approx( chunk.EHP()[1] ) );
+  CHECK( 2.441003e+4 == Approx( chunk.heavyParticleDecayEnergy()[0] ) );
+  CHECK( 6.191754e+2 == Approx( chunk.heavyParticleDecayEnergy()[1] ) );
 
-  REQUIRE( 2 == chunk.NC() );
+  CHECK( 2 == chunk.NC() );
 }
 
 std::string chunkForStableNuclide() {
@@ -201,33 +210,43 @@ std::string chunkForStableNuclide() {
 
 void verifyChunkForStableNuclide( const AverageDecayEnergies& chunk ) {
 
-  auto halfLife = chunk.halfLife();
-  REQUIRE( 0.0 == Approx( halfLife[0] ) );
-  REQUIRE( 0.0 == Approx( halfLife[1] ) );
+  CHECK( 0.0 == Approx( chunk.T()[0] ) );
+  CHECK( 0.0 == Approx( chunk.T()[1] ) );
+  CHECK( 0.0 == Approx( chunk.halfLife()[0] ) );
+  CHECK( 0.0 == Approx( chunk.halfLife()[1] ) );
 
-  REQUIRE( 3 == chunk.numberDecayEnergies() );
-  REQUIRE( 3 == chunk.decayEnergies().size() );
-  auto lightParticle = chunk.decayEnergies()[0];
-  REQUIRE( 0.0 == Approx( lightParticle[0] ) );
-  REQUIRE( 0.0 == Approx( lightParticle[1] ) );
-  auto electroMagnetic = chunk.decayEnergies()[1];
-  REQUIRE( 0.0 == Approx( electroMagnetic[0] ) );
-  REQUIRE( 0.0 == Approx( electroMagnetic[1] ) );
-  auto heavyParticle = chunk.decayEnergies()[2];
-  REQUIRE( 0.0 == Approx( heavyParticle[0] ) );
-  REQUIRE( 0.0 == Approx( heavyParticle[1] ) );
+  CHECK( 3 == chunk.NCE() );
+  CHECK( 3 == chunk.numberDecayEnergies() );
+  CHECK( 3 == chunk.E().size() );
+  CHECK( 3 == chunk.decayEnergies().size() );
 
-  auto lightParticle2 = chunk.lightParticleDecayEnergy();
-  REQUIRE( 0.0 == Approx( lightParticle2[0] ) );
-  REQUIRE( 0.0 == Approx( lightParticle2[1] ) );
-  auto electroMagnetic2 = chunk.electromagneticDecayEnergy();
-  REQUIRE( 0.0 == Approx( electroMagnetic2[0] ) );
-  REQUIRE( 0.0 == Approx( electroMagnetic2[1] ) );
-  auto heavyParticle2 = chunk.heavyParticleDecayEnergy();
-  REQUIRE( 0.0 == Approx( heavyParticle2[0] ) );
-  REQUIRE( 0.0 == Approx( heavyParticle2[1] ) );
+  CHECK( 0.0 == Approx( chunk.E()[0][0] ) );
+  CHECK( 0.0 == Approx( chunk.E()[0][1] ) );
+  CHECK( 0.0 == Approx( chunk.E()[1][0] ) );
+  CHECK( 0.0 == Approx( chunk.E()[1][1] ) );
+  CHECK( 0.0 == Approx( chunk.E()[2][0] ) );
+  CHECK( 0.0 == Approx( chunk.E()[2][1] ) );
+  CHECK( 0.0 == Approx( chunk.decayEnergies()[0][0] ) );
+  CHECK( 0.0 == Approx( chunk.decayEnergies()[0][1] ) );
+  CHECK( 0.0 == Approx( chunk.decayEnergies()[1][0] ) );
+  CHECK( 0.0 == Approx( chunk.decayEnergies()[1][1] ) );
+  CHECK( 0.0 == Approx( chunk.decayEnergies()[2][0] ) );
+  CHECK( 0.0 == Approx( chunk.decayEnergies()[2][1] ) );
 
-  REQUIRE( 2 == chunk.NC() );
+  CHECK( 0.0 == Approx( chunk.ELP()[0] ) );
+  CHECK( 0.0 == Approx( chunk.ELP()[1] ) );
+  CHECK( 0.0 == Approx( chunk.lightParticleDecayEnergy()[0] ) );
+  CHECK( 0.0 == Approx( chunk.lightParticleDecayEnergy()[1] ) );
+  CHECK( 0.0 == Approx( chunk.EEM()[0] ) );
+  CHECK( 0.0 == Approx( chunk.EEM()[1] ) );
+  CHECK( 0.0 == Approx( chunk.electromagneticDecayEnergy()[0] ) );
+  CHECK( 0.0 == Approx( chunk.electromagneticDecayEnergy()[1] ) );
+  CHECK( 0.0 == Approx( chunk.EHP()[0] ) );
+  CHECK( 0.0 == Approx( chunk.EHP()[1] ) );
+  CHECK( 0.0 == Approx( chunk.heavyParticleDecayEnergy()[0] ) );
+  CHECK( 0.0 == Approx( chunk.heavyParticleDecayEnergy()[1] ) );
+
+  CHECK( 2 == chunk.NC() );
 }
 std::string wrongNC() {
   return

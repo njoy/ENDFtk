@@ -1,9 +1,9 @@
 private:
 
 DecaySpectrum( ListRecord&& list,
-               std::vector< DiscreteSpectrum >&& discrete,
+               std::vector< DiscreteSpectrum >&& spectra,
                std::optional< ContinuousSpectrum >&& continuous ) :
-  data_( std::move( list ) ), discrete_( std::move( discrete ) ),
+  data_( std::move( list ) ), discrete_( std::move( spectra ) ),
   continuous_( std::move( continuous ) ) {
 
   verifyDiscreteSize( this->LCON(), this->discrete_.size() );
@@ -11,64 +11,67 @@ DecaySpectrum( ListRecord&& list,
 
 public:
 /**
- *  @brief Constructor for discrete spectra only (LCON=0)
+ *  @brief Constructor for spectra spectra only (LCON=0)
  *
- *  @param[in] styp          the particle type for which spectral data is given
- *  @param[in] fd            the discrete normalisation factor and its uncertainty
- *  @param[in] erav          the average decay energy and its uncertainty
- *  @param[in] discrete      the discrete spectra
+ *  @param[in] type        the particle type for which data is given
+ *  @param[in] dnorm       the spectra normalisation factor and its
+ *                         uncertainty
+ *  @param[in] energy      the average decay energy and its uncertainty
+ *  @param[in] dspectra    the spectra spectra
  */
-DecaySpectrum( double styp,
-               std::array< double, 2 > fd,
-               std::array< double, 2 > erav,
-               std::vector< DiscreteSpectrum >&& discrete ) :
+DecaySpectrum( double type,
+               std::array< double, 2 > dnorm,
+               std::array< double, 2 > energy,
+               std::vector< DiscreteSpectrum >&& dspectra ) :
   // this can never fail, try-catch would be unreachable
-  DecaySpectrum( ListRecord( 0.0, styp, 0, 0, discrete.size(),
-                             { fd[0], fd[1], erav[0], erav[1], 0.0, 0.0 } ),
-                 std::move( discrete ),
+  DecaySpectrum( ListRecord( 0.0, type, 0, 0, dspectra.size(),
+                             { dnorm[0], dnorm[1], energy[0],
+                               energy[1], 0.0, 0.0 } ),
+                 std::move( dspectra ),
                  std::nullopt ) {}
 
 /**
  *  @brief Constructor for continuous spectra only (LCON=1)
  *
- *  @param[in] styp         the particle type for which spectral data is given
- *  @param[in] fc           the continuous normalisation factor and its uncertainty
- *  @param[in] erav         the average decay energy and its uncertainty
- *  @param[in] continuous   the continuous spectrum
+ *  @param[in] type         the particle type for which spectral data is given
+ *  @param[in] cnorm        the continuous normalisation factor and its uncertainty
+ *  @param[in] energy       the average decay energy and its uncertainty
+ *  @param[in] cspectrum    the continuous spectrum
  */
-DecaySpectrum( double styp,
-               std::array< double, 2 > fc,
-               std::array< double, 2 > erav,
-               ContinuousSpectrum&& continuous ) :
+DecaySpectrum( double type,
+               std::array< double, 2 > cnorm,
+               std::array< double, 2 > energy,
+               ContinuousSpectrum&& cspectrum ) :
   // this can never fail, try-catch would be unreachable
-  DecaySpectrum( ListRecord( 0.0, styp, 1, 0, 0,
+  DecaySpectrum( ListRecord( 0.0, type, 1, 0, 0,
                              { 0.0, 0.0,
-                               erav[0], erav[1],
-                               fc[0], fc[1] } ),
+                               energy[0], energy[1],
+                               cnorm[0], cnorm[1] } ),
                  {},
-                 std::make_optional( std::move( continuous ) ) ) {}
+                 std::make_optional( std::move( cspectrum ) ) ) {}
 
 /**
- *  @brief Constructor for discrete and continuous spectra (LCON=2)
+ *  @brief Constructor for discrete spectra and continuous spectrum (LCON=2)
  *
- *  @param[in] styp         the particle type for which spectral data is given
- *  @param[in] fd           the discrete normalisation factor and its uncertainty
- *  @param[in] fc           the continuous normalisation factor and its uncertainty
- *  @param[in] erav         the average decay energy and its uncertainty
- *  @param[in] continuous   the continuous spectrum
+ *  @param[in] type         the particle type for which spectral data is given
+ *  @param[in] dnorm        the spectra normalisation factor and its uncertainty
+ *  @param[in] cnorm        the continuous normalisation factor and its uncertainty
+ *  @param[in] energy       the average decay energy and its uncertainty
+ *  @param[in] dspectra     the discrete spectra
+ *  @param[in] cspectrum    the continuous spectrum
  */
-DecaySpectrum( double styp,
-               std::array< double, 2 > fd,
-               std::array< double, 2 > fc,
-               std::array< double, 2 > erav,
-               std::vector< DiscreteSpectrum >&& discrete,
-               ContinuousSpectrum&& continuous )
-  try : DecaySpectrum( ListRecord( 0.0, styp, 2, 0, discrete.size(),
-                                   { fd[0], fd[1],
-                                     erav[0], erav[1],
-                                     fc[0], fc[1] } ),
-                       std::move( discrete ),
-                       std::make_optional( std::move( continuous ) ) ) {}
+DecaySpectrum( double type,
+               std::array< double, 2 > dnorm,
+               std::array< double, 2 > cnorm,
+               std::array< double, 2 > energy,
+               std::vector< DiscreteSpectrum >&& dspectra,
+               ContinuousSpectrum&& cspectrum )
+  try : DecaySpectrum( ListRecord( 0.0, type, 2, 0, dspectra.size(),
+                                   { dnorm[0], dnorm[1],
+                                     energy[0], energy[1],
+                                     cnorm[0], cnorm[1] } ),
+                       std::move( dspectra ),
+                       std::make_optional( std::move( cspectrum ) ) ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing decay spectrum data "
@@ -80,11 +83,11 @@ private:
 
 template< typename Iterator >
 DecaySpectrum( ListRecord&& list,
-               std::vector< DiscreteSpectrum >&& discrete,
+               std::vector< DiscreteSpectrum >&& spectra,
                Iterator& it, const Iterator& end, long& lineNumber,
                int MAT, int MF, int MT ) :
   DecaySpectrum( std::move( list ),
-                 std::move( discrete ),
+                 std::move( spectra ),
                  readContinuous( it, end, lineNumber, MAT, MF, MT,
                                  list.L1() ) ) {
 
