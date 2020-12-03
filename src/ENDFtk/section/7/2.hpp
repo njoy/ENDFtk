@@ -33,6 +33,7 @@ namespace section{
 
     #include "ENDFtk/section/7/2/CoherentElastic.hpp"
     #include "ENDFtk/section/7/2/IncoherentElastic.hpp"
+    #include "ENDFtk/section/7/2/MixedElastic.hpp"
 
     /** @typedef ScatteringLaw
      *  @brief The elastic scattering law of MF7/MT2
@@ -43,7 +44,9 @@ namespace section{
     using ScatteringLaw = std::variant< // LTHR=1
                                         CoherentElastic,
                                         // LTHR=2
-                                        IncoherentElastic >;
+                                        IncoherentElastic,
+                                        // LTHR=3
+                                        MixedElastic >;
 
   private:
 
