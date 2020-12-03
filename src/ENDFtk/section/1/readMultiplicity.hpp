@@ -13,8 +13,8 @@ namespace section{
 
 template< typename Iterator >
 static std::variant< PolynomialMultiplicity, TabulatedMultiplicity >
-readNubarData( Iterator& begin, const Iterator& end, long& lineNumber,
-               int MAT, int MF, int MT, int LNU ) {
+readMultiplicity( Iterator& begin, const Iterator& end, long& lineNumber,
+                  int MAT, int MF, int MT, int LNU ) {
 
   switch ( LNU ) {
 

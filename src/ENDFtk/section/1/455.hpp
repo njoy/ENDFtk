@@ -16,7 +16,7 @@
 
 #include "ENDFtk/section/1/PolynomialMultiplicity.hpp"
 #include "ENDFtk/section/1/TabulatedMultiplicity.hpp"
-#include "ENDFtk/section/1/readNubarData.hpp"
+#include "ENDFtk/section/1/readMultiplicity.hpp"
 
 namespace njoy {
 namespace ENDFtk {
