@@ -5,7 +5,7 @@
  *  The MixedElastic class is used to represent the case where both coherent
  *  and incoherent elastic are used in MF7/MT2.
  *
- *  See ENDF102, section 7.2 for more information.
+ *  See ENDF102, section 7.4 for more information.
  */
 class MixedElastic {
 

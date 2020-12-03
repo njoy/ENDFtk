@@ -5,7 +5,7 @@
  *  The IncoherentElastic class is used to represent the incoherent elastic
  *  scattering law of MF7/MT2.
  *
- *  See ENDF102, section 7.2 for more information.
+ *  See ENDF102, section 7.3 for more information.
  */
 class IncoherentElastic : protected TabulationRecord {
 

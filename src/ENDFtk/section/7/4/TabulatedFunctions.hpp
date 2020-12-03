@@ -9,7 +9,7 @@
  *  The tabulated S(alpha,beta,T) functions are given as tabulated S(alpha,T)
  *  functions for fixed beta values.
  *
- *  See ENDF102, section 7.4 for more information.
+ *  See ENDF102, section 7.5 for more information.
  */
 class TabulatedFunctions {
 
