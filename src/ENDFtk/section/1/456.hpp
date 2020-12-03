@@ -10,6 +10,12 @@ namespace njoy {
 namespace ENDFtk {
 namespace section{
 
+  /**
+   *  @class
+   *  @brief MF1 MT456 - the number of prompt fission neutrons
+   *
+   *  See ENDF102, section 1.4 for more information.
+   */
   template<>
   class Type< 1, 456 > : protected Type< 1, 452 > {
 
@@ -36,7 +42,7 @@ namespace section{
     using Type< 1, 452 >::NC;
 
     #include "ENDFtk/section/1/456/src/print.hpp"
-    
+
     using Type< 1, 452 >::ZA;
     using Type< 1, 452 >::AWR;
     using Type< 1, 452 >::atomicWeightRatio;

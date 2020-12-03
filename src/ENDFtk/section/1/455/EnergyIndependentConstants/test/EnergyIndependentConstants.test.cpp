@@ -3,51 +3,67 @@
 #include "catch.hpp"
 #include "ENDFtk/section/1/455.hpp"
 
+// other includes
+
+// convenience typedefs
 using namespace njoy::ENDFtk;
-using Constant = section::Type< 1, 455 >::Constant;
+using EnergyIndependentConstants = section::Type< 1, 455 >::EnergyIndependentConstants;
 
 std::string chunk();
+void verifyChunk( const EnergyIndependentConstants& );
 
-SCENARIO( "Constant" ) {
+SCENARIO( "EnergyIndependentConstants" ) {
 
-  GIVEN( "a string representation of a valid Constant" ) {
+  GIVEN( "valid data for a EnergyIndependentConstants" ) {
 
     std::string string = chunk();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
 
-    THEN( "a Constant can be constructed and members can be tested" ) {
-      Constant chunk( begin, end, lineNumber, 9228, 1, 455 );
+    WHEN( "the data is given explicitly" ) {
 
-      auto lambdas = chunk.lambdas();
+      std::vector< double > constants = { 1.3336e-2, 3.2739e-2, 1.2078e-1,
+                                          3.0278e-1, 8.4949e-1, 2.853 };
 
-      REQUIRE( 2 == chunk.NC() );
-      REQUIRE( 0 == chunk.LDG() );
-      REQUIRE( 6 == chunk.NNF() );
-      REQUIRE( 6 == lambdas.size() );
-      REQUIRE( 0.013336 == Approx( lambdas[0] ) );
-      REQUIRE( 0.032739 == Approx( lambdas[1] ) );
-      REQUIRE( 0.12078 == Approx( lambdas[2] ) );
-      REQUIRE( 0.30278 == Approx( lambdas[3] ) );
-      REQUIRE( 0.84949 == Approx( lambdas[4] ) );
-      REQUIRE( 2.853000 == Approx( lambdas[5] ) );
-    }
-  } // GIVEN
+      EnergyIndependentConstants chunk( std::move( constants ) );
 
-  GIVEN( "a valid instance of Constant" ) {
-    std::string string = chunk();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-    Constant chunk( begin, end, lineNumber, 9228, 1, 455 );
+      THEN( "an EnergyIndependentConstants can be constructed and members can "
+            "be tested" ) {
 
-    THEN( "it can be printed" ) {
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 9228, 1, 455 );
-      REQUIRE( buffer == string );
-    }
+        verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 1, 455 );
+
+        CHECK( buffer == string );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is read from a string/stream" ) {
+
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      EnergyIndependentConstants chunk( begin, end, lineNumber, 9228, 1, 455 );
+
+      THEN( "a EnergyIndependentConstants can be constructed and members can "
+            "be tested" ) {
+
+        verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 1, 455 );
+
+        CHECK( buffer == string );
+      } // THEN
+    } // WHEN
   } // GIVEN
 } // SCENARIO
 
@@ -55,4 +71,29 @@ std::string chunk() {
   return
     " 0.000000+0 0.000000+0          0          0          6          09228 1455     \n"
     " 1.333600-2 3.273900-2 1.207800-1 3.027800-1 8.494900-1 2.853000+09228 1455     \n";
+}
+
+void verifyChunk( const EnergyIndependentConstants& chunk ) {
+
+  CHECK( 0 == chunk.LDG() );
+  CHECK( 0 == chunk.type() );
+  CHECK( 6 == chunk.NNF() );
+  CHECK( 6 == chunk.numberPrecursors() );
+
+  CHECK( 6 == chunk.lambdas().size() );
+  CHECK( 6 == chunk.decayConstants().size() );
+  CHECK( 0.013336 == Approx( chunk.lambdas()[0] ) );
+  CHECK( 0.032739 == Approx( chunk.lambdas()[1] ) );
+  CHECK( 0.12078 == Approx( chunk.lambdas()[2] ) );
+  CHECK( 0.30278 == Approx( chunk.lambdas()[3] ) );
+  CHECK( 0.84949 == Approx( chunk.lambdas()[4] ) );
+  CHECK( 2.853000 == Approx( chunk.lambdas()[5] ) );
+  CHECK( 0.013336 == Approx( chunk.decayConstants()[0] ) );
+  CHECK( 0.032739 == Approx( chunk.decayConstants()[1] ) );
+  CHECK( 0.12078 == Approx( chunk.decayConstants()[2] ) );
+  CHECK( 0.30278 == Approx( chunk.decayConstants()[3] ) );
+  CHECK( 0.84949 == Approx( chunk.decayConstants()[4] ) );
+  CHECK( 2.853000 == Approx( chunk.decayConstants()[5] ) );
+
+  CHECK( 2 == chunk.NC() );
 }

@@ -22,6 +22,12 @@ namespace njoy {
 namespace ENDFtk {
 namespace section{
 
+  /**
+   *  @class
+   *  @brief MF1 MT455 - the number of delayed fission neutrons
+   *
+   *  See ENDF102, section 1.3 for more information.
+   */
   template<>
   class Type< 1, 455 > : protected BaseWithoutMT< Type< 1, 455 > > {
 
@@ -29,23 +35,21 @@ namespace section{
 
   public:
 
-    #include "ENDFtk/section/1/455/Constant.hpp"
+    #include "ENDFtk/section/1/455/EnergyIndependentConstants.hpp"
     #include "ENDFtk/section/1/455/DecayConstant.hpp"
     #include "ENDFtk/section/1/455/EnergyDependent.hpp"
 
-    using DecayConstantData = std::variant< // LDG=0
-                                            Constant,
-                                            // LDG=1
-                                            EnergyDependent >;
+    using DecayConstantData = std::variant< EnergyIndependentConstants, // LDG=0
+                                            EnergyDependent >;          // LDG=1
 
-    using NubarData = std::variant< PolynomialMultiplicity,  // LNU=1
-                                    TabulatedMultiplicity >; // LNU=2
+    using Multiplicity = std::variant< PolynomialMultiplicity,  // LNU=1
+                                       TabulatedMultiplicity >; // LNU=2
 
   private:
 
     /* fields */
     DecayConstantData lambda_;
-    NubarData nubar_;
+    Multiplicity nubar_;
 
     /* auxiliary functions */
     #include "ENDFtk/section/1/455/src/readDecayConstantData.hpp"
@@ -53,16 +57,9 @@ namespace section{
   public:
 
     /* constructor */
-  #include "ENDFtk/section/1/455/src/ctor.hpp"
+    #include "ENDFtk/section/1/455/src/ctor.hpp"
 
-    /* set methods */
-
-    /* get methods */
-
-    /**
-     *  @brief Return the MT number of the section
-     */
-    static constexpr int sectionNumber(){ return 455; }
+    /* methods */
 
     int LNU() const { return std::visit( [] ( const auto& v ) -> long
                                             { return v.LNU(); },
@@ -74,7 +71,7 @@ namespace section{
 
     const DecayConstantData& lambda() const { return this->lambda_; }
 
-    const NubarData& nubar() const { return this->nubar_; }
+    const Multiplicity& nubar() const { return this->nubar_; }
 
     long NC() const { return 1 + std::visit( [] ( const auto& v ) -> long
                                                 { return v.NC(); },
@@ -84,6 +81,11 @@ namespace section{
                                              this->nubar_ ); }
 
     #include "ENDFtk/section/1/455/src/print.hpp"
+
+    /**
+     *  @brief Return the MT number of the section
+     */
+    static constexpr int sectionNumber(){ return 455; }
 
     using BaseWithoutMT::MT;
     using BaseWithoutMT::ZA;

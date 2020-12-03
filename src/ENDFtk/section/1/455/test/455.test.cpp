@@ -8,7 +8,7 @@
 using namespace njoy::ENDFtk;
 
 using section1455 = section::Type< 1, 455 >;
-using Constant = section::Type< 1, 455 >::Constant;
+using EnergyIndependentConstants = section::Type< 1, 455 >::EnergyIndependentConstants;
 using EnergyDependent = section::Type< 1, 455 >::EnergyDependent;
 using PolynomialMultiplicity = section::PolynomialMultiplicity;
 using TabulatedMultiplicity = section::TabulatedMultiplicity;
@@ -37,12 +37,12 @@ SCENARIO( "section::Type< 1, 455 >" ) {
       THEN( "a section::Type< 1, 455 > can be constructed and members can be tested" ) {
         section::Type< 1, 455 > MF1MT455( head, begin, end, lineNumber, 9228 );
 
-        REQUIRE_NOTHROW( std::get< Constant >
+        REQUIRE_NOTHROW( std::get< EnergyIndependentConstants >
                          ( MF1MT455.lambda() ) );
         REQUIRE_NOTHROW( std::get< PolynomialMultiplicity >
                          ( MF1MT455.nubar() ) );
 
-        const auto& lambda = std::get< Constant >
+        const auto& lambda = std::get< EnergyIndependentConstants >
                              ( MF1MT455.lambda() );
         auto lambdas = lambda.lambdas();
         const auto& data = std::get< PolynomialMultiplicity >
@@ -87,12 +87,12 @@ SCENARIO( "section::Type< 1, 455 >" ) {
       THEN( "a section::Type< 1, 455 > can be constructed and members can be tested" ){
         section::Type< 1, 455 > MF1MT455 = section.parse< 1, 455 >( lineNumber );
 
-        REQUIRE_NOTHROW( std::get< Constant >
+        REQUIRE_NOTHROW( std::get< EnergyIndependentConstants >
                          ( MF1MT455.lambda() ) );
         REQUIRE_NOTHROW( std::get< PolynomialMultiplicity >
                          ( MF1MT455.nubar() ) );
 
-        const auto& lambda = std::get< Constant >
+        const auto& lambda = std::get< EnergyIndependentConstants >
                              ( MF1MT455.lambda() );
         auto lambdas = lambda.lambdas();
         const auto& data = std::get< PolynomialMultiplicity >
@@ -149,12 +149,12 @@ SCENARIO( "section::Type< 1, 455 >" ) {
       THEN( "a section::Type< 1, 455 > can be constructed and members can be tested" ) {
         section::Type< 1, 455 > MF1MT455( head, begin, end, lineNumber, 9228 );
 
-        REQUIRE_NOTHROW( std::get< Constant >
+        REQUIRE_NOTHROW( std::get< EnergyIndependentConstants >
                          ( MF1MT455.lambda() ) );
         REQUIRE_NOTHROW( std::get< TabulatedMultiplicity >
                          ( MF1MT455.nubar() ) );
 
-        const auto& lambda = std::get< Constant >
+        const auto& lambda = std::get< EnergyIndependentConstants >
                              ( MF1MT455.lambda() );
         auto lambdas = lambda.lambdas();
         const auto& data = std::get< TabulatedMultiplicity >
@@ -215,12 +215,12 @@ SCENARIO( "section::Type< 1, 455 >" ) {
       THEN( "a section::Type< 1, 455 > can be constructed and members can be tested" ){
         section::Type< 1, 455 > MF1MT455 = section.parse< 1, 455 >( lineNumber );
 
-        REQUIRE_NOTHROW( std::get< Constant >
+        REQUIRE_NOTHROW( std::get< EnergyIndependentConstants >
                          ( MF1MT455.lambda() ) );
         REQUIRE_NOTHROW( std::get< TabulatedMultiplicity >
                          ( MF1MT455.nubar() ) );
 
-        const auto& lambda = std::get< Constant >
+        const auto& lambda = std::get< EnergyIndependentConstants >
                              ( MF1MT455.lambda() );
         auto lambdas = lambda.lambdas();
         const auto& data = std::get< TabulatedMultiplicity >

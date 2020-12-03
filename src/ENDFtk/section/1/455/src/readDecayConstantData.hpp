@@ -8,7 +8,7 @@ readDecayConstantData( Iterator& begin,
                        int MT,
                        int LDG ) {
   switch ( LDG ) {
-    case 0 : return Constant( begin, end, lineNumber, MAT, MF, MT );
+    case 0 : return EnergyIndependentConstants( begin, end, lineNumber, MAT, MF, MT );
     case 1 : return EnergyDependent( begin, end, lineNumber, MAT, MF, MT );
     default : {
       Log::error( "Encountered illegal LDG value" );
