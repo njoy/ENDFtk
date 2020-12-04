@@ -4,23 +4,23 @@
 #include "ENDFtk/section/1/455.hpp"
 
 using namespace njoy::ENDFtk;
-using EnergyDependent = section::Type< 1, 455 >::EnergyDependent;
+using EnergyDependentConstants = section::Type< 1, 455 >::EnergyDependentConstants;
 
 std::string chunk();
 std::string oddNPL();
 std::string inconsistentNPL();
 
-SCENARIO( "EnergyDependent" ) {
+SCENARIO( "EnergyDependentConstants" ) {
 
-  GIVEN( "a string representation of a valid EnergyDependent" ) {
+  GIVEN( "a string representation of a valid EnergyDependentConstants" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
 
-    THEN( "a EnergyDependent can be constructed and members can be tested" ) {
-      EnergyDependent chunk( begin, end, lineNumber, 9228, 1, 455 );
+    THEN( "a EnergyDependentConstants can be constructed and members can be tested" ) {
+      EnergyDependentConstants chunk( begin, end, lineNumber, 9228, 1, 455 );
 
       auto interpolants = chunk.interpolants();
       auto boundaries = chunk.boundaries();
@@ -36,8 +36,8 @@ SCENARIO( "EnergyDependent" ) {
       REQUIRE( 4 == interpolants[0] );
       REQUIRE( 2 == boundaries[0] );
       REQUIRE( 2 == constants.size() );
-      REQUIRE( 1e-5 == Approx( constants[0].energy() ) );
-      REQUIRE( 2e+7 == Approx( constants[1].energy() ) );
+      REQUIRE( 1e-5 == Approx( constants[0].incidentEnergy() ) );
+      REQUIRE( 2e+7 == Approx( constants[1].incidentEnergy() ) );
       auto lambdas = constants[0].lambdas();
       REQUIRE( 6 == lambdas.size() );
       REQUIRE( 1. == Approx( lambdas[0] ) );
@@ -73,12 +73,12 @@ SCENARIO( "EnergyDependent" ) {
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of EnergyDependent" ) {
+  GIVEN( "a valid instance of EnergyDependentConstants" ) {
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    EnergyDependent chunk( begin, end, lineNumber, 9228, 1, 455 );
+    EnergyDependentConstants chunk( begin, end, lineNumber, 9228, 1, 455 );
 
     THEN( "it can be printed" ) {
       std::string buffer;
@@ -88,7 +88,7 @@ SCENARIO( "EnergyDependent" ) {
     }
   } // GIVEN
 
-  GIVEN( "a string representation of a EnergyDependent"
+  GIVEN( "a string representation of a EnergyDependentConstants"
          " with an inconsistent NPL" ){
     std::string string = inconsistentNPL();
     auto begin = string.begin();
@@ -96,11 +96,11 @@ SCENARIO( "EnergyDependent" ) {
     long lineNumber = 1;
 
     THEN( "an exception is thrown upon construction" ){
-      REQUIRE_THROWS( EnergyDependent( begin, end, lineNumber, 9228, 1, 455 ) );
+      REQUIRE_THROWS( EnergyDependentConstants( begin, end, lineNumber, 9228, 1, 455 ) );
     }
   } // GIVEN
 
-  GIVEN( "a string representation of a EnergyDependent"
+  GIVEN( "a string representation of a EnergyDependentConstants"
          " with an odd NPL" ){
     std::string string = oddNPL();
     auto begin = string.begin();
@@ -108,7 +108,7 @@ SCENARIO( "EnergyDependent" ) {
     long lineNumber = 1;
 
     THEN( "an exception is thrown upon construction" ){
-      REQUIRE_THROWS( EnergyDependent( begin, end, lineNumber, 9228, 1, 455 ) );
+      REQUIRE_THROWS( EnergyDependentConstants( begin, end, lineNumber, 9228, 1, 455 ) );
     }
   } // GIVEN
 } // SCENARIO

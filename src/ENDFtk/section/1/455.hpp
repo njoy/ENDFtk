@@ -7,7 +7,7 @@
 // other includes
 #include "ENDFtk/TabulationRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
-#include "ENDFtk/InterpolationRecord.hpp"
+#include "ENDFtk/InterpolationSequenceRecord.hpp"
 #include "ENDFtk/HeadRecord.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/section.hpp"
@@ -36,11 +36,11 @@ namespace section{
   public:
 
     #include "ENDFtk/section/1/455/EnergyIndependentConstants.hpp"
-    #include "ENDFtk/section/1/455/DecayConstant.hpp"
-    #include "ENDFtk/section/1/455/EnergyDependent.hpp"
+    #include "ENDFtk/section/1/455/DecayConstants.hpp"
+    #include "ENDFtk/section/1/455/EnergyDependentConstants.hpp"
 
     using DecayConstantData = std::variant< EnergyIndependentConstants, // LDG=0
-                                            EnergyDependent >;          // LDG=1
+                                            EnergyDependentConstants >; // LDG=1
 
     using Multiplicity = std::variant< PolynomialMultiplicity,  // LNU=1
                                        TabulatedMultiplicity >; // LNU=2

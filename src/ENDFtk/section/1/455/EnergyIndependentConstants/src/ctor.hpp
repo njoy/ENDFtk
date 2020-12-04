@@ -27,7 +27,7 @@ EnergyIndependentConstants( std::vector< double >&& constants )
  */
 template< typename Iterator >
 EnergyIndependentConstants( Iterator& begin, const Iterator& end,
-                       long& lineNumber, int MAT, int MF, int MT )
+                            long& lineNumber, int MAT, int MF, int MT )
   try : ListRecord( begin, end, lineNumber, MAT, MF, MT ) {}
   catch ( std::exception& e ) {
 

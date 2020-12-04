@@ -9,7 +9,7 @@ using namespace njoy::ENDFtk;
 
 using section1455 = section::Type< 1, 455 >;
 using EnergyIndependentConstants = section::Type< 1, 455 >::EnergyIndependentConstants;
-using EnergyDependent = section::Type< 1, 455 >::EnergyDependent;
+using EnergyDependentConstants = section::Type< 1, 455 >::EnergyDependentConstants;
 using PolynomialMultiplicity = section::PolynomialMultiplicity;
 using TabulatedMultiplicity = section::TabulatedMultiplicity;
 
@@ -309,12 +309,12 @@ SCENARIO( "section::Type< 1, 455 >" ) {
       THEN( "a section::Type< 1, 455 > can be constructed and members can be tested" ) {
         section::Type< 1, 455 > MF1MT455( head, begin, end, lineNumber, 9228 );
 
-        REQUIRE_NOTHROW( std::get< EnergyDependent >
+        REQUIRE_NOTHROW( std::get< EnergyDependentConstants >
                          ( MF1MT455.lambda() ) );
         REQUIRE_NOTHROW( std::get< PolynomialMultiplicity >
                          ( MF1MT455.nubar() ) );
 
-        const auto& lambda = std::get< EnergyDependent >
+        const auto& lambda = std::get< EnergyDependentConstants >
                              ( MF1MT455.lambda() );
         auto l_interpolants = lambda.interpolants();
         auto l_boundaries = lambda.boundaries();
@@ -341,8 +341,8 @@ SCENARIO( "section::Type< 1, 455 >" ) {
         REQUIRE( 4 == l_interpolants[0] );
         REQUIRE( 2 == l_boundaries[0] );
         REQUIRE( 2 == l_constants.size() );
-        REQUIRE( 1e-5 == Approx( l_constants[0].energy() ) );
-        REQUIRE( 2e+7 == Approx( l_constants[1].energy() ) );
+        REQUIRE( 1e-5 == Approx( l_constants[0].incidentEnergy() ) );
+        REQUIRE( 2e+7 == Approx( l_constants[1].incidentEnergy() ) );
         auto lambdas = l_constants[0].lambdas();
         REQUIRE( 6 == lambdas.size() );
         REQUIRE( 1. == Approx( lambdas[0] ) );
@@ -396,12 +396,12 @@ SCENARIO( "section::Type< 1, 455 >" ) {
       THEN( "a section::Type< 1, 455 > can be constructed and members can be tested" ){
         section::Type< 1, 455 > MF1MT455 = section.parse< 1, 455 >( lineNumber );
 
-        REQUIRE_NOTHROW( std::get< EnergyDependent >
+        REQUIRE_NOTHROW( std::get< EnergyDependentConstants >
                          ( MF1MT455.lambda() ) );
         REQUIRE_NOTHROW( std::get< PolynomialMultiplicity >
                          ( MF1MT455.nubar() ) );
 
-        const auto& lambda = std::get< EnergyDependent >
+        const auto& lambda = std::get< EnergyDependentConstants >
                              ( MF1MT455.lambda() );
         auto l_interpolants = lambda.interpolants();
         auto l_boundaries = lambda.boundaries();
@@ -428,8 +428,8 @@ SCENARIO( "section::Type< 1, 455 >" ) {
         REQUIRE( 4 == l_interpolants[0] );
         REQUIRE( 2 == l_boundaries[0] );
         REQUIRE( 2 == l_constants.size() );
-        REQUIRE( 1e-5 == Approx( l_constants[0].energy() ) );
-        REQUIRE( 2e+7 == Approx( l_constants[1].energy() ) );
+        REQUIRE( 1e-5 == Approx( l_constants[0].incidentEnergy() ) );
+        REQUIRE( 2e+7 == Approx( l_constants[1].incidentEnergy() ) );
         auto lambdas = l_constants[0].lambdas();
         REQUIRE( 6 == lambdas.size() );
         REQUIRE( 1. == Approx( lambdas[0] ) );
@@ -495,12 +495,12 @@ SCENARIO( "section::Type< 1, 455 >" ) {
       THEN( "a section::Type< 1, 455 > can be constructed and members can be tested" ) {
         section::Type< 1, 455 > MF1MT455( head, begin, end, lineNumber, 9228 );
 
-        REQUIRE_NOTHROW( std::get< EnergyDependent >
+        REQUIRE_NOTHROW( std::get< EnergyDependentConstants >
                          ( MF1MT455.lambda() ) );
         REQUIRE_NOTHROW( std::get< TabulatedMultiplicity >
                          ( MF1MT455.nubar() ) );
 
-        const auto& lambda = std::get< EnergyDependent >
+        const auto& lambda = std::get< EnergyDependentConstants >
                              ( MF1MT455.lambda() );
         auto l_interpolants = lambda.interpolants();
         auto l_boundaries = lambda.boundaries();
@@ -530,8 +530,8 @@ SCENARIO( "section::Type< 1, 455 >" ) {
         REQUIRE( 4 == l_interpolants[0] );
         REQUIRE( 2 == l_boundaries[0] );
         REQUIRE( 2 == l_constants.size() );
-        REQUIRE( 1e-5 == Approx( l_constants[0].energy() ) );
-        REQUIRE( 2e+7 == Approx( l_constants[1].energy() ) );
+        REQUIRE( 1e-5 == Approx( l_constants[0].incidentEnergy() ) );
+        REQUIRE( 2e+7 == Approx( l_constants[1].incidentEnergy() ) );
         auto lambdas = l_constants[0].lambdas();
         REQUIRE( 6 == lambdas.size() );
         REQUIRE( 1. == Approx( lambdas[0] ) );
@@ -598,12 +598,12 @@ SCENARIO( "section::Type< 1, 455 >" ) {
       THEN( "a section::Type< 1, 455 > can be constructed and members can be tested" ){
         section::Type< 1, 455 > MF1MT455 = section.parse< 1, 455 >( lineNumber );
 
-        REQUIRE_NOTHROW( std::get< EnergyDependent >
+        REQUIRE_NOTHROW( std::get< EnergyDependentConstants >
                          ( MF1MT455.lambda() ) );
         REQUIRE_NOTHROW( std::get< TabulatedMultiplicity >
                          ( MF1MT455.nubar() ) );
 
-        const auto& lambda = std::get< EnergyDependent >
+        const auto& lambda = std::get< EnergyDependentConstants >
                              ( MF1MT455.lambda() );
         auto l_interpolants = lambda.interpolants();
         auto l_boundaries = lambda.boundaries();
@@ -633,8 +633,8 @@ SCENARIO( "section::Type< 1, 455 >" ) {
         REQUIRE( 4 == l_interpolants[0] );
         REQUIRE( 2 == l_boundaries[0] );
         REQUIRE( 2 == l_constants.size() );
-        REQUIRE( 1e-5 == Approx( l_constants[0].energy() ) );
-        REQUIRE( 2e+7 == Approx( l_constants[1].energy() ) );
+        REQUIRE( 1e-5 == Approx( l_constants[0].incidentEnergy() ) );
+        REQUIRE( 2e+7 == Approx( l_constants[1].incidentEnergy() ) );
         auto lambdas = l_constants[0].lambdas();
         REQUIRE( 6 == lambdas.size() );
         REQUIRE( 1. == Approx( lambdas[0] ) );
