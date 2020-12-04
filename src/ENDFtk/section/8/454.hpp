@@ -21,12 +21,12 @@ namespace section {
 
   public:
 
-    Type() : NotImplementedYet() {};
+    Type() : NotImplementedYet() {}
     template< typename Iterator >
     Type( HEAD& head, Iterator& begin, const Iterator& end,
           long& lineNumber, int MAT ) :
       NotImplementedYet( head, begin, end,
-                         lineNumber, MAT ) {};
+                         lineNumber, MAT ) {}
 
     /**
      *  @brief Return the MF number of the section
