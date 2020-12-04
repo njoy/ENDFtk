@@ -14,7 +14,7 @@ EnergyDependentConstants( std::vector< long >&& boundaries,
                                std::move( interpolants ) ),
           std::move( constants ) ) {
 
-    // verifyNNF( this->lists_ );
+    verify( this->records() );
   }
   catch ( std::exception& e ) {
 
@@ -40,7 +40,10 @@ EnergyDependentConstants( Iterator& it, const Iterator& end,
                           long& lineNumber, int MAT, int MF, int MT )
   try : InterpolationSequenceRecord(
           readInterpolationSequenceRecord< DecayConstants >(
-            it, end, lineNumber, MAT, MF, MT ) ) {}
+            it, end, lineNumber, MAT, MF, MT ) ) {
+
+    verify( this->records() );
+  }
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while reading energy dependent decay "

@@ -1,5 +1,5 @@
-static void
-verifyNNF( const std::vector< DecayConstants >& lists ) {
+template < typename Range >
+static void verify( const Range& lists ) {
 
   int NNF = lists[0].NNF();
   for ( const auto& entry : lists ) {

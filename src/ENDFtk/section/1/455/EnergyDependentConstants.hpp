@@ -9,7 +9,7 @@ class EnergyDependentConstants :
   protected InterpolationSequenceRecord< DecayConstants > {
 
   /* auxiliary functions */
-  #include "ENDFtk/section/1/455/EnergyDependentConstants/src/verifyNNF.hpp"
+  #include "ENDFtk/section/1/455/EnergyDependentConstants/src/verify.hpp"
 
 public:
   /* constructor */
@@ -59,6 +59,9 @@ public:
    */
   auto boundaries() const { return InterpolationSequenceRecord::tab2().boundaries(); }
 
+  /**
+   *  @brief Return the decay contants
+   */
   auto constants() const {
 
     return this->records();
