@@ -43,7 +43,7 @@ FetchContent_Declare( range-v3-adapter
 
 FetchContent_Declare( pybind11
     GIT_REPOSITORY  https://github.com/pybind/pybind11
-    GIT_TAG         v2.6.0rc3
+    GIT_TAG         v2.6.1
     GIT_SHALLOW     TRUE
     )
 

@@ -3,14 +3,73 @@
 #include "catch.hpp"
 #include "ENDFtk/section/1/455.hpp"
 
+// other includes
+
+// convenience typedefs
 using namespace njoy::ENDFtk;
+using DecayConstants = section::Type< 1, 455 >::DecayConstants;
 using EnergyDependentConstants = section::Type< 1, 455 >::EnergyDependentConstants;
 
 std::string chunk();
+void verifyChunk( const DecayConstants& );
+//std::string invalidChunk();
+
 std::string oddNPL();
 std::string inconsistentNPL();
 
 SCENARIO( "EnergyDependentConstants" ) {
+
+  GIVEN( "valid data for a EnergyDependentConstants" ) {
+
+    std::string string = chunk();
+
+    WHEN( "the data is given explicitly" ) {
+
+      { DecayConstants chunk( 1e-5, { 1., 2., 3., 4., 5., 6. },
+                              { 1.1, 2.1, 3.1, 4.1, 5.1, 6.1 } ),
+        DecayConstants chunk( 1e-5, { 6., 5., 4., 3., 2., 1. },
+                              { 6.1, 5.1, 4.1, 3.1, 2.1, 1.1 } ) };
+
+      THEN( "an EnergyDependentConstants can be constructed and members can "
+            "be tested" ) {
+
+        verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 1, 455 );
+
+        CHECK( buffer == string );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is read from a string/stream" ) {
+
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      DecayConstants chunk( begin, end, lineNumber, 9228, 1, 455 );
+
+      THEN( "a EnergyDependentConstants can be constructed and members can "
+            "be tested" ) {
+
+        verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 1, 455 );
+
+        CHECK( buffer == string );
+      } // THEN
+    } // WHEN
+  } // GIVEN
 
   GIVEN( "a string representation of a valid EnergyDependentConstants" ) {
 
