@@ -61,18 +61,43 @@ namespace section{
 
     /* methods */
 
+    /**
+     *  @brief Return the fission multiplicity representation type
+     */
     int LNU() const { return std::visit( [] ( const auto& v ) -> long
                                             { return v.LNU(); },
                                          this->nubar_ ); }
 
+    /**
+     *  @brief Return the fission multiplicity representation type
+     */
+    int representation() const { return this->LNU(); }
+
+    /**
+     *  @brief Return the type of decay constants
+     */
     int LDG() const { return std::visit( [] ( const auto& v ) -> long
                                             { return v.LDG(); },
                                          this->lambda_ ); }
 
+    /**
+     *  @brief Return the type of decay constants
+     */
+    int type() const { return this->LDG(); }
+
+    /**
+     *  @brief Return the decay constant data
+     */
     const DecayConstantData& lambda() const { return this->lambda_; }
 
+    /**
+     *  @brief Return the fission multiplicity data
+     */
     const Multiplicity& nubar() const { return this->nubar_; }
 
+    /**
+     *  @brief Return the number of lines in this MF1/MT455 section
+     */
     long NC() const { return 1 + std::visit( [] ( const auto& v ) -> long
                                                 { return v.NC(); },
                                              this->lambda_ )

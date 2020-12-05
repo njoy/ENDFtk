@@ -11,11 +11,9 @@ using DecayConstants = section::Type< 1, 455 >::DecayConstants;
 using EnergyDependentConstants = section::Type< 1, 455 >::EnergyDependentConstants;
 
 std::string chunk();
-void verifyChunk( const DecayConstants& );
-//std::string invalidChunk();
-
+void verifyChunk( const EnergyDependentConstants& );
 std::string oddNPL();
-std::string inconsistentNPL();
+std::string inconsistentNNF();
 
 SCENARIO( "EnergyDependentConstants" ) {
 
@@ -25,10 +23,19 @@ SCENARIO( "EnergyDependentConstants" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      { DecayConstants chunk( 1e-5, { 1., 2., 3., 4., 5., 6. },
-                              { 1.1, 2.1, 3.1, 4.1, 5.1, 6.1 } ),
-        DecayConstants chunk( 1e-5, { 6., 5., 4., 3., 2., 1. },
-                              { 6.1, 5.1, 4.1, 3.1, 2.1, 1.1 } ) };
+      std::vector< long > boundaries = { 2 };
+      std::vector< long > interpolants = { 4 };
+      std::vector< DecayConstants > constants = {
+
+        DecayConstants( 1e-5, { 1., 2., 3., 4., 5., 6. },
+                        { 1.1, 2.1, 3.1, 4.1, 5.1, 6.1 } ),
+        DecayConstants( 2e+7, { 6., 5., 4., 3., 2., 1. },
+                        { 6.1, 5.1, 4.1, 3.1, 2.1, 1.1 } )
+      };
+
+      EnergyDependentConstants chunk( std::move( boundaries ),
+                                      std::move( interpolants ),
+                                      std::move( constants ) );
 
       THEN( "an EnergyDependentConstants can be constructed and members can "
             "be tested" ) {
@@ -52,7 +59,7 @@ SCENARIO( "EnergyDependentConstants" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      DecayConstants chunk( begin, end, lineNumber, 9228, 1, 455 );
+      EnergyDependentConstants chunk( begin, end, lineNumber, 9228, 1, 455 );
 
       THEN( "a EnergyDependentConstants can be constructed and members can "
             "be tested" ) {
@@ -71,104 +78,57 @@ SCENARIO( "EnergyDependentConstants" ) {
     } // WHEN
   } // GIVEN
 
-  GIVEN( "a string representation of a valid EnergyDependentConstants" ) {
+  GIVEN( "invalid data for a EnergyDependentConstants" ) {
 
-    std::string string = chunk();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
+    WHEN( "there are issues with the input data" ) {
 
-    THEN( "a EnergyDependentConstants can be constructed and members can be tested" ) {
-      EnergyDependentConstants chunk( begin, end, lineNumber, 9228, 1, 455 );
+      // no need to test every possibility (TAB1 takes care of tests)
 
-      auto interpolants = chunk.interpolants();
-      auto boundaries = chunk.boundaries();
-      auto constants = chunk.constants();
+      std::vector< long > boundaries = { 1 };
+      std::vector< long > interpolants = { 4 };
+      std::vector< DecayConstants > constants = {
 
-      REQUIRE( 8 == chunk.NC() );
-      REQUIRE( 1 == chunk.LDG() );
-      REQUIRE( 1 == chunk.NR() );
-      REQUIRE( 2 == chunk.NE() );
-      REQUIRE( 6 == chunk.NNF() );
-      REQUIRE( 1 == interpolants.size() );
-      REQUIRE( 1 == boundaries.size() );
-      REQUIRE( 4 == interpolants[0] );
-      REQUIRE( 2 == boundaries[0] );
-      REQUIRE( 2 == constants.size() );
-      REQUIRE( 1e-5 == Approx( constants[0].incidentEnergy() ) );
-      REQUIRE( 2e+7 == Approx( constants[1].incidentEnergy() ) );
-      auto lambdas = constants[0].lambdas();
-      REQUIRE( 6 == lambdas.size() );
-      REQUIRE( 1. == Approx( lambdas[0] ) );
-      REQUIRE( 2. == Approx( lambdas[1] ) );
-      REQUIRE( 3. == Approx( lambdas[2] ) );
-      REQUIRE( 4. == Approx( lambdas[3] ) );
-      REQUIRE( 5. == Approx( lambdas[4] ) );
-      REQUIRE( 6. == Approx( lambdas[5] ) );
-      lambdas = constants[1].lambdas();
-      REQUIRE( 6 == lambdas.size() );
-      REQUIRE( 6. == Approx( lambdas[0] ) );
-      REQUIRE( 5. == Approx( lambdas[1] ) );
-      REQUIRE( 4. == Approx( lambdas[2] ) );
-      REQUIRE( 3. == Approx( lambdas[3] ) );
-      REQUIRE( 2. == Approx( lambdas[4] ) );
-      REQUIRE( 1. == Approx( lambdas[5] ) );
-      auto alphas = constants[0].alphas();
-      REQUIRE( 6 == alphas.size() );
-      REQUIRE( 1.1 == Approx( alphas[0] ) );
-      REQUIRE( 2.1 == Approx( alphas[1] ) );
-      REQUIRE( 3.1 == Approx( alphas[2] ) );
-      REQUIRE( 4.1 == Approx( alphas[3] ) );
-      REQUIRE( 5.1 == Approx( alphas[4] ) );
-      REQUIRE( 6.1 == Approx( alphas[5] ) );
-      alphas = constants[1].alphas();
-      REQUIRE( 6 == lambdas.size() );
-      REQUIRE( 6.1 == Approx( alphas[0] ) );
-      REQUIRE( 5.1 == Approx( alphas[1] ) );
-      REQUIRE( 4.1 == Approx( alphas[2] ) );
-      REQUIRE( 3.1 == Approx( alphas[3] ) );
-      REQUIRE( 2.1 == Approx( alphas[4] ) );
-      REQUIRE( 1.1 == Approx( alphas[5] ) );
-    }
-  } // GIVEN
+        DecayConstants( 1e-5, { 1., 2., 3., 4., 5., 6. },
+                        { 1.1, 2.1, 3.1, 4.1, 5.1, 6.1 } ),
+        DecayConstants( 1e-5, { 6., 5., 4., 3., 2., 1. },
+                        { 6.1, 5.1, 4.1, 3.1, 2.1, 1.1 } )
+      };
 
-  GIVEN( "a valid instance of EnergyDependentConstants" ) {
-    std::string string = chunk();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-    EnergyDependentConstants chunk( begin, end, lineNumber, 9228, 1, 455 );
+      THEN( "an exception is thrown" ) {
 
-    THEN( "it can be printed" ) {
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 9228, 1, 455 );
-      REQUIRE( buffer == string );
-    }
-  } // GIVEN
+        CHECK_THROWS( EnergyDependentConstants( std::move( boundaries ),
+                                                std::move( interpolants ),
+                                                std::move( constants ) ) );
+      } // THEN
+    } // WHEN
 
-  GIVEN( "a string representation of a EnergyDependentConstants"
-         " with an inconsistent NPL" ){
-    std::string string = inconsistentNPL();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
+    WHEN( "a string representation with an odd NPL is given" ) {
 
-    THEN( "an exception is thrown upon construction" ){
-      REQUIRE_THROWS( EnergyDependentConstants( begin, end, lineNumber, 9228, 1, 455 ) );
-    }
-  } // GIVEN
+      std::string string = oddNPL();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
 
-  GIVEN( "a string representation of a EnergyDependentConstants"
-         " with an odd NPL" ){
-    std::string string = oddNPL();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
+      THEN( "an exception is thrown" ) {
 
-    THEN( "an exception is thrown upon construction" ){
-      REQUIRE_THROWS( EnergyDependentConstants( begin, end, lineNumber, 9228, 1, 455 ) );
-    }
+        CHECK_THROWS( EnergyDependentConstants( begin, end, lineNumber,
+                                                9228, 1, 455 ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a string representation with inconsistent NNF values is given" ) {
+
+      std::string string = inconsistentNNF();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( EnergyDependentConstants( begin, end, lineNumber,
+                                                9228, 1, 455 ) );
+      } // THEN
+    } // WHEN
   } // GIVEN
 } // SCENARIO
 
@@ -184,6 +144,87 @@ std::string chunk() {
     " 3.000000+0 3.100000+0 2.000000+0 2.100000+0 1.000000+0 1.100000+09228 1455     \n";
 }
 
+void verifyChunk( const EnergyDependentConstants& chunk ) {
+
+  CHECK( 1 == chunk.LDG() );
+  CHECK( 1 == chunk.type() );
+  CHECK( 6 == chunk.NNF() );
+  CHECK( 6 == chunk.numberPrecursors() );
+
+  CHECK( 1 == chunk.NR() );
+  CHECK( 2 == chunk.NE() );
+  CHECK( 1 == chunk.interpolants().size() );
+  CHECK( 1 == chunk.boundaries().size() );
+  CHECK( 4 == chunk.interpolants()[0] );
+  CHECK( 2 == chunk.boundaries()[0] );
+
+  CHECK( 2 == chunk.constants().size() );
+  CHECK( 1e-5 == Approx( chunk.constants()[0].incidentEnergy() ) );
+  CHECK( 2e+7 == Approx( chunk.constants()[1].incidentEnergy() ) );
+
+  CHECK( 6 == chunk.constants()[0].lambdas().size() );
+  CHECK( 6 == chunk.constants()[0].decayConstants().size() );
+  CHECK( 1. == Approx( chunk.constants()[0].lambdas()[0] ) );
+  CHECK( 2. == Approx( chunk.constants()[0].lambdas()[1] ) );
+  CHECK( 3. == Approx( chunk.constants()[0].lambdas()[2] ) );
+  CHECK( 4. == Approx( chunk.constants()[0].lambdas()[3] ) );
+  CHECK( 5. == Approx( chunk.constants()[0].lambdas()[4] ) );
+  CHECK( 6. == Approx( chunk.constants()[0].lambdas()[5] ) );
+  CHECK( 1. == Approx( chunk.constants()[0].decayConstants()[0] ) );
+  CHECK( 2. == Approx( chunk.constants()[0].decayConstants()[1] ) );
+  CHECK( 3. == Approx( chunk.constants()[0].decayConstants()[2] ) );
+  CHECK( 4. == Approx( chunk.constants()[0].decayConstants()[3] ) );
+  CHECK( 5. == Approx( chunk.constants()[0].decayConstants()[4] ) );
+  CHECK( 6. == Approx( chunk.constants()[0].decayConstants()[5] ) );
+
+  CHECK( 6 == chunk.constants()[1].lambdas().size() );
+  CHECK( 6 == chunk.constants()[1].decayConstants().size() );
+  CHECK( 6. == Approx( chunk.constants()[1].lambdas()[0] ) );
+  CHECK( 5. == Approx( chunk.constants()[1].lambdas()[1] ) );
+  CHECK( 4. == Approx( chunk.constants()[1].lambdas()[2] ) );
+  CHECK( 3. == Approx( chunk.constants()[1].lambdas()[3] ) );
+  CHECK( 2. == Approx( chunk.constants()[1].lambdas()[4] ) );
+  CHECK( 1. == Approx( chunk.constants()[1].lambdas()[5] ) );
+  CHECK( 6. == Approx( chunk.constants()[1].decayConstants()[0] ) );
+  CHECK( 5. == Approx( chunk.constants()[1].decayConstants()[1] ) );
+  CHECK( 4. == Approx( chunk.constants()[1].decayConstants()[2] ) );
+  CHECK( 3. == Approx( chunk.constants()[1].decayConstants()[3] ) );
+  CHECK( 2. == Approx( chunk.constants()[1].decayConstants()[4] ) );
+  CHECK( 1. == Approx( chunk.constants()[1].decayConstants()[5] ) );
+
+  CHECK( 6 == chunk.constants()[0].alphas().size() );
+  CHECK( 6 == chunk.constants()[0].abundances().size() );
+  CHECK( 1.1 == Approx( chunk.constants()[0].alphas()[0] ) );
+  CHECK( 2.1 == Approx( chunk.constants()[0].alphas()[1] ) );
+  CHECK( 3.1 == Approx( chunk.constants()[0].alphas()[2] ) );
+  CHECK( 4.1 == Approx( chunk.constants()[0].alphas()[3] ) );
+  CHECK( 5.1 == Approx( chunk.constants()[0].alphas()[4] ) );
+  CHECK( 6.1 == Approx( chunk.constants()[0].alphas()[5] ) );
+  CHECK( 1.1 == Approx( chunk.constants()[0].abundances()[0] ) );
+  CHECK( 2.1 == Approx( chunk.constants()[0].abundances()[1] ) );
+  CHECK( 3.1 == Approx( chunk.constants()[0].abundances()[2] ) );
+  CHECK( 4.1 == Approx( chunk.constants()[0].abundances()[3] ) );
+  CHECK( 5.1 == Approx( chunk.constants()[0].abundances()[4] ) );
+  CHECK( 6.1 == Approx( chunk.constants()[0].abundances()[5] ) );
+
+  CHECK( 6 == chunk.constants()[1].alphas().size() );
+  CHECK( 6 == chunk.constants()[1].abundances().size() );
+  CHECK( 6.1 == Approx( chunk.constants()[1].alphas()[0] ) );
+  CHECK( 5.1 == Approx( chunk.constants()[1].alphas()[1] ) );
+  CHECK( 4.1 == Approx( chunk.constants()[1].alphas()[2] ) );
+  CHECK( 3.1 == Approx( chunk.constants()[1].alphas()[3] ) );
+  CHECK( 2.1 == Approx( chunk.constants()[1].alphas()[4] ) );
+  CHECK( 1.1 == Approx( chunk.constants()[1].alphas()[5] ) );
+  CHECK( 6.1 == Approx( chunk.constants()[1].abundances()[0] ) );
+  CHECK( 5.1 == Approx( chunk.constants()[1].abundances()[1] ) );
+  CHECK( 4.1 == Approx( chunk.constants()[1].abundances()[2] ) );
+  CHECK( 3.1 == Approx( chunk.constants()[1].abundances()[3] ) );
+  CHECK( 2.1 == Approx( chunk.constants()[1].abundances()[4] ) );
+  CHECK( 1.1 == Approx( chunk.constants()[1].abundances()[5] ) );
+
+  CHECK( 8 == chunk.NC() );
+}
+
 std::string oddNPL() {
   return
     " 0.000000+0 0.000000+0          0          0          1          29228 1455     \n"
@@ -196,7 +237,7 @@ std::string oddNPL() {
     " 3.000000+0 3.100000+0 2.000000+0 2.100000+0 1.000000+0           9228 1455     \n";
 }
 
-std::string inconsistentNPL() {
+std::string inconsistentNNF() {
   return
     " 0.000000+0 0.000000+0          0          0          1          29228 1455     \n"
     "          2          4                                            9228 1455     \n"

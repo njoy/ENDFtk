@@ -3,79 +3,96 @@
 #include "catch.hpp"
 #include "ENDFtk/section/1/455.hpp"
 
-#include "ENDFtk/tree/Tape.hpp"
+// other includes
+#include "ENDFtk/tree/Section.hpp"
 
+// convenience typedefs
 using namespace njoy::ENDFtk;
 
 using section1455 = section::Type< 1, 455 >;
 using EnergyIndependentConstants = section::Type< 1, 455 >::EnergyIndependentConstants;
+using DecayConstants = section::Type< 1, 455 >::DecayConstants;
 using EnergyDependentConstants = section::Type< 1, 455 >::EnergyDependentConstants;
 using PolynomialMultiplicity = section::PolynomialMultiplicity;
 using TabulatedMultiplicity = section::TabulatedMultiplicity;
 
-std::string baseLDG0LNU1();
-std::string baseLDG0LNU2();
-std::string baseLDG1LNU1();
-std::string baseLDG1LNU2();
+std::string chunkWithLDG0LNU1();
+void verifyChunkWithLDG0LNU1( const section::Type< 1, 455 >& );
+std::string chunkWithLDG0LNU2();
+void verifyChunkWithLDG0LNU2( const section::Type< 1, 455 >& );
+std::string chunkWithLDG1LNU1();
+void verifyChunkWithLDG1LNU1( const section::Type< 1, 455 >& );
+std::string chunkWithLDG1LNU2();
+void verifyChunkWithLDG1LNU2( const section::Type< 1, 455 >& );
 std::string invalidLDG();
 std::string invalidLNU();
 std::string oddNPL();
-std::string inconsistentNPL();
+std::string inconsistentNNF();
 std::string validSEND();
 std::string invalidSEND();
 
 SCENARIO( "section::Type< 1, 455 >" ) {
-  GIVEN( "a string representation of a valid File 1 Section 455 with LDG=0 & LNU=1" ) {
 
-    WHEN( "there is a valid SEND record" ){
-      std::string sectionString = baseLDG0LNU1() + validSEND();
+  GIVEN( "valid data for a section::Type< 1, 455 > with LDG=0 & LNU = 1" ) {
+
+    std::string sectionString = chunkWithLDG0LNU1() + validSEND();
+
+    WHEN( "the data is given explicitly" ) {
+
+      int zaid = 92235;
+      double awr = 233.0248;
+
+      EnergyIndependentConstants constants( { 1.3336e-2, 3.2739e-2,
+                                              1.2078e-1, 3.0278e-1,
+                                              8.4949e-1, 2.853 } );
+      PolynomialMultiplicity multiplicity( { 2.4367, 0.05 } );
+
+      section::Type< 1, 455 > chunk( zaid, awr, std::move( constants ),
+                                     std::move( multiplicity ) );
+
+      THEN( "a section::Type< 1, 455 > can be constructed and "
+            "members can be tested" ) {
+
+        verifyChunkWithLDG0LNU1( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 1 );
+
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is read from a string/stream with a valid SEND" ) {
+
       auto begin = sectionString.begin();
       auto end = sectionString.end();
       long lineNumber = 1;
       HeadRecord head( begin, end, lineNumber );
 
-      THEN( "a section::Type< 1, 455 > can be constructed and members can be tested" ) {
-        section::Type< 1, 455 > MF1MT455( head, begin, end, lineNumber, 9228 );
+      section::Type< 1, 455 > chunk( head, begin, end, lineNumber, 9228 );
 
-        REQUIRE_NOTHROW( std::get< EnergyIndependentConstants >
-                         ( MF1MT455.lambda() ) );
-        REQUIRE_NOTHROW( std::get< PolynomialMultiplicity >
-                         ( MF1MT455.nubar() ) );
+      THEN( "a section::Type< 1, 455 > can be constructed and "
+            "members can be tested" ) {
 
-        const auto& lambda = std::get< EnergyIndependentConstants >
-                             ( MF1MT455.lambda() );
-        auto lambdas = lambda.lambdas();
-        const auto& data = std::get< PolynomialMultiplicity >
-                           ( MF1MT455.nubar() );
-        auto coefficients = data.coefficients();
+        verifyChunkWithLDG0LNU1( chunk );
+      } // THEN
 
-        REQUIRE( 455 == MF1MT455.MT() );
-        REQUIRE( 455 == MF1MT455.sectionNumber() );
-        REQUIRE( 92235 == MF1MT455.ZA() );
-        REQUIRE( 233.0248 == Approx( MF1MT455.atomicWeightRatio() ) );
-        REQUIRE( 233.0248 == Approx( MF1MT455.AWR() ) );
-        REQUIRE( 0 == MF1MT455.LDG() );
-        REQUIRE( 1 == MF1MT455.LNU() );
-        REQUIRE( 0 == lambda.LDG() );
-        REQUIRE( 1 == data.LNU() );
-        REQUIRE( 6 == lambda.NNF() );
-        REQUIRE( 6 == lambdas.size() );
-        REQUIRE( 0.013336 == Approx( lambdas[0] ) );
-        REQUIRE( 0.032739 == Approx( lambdas[1] ) );
-        REQUIRE( 0.12078 == Approx( lambdas[2] ) );
-        REQUIRE( 0.30278 == Approx( lambdas[3] ) );
-        REQUIRE( 0.84949 == Approx( lambdas[4] ) );
-        REQUIRE( 2.853000 == Approx( lambdas[5] ) );
-        REQUIRE( 2 == data.NCO() );
-        REQUIRE( 2.4367 == Approx( coefficients[0] ) );
-        REQUIRE( 0.05 == Approx( coefficients[1] ) );
+      THEN( "it can be printed" ) {
 
-        REQUIRE( 5 == MF1MT455.NC() );
-      }
-    }
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 1 );
+
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
 
     WHEN( "there is a tree::Section" ){
-      std::string sectionString = baseLDG0LNU1() + validSEND();
+
       auto begin = sectionString.begin();
       auto position = begin;
       auto end = sectionString.end();
@@ -84,126 +101,87 @@ SCENARIO( "section::Type< 1, 455 >" ) {
       tree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
 
-      THEN( "a section::Type< 1, 455 > can be constructed and members can be tested" ){
-        section::Type< 1, 455 > MF1MT455 = section.parse< 1, 455 >( lineNumber );
+      section::Type< 1, 455 > chunk = section.parse< 1, 455 >( lineNumber );
 
-        REQUIRE_NOTHROW( std::get< EnergyIndependentConstants >
-                         ( MF1MT455.lambda() ) );
-        REQUIRE_NOTHROW( std::get< PolynomialMultiplicity >
-                         ( MF1MT455.nubar() ) );
+      THEN( "a section::Type< 1, 455 > can be constructed and "
+            "members can be tested" ) {
 
-        const auto& lambda = std::get< EnergyIndependentConstants >
-                             ( MF1MT455.lambda() );
-        auto lambdas = lambda.lambdas();
-        const auto& data = std::get< PolynomialMultiplicity >
-                           ( MF1MT455.nubar() );
-        auto coefficients = data.coefficients();
+        verifyChunkWithLDG0LNU1( chunk );
+      } // THEN
 
-        REQUIRE( 455 == MF1MT455.MT() );
-        REQUIRE( 455 == MF1MT455.sectionNumber() );
-        REQUIRE( 92235 == MF1MT455.ZA() );
-        REQUIRE( 233.0248 == Approx( MF1MT455.atomicWeightRatio() ) );
-        REQUIRE( 233.0248 == Approx( MF1MT455.AWR() ) );
-        REQUIRE( 0 == MF1MT455.LDG() );
-        REQUIRE( 1 == MF1MT455.LNU() );
-        REQUIRE( 0 == lambda.LDG() );
-        REQUIRE( 1 == data.LNU() );
-        REQUIRE( 6 == lambda.NNF() );
-        REQUIRE( 6 == lambdas.size() );
-        REQUIRE( 0.013336 == Approx( lambdas[0] ) );
-        REQUIRE( 0.032739 == Approx( lambdas[1] ) );
-        REQUIRE( 0.12078 == Approx( lambdas[2] ) );
-        REQUIRE( 0.30278 == Approx( lambdas[3] ) );
-        REQUIRE( 0.84949 == Approx( lambdas[4] ) );
-        REQUIRE( 2.853000 == Approx( lambdas[5] ) );
-        REQUIRE( 2 == data.NCO() );
-        REQUIRE( 2.4367 == Approx( coefficients[0] ) );
-        REQUIRE( 0.05 == Approx( coefficients[1] ) );
+      THEN( "it can be printed" ) {
 
-        REQUIRE( 5 == MF1MT455.NC() );
-      }
-    }
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 1 );
 
-    WHEN( "the SEND Record is not valid, i.e., MT != 0" ){
-      std::string sectionString = baseLDG0LNU1() + invalidSEND();
-      auto begin = sectionString.begin();
-      auto end = sectionString.end();
-      long lineNumber = 1;
-      HeadRecord head( begin, end, lineNumber );
-
-      THEN( "an exception is thrown" ){
-        REQUIRE_THROWS( section1455( head, begin, end, lineNumber, 9228 ) );
-      }
-    }
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
   } // GIVEN
 
-  GIVEN( "a string representation of a valid File 1 Section 455 with LDG=0 & LNU=2" ) {
+  GIVEN( "valid data for a section::Type< 1, 455 > with LDG=0 & LNU = 2" ) {
 
-    WHEN( "there is a valid SEND record" ){
-      std::string sectionString = baseLDG0LNU2() + validSEND();
+    std::string sectionString = chunkWithLDG0LNU2() + validSEND();
+
+    WHEN( "the data is given explicitly" ) {
+
+      int zaid = 92235;
+      double awr = 233.0248;
+
+      EnergyIndependentConstants constants( { 1.3336e-2, 3.2739e-2,
+                                              1.2078e-1, 3.0278e-1,
+                                              8.4949e-1, 2.853 } );
+      TabulatedMultiplicity multiplicity(
+        { 4 }, { 2 }, { 1e-5, 2.53e-2, 5e-2, 2e+7 },
+        { 2.4367, 2.4367, 2.4367, 5.209845 } );
+
+      section::Type< 1, 455 > chunk( zaid, awr, std::move( constants ),
+                                     std::move( multiplicity ) );
+
+      THEN( "a section::Type< 1, 455 > can be constructed and "
+            "members can be tested" ) {
+
+        verifyChunkWithLDG0LNU2( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 1 );
+
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is read from a string/stream with a valid SEND" ) {
+
       auto begin = sectionString.begin();
       auto end = sectionString.end();
       long lineNumber = 1;
       HeadRecord head( begin, end, lineNumber );
 
-      THEN( "a section::Type< 1, 455 > can be constructed and members can be tested" ) {
-        section::Type< 1, 455 > MF1MT455( head, begin, end, lineNumber, 9228 );
+      section::Type< 1, 455 > chunk( head, begin, end, lineNumber, 9228 );
 
-        REQUIRE_NOTHROW( std::get< EnergyIndependentConstants >
-                         ( MF1MT455.lambda() ) );
-        REQUIRE_NOTHROW( std::get< TabulatedMultiplicity >
-                         ( MF1MT455.nubar() ) );
+      THEN( "a section::Type< 1, 455 > can be constructed and "
+            "members can be tested" ) {
 
-        const auto& lambda = std::get< EnergyIndependentConstants >
-                             ( MF1MT455.lambda() );
-        auto lambdas = lambda.lambdas();
-        const auto& data = std::get< TabulatedMultiplicity >
-                           ( MF1MT455.nubar() );
-        auto energy = data.E();
-        auto nubar = data.NU();
-        auto interpolants = data.interpolants();
-        auto boundaries = data.boundaries();
+        verifyChunkWithLDG0LNU2( chunk );
+      } // THEN
 
-        REQUIRE( 455 == MF1MT455.MT() );
-        REQUIRE( 455 == MF1MT455.sectionNumber() );
-        REQUIRE( 92235 == MF1MT455.ZA() );
-        REQUIRE( 233.0248 == Approx( MF1MT455.atomicWeightRatio() ) );
-        REQUIRE( 233.0248 == Approx( MF1MT455.AWR() ) );
-        REQUIRE( 0 == MF1MT455.LDG() );
-        REQUIRE( 2 == MF1MT455.LNU() );
-        REQUIRE( 0 == lambda.LDG() );
-        REQUIRE( 2 == data.LNU() );
-        REQUIRE( 6 == lambda.NNF() );
-        REQUIRE( 6 == lambdas.size() );
-        REQUIRE( 0.013336 == Approx( lambdas[0] ) );
-        REQUIRE( 0.032739 == Approx( lambdas[1] ) );
-        REQUIRE( 0.12078 == Approx( lambdas[2] ) );
-        REQUIRE( 0.30278 == Approx( lambdas[3] ) );
-        REQUIRE( 0.84949 == Approx( lambdas[4] ) );
-        REQUIRE( 2.853000 == Approx( lambdas[5] ) );
-        REQUIRE( 1 == data.NR() );
-        REQUIRE( 1 == interpolants.size() );
-        REQUIRE( 1 == boundaries.size() );
-        REQUIRE( 4 == data.NP() );
-        REQUIRE( 4 == energy.size() );
-        REQUIRE( 4 == nubar.size() );
-        REQUIRE( 1e-5 == Approx( energy[0] ) );
-        REQUIRE( 0.0253 == Approx( energy[1] ) );
-        REQUIRE( 0.05 == Approx( energy[2] ) );
-        REQUIRE( 2e+7 == Approx( energy[3] ) );
-        REQUIRE( 2.4367 == Approx( nubar[0] ) );
-        REQUIRE( 2.4367 == Approx( nubar[1] ) );
-        REQUIRE( 2.4367 == Approx( nubar[2] ) );
-        REQUIRE( 5.209845 == Approx( nubar[3] ) );
-        REQUIRE( 2 == interpolants[0] );
-        REQUIRE( 4 == boundaries[0] );
+      THEN( "it can be printed" ) {
 
-        REQUIRE( 7 == MF1MT455.NC() );
-      }
-    }
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 1 );
+
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
 
     WHEN( "there is a tree::Section" ){
-      std::string sectionString = baseLDG0LNU2() + validSEND();
+
       auto begin = sectionString.begin();
       auto position = begin;
       auto end = sectionString.end();
@@ -212,179 +190,88 @@ SCENARIO( "section::Type< 1, 455 >" ) {
       tree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
 
-      THEN( "a section::Type< 1, 455 > can be constructed and members can be tested" ){
-        section::Type< 1, 455 > MF1MT455 = section.parse< 1, 455 >( lineNumber );
+      section::Type< 1, 455 > chunk = section.parse< 1, 455 >( lineNumber );
 
-        REQUIRE_NOTHROW( std::get< EnergyIndependentConstants >
-                         ( MF1MT455.lambda() ) );
-        REQUIRE_NOTHROW( std::get< TabulatedMultiplicity >
-                         ( MF1MT455.nubar() ) );
+      THEN( "a section::Type< 1, 455 > can be constructed and "
+            "members can be tested" ) {
 
-        const auto& lambda = std::get< EnergyIndependentConstants >
-                             ( MF1MT455.lambda() );
-        auto lambdas = lambda.lambdas();
-        const auto& data = std::get< TabulatedMultiplicity >
-                           ( MF1MT455.nubar() );
-        auto energy = data.E();
-        auto nubar = data.NU();
-        auto interpolants = data.interpolants();
-        auto boundaries = data.boundaries();
+        verifyChunkWithLDG0LNU2( chunk );
+      } // THEN
 
-        REQUIRE( 455 == MF1MT455.MT() );
-        REQUIRE( 455 == MF1MT455.sectionNumber() );
-        REQUIRE( 92235 == MF1MT455.ZA() );
-        REQUIRE( 233.0248 == Approx( MF1MT455.atomicWeightRatio() ) );
-        REQUIRE( 233.0248 == Approx( MF1MT455.AWR() ) );
-        REQUIRE( 0 == MF1MT455.LDG() );
-        REQUIRE( 2 == MF1MT455.LNU() );
-        REQUIRE( 0 == lambda.LDG() );
-        REQUIRE( 2 == data.LNU() );
-        REQUIRE( 6 == lambda.NNF() );
-        REQUIRE( 6 == lambdas.size() );
-        REQUIRE( 0.013336 == Approx( lambdas[0] ) );
-        REQUIRE( 0.032739 == Approx( lambdas[1] ) );
-        REQUIRE( 0.12078 == Approx( lambdas[2] ) );
-        REQUIRE( 0.30278 == Approx( lambdas[3] ) );
-        REQUIRE( 0.84949 == Approx( lambdas[4] ) );
-        REQUIRE( 2.853000 == Approx( lambdas[5] ) );
-        REQUIRE( 1 == data.NR() );
-        REQUIRE( 1 == interpolants.size() );
-        REQUIRE( 1 == boundaries.size() );
-        REQUIRE( 4 == data.NP() );
-        REQUIRE( 4 == energy.size() );
-        REQUIRE( 4 == nubar.size() );
-        REQUIRE( 1e-5 == Approx( energy[0] ) );
-        REQUIRE( 0.0253 == Approx( energy[1] ) );
-        REQUIRE( 0.05 == Approx( energy[2] ) );
-        REQUIRE( 2e+7 == Approx( energy[3] ) );
-        REQUIRE( 2.4367 == Approx( nubar[0] ) );
-        REQUIRE( 2.4367 == Approx( nubar[1] ) );
-        REQUIRE( 2.4367 == Approx( nubar[2] ) );
-        REQUIRE( 5.209845 == Approx( nubar[3] ) );
-        REQUIRE( 2 == interpolants[0] );
-        REQUIRE( 4 == boundaries[0] );
+      THEN( "it can be printed" ) {
 
-        REQUIRE( 7 == MF1MT455.NC() );
-      }
-    }
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 1 );
 
-    WHEN( "the SEND Record is not valid, i.e., MT != 0" ){
-      std::string sectionString = baseLDG0LNU2() + invalidSEND();
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
+  } // GIVEN
+
+  GIVEN( "valid data for a section::Type< 1, 455 > with LDG=1 & LNU = 1" ) {
+
+    std::string sectionString = chunkWithLDG1LNU1() + validSEND();
+
+    WHEN( "the data is given explicitly" ) {
+
+      int zaid = 92235;
+      double awr = 233.0248;
+
+      EnergyDependentConstants constants(
+          { 2 }, { 4 },
+          { DecayConstants( 1e-5, { 1., 2., 3., 4., 5., 6. },
+                            { 1.1, 2.1, 3.1, 4.1, 5.1, 6.1 } ),
+            DecayConstants( 2e+7, { 6., 5., 4., 3., 2., 1. },
+                            { 6.1, 5.1, 4.1, 3.1, 2.1, 1.1 } ) } );
+      PolynomialMultiplicity multiplicity( { 2.4367, 0.05 } );
+
+      section::Type< 1, 455 > chunk( zaid, awr, std::move( constants ),
+                                     std::move( multiplicity ) );
+
+      THEN( "a section::Type< 1, 455 > can be constructed and "
+            "members can be tested" ) {
+
+        verifyChunkWithLDG1LNU1( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 1 );
+
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is read from a string/stream with a valid SEND" ) {
+
       auto begin = sectionString.begin();
       auto end = sectionString.end();
       long lineNumber = 1;
       HeadRecord head( begin, end, lineNumber );
 
-      THEN( "an exception is thrown" ){
-        REQUIRE_THROWS( section1455( head, begin, end, lineNumber, 9228 ) );
-      }
-    }
-  } // GIVEN
+      section::Type< 1, 455 > chunk( head, begin, end, lineNumber, 9228 );
 
-  GIVEN( "a valid instance of section::Type< 1, 455 > with LDG=0 & LNU=1" ) {
-    std::string string = baseLDG0LNU1() + validSEND();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-    HeadRecord head( begin, end, lineNumber );
-    section::Type< 1, 455 > section( head, begin, end, lineNumber, 9228 );
+      THEN( "a section::Type< 1, 455 > can be constructed and "
+            "members can be tested" ) {
 
-    THEN( "it can be printed" ) {
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      section.print( output, 9228, 1 );
-      REQUIRE( buffer == string );
-    }
-  } // GIVEN
+        verifyChunkWithLDG1LNU1( chunk );
+      } // THEN
 
-  GIVEN( "a string representation of a valid File 1 Section 455 with LDG=1 & LNU=1" ) {
+      THEN( "it can be printed" ) {
 
-    WHEN( "there is a valid SEND record" ){
-      std::string sectionString = baseLDG1LNU1() + validSEND();
-      auto begin = sectionString.begin();
-      auto end = sectionString.end();
-      long lineNumber = 1;
-      HeadRecord head( begin, end, lineNumber );
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 1 );
 
-      THEN( "a section::Type< 1, 455 > can be constructed and members can be tested" ) {
-        section::Type< 1, 455 > MF1MT455( head, begin, end, lineNumber, 9228 );
-
-        REQUIRE_NOTHROW( std::get< EnergyDependentConstants >
-                         ( MF1MT455.lambda() ) );
-        REQUIRE_NOTHROW( std::get< PolynomialMultiplicity >
-                         ( MF1MT455.nubar() ) );
-
-        const auto& lambda = std::get< EnergyDependentConstants >
-                             ( MF1MT455.lambda() );
-        auto l_interpolants = lambda.interpolants();
-        auto l_boundaries = lambda.boundaries();
-        auto l_constants = lambda.constants();
-
-        const auto& data = std::get< PolynomialMultiplicity >
-                           ( MF1MT455.nubar() );
-        auto coefficients = data.coefficients();
-
-        REQUIRE( 455 == MF1MT455.MT() );
-        REQUIRE( 455 == MF1MT455.sectionNumber() );
-        REQUIRE( 92235 == MF1MT455.ZA() );
-        REQUIRE( 233.0248 == Approx( MF1MT455.atomicWeightRatio() ) );
-        REQUIRE( 233.0248 == Approx( MF1MT455.AWR() ) );
-        REQUIRE( 1 == MF1MT455.LDG() );
-        REQUIRE( 1 == MF1MT455.LNU() );
-        REQUIRE( 1 == lambda.LDG() );
-        REQUIRE( 1 == data.LNU() );
-        REQUIRE( 1 == lambda.NR() );
-        REQUIRE( 2 == lambda.NE() );
-        REQUIRE( 6 == lambda.NNF() );
-        REQUIRE( 1 == l_interpolants.size() );
-        REQUIRE( 1 == l_boundaries.size() );
-        REQUIRE( 4 == l_interpolants[0] );
-        REQUIRE( 2 == l_boundaries[0] );
-        REQUIRE( 2 == l_constants.size() );
-        REQUIRE( 1e-5 == Approx( l_constants[0].incidentEnergy() ) );
-        REQUIRE( 2e+7 == Approx( l_constants[1].incidentEnergy() ) );
-        auto lambdas = l_constants[0].lambdas();
-        REQUIRE( 6 == lambdas.size() );
-        REQUIRE( 1. == Approx( lambdas[0] ) );
-        REQUIRE( 2. == Approx( lambdas[1] ) );
-        REQUIRE( 3. == Approx( lambdas[2] ) );
-        REQUIRE( 4. == Approx( lambdas[3] ) );
-        REQUIRE( 5. == Approx( lambdas[4] ) );
-        REQUIRE( 6. == Approx( lambdas[5] ) );
-        lambdas = l_constants[1].lambdas();
-        REQUIRE( 6 == lambdas.size() );
-        REQUIRE( 6. == Approx( lambdas[0] ) );
-        REQUIRE( 5. == Approx( lambdas[1] ) );
-        REQUIRE( 4. == Approx( lambdas[2] ) );
-        REQUIRE( 3. == Approx( lambdas[3] ) );
-        REQUIRE( 2. == Approx( lambdas[4] ) );
-        REQUIRE( 1. == Approx( lambdas[5] ) );
-        auto alphas = l_constants[0].alphas();
-        REQUIRE( 6 == alphas.size() );
-        REQUIRE( 1.1 == Approx( alphas[0] ) );
-        REQUIRE( 2.1 == Approx( alphas[1] ) );
-        REQUIRE( 3.1 == Approx( alphas[2] ) );
-        REQUIRE( 4.1 == Approx( alphas[3] ) );
-        REQUIRE( 5.1 == Approx( alphas[4] ) );
-        REQUIRE( 6.1 == Approx( alphas[5] ) );
-        alphas = l_constants[1].alphas();
-        REQUIRE( 6 == lambdas.size() );
-        REQUIRE( 6.1 == Approx( alphas[0] ) );
-        REQUIRE( 5.1 == Approx( alphas[1] ) );
-        REQUIRE( 4.1 == Approx( alphas[2] ) );
-        REQUIRE( 3.1 == Approx( alphas[3] ) );
-        REQUIRE( 2.1 == Approx( alphas[4] ) );
-        REQUIRE( 1.1 == Approx( alphas[5] ) );
-        REQUIRE( 2 == data.NCO() );
-        REQUIRE( 2.4367 == Approx( coefficients[0] ) );
-        REQUIRE( 0.05 == Approx( coefficients[1] ) );
-
-        REQUIRE( 11 == MF1MT455.NC() );
-      }
-    }
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
 
     WHEN( "there is a tree::Section" ){
-      std::string sectionString = baseLDG1LNU1() + validSEND();
+
       auto begin = sectionString.begin();
       auto position = begin;
       auto end = sectionString.end();
@@ -393,200 +280,90 @@ SCENARIO( "section::Type< 1, 455 >" ) {
       tree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
 
-      THEN( "a section::Type< 1, 455 > can be constructed and members can be tested" ){
-        section::Type< 1, 455 > MF1MT455 = section.parse< 1, 455 >( lineNumber );
+      section::Type< 1, 455 > chunk = section.parse< 1, 455 >( lineNumber );
 
-        REQUIRE_NOTHROW( std::get< EnergyDependentConstants >
-                         ( MF1MT455.lambda() ) );
-        REQUIRE_NOTHROW( std::get< PolynomialMultiplicity >
-                         ( MF1MT455.nubar() ) );
+      THEN( "a section::Type< 1, 455 > can be constructed and "
+            "members can be tested" ) {
 
-        const auto& lambda = std::get< EnergyDependentConstants >
-                             ( MF1MT455.lambda() );
-        auto l_interpolants = lambda.interpolants();
-        auto l_boundaries = lambda.boundaries();
-        auto l_constants = lambda.constants();
+        verifyChunkWithLDG1LNU1( chunk );
+      } // THEN
 
-        const auto& data = std::get< PolynomialMultiplicity >
-                           ( MF1MT455.nubar() );
-        auto coefficients = data.coefficients();
+      THEN( "it can be printed" ) {
 
-        REQUIRE( 455 == MF1MT455.MT() );
-        REQUIRE( 455 == MF1MT455.sectionNumber() );
-        REQUIRE( 92235 == MF1MT455.ZA() );
-        REQUIRE( 233.0248 == Approx( MF1MT455.atomicWeightRatio() ) );
-        REQUIRE( 233.0248 == Approx( MF1MT455.AWR() ) );
-        REQUIRE( 1 == MF1MT455.LDG() );
-        REQUIRE( 1 == MF1MT455.LNU() );
-        REQUIRE( 1 == lambda.LDG() );
-        REQUIRE( 1 == data.LNU() );
-        REQUIRE( 1 == lambda.NR() );
-        REQUIRE( 2 == lambda.NE() );
-        REQUIRE( 6 == lambda.NNF() );
-        REQUIRE( 1 == l_interpolants.size() );
-        REQUIRE( 1 == l_boundaries.size() );
-        REQUIRE( 4 == l_interpolants[0] );
-        REQUIRE( 2 == l_boundaries[0] );
-        REQUIRE( 2 == l_constants.size() );
-        REQUIRE( 1e-5 == Approx( l_constants[0].incidentEnergy() ) );
-        REQUIRE( 2e+7 == Approx( l_constants[1].incidentEnergy() ) );
-        auto lambdas = l_constants[0].lambdas();
-        REQUIRE( 6 == lambdas.size() );
-        REQUIRE( 1. == Approx( lambdas[0] ) );
-        REQUIRE( 2. == Approx( lambdas[1] ) );
-        REQUIRE( 3. == Approx( lambdas[2] ) );
-        REQUIRE( 4. == Approx( lambdas[3] ) );
-        REQUIRE( 5. == Approx( lambdas[4] ) );
-        REQUIRE( 6. == Approx( lambdas[5] ) );
-        lambdas = l_constants[1].lambdas();
-        REQUIRE( 6 == lambdas.size() );
-        REQUIRE( 6. == Approx( lambdas[0] ) );
-        REQUIRE( 5. == Approx( lambdas[1] ) );
-        REQUIRE( 4. == Approx( lambdas[2] ) );
-        REQUIRE( 3. == Approx( lambdas[3] ) );
-        REQUIRE( 2. == Approx( lambdas[4] ) );
-        REQUIRE( 1. == Approx( lambdas[5] ) );
-        auto alphas = l_constants[0].alphas();
-        REQUIRE( 6 == alphas.size() );
-        REQUIRE( 1.1 == Approx( alphas[0] ) );
-        REQUIRE( 2.1 == Approx( alphas[1] ) );
-        REQUIRE( 3.1 == Approx( alphas[2] ) );
-        REQUIRE( 4.1 == Approx( alphas[3] ) );
-        REQUIRE( 5.1 == Approx( alphas[4] ) );
-        REQUIRE( 6.1 == Approx( alphas[5] ) );
-        alphas = l_constants[1].alphas();
-        REQUIRE( 6 == lambdas.size() );
-        REQUIRE( 6.1 == Approx( alphas[0] ) );
-        REQUIRE( 5.1 == Approx( alphas[1] ) );
-        REQUIRE( 4.1 == Approx( alphas[2] ) );
-        REQUIRE( 3.1 == Approx( alphas[3] ) );
-        REQUIRE( 2.1 == Approx( alphas[4] ) );
-        REQUIRE( 1.1 == Approx( alphas[5] ) );
-        REQUIRE( 2 == data.NCO() );
-        REQUIRE( 2.4367 == Approx( coefficients[0] ) );
-        REQUIRE( 0.05 == Approx( coefficients[1] ) );
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 1 );
 
-        REQUIRE( 11 == MF1MT455.NC() );
-      }
-    }
-
-    WHEN( "the SEND Record is not valid, i.e., MT != 0" ){
-      std::string sectionString = baseLDG1LNU1() + invalidSEND();
-      auto begin = sectionString.begin();
-      auto end = sectionString.end();
-      long lineNumber = 1;
-      HeadRecord head( begin, end, lineNumber );
-
-      THEN( "an exception is thrown" ){
-        REQUIRE_THROWS( section1455( head, begin, end, lineNumber, 9228 ) );
-      }
-    }
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
   } // GIVEN
 
-  GIVEN( "a string representation of a valid File 1 Section 455 with LDG=1 & LNU=2" ) {
+  GIVEN( "valid data for a section::Type< 1, 455 > with LDG=1 & LNU = 2" ) {
 
-    WHEN( "there is a valid SEND record" ){
-      std::string sectionString = baseLDG1LNU2() + validSEND();
+    std::string sectionString = chunkWithLDG1LNU2() + validSEND();
+
+    WHEN( "the data is given explicitly" ) {
+
+      int zaid = 92235;
+      double awr = 233.0248;
+
+      EnergyDependentConstants constants(
+          { 2 }, { 4 },
+          { DecayConstants( 1e-5, { 1., 2., 3., 4., 5., 6. },
+                            { 1.1, 2.1, 3.1, 4.1, 5.1, 6.1 } ),
+            DecayConstants( 2e+7, { 6., 5., 4., 3., 2., 1. },
+                            { 6.1, 5.1, 4.1, 3.1, 2.1, 1.1 } ) } );
+      TabulatedMultiplicity multiplicity(
+        { 4 }, { 2 }, { 1e-5, 2.53e-2, 5e-2, 2e+7 },
+        { 2.4367, 2.4367, 2.4367, 5.209845 } );
+
+      section::Type< 1, 455 > chunk( zaid, awr, std::move( constants ),
+                                     std::move( multiplicity ) );
+
+      THEN( "a section::Type< 1, 455 > can be constructed and "
+            "members can be tested" ) {
+
+        verifyChunkWithLDG1LNU2( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 1 );
+
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is read from a string/stream with a valid SEND" ) {
+
       auto begin = sectionString.begin();
       auto end = sectionString.end();
       long lineNumber = 1;
       HeadRecord head( begin, end, lineNumber );
 
-      THEN( "a section::Type< 1, 455 > can be constructed and members can be tested" ) {
-        section::Type< 1, 455 > MF1MT455( head, begin, end, lineNumber, 9228 );
+      section::Type< 1, 455 > chunk( head, begin, end, lineNumber, 9228 );
 
-        REQUIRE_NOTHROW( std::get< EnergyDependentConstants >
-                         ( MF1MT455.lambda() ) );
-        REQUIRE_NOTHROW( std::get< TabulatedMultiplicity >
-                         ( MF1MT455.nubar() ) );
+      THEN( "a section::Type< 1, 455 > can be constructed and "
+            "members can be tested" ) {
 
-        const auto& lambda = std::get< EnergyDependentConstants >
-                             ( MF1MT455.lambda() );
-        auto l_interpolants = lambda.interpolants();
-        auto l_boundaries = lambda.boundaries();
-        auto l_constants = lambda.constants();
+        verifyChunkWithLDG1LNU2( chunk );
+      } // THEN
 
-        const auto& data = std::get< TabulatedMultiplicity >
-                           ( MF1MT455.nubar() );
-        auto energy = data.E();
-        auto nubar = data.NU();
-        auto interpolants = data.interpolants();
-        auto boundaries = data.boundaries();
+      THEN( "it can be printed" ) {
 
-        REQUIRE( 455 == MF1MT455.MT() );
-        REQUIRE( 455 == MF1MT455.sectionNumber() );
-        REQUIRE( 92235 == MF1MT455.ZA() );
-        REQUIRE( 233.0248 == Approx( MF1MT455.atomicWeightRatio() ) );
-        REQUIRE( 233.0248 == Approx( MF1MT455.AWR() ) );
-        REQUIRE( 1 == MF1MT455.LDG() );
-        REQUIRE( 2 == MF1MT455.LNU() );
-        REQUIRE( 1 == lambda.LDG() );
-        REQUIRE( 2 == data.LNU() );
-        REQUIRE( 1 == lambda.NR() );
-        REQUIRE( 2 == lambda.NE() );
-        REQUIRE( 6 == lambda.NNF() );
-        REQUIRE( 1 == l_interpolants.size() );
-        REQUIRE( 1 == l_boundaries.size() );
-        REQUIRE( 4 == l_interpolants[0] );
-        REQUIRE( 2 == l_boundaries[0] );
-        REQUIRE( 2 == l_constants.size() );
-        REQUIRE( 1e-5 == Approx( l_constants[0].incidentEnergy() ) );
-        REQUIRE( 2e+7 == Approx( l_constants[1].incidentEnergy() ) );
-        auto lambdas = l_constants[0].lambdas();
-        REQUIRE( 6 == lambdas.size() );
-        REQUIRE( 1. == Approx( lambdas[0] ) );
-        REQUIRE( 2. == Approx( lambdas[1] ) );
-        REQUIRE( 3. == Approx( lambdas[2] ) );
-        REQUIRE( 4. == Approx( lambdas[3] ) );
-        REQUIRE( 5. == Approx( lambdas[4] ) );
-        REQUIRE( 6. == Approx( lambdas[5] ) );
-        lambdas = l_constants[1].lambdas();
-        REQUIRE( 6 == lambdas.size() );
-        REQUIRE( 6. == Approx( lambdas[0] ) );
-        REQUIRE( 5. == Approx( lambdas[1] ) );
-        REQUIRE( 4. == Approx( lambdas[2] ) );
-        REQUIRE( 3. == Approx( lambdas[3] ) );
-        REQUIRE( 2. == Approx( lambdas[4] ) );
-        REQUIRE( 1. == Approx( lambdas[5] ) );
-        auto alphas = l_constants[0].alphas();
-        REQUIRE( 6 == alphas.size() );
-        REQUIRE( 1.1 == Approx( alphas[0] ) );
-        REQUIRE( 2.1 == Approx( alphas[1] ) );
-        REQUIRE( 3.1 == Approx( alphas[2] ) );
-        REQUIRE( 4.1 == Approx( alphas[3] ) );
-        REQUIRE( 5.1 == Approx( alphas[4] ) );
-        REQUIRE( 6.1 == Approx( alphas[5] ) );
-        alphas = l_constants[1].alphas();
-        REQUIRE( 6 == lambdas.size() );
-        REQUIRE( 6.1 == Approx( alphas[0] ) );
-        REQUIRE( 5.1 == Approx( alphas[1] ) );
-        REQUIRE( 4.1 == Approx( alphas[2] ) );
-        REQUIRE( 3.1 == Approx( alphas[3] ) );
-        REQUIRE( 2.1 == Approx( alphas[4] ) );
-        REQUIRE( 1.1 == Approx( alphas[5] ) );
-        REQUIRE( 1 == data.NR() );
-        REQUIRE( 1 == interpolants.size() );
-        REQUIRE( 1 == boundaries.size() );
-        REQUIRE( 4 == data.NP() );
-        REQUIRE( 4 == energy.size() );
-        REQUIRE( 4 == nubar.size() );
-        REQUIRE( 1e-5 == Approx( energy[0] ) );
-        REQUIRE( 0.0253 == Approx( energy[1] ) );
-        REQUIRE( 0.05 == Approx( energy[2] ) );
-        REQUIRE( 2e+7 == Approx( energy[3] ) );
-        REQUIRE( 2.4367 == Approx( nubar[0] ) );
-        REQUIRE( 2.4367 == Approx( nubar[1] ) );
-        REQUIRE( 2.4367 == Approx( nubar[2] ) );
-        REQUIRE( 5.209845 == Approx( nubar[3] ) );
-        REQUIRE( 2 == interpolants[0] );
-        REQUIRE( 4 == boundaries[0] );
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 1 );
 
-        REQUIRE( 13 == MF1MT455.NC() );
-      }
-    }
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
 
     WHEN( "there is a tree::Section" ){
-      std::string sectionString = baseLDG1LNU2() + validSEND();
+
       auto begin = sectionString.begin();
       auto position = begin;
       auto end = sectionString.end();
@@ -595,230 +372,90 @@ SCENARIO( "section::Type< 1, 455 >" ) {
       tree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
 
-      THEN( "a section::Type< 1, 455 > can be constructed and members can be tested" ){
-        section::Type< 1, 455 > MF1MT455 = section.parse< 1, 455 >( lineNumber );
+      section::Type< 1, 455 > chunk = section.parse< 1, 455 >( lineNumber );
 
-        REQUIRE_NOTHROW( std::get< EnergyDependentConstants >
-                         ( MF1MT455.lambda() ) );
-        REQUIRE_NOTHROW( std::get< TabulatedMultiplicity >
-                         ( MF1MT455.nubar() ) );
+      THEN( "a section::Type< 1, 455 > can be constructed and "
+            "members can be tested" ) {
 
-        const auto& lambda = std::get< EnergyDependentConstants >
-                             ( MF1MT455.lambda() );
-        auto l_interpolants = lambda.interpolants();
-        auto l_boundaries = lambda.boundaries();
-        auto l_constants = lambda.constants();
+        verifyChunkWithLDG1LNU2( chunk );
+      } // THEN
 
-        const auto& data = std::get< TabulatedMultiplicity >
-                           ( MF1MT455.nubar() );
-        auto energy = data.E();
-        auto nubar = data.NU();
-        auto interpolants = data.interpolants();
-        auto boundaries = data.boundaries();
+      THEN( "it can be printed" ) {
 
-        REQUIRE( 455 == MF1MT455.MT() );
-        REQUIRE( 455 == MF1MT455.sectionNumber() );
-        REQUIRE( 92235 == MF1MT455.ZA() );
-        REQUIRE( 233.0248 == Approx( MF1MT455.atomicWeightRatio() ) );
-        REQUIRE( 233.0248 == Approx( MF1MT455.AWR() ) );
-        REQUIRE( 1 == MF1MT455.LDG() );
-        REQUIRE( 2 == MF1MT455.LNU() );
-        REQUIRE( 1 == lambda.LDG() );
-        REQUIRE( 2 == data.LNU() );
-        REQUIRE( 1 == lambda.NR() );
-        REQUIRE( 2 == lambda.NE() );
-        REQUIRE( 6 == lambda.NNF() );
-        REQUIRE( 1 == l_interpolants.size() );
-        REQUIRE( 1 == l_boundaries.size() );
-        REQUIRE( 4 == l_interpolants[0] );
-        REQUIRE( 2 == l_boundaries[0] );
-        REQUIRE( 2 == l_constants.size() );
-        REQUIRE( 1e-5 == Approx( l_constants[0].incidentEnergy() ) );
-        REQUIRE( 2e+7 == Approx( l_constants[1].incidentEnergy() ) );
-        auto lambdas = l_constants[0].lambdas();
-        REQUIRE( 6 == lambdas.size() );
-        REQUIRE( 1. == Approx( lambdas[0] ) );
-        REQUIRE( 2. == Approx( lambdas[1] ) );
-        REQUIRE( 3. == Approx( lambdas[2] ) );
-        REQUIRE( 4. == Approx( lambdas[3] ) );
-        REQUIRE( 5. == Approx( lambdas[4] ) );
-        REQUIRE( 6. == Approx( lambdas[5] ) );
-        lambdas = l_constants[1].lambdas();
-        REQUIRE( 6 == lambdas.size() );
-        REQUIRE( 6. == Approx( lambdas[0] ) );
-        REQUIRE( 5. == Approx( lambdas[1] ) );
-        REQUIRE( 4. == Approx( lambdas[2] ) );
-        REQUIRE( 3. == Approx( lambdas[3] ) );
-        REQUIRE( 2. == Approx( lambdas[4] ) );
-        REQUIRE( 1. == Approx( lambdas[5] ) );
-        auto alphas = l_constants[0].alphas();
-        REQUIRE( 6 == alphas.size() );
-        REQUIRE( 1.1 == Approx( alphas[0] ) );
-        REQUIRE( 2.1 == Approx( alphas[1] ) );
-        REQUIRE( 3.1 == Approx( alphas[2] ) );
-        REQUIRE( 4.1 == Approx( alphas[3] ) );
-        REQUIRE( 5.1 == Approx( alphas[4] ) );
-        REQUIRE( 6.1 == Approx( alphas[5] ) );
-        alphas = l_constants[1].alphas();
-        REQUIRE( 6 == lambdas.size() );
-        REQUIRE( 6.1 == Approx( alphas[0] ) );
-        REQUIRE( 5.1 == Approx( alphas[1] ) );
-        REQUIRE( 4.1 == Approx( alphas[2] ) );
-        REQUIRE( 3.1 == Approx( alphas[3] ) );
-        REQUIRE( 2.1 == Approx( alphas[4] ) );
-        REQUIRE( 1.1 == Approx( alphas[5] ) );
-        REQUIRE( 1 == data.NR() );
-        REQUIRE( 1 == interpolants.size() );
-        REQUIRE( 1 == boundaries.size() );
-        REQUIRE( 4 == data.NP() );
-        REQUIRE( 4 == energy.size() );
-        REQUIRE( 4 == nubar.size() );
-        REQUIRE( 1e-5 == Approx( energy[0] ) );
-        REQUIRE( 0.0253 == Approx( energy[1] ) );
-        REQUIRE( 0.05 == Approx( energy[2] ) );
-        REQUIRE( 2e+7 == Approx( energy[3] ) );
-        REQUIRE( 2.4367 == Approx( nubar[0] ) );
-        REQUIRE( 2.4367 == Approx( nubar[1] ) );
-        REQUIRE( 2.4367 == Approx( nubar[2] ) );
-        REQUIRE( 5.209845 == Approx( nubar[3] ) );
-        REQUIRE( 2 == interpolants[0] );
-        REQUIRE( 4 == boundaries[0] );
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 1 );
 
-        REQUIRE( 13 == MF1MT455.NC() );
-      }
-    }
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
+  } // GIVEN
 
-    WHEN( "the SEND Record is not valid, i.e., MT != 0" ){
-      std::string sectionString = baseLDG1LNU2() + invalidSEND();
+  GIVEN( "invalid data for a section::Type< 1, 455 >" ) {
+
+    WHEN( "a string representation of an File 1 Section 455 "
+          "with an invalid LDG" ) {
+
+      std::string sectionString = invalidLDG() + validSEND();
       auto begin = sectionString.begin();
       auto end = sectionString.end();
       long lineNumber = 1;
       HeadRecord head( begin, end, lineNumber );
 
-      THEN( "an exception is thrown" ){
-        REQUIRE_THROWS( section1455( head, begin, end, lineNumber, 9228 ) );
-      }
-    }
-  } // GIVEN
+      THEN( "an exception is thrown upon construction" ) {
 
-  GIVEN( "a valid instance of section::Type< 1, 455 > with LDG=0 & LNU=1" ) {
-    std::string string = baseLDG0LNU1() + validSEND();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-    HeadRecord head( begin, end, lineNumber );
-    section::Type< 1, 455 > section( head, begin, end, lineNumber, 9228 );
+        CHECK_THROWS( section1455( head, begin, end, lineNumber, 9228 ) );
+      } // THEN
+    } // WHEN
 
-    THEN( "it can be printed" ) {
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      section.print( output, 9228, 1 );
-      REQUIRE( buffer == string );
-    }
-  } // GIVEN
+    WHEN( "a string representation of an File 1 Section 455 "
+          "with an invalid LNU" ) {
 
-  GIVEN( "a valid instance of section::Type< 1, 455 > with LDG=0 & LNU=2" ) {
-    std::string string = baseLDG0LNU2() + validSEND();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-    HeadRecord head( begin, end, lineNumber );
-    section::Type< 1, 455 > section( head, begin, end, lineNumber, 9228 );
+      std::string sectionString = invalidLNU() + validSEND();
+      auto begin = sectionString.begin();
+      auto end = sectionString.end();
+      long lineNumber = 1;
+      HeadRecord head( begin, end, lineNumber );
 
-    THEN( "it can be printed" ) {
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      section.print( output, 9228, 1 );
-      REQUIRE( buffer == string );
-    }
-  } // GIVEN
+      THEN( "an exception is thrown upon construction" ) {
 
-  GIVEN( "a valid instance of section::Type< 1, 455 > with LDG=1 & LNU=1" ) {
-    std::string string = baseLDG1LNU1() + validSEND();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-    HeadRecord head( begin, end, lineNumber );
-    section::Type< 1, 455 > section( head, begin, end, lineNumber, 9228 );
+        CHECK_THROWS( section1455( head, begin, end, lineNumber, 9228 ) );
+      } // THEN
+    } // WHEN
 
-    THEN( "it can be printed" ) {
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      section.print( output, 9228, 1 );
-      REQUIRE( buffer == string );
-    }
-  } // GIVEN
+    WHEN( "a string representation of an File 1 Section 455 "
+          "with an odd NPL" ) {
 
-  GIVEN( "a valid instance of section::Type< 1, 455 > with LDG=1 & LNU=2" ) {
-    std::string string = baseLDG1LNU2() + validSEND();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-    HeadRecord head( begin, end, lineNumber );
-    section::Type< 1, 455 > section( head, begin, end, lineNumber, 9228 );
+      std::string sectionString = oddNPL() + validSEND();
+      auto begin = sectionString.begin();
+      auto end = sectionString.end();
+      long lineNumber = 1;
+      HeadRecord head( begin, end, lineNumber );
 
-    THEN( "it can be printed" ) {
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      section.print( output, 9228, 1 );
-      REQUIRE( buffer == string );
-    }
-  } // GIVEN
+      THEN( "an exception is thrown upon construction" ) {
 
-  GIVEN( "a string representation of an File 1 Section 455"
-         " with an invalid LDG" ){
-    std::string sectionString = invalidLDG() + validSEND();
-    auto begin = sectionString.begin();
-    auto end = sectionString.end();
-    long lineNumber = 1;
-    HeadRecord head( begin, end, lineNumber );
+        CHECK_THROWS( section1455( head, begin, end, lineNumber, 9228 ) );
+      } // THEN
+    } // WHEN
 
-    THEN( "an exception is thrown upon construction" ){
-      REQUIRE_THROWS( section1455( head, begin, end, lineNumber, 9228 ) );
-    }
-  } // GIVEN
+    WHEN( "a string representation of an File 1 Section 455 "
+          "with inconsistent NNF" ) {
 
-  GIVEN( "a string representation of an File 1 Section 455"
-         " with an invalid LNU" ){
-    std::string sectionString = invalidLNU() + validSEND();
-    auto begin = sectionString.begin();
-    auto end = sectionString.end();
-    long lineNumber = 1;
-    HeadRecord head( begin, end, lineNumber );
+      std::string sectionString = inconsistentNNF() + validSEND();
+      auto begin = sectionString.begin();
+      auto end = sectionString.end();
+      long lineNumber = 1;
+      HeadRecord head( begin, end, lineNumber );
 
-    THEN( "an exception is thrown upon construction" ){
-      REQUIRE_THROWS( section1455( head, begin, end, lineNumber, 9228 ) );
-    }
-  } // GIVEN
+      THEN( "an exception is thrown upon construction" ) {
 
-  GIVEN( "a string representation of an File 1 Section 455"
-         " with an inconsistent NPL" ){
-    std::string sectionString = inconsistentNPL() + validSEND();
-    auto begin = sectionString.begin();
-    auto end = sectionString.end();
-    long lineNumber = 1;
-    HeadRecord head( begin, end, lineNumber );
-
-    THEN( "an exception is thrown upon construction" ){
-      REQUIRE_THROWS( section1455( head, begin, end, lineNumber, 9228 ) );
-    }
-  } // GIVEN
-
-  GIVEN( "a string representation of an File 1 Section 455"
-         " with an odd NPL" ){
-    std::string sectionString = oddNPL() + validSEND();
-    auto begin = sectionString.begin();
-    auto end = sectionString.end();
-    long lineNumber = 1;
-    HeadRecord head( begin, end, lineNumber );
-
-    THEN( "an exception is thrown upon construction" ){
-      REQUIRE_THROWS( section1455( head, begin, end, lineNumber, 9228 ) );
-    }
+        CHECK_THROWS( section1455( head, begin, end, lineNumber, 9228 ) );
+      } // THEN
+    } // WHEN
   } // GIVEN
 } // SCENARIO
 
-std::string baseLDG0LNU1() {
+std::string chunkWithLDG0LNU1() {
   return
     " 9.223500+4 2.330248+2          0          1          0          09228 1455     \n"
     " 0.000000+0 0.000000+0          0          0          6          09228 1455     \n"
@@ -827,7 +464,58 @@ std::string baseLDG0LNU1() {
     " 2.436700+0 5.000000-2                                            9228 1455     \n";
 }
 
-std::string baseLDG0LNU2() {
+void verifyChunkWithLDG0LNU1( const section::Type< 1, 455 >& chunk ) {
+
+  CHECK( 455 == chunk.MT() );
+  CHECK( 455 == chunk.sectionNumber() );
+  CHECK( 92235 == chunk.ZA() );
+  CHECK( 233.0248 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 233.0248 == Approx( chunk.AWR() ) );
+  CHECK( 1 == chunk.LNU() );
+  CHECK( 1 == chunk.representation() );
+  CHECK( 0 == chunk.LDG() );
+  CHECK( 0 == chunk.type() );
+
+  decltype(auto) constants = std::get< EnergyIndependentConstants >( chunk.lambda() );
+
+  CHECK( 0 == constants.LDG() );
+  CHECK( 0 == constants.type() );
+  CHECK( 6 == constants.NNF() );
+  CHECK( 6 == constants.numberPrecursors() );
+
+  CHECK( 6 == constants.lambdas().size() );
+  CHECK( 6 == constants.decayConstants().size() );
+  CHECK( 0.013336 == Approx( constants.lambdas()[0] ) );
+  CHECK( 0.032739 == Approx( constants.lambdas()[1] ) );
+  CHECK( 0.12078 == Approx( constants.lambdas()[2] ) );
+  CHECK( 0.30278 == Approx( constants.lambdas()[3] ) );
+  CHECK( 0.84949 == Approx( constants.lambdas()[4] ) );
+  CHECK( 2.853000 == Approx( constants.lambdas()[5] ) );
+  CHECK( 0.013336 == Approx( constants.decayConstants()[0] ) );
+  CHECK( 0.032739 == Approx( constants.decayConstants()[1] ) );
+  CHECK( 0.12078 == Approx( constants.decayConstants()[2] ) );
+  CHECK( 0.30278 == Approx( constants.decayConstants()[3] ) );
+  CHECK( 0.84949 == Approx( constants.decayConstants()[4] ) );
+  CHECK( 2.853000 == Approx( constants.decayConstants()[5] ) );
+
+  decltype(auto) nubar = std::get< PolynomialMultiplicity >( chunk.nubar() );
+
+  CHECK( 1 == nubar.LNU() );
+  CHECK( 1 == nubar.representation() );
+
+  CHECK( 2 == nubar.NCO() );
+  CHECK( 2 == nubar.numberCoefficients() );
+  CHECK( 2 == nubar.C().size() );
+  CHECK( 2 == nubar.coefficients().size() );
+  CHECK( 2.4367 == Approx( nubar.C()[0] ) );
+  CHECK( 5e-2 == Approx( nubar.C()[1] ) );
+  CHECK( 2.4367 == Approx( nubar.coefficients()[0] ) );
+  CHECK( 5e-2 == Approx( nubar.coefficients()[1] ) );
+
+  CHECK( 5 == chunk.NC() );
+}
+
+std::string chunkWithLDG0LNU2() {
   return
     " 9.223500+4 2.330248+2          0          2          0          09228 1455     \n"
     " 0.000000+0 0.000000+0          0          0          6          09228 1455     \n"
@@ -838,7 +526,77 @@ std::string baseLDG0LNU2() {
     " 2.000000+7 5.209845+0                                            9228 1455     \n";
 }
 
-std::string baseLDG1LNU1() {
+void verifyChunkWithLDG0LNU2( const section::Type< 1, 455 >& chunk ) {
+
+  CHECK( 455 == chunk.MT() );
+  CHECK( 455 == chunk.sectionNumber() );
+  CHECK( 92235 == chunk.ZA() );
+  CHECK( 233.0248 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 233.0248 == Approx( chunk.AWR() ) );
+  CHECK( 2 == chunk.LNU() );
+  CHECK( 2 == chunk.representation() );
+  CHECK( 0 == chunk.LDG() );
+  CHECK( 0 == chunk.type() );
+
+  decltype(auto) constants = std::get< EnergyIndependentConstants >( chunk.lambda() );
+
+  CHECK( 0 == constants.LDG() );
+  CHECK( 0 == constants.type() );
+  CHECK( 6 == constants.NNF() );
+  CHECK( 6 == constants.numberPrecursors() );
+
+  CHECK( 6 == constants.lambdas().size() );
+  CHECK( 6 == constants.decayConstants().size() );
+  CHECK( 0.013336 == Approx( constants.lambdas()[0] ) );
+  CHECK( 0.032739 == Approx( constants.lambdas()[1] ) );
+  CHECK( 0.12078 == Approx( constants.lambdas()[2] ) );
+  CHECK( 0.30278 == Approx( constants.lambdas()[3] ) );
+  CHECK( 0.84949 == Approx( constants.lambdas()[4] ) );
+  CHECK( 2.853000 == Approx( constants.lambdas()[5] ) );
+  CHECK( 0.013336 == Approx( constants.decayConstants()[0] ) );
+  CHECK( 0.032739 == Approx( constants.decayConstants()[1] ) );
+  CHECK( 0.12078 == Approx( constants.decayConstants()[2] ) );
+  CHECK( 0.30278 == Approx( constants.decayConstants()[3] ) );
+  CHECK( 0.84949 == Approx( constants.decayConstants()[4] ) );
+  CHECK( 2.853000 == Approx( constants.decayConstants()[5] ) );
+
+  decltype(auto) nubar = std::get< TabulatedMultiplicity >( chunk.nubar() );
+
+  CHECK( 2 == nubar.LNU() );
+  CHECK( 2 == nubar.representation() );
+
+  CHECK( 4 == nubar.NP() );
+  CHECK( 1 == nubar.NR() );
+  CHECK( 1 == nubar.interpolants().size() );
+  CHECK( 1 == nubar.boundaries().size() );
+  CHECK( 2 == nubar.interpolants()[0] );
+  CHECK( 4 == nubar.boundaries()[0] );
+
+  CHECK( 4 == nubar.E().size() );
+  CHECK( 4 == nubar.energies().size() );
+  CHECK( 4 == nubar.NU().size() );
+  CHECK( 4 == nubar.multiplicities().size() );
+  CHECK( 1e-5 == Approx( nubar.E()[0] ) );
+  CHECK( 0.0253 == Approx( nubar.E()[1] ) );
+  CHECK( 0.05 == Approx( nubar.E()[2] ) );
+  CHECK( 2e+7 == Approx( nubar.E()[3] ) );
+  CHECK( 1e-5 == Approx( nubar.energies()[0] ) );
+  CHECK( 0.0253 == Approx( nubar.energies()[1] ) );
+  CHECK( 0.05 == Approx( nubar.energies()[2] ) );
+  CHECK( 2e+7 == Approx( nubar.energies()[3] ) );
+  CHECK( 2.4367 == Approx( nubar.NU()[0] ) );
+  CHECK( 2.4367 == Approx( nubar.NU()[1] ) );
+  CHECK( 2.4367 == Approx( nubar.NU()[2] ) );
+  CHECK( 5.209845 == Approx( nubar.NU()[3] ) );
+  CHECK( 2.4367 == Approx( nubar.multiplicities()[0] ) );
+  CHECK( 2.4367 == Approx( nubar.multiplicities()[1] ) );
+  CHECK( 2.4367 == Approx( nubar.multiplicities()[2] ) );
+  CHECK( 5.209845 == Approx( nubar.multiplicities()[3] ) );
+
+  CHECK( 7 == chunk.NC() );
+}
+
+std::string chunkWithLDG1LNU1() {
   return
     " 9.223500+4 2.330248+2          1          1          0          09228 1455     \n"
     " 0.000000+0 0.000000+0          0          0          1          29228 1455     \n"
@@ -853,7 +611,114 @@ std::string baseLDG1LNU1() {
     " 2.436700+0 5.000000-2                                            9228 1455     \n";
 }
 
-std::string baseLDG1LNU2() {
+void verifyChunkWithLDG1LNU1( const section::Type< 1, 455 >& chunk ) {
+
+  CHECK( 455 == chunk.MT() );
+  CHECK( 455 == chunk.sectionNumber() );
+  CHECK( 92235 == chunk.ZA() );
+  CHECK( 233.0248 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 233.0248 == Approx( chunk.AWR() ) );
+  CHECK( 1 == chunk.LNU() );
+  CHECK( 1 == chunk.representation() );
+  CHECK( 1 == chunk.LDG() );
+  CHECK( 1 == chunk.type() );
+
+  decltype(auto) constants = std::get< EnergyDependentConstants >( chunk.lambda() );
+
+  CHECK( 1 == constants.LDG() );
+  CHECK( 1 == constants.type() );
+  CHECK( 6 == constants.NNF() );
+  CHECK( 6 == constants.numberPrecursors() );
+
+  CHECK( 1 == constants.NR() );
+  CHECK( 2 == constants.NE() );
+  CHECK( 1 == constants.interpolants().size() );
+  CHECK( 1 == constants.boundaries().size() );
+  CHECK( 4 == constants.interpolants()[0] );
+  CHECK( 2 == constants.boundaries()[0] );
+
+  CHECK( 2 == constants.constants().size() );
+  CHECK( 1e-5 == Approx( constants.constants()[0].incidentEnergy() ) );
+  CHECK( 2e+7 == Approx( constants.constants()[1].incidentEnergy() ) );
+
+  CHECK( 6 == constants.constants()[0].lambdas().size() );
+  CHECK( 6 == constants.constants()[0].decayConstants().size() );
+  CHECK( 1. == Approx( constants.constants()[0].lambdas()[0] ) );
+  CHECK( 2. == Approx( constants.constants()[0].lambdas()[1] ) );
+  CHECK( 3. == Approx( constants.constants()[0].lambdas()[2] ) );
+  CHECK( 4. == Approx( constants.constants()[0].lambdas()[3] ) );
+  CHECK( 5. == Approx( constants.constants()[0].lambdas()[4] ) );
+  CHECK( 6. == Approx( constants.constants()[0].lambdas()[5] ) );
+  CHECK( 1. == Approx( constants.constants()[0].decayConstants()[0] ) );
+  CHECK( 2. == Approx( constants.constants()[0].decayConstants()[1] ) );
+  CHECK( 3. == Approx( constants.constants()[0].decayConstants()[2] ) );
+  CHECK( 4. == Approx( constants.constants()[0].decayConstants()[3] ) );
+  CHECK( 5. == Approx( constants.constants()[0].decayConstants()[4] ) );
+  CHECK( 6. == Approx( constants.constants()[0].decayConstants()[5] ) );
+
+  CHECK( 6 == constants.constants()[1].lambdas().size() );
+  CHECK( 6 == constants.constants()[1].decayConstants().size() );
+  CHECK( 6. == Approx( constants.constants()[1].lambdas()[0] ) );
+  CHECK( 5. == Approx( constants.constants()[1].lambdas()[1] ) );
+  CHECK( 4. == Approx( constants.constants()[1].lambdas()[2] ) );
+  CHECK( 3. == Approx( constants.constants()[1].lambdas()[3] ) );
+  CHECK( 2. == Approx( constants.constants()[1].lambdas()[4] ) );
+  CHECK( 1. == Approx( constants.constants()[1].lambdas()[5] ) );
+  CHECK( 6. == Approx( constants.constants()[1].decayConstants()[0] ) );
+  CHECK( 5. == Approx( constants.constants()[1].decayConstants()[1] ) );
+  CHECK( 4. == Approx( constants.constants()[1].decayConstants()[2] ) );
+  CHECK( 3. == Approx( constants.constants()[1].decayConstants()[3] ) );
+  CHECK( 2. == Approx( constants.constants()[1].decayConstants()[4] ) );
+  CHECK( 1. == Approx( constants.constants()[1].decayConstants()[5] ) );
+
+  CHECK( 6 == constants.constants()[0].alphas().size() );
+  CHECK( 6 == constants.constants()[0].abundances().size() );
+  CHECK( 1.1 == Approx( constants.constants()[0].alphas()[0] ) );
+  CHECK( 2.1 == Approx( constants.constants()[0].alphas()[1] ) );
+  CHECK( 3.1 == Approx( constants.constants()[0].alphas()[2] ) );
+  CHECK( 4.1 == Approx( constants.constants()[0].alphas()[3] ) );
+  CHECK( 5.1 == Approx( constants.constants()[0].alphas()[4] ) );
+  CHECK( 6.1 == Approx( constants.constants()[0].alphas()[5] ) );
+  CHECK( 1.1 == Approx( constants.constants()[0].abundances()[0] ) );
+  CHECK( 2.1 == Approx( constants.constants()[0].abundances()[1] ) );
+  CHECK( 3.1 == Approx( constants.constants()[0].abundances()[2] ) );
+  CHECK( 4.1 == Approx( constants.constants()[0].abundances()[3] ) );
+  CHECK( 5.1 == Approx( constants.constants()[0].abundances()[4] ) );
+  CHECK( 6.1 == Approx( constants.constants()[0].abundances()[5] ) );
+
+  CHECK( 6 == constants.constants()[1].alphas().size() );
+  CHECK( 6 == constants.constants()[1].abundances().size() );
+  CHECK( 6.1 == Approx( constants.constants()[1].alphas()[0] ) );
+  CHECK( 5.1 == Approx( constants.constants()[1].alphas()[1] ) );
+  CHECK( 4.1 == Approx( constants.constants()[1].alphas()[2] ) );
+  CHECK( 3.1 == Approx( constants.constants()[1].alphas()[3] ) );
+  CHECK( 2.1 == Approx( constants.constants()[1].alphas()[4] ) );
+  CHECK( 1.1 == Approx( constants.constants()[1].alphas()[5] ) );
+  CHECK( 6.1 == Approx( constants.constants()[1].abundances()[0] ) );
+  CHECK( 5.1 == Approx( constants.constants()[1].abundances()[1] ) );
+  CHECK( 4.1 == Approx( constants.constants()[1].abundances()[2] ) );
+  CHECK( 3.1 == Approx( constants.constants()[1].abundances()[3] ) );
+  CHECK( 2.1 == Approx( constants.constants()[1].abundances()[4] ) );
+  CHECK( 1.1 == Approx( constants.constants()[1].abundances()[5] ) );
+
+  decltype(auto) nubar = std::get< PolynomialMultiplicity >( chunk.nubar() );
+
+  CHECK( 1 == nubar.LNU() );
+  CHECK( 1 == nubar.representation() );
+
+  CHECK( 2 == nubar.NCO() );
+  CHECK( 2 == nubar.numberCoefficients() );
+  CHECK( 2 == nubar.C().size() );
+  CHECK( 2 == nubar.coefficients().size() );
+  CHECK( 2.4367 == Approx( nubar.C()[0] ) );
+  CHECK( 5e-2 == Approx( nubar.C()[1] ) );
+  CHECK( 2.4367 == Approx( nubar.coefficients()[0] ) );
+  CHECK( 5e-2 == Approx( nubar.coefficients()[1] ) );
+
+  CHECK( 11 == chunk.NC() );
+}
+
+std::string chunkWithLDG1LNU2() {
   return
     " 9.223500+4 2.330248+2          1          2          0          09228 1455     \n"
     " 0.000000+0 0.000000+0          0          0          1          29228 1455     \n"
@@ -868,6 +733,132 @@ std::string baseLDG1LNU2() {
     "          4          2                                            9228 1455     \n"
     " 1.000000-5 2.436700+0 2.530000-2 2.436700+0 5.000000-2 2.436700+09228 1455     \n"
     " 2.000000+7 5.209845+0                                            9228 1455     \n";
+}
+
+void verifyChunkWithLDG1LNU2( const section::Type< 1, 455 >& chunk ) {
+
+  CHECK( 455 == chunk.MT() );
+  CHECK( 455 == chunk.sectionNumber() );
+  CHECK( 92235 == chunk.ZA() );
+  CHECK( 233.0248 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 233.0248 == Approx( chunk.AWR() ) );
+  CHECK( 2 == chunk.LNU() );
+  CHECK( 2 == chunk.representation() );
+  CHECK( 1 == chunk.LDG() );
+  CHECK( 1 == chunk.type() );
+
+  decltype(auto) constants = std::get< EnergyDependentConstants >( chunk.lambda() );
+
+  CHECK( 1 == constants.LDG() );
+  CHECK( 1 == constants.type() );
+  CHECK( 6 == constants.NNF() );
+  CHECK( 6 == constants.numberPrecursors() );
+
+  CHECK( 1 == constants.NR() );
+  CHECK( 2 == constants.NE() );
+  CHECK( 1 == constants.interpolants().size() );
+  CHECK( 1 == constants.boundaries().size() );
+  CHECK( 4 == constants.interpolants()[0] );
+  CHECK( 2 == constants.boundaries()[0] );
+
+  CHECK( 2 == constants.constants().size() );
+  CHECK( 1e-5 == Approx( constants.constants()[0].incidentEnergy() ) );
+  CHECK( 2e+7 == Approx( constants.constants()[1].incidentEnergy() ) );
+
+  CHECK( 6 == constants.constants()[0].lambdas().size() );
+  CHECK( 6 == constants.constants()[0].decayConstants().size() );
+  CHECK( 1. == Approx( constants.constants()[0].lambdas()[0] ) );
+  CHECK( 2. == Approx( constants.constants()[0].lambdas()[1] ) );
+  CHECK( 3. == Approx( constants.constants()[0].lambdas()[2] ) );
+  CHECK( 4. == Approx( constants.constants()[0].lambdas()[3] ) );
+  CHECK( 5. == Approx( constants.constants()[0].lambdas()[4] ) );
+  CHECK( 6. == Approx( constants.constants()[0].lambdas()[5] ) );
+  CHECK( 1. == Approx( constants.constants()[0].decayConstants()[0] ) );
+  CHECK( 2. == Approx( constants.constants()[0].decayConstants()[1] ) );
+  CHECK( 3. == Approx( constants.constants()[0].decayConstants()[2] ) );
+  CHECK( 4. == Approx( constants.constants()[0].decayConstants()[3] ) );
+  CHECK( 5. == Approx( constants.constants()[0].decayConstants()[4] ) );
+  CHECK( 6. == Approx( constants.constants()[0].decayConstants()[5] ) );
+
+  CHECK( 6 == constants.constants()[1].lambdas().size() );
+  CHECK( 6 == constants.constants()[1].decayConstants().size() );
+  CHECK( 6. == Approx( constants.constants()[1].lambdas()[0] ) );
+  CHECK( 5. == Approx( constants.constants()[1].lambdas()[1] ) );
+  CHECK( 4. == Approx( constants.constants()[1].lambdas()[2] ) );
+  CHECK( 3. == Approx( constants.constants()[1].lambdas()[3] ) );
+  CHECK( 2. == Approx( constants.constants()[1].lambdas()[4] ) );
+  CHECK( 1. == Approx( constants.constants()[1].lambdas()[5] ) );
+  CHECK( 6. == Approx( constants.constants()[1].decayConstants()[0] ) );
+  CHECK( 5. == Approx( constants.constants()[1].decayConstants()[1] ) );
+  CHECK( 4. == Approx( constants.constants()[1].decayConstants()[2] ) );
+  CHECK( 3. == Approx( constants.constants()[1].decayConstants()[3] ) );
+  CHECK( 2. == Approx( constants.constants()[1].decayConstants()[4] ) );
+  CHECK( 1. == Approx( constants.constants()[1].decayConstants()[5] ) );
+
+  CHECK( 6 == constants.constants()[0].alphas().size() );
+  CHECK( 6 == constants.constants()[0].abundances().size() );
+  CHECK( 1.1 == Approx( constants.constants()[0].alphas()[0] ) );
+  CHECK( 2.1 == Approx( constants.constants()[0].alphas()[1] ) );
+  CHECK( 3.1 == Approx( constants.constants()[0].alphas()[2] ) );
+  CHECK( 4.1 == Approx( constants.constants()[0].alphas()[3] ) );
+  CHECK( 5.1 == Approx( constants.constants()[0].alphas()[4] ) );
+  CHECK( 6.1 == Approx( constants.constants()[0].alphas()[5] ) );
+  CHECK( 1.1 == Approx( constants.constants()[0].abundances()[0] ) );
+  CHECK( 2.1 == Approx( constants.constants()[0].abundances()[1] ) );
+  CHECK( 3.1 == Approx( constants.constants()[0].abundances()[2] ) );
+  CHECK( 4.1 == Approx( constants.constants()[0].abundances()[3] ) );
+  CHECK( 5.1 == Approx( constants.constants()[0].abundances()[4] ) );
+  CHECK( 6.1 == Approx( constants.constants()[0].abundances()[5] ) );
+
+  CHECK( 6 == constants.constants()[1].alphas().size() );
+  CHECK( 6 == constants.constants()[1].abundances().size() );
+  CHECK( 6.1 == Approx( constants.constants()[1].alphas()[0] ) );
+  CHECK( 5.1 == Approx( constants.constants()[1].alphas()[1] ) );
+  CHECK( 4.1 == Approx( constants.constants()[1].alphas()[2] ) );
+  CHECK( 3.1 == Approx( constants.constants()[1].alphas()[3] ) );
+  CHECK( 2.1 == Approx( constants.constants()[1].alphas()[4] ) );
+  CHECK( 1.1 == Approx( constants.constants()[1].alphas()[5] ) );
+  CHECK( 6.1 == Approx( constants.constants()[1].abundances()[0] ) );
+  CHECK( 5.1 == Approx( constants.constants()[1].abundances()[1] ) );
+  CHECK( 4.1 == Approx( constants.constants()[1].abundances()[2] ) );
+  CHECK( 3.1 == Approx( constants.constants()[1].abundances()[3] ) );
+  CHECK( 2.1 == Approx( constants.constants()[1].abundances()[4] ) );
+  CHECK( 1.1 == Approx( constants.constants()[1].abundances()[5] ) );
+
+  decltype(auto) nubar = std::get< TabulatedMultiplicity >( chunk.nubar() );
+
+  CHECK( 2 == nubar.LNU() );
+  CHECK( 2 == nubar.representation() );
+
+  CHECK( 4 == nubar.NP() );
+  CHECK( 1 == nubar.NR() );
+  CHECK( 1 == nubar.interpolants().size() );
+  CHECK( 1 == nubar.boundaries().size() );
+  CHECK( 2 == nubar.interpolants()[0] );
+  CHECK( 4 == nubar.boundaries()[0] );
+
+  CHECK( 4 == nubar.E().size() );
+  CHECK( 4 == nubar.energies().size() );
+  CHECK( 4 == nubar.NU().size() );
+  CHECK( 4 == nubar.multiplicities().size() );
+  CHECK( 1e-5 == Approx( nubar.E()[0] ) );
+  CHECK( 0.0253 == Approx( nubar.E()[1] ) );
+  CHECK( 0.05 == Approx( nubar.E()[2] ) );
+  CHECK( 2e+7 == Approx( nubar.E()[3] ) );
+  CHECK( 1e-5 == Approx( nubar.energies()[0] ) );
+  CHECK( 0.0253 == Approx( nubar.energies()[1] ) );
+  CHECK( 0.05 == Approx( nubar.energies()[2] ) );
+  CHECK( 2e+7 == Approx( nubar.energies()[3] ) );
+  CHECK( 2.4367 == Approx( nubar.NU()[0] ) );
+  CHECK( 2.4367 == Approx( nubar.NU()[1] ) );
+  CHECK( 2.4367 == Approx( nubar.NU()[2] ) );
+  CHECK( 5.209845 == Approx( nubar.NU()[3] ) );
+  CHECK( 2.4367 == Approx( nubar.multiplicities()[0] ) );
+  CHECK( 2.4367 == Approx( nubar.multiplicities()[1] ) );
+  CHECK( 2.4367 == Approx( nubar.multiplicities()[2] ) );
+  CHECK( 5.209845 == Approx( nubar.multiplicities()[3] ) );
+
+  CHECK( 13 == chunk.NC() );
 }
 
 std::string invalidLDG() {
@@ -907,7 +898,7 @@ std::string oddNPL() {
     " 2.436700+0 5.000000-2                                            9228 1455     \n";
 }
 
-std::string inconsistentNPL() {
+std::string inconsistentNNF() {
   return
     " 9.223500+4 2.330248+2          1          1          0          09228 1455     \n"
     " 0.000000+0 0.000000+0          0          0          1          29228 1455     \n"
