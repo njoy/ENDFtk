@@ -159,6 +159,8 @@ void verifyChunk( const EnergyDependentConstants& chunk ) {
   CHECK( 2 == chunk.boundaries()[0] );
 
   CHECK( 2 == chunk.constants().size() );
+  CHECK( 1e-5 == Approx( chunk.constants()[0].E() ) );
+  CHECK( 2e+7 == Approx( chunk.constants()[1].E() ) );
   CHECK( 1e-5 == Approx( chunk.constants()[0].incidentEnergy() ) );
   CHECK( 2e+7 == Approx( chunk.constants()[1].incidentEnergy() ) );
 

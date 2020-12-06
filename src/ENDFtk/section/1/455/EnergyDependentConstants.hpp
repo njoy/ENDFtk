@@ -1,7 +1,7 @@
 /**
  *  @class
- *  @brief Energy independent decay constants for delayed neutron precursor
- *         families (LDG = 0)
+ *  @brief Energy dependent decay constants for delayed neutron precursor
+ *         families (LDG = 1)
  *
  *  See ENDF102, section 1.3 for more information.
  */

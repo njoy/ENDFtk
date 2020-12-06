@@ -11,6 +11,17 @@
 // namespace aliases
 namespace python = pybind11;
 
+namespace mf1 {
+namespace mt455 {
+
+  // declarations - components
+  void wrapDecayConstants( python::module& );
+  void wrapEnergyIndependentConstants( python::module& );
+  void wrapEnergyDependentConstants( python::module& );
+
+}
+}
+
 void wrapSection_1_455( python::module& module ) {
 
   // type aliases
@@ -26,6 +37,11 @@ void wrapSection_1_455( python::module& module ) {
     "MT455",
     "MF455 - the number of delayed fission neutrons"
   );
+
+  // wrap components
+  mf1::mt455::wrapDecayConstants( submodule );
+  mf1::mt455::wrapEnergyIndependentConstants( submodule );
+  mf1::mt455::wrapEnergyDependentConstants( submodule );
 
   // create the section
   python::class_< Section > section(

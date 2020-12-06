@@ -3,7 +3,7 @@
  *
  *  @param[in] energy        the incident neutron energy
  *  @param[in] constants     the precursor families decay constants
- *  @param[in] abundances    the precursor families decay abundancies
+ *  @param[in] abundances    the precursor families decay abundances
  */
 DecayConstants( double energy, std::vector< double >&& constants,
                 std::vector< double >&& abundances )
