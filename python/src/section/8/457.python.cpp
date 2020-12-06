@@ -79,6 +79,7 @@ void wrapSection_8_457( python::module& module ) {
   )
   .def(
 
+    //! @todo pybind11 lambda move custom type workaround
     python::init( [] ( double zaid, double awr, int lis, int liso,
                        AverageDecayEnergies energies,
                        DecayModes modes,

@@ -84,6 +84,9 @@ pybind11_add_module( ENDFtk.python
     python/src/section/1/TabulatedMultiplicity.python.cpp
     python/src/section/1/PolynomialMultiplicity.python.cpp
     python/src/section/1/451.python.cpp
+    python/src/section/1/452.python.cpp
+    python/src/section/1/455.python.cpp
+    python/src/section/1/456.python.cpp
     python/src/section/2/151.python.cpp
     python/src/section/2/151/Isotope.python.cpp
     python/src/section/2/151/ScatteringRadius.python.cpp
