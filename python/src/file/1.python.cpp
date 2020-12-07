@@ -51,6 +51,7 @@ void wrapFile_1( python::module& module ) {
   wrapSection_1_452( submodule );
   wrapSection_1_455( submodule );
   wrapSection_1_456( submodule );
+  wrapSection_1_458( submodule );
 
   // create the file
   python::class_< File > file(

@@ -59,7 +59,7 @@ SCENARIO( "section::Type< 1, 458 >::Tabulated" ) {
       REQUIRE( true == bool( chunk.tableET() ) );
 
       auto component = *chunk.tableEFR();
-      REQUIRE( 1 == component.LDRV() );
+      REQUIRE( false == component.LDRV() );
       REQUIRE( 1 == component.IFC() );
       REQUIRE( 3 == component.NP() );
       REQUIRE( 1 == component.NR() );
@@ -67,17 +67,17 @@ SCENARIO( "section::Type< 1, 458 >::Tabulated" ) {
       REQUIRE( 1 == component.boundaries().size() );
       REQUIRE( 2 == component.interpolants()[0] );
       REQUIRE( 3 == component.boundaries()[0] );
-      REQUIRE( 3 == component.energy().size() );
-      REQUIRE( 3 == component.release().size() );
-      REQUIRE( 1e-5 == Approx( component.energy()[0] ) );
-      REQUIRE( 0.0253 == Approx( component.energy()[1] ) );
-      REQUIRE( 2e+7 == Approx( component.energy()[2] ) );
-      REQUIRE( 1.6913e+8 == Approx( component.release()[0] ) );
-      REQUIRE( 1.691e+8 == Approx( component.release()[1] ) );
-      REQUIRE( 1.69e+8 == Approx( component.release()[2] ) );
+      REQUIRE( 3 == component.energies().size() );
+      REQUIRE( 3 == component.qValues().size() );
+      REQUIRE( 1e-5 == Approx( component.energies()[0] ) );
+      REQUIRE( 0.0253 == Approx( component.energies()[1] ) );
+      REQUIRE( 2e+7 == Approx( component.energies()[2] ) );
+      REQUIRE( 1.6913e+8 == Approx( component.qValues()[0] ) );
+      REQUIRE( 1.691e+8 == Approx( component.qValues()[1] ) );
+      REQUIRE( 1.69e+8 == Approx( component.qValues()[2] ) );
 
       component = *chunk.tableET();
-      REQUIRE( 2 == component.LDRV() );
+      REQUIRE( true == component.LDRV() );
       REQUIRE( 9 == component.IFC() );
       REQUIRE( 4 == component.NP() );
       REQUIRE( 1 == component.NR() );
@@ -85,16 +85,16 @@ SCENARIO( "section::Type< 1, 458 >::Tabulated" ) {
       REQUIRE( 1 == component.boundaries().size() );
       REQUIRE( 2 == component.interpolants()[0] );
       REQUIRE( 4 == component.boundaries()[0] );
-      REQUIRE( 4 == component.energy().size() );
-      REQUIRE( 4 == component.release().size() );
-      REQUIRE( 1e-5 == Approx( component.energy()[0] ) );
-      REQUIRE( 0.0253 == Approx( component.energy()[1] ) );
-      REQUIRE( 1e+6 == Approx( component.energy()[2] ) );
-      REQUIRE( 2e+7 == Approx( component.energy()[3] ) );
-      REQUIRE( 2.021554e+8 == Approx( component.release()[0] ) );
-      REQUIRE( 3e+8 == Approx( component.release()[1] ) );
-      REQUIRE( 2.5e+8 == Approx( component.release()[2] ) );
-      REQUIRE( 1.5e+8 == Approx( component.release()[3] ) );
+      REQUIRE( 4 == component.energies().size() );
+      REQUIRE( 4 == component.qValues().size() );
+      REQUIRE( 1e-5 == Approx( component.energies()[0] ) );
+      REQUIRE( 0.0253 == Approx( component.energies()[1] ) );
+      REQUIRE( 1e+6 == Approx( component.energies()[2] ) );
+      REQUIRE( 2e+7 == Approx( component.energies()[3] ) );
+      REQUIRE( 2.021554e+8 == Approx( component.qValues()[0] ) );
+      REQUIRE( 3e+8 == Approx( component.qValues()[1] ) );
+      REQUIRE( 2.5e+8 == Approx( component.qValues()[2] ) );
+      REQUIRE( 1.5e+8 == Approx( component.qValues()[3] ) );
 
       REQUIRE( 11 == chunk.NC() );
     }

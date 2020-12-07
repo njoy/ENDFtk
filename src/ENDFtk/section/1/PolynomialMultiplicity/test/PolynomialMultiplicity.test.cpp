@@ -7,7 +7,6 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using namespace njoy::ENDFtk;
 using PolynomialMultiplicity = section::PolynomialMultiplicity;
 
 std::string chunk();

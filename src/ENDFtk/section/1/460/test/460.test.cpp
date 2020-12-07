@@ -3,7 +3,7 @@
 #include "catch.hpp"
 #include "ENDFtk/section/1/460.hpp"
 
-#include "ENDFtk/tree/Tape.hpp"
+#include "ENDFtk/tree/Section.hpp"
 
 using namespace njoy::ENDFtk;
 

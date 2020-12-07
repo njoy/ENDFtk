@@ -25,10 +25,10 @@ namespace section{
 
   public:
 
-  #include "ENDFtk/section/1/458/ThermalPoint.hpp"
-  #include "ENDFtk/section/1/458/Polynomial.hpp"
-  #include "ENDFtk/section/1/458/EnergyReleaseComponent.hpp"
-  #include "ENDFtk/section/1/458/Tabulated.hpp"
+    #include "ENDFtk/section/1/458/ThermalPoint.hpp"
+    #include "ENDFtk/section/1/458/Polynomial.hpp"
+    #include "ENDFtk/section/1/458/EnergyReleaseComponent.hpp"
+    #include "ENDFtk/section/1/458/Tabulated.hpp"
 
     using FissionEnergyReleaseData = std::variant< // LFC=0 NPLY=0
                                                    ThermalPoint,
@@ -43,12 +43,12 @@ namespace section{
     FissionEnergyReleaseData data_;
 
     /* auxiliary functions */
-  #include "ENDFtk/section/1/458/src/readFissionEnergyReleaseData.hpp"
+    #include "ENDFtk/section/1/458/src/readFissionEnergyReleaseData.hpp"
 
   public:
 
     /* constructor */
-  #include "ENDFtk/section/1/458/src/ctor.hpp"
+    #include "ENDFtk/section/1/458/src/ctor.hpp"
 
     /* set methods */
 

@@ -1,5 +1,5 @@
 
-add_executable( ENDFtk.section.1.Polynomial.test Polynomial.test.cpp )
+add_executable( ENDFtk.section.1.Polynomial.test PolynomialMultiplicity.test.cpp )
 target_compile_options( ENDFtk.section.1.Polynomial.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}
