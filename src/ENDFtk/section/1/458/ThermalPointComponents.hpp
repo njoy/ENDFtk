@@ -1,10 +1,20 @@
-class ThermalPoint : protected ListRecord {
+/**
+ *  @class
+ *  @brief Thermal point evaluation for fission energy release components
+ *
+ *  The thermal point evaluation for fission energy release components uses
+ *  analytical functions to model dependence on incident neutron energy.
+ *
+ *  See ENDF102, section 1.5 for more information.
+ */
+class ThermalPointComponents : protected ListRecord {
 
 public:
-  /* constructor */
-#include "ENDFtk/section/1/458/ThermalPoint/src/ctor.hpp"
 
-  /* get methods */
+  /* constructor */
+  #include "ENDFtk/section/1/458/ThermalPointComponents/src/ctor.hpp"
+
+  /* methods */
   static constexpr int LFC() { return 0; }
   static constexpr int NPLY() { return 0; }
   static constexpr int NFC() { return 0; }
@@ -32,4 +42,3 @@ public:
   using ListRecord::NC;
   using ListRecord::print;
 };
-
