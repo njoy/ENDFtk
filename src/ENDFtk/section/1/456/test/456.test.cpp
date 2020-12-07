@@ -223,6 +223,7 @@ void verifyChunkLNU1( const section::Type< 1, 456 >& chunk ) {
   CHECK( 233.0248 == Approx( chunk.atomicWeightRatio() ) );
   CHECK( 233.0248 == Approx( chunk.AWR() ) );
   CHECK( 1 == chunk.LNU() );
+  CHECK( 1 == chunk.representation() );
 
   const auto& nubar = std::get< PolynomialMultiplicity >( chunk.nubar() );
 

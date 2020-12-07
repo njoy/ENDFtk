@@ -35,7 +35,7 @@ void wrapSection_1_455( python::module& module ) {
   python::module submodule = module.def_submodule(
 
     "MT455",
-    "MF455 - the number of delayed fission neutrons"
+    "MT455 - the number of delayed fission neutrons"
   );
 
   // wrap components
@@ -67,6 +67,7 @@ void wrapSection_1_455( python::module& module ) {
     "Arguments:\n"
     "    self            the section\n"
     "    zaid            the ZA value of the material\n"
+    "    awr            the atomic weight ratio\n"
     "    constants       the decay constant data\n"
     "    multiplicity    the multiplicity data"
   )
@@ -96,9 +97,9 @@ void wrapSection_1_455( python::module& module ) {
   )
   .def_property_readonly(
 
-    "lambda",
-    &Section::lambda,
-    "The decay constant data"
+    "delayed_groups",
+    &Section::delayedGroups,
+    "The decay constant data for the delayed precursor groups"
   )
   .def_property_readonly(
 

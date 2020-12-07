@@ -476,7 +476,7 @@ void verifyChunkWithLDG0LNU1( const section::Type< 1, 455 >& chunk ) {
   CHECK( 0 == chunk.LDG() );
   CHECK( 0 == chunk.type() );
 
-  decltype(auto) constants = std::get< EnergyIndependentConstants >( chunk.lambda() );
+  decltype(auto) constants = std::get< EnergyIndependentConstants >( chunk.delayedGroups() );
 
   CHECK( 0 == constants.LDG() );
   CHECK( 0 == constants.type() );
@@ -538,7 +538,7 @@ void verifyChunkWithLDG0LNU2( const section::Type< 1, 455 >& chunk ) {
   CHECK( 0 == chunk.LDG() );
   CHECK( 0 == chunk.type() );
 
-  decltype(auto) constants = std::get< EnergyIndependentConstants >( chunk.lambda() );
+  decltype(auto) constants = std::get< EnergyIndependentConstants >( chunk.delayedGroups() );
 
   CHECK( 0 == constants.LDG() );
   CHECK( 0 == constants.type() );
@@ -623,7 +623,7 @@ void verifyChunkWithLDG1LNU1( const section::Type< 1, 455 >& chunk ) {
   CHECK( 1 == chunk.LDG() );
   CHECK( 1 == chunk.type() );
 
-  decltype(auto) constants = std::get< EnergyDependentConstants >( chunk.lambda() );
+  decltype(auto) constants = std::get< EnergyDependentConstants >( chunk.delayedGroups() );
 
   CHECK( 1 == constants.LDG() );
   CHECK( 1 == constants.type() );
@@ -747,7 +747,7 @@ void verifyChunkWithLDG1LNU2( const section::Type< 1, 455 >& chunk ) {
   CHECK( 1 == chunk.LDG() );
   CHECK( 1 == chunk.type() );
 
-  decltype(auto) constants = std::get< EnergyDependentConstants >( chunk.lambda() );
+  decltype(auto) constants = std::get< EnergyDependentConstants >( chunk.delayedGroups() );
 
   CHECK( 1 == constants.LDG() );
   CHECK( 1 == constants.type() );

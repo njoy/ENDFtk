@@ -23,7 +23,7 @@ void wrapSection_1_452( python::module& module ) {
   python::module submodule = module.def_submodule(
 
     "MT452",
-    "MF452 - the total number of fission neutrons"
+    "MT452 - the total number of fission neutrons"
   );
 
   // create the section
@@ -47,6 +47,7 @@ void wrapSection_1_452( python::module& module ) {
     "Arguments:\n"
     "    self            the section\n"
     "    zaid            the ZA value of the material\n"
+    "    awr            the atomic weight ratio\n"
     "    multiplicity    the multiplicity data"
   )
   .def_property_readonly(

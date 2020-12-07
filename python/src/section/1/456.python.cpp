@@ -23,7 +23,7 @@ void wrapSection_1_456( python::module& module ) {
   python::module submodule = module.def_submodule(
 
     "MT456",
-    "MF456 - the number of prompt fission neutrons"
+    "MT456 - the number of prompt fission neutrons"
   );
 
   // create the section
@@ -47,27 +47,25 @@ void wrapSection_1_456( python::module& module ) {
     "Arguments:\n"
     "    self            the section\n"
     "    zaid            the ZA value of the material\n"
+    "    awr            the atomic weight ratio\n"
     "    multiplicity    the multiplicity data"
   )
   .def_property_readonly(
 
     "LNU",
-    [] ( const Section& self )
-       { return self.LNU(); },
+    &Section::LNU,
     "The fission multiplicity representation type"
   )
   .def_property_readonly(
 
     "representation",
-    [] ( const Section& self )
-       { return self.representation(); },
+    &Section::representation,
     "The fission multiplicity representation type"
   )
   .def_property_readonly(
 
     "nubar",
-    [] ( const Section& self )
-       { return self.nubar(); },
+    &Section::nubar,
     "The fission multiplicity data"
   );
 

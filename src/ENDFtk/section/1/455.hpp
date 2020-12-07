@@ -86,9 +86,9 @@ namespace section{
     int type() const { return this->LDG(); }
 
     /**
-     *  @brief Return the decay constant data
+     *  @brief Return the decay constant data for the delayed precursor groups
      */
-    const DecayConstantData& lambda() const { return this->lambda_; }
+    const DecayConstantData& delayedGroups() const { return this->lambda_; }
 
     /**
      *  @brief Return the fission multiplicity data

@@ -68,7 +68,7 @@ namespace section {
     const Multiplicity& nubar() const { return this->data_; }
 
     /**
-     *  @brief Return the number of lines in this MF1/MT452 section
+     *  @brief Return the number of lines in this MF1/MT456 section
      */
     long NC() const { return 1 + std::visit( [] ( const auto& v ) -> long
                                                 { return v.NC(); },
