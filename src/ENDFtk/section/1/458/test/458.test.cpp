@@ -42,29 +42,29 @@ SCENARIO( "section::Type< 1, 458 >" ) {
         REQUIRE( 0 == MF1MT458.NPLY() );
         REQUIRE( 0 == MF1MT458.NFC() );
 
-        REQUIRE_NOTHROW( std::get< section1458::ThermalPoint >
+        REQUIRE_NOTHROW( std::get< section1458::ThermalPointComponents >
                          ( MF1MT458.energyRelease() ) );
-        auto data = std::get< section1458::ThermalPoint >( MF1MT458.energyRelease() );
+        auto data = std::get< section1458::ThermalPointComponents >( MF1MT458.energyRelease() );
 
-        REQUIRE( 1.691300e+8 == Approx( data.EFR() ) );
-        REQUIRE( 4.838000e+6 == Approx( data.ENP() ) );
-        REQUIRE( 7.400000e+3 == Approx( data.END() ) );
-        REQUIRE( 6.600000e+6 == Approx( data.EGP() ) );
-        REQUIRE( 6.330000e+6 == Approx( data.EGD() ) );
-        REQUIRE( 6.500000e+6 == Approx( data.EB() ) );
-        REQUIRE( 8.750000e+6 == Approx( data.ENU() ) );
-        REQUIRE( 1.934054e+8 == Approx( data.ER() ) );
-        REQUIRE( 2.021554e+8 == Approx( data.ET() ) );
+        CHECK( 1.691300e+8 == Approx( data.EFR()[0] ) );
+        CHECK( 4.838000e+6 == Approx( data.ENP()[0] ) );
+        CHECK( 7.400000e+3 == Approx( data.END()[0] ) );
+        CHECK( 6.600000e+6 == Approx( data.EGP()[0] ) );
+        CHECK( 6.330000e+6 == Approx( data.EGD()[0] ) );
+        CHECK( 6.500000e+6 == Approx( data.EB()[0] ) );
+        CHECK( 8.750000e+6 == Approx( data.ENU()[0] ) );
+        CHECK( 1.934054e+8 == Approx( data.ER()[0] ) );
+        CHECK( 2.021554e+8 == Approx( data.ET()[0] ) );
 
-        REQUIRE( 4.900000e+5 == Approx( data.DEFR() ) );
-        REQUIRE( 7.000000e+4 == Approx( data.DENP() ) );
-        REQUIRE( 1.110000e+3 == Approx( data.DEND() ) );
-        REQUIRE( 5.000000e+5 == Approx( data.DEGP() ) );
-        REQUIRE( 5.000000e+4 == Approx( data.DEGD() ) );
-        REQUIRE( 5.100000e+4 == Approx( data.DEB() ) );
-        REQUIRE( 7.000000e+4 == Approx( data.DENU() ) );
-        REQUIRE( 1.500000e+5 == Approx( data.DER() ) );
-        REQUIRE( 1.300000e+5 == Approx( data.DET() ) );
+        CHECK( 4.900000e+5 == Approx( data.EFR()[1] ) );
+        CHECK( 7.000000e+4 == Approx( data.ENP()[1] ) );
+        CHECK( 1.110000e+3 == Approx( data.END()[1] ) );
+        CHECK( 5.000000e+5 == Approx( data.EGP()[1] ) );
+        CHECK( 5.000000e+4 == Approx( data.EGD()[1] ) );
+        CHECK( 5.100000e+4 == Approx( data.EB()[1] ) );
+        CHECK( 7.000000e+4 == Approx( data.ENU()[1] ) );
+        CHECK( 1.500000e+5 == Approx( data.ER()[1] ) );
+        CHECK( 1.300000e+5 == Approx( data.ET()[1] ) );
 
         REQUIRE( 5 == MF1MT458.NC() );
       }
@@ -94,29 +94,29 @@ SCENARIO( "section::Type< 1, 458 >" ) {
         REQUIRE( 0 == MF1MT458.NPLY() );
         REQUIRE( 0 == MF1MT458.NFC() );
 
-        REQUIRE_NOTHROW( std::get< section1458::ThermalPoint >
+        REQUIRE_NOTHROW( std::get< section1458::ThermalPointComponents >
                          ( MF1MT458.energyRelease() ) );
-        auto data = std::get< section1458::ThermalPoint >( MF1MT458.energyRelease() );
+        auto data = std::get< section1458::ThermalPointComponents >( MF1MT458.energyRelease() );
 
-        REQUIRE( 1.691300e+8 == Approx( data.EFR() ) );
-        REQUIRE( 4.838000e+6 == Approx( data.ENP() ) );
-        REQUIRE( 7.400000e+3 == Approx( data.END() ) );
-        REQUIRE( 6.600000e+6 == Approx( data.EGP() ) );
-        REQUIRE( 6.330000e+6 == Approx( data.EGD() ) );
-        REQUIRE( 6.500000e+6 == Approx( data.EB() ) );
-        REQUIRE( 8.750000e+6 == Approx( data.ENU() ) );
-        REQUIRE( 1.934054e+8 == Approx( data.ER() ) );
-        REQUIRE( 2.021554e+8 == Approx( data.ET() ) );
+        CHECK( 1.691300e+8 == Approx( data.EFR()[0] ) );
+        CHECK( 4.838000e+6 == Approx( data.ENP()[0] ) );
+        CHECK( 7.400000e+3 == Approx( data.END()[0] ) );
+        CHECK( 6.600000e+6 == Approx( data.EGP()[0] ) );
+        CHECK( 6.330000e+6 == Approx( data.EGD()[0] ) );
+        CHECK( 6.500000e+6 == Approx( data.EB()[0] ) );
+        CHECK( 8.750000e+6 == Approx( data.ENU()[0] ) );
+        CHECK( 1.934054e+8 == Approx( data.ER()[0] ) );
+        CHECK( 2.021554e+8 == Approx( data.ET()[0] ) );
 
-        REQUIRE( 4.900000e+5 == Approx( data.DEFR() ) );
-        REQUIRE( 7.000000e+4 == Approx( data.DENP() ) );
-        REQUIRE( 1.110000e+3 == Approx( data.DEND() ) );
-        REQUIRE( 5.000000e+5 == Approx( data.DEGP() ) );
-        REQUIRE( 5.000000e+4 == Approx( data.DEGD() ) );
-        REQUIRE( 5.100000e+4 == Approx( data.DEB() ) );
-        REQUIRE( 7.000000e+4 == Approx( data.DENU() ) );
-        REQUIRE( 1.500000e+5 == Approx( data.DER() ) );
-        REQUIRE( 1.300000e+5 == Approx( data.DET() ) );
+        CHECK( 4.900000e+5 == Approx( data.EFR()[1] ) );
+        CHECK( 7.000000e+4 == Approx( data.ENP()[1] ) );
+        CHECK( 1.110000e+3 == Approx( data.END()[1] ) );
+        CHECK( 5.000000e+5 == Approx( data.EGP()[1] ) );
+        CHECK( 5.000000e+4 == Approx( data.EGD()[1] ) );
+        CHECK( 5.100000e+4 == Approx( data.EB()[1] ) );
+        CHECK( 7.000000e+4 == Approx( data.ENU()[1] ) );
+        CHECK( 1.500000e+5 == Approx( data.ER()[1] ) );
+        CHECK( 1.300000e+5 == Approx( data.ET()[1] ) );
 
         REQUIRE( 5 == MF1MT458.NC() );
       }
@@ -384,25 +384,25 @@ SCENARIO( "section::Type< 1, 458 >" ) {
                          ( MF1MT458.energyRelease() ) );
         auto data = std::get< section1458::Tabulated >( MF1MT458.energyRelease() );
 
-        REQUIRE( 1.691300e+8 == Approx( data.EFR() ) );
-        REQUIRE( 4.838000e+6 == Approx( data.ENP() ) );
-        REQUIRE( 7.400000e+3 == Approx( data.END() ) );
-        REQUIRE( 6.600000e+6 == Approx( data.EGP() ) );
-        REQUIRE( 6.330000e+6 == Approx( data.EGD() ) );
-        REQUIRE( 6.500000e+6 == Approx( data.EB() ) );
-        REQUIRE( 8.750000e+6 == Approx( data.ENU() ) );
-        REQUIRE( 1.934054e+8 == Approx( data.ER() ) );
-        REQUIRE( 2.021554e+8 == Approx( data.ET() ) );
+        CHECK( 1.691300e+8 == Approx( data.EFR()[0] ) );
+        CHECK( 4.838000e+6 == Approx( data.ENP()[0] ) );
+        CHECK( 7.400000e+3 == Approx( data.END()[0] ) );
+        CHECK( 6.600000e+6 == Approx( data.EGP()[0] ) );
+        CHECK( 6.330000e+6 == Approx( data.EGD()[0] ) );
+        CHECK( 6.500000e+6 == Approx( data.EB()[0] ) );
+        CHECK( 8.750000e+6 == Approx( data.ENU()[0] ) );
+        CHECK( 1.934054e+8 == Approx( data.ER()[0] ) );
+        CHECK( 2.021554e+8 == Approx( data.ET()[0] ) );
 
-        REQUIRE( 4.900000e+5 == Approx( data.DEFR() ) );
-        REQUIRE( 7.000000e+4 == Approx( data.DENP() ) );
-        REQUIRE( 1.110000e+3 == Approx( data.DEND() ) );
-        REQUIRE( 5.000000e+5 == Approx( data.DEGP() ) );
-        REQUIRE( 5.000000e+4 == Approx( data.DEGD() ) );
-        REQUIRE( 5.100000e+4 == Approx( data.DEB() ) );
-        REQUIRE( 7.000000e+4 == Approx( data.DENU() ) );
-        REQUIRE( 1.500000e+5 == Approx( data.DER() ) );
-        REQUIRE( 1.300000e+5 == Approx( data.DET() ) );
+        CHECK( 4.900000e+5 == Approx( data.EFR()[1] ) );
+        CHECK( 7.000000e+4 == Approx( data.ENP()[1] ) );
+        CHECK( 1.110000e+3 == Approx( data.END()[1] ) );
+        CHECK( 5.000000e+5 == Approx( data.EGP()[1] ) );
+        CHECK( 5.000000e+4 == Approx( data.EGD()[1] ) );
+        CHECK( 5.100000e+4 == Approx( data.EB()[1] ) );
+        CHECK( 7.000000e+4 == Approx( data.ENU()[1] ) );
+        CHECK( 1.500000e+5 == Approx( data.ER()[1] ) );
+        CHECK( 1.300000e+5 == Approx( data.ET()[1] ) );
 
         REQUIRE( true == bool( data.tableEFR() ) );
         REQUIRE( false == bool( data.tableENP() ) );
@@ -483,25 +483,25 @@ SCENARIO( "section::Type< 1, 458 >" ) {
                          ( MF1MT458.energyRelease() ) );
         auto data = std::get< section1458::Tabulated >( MF1MT458.energyRelease() );
 
-        REQUIRE( 1.691300e+8 == Approx( data.EFR() ) );
-        REQUIRE( 4.838000e+6 == Approx( data.ENP() ) );
-        REQUIRE( 7.400000e+3 == Approx( data.END() ) );
-        REQUIRE( 6.600000e+6 == Approx( data.EGP() ) );
-        REQUIRE( 6.330000e+6 == Approx( data.EGD() ) );
-        REQUIRE( 6.500000e+6 == Approx( data.EB() ) );
-        REQUIRE( 8.750000e+6 == Approx( data.ENU() ) );
-        REQUIRE( 1.934054e+8 == Approx( data.ER() ) );
-        REQUIRE( 2.021554e+8 == Approx( data.ET() ) );
+        CHECK( 1.691300e+8 == Approx( data.EFR()[0] ) );
+        CHECK( 4.838000e+6 == Approx( data.ENP()[0] ) );
+        CHECK( 7.400000e+3 == Approx( data.END()[0] ) );
+        CHECK( 6.600000e+6 == Approx( data.EGP()[0] ) );
+        CHECK( 6.330000e+6 == Approx( data.EGD()[0] ) );
+        CHECK( 6.500000e+6 == Approx( data.EB()[0] ) );
+        CHECK( 8.750000e+6 == Approx( data.ENU()[0] ) );
+        CHECK( 1.934054e+8 == Approx( data.ER()[0] ) );
+        CHECK( 2.021554e+8 == Approx( data.ET()[0] ) );
 
-        REQUIRE( 4.900000e+5 == Approx( data.DEFR() ) );
-        REQUIRE( 7.000000e+4 == Approx( data.DENP() ) );
-        REQUIRE( 1.110000e+3 == Approx( data.DEND() ) );
-        REQUIRE( 5.000000e+5 == Approx( data.DEGP() ) );
-        REQUIRE( 5.000000e+4 == Approx( data.DEGD() ) );
-        REQUIRE( 5.100000e+4 == Approx( data.DEB() ) );
-        REQUIRE( 7.000000e+4 == Approx( data.DENU() ) );
-        REQUIRE( 1.500000e+5 == Approx( data.DER() ) );
-        REQUIRE( 1.300000e+5 == Approx( data.DET() ) );
+        CHECK( 4.900000e+5 == Approx( data.EFR()[1] ) );
+        CHECK( 7.000000e+4 == Approx( data.ENP()[1] ) );
+        CHECK( 1.110000e+3 == Approx( data.END()[1] ) );
+        CHECK( 5.000000e+5 == Approx( data.EGP()[1] ) );
+        CHECK( 5.000000e+4 == Approx( data.EGD()[1] ) );
+        CHECK( 5.100000e+4 == Approx( data.EB()[1] ) );
+        CHECK( 7.000000e+4 == Approx( data.ENU()[1] ) );
+        CHECK( 1.500000e+5 == Approx( data.ER()[1] ) );
+        CHECK( 1.300000e+5 == Approx( data.ET()[1] ) );
 
         REQUIRE( true == bool( data.tableEFR() ) );
         REQUIRE( false == bool( data.tableENP() ) );

@@ -28,25 +28,25 @@ SCENARIO( "section::Type< 1, 458 >::Tabulated" ) {
       REQUIRE( 0 == chunk.NPLY() );
       REQUIRE( 2 == chunk.NFC() );
 
-      REQUIRE( 1.691300e+8 == Approx( chunk.EFR() ) );
-      REQUIRE( 4.838000e+6 == Approx( chunk.ENP() ) );
-      REQUIRE( 7.400000e+3 == Approx( chunk.END() ) );
-      REQUIRE( 6.600000e+6 == Approx( chunk.EGP() ) );
-      REQUIRE( 6.330000e+6 == Approx( chunk.EGD() ) );
-      REQUIRE( 6.500000e+6 == Approx( chunk.EB() ) );
-      REQUIRE( 8.750000e+6 == Approx( chunk.ENU() ) );
-      REQUIRE( 1.934054e+8 == Approx( chunk.ER() ) );
-      REQUIRE( 2.021554e+8 == Approx( chunk.ET() ) );
+      CHECK( 1.691300e+8 == Approx( chunk.EFR()[0] ) );
+      CHECK( 4.838000e+6 == Approx( chunk.ENP()[0] ) );
+      CHECK( 7.400000e+3 == Approx( chunk.END()[0] ) );
+      CHECK( 6.600000e+6 == Approx( chunk.EGP()[0] ) );
+      CHECK( 6.330000e+6 == Approx( chunk.EGD()[0] ) );
+      CHECK( 6.500000e+6 == Approx( chunk.EB()[0] ) );
+      CHECK( 8.750000e+6 == Approx( chunk.ENU()[0] ) );
+      CHECK( 1.934054e+8 == Approx( chunk.ER()[0] ) );
+      CHECK( 2.021554e+8 == Approx( chunk.ET()[0] ) );
 
-      REQUIRE( 4.900000e+5 == Approx( chunk.DEFR() ) );
-      REQUIRE( 7.000000e+4 == Approx( chunk.DENP() ) );
-      REQUIRE( 1.110000e+3 == Approx( chunk.DEND() ) );
-      REQUIRE( 5.000000e+5 == Approx( chunk.DEGP() ) );
-      REQUIRE( 5.000000e+4 == Approx( chunk.DEGD() ) );
-      REQUIRE( 5.100000e+4 == Approx( chunk.DEB() ) );
-      REQUIRE( 7.000000e+4 == Approx( chunk.DENU() ) );
-      REQUIRE( 1.500000e+5 == Approx( chunk.DER() ) );
-      REQUIRE( 1.300000e+5 == Approx( chunk.DET() ) );
+      CHECK( 4.900000e+5 == Approx( chunk.EFR()[1] ) );
+      CHECK( 7.000000e+4 == Approx( chunk.ENP()[1] ) );
+      CHECK( 1.110000e+3 == Approx( chunk.END()[1] ) );
+      CHECK( 5.000000e+5 == Approx( chunk.EGP()[1] ) );
+      CHECK( 5.000000e+4 == Approx( chunk.EGD()[1] ) );
+      CHECK( 5.100000e+4 == Approx( chunk.EB()[1] ) );
+      CHECK( 7.000000e+4 == Approx( chunk.ENU()[1] ) );
+      CHECK( 1.500000e+5 == Approx( chunk.ER()[1] ) );
+      CHECK( 1.300000e+5 == Approx( chunk.ET()[1] ) );
 
       REQUIRE( true == bool( chunk.tableEFR() ) );
       REQUIRE( false == bool( chunk.tableENP() ) );

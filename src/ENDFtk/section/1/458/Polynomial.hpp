@@ -35,4 +35,3 @@ public:
   using ListRecord::NC;
   using ListRecord::print;
 };
-

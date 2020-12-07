@@ -17,7 +17,7 @@ readFissionEnergyReleaseData( Iterator& begin,
         throw std::exception();
       }
       if ( list.L2() == 0 ) {
-        return ThermalPoint( std::move( list ) );
+        return ThermalPointComponents( std::move( list ) );
       }
       else {
         return Polynomial( std::move( list ) );
@@ -33,4 +33,3 @@ readFissionEnergyReleaseData( Iterator& begin,
     }
   }
 }
-

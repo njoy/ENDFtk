@@ -11,6 +11,7 @@
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/TabulationRecord.hpp"
 #include "ENDFtk/section.hpp"
+#include "range/v3/view/chunk.hpp"
 #include "range/v3/view/drop_exactly.hpp"
 #include "range/v3/view/stride.hpp"
 
@@ -25,13 +26,13 @@ namespace section{
 
   public:
 
-    #include "ENDFtk/section/1/458/ThermalPoint.hpp"
+    #include "ENDFtk/section/1/458/ThermalPointComponents.hpp"
     #include "ENDFtk/section/1/458/Polynomial.hpp"
     #include "ENDFtk/section/1/458/EnergyReleaseComponent.hpp"
     #include "ENDFtk/section/1/458/Tabulated.hpp"
 
     using FissionEnergyReleaseData = std::variant< // LFC=0 NPLY=0
-                                                   ThermalPoint,
+                                                   ThermalPointComponents,
                                                    // LFC=0 NPLY!=0
                                                    Polynomial,
                                                    // LFC=1 NPLY=0
