@@ -37,17 +37,19 @@ public:
  *  @param[in] ldrv          the derived material flag
  *  @param[in] description   the descriptive information
  *  @param[in] index         the index
+ *  @param[in] rtol          the reconstruction tolerance (internal NJOY value)
  */
 Type( double zaid, double awr, int lrp, int lfi, int nlib, int nmod,
       double elis, double sta, int lis, int liso, int nfor,
       double awi, double emax, int lrel, int nsub, int nver,
       double temp, int ldrv,
       const std::string& description,
-      std::vector< DirectoryRecord >&& index ) :
+      std::vector< DirectoryRecord >&& index,
+      double rtol = 0. ) :
   BaseWithoutMT( zaid, awr ), lrp_( lrp ), lfi_( lfi ), nlib_( nlib ), nmod_( nmod ),
   parameters_( makeParameters( elis, sta, lis, liso, nfor,
                                awi, emax, lrel, nsub, nver,
-                               temp, ldrv,
+                               temp, rtol, ldrv,
                                ranges::distance(
                                    ranges::view::split( description, '\n' ) ),
                                index.size() ) ),
