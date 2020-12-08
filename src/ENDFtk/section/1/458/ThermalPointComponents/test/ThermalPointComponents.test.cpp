@@ -106,9 +106,12 @@ std::string chunk() {
 
 void verifyChunk( const ThermalPointComponents& chunk ) {
 
-  CHECK( 0 == chunk.LFC() );
+  CHECK( false == chunk.LFC() );
+  CHECK( false == chunk.tabulatedEnergyRelease() );
   CHECK( 0 == chunk.NPLY() );
+  CHECK( 0 == chunk.order() );
   CHECK( 0 == chunk.NFC() );
+  CHECK( 0 == chunk.numberTabulatedComponents() );
 
   CHECK( 1.691300e+8 == Approx( chunk.E()[0][0] ) );
   CHECK( 4.838000e+6 == Approx( chunk.E()[1][0] ) );

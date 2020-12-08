@@ -19,9 +19,35 @@ public:
 
   /* methods */
 
-  static constexpr int LFC() { return 0; }
+  /**
+   *  @brief Return the tabulated energy release flag
+   */
+  static constexpr bool LFC() { return false; }
+
+  /**
+   *  @brief Return the tabulated energy release flag
+   */
+  bool tabulatedEnergyRelease() const { return this->LFC(); }
+
+  /**
+   *  @brief Return the polynomial expansion order
+   */
   static constexpr int NPLY() { return 0; }
+
+  /**
+   *  @brief Return the polynomial expansion order
+   */
+  int order() const { return this->NPLY(); }
+
+  /**
+   *  @brief Return the number of tabulated energy release components
+   */
   static constexpr int NFC() { return 0; }
+
+  /**
+   *  @brief Return the number of tabulated energy release components
+   */
+  int numberTabulatedComponents() const { return this->NFC(); }
 
   /**
    *  @brief Return the energy release values and their uncertainties
