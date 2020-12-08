@@ -56,6 +56,9 @@ PYBIND11_MODULE( ENDFtk, module ) {
   wrapBasicRandomAccessAnyViewOf< BasicRandomAccessAnyView< double > >(
       module,
       "any_view< any_view< double, random_access >, random_access >" );
+  wrapBasicRandomAccessAnyViewOf< BasicRandomAccessAnyView< BasicRandomAccessAnyView< double > > >(
+      module,
+      "any_view< any_view< any_view< double, random_access >, random_access >, random_access >" );
   wrapBasicRandomAccessAnyViewOf< std::complex< double > >(
       module,
         "any_view< std::complex< double , random_access >" );

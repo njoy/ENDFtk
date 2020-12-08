@@ -27,14 +27,14 @@ namespace section{
   public:
 
     #include "ENDFtk/section/1/458/ThermalPointComponents.hpp"
-    #include "ENDFtk/section/1/458/Polynomial.hpp"
+    #include "ENDFtk/section/1/458/PolynomialComponents.hpp"
     #include "ENDFtk/section/1/458/EnergyReleaseComponent.hpp"
     #include "ENDFtk/section/1/458/Tabulated.hpp"
 
     using FissionEnergyReleaseData = std::variant< // LFC=0 NPLY=0
                                                    ThermalPointComponents,
                                                    // LFC=0 NPLY!=0
-                                                   Polynomial,
+                                                   PolynomialComponents,
                                                    // LFC=1 NPLY=0
                                                    Tabulated >;
 

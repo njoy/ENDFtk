@@ -20,7 +20,7 @@ readFissionEnergyReleaseData( Iterator& begin,
         return ThermalPointComponents( std::move( list ) );
       }
       else {
-        return Polynomial( std::move( list ) );
+        return PolynomialComponents( std::move( list ) );
       }
     }
     case 1 : return Tabulated( begin, end, lineNumber, MAT, 1, 458, NFC );

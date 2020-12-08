@@ -78,7 +78,7 @@ public:
    *  @brief Return the kinetic energy of the fission fragments and its
    *         uncertainty
    */
-  auto fissionFragments() const { return this->E()[0]; }
+  auto fissionFragments() const { return this->EFR(); }
 
   /**
    *  @brief Return the kinetic energy of the prompt fission neutrons and its
@@ -90,7 +90,7 @@ public:
    *  @brief Return the kinetic energy of the prompt fission neutrons and its
    *         uncertainty
    */
-  auto promptNeutrons() const { return this->E()[1]; }
+  auto promptNeutrons() const { return this->ENP(); }
 
   /**
    *  @brief Return the kinetic energy of the delayed fission neutrons and its
@@ -102,7 +102,7 @@ public:
    *  @brief Return the kinetic energy of the delayed fission neutrons and its
    *         uncertainty
    */
-  auto delayedNeutrons() const { return this->E()[2]; }
+  auto delayedNeutrons() const { return this->END(); }
 
   /**
    *  @brief Return the energy release by prompt gammas and its uncertainty
@@ -112,7 +112,7 @@ public:
   /**
    *  @brief Return the energy release by prompt gammas and its uncertainty
    */
-  auto promptGammas() const { return this->E()[3]; }
+  auto promptGammas() const { return this->EGP(); }
 
   /**
    *  @brief Return the energy release by delayed gammas and its uncertainty
@@ -122,7 +122,7 @@ public:
   /**
    *  @brief Return the energy release by delayed gammas and its uncertainty
    */
-  auto delayedGammas() const { return this->E()[4]; }
+  auto delayedGammas() const { return this->EGD(); }
 
   /**
    *  @brief Return the energy release by delayed betas and its uncertainty
@@ -132,7 +132,7 @@ public:
   /**
    *  @brief Return the energy release by delayed betas and its uncertainty
    */
-  auto delayedBetas() const  { return this->E()[5]; }
+  auto delayedBetas() const  { return this->EB(); }
 
   /**
    *  @brief Return the energy release by neutrinos and its uncertainty
@@ -142,7 +142,7 @@ public:
   /**
    *  @brief Return the energy release by neutrinos and its uncertainty
    */
-  auto neutrinos() const { return this->E()[6]; }
+  auto neutrinos() const { return this->ENU(); }
 
   /**
    *  @brief Return the total energy release minus the neutrino energy and its
@@ -154,7 +154,7 @@ public:
    *  @brief Return the total energy release minus the neutrino energy and its
    *         uncertainty
    */
-  auto totalMinusNeutrinos() const  { return this->E()[7]; }
+  auto totalMinusNeutrinos() const  { return this->ER(); }
 
   /**
    *  @brief Return the total energy release and its uncertainty
@@ -164,7 +164,7 @@ public:
   /**
    *  @brief Return the total energy release and its uncertainty
    */
-  auto total() const  { return this->E()[8]; }
+  auto total() const  { return this->ET(); }
 
   using ListRecord::NC;
   using ListRecord::print;
