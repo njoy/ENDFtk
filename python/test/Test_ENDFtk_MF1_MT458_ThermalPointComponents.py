@@ -32,6 +32,9 @@ class Test_ENDFtk_MF1_ThermalPointComponents( unittest.TestCase ) :
             self.assertEqual( 0, chunk.NFC )
             self.assertEqual( 0, chunk.number_tabulated_components )
 
+            self.assertEqual( 9, len( chunk.E ) )
+            self.assertEqual( 9, len( chunk.energy_release ) )
+
             self.assertEqual( 1.691300e+8, chunk.E[0][0] )
             self.assertEqual( 4.838000e+6, chunk.E[1][0] )
             self.assertEqual( 7.400000e+3, chunk.E[2][0] )

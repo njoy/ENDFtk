@@ -23,7 +23,7 @@ readFissionEnergyReleaseData( Iterator& begin,
         return PolynomialComponents( std::move( list ) );
       }
     }
-    case 1 : return Tabulated( begin, end, lineNumber, MAT, 1, 458, NFC );
+    case 1 : return TabulatedComponents( begin, end, lineNumber, MAT, 1, 458, NFC );
     default : {
       Log::error( "Encountered illegal LFC value" );
       Log::info( "LFC must be equal to 0 or 1" );

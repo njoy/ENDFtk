@@ -13,7 +13,6 @@ std::string chunk();
 void verifyChunk( const PolynomialComponents& );
 std::string invalidNPL();
 
-
 SCENARIO( "PolynomialComponents" ) {
 
   GIVEN( "valid data for a PolynomialComponents" ) {

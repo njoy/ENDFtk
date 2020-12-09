@@ -1,22 +1,20 @@
-template< typename Iterator >
 static std::array< std::optional< EnergyReleaseComponent >, 9 >
-readTables( Iterator& begin,
-            const Iterator& end,
-            long& lineNumber,
-            int MAT,
-            int MF,
-            int MT,
-            int NFC ) {
+generateTables( std::vector< EnergyReleaseComponent >&& tables ) {
 
   std::array< std::optional< EnergyReleaseComponent >, 9 > records = {
 
-      std::nullopt, std::nullopt, std::nullopt, std::nullopt, std::nullopt,
-      std::nullopt, std::nullopt, std::nullopt, std::nullopt
-    };
+    std::nullopt, std::nullopt, std::nullopt, std::nullopt, std::nullopt,
+    std::nullopt, std::nullopt, std::nullopt, std::nullopt
+  };
 
-  while( NFC-- ) {
+  if ( tables.size() == 0 ) {
 
-    EnergyReleaseComponent component(begin, end, lineNumber, MAT, MF, MT);
+    Log::error( "No tabulated energy release components are given" );
+    throw std::exception();
+  }
+
+  for ( auto&& component : tables ) {
+
     if ( ( component.IFC() > 0 ) && ( component.IFC() < 10 ) ) {
 
       if ( ! records[ component.IFC() - 1 ] ) {
@@ -27,7 +25,6 @@ readTables( Iterator& begin,
 
         Log::error( "Encountered duplicate IFC value" );
         Log::info( "IFC value: {}", component.IFC() );
-        Log::info( "Line number: {}", lineNumber - component.NC() );
         throw std::exception();
       }
     }
@@ -36,7 +33,6 @@ readTables( Iterator& begin,
       Log::error( "Encountered illegal IFC value" );
       Log::info( "IFC must be between 1 and 9" );
       Log::info( "IFC value: {}", component.IFC() );
-      Log::info( "Line number: {}", lineNumber - component.NC() );
       throw std::exception();
     }
   }

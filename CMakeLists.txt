@@ -94,6 +94,7 @@ pybind11_add_module( ENDFtk.python
     python/src/section/1/458/EnergyReleaseComponent.python.cpp
     python/src/section/1/458/ThermalPointComponents.python.cpp
     python/src/section/1/458/PolynomialComponents.python.cpp
+    python/src/section/1/458/TabulatedComponents.python.cpp
     python/src/section/2/151.python.cpp
     python/src/section/2/151/Isotope.python.cpp
     python/src/section/2/151/ScatteringRadius.python.cpp

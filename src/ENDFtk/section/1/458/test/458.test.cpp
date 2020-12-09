@@ -566,41 +566,41 @@ SCENARIO( "section::Type< 1, 458 >" ) {
         REQUIRE( 0 == MF1MT458.NPLY() );
         REQUIRE( 2 == MF1MT458.NFC() );
 
-        REQUIRE_NOTHROW( std::get< section1458::Tabulated >
+        REQUIRE_NOTHROW( std::get< section1458::TabulatedComponents >
                          ( MF1MT458.energyRelease() ) );
-        auto data = std::get< section1458::Tabulated >( MF1MT458.energyRelease() );
+        auto data = std::get< section1458::TabulatedComponents >( MF1MT458.energyRelease() );
 
-        CHECK( 1.691300e+8 == Approx( data.EFR()[0] ) );
-        CHECK( 4.838000e+6 == Approx( data.ENP()[0] ) );
-        CHECK( 7.400000e+3 == Approx( data.END()[0] ) );
-        CHECK( 6.600000e+6 == Approx( data.EGP()[0] ) );
-        CHECK( 6.330000e+6 == Approx( data.EGD()[0] ) );
-        CHECK( 6.500000e+6 == Approx( data.EB()[0] ) );
-        CHECK( 8.750000e+6 == Approx( data.ENU()[0] ) );
-        CHECK( 1.934054e+8 == Approx( data.ER()[0] ) );
-        CHECK( 2.021554e+8 == Approx( data.ET()[0] ) );
+        CHECK( 1.691300e+8 == Approx( data.thermalPointValues().EFR()[0] ) );
+        CHECK( 4.838000e+6 == Approx( data.thermalPointValues().ENP()[0] ) );
+        CHECK( 7.400000e+3 == Approx( data.thermalPointValues().END()[0] ) );
+        CHECK( 6.600000e+6 == Approx( data.thermalPointValues().EGP()[0] ) );
+        CHECK( 6.330000e+6 == Approx( data.thermalPointValues().EGD()[0] ) );
+        CHECK( 6.500000e+6 == Approx( data.thermalPointValues().EB()[0] ) );
+        CHECK( 8.750000e+6 == Approx( data.thermalPointValues().ENU()[0] ) );
+        CHECK( 1.934054e+8 == Approx( data.thermalPointValues().ER()[0] ) );
+        CHECK( 2.021554e+8 == Approx( data.thermalPointValues().ET()[0] ) );
 
-        CHECK( 4.900000e+5 == Approx( data.EFR()[1] ) );
-        CHECK( 7.000000e+4 == Approx( data.ENP()[1] ) );
-        CHECK( 1.110000e+3 == Approx( data.END()[1] ) );
-        CHECK( 5.000000e+5 == Approx( data.EGP()[1] ) );
-        CHECK( 5.000000e+4 == Approx( data.EGD()[1] ) );
-        CHECK( 5.100000e+4 == Approx( data.EB()[1] ) );
-        CHECK( 7.000000e+4 == Approx( data.ENU()[1] ) );
-        CHECK( 1.500000e+5 == Approx( data.ER()[1] ) );
-        CHECK( 1.300000e+5 == Approx( data.ET()[1] ) );
+        CHECK( 4.900000e+5 == Approx( data.thermalPointValues().EFR()[1] ) );
+        CHECK( 7.000000e+4 == Approx( data.thermalPointValues().ENP()[1] ) );
+        CHECK( 1.110000e+3 == Approx( data.thermalPointValues().END()[1] ) );
+        CHECK( 5.000000e+5 == Approx( data.thermalPointValues().EGP()[1] ) );
+        CHECK( 5.000000e+4 == Approx( data.thermalPointValues().EGD()[1] ) );
+        CHECK( 5.100000e+4 == Approx( data.thermalPointValues().EB()[1] ) );
+        CHECK( 7.000000e+4 == Approx( data.thermalPointValues().ENU()[1] ) );
+        CHECK( 1.500000e+5 == Approx( data.thermalPointValues().ER()[1] ) );
+        CHECK( 1.300000e+5 == Approx( data.thermalPointValues().ET()[1] ) );
 
-        REQUIRE( true == bool( data.tableEFR() ) );
-        REQUIRE( false == bool( data.tableENP() ) );
-        REQUIRE( false == bool( data.tableEND() ) );
-        REQUIRE( false == bool( data.tableEGP() ) );
-        REQUIRE( false == bool( data.tableEGD() ) );
-        REQUIRE( false == bool( data.tableEB() ) );
-        REQUIRE( false == bool( data.tableENU() ) );
-        REQUIRE( false == bool( data.tableER() ) );
-        REQUIRE( true == bool( data.tableET() ) );
+        REQUIRE( true == bool( data.tabulatedEFR() ) );
+        REQUIRE( false == bool( data.tabulatedENP() ) );
+        REQUIRE( false == bool( data.tabulatedEND() ) );
+        REQUIRE( false == bool( data.tabulatedEGP() ) );
+        REQUIRE( false == bool( data.tabulatedEGD() ) );
+        REQUIRE( false == bool( data.tabulatedEB() ) );
+        REQUIRE( false == bool( data.tabulatedENU() ) );
+        REQUIRE( false == bool( data.tabulatedER() ) );
+        REQUIRE( true == bool( data.tabulatedET() ) );
 
-        auto component = *data.tableEFR();
+        auto component = *data.tabulatedEFR();
         REQUIRE( false == component.LDRV() );
         REQUIRE( 1 == component.IFC() );
         REQUIRE( 3 == component.NP() );
@@ -618,7 +618,7 @@ SCENARIO( "section::Type< 1, 458 >" ) {
         REQUIRE( 1.691e+8 == Approx( component.qValues()[1] ) );
         REQUIRE( 1.69e+8 == Approx( component.qValues()[2] ) );
 
-        component = *data.tableET();
+        component = *data.tabulatedET();
         REQUIRE( true == component.LDRV() );
         REQUIRE( 9 == component.IFC() );
         REQUIRE( 4 == component.NP() );
@@ -665,41 +665,41 @@ SCENARIO( "section::Type< 1, 458 >" ) {
         REQUIRE( 0 == MF1MT458.NPLY() );
         REQUIRE( 2 == MF1MT458.NFC() );
 
-        REQUIRE_NOTHROW( std::get< section1458::Tabulated >
+        REQUIRE_NOTHROW( std::get< section1458::TabulatedComponents >
                          ( MF1MT458.energyRelease() ) );
-        auto data = std::get< section1458::Tabulated >( MF1MT458.energyRelease() );
+        auto data = std::get< section1458::TabulatedComponents >( MF1MT458.energyRelease() );
 
-        CHECK( 1.691300e+8 == Approx( data.EFR()[0] ) );
-        CHECK( 4.838000e+6 == Approx( data.ENP()[0] ) );
-        CHECK( 7.400000e+3 == Approx( data.END()[0] ) );
-        CHECK( 6.600000e+6 == Approx( data.EGP()[0] ) );
-        CHECK( 6.330000e+6 == Approx( data.EGD()[0] ) );
-        CHECK( 6.500000e+6 == Approx( data.EB()[0] ) );
-        CHECK( 8.750000e+6 == Approx( data.ENU()[0] ) );
-        CHECK( 1.934054e+8 == Approx( data.ER()[0] ) );
-        CHECK( 2.021554e+8 == Approx( data.ET()[0] ) );
+        CHECK( 1.691300e+8 == Approx( data.thermalPointValues().EFR()[0] ) );
+        CHECK( 4.838000e+6 == Approx( data.thermalPointValues().ENP()[0] ) );
+        CHECK( 7.400000e+3 == Approx( data.thermalPointValues().END()[0] ) );
+        CHECK( 6.600000e+6 == Approx( data.thermalPointValues().EGP()[0] ) );
+        CHECK( 6.330000e+6 == Approx( data.thermalPointValues().EGD()[0] ) );
+        CHECK( 6.500000e+6 == Approx( data.thermalPointValues().EB()[0] ) );
+        CHECK( 8.750000e+6 == Approx( data.thermalPointValues().ENU()[0] ) );
+        CHECK( 1.934054e+8 == Approx( data.thermalPointValues().ER()[0] ) );
+        CHECK( 2.021554e+8 == Approx( data.thermalPointValues().ET()[0] ) );
 
-        CHECK( 4.900000e+5 == Approx( data.EFR()[1] ) );
-        CHECK( 7.000000e+4 == Approx( data.ENP()[1] ) );
-        CHECK( 1.110000e+3 == Approx( data.END()[1] ) );
-        CHECK( 5.000000e+5 == Approx( data.EGP()[1] ) );
-        CHECK( 5.000000e+4 == Approx( data.EGD()[1] ) );
-        CHECK( 5.100000e+4 == Approx( data.EB()[1] ) );
-        CHECK( 7.000000e+4 == Approx( data.ENU()[1] ) );
-        CHECK( 1.500000e+5 == Approx( data.ER()[1] ) );
-        CHECK( 1.300000e+5 == Approx( data.ET()[1] ) );
+        CHECK( 4.900000e+5 == Approx( data.thermalPointValues().EFR()[1] ) );
+        CHECK( 7.000000e+4 == Approx( data.thermalPointValues().ENP()[1] ) );
+        CHECK( 1.110000e+3 == Approx( data.thermalPointValues().END()[1] ) );
+        CHECK( 5.000000e+5 == Approx( data.thermalPointValues().EGP()[1] ) );
+        CHECK( 5.000000e+4 == Approx( data.thermalPointValues().EGD()[1] ) );
+        CHECK( 5.100000e+4 == Approx( data.thermalPointValues().EB()[1] ) );
+        CHECK( 7.000000e+4 == Approx( data.thermalPointValues().ENU()[1] ) );
+        CHECK( 1.500000e+5 == Approx( data.thermalPointValues().ER()[1] ) );
+        CHECK( 1.300000e+5 == Approx( data.thermalPointValues().ET()[1] ) );
 
-        REQUIRE( true == bool( data.tableEFR() ) );
-        REQUIRE( false == bool( data.tableENP() ) );
-        REQUIRE( false == bool( data.tableEND() ) );
-        REQUIRE( false == bool( data.tableEGP() ) );
-        REQUIRE( false == bool( data.tableEGD() ) );
-        REQUIRE( false == bool( data.tableEB() ) );
-        REQUIRE( false == bool( data.tableENU() ) );
-        REQUIRE( false == bool( data.tableER() ) );
-        REQUIRE( true == bool( data.tableET() ) );
+        REQUIRE( true == bool( data.tabulatedEFR() ) );
+        REQUIRE( false == bool( data.tabulatedENP() ) );
+        REQUIRE( false == bool( data.tabulatedEND() ) );
+        REQUIRE( false == bool( data.tabulatedEGP() ) );
+        REQUIRE( false == bool( data.tabulatedEGD() ) );
+        REQUIRE( false == bool( data.tabulatedEB() ) );
+        REQUIRE( false == bool( data.tabulatedENU() ) );
+        REQUIRE( false == bool( data.tabulatedER() ) );
+        REQUIRE( true == bool( data.tabulatedET() ) );
 
-        auto component = *data.tableEFR();
+        auto component = *data.tabulatedEFR();
         REQUIRE( false == component.LDRV() );
         REQUIRE( 1 == component.IFC() );
         REQUIRE( 3 == component.NP() );
@@ -717,7 +717,7 @@ SCENARIO( "section::Type< 1, 458 >" ) {
         REQUIRE( 1.691e+8 == Approx( component.qValues()[1] ) );
         REQUIRE( 1.69e+8 == Approx( component.qValues()[2] ) );
 
-        component = *data.tableET();
+        component = *data.tabulatedET();
         REQUIRE( true == component.LDRV() );
         REQUIRE( 9 == component.IFC() );
         REQUIRE( 4 == component.NP() );

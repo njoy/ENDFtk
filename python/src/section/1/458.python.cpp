@@ -18,6 +18,7 @@ namespace mt458 {
   void wrapEnergyReleaseComponent( python::module& );
   void wrapThermalPointComponents( python::module& );
   void wrapPolynomialComponents( python::module& );
+  void wrapTabulatedComponents( python::module& );
 
 }
 }
@@ -40,6 +41,7 @@ void wrapSection_1_458( python::module& module ) {
   mf1::mt458::wrapEnergyReleaseComponent( submodule );
   mf1::mt458::wrapThermalPointComponents( submodule );
   mf1::mt458::wrapPolynomialComponents( submodule );
+  mf1::mt458::wrapTabulatedComponents( submodule );
 
   // create the section
   python::class_< Section > section(
