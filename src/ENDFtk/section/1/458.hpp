@@ -19,6 +19,12 @@ namespace njoy {
 namespace ENDFtk {
 namespace section{
 
+  /**
+   *  @class
+   *  @brief MF1 MT458 - energy release from fission
+   *
+   *  See ENDF102, section 1.5 for more information.
+   */
   template<>
   class Type< 1, 458 > : protected BaseWithoutMT< Type< 1, 458 > > {
 
@@ -51,34 +57,65 @@ namespace section{
     /* constructor */
     #include "ENDFtk/section/1/458/src/ctor.hpp"
 
-    /* set methods */
-
-    /* get methods */
+    /* methods */
 
     /**
-     *  @brief Return the MT number of the section
+     *  @brief Return the tabulated energy release flag
      */
-    static constexpr int sectionNumber(){ return 458; }
-
     int LFC() const { return std::visit( [] ( const auto& v ) -> long
                                             { return v.LFC(); },
                                          this->data_ ); }
 
+    /**
+     *  @brief Return the tabulated energy release flag
+     */
+    bool tabulatedEnergyRelease() const { return this->LFC(); }
+
+    /**
+     *  @brief Return the polynomial expansion order
+     */
     int NFC() const { return std::visit( [] ( const auto& v ) -> long
                                             { return v.NFC(); },
                                          this->data_ ); }
 
+    /**
+     *  @brief Return the polynomial expansion order
+     */
+    int order() const { return this->NPLY(); }
+
+    /**
+     *  @brief Return the number of tabulated energy release components
+     */
     int NPLY() const { return std::visit( [] ( const auto& v ) -> long
                                              { return v.NPLY(); },
                                           this->data_ ); }
 
-    const FissionEnergyReleaseData& energyRelease() const { return this->data_; }
+    /**
+     *  @brief Return the number of tabulated energy release components
+     */
+    int numberTabulatedComponents() const { return this->NFC(); }
 
+    /**
+     *  @brief Return the fission energy release data
+     */
+    const FissionEnergyReleaseData& energyRelease() const {
+
+      return this->data_;
+    }
+
+    /**
+     *  @brief Return the number of lines in this MF1/MT458 section
+     */
     long NC() const { return 1 + std::visit( [] ( const auto& v ) -> long
                                                 { return v.NC(); },
                                              this->data_ ); }
 
     #include "ENDFtk/section/1/458/src/print.hpp"
+
+    /**
+     *  @brief Return the MT number of the section
+     */
+    static constexpr int sectionNumber(){ return 458; }
 
     using BaseWithoutMT::MT;
     using BaseWithoutMT::ZA;

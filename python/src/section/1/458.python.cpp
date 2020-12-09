@@ -27,6 +27,7 @@ void wrapSection_1_458( python::module& module ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 1, 458 >;
+  using FissionEnergyReleaseData = njoy::ENDFtk::section::Type< 1, 458 >::FissionEnergyReleaseData;
 
   // wrap views created by this section
 
@@ -52,61 +53,65 @@ void wrapSection_1_458( python::module& module ) {
   );
 
   // wrap the section
-//  section
-//  .def(
-//
-//    //! @todo pybind11 lambda move custom type workaround
-//    python::init( [] ( double zaid, double awr, DecayConstantData constants,
-//                       Multiplicity multiplicity )
-//                     { return Section( zaid, awr,
-//                                       std::move( constants ),
-//                                       std::move( multiplicity ) ); } ),
-//    python::arg( "zaid" ), python::arg( "awr" ),
-//    python::arg( "constants" ), python::arg( "multiplicity" ),
-//    "Initialise the section\n\n"
-//    "Arguments:\n"
-//    "    self            the section\n"
-//    "    zaid            the ZA value of the material\n"
-//    "    awr            the atomic weight ratio\n"
-//    "    constants       the decay constant data\n"
-//    "    multiplicity    the multiplicity data"
-//  )
-//  .def_property_readonly(
-//
-//    "LNU",
-//    &Section::LNU,
-//    "The fission multiplicity representation type"
-//  )
-//  .def_property_readonly(
-//
-//    "representation",
-//    &Section::representation,
-//    "The fission multiplicity representation type"
-//  )
-//  .def_property_readonly(
-//
-//    "LDG",
-//    &Section::LDG,
-//    "The type of decay constants"
-//  )
-//  .def_property_readonly(
-//
-//    "type",
-//    &Section::type,
-//    "The type of decay constants"
-//  )
-//  .def_property_readonly(
-//
-//    "delayed_groups",
-//    &Section::delayedGroups,
-//    "The decay constant data for the delayed precursor groups"
-//  )
-//  .def_property_readonly(
-//
-//    "nubar",
-//    &Section::nubar,
-//    "The fission multiplicity data"
-//  );
+  section
+  .def(
+
+    //! @todo pybind11 lambda move custom type workaround
+    python::init( [] ( double zaid, double awr,
+                       FissionEnergyReleaseData fissionq )
+                     { return Section( zaid, awr,
+                                       std::move( fissionq ) ); } ),
+    python::arg( "zaid" ), python::arg( "awr" ),
+    python::arg( "fissionq" ),
+    "Initialise the section\n\n"
+    "Arguments:\n"
+    "    self        the section\n"
+    "    zaid        the ZA value of the material\n"
+    "    awr         the atomic weight ratio\n"
+    "    fissionq    the fission energy release data"
+  )
+  .def_property_readonly(
+
+    "LFC",
+    &Section::LFC,
+    "The tabulated energy release flag"
+  )
+  .def_property_readonly(
+
+    "tabulated_energy_release",
+    &Section::tabulatedEnergyRelease,
+    "The tabulated energy release flag"
+  )
+  .def_property_readonly(
+
+    "NPLY",
+    &Section::NPLY,
+    "The polynomial expansion order"
+  )
+  .def_property_readonly(
+
+    "order",
+    &Section::order,
+    "The polynomial expansion order"
+  )
+  .def_property_readonly(
+
+    "NFC",
+    &Section::NFC,
+    "The number of tabulated energy release components"
+  )
+  .def_property_readonly(
+
+    "number_tabulated_components",
+    &Section::numberTabulatedComponents,
+    "The number of tabulated energy release components"
+  )
+  .def_property_readonly(
+
+    "energy_release",
+    &Section::energyRelease,
+    "The fission energy release data"
+  );
 
   // add standard section definitions
   addStandardSectionDefinitions< Section >( section );

@@ -41,10 +41,10 @@ SCENARIO( "PolynomialComponents" ) {
                                                      {{ -1.379e-1, 1.379e-2 }} };
 
       PolynomialComponents chunk( std::move( efr ), std::move( enp ),
-                                    std::move( end ), std::move( egp ),
-                                    std::move( egd ), std::move( eb ),
-                                    std::move( enu ), std::move( er ),
-                                    std::move( et ) );
+                                  std::move( end ), std::move( egp ),
+                                  std::move( egd ), std::move( eb ),
+                                  std::move( enu ), std::move( er ),
+                                  std::move( et ) );
 
       THEN( "a PolynomialComponents can be constructed and members can be "
             "tested" ) {

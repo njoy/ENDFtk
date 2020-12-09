@@ -3,75 +3,92 @@
 #include "catch.hpp"
 #include "ENDFtk/section/1/458.hpp"
 
+// other includes
 #include "ENDFtk/tree/Section.hpp"
 
+// convenience typedefs
 using namespace njoy::ENDFtk;
-
 using section1458 = section::Type< 1, 458 >;
+using ThermalPointComponents = section::Type< 1, 458 >::ThermalPointComponents;
+using PolynomialComponents = section::Type< 1, 458 >::PolynomialComponents;
+using TabulatedComponents = section::Type< 1, 458 >::TabulatedComponents;
+using EnergyReleaseComponent = section::Type< 1, 458 >::EnergyReleaseComponent;
 
-std::string baseLFC0NPLY0();
-std::string baseLFC0NPLY1();
-std::string baseLFC1();
+std::string chunkLFC0NPLY0();
+void verifyLFC0NPLY0( const section::Type< 1, 458 >& );
+std::string chunkLFC0NPLY1();
+void verifyLFC0NPLY1( const section::Type< 1, 458 >& );
+std::string chunkLFC1();
+void verifyLFC1( const section::Type< 1, 458 >& );
 std::string invalidLFC();
 std::string invalidNFC();
-std::string invalidNPLLFC0();
-std::string invalidNPLLFC1();
 std::string validSEND();
-std::string invalidSEND();
 
 SCENARIO( "section::Type< 1, 458 >" ) {
-  GIVEN( "a string representation of a valid File 1 Section 458 with LFC=0 and NPLY=0" ) {
 
-    WHEN( "there is a valid SEND record" ){
-      std::string sectionString = baseLFC0NPLY0() + validSEND();
+  GIVEN( "valid data for a section::Type< 1, 458 > with thermal point values" ) {
+
+    std::string sectionString = chunkLFC0NPLY0() + validSEND();
+
+    WHEN( "the data is given explicitly" ) {
+
+      int zaid = 92235;
+      double awr = 233.0248;
+      ThermalPointComponents fissionq( { 1.691300e+8, 4.900000e+5 },
+                                       { 4.838000e+6, 7.000000e+4 },
+                                       { 7.400000e+3, 1.110000e+3 },
+                                       { 6.600000e+6, 5.000000e+5 },
+                                       { 6.330000e+6, 5.000000e+4 },
+                                       { 6.500000e+6, 5.100000e+4 },
+                                       { 8.750000e+6, 7.000000e+4 },
+                                       { 1.934054e+8, 1.500000e+5 },
+                                       { 2.021554e+8, 1.300000e+5 } );
+
+      section::Type< 1, 458 > chunk( zaid, awr, std::move( fissionq ) );
+
+      THEN( "a section::Type< 1, 458 > can be constructed and "
+            "members can be tested" ) {
+
+        verifyLFC0NPLY0( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 1 );
+
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is read from a string/stream with a valid SEND" ) {
+
       auto begin = sectionString.begin();
       auto end = sectionString.end();
       long lineNumber = 1;
       HeadRecord head( begin, end, lineNumber );
 
-      THEN( "a section::Type< 1, 458 > can be constructed and members can be tested" ) {
-        section::Type< 1, 458 > MF1MT458( head, begin, end, lineNumber, 9228 );
+      section::Type< 1, 458 > chunk( head, begin, end, lineNumber, 9228 );
 
-        REQUIRE( 458 == MF1MT458.MT() );
-        REQUIRE( 458 == MF1MT458.sectionNumber() );
-        REQUIRE( 92235 == MF1MT458.ZA() );
-        REQUIRE( 233.0248 == Approx( MF1MT458.atomicWeightRatio() ) );
-        REQUIRE( 233.0248 == Approx( MF1MT458.AWR() ) );
+      THEN( "a section::Type< 1, 458 > can be constructed and "
+            "members can be tested" ) {
 
-        REQUIRE( 0 == MF1MT458.LFC() );
-        REQUIRE( 0 == MF1MT458.NPLY() );
-        REQUIRE( 0 == MF1MT458.NFC() );
+        verifyLFC0NPLY0( chunk );
+      } // THEN
 
-        REQUIRE_NOTHROW( std::get< section1458::ThermalPointComponents >
-                         ( MF1MT458.energyRelease() ) );
-        auto data = std::get< section1458::ThermalPointComponents >( MF1MT458.energyRelease() );
+      THEN( "it can be printed" ) {
 
-        CHECK( 1.691300e+8 == Approx( data.EFR()[0] ) );
-        CHECK( 4.838000e+6 == Approx( data.ENP()[0] ) );
-        CHECK( 7.400000e+3 == Approx( data.END()[0] ) );
-        CHECK( 6.600000e+6 == Approx( data.EGP()[0] ) );
-        CHECK( 6.330000e+6 == Approx( data.EGD()[0] ) );
-        CHECK( 6.500000e+6 == Approx( data.EB()[0] ) );
-        CHECK( 8.750000e+6 == Approx( data.ENU()[0] ) );
-        CHECK( 1.934054e+8 == Approx( data.ER()[0] ) );
-        CHECK( 2.021554e+8 == Approx( data.ET()[0] ) );
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 1 );
 
-        CHECK( 4.900000e+5 == Approx( data.EFR()[1] ) );
-        CHECK( 7.000000e+4 == Approx( data.ENP()[1] ) );
-        CHECK( 1.110000e+3 == Approx( data.END()[1] ) );
-        CHECK( 5.000000e+5 == Approx( data.EGP()[1] ) );
-        CHECK( 5.000000e+4 == Approx( data.EGD()[1] ) );
-        CHECK( 5.100000e+4 == Approx( data.EB()[1] ) );
-        CHECK( 7.000000e+4 == Approx( data.ENU()[1] ) );
-        CHECK( 1.500000e+5 == Approx( data.ER()[1] ) );
-        CHECK( 1.300000e+5 == Approx( data.ET()[1] ) );
-
-        REQUIRE( 5 == MF1MT458.NC() );
-      }
-    }
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
 
     WHEN( "there is a tree::Section" ){
-      std::string sectionString = baseLFC0NPLY0() + validSEND();
+
       auto begin = sectionString.begin();
       auto position = begin;
       auto end = sectionString.end();
@@ -80,260 +97,88 @@ SCENARIO( "section::Type< 1, 458 >" ) {
       tree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
 
-      THEN( "a section::Type< 1, 458 > can be constructed and members can be tested" ){
-        section::Type< 1, 458 > MF1MT458 = section.parse< 1, 458 >( lineNumber );
+      section::Type< 1, 458 > chunk = section.parse< 1, 458 >( lineNumber );
 
+      THEN( "a section::Type< 1, 458 > can be constructed and "
+            "members can be tested" ) {
 
-        REQUIRE( 458 == MF1MT458.MT() );
-        REQUIRE( 458 == MF1MT458.sectionNumber() );
-        REQUIRE( 92235 == MF1MT458.ZA() );
-        REQUIRE( 233.0248 == Approx( MF1MT458.atomicWeightRatio() ) );
-        REQUIRE( 233.0248 == Approx( MF1MT458.AWR() ) );
+        verifyLFC0NPLY0( chunk );
+      } // THEN
 
-        REQUIRE( 0 == MF1MT458.LFC() );
-        REQUIRE( 0 == MF1MT458.NPLY() );
-        REQUIRE( 0 == MF1MT458.NFC() );
+      THEN( "it can be printed" ) {
 
-        REQUIRE_NOTHROW( std::get< section1458::ThermalPointComponents >
-                         ( MF1MT458.energyRelease() ) );
-        auto data = std::get< section1458::ThermalPointComponents >( MF1MT458.energyRelease() );
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 1 );
 
-        CHECK( 1.691300e+8 == Approx( data.EFR()[0] ) );
-        CHECK( 4.838000e+6 == Approx( data.ENP()[0] ) );
-        CHECK( 7.400000e+3 == Approx( data.END()[0] ) );
-        CHECK( 6.600000e+6 == Approx( data.EGP()[0] ) );
-        CHECK( 6.330000e+6 == Approx( data.EGD()[0] ) );
-        CHECK( 6.500000e+6 == Approx( data.EB()[0] ) );
-        CHECK( 8.750000e+6 == Approx( data.ENU()[0] ) );
-        CHECK( 1.934054e+8 == Approx( data.ER()[0] ) );
-        CHECK( 2.021554e+8 == Approx( data.ET()[0] ) );
-
-        CHECK( 4.900000e+5 == Approx( data.EFR()[1] ) );
-        CHECK( 7.000000e+4 == Approx( data.ENP()[1] ) );
-        CHECK( 1.110000e+3 == Approx( data.END()[1] ) );
-        CHECK( 5.000000e+5 == Approx( data.EGP()[1] ) );
-        CHECK( 5.000000e+4 == Approx( data.EGD()[1] ) );
-        CHECK( 5.100000e+4 == Approx( data.EB()[1] ) );
-        CHECK( 7.000000e+4 == Approx( data.ENU()[1] ) );
-        CHECK( 1.500000e+5 == Approx( data.ER()[1] ) );
-        CHECK( 1.300000e+5 == Approx( data.ET()[1] ) );
-
-        REQUIRE( 5 == MF1MT458.NC() );
-      }
-    }
-
-    WHEN( "the SEND Record is not valid, i.e., MT != 0" ){
-      std::string sectionString = baseLFC0NPLY0() + invalidSEND();
-      auto begin = sectionString.begin();
-      auto end = sectionString.end();
-      long lineNumber = 1;
-      HeadRecord head( begin, end, lineNumber );
-
-      THEN( "an exception is thrown" ){
-        REQUIRE_THROWS( section1458( head, begin, end, lineNumber, 9228 ) );
-      }
-    }
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
   } // GIVEN
 
-  GIVEN( "a string representation of a valid File 1 Section 458 with LFC=0 and NPLY!=0" ) {
+  GIVEN( "valid data for a section::Type< 1, 458 > with polynomial values" ) {
 
-    WHEN( "there is a valid SEND record" ){
-      std::string sectionString = baseLFC0NPLY1() + validSEND();
+    std::string sectionString = chunkLFC0NPLY1() + validSEND();
+
+    WHEN( "the data is given explicitly" ) {
+
+      int zaid = 92235;
+      double awr = 233.0248;
+      PolynomialComponents fissionq( { { 1.691300e+8, 4.900000e+5 }, { -2.66e-1, 2.66e-2 } },
+                                     { { 4.838000e+6, 7.000000e+4 }, { 3.004e-1, 3.004e-2 } },
+                                     { { 7.400000e+3, 1.110000e+3 }, { 0., 0. } },
+                                     { { 6.600000e+6, 5.000000e+5 }, { 7.77e-2, 7.77e-3 } },
+                                     { { 6.330000e+6, 5.000000e+4 }, { -7.500e-2, 7.600e-3 } },
+                                     { { 6.500000e+6, 5.100000e+4 }, { -7.700e-2, 7.800e-3 } },
+                                     { { 8.750000e+6, 7.000000e+4 }, { -1.00e-1, 1.00e-2 } },
+                                     { { 1.934054e+8, 1.500000e+5 }, { -3.790e-2, 3.790e-3 } },
+                                     { { 2.021554e+8, 1.300000e+5 }, { -1.379e-1, 1.379e-2 } } );
+
+      section::Type< 1, 458 > chunk( zaid, awr, std::move( fissionq ) );
+
+      THEN( "a section::Type< 1, 458 > can be constructed and "
+            "members can be tested" ) {
+
+        verifyLFC0NPLY1( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 1 );
+
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is read from a string/stream with a valid SEND" ) {
+
       auto begin = sectionString.begin();
       auto end = sectionString.end();
       long lineNumber = 1;
       HeadRecord head( begin, end, lineNumber );
 
-      THEN( "a section::Type< 1, 458 > can be constructed and members can be tested" ) {
-        section::Type< 1, 458 > MF1MT458( head, begin, end, lineNumber, 9228 );
+      section::Type< 1, 458 > chunk( head, begin, end, lineNumber, 9228 );
 
-        REQUIRE( 458 == MF1MT458.MT() );
-        REQUIRE( 458 == MF1MT458.sectionNumber() );
-        REQUIRE( 92235 == MF1MT458.ZA() );
-        REQUIRE( 233.0248 == Approx( MF1MT458.atomicWeightRatio() ) );
-        REQUIRE( 233.0248 == Approx( MF1MT458.AWR() ) );
+      THEN( "a section::Type< 1, 458 > can be constructed and "
+            "members can be tested" ) {
 
-        REQUIRE( 0 == MF1MT458.LFC() );
-        REQUIRE( 1 == MF1MT458.NPLY() );
-        REQUIRE( 0 == MF1MT458.NFC() );
+        verifyLFC0NPLY1( chunk );
+      } // THEN
 
-        REQUIRE_NOTHROW( std::get< section1458::PolynomialComponents >
-                         ( MF1MT458.energyRelease() ) );
-        auto data = std::get< section1458::PolynomialComponents >( MF1MT458.energyRelease() );
+      THEN( "it can be printed" ) {
 
-        CHECK( false == data.LFC() );
-        CHECK( false == data.tabulatedEnergyRelease() );
-        CHECK( 1 == data.NPLY() );
-        CHECK( 1 == data.order() );
-        CHECK( 0 == data.NFC() );
-        CHECK( 0 == data.numberTabulatedComponents() );
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 1 );
 
-        CHECK( 1.691300e+8 == Approx( data.E()[0][0][0] ) );
-        CHECK( 4.838000e+6 == Approx( data.E()[1][0][0] ) );
-        CHECK( 7.400000e+3 == Approx( data.E()[2][0][0] ) );
-        CHECK( 6.600000e+6 == Approx( data.E()[3][0][0] ) );
-        CHECK( 6.330000e+6 == Approx( data.E()[4][0][0] ) );
-        CHECK( 6.500000e+6 == Approx( data.E()[5][0][0] ) );
-        CHECK( 8.750000e+6 == Approx( data.E()[6][0][0] ) );
-        CHECK( 1.934054e+8 == Approx( data.E()[7][0][0] ) );
-        CHECK( 2.021554e+8 == Approx( data.E()[8][0][0] ) );
-
-        CHECK( 4.900000e+5 == Approx( data.E()[0][0][1] ) );
-        CHECK( 7.000000e+4 == Approx( data.E()[1][0][1] ) );
-        CHECK( 1.110000e+3 == Approx( data.E()[2][0][1] ) );
-        CHECK( 5.000000e+5 == Approx( data.E()[3][0][1] ) );
-        CHECK( 5.000000e+4 == Approx( data.E()[4][0][1] ) );
-        CHECK( 5.100000e+4 == Approx( data.E()[5][0][1] ) );
-        CHECK( 7.000000e+4 == Approx( data.E()[6][0][1] ) );
-        CHECK( 1.500000e+5 == Approx( data.E()[7][0][1] ) );
-        CHECK( 1.300000e+5 == Approx( data.E()[8][0][1] ) );
-
-        CHECK( 1.691300e+8 == Approx( data.energyRelease()[0][0][0] ) );
-        CHECK( 4.838000e+6 == Approx( data.energyRelease()[1][0][0] ) );
-        CHECK( 7.400000e+3 == Approx( data.energyRelease()[2][0][0] ) );
-        CHECK( 6.600000e+6 == Approx( data.energyRelease()[3][0][0] ) );
-        CHECK( 6.330000e+6 == Approx( data.energyRelease()[4][0][0] ) );
-        CHECK( 6.500000e+6 == Approx( data.energyRelease()[5][0][0] ) );
-        CHECK( 8.750000e+6 == Approx( data.energyRelease()[6][0][0] ) );
-        CHECK( 1.934054e+8 == Approx( data.energyRelease()[7][0][0] ) );
-        CHECK( 2.021554e+8 == Approx( data.energyRelease()[8][0][0] ) );
-
-        CHECK( 4.900000e+5 == Approx( data.energyRelease()[0][0][1] ) );
-        CHECK( 7.000000e+4 == Approx( data.energyRelease()[1][0][1] ) );
-        CHECK( 1.110000e+3 == Approx( data.energyRelease()[2][0][1] ) );
-        CHECK( 5.000000e+5 == Approx( data.energyRelease()[3][0][1] ) );
-        CHECK( 5.000000e+4 == Approx( data.energyRelease()[4][0][1] ) );
-        CHECK( 5.100000e+4 == Approx( data.energyRelease()[5][0][1] ) );
-        CHECK( 7.000000e+4 == Approx( data.energyRelease()[6][0][1] ) );
-        CHECK( 1.500000e+5 == Approx( data.energyRelease()[7][0][1] ) );
-        CHECK( 1.300000e+5 == Approx( data.energyRelease()[8][0][1] ) );
-
-        CHECK( -2.660000e-1 == Approx( data.E()[0][1][0] ) );
-        CHECK( 3.004000e-1 ==  Approx( data.E()[1][1][0] ) );
-        CHECK( 0.0 == Approx( data.E()[2][1][0] ) );
-        CHECK( 7.770000e-2 ==  Approx( data.E()[3][1][0] ) );
-        CHECK( -7.500000e-2 == Approx( data.E()[4][1][0] ) );
-        CHECK( -7.700000e-2 == Approx( data.E()[5][1][0] ) );
-        CHECK( -1.000000e-1 == Approx( data.E()[6][1][0] ) );
-        CHECK( -3.790000e-2 == Approx( data.E()[7][1][0] ) );
-        CHECK( -1.379000e-1 == Approx( data.E()[8][1][0] ) );
-
-        CHECK( 2.660000e-2 == Approx( data.E()[0][1][1] ) );
-        CHECK( 3.004000e-2 == Approx( data.E()[1][1][1] ) );
-        CHECK( 0.0 == Approx( data.E()[2][1][1] ) );
-        CHECK( 7.770000e-3 == Approx( data.E()[3][1][1] ) );
-        CHECK( 7.600000e-3 == Approx( data.E()[4][1][1] ) );
-        CHECK( 7.800000e-3 == Approx( data.E()[5][1][1] ) );
-        CHECK( 1.000000e-2 == Approx( data.E()[6][1][1] ) );
-        CHECK( 3.790000e-3 == Approx( data.E()[7][1][1] ) );
-        CHECK( 1.379000e-2 == Approx( data.E()[8][1][1] ) );
-
-        CHECK( -2.660000e-1 == Approx( data.energyRelease()[0][1][0] ) );
-        CHECK( 3.004000e-1 ==  Approx( data.energyRelease()[1][1][0] ) );
-        CHECK( 0.0 == Approx( data.energyRelease()[2][1][0] ) );
-        CHECK( 7.770000e-2 ==  Approx( data.energyRelease()[3][1][0] ) );
-        CHECK( -7.500000e-2 == Approx( data.energyRelease()[4][1][0] ) );
-        CHECK( -7.700000e-2 == Approx( data.energyRelease()[5][1][0] ) );
-        CHECK( -1.000000e-1 == Approx( data.energyRelease()[6][1][0] ) );
-        CHECK( -3.790000e-2 == Approx( data.energyRelease()[7][1][0] ) );
-        CHECK( -1.379000e-1 == Approx( data.energyRelease()[8][1][0] ) );
-
-        CHECK( 2.660000e-2 == Approx( data.energyRelease()[0][1][1] ) );
-        CHECK( 3.004000e-2 == Approx( data.energyRelease()[1][1][1] ) );
-        CHECK( 0.0 == Approx( data.energyRelease()[2][1][1] ) );
-        CHECK( 7.770000e-3 == Approx( data.energyRelease()[3][1][1] ) );
-        CHECK( 7.600000e-3 == Approx( data.energyRelease()[4][1][1] ) );
-        CHECK( 7.800000e-3 == Approx( data.energyRelease()[5][1][1] ) );
-        CHECK( 1.000000e-2 == Approx( data.energyRelease()[6][1][1] ) );
-        CHECK( 3.790000e-3 == Approx( data.energyRelease()[7][1][1] ) );
-        CHECK( 1.379000e-2 == Approx( data.energyRelease()[8][1][1] ) );
-
-        CHECK( 1.691300e+8 == Approx( data.EFR()[0][0] ) );
-        CHECK( 4.838000e+6 == Approx( data.ENP()[0][0] ) );
-        CHECK( 7.400000e+3 == Approx( data.END()[0][0] ) );
-        CHECK( 6.600000e+6 == Approx( data.EGP()[0][0] ) );
-        CHECK( 6.330000e+6 == Approx( data.EGD()[0][0] ) );
-        CHECK( 6.500000e+6 == Approx( data.EB()[0][0] ) );
-        CHECK( 8.750000e+6 == Approx( data.ENU()[0][0] ) );
-        CHECK( 1.934054e+8 == Approx( data.ER()[0][0] ) );
-        CHECK( 2.021554e+8 == Approx( data.ET()[0][0] ) );
-
-        CHECK( 4.900000e+5 == Approx( data.EFR()[0][1] ) );
-        CHECK( 7.000000e+4 == Approx( data.ENP()[0][1] ) );
-        CHECK( 1.110000e+3 == Approx( data.END()[0][1] ) );
-        CHECK( 5.000000e+5 == Approx( data.EGP()[0][1] ) );
-        CHECK( 5.000000e+4 == Approx( data.EGD()[0][1] ) );
-        CHECK( 5.100000e+4 == Approx( data.EB()[0][1] ) );
-        CHECK( 7.000000e+4 == Approx( data.ENU()[0][1] ) );
-        CHECK( 1.500000e+5 == Approx( data.ER()[0][1] ) );
-        CHECK( 1.300000e+5 == Approx( data.ET()[0][1] ) );
-
-        CHECK( 1.691300e+8 == Approx( data.fissionFragments()[0][0] ) );
-        CHECK( 4.838000e+6 == Approx( data.promptNeutrons()[0][0] ) );
-        CHECK( 7.400000e+3 == Approx( data.delayedNeutrons()[0][0] ) );
-        CHECK( 6.600000e+6 == Approx( data.promptGammas()[0][0] ) );
-        CHECK( 6.330000e+6 == Approx( data.delayedGammas()[0][0] ) );
-        CHECK( 6.500000e+6 == Approx( data.delayedBetas()[0][0] ) );
-        CHECK( 8.750000e+6 == Approx( data.neutrinos()[0][0] ) );
-        CHECK( 1.934054e+8 == Approx( data.totalMinusNeutrinos()[0][0] ) );
-        CHECK( 2.021554e+8 == Approx( data.total()[0][0] ) );
-
-        CHECK( 4.900000e+5 == Approx( data.fissionFragments()[0][1] ) );
-        CHECK( 7.000000e+4 == Approx( data.promptNeutrons()[0][1] ) );
-        CHECK( 1.110000e+3 == Approx( data.delayedNeutrons()[0][1] ) );
-        CHECK( 5.000000e+5 == Approx( data.promptGammas()[0][1] ) );
-        CHECK( 5.000000e+4 == Approx( data.delayedGammas()[0][1] ) );
-        CHECK( 5.100000e+4 == Approx( data.delayedBetas()[0][1] ) );
-        CHECK( 7.000000e+4 == Approx( data.neutrinos()[0][1] ) );
-        CHECK( 1.500000e+5 == Approx( data.totalMinusNeutrinos()[0][1] ) );
-        CHECK( 1.300000e+5 == Approx( data.total()[0][1] ) );
-
-        CHECK( -2.660000e-1 == Approx( data.EFR()[1][0] ) );
-        CHECK( 3.004000e-1 ==  Approx( data.ENP()[1][0] ) );
-        CHECK( 0.0 == Approx( data.END()[1][0] ) );
-        CHECK( 7.770000e-2 ==  Approx( data.EGP()[1][0] ) );
-        CHECK( -7.500000e-2 == Approx( data.EGD()[1][0] ) );
-        CHECK( -7.700000e-2 == Approx( data.EB()[1][0] ) );
-        CHECK( -1.000000e-1 == Approx( data.ENU()[1][0] ) );
-        CHECK( -3.790000e-2 == Approx( data.ER()[1][0] ) );
-        CHECK( -1.379000e-1 == Approx( data.ET()[1][0] ) );
-
-        CHECK( 2.660000e-2 == Approx( data.EFR()[1][1] ) );
-        CHECK( 3.004000e-2 == Approx( data.ENP()[1][1] ) );
-        CHECK( 0.0 == Approx( data.END()[1][1] ) );
-        CHECK( 7.770000e-3 == Approx( data.EGP()[1][1] ) );
-        CHECK( 7.600000e-3 == Approx( data.EGD()[1][1] ) );
-        CHECK( 7.800000e-3 == Approx( data.EB()[1][1] ) );
-        CHECK( 1.000000e-2 == Approx( data.ENU()[1][1] ) );
-        CHECK( 3.790000e-3 == Approx( data.ER()[1][1] ) );
-        CHECK( 1.379000e-2 == Approx( data.ET()[1][1] ) );
-
-        CHECK( -2.660000e-1 == Approx( data.fissionFragments()[1][0] ) );
-        CHECK( 3.004000e-1 ==  Approx( data.promptNeutrons()[1][0] ) );
-        CHECK( 0.0 == Approx( data.delayedNeutrons()[1][0] ) );
-        CHECK( 7.770000e-2 ==  Approx( data.promptGammas()[1][0] ) );
-        CHECK( -7.500000e-2 == Approx( data.delayedGammas()[1][0] ) );
-        CHECK( -7.700000e-2 == Approx( data.delayedBetas()[1][0] ) );
-        CHECK( -1.000000e-1 == Approx( data.neutrinos()[1][0] ) );
-        CHECK( -3.790000e-2 == Approx( data.totalMinusNeutrinos()[1][0] ) );
-        CHECK( -1.379000e-1 == Approx( data.total()[1][0] ) );
-
-        CHECK( 2.660000e-2 == Approx( data.fissionFragments()[1][1] ) );
-        CHECK( 3.004000e-2 == Approx( data.promptNeutrons()[1][1] ) );
-        CHECK( 0.0 == Approx( data.delayedNeutrons()[1][1] ) );
-        CHECK( 7.770000e-3 == Approx( data.promptGammas()[1][1] ) );
-        CHECK( 7.600000e-3 == Approx( data.delayedGammas()[1][1] ) );
-        CHECK( 7.800000e-3 == Approx( data.delayedBetas()[1][1] ) );
-        CHECK( 1.000000e-2 == Approx( data.neutrinos()[1][1] ) );
-        CHECK( 3.790000e-3 == Approx( data.totalMinusNeutrinos()[1][1] ) );
-        CHECK( 1.379000e-2 == Approx( data.total()[1][1] ) );
-
-        REQUIRE( 8 == MF1MT458.NC() );
-      }
-    }
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
 
     WHEN( "there is a tree::Section" ){
-      std::string sectionString = baseLFC0NPLY1() + validSEND();
+
       auto begin = sectionString.begin();
       auto position = begin;
       auto end = sectionString.end();
@@ -342,308 +187,98 @@ SCENARIO( "section::Type< 1, 458 >" ) {
       tree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
 
-      THEN( "a section::Type< 1, 458 > can be constructed and members can be tested" ){
-        section::Type< 1, 458 > MF1MT458 = section.parse< 1, 458 >( lineNumber );
+      section::Type< 1, 458 > chunk = section.parse< 1, 458 >( lineNumber );
 
+      THEN( "a section::Type< 1, 458 > can be constructed and "
+            "members can be tested" ) {
 
-        REQUIRE( 458 == MF1MT458.MT() );
-        REQUIRE( 458 == MF1MT458.sectionNumber() );
-        REQUIRE( 92235 == MF1MT458.ZA() );
-        REQUIRE( 233.0248 == Approx( MF1MT458.atomicWeightRatio() ) );
-        REQUIRE( 233.0248 == Approx( MF1MT458.AWR() ) );
+        verifyLFC0NPLY1( chunk );
+      } // THEN
 
-        REQUIRE( 0 == MF1MT458.LFC() );
-        REQUIRE( 1 == MF1MT458.NPLY() );
-        REQUIRE( 0 == MF1MT458.NFC() );
+      THEN( "it can be printed" ) {
 
-        REQUIRE_NOTHROW( std::get< section1458::PolynomialComponents >
-                         ( MF1MT458.energyRelease() ) );
-        auto data = std::get< section1458::PolynomialComponents >( MF1MT458.energyRelease() );
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 1 );
 
-        CHECK( false == data.LFC() );
-        CHECK( false == data.tabulatedEnergyRelease() );
-        CHECK( 1 == data.NPLY() );
-        CHECK( 1 == data.order() );
-        CHECK( 0 == data.NFC() );
-        CHECK( 0 == data.numberTabulatedComponents() );
-
-        CHECK( 1.691300e+8 == Approx( data.E()[0][0][0] ) );
-        CHECK( 4.838000e+6 == Approx( data.E()[1][0][0] ) );
-        CHECK( 7.400000e+3 == Approx( data.E()[2][0][0] ) );
-        CHECK( 6.600000e+6 == Approx( data.E()[3][0][0] ) );
-        CHECK( 6.330000e+6 == Approx( data.E()[4][0][0] ) );
-        CHECK( 6.500000e+6 == Approx( data.E()[5][0][0] ) );
-        CHECK( 8.750000e+6 == Approx( data.E()[6][0][0] ) );
-        CHECK( 1.934054e+8 == Approx( data.E()[7][0][0] ) );
-        CHECK( 2.021554e+8 == Approx( data.E()[8][0][0] ) );
-
-        CHECK( 4.900000e+5 == Approx( data.E()[0][0][1] ) );
-        CHECK( 7.000000e+4 == Approx( data.E()[1][0][1] ) );
-        CHECK( 1.110000e+3 == Approx( data.E()[2][0][1] ) );
-        CHECK( 5.000000e+5 == Approx( data.E()[3][0][1] ) );
-        CHECK( 5.000000e+4 == Approx( data.E()[4][0][1] ) );
-        CHECK( 5.100000e+4 == Approx( data.E()[5][0][1] ) );
-        CHECK( 7.000000e+4 == Approx( data.E()[6][0][1] ) );
-        CHECK( 1.500000e+5 == Approx( data.E()[7][0][1] ) );
-        CHECK( 1.300000e+5 == Approx( data.E()[8][0][1] ) );
-
-        CHECK( 1.691300e+8 == Approx( data.energyRelease()[0][0][0] ) );
-        CHECK( 4.838000e+6 == Approx( data.energyRelease()[1][0][0] ) );
-        CHECK( 7.400000e+3 == Approx( data.energyRelease()[2][0][0] ) );
-        CHECK( 6.600000e+6 == Approx( data.energyRelease()[3][0][0] ) );
-        CHECK( 6.330000e+6 == Approx( data.energyRelease()[4][0][0] ) );
-        CHECK( 6.500000e+6 == Approx( data.energyRelease()[5][0][0] ) );
-        CHECK( 8.750000e+6 == Approx( data.energyRelease()[6][0][0] ) );
-        CHECK( 1.934054e+8 == Approx( data.energyRelease()[7][0][0] ) );
-        CHECK( 2.021554e+8 == Approx( data.energyRelease()[8][0][0] ) );
-
-        CHECK( 4.900000e+5 == Approx( data.energyRelease()[0][0][1] ) );
-        CHECK( 7.000000e+4 == Approx( data.energyRelease()[1][0][1] ) );
-        CHECK( 1.110000e+3 == Approx( data.energyRelease()[2][0][1] ) );
-        CHECK( 5.000000e+5 == Approx( data.energyRelease()[3][0][1] ) );
-        CHECK( 5.000000e+4 == Approx( data.energyRelease()[4][0][1] ) );
-        CHECK( 5.100000e+4 == Approx( data.energyRelease()[5][0][1] ) );
-        CHECK( 7.000000e+4 == Approx( data.energyRelease()[6][0][1] ) );
-        CHECK( 1.500000e+5 == Approx( data.energyRelease()[7][0][1] ) );
-        CHECK( 1.300000e+5 == Approx( data.energyRelease()[8][0][1] ) );
-
-        CHECK( -2.660000e-1 == Approx( data.E()[0][1][0] ) );
-        CHECK( 3.004000e-1 ==  Approx( data.E()[1][1][0] ) );
-        CHECK( 0.0 == Approx( data.E()[2][1][0] ) );
-        CHECK( 7.770000e-2 ==  Approx( data.E()[3][1][0] ) );
-        CHECK( -7.500000e-2 == Approx( data.E()[4][1][0] ) );
-        CHECK( -7.700000e-2 == Approx( data.E()[5][1][0] ) );
-        CHECK( -1.000000e-1 == Approx( data.E()[6][1][0] ) );
-        CHECK( -3.790000e-2 == Approx( data.E()[7][1][0] ) );
-        CHECK( -1.379000e-1 == Approx( data.E()[8][1][0] ) );
-
-        CHECK( 2.660000e-2 == Approx( data.E()[0][1][1] ) );
-        CHECK( 3.004000e-2 == Approx( data.E()[1][1][1] ) );
-        CHECK( 0.0 == Approx( data.E()[2][1][1] ) );
-        CHECK( 7.770000e-3 == Approx( data.E()[3][1][1] ) );
-        CHECK( 7.600000e-3 == Approx( data.E()[4][1][1] ) );
-        CHECK( 7.800000e-3 == Approx( data.E()[5][1][1] ) );
-        CHECK( 1.000000e-2 == Approx( data.E()[6][1][1] ) );
-        CHECK( 3.790000e-3 == Approx( data.E()[7][1][1] ) );
-        CHECK( 1.379000e-2 == Approx( data.E()[8][1][1] ) );
-
-        CHECK( -2.660000e-1 == Approx( data.energyRelease()[0][1][0] ) );
-        CHECK( 3.004000e-1 ==  Approx( data.energyRelease()[1][1][0] ) );
-        CHECK( 0.0 == Approx( data.energyRelease()[2][1][0] ) );
-        CHECK( 7.770000e-2 ==  Approx( data.energyRelease()[3][1][0] ) );
-        CHECK( -7.500000e-2 == Approx( data.energyRelease()[4][1][0] ) );
-        CHECK( -7.700000e-2 == Approx( data.energyRelease()[5][1][0] ) );
-        CHECK( -1.000000e-1 == Approx( data.energyRelease()[6][1][0] ) );
-        CHECK( -3.790000e-2 == Approx( data.energyRelease()[7][1][0] ) );
-        CHECK( -1.379000e-1 == Approx( data.energyRelease()[8][1][0] ) );
-
-        CHECK( 2.660000e-2 == Approx( data.energyRelease()[0][1][1] ) );
-        CHECK( 3.004000e-2 == Approx( data.energyRelease()[1][1][1] ) );
-        CHECK( 0.0 == Approx( data.energyRelease()[2][1][1] ) );
-        CHECK( 7.770000e-3 == Approx( data.energyRelease()[3][1][1] ) );
-        CHECK( 7.600000e-3 == Approx( data.energyRelease()[4][1][1] ) );
-        CHECK( 7.800000e-3 == Approx( data.energyRelease()[5][1][1] ) );
-        CHECK( 1.000000e-2 == Approx( data.energyRelease()[6][1][1] ) );
-        CHECK( 3.790000e-3 == Approx( data.energyRelease()[7][1][1] ) );
-        CHECK( 1.379000e-2 == Approx( data.energyRelease()[8][1][1] ) );
-
-        CHECK( 1.691300e+8 == Approx( data.EFR()[0][0] ) );
-        CHECK( 4.838000e+6 == Approx( data.ENP()[0][0] ) );
-        CHECK( 7.400000e+3 == Approx( data.END()[0][0] ) );
-        CHECK( 6.600000e+6 == Approx( data.EGP()[0][0] ) );
-        CHECK( 6.330000e+6 == Approx( data.EGD()[0][0] ) );
-        CHECK( 6.500000e+6 == Approx( data.EB()[0][0] ) );
-        CHECK( 8.750000e+6 == Approx( data.ENU()[0][0] ) );
-        CHECK( 1.934054e+8 == Approx( data.ER()[0][0] ) );
-        CHECK( 2.021554e+8 == Approx( data.ET()[0][0] ) );
-
-        CHECK( 4.900000e+5 == Approx( data.EFR()[0][1] ) );
-        CHECK( 7.000000e+4 == Approx( data.ENP()[0][1] ) );
-        CHECK( 1.110000e+3 == Approx( data.END()[0][1] ) );
-        CHECK( 5.000000e+5 == Approx( data.EGP()[0][1] ) );
-        CHECK( 5.000000e+4 == Approx( data.EGD()[0][1] ) );
-        CHECK( 5.100000e+4 == Approx( data.EB()[0][1] ) );
-        CHECK( 7.000000e+4 == Approx( data.ENU()[0][1] ) );
-        CHECK( 1.500000e+5 == Approx( data.ER()[0][1] ) );
-        CHECK( 1.300000e+5 == Approx( data.ET()[0][1] ) );
-
-        CHECK( 1.691300e+8 == Approx( data.fissionFragments()[0][0] ) );
-        CHECK( 4.838000e+6 == Approx( data.promptNeutrons()[0][0] ) );
-        CHECK( 7.400000e+3 == Approx( data.delayedNeutrons()[0][0] ) );
-        CHECK( 6.600000e+6 == Approx( data.promptGammas()[0][0] ) );
-        CHECK( 6.330000e+6 == Approx( data.delayedGammas()[0][0] ) );
-        CHECK( 6.500000e+6 == Approx( data.delayedBetas()[0][0] ) );
-        CHECK( 8.750000e+6 == Approx( data.neutrinos()[0][0] ) );
-        CHECK( 1.934054e+8 == Approx( data.totalMinusNeutrinos()[0][0] ) );
-        CHECK( 2.021554e+8 == Approx( data.total()[0][0] ) );
-
-        CHECK( 4.900000e+5 == Approx( data.fissionFragments()[0][1] ) );
-        CHECK( 7.000000e+4 == Approx( data.promptNeutrons()[0][1] ) );
-        CHECK( 1.110000e+3 == Approx( data.delayedNeutrons()[0][1] ) );
-        CHECK( 5.000000e+5 == Approx( data.promptGammas()[0][1] ) );
-        CHECK( 5.000000e+4 == Approx( data.delayedGammas()[0][1] ) );
-        CHECK( 5.100000e+4 == Approx( data.delayedBetas()[0][1] ) );
-        CHECK( 7.000000e+4 == Approx( data.neutrinos()[0][1] ) );
-        CHECK( 1.500000e+5 == Approx( data.totalMinusNeutrinos()[0][1] ) );
-        CHECK( 1.300000e+5 == Approx( data.total()[0][1] ) );
-
-        CHECK( -2.660000e-1 == Approx( data.EFR()[1][0] ) );
-        CHECK( 3.004000e-1 ==  Approx( data.ENP()[1][0] ) );
-        CHECK( 0.0 == Approx( data.END()[1][0] ) );
-        CHECK( 7.770000e-2 ==  Approx( data.EGP()[1][0] ) );
-        CHECK( -7.500000e-2 == Approx( data.EGD()[1][0] ) );
-        CHECK( -7.700000e-2 == Approx( data.EB()[1][0] ) );
-        CHECK( -1.000000e-1 == Approx( data.ENU()[1][0] ) );
-        CHECK( -3.790000e-2 == Approx( data.ER()[1][0] ) );
-        CHECK( -1.379000e-1 == Approx( data.ET()[1][0] ) );
-
-        CHECK( 2.660000e-2 == Approx( data.EFR()[1][1] ) );
-        CHECK( 3.004000e-2 == Approx( data.ENP()[1][1] ) );
-        CHECK( 0.0 == Approx( data.END()[1][1] ) );
-        CHECK( 7.770000e-3 == Approx( data.EGP()[1][1] ) );
-        CHECK( 7.600000e-3 == Approx( data.EGD()[1][1] ) );
-        CHECK( 7.800000e-3 == Approx( data.EB()[1][1] ) );
-        CHECK( 1.000000e-2 == Approx( data.ENU()[1][1] ) );
-        CHECK( 3.790000e-3 == Approx( data.ER()[1][1] ) );
-        CHECK( 1.379000e-2 == Approx( data.ET()[1][1] ) );
-
-        CHECK( -2.660000e-1 == Approx( data.fissionFragments()[1][0] ) );
-        CHECK( 3.004000e-1 ==  Approx( data.promptNeutrons()[1][0] ) );
-        CHECK( 0.0 == Approx( data.delayedNeutrons()[1][0] ) );
-        CHECK( 7.770000e-2 ==  Approx( data.promptGammas()[1][0] ) );
-        CHECK( -7.500000e-2 == Approx( data.delayedGammas()[1][0] ) );
-        CHECK( -7.700000e-2 == Approx( data.delayedBetas()[1][0] ) );
-        CHECK( -1.000000e-1 == Approx( data.neutrinos()[1][0] ) );
-        CHECK( -3.790000e-2 == Approx( data.totalMinusNeutrinos()[1][0] ) );
-        CHECK( -1.379000e-1 == Approx( data.total()[1][0] ) );
-
-        CHECK( 2.660000e-2 == Approx( data.fissionFragments()[1][1] ) );
-        CHECK( 3.004000e-2 == Approx( data.promptNeutrons()[1][1] ) );
-        CHECK( 0.0 == Approx( data.delayedNeutrons()[1][1] ) );
-        CHECK( 7.770000e-3 == Approx( data.promptGammas()[1][1] ) );
-        CHECK( 7.600000e-3 == Approx( data.delayedGammas()[1][1] ) );
-        CHECK( 7.800000e-3 == Approx( data.delayedBetas()[1][1] ) );
-        CHECK( 1.000000e-2 == Approx( data.neutrinos()[1][1] ) );
-        CHECK( 3.790000e-3 == Approx( data.totalMinusNeutrinos()[1][1] ) );
-        CHECK( 1.379000e-2 == Approx( data.total()[1][1] ) );
-
-        REQUIRE( 8 == MF1MT458.NC() );
-      }
-    }
-
-    WHEN( "the SEND Record is not valid, i.e., MT != 0" ){
-      std::string sectionString = baseLFC0NPLY1() + invalidSEND();
-      auto begin = sectionString.begin();
-      auto end = sectionString.end();
-      long lineNumber = 1;
-      HeadRecord head( begin, end, lineNumber );
-
-      THEN( "an exception is thrown" ){
-        REQUIRE_THROWS( section1458( head, begin, end, lineNumber, 9228 ) );
-      }
-    }
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
   } // GIVEN
 
-  GIVEN( "a string representation of a valid File 1 Section 458 with LFC=1" ) {
+  GIVEN( "valid data for a section::Type< 1, 458 > with tabulated values" ) {
 
-    WHEN( "there is a valid SEND record" ){
-      std::string sectionString = baseLFC1() + validSEND();
+    std::string sectionString = chunkLFC1() + validSEND();
+
+    WHEN( "the data is given explicitly" ) {
+
+      int zaid = 92235;
+      double awr = 233.0248;
+      TabulatedComponents fissionq(
+
+        ThermalPointComponents( { 1.691300e+8, 4.900000e+5 },
+                                { 4.838000e+6, 7.000000e+4 },
+                                { 7.400000e+3, 1.110000e+3 },
+                                { 6.600000e+6, 5.000000e+5 },
+                                { 6.330000e+6, 5.000000e+4 },
+                                { 6.500000e+6, 5.100000e+4 },
+                                { 8.750000e+6, 7.000000e+4 },
+                                { 1.934054e+8, 1.500000e+5 },
+                                { 2.021554e+8, 1.300000e+5 } ),
+        { EnergyReleaseComponent( false, 1, { 3 }, { 2 },
+                                  { 1.000000e-5, 2.530000e-2, 2.000000e+7 },
+                                  { 1.691300e+8, 1.691000e+8, 1.690000e+8 } ),
+          EnergyReleaseComponent( true, 9, { 4 }, { 2 },
+                                  { 1.000000e-5, 2.530000e-2, 1.000000e+6,
+                                    2.000000e+7 },
+                                  { 2.021554e+8, 3.000000e+8, 2.500000e+8,
+                                    1.500000e+8 } ) } );
+
+      section::Type< 1, 458 > chunk( zaid, awr, std::move( fissionq ) );
+
+      THEN( "a section::Type< 1, 458 > can be constructed and "
+            "members can be tested" ) {
+
+        verifyLFC1( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 1 );
+
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is read from a string/stream with a valid SEND" ) {
+
       auto begin = sectionString.begin();
       auto end = sectionString.end();
       long lineNumber = 1;
       HeadRecord head( begin, end, lineNumber );
 
-      THEN( "a section::Type< 1, 458 > can be constructed and members can be tested" ) {
-        section::Type< 1, 458 > MF1MT458( head, begin, end, lineNumber, 9228 );
+      section::Type< 1, 458 > chunk( head, begin, end, lineNumber, 9228 );
 
-        REQUIRE( 458 == MF1MT458.MT() );
-        REQUIRE( 458 == MF1MT458.sectionNumber() );
-        REQUIRE( 92235 == MF1MT458.ZA() );
-        REQUIRE( 233.0248 == Approx( MF1MT458.atomicWeightRatio() ) );
-        REQUIRE( 233.0248 == Approx( MF1MT458.AWR() ) );
+      THEN( "a section::Type< 1, 458 > can be constructed and "
+            "members can be tested" ) {
 
-        REQUIRE( 1 == MF1MT458.LFC() );
-        REQUIRE( 0 == MF1MT458.NPLY() );
-        REQUIRE( 2 == MF1MT458.NFC() );
+        verifyLFC1( chunk );
+      } // THEN
 
-        REQUIRE_NOTHROW( std::get< section1458::TabulatedComponents >
-                         ( MF1MT458.energyRelease() ) );
-        auto data = std::get< section1458::TabulatedComponents >( MF1MT458.energyRelease() );
+      THEN( "it can be printed" ) {
 
-        CHECK( 1.691300e+8 == Approx( data.thermalPointValues().EFR()[0] ) );
-        CHECK( 4.838000e+6 == Approx( data.thermalPointValues().ENP()[0] ) );
-        CHECK( 7.400000e+3 == Approx( data.thermalPointValues().END()[0] ) );
-        CHECK( 6.600000e+6 == Approx( data.thermalPointValues().EGP()[0] ) );
-        CHECK( 6.330000e+6 == Approx( data.thermalPointValues().EGD()[0] ) );
-        CHECK( 6.500000e+6 == Approx( data.thermalPointValues().EB()[0] ) );
-        CHECK( 8.750000e+6 == Approx( data.thermalPointValues().ENU()[0] ) );
-        CHECK( 1.934054e+8 == Approx( data.thermalPointValues().ER()[0] ) );
-        CHECK( 2.021554e+8 == Approx( data.thermalPointValues().ET()[0] ) );
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 1 );
 
-        CHECK( 4.900000e+5 == Approx( data.thermalPointValues().EFR()[1] ) );
-        CHECK( 7.000000e+4 == Approx( data.thermalPointValues().ENP()[1] ) );
-        CHECK( 1.110000e+3 == Approx( data.thermalPointValues().END()[1] ) );
-        CHECK( 5.000000e+5 == Approx( data.thermalPointValues().EGP()[1] ) );
-        CHECK( 5.000000e+4 == Approx( data.thermalPointValues().EGD()[1] ) );
-        CHECK( 5.100000e+4 == Approx( data.thermalPointValues().EB()[1] ) );
-        CHECK( 7.000000e+4 == Approx( data.thermalPointValues().ENU()[1] ) );
-        CHECK( 1.500000e+5 == Approx( data.thermalPointValues().ER()[1] ) );
-        CHECK( 1.300000e+5 == Approx( data.thermalPointValues().ET()[1] ) );
-
-        REQUIRE( true == bool( data.tabulatedEFR() ) );
-        REQUIRE( false == bool( data.tabulatedENP() ) );
-        REQUIRE( false == bool( data.tabulatedEND() ) );
-        REQUIRE( false == bool( data.tabulatedEGP() ) );
-        REQUIRE( false == bool( data.tabulatedEGD() ) );
-        REQUIRE( false == bool( data.tabulatedEB() ) );
-        REQUIRE( false == bool( data.tabulatedENU() ) );
-        REQUIRE( false == bool( data.tabulatedER() ) );
-        REQUIRE( true == bool( data.tabulatedET() ) );
-
-        auto component = *data.tabulatedEFR();
-        REQUIRE( false == component.LDRV() );
-        REQUIRE( 1 == component.IFC() );
-        REQUIRE( 3 == component.NP() );
-        REQUIRE( 1 == component.NR() );
-        REQUIRE( 1 == component.interpolants().size() );
-        REQUIRE( 1 == component.boundaries().size() );
-        REQUIRE( 2 == component.interpolants()[0] );
-        REQUIRE( 3 == component.boundaries()[0] );
-        REQUIRE( 3 == component.energies().size() );
-        REQUIRE( 3 == component.qValues().size() );
-        REQUIRE( 1e-5 == Approx( component.energies()[0] ) );
-        REQUIRE( 0.0253 == Approx( component.energies()[1] ) );
-        REQUIRE( 2e+7 == Approx( component.energies()[2] ) );
-        REQUIRE( 1.6913e+8 == Approx( component.qValues()[0] ) );
-        REQUIRE( 1.691e+8 == Approx( component.qValues()[1] ) );
-        REQUIRE( 1.69e+8 == Approx( component.qValues()[2] ) );
-
-        component = *data.tabulatedET();
-        REQUIRE( true == component.LDRV() );
-        REQUIRE( 9 == component.IFC() );
-        REQUIRE( 4 == component.NP() );
-        REQUIRE( 1 == component.NR() );
-        REQUIRE( 1 == component.interpolants().size() );
-        REQUIRE( 1 == component.boundaries().size() );
-        REQUIRE( 2 == component.interpolants()[0] );
-        REQUIRE( 4 == component.boundaries()[0] );
-        REQUIRE( 4 == component.energies().size() );
-        REQUIRE( 4 == component.qValues().size() );
-        REQUIRE( 1e-5 == Approx( component.energies()[0] ) );
-        REQUIRE( 0.0253 == Approx( component.energies()[1] ) );
-        REQUIRE( 1e+6 == Approx( component.energies()[2] ) );
-        REQUIRE( 2e+7 == Approx( component.energies()[3] ) );
-        REQUIRE( 2.021554e+8 == Approx( component.qValues()[0] ) );
-        REQUIRE( 3e+8 == Approx( component.qValues()[1] ) );
-        REQUIRE( 2.5e+8 == Approx( component.qValues()[2] ) );
-        REQUIRE( 1.5e+8 == Approx( component.qValues()[3] ) );
-
-        REQUIRE( 12 == MF1MT458.NC() );
-      }
-    }
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
 
     WHEN( "there is a tree::Section" ){
-      std::string sectionString = baseLFC1() + validSEND();
+
       auto begin = sectionString.begin();
       auto position = begin;
       auto end = sectionString.end();
@@ -652,210 +287,60 @@ SCENARIO( "section::Type< 1, 458 >" ) {
       tree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
 
-      THEN( "a section::Type< 1, 458 > can be constructed and members can be tested" ){
-        section::Type< 1, 458 > MF1MT458 = section.parse< 1, 458 >( lineNumber );
+      section::Type< 1, 458 > chunk = section.parse< 1, 458 >( lineNumber );
 
-        REQUIRE( 458 == MF1MT458.MT() );
-        REQUIRE( 458 == MF1MT458.sectionNumber() );
-        REQUIRE( 92235 == MF1MT458.ZA() );
-        REQUIRE( 233.0248 == Approx( MF1MT458.atomicWeightRatio() ) );
-        REQUIRE( 233.0248 == Approx( MF1MT458.AWR() ) );
+      THEN( "a section::Type< 1, 458 > can be constructed and "
+            "members can be tested" ) {
 
-        REQUIRE( 1 == MF1MT458.LFC() );
-        REQUIRE( 0 == MF1MT458.NPLY() );
-        REQUIRE( 2 == MF1MT458.NFC() );
+        verifyLFC1( chunk );
+      } // THEN
 
-        REQUIRE_NOTHROW( std::get< section1458::TabulatedComponents >
-                         ( MF1MT458.energyRelease() ) );
-        auto data = std::get< section1458::TabulatedComponents >( MF1MT458.energyRelease() );
+      THEN( "it can be printed" ) {
 
-        CHECK( 1.691300e+8 == Approx( data.thermalPointValues().EFR()[0] ) );
-        CHECK( 4.838000e+6 == Approx( data.thermalPointValues().ENP()[0] ) );
-        CHECK( 7.400000e+3 == Approx( data.thermalPointValues().END()[0] ) );
-        CHECK( 6.600000e+6 == Approx( data.thermalPointValues().EGP()[0] ) );
-        CHECK( 6.330000e+6 == Approx( data.thermalPointValues().EGD()[0] ) );
-        CHECK( 6.500000e+6 == Approx( data.thermalPointValues().EB()[0] ) );
-        CHECK( 8.750000e+6 == Approx( data.thermalPointValues().ENU()[0] ) );
-        CHECK( 1.934054e+8 == Approx( data.thermalPointValues().ER()[0] ) );
-        CHECK( 2.021554e+8 == Approx( data.thermalPointValues().ET()[0] ) );
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 1 );
 
-        CHECK( 4.900000e+5 == Approx( data.thermalPointValues().EFR()[1] ) );
-        CHECK( 7.000000e+4 == Approx( data.thermalPointValues().ENP()[1] ) );
-        CHECK( 1.110000e+3 == Approx( data.thermalPointValues().END()[1] ) );
-        CHECK( 5.000000e+5 == Approx( data.thermalPointValues().EGP()[1] ) );
-        CHECK( 5.000000e+4 == Approx( data.thermalPointValues().EGD()[1] ) );
-        CHECK( 5.100000e+4 == Approx( data.thermalPointValues().EB()[1] ) );
-        CHECK( 7.000000e+4 == Approx( data.thermalPointValues().ENU()[1] ) );
-        CHECK( 1.500000e+5 == Approx( data.thermalPointValues().ER()[1] ) );
-        CHECK( 1.300000e+5 == Approx( data.thermalPointValues().ET()[1] ) );
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
+  } // GIVEN
 
-        REQUIRE( true == bool( data.tabulatedEFR() ) );
-        REQUIRE( false == bool( data.tabulatedENP() ) );
-        REQUIRE( false == bool( data.tabulatedEND() ) );
-        REQUIRE( false == bool( data.tabulatedEGP() ) );
-        REQUIRE( false == bool( data.tabulatedEGD() ) );
-        REQUIRE( false == bool( data.tabulatedEB() ) );
-        REQUIRE( false == bool( data.tabulatedENU() ) );
-        REQUIRE( false == bool( data.tabulatedER() ) );
-        REQUIRE( true == bool( data.tabulatedET() ) );
+  GIVEN( "invalid data for a section::Type< 1, 458 >" ) {
 
-        auto component = *data.tabulatedEFR();
-        REQUIRE( false == component.LDRV() );
-        REQUIRE( 1 == component.IFC() );
-        REQUIRE( 3 == component.NP() );
-        REQUIRE( 1 == component.NR() );
-        REQUIRE( 1 == component.interpolants().size() );
-        REQUIRE( 1 == component.boundaries().size() );
-        REQUIRE( 2 == component.interpolants()[0] );
-        REQUIRE( 3 == component.boundaries()[0] );
-        REQUIRE( 3 == component.energies().size() );
-        REQUIRE( 3 == component.qValues().size() );
-        REQUIRE( 1e-5 == Approx( component.energies()[0] ) );
-        REQUIRE( 0.0253 == Approx( component.energies()[1] ) );
-        REQUIRE( 2e+7 == Approx( component.energies()[2] ) );
-        REQUIRE( 1.6913e+8 == Approx( component.qValues()[0] ) );
-        REQUIRE( 1.691e+8 == Approx( component.qValues()[1] ) );
-        REQUIRE( 1.69e+8 == Approx( component.qValues()[2] ) );
+    WHEN( "a string representation of an File 1 Section 458 "
+          "with an invalid LFC" ) {
 
-        component = *data.tabulatedET();
-        REQUIRE( true == component.LDRV() );
-        REQUIRE( 9 == component.IFC() );
-        REQUIRE( 4 == component.NP() );
-        REQUIRE( 1 == component.NR() );
-        REQUIRE( 1 == component.interpolants().size() );
-        REQUIRE( 1 == component.boundaries().size() );
-        REQUIRE( 2 == component.interpolants()[0] );
-        REQUIRE( 4 == component.boundaries()[0] );
-        REQUIRE( 4 == component.energies().size() );
-        REQUIRE( 4 == component.qValues().size() );
-        REQUIRE( 1e-5 == Approx( component.energies()[0] ) );
-        REQUIRE( 0.0253 == Approx( component.energies()[1] ) );
-        REQUIRE( 1e+6 == Approx( component.energies()[2] ) );
-        REQUIRE( 2e+7 == Approx( component.energies()[3] ) );
-        REQUIRE( 2.021554e+8 == Approx( component.qValues()[0] ) );
-        REQUIRE( 3e+8 == Approx( component.qValues()[1] ) );
-        REQUIRE( 2.5e+8 == Approx( component.qValues()[2] ) );
-        REQUIRE( 1.5e+8 == Approx( component.qValues()[3] ) );
-
-        REQUIRE( 12 == MF1MT458.NC() );
-      }
-    }
-
-    WHEN( "the SEND Record is not valid, i.e., MT != 0" ){
-      std::string sectionString = baseLFC1() + invalidSEND();
+      std::string sectionString = invalidLFC() + validSEND();
       auto begin = sectionString.begin();
       auto end = sectionString.end();
       long lineNumber = 1;
       HeadRecord head( begin, end, lineNumber );
 
-      THEN( "an exception is thrown" ){
-        REQUIRE_THROWS( section1458( head, begin, end, lineNumber, 9228 ) );
-      }
-    }
-  } // GIVEN
+      THEN( "an exception is thrown upon construction" ) {
 
-  GIVEN( "a valid instance of section::Type< 1, 458 > with LFC=0 and NPLY=0" ) {
-    std::string string = baseLFC0NPLY0() + validSEND();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-    HeadRecord head( begin, end, lineNumber );
-    section::Type< 1, 458 > section( head, begin, end, lineNumber, 9228 );
+        CHECK_THROWS( section1458( head, begin, end, lineNumber, 9228 ) );
+      } // THEN
+    } // WHEN
 
-    THEN( "it can be printed" ) {
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      section.print( output, 9228, 1 );
-      REQUIRE( buffer == string );
-    }
-  } // GIVEN
+    WHEN( "a string representation of an File 1 Section 458 "
+          "with an invalid NFC" ) {
 
-  GIVEN( "a valid instance of section::Type< 1, 458 > with LFC=0 and NPLY!=0" ) {
-    std::string string = baseLFC0NPLY1() + validSEND();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-    HeadRecord head( begin, end, lineNumber );
-    section::Type< 1, 458 > section( head, begin, end, lineNumber, 9228 );
+      std::string sectionString = invalidNFC() + validSEND();
+      auto begin = sectionString.begin();
+      auto end = sectionString.end();
+      long lineNumber = 1;
+      HeadRecord head( begin, end, lineNumber );
 
-    THEN( "it can be printed" ) {
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      section.print( output, 9228, 1 );
-      REQUIRE( buffer == string );
-    }
-  } // GIVEN
+      THEN( "an exception is thrown upon construction" ) {
 
-  GIVEN( "a valid instance of section::Type< 1, 458 > with LFC=1" ) {
-    std::string string = baseLFC1() + validSEND();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-    HeadRecord head( begin, end, lineNumber );
-    section::Type< 1, 458 > section( head, begin, end, lineNumber, 9228 );
-
-    THEN( "it can be printed" ) {
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      section.print( output, 9228, 1 );
-      REQUIRE( buffer == string );
-    }
-  } // GIVEN
-
-  GIVEN( "a string representation of an File 1 Section 458"
-         " with an invalid LFC" ){
-    std::string sectionString = invalidLFC() + validSEND();
-    auto begin = sectionString.begin();
-    auto end = sectionString.end();
-    long lineNumber = 1;
-    HeadRecord head( begin, end, lineNumber );
-
-    THEN( "an exception is thrown upon construction" ){
-      REQUIRE_THROWS( section1458( head, begin, end, lineNumber, 9228 ) );
-    }
-  } // GIVEN
-
-  GIVEN( "a string representation of an File 1 Section 458"
-         " with an invalid NFC" ){
-    std::string sectionString = invalidNFC() + validSEND();
-    auto begin = sectionString.begin();
-    auto end = sectionString.end();
-    long lineNumber = 1;
-    HeadRecord head( begin, end, lineNumber );
-
-    THEN( "an exception is thrown upon construction" ){
-      REQUIRE_THROWS( section1458( head, begin, end, lineNumber, 9228 ) );
-    }
-  } // GIVEN
-
-  GIVEN( "a string representation of an File 1 Section 458"
-         " with an invalid NPL for LFC=0" ){
-    std::string sectionString = invalidNPLLFC0() + validSEND();
-    auto begin = sectionString.begin();
-    auto end = sectionString.end();
-    long lineNumber = 1;
-    HeadRecord head( begin, end, lineNumber );
-
-    THEN( "an exception is thrown upon construction" ){
-      REQUIRE_THROWS( section1458( head, begin, end, lineNumber, 9228 ) );
-    }
-  } // GIVEN
-
-  GIVEN( "a string representation of an File 1 Section 458"
-         " with an invalid NPL for LFC=1" ){
-    std::string sectionString = invalidNPLLFC1() + validSEND();
-    auto begin = sectionString.begin();
-    auto end = sectionString.end();
-    long lineNumber = 1;
-    HeadRecord head( begin, end, lineNumber );
-
-    THEN( "an exception is thrown upon construction" ){
-      REQUIRE_THROWS( section1458( head, begin, end, lineNumber, 9228 ) );
-    }
+        CHECK_THROWS( section1458( head, begin, end, lineNumber, 9228 ) );
+      } // THEN
+    } // WHEN
   } // GIVEN
 } // SCENARIO
 
-std::string baseLFC0NPLY0() {
+std::string chunkLFC0NPLY0() {
   return
     " 9.223500+4 2.330248+2          0          0          0          09228 1458     \n"
     " 0.000000+0 0.000000+0          0          0         18          99228 1458     \n"
@@ -864,7 +349,114 @@ std::string baseLFC0NPLY0() {
     " 8.750000+6 7.000000+4 1.934054+8 1.500000+5 2.021554+8 1.300000+59228 1458     \n";
 }
 
-std::string baseLFC0NPLY1() {
+void verifyLFC0NPLY0( const section::Type< 1, 458 >& chunk ) {
+
+  CHECK( 458 == chunk.MT() );
+  CHECK( 458 == chunk.sectionNumber() );
+  CHECK( 92235 == chunk.ZA() );
+  CHECK( 233.0248 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 233.0248 == Approx( chunk.AWR() ) );
+
+  CHECK( false == chunk.LFC() );
+  CHECK( false == chunk.tabulatedEnergyRelease() );
+  CHECK( 0 == chunk.NPLY() );
+  CHECK( 0 == chunk.order() );
+  CHECK( 0 == chunk.NFC() );
+  CHECK( 0 == chunk.numberTabulatedComponents() );
+
+  auto data = std::get< ThermalPointComponents >( chunk.energyRelease() );
+
+  CHECK( false == data.LFC() );
+  CHECK( false == data.tabulatedEnergyRelease() );
+  CHECK( 0 == data.NPLY() );
+  CHECK( 0 == data.order() );
+  CHECK( 0 == data.NFC() );
+  CHECK( 0 == data.numberTabulatedComponents() );
+
+  CHECK( 1.691300e+8 == Approx( data.E()[0][0] ) );
+  CHECK( 4.838000e+6 == Approx( data.E()[1][0] ) );
+  CHECK( 7.400000e+3 == Approx( data.E()[2][0] ) );
+  CHECK( 6.600000e+6 == Approx( data.E()[3][0] ) );
+  CHECK( 6.330000e+6 == Approx( data.E()[4][0] ) );
+  CHECK( 6.500000e+6 == Approx( data.E()[5][0] ) );
+  CHECK( 8.750000e+6 == Approx( data.E()[6][0] ) );
+  CHECK( 1.934054e+8 == Approx( data.E()[7][0] ) );
+  CHECK( 2.021554e+8 == Approx( data.E()[8][0] ) );
+
+  CHECK( 4.900000e+5 == Approx( data.E()[0][1] ) );
+  CHECK( 7.000000e+4 == Approx( data.E()[1][1] ) );
+  CHECK( 1.110000e+3 == Approx( data.E()[2][1] ) );
+  CHECK( 5.000000e+5 == Approx( data.E()[3][1] ) );
+  CHECK( 5.000000e+4 == Approx( data.E()[4][1] ) );
+  CHECK( 5.100000e+4 == Approx( data.E()[5][1] ) );
+  CHECK( 7.000000e+4 == Approx( data.E()[6][1] ) );
+  CHECK( 1.500000e+5 == Approx( data.E()[7][1] ) );
+  CHECK( 1.300000e+5 == Approx( data.E()[8][1] ) );
+
+  CHECK( 1.691300e+8 == Approx( data.energyRelease()[0][0] ) );
+  CHECK( 4.838000e+6 == Approx( data.energyRelease()[1][0] ) );
+  CHECK( 7.400000e+3 == Approx( data.energyRelease()[2][0] ) );
+  CHECK( 6.600000e+6 == Approx( data.energyRelease()[3][0] ) );
+  CHECK( 6.330000e+6 == Approx( data.energyRelease()[4][0] ) );
+  CHECK( 6.500000e+6 == Approx( data.energyRelease()[5][0] ) );
+  CHECK( 8.750000e+6 == Approx( data.energyRelease()[6][0] ) );
+  CHECK( 1.934054e+8 == Approx( data.energyRelease()[7][0] ) );
+  CHECK( 2.021554e+8 == Approx( data.energyRelease()[8][0] ) );
+
+  CHECK( 4.900000e+5 == Approx( data.energyRelease()[0][1] ) );
+  CHECK( 7.000000e+4 == Approx( data.energyRelease()[1][1] ) );
+  CHECK( 1.110000e+3 == Approx( data.energyRelease()[2][1] ) );
+  CHECK( 5.000000e+5 == Approx( data.energyRelease()[3][1] ) );
+  CHECK( 5.000000e+4 == Approx( data.energyRelease()[4][1] ) );
+  CHECK( 5.100000e+4 == Approx( data.energyRelease()[5][1] ) );
+  CHECK( 7.000000e+4 == Approx( data.energyRelease()[6][1] ) );
+  CHECK( 1.500000e+5 == Approx( data.energyRelease()[7][1] ) );
+  CHECK( 1.300000e+5 == Approx( data.energyRelease()[8][1] ) );
+
+  CHECK( 1.691300e+8 == Approx( data.EFR()[0] ) );
+  CHECK( 4.838000e+6 == Approx( data.ENP()[0] ) );
+  CHECK( 7.400000e+3 == Approx( data.END()[0] ) );
+  CHECK( 6.600000e+6 == Approx( data.EGP()[0] ) );
+  CHECK( 6.330000e+6 == Approx( data.EGD()[0] ) );
+  CHECK( 6.500000e+6 == Approx( data.EB()[0] ) );
+  CHECK( 8.750000e+6 == Approx( data.ENU()[0] ) );
+  CHECK( 1.934054e+8 == Approx( data.ER()[0] ) );
+  CHECK( 2.021554e+8 == Approx( data.ET()[0] ) );
+
+  CHECK( 4.900000e+5 == Approx( data.EFR()[1] ) );
+  CHECK( 7.000000e+4 == Approx( data.ENP()[1] ) );
+  CHECK( 1.110000e+3 == Approx( data.END()[1] ) );
+  CHECK( 5.000000e+5 == Approx( data.EGP()[1] ) );
+  CHECK( 5.000000e+4 == Approx( data.EGD()[1] ) );
+  CHECK( 5.100000e+4 == Approx( data.EB()[1] ) );
+  CHECK( 7.000000e+4 == Approx( data.ENU()[1] ) );
+  CHECK( 1.500000e+5 == Approx( data.ER()[1] ) );
+  CHECK( 1.300000e+5 == Approx( data.ET()[1] ) );
+
+  CHECK( 1.691300e+8 == Approx( data.fissionFragments()[0] ) );
+  CHECK( 4.838000e+6 == Approx( data.promptNeutrons()[0] ) );
+  CHECK( 7.400000e+3 == Approx( data.delayedNeutrons()[0] ) );
+  CHECK( 6.600000e+6 == Approx( data.promptGammas()[0] ) );
+  CHECK( 6.330000e+6 == Approx( data.delayedGammas()[0] ) );
+  CHECK( 6.500000e+6 == Approx( data.delayedBetas()[0] ) );
+  CHECK( 8.750000e+6 == Approx( data.neutrinos()[0] ) );
+  CHECK( 1.934054e+8 == Approx( data.totalMinusNeutrinos()[0] ) );
+  CHECK( 2.021554e+8 == Approx( data.total()[0] ) );
+
+  CHECK( 4.900000e+5 == Approx( data.fissionFragments()[1] ) );
+  CHECK( 7.000000e+4 == Approx( data.promptNeutrons()[1] ) );
+  CHECK( 1.110000e+3 == Approx( data.delayedNeutrons()[1] ) );
+  CHECK( 5.000000e+5 == Approx( data.promptGammas()[1] ) );
+  CHECK( 5.000000e+4 == Approx( data.delayedGammas()[1] ) );
+  CHECK( 5.100000e+4 == Approx( data.delayedBetas()[1] ) );
+  CHECK( 7.000000e+4 == Approx( data.neutrinos()[1] ) );
+  CHECK( 1.500000e+5 == Approx( data.totalMinusNeutrinos()[1] ) );
+  CHECK( 1.300000e+5 == Approx( data.total()[1] ) );
+
+  CHECK( 5 == chunk.NC() );
+}
+
+std::string chunkLFC0NPLY1() {
   return
     " 9.223500+4 2.330248+2          0          0          0          09228 1458     \n"
     " 0.000000+0 0.000000+0          0          1         36         189228 1458     \n"
@@ -876,7 +468,194 @@ std::string baseLFC0NPLY1() {
     "-1.000000-1 1.000000-2-3.790000-2 3.790000-3-1.379000-1 1.379000-29228 1458     \n";
 }
 
-std::string baseLFC1() {
+void verifyLFC0NPLY1( const section::Type< 1, 458 >& chunk ) {
+
+  CHECK( 458 == chunk.MT() );
+  CHECK( 458 == chunk.sectionNumber() );
+  CHECK( 92235 == chunk.ZA() );
+  CHECK( 233.0248 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 233.0248 == Approx( chunk.AWR() ) );
+
+  CHECK( false == chunk.LFC() );
+  CHECK( false == chunk.tabulatedEnergyRelease() );
+  CHECK( 1 == chunk.NPLY() );
+  CHECK( 1 == chunk.order() );
+  CHECK( 0 == chunk.NFC() );
+  CHECK( 0 == chunk.numberTabulatedComponents() );
+
+  auto data = std::get< PolynomialComponents >( chunk.energyRelease() );
+
+  CHECK( false == data.LFC() );
+  CHECK( false == data.tabulatedEnergyRelease() );
+  CHECK( 1 == data.NPLY() );
+  CHECK( 1 == data.order() );
+  CHECK( 0 == data.NFC() );
+  CHECK( 0 == data.numberTabulatedComponents() );
+
+  CHECK( 1.691300e+8 == Approx( data.E()[0][0][0] ) );
+  CHECK( 4.838000e+6 == Approx( data.E()[1][0][0] ) );
+  CHECK( 7.400000e+3 == Approx( data.E()[2][0][0] ) );
+  CHECK( 6.600000e+6 == Approx( data.E()[3][0][0] ) );
+  CHECK( 6.330000e+6 == Approx( data.E()[4][0][0] ) );
+  CHECK( 6.500000e+6 == Approx( data.E()[5][0][0] ) );
+  CHECK( 8.750000e+6 == Approx( data.E()[6][0][0] ) );
+  CHECK( 1.934054e+8 == Approx( data.E()[7][0][0] ) );
+  CHECK( 2.021554e+8 == Approx( data.E()[8][0][0] ) );
+
+  CHECK( 4.900000e+5 == Approx( data.E()[0][0][1] ) );
+  CHECK( 7.000000e+4 == Approx( data.E()[1][0][1] ) );
+  CHECK( 1.110000e+3 == Approx( data.E()[2][0][1] ) );
+  CHECK( 5.000000e+5 == Approx( data.E()[3][0][1] ) );
+  CHECK( 5.000000e+4 == Approx( data.E()[4][0][1] ) );
+  CHECK( 5.100000e+4 == Approx( data.E()[5][0][1] ) );
+  CHECK( 7.000000e+4 == Approx( data.E()[6][0][1] ) );
+  CHECK( 1.500000e+5 == Approx( data.E()[7][0][1] ) );
+  CHECK( 1.300000e+5 == Approx( data.E()[8][0][1] ) );
+
+  CHECK( 1.691300e+8 == Approx( data.energyRelease()[0][0][0] ) );
+  CHECK( 4.838000e+6 == Approx( data.energyRelease()[1][0][0] ) );
+  CHECK( 7.400000e+3 == Approx( data.energyRelease()[2][0][0] ) );
+  CHECK( 6.600000e+6 == Approx( data.energyRelease()[3][0][0] ) );
+  CHECK( 6.330000e+6 == Approx( data.energyRelease()[4][0][0] ) );
+  CHECK( 6.500000e+6 == Approx( data.energyRelease()[5][0][0] ) );
+  CHECK( 8.750000e+6 == Approx( data.energyRelease()[6][0][0] ) );
+  CHECK( 1.934054e+8 == Approx( data.energyRelease()[7][0][0] ) );
+  CHECK( 2.021554e+8 == Approx( data.energyRelease()[8][0][0] ) );
+
+  CHECK( 4.900000e+5 == Approx( data.energyRelease()[0][0][1] ) );
+  CHECK( 7.000000e+4 == Approx( data.energyRelease()[1][0][1] ) );
+  CHECK( 1.110000e+3 == Approx( data.energyRelease()[2][0][1] ) );
+  CHECK( 5.000000e+5 == Approx( data.energyRelease()[3][0][1] ) );
+  CHECK( 5.000000e+4 == Approx( data.energyRelease()[4][0][1] ) );
+  CHECK( 5.100000e+4 == Approx( data.energyRelease()[5][0][1] ) );
+  CHECK( 7.000000e+4 == Approx( data.energyRelease()[6][0][1] ) );
+  CHECK( 1.500000e+5 == Approx( data.energyRelease()[7][0][1] ) );
+  CHECK( 1.300000e+5 == Approx( data.energyRelease()[8][0][1] ) );
+
+  CHECK( -2.660000e-1 == Approx( data.E()[0][1][0] ) );
+  CHECK( 3.004000e-1 ==  Approx( data.E()[1][1][0] ) );
+  CHECK( 0.0 == Approx( data.E()[2][1][0] ) );
+  CHECK( 7.770000e-2 ==  Approx( data.E()[3][1][0] ) );
+  CHECK( -7.500000e-2 == Approx( data.E()[4][1][0] ) );
+  CHECK( -7.700000e-2 == Approx( data.E()[5][1][0] ) );
+  CHECK( -1.000000e-1 == Approx( data.E()[6][1][0] ) );
+  CHECK( -3.790000e-2 == Approx( data.E()[7][1][0] ) );
+  CHECK( -1.379000e-1 == Approx( data.E()[8][1][0] ) );
+
+  CHECK( 2.660000e-2 == Approx( data.E()[0][1][1] ) );
+  CHECK( 3.004000e-2 == Approx( data.E()[1][1][1] ) );
+  CHECK( 0.0 == Approx( data.E()[2][1][1] ) );
+  CHECK( 7.770000e-3 == Approx( data.E()[3][1][1] ) );
+  CHECK( 7.600000e-3 == Approx( data.E()[4][1][1] ) );
+  CHECK( 7.800000e-3 == Approx( data.E()[5][1][1] ) );
+  CHECK( 1.000000e-2 == Approx( data.E()[6][1][1] ) );
+  CHECK( 3.790000e-3 == Approx( data.E()[7][1][1] ) );
+  CHECK( 1.379000e-2 == Approx( data.E()[8][1][1] ) );
+
+  CHECK( -2.660000e-1 == Approx( data.energyRelease()[0][1][0] ) );
+  CHECK( 3.004000e-1 ==  Approx( data.energyRelease()[1][1][0] ) );
+  CHECK( 0.0 == Approx( data.energyRelease()[2][1][0] ) );
+  CHECK( 7.770000e-2 ==  Approx( data.energyRelease()[3][1][0] ) );
+  CHECK( -7.500000e-2 == Approx( data.energyRelease()[4][1][0] ) );
+  CHECK( -7.700000e-2 == Approx( data.energyRelease()[5][1][0] ) );
+  CHECK( -1.000000e-1 == Approx( data.energyRelease()[6][1][0] ) );
+  CHECK( -3.790000e-2 == Approx( data.energyRelease()[7][1][0] ) );
+  CHECK( -1.379000e-1 == Approx( data.energyRelease()[8][1][0] ) );
+
+  CHECK( 2.660000e-2 == Approx( data.energyRelease()[0][1][1] ) );
+  CHECK( 3.004000e-2 == Approx( data.energyRelease()[1][1][1] ) );
+  CHECK( 0.0 == Approx( data.energyRelease()[2][1][1] ) );
+  CHECK( 7.770000e-3 == Approx( data.energyRelease()[3][1][1] ) );
+  CHECK( 7.600000e-3 == Approx( data.energyRelease()[4][1][1] ) );
+  CHECK( 7.800000e-3 == Approx( data.energyRelease()[5][1][1] ) );
+  CHECK( 1.000000e-2 == Approx( data.energyRelease()[6][1][1] ) );
+  CHECK( 3.790000e-3 == Approx( data.energyRelease()[7][1][1] ) );
+  CHECK( 1.379000e-2 == Approx( data.energyRelease()[8][1][1] ) );
+
+  CHECK( 1.691300e+8 == Approx( data.EFR()[0][0] ) );
+  CHECK( 4.838000e+6 == Approx( data.ENP()[0][0] ) );
+  CHECK( 7.400000e+3 == Approx( data.END()[0][0] ) );
+  CHECK( 6.600000e+6 == Approx( data.EGP()[0][0] ) );
+  CHECK( 6.330000e+6 == Approx( data.EGD()[0][0] ) );
+  CHECK( 6.500000e+6 == Approx( data.EB()[0][0] ) );
+  CHECK( 8.750000e+6 == Approx( data.ENU()[0][0] ) );
+  CHECK( 1.934054e+8 == Approx( data.ER()[0][0] ) );
+  CHECK( 2.021554e+8 == Approx( data.ET()[0][0] ) );
+
+  CHECK( 4.900000e+5 == Approx( data.EFR()[0][1] ) );
+  CHECK( 7.000000e+4 == Approx( data.ENP()[0][1] ) );
+  CHECK( 1.110000e+3 == Approx( data.END()[0][1] ) );
+  CHECK( 5.000000e+5 == Approx( data.EGP()[0][1] ) );
+  CHECK( 5.000000e+4 == Approx( data.EGD()[0][1] ) );
+  CHECK( 5.100000e+4 == Approx( data.EB()[0][1] ) );
+  CHECK( 7.000000e+4 == Approx( data.ENU()[0][1] ) );
+  CHECK( 1.500000e+5 == Approx( data.ER()[0][1] ) );
+  CHECK( 1.300000e+5 == Approx( data.ET()[0][1] ) );
+
+  CHECK( 1.691300e+8 == Approx( data.fissionFragments()[0][0] ) );
+  CHECK( 4.838000e+6 == Approx( data.promptNeutrons()[0][0] ) );
+  CHECK( 7.400000e+3 == Approx( data.delayedNeutrons()[0][0] ) );
+  CHECK( 6.600000e+6 == Approx( data.promptGammas()[0][0] ) );
+  CHECK( 6.330000e+6 == Approx( data.delayedGammas()[0][0] ) );
+  CHECK( 6.500000e+6 == Approx( data.delayedBetas()[0][0] ) );
+  CHECK( 8.750000e+6 == Approx( data.neutrinos()[0][0] ) );
+  CHECK( 1.934054e+8 == Approx( data.totalMinusNeutrinos()[0][0] ) );
+  CHECK( 2.021554e+8 == Approx( data.total()[0][0] ) );
+
+  CHECK( 4.900000e+5 == Approx( data.fissionFragments()[0][1] ) );
+  CHECK( 7.000000e+4 == Approx( data.promptNeutrons()[0][1] ) );
+  CHECK( 1.110000e+3 == Approx( data.delayedNeutrons()[0][1] ) );
+  CHECK( 5.000000e+5 == Approx( data.promptGammas()[0][1] ) );
+  CHECK( 5.000000e+4 == Approx( data.delayedGammas()[0][1] ) );
+  CHECK( 5.100000e+4 == Approx( data.delayedBetas()[0][1] ) );
+  CHECK( 7.000000e+4 == Approx( data.neutrinos()[0][1] ) );
+  CHECK( 1.500000e+5 == Approx( data.totalMinusNeutrinos()[0][1] ) );
+  CHECK( 1.300000e+5 == Approx( data.total()[0][1] ) );
+
+  CHECK( -2.660000e-1 == Approx( data.EFR()[1][0] ) );
+  CHECK( 3.004000e-1 ==  Approx( data.ENP()[1][0] ) );
+  CHECK( 0.0 == Approx( data.END()[1][0] ) );
+  CHECK( 7.770000e-2 ==  Approx( data.EGP()[1][0] ) );
+  CHECK( -7.500000e-2 == Approx( data.EGD()[1][0] ) );
+  CHECK( -7.700000e-2 == Approx( data.EB()[1][0] ) );
+  CHECK( -1.000000e-1 == Approx( data.ENU()[1][0] ) );
+  CHECK( -3.790000e-2 == Approx( data.ER()[1][0] ) );
+  CHECK( -1.379000e-1 == Approx( data.ET()[1][0] ) );
+
+  CHECK( 2.660000e-2 == Approx( data.EFR()[1][1] ) );
+  CHECK( 3.004000e-2 == Approx( data.ENP()[1][1] ) );
+  CHECK( 0.0 == Approx( data.END()[1][1] ) );
+  CHECK( 7.770000e-3 == Approx( data.EGP()[1][1] ) );
+  CHECK( 7.600000e-3 == Approx( data.EGD()[1][1] ) );
+  CHECK( 7.800000e-3 == Approx( data.EB()[1][1] ) );
+  CHECK( 1.000000e-2 == Approx( data.ENU()[1][1] ) );
+  CHECK( 3.790000e-3 == Approx( data.ER()[1][1] ) );
+  CHECK( 1.379000e-2 == Approx( data.ET()[1][1] ) );
+
+  CHECK( -2.660000e-1 == Approx( data.fissionFragments()[1][0] ) );
+  CHECK( 3.004000e-1 ==  Approx( data.promptNeutrons()[1][0] ) );
+  CHECK( 0.0 == Approx( data.delayedNeutrons()[1][0] ) );
+  CHECK( 7.770000e-2 ==  Approx( data.promptGammas()[1][0] ) );
+  CHECK( -7.500000e-2 == Approx( data.delayedGammas()[1][0] ) );
+  CHECK( -7.700000e-2 == Approx( data.delayedBetas()[1][0] ) );
+  CHECK( -1.000000e-1 == Approx( data.neutrinos()[1][0] ) );
+  CHECK( -3.790000e-2 == Approx( data.totalMinusNeutrinos()[1][0] ) );
+  CHECK( -1.379000e-1 == Approx( data.total()[1][0] ) );
+
+  CHECK( 2.660000e-2 == Approx( data.fissionFragments()[1][1] ) );
+  CHECK( 3.004000e-2 == Approx( data.promptNeutrons()[1][1] ) );
+  CHECK( 0.0 == Approx( data.delayedNeutrons()[1][1] ) );
+  CHECK( 7.770000e-3 == Approx( data.promptGammas()[1][1] ) );
+  CHECK( 7.600000e-3 == Approx( data.delayedGammas()[1][1] ) );
+  CHECK( 7.800000e-3 == Approx( data.delayedBetas()[1][1] ) );
+  CHECK( 1.000000e-2 == Approx( data.neutrinos()[1][1] ) );
+  CHECK( 3.790000e-3 == Approx( data.totalMinusNeutrinos()[1][1] ) );
+  CHECK( 1.379000e-2 == Approx( data.total()[1][1] ) );
+
+  CHECK( 8 == chunk.NC() );
+}
+
+std::string chunkLFC1() {
   return
     " 9.223500+4 2.330248+2          0          1          0          29228 1458     \n"
     " 0.000000+0 0.000000+0          0          0         18          99228 1458     \n"
@@ -890,6 +669,171 @@ std::string baseLFC1() {
     "          4          2                                            9228 1458     \n"
     " 1.000000-5 2.021554+8 2.530000-2 3.000000+8 1.000000+6 2.500000+89228 1458     \n"
     " 2.000000+7 1.500000+8                                            9228 1458     \n";
+}
+
+void verifyLFC1( const section::Type< 1, 458 >& chunk ) {
+
+  CHECK( 458 == chunk.MT() );
+  CHECK( 458 == chunk.sectionNumber() );
+  CHECK( 92235 == chunk.ZA() );
+  CHECK( 233.0248 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 233.0248 == Approx( chunk.AWR() ) );
+
+  CHECK( true == chunk.LFC() );
+  CHECK( true == chunk.tabulatedEnergyRelease() );
+  CHECK( 0 == chunk.NPLY() );
+  CHECK( 0 == chunk.order() );
+  CHECK( 2 == chunk.NFC() );
+  CHECK( 2 == chunk.numberTabulatedComponents() );
+
+  auto data = std::get< TabulatedComponents >( chunk.energyRelease() );
+
+  CHECK( true == data.LFC() );
+  CHECK( true == data.tabulatedEnergyRelease() );
+  CHECK( 0 == data.NPLY() );
+  CHECK( 0 == data.order() );
+  CHECK( 2 == data.NFC() );
+  CHECK( 2 == data.numberTabulatedComponents() );
+
+  CHECK( 1.691300e+8 == Approx( data.thermalPointValues().E()[0][0] ) );
+  CHECK( 4.838000e+6 == Approx( data.thermalPointValues().E()[1][0] ) );
+  CHECK( 7.400000e+3 == Approx( data.thermalPointValues().E()[2][0] ) );
+  CHECK( 6.600000e+6 == Approx( data.thermalPointValues().E()[3][0] ) );
+  CHECK( 6.330000e+6 == Approx( data.thermalPointValues().E()[4][0] ) );
+  CHECK( 6.500000e+6 == Approx( data.thermalPointValues().E()[5][0] ) );
+  CHECK( 8.750000e+6 == Approx( data.thermalPointValues().E()[6][0] ) );
+  CHECK( 1.934054e+8 == Approx( data.thermalPointValues().E()[7][0] ) );
+  CHECK( 2.021554e+8 == Approx( data.thermalPointValues().E()[8][0] ) );
+
+  CHECK( 4.900000e+5 == Approx( data.thermalPointValues().E()[0][1] ) );
+  CHECK( 7.000000e+4 == Approx( data.thermalPointValues().E()[1][1] ) );
+  CHECK( 1.110000e+3 == Approx( data.thermalPointValues().E()[2][1] ) );
+  CHECK( 5.000000e+5 == Approx( data.thermalPointValues().E()[3][1] ) );
+  CHECK( 5.000000e+4 == Approx( data.thermalPointValues().E()[4][1] ) );
+  CHECK( 5.100000e+4 == Approx( data.thermalPointValues().E()[5][1] ) );
+  CHECK( 7.000000e+4 == Approx( data.thermalPointValues().E()[6][1] ) );
+  CHECK( 1.500000e+5 == Approx( data.thermalPointValues().E()[7][1] ) );
+  CHECK( 1.300000e+5 == Approx( data.thermalPointValues().E()[8][1] ) );
+
+  CHECK( 1.691300e+8 == Approx( data.thermalPointValues().energyRelease()[0][0] ) );
+  CHECK( 4.838000e+6 == Approx( data.thermalPointValues().energyRelease()[1][0] ) );
+  CHECK( 7.400000e+3 == Approx( data.thermalPointValues().energyRelease()[2][0] ) );
+  CHECK( 6.600000e+6 == Approx( data.thermalPointValues().energyRelease()[3][0] ) );
+  CHECK( 6.330000e+6 == Approx( data.thermalPointValues().energyRelease()[4][0] ) );
+  CHECK( 6.500000e+6 == Approx( data.thermalPointValues().energyRelease()[5][0] ) );
+  CHECK( 8.750000e+6 == Approx( data.thermalPointValues().energyRelease()[6][0] ) );
+  CHECK( 1.934054e+8 == Approx( data.thermalPointValues().energyRelease()[7][0] ) );
+  CHECK( 2.021554e+8 == Approx( data.thermalPointValues().energyRelease()[8][0] ) );
+
+  CHECK( 4.900000e+5 == Approx( data.thermalPointValues().energyRelease()[0][1] ) );
+  CHECK( 7.000000e+4 == Approx( data.thermalPointValues().energyRelease()[1][1] ) );
+  CHECK( 1.110000e+3 == Approx( data.thermalPointValues().energyRelease()[2][1] ) );
+  CHECK( 5.000000e+5 == Approx( data.thermalPointValues().energyRelease()[3][1] ) );
+  CHECK( 5.000000e+4 == Approx( data.thermalPointValues().energyRelease()[4][1] ) );
+  CHECK( 5.100000e+4 == Approx( data.thermalPointValues().energyRelease()[5][1] ) );
+  CHECK( 7.000000e+4 == Approx( data.thermalPointValues().energyRelease()[6][1] ) );
+  CHECK( 1.500000e+5 == Approx( data.thermalPointValues().energyRelease()[7][1] ) );
+  CHECK( 1.300000e+5 == Approx( data.thermalPointValues().energyRelease()[8][1] ) );
+
+  CHECK( 1.691300e+8 == Approx( data.thermalPointValues().EFR()[0] ) );
+  CHECK( 4.838000e+6 == Approx( data.thermalPointValues().ENP()[0] ) );
+  CHECK( 7.400000e+3 == Approx( data.thermalPointValues().END()[0] ) );
+  CHECK( 6.600000e+6 == Approx( data.thermalPointValues().EGP()[0] ) );
+  CHECK( 6.330000e+6 == Approx( data.thermalPointValues().EGD()[0] ) );
+  CHECK( 6.500000e+6 == Approx( data.thermalPointValues().EB()[0] ) );
+  CHECK( 8.750000e+6 == Approx( data.thermalPointValues().ENU()[0] ) );
+  CHECK( 1.934054e+8 == Approx( data.thermalPointValues().ER()[0] ) );
+  CHECK( 2.021554e+8 == Approx( data.thermalPointValues().ET()[0] ) );
+
+  CHECK( 4.900000e+5 == Approx( data.thermalPointValues().EFR()[1] ) );
+  CHECK( 7.000000e+4 == Approx( data.thermalPointValues().ENP()[1] ) );
+  CHECK( 1.110000e+3 == Approx( data.thermalPointValues().END()[1] ) );
+  CHECK( 5.000000e+5 == Approx( data.thermalPointValues().EGP()[1] ) );
+  CHECK( 5.000000e+4 == Approx( data.thermalPointValues().EGD()[1] ) );
+  CHECK( 5.100000e+4 == Approx( data.thermalPointValues().EB()[1] ) );
+  CHECK( 7.000000e+4 == Approx( data.thermalPointValues().ENU()[1] ) );
+  CHECK( 1.500000e+5 == Approx( data.thermalPointValues().ER()[1] ) );
+  CHECK( 1.300000e+5 == Approx( data.thermalPointValues().ET()[1] ) );
+
+  CHECK( 1.691300e+8 == Approx( data.thermalPointValues().fissionFragments()[0] ) );
+  CHECK( 4.838000e+6 == Approx( data.thermalPointValues().promptNeutrons()[0] ) );
+  CHECK( 7.400000e+3 == Approx( data.thermalPointValues().delayedNeutrons()[0] ) );
+  CHECK( 6.600000e+6 == Approx( data.thermalPointValues().promptGammas()[0] ) );
+  CHECK( 6.330000e+6 == Approx( data.thermalPointValues().delayedGammas()[0] ) );
+  CHECK( 6.500000e+6 == Approx( data.thermalPointValues().delayedBetas()[0] ) );
+  CHECK( 8.750000e+6 == Approx( data.thermalPointValues().neutrinos()[0] ) );
+  CHECK( 1.934054e+8 == Approx( data.thermalPointValues().totalMinusNeutrinos()[0] ) );
+  CHECK( 2.021554e+8 == Approx( data.thermalPointValues().total()[0] ) );
+
+  CHECK( 4.900000e+5 == Approx( data.thermalPointValues().fissionFragments()[1] ) );
+  CHECK( 7.000000e+4 == Approx( data.thermalPointValues().promptNeutrons()[1] ) );
+  CHECK( 1.110000e+3 == Approx( data.thermalPointValues().delayedNeutrons()[1] ) );
+  CHECK( 5.000000e+5 == Approx( data.thermalPointValues().promptGammas()[1] ) );
+  CHECK( 5.000000e+4 == Approx( data.thermalPointValues().delayedGammas()[1] ) );
+  CHECK( 5.100000e+4 == Approx( data.thermalPointValues().delayedBetas()[1] ) );
+  CHECK( 7.000000e+4 == Approx( data.thermalPointValues().neutrinos()[1] ) );
+  CHECK( 1.500000e+5 == Approx( data.thermalPointValues().totalMinusNeutrinos()[1] ) );
+  CHECK( 1.300000e+5 == Approx( data.thermalPointValues().total()[1] ) );
+
+  CHECK( true == bool( data.tabulatedEFR() ) );
+  CHECK( false == bool( data.tabulatedENP() ) );
+  CHECK( false == bool( data.tabulatedEND() ) );
+  CHECK( false == bool( data.tabulatedEGP() ) );
+  CHECK( false == bool( data.tabulatedEGD() ) );
+  CHECK( false == bool( data.tabulatedEB() ) );
+  CHECK( false == bool( data.tabulatedENU() ) );
+  CHECK( false == bool( data.tabulatedER() ) );
+  CHECK( true == bool( data.tabulatedET() ) );
+
+  CHECK( true == bool( data.tabulatedFissionFragments() ) );
+  CHECK( false == bool( data.tabulatedPromptNeutrons() ) );
+  CHECK( false == bool( data.tabulatedDelayedNeutrons() ) );
+  CHECK( false == bool( data.tabulatedPromptGammas() ) );
+  CHECK( false == bool( data.tabulatedDelayedGammas() ) );
+  CHECK( false == bool( data.tabulatedDelayedBetas() ) );
+  CHECK( false == bool( data.tabulatedNeutrinos() ) );
+  CHECK( false == bool( data.tabulatedTotalMinusNeutrinos() ) );
+  CHECK( true == bool( data.tabulatedTotal() ) );
+
+  auto component = *data.tabulatedEFR();
+  CHECK( false == component.LDRV() );
+  CHECK( 1 == component.IFC() );
+  CHECK( 3 == component.NP() );
+  CHECK( 1 == component.NR() );
+  CHECK( 1 == component.interpolants().size() );
+  CHECK( 1 == component.boundaries().size() );
+  CHECK( 2 == component.interpolants()[0] );
+  CHECK( 3 == component.boundaries()[0] );
+  CHECK( 3 == component.energies().size() );
+  CHECK( 3 == component.qValues().size() );
+  CHECK( 1e-5 == Approx( component.energies()[0] ) );
+  CHECK( 0.0253 == Approx( component.energies()[1] ) );
+  CHECK( 2e+7 == Approx( component.energies()[2] ) );
+  CHECK( 1.6913e+8 == Approx( component.qValues()[0] ) );
+  CHECK( 1.691e+8 == Approx( component.qValues()[1] ) );
+  CHECK( 1.69e+8 == Approx( component.qValues()[2] ) );
+
+  component = *data.tabulatedET();
+  CHECK( true == component.LDRV() );
+  CHECK( 9 == component.IFC() );
+  CHECK( 4 == component.NP() );
+  CHECK( 1 == component.NR() );
+  CHECK( 1 == component.interpolants().size() );
+  CHECK( 1 == component.boundaries().size() );
+  CHECK( 2 == component.interpolants()[0] );
+  CHECK( 4 == component.boundaries()[0] );
+  CHECK( 4 == component.energies().size() );
+  CHECK( 4 == component.qValues().size() );
+  CHECK( 1e-5 == Approx( component.energies()[0] ) );
+  CHECK( 0.0253 == Approx( component.energies()[1] ) );
+  CHECK( 1e+6 == Approx( component.energies()[2] ) );
+  CHECK( 2e+7 == Approx( component.energies()[3] ) );
+  CHECK( 2.021554e+8 == Approx( component.qValues()[0] ) );
+  CHECK( 3e+8 == Approx( component.qValues()[1] ) );
+  CHECK( 2.5e+8 == Approx( component.qValues()[2] ) );
+  CHECK( 1.5e+8 == Approx( component.qValues()[3] ) );
+
+  CHECK( 12 == chunk.NC() );
 }
 
 std::string invalidLFC() {
@@ -908,33 +852,6 @@ std::string invalidNFC() {
     " 1.691300+8 4.900000+5 4.838000+6 7.000000+4 7.400000+3 1.110000+39228 1458     \n"
     " 6.600000+6 5.000000+5 6.330000+6 5.000000+4 6.500000+6 5.000000+49228 1458     \n"
     " 8.750000+6 7.000000+4 1.934054+8 1.500000+5 2.021554+8 1.300000+59228 1458     \n";
-}
-
-std::string invalidNPLLFC0() {
-  return
-    " 9.223500+4 2.330248+2          0          0          0          09228 1458     \n"
-    " 0.000000+0 0.000000+0          0          0         19          99228 1458     \n"
-    " 1.691300+8 4.900000+5 4.838000+6 7.000000+4 7.400000+3 1.110000+39228 1458     \n"
-    " 6.600000+6 5.000000+5 6.330000+6 5.000000+4 6.500000+6 5.000000+49228 1458     \n"
-    " 8.750000+6 7.000000+4 1.934054+8 1.500000+5 2.021554+8 1.300000+59228 1458     \n"
-    " 1.000000+6                                                       9228 1458     \n";
-}
-
-std::string invalidNPLLFC1() {
-  return
-    " 9.223500+4 2.330248+2          0          1          0          09228 1458     \n"
-    " 0.000000+0 0.000000+0          0          0         19          99228 1458     \n"
-    " 1.691300+8 4.900000+5 4.838000+6 7.000000+4 7.400000+3 1.110000+39228 1458     \n"
-    " 6.600000+6 5.000000+5 6.330000+6 5.000000+4 6.500000+6 5.000000+49228 1458     \n"
-    " 8.750000+6 7.000000+4 1.934054+8 1.500000+5 2.021554+8 1.300000+59228 1458     \n"
-    " 1.000000+6                                                       9228 1458     \n"
-    " 0.000000+0 0.000000+0          1          1          1          39228 1458     \n"
-    "          3          2                                            9228 1458     \n"
-    " 1.000000-5 1.691300+8 2.530000-2 1.691000+8 2.000000+7 1.690000+89228 1458     \n"
-    " 0.000000+0 0.000000+0          2          9          1          49228 1458     \n"
-    "          4          2                                            9228 1458     \n"
-    " 1.000000-5 2.021554+8 2.530000-2 3.000000+8 1.000000+6 2.500000+89228 1458     \n"
-    " 2.000000+7 1.500000+8                                            9228 1458     \n";
 }
 
 std::string validSEND() {

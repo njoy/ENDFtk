@@ -191,7 +191,7 @@ SCENARIO( "section::Type< 1, 456 >" ) {
 
   GIVEN( "invalid data for a section::Type< 1, 456 >" ) {
 
-    WHEN( "a string representation of an File 1 Section 451 "
+    WHEN( "a string representation of an File 1 Section 458 "
           "with an invalid LNU" ) {
 
       std::string sectionString = invalidLNU() + validSEND();
@@ -204,7 +204,7 @@ SCENARIO( "section::Type< 1, 456 >" ) {
 
         CHECK_THROWS( section1456( head, begin, end, lineNumber, 9228 ) );
       } // THEN
-    } // GIVEN
+    } // WHEN
   } // GIVEN
 } // SCENARIO
 
