@@ -49,7 +49,7 @@ SCENARIO( "section::Type< 1, 460 >" ) {
         REQUIRE( 2 == data.NG() );
         REQUIRE( 2 == photons.size() );
 
-        section::Type< 1, 460 >::DiscretePhoton photon = photons[0];
+        section::Type< 1, 460 >::DiscretePhotonMultiplicity photon = photons[0];
         REQUIRE( 0.1 == Approx( photon.E() ) );
         REQUIRE( 1 == photon.index() );
         REQUIRE( 1 == photon.NR() );
@@ -59,11 +59,11 @@ SCENARIO( "section::Type< 1, 460 >" ) {
         REQUIRE( 4 == photon.interpolants()[0] );
         REQUIRE( 2 == photon.boundaries()[0] );
         REQUIRE( 2 == photon.time().size() );
-        REQUIRE( 2 == photon.multiplicity().size() );
+        REQUIRE( 2 == photon.multiplicities().size() );
         REQUIRE( 0. == Approx( photon.time()[0] ) );
         REQUIRE( 4. == Approx( photon.time()[1] ) );
-        REQUIRE( 4.877451e-1 == Approx( photon.multiplicity()[0] ) );
-        REQUIRE( 1.715686e-1 == Approx( photon.multiplicity()[1] ) );
+        REQUIRE( 4.877451e-1 == Approx( photon.multiplicities()[0] ) );
+        REQUIRE( 1.715686e-1 == Approx( photon.multiplicities()[1] ) );
 
         photon = photons[1];
         REQUIRE( 0.2 == Approx( photon.E() ) );
@@ -75,13 +75,13 @@ SCENARIO( "section::Type< 1, 460 >" ) {
         REQUIRE( 2 == photon.interpolants()[0] );
         REQUIRE( 3 == photon.boundaries()[0] );
         REQUIRE( 3 == photon.time().size() );
-        REQUIRE( 3 == photon.multiplicity().size() );
+        REQUIRE( 3 == photon.multiplicities().size() );
         REQUIRE( 0. == Approx( photon.time()[0] ) );
         REQUIRE( 5. == Approx( photon.time()[1] ) );
         REQUIRE( 9. == Approx( photon.time()[2] ) );
-        REQUIRE( 1.691176e-1 == Approx( photon.multiplicity()[0] ) );
-        REQUIRE( 2.450980e-3 == Approx( photon.multiplicity()[1] ) );
-        REQUIRE( 1.691176e-1 == Approx( photon.multiplicity()[2] ) );
+        REQUIRE( 1.691176e-1 == Approx( photon.multiplicities()[0] ) );
+        REQUIRE( 2.450980e-3 == Approx( photon.multiplicities()[1] ) );
+        REQUIRE( 1.691176e-1 == Approx( photon.multiplicities()[2] ) );
 
         REQUIRE( 7 == MF1MT460.NC() );
       }
@@ -120,7 +120,7 @@ SCENARIO( "section::Type< 1, 460 >" ) {
         REQUIRE( 2 == data.NG() );
         REQUIRE( 2 == photons.size() );
 
-        section::Type< 1, 460 >::DiscretePhoton photon = photons[0];
+        section::Type< 1, 460 >::DiscretePhotonMultiplicity photon = photons[0];
         REQUIRE( 0.1 == Approx( photon.E() ) );
         REQUIRE( 1 == photon.index() );
         REQUIRE( 1 == photon.NR() );
@@ -130,11 +130,11 @@ SCENARIO( "section::Type< 1, 460 >" ) {
         REQUIRE( 4 == photon.interpolants()[0] );
         REQUIRE( 2 == photon.boundaries()[0] );
         REQUIRE( 2 == photon.time().size() );
-        REQUIRE( 2 == photon.multiplicity().size() );
+        REQUIRE( 2 == photon.multiplicities().size() );
         REQUIRE( 0. == Approx( photon.time()[0] ) );
         REQUIRE( 4. == Approx( photon.time()[1] ) );
-        REQUIRE( 4.877451e-1 == Approx( photon.multiplicity()[0] ) );
-        REQUIRE( 1.715686e-1 == Approx( photon.multiplicity()[1] ) );
+        REQUIRE( 4.877451e-1 == Approx( photon.multiplicities()[0] ) );
+        REQUIRE( 1.715686e-1 == Approx( photon.multiplicities()[1] ) );
 
         photon = photons[1];
         REQUIRE( 0.2 == Approx( photon.E() ) );
@@ -146,13 +146,13 @@ SCENARIO( "section::Type< 1, 460 >" ) {
         REQUIRE( 2 == photon.interpolants()[0] );
         REQUIRE( 3 == photon.boundaries()[0] );
         REQUIRE( 3 == photon.time().size() );
-        REQUIRE( 3 == photon.multiplicity().size() );
+        REQUIRE( 3 == photon.multiplicities().size() );
         REQUIRE( 0. == Approx( photon.time()[0] ) );
         REQUIRE( 5. == Approx( photon.time()[1] ) );
         REQUIRE( 9. == Approx( photon.time()[2] ) );
-        REQUIRE( 1.691176e-1 == Approx( photon.multiplicity()[0] ) );
-        REQUIRE( 2.450980e-3 == Approx( photon.multiplicity()[1] ) );
-        REQUIRE( 1.691176e-1 == Approx( photon.multiplicity()[2] ) );
+        REQUIRE( 1.691176e-1 == Approx( photon.multiplicities()[0] ) );
+        REQUIRE( 2.450980e-3 == Approx( photon.multiplicities()[1] ) );
+        REQUIRE( 1.691176e-1 == Approx( photon.multiplicities()[2] ) );
 
         REQUIRE( 7 == MF1MT460.NC() );
       }

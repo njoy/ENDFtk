@@ -5,7 +5,6 @@
 #include <variant>
 
 // other includes
-#include "ENDFtk/types.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/HeadRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
@@ -23,14 +22,14 @@ namespace section{
 
   public:
 
-  #include "ENDFtk/section/1/460/DiscretePhoton.hpp"
-  #include "ENDFtk/section/1/460/Discrete.hpp"
-  #include "ENDFtk/section/1/460/Continuous.hpp"
+  #include "ENDFtk/section/1/460/DiscretePhotonMultiplicity.hpp"
+  #include "ENDFtk/section/1/460/DiscretePhotons.hpp"
+  #include "ENDFtk/section/1/460/ContinuousPhotons.hpp"
 
     using DelayedPhotonData = std::variant< // LO=1
-                                            Discrete,
+                                            DiscretePhotons,
                                             // LO=2
-                                            Continuous >;
+                                            ContinuousPhotons >;
 
   protected:
 

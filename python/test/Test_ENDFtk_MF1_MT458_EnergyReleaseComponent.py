@@ -6,7 +6,7 @@ import unittest
 # local imports
 from ENDFtk.MF1.MT458 import EnergyReleaseComponent
 
-class Test_ENDFtk_MF1_EnergyReleaseComponent( unittest.TestCase ) :
+class Test_ENDFtk_MF1_MT458_EnergyReleaseComponent( unittest.TestCase ) :
     """Unit test for the EnergyReleaseComponent class."""
 
     chunk = ( ' 0.000000+0 0.000000+0          2          1          1          39228 1458     \n'

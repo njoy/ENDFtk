@@ -1,4 +1,4 @@
-class Continuous : protected ListRecord {
+class ContinuousPhotons : protected ListRecord {
 
 public:
   /* constructor */
@@ -12,4 +12,3 @@ public:
   using ListRecord::NC;
   using ListRecord::print;
 };
-

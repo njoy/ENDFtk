@@ -6,11 +6,13 @@
  */
 class EnergyReleaseComponent : protected TabulationRecord {
 
+  /* auxiliary functions */
+  #include "ENDFtk/section/1/458/EnergyReleaseComponent/src/verify.hpp"
+
 public:
 
   /* constructor */
   #include "ENDFtk/section/1/458/EnergyReleaseComponent/src/ctor.hpp"
-  #include "ENDFtk/section/1/458/EnergyReleaseComponent/src/verify.hpp"
 
   /* methods */
 

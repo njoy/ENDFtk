@@ -1,11 +1,11 @@
 template< typename Iterator >
-static std::vector< DiscretePhoton >
+static std::vector< DiscretePhotonMultiplicity >
 readDiscretePhotons( Iterator& begin,
                      const Iterator& end,
                      long& lineNumber,
                      int MAT,
                      int NG ) {
-    std::vector< DiscretePhoton > records;
+    std::vector< DiscretePhotonMultiplicity > records;
     if ( NG < 1 ) {
       Log::error( "Encountered illegal NG value for LO=1" );
       Log::info( "NG must be greater than 0" );
@@ -21,4 +21,3 @@ readDiscretePhotons( Iterator& begin,
 
     return records;
 }
-

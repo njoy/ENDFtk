@@ -1,19 +1,54 @@
-class DiscretePhoton : protected TabulationRecord {
+/**
+ *  @class
+ *  @brief Discrete photon data
+ *
+ *  See ENDF102, section 1.6 for more information.
+ */
+class DiscretePhotonMultiplicity : protected TabulationRecord {
 
 public:
-  /* constructor */
-  using TabulationRecord::TabulationRecord;
 
-  /* get methods */
+  /* constructor */
+  #include "ENDFtk/section/1/460/DiscretePhotonMultiplicity/src/ctor.hpp"
+
+  /* methods */
+
+  /**
+   *  @brief Return the photon energy
+   */
+  double E() const { return TabulationRecord::C1(); }
+
+  /**
+   *  @brief Return the photon energy
+   */
+  double energy() const { return this->E(); }
+
+  /**
+   *  @brief Return the photon index (between 1 and NG)
+   */
+  int LPH() const { return TabulationRecord::L1(); }
+
+  /**
+   *  @brief Return the photon index (between 1 and NG)
+   */
+  int index() const { return this->LPH(); }
+
+  /**
+   *  @brief Return the time values
+   */
+  auto time() const { return TabulationRecord::x(); }
+
+  /**
+   *  @brief Return the time dependent multiplicity values (in units of 1/s)
+   */
+  auto multiplicities() const { return TabulationRecord::y(); }
+
+  using TabulationRecord::x;
+  using TabulationRecord::y;
   using TabulationRecord::NP;
   using TabulationRecord::NR;
-  double E() const { return TabulationRecord::C1(); }
-  int index() const { return TabulationRecord::L1(); }
-  auto time() const { return TabulationRecord::x(); }
-  auto multiplicity() const { return TabulationRecord::y(); }
   using TabulationRecord::interpolants;
   using TabulationRecord::boundaries;
   using TabulationRecord::NC;
   using TabulationRecord::print;
 };
-
