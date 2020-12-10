@@ -6,10 +6,13 @@ readPhotonData( Iterator& begin,
                 int MAT,
                 int LO,
                 int NG ) {
+
   switch ( LO ) {
-    case 1 : return DiscretePhotons( readDiscretePhotons( begin, end, lineNumber, MAT, NG ) );
+
+    case 1 : return DiscretePhotons( begin, end, lineNumber, MAT, 1, 460, NG );
     case 2 : return ContinuousPhotons( begin, end, lineNumber, MAT, 1, 460 );
     default : {
+
       Log::error( "Encountered illegal LO value" );
       Log::info( "LO must be equal to 1 or 2" );
       Log::info( "LO value: {}", LO );

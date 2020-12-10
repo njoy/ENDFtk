@@ -1,5 +1,5 @@
 /**
- *  @brief Return the number of lines in this MF2/MT151 section
+ *  @brief Return the number of lines in this MF1/MT458 section
  */
 long NC() const {
 

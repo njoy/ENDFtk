@@ -28,10 +28,10 @@ SCENARIO( "DiscretePhotonMultiplicity" ) {
       std::vector< double > multiplicities = { 4.877451e-1, 1.715686e-1 };
 
       DiscretePhotonMultiplicity chunk( energy, lph,
-                            std::move( boundaries ),
-                            std::move( interpolants ),
-                            std::move( time ),
-                            std::move( multiplicities ) );
+                                        std::move( boundaries ),
+                                        std::move( interpolants ),
+                                        std::move( time ),
+                                        std::move( multiplicities ) );
 
       THEN( "an DiscretePhotonMultiplicity can be constructed and members can be tested" ) {
 

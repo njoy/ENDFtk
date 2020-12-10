@@ -17,6 +17,7 @@ namespace mt460 {
   // declarations - components
   void wrapDiscretePhotonMultiplicity( python::module& );
   void wrapContinuousPhotons( python::module& );
+  void wrapDiscretePhotons( python::module& );
 
 }
 }
@@ -39,6 +40,7 @@ void wrapSection_1_460( python::module& module ) {
   // wrap components
   mf1::mt460::wrapDiscretePhotonMultiplicity( submodule );
   mf1::mt460::wrapContinuousPhotons( submodule );
+  mf1::mt460::wrapDiscretePhotons( submodule );
 
   // create the section
   python::class_< Section > section(
@@ -50,65 +52,53 @@ void wrapSection_1_460( python::module& module ) {
   );
 
   // wrap the section
-//  section
-//  .def(
-//
-//    //! @todo pybind11 lambda move custom type workaround
-//    python::init( [] ( double zaid, double awr,
-//                       FissionEnergyReleaseData fissionq )
-//                     { return Section( zaid, awr,
-//                                       std::move( fissionq ) ); } ),
-//    python::arg( "zaid" ), python::arg( "awr" ),
-//    python::arg( "fissionq" ),
-//    "Initialise the section\n\n"
-//    "Arguments:\n"
-//    "    self        the section\n"
-//    "    zaid        the ZA value of the material\n"
-//    "    awr         the atomic weight ratio\n"
-//    "    fissionq    the fission energy release data"
-//  )
-//  .def_property_readonly(
-//
-//    "LFC",
-//    &Section::LFC,
-//    "The tabulated energy release flag"
-//  )
-//  .def_property_readonly(
-//
-//    "tabulated_energy_release",
-//    &Section::tabulatedEnergyRelease,
-//    "The tabulated energy release flag"
-//  )
-//  .def_property_readonly(
-//
-//    "NPLY",
-//    &Section::NPLY,
-//    "The polynomial expansion order"
-//  )
-//  .def_property_readonly(
-//
-//    "order",
-//    &Section::order,
-//    "The polynomial expansion order"
-//  )
-//  .def_property_readonly(
-//
-//    "NFC",
-//    &Section::NFC,
-//    "The number of tabulated energy release components"
-//  )
-//  .def_property_readonly(
-//
-//    "number_tabulated_components",
-//    &Section::numberTabulatedComponents,
-//    "The number of tabulated energy release components"
-//  )
-//  .def_property_readonly(
-//
-//    "energy_release",
-//    &Section::energyRelease,
-//    "The fission energy release data"
-//  );
+  section
+  .def(
+
+    //! @todo pybind11 lambda move custom type workaround
+    python::init( [] ( double zaid, double awr,
+                       DelayedPhotonData photons )
+                     { return Section( zaid, awr,
+                                       std::move( photons ) ); } ),
+    python::arg( "zaid" ), python::arg( "awr" ),
+    python::arg( "photons" ),
+    "Initialise the section\n\n"
+    "Arguments:\n"
+    "    self       the section\n"
+    "    zaid       the ZA value of the material\n"
+    "    awr        the atomic weight ratio\n"
+    "    photons    the fission energy release data"
+  )
+  .def_property_readonly(
+
+    "LO",
+    &Section::LO,
+    "The representation type for the delayed photon data"
+  )
+  .def_property_readonly(
+
+    "representation",
+    &Section::representation,
+    "The representation type for the delayed photon data"
+  )
+  .def_property_readonly(
+
+    "NG",
+    &Section::NG,
+    "The number of discrete photons"
+  )
+  .def_property_readonly(
+
+    "number_discrete_photons",
+    &Section::numberDiscretePhotons,
+    "The number of discrete photons"
+  )
+  .def_property_readonly(
+
+    "delayed_photons",
+    &Section::delayedPhotons,
+    "The delayed photon data"
+  );
 
   // add standard section definitions
   addStandardSectionDefinitions< Section >( section );

@@ -28,6 +28,7 @@ Type ( const HEAD& head,
   try: BaseWithoutMT( head, MAT, 1 ),
        data_( readFissionEnergyReleaseData( begin, end, lineNumber, MAT,
                                             head.L2(), head.N2() ) ) {
+                                              
     readSEND( begin, end, lineNumber, MAT, 1 );
   }
   catch( std::exception& e ) {

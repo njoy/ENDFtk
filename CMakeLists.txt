@@ -97,6 +97,7 @@ pybind11_add_module( ENDFtk.python
     python/src/section/1/458/TabulatedComponents.python.cpp
     python/src/section/1/460.python.cpp
     python/src/section/1/460/DiscretePhotonMultiplicity.python.cpp
+    python/src/section/1/460/DiscretePhotons.python.cpp
     python/src/section/1/460/ContinuousPhotons.python.cpp
     python/src/section/2/151.python.cpp
     python/src/section/2/151/Isotope.python.cpp
