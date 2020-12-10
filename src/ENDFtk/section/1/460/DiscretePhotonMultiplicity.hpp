@@ -1,6 +1,6 @@
 /**
  *  @class
- *  @brief Discrete photon data
+ *  @brief Discrete photon multiplicity data
  *
  *  See ENDF102, section 1.6 for more information.
  */

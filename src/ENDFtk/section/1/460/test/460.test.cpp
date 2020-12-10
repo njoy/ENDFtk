@@ -38,10 +38,10 @@ SCENARIO( "section::Type< 1, 460 >" ) {
         REQUIRE( 1 == MF1MT460.LO() );
         REQUIRE( 2 == MF1MT460.NG() );
 
-        REQUIRE_NOTHROW( std::get< section1460::Discrete >
+        REQUIRE_NOTHROW( std::get< section1460::DiscretePhotons >
                          ( MF1MT460.delayedPhotons() ) );
 
-        const auto& data = std::get< section1460::Discrete >
+        const auto& data = std::get< section1460::DiscretePhotons >
                            ( MF1MT460.delayedPhotons() );
         const auto& photons = data.photons();
 
@@ -109,10 +109,10 @@ SCENARIO( "section::Type< 1, 460 >" ) {
         REQUIRE( 1 == MF1MT460.LO() );
         REQUIRE( 2 == MF1MT460.NG() );
 
-        REQUIRE_NOTHROW( std::get< section1460::Discrete >
+        REQUIRE_NOTHROW( std::get< section1460::DiscretePhotons >
                          ( MF1MT460.delayedPhotons() ) );
 
-        const auto& data = std::get< section1460::Discrete >
+        const auto& data = std::get< section1460::DiscretePhotons >
                            ( MF1MT460.delayedPhotons() );
         const auto& photons = data.photons();
 
@@ -192,10 +192,10 @@ SCENARIO( "section::Type< 1, 460 >" ) {
         REQUIRE( 2 == MF1MT460.LO() );
         REQUIRE( 0 == MF1MT460.NG() );
 
-        REQUIRE_NOTHROW( std::get< section1460::Continuous >
+        REQUIRE_NOTHROW( std::get< section1460::ContinuousPhotons >
                          ( MF1MT460.delayedPhotons() ) );
 
-        const auto& data = std::get< section1460::Continuous >
+        const auto& data = std::get< section1460::ContinuousPhotons >
                            ( MF1MT460.delayedPhotons() );
         auto lambdas = data.lambdas();
 
@@ -236,10 +236,10 @@ SCENARIO( "section::Type< 1, 460 >" ) {
         REQUIRE( 2 == MF1MT460.LO() );
         REQUIRE( 0 == MF1MT460.NG() );
 
-        REQUIRE_NOTHROW( std::get< section1460::Continuous >
+        REQUIRE_NOTHROW( std::get< section1460::ContinuousPhotons >
                          ( MF1MT460.delayedPhotons() ) );
 
-        const auto& data = std::get< section1460::Continuous >
+        const auto& data = std::get< section1460::ContinuousPhotons >
                            ( MF1MT460.delayedPhotons() );
         auto lambdas = data.lambdas();
 

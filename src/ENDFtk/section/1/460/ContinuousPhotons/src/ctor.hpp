@@ -3,16 +3,16 @@
  *
  *  @param[in] energy        the incident neutron energy
  *  @param[in] constants     the precursor families decay constants
- *  @param[in] abundances    the precursor families decay abundances
  */
-DecayConstants( double energy, std::vector< double >&& constants,
-                std::vector< double >&& abundances )
-  try : ListRecord( 0.0, energy, 0, 0, 0,
-                    generateList( std::move( constants ),
-                                  std::move( abundances ) ) ) {}
+ContinuousPhotons( std::vector< double >&& constants )
+  try : ListRecord( 0.0, 0.0, 0, 0, 0, std::move( constants ) ) {
+
+    verifySize( this->NNF() );
+  }
   catch ( std::exception& e ) {
 
-    Log::info( "Encountered error while constructing decay constant data" );
+    Log::info( "Encountered error while constructing continuous delayed photon "
+               "data" );
     throw;
   }
 
@@ -29,14 +29,15 @@ DecayConstants( double energy, std::vector< double >&& constants,
  *  @param[in] MT           the expected MT number
  */
 template< typename Iterator >
-DecayConstants( Iterator& begin, const Iterator& end,
-                long& lineNumber, int MAT, int MF, int MT )
+ContinuousPhotons( Iterator& begin, const Iterator& end,
+                   long& lineNumber, int MAT, int MF, int MT )
   try : ListRecord( begin, end, lineNumber, MAT, MF, MT ) {
 
-    verifySize( this->NPL() );
+    verifySize( this->NNF() );
   }
   catch ( std::exception& e ) {
 
-    Log::info( "Encountered error while constructing decay constant data" );
+    Log::info( "Encountered error while constructing continuous delayed photon "
+               "data" );
     throw;
   }

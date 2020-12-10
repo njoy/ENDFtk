@@ -16,6 +16,7 @@ namespace mt460 {
 
   // declarations - components
   void wrapDiscretePhotonMultiplicity( python::module& );
+  void wrapContinuousPhotons( python::module& );
 
 }
 }
@@ -37,6 +38,7 @@ void wrapSection_1_460( python::module& module ) {
 
   // wrap components
   mf1::mt460::wrapDiscretePhotonMultiplicity( submodule );
+  mf1::mt460::wrapContinuousPhotons( submodule );
 
   // create the section
   python::class_< Section > section(

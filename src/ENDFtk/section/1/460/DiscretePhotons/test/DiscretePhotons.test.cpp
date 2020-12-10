@@ -8,19 +8,19 @@ using namespace njoy::ENDFtk;
 std::string chunk();
 std::string invalidNG();
 
-SCENARIO( "section::Type< 1, 460 >::Discrete" ) {
+SCENARIO( "section::Type< 1, 460 >::DiscretePhotons" ) {
 
-  GIVEN( "a string representation of a valid section::Type< 1, 460 >::Discrete" ) {
+  GIVEN( "a string representation of a valid section::Type< 1, 460 >::DiscretePhotons" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
 
-    THEN( "a section::Type< 1, 460 >::Discrete can be constructed and members can be tested" ) {
-      section::Type< 1, 460 >::Discrete chunk(
-        { section::Type< 1, 460 >::DiscretePhoton( begin, end, lineNumber, 9228, 1, 460 ),
-          section::Type< 1, 460 >::DiscretePhoton( begin, end, lineNumber, 9228, 1, 460 ) } );
+    THEN( "a section::Type< 1, 460 >::DiscretePhotons can be constructed and members can be tested" ) {
+      section::Type< 1, 460 >::DiscretePhotons chunk(
+        { section::Type< 1, 460 >::DiscretePhotonMultiplicity( begin, end, lineNumber, 9228, 1, 460 ),
+          section::Type< 1, 460 >::DiscretePhotonMultiplicity( begin, end, lineNumber, 9228, 1, 460 ) } );
 
       REQUIRE( 1 == chunk.LO() );
       REQUIRE( 2 == chunk.NG() );
@@ -29,7 +29,7 @@ SCENARIO( "section::Type< 1, 460 >::Discrete" ) {
 
       REQUIRE( 2 == photons.size() );
 
-      section::Type< 1, 460 >::DiscretePhoton photon = photons[0];
+      section::Type< 1, 460 >::DiscretePhotonMultiplicity photon = photons[0];
       REQUIRE( 0.1 == Approx( photon.E() ) );
       REQUIRE( 1 == photon.index() );
       REQUIRE( 1 == photon.NR() );
@@ -67,15 +67,15 @@ SCENARIO( "section::Type< 1, 460 >::Discrete" ) {
     }
   } // GIVEN
 
-  GIVEN( "a valid instance of section::Type< 1, 460 >::Discrete" ) {
+  GIVEN( "a valid instance of section::Type< 1, 460 >::DiscretePhotons" ) {
 
     std::string string = chunk();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
-    section::Type< 1, 460 >::Discrete chunk(
-      { section::Type< 1, 460 >::DiscretePhoton( begin, end, lineNumber, 9228, 1, 460 ),
-        section::Type< 1, 460 >::DiscretePhoton( begin, end, lineNumber, 9228, 1, 460 ) } );
+    section::Type< 1, 460 >::DiscretePhotons chunk(
+      { section::Type< 1, 460 >::DiscretePhotonMultiplicity( begin, end, lineNumber, 9228, 1, 460 ),
+        section::Type< 1, 460 >::DiscretePhotonMultiplicity( begin, end, lineNumber, 9228, 1, 460 ) } );
 
     THEN( "it can be printed" ) {
       std::string buffer;
