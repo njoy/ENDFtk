@@ -12,13 +12,17 @@ class SpinGroup  {
   /* fields */
   ResonanceChannels channels_;
   ResonanceParameters parameters_;
+  std::vector< std::optional< BackGroundRMatrix > > background_;
+
+  /* constructor */
+  #include "ENDFtk/section/2/151/RMatrixLimited/SpinGroup/src/readBackGroundMatrices.hpp"
 
 public:
 
   /* constructor */
   #include "ENDFtk/section/2/151/RMatrixLimited/SpinGroup/src/ctor.hpp"
 
-  /* get methods */
+  /* methods */
 
   /**
    *  @brief Return the spin for this spin group
