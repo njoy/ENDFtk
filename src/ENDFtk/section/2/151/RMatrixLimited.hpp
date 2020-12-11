@@ -14,7 +14,10 @@ class RMatrixLimited {
 
 public:
 
-  using BackGroundRMatrix = std::variant< int >;
+  #include "ENDFtk/section/2/151/RMatrixLimited/BaseBackGroundRMatrix.hpp"
+  #include "ENDFtk/section/2/151/RMatrixLimited/NoBackGroundRMatrix.hpp"
+
+  using BackGroundRMatrix = std::variant< NoBackGroundRMatrix >;
 
   #include "ENDFtk/section/2/151/RMatrixLimited/ParticlePairs.hpp"
   #include "ENDFtk/section/2/151/RMatrixLimited/ResonanceChannels.hpp"
