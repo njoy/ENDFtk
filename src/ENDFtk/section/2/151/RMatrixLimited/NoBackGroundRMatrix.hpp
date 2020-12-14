@@ -8,7 +8,7 @@ class NoBackGroundRMatrix : protected BaseBackGroundRMatrix< NoBackGroundRMatrix
 
   friend BaseBackGroundRMatrix< NoBackGroundRMatrix >;
 
-  /* constructor */
+  /* auxiliary functions */
   #include "ENDFtk/section/2/151/RMatrixLimited/NoBackGroundRMatrix/src/verifyLBK.hpp"
 
 public:

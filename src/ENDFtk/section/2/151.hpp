@@ -2,15 +2,18 @@
 #define NJOY_ENDFTK_SECTION_2_151
 
 // system includes
+#include <complex>
 #include <variant>
 
 // other includes
+#include "range/v3/algorithm/count.hpp"
 #include "range/v3/algorithm/find.hpp"
 #include "range/v3/view/all.hpp"
 #include "range/v3/view/chunk.hpp"
 #include "range/v3/view/drop_exactly.hpp"
 #include "range/v3/view/repeat_n.hpp"
 #include "range/v3/view/stride.hpp"
+#include "range/v3/view/zip_with.hpp"
 #include "ENDFtk/types.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"

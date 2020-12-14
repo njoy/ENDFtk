@@ -12,7 +12,6 @@ section::Type< 2, 151 >::RMatrixLimited::NoBackGroundRMatrix;
 
 std::string chunk();
 void verifyChunk( const NoBackGroundRMatrix& );
-std::string invalidLCH();
 std::string invalidLBK();
 
 SCENARIO( "NoBackGroundRMatrix" ) {
@@ -70,28 +69,6 @@ SCENARIO( "NoBackGroundRMatrix" ) {
 
   GIVEN( "invalid data" ) {
 
-    WHEN( "an invalid channel index is used" ) {
-
-      THEN( "an exception is thrown" ) {
-
-        CHECK_THROWS( NoBackGroundRMatrix( 0 ) );
-        CHECK_THROWS( NoBackGroundRMatrix( -1 ) );
-      } // THEN
-    } // WHEN
-
-    WHEN( "a string with an invalid channel index is used" ) {
-
-      std::string string = invalidLCH();
-      auto begin = string.begin();
-      auto end = string.end();
-      long lineNumber = 1;
-
-      THEN( "an exception is thrown" ) {
-
-        CHECK_THROWS( NoBackGroundRMatrix( begin, end, lineNumber, 2625, 2, 151 ) );
-      } // THEN
-    } // WHEN
-
     WHEN( "a string with the wrong LBK is used" ) {
 
       std::string string = invalidLBK();
@@ -120,11 +97,6 @@ void verifyChunk( const NoBackGroundRMatrix& chunk ) {
   CHECK( 1 == chunk.channelIndex() );
 
   CHECK( 1 == chunk.NC() );
-}
-
-std::string invalidLCH() {
-  return
-  " 0.000000+0 0.000000+0          0          1          0          02625 2151     \n";
 }
 
 std::string invalidLBK() {

@@ -16,8 +16,10 @@ public:
 
   #include "ENDFtk/section/2/151/RMatrixLimited/BaseBackGroundRMatrix.hpp"
   #include "ENDFtk/section/2/151/RMatrixLimited/NoBackGroundRMatrix.hpp"
+  #include "ENDFtk/section/2/151/RMatrixLimited/TabulatedBackGroundRMatrix.hpp"
 
-  using BackGroundRMatrix = std::variant< NoBackGroundRMatrix >;
+  using BackGroundRMatrix = std::variant< NoBackGroundRMatrix,
+                                          TabulatedBackGroundRMatrix >;
 
   #include "ENDFtk/section/2/151/RMatrixLimited/ParticlePairs.hpp"
   #include "ENDFtk/section/2/151/RMatrixLimited/ResonanceChannels.hpp"

@@ -13,16 +13,7 @@ class BaseBackGroundRMatrix {
 protected:
 
   /* constructor */
-  BaseBackGroundRMatrix( int index ) : index_( index ) {
-
-    if ( index <= 0 ) {
-
-      Log::error( "Encountered invalid channel index" );
-      Log::info( "LCH should be larger than zero" );
-      Log::info( "LCH value: {}", index );
-      throw std::exception();
-    }
-  }
+  BaseBackGroundRMatrix( int index ) : index_( index ) {}
 
 public:
 
