@@ -7,16 +7,16 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using FrohnerBackGroundRMatrix =
-section::Type< 2, 151 >::RMatrixLimited::FrohnerBackGroundRMatrix;
+using FrohnerBackgroundRMatrix =
+section::Type< 2, 151 >::RMatrixLimited::FrohnerBackgroundRMatrix;
 
 std::string chunk();
-void verifyChunk( const FrohnerBackGroundRMatrix& );
+void verifyChunk( const FrohnerBackgroundRMatrix& );
 std::string invalidLBK();
 
-SCENARIO( "FrohnerBackGroundRMatrix" ) {
+SCENARIO( "FrohnerBackgroundRMatrix" ) {
 
-  GIVEN( "valid data for a FrohnerBackGroundRMatrix" ) {
+  GIVEN( "valid data for a FrohnerBackgroundRMatrix" ) {
 
     std::string string = chunk();
 
@@ -29,9 +29,9 @@ SCENARIO( "FrohnerBackGroundRMatrix" ) {
       double s0 = 4.;
       double ga = 5.;
 
-      FrohnerBackGroundRMatrix chunk( index, ed, eu, r0, s0, ga );
+      FrohnerBackgroundRMatrix chunk( index, ed, eu, r0, s0, ga );
 
-      THEN( "a FrohnerBackGroundRMatrix can be constructed and members can be "
+      THEN( "a FrohnerBackgroundRMatrix can be constructed and members can be "
             "tested" ) {
 
         verifyChunk( chunk );
@@ -53,9 +53,9 @@ SCENARIO( "FrohnerBackGroundRMatrix" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      FrohnerBackGroundRMatrix chunk( begin, end, lineNumber, 2625, 2, 151 );
+      FrohnerBackgroundRMatrix chunk( begin, end, lineNumber, 2625, 2, 151 );
 
-      THEN( "a FrohnerBackGroundRMatrix can be constructed and members can be "
+      THEN( "a FrohnerBackgroundRMatrix can be constructed and members can be "
             "tested" ) {
 
         verifyChunk( chunk );
@@ -83,7 +83,7 @@ SCENARIO( "FrohnerBackGroundRMatrix" ) {
 
       THEN( "an exception is thrown" ) {
 
-        CHECK_THROWS( FrohnerBackGroundRMatrix( begin, end, lineNumber,
+        CHECK_THROWS( FrohnerBackgroundRMatrix( begin, end, lineNumber,
                                                 2625, 2, 151 ) );
       } // THEN
     } // WHEN
@@ -97,7 +97,7 @@ std::string chunk() {
     " 3.000000+0 4.000000+0 5.000000+0                                 2625 2151     \n";
 }
 
-void verifyChunk( const FrohnerBackGroundRMatrix& chunk ) {
+void verifyChunk( const FrohnerBackgroundRMatrix& chunk ) {
 
   CHECK( 3 == chunk.LBK() );
   CHECK( 3 == chunk.representation() );

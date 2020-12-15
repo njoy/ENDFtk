@@ -3,9 +3,9 @@ private:
 /**
  *  @brief Private intermediate constructor
  */
-FrohnerBackGroundRMatrix( int index,
-                        std::array< double, 5 >&& array ) :
-  BaseBackGroundRMatrix( index ), data_( std::move( array ) ) {}
+FrohnerBackgroundRMatrix( int index,
+                          std::array< double, 5 >&& array ) :
+  BaseBackgroundRMatrix( index ), data_( std::move( array ) ) {}
 
 public:
 
@@ -14,7 +14,7 @@ public:
 /**
  *  @brief Default constructor - only enabled for pybind11
  */
-FrohnerBackGroundRMatrix() = default;
+FrohnerBackgroundRMatrix() = default;
 #endif
 
 /**
@@ -27,27 +27,27 @@ FrohnerBackGroundRMatrix() = default;
  *  @param[in] real            the real values of the tabulated rmatrix
  *  @param[in] imaginary       the real values of the tabulated rmatrix
  */
-FrohnerBackGroundRMatrix( int index,
+FrohnerBackgroundRMatrix( int index,
                         double ed, double eu, double r0, double s0, double ga ) :
-  FrohnerBackGroundRMatrix( index, { ed, eu, r0, s0, ga } ) {}
+  FrohnerBackgroundRMatrix( index, { ed, eu, r0, s0, ga } ) {}
 
 private:
 
 /**
  *  @brief Private intermediate constructor
  */
-FrohnerBackGroundRMatrix( int index,
+FrohnerBackgroundRMatrix( int index,
                         ListRecord&& list ) :
-  FrohnerBackGroundRMatrix( index, extract( std::move( list ) ) ) {}
+  FrohnerBackgroundRMatrix( index, extract( std::move( list ) ) ) {}
 
 /**
  *  @brief Private intermediate constructor
  */
 template< typename Iterator >
-FrohnerBackGroundRMatrix( ControlRecord&& record,
+FrohnerBackgroundRMatrix( ControlRecord&& record,
                         Iterator& it, const Iterator& end, long& lineNumber,
                         int MAT, int MF, int MT ) :
-  FrohnerBackGroundRMatrix(
+  FrohnerBackgroundRMatrix(
       record.L1(),
       ListRecord( it, end, lineNumber, MAT, MF, MT ) ) {
 
@@ -68,9 +68,9 @@ public:
  *  @param[in] MT           the expected MT number
  */
 template< typename Iterator >
-FrohnerBackGroundRMatrix( Iterator& it, const Iterator& end, long& lineNumber,
+FrohnerBackgroundRMatrix( Iterator& it, const Iterator& end, long& lineNumber,
                             int MAT, int MF, int MT )
-  try : FrohnerBackGroundRMatrix( ControlRecord( it, end, lineNumber,
+  try : FrohnerBackgroundRMatrix( ControlRecord( it, end, lineNumber,
                                                MAT, MF, MT ),
                                 it, end, lineNumber, MAT, MF, MT ) {}
   catch ( std::exception& e ) {

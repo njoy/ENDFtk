@@ -4,21 +4,21 @@
  *
  *  See ENDF102, section 2.2.1.6 for more information.
  */
-class FrohnerBackGroundRMatrix : protected BaseBackGroundRMatrix< FrohnerBackGroundRMatrix > {
+class FrohnerBackgroundRMatrix : protected BaseBackgroundRMatrix< FrohnerBackgroundRMatrix > {
 
-  friend BaseBackGroundRMatrix< FrohnerBackGroundRMatrix >;
+  friend BaseBackgroundRMatrix< FrohnerBackgroundRMatrix >;
 
   /* fields */
   std::array< double, 5 > data_;
 
   /* auxiliary functions */
-  #include "ENDFtk/section/2/151/RMatrixLimited/FrohnerBackGroundRMatrix/src/extract.hpp"
-  #include "ENDFtk/section/2/151/RMatrixLimited/FrohnerBackGroundRMatrix/src/verifyLBK.hpp"
+  #include "ENDFtk/section/2/151/RMatrixLimited/FrohnerBackgroundRMatrix/src/extract.hpp"
+  #include "ENDFtk/section/2/151/RMatrixLimited/FrohnerBackgroundRMatrix/src/verifyLBK.hpp"
 
 public:
 
   /* constructor */
-  #include "ENDFtk/section/2/151/RMatrixLimited/FrohnerBackGroundRMatrix/src/ctor.hpp"
+  #include "ENDFtk/section/2/151/RMatrixLimited/FrohnerBackgroundRMatrix/src/ctor.hpp"
 
   /* methods */
 
@@ -27,9 +27,9 @@ public:
    */
   static constexpr long representation() { return 3; }
 
-  using BaseBackGroundRMatrix::LBK;
-  using BaseBackGroundRMatrix::LCH;
-  using BaseBackGroundRMatrix::channelIndex;
+  using BaseBackgroundRMatrix::LBK;
+  using BaseBackgroundRMatrix::LCH;
+  using BaseBackgroundRMatrix::channelIndex;
 
   /**
    *  @brief Return the energy down parameter in the SAMMY parametrisation

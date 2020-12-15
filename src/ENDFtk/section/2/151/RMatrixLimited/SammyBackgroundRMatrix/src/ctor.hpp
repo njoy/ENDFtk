@@ -3,9 +3,9 @@ private:
 /**
  *  @brief Private intermediate constructor
  */
-SammyBackGroundRMatrix( int index,
+SammyBackgroundRMatrix( int index,
                         std::array< double, 7 >&& array ) :
-  BaseBackGroundRMatrix( index ), data_( std::move( array ) ) {}
+  BaseBackgroundRMatrix( index ), data_( std::move( array ) ) {}
 
 public:
 
@@ -14,7 +14,7 @@ public:
 /**
  *  @brief Default constructor - only enabled for pybind11
  */
-SammyBackGroundRMatrix() = default;
+SammyBackgroundRMatrix() = default;
 #endif
 
 /**
@@ -27,28 +27,28 @@ SammyBackGroundRMatrix() = default;
  *  @param[in] real            the real values of the tabulated rmatrix
  *  @param[in] imaginary       the real values of the tabulated rmatrix
  */
-SammyBackGroundRMatrix( int index,
+SammyBackgroundRMatrix( int index,
                         double ed, double eu, double r0, double r1, double r2,
                         double s0, double s1  ) :
-  SammyBackGroundRMatrix( index, { ed, eu, r0, r1, r2, s0, s1 } ) {}
+  SammyBackgroundRMatrix( index, { ed, eu, r0, r1, r2, s0, s1 } ) {}
 
 private:
 
 /**
  *  @brief Private intermediate constructor
  */
-SammyBackGroundRMatrix( int index,
+SammyBackgroundRMatrix( int index,
                         ListRecord&& list ) :
-  SammyBackGroundRMatrix( index, extract( std::move( list ) ) ) {}
+  SammyBackgroundRMatrix( index, extract( std::move( list ) ) ) {}
 
 /**
  *  @brief Private intermediate constructor
  */
 template< typename Iterator >
-SammyBackGroundRMatrix( ControlRecord&& record,
+SammyBackgroundRMatrix( ControlRecord&& record,
                         Iterator& it, const Iterator& end, long& lineNumber,
                         int MAT, int MF, int MT ) :
-  SammyBackGroundRMatrix(
+  SammyBackgroundRMatrix(
       record.L1(),
       ListRecord( it, end, lineNumber, MAT, MF, MT ) ) {
 
@@ -69,9 +69,9 @@ public:
  *  @param[in] MT           the expected MT number
  */
 template< typename Iterator >
-SammyBackGroundRMatrix( Iterator& it, const Iterator& end, long& lineNumber,
+SammyBackgroundRMatrix( Iterator& it, const Iterator& end, long& lineNumber,
                             int MAT, int MF, int MT )
-  try : SammyBackGroundRMatrix( ControlRecord( it, end, lineNumber,
+  try : SammyBackgroundRMatrix( ControlRecord( it, end, lineNumber,
                                                MAT, MF, MT ),
                                 it, end, lineNumber, MAT, MF, MT ) {}
   catch ( std::exception& e ) {

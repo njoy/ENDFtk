@@ -3,7 +3,7 @@
 /**
  *  @brief Default constructor - only enabled for pybind11
  */
-NoBackGroundRMatrix() = default;
+NoBackgroundRMatrix() = default;
 #endif
 
 /**
@@ -11,15 +11,15 @@ NoBackGroundRMatrix() = default;
  *
  *  @param[in] index    the channel index
  */
-NoBackGroundRMatrix( int index ) : BaseBackGroundRMatrix( index ) {}
+NoBackgroundRMatrix( int index ) : BaseBackgroundRMatrix( index ) {}
 
 private:
 
 /**
  *  @brief Private intermediate constructor
  */
-NoBackGroundRMatrix( ControlRecord&& record ) :
-  NoBackGroundRMatrix( record.L1() ) {
+NoBackgroundRMatrix( ControlRecord&& record ) :
+  NoBackgroundRMatrix( record.L1() ) {
 
     verifyLBK( record.L2() );
   }
@@ -38,9 +38,9 @@ public:
  *  @param[in] MT           the expected MT number
  */
 template< typename Iterator >
-NoBackGroundRMatrix( Iterator& it, const Iterator& end, long& lineNumber,
+NoBackgroundRMatrix( Iterator& it, const Iterator& end, long& lineNumber,
                      int MAT, int MF, int MT )
-  try : NoBackGroundRMatrix( ControlRecord( it, end, lineNumber,
+  try : NoBackgroundRMatrix( ControlRecord( it, end, lineNumber,
                              MAT, MF, MT ) ) {}
   catch ( std::exception& e ) {
 

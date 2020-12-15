@@ -4,23 +4,23 @@
  *
  *  See ENDF102, section 2.2.1.6 for more information.
  */
-class TabulatedBackGroundRMatrix : protected BaseBackGroundRMatrix< TabulatedBackGroundRMatrix > {
+class TabulatedBackgroundRMatrix : protected BaseBackgroundRMatrix< TabulatedBackgroundRMatrix > {
 
-  friend BaseBackGroundRMatrix< TabulatedBackGroundRMatrix >;
+  friend BaseBackgroundRMatrix< TabulatedBackgroundRMatrix >;
 
   /* fields */
   TabulationRecord real_;
   TabulationRecord imaginary_;
 
   /* auxiliary functions */
-  #include "ENDFtk/section/2/151/RMatrixLimited/TabulatedBackGroundRMatrix/src/extract.hpp"
-  #include "ENDFtk/section/2/151/RMatrixLimited/TabulatedBackGroundRMatrix/src/verify.hpp"
-  #include "ENDFtk/section/2/151/RMatrixLimited/TabulatedBackGroundRMatrix/src/verifyLBK.hpp"
+  #include "ENDFtk/section/2/151/RMatrixLimited/TabulatedBackgroundRMatrix/src/extract.hpp"
+  #include "ENDFtk/section/2/151/RMatrixLimited/TabulatedBackgroundRMatrix/src/verify.hpp"
+  #include "ENDFtk/section/2/151/RMatrixLimited/TabulatedBackgroundRMatrix/src/verifyLBK.hpp"
 
 public:
 
   /* constructor */
-  #include "ENDFtk/section/2/151/RMatrixLimited/TabulatedBackGroundRMatrix/src/ctor.hpp"
+  #include "ENDFtk/section/2/151/RMatrixLimited/TabulatedBackgroundRMatrix/src/ctor.hpp"
 
   /* methods */
 
@@ -29,9 +29,9 @@ public:
    */
   static constexpr long representation() { return 1; }
 
-  using BaseBackGroundRMatrix::LBK;
-  using BaseBackGroundRMatrix::LCH;
-  using BaseBackGroundRMatrix::channelIndex;
+  using BaseBackgroundRMatrix::LBK;
+  using BaseBackgroundRMatrix::LCH;
+  using BaseBackgroundRMatrix::channelIndex;
 
   /**
    *  @brief Return the number of energy points.

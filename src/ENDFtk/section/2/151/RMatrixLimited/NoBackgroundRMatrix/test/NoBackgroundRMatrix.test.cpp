@@ -7,16 +7,16 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using NoBackGroundRMatrix =
-section::Type< 2, 151 >::RMatrixLimited::NoBackGroundRMatrix;
+using NoBackgroundRMatrix =
+section::Type< 2, 151 >::RMatrixLimited::NoBackgroundRMatrix;
 
 std::string chunk();
-void verifyChunk( const NoBackGroundRMatrix& );
+void verifyChunk( const NoBackgroundRMatrix& );
 std::string invalidLBK();
 
-SCENARIO( "NoBackGroundRMatrix" ) {
+SCENARIO( "NoBackgroundRMatrix" ) {
 
-  GIVEN( "valid data for a NoBackGroundRMatrix" ) {
+  GIVEN( "valid data for a NoBackgroundRMatrix" ) {
 
     std::string string = chunk();
 
@@ -24,9 +24,9 @@ SCENARIO( "NoBackGroundRMatrix" ) {
 
       int index = 1;
 
-      NoBackGroundRMatrix chunk( index );
+      NoBackgroundRMatrix chunk( index );
 
-      THEN( "a NoBackGroundRMatrix can be constructed and members can be "
+      THEN( "a NoBackgroundRMatrix can be constructed and members can be "
             "tested" ) {
 
         verifyChunk( chunk );
@@ -48,9 +48,9 @@ SCENARIO( "NoBackGroundRMatrix" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      NoBackGroundRMatrix chunk( begin, end, lineNumber, 2625, 2, 151 );
+      NoBackgroundRMatrix chunk( begin, end, lineNumber, 2625, 2, 151 );
 
-      THEN( "a NoBackGroundRMatrix can be constructed and members can be "
+      THEN( "a NoBackgroundRMatrix can be constructed and members can be "
             "tested" ) {
 
         verifyChunk( chunk );
@@ -78,7 +78,7 @@ SCENARIO( "NoBackGroundRMatrix" ) {
 
       THEN( "an exception is thrown" ) {
 
-        CHECK_THROWS( NoBackGroundRMatrix( begin, end, lineNumber, 2625, 2, 151 ) );
+        CHECK_THROWS( NoBackgroundRMatrix( begin, end, lineNumber, 2625, 2, 151 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -89,7 +89,7 @@ std::string chunk() {
     " 0.000000+0 0.000000+0          1          0          0          02625 2151     \n";
 }
 
-void verifyChunk( const NoBackGroundRMatrix& chunk ) {
+void verifyChunk( const NoBackgroundRMatrix& chunk ) {
 
   CHECK( 0 == chunk.LBK() );
   CHECK( 0 == chunk.representation() );

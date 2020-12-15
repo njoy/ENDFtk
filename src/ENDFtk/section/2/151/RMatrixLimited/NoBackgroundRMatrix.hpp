@@ -4,17 +4,17 @@
  *
  *  See ENDF102, section 2.2.1.6 for more information.
  */
-class NoBackGroundRMatrix : protected BaseBackGroundRMatrix< NoBackGroundRMatrix > {
+class NoBackgroundRMatrix : protected BaseBackgroundRMatrix< NoBackgroundRMatrix > {
 
-  friend BaseBackGroundRMatrix< NoBackGroundRMatrix >;
+  friend BaseBackgroundRMatrix< NoBackgroundRMatrix >;
 
   /* auxiliary functions */
-  #include "ENDFtk/section/2/151/RMatrixLimited/NoBackGroundRMatrix/src/verifyLBK.hpp"
+  #include "ENDFtk/section/2/151/RMatrixLimited/NoBackgroundRMatrix/src/verifyLBK.hpp"
 
 public:
 
   /* constructor */
-  #include "ENDFtk/section/2/151/RMatrixLimited/NoBackGroundRMatrix/src/ctor.hpp"
+  #include "ENDFtk/section/2/151/RMatrixLimited/NoBackgroundRMatrix/src/ctor.hpp"
 
   /* methods */
 
@@ -23,9 +23,9 @@ public:
    */
   static constexpr long representation() { return 0; }
 
-  using BaseBackGroundRMatrix::LBK;
-  using BaseBackGroundRMatrix::LCH;
-  using BaseBackGroundRMatrix::channelIndex;
+  using BaseBackgroundRMatrix::LBK;
+  using BaseBackgroundRMatrix::LCH;
+  using BaseBackgroundRMatrix::channelIndex;
 
   /**
    *  @brief Return the number of lines in this MF2/MT151 component

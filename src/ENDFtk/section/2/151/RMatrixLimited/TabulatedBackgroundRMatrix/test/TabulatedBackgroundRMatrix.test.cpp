@@ -7,16 +7,16 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using TabulatedBackGroundRMatrix =
-section::Type< 2, 151 >::RMatrixLimited::TabulatedBackGroundRMatrix;
+using TabulatedBackgroundRMatrix =
+section::Type< 2, 151 >::RMatrixLimited::TabulatedBackgroundRMatrix;
 
 std::string chunk();
-void verifyChunk( const TabulatedBackGroundRMatrix& );
+void verifyChunk( const TabulatedBackgroundRMatrix& );
 std::string invalidLBK();
 
-SCENARIO( "TabulatedBackGroundRMatrix" ) {
+SCENARIO( "TabulatedBackgroundRMatrix" ) {
 
-  GIVEN( "valid data for a TabulatedBackGroundRMatrix" ) {
+  GIVEN( "valid data for a TabulatedBackgroundRMatrix" ) {
 
     std::string string = chunk();
 
@@ -28,13 +28,13 @@ SCENARIO( "TabulatedBackGroundRMatrix" ) {
       std::vector< double > energies = { 1e-5, 2e+7 };
       std::vector< std::complex< double > > rmatrix = { { 1., 2. }, { 2., 1. } };
 
-      TabulatedBackGroundRMatrix chunk( index,
+      TabulatedBackgroundRMatrix chunk( index,
                                         std::move( boundaries ),
                                         std::move( interpolants ),
                                         std::move( energies ),
                                         std::move( rmatrix ) );
 
-      THEN( "a TabulatedBackGroundRMatrix can be constructed and members can be "
+      THEN( "a TabulatedBackgroundRMatrix can be constructed and members can be "
             "tested" ) {
 
         verifyChunk( chunk );
@@ -56,9 +56,9 @@ SCENARIO( "TabulatedBackGroundRMatrix" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      TabulatedBackGroundRMatrix chunk( begin, end, lineNumber, 2625, 2, 151 );
+      TabulatedBackgroundRMatrix chunk( begin, end, lineNumber, 2625, 2, 151 );
 
-      THEN( "a TabulatedBackGroundRMatrix can be constructed and members can be "
+      THEN( "a TabulatedBackgroundRMatrix can be constructed and members can be "
             "tested" ) {
 
         verifyChunk( chunk );
@@ -86,7 +86,7 @@ SCENARIO( "TabulatedBackGroundRMatrix" ) {
 
       THEN( "an exception is thrown" ) {
 
-        CHECK_THROWS( TabulatedBackGroundRMatrix( begin, end, lineNumber,
+        CHECK_THROWS( TabulatedBackgroundRMatrix( begin, end, lineNumber,
                                                   2625, 2, 151 ) );
       } // THEN
     } // WHEN
@@ -104,7 +104,7 @@ std::string chunk() {
     " 1.000000-5 2.000000+0 2.000000+7 1.000000+0                      2625 2151     \n";
 }
 
-void verifyChunk( const TabulatedBackGroundRMatrix& chunk ) {
+void verifyChunk( const TabulatedBackgroundRMatrix& chunk ) {
 
   CHECK( 1 == chunk.LBK() );
   CHECK( 1 == chunk.representation() );

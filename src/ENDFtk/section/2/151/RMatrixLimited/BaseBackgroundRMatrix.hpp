@@ -5,7 +5,7 @@
  *  See ENDF102, section 2.2.1.6 for more information.
  */
 template < typename Derived >
-class BaseBackGroundRMatrix {
+class BaseBackgroundRMatrix {
 
   /* fields */
   unsigned int index_;
@@ -13,7 +13,7 @@ class BaseBackGroundRMatrix {
 protected:
 
   /* constructor */
-  BaseBackGroundRMatrix( int index ) : index_( index ) {}
+  BaseBackgroundRMatrix( int index ) : index_( index ) {}
 
 public:
 

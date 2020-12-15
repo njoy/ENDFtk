@@ -4,21 +4,21 @@
  *
  *  See ENDF102, section 2.2.1.6 for more information.
  */
-class SammyBackGroundRMatrix : protected BaseBackGroundRMatrix< SammyBackGroundRMatrix > {
+class SammyBackgroundRMatrix : protected BaseBackgroundRMatrix< SammyBackgroundRMatrix > {
 
-  friend BaseBackGroundRMatrix< SammyBackGroundRMatrix >;
+  friend BaseBackgroundRMatrix< SammyBackgroundRMatrix >;
 
   /* fields */
   std::array< double, 7 > data_;
 
   /* auxiliary functions */
-  #include "ENDFtk/section/2/151/RMatrixLimited/SammyBackGroundRMatrix/src/extract.hpp"
-  #include "ENDFtk/section/2/151/RMatrixLimited/SammyBackGroundRMatrix/src/verifyLBK.hpp"
+  #include "ENDFtk/section/2/151/RMatrixLimited/SammyBackgroundRMatrix/src/extract.hpp"
+  #include "ENDFtk/section/2/151/RMatrixLimited/SammyBackgroundRMatrix/src/verifyLBK.hpp"
 
 public:
 
   /* constructor */
-  #include "ENDFtk/section/2/151/RMatrixLimited/SammyBackGroundRMatrix/src/ctor.hpp"
+  #include "ENDFtk/section/2/151/RMatrixLimited/SammyBackgroundRMatrix/src/ctor.hpp"
 
   /* methods */
 
@@ -27,9 +27,9 @@ public:
    */
   static constexpr long representation() { return 2; }
 
-  using BaseBackGroundRMatrix::LBK;
-  using BaseBackGroundRMatrix::LCH;
-  using BaseBackGroundRMatrix::channelIndex;
+  using BaseBackgroundRMatrix::LBK;
+  using BaseBackgroundRMatrix::LCH;
+  using BaseBackgroundRMatrix::channelIndex;
 
   /**
    *  @brief Return the energy down parameter in the SAMMY parametrisation

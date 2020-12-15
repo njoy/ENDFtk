@@ -14,16 +14,16 @@ class RMatrixLimited {
 
 public:
 
-  #include "ENDFtk/section/2/151/RMatrixLimited/BaseBackGroundRMatrix.hpp"
-  #include "ENDFtk/section/2/151/RMatrixLimited/NoBackGroundRMatrix.hpp"
-  #include "ENDFtk/section/2/151/RMatrixLimited/TabulatedBackGroundRMatrix.hpp"
-  #include "ENDFtk/section/2/151/RMatrixLimited/SammyBackGroundRMatrix.hpp"
-  #include "ENDFtk/section/2/151/RMatrixLimited/FrohnerBackGroundRMatrix.hpp"
+  #include "ENDFtk/section/2/151/RMatrixLimited/BaseBackgroundRMatrix.hpp"
+  #include "ENDFtk/section/2/151/RMatrixLimited/NoBackgroundRMatrix.hpp"
+  #include "ENDFtk/section/2/151/RMatrixLimited/TabulatedBackgroundRMatrix.hpp"
+  #include "ENDFtk/section/2/151/RMatrixLimited/SammyBackgroundRMatrix.hpp"
+  #include "ENDFtk/section/2/151/RMatrixLimited/FrohnerBackgroundRMatrix.hpp"
 
-  using BackGroundRMatrix = std::variant< NoBackGroundRMatrix,
-                                          TabulatedBackGroundRMatrix,
-                                          SammyBackGroundRMatrix,
-                                          FrohnerBackGroundRMatrix >;
+  using BackgroundRMatrix = std::variant< NoBackgroundRMatrix,
+                                          TabulatedBackgroundRMatrix,
+                                          SammyBackgroundRMatrix,
+                                          FrohnerBackgroundRMatrix >;
 
   #include "ENDFtk/section/2/151/RMatrixLimited/ParticlePairs.hpp"
   #include "ENDFtk/section/2/151/RMatrixLimited/ResonanceChannels.hpp"

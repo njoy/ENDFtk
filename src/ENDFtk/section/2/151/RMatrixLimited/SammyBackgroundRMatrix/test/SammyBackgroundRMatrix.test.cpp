@@ -7,16 +7,16 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using SammyBackGroundRMatrix =
-section::Type< 2, 151 >::RMatrixLimited::SammyBackGroundRMatrix;
+using SammyBackgroundRMatrix =
+section::Type< 2, 151 >::RMatrixLimited::SammyBackgroundRMatrix;
 
 std::string chunk();
-void verifyChunk( const SammyBackGroundRMatrix& );
+void verifyChunk( const SammyBackgroundRMatrix& );
 std::string invalidLBK();
 
-SCENARIO( "SammyBackGroundRMatrix" ) {
+SCENARIO( "SammyBackgroundRMatrix" ) {
 
-  GIVEN( "valid data for a SammyBackGroundRMatrix" ) {
+  GIVEN( "valid data for a SammyBackgroundRMatrix" ) {
 
     std::string string = chunk();
 
@@ -31,9 +31,9 @@ SCENARIO( "SammyBackGroundRMatrix" ) {
       double s0 = 6.;
       double s1 = 7.;
 
-      SammyBackGroundRMatrix chunk( index, ed, eu, r0, r1, r2, s0, s1 );
+      SammyBackgroundRMatrix chunk( index, ed, eu, r0, r1, r2, s0, s1 );
 
-      THEN( "a SammyBackGroundRMatrix can be constructed and members can be "
+      THEN( "a SammyBackgroundRMatrix can be constructed and members can be "
             "tested" ) {
 
         verifyChunk( chunk );
@@ -55,9 +55,9 @@ SCENARIO( "SammyBackGroundRMatrix" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      SammyBackGroundRMatrix chunk( begin, end, lineNumber, 2625, 2, 151 );
+      SammyBackgroundRMatrix chunk( begin, end, lineNumber, 2625, 2, 151 );
 
-      THEN( "a SammyBackGroundRMatrix can be constructed and members can be "
+      THEN( "a SammyBackgroundRMatrix can be constructed and members can be "
             "tested" ) {
 
         verifyChunk( chunk );
@@ -85,7 +85,7 @@ SCENARIO( "SammyBackGroundRMatrix" ) {
 
       THEN( "an exception is thrown" ) {
 
-        CHECK_THROWS( SammyBackGroundRMatrix( begin, end, lineNumber,
+        CHECK_THROWS( SammyBackgroundRMatrix( begin, end, lineNumber,
                                               2625, 2, 151 ) );
       } // THEN
     } // WHEN
@@ -99,7 +99,7 @@ std::string chunk() {
     " 3.000000+0 4.000000+0 5.000000+0 6.000000+0 7.000000+0           2625 2151     \n";
 }
 
-void verifyChunk( const SammyBackGroundRMatrix& chunk ) {
+void verifyChunk( const SammyBackgroundRMatrix& chunk ) {
 
   CHECK( 2 == chunk.LBK() );
   CHECK( 2 == chunk.representation() );
