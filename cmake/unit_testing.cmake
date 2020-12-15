@@ -52,6 +52,8 @@ add_subdirectory( src/ENDFtk/section/2/151/RMatrixLimited/ResonanceChannels/test
 add_subdirectory( src/ENDFtk/section/2/151/RMatrixLimited/ResonanceParameters/test )
 add_subdirectory( src/ENDFtk/section/2/151/RMatrixLimited/NoBackGroundRMatrix/test )
 add_subdirectory( src/ENDFtk/section/2/151/RMatrixLimited/TabulatedBackGroundRMatrix/test )
+add_subdirectory( src/ENDFtk/section/2/151/RMatrixLimited/SammyBackGroundRMatrix/test )
+add_subdirectory( src/ENDFtk/section/2/151/RMatrixLimited/FrohnerBackGroundRMatrix/test )
 add_subdirectory( src/ENDFtk/section/2/151/RMatrixLimited/SpinGroup/test )
 add_subdirectory( src/ENDFtk/section/2/151/RMatrixLimited/test )
 add_subdirectory( src/ENDFtk/section/2/151/ReichMoore/test )
