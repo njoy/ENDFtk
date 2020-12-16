@@ -50,14 +50,14 @@ public:
   auto parity() const { return this->PJ(); }
 
   /**
-   *  @brief Return the background R-matrix option KBK
+   *  @brief Return the number of channels with background R-matrix values
    */
   auto KBK() const { return ListRecord::L1(); }
 
   /**
-  *  @brief Return the background R-matrix option KBK
+   *  @brief Return the number of channels with background R-matrix values
    */
-  auto backgroundRMatrixOption() const { return this->KBK(); }
+  auto numberBackgroundChannels() const { return this->KBK(); }
 
   /**
    *  @brief Return the phase shift option

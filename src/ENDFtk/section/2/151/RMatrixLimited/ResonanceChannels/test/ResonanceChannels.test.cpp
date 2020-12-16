@@ -178,7 +178,7 @@ void verifyChunk( const ResonanceChannels& chunk ) {
   CHECK( 0. == Approx( chunk.PJ() ) );
   CHECK( 0. == Approx( chunk.parity() ) );
   CHECK( 0 == chunk.KBK() );
-  CHECK( 0 == chunk.backgroundRMatrixOption() );
+  CHECK( 0 == chunk.numberBackgroundChannels() );
   CHECK( 0 == chunk.KPS() );
   CHECK( 0 == chunk.phaseShiftOption() );
   CHECK( 2 == chunk.NCH() );
