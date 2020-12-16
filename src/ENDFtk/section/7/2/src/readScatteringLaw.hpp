@@ -11,9 +11,10 @@ readScatteringLaw( Iterator& begin,
   switch ( LTHR ) {
     case 1: return CoherentElastic( begin, end, lineNumber, MAT, MF, MT );
     case 2: return IncoherentElastic( begin, end, lineNumber, MAT, MF, MT );
+    case 3: return MixedElastic( begin, end, lineNumber, MAT, MF, MT );
     default : {
       Log::error( "Encountered illegal LTHR value" );
-      Log::info( "LTHR is either 1 (coherent) or 2 (incoherent)" );
+      Log::info( "LTHR is either 1 (coherent), 2 (incoherent) or 3 (mixed)" );
       Log::info( "LTHR value: {}", LTHR );
       Log::info( "Line number: {}", lineNumber );
       throw std::exception();

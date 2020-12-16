@@ -9,7 +9,7 @@
  *  the principal scatterer and the analytic representations for the
  *  non-principal scattering atoms (if any).
  *
- *  See ENDF102, section 7.4 for more information.
+ *  See ENDF102, section 7.5 for more information.
  */
 class ScatteringLawConstants : protected ListRecord {
 

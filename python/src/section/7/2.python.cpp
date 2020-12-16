@@ -15,6 +15,7 @@ namespace mf7 {
   // declarations - components
   void wrapCoherentElastic( python::module& );
   void wrapIncoherentElastic( python::module& );
+  void wrapMixedElastic( python::module& );
 
 }
 
@@ -44,6 +45,7 @@ void wrapSection_7_2( python::module& module ) {
   // wrap components
   mf7::wrapCoherentElastic( submodule );
   mf7::wrapIncoherentElastic( submodule );
+  mf7::wrapMixedElastic( submodule );
 
   // wrap the section
   section

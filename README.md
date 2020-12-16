@@ -13,16 +13,25 @@ First of all, a user should clone the ENDFtk repository and build the python bin
 ```
 git clone https://github.com/njoy/ENDFtk
 cd ENDFtk
-git checkout feature/python-v2
+git checkout develop
 mkdir build
 cd build
 cmake -DCMAKE_BUILD_TYPE=Release ../
 make ENDFtk.python -j8
 ```
 
-Since the python bindings for ENDFtk are still a work in progress, we have to check out the feature/python-v2 branch. Once these go into production this step will no longer be required.
+Since the python bindings for ENDFtk are still a work in progress, we have to check out the develop branch. Once these go into production this step will no longer be required. ENDFtk in python requires python 3.x so you will need to have at least one python 3.x installed. When multiple python versions are installed, the cmake configuration step will pick one of these to link against.
 
-The compilation will produce a dynamic library linked to the python libraries on the user's computer. In order to use them in python, the user should make sure that the library is within the python path. You can set that up by using `sys.path.append(...)` in your python code, or by launching python in the directory where the library can be found.
+The compilation will produce a dynamic library linked to the python libraries on the user's computer (it'll be named something like `ENDFtk.cpython-37m-darwin.so`). This name will also indicate which version of the python libraries this library is linked to. This is important since you will need to use the associated python version with the ENDFtk python package.
+
+In order to use the ENDFtk python package, the user should make sure that the library is within the python path. This can be done in multiple ways. You can set that up by adding the ENDFtk build path to the python path `$PYTHONPATH` environmental variable on your machine, or by using the following in your python code:
+```
+import sys
+sys.path.append( < ENDFtk-build-path > )
+```
+where `< ENDFtk-build-path >` is the path to the ENDFtk python dynamic library.
+
+When running python in the build directory directly, none of these steps are required.
 
 ### A minimal user guide:
 
@@ -32,7 +41,9 @@ import ENDFtk
 tape = ENDFtk.tree.Tape.from_file( 'n-001_H_001.endf' )
 ```
 
-This opens the ENDF file as an index tree from which a user can parse components (entire materials, files or sections) as follows:
+An `ENDFtk.tree.Tape` effectively indexes the file into available materials, files and sections, which can be parsed at will by the user. The `ENDFtk.tree` submodule also provides an `ENDFtk.tree.Material`, `ENDFtk.tree.File` and `ENDFtk.tree.Section` that the user can look through before parsing the data that is contained in any of these. Parsing the data requires strict adherence to the ENDF6 format but loading the data into an `ENDFtk.tree.Tape` does not. As a result, the `ENDFtk.tree.Tape` is also capable of indexing older ENDF files that do not conform with the ENDF6 standard (tests have shown that we can index files as old as ENDF/B-II).
+
+Once the data is indexed, a user can retrieve an/or parse components (entire materials, files or sections) as follows:
 ```
 mat = tape.material(125).parse()
 file = tape.material(125).file(6).parse()
@@ -45,7 +56,7 @@ mat = tape.material(125).parse()
 file = mat.file(6)
 section = file.section(102)
 ```
-but since they are already parsed, no need to use the `.parse()` at the end. There are also ENDF-speak equivalents to this:
+but since they are already parsed, no need to use the `.parse()` at the end. There are also ENDF-speak equivalents to this for both the `ENDFtk.tree` components as well as the parsed components:
 ```
 mat = tape.MAT(125).parse()
 file = mat.MF(6)
@@ -68,7 +79,7 @@ for product in pu.file(6).section(102).reaction_products :
     print( product.ZAP, product.LAW )
 ```
 
-ENDFtk uses a concept called ranges so as a result, anything coming out as a range will be a custom type. These custom range types allow subscripting and iteration like any other list. To convert such a range into a proper list, you can use the `to_list()` method or slicing. This will do a deep copy of primitive types (int, doubles, etc.). It will not do a deep copy for custom types like sections or underlying components. To deep copy a range of custom types, a user can use the `copy()` method on the range.
+ENDFtk uses a concept called ranges (aka sequences) so as a result, anything coming out as a range will be a custom type. These custom range types allow subscripting and iteration like any other sequence or list. To convert such a range into a proper list, you can use the `to_list()` method or slicing. This will do a deep copy of primitive types (int, doubles, etc.). It will not do a deep copy for custom types like sections or underlying components. To deep copy a range of custom types, a user can use the `copy()` method on the range.
 
 For example:
 ```
@@ -77,7 +88,7 @@ sections = file.sections           # this is the custom range type for MF6 secti
 sections = file.sections.to_list() # this is a list of MF6 sections, with the same memory address as those contained in the file object
 
 sections = file.sections[:]        # this is also a list of MF6 sections, with the same memory address as those contained in the file object
-sections = file.sections.copy()    # this is a list of MF6 sections that have been copied, with a different memory addressed as those contained in the file object
+sections = file.sections.copy()    # this is a list of MF6 sections that have been copied, with a different memory address as those contained in the file object
 ```
 
 ## LICENSE
