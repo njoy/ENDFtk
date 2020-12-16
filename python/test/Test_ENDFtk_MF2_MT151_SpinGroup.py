@@ -46,7 +46,7 @@ class Test_ENDFtk_MF2_MT151_SpinGroup( unittest.TestCase ) :
             self.assertAlmostEqual( 0., channels.PJ )
             self.assertAlmostEqual( 0., channels.parity )
             self.assertEqual( 0, channels.KBK )
-            self.assertEqual( 0, channels.background_rmatrix_option )
+            self.assertEqual( 0, channels.number_background_channels )
             self.assertEqual( 0, channels.KPS )
             self.assertEqual( 0, channels.phase_shift_option )
             self.assertEqual( 2, channels.NCH )

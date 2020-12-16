@@ -13,6 +13,15 @@ class BaseBackgroundRMatrix {
 protected:
 
   /* constructor */
+
+  //! @todo pybind11 variant needs default constructor workaround
+  #ifdef PYBIND11
+  /**
+   *  @brief Default constructor - only enabled for pybind11
+   */
+  BaseBackgroundRMatrix() = default;
+  #endif
+
   BaseBackgroundRMatrix( int index ) : index_( index ) {}
 
 public:

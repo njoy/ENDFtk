@@ -1,21 +1,19 @@
-private:
-
 /**
  *  @brief Constructor
  *
- *  @param[in] channels     the resonance channel information
- *  @param[in] parameters   the associated resonance parameters
+ *  @param[in] channels      the resonance channel information
+ *  @param[in] parameters    the associated resonance parameters
+ *  @param[in] background    the associated resonance parameters
  */
 SpinGroup( ResonanceChannels&& channels, ResonanceParameters&& parameters,
-           std::vector< std::optional< BackGroundRMatrix > >&& background ) :
+           BackgroundChannels&& background ) :
   channels_( std::move( channels ) ),
   parameters_( std::move( parameters ) ),
   background_( std::move( background ) ) {
 
-    //! @todo verify
+    verify( this->channels_.KBK(), this->background_.KBK(),
+            this->channels_.NCH(), this->background_.NCH() );
   }
-
-public:
 
 /**
  *  @brief Constructor
@@ -25,8 +23,7 @@ public:
  */
 SpinGroup( ResonanceChannels&& channels, ResonanceParameters&& parameters )
   try : SpinGroup( std::move( channels ), std::move( parameters ),
-                   std::vector< std::optional< BackGroundRMatrix > >{
-                      channels.NCH(), std::nullopt } ) {}
+                   BackgroundChannels( channels.NCH(), {} ) ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing a spin group" );
@@ -44,8 +41,8 @@ SpinGroup( ResonanceChannels&& channels,
            Iterator& it, const Iterator& end, long& lineNumber,
            int MAT, int MF, int MT, int NCH, int KBK ) :
   SpinGroup( std::move( channels ), std::move( parameters ),
-             readBackGroundMatrices( it, end, lineNumber,
-                                     MAT, MF, MT, NCH, KBK ) ) {}
+             BackgroundChannels( it, end, lineNumber,
+                                 MAT, MF, MT, NCH, KBK ) ) {}
 
 /**
  *  @brief Private intermediate constructor

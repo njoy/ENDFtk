@@ -28,6 +28,7 @@ public:
   #include "ENDFtk/section/2/151/RMatrixLimited/ParticlePairs.hpp"
   #include "ENDFtk/section/2/151/RMatrixLimited/ResonanceChannels.hpp"
   #include "ENDFtk/section/2/151/RMatrixLimited/ResonanceParameters.hpp"
+  #include "ENDFtk/section/2/151/RMatrixLimited/BackgroundChannels.hpp"
   #include "ENDFtk/section/2/151/RMatrixLimited/SpinGroup.hpp"
 
 private:

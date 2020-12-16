@@ -96,13 +96,13 @@ void wrapResonanceChannels( python::module& module ) {
 
     "KBK",
     &Component::KBK,
-    "The background R-matrix option KBK"
+    "The number of channels with background R-matrix values"
   )
   .def_property_readonly(
 
-    "background_rmatrix_option",
-    &Component::backgroundRMatrixOption,
-    "The background R-matrix option KBK"
+    "number_background_channels",
+    &Component::numberBackgroundChannels,
+    "The number of channels with background R-matrix values"
   )
   .def_property_readonly(
 

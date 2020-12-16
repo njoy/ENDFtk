@@ -1,5 +1,5 @@
 /**
- *  @brief Print this MF2 MT151 component
+ *  @brief Print this MF2/MT151 component
  *
  *  @tparam OutputIterator   an output iterator
  *
@@ -11,7 +11,13 @@
 template< typename OutputIterator >
 void print( OutputIterator& it, int MAT, int MF, int MT ) const {
 
-  this->channels_.print( it, MAT, MF, MT );
-  this->parameters_.print( it, MAT, MF, MT );
-  this->background_.print( it, MAT, MF, MT );
+  for ( const auto& channel : this->backgroundRMatrices() ) {
+
+    if ( channel ) {
+
+      std::visit( [&] ( const auto& variant )
+                      { return variant.print( it, MAT, MF, MT ); },
+                  channel.value() );
+    }
+  }
 }
