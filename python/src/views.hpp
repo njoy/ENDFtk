@@ -11,7 +11,7 @@
 #include "range/v3/view/any_view.hpp"
 #include "range/v3/distance.hpp"
 #include "range/v3/index.hpp"
-#include "range/v3/at.hpp"
+#include "range/v3/front.hpp"
 #include "range/v3/utility/iterator.hpp"
 #include "range/v3/to_container.hpp"
 
@@ -82,6 +82,11 @@ void wrapBasicBidirectionalAnyViewOf( python::module& module, const std::string&
                         ranges::sentinel_t< BasicBidirectionalAnyView< Element > >,
                         Element >( view.begin(), view.end() ); },
         "Return an iterator for the sequence",
+        python::keep_alive< 0, 1 >() )
+  .def( "front",
+        [] ( BasicBidirectionalAnyView< Element >& view )
+           { return ranges::front( view ); },
+        "Return the front element of the sequence",
         python::keep_alive< 0, 1 >() )
   .def( "to_list",
         [] ( BasicBidirectionalAnyView< Element >& view )
@@ -163,6 +168,11 @@ void wrapBasicRandomAccessAnyViewOf( python::module& module, const std::string& 
                         ranges::sentinel_t< BasicRandomAccessAnyView< Element > >,
                         Element >( view.begin(), view.end() ); },
         "Return an iterator for the sequence",
+        python::keep_alive< 0, 1 >() )
+  .def( "front",
+        [] ( BasicRandomAccessAnyView< Element >& view )
+           { return ranges::front( view ); },
+        "Return the front element of the sequence",
         python::keep_alive< 0, 1 >() )
   .def( "to_list",
       	[] ( BasicRandomAccessAnyView< Element >& view )
