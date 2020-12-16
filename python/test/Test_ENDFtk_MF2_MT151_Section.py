@@ -52,6 +52,7 @@ class Test_ENDFtk_MF2_MT151_RMatrixLimited( unittest.TestCase ) :
 
             # verify content
             self.assertEqual( 151, chunk.MT )
+            self.assertEqual( 151, chunk.section_number )
             self.assertEqual( 26054, chunk.ZA )
             self.assertAlmostEqual( 53.47624, chunk.AWR )
             self.assertAlmostEqual( 53.47624, chunk.atomic_weight_ratio )

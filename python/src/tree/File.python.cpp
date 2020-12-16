@@ -24,10 +24,14 @@ void wrapTreeFile( python::module& module ) {
   using File = Material::File_t;
   using Section = File::Section_t;
   using SectionRange = BidirectionalAnyView< Section >;
+  using MF1 = njoy::ENDFtk::file::Type< 1 >;
+  using MF2 = njoy::ENDFtk::file::Type< 2 >;
   using MF3 = njoy::ENDFtk::file::Type< 3 >;
   using MF4 = njoy::ENDFtk::file::Type< 4 >;
   using MF5 = njoy::ENDFtk::file::Type< 5 >;
   using MF6 = njoy::ENDFtk::file::Type< 6 >;
+  using MF7 = njoy::ENDFtk::file::Type< 7 >;
+  using MF8 = njoy::ENDFtk::file::Type< 8 >;
   using MF12 = njoy::ENDFtk::file::Type< 12 >;
   using MF13 = njoy::ENDFtk::file::Type< 13 >;
 
@@ -129,7 +133,8 @@ void wrapTreeFile( python::module& module ) {
   .def(
 
     "parse",
-    [] ( const File& self ) -> std::variant< MF3, MF4, MF5, MF6, MF12, MF13 > {
+    [] ( const File& self ) -> std::variant< MF1, MF2, MF3, MF4, MF5, MF6,
+                                             MF7, MF8, MF12, MF13 > {
 
       switch ( self.fileNumber() ) {
 

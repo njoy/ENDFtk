@@ -81,7 +81,24 @@ pybind11_add_module( ENDFtk.python
     python/src/ENDFtk.python.cpp
     python/src/record/DirectoryRecord.python.cpp
     python/src/record/TapeIdentification.python.cpp
+    python/src/section/1/TabulatedMultiplicity.python.cpp
+    python/src/section/1/PolynomialMultiplicity.python.cpp
     python/src/section/1/451.python.cpp
+    python/src/section/1/452.python.cpp
+    python/src/section/1/455.python.cpp
+    python/src/section/1/455/DecayConstants.python.cpp
+    python/src/section/1/455/EnergyIndependentConstants.python.cpp
+    python/src/section/1/455/EnergyDependentConstants.python.cpp
+    python/src/section/1/456.python.cpp
+    python/src/section/1/458.python.cpp
+    python/src/section/1/458/EnergyReleaseComponent.python.cpp
+    python/src/section/1/458/ThermalPointComponents.python.cpp
+    python/src/section/1/458/PolynomialComponents.python.cpp
+    python/src/section/1/458/TabulatedComponents.python.cpp
+    python/src/section/1/460.python.cpp
+    python/src/section/1/460/DiscretePhotonMultiplicity.python.cpp
+    python/src/section/1/460/DiscretePhotons.python.cpp
+    python/src/section/1/460/ContinuousPhotons.python.cpp
     python/src/section/2/151.python.cpp
     python/src/section/2/151/Isotope.python.cpp
     python/src/section/2/151/ScatteringRadius.python.cpp

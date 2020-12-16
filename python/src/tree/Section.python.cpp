@@ -28,6 +28,11 @@ void wrapTreeSection( python::module& module ) {
   using File = Material::File_t;
   using Section = File::Section_t;
   using MF1MT451 = njoy::ENDFtk::section::Type< 1, 451 >;
+  using MF1MT452 = njoy::ENDFtk::section::Type< 1, 452 >;
+  using MF1MT455 = njoy::ENDFtk::section::Type< 1, 455 >;
+  using MF1MT456 = njoy::ENDFtk::section::Type< 1, 456 >;
+  using MF1MT458 = njoy::ENDFtk::section::Type< 1, 458 >;
+  using MF1MT460 = njoy::ENDFtk::section::Type< 1, 460 >;
   using MF2MT151 = njoy::ENDFtk::section::Type< 2, 151 >;
   using MF2MT152 = njoy::ENDFtk::section::Type< 2, 152 >;
   using MF3MTxxx = njoy::ENDFtk::section::Type< 3 >;
@@ -92,7 +97,9 @@ void wrapTreeSection( python::module& module ) {
   .def(
 
     "parse",
-    [] ( const Section& self ) -> std::variant< MF1MT451, MF2MT151, MF2MT152,
+    [] ( const Section& self ) -> std::variant< MF1MT451, MF1MT452, MF1MT455,
+                                                MF1MT456, MF1MT458, MF1MT460,
+                                                MF2MT151, MF2MT152,
                                                 MF3MTxxx, MF4MTxxx, MF5MTxxx,
                                                 MF6MTxxx, MF7MT2, MF7MT4,
                                                 MF8MT457,
@@ -106,14 +113,11 @@ void wrapTreeSection( python::module& module ) {
           switch ( mt ) {
 
             case 451 : return self.parse< 1, 451 >();
-            case 452 :
-            case 455 :
-            case 456 :
-            case 458 :
-            case 460 : throw std::runtime_error(
-                           "Section " + std::to_string( mt ) + " from file " +
-                           std::to_string( mf ) +
-                           " cannot be parsed yet" );
+            case 452 : return self.parse< 1, 452 >();
+            case 455 : return self.parse< 1, 455 >();
+            case 456 : return self.parse< 1, 456 >();
+            case 458 : return self.parse< 1, 458 >();
+            case 460 : return self.parse< 1, 460 >();
             default: throw std::runtime_error(
                            "Section " + std::to_string( mt ) + " from file " +
                            std::to_string( mf ) +

@@ -164,6 +164,20 @@ SCENARIO( "Testing special case of file 1" ) {
         CHECK( 1001. == Approx( file.section( 451_c ).ZA() ) );
         CHECK( 1001. == Approx( file.MT( 451_c ).ZA() ) );
       }
+
+      THEN( "the sections can be extracted" ){
+
+        CHECK_NOTHROW( file.MT( 451_c ) );
+      }
+
+      THEN( "an exception is thrown if invalid MT" ){
+//        CHECK_THROWS( file1.MT( 1_c ) );
+        CHECK_THROWS( file.MT( 452_c ) );
+        CHECK_THROWS( file.MT( 455_c ) );
+        CHECK_THROWS( file.MT( 456_c ) );
+        CHECK_THROWS( file.MT( 458_c ) );
+        CHECK_THROWS( file.MT( 460_c ) );
+      }
     }
 
     WHEN( "a file::Type< 1 > is constructed from a syntaxTree" ){

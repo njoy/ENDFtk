@@ -28,7 +28,7 @@ void wrapSection_1_451( python::module& module ) {
   python::module submodule = module.def_submodule(
 
     "MT451",
-    "MF451 - descriptive data and directory"
+    "MT451 - descriptive data and directory"
   );
 
   // create the section

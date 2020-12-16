@@ -1,7 +1,7 @@
 template< typename Iterator >
 static auto
 readParameters( Iterator& it, const Iterator& end, long& lineNumber, int MAT ) {
-  
+
   auto line0 = ControlRecord( it, end, lineNumber, MAT, 1, 451 );
   auto line1 = ControlRecord( it, end, lineNumber, MAT, 1, 451 );
   auto line2 = ControlRecord( it, end, lineNumber, MAT, 1, 451 );
