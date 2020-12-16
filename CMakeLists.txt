@@ -98,6 +98,7 @@ pybind11_add_module( ENDFtk.python
     python/src/section/2/151/NoBackgroundRMatrix.python.cpp
     python/src/section/2/151/SammyBackgroundRMatrix.python.cpp
     python/src/section/2/151/FrohnerBackgroundRMatrix.python.cpp
+    python/src/section/2/151/TabulatedBackgroundRMatrix.python.cpp
     python/src/section/2/151/SpinGroup.python.cpp
     python/src/section/2/151/RMatrixLimited.python.cpp
     python/src/section/2/151/UnresolvedEnergyDependentFissionWidthsJValue.python.cpp

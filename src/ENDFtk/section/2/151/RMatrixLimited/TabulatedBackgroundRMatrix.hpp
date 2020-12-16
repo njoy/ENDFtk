@@ -56,12 +56,37 @@ public:
   /**
    *  @brief Return the energy values
    */
-  auto energies() const { return this->real_.x(); }
+  auto E() const { return this->real_.x(); }
+
+  /**
+   *  @brief Return the energy values
+   */
+  auto energies() const { return this->E(); }
+
+  /**
+   *  @brief Return the real component of the R-matrix values
+   */
+  auto RBR() const { return this->real_.y(); }
+
+  /**
+   *  @brief Return the real component of the R-matrix values
+   */
+  auto real() const { return this->RBR(); }
+
+  /**
+   *  @brief Return the imaginary component of the R-matrix values
+   */
+  auto RBI() const { return this->imaginary_.y(); }
+
+  /**
+   *  @brief Return the imaginary component of the R-matrix values
+   */
+  auto imaginary() const { return this->RBI(); }
 
   /**
    *  @brief Return the complex R-matrix values
    */
-  auto rmatrix() const {
+  auto RB() const {
 
     return ranges::view::zip_with(
                [] ( double real, double imag ) -> std::complex< double >
@@ -69,6 +94,11 @@ public:
                this->real_.y(),
                this->imaginary_.y() );
   }
+
+  /**
+   *  @brief Return the complex R-matrix values
+   */
+  auto rmatrix() const { return this->RB(); }
 
   /**
    *  @brief Return the number of lines in this MF2/MT151 component

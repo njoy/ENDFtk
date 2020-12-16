@@ -31,7 +31,7 @@ TabulatedBackgroundRMatrix() = default;
  *  @param[in] interpolants    the interpolation types for each range
  *  @param[in] energies        the energy values
  *  @param[in] real            the real values of the tabulated rmatrix
- *  @param[in] imaginary       the real values of the tabulated rmatrix
+ *  @param[in] imaginary       the imaginary values of the tabulated rmatrix
  */
 TabulatedBackgroundRMatrix( int index,
                             std::vector< long >&& boundaries,
