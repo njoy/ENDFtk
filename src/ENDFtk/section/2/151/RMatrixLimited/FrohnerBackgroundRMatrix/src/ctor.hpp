@@ -20,15 +20,15 @@ FrohnerBackgroundRMatrix() = default;
 /**
  *  @brief Constructor
  *
- *  @param[in] index           the channel index
- *  @param[in] boundaries      the interpolation range boundaries
- *  @param[in] interpolants    the interpolation types for each range
- *  @param[in] energies        the energy values
- *  @param[in] real            the real values of the tabulated rmatrix
- *  @param[in] imaginary       the real values of the tabulated rmatrix
+ *  @param[in] index    the channel index
+ *  @param[in] ed       the down energy parameter
+ *  @param[in] eu       the up energy parameter
+ *  @param[in] r0       the r0 parameter
+ *  @param[in] s0       the s0 parameter
+ *  @param[in] ga       the ga parameter
  */
-FrohnerBackgroundRMatrix( int index,
-                        double ed, double eu, double r0, double s0, double ga ) :
+FrohnerBackgroundRMatrix( int index, double ed, double eu,
+                          double r0, double s0, double ga ) :
   FrohnerBackgroundRMatrix( index, { ed, eu, r0, s0, ga } ) {}
 
 private:

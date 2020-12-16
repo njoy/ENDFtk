@@ -20,12 +20,14 @@ SammyBackgroundRMatrix() = default;
 /**
  *  @brief Constructor
  *
- *  @param[in] index           the channel index
- *  @param[in] boundaries      the interpolation range boundaries
- *  @param[in] interpolants    the interpolation types for each range
- *  @param[in] energies        the energy values
- *  @param[in] real            the real values of the tabulated rmatrix
- *  @param[in] imaginary       the real values of the tabulated rmatrix
+ *  @param[in] index    the channel index
+ *  @param[in] ed       the down energy parameter
+ *  @param[in] eu       the up energy parameter
+ *  @param[in] r0       the r0 parameter
+ *  @param[in] r1       the r1 parameter
+ *  @param[in] r2       the r2 parameter
+ *  @param[in] s0       the s0 parameter
+ *  @param[in] s1       the s1 parameter
  */
 SammyBackgroundRMatrix( int index,
                         double ed, double eu, double r0, double r1, double r2,

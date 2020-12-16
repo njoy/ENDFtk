@@ -1,10 +1,10 @@
 template< typename Iterator >
-static std::vector< std::optional< BackGroundRMatrix > >
-readBackGroundMatrices( Iterator& begin, const Iterator& end, long& lineNumber,
+static std::vector< std::optional< BackgroundRMatrix > >
+readBackgroundMatrices( Iterator& begin, const Iterator& end, long& lineNumber,
                         int MAT, int MF, int MT,
                         int NCH, int KBK ) {
 
-  std::vector< std::optional< BackGroundRMatrix > >
+  std::vector< std::optional< BackgroundRMatrix > >
   background( NCH, std::nullopt );
 
   if ( ( KBK < 0 ) || ( KBK > NCH ) ) {
@@ -18,7 +18,9 @@ readBackGroundMatrices( Iterator& begin, const Iterator& end, long& lineNumber,
 
   while( KBK-- ) {
 
-    ControlRecord cont( begin, end, lineNumber, MAT, MF, MT );
+    Iterator temp = begin;
+    long line = lineNumber;
+    ControlRecord cont( temp, end, line, MAT, MF, MT );
     int LCH = cont.L1();
     int LBK = cont.L2();
 
@@ -33,10 +35,30 @@ readBackGroundMatrices( Iterator& begin, const Iterator& end, long& lineNumber,
 
     switch ( LBK ) {
 
-      case 0 : background[ LCH - 1 ] = std::nullopt;
-      case 1 : background[ LCH - 1 ] = std::nullopt;
-      case 2 : background[ LCH - 1 ] = std::nullopt;
-      case 3 : background[ LCH - 1 ] = std::nullopt;
+      case 0 : {
+
+        background[ LCH - 1 ] =
+            NoBackgroundRMatrix( begin, end, lineNumber, MAT, MF, MT );
+        break;
+      }
+      case 1 : {
+
+        background[ LCH - 1 ] =
+            TabulatedBackgroundRMatrix( begin, end, lineNumber, MAT, MF, MT );
+        break;
+      }
+      case 2 : {
+
+        background[ LCH - 1 ] =
+            SammyBackgroundRMatrix( begin, end, lineNumber, MAT, MF, MT );
+        break;
+      }
+      case 3 : {
+
+        background[ LCH - 1 ] =
+            FrohnerBackgroundRMatrix( begin, end, lineNumber, MAT, MF, MT );
+        break;
+      }
       default : {
 
         Log::error( "Encountered illegal LBK value" );
