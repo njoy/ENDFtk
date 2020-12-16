@@ -27,6 +27,7 @@ void wrapNoBackgroundRMatrix( python::module& );
 void wrapSammyBackgroundRMatrix( python::module& );
 void wrapFrohnerBackgroundRMatrix( python::module& );
 void wrapTabulatedBackgroundRMatrix( python::module& );
+void wrapBackgroundChannels( python::module& );
 void wrapSpinGroup( python::module& );
 void wrapRMatrixLimited( python::module& );
 void wrapUnresolvedEnergyDependentFissionWidthsJValue( python::module& );
@@ -84,6 +85,7 @@ void wrapSection_2_151( python::module& module ) {
   wrapSammyBackgroundRMatrix( submodule );
   wrapFrohnerBackgroundRMatrix( submodule );
   wrapTabulatedBackgroundRMatrix( submodule );
+  wrapBackgroundChannels( submodule );
   wrapSpinGroup( submodule );
   wrapRMatrixLimited( submodule );
   wrapUnresolvedEnergyDependentFissionWidthsJValue( submodule );

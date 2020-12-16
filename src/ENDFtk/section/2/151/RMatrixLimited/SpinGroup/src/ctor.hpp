@@ -3,7 +3,7 @@
  *
  *  @param[in] channels      the resonance channel information
  *  @param[in] parameters    the associated resonance parameters
- *  @param[in] background    the associated resonance parameters
+ *  @param[in] background    the background R-matrices
  */
 SpinGroup( ResonanceChannels&& channels, ResonanceParameters&& parameters,
            BackgroundChannels&& background ) :
