@@ -18,7 +18,7 @@ inline namespace literals { using namespace hana::literals; }
 void wrapSection_2_151( python::module& );
 void wrapSection_2_152( python::module& );
 
-void wrapFile_2( python::module& module ) {
+void wrapFile_2( python::module& module, python::module& ) {
 
   // type aliases
   using File = njoy::ENDFtk::file::Type< 2 >;

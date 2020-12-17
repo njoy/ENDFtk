@@ -9,7 +9,7 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapTapeIdentification( python::module& module ) {
+void wrapTapeIdentification( python::module& module, python::module& ) {
 
   // type aliases
   using Record = njoy::ENDFtk::TapeIdentification;

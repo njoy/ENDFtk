@@ -24,7 +24,7 @@ void wrapSection_1_456( python::module& );
 void wrapSection_1_458( python::module& );
 void wrapSection_1_460( python::module& );
 
-void wrapFile_1( python::module& module ) {
+void wrapFile_1( python::module& module, python::module& ) {
 
   // type aliases
   using File = njoy::ENDFtk::file::Type< 1 >;

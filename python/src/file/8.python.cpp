@@ -17,7 +17,7 @@ inline namespace literals { using namespace hana::literals; }
 // declarations - sections
 void wrapSection_8_457( python::module& );
 
-void wrapFile_8( python::module& module ) {
+void wrapFile_8( python::module& module, python::module& ) {
 
   // type aliases
   using File = njoy::ENDFtk::file::Type< 8 >;

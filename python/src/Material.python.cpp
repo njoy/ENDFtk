@@ -13,7 +13,7 @@ namespace python = pybind11;
 namespace hana = boost::hana;
 inline namespace literals { using namespace hana::literals; }
 
-void wrapMaterial( python::module& module ) {
+void wrapMaterial( python::module& module, python::module& ) {
 
   // type aliases
   using Material = njoy::ENDFtk::Material;

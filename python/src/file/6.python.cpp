@@ -13,7 +13,7 @@ namespace python = pybind11;
 // declarations - sections
 void wrapSection_6( python::module& );
 
-void wrapFile_6( python::module& module ) {
+void wrapFile_6( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 6 >;
@@ -23,7 +23,7 @@ void wrapFile_6( python::module& module ) {
   // wrap views created by this file
   // none of these are supposed to be created directly by the user
   wrapBidirectionalAnyViewOf< Section >(
-      module,
+      viewmodule,
       "any_view< section::Type< 6 >, bidirectional >" );
 
   // create the submodule

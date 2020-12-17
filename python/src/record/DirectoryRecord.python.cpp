@@ -10,7 +10,7 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapDirectoryRecord( python::module& module ) {
+void wrapDirectoryRecord( python::module& module, python::module& ) {
 
   // type aliases
   using Record = njoy::ENDFtk::DirectoryRecord;
