@@ -11,16 +11,22 @@
 namespace python = pybind11;
 
 // declarations - components
-void wrapTotalMultiplicity( python::module& );
-void wrapPartialMultiplicity( python::module& );
-void wrapMultiplicities( python::module& );
-void wrapTransitionProbabilities( python::module& );
+void wrapTotalMultiplicity( python::module&, python::module& );
+void wrapPartialMultiplicity( python::module&, python::module& );
+void wrapMultiplicities( python::module&, python::module& );
+void wrapTransitionProbabilities( python::module&, python::module& );
 
-void wrapSection_12( python::module& module ) {
+void wrapSection_12( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 12 >;
   using PhotonProduction = njoy::ENDFtk::section::Type< 12 >::PhotonProduction;
+
+  // wrap components
+  wrapTotalMultiplicity( module, viewmodule );
+  wrapPartialMultiplicity( module, viewmodule );
+  wrapMultiplicities( module, viewmodule );
+  wrapTransitionProbabilities( module, viewmodule );
 
   // wrap views created by this section
 
@@ -32,12 +38,6 @@ void wrapSection_12( python::module& module ) {
     "MF12 section - photon production multiplicities and transition\n"
     "               probability arrays"
   );
-
-  // wrap components
-  wrapTotalMultiplicity( module );
-  wrapPartialMultiplicity( module );
-  wrapMultiplicities( module );
-  wrapTransitionProbabilities( module );
 
   // wrap the section
   section

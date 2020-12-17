@@ -10,7 +10,7 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapPartialCrossSection( python::module& module ) {
+void wrapPartialCrossSection( python::module& module, python::module& ) {
 
   // type aliases
   using Component = njoy::ENDFtk::section::Type< 13 >::PartialCrossSection;

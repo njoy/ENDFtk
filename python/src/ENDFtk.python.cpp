@@ -46,7 +46,7 @@ PYBIND11_MODULE( ENDFtk, module ) {
   python::module viewmodule = module.def_submodule(
 
     "sequence",
-    "sequence - ENDF sequences"
+    "sequence - ENDF sequences (internal use only)"
   );
 
   // wrap some basic recurring views

@@ -12,7 +12,7 @@ namespace python = pybind11;
 
 namespace mf8 {
 
-void wrapDecaySpectrum( python::module& module ) {
+void wrapDecaySpectrum( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Component = njoy::ENDFtk::section::Type< 8, 457 >::DecaySpectrum;
@@ -23,7 +23,7 @@ void wrapDecaySpectrum( python::module& module ) {
   // wrap views created by this section
   // none of these are supposed to be created directly by the user
   wrapRandomAccessAnyViewOf< DiscreteSpectrum >(
-      module,
+      viewmodule,
       "any_view< DiscreteSpectrum, random_access >" );
 
   // create the component

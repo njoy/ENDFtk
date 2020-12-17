@@ -13,16 +13,16 @@ namespace python = pybind11;
 namespace mf8 {
 
   // declarations - components
-  void wrapAverageDecayEnergies( python::module& );
-  void wrapDecayMode( python::module& );
-  void wrapDecayModes( python::module& );
-  void wrapDiscreteSpectrum( python::module& );
-  void wrapContinuousSpectrum( python::module& );
-  void wrapDecaySpectrum( python::module& );
+  void wrapAverageDecayEnergies( python::module&, python::module& );
+  void wrapDecayMode( python::module&, python::module& );
+  void wrapDecayModes( python::module&, python::module& );
+  void wrapDiscreteSpectrum( python::module&, python::module& );
+  void wrapContinuousSpectrum( python::module&, python::module& );
+  void wrapDecaySpectrum( python::module&, python::module& );
 
 }
 
-void wrapSection_8_457( python::module& module ) {
+void wrapSection_8_457( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 8, 457 >;
@@ -31,18 +31,26 @@ void wrapSection_8_457( python::module& module ) {
   using DecaySpectrum = njoy::ENDFtk::section::Type< 8, 457 >::DecaySpectrum;
   using DecaySpectrumRange = RandomAccessAnyView< DecaySpectrum >;
 
-  // wrap views created by this section
-  // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< DecaySpectrum >(
-      module,
-      "any_view< DecaySpectrum, random_access >" );
-
   // create the submodule
   python::module submodule = module.def_submodule(
 
     "MT457",
     "MT457 - radioactive decay data"
   );
+
+  // wrap components
+  mf8::wrapAverageDecayEnergies( submodule, viewmodule );
+  mf8::wrapDecayMode( submodule, viewmodule );
+  mf8::wrapDecayModes( submodule, viewmodule );
+  mf8::wrapDiscreteSpectrum( submodule, viewmodule );
+  mf8::wrapContinuousSpectrum( submodule, viewmodule );
+  mf8::wrapDecaySpectrum( submodule, viewmodule );
+
+  // wrap views created by this section
+  // none of these are supposed to be created directly by the user
+  wrapRandomAccessAnyViewOf< DecaySpectrum >(
+      viewmodule,
+      "any_view< DecaySpectrum, random_access >" );
 
   // create the section
   python::class_< Section > section(
@@ -51,14 +59,6 @@ void wrapSection_8_457( python::module& module ) {
     "Section",
     "MF8 MT457 section - radioactive decay data"
   );
-
-  // wrap components
-  mf8::wrapAverageDecayEnergies( submodule );
-  mf8::wrapDecayMode( submodule );
-  mf8::wrapDecayModes( submodule );
-  mf8::wrapDiscreteSpectrum( submodule );
-  mf8::wrapContinuousSpectrum( submodule );
-  mf8::wrapDecaySpectrum( submodule );
 
   // wrap the section
   section
