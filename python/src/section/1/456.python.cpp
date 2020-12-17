@@ -11,7 +11,7 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapSection_1_456( python::module& module ) {
+void wrapSection_1_456( python::module& module, python::module& ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 1, 456 >;
@@ -47,7 +47,7 @@ void wrapSection_1_456( python::module& module ) {
     "Arguments:\n"
     "    self            the section\n"
     "    zaid            the ZA value of the material\n"
-    "    awr            the atomic weight ratio\n"
+    "    awr             the atomic weight ratio\n"
     "    multiplicity    the multiplicity data"
   )
   .def_property_readonly(

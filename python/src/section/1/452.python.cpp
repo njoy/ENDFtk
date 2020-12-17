@@ -11,7 +11,7 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapSection_1_452( python::module& module ) {
+void wrapSection_1_452( python::module& module, python::module& ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 1, 452 >;

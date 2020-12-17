@@ -56,6 +56,7 @@ void wrapMaterial( python::module& module, python::module& ) {
 
     "has_MF",
     &Material::hasMF,
+    python::arg( "mf" ),
     "Return whether or not the material has a file with the given MF number\n\n"
     "Arguments:\n"
     "    self    the file\n"
@@ -65,6 +66,7 @@ void wrapMaterial( python::module& module, python::module& ) {
 
     "has_file",
     &Material::hasFile,
+    python::arg( "mf" ),
     "Return whether or not the material has a file with the given MF number\n\n"
     "Arguments:\n"
     "    self    the file\n"
@@ -93,7 +95,7 @@ void wrapMaterial( python::module& module, python::module& ) {
                       ") does not correspond to a stored file" );
       }
     },
-    python::arg( "mt" ),
+    python::arg( "mf" ),
     "Return the file with the requested MF number\n\n"
     "Arguments:\n"
     "    self    the file\n"
@@ -123,7 +125,7 @@ void wrapMaterial( python::module& module, python::module& ) {
                       ") does not correspond to a stored file" );
       }
     },
-    python::arg( "mt" ),
+    python::arg( "mf" ),
     "Return the file with the requested MF number\n\n"
     "Arguments:\n"
     "    self    the file\n"
@@ -142,6 +144,7 @@ void wrapMaterial( python::module& module, python::module& ) {
 
       return njoy::ENDFtk::Material( division, begin, end, lineNumber );
     },
+    python::arg( "material" ),
     "Read the material from a string\n\n"
     "An exception is raised if something goes wrong while reading the\n"
     "material\n\n"

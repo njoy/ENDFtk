@@ -13,7 +13,7 @@ namespace python = pybind11;
 namespace mf1 {
 namespace mt458 {
 
-void wrapTabulatedComponents( python::module& module ) {
+void wrapTabulatedComponents( python::module& module, python::module& ) {
 
   // type aliases
   using Component = njoy::ENDFtk::section::Type< 1, 458 >::TabulatedComponents;

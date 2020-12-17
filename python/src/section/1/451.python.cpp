@@ -11,7 +11,7 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapSection_1_451( python::module& module ) {
+void wrapSection_1_451( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using DirectoryRecord = njoy::ENDFtk::DirectoryRecord;
@@ -21,7 +21,7 @@ void wrapSection_1_451( python::module& module ) {
   // wrap views created by this section
   // none of these are supposed to be created directly by the user
   wrapRandomAccessAnyViewOf< DirectoryRecord >(
-      module,
+      viewmodule,
       "any_view< DirectoryRecord, random_access >" );
 
   // create the submodule

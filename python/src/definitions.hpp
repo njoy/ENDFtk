@@ -191,6 +191,7 @@ void addStandardSectionDefinitions( PythonClass& section ) {
     "from_string",
     [] ( const std::string& section ) -> Section
        { return readSection< Section >( section ); },
+    python::arg( "section" ),
     "Read the section from a string\n\n"
     "An exception is raised if something goes wrong while reading the\n"
     "section\n\n"
@@ -248,6 +249,7 @@ void addStandardFileDefinitions( PythonClass& file ) {
 
     "has_MT",
     [] ( const File& self, int mt ) { return self.hasMT( mt ); },
+    python::arg( "mt" ),
     "Return whether or not the file has a section with the given MT number\n\n"
     "Arguments:\n"
     "    self    the file\n"
@@ -257,6 +259,7 @@ void addStandardFileDefinitions( PythonClass& file ) {
 
     "has_section",
     [] ( const File& self, int mt ) { return self.hasSection( mt ); },
+    python::arg( "mt" ),
     "Return whether or not the file has a section with the given MT number\n\n"
     "Arguments:\n"
     "    self    the file\n"
@@ -267,6 +270,7 @@ void addStandardFileDefinitions( PythonClass& file ) {
     "from_string",
     [] ( const std::string& file ) -> File
        { return readFile< File >( file ); },
+    python::arg( "file" ),
     "Read the file from a string\n\n"
     "An exception is raised if something goes wrong while reading the\n"
     "file\n\n"

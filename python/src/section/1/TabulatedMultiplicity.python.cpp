@@ -10,7 +10,7 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrap_1_TabulatedMultiplicity( python::module& module ) {
+void wrap_1_TabulatedMultiplicity( python::module& module, python::module& ) {
 
   // type aliases
   using Component = njoy::ENDFtk::section::TabulatedMultiplicity;

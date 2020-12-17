@@ -13,7 +13,7 @@ namespace python = pybind11;
 namespace mf1 {
 namespace mt460 {
 
-void wrapDiscretePhotons( python::module& module ) {
+void wrapDiscretePhotons( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Component = njoy::ENDFtk::section::Type< 1, 460 >::DiscretePhotons;
@@ -23,7 +23,7 @@ void wrapDiscretePhotons( python::module& module ) {
   // wrap views created by this component
   // none of these are supposed to be created directly by the user
   wrapRandomAccessAnyViewOf< DiscretePhotonMultiplicity >(
-      module,
+      viewmodule,
       "any_view< DiscretePhotonMultiplicity, random_access >" );
 
   // create the component

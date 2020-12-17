@@ -15,14 +15,14 @@ namespace mf1 {
 namespace mt460 {
 
   // declarations - components
-  void wrapDiscretePhotonMultiplicity( python::module& );
-  void wrapContinuousPhotons( python::module& );
-  void wrapDiscretePhotons( python::module& );
+  void wrapDiscretePhotonMultiplicity( python::module&, python::module& );
+  void wrapContinuousPhotons( python::module&, python::module& );
+  void wrapDiscretePhotons( python::module&, python::module& );
 
 }
 }
 
-void wrapSection_1_460( python::module& module ) {
+void wrapSection_1_460( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 1, 460 >;
@@ -38,9 +38,9 @@ void wrapSection_1_460( python::module& module ) {
   );
 
   // wrap components
-  mf1::mt460::wrapDiscretePhotonMultiplicity( submodule );
-  mf1::mt460::wrapContinuousPhotons( submodule );
-  mf1::mt460::wrapDiscretePhotons( submodule );
+  mf1::mt460::wrapDiscretePhotonMultiplicity( submodule, viewmodule );
+  mf1::mt460::wrapContinuousPhotons( submodule, viewmodule );
+  mf1::mt460::wrapDiscretePhotons( submodule, viewmodule );
 
   // create the section
   python::class_< Section > section(

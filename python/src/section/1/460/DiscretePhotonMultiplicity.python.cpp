@@ -13,7 +13,7 @@ namespace python = pybind11;
 namespace mf1 {
 namespace mt460 {
 
-void wrapDiscretePhotonMultiplicity( python::module& module ) {
+void wrapDiscretePhotonMultiplicity( python::module& module, python::module& ) {
 
   // type aliases
   using Component = njoy::ENDFtk::section::Type< 1, 460 >::DiscretePhotonMultiplicity;
@@ -25,7 +25,7 @@ void wrapDiscretePhotonMultiplicity( python::module& module ) {
 
     module,
     "DiscretePhotonMultiplicity",
-    "MF1 MT460 component - tabulated time dependent multiplicity for a \n"
+    "MF1 MT460 component - tabulated time dependent multiplicity for a\n"
     "                      discrete photon"
   );
 

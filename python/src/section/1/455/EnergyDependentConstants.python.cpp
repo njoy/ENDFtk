@@ -13,7 +13,7 @@ namespace python = pybind11;
 namespace mf1 {
 namespace mt455 {
 
-void wrapEnergyDependentConstants( python::module& module ) {
+void wrapEnergyDependentConstants( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Component = njoy::ENDFtk::section::Type< 1, 455 >::EnergyDependentConstants;
@@ -23,7 +23,7 @@ void wrapEnergyDependentConstants( python::module& module ) {
   // wrap views created by this section
   // none of these are supposed to be created directly by the user
   wrapRandomAccessAnyViewOf< DecayConstants >(
-      module,
+      viewmodule,
       "any_view< DecayConstants, random_access >" );
 
   // create the component
@@ -31,7 +31,7 @@ void wrapEnergyDependentConstants( python::module& module ) {
 
     module,
     "EnergyDependentConstants",
-    "MF1 MT455 component - energy dependent decay constants for delayed "
+    "MF1 MT455 component - energy dependent decay constants for delayed\n"
     "                      neutron precursor families (LDG = 1)"
   );
 

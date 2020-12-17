@@ -15,16 +15,16 @@ namespace hana = boost::hana;
 inline namespace literals { using namespace hana::literals; }
 
 // declarations - sections
-void wrap_1_TabulatedMultiplicity( python::module& );
-void wrap_1_PolynomialMultiplicity( python::module& );
-void wrapSection_1_451( python::module& );
-void wrapSection_1_452( python::module& );
-void wrapSection_1_455( python::module& );
-void wrapSection_1_456( python::module& );
-void wrapSection_1_458( python::module& );
-void wrapSection_1_460( python::module& );
+void wrap_1_TabulatedMultiplicity( python::module&, python::module& );
+void wrap_1_PolynomialMultiplicity( python::module&, python::module& );
+void wrapSection_1_451( python::module&, python::module& );
+void wrapSection_1_452( python::module&, python::module& );
+void wrapSection_1_455( python::module&, python::module& );
+void wrapSection_1_456( python::module&, python::module& );
+void wrapSection_1_458( python::module&, python::module& );
+void wrapSection_1_460( python::module&, python::module& );
 
-void wrapFile_1( python::module& module, python::module& ) {
+void wrapFile_1( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using File = njoy::ENDFtk::file::Type< 1 >;
@@ -45,14 +45,14 @@ void wrapFile_1( python::module& module, python::module& ) {
   );
 
   // wrap sections
-  wrap_1_TabulatedMultiplicity( submodule );
-  wrap_1_PolynomialMultiplicity( submodule );
-  wrapSection_1_451( submodule );
-  wrapSection_1_452( submodule );
-  wrapSection_1_455( submodule );
-  wrapSection_1_456( submodule );
-  wrapSection_1_458( submodule );
-  wrapSection_1_460( submodule );
+  wrap_1_TabulatedMultiplicity( submodule, viewmodule );
+  wrap_1_PolynomialMultiplicity( submodule, viewmodule );
+  wrapSection_1_451( submodule, viewmodule );
+  wrapSection_1_452( submodule, viewmodule );
+  wrapSection_1_455( submodule, viewmodule );
+  wrapSection_1_456( submodule, viewmodule );
+  wrapSection_1_458( submodule, viewmodule );
+  wrapSection_1_460( submodule, viewmodule );
 
   // create the file
   python::class_< File > file(

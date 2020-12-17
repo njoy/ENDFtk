@@ -13,7 +13,7 @@ namespace python = pybind11;
 namespace mf1 {
 namespace mt455 {
 
-void wrapEnergyIndependentConstants( python::module& module ) {
+void wrapEnergyIndependentConstants( python::module& module, python::module& ) {
 
   // type aliases
   using Component = njoy::ENDFtk::section::Type< 1, 455 >::EnergyIndependentConstants;
@@ -25,7 +25,7 @@ void wrapEnergyIndependentConstants( python::module& module ) {
 
     module,
     "EnergyIndependentConstants",
-    "MF1 MT455 component - energy independent decay constants for delayed "
+    "MF1 MT455 component - energy independent decay constants for delayed\n"
     "                      neutron precursor families (LDG = 0)"
   );
 
