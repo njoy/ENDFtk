@@ -11,7 +11,7 @@
 namespace python = pybind11;
 
 // declarations - sections
-void wrapSection_4( python::module& );
+void wrapSection_4( python::module&, python::module& );
 
 void wrapFile_4( python::module& module, python::module& viewmodule ) {
 
@@ -19,12 +19,6 @@ void wrapFile_4( python::module& module, python::module& viewmodule ) {
   using Section = njoy::ENDFtk::section::Type< 4 >;
   using File = njoy::ENDFtk::file::Type< 4 >;
   using SectionRange = BidirectionalAnyView< Section >;
-
-  // wrap views created by this file
-  // none of these are supposed to be created directly by the user
-  wrapBidirectionalAnyViewOf< Section >(
-      viewmodule,
-      "any_view< section::Type< 4 >, bidirectional >" );
 
   // create the submodule
   python::module submodule = module.def_submodule(
@@ -34,7 +28,13 @@ void wrapFile_4( python::module& module, python::module& viewmodule ) {
   );
 
   // wrap sections
-  wrapSection_4( submodule );
+  wrapSection_4( submodule, viewmodule );
+
+  // wrap views created by this file
+  // none of these are supposed to be created directly by the user
+  wrapBidirectionalAnyViewOf< Section >(
+      viewmodule,
+      "any_view< section::Type< 4 >, bidirectional >" );
 
   // create the file
   python::class_< File > file(

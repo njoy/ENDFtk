@@ -20,12 +20,6 @@ void wrapFile_12( python::module& module, python::module& viewmodule ) {
   using File = njoy::ENDFtk::file::Type< 12 >;
   using SectionRange = BidirectionalAnyView< Section >;
 
-  // wrap views created by this file
-  // none of these are supposed to be created directly by the user
-  wrapBidirectionalAnyViewOf< Section >(
-      viewmodule,
-      "any_view< section::Type< 12 >, bidirectional >" );
-
   // create the submodule
   python::module submodule = module.def_submodule(
 
@@ -35,6 +29,12 @@ void wrapFile_12( python::module& module, python::module& viewmodule ) {
 
   // wrap sections
   wrapSection_12( submodule );
+
+  // wrap views created by this file
+  // none of these are supposed to be created directly by the user
+  wrapBidirectionalAnyViewOf< Section >(
+      viewmodule,
+      "any_view< section::Type< 12 >, bidirectional >" );
 
   // create the file
   python::class_< File > file(
