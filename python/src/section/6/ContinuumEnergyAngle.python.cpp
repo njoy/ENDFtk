@@ -12,7 +12,7 @@ namespace python = pybind11;
 
 namespace mf6 {
 
-void wrapContinuumEnergyAngle( python::module& module ) {
+void wrapContinuumEnergyAngle( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Component = njoy::ENDFtk::section::Type< 6 >::ContinuumEnergyAngle;
@@ -22,7 +22,7 @@ void wrapContinuumEnergyAngle( python::module& module ) {
   // wrap views created by this section
   // none of these are supposed to be created directly by the user
   wrapRandomAccessAnyViewOf< Distribution >(
-      module,
+      viewmodule,
       "any_view< variant< LegendreCoefficients, KalbachMann,"
                          "TabulatedDistribution, ThermalScatteringData >, random_access >" );
 

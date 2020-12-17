@@ -12,7 +12,7 @@ namespace python = pybind11;
 
 namespace mf6 {
 
-void wrapReactionProduct( python::module& module ) {
+void wrapReactionProduct( python::module& module, python::module& ) {
 
   // type aliases
   using Component = njoy::ENDFtk::section::Type< 6 >::ReactionProduct;

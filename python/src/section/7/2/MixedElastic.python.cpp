@@ -12,7 +12,7 @@ namespace python = pybind11;
 
 namespace mf7 {
 
-void wrapMixedElastic( python::module& module ) {
+void wrapMixedElastic( python::module& module, python::module& ) {
 
   // type aliases
   using CoherentElastic = njoy::ENDFtk::section::Type< 7, 2 >::CoherentElastic;

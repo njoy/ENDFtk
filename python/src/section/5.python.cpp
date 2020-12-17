@@ -11,25 +11,39 @@
 namespace python = pybind11;
 
 // declarations - components
-void wrapOutgoingEnergyDistribution( python::module& );
-void wrapTabulatedSpectrum( python::module& );
-void wrapDistributionFunction( python::module& );
-void wrapParameter( python::module& );
-void wrapEffectiveTemperature( python::module& );
-void wrapGeneralEvaporationSpectrum( python::module& );
-void wrapEvaporationSpectrum( python::module& );
-void wrapMaxwellianFissionSpectrum( python::module& );
-void wrapWattSpectrum( python::module& );
-void wrapMadlandNixSpectrum( python::module& );
-void wrapProbability( python::module& );
-void wrapPartialDistribution( python::module& );
+void wrapOutgoingEnergyDistribution( python::module&, python::module& );
+void wrapTabulatedSpectrum( python::module&, python::module& );
+void wrapDistributionFunction( python::module&, python::module& );
+void wrapParameter( python::module&, python::module& );
+void wrapEffectiveTemperature( python::module&, python::module& );
+void wrapGeneralEvaporationSpectrum( python::module&, python::module& );
+void wrapEvaporationSpectrum( python::module&, python::module& );
+void wrapMaxwellianFissionSpectrum( python::module&, python::module& );
+void wrapWattSpectrum( python::module&, python::module& );
+void wrapMadlandNixSpectrum( python::module&, python::module& );
+void wrapProbability( python::module&, python::module& );
+void wrapPartialDistribution( python::module&, python::module& );
 
-void wrapSection_5( python::module& module ) {
+void wrapSection_5( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 5 >;
   using PartialDistribution = njoy::ENDFtk::section::Type< 5 >::PartialDistribution;
   using PartialDistributionRange = RandomAccessAnyView< PartialDistribution >;
+
+  // wrap components
+  wrapOutgoingEnergyDistribution( module, viewmodule );
+  wrapTabulatedSpectrum( module, viewmodule );
+  wrapDistributionFunction( module, viewmodule );
+  wrapParameter( module, viewmodule );
+  wrapEffectiveTemperature( module, viewmodule );
+  wrapGeneralEvaporationSpectrum( module, viewmodule );
+  wrapEvaporationSpectrum( module, viewmodule );
+  wrapMaxwellianFissionSpectrum( module, viewmodule );
+  wrapWattSpectrum( module, viewmodule );
+  wrapMadlandNixSpectrum( module, viewmodule );
+  wrapProbability( module, viewmodule );
+  wrapPartialDistribution( module, viewmodule );
 
   // wrap views created by this section
   // none of these are supposed to be created directly by the user
@@ -44,20 +58,6 @@ void wrapSection_5( python::module& module ) {
     "Section",
     "MF5 section - energy distributions of secondary particles"
   );
-
-  // wrap components
-  wrapOutgoingEnergyDistribution( module );
-  wrapTabulatedSpectrum( module );
-  wrapDistributionFunction( module );
-  wrapParameter( module );
-  wrapEffectiveTemperature( module );
-  wrapGeneralEvaporationSpectrum( module );
-  wrapEvaporationSpectrum( module );
-  wrapMaxwellianFissionSpectrum( module );
-  wrapWattSpectrum( module );
-  wrapMadlandNixSpectrum( module );
-  wrapProbability( module );
-  wrapPartialDistribution( module );
 
   // wrap the section
   section

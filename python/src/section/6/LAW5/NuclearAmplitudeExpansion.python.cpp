@@ -15,7 +15,7 @@ namespace python = pybind11;
 namespace mf6 {
 namespace law5 {
 
-void wrapNuclearAmplitudeExpansion( python::module& module ) {
+void wrapNuclearAmplitudeExpansion( python::module& module, python::module& ) {
 
   // type aliases
   using Component = njoy::ENDFtk::section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitudeExpansion;

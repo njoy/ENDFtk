@@ -15,7 +15,7 @@ namespace python = pybind11;
 namespace mf6 {
 namespace law1 {
 
-void wrapThermalScatteringData( python::module& module ) {
+void wrapThermalScatteringData( python::module& module, python::module& ) {
 
   // type aliases
   using Component = njoy::ENDFtk::section::Type< 6 >::ContinuumEnergyAngle::ThermalScatteringData;

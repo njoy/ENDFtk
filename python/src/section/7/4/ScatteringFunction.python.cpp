@@ -12,7 +12,7 @@ namespace python = pybind11;
 
 namespace mf7 {
 
-void wrapScatteringFunction( python::module& module ) {
+void wrapScatteringFunction( python::module& module, python::module& ) {
 
   // type aliases
   using Component = njoy::ENDFtk::section::Type< 7, 4 >::TabulatedFunctions::ScatteringFunction;

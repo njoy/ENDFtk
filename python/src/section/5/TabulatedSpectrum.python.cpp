@@ -10,7 +10,7 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapTabulatedSpectrum( python::module& module ) {
+void wrapTabulatedSpectrum( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Component = njoy::ENDFtk::section::Type< 5 >::TabulatedSpectrum;
@@ -20,7 +20,7 @@ void wrapTabulatedSpectrum( python::module& module ) {
   // wrap views created by this section
   // none of these are supposed to be created directly by the user
   wrapRandomAccessAnyViewOf< Distribution >(
-      module,
+      viewmodule,
       "any_view< OutgoingEnergyDistribution, random_access >" );
 
   // create the component

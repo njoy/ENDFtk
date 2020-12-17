@@ -12,7 +12,7 @@ namespace python = pybind11;
 
 namespace mf6 {
 
-void wrapDiscreteTwoBodyRecoils( python::module& module ) {
+void wrapDiscreteTwoBodyRecoils( python::module& module, python::module& ) {
 
   // type aliases
   using Component = njoy::ENDFtk::section::Type< 6 >::DiscreteTwoBodyRecoils;

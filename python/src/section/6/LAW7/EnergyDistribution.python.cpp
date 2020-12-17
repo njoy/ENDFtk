@@ -13,7 +13,7 @@ namespace python = pybind11;
 namespace mf6 {
 namespace law7 {
 
-void wrapEnergyDistribution( python::module& module ) {
+void wrapEnergyDistribution( python::module& module, python::module& ) {
 
   // type aliases
   using Component = njoy::ENDFtk::section::Type< 6 >::LaboratoryAngleEnergy::EnergyDistribution;

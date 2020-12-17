@@ -15,10 +15,10 @@ namespace hana = boost::hana;
 inline namespace literals { using namespace hana::literals; }
 
 // declarations - sections
-void wrapSection_7_2( python::module& );
-void wrapSection_7_4( python::module& );
+void wrapSection_7_2( python::module&, python::module& );
+void wrapSection_7_4( python::module&, python::module& );
 
-void wrapFile_7( python::module& module, python::module& ) {
+void wrapFile_7( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using File = njoy::ENDFtk::file::Type< 7 >;
@@ -35,8 +35,8 @@ void wrapFile_7( python::module& module, python::module& ) {
   );
 
   // wrap sections
-  wrapSection_7_2( submodule );
-  wrapSection_7_4( submodule );
+  wrapSection_7_2( submodule, viewmodule );
+  wrapSection_7_4( submodule, viewmodule );
 
   // create the file
   python::class_< File > file(

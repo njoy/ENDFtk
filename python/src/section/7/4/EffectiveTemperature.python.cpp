@@ -12,7 +12,7 @@ namespace python = pybind11;
 
 namespace mf7 {
 
-void wrapEffectiveTemperature( python::module& module ) {
+void wrapEffectiveTemperature( python::module& module, python::module& ) {
 
   // type aliases
   using Component = njoy::ENDFtk::section::Type< 7, 4 >::EffectiveTemperature;

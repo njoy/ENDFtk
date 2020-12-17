@@ -10,7 +10,7 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapEvaporationSpectrum( python::module& module ) {
+void wrapEvaporationSpectrum( python::module& module, python::module& ) {
 
   // type aliases
   using Component = njoy::ENDFtk::section::Type< 5 >::EvaporationSpectrum;
