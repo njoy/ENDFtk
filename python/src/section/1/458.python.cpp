@@ -29,8 +29,6 @@ void wrapSection_1_458( python::module& module, python::module& viewmodule ) {
   using Section = njoy::ENDFtk::section::Type< 1, 458 >;
   using FissionEnergyReleaseData = njoy::ENDFtk::section::Type< 1, 458 >::FissionEnergyReleaseData;
 
-  // wrap views created by this section
-
   // create the submodule
   python::module submodule = module.def_submodule(
 
@@ -43,6 +41,8 @@ void wrapSection_1_458( python::module& module, python::module& viewmodule ) {
   mf1::mt458::wrapThermalPointComponents( submodule, viewmodule );
   mf1::mt458::wrapPolynomialComponents( submodule, viewmodule );
   mf1::mt458::wrapTabulatedComponents( submodule, viewmodule );
+
+  // wrap views created by this section
 
   // create the section
   python::class_< Section > section(

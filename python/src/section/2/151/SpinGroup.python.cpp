@@ -10,7 +10,7 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapSpinGroup( python::module& module ) {
+void wrapSpinGroup( python::module& module, python::module& ) {
 
   // type aliases
   using ResonanceChannels = njoy::ENDFtk::section::Type< 2, 151 >::RMatrixLimited::ResonanceChannels;

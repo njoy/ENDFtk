@@ -10,7 +10,7 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapSingleLevelBreitWigner( python::module& module ) {
+void wrapSingleLevelBreitWigner( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Component = njoy::ENDFtk::section::Type< 2, 151 >::SingleLevelBreitWigner;
@@ -20,7 +20,7 @@ void wrapSingleLevelBreitWigner( python::module& module ) {
   // wrap views created by this section
   // none of these are supposed to be created directly by the user
   wrapRandomAccessAnyViewOf< BreitWignerLValue >(
-      module,
+      viewmodule,
       "any_view< BreitWignerLValue, random_access >" );
 
   // create the component

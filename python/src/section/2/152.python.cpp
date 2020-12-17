@@ -12,12 +12,10 @@ namespace python = pybind11;
 
 // declarations - components
 
-void wrapSection_2_152( python::module& module ) {
+void wrapSection_2_152( python::module& module, python::module& ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 2, 152 >;
-
-  // wrap views created by this section
 
   // create the submodule
   python::module submodule = module.def_submodule(
@@ -25,6 +23,10 @@ void wrapSection_2_152( python::module& module ) {
     "MT152",
     "MT152 - internal NJOY section"
   );
+
+  // wrap components
+
+  // wrap views created by this section
 
   // create the section
   python::class_< Section > section(

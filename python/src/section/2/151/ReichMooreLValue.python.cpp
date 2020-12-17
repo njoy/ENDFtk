@@ -10,7 +10,7 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapReichMooreLValue( python::module& module ) {
+void wrapReichMooreLValue( python::module& module, python::module& ) {
 
   // type aliases
   using Component = njoy::ENDFtk::section::Type< 2, 151 >::ReichMooreLValue;

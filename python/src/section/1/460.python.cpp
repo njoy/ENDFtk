@@ -28,8 +28,6 @@ void wrapSection_1_460( python::module& module, python::module& viewmodule ) {
   using Section = njoy::ENDFtk::section::Type< 1, 460 >;
   using DelayedPhotonData = njoy::ENDFtk::section::Type< 1, 460 >::DelayedPhotonData;
 
-  // wrap views created by this section
-
   // create the submodule
   python::module submodule = module.def_submodule(
 
@@ -41,6 +39,8 @@ void wrapSection_1_460( python::module& module, python::module& viewmodule ) {
   mf1::mt460::wrapDiscretePhotonMultiplicity( submodule, viewmodule );
   mf1::mt460::wrapContinuousPhotons( submodule, viewmodule );
   mf1::mt460::wrapDiscretePhotons( submodule, viewmodule );
+
+  // wrap views created by this section
 
   // create the section
   python::class_< Section > section(

@@ -17,14 +17,16 @@ void wrapSection_1_456( python::module& module, python::module& ) {
   using Section = njoy::ENDFtk::section::Type< 1, 456 >;
   using Multiplicity = njoy::ENDFtk::section::Type< 1, 456 >::Multiplicity;
 
-  // wrap views created by this section
-
   // create the submodule
   python::module submodule = module.def_submodule(
 
     "MT456",
     "MT456 - the number of prompt fission neutrons"
   );
+
+  // wrap components
+
+  // wrap views created by this section
 
   // create the section
   python::class_< Section > section(

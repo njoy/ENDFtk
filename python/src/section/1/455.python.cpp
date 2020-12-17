@@ -29,8 +29,6 @@ void wrapSection_1_455( python::module& module, python::module& viewmodule ) {
   using DecayConstantData = njoy::ENDFtk::section::Type< 1, 455 >::DecayConstantData;
   using Multiplicity = njoy::ENDFtk::section::Type< 1, 455 >::Multiplicity;
 
-  // wrap views created by this section
-
   // create the submodule
   python::module submodule = module.def_submodule(
 
@@ -42,6 +40,8 @@ void wrapSection_1_455( python::module& module, python::module& viewmodule ) {
   mf1::mt455::wrapDecayConstants( submodule, viewmodule );
   mf1::mt455::wrapEnergyIndependentConstants( submodule, viewmodule );
   mf1::mt455::wrapEnergyDependentConstants( submodule, viewmodule );
+
+  // wrap views created by this section
 
   // create the section
   python::class_< Section > section(

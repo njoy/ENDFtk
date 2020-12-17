@@ -10,7 +10,7 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapIsotope( python::module& module ) {
+void wrapIsotope( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Component = njoy::ENDFtk::section::Type< 2, 151 >::Isotope;
@@ -20,7 +20,7 @@ void wrapIsotope( python::module& module ) {
   // wrap views created by this section
   // none of these are supposed to be created directly by the user
   wrapRandomAccessAnyViewOf< ResonanceRange >(
-      module,
+      viewmodule,
       "any_view< ResonanceRange, random_access >" );
 
   // create the component

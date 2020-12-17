@@ -11,47 +11,41 @@
 namespace python = pybind11;
 
 // declarations - components
-void wrapIsotope( python::module& );
-void wrapScatteringRadius( python::module& );
-void wrapResonanceRange( python::module& );
-void wrapSpecialCase( python::module& );
-void wrapBreitWignerLValue( python::module& );
-void wrapReichMooreLValue( python::module& );
-void wrapSingleLevelBreitWigner( python::module& );
-void wrapMultiLevelBreitWigner( python::module& );
-void wrapReichMoore( python::module& );
-void wrapParticlePairs( python::module& );
-void wrapResonanceChannels( python::module& );
-void wrapResonanceParameters( python::module& );
-void wrapNoBackgroundRMatrix( python::module& );
-void wrapSammyBackgroundRMatrix( python::module& );
-void wrapFrohnerBackgroundRMatrix( python::module& );
-void wrapTabulatedBackgroundRMatrix( python::module& );
-void wrapBackgroundChannels( python::module& );
-void wrapSpinGroup( python::module& );
-void wrapRMatrixLimited( python::module& );
-void wrapUnresolvedEnergyDependentFissionWidthsJValue( python::module& );
-void wrapUnresolvedEnergyDependentJValue( python::module& );
-void wrapUnresolvedEnergyIndependentLValue( python::module& );
-void wrapUnresolvedEnergyDependentFissionWidthsLValue( python::module& );
-void wrapUnresolvedEnergyDependentLValue( python::module& );
-void wrapUnresolvedEnergyIndependent( python::module& );
-void wrapUnresolvedEnergyDependentFissionWidths( python::module& );
-void wrapUnresolvedEnergyDependent( python::module& );
+void wrapScatteringRadius( python::module&, python::module& );
+void wrapSpecialCase( python::module&, python::module& );
+void wrapBreitWignerLValue( python::module&, python::module& );
+void wrapReichMooreLValue( python::module&, python::module& );
+void wrapSingleLevelBreitWigner( python::module&, python::module& );
+void wrapMultiLevelBreitWigner( python::module&, python::module& );
+void wrapReichMoore( python::module&, python::module& );
+void wrapParticlePairs( python::module&, python::module& );
+void wrapResonanceChannels( python::module&, python::module& );
+void wrapResonanceParameters( python::module&, python::module& );
+void wrapNoBackgroundRMatrix( python::module&, python::module& );
+void wrapSammyBackgroundRMatrix( python::module&, python::module& );
+void wrapFrohnerBackgroundRMatrix( python::module&, python::module& );
+void wrapTabulatedBackgroundRMatrix( python::module&, python::module& );
+void wrapBackgroundChannels( python::module&, python::module& );
+void wrapSpinGroup( python::module&, python::module& );
+void wrapRMatrixLimited( python::module&, python::module& );
+void wrapUnresolvedEnergyDependentFissionWidthsJValue( python::module&, python::module& );
+void wrapUnresolvedEnergyDependentJValue( python::module&, python::module& );
+void wrapUnresolvedEnergyIndependentLValue( python::module&, python::module& );
+void wrapUnresolvedEnergyDependentFissionWidthsLValue( python::module&, python::module& );
+void wrapUnresolvedEnergyDependentLValue( python::module&, python::module& );
+void wrapUnresolvedEnergyIndependent( python::module&, python::module& );
+void wrapUnresolvedEnergyDependentFissionWidths( python::module&, python::module& );
+void wrapUnresolvedEnergyDependent( python::module&, python::module& );
+void wrapResonanceRange( python::module&, python::module& );
+void wrapIsotope( python::module&, python::module& );
 
-void wrapSection_2_151( python::module& module ) {
+void wrapSection_2_151( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 2, 151 >;
   using Isotope = njoy::ENDFtk::section::Type< 2, 151 >::Isotope;
   using ResonanceRange = njoy::ENDFtk::section::Type< 2, 151 >::ResonanceRange;
   using IsotopeRange = RandomAccessAnyView< Isotope >;
-
-  // wrap views created by this section
-  // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< Isotope >(
-      module,
-      "any_view< Isotope, random_access >" );
 
   // create the submodule
   python::module submodule = module.def_submodule(
@@ -60,6 +54,41 @@ void wrapSection_2_151( python::module& module ) {
     "MT151 - resonance parameters"
   );
 
+  // wrap components
+  wrapScatteringRadius( submodule, viewmodule );
+  wrapSpecialCase( submodule, viewmodule );
+  wrapBreitWignerLValue( submodule, viewmodule );
+  wrapReichMooreLValue( submodule, viewmodule );
+  wrapSingleLevelBreitWigner( submodule, viewmodule );
+  wrapMultiLevelBreitWigner( submodule, viewmodule );
+  wrapReichMoore( submodule, viewmodule );
+  wrapParticlePairs( submodule, viewmodule );
+  wrapResonanceChannels( submodule, viewmodule );
+  wrapResonanceParameters( submodule, viewmodule );
+  wrapNoBackgroundRMatrix( submodule, viewmodule );
+  wrapSammyBackgroundRMatrix( submodule, viewmodule );
+  wrapFrohnerBackgroundRMatrix( submodule, viewmodule );
+  wrapTabulatedBackgroundRMatrix( submodule, viewmodule );
+  wrapBackgroundChannels( submodule, viewmodule );
+  wrapSpinGroup( submodule, viewmodule );
+  wrapRMatrixLimited( submodule, viewmodule );
+  wrapUnresolvedEnergyDependentFissionWidthsJValue( submodule, viewmodule );
+  wrapUnresolvedEnergyDependentJValue( submodule, viewmodule );
+  wrapUnresolvedEnergyIndependentLValue( submodule, viewmodule );
+  wrapUnresolvedEnergyDependentFissionWidthsLValue( submodule, viewmodule );
+  wrapUnresolvedEnergyDependentLValue( submodule, viewmodule );
+  wrapUnresolvedEnergyIndependent( submodule, viewmodule );
+  wrapUnresolvedEnergyDependentFissionWidths( submodule, viewmodule );
+  wrapUnresolvedEnergyDependent( submodule, viewmodule );
+  wrapResonanceRange( submodule, viewmodule );
+  wrapIsotope( submodule, viewmodule );
+
+  // wrap views created by this section
+  // none of these are supposed to be created directly by the user
+  wrapRandomAccessAnyViewOf< Isotope >(
+      viewmodule,
+      "any_view< Isotope, random_access >" );
+
   // create the section
   python::class_< Section > section(
 
@@ -67,35 +96,6 @@ void wrapSection_2_151( python::module& module ) {
     "Section",
     "MF2 MT151 section - resonance parameters"
   );
-
-  // wrap components
-  wrapIsotope( submodule );
-  wrapScatteringRadius( submodule );
-  wrapResonanceRange( submodule );
-  wrapSpecialCase( submodule );
-  wrapBreitWignerLValue( submodule );
-  wrapReichMooreLValue( submodule );
-  wrapSingleLevelBreitWigner( submodule );
-  wrapMultiLevelBreitWigner( submodule );
-  wrapReichMoore( submodule );
-  wrapParticlePairs( submodule );
-  wrapResonanceChannels( submodule );
-  wrapResonanceParameters( submodule );
-  wrapNoBackgroundRMatrix( submodule );
-  wrapSammyBackgroundRMatrix( submodule );
-  wrapFrohnerBackgroundRMatrix( submodule );
-  wrapTabulatedBackgroundRMatrix( submodule );
-  wrapBackgroundChannels( submodule );
-  wrapSpinGroup( submodule );
-  wrapRMatrixLimited( submodule );
-  wrapUnresolvedEnergyDependentFissionWidthsJValue( submodule );
-  wrapUnresolvedEnergyDependentJValue( submodule );
-  wrapUnresolvedEnergyIndependentLValue( submodule );
-  wrapUnresolvedEnergyDependentFissionWidthsLValue( submodule );
-  wrapUnresolvedEnergyDependentLValue( submodule );
-  wrapUnresolvedEnergyIndependent( submodule );
-  wrapUnresolvedEnergyDependentFissionWidths( submodule );
-  wrapUnresolvedEnergyDependent( submodule );
 
   // wrap the section
   section

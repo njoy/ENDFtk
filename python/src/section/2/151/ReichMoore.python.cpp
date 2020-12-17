@@ -10,7 +10,7 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapReichMoore( python::module& module ) {
+void wrapReichMoore( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Component = njoy::ENDFtk::section::Type< 2, 151 >::ReichMoore;
@@ -20,7 +20,7 @@ void wrapReichMoore( python::module& module ) {
   // wrap views created by this section
   // none of these are supposed to be created directly by the user
   wrapRandomAccessAnyViewOf< ReichMooreLValue >(
-      module,
+      viewmodule,
       "any_view< ReichMooreLValue, random_access >" );
 
   // create the component
