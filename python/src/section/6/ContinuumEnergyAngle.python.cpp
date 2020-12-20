@@ -15,8 +15,9 @@ namespace mf6 {
 void wrapContinuumEnergyAngle( python::module& module, python::module& viewmodule ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 6 >::ContinuumEnergyAngle;
-  using Distribution = njoy::ENDFtk::section::Type< 6 >::ContinuumEnergyAngle::Variant;
+  using Section = njoy::ENDFtk::section::Type< 6 >;
+  using Component = Section::ContinuumEnergyAngle;
+  using Distribution = Section::ContinuumEnergyAngle::Variant;
   using DistributionRange = RandomAccessAnyView< Distribution >;
 
   // wrap views created by this section

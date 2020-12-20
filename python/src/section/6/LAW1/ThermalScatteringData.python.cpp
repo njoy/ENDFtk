@@ -18,7 +18,8 @@ namespace law1 {
 void wrapThermalScatteringData( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 6 >::ContinuumEnergyAngle::ThermalScatteringData;
+  using Section = njoy::ENDFtk::section::Type< 6 >;
+  using Component = Section::ContinuumEnergyAngle::ThermalScatteringData;
 
   // wrap views created by this section
 

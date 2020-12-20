@@ -18,7 +18,8 @@ namespace law5 {
 void wrapNuclearAmplitudeExpansion( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 6 >::ChargedParticleElasticScattering::NuclearAmplitudeExpansion;
+  using Section = njoy::ENDFtk::section::Type< 6 >;
+  using Component = Section::ChargedParticleElasticScattering::NuclearAmplitudeExpansion;
 
   // wrap views created by this section
 

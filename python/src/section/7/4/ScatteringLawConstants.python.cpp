@@ -15,7 +15,8 @@ namespace mf7 {
 void wrapScatteringLawConstants( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 7, 4 >::ScatteringLawConstants;
+  using Section = njoy::ENDFtk::section::Type< 7, 4 >;
+  using Component = Section::ScatteringLawConstants;
 
   // wrap views created by this section
 

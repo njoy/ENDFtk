@@ -20,7 +20,7 @@ void wrapSection_12( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 12 >;
-  using PhotonProduction = njoy::ENDFtk::section::Type< 12 >::PhotonProduction;
+  using PhotonProduction = Section::PhotonProduction;
 
   // wrap components
   wrapTotalMultiplicity( module, viewmodule );

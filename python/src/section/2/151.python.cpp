@@ -43,8 +43,8 @@ void wrapSection_2_151( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 2, 151 >;
-  using Isotope = njoy::ENDFtk::section::Type< 2, 151 >::Isotope;
-  using ResonanceRange = njoy::ENDFtk::section::Type< 2, 151 >::ResonanceRange;
+  using Isotope = Section::Isotope;
+  using ResonanceRange = Section::ResonanceRange;
   using IsotopeRange = RandomAccessAnyView< Isotope >;
 
   // create the submodule

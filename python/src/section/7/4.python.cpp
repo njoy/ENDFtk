@@ -25,9 +25,9 @@ void wrapSection_7_4( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 7, 4 >;
-  using ScatteringLaw = njoy::ENDFtk::section::Type< 7, 4 >::ScatteringLaw;
-  using EffectiveTemperature = njoy::ENDFtk::section::Type< 7, 4 >::EffectiveTemperature;
-  using ScatteringLawConstants = njoy::ENDFtk::section::Type< 7, 4 >::ScatteringLawConstants;
+  using ScatteringLaw = Section::ScatteringLaw;
+  using EffectiveTemperature = Section::EffectiveTemperature;
+  using ScatteringLawConstants = Section::ScatteringLawConstants;
   using EffectiveTemperatureRange = RandomAccessAnyView< std::optional< EffectiveTemperature > >;
 
   // wrap views created by this section

@@ -13,7 +13,8 @@ namespace python = pybind11;
 void wrapBreitWignerLValue( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 2, 151 >::BreitWignerLValue;
+  using Section = njoy::ENDFtk::section::Type< 2, 151 >;
+  using Component = Section::BreitWignerLValue;
 
   // wrap views created by this section
 

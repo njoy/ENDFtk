@@ -15,8 +15,9 @@ namespace mf6 {
 void wrapLaboratoryAngleEnergy( python::module& module, python::module& viewmodule ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 6 >::LaboratoryAngleEnergy;
-  using AngularDistribution = njoy::ENDFtk::section::Type< 6 >::LaboratoryAngleEnergy::AngularDistribution;
+  using Section = njoy::ENDFtk::section::Type< 6 >;
+  using Component = Section::LaboratoryAngleEnergy;
+  using AngularDistribution = Section::LaboratoryAngleEnergy::AngularDistribution;
   using AngularDistributionRange = RandomAccessAnyView< AngularDistribution >;
 
   // wrap views created by this section

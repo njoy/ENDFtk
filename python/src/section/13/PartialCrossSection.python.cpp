@@ -13,7 +13,8 @@ namespace python = pybind11;
 void wrapPartialCrossSection( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 13 >::PartialCrossSection;
+  using Section = njoy::ENDFtk::section::Type< 13 >;
+  using Component = Section::PartialCrossSection;
 
   // wrap views created by this section
 

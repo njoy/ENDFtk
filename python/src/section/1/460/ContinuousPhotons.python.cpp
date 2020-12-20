@@ -16,7 +16,8 @@ namespace mt460 {
 void wrapContinuousPhotons( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 1, 460 >::ContinuousPhotons;
+  using Section = njoy::ENDFtk::section::Type< 1, 460 >;
+  using Component = Section::ContinuousPhotons;
 
   // wrap views created by this component
 

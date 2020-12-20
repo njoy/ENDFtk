@@ -63,7 +63,7 @@ void wrapSection_6( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 6 >;
-  using ReactionProduct = njoy::ENDFtk::section::Type< 6 >::ReactionProduct;
+  using ReactionProduct = Section::ReactionProduct;
   using ReactionProductRange = RandomAccessAnyView< ReactionProduct >;
 
   // wrap components

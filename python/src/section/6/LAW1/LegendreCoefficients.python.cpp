@@ -18,7 +18,8 @@ namespace law1 {
 void wrapLegendreCoefficients( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 6 >::ContinuumEnergyAngle::LegendreCoefficients;
+  using Section = njoy::ENDFtk::section::Type< 6 >;
+  using Component = Section::ContinuumEnergyAngle::LegendreCoefficients;
 
   // wrap views created by this section
 

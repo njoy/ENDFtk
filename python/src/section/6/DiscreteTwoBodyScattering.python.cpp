@@ -15,8 +15,9 @@ namespace mf6 {
 void wrapDiscreteTwoBodyScattering( python::module& module, python::module& viewmodule ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 6 >::DiscreteTwoBodyScattering;
-  using Distribution = njoy::ENDFtk::section::Type< 6 >::DiscreteTwoBodyScattering::Variant;
+  using Section = njoy::ENDFtk::section::Type< 6 >;
+  using Component = Section::DiscreteTwoBodyScattering;
+  using Distribution = Section::DiscreteTwoBodyScattering::Variant;
   using DistributionRange = RandomAccessAnyView< Distribution >;
 
   // wrap views created by this section

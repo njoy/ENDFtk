@@ -13,9 +13,10 @@ namespace python = pybind11;
 void wrapPartialDistribution( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 5 >::PartialDistribution;
-  using Probability = njoy::ENDFtk::section::Type< 5 >::Probability;
-  using Distribution = njoy::ENDFtk::section::Type< 5 >::Distribution;
+  using Section = njoy::ENDFtk::section::Type< 5 >;
+  using Component = Section::PartialDistribution;
+  using Probability = Section::Probability;
+  using Distribution = Section::Distribution;
 
   // wrap views created by this section
 

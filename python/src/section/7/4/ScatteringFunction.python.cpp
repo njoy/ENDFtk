@@ -15,7 +15,8 @@ namespace mf7 {
 void wrapScatteringFunction( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 7, 4 >::TabulatedFunctions::ScatteringFunction;
+  using Section = njoy::ENDFtk::section::Type< 7, 4 >;
+  using Component = Section::TabulatedFunctions::ScatteringFunction;
 
   // wrap views created by this section
 

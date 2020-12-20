@@ -15,9 +15,10 @@ namespace mf8 {
 void wrapDecaySpectrum( python::module& module, python::module& viewmodule ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 8, 457 >::DecaySpectrum;
-  using DiscreteSpectrum = njoy::ENDFtk::section::Type< 8, 457 >::DiscreteSpectrum;
-  using ContinuousSpectrum = njoy::ENDFtk::section::Type< 8, 457 >::ContinuousSpectrum;
+  using Section = njoy::ENDFtk::section::Type< 8, 457 >;
+  using Component = Section::DecaySpectrum;
+  using DiscreteSpectrum = Section::DiscreteSpectrum;
+  using ContinuousSpectrum = Section::ContinuousSpectrum;
   using DiscreteSpectrumRange = RandomAccessAnyView< DiscreteSpectrum >;
 
   // wrap views created by this section

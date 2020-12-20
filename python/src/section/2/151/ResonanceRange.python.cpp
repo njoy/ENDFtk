@@ -13,13 +13,10 @@ namespace python = pybind11;
 void wrapResonanceRange( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 2, 151 >::ResonanceRange;
-  using ScatteringRadius = njoy::ENDFtk::section::Type< 2, 151 >::ScatteringRadius;
-  using SpecialCase = njoy::ENDFtk::section::Type< 2, 151 >::SpecialCase;
-  using SingleLevelBreitWigner = njoy::ENDFtk::section::Type< 2, 151 >::SingleLevelBreitWigner;
-  using MultiLevelBreitWigner = njoy::ENDFtk::section::Type< 2, 151 >::MultiLevelBreitWigner;
-  using ReichMoore = njoy::ENDFtk::section::Type< 2, 151 >::ReichMoore;
-  using ResonanceParameters = njoy::ENDFtk::section::Type< 2, 151 >::ResonanceRange::ResonanceParameters;
+  using Section = njoy::ENDFtk::section::Type< 2, 151 >;
+  using Component = Section::ResonanceRange;
+  using ScatteringRadius = Section::ScatteringRadius;
+  using ResonanceParameters = Section::ResonanceRange::ResonanceParameters;
 
   // wrap views created by this section
 

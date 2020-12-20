@@ -13,7 +13,8 @@ namespace python = pybind11;
 void wrapLegendreCoefficients( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 4 >::LegendreCoefficients;
+  using Section = njoy::ENDFtk::section::Type< 4 >;
+  using Component = Section::LegendreCoefficients;
 
   // wrap views created by this section
 

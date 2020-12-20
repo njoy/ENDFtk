@@ -13,8 +13,9 @@ namespace python = pybind11;
 void wrapTabulatedDistributions( python::module& module, python::module& viewmodule ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 4 >::TabulatedDistributions;
-  using Distribution = njoy::ENDFtk::section::Type< 4 >::TabulatedDistribution;
+  using Section = njoy::ENDFtk::section::Type< 4 >;
+  using Component = Section::TabulatedDistributions;
+  using Distribution = Section::TabulatedDistribution;
   using DistributionRange = RandomAccessAnyView< Distribution >;
 
   // wrap views created by this section

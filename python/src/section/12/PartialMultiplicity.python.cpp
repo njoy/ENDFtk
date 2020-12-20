@@ -13,7 +13,8 @@ namespace python = pybind11;
 void wrapPartialMultiplicity( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 12 >::PartialMultiplicity;
+  using Section = njoy::ENDFtk::section::Type< 12 >;
+  using Component = Section::PartialMultiplicity;
 
   // wrap views created by this section
 

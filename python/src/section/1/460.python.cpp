@@ -26,7 +26,7 @@ void wrapSection_1_460( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 1, 460 >;
-  using DelayedPhotonData = njoy::ENDFtk::section::Type< 1, 460 >::DelayedPhotonData;
+  using DelayedPhotonData = Section::DelayedPhotonData;
 
   // create the submodule
   python::module submodule = module.def_submodule(

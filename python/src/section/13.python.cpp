@@ -18,8 +18,8 @@ void wrapSection_13( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 13 >;
-  using PartialCrossSection = njoy::ENDFtk::section::Type< 13 >::PartialCrossSection;
-  using TotalCrossSection = njoy::ENDFtk::section::Type< 13 >::TotalCrossSection;
+  using PartialCrossSection = Section::PartialCrossSection;
+  using TotalCrossSection = Section::TotalCrossSection;
   using PartialCrossSectionRange = RandomAccessAnyView< PartialCrossSection >;
 
   // wrap components

@@ -13,8 +13,9 @@ namespace python = pybind11;
 void wrapUnresolvedEnergyDependentLValue( python::module& module, python::module& viewmodule ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 2, 151 >::UnresolvedEnergyDependent::LValue;
-  using JValue = njoy::ENDFtk::section::Type< 2, 151 >::UnresolvedEnergyDependent::JValue;
+  using Section = njoy::ENDFtk::section::Type< 2, 151 >;
+  using Component = Section::UnresolvedEnergyDependent::LValue;
+  using JValue = Section::UnresolvedEnergyDependent::JValue;
   using JValueRange = RandomAccessAnyView< JValue >;
 
   // wrap views created by this section

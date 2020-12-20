@@ -16,7 +16,8 @@ namespace mt455 {
 void wrapEnergyIndependentConstants( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 1, 455 >::EnergyIndependentConstants;
+  using Section = njoy::ENDFtk::section::Type< 1, 455 >;
+  using Component = Section::EnergyIndependentConstants;
 
   // wrap views created by this component
 

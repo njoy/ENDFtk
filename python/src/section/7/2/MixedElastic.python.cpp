@@ -15,9 +15,10 @@ namespace mf7 {
 void wrapMixedElastic( python::module& module, python::module& ) {
 
   // type aliases
-  using CoherentElastic = njoy::ENDFtk::section::Type< 7, 2 >::CoherentElastic;
-  using IncoherentElastic = njoy::ENDFtk::section::Type< 7, 2 >::IncoherentElastic;
-  using Component = njoy::ENDFtk::section::Type< 7, 2 >::MixedElastic;
+  using Section = njoy::ENDFtk::section::Type< 7, 2 >;
+  using CoherentElastic = Section::CoherentElastic;
+  using IncoherentElastic = Section::IncoherentElastic;
+  using Component = Section::MixedElastic;
 
   // wrap views created by this section
 

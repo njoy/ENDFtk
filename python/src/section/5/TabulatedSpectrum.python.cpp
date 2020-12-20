@@ -13,8 +13,9 @@ namespace python = pybind11;
 void wrapTabulatedSpectrum( python::module& module, python::module& viewmodule ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 5 >::TabulatedSpectrum;
-  using Distribution = njoy::ENDFtk::section::Type< 5 >::TabulatedSpectrum::OutgoingEnergyDistribution;
+  using Section = njoy::ENDFtk::section::Type< 5 >;
+  using Component = Section::TabulatedSpectrum;
+  using Distribution = Section::TabulatedSpectrum::OutgoingEnergyDistribution;
   using DistributionRange = RandomAccessAnyView< Distribution >;
 
   // wrap views created by this section

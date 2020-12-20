@@ -15,7 +15,7 @@ void wrapSection_1_452( python::module& module, python::module& ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 1, 452 >;
-  using Multiplicity = njoy::ENDFtk::section::Type< 1, 452 >::Multiplicity;
+  using Multiplicity = Section::Multiplicity;
 
   // create the submodule
   python::module submodule = module.def_submodule(

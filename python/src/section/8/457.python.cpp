@@ -26,9 +26,9 @@ void wrapSection_8_457( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 8, 457 >;
-  using AverageDecayEnergies = njoy::ENDFtk::section::Type< 8, 457 >::AverageDecayEnergies;
-  using DecayModes = njoy::ENDFtk::section::Type< 8, 457 >::DecayModes;
-  using DecaySpectrum = njoy::ENDFtk::section::Type< 8, 457 >::DecaySpectrum;
+  using AverageDecayEnergies = Section::AverageDecayEnergies;
+  using DecayModes = Section::DecayModes;
+  using DecaySpectrum = Section::DecaySpectrum;
   using DecaySpectrumRange = RandomAccessAnyView< DecaySpectrum >;
 
   // create the submodule

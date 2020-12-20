@@ -15,7 +15,8 @@ namespace mf6 {
 void wrapIsotropicDiscreteEmission( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 6 >::IsotropicDiscreteEmission;
+  using Section = njoy::ENDFtk::section::Type< 6 >;
+  using Component = Section::IsotropicDiscreteEmission;
 
   // wrap views created by this section
 

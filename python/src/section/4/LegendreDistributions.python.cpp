@@ -13,8 +13,9 @@ namespace python = pybind11;
 void wrapLegendreDistributions( python::module& module, python::module& viewmodule ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 4 >::LegendreDistributions;
-  using Distribution = njoy::ENDFtk::section::Type< 4 >::LegendreCoefficients;
+  using Section = njoy::ENDFtk::section::Type< 4 >;
+  using Component = Section::LegendreDistributions;
+  using Distribution = Section::LegendreCoefficients;
   using DistributionRange = RandomAccessAnyView< Distribution >;
 
   // wrap views created by this section

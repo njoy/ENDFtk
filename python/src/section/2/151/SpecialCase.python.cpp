@@ -13,7 +13,8 @@ namespace python = pybind11;
 void wrapSpecialCase( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 2, 151 >::SpecialCase;
+  using Section = njoy::ENDFtk::section::Type< 2, 151 >;
+  using Component = Section::SpecialCase;
 
   // wrap views created by this section
 

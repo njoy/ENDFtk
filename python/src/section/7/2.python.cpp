@@ -23,7 +23,7 @@ void wrapSection_7_2( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 7, 2 >;
-  using ScatteringLaw = njoy::ENDFtk::section::Type< 7, 2 >::ScatteringLaw;
+  using ScatteringLaw = Section::ScatteringLaw;
 
   // wrap views created by this section
 

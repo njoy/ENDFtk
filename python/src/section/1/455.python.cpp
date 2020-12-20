@@ -26,8 +26,8 @@ void wrapSection_1_455( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 1, 455 >;
-  using DecayConstantData = njoy::ENDFtk::section::Type< 1, 455 >::DecayConstantData;
-  using Multiplicity = njoy::ENDFtk::section::Type< 1, 455 >::Multiplicity;
+  using DecayConstantData = Section::DecayConstantData;
+  using Multiplicity = Section::Multiplicity;
 
   // create the submodule
   python::module submodule = module.def_submodule(

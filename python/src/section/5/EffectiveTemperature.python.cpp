@@ -13,7 +13,8 @@ namespace python = pybind11;
 void wrapEffectiveTemperature( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 5 >::EffectiveTemperature;
+  using Section = njoy::ENDFtk::section::Type< 5 >;
+  using Component = Section::EffectiveTemperature;
 
   // wrap views created by this section
 

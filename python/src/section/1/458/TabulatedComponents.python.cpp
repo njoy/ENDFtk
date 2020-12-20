@@ -16,9 +16,10 @@ namespace mt458 {
 void wrapTabulatedComponents( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 1, 458 >::TabulatedComponents;
-  using ThermalPointComponents = njoy::ENDFtk::section::Type< 1, 458 >::ThermalPointComponents;
-  using EnergyReleaseComponent = njoy::ENDFtk::section::Type< 1, 458 >::EnergyReleaseComponent;
+  using Section = njoy::ENDFtk::section::Type< 1, 458 >;
+  using Component = Section::TabulatedComponents;
+  using ThermalPointComponents = Section::ThermalPointComponents;
+  using EnergyReleaseComponent = Section::EnergyReleaseComponent;
 
   // wrap views created by this component
 

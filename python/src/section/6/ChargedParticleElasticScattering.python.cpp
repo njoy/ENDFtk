@@ -15,8 +15,9 @@ namespace mf6 {
 void wrapChargedParticleElasticScattering( python::module& module, python::module& viewmodule ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 6 >::ChargedParticleElasticScattering;
-  using Distribution = njoy::ENDFtk::section::Type< 6 >::ChargedParticleElasticScattering::Variant;
+  using Section = njoy::ENDFtk::section::Type< 6 >;
+  using Component = Section::ChargedParticleElasticScattering;
+  using Distribution = Section::ChargedParticleElasticScattering::Variant;
   using DistributionRange = RandomAccessAnyView< Distribution >;
 
   // wrap views created by this section

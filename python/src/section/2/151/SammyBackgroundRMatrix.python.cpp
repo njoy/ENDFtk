@@ -13,7 +13,8 @@ namespace python = pybind11;
 void wrapSammyBackgroundRMatrix( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 2, 151 >::RMatrixLimited::SammyBackgroundRMatrix;
+  using Section = njoy::ENDFtk::section::Type< 2, 151 >;
+  using Component = Section::RMatrixLimited::SammyBackgroundRMatrix;
 
   // wrap views created by this section
 

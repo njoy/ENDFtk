@@ -14,12 +14,13 @@ namespace python = pybind11;
 void wrapMixedDistributions( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 4 >::MixedDistributions;
-  using LegendreCoefficients = njoy::ENDFtk::section::Type< 4 >::LegendreCoefficients;
-  using TabulatedDistribution = njoy::ENDFtk::section::Type< 4 >::TabulatedDistribution;
-  using LegendreDistributions = njoy::ENDFtk::section::Type< 4 >::LegendreDistributions;
-  using TabulatedDistributions = njoy::ENDFtk::section::Type< 4 >::TabulatedDistributions;
-  using Distribution = njoy::ENDFtk::section::Type< 4 >::Variant;
+  using Section = njoy::ENDFtk::section::Type< 4 >;
+  using Component = Section::MixedDistributions;
+  using LegendreCoefficients = Section::LegendreCoefficients;
+  using TabulatedDistribution = Section::TabulatedDistribution;
+  using LegendreDistributions = Section::LegendreDistributions;
+  using TabulatedDistributions = Section::TabulatedDistributions;
+  using Distribution = Section::Variant;
   using DistributionRange = BasicRandomAccessAnyView< Distribution >;
 
   // wrap views created by this section

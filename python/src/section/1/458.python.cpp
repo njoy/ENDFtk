@@ -27,7 +27,7 @@ void wrapSection_1_458( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 1, 458 >;
-  using FissionEnergyReleaseData = njoy::ENDFtk::section::Type< 1, 458 >::FissionEnergyReleaseData;
+  using FissionEnergyReleaseData = Section::FissionEnergyReleaseData;
 
   // create the submodule
   python::module submodule = module.def_submodule(

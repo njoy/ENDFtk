@@ -16,7 +16,8 @@ namespace law5 {
 void wrapNuclearPlusInterference( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference;
+  using Section = njoy::ENDFtk::section::Type< 6 >;
+  using Component = Section::ChargedParticleElasticScattering::NuclearPlusInterference;
 
   // wrap views created by this section
 

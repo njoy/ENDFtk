@@ -16,7 +16,8 @@ namespace mt460 {
 void wrapDiscretePhotonMultiplicity( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 1, 460 >::DiscretePhotonMultiplicity;
+  using Section = njoy::ENDFtk::section::Type< 1, 460 >;
+  using Component = Section::DiscretePhotonMultiplicity;
 
   // wrap views created by this component
 

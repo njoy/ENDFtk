@@ -13,8 +13,9 @@ namespace python = pybind11;
 void wrapUnresolvedEnergyDependentFissionWidths( python::module& module, python::module& viewmodule ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 2, 151 >::UnresolvedEnergyDependentFissionWidths;
-  using LValue = njoy::ENDFtk::section::Type< 2, 151 >::UnresolvedEnergyDependentFissionWidths::LValue;
+  using Section = njoy::ENDFtk::section::Type< 2, 151 >;
+  using Component = Section::UnresolvedEnergyDependentFissionWidths;
+  using LValue = Section::UnresolvedEnergyDependentFissionWidths::LValue;
   using LValueRange = RandomAccessAnyView< LValue >;
 
   // wrap views created by this section

@@ -28,7 +28,7 @@ void wrapSection_5( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 5 >;
-  using PartialDistribution = njoy::ENDFtk::section::Type< 5 >::PartialDistribution;
+  using PartialDistribution = Section::PartialDistribution;
   using PartialDistributionRange = RandomAccessAnyView< PartialDistribution >;
 
   // wrap components

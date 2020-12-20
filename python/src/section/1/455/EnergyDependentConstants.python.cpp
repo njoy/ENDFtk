@@ -16,8 +16,9 @@ namespace mt455 {
 void wrapEnergyDependentConstants( python::module& module, python::module& viewmodule ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 1, 455 >::EnergyDependentConstants;
-  using DecayConstants = njoy::ENDFtk::section::Type< 1, 455 >::DecayConstants;
+  using Section = njoy::ENDFtk::section::Type< 1, 455 >;
+  using Component = Section::EnergyDependentConstants;
+  using DecayConstants = Section::DecayConstants;
   using DecayConstantsRange = RandomAccessAnyView< DecayConstants >;
 
   // wrap views created by this section

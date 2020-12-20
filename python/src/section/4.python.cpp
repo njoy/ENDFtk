@@ -22,8 +22,8 @@ void wrapSection_4( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 4 >;
-  using Distributions = njoy::ENDFtk::section::Type< 4 >::Distributions;
-  using Distribution = njoy::ENDFtk::section::Type< 4 >::Variant;
+  using Distributions = Section::Distributions;
+  using Distribution = Section::Variant;
   using DistributionRange = BasicRandomAccessAnyView< Distribution >;
 
   // wrap components
