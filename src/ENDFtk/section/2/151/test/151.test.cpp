@@ -91,6 +91,7 @@ SCENARIO( "section::Type< 2, 151 >" ) {
       THEN( "a section::Type< 2, 151 > can be constructed" ){
         section::Type< 2, 151 > MF2( HEAD, begin, end, lineNumber, MAT );
         REQUIRE( 151 == MF2.MT() );
+        REQUIRE( 151 == MF2.sectionNumber() );
         REQUIRE( 61148 == MF2.ZA() );
         REQUIRE( 146.65 == MF2.atomicWeightRatio() );
         REQUIRE( 1 == MF2.isotopes().size() );
@@ -107,6 +108,7 @@ SCENARIO( "section::Type< 2, 151 >" ) {
       THEN( "a section::Type< 2, 151 > can be constructed" ){
         section::Type< 2, 151 > MF2( HEAD, begin, end, lineNumber, MAT );
         REQUIRE( 151 == MF2.MT() );
+        REQUIRE( 151 == MF2.sectionNumber() );
         REQUIRE( 12024 == MF2.ZA() );
         REQUIRE( 23.779 == Approx( MF2.atomicWeightRatio() ) );
         REQUIRE( 1 == MF2.isotopes().size() );
@@ -123,6 +125,7 @@ SCENARIO( "section::Type< 2, 151 >" ) {
       THEN( "a section::Type< 2, 151 > can be constructed" ){
         section::Type< 2, 151 > MF2( HEAD, begin, end, lineNumber, MAT );
         REQUIRE( 151 == MF2.MT() );
+        REQUIRE( 151 == MF2.sectionNumber() );
         REQUIRE( 14028 == MF2.ZA() );
         REQUIRE( 27.737 == Approx( MF2.atomicWeightRatio() ) );
         REQUIRE( 1 == MF2.isotopes().size() );
@@ -155,6 +158,7 @@ SCENARIO( "section::Type< 2, 151 >" ) {
       THEN( "a section::Type< 2, 151 > can be constructed" ){
         section::Type< 2, 151 > MF2( HEAD, begin, end, lineNumber, MAT );
         REQUIRE( 151 == MF2.MT() );
+        REQUIRE( 151 == MF2.sectionNumber() );
         REQUIRE( 56140 == MF2.ZA() );
         REQUIRE( 138.708 == Approx( MF2.atomicWeightRatio() ) );
         REQUIRE( 1 == MF2.isotopes().size() );
@@ -171,6 +175,7 @@ SCENARIO( "section::Type< 2, 151 >" ) {
       THEN( "a section::Type< 2, 151 > can be constructed" ){
         section::Type< 2, 151 > MF2( HEAD, begin, end, lineNumber, MAT );
         REQUIRE( 151 == MF2.MT() );
+        REQUIRE( 151 == MF2.sectionNumber() );
         REQUIRE( 94240 == MF2.ZA() );
         REQUIRE( 237.992 == Approx( MF2.atomicWeightRatio() ) );
         REQUIRE( 1 == MF2.isotopes().size() );
@@ -187,6 +192,7 @@ SCENARIO( "section::Type< 2, 151 >" ) {
       THEN( "a section::Type< 2, 151 > can be constructed" ){
         section::Type< 2, 151 > MF2( HEAD, begin, end, lineNumber, MAT );
         REQUIRE( 151 == MF2.MT() );
+        REQUIRE( 151 == MF2.sectionNumber() );
         REQUIRE( 38090 == MF2.ZA() );
         REQUIRE( 89.1354 == Approx( MF2.atomicWeightRatio() ) );
         REQUIRE( 1 == MF2.isotopes().size() );

@@ -37,7 +37,7 @@ AngularDistribution(
  */
 template< typename Iterator >
 AngularDistribution( Iterator& it, const Iterator& end,
-                                  long& lineNumber, int MAT, int MF, int MT )
+                     long& lineNumber, int MAT, int MF, int MT )
   try : InterpolationSequenceRecord(
           readInterpolationSequenceRecord< EnergyDistribution >(
             it, end, lineNumber, MAT, MF, MT ) ) {}

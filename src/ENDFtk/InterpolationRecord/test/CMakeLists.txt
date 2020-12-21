@@ -10,5 +10,5 @@ $<$<BOOL:${link_time_optimization}>:${${PREFIX}_link_time_optimization_flags}>
 $<$<BOOL:${nonportable_optimization}>:${${PREFIX}_nonportable_optimization_flags}>>
 
 ${CXX_appended_flags} ${ENDFtk_appended_flags} )
-target_link_libraries( ENDFtk.InterpolationRecord.test PUBLIC ENDFtk ) 
+target_link_libraries( ENDFtk.InterpolationRecord.test PUBLIC ENDFtk )
 add_test( NAME ENDFtk.InterpolationRecord COMMAND ENDFtk.InterpolationRecord.test )

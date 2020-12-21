@@ -85,8 +85,6 @@ namespace ENDFtk {
    *  @brief Auxiliary function to validate a sequence of ENDF components
    *
    *  This function is used in the InterpolationSequenceRecord constructor.
-   *
-   *  @param[in] MT            the MT number
    */
   template < typename Component >
   void validateSequence( const std::vector< Component >& ) { return; }

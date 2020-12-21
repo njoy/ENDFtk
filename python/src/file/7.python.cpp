@@ -22,8 +22,8 @@ void wrapFile_7( python::module& module ) {
 
   // type aliases
   using File = njoy::ENDFtk::file::Type< 7 >;
-  using MF7MT2 = njoy::ENDFtk::section::Type< 7, 2 >;
-  using MF7MT4 = njoy::ENDFtk::section::Type< 7, 4 >;
+  using MF7MT2 = std::reference_wrapper< const njoy::ENDFtk::section::Type< 7, 2 > >;
+  using MF7MT4 = std::reference_wrapper< const njoy::ENDFtk::section::Type< 7, 4 > >;
 
   // wrap views created by this file
 
