@@ -165,13 +165,13 @@ SCENARIO( "Testing special case of file 1" ) {
         CHECK( 1001. == Approx( file.MT( 451_c ).ZA() ) );
       }
 
-      THEN( "the sections can be extracted" ){
+      THEN( "the sections can be extracted" ) {
 
         CHECK_NOTHROW( file.MT( 451_c ) );
       }
 
-      THEN( "an exception is thrown if invalid MT" ){
-//        CHECK_THROWS( file1.MT( 1_c ) );
+      THEN( "an exception is thrown if invalid MT" ) {
+
         CHECK_THROWS( file.MT( 452_c ) );
         CHECK_THROWS( file.MT( 455_c ) );
         CHECK_THROWS( file.MT( 456_c ) );
@@ -180,7 +180,7 @@ SCENARIO( "Testing special case of file 1" ) {
       }
     }
 
-    WHEN( "a file::Type< 1 > is constructed from a syntaxTree" ){
+    WHEN( "a file::Type< 1 > is constructed from a syntaxTree" ) {
       auto begin = file1string.begin();
       auto start = file1string.begin();
       auto end = file1string.end();

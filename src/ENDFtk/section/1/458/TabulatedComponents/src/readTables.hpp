@@ -14,6 +14,14 @@ readTables( Iterator& begin,
       std::nullopt, std::nullopt, std::nullopt, std::nullopt
     };
 
+  if ( NFC < 0 ) {
+
+    Log::error( "The number of tabulated energy release components NFC value "
+                "cannot be negative" );
+    Log::info( "NFC value: {}", NFC );
+    throw std::exception();
+  }
+
   while( NFC-- ) {
 
     EnergyReleaseComponent component(begin, end, lineNumber, MAT, MF, MT);
