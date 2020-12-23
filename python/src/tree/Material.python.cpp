@@ -35,8 +35,17 @@ void wrapTreeMaterial( python::module& module ) {
   );
 
   // wrap the tree component
-  // no __init__ since we do not want to create this object in python
+  // only copy is allowed since we do not want to create this object in python
   tree
+  .def(
+
+    python::init< const Material& >(),
+    python::arg( "material" ),
+    "Initialise the material with another material\n\n"
+    "Arguments:\n"
+    "    self        the material\n"
+    "    material    the material to be copied"
+  )
   .def_property_readonly(
 
     "MAT",

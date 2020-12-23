@@ -5,6 +5,9 @@ import unittest
 
 # local imports
 from ENDFtk.tree import Tape
+from ENDFtk.tree import Material
+from ENDFtk.tree import File
+from ENDFtk.tree import Section
 
 class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
     """Unit test for the Tape class."""
@@ -183,21 +186,27 @@ class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
 
                 verify_file1( self, material.MF( 1 ) )
                 verify_file1( self, material.file( 1 ) )
+                verify_file1( self, File( material.file( 1 ) ) )
 
                 verify_file2( self, material.MF( 2 ) )
                 verify_file2( self, material.file( 2 ) )
+                verify_file2( self, File( material.file( 2 ) ) )
 
                 verify_file3( self, material.MF( 3 ) )
                 verify_file3( self, material.file( 3 ) )
+                verify_file3( self, File( material.file( 3 ) ) )
 
                 verify_file4( self, material.MF( 4 ) )
                 verify_file4( self, material.file( 4 ) )
+                verify_file4( self, File( material.file( 4 ) ) )
 
                 verify_file6( self, material.MF( 6 ) )
                 verify_file6( self, material.file( 6 ) )
+                verify_file6( self, File( material.file( 6 ) ) )
 
                 verify_file33( self, material.MF( 33 ) )
                 verify_file33( self, material.file( 33 ) )
+                verify_file33( self, File( material.file( 33 ) ) )
 
                 self.assertEqual( 2209, len( material.content.split( '\n' ) ) )
 
@@ -226,6 +235,9 @@ class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
 
             material = tape.material( 125 )
             verify_material( self, material )
+
+            copy = Material( material )
+            verify_material( self, copy )
 
             self.assertEqual( 2211, len( tape.content.split( '\n' ) ) )
 

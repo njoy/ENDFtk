@@ -50,8 +50,17 @@ void wrapTreeFile( python::module& module ) {
   );
 
   // wrap the tree component
-  // no __init__ since we do not want to create this object in python
+  // only copy is allowed since we do not want to create this object in python
   tree
+  .def(
+
+    python::init< const File& >(),
+    python::arg( "file" ),
+    "Initialise the file with another file\n\n"
+    "Arguments:\n"
+    "    self    the file\n"
+    "    file    the file to be copied"
+  )
   .def_property_readonly(
 
     "MAT",
