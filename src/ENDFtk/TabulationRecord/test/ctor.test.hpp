@@ -129,6 +129,22 @@ SCENARIO( "TabulationRecord ctor",
     }
   }
 
+  GIVEN( "Equivalent x-values" ){
+    std::string tab1 =
+      " 0.000000+0 0.000000+0         33          0          1          49228 1460  438\n"
+      "          4          4                                            9228 1460  439\n"
+      " 1.000000+1 1.725000+1 1.500001+1 1.850000+1 1.500001+1 1.975000+09228 1460  440\n"
+      " 2.700000+1 1.605000+1                                            9228 1460  441\n";
+    auto begin = tab1.begin();
+    auto end = tab1.end();
+    auto lineNumber = 438l;
+    int MAT = 9228;
+    int MF = 1;
+    int MT = 460;
+
+    REQUIRE_NOTHROW( TabulationRecord( begin, end, lineNumber, MAT, MF, MT ) );
+  } // GIVEN
+
   GIVEN( "Out of order x-values" ){
     std::string tab1 =
       " 0.000000+0 0.000000+0         33          0          1          49228 1460  438\n"
