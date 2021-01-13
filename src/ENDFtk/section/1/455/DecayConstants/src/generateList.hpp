@@ -2,7 +2,7 @@ static std::vector< double >
 generateList( std::vector< double >&& constants,
               std::vector< double >&& abundances ) {
 
-  int nnf = constants.size();
+  auto nnf = constants.size();
   if ( nnf == 0 ) {
 
     Log::error( "The number of precursor families NNF cannot be zero" );
