@@ -6,7 +6,7 @@
  *  dependent effective temperature for a scattering atom (both principal or
  *  secondary).
  *
- *  See ENDF102, section 7.4 for more information.
+ *  See ENDF102, section 7.5 for more information.
  */
 class EffectiveTemperature : protected TabulationRecord {
 

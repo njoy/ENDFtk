@@ -10,7 +10,7 @@
  *  to function in a variant along with other scattering law representation
  *  types.
  *
- *  See ENDF102, section 7.4 for more information.
+ *  See ENDF102, section 7.5 for more information.
  */
 class AnalyticalFunctions {
 
