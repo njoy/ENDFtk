@@ -33,6 +33,22 @@ where `< ENDFtk-build-path >` is the path to the ENDFtk python dynamic library.
 
 When running python in the build directory directly, none of these steps are required.
 
+#### Troubleshooting ####
+
+##### importError cannot import name <sysconfig> #####
+
+This error sometimes comes up when running the cmake command. This appears to be related to an incomplete/corrupted python installation. It can be rectified by installing the distutils package for the python version that is being used. On a linux system, the following command should install the distutils package:
+```
+sudo apt install python3-distutils
+```
+
+##### cannot find python.h #####
+
+When compiling the python bindings, this error indicates that the python header files and static library we need to link to are not installed on your system. This appears to be related to an incomplete python installation. It can be rectified by installing the python3-dev package (when using python 3). On a linux system, the following command should install the header files:
+```
+sudo apt install python3-dev
+```
+
 ### A minimal user guide:
 
 Opening up a tape:
