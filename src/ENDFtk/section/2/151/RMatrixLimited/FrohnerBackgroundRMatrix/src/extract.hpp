@@ -2,8 +2,6 @@ static std::array< double, 5 >
 extract( ListRecord&& record ) {
 
   std::array< double, 5 > values;
-  values[0] = record.C1();
-  values[1] = record.C2();
 
   if ( record.NPL() != 3 ) {
 
@@ -13,6 +11,8 @@ extract( ListRecord&& record ) {
   }
 
   auto list = record.list();
+  values[0] = record.C1();
+  values[1] = record.C2();
   std::copy_n( ranges::begin( list ), 3, values.begin() + 2 );
 
   return values;
