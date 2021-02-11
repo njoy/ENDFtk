@@ -34,7 +34,7 @@ class Test_ENDFtk_MF2_MT151_ResonanceChannels( unittest.TestCase ) :
             self.assertAlmostEqual( 0., chunk.PJ )
             self.assertAlmostEqual( 0., chunk.parity )
             self.assertEqual( 0, chunk.KBK )
-            self.assertEqual( 0, chunk.background_rmatrix_option )
+            self.assertEqual( 0, chunk.number_background_channels )
             self.assertEqual( 0, chunk.KPS )
             self.assertEqual( 0, chunk.phase_shift_option )
             self.assertEqual( 2, chunk.NCH )

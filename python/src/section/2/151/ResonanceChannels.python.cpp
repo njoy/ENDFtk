@@ -32,10 +32,11 @@ void wrapResonanceChannels( python::module& module ) {
     python::init< double, double, std::vector< unsigned int >&&,
                   std::vector< unsigned int >&&,
                   std::vector< double >&&, std::vector< double >&&,
-                  std::vector< double >&&, std::vector< double >&& >(),
+                  std::vector< double >&&, std::vector< double >&&,
+                  int >(),
     python::arg( "spin" ), python::arg( "parity" ), python::arg( "ppi" ),
     python::arg( "l" ), python::arg( "s" ), python::arg( "b" ),
-    python::arg( "apt" ), python::arg( "ape" ),
+    python::arg( "apt" ), python::arg( "ape" ), python::arg( "kbk" ) = 0,
     "Initialise the component\n\n"
     "Arguments:\n"
     "    self      the component\n"
@@ -47,7 +48,8 @@ void wrapResonanceChannels( python::module& module ) {
     "    apt       the true scattering radius values for the calculation\n"
     "              of the penetrability and the shift factor (NCH values)\n"
     "    ape       the true scattering radius values for the calculation\n"
-    "              of the phase shift (NCH values)"
+    "              of the phase shift (NCH values)\n"
+    "    kbk       the number of channels with a background R-matrix"
   )
   .def(
 
@@ -96,13 +98,13 @@ void wrapResonanceChannels( python::module& module ) {
 
     "KBK",
     &Component::KBK,
-    "The background R-matrix option KBK"
+    "The number of channels with background R-matrix values"
   )
   .def_property_readonly(
 
-    "background_rmatrix_option",
-    &Component::backgroundRMatrixOption,
-    "The background R-matrix option KBK"
+    "number_background_channels",
+    &Component::numberBackgroundChannels,
+    "The number of channels with background R-matrix values"
   )
   .def_property_readonly(
 

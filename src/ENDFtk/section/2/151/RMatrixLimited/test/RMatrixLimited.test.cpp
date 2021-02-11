@@ -261,7 +261,7 @@ void verifyChunk( const RMatrixLimited& chunk ) {
   CHECK( 0. == Approx( channels1.PJ() ) );
   CHECK( 0. == Approx( channels1.parity() ) );
   CHECK( 0 == channels1.KBK() );
-  CHECK( 0 == channels1.backgroundRMatrixOption() );
+  CHECK( 0 == channels1.numberBackgroundChannels() );
   CHECK( 0 == channels1.KPS() );
   CHECK( 0 == channels1.phaseShiftOption() );
   CHECK( 2 == channels1.NCH() );
@@ -361,7 +361,7 @@ void verifyChunk( const RMatrixLimited& chunk ) {
   CHECK( 0. == Approx( channels2.PJ() ) );
   CHECK( 0. == Approx( channels2.parity() ) );
   CHECK( 0 == channels2.KBK() );
-  CHECK( 0 == channels2.backgroundRMatrixOption() );
+  CHECK( 0 == channels2.numberBackgroundChannels() );
   CHECK( 0 == channels2.KPS() );
   CHECK( 0 == channels2.phaseShiftOption() );
   CHECK( 2 == channels2.NCH() );

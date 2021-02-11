@@ -22,6 +22,7 @@ public:
  *                      of the penetrability and the shift factor (NCH values)
  *  @param[in] ape      the true scattering radius values for the calculation
  *                      of the phase shift (NCH values)
+ *  @param[in] kbk      the number of channels with a background R-matrix
  */
 ResonanceChannels( double spin, double parity,
                    std::vector< unsigned int >&& ppi,
@@ -29,9 +30,10 @@ ResonanceChannels( double spin, double parity,
                    std::vector< double >&& s,
                    std::vector< double >&& b,
                    std::vector< double >&& apt,
-                   std::vector< double >&& ape )
+                   std::vector< double >&& ape,
+                   int kbk = 0 )
   try : ResonanceChannels(
-          ListRecord( spin, parity, 0, 0, l.size(),
+          ListRecord( spin, parity, kbk, 0, l.size(),
                       generateList( std::move( ppi ),
                                     std::move( l ),
                                     std::move( s ),
