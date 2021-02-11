@@ -44,6 +44,7 @@
 #include "ENDFtk/tree/Material.hpp"
 #include "ENDFtk/tree/Tape.hpp"
 #include "ENDFtk/tree/makeTape.hpp"
+#include "ENDFtk/tree/fromFile.hpp"
 
 // utility functions
 #include "ENDFtk/isRedundant.hpp"
