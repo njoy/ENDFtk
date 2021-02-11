@@ -56,8 +56,17 @@ void wrapTreeSection( python::module& module, python::module& ) {
   );
 
   // wrap the tree component
-  // no __init__ since we do not want to create this object in python
+  // only copy is allowed since we do not want to create this object in python
   tree
+  .def(
+
+    python::init< const Section& >(),
+    python::arg( "section" ),
+    "Initialise the section with another section\n\n"
+    "Arguments:\n"
+    "    self       the section\n"
+    "    section    the section to be copied"
+  )
   .def_property_readonly(
 
     "MAT",
