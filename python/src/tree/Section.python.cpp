@@ -42,6 +42,7 @@ void wrapTreeSection( python::module& module, python::module& ) {
   using MF7MT2 = njoy::ENDFtk::section::Type< 7, 2 >;
   using MF7MT4 = njoy::ENDFtk::section::Type< 7, 4 >;
   using MF8MT457 = njoy::ENDFtk::section::Type< 8, 457 >;
+  using MF9MTxxx = njoy::ENDFtk::section::Type< 9 >;
   using MF12MTxxx = njoy::ENDFtk::section::Type< 12 >;
   using MF13MTxxx = njoy::ENDFtk::section::Type< 13 >;
 
@@ -112,6 +113,7 @@ void wrapTreeSection( python::module& module, python::module& ) {
                                                 MF3MTxxx, MF4MTxxx, MF5MTxxx,
                                                 MF6MTxxx, MF7MT2, MF7MT4,
                                                 MF8MT457,
+                                                MF9MTxxx,
                                                 MF12MTxxx, MF13MTxxx > {
       int mf = self.fileNumber();
       int mt = self.sectionNumber();
@@ -181,6 +183,7 @@ void wrapTreeSection( python::module& module, python::module& ) {
                            " is not an official ENDF section" );
           }
         }
+        case 9 : return self.parse< 9 >();
         case 12 : return self.parse< 12 >();
         case 13 : return self.parse< 13 >();
         default: throw std::runtime_error(

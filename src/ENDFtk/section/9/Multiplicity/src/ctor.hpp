@@ -3,7 +3,7 @@
  *
  *  @param[in] qm               the mass difference Q value
  *  @param[in] qi               the reaction Q value
- *  @param[in] za               the za identifier of the product
+ *  @param[in] izap             the za identifier of the product
  *  @param[in] lfs              the excited level number
  *  @param[in] boundaries       the interpolation range boundaries
  *  @param[in] interpolants     the interpolation types for each range

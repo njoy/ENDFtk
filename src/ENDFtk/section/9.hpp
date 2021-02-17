@@ -60,7 +60,7 @@ namespace section{
     int numberExcitedStates() const { return this->NS(); }
 
     /**
-     *  @brief Return the partial multiplicities
+     *  @brief Return the reaction product multiplicities
      */
     auto multiplicities() const {
 

@@ -5,9 +5,6 @@
  *  @param[in] zaid             the ZA  identifier
  *  @param[in] awr              the atomic mass ratio
  *  @param[in] lis              the target's excited level
- *  @param[in] boundaries       the interpolation range boundaries
- *  @param[in] interpolants     the interpolation types for each range
- *  @param[in] energies         the energy values
  *  @param[in] multiplicities   the multiplicities
  */
 Type( int mt, double zaid, double awr, long lis,

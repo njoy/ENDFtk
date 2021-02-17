@@ -1,6 +1,7 @@
 /**
  *  @class
- *  @brief The multiplicities for the production of a specific state
+ *  @brief The multiplicities for a specific excited state of the reaction
+ *         product
  *
  *  See ENDF102, section 9.2 for more information.
  */
@@ -46,12 +47,12 @@ public:
   int productIdentifier() const { return this->IZAP(); }
 
   /**
-   *  @brief Return the excited level number
+   *  @brief Return the excited level number of the product
    */
   int LFS() const { return TabulationRecord::L2(); }
 
   /**
-   *  @brief Return the complex break up flag
+  *  @brief Return the excited level number of the product
    */
   int excitedLevel() const { return this->LFS(); }
 
