@@ -33,7 +33,7 @@ SCENARIO( "section::Type< 9 >" ) {
         Multiplicity( 5.537755e+6, 5.537755e+6, 95242, 0,
                       { 2 }, { 3 }, { 1e-5, 3e+7 }, { 0.9, 0.52 } ),
         Multiplicity( 5.537755e+6, 5.489125e+6, 95242, 2,
-                      { 2 }, { 3 }, { 1e-5, 3e+7 }, { 0.1, 0.48 } ), };
+                      { 2 }, { 3 }, { 1e-5, 3e+7 }, { 0.1, 0.48 } ) };
 
       section::Type< 9 > chunk( mt, zaid, awr, lis,
                                 std::move( multiplicities ) );
