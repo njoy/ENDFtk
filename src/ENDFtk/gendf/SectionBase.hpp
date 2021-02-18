@@ -5,6 +5,8 @@
 
 // other includes
 #include "ENDFtk/section/Base.hpp"
+#include "ENDFtk/gendf/DataRecord.hpp"
+#include "range/v3/view.hpp"
 
 namespace njoy {
 namespace ENDFtk {
@@ -17,12 +19,17 @@ namespace gendf {
     int num_dilutions_;
     int breakup_;
     int num_groups_;
+    std::map< unsigned int, DataRecord > records_;
+
 
   protected:
 
     /* constructor */
+    #include "ENDFtk/gendf/SectionBase/src/readRecords.hpp"
+    #include "ENDFtk/gendf/SectionBase/src/mapRecords.hpp"
+    #include "ENDFtk/gendf/SectionBase/src/verifyRecords.hpp"
     #include "ENDFtk/gendf/SectionBase/src/ctor.hpp"
-
+    
   public:
 
     /* get methods */
@@ -30,42 +37,42 @@ namespace gendf {
     /**
      *  @brief The number of Legendre moments
      */
-    int NL() const { return this->num_legendre_; }
+    unsigned int NL() const { return this->num_legendre_; }
 
     /**
      *  @brief The number of Legendre moments
      */
-    int numLegendre() const { return this->NL(); }
+    unsigned int numLegendre() const { return this->NL(); }
 
     /**
      *  @brief The Legendre order
      */
-    int legendreOrder() const { return this->NL()-1; }
+    unsigned int legendreOrder() const { return this->NL()-1; }
 
     /**
      *  @brief The number of dilutions
      */
-    int NZ() const { return this->num_dilutions_; }
+    unsigned int NZ() const { return this->num_dilutions_; }
 
     /**
      *  @brief The number of dilutions
      */
-    int numDilutions() const { return this->NZ(); }
+    unsigned int numDilutions() const { return this->NZ(); }
 
     /**
      *  @brief The number of dilutions
      */
-    int numSigmaZeros() const { return this->NZ(); }
+    unsigned int numSigmaZeros() const { return this->NZ(); }
 
     /**
      *  @brief The number of groups
      */
-    int NGN() const { return this->num_groups_; }
+    unsigned int NGN() const { return this->num_groups_; }
 
     /**
      *  @brief The number of groups
      */
-    int numGroups() const { return this->NGN(); }
+    unsigned int numGroups() const { return this->NGN(); }
 
     /**
      *  @brief The complex breakup flag
@@ -76,6 +83,20 @@ namespace gendf {
      *  @brief The complex breakup flag
      */
     int complexBreakUp() const { return this->LRFLAG(); }
+
+
+    /* convenience functions for accessing data */
+
+    // this gets you access to the records as if they were stored in a vector
+    auto records() const { return ranges::view::values( this->records_ ); }
+
+    // this gets you access to the a record by group index
+    auto record( unsigned int group ) const { return this->records_.at( group ); }
+
+    // this verifies if the group is present
+    bool hasRecord( unsigned int group ) const {
+      return this->records_ .find( group ) != this->records_ .end();
+    }
 
 
   };
