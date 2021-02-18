@@ -78,7 +78,7 @@ std::string chunk(){
 }
 
 void verifySection( TestBase section ) {
-  
+
   // header information
   REQUIRE( 1 == section.MT() );
   REQUIRE( 1 == section.sectionNumber() );

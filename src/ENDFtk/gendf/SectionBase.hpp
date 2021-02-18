@@ -1,5 +1,5 @@
-#ifndef NJOY_ENDFTK_GENDF_SECTION
-#define NJOY_ENDFTK_GENDF_SECTION
+#ifndef NJOY_ENDFTK_GENDF_SECTIONBASE
+#define NJOY_ENDFTK_GENDF_SECTIONBASE
 
 // system includes
 
@@ -12,7 +12,9 @@ namespace njoy {
 namespace ENDFtk {
 namespace gendf {
 
-  class SectionBase : public section::Base {
+  class SectionBase : protected section::Base {
+
+  protected:
 
     /* fields */
     int num_legendre_;
@@ -20,9 +22,6 @@ namespace gendf {
     int breakup_;
     int num_groups_;
     std::map< unsigned int, DataRecord > records_;
-
-
-  protected:
 
     /* constructor */
     #include "ENDFtk/gendf/SectionBase/src/readRecords.hpp"
@@ -105,9 +104,16 @@ namespace gendf {
      *  @param[in] group    the group index
      */
     bool hasRecord( unsigned int group ) const {
-      return this->records_ .find( group ) != this->records_ .end();
+      return this->records_.find( group ) != this->records_ .end();
     }
 
+    #include "ENDFtk/gendf/SectionBase/src/checkBounds.hpp"
+
+    using Base::MT;
+    using Base::sectionNumber;
+    using Base::ZA;
+    using Base::AWR;
+    using Base::atomicWeightRatio;
 
   };
 

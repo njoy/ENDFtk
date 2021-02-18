@@ -5,6 +5,7 @@
 
 // other includes
 #include "ENDFtk/ListRecord.hpp"
+#include "range/v3/view.hpp"
 
 namespace njoy {
 namespace ENDFtk {
@@ -98,6 +99,19 @@ namespace gendf {
      *  @brief The group index
      */
     long groupIndex() const { return this->IG(); }
+
+    /**
+     *  @brief A block of data from the record
+     *
+     *  @param[in] position   the requested block
+     */
+    auto data( unsigned int block ) const {
+
+      std::size_t size = this->NW() / this->NG2();
+      return this->list() |
+        ranges::view::drop_exactly( block * size ) |
+        ranges::view::take_exactly( size );
+    }
 
     using ListRecord::list;
 

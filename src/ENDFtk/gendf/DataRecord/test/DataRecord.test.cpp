@@ -37,7 +37,7 @@ SCENARIO( "DataRecord tests") {
 
     THEN( "the record can be constructed" ) {
 
-      std::vector<double> data = {2.582647e-3, 7.259815};
+      std::vector<double> data = {1.0, 2.0, 3.0, 4.0};
       DataRecord record( 293.6, 2, 1, 5, std::move(data) );
 
       AND_THEN( "we can get the data from it" ) {
@@ -52,8 +52,8 @@ SCENARIO( "DataRecord tests") {
 std::string chunk(){
 
   return
-    " 2.936000+2 0.000000+0          2          1          2          59228 3  1   10\n"
-    " 2.582647-3 7.259815+0                                            9228 3  1   11\n";
+    " 2.936000+2 0.000000+0          2          1          4          59228 3  1   10\n"
+    " 1.000000+0 2.000000+0 3.000000+0 4.000000+0                      9228 3  1   11\n";
 
 }
 
@@ -64,11 +64,13 @@ void verifyRecord( DataRecord record ) {
   REQUIRE( 2 == record.numSecondaryPositions() );
   REQUIRE( 1 == record.IG2LO() );
   REQUIRE( 1 == record.lowestPosition() );
-  REQUIRE( 2 == record.NW() );
-  REQUIRE( 2 == record.numWords() );
+  REQUIRE( 4 == record.NW() );
+  REQUIRE( 4 == record.numWords() );
   REQUIRE( 5 == record.IG() );
   REQUIRE( 5 == record.groupIndex() );
-  REQUIRE( 2.582647e-3 == Approx( record.list()[0] ) );
-  REQUIRE( 7.259815 == Approx( record.list()[1] ) );
+  REQUIRE( 1.0 == Approx( record.list()[0] ) );
+  REQUIRE( 2.0 == Approx( record.list()[1] ) );
+  REQUIRE( 2.0 == Approx( record.data(0)[1] ) );
+  REQUIRE( 4.0 == Approx( record.data(1)[1] ) );
 
 }
