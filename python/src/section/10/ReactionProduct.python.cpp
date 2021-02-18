@@ -12,11 +12,11 @@ namespace python = pybind11;
 
 namespace mf10 {
 
-void wrapProductionCrossSection( python::module& module, python::module& ) {
+void wrapReactionProduct( python::module& module, python::module& ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 10 >;
-  using Component = Section::ProductionCrossSection;
+  using Component = Section::ReactionProduct;
 
   // wrap views created by this section
 
@@ -24,7 +24,7 @@ void wrapProductionCrossSection( python::module& module, python::module& ) {
   python::class_< Component > component(
 
     module,
-    "ProductionCrossSection",
+    "ReactionProduct",
     "MF10 section - production cross sections for a specific excited state of "
     "               the reaction product"
   );

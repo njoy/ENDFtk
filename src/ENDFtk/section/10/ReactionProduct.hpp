@@ -1,18 +1,17 @@
 /**
  *  @class
- *  @brief The production cross section for a specific excited state of the
- *         reaction product
+ *  @brief The reaction product data : Q values and multiplicities
  *
  *  See ENDF102, section 10.2 for more information.
  */
-class ProductionCrossSection : protected TabulationRecord {
+class ReactionProduct : protected TabulationRecord {
 
   /* auxiliary functions */
 
 public:
 
   /* constructor */
-  #include "ENDFtk/section/10/ProductionCrossSection/src/ctor.hpp"
+  #include "ENDFtk/section/10/ReactionProduct/src/ctor.hpp"
 
   /* get methods */
 

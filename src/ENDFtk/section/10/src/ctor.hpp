@@ -5,11 +5,11 @@
  *  @param[in] zaid   the ZA  identifier
  *  @param[in] awr    the atomic mass ratio
  *  @param[in] lis    the target's excited level
- *  @param[in] xs     the production cross sections for every state
+ *  @param[in] products   the reaction products (at least 1)
  */
 Type( int mt, double zaid, double awr, long lis,
-      std::vector< ProductionCrossSection >&& xs ) :
-  Base( zaid, awr, mt ), lis_( lis ), states_( std::move( xs ) ) {}
+      std::vector< ReactionProduct >&& products ) :
+  Base( zaid, awr, mt ), lis_( lis ), products_( std::move( products ) ) {}
 
 /**
  *  @brief Constructor (from a buffer)
@@ -29,7 +29,7 @@ Type ( HEAD& head,
        long& lineNumber,
        int MAT )
   try: Type( head.MT(), head.ZA(), head.AWR(), head.L1(),
-             readSequence< ProductionCrossSection >( begin, end, lineNumber,
+             readSequence< ReactionProduct >( begin, end, lineNumber,
                                                      MAT, 10, head.MT(),
                                                      head.N1() ) ) {
 

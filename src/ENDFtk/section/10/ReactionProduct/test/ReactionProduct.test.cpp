@@ -7,15 +7,15 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using ProductionCrossSection = section::Type< 10 >::ProductionCrossSection;
+using ReactionProduct = section::Type< 10 >::ReactionProduct;
 
 std::string chunk();
-void verifyChunk( const ProductionCrossSection& );
+void verifyChunk( const ReactionProduct& );
 std::string invalidChunk();
 
-SCENARIO( "ProductionCrossSection" ) {
+SCENARIO( "ReactionProduct" ) {
 
-  GIVEN( "valid data for a ProductionCrossSection" ) {
+  GIVEN( "valid data for a ReactionProduct" ) {
 
     std::string string = chunk();
 
@@ -30,13 +30,13 @@ SCENARIO( "ProductionCrossSection" ) {
       std::vector< double > x = { 1., 3. };
       std::vector< double > y = { 2., 4. };
 
-      ProductionCrossSection chunk( qm, qi, za, lfs,
-                                    std::move( boundaries ),
-                                    std::move( interpolants ),
-                                    std::move( x ),
-                                    std::move( y ) );
+      ReactionProduct chunk( qm, qi, za, lfs,
+                             std::move( boundaries ),
+                             std::move( interpolants ),
+                             std::move( x ),
+                             std::move( y ) );
 
-      THEN( "a ProductionCrossSection can be constructed and members can be "
+      THEN( "a ReactionProduct can be constructed and members can be "
             "tested" ) {
 
         verifyChunk( chunk );
@@ -58,9 +58,9 @@ SCENARIO( "ProductionCrossSection" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      ProductionCrossSection chunk( begin, end, lineNumber, 9534, 10, 102 );
+      ReactionProduct chunk( begin, end, lineNumber, 9534, 10, 102 );
 
-      THEN( "a ProductionCrossSection can be constructed and members can be "
+      THEN( "a ReactionProduct can be constructed and members can be "
             "tested" ) {
 
         verifyChunk( chunk );
@@ -77,7 +77,7 @@ SCENARIO( "ProductionCrossSection" ) {
     } // WHEN
   } // GIVEN
 
-  GIVEN( "invalid data for a ProductionCrossSection" ) {
+  GIVEN( "invalid data for a ReactionProduct" ) {
 
     WHEN( "inconsistent data is used" ) {
 
@@ -94,11 +94,11 @@ SCENARIO( "ProductionCrossSection" ) {
 
       THEN( "an exception is thrown" ) {
 
-        CHECK_THROWS( ProductionCrossSection( qm, qi, za, lfs,
-                                              std::move( boundaries ),
-                                              std::move( wrongInterpolants ),
-                                              std::move( x ),
-                                              std::move( y ) ) );
+        CHECK_THROWS( ReactionProduct( qm, qi, za, lfs,
+                                       std::move( boundaries ),
+                                       std::move( wrongInterpolants ),
+                                       std::move( x ),
+                                       std::move( y ) ) );
       } // THEN
     } // WHEN
 
@@ -113,7 +113,7 @@ SCENARIO( "ProductionCrossSection" ) {
 
       THEN( "an exception is thrown" ) {
 
-        CHECK_THROWS( ProductionCrossSection( begin, end, lineNumber,
+        CHECK_THROWS( ReactionProduct( begin, end, lineNumber,
                                               9534, 10, 102 ) );
       } // THEN
     } // WHEN
@@ -127,7 +127,7 @@ std::string chunk() {
   " 1.000000+0 2.000000+0 3.000000+0 4.000000+0                      953410102     \n";
 }
 
-void verifyChunk( const ProductionCrossSection& chunk ) {
+void verifyChunk( const ReactionProduct& chunk ) {
 
   CHECK( 2.224648e+6 == Approx( chunk.QM() ) );
   CHECK( 2.224648e+6 == Approx( chunk.massDifferenceQValue() ) );

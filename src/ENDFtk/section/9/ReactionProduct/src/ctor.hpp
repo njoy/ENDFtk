@@ -22,8 +22,8 @@ ReactionProduct( double qm, double qi, long izap, long lfs,
                           std::move( multiplicities ) ) {}
   catch ( std::exception& e ) {
 
-    Log::info( "Encountered error while constructing a radioactive nuclide "
-               "production multiplicity" );
+    Log::info( "Encountered error while constructing a radioactive reaction "
+               "product" );
     throw;
   }
 
@@ -45,7 +45,7 @@ ReactionProduct( Iterator& begin, const Iterator& end,
   try : TabulationRecord( begin, end, lineNumber, MAT, MF, MT ) {}
   catch ( std::exception& e ) {
 
-    Log::info( "Encountered error while constructing a radioactive nuclide "
-               "production multiplicity" );
+    Log::info( "Encountered error while constructing a radioactive reaction "
+               "product" );
     throw;
   }

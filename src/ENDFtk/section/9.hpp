@@ -40,12 +40,12 @@ namespace section{
     /* methods */
 
     /**
-     *  @brief Return the excited level number
+     *  @brief Return the excited level number of the target
      */
     int LIS() const { return this->lis_; }
 
     /**
-     *  @brief Return the excited level number
+     *  @brief Return the excited level number of the target
      */
     int excitedLevel() const { return this->LIS(); }
 
@@ -57,7 +57,7 @@ namespace section{
     /**
      *  @brief Return the number of excited states for the reaction product
      */
-    int numberExcitedStates() const { return this->NS(); }
+    int numberReactionProducts() const { return this->NS(); }
 
     /**
      *  @brief Return the reaction product data

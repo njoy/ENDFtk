@@ -10,11 +10,11 @@
  *  @param[in] energies         the energy values
  *  @param[in] xs               the cross section values
  */
-ProductionCrossSection( double qm, double qi, long izap, long lfs,
-                        std::vector< long >&& boundaries,
-                        std::vector< long >&& interpolants,
-                        std::vector< double >&& energies,
-                        std::vector< double >&& xs )
+ReactionProduct( double qm, double qi, long izap, long lfs,
+                 std::vector< long >&& boundaries,
+                 std::vector< long >&& interpolants,
+                 std::vector< double >&& energies,
+                 std::vector< double >&& xs )
   try : TabulationRecord( qm, qi, izap, lfs,
                           std::move( boundaries ),
                           std::move( interpolants ),
@@ -22,8 +22,8 @@ ProductionCrossSection( double qm, double qi, long izap, long lfs,
                           std::move( xs ) ) {}
   catch ( std::exception& e ) {
 
-    Log::info( "Encountered error while constructing a radioactive nuclide "
-               "production cross section" );
+    Log::info( "Encountered error while constructing a radioactive reaction "
+               "product" );
     throw;
   }
 
@@ -40,12 +40,12 @@ ProductionCrossSection( double qm, double qi, long izap, long lfs,
  *  @param[in] MT           the expected MT number
  */
 template< typename Iterator >
-ProductionCrossSection( Iterator& begin, const Iterator& end,
-                        long& lineNumber, int MAT, int MF, int MT )
+ReactionProduct( Iterator& begin, const Iterator& end,
+                 long& lineNumber, int MAT, int MF, int MT )
   try : TabulationRecord( begin, end, lineNumber, MAT, MF, MT ) {}
   catch ( std::exception& e ) {
 
-    Log::info( "Encountered error while constructing a radioactive nuclide "
-               "production cross section" );
+    Log::info( "Encountered error while constructing a radioactive reaction "
+               "product" );
     throw;
   }

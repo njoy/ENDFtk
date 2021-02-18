@@ -47,27 +47,39 @@ void wrapSection_9( python::module& module, python::module& viewmodule ) {
     python::init< int, double, double, long,
                   std::vector< ReactionProduct >&& >(),
     python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
-    python::arg( "lis" ), python::arg( "multiplicities" ),
+    python::arg( "lis" ), python::arg( "products" ),
     "Initialise the section\n\n"
     "Arguments:\n"
-    "    self             the section\n"
-    "    mt               the MT number\n"
-    "    zaid             the ZA  identifier\n"
-    "    awr              the atomic mass ratio\n"
-    "    lis              the target's excited level\n"
-    "    multiplicities   the multiplicities for every state"
+    "    self       the section\n"
+    "    mt         the MT number\n"
+    "    zaid       the ZA  identifier\n"
+    "    awr        the atomic mass ratio\n"
+    "    lis        the target's excited level\n"
+    "    products   the multiplicities for every state"
   )
   .def_property_readonly(
 
     "LIS",
     &Section::LIS,
-    "The excited level number"
+    "The excited level number of the target"
   )
   .def_property_readonly(
 
     "excited_level",
     &Section::excitedLevel,
-    "The excited level number"
+    "The excited level number of the target"
+  )
+  .def_property_readonly(
+
+    "NS",
+    &Section::NS,
+    "The number of excited states for the reaction product"
+  )
+  .def_property_readonly(
+
+    "number_reaction_products",
+    &Section::numberReactionProducts,
+    "The number of excited states for the reaction product"
   )
   .def_property_readonly(
 

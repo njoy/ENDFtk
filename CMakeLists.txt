@@ -192,7 +192,7 @@ pybind11_add_module( ENDFtk.python
     python/src/section/9.python.cpp
     python/src/section/9/ReactionProduct.python.cpp
     python/src/section/10.python.cpp
-    python/src/section/10/ProductionCrossSection.python.cpp
+    python/src/section/10/ReactionProduct.python.cpp
     python/src/section/12.python.cpp
     python/src/section/12/TotalMultiplicity.python.cpp
     python/src/section/12/PartialMultiplicity.python.cpp

@@ -8,7 +8,7 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using ProductionCrossSection = section::Type< 10 >::ProductionCrossSection;
+using ReactionProduct = section::Type< 10 >::ReactionProduct;
 
 std::string chunk();
 void verifyChunk( const section::Type< 10 >& );
@@ -28,15 +28,15 @@ SCENARIO( "section::Type< 10 >" ) {
       int lis = 0;
       double awr = 2.389860e+2;
 
-      std::vector< ProductionCrossSection > xs = {
+      std::vector< ReactionProduct > products = {
 
-        ProductionCrossSection( 5.537755e+6, 5.537755e+6, 95242, 0,
-                                { 2 }, { 3 }, { 1e-5, 3e+7 }, { 0.9, 0.52 } ),
-        ProductionCrossSection( 5.537755e+6, 5.489125e+6, 95242, 2,
-                                { 2 }, { 3 }, { 1e-5, 3e+7 }, { 0.1, 0.48 } ) };
+        ReactionProduct( 5.537755e+6, 5.537755e+6, 95242, 0,
+                         { 2 }, { 3 }, { 1e-5, 3e+7 }, { 0.9, 0.52 } ),
+        ReactionProduct( 5.537755e+6, 5.489125e+6, 95242, 2,
+                         { 2 }, { 3 }, { 1e-5, 3e+7 }, { 0.1, 0.48 } ) };
 
       section::Type< 10 > chunk( mt, zaid, awr, lis,
-                                 std::move( xs ) );
+                                 std::move( products ) );
 
       THEN( "a section::Type< 10 > can be constructed and "
             "members can be tested" ) {
@@ -167,10 +167,12 @@ void verifyChunk( const section::Type< 10 >& chunk ) {
   CHECK( 2.389860e+2 == Approx( chunk.atomicWeightRatio() ) );
   CHECK( 0 == chunk.LIS() );
   CHECK( 0 == chunk.excitedLevel() );
+  CHECK( 2 == chunk.NS() );
+  CHECK( 2 == chunk.numberReactionProducts() );
 
-  CHECK( 2 == chunk.products().size() );
+  CHECK( 2 == chunk.reactionProducts().size() );
 
-  auto product = chunk.products()[0];
+  auto product = chunk.reactionProducts()[0];
   CHECK( 5.537755e+6 == Approx( product.QM() ) );
   CHECK( 5.537755e+6 == Approx( product.massDifferenceQValue() ) );
   CHECK( 5.537755e+6 == Approx( product.QI() ) );
@@ -198,7 +200,7 @@ void verifyChunk( const section::Type< 10 >& chunk ) {
   CHECK( 0.9 == Approx( product.crossSections()[0] ) );
   CHECK( 0.52 == Approx( product.crossSections()[1] ) );
 
-  product = chunk.products()[1];
+  product = chunk.reactionProducts()[1];
   CHECK( 5.537755e+6 == Approx( product.QM() ) );
   CHECK( 5.537755e+6 == Approx( product.massDifferenceQValue() ) );
   CHECK( 5.489125e+6 == Approx( product.QI() ) );

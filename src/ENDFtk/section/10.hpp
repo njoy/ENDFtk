@@ -24,13 +24,13 @@ namespace section{
 
   public:
 
-    #include "ENDFtk/section/10/ProductionCrossSection.hpp"
+    #include "ENDFtk/section/10/ReactionProduct.hpp"
 
   private:
 
     /* fields */
     int lis_;
-    std::vector< ProductionCrossSection > states_;
+    std::vector< ReactionProduct > products_;
 
   public:
 
@@ -40,31 +40,31 @@ namespace section{
     /* methods */
 
     /**
-     *  @brief Return the excited level number
+     *  @brief Return the excited level number of the target
      */
     int LIS() const { return this->lis_; }
 
     /**
-     *  @brief Return the excited level number
+     *  @brief Return the excited level number of the target
      */
     int excitedLevel() const { return this->LIS(); }
 
     /**
      *  @brief Return the number of excited states for the reaction product
      */
-    int NS() const { return this->states_.size(); }
+    int NS() const { return this->products_.size(); }
 
     /**
      *  @brief Return the number of excited states for the reaction product
      */
-    int numberExcitedStates() const { return this->NS(); }
+    int numberReactionProducts() const { return this->NS(); }
 
     /**
      *  @brief Return the reaction product data
      */
-    auto products() const {
+    auto reactionProducts() const {
 
-      return ranges::view::all( this->states_ );
+      return ranges::view::all( this->products_ );
     }
 
     #include "ENDFtk/section/10/src/NC.hpp"

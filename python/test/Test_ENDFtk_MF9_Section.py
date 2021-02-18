@@ -37,6 +37,8 @@ class Test_ENDFtk_MF9_Section( unittest.TestCase ) :
             self.assertAlmostEqual( 2.389860e+2, chunk.atomic_weight_ratio )
             self.assertEqual( 0, chunk.LIS )
             self.assertEqual( 0, chunk.excited_level )
+            self.assertEqual( 2, chunk.NS )
+            self.assertEqual( 2, chunk.number_reaction_products )
 
             self.assertEqual( 2, len( chunk.reaction_products ) )
 
@@ -104,7 +106,7 @@ class Test_ENDFtk_MF9_Section( unittest.TestCase ) :
 
         # the data is given explicitly
         chunk = Section( mt = 102, zaid = 95241, lis = 0, awr = 2.389860e+2,
-                         multiplicities = [
+                         products = [
                              ReactionProduct( 5.537755e+6, 5.537755e+6, 95242, 0,
                                               [ 2 ], [ 3 ], [ 1e-5, 3e+7 ], [ 0.9, 0.52 ] ),
                              ReactionProduct( 5.537755e+6, 5.489125e+6, 95242, 2,

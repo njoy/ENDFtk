@@ -5,7 +5,7 @@ import unittest
 
 # local imports
 from ENDFtk.MF10 import Section
-from ENDFtk.MF10 import ProductionCrossSection
+from ENDFtk.MF10 import ReactionProduct
 from ENDFtk.tree import Tape
 
 class Test_ENDFtk_MF10_Section( unittest.TestCase ) :
@@ -37,10 +37,12 @@ class Test_ENDFtk_MF10_Section( unittest.TestCase ) :
             self.assertAlmostEqual( 2.389860e+2, chunk.atomic_weight_ratio )
             self.assertEqual( 0, chunk.LIS )
             self.assertEqual( 0, chunk.excited_level )
+            self.assertEqual( 2, chunk.NS )
+            self.assertEqual( 2, chunk.number_reaction_products )
 
-            self.assertEqual( 2, len( chunk.products ) )
+            self.assertEqual( 2, len( chunk.reaction_products ) )
 
-            product = chunk.products[0]
+            product = chunk.reaction_products[0]
             self.assertAlmostEqual( 5.537755e+6, product.QM )
             self.assertAlmostEqual( 5.537755e+6, product.mass_difference_qvalue )
             self.assertAlmostEqual( 5.537755e+6, product.QI )
@@ -68,7 +70,7 @@ class Test_ENDFtk_MF10_Section( unittest.TestCase ) :
             self.assertAlmostEqual( 0.9, product.cross_sections[0] )
             self.assertAlmostEqual( 0.52, product.cross_sections[1] )
 
-            product = chunk.products[1]
+            product = chunk.reaction_products[1]
             self.assertAlmostEqual( 5.537755e+6, product.QM )
             self.assertAlmostEqual( 5.537755e+6, product.mass_difference_qvalue )
             self.assertAlmostEqual( 5.489125e+6, product.QI )
@@ -104,11 +106,11 @@ class Test_ENDFtk_MF10_Section( unittest.TestCase ) :
 
         # the data is given explicitly
         chunk = Section( mt = 102, zaid = 95241, lis = 0, awr = 2.389860e+2,
-                         xs = [
-                             ProductionCrossSection( 5.537755e+6, 5.537755e+6, 95242, 0,
-                                                     [ 2 ], [ 3 ], [ 1e-5, 3e+7 ], [ 0.9, 0.52 ] ),
-                             ProductionCrossSection( 5.537755e+6, 5.489125e+6, 95242, 2,
-                                                     [ 2 ], [ 3 ], [ 1e-5, 3e+7 ], [ 0.1, 0.48 ] ) ] )
+                         products =
+                              [ ReactionProduct( 5.537755e+6, 5.537755e+6, 95242, 0,
+                                                 [ 2 ], [ 3 ], [ 1e-5, 3e+7 ], [ 0.9, 0.52 ] ),
+                                ReactionProduct( 5.537755e+6, 5.489125e+6, 95242, 2,
+                                                 [ 2 ], [ 3 ], [ 1e-5, 3e+7 ], [ 0.1, 0.48 ] ) ] )
 
         verify_chunk( self, chunk )
 

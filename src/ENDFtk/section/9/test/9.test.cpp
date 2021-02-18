@@ -167,6 +167,8 @@ void verifyChunk( const section::Type< 9 >& chunk ) {
   CHECK( 2.389860e+2 == Approx( chunk.atomicWeightRatio() ) );
   CHECK( 0 == chunk.LIS() );
   CHECK( 0 == chunk.excitedLevel() );
+  CHECK( 2 == chunk.NS() );
+  CHECK( 2 == chunk.numberReactionProducts() );
 
   CHECK( 2 == chunk.reactionProducts().size() );
 

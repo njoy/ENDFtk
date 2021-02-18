@@ -13,8 +13,8 @@ void print( OutputIterator& it, int MAT, int MF ) const {
   int MT = this->MT();
   ControlRecord( this->ZA(), this->AWR(),
                  this->LIS(), 0,
-                 this->states_.size(), 0 ).print( it, MAT, MF, MT );
-  for ( const auto& entry : this->states_ ) {
+                 this->products_.size(), 0 ).print( it, MAT, MF, MT );
+  for ( const auto& entry : this->products_ ) {
 
     entry.print( it, MAT, MF, MT );
   }

@@ -1,15 +1,15 @@
 /**
  *  @brief Constructor
  *
- *  @param[in] mt               the MT number
- *  @param[in] zaid             the ZA  identifier
- *  @param[in] awr              the atomic mass ratio
- *  @param[in] lis              the target's excited level
- *  @param[in] multiplicities   the multiplicities
+ *  @param[in] mt         the MT number
+ *  @param[in] zaid       the ZA  identifier
+ *  @param[in] awr        the atomic mass ratio
+ *  @param[in] lis        the target's excited level
+ *  @param[in] products   the reaction products (at least 1)
  */
 Type( int mt, double zaid, double awr, long lis,
-      std::vector< ReactionProduct >&& multiplicities ) :
-  Base( zaid, awr, mt ), lis_( lis ), products_( std::move( multiplicities ) ) {}
+      std::vector< ReactionProduct >&& products ) :
+  Base( zaid, awr, mt ), lis_( lis ), products_( std::move( products ) ) {}
 
 /**
  *  @brief Constructor (from a buffer)
