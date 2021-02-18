@@ -24,13 +24,13 @@ namespace section{
 
   public:
 
-    #include "ENDFtk/section/9/Multiplicity.hpp"
+    #include "ENDFtk/section/9/ReactionProduct.hpp"
 
   private:
 
     /* fields */
     int lis_;
-    std::vector< Multiplicity > states_;
+    std::vector< ReactionProduct > products_;
 
   public:
 
@@ -52,7 +52,7 @@ namespace section{
     /**
      *  @brief Return the number of excited states for the reaction product
      */
-    int NS() const { return this->states_.size(); }
+    int NS() const { return this->products_.size(); }
 
     /**
      *  @brief Return the number of excited states for the reaction product
@@ -62,9 +62,9 @@ namespace section{
     /**
      *  @brief Return the reaction product data
      */
-    auto products() const {
+    auto reactionProducts() const {
 
-      return ranges::view::all( this->states_ );
+      return ranges::view::all( this->products_ );
     }
 
     #include "ENDFtk/section/9/src/NC.hpp"

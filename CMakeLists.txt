@@ -190,7 +190,7 @@ pybind11_add_module( ENDFtk.python
     python/src/section/8/457/ContinuousSpectrum.python.cpp
     python/src/section/8/457/DecaySpectrum.python.cpp
     python/src/section/9.python.cpp
-    python/src/section/9/Multiplicity.python.cpp
+    python/src/section/9/ReactionProduct.python.cpp
     python/src/section/10.python.cpp
     python/src/section/10/ProductionCrossSection.python.cpp
     python/src/section/12.python.cpp

@@ -8,8 +8,8 @@
  *  @param[in] multiplicities   the multiplicities
  */
 Type( int mt, double zaid, double awr, long lis,
-      std::vector< Multiplicity >&& multiplicities ) :
-  Base( zaid, awr, mt ), lis_( lis ), states_( std::move( multiplicities ) ) {}
+      std::vector< ReactionProduct >&& multiplicities ) :
+  Base( zaid, awr, mt ), lis_( lis ), products_( std::move( multiplicities ) ) {}
 
 /**
  *  @brief Constructor (from a buffer)
@@ -29,8 +29,8 @@ Type ( HEAD& head,
        long& lineNumber,
        int MAT )
   try: Type( head.MT(), head.ZA(), head.AWR(), head.L1(),
-             readSequence< Multiplicity >( begin, end, lineNumber,
-                                           MAT, 9, head.MT(), head.N1() ) ) {
+             readSequence< ReactionProduct >( begin, end, lineNumber,
+                                              MAT, 9, head.MT(), head.N1() ) ) {
 
     readSEND(begin, end, lineNumber, MAT, 9 );
   }

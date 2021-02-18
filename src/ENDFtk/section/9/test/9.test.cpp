@@ -8,7 +8,7 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using Multiplicity = section::Type< 9 >::Multiplicity;
+using ReactionProduct = section::Type< 9 >::ReactionProduct;
 
 std::string chunk();
 void verifyChunk( const section::Type< 9 >& );
@@ -28,12 +28,12 @@ SCENARIO( "section::Type< 9 >" ) {
       int lis = 0;
       double awr = 2.389860e+2;
 
-      std::vector< Multiplicity > multiplicities = {
+      std::vector< ReactionProduct > multiplicities = {
 
-        Multiplicity( 5.537755e+6, 5.537755e+6, 95242, 0,
-                      { 2 }, { 3 }, { 1e-5, 3e+7 }, { 0.9, 0.52 } ),
-        Multiplicity( 5.537755e+6, 5.489125e+6, 95242, 2,
-                      { 2 }, { 3 }, { 1e-5, 3e+7 }, { 0.1, 0.48 } ) };
+        ReactionProduct( 5.537755e+6, 5.537755e+6, 95242, 0,
+                         { 2 }, { 3 }, { 1e-5, 3e+7 }, { 0.9, 0.52 } ),
+        ReactionProduct( 5.537755e+6, 5.489125e+6, 95242, 2,
+                         { 2 }, { 3 }, { 1e-5, 3e+7 }, { 0.1, 0.48 } ) };
 
       section::Type< 9 > chunk( mt, zaid, awr, lis,
                                 std::move( multiplicities ) );
@@ -168,9 +168,9 @@ void verifyChunk( const section::Type< 9 >& chunk ) {
   CHECK( 0 == chunk.LIS() );
   CHECK( 0 == chunk.excitedLevel() );
 
-  CHECK( 2 == chunk.products().size() );
+  CHECK( 2 == chunk.reactionProducts().size() );
 
-  auto product = chunk.products()[0];
+  auto product = chunk.reactionProducts()[0];
   CHECK( 5.537755e+6 == Approx( product.QM() ) );
   CHECK( 5.537755e+6 == Approx( product.massDifferenceQValue() ) );
   CHECK( 5.537755e+6 == Approx( product.QI() ) );
@@ -198,7 +198,7 @@ void verifyChunk( const section::Type< 9 >& chunk ) {
   CHECK( 0.9 == Approx( product.multiplicities()[0] ) );
   CHECK( 0.52 == Approx( product.multiplicities()[1] ) );
 
-  product = chunk.products()[1];
+  product = chunk.reactionProducts()[1];
   CHECK( 5.537755e+6 == Approx( product.QM() ) );
   CHECK( 5.537755e+6 == Approx( product.massDifferenceQValue() ) );
   CHECK( 5.489125e+6 == Approx( product.QI() ) );

@@ -13,24 +13,24 @@ namespace python = pybind11;
 namespace mf9 {
 
   // declarations - components
-  void wrapMultiplicity( python::module&, python::module& );
+  void wrapReactionProduct( python::module&, python::module& );
 }
 
 void wrapSection_9( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 9 >;
-  using Multiplicity = Section::Multiplicity;
-  using MultiplicityRange = RandomAccessAnyView< Multiplicity >;
+  using ReactionProduct = Section::ReactionProduct;
+  using ReactionProductRange = RandomAccessAnyView< ReactionProduct >;
 
   // wrap components
-  mf9::wrapMultiplicity( module, viewmodule );
+  mf9::wrapReactionProduct( module, viewmodule );
 
   // wrap views created by this section
   // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< Multiplicity >(
+  wrapRandomAccessAnyViewOf< ReactionProduct >(
       viewmodule,
-      "any_view< Multiplicity, random_access >" );
+      "any_view< MF9::ReactionProduct, random_access >" );
 
   // create the section
   python::class_< Section > section(
@@ -45,7 +45,7 @@ void wrapSection_9( python::module& module, python::module& viewmodule ) {
   .def(
 
     python::init< int, double, double, long,
-                  std::vector< Multiplicity >&& >(),
+                  std::vector< ReactionProduct >&& >(),
     python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
     python::arg( "lis" ), python::arg( "multiplicities" ),
     "Initialise the section\n\n"
@@ -71,9 +71,9 @@ void wrapSection_9( python::module& module, python::module& viewmodule ) {
   )
   .def_property_readonly(
 
-    "products",
-    [] ( const Section& self ) -> MultiplicityRange
-       { return self.products(); },
+    "reaction_products",
+    [] ( const Section& self ) -> ReactionProductRange
+       { return self.reactionProducts(); },
     "The reaction product data"
   );
 

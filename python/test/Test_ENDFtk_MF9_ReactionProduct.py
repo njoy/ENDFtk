@@ -4,10 +4,10 @@ import unittest
 # third party imports
 
 # local imports
-from ENDFtk.MF9 import Multiplicity
+from ENDFtk.MF9 import ReactionProduct
 
-class Test_ENDFtk_MF9_Multiplicity( unittest.TestCase ) :
-    """Unit test for the Multiplicity class."""
+class Test_ENDFtk_MF9_ReactionProduct( unittest.TestCase ) :
+    """Unit test for the ReactionProduct class."""
 
     chunk = ( ' 2.224648+6 3.224648+6      95242          2          1          29534 9102     \n'
               '          2          5                                            9534 9102     \n'
@@ -56,22 +56,22 @@ class Test_ENDFtk_MF9_Multiplicity( unittest.TestCase ) :
             self.assertEqual( self.chunk, chunk.to_string( 9534, 9, 102 ) )
 
         # the data is given explicitly
-        chunk = Multiplicity( qm = 2.224648e+6, qi = 3.224648e+6,
-                              izap = 95242, lfs = 2,
-                              boundaries = [ 2 ],
-                              interpolants = [ 5 ],
-                              energies = [ 1., 3. ],
-                              multiplicities = [ 2., 4. ] )
+        chunk = ReactionProduct( qm = 2.224648e+6, qi = 3.224648e+6,
+                                 izap = 95242, lfs = 2,
+                                 boundaries = [ 2 ],
+                                 interpolants = [ 5 ],
+                                 energies = [ 1., 3. ],
+                                 multiplicities = [ 2., 4. ] )
 
         verify_chunk( self, chunk )
 
         # the data is read from a string
-        chunk = Multiplicity.from_string( self.chunk, 9534, 9, 102 )
+        chunk = ReactionProduct.from_string( self.chunk, 9534, 9, 102 )
 
         verify_chunk( self, chunk )
 
         # the data is copied
-        copy = Multiplicity( chunk )
+        copy = ReactionProduct( chunk )
 
         verify_chunk( self, copy )
 
@@ -82,14 +82,14 @@ class Test_ENDFtk_MF9_Multiplicity( unittest.TestCase ) :
         # wrong boundaries
         with self.assertRaises( Exception ) :
 
-            chunk = Multiplicity( qm = 2.224648e+6, qi = 3.224648e+6,
-                                  izap = 95242, lfs = 2,
-                                  boundaries = [ 2 ], interpolants = [ 5, 2 ],
-                                  energies = [ 1., 3. ], multiplicities = [ 2., 4. ] )
+            chunk = ReactionProduct( qm = 2.224648e+6, qi = 3.224648e+6,
+                                     izap = 95242, lfs = 2,
+                                     boundaries = [ 2 ], interpolants = [ 5, 2 ],
+                                     energies = [ 1., 3. ], multiplicities = [ 2., 4. ] )
 
         with self.assertRaises( Exception ) :
 
-            chunk = Multiplicity.from_string( self.invalid, 9534, 9, 102 )
+            chunk = ReactionProduct.from_string( self.invalid, 9534, 9, 102 )
 
 if __name__ == '__main__' :
 

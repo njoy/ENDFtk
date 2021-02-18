@@ -7,15 +7,15 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using Multiplicity = section::Type< 9 >::Multiplicity;
+using ReactionProduct = section::Type< 9 >::ReactionProduct;
 
 std::string chunk();
-void verifyChunk( const Multiplicity& );
+void verifyChunk( const ReactionProduct& );
 std::string invalidChunk();
 
-SCENARIO( "Multiplicity" ) {
+SCENARIO( "ReactionProduct" ) {
 
-  GIVEN( "valid data for a Multiplicity" ) {
+  GIVEN( "valid data for a ReactionProduct" ) {
 
     std::string string = chunk();
 
@@ -30,13 +30,13 @@ SCENARIO( "Multiplicity" ) {
       std::vector< double > x = { 1., 3. };
       std::vector< double > y = { 2., 4. };
 
-      Multiplicity chunk( qm, qi, za, lfs,
-                          std::move( boundaries ),
-                          std::move( interpolants ),
-                          std::move( x ),
-                          std::move( y ) );
+      ReactionProduct chunk( qm, qi, za, lfs,
+                             std::move( boundaries ),
+                             std::move( interpolants ),
+                             std::move( x ),
+                             std::move( y ) );
 
-      THEN( "a Multiplicity can be constructed and members can be tested" ) {
+      THEN( "a ReactionProduct can be constructed and members can be tested" ) {
 
         verifyChunk( chunk );
       } // THEN
@@ -57,9 +57,9 @@ SCENARIO( "Multiplicity" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      Multiplicity chunk( begin, end, lineNumber, 9534, 9, 102 );
+      ReactionProduct chunk( begin, end, lineNumber, 9534, 9, 102 );
 
-      THEN( "a Multiplicity can be constructed and members can be tested" ) {
+      THEN( "a ReactionProduct can be constructed and members can be tested" ) {
 
         verifyChunk( chunk );
       } // THEN
@@ -75,7 +75,7 @@ SCENARIO( "Multiplicity" ) {
     } // WHEN
   } // GIVEN
 
-  GIVEN( "invalid data for a Multiplicity" ) {
+  GIVEN( "invalid data for a ReactionProduct" ) {
 
     WHEN( "inconsistent data is used" ) {
 
@@ -92,11 +92,11 @@ SCENARIO( "Multiplicity" ) {
 
       THEN( "an exception is thrown" ) {
 
-        CHECK_THROWS( Multiplicity( qm, qi, za, lfs,
-                                    std::move( boundaries ),
-                                    std::move( wrongInterpolants ),
-                                    std::move( x ),
-                                    std::move( y ) ) );
+        CHECK_THROWS( ReactionProduct( qm, qi, za, lfs,
+                                       std::move( boundaries ),
+                                       std::move( wrongInterpolants ),
+                                       std::move( x ),
+                                       std::move( y ) ) );
       } // THEN
     } // WHEN
 
@@ -111,7 +111,7 @@ SCENARIO( "Multiplicity" ) {
 
       THEN( "an exception is thrown" ) {
 
-        CHECK_THROWS( Multiplicity( begin, end, lineNumber, 9534, 9, 102 ) );
+        CHECK_THROWS( ReactionProduct( begin, end, lineNumber, 9534, 9, 102 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -124,7 +124,7 @@ std::string chunk() {
   " 1.000000+0 2.000000+0 3.000000+0 4.000000+0                      9534 9102     \n";
 }
 
-void verifyChunk( const Multiplicity& chunk ) {
+void verifyChunk( const ReactionProduct& chunk ) {
 
   CHECK( 2.224648e+6 == Approx( chunk.QM() ) );
   CHECK( 2.224648e+6 == Approx( chunk.massDifferenceQValue() ) );

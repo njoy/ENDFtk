@@ -4,7 +4,7 @@
 long NC() const {
 
   long NC = 1;
-  for ( const auto& entry : this->states_ ) {
+  for ( const auto& entry : this->products_ ) {
 
     NC += entry.NC();
   }

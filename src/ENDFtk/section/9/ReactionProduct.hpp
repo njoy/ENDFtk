@@ -1,18 +1,17 @@
 /**
  *  @class
- *  @brief The multiplicities for a specific excited state of the reaction
- *         product
+ *  @brief The reaction product data : Q values and multiplicities
  *
  *  See ENDF102, section 9.2 for more information.
  */
-class Multiplicity : protected TabulationRecord {
+class ReactionProduct : protected TabulationRecord {
 
   /* auxiliary functions */
 
 public:
 
   /* constructor */
-  #include "ENDFtk/section/9/Multiplicity/src/ctor.hpp"
+  #include "ENDFtk/section/9/ReactionProduct/src/ctor.hpp"
 
   /* get methods */
 

@@ -10,11 +10,11 @@
  *  @param[in] energies         the energy values
  *  @param[in] multiplicities   the multiplicities for every state
  */
-Multiplicity( double qm, double qi, long izap, long lfs,
-              std::vector< long >&& boundaries,
-              std::vector< long >&& interpolants,
-              std::vector< double >&& energies,
-              std::vector< double >&& multiplicities )
+ReactionProduct( double qm, double qi, long izap, long lfs,
+                 std::vector< long >&& boundaries,
+                 std::vector< long >&& interpolants,
+                 std::vector< double >&& energies,
+                 std::vector< double >&& multiplicities )
   try : TabulationRecord( qm, qi, izap, lfs,
                           std::move( boundaries ),
                           std::move( interpolants ),
@@ -40,8 +40,8 @@ Multiplicity( double qm, double qi, long izap, long lfs,
  *  @param[in] MT           the expected MT number
  */
 template< typename Iterator >
-Multiplicity( Iterator& begin, const Iterator& end,
-              long& lineNumber, int MAT, int MF, int MT )
+ReactionProduct( Iterator& begin, const Iterator& end,
+                 long& lineNumber, int MAT, int MF, int MT )
   try : TabulationRecord( begin, end, lineNumber, MAT, MF, MT ) {}
   catch ( std::exception& e ) {
 

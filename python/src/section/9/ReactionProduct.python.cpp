@@ -12,11 +12,11 @@ namespace python = pybind11;
 
 namespace mf9 {
 
-void wrapMultiplicity( python::module& module, python::module& ) {
+void wrapReactionProduct( python::module& module, python::module& ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 9 >;
-  using Component = Section::Multiplicity;
+  using Component = Section::ReactionProduct;
 
   // wrap views created by this section
 
@@ -24,8 +24,8 @@ void wrapMultiplicity( python::module& module, python::module& ) {
   python::class_< Component > component(
 
     module,
-    "Multiplicity",
-    "MF9 section - multiplicities for a specific excited state of the reaction product"
+    "ReactionProduct",
+    "MF9 section - reaction product data: Q values and multiplicities"
   );
 
   // wrap the section
