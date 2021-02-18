@@ -32,7 +32,7 @@ namespace section{
      */
     constexpr int MT() const {
 
-        return static_cast< const Derived* >( this )->sectionNumber();
+      return static_cast< const Derived* >( this )->sectionNumber();
     }
 
     /**
