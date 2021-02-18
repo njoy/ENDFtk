@@ -29,7 +29,7 @@ namespace gendf {
     #include "ENDFtk/gendf/SectionBase/src/mapRecords.hpp"
     #include "ENDFtk/gendf/SectionBase/src/verifyRecords.hpp"
     #include "ENDFtk/gendf/SectionBase/src/ctor.hpp"
-    
+
   public:
 
     /* get methods */
@@ -87,13 +87,23 @@ namespace gendf {
 
     /* convenience functions for accessing data */
 
-    // this gets you access to the records as if they were stored in a vector
+    /**
+     *  @brief View of the record data.
+     */
     auto records() const { return ranges::view::values( this->records_ ); }
 
-    // this gets you access to the a record by group index
+    /**
+     *  @brief Return a DataRecord by group
+     *
+     *  @param[in] group    the group index
+     */
     auto record( unsigned int group ) const { return this->records_.at( group ); }
 
-    // this verifies if the group is present
+    /**
+     *  @brief Check if group has a DataRecord
+     *
+     *  @param[in] group    the group index
+     */
     bool hasRecord( unsigned int group ) const {
       return this->records_ .find( group ) != this->records_ .end();
     }
