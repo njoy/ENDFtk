@@ -8,7 +8,7 @@
  *  @param[in] boundaries       the interpolation range boundaries
  *  @param[in] interpolants     the interpolation types for each range
  *  @param[in] energies         the energy values
- *  @param[in] multiplicities   the multiplicity values
+ *  @param[in] multiplicities   the multiplicities for every state
  */
 Multiplicity( double qm, double qi, long izap, long lfs,
               std::vector< long >&& boundaries,

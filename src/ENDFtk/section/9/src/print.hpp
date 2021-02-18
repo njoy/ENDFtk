@@ -1,5 +1,5 @@
 /**
- *  @brief Print this MF12 component
+ *  @brief Print this MF9 component
  *
  *  @tparam OutputIterator   an output iterator
  *
@@ -12,7 +12,7 @@ void print( OutputIterator& it, int MAT, int MF ) const {
 
   int MT = this->MT();
   ControlRecord( this->ZA(), this->AWR(),
-                 this->LIS(), 0, 
+                 this->LIS(), 0,
                  this->states_.size(), 0 ).print( it, MAT, MF, MT );
   for ( const auto& entry : this->states_ ) {
 

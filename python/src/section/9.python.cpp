@@ -55,7 +55,7 @@ void wrapSection_9( python::module& module, python::module& viewmodule ) {
     "    zaid             the ZA  identifier\n"
     "    awr              the atomic mass ratio\n"
     "    lis              the target's excited level\n"
-    "    multiplicities   the multiplicities"
+    "    multiplicities   the multiplicities for every state"
   )
   .def_property_readonly(
 
@@ -71,10 +71,10 @@ void wrapSection_9( python::module& module, python::module& viewmodule ) {
   )
   .def_property_readonly(
 
-    "multiplicities",
+    "products",
     [] ( const Section& self ) -> MultiplicityRange
-       { return self.multiplicities(); },
-    "The reaction product multiplicities"
+       { return self.products(); },
+    "The reaction product data"
   );
 
   // add standard section definitions

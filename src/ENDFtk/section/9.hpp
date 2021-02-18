@@ -60,9 +60,9 @@ namespace section{
     int numberExcitedStates() const { return this->NS(); }
 
     /**
-     *  @brief Return the reaction product multiplicities
+     *  @brief Return the reaction product data
      */
-    auto multiplicities() const {
+    auto products() const {
 
       return ranges::view::all( this->states_ );
     }

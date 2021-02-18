@@ -1,5 +1,5 @@
 /**
- *  @brief Return the number of lines in this MF12 component
+ *  @brief Return the number of lines in this MF9 component
  */
 long NC() const {
 
