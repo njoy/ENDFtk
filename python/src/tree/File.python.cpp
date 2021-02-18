@@ -27,6 +27,7 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
   using MF7 = njoy::ENDFtk::file::Type< 7 >;
   using MF8 = njoy::ENDFtk::file::Type< 8 >;
   using MF9 = njoy::ENDFtk::file::Type< 9 >;
+  using MF10 = njoy::ENDFtk::file::Type< 10 >;
   using MF12 = njoy::ENDFtk::file::Type< 12 >;
   using MF13 = njoy::ENDFtk::file::Type< 13 >;
 
@@ -138,7 +139,7 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
 
     "parse",
     [] ( const File& self ) -> std::variant< MF1, MF2, MF3, MF4, MF5, MF6,
-                                             MF7, MF8, MF9, MF12, MF13 > {
+                                             MF7, MF8, MF9, MF10, MF12, MF13 > {
 
       switch ( self.fileNumber() ) {
 
@@ -151,6 +152,7 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
         case 7 : return self.parse< 7 >();
         case 8 : return self.parse< 8 >();
         case 9 : return self.parse< 9 >();
+        case 10 : return self.parse< 10 >();
         case 12 : return self.parse< 12 >();
         case 13 : return self.parse< 13 >();
       }

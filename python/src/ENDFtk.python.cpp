@@ -23,6 +23,7 @@ void wrapFile_6( python::module&, python::module& );
 void wrapFile_7( python::module&, python::module& );
 void wrapFile_8( python::module&, python::module& );
 void wrapFile_9( python::module&, python::module& );
+void wrapFile_10( python::module&, python::module& );
 void wrapFile_12( python::module&, python::module& );
 void wrapFile_13( python::module&, python::module& );
 
@@ -85,6 +86,7 @@ PYBIND11_MODULE( ENDFtk, module ) {
   wrapFile_7( module, viewmodule );
   wrapFile_8( module, viewmodule );
   wrapFile_9( module, viewmodule );
+  wrapFile_10( module, viewmodule );
   wrapFile_12( module, viewmodule );
   wrapFile_13( module, viewmodule );
 
