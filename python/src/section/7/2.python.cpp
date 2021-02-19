@@ -13,17 +13,17 @@ namespace python = pybind11;
 namespace mf7 {
 
   // declarations - components
-  void wrapCoherentElastic( python::module& );
-  void wrapIncoherentElastic( python::module& );
-  void wrapMixedElastic( python::module& );
+  void wrapCoherentElastic( python::module&, python::module& );
+  void wrapIncoherentElastic( python::module&, python::module& );
+  void wrapMixedElastic( python::module&, python::module& );
 
 }
 
-void wrapSection_7_2( python::module& module ) {
+void wrapSection_7_2( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 7, 2 >;
-  using ScatteringLaw = njoy::ENDFtk::section::Type< 7, 2 >::ScatteringLaw;
+  using ScatteringLaw = Section::ScatteringLaw;
 
   // wrap views created by this section
 
@@ -43,9 +43,9 @@ void wrapSection_7_2( python::module& module ) {
   );
 
   // wrap components
-  mf7::wrapCoherentElastic( submodule );
-  mf7::wrapIncoherentElastic( submodule );
-  mf7::wrapMixedElastic( submodule );
+  mf7::wrapCoherentElastic( submodule, viewmodule );
+  mf7::wrapIncoherentElastic( submodule, viewmodule );
+  mf7::wrapMixedElastic( submodule, viewmodule );
 
   // wrap the section
   section

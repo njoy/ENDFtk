@@ -10,7 +10,7 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapDirectoryRecord( python::module& module ) {
+void wrapDirectoryRecord( python::module& module, python::module& ) {
 
   // type aliases
   using Record = njoy::ENDFtk::DirectoryRecord;
@@ -72,6 +72,7 @@ void wrapDirectoryRecord( python::module& module ) {
 
     "to_string",
     [] ( const Record& self, long mat ) { return print( self, mat, 1, 451 ); },
+    python::arg( "mat" ),
     "Return the string representation of the record\n\n"
     "Arguments:\n"
     "    self   the record\n"
@@ -85,6 +86,7 @@ void wrapDirectoryRecord( python::module& module ) {
                 ( self.MT() == right.MT() ) and
                 ( self.NC() == right.NC() ) and
                 ( self.MOD() == right.MOD() ); },
+    python::arg( "right" ),
     "Compare two records\n\n"
     "Arguments:\n"
     "    self     the record\n"

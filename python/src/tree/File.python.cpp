@@ -16,7 +16,7 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapTreeFile( python::module& module ) {
+void wrapTreeFile( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Tape = njoy::ENDFtk::tree::Tape< std::string >;
@@ -38,7 +38,7 @@ void wrapTreeFile( python::module& module ) {
   // wrap views created by this tree component
   // none of these are supposed to be created directly by the user
   wrapBidirectionalAnyViewOf< Section >(
-      module,
+      viewmodule,
       "any_view< tree::Section, bidirectional >" );
 
   // create the tree component

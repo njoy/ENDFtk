@@ -10,10 +10,11 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapTabulatedDistribution( python::module& module ) {
+void wrapTabulatedDistribution( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 4 >::TabulatedDistribution;
+  using Section = njoy::ENDFtk::section::Type< 4 >;
+  using Component = Section::TabulatedDistribution;
 
   // wrap views created by this section
 

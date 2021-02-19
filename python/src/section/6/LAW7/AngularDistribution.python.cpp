@@ -13,17 +13,18 @@ namespace python = pybind11;
 namespace mf6 {
 namespace law7 {
 
-void wrapAngularDistribution( python::module& module ) {
+void wrapAngularDistribution( python::module& module, python::module& viewmodule ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 6 >::LaboratoryAngleEnergy::AngularDistribution;
-  using EnergyDistribution = njoy::ENDFtk::section::Type< 6 >::LaboratoryAngleEnergy::EnergyDistribution;
+  using Section = njoy::ENDFtk::section::Type< 6 >;
+  using Component = Section::LaboratoryAngleEnergy::AngularDistribution;
+  using EnergyDistribution = Section::LaboratoryAngleEnergy::EnergyDistribution;
   using EnergyDistributionRange = RandomAccessAnyView< EnergyDistribution >;
 
   // wrap views created by this section
   // none of these are supposed to be created directly by the user
   wrapRandomAccessAnyViewOf< EnergyDistribution >(
-      module,
+      viewmodule,
       "any_view< EnergyDistribution, random_access >" );
 
   // create the component

@@ -12,10 +12,11 @@ namespace python = pybind11;
 
 namespace mf7 {
 
-void wrapAnalyticalFunctions( python::module& module ) {
+void wrapAnalyticalFunctions( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 7, 4 >::AnalyticalFunctions;
+  using Section = njoy::ENDFtk::section::Type< 7, 4 >;
+  using Component = Section::AnalyticalFunctions;
 
   // wrap views created by this section
 

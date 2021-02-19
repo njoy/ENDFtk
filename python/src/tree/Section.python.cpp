@@ -20,7 +20,7 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapTreeSection( python::module& module ) {
+void wrapTreeSection( python::module& module, python::module& ) {
 
   // type aliases
   using Tape = njoy::ENDFtk::tree::Tape< std::string >;

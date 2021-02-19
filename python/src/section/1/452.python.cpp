@@ -11,13 +11,11 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapSection_1_452( python::module& module ) {
+void wrapSection_1_452( python::module& module, python::module& ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 1, 452 >;
-  using Multiplicity = njoy::ENDFtk::section::Type< 1, 452 >::Multiplicity;
-
-  // wrap views created by this section
+  using Multiplicity = Section::Multiplicity;
 
   // create the submodule
   python::module submodule = module.def_submodule(
@@ -25,6 +23,10 @@ void wrapSection_1_452( python::module& module ) {
     "MT452",
     "MT452 - the total number of fission neutrons"
   );
+
+  // wrap components
+
+  // wrap views created by this section
 
   // create the section
   python::class_< Section > section(

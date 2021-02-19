@@ -12,10 +12,11 @@ namespace python = pybind11;
 
 namespace mf8 {
 
-void wrapContinuousSpectrum( python::module& module ) {
+void wrapContinuousSpectrum( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 8, 457 >::ContinuousSpectrum;
+  using Section = njoy::ENDFtk::section::Type< 8, 457 >;
+  using Component = Section::ContinuousSpectrum;
 
   // wrap views created by this section
 

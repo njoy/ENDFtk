@@ -13,7 +13,7 @@ namespace python = pybind11;
 namespace hana = boost::hana;
 inline namespace literals { using namespace hana::literals; }
 
-void wrapMaterial( python::module& module ) {
+void wrapMaterial( python::module& module, python::module& ) {
 
   // type aliases
   using Material = njoy::ENDFtk::Material;
@@ -56,6 +56,7 @@ void wrapMaterial( python::module& module ) {
 
     "has_MF",
     &Material::hasMF,
+    python::arg( "mf" ),
     "Return whether or not the material has a file with the given MF number\n\n"
     "Arguments:\n"
     "    self    the file\n"
@@ -65,6 +66,7 @@ void wrapMaterial( python::module& module ) {
 
     "has_file",
     &Material::hasFile,
+    python::arg( "mf" ),
     "Return whether or not the material has a file with the given MF number\n\n"
     "Arguments:\n"
     "    self    the file\n"
@@ -93,7 +95,7 @@ void wrapMaterial( python::module& module ) {
                       ") does not correspond to a stored file" );
       }
     },
-    python::arg( "mt" ),
+    python::arg( "mf" ),
     "Return the file with the requested MF number\n\n"
     "Arguments:\n"
     "    self    the file\n"
@@ -123,7 +125,7 @@ void wrapMaterial( python::module& module ) {
                       ") does not correspond to a stored file" );
       }
     },
-    python::arg( "mt" ),
+    python::arg( "mf" ),
     "Return the file with the requested MF number\n\n"
     "Arguments:\n"
     "    self    the file\n"
@@ -142,6 +144,7 @@ void wrapMaterial( python::module& module ) {
 
       return njoy::ENDFtk::Material( division, begin, end, lineNumber );
     },
+    python::arg( "material" ),
     "Read the material from a string\n\n"
     "An exception is raised if something goes wrong while reading the\n"
     "material\n\n"

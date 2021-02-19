@@ -10,10 +10,11 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapTotalMultiplicity( python::module& module ) {
+void wrapTotalMultiplicity( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 12 >::TotalMultiplicity;
+  using Section = njoy::ENDFtk::section::Type< 12 >;
+  using Component = Section::TotalMultiplicity;
 
   // wrap views created by this section
 

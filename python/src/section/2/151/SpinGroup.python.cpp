@@ -10,13 +10,14 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapSpinGroup( python::module& module ) {
+void wrapSpinGroup( python::module& module, python::module& ) {
 
   // type aliases
-  using ResonanceChannels = njoy::ENDFtk::section::Type< 2, 151 >::RMatrixLimited::ResonanceChannels;
-  using ResonanceParameters = njoy::ENDFtk::section::Type< 2, 151 >::RMatrixLimited::ResonanceParameters;
-  using BackgroundChannels = njoy::ENDFtk::section::Type< 2, 151 >::RMatrixLimited::BackgroundChannels;
-  using Component = njoy::ENDFtk::section::Type< 2, 151 >::RMatrixLimited::SpinGroup;
+  using Section = njoy::ENDFtk::section::Type< 2, 151 >;
+  using ResonanceChannels = Section::RMatrixLimited::ResonanceChannels;
+  using ResonanceParameters = Section::RMatrixLimited::ResonanceParameters;
+  using BackgroundChannels = Section::RMatrixLimited::BackgroundChannels;
+  using Component = Section::RMatrixLimited::SpinGroup;
 
   // wrap views created by this section
 

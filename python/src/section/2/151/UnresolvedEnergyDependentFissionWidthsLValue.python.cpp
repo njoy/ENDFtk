@@ -10,17 +10,18 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapUnresolvedEnergyDependentFissionWidthsLValue( python::module& module ) {
+void wrapUnresolvedEnergyDependentFissionWidthsLValue( python::module& module, python::module& viewmodule ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 2, 151 >::UnresolvedEnergyDependentFissionWidths::LValue;
-  using JValue = njoy::ENDFtk::section::Type< 2, 151 >::UnresolvedEnergyDependentFissionWidths::JValue;
+  using Section = njoy::ENDFtk::section::Type< 2, 151 >;
+  using Component = Section::UnresolvedEnergyDependentFissionWidths::LValue;
+  using JValue = Section::UnresolvedEnergyDependentFissionWidths::JValue;
   using JValueRange = RandomAccessAnyView< JValue >;
 
   // wrap views created by this section
   // none of these are supposed to be created directly by the user
   wrapRandomAccessAnyViewOf< JValue >(
-      module,
+      viewmodule,
       "any_view< UnresolvedEnergyDependentFissionWidthsJValue, random_access >" );
 
   // create the component

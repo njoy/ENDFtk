@@ -12,10 +12,11 @@ namespace python = pybind11;
 
 namespace mf7 {
 
-void wrapCoherentElastic( python::module& module ) {
+void wrapCoherentElastic( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 7, 2 >::CoherentElastic;
+  using Section = njoy::ENDFtk::section::Type< 7, 2 >;
+  using Component = Section::CoherentElastic;
 
   // wrap views created by this section
 

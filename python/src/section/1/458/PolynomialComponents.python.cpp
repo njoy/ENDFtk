@@ -13,10 +13,11 @@ namespace python = pybind11;
 namespace mf1 {
 namespace mt458 {
 
-void wrapPolynomialComponents( python::module& module ) {
+void wrapPolynomialComponents( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 1, 458 >::PolynomialComponents;
+  using Section = njoy::ENDFtk::section::Type< 1, 458 >;
+  using Component = Section::PolynomialComponents;
 
   // wrap views created by this component
 

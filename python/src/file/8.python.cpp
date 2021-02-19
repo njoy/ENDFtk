@@ -15,9 +15,9 @@ namespace hana = boost::hana;
 inline namespace literals { using namespace hana::literals; }
 
 // declarations - sections
-void wrapSection_8_457( python::module& );
+void wrapSection_8_457( python::module&, python::module& );
 
-void wrapFile_8( python::module& module ) {
+void wrapFile_8( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using File = njoy::ENDFtk::file::Type< 8 >;
@@ -33,7 +33,7 @@ void wrapFile_8( python::module& module ) {
   );
 
   // wrap sections
-  wrapSection_8_457( submodule );
+  wrapSection_8_457( submodule, viewmodule );
 
   // create the file
   python::class_< File > file(

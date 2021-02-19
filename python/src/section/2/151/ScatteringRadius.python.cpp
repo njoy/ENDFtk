@@ -10,10 +10,11 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapScatteringRadius( python::module& module ) {
+void wrapScatteringRadius( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 2, 151 >::ScatteringRadius;
+  using Section = njoy::ENDFtk::section::Type< 2, 151 >;
+  using Component = Section::ScatteringRadius;
 
   // wrap views created by this section
 

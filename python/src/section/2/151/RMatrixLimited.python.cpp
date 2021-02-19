@@ -10,18 +10,19 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapRMatrixLimited( python::module& module ) {
+void wrapRMatrixLimited( python::module& module, python::module& viewmodule ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 2, 151 >::RMatrixLimited;
-  using ParticlePairs = njoy::ENDFtk::section::Type< 2, 151 >::RMatrixLimited::ParticlePairs;
-  using SpinGroup = njoy::ENDFtk::section::Type< 2, 151 >::RMatrixLimited::SpinGroup;
+  using Section = njoy::ENDFtk::section::Type< 2, 151 >;
+  using Component = Section::RMatrixLimited;
+  using ParticlePairs = Section::RMatrixLimited::ParticlePairs;
+  using SpinGroup = Section::RMatrixLimited::SpinGroup;
   using SpinGroupRange = RandomAccessAnyView< SpinGroup >;
 
   // wrap views created by this section
   // none of these are supposed to be created directly by the user
   wrapRandomAccessAnyViewOf< SpinGroup >(
-      module,
+      viewmodule,
       "any_view< SpinGroup, random_access >" );
 
   // create the component

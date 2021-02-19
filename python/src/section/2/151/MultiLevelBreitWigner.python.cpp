@@ -10,11 +10,12 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapMultiLevelBreitWigner( python::module& module ) {
+void wrapMultiLevelBreitWigner( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 2, 151 >::MultiLevelBreitWigner;
-  using BreitWignerLValue = njoy::ENDFtk::section::Type< 2, 151 >::BreitWignerLValue;
+  using Section = njoy::ENDFtk::section::Type< 2, 151 >;
+  using Component = Section::MultiLevelBreitWigner;
+  using BreitWignerLValue = Section::BreitWignerLValue;
   using BreitWignerLValueRange = RandomAccessAnyView< BreitWignerLValue >;
 
   // no need to wrap BreitWignerLValueRange since SLBW wrapped it already

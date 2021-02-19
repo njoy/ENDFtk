@@ -10,10 +10,11 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapTransitionProbabilities( python::module& module ) {
+void wrapTransitionProbabilities( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 12 >::TransitionProbabilities;
+  using Section = njoy::ENDFtk::section::Type< 12 >;
+  using Component = Section::TransitionProbabilities;
 
   // wrap views created by this section
 
