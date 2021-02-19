@@ -37,6 +37,12 @@ namespace gendf {
 
     /* convenience functions */
 
+    /**
+     *  @brief Return a list of fluxes for each group.
+     *
+     *  @param[in] order      the Legendre order
+     *  @param[in] dilution   the index of the dilution
+     */
     auto fluxes( unsigned int order, unsigned int dilution ) {
 
       checkBounds( order, dilution );
@@ -45,19 +51,53 @@ namespace gendf {
                    [&] ( unsigned int group ) -> double
                        { return getValue( 0, group, order, dilution ); } );
     }
+
+    /**
+     *  @brief Return a list of fluxes for each group.
+     *
+     *  @note Assumes order=0.  Most CrossSections in a GENDF have NL=1.
+     *
+     *  @param[in] dilution   the index of the dilution
+     */
     auto fluxes( unsigned int dilution ) { return fluxes( 0, dilution ); }
 
+    /**
+     *  @brief Return the flux for a given energy group.
+     *
+     *  @param[in] group      the energy group index
+     *  @param[in] order      the Legendre order
+     *  @param[in] dilution   the index of the dilution
+     */
     double flux( unsigned int group, unsigned int order,
                  unsigned int dilution ) {
 
       checkBounds( group, order, dilution );
       return getValue( 0, group, order, dilution );
     }
+
+    /**
+     *  @brief Return the flux for a given energy group.
+     *
+     *  @param[in] group      the energy group index
+     *  @param[in] dilution   the index of the dilution
+     */
     double flux( unsigned int group, unsigned int dilution ) {
       return flux( group, 0, dilution );
     }
+
+    /**
+     *  @brief Return the flux for a given energy group.
+     *
+     *  @param[in] group      the energy group index
+     */
     double flux( unsigned int group ) { return flux( group, 0, 0 ); }
 
+    /**
+     *  @brief Return a list of cross sections for each group.
+     *
+     *  @param[in] order      the Legendre order
+     *  @param[in] dilution   the index of the dilution
+     */
     auto crossSections( unsigned int order, unsigned int dilution ) {
 
       checkBounds( order, dilution );
@@ -66,19 +106,47 @@ namespace gendf {
                    [&] ( unsigned int group ) -> double
                        { return getValue( 1, group, order, dilution ); } );
     }
+
+    /**
+     *  @brief Return a list of cross sections for each group.
+     *
+     *  @note Assumes order=0.  Most CrossSections in a GENDF have NL=1.
+     *
+     *  @param[in] dilution   the index of the dilution
+     */
     auto crossSections( unsigned int dilution ) {
       return crossSections( 0, dilution );
     }
 
+    /**
+     *  @brief Return the cross section for a given energy group.
+     *
+     *  @param[in] group      the energy group index
+     *  @param[in] order      the Legendre order
+     *  @param[in] dilution   the index of the dilution
+     */
     double crossSection( unsigned int group, unsigned int order,
                          unsigned int dilution ) {
 
       checkBounds( group, order, dilution );
       return getValue( 1, group, order, dilution );
     }
+
+    /**
+     *  @brief Return the cross section for a given energy group.
+     *
+     *  @param[in] group      the energy group index
+     *  @param[in] dilution   the index of the dilution
+     */
     double crossSection( unsigned int group, unsigned int dilution ) {
       return crossSection( group, 0, dilution );
     }
+
+    /**
+     *  @brief Return the cross section for a given energy group.
+     *
+     *  @param[in] group      the energy group index
+     */
     double crossSection( unsigned int group ) {
       return crossSection( group, 0, 0 );
     }
