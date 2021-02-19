@@ -67,7 +67,7 @@ namespace gendf {
     /**
      *  @brief The number of secondary positions
      */
-    long numSecondaryPositions() const { return this->NG2(); }
+    long numberSecondaryPositions() const { return this->NG2(); }
 
     /**
      *  @brief The index to the lowest position
@@ -88,7 +88,7 @@ namespace gendf {
     /**
      *  @brief The number of words in the list
      */
-    long numWords() const { return this->NW(); }
+    long numberWords() const { return this->NW(); }
 
     /**
      *  @brief The group index
@@ -108,9 +108,9 @@ namespace gendf {
     auto data( unsigned int block ) const {
 
       std::size_t size = this->NW() / this->NG2();
-      return this->list() |
-        ranges::view::drop_exactly( block * size ) |
-        ranges::view::take_exactly( size );
+      return this->list()
+        | ranges::view::drop_exactly( block * size )
+        | ranges::view::take_exactly( size );
     }
 
     using ListRecord::list;

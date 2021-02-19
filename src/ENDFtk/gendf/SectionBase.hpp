@@ -41,7 +41,7 @@ namespace gendf {
     /**
      *  @brief The number of Legendre moments
      */
-    unsigned int numLegendre() const { return this->NL(); }
+    unsigned int numberLegendreMoments() const { return this->NL(); }
 
     /**
      *  @brief The Legendre order
@@ -56,12 +56,12 @@ namespace gendf {
     /**
      *  @brief The number of dilutions
      */
-    unsigned int numDilutions() const { return this->NZ(); }
+    unsigned int numberDilutions() const { return this->NZ(); }
 
     /**
      *  @brief The number of dilutions
      */
-    unsigned int numSigmaZeros() const { return this->NZ(); }
+    unsigned int numberSigmaZeros() const { return this->NZ(); }
 
     /**
      *  @brief The number of groups
@@ -71,17 +71,17 @@ namespace gendf {
     /**
      *  @brief The number of groups
      */
-    unsigned int numGroups() const { return this->NGN(); }
+    unsigned int numberGroups() const { return this->NGN(); }
 
     /**
      *  @brief The complex breakup flag
      */
-    int LRFLAG() const { return this->breakup_; }
+    int LR() const { return this->breakup_; }
 
     /**
      *  @brief The complex breakup flag
      */
-    int complexBreakUp() const { return this->LRFLAG(); }
+    int complexBreakUp() const { return this->LR(); }
 
 
     /* convenience functions for accessing data */
@@ -108,6 +108,28 @@ namespace gendf {
     }
 
     #include "ENDFtk/gendf/SectionBase/src/checkBounds.hpp"
+
+    /**
+     *  @brief Convenience function for extracting a value from
+     *         a block of a DataRecord
+     *
+     *  @param[in] block    the block index
+     *  @param[in] group    the group index
+     *  @param[in] order    the Legendre order
+     *  @param[in] dilution the dilution index
+     */
+    double getValue( unsigned int block, unsigned int group,
+                     unsigned int order, unsigned int dilution ) {
+
+      // default value
+      if ( !this->hasRecord(group) ) {
+        return 0.0;
+      }
+
+      // from list
+      auto values = this->record( group ).data( block );
+      return values[ this->num_legendre_ * dilution + order ];
+    }
 
     using Base::MT;
     using Base::sectionNumber;

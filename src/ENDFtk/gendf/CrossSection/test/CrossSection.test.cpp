@@ -31,37 +31,32 @@ bool compareRanges( Range1 r1, Range2 r2 ) {
 // tests
 SCENARIO( "CrossSection tests") {
 
-  GIVEN( "a string representing the CrossSection" ) {
+  GIVEN( "valid data for the CrossSection" ) {
 
-    std::string line = chunk();
-    auto begin = line.begin();
-    auto end = line.end();
-    long lineNumber = 0;
-    auto head = StructureDivision( begin, end, lineNumber );
+    WHEN( "the data is given as a string" ) {}
 
-    THEN( "the section can be constructed" ) {
+      std::string line = chunk();
+      auto begin = line.begin();
+      auto end = line.end();
+      long lineNumber = 0;
+      auto head = StructureDivision( begin, end, lineNumber );
 
-      CrossSection section( asHead(head), begin, end );
+      THEN( "the section can be constructed" ) {
 
-      AND_THEN( "we can get the parameters from it" ) {
+        CrossSection section( asHead(head), begin, end, lineNumber, 9228 );
         verifySection( section );
-      } // AND_THEN
-    } // THEN
-  } // GIVEN
+      } // THEN
+    } // WHEN
 
-  WHEN( "the section is created from parameters" ) {
+    WHEN( "the data is given explicitly" ) {
 
-    THEN( "the section can be constructed" ) {
+      THEN( "the section can be constructed" ) {
 
-      // TODO
-
-      AND_THEN( "we can get the parameters from it" ) {
-
+        // TODO
         // verifySection( section );
-      } // AND_THEN
-    } // THEN
-  } // WHEN
-
+      } // THEN
+    } // WHEN
+  } // GIVEN
 } // SCENARIO
 
 std::string chunk(){
@@ -80,55 +75,55 @@ std::string chunk(){
 void verifySection( CrossSection section ) {
 
   // header information
-  REQUIRE( 1 == section.MT() );
-  REQUIRE( 1 == section.sectionNumber() );
-  REQUIRE( 92235 == section.ZA() );
-  REQUIRE( 0.0 == section.atomicWeightRatio() );
-  REQUIRE( 0.0 == section.AWR() );
-  REQUIRE( 2 == section.NL() );
-  REQUIRE( 2 == section.numLegendre() );
-  REQUIRE( 1 == section.legendreOrder() );
-  REQUIRE( 3 == section.NZ() );
-  REQUIRE( 3 == section.numDilutions() );
-  REQUIRE( 0 == section.LRFLAG() );
-  REQUIRE( 0 == section.complexBreakUp() );
-  REQUIRE( 3 == section.NGN() );
-  REQUIRE( 3 == section.numGroups() );
+  CHECK( 1 == section.MT() );
+  CHECK( 1 == section.sectionNumber() );
+  CHECK( 92235 == section.ZA() );
+  CHECK( 0.0 == section.atomicWeightRatio() );
+  CHECK( 0.0 == section.AWR() );
+  CHECK( 2 == section.NL() );
+  CHECK( 2 == section.numberLegendreMoments() );
+  CHECK( 1 == section.legendreOrder() );
+  CHECK( 3 == section.NZ() );
+  CHECK( 3 == section.numberDilutions() );
+  CHECK( 0 == section.LR() );
+  CHECK( 0 == section.complexBreakUp() );
+  CHECK( 3 == section.NGN() );
+  CHECK( 3 == section.numberGroups() );
 
   // group not provided
-  REQUIRE( 0.0 == Approx( section.flux(1) ) );
-  REQUIRE( 0.0 == Approx( section.flux(1, 1, 1) ) );
-  REQUIRE( 0.0 == Approx( section.crossSection(1) ) );
-  REQUIRE( 0.0 == Approx( section.crossSection(1, 0, 0) ) );
+  CHECK( 0.0 == Approx( section.flux(1) ) );
+  CHECK( 0.0 == Approx( section.flux(1, 1, 1) ) );
+  CHECK( 0.0 == Approx( section.crossSection(1) ) );
+  CHECK( 0.0 == Approx( section.crossSection(1, 0, 0) ) );
 
   // group provided -- flux
-  REQUIRE( 1.0 == Approx( section.flux(2) ) );
-  REQUIRE( 1.0 == Approx( section.flux(2, 0, 0) ) );
-  REQUIRE( 2.0 == Approx( section.flux(2, 1, 0) ) );
-  REQUIRE( 3.0 == Approx( section.flux(2, 0, 1) ) );
-  REQUIRE( 3.0 == Approx( section.flux(2, 1) ) );
-  REQUIRE( 4.0 == Approx( section.flux(2, 1, 1) ) );
-  REQUIRE( 5.0 == Approx( section.flux(2, 0, 2) ) );
-  REQUIRE( 6.0 == Approx( section.flux(2, 1, 2) ) );
+  CHECK( 1.0 == Approx( section.flux(2) ) );
+  CHECK( 1.0 == Approx( section.flux(2, 0, 0) ) );
+  CHECK( 2.0 == Approx( section.flux(2, 1, 0) ) );
+  CHECK( 3.0 == Approx( section.flux(2, 0, 1) ) );
+  CHECK( 3.0 == Approx( section.flux(2, 1) ) );
+  CHECK( 4.0 == Approx( section.flux(2, 1, 1) ) );
+  CHECK( 5.0 == Approx( section.flux(2, 0, 2) ) );
+  CHECK( 6.0 == Approx( section.flux(2, 1, 2) ) );
 
   // group provided -- cross_section
-  REQUIRE( 7.1 == Approx( section.crossSection(3) ) );
-  REQUIRE( 7.1 == Approx( section.crossSection(3, 0, 0) ) );
-  REQUIRE( 8.1 == Approx( section.crossSection(3, 1, 0) ) );
-  REQUIRE( 9.1 == Approx( section.crossSection(3, 0, 1) ) );
-  REQUIRE( 10.1 == Approx( section.crossSection(3, 1, 1) ) );
-  REQUIRE( 11.1 == Approx( section.crossSection(3, 0, 2) ) );
-  REQUIRE( 11.1 == Approx( section.crossSection(3, 2) ) );
-  REQUIRE( 12.1 == Approx( section.crossSection(3, 1, 2) ) );
+  CHECK( 7.1 == Approx( section.crossSection(3) ) );
+  CHECK( 7.1 == Approx( section.crossSection(3, 0, 0) ) );
+  CHECK( 8.1 == Approx( section.crossSection(3, 1, 0) ) );
+  CHECK( 9.1 == Approx( section.crossSection(3, 0, 1) ) );
+  CHECK( 10.1 == Approx( section.crossSection(3, 1, 1) ) );
+  CHECK( 11.1 == Approx( section.crossSection(3, 0, 2) ) );
+  CHECK( 11.1 == Approx( section.crossSection(3, 2) ) );
+  CHECK( 12.1 == Approx( section.crossSection(3, 1, 2) ) );
 
   // vectors
-  REQUIRE( compareRanges( std::vector( {0.0, 1.0, 1.1} ),
+  CHECK( compareRanges( std::vector( {0.0, 1.0, 1.1} ),
                           section.fluxes(0) ) );
-  REQUIRE( compareRanges( std::vector( {0.0, 2.0, 2.1} ),
+  CHECK( compareRanges( std::vector( {0.0, 2.0, 2.1} ),
                           section.fluxes(1, 0) ) );
-  REQUIRE( compareRanges( std::vector( {0.0, 7.0, 7.1} ),
+  CHECK( compareRanges( std::vector( {0.0, 7.0, 7.1} ),
                           section.crossSections(0) ) );
-  REQUIRE( compareRanges( std::vector( {0.0, 10.0, 10.1} ),
+  CHECK( compareRanges( std::vector( {0.0, 10.0, 10.1} ),
                           section.crossSections(1, 1) ) );
 
 }

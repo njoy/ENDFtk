@@ -12,28 +12,12 @@ namespace gendf {
 
   class CrossSection : protected SectionBase {
 
+  protected:
+
     /* constructor */
     #include "ENDFtk/gendf/CrossSection/src/ctor.hpp"
 
-  protected:
-
-    /* convenience functions */
-
-    double getValue( unsigned int block, unsigned int group,
-                     unsigned int order, unsigned int dilution ) {
-
-      // default value
-      if ( !this->hasRecord(group) )
-        return 0.0;
-
-      // from list
-      auto values = this->record( group ).data( block );
-      return values[ this->num_legendre_ * dilution + order ];
-    }
-
-
   public:
-
 
     /* convenience functions */
 
@@ -153,14 +137,14 @@ namespace gendf {
 
     // from gendf::SectionBase
     using SectionBase::NL;
-    using SectionBase::numLegendre;
+    using SectionBase::numberLegendreMoments;
     using SectionBase::legendreOrder;
     using SectionBase::NZ;
-    using SectionBase::numDilutions;
-    using SectionBase::numSigmaZeros;
+    using SectionBase::numberDilutions;
+    using SectionBase::numberSigmaZeros;
     using SectionBase::NGN;
-    using SectionBase::numGroups;
-    using SectionBase::LRFLAG;
+    using SectionBase::numberGroups;
+    using SectionBase::LR;
     using SectionBase::complexBreakUp;
 
     // from section::Base

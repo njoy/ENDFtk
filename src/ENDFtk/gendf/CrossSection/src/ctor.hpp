@@ -38,9 +38,13 @@ public:
    *  @param[in] head         the head record of the section
    *  @param[in] begin        the iterator for begin
    *  @param[in] end          the iterator for end
+   *  @param[in] lineNumber   the current line number
+   *  @param[in] MAT          the expected MAT number
    */
   template< typename Iterator >
   CrossSection( const HEAD& head,
                Iterator& begin,
-               const Iterator& end ) :
-    SectionBase( head, begin, end ) {}
+               const Iterator& end,
+               long& lineNumber,
+               int MAT ) :
+    SectionBase( head, begin, end, lineNumber, MAT ) {}

@@ -14,11 +14,12 @@ class TestBase : public SectionBase {
 public:
   TestBase( double ZA, double AWR, int MT,
             int NL, int NZ, int LRFLAG, int NGN,
-            std::vector< DataRecord > lists ) :
-    SectionBase( ZA, AWR, MT, NL, NZ, LRFLAG, NGN, lists ) {};
+            std::vector< DataRecord >&& lists ) :
+    SectionBase( ZA, AWR, MT, NL, NZ, LRFLAG, NGN, std::move( lists ) ) {};
   template< typename Iterator >
-  TestBase( const HEAD& head, Iterator& begin, const Iterator& end ) :
-    SectionBase( head, begin, end ) {};
+  TestBase( const HEAD& head, Iterator& begin, const Iterator& end,
+            long& lineNumber, int MAT ) :
+    SectionBase( head, begin, end, lineNumber, MAT ) {};
 };
 
 // forward declarations
@@ -28,41 +29,38 @@ void verifySection( TestBase );
 // tests
 SCENARIO( "BaseSection tests") {
 
-  GIVEN( "a string representing the Section" ) {
+  GIVEN( "valid data for the section" ) {
 
-    std::string line = chunk();
-    auto begin = line.begin();
-    auto end = line.end();
-    long lineNumber = 0;
-    auto head = StructureDivision( begin, end, lineNumber );
+    WHEN( "the data is given as a string" ) {
 
-    THEN( "the section can be constructed" ) {
+      std::string line = chunk();
+      auto begin = line.begin();
+      auto end = line.end();
+      long lineNumber = 0;
+      auto head = StructureDivision( begin, end, lineNumber );
 
-      TestBase section( asHead(head), begin, end );
+      THEN( "the section can be constructed" ) {
 
-      AND_THEN( "we can get the parameters from it" ) {
+        TestBase section( asHead(head), begin, end, lineNumber, 9228 );
         verifySection( section );
-      } // AND_THEN
-    } // THEN
-  } // GIVEN
+      } // THEN
+    } // WHEN
 
-  WHEN( "the section is created from parameters" ) {
-
-    THEN( "the section can be constructed" ) {
+    WHEN( "the data is given explicitly" ) {
 
       std::vector< DataRecord > lists;
-      std::vector<double> data1 = {7.705020e-4, 1.023642e+3};
+      std::vector<double> data1 = { 7.705020e-4, 1.023642e+3 };
       lists.emplace_back( 293.6, 2, 1, 2, std::move( data1 ) );
-      std::vector<double> data2 = {9.306457e-3, 2.031301e+2};
+      std::vector<double> data2 = { 9.306457e-3, 2.031301e+2 };
       lists.emplace_back( 293.6, 2, 1, 3, std::move( data2 ) );
 
-      TestBase section( 92235., 0.0, 1, 1, 1, 0, 3, lists );
+      THEN( "the section can be constructed" ) {
 
-      AND_THEN( "we can get the parameters from it" ) {
+        TestBase section( 92235., 0.0, 1, 1, 1, 0, 3, std::move( lists ) );
         verifySection( section );
-      } // AND_THEN
-    } // THEN
-  } // WHEN
+      } // THEN
+    } // WHEN
+  } // GIVEN
 
 } // SCENARIO
 
@@ -80,25 +78,34 @@ std::string chunk(){
 void verifySection( TestBase section ) {
 
   // header information
-  REQUIRE( 1 == section.MT() );
-  REQUIRE( 1 == section.sectionNumber() );
-  REQUIRE( 92235 == section.ZA() );
-  REQUIRE( 0.0 == section.atomicWeightRatio() );
-  REQUIRE( 0.0 == section.AWR() );
-  REQUIRE( 1 == section.NL() );
-  REQUIRE( 1 == section.numLegendre() );
-  REQUIRE( 0 == section.legendreOrder() );
-  REQUIRE( 1 == section.NZ() );
-  REQUIRE( 1 == section.numDilutions() );
-  REQUIRE( 0 == section.LRFLAG() );
-  REQUIRE( 0 == section.complexBreakUp() );
-  REQUIRE( 3 == section.NGN() );
-  REQUIRE( 3 == section.numGroups() );
+  CHECK( 1 == section.MT() );
+  CHECK( 1 == section.sectionNumber() );
+  CHECK( 92235 == section.ZA() );
+  CHECK( 0.0 == section.atomicWeightRatio() );
+  CHECK( 0.0 == section.AWR() );
+  CHECK( 1 == section.NL() );
+  CHECK( 1 == section.numberLegendreMoments() );
+  CHECK( 0 == section.legendreOrder() );
+  CHECK( 1 == section.NZ() );
+  CHECK( 1 == section.numberDilutions() );
+  CHECK( 0 == section.LR() );
+  CHECK( 0 == section.complexBreakUp() );
+  CHECK( 3 == section.NGN() );
+  CHECK( 3 == section.numberGroups() );
 
   // access lists
-  REQUIRE( 2 == section.records().size() );
-  REQUIRE( 9.306457e-3 == Approx( section.record(3).list()[0] ) );
-  REQUIRE( section.hasRecord(2) );
-  REQUIRE( !section.hasRecord(1) );
-  REQUIRE( !section.hasRecord(4) );
+  CHECK( 2 == section.records().size() );
+  CHECK( 9.306457e-3 == Approx( section.record(3).list()[0] ) );
+  CHECK( section.hasRecord(2) );
+  CHECK( !section.hasRecord(1) );
+  CHECK( !section.hasRecord(4) );
+
+  // convenience functions
+  CHECK_THROWS( section.checkBounds( 1, 1 ) );
+  CHECK_THROWS( section.checkBounds( 0, 2 ) );
+  CHECK_THROWS( section.checkBounds( 0, 0, 0 ) );
+  CHECK_THROWS( section.checkBounds( 4, 0, 0 ) );
+  CHECK_NOTHROW( section.checkBounds( 3, 0, 0 ) );
+  CHECK( 7.705020e-4 == Approx( section.getValue( 0, 2, 0, 0) ) );
+  CHECK( 2.031301e+2 == Approx( section.getValue( 1, 3, 0, 0) ) );
 }
