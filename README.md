@@ -13,16 +13,13 @@ First of all, a user should clone the ENDFtk repository and build the python bin
 ```
 git clone https://github.com/njoy/ENDFtk
 cd ENDFtk
-git checkout develop
 mkdir build
 cd build
 cmake -DCMAKE_BUILD_TYPE=Release ../
 make ENDFtk.python -j8
 ```
 
-Since the python bindings for ENDFtk are still a work in progress, we have to check out the develop branch. Once these go into production this step will no longer be required. ENDFtk in python requires python 3.x so you will need to have at least one python 3.x installed. When multiple python versions are installed, the cmake configuration step will pick one of these to link against.
-
-The compilation will produce a dynamic library linked to the python libraries on the user's computer (it'll be named something like `ENDFtk.cpython-37m-darwin.so`). This name will also indicate which version of the python libraries this library is linked to. This is important since you will need to use the associated python version with the ENDFtk python package.
+ENDFtk in python requires python 3.x so you will need to have at least one python 3.x installed. When multiple python versions are installed, the cmake configuration step will pick one of these to link against. The compilation will produce a dynamic library linked to the python libraries on the user's computer (it'll be named something like `ENDFtk.cpython-37m-darwin.so`). This name will also indicate which version of the python libraries this library is linked to. This is important since you will need to use the associated python version with the ENDFtk python package.
 
 In order to use the ENDFtk python package, the user should make sure that the library is within the python path. This can be done in multiple ways. You can set that up by adding the ENDFtk build path to the python path `$PYTHONPATH` environmental variable on your machine, or by using the following in your python code:
 ```
