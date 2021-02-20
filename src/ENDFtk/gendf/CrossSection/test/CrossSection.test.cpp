@@ -16,25 +16,13 @@ void verifySection( const CrossSection& );
 
 // helper function
 template< typename Range1, typename Range2 >
-bool compareRanges( const Range1& r1, const Range2& r2 ) {
+void compareRanges( const Range1& r1, const Range2& r2 ) {
 
-  std::cout << "Sizes: " << r1.size() << " " << r2.size() << std::endl;
-
-  if( r1.size() != r2.size() ) {
-    std::cout << "Different sizes: " << r1.size() << " != " << r2.size();
-    return false;
-  }
-
+  CHECK( r1.size() == r2.size() );
   for( std::size_t i=0; i<r1.size(); ++i ) {
-    std::cout << i << std::endl;
-    if( r1[i] != r2[i] ) {
-      std::cout << "Different values (" << i << "): "
-                << r1[i] << " != " << r2[i];
-      return false;
-    }
+    CHECK( r1[i] == Approx(r2[i]) );
   }
 
-  return true;
 }
 
 // tests
@@ -82,6 +70,9 @@ std::string chunk(){
 
   return
     " 9.223500+4 0.000000+0          2          3          0          39228 3  1     \n"
+    " 2.936000+2 0.000000+0          2          1         12          19228 3  1     \n"
+    "        0.0        0.0        0.0        0.0        0.0        0.09228 3  1     \n"
+    "        0.0        0.0        0.0        0.0        0.0        0.09228 3  1     \n"
     " 2.936000+2 0.000000+0          2          1         12          29228 3  1     \n"
     "        1.0        2.0        3.0        4.0        5.0        6.09228 3  1     \n"
     "        7.0        8.0        9.0       10.0       11.0       12.09228 3  1     \n"
@@ -136,24 +127,13 @@ void verifySection( const CrossSection& section ) {
   CHECK( 12.1 == Approx( section.crossSection(3, 1, 2) ) );
 
   // vectors
-  std::cout << section.NGN() << std::endl;
-
-  for ( const auto& val : ( section.fluxes(0, 1) ) ) {
-    std::cout << val << std::endl;
-  }
-
-  // std::cout << section.fluxes(0, 1)[0] << std::endl;
-  // std::cout << section.fluxes(0, 1)[1] << std::endl;
-  // std::cout << section.fluxes(0, 1)[2] << std::endl;
-
-  std::vector< double > expected = {0.0, 1.0, 1.1};
-  CHECK( compareRanges( expected,
-                        section.fluxes(0) ) );
-  // CHECK( compareRanges( std::vector( {0.0, 2.0, 2.1} ),
-  //                       section.fluxes(1, 0) ) );
-  // CHECK( compareRanges( std::vector( {0.0, 7.0, 7.1} ),
-  //                       section.crossSections(0) ) );
-  // CHECK( compareRanges( std::vector( {0.0, 10.0, 10.1} ),
-  //                       section.crossSections(1, 1) ) );
+  compareRanges( std::vector< double >( {0.0, 1.0, 1.1} ),
+                 section.fluxes(0) );
+  compareRanges( std::vector< double >( {0.0, 2.0, 2.1} ),
+                 section.fluxes(1, 0) );
+  compareRanges( std::vector< double >( {0.0, 7.0, 7.1} ),
+                 section.crossSections(0) );
+  compareRanges( std::vector< double >( {0.0, 10.0, 10.1} ),
+                 section.crossSections(1, 1) );
 
 }

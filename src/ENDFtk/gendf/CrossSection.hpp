@@ -35,8 +35,8 @@ namespace gendf {
       checkBounds( order, dilution );
       return ranges::view::iota( 1, this->num_groups_+1 )
              | ranges::view::transform(
-               [&] ( unsigned int group ) -> double
-                   { return this->getValue( 0, group, order, dilution ); } );
+               [=] ( unsigned int group ) -> double
+                   { return getValue( 0, group, order, dilution ); } );
     }
 
     /**
@@ -90,7 +90,7 @@ namespace gendf {
       checkBounds( order, dilution );
       return ranges::view::iota( 1, this->num_groups_+1 )
              | ranges::view::transform(
-               [&] ( unsigned int group ) -> double
+               [=] ( unsigned int group ) -> double
                    { return this->getValue( 1, group, order, dilution ); } );
     }
 
