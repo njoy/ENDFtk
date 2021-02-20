@@ -96,7 +96,9 @@ namespace gendf {
      *
      *  @param[in] group    the group index
      */
-    auto record( unsigned int group ) const { return this->records_.at( group ); }
+    const auto& record( unsigned int group ) const {
+      return this->records_.at( group );
+    }
 
     /**
      *  @brief Check if group has a DataRecord
@@ -119,7 +121,7 @@ namespace gendf {
      *  @param[in] dilution the dilution index
      */
     double getValue( unsigned int block, unsigned int group,
-                     unsigned int order, unsigned int dilution ) {
+                     unsigned int order, unsigned int dilution ) const {
 
       // default value
       if ( !this->hasRecord(group) ) {
@@ -127,7 +129,7 @@ namespace gendf {
       }
 
       // from list
-      auto values = this->record( group ).data( block );
+      const auto& values = this->record( group ).data( block );
       return values[ this->num_legendre_ * dilution + order ];
     }
 

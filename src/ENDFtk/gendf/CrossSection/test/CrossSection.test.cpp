@@ -12,18 +12,27 @@ using namespace njoy::ENDFtk::gendf;
 
 // forward declarations
 std::string chunk();
-void verifySection( CrossSection );
+void verifySection( const CrossSection& );
 
 // helper function
 template< typename Range1, typename Range2 >
-bool compareRanges( Range1 r1, Range2 r2 ) {
+bool compareRanges( const Range1& r1, const Range2& r2 ) {
 
-  if( r1.size() != r2.size() )
+  std::cout << "Sizes: " << r1.size() << " " << r2.size() << std::endl;
+
+  if( r1.size() != r2.size() ) {
+    std::cout << "Different sizes: " << r1.size() << " != " << r2.size();
     return false;
+  }
 
-  for( std::size_t i=0; i<r1.size(); ++i )
-    if( r1[i] != r2[i] )
+  for( std::size_t i=0; i<r1.size(); ++i ) {
+    std::cout << i << std::endl;
+    if( r1[i] != r2[i] ) {
+      std::cout << "Different values (" << i << "): "
+                << r1[i] << " != " << r2[i];
       return false;
+    }
+  }
 
   return true;
 }
@@ -33,7 +42,7 @@ SCENARIO( "CrossSection tests") {
 
   GIVEN( "valid data for the CrossSection" ) {
 
-    WHEN( "the data is given as a string" ) {}
+    WHEN( "the data is given as a string" ) {
 
       std::string line = chunk();
       auto begin = line.begin();
@@ -50,9 +59,19 @@ SCENARIO( "CrossSection tests") {
 
     WHEN( "the data is given explicitly" ) {
 
+      std::vector< double > fluxes1 = { 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 };
+      std::vector< double > xs1 = { 7.0, 8.0, 9.0, 10.0, 11.0, 12.0 };
+      std::vector< double > fluxes2 = { 1.1, 2.1, 3.1, 4.1, 5.1, 6.1 };
+      std::vector< double > xs2 = { 7.1, 8.1, 9.1, 10.1, 11.1, 12.1 };
+
       THEN( "the section can be constructed" ) {
 
-        // TODO
+
+        // std::vector< DataRecord > records = {
+        //   CrossSection::makeDataRecord( 293.6, 2, fluxes1, xs1 ),
+        //   CrossSection::makeDataRecord( 293.6, 2, fluxes2, xs2 ) };
+        // CrossSection section( 92235., 0.0, 1, 2, 3, 0, 3,
+        //                       std::move( records ) );
         // verifySection( section );
       } // THEN
     } // WHEN
@@ -72,7 +91,7 @@ std::string chunk(){
     "                                                                  9228 3  0     \n";
 }
 
-void verifySection( CrossSection section ) {
+void verifySection( const CrossSection& section ) {
 
   // header information
   CHECK( 1 == section.MT() );
@@ -117,13 +136,24 @@ void verifySection( CrossSection section ) {
   CHECK( 12.1 == Approx( section.crossSection(3, 1, 2) ) );
 
   // vectors
-  CHECK( compareRanges( std::vector( {0.0, 1.0, 1.1} ),
-                          section.fluxes(0) ) );
-  CHECK( compareRanges( std::vector( {0.0, 2.0, 2.1} ),
-                          section.fluxes(1, 0) ) );
-  CHECK( compareRanges( std::vector( {0.0, 7.0, 7.1} ),
-                          section.crossSections(0) ) );
-  CHECK( compareRanges( std::vector( {0.0, 10.0, 10.1} ),
-                          section.crossSections(1, 1) ) );
+  std::cout << section.NGN() << std::endl;
+
+  for ( const auto& val : ( section.fluxes(0, 1) ) ) {
+    std::cout << val << std::endl;
+  }
+
+  // std::cout << section.fluxes(0, 1)[0] << std::endl;
+  // std::cout << section.fluxes(0, 1)[1] << std::endl;
+  // std::cout << section.fluxes(0, 1)[2] << std::endl;
+
+  std::vector< double > expected = {0.0, 1.0, 1.1};
+  CHECK( compareRanges( expected,
+                        section.fluxes(0) ) );
+  // CHECK( compareRanges( std::vector( {0.0, 2.0, 2.1} ),
+  //                       section.fluxes(1, 0) ) );
+  // CHECK( compareRanges( std::vector( {0.0, 7.0, 7.1} ),
+  //                       section.crossSections(0) ) );
+  // CHECK( compareRanges( std::vector( {0.0, 10.0, 10.1} ),
+  //                       section.crossSections(1, 1) ) );
 
 }

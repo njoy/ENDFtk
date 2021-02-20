@@ -1,34 +1,17 @@
 public:
 
-/*
-  CrossSection( double ZA, double AWR, int MT,
-                int NL, int NZ, int LRFLAG, int NGN,
-                std::vector< double > fluxes,
-                std::vector< double > cross_sections ) :
-    SectionBase( ZA, AWR, MT, NL, NZ, LRFLAG, NGN,
-                 makeRecords( fluxes, cross_sections, NL, NZ ) ) {}
+  CrossSection( double za, double awr, int mt,
+                int nl, int nz, int lr, int ng,
+                std::vector< DataRecord >&& records) :
+    SectionBase( za, awr, mt, nl, nz, lr, ng,
+                 std::move( records ) ) {}
 
-  CrossSection( double ZA, double AWR, int MT,
-                int NL, int NZ, int LRFLAG, int NGN,
-                std::vector< std::vector< std::vector< double > > > fluxes,
-                std::vector< std::vector< std::vector< double > > > cross_sections ) :
-    SectionBase( ZA, AWR, MT, NL, NZ, LRFLAG, NGN,
-                 makeRecords( fluxes, cross_sections ) ) {}
+  CrossSection( double za, double awr, int mt,
+                int nl, int nz, int lr, int ng,
+                std::map< unsigned int, DataRecord >&& records) :
+    SectionBase( za, awr, mt, nl, nz, lr, ng,
+                 std::move( records ) ) {}
 
-  CrossSection( double ZA, double AWR, int MT,
-                int NZ, int LRFLAG, int NGN,
-                std::vector< double > fluxes,
-                std::vector< double > cross_sections ) :
-    SectionBase( ZA, AWR, MT, NL, NZ, LRFLAG, NGN,
-                 makeRecords( fluxes, cross_sections, NZ ) ) {}
-
-  CrossSection( double ZA, double AWR, int MT,
-                int NZ, int LRFLAG, int NGN,
-                std::vector< std::vector< double > > fluxes,
-                std::vector< std::vector< double > > cross_sections ) :
-    SectionBase( ZA, AWR, MT, 1, NZ, LRFLAG, NGN,
-                 makeRecords( fluxes, cross_sections ) ) {}
-*/
 
   /**
    *  @brief Constructor from buffer

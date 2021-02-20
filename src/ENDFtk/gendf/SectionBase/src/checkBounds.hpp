@@ -6,7 +6,7 @@
  *  @param[in] dilution the dilution index
  */
 void checkBounds( unsigned int group, unsigned int order,
-                  unsigned int dilution ) {
+                  unsigned int dilution ) const {
 
   // check group
   if ( group == 0 || group > this->num_groups_ ) {
@@ -24,7 +24,7 @@ void checkBounds( unsigned int group, unsigned int order,
  *  @param[in] order    the Legendre order
  *  @param[in] dilution the dilution index
  */
-void checkBounds( unsigned int order, unsigned int dilution ) {
+void checkBounds( unsigned int order, unsigned int dilution ) const {
 
   // check order
   if ( order >= this->num_legendre_ ) {
