@@ -74,7 +74,6 @@ target_link_libraries( ENDFtk
 # ENDFtk : python bindings
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-find_package( Python3 3.5 REQUIRED )
 include_directories( python/src/ )
 
 pybind11_add_module( ENDFtk.python

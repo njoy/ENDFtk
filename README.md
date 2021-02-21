@@ -32,6 +32,14 @@ When running python in the build directory directly, none of these steps are req
 
 #### Troubleshooting ####
 
+##### CMake doesn’t detect the right Python version #####
+
+Taken from the pybind11 FAQ.
+
+The CMake-based build system will try to automatically detect the installed version of Python and link against that. When this fails, or when there are multiple versions of Python and it finds the wrong one, delete CMakeCache.txt and then add -DPYTHON_EXECUTABLE=$(which python) to your CMake configure line. (Replace $(which python) with a path to python if your prefer.)
+
+A version of python 3.x is preferred.
+
 ##### importError cannot import name <sysconfig> #####
 
 This error sometimes comes up when running the cmake command. This appears to be related to an incomplete/corrupted python installation. It can be rectified by installing the distutils package for the python version that is being used. On a linux system, the following command should install the distutils package:
