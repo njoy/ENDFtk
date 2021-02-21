@@ -34,3 +34,11 @@ jobs:
     - name: ctest
       run: ctest -j2
       working-directory: ./bin
+    - name: make ENDFtk.python
+      run: make ENDFtk.python -j2
+      working-directory: ./bin
+    - name: python -m unittest
+      run: |
+        cp ../bin/*.so .
+        python3 -m unittest discover -v -p "Test*"
+      working-directory: ./python
