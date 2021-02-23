@@ -14,7 +14,14 @@ public:
 /**
  *  @brief Constructor
  *
- *  @param[in] coefficients    the polynomial coefficients
+ *  @param[in] identifiers     the fission product identifiers (ZA identifier)
+ *  @param[in] states          the isomeric state for each fission product
+ *  @param[in] yields          the fission yields
+ *  @param[in] uncertainties   the fission yield uncertainties
+ *  @param[in] energy          the incident neutron energy (equal to zero for
+ *                             energy independent yields)
+ *  @param[in] interpolation   the interpolation type (equal to zero for
+ *                             energy independent yields)
  */
 FissionYieldData( std::vector< unsigned int >&& identifiers,
                   std::vector< unsigned int >&& states,

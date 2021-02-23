@@ -56,7 +56,7 @@ namespace section{
     int interpolationType() const { return this->I(); }
 
     /**
-     *  @brief Return the interpolation type (or LE value)
+     *  @brief Return whether or not the fission yield data is energy independent
      */
     bool isEnergyIndependent() const { return this->I() == 0; }
 
@@ -103,22 +103,22 @@ namespace section{
     /**
      *  @brief Return the fission yields
      */
-    auto YI() const { return this->column( 2 ); }
+    auto Y() const { return this->column( 2 ); }
 
     /**
      *  @brief Return the fission yields
      */
-    auto fissionYields() const { return this->YI(); }
+    auto fissionYields() const { return this->Y(); }
 
     /**
      *  @brief Return the fission yield uncertainties
      */
-    auto DYI() const { return this->column( 3 ); }
+    auto DY() const { return this->column( 3 ); }
 
     /**
      *  @brief Return the fission yield uncertainties
      */
-    auto fissionYieldUncertainties() const { return this->DYI(); }
+    auto fissionYieldUncertainties() const { return this->DY(); }
 
     /**
      *  @brief Return the fission yields

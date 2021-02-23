@@ -15,6 +15,7 @@ namespace hana = boost::hana;
 inline namespace literals { using namespace hana::literals; }
 
 // declarations - sections
+void wrap_8_FissionYieldData( python::module&, python::module& );
 void wrapSection_8_457( python::module&, python::module& );
 
 void wrapFile_8( python::module& module, python::module& viewmodule ) {
@@ -33,6 +34,7 @@ void wrapFile_8( python::module& module, python::module& viewmodule ) {
   );
 
   // wrap sections
+  wrap_8_FissionYieldData( submodule, viewmodule );
   wrapSection_8_457( submodule, viewmodule );
 
   // create the file
