@@ -34,8 +34,8 @@ void verifyChunk( const FissionProduct& chunk ) {
   CHECK( 1001 == Approx( chunk.fissionProductIdentifier() ) );
   CHECK( 1 == Approx( chunk.FPS() ) );
   CHECK( 1 == Approx( chunk.isomericState() ) );
-  CHECK( 1e-3 == Approx( chunk.YI() ) );
+  CHECK( 1e-3 == Approx( chunk.Y() ) );
   CHECK( 1e-3 == Approx( chunk.fissionYield() ) );
-  CHECK( 1e-5 == Approx( chunk.DYI() ) );
+  CHECK( 1e-5 == Approx( chunk.DY() ) );
   CHECK( 1e-5 == Approx( chunk.fissionYieldUncertainty() ) );
 }

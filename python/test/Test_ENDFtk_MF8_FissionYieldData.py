@@ -24,6 +24,7 @@ class Test_ENDFtk_MF8_FissionYieldData( unittest.TestCase ) :
             # verify content
             self.assertEqual( 2, chunk.I )
             self.assertEqual( 2, chunk.interpolation_type )
+            self.assertEqual( False, chunk.LE )
             self.assertEqual( False, chunk.is_energy_independent )
             self.assertEqual( 3, chunk.NFP )
             self.assertEqual( 3, chunk.number_fission_products )

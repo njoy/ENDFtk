@@ -50,6 +50,12 @@ void wrap_8_FissionYieldData( python::module& module, python::module& ) {
   )
   .def_property_readonly(
 
+    "LE",
+    &Component::LE,
+    "Whether or not the fission yield data is energy independent"
+  )
+  .def_property_readonly(
+
     "is_energy_independent",
     &Component::isEnergyIndependent,
     "Whether or not the fission yield data is energy independent"

@@ -38,20 +38,20 @@ public:
   /**
    *  @brief Return the fission yield
    */
-  double YI() const { return this->chunk[2]; }
+  double Y() const { return this->chunk[2]; }
 
   /**
    *  @brief Return the fission yield
    */
-  double fissionYield() const { return this->YI(); }
+  double fissionYield() const { return this->Y(); }
 
   /**
    *  @brief Return the fission yield uncertainty
    */
-  double DYI() const { return this->chunk[3]; }
+  double DY() const { return this->chunk[3]; }
 
   /**
    *  @brief Return the fission yield uncertainty
    */
-  double fissionYieldUncertainty() const { return this->DYI(); }
+  double fissionYieldUncertainty() const { return this->DY(); }
 };

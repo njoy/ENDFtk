@@ -56,9 +56,15 @@ namespace section{
     int interpolationType() const { return this->I(); }
 
     /**
+     *  @brief Return whether or not the fission yields are energy dependent
+     *         or not
+     */
+    bool LE() const { return this->I() == 0; }
+
+    /**
      *  @brief Return whether or not the fission yield data is energy independent
      */
-    bool isEnergyIndependent() const { return this->I() == 0; }
+    bool isEnergyIndependent() const { return this->LE(); }
 
     /**
      *  @brief Return the incident energy for which the fission yields are given

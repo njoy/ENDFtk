@@ -101,6 +101,7 @@ void verifyChunk( const FissionYieldData& chunk ) {
 
   CHECK( 2 == chunk.I() );
   CHECK( 2 == chunk.interpolationType() );
+  CHECK( false == chunk.LE() );
   CHECK( false == chunk.isEnergyIndependent() );
   CHECK( 3 == chunk.NFP() );
   CHECK( 3 == chunk.numberFissionProducts() );
