@@ -25,11 +25,12 @@ SCENARIO( "FissionYieldData" ) {
       int interpolation = 2;
       std::vector< unsigned int > identifiers = { 23066, 54135, 72171 };
       std::vector< unsigned int > states = { 0, 0, 0 };
-      std::vector< double > yields = { 2.05032e-19, 7.851250e-4, 0. };
-      std::vector< double > uncertainties = { 1.31220e-19, 4.710750e-5, 0. };
+      std::vector< std::array< double, 2 > > yields = { {{ 2.05032e-19, 1.31220e-19 }},
+                                                        {{ 7.851250e-4, 4.710750e-5 }},
+                                                        {{ 0., 0. }} };
 
       FissionYieldData chunk( std::move( identifiers ), std::move( states ),
-                              std::move( yields ), std::move( uncertainties ),
+                              std::move( yields ),
                               energy, interpolation );
 
       THEN( "an FissionYieldData can be constructed and members can be "
@@ -121,18 +122,12 @@ void verifyChunk( const FissionYieldData& chunk ) {
   CHECK( 0 == chunk.fissionProducts()[0].isomericState() );
   CHECK( 0 == chunk.fissionProducts()[1].isomericState() );
   CHECK( 0 == chunk.fissionProducts()[2].isomericState() );
-  CHECK( 2.05032e-19 == Approx( chunk.fissionProducts()[0].Y() ) );
-  CHECK( 7.851250e-4 == Approx( chunk.fissionProducts()[1].Y() ) );
-  CHECK( 0 == Approx( chunk.fissionProducts()[2].Y() ) );
-  CHECK( 2.05032e-19 == Approx( chunk.fissionProducts()[0].fissionYield() ) );
-  CHECK( 7.851250e-4 == Approx( chunk.fissionProducts()[1].fissionYield() ) );
-  CHECK( 0 == Approx( chunk.fissionProducts()[2].fissionYield() ) );
-  CHECK( 1.31220e-19 == Approx( chunk.fissionProducts()[0].DY() ) );
-  CHECK( 4.710750e-5 == Approx( chunk.fissionProducts()[1].DY() ) );
-  CHECK( 0 == Approx( chunk.fissionProducts()[2].DY() ) );
-  CHECK( 1.31220e-19 == Approx( chunk.fissionProducts()[0].fissionYieldUncertainty() ) );
-  CHECK( 4.710750e-5 == Approx( chunk.fissionProducts()[1].fissionYieldUncertainty() ) );
-  CHECK( 0 == Approx( chunk.fissionProducts()[2].fissionYieldUncertainty() ) );
+  CHECK( 2.05032e-19 == Approx( chunk.fissionProducts()[0].Y()[0] ) );
+  CHECK( 1.31220e-19 == Approx( chunk.fissionProducts()[0].Y()[1] ) );
+  CHECK( 7.851250e-4 == Approx( chunk.fissionProducts()[1].Y()[0] ) );
+  CHECK( 4.710750e-5 == Approx( chunk.fissionProducts()[1].Y()[1] ) );
+  CHECK( 0 == Approx( chunk.fissionProducts()[2].Y()[0] ) );
+  CHECK( 0 == Approx( chunk.fissionProducts()[2].Y()[1] ) );
 
   CHECK( 3 == chunk.ZAFP().size() );
   CHECK( 3 == chunk.fissionProductIdentifiers().size() );
@@ -140,8 +135,6 @@ void verifyChunk( const FissionYieldData& chunk ) {
   CHECK( 3 == chunk.isomericStates().size() );
   CHECK( 3 == chunk.Y().size() );
   CHECK( 3 == chunk.fissionYields().size() );
-  CHECK( 3 == chunk.DY().size() );
-  CHECK( 3 == chunk.fissionYieldUncertainties().size() );
   CHECK( 23066 == chunk.ZAFP()[0] );
   CHECK( 54135 == chunk.ZAFP()[1] );
   CHECK( 72171 == chunk.ZAFP()[2] );
@@ -154,18 +147,24 @@ void verifyChunk( const FissionYieldData& chunk ) {
   CHECK( 0 == chunk.isomericStates()[0] );
   CHECK( 0 == chunk.isomericStates()[1] );
   CHECK( 0 == chunk.isomericStates()[2] );
-  CHECK( 2.05032e-19 == Approx( chunk.Y()[0] ) );
-  CHECK( 7.851250e-4 == Approx( chunk.Y()[1] ) );
-  CHECK( 0 == Approx( chunk.Y() [2]) );
-  CHECK( 2.05032e-19 == Approx( chunk.fissionYields()[0] ) );
-  CHECK( 7.851250e-4 == Approx( chunk.fissionYields()[1] ) );
-  CHECK( 0 == Approx( chunk.fissionYields() [2]) );
-  CHECK( 1.31220e-19 == Approx( chunk.DY()[0] ) );
-  CHECK( 4.710750e-5 == Approx( chunk.DY()[1] ) );
-  CHECK( 0 == Approx( chunk.DY()[2] ) );
-  CHECK( 1.31220e-19 == Approx( chunk.fissionYieldUncertainties()[0] ) );
-  CHECK( 4.710750e-5 == Approx( chunk.fissionYieldUncertainties()[1] ) );
-  CHECK( 0 == Approx( chunk.fissionYieldUncertainties()[2] ) );
+  CHECK( 2 == chunk.Y()[0].size() );
+  CHECK( 2 == chunk.Y()[1].size() );
+  CHECK( 2 == chunk.Y()[2].size() );
+  CHECK( 2 == chunk.fissionYields()[0].size() );
+  CHECK( 2 == chunk.fissionYields()[1].size() );
+  CHECK( 2 == chunk.fissionYields()[2].size() );
+  CHECK( 2.05032e-19 == Approx( chunk.Y()[0][0] ) );
+  CHECK( 1.31220e-19 == Approx( chunk.Y()[0][1] ) );
+  CHECK( 7.851250e-4 == Approx( chunk.Y()[1][0] ) );
+  CHECK( 4.710750e-5 == Approx( chunk.Y()[1][1] ) );
+  CHECK( 0 == Approx( chunk.Y()[2][0] ) );
+  CHECK( 0 == Approx( chunk.Y()[2][1] ) );
+  CHECK( 2.05032e-19 == Approx( chunk.fissionYields()[0][0] ) );
+  CHECK( 1.31220e-19 == Approx( chunk.fissionYields()[0][1] ) );
+  CHECK( 7.851250e-4 == Approx( chunk.fissionYields()[1][0] ) );
+  CHECK( 4.710750e-5 == Approx( chunk.fissionYields()[1][1] ) );
+  CHECK( 0 == Approx( chunk.fissionYields()[2][0] ) );
+  CHECK( 0 == Approx( chunk.fissionYields()[2][1] ) );
 
   CHECK( 3 == chunk.NC() );
 }

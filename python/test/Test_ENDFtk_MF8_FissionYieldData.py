@@ -37,8 +37,6 @@ class Test_ENDFtk_MF8_FissionYieldData( unittest.TestCase ) :
             self.assertEqual( 3, len( chunk.isomeric_states ) )
             self.assertEqual( 3, len( chunk.Y ) )
             self.assertEqual( 3, len( chunk.fission_yields ) )
-            self.assertEqual( 3, len( chunk.DY ) )
-            self.assertEqual( 3, len( chunk.fission_yield_uncertainties ) )
             self.assertEqual( 23066, chunk.ZAFP[0] )
             self.assertEqual( 54135, chunk.ZAFP[1] )
             self.assertEqual( 72171, chunk.ZAFP[2] )
@@ -51,18 +49,24 @@ class Test_ENDFtk_MF8_FissionYieldData( unittest.TestCase ) :
             self.assertEqual( 0, chunk.isomeric_states[0] )
             self.assertEqual( 0, chunk.isomeric_states[1] )
             self.assertEqual( 0, chunk.isomeric_states[2] )
-            self.assertAlmostEqual( 2.05032e-19, chunk.Y[0] )
-            self.assertAlmostEqual( 7.851250e-4, chunk.Y[1] )
-            self.assertAlmostEqual( 0, chunk.Y[2] )
-            self.assertAlmostEqual( 2.05032e-19, chunk.fission_yields[0] )
-            self.assertAlmostEqual( 7.851250e-4, chunk.fission_yields[1] )
-            self.assertAlmostEqual( 0, chunk.fission_yields[2] )
-            self.assertAlmostEqual( 1.31220e-19, chunk.DY[0] )
-            self.assertAlmostEqual( 4.710750e-5, chunk.DY[1] )
-            self.assertAlmostEqual( 0, chunk.DY[2] )
-            self.assertAlmostEqual( 1.31220e-19, chunk.fission_yield_uncertainties[0] )
-            self.assertAlmostEqual( 4.710750e-5, chunk.fission_yield_uncertainties[1] )
-            self.assertAlmostEqual( 0, chunk.fission_yield_uncertainties[2] )
+            self.assertEqual( 2, len( chunk.Y[0] ) )
+            self.assertEqual( 2, len( chunk.Y[1] ) )
+            self.assertEqual( 2, len( chunk.Y[2] ) )
+            self.assertEqual( 2, len( chunk.fission_yields[0] ) )
+            self.assertEqual( 2, len( chunk.fission_yields[1] ) )
+            self.assertEqual( 2, len( chunk.fission_yields[2] ) )
+            self.assertAlmostEqual( 2.05032e-19, chunk.Y[0][0] )
+            self.assertAlmostEqual( 1.31220e-19, chunk.Y[0][1] )
+            self.assertAlmostEqual( 7.851250e-4, chunk.Y[1][0] )
+            self.assertAlmostEqual( 4.710750e-5, chunk.Y[1][1] )
+            self.assertAlmostEqual( 0, chunk.Y[2][0] )
+            self.assertAlmostEqual( 0, chunk.Y[2][1] )
+            self.assertAlmostEqual( 2.05032e-19, chunk.fission_yields[0][0] )
+            self.assertAlmostEqual( 1.31220e-19, chunk.fission_yields[0][1] )
+            self.assertAlmostEqual( 7.851250e-4, chunk.fission_yields[1][0] )
+            self.assertAlmostEqual( 4.710750e-5, chunk.fission_yields[1][1] )
+            self.assertAlmostEqual( 0, chunk.fission_yields[2][0] )
+            self.assertAlmostEqual( 0, chunk.fission_yields[2][1] )
 
             self.assertEqual( 3, chunk.NC )
 
@@ -74,8 +78,9 @@ class Test_ENDFtk_MF8_FissionYieldData( unittest.TestCase ) :
                                   interpolation = 2,
                                   identifiers = [ 23066, 54135, 72171 ],
                                   states = [ 0, 0, 0 ],
-                                  yields = [ 2.05032e-19, 7.851250e-4, 0. ],
-                                  uncertainties = [ 1.31220e-19, 4.710750e-5, 0. ] )
+                                  yields = [ [ 2.05032e-19, 1.31220e-19 ],
+                                             [ 7.851250e-4, 4.710750e-5 ],
+                                             [ 0., 0. ] ] )
 
         verify_chunk( self, chunk )
 

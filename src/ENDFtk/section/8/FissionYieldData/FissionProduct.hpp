@@ -36,22 +36,15 @@ public:
   unsigned int isomericState() const { return this->FPS(); }
 
   /**
-   *  @brief Return the fission yield
+   *  @brief Return the fission yield value and uncertainty
    */
-  double Y() const { return this->chunk[2]; }
+  std::array< double, 2 > Y() const {
+
+    return {{ this->chunk[2], this->chunk[3] }};
+  }
 
   /**
-   *  @brief Return the fission yield
+   *  @brief Return the fission yield value and uncertainty
    */
-  double fissionYield() const { return this->Y(); }
-
-  /**
-   *  @brief Return the fission yield uncertainty
-   */
-  double DY() const { return this->chunk[3]; }
-
-  /**
-   *  @brief Return the fission yield uncertainty
-   */
-  double fissionYieldUncertainty() const { return this->DY(); }
+  std::array< double, 2 > fissionYield() const { return this->Y(); }
 };

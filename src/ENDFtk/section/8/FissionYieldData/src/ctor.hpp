@@ -16,8 +16,7 @@ public:
  *
  *  @param[in] identifiers     the fission product identifiers (ZA identifier)
  *  @param[in] states          the isomeric state for each fission product
- *  @param[in] yields          the fission yields
- *  @param[in] uncertainties   the fission yield uncertainties
+ *  @param[in] yields          the fission yield values and uncertainties
  *  @param[in] energy          the incident neutron energy (equal to zero for
  *                             energy independent yields)
  *  @param[in] interpolation   the interpolation type (equal to zero for
@@ -25,16 +24,14 @@ public:
  */
 FissionYieldData( std::vector< unsigned int >&& identifiers,
                   std::vector< unsigned int >&& states,
-                  std::vector< double >&& yields,
-                  std::vector< double >&& uncertainties,
+                  std::vector< std::array< double, 2 > >&& yields,
                   double energy = 0.0, int interpolation = 0 )
   try : FissionYieldData(
             ListRecord( energy, 0.0,
                         interpolation, 0, identifiers.size(),
                         generateList( std::move( identifiers ),
                                       std::move( states ),
-                                      std::move( yields ),
-                                      std::move( uncertainties ) ) ) ) {}
+                                      std::move( yields ) ) ) ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing fission yields" );

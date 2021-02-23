@@ -31,18 +31,17 @@ void wrap_8_FissionYieldData( python::module& module, python::module& ) {
   .def(
 
     python::init< std::vector< unsigned int >&&, std::vector< unsigned int >&&,
-                  std::vector< double >&&, std::vector< double >&&,
+                  std::vector< std::array< double, 2 > >&&,
                   double, int >(),
     python::arg( "identifiers" ), python::arg( "states" ),
-    python::arg( "yields" ), python::arg( "uncertainties" ),
-    python::arg( "energy" ), python::arg( "interpolation" ),
+    python::arg( "yields" ), python::arg( "energy" ) = 0.,
+    python::arg( "interpolation" ) = 0,
     "Initialise the component\n\n"
     "Arguments:\n"
     "    self            the component\n"
     "    identifiers     the fission product identifiers (ZA identifier)\n"
     "    states          the isomeric state for each fission product\n"
-    "    yields          the fission yields\n"
-    "    uncertainties   the fission yield uncertainties\n"
+    "    yields          the fission yield values and uncertainties\n"
     "    energy          the incident neutron energy (equal to zero for\n"
     "                    energy independent yields)\n"
     "    interpolation   the interpolation type (equal to zero for\n"
@@ -127,30 +126,16 @@ void wrap_8_FissionYieldData( python::module& module, python::module& ) {
   .def_property_readonly(
 
     "Y",
-    [] ( const Component& self ) -> DoubleRange
+    [] ( const Component& self ) -> DoubleRange2D
        { return self.Y(); },
-    "The fission yields"
+    "The fission yield values and uncertainties"
   )
   .def_property_readonly(
 
     "fission_yields",
-    [] ( const Component& self ) -> DoubleRange
+    [] ( const Component& self ) -> DoubleRange2D
        { return self.fissionYields(); },
-    "The fission yields"
-  )
-  .def_property_readonly(
-
-    "DY",
-    [] ( const Component& self ) -> DoubleRange
-       { return self.DY(); },
-    "The fission yield uncertainties"
-  )
-  .def_property_readonly(
-
-    "fission_yield_uncertainties",
-    [] ( const Component& self ) -> DoubleRange
-       { return self.fissionYieldUncertainties(); },
-    "The fission yield uncertainties"
+    "The fission yield values and uncertainties"
   );
 
   // add standard component definitions

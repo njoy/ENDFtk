@@ -1,12 +1,10 @@
 static std::vector< double >
 generateList( std::vector< unsigned int >&& identifiers,
               std::vector< unsigned int >&& states,
-              std::vector< double >&& yields,
-              std::vector< double >&& uncertainties ) {
+              std::vector< std::array< double, 2 > >&& yields ) {
 
   unsigned int nfp = identifiers.size();
-  if ( ( states.size() != nfp ) or ( yields.size() != nfp ) or
-       ( uncertainties.size() != nfp ) ) {
+  if ( ( states.size() != nfp ) or ( yields.size() != nfp ) ) {
 
     Log::info( "The number of fission profucts and the fission product data "
                "are not consistent" );
@@ -14,7 +12,6 @@ generateList( std::vector< unsigned int >&& identifiers,
     Log::info( "identifiers.size(): {}", identifiers.size() );
     Log::info( "states.size(): {}", states.size() );
     Log::info( "yields.size(): {}", yields.size() );
-    Log::info( "uncertainties.size(): {}", uncertainties.size() );
     throw std::exception();
   }
 
@@ -23,8 +20,8 @@ generateList( std::vector< unsigned int >&& identifiers,
 
     list.push_back( identifiers[i] );
     list.push_back( states[i] );
-    list.push_back( yields[i] );
-    list.push_back( uncertainties[i] );
+    list.push_back( yields[i][0] );
+    list.push_back( yields[i][1] );
   }
   return list;
 }

@@ -107,27 +107,22 @@ namespace section{
     auto isomericStates() const { return this->FPS(); }
 
     /**
-     *  @brief Return the fission yields
+     *  @brief Return the fission yield values
      */
-    auto Y() const { return this->column( 2 ); }
+    auto Y() const {
+
+      return ListRecord::list() | ranges::view::drop_exactly( 2 )
+                                | ranges::view::chunk( 2 )
+                                | ranges::view::stride( 2 );
+    }
 
     /**
-     *  @brief Return the fission yields
+     *  @brief Return the fission yield values and uncertainties
      */
     auto fissionYields() const { return this->Y(); }
 
     /**
-     *  @brief Return the fission yield uncertainties
-     */
-    auto DY() const { return this->column( 3 ); }
-
-    /**
-     *  @brief Return the fission yield uncertainties
-     */
-    auto fissionYieldUncertainties() const { return this->DY(); }
-
-    /**
-     *  @brief Return the fission yields
+     *  @brief Return the fission products
      */
     auto fissionProducts() const {
 
