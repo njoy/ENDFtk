@@ -1,5 +1,5 @@
 /**
- *  @brief Print the MF8/MT454 section (includes SEND record)
+ *  @brief Print the MF8/MT459 section (includes SEND record)
  *
  *  @tparam OutputIterator   an output iterator
  *

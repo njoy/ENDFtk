@@ -28,18 +28,17 @@ namespace file {
 
     // MT454, MT457 and MT459 are optional
     static constexpr auto optionalSections()
-      RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 454_c, 457_c ) )
+      RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 454_c, 457_c, 459_c ) )
 
     // the following sections are currently unimplemented
     static constexpr auto unimplementedSections()
-      RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 459_c ) )
+      RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple() )
 
     using Map =
     typename decltype( details::deduceMapType(
                            8_c,
                            requiredSections(),
-                           hana::concat( optionalSections(),
-                                         unimplementedSections() ) ) )::type;
+                           optionalSections() ) )::type;
 
     /* fields */
     Map sectionMap;
