@@ -14,6 +14,8 @@ class Test_ENDFtk_MF4_Isotropic( unittest.TestCase ) :
         def verify_chunk( self, chunk ) :
 
             # verify content
+            self.assertEqual( True, chunk.LI )
+            self.assertEqual( True, chunk.isotropic_angular_distributions )
             self.assertEqual( 0, chunk.LTT )
             self.assertEqual( 0, chunk.LAW )
 

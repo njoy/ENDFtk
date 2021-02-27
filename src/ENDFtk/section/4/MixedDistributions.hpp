@@ -26,6 +26,16 @@ public:
   /* get methods */
 
   /**
+   *  @brief Return the isotropic angular distribution flag
+   */
+  static constexpr bool LI() { return false; }
+
+  /**
+   *  @brief Return the isotropic angular distribution flag
+   */
+  bool isotropicAngularDistributions() const { return this->LI(); }
+
+  /**
    *  @brief Return the angular distribution law
    */
   static constexpr int LTT() { return 3; }
