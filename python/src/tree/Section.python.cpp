@@ -41,6 +41,7 @@ void wrapTreeSection( python::module& module, python::module& ) {
   using MF6MTxxx = njoy::ENDFtk::section::Type< 6 >;
   using MF7MT2 = njoy::ENDFtk::section::Type< 7, 2 >;
   using MF7MT4 = njoy::ENDFtk::section::Type< 7, 4 >;
+  using MF8MT454 = njoy::ENDFtk::section::Type< 8, 454 >;
   using MF8MT457 = njoy::ENDFtk::section::Type< 8, 457 >;
   using MF12MTxxx = njoy::ENDFtk::section::Type< 12 >;
   using MF13MTxxx = njoy::ENDFtk::section::Type< 13 >;
@@ -111,7 +112,7 @@ void wrapTreeSection( python::module& module, python::module& ) {
                                                 MF2MT151, MF2MT152,
                                                 MF3MTxxx, MF4MTxxx, MF5MTxxx,
                                                 MF6MTxxx, MF7MT2, MF7MT4,
-                                                MF8MT457,
+                                                MF8MT454, MF8MT457,
                                                 MF12MTxxx, MF13MTxxx > {
       int mf = self.fileNumber();
       int mt = self.sectionNumber();
@@ -169,8 +170,8 @@ void wrapTreeSection( python::module& module, python::module& ) {
 
           switch ( mt ) {
 
+            case 454 : return self.parse< 8, 454 >();
             case 457 : return self.parse< 8, 457 >();
-            case 454 :
             case 459 : throw std::runtime_error(
                            "Section " + std::to_string( mt ) + " from file " +
                            std::to_string( mf ) +

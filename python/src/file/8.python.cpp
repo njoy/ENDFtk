@@ -16,12 +16,14 @@ inline namespace literals { using namespace hana::literals; }
 
 // declarations - sections
 void wrap_8_FissionYieldData( python::module&, python::module& );
+void wrapSection_8_454( python::module&, python::module& );
 void wrapSection_8_457( python::module&, python::module& );
 
 void wrapFile_8( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using File = njoy::ENDFtk::file::Type< 8 >;
+  using MF8MT454 = std::reference_wrapper< const njoy::ENDFtk::section::Type< 8, 454 > >;
   using MF8MT457 = std::reference_wrapper< const njoy::ENDFtk::section::Type< 8, 457 > >;
 
   // wrap views created by this file
@@ -35,6 +37,7 @@ void wrapFile_8( python::module& module, python::module& viewmodule ) {
 
   // wrap sections
   wrap_8_FissionYieldData( submodule, viewmodule );
+  wrapSection_8_454( submodule, viewmodule );
   wrapSection_8_457( submodule, viewmodule );
 
   // create the file
@@ -47,10 +50,11 @@ void wrapFile_8( python::module& module, python::module& viewmodule ) {
 
   // common lambda
   auto get_section =
-  [] ( const File& self, int mt ) -> std::variant< MF8MT457 > {
+  [] ( const File& self, int mt ) -> std::variant< MF8MT454, MF8MT457 > {
 
     switch ( mt ) {
 
+      case 454 : return self.section( 454_c );
       case 457 : return self.section( 457_c );
       default: throw std::runtime_error(
                     "Requested section number (" + std::to_string( mt ) +

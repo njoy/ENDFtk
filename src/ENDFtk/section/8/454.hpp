@@ -43,9 +43,14 @@ namespace section {
     bool isEnergyIndependent() const { return this->LE(); }
 
     /**
-     *  @brief Return the subsections, one for each incident energy
+     *  @brief Return the fission yield data, one for each incident energy
      */
     auto yields() const { return ranges::view::all( this->data_ ); }
+
+    /**
+     *  @brief Return the number of incident energy values
+     */
+    long NE() const { return this->data_.size(); }
 
     /**
      *  @brief Return the incident energy values

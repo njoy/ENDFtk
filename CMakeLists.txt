@@ -183,6 +183,7 @@ pybind11_add_module( ENDFtk.python
     python/src/section/7/4/TabulatedFunctions.python.cpp
     python/src/section/7/4/ScatteringFunction.python.cpp
     python/src/section/8/FissionYieldData.python.cpp
+    python/src/section/8/454.python.cpp
     python/src/section/8/457.python.cpp
     python/src/section/8/457/AverageDecayEnergies.python.cpp
     python/src/section/8/457/DecayMode.python.cpp

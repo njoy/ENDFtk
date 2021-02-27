@@ -10,12 +10,16 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrap_8_FissionYieldData( python::module& module, python::module& ) {
+void wrap_8_FissionYieldData( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Component = njoy::ENDFtk::section::FissionYieldData;
 
-  // wrap views created by this component
+  // wrap views of this component
+  // none of these are supposed to be created directly by the user
+  wrapRandomAccessAnyViewOf< Component >(
+      viewmodule,
+      "any_view< FissionYieldData, random_access >" );
 
   // create the component
   python::class_< Component > component(

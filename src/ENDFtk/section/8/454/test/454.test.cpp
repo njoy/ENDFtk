@@ -72,12 +72,6 @@ SCENARIO( "section::Type< 8, 454 >" ) {
       double zaid = 92235.;
       double awr = 233.0250;
 
-      std::vector< unsigned int > identifiers = { 23066, 54135, 72171 };
-      std::vector< unsigned int > states = { 0, 0, 0 };
-
-      std::vector< double > energies = { 0.0253, 500e+3 };
-      std::vector< unsigned int > interpolants = { 1 };
-
       std::vector< FissionYieldData > yields = {
 
         FissionYieldData( { 23066, 54135, 72171 }, { 0, 0, 0 },
@@ -273,6 +267,7 @@ void verifyChunk( const section::Type< 8, 454 >& chunk ) {
   CHECK( false == chunk.LE() );
   CHECK( false == chunk.isEnergyIndependent() );
 
+  CHECK( 2 == chunk.NE() );
   CHECK( 2 == chunk.E().size() );
   CHECK( 2 == chunk.incidentEnergies().size() );
   CHECK( 0.0253 == Approx( chunk.E()[0] ) );
@@ -440,6 +435,7 @@ void verifyChunkWithEnergyIndependentYields( const section::Type< 8, 454 >& chun
   CHECK( true == chunk.LE() );
   CHECK( true == chunk.isEnergyIndependent() );
 
+  CHECK( 1 == chunk.NE() );
   CHECK( 1 == chunk.E().size() );
   CHECK( 1 == chunk.incidentEnergies().size() );
   CHECK( 0. == Approx( chunk.E()[0] ) );
