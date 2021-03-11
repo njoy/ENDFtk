@@ -47,9 +47,9 @@ TabulatedBackgroundRMatrix( int index,
                         std::vector< double >( energies ),
                         std::move( real ) ),
       TabulationRecord( 0.0, 0.0, 0, 0,
-                        std::move( boundaries ),
-                        std::move( interpolants ),
-                        std::move( energies ),
+                        std::vector< long >( boundaries ),
+                        std::vector< long >( interpolants ),
+                        std::vector< double >( energies ),
                         std::move( imaginary ) ) ) {}
 
 /**
