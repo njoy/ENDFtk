@@ -14,6 +14,7 @@ namespace python = pybind11;
 namespace mf14 {
 
   void wrapIsotropic( python::module&, python::module& );
+  void wrapIsotropicDiscretePhoton( python::module&, python::module& );
 }
 
 void wrapSection_14( python::module& module, python::module& viewmodule ) {
@@ -22,6 +23,7 @@ void wrapSection_14( python::module& module, python::module& viewmodule ) {
 
   // wrap components
   mf14::wrapIsotropic( module, viewmodule );
+  mf14::wrapIsotropicDiscretePhoton( module, viewmodule );
 
   // wrap views created by this section
 

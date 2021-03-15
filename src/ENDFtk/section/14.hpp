@@ -26,8 +26,8 @@ namespace section{
     // #include "ENDFtk/section/4/LegendreCoefficients.hpp"
     // #include "ENDFtk/section/4/TabulatedDistribution.hpp"
 
-    // MF4 Isotropic class is taken over as is in MF14
-    #include "ENDFtk/section/4/Isotropic.hpp"                    // LTT=0, LI=1
+    #include "ENDFtk/section/4/Isotropic.hpp" // MF4 component taken over as is
+    #include "ENDFtk/section/14/IsotropicDiscretePhoton.hpp"
     // #include "ENDFtk/section/4/LegendreDistributions.hpp"        // LTT=1, LI=0
     // #include "ENDFtk/section/4/TabulatedDistributions.hpp"       // LTT=2, LI=0
 

@@ -199,6 +199,7 @@ pybind11_add_module( ENDFtk.python
     python/src/section/13/PartialCrossSection.python.cpp
     python/src/section/14.python.cpp
     python/src/section/14/Isotropic.python.cpp
+    python/src/section/14/IsotropicDiscretePhoton.python.cpp
     python/src/file/1.python.cpp
     python/src/file/2.python.cpp
     python/src/file/3.python.cpp
