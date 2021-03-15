@@ -4,16 +4,16 @@ import unittest
 # third party imports
 
 # local imports
-from ENDFtk.MF4 import LegendreCoefficients
+from ENDFtk.MF14 import LegendreCoefficients
 
-class Test_ENDFtk_MF4_LegendreCoefficients( unittest.TestCase ) :
+class Test_ENDFtk_MF14_LegendreCoefficients( unittest.TestCase ) :
     """Unit test for the LegendreCoefficients class."""
 
-    chunk = ( ' 0.000000+0 1.000000-5          0          0          3          09228 4  2     \n'
-              ' 7.392510-5 8.477139-9 1.17106-13                                 9228 4  2     \n' )
+    chunk = ( ' 0.000000+0 1.000000-5          0          0          3          0922814  2     \n'
+              ' 7.392510-5 8.477139-9 1.17106-13                                 922814  2     \n' )
 
-    invalid = ( ' 0.000000+0 1.000000-5          0          0          2          09228 4  2     \n'
-                ' 7.392510-5 8.477139-9 1.17106-13                                 9228 4  2     \n' )
+    invalid = ( ' 0.000000+0 1.000000-5          0          0          2          0922814  2     \n'
+                ' 7.392510-5 8.477139-9 1.17106-13                                 922814  2     \n' )
 
     def test_component( self ) :
 
@@ -36,7 +36,7 @@ class Test_ENDFtk_MF4_LegendreCoefficients( unittest.TestCase ) :
             self.assertEqual( 2, chunk.NC )
 
             # verify string
-            self.assertEqual( self.chunk, chunk.to_string( 9228, 4, 2 ) )
+            self.assertEqual( self.chunk, chunk.to_string( 9228, 14, 2 ) )
 
         # the data is given explicitly
         chunk = LegendreCoefficients( energy = 1e-5,
@@ -46,7 +46,7 @@ class Test_ENDFtk_MF4_LegendreCoefficients( unittest.TestCase ) :
         verify_chunk( self, chunk )
 
         # the data is read from a string
-        chunk = LegendreCoefficients.from_string( self.chunk, 9228, 4, 2 )
+        chunk = LegendreCoefficients.from_string( self.chunk, 9228, 14, 2 )
 
         verify_chunk( self, chunk )
 
@@ -61,7 +61,7 @@ class Test_ENDFtk_MF4_LegendreCoefficients( unittest.TestCase ) :
 
         with self.assertRaises( Exception ) :
 
-            chunk = LegendreCoefficients.from_string( self.invalid, 9228, 4, 2 )
+            chunk = LegendreCoefficients.from_string( self.invalid, 9228, 14, 2 )
 
 if __name__ == '__main__' :
 

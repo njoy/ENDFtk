@@ -16,8 +16,8 @@ void wrapSection_14( python::module&, python::module& );
 void wrapFile_14( python::module& module, python::module& viewmodule ) {
 
   // type aliases
-  using Section = njoy::ENDFtk::section::Type< 4 >;
-  using File = njoy::ENDFtk::file::Type< 4 >;
+  using Section = njoy::ENDFtk::section::Type< 14 >;
+  using File = njoy::ENDFtk::file::Type< 14 >;
   using SectionRange = BidirectionalAnyView< Section >;
 
   // create the submodule
