@@ -8,6 +8,7 @@
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/TabulationRecord.hpp"
+#include "ENDFtk/InterpolationSequenceRecord.hpp"
 #include "ENDFtk/section.hpp"
 
 namespace njoy {
@@ -23,13 +24,16 @@ namespace section{
   template<>
   class Type< 14 > : protected Base {
 
+  protected:
+
+    #include "ENDFtk/section/4/AngularDistributions.hpp" // MF4 component taken over as is
+
   public:
 
     #include "ENDFtk/section/14/IsotropicDiscretePhoton.hpp"
     #include "ENDFtk/section/4/LegendreCoefficients.hpp"  // MF4 component taken over as is
     #include "ENDFtk/section/4/TabulatedDistribution.hpp" // MF4 component taken over as is
-
-    // #include "ENDFtk/section/4/LegendreDistributions.hpp"        // LTT=1, LI=0
+    #include "ENDFtk/section/14/LegendreDistributions.hpp"
     // #include "ENDFtk/section/4/TabulatedDistributions.hpp"       // LTT=2, LI=0
 
     #include "ENDFtk/section/4/Isotropic.hpp" // MF4 component taken over as is
