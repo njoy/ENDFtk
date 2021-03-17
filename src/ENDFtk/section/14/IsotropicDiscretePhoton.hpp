@@ -40,6 +40,16 @@ public:
   double photonEnergy() const { return this->EG(); }
 
   /**
+   *  @brief Return the distribution law
+   */
+  static constexpr int LTT() { return 0; }
+
+  /**
+   *  @brief Return the distribution law
+   */
+  int LAW() const { return this->LTT(); }
+
+  /**
    *  @brief Return the number of lines in this MF12 component
    */
   static constexpr long NC() { return 1; }

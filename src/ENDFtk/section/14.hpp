@@ -30,30 +30,29 @@ namespace section{
 
   public:
 
+    #include "ENDFtk/section/4/Isotropic.hpp" // MF4 component taken over as is
     #include "ENDFtk/section/14/IsotropicDiscretePhoton.hpp"
     #include "ENDFtk/section/4/LegendreCoefficients.hpp"  // MF4 component taken over as is
     #include "ENDFtk/section/4/TabulatedDistribution.hpp" // MF4 component taken over as is
     #include "ENDFtk/section/14/LegendreDistributions.hpp"
-    // #include "ENDFtk/section/4/TabulatedDistributions.hpp"       // LTT=2, LI=0
+    #include "ENDFtk/section/14/TabulatedDistributions.hpp"
 
-    #include "ENDFtk/section/4/Isotropic.hpp" // MF4 component taken over as is
-
-    using LTT0 = Isotropic;
-    // using LTT1 = LegendreDistributions;
-    // using LTT2 = TabulatedDistributions;
-
-    /** @typedef Distributions
-     *  @brief The secondary particle angular distribution of MF4
+    /** @typedef PhotonDistribution
+     *  @brief The angular distribution of a given discrete photon
      *
      *  This distribution class is set up as a variant.
      */
-    using Distributions = std::variant< Isotropic >; // LTT=0, LI=1
+    using PhotonDistribution = std::variant< IsotropicDiscretePhoton,
+                                             LegendreDistributions,
+                                             TabulatedDistributions >;
 
   private:
 
     /* type aliases */
 
     /* fields */
+    int lct_;
+    std::vector< PhotonDistribution > photons_;
 
     /* auxiliary functions */
 
@@ -63,6 +62,37 @@ namespace section{
     #include "ENDFtk/section/14/src/ctor.hpp"
 
     /* get methods */
+
+    /**
+     *  @brief Return the isotropic angular distribution flag
+     */
+    bool LI() const { return this->photons_.size() == 0; }
+
+    /**
+     *  @brief Return the isotropic angular distribution flag
+     */
+    bool isotropicAngularDistributions() const { return this->LI(); }
+
+    /**
+     *  @brief Return the distribution law
+     */
+    int LTT() const {
+
+      return this->LI() ? 0
+                        : std::visit( [] ( const auto& photon )
+                                         { return photon.LTT(); }, 
+                                      this->photons_.back() );
+    }
+
+    /**
+     *  @brief Return the distribution law
+     */
+    int LAW() const { return this->LTT(); }
+
+    /**
+     *  @brief Return the partial distributions defined in this section
+     */
+    const auto& photons() const { return this->photons_; }
 
     using Base::MT;
     using Base::sectionNumber;
