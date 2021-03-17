@@ -157,10 +157,10 @@ std::string chunkWithOnePartial() {
 void verifyChunkWithOnePartial( const Multiplicities& chunk ) {
 
   CHECK( std::nullopt == chunk.totalMultiplicity() );
-  CHECK( 1 == chunk.partialMultiplicities().size() );
+  CHECK( 1 == chunk.photonPartialMultiplicities().size() );
 
   CHECK( 1 == chunk.NK() );
-  CHECK( 1 == chunk.numberPartials() );
+  CHECK( 1 == chunk.numberPhotons() );
   CHECK( 1 == chunk.LO() );
   CHECK( 1 == chunk.representation() );
 
@@ -205,9 +205,9 @@ std::string chunkWithMultiplePartials() {
 void verifyChunkWithMultiplePartials( const Multiplicities& chunk ) {
 
   CHECK( std::nullopt != chunk.totalMultiplicity() );
-  CHECK( 2 == chunk.partialMultiplicities().size() );
+  CHECK( 2 == chunk.photonPartialMultiplicities().size() );
   CHECK( 2 == chunk.NK() );
-  CHECK( 2 == chunk.numberPartials() );
+  CHECK( 2 == chunk.numberPhotons() );
   CHECK( 1 == chunk.LO() );
   CHECK( 1 == chunk.representation() );
 

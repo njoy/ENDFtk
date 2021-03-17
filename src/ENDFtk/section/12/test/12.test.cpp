@@ -407,7 +407,7 @@ void verifyChunkWithLO1( const section::Type< 12 >& chunk ) {
   CHECK( 1 == data.photonPartialMultiplicities().size() );
 
   CHECK( 1 == data.NK() );
-  CHECK( 1 == data.numberPartials() );
+  CHECK( 1 == data.numberPhotons() );
   CHECK( 1 == data.LO() );
   CHECK( 1 == data.representation() );
 

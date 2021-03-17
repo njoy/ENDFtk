@@ -183,7 +183,7 @@ void verifyChunk( const section::Type< 13 >& chunk ) {
   CHECK( 1 == chunk.photonPartialCrossSections().size() );
 
   CHECK( 1 == chunk.NK() );
-  CHECK( 1 == chunk.numberPartials() );
+  CHECK( 1 == chunk.numberPhotons() );
 
   auto partial = chunk.photonPartialCrossSections()[0];
   CHECK( 0.0 == Approx( partial.EG() ) );
