@@ -46,12 +46,14 @@ namespace section{
                                              LegendreDistributions,
                                              TabulatedDistributions >;
 
+    /* auxiliary functions */
+    #include "ENDFtk/section/14/src/readPhotons.hpp"
+
   private:
 
     /* type aliases */
 
     /* fields */
-    int lct_;
     std::vector< PhotonDistribution > photons_;
 
     /* auxiliary functions */
@@ -80,7 +82,7 @@ namespace section{
 
       return this->LI() ? 0
                         : std::visit( [] ( const auto& photon )
-                                         { return photon.LTT(); }, 
+                                         { return photon.LTT(); },
                                       this->photons_.back() );
     }
 

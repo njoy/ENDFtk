@@ -10,7 +10,7 @@ readPhotons( Iterator& begin,
              long NK,
              long LTT) {
 
-  std::vector< Component > sequence;
+  std::vector< PhotonDistribution > sequence;
   sequence.reserve( NK );
 
   NK -= NI;
@@ -25,9 +25,11 @@ readPhotons( Iterator& begin,
     switch ( LTT ) {
 
       case 1 : sequence.push_back(
-               LegendreDistributions( begin, end, lineNumber,
+                      LegendreDistributions( begin, end, lineNumber,
                                              MAT, MF, MT ) );
-      case 2 : return TabulatedDistributions( begin, end, lineNumber, MAT, MF, MT );
+      case 2 : sequence.push_back(
+                      TabulatedDistributions( begin, end, lineNumber,
+                                              MAT, MF, MT ) );
       default : {
         Log::error( "Encountered illegal LTT value" );
         Log::info( "LTT must be equal to 1 or 2" );
