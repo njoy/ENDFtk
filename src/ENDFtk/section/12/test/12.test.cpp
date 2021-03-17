@@ -404,14 +404,14 @@ void verifyChunkWithLO1( const section::Type< 12 >& chunk ) {
 
   auto data = std::get< Multiplicities >( chunk.photonProduction() );
   CHECK( std::nullopt == data.totalMultiplicity() );
-  CHECK( 1 == data.partialMultiplicities().size() );
+  CHECK( 1 == data.photonPartialMultiplicities().size() );
 
   CHECK( 1 == data.NK() );
   CHECK( 1 == data.numberPartials() );
   CHECK( 1 == data.LO() );
   CHECK( 1 == data.representation() );
 
-  auto partial = data.partialMultiplicities()[0];
+  auto partial = data.photonPartialMultiplicities()[0];
   CHECK( 0.0 == Approx( partial.EG() ) );
   CHECK( 0.0 == Approx( partial.photonOrBindingEnergy() ) );
   CHECK( 0.0 == Approx( partial.ES() ) );

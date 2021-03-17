@@ -1,7 +1,7 @@
 /**
  *  @class
  *  @brief Angular distributions as a function of incident energy using
- *         Legendre coefficients (LTT=1)
+ *         Legendre coefficients (LTT=1) for a given discrete photon
  *
  *  The LegendreDistributions class is used to represent the case in which
  *  the angular distributions in an MF14 section are given as Legendre

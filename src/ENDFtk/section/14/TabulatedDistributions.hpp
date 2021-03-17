@@ -1,7 +1,7 @@
 /**
  *  @class
  *  @brief Angular distributions as a function of incident energy using
- *         tabulated functions (LTT=2)
+ *         tabulated functions (LTT=2) for a given discrete photon
  *
  *  The LegendreDistributions class is used to represent the case in which
  *  the angular distributions in an MF4 section are given as tabulated

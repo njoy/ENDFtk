@@ -66,6 +66,30 @@ namespace section{
     /* get methods */
 
     /**
+     *  @brief Return the number of photons with an isotropic angular
+     *         distribution
+     */
+    int NI() const { return this->photons_.size(); }
+
+    /**
+     *  @brief Return the number of photons with an isotropic angular
+     *         distribution
+     */
+    int numberIsotropicPhotons() const { return this->NI(); }
+
+    /**
+     *  @brief Return the number of photons (discrete and continuum) with
+     *         angular distributions
+     */
+    int NK() const { return this->photons_.size(); }
+
+    /**
+     *  @brief Return the number of photons (discrete and continuum) with
+     *         angular distributions
+     */
+    int numberPhotons() const { return this->NK(); }
+
+    /**
      *  @brief Return the isotropic angular distribution flag
      */
     bool LI() const { return this->photons_.size() == 0; }
@@ -92,9 +116,12 @@ namespace section{
     int LAW() const { return this->LTT(); }
 
     /**
-     *  @brief Return the partial distributions defined in this section
+     *  @brief Return the secondary photons with their angular distribution
      */
-    const auto& photons() const { return this->photons_; }
+    const auto& photonAngularDistributions() const { return this->photons_; }
+
+    #include "ENDFtk/section/14/src/NC.hpp"
+    #include "ENDFtk/section/14/src/print.hpp"
 
     using Base::MT;
     using Base::sectionNumber;

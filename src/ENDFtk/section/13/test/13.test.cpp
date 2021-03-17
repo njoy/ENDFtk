@@ -180,12 +180,12 @@ void verifyChunk( const section::Type< 13 >& chunk ) {
   CHECK( 2.330250e+2 == Approx( chunk.atomicWeightRatio() ) );
 
   CHECK( std::nullopt == chunk.totalCrossSection() );
-  CHECK( 1 == chunk.partialCrossSections().size() );
+  CHECK( 1 == chunk.photonPartialCrossSections().size() );
 
   CHECK( 1 == chunk.NK() );
   CHECK( 1 == chunk.numberPartials() );
 
-  auto partial = chunk.partialCrossSections()[0];
+  auto partial = chunk.photonPartialCrossSections()[0];
   CHECK( 0.0 == Approx( partial.EG() ) );
   CHECK( 0.0 == Approx( partial.photonOrBindingEnergy() ) );
   CHECK( 0.0 == Approx( partial.ES() ) );

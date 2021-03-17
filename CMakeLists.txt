@@ -202,6 +202,8 @@ pybind11_add_module( ENDFtk.python
     python/src/section/14/IsotropicDiscretePhoton.python.cpp
     python/src/section/14/LegendreCoefficients.python.cpp
     python/src/section/14/TabulatedDistribution.python.cpp
+    python/src/section/14/LegendreDistributions.python.cpp
+    python/src/section/14/TabulatedDistributions.python.cpp
     python/src/file/1.python.cpp
     python/src/file/2.python.cpp
     python/src/file/3.python.cpp

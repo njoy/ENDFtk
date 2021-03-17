@@ -4,29 +4,29 @@ import unittest
 # third party imports
 
 # local imports
-from ENDFtk.MF4 import TabulatedDistribution
-from ENDFtk.MF4 import TabulatedDistributions
+from ENDFtk.MF14 import TabulatedDistribution
+from ENDFtk.MF14 import TabulatedDistributions
 
-class Test_ENDFtk_MF4_TabulatedDistributions( unittest.TestCase ) :
+class Test_ENDFtk_MF14_TabulatedDistributions( unittest.TestCase ) :
     """Unit test for the TabulatedDistributions class."""
 
-    chunk = ( ' 0.000000+0 0.000000+0          0          0          1          29228 4  2     \n'
-              '          2          1                                            9228 4  2     \n'
-              ' 0.000000+0 1.000000-5          0          0          1          29228 4  2     \n'
-              '          2          2                                            9228 4  2     \n'
-              '-1.000000+0 5.000000-1 1.000000+0 5.000000-1                      9228 4  2     \n'
-              ' 0.000000+0 2.000000+7          0          0          1          39228 4  2     \n'
-              '          3          2                                            9228 4  2     \n'
-              '-1.000000+0 0.000000+0 0.000000+0 1.000000+0 1.000000+0 0.000000+09228 4  2     \n' )
+    chunk = ( ' 1.000000+0 2.000000+0          0          0          1          2922814  2     \n'
+              '          2          1                                            922814  2     \n'
+              ' 0.000000+0 1.000000-5          0          0          1          2922814  2     \n'
+              '          2          2                                            922814  2     \n'
+              '-1.000000+0 5.000000-1 1.000000+0 5.000000-1                      922814  2     \n'
+              ' 0.000000+0 2.000000+7          0          0          1          3922814  2     \n'
+              '          3          2                                            922814  2     \n'
+              '-1.000000+0 0.000000+0 0.000000+0 1.000000+0 1.000000+0 0.000000+0922814  2     \n' )
 
-    invalid = ( ' 0.000000+0 0.000000+0          0          0          2          29228 4  2     \n'
-                '          2          1                                            9228 4  2     \n'
-                ' 0.000000+0 1.000000-5          0          0          1          29228 4  2     \n'
-                '          2          2                                            9228 4  2     \n'
-                '-1.000000+0 5.000000-1 1.000000+0 5.000000-1                      9228 4  2     \n'
-                ' 0.000000+0 2.000000+7          0          0          1          39228 4  2     \n'
-                '          3          2                                            9228 4  2     \n'
-                '-1.000000+0 0.000000+0 0.000000+0 1.000000+0 1.000000+0 0.000000+09228 4  2     \n' )
+    invalid = ( ' 1.000000+0 2.000000+0          0          0          2          2922814  2     \n'
+                '          2          1                                            922814  2     \n'
+                ' 0.000000+0 1.000000-5          0          0          1          2922814  2     \n'
+                '          2          2                                            922814  2     \n'
+                '-1.000000+0 5.000000-1 1.000000+0 5.000000-1                      922814  2     \n'
+                ' 0.000000+0 2.000000+7          0          0          1          3922814  2     \n'
+                '          3          2                                            922814  2     \n'
+                '-1.000000+0 0.000000+0 0.000000+0 1.000000+0 1.000000+0 0.000000+0922814  2     \n' )
 
     def test_component( self ) :
 
@@ -37,6 +37,11 @@ class Test_ENDFtk_MF4_TabulatedDistributions( unittest.TestCase ) :
             self.assertEqual( False, chunk.isotropic_angular_distributions )
             self.assertEqual( 2, chunk.LTT )
             self.assertEqual( 2, chunk.LAW )
+
+            self.assertAlmostEqual( 1., chunk.EG )
+            self.assertAlmostEqual( 1., chunk.photon_energy )
+            self.assertAlmostEqual( 2., chunk.ES )
+            self.assertAlmostEqual( 2., chunk.level_energy )
 
             self.assertEqual( 2, chunk.NE )
             self.assertEqual( 1, chunk.NR )
@@ -90,10 +95,11 @@ class Test_ENDFtk_MF4_TabulatedDistributions( unittest.TestCase ) :
             self.assertEqual( 8, chunk.NC )
 
             # verify string
-            self.assertEqual( self.chunk, chunk.to_string( 9228, 4, 2 ) )
+            self.assertEqual( self.chunk, chunk.to_string( 9228, 14, 2 ) )
 
         # the data is given explicitly
         chunk = TabulatedDistributions(
+                  energy = 1.0, level = 2.0,
                   boundaries = [ 2 ], interpolants = [ 1 ],
                   distributions = [ TabulatedDistribution( 1e-5, [ 2 ], [ 2 ], [ -1.0, 1.0 ], [ 0.5, 0.5 ] ),
                                     TabulatedDistribution( 2e+7, [ 3 ], [ 2 ], [ -1.0, 0.0, 1.0 ], [ 0.0, 1.0, 0.0 ] ) ] )
@@ -101,7 +107,7 @@ class Test_ENDFtk_MF4_TabulatedDistributions( unittest.TestCase ) :
         verify_chunk( self, chunk )
 
         # the data is read from a string
-        chunk = TabulatedDistributions.from_string( self.chunk, 9228, 4, 2 )
+        chunk = TabulatedDistributions.from_string( self.chunk, 9228, 14, 2 )
 
         verify_chunk( self, chunk )
 
@@ -117,6 +123,7 @@ class Test_ENDFtk_MF4_TabulatedDistributions( unittest.TestCase ) :
         with self.assertRaises( Exception ) :
 
             chunk = TabulatedDistributions(
+                      energy = 1.0, level = 2.0,
                       boundaries = [ 2, 4 ], interpolants = [ 1 ],
                       distributions = [ TabulatedDistribution( 1e-5, [ 2 ], [ 2 ], [ -1.0, 1.0 ], [ 0.5, 0.5 ] ),
                                         TabulatedDistribution( 2e+7, [ 3 ], [ 2 ], [ -1.0, 0.0, 1.0 ], [ 0.0, 1.0, 0.0 ] ) ] )
@@ -124,6 +131,7 @@ class Test_ENDFtk_MF4_TabulatedDistributions( unittest.TestCase ) :
         with self.assertRaises( Exception ) :
 
             chunk = TabulatedDistributions(
+                      energy = 1.0, level = 2.0,
                       boundaries = [ 2 ], interpolants = [ 1, 2 ],
                       distributions = [ TabulatedDistribution( 1e-5, [ 2 ], [ 2 ], [ -1.0, 1.0 ], [ 0.5, 0.5 ] ),
                                         TabulatedDistribution( 2e+7, [ 3 ], [ 2 ], [ -1.0, 0.0, 1.0 ], [ 0.0, 1.0, 0.0 ] ) ] )
@@ -131,12 +139,13 @@ class Test_ENDFtk_MF4_TabulatedDistributions( unittest.TestCase ) :
         with self.assertRaises( Exception ) :
 
             chunk = TabulatedDistributions(
+                      energy = 1.0, level = 2.0,
                       boundaries = [ 2 ], interpolants = [ 1 ],
                       distributions = [ TabulatedDistribution( 1e-5, [ 2 ], [ 2 ], [ -1.0, 1.0 ], [ 0.5, 0.5 ] ) ] )
 
         with self.assertRaises( Exception ) :
 
-            chunk = TabulatedDistributions.from_string( self.invalid, 9228, 4, 2 )
+            chunk = TabulatedDistributions.from_string( self.invalid, 9228, 14, 2 )
 
 if __name__ == '__main__' :
 
