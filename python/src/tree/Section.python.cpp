@@ -14,6 +14,7 @@
 #include "ENDFtk/section/8.hpp"
 #include "ENDFtk/section/12.hpp"
 #include "ENDFtk/section/13.hpp"
+#include "ENDFtk/section/14.hpp"
 #include "range/v3/utility/iterator.hpp"
 #include "views.hpp"
 
@@ -44,6 +45,7 @@ void wrapTreeSection( python::module& module, python::module& ) {
   using MF8MT457 = njoy::ENDFtk::section::Type< 8, 457 >;
   using MF12MTxxx = njoy::ENDFtk::section::Type< 12 >;
   using MF13MTxxx = njoy::ENDFtk::section::Type< 13 >;
+  using MF14MTxxx = njoy::ENDFtk::section::Type< 14 >;
 
   // wrap views created by this component
 
@@ -112,7 +114,8 @@ void wrapTreeSection( python::module& module, python::module& ) {
                                                 MF3MTxxx, MF4MTxxx, MF5MTxxx,
                                                 MF6MTxxx, MF7MT2, MF7MT4,
                                                 MF8MT457,
-                                                MF12MTxxx, MF13MTxxx > {
+                                                MF12MTxxx, MF13MTxxx,
+                                                MF14MTxxx > {
       int mf = self.fileNumber();
       int mt = self.sectionNumber();
       switch ( mf ) {
@@ -183,6 +186,7 @@ void wrapTreeSection( python::module& module, python::module& ) {
         }
         case 12 : return self.parse< 12 >();
         case 13 : return self.parse< 13 >();
+        case 14 : return self.parse< 14 >();
         default: throw std::runtime_error(
                        "Section from file " +  std::to_string( mf ) +
                        " cannot be parsed yet" );

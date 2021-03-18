@@ -6,36 +6,46 @@ readPhotons( Iterator& begin,
              int MAT,
              int MF,
              int MT,
+             long LI,
              long NI,
              long NK,
              long LTT) {
 
   std::vector< PhotonDistribution > sequence;
-  sequence.reserve( NK );
+  if ( LI != 1 ) {
 
-  NK -= NI;
-  while ( NI-- ) {
+    sequence.reserve( NK );
 
-    sequence.push_back( IsotropicDiscretePhoton( begin, end, lineNumber,
-                                                 MAT, MF, MT ) );
-  }
+    NK -= NI;
+    while ( NI-- ) {
 
-  while ( NK-- ) {
+      sequence.push_back( IsotropicDiscretePhoton( begin, end, lineNumber,
+                                                   MAT, MF, MT ) );
+    }
 
-    switch ( LTT ) {
+    while ( NK-- ) {
 
-      case 1 : sequence.push_back(
-                      LegendreDistributions( begin, end, lineNumber,
-                                             MAT, MF, MT ) );
-      case 2 : sequence.push_back(
-                      TabulatedDistributions( begin, end, lineNumber,
-                                              MAT, MF, MT ) );
-      default : {
-        Log::error( "Encountered illegal LTT value" );
-        Log::info( "LTT must be equal to 1 or 2" );
-        Log::info( "LTT value: {}", LTT );
-        Log::info( "Line number: {}", lineNumber - 2 );
-        throw std::exception();
+      switch ( LTT ) {
+
+        case 1 : {
+
+          sequence.push_back( LegendreDistributions( begin, end, lineNumber,
+                                                     MAT, MF, MT ) );
+          break;
+        }
+        case 2 : {
+
+          sequence.push_back( TabulatedDistributions( begin, end, lineNumber,
+                                                      MAT, MF, MT ) );
+          break;
+        }
+        default : {
+          Log::error( "Encountered illegal LTT value" );
+          Log::info( "LTT must be equal to 1 or 2" );
+          Log::info( "LTT value: {}", LTT );
+          Log::info( "Line number: {}", lineNumber - 2 );
+          throw std::exception();
+        }
       }
     }
   }

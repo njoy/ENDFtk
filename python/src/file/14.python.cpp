@@ -31,22 +31,22 @@ void wrapFile_14( python::module& module, python::module& viewmodule ) {
   wrapSection_14( submodule, viewmodule );
 
   // wrap views created by this file
-//  // none of these are supposed to be created directly by the user
-//  wrapBidirectionalAnyViewOf< Section >(
-//      viewmodule,
-//      "any_view< section::Type< 4 >, bidirectional >" );
-//
-//  // create the file
-//  python::class_< File > file(
-//
-//    submodule,
-//    "File",
-//    "MF4 file - angular distributions of secondary particles"
-//  );
-//
-//  // wrap the file
-//  addStandardUnenumeratedFileDefinitions< File, Section, SectionRange >( file );
-//
-//  // add standard file definitions
-//  addStandardFileDefinitions< File >( file );
+  // none of these are supposed to be created directly by the user
+  wrapBidirectionalAnyViewOf< Section >(
+      viewmodule,
+      "any_view< section::Type< 14 >, bidirectional >" );
+
+  // create the file
+  python::class_< File > file(
+
+    submodule,
+    "File",
+    "MF14 file - angular distributions of secondary photons"
+  );
+
+  // wrap the file
+  addStandardUnenumeratedFileDefinitions< File, Section, SectionRange >( file );
+
+  // add standard file definitions
+  addStandardFileDefinitions< File >( file );
 }

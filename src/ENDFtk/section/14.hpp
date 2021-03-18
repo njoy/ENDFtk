@@ -5,6 +5,7 @@
 #include <variant>
 
 // other includes
+#include "range/v3/algorithm/count_if.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/TabulationRecord.hpp"
@@ -69,7 +70,12 @@ namespace section{
      *  @brief Return the number of photons with an isotropic angular
      *         distribution
      */
-    int NI() const { return this->photons_.size(); }
+    int NI() const {
+
+      return ranges::count_if( this->photons_,
+                               [] ( const auto& entry )
+                                  { return entry.index() == 0; } );
+    }
 
     /**
      *  @brief Return the number of photons with an isotropic angular

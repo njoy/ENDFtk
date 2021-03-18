@@ -10,6 +10,7 @@
 #include "ENDFtk/file/6.hpp"
 #include "ENDFtk/file/12.hpp"
 #include "ENDFtk/file/13.hpp"
+#include "ENDFtk/file/14.hpp"
 #include "range/v3/utility/iterator.hpp"
 #include "views.hpp"
 
@@ -34,6 +35,7 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
   using MF8 = njoy::ENDFtk::file::Type< 8 >;
   using MF12 = njoy::ENDFtk::file::Type< 12 >;
   using MF13 = njoy::ENDFtk::file::Type< 13 >;
+  using MF14 = njoy::ENDFtk::file::Type< 14 >;
 
   // wrap views created by this tree component
   // none of these are supposed to be created directly by the user
@@ -143,7 +145,7 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
 
     "parse",
     [] ( const File& self ) -> std::variant< MF1, MF2, MF3, MF4, MF5, MF6,
-                                             MF7, MF8, MF12, MF13 > {
+                                             MF7, MF8, MF12, MF13, MF14 > {
 
       switch ( self.fileNumber() ) {
 
@@ -153,6 +155,7 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
         case 6 : return self.parse< 6 >();
         case 12 : return self.parse< 12 >();
         case 13 : return self.parse< 13 >();
+        case 14 : return self.parse< 14 >();
       }
       throw std::runtime_error( "File cannot be parsed yet" );
     },

@@ -41,7 +41,7 @@ Type ( HEAD& head,
        int MAT )
   try: Type( head.MT(), head.ZA(), head.AWR(),
              readPhotons( begin, end, lineNumber, head.MAT(), 14, head.MT(),
-                          head.N2(), head.N1(), head.L2() ) ) {
+                          head.L1(), head.N2(), head.N1(), head.L2() ) ) {
 
     readSEND(begin, end, lineNumber, MAT, 14 );
   } catch( std::exception& e ) {
