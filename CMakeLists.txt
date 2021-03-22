@@ -198,7 +198,6 @@ pybind11_add_module( ENDFtk.python
     python/src/section/13/TotalCrossSection.python.cpp
     python/src/section/13/PartialCrossSection.python.cpp
     python/src/section/14.python.cpp
-    python/src/section/14/Isotropic.python.cpp
     python/src/section/14/IsotropicDiscretePhoton.python.cpp
     python/src/section/14/LegendreCoefficients.python.cpp
     python/src/section/14/TabulatedDistribution.python.cpp

@@ -13,7 +13,6 @@ namespace python = pybind11;
 // declarations - components
 namespace mf14 {
 
-  void wrapIsotropic( python::module&, python::module& );
   void wrapIsotropicDiscretePhoton( python::module&, python::module& );
   void wrapLegendreCoefficients( python::module&, python::module& );
   void wrapTabulatedDistribution( python::module&, python::module& );
@@ -26,7 +25,6 @@ void wrapSection_14( python::module& module, python::module& viewmodule ) {
   // type aliases
 
   // wrap components
-  mf14::wrapIsotropic( module, viewmodule );
   mf14::wrapIsotropicDiscretePhoton( module, viewmodule );
   mf14::wrapLegendreCoefficients( module, viewmodule );
   mf14::wrapTabulatedDistribution( module, viewmodule );
@@ -60,10 +58,24 @@ void wrapSection_14( python::module& module, python::module& viewmodule ) {
     python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
     "Initialise the section for all isotropic photons\n\n"
     "Arguments:\n"
-    "    self             the section\n"
-    "    mt               the MT number\n"
-    "    zaid             the ZA  identifier\n"
-    "    awr              the atomic mass ratio"
+    "    self   the section\n"
+    "    mt     the MT number\n"
+    "    zaid   the ZA  identifier\n"
+    "    awr    the atomic mass ratio"
+  )
+  .def(
+
+    python::init< int, double, double,
+                  std::vector< PhotonDistribution >&& >(),
+    python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
+    python::arg( "photons" ),
+    "Initialise the section\n\n"
+    "Arguments:\n"
+    "    self      the section\n"
+    "    mt        the MT number\n"
+    "    zaid      the ZA  identifier\n"
+    "    awr       the atomic mass ratio\n"
+    "    photons   the photon distribution data"
   )
   .def_property_readonly(
 

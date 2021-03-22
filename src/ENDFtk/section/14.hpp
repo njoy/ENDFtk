@@ -31,7 +31,6 @@ namespace section{
 
   public:
 
-    #include "ENDFtk/section/4/Isotropic.hpp" // MF4 component taken over as is
     #include "ENDFtk/section/14/IsotropicDiscretePhoton.hpp"
     #include "ENDFtk/section/4/LegendreCoefficients.hpp"  // MF4 component taken over as is
     #include "ENDFtk/section/4/TabulatedDistribution.hpp" // MF4 component taken over as is
