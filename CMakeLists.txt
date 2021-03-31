@@ -182,6 +182,8 @@ pybind11_add_module( ENDFtk.python
     python/src/section/7/4/AnalyticalFunctions.python.cpp
     python/src/section/7/4/TabulatedFunctions.python.cpp
     python/src/section/7/4/ScatteringFunction.python.cpp
+    python/src/section/8/FissionYieldData.python.cpp
+    python/src/section/8/454.python.cpp
     python/src/section/8/457.python.cpp
     python/src/section/8/457/AverageDecayEnergies.python.cpp
     python/src/section/8/457/DecayMode.python.cpp
@@ -189,6 +191,7 @@ pybind11_add_module( ENDFtk.python
     python/src/section/8/457/DiscreteSpectrum.python.cpp
     python/src/section/8/457/ContinuousSpectrum.python.cpp
     python/src/section/8/457/DecaySpectrum.python.cpp
+    python/src/section/8/459.python.cpp
     python/src/section/12.python.cpp
     python/src/section/12/TotalMultiplicity.python.cpp
     python/src/section/12/PartialMultiplicity.python.cpp

@@ -65,7 +65,7 @@ public:
   long NR() const { return this->data_.tab2().NR(); }
 
   /**
-   *  @brief Return the number of secondary energy values
+   *  @brief Return the number of incident energy values
    */
   long NE() const { return this->data_.tab2().NZ(); }
 
