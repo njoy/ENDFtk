@@ -10,18 +10,19 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapMultiplicities( python::module& module ) {
+void wrapMultiplicities( python::module& module, python::module& viewmodule ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 12 >::Multiplicities;
-  using TotalMultiplicity = njoy::ENDFtk::section::Type< 12 >::TotalMultiplicity;
-  using PartialMultiplicity = njoy::ENDFtk::section::Type< 12 >::PartialMultiplicity;
+  using Section = njoy::ENDFtk::section::Type< 12 >;
+  using Component = Section::Multiplicities;
+  using TotalMultiplicity = Section::TotalMultiplicity;
+  using PartialMultiplicity = Section::PartialMultiplicity;
   using PartialMultiplicityRange = RandomAccessAnyView< PartialMultiplicity >;
 
   // wrap views created by this section
   // none of these are supposed to be created directly by the user
   wrapRandomAccessAnyViewOf< PartialMultiplicity >(
-      module,
+      viewmodule,
       "any_view< PartialMultiplicity, random_access >" );
 
   // create the component

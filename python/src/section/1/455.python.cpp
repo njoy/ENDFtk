@@ -15,21 +15,19 @@ namespace mf1 {
 namespace mt455 {
 
   // declarations - components
-  void wrapDecayConstants( python::module& );
-  void wrapEnergyIndependentConstants( python::module& );
-  void wrapEnergyDependentConstants( python::module& );
+  void wrapDecayConstants( python::module&, python::module& );
+  void wrapEnergyIndependentConstants( python::module&, python::module& );
+  void wrapEnergyDependentConstants( python::module&, python::module& );
 
 }
 }
 
-void wrapSection_1_455( python::module& module ) {
+void wrapSection_1_455( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 1, 455 >;
-  using DecayConstantData = njoy::ENDFtk::section::Type< 1, 455 >::DecayConstantData;
-  using Multiplicity = njoy::ENDFtk::section::Type< 1, 455 >::Multiplicity;
-
-  // wrap views created by this section
+  using DecayConstantData = Section::DecayConstantData;
+  using Multiplicity = Section::Multiplicity;
 
   // create the submodule
   python::module submodule = module.def_submodule(
@@ -39,9 +37,11 @@ void wrapSection_1_455( python::module& module ) {
   );
 
   // wrap components
-  mf1::mt455::wrapDecayConstants( submodule );
-  mf1::mt455::wrapEnergyIndependentConstants( submodule );
-  mf1::mt455::wrapEnergyDependentConstants( submodule );
+  mf1::mt455::wrapDecayConstants( submodule, viewmodule );
+  mf1::mt455::wrapEnergyIndependentConstants( submodule, viewmodule );
+  mf1::mt455::wrapEnergyDependentConstants( submodule, viewmodule );
+
+  // wrap views created by this section
 
   // create the section
   python::class_< Section > section(
@@ -67,7 +67,7 @@ void wrapSection_1_455( python::module& module ) {
     "Arguments:\n"
     "    self            the section\n"
     "    zaid            the ZA value of the material\n"
-    "    awr            the atomic weight ratio\n"
+    "    awr             the atomic weight ratio\n"
     "    constants       the decay constant data\n"
     "    multiplicity    the multiplicity data"
   )

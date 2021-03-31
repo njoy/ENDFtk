@@ -11,25 +11,33 @@
 namespace python = pybind11;
 
 // declarations - components
-void wrapIsotropic( python::module& );
-void wrapLegendreCoefficients( python::module& );
-void wrapTabulatedDistribution( python::module& );
-void wrapLegendreDistributions( python::module& );
-void wrapTabulatedDistributions( python::module& );
-void wrapMixedDistributions( python::module& );
+void wrapIsotropic( python::module&, python::module& );
+void wrapLegendreCoefficients( python::module&, python::module& );
+void wrapTabulatedDistribution( python::module&, python::module& );
+void wrapLegendreDistributions( python::module&, python::module& );
+void wrapTabulatedDistributions( python::module&, python::module& );
+void wrapMixedDistributions( python::module&, python::module& );
 
-void wrapSection_4( python::module& module ) {
+void wrapSection_4( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 4 >;
-  using Distributions = njoy::ENDFtk::section::Type< 4 >::Distributions;
-  using Distribution = njoy::ENDFtk::section::Type< 4 >::Variant;
+  using Distributions = Section::Distributions;
+  using Distribution = Section::Variant;
   using DistributionRange = BasicRandomAccessAnyView< Distribution >;
+
+  // wrap components
+  wrapIsotropic( module, viewmodule );
+  wrapLegendreCoefficients( module, viewmodule );
+  wrapTabulatedDistribution( module, viewmodule );
+  wrapLegendreDistributions( module, viewmodule );
+  wrapTabulatedDistributions( module, viewmodule );
+  wrapMixedDistributions( module, viewmodule );
 
   // wrap views created by this section
   // none of these are supposed to be created directly by the user
   wrapBasicRandomAccessAnyViewOf< Distribution >(
-      module,
+      viewmodule,
       "any_view< variant< LegendreCoefficients&, TabulatedDistribution& >, random_access >" );
 
   // create the section
@@ -39,14 +47,6 @@ void wrapSection_4( python::module& module ) {
     "Section",
     "MF4 section - angular distributions of secondary particles"
   );
-
-  // wrap components
-  wrapIsotropic( module );
-  wrapLegendreCoefficients( module );
-  wrapTabulatedDistribution( module );
-  wrapLegendreDistributions( module );
-  wrapTabulatedDistributions( module );
-  wrapMixedDistributions( module );
 
   // wrap the section
   section

@@ -10,10 +10,11 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapFrohnerBackgroundRMatrix( python::module& module ) {
+void wrapFrohnerBackgroundRMatrix( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 2, 151 >::RMatrixLimited::FrohnerBackgroundRMatrix;
+  using Section = njoy::ENDFtk::section::Type< 2, 151 >;
+  using Component = Section::RMatrixLimited::FrohnerBackgroundRMatrix;
 
   // wrap views created by this section
 

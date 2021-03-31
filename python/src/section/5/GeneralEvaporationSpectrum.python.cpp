@@ -10,12 +10,13 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapGeneralEvaporationSpectrum( python::module& module ) {
+void wrapGeneralEvaporationSpectrum( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 5 >::GeneralEvaporationSpectrum;
-  using EffectiveTemperature = njoy::ENDFtk::section::Type< 5 >::EffectiveTemperature;
-  using DistributionFunction = njoy::ENDFtk::section::Type< 5 >::DistributionFunction;
+  using Section = njoy::ENDFtk::section::Type< 5 >;
+  using Component = Section::GeneralEvaporationSpectrum;
+  using EffectiveTemperature = Section::EffectiveTemperature;
+  using DistributionFunction = Section::DistributionFunction;
 
   // wrap views created by this section
 

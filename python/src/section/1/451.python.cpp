@@ -11,18 +11,12 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapSection_1_451( python::module& module ) {
+void wrapSection_1_451( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using DirectoryRecord = njoy::ENDFtk::DirectoryRecord;
   using Section = njoy::ENDFtk::section::Type< 1, 451 >;
   using DirectoryRange = RandomAccessAnyView< DirectoryRecord >;
-
-  // wrap views created by this section
-  // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< DirectoryRecord >(
-      module,
-      "any_view< DirectoryRecord, random_access >" );
 
   // create the submodule
   python::module submodule = module.def_submodule(
@@ -30,6 +24,14 @@ void wrapSection_1_451( python::module& module ) {
     "MT451",
     "MT451 - descriptive data and directory"
   );
+
+  // wrap components
+
+  // wrap views created by this section
+  // none of these are supposed to be created directly by the user
+  wrapRandomAccessAnyViewOf< DirectoryRecord >(
+      viewmodule,
+      "any_view< DirectoryRecord, random_access >" );
 
   // create the section
   python::class_< Section > section(

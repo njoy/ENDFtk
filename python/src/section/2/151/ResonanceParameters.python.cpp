@@ -10,10 +10,11 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapResonanceParameters( python::module& module ) {
+void wrapResonanceParameters( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 2, 151 >::RMatrixLimited::ResonanceParameters;
+  using Section = njoy::ENDFtk::section::Type< 2, 151 >;
+  using Component = Section::RMatrixLimited::ResonanceParameters;
 
   // wrap views created by this section
 

@@ -213,9 +213,9 @@ pybind11_add_module( ENDFtk.python
     python/src/tree/Material.python.cpp
     python/src/tree/Tape.python.cpp
     )
-target_link_libraries( ENDFtk.python PUBLIC ENDFtk )
-target_compile_options( ENDFtk.python PUBLIC "-fPIC" )
-target_compile_options( ENDFtk.python PUBLIC "-fvisibility=hidden" )
+target_link_libraries( ENDFtk.python PRIVATE ENDFtk )
+target_compile_options( ENDFtk.python PRIVATE "-fPIC" )
+target_compile_options( ENDFtk.python PRIVATE "-fvisibility=hidden" )
 set_target_properties( ENDFtk.python PROPERTIES OUTPUT_NAME ENDFtk )
 set_target_properties( ENDFtk.python PROPERTIES COMPILE_DEFINITIONS "PYBIND11" )
 

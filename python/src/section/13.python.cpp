@@ -11,21 +11,25 @@
 namespace python = pybind11;
 
 // declarations - components
-void wrapTotalCrossSection( python::module& );
-void wrapPartialCrossSection( python::module& );
+void wrapTotalCrossSection( python::module&, python::module& );
+void wrapPartialCrossSection( python::module&, python::module& );
 
-void wrapSection_13( python::module& module ) {
+void wrapSection_13( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 13 >;
-  using PartialCrossSection = njoy::ENDFtk::section::Type< 13 >::PartialCrossSection;
-  using TotalCrossSection = njoy::ENDFtk::section::Type< 13 >::TotalCrossSection;
+  using PartialCrossSection = Section::PartialCrossSection;
+  using TotalCrossSection = Section::TotalCrossSection;
   using PartialCrossSectionRange = RandomAccessAnyView< PartialCrossSection >;
+
+  // wrap components
+  wrapTotalCrossSection( module, viewmodule );
+  wrapPartialCrossSection( module, viewmodule );
 
   // wrap views created by this section
   // none of these are supposed to be created directly by the user
   wrapRandomAccessAnyViewOf< PartialCrossSection >(
-      module,
+      viewmodule,
       "any_view< PartialCrossSection, random_access >" );
 
   // create the section
@@ -35,10 +39,6 @@ void wrapSection_13( python::module& module ) {
     "Section",
     "MF13 section - photon production cross sections"
   );
-
-  // wrap components
-  wrapTotalCrossSection( module );
-  wrapPartialCrossSection( module );
 
   // wrap the section
   section

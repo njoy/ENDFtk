@@ -13,27 +13,27 @@ namespace python = pybind11;
 namespace mf7 {
 
   // declarations - components
-  void wrapEffectiveTemperature( python::module& );
-  void wrapAnalyticalFunctions( python::module& );
-  void wrapTabulatedFunctions( python::module& );
-  void wrapScatteringFunction( python::module& );
-  void wrapScatteringLawConstants( python::module& );
+  void wrapEffectiveTemperature( python::module&, python::module& );
+  void wrapAnalyticalFunctions( python::module&, python::module& );
+  void wrapTabulatedFunctions( python::module&, python::module& );
+  void wrapScatteringFunction( python::module&, python::module& );
+  void wrapScatteringLawConstants( python::module&, python::module& );
 
 }
 
-void wrapSection_7_4( python::module& module ) {
+void wrapSection_7_4( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 7, 4 >;
-  using ScatteringLaw = njoy::ENDFtk::section::Type< 7, 4 >::ScatteringLaw;
-  using EffectiveTemperature = njoy::ENDFtk::section::Type< 7, 4 >::EffectiveTemperature;
-  using ScatteringLawConstants = njoy::ENDFtk::section::Type< 7, 4 >::ScatteringLawConstants;
+  using ScatteringLaw = Section::ScatteringLaw;
+  using EffectiveTemperature = Section::EffectiveTemperature;
+  using ScatteringLawConstants = Section::ScatteringLawConstants;
   using EffectiveTemperatureRange = RandomAccessAnyView< std::optional< EffectiveTemperature > >;
 
   // wrap views created by this section
   // none of these are supposed to be created directly by the user
   wrapRandomAccessAnyViewOf< std::optional< EffectiveTemperature > >(
-      module,
+      viewmodule,
       "any_view< std::optional< EffectiveTemperature >, random_access >" );
 
   // create the submodule
@@ -52,11 +52,11 @@ void wrapSection_7_4( python::module& module ) {
   );
 
   // wrap components
-  mf7::wrapScatteringLawConstants( submodule );
-  mf7::wrapAnalyticalFunctions( submodule );
-  mf7::wrapTabulatedFunctions( submodule );
-  mf7::wrapScatteringFunction( submodule );
-  mf7::wrapEffectiveTemperature( submodule );
+  mf7::wrapScatteringLawConstants( submodule, viewmodule );
+  mf7::wrapAnalyticalFunctions( submodule, viewmodule );
+  mf7::wrapTabulatedFunctions( submodule, viewmodule );
+  mf7::wrapScatteringFunction( submodule, viewmodule );
+  mf7::wrapEffectiveTemperature( submodule, viewmodule );
 
   // wrap the section
   section

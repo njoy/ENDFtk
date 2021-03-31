@@ -15,21 +15,19 @@ namespace mf1 {
 namespace mt458 {
 
   // declarations - components
-  void wrapEnergyReleaseComponent( python::module& );
-  void wrapThermalPointComponents( python::module& );
-  void wrapPolynomialComponents( python::module& );
-  void wrapTabulatedComponents( python::module& );
+  void wrapEnergyReleaseComponent( python::module&, python::module& );
+  void wrapThermalPointComponents( python::module&, python::module& );
+  void wrapPolynomialComponents( python::module&, python::module& );
+  void wrapTabulatedComponents( python::module&, python::module& );
 
 }
 }
 
-void wrapSection_1_458( python::module& module ) {
+void wrapSection_1_458( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 1, 458 >;
-  using FissionEnergyReleaseData = njoy::ENDFtk::section::Type< 1, 458 >::FissionEnergyReleaseData;
-
-  // wrap views created by this section
+  using FissionEnergyReleaseData = Section::FissionEnergyReleaseData;
 
   // create the submodule
   python::module submodule = module.def_submodule(
@@ -39,10 +37,12 @@ void wrapSection_1_458( python::module& module ) {
   );
 
   // wrap components
-  mf1::mt458::wrapEnergyReleaseComponent( submodule );
-  mf1::mt458::wrapThermalPointComponents( submodule );
-  mf1::mt458::wrapPolynomialComponents( submodule );
-  mf1::mt458::wrapTabulatedComponents( submodule );
+  mf1::mt458::wrapEnergyReleaseComponent( submodule, viewmodule );
+  mf1::mt458::wrapThermalPointComponents( submodule, viewmodule );
+  mf1::mt458::wrapPolynomialComponents( submodule, viewmodule );
+  mf1::mt458::wrapTabulatedComponents( submodule, viewmodule );
+
+  // wrap views created by this section
 
   // create the section
   python::class_< Section > section(

@@ -10,10 +10,11 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapOutgoingEnergyDistribution( python::module& module ) {
+void wrapOutgoingEnergyDistribution( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 5 >::TabulatedSpectrum::OutgoingEnergyDistribution;
+  using Section = njoy::ENDFtk::section::Type< 5 >;
+  using Component = Section::TabulatedSpectrum::OutgoingEnergyDistribution;
 
   // wrap views created by this section
 

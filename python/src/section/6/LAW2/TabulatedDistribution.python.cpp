@@ -13,10 +13,11 @@ namespace python = pybind11;
 namespace mf6 {
 namespace law2 {
 
-void wrapTabulatedDistribution( python::module& module ) {
+void wrapTabulatedDistribution( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 6 >::DiscreteTwoBodyScattering::TabulatedDistribution;
+  using Section = njoy::ENDFtk::section::Type< 6 >;
+  using Component = Section::DiscreteTwoBodyScattering::TabulatedDistribution;
 
   // wrap views created by this section
 

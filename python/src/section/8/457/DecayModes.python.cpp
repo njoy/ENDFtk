@@ -12,11 +12,12 @@ namespace python = pybind11;
 
 namespace mf8 {
 
-void wrapDecayModes( python::module& module ) {
+void wrapDecayModes( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 8, 457 >::DecayModes;
-  using DecayMode = njoy::ENDFtk::section::Type< 8, 457 >::DecayMode;
+  using Section = njoy::ENDFtk::section::Type< 8, 457 >;
+  using Component = Section::DecayModes;
+  using DecayMode = Section::DecayMode;
 
   // wrap views created by this section
 

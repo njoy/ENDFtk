@@ -12,17 +12,18 @@ namespace python = pybind11;
 
 namespace mf7 {
 
-void wrapTabulatedFunctions( python::module& module ) {
+void wrapTabulatedFunctions( python::module& module, python::module& viewmodule ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 7, 4 >::TabulatedFunctions;
-  using ScatteringFunction = njoy::ENDFtk::section::Type< 7, 4 >::TabulatedFunctions::ScatteringFunction;
+  using Section = njoy::ENDFtk::section::Type< 7, 4 >;
+  using Component = Section::TabulatedFunctions;
+  using ScatteringFunction = Section::TabulatedFunctions::ScatteringFunction;
   using ScatteringFunctionRange = RandomAccessAnyView< ScatteringFunction >;
 
   // wrap views created by this section
   // none of these are supposed to be created directly by the user
   wrapRandomAccessAnyViewOf< ScatteringFunction >(
-      module,
+      viewmodule,
       "any_view< ScatteringFunction, random_access >" );
 
   // create the component

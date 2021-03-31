@@ -10,10 +10,11 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapUnresolvedEnergyDependentJValue( python::module& module ) {
+void wrapUnresolvedEnergyDependentJValue( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 2, 151 >::UnresolvedEnergyDependent::JValue;
+  using Section = njoy::ENDFtk::section::Type< 2, 151 >;
+  using Component = Section::UnresolvedEnergyDependent::JValue;
 
   // wrap views created by this section
 

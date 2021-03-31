@@ -12,10 +12,11 @@ namespace python = pybind11;
 
 namespace mf6 {
 
-void wrapMultiplicity( python::module& module ) {
+void wrapMultiplicity( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 6 >::Multiplicity;
+  using Section = njoy::ENDFtk::section::Type< 6 >;
+  using Component = Section::Multiplicity;
 
   // wrap views created by this section
 

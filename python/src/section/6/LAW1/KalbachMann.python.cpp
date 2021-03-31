@@ -15,10 +15,11 @@ namespace python = pybind11;
 namespace mf6 {
 namespace law1 {
 
-void wrapKalbachMann( python::module& module ) {
+void wrapKalbachMann( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 6 >::ContinuumEnergyAngle::KalbachMann;
+  using Section = njoy::ENDFtk::section::Type< 6 >;
+  using Component = Section::ContinuumEnergyAngle::KalbachMann;
 
   // wrap views created by this section
 

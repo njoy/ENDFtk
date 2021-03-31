@@ -11,13 +11,11 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapSection_1_456( python::module& module ) {
+void wrapSection_1_456( python::module& module, python::module& ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 1, 456 >;
-  using Multiplicity = njoy::ENDFtk::section::Type< 1, 456 >::Multiplicity;
-
-  // wrap views created by this section
+  using Multiplicity = Section::Multiplicity;
 
   // create the submodule
   python::module submodule = module.def_submodule(
@@ -25,6 +23,10 @@ void wrapSection_1_456( python::module& module ) {
     "MT456",
     "MT456 - the number of prompt fission neutrons"
   );
+
+  // wrap components
+
+  // wrap views created by this section
 
   // create the section
   python::class_< Section > section(
@@ -47,7 +49,7 @@ void wrapSection_1_456( python::module& module ) {
     "Arguments:\n"
     "    self            the section\n"
     "    zaid            the ZA value of the material\n"
-    "    awr            the atomic weight ratio\n"
+    "    awr             the atomic weight ratio\n"
     "    multiplicity    the multiplicity data"
   )
   .def_property_readonly(

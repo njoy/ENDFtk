@@ -10,10 +10,11 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapMadlandNixSpectrum( python::module& module ) {
+void wrapMadlandNixSpectrum( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 5 >::MadlandNixSpectrum;
+  using Section = njoy::ENDFtk::section::Type< 5 >;
+  using Component = Section::MadlandNixSpectrum;
 
   // wrap views created by this section
 

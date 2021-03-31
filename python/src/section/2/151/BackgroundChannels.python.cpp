@@ -10,17 +10,18 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapBackgroundChannels( python::module& module ) {
+void wrapBackgroundChannels( python::module& module, python::module& viewmodule ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 2, 151 >::RMatrixLimited::BackgroundChannels;
-  using BackgroundRMatrix = njoy::ENDFtk::section::Type< 2, 151 >::RMatrixLimited::BackgroundRMatrix;
+  using Section = njoy::ENDFtk::section::Type< 2, 151 >;
+  using Component = Section::RMatrixLimited::BackgroundChannels;
+  using BackgroundRMatrix = Section::RMatrixLimited::BackgroundRMatrix;
   using BackgroundRMatrixRange = RandomAccessAnyView< std::optional< BackgroundRMatrix > >;
 
   // wrap views created by this section
   // none of these are supposed to be created directly by the user
   wrapRandomAccessAnyViewOf< std::optional< BackgroundRMatrix > >(
-      module,
+      viewmodule,
       "any_view< std::optional< BackgroundRMatrix >, random_access >" );
 
   // create the component

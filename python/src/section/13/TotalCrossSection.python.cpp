@@ -10,10 +10,11 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapTotalCrossSection( python::module& module ) {
+void wrapTotalCrossSection( python::module& module, python::module& ) {
 
   // type aliases
-  using Component = njoy::ENDFtk::section::Type< 13 >::TotalCrossSection;
+  using Section = njoy::ENDFtk::section::Type< 13 >;
+  using Component = Section::TotalCrossSection;
 
   // wrap views created by this section
 
