@@ -4,12 +4,13 @@
 #include "ENDFtk/section/3.hpp"
 
 // other includes
-#include "ENDFtk/tree/Tape.hpp"
+#include "ENDFtk/tree/Section.hpp"
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
 
 std::string chunk();
+void verifyChunk( const section::Type< 3 >& );
 std::string validSEND();
 std::string invalidSEND();
 
@@ -17,118 +18,72 @@ SCENARIO( "section::Type< 3 >" ) {
 
   GIVEN( "valid data for a section::Type< 3 >" ) {
 
-    int mt = 102;
-    int zaid = 1001;
-    int lr = 0;
-    double awr = 0.9991673;
-    double qm = 2.224648e+6;
-    double qi = 3.224648e+6;
-    std::vector< long > interpolants = { 5, 2 };
-    std::vector< long > boundaries = { 3, 6 };
-    std::vector< double > energies = { 1e-5, 2e-5, 7.5e+5,
-                                       1.9e+7, 1.95e+7, 2e+7 };
-    std::vector< double > xs = { 1.672869e+1, 1.182897e+1, 3.347392e-5,
-                                 2.751761e-5, 2.731301e-5, 2.710792e-5 };
+    std::string sectionString = chunk() + validSEND();
 
-    THEN( "a section::Type< 3 > can be constructed and "
-          "members can be tested" ) {
+    WHEN( "the data is given explicitly" ) {
+
+      int mt = 102;
+      int zaid = 1001;
+      int lr = 0;
+      double awr = 0.9991673;
+      double qm = 2.224648e+6;
+      double qi = 3.224648e+6;
+      std::vector< long > interpolants = { 5, 2 };
+      std::vector< long > boundaries = { 3, 6 };
+      std::vector< double > energies = { 1e-5, 2e-5, 7.5e+5,
+                                         1.9e+7, 1.95e+7, 2e+7 };
+      std::vector< double > xs = { 1.672869e+1, 1.182897e+1, 3.347392e-5,
+                                   2.751761e-5, 2.731301e-5, 2.710792e-5 };
 
       section::Type< 3 > chunk( mt, zaid, awr, qm, qi, lr,
                                 std::move( boundaries ),
                                 std::move( interpolants ),
                                 std::move( energies ), std::move( xs ) );
 
-      REQUIRE( 102 == chunk.MT() );
-      REQUIRE( 1001 == chunk.ZA() );
-      REQUIRE( 0.9991673 == Approx( chunk.AWR() ) );
-      REQUIRE( 0.9991673 == Approx( chunk.atomicWeightRatio() ) );
-      REQUIRE( 0 == chunk.LR() );
-      REQUIRE( 0 == chunk.complexBreakUp() );
-      REQUIRE( 2.224648e+6 == Approx( chunk.QM() ) );
-      REQUIRE( 2.224648e+6 == Approx( chunk.massDifferenceQValue() ) );
-      REQUIRE( 3.224648e+6 == Approx( chunk.QI() ) );
-      REQUIRE( 3.224648e+6 == Approx( chunk.reactionQValue() ) );
+      THEN( "a section::Type< 3 > can be constructed and "
+            "members can be tested" ) {
 
-      REQUIRE( 6 == chunk.NP() );
-      REQUIRE( 2 == chunk.NR() );
-      REQUIRE( 2 == chunk.interpolants().size() );
-      REQUIRE( 2 == chunk.boundaries().size() );
-      REQUIRE( 5 == chunk.interpolants()[0] );
-      REQUIRE( 2 == chunk.interpolants()[1] );
-      REQUIRE( 3 == chunk.boundaries()[0] );
-      REQUIRE( 6 == chunk.boundaries()[1] );
-      REQUIRE( 6 == chunk.energies().size() );
-      REQUIRE( 6 == chunk.crossSections().size() );
-      REQUIRE( 1e-5 == Approx( chunk.energies()[0] ) );
-      REQUIRE( 2e-5 == Approx( chunk.energies()[1] ) );
-      REQUIRE( 7.5e+5 == Approx( chunk.energies()[2] ) );
-      REQUIRE( 1.9e+7 == Approx( chunk.energies()[3] ) );
-      REQUIRE( 1.95e+7 == Approx( chunk.energies()[4] ) );
-      REQUIRE( 2e+7 == Approx( chunk.energies()[5] ) );
-      REQUIRE( 1.672869e+1 == Approx( chunk.crossSections()[0] ) );
-      REQUIRE( 1.182897e+1 == Approx( chunk.crossSections()[1] ) );
-      REQUIRE( 3.347392e-5 == Approx( chunk.crossSections()[2] ) );
-      REQUIRE( 2.751761e-5 == Approx( chunk.crossSections()[3] ) );
-      REQUIRE( 2.731301e-5 == Approx( chunk.crossSections()[4] ) );
-      REQUIRE( 2.710792e-5 == Approx( chunk.crossSections()[5] ) );
 
-      REQUIRE( 5 == chunk.NC() );
-    } // THEN
-  } // GIVEN
+        verifyChunk( chunk );
+      } // THEN
 
-  GIVEN( "a valid string representation of a section::Type< 3 >" ) {
+      THEN( "it can be printed" ) {
 
-    WHEN( "there is a valid SEND record" ) {
-      std::string sectionString = chunk() + validSEND();
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 125, 3 );
+
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is read from a string/stream with a valid SEND" ) {
+
       auto begin = sectionString.begin();
       auto end = sectionString.end();
       long lineNumber = 0;
       HeadRecord head( begin, end, lineNumber );
 
+      section::Type< 3 > chunk( head, begin, end, lineNumber, 125 );
+
       THEN( "a section::Type< 3 > can be constructed and "
             "members can be tested" ) {
 
-        section::Type< 3 > chunk( head, begin, end, lineNumber, 125 );
+        verifyChunk( chunk );
+      } // THEN
 
-        REQUIRE( 102 == chunk.MT() );
-        REQUIRE( 1001 == chunk.ZA() );
-        REQUIRE( 0.9991673 == Approx( chunk.AWR() ) );
-        REQUIRE( 0.9991673 == Approx( chunk.atomicWeightRatio() ) );
-        REQUIRE( 0 == chunk.LR() );
-        REQUIRE( 0 == chunk.complexBreakUp() );
-        REQUIRE( 2.224648e+6 == Approx( chunk.QM() ) );
-        REQUIRE( 2.224648e+6 == Approx( chunk.massDifferenceQValue() ) );
-        REQUIRE( 3.224648e+6 == Approx( chunk.QI() ) );
-        REQUIRE( 3.224648e+6 == Approx( chunk.reactionQValue() ) );
+      THEN( "it can be printed" ) {
 
-        REQUIRE( 6 == chunk.NP() );
-        REQUIRE( 2 == chunk.NR() );
-        REQUIRE( 2 == chunk.interpolants().size() );
-        REQUIRE( 2 == chunk.boundaries().size() );
-        REQUIRE( 5 == chunk.interpolants()[0] );
-        REQUIRE( 2 == chunk.interpolants()[1] );
-        REQUIRE( 3 == chunk.boundaries()[0] );
-        REQUIRE( 6 == chunk.boundaries()[1] );
-        REQUIRE( 6 == chunk.energies().size() );
-        REQUIRE( 6 == chunk.crossSections().size() );
-        REQUIRE( 1e-5 == Approx( chunk.energies()[0] ) );
-        REQUIRE( 2e-5 == Approx( chunk.energies()[1] ) );
-        REQUIRE( 7.5e+5 == Approx( chunk.energies()[2] ) );
-        REQUIRE( 1.9e+7 == Approx( chunk.energies()[3] ) );
-        REQUIRE( 1.95e+7 == Approx( chunk.energies()[4] ) );
-        REQUIRE( 2e+7 == Approx( chunk.energies()[5] ) );
-        REQUIRE( 1.672869e+1 == Approx( chunk.crossSections()[0] ) );
-        REQUIRE( 1.182897e+1 == Approx( chunk.crossSections()[1] ) );
-        REQUIRE( 3.347392e-5 == Approx( chunk.crossSections()[2] ) );
-        REQUIRE( 2.751761e-5 == Approx( chunk.crossSections()[3] ) );
-        REQUIRE( 2.731301e-5 == Approx( chunk.crossSections()[4] ) );
-        REQUIRE( 2.710792e-5 == Approx( chunk.crossSections()[5] ) );
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 125, 3 );
 
-        REQUIRE( 5 == chunk.NC() );
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
 
-    WHEN( "there is a tree::Section" ){
+    WHEN( "there is a tree::Section" ) {
+
       std::string sectionString = chunk() + validSEND();
       auto begin = sectionString.begin();
       auto position = begin;
@@ -138,88 +93,61 @@ SCENARIO( "section::Type< 3 >" ) {
       tree::Section< std::string::iterator >
         section( head, begin, position, end, lineNumber );
 
+      section::Type<3> chunk = section.parse< 3 >();
+      section::Type<3> chunk2 = section.parse< 3 >( lineNumber );
+      section::Type<3> chunk3 = section.parse( 3_c );
+      section::Type<3> chunk4 = section.parse( 3_c, lineNumber );
+
       THEN( "a section::Type< 3 > can be constructed and "
             "members can be tested" ) {
 
-        section::Type<3> chunk = section.parse< 3 >();
-        section::Type<3> chunk2 = section.parse< 3 >( lineNumber );
-        section::Type<3> chunk3 = section.parse( 3_c );
-        section::Type<3> chunk4 = section.parse( 3_c, lineNumber );
+        verifyChunk( chunk );
+        verifyChunk( chunk2 );
+        verifyChunk( chunk3 );
+        verifyChunk( chunk4 );
+      } // THEN
 
-        REQUIRE( 102 == chunk.MT() );
-        REQUIRE( 1001 == chunk.ZA() );
-        REQUIRE( 0.9991673 == Approx( chunk.AWR() ) );
-        REQUIRE( 0.9991673 == Approx( chunk.atomicWeightRatio() ) );
-        REQUIRE( 0 == chunk.LR() );
-        REQUIRE( 0 == chunk.complexBreakUp() );
-        REQUIRE( 2.224648e+6 == Approx( chunk.QM() ) );
-        REQUIRE( 2.224648e+6 == Approx( chunk.massDifferenceQValue() ) );
-        REQUIRE( 3.224648e+6 == Approx( chunk.QI() ) );
-        REQUIRE( 3.224648e+6 == Approx( chunk.reactionQValue() ) );
+      THEN( "it can be printed" ) {
 
-        REQUIRE( 6 == chunk.NP() );
-        REQUIRE( 2 == chunk.NR() );
-        REQUIRE( 2 == chunk.interpolants().size() );
-        REQUIRE( 2 == chunk.boundaries().size() );
-        REQUIRE( 5 == chunk.interpolants()[0] );
-        REQUIRE( 2 == chunk.interpolants()[1] );
-        REQUIRE( 3 == chunk.boundaries()[0] );
-        REQUIRE( 6 == chunk.boundaries()[1] );
-        REQUIRE( 6 == chunk.energies().size() );
-        REQUIRE( 6 == chunk.crossSections().size() );
-        REQUIRE( 1e-5 == Approx( chunk.energies()[0] ) );
-        REQUIRE( 2e-5 == Approx( chunk.energies()[1] ) );
-        REQUIRE( 7.5e+5 == Approx( chunk.energies()[2] ) );
-        REQUIRE( 1.9e+7 == Approx( chunk.energies()[3] ) );
-        REQUIRE( 1.95e+7 == Approx( chunk.energies()[4] ) );
-        REQUIRE( 2e+7 == Approx( chunk.energies()[5] ) );
-        REQUIRE( 1.672869e+1 == Approx( chunk.crossSections()[0] ) );
-        REQUIRE( 1.182897e+1 == Approx( chunk.crossSections()[1] ) );
-        REQUIRE( 3.347392e-5 == Approx( chunk.crossSections()[2] ) );
-        REQUIRE( 2.751761e-5 == Approx( chunk.crossSections()[3] ) );
-        REQUIRE( 2.731301e-5 == Approx( chunk.crossSections()[4] ) );
-        REQUIRE( 2.710792e-5 == Approx( chunk.crossSections()[5] ) );
+        std::string buffer;
+        std::string buffer2;
+        std::string buffer3;
+        std::string buffer4;
+        auto output = std::back_inserter( buffer );
+        auto output2 = std::back_inserter( buffer2 );
+        auto output3 = std::back_inserter( buffer3 );
+        auto output4 = std::back_inserter( buffer4 );
+        chunk.print( output, 125, 3 );
+        chunk2.print( output2, 125, 3 );
+        chunk3.print( output3, 125, 3 );
+        chunk4.print( output4, 125, 3 );
 
-        REQUIRE( 5 == chunk.NC() );
-
-        REQUIRE( 102 == chunk2.MT() );
-        REQUIRE( 1001 == chunk2.ZA() );
-        REQUIRE( 102 == chunk3.MT() );
-        REQUIRE( 1001 == chunk3.ZA() );
-        REQUIRE( 102 == chunk4.MT() );
-        REQUIRE( 1001 == chunk4.ZA() );
-
+        CHECK( buffer == sectionString );
+        CHECK( buffer2 == sectionString );
+        CHECK( buffer3 == sectionString );
+        CHECK( buffer4 == sectionString );
       } // THEN
     } // WHEN
+  } // GIVEN
 
-    WHEN( "the SEND Record is not valid, i.e., MT!=0" ){
+  GIVEN( "invalid data for a section::Type< 3 >" ) {
+
+    WHEN( "a string representation of a section::Type< 3 > with "
+          "an invalid SEND" ) {
+
       std::string sectionString = chunk() + invalidSEND();
       auto begin = sectionString.begin();
       auto end = sectionString.end();
-      long lineNumber = 0;
+      long lineNumber = 1;
       HeadRecord head( begin, end, lineNumber );
 
       THEN( "an exception is thrown" ){
-        REQUIRE_THROWS( section::Type<3>( head, begin, end, lineNumber, 125 ) );
+
+        CHECK_THROWS( section::Type< 3 >( head, begin, end,
+                                            lineNumber, 125 ) );
       } // THEN
     } // WHEN
-  } // GIVEN
-
-  GIVEN( "a valid instance of section::Type< 3 >" ) {
-    std::string string = chunk() + validSEND();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-    HeadRecord head( begin, end, lineNumber );
-    section::Type< 3 > chunk( head, begin, end, lineNumber, 125 );
-
-    THEN( "it can be printed" ) {
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 125, 3 );
-      REQUIRE( buffer == string );
-    } // THEN
-  } // GIVEN
+  } // THEN
 } // SCENARIO
 
 std::string chunk(){
@@ -229,6 +157,45 @@ std::string chunk(){
     "          3          5          6          2                       125 3102     \n"
     " 1.000000-5 1.672869+1 2.000000-5 1.182897+1 7.500000+5 3.347392-5 125 3102     \n"
     " 1.900000+7 2.751761-5 1.950000+7 2.731301-5 2.000000+7 2.710792-5 125 3102     \n";
+}
+
+void verifyChunk( const section::Type< 3 >& chunk ) {
+
+  CHECK( 102 == chunk.MT() );
+  CHECK( 1001 == chunk.ZA() );
+  CHECK( 0.9991673 == Approx( chunk.AWR() ) );
+  CHECK( 0.9991673 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 0 == chunk.LR() );
+  CHECK( 0 == chunk.complexBreakUp() );
+  CHECK( 2.224648e+6 == Approx( chunk.QM() ) );
+  CHECK( 2.224648e+6 == Approx( chunk.massDifferenceQValue() ) );
+  CHECK( 3.224648e+6 == Approx( chunk.QI() ) );
+  CHECK( 3.224648e+6 == Approx( chunk.reactionQValue() ) );
+
+  CHECK( 6 == chunk.NP() );
+  CHECK( 2 == chunk.NR() );
+  CHECK( 2 == chunk.interpolants().size() );
+  CHECK( 2 == chunk.boundaries().size() );
+  CHECK( 5 == chunk.interpolants()[0] );
+  CHECK( 2 == chunk.interpolants()[1] );
+  CHECK( 3 == chunk.boundaries()[0] );
+  CHECK( 6 == chunk.boundaries()[1] );
+  CHECK( 6 == chunk.energies().size() );
+  CHECK( 6 == chunk.crossSections().size() );
+  CHECK( 1e-5 == Approx( chunk.energies()[0] ) );
+  CHECK( 2e-5 == Approx( chunk.energies()[1] ) );
+  CHECK( 7.5e+5 == Approx( chunk.energies()[2] ) );
+  CHECK( 1.9e+7 == Approx( chunk.energies()[3] ) );
+  CHECK( 1.95e+7 == Approx( chunk.energies()[4] ) );
+  CHECK( 2e+7 == Approx( chunk.energies()[5] ) );
+  CHECK( 1.672869e+1 == Approx( chunk.crossSections()[0] ) );
+  CHECK( 1.182897e+1 == Approx( chunk.crossSections()[1] ) );
+  CHECK( 3.347392e-5 == Approx( chunk.crossSections()[2] ) );
+  CHECK( 2.751761e-5 == Approx( chunk.crossSections()[3] ) );
+  CHECK( 2.731301e-5 == Approx( chunk.crossSections()[4] ) );
+  CHECK( 2.710792e-5 == Approx( chunk.crossSections()[5] ) );
+
+  CHECK( 5 == chunk.NC() );
 }
 
 std::string validSEND(){

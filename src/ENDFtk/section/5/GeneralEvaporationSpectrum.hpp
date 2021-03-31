@@ -24,12 +24,17 @@ public:
   /**
    *  @brief Return the distribution type (the LF flag)
    */
-  static constexpr int LAW() { return GeneralEvaporationSpectrum::LF(); }
+  int LAW() const { return this->LF(); }
 
   /**
    *  @brief Return the effective temperature
    */
-  const auto& effectiveTemperature() const { return this->temperature_; }
+  const auto& theta() const { return this->temperature_; }
+
+  /**
+   *  @brief Return the effective temperature
+   */
+  const auto& effectiveTemperature() const { return this->theta(); }
 
   /**
    *  @brief Return the distribution function g(x)
@@ -44,4 +49,3 @@ public:
   #include "ENDFtk/section/5/GeneralEvaporationSpectrum/src/NC.hpp"
   #include "ENDFtk/section/5/GeneralEvaporationSpectrum/src/print.hpp"
 };
-

@@ -92,7 +92,7 @@ public:
    *  @brief Return all temperatures for which thermal scattering law data is
    *         given
    */
-  auto temperatures() const {
+  auto T() const {
     return ranges::view::concat(
              ranges::view::single( this->principal_.C1() ),
              this->temperatures_ |
@@ -101,9 +101,20 @@ public:
   }
 
   /**
+   *  @brief Return all temperatures for which thermal scattering law data is
+   *         given
+   */
+  auto temperatures() const { return this->T(); }
+
+  /**
    *  @brief Return the energy grid
    */
-  auto energies() const { return this->principal_.x(); }
+  auto E() const { return this->principal_.x(); }
+
+  /**
+   *  @brief Return the energy grid
+   */
+  auto energies() const { return this->E(); }
 
   /**
    *  @brief Return the temperature interpolation flags (LT values will be
@@ -125,13 +136,19 @@ public:
    *  @brief Return the thermal scattering law values as an array, one for each
    *         temperature
    */
-  auto thermalScatteringValues() const {
+  auto S() const {
     return ranges::view::concat(
              ranges::view::single( this->principal_.y() ),
              this->temperatures_ |
                  ranges::view::transform( [] ( const auto& v )
                                              { return v.list(); } ) );
   }
+
+  /**
+   *  @brief Return the thermal scattering law values as an array, one for each
+   *         temperature
+   */
+  auto thermalScatteringValues() const { return this->S(); }
 
   #include "ENDFtk/section/7/2/CoherentElastic/src/NC.hpp"
   #include "ENDFtk/section/7/2/CoherentElastic/src/print.hpp"

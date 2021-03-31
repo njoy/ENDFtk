@@ -1,15 +1,49 @@
 /**
  *  @brief Constructor
  *
+ *  @param[in] channels      the resonance channel information
+ *  @param[in] parameters    the associated resonance parameters
+ *  @param[in] background    the background R-matrices
+ */
+SpinGroup( ResonanceChannels&& channels, ResonanceParameters&& parameters,
+           BackgroundChannels&& background ) :
+  channels_( std::move( channels ) ),
+  parameters_( std::move( parameters ) ),
+  background_( std::move( background ) ) {
+
+    verify( this->channels_.KBK(), this->background_.KBK(),
+            this->channels_.NCH(), this->background_.NCH() );
+  }
+
+/**
+ *  @brief Constructor
+ *
  *  @param[in] channels     the resonance channel information
  *  @param[in] parameters   the associated resonance parameters
  */
-SpinGroup( ResonanceChannels&& channels, ResonanceParameters&& parameters ) :
-    // no need for a try ... catch: nothing can go wrong here
-    channels_( std::move( channels ) ),
-    parameters_( std::move( parameters ) ) {}
+SpinGroup( ResonanceChannels&& channels, ResonanceParameters&& parameters )
+  try : SpinGroup( std::move( channels ), std::move( parameters ),
+                   BackgroundChannels( channels.NCH(), {} ) ) {}
+  catch ( std::exception& e ) {
+
+    Log::info( "Encountered error while constructing a spin group" );
+    throw;
+  }
 
 private:
+
+/**
+ *  @brief Private intermediate constructor
+ */
+template< typename Iterator >
+SpinGroup( ResonanceChannels&& channels,
+           ResonanceParameters&& parameters,
+           Iterator& it, const Iterator& end, long& lineNumber,
+           int MAT, int MF, int MT, int NCH, int KBK ) :
+  SpinGroup( std::move( channels ), std::move( parameters ),
+             BackgroundChannels( it, end, lineNumber,
+                                 MAT, MF, MT, NCH, KBK ) ) {}
+
 /**
  *  @brief Private intermediate constructor
  */
@@ -18,7 +52,9 @@ SpinGroup( ResonanceChannels&& channels,
            Iterator& it, const Iterator& end, long& lineNumber,
            int MAT, int MF, int MT ) :
   SpinGroup( std::move( channels ),
-             ResonanceParameters( it, end, lineNumber, MAT, MF, MT ) ) {}
+             ResonanceParameters( it, end, lineNumber, MAT, MF, MT ),
+             it, end, lineNumber, MAT, MF, MT,
+             channels.NCH(), channels.KBK() ) {}
 
 public:
 /**

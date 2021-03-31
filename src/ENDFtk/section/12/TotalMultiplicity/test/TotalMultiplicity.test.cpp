@@ -85,10 +85,10 @@ SCENARIO( "TotalMultiplicity" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( TotalMultiplicity( std::move( boundaries ),
-                                           std::move( wrongInterpolants ),
-                                           std::move( x ),
-                                           std::move( y ) ) );
+        CHECK_THROWS( TotalMultiplicity( std::move( boundaries ),
+                                         std::move( wrongInterpolants ),
+                                         std::move( x ),
+                                         std::move( y ) ) );
       } // THEN
     } // WHEN
 
@@ -103,8 +103,8 @@ SCENARIO( "TotalMultiplicity" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( TotalMultiplicity( begin, end, lineNumber,
-                                           9228, 12, 18 ) );
+        CHECK_THROWS( TotalMultiplicity( begin, end, lineNumber,
+                                         9228, 12, 18 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -127,16 +127,22 @@ void verifyChunk( const TotalMultiplicity& chunk ) {
   CHECK( 2 == chunk.boundaries()[0] );
   CHECK( 2 == chunk.E().size() );
   CHECK( 2 == chunk.energies().size() );
+  CHECK( 2 == chunk.x().size() );
   CHECK( 2 == chunk.Y().size() );
   CHECK( 2 == chunk.multiplicities().size() );
+  CHECK( 2 == chunk.y().size() );
   CHECK( 1. == Approx( chunk.E()[0] ) );
   CHECK( 3. == Approx( chunk.E()[1] ) );
   CHECK( 1. == Approx( chunk.energies()[0] ) );
   CHECK( 3. == Approx( chunk.energies()[1] ) );
+  CHECK( 1. == Approx( chunk.x()[0] ) );
+  CHECK( 3. == Approx( chunk.x()[1] ) );
   CHECK( 2. == Approx( chunk.Y()[0] ) );
   CHECK( 4. == Approx( chunk.Y()[1] ) );
   CHECK( 2. == Approx( chunk.multiplicities()[0] ) );
   CHECK( 4. == Approx( chunk.multiplicities()[1] ) );
+  CHECK( 2. == Approx( chunk.y()[0] ) );
+  CHECK( 4. == Approx( chunk.y()[1] ) );
 
   CHECK( 3 == chunk.NC() );
 }

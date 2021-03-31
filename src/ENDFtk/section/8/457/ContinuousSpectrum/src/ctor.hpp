@@ -1,29 +1,29 @@
-/** 
+/**
  *  @brief Constructor
  *
- *  @param[in] decayChain       the ENDF decay chain
- *  @param[in] boundaries       the interpolation range boundaries
- *  @param[in] interpolants     the interpolation types for each range
- *  @param[in] energies         the energy values
- *  @param[in] spectralvalues   the spectral values
+ *  @param[in] chain           the ENDF decay chain
+ *  @param[in] boundaries      the interpolation range boundaries
+ *  @param[in] interpolants    the interpolation types for each range
+ *  @param[in] energies        the energy values
+ *  @param[in] spectrum        the spectral values
  */
-ContinuousSpectrum( double decayChain,
+ContinuousSpectrum( double chain,
                     std::vector< long >&& boundaries,
                     std::vector< long >&& interpolants,
-                    std::vector< double >&& moderatorTemperatures,
-                    std::vector< double >&& effectiveTemperatures )
-  try : TabulationRecord( decayChain, 0.0, 0, 0,
+                    std::vector< double >&& energies,
+                    std::vector< double >&& spectrum )
+  try : TabulationRecord( chain, 0.0, 0, 0,
                           std::move( boundaries ),
                           std::move( interpolants ),
-                          std::move( moderatorTemperatures ),
-                          std::move( effectiveTemperatures ) ) {}
+                          std::move( energies ),
+                          std::move( spectrum ) ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing continuum spectrum data" );
     throw;
   }
 
-/** 
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator

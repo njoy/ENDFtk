@@ -1,3 +1,11 @@
+//! @todo pybind11 variant needs default constructor workaround
+#ifdef PYBIND11
+/**
+ *  @brief Default constructor - only enabled for pybind11
+ */
+ChargedParticleElasticScattering() = default;
+#endif
+
 private:
 /**
  *  @brief Private constructor
@@ -10,21 +18,21 @@ public:
 /**
  *  @brief Constructor
  *
- *  @param[in] spin           the spin of the charged particle
- *  @param[in] lidp           the identicle particle flag
- *  @param[in] boundaries     the interpolation range boundaries
- *  @param[in] interpolants   the interpolation types for each range
- *  @param[in] sequence       the data for each incident energy value
+ *  @param[in] spin             the spin of the charged particle
+ *  @param[in] lidp             the identicle particle flag
+ *  @param[in] boundaries       the interpolation range boundaries
+ *  @param[in] interpolants     the interpolation types for each range
+ *  @param[in] distributions    the data for each incident energy value
  */
 ChargedParticleElasticScattering ( double spin, long lidp,
                                    std::vector< long >&& boundaries,
                                    std::vector< long >&& interpolants,
-                                   std::vector< Variant >&& sequence )
+                                   std::vector< Variant >&& distributions )
   try : ChargedParticleElasticScattering(
           InterpolationRecord( spin, 0.0, lidp, 0,
                                std::move( boundaries ),
                                std::move( interpolants ) ),
-          std::move( sequence ) ) {}
+          std::move( distributions ) ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing charged particle elastic "

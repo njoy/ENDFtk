@@ -1,10 +1,18 @@
+//! @todo pybind11 variant needs default constructor workaround
+#ifdef PYBIND11
+/**
+ *  @brief Default constructor - only enabled for pybind11
+ */
+TotalMultiplicity() = default;
+#endif
+
 /**
  *  @brief Constructor
  *
  *  @param[in] boundaries       the interpolation range boundaries
  *  @param[in] interpolants     the interpolation types for each range
  *  @param[in] energies         the energy values
- *  @param[in] multiplicities   the probability values
+ *  @param[in] multiplicities   the multiplicity values
  */
 TotalMultiplicity( std::vector< long >&& boundaries,
                    std::vector< long >&& interpolants,

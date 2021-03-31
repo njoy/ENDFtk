@@ -4,7 +4,7 @@
 #include "ENDFtk/section/13.hpp"
 
 // other includes
-#include "ENDFtk/tree/Tape.hpp"
+#include "ENDFtk/tree/Section.hpp"
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
@@ -119,10 +119,10 @@ SCENARIO( "section::Type< 13 >" ) {
         auto output4 = std::back_inserter( buffer4 );
         chunk1.print( output4, 9228, 13 );
 
-        REQUIRE( buffer1 == sectionString );
-        REQUIRE( buffer2 == sectionString );
-        REQUIRE( buffer3 == sectionString );
-        REQUIRE( buffer4 == sectionString );
+        CHECK( buffer1 == sectionString );
+        CHECK( buffer2 == sectionString );
+        CHECK( buffer3 == sectionString );
+        CHECK( buffer4 == sectionString );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -139,7 +139,7 @@ SCENARIO( "section::Type< 13 >" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( section::Type< 13 >( head, begin, end,
+        CHECK_THROWS( section::Type< 13 >( head, begin, end,
                                              lineNumber, 9228 ) );
       } // THEN
     } // WHEN
@@ -155,7 +155,7 @@ SCENARIO( "section::Type< 13 >" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( section::Type< 13 >( head, begin, end,
+        CHECK_THROWS( section::Type< 13 >( head, begin, end,
                                              lineNumber, 9228 ) );
       } // THEN
     } // WHEN
@@ -172,12 +172,12 @@ std::string chunk() {
 
 void verifyChunk( const section::Type< 13 >& chunk ) {
 
-  REQUIRE( 18 == chunk.MT() );
-  REQUIRE( 18 == chunk.sectionNumber() );
+  CHECK( 18 == chunk.MT() );
+  CHECK( 18 == chunk.sectionNumber() );
 
-  REQUIRE( 92235. == Approx( chunk.ZA() ) );
-  REQUIRE( 2.330250e+2 == Approx( chunk.AWR() ) );
-  REQUIRE( 2.330250e+2 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 92235. == Approx( chunk.ZA() ) );
+  CHECK( 2.330250e+2 == Approx( chunk.AWR() ) );
+  CHECK( 2.330250e+2 == Approx( chunk.atomicWeightRatio() ) );
 
   CHECK( std::nullopt == chunk.totalCrossSection() );
   CHECK( 1 == chunk.partialCrossSections().size() );
@@ -207,7 +207,7 @@ void verifyChunk( const section::Type< 13 >& chunk ) {
   CHECK( 8.579050e+0 == Approx( partial.crossSections()[0] ) );
   CHECK( 1.487778e+1 == Approx( partial.crossSections()[1] ) );
 
-  REQUIRE( 4 == chunk.NC() );
+  CHECK( 4 == chunk.NC() );
 }
 
 std::string invalidChunk() {

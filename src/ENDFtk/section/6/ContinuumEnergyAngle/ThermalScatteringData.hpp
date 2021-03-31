@@ -30,14 +30,19 @@ public:
   static constexpr int LANG() { return 3; }
 
   /**
-   *  @brief Return the incident energy
+   *  @brief Return the representation type
    */
-  double EN() const { return ListRecord::C2(); }
+  int representation() const { return this->LANG(); }
 
   /**
    *  @brief Return the incident energy
    */
-  double energy() const { return this->EN(); }
+  double E() const { return ListRecord::C2(); }
+
+  /**
+   *  @brief Return the incident energy
+   */
+  double incidentEnergy() const { return this->E(); }
 
   /**
    *  @brief Return the data contained in this component
@@ -59,20 +64,25 @@ public:
   /**
    *  @brief Return the number of energy points
    */
-  int numberEnergies() const { return this->NEP(); }
+  int numberSecondaryEnergies() const { return this->NEP(); }
 
   /**
    *  @brief Return the LTT flag (the format representation type)
    */
-  int LTT() const { return this->data().front() == this->energy() ? 6 : 5; }
+  int LTT() const { return this->data().front() == this->incidentEnergy() ? 6 : 5; }
 
   /**
    *  @brief Return the number of energy points
    */
-  StrideRange energies() const {
+  StrideRange EP() const {
 
     return this->data() | ranges::view::stride( this->N2() );
   }
+
+  /**
+   *  @brief Return the number of energy points
+   */
+  StrideRange energies() const { return this->EP(); }
 
   /**
    *  @brief Return second value for every energy
@@ -84,9 +94,9 @@ public:
   }
 
   /**
-   *  @brief Return the cosines
+   *  @brief Return the cosine values
    */
-  auto cosines() const {
+  auto MU() const {
 
     return this->data()
              | ranges::view::chunk( this->N2() )
@@ -94,6 +104,11 @@ public:
                    [] ( const auto& array )
                       { return array | ranges::view::drop_exactly( 2 ); } );
   }
+
+  /**
+   *  @brief Return the cosine values
+   */
+  auto cosines() const { return this->MU();  }
 
   using ListRecord::NC;
   using ListRecord::print;

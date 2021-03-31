@@ -5,7 +5,7 @@
  *  The IncoherentElastic class is used to represent the incoherent elastic
  *  scattering law of MF7/MT2.
  *
- *  See ENDF102, section 7.2 for more information.
+ *  See ENDF102, section 7.3 for more information.
  */
 class IncoherentElastic : protected TabulationRecord {
 
@@ -37,12 +37,22 @@ public:
   /**
    *  @brief Return the temperature values
    */
-  auto temperatures() const { return TabulationRecord::x(); }
+  auto T() const { return TabulationRecord::x(); }
 
   /**
-   *  @brief Return the Debye-Waller integral divided by the atomic mass (eV?1)
+   *  @brief Return the temperature values
    */
-  auto debyeWallerValues() const { return TabulationRecord::y(); }
+  auto temperatures() const { return this->T(); }
+
+  /**
+   *  @brief Return the Debye-Waller integral divided by the atomic mass (eV^-1)
+   */
+  auto W() const { return TabulationRecord::y(); }
+
+  /**
+   *  @brief Return the Debye-Waller integral divided by the atomic mass (eV^-1)
+   */
+  auto debyeWallerValues() const { return this->W(); }
 
   /* get methods */
   using TabulationRecord::NP;
@@ -55,5 +65,10 @@ public:
   /**
    *  @brief Return the number of temperature values
    */
-  auto numberTemperatures() const { return this->NP(); }
+  auto NT() const { return this->NP(); }
+
+  /**
+   *  @brief Return the number of temperature values
+   */
+  auto numberTemperatures() const { return this->NT(); }
 };

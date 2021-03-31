@@ -1,8 +1,8 @@
-/** 
+/**
  *  @brief Constructor
  *
- *  @param[in] interpolants    the legendre distributions
- *  @param[in] distributions   the tabulated distributions
+ *  @param[in] legendre    the legendre distributions
+ *  @param[in] tabulated   the tabulated distributions
  */
 MixedDistributions( LegendreDistributions&& legendre,
                     TabulatedDistributions&& tabulated ) :
@@ -15,7 +15,7 @@ MixedDistributions( LegendreDistributions&& legendre,
 
 private:
 
-/** 
+/**
  *  @brief Private intermediate constructor
  */
 template< typename Iterator >
@@ -32,7 +32,7 @@ MixedDistributions( LegendreDistributions&& legendre,
 
 public:
 
-/** 
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator

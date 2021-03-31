@@ -23,8 +23,6 @@ class Type< 5 > : protected Base {
 
 public:
 
-  #include "ENDFtk/section/5/PartialProbability.hpp"
-
   #include "ENDFtk/section/5/DistributionFunction.hpp"
   #include "ENDFtk/section/5/Parameter.hpp"
   #include "ENDFtk/section/5/EffectiveTemperature.hpp"
@@ -43,23 +41,23 @@ public:
   using LF11 = WattSpectrum;
   using LF12 = MadlandNixSpectrum;
 
-  /** @typedef PartialDistribution
-   *  @brief A partial secondary particle energy distribution of MF5
+  /** @typedef Distribution
+   *  @brief A secondary particle energy distribution of MF5
    */
-  using PartialDistribution =
-            std::variant< TabulatedSpectrum,           // LF=1
-                          GeneralEvaporationSpectrum,  // LF=5
-                          MaxwellianFissionSpectrum,   // LF=7
-                          EvaporationSpectrum,         // LF=9
-                          WattSpectrum,                // LF=11
-                          MadlandNixSpectrum >;        // LF=12
+  using Distribution = std::variant< TabulatedSpectrum,           // LF=1
+                                     GeneralEvaporationSpectrum,  // LF=5
+                                     MaxwellianFissionSpectrum,   // LF=7
+                                     EvaporationSpectrum,         // LF=9
+                                     WattSpectrum,                // LF=11
+                                     MadlandNixSpectrum >;        // LF=12
+  #include "ENDFtk/section/5/Probability.hpp"
 
-  #include "ENDFtk/section/5/Subsection.hpp"
+  #include "ENDFtk/section/5/PartialDistribution.hpp"
 
 private:
 
   /* fields */
-  std::vector< Subsection > subsections_;
+  std::vector< PartialDistribution > partials_;
 
   /* auxiliary functions */
   #include "ENDFtk/section/5/src/verifyNK.hpp"
@@ -69,12 +67,12 @@ public:
   /* constructor */
   #include "ENDFtk/section/5/src/ctor.hpp"
 
-  /* get methods */
+  /* methods */
 
   /**
    *  @brief Return the number NK of subsections with partial distributions
    */
-  int NK() const { return this->subsections_.size(); }
+  int NK() const { return this->partials_.size(); }
 
   /**
    *  @brief Return the number NK of subsections with partial distributions
@@ -84,7 +82,10 @@ public:
   /**
    *  @brief Return the partial distributions defined in this section
    */
-  auto distributions() const { return ranges::view::all( this->subsections_ ); }
+  auto partialDistributions() const {
+
+    return ranges::view::all( this->partials_ );
+  }
 
   #include "ENDFtk/section/5/src/NC.hpp"
   #include "ENDFtk/section/5/src/print.hpp"

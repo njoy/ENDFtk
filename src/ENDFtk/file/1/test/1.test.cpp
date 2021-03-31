@@ -4,7 +4,7 @@
 #include "ENDFtk/file/1.hpp"
 
 // other includes
-#include "ENDFtk/tree/Tape.hpp"
+#include "ENDFtk/tree/File.hpp"
 #include "range/v3/algorithm/count.hpp"
 
 // convenience typedefs
@@ -164,9 +164,23 @@ SCENARIO( "Testing special case of file 1" ) {
         CHECK( 1001. == Approx( file.section( 451_c ).ZA() ) );
         CHECK( 1001. == Approx( file.MT( 451_c ).ZA() ) );
       }
+
+      THEN( "the sections can be extracted" ) {
+
+        CHECK_NOTHROW( file.MT( 451_c ) );
+      }
+
+      THEN( "an exception is thrown if invalid MT" ) {
+
+        CHECK_THROWS( file.MT( 452_c ) );
+        CHECK_THROWS( file.MT( 455_c ) );
+        CHECK_THROWS( file.MT( 456_c ) );
+        CHECK_THROWS( file.MT( 458_c ) );
+        CHECK_THROWS( file.MT( 460_c ) );
+      }
     }
 
-    WHEN( "a file::Type< 1 > is constructed from a syntaxTree" ){
+    WHEN( "a file::Type< 1 > is constructed from a syntaxTree" ) {
       auto begin = file1string.begin();
       auto start = file1string.begin();
       auto end = file1string.end();

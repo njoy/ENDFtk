@@ -12,13 +12,17 @@ class SpinGroup  {
   /* fields */
   ResonanceChannels channels_;
   ResonanceParameters parameters_;
+  BackgroundChannels background_;
+
+  /* constructor */
+  #include "ENDFtk/section/2/151/RMatrixLimited/SpinGroup/src/verify.hpp"
 
 public:
 
   /* constructor */
   #include "ENDFtk/section/2/151/RMatrixLimited/SpinGroup/src/ctor.hpp"
 
-  /* get methods */
+  /* methods */
 
   /**
    *  @brief Return the spin for this spin group
@@ -51,6 +55,16 @@ public:
   auto numberChannels() const { return this->NCH(); }
 
   /**
+   *  @brief Return the number of channels with background R-matrix values
+   */
+  auto KBK() const { return this->channels_.KBK(); }
+
+  /**
+   *  @brief Return the number of channels with background R-matrix values
+   */
+  auto numberBackgroundChannels() const { return this->NCH(); }
+
+  /**
    *  @brief Return the number of resonances
    */
   auto NRS() const { return this->parameters_.NRS(); }
@@ -71,9 +85,15 @@ public:
   const auto& parameters() const { return this->parameters_; }
 
   /**
+   *  @brief Return the background R-matrix values for the spin group channels
+   */
+  const auto& background() const { return this->background_; }
+
+  /**
    *  @brief Return the number of lines in this MF2 MT151 component
    */
-  long NC() const { return this->channels_.NC() + this->parameters_.NC(); };
+  long NC() const { return this->channels_.NC() + this->parameters_.NC() +
+                           this->background_.NC(); };
 
   #include "ENDFtk/section/2/151/RMatrixLimited/SpinGroup/src/print.hpp"
 };

@@ -29,7 +29,9 @@
 *.app
 
 bin
+build
 subprojects
+dependencies
 
 # emacs
 *~

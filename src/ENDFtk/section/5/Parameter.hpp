@@ -29,11 +29,7 @@ public:
    */
   auto values() const { return TabulationRecord::y(); }
 
-  /**
-   *  @brief Return the number of energy values
-   */
-  auto NE() const { return TabulationRecord::NP(); }
-
+  using TabulationRecord::NP;
   using TabulationRecord::NR;
   using TabulationRecord::interpolants;
   using TabulationRecord::boundaries;

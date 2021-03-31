@@ -6,7 +6,7 @@
 // other includes
 #include "boost/hana.hpp"
 #include "ENDFtk/section.hpp"
-#include "ENDFtk/file/details.hpp"
+#include "ENDFtk/details.hpp"
 
 namespace njoy {
 namespace ENDFtk {
@@ -26,11 +26,12 @@ namespace file {
     /* auxiliary functions */
     static constexpr auto sections() {
 
-      return hana::sort(hana::concat( Derived::requiredSections(),
-                                      Derived::optionalSections() ) );
+      return hana::sort( hana::concat( Derived::requiredSections(),
+                                       hana::concat(
+                                         Derived::optionalSections(),
+                                         Derived::unimplementedSections() ) ) );
     }
 
-    #include "ENDFtk/file/Base/src/deduceMapType.hpp"
     #include "ENDFtk/file/Base/src/fill.hpp"
     #include "ENDFtk/file/Base/src/read.hpp"
     #include "ENDFtk/file/Base/src/verifyEND.hpp"

@@ -38,22 +38,22 @@ public:
   double radiationType() const { return this->STYP(); }
 
   /**
-   *  @brief Return the value of LCON, the continuous spectrum flag
+   *  @brief Return the spectral type flag
    */
   int LCON() const { return this->data_.L1(); }
 
   /**
-   *  @brief Return the value of LCON, the continuous spectrum flag
+   *  @brief Return the spectral type flag
    */
-  int continuumSpectrumFlag() const { return this->LCON(); }
+  int spectralTypeFlag() const { return this->LCON(); }
 
   /**
-   *  @brief Return the value of LCOV, the covariance data flag
+   *  @brief Return the covariance data flag
    */
   int LCOV() const { return this->data_.L2(); }
 
   /**
-   *  @brief Return the value of LCOV, the covariance data flag
+   *  @brief Return the covariance data flag
    */
   int covarianceFlag() const { return this->LCOV(); }
 

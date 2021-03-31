@@ -45,7 +45,7 @@ SCENARIO( "EffectiveTemperature" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7, 4 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
@@ -68,7 +68,7 @@ SCENARIO( "EffectiveTemperature" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7, 4 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -87,7 +87,7 @@ SCENARIO( "EffectiveTemperature" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( EffectiveTemperature(
+        CHECK_THROWS( EffectiveTemperature(
                               std::move( wrongBoundaries ),
                               std::move( interpolants ),
                               std::move( moderatorTemperatures ),
@@ -106,7 +106,7 @@ SCENARIO( "EffectiveTemperature" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS(
+        CHECK_THROWS(
             EffectiveTemperature( begin, end, lineNumber, 27, 7, 2 ) );
       } // THEN
     } // WHEN
@@ -122,23 +122,32 @@ std::string chunk() {
 
 void verifyChunk( const EffectiveTemperature& chunk ) {
 
-  REQUIRE( 3 == chunk.NT() );
-  REQUIRE( 3 == chunk.numberTemperatures() );
-  REQUIRE( 1 == chunk.NR() );
-  REQUIRE( 1 == chunk.interpolants().size() );
-  REQUIRE( 1 == chunk.boundaries().size() );
-  REQUIRE( 2 == chunk.interpolants()[0] );
-  REQUIRE( 3 == chunk.boundaries()[0] );
-  REQUIRE( 3 == chunk.moderatorTemperatures().size() );
-  REQUIRE( 3 == chunk.effectiveTemperatures().size() );
-  REQUIRE( 293.6 == Approx( chunk.moderatorTemperatures()[0] ) );
-  REQUIRE( 600. == Approx( chunk.moderatorTemperatures()[1] ) );
-  REQUIRE( 1200. == Approx( chunk.moderatorTemperatures()[2] ) );
-  REQUIRE( 5.332083e+2 == Approx( chunk.effectiveTemperatures()[0] ) );
-  REQUIRE( 7.354726e+2 == Approx( chunk.effectiveTemperatures()[1] ) );
-  REQUIRE( 1.270678e+3 == Approx( chunk.effectiveTemperatures()[2] ) );
+  CHECK( 3 == chunk.NP() );
+  CHECK( 3 == chunk.NT() );
+  CHECK( 3 == chunk.numberTemperatures() );
+  CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.interpolants().size() );
+  CHECK( 1 == chunk.boundaries().size() );
+  CHECK( 2 == chunk.interpolants()[0] );
+  CHECK( 3 == chunk.boundaries()[0] );
+  CHECK( 3 == chunk.TMOD().size() );
+  CHECK( 3 == chunk.moderatorTemperatures().size() );
+  CHECK( 3 == chunk.TEFF().size() );
+  CHECK( 3 == chunk.effectiveTemperatures().size() );
+  CHECK( 293.6 == Approx( chunk.TMOD()[0] ) );
+  CHECK( 600. == Approx( chunk.TMOD()[1] ) );
+  CHECK( 1200. == Approx( chunk.TMOD()[2] ) );
+  CHECK( 293.6 == Approx( chunk.moderatorTemperatures()[0] ) );
+  CHECK( 600. == Approx( chunk.moderatorTemperatures()[1] ) );
+  CHECK( 1200. == Approx( chunk.moderatorTemperatures()[2] ) );
+  CHECK( 5.332083e+2 == Approx( chunk.TEFF()[0] ) );
+  CHECK( 7.354726e+2 == Approx( chunk.TEFF()[1] ) );
+  CHECK( 1.270678e+3 == Approx( chunk.TEFF()[2] ) );
+  CHECK( 5.332083e+2 == Approx( chunk.effectiveTemperatures()[0] ) );
+  CHECK( 7.354726e+2 == Approx( chunk.effectiveTemperatures()[1] ) );
+  CHECK( 1.270678e+3 == Approx( chunk.effectiveTemperatures()[2] ) );
 
-  REQUIRE( 3 == chunk.NC() );
+  CHECK( 3 == chunk.NC() );
 }
 
 std::string invalidChunk() {

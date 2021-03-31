@@ -1,15 +1,23 @@
+//! @todo pybind11 variant needs default constructor workaround
+#ifdef PYBIND11
+/**
+ *  @brief Default constructor - only enabled for pybind11
+ */
+UnresolvedEnergyIndependent() = default;
+#endif
+
 /**
  *  @brief Constructor
  *
- *  @param[in] spi       the target spin value
+ *  @param[in] spin      the target spin value
  *  @param[in] ap        the scattering radius
  *  @param[in] lssf      the self-shielding only flag
  *  @param[in] lvalues   the l values and the resonance parameters
  */
-UnresolvedEnergyIndependent( double spi, double ap, bool lssf,
+UnresolvedEnergyIndependent( double spin, double ap, bool lssf,
                              std::vector< LValue >&& lvalues )
     // no need for a try ... catch: nothing can go wrong here
-    try: UnresolvedBase( spi, ap, lssf, std::move( lvalues ) ) {}
+    try: UnresolvedBase( spin, ap, lssf, std::move( lvalues ) ) {}
     catch ( std::exception& e ) {
 
       Log::info( "Encountered error while constructing unresolved resonance "

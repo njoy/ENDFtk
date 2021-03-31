@@ -9,13 +9,21 @@ TabulatedSpectrum(
   data_( std::move( sequence ) ) {}
 
 public :
+
+//! @todo pybind11 variant needs default constructor workaround
+#ifdef PYBIND11
+/**
+ *  @brief Default constructor - only enabled for pybind11
+ */
+TabulatedSpectrum() = default;
+#endif
+
 /**
  *  @brief Constructor
  *
  *  @param[in] boundaries      the interpolation range boundaries
  *  @param[in] interpolants    the interpolation types for each range
- *  @param[in] distributions   the incoming energy values and associated
- *                             outgoing energy distributions
+ *  @param[in] distributions   the sequence of outgoing energy distributions
  */
 TabulatedSpectrum( std::vector< long >&& boundaries,
                    std::vector< long >&& interpolants,

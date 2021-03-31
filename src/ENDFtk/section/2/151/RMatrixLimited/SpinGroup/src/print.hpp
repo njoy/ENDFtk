@@ -13,4 +13,5 @@ void print( OutputIterator& it, int MAT, int MF, int MT ) const {
 
   this->channels_.print( it, MAT, MF, MT );
   this->parameters_.print( it, MAT, MF, MT );
+  this->background_.print( it, MAT, MF, MT );
 }

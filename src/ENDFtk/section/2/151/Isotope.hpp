@@ -58,6 +58,11 @@ public:
   unsigned int NER() const { return this->ranges_.size(); }
 
   /**
+   *  @brief Return the number of resonance ranges for this isotope
+   */
+  unsigned int numberResonanceRanges() const { return this->NER(); }
+
+  /**
    *  @brief Return the resonance ranges for this isotope
    */
   auto resonanceRanges() const {

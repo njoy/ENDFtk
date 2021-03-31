@@ -36,11 +36,11 @@ SCENARIO( "RMatrixLimited" ) {
                               { 0., 0. }, { 0, 1 },
                               { 0, 0 }, { 102, 2 } };
       std::vector< SpinGroup > groups =
-        { { { 0.5, 0., { 0, 0 }, { 0., 0.5 }, { 0., 0. },
+        { { { 0.5, 0., { 1, 2 }, { 0, 0 }, { 0., 0.5 }, { 0., 0. },
               { 0., 0.54373 }, { 0., 0.54373 } },
             { { -1.223300e+6, 7.788000e+3 },
               { { 1., 9.611086e+5 }, { 1.455, 1.187354e+3 } } } },
-          { { -0.5, 0., { 0, 1 }, { 0., 0.5 }, { 0., 0. },
+          { { -0.5, 0., { 1, 2 }, { 0, 1 }, { 0., 0.5 }, { 0., 0. },
               { 0., 0.54373 }, { 0., 0.54373 } },
             { { 5.152000e+4, 5.359000e+4 },
               { { .36, 16.002 }, { 1.5, 17. } } } } };
@@ -261,7 +261,7 @@ void verifyChunk( const RMatrixLimited& chunk ) {
   CHECK( 0. == Approx( channels1.PJ() ) );
   CHECK( 0. == Approx( channels1.parity() ) );
   CHECK( 0 == channels1.KBK() );
-  CHECK( 0 == channels1.backgroundRMatrixOption() );
+  CHECK( 0 == channels1.numberBackgroundChannels() );
   CHECK( 0 == channels1.KPS() );
   CHECK( 0 == channels1.phaseShiftOption() );
   CHECK( 2 == channels1.NCH() );
@@ -361,7 +361,7 @@ void verifyChunk( const RMatrixLimited& chunk ) {
   CHECK( 0. == Approx( channels2.PJ() ) );
   CHECK( 0. == Approx( channels2.parity() ) );
   CHECK( 0 == channels2.KBK() );
-  CHECK( 0 == channels2.backgroundRMatrixOption() );
+  CHECK( 0 == channels2.numberBackgroundChannels() );
   CHECK( 0 == channels2.KPS() );
   CHECK( 0 == channels2.phaseShiftOption() );
   CHECK( 2 == channels2.NCH() );

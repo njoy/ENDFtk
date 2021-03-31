@@ -7,7 +7,7 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using NuclearPlusInterference = 
+using NuclearPlusInterference =
 section::Type< 6 >::ChargedParticleElasticScattering::NuclearPlusInterference;
 
 std::string chunk();
@@ -19,60 +19,55 @@ SCENARIO( "NuclearPlusInterference" ) {
 
   GIVEN( "valid data for a NuclearPlusInterference" ) {
 
+    std::string string = chunk();
+
     WHEN( "the data is given explicitly" ) {
 
       double energy = 1e-5;
       int ltp = 12;
-      std::vector< double > values = { 1, 2, 3, 4, 5, 6 };
       std::vector< double > cosines = { 1, 3, 5 };
       std::vector< double > probabilities = { 2, 4, 6 };
 
-      THEN( "a NuclearPlusInterference can be constructed using a list and "
-            "members can be tested" ) {
-
-        NuclearPlusInterference chunk( energy, ltp, std::move( values ) );
-        verifyChunk( chunk );
-      } // THEN
+      NuclearPlusInterference chunk( energy, ltp, std::move( cosines ),
+                                     std::move( probabilities ) );
 
       THEN( "a NuclearPlusInterference can be constructed using mu and p "
             "arrays and members can be tested" ) {
 
-        NuclearPlusInterference chunk( energy, ltp, std::move( cosines ),
-                                       std::move( probabilities ) );
         verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 6, 5 );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream with a valid SEND" ) {
 
-      std::string string = chunk();
       auto begin = string.begin();
       auto end = string.end();
       long lineNumber = 1;
 
+      NuclearPlusInterference chunk( begin, end, lineNumber, 9228, 6, 5 );
+
       THEN( "a NuclearPlusInterference can "
             "be constructed and members can be tested" ) {
 
-        NuclearPlusInterference chunk( begin, end, lineNumber, 9228, 6, 5 );
         verifyChunk( chunk );
       } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 6, 5 );
+        CHECK( buffer == string );
+      } // THEN
     } // WHEN
-  } // GIVEN
-
-  GIVEN( "a valid instance of NuclearPlusInterference" ) {
-
-    std::string string = chunk();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-    NuclearPlusInterference chunk(begin, end, lineNumber, 9228, 6, 5 );
-
-    THEN( "it can be printed" ) {
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 9228, 6, 5 );
-      REQUIRE( buffer == string );
-    }
   } // GIVEN
 
   GIVEN( "invalid data for a NuclearPlusInterference" ) {
@@ -84,18 +79,15 @@ SCENARIO( "NuclearPlusInterference" ) {
       std::vector< double > cosines = { 1, 3, 5 };
       std::vector< double > probabilities = { 2, 4, 6 };
       std::vector< double > wrong = { 8, 10 };
-      std::vector< double > wrongsize = { 1, 2, 3 };
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( NuclearPlusInterference( energy, ltp,
-                                                 std::move( wrong ),
-                                                 std::move( probabilities ) ) );
-        REQUIRE_THROWS( NuclearPlusInterference( energy, ltp,
-                                                 std::move( cosines ),
-                                                 std::move( wrong ) ) );
-        REQUIRE_THROWS( NuclearPlusInterference( energy, ltp,
-                                                 std::move( wrongsize ) ) );
+        CHECK_THROWS( NuclearPlusInterference( energy, ltp,
+                                               std::move( wrong ),
+                                               std::move( probabilities ) ) );
+        CHECK_THROWS( NuclearPlusInterference( energy, ltp,
+                                               std::move( cosines ),
+                                               std::move( wrong ) ) );
       } // THEN
     } // WHEN
 
@@ -103,17 +95,14 @@ SCENARIO( "NuclearPlusInterference" ) {
 
       double energy = 1e-5;
       int ltp = 1;
-      std::vector< double > values = { 1, 2, 3, 4, 5, 6 };
       std::vector< double > cosines = { 1, 3, 5 };
       std::vector< double > probabilities = { 2, 4, 6 };
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( NuclearPlusInterference( energy, ltp,
-                                                 std::move( values ) ) );
-        REQUIRE_THROWS( NuclearPlusInterference( energy, ltp,
-                                                 std::move( cosines ),
-                                                 std::move( probabilities ) ) );
+        CHECK_THROWS( NuclearPlusInterference( energy, ltp,
+                                               std::move( cosines ),
+                                               std::move( probabilities ) ) );
       } // THEN
     } // WHEN
 
@@ -126,8 +115,8 @@ SCENARIO( "NuclearPlusInterference" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( NuclearPlusInterference( begin, end, lineNumber,
-                                                 9228, 6, 5 ) );
+        CHECK_THROWS( NuclearPlusInterference( begin, end, lineNumber,
+                                               9228, 6, 5 ) );
       } // THEN
     } // WHEN
 
@@ -140,8 +129,8 @@ SCENARIO( "NuclearPlusInterference" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( NuclearPlusInterference( begin, end, lineNumber,
-                                                 9228, 6, 5 ) );
+        CHECK_THROWS( NuclearPlusInterference( begin, end, lineNumber,
+                                               9228, 6, 5 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -155,21 +144,30 @@ std::string chunk() {
 
 void verifyChunk( const NuclearPlusInterference& chunk ) {
 
-  REQUIRE( 1e-5 == Approx( chunk.energy() ) );
+  CHECK( 1e-5 == Approx( chunk.E() ) );
+  CHECK( 1e-5 == Approx( chunk.incidentEnergy() ) );
 
-  REQUIRE( 12 == chunk.LTP() );
-  REQUIRE( 6 == chunk.NW() );
-  REQUIRE( 3 == chunk.NL() );
-  REQUIRE( 3 == chunk.cosines().size() );
-  REQUIRE( 1. == Approx( chunk.cosines()[0] ) );
-  REQUIRE( 3. == Approx( chunk.cosines()[1] ) );
-  REQUIRE( 5. == Approx( chunk.cosines()[2] ) );
-  REQUIRE( 3 == chunk.probabilities().size() );
-  REQUIRE( 2. == Approx( chunk.probabilities()[0] ) );
-  REQUIRE( 4. == Approx( chunk.probabilities()[1] ) );
-  REQUIRE( 6. == Approx( chunk.probabilities()[2] ) );
+  CHECK( 12 == chunk.LTP() );
+  CHECK( 6 == chunk.NW() );
+  CHECK( 3 == chunk.NL() );
+  CHECK( 3 == chunk.MU().size() );
+  CHECK( 3 == chunk.cosines().size() );
+  CHECK( 1. == Approx( chunk.MU()[0] ) );
+  CHECK( 3. == Approx( chunk.MU()[1] ) );
+  CHECK( 5. == Approx( chunk.MU()[2] ) );
+  CHECK( 1. == Approx( chunk.cosines()[0] ) );
+  CHECK( 3. == Approx( chunk.cosines()[1] ) );
+  CHECK( 5. == Approx( chunk.cosines()[2] ) );
+  CHECK( 3 == chunk.PNI().size() );
+  CHECK( 3 == chunk.probabilities().size() );
+  CHECK( 2. == Approx( chunk.PNI()[0] ) );
+  CHECK( 4. == Approx( chunk.PNI()[1] ) );
+  CHECK( 6. == Approx( chunk.PNI()[2] ) );
+  CHECK( 2. == Approx( chunk.probabilities()[0] ) );
+  CHECK( 4. == Approx( chunk.probabilities()[1] ) );
+  CHECK( 6. == Approx( chunk.probabilities()[2] ) );
 
-  REQUIRE( 2 == chunk.NC() );
+  CHECK( 2 == chunk.NC() );
 }
 
 std::string invalidLTP() {

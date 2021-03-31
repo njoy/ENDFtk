@@ -1,4 +1,8 @@
+/**
+ *  @brief Return the descriptive data
+ */
 auto description() const {
+
   return
     ranges::view::concat
       ( this->description_

@@ -94,12 +94,12 @@ SCENARIO( "Creating a syntax tree of an ENDF File" ){
         for ( auto sectionNo : sectionNumbers ){
           CHECK( fileTree.hasMT( sectionNo ) );
           CHECK( sectionNo == fileTree.MT( sectionNo ).MT() );
-          CHECK( fileTree.hasSectionNumber( sectionNo ) );
-          CHECK( sectionNo == fileTree.sectionNumber( sectionNo ).MT() );
+          CHECK( fileTree.hasSection( sectionNo ) );
+          CHECK( sectionNo == fileTree.section( sectionNo ).MT() );
           CHECK( cfileTree.hasMT( sectionNo ) );
           CHECK( sectionNo == cfileTree.MT( sectionNo ).MT() );
-          CHECK( cfileTree.hasSectionNumber( sectionNo ) );
-          CHECK( sectionNo == cfileTree.sectionNumber( sectionNo ).MT() );
+          CHECK( cfileTree.hasSection( sectionNo ) );
+          CHECK( sectionNo == cfileTree.section( sectionNo ).MT() );
         }
         auto sectionIter = sectionNumbers.begin();
         for ( auto& section : fileTree ){
@@ -116,8 +116,8 @@ SCENARIO( "Creating a syntax tree of an ENDF File" ){
       AND_THEN( "an exception is thrown if the requested MTs are invalid."){
         CHECK( not fileTree.hasMT( 3 ) );
         CHECK_THROWS( fileTree.MT( 3 ) );
-        CHECK( not fileTree.hasSectionNumber( 3 ) );
-        CHECK_THROWS( fileTree.sectionNumber( 3 ) );
+        CHECK( not fileTree.hasSection( 3 ) );
+        CHECK_THROWS( fileTree.section( 3 ) );
       }
     }
   }

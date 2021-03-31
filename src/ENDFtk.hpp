@@ -34,12 +34,17 @@
 #include "ENDFtk/file/12.hpp"
 #include "ENDFtk/file/13.hpp"
 
+// include the material and tape
+#include "ENDFtk/Material.hpp"
+#include "ENDFtk/Tape.hpp"
+
 // include the ENDF tree and its components
 #include "ENDFtk/tree/Section.hpp"
 #include "ENDFtk/tree/File.hpp"
 #include "ENDFtk/tree/Material.hpp"
 #include "ENDFtk/tree/Tape.hpp"
 #include "ENDFtk/tree/makeTape.hpp"
+#include "ENDFtk/tree/fromFile.hpp"
 
 // utility functions
 #include "ENDFtk/isRedundant.hpp"

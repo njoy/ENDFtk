@@ -100,7 +100,7 @@ SCENARIO( "LValue" ) {
 
       THEN( "an exception is thrown" ) {
 
-        CHECK_THROWS( LValue( begin, end, lineNumber, 9440, 2, 151 ) );
+        CHECK_THROWS( LValue( begin, end, lineNumber, 3843, 2, 151 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -266,5 +266,5 @@ void verifyChunk( const LValue& chunk ) {
 
 std::string chunkWithNoJValues() {
   return
-    " 2.379920+2 0.000000+0          1          0          0          09440 2151     \n";
+    " 2.379920+2 0.000000+0          1          0          0          03843 2151     \n";
 }

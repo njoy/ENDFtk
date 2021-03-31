@@ -41,6 +41,16 @@ public:
   static constexpr int representation() { return SpecialCase::LRF(); }
 
   /**
+   *  @brief Return the average fission flag
+   */
+  static constexpr bool LFW() { return false; }
+
+  /**
+   *  @brief Return the average fission flag
+   */
+  static constexpr bool averageFissionWidthFlag() { return SpecialCase::LFW(); }
+
+  /**
    *  @brief Return the target spin
    */
   double SPI() const { return this->spi_; }

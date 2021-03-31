@@ -73,12 +73,9 @@ Type( double zaid, double awr, bool lssf, int interpolation, double temperature,
  *                             (nunr values)
  */
 Type( double zaid, double awr, bool lssf, int interpolation, double temperature,
-      std::vector< double >&& energies,
-      std::vector< double >&& total,
-      std::vector< double >&& elastic,
-      std::vector< double >&& fission,
-      std::vector< double >&& capture,
-      std::vector< double >&& cwTotal )
+      std::vector< double >&& energies, std::vector< double >&& total,
+      std::vector< double >&& elastic, std::vector< double >&& fission,
+      std::vector< double >&& capture, std::vector< double >&& cwTotal )
   try : Type( zaid, awr, lssf, interpolation,
               ListRecord( temperature, 0., 5, 1, energies.size(),
                           generateList( std::move( energies ),

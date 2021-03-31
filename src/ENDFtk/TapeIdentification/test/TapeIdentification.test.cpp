@@ -8,43 +8,68 @@
 // convenience typedefs
 using namespace njoy::ENDFtk;
 
-SCENARIO( "Testing TapeIdentification",
-          "[ENDFtk], [TapeIdentification]"){
-  GIVEN( "valid tape IDs" ){
-    std::string ID{" $Rev:: 1056     $  $Date:: 2017-01-26#$                             1 0  0     \n"};
+void verifyChunk( const TapeIdentification& );
 
-    THEN( "a TapeIdentification can be created" ){
-      long lineNumber{0};
-      auto begin = ID.begin();
-      auto end = ID.end();
+SCENARIO( "TapeIdentification" ) {
 
-      TapeIdentification TPID( begin, end, lineNumber );
+  GIVEN( "valid data for a section::Type< 1, 451 >" ) {
 
-      REQUIRE( ID.substr(0, 66) == TPID.text() );
-      REQUIRE( 1 == TPID.tapeNumber() );
-      REQUIRE( 1 == TPID.NTAPE() );
-      REQUIRE( 1 == TPID.NC() );
-    }
+    std::string record{ " $Rev:: 1056     $  $Date:: 2017-01-26#$                             1 0  0     \n" };
 
+    WHEN( "the data is given explicitly" ) {
 
-    THEN( "a TapeIdentification can be printed" ){
+      std::string text = " $Rev:: 1056     $  $Date:: 2017-01-26#$                          ";
+      int tape = 1;
 
-      long lineNumber{0};
-      auto begin = ID.begin();
-      auto end = ID.end();
-      TapeIdentification TPID( begin, end, lineNumber );
+      TapeIdentification chunk( std::move( text ), tape );
 
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      TPID.print( output, 1, 0, 0 );
-      REQUIRE( buffer == ID );
-    }
-  }
+      THEN( "a TapeIdentification can be constructed and members can be "
+            "tested" ) {
 
-  GIVEN( "invalid tape IDs" ){
+        verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 1, 0, 0 );
+
+        REQUIRE( buffer == record );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is read from a string/stream with a valid SEND" ) {
+
+      auto begin = record.begin();
+      auto end = record.end();
+      long lineNumber = 1;
+
+      TapeIdentification chunk( begin, end, lineNumber );
+
+      THEN( "a TapeIdentification can be constructed and members can be "
+            "tested" ) {
+
+        verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 1, 0, 0 );
+
+        REQUIRE( buffer == record );
+      } // THEN
+    } // WHEN
+  } // GIVEN
+
+  GIVEN( "invalid tape IDs" ) {
+
     std::string ID{" $Rev:: 1056     $  $Date:: 2017-01-26#$                            -1 1  0     \n"};
 
-    THEN( "an exception is thrown" ){
+    THEN( "an exception is thrown" ) {
+
       long lineNumber{0};
       auto begin = ID.begin();
       auto end = ID.end();
@@ -52,4 +77,13 @@ SCENARIO( "Testing TapeIdentification",
       REQUIRE_THROWS( TapeIdentification( begin, end, lineNumber ) );
     }
   }
+}
+
+void verifyChunk( const TapeIdentification& chunk ) {
+
+  REQUIRE( " $Rev:: 1056     $  $Date:: 2017-01-26#$                          "
+           == chunk.text() );
+  REQUIRE( 1 == chunk.tapeNumber() );
+  REQUIRE( 1 == chunk.NTAPE() );
+  REQUIRE( 1 == chunk.NC() );
 }

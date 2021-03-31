@@ -1,5 +1,5 @@
 static std::vector< double >
-generateList( unsigned int na, 
+generateList( unsigned int na,
               std::vector< double >&& energies,
               std::vector< std::vector< double > >&& coefficients ) {
 
@@ -27,5 +27,5 @@ generateList( unsigned int na,
   return ranges::view::zip_with(
              ranges::view::concat,
              energies | ranges::view::transform( ranges::view::single ),
-             coefficients ) | ranges::view::join;
+             coefficients ) | ranges::view::join | ranges::to_vector;
 }

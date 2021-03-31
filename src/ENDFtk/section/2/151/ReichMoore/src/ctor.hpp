@@ -1,3 +1,11 @@
+//! @todo pybind11 variant needs default constructor workaround
+#ifdef PYBIND11
+/**
+ *  @brief Default constructor - only enabled for pybind11
+ */
+ReichMoore() = default;
+#endif
+
 /**
  *  @brief Constructor
  *
@@ -46,4 +54,3 @@ ReichMoore( Iterator& it, const Iterator& end, long& lineNumber,
                "parameters in the Reich-Moore representation" );
     throw;
   }
-

@@ -4,12 +4,12 @@
 #include "ENDFtk/section/5.hpp"
 
 // other includes
-#include "ENDFtk/tree/Tape.hpp"
+#include "ENDFtk/tree/Section.hpp"
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using Subsection = section::Type< 5 >::Subsection;
-using PartialProbability = section::Type< 5 >::PartialProbability;
+using PartialDistribution = section::Type< 5 >::PartialDistribution;
+using Probability = section::Type< 5 >::Probability;
 using MaxwellianFissionSpectrum = section::Type< 5 >::MaxwellianFissionSpectrum;
 
 std::string chunk();
@@ -30,9 +30,9 @@ SCENARIO( "section::Type< 5 >" ) {
       double za = 92235.;
       double awr = 2.330250e+2;
 
-      std::vector< Subsection > partials =
-      { { PartialProbability( 7, { 2 }, { 2 },
-                                 { 3.25e+6, 2e+7 }, { 1., 1. }, -3e+7 ),
+      std::vector< PartialDistribution > partials =
+      { { Probability( 7, { 2 }, { 2 },
+                       { 3.25e+6, 2e+7 }, { 1., 1. }, -3e+7 ),
           MaxwellianFissionSpectrum( { 3 }, { 5 },
                                      { 3.25e+6, 1.5e+7, 2e+7 },
                                      { 1.2955e+6, 1.4923e+6, 1.49447e+6 } ) } };
@@ -51,7 +51,7 @@ SCENARIO( "section::Type< 5 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9228, 5 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
 
@@ -76,7 +76,7 @@ SCENARIO( "section::Type< 5 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9228, 5 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } //WHEN
 
@@ -122,10 +122,10 @@ SCENARIO( "section::Type< 5 >" ) {
         auto output4 = std::back_inserter( buffer4 );
         chunk1.print( output4, 9228, 5 );
 
-        REQUIRE( buffer1 == sectionString );
-        REQUIRE( buffer2 == sectionString );
-        REQUIRE( buffer3 == sectionString );
-        REQUIRE( buffer4 == sectionString );
+        CHECK( buffer1 == sectionString );
+        CHECK( buffer2 == sectionString );
+        CHECK( buffer3 == sectionString );
+        CHECK( buffer4 == sectionString );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -142,7 +142,7 @@ SCENARIO( "section::Type< 5 >" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( section::Type< 5 >( head, begin, end,
+        CHECK_THROWS( section::Type< 5 >( head, begin, end,
                                             lineNumber, 9228 ) );
       } // THEN
     } // WHEN
@@ -158,7 +158,7 @@ SCENARIO( "section::Type< 5 >" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( section::Type< 5 >( head, begin, end,
+        CHECK_THROWS( section::Type< 5 >( head, begin, end,
                                             lineNumber, 9228 ) );
       } // THEN
     } // WHEN
@@ -178,73 +178,69 @@ std::string chunk() {
 
 void verifyChunk( const section::Type< 5 >& chunk ) {
 
-  REQUIRE( 18 == chunk.MT() );
-  REQUIRE( 18 == chunk.sectionNumber() );
+  CHECK( 18 == chunk.MT() );
+  CHECK( 18 == chunk.sectionNumber() );
 
-  REQUIRE( 92235. == Approx( chunk.ZA() ) );
-  REQUIRE( 2.330250e+2 == Approx( chunk.AWR() ) );
-  REQUIRE( 2.330250e+2 == Approx( chunk.atomicWeightRatio() ) );
-  REQUIRE( 1 == chunk.NK() );
-  REQUIRE( 1 == chunk.numberPartialDistributions() );
+  CHECK( 92235. == Approx( chunk.ZA() ) );
+  CHECK( 2.330250e+2 == Approx( chunk.AWR() ) );
+  CHECK( 2.330250e+2 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 1 == chunk.NK() );
+  CHECK( 1 == chunk.numberPartialDistributions() );
 
-  const auto& subsection = chunk.distributions()[0];
-  REQUIRE( -3e+7 == Approx ( subsection.U() ) );
-  REQUIRE( -3e+7 == Approx ( subsection.energyLimitConstant() ) );
+  const auto& partial = chunk.partialDistributions()[0];
+  CHECK( -3e+7 == Approx ( partial.U() ) );
+  CHECK( -3e+7 == Approx ( partial.energyLimitConstant() ) );
 
-  const auto& p = subsection.probability();
+  const auto& p = partial.probability();
 
-  REQUIRE( 7 == p.LF() );
-  REQUIRE( 7 == p.LAW() );
+  CHECK( 7 == p.LF() );
+  CHECK( 7 == p.LAW() );
 
-  REQUIRE( 2 == p.NP() );
-  REQUIRE( 1 == p.NR() );
-  REQUIRE( 1 == p.interpolants().size() );
-  REQUIRE( 1 == p.boundaries().size() );
-  REQUIRE( 2 == p.interpolants()[0] );
-  REQUIRE( 2 == p.boundaries()[0] );
-  REQUIRE( 2 == p.E().size() );
-  REQUIRE( 2 == p.energies().size() );
-  REQUIRE( 2 == p.p().size() );
-  REQUIRE( 2 == p.probabilities().size() );
-  REQUIRE( 3.25e+6 == Approx( p.E()[0] ) );
-  REQUIRE( 2e+7 == Approx( p.E()[1] ) );
-  REQUIRE( 3.25e+6 == Approx( p.energies()[0] ) );
-  REQUIRE( 2e+7 == Approx( p.energies()[1] ) );
-  REQUIRE( 1. == Approx( p.p()[0] ) );
-  REQUIRE( 1. == Approx( p.p()[1] ) );
-  REQUIRE( 1. == Approx( p.probabilities()[0] ) );
-  REQUIRE( 1. == Approx( p.probabilities()[1] ) );
+  CHECK( 2 == p.NP() );
+  CHECK( 1 == p.NR() );
+  CHECK( 1 == p.interpolants().size() );
+  CHECK( 1 == p.boundaries().size() );
+  CHECK( 2 == p.interpolants()[0] );
+  CHECK( 2 == p.boundaries()[0] );
+  CHECK( 2 == p.E().size() );
+  CHECK( 2 == p.energies().size() );
+  CHECK( 2 == p.P().size() );
+  CHECK( 2 == p.probabilities().size() );
+  CHECK( 3.25e+6 == Approx( p.E()[0] ) );
+  CHECK( 2e+7 == Approx( p.E()[1] ) );
+  CHECK( 3.25e+6 == Approx( p.energies()[0] ) );
+  CHECK( 2e+7 == Approx( p.energies()[1] ) );
+  CHECK( 1. == Approx( p.P()[0] ) );
+  CHECK( 1. == Approx( p.P()[1] ) );
+  CHECK( 1. == Approx( p.probabilities()[0] ) );
+  CHECK( 1. == Approx( p.probabilities()[1] ) );
 
   const auto& d = std::get< MaxwellianFissionSpectrum >
-                                         ( subsection.distribution() );
+                                         ( partial.distribution() );
 
-  REQUIRE( 7 == d.LF() );
-  REQUIRE( 7 == d.LAW() );
+  CHECK( 7 == d.LF() );
+  CHECK( 7 == d.LAW() );
 
-  REQUIRE( 3 == d.NE() );
-  REQUIRE( 1 == d.NR() );
-  REQUIRE( 1 == d.interpolants().size() );
-  REQUIRE( 1 == d.boundaries().size() );
-  REQUIRE( 5 == d.interpolants()[0] );
-  REQUIRE( 3 == d.boundaries()[0] );
-  REQUIRE( 3 == d.E().size() );
-  REQUIRE( 3 == d.energies().size() );
-  REQUIRE( 3 == d.thetas().size() );
-  REQUIRE( 3 == d.values().size() );
-  REQUIRE( 3.25e+6 == Approx( d.E()[0] ) );
-  REQUIRE( 1.5e+7 == Approx( d.E()[1] ) );
-  REQUIRE( 2e+7 == Approx( d.E()[2] ) );
-  REQUIRE( 3.25e+6 == Approx( d.energies()[0] ) );
-  REQUIRE( 1.5e+7 == Approx( d.energies()[1] ) );
-  REQUIRE( 2e+7 == Approx( d.energies()[2] ) );
-  REQUIRE( 1.2955e+6 == Approx( d.thetas()[0] ) );
-  REQUIRE( 1.4923e+6 == Approx( d.thetas()[1] ) );
-  REQUIRE( 1.49447e+6 == Approx( d.thetas()[2] ) );
-  REQUIRE( 1.2955e+6 == Approx( d.values()[0] ) );
-  REQUIRE( 1.4923e+6 == Approx( d.values()[1] ) );
-  REQUIRE( 1.49447e+6 == Approx( d.values()[2] ) );
+  CHECK( 3 == d.NP() );
+  CHECK( 1 == d.NR() );
+  CHECK( 1 == d.interpolants().size() );
+  CHECK( 1 == d.boundaries().size() );
+  CHECK( 5 == d.interpolants()[0] );
+  CHECK( 3 == d.boundaries()[0] );
+  CHECK( 3 == d.E().size() );
+  CHECK( 3 == d.energies().size() );
+  CHECK( 3 == d.thetas().size() );
+  CHECK( 3.25e+6 == Approx( d.E()[0] ) );
+  CHECK( 1.5e+7 == Approx( d.E()[1] ) );
+  CHECK( 2e+7 == Approx( d.E()[2] ) );
+  CHECK( 3.25e+6 == Approx( d.energies()[0] ) );
+  CHECK( 1.5e+7 == Approx( d.energies()[1] ) );
+  CHECK( 2e+7 == Approx( d.energies()[2] ) );
+  CHECK( 1.2955e+6 == Approx( d.thetas()[0] ) );
+  CHECK( 1.4923e+6 == Approx( d.thetas()[1] ) );
+  CHECK( 1.49447e+6 == Approx( d.thetas()[2] ) );
 
-  REQUIRE( 7 == chunk.NC() );
+  CHECK( 7 == chunk.NC() );
 }
 
 std::string chunkWithNK0() {

@@ -7,7 +7,7 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using OutgoingEnergyDistribution = 
+using OutgoingEnergyDistribution =
 section::Type< 5 >::TabulatedSpectrum::OutgoingEnergyDistribution;
 
 std::string chunk();
@@ -46,7 +46,7 @@ SCENARIO( "OutgoingEnergyDistribution" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9437, 5, 18 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
@@ -70,7 +70,7 @@ SCENARIO( "OutgoingEnergyDistribution" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9437, 5, 18 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -125,33 +125,33 @@ std::string chunk() {
 
 void verifyChunk( const OutgoingEnergyDistribution& chunk ) {
 
-  REQUIRE( 1e-5 == Approx( chunk.E() ) );
-  REQUIRE( 1e-5 == Approx( chunk.incomingEnergy() ) );
+  CHECK( 1e-5 == Approx( chunk.E() ) );
+  CHECK( 1e-5 == Approx( chunk.incidentEnergy() ) );
 
-  REQUIRE( 3 == chunk.NF() );
-  REQUIRE( 1 == chunk.NR() );
-  REQUIRE( 1 == chunk.interpolants().size() );
-  REQUIRE( 1 == chunk.boundaries().size() );
-  REQUIRE( 2 == chunk.interpolants()[0] );
-  REQUIRE( 3 == chunk.boundaries()[0] );
-  REQUIRE( 3 == chunk.EPRIME().size() );
-  REQUIRE( 3 == chunk.outgoingEnergies().size() );
-  REQUIRE( 3 == chunk.g().size() );
-  REQUIRE( 3 == chunk.probabilities().size() );
-  REQUIRE( 0.0 == Approx( chunk.EPRIME()[0] ) );
-  REQUIRE( 1e+5 == Approx( chunk.EPRIME()[1] ) );
-  REQUIRE( 3e+7 == Approx( chunk.EPRIME()[2] ) );
-  REQUIRE( 0.0 == Approx( chunk.outgoingEnergies()[0] ) );
-  REQUIRE( 1e+5 == Approx( chunk.outgoingEnergies()[1] ) );
-  REQUIRE( 3e+7 == Approx( chunk.outgoingEnergies()[2] ) );
-  REQUIRE( 0. == Approx( chunk.g()[0] ) );
-  REQUIRE( 1.757570e-9 == Approx( chunk.g()[1] ) );
-  REQUIRE( 1.843350e-9 == Approx( chunk.g()[2] ) );
-  REQUIRE( 0. == Approx( chunk.probabilities()[0] ) );
-  REQUIRE( 1.757570e-9 == Approx( chunk.probabilities()[1] ) );
-  REQUIRE( 1.843350e-9 == Approx( chunk.probabilities()[2] ) );
+  CHECK( 3 == chunk.NP() );
+  CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.interpolants().size() );
+  CHECK( 1 == chunk.boundaries().size() );
+  CHECK( 2 == chunk.interpolants()[0] );
+  CHECK( 3 == chunk.boundaries()[0] );
+  CHECK( 3 == chunk.EP().size() );
+  CHECK( 3 == chunk.outgoingEnergies().size() );
+  CHECK( 3 == chunk.G().size() );
+  CHECK( 3 == chunk.probabilities().size() );
+  CHECK( 0.0 == Approx( chunk.EP()[0] ) );
+  CHECK( 1e+5 == Approx( chunk.EP()[1] ) );
+  CHECK( 3e+7 == Approx( chunk.EP()[2] ) );
+  CHECK( 0.0 == Approx( chunk.outgoingEnergies()[0] ) );
+  CHECK( 1e+5 == Approx( chunk.outgoingEnergies()[1] ) );
+  CHECK( 3e+7 == Approx( chunk.outgoingEnergies()[2] ) );
+  CHECK( 0. == Approx( chunk.G()[0] ) );
+  CHECK( 1.757570e-9 == Approx( chunk.G()[1] ) );
+  CHECK( 1.843350e-9 == Approx( chunk.G()[2] ) );
+  CHECK( 0. == Approx( chunk.probabilities()[0] ) );
+  CHECK( 1.757570e-9 == Approx( chunk.probabilities()[1] ) );
+  CHECK( 1.843350e-9 == Approx( chunk.probabilities()[2] ) );
 
-  REQUIRE( 3 == chunk.NC() );
+  CHECK( 3 == chunk.NC() );
 }
 
 std::string invalidChunk() {

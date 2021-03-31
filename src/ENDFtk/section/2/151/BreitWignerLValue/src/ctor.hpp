@@ -7,10 +7,10 @@
  *  @param[in] lrx        the competitive width flag
  *  @param[in] energies   the resonance energies (NRS values)
  *  @param[in] spins      the spin values (NRS values)
+ *  @param[in] gt         the total widths (NRS values)
  *  @param[in] gn         the neutron widths (NRS values)
  *  @param[in] gg         the gamma widths (NRS values)
- *  @param[in] gfa        the first fission widths (NRS values)
- *  @param[in] gfb        the second fission widths (NRS values)
+ *  @param[in] gf         the second fission widths (NRS values)
  */
 BreitWignerLValue( double awri, double qx, int l, bool lrx,
                    std::vector< double >&& energies,

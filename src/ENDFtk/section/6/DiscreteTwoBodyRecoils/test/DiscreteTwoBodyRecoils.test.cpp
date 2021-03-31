@@ -7,7 +7,7 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using DiscreteTwoBodyRecoils = 
+using DiscreteTwoBodyRecoils =
 section::Type< 6 >::DiscreteTwoBodyRecoils;
 
 SCENARIO( "DiscreteTwoBodyRecoils" ) {
@@ -18,9 +18,9 @@ SCENARIO( "DiscreteTwoBodyRecoils" ) {
           "members can be tested" ) {
       DiscreteTwoBodyRecoils chunk;
 
-      REQUIRE( 4 == chunk.LAW() );
+      CHECK( 4 == chunk.LAW() );
 
-      REQUIRE( 0 == chunk.NC() );
+      CHECK( 0 == chunk.NC() );
     }
   } // GIVEN
 
@@ -32,7 +32,7 @@ SCENARIO( "DiscreteTwoBodyRecoils" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       chunk.print( output, 9228, 6, 5 );
-      REQUIRE( buffer.size() == 0 );
+      CHECK( buffer.size() == 0 );
     }
   } // GIVEN
 } // SCENARIO

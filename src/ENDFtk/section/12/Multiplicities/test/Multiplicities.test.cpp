@@ -137,7 +137,7 @@ SCENARIO( "Multiplicities" ) {
 
      THEN( "an exception is thrown" ) {
 
-       REQUIRE_THROWS( Multiplicities(
+       CHECK_THROWS( Multiplicities(
                          TotalMultiplicity( { 2 }, { 2 },
                                             { 1e-5, 3e+7 },
                                             { 10., 15. } ),

@@ -1,6 +1,7 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
+#include "ENDFtk/Material.hpp"
 #include "ENDFtk/tree/Material.hpp"
 
 // other includes
@@ -84,13 +85,13 @@ SCENARIO( "Creating a material syntax tree of an ENDF File" ){
         for ( auto fileNo : fileNumbers ){
           REQUIRE( materialTree.hasMF( fileNo ) );
           REQUIRE( fileNo == materialTree.MF( fileNo ).MF() );
-          REQUIRE( materialTree.hasFileNumber( fileNo ) );
-          REQUIRE( fileNo == materialTree.fileNumber( fileNo ).MF() );
+          REQUIRE( materialTree.hasFile( fileNo ) );
+          REQUIRE( fileNo == materialTree.file( fileNo ).MF() );
 
           REQUIRE( cmaterialTree.hasMF( fileNo ) );
           REQUIRE( fileNo == cmaterialTree.MF( fileNo ).MF() );
-          REQUIRE( cmaterialTree.hasFileNumber( fileNo ) );
-          REQUIRE( fileNo == cmaterialTree.fileNumber( fileNo ).MF() );
+          REQUIRE( cmaterialTree.hasFile( fileNo ) );
+          REQUIRE( fileNo == cmaterialTree.file( fileNo ).MF() );
         }
 
         auto fileNumberIterator = fileNumbers.begin();

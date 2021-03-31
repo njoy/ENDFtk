@@ -26,7 +26,7 @@ public:
   /**
    *  @brief Return the distribution type (the LF flag)
    */
-  static constexpr int LAW() { return WattSpectrum::LF(); }
+  int LAW() const { return this->LF(); }
 
   /**
    *  @brief Return the a parameter data
@@ -41,4 +41,3 @@ public:
   #include "ENDFtk/section/5/WattSpectrum/src/NC.hpp"
   #include "ENDFtk/section/5/WattSpectrum/src/print.hpp"
 };
-

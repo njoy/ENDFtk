@@ -7,7 +7,7 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using EnergyDistribution = 
+using EnergyDistribution =
 section::Type< 6 >::LaboratoryAngleEnergy::EnergyDistribution;
 
 std::string chunk();
@@ -18,6 +18,8 @@ SCENARIO( "EnergyDistribution" ) {
 
   GIVEN( "valid data for a EnergyDistribution" ) {
 
+    std::string string = chunk();
+
     WHEN( "the data is given explicitly" ) {
 
       double cosine = 1.0;
@@ -27,47 +29,49 @@ SCENARIO( "EnergyDistribution" ) {
       std::vector< double > probabilities = { 0., 8.45368e-11,
                                               6.622950e-8, 2.149790e-1 };
 
+      EnergyDistribution
+        chunk( cosine, std::move( boundaries ), std::move( interpolants ),
+               std::move( energies ), std::move( probabilities ) );
+
       THEN( "a EnergyDistribution can be constructed and members can be "
             "tested" ) {
 
-        EnergyDistribution
-          chunk( cosine, std::move( boundaries ), std::move( interpolants ),
-                 std::move( energies ), std::move( probabilities ) );
         verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 6, 5 );
+
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream" ) {
 
-      std::string string = chunk();
       auto begin = string.begin();
       auto end = string.end();
       long lineNumber = 1;
 
+      EnergyDistribution chunk(begin, end, lineNumber, 9228, 6, 5 );
+
       THEN( "a EnergyDistribution can be constructed and members can be "
             "tested" ) {
 
-        EnergyDistribution chunk(begin, end, lineNumber, 9228, 6, 5 );
         verifyChunk( chunk );
       } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 6, 5 );
+
+        CHECK( buffer == string );
+      } // THEN
     } // WHEN
-  } // GIVEN
-
-  GIVEN( "a valid instance of EnergyDistribution" ) {
-
-    std::string string = chunk();
-    auto begin = string.begin();
-    auto end = string.end();
-    long lineNumber = 1;
-    EnergyDistribution chunk(begin, end, lineNumber, 9228, 6, 5 );
-
-    THEN( "it can be printed" ) {
-
-      std::string buffer;
-      auto output = std::back_inserter( buffer );
-      chunk.print( output, 9228, 6, 5 );
-      REQUIRE( buffer == string );
-    }
   } // GIVEN
 
   GIVEN( "invalid data for a AngularDistribution" ) {
@@ -84,7 +88,7 @@ SCENARIO( "EnergyDistribution" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS(
+        CHECK_THROWS(
           EnergyDistribution( cosine,
                               std::move( wrongsize ),
                               std::move( interpolants ),
@@ -105,7 +109,7 @@ SCENARIO( "EnergyDistribution" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS(
+        CHECK_THROWS(
           EnergyDistribution( cosine,
                               std::move( boundaries ),
                               std::move( wrongsize ),
@@ -126,7 +130,7 @@ SCENARIO( "EnergyDistribution" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS(
+        CHECK_THROWS(
           EnergyDistribution( cosine,
                               std::move( boundaries ),
                               std::move( interpolants ),
@@ -147,7 +151,7 @@ SCENARIO( "EnergyDistribution" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS(
+        CHECK_THROWS(
           EnergyDistribution( cosine,
                               std::move( boundaries ),
                               std::move( interpolants ),
@@ -168,7 +172,7 @@ SCENARIO( "EnergyDistribution" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS(
+        CHECK_THROWS(
           EnergyDistribution( cosine,
                               std::move( wrongorder ),
                               std::move( interpolants ),
@@ -189,7 +193,7 @@ SCENARIO( "EnergyDistribution" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS(
+        CHECK_THROWS(
           EnergyDistribution( cosine, std::move( boundaries ),
                               std::move( interpolants ),
                               std::move( wrongorder ),
@@ -209,7 +213,7 @@ SCENARIO( "EnergyDistribution" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS(
+        CHECK_THROWS(
           EnergyDistribution( cosine, std::move( wrongboundaries ),
                               std::move( interpolants ),
                               std::move( energies ),
@@ -226,7 +230,7 @@ SCENARIO( "EnergyDistribution" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( EnergyDistribution( begin, end, lineNumber,
+        CHECK_THROWS( EnergyDistribution( begin, end, lineNumber,
                                             9228, 6, 5 ) );
       } // THEN
     } // WHEN
@@ -243,26 +247,39 @@ std::string chunk() {
 
 void verifyChunk( const EnergyDistribution& chunk ) {
 
-      REQUIRE( 1. == Approx( chunk.cosine() ) );
+  CHECK( 1. == Approx( chunk.MU() ) );
+  CHECK( 1. == Approx( chunk.cosine() ) );
 
-      REQUIRE( 1 == chunk.NRP() );
-      REQUIRE( 4 == chunk.NEP() );
-      REQUIRE( 1 == chunk.interpolants().size() );
-      REQUIRE( 1 == chunk.boundaries().size() );
-      REQUIRE( 2 == chunk.interpolants()[0] );
-      REQUIRE( 4 == chunk.boundaries()[0] );
-      REQUIRE( 4 == chunk.energies().size() );
-      REQUIRE( 4 == chunk.probabilities().size() );
-      REQUIRE( 1e-5 == Approx( chunk.energies()[0] ) );
-      REQUIRE( 1.1e+7 == Approx( chunk.energies()[1] ) );
-      REQUIRE( 1.147e+7 == Approx( chunk.energies()[2] ) );
-      REQUIRE( 3e+7 == Approx( chunk.energies()[3] ) );
-      REQUIRE( 0. == Approx( chunk.probabilities()[0] ) );
-      REQUIRE( 8.45368e-11 == Approx( chunk.probabilities()[1] ) );
-      REQUIRE( 6.622950e-8 == Approx( chunk.probabilities()[2] ) );
-      REQUIRE( 2.149790e-1 == Approx( chunk.probabilities()[3] ) );
+  CHECK( 1 == chunk.NRP() );
+  CHECK( 4 == chunk.NEP() );
+  CHECK( 1 == chunk.NR() );
+  CHECK( 4 == chunk.NP() );
+  CHECK( 1 == chunk.interpolants().size() );
+  CHECK( 1 == chunk.boundaries().size() );
+  CHECK( 2 == chunk.interpolants()[0] );
+  CHECK( 4 == chunk.boundaries()[0] );
+  CHECK( 4 == chunk.EP().size() );
+  CHECK( 4 == chunk.energies().size() );
+  CHECK( 4 == chunk.F().size() );
+  CHECK( 4 == chunk.probabilities().size() );
+  CHECK( 1e-5 == Approx( chunk.EP()[0] ) );
+  CHECK( 1.1e+7 == Approx( chunk.EP()[1] ) );
+  CHECK( 1.147e+7 == Approx( chunk.EP()[2] ) );
+  CHECK( 3e+7 == Approx( chunk.EP()[3] ) );
+  CHECK( 1e-5 == Approx( chunk.energies()[0] ) );
+  CHECK( 1.1e+7 == Approx( chunk.energies()[1] ) );
+  CHECK( 1.147e+7 == Approx( chunk.energies()[2] ) );
+  CHECK( 3e+7 == Approx( chunk.energies()[3] ) );
+  CHECK( 0. == Approx( chunk.F()[0] ) );
+  CHECK( 8.45368e-11 == Approx( chunk.F()[1] ) );
+  CHECK( 6.622950e-8 == Approx( chunk.F()[2] ) );
+  CHECK( 2.149790e-1 == Approx( chunk.F()[3] ) );
+  CHECK( 0. == Approx( chunk.probabilities()[0] ) );
+  CHECK( 8.45368e-11 == Approx( chunk.probabilities()[1] ) );
+  CHECK( 6.622950e-8 == Approx( chunk.probabilities()[2] ) );
+  CHECK( 2.149790e-1 == Approx( chunk.probabilities()[3] ) );
 
-      REQUIRE( 4 == chunk.NC() );
+  CHECK( 4 == chunk.NC() );
 }
 
 std::string invalidChunk() {

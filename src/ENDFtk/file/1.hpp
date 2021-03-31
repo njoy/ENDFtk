@@ -18,19 +18,25 @@ namespace file {
     friend Base< Type >;
     using Parent = Base< Type >;
 
-    // MF1 only has enumerated secton
+    // MF1 only has enumerated sections
     // MT451 is required
     static constexpr auto requiredSections()
       RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 451_c ) )
 
     // all other sections are optional
     static constexpr auto optionalSections()
-      // hana::make_tuple( 452_c, 455_c, 456_c, 458_c, 460_c );
+      RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 452_c, 455_c, 456_c,
+                                                     458_c, 460_c ) )
+
+    // the following sections are currently unimplemented
+    static constexpr auto unimplementedSections()
       RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple() )
 
-    using Map = typename decltype( deduceMapType( 1_c,
-                                                  requiredSections(),
-                                                  optionalSections() ) )::type;
+    using Map =
+    typename decltype( details::deduceMapType(
+                           1_c,
+                           requiredSections(),
+                           optionalSections() ) )::type;
 
     /* fields */
     Map sectionMap;
@@ -45,13 +51,11 @@ namespace file {
       switch( sectionNo ) {
 
         case 451 : return true;
-        /*
-        case 452 : return this->sectionMap[ 452_c ];
-        case 455 : return this->sectionMap[ 455_c ];
-        case 456 : return this->sectionMap[ 456_c ];
-        case 458 : return this->sectionMap[ 458_c ];
-        case 460 : return this->sectionMap[ 460_c ];
-        */
+        case 452 : return bool( this->sectionMap[ 452_c ] );
+        case 455 : return bool( this->sectionMap[ 455_c ] );
+        case 456 : return bool( this->sectionMap[ 456_c ] );
+        case 458 : return bool( this->sectionMap[ 458_c ] );
+        case 460 : return bool( this->sectionMap[ 460_c ] );
         default : return false;
       }
     }

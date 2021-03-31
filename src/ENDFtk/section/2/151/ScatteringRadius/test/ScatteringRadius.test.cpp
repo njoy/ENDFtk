@@ -44,7 +44,7 @@ SCENARIO( "ScatteringRadius" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9228, 2, 151 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
@@ -67,7 +67,7 @@ SCENARIO( "ScatteringRadius" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9228, 2, 151 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -120,38 +120,38 @@ std::string chunk() {
 
 void verifyChunk( const ScatteringRadius& chunk ) {
 
-  REQUIRE( 5 == chunk.NP() );
-  REQUIRE( 1 == chunk.NR() );
-  REQUIRE( 1 == chunk.interpolants().size() );
-  REQUIRE( 1 == chunk.boundaries().size() );
-  REQUIRE( 1 == chunk.interpolants()[0] );
-  REQUIRE( 5 == chunk.boundaries()[0] );
-  REQUIRE( 5 == chunk.E().size() );
-  REQUIRE( 5 == chunk.energies().size() );
-  REQUIRE( 5 == chunk.AP().size() );
-  REQUIRE( 5 == chunk.radii().size() );
-  REQUIRE( 1.0 == Approx( chunk.E()[0] ) );
-  REQUIRE( 2.0 == Approx( chunk.E()[1] ) );
-  REQUIRE( 3.0 == Approx( chunk.E()[2] ) );
-  REQUIRE( 4.0 == Approx( chunk.E()[3] ) );
-  REQUIRE( 5.0 == Approx( chunk.E()[4] ) );
-  REQUIRE( 1.0 == Approx( chunk.energies()[0] ) );
-  REQUIRE( 2.0 == Approx( chunk.energies()[1] ) );
-  REQUIRE( 3.0 == Approx( chunk.energies()[2] ) );
-  REQUIRE( 4.0 == Approx( chunk.energies()[3] ) );
-  REQUIRE( 5.0 == Approx( chunk.energies()[4] ) );
-  REQUIRE( 6.0 == Approx( chunk.AP()[0] ) );
-  REQUIRE( 7.0 == Approx( chunk.AP()[1] ) );
-  REQUIRE( 8.0 == Approx( chunk.AP()[2] ) );
-  REQUIRE( 9.0 == Approx( chunk.AP()[3] ) );
-  REQUIRE( 10.0 == Approx( chunk.AP()[4] ) );
-  REQUIRE( 6.0 == Approx( chunk.radii()[0] ) );
-  REQUIRE( 7.0 == Approx( chunk.radii()[1] ) );
-  REQUIRE( 8.0 == Approx( chunk.radii()[2] ) );
-  REQUIRE( 9.0 == Approx( chunk.radii()[3] ) );
-  REQUIRE( 10.0 == Approx( chunk.radii()[4] ) );
+  CHECK( 5 == chunk.NP() );
+  CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.interpolants().size() );
+  CHECK( 1 == chunk.boundaries().size() );
+  CHECK( 1 == chunk.interpolants()[0] );
+  CHECK( 5 == chunk.boundaries()[0] );
+  CHECK( 5 == chunk.E().size() );
+  CHECK( 5 == chunk.energies().size() );
+  CHECK( 5 == chunk.AP().size() );
+  CHECK( 5 == chunk.radii().size() );
+  CHECK( 1.0 == Approx( chunk.E()[0] ) );
+  CHECK( 2.0 == Approx( chunk.E()[1] ) );
+  CHECK( 3.0 == Approx( chunk.E()[2] ) );
+  CHECK( 4.0 == Approx( chunk.E()[3] ) );
+  CHECK( 5.0 == Approx( chunk.E()[4] ) );
+  CHECK( 1.0 == Approx( chunk.energies()[0] ) );
+  CHECK( 2.0 == Approx( chunk.energies()[1] ) );
+  CHECK( 3.0 == Approx( chunk.energies()[2] ) );
+  CHECK( 4.0 == Approx( chunk.energies()[3] ) );
+  CHECK( 5.0 == Approx( chunk.energies()[4] ) );
+  CHECK( 6.0 == Approx( chunk.AP()[0] ) );
+  CHECK( 7.0 == Approx( chunk.AP()[1] ) );
+  CHECK( 8.0 == Approx( chunk.AP()[2] ) );
+  CHECK( 9.0 == Approx( chunk.AP()[3] ) );
+  CHECK( 10.0 == Approx( chunk.AP()[4] ) );
+  CHECK( 6.0 == Approx( chunk.radii()[0] ) );
+  CHECK( 7.0 == Approx( chunk.radii()[1] ) );
+  CHECK( 8.0 == Approx( chunk.radii()[2] ) );
+  CHECK( 9.0 == Approx( chunk.radii()[3] ) );
+  CHECK( 10.0 == Approx( chunk.radii()[4] ) );
 
-  REQUIRE( 4 == chunk.NC() );
+  CHECK( 4 == chunk.NC() );
 }
 
 std::string invalidChunk() {

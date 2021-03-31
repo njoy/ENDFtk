@@ -12,8 +12,9 @@ public:
  *  @brief Constructor (using different values for the true and effective
  *         scattering radius)
  *
- *  @param[in] j        the channel spin value
+ *  @param[in] spin     the spin group's spin value
  *  @param[in] parity   the associated parity
+ *  @param[in] ppi      the particle pair indices (NCH values)
  *  @param[in] l        the orbital momentum values (NCH values)
  *  @param[in] s        the channel spin values (NCH values)
  *  @param[in] b        the boundary condition values (NCH values)
@@ -21,20 +22,55 @@ public:
  *                      of the penetrability and the shift factor (NCH values)
  *  @param[in] ape      the true scattering radius values for the calculation
  *                      of the phase shift (NCH values)
+ *  @param[in] kbk      the number of channels with a background R-matrix
  */
-ResonanceChannels( double j, double parity,
+ResonanceChannels( double spin, double parity,
+                   std::vector< unsigned int >&& ppi,
                    std::vector< unsigned int >&& l,
                    std::vector< double >&& s,
                    std::vector< double >&& b,
                    std::vector< double >&& apt,
-                   std::vector< double >&& ape )
+                   std::vector< double >&& ape,
+                   int kbk = 0 )
   try : ResonanceChannels(
-          ListRecord( j, parity, 0, 0, l.size(),
-                      generateList( std::move( l ),
+          ListRecord( spin, parity, kbk, 0, l.size(),
+                      generateList( std::move( ppi ),
+                                    std::move( l ),
                                     std::move( s ),
                                     std::move( b ),
                                     std::move( ape ),
                                     std::move( apt ) ) ) ) {}
+  catch ( std::exception& e ) {
+
+    Log::info( "Encountered error while constructing resonance channels" );
+    throw;
+  }
+
+/**
+ *  @brief Constructor (using the same values for the true and effective
+ *         scattering radius)
+ *
+ *  @param[in] spin     the spin group's spin value
+ *  @param[in] parity   the associated parity
+ *  @param[in] ppi      the particle pair indices (NCH values)
+ *  @param[in] l        the orbital momentum values (NCH values)
+ *  @param[in] s        the channel spin values (NCH values)
+ *  @param[in] b        the boundary condition values (NCH values)
+ *  @param[in] ap       the scattering radius values (NCH values)
+ */
+ResonanceChannels( double spin, double parity,
+                   std::vector< unsigned int >&& ppi,
+                   std::vector< unsigned int >&& l,
+                   std::vector< double >&& s,
+                   std::vector< double >&& b,
+                   std::vector< double >&& ap )
+  try : ResonanceChannels(
+          ListRecord( spin, parity, 0, 0, l.size(),
+                      generateList( std::move( ppi ),
+                                    std::move( l ),
+                                    std::move( s ),
+                                    std::move( b ),
+                                    std::move( ap ) ) ) ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing resonance channels" );

@@ -22,6 +22,8 @@ public:
   TestBase( Iterator& it, const Iterator& end, long& lineNumber,
             int MAT, int MF, int MT ) :
     Base( it, end, lineNumber, MAT, MF, MT ) {}
+
+  auto data() const { return Base::data(); }
 };
 
 std::string chunk();
@@ -75,7 +77,7 @@ SCENARIO( "Base" ) {
       std::string buffer;
       auto output = std::back_inserter( buffer );
       chunk.print( output, 9228, 6, 5 );
-      REQUIRE( buffer == string );
+      CHECK( buffer == string );
     } // THEN
   } // GIVEN
 
@@ -91,7 +93,7 @@ SCENARIO( "Base" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( TestBase( energy, nd, na, nep, std::move( wronglist ) ) );
+        CHECK_THROWS( TestBase( energy, nd, na, nep, std::move( wronglist ) ) );
       } // THEN
     } // WHEN
 
@@ -104,7 +106,7 @@ SCENARIO( "Base" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( TestBase( begin, end, lineNumber, 9228, 6, 5 ) );
+        CHECK_THROWS( TestBase( begin, end, lineNumber, 9228, 6, 5 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -118,28 +120,29 @@ std::string chunk() {
 
 void verifyChunk( const TestBase& chunk ) {
 
-  REQUIRE( 1e-5 == Approx( chunk.energy() ) );
+  CHECK( 1e-5 == Approx( chunk.E() ) );
+  CHECK( 1e-5 == Approx( chunk.incidentEnergy() ) );
 
-  REQUIRE( 0 == chunk.ND() );
-  REQUIRE( 0 == chunk.numberDiscreteEnergies() );
-  REQUIRE( 1 == chunk.NA() );
-  REQUIRE( 1 == chunk.numberAngularParameters() );
-  REQUIRE( 6 == chunk.NW() );
-  REQUIRE( 2 == chunk.NEP() );
-  REQUIRE( 2 == chunk.numberSecondaryEnergies() );
-  REQUIRE( 2 == chunk.energies().size() );
-  REQUIRE( 1. == Approx( chunk.energies()[0] ) );
-  REQUIRE( 4. == Approx( chunk.energies()[1] ) );
-  REQUIRE( 2 == chunk.data().size() );
-  REQUIRE( 2. == Approx( chunk.data()[0][0] ) );
-  REQUIRE( 3. == Approx( chunk.data()[0][1] ) );
-  REQUIRE( 5. == Approx( chunk.data()[1][0] ) );
-  REQUIRE( 6. == Approx( chunk.data()[1][1] ) );
-  REQUIRE( 2 == Approx( chunk.totalEmissionProbabilities().size() ) );
-  REQUIRE( 2. == Approx( chunk.totalEmissionProbabilities()[0] ) );
-  REQUIRE( 5. == Approx( chunk.totalEmissionProbabilities()[1] ) );
+  CHECK( 0 == chunk.ND() );
+  CHECK( 0 == chunk.numberDiscreteEnergies() );
+  CHECK( 1 == chunk.NA() );
+  CHECK( 1 == chunk.numberAngularParameters() );
+  CHECK( 6 == chunk.NW() );
+  CHECK( 2 == chunk.NEP() );
+  CHECK( 2 == chunk.numberSecondaryEnergies() );
+  CHECK( 2 == chunk.energies().size() );
+  CHECK( 1. == Approx( chunk.energies()[0] ) );
+  CHECK( 4. == Approx( chunk.energies()[1] ) );
+  CHECK( 2 == chunk.data().size() );
+  CHECK( 2. == Approx( chunk.data()[0][0] ) );
+  CHECK( 3. == Approx( chunk.data()[0][1] ) );
+  CHECK( 5. == Approx( chunk.data()[1][0] ) );
+  CHECK( 6. == Approx( chunk.data()[1][1] ) );
+  CHECK( 2 == Approx( chunk.totalEmissionProbabilities().size() ) );
+  CHECK( 2. == Approx( chunk.totalEmissionProbabilities()[0] ) );
+  CHECK( 5. == Approx( chunk.totalEmissionProbabilities()[1] ) );
 
-  REQUIRE( 2 == chunk.NC() );
+  CHECK( 2 == chunk.NC() );
 }
 
 std::string invalidSize() {

@@ -4,7 +4,7 @@
 #include "ENDFtk/file/2.hpp"
 
 // other includes
-#include "ENDFtk/tree/Tape.hpp"
+#include "ENDFtk/tree/File.hpp"
 
 // convenience typedefs
 using namespace njoy::ENDFtk;

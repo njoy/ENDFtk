@@ -9,7 +9,7 @@
  *  the principal scatterer and the analytic representations for the
  *  non-principal scattering atoms (if any).
  *
- *  See ENDF102, section 7.4 for more information.
+ *  See ENDF102, section 7.5 for more information.
  */
 class ScatteringLawConstants : protected ListRecord {
 
@@ -63,13 +63,19 @@ public:
    *  @brief Return the upper energy limit of the thermal scattering law,
              stored in B(4)
    */
-  double upperEnergyLimit() const { return ListRecord::list()[3]; }
+  double EMAX() const { return ListRecord::list()[3]; }
+
+  /**
+   *  @brief Return the upper energy limit of the thermal scattering law,
+             stored in B(4)
+   */
+  double upperEnergyLimit() const { return this->EMAX(); }
 
   /**
    *  @brief Return the total free atom cross section for each scattering atom
    *         type, stored in B(1), B(8) and B(14)
    */
-  auto totalFreeCrossSections() const {
+  auto MSIGMA() const {
 
     auto indices = [] (auto NS) {
       switch(1 + NS) {
@@ -90,33 +96,50 @@ public:
           __builtin_unreachable();
          #endif
          throw std::logic_error("Illegal NS");
-        } 
+        }
       }
     };
-    
-    auto element = 
-      [l = ListRecord::list()](auto index){ return l[index]; };
 
-    return indices(this->NS()) | ranges::view::transform(element);
+    auto element = [l = ListRecord::list()](auto index){ return l[index]; };
+
+    return indices( this->NS() ) | ranges::view::transform( element );
   }
+
+  /**
+   *  @brief Return the total free atom cross section for each scattering atom
+   *         type, stored in B(1), B(8) and B(14)
+   */
+  auto totalFreeCrossSections() const { return this->MSIGMA(); }
 
   /**
    *  @brief Return the ratio of the atomic weight to the neutron mass for each
    *         scattering atom type, stored in B(3), B(9) and B(15)
    */
-  auto atomicWeightRatios() const {
+  auto AWR() const {
     return ListRecord::list()
              | ranges::view::drop_exactly( 2 )
+             | ranges::view::stride( 6 ); }
+
+  /**
+   *  @brief Return the ratio of the atomic weight to the neutron mass for each
+   *         scattering atom type, stored in B(3), B(9) and B(15)
+   */
+  auto atomicWeightRatios() const { return this->AWR(); }
+
+  /**
+   *  @brief Return the number of atoms for each scattering atom type present in
+   *         the molecule or unit cell, stored in B(6), B(12) and B(18)
+   */
+  auto M() const {
+    return ListRecord::list()
+             | ranges::view::drop_exactly( 5 )
              | ranges::view::stride( 6 ); }
 
   /**
    *  @brief Return the number of atoms for each scattering atom type present in
    *         the molecule or unit cell, stored in B(6), B(12) and B(18)
    */
-  auto numberAtoms() const {
-    return ListRecord::list()
-             | ranges::view::drop_exactly( 5 )
-             | ranges::view::stride( 6 ); }
+  auto numberAtoms() const { return this->M(); }
 
   /**
    *  @brief Return the analytical function type for each non-principal
@@ -130,4 +153,3 @@ public:
   using ListRecord::NC;
   using ListRecord::print;
 };
-

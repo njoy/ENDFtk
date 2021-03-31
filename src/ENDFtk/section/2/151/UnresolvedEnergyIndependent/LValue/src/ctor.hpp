@@ -16,7 +16,7 @@ public:
  *  @param[in] awri       the atomic weight ratio
  *  @param[in] l          the orbital angular momentum value
  *  @param[in] spins      the spin values (NJS values)
- *  @param[in] d          the level spacing values (NJS values)
+ *  @param[in] spacing    the level spacing values (NJS values)
  *  @param[in] amun       the degrees of freedom for the neutron width (NJS
  *                        values)
  *  @param[in] gn         the average neutron widths (NJS values)
@@ -24,13 +24,13 @@ public:
  */
 LValue( double awri, int l,
         std::vector< double >&& spins,
-        std::vector< double >&& d,
+        std::vector< double >&& spacing,
         std::vector< int >&& amun,
         std::vector< double >&& gn,
         std::vector< double >&& gg )
   try :  LValue( ListRecord( awri, 0.0, l, 0.0, spins.size(),
                              generateList( std::move( spins ),
-                                           std::move( d ),
+                                           std::move( spacing ),
                                            std::move( amun ),
                                            std::move( gn ),
                                            std::move( gg ) ) ) ) {}

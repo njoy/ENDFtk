@@ -96,11 +96,11 @@ SCENARIO( "PartialMultiplicity" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( PartialMultiplicity( eg, es, lp, lf,
-                                             std::move( boundaries ),
-                                             std::move( wrongInterpolants ),
-                                             std::move( x ),
-                                             std::move( y ) ) );
+        CHECK_THROWS( PartialMultiplicity( eg, es, lp, lf,
+                                           std::move( boundaries ),
+                                           std::move( wrongInterpolants ),
+                                           std::move( x ),
+                                           std::move( y ) ) );
       } // THEN
     } // WHEN
 
@@ -115,8 +115,8 @@ SCENARIO( "PartialMultiplicity" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS( PartialMultiplicity( begin, end, lineNumber,
-                                             9228, 12, 18 ) );
+        CHECK_THROWS( PartialMultiplicity( begin, end, lineNumber,
+                                           9228, 12, 18 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -147,16 +147,22 @@ void verifyChunk( const PartialMultiplicity& chunk ) {
   CHECK( 2 == chunk.boundaries()[0] );
   CHECK( 2 == chunk.E().size() );
   CHECK( 2 == chunk.energies().size() );
+  CHECK( 2 == chunk.x().size() );
   CHECK( 2 == chunk.Y().size() );
   CHECK( 2 == chunk.multiplicities().size() );
+  CHECK( 2 == chunk.y().size() );
   CHECK( 1e-5 == Approx( chunk.E()[0] ) );
   CHECK( 3e+7 == Approx( chunk.E()[1] ) );
   CHECK( 1e-5 == Approx( chunk.energies()[0] ) );
   CHECK( 3e+7 == Approx( chunk.energies()[1] ) );
+  CHECK( 1e-5 == Approx( chunk.x()[0] ) );
+  CHECK( 3e+7 == Approx( chunk.x()[1] ) );
   CHECK( 8.579050e+0 == Approx( chunk.Y()[0] ) );
   CHECK( 1.487778e+1 == Approx( chunk.Y()[1] ) );
   CHECK( 8.579050e+0 == Approx( chunk.multiplicities()[0] ) );
   CHECK( 1.487778e+1 == Approx( chunk.multiplicities()[1] ) );
+  CHECK( 8.579050e+0 == Approx( chunk.y()[0] ) );
+  CHECK( 1.487778e+1 == Approx( chunk.y()[1] ) );
 
   CHECK( 3 == chunk.NC() );
 }

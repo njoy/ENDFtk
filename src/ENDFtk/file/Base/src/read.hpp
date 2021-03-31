@@ -8,19 +8,26 @@ read( hana::llong< SectionNo >,
       long& lineNumber,
       int MAT ) {
 
-  auto section = [&]{
-    try{
+  auto section = [&] {
+
+    try {
+
       return section::Type< Derived::MF(), SectionNo >( head, begin, end,
-                                                      lineNumber, MAT );
-    } catch( std::exception& e ) {
+                                                        lineNumber, MAT );
+    }
+    catch( std::exception& e ) {
+
       Log::info( "Error while reading File {} Section {}", Derived::MF(), SectionNo );
       throw e;
     }
   }();
 
-  try{
+  try {
+
     structureDivision = StructureDivision( begin, end, lineNumber );
-  } catch( std::exception& e ) {
+  }
+  catch( std::exception& e ) {
+
     Log::info( "Error while reading structure division following File {} Section {}",
                Derived::MF(), SectionNo );
     throw e;
@@ -40,10 +47,10 @@ read( hana::tuple< SectionNos... > sectionNos,
   // required for this lambda and the next one
   auto readRequiredPair =
   [&structureDivision,
-   &begin = hana::arg<1>( args... ), 
-   end = std::cref( hana::arg<2>( args... ) ), 
-   lineNumber = std::ref( hana::arg<3>( args... ) ), 
-   MAT = hana::arg<4>( args... ) ] ( hana::true_, auto sectionNo ) {
+   &begin = hana::arg<1>( args... ),
+   end = std::cref( hana::arg<2>( args... ) ),
+   lineNumber = std::ref( hana::arg<3>( args... ) ),
+   MAT = hana::arg<4>( args... ) ] ( hana::true_, hana::false_, auto sectionNo ) {
 
     auto& head = asHead( structureDivision );
     if ( head.MT() != sectionNo ) {
@@ -61,10 +68,10 @@ read( hana::tuple< SectionNos... > sectionNos,
 
   auto readOptionalPair =
   [&structureDivision,
-   &begin = hana::arg<1>( args... ), 
-   end = std::cref( hana::arg<2>( args... ) ), 
-   lineNumber = std::ref( hana::arg<3>( args... ) ), 
-   MAT = hana::arg<4>( args... ) ] ( hana::false_, auto sectionNo ) {
+   &begin = hana::arg<1>( args... ),
+   end = std::cref( hana::arg<2>( args... ) ),
+   lineNumber = std::ref( hana::arg<3>( args... ) ),
+   MAT = hana::arg<4>( args... ) ] ( hana::false_, hana::true_, auto sectionNo ) {
 
     auto makeOptional  = [&] () {
 
@@ -78,7 +85,28 @@ read( hana::tuple< SectionNos... > sectionNos,
     return hana::make_pair( sectionNo, makeOptional() );
   };
 
-  auto readPair_fn = hana::overload( readRequiredPair, readOptionalPair );
+  auto readUnimplementedPair =
+  [&structureDivision,
+   &begin = hana::arg<1>( args... ),
+   end = std::cref( hana::arg<2>( args... ) ),
+   lineNumber = std::ref( hana::arg<3>( args... ) ),
+   MAT = hana::arg<4>( args... ) ] ( hana::false_, hana::false_, auto sectionNo ) {
+
+    auto& head = asHead( structureDivision );
+    if ( head.MT() == sectionNo ) {
+
+      read( sectionNo, head, structureDivision,
+            begin, end.get(), lineNumber, MAT );
+    }
+
+    return hana::make_pair( sectionNo,
+                            std::optional< section::Type< Derived::MF(),
+                                                          sectionNo.value > >{} );
+  };
+
+  auto readPair_fn = hana::overload( readRequiredPair,
+                                     readOptionalPair,
+                                     readUnimplementedPair );
 
   auto append_fn = [&]( auto&& tuple, auto&& sectionNo ){
     return hana::unpack
@@ -86,13 +114,16 @@ read( hana::tuple< SectionNos... > sectionNos,
              [&] ( auto&&... pairs )
                  { return hana::make_tuple
                           ( std::move( pairs )... ,
-                            readPair_fn( hana::contains
-                                         ( Derived::requiredSections(),
-                                           sectionNo ), sectionNo ) ); } );
+                            readPair_fn( hana::contains (
+                                           Derived::requiredSections(),
+                                           sectionNo ),
+                                         hana::contains (
+                                           Derived::optionalSections(),
+                                           sectionNo ),
+                                         sectionNo ) ); } );
   };
 
   return hana::unpack( hana::fold( sectionNos, hana::make_tuple(), append_fn ),
                        []( auto&&... args )
                        { return hana::make_map( std::move(args)... ); } );
 }
-
