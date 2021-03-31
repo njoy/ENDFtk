@@ -30,6 +30,11 @@ FetchContent_Declare( Log
     GIT_TAG         52962b7796afe37ef1d8f7edb4bf9ecb1b868d15
     )
 
+FetchContent_Declare( pybind11
+    GIT_REPOSITORY  https://github.com/pybind/pybind11
+    GIT_TAG         f1abf5d9159b805674197f6bc443592e631c9130 # tag: v2.6.1
+    )
+
 FetchContent_Declare( range-v3-adapter
     GIT_REPOSITORY  https://github.com/njoy/range-v3-adapter
     GIT_TAG         252679d4737c8f755d87c0e1eed6c37394a2ec59
@@ -41,12 +46,6 @@ FetchContent_Declare( spdlog
     )
 set( SPDLOG_BUILD_TESTING CACHE BOOL OFF )
 
-FetchContent_Declare( pybind11
-    GIT_REPOSITORY  https://github.com/pybind/pybind11
-    GIT_TAG         v2.6.1
-    GIT_SHALLOW     TRUE
-    )
-
 #######################################################################
 # Load dependencies
 #######################################################################
@@ -57,7 +56,7 @@ FetchContent_MakeAvailable(
     hana-adapter
     header-utilities
     Log
+    pybind11
     range-v3-adapter
     spdlog
-    pybind11
     )
