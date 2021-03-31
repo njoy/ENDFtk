@@ -7,9 +7,9 @@ makeBackgroundMatrices( unsigned int NCH,
 
   for ( auto&& rmatrix : channels ) {
 
-    int LCH = std::visit( [] ( const auto& variant )
-                             { return variant.LCH(); },
-                          rmatrix );
+    unsigned int LCH = std::visit( [] ( const auto& variant )
+                                      { return variant.LCH(); },
+                                   rmatrix );
     if ( ( LCH <= 0 ) || ( LCH > NCH ) ) {
 
       Log::error( "Encountered illegal LCH value" );
