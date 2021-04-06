@@ -2,7 +2,6 @@
 #define NJOY_ENDFTK_SECTION_15
 
 // system includes
-#include <variant>
 #include <vector>
 
 // other includes
@@ -31,45 +30,45 @@ public:
    *  @brief A secondary particle energy distribution of MF5
    */
   using Distribution = TabulatedSpectrum; // LF=1
+
   #include "ENDFtk/section/5/Probability.hpp"
-//
-//  #include "ENDFtk/section/5/PartialDistribution.hpp"
-//
-//private:
-//
-//  /* fields */
-//  std::vector< PartialDistribution > partials_;
-//
+  #include "ENDFtk/section/15/PartialDistribution.hpp"
+
+private:
+
+  /* fields */
+  std::vector< PartialDistribution > partials_;
+
 //  /* auxiliary functions */
 //  #include "ENDFtk/section/5/src/verifyNK.hpp"
-//
-//public:
-//
-//  /* constructor */
+
+public:
+
+  /* constructor */
 //  #include "ENDFtk/section/5/src/ctor.hpp"
-//
-//  /* methods */
-//
-//  /**
-//   *  @brief Return the number NK of subsections with partial distributions
-//   */
-//  int NK() const { return this->partials_.size(); }
-//
-//  /**
-//   *  @brief Return the number NK of subsections with partial distributions
-//   */
-//  int numberPartialDistributions() const { return this->NK(); }
-//
-//  /**
-//   *  @brief Return the partial distributions defined in this section
-//   */
-//  auto partialDistributions() const {
-//
-//    return ranges::view::all( this->partials_ );
-//  }
-//
-//  #include "ENDFtk/section/5/src/NC.hpp"
-//  #include "ENDFtk/section/5/src/print.hpp"
+
+  /* methods */
+
+  /**
+   *  @brief Return the number NK of subsections with partial distributions
+   */
+  int NK() const { return this->partials_.size(); }
+
+  /**
+   *  @brief Return the number NK of subsections with partial distributions
+   */
+  int numberPartialDistributions() const { return this->NK(); }
+
+  /**
+   *  @brief Return the partial distributions defined in this section
+   */
+  auto partialDistributions() const {
+
+    return ranges::view::all( this->partials_ );
+  }
+
+  #include "ENDFtk/section/5/src/NC.hpp"
+  #include "ENDFtk/section/5/src/print.hpp"
 
   using Base::MT;
   using Base::sectionNumber;
