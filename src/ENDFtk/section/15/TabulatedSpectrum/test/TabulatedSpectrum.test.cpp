@@ -7,8 +7,7 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using TabulatedSpectrum =
-section::Type< 15 >::TabulatedSpectrum;
+using TabulatedSpectrum = section::Type< 15 >::TabulatedSpectrum;
 using OutgoingEnergyDistribution =
 section::Type< 15 >::TabulatedSpectrum::OutgoingEnergyDistribution;
 

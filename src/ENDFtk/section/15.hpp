@@ -22,16 +22,16 @@ class Type< 15 > : protected Base {
 
 public:
 
-  #include "ENDFtk/section/5/TabulatedSpectrum.hpp" // LF=1
+  #include "ENDFtk/section/5/TabulatedSpectrum.hpp"    // LF=1, taken from MF5
 
   using LF1 = TabulatedSpectrum;
 
   /** @typedef Distribution
-   *  @brief A secondary particle energy distribution of MF5
+   *  @brief A secondary particle energy distribution of MF15
    */
   using Distribution = TabulatedSpectrum; // LF=1
 
-  #include "ENDFtk/section/5/Probability.hpp"
+  #include "ENDFtk/section/5/Probability.hpp"          // taken from MF5
   #include "ENDFtk/section/15/PartialDistribution.hpp"
 
 private:
@@ -39,13 +39,13 @@ private:
   /* fields */
   std::vector< PartialDistribution > partials_;
 
-//  /* auxiliary functions */
-//  #include "ENDFtk/section/5/src/verifyNK.hpp"
+  /* auxiliary functions */
+  #include "ENDFtk/section/5/src/verifyNK.hpp"         // taken from MF5
 
 public:
 
   /* constructor */
-//  #include "ENDFtk/section/5/src/ctor.hpp"
+  #include "ENDFtk/section/15/src/ctor.hpp"
 
   /* methods */
 
@@ -67,8 +67,8 @@ public:
     return ranges::view::all( this->partials_ );
   }
 
-  #include "ENDFtk/section/5/src/NC.hpp"
-  #include "ENDFtk/section/5/src/print.hpp"
+  #include "ENDFtk/section/5/src/NC.hpp"               // taken from MF5
+  #include "ENDFtk/section/5/src/print.hpp"            // taken from MF5
 
   using Base::MT;
   using Base::sectionNumber;
