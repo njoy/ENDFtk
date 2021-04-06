@@ -44,7 +44,7 @@ void wrapMaterial( python::module& module, python::module& ) {
   // predefined lambda
   auto getFile = [] ( const Material& self, int mf )
   -> std::variant< MF1, MF2, MF3, MF4, MF5, MF6, MF7, MF8, MF9, MF10,
-                   MF12, MF13 > {
+                   MF12, MF13, MF14 > {
 
     switch ( mf ) {
 
