@@ -24,7 +24,7 @@ void wrapTabulatedSpectrum( python::module& module, python::module& viewmodule )
   // none of these are supposed to be created directly by the user
   wrapRandomAccessAnyViewOf< Distribution >(
       viewmodule,
-      "any_view< OutgoingEnergyDistribution, random_access >" );
+      "any_view< MF15::OutgoingEnergyDistribution, random_access >" );
 
   // create the component
   python::class_< Component > component(
