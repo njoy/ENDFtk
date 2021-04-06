@@ -83,13 +83,13 @@ void wrapSection_13( python::module& module, python::module& viewmodule ) {
 
     "NK",
     &Section::NK,
-    "The number of partial cross sections (discrete photons and continuum)"
+    "The number of photons (discrete and continuum) with partial cross sections"
   )
   .def_property_readonly(
 
-    "number_partials",
-    &Section::numberPartials,
-    "The number of partial cross sections (discrete photons and continuum)"
+    "number_photons",
+    &Section::numberPhotons,
+    "The number of photons (discrete and continuum) with partial cross sections"
   )
   .def_property_readonly(
 
@@ -99,9 +99,9 @@ void wrapSection_13( python::module& module, python::module& viewmodule ) {
   )
   .def_property_readonly(
 
-    "partial_cross_sections",
+    "photon_partial_cross_sections",
     [] ( const Section& self ) -> PartialCrossSectionRange
-       { return self.partialCrossSections(); },
+       { return self.photonPartialCrossSections(); },
     "The partial cross sections"
   );
 

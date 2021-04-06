@@ -35,14 +35,14 @@ class Test_ENDFtk_MF12_Multiplicities( unittest.TestCase ) :
 
             # verify content
             self.assertEqual( None, chunk.total_multiplicity )
-            self.assertEqual( 1, len( chunk.partial_multiplicities ) )
+            self.assertEqual( 1, len( chunk.photon_partial_multiplicities ) )
 
             self.assertEqual( 1, chunk.NK )
-            self.assertEqual( 1, chunk.number_partials )
+            self.assertEqual( 1, chunk.number_photons )
             self.assertEqual( 1, chunk.LO )
             self.assertEqual( 1, chunk.representation )
 
-            partial = chunk.partial_multiplicities[0]
+            partial = chunk.photon_partial_multiplicities[0]
             self.assertAlmostEqual( 0.0, partial.EG )
             self.assertAlmostEqual( 0.0, partial.photon_or_binding_energy )
             self.assertAlmostEqual( 0.0, partial.ES )
@@ -72,9 +72,9 @@ class Test_ENDFtk_MF12_Multiplicities( unittest.TestCase ) :
         def verify_chunk_partials( self, chunk ) :
 
             # verify content
-            self.assertEqual( 2, len( chunk.partial_multiplicities ) )
+            self.assertEqual( 2, len( chunk.photon_partial_multiplicities ) )
             self.assertEqual( 2, chunk.NK )
-            self.assertEqual( 2, chunk.number_partials )
+            self.assertEqual( 2, chunk.number_photons )
             self.assertEqual( 1, chunk.LO )
             self.assertEqual( 1, chunk.representation )
 
@@ -94,7 +94,7 @@ class Test_ENDFtk_MF12_Multiplicities( unittest.TestCase ) :
             self.assertEqual( 9, chunk.NC )
             self.assertEqual( 3, chunk.total_multiplicity.NC )
 
-            partial = chunk.partial_multiplicities[0]
+            partial = chunk.photon_partial_multiplicities[0]
             self.assertAlmostEqual( 0.0, partial.EG )
             self.assertAlmostEqual( 0.0, partial.photon_or_binding_energy )
             self.assertAlmostEqual( 0.0, partial.ES )
@@ -116,7 +116,7 @@ class Test_ENDFtk_MF12_Multiplicities( unittest.TestCase ) :
             self.assertAlmostEqual( 8.579050e+0, partial.multiplicities[0] )
             self.assertAlmostEqual( 1.487778e+1, partial.multiplicities[1] )
 
-            partial = chunk.partial_multiplicities[1]
+            partial = chunk.photon_partial_multiplicities[1]
             self.assertAlmostEqual( 0.0, partial.EG )
             self.assertAlmostEqual( 0.0, partial.photon_or_binding_energy )
             self.assertAlmostEqual( 0.0, partial.ES )

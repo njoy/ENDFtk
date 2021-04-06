@@ -50,6 +50,18 @@ void wrapLegendreDistributions( python::module& module, python::module& viewmodu
   )
   .def_property_readonly(
 
+    "LI",
+    [] ( const Component& self ) { return self.LI(); },
+    "The isotropic angular distribution flag"
+  )
+  .def_property_readonly(
+
+    "isotropic_angular_distributions",
+    [] ( const Component& self ) { return self.isotropicAngularDistributions(); },
+    "The isotropic angular distribution flag"
+  )
+  .def_property_readonly(
+
     "LTT",
     [] ( const Component& self ) { return self.LTT(); },
     "The distribution law"
