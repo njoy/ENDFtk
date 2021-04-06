@@ -40,4 +40,3 @@ verifySecondaryTemperatures( const TypeArray& types,
     }
   }
 }
-

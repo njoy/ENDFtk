@@ -38,16 +38,16 @@ public:
   int representation() const { return this->LO(); }
 
   /**
-   *  @brief Return the number of partial multiplicities (discrete photons
-   *         and continuum)
+   *  @brief Return the number of photons (discrete and continuum) with
+   *         partial multiplicities
    */
   int NK() const { return this->partials_.size(); }
 
   /**
-  *  @brief Return the number of partial multiplicities (discrete photons
-  *         and continuum)
+   *  @brief Return the number of photons (discrete and continuum) with
+   *         partial multiplicities
    */
-  int numberPartials() const { return this->NK(); }
+  int numberPhotons() const { return this->NK(); }
 
   /**
    *  @brief Return the total multiplicity (optional)
@@ -57,7 +57,7 @@ public:
   /**
    *  @brief Return the partial multiplicities
    */
-  auto partialMultiplicities() const {
+  auto photonPartialMultiplicities() const {
 
     return ranges::view::all( this->partials_ );
   }
