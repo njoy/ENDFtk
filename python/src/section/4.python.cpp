@@ -61,8 +61,8 @@ void wrapSection_4( python::module& module, python::module& viewmodule ) {
     "    mt               the MT number\n"
     "    zaid             the ZA  identifier\n"
     "    awr              the atomic mass ratio\n"
-    "    lct              the reference frameo\n"
-    "    distributions    the distributionso"
+    "    lct              the reference frame\n"
+    "    distributions    the distributions"
   )
   .def_property_readonly(
 
