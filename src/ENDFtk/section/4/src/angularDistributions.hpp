@@ -7,7 +7,7 @@
  */
 auto angularDistributions() const {
 
-  auto lift = ranges::view::transform( []( const auto& element ) -> Variant {
+  auto lift = ranges::views::transform( []( const auto& element ) -> Variant {
 
     return std::cref( element );
   } );
@@ -15,7 +15,7 @@ auto angularDistributions() const {
   return std::visit(
            utility::overload{
                [] ( const Isotropic& ) -> VariantRange
-                  { return ranges::view::empty< Variant >(); },
+                  { return ranges::views::empty<Variant>; },
                [] ( const MixedDistributions& distributions ) -> VariantRange
                   { return distributions.angularDistributions(); },
                [&] ( const auto& distributions ) -> VariantRange

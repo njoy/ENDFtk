@@ -55,7 +55,10 @@ public:
   /**
    *  @brief Return the outgoing energy distributions
    */
-  auto outgoingDistributions() const { return this->data_.records(); }
+  AllRange< OutgoingEnergyDistribution > outgoingDistributions() const {
+
+    return this->data_.records();
+  }
 
   /**
    *  @brief Return the incoming energies
@@ -63,7 +66,7 @@ public:
   auto incidentEnergies() const {
 
     return this->outgoingDistributions()
-             | ranges::view::transform(
+             | ranges::views::transform(
                  [] ( const auto& entry )
                     { return entry.incidentEnergy(); } ); }
 
@@ -71,13 +74,19 @@ public:
    *  @brief Return interpolation type for each range on the incoming
    *         energy grid
    */
-  auto interpolants() const { return this->data_.tab2().interpolants(); }
+  AllRange< long > interpolants() const {
+
+    return this->data_.tab2().interpolants();
+  }
 
   /**
    *  @brief Return interpolation boundaries for the incoming
    *         energy grid
    */
-  auto boundaries() const { return this->data_.tab2().boundaries(); }
+  AllRange< long > boundaries() const {
+
+    return this->data_.tab2().boundaries();
+  }
 
   /**
    *  @brief Return the number of lines in this MF5 component
