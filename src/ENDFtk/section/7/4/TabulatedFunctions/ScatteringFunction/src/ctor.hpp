@@ -12,8 +12,8 @@ ScatteringFunction( TabulationRecord&& alphas,
   if ( this->NT() != 1 ) {
     verifyBetaValues( this->beta(),
                       this->temperatures_ |
-                          ranges::view::transform( [] ( const auto& v )
-                                                      { return v.C2(); } ) );
+                          ranges::views::transform( [] ( const auto& v )
+                                                       { return v.C2(); } ) );
   }
 }
 

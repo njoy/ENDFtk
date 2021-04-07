@@ -81,23 +81,30 @@ public:
   /**
    *  @brief Return interpolation type for each range on the energy grid
    */
-  auto interpolants() const { return this->principal_.interpolants(); }
+  AllRange< long > interpolants() const {
+
+    return this->principal_.interpolants();
+  }
 
   /**
    *  @brief Return interpolation boundaries for the energy grid
    */
-  auto boundaries() const { return this->principal_.boundaries(); }
+  AllRange< long > boundaries() const {
+
+    return this->principal_.boundaries();
+  }
 
   /**
    *  @brief Return all temperatures for which thermal scattering law data is
    *         given
    */
   auto T() const {
-    return ranges::view::concat(
-             ranges::view::single( this->principal_.C1() ),
+
+    return ranges::views::concat(
+             ranges::cpp20::views::single( this->principal_.C1() ),
              this->temperatures_ |
-                 ranges::view::transform( [] ( const auto& v )
-                                             { return v.C1(); } ) );
+                 ranges::views::transform( [] ( const auto& v )
+                                              { return v.C1(); } ) );
   }
 
   /**
@@ -109,21 +116,22 @@ public:
   /**
    *  @brief Return the energy grid
    */
-  auto E() const { return this->principal_.x(); }
+  AllRange< double > E() const { return this->principal_.x(); }
 
   /**
    *  @brief Return the energy grid
    */
-  auto energies() const { return this->E(); }
+  AllRange< double > energies() const { return this->E(); }
 
   /**
    *  @brief Return the temperature interpolation flags (LT values will be
    *         given)
    */
   auto LI() const {
+
     return this->temperatures_ |
-               ranges::view::transform( [] ( const auto& v )
-                                           { return v.L1(); } );
+               ranges::views::transform( [] ( const auto& v )
+                                            { return v.L1(); } );
   }
 
   /**
@@ -137,11 +145,12 @@ public:
    *         temperature
    */
   auto S() const {
-    return ranges::view::concat(
-             ranges::view::single( this->principal_.y() ),
+
+    return ranges::views::concat(
+             ranges::cpp20::views::single( this->principal_.y() ),
              this->temperatures_ |
-                 ranges::view::transform( [] ( const auto& v )
-                                             { return v.list(); } ) );
+                 ranges::views::transform( [] ( const auto& v )
+                                              { return v.list(); } ) );
   }
 
   /**

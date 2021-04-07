@@ -86,23 +86,24 @@ public:
   /**
    *  @brief Return interpolation type for each range on the alpha grid
    */
-  auto interpolants() const { return this->alphas_.interpolants(); }
+  AllRange< long > interpolants() const { return this->alphas_.interpolants(); }
 
   /**
    *  @brief Return interpolation boundaries for the alpha grid
    */
-  auto boundaries() const { return this->alphas_.boundaries(); }
+  AllRange< long > boundaries() const { return this->alphas_.boundaries(); }
 
   /**
    *  @brief Return all temperatures for which thermal scattering law data is
    *         given
    */
   auto T() const {
-    return ranges::view::concat(
-             ranges::view::single( this->alphas_.C1() ),
+
+    return ranges::views::concat(
+             ranges::cpp20::views::single( this->alphas_.C1() ),
              this->temperatures_ |
-                 ranges::view::transform( [] ( const auto& v )
-                                             { return v.C1(); } ) );
+                 ranges::views::transform( [] ( const auto& v )
+                                              { return v.C1(); } ) );
   }
 
   /**
@@ -114,21 +115,22 @@ public:
   /**
    *  @brief Return the alpha grid
    */
-  auto A() const { return this->alphas_.x(); }
+  AllRange< double > A() const { return this->alphas_.x(); }
 
   /**
    *  @brief Return the alpha grid
    */
-  auto alphas() const { return this->A(); }
+  AllRange< double > alphas() const { return this->A(); }
 
   /**
    *  @brief Return the temperature interpolation flags (LT values will be
    *         given)
    */
   auto LI() const {
+
     return this->temperatures_ |
-               ranges::view::transform( [] ( const auto& v )
-                                           { return v.L1(); } );
+               ranges::views::transform( [] ( const auto& v )
+                                            { return v.L1(); } );
   }
 
   /**
@@ -142,11 +144,12 @@ public:
    *         temperature
    */
   auto S() const {
-    return ranges::view::concat(
-             ranges::view::single( this->alphas_.y() ),
+
+    return ranges::views::concat(
+             ranges::cpp20::views::single( this->alphas_.y() ),
              this->temperatures_ |
-                 ranges::view::transform( [] ( const auto& v )
-                                             { return v.list(); } ) );
+                 ranges::views::transform( [] ( const auto& v )
+                                              { return v.list(); } ) );
   }
 
   /**
