@@ -5,7 +5,7 @@
 // local includes
 #include "ENDFtk/Material.hpp"
 #include "ENDFtk/tree/Tape.hpp"
-#include "range/v3/utility/iterator.hpp"
+#include "range/v3/range/operations.hpp"
 #include "views.hpp"
 
 // namespace aliases
@@ -80,7 +80,7 @@ void wrapTreeMaterial( python::module& module, python::module& viewmodule ) {
 
     "file_numbers",
     [] ( const Material& self ) -> std::vector< int >
-       { return self.fileNumbers(); },
+       { return ranges::to< std::vector< int > >( self.fileNumbers() ); },
     "All file numbers in the material"
   )
   .def_property_readonly(
@@ -94,7 +94,7 @@ void wrapTreeMaterial( python::module& module, python::module& viewmodule ) {
 
     "content",
     [] ( const Material& self ) -> std::string
-       { return self.buffer(); },
+       { return ranges::to< std::string >( self.buffer() ); },
     "The content of the material"
   )
   .def(
