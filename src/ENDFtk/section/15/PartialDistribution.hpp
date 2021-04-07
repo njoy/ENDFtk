@@ -21,12 +21,12 @@ public:
   /**
    *  @brief Return the probability
    */
-  const auto& probability() const { return this->probability_; }
+  const Probability& probability() const { return this->probability_; }
 
   /**
    *  @brief Return the distribution
    */
-  const auto& distribution() const { return this->distribution_; }
+  const Distribution& distribution() const { return this->distribution_; }
 
   #include "ENDFtk/section/15/PartialDistribution/src/NC.hpp"
   #include "ENDFtk/section/15/PartialDistribution/src/print.hpp"

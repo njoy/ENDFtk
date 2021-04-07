@@ -28,10 +28,12 @@ namespace section{
     #include "ENDFtk/section/13/TotalCrossSection.hpp"
     #include "ENDFtk/section/13/PartialCrossSection.hpp"
 
+    using OptionalTotalCrossSection = std::optional< TotalCrossSection >;
+
   private:
 
     /* fields */
-    std::optional< TotalCrossSection > total_;
+    OptionalTotalCrossSection total_;
     std::vector< PartialCrossSection > partials_;
 
     /* auxiliary functions */
@@ -60,14 +62,17 @@ namespace section{
     /**
      *  @brief Return the total cross section (optional)
      */
-    const auto& totalCrossSection() const { return this->total_; }
+    const OptionalTotalCrossSection& totalCrossSection() const {
+
+      return this->total_;
+    }
 
     /**
      *  @brief Return the partial cross sections
      */
-    auto photonPartialCrossSections() const {
+    AllRange< PartialCrossSection > photonPartialCrossSections() const {
 
-      return ranges::view::all( this->partials_ );
+      return ranges::cpp20::views::all( this->partials_ );
     }
 
     #include "ENDFtk/section/13/src/NC.hpp"
