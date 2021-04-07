@@ -4,6 +4,7 @@
 // system includes
 
 // other includes
+#include "range/v3/range/conversion.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/readSequence.hpp"
 #include "ENDFtk/section.hpp"
@@ -45,7 +46,7 @@ namespace section {
     /**
      *  @brief Return the fission yield data, one for each incident energy
      */
-    auto yields() const { return ranges::view::all( this->data_ ); }
+    auto yields() const { return ranges::cpp20::views::all( this->data_ ); }
 
     /**
      *  @brief Return the number of incident energy values
@@ -58,8 +59,8 @@ namespace section {
     auto E() const {
 
       return this->yields()
-                 | ranges::view::transform( [] ( const auto& entry )
-                                               { return entry.E(); } );
+                 | ranges::views::transform( [] ( const auto& entry )
+                                                { return entry.E(); } );
     }
 
     /**
