@@ -75,11 +75,11 @@ namespace record {
     long N2() const { return this->boundaryIndices.back(); }
 
     LongRange interpolants() const {
-      return ranges::view::all( this->interpolationSchemeIndices );
+      return ranges::cpp20::views::all( this->interpolationSchemeIndices );
     }
 
     LongRange boundaries() const {
-      return ranges::view::all( this->boundaryIndices );
+      return ranges::cpp20::views::all( this->boundaryIndices );
     }
 
     bool operator==( const InterpolationBase& rhs ) const {

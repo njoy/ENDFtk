@@ -35,9 +35,9 @@ FetchContent_Declare( header-utilities
     GIT_SHALLOW     TRUE
     )
 
-FetchContent_Declare( range-v3-adapter
-    GIT_REPOSITORY  https://github.com/njoy/range-v3-adapter
-    GIT_TAG         origin/master
+FetchContent_Declare( range-v3
+    GIT_REPOSITORY  https://github.com/ericniebler/range-v3
+    GIT_TAG         0.11.0
     GIT_SHALLOW     TRUE
     )
 
@@ -57,6 +57,6 @@ FetchContent_MakeAvailable(
     disco
     hana-adapter
     header-utilities
-    range-v3-adapter
+    range-v3
     pybind11
     )

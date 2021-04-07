@@ -32,7 +32,7 @@ SCENARIO( "TabulationRecord yValue",
       auto ys = tab1.y();
 
       // because they don't own data, views are small and live on the stack
-      REQUIRE( sizeof( ys ) == 16 );
+      REQUIRE( sizeof( ys ) == 8 );
 
       // so we can copy them willy-nilly
       auto ys2 = ys;

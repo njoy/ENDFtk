@@ -7,6 +7,7 @@
 // other includes
 #include "range/v3/view/all.hpp"
 #include "range/v3/view/iota.hpp"
+#include "range/v3/view/subrange.hpp"
 #include "range/v3/view/transform.hpp"
 #include "range/v3/view/zip.hpp"
 #include "ENDFtk/types.hpp"
@@ -43,10 +44,10 @@ namespace ENDFtk {
       const auto left = index ? this->boundaries()[ index - 1 ] - 1 : 0;
       const auto right = this->boundaries()[ index ];
       return
-        std::make_pair( ranges::make_iterator_range
+        std::make_pair( ranges::make_subrange
                         ( this->xValues.begin() + left,
                           this->xValues.begin() + right ),
-                        ranges::make_iterator_range
+                        ranges::make_subrange
                         ( this->yValues.begin() + left,
                           this->yValues.begin() + right ) );
     }
@@ -72,19 +73,19 @@ namespace ENDFtk {
     /**
      *  @brief Return the x values in the table
      */
-    DoubleRange x() const { return ranges::view::all( this->xValues ); }
+    DoubleRange x() const { return ranges::cpp20::views::all( this->xValues ); }
 
     /**
      *  @brief Return the y values in the table
      */
-    DoubleRange y() const { return ranges::view::all( this->yValues ); }
+    DoubleRange y() const { return ranges::cpp20::views::all( this->yValues ); }
 
     /**
      *  @brief Return the x,y pairs in the table
      */
     auto pairs() const {
 
-      return ranges::view::zip( this->xValues, this->yValues );
+      return ranges::views::zip( this->xValues, this->yValues );
     }
 
     using InterpolationBase::interpolants;
@@ -96,8 +97,8 @@ namespace ENDFtk {
     auto regions() const {
 
       return
-        ranges::view::iota( 0ul, this->boundaries().size() )
-        | ranges::view::transform( [this ]( int i ){ return this->regions(i); } );
+        ranges::views::iota( 0ul, this->boundaries().size() )
+        | ranges::views::transform( [this ]( int i ){ return this->regions(i); } );
     }
 
     /**

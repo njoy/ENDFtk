@@ -35,6 +35,6 @@ SCENARIO( "TabulationRecord regions", "[ENDFtk], [TabulationRecord]" ){
   //   + doesn't require a heap allocation
   //   + and is only modestly sized (the same as an array of 6 doubles).
 
-  REQUIRE( sizeof( tab1.regions() ) == 48 );
+  REQUIRE( sizeof( tab1.regions() ) == 40 );
 
 }

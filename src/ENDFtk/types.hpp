@@ -11,7 +11,7 @@ namespace ENDFtk {
 
   /* derived types using ranges */
   template < typename Type > using AllRange =
-  decltype( ranges::view::all( std::declval< const std::vector< Type > >() ) );
+  decltype( ranges::cpp20::views::all( std::declval< const std::vector< Type >& >() ) );
 
   /* type aliases */
   using DoubleRange = AllRange< double >;

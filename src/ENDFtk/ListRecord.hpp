@@ -120,7 +120,7 @@ namespace ENDFtk {
     /**
      *  @brief Return the list of values
      */
-    DoubleRange list() const { return ranges::view::all( this->data ); }
+    DoubleRange list() const { return ranges::cpp20::views::all( this->data ); }
 
     /**
      *  @brief Return the list of values

@@ -34,7 +34,7 @@ SCENARIO( "TabulationRecord pairs",
       auto pairs = tab1.pairs();
 
       // this zipped view is a bit expensive (5 doubles), but lives on the stack
-      REQUIRE( sizeof( pairs ) == 40 );
+      REQUIRE( sizeof( pairs ) == 24 );
 
       // so copying them isn't the end of the world
       auto pairs2 = pairs;

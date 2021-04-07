@@ -67,7 +67,7 @@ target_link_libraries( ENDFtk
     INTERFACE disco
     INTERFACE hana-adapter
     INTERFACE header-utilities
-    INTERFACE range-v3-adapter
+    INTERFACE range-v3
     )
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
