@@ -73,12 +73,18 @@ namespace ENDFtk {
     /**
      *  @brief Return the x values in the table
      */
-    DoubleRange x() const { return ranges::cpp20::views::all( this->xValues ); }
+    AllRange< double > x() const {
+
+      return ranges::cpp20::views::all( this->xValues );
+    }
 
     /**
      *  @brief Return the y values in the table
      */
-    DoubleRange y() const { return ranges::cpp20::views::all( this->yValues ); }
+    AllRange< double > y() const {
+
+      return ranges::cpp20::views::all( this->yValues );
+    }
 
     /**
      *  @brief Return the x,y pairs in the table

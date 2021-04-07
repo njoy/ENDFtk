@@ -74,11 +74,13 @@ namespace record {
     long NR() const { return this->boundaryIndices.size(); }
     long N2() const { return this->boundaryIndices.back(); }
 
-    LongRange interpolants() const {
+    AllRange< long > interpolants() const {
+
       return ranges::cpp20::views::all( this->interpolationSchemeIndices );
     }
 
-    LongRange boundaries() const {
+    AllRange< long > boundaries() const {
+
       return ranges::cpp20::views::all( this->boundaryIndices );
     }
 

@@ -4,7 +4,8 @@
 // system includes
 
 // other includes
-#include "range/v3/distance.hpp"
+#include "range/v3/iterator/operations.hpp"
+#include "range/v3/range/conversion.hpp"
 #include "range/v3/view/all.hpp"
 #include "range/v3/view/concat.hpp"
 #include "range/v3/view/join.hpp"
@@ -240,7 +241,7 @@ namespace section {
      */
     AllRange< DirectoryRecord > index() const {
 
-      return ranges::view::all( this->index_ );
+      return ranges::cpp20::views::all( this->index_ );
     }
 
     /**

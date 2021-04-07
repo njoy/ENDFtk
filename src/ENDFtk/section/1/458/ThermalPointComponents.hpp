@@ -55,9 +55,9 @@ public:
    *  This returns a range of pairs (the energy release value and its
    *  uncertainty)
    */
-  auto E() const {
+  ChunkRange< AllRange< double > > E() const {
 
-    return ListRecord::list() | ranges::view::chunk( 2 );
+    return ListRecord::list() | ranges::views::chunk( 2 );
   }
 
   /**
@@ -66,105 +66,105 @@ public:
    *  This returns a range of pairs (the energy release value and its
    *  uncertainty)
    */
-  auto energyRelease() const { return this->E(); }
+  ChunkRange< AllRange< double > > energyRelease() const { return this->E(); }
 
   /**
    *  @brief Return the kinetic energy of the fission fragments and its
    *         uncertainty
    */
-  auto EFR() const { return this->E()[0]; }
+  Chunk< AllRange< double > > EFR() const { return this->E()[0]; }
 
   /**
    *  @brief Return the kinetic energy of the fission fragments and its
    *         uncertainty
    */
-  auto fissionFragments() const { return this->EFR(); }
+  Chunk< AllRange< double > > fissionFragments() const { return this->EFR(); }
 
   /**
    *  @brief Return the kinetic energy of the prompt fission neutrons and its
    *         uncertainty
    */
-  auto ENP() const { return this->E()[1]; }
+  Chunk< AllRange< double > > ENP() const { return this->E()[1]; }
 
   /**
    *  @brief Return the kinetic energy of the prompt fission neutrons and its
    *         uncertainty
    */
-  auto promptNeutrons() const { return this->ENP(); }
+  Chunk< AllRange< double > > promptNeutrons() const { return this->ENP(); }
 
   /**
    *  @brief Return the kinetic energy of the delayed fission neutrons and its
    *         uncertainty
    */
-  auto END() const { return this->E()[2]; }
+  Chunk< AllRange< double > > END() const { return this->E()[2]; }
 
   /**
    *  @brief Return the kinetic energy of the delayed fission neutrons and its
    *         uncertainty
    */
-  auto delayedNeutrons() const { return this->END(); }
+  Chunk< AllRange< double > > delayedNeutrons() const { return this->END(); }
 
   /**
    *  @brief Return the energy release by prompt gammas and its uncertainty
    */
-  auto EGP() const { return this->E()[3]; }
+  Chunk< AllRange< double > > EGP() const { return this->E()[3]; }
 
   /**
    *  @brief Return the energy release by prompt gammas and its uncertainty
    */
-  auto promptGammas() const { return this->EGP(); }
+  Chunk< AllRange< double > > promptGammas() const { return this->EGP(); }
 
   /**
    *  @brief Return the energy release by delayed gammas and its uncertainty
    */
-  auto EGD() const { return this->E()[4]; }
+  Chunk< AllRange< double > > EGD() const { return this->E()[4]; }
 
   /**
    *  @brief Return the energy release by delayed gammas and its uncertainty
    */
-  auto delayedGammas() const { return this->EGD(); }
+  Chunk< AllRange< double > > delayedGammas() const { return this->EGD(); }
 
   /**
    *  @brief Return the energy release by delayed betas and its uncertainty
    */
-  auto EB() const  { return this->E()[5]; }
+  Chunk< AllRange< double > > EB() const  { return this->E()[5]; }
 
   /**
    *  @brief Return the energy release by delayed betas and its uncertainty
    */
-  auto delayedBetas() const  { return this->EB(); }
+  Chunk< AllRange< double > > delayedBetas() const  { return this->EB(); }
 
   /**
    *  @brief Return the energy release by neutrinos and its uncertainty
    */
-  auto ENU() const { return this->E()[6]; }
+  Chunk< AllRange< double > > ENU() const { return this->E()[6]; }
 
   /**
    *  @brief Return the energy release by neutrinos and its uncertainty
    */
-  auto neutrinos() const { return this->ENU(); }
+  Chunk< AllRange< double > > neutrinos() const { return this->ENU(); }
 
   /**
    *  @brief Return the total energy release minus the neutrino energy and its
    *         uncertainty
    */
-  auto ER() const  { return this->E()[7]; }
+  Chunk< AllRange< double > > ER() const  { return this->E()[7]; }
 
   /**
    *  @brief Return the total energy release minus the neutrino energy and its
    *         uncertainty
    */
-  auto totalMinusNeutrinos() const  { return this->ER(); }
+  Chunk< AllRange< double > > totalMinusNeutrinos() const  { return this->ER(); }
 
   /**
    *  @brief Return the total energy release and its uncertainty
    */
-  auto ET() const  { return this->E()[8]; }
+  Chunk< AllRange< double > > ET() const  { return this->E()[8]; }
 
   /**
    *  @brief Return the total energy release and its uncertainty
    */
-  auto total() const  { return this->ET(); }
+  Chunk< AllRange< double > > total() const  { return this->ET(); }
 
   using ListRecord::NC;
   using ListRecord::print;

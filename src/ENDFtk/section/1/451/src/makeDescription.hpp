@@ -2,7 +2,10 @@ static
 std::vector< TextRecord >
 makeDescription( const std::string& description ) {
 
-  return ranges::view::split( description, '\n' )
-           | ranges::view::transform( [] ( const auto& line )
-                                         { return TextRecord( line ); } );
+  return ranges::to< std::vector< TextRecord > >(
+           ranges::cpp20::views::split( description, '\n' )
+             | ranges::views::transform(
+                 [] ( const auto& line )
+                    { std::string string = ranges::to< std::string >( line );
+                      return TextRecord( std::move( string ) ); } ) );
 }
