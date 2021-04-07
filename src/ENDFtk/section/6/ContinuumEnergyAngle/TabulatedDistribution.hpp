@@ -58,9 +58,9 @@ public:
   auto MU() const {
 
     return Base::list()
-             | ranges::view::chunk( 2 + this->NA() )
-             | ranges::view::transform( ranges::view::drop( 2 )
-                                          | ranges::view::stride( 2 ) ); }
+             | ranges::views::chunk( 2 + this->NA() )
+             | ranges::views::transform( ranges::views::drop( 2 )
+                                           | ranges::views::stride( 2 ) ); }
 
   /**
    *  @brief Return the cosine values
@@ -73,9 +73,9 @@ public:
   auto F() const {
 
     return Base::list()
-             | ranges::view::chunk( 2 + this->NA() )
-             | ranges::view::transform( ranges::view::drop( 3 )
-                                          | ranges::view::stride( 2 ) ); }
+             | ranges::views::chunk( 2 + this->NA() )
+             | ranges::views::transform( ranges::views::drop( 3 )
+                                           | ranges::views::stride( 2 ) ); }
 
   /**
    *  @brief Return the distribution probabilities

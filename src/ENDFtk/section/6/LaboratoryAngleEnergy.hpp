@@ -44,18 +44,28 @@ public:
   /**
    *  @brief Return the interpolants for the incident energy axis
    */
-  auto interpolants() const { return this->data_.tab2().interpolants(); }
+  AllRange< long > interpolants() const {
+
+    return this->data_.tab2().interpolants();
+  }
 
   /**
    *  @brief Return the interpolation region boundaries for the incident
    *         energy axis
    */
-  auto boundaries() const { return this->data_.tab2().boundaries(); }
+  AllRange< long > boundaries() const {
+
+    return this->data_.tab2().boundaries();
+  }
 
   /**
    *  @brief Return the angular distributions
    */
-  auto angularDistributions() const { return this->data_.records(); }
+  AllRange< LaboratoryAngleEnergy::AngularDistribution >
+  angularDistributions() const {
+
+    return this->data_.records();
+  }
 
   /**
    *  @brief Return the incident energy values
@@ -63,7 +73,7 @@ public:
   auto E() const {
 
     return this->angularDistributions()
-               | ranges::view::transform(
+               | ranges::views::transform(
                      [] ( const auto& record )
                         { return record.incidentEnergy(); } );
   }

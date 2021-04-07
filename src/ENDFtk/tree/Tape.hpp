@@ -9,8 +9,7 @@
 // other includes
 #include "range/v3/action/sort.hpp"
 #include "range/v3/action/unique.hpp"
-#include "range/v3/iterator_range.hpp"
-#include "range/v3/utility/iterator.hpp"
+#include "range/v3/range/operations.hpp"
 #include "ENDFtk/TapeIdentification.hpp"
 #include "ENDFtk/Tape.hpp"
 #include "ENDFtk/tree/Material.hpp"
@@ -131,12 +130,18 @@ namespace tree {
     /**
      *  @brief Return all materials in the tape
      */
-    auto materials() { return this->materials_ | ranges::view::values; }
+    auto materials() {
+
+      return this->materials_ | ranges::cpp20::views::values;
+    }
 
     /**
      *  @brief Return all materials in the tape
      */
-    auto materials() const { return this->materials_ | ranges::view::values; }
+    auto materials() const {
+
+      return this->materials_ | ranges::cpp20::views::values;
+    }
 
     /**
      *  @brief Return a begin iterator to all materials
@@ -169,7 +174,7 @@ namespace tree {
     /**
      *  @brief Return the tape's buffer
      */
-    auto buffer() const { return this->buffer_ | ranges::view::all; }
+    auto buffer() const { return this->buffer_ | ranges::cpp20::views::all; }
 
     /**
      *  @brief Return the tape identification (the first line in the file)
@@ -181,9 +186,9 @@ namespace tree {
      */
     std::vector< int > materialNumbers() const {
 
-      return ranges::view::keys( this->materials_ )
+      return ranges::cpp20::views::keys( this->materials_ )
                | ranges::to_vector
-               | ranges::action::sort | ranges::action::unique;
+               | ranges::actions::sort | ranges::actions::unique;
     }
   };
 

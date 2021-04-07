@@ -72,18 +72,27 @@ public:
   /**
    *  @brief Return the subsections, one for each incident energy
    */
-  auto distributions() const { return this->data_.records(); }
+  AllRange< Variant > distributions() const {
+
+    return this->data_.records();
+  }
 
   /**
    *  @brief Return interpolation type for each range on the incident
    *         energy grid
    */
-  auto interpolants() const { return this->data_.tab2().interpolants(); }
+  AllRange< long > interpolants() const {
+
+    return this->data_.tab2().interpolants();
+  }
 
   /**
    *  @brief Return interpolation boundaries for the incident energy grid
    */
-  auto boundaries() const { return this->data_.tab2().boundaries(); }
+  AllRange< long > boundaries() const {
+
+    return this->data_.tab2().boundaries();
+  }
 
   /**
    *  @brief Return the incident energy values
@@ -91,7 +100,7 @@ public:
   auto E() const {
 
     return this->distributions()
-               | ranges::view::transform(
+               | ranges::views::transform(
                   [] ( const auto& variant )
                      { return std::visit( [] ( const auto& record )
                                              { return record.incidentEnergy(); },

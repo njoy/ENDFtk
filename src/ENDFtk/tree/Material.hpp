@@ -90,35 +90,41 @@ namespace tree {
     /**
      *  @brief Return all files in the material
      */
-    auto files() { return this->files_ | ranges::view::values; }
+    auto files() { return this->files_ | ranges::cpp20::views::values; }
 
     /**
      *  @brief Return all files in the material
      */
-    auto files() const { return this->files_ | ranges::view::values; }
+    auto files() const { return this->files_ | ranges::cpp20::views::values; }
 
     /**
      *  @brief Return a begin iterator to all files
      */
-    auto begin(){ return ( this->files_ | ranges::view::values ).begin(); }
+    auto begin() {
+
+      return ( this->files_ | ranges::cpp20::views::values ).begin();
+    }
 
     /**
      *  @brief Return an end iterator to all files
      */
-    auto end(){ return ( this->files_ | ranges::view::values ).end(); }
+    auto end(){ return ( this->files_ | ranges::cpp20::views::values ).end(); }
 
     /**
      *  @brief Return a begin iterator to all files
      */
     auto begin() const {
 
-      return ( this->files_ | ranges::view::values ).begin();
+      return ( this->files_ | ranges::cpp20::views::values ).begin();
     }
 
     /**
      *  @brief Return an end iterator to all files
      */
-    auto end() const { return ( this->files_ | ranges::view::values ).end(); }
+    auto end() const {
+
+      return ( this->files_ | ranges::cpp20::views::values ).end();
+    }
 
     /**
      *  @brief Return the number of files in the materials
@@ -139,14 +145,18 @@ namespace tree {
      *  @brief Return the material's buffer
      */
     auto buffer() const {
-      return ranges::make_iterator_range( this->bufferLimits.first,
-                                          this->bufferLimits.second );
+
+      return ranges::make_subrange( this->bufferLimits.first,
+                                    this->bufferLimits.second );
     }
 
     /**
      *  @brief Return all file numbers in the material
      */
-    auto fileNumbers() const { return ranges::view::keys( this->files_ ); }
+    auto fileNumbers() const {
+
+      return ranges::cpp20::views::keys( this->files_ );
+    }
   };
 
 } // tree namespace

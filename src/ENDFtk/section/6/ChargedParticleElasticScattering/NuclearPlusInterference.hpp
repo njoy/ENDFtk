@@ -52,15 +52,15 @@ public:
   /**
    *  @brief Return the cosine values
    */
-  auto MU() const {
+  StrideRange< AllRange< double > > MU() const {
 
-    return ListRecord::list() | ranges::view::stride( 2 );
+    return ListRecord::list() | ranges::views::stride( 2 );
   }
 
   /**
    *  @brief Return the cosine values
    */
-  auto cosines() const {
+  StrideRange< AllRange< double > > cosines() const {
 
     return this->MU();
   }
@@ -68,16 +68,19 @@ public:
   /**
    *  @brief Return the probabilities
    */
-  auto PNI() const {
+  StrideRange< DropRange< AllRange< double > > > PNI() const {
 
-    return ranges::view::drop_exactly( ListRecord::list(), 1 )
-             | ranges::view::stride( 2 );
+    return ranges::views::drop_exactly( ListRecord::list(), 1 )
+             | ranges::views::stride( 2 );
   }
 
   /**
    *  @brief Return the probabilities
    */
-  auto probabilities() const { return this->PNI(); }
+  StrideRange< DropRange< AllRange< double > > > probabilities() const {
+
+    return this->PNI();
+  }
 
   using ListRecord::NC;
   using ListRecord::print;
