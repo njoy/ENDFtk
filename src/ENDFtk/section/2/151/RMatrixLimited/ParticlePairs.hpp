@@ -10,18 +10,25 @@
  */
 class ParticlePairs : protected ListRecord {
 
+public:
+
+  using Column = StrideRange< DropRange< AllRange< double > > >;
+
+private:
+
   /* auxiliary functions */
   #include "ENDFtk/section/2/151/RMatrixLimited/ParticlePairs/src/generateList.hpp"
   #include "ENDFtk/section/2/151/RMatrixLimited/ParticlePairs/src/verifySize.hpp"
 
-  auto column( unsigned int i ) const {
+  Column column( unsigned int i ) const {
 
     return ListRecord::list()
-             | ranges::view::drop_exactly( i )
-             | ranges::view::stride( 12 );
+             | ranges::views::drop_exactly( i )
+             | ranges::views::stride( 12 );
   }
 
 public:
+
   /* constructor */
   #include "ENDFtk/section/2/151/RMatrixLimited/ParticlePairs/src/ctor.hpp"
 
@@ -30,105 +37,105 @@ public:
   /**
    *  @brief Return the number of particle pairs
    */
-  auto NPP() const { return ListRecord::NPL() / 12; }
+  unsigned int NPP() const { return ListRecord::NPL() / 12; }
 
   /**
    *  @brief Return the number of particle pairs
    */
-  auto numberParticlePairs() const { return this->NPP(); }
+  unsigned int numberParticlePairs() const { return this->NPP(); }
 
   /**
    *  @brief Return the mass of the first particle in each particle pair
    */
-  auto MA() const { return ListRecord::list() | ranges::view::stride( 12 ); }
+  Column MA() const { return ParticlePairs::column( 0 ); }
 
   /**
    *  @brief Return the mass of the first particle in each particle pair
    */
-  auto massParticleA() const { return this->MA(); }
+  Column massParticleA() const { return this->MA(); }
 
   /**
    *  @brief Return the mass of the second particle in each particle pair
    */
-  auto MB() const { return ParticlePairs::column( 1 ); }
+  Column MB() const { return ParticlePairs::column( 1 ); }
 
   /**
    *  @brief Return the mass of the second particle in each particle pair
    */
-  auto massParticleB() const { return this->MB(); }
+  Column massParticleB() const { return this->MB(); }
 
   /**
    *  @brief Return the charge of the first particle in each particle pair
    */
-  auto ZA() const { return ParticlePairs::column( 2 ); }
+  Column ZA() const { return ParticlePairs::column( 2 ); }
 
   /**
    *  @brief Return the charge of the first particle in each particle pair
    */
-  auto chargeParticleA() const { return this->ZA(); }
+  Column chargeParticleA() const { return this->ZA(); }
 
   /**
    *  @brief Return the charge of the second particle in each particle pair
    */
-  auto ZB() const { return ParticlePairs::column( 3 ); }
+  Column ZB() const { return ParticlePairs::column( 3 ); }
 
   /**
    *  @brief Return the charge of the second particle in each particle pair
    */
-  auto chargeParticleB() const { return this->ZB(); }
+  Column chargeParticleB() const { return this->ZB(); }
 
   /**
    *  @brief Return the spin of the first particle in each particle pair
    */
-  auto IA() const { return ParticlePairs::column( 4 ); }
+  Column IA() const { return ParticlePairs::column( 4 ); }
 
   /**
    *  @brief Return the spin of the first particle in each particle pair
    */
-  auto spinParticleA() const { return this->IA(); }
+  Column spinParticleA() const { return this->IA(); }
 
   /**
    *  @brief Return the spin of the second particle in each particle pair
    */
-  auto IB() const { return ParticlePairs::column( 5 ); }
+  Column IB() const { return ParticlePairs::column( 5 ); }
 
   /**
    *  @brief Return the spin of the second particle in each particle pair
    */
-  auto spinParticleB() const { return this->IB(); }
+  Column spinParticleB() const { return this->IB(); }
 
   /**
    *  @brief Return the parity of the first particle in each particle pair
    */
-  auto PA() const { return ParticlePairs::column( 10 ); }
+  Column PA() const { return ParticlePairs::column( 10 ); }
 
   /**
    *  @brief Return the parity of the first particle in each particle pair
    */
-  auto parityParticleA() const { return this->PA(); }
+  Column parityParticleA() const { return this->PA(); }
 
   /**
    *  @brief Return the parity of the second particle in each particle pair
    */
-  auto PB() const { return ParticlePairs::column( 11 ); }
+  Column PB() const { return ParticlePairs::column( 11 ); }
 
   /**
    *  @brief Return the parity of the second particle in each particle pair
    */
-  auto parityParticleB() const { return this->PB(); }
+  Column parityParticleB() const { return this->PB(); }
 
   /**
    *  @brief Return the Q value for each particle pair
    */
-  auto Q() const { return ParticlePairs::column( 6 ); }
+  Column Q() const { return ParticlePairs::column( 6 ); }
 
   /**
    *  @brief Return the penetrability flag for each particle pair
    */
   auto PNT() const {
     return ParticlePairs::column( 7 )
-             | ranges::view::transform( [] ( auto pnt )
-                                           { return int( pnt ); } ); }
+             | ranges::views::transform( [] ( auto pnt )
+                                            { return int( pnt ); } ); }
 
   /**
    *  @brief Return the penetrability flag for each particle pair
@@ -140,8 +147,8 @@ public:
    */
   auto SHF() const {
     return ParticlePairs::column( 8 )
-             | ranges::view::transform( [] ( auto shf )
-                                           { return int( shf ); } ); }
+             | ranges::views::transform( [] ( auto shf )
+                                            { return int( shf ); } ); }
 
   /**
    *  @brief Return the shift factor flag for each particle pair
@@ -153,8 +160,8 @@ public:
    */
   auto MT() const {
     return ParticlePairs::column( 9 )
-             | ranges::view::transform( [] ( auto mt )
-                                           { return int( mt ); } ); }
+             | ranges::views::transform( [] ( auto mt )
+                                            { return int( mt ); } ); }
 
   using ListRecord::NC;
   using ListRecord::print;

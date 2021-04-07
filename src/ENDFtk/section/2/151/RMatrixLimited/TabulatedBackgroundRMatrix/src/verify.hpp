@@ -2,9 +2,9 @@ template < typename Range >
 static bool compare( const Range& left, const Range& right ) {
 
   return ranges::count(
-               ranges::view::zip_with(
+               ranges::views::zip_with(
                    [] ( double left, double right ) { return left == right; },
-                   left, right ), true ) == ranges::distance( left );
+                   left, right ), true ) == ranges::cpp20::distance( left );
 }
 
 static void

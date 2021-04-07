@@ -6,8 +6,15 @@
  */
 class BackgroundChannels {
 
+public:
+
+  /* type aliases */
+  using OptionalBackgroundRMatrix = std::optional< BackgroundRMatrix >;
+
+private:
+
   /* fields */
-  std::vector< std::optional< BackgroundRMatrix > > channels_;
+  std::vector< OptionalBackgroundRMatrix > channels_;
 
   /* auxiliary functions */
   #include "ENDFtk/section/2/151/RMatrixLimited/BackgroundChannels/src/makeBackgroundMatrices.hpp"
@@ -23,28 +30,28 @@ public:
   /**
    *  @brief Return the number of channels
    */
-  auto NCH() const { return this->channels_.size(); }
+  unsigned int NCH() const { return this->channels_.size(); }
 
   /**
    *  @brief Return the number of channels
    */
-  auto numberChannels() const { return this->NCH(); }
+  unsigned int numberChannels() const { return this->NCH(); }
 
   /**
    *  @brief Return the background R-matrix values for all channels
    */
-  auto backgroundRMatrices() const {
+  AllRange< OptionalBackgroundRMatrix > backgroundRMatrices() const {
 
-    return ranges::view::all( this->channels_ );
+    return ranges::cpp20::views::all( this->channels_ );
   }
 
   /**
    *  @brief Return the number of channels with background R-matrix values
    */
-  auto KBK() const {
+  unsigned int KBK() const {
 
     return ranges::count( this->backgroundRMatrices()
-                              | ranges::view::transform(
+                              | ranges::views::transform(
                                     [] ( const auto& value )
                                        { return bool( value ); } ),
                           true );
@@ -53,7 +60,7 @@ public:
   /**
    *  @brief Return the number of channels with background R-matrix values
    */
-  auto numberBackgroundChannels() const { return this->KBK(); }
+  unsigned int numberBackgroundChannels() const { return this->KBK(); }
 
   #include "ENDFtk/section/2/151/RMatrixLimited/BackgroundChannels/src/NC.hpp"
   #include "ENDFtk/section/2/151/RMatrixLimited/BackgroundChannels/src/print.hpp"

@@ -8,6 +8,7 @@
 // other includes
 #include "range/v3/algorithm/count.hpp"
 #include "range/v3/algorithm/find.hpp"
+#include "range/v3/range/conversion.hpp"
 #include "range/v3/view/all.hpp"
 #include "range/v3/view/chunk.hpp"
 #include "range/v3/view/drop_exactly.hpp"
@@ -105,7 +106,7 @@ namespace section {
      */
     AllRange< Isotope > isotopes() const {
 
-      return ranges::view::all( this->isotopes_ );
+      return ranges::cpp20::views::all( this->isotopes_ );
     }
 
     using BaseWithoutMT::MT;

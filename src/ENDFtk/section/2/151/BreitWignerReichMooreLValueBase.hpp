@@ -7,14 +7,20 @@
  */
 class BreitWignerReichMooreLValueBase : protected ListRecord {
 
+public:
+
+  using Column = StrideRange< DropRange< AllRange< double > > >;
+
+private:
+
   /* auxiliary functions */
   #include "ENDFtk/section/2/151/BreitWignerReichMooreLValueBase/src/verifySize.hpp"
   #include "ENDFtk/section/2/151/BreitWignerReichMooreLValueBase/src/generateList.hpp"
 
-  auto column( unsigned int i ) const {
+  Column column( unsigned int i ) const {
 
-    return ListRecord::list() | ranges::view::drop_exactly( i )
-                              | ranges::view::stride( 6 );
+    return ListRecord::list() | ranges::views::drop_exactly( i )
+                              | ranges::views::stride( 6 );
   }
 
 protected:
@@ -25,29 +31,29 @@ protected:
   /**
    *  @brief Return the first width
    */
-  auto G1() const { return BreitWignerReichMooreLValueBase::column( 2 ); }
+  Column G1() const { return BreitWignerReichMooreLValueBase::column( 2 ); }
 
   /**
    *  @brief Return the second width
    */
-  auto G2() const { return BreitWignerReichMooreLValueBase::column( 3 ); }
+  Column G2() const { return BreitWignerReichMooreLValueBase::column( 3 ); }
 
   /**
    *  @brief Return the third width
    */
-  auto G3() const { return BreitWignerReichMooreLValueBase::column( 4 ); }
+  Column G3() const { return BreitWignerReichMooreLValueBase::column( 4 ); }
 
   /**
    *  @brief Return the fourth width
    */
-  auto G4() const { return BreitWignerReichMooreLValueBase::column( 5 ); }
+  Column G4() const { return BreitWignerReichMooreLValueBase::column( 5 ); }
 
   /**
    *  @brief Return the resonances
    */
-  auto resonances() const {
+  ChunkRange< AllRange< double > > resonances() const {
 
-    return ListRecord::list() | ranges::view::chunk(6);
+    return ListRecord::list() | ranges::views::chunk(6);
   }
 
 public:
@@ -93,22 +99,22 @@ public:
   /**
    *  @brief Return the resonance energies
    */
-  auto ER() const { return ListRecord::list() | ranges::view::stride( 6 ); }
+  Column ER() const { return BreitWignerReichMooreLValueBase::column( 0 ); }
 
   /**
   *  @brief Return the resonance energies
    */
-  auto resonanceEnergies() const { return this->ER(); }
+  Column resonanceEnergies() const { return this->ER(); }
 
   /**
    *  @brief Return the spin values
    */
-  auto AJ() const { return BreitWignerReichMooreLValueBase::column( 1 ); }
+  Column AJ() const { return BreitWignerReichMooreLValueBase::column( 1 ); }
 
   /**
   *  @brief Return the spin values
    */
-  auto spinValues() const { return this->AJ(); }
+  Column spinValues() const { return this->AJ(); }
 
   using ListRecord::NC;
   using ListRecord::print;
