@@ -36,12 +36,12 @@ class Test_ENDFtk_MF13_Section( unittest.TestCase ) :
             self.assertAlmostEqual( 2.330250e+2, chunk.atomic_weight_ratio )
 
             self.assertEqual( None, chunk.total_cross_section )
-            self.assertEqual( 1, len( chunk.partial_cross_sections ) )
+            self.assertEqual( 1, len( chunk.photon_partial_cross_sections ) )
 
             self.assertEqual( 1, chunk.NK )
-            self.assertEqual( 1, chunk.number_partials )
+            self.assertEqual( 1, chunk.number_photons )
 
-            partial = chunk.partial_cross_sections[0]
+            partial = chunk.photon_partial_cross_sections[0]
             self.assertAlmostEqual( 0.0, partial.EG )
             self.assertAlmostEqual( 0.0, partial.photon_or_binding_energy )
             self.assertAlmostEqual( 0.0, partial.ES )

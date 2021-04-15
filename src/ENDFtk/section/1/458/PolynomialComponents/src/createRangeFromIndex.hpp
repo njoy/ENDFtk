@@ -1,7 +1,7 @@
-auto createRangeFromIndex( unsigned int i ) const {
+Piece createRangeFromIndex( unsigned int i ) const {
 
   return ListRecord::list()
-           | ranges::view::chunk( 2 )
-           | ranges::view::drop_exactly( i )
-           | ranges::view::stride( 9 );
+           | ranges::views::chunk( 2 )
+           | ranges::views::drop_exactly( i )
+           | ranges::views::stride( 9 );
 }

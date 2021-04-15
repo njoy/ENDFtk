@@ -28,10 +28,12 @@ namespace section{
     #include "ENDFtk/section/13/TotalCrossSection.hpp"
     #include "ENDFtk/section/13/PartialCrossSection.hpp"
 
+    using OptionalTotalCrossSection = std::optional< TotalCrossSection >;
+
   private:
 
     /* fields */
-    std::optional< TotalCrossSection > total_;
+    OptionalTotalCrossSection total_;
     std::vector< PartialCrossSection > partials_;
 
     /* auxiliary functions */
@@ -46,28 +48,31 @@ namespace section{
     /* get methods */
 
     /**
-     *  @brief Return the number of partial cross sections (discrete photons
-     *         and continuum)
+     *  @brief Return the number of photons (discrete and continuum) with
+     *         partial cross sections
      */
     int NK() const { return this->partials_.size(); }
 
     /**
-    *  @brief Return the number of partial multiplicities (discrete photons
-    *         and continuum)
+     *  @brief Return the number of photons (discrete and continuum) with
+     *         partial cross sections
      */
-    int numberPartials() const { return this->NK(); }
+    int numberPhotons() const { return this->NK(); }
 
     /**
      *  @brief Return the total cross section (optional)
      */
-    const auto& totalCrossSection() const { return this->total_; }
+    const OptionalTotalCrossSection& totalCrossSection() const {
+
+      return this->total_;
+    }
 
     /**
      *  @brief Return the partial cross sections
      */
-    auto partialCrossSections() const {
+    AllRange< PartialCrossSection > photonPartialCrossSections() const {
 
-      return ranges::view::all( this->partials_ );
+      return ranges::cpp20::views::all( this->partials_ );
     }
 
     #include "ENDFtk/section/13/src/NC.hpp"

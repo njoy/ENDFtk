@@ -35,7 +35,7 @@ SCENARIO( "Creating a syntax tree of an ENDF File" ){
 
         THEN( "We can exstract the MT numbers" ){
           std::vector< int > refMTs{ 1, 2, 102 };
-          CHECK( ranges::equal( refMTs, original->sectionNumbers() ) );
+          CHECK( ranges::cpp20::equal( refMTs, original->sectionNumbers() ) );
         } // THEN
 
         THEN( "the copy ctor will function correctly "){

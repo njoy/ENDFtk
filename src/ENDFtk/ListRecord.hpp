@@ -120,12 +120,15 @@ namespace ENDFtk {
     /**
      *  @brief Return the list of values
      */
-    DoubleRange list() const { return ranges::view::all( this->data ); }
+    AllRange< double > list() const {
+
+      return ranges::cpp20::views::all( this->data );
+    }
 
     /**
      *  @brief Return the list of values
      */
-    DoubleRange B() const { return this->list(); }
+    AllRange< double > B() const { return this->list(); }
 
     /**
      *  @brief Equality operator

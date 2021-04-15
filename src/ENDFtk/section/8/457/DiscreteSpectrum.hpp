@@ -45,8 +45,10 @@ public:
    *  @brief Return the discrete energy value and uncertainty
    */
   auto ER() const {
+
       return std::array< double, 2 >( {{ ListRecord::C1(),
-                                         ListRecord::C2() }} ); }
+                                         ListRecord::C2() }} );
+  }
 
   /**
    *  @brief Return the discrete energy value and uncertainty

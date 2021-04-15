@@ -67,12 +67,12 @@ namespace section {
     /**
      *  @brief Return the temperature
      */
-    auto TEMZ() const { return this->data_.C1(); }
+    double TEMZ() const { return this->data_.C1(); }
 
     /**
      *  @brief Return the temperature
      */
-    auto temperature() const { return this->TEMZ(); }
+    double temperature() const { return this->TEMZ(); }
 
     /**
      *  @brief Return the number of data values
@@ -87,7 +87,7 @@ namespace section {
     /**
      *  @brief Return the number of reactions (normally 5)
      */
-    auto numberReactions() const { return this->NREAC(); }
+    int numberReactions() const { return this->NREAC(); }
 
     /**
      *  @brief Return the number of dilution or sigma zero values
@@ -97,21 +97,21 @@ namespace section {
     /**
      *  @brief Return the number of dilution or sigma zero values
      */
-    auto numberDilutions() const { return this->NSIGZ(); }
+    int numberDilutions() const { return this->NSIGZ(); }
 
     /**
      *  @brief Return the dilution or sigma zero values
      */
-    auto SIGZ() const {
+    TakeRange< AllRange< double > > SIGZ() const {
 
       return this->data_.list()
-               | ranges::view::take_exactly( this->NSIGZ() );
+               | ranges::views::take_exactly( this->NSIGZ() );
     }
 
     /**
      *  @brief Return the dilution or sigma zero values
      */
-    auto dilutions() const { return this->SIGZ(); }
+    TakeRange< AllRange< double > > dilutions() const { return this->SIGZ(); }
 
     /**
      *  @brief Return the number of energy values
@@ -121,22 +121,25 @@ namespace section {
     /**
      *  @brief Return the number of energy values
      */
-    auto numberEnergies() const { return this->NUNR(); }
+    int numberEnergies() const { return this->NUNR(); }
 
     /**
      *  @brief Return the unresolved resonance energies
      */
-    auto EUNR() const {
+    StrideRange< DropRange< AllRange< double > > > EUNR() const {
 
       return this->data_.list()
-               | ranges::view::drop_exactly( this->NSIGZ() )
-               | ranges::view::stride( 1 + this->NSIGZ() * 5 );
+               | ranges::views::drop_exactly( this->NSIGZ() )
+               | ranges::views::stride( 1 + this->NSIGZ() * 5 );
     }
 
     /**
      *  @brief Return the unresolved resonance energies
      */
-    auto energies() const { return this->EUNR(); }
+    StrideRange< DropRange< AllRange< double > > > energies() const {
+
+      return this->EUNR();
+    }
 
     /**
      *  @brief Return the total cross section values for each energy and dilution

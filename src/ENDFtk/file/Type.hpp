@@ -5,7 +5,6 @@
 #include <map>
 
 // other includes
-#include "range/v3/front.hpp"
 #include "range/v3/view/map.hpp"
 #include "ENDFtk/section.hpp"
 #include "ENDFtk/file/Base.hpp"
@@ -46,12 +45,18 @@ namespace file {
     /**
      *  @brief Return the sections stored in this file
      */
-    auto sections() { return this->sectionMap | ranges::view::values; }
+    auto sections() {
+
+      return this->sectionMap | ranges::cpp20::views::values;
+    }
 
     /**
      *  @brief Return the sections stored in this file
      */
-    auto sections() const { return this->sectionMap | ranges::view::values; }
+    auto sections() const {
+
+      return this->sectionMap | ranges::cpp20::views::values;
+    }
 
     /**
      *  @brief Return an iterator to the start of the sections

@@ -76,7 +76,7 @@ namespace section{
     /**
      *  @brief Return the photon production data
      */
-    const auto& photonProduction() const { return this->photon_; }
+    const PhotonProduction& photonProduction() const { return this->photon_; }
 
     #include "ENDFtk/section/12/src/NC.hpp"
     #include "ENDFtk/section/12/src/print.hpp"

@@ -65,9 +65,9 @@ public:
   /**
    *  @brief Return the resonance ranges for this isotope
    */
-  auto resonanceRanges() const {
+  AllRange< ResonanceRange > resonanceRanges() const {
 
-    return ranges::view::all( this->ranges_ );
+    return ranges::cpp20::views::all( this->ranges_ );
   }
 
   #include "ENDFtk/section/2/151/Isotope/src/print.hpp"

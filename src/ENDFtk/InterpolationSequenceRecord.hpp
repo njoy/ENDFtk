@@ -129,7 +129,7 @@ namespace ENDFtk {
      */
     AllRange< Component > records() const {
 
-      return ranges::view::all( this->sequence_ );
+      return ranges::cpp20::views::all( this->sequence_ );
     }
 
     #include "ENDFtk/InterpolationSequenceRecord/src/NC.hpp"

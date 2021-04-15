@@ -81,16 +81,16 @@ public:
       switch(1 + NS) {
         case 1: {
           static constexpr std::array< std::ptrdiff_t, 1 > indices = {{0}};
-          return ranges::make_iterator_range(indices.begin(), indices.end());
+          return ranges::make_subrange(indices.begin(), indices.end());
         } case 2: {
           static constexpr std::array< std::ptrdiff_t, 2 > indices = {{0, 7}};
-          return ranges::make_iterator_range(indices.begin(), indices.end());
+          return ranges::make_subrange(indices.begin(), indices.end());
         } case 3: {
           static constexpr std::array< std::ptrdiff_t, 3 > indices = {{0, 7, 13}};
-          return ranges::make_iterator_range(indices.begin(), indices.end());
+          return ranges::make_subrange(indices.begin(), indices.end());
         } case 4: {
           static constexpr std::array< std::ptrdiff_t, 4 > indices = {{0, 7, 13, 19}};
-          return ranges::make_iterator_range(indices.begin(), indices.end());
+          return ranges::make_subrange(indices.begin(), indices.end());
         } default: {
          #ifdef __GNUC__
           __builtin_unreachable();
@@ -102,7 +102,7 @@ public:
 
     auto element = [l = ListRecord::list()](auto index){ return l[index]; };
 
-    return indices( this->NS() ) | ranges::view::transform( element );
+    return indices( this->NS() ) | ranges::cpp20::views::transform( element );
   }
 
   /**
@@ -115,40 +115,51 @@ public:
    *  @brief Return the ratio of the atomic weight to the neutron mass for each
    *         scattering atom type, stored in B(3), B(9) and B(15)
    */
-  auto AWR() const {
+  StrideRange< DropRange< AllRange< double > > > AWR() const {
+
     return ListRecord::list()
-             | ranges::view::drop_exactly( 2 )
-             | ranges::view::stride( 6 ); }
+             | ranges::views::drop_exactly( 2 )
+             | ranges::views::stride( 6 ); }
 
   /**
    *  @brief Return the ratio of the atomic weight to the neutron mass for each
    *         scattering atom type, stored in B(3), B(9) and B(15)
    */
-  auto atomicWeightRatios() const { return this->AWR(); }
+  StrideRange< DropRange< AllRange< double > > > atomicWeightRatios() const {
+
+    return this->AWR();
+  }
 
   /**
    *  @brief Return the number of atoms for each scattering atom type present in
    *         the molecule or unit cell, stored in B(6), B(12) and B(18)
    */
-  auto M() const {
+  StrideRange< DropRange< AllRange< double > > > M() const {
+
     return ListRecord::list()
-             | ranges::view::drop_exactly( 5 )
-             | ranges::view::stride( 6 ); }
+             | ranges::views::drop_exactly( 5 )
+             | ranges::views::stride( 6 ); }
 
   /**
    *  @brief Return the number of atoms for each scattering atom type present in
    *         the molecule or unit cell, stored in B(6), B(12) and B(18)
    */
-  auto numberAtoms() const { return this->M(); }
+  StrideRange< DropRange< AllRange< double > > > numberAtoms() const {
+
+    return this->M();
+  }
 
   /**
    *  @brief Return the analytical function type for each non-principal
    *         scattering atom type, stored in B(7), B(13) and B(19)
    */
-  auto analyticalFunctionTypes() const {
+  StrideRange< DropRange< AllRange< double > > >
+  analyticalFunctionTypes() const {
+
     return ListRecord::list()
-             | ranges::view::drop_exactly( 6 )
-             | ranges::view::stride( 6 ); }
+             | ranges::views::drop_exactly( 6 )
+             | ranges::views::stride( 6 );
+  }
 
   using ListRecord::NC;
   using ListRecord::print;

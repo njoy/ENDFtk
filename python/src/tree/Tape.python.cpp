@@ -6,6 +6,7 @@
 #include "ENDFtk/tree/Tape.hpp"
 #include "ENDFtk/tree/makeTape.hpp"
 #include "ENDFtk/tree/fromFile.hpp"
+#include "range/v3/range/operations.hpp"
 #include "views.hpp"
 
 // namespace aliases
@@ -141,7 +142,7 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
 
     "content",
     [] ( const Tape& self ) -> std::string
-       { return self.buffer(); },
+       { return ranges::to< std::string >( self.buffer() ); },
     "The content of the tape"
   )
   .def_static(

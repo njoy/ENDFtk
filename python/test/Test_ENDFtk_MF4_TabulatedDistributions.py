@@ -33,6 +33,8 @@ class Test_ENDFtk_MF4_TabulatedDistributions( unittest.TestCase ) :
         def verify_chunk( self, chunk ) :
 
             # verify content
+            self.assertEqual( False, chunk.LI )
+            self.assertEqual( False, chunk.isotropic_angular_distributions )
             self.assertEqual( 2, chunk.LTT )
             self.assertEqual( 2, chunk.LAW )
 
@@ -134,7 +136,7 @@ class Test_ENDFtk_MF4_TabulatedDistributions( unittest.TestCase ) :
 
         with self.assertRaises( Exception ) :
 
-            chunk = TabulatedDistributions.from_string( self.invalid, 9228, 2, 151 )
+            chunk = TabulatedDistributions.from_string( self.invalid, 9228, 4, 2 )
 
 if __name__ == '__main__' :
 

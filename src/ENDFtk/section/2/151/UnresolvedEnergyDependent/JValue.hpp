@@ -8,15 +8,22 @@
  */
 class JValue : protected ListRecord {
 
+public:
+
+  using Column = StrideRange< DropRange< AllRange< double > > >;
+
+private:
+
   /* auxiliary functions */
   #include "ENDFtk/section/2/151/UnresolvedEnergyDependent/JValue/src/generateList.hpp"
   #include "ENDFtk/section/2/151/UnresolvedEnergyDependent/JValue/src/verifySize.hpp"
 
-  auto column( const int index ) const {
+  Column column( const int index ) const {
+
     return
       ListRecord::list()
-        | ranges::view::drop_exactly( index + 6 )
-        | ranges::view::stride(6);
+        | ranges::views::drop_exactly( index + 6 )
+        | ranges::views::stride(6);
   }
 
 public:
@@ -27,12 +34,12 @@ public:
   /**
    *  @brief Return the spin value
    */
-  auto AJ() const { return ListRecord::C1(); }
+  double AJ() const { return ListRecord::C1(); }
 
   /**
    *  @brief Return the spin value
    */
-  auto spin() const { return this->AJ(); }
+  double spin() const { return this->AJ(); }
 
   /**
    *  @brief Return the number of degrees of freedom for the neutron width.
@@ -77,62 +84,62 @@ public:
   /**
    *  @brief Return the energy values.
    */
-  auto ES() const { return this->column( 0 ); }
+  Column ES() const { return this->column( 0 ); }
 
   /**
    *  @brief Return the energy values.
    */
-  auto energies() const { return this->ES(); }
+  Column energies() const { return this->ES(); }
 
   /**
    *  @brief Return the average level spacing.
    */
-  auto D() const { return this->column( 1 ); }
+  Column D() const { return this->column( 1 ); }
 
   /**
    *  @brief Return the average level spacing.
    */
-  auto averageLevelSpacings() const { return this->D(); }
+  Column averageLevelSpacings() const { return this->D(); }
 
   /**
    *  @brief Return the average neutron width.
    */
-  auto GN() const { return this->column( 3 ); }
+  Column GN() const { return this->column( 3 ); }
 
   /**
    *  @brief Return the average neutron width.
    */
-  auto averageNeutronWidths() const { return this->GN(); }
+  Column averageNeutronWidths() const { return this->GN(); }
 
   /**
    *  @brief Return the average gamma width.
    */
-  auto GG() const { return this->column( 4 ); }
+  Column GG() const { return this->column( 4 ); }
 
   /**
    *  @brief Return the average gamma width.
    */
-  auto averageGammaWidths() const { return this->GG(); }
+  Column averageGammaWidths() const { return this->GG(); }
 
   /**
    *  @brief Return the average fission widths (energy dependent).
    */
-  auto GF() const { return this->column( 5 ); }
+  Column GF() const { return this->column( 5 ); }
 
   /**
   *  @brief Return the average fission widths (energy dependent).
    */
-  auto averageFissionWidths() const { return JValue::GF(); }
+  Column averageFissionWidths() const { return JValue::GF(); }
 
   /**
    *  @brief Return the average competitive width.
    */
-  auto GX() const { return this->column( 2 ); }
+  Column GX() const { return this->column( 2 ); }
 
   /**
   *  @brief Return the average competitive width.
    */
-  auto averageCompetitiveWidths() const { return JValue::GX(); }
+  Column averageCompetitiveWidths() const { return JValue::GX(); }
 
   /**
    *  @brief Return the interpolation type.

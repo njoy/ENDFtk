@@ -82,9 +82,9 @@ public:
   /**
    *  @brief Return the partial distributions defined in this section
    */
-  auto partialDistributions() const {
+  AllRange< PartialDistribution > partialDistributions() const {
 
-    return ranges::view::all( this->partials_ );
+    return ranges::cpp20::views::all( this->partials_ );
   }
 
   #include "ENDFtk/section/5/src/NC.hpp"

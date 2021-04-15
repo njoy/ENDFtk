@@ -95,7 +95,7 @@ void wrapDecayModes( python::module& module, python::module& ) {
 
     "decay_modes",
     [] ( const Component& self ) -> std::vector< DecayMode >
-       { return self.decayModes(); },
+       { return ranges::to< std::vector< DecayMode > >( self.decayModes() ); },
     "The decay mode information"
   );
 
