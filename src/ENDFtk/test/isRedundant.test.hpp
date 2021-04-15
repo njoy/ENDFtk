@@ -142,7 +142,7 @@ SCENARIO( "Testing if MT number is a redundant ENDF reaction" ) {
       1, 3, 4, 16, 18, 27, 101, 103, 104, 105, 106, 107
     };
     auto nonRedundantMTs = ranges::cpp20::views::iota( 1, 999 )
-      | ranges::cpp20::views::remove_if(
+      | ranges::views::remove_if(
         [&](int MT ){ return ranges::cpp20::binary_search( redundantMTs, MT ); } );
 
     for( auto MT : nonRedundantMTs ){
