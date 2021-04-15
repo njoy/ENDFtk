@@ -95,7 +95,7 @@ public:
 
     return this->data()
              | ranges::views::chunk( this->N2() )
-             | ranges::views::transform(
+             | ranges::cpp20::views::transform(
                    [] ( const auto& array )
                       { return array | ranges::views::drop_exactly( 2 ); } );
   }

@@ -7,7 +7,7 @@
  */
 auto angularDistributions() const {
 
-  auto lift = ranges::views::transform( []( const auto& element ) -> Variant {
+  auto lift = ranges::cpp20::views::transform( []( const auto& element ) -> Variant {
 
     return std::cref( element );
   } );

@@ -134,8 +134,8 @@ public:
    */
   auto PNT() const {
     return ParticlePairs::column( 7 )
-             | ranges::views::transform( [] ( auto pnt )
-                                            { return int( pnt ); } ); }
+             | ranges::cpp20::views::transform( [] ( auto pnt )
+                                                   { return int( pnt ); } ); }
 
   /**
    *  @brief Return the penetrability flag for each particle pair
@@ -147,8 +147,8 @@ public:
    */
   auto SHF() const {
     return ParticlePairs::column( 8 )
-             | ranges::views::transform( [] ( auto shf )
-                                            { return int( shf ); } ); }
+             | ranges::cpp20::views::transform( [] ( auto shf )
+                                                   { return int( shf ); } ); }
 
   /**
    *  @brief Return the shift factor flag for each particle pair
@@ -160,8 +160,8 @@ public:
    */
   auto MT() const {
     return ParticlePairs::column( 9 )
-             | ranges::views::transform( [] ( auto mt )
-                                            { return int( mt ); } ); }
+             | ranges::cpp20::views::transform( [] ( auto mt )
+                                                   { return int( mt ); } ); }
 
   using ListRecord::NC;
   using ListRecord::print;

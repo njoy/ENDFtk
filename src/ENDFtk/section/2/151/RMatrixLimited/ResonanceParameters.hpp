@@ -61,7 +61,7 @@ public:
   auto GAM() const {
     return ListRecord::list()
              | ranges::views::chunk( this->NX() / this->NRS() * 6 )
-             | ranges::views::transform(
+             | ranges::cpp20::views::transform(
                    [] ( auto chunk )
                       { return chunk | ranges::views::drop_exactly( 1 ); } ); }
 

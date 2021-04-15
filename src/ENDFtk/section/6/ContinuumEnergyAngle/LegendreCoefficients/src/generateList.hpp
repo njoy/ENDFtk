@@ -27,6 +27,7 @@ generateList( unsigned int na,
   return ranges::to< std::vector< double > >(
            ranges::views::zip_with(
              ranges::views::concat,
-             energies | ranges::views::transform( ranges::cpp20::views::single ),
+             energies | ranges::cpp20::views::transform(
+                            ranges::cpp20::views::single ),
              coefficients ) | ranges::views::join );
 }

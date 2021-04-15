@@ -59,7 +59,7 @@ public:
 
     return ListRecord::list()
               | ranges::views::chunk( 6 )
-              | ranges::views::transform(
+              | ranges::cpp20::views::transform(
                   [] ( const auto& range )
                      { return DecayMode( range[0], range[1], range[2],
                                          range[3], range[4], range[5] ); } );

@@ -91,8 +91,8 @@ public:
   auto PPI() const {
     return ListRecord::list()
              | ranges::views::stride( 6 )
-             | ranges::views::transform( [] ( auto ppi )
-                                            { return int( ppi ); } ); }
+             | ranges::cpp20::views::transform( [] ( auto ppi )
+                                                   { return int( ppi ); } ); }
 
   /**
    *  @brief Return the particle pair numbers of each channel
@@ -104,8 +104,8 @@ public:
    */
   auto L() const {
     return ResonanceChannels::column( 1 )
-             | ranges::views::transform( [] ( auto l )
-                                            { return int( l ); } ); }
+             | ranges::cpp20::views::transform( [] ( auto l )
+                                                   { return int( l ); } ); }
 
   /**
    *  @brief Return the orbital momentum values for all channels

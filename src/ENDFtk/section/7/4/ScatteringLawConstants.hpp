@@ -102,7 +102,7 @@ public:
 
     auto element = [l = ListRecord::list()](auto index){ return l[index]; };
 
-    return indices( this->NS() ) | ranges::views::transform( element );
+    return indices( this->NS() ) | ranges::cpp20::views::transform( element );
   }
 
   /**

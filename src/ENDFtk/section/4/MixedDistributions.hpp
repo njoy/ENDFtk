@@ -84,8 +84,9 @@ public:
     return ranges::views::concat(
              this->legendre().boundaries(),
              this->tabulated().boundaries()
-               | ranges::views::transform( [=] ( auto index )
-                                               { return index + offset; } ) );
+               | ranges::cpp20::views::transform(
+                     [=] ( auto index )
+                         { return index + offset; } ) );
   }
 
   /**

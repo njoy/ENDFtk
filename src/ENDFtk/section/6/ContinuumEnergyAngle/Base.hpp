@@ -106,7 +106,8 @@ protected:
   auto data() const {
 
     return ListRecord::list() | ranges::views::chunk( 2 + this->NA() )
-                              | ranges::views::transform( ranges::views::tail );
+                              | ranges::cpp20::views::transform(
+                                    ranges::views::tail );
   }
 
 public:

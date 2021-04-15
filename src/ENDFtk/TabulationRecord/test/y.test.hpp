@@ -36,7 +36,7 @@ SCENARIO( "TabulationRecord yValue",
 
       // so we can copy them willy-nilly
       auto ys2 = ys;
-      REQUIRE( ranges::equal( ys2, ys ) );
+      REQUIRE( ranges::cpp20::equal( ys2, ys ) );
 
       // no more worrying about accidentally copying large vectors!
     }

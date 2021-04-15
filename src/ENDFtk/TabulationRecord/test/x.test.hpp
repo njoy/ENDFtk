@@ -37,7 +37,7 @@ SCENARIO( "TabulationRecord x command",
 
       // so we can copy them willy-nilly
       auto xs2 = xs;
-      REQUIRE( ranges::equal( xs2, xs ) );
+      REQUIRE( ranges::cpp20::equal( xs2, xs ) );
 
       // no more worrying about accidentally copying large vectors!
     }

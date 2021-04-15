@@ -67,7 +67,7 @@ public:
   auto MU() const {
 
     return InterpolationSequenceRecord::records()
-               | ranges::views::transform(
+               | ranges::cpp20::views::transform(
                      [] ( const auto& record )
                         { return record.cosine(); } );
   }

@@ -14,17 +14,17 @@ SCENARIO( "TabulationRecord regions", "[ENDFtk], [TabulationRecord]" ){
   // regions are iterable
   int index = 0;
   for ( auto region : tab1.regions() ){
-    ranges::equal( region.first, xValues[index] );
-    ranges::equal( region.second, yValues[index++] );
+    ranges::cpp20::equal( region.first, xValues[index] );
+    ranges::cpp20::equal( region.second, yValues[index++] );
   }
 
   // regions are indexible, with and without bound checking
   auto regions = tab1.regions();
   for ( size_t index = 0; index < size_t(tab1.NR()); ++index ){
-    ranges::equal( regions.at(index).first, xValues[index] );
-    ranges::equal( regions[index].first, xValues[index] );
-    ranges::equal( regions.at(index).second, yValues[index] );
-    ranges::equal( regions[index].second, yValues[index] );
+    ranges::cpp20::equal( regions.at(index).first, xValues[index] );
+    ranges::cpp20::equal( regions[index].first, xValues[index] );
+    ranges::cpp20::equal( regions.at(index).second, yValues[index] );
+    ranges::cpp20::equal( regions[index].second, yValues[index] );
   }
   REQUIRE_THROWS( tab1.regions().at( -1 ) );
   REQUIRE_THROWS( tab1.regions().at( tab1.NR() ) );

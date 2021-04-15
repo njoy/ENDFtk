@@ -59,8 +59,8 @@ namespace section {
     auto E() const {
 
       return this->yields()
-                 | ranges::views::transform( [] ( const auto& entry )
-                                                { return entry.E(); } );
+                 | ranges::cpp20::views::transform( [] ( const auto& entry )
+                                                       { return entry.E(); } );
     }
 
     /**

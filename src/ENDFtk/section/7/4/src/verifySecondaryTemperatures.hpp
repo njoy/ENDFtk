@@ -16,17 +16,17 @@ verifySecondaryTemperatures( const TypeArray& types,
   if ( types.size() > 0 ) {
 
     auto needTemperature =
-      types | ranges::views::transform( [] ( double value )
-                                          { return value == 0.0; } );
+      types | ranges::cpp20::views::transform( [] ( double value )
+                                                  { return value == 0.0; } );
 
     auto haveTemperature =
-      temperatures | ranges::views::transform( hana::to<bool> );
+      temperatures | ranges::cpp20::views::transform( hana::to<bool> );
 
     auto verify =
       ranges::views::zip_with( std::equal_to<>{},
                                needTemperature, haveTemperature );
 
-    auto iter = ranges::find( verify, false );
+    auto iter = ranges::cpp20::find( verify, false );
 
     if ( iter != ranges::cpp20::end( verify ) ) {
 

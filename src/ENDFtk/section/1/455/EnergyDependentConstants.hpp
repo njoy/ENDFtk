@@ -79,7 +79,7 @@ public:
   auto E() const {
 
     return this->constants()
-               | ranges::views::transform(
+               | ranges::cpp20::views::transform(
                      [] ( const auto& record )
                         { return record.incidentEnergy(); } );
   }

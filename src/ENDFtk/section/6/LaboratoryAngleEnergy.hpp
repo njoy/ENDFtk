@@ -73,7 +73,7 @@ public:
   auto E() const {
 
     return this->angularDistributions()
-               | ranges::views::transform(
+               | ranges::cpp20::views::transform(
                      [] ( const auto& record )
                         { return record.incidentEnergy(); } );
   }

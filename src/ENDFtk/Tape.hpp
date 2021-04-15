@@ -80,7 +80,7 @@ namespace ENDFtk {
     auto MAT( int mat ) const {
 
       return this->materials_
-                 | ranges::views::filter(
+                 | ranges::cpp20::views::filter(
                       [mat] ( const auto& material )
                             { return material.MAT() == mat; } );
     }

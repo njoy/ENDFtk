@@ -67,7 +67,7 @@ public:
   auto E() const {
 
     return ranges::cpp20::views::iota( 0, 9 )
-             | ranges::views::transform(
+             | ranges::cpp20::views::transform(
                  [&] ( unsigned int index )
                      { return this->createRangeFromIndex( index ); } );
   }

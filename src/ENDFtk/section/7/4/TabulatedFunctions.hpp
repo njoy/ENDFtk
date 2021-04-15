@@ -52,8 +52,8 @@ public:
   auto B() const {
 
     return this->data_.records()
-             | ranges::views::transform( [] ( const auto& record )
-                                            { return record.beta(); } );
+             | ranges::cpp20::views::transform( [] ( const auto& record )
+                                                   { return record.beta(); } );
   }
 
   /**

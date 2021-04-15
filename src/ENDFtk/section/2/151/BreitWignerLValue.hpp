@@ -114,7 +114,7 @@ public:
 
     using Chunk = decltype( BreitWignerReichMooreLValueBase::resonances()[0] );
     return BreitWignerReichMooreLValueBase::resonances()
-             | ranges::views::transform(
+             | ranges::cpp20::views::transform(
                  [] ( Chunk&& chunk ) -> Resonance< Chunk >
                     { return { std::move( chunk ) }; } );
   }

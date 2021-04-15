@@ -104,7 +104,8 @@ namespace ENDFtk {
 
       return
         ranges::views::iota( 0ul, this->boundaries().size() )
-        | ranges::views::transform( [this ]( int i ){ return this->regions(i); } );
+        | ranges::cpp20::views::transform(
+            [this ]( int i ){ return this->regions(i); } );
     }
 
     /**

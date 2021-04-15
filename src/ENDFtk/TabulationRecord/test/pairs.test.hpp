@@ -38,7 +38,7 @@ SCENARIO( "TabulationRecord pairs",
 
       // so copying them isn't the end of the world
       auto pairs2 = pairs;
-      REQUIRE( ranges::equal( pairs2, pairs ) );
+      REQUIRE( ranges::cpp20::equal( pairs2, pairs ) );
     }
   }
 }

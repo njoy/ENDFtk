@@ -77,7 +77,7 @@ public:
 
     auto chunked = ListRecord::list() | ranges::views::chunk( this->LG() + 1 );
     using Range = decltype( chunked[0] );
-    return chunked | ranges::views::transform(
+    return chunked | ranges::cpp20::views::transform(
                          [] ( Range&& chunk ) -> Transition< Range >
                             { return { std::move( chunk ) }; } );
   }
@@ -88,8 +88,8 @@ public:
   auto E() const {
 
     return this->transitions()
-             | ranges::views::transform( [] ( const auto& transition )
-                                            { return transition.E(); } );
+             | ranges::cpp20::views::transform( [] ( const auto& transition )
+                                                   { return transition.E(); } );
   }
 
   /**
@@ -103,8 +103,8 @@ public:
   auto TP() const {
 
     return this->transitions()
-      | ranges::views::transform( [] ( const auto& transition )
-                                     { return transition.TP(); } );
+      | ranges::cpp20::views::transform( [] ( const auto& transition )
+                                            { return transition.TP(); } );
   }
 
   /**
@@ -118,8 +118,8 @@ public:
   auto GP() const {
 
     return this->transitions()
-      | ranges::views::transform( [] ( const auto& transition )
-                                     { return transition.GP(); } );
+      | ranges::cpp20::views::transform( [] ( const auto& transition )
+                                            { return transition.GP(); } );
   }
 
   /**

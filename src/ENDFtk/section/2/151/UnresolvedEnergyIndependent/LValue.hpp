@@ -55,7 +55,7 @@ public:
 
     auto chunked = ListRecord::list() | ranges::views::chunk( 6 );
     using Range = decltype( chunked[0] );
-    return chunked | ranges::views::transform(
+    return chunked | ranges::cpp20::views::transform(
                        [] ( Range&& chunk ) -> JValue< Range >
                           { return { std::move( chunk ) }; } );
   }
@@ -66,8 +66,8 @@ public:
   auto D() const {
 
     return this->jValues()
-             | ranges::views::transform( [] ( const auto& jvalue )
-                                            { return jvalue.D(); } );
+             | ranges::cpp20::views::transform( [] ( const auto& jvalue )
+                                                   { return jvalue.D(); } );
   }
 
   /**
@@ -81,8 +81,8 @@ public:
   auto AJ() const {
 
     return this->jValues()
-             | ranges::views::transform( [] ( const auto& jvalue )
-                                            { return jvalue.AJ(); } );
+             | ranges::cpp20::views::transform( [] ( const auto& jvalue )
+                                                   { return jvalue.AJ(); } );
   }
 
   /**
@@ -96,8 +96,8 @@ public:
   auto AMUN() const {
 
     return this->jValues()
-             | ranges::views::transform( [] ( const auto& jvalue )
-                                            { return jvalue.AMUN(); } );
+             | ranges::cpp20::views::transform( [] ( const auto& jvalue )
+                                                   { return jvalue.AMUN(); } );
   }
 
   /**
@@ -141,8 +141,8 @@ public:
   auto GN() const {
 
     return this->jValues()
-             | ranges::views::transform( [] ( const auto& jvalue )
-                                            { return jvalue.GN(); } );
+             | ranges::cpp20::views::transform( [] ( const auto& jvalue )
+                                                   { return jvalue.GN(); } );
   }
 
   /**
@@ -156,8 +156,8 @@ public:
   auto GG() const {
 
     return this->jValues()
-             | ranges::views::transform( [] ( const auto& jvalue )
-                                            { return jvalue.GG(); } );
+             | ranges::cpp20::views::transform( [] ( const auto& jvalue )
+                                                   { return jvalue.GG(); } );
   }
 
   /**

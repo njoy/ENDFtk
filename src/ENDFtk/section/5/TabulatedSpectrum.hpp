@@ -66,7 +66,7 @@ public:
   auto incidentEnergies() const {
 
     return this->outgoingDistributions()
-             | ranges::views::transform(
+             | ranges::cpp20::views::transform(
                  [] ( const auto& entry )
                     { return entry.incidentEnergy(); } ); }
 

@@ -59,8 +59,9 @@ public:
 
     return Base::list()
              | ranges::views::chunk( 2 + this->NA() )
-             | ranges::views::transform( ranges::views::drop( 2 )
-                                           | ranges::views::stride( 2 ) ); }
+             | ranges::cpp20::views::transform(
+                   ranges::views::drop( 2 )
+                       | ranges::views::stride( 2 ) ); }
 
   /**
    *  @brief Return the cosine values
@@ -74,8 +75,9 @@ public:
 
     return Base::list()
              | ranges::views::chunk( 2 + this->NA() )
-             | ranges::views::transform( ranges::views::drop( 3 )
-                                           | ranges::views::stride( 2 ) ); }
+             | ranges::cpp20::views::transform(
+                   ranges::views::drop( 3 )
+                       | ranges::views::stride( 2 ) ); }
 
   /**
    *  @brief Return the distribution probabilities

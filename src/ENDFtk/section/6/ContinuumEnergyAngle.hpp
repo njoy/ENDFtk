@@ -100,7 +100,7 @@ public:
   auto E() const {
 
     return this->distributions()
-               | ranges::views::transform(
+               | ranges::cpp20::views::transform(
                   [] ( const auto& variant )
                      { return std::visit( [] ( const auto& record )
                                              { return record.incidentEnergy(); },

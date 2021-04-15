@@ -2,7 +2,7 @@ static std::vector< double >
 generateList( std::vector< DecayMode >&& modes ) {
 
   return ranges::to< std::vector< double > >(
-             modes | ranges::views::transform(
+             modes | ranges::cpp20::views::transform(
                        [] ( const auto& mode ) -> std::array< double, 6 >
                           { auto q = mode.qValue();
                             auto br = mode.branchingRatio();

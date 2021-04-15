@@ -5,11 +5,12 @@ auto reaction( unsigned int i ) const {
   auto chunks = this->data_.list()
                   | ranges::views::drop_exactly( nsigz )
                   | ranges::views::chunk( 1 + nsigz * nreac )
-                  | ranges::views::transform(
+                  | ranges::cpp20::views::transform(
                       [=] ( const auto& chunk )
                           { return chunk | ranges::views::drop_exactly( 1 )
                                          | ranges::views::chunk( nsigz ); } );
 
-  return chunks | ranges::views::transform( [=] ( const auto& reactions )
-                                                { return reactions[i]; } );
+  return chunks | ranges::cpp20::views::transform(
+                      [=] ( const auto& reactions )
+                          { return reactions[i]; } );
 }

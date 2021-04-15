@@ -102,8 +102,8 @@ public:
     return ranges::views::concat(
              ranges::cpp20::views::single( this->alphas_.C1() ),
              this->temperatures_ |
-                 ranges::views::transform( [] ( const auto& v )
-                                              { return v.C1(); } ) );
+                 ranges::cpp20::views::transform( [] ( const auto& v )
+                                                     { return v.C1(); } ) );
   }
 
   /**
@@ -129,8 +129,8 @@ public:
   auto LI() const {
 
     return this->temperatures_ |
-               ranges::views::transform( [] ( const auto& v )
-                                            { return v.L1(); } );
+               ranges::cpp20::views::transform( [] ( const auto& v )
+                                                   { return v.L1(); } );
   }
 
   /**
@@ -148,8 +148,8 @@ public:
     return ranges::views::concat(
              ranges::cpp20::views::single( this->alphas_.y() ),
              this->temperatures_ |
-                 ranges::views::transform( [] ( const auto& v )
-                                              { return v.list(); } ) );
+                 ranges::cpp20::views::transform( [] ( const auto& v )
+                                                     { return v.list(); } ) );
   }
 
   /**

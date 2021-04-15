@@ -9,11 +9,11 @@ Tape( Tape&& other,
   buffer_( std::move( other.buffer_ ) ),
   tpid( std::move( other.tpid ) ),
   materials_(
-    ranges::begin( this->buffer_ ) == start
+    ranges::cpp20::begin( this->buffer_ ) == start
     ? std::move( other.materials_ )
     : createMap(
-      ranges::next( ranges::begin( this->buffer_ ), offset ),
-      ranges::end( this->buffer_ ) ) ) {}
+      ranges::cpp20::next( ranges::cpp20::begin( this->buffer_ ), offset ),
+      ranges::cpp20::end( this->buffer_ ) ) ) {}
 
 public:
 
@@ -29,8 +29,8 @@ template< typename BufferArg,
 Tape( BufferArg&& buffer, long lineNumber = 0 )
   try : buffer_( std::forward< BufferArg >( buffer ) ) {
 
-    auto position = ranges::begin( this->buffer_ );
-    auto end = ranges::end( this->buffer_ );
+    auto position = ranges::cpp20::begin( this->buffer_ );
+    auto end = ranges::cpp20::end( this->buffer_ );
     this->tpid = TapeIdentification{ position, end, lineNumber };
     materials_ = createMap( position, end, lineNumber );
   }
@@ -51,13 +51,13 @@ Tape( const Tape& other )
     buffer_( other.buffer_ ),
     tpid( other.tpid ),
     materials_(
-      ranges::begin( this->buffer_ ) == ranges::begin( other.buffer_ )
+      ranges::cpp20::begin( this->buffer_ ) == ranges::cpp20::begin( other.buffer_ )
       ? other.materials_
-      : createMap( ranges::next( ranges::begin( this->buffer_ ),
-                                 ranges::distance(
-                                   ranges::begin( other.buffer_ ),
-                                   ranges::front( other ).buffer().begin() ) ),
-                   ranges::end( this->buffer_ ) ) ) {}
+      : createMap( ranges::cpp20::next( ranges::cpp20::begin( this->buffer_ ),
+                                        ranges::cpp20::distance(
+                                          ranges::cpp20::begin( other.buffer_ ),
+                                          ranges::front( other ).buffer().begin() ) ),
+                   ranges::cpp20::end( this->buffer_ ) ) ) {}
   catch( std::exception& ) {
 
     Log::info( "Trouble encountered while "
@@ -72,10 +72,10 @@ Tape( const Tape& other )
  */
 Tape( Tape&& other )
   try: Tape( std::move( other ),
-             ranges::distance(
-               ranges::begin( other.buffer_ ),
+             ranges::cpp20::distance(
+               ranges::cpp20::begin( other.buffer_ ),
                ranges::front( other ).buffer().begin() ),
-             ranges::begin( other.buffer_ ) ) {}
+             ranges::cpp20::begin( other.buffer_ ) ) {}
   catch( std::exception& ) {
 
     Log::info( "Trouble encountered while "
