@@ -38,13 +38,11 @@ FetchContent_Declare( header-utilities
 FetchContent_Declare( range-v3
     GIT_REPOSITORY  https://github.com/ericniebler/range-v3
     GIT_TAG         0.11.0
-    GIT_SHALLOW     TRUE
     )
 
 FetchContent_Declare( pybind11
     GIT_REPOSITORY  https://github.com/pybind/pybind11
     GIT_TAG         v2.6.1
-    GIT_SHALLOW     TRUE
     )
 
 #######################################################################
