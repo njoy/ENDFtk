@@ -9,6 +9,9 @@ class ReichMooreLValue : protected BreitWignerReichMooreLValueBase {
 
 public:
 
+  /* type aliases */
+  using Column = BreitWignerReichMooreLValueBase::Column;
+
   #include "ENDFtk/section/2/151/ReichMooreLValue/Resonance.hpp"
 
   /* constructor */
@@ -41,42 +44,42 @@ public:
   /**
    *  @brief Return the neutron widths
    */
-  auto GN() const { return BreitWignerReichMooreLValueBase::G1(); }
+  Column GN() const { return BreitWignerReichMooreLValueBase::G1(); }
 
   /**
    *  @brief Return the neutron widths
    */
-  auto neutronWidths() const { return this->GN(); }
+  Column neutronWidths() const { return this->GN(); }
 
   /**
    *  @brief Return the gamma widths
    */
-  auto GG() const { return BreitWignerReichMooreLValueBase::G2(); }
+  Column GG() const { return BreitWignerReichMooreLValueBase::G2(); }
 
   /**
    *  @brief Return the gamma widths
    */
-  auto gammaWidths() const { return this->GG(); }
+  Column gammaWidths() const { return this->GG(); }
 
   /**
    *  @brief Return the first fission widths
    */
-  auto GFA() const { return BreitWignerReichMooreLValueBase::G3(); }
+  Column GFA() const { return BreitWignerReichMooreLValueBase::G3(); }
 
   /**
    *  @brief Return the first fission widths
    */
-  auto firstFissionWidths() const { return this->GFA(); }
+  Column firstFissionWidths() const { return this->GFA(); }
 
   /**
    *  @brief Return the second fission widths
    */
-  auto GFB() const { return BreitWignerReichMooreLValueBase::G4(); }
+  Column GFB() const { return BreitWignerReichMooreLValueBase::G4(); }
 
   /**
    *  @brief Return the second fission widths
    */
-  auto secondFissionWidths() const { return this->GFB(); }
+  Column secondFissionWidths() const { return this->GFB(); }
 
   /**
    *  @brief Return the resonances
@@ -85,7 +88,7 @@ public:
 
     using Chunk = decltype( BreitWignerReichMooreLValueBase::resonances()[0] );
     return BreitWignerReichMooreLValueBase::resonances()
-             | ranges::view::transform(
+             | ranges::cpp20::views::transform(
                  [] ( Chunk&& chunk ) -> Resonance< Chunk >
                     { return { std::move( chunk ) }; } );
   }

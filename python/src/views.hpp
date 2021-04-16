@@ -9,11 +9,8 @@
 #include <pybind11/stl.h>
 #include <pybind11/complex.h>
 #include "range/v3/view/any_view.hpp"
-#include "range/v3/distance.hpp"
-#include "range/v3/index.hpp"
-#include "range/v3/front.hpp"
-#include "range/v3/utility/iterator.hpp"
-#include "range/v3/to_container.hpp"
+#include "range/v3/range/conversion.hpp"
+#include "range/v3/range/operations.hpp"
 
 namespace python = pybind11;
 
@@ -92,13 +89,13 @@ void wrapBasicBidirectionalAnyViewOf( python::module& module, const std::string&
   .def( "to_list",
         [] ( BasicBidirectionalAnyView< Element >& view )
            -> std::vector< Element >
-           { return view; },
+           { return ranges::to< std::vector< Element > >( view ); },
         "Convert the sequence to a list (this is a deep copy for primitive\n"
         "types (like integer and floats) and a shallow copy for custom types" )
   .def( "copy",
       	[] ( BasicRandomAccessAnyView< Element >& view )
            -> std::vector< CopyElement >
-           { return view; },
+           { return ranges::to< std::vector< CopyElement > >( view ); },
         "Copy the sequence to a list (this is a deep copy for both primitive\n"
         "types (like integer and floats) and custom types" );
 }
@@ -178,13 +175,13 @@ void wrapBasicRandomAccessAnyViewOf( python::module& module, const std::string& 
   .def( "to_list",
       	[] ( BasicRandomAccessAnyView< Element >& view )
            -> std::vector< Element >
-           { return view; },
+           { return ranges::to< std::vector< Element > >( view ); },
         "Convert the sequence to a list (this is a deep copy for primitive\n"
         "types (like integer and floats) and a shallow copy for custom types" )
   .def( "copy",
       	[] ( BasicRandomAccessAnyView< Element >& view )
            -> std::vector< CopyElement >
-           { return view; },
+           { return ranges::to< std::vector< CopyElement > >( view ); },
         "Copy the sequence to a list (this is a deep copy for both primitive\n"
         "types (like integer and floats) and custom types" );
 }

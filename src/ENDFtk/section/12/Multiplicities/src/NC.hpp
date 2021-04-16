@@ -9,4 +9,4 @@ long NC() const {
     NC += entry.NC();
   }
   return NC;
-};
+}

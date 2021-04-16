@@ -33,11 +33,11 @@ SCENARIO( "TabulationRecord x command",
       auto xs = tab1.x();
 
       // because they don't own data, views are small and live on the stack
-      REQUIRE( sizeof( xs ) == 16 );
+      REQUIRE( sizeof( xs ) == 8 );
 
       // so we can copy them willy-nilly
       auto xs2 = xs;
-      REQUIRE( ranges::equal( xs2, xs ) );
+      REQUIRE( ranges::cpp20::equal( xs2, xs ) );
 
       // no more worrying about accidentally copying large vectors!
     }

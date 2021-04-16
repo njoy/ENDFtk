@@ -5,7 +5,7 @@
 
 // other includes
 #include "boost/hana.hpp"
-#include "range/v3/iterator_range.hpp"
+#include "range/v3/view/subrange.hpp"
 #include "ENDFtk/HeadRecord.hpp"
 #include "ENDFtk/section.hpp"
 #include "boost/hana.hpp"
@@ -79,8 +79,8 @@ namespace tree {
      *  @brief Return the section's buffer
      */
     auto buffer() const {
-      return ranges::make_iterator_range( this->bufferLimits.first,
-                                          this->bufferLimits.second );
+      return ranges::make_subrange( this->bufferLimits.first,
+                                    this->bufferLimits.second );
     }
   };
 

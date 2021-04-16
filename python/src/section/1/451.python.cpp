@@ -293,7 +293,7 @@ void wrapSection_1_451( python::module& module, python::module& viewmodule ) {
 
     "description",
     [] ( const Section& type ) -> std::string
-       { return type.description(); },
+       { return ranges::to< std::string >( type.description() ); },
     "The descriptive information"
   )
   .def_property_readonly(

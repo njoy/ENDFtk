@@ -4,11 +4,11 @@
 auto description() const {
 
   return
-    ranges::view::concat
+    ranges::views::concat
       ( this->description_
-          | ranges::view::transform
+          | ranges::cpp20::views::transform
             ( []( const auto& textRecord )->decltype(auto)
             { return textRecord.text(); } )
-          | ranges::view::join( '\n' ),
-        ranges::view::single( '\n' ) );
+          | ranges::views::join( '\n' ),
+        ranges::cpp20::views::single( '\n' ) );
 }

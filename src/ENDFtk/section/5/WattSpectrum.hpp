@@ -31,12 +31,12 @@ public:
   /**
    *  @brief Return the a parameter data
    */
-  const auto& a() const { return this->parameters_[0]; }
+  const Parameter& a() const { return this->parameters_[0]; }
 
   /**
    *  @brief Return the b parameter data
    */
-  const auto& b() const { return this->parameters_[1]; }
+  const Parameter& b() const { return this->parameters_[1]; }
 
   #include "ENDFtk/section/5/WattSpectrum/src/NC.hpp"
   #include "ENDFtk/section/5/WattSpectrum/src/print.hpp"

@@ -27,22 +27,22 @@ public:
   /**
    *  @brief Return the spin for this spin group
    */
-  auto AJ() const { return this->channels_.AJ(); }
+  double AJ() const { return this->channels_.AJ(); }
 
   /**
    *  @brief Return the spin for this spin group
    */
-  auto spin() const { return this->AJ(); }
+  double spin() const { return this->AJ(); }
 
   /**
    *  @brief Return the parity for this spin group
    */
-  auto PJ() const { return this->channels_.PJ(); }
+  double PJ() const { return this->channels_.PJ(); }
 
   /**
    *  @brief Return the parity for this spin group
    */
-  auto parity() const { return this->PJ(); }
+  double parity() const { return this->PJ(); }
 
   /**
    *  @brief Return the number of channels
@@ -77,17 +77,17 @@ public:
   /**
    *  @brief Return the channel information
    */
-  const auto& channels() const { return this->channels_; }
+  const ResonanceChannels& channels() const { return this->channels_; }
 
   /**
    *  @brief Return the resonance parameters for this spin group
    */
-  const auto& parameters() const { return this->parameters_; }
+  const ResonanceParameters& parameters() const { return this->parameters_; }
 
   /**
    *  @brief Return the background R-matrix values for the spin group channels
    */
-  const auto& background() const { return this->background_; }
+  const BackgroundChannels& background() const { return this->background_; }
 
   /**
    *  @brief Return the number of lines in this MF2 MT151 component

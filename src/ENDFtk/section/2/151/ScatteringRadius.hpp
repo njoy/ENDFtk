@@ -17,22 +17,22 @@ public:
   /**
    *  @brief Return the energy values
    */
-  auto E() const { return TabulationRecord::x(); }
+  AllRange< double > E() const { return TabulationRecord::x(); }
 
   /**
    *  @brief Return the energy values
    */
-  auto energies() const { return this->E(); }
+  AllRange< double > energies() const { return this->E(); }
 
   /**
    *  @brief Return the scatterin radius values
    */
-  auto AP() const { return TabulationRecord::y(); }
+  AllRange< double > AP() const { return TabulationRecord::y(); }
 
   /**
-  *  @brief Return the scattering radius values
+   *  @brief Return the scattering radius values
    */
-  auto radii() const { return this->AP(); }
+  AllRange< double > radii() const { return this->AP(); }
 
   using TabulationRecord::NP;
   using TabulationRecord::NR;

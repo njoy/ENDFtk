@@ -52,8 +52,8 @@ public:
   auto B() const {
 
     return this->data_.records()
-             | ranges::view::transform( [] ( const auto& record )
-                                           { return record.beta(); } );
+             | ranges::cpp20::views::transform( [] ( const auto& record )
+                                                   { return record.beta(); } );
   }
 
   /**
@@ -64,22 +64,31 @@ public:
   /**
    *  @brief Return the beta values and associated S(alpha,T) functions
    */
-  auto S() const { return this->data_.records(); }
+  AllRange< ScatteringFunction > S() const { return this->data_.records(); }
 
   /**
    *  @brief Return the beta values and associated S(alpha,T) functions
    */
-  auto scatteringFunctions() const { return this->S(); }
+  AllRange< ScatteringFunction > scatteringFunctions() const {
+
+    return this->S();
+  }
 
   /**
    *  @brief Return the interpolation type for each range on the beta grid
    */
-  auto interpolants() const { return this->data_.tab2().interpolants(); }
+  AllRange< long > interpolants() const {
+
+    return this->data_.tab2().interpolants();
+  }
 
   /**
    *  @brief Return the interpolation boundaries for the beta grid
    */
-  auto boundaries() const { return this->data_.tab2().boundaries(); }
+  AllRange< long > boundaries() const {
+
+    return this->data_.tab2().boundaries();
+  }
 
   /**
    *  @brief Return the number of lines in this MF7/MT4 component

@@ -25,22 +25,22 @@ public:
   /**
    *  @brief Return the spin of the target
    */
-  auto SPI() const { return ListRecord::C1(); }
+  double SPI() const { return ListRecord::C1(); }
 
   /**
    *  @brief Return the spin of the target
    */
-  auto spin() const { return this->SPI(); }
+  double spin() const { return this->SPI(); }
 
   /**
    *  @brief Return the parity of the target
    */
-  auto PAR() const { return ListRecord::C2(); }
+  double PAR() const { return ListRecord::C2(); }
 
   /**
    *  @brief Return the parity of the target
    */
-  auto parity() const { return this->PAR(); }
+  double parity() const { return this->PAR(); }
 
   /**
    *  @brief Return the number of decay modes NDK
@@ -56,9 +56,10 @@ public:
    *  @brief Return the decay mode information
    */
   auto decayModes() const {
+
     return ListRecord::list()
-              | ranges::view::chunk( 6 )
-              | ranges::view::transform(
+              | ranges::views::chunk( 6 )
+              | ranges::cpp20::views::transform(
                   [] ( const auto& range )
                      { return DecayMode( range[0], range[1], range[2],
                                          range[3], range[4], range[5] ); } );

@@ -42,24 +42,28 @@ public:
   /**
    *  @brief Return the resonance energies
    */
-  auto ER() const {
+  StrideRange< AllRange< double > > ER() const {
+
     return ListRecord::list()
-             | ranges::view::stride( this->NX() / this->NRS() * 6 ); }
+             | ranges::views::stride( this->NX() / this->NRS() * 6 ); }
 
   /**
   *  @brief Return the resonance energies
    */
-  auto resonanceEnergies() const { return this->ER(); }
+  StrideRange< AllRange< double > > resonanceEnergies() const {
+
+    return this->ER();
+  }
 
   /**
    *  @brief Return the resonance parameters
    */
   auto GAM() const {
     return ListRecord::list()
-             | ranges::view::chunk( this->NX() / this->NRS() * 6 )
-             | ranges::view::transform(
+             | ranges::views::chunk( this->NX() / this->NRS() * 6 )
+             | ranges::cpp20::views::transform(
                    [] ( auto chunk )
-                      { return chunk | ranges::view::drop_exactly( 1 ); } ); }
+                      { return chunk | ranges::views::drop_exactly( 1 ); } ); }
 
   /**
   *  @brief Return the resonance parameters

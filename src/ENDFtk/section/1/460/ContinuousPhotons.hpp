@@ -49,12 +49,12 @@ public:
   /**
    *  @brief Return the decay constants for all precursor families
    */
-  auto lambdas() const { return ListRecord::list(); }
+  AllRange< double > lambdas() const { return ListRecord::list(); }
 
   /**
    *  @brief Return the decay constants for all precursor families
    */
-  auto decayConstants() const { return this->lambdas(); }
+  AllRange< double > decayConstants() const { return this->lambdas(); }
 
   using ListRecord::NC;
   using ListRecord::print;

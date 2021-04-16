@@ -16,6 +16,16 @@ class Isotropic {
 public:
 
   /**
+   *  @brief Return the isotropic angular distribution flag
+   */
+  static constexpr bool LI() { return true; }
+
+  /**
+   *  @brief Return the isotropic angular distribution flag
+   */
+  bool isotropicAngularDistributions() const { return this->LI(); }
+
+  /**
    *  @brief Return the angular distribution law
    */
   static constexpr int LTT() { return 0; }
