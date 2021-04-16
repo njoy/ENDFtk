@@ -11,6 +11,7 @@
 #include "ENDFtk/HeadRecord.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/section.hpp"
+#include "ENDFtk/types.hpp"
 #include "range/v3/view/stride.hpp"
 #include "range/v3/view/drop_exactly.hpp"
 

@@ -9,7 +9,7 @@ Base() = default;
 Base( ListRecord&& list ) :
   ListRecord( std::move( list ) ) {
 
-  verifySorted( this->energies() | ranges::view::drop_exactly( this->ND() ),
+  verifySorted( this->energies() | ranges::views::drop_exactly( this->ND() ),
                 "Energy" );
   verifySize( this->NW(), this->NA(), this->NEP() );
 };

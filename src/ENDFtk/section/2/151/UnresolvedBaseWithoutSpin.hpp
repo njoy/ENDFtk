@@ -102,5 +102,8 @@ public:
   /**
    *  @brief Return the l value data
    */
-  auto lValues() const { return ranges::view::all( this->lvalues_ ); }
+  AllRange< LValue > lValues() const { 
+
+    return ranges::cpp20::views::all( this->lvalues_ );
+  }
 };

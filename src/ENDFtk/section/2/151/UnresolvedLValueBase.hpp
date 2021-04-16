@@ -55,7 +55,10 @@ public:
   /**
    *  @brief Return the data for each of the J values
    */
-  auto jValues() const { return ranges::view::all( this->jvalues_ ); }
+  AllRange< JValue > jValues() const { 
+
+    return ranges::cpp20::views::all( this->jvalues_ );
+  }
 
   /**
    *  @brief Return the number of fission width values

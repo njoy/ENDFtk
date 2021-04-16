@@ -18,6 +18,8 @@ SCENARIO( "Isotropic" ) {
 
       Isotropic chunk;
 
+      CHECK( true == chunk.LI() );
+      CHECK( true == chunk.isotropicAngularDistributions() );
       CHECK( 0 == chunk.LTT() );
       CHECK( 0 == chunk.LAW() );
 

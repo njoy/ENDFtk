@@ -12,6 +12,13 @@
  */
 class Multiplicities {
 
+public:
+
+  /* type aliases */
+  using OptionalTotalMultiplicity = std::optional< TotalMultiplicity >;
+
+private:
+
   /* fields */
   std::optional< TotalMultiplicity > total_;
   std::vector< PartialMultiplicity > partials_;
@@ -38,28 +45,31 @@ public:
   int representation() const { return this->LO(); }
 
   /**
-   *  @brief Return the number of partial multiplicities (discrete photons
-   *         and continuum)
+   *  @brief Return the number of photons (discrete and continuum) with
+   *         partial multiplicities
    */
   int NK() const { return this->partials_.size(); }
 
   /**
-  *  @brief Return the number of partial multiplicities (discrete photons
-  *         and continuum)
+   *  @brief Return the number of photons (discrete and continuum) with
+   *         partial multiplicities
    */
-  int numberPartials() const { return this->NK(); }
+  int numberPhotons() const { return this->NK(); }
 
   /**
    *  @brief Return the total multiplicity (optional)
    */
-  const auto& totalMultiplicity() const { return this->total_; }
+  const OptionalTotalMultiplicity& totalMultiplicity() const {
+
+    return this->total_;
+  }
 
   /**
    *  @brief Return the partial multiplicities
    */
-  auto partialMultiplicities() const {
+  AllRange< PartialMultiplicity > photonPartialMultiplicities() const {
 
-    return ranges::view::all( this->partials_ );
+    return ranges::cpp20::views::all( this->partials_ );
   }
 
   #include "ENDFtk/section/12/Multiplicities/src/NC.hpp"

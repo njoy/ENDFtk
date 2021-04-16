@@ -36,59 +36,59 @@ public:
   /**
    *  @brief Return the number of energy points.
    */
-  auto NP() const { return this->real_.NP(); }
+  unsigned int NP() const { return this->real_.NP(); }
 
   /**
    *  @brief Return the number of interpolation ranges
    */
-  auto NR() const { return this->real_.NR(); }
+  unsigned int NR() const { return this->real_.NR(); }
 
   /**
    *  @brief Return the interpolants
    */
-  auto interpolants() const { return this->real_.interpolants(); }
+  AllRange< long > interpolants() const { return this->real_.interpolants(); }
 
   /**
    *  @brief Return the interpolation range boundaries.
    */
-  auto boundaries() const { return this->real_.boundaries(); }
+  AllRange< long > boundaries() const { return this->real_.boundaries(); }
 
   /**
    *  @brief Return the energy values
    */
-  auto E() const { return this->real_.x(); }
+  AllRange< double > E() const { return this->real_.x(); }
 
   /**
    *  @brief Return the energy values
    */
-  auto energies() const { return this->E(); }
+  AllRange< double > energies() const { return this->E(); }
 
   /**
    *  @brief Return the real component of the R-matrix values
    */
-  auto RBR() const { return this->real_.y(); }
+  AllRange< double > RBR() const { return this->real_.y(); }
 
   /**
    *  @brief Return the real component of the R-matrix values
    */
-  auto real() const { return this->RBR(); }
+  AllRange< double > real() const { return this->RBR(); }
 
   /**
    *  @brief Return the imaginary component of the R-matrix values
    */
-  auto RBI() const { return this->imaginary_.y(); }
+  AllRange< double > RBI() const { return this->imaginary_.y(); }
 
   /**
    *  @brief Return the imaginary component of the R-matrix values
    */
-  auto imaginary() const { return this->RBI(); }
+  AllRange< double > imaginary() const { return this->RBI(); }
 
   /**
    *  @brief Return the complex R-matrix values
    */
   auto RB() const {
 
-    return ranges::view::zip_with(
+    return ranges::views::zip_with(
                [] ( double real, double imag ) -> std::complex< double >
                   { return { real, imag }; },
                this->real_.y(),

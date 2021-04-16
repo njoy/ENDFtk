@@ -6,7 +6,7 @@
 #include <map>
 
 // other includes
-#include "range/v3/iterator_range.hpp"
+#include "range/v3/view/subrange.hpp"
 #include "range/v3/view/map.hpp"
 #include "header-utilities/echoErroneousLine.hpp"
 #include "ENDFtk/file/Type.hpp"
@@ -96,35 +96,50 @@ namespace tree {
     /**
      *  @brief Return all sections in the file
      */
-    auto sections() { return this->sections_ | ranges::view::values; }
+    auto sections() {
+
+      return this->sections_ | ranges::cpp20::views::values;
+    }
 
     /**
      *  @brief Return all sections in the file
      */
-    auto sections() const { return this->sections_ | ranges::view::values; }
+    auto sections() const {
+
+      return this->sections_ | ranges::cpp20::views::values;
+    }
 
     /**
      *  @brief Return a begin iterator to all sections
      */
-    auto begin(){ return ( this->sections_ | ranges::view::values ).begin(); }
+    auto begin(){
+
+      return ( this->sections_ | ranges::cpp20::views::values ).begin();
+    }
 
     /**
      *  @brief Return an end iterator to all sections
      */
-    auto end(){ return ( this->sections_ | ranges::view::values ).end(); }
+    auto end(){
+
+      return ( this->sections_ | ranges::cpp20::views::values ).end();
+    }
 
     /**
      *  @brief Return a begin iterator to all sections
      */
     auto begin() const {
 
-      return ( this->sections_ | ranges::view::values ).begin();
+      return ( this->sections_ | ranges::cpp20::views::values ).begin();
     }
 
     /**
      *  @brief Return an end iterator to all sections
      */
-    auto end() const { return ( this->sections_ | ranges::view::values ).end(); }
+    auto end() const {
+
+      return ( this->sections_ | ranges::cpp20::views::values ).end();
+    }
 
     /**
      *  @brief Return the number of files in the materials
@@ -136,8 +151,8 @@ namespace tree {
      */
     auto buffer() const {
 
-      return ranges::make_iterator_range( this->bufferLimits.first,
-                                          this->bufferLimits.second );
+      return ranges::make_subrange( this->bufferLimits.first,
+                                    this->bufferLimits.second );
     }
 
     /**
@@ -165,7 +180,7 @@ namespace tree {
      */
     auto sectionNumbers() const {
 
-      return ranges::view::keys( this->sections_ );
+      return ranges::cpp20::views::keys( this->sections_ );
     }
   };
 

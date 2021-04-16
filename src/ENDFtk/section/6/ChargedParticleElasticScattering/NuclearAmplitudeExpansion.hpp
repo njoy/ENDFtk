@@ -55,7 +55,7 @@ public:
   auto B() const {
 
     return ListRecord::list()
-             | ranges::view::take( this->NW() - 2 * this->NL() - 2 );
+             | ranges::views::take( this->NW() - 2 * this->NL() - 2 );
   }
 
   /**
@@ -69,9 +69,9 @@ public:
    */
   auto AR() const {
 
-    return ranges::view::drop_exactly( ListRecord::list(),
+    return ranges::views::drop_exactly( ListRecord::list(),
                                        this->NW() - 2 * this->NL() - 2 )
-             | ranges::view::stride( 2 );
+             | ranges::views::stride( 2 );
   }
 
   /**
@@ -84,9 +84,9 @@ public:
    */
   auto AI() const {
 
-    return ranges::view::drop_exactly( ListRecord::list(),
+    return ranges::views::drop_exactly( ListRecord::list(),
                                        this->NW() - 2 * this->NL() - 1 )
-             | ranges::view::stride( 2 );
+             | ranges::views::stride( 2 );
   }
 
   /**
@@ -100,7 +100,7 @@ public:
    */
   auto A() const {
 
-    return ranges::view::zip_with(
+    return ranges::views::zip_with(
              [] ( auto real, auto imag )
                 { return std::complex< double >( real, imag ); },
              this->realInterferenceCoefficients(),

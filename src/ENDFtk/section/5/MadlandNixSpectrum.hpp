@@ -50,22 +50,22 @@ public:
   /**
    *  @brief Return the energy values
    */
-  auto E() const { return TabulationRecord::x(); }
+  AllRange< double > E() const { return TabulationRecord::x(); }
 
   /**
    *  @brief Return the energy values
    */
-  auto energies() const { return this->E(); }
+  AllRange< double > energies() const { return this->E(); }
 
   /**
    *  @brief Return the maximum temperature parameter values
    */
-  auto TM() const { return TabulationRecord::y(); }
+  AllRange< double > TM() const { return TabulationRecord::y(); }
 
   /**
    *  @brief Return the maximum temperature parameter values
    */
-  auto maximumTemperatureValues() const { return this->TM(); }
+  AllRange< double > maximumTemperatureValues() const { return this->TM(); }
 
   using TabulationRecord::NP;
   using TabulationRecord::NR;

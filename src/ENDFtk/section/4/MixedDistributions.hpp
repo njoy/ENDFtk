@@ -26,6 +26,16 @@ public:
   /* get methods */
 
   /**
+   *  @brief Return the isotropic angular distribution flag
+   */
+  static constexpr bool LI() { return false; }
+
+  /**
+   *  @brief Return the isotropic angular distribution flag
+   */
+  bool isotropicAngularDistributions() const { return this->LI(); }
+
+  /**
    *  @brief Return the angular distribution law
    */
   static constexpr int LTT() { return 3; }
@@ -38,17 +48,17 @@ public:
   /**
    *  @brief Return the Legendre distributions
    */
-  const auto& legendre() const { return this->legendre_; }
+  const LegendreDistributions& legendre() const { return this->legendre_; }
 
   /**
    *  @brief Return the tabulated distributions
    */
-  const auto& tabulated() const { return this->tabulated_; }
+  const TabulatedDistributions& tabulated() const { return this->tabulated_; }
 
   /**
    *  @brief Return the number of interpolation regions
    */
-  auto NR() const {
+  long NR() const {
 
     return this->legendre().NR() + this->tabulated().NR();
   }
@@ -57,7 +67,7 @@ public:
    *  @brief Return the number of energy points for which angular distributions
    *         are available.
    */
-  auto NE() const {
+  long NE() const {
 
     return this->legendre().NE() + this->tabulated().NE();
   }
@@ -71,11 +81,12 @@ public:
   auto boundaries() const {
 
     auto offset = this->legendre().boundaries().back();
-    return ranges::view::concat(
+    return ranges::views::concat(
              this->legendre().boundaries(),
              this->tabulated().boundaries()
-               | ranges::view::transform( [=] ( auto index )
-                                              { return index + offset; } ) );
+               | ranges::cpp20::views::transform(
+                     [=] ( auto index )
+                         { return index + offset; } ) );
   }
 
   /**
@@ -83,8 +94,8 @@ public:
    */
   auto interpolants() const {
 
-    return ranges::view::concat( this->legendre().interpolants(),
-                                 this->tabulated().interpolants() );
+    return ranges::views::concat( this->legendre().interpolants(),
+                                  this->tabulated().interpolants() );
   }
 
   /**
@@ -92,8 +103,8 @@ public:
    */
   auto incidentEnergies() const {
 
-    return ranges::view::concat( this->legendre().incidentEnergies(),
-                                 this->tabulated().incidentEnergies() );
+    return ranges::views::concat( this->legendre().incidentEnergies(),
+                                  this->tabulated().incidentEnergies() );
   }
 
   #include "ENDFtk/section/4/MixedDistributions/src/angularDistributions.hpp"

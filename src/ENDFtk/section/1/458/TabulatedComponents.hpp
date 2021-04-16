@@ -10,10 +10,17 @@
  */
 class TabulatedComponents {
 
+public:
+
+  /* type aliases */
+  using OptionalEnergyReleaseComponent = std::optional< EnergyReleaseComponent >;
+
+private:
+
   /* fields */
   int nfc_;
   ThermalPointComponents values_;
-  std::array< std::optional< EnergyReleaseComponent >, 9 > components_;
+  std::array< OptionalEnergyReleaseComponent, 9 > components_;
 
   /* auxiliary functions */
   #include "ENDFtk/section/1/458/TabulatedComponents/src/generateTables.hpp"
@@ -67,12 +74,15 @@ public:
   /**
    *  @brief Return the tabulated kinetic energy of the fission fragments
    */
-  const auto& tabulated() const { return this->components_; }
+  const std::array< OptionalEnergyReleaseComponent, 9 >& tabulated() const {
+
+    return this->components_;
+  }
 
   /**
    *  @brief Return the tabulated kinetic energy of the fission fragments
    */
-  const auto& tabulatedEFR() const {
+  const OptionalEnergyReleaseComponent& tabulatedEFR() const {
 
     return std::get< 0 >( this->components_ );
   }
@@ -80,12 +90,15 @@ public:
   /**
    *  @brief Return the tabulated kinetic energy of the fission fragments
    */
-  const auto& tabulatedFissionFragments() const { return this->tabulatedEFR(); }
+  const OptionalEnergyReleaseComponent& tabulatedFissionFragments() const {
+
+    return this->tabulatedEFR();
+  }
 
   /**
    *  @brief Return the tabulated kinetic energy of the prompt fission neutrons
    */
-  const auto& tabulatedENP() const {
+  const OptionalEnergyReleaseComponent& tabulatedENP() const {
 
     return std::get< 1 >( this->components_ );
   }
@@ -93,12 +106,15 @@ public:
   /**
    *  @brief Return the tabulated kinetic energy of the prompt fission neutrons
    */
-  const auto& tabulatedPromptNeutrons() const { return this->tabulatedENP(); }
+  const OptionalEnergyReleaseComponent& tabulatedPromptNeutrons() const {
+
+    return this->tabulatedENP();
+  }
 
   /**
    *  @brief Return the tabulated kinetic energy of the delayed fission neutrons
    */
-  const auto& tabulatedEND() const {
+  const OptionalEnergyReleaseComponent& tabulatedEND() const {
 
     return std::get< 2 >( this->components_ );
   }
@@ -106,12 +122,15 @@ public:
   /**
    *  @brief Return the tabulated kinetic energy of the delayed fission neutrons
    */
-  const auto& tabulatedDelayedNeutrons() const { return this->tabulatedEND(); }
+  const OptionalEnergyReleaseComponent& tabulatedDelayedNeutrons() const {
+
+    return this->tabulatedEND();
+  }
 
   /**
    *  @brief Return the tabulated energy release by prompt gammas
    */
-  const auto& tabulatedEGP() const {
+  const OptionalEnergyReleaseComponent& tabulatedEGP() const {
 
     return std::get< 3 >( this->components_ );
   }
@@ -119,12 +138,15 @@ public:
   /**
    *  @brief Return the tabulated energy release by prompt gammas
    */
-  const auto& tabulatedPromptGammas() const { return this->tabulatedEGP(); }
+  const OptionalEnergyReleaseComponent& tabulatedPromptGammas() const {
+
+    return this->tabulatedEGP();
+  }
 
   /**
    *  @brief Return the tabulated energy release by delayed gammas
    */
-  const auto& tabulatedEGD() const {
+  const OptionalEnergyReleaseComponent& tabulatedEGD() const {
 
     return std::get< 4 >( this->components_ );
   }
@@ -132,12 +154,15 @@ public:
   /**
    *  @brief Return the tabulated energy release by delayed gammas
    */
-  const auto& tabulatedDelayedGammas() const { return this->tabulatedEGD(); }
+  const OptionalEnergyReleaseComponent& tabulatedDelayedGammas() const {
+
+    return this->tabulatedEGD();
+  }
 
   /**
    *  @brief Return the tabulated energy release by delayed betas
    */
-  const auto& tabulatedEB() const {
+  const OptionalEnergyReleaseComponent& tabulatedEB() const {
 
     return std::get< 5 >( this->components_ );
   }
@@ -145,12 +170,15 @@ public:
   /**
    *  @brief Return the tabulated energy release by delayed betas
    */
-  const auto& tabulatedDelayedBetas() const { return this->tabulatedEB(); }
+  const OptionalEnergyReleaseComponent& tabulatedDelayedBetas() const {
+
+    return this->tabulatedEB();
+  }
 
   /**
    *  @brief Return the tabulated energy release by neutrinos
    */
-  const auto& tabulatedENU() const {
+  const OptionalEnergyReleaseComponent& tabulatedENU() const {
 
     return std::get< 6 >( this->components_ );
   }
@@ -158,12 +186,15 @@ public:
   /**
    *  @brief Return the tabulated energy release by neutrinos
    */
-  const auto& tabulatedNeutrinos() const { return this->tabulatedENU(); }
+  const OptionalEnergyReleaseComponent& tabulatedNeutrinos() const {
+
+    return this->tabulatedENU();
+  }
 
   /**
    *  @brief Return the tabulated total energy release minus the neutrino energy
    */
-  const auto& tabulatedER() const {
+  const OptionalEnergyReleaseComponent& tabulatedER() const {
 
     return std::get< 7 >( this->components_ );
   }
@@ -171,7 +202,7 @@ public:
   /**
    *  @brief Return the tabulated total energy release minus the neutrino energy
    */
-  const auto& tabulatedTotalMinusNeutrinos() const {
+  const OptionalEnergyReleaseComponent& tabulatedTotalMinusNeutrinos() const {
 
     return this->tabulatedER();
   }
@@ -179,7 +210,7 @@ public:
   /**
    *  @brief Return the tabulated total energy release
    */
-  const auto& tabulatedET() const {
+  const OptionalEnergyReleaseComponent& tabulatedET() const {
 
     return std::get< 8 >( this->components_ );
   }
@@ -187,7 +218,10 @@ public:
   /**
    *  @brief Return the tabulated total energy release
    */
-  const auto& tabulatedTotal() const { return this->tabulatedET(); }
+  const OptionalEnergyReleaseComponent& tabulatedTotal() const {
+
+    return this->tabulatedET();
+  }
 
   #include "ENDFtk/section/1/458/TabulatedComponents/src/NC.hpp"
   #include "ENDFtk/section/1/458/TabulatedComponents/src/print.hpp"

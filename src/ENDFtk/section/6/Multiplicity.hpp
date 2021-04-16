@@ -45,22 +45,22 @@ public:
   /**
    *  @brief Return the energies
    */
-  auto E() const { return TabulationRecord::x(); }
+  AllRange< double > E() const { return TabulationRecord::x(); }
 
   /**
    *  @brief Return the energies
    */
-  auto energies() const { return this->E(); }
+  AllRange< double > energies() const { return this->E(); }
 
   /**
    *  @brief Return the multiplicities
    */
-  auto Y() const { return TabulationRecord::y(); }
+  AllRange< double > Y() const { return TabulationRecord::y(); }
 
   /**
    *  @brief Return the multiplicities
    */
-  auto multiplicities() const { return this->Y(); }
+  AllRange< double > multiplicities() const { return this->Y(); }
 
   using TabulationRecord::NP;
   using TabulationRecord::NR;

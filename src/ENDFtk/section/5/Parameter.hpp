@@ -17,17 +17,17 @@ public:
   /**
    *  @brief Return the energy values
    */
-  auto E() const { return TabulationRecord::x(); }
+  AllRange< double > E() const { return TabulationRecord::x(); }
 
   /**
    *  @brief Return the energy values
    */
-  auto energies() const { return this->E(); }
+  AllRange< double > energies() const { return this->E(); }
 
   /**
    *  @brief Return the function values
    */
-  auto values() const { return TabulationRecord::y(); }
+  AllRange< double > values() const { return TabulationRecord::y(); }
 
   using TabulationRecord::NP;
   using TabulationRecord::NR;

@@ -9,6 +9,9 @@ class BreitWignerLValue : protected BreitWignerReichMooreLValueBase {
 
 public:
 
+  /* type aliases */
+  using Column = BreitWignerReichMooreLValueBase::Column;
+
   #include "ENDFtk/section/2/151/BreitWignerLValue/Resonance.hpp"
 
   /* constructor */
@@ -51,49 +54,49 @@ public:
   /**
    *  @brief Return the total widths
    */
-  auto GT() const { return BreitWignerReichMooreLValueBase::G1(); }
+  Column GT() const { return BreitWignerReichMooreLValueBase::G1(); }
 
   /**
    *  @brief Return the total widths
    */
-  auto totalWidths() const { return this->GT(); }
+  Column totalWidths() const { return this->GT(); }
 
   /**
    *  @brief Return the neutron widths
    */
-  auto GN() const { return BreitWignerReichMooreLValueBase::G2(); }
+  Column GN() const { return BreitWignerReichMooreLValueBase::G2(); }
 
   /**
    *  @brief Return the neutron widths
    */
-  auto neutronWidths() const { return this->GN(); }
+  Column neutronWidths() const { return this->GN(); }
 
   /**
    *  @brief Return the gamma widths
    */
-  auto GG() const { return BreitWignerReichMooreLValueBase::G3(); }
+  Column GG() const { return BreitWignerReichMooreLValueBase::G3(); }
 
   /**
    *  @brief Return the gamma widths
    */
-  auto gammaWidths() const { return this->GG(); }
+  Column gammaWidths() const { return this->GG(); }
 
   /**
    *  @brief Return the fission widths
    */
-  auto GF() const { return BreitWignerReichMooreLValueBase::G4(); }
+  Column GF() const { return BreitWignerReichMooreLValueBase::G4(); }
 
   /**
    *  @brief Return the first fission widths
    */
-  auto fissionWidths() const { return this->GF(); }
+  Column fissionWidths() const { return this->GF(); }
 
   /**
    *  @brief Return the competitive widths
    */
   auto GX() const {
 
-    return ranges::view::zip_with(
+    return ranges::views::zip_with(
              [] ( double gt, double gn, double gg, double gf )
                 { return gt - gn - gg - gf; },
              this->GT(), this->GN(), this->GG(), this->GF() );
@@ -111,7 +114,7 @@ public:
 
     using Chunk = decltype( BreitWignerReichMooreLValueBase::resonances()[0] );
     return BreitWignerReichMooreLValueBase::resonances()
-             | ranges::view::transform(
+             | ranges::cpp20::views::transform(
                  [] ( Chunk&& chunk ) -> Resonance< Chunk >
                     { return { std::move( chunk ) }; } );
   }

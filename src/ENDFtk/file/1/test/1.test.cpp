@@ -48,7 +48,7 @@ SCENARIO( "Testing special case of file 1" ) {
         "-----INCIDENT NEUTRON DATA                                        \n"
         "------ENDF-6 FORMAT                                               \n"
         "***************************************************               \n";
-    int nc = 4 + ranges::count( description, '\n' ) + 2;
+    int nc = 4 + ranges::cpp20::count( description, '\n' ) + 2;
 
     WHEN( "a file::Type< 1 > is constructed using only mt451" ) {
 

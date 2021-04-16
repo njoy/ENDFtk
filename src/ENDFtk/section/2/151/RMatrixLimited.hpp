@@ -96,12 +96,12 @@ public:
   /**
    *  @brief Return the resonance formalism to be employed
    */
-  auto KRM() const { return this->krm_; }
+  int KRM() const { return this->krm_; }
 
   /**
    *  @brief Return the resonance formalism to be employed
    */
-  auto formalism() const { return this->KRM(); }
+  int formalism() const { return this->KRM(); }
 
   /**
    *  @brief Return the non relativistic kinematics flag
@@ -121,17 +121,20 @@ public:
   /**
    *  @brief Return the number of spin groups
    */
-  auto numberSpinGroups() const { return this->NJS(); }
+  unsigned int numberSpinGroups() const { return this->NJS(); }
 
   /**
    *  @brief Return the particle pair information
    */
-  const auto& particlePairs() const { return this->particle_pairs_; }
+  const ParticlePairs& particlePairs() const { return this->particle_pairs_; }
 
   /**
    *  @brief Return the spin groups
    */
-  auto spinGroups() const { return ranges::view::all( this->spin_groups_ ); }
+  AllRange< SpinGroup > spinGroups() const {
+
+    return ranges::cpp20::views::all( this->spin_groups_ ); 
+  }
 
   #include "ENDFtk/section/2/151/RMatrixLimited/src/SPI.hpp"
   #include "ENDFtk/section/2/151/RMatrixLimited/src/AP.hpp"

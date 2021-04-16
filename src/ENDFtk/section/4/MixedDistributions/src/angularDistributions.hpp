@@ -7,11 +7,11 @@
  */
 auto angularDistributions() const {
 
-  auto lift = ranges::view::transform( []( const auto& element ) -> Variant {
+  auto lift = ranges::cpp20::views::transform( []( const auto& element ) -> Variant {
 
     return std::cref( element );
   } );
 
-  return ranges::view::concat( this->legendre().angularDistributions() | lift,
-                               this->tabulated().angularDistributions() | lift );
+  return ranges::views::concat( this->legendre().angularDistributions() | lift,
+                                this->tabulated().angularDistributions() | lift );
 }

@@ -41,22 +41,22 @@ namespace section{
     /**
      *  @brief Return the incident energy values
      */
-    auto E() const { return TabulationRecord::x(); }
+    AllRange< double > E() const { return TabulationRecord::x(); }
 
     /**
      *  @brief Return the incident energy values
      */
-    auto energies() const { return this->E(); }
+    AllRange< double > energies() const { return this->E(); }
 
     /**
      *  @brief Return the fission multiplicity values
      */
-    auto NU() const { return TabulationRecord::y(); }
+    AllRange< double > NU() const { return TabulationRecord::y(); }
 
     /**
      *  @brief Return the fission multiplicity values
      */
-    auto multiplicities() const { return this->NU(); }
+    AllRange< double > multiplicities() const { return this->NU(); }
 
     using TabulationRecord::NP;
     using TabulationRecord::NR;

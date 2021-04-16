@@ -5,7 +5,7 @@
 #include "ENDFtk/file/Type.hpp"
 
 // other includes
-#include "range/v3/to_container.hpp"
+#include "range/v3/range/conversion.hpp"
 #include "range/v3/view/reverse.hpp"
 #include "ENDFtk/tree/File.hpp"
 
@@ -30,7 +30,7 @@ SCENARIO( "Testing generic case using file 3" ) {
           { 2l }, { 2l }, { 1e-5, 2e+7 }, { 20.43634, 0.4827462 } },
         { 102, 1001., 0.9991673, 2.224631e+6, 2.224631e+6, 0,
           { 2l }, { 5l }, { 1e-5, 2e+7 }, { 16.69994, 2.722354e-5 } } };
-    auto unsorted = sorted | ranges::view::reverse | ranges::to_vector;
+    auto unsorted = sorted | ranges::cpp20::views::reverse | ranges::to_vector;
 
     WHEN( "a file::Type<3> is constructed from a sorted vector" ) {
 

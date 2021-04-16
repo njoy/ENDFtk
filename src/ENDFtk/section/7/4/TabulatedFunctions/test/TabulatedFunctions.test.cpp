@@ -230,7 +230,7 @@ void verifyChunkWithOneTemperature( const TabulatedFunctions& chunk ) {
   CHECK( 0 == value.LI().size() );
   CHECK( 0 == value.temperatureInterpolants().size() );
 
-  std::vector< std::vector< double > > values = value.S();
+  decltype(auto) values = value.S();
   CHECK( 1 == values.size() );
   CHECK( 5 == values[0].size() );
   CHECK( 2.386876e-4 == Approx( values[0][0] ) );

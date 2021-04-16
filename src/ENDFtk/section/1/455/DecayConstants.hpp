@@ -41,29 +41,35 @@ public:
   /**
    *  @brief Return the decay constants
    */
-  auto lambdas() const {
+  StrideRange< AllRange< double > > lambdas() const {
 
-    return ListRecord::list() | ranges::view::stride( 2 );
+    return ListRecord::list() | ranges::views::stride( 2 );
   }
 
   /**
    *  @brief Return the decay constants
    */
-  auto decayConstants() const { return this->lambdas(); }
+  StrideRange< AllRange< double > > decayConstants() const {
 
-  /**
-   *  @brief Return the abundance values
-   */
-  auto alphas() const {
-
-    return ListRecord::list() | ranges::view::drop_exactly( 1 )
-                              |     ranges::view::stride( 2 );
+    return this->lambdas();
   }
 
   /**
    *  @brief Return the abundance values
    */
-  auto abundances() const { return this->alphas(); }
+  StrideRange< DropRange< AllRange< double > > > alphas() const {
+
+    return ListRecord::list() | ranges::views::drop_exactly( 1 )
+                              | ranges::views::stride( 2 );
+  }
+
+  /**
+   *  @brief Return the abundance values
+   */
+  StrideRange< DropRange< AllRange< double > > > abundances() const {
+
+    return this->alphas();
+  }
 
   using ListRecord::NC;
   using ListRecord::print;

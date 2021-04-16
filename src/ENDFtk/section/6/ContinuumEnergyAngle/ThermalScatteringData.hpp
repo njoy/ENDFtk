@@ -9,11 +9,6 @@
  */
 class ThermalScatteringData : protected ListRecord {
 
-  /* type aliases */
-  using Range = decltype( std::declval< ListRecord >().list() );
-  using StrideRange = decltype( std::declval< Range >() | ranges::view::stride( 0 ) );
-  using DropStrideRange = decltype( std::declval< Range >() | ranges::view::drop_exactly( 0 ) | ranges::view::stride( 0 ) );
-
   /* auxiliary functions */
   #include "ENDFtk/section/6/ContinuumEnergyAngle/ThermalScatteringData/src/generateList.hpp"
 
@@ -47,7 +42,7 @@ public:
   /**
    *  @brief Return the data contained in this component
    */
-  Range data() const { return ListRecord::list(); }
+  AllRange< double > data() const { return ListRecord::list(); }
 
   /**
    *  @brief Return the data contained in this component
@@ -74,23 +69,23 @@ public:
   /**
    *  @brief Return the number of energy points
    */
-  StrideRange EP() const {
+  StrideRange< AllRange< double > > EP() const {
 
-    return this->data() | ranges::view::stride( this->N2() );
+    return this->data() | ranges::views::stride( this->N2() );
   }
 
   /**
    *  @brief Return the number of energy points
    */
-  StrideRange energies() const { return this->EP(); }
+  StrideRange< AllRange< double > > energies() const { return this->EP(); }
 
   /**
    *  @brief Return second value for every energy
    */
-  DropStrideRange PP() const {
+  StrideRange< DropRange< AllRange< double > > > PP() const {
 
-    return this->data() | ranges::view::drop_exactly( 1 )
-                        | ranges::view::stride( this->N2() );
+    return this->data() | ranges::views::drop_exactly( 1 )
+                        | ranges::views::stride( this->N2() );
   }
 
   /**
@@ -99,10 +94,10 @@ public:
   auto MU() const {
 
     return this->data()
-             | ranges::view::chunk( this->N2() )
-             | ranges::view::transform(
+             | ranges::views::chunk( this->N2() )
+             | ranges::cpp20::views::transform(
                    [] ( const auto& array )
-                      { return array | ranges::view::drop_exactly( 2 ); } );
+                      { return array | ranges::views::drop_exactly( 2 ); } );
   }
 
   /**

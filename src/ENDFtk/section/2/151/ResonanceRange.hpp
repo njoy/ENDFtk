@@ -11,6 +11,9 @@ class ResonanceRange {
 
 public:
 
+  /* type aliases */
+  using OptionalScatteringRadius = std::optional< ScatteringRadius >;
+
   using ResonanceParameters =
           std::variant<
               // LRU=0
@@ -33,7 +36,7 @@ private:
   int naps_;
 
   ResonanceParameters parameters_;
-  std::optional< ScatteringRadius > scattering_radius_;
+  OptionalScatteringRadius scattering_radius_;
 
   /* auxiliary functions */
   #include "ENDFtk/section/2/151/ResonanceRange/src/verifyOptions.hpp"
@@ -48,22 +51,22 @@ public:
   /**
    *  @brief Return the lower energy boundary of the resonance region
    */
-  auto EL() const { return this->el_; }
+  double EL() const { return this->el_; }
 
   /**
    *  @brief Return the lower energy boundary of the resonance region
    */
-  auto lowerEnergy() const { return this->EL(); }
+  double lowerEnergy() const { return this->EL(); }
 
   /**
    *  @brief Return the upper energy boundary of the resonance region
    */
-  auto EH() const { return this->eh_; }
+  double EH() const { return this->eh_; }
 
   /**
    *  @brief Return the upper energy boundary of the resonance region
    */
-  auto upperEnergy() const { return this->EH(); }
+  double upperEnergy() const { return this->EH(); }
 
   /**
    *  @brief Return the resonance type (resolved or unresolved)
@@ -124,12 +127,15 @@ public:
   /**
    *  @brief Return optional scattering radius
    */
-  const auto& scatteringRadius() const { return this->scattering_radius_; }
+  const OptionalScatteringRadius& scatteringRadius() const {
+
+    return this->scattering_radius_;
+  }
 
   /**
    *  @brief Return the resonance parameters
    */
-  const auto& parameters() const { return this->parameters_; }
+  const ResonanceParameters& parameters() const { return this->parameters_; }
 
   /**
    *  @brief Return the number of lines in this MF2/MT151 component

@@ -4,13 +4,7 @@
 
 // local includes
 #include "ENDFtk/tree/Tape.hpp"
-#include "ENDFtk/file/3.hpp"
-#include "ENDFtk/file/4.hpp"
-#include "ENDFtk/file/5.hpp"
-#include "ENDFtk/file/6.hpp"
-#include "ENDFtk/file/12.hpp"
-#include "ENDFtk/file/13.hpp"
-#include "range/v3/utility/iterator.hpp"
+#include "range/v3/range/operations.hpp"
 #include "views.hpp"
 
 // namespace aliases
@@ -32,8 +26,12 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
   using MF6 = njoy::ENDFtk::file::Type< 6 >;
   using MF7 = njoy::ENDFtk::file::Type< 7 >;
   using MF8 = njoy::ENDFtk::file::Type< 8 >;
+  using MF9 = njoy::ENDFtk::file::Type< 9 >;
+  using MF10 = njoy::ENDFtk::file::Type< 10 >;
   using MF12 = njoy::ENDFtk::file::Type< 12 >;
   using MF13 = njoy::ENDFtk::file::Type< 13 >;
+  using MF14 = njoy::ENDFtk::file::Type< 14 >;
+  using MF15 = njoy::ENDFtk::file::Type< 15 >;
 
   // wrap views created by this tree component
   // none of these are supposed to be created directly by the user
@@ -107,7 +105,7 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
 
     "section_numbers",
     [] ( const File& self ) -> std::vector< int >
-       { return self.sectionNumbers(); },
+       { return ranges::to< std::vector< int > >( self.sectionNumbers() ); },
     "All section numbers in the file"
   )
   .def_property_readonly(
@@ -143,16 +141,25 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
 
     "parse",
     [] ( const File& self ) -> std::variant< MF1, MF2, MF3, MF4, MF5, MF6,
-                                             MF7, MF8, MF12, MF13 > {
+                                             MF7, MF8, MF9, MF10, MF12, MF13,
+                                             MF14, MF15 > {
 
       switch ( self.fileNumber() ) {
 
+        case 1 : return self.parse< 1 >();
+        case 2 : return self.parse< 2 >();
         case 3 : return self.parse< 3 >();
         case 4 : return self.parse< 4 >();
         case 5 : return self.parse< 5 >();
         case 6 : return self.parse< 6 >();
+        case 7 : return self.parse< 7 >();
+        case 8 : return self.parse< 8 >();
+        case 9 : return self.parse< 9 >();
+        case 10 : return self.parse< 10 >();
         case 12 : return self.parse< 12 >();
         case 13 : return self.parse< 13 >();
+        case 14 : return self.parse< 14 >();
+        case 15 : return self.parse< 15 >();
       }
       throw std::runtime_error( "File cannot be parsed yet" );
     },
@@ -162,7 +169,7 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
 
     "content",
     [] ( const File& self ) -> std::string
-       { return self.buffer(); },
+       { return ranges::to< std::string >( self.buffer() ); },
     "The content of the file"
   );
 }
