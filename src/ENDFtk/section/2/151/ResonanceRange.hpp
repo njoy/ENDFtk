@@ -7,7 +7,7 @@
  *
  *  See ENDF102, section 2.1 for more information.
  */
-class ResonanceRange {
+class PYTHON_EXPORT ResonanceRange {
 
 public:
 
