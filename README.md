@@ -113,4 +113,5 @@ sections = file.sections.copy()    # this is a list of MF6 sections that have be
 ```
 
 ## LICENSE
-The software contained in this repository is covered under the associated [LICENSE](LICENSE) file.
+This software is copyrighted by Los Alamos National Laboratory and distributed
+according to the conditions in the accompanying [LICENSE](LICENSE) file.
