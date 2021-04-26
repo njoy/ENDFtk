@@ -137,13 +137,13 @@ void wrapReichMoore( python::module& module, python::module& viewmodule ) {
 
     "NLSC",
     [] ( const Component& self ) { return self.NLSC(); },
-    "The number of l values required for convergence"
+    "The number of l values required for convergence of angular distributions"
   )
   .def_property_readonly(
 
-    "number_l_values_for_convergence",
-    [] ( const Component& self ) { return self.numberLValuesForConvergence(); },
-    "The number of l values required for convergence"
+    "number_l_values_for_distributions",
+    [] ( const Component& self ) { return self.numberLValuesForDistributions(); },
+    "The number of l values required for convergence of angular distributions"
   )
   .def_property_readonly(
 
