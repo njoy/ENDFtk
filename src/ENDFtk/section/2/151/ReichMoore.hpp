@@ -49,7 +49,7 @@ public:
   using BreitWignerReichMooreBase::NLS;
   using BreitWignerReichMooreBase::numberLValues;
   using BreitWignerReichMooreBase::NLSC;
-  using BreitWignerReichMooreBase::numberLValuesForConvergence;
+  using BreitWignerReichMooreBase::numberLValuesForDistributions;
   using BreitWignerReichMooreBase::lValues;
 
   using BreitWignerReichMooreBase::NC;

@@ -148,7 +148,7 @@ void verifyChunk( const ReichMoore& chunk ) {
   CHECK( 2 == chunk.NLS() );
   CHECK( 2 == chunk.numberLValues() );
   CHECK( 3 == chunk.NLSC() );
-  CHECK( 3 == chunk.numberLValuesForConvergence() );
+  CHECK( 3 == chunk.numberLValuesForDistributions() );
 
   CHECK( 2 == chunk.lValues().size() );
 

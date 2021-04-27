@@ -102,14 +102,16 @@ public:
   int numberLValues() const { return this->NLS(); }
 
   /**
-   *  @brief Return the number of l values required for convergence
+   *  @brief Return the number of l values required for convergence of
+   *         angular distributions
    */
   int NLSC() const { return this->nlsc_; }
 
   /**
-   *  @brief Return the number of l values required for convergence
+   *  @brief Return the number of l values required for convergence of
+   *         angular distributions
    */
-  int numberLValuesForConvergence() const { return this->NLSC(); }
+  int numberLValuesForDistributions() const { return this->NLSC(); }
 
   /**
    *  @brief Return the l values and its resonance parameters
