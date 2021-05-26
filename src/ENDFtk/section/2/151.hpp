@@ -4,6 +4,7 @@
 // system includes
 #include <complex>
 #include <variant>
+#include <optional>
 
 // other includes
 #include "range/v3/algorithm/count.hpp"
