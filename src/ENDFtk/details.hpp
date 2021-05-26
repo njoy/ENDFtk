@@ -3,6 +3,7 @@
 
 // system includes
 #include <string>
+#include <optional>
 
 // other includes
 #include "boost/hana.hpp"
