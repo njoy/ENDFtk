@@ -2,6 +2,7 @@
 #define NJOY_ENDFTK_SECTION_13
 
 // system includes
+#include <optional>
 
 // other includes
 #include "ENDFtk/ControlRecord.hpp"

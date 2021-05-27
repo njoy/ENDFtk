@@ -4,6 +4,7 @@
 // system includes
 #include <variant>
 #include <vector>
+#include <optional>
 
 // other includes
 #include "boost/hana.hpp"
