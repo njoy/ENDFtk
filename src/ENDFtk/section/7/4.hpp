@@ -3,6 +3,7 @@
 
 // system includes
 #include <variant>
+#include <optional>
 #include <vector>
 
 // other includes
