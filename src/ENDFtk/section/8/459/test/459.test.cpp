@@ -240,6 +240,66 @@ SCENARIO( "section::Type< 8, 459 >" ) {
         CHECK_THROWS( section8459( head, begin, end, lineNumber, 9228 ) );
       } // THEN
     } // WHEN
+
+    WHEN( "the number of identifiers, isomeric states and yield sets are "
+          "inconsistent" ) {
+
+      double zaid = 92235.;
+      double awr = 233.0250;
+
+      std::vector< unsigned int > wrong = { 23066, 54135 };
+      std::vector< unsigned int > states = { 0, 0, 0 };
+
+      std::vector< double > energies = { 0.0253, 500e+3 };
+      std::vector< unsigned int > interpolants = { 3 };
+
+      std::vector< std::vector< std::array< double, 2 > > > yields = {
+
+        { {{ 2.05032e-19, 1.31220e-19 }}, {{ 4.48456e-18, 2.87012e-18 }} }, // 230660
+        { {{ 7.851250e-4, 4.710750e-5 }}, {{ 1.196100e-3, 2.751030e-4 }} }, // 541350
+        { {{ 0, 0 }}, {{ 0, 0 }} }                                          // 721710
+      };
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( section8459( zaid, awr,
+                                   std::move( wrong ),
+                                   std::move( states ),
+                                   std::move( energies ),
+                                   std::move( interpolants ),
+                                   std::move( yields ) ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the number of identifiers, isomeric states and yield sets are "
+          "inconsistent" ) {
+
+      double zaid = 92235.;
+      double awr = 233.0250;
+
+      std::vector< unsigned int > identifiers = { 23066, 54135, 72171 };
+      std::vector< unsigned int > states = { 0, 0, 0 };
+
+      std::vector< double > energies = { 0.0253, 500e+3 };
+      std::vector< unsigned int > interpolants = { 3 };
+
+      std::vector< std::vector< std::array< double, 2 > > > wrong = {
+
+        { {{ 2.05032e-19, 1.31220e-19 }}, {{ 4.48456e-18, 2.87012e-18 }} }, // 230660
+        { {{ 1.196100e-3, 2.751030e-4 }} }, // 541350 missing one pair
+        { {{ 0, 0 }}, {{ 0, 0 }} }                                          // 721710
+      };
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( section8459( zaid, awr,
+                                   std::move( identifiers ),
+                                   std::move( states ),
+                                   std::move( energies ),
+                                   std::move( interpolants ),
+                                   std::move( wrong ) ) );
+      } // THEN
+    } // WHEN
   } // GIVEN
 } // SCENARIO
 
