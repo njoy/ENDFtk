@@ -22,7 +22,8 @@ namespace section {
     std::vector< FissionYieldData > data_;
 
     /* auxiliary functions */
-    #include "ENDFtk/section/8/459/src/generateFissionYields.hpp"
+    // this deliberately reference MF8/MT454 since the code is common
+    #include "ENDFtk/section/8/454/src/generateFissionYields.hpp"
 
   public:
 
@@ -67,8 +68,9 @@ namespace section {
      */
     auto incidentEnergies() const { return this->E(); }
 
-    #include "ENDFtk/section/8/459/src/NC.hpp"
-    #include "ENDFtk/section/8/459/src/print.hpp"
+    // these deliberately reference MF8/MT454 since the code is common
+    #include "ENDFtk/section/8/454/src/NC.hpp"
+    #include "ENDFtk/section/8/454/src/print.hpp"
 
     /**
      *  @brief Return the MT number of the section

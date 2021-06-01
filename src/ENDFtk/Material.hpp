@@ -2,6 +2,7 @@
 #define NJOY_ENDFTK_MATERIAL
 
 // system includes
+#include <optional>
 
 // other includes
 #include "ENDFtk/file/1.hpp"
