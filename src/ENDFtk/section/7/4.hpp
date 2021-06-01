@@ -5,6 +5,7 @@
 #include <variant>
 #include <optional>
 #include <vector>
+#include <optional>
 
 // other includes
 #include "boost/hana.hpp"
