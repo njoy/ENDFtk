@@ -2,6 +2,7 @@
 #define NJOY_ENDFTK_FILE_BASE
 
 // system includes
+#include <optional>
 
 // other includes
 #include "boost/hana.hpp"
