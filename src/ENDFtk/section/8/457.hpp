@@ -2,6 +2,7 @@
 #define NJOY_ENDFTK_SECTION_8_457
 
 // system includes
+#include <optional>
 
 // other includes
 #include "range/v3/action/join.hpp"

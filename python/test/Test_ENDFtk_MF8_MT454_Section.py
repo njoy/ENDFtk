@@ -328,6 +328,30 @@ class Test_ENDFtk_MF8_MT457_Section( unittest.TestCase ) :
 
             chunk = Section.from_string( self.chunk + self.invalid_SEND )
 
+        # inconsistent sizes between identifiers, states and yields
+        with self.assertRaises( Exception ) :
+
+            chunk = Section( zaid = 92235., awr = 233.0250,
+                             identifiers = [ 23066, 54135 ], # one less identifier
+                             states = [ 0, 0, 0 ],
+                             energies = [ 0.0253, 500e+3 ],
+                             interpolants = [ 3 ],
+                             yields = [ [ [ 2.05032e-19, 1.31220e-19 ], [ 4.48456e-18, 2.87012e-18 ] ],
+                                        [ [ 7.851250e-4, 4.710750e-5 ], [ 1.196100e-3, 2.751030e-4 ] ],
+                                        [ [ 0, 0 ], [ 0, 0 ] ] ] )
+
+        # inconsistent yield sets
+        with self.assertRaises( Exception ) :
+
+            chunk = Section( zaid = 92235., awr = 233.0250,
+                             identifiers = [ 23066, 54135, 72171 ],
+                             states = [ 0, 0, 0 ],
+                             energies = [ 0.0253, 500e+3 ],
+                             interpolants = [ 3 ],
+                             yields = [ [ [ 2.05032e-19, 1.31220e-19 ], [ 4.48456e-18, 2.87012e-18 ] ],
+                                        [ [ 1.196100e-3, 2.751030e-4 ] ],
+                                        [ [ 0, 0 ], [ 0, 0 ] ] ] )
+
 if __name__ == '__main__' :
 
     unittest.main()
