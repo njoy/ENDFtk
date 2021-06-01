@@ -2,6 +2,7 @@
 #define NJOY_ENDFTK_TAPE
 
 // system includes
+#include <optional>
 
 // other includes
 #include "range/v3/view/all.hpp"
