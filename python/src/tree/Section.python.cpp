@@ -4,16 +4,6 @@
 
 // local includes
 #include "ENDFtk/tree/Tape.hpp"
-#include "ENDFtk/section/1.hpp"
-#include "ENDFtk/section/2.hpp"
-#include "ENDFtk/section/3.hpp"
-#include "ENDFtk/section/4.hpp"
-#include "ENDFtk/section/5.hpp"
-#include "ENDFtk/section/6.hpp"
-#include "ENDFtk/section/7.hpp"
-#include "ENDFtk/section/8.hpp"
-#include "ENDFtk/section/12.hpp"
-#include "ENDFtk/section/13.hpp"
 #include "range/v3/utility/iterator.hpp"
 #include "views.hpp"
 
@@ -44,6 +34,8 @@ void wrapTreeSection( python::module& module, python::module& ) {
   using MF8MT454 = njoy::ENDFtk::section::Type< 8, 454 >;
   using MF8MT457 = njoy::ENDFtk::section::Type< 8, 457 >;
   using MF8MT459 = njoy::ENDFtk::section::Type< 8, 459 >;
+  using MF9MTxxx = njoy::ENDFtk::section::Type< 9 >;
+  using MF10MTxxx = njoy::ENDFtk::section::Type< 10 >;
   using MF12MTxxx = njoy::ENDFtk::section::Type< 12 >;
   using MF13MTxxx = njoy::ENDFtk::section::Type< 13 >;
 
@@ -114,6 +106,7 @@ void wrapTreeSection( python::module& module, python::module& ) {
                                                 MF3MTxxx, MF4MTxxx, MF5MTxxx,
                                                 MF6MTxxx, MF7MT2, MF7MT4,
                                                 MF8MT454, MF8MT457, MF8MT459,
+                                                MF9MTxxx, MF10MTxxx,
                                                 MF12MTxxx, MF13MTxxx > {
       int mf = self.fileNumber();
       int mt = self.sectionNumber();
@@ -180,6 +173,8 @@ void wrapTreeSection( python::module& module, python::module& ) {
                            " is not an official ENDF section" );
           }
         }
+        case 9 : return self.parse< 9 >();
+        case 10 : return self.parse< 10 >();
         case 12 : return self.parse< 12 >();
         case 13 : return self.parse< 13 >();
         default: throw std::runtime_error(
