@@ -195,7 +195,7 @@ void verifyChunkWithLTT0( const section::Type< 14 >& chunk ) {
   CHECK( 0 == chunk.LTT() );
   CHECK( 0 == chunk.LAW() );
   CHECK( true == chunk.LI() );
-  CHECK( true == chunk.isotropicAngularDistributions() );
+  CHECK( true == chunk.isotropicDistributions() );
 
   CHECK( 0 == chunk.photonAngularDistributions().size() );
 
@@ -230,14 +230,14 @@ void verifyChunkWithLTT1( const section::Type< 14 >& chunk ) {
   CHECK( 1 == chunk.LTT() );
   CHECK( 1 == chunk.LAW() );
   CHECK( false == chunk.LI() );
-  CHECK( false == chunk.isotropicAngularDistributions() );
+  CHECK( false == chunk.isotropicDistributions() );
 
   CHECK( 1 == chunk.photonAngularDistributions().size() );
 
   auto photon = std::get< LegendreDistributions >( chunk.photonAngularDistributions()[0] );
 
   CHECK( false == photon.LI() );
-  CHECK( false == photon.isotropicAngularDistributions() );
+  CHECK( false == photon.isotropicDistributions() );
   CHECK( 1 == photon.LTT() );
   CHECK( 1 == photon.LAW() );
 

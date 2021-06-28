@@ -167,7 +167,7 @@ std::string chunk() {
 void verifyChunk( const TabulatedDistributions& chunk ) {
 
   CHECK( false == chunk.LI() );
-  CHECK( false == chunk.isotropicAngularDistributions() );
+  CHECK( false == chunk.isotropicDistributions() );
   CHECK( 2 == chunk.LTT() );
   CHECK( 2 == chunk.LAW() );
 

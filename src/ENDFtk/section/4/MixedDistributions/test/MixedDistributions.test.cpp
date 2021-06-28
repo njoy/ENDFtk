@@ -134,6 +134,8 @@ std::string chunk() {
 
 void verifyChunk( const MixedDistributions& chunk ) {
 
+  CHECK( false == chunk.LI() );
+  CHECK( false == chunk.isotropicDistributions() );
   CHECK( 3 == chunk.LTT() );
   CHECK( 3 == chunk.LAW() );
 

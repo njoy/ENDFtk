@@ -83,7 +83,7 @@ class Test_ENDFtk_MF4_Section( unittest.TestCase ) :
             self.assertEqual( 0, chunk.LTT )
             self.assertEqual( 0, chunk.LAW )
             self.assertEqual( True, chunk.LI )
-            self.assertEqual( True, chunk.isotropic_angular_distributions )
+            self.assertEqual( True, chunk.isotropic_distributions )
 
             self.assertEqual( 0, chunk.NE )
             self.assertEqual( 0, chunk.NR )
@@ -117,7 +117,7 @@ class Test_ENDFtk_MF4_Section( unittest.TestCase ) :
             self.assertEqual( 1, chunk.LTT )
             self.assertEqual( 1, chunk.LAW )
             self.assertEqual( False, chunk.LI )
-            self.assertEqual( False, chunk.isotropic_angular_distributions )
+            self.assertEqual( False, chunk.isotropic_distributions )
 
             self.assertEqual( 2, chunk.NE )
             self.assertEqual( 1, chunk.NR )
@@ -206,7 +206,7 @@ class Test_ENDFtk_MF4_Section( unittest.TestCase ) :
             self.assertEqual( 2, chunk.LTT )
             self.assertEqual( 2, chunk.LAW )
             self.assertEqual( False, chunk.LI )
-            self.assertEqual( False, chunk.isotropic_angular_distributions )
+            self.assertEqual( False, chunk.isotropic_distributions )
 
             self.assertEqual( 2, chunk.NE )
             self.assertEqual( 1, chunk.NR )
@@ -325,7 +325,7 @@ class Test_ENDFtk_MF4_Section( unittest.TestCase ) :
             self.assertEqual( 3, chunk.LTT )
             self.assertEqual( 3, chunk.LAW )
             self.assertEqual( False, chunk.LI )
-            self.assertEqual( False, chunk.isotropic_angular_distributions )
+            self.assertEqual( False, chunk.isotropic_distributions )
 
             self.assertEqual( 4, chunk.NE )
             self.assertEqual( 2, chunk.NR )

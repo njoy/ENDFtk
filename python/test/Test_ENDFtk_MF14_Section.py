@@ -53,7 +53,7 @@ class Test_ENDFtk_MF14_Section( unittest.TestCase ) :
             self.assertEqual( 0, chunk.LTT )
             self.assertEqual( 0, chunk.LAW )
             self.assertEqual( True, chunk.LI )
-            self.assertEqual( True, chunk.isotropic_angular_distributions )
+            self.assertEqual( True, chunk.isotropic_distributions )
 
             self.assertEqual( 0, len( chunk.photon_angular_distributions ) )
 
@@ -81,7 +81,7 @@ class Test_ENDFtk_MF14_Section( unittest.TestCase ) :
             self.assertEqual( 1, chunk.LTT )
             self.assertEqual( 1, chunk.LAW )
             self.assertEqual( False, chunk.LI )
-            self.assertEqual( False, chunk.isotropic_angular_distributions )
+            self.assertEqual( False, chunk.isotropic_distributions )
 
             self.assertEqual( 1, len( chunk.photon_angular_distributions ) )
 
@@ -89,7 +89,7 @@ class Test_ENDFtk_MF14_Section( unittest.TestCase ) :
             self.assertEqual( True, isinstance( photon, LegendreDistributions ) )
 
             self.assertEqual( False, photon.LI )
-            self.assertEqual( False, photon.isotropic_angular_distributions )
+            self.assertEqual( False, photon.isotropic_distributions )
             self.assertEqual( 1, photon.LTT )
             self.assertEqual( 1, photon.LAW )
 
