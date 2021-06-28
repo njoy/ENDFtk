@@ -23,6 +23,39 @@ Type( int MT, double zaid, double awr,
   photons_( std::move( photons ) ) {}
 
 /**
+ *  @brief Constructor
+ *
+ *  @param[in] mt            the MT number for the section
+ *  @param[in] zaid          the material ZAID value
+ *  @param[in] isotropic     the photon and level energies for the isotropic
+ *                           photons
+ *  @param[in] anisotropic   the distribution data for the anisotropic photons
+ */
+Type( int MT, double zaid, double awr,
+      std::vector< std::array< double, 2 > >&& isotropic,
+      std::vector< AnisotropicPhotonDistribution >&& anisotropic ) :
+  Type( MT, zaid, awr,
+        makePhotonDistributions( std::move( isotropic ),
+                                 std::move( anisotropic ) ) ) {}
+
+/**
+ *  @brief Constructor
+ *
+ *  @param[in] mt            the MT number for the section
+ *  @param[in] zaid          the material ZAID value
+ *  @param[in] isotropic     the photon and level energies for the isotropic
+ *                           photons
+ *  @param[in] anisotropic   the distribution data for the anisotropic photons
+ */
+ Type( int MT, double zaid, double awr,
+       std::vector< double >&& energies,
+       std::vector< double >&& levels,
+       std::vector< AnisotropicPhotonDistribution >&& anisotropic ) :
+   Type( MT, zaid, awr,
+         makeArrays( std::move( energies ), std::move( levels ) ),
+         std::move( anisotropic ) ) {}
+
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator

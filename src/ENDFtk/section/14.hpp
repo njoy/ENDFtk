@@ -46,8 +46,13 @@ namespace section{
                                              LegendreDistributions,
                                              TabulatedDistributions >;
 
-    /* auxiliary functions */
-    #include "ENDFtk/section/14/src/readPhotons.hpp"
+    /** @typedef PhotonDistribution
+     *  @brief The angular distribution of a given discrete photon
+     *
+     *  This distribution class is set up as a variant.
+     */
+    using AnisotropicPhotonDistribution = std::variant< LegendreDistributions,
+                                                        TabulatedDistributions >;
 
   private:
 
@@ -57,6 +62,9 @@ namespace section{
     std::vector< PhotonDistribution > photons_;
 
     /* auxiliary functions */
+    #include "ENDFtk/section/14/src/readPhotons.hpp"
+    #include "ENDFtk/section/14/src/makePhotonDistributions.hpp"
+    #include "ENDFtk/section/14/src/makeArrays.hpp"
 
   public:
 
