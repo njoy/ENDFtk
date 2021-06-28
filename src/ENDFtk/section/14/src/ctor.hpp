@@ -43,8 +43,8 @@ Type( int MT, double zaid, double awr,
  *
  *  @param[in] mt            the MT number for the section
  *  @param[in] zaid          the material ZAID value
- *  @param[in] isotropic     the photon and level energies for the isotropic
- *                           photons
+ *  @param[in] energies      the photon energy for each isotropic photon
+ *  @param[in] levels        the level energy for each isotropic photon
  *  @param[in] anisotropic   the distribution data for the anisotropic photons
  */
  Type( int MT, double zaid, double awr,
