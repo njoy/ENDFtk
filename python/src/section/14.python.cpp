@@ -55,14 +55,16 @@ void wrapSection_14( python::module& module, python::module& viewmodule ) {
   section
   .def(
 
-    python::init< int, double, double >(),
+    python::init< int, double, double, unsigned int >(),
     python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
+    python::arg( "nk" ),
     "Initialise the section for all isotropic photons\n\n"
     "Arguments:\n"
     "    self   the section\n"
     "    mt     the MT number\n"
     "    zaid   the ZA  identifier\n"
-    "    awr    the atomic mass ratio"
+    "    awr    the atomic mass ratio\n"
+    "    nk     the total number of photons"
   )
   .def(
 

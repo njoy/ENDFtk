@@ -15,7 +15,7 @@ from ENDFtk.tree import Tape
 class Test_ENDFtk_MF14_Section( unittest.TestCase ) :
     """Unit test for the Section class."""
 
-    chunk_LTT0 = ( ' 9.223500+4 2.330248+2          1          0          0          0922814  2     \n' )
+    chunk_LTT0 = ( ' 9.223500+4 2.330248+2          1          0          2          0922814  2     \n' )
 
     chunk_LTT1 = ( ' 9.223500+4 2.330248+2          0          1          2          1922814  2     \n'
                    ' 1.500000+6 2.000000+6          0          0          0          0922814  2     \n'
@@ -49,8 +49,8 @@ class Test_ENDFtk_MF14_Section( unittest.TestCase ) :
 
             self.assertEqual( 0, chunk.NI )
             self.assertEqual( 0, chunk.number_isotropic_photons )
-            self.assertEqual( 0, chunk.NK )
-            self.assertEqual( 0, chunk.number_photons )
+            self.assertEqual( 2, chunk.NK )
+            self.assertEqual( 2, chunk.number_photons )
 
             self.assertEqual( 0, chunk.LTT )
             self.assertEqual( 0, chunk.LAW )
@@ -153,7 +153,7 @@ class Test_ENDFtk_MF14_Section( unittest.TestCase ) :
                               chunk.to_string( 9228, 14 ) )
 
         # the data is given explicitly for LTT=0
-        chunk = Section( mt = 2, zaid = 92235., awr = 2.330248e+2 )
+        chunk = Section( mt = 2, zaid = 92235., awr = 2.330248e+2, nk = 2 )
 
         verify_chunk_LTT0( self, chunk )
 

@@ -59,6 +59,7 @@ namespace section{
     /* type aliases */
 
     /* fields */
+    unsigned int nk_;
     std::vector< PhotonDistribution > photons_;
 
     /* auxiliary functions */
@@ -92,9 +93,12 @@ namespace section{
 
     /**
      *  @brief Return the number of photons (discrete and continuum) with
-     *         angular distributions
+     *         angular distributionss
      */
-    int NK() const { return this->photons_.size(); }
+    int NK() const { 
+
+      return this->photons_.size() ? this->photons_.size() : this->nk_;
+    }
 
     /**
      *  @brief Return the number of photons (discrete and continuum) with

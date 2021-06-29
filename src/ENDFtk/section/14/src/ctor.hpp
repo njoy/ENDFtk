@@ -4,10 +4,11 @@
  *  @param[in] mt              the MT number for the section
  *  @param[in] zaid            the material ZAID value
  *  @param[in] awr             the atomic weight ratio
+ *  @param[in] nk              the number of photons
  */
-Type( int MT, double zaid, double awr ) :
+Type( int MT, double zaid, double awr, unsigned int nk ) :
   Base( zaid, awr, MT ),
-  photons_() {}
+  nk_( nk ), photons_() {}
 
 /**
  *  @brief Constructor
@@ -20,7 +21,7 @@ Type( int MT, double zaid, double awr ) :
 Type( int MT, double zaid, double awr,
       std::vector< PhotonDistribution >&& photons ) :
   Base( zaid, awr, MT ),
-  photons_( std::move( photons ) ) {}
+  nk_(0), photons_( std::move( photons ) ) {}
 
 /**
  *  @brief Constructor
@@ -55,6 +56,18 @@ Type( int MT, double zaid, double awr,
          makeArrays( std::move( energies ), std::move( levels ) ),
          std::move( anisotropic ) ) {}
 
+private:
+
+/**
+ *  @brief Private intermediate constructor
+ */
+Type( int MT, double zaid, double awr, unsigned int nk,
+      std::vector< PhotonDistribution >&& photons ) :
+  Base( zaid, awr, MT ),
+  nk_( nk ), photons_( std::move( photons ) ) {}
+
+public:
+
 /**
  *  @brief Constructor (from a buffer)
  *
@@ -72,7 +85,7 @@ Type ( HEAD& head,
        const Iterator& end,
        long& lineNumber,
        int MAT )
-  try: Type( head.MT(), head.ZA(), head.AWR(),
+  try: Type( head.MT(), head.ZA(), head.AWR(), head.N1(),
              readPhotons( begin, end, lineNumber, head.MAT(), 14, head.MT(),
                           head.L1(), head.N2(), head.N1(), head.L2() ) ) {
 

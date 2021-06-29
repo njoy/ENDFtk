@@ -34,8 +34,9 @@ SCENARIO( "section::Type< 14 >" ) {
       int mt = 2;
       double za = 92235.;
       double awr = 2.330248e+2;
+      unsigned int nk = 2;
 
-      section::Type< 14 > chunk( mt, za, awr );
+      section::Type< 14 > chunk( mt, za, awr, nk );
 
       THEN( "a section::Type< 14 > can be constructed and members can be "
             "tested" ) {
@@ -250,7 +251,7 @@ SCENARIO( "section::Type< 14 >" ) {
 
 std::string chunkWithLTT0() {
   return
-    " 9.223500+4 2.330248+2          1          0          0          0922814  2     \n";
+    " 9.223500+4 2.330248+2          1          0          2          0922814  2     \n";
 }
 
 void verifyChunkWithLTT0( const section::Type< 14 >& chunk ) {
@@ -264,8 +265,8 @@ void verifyChunkWithLTT0( const section::Type< 14 >& chunk ) {
 
   CHECK( 0 == chunk.NI() );
   CHECK( 0 == chunk.numberIsotropicPhotons() );
-  CHECK( 0 == chunk.NK() );
-  CHECK( 0 == chunk.numberPhotons() );
+  CHECK( 2 == chunk.NK() );
+  CHECK( 2 == chunk.numberPhotons() );
 
   CHECK( 0 == chunk.LTT() );
   CHECK( 0 == chunk.LAW() );
