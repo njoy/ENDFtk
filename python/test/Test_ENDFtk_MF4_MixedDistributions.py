@@ -48,6 +48,8 @@ class Test_ENDFtk_MF4_MixedDistributions( unittest.TestCase ) :
         def verify_chunk( self, chunk ) :
 
             # verify content
+            self.assertEqual( False, chunk.LI )
+            self.assertEqual( False, chunk.isotropic_distributions )
             self.assertEqual( 3, chunk.LTT )
             self.assertEqual( 3, chunk.LAW )
 

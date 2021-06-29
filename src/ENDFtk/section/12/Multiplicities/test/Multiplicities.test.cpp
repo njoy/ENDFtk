@@ -157,14 +157,14 @@ std::string chunkWithOnePartial() {
 void verifyChunkWithOnePartial( const Multiplicities& chunk ) {
 
   CHECK( std::nullopt == chunk.totalMultiplicity() );
-  CHECK( 1 == chunk.partialMultiplicities().size() );
+  CHECK( 1 == chunk.photonPartialMultiplicities().size() );
 
   CHECK( 1 == chunk.NK() );
-  CHECK( 1 == chunk.numberPartials() );
+  CHECK( 1 == chunk.numberPhotons() );
   CHECK( 1 == chunk.LO() );
   CHECK( 1 == chunk.representation() );
 
-  auto partial = chunk.partialMultiplicities()[0];
+  auto partial = chunk.photonPartialMultiplicities()[0];
   CHECK( 0.0 == Approx( partial.EG() ) );
   CHECK( 0.0 == Approx( partial.photonOrBindingEnergy() ) );
   CHECK( 0.0 == Approx( partial.ES() ) );
@@ -205,9 +205,9 @@ std::string chunkWithMultiplePartials() {
 void verifyChunkWithMultiplePartials( const Multiplicities& chunk ) {
 
   CHECK( std::nullopt != chunk.totalMultiplicity() );
-  CHECK( 2 == chunk.partialMultiplicities().size() );
+  CHECK( 2 == chunk.photonPartialMultiplicities().size() );
   CHECK( 2 == chunk.NK() );
-  CHECK( 2 == chunk.numberPartials() );
+  CHECK( 2 == chunk.numberPhotons() );
   CHECK( 1 == chunk.LO() );
   CHECK( 1 == chunk.representation() );
 
@@ -225,7 +225,7 @@ void verifyChunkWithMultiplePartials( const Multiplicities& chunk ) {
   CHECK( 10. == Approx( total.multiplicities()[0] ) );
   CHECK( 15. == Approx( total.multiplicities()[1] ) );
 
-  auto partial = chunk.partialMultiplicities()[0];
+  auto partial = chunk.photonPartialMultiplicities()[0];
   CHECK( 0.0 == Approx( partial.EG() ) );
   CHECK( 0.0 == Approx( partial.photonOrBindingEnergy() ) );
   CHECK( 0.0 == Approx( partial.ES() ) );
@@ -247,7 +247,7 @@ void verifyChunkWithMultiplePartials( const Multiplicities& chunk ) {
   CHECK( 8.579050e+0 == Approx( partial.multiplicities()[0] ) );
   CHECK( 1.487778e+1 == Approx( partial.multiplicities()[1] ) );
 
-  partial = chunk.partialMultiplicities()[1];
+  partial = chunk.photonPartialMultiplicities()[1];
   CHECK( 0.0 == Approx( partial.EG() ) );
   CHECK( 0.0 == Approx( partial.photonOrBindingEnergy() ) );
   CHECK( 0.0 == Approx( partial.ES() ) );

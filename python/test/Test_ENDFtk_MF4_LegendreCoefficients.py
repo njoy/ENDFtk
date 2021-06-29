@@ -61,7 +61,7 @@ class Test_ENDFtk_MF4_LegendreCoefficients( unittest.TestCase ) :
 
         with self.assertRaises( Exception ) :
 
-            chunk = LegendreCoefficients.from_string( self.invalid, 9228, 2, 151 )
+            chunk = LegendreCoefficients.from_string( self.invalid, 9228, 4, 2 )
 
 if __name__ == '__main__' :
 

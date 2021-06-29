@@ -115,7 +115,7 @@ namespace section{
     /**
      *  @brief Return the isotropic angular distribution flag
      */
-    bool isotropicAngularDistributions() const { return this->LI(); }
+    bool isotropicDistributions() const { return this->LI(); }
 
     /**
      *  @brief Return the partial distributions defined in this section

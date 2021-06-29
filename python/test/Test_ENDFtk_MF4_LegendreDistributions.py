@@ -29,6 +29,8 @@ class Test_ENDFtk_MF4_LegendreDistributions( unittest.TestCase ) :
         def verify_chunk( self, chunk ) :
 
             # verify content
+            self.assertEqual( False, chunk.LI )
+            self.assertEqual( False, chunk.isotropic_distributions )
             self.assertEqual( 1, chunk.LTT )
             self.assertEqual( 1, chunk.LAW )
 
@@ -115,7 +117,7 @@ class Test_ENDFtk_MF4_LegendreDistributions( unittest.TestCase ) :
 
         with self.assertRaises( Exception ) :
 
-            chunk = LegendreDistributions.from_string( self.invalid, 9228, 2, 151 )
+            chunk = LegendreDistributions.from_string( self.invalid, 9228, 14, 2 )
 
 if __name__ == '__main__' :
 

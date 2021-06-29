@@ -77,13 +77,13 @@ void wrapMultiplicities( python::module& module, python::module& viewmodule ) {
 
     "NK",
     &Component::NK,
-    "The number of partial multiplicities (discrete photons and continuum)"
+    "The the number of photons (discrete and continuum) with partial multiplicities"
   )
   .def_property_readonly(
 
-    "number_partials",
-    &Component::numberPartials,
-    "The number of partial multiplicities (discrete photons and continuum)"
+    "number_photons",
+    &Component::numberPhotons,
+    "The the number of photons (discrete and continuum) with partial multiplicities"
   )
   .def_property_readonly(
 
@@ -93,9 +93,9 @@ void wrapMultiplicities( python::module& module, python::module& viewmodule ) {
   )
   .def_property_readonly(
 
-    "partial_multiplicities",
+    "photon_partial_multiplicities",
     [] ( const Component& self ) -> PartialMultiplicityRange
-       { return self.partialMultiplicities(); },
+       { return self.photonPartialMultiplicities(); },
     "The partial multiplicities"
   )
   .def(

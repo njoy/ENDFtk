@@ -48,16 +48,16 @@ namespace section{
     /* get methods */
 
     /**
-     *  @brief Return the number of partial cross sections (discrete photons
-     *         and continuum)
+     *  @brief Return the number of photons (discrete and continuum) with
+     *         partial cross sections
      */
     int NK() const { return this->partials_.size(); }
 
     /**
-    *  @brief Return the number of partial multiplicities (discrete photons
-    *         and continuum)
+     *  @brief Return the number of photons (discrete and continuum) with
+     *         partial cross sections
      */
-    int numberPartials() const { return this->NK(); }
+    int numberPhotons() const { return this->NK(); }
 
     /**
      *  @brief Return the total cross section (optional)
@@ -67,7 +67,7 @@ namespace section{
     /**
      *  @brief Return the partial cross sections
      */
-    auto partialCrossSections() const {
+    auto photonPartialCrossSections() const {
 
       return ranges::view::all( this->partials_ );
     }
