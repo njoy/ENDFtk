@@ -16,6 +16,11 @@ class Test_ENDFtk_MF14_IsotropicDiscretePhoton( unittest.TestCase ) :
         def verify_chunk( self, chunk ) :
 
             # verify content
+            self.assertEqual( True, chunk.LI )
+            self.assertEqual( True, chunk.isotropic_distributions )
+            self.assertEqual( 0, chunk.LTT )
+            self.assertEqual( 0, chunk.LAW )
+
             self.assertAlmostEqual( 1., chunk.EG )
             self.assertAlmostEqual( 1., chunk.photon_energy )
             self.assertAlmostEqual( 2., chunk.ES )

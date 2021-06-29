@@ -75,6 +75,11 @@ std::string chunk() {
 
 void verifyChunk( const IsotropicDiscretePhoton& chunk ) {
 
+  CHECK( true == chunk.LI() );
+  CHECK( true == chunk.isotropicDistributions() );
+  CHECK( 0 == chunk.LTT() );
+  CHECK( 0 == chunk.LAW() );
+
   CHECK( 1. == Approx( chunk.EG() ) );
   CHECK( 1. == Approx( chunk.photonEnergy() ) );
   CHECK( 2. == Approx( chunk.ES() ) );

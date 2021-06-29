@@ -5,8 +5,8 @@ generateFissionYields( std::vector< unsigned int >&& identifiers,
                        std::vector< unsigned int >&& interpolants,
                        std::vector< std::vector< std::array< double, 2 > > >&& yields ) {
 
-  unsigned int size = energies.size();
   std::vector< FissionYieldData > sequence;
+  unsigned int size = energies.size();
   sequence.reserve( size );
 
   if ( size != interpolants.size() + 1 ) {

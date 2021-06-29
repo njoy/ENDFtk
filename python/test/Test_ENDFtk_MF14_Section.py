@@ -4,6 +4,7 @@ import unittest
 # third party imports
 
 # local imports
+from ENDFtk.MF14 import IsotropicDiscretePhoton
 from ENDFtk.MF14 import LegendreCoefficients
 from ENDFtk.MF14 import TabulatedDistribution
 from ENDFtk.MF14 import LegendreDistributions
@@ -14,9 +15,10 @@ from ENDFtk.tree import Tape
 class Test_ENDFtk_MF14_Section( unittest.TestCase ) :
     """Unit test for the Section class."""
 
-    chunk_LTT0 = ( ' 9.223500+4 2.330248+2          1          0          0          0922814  2     \n' )
+    chunk_LTT0 = ( ' 9.223500+4 2.330248+2          1          0          2          0922814  2     \n' )
 
-    chunk_LTT1 = ( ' 9.223500+4 2.330248+2          0          1          1          0922814  2     \n'
+    chunk_LTT1 = ( ' 9.223500+4 2.330248+2          0          1          2          1922814  2     \n'
+                   ' 1.500000+6 2.000000+6          0          0          0          0922814  2     \n'
                    ' 4.438900+6 4.438900+6          0          0          1          2922814  2     \n'
                    '          2          3                                            922814  2     \n'
                    ' 0.000000+0 4.812998+6          0          0          2          0922814  2     \n'
@@ -47,13 +49,13 @@ class Test_ENDFtk_MF14_Section( unittest.TestCase ) :
 
             self.assertEqual( 0, chunk.NI )
             self.assertEqual( 0, chunk.number_isotropic_photons )
-            self.assertEqual( 0, chunk.NK )
-            self.assertEqual( 0, chunk.number_photons )
+            self.assertEqual( 2, chunk.NK )
+            self.assertEqual( 2, chunk.number_photons )
 
             self.assertEqual( 0, chunk.LTT )
             self.assertEqual( 0, chunk.LAW )
             self.assertEqual( True, chunk.LI )
-            self.assertEqual( True, chunk.isotropic_angular_distributions )
+            self.assertEqual( True, chunk.isotropic_distributions )
 
             self.assertEqual( 0, len( chunk.photon_angular_distributions ) )
 
@@ -73,23 +75,36 @@ class Test_ENDFtk_MF14_Section( unittest.TestCase ) :
             self.assertAlmostEqual( 2.330248e+2, chunk.AWR )
             self.assertAlmostEqual( 2.330248e+2, chunk.atomic_weight_ratio )
 
-            self.assertEqual( 0, chunk.NI )
-            self.assertEqual( 0, chunk.number_isotropic_photons )
-            self.assertEqual( 1, chunk.NK )
-            self.assertEqual( 1, chunk.number_photons )
+            self.assertEqual( 1, chunk.NI )
+            self.assertEqual( 1, chunk.number_isotropic_photons )
+            self.assertEqual( 2, chunk.NK )
+            self.assertEqual( 2, chunk.number_photons )
 
             self.assertEqual( 1, chunk.LTT )
             self.assertEqual( 1, chunk.LAW )
             self.assertEqual( False, chunk.LI )
-            self.assertEqual( False, chunk.isotropic_angular_distributions )
+            self.assertEqual( False, chunk.isotropic_distributions )
 
-            self.assertEqual( 1, len( chunk.photon_angular_distributions ) )
+            self.assertEqual( 2, len( chunk.photon_angular_distributions ) )
 
-            photon = chunk.photon_angular_distributions[0]
+            isotropic = chunk.photon_angular_distributions[0]
+            self.assertEqual( True, isinstance( isotropic, IsotropicDiscretePhoton ) )
+
+            self.assertEqual( True, isotropic.LI )
+            self.assertEqual( True, isotropic.isotropic_distributions )
+            self.assertEqual( 0, isotropic.LTT )
+            self.assertEqual( 0, isotropic.LAW )
+
+            self.assertEqual( 1.5e+6, isotropic.EG )
+            self.assertEqual( 1.5e+6, isotropic.photon_energy )
+            self.assertEqual( 2e+6, isotropic.ES )
+            self.assertEqual( 2e+6, isotropic.level_energy )
+
+            photon = chunk.photon_angular_distributions[1]
             self.assertEqual( True, isinstance( photon, LegendreDistributions ) )
 
             self.assertEqual( False, photon.LI )
-            self.assertEqual( False, photon.isotropic_angular_distributions )
+            self.assertEqual( False, photon.isotropic_distributions )
             self.assertEqual( 1, photon.LTT )
             self.assertEqual( 1, photon.LAW )
 
@@ -131,14 +146,14 @@ class Test_ENDFtk_MF14_Section( unittest.TestCase ) :
             self.assertEqual( 0., d.coefficients[0] )
             self.assertEqual( 0., d.coefficients[1] )
 
-            self.assertEqual( 7, chunk.NC )
+            self.assertEqual( 8, chunk.NC )
 
             # verify string
             self.assertEqual( self.chunk_LTT1 + self.valid_SEND,
                               chunk.to_string( 9228, 14 ) )
 
         # the data is given explicitly for LTT=0
-        chunk = Section( mt = 2, zaid = 92235., awr = 2.330248e+2 )
+        chunk = Section( mt = 2, zaid = 92235., awr = 2.330248e+2, nk = 2 )
 
         verify_chunk_LTT0( self, chunk )
 
@@ -160,8 +175,9 @@ class Test_ENDFtk_MF14_Section( unittest.TestCase ) :
 
         verify_chunk_LTT0( self, copy )
 
-        # the data is given explicitly for LTT=1
-        distributions = [ LegendreDistributions(
+        # the data is given explicitly
+        distributions = [ IsotropicDiscretePhoton( energy = 1.5e+6, level = 2.0e+6 ),
+                          LegendreDistributions(
                             energy = 4.438900e+6, level = 4.438900e+6,
                             boundaries = [ 2 ], interpolants = [ 3 ],
                             distributions = [ LegendreCoefficients( 4.812998e+6, [ 0., 0.04076 ] ),
@@ -169,6 +185,32 @@ class Test_ENDFtk_MF14_Section( unittest.TestCase ) :
 
         chunk = Section( mt = 2, zaid = 92235., awr = 2.330248e+2,
                          photons = distributions )
+
+        verify_chunk_LTT1( self, chunk )
+
+        # the data is given explicitly
+        distributions = [ LegendreDistributions(
+                            energy = 4.438900e+6, level = 4.438900e+6,
+                            boundaries = [ 2 ], interpolants = [ 3 ],
+                            distributions = [ LegendreCoefficients( 4.812998e+6, [ 0., 0.04076 ] ),
+                                              LegendreCoefficients( 15e+7, [ 0., 0. ] ) ] ) ]
+
+        chunk = Section( mt = 2, zaid = 92235., awr = 2.330248e+2,
+                         isotropic = [ [ 1.5e+6, 2.0e+6 ] ],
+                         anisotropic = distributions )
+
+        verify_chunk_LTT1( self, chunk )
+
+        # the data is given explicitly
+        distributions = [ LegendreDistributions(
+                            energy = 4.438900e+6, level = 4.438900e+6,
+                            boundaries = [ 2 ], interpolants = [ 3 ],
+                            distributions = [ LegendreCoefficients( 4.812998e+6, [ 0., 0.04076 ] ),
+                                              LegendreCoefficients( 15e+7, [ 0., 0. ] ) ] ) ]
+
+        chunk = Section( mt = 2, zaid = 92235., awr = 2.330248e+2,
+                         energies = [ 1.5e+6 ], levels = [ 2.0e+6 ],
+                         anisotropic = distributions )
 
         verify_chunk_LTT1( self, chunk )
 

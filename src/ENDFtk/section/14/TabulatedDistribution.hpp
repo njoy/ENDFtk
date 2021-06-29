@@ -6,7 +6,7 @@
  *  angular distribution for a secondary particle at a given incident energy is
  *  is given as a tabulated function.
  *
- *  See ENDF102, section 4.2.2 for more information.
+ *  See ENDF102, section 14.2.3 for more information.
  */
 class TabulatedDistribution : protected TabulationRecord {
 

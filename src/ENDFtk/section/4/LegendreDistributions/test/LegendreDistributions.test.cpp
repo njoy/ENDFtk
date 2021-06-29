@@ -153,7 +153,7 @@ std::string chunk() {
 void verifyChunk( const LegendreDistributions& chunk ) {
 
   CHECK( false == chunk.LI() );
-  CHECK( false == chunk.isotropicAngularDistributions() );
+  CHECK( false == chunk.isotropicDistributions() );
   CHECK( 1 == chunk.LTT() );
   CHECK( 1 == chunk.LAW() );
 
