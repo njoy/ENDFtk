@@ -210,6 +210,11 @@ pybind11_add_module( ENDFtk.python
     python/src/section/14/TabulatedDistribution.python.cpp
     python/src/section/14/LegendreDistributions.python.cpp
     python/src/section/14/TabulatedDistributions.python.cpp
+    python/src/section/15.python.cpp
+    python/src/section/15/OutgoingEnergyDistribution.python.cpp
+    python/src/section/15/TabulatedSpectrum.python.cpp
+    python/src/section/15/Probability.python.cpp
+    python/src/section/15/PartialDistribution.python.cpp
     python/src/file/1.python.cpp
     python/src/file/2.python.cpp
     python/src/file/3.python.cpp
@@ -223,6 +228,7 @@ pybind11_add_module( ENDFtk.python
     python/src/file/12.python.cpp
     python/src/file/13.python.cpp
     python/src/file/14.python.cpp
+    python/src/file/15.python.cpp
     python/src/Material.python.cpp
     python/src/tree/Section.python.cpp
     python/src/tree/File.python.cpp
