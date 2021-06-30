@@ -96,8 +96,8 @@ void wrapSection_4( python::module& module, python::module& viewmodule ) {
   )
   .def_property_readonly(
 
-    "isotropic_angular_distributions",
-    &Section::isotropicAngularDistributions,
+    "isotropic_distributions",
+    &Section::isotropicDistributions,
     "The isotropic angular distribution flag"
   )
   .def_property_readonly(

@@ -325,7 +325,7 @@ void verifyChunkWithLTT0( const section::Type< 4 >& chunk ) {
   CHECK( 0 == chunk.LTT() );
   CHECK( 0 == chunk.LAW() );
   CHECK( true == chunk.LI() );
-  CHECK( true == chunk.isotropicAngularDistributions() );
+  CHECK( true == chunk.isotropicDistributions() );
 
   CHECK( 0 == chunk.NE() );
   CHECK( 0 == chunk.NR() );
@@ -367,7 +367,7 @@ void verifyChunkWithLTT1( const section::Type< 4 >& chunk ) {
   CHECK( 1 == chunk.LTT() );
   CHECK( 1 == chunk.LAW() );
   CHECK( false == chunk.LI() );
-  CHECK( false == chunk.isotropicAngularDistributions() );
+  CHECK( false == chunk.isotropicDistributions() );
 
   CHECK( 2 == chunk.NE() );
   CHECK( 1 == chunk.NR() );
@@ -457,7 +457,7 @@ void verifyChunkWithLTT2( const section::Type< 4 >& chunk ) {
   CHECK( 2 == chunk.LTT() );
   CHECK( 2 == chunk.LAW() );
   CHECK( false == chunk.LI() );
-  CHECK( false == chunk.isotropicAngularDistributions() );
+  CHECK( false == chunk.isotropicDistributions() );
 
   CHECK( 2 == chunk.NE() );
   CHECK( 1 == chunk.NR() );
@@ -568,7 +568,7 @@ void verifyChunkWithLTT3( const section::Type< 4 >& chunk ) {
   CHECK( 3 == chunk.LTT() );
   CHECK( 3 == chunk.LAW() );
   CHECK( false == chunk.LI() );
-  CHECK( false == chunk.isotropicAngularDistributions() );
+  CHECK( false == chunk.isotropicDistributions() );
 
   CHECK( 4 == chunk.NE() );
   CHECK( 2 == chunk.NR() );

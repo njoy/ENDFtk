@@ -30,7 +30,7 @@ class Test_ENDFtk_MF14_LegendreDistributions( unittest.TestCase ) :
 
             # verify content
             self.assertEqual( False, chunk.LI )
-            self.assertEqual( False, chunk.isotropic_angular_distributions )
+            self.assertEqual( False, chunk.isotropic_distributions )
             self.assertEqual( 1, chunk.LTT )
             self.assertEqual( 1, chunk.LAW )
 

@@ -16,7 +16,10 @@ readPhotons( Iterator& begin,
 
     sequence.reserve( NK );
 
+    // NK is the total number of photon subsections
+    // subtract the NI discrete photons we'll read first
     NK -= NI;
+
     while ( NI-- ) {
 
       sequence.push_back( IsotropicDiscretePhoton( begin, end, lineNumber,

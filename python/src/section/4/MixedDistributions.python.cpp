@@ -58,8 +58,8 @@ void wrapMixedDistributions( python::module& module, python::module& ) {
   )
   .def_property_readonly(
 
-    "isotropic_angular_distributions",
-    [] ( const Component& self ) { return self.isotropicAngularDistributions(); },
+    "isotropic_distributions",
+    [] ( const Component& self ) { return self.isotropicDistributions(); },
     "The isotropic angular distribution flag"
   )
   .def_property_readonly(
