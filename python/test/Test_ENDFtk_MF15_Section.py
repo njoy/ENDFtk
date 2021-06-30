@@ -158,7 +158,7 @@ class Test_ENDFtk_MF15_Section( unittest.TestCase ) :
         # the data is given explicitly
         chunk = Section( mt = 18, zaid = 92235., awr = 2.330250e+2,
                          partials = [ PartialDistribution(
-                                        Probability( 1, [ 2 ], [ 2 ],
+                                        Probability( [ 2 ], [ 2 ],
                                                      [ 1e-5, 3e+7 ], [ 1., 1. ] ),
                                         TabulatedSpectrum( [ 2 ], [ 4 ],
                                                            [ OutgoingEnergyDistribution(

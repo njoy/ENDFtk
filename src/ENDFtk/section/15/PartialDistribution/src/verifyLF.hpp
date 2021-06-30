@@ -1,6 +1,9 @@
 static void
 verifyLF( int partialLF, int spectrumLF ) {
 
+  // this function is called to verify the LF value between the spectrum and the
+  // probability distribution when constructing a partial distribution in MF15
+
   if ( partialLF != spectrumLF ) {
 
     Log::error( "Inconsistent LF value between partial probability and "
