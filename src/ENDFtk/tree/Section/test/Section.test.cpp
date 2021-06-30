@@ -12,9 +12,12 @@ std::string baseSection();
 std::string validSEND();
 std::string invalidSEND();
 
-SCENARIO( "Creating a syntax tree of an ENDF Section" ){
-  GIVEN( "A string representation of a Section" ){
-    WHEN( "a valid SEND record ends the Section" ){
+SCENARIO( "Creating a syntax tree of an ENDF Section" ) {
+
+  GIVEN( "A string representation of a Section" ) {
+
+    WHEN( "a valid SEND record ends the Section" ) {
+
       std::string sectionString = baseSection() + validSEND();
       auto position = sectionString.begin();
       auto start = sectionString.begin();
@@ -25,29 +28,23 @@ SCENARIO( "Creating a syntax tree of an ENDF Section" ){
       tree::Section< std::string::iterator >
         sectionTree( head, start, position, end, lineNumber );
 
-      const auto& csectionTree = sectionTree;
+      THEN( "the entire stream is read" ) {
 
-      THEN( "the entire stream is read" ){
         REQUIRE( 36 == lineNumber );
-      }
+      } // THEN
 
-      AND_THEN( "the buffer iterators are populated correctly "){
-        REQUIRE( sectionString.begin() == sectionTree.buffer().begin() );
-        REQUIRE( end == sectionTree.buffer().end() );
-        REQUIRE( sectionString.begin() == csectionTree.buffer().begin() );
-        REQUIRE( end == csectionTree.buffer().end() );
-      }
+      THEN( "the file/section number or MF/MT is populated correctly" ) {
 
-      AND_THEN( "the file/section number or MF/MT is populated correctly" ){
+        REQUIRE( 125 == sectionTree.MAT() );
+        REQUIRE( 125 == sectionTree.materialNumber() );
         REQUIRE( 3 == sectionTree.MF() );
         REQUIRE( 3 == sectionTree.fileNumber() );
         REQUIRE( 1 == sectionTree.MT() );
         REQUIRE( 1 == sectionTree.sectionNumber() );
-        REQUIRE( 1 == csectionTree.MT() );
-        REQUIRE( 1 == csectionTree.sectionNumber() );
-      }
+      } // THEN
 
-      AND_THEN( "the first record of the section is a head record" ){
+      THEN( "the first record of the section is a head record" ) {
+
         auto start = sectionTree.buffer().begin();
         auto end = sectionTree.buffer().end();
         long lineNumber = 0;
@@ -59,12 +56,15 @@ SCENARIO( "Creating a syntax tree of an ENDF Section" ){
         REQUIRE( head.L2() == 0 );
         REQUIRE( head.N1() == 0 );
         REQUIRE( head.N2() == 0 );
-      }
+      } // THEN
     } // WHEN
 
-    WHEN( "an invalid (MT!=0) SEND record ends the Section" ){
+    WHEN( "an invalid (MT!=0) SEND record ends the Section" ) {
+
       std::string sectionString = baseSection() + invalidSEND();
-      THEN( "an exception is thrown" ){
+
+      THEN( "an exception is thrown" ) {
+
         auto begin = sectionString.begin();
         auto start = sectionString.begin();
         auto end = sectionString.end();
@@ -73,21 +73,24 @@ SCENARIO( "Creating a syntax tree of an ENDF Section" ){
         HeadRecord head( begin, end, lineNumber );
         REQUIRE_THROWS( tree::Section< std::string::iterator >(
                 head, start, begin, end, lineNumber ) );
-      }
+      } // THEN
     } // WHEN
 
-    WHEN( "a Section that is too short (no SEND record)" ){
-      THEN( "an exception is thrown" ){
+    WHEN( "a Section that is too short (no SEND record)" ) {
+
+      THEN( "an exception is thrown" ) {
+
         std::string sectionString = baseSection();
         auto begin = sectionString.begin();
         auto start = sectionString.begin();
         auto end = sectionString.end();
         long lineNumber = 0;
         HeadRecord head( begin, end, lineNumber );
+
         REQUIRE_THROWS( tree::Section< std::string::iterator >(
                 head, start, begin, end, lineNumber ) );
-      }
-    }
+      } // THEN
+    } // WHEN
   } // GIVEN
 } // SCENARIO
 

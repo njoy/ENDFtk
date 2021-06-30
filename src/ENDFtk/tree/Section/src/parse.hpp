@@ -5,6 +5,7 @@
  */
 template< int MF, int... OptionalMT >
 section::Type< MF, OptionalMT... > parse( long& lineNumber ) const {
+
   auto position = this->buffer().begin();
   auto end = this->buffer().end();
 
@@ -17,6 +18,7 @@ section::Type< MF, OptionalMT... > parse( long& lineNumber ) const {
  */
 template< int MF, int... OptionalMT >
 section::Type< MF, OptionalMT... > parse() const {
+  
   long lineNumber = 1;
   return this->parse< MF, OptionalMT... >( lineNumber );
 }

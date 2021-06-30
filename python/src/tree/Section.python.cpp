@@ -192,8 +192,7 @@ void wrapTreeSection( python::module& module, python::module& ) {
   .def_property_readonly(
 
     "content",
-    [] ( const Section& self ) -> std::string
-       { return ranges::to< std::string >( self.buffer() ); },
+    &Section::content,
     "The content of the section"
   );
 }

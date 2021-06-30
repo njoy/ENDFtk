@@ -30,10 +30,10 @@ namespace tree {
   class Section {
 
     /* fields */
-    int materialNo;
-    int fileNo;
-    int sectionNo;
-    std::pair< BufferIterator, BufferIterator > bufferLimits;
+    int mat_;
+    int mf_;
+    int mt_;
+    std::string content_;
 
     /* auxiliary function */
     #include "ENDFtk/tree/Section/src/findEnd.hpp"
@@ -49,7 +49,7 @@ namespace tree {
     /**
      *  @brief Return MAT number of the section
      */
-    int MAT() const { return this->materialNo; }
+    int MAT() const { return this->mat_; }
 
     /**
      *  @brief Return MAT number of the section
@@ -58,7 +58,7 @@ namespace tree {
     /**
      *  @brief Return MF number of the section
      */
-    int MF() const { return this->fileNo; }
+    int MF() const { return this->mf_; }
 
     /**
      *  @brief Return MF number of the section
@@ -68,7 +68,7 @@ namespace tree {
     /**
      *  @brief Return MT number of the section
      */
-    int MT() const { return this->sectionNo; }
+    int MT() const { return this->mt_; }
 
     /**
      *  @brief Return MT number of the section
@@ -76,11 +76,17 @@ namespace tree {
     int sectionNumber() const { return this->MT(); }
 
     /**
+     *  @brief Return the section's content
+     */
+    const std::string& content() const { return this->content_; }
+
+    /**
      *  @brief Return the section's buffer
      */
     auto buffer() const {
-      return ranges::make_subrange( this->bufferLimits.first,
-                                    this->bufferLimits.second );
+
+      return ranges::make_subrange( this->content_.begin(),
+                                    this->content_.end() );
     }
   };
 
