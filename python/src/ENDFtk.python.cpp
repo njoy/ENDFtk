@@ -13,6 +13,7 @@ namespace python = pybind11;
 void wrapControlRecord( python::module&, python::module& );
 void wrapListRecord( python::module&, python::module& );
 void wrapTabulationRecord( python::module&, python::module& );
+void wrapInterpolationRecord( python::module&, python::module& );
 void wrapDirectoryRecord( python::module&, python::module& );
 void wrapTapeIdentification( python::module&, python::module& );
 
@@ -81,6 +82,7 @@ PYBIND11_MODULE( ENDFtk, module ) {
   wrapControlRecord( module, viewmodule );
   wrapListRecord( module, viewmodule );
   wrapTabulationRecord( module, viewmodule );
+  wrapInterpolationRecord( module, viewmodule );
   wrapDirectoryRecord( module, viewmodule );
   wrapTapeIdentification( module, viewmodule );
 
