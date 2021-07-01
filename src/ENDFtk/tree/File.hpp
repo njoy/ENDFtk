@@ -147,6 +147,26 @@ namespace tree {
     std::size_t size() const { return this->sections_.size(); }
 
     /**
+     *  @brief Return the file's content
+     */
+    auto content() const {
+
+      std::string content;
+      for ( const auto& section : this->sections() ) {
+
+        content += section.content();
+      }
+
+      if ( content.size() ) {
+
+        auto output = std::back_inserter( content );
+        FEND( this->MAT() ).print( output );
+      }
+
+      return content;
+    }
+
+    /**
      *  @brief Return the file's buffer
      */
     auto buffer() const {

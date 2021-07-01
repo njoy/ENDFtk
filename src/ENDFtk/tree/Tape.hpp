@@ -172,6 +172,32 @@ namespace tree {
     std::size_t size() const { return this->materials_.size(); }
 
     /**
+     *  @brief Return the tape's content
+     */
+    auto content() const {
+
+      std::string content;
+      if ( this->tpid ) {
+
+        auto output = std::back_inserter( content );
+        this->tpid->print( output, 0, 0, 0 );
+      }
+
+      for ( const auto& material : this->materials() ) {
+
+        content += material.content();
+      }
+
+      if ( content.size() ) {
+
+        auto output = std::back_inserter( content );
+        TEND().print( output );
+      }
+
+      return content;
+    }
+
+    /**
      *  @brief Return the tape's buffer
      */
     auto buffer() const { return this->buffer_ | ranges::cpp20::views::all; }

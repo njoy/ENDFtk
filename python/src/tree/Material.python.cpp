@@ -93,8 +93,7 @@ void wrapTreeMaterial( python::module& module, python::module& viewmodule ) {
   .def_property_readonly(
 
     "content",
-    [] ( const Material& self ) -> std::string
-       { return ranges::to< std::string >( self.buffer() ); },
+    &Material::content,
     "The content of the material"
   )
   .def(

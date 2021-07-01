@@ -142,6 +142,26 @@ namespace tree {
     int materialNumber() const { return this->MAT(); }
 
     /**
+     *  @brief Return the material's content
+     */
+    auto content() const {
+
+      std::string content;
+      for ( const auto& file : this->files() ) {
+
+        content += file.content();
+      }
+
+      if ( content.size() ) {
+
+        auto output = std::back_inserter( content );
+        MEND().print( output );
+      }
+
+      return content;
+    }
+
+    /**
      *  @brief Return the material's buffer
      */
     auto buffer() const {

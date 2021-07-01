@@ -141,8 +141,7 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
   .def_property_readonly(
 
     "content",
-    [] ( const Tape& self ) -> std::string
-       { return ranges::to< std::string >( self.buffer() ); },
+    &Tape::content,
     "The content of the tape"
   )
   .def_static(
