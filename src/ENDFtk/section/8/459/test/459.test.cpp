@@ -202,8 +202,7 @@ SCENARIO( "section::Type< 8, 459 >" ) {
       auto end = sectionString.end();
       long lineNumber = 1;
       auto head = HEAD( position, end, lineNumber );
-      tree::Section< std::string::iterator >
-        section( head, begin, position, end, lineNumber );
+      tree::Section section( head, begin, position, end, lineNumber );
 
       section::Type< 8, 459 > chunk = section.parse< 8, 459 >( lineNumber );
 

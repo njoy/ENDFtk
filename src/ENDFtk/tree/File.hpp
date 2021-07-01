@@ -30,23 +30,20 @@ namespace tree {
    *  indexed ENDF sections from that file. It is created by the ENDF tree
    *  Material class and should not be directly constructed by a user.
    */
-  template< typename BufferIterator >
   class File {
 
   public:
 
     /* type aliases */
-    using Section_t = Section< BufferIterator >;
-    using iterator = typename std::vector< Section_t >::iterator;
-    using const_iterator = typename std::vector< Section_t >::const_iterator;
+    using iterator = typename std::vector< Section >::iterator;
+    using const_iterator = typename std::vector< Section >::const_iterator;
 
   private:
 
     /* fields */
     int materialNo;
     int fileNo;
-    std::map< int, Section_t > sections_;
-    std::pair< BufferIterator, BufferIterator > bufferLimits;
+    std::map< int, Section > sections_;
 
     /* auxiliary functions */
     #include "ENDFtk/tree/File/src/createMap.hpp"
@@ -57,22 +54,20 @@ namespace tree {
     #include "ENDFtk/tree/File/src/ctor.hpp"
 
     /* methods */
-    #include "ENDFtk/tree/File/src/parse.hpp"
-    #include "ENDFtk/tree/File/src/section.hpp"
 
     /**
      *  @brief Return the section with the requested MT number
      *
      *  @param[in]   mt   the MT number of the section to be returned
      */
-    const Section_t& MT( int mt ) const { return this->section( mt ); }
+    const Section& MT( int mt ) const { return this->section( mt ); }
 
     /**
      *  @brief Return the section with the requested MT number
      *
      *  @param[in]   mt   the MT number of the section to be returned
      */
-    Section_t& MT( int mt ){ return this->section( mt ); }
+    Section& MT( int mt ){ return this->section( mt ); }
 
     /**
      *  @brief Return whether or not the file has a section with the given MT
@@ -167,15 +162,6 @@ namespace tree {
     }
 
     /**
-     *  @brief Return the file's buffer
-     */
-    auto buffer() const {
-
-      return ranges::make_subrange( this->bufferLimits.first,
-                                    this->bufferLimits.second );
-    }
-
-    /**
      *  @brief Return MAT number of the file
      */
     int MAT() const { return this->materialNo; }
@@ -202,6 +188,9 @@ namespace tree {
 
       return ranges::cpp20::views::keys( this->sections_ );
     }
+
+    #include "ENDFtk/tree/File/src/parse.hpp"
+    #include "ENDFtk/tree/File/src/section.hpp"
   };
 
 } // tree namespace

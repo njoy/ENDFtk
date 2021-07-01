@@ -26,7 +26,6 @@ namespace tree {
    *  This class represents a single section in an ENDF tape, it is the smallest
    *  piece available in the ENDF tree prior to parsing it.
    */
-  template< typename BufferIterator >
   class Section {
 
     /* fields */
@@ -79,15 +78,6 @@ namespace tree {
      *  @brief Return the section's content
      */
     const std::string& content() const { return this->content_; }
-
-    /**
-     *  @brief Return the section's buffer
-     */
-    auto buffer() const {
-
-      return ranges::make_subrange( this->content_.begin(),
-                                    this->content_.end() );
-    }
   };
 
 } // tree namespace

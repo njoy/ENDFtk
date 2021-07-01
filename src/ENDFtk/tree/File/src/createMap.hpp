@@ -1,15 +1,16 @@
-static std::map< int, Section_t >
+template< typename BufferIterator >
+static std::map< int, Section >
 createMap
 ( const HEAD& head, BufferIterator begin,
   BufferIterator& position, const BufferIterator& end, long& lineNumber ){
 
-  std::map< int, Section_t > sections;
+  std::map< int, Section > sections;
 
-  sections.emplace( 
+  sections.emplace(
       head.MT(),
-      Section_t( head, begin, position, end, lineNumber ) );
+      Section( head, begin, position, end, lineNumber ) );
 
-  begin = position; 
+  begin = position;
   auto division = StructureDivision( position, end, lineNumber );
 
   while( division.isHead() ){
@@ -22,17 +23,17 @@ createMap
       throw std::exception();
     }
 
-    sections.emplace( 
+    sections.emplace(
       division.tail.MT(),
-      Section_t( asHead( division ), begin, position, end, lineNumber ) );
+      Section( asHead( division ), begin, position, end, lineNumber ) );
 
     if( position >= end ){
       Log::error( "File encountered end of stream before reading FEND record" );
       throw std::exception();
     }
 
-    begin = position; 
-    division = StructureDivision( position, end, lineNumber );  
+    begin = position;
+    division = StructureDivision( position, end, lineNumber );
   }
 
   if( not division.isFend() ){
@@ -40,6 +41,6 @@ createMap
     utility::echoErroneousLine(begin, begin, end, lineNumber );
     throw std::exception();
   }
-  
-  return sections;  
+
+  return sections;
 }

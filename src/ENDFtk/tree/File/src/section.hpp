@@ -3,7 +3,7 @@
  *
  *  @param[in]   mt   the MT number of the section to be returned
  */
-const Section_t& section( int mt ) const {
+const Section& section( int mt ) const {
 
   try {
 
@@ -25,7 +25,7 @@ const Section_t& section( int mt ) const {
  *
  *  @param[in]   mt   the MT number of the section to be returned
  */
-Section_t& section( int mt ) {
-  return const_cast< Section_t& >
+Section& section( int mt ) {
+  return const_cast< Section& >
          ( const_cast< const File& >( *this ).section( mt ) );
 }

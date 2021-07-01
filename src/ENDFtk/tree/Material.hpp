@@ -27,22 +27,19 @@ namespace tree {
    *  indexed ENDF files. It is created by the ENDF tree Tape class and should
    *  not be directly constructed by a user.
    */
-  template< typename BufferIterator >
   class Material {
 
   public:
 
     /* type aliases */
-    using File_t = File< BufferIterator >;
-    using iterator = typename std::vector< File_t >::iterator;
-    using const_iterator = typename std::vector< File_t >::iterator;
+    using iterator = typename std::vector< File >::iterator;
+    using const_iterator = typename std::vector< File >::iterator;
 
   private:
 
     /* fields */
     int materialNo;
-    std::map< int, File_t > files_;
-    std::pair< BufferIterator, BufferIterator > bufferLimits;
+    std::map< int, File > files_;
 
     /* auxiliary functions */
     #include "ENDFtk/tree/Material/src/createMap.hpp"
@@ -53,23 +50,20 @@ namespace tree {
     #include "ENDFtk/tree/Material/src/ctor.hpp"
 
     /* methods */
-    #include "ENDFtk/tree/Material/src/parse.hpp"
-
-    #include "ENDFtk/tree/Material/src/file.hpp"
 
     /**
      *  @brief Return the file with the requested MF number
      *
      *  @param[in]   mf   the MF number of the material to be returned
      */
-    const File_t& MF( int mf ) const { return this->file( mf ); }
+    const File& MF( int mf ) const { return this->file( mf ); }
 
     /**
      *  @brief Return the file with the requested MF number
      *
      *  @param[in]   mf   the MF number of the material to be returned
      */
-    File_t& MF( int mf ) { return this->file( mf ); }
+    File& MF( int mf ) { return this->file( mf ); }
 
     /**
      *  @brief Return whether or not the material has a file with the given MF
@@ -162,21 +156,15 @@ namespace tree {
     }
 
     /**
-     *  @brief Return the material's buffer
-     */
-    auto buffer() const {
-
-      return ranges::make_subrange( this->bufferLimits.first,
-                                    this->bufferLimits.second );
-    }
-
-    /**
      *  @brief Return all file numbers in the material
      */
     auto fileNumbers() const {
 
       return ranges::cpp20::views::keys( this->files_ );
     }
+
+    #include "ENDFtk/tree/Material/src/parse.hpp"
+    #include "ENDFtk/tree/Material/src/file.hpp"
   };
 
 } // tree namespace

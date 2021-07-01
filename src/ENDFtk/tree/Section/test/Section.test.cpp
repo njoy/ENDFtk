@@ -25,37 +25,23 @@ SCENARIO( "Creating a syntax tree of an ENDF Section" ) {
       long lineNumber = 0;
 
       HeadRecord head( position, end, lineNumber );
-      tree::Section< std::string::iterator >
-        sectionTree( head, start, position, end, lineNumber );
+      tree::Section section( head, start, position, end, lineNumber );
 
       THEN( "the entire stream is read" ) {
 
-        REQUIRE( 36 == lineNumber );
+        CHECK( 36 == lineNumber );
       } // THEN
 
-      THEN( "the file/section number or MF/MT is populated correctly" ) {
+      THEN( "the Section is populated correctly" ) {
 
-        REQUIRE( 125 == sectionTree.MAT() );
-        REQUIRE( 125 == sectionTree.materialNumber() );
-        REQUIRE( 3 == sectionTree.MF() );
-        REQUIRE( 3 == sectionTree.fileNumber() );
-        REQUIRE( 1 == sectionTree.MT() );
-        REQUIRE( 1 == sectionTree.sectionNumber() );
-      } // THEN
+        CHECK( 125 == section.MAT() );
+        CHECK( 125 == section.materialNumber() );
+        CHECK( 3 == section.MF() );
+        CHECK( 3 == section.fileNumber() );
+        CHECK( 1 == section.MT() );
+        CHECK( 1 == section.sectionNumber() );
 
-      THEN( "the first record of the section is a head record" ) {
-
-        auto start = sectionTree.buffer().begin();
-        auto end = sectionTree.buffer().end();
-        long lineNumber = 0;
-
-        HeadRecord head( start, end, lineNumber );
-        REQUIRE( head.ZA() == 1.001E3 );
-        REQUIRE( head.AWR() == 9.991673E-1 );
-        REQUIRE( head.L1() == 0 );
-        REQUIRE( head.L2() == 0 );
-        REQUIRE( head.N1() == 0 );
-        REQUIRE( head.N2() == 0 );
+        CHECK( sectionString == section.content() );
       } // THEN
     } // WHEN
 
@@ -71,8 +57,7 @@ SCENARIO( "Creating a syntax tree of an ENDF Section" ) {
         long lineNumber = 0;
 
         HeadRecord head( begin, end, lineNumber );
-        REQUIRE_THROWS( tree::Section< std::string::iterator >(
-                head, start, begin, end, lineNumber ) );
+        CHECK_THROWS( tree::Section( head, start, begin, end, lineNumber ) );
       } // THEN
     } // WHEN
 
@@ -87,8 +72,7 @@ SCENARIO( "Creating a syntax tree of an ENDF Section" ) {
         long lineNumber = 0;
         HeadRecord head( begin, end, lineNumber );
 
-        REQUIRE_THROWS( tree::Section< std::string::iterator >(
-                head, start, begin, end, lineNumber ) );
+        CHECK_THROWS( tree::Section( head, start, begin, end, lineNumber ) );
       } // THEN
     } // WHEN
   } // GIVEN

@@ -29,11 +29,11 @@ SCENARIO( "Creating a material syntax tree of an ENDF File" ){
         auto lin = lineNumber;
         auto original =
           std::make_unique
-          < tree::Material< std::string::iterator > >
+          < tree::Material >
           ( head, start, beg, end, lin );
 
         THEN( "the copy ctor will function correctly "){
-          auto copy = tree::Material< std::string::iterator >{ *original };
+          auto copy = tree::Material{ *original };
           original.reset();
           REQUIRE( 3 == copy.MF( 3 ).MF() );
         }
@@ -42,76 +42,68 @@ SCENARIO( "Creating a material syntax tree of an ENDF File" ){
         lin = lineNumber;
         original =
           std::make_unique
-          < tree::Material< std::string::iterator > >
+          < tree::Material >
           ( head, start, beg, end, lin );
 
         THEN( "the move ctor will function correctly "){
           auto copy =
-            tree::Material< std::string::iterator >
+            tree::Material
             { std::move( *( original.release() ) ) };
 
           REQUIRE( 3 == copy.MF( 3 ).MF() );
         }
       }
 
-      const tree::Material< std::string::iterator >
-        materialTree( head, start, begin, end, lineNumber );
+      const tree::Material material( head, start, begin, end, lineNumber );
 
-      const auto& cmaterialTree = materialTree;
+      const auto& cmaterial = material;
 
       THEN( "the entire stream is read" ){
         REQUIRE( 2208 == lineNumber );
       }
 
-      AND_THEN( "the buffer iterators are populated correctly "){
-        REQUIRE( materialString.begin() == materialTree.buffer().begin() );
-        REQUIRE( materialString.end() == materialTree.buffer().end() );
-        REQUIRE( materialString.begin() == cmaterialTree.buffer().begin() );
-        REQUIRE( materialString.end() == cmaterialTree.buffer().end() );
-      }
-
       AND_THEN( "the material number or MAT is populated correctly" ){
-        REQUIRE( 125 == materialTree.MAT() );
-        REQUIRE( 125 == cmaterialTree.MAT() );
+        REQUIRE( 125 == material.MAT() );
+        REQUIRE( 125 == cmaterial.MAT() );
       }
 
       AND_THEN( "the correct number of files are read from the material" ){
-        REQUIRE( 6 == materialTree.size() );
-        REQUIRE( 6 == cmaterialTree.size() );
+        REQUIRE( 6 == material.size() );
+        REQUIRE( 6 == cmaterial.size() );
       }
 
       AND_THEN( "we can access the file skeletons of the skeleton" ){
         std::vector< int > fileNumbers{ 1, 2, 3, 4, 6, 33 };
         for ( auto fileNo : fileNumbers ){
-          REQUIRE( materialTree.hasMF( fileNo ) );
-          REQUIRE( fileNo == materialTree.MF( fileNo ).MF() );
-          REQUIRE( materialTree.hasFile( fileNo ) );
-          REQUIRE( fileNo == materialTree.file( fileNo ).MF() );
+          REQUIRE( material.hasMF( fileNo ) );
+          REQUIRE( fileNo == material.MF( fileNo ).MF() );
+          REQUIRE( material.hasFile( fileNo ) );
+          REQUIRE( fileNo == material.file( fileNo ).MF() );
 
-          REQUIRE( cmaterialTree.hasMF( fileNo ) );
-          REQUIRE( fileNo == cmaterialTree.MF( fileNo ).MF() );
-          REQUIRE( cmaterialTree.hasFile( fileNo ) );
-          REQUIRE( fileNo == cmaterialTree.file( fileNo ).MF() );
+          REQUIRE( cmaterial.hasMF( fileNo ) );
+          REQUIRE( fileNo == cmaterial.MF( fileNo ).MF() );
+          REQUIRE( cmaterial.hasFile( fileNo ) );
+          REQUIRE( fileNo == cmaterial.file( fileNo ).MF() );
         }
 
         auto fileNumberIterator = fileNumbers.begin();
 
-        for( auto& file : materialTree ){
+        for( auto& file : material ){
           REQUIRE( *fileNumberIterator == file.MF() );
           ++fileNumberIterator;
         }
 
         fileNumberIterator = fileNumbers.begin();
 
-        for( const auto& file : cmaterialTree ){
+        for( const auto& file : cmaterial ){
           REQUIRE( *fileNumberIterator == file.MF() );
           ++fileNumberIterator;
         }
       }
 
       AND_THEN( "an exception is thrown if the requested MF isn't stored."){
-        REQUIRE_THROWS( materialTree.MF( 5 ) );
-        REQUIRE_THROWS( cmaterialTree.MF( 5 ) );
+        REQUIRE_THROWS( material.MF( 5 ) );
+        REQUIRE_THROWS( cmaterial.MF( 5 ) );
       }
     }
 
@@ -125,7 +117,7 @@ SCENARIO( "Creating a material syntax tree of an ENDF File" ){
 
         HeadRecord head( begin, end, lineNumber );
         REQUIRE_THROWS
-          ( tree::Material< std::string::iterator >
+          ( tree::Material
             ( head, start, begin, end, lineNumber ) );
       }
     }
@@ -140,7 +132,7 @@ SCENARIO( "Creating a material syntax tree of an ENDF File" ){
       THEN( "an exception is thrown" ){
         HeadRecord head( begin, end, lineNumber );
         REQUIRE_THROWS
-          ( tree::Material< std::string::iterator >
+          ( tree::Material
             ( head, start, begin, end, lineNumber ) );
       }
     }
@@ -156,7 +148,7 @@ SCENARIO( "Creating a material syntax tree of an ENDF File" ){
     THEN( "an exception is thrown" ){
       HeadRecord head( begin, end, lineNumber );
       REQUIRE_THROWS
-        ( tree::Material< std::string::iterator >
+        ( tree::Material
           ( head, start, begin, end, lineNumber ) );
     }
   }

@@ -1,3 +1,4 @@
+template< typename BufferIterator >
 static BufferIterator findEnd
 ( BufferIterator& position, const BufferIterator& end, long& lineNumber ) {
 

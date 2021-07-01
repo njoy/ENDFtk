@@ -13,10 +13,8 @@ namespace python = pybind11;
 void wrapTreeFile( python::module& module, python::module& viewmodule ) {
 
   // type aliases
-  using Tape = njoy::ENDFtk::tree::Tape< std::string >;
-  using Material = Tape::Material_t;
-  using File = Material::File_t;
-  using Section = File::Section_t;
+  using File = njoy::ENDFtk::tree::File;
+  using Section = njoy::ENDFtk::tree::Section;
   using SectionRange = BidirectionalAnyView< Section >;
   using MF1 = njoy::ENDFtk::file::Type< 1 >;
   using MF2 = njoy::ENDFtk::file::Type< 2 >;

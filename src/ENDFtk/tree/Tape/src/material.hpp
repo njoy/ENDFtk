@@ -29,6 +29,6 @@ auto material( int mat ) {
   return
     static_cast< const Tape& >( *this ).material( mat )
     | ranges::cpp20::views::transform
-      ( [] ( const auto& material ) -> Material_t&
-           { return const_cast< Material_t& >( material ); } );
+      ( [] ( const auto& material ) -> Material&
+           { return const_cast< Material& >( material ); } );
 }

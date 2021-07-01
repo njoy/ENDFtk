@@ -95,8 +95,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
       auto end = sectionString.end();
       long lineNumber = 1;
       auto head = HEAD( position, end, lineNumber );
-      tree::Section< std::string::iterator >
-        section( head, begin, position, end, lineNumber );
+      tree::Section section( head, begin, position, end, lineNumber );
 
       section::Type< 7, 2 > chunk = section.parse< 7, 2 >( lineNumber );
 
@@ -185,8 +184,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
       auto end = sectionString.end();
       long lineNumber = 1;
       auto head = HEAD( position, end, lineNumber );
-      tree::Section< std::string::iterator >
-        section( head, begin, position, end, lineNumber );
+      tree::Section section( head, begin, position, end, lineNumber );
 
       section::Type< 7, 2 > chunk = section.parse< 7, 2 >( lineNumber );
 
@@ -271,8 +269,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
       auto end = sectionString.end();
       long lineNumber = 1;
       auto head = HEAD( position, end, lineNumber );
-      tree::Section< std::string::iterator >
-        section( head, begin, position, end, lineNumber );
+      tree::Section section( head, begin, position, end, lineNumber );
 
       section::Type< 7, 2 > chunk1 = section.parse< 7, 2 >();
       section::Type< 7, 2 > chunk2 = section.parse< 7, 2 >( lineNumber );
@@ -368,8 +365,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
       auto end = sectionString.end();
       long lineNumber = 1;
       auto head = HEAD( position, end, lineNumber );
-      tree::Section< std::string::iterator >
-        section( head, begin, position, end, lineNumber );
+      tree::Section section( head, begin, position, end, lineNumber );
 
       section::Type< 7, 2 > chunk1 = section.parse< 7, 2 >();
       section::Type< 7, 2 > chunk2 = section.parse< 7, 2 >( lineNumber );

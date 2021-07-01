@@ -13,10 +13,7 @@ namespace python = pybind11;
 void wrapTreeSection( python::module& module, python::module& ) {
 
   // type aliases
-  using Tape = njoy::ENDFtk::tree::Tape< std::string >;
-  using Material = Tape::Material_t;
-  using File = Material::File_t;
-  using Section = File::Section_t;
+  using Section = njoy::ENDFtk::tree::Section;
   using MF1MT451 = njoy::ENDFtk::section::Type< 1, 451 >;
   using MF1MT452 = njoy::ENDFtk::section::Type< 1, 452 >;
   using MF1MT455 = njoy::ENDFtk::section::Type< 1, 455 >;

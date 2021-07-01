@@ -9,12 +9,12 @@
  *  @param[in] end          the end of the buffer
  *  @param[in] lineNumber   the current line number
  */
+template< typename BufferIterator >
 File( const HEAD& head, BufferIterator begin,
       BufferIterator& position, const BufferIterator& end, long& lineNumber )
   try: materialNo( head.MAT() ),
        fileNo( head.MF() ),
-       sections_( createMap( head, begin, position, end, lineNumber ) ),
-       bufferLimits( { begin, position } ) {}
+       sections_( createMap( head, begin, position, end, lineNumber ) ) {}
   catch( std::exception& e ) {
 
     Log::info( "Trouble encountered while constructing a file syntax tree." );

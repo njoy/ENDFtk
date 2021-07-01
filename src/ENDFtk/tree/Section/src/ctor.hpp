@@ -22,6 +22,7 @@ Section( int MAT, int MF, int MT, std::string&& buffer ) :
  *  @param[in] end          the end of the buffer
  *  @param[in] lineNumber   the current line number
  */
+template< typename BufferIterator >
 Section( const HEAD& head, BufferIterator begin,
          BufferIterator& position, const BufferIterator& end,
          long& lineNumber )

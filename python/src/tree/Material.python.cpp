@@ -14,10 +14,9 @@ namespace python = pybind11;
 void wrapTreeMaterial( python::module& module, python::module& viewmodule ) {
 
   // type aliases
-  using Tape = njoy::ENDFtk::tree::Tape< std::string >;
-  using Material = Tape::Material_t;
+  using Material = njoy::ENDFtk::tree::Material;
+  using File = njoy::ENDFtk::tree::File;
   using ParsedMaterial = njoy::ENDFtk::Material;
-  using File = Material::File_t;
   using FileRange = BidirectionalAnyView< File >;
 
   // wrap views created by this tree component

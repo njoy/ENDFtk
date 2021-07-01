@@ -42,17 +42,10 @@ namespace tree {
     /* type aliases */
     using BufferIterator = ranges::iterator_t< const Buffer >;
 
-  public:
-
-    /* type aliases */
-    using Material_t = Material< BufferIterator >;
-
-  private:
-
     /* fields */
     Buffer buffer_;
     std::optional< TapeIdentification > tpid;
-    std::multimap< int, Material_t > materials_;
+    std::multimap< int, Material > materials_;
 
     /* auxiliary function */
     #include "ENDFtk/tree/Tape/src/createMap.hpp"
@@ -63,9 +56,6 @@ namespace tree {
     #include "ENDFtk/tree/Tape/src/ctor.hpp"
 
     /* methods */
-    #include "ENDFtk/tree/Tape/src/parse.hpp"
-
-    #include "ENDFtk/tree/Tape/src/material.hpp"
 
     /**
      *  @brief Return the materials with the requested MAT number
@@ -216,6 +206,9 @@ namespace tree {
                | ranges::to_vector
                | ranges::actions::sort | ranges::actions::unique;
     }
+
+    #include "ENDFtk/tree/Tape/src/parse.hpp"
+    #include "ENDFtk/tree/Tape/src/material.hpp"
   };
 
 } // tree namespace
