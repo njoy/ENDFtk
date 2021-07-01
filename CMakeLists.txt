@@ -83,6 +83,7 @@ pybind11_add_module( ENDFtk.python
     python/src/ENDFtk.python.cpp
     python/src/record/ControlRecord.python.cpp
     python/src/record/ListRecord.python.cpp
+    python/src/record/TabulationRecord.python.cpp
     python/src/record/DirectoryRecord.python.cpp
     python/src/record/TapeIdentification.python.cpp
     python/src/section/1/TabulatedMultiplicity.python.cpp
