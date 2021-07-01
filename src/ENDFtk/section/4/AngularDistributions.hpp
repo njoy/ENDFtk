@@ -51,7 +51,7 @@ public:
   /**
    *  @brief Return the interpolants for the incident energy axis
    */
-  auto interpolants() const {
+  AllRange< long > interpolants() const {
 
     return InterpolationSequenceRecord< Records >::tab2().interpolants();
   }
@@ -60,7 +60,7 @@ public:
    *  @brief Return the interpolation region boundaries for the incident
    *         energy axis
    */
-  auto boundaries() const {
+  AllRange< long > boundaries() const {
 
     return InterpolationSequenceRecord< Records >::tab2().boundaries();
   }
@@ -71,7 +71,7 @@ public:
   auto incidentEnergies() const {
 
     return InterpolationSequenceRecord< Records >::records()
-               | ranges::view::transform(
+               | ranges::cpp20::views::transform(
                      [] ( const auto& record )
                         { return record.incidentEnergy(); } );
   }
@@ -79,7 +79,7 @@ public:
   /**
    *  @brief Return the angular distributions (one for each incident energy)
    */
-  auto angularDistributions() const {
+  AllRange< Records > angularDistributions() const {
 
     return InterpolationSequenceRecord< Records >::records();
   }

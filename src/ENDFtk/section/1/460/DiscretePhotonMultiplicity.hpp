@@ -36,12 +36,12 @@ public:
   /**
    *  @brief Return the time values
    */
-  auto time() const { return TabulationRecord::x(); }
+  AllRange< double > time() const { return TabulationRecord::x(); }
 
   /**
    *  @brief Return the time dependent multiplicity values (in units of 1/s)
    */
-  auto multiplicities() const { return TabulationRecord::y(); }
+  AllRange< double > multiplicities() const { return TabulationRecord::y(); }
 
   using TabulationRecord::x;
   using TabulationRecord::y;

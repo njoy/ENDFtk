@@ -4,6 +4,7 @@
 // system includes
 
 // other includes
+#include "range/v3/range/conversion.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/readSequence.hpp"
 #include "ENDFtk/section.hpp"
@@ -22,7 +23,7 @@ namespace section {
     std::vector< FissionYieldData > data_;
 
     /* auxiliary functions */
-    // this deliberately reference MF8/MT454 since the code is common
+    // this deliberately references MF8/MT454 since the code is common
     #include "ENDFtk/section/8/454/src/generateFissionYields.hpp"
 
   public:
@@ -46,7 +47,10 @@ namespace section {
     /**
      *  @brief Return the fission yield data, one for each incident energy
      */
-    auto yields() const { return ranges::view::all( this->data_ ); }
+    AllRange< FissionYieldData > yields() const {
+
+      return ranges::cpp20::views::all( this->data_ );
+    }
 
     /**
      *  @brief Return the number of incident energy values
@@ -59,8 +63,8 @@ namespace section {
     auto E() const {
 
       return this->yields()
-                 | ranges::view::transform( [] ( const auto& entry )
-                                               { return entry.E(); } );
+                 | ranges::cpp20::views::transform( [] ( const auto& entry )
+                                                       { return entry.E(); } );
     }
 
     /**
@@ -68,7 +72,7 @@ namespace section {
      */
     auto incidentEnergies() const { return this->E(); }
 
-    // these deliberately reference MF8/MT454 since the code is common
+    // these deliberately references MF8/MT454 since the code is common
     #include "ENDFtk/section/8/454/src/NC.hpp"
     #include "ENDFtk/section/8/454/src/print.hpp"
 

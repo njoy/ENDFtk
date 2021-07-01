@@ -24,8 +24,10 @@ generateList( unsigned int na,
     }
   }
 
-  return ranges::view::zip_with(
-             ranges::view::concat,
-             energies | ranges::view::transform( ranges::view::single ),
-             coefficients ) | ranges::view::join | ranges::to_vector;
+  return ranges::to< std::vector< double > >(
+           ranges::views::zip_with(
+             ranges::views::concat,
+             energies | ranges::cpp20::views::transform(
+                            ranges::cpp20::views::single ),
+             coefficients ) | ranges::views::join );
 }

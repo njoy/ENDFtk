@@ -32,11 +32,11 @@ SCENARIO( "TabulationRecord yValue",
       auto ys = tab1.y();
 
       // because they don't own data, views are small and live on the stack
-      REQUIRE( sizeof( ys ) == 16 );
+      REQUIRE( sizeof( ys ) == 8 );
 
       // so we can copy them willy-nilly
       auto ys2 = ys;
-      REQUIRE( ranges::equal( ys2, ys ) );
+      REQUIRE( ranges::cpp20::equal( ys2, ys ) );
 
       // no more worrying about accidentally copying large vectors!
     }

@@ -47,9 +47,10 @@ generateFissionYields( std::vector< unsigned int >&& identifiers,
 
     sequence.emplace_back( std::vector< unsigned int >( identifiers ),
                            std::vector< unsigned int >( states ),
-                           yields | ranges::view::transform(
-                                        [i] ( const auto& range )
-                                            { return range[i]; } ),
+                           ranges::to< std::vector< std::array< double, 2 > > >(
+                               yields | ranges::cpp20::views::transform(
+                                            [i] ( const auto& range )
+                                                { return range[i]; } ) ),
                            energies[i],
                            i == 0 ? energies.size() - 1 : interpolants[i-1] );
   }

@@ -42,7 +42,10 @@ public:
   /**
    *  @brief Return the discrete photon data
    */
-  auto photons() const { return ranges::view::all( this->photons_ ); }
+  AllRange< DiscretePhotonMultiplicity > photons() const {
+
+    return ranges::cpp20::views::all( this->photons_ );
+  }
 
   #include "ENDFtk/section/1/460/DiscretePhotons/src/NC.hpp"
   #include "ENDFtk/section/1/460/DiscretePhotons/src/print.hpp"

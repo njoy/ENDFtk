@@ -55,6 +55,9 @@ namespace section{
                                         // B(1)!=0
                                         TabulatedFunctions >;
 
+    /* type aliases */
+    using OptionalEffectiveTemperature = std::optional< EffectiveTemperature >;
+
   private:
 
     /* fields */
@@ -65,7 +68,7 @@ namespace section{
     ScatteringLaw law_;
 
     EffectiveTemperature principal_;
-    std::vector< std::optional< EffectiveTemperature > > secondary_;
+    std::vector< OptionalEffectiveTemperature > secondary_;
 
     /* auxiliary functions */
     #include "ENDFtk/section/7/4/src/readSecondaryTemperatures.hpp"
@@ -115,6 +118,7 @@ namespace section{
      *  @brief Return the effective temperature for the principal scatterer
      */
     const EffectiveTemperature& principalEffectiveTemperature() const {
+      
       return this->principal_;
     }
 
@@ -122,8 +126,10 @@ namespace section{
      *  @brief Return the effective temperatures for the secondary scatterers
      *         (if any are defined)
      */
-    auto secondaryEffectiveTemperatures() const {
-      return ranges::view::all( this->secondary_ );
+    AllRange< OptionalEffectiveTemperature >
+    secondaryEffectiveTemperatures() const {
+
+      return ranges::cpp20::views::all( this->secondary_ );
     }
 
     #include "ENDFtk/section/7/4/src/NC.hpp"

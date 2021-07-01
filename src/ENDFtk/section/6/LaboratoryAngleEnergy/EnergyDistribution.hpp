@@ -36,22 +36,22 @@ public:
   /**
    *  @brief Return the outgoing energy values
    */
-  auto EP() const { return TabulationRecord::x(); }
+  AllRange< double > EP() const { return TabulationRecord::x(); }
 
   /**
    *  @brief Return the outgoing energy values
    */
-  auto energies() const { return this->EP(); }
+  AllRange< double > energies() const { return this->EP(); }
 
   /**
    *  @brief Return the probabilities
    */
-  auto F() const { return TabulationRecord::y(); }
+  AllRange< double > F() const { return TabulationRecord::y(); }
 
   /**
    *  @brief Return the probabilities
    */
-  auto probabilities() const { return  this->F(); }
+  AllRange< double > probabilities() const { return  this->F(); }
 
   using TabulationRecord::NR;
   using TabulationRecord::NP;

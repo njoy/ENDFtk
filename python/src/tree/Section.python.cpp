@@ -4,7 +4,7 @@
 
 // local includes
 #include "ENDFtk/tree/Tape.hpp"
-#include "range/v3/utility/iterator.hpp"
+#include "range/v3/range/operations.hpp"
 #include "views.hpp"
 
 // namespace aliases
@@ -193,7 +193,7 @@ void wrapTreeSection( python::module& module, python::module& ) {
 
     "content",
     [] ( const Section& self ) -> std::string
-       { return self.buffer(); },
+       { return ranges::to< std::string >( self.buffer() ); },
     "The content of the section"
   );
 }

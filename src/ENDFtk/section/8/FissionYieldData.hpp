@@ -26,14 +26,20 @@ namespace section{
    */
   class FissionYieldData : protected ListRecord {
 
+  public:
+
+    using Column = StrideRange< DropRange< AllRange< double > > >;
+
+  private:
+
     /* auxiliary functions */
     #include "ENDFtk/section/8/FissionYieldData/src/verifySize.hpp"
     #include "ENDFtk/section/8/FissionYieldData/src/generateList.hpp"
 
-    auto column( unsigned int i ) const {
+    Column column( unsigned int i ) const {
 
-      return ListRecord::list() | ranges::view::drop_exactly( i )
-                                | ranges::view::stride( 4 );
+      return ListRecord::list() | ranges::views::drop_exactly( i )
+                                | ranges::views::stride( 4 );
     }
 
   public:
@@ -89,31 +95,31 @@ namespace section{
     /**
      *  @brief Return the fission product ZA identifiers
      */
-    auto ZAFP() const { return this->column( 0 ); }
+    Column ZAFP() const { return this->column( 0 ); }
 
     /**
      *  @brief Return the fission product ZA identifiers
      */
-    auto fissionProductIdentifiers() const { return this->ZAFP(); }
+    Column fissionProductIdentifiers() const { return this->ZAFP(); }
 
     /**
      *  @brief Return the fission product isomeric states
      */
-    auto FPS() const { return this->column( 1 ); }
+    Column FPS() const { return this->column( 1 ); }
 
     /**
      *  @brief Return the fission product isomeric states
      */
-    auto isomericStates() const { return this->FPS(); }
+    Column isomericStates() const { return this->FPS(); }
 
     /**
      *  @brief Return the fission yield values
      */
     auto Y() const {
 
-      return ListRecord::list() | ranges::view::drop_exactly( 2 )
-                                | ranges::view::chunk( 2 )
-                                | ranges::view::stride( 2 );
+      return ListRecord::list() | ranges::views::drop_exactly( 2 )
+                                | ranges::views::chunk( 2 )
+                                | ranges::views::stride( 2 );
     }
 
     /**
@@ -127,9 +133,9 @@ namespace section{
     auto fissionProducts() const {
 
       using Chunk = decltype( ( ListRecord::list()
-                                  | ranges::view::chunk( 4 ) )[0] );
-      return ListRecord::list() | ranges::view::chunk( 4 )
-               | ranges::view::transform(
+                                  | ranges::views::chunk( 4 ) )[0] );
+      return ListRecord::list() | ranges::views::chunk( 4 )
+               | ranges::cpp20::views::transform(
                    [] ( Chunk&& chunk ) -> FissionProduct< Chunk >
                       { return { std::move( chunk ) }; } );
     }

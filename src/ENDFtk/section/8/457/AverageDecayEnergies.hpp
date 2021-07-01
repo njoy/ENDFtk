@@ -55,7 +55,7 @@ public:
    */
   auto E() const {
 
-    return ListRecord::list() | ranges::view::chunk( 2 );
+    return ListRecord::list() | ranges::views::chunk( 2 );
   }
 
   /**

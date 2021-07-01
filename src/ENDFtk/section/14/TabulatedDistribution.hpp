@@ -34,22 +34,22 @@ public:
   /**
    *  @brief Return the cosine values
    */
-  auto MU() const { return TabulationRecord::x(); }
+  AllRange< double > MU() const { return TabulationRecord::x(); }
 
   /**
    *  @brief Return the cosine values
    */
-  auto cosines() const { return this->MU(); }
+  AllRange< double > cosines() const { return this->MU(); }
 
   /**
    *  @brief Return the distribution probabilities
    */
-  auto F() const { return TabulationRecord::y(); }
+  AllRange< double > F() const { return TabulationRecord::y(); }
 
   /**
    *  @brief Return the distribution probabilities
    */
-  auto probabilities() const { return this->F(); }
+  AllRange< double > probabilities() const { return this->F(); }
 
   using TabulationRecord::NR;
   using TabulationRecord::NP;

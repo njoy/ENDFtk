@@ -17,7 +17,7 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-18.04, macos-10.15 ]
-        cxx: [ clang++ ]
+        cxx: [ clang++, g++-9 ]
         build_type: [ Debug, Release ]
 
     steps:
