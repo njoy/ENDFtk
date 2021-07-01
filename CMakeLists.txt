@@ -82,6 +82,7 @@ pybind11_add_module( ENDFtk.python
     EXCLUDE_FROM_ALL
     python/src/ENDFtk.python.cpp
     python/src/record/ControlRecord.python.cpp
+    python/src/record/ListRecord.python.cpp
     python/src/record/DirectoryRecord.python.cpp
     python/src/record/TapeIdentification.python.cpp
     python/src/section/1/TabulatedMultiplicity.python.cpp

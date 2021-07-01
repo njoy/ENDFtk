@@ -3,35 +3,37 @@
 #include <pybind11/stl.h>
 
 // local includes
-#include "ENDFtk/ControlRecord.hpp"
+#include "ENDFtk/ListRecord.hpp"
 #include "definitions.hpp"
 
 // namespace aliases
 namespace python = pybind11;
 
-void wrapControlRecord( python::module& module, python::module& ) {
+void wrapListRecord( python::module& module, python::module& ) {
 
   // type aliases
-  using Record = njoy::ENDFtk::ControlRecord;
+  using Record = njoy::ENDFtk::ListRecord;
 
   // wrap the record
   python::class_< Record > component(
 
     module,
-    "ControlRecord",
-    "ENDF CONT record\n\n"
-    "The control record is a single line record consisting of 2 doubles and\n"
-    "4 integer values."
+    "ListRecord",
+    "ENDF LIST record\n\n"
+    "The list record is a multi-line ENDF record containing 2 doubles\n"
+    "and 4 integers on the first line, followed by a list of values on the\n"
+    "following lines."
   );
 
   // wrap the record
   component
   .def(
 
-    python::init< double, double, long, long, long, long >(),
+    python::init< double, double, long, long, long,
+                  std::vector< double >&& >(),
     python::arg( "C1" ), python::arg( "C2" ),
     python::arg( "L1" ), python::arg( "L2" ),
-    python::arg( "N1" ), python::arg( "N2" ),
+    python::arg( "N2" ), python::arg( "list" ),
     "Initialise the record\n\n"
     "Arguments:\n"
     "    self   the record\n"
@@ -39,8 +41,8 @@ void wrapControlRecord( python::module& module, python::module& ) {
     "    C2     the double in column 2\n"
     "    L1     the integer in column 3\n"
     "    L2     the integer in column 4\n"
-    "    N1     the integer in column 5\n"
-    "    N2     the integer in column 6"
+    "    N2     the integer in column 6\n"
+    "    list   the list of values"
   )
   .def(
 
@@ -77,15 +79,22 @@ void wrapControlRecord( python::module& module, python::module& ) {
   )
   .def_property_readonly(
 
-    "N1",
-    [] ( const Record& self ) { return self.N1(); },
-    "The integer in column 5"
-  )
-  .def_property_readonly(
-
     "N2",
     [] ( const Record& self ) { return self.N2(); },
     "The integer in column 6"
+  )
+  .def_property_readonly(
+
+    "NPL",
+    &Record::NPL,
+    "The integer in column 6"
+  )
+  .def_property_readonly(
+
+    "list",
+    [] ( const Record& self ) -> DoubleRange
+       { return self.list(); },
+    "The list of values"
   );
 
   // add standard component definitions
