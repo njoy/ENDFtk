@@ -10,6 +10,7 @@
 namespace python = pybind11;
 
 // declarations - records
+void wrapControlRecord( python::module&, python::module& );
 void wrapDirectoryRecord( python::module&, python::module& );
 void wrapTapeIdentification( python::module&, python::module& );
 
@@ -75,6 +76,7 @@ PYBIND11_MODULE( ENDFtk, module ) {
       "any_view< std::complex< double , random_access >" );
 
   // wrap records
+  wrapControlRecord( module, viewmodule );
   wrapDirectoryRecord( module, viewmodule );
   wrapTapeIdentification( module, viewmodule );
 
