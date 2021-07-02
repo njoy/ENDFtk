@@ -36,14 +36,9 @@ namespace tree {
    *  An ENDF tape starts with a tape identification (a label, which sometimes
    *  can contain a tape number).
    */
-  template< typename Buffer >
   class Tape {
 
-    /* type aliases */
-    using BufferIterator = ranges::iterator_t< const Buffer >;
-
     /* fields */
-    Buffer buffer_;
     std::optional< TapeIdentification > tpid;
     std::multimap< int, Material > materials_;
 
@@ -56,6 +51,7 @@ namespace tree {
     #include "ENDFtk/tree/Tape/src/ctor.hpp"
 
     /* methods */
+    #include "ENDFtk/tree/Tape/src/material.hpp"
 
     /**
      *  @brief Return the materials with the requested MAT number
@@ -188,11 +184,6 @@ namespace tree {
     }
 
     /**
-     *  @brief Return the tape's buffer
-     */
-    auto buffer() const { return this->buffer_ | ranges::cpp20::views::all; }
-
-    /**
      *  @brief Return the tape identification (the first line in the file)
      */
     const TapeIdentification& TPID() const { return *( this->tpid ); }
@@ -208,7 +199,6 @@ namespace tree {
     }
 
     #include "ENDFtk/tree/Tape/src/parse.hpp"
-    #include "ENDFtk/tree/Tape/src/material.hpp"
   };
 
 } // tree namespace

@@ -2,7 +2,6 @@
 
 #include "catch.hpp"
 #include "ENDFtk/tree/Tape.hpp"
-#include "ENDFtk/tree/makeTape.hpp"
 
 // other includes
 #include "header-utilities/copy.hpp"
@@ -24,34 +23,33 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
       auto tend = validTEND();
       auto tapeString = tpid + base + tend;
 
-      tree::Tape< std::string > tape{ njoy::utility::copy( tapeString ) };
+      tree::Tape tape{ njoy::utility::copy( tapeString ) };
 
-      tree::Tape< std::string > original{
-        njoy::utility::copy( tapeString ) };
+      tree::Tape original{ njoy::utility::copy( tapeString ) };
 
       THEN( "the copy and move ctor will function correctly ") {
 
-        auto copy = tree::Tape< std::string >{ original };
+        auto copy = tree::Tape{ original };
         CHECK( 125 == copy.MAT( 125 ).front().MAT() );
 
-        auto move = tree::Tape< std::string >{ std::move( copy ) };
+        auto move = tree::Tape{ std::move( copy ) };
         CHECK( 125 == move.MAT( 125 ).front().MAT() );
       }
 
       GIVEN("a tape skeleton constructed from a string"){
-        tree::Tape< std::string > reference(
+        tree::Tape reference(
           njoy::utility::copy( tapeString ) );
 
         THEN("the iterator-based factory function will return the same type"){
           std::string copy = njoy::utility::copy( tapeString );
-          auto trial = tree::makeTape( std::move( copy ) );
+          auto trial = tree::Tape( std::move( copy ) );
           constexpr bool isSame =
             std::is_same<decltype(reference), decltype(trial)>::value;
           CHECK( isSame );
         }
 
         THEN("the range-based factory function will return the same type"){
-          auto trial = tree::makeTape(
+          auto trial = tree::Tape(
               njoy::utility::copy( tapeString ) );
           constexpr bool isSame =
             std::is_same<decltype(reference), decltype(trial)>::value;
@@ -59,7 +57,7 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
         }
       }
 
-      tree::Tape< std::string > tapeTree{
+      tree::Tape tapeTree{
         njoy::utility::copy( tapeString ) };
       const auto ctapeTree = tapeTree;
 
@@ -100,7 +98,7 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
       auto tend = invalidTEND();
       auto tapeString = tpid + base + tend;
 
-      CHECK_THROWS( tree::Tape< std::string >{ std::move( tapeString ) } );
+      CHECK_THROWS( tree::Tape{ std::move( tapeString ) } );
     }
 
     WHEN( "the Tape isn't long enough" ){
@@ -108,7 +106,7 @@ SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
       auto base = baseTAPE();
       auto tapeString = tpid + base; // no tend record
 
-      CHECK_THROWS( tree::Tape< std::string >{ std::move( tapeString ) } );
+      CHECK_THROWS( tree::Tape{ std::move( tapeString ) } );
     }
   } // GIVEN
 } // SCENARIO

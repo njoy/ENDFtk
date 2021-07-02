@@ -1,3 +1,4 @@
+template < typename BufferIterator >
 static auto
 createMap( BufferIterator position, const BufferIterator& end, long& ln ){
 
@@ -25,6 +26,7 @@ createMap( BufferIterator position, const BufferIterator& end, long& ln ){
   return materials;
 }
 
+template < typename BufferIterator >
 static auto
 createMap( BufferIterator position, const BufferIterator& end ){
 

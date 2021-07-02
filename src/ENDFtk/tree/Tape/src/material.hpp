@@ -1,5 +1,9 @@
 /**
- *  @brief Return the material with the requested MAT number
+ *  @brief Return the materials with the requested MAT number
+ *
+ *  This function returns a range of materials since a tape can contain
+ *  multiple instances of the same material (e.g. at different
+ *  temperatures).
  *
  *  @param[in]   mat   the MAT number of the material to be returned
  */
@@ -20,7 +24,11 @@ auto material( int mat ) const {
 }
 
 /**
- *  @brief Return the material with the requested MAT number
+ *  @brief Return the materials with the requested MAT number
+ *
+ *  This function returns a range of materials since a tape can contain
+ *  multiple instances of the same material (e.g. at different
+ *  temperatures).
  *
  *  @param[in]   mat   the MAT number of the material to be returned
  */

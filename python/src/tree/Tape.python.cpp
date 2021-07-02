@@ -4,7 +4,6 @@
 
 // local includes
 #include "ENDFtk/tree/Tape.hpp"
-#include "ENDFtk/tree/makeTape.hpp"
 #include "ENDFtk/tree/fromFile.hpp"
 #include "range/v3/range/operations.hpp"
 #include "views.hpp"
@@ -15,7 +14,7 @@ namespace python = pybind11;
 void wrapTreeTape( python::module& module, python::module& viewmodule ) {
 
   // type aliases
-  using Tape = njoy::ENDFtk::tree::Tape< std::string >;
+  using Tape = njoy::ENDFtk::tree::Tape;
   using Material = njoy::ENDFtk::tree::Material;
   using MaterialRange = BidirectionalAnyView< Material >;
 
@@ -149,13 +148,13 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
     "from_string",
     [] ( const std::string& string ) -> Tape {
 
-      return njoy::ENDFtk::tree::makeTape( std::string( string ) );
+      return Tape( string );
     },
-    "Read a tape from a file\n\n"
+    "Read a tape from a string\n\n"
     "An exception is raised if something goes wrong while reading the\n"
     "tape\n\n"
     "Arguments:\n"
-    "    filename    the file name and path"
+    "    string    the content of the tape"
   )
   .def_static(
 

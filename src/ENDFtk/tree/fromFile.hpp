@@ -8,7 +8,6 @@
 // other includes
 #include "Log.hpp"
 #include "ENDFtk/tree/Tape.hpp"
-#include "ENDFtk/tree/makeTape.hpp"
 
 namespace njoy {
 namespace ENDFtk {
@@ -34,7 +33,7 @@ namespace tree {
     in.seekg( 0, std::ios::beg );
     content.resize( file_size / sizeof( char ) );
     in.read( &( content[ 0 ] ), file_size );
-    return njoy::ENDFtk::tree::makeTape( std::move( content ) );
+    return njoy::ENDFtk::tree::Tape( content );
   }
 
 } // tree namespace
