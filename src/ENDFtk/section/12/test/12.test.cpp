@@ -85,7 +85,7 @@ SCENARIO( "section::Type< 12 >" ) {
 
     WHEN( "there is a tree::Section" ) {
 
-      tree::Section section( 9228, 12, 18, std::string(  ) );
+      tree::Section section( 9228, 12, 18, std::string( sectionString ) );
 
       section::Type< 12 > chunk = section.parse< 12 >();
 
