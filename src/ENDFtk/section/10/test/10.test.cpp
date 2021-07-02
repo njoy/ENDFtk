@@ -81,47 +81,23 @@ SCENARIO( "section::Type< 10 >" ) {
 
     WHEN( "there is a tree::Section" ) {
 
-      std::string sectionString = chunk() + validSEND();
-      auto begin = sectionString.begin();
-      auto position = begin;
-      auto end = sectionString.end();
-      long lineNumber = 0;
-      auto head = HEAD( position, end, lineNumber );
-      tree::Section section( head, begin, position, end, lineNumber );
+      tree::Section section( 9543, 10, 102, std::string( sectionString ) );
 
       section::Type< 10 > chunk = section.parse< 10 >();
-      section::Type< 10 > chunk2 = section.parse< 10 >( lineNumber );
-      section::Type< 10 > chunk3 = section.parse( 10_c );
-      section::Type< 10 > chunk4 = section.parse( 10_c, lineNumber );
 
       THEN( "a section::Type< 10 > can be constructed and "
             "members can be tested" ) {
 
         verifyChunk( chunk );
-        verifyChunk( chunk2 );
-        verifyChunk( chunk3 );
-        verifyChunk( chunk4 );
       } // THEN
 
       THEN( "it can be printed" ) {
 
         std::string buffer;
-        std::string buffer2;
-        std::string buffer3;
-        std::string buffer4;
         auto output = std::back_inserter( buffer );
-        auto output2 = std::back_inserter( buffer2 );
-        auto output3 = std::back_inserter( buffer3 );
-        auto output4 = std::back_inserter( buffer4 );
         chunk.print( output, 9543, 10 );
-        chunk2.print( output2, 9543, 10 );
-        chunk3.print( output3, 9543, 10 );
-        chunk4.print( output4, 9543, 10 );
 
         CHECK( buffer == sectionString );
-        CHECK( buffer2 == sectionString );
-        CHECK( buffer3 == sectionString );
-        CHECK( buffer4 == sectionString );
       } // THEN
     } // WHEN
   } // GIVEN

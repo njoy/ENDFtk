@@ -108,14 +108,9 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
     WHEN( "there is a tree::Section" ) {
 
-      auto begin = sectionString.begin();
-      auto position = begin;
-      auto end = sectionString.end();
-      long lineNumber = 1;
-      auto head = HEAD( position, end, lineNumber );
-      tree::Section section( head, begin, position, end, lineNumber );
+      tree::Section section( 27, 7, 4, std::string( sectionString ) );
 
-      section::Type< 7, 4 > chunk = section.parse< 7, 4 >( lineNumber );
+      section::Type< 7, 4 > chunk = section.parse< 7, 4 >();
 
       THEN( "a section::Type< 7, 4 > can be constructed and members can be "
             "tested" ) {
@@ -215,14 +210,9 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
     WHEN( "there is a tree::Section" ) {
 
-      auto begin = sectionString.begin();
-      auto position = begin;
-      auto end = sectionString.end();
-      long lineNumber = 1;
-      auto head = HEAD( position, end, lineNumber );
-      tree::Section section( head, begin, position, end, lineNumber );
+      tree::Section section( 27, 7, 4, std::string( sectionString ) );
 
-      section::Type< 7, 4 > chunk = section.parse< 7, 4 >( lineNumber );
+      section::Type< 7, 4 > chunk = section.parse< 7, 4 >();
 
       THEN( "a section::Type< 7, 4 > can be constructed and members can be "
             "tested" ) {
@@ -331,14 +321,9 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
     WHEN( "there is a tree::Section" ) {
 
-      auto begin = sectionString.begin();
-      auto position = begin;
-      auto end = sectionString.end();
-      long lineNumber = 1;
-      auto head = HEAD( position, end, lineNumber );
-      tree::Section section( head, begin, position, end, lineNumber );
+      tree::Section section( 27, 7, 4, std::string( sectionString ) );
 
-      section::Type< 7, 4 > chunk = section.parse< 7, 4 >( lineNumber );
+      section::Type< 7, 4 > chunk = section.parse< 7, 4 >();
 
       THEN( "a section::Type< 7, 4 > can be constructed and members can be "
             "tested" ) {
@@ -455,14 +440,9 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
     WHEN( "there is a tree::Section" ) {
 
-      auto begin = sectionString.begin();
-      auto position = begin;
-      auto end = sectionString.end();
-      long lineNumber = 1;
-      auto head = HEAD( position, end, lineNumber );
-      tree::Section section( head, begin, position, end, lineNumber );
+      tree::Section section( 27, 7, 4, std::string( sectionString ) );
 
-      section::Type< 7, 4 > chunk = section.parse< 7, 4 >( lineNumber );
+      section::Type< 7, 4 > chunk = section.parse< 7, 4 >();
 
       THEN( "a section::Type< 7, 4 > can be constructed and members can be "
             "tested" ) {
@@ -581,14 +561,9 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
     WHEN( "there is a tree::Section" ) {
 
-      auto begin = sectionString.begin();
-      auto position = begin;
-      auto end = sectionString.end();
-      long lineNumber = 1;
-      auto head = HEAD( position, end, lineNumber );
-      tree::Section section( head, begin, position, end, lineNumber );
+      tree::Section section( 27, 7, 4, std::string( sectionString ) );
 
-      section::Type< 7, 4 > chunk = section.parse< 7, 4 >( lineNumber );
+      section::Type< 7, 4 > chunk = section.parse< 7, 4 >();
 
       THEN( "a section::Type< 7, 4 > can be constructed and members can be "
             "tested" ) {
