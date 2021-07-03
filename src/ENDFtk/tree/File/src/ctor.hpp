@@ -12,12 +12,11 @@
 template< typename BufferIterator >
 File( const HEAD& head, BufferIterator begin,
       BufferIterator& position, const BufferIterator& end, long& lineNumber )
-  try: materialNo( head.MAT() ),
-       fileNo( head.MF() ),
+  try: mat_( head.MAT() ),
+       mf_( head.MF() ),
        sections_( createMap( head, begin, position, end, lineNumber ) ) {}
-  catch( std::exception& e ) {
+  catch ( std::exception& e ) {
 
-    Log::info( "Trouble encountered while constructing a file syntax tree." );
-    Log::info( "File number (MF): {}", head.MF() );
+    Log::info( "Trouble encountered while constructing an ENDF tree file" );
     throw e;
   }

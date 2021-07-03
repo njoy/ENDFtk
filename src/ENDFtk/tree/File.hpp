@@ -41,8 +41,8 @@ namespace tree {
   private:
 
     /* fields */
-    int materialNo;
-    int fileNo;
+    int mat_;
+    int mf_;
     std::map< int, Section > sections_;
 
     /* auxiliary functions */
@@ -56,18 +56,41 @@ namespace tree {
     /* methods */
 
     /**
-     *  @brief Return the section with the requested MT number
-     *
-     *  @param[in]   mt   the MT number of the section to be returned
+     *  @brief Return MAT number of the file
      */
-    const Section& MT( int mt ) const { return this->section( mt ); }
+    int MAT() const { return this->mat_; }
+
+    /**
+     *  @brief Return MAT number of the file
+     */
+    int materialNumber() const { return this->MAT(); }
+
+    /**
+     *  @brief Return MF number of the file
+     */
+    int MF() const { return this->mf_; }
+
+    /**
+     *  @brief Return MF number of the file
+     */
+    int fileNumber() const { return this->MF(); }
+
+    /**
+     *  @brief Return all section numbers in the file
+     */
+    auto sectionNumbers() const {
+
+      return ranges::cpp20::views::keys( this->sections_ );
+    }
+
+    #include "ENDFtk/tree/File/src/section.hpp"
 
     /**
      *  @brief Return the section with the requested MT number
      *
      *  @param[in]   mt   the MT number of the section to be returned
      */
-    Section& MT( int mt ){ return this->section( mt ); }
+    const Section& MT( int mt ) const { return this->section( mt ); }
 
     /**
      *  @brief Return whether or not the file has a section with the given MT
@@ -91,33 +114,9 @@ namespace tree {
     /**
      *  @brief Return all sections in the file
      */
-    auto sections() {
-
-      return this->sections_ | ranges::cpp20::views::values;
-    }
-
-    /**
-     *  @brief Return all sections in the file
-     */
     auto sections() const {
 
       return this->sections_ | ranges::cpp20::views::values;
-    }
-
-    /**
-     *  @brief Return a begin iterator to all sections
-     */
-    auto begin(){
-
-      return ( this->sections_ | ranges::cpp20::views::values ).begin();
-    }
-
-    /**
-     *  @brief Return an end iterator to all sections
-     */
-    auto end(){
-
-      return ( this->sections_ | ranges::cpp20::views::values ).end();
     }
 
     /**
@@ -161,36 +160,10 @@ namespace tree {
       return content;
     }
 
-    /**
-     *  @brief Return MAT number of the file
-     */
-    int MAT() const { return this->materialNo; }
-
-    /**
-     *  @brief Return MAT number of the file
-     */
-    int materialNumber() const { return this->MAT(); }
-
-    /**
-     *  @brief Return MF number of the file
-     */
-    int MF() const { return this->fileNo; }
-
-    /**
-     *  @brief Return MF number of the file
-     */
-    int fileNumber() const { return this->MF(); }
-
-    /**
-     *  @brief Return all section numbers in the file
-     */
-    auto sectionNumbers() const {
-
-      return ranges::cpp20::views::keys( this->sections_ );
-    }
+    #include "ENDFtk/tree/File/src/insertOrReplace.hpp"
+    #include "ENDFtk/tree/File/src/insert.hpp"
 
     #include "ENDFtk/tree/File/src/parse.hpp"
-    #include "ENDFtk/tree/File/src/section.hpp"
   };
 
 } // tree namespace

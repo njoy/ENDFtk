@@ -9,66 +9,31 @@
 // convenience typedefs
 using namespace njoy::ENDFtk;
 
-std::string baseFile();
+std::string chunkMT1();
+std::string chunkMT2();
+std::string chunkMT5();
+std::string chunkMT5v2();
+std::string chunkMT102();
+std::string chunk();
+std::string validSEND();
 std::string validFEND();
 std::string invalidFEND();
 
-SCENARIO( "Creating a syntax tree of an ENDF File" ){
-  GIVEN( "a string representation of a File" ){
-    WHEN( "a valid FEND record ends the File" ){
-      std::string fileString = baseFile() + validFEND();
+SCENARIO( "tree::Section" ) {
 
-      auto begin = fileString.begin();
+  GIVEN( "valid data for a tree::Section" ) {
+
+    std::string fileString = chunk() + validFEND();
+
+    WHEN( "the data is read from a string/stream with a valid SEND" ) {
+
+      auto position = fileString.begin();
       auto start = fileString.begin();
       auto end = fileString.end();
       long lineNumber = 0;
 
-      HeadRecord head( begin, end, lineNumber);
-
-      GIVEN( "the File pointer" ){
-        auto beg = begin;
-        auto lin = lineNumber;
-        auto original =
-          std::make_unique
-          < tree::File >
-          ( head, start, beg, end, lin );
-
-        THEN( "We can exstract the MT numbers" ){
-          std::vector< int > refMTs{ 1, 2, 102 };
-          CHECK( ranges::cpp20::equal( refMTs, original->sectionNumbers() ) );
-        } // THEN
-
-        THEN( "the copy ctor will function correctly "){
-          auto copy = tree::File{ *original };
-          original.reset();
-          CHECK( 1 == copy.MT( 1 ).MT() );
-
-        }
-
-        beg = begin;
-        lin = lineNumber;
-        original =
-          std::make_unique
-          < tree::File >
-          ( head, start, beg, end, lin );
-
-        THEN( "the move ctor will function correctly "){
-          auto copy =
-            tree::File
-            { std::move( *( original.release() ) ) };
-
-          CHECK( 1 == copy.MT( 1 ).MT() );
-        }
-      }
-
-      const tree::File file( head, start, begin, end, lineNumber );
-
-      const auto& cfile = file;
-
-      THEN( "the entire stream is read" ) {
-
-        CHECK( 109 == lineNumber );
-      }
+      HeadRecord head( position, end, lineNumber );
+      tree::File file( head, start, position, end, lineNumber );
 
       THEN( "the File is populated correctly" ) {
 
@@ -77,101 +42,181 @@ SCENARIO( "Creating a syntax tree of an ENDF File" ){
         CHECK( 3 == file.MF() );
         CHECK( 3 == file.fileNumber() );
 
+        CHECK( true == file.hasSection( 1 ) );
+        CHECK( true == file.hasMT( 1 ) );
+        CHECK( true == file.hasSection( 2 ) );
+        CHECK( true == file.hasMT( 2 ) );
+        CHECK( false == file.hasSection( 5 ) );
+        CHECK( false == file.hasMT( 5 ) );
+        CHECK( true == file.hasSection( 102 ) );
+        CHECK( true == file.hasMT( 102 ) );
+        CHECK( false == file.hasSection( 107 ) );
+        CHECK( false == file.hasMT( 107 ) );
+
+        auto sectionNumbers = file.sectionNumbers();
+        CHECK( 3 == file.size() );
+        CHECK( 3 == sectionNumbers.size() );
+
+        auto iter = std::begin( sectionNumbers );
+        CHECK( 1 == *iter ); ++iter;
+        CHECK( 2 == *iter ); ++iter;
+        CHECK( 102 == *iter ); ++iter;
+
         CHECK( fileString == file.content() );
       } // THEN
 
-      AND_THEN( "the file number or MF is populated correctly" ){
-        CHECK( 3 == file.MF() );
-        CHECK( 3 == file.fileNumber() );
-        CHECK( 3 == cfile.MF() );
-        CHECK( 3 == cfile.fileNumber() );
-      }
+      THEN( "the iterators advanced correctly" ) {
 
-      AND_THEN( "the correct number of sections are read from the file" ){
-        CHECK( 3 == file.size() );
-        CHECK( 3 == cfile.size() );
-      }
+        CHECK( fileString.end() == position );
+        CHECK( fileString.begin() == start );
+        CHECK( fileString.end() == end );
+        CHECK( 109 == lineNumber );
+      } // THEN
+    } // WHEN
 
-      AND_THEN( "we can access the section syntax trees of the file syntax tree" ){
-        std::vector< int > sectionNumbers{ 1, 2, 102 };
-        for ( auto sectionNo : sectionNumbers ){
-          CHECK( file.hasMT( sectionNo ) );
-          CHECK( sectionNo == file.MT( sectionNo ).MT() );
-          CHECK( file.hasSection( sectionNo ) );
-          CHECK( sectionNo == file.section( sectionNo ).MT() );
-          CHECK( cfile.hasMT( sectionNo ) );
-          CHECK( sectionNo == cfile.MT( sectionNo ).MT() );
-          CHECK( cfile.hasSection( sectionNo ) );
-          CHECK( sectionNo == cfile.section( sectionNo ).MT() );
-        }
-        auto sectionIter = sectionNumbers.begin();
-        for ( auto& section : file ){
-          CHECK( *sectionIter == section.MT() );
-          ++sectionIter;
-        }
-        sectionIter = sectionNumbers.begin();
-        for ( const auto& section : cfile ){
-          CHECK( *sectionIter == section.MT() );
-          ++sectionIter;
-        }
-      }
+    WHEN( "a section is inserted" ) {
 
-      AND_THEN( "an exception is thrown if the requested MTs are invalid."){
-        CHECK( not file.hasMT( 3 ) );
-        CHECK_THROWS( file.MT( 3 ) );
-        CHECK( not file.hasSection( 3 ) );
-        CHECK_THROWS( file.section( 3 ) );
-      }
-    }
-  }
-
-  WHEN( "an invalid (MF !=0) FEND record ends the File" ){
-    std::string fileString = baseFile() + invalidFEND();
-    THEN( "an exception is thrown" ){
-      auto begin = fileString.begin();
+      auto position = fileString.begin();
       auto start = fileString.begin();
       auto end = fileString.end();
       long lineNumber = 0;
 
-      HeadRecord head( begin, end, lineNumber );
-      CHECK_THROWS
-        ( tree::File
-          ( head, start, begin, end, lineNumber ) );
-    }
-  }
+      HeadRecord head( position, end, lineNumber );
+      tree::File file( head, start, position, end, lineNumber );
 
-  WHEN( "a File is too short (no FEND record)" ){
-    std::string fileString = baseFile();
-    auto begin = fileString.begin();
-    auto start = fileString.begin();
-    auto end = fileString.end();
-    long lineNumber = 0;
+      file.insert( tree::Section( 125, 3, 5, chunkMT5() + validSEND() ) );
 
-    THEN( "an exception is thrown" ){
-      HeadRecord head( begin, end, lineNumber );
-      CHECK_THROWS
-        ( tree::File
-          ( head, start, begin, end, lineNumber ) );
-    }
-  }
+      THEN( "the File is populated correctly when a new section was inserted" ) {
 
-  WHEN( "a File has more than one Section with the same number" ){
-    std::string fileString = baseFile() + baseFile() + validFEND();
-    auto begin = fileString.begin();
-    auto start = fileString.begin();
-    auto end = fileString.end();
-    long lineNumber = 0;
+        CHECK( 125 == file.MAT() );
+        CHECK( 125 == file.materialNumber() );
+        CHECK( 3 == file.MF() );
+        CHECK( 3 == file.fileNumber() );
 
-    THEN( "an exception is thrown" ){
-      HeadRecord head( begin, end, lineNumber );
-      CHECK_THROWS
-        ( tree::File
-          ( head, start, begin, end, lineNumber ) );
-    }
-  }
-}
+        CHECK( true == file.hasSection( 1 ) );
+        CHECK( true == file.hasMT( 1 ) );
+        CHECK( true == file.hasSection( 2 ) );
+        CHECK( true == file.hasMT( 2 ) );
+        CHECK( true == file.hasSection( 5 ) );
+        CHECK( true == file.hasMT( 5 ) );
+        CHECK( true == file.hasSection( 102 ) );
+        CHECK( true == file.hasMT( 102 ) );
+        CHECK( false == file.hasSection( 107 ) );
+        CHECK( false == file.hasMT( 107 ) );
 
-std::string baseFile(){
+        auto sectionNumbers = file.sectionNumbers();
+        CHECK( 4 == file.size() );
+        CHECK( 4 == sectionNumbers.size() );
+
+        auto iter = std::begin( sectionNumbers );
+        CHECK( 1 == *iter ); ++iter;
+        CHECK( 2 == *iter ); ++iter;
+        CHECK( 5 == *iter ); ++iter;
+        CHECK( 102 == *iter ); ++iter;
+
+        CHECK( chunkMT1() + validSEND() +
+               chunkMT2() + validSEND() +
+               chunkMT5() + validSEND() +
+               chunkMT102() + validSEND() + validFEND() == file.content() );
+      } // THEN
+
+      THEN( "an exception is thrown if the section is already there" ) {
+
+        CHECK_THROWS( file.insert(
+                          tree::Section( 125, 3, 5,
+                                         chunkMT5() + validSEND() ) ) );
+      } // THEN
+
+      file.insertOrReplace( tree::Section( 125, 3, 5,
+                                           chunkMT5v2() + validSEND() ) );
+
+      THEN( "the File is populated correctly when replacing a section" ) {
+
+        CHECK( 125 == file.MAT() );
+        CHECK( 125 == file.materialNumber() );
+        CHECK( 3 == file.MF() );
+        CHECK( 3 == file.fileNumber() );
+
+        CHECK( true == file.hasSection( 1 ) );
+        CHECK( true == file.hasMT( 1 ) );
+        CHECK( true == file.hasSection( 2 ) );
+        CHECK( true == file.hasMT( 2 ) );
+        CHECK( true == file.hasSection( 5 ) );
+        CHECK( true == file.hasMT( 5 ) );
+        CHECK( true == file.hasSection( 102 ) );
+        CHECK( true == file.hasMT( 102 ) );
+        CHECK( false == file.hasSection( 107 ) );
+        CHECK( false == file.hasMT( 107 ) );
+
+        auto sectionNumbers = file.sectionNumbers();
+        CHECK( 4 == file.size() );
+        CHECK( 4 == sectionNumbers.size() );
+
+        auto iter = std::begin( sectionNumbers );
+        CHECK( 1 == *iter ); ++iter;
+        CHECK( 2 == *iter ); ++iter;
+        CHECK( 5 == *iter ); ++iter;
+        CHECK( 102 == *iter ); ++iter;
+
+        CHECK( chunkMT1() + validSEND() +
+               chunkMT2() + validSEND() +
+               chunkMT5v2() + validSEND() +
+               chunkMT102() + validSEND() + validFEND() == file.content() );
+      } // THEN
+    } // WHEN
+  } // GIVEN
+
+  GIVEN( "invalid data for a tree::File" ) {
+
+    WHEN( "the data is read from a string/stream with an invalid FEND" ) {
+
+      std::string sectionString = chunk() + invalidFEND();
+      auto position = sectionString.begin();
+      auto start = sectionString.begin();
+      auto end = sectionString.end();
+      long lineNumber = 1;
+      HeadRecord head( position, end, lineNumber );
+
+      THEN( "an exception is thrown upon construction" ) {
+
+        CHECK_THROWS( tree::File( head, start, position, end, lineNumber ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is read from a string/stream without a SEND" ) {
+
+      std::string sectionString = chunk();
+      auto position = sectionString.begin();
+      auto start = sectionString.begin();
+      auto end = sectionString.end();
+      long lineNumber = 1;
+      HeadRecord head( position, end, lineNumber );
+
+      THEN( "an exception is thrown upon construction" ) {
+
+        CHECK_THROWS( tree::File( head, start, position, end, lineNumber ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data contains a duplicate section" ) {
+
+      std::string sectionString = chunk() + chunk() + validFEND();
+      auto position = sectionString.begin();
+      auto start = sectionString.begin();
+      auto end = sectionString.end();
+      long lineNumber = 1;
+      HeadRecord head( position, end, lineNumber );
+
+      THEN( "an exception is thrown upon construction" ) {
+
+        CHECK_THROWS( tree::File( head, start, position, end, lineNumber ) );
+      } // THEN
+    } // WHEN
+  } // GIVEN
+} // SCENARIO
+
+std::string chunkMT1() {
+
   return
     " 1.001000+3 9.991673-1          0          0          0          0 125 3  1     \n"
     " 0.000000+0 0.000000+0          0          0          2         96 125 3  1     \n"
@@ -207,8 +252,12 @@ std::string baseFile(){
     " 1.450000+7 6.645095-1 1.500000+7 6.431880-1 1.550000+7 6.230693-1 125 3  1     \n"
     " 1.600000+7 6.040552-1 1.650000+7 5.860577-1 1.700000+7 5.689977-1 125 3  1     \n"
     " 1.750000+7 5.528040-1 1.800000+7 5.374121-1 1.850000+7 5.227637-1 125 3  1     \n"
-    " 1.900000+7 5.088059-1 1.950000+7 4.954905-1 2.000000+7 4.827735-1 125 3  1     \n"
-    "                                                                   125 3  0     \n"
+    " 1.900000+7 5.088059-1 1.950000+7 4.954905-1 2.000000+7 4.827735-1 125 3  1     \n";
+}
+
+std::string chunkMT2() {
+
+  return
     " 1.001000+3 9.991673-1          0          0          0          0 125 3  2     \n"
     " 0.000000+0 0.000000+0          0          0          1         96 125 3  2     \n"
     "         96          2                                             125 3  2     \n"
@@ -243,8 +292,30 @@ std::string baseFile(){
     " 1.450000+7 6.644799-1 1.500000+7 6.431586-1 1.550000+7 6.230401-1 125 3  2     \n"
     " 1.600000+7 6.040262-1 1.650000+7 5.860290-1 1.700000+7 5.689692-1 125 3  2     \n"
     " 1.750000+7 5.527757-1 1.800000+7 5.373840-1 1.850000+7 5.227359-1 125 3  2     \n"
-    " 1.900000+7 5.087783-1 1.950000+7 4.954630-1 2.000000+7 4.827462-1 125 3  2     \n"
-    "                                                                   125 3  0     \n"
+    " 1.900000+7 5.087783-1 1.950000+7 4.954630-1 2.000000+7 4.827462-1 125 3  2     \n";
+}
+
+std::string chunkMT5() {
+
+    return
+    " 1.001000+3 9.991673-1          0          0          0          0 125 3  5     \n"
+    " 1.123400+6 1.123400+6          0          0          1          4 125 3  5     \n"
+    "          2          2                                             125 3  5     \n"
+    " 1.000000-5 1.000000+0 2.000000+7 2.000000+0                       125 3  5     \n";
+}
+
+std::string chunkMT5v2() {
+
+    return
+    " 1.001000+3 9.991673-1          0          0          0          0 125 3  5     \n"
+    " 1.123400+6 1.123400+6          0          0          1          4 125 3  5     \n"
+    "          2          2                                             125 3  5     \n"
+    " 1.000000-5 2.000000+0 2.000000+7 1.000000+0                       125 3  5     \n";
+}
+
+std::string chunkMT102() {
+
+    return
     " 1.001000+3 9.991673-1          0          0          0          0 125 3102     \n"
     " 2.224631+6 2.224631+6          0          0          2         96 125 3102     \n"
     "         30          5         96          2                       125 3102     \n"
@@ -279,8 +350,18 @@ std::string baseFile(){
     " 1.450000+7 2.959190-5 1.500000+7 2.937920-5 1.550000+7 2.916656-5 125 3102     \n"
     " 1.600000+7 2.895363-5 1.650000+7 2.874018-5 1.700000+7 2.852603-5 125 3102     \n"
     " 1.750000+7 2.831107-5 1.800000+7 2.809523-5 1.850000+7 2.787851-5 125 3102     \n"
-    " 1.900000+7 2.766095-5 1.950000+7 2.744259-5 2.000000+7 2.722354-5 125 3102     \n"
-    "                                                                   125 3  0     \n";
+    " 1.900000+7 2.766095-5 1.950000+7 2.744259-5 2.000000+7 2.722354-5 125 3102     \n";
+}
+
+std::string chunk() {
+
+  return chunkMT1() + validSEND() +
+         chunkMT2() + validSEND() +
+         chunkMT102() + validSEND();
+}
+
+std::string validSEND(){
+  return "                                                                   125 3  0     \n";
 }
 
 std::string validFEND(){
