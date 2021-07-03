@@ -30,9 +30,8 @@ Section( const HEAD& head, BufferIterator begin,
                 std::string( begin, findEnd( position, end, lineNumber ) ) ) {}
   catch( std::exception& e ) {
 
-    Log::info( "Trouble when creating a tree::Section" );
-    Log::info( "File/section number (MF/MT) corresponding "
-               "to erroneous section: {}/{}",
-               head.MF(), head.MT() );
+    Log::info( "Trouble encountered while constructing an ENDF tree section" );
+    Log::info( "Current position: MAT{} MF{} MT{} at line {}",
+               head.MAT(), head.MF(), head.MT(), lineNumber );
     throw e;
   }

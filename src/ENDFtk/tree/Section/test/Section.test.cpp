@@ -35,6 +35,8 @@ SCENARIO( "tree::Section" ) {
         CHECK( 1 == section.MT() );
         CHECK( 1 == section.sectionNumber() );
 
+        CHECK( 35 == section.NC() );
+
         CHECK( sectionString == section.content() );
       } // THEN
     } // WHEN
@@ -58,6 +60,8 @@ SCENARIO( "tree::Section" ) {
         CHECK( 1 == section.MT() );
         CHECK( 1 == section.sectionNumber() );
 
+        CHECK( 35 == section.NC() );
+
         CHECK( sectionString == section.content() );
       } // THEN
 
@@ -66,12 +70,13 @@ SCENARIO( "tree::Section" ) {
         CHECK( sectionString.end() == position );
         CHECK( sectionString.begin() == start );
         CHECK( sectionString.end() == end );
-        CHECK( 36 == lineNumber );
+
+        CHECK( 36 == lineNumber ); // one number beyond the number of lines
       } // THEN
     } // WHEN
   } // GIVEN
 
-  GIVEN( "invalid data for a section::Type< 1, 451 >" ) {
+  GIVEN( "invalid data for a tree::Section" ) {
 
     WHEN( "the data is read from a string/stream with an invalid SEND" ) {
 

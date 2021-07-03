@@ -78,6 +78,15 @@ namespace tree {
      *  @brief Return the section's content
      */
     const std::string& content() const { return this->content_; }
+
+    /**
+     *  @brief Return the number lines in the section
+     */
+    unsigned int NC() const {
+
+      // count all newline characters, subtract 1 for the SEND record
+      return std::count( this->content_.begin(), this->content_.end(), '\n' ) - 1;
+    }
   };
 
 } // tree namespace
