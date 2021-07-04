@@ -6,18 +6,16 @@ createMap
 
   std::map< int, Section > sections;
 
-  // create the first section
-  sections.emplace( head.MT(),
-                    Section( head, begin, position, end, lineNumber ) );
-
-  // read the next HEAD or FEND record
-  begin = position;
+  // read the first HEAD record (we need a structure division)
+  --lineNumber;
+  position = begin;
   auto division = StructureDivision( position, end, lineNumber );
 
-  // continue reading sections for the same MF
+  // continue reading sections for the same mf
   auto mf = head.MF();
   while ( division.isHead() && ( division.tail.MF() == mf ) ) {
 
+    // check for duplicate mt
     if ( sections.count( division.tail.MT() ) ) {
 
       Log::error( "Found a duplicate section for MT{}", division.tail.MT() );
@@ -27,10 +25,12 @@ createMap
       throw std::exception();
     }
 
+    // add the section
     sections.emplace( division.tail.MT(),
                       Section( asHead( division ),
                                begin, position, end, lineNumber ) );
 
+    // check for end of stream
     if ( position >= end ) {
 
       Log::error( "Encountered the end of stream before a FEND record was found" );
@@ -52,6 +52,7 @@ createMap
     }
   }
 
+  // warn for missing FEND record
   if ( !division.isFend() ) {
 
     position = begin;

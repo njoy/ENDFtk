@@ -14,6 +14,7 @@ std::string chunkMT2();
 std::string chunkMT5();
 std::string chunkMT5v2();
 std::string chunkMT102();
+std::string chunkMF4();
 std::string chunk();
 std::string validSEND();
 std::string validFEND();
@@ -25,7 +26,7 @@ SCENARIO( "tree::Section" ) {
 
     std::string fileString = chunk() + validFEND();
 
-    WHEN( "the data is read from a string/stream with a valid SEND" ) {
+    WHEN( "the data is read from a string/stream with a valid FEND" ) {
 
       auto position = fileString.begin();
       auto start = fileString.begin();
@@ -70,6 +71,172 @@ SCENARIO( "tree::Section" ) {
         CHECK( fileString.end() == position );
         CHECK( fileString.begin() == start );
         CHECK( fileString.end() == end );
+        CHECK( 109 == lineNumber );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is read from a string/stream with duplicate SENDs" ) {
+
+      std::string duplicates = chunkMT1() + validSEND() + validSEND() +
+                               chunkMT2() + validSEND() + validSEND() +
+                               chunkMT102() + validSEND() + validFEND();
+
+      auto position = duplicates.begin();
+      auto start = duplicates.begin();
+      auto end = duplicates.end();
+      long lineNumber = 0;
+
+      HeadRecord head( position, end, lineNumber );
+      tree::File file( head, start, position, end, lineNumber );
+
+      THEN( "the File is populated correctly and duplicate SENDs are removed" ) {
+
+        CHECK( 125 == file.MAT() );
+        CHECK( 125 == file.materialNumber() );
+        CHECK( 3 == file.MF() );
+        CHECK( 3 == file.fileNumber() );
+
+        CHECK( true == file.hasSection( 1 ) );
+        CHECK( true == file.hasMT( 1 ) );
+        CHECK( true == file.hasSection( 2 ) );
+        CHECK( true == file.hasMT( 2 ) );
+        CHECK( false == file.hasSection( 5 ) );
+        CHECK( false == file.hasMT( 5 ) );
+        CHECK( true == file.hasSection( 102 ) );
+        CHECK( true == file.hasMT( 102 ) );
+        CHECK( false == file.hasSection( 107 ) );
+        CHECK( false == file.hasMT( 107 ) );
+
+        auto sectionNumbers = file.sectionNumbers();
+        CHECK( 3 == file.size() );
+        CHECK( 3 == sectionNumbers.size() );
+
+        auto iter = std::begin( sectionNumbers );
+        CHECK( 1 == *iter ); ++iter;
+        CHECK( 2 == *iter ); ++iter;
+        CHECK( 102 == *iter ); ++iter;
+
+        CHECK( fileString == file.content() );
+      } // THEN
+
+      THEN( "the iterators advanced correctly" ) {
+
+        CHECK( duplicates.end() == position );
+        CHECK( duplicates.begin() == start );
+        CHECK( duplicates.end() == end );
+        CHECK( 111 == lineNumber );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is read from a string/stream with duplicate FENDs" ) {
+
+      std::string duplicates = chunkMT1() + validSEND() +
+                               chunkMT2() + validSEND() +
+                               chunkMT102() + validSEND() +
+                               validFEND();
+
+      auto stop = duplicates.end();
+      duplicates += validFEND();
+
+      auto position = duplicates.begin();
+      auto start = duplicates.begin();
+      auto end = duplicates.end();
+      long lineNumber = 0;
+
+      HeadRecord head( position, end, lineNumber );
+      tree::File file( head, start, position, end, lineNumber );
+
+      THEN( "the File is populated correctly and duplicate FENDs are removed" ) {
+
+        CHECK( 125 == file.MAT() );
+        CHECK( 125 == file.materialNumber() );
+        CHECK( 3 == file.MF() );
+        CHECK( 3 == file.fileNumber() );
+
+        CHECK( true == file.hasSection( 1 ) );
+        CHECK( true == file.hasMT( 1 ) );
+        CHECK( true == file.hasSection( 2 ) );
+        CHECK( true == file.hasMT( 2 ) );
+        CHECK( false == file.hasSection( 5 ) );
+        CHECK( false == file.hasMT( 5 ) );
+        CHECK( true == file.hasSection( 102 ) );
+        CHECK( true == file.hasMT( 102 ) );
+        CHECK( false == file.hasSection( 107 ) );
+        CHECK( false == file.hasMT( 107 ) );
+
+        auto sectionNumbers = file.sectionNumbers();
+        CHECK( 3 == file.size() );
+        CHECK( 3 == sectionNumbers.size() );
+
+        auto iter = std::begin( sectionNumbers );
+        CHECK( 1 == *iter ); ++iter;
+        CHECK( 2 == *iter ); ++iter;
+        CHECK( 102 == *iter ); ++iter;
+
+        CHECK( fileString == file.content() );
+      } // THEN
+
+      THEN( "the iterators advanced correctly" ) {
+
+        CHECK( stop == position );
+        CHECK( duplicates.begin() == start );
+        CHECK( duplicates.end() == end );
+        CHECK( 109 == lineNumber );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is read from a string/stream with a missing FEND" ) {
+
+      std::string duplicates = chunkMT1() + validSEND() +
+                               chunkMT2() + validSEND() +
+                               chunkMT102() + validSEND();
+
+      auto stop = duplicates.end();
+      duplicates += chunkMF4();
+
+      auto position = duplicates.begin();
+      auto start = duplicates.begin();
+      auto end = duplicates.end();
+      long lineNumber = 0;
+
+      HeadRecord head( position, end, lineNumber );
+      tree::File file( head, start, position, end, lineNumber );
+
+      THEN( "the File is populated correctly and a FEND is added" ) {
+
+        CHECK( 125 == file.MAT() );
+        CHECK( 125 == file.materialNumber() );
+        CHECK( 3 == file.MF() );
+        CHECK( 3 == file.fileNumber() );
+
+        CHECK( true == file.hasSection( 1 ) );
+        CHECK( true == file.hasMT( 1 ) );
+        CHECK( true == file.hasSection( 2 ) );
+        CHECK( true == file.hasMT( 2 ) );
+        CHECK( false == file.hasSection( 5 ) );
+        CHECK( false == file.hasMT( 5 ) );
+        CHECK( true == file.hasSection( 102 ) );
+        CHECK( true == file.hasMT( 102 ) );
+        CHECK( false == file.hasSection( 107 ) );
+        CHECK( false == file.hasMT( 107 ) );
+
+        auto sectionNumbers = file.sectionNumbers();
+        CHECK( 3 == file.size() );
+        CHECK( 3 == sectionNumbers.size() );
+
+        auto iter = std::begin( sectionNumbers );
+        CHECK( 1 == *iter ); ++iter;
+        CHECK( 2 == *iter ); ++iter;
+        CHECK( 102 == *iter ); ++iter;
+
+        CHECK( fileString == file.content() );
+      } // THEN
+
+      THEN( "the iterators advanced correctly" ) {
+
+        CHECK( stop == position );
+        CHECK( duplicates.begin() == start );
+        CHECK( duplicates.end() == end );
         CHECK( 109 == lineNumber );
       } // THEN
     } // WHEN
@@ -351,6 +518,16 @@ std::string chunkMT102() {
     " 1.600000+7 2.895363-5 1.650000+7 2.874018-5 1.700000+7 2.852603-5 125 3102     \n"
     " 1.750000+7 2.831107-5 1.800000+7 2.809523-5 1.850000+7 2.787851-5 125 3102     \n"
     " 1.900000+7 2.766095-5 1.950000+7 2.744259-5 2.000000+7 2.722354-5 125 3102     \n";
+}
+
+std::string chunkMF4() {
+
+  // this is a dummy MF4, not ENDF legal
+  return
+    " 1.001000+3 9.991673-1          0          0          0          0 125 4  5     \n"
+    " 1.123400+6 1.123400+6          0          0          1          4 125 4  5     \n"
+    "          2          2                                             125 4  5     \n"
+    " 1.000000-5 1.000000+0 2.000000+7 2.000000+0                       125 4  5     \n";
 }
 
 std::string chunk() {
