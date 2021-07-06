@@ -38,7 +38,7 @@ namespace tree {
   private:
 
     /* fields */
-    int materialNo;
+    int mat_;
     std::map< int, File > files_;
 
     /* auxiliary functions */
@@ -50,6 +50,26 @@ namespace tree {
     #include "ENDFtk/tree/Material/src/ctor.hpp"
 
     /* methods */
+
+    /**
+     *  @brief Return MAT number of the material
+     */
+    int MAT() const { return this->mat_; }
+
+    /**
+     *  @brief Return MAT number of the material
+     */
+    int materialNumber() const { return this->MAT(); }
+
+    /**
+     *  @brief Return all file numbers in the material
+     */
+    auto fileNumbers() const {
+
+      return ranges::cpp20::views::keys( this->files_ );
+    }
+
+    #include "ENDFtk/tree/Material/src/file.hpp"
 
     /**
      *  @brief Return the file with the requested MF number
@@ -84,25 +104,7 @@ namespace tree {
     /**
      *  @brief Return all files in the material
      */
-    auto files() { return this->files_ | ranges::cpp20::views::values; }
-
-    /**
-     *  @brief Return all files in the material
-     */
     auto files() const { return this->files_ | ranges::cpp20::views::values; }
-
-    /**
-     *  @brief Return a begin iterator to all files
-     */
-    auto begin() {
-
-      return ( this->files_ | ranges::cpp20::views::values ).begin();
-    }
-
-    /**
-     *  @brief Return an end iterator to all files
-     */
-    auto end(){ return ( this->files_ | ranges::cpp20::views::values ).end(); }
 
     /**
      *  @brief Return a begin iterator to all files
@@ -126,16 +128,6 @@ namespace tree {
     std::size_t size() const { return files_.size(); }
 
     /**
-     *  @brief Return MAT number of the material
-     */
-    int MAT() const { return this->materialNo; }
-
-    /**
-     *  @brief Return MAT number of the material
-     */
-    int materialNumber() const { return this->MAT(); }
-
-    /**
      *  @brief Return the material's content
      */
     auto content() const {
@@ -155,16 +147,9 @@ namespace tree {
       return content;
     }
 
-    /**
-     *  @brief Return all file numbers in the material
-     */
-    auto fileNumbers() const {
-
-      return ranges::cpp20::views::keys( this->files_ );
-    }
-
     #include "ENDFtk/tree/Material/src/parse.hpp"
-    #include "ENDFtk/tree/Material/src/file.hpp"
+
+    #include "ENDFtk/tree/Material/src/insert.hpp"
   };
 
 } // tree namespace

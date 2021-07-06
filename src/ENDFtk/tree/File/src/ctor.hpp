@@ -1,4 +1,14 @@
 /**
+ *  @brief EMpty file constructor
+ *
+ *  This constructor is not to be called directly by a user.
+ *
+ *  @param[in] mat    the MAT number of the file
+ *  @param[in] mf     the MF number of the file
+ */
+File( int mat, int mf ) : mat_( mat ), mf_( mf ) {}
+
+/**
  *  @brief Constructor (from a buffer)
  *
  *  This constructor is not to be called directly by a user.
