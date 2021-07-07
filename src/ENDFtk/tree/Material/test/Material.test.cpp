@@ -16,6 +16,8 @@ std::string chunkMF3();
 std::string chunkSectionMF3();
 std::string chunkSectionMF3v2();
 std::string chunkMF4();
+std::string chunkMF6();
+std::string chunkMF6v2();
 std::string chunk();
 std::string chunkMAT();
 std::string validSEND();
@@ -486,6 +488,194 @@ SCENARIO( "tree::Material" ) {
         CHECK( materialString == material.content() );
       } // THEN
     } // WHEN
+
+    WHEN( "a file is inserted, replaced or removed" ) {
+
+      auto position = materialString.begin();
+      auto start = materialString.begin();
+      auto end = materialString.end();
+      long lineNumber = 0;
+
+      HeadRecord head( position, end, lineNumber );
+      tree::Material material( head, start, position, end, lineNumber );
+
+      tree::File file( 125, 6 );
+      file.insert( tree::Section( 125, 6, 5, chunkMF6() ) );
+
+      material.insert( std::move( file ) );
+
+      THEN( "the Material is populated correctly when a new section was inserted" ) {
+
+        CHECK( 125 == material.MAT() );
+        CHECK( 125 == material.materialNumber() );
+
+        CHECK( true == material.hasFile( 1 ) );
+        CHECK( true == material.hasMF( 1 ) );
+        CHECK( true == material.file( 1 ).hasSection( 451 ) );
+        CHECK( true == material.MF( 1 ).hasMT( 451 ) );
+
+        CHECK( true == material.hasFile( 2 ) );
+        CHECK( true == material.hasMF( 2 ) );
+        CHECK( true == material.file( 2 ).hasSection( 151 ) );
+        CHECK( true == material.MF( 2 ).hasMT( 151 ) );
+
+        CHECK( true == material.hasFile( 3 ) );
+        CHECK( true == material.hasMF( 3 ) );
+        CHECK( true == material.file( 3 ).hasSection( 1 ) );
+        CHECK( true == material.MF( 3 ).hasMT( 1 ) );
+        CHECK( true == material.file( 3 ).hasSection( 5 ) );
+        CHECK( true == material.MF( 3 ).hasMT( 5 ) );
+        CHECK( false == material.file( 3 ).hasSection( 102 ) );
+        CHECK( false == material.MF( 3 ).hasMT( 102 ) );
+
+        CHECK( true == material.hasFile( 4 ) );
+        CHECK( true == material.hasMF( 4 ) );
+        CHECK( true == material.file( 4 ).hasSection( 5 ) );
+        CHECK( true == material.MF( 4 ).hasMT( 5 ) );
+
+        CHECK( false == material.hasFile( 5 ) );
+        CHECK( false == material.hasMF( 5 ) );
+
+        CHECK( true == material.hasFile( 6 ) );
+        CHECK( true == material.hasMF( 6 ) );
+        CHECK( true == material.file( 6 ).hasSection( 5 ) );
+        CHECK( true == material.MF( 6 ).hasMT( 5 ) );
+
+        auto fileNumbers = material.fileNumbers();
+        CHECK( 5 == material.size() );
+        CHECK( 5 == fileNumbers.size() );
+
+        auto iter = std::begin( fileNumbers );
+        CHECK( 1 == *iter ); ++iter;
+        CHECK( 2 == *iter ); ++iter;
+        CHECK( 3 == *iter ); ++iter;
+        CHECK( 4 == *iter ); ++iter;
+        CHECK( 6 == *iter ); ++iter;
+
+        CHECK( chunkMF1() + validFEND() +
+               chunkMF2() + validFEND() +
+               chunkMF3() + validFEND() +
+               chunkMF4() + validFEND() +
+               chunkMF6() + validFEND() + validMEND() == material.content() );
+      } // THEN
+
+      THEN( "an exception is thrown if the section is already there" ) {
+
+        tree::File file( 125, 6 );
+        file.insert( tree::Section( 125, 6, 5, chunkMF6() ) );
+
+        CHECK_THROWS( material.insert( std::move( file ) ) );
+      } // THEN
+
+      tree::File newfile( 125, 6 );
+      newfile.insert( tree::Section( 125, 6, 5, chunkMF6v2() ) );
+
+      material.insertOrReplace( std::move( newfile ) );
+
+      THEN( "the Material is populated correctly when replacing a section" ) {
+
+        CHECK( 125 == material.MAT() );
+        CHECK( 125 == material.materialNumber() );
+
+        CHECK( true == material.hasFile( 1 ) );
+        CHECK( true == material.hasMF( 1 ) );
+        CHECK( true == material.file( 1 ).hasSection( 451 ) );
+        CHECK( true == material.MF( 1 ).hasMT( 451 ) );
+
+        CHECK( true == material.hasFile( 2 ) );
+        CHECK( true == material.hasMF( 2 ) );
+        CHECK( true == material.file( 2 ).hasSection( 151 ) );
+        CHECK( true == material.MF( 2 ).hasMT( 151 ) );
+
+        CHECK( true == material.hasFile( 3 ) );
+        CHECK( true == material.hasMF( 3 ) );
+        CHECK( true == material.file( 3 ).hasSection( 1 ) );
+        CHECK( true == material.MF( 3 ).hasMT( 1 ) );
+        CHECK( true == material.file( 3 ).hasSection( 5 ) );
+        CHECK( true == material.MF( 3 ).hasMT( 5 ) );
+        CHECK( false == material.file( 3 ).hasSection( 102 ) );
+        CHECK( false == material.MF( 3 ).hasMT( 102 ) );
+
+        CHECK( true == material.hasFile( 4 ) );
+        CHECK( true == material.hasMF( 4 ) );
+        CHECK( true == material.file( 4 ).hasSection( 5 ) );
+        CHECK( true == material.MF( 4 ).hasMT( 5 ) );
+
+        CHECK( false == material.hasFile( 5 ) );
+        CHECK( false == material.hasMF( 5 ) );
+
+        CHECK( true == material.hasFile( 6 ) );
+        CHECK( true == material.hasMF( 6 ) );
+        CHECK( true == material.file( 6 ).hasSection( 5 ) );
+        CHECK( true == material.MF( 6 ).hasMT( 5 ) );
+
+        auto fileNumbers = material.fileNumbers();
+        CHECK( 5 == material.size() );
+        CHECK( 5 == fileNumbers.size() );
+
+        auto iter = std::begin( fileNumbers );
+        CHECK( 1 == *iter ); ++iter;
+        CHECK( 2 == *iter ); ++iter;
+        CHECK( 3 == *iter ); ++iter;
+        CHECK( 4 == *iter ); ++iter;
+        CHECK( 6 == *iter ); ++iter;
+
+        CHECK( chunkMF1() + validFEND() +
+               chunkMF2() + validFEND() +
+               chunkMF3() + validFEND() +
+               chunkMF4() + validFEND() +
+               chunkMF6v2() + validFEND() + validMEND() == material.content() );
+      } // THEN
+
+      material.remove( 6 );
+
+      THEN( "the Material is populated correctly when removing a section" ) {
+
+        CHECK( 125 == material.MAT() );
+        CHECK( 125 == material.materialNumber() );
+
+        CHECK( true == material.hasFile( 1 ) );
+        CHECK( true == material.hasMF( 1 ) );
+        CHECK( true == material.file( 1 ).hasSection( 451 ) );
+        CHECK( true == material.MF( 1 ).hasMT( 451 ) );
+
+        CHECK( true == material.hasFile( 2 ) );
+        CHECK( true == material.hasMF( 2 ) );
+        CHECK( true == material.file( 2 ).hasSection( 151 ) );
+        CHECK( true == material.MF( 2 ).hasMT( 151 ) );
+
+        CHECK( true == material.hasFile( 3 ) );
+        CHECK( true == material.hasMF( 3 ) );
+        CHECK( true == material.file( 3 ).hasSection( 1 ) );
+        CHECK( true == material.MF( 3 ).hasMT( 1 ) );
+        CHECK( true == material.file( 3 ).hasSection( 5 ) );
+        CHECK( true == material.MF( 3 ).hasMT( 5 ) );
+        CHECK( false == material.file( 3 ).hasSection( 102 ) );
+        CHECK( false == material.MF( 3 ).hasMT( 102 ) );
+
+        CHECK( true == material.hasFile( 4 ) );
+        CHECK( true == material.hasMF( 4 ) );
+        CHECK( true == material.file( 4 ).hasSection( 5 ) );
+        CHECK( true == material.MF( 4 ).hasMT( 5 ) );
+
+        CHECK( false == material.hasFile( 5 ) );
+        CHECK( false == material.hasMF( 5 ) );
+        CHECK( false == material.hasFile( 6 ) );
+        CHECK( false == material.hasMF( 6 ) );
+
+        auto fileNumbers = material.fileNumbers();
+        CHECK( 4 == material.size() );
+        CHECK( 4 == fileNumbers.size() );
+
+        auto iter = std::begin( fileNumbers );
+        CHECK( 1 == *iter ); ++iter;
+        CHECK( 2 == *iter ); ++iter;
+        CHECK( 3 == *iter ); ++iter;
+        CHECK( 4 == *iter ); ++iter;
+
+        CHECK( materialString == material.content() );
+      } // THEN
+    } // WHEN
   } // GIVEN
 
   GIVEN( "invalid data for a tree::File" ) {
@@ -619,6 +809,28 @@ std::string chunkMF4() {
     "                                                                   125 4  0     \n";
 }
 
+std::string chunkMF6() {
+
+  // this is a dummy MF6, not ENDF legal
+  return
+    " 1.001000+3 9.991673-1          0          0          0          0 125 6  5     \n"
+    " 1.123400+6 1.123400+6          0          0          1          4 125 6  5     \n"
+    "          2          2                                             125 6  5     \n"
+    " 1.000000-5 1.000000+0 2.000000+7 2.000000+0                       125 6  5     \n"
+    "                                                                   125 6  0     \n";
+}
+
+std::string chunkMF6v2() {
+
+  // this is a dummy MF6, not ENDF legal
+  return
+    " 1.001000+3 9.991673-1          0          0          0          0 125 6  5     \n"
+    " 1.123400+6 1.123400+6          0          0          1          4 125 6  5     \n"
+    "          2          2                                             125 6  5     \n"
+    " 1.000000-5 2.000000+0 2.000000+7 1.000000+0                       125 6  5     \n"
+    "                                                                   125 6  0     \n";
+}
+
 std::string chunk() {
 
   return chunkMF1() + validFEND() +
@@ -640,6 +852,10 @@ std::string chunkMAT() {
 
 std::string validSEND(){
   return "                                                                   125 3  0     \n";
+}
+
+std::string validSEND6(){
+  return "                                                                   125 6  0     \n";
 }
 
 std::string validFEND(){
