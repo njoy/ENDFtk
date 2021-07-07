@@ -3,7 +3,7 @@
  *
  *  This function inserts or replaces the section in the ENDF file tree.
  *
- *  An exception will be thrown is the MAT and MF number of the section do
+ *  An exception will be thrown if the MAT and MF number of the section do
  *  not match the MAT and MF number of the file.
  *
  *  @param[in]   section   the section to be inserted or replaced

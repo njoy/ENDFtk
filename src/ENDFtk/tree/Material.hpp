@@ -148,6 +148,7 @@ namespace tree {
     }
 
     #include "ENDFtk/tree/Material/src/remove.hpp"
+    #include "ENDFtk/tree/Material/src/insertOrReplace.hpp"
     #include "ENDFtk/tree/Material/src/insert.hpp"
 
     #include "ENDFtk/tree/Material/src/parse.hpp"
