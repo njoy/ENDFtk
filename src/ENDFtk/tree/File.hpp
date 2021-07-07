@@ -160,6 +160,7 @@ namespace tree {
       return content;
     }
 
+    #include "ENDFtk/tree/File/src/remove.hpp"
     #include "ENDFtk/tree/File/src/insertOrReplace.hpp"
     #include "ENDFtk/tree/File/src/insert.hpp"
 

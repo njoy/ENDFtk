@@ -147,9 +147,10 @@ namespace tree {
       return content;
     }
 
-    #include "ENDFtk/tree/Material/src/parse.hpp"
-
+    #include "ENDFtk/tree/Material/src/remove.hpp"
     #include "ENDFtk/tree/Material/src/insert.hpp"
+
+    #include "ENDFtk/tree/Material/src/parse.hpp"
   };
 
 } // tree namespace

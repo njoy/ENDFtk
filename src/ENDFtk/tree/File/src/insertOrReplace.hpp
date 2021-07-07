@@ -19,10 +19,6 @@ void insertOrReplace( Section&& section ) {
     throw std::exception();
   }
 
-  auto iter = this->sections_.find( section.MT() );
-  if ( iter != this->sections_.end() ) {
-
-    this->sections_.erase( iter );
-  }
+  this->remove( section.MT() );
   this->sections_.emplace( section.MT(), std::move( section ) );
 }

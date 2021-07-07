@@ -241,7 +241,7 @@ SCENARIO( "tree::Section" ) {
       } // THEN
     } // WHEN
 
-    WHEN( "a section is inserted" ) {
+    WHEN( "a section is inserted, replaced or removed" ) {
 
       auto position = fileString.begin();
       auto start = fileString.begin();
@@ -329,6 +329,38 @@ SCENARIO( "tree::Section" ) {
                chunkMT2() + validSEND() +
                chunkMT5v2() + validSEND() +
                chunkMT102() + validSEND() + validFEND() == file.content() );
+      } // THEN
+
+      file.remove( 5 );
+
+      THEN( "the File is populated correctly when removing a section" ) {
+
+        CHECK( 125 == file.MAT() );
+        CHECK( 125 == file.materialNumber() );
+        CHECK( 3 == file.MF() );
+        CHECK( 3 == file.fileNumber() );
+
+        CHECK( true == file.hasSection( 1 ) );
+        CHECK( true == file.hasMT( 1 ) );
+        CHECK( true == file.hasSection( 2 ) );
+        CHECK( true == file.hasMT( 2 ) );
+        CHECK( false == file.hasSection( 5 ) );
+        CHECK( false == file.hasMT( 5 ) );
+        CHECK( true == file.hasSection( 102 ) );
+        CHECK( true == file.hasMT( 102 ) );
+        CHECK( false == file.hasSection( 107 ) );
+        CHECK( false == file.hasMT( 107 ) );
+
+        auto sectionNumbers = file.sectionNumbers();
+        CHECK( 3 == file.size() );
+        CHECK( 3 == sectionNumbers.size() );
+
+        auto iter = std::begin( sectionNumbers );
+        CHECK( 1 == *iter ); ++iter;
+        CHECK( 2 == *iter ); ++iter;
+        CHECK( 102 == *iter ); ++iter;
+
+        CHECK( fileString == file.content() );
       } // THEN
     } // WHEN
   } // GIVEN
