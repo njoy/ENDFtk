@@ -20,9 +20,9 @@ std::string validSEND();
 std::string validFEND();
 std::string invalidFEND();
 
-SCENARIO( "tree::Section" ) {
+SCENARIO( "tree::File" ) {
 
-  GIVEN( "valid data for a tree::Section" ) {
+  GIVEN( "valid data for a tree::File" ) {
 
     std::string fileString = chunk() + validFEND();
 
@@ -369,10 +369,10 @@ SCENARIO( "tree::Section" ) {
 
     WHEN( "the data is read from a string/stream with an invalid FEND" ) {
 
-      std::string sectionString = chunk() + invalidFEND();
-      auto position = sectionString.begin();
-      auto start = sectionString.begin();
-      auto end = sectionString.end();
+      std::string fileString = chunk() + invalidFEND();
+      auto position = fileString.begin();
+      auto start = fileString.begin();
+      auto end = fileString.end();
       long lineNumber = 1;
       HeadRecord head( position, end, lineNumber );
 
@@ -384,10 +384,10 @@ SCENARIO( "tree::Section" ) {
 
     WHEN( "the data is read from a string/stream without a SEND" ) {
 
-      std::string sectionString = chunk();
-      auto position = sectionString.begin();
-      auto start = sectionString.begin();
-      auto end = sectionString.end();
+      std::string fileString = chunk();
+      auto position = fileString.begin();
+      auto start = fileString.begin();
+      auto end = fileString.end();
       long lineNumber = 1;
       HeadRecord head( position, end, lineNumber );
 
@@ -399,10 +399,10 @@ SCENARIO( "tree::Section" ) {
 
     WHEN( "the data contains a duplicate section" ) {
 
-      std::string sectionString = chunk() + chunk() + validFEND();
-      auto position = sectionString.begin();
-      auto start = sectionString.begin();
-      auto end = sectionString.end();
+      std::string fileString = chunk() + chunk() + validFEND();
+      auto position = fileString.begin();
+      auto start = fileString.begin();
+      auto end = fileString.end();
       long lineNumber = 1;
       HeadRecord head( position, end, lineNumber );
 
