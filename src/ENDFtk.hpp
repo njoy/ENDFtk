@@ -21,6 +21,10 @@
 #include "ENDFtk/section/8.hpp"
 #include "ENDFtk/section/12.hpp"
 #include "ENDFtk/section/13.hpp"
+#include "ENDFtk/section/14.hpp"
+#include "ENDFtk/section/15.hpp"
+#include "ENDFtk/section/23.hpp"
+#include "ENDFtk/section/26.hpp"
 
 // include every file
 #include "ENDFtk/file/1.hpp"
@@ -33,6 +37,10 @@
 #include "ENDFtk/file/8.hpp"
 #include "ENDFtk/file/12.hpp"
 #include "ENDFtk/file/13.hpp"
+#include "ENDFtk/file/14.hpp"
+#include "ENDFtk/file/15.hpp"
+#include "ENDFtk/file/23.hpp"
+#include "ENDFtk/file/26.hpp"
 
 // include the material and tape
 #include "ENDFtk/Material.hpp"
