@@ -31,14 +31,6 @@ namespace tree {
    */
   class File {
 
-  public:
-
-    /* type aliases */
-    using iterator = typename std::vector< Section >::iterator;
-    using const_iterator = typename std::vector< Section >::const_iterator;
-
-  private:
-
     /* fields */
     int mat_;
     int mf_;

@@ -28,14 +28,6 @@ namespace tree {
    */
   class Material {
 
-  public:
-
-    /* type aliases */
-    using iterator = typename std::vector< File >::iterator;
-    using const_iterator = typename std::vector< File >::iterator;
-
-  private:
-
     /* fields */
     int mat_;
     std::map< int, File > files_;
