@@ -125,5 +125,26 @@ void wrapTreeMaterial( python::module& module, python::module& viewmodule ) {
       return self.parse();
     },
     "Parse the material"
+  )
+  .def(
+
+    "remove",
+    python::overload_cast< int >( &Material::remove ),
+    python::arg( "mf" ),
+    "Remove the file in the material if it is present\n\n"
+    "Arguments:\n"
+    "    self    the ENDF tree file\n"
+    "    mf      the mf number of the file to be removed"
+  )
+  .def(
+
+    "remove",
+    python::overload_cast< int, int >( &Material::remove ),
+    python::arg( "mf" ), python::arg( "mt" ),
+    "Remove the section in the material if it is present\n\n"
+    "Arguments:\n"
+    "    self    the ENDF tree file\n"
+    "    mf      the mf number of the section to be removed\n"
+    "    mt      the mt number of the section to be removed"
   );
 }

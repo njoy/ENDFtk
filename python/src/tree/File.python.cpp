@@ -168,5 +168,15 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
     "content",
     &File::content,
     "The content of the file"
+  )
+  .def(
+
+    "remove",
+    &File::remove,
+    python::arg( "mt" ),
+    "Remove the section in the file if it is present\n\n"
+    "Arguments:\n"
+    "    self    the ENDF tree file\n"
+    "    mt      the mt number of the section to be removed"
   );
 }

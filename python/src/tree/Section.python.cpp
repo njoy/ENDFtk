@@ -191,5 +191,11 @@ void wrapTreeSection( python::module& module, python::module& ) {
     "content",
     &Section::content,
     "The content of the section"
+  )
+  .def_property_readonly(
+
+    "NC",
+    &Section::NC,
+    "The number of lines in this section"
   );
 }
