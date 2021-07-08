@@ -16,6 +16,7 @@ void wrapTreeMaterial( python::module& module, python::module& viewmodule ) {
   // type aliases
   using Material = njoy::ENDFtk::tree::Material;
   using File = njoy::ENDFtk::tree::File;
+  using Section = njoy::ENDFtk::tree::Section;
   using ParsedMaterial = njoy::ENDFtk::Material;
   using FileRange = BidirectionalAnyView< File >;
 
@@ -146,5 +147,68 @@ void wrapTreeMaterial( python::module& module, python::module& viewmodule ) {
     "    self    the ENDF tree file\n"
     "    mf      the mf number of the section to be removed\n"
     "    mt      the mt number of the section to be removed"
+  )
+  .def(
+
+    "insert",
+    [] ( Material& self, Section section )
+       { self.insert( std::move( section ) ); },
+    python::arg( "section" ),
+    "Insert the section in the material\n\n"
+    "This function inserts the section in the ENDF material tree only if a\n"
+    "section with that MT number is not present yet. If the file the section is\n"
+    "to be added to is missing, it is added.\n\n"
+    "An exception will be thrown if the MAT number of the section does\n"
+    "not match the MAT number of the file, and when a section with the\n"
+    "same MT number is already present.\n\n"
+    "Arguments:\n"
+    "    self      the ENDF tree material\n"
+    "    section   the section to be inserted"
+  )
+  .def(
+
+    "insert",
+    [] ( Material& self, File file )
+       { self.insert( std::move( file ) ); },
+    python::arg( "section" ),
+    "Insert the file in the material\n\n"
+    "This function inserts the file in the ENDF material tree only if a\n"
+    "file with that MF number is not present yet.\n\n"
+    "An exception will be thrown if the MAT number of the file does\n"
+    "not match the MAT number of the file, and when a file with the\n"
+    "same MF number is already present.\n\n"
+    "Arguments:\n"
+    "    self   the ENDF tree material\n"
+    "    file   the file to be inserted"
+  )
+  .def(
+
+    "insert_or_replace",
+    [] ( Material& self, Section section )
+       { self.insertOrReplace( std::move( section ) ); },
+    python::arg( "section" ),
+    "Insert or replace the section in the material\n\n"
+    "This function inserts or replaces the section in the ENDF material tree.\n\n"
+    "An exception will be thrown if the MAT number of the section does\n"
+    "not match the MAT number of the material.\n\n"
+    "Arguments:\n"
+    "    self      the ENDF tree material\n"
+    "    section   the section to be inserted or replaced"
+  )
+  .def(
+
+    "insert_or_replace",
+    [] ( Material& self, File file )
+       { self.insertOrReplace( std::move( file ) ); },
+    python::arg( "section" ),
+    "Insert or replace the file in the material\n\n"
+    "This function inserts or replaces the file in the ENDF material tree. This\n"
+    "does not merge sections if the file is already present: the old file is\n"
+    "removed prior to inserting the new file.\n\n"
+    "An exception will be thrown if the MAT number of the file does\n"
+    "not match the MAT number of the file.\n\n"
+    "Arguments:\n"
+    "    self   the ENDF tree material\n"
+    "    file   the file to be inserted or replaced"
   );
 }

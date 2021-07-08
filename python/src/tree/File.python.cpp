@@ -178,5 +178,35 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
     "Arguments:\n"
     "    self    the ENDF tree file\n"
     "    mt      the mt number of the section to be removed"
+  )
+  .def(
+
+    "insert",
+    [] ( File& self, Section section )
+       { self.insert( std::move( section ) ); },
+    python::arg( "section" ),
+    "Insert the section in the file\n\n"
+    "This function inserts the section in the ENDF file tree only if a\n"
+    "section with that MT number is not present yet.\n\n"
+    "An exception will be thrown if the MAT and MF number of the section do\n"
+    "not match the MAT and MF number of the file, and when a section with the\n"
+    "same MT number is already present.\n\n"
+    "Arguments:\n"
+    "    self      the ENDF tree file\n"
+    "    section   the section to be inserted"
+  )
+  .def(
+
+    "insert_or_replace",
+    [] ( File& self, Section section )
+       { self.insertOrReplace( std::move( section ) ); },
+    python::arg( "section" ),
+    "Insert or replace the section in the file\n\n"
+    "This function inserts or replaces the section in the ENDF file tree.\n\n"
+    "An exception will be thrown if the MAT and MF number of the section do\n"
+    "not match the MAT and MF number of the file.\n\n"
+    "Arguments:\n"
+    "    self      the ENDF tree file\n"
+    "    section   the section to be inserted or replaced"
   );
 }

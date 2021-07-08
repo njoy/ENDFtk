@@ -265,6 +265,45 @@ class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
 
         verify_chunk( self, copy )
 
+    def test_insert_replace_remove( self ) :
+
+        tape = Tape.from_file( 'test/resources/n-001_H_001.endf' )
+        copy = Tape( tape )
+
+        material = tape.materials.front()
+        file = material.file( 3 )
+
+        # remove a file from a material
+        material.remove( 2 )
+        self.assertEqual( [ 1, 3, 4, 6, 33 ], material.file_numbers )
+
+        # remove a section from a material
+        material.remove( 3, 2 )
+        self.assertEqual( [ 1, 3, 4, 6, 33 ], material.file_numbers )
+        self.assertEqual( [ 1, 102 ], file.section_numbers )
+
+        # remove a section from a file
+        file.remove( 102 )
+        self.assertEqual( [ 1, 3, 4, 6, 33 ], material.file_numbers )
+        self.assertEqual( [ 1 ], file.section_numbers )
+
+        # insert a section into a file
+        data = copy.materials.front().file( 3 ).section( 102 )
+        file.insert( data )
+        self.assertEqual( [ 1, 3, 4, 6, 33 ], material.file_numbers )
+        self.assertEqual( [ 1, 102 ], file.section_numbers )
+
+        # insert a section into a material
+        data = copy.materials.front().file( 3 ).section( 2 )
+        file.insert( data )
+        self.assertEqual( [ 1, 3, 4, 6, 33 ], material.file_numbers )
+        self.assertEqual( [ 1, 2, 102 ], file.section_numbers )
+
+        # insert a file into a material
+        data = copy.materials.front().file( 2 )
+        material.insert( data )
+        self.assertEqual( [ 1, 2, 3, 4, 6, 33 ], material.file_numbers )
+
     def test_failures( self ) :
 
         print( '\n' )
