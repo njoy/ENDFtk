@@ -6,7 +6,6 @@
 #include <map>
 
 // other includes
-#include "header-utilities/echoErroneousLine.hpp"
 #include "ENDFtk/tree/File.hpp"
 #include "boost/hana.hpp"
 
