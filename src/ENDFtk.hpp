@@ -47,6 +47,7 @@
 #include "ENDFtk/tree/fromFile.hpp"
 #include "ENDFtk/tree/toSection.hpp"
 #include "ENDFtk/tree/toFile.hpp"
+#include "ENDFtk/tree/toMaterial.hpp"
 
 // utility functions
 #include "ENDFtk/isRedundant.hpp"

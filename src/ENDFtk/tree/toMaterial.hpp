@@ -4,8 +4,8 @@
 // system includes
 
 // other includes
-#include "ENDFtk/file/Type.hpp"
-#include "ENDFtk/tree/File.hpp"
+#include "ENDFtk/Material.hpp"
+#include "ENDFtk/tree/Material.hpp"
 
 namespace njoy {
 namespace ENDFtk {
@@ -17,12 +17,11 @@ namespace tree {
    *  @param[in] file   the parsed file
    *  @param[in] mat    the mat number
    */
-  template< int MF >
-  File toFile( const file::Type< MF  >& file, int mat ) {
+  Material toMaterial( const njoy::ENDFtk::Material& material ) {
 
     std::string buffer;
     auto output = std::back_inserter( buffer );
-    file.print( output, mat );
+    material.print( output );
 
     auto position = buffer.begin();
     auto start = buffer.begin();
@@ -31,7 +30,7 @@ namespace tree {
 
     HeadRecord head( position, end, lineNumber );
 
-    return File( head, start, position, end, lineNumber );
+    return Material( head, start, position, end, lineNumber );
   }
 
 } // tree namespace
