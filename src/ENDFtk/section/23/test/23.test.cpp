@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk/section/3.hpp"
+#include "ENDFtk/section/23.hpp"
 
 // other includes
 #include "ENDFtk/tree/Section.hpp"
@@ -10,13 +10,13 @@
 using namespace njoy::ENDFtk;
 
 std::string chunk();
-void verifyChunk( const section::Type< 3 >& );
+void verifyChunk( const section::Type< 23 >& );
 std::string validSEND();
 std::string invalidSEND();
 
-SCENARIO( "section::Type< 3 >" ) {
+SCENARIO( "section::Type< 23 >" ) {
 
-  GIVEN( "valid data for a section::Type< 3 >" ) {
+  GIVEN( "valid data for a section::Type< 23 >" ) {
 
     std::string sectionString = chunk() + validSEND();
 
@@ -24,10 +24,9 @@ SCENARIO( "section::Type< 3 >" ) {
 
       int mt = 102;
       int zaid = 1001;
-      int lr = 0;
       double awr = 0.9991673;
-      double qm = 2.224648e+6;
-      double qi = 3.224648e+6;
+      double epe = 2.224648e+6;
+      double efl = 3.224648e+6;
       std::vector< long > interpolants = { 5, 2 };
       std::vector< long > boundaries = { 3, 6 };
       std::vector< double > energies = { 1e-5, 2e-5, 7.5e+5,
@@ -35,12 +34,12 @@ SCENARIO( "section::Type< 3 >" ) {
       std::vector< double > xs = { 1.672869e+1, 1.182897e+1, 3.347392e-5,
                                    2.751761e-5, 2.731301e-5, 2.710792e-5 };
 
-      section::Type< 3 > chunk( mt, zaid, awr, qm, qi, lr,
+      section::Type< 23 > chunk( mt, zaid, awr, epe, efl,
                                 std::move( boundaries ),
                                 std::move( interpolants ),
                                 std::move( energies ), std::move( xs ) );
 
-      THEN( "a section::Type< 3 > can be constructed and "
+      THEN( "a section::Type< 23 > can be constructed and "
             "members can be tested" ) {
 
         verifyChunk( chunk );
@@ -50,7 +49,7 @@ SCENARIO( "section::Type< 3 >" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 125, 3 );
+        chunk.print( output, 125, 23 );
 
         CHECK( buffer == sectionString );
       } // THEN
@@ -63,9 +62,9 @@ SCENARIO( "section::Type< 3 >" ) {
       long lineNumber = 0;
       HeadRecord head( begin, end, lineNumber );
 
-      section::Type< 3 > chunk( head, begin, end, lineNumber, 125 );
+      section::Type< 23 > chunk( head, begin, end, lineNumber, 125 );
 
-      THEN( "a section::Type< 3 > can be constructed and "
+      THEN( "a section::Type< 23 > can be constructed and "
             "members can be tested" ) {
 
         verifyChunk( chunk );
@@ -75,7 +74,7 @@ SCENARIO( "section::Type< 3 >" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 125, 3 );
+        chunk.print( output, 125, 23 );
 
         CHECK( buffer == sectionString );
       } // THEN
@@ -83,11 +82,11 @@ SCENARIO( "section::Type< 3 >" ) {
 
     WHEN( "there is a tree::Section" ) {
 
-      tree::Section section( 125, 3, 102, std::string( sectionString ) );
+      tree::Section section( 125, 23, 102, std::string( sectionString ) );
 
-      section::Type< 3 > chunk = section.parse< 3 >();
+      section::Type< 23 > chunk = section.parse< 23 >();
 
-      THEN( "a section::Type< 3 > can be constructed and "
+      THEN( "a section::Type< 23 > can be constructed and "
             "members can be tested" ) {
 
         verifyChunk( chunk );
@@ -97,16 +96,16 @@ SCENARIO( "section::Type< 3 >" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 125, 3 );
+        chunk.print( output, 125, 23 );
 
         CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
   } // GIVEN
 
-  GIVEN( "invalid data for a section::Type< 3 >" ) {
+  GIVEN( "invalid data for a section::Type< 23 >" ) {
 
-    WHEN( "a string representation of a section::Type< 3 > with "
+    WHEN( "a string representation of a section::Type< 23 > with "
           "an invalid SEND" ) {
 
       std::string sectionString = chunk() + invalidSEND();
@@ -117,7 +116,7 @@ SCENARIO( "section::Type< 3 >" ) {
 
       THEN( "an exception is thrown" ){
 
-        CHECK_THROWS( section::Type< 3 >( head, begin, end,
+        CHECK_THROWS( section::Type< 23 >( head, begin, end,
                                             lineNumber, 125 ) );
       } // THEN
     } // WHEN
@@ -126,25 +125,23 @@ SCENARIO( "section::Type< 3 >" ) {
 
 std::string chunk(){
   return
-    " 1.001000+3 9.991673-1          0          0          0          0 125 3102     \n"
-    " 2.224648+6 3.224648+6          0          0          2          6 125 3102     \n"
-    "          3          5          6          2                       125 3102     \n"
-    " 1.000000-5 1.672869+1 2.000000-5 1.182897+1 7.500000+5 3.347392-5 125 3102     \n"
-    " 1.900000+7 2.751761-5 1.950000+7 2.731301-5 2.000000+7 2.710792-5 125 3102     \n";
+    " 1.001000+3 9.991673-1          0          0          0          0 12523102     \n"
+    " 2.224648+6 3.224648+6          0          0          2          6 12523102     \n"
+    "          3          5          6          2                       12523102     \n"
+    " 1.000000-5 1.672869+1 2.000000-5 1.182897+1 7.500000+5 3.347392-5 12523102     \n"
+    " 1.900000+7 2.751761-5 1.950000+7 2.731301-5 2.000000+7 2.710792-5 12523102     \n";
 }
 
-void verifyChunk( const section::Type< 3 >& chunk ) {
+void verifyChunk( const section::Type< 23 >& chunk ) {
 
   CHECK( 102 == chunk.MT() );
   CHECK( 1001 == chunk.ZA() );
   CHECK( 0.9991673 == Approx( chunk.AWR() ) );
   CHECK( 0.9991673 == Approx( chunk.atomicWeightRatio() ) );
-  CHECK( 0 == chunk.LR() );
-  CHECK( 0 == chunk.complexBreakUp() );
-  CHECK( 2.224648e+6 == Approx( chunk.QM() ) );
-  CHECK( 2.224648e+6 == Approx( chunk.massDifferenceQValue() ) );
-  CHECK( 3.224648e+6 == Approx( chunk.QI() ) );
-  CHECK( 3.224648e+6 == Approx( chunk.reactionQValue() ) );
+  CHECK( 2.224648e+6 == Approx( chunk.EPE() ) );
+  CHECK( 2.224648e+6 == Approx( chunk.subshellBindingEnergy() ) );
+  CHECK( 3.224648e+6 == Approx( chunk.EFL() ) );
+  CHECK( 3.224648e+6 == Approx( chunk.fluorescenceYield() ) );
 
   CHECK( 6 == chunk.NP() );
   CHECK( 2 == chunk.NR() );
@@ -174,10 +171,10 @@ void verifyChunk( const section::Type< 3 >& chunk ) {
 
 std::string validSEND(){
   return
-    "                                                                   125 3  0     \n";
+    "                                                                   12523  0     \n";
 }
 
 std::string invalidSEND(){
   return
-    "                                                                   125 3  1     \n";
+    "                                                                   12523  1     \n";
 }
