@@ -21,13 +21,18 @@ namespace tree {
   template< int MF >
   File toFile( const file::Type< MF  >& file, int mat ) {
 
-    File tree( mat, MF );
-    for ( const auto& section : file.sections() ) {
+    std::string buffer;
+    auto output = std::back_inserter( buffer );
+    file.print( output, mat );
 
-      tree.insert( toSection( section, mat ) );
-    }
+    auto position = buffer.begin();
+    auto start = buffer.begin();
+    auto end = buffer.end();
+    long lineNumber = 0;
 
-    return tree;
+    HeadRecord head( position, end, lineNumber );
+
+    return File( head, start, position, end, lineNumber );
   }
 
 } // tree namespace
