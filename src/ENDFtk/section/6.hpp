@@ -128,7 +128,7 @@ namespace hana = boost::hana;
     /**
      *  @brief Return the reaction products defined in this section
      */
-    AllRange< ReactionProduct > reactionProducts() const { 
+    auto reactionProducts() const {
 
       return ranges::cpp20::views::all( this->products_ );
     }

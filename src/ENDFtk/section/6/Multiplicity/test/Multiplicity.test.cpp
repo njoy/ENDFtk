@@ -96,10 +96,10 @@ SCENARIO( "Multiplicity" ) {
       THEN( "an exception is thrown" ) {
 
         CHECK_THROWS( Multiplicity( zap, awp, lip, law,
-                                      std::move( wrongBoundaries ),
-                                      std::move( interpolants ),
-                                      std::move( energies ),
-                                      std::move( multiplicities ) ) );
+                                    std::move( wrongBoundaries ),
+                                    std::move( interpolants ),
+                                    std::move( energies ),
+                                    std::move( multiplicities ) ) );
       } // THEN
     } // WHEN
 

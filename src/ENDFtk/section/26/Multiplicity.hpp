@@ -1,15 +1,18 @@
 /**
  *  @class
- *  @brief Multiplicity data for a reaction product
+ *  @brief Multiplicity data for a photon or electron
  *
- *  See ENDF102, section 6.2 for more information.
+ *  Note: the multiplicity for MF26 is normally always equal to 1 (see ENDF102,
+ *  section 26.2, y(E)).
+ *
+ *  See ENDF102, section 26.2 for more information.
  */
 class Multiplicity : protected TabulationRecord {
 
 public:
 
   /* constructor */
-  #include "ENDFtk/section/6/Multiplicity/src/ctor.hpp"
+  #include "ENDFtk/section/26/Multiplicity/src/ctor.hpp"
 
   /* methods */
 
@@ -24,24 +27,14 @@ public:
   double productIdentifier() const { return this->ZAP(); }
 
   /**
-   *  @brief Return the atomic weight ratio of the reaction product
+   *  @brief Return the atomic weight ratio of the projectile
    */
-  double AWP() const { return TabulationRecord::C2(); }
+  double AWI() const { return TabulationRecord::C2(); }
 
   /**
-   *  @brief Return the atomic weight ratio of the reaction product
+   *  @brief Return the atomic weight ratio of the projectile
    */
-  double productWeightRatio() const { return this->AWP(); }
-
-  /**
-   *  @brief Return the product modifier flag
-   */
-  int LIP() const { return TabulationRecord::L1(); }
-
-  /**
-   *  @brief Return the product modifier flag
-   */
-  int productModifierFlag() const { return this->LIP(); }
+  double projectileWeightRatio() const { return this->AWI(); }
 
   /**
    *  @brief Return the distribution type (the LAW flag)
