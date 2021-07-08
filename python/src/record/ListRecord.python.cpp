@@ -87,7 +87,7 @@ void wrapListRecord( python::module& module, python::module& ) {
 
     "NPL",
     &Record::NPL,
-    "The integer in column 6"
+    "The number of values in the list"
   )
   .def_property_readonly(
 
