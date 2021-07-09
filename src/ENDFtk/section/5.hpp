@@ -16,7 +16,7 @@
 
 namespace njoy {
 namespace ENDFtk {
-namespace section{
+namespace section {
 
 template<>
 class Type< 5 > : protected Base {

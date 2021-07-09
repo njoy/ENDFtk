@@ -48,7 +48,7 @@ public:
   /**
    *  @brief Return the interpolants for the cosine axis
    */
-  AllRange< long > interpolants() const {
+  auto interpolants() const {
 
     return InterpolationSequenceRecord::tab2().interpolants();
   }
@@ -56,7 +56,7 @@ public:
   /**
    *  @brief Return the interpolation region boundaries for the cosine axis
    */
-  AllRange< long > boundaries() const {
+  auto boundaries() const {
 
     return InterpolationSequenceRecord::tab2().boundaries();
   }
@@ -80,7 +80,7 @@ public:
   /**
    *  @brief Return the energy distributions for this incident energy value
    */
-  AllRange< EnergyDistribution > energyDistributions() const {
+  auto energyDistributions() const {
 
     return InterpolationSequenceRecord::records();
   }

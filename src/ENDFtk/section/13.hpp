@@ -14,7 +14,7 @@
 
 namespace njoy {
 namespace ENDFtk {
-namespace section{
+namespace section {
 
   /**
    *  @class
