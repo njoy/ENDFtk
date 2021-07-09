@@ -69,7 +69,7 @@ namespace section{
   public:
 
     /* constructor */
-//    #include "ENDFtk/section/6/src/ctor.hpp"
+    #include "ENDFtk/section/26/src/ctor.hpp"
 
     /* methods */
 
