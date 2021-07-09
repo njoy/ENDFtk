@@ -15,6 +15,7 @@ namespace mf26 {
   // declarations - components
   void wrapMultiplicity( python::module&, python::module& );
 
+  void wrapEnergyTransfer( python::module&, python::module& );         // law=8
 }
 
 void wrapSection_26( python::module& module, python::module& viewmodule ) {
@@ -23,6 +24,10 @@ void wrapSection_26( python::module& module, python::module& viewmodule ) {
   using Section = njoy::ENDFtk::section::Type< 26 >;
 
   // wrap components
+
+  // LAW = 8 - - - - - - - - - - - - - - - - - - - - - -
+
+  mf26::wrapEnergyTransfer( module, viewmodule );
 
   mf26::wrapMultiplicity( module, viewmodule );
 

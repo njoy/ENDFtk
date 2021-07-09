@@ -133,6 +133,7 @@ pybind11_add_module( ENDFtk.python
     python/src/section/23.python.cpp
     python/src/section/26.python.cpp
     python/src/section/26/Multiplicity.python.cpp
+    python/src/section/26/EnergyTransfer.python.cpp
     python/src/section/3.python.cpp
     python/src/section/4.python.cpp
     python/src/section/4/Isotropic.python.cpp
