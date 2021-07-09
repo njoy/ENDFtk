@@ -7,36 +7,32 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using Multiplicity =
-section::Type< 26 >::Multiplicity;
+using EnergyTransfer =
+section::Type< 26 >::EnergyTransfer;
 
 std::string chunk();
-void verifyChunk( const Multiplicity& );
+void verifyChunk( const EnergyTransfer& );
 std::string invalidChunk();
 
-SCENARIO( "Multiplicity" ) {
+SCENARIO( "EnergyTransfer" ) {
 
-  GIVEN( "valid data for a Multiplicity" ) {
+  GIVEN( "valid data for an EnergyTransfer" ) {
 
     std::string string = chunk();
 
     WHEN( "the data is given explicitly" ) {
 
-      double zap = 11.;
-      double awi = 5.438673E-4;
-      long law = 2;
       std::vector< long > boundaries = { 2 };
       std::vector< long > interpolants = { 2 };
       std::vector< double > energies = { 10., 1.e+11 };
-      std::vector< double > multiplicities = { 1., 1. };
+      std::vector< double > transfer = { 1.e-5, 2e+4 };
 
-      Multiplicity chunk( zap, awi, law,
-                          std::move( boundaries ),
-                          std::move( interpolants ),
-                          std::move( energies ),
-                          std::move( multiplicities ) );
+      EnergyTransfer chunk( std::move( boundaries ),
+                            std::move( interpolants ),
+                            std::move( energies ),
+                            std::move( transfer ) );
 
-      THEN( "a Multiplicity can be constructed and members can be tested" ) {
+      THEN( "an EnergyTransfer can be constructed and members can be tested" ) {
 
         verifyChunk( chunk );
       } // THEN
@@ -57,9 +53,9 @@ SCENARIO( "Multiplicity" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      Multiplicity chunk( begin, end, lineNumber, 100, 26, 525 );
+      EnergyTransfer chunk( begin, end, lineNumber, 100, 26, 525 );
 
-      THEN( "a Multiplicity can be constructed and members can be tested" ) {
+      THEN( "an EnergyTransfer can be constructed and members can be tested" ) {
 
         verifyChunk( chunk );
      } // THEN
@@ -75,27 +71,23 @@ SCENARIO( "Multiplicity" ) {
     } // WHEN
   } // GIVEN
 
-  GIVEN( "invalid data for a Multiplicity" ) {
+  GIVEN( "invalid data for an EnergyTransfer" ) {
 
     WHEN( "there are issues with the input data" ) {
 
       // no need to test every possibility (TAB1 takes care of tests)
 
-      double zap = 11.;
-      double awi = 5.438673E-4;
-      long law = 2;
       std::vector< long > wrongBoundaries = { 4, 2 };
       std::vector< long > interpolants = { 2 };
       std::vector< double > energies = { 10., 1.e+11 };
-      std::vector< double > multiplicities = { 1., 1. };
+      std::vector< double > transfer = { 1.e-5, 2e+4 };
 
       THEN( "an exception is thrown" ) {
 
-        CHECK_THROWS( Multiplicity( zap, awi, law,
-                                    std::move( wrongBoundaries ),
-                                    std::move( interpolants ),
-                                    std::move( energies ),
-                                    std::move( multiplicities ) ) );
+        CHECK_THROWS( EnergyTransfer( std::move( wrongBoundaries ),
+                                      std::move( interpolants ),
+                                      std::move( energies ),
+                                      std::move( transfer ) ) );
       } // THEN
     } // WHEN
 
@@ -110,7 +102,7 @@ SCENARIO( "Multiplicity" ) {
 
       THEN( "an exception is thrown" ) {
 
-        CHECK_THROWS( Multiplicity( begin, end, lineNumber, 100, 26, 525 ) );
+        CHECK_THROWS( EnergyTransfer( begin, end, lineNumber, 100, 26, 525 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -119,18 +111,14 @@ SCENARIO( "Multiplicity" ) {
 std::string chunk() {
 
   return
-    " 1.100000+1 5.438673-4          0          2          1          2 10026525     \n"
+    " 0.000000+0 0.000000+0          0          0          1          2 10026525     \n"
     "          2          2                                             10026525     \n"
-    " 1.000000+1 1.000000+0 1.00000+11 1.000000+0                       10026525     \n";
+    " 1.000000+1 1.000000-5 1.00000+11 2.000000+4                       10026525     \n";
 }
 
-void verifyChunk( const Multiplicity& chunk ) {
+void verifyChunk( const EnergyTransfer& chunk ) {
 
-  CHECK( 11. == Approx( chunk.ZAP() ) );
-  CHECK( 11. == Approx( chunk.productIdentifier() ) );
-  CHECK( 5.438673e-4 == Approx( chunk.AWI() ) );
-  CHECK( 5.438673e-4 == Approx( chunk.projectileWeightRatio() ) );
-  CHECK( 2 == chunk.LAW() );
+  CHECK( 8 == chunk.LAW() );
 
   CHECK( 2 == chunk.NP() );
   CHECK( 1 == chunk.NR() );
@@ -140,24 +128,24 @@ void verifyChunk( const Multiplicity& chunk ) {
   CHECK( 2 == chunk.boundaries()[0] );
   CHECK( 2 == chunk.E().size() );
   CHECK( 2 == chunk.energies().size() );
-  CHECK( 2 == chunk.Y().size() );
-  CHECK( 2 == chunk.multiplicities().size() );
+  CHECK( 2 == chunk.ET().size() );
+  CHECK( 2 == chunk.energyTransferValues().size() );
   CHECK( 10. == Approx( chunk.E()[0] ) );
   CHECK( 1.e+11 == Approx( chunk.E()[1] ) );
   CHECK( 10. == Approx( chunk.energies()[0] ) );
   CHECK( 1.e+11 == Approx( chunk.energies()[1] ) );
-  CHECK( 1. == Approx( chunk.Y()[0] ) );
-  CHECK( 1. == Approx( chunk.Y()[1] ) );
-  CHECK( 1. == Approx( chunk.multiplicities()[0] ) );
-  CHECK( 1. == Approx( chunk.multiplicities()[1] ) );
+  CHECK( 1.e-5 == Approx( chunk.ET()[0] ) );
+  CHECK( 2e+4 == Approx( chunk.ET()[1] ) );
+  CHECK( 1.e-5 == Approx( chunk.energyTransferValues()[0] ) );
+  CHECK( 2e+4 == Approx( chunk.energyTransferValues()[1] ) );
 
   CHECK( 3 == chunk.NC() );
 }
 
 std::string invalidChunk() {
-  
+
   return
-  " 1.100000+1 5.438673-4          0          2          2          2 10026525     \n"
+  " 0.000000+0 0.000000+0          0          0          2          2 10026525     \n"
   "          2          2                                             10026525     \n"
-  " 1.000000+1 1.000000+0 1.00000+11 1.000000+0                       10026525     \n";
+  " 1.000000+1 1.000000-5 1.00000+11 2.000000+4                       10026525     \n";
 }

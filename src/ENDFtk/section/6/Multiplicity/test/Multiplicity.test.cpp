@@ -121,6 +121,7 @@ SCENARIO( "Multiplicity" ) {
 } // SCENARIO
 
 std::string chunk() {
+  
   return
     " 1.001000+3 9.986234-1          0          1          1          49228 6  5     \n"
     "          4          2                                            9228 6  5     \n"
@@ -169,6 +170,7 @@ void verifyChunk( const Multiplicity& chunk ) {
 }
 
 std::string invalidChunk() {
+
   return
     " 1.001000+3 9.986234-1          0          1          1          59228 6  5     \n"
     "          4          2                                            9228 6  5     \n"

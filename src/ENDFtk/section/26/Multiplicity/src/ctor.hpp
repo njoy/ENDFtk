@@ -44,6 +44,6 @@ Multiplicity( Iterator& begin, const Iterator& end,
   try : TabulationRecord( begin, end, lineNumber, MAT, MF, MT ) {}
   catch ( std::exception& e ) {
 
-    Log::info( "Encountered error while reading Multiplicity" );
+    Log::info( "Encountered error while constructing Multiplicity" );
     throw;
   }
