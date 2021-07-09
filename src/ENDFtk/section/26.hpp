@@ -40,12 +40,12 @@ namespace section{
 //                                       DiscreteTwoBodyScattering,        // LAW=2
                                        EnergyTransfer >;          // LAW=8
 
-//    #include "ENDFtk/section/6/ReactionProduct.hpp"
+    #include "ENDFtk/section/26/ReactionProduct.hpp"
 
   private:
 
     /* fields */
-//    std::vector< ReactionProduct > products_;
+    std::vector< ReactionProduct > products_;
 
     /* auxiliary functions */
 
@@ -59,23 +59,23 @@ namespace section{
     /**
      *  @brief Return the number of reaction products
      */
-//    int NK() const { return this->products_.size(); }
+    int NK() const { return this->products_.size(); }
 
     /**
      *  @brief Return the number of reaction products
      */
-//    int numberReactionProducts() const { return this->NK(); }
+    int numberReactionProducts() const { return this->NK(); }
 
     /**
      *  @brief Return the reaction products defined in this section
      */
-//    auto reactionProducts() const {
-//
-//      return ranges::cpp20::views::all( this->products_ );
-//    }
+    auto reactionProducts() const {
 
-//    #include "ENDFtk/section/6/src/NC.hpp"
-//    #include "ENDFtk/section/6/src/print.hpp"
+      return ranges::cpp20::views::all( this->products_ );
+    }
+
+    #include "ENDFtk/section/26/src/NC.hpp"
+    #include "ENDFtk/section/26/src/print.hpp"
 
     using Base::MT;
     using Base::sectionNumber;

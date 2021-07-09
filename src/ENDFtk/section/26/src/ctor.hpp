@@ -1,4 +1,17 @@
 /**
+ *  @brief Constructor
+ *
+ *  @param[in] mt            the MT number of the section
+ *  @param[in] zaid          the material ZAID value
+ *  @param[in] awr           the atomic weight ratio
+ *  @param[in] products      the reaction products (at least 1)
+ */
+Type( int MT, double zaid, double awr,
+      std::vector< ReactionProduct >&& products ) :
+  Base( zaid, awr, MT ),
+  products_( std::move( products ) ) {}
+
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator
@@ -16,10 +29,10 @@ Type( HEAD& head,
       long& lineNumber,
       int MAT )
   try:
-    Base( head, MAT, 26 )/*,
+    Base( head, MAT, 26 ),
     products_(
       readSequence< ReactionProduct >( begin, end, lineNumber,
-                                       MAT, 26, head.MT(), head.N1() ) )*/ {
+                                       MAT, 26, head.MT(), head.N1() ) ) {
     readSEND(begin, end, lineNumber, MAT, 26 );
   } catch( std::exception& e ) {
 

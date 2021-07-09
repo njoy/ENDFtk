@@ -155,7 +155,7 @@ void verifyChunk( const Multiplicity& chunk ) {
 }
 
 std::string invalidChunk() {
-  
+
   return
   " 1.100000+1 5.438673-4          0          2          2          2 10026525     \n"
   "          2          2                                             10026525     \n"
