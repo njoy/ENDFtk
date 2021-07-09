@@ -62,7 +62,7 @@ public:
   /**
    *  @brief Return the partial distributions defined in this section
    */
-  AllRange< PartialDistribution > partialDistributions() const {
+  auto partialDistributions() const {
 
     return ranges::cpp20::views::all( this->partials_ );
   }

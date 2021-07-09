@@ -118,7 +118,7 @@ public:
   /**
    *  @brief Return the discrete spectra, if any are defined
    */
-  AllRange< DiscreteSpectrum > discreteSpectra() const {
+  auto discreteSpectra() const {
 
     return ranges::cpp20::views::all( this->discrete_ );
   }

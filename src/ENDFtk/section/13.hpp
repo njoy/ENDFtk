@@ -72,7 +72,7 @@ namespace section {
     /**
      *  @brief Return the partial cross sections
      */
-    AllRange< PartialCrossSection > photonPartialCrossSections() const {
+    auto photonPartialCrossSections() const {
 
       return ranges::cpp20::views::all( this->partials_ );
     }

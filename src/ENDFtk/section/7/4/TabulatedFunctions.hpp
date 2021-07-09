@@ -64,12 +64,12 @@ public:
   /**
    *  @brief Return the beta values and associated S(alpha,T) functions
    */
-  AllRange< ScatteringFunction > S() const { return this->data_.records(); }
+  auto S() const { return this->data_.records(); }
 
   /**
    *  @brief Return the beta values and associated S(alpha,T) functions
    */
-  AllRange< ScatteringFunction > scatteringFunctions() const {
+  auto scatteringFunctions() const {
 
     return this->S();
   }
@@ -77,7 +77,7 @@ public:
   /**
    *  @brief Return the interpolation type for each range on the beta grid
    */
-  AllRange< long > interpolants() const {
+  auto interpolants() const {
 
     return this->data_.tab2().interpolants();
   }
@@ -85,7 +85,7 @@ public:
   /**
    *  @brief Return the interpolation boundaries for the beta grid
    */
-  AllRange< long > boundaries() const {
+  auto boundaries() const {
 
     return this->data_.tab2().boundaries();
   }
