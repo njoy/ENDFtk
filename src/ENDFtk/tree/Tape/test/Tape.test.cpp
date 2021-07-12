@@ -15,7 +15,26 @@ std::string tpidString();
 std::string validTEND();
 std::string invalidTEND();
 
-SCENARIO( "Creating a tape Skeleton of an ENDF File" ){
+SCENARIO( "tree::Tape" ) {
+
+  GIVEN( "an empty tree::Tape" ) {
+
+    WHEN( "it is created" ) {
+
+      tree::Tape tape( TapeIdentification( "this is my tape identification" ) );
+
+      THEN( "it is empty except for the tape ID" ) {
+
+        auto numbers = tape.materialNumbers();
+        CHECK( 0 == tape.size() );
+        CHECK( 0 == numbers.size() );
+
+        CHECK( "this is my tape identification                                       0 0  0     \n"
+               "                                                                    -1 0  0     \n" == tape.content() );
+      } // THEN
+    } // WHEN
+  } // GIVEN
+
   GIVEN( "a string representation of a Tape" ){
     WHEN( "a valid TEND record ends the Tape" ){
       auto tpid = tpidString();

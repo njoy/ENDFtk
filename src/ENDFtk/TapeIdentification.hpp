@@ -26,6 +26,21 @@ namespace ENDFtk {
     record::Base< record::Character< 66 > > base;
     record::TailVerifying< record::MF, record::MT > tail;
 
+    /* auxiliary functions */
+    static std::string executeOrder66( std::string&& text ) {
+
+      if ( text.size() > 66 ) {
+
+        return text.substr( 0, 66 );
+      }
+      else {
+
+        std::string result( text );
+        result.append( 66 - text.size(), ' ' );
+        return result;
+      }
+    }
+
   public:
 
     /* constructor */
@@ -37,7 +52,7 @@ namespace ENDFtk {
      *  @param[in] tape   the tape number (defaults to 0)
      */
     TapeIdentification( std::string&& text, int tape = 0 ) :
-      base( std::move(text) ), tail( tape, 0, 0 ){}
+      base( executeOrder66( std::move(text) ) ), tail( tape, 0, 0 ){}
 
     /**
      *  @brief Constructor (from a buffer)

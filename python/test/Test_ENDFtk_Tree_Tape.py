@@ -4,6 +4,7 @@ import unittest
 # third party imports
 
 # local imports
+from ENDFtk import TapeIdentification
 from ENDFtk.tree import Tape
 from ENDFtk.tree import Material
 from ENDFtk.tree import File
@@ -12,6 +13,18 @@ from ENDFtk.MF3 import Section as ParsedSection
 
 class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
     """Unit test for the Tape class."""
+
+    def test_empty_tape( self ) :
+
+        # the tape is empty
+        tape = Tape( id = TapeIdentification( 'this is my tape identification' ) )
+
+        self.assertEqual( 0, len( tape.material_numbers ) )
+        self.assertEqual( 0, len( tape.materials ) )
+
+        self.assertEqual( 'this is my tape identification                                       0 0  0     \n'
+                          '                                                                    -1 0  0     \n',
+                          tape.content )
 
     def test_tape( self ) :
 

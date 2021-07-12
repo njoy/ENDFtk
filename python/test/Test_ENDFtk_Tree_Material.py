@@ -9,7 +9,7 @@ from ENDFtk.tree import Material
 class Test_ENDFtk_Tree_Material( unittest.TestCase ) :
     """Unit test for the Material class."""
 
-    def test_material( self ) :
+    def test_empty_material( self ) :
 
         # the material is empty
         material = Material( mat = 125 )

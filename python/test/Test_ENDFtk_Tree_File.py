@@ -9,7 +9,7 @@ from ENDFtk.tree import File
 class Test_ENDFtk_Tree_File( unittest.TestCase ) :
     """Unit test for the File class."""
 
-    def test_file( self ) :
+    def test_empty_file( self ) :
 
         # the file is empty
         file = File( mat = 125, mf = 3 )

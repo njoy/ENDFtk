@@ -3,6 +3,7 @@
 #include <pybind11/stl.h>
 
 // local includes
+#include "ENDFtk/TapeIdentification.hpp"
 #include "ENDFtk/tree/Tape.hpp"
 #include "ENDFtk/tree/fromFile.hpp"
 #include "range/v3/range/operations.hpp"
@@ -14,6 +15,7 @@ namespace python = pybind11;
 void wrapTreeTape( python::module& module, python::module& viewmodule ) {
 
   // type aliases
+  using TapeIdentification = njoy::ENDFtk::TapeIdentification;
   using Tape = njoy::ENDFtk::tree::Tape;
   using Material = njoy::ENDFtk::tree::Material;
   using MaterialRange = BidirectionalAnyView< Material >;
@@ -34,6 +36,16 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
 
   // wrap the tree component
   tree
+  .def(
+
+    python::init( [] ( TapeIdentification id )
+                     { return Tape( std::move( id ) ); } ),
+    python::arg( "id" ),
+    "Initialise the tape\n\n"
+    "Arguments:\n"
+    "    self   the tape\n"
+    "    id     the tape identifier"
+  )
   .def(
 
     python::init< std::string >(),
