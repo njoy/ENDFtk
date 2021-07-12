@@ -180,5 +180,19 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
     "tape\n\n"
     "Arguments:\n"
     "    filename    the file name and path"
+  )
+  .def(
+
+    "to_file",
+    [] ( const Tape& self, const std::string& filename ) {
+
+      std::ofstream out( filename );
+      out << self.content();
+      out.close();
+    },
+    "Write the tape to a file\n\n"
+    "Arguments:\n"
+    "    self        the tape\n"
+    "    filename    the file name and path"
   );
 }
