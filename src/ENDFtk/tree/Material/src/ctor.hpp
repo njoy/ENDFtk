@@ -1,4 +1,11 @@
 /**
+ *  @brief Empty material constructor
+ *
+ *  @param[in] mat    the MAT number of the file
+ */
+Material( unsigned int mat ) : mat_( mat ) {}
+
+/**
  *  @brief Constructor (from a buffer)
  *
  *  This constructor is not to be called directly by a user.

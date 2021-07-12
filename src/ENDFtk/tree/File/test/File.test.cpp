@@ -23,6 +23,28 @@ std::string invalidFEND();
 
 SCENARIO( "tree::File" ) {
 
+  GIVEN( "an empty tree::File" ) {
+
+    WHEN( "it is created" ) {
+
+      tree::File file( 125, 3 );
+
+      THEN( "it is empty except for the MAT and MF" ) {
+
+        CHECK( 125 == file.MAT() );
+        CHECK( 125 == file.materialNumber() );
+        CHECK( 3 == file.MF() );
+        CHECK( 3 == file.fileNumber() );
+
+        auto sectionNumbers = file.sectionNumbers();
+        CHECK( 0 == file.size() );
+        CHECK( 0 == sectionNumbers.size() );
+
+        CHECK( "" == file.content() );
+      }
+    } // WHEN
+  } // GIVEN
+
   GIVEN( "valid data for a tree::File" ) {
 
     std::string fileString = chunk() + validFEND();
@@ -241,16 +263,20 @@ SCENARIO( "tree::File" ) {
         CHECK( 109 == lineNumber );
       } // THEN
     } // WHEN
+  } // GIVEN
+
+  GIVEN( "a valid tree file" ) {
+
+    std::string fileString = chunk() + validFEND();
+    auto position = fileString.begin();
+    auto start = fileString.begin();
+    auto end = fileString.end();
+    long lineNumber = 0;
+
+    HeadRecord head( position, end, lineNumber );
+    tree::File file( head, start, position, end, lineNumber );
 
     WHEN( "a tree section is inserted, replaced or removed" ) {
-
-      auto position = fileString.begin();
-      auto start = fileString.begin();
-      auto end = fileString.end();
-      long lineNumber = 0;
-
-      HeadRecord head( position, end, lineNumber );
-      tree::File file( head, start, position, end, lineNumber );
 
       file.insert( tree::Section( 125, 3, 5, chunkMT5() + validSEND() ) );
 

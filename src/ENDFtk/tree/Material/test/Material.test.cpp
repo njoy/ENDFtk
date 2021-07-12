@@ -27,6 +27,26 @@ std::string invalidMEND();
 
 SCENARIO( "tree::Material" ) {
 
+  GIVEN( "an empty tree::Material" ) {
+
+    WHEN( "it is created" ) {
+
+      tree::Material material( 125 );
+
+      THEN( "it is empty except for the MAT and MF" ) {
+
+        CHECK( 125 == material.MAT() );
+        CHECK( 125 == material.materialNumber() );
+
+        auto fileNumbers = material.fileNumbers();
+        CHECK( 0 == material.size() );
+        CHECK( 0 == fileNumbers.size() );
+
+        CHECK( "" == material.content() );
+      }
+    } // WHEN
+  } // GIVEN
+
   GIVEN( "valid data for a tree::Material" ) {
 
     std::string materialString = chunk() + validMEND();
@@ -316,16 +336,20 @@ SCENARIO( "tree::Material" ) {
         CHECK( 43 == lineNumber );
       } // THEN
     } // WHEN
+  } // GIVEN
+
+  GIVEN( "a valid tree material" ) {
+
+    std::string materialString = chunk() + validMEND();
+    auto position = materialString.begin();
+    auto start = materialString.begin();
+    auto end = materialString.end();
+    long lineNumber = 0;
+
+    HeadRecord head( position, end, lineNumber );
+    tree::Material material( head, start, position, end, lineNumber );
 
     WHEN( "a section is inserted, replaced or removed" ) {
-
-      auto position = materialString.begin();
-      auto start = materialString.begin();
-      auto end = materialString.end();
-      long lineNumber = 0;
-
-      HeadRecord head( position, end, lineNumber );
-      tree::Material material( head, start, position, end, lineNumber );
 
       material.insert( tree::Section( 125, 3, 102, chunkSectionMF3() + validSEND() ) );
 
@@ -491,20 +515,12 @@ SCENARIO( "tree::Material" ) {
 
     WHEN( "a file is inserted, replaced or removed" ) {
 
-      auto position = materialString.begin();
-      auto start = materialString.begin();
-      auto end = materialString.end();
-      long lineNumber = 0;
-
-      HeadRecord head( position, end, lineNumber );
-      tree::Material material( head, start, position, end, lineNumber );
-
       tree::File file( 125, 6 );
       file.insert( tree::Section( 125, 6, 5, chunkMF6() ) );
 
       material.insert( std::move( file ) );
 
-      THEN( "the Material is populated correctly when a new section was inserted" ) {
+      THEN( "the Material is populated correctly when a new file was inserted" ) {
 
         CHECK( 125 == material.MAT() );
         CHECK( 125 == material.materialNumber() );
@@ -559,7 +575,7 @@ SCENARIO( "tree::Material" ) {
                chunkMF6() + validFEND() + validMEND() == material.content() );
       } // THEN
 
-      THEN( "an exception is thrown if the section is already there" ) {
+      THEN( "an exception is thrown if the file is already there" ) {
 
         tree::File file( 125, 6 );
         file.insert( tree::Section( 125, 6, 5, chunkMF6() ) );
@@ -572,7 +588,7 @@ SCENARIO( "tree::Material" ) {
 
       material.insertOrReplace( std::move( newfile ) );
 
-      THEN( "the Material is populated correctly when replacing a section" ) {
+      THEN( "the Material is populated correctly when replacing a file" ) {
 
         CHECK( 125 == material.MAT() );
         CHECK( 125 == material.materialNumber() );
@@ -629,7 +645,7 @@ SCENARIO( "tree::Material" ) {
 
       material.remove( 6 );
 
-      THEN( "the Material is populated correctly when removing a section" ) {
+      THEN( "the Material is populated correctly when removing a file" ) {
 
         CHECK( 125 == material.MAT() );
         CHECK( 125 == material.materialNumber() );

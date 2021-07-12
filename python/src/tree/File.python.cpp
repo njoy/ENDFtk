@@ -83,8 +83,17 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
   );
 
   // wrap the tree component
-  // only copy is allowed since we do not want to create this object in python
   tree
+  .def(
+
+    python::init< unsigned int, unsigned int >(),
+    python::arg( "mat" ), python::arg( "mf" ),
+    "Initialise an empty file with its MAT and MF number\n\n"
+    "Arguments:\n"
+    "    self    the file\n"
+    "    mat     the MAT number of the file\n"
+    "    mf      the MF number of the file"
+  )
   .def(
 
     python::init< const File& >(),

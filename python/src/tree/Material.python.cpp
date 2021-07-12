@@ -87,8 +87,16 @@ void wrapTreeMaterial( python::module& module, python::module& viewmodule ) {
   );
 
   // wrap the tree component
-  // only copy is allowed since we do not want to create this object in python
   tree
+  .def(
+
+    python::init< unsigned int >(),
+    python::arg( "mat" ),
+    "Initialise an empty material with its MAT number\n\n"
+    "Arguments:\n"
+    "    self    the file\n"
+    "    mat     the MAT number of the material\n"
+  )
   .def(
 
     python::init< const Material& >(),
