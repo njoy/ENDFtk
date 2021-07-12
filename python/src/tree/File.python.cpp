@@ -82,8 +82,6 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
     "ENDF tree file"
   );
 
-  using PythonClass = decltype( tree );
-
   // wrap the tree component
   // only copy is allowed since we do not want to create this object in python
   tree
