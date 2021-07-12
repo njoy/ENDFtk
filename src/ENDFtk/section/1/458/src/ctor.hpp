@@ -1,3 +1,11 @@
+//! @todo pybind11 variant needs default constructor workaround
+#ifdef PYBIND11
+/**
+ *  @brief Default constructor - only enabled for pybind11
+ */
+Type() = default;
+#endif
+
 /**
  *  @brief Constructor
  *
@@ -28,7 +36,7 @@ Type ( const HEAD& head,
   try: BaseWithoutMT( head, MAT, 1 ),
        data_( readFissionEnergyReleaseData( begin, end, lineNumber, MAT,
                                             head.L2(), head.N2() ) ) {
-                                              
+
     readSEND( begin, end, lineNumber, MAT, 1 );
   }
   catch( std::exception& e ) {

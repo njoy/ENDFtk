@@ -2,6 +2,15 @@ protected:
 Type( Map&& map ) : sectionMap( std::move(map) ){}
 
 public:
+
+//! @todo pybind11 variant needs default constructor workaround
+#ifdef PYBIND11
+/**
+ *  @brief Default constructor - only enabled for pybind11
+ */
+Type() = default;
+#endif
+
 template< int sectionNo, typename... Args >
 Type( section::Type< 1, sectionNo >&& section_, Args&&... args ) :
   Type( fill( std::move( section_ ), std::forward< Args >( args )... ) ) {}

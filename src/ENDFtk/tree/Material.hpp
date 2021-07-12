@@ -6,7 +6,10 @@
 #include <map>
 
 // other includes
+#include "ENDFtk/tree/Section.hpp"
+#include "ENDFtk/tree/toSection.hpp"
 #include "ENDFtk/tree/File.hpp"
+#include "ENDFtk/tree/toFile.hpp"
 #include "boost/hana.hpp"
 
 namespace njoy {
