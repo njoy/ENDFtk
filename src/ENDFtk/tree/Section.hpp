@@ -7,6 +7,7 @@
 #include "boost/hana.hpp"
 #include "range/v3/view/subrange.hpp"
 #include "ENDFtk/HeadRecord.hpp"
+#include "ENDFtk/TextRecord.hpp"
 #include "ENDFtk/section.hpp"
 #include "boost/hana.hpp"
 
@@ -87,6 +88,8 @@ namespace tree {
       // count all newline characters, subtract 1 for the SEND record
       return std::count( this->content_.begin(), this->content_.end(), '\n' ) - 1;
     }
+
+    #include "ENDFtk/tree/Section/src/clean.hpp"
   };
 
 } // tree namespace

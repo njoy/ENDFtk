@@ -1,4 +1,11 @@
 /**
+ *  @brief Empty tape constructor
+ *
+ *  @param[in] id    the tape identifier
+ */
+Tape( TapeIdentification&& id ) : tpid_( std::move( id ) ) {}
+
+/**
  *  @brief Constructor
  *
  *  @param[in] buffer       the buffer from which a buffer can be constructed
@@ -10,7 +17,7 @@ Tape( const Buffer& buffer, long lineNumber = 0 )
 
     auto position = ranges::cpp20::begin( buffer );
     auto end = ranges::cpp20::end( buffer );
-    this->tpid = TapeIdentification{ position, end, lineNumber };
+    this->tpid_ = TapeIdentification{ position, end, lineNumber };
     materials_ = createMap( position, end, lineNumber );
   }
   catch ( std::exception& e ) {

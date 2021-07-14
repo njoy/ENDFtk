@@ -6,7 +6,10 @@
 #include <map>
 
 // other includes
+#include "ENDFtk/tree/Section.hpp"
+#include "ENDFtk/tree/toSection.hpp"
 #include "ENDFtk/tree/File.hpp"
+#include "ENDFtk/tree/toFile.hpp"
 #include "boost/hana.hpp"
 
 namespace njoy {
@@ -98,6 +101,11 @@ namespace tree {
     auto files() const { return this->files_ | ranges::cpp20::views::values; }
 
     /**
+     *  @brief Return all files in the material
+     */
+    auto files() { return this->files_ | ranges::cpp20::views::values; }
+
+    /**
      *  @brief Return a begin iterator to all files
      */
     auto begin() const {
@@ -109,6 +117,22 @@ namespace tree {
      *  @brief Return an end iterator to all files
      */
     auto end() const {
+
+      return ( this->files_ | ranges::cpp20::views::values ).end();
+    }
+
+    /**
+     *  @brief Return a begin iterator to all files
+     */
+    auto begin() {
+
+      return ( this->files_ | ranges::cpp20::views::values ).begin();
+    }
+
+    /**
+     *  @brief Return an end iterator to all files
+     */
+    auto end() {
 
       return ( this->files_ | ranges::cpp20::views::values ).end();
     }
@@ -143,6 +167,8 @@ namespace tree {
     #include "ENDFtk/tree/Material/src/insert.hpp"
 
     #include "ENDFtk/tree/Material/src/parse.hpp"
+
+    #include "ENDFtk/tree/Material/src/clean.hpp"
   };
 
 } // tree namespace

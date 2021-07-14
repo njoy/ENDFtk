@@ -4,13 +4,27 @@ import unittest
 # third party imports
 
 # local imports
+from ENDFtk import TapeIdentification
 from ENDFtk.tree import Tape
 from ENDFtk.tree import Material
 from ENDFtk.tree import File
 from ENDFtk.tree import Section
+from ENDFtk.MF3 import Section as ParsedSection
 
 class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
     """Unit test for the Tape class."""
+
+    def test_empty_tape( self ) :
+
+        # the tape is empty
+        tape = Tape( id = TapeIdentification( 'this is my tape identification' ) )
+
+        self.assertEqual( 0, len( tape.material_numbers ) )
+        self.assertEqual( 0, len( tape.materials ) )
+
+        self.assertEqual( 'this is my tape identification                                       0 0  0     \n'
+                          '                                                                    -1 0  0     \n',
+                          tape.content )
 
     def test_tape( self ) :
 
@@ -276,33 +290,88 @@ class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
         # remove a file from a material
         material.remove( 2 )
         self.assertEqual( [ 1, 3, 4, 6, 33 ], material.file_numbers )
+        self.assertEqual( [ 1, 3, 4, 6, 33 ], tape.materials.front().file_numbers )
 
         # remove a section from a material
         material.remove( 3, 2 )
         self.assertEqual( [ 1, 3, 4, 6, 33 ], material.file_numbers )
         self.assertEqual( [ 1, 102 ], file.section_numbers )
+        self.assertEqual( [ 1, 3, 4, 6, 33 ], tape.materials.front().file_numbers )
+        self.assertEqual( [ 1, 102 ], tape.materials.front().file(3).section_numbers )
 
         # remove a section from a file
         file.remove( 102 )
         self.assertEqual( [ 1, 3, 4, 6, 33 ], material.file_numbers )
         self.assertEqual( [ 1 ], file.section_numbers )
+        self.assertEqual( [ 1, 3, 4, 6, 33 ], tape.materials.front().file_numbers )
+        self.assertEqual( [ 1 ], tape.materials.front().file(3).section_numbers )
 
         # insert a section into a file
         data = copy.materials.front().file( 3 ).section( 102 )
         file.insert( data )
         self.assertEqual( [ 1, 3, 4, 6, 33 ], material.file_numbers )
         self.assertEqual( [ 1, 102 ], file.section_numbers )
+        self.assertEqual( [ 1, 3, 4, 6, 33 ], tape.materials.front().file_numbers )
+        self.assertEqual( [ 1, 102 ], tape.materials.front().file(3).section_numbers )
 
         # insert a section into a material
         data = copy.materials.front().file( 3 ).section( 2 )
         file.insert( data )
         self.assertEqual( [ 1, 3, 4, 6, 33 ], material.file_numbers )
         self.assertEqual( [ 1, 2, 102 ], file.section_numbers )
+        self.assertEqual( [ 1, 3, 4, 6, 33 ], tape.materials.front().file_numbers )
+        self.assertEqual( [ 1, 2, 102 ], tape.materials.front().file(3).section_numbers )
 
         # insert a file into a material
         data = copy.materials.front().file( 2 )
         material.insert( data )
         self.assertEqual( [ 1, 2, 3, 4, 6, 33 ], material.file_numbers )
+        self.assertEqual( [ 1, 2, 3, 4, 6, 33 ], tape.materials.front().file_numbers )
+
+    def test_insert_replace_parsed_section( self ) :
+
+        tape = Tape.from_file( 'test/resources/n-001_H_001.endf' )
+        copy = Tape( tape )
+
+        material = tape.materials.front()
+        file = material.file( 3 )
+
+        data = ParsedSection( mt = 103,  zaid = 1001, lr = 0, awr = 0.9991673,
+                              qm = 2.224648e+6, qi = 3.224648e+6,
+                              interpolants = [ 5, 2 ], boundaries = [ 3, 6 ],
+                              energies = [ 1e-5, 2e-5, 7.5e+5,
+                                           1.9e+7, 1.95e+7, 2e+7 ],
+                              xs = [ 1.672869e+1, 1.182897e+1, 3.347392e-5,
+                                     2.751761e-5, 2.731301e-5, 2.710792e-5 ] )
+
+        # insert a parsed section into a file
+        file.insert( data )
+        self.assertEqual( [ 1, 2, 102, 103 ], file.section_numbers )
+
+        # the section was replaced correctly (testing some data)
+        section = file.section( 103 ).parse()
+        self.assertEqual( 2, len( section.boundaries ) )
+        self.assertEqual( 2, len( section.interpolants ) )
+
+        # inserting it again throws an exception
+        with self.assertRaises( Exception ) :
+
+            file.insert( data )
+
+        data = ParsedSection( mt = 103,  zaid = 1001, lr = 0, awr = 0.9991673,
+                              qm = 2.224648e+6, qi = 3.224648e+6,
+                              interpolants = [ 2 ], boundaries = [ 2 ],
+                              energies = [ 1e-5, 2e+7 ],
+                              xs = [ 1., 2. ] )
+
+        # replacing a parsed section into a file
+        file.insert_or_replace( data )
+        self.assertEqual( [ 1, 2, 102, 103 ], file.section_numbers )
+
+        # the section was replaced correctly (testing some data)
+        section = file.section( 103 ).parse()
+        self.assertEqual( 1, len( section.boundaries ) )
+        self.assertEqual( 1, len( section.interpolants ) )
 
     def test_failures( self ) :
 

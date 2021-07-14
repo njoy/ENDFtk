@@ -10,6 +10,7 @@
 #include "range/v3/view/map.hpp"
 #include "ENDFtk/file/Type.hpp"
 #include "ENDFtk/tree/Section.hpp"
+#include "ENDFtk/tree/toSection.hpp"
 #include "boost/hana.hpp"
 
 namespace njoy {
@@ -111,6 +112,14 @@ namespace tree {
     }
 
     /**
+     *  @brief Return all sections in the file
+     */
+    auto sections() {
+
+      return this->sections_ | ranges::cpp20::views::values;
+    }
+
+    /**
      *  @brief Return a begin iterator to all sections
      */
     auto begin() const {
@@ -122,6 +131,22 @@ namespace tree {
      *  @brief Return an end iterator to all sections
      */
     auto end() const {
+
+      return ( this->sections_ | ranges::cpp20::views::values ).end();
+    }
+
+    /**
+     *  @brief Return a begin iterator to all sections
+     */
+    auto begin() {
+
+      return ( this->sections_ | ranges::cpp20::views::values ).begin();
+    }
+
+    /**
+     *  @brief Return an end iterator to all sections
+     */
+    auto end() {
 
       return ( this->sections_ | ranges::cpp20::views::values ).end();
     }
@@ -156,6 +181,8 @@ namespace tree {
     #include "ENDFtk/tree/File/src/insert.hpp"
 
     #include "ENDFtk/tree/File/src/parse.hpp"
+
+    #include "ENDFtk/tree/File/src/clean.hpp"
   };
 
 } // tree namespace
