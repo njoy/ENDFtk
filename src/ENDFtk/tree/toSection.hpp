@@ -4,7 +4,6 @@
 // system includes
 
 // other includes
-#include "ENDFtk/file/Type.hpp"
 #include "ENDFtk/tree/Section.hpp"
 
 namespace njoy {

@@ -38,6 +38,16 @@ void wrapTreeSection( python::module& module, python::module& ) {
   using MF14MTxxx = njoy::ENDFtk::section::Type< 14 >;
   using MF15MTxxx = njoy::ENDFtk::section::Type< 15 >;
   using MF23MTxxx = njoy::ENDFtk::section::Type< 23 >;
+  using SectionVariant = std::variant< MF1MT451, MF1MT452, MF1MT455,
+                                       MF1MT456, MF1MT458, MF1MT460,
+                                       MF2MT151, MF2MT152,
+                                       MF3MTxxx, MF4MTxxx, MF5MTxxx,
+                                       MF6MTxxx, MF7MT2, MF7MT4,
+                                       MF8MT454, MF8MT457, MF8MT459,
+                                       MF9MTxxx, MF10MTxxx,
+                                       MF12MTxxx, MF13MTxxx,
+                                       MF14MTxxx, MF15MTxxx,
+                                       MF23MTxxx >;
 
   // wrap views created by this component
 
@@ -100,16 +110,8 @@ void wrapTreeSection( python::module& module, python::module& ) {
   .def(
 
     "parse",
-    [] ( const Section& self ) -> std::variant< MF1MT451, MF1MT452, MF1MT455,
-                                                MF1MT456, MF1MT458, MF1MT460,
-                                                MF2MT151, MF2MT152,
-                                                MF3MTxxx, MF4MTxxx, MF5MTxxx,
-                                                MF6MTxxx, MF7MT2, MF7MT4,
-                                                MF8MT454, MF8MT457, MF8MT459,
-                                                MF9MTxxx, MF10MTxxx,
-                                                MF12MTxxx, MF13MTxxx,
-                                                MF14MTxxx, MF15MTxxx,
-                                                MF23MTxxx > {
+    [] ( const Section& self ) -> SectionVariant {
+
       int mf = self.fileNumber();
       int mt = self.sectionNumber();
       switch ( mf ) {
@@ -200,5 +202,12 @@ void wrapTreeSection( python::module& module, python::module& ) {
     "NC",
     &Section::NC,
     "The number of lines in this section"
+  )
+  .def(
+
+    "clean",
+    &Section::clean,
+    "Clean up the section\n\n"
+    "This function removes the sequence numbers from the section."
   );
 }

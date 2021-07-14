@@ -1,5 +1,5 @@
 private:
-/** 
+/**
  *  @brief Private intermediate constructor
  *
  *  The number of values in the list are checked against the number of
@@ -13,7 +13,16 @@ ScatteringLawConstants( ListRecord&& list ) :
 };
 
 public:
-/** 
+
+//! @todo pybind11 variant needs default constructor workaround
+#ifdef PYBIND11
+/**
+ *  @brief Default constructor - only enabled for pybind11
+ */
+ScatteringLawConstants() = default;
+#endif
+
+/**
  *  @brief Constructor
  *
  *  The size of list array is checked against ns for consistency.
@@ -34,7 +43,7 @@ ScatteringLawConstants( int lln, int ns,
     throw;
   }
 
-/** 
+/**
  *  @brief Constructor (only for principal scatterer)
  *
  *  This constructor can be used for a ScatteringLawConstants that only has a
@@ -48,14 +57,14 @@ ScatteringLawConstants( int lln, int ns,
  *  @param[in] natoms    B(6) - the number of principal scatterer atoms
  */
 ScatteringLawConstants( int lln, double epsilon, double emax,
-                        double xs, double awr, 
+                        double xs, double awr,
                         unsigned int natoms ) :
   // this can never fail, try-catch would be unreachable
   ScatteringLawConstants(
         ListRecord( 0.0, 0.0, lln, 0, 0,
                     { xs, epsilon, awr, emax, 0.0, double( natoms ) } ) ) {}
 
-/** 
+/**
  *  @brief Constructor
  *
  *  This constructor can be used for constructing a ScatteringLawConstants using
@@ -72,7 +81,7 @@ ScatteringLawConstants( int lln, double epsilon, double emax,
  *  @param[in] awr       the atomic weight ratios for each scatterer
  *                       (ns + 1 values)
  *  @param[in] natoms    the number of atoms for each scatterer (ns + 1 values)
- *  @param[in] types     the function type for each secondary scatterer 
+ *  @param[in] types     the function type for each secondary scatterer
  *                       (ns values)
  */
 ScatteringLawConstants( int lln, int ns, double epsilon, double emax,
@@ -94,7 +103,7 @@ ScatteringLawConstants( int lln, int ns, double epsilon, double emax,
     throw;
   }
 
-/** 
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator

@@ -3,8 +3,10 @@
 #include <pybind11/stl.h>
 
 // local includes
+#include "ENDFtk/TapeIdentification.hpp"
 #include "ENDFtk/tree/Tape.hpp"
 #include "ENDFtk/tree/fromFile.hpp"
+#include "ENDFtk/tree/updateDirectory.hpp"
 #include "range/v3/range/operations.hpp"
 #include "views.hpp"
 
@@ -14,7 +16,9 @@ namespace python = pybind11;
 void wrapTreeTape( python::module& module, python::module& viewmodule ) {
 
   // type aliases
+  using TapeIdentification = njoy::ENDFtk::TapeIdentification;
   using Tape = njoy::ENDFtk::tree::Tape;
+  using ParsedMaterial = njoy::ENDFtk::Material;
   using Material = njoy::ENDFtk::tree::Material;
   using MaterialRange = BidirectionalAnyView< Material >;
 
@@ -34,6 +38,16 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
 
   // wrap the tree component
   tree
+  .def(
+
+    python::init( [] ( TapeIdentification id )
+                     { return Tape( std::move( id ) ); } ),
+    python::arg( "id" ),
+    "Initialise the tape\n\n"
+    "Arguments:\n"
+    "    self   the tape\n"
+    "    id     the tape identifier"
+  )
   .def(
 
     python::init< std::string >(),
@@ -91,15 +105,15 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
   .def_property_readonly(
 
     "materials",
-    [] ( const Tape& self ) -> MaterialRange
+    [] ( Tape& self ) -> MaterialRange
        { return self.materials(); },
     "All materials in the tape"
   )
   .def(
 
     "MAT",
-    [] ( const Tape& self, int mat )
-       -> std::variant< std::reference_wrapper< const Material >, MaterialRange >
+    [] ( Tape& self, int mat )
+       -> std::variant< std::reference_wrapper< Material >, MaterialRange >
        {
          if ( self.numberMAT( mat ) == 1 ) {
 
@@ -119,8 +133,8 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
   .def(
 
     "material",
-    [] ( const Tape& self, int mat )
-       -> std::variant< std::reference_wrapper< const Material >, MaterialRange >
+    [] ( Tape& self, int mat )
+       -> std::variant< std::reference_wrapper< Material >, MaterialRange >
        {
          if ( self.numberMaterial( mat ) == 1 ) {
 
@@ -168,5 +182,62 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
     "tape\n\n"
     "Arguments:\n"
     "    filename    the file name and path"
+  )
+  .def(
+
+    "to_file",
+    [] ( const Tape& self, const std::string& filename ) {
+
+      std::ofstream out( filename );
+      out << self.content();
+      out.close();
+    },
+    "Write the tape to a file\n\n"
+    "Arguments:\n"
+    "    self        the tape\n"
+    "    filename    the file name and path"
+  )
+  .def(
+
+    "insert",
+    [] ( Tape& self, Material material ) { self.insert( std::move( material ) ); },
+    python::arg( "material" ),
+    "Insert the material in the tape\n\n"
+    "This function inserts the material in the ENDF tape tree. If one or more\n"
+    "materials are already present, the new material is inserted after the\n"
+    "materials that are already there.\n\n"
+    "Arguments:\n"
+    "    self       the tape\n"
+    "    material   the material to be inserted"
+  )
+  .def(
+
+    "insert",
+    [] ( Tape& self, const ParsedMaterial& material ) { self.insert( material ); },
+    python::arg( "material" ),
+    "Insert the material in the tape\n\n"
+    "This function inserts the material in the ENDF tape tree. If one or more\n"
+    "materials are already present, the new material is inserted after the\n"
+    "materials that are already there.\n\n"
+    "Arguments:\n"
+    "    self       the tape\n"
+    "    material   the material to be inserted"
+  )
+  .def(
+
+    "update_directory",
+    [] ( Tape& self ) { return njoy::ENDFtk::tree::updateDirectory( self ); },
+    "Update the MF1 MT451 directory for all materials in the tape\n\n"
+    "An exception will be thrown if a material in the tape has no MF1 MT451\n"
+    "section is not present, or if there was an issue parsing it.\n\n"
+    "Arguments:\n"
+    "    self        the tape\n"
+  )
+  .def(
+
+    "clean",
+    &Tape::clean,
+    "Clean up the tape\n\n"
+    "This function removes the sequence numbers from the tape."
   );
 }

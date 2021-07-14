@@ -15,10 +15,10 @@ class Test_ENDFtk_TapeIdentification( unittest.TestCase ) :
 
         def verify_chunk( self, chunk ) :
 
-            self.assertEqual( chunk.text, ' some data about the tape                                          ' )
+            self.assertEqual( chunk.text, ' some data about the tape                                         ' )
             self.assertEqual( chunk.to_string(), self.chunk )
 
-        chunk = TapeIdentification( text = ' some data about the tape                                          ' )
+        chunk = TapeIdentification( text = ' some data about the tape' )
 
         verify_chunk( self, chunk )
 

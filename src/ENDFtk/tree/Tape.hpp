@@ -13,6 +13,7 @@
 #include "ENDFtk/TapeIdentification.hpp"
 #include "ENDFtk/Tape.hpp"
 #include "ENDFtk/tree/Material.hpp"
+#include "ENDFtk/tree/toMaterial.hpp"
 
 namespace njoy {
 namespace ENDFtk {
@@ -39,7 +40,7 @@ namespace tree {
   class Tape {
 
     /* fields */
-    std::optional< TapeIdentification > tpid;
+    std::optional< TapeIdentification > tpid_;
     std::multimap< int, Material > materials_;
 
     /* auxiliary function */
@@ -163,10 +164,10 @@ namespace tree {
     auto content() const {
 
       std::string content;
-      if ( this->tpid ) {
+      if ( this->tpid_ ) {
 
         auto output = std::back_inserter( content );
-        this->tpid->print( output, 0, 0, 0 );
+        this->tpid_->print( output, 0, 0, 0 );
       }
 
       for ( const auto& material : this->materials() ) {
@@ -186,7 +187,7 @@ namespace tree {
     /**
      *  @brief Return the tape identification (the first line in the file)
      */
-    const TapeIdentification& TPID() const { return *( this->tpid ); }
+    const TapeIdentification& TPID() const { return *( this->tpid_ ); }
 
     /**
      *  @brief Return all unique material numbers in the tape
@@ -198,7 +199,11 @@ namespace tree {
                | ranges::actions::sort | ranges::actions::unique;
     }
 
+    #include "ENDFtk/tree/Tape/src/insert.hpp"
+
     #include "ENDFtk/tree/Tape/src/parse.hpp"
+
+    #include "ENDFtk/tree/Tape/src/clean.hpp"
   };
 
 } // tree namespace
