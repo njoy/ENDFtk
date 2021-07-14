@@ -7,13 +7,20 @@ createMap( BufferIterator position, const BufferIterator& end, long& ln ){
   auto begin = position;
   auto division = StructureDivision( position, end, ln );
 
-  while ( not division.isTend() ) {
+  while ( division.isHead() ) {
 
-    materials.emplace( division.tail.MAT(),
+    materials.emplace(
+      division.tail.MAT(),
       Material( asHead( division ), begin, position, end, ln ) );
 
     begin = position;
     division = StructureDivision( position, end, ln );
+  }
+
+  if ( not division.isTend() ) {
+
+    Log::error( "Did not find a valid TEND record in the tape" );
+    throw std::exception();
   }
 
   return materials;

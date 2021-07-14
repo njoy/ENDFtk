@@ -155,7 +155,7 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
   .def_property_readonly(
 
     "sections",
-    [] ( const File& self ) -> SectionRange
+    [] ( File& self ) -> SectionRange
        { return self.sections(); },
     "All sections in the file"
   )

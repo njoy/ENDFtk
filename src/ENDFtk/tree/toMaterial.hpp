@@ -17,7 +17,7 @@ namespace tree {
    *  @param[in] file   the parsed file
    *  @param[in] mat    the mat number
    */
-  Material toMaterial( const njoy::ENDFtk::Material& material ) {
+  inline Material toMaterial( const njoy::ENDFtk::Material& material ) {
 
     std::string buffer;
     auto output = std::back_inserter( buffer );

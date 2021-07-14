@@ -63,6 +63,7 @@ void insert( File&& file ) {
 
   this->insertOrReplace( std::move( file ) );
 }
+
 /**
  *  @brief Insert the file in the material
  *

@@ -147,7 +147,7 @@ void wrapTreeMaterial( python::module& module, python::module& viewmodule ) {
   .def_property_readonly(
 
     "files",
-    [] ( const Material& self ) -> FileRange
+    [] ( Material& self ) -> FileRange
        { return self.files(); },
     "All files in the material"
   )

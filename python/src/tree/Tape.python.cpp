@@ -18,6 +18,7 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
   // type aliases
   using TapeIdentification = njoy::ENDFtk::TapeIdentification;
   using Tape = njoy::ENDFtk::tree::Tape;
+  using ParsedMaterial = njoy::ENDFtk::Material;
   using Material = njoy::ENDFtk::tree::Material;
   using MaterialRange = BidirectionalAnyView< Material >;
 
@@ -104,15 +105,15 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
   .def_property_readonly(
 
     "materials",
-    [] ( const Tape& self ) -> MaterialRange
+    [] ( Tape& self ) -> MaterialRange
        { return self.materials(); },
     "All materials in the tape"
   )
   .def(
 
     "MAT",
-    [] ( const Tape& self, int mat )
-       -> std::variant< std::reference_wrapper< const Material >, MaterialRange >
+    [] ( Tape& self, int mat )
+       -> std::variant< std::reference_wrapper< Material >, MaterialRange >
        {
          if ( self.numberMAT( mat ) == 1 ) {
 
@@ -132,8 +133,8 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
   .def(
 
     "material",
-    [] ( const Tape& self, int mat )
-       -> std::variant< std::reference_wrapper< const Material >, MaterialRange >
+    [] ( Tape& self, int mat )
+       -> std::variant< std::reference_wrapper< Material >, MaterialRange >
        {
          if ( self.numberMaterial( mat ) == 1 ) {
 
@@ -195,6 +196,32 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
     "Arguments:\n"
     "    self        the tape\n"
     "    filename    the file name and path"
+  )
+  .def(
+
+    "insert",
+    [] ( Tape& self, Material material ) { self.insert( std::move( material ) ); },
+    python::arg( "material" ),
+    "Insert the material in the tape\n\n"
+    "This function inserts the material in the ENDF tape tree. If one or more\n"
+    "materials are already present, the new material is inserted after the\n"
+    "materials that are already there.\n\n"
+    "Arguments:\n"
+    "    self       the tape\n"
+    "    material   the material to be inserted"
+  )
+  .def(
+
+    "insert",
+    [] ( Tape& self, const ParsedMaterial& material ) { self.insert( material ); },
+    python::arg( "material" ),
+    "Insert the material in the tape\n\n"
+    "This function inserts the material in the ENDF tape tree. If one or more\n"
+    "materials are already present, the new material is inserted after the\n"
+    "materials that are already there.\n\n"
+    "Arguments:\n"
+    "    self       the tape\n"
+    "    material   the material to be inserted"
   )
   .def(
 

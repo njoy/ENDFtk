@@ -13,6 +13,7 @@
 #include "ENDFtk/TapeIdentification.hpp"
 #include "ENDFtk/Tape.hpp"
 #include "ENDFtk/tree/Material.hpp"
+#include "ENDFtk/tree/toMaterial.hpp"
 
 namespace njoy {
 namespace ENDFtk {
@@ -197,6 +198,8 @@ namespace tree {
                | ranges::to_vector
                | ranges::actions::sort | ranges::actions::unique;
     }
+
+    #include "ENDFtk/tree/Tape/src/insert.hpp"
 
     #include "ENDFtk/tree/Tape/src/parse.hpp"
   };

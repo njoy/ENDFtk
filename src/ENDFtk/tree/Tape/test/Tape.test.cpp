@@ -10,8 +10,8 @@
 // convenience typedefs
 using namespace njoy::ENDFtk;
 
-std::string baseTAPE();
-std::string tpidString();
+std::string chunk();
+std::string chunkMaterial125();
 std::string validTEND();
 std::string invalidTEND();
 
@@ -35,128 +35,222 @@ SCENARIO( "tree::Tape" ) {
     } // WHEN
   } // GIVEN
 
-  GIVEN( "a string representation of a Tape" ){
-    WHEN( "a valid TEND record ends the Tape" ){
-      auto tpid = tpidString();
-      auto base = baseTAPE();
-      auto tend = validTEND();
-      auto tapeString = tpid + base + tend;
+  GIVEN( "valid data for a tree::Tape" ) {
 
-      tree::Tape tape{ njoy::utility::copy( tapeString ) };
+    std::string tapeString = chunk() + validTEND();
 
-      tree::Tape original{ njoy::utility::copy( tapeString ) };
+    WHEN( "the data is read from a string/stream with a valid TEND" ) {
 
-      THEN( "the copy and move ctor will function correctly ") {
+      tree::Tape tape( tapeString );
 
-        auto copy = tree::Tape{ original };
-        CHECK( 125 == copy.MAT( 125 ).front().MAT() );
+      THEN( "the tape is populated correctly" ) {
 
-        auto move = tree::Tape{ std::move( copy ) };
-        CHECK( 125 == move.MAT( 125 ).front().MAT() );
-      }
+        CHECK( true == tape.hasMaterial( 125 ) );
+        CHECK( true == tape.hasMAT( 125 ) );
+        CHECK( 1 == ranges::distance( tape.MAT( 125 ) ) );
+        CHECK( 1 == ranges::distance( tape.MAT( 125 ) ) );
 
-      GIVEN("a tape skeleton constructed from a string"){
-        tree::Tape reference(
-          njoy::utility::copy( tapeString ) );
+        CHECK( false == tape.hasMaterial( 128 ) );
+        CHECK( false == tape.hasMAT( 128 ) );
 
-        THEN("the iterator-based factory function will return the same type"){
-          std::string copy = njoy::utility::copy( tapeString );
-          auto trial = tree::Tape( std::move( copy ) );
-          constexpr bool isSame =
-            std::is_same<decltype(reference), decltype(trial)>::value;
-          CHECK( isSame );
-        }
+        auto materialNumbers = tape.materialNumbers();
+        CHECK( 1 == tape.size() );
+        CHECK( 1 == materialNumbers.size() );
 
-        THEN("the range-based factory function will return the same type"){
-          auto trial = tree::Tape(
-              njoy::utility::copy( tapeString ) );
-          constexpr bool isSame =
-            std::is_same<decltype(reference), decltype(trial)>::value;
-          CHECK( isSame );
-        }
-      }
+        auto iter = std::begin( materialNumbers );
+        CHECK( 125 == *iter ); ++iter;
 
-      tree::Tape tapeTree{
-        njoy::utility::copy( tapeString ) };
-      const auto ctapeTree = tapeTree;
+        CHECK( tapeString == tape.content() );
+      } // THEN
+    } // WHEN
+  } // GIVEN
 
-      THEN( "the correct number of materials are read from the tape" ){
-         CHECK( 1 == tapeTree.size() );
-         CHECK( 1 == ctapeTree.size() );
-      }
+  GIVEN( "a valid tree tape" ) {
 
-      AND_THEN( "we can access the Materials of the skeleton" ){
-        CHECK( tapeTree.hasMaterial( 125 ) );
-        CHECK( ctapeTree.hasMaterial( 125 ) );
-        for ( auto& materialSkeleton : tapeTree.material( 125 ) ){
-          CHECK( 125 == materialSkeleton.materialNumber() );
-        }
-        for ( const auto& materialSkeleton : ctapeTree.material( 125 ) ){
-          CHECK( 125 == materialSkeleton.materialNumber() );
-        }
+    std::string tapeString = chunk() + validTEND();
+    tree::Tape tape( tapeString );
 
-        CHECK( tapeTree.hasMAT( 125 ) );
-        CHECK( ctapeTree.hasMAT( 125 ) );
-        for ( auto& materialSkeleton : tapeTree.MAT( 125 ) ){
-          CHECK( 125 == materialSkeleton.materialNumber() );
-        }
-        for ( const auto& materialSkeleton : ctapeTree.MAT( 125 ) ){
-          CHECK( 125 == materialSkeleton.materialNumber() );
-        }
-      }
+    WHEN( "a material with the same MAT is inserted" ) {
 
-      AND_THEN( "an excpetion is thrown for an invalid index" ){
-        CHECK_THROWS( tapeTree.material(1) );
-      }
-    }
+      std::string materialString = chunkMaterial125();
+      auto position = materialString.begin();
+      auto start = materialString.begin();
+      auto end = materialString.end();
+      long lineNumber = 0;
 
+      HeadRecord head( position, end, lineNumber );
+      tree::Material material( head, start, position, end, lineNumber );
 
-    WHEN( "an invalid (MAT != -1) TEND record ends the Tape" ){
-      auto tpid = tpidString();
-      auto base = baseTAPE();
-      auto tend = invalidTEND();
-      auto tapeString = tpid + base + tend;
+      tape.insert( std::move( material ) );
+
+      THEN( "the tape is populated correctly" ) {
+
+        CHECK( true == tape.hasMaterial( 125 ) );
+        CHECK( true == tape.hasMAT( 125 ) );
+        CHECK( 2 == ranges::distance( tape.MAT( 125 ) ) );
+        CHECK( 2 == ranges::distance( tape.MAT( 125 ) ) );
+
+        CHECK( false == tape.hasMaterial( 128 ) );
+        CHECK( false == tape.hasMAT( 128 ) );
+
+        auto materialNumbers = tape.materialNumbers();
+        CHECK( 2 == tape.size() );
+        CHECK( 1 == materialNumbers.size() );
+
+        auto iter = std::begin( materialNumbers );
+        CHECK( 125 == *iter ); ++iter;
+
+        CHECK( chunk() + chunkMaterial125() + validTEND() == tape.content() );
+      } // THEN
+    } // WHEN
+  } // GIVEN
+
+  GIVEN( "invalid data for a tree::Tape" ) {
+
+    WHEN( "the data is read from a string/stream with an invalid TEND" ) {
+
+      std::string tapeString = chunk() + invalidTEND();
 
       CHECK_THROWS( tree::Tape{ std::move( tapeString ) } );
-    }
+    } // WHEN
 
-    WHEN( "the Tape isn't long enough" ){
-      auto tpid = tpidString();
-      auto base = baseTAPE();
-      auto tapeString = tpid + base; // no tend record
+    WHEN( "the data is read from a string/stream without TEND" ) {
+
+      std::string tapeString = chunk();
 
       CHECK_THROWS( tree::Tape{ std::move( tapeString ) } );
-    }
+    } // WHEN
   } // GIVEN
 } // SCENARIO
 
-const std::string& cachedTape(){
-  const static std::string tape =
-    njoy::utility::slurpFileToMemory( "n-001_H_001.endf" );
-  return tape;
+std::string chunk() {
+
+  return
+    "this is my tape identification                                       0 0  0     \n"
+    " 1.001000+3 9.991673-1          0          0          0          3 125 1451     \n"
+    " 0.000000+0 0.000000+0          0          0          0          6 125 1451     \n"
+    " 1.000000+0 2.000000+7          0          0         10          8 125 1451     \n"
+    " 0.000000+0 0.000000+0          0          0          8          4 125 1451     \n"
+    "  1-H -  1 LANL       EVAL-OCT05 G.M.Hale                          125 1451     \n"
+    "                      DIST-DEC06                       20111222    125 1451     \n"
+    "----ENDF/B-VIII.beta  MATERIAL  125                                125 1451     \n"
+    "-----INCIDENT NEUTRON DATA                                         125 1451     \n"
+    "------ENDF-6 FORMAT                                                125 1451     \n"
+    "                                                                   125 1451     \n"
+    " ****************************************************************  125 1451     \n"
+    " ****************************************************************  125 1451     \n"
+    "                                1        451         16          0 125 1451     \n"
+    "                                2        151          4          0 125 1451     \n"
+    "                                3          1          4          0 125 1451     \n"
+    "                                3          5          4          0 125 1451     \n"
+    "                                                                   125 1  0     \n"
+    "                                                                   125 0  0     \n"
+    " 1.001000+3 9.991673-1          0          0          1          0 125 2151     \n"
+    " 1.001000+3 1.000000+0          0          0          1          0 125 2151     \n"
+    " 1.000000-5 1.000000+5          0          0          0          0 125 2151     \n"
+    " 5.000000-1 1.276553+0          0          0          0          0 125 2151     \n"
+    "                                                                   125 2  0     \n"
+    "                                                                   125 0  0     \n"
+    " 1.001000+3 9.991673-1          0          0          0          0 125 3  1     \n"
+    " 1.123400+6 1.123400+6          0          0          1          4 125 3  1     \n"
+    "          2          2                                             125 3  1     \n"
+    " 1.000000-5 1.000000+0 2.000000+7 2.000000+0                       125 3  1     \n"
+    "                                                                   125 3  0     \n"
+    " 1.001000+3 9.991673-1          0          0          0          0 125 3  5     \n"
+    " 1.123400+6 1.123400+6          0          0          1          4 125 3  5     \n"
+    "          2          2                                             125 3  5     \n"
+    " 1.000000-5 1.000000+0 2.000000+7 2.000000+0                       125 3  5     \n"
+    "                                                                   125 3  0     \n"
+    "                                                                   125 0  0     \n"
+    "                                                                     0 0  0     \n";
 }
 
-std::string tpidString(){
-  return std::string( cachedTape().begin(),
-                      std::next( cachedTape().begin(), 76 ) );
+std::string chunkMaterial125() {
+
+  return
+    " 1.001000+3 9.991673-1          0          0          0          3 125 1451     \n"
+    " 0.000000+0 0.000000+0          0          0          0          6 125 1451     \n"
+    " 1.000000+0 2.000000+7          0          0         10          8 125 1451     \n"
+    " 0.000000+0 0.000000+0          0          0          8          4 125 1451     \n"
+    "  1-H -  1 LANL       EVAL-OCT05 G.M.Hale                          125 1451     \n"
+    "                      DIST-DEC06                       20111222    125 1451     \n"
+    "----ENDF/B-VIII.beta  MATERIAL  125                                125 1451     \n"
+    "-----INCIDENT NEUTRON DATA                                         125 1451     \n"
+    "------ENDF-6 FORMAT                                                125 1451     \n"
+    "                                                                   125 1451     \n"
+    " ****************************************************************  125 1451     \n"
+    " ****************************************************************  125 1451     \n"
+    "                                1        451         16          0 125 1451     \n"
+    "                                2        151          4          0 125 1451     \n"
+    "                                3          1          4          0 125 1451     \n"
+    "                                3          5          4          0 125 1451     \n"
+    "                                                                   125 1  0     \n"
+    "                                                                   125 0  0     \n"
+    " 1.001000+3 9.991673-1          0          0          1          0 125 2151     \n"
+    " 1.001000+3 1.000000+0          0          0          1          0 125 2151     \n"
+    " 1.000000-5 1.000000+5          0          0          0          0 125 2151     \n"
+    " 5.000000-1 1.276553+0          0          0          0          0 125 2151     \n"
+    "                                                                   125 2  0     \n"
+    "                                                                   125 0  0     \n"
+    " 1.001000+3 9.991673-1          0          0          0          0 125 3  1     \n"
+    " 1.123400+6 1.123400+6          0          0          1          4 125 3  1     \n"
+    "          2          2                                             125 3  1     \n"
+    " 1.000000-5 1.000000+0 2.000000+7 2.000000+0                       125 3  1     \n"
+    "                                                                   125 3  0     \n"
+    " 1.001000+3 9.991673-1          0          0          0          0 125 3  5     \n"
+    " 1.123400+6 1.123400+6          0          0          1          4 125 3  5     \n"
+    "          2          2                                             125 3  5     \n"
+    " 1.000000-5 1.000000+0 2.000000+7 2.000000+0                       125 3  5     \n"
+    "                                                                   125 3  0     \n"
+    "                                                                   125 0  0     \n"
+    "                                                                     0 0  0     \n";
 }
 
-std::string baseTAPE(){
-  auto begin = std::next( cachedTape().begin(), 76 );
-  auto end =
-    std::next( std::make_reverse_iterator( cachedTape().end() ), 76 ).base();
-  return std::string( begin, end );
+std::string chunkMaterial128() {
+
+  return
+    " 1.001000+3 9.991673-1          0          0          0          3 128 1451     \n"
+    " 0.000000+0 0.000000+0          0          0          0          6 128 1451     \n"
+    " 1.000000+0 2.000000+7          0          0         10          8 128 1451     \n"
+    " 0.000000+0 0.000000+0          0          0          8          4 128 1451     \n"
+    "  1-H -  1 LANL       EVAL-OCT05 G.M.Hale                          128 1451     \n"
+    "                      DIST-DEC06                       20111222    128 1451     \n"
+    "----ENDF/B-VIII.beta  MATERIAL  125                                128 1451     \n"
+    "-----INCIDENT NEUTRON DATA                                         128 1451     \n"
+    "------ENDF-6 FORMAT                                                128 1451     \n"
+    "                                                                   128 1451     \n"
+    " ****************************************************************  128 1451     \n"
+    " ****************************************************************  128 1451     \n"
+    "                                1        451         16          0 128 1451     \n"
+    "                                2        151          4          0 128 1451     \n"
+    "                                3          1          4          0 128 1451     \n"
+    "                                3          5          4          0 128 1451     \n"
+    "                                                                   128 1  0     \n"
+    "                                                                   128 0  0     \n"
+    " 1.001000+3 9.991673-1          0          0          1          0 128 2151     \n"
+    " 1.001000+3 1.000000+0          0          0          1          0 128 2151     \n"
+    " 1.000000-5 1.000000+5          0          0          0          0 128 2151     \n"
+    " 5.000000-1 1.276553+0          0          0          0          0 128 2151     \n"
+    "                                                                   128 2  0     \n"
+    "                                                                   128 0  0     \n"
+    " 1.001000+3 9.991673-1          0          0          0          0 128 3  1     \n"
+    " 1.123400+6 1.123400+6          0          0          1          4 128 3  1     \n"
+    "          2          2                                             128 3  1     \n"
+    " 1.000000-5 1.000000+0 2.000000+7 2.000000+0                       128 3  1     \n"
+    "                                                                   128 3  0     \n"
+    " 1.001000+3 9.991673-1          0          0          0          0 128 3  5     \n"
+    " 1.123400+6 1.123400+6          0          0          1          4 128 3  5     \n"
+    "          2          2                                             128 3  5     \n"
+    " 1.000000-5 1.000000+0 2.000000+7 2.000000+0                       128 3  5     \n"
+    "                                                                   128 3  0     \n"
+    "                                                                   128 0  0     \n"
+    "                                                                     0 0  0     \n";
 }
 
 std::string validTEND(){
-  auto begin =
-    std::next( std::make_reverse_iterator( cachedTape().end() ), 76 ).base();
-  auto end = cachedTape().end();
-  return std::string( begin, end );
+  return "                                                                    -1 0  0     \n";
 }
 
 std::string invalidTEND(){
-  auto TEND = validTEND();
-  TEND.at(69) = '2';
-  return TEND;
+  return "                                                                     2 0  0     \n";
 }
