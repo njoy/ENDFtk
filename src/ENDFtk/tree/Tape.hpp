@@ -202,6 +202,8 @@ namespace tree {
     #include "ENDFtk/tree/Tape/src/insert.hpp"
 
     #include "ENDFtk/tree/Tape/src/parse.hpp"
+
+    #include "ENDFtk/tree/Tape/src/clean.hpp"
   };
 
 } // tree namespace

@@ -199,5 +199,12 @@ void wrapTreeSection( python::module& module, python::module& ) {
     "NC",
     &Section::NC,
     "The number of lines in this section"
+  )
+  .def(
+
+    "clean",
+    &Section::clean,
+    "Clean up the section\n\n"
+    "This function removes the sequence numbers from the section."
   );
 }

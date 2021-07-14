@@ -352,5 +352,12 @@ void wrapTreeMaterial( python::module& module, python::module& viewmodule ) {
     "there was an issue parsing it.\n\n"
     "Arguments:\n"
     "    self   the ENDF tree material"
+  )
+  .def(
+
+    "clean",
+    &Material::clean,
+    "Clean up the material\n\n"
+    "This function removes the sequence numbers from the material."
   );
 }

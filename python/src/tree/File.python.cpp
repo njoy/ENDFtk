@@ -286,5 +286,12 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
     "Arguments:\n"
     "    self      the ENDF tree file\n"
     "    section   the section to be inserted or replaced"
+  )
+  .def(
+
+    "clean",
+    &File::clean,
+    "Clean up the file\n\n"
+    "This function removes the sequence numbers from the file."
   );
 }

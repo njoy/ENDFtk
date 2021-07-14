@@ -9,6 +9,8 @@
 using namespace njoy::ENDFtk;
 
 std::string chunk();
+std::string chunkDirty();
+std::string chunkClean();
 std::string validSEND();
 std::string invalidSEND();
 
@@ -72,6 +74,26 @@ SCENARIO( "tree::Section" ) {
         CHECK( sectionString.end() == end );
 
         CHECK( 36 == lineNumber ); // one number beyond the number of lines
+      } // THEN
+    } // WHEN
+  } // GIVEN
+
+  GIVEN( "a dirty buffer for a tree::Section" ) {
+
+    int mat = 125;
+    int mf = 3;
+    int mt = 1;
+    std::string sectionString = chunkDirty() + validSEND();
+
+    tree::Section section( mat, mf, mt, std::string( sectionString ) );
+
+    WHEN( "the section is cleaned" ) {
+
+      section.clean();
+
+      THEN( "the sequence numbers will be removed" ) {
+
+        CHECK( chunkClean() + validSEND() == section.content() );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -148,6 +170,24 @@ std::string chunk() {
     " 1.600000+7 6.040552-1 1.650000+7 5.860577-1 1.700000+7 5.689977-1 125 3  1     \n"
     " 1.750000+7 5.528040-1 1.800000+7 5.374121-1 1.850000+7 5.227637-1 125 3  1     \n"
     " 1.900000+7 5.088059-1 1.950000+7 4.954905-1 2.000000+7 4.827735-1 125 3  1     \n";
+}
+
+std::string chunkDirty() {
+
+  return
+    " 1.001000+3 9.991673-1          0          0          0          0 125 3  1    1\n"
+    " 0.000000+0 0.000000+0          0          0          1          2 125 3  1    2\n"
+    "          4          2                                             125 3  1    3\n"
+    " 1.000000-5 1.000000+0 2.000000+7 2.000000+0                       125 3  1    4\n";
+}
+
+std::string chunkClean() {
+
+  return
+    " 1.001000+3 9.991673-1          0          0          0          0 125 3  1     \n"
+    " 0.000000+0 0.000000+0          0          0          1          2 125 3  1     \n"
+    "          4          2                                             125 3  1     \n"
+    " 1.000000-5 1.000000+0 2.000000+7 2.000000+0                       125 3  1     \n";
 }
 
 std::string validSEND(){

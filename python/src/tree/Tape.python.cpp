@@ -232,5 +232,12 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
     "section is not present, or if there was an issue parsing it.\n\n"
     "Arguments:\n"
     "    self        the tape\n"
+  )
+  .def(
+
+    "clean",
+    &Tape::clean,
+    "Clean up the tape\n\n"
+    "This function removes the sequence numbers from the tape."
   );
 }
