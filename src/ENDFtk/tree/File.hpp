@@ -8,6 +8,7 @@
 // other includes
 #include "range/v3/view/subrange.hpp"
 #include "range/v3/view/map.hpp"
+#include "ENDFtk/file/Type.hpp"
 #include "ENDFtk/tree/Section.hpp"
 #include "ENDFtk/tree/toSection.hpp"
 #include "boost/hana.hpp"

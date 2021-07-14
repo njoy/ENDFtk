@@ -6,6 +6,7 @@
 #include "ENDFtk/Material.hpp"
 #include "ENDFtk/tree/Tape.hpp"
 #include "ENDFtk/tree/Material.hpp"
+#include "ENDFtk/tree/updateDirectory.hpp"
 #include "range/v3/range/operations.hpp"
 #include "views.hpp"
 
@@ -249,7 +250,7 @@ void wrapTreeMaterial( python::module& module, python::module& viewmodule ) {
     "insert",
     [] ( Material& self, File file )
        { self.insert( std::move( file ) ); },
-    python::arg( "section" ),
+    python::arg( "file" ),
     "Insert the file in the material\n\n"
     "This function inserts the file in the ENDF material tree only if a\n"
     "file with that MF number is not present yet.\n\n"
@@ -267,7 +268,7 @@ void wrapTreeMaterial( python::module& module, python::module& viewmodule ) {
        { std::visit( [&self] ( const auto& variant )
                              { self.insert( variant ); },
                      file ); },
-    python::arg( "section" ),
+    python::arg( "file" ),
     "Insert the file in the material\n\n"
     "This function inserts the file in the ENDF material tree only if a\n"
     "file with that MF number is not present yet.\n\n"
@@ -313,7 +314,7 @@ void wrapTreeMaterial( python::module& module, python::module& viewmodule ) {
     "insert_or_replace",
     [] ( Material& self, File file )
        { self.insertOrReplace( std::move( file ) ); },
-    python::arg( "section" ),
+    python::arg( "file" ),
     "Insert or replace the file in the material\n\n"
     "This function inserts or replaces the file in the ENDF material tree. This\n"
     "does not merge sections if the file is already present: the old file is\n"
@@ -331,7 +332,7 @@ void wrapTreeMaterial( python::module& module, python::module& viewmodule ) {
        { std::visit( [&self] ( const auto& variant )
                              { self.insertOrReplace( variant ); },
                      file ); },
-    python::arg( "section" ),
+    python::arg( "file" ),
     "Insert or replace the file in the material\n\n"
     "This function inserts or replaces the file in the ENDF material tree. This\n"
     "does not merge sections if the file is already present: the old file is\n"
@@ -341,5 +342,15 @@ void wrapTreeMaterial( python::module& module, python::module& viewmodule ) {
     "Arguments:\n"
     "    self   the ENDF tree material\n"
     "    file   the file to be inserted or replaced"
+  )
+  .def(
+
+    "update_directory",
+    [] ( Material& self ) { return njoy::ENDFtk::tree::updateDirectory( self ); },
+    "Update the MF1 MT451 directory for the given material\n\n"
+    "An exception will be thrown if the MF1 MT451 section is not present, or if\n"
+    "there was an issue parsing it.\n\n"
+    "Arguments:\n"
+    "    self   the ENDF tree material"
   );
 }
