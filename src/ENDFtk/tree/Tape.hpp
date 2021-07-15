@@ -199,7 +199,9 @@ namespace tree {
                | ranges::actions::sort | ranges::actions::unique;
     }
 
+    #include "ENDFtk/tree/Tape/src/remove.hpp"
     #include "ENDFtk/tree/Tape/src/insert.hpp"
+    #include "ENDFtk/tree/Tape/src/replace.hpp"
 
     #include "ENDFtk/tree/Tape/src/parse.hpp"
 
