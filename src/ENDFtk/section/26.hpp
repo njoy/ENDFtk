@@ -42,17 +42,16 @@ namespace hana = boost::hana;
 
     #include "ENDFtk/section/26/Multiplicity.hpp"
 
-    #include "ENDFtk/section/26/ContinuumEnergyAngle.hpp"             // LAW=1
-//    #include "ENDFtk/section/6/DiscreteTwoBodyScattering.hpp"        // LAW=2
-    #include "ENDFtk/section/26/EnergyTransfer.hpp"                    // LAW=8
+    #include "ENDFtk/section/26/ContinuumEnergyAngle.hpp"     // LAW=1
+    #include "ENDFtk/section/6/DiscreteTwoBodyScattering.hpp" // LAW=2
+    #include "ENDFtk/section/26/EnergyTransfer.hpp"           // LAW=8
 
     using LAW1 = ContinuumEnergyAngle;
-//    using LAW2 = DiscreteTwoBodyScattering;
+    using LAW2 = DiscreteTwoBodyScattering;
     using LAW8 = EnergyTransfer;
 
-    using Distribution = std::variant<
-                                       ContinuumEnergyAngle,             // LAW=1
-//                                       DiscreteTwoBodyScattering,        // LAW=2
+    using Distribution = std::variant< ContinuumEnergyAngle,      // LAW=1
+                                       DiscreteTwoBodyScattering, // LAW=2
                                        EnergyTransfer >;          // LAW=8
 
     #include "ENDFtk/section/26/ReactionProduct.hpp"
