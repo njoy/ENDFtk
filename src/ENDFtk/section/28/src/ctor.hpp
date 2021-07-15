@@ -35,9 +35,9 @@ Type ( HEAD& head,
        const Iterator& end,
        long& lineNumber,
        int MAT )
-  try: Type( head.MT(), head.ZA(), head.AWR(), 
-             readSequence< ReactionProduct >( begin, end, lineNumber,
-                                              MAT, 28, head.MT(), head.N1() ) ) {
+  try: Type( head.MT(), head.ZA(), head.AWR(),
+             readSequence< SubshellData >( begin, end, lineNumber,
+                                           MAT, 28, head.MT(), head.N1() ) ) {
 
     readSEND(begin, end, lineNumber, MAT, 28 );
   }

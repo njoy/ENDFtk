@@ -16,7 +16,7 @@ public:
  *
  *  @param[in] subshell        the subshell designator
  *  @param[in] energy          the binding energy of the subshell
- *  @param[in] enl             the number of electrons in the subshell
+ *  @param[in] eln             the number of electrons in the subshell
  *  @param[in] secondary       the secondary subshell designators (NTR values)
  *  @param[in] tertiary        the tertiary subshell designators (NTR values)
  *  @param[in] energies        the transition energies
