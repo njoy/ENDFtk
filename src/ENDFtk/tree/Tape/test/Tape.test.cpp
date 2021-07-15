@@ -12,6 +12,7 @@ using namespace njoy::ENDFtk;
 
 std::string chunk();
 std::string chunkMaterial125();
+std::string chunkTPID();
 std::string validTEND();
 std::string invalidTEND();
 
@@ -103,6 +104,60 @@ SCENARIO( "tree::Tape" ) {
         CHECK( chunk() + chunkMaterial125() + validTEND() == tape.content() );
       } // THEN
     } // WHEN
+
+    WHEN( "replacing a material" ) {
+
+      std::string materialString = chunkMaterial125();
+      auto position = materialString.begin();
+      auto start = materialString.begin();
+      auto end = materialString.end();
+      long lineNumber = 0;
+
+      HeadRecord head( position, end, lineNumber );
+      tree::Material material( head, start, position, end, lineNumber );
+
+      tape.replace( std::move( material ) );
+
+      THEN( "the tape is populated correctly" ) {
+
+        CHECK( true == tape.hasMaterial( 125 ) );
+        CHECK( true == tape.hasMAT( 125 ) );
+        CHECK( 1 == ranges::distance( tape.MAT( 125 ) ) );
+        CHECK( 1 == ranges::distance( tape.MAT( 125 ) ) );
+
+        CHECK( false == tape.hasMaterial( 128 ) );
+        CHECK( false == tape.hasMAT( 128 ) );
+
+        auto materialNumbers = tape.materialNumbers();
+        CHECK( 1 == tape.size() );
+        CHECK( 1 == materialNumbers.size() );
+
+        auto iter = std::begin( materialNumbers );
+        CHECK( 125 == *iter ); ++iter;
+
+        CHECK( chunkTPID() + chunkMaterial125() + validTEND() == tape.content() );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a material is removed" ) {
+
+      tape.remove( 125 );
+
+      THEN( "the tape is populated correctly" ) {
+
+        CHECK( false == tape.hasMaterial( 125 ) );
+        CHECK( false == tape.hasMAT( 125 ) );
+
+        CHECK( false == tape.hasMaterial( 128 ) );
+        CHECK( false == tape.hasMAT( 128 ) );
+
+        auto materialNumbers = tape.materialNumbers();
+        CHECK( 0 == tape.size() );
+        CHECK( 0 == materialNumbers.size() );
+
+        CHECK( chunkTPID() + validTEND() == tape.content() );
+      } // THEN
+    } // WHEN
   } // GIVEN
 
   GIVEN( "invalid data for a tree::Tape" ) {
@@ -122,6 +177,12 @@ SCENARIO( "tree::Tape" ) {
     } // WHEN
   } // GIVEN
 } // SCENARIO
+
+std::string chunkTPID() {
+
+  return
+    "this is my tape identification                                       0 0  0     \n";
+}
 
 std::string chunk() {
 
