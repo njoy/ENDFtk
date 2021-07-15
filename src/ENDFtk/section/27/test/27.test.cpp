@@ -24,6 +24,7 @@ SCENARIO( "section::Type< 27 >" ) {
 
       int mt = 502;
       int zaid = 1000;
+      double awr = 0.9992414;
       std::vector< long > interpolants = { 2 };
       std::vector< long > boundaries = { 2 };
       std::vector< double > energies = { 0., 1e+9 };
@@ -143,7 +144,7 @@ void verifyChunk( const section::Type< 27 >& chunk ) {
   CHECK( 2 == chunk.interpolants()[0] );
   CHECK( 2 == chunk.boundaries()[0] );
   CHECK( 2 == chunk.energies().size() );
-  CHECK( 2 == chunk.crossSections().size() );
+  CHECK( 2 == chunk.values().size() );
   CHECK( 0. == Approx( chunk.energies()[0] ) );
   CHECK( 1e+9 == Approx( chunk.energies()[1] ) );
   CHECK( 1 == Approx( chunk.values()[0] ) );
