@@ -2,12 +2,9 @@
 #define NJOY_ENDFTK_PYTHON_VARIANTS
 
 // system includes
-#include <complex>
 
 // other includes
 #include "ENDFtk/tree/Tape.hpp"
-
-namespace python = pybind11;
 
 /**
  *  @brief Type aliases for parsed section and files
