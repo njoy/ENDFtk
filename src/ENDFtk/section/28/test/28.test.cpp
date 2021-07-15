@@ -8,6 +8,7 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
+using SubshellData = section::Type< 28 >::SubshellData;
 
 std::string chunk();
 void verifyChunk( const section::Type< 28 >& );
@@ -22,33 +23,33 @@ SCENARIO( "section::Type< 28 >" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-//      int mt = 533;
-//      int zaid = 1000;
-//      double awr = 0.9992414;
-//      std::vector< long > interpolants = { 2 };
-//      std::vector< long > boundaries = { 2 };
-//      std::vector< double > energies = { 0., 1e+9 };
-//      std::vector< double > values = { 1., 2. };
-//
-//      section::Type< 28 > chunk( mt, zaid, awr,
-//                                std::move( boundaries ),
-//                                std::move( interpolants ),
-//                                std::move( energies ), std::move( values ) );
-//
-//      THEN( "a section::Type< 28 > can be constructed and "
-//            "members can be tested" ) {
-//
-//        verifyChunk( chunk );
-//      } // THEN
-//
-//      THEN( "it can be printed" ) {
-//
-//        std::string buffer;
-//        auto output = std::back_inserter( buffer );
-//        chunk.print( output, 100, 28 );
-//
-//        CHECK( buffer == sectionString );
-//      } // THEN
+      int mt = 533;
+      int zaid = 1000;
+      double awr = 0.9992414;
+
+      std::vector< SubshellData > subshells = {
+
+        SubshellData( 1, 1.1561e+4, 2, { 3, 4 }, { 2, 3 },
+                      { 9.5066e+4, 9.8928e+4 }, { 0.75, 0.25 } ),
+        SubshellData( 2, 2000., 1, { 1 }, { 0 }, { 1000. }, { 1. } )
+      };
+
+      section::Type< 28 > chunk( mt, zaid, awr, std::move( subshells ) );
+
+      THEN( "a section::Type< 28 > can be constructed and "
+            "members can be tested" ) {
+
+        verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 100, 28 );
+
+        CHECK( buffer == sectionString );
+      } // THEN
     } // WHEN
 
     WHEN( "the data is read from a string/stream with a valid SEND" ) {
@@ -128,7 +129,7 @@ std::string chunk() {
     " 3.000000+0 2.000000+0 9.506600+4 7.500000-1 0.000000+0 0.000000+0 10028533     \n"
     " 4.000000+0 3.000000+0 9.892800+4 2.500000-1 0.000000+0 0.000000+0 10028533     \n"
     " 2.000000+0 0.000000+0          0          0         12          1 10028533     \n"
-    " 1.156100+4 2.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+0 10028533     \n"
+    " 2.000000+3 1.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+0 10028533     \n"
     " 1.000000+0 0.000000+0 1.000000+3 1.000000+0 0.000000+0 0.000000+0 10028533     \n";
 ;
 }
@@ -140,6 +141,39 @@ void verifyChunk( const section::Type< 28 >& chunk ) {
   CHECK( 0.9992414 == Approx( chunk.AWR() ) );
   CHECK( 0.9992414 == Approx( chunk.atomicWeightRatio() ) );
 
+  auto shell = chunk.subshells()[0];
+  CHECK( 1 == shell.SUBI() );
+  CHECK( 1 == shell.subshellDesignator() );
+  CHECK( 2 == shell.NTR() );
+  CHECK( 2 == shell.numberTransitions() );
+  CHECK( 1.156100e+4 == Approx( shell.EBI() ) );
+  CHECK( 1.156100e+4 == Approx( shell.subshellBindingEnergy() ) );
+  CHECK( 2 == shell.ELN() );
+  CHECK( 2 == shell.numberSubshellElectrons() );
+  CHECK( 2 == shell.transitions().size() );
+  CHECK( 3 == shell.transitions()[0].SUBJ() );
+  CHECK( 4 == shell.transitions()[1].SUBJ() );
+  CHECK( 2 == shell.transitions()[0].SUBK() );
+  CHECK( 3 == shell.transitions()[1].SUBK() );
+  CHECK( 9.5066e+4 == Approx( shell.transitions()[0].ETR() ) );
+  CHECK( 9.8928e+4 == Approx( shell.transitions()[1].ETR() ) );
+  CHECK( 0.75 == Approx( shell.transitions()[0].FTR() ) );
+  CHECK( 0.25 == Approx( shell.transitions()[1].FTR() ) );
+
+  shell = chunk.subshells()[1];
+  CHECK( 2 == shell.SUBI() );
+  CHECK( 2 == shell.subshellDesignator() );
+  CHECK( 1 == shell.NTR() );
+  CHECK( 1 == shell.numberTransitions() );
+  CHECK( 2000. == Approx( shell.EBI() ) );
+  CHECK( 2000. == Approx( shell.subshellBindingEnergy() ) );
+  CHECK( 1 == shell.ELN() );
+  CHECK( 1 == shell.numberSubshellElectrons() );
+  CHECK( 1 == shell.transitions().size() );
+  CHECK( 1 == shell.transitions()[0].SUBJ() );
+  CHECK( 0 == shell.transitions()[0].SUBK() );
+  CHECK( 1000. == Approx( shell.transitions()[0].ETR() ) );
+  CHECK( 1. == Approx( shell.transitions()[0].FTR() ) );
 
   CHECK( 8 == chunk.NC() );
 }

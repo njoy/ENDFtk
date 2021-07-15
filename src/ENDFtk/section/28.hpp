@@ -55,7 +55,7 @@ namespace section{
     /**
      *  @brief Return the subshell data data
      */
-    auto reactionProducts() const {
+    auto subshells() const {
 
       return ranges::cpp20::views::all( this->subshells_ );
     }
