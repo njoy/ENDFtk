@@ -61,6 +61,7 @@ using MF13 = njoy::ENDFtk::file::Type< 13 >;
 using MF14 = njoy::ENDFtk::file::Type< 14 >;
 using MF15 = njoy::ENDFtk::file::Type< 15 >;
 using MF23 = njoy::ENDFtk::file::Type< 23 >;
+using MF26 = njoy::ENDFtk::file::Type< 26 >;
 using FileVariant = std::variant< MF1, MF2, MF3, MF4, MF5, MF6,
                                   MF7, MF8, MF9, MF10, MF12, MF13,
                                   MF14, MF15, MF23, MF26 >;
