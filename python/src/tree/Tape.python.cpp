@@ -199,6 +199,16 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
   )
   .def(
 
+    "remove",
+    &Tape::remove,
+    python::arg( "mat" ),
+    "Remove all materials with the given MAT number\n\n"
+    "Arguments:\n"
+    "    self    the ENDF tree file\n"
+    "    mat     the mat number of the materials to be removed"
+  )
+  .def(
+
     "insert",
     [] ( Tape& self, Material material ) { self.insert( std::move( material ) ); },
     python::arg( "material" ),
@@ -219,6 +229,32 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
     "This function inserts the material in the ENDF tape tree. If one or more\n"
     "materials are already present, the new material is inserted after the\n"
     "materials that are already there.\n\n"
+    "Arguments:\n"
+    "    self       the tape\n"
+    "    material   the material to be inserted"
+  )
+  .def(
+
+    "replace",
+    [] ( Tape& self, Material material ) { self.replace( std::move( material ) ); },
+    python::arg( "material" ),
+    "Insert or replace the material in the tape\n\n"
+    "This function inserts the material in the ENDF tape tree. If one or more\n"
+    "materials are already present, the old materials are removed before inserting\n"
+    "the new material.\n\n"
+    "Arguments:\n"
+    "    self       the tape\n"
+    "    material   the material to be inserted"
+  )
+  .def(
+
+    "replace",
+    [] ( Tape& self, const ParsedMaterial& material ) { self.replace( material ); },
+    python::arg( "material" ),
+    "Insert or replace the material in the tape\n\n"
+    "This function inserts the material in the ENDF tape tree. If one or more\n"
+    "materials are already present, the old materials are removed before inserting\n"
+    "the new material.\n\n"
     "Arguments:\n"
     "    self       the tape\n"
     "    material   the material to be inserted"
