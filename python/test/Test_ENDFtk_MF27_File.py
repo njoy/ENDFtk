@@ -4,42 +4,42 @@ import unittest
 # third party imports
 
 # local imports
-from ENDFtk.MF23 import File
-from ENDFtk.MF23 import Section
+from ENDFtk.MF27 import File
+from ENDFtk.MF27 import Section
 from ENDFtk.tree import Tape
 
-class Test_ENDFtk_MF3_File( unittest.TestCase ) :
+class Test_ENDFtk_MF27_File( unittest.TestCase ) :
     """Unit test for the File class."""
 
-    chunk = ( ' 1.001000+3 9.991673-1          0          0          0          0 12523  1     \n'
-              ' 0.000000+0 0.000000+0          0          0          1          2 12523  1     \n'
-              '          2          5                                             12523  1     \n'
-              ' 1.000000-5 1.000000+0 2.000000+7 2.000000+0                       12523  1     \n'
-              '                                                                   12523  0     \n'
-              ' 1.001000+3 9.991673-1          0          0          0          0 12523  2     \n'
-              ' 0.000000+0 0.000000+0          0          0          1          2 12523  2     \n'
-              '          2          2                                             12523  2     \n'
-              ' 1.000000-5 3.000000+0 2.000000+7 4.000000+0                       12523  2     \n'
-              '                                                                   12523  0     \n'
-              ' 1.001000+3 9.991673-1          0          0          0          0 12523102     \n'
-              ' 2.224631+6 2.224631+6          0          0          1          2 12523102     \n'
-              '          2          5                                             12523102     \n'
-              ' 1.000000-5 5.000000+0 2.000000+7 6.000000+0                       12523102     \n'
-              '                                                                   12523  0     \n' )
+    chunk = ( ' 1.000000+3 9.991673-1          0          0          0          0 10027  1     \n'
+              ' 0.000000+0 1.000000+0          0          0          1          2 10027  1     \n'
+              '          2          5                                             10027  1     \n'
+              ' 1.000000-5 1.000000+0 2.000000+7 2.000000+0                       10027  1     \n'
+              '                                                                   10027  0     \n'
+              ' 1.000000+3 9.991673-1          0          0          0          0 10027  2     \n'
+              ' 0.000000+0 1.000000+0          0          0          1          2 10027  2     \n'
+              '          2          2                                             10027  2     \n'
+              ' 1.000000-5 3.000000+0 2.000000+7 4.000000+0                       10027  2     \n'
+              '                                                                   10027  0     \n'
+              ' 1.000000+3 9.991673-1          0          0          0          0 10027102     \n'
+              ' 0.000000+0 1.000000+0          0          0          1          2 10027102     \n'
+              '          2          5                                             10027102     \n'
+              ' 1.000000-5 5.000000+0 2.000000+7 6.000000+0                       10027102     \n'
+              '                                                                   10027  0     \n' )
 
     valid_TPID = 'Just a tape identifier                                                          \n'
-    valid_FEND = '                                                                   125 0  0     \n'
+    valid_FEND = '                                                                   100 0  0     \n'
     valid_MEND = '                                                                     0 0  0     \n'
     valid_TEND = '                                                                    -1 0  0     \n'
-    invalid_FEND = '                                                                   12523  1     \n'
+    invalid_FEND = '                                                                   10027  1     \n'
 
     def test_file( self ) :
 
         def verify_chunk( self, chunk ) :
 
             # verify content
-            self.assertEqual( 23, chunk.MF )
-            self.assertEqual( 23, chunk.file_number )
+            self.assertEqual( 27, chunk.MF )
+            self.assertEqual( 27, chunk.file_number )
 
             self.assertEqual( True, chunk.has_MT( 1 ) )
             self.assertEqual( True, chunk.has_MT( 2 ) )
@@ -52,61 +52,55 @@ class Test_ENDFtk_MF3_File( unittest.TestCase ) :
             self.assertEqual( False, chunk.has_section( 12 ) )
 
             section = chunk.section( 1 )
-            self.assertEqual( 1001, section.ZA )
-            self.assertEqual( 0.0, section.EPE )
-            self.assertEqual( 0.0, section.EFL )
+            self.assertEqual( 1000, section.ZA )
+            self.assertEqual( 1, section.Z )
             self.assertEqual( 5, section.interpolants[0] )
 
             section = chunk.section( 2 )
-            self.assertEqual( 1001, section.ZA )
-            self.assertEqual( 0.0, section.EPE )
-            self.assertEqual( 0.0, section.EFL )
+            self.assertEqual( 1000, section.ZA )
+            self.assertEqual( 1, section.Z )
             self.assertEqual( 2, section.interpolants[0] )
 
             section = chunk.section( 102 )
-            self.assertEqual( 1001, section.ZA )
-            self.assertAlmostEqual( 2.224631e+6, section.EPE )
-            self.assertAlmostEqual( 2.224631e+6, section.EFL )
+            self.assertEqual( 1000, section.ZA )
+            self.assertEqual( 1, section.Z )
             self.assertEqual( 5, section.interpolants[0] )
 
             section = chunk.MT( 1 )
-            self.assertEqual( 1001, section.ZA )
-            self.assertEqual( 0.0, section.EPE )
-            self.assertEqual( 0.0, section.EFL )
+            self.assertEqual( 1000, section.ZA )
+            self.assertEqual( 1, section.Z )
             self.assertEqual( 5, section.interpolants[0] )
 
             section = chunk.MT( 2 )
-            self.assertEqual( 1001, section.ZA )
-            self.assertEqual( 0.0, section.EPE )
-            self.assertEqual( 0.0, section.EFL )
+            self.assertEqual( 1000, section.ZA )
+            self.assertEqual( 1, section.Z )
             self.assertEqual( 2, section.interpolants[0] )
 
             section = chunk.MT( 102 )
-            self.assertEqual( 1001, section.ZA )
-            self.assertAlmostEqual( 2.224631e+6, section.EPE )
-            self.assertAlmostEqual( 2.224631e+6, section.EFL )
+            self.assertEqual( 1000, section.ZA )
+            self.assertEqual( 1, section.Z )
             self.assertEqual( 5, section.interpolants[0] )
 
             # verify string
             self.assertEqual( self.chunk + self.valid_FEND,
-                              chunk.to_string( 125 ) )
+                              chunk.to_string( 100 ) )
 
-        sorted = [ Section( 1, 1001., 0.9991673, 0., 0.,
+        sorted = [ Section( 1, 1000., 0.9991673,
                             [ 2 ], [ 5 ],
                             [ 1e-5, 2e+7 ], [ 1., 2. ] ),
-                   Section( 2, 1001., 0.9991673, 0., 0.,
+                   Section( 2, 1000., 0.9991673,
                             [ 2 ], [ 2 ],
                             [ 1e-5, 2e+7 ], [ 3., 4. ] ),
-                   Section( 102, 1001., 0.9991673, 2.224631e+6, 2.224631e+6,
+                   Section( 102, 1000., 0.9991673,
                             [ 2 ], [ 5 ],
                             [ 1e-5, 2e+7 ], [ 5., 6. ] ) ]
-        unsorted = [ Section( 102, 1001., 0.9991673, 2.224631e+6, 2.224631e+6,
+        unsorted = [ Section( 102, 1000., 0.9991673,
                               [ 2 ], [ 5 ],
                               [ 1e-5, 2e+7 ], [ 5., 6. ] ),
-                     Section( 2, 1001., 0.9991673, 0., 0.,
+                     Section( 2, 1000., 0.9991673,
                               [ 2 ], [ 2 ],
                               [ 1e-5, 2e+7 ], [ 3., 4. ] ),
-                     Section( 1, 1001., 0.9991673, 0., 0.,
+                     Section( 1, 1000., 0.9991673,
                               [ 2 ], [ 5 ],
                               [ 1e-5, 2e+7 ], [ 1., 2. ] ) ]
 
@@ -129,7 +123,7 @@ class Test_ENDFtk_MF3_File( unittest.TestCase ) :
         tape = Tape.from_string( self.valid_TPID + self.chunk +
                                  self.valid_FEND + self.valid_MEND +
                                  self.valid_TEND )
-        chunk = tape.material( 125 ).file( 23 ).parse()
+        chunk = tape.material( 100 ).file( 27 ).parse()
 
         verify_chunk( self, chunk )
 

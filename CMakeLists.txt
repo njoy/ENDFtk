@@ -134,6 +134,9 @@ pybind11_add_module( ENDFtk.python
     python/src/section/26.python.cpp
     python/src/section/26/Multiplicity.python.cpp
     python/src/section/26/EnergyTransfer.python.cpp
+    python/src/section/27.python.cpp
+    python/src/section/28/SubshellData.python.cpp
+    python/src/section/28.python.cpp
     python/src/section/3.python.cpp
     python/src/section/4.python.cpp
     python/src/section/4/Isotropic.python.cpp
@@ -237,6 +240,8 @@ pybind11_add_module( ENDFtk.python
     python/src/file/15.python.cpp
     python/src/file/23.python.cpp
     python/src/file/26.python.cpp
+    python/src/file/27.python.cpp
+    python/src/file/28.python.cpp
     python/src/Material.python.cpp
     python/src/tree/Section.python.cpp
     python/src/tree/File.python.cpp
