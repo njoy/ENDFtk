@@ -19,8 +19,8 @@ public:
  *  @param[in] eln             the number of electrons in the subshell
  *  @param[in] secondary       the secondary subshell designators (NTR values)
  *  @param[in] tertiary        the tertiary subshell designators (NTR values)
- *  @param[in] energies        the transition energies
- *  @param[in] probabilities   the transition probabilities
+ *  @param[in] energies        the transition energies (NTR values)
+ *  @param[in] probabilities   the transition probabilities (NTR values)
  */
 SubshellData( unsigned int subshell, double energy, unsigned int eln,
               std::vector< unsigned int >&& secondary,

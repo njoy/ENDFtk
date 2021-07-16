@@ -53,7 +53,7 @@ namespace section{
     int numberSubshells() const { return this->NSS(); }
 
     /**
-     *  @brief Return the subshell data data
+     *  @brief Return the subshell data
      */
     auto subshells() const {
 
