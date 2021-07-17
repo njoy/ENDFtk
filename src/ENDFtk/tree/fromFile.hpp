@@ -18,7 +18,7 @@ namespace tree {
    *
    *  @param[in] filename   the file name
    */
-  auto fromFile( const std::string& filename ) {
+  inline auto fromFile( const std::string& filename ) {
 
     std::string content;
     std::ifstream in( filename,
