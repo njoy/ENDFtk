@@ -6,7 +6,7 @@
 
 // other includes
 #include "boost/hana.hpp"
-#include "range/v3/all.hpp"
+#include "range/v3/range/conversion.hpp"
 #include "range/v3/view/all.hpp"
 #include "range/v3/view/concat.hpp"
 #include "range/v3/view/drop_exactly.hpp"

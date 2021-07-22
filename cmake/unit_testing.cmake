@@ -183,3 +183,4 @@ add_subdirectory( src/ENDFtk/tree/Tape/test )
 
 add_subdirectory( src/ENDFtk/section/33/CovariancePairs/test )
 add_subdirectory( src/ENDFtk/section/33/SquareMatrix/test )
+add_subdirectory( src/ENDFtk/section/33/RectangularMatrix/test )
