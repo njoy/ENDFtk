@@ -51,7 +51,7 @@ public:
   /**
    *  @brief Return the material number for the second cross section
    */
-  double MAT1() const { return this->mta1_; }
+  double MAT1() const { return this->mat1_; }
 
   /**
    *  @brief Return the material number for the second cross section
@@ -76,7 +76,7 @@ public:
   /**
    *  @brief Return the number of NC-type subsubsections
    */
-  double numberNCType() const { return this->NC(); }
+  double numberNCType() const { return this->NK(); }
 
   /**
    *  @brief Return the number of NC-type subsubsections
@@ -91,7 +91,7 @@ public:
   /**
    *  @brief Return the NC-type subsubsections
    */
-  AllRange< NCType > componentsNC() const {
+  auto componentsNC() const {
 
     return ranges::cpp20::views::all( this->nc_ );
   }
@@ -99,11 +99,11 @@ public:
   /**
    *  @brief Return the NC-type subsubsections
    */
-  AllRange< NIType > componentsNI() const {
+  auto componentsNI() const {
 
     return ranges::cpp20::views::all( this->ni_ );
   }
 
-  #include "ENDFtk/section/33/Subsection/src/NC.hpp"
-  #include "ENDFtk/section/33/Subsection/src/print.hpp"
+  // #include "ENDFtk/section/33/Subsection/src/NC.hpp"
+  // #include "ENDFtk/section/33/Subsection/src/print.hpp"
 };

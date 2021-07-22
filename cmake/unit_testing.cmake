@@ -180,3 +180,5 @@ add_subdirectory( src/ENDFtk/tree/File/test )
 add_subdirectory( src/ENDFtk/tree/Material/test )
 add_subdirectory( src/ENDFtk/tree/Section/test )
 add_subdirectory( src/ENDFtk/tree/Tape/test )
+
+add_subdirectory( src/ENDFtk/section/33/CovariancePairs/test )

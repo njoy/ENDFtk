@@ -24,7 +24,7 @@ Subsection( ControlRecord&& cont,
             Iterator& begin,
             const Iterator& end,
             long& lineNumber,
-            int MAT ) :
+            int MAT, int MF, int MT ) :
   Subsection( cont.C1(), cont.C2(), cont.L1(), cont.L2(), nc,
               readSequence< NIType >( begin, end, lineNumber,
                                       MAT, MF, MT, cont.N2() ) ) {}
@@ -34,10 +34,10 @@ Subsection( ControlRecord&& cont,
             Iterator& begin,
             const Iterator& end,
             long& lineNumber,
-            int MAT ) :
+            int MAT, int MF, int MT ) :
   Subsection( cont,
               readSequence< NCType >( begin, end, lineNumber,
-                                      MAT, MF, MT, cont.N1() )
+                                      MAT, MF, MT, cont.N1() ),
               begin, end, lineNumber, MAT, MF, MT ) {}
 
 public:
@@ -66,6 +66,6 @@ try :
 } catch( std::exception& e ) {
 
   Log::info( "Trouble while reading section {} of File 33 of Material {}",
-             head.MT(), MAT );
+             MT, MAT );
   throw e;
 };

@@ -1,5 +1,5 @@
 static void
-verifyLB( int NT, int NP ) {
+verifySize( int NT, int NP ) {
 
   if ( NT != 2*NP ) {
     Log::error( "Number of pairs inconsistent with vector size" );

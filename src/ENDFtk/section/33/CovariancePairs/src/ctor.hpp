@@ -15,7 +15,7 @@ CovariancePairs( ListRecord&& list ) :
   ListRecord( std::move( list ) ) {
 
     verifyLB( this->LB(), this->LT() );
-    verifySize( this->NT(), this->L2() );
+    verifySize( this->NT(), this->N2() );
 };
 
 public:
@@ -58,7 +58,7 @@ CovariancePairs( int lb,
                  std::vector< double >&& fl )
 try :
   CovariancePairs(
-    ListRecord( 0.0, 0.0, el.size(), lb, ek.size(),
+    ListRecord( 0.0, 0.0, el.size(), lb, ek.size()+el.size(),
                 generateList( std::move( ek ),
                               std::move( fk ),
                               std::move( el ),

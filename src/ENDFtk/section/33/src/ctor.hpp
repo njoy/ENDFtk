@@ -9,7 +9,7 @@
  */
 Type( int MT, double zaid, double awr, long mtl,
       std::vector< Subsection >&& subsections ) :
-  Base( zaid, awr, MT ), mtl_( mtl )
+  Base( zaid, awr, MT ), mtl_( mtl ),
   subsections_( std::move( subsections ) ) {}
 
 /**

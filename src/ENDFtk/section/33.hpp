@@ -2,10 +2,17 @@
 #define NJOY_ENDFTK_SECTION_33
 
 // system includes
-// None
+#include <variant>
 
 // other includes
+#include "boost/hana.hpp"
 #include "range/v3/view/all.hpp"
+#include "range/v3/view/drop_exactly.hpp"
+#include "range/v3/view/take_exactly.hpp"
+#include "range/v3/view/stride.hpp"
+#include "ENDFtk/ControlRecord.hpp"
+#include "ENDFtk/ListRecord.hpp"
+#include "ENDFtk/readSequence.hpp"
 #include "ENDFtk/section.hpp"
 
 namespace njoy {
@@ -82,13 +89,13 @@ namespace hana = boost::hana;
     /**
      *  @brief Return the subsections defined in this section
      */
-    AllRange< Subsection > subsections() const {
+    auto subsections() const {
 
       return ranges::cpp20::views::all( this->subsections_ );
     }
 
-    #include "ENDFtk/section/33/src/NC.hpp"
-    #include "ENDFtk/section/33/src/print.hpp"
+    // #include "ENDFtk/section/33/src/NC.hpp"
+    // #include "ENDFtk/section/33/src/print.hpp"
 
     using Base::MT;
     using Base::sectionNumber;
