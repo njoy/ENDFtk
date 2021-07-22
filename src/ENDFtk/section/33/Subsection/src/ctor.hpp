@@ -1,3 +1,4 @@
+
 /**
  *  @brief Constructor
  *
@@ -8,11 +9,38 @@
  *  @param[in] nc            the NC-type subsubsections
  *  @param[in] ni            the NI-type subsubsections
  */
-Type( double xmf1, double xlfs1, int mat1, int mt1,
-      std::vector< NCType >&& nk,
-      std::vector< NIType >&& ni ) :
-  Base( zaid, awr, MT ), mtl_( mtl )
-  subsections_( std::move( subsections ) ) {}
+Subsection( double xmf1, double xlfs1, int mat1, int mt1,
+            std::vector< NCType >&& nc,
+            std::vector< NIType >&& ni ) :
+  xmf1_( xmf1 ), xlfs1_( xlfs1 ), mat1_( mat1 ), mt1_( mt1 ),
+  nc_( std::move( nc ) ),
+  ni_( std::move( ni ) ) {};
+
+private:
+
+template< typename Iterator >
+Subsection( ControlRecord&& cont,
+            std::vector< NCType >&& nc,
+            Iterator& begin,
+            const Iterator& end,
+            long& lineNumber,
+            int MAT ) :
+  Subsection( cont.C1(), cont.C2(), cont.L1(), cont.L2(), nc,
+              readSequence< NIType >( begin, end, lineNumber,
+                                      MAT, MF, MT, cont.N2() ) ) {}
+
+template< typename Iterator >
+Subsection( ControlRecord&& cont,
+            Iterator& begin,
+            const Iterator& end,
+            long& lineNumber,
+            int MAT ) :
+  Subsection( cont,
+              readSequence< NCType >( begin, end, lineNumber,
+                                      MAT, MF, MT, cont.N1() )
+              begin, end, lineNumber, MAT, MF, MT ) {}
+
+public:
 
 /**
  *  @brief Constructor (from a buffer)
@@ -26,16 +54,18 @@ Type( double xmf1, double xlfs1, int mat1, int mt1,
  *  @param[in] MAT          the expected MAT number
  */
 template< typename Iterator >
-Type( HEAD& head,
-      Iterator& begin,
+Subsection( Iterator& begin,
       const Iterator& end,
       long& lineNumber,
-      int MAT ) :
-  xmf1_( head.C1() ), xlfs1_( head.C2() ),
-  mat1_( head.L1() ), mt1_( head.L2() ),
-  nc_(
-    readSequence< NCType >( begin, end, lineNumber,
-                            MAT, 33, head.MT(), head.N1() ) ),
-  ni_(
-    readSequence< NIType >( begin, end, lineNumber,
-                            MAT, 33, head.MT(), head.N2() ) ), {}
+      int MAT, int MF, int MT )
+try :
+  Subsection(
+    ControlRecord( begin, end, lineNumber, MAT, MF, MT ),
+    begin, end, lineNumber, MAT, MF, MT ) {
+
+} catch( std::exception& e ) {
+
+  Log::info( "Trouble while reading section {} of File 33 of Material {}",
+             head.MT(), MAT );
+  throw e;
+};

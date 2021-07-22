@@ -1,10 +1,10 @@
 /**
  *  @class
- *  @brief A subsection of a covariance section
+ *  @brief A Subsection (subsection) given in an MF33 covariance section
  *
  *  The Subsection class is used to represent a subsection in
- *  an ENDF MF33 section, which represents a covariance of the MT
- *  relative to another MT (MT1).
+ *  an ENDF MF33 section, which represents a covariance of the reaction
+ * cross section (MT) relative to another reaction (MF1/MT1).
  *
  *  See ENDF102, section 33.2 for more information.
  */
@@ -91,7 +91,7 @@ public:
   /**
    *  @brief Return the NC-type subsubsections
    */
-  AllRange< NCType > subsubsectionsNC() const {
+  AllRange< NCType > componentsNC() const {
 
     return ranges::cpp20::views::all( this->nc_ );
   }
@@ -99,7 +99,7 @@ public:
   /**
    *  @brief Return the NC-type subsubsections
    */
-  AllRange< NIType > subsubsectionsNI() const {
+  AllRange< NIType > componentsNI() const {
 
     return ranges::cpp20::views::all( this->ni_ );
   }

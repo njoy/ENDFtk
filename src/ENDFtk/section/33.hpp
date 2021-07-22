@@ -31,7 +31,14 @@ namespace hana = boost::hana;
     using NCType = std::variant<
       DerivedRedundant,
       DerivedRatioToStandard >;
-    #include "ENDFtk/section/33/NIType.hpp"
+
+    #include "ENDFtk/section/33/CovariancePairs.hpp"
+    #include "ENDFtk/section/33/SquareMatrix.hpp"
+    #include "ENDFtk/section/33/RectangularMatrix.hpp"
+    using NIType = std::variant<
+      CovariancePairs,
+      SquareMatrix,
+      RectangularMatrix >;
 
     // include classes for subsections
     #include "ENDFtk/section/33/Subsection.hpp"
@@ -70,7 +77,7 @@ namespace hana = boost::hana;
     /**
      *  @brief Return the number of subsections
      */
-    int numberSubsections() const { return this->NL(); }
+    int numberSubmatrices() const { return this->NL(); }
 
     /**
      *  @brief Return the subsections defined in this section
