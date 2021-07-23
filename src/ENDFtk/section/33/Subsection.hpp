@@ -72,22 +72,22 @@ public:
   /**
    *  @brief Return the number of NC-type subsubsections
    */
-  double NK() const { return this->nc_.size(); }
+  int NK() const { return this->nc_.size(); }
 
   /**
    *  @brief Return the number of NC-type subsubsections
    */
-  double numberNCType() const { return this->NK(); }
+  int numberNCType() const { return this->NK(); }
 
   /**
    *  @brief Return the number of NC-type subsubsections
    */
-  double NI() const { return this->ni_.size(); }
+  int NI() const { return this->ni_.size(); }
 
   /**
    *  @brief Return the number of NI-type subsubsections
    */
-  double numberNIType() const { return this->NI(); }
+  int numberNIType() const { return this->NI(); }
 
   /**
    *  @brief Return the NC-type subsubsections
