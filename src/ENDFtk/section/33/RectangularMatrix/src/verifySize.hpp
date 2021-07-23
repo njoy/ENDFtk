@@ -18,21 +18,3 @@ verifySize( int NT, int NER ) {
   }
 
 }
-
-static void
-verifySize( int NT, int NER, int size ) {
-
-  verifySize( NT, NER );
-
-  // check total number of energies
-  int NEC = (NT-1) / NER;
-  if ( NEC + NER != size ) {
-
-    Log::error( "Inconsistent number of energies in rectangular matrix" );
-    Log::info( "NEC: {}", NEC );
-    Log::info( "NER: {}", NER );
-    Log::info( "Energy size: {}", size );
-    throw std::exception();
-  }
-
-}

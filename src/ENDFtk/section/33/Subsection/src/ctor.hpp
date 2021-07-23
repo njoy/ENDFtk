@@ -35,7 +35,7 @@ Subsection( ControlRecord&& cont,
             const Iterator& end,
             long& lineNumber,
             int MAT, int MF, int MT ) :
-  Subsection( cont,
+  Subsection( std::move( cont ),
               readSequence< NCType >( begin, end, lineNumber,
                                       MAT, MF, MT, cont.N1() ),
               begin, end, lineNumber, MAT, MF, MT ) {}

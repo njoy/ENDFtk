@@ -23,19 +23,20 @@ public:
 /**
  *  @brief Constructor (LB=5)
  *
- *  @param[in] ls             symmetry flag (0=asymmetric, 1=symmetric)
- *  @param[in] energies       energies
- *  @param[in] values         matrix values
+ *  @param[in] ls               symmetry flag (0=asymmetric, 1=symmetric)
+ *  @param[in] rowEnergies      row energies
+ *  @param[in] columnEnergies   column energies
+ *  @param[in] values           matrix values
  */
-RectangularMatrix( int ner,
-              std::vector< double >&& energies,
-              std::vector< double >&& values )
+RectangularMatrix( std::vector< double >&& rowEnergies,
+                   std::vector< double >&& columnEnergies,
+                   std::vector< double >&& values )
 try :
   RectangularMatrix(
-    ListRecord( 0.0, 0.0, 0, 6, ner,
-                generateList( std::move( energies ),
-                              std::move( values ),
-                              ner) ) ) {
+    ListRecord( 0.0, 0.0, 0, 6, rowEnergies.size(),
+                generateList( std::move( rowEnergies ),
+                              std::move( columnEnergies ),
+                              std::move( values ) ) ) ) {
 
 } catch ( std::exception& e ) {
 

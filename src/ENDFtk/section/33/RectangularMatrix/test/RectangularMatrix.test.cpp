@@ -23,10 +23,13 @@ SCENARIO( "RectangularMatrix" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      std::vector< double > energies = { 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 2.4 };
+      std::vector< double > rowEnergies = { 1.1, 1.2, 1.3 };
+      std::vector< double > columnEnergies = { 2.1, 2.2, 2.3, 2.4 };
       std::vector< double > values = { 1, 2, 3, 4, 5, 6 };
 
-      RectangularMatrix chunk( 3, std::move(energies), std::move(values) );
+      RectangularMatrix chunk( std::move(rowEnergies),
+                               std::move(columnEnergies),
+                               std::move(values) );
 
       THEN( "a RectangularMatrix can be constructed "
             "and members can be tested" ) {
