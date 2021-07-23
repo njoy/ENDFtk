@@ -16,6 +16,28 @@ Subsection( double xmf1, double xlfs1, int mat1, int mt1,
   nc_( std::move( nc ) ),
   ni_( std::move( ni ) ) {};
 
+/**
+ *  @brief Constructor
+ *
+ *  NC Only.
+ *
+ */
+Subsection( double xmf1, double xlfs1, int mat1, int mt1,
+            std::vector< NCType >&& nc ) :
+  xmf1_( xmf1 ), xlfs1_( xlfs1 ), mat1_( mat1 ), mt1_( mt1 ),
+  nc_( std::move( nc ) ) {};
+
+/**
+ *  @brief Constructor
+ *
+ *  NI Only.
+ *
+ */
+Subsection( double xmf1, double xlfs1, int mat1, int mt1,
+            std::vector< NIType >&& ni ) :
+  xmf1_( xmf1 ), xlfs1_( xlfs1 ), mat1_( mat1 ), mt1_( mt1 ),
+  ni_( std::move( ni ) ) {};
+
 private:
 
 template< typename Iterator >
@@ -25,9 +47,9 @@ Subsection( ControlRecord&& cont,
             const Iterator& end,
             long& lineNumber,
             int MAT, int MF, int MT ) :
-  Subsection( cont.C1(), cont.C2(), cont.L1(), cont.L2(), nc,
-              readSequence< NIType >( begin, end, lineNumber,
-                                      MAT, MF, MT, cont.N2() ) ) {}
+  Subsection( cont.C1(), cont.C2(), cont.L1(), cont.L2(), std::move( nc ),
+              readNI( begin, end, lineNumber,
+                      MAT, MF, MT, cont.N2() ) ) {}
 
 template< typename Iterator >
 Subsection( ControlRecord&& cont,
@@ -36,8 +58,8 @@ Subsection( ControlRecord&& cont,
             long& lineNumber,
             int MAT, int MF, int MT ) :
   Subsection( std::move( cont ),
-              readSequence< NCType >( begin, end, lineNumber,
-                                      MAT, MF, MT, cont.N1() ),
+              readNC( begin, end, lineNumber,
+                      MAT, MF, MT, cont.N1() ),
               begin, end, lineNumber, MAT, MF, MT ) {}
 
 public:

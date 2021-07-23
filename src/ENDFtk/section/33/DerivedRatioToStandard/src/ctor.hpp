@@ -6,10 +6,11 @@
 DerivedRatioToStandard() = default;
 #endif
 
-private:
-
 /**
  *  @brief Cascade for buffer iterator
+ *
+ *  Needs to be public for reading from Subsection.
+ *
  */
 template< typename Iterator >
 DerivedRatioToStandard( ControlRecord&& cont,
@@ -20,8 +21,6 @@ DerivedRatioToStandard( ControlRecord&& cont,
 
     verifyLTY( this->LTY() );
   }
-
-public:
 
 /**
  *  @brief Constructor

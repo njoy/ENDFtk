@@ -6,10 +6,10 @@
 CovariancePairs() = default;
 #endif
 
-private:
-
 /**
- *  @brief Private constructor
+ *  @brief From list.
+ *
+ *  Needs to be public for read from Subsection.
  */
 CovariancePairs( ListRecord&& list ) :
   ListRecord( std::move( list ) ) {
@@ -17,8 +17,6 @@ CovariancePairs( ListRecord&& list ) :
     verifyLB( this->LB(), this->LT() );
     verifySize( this->NT(), this->N2() );
 };
-
-public:
 
 /**
  *  @brief Constructor (LB=0,1,2,8,9)

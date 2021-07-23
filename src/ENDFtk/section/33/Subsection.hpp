@@ -19,7 +19,8 @@ class Subsection {
   std::vector< NIType > ni_;
 
   /* auxiliary functions */
-
+  #include "ENDFtk/section/33/Subsection/src/readNC.hpp"
+  #include "ENDFtk/section/33/Subsection/src/readNI.hpp"
 
 public:
 
@@ -104,6 +105,6 @@ public:
     return ranges::cpp20::views::all( this->ni_ );
   }
 
-  // #include "ENDFtk/section/33/Subsection/src/NC.hpp"
-  // #include "ENDFtk/section/33/Subsection/src/print.hpp"
+  #include "ENDFtk/section/33/Subsection/src/NC.hpp"
+  #include "ENDFtk/section/33/Subsection/src/print.hpp"
 };

@@ -6,10 +6,12 @@
 DerivedRedundant() = default;
 #endif
 
-private:
 
 /**
  *  @brief Cascade for buffer iterator
+ *
+ *  Needs to be public for reading from Subsection.
+ *
  */
 template< typename Iterator >
 DerivedRedundant( ControlRecord&& cont,
@@ -19,8 +21,6 @@ DerivedRedundant( ControlRecord&& cont,
 
     verifyLTY( cont.L2() );
   }
-
-public:
 
 /**
  *  @brief Constructor

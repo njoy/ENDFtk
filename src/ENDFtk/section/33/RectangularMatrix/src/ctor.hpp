@@ -6,10 +6,10 @@
 RectangularMatrix() = default;
 #endif
 
-private:
-
 /**
- *  @brief Private constructor
+ *  @brief From list.
+ *
+ *  Needs to be public for read from Subsection.
  */
 RectangularMatrix( ListRecord&& list ) :
   ListRecord( std::move( list ) ) {
@@ -17,8 +17,6 @@ RectangularMatrix( ListRecord&& list ) :
     verifyLB( this->LB() );
     verifySize( this->NT(), this->NER() );
 };
-
-public:
 
 /**
  *  @brief Constructor (LB=5)

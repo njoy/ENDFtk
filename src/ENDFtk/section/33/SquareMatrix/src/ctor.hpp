@@ -6,10 +6,10 @@
 SquareMatrix() = default;
 #endif
 
-private:
-
 /**
- *  @brief Private constructor
+ *  @brief From list.
+ *
+ *  Needs to be public for read from Subsection.
  */
 SquareMatrix( ListRecord&& list ) :
   ListRecord( std::move( list ) ) {
@@ -17,8 +17,6 @@ SquareMatrix( ListRecord&& list ) :
     verifyLB( this->LB() );
     verifySize( this->LS(), this->NE(), this->NT() );
 };
-
-public:
 
 /**
  *  @brief Constructor (LB=5)
