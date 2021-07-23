@@ -3,7 +3,7 @@
 /**
  *  @brief Default constructor - only enabled for pybind11
  */
-DerivedRedundant() = default;
+DerivedRatioToStandard() = default;
 #endif
 
 private:
@@ -12,12 +12,13 @@ private:
  *  @brief Cascade for buffer iterator
  */
 template< typename Iterator >
-DerivedRedundant( ControlRecord&& cont,
+DerivedRatioToStandard( ControlRecord&& cont,
                   Iterator& it, const Iterator& end, long& lineNumber,
                   int MAT, int MF, int MT ) :
+  lty_( cont.L2() ),
   list_( ListRecord( it, end, lineNumber, MAT, MF, MT ) ) {
 
-    verifyLTY( cont.L2() );
+    verifyLTY( this->LTY() );
   }
 
 public:
@@ -25,23 +26,31 @@ public:
 /**
  *  @brief Constructor
  *
+ *  @param[in] lty            covariance procedure
  *  @param[in] e1             lower energy
  *  @param[in] e2             upper energy
- *  @param[in] coefficients   coefficients to combine linearly
- *  @param[in] reactions      reaction MTs
+ *  @param[in] mats           standard's material number
+ *  @param[in] mts            standard's MT number
+ *  @param[in] xmfs           standard's MF number
+ *  @param[in] xlfss          standard's final excited state
+ *  @param[in] energies       energy boundaries of intervals
+ *  @param[in] weights        weights of energies
  */
-DerivedRedundant( double e1, double e2,
-                  std::vector< double >&& coefficients,
-                  std::vector< double >&& reactions )
+DerivedRatioToStandard( int lty, double e1, double e2,
+                  int mats, int mts, double xmfs, double xlfss,
+                  std::vector< double >&& energies,
+                  std::vector< double >&& weights )
 try :
+  lty_( lty ),
   list_(
-    ListRecord( e1, e2, 0, 0, coefficients.size(),
-                generateList( std::move( coefficients ),
-                              std::move( reactions ) ) ) ) {
+    ListRecord( e1, e2, mats, mts, energies.size(),
+                generateList( xmfs, xlfss,
+                              std::move( energies ),
+                              std::move( weights ) ) ) ) {
 
 } catch ( std::exception& e ) {
 
-  Log::info( "Encountered error while constructing DerivedRedundant component" );
+  Log::info( "Encountered error while constructing DerivedRatioToStandard component" );
   throw;
 }
 
@@ -58,15 +67,15 @@ try :
  *  @param[in] MT           the expected MT number
  */
 template< typename Iterator >
-DerivedRedundant( Iterator& it, const Iterator& end, long& lineNumber,
+DerivedRatioToStandard( Iterator& it, const Iterator& end, long& lineNumber,
                   int MAT, int MF, int MT )
 try :
-  DerivedRedundant(
+  DerivedRatioToStandard(
     ControlRecord( it, end, lineNumber, MAT, MF, MT ),
     it, end, lineNumber, MAT, MF, MT ) {
 
 } catch ( std::exception& e ) {
 
-  Log::info( "Encountered error while constructing DerivedRedundant component" );
+  Log::info( "Encountered error while constructing DerivedRatioToStandard component" );
   throw;
 }
