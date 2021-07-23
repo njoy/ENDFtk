@@ -86,7 +86,7 @@ namespace hana = boost::hana;
     /**
      *  @brief Return the number of subsections
      */
-    int numberSubmatrices() const { return this->NL(); }
+    int numberSubsections() const { return this->NL(); }
 
     /**
      *  @brief Return the subsections defined in this section
@@ -96,8 +96,8 @@ namespace hana = boost::hana;
       return ranges::cpp20::views::all( this->subsections_ );
     }
 
-    // #include "ENDFtk/section/33/src/NC.hpp"
-    // #include "ENDFtk/section/33/src/print.hpp"
+    #include "ENDFtk/section/33/src/NC.hpp"
+    #include "ENDFtk/section/33/src/print.hpp"
 
     using Base::MT;
     using Base::sectionNumber;

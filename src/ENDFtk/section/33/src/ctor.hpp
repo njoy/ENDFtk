@@ -4,13 +4,23 @@
  *  @param[in] mt            the MT number of the section
  *  @param[in] zaid          the material ZAID value
  *  @param[in] awr           the atomic weight ratio
- *  @param[in] mtl           the lumped covariance index
  *  @param[in] subsections   the subsections
  */
-Type( int MT, double zaid, double awr, long mtl,
+Type( int MT, double zaid, double awr,
       std::vector< Subsection >&& subsections ) :
-  Base( zaid, awr, MT ), mtl_( mtl ),
+  Base( zaid, awr, MT ), mtl_( 0 ),
   subsections_( std::move( subsections ) ) {}
+
+/**
+ *  @brief Constructor
+ *
+ *  @param[in] mt            the MT number of the section
+ *  @param[in] zaid          the material ZAID value
+ *  @param[in] awr           the atomic weight ratio
+ *  @param[in] mtl           the lumped covariance index
+ */
+Type( int MT, double zaid, double awr, int mtl ) :
+  Base( zaid, awr, MT ), mtl_( mtl ) {}
 
 /**
  *  @brief Constructor (from a buffer)
@@ -33,8 +43,8 @@ Type( HEAD& head,
     Base( head, MAT, 33 ), mtl_( head.L2() ),
     subsections_(
       readSequence< Subsection >( begin, end, lineNumber,
-                                  MAT, 33, head.MT(), head.N1() ) ) {
-    readSEND(begin, end, lineNumber, MAT, 6 );
+                                  MAT, 33, head.MT(), head.N2() ) ) {
+    readSEND(begin, end, lineNumber, MAT, 33 );
   } catch( std::exception& e ) {
 
     Log::info( "Trouble while reading section {} of File 33 of Material {}",
