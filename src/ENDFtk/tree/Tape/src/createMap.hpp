@@ -1,20 +1,31 @@
 template < typename BufferIterator >
 static auto
-createMap( BufferIterator position, const BufferIterator& end, long& ln ){
+createMap( BufferIterator position, const BufferIterator& end,
+           long& lineNumber ) {
 
   std::multimap< int, Material > materials;
 
   auto begin = position;
-  auto division = StructureDivision( position, end, ln );
+  auto division = StructureDivision( position, end, lineNumber );
 
   while ( division.isHead() ) {
 
     materials.emplace(
       division.tail.MAT(),
-      Material( asHead( division ), begin, position, end, ln ) );
+      Material( asHead( division ), begin, position, end, lineNumber ) );
 
     begin = position;
-    division = StructureDivision( position, end, ln );
+    division = StructureDivision( position, end, lineNumber );
+
+    while ( division.isMend() ) {
+
+      begin = position;
+      division = StructureDivision( position, end, lineNumber );
+      if ( position >= end ) {
+
+        break;
+      }
+    }
   }
 
   if ( not division.isTend() ) {
@@ -30,6 +41,6 @@ template < typename BufferIterator >
 static auto
 createMap( BufferIterator position, const BufferIterator& end ){
 
-  long ln{ 0 };
-  return createMap( position, end, ln );
+  long lineNumber{ 0 };
+  return createMap( position, end, lineNumber );
 }
