@@ -53,9 +53,9 @@ public:
    */
   auto jValues() const {
 
-    auto chunked = ListRecord::list() | ranges::view::chunk( 6 );
+    auto chunked = ListRecord::list() | ranges::views::chunk( 6 );
     using Range = decltype( chunked[0] );
-    return chunked | ranges::view::transform(
+    return chunked | ranges::cpp20::views::transform(
                        [] ( Range&& chunk ) -> JValue< Range >
                           { return { std::move( chunk ) }; } );
   }
@@ -66,8 +66,8 @@ public:
   auto D() const {
 
     return this->jValues()
-             | ranges::view::transform( [] ( const auto& jvalue )
-                                           { return jvalue.D(); } );
+             | ranges::cpp20::views::transform( [] ( const auto& jvalue )
+                                                   { return jvalue.D(); } );
   }
 
   /**
@@ -81,8 +81,8 @@ public:
   auto AJ() const {
 
     return this->jValues()
-             | ranges::view::transform( [] ( const auto& jvalue )
-                                           { return jvalue.AJ(); } );
+             | ranges::cpp20::views::transform( [] ( const auto& jvalue )
+                                                   { return jvalue.AJ(); } );
   }
 
   /**
@@ -96,8 +96,8 @@ public:
   auto AMUN() const {
 
     return this->jValues()
-             | ranges::view::transform( [] ( const auto& jvalue )
-                                           { return jvalue.AMUN(); } );
+             | ranges::cpp20::views::transform( [] ( const auto& jvalue )
+                                                   { return jvalue.AMUN(); } );
   }
 
   /**
@@ -108,7 +108,7 @@ public:
   /**
    *  @brief Return the degrees of freedom for the gamma width
    */
-  auto AMUG() const { return ranges::view::repeat_n( 0.0, this->NJS() ); }
+  auto AMUG() const { return ranges::views::repeat_n( 0.0, this->NJS() ); }
 
   /**
    *  @brief Return the degrees of freedom for the gamma width
@@ -118,7 +118,7 @@ public:
   /**
    *  @brief Return the degrees of freedom for the fission width
    */
-  auto AMUF() const { return ranges::view::repeat_n( 0.0, this->NJS() ); }
+  auto AMUF() const { return ranges::views::repeat_n( 0.0, this->NJS() ); }
 
   /**
    *  @brief Return the degrees of freedom for the fission width
@@ -128,7 +128,7 @@ public:
   /**
    *  @brief Return the degrees of freedom for the competitive width
    */
-  auto AMUX() const { return ranges::view::repeat_n( 0.0, this->NJS() ); }
+  auto AMUX() const { return ranges::views::repeat_n( 0.0, this->NJS() ); }
 
   /**
    *  @brief Return the degrees of freedom for the competitive width
@@ -141,8 +141,8 @@ public:
   auto GN() const {
 
     return this->jValues()
-             | ranges::view::transform( [] ( const auto& jvalue )
-                                           { return jvalue.GN(); } );
+             | ranges::cpp20::views::transform( [] ( const auto& jvalue )
+                                                   { return jvalue.GN(); } );
   }
 
   /**
@@ -156,8 +156,8 @@ public:
   auto GG() const {
 
     return this->jValues()
-             | ranges::view::transform( [] ( const auto& jvalue )
-                                           { return jvalue.GG(); } );
+             | ranges::cpp20::views::transform( [] ( const auto& jvalue )
+                                                   { return jvalue.GG(); } );
   }
 
   /**
@@ -168,7 +168,7 @@ public:
   /**
    *  @brief Return the average fission width values.
    */
-  auto GF() const { return ranges::view::repeat_n( 0.0, this->NJS() ); }
+  auto GF() const { return ranges::views::repeat_n( 0.0, this->NJS() ); }
 
   /**
    *  @brief Return the average fission width values.
@@ -178,7 +178,7 @@ public:
   /**
    *  @brief Return the average competitive width values.
    */
-  auto GX() const { return ranges::view::repeat_n( 0.0, this->NJS() ); }
+  auto GX() const { return ranges::views::repeat_n( 0.0, this->NJS() ); }
 
   /**
    *  @brief Return the average competitive width values.

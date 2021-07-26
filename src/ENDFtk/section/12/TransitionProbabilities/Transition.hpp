@@ -22,30 +22,30 @@ public:
   /**
    *  @brief Return the energy of the transition.
    */
-  auto E() const { return this->chunk[0]; }
+  double E() const { return this->chunk[0]; }
 
   /**
    *  @brief Return the energy of the transition.
    */
-  auto energy() const { return this->E(); }
+  double energy() const { return this->E(); }
 
   /**
    *  @brief Return the transition probability.
    */
-  auto TP() const { return this->chunk[1]; }
+  double TP() const { return this->chunk[1]; }
 
   /**
    *  @brief Return the transiition probability.
    */
-  auto transitionProbability() const { return this->TP(); }
+  double transitionProbability() const { return this->TP(); }
 
   /**
    *  @brief Return the conditional probability.
    */
-  auto GP() const { return this->chunk.size() == 3 ? this->chunk[2] : 1.0; }
+  double GP() const { return this->chunk.size() == 3 ? this->chunk[2] : 1.0; }
 
   /**
    *  @brief Return the conditional probability.
    */
-  auto conditionalProbability() const { return this->GP(); }
+  double conditionalProbability() const { return this->GP(); }
 };

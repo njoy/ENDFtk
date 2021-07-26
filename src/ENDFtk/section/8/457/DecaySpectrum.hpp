@@ -9,9 +9,15 @@
  */
 class DecaySpectrum {
 
+public:
+
+  using OptionalContinuousSpectrum = std::optional< ContinuousSpectrum >;
+
+private:
+
   ListRecord data_;
   std::vector< DiscreteSpectrum > discrete_;
-  std::optional< ContinuousSpectrum > continuous_;
+  OptionalContinuousSpectrum continuous_;
 
   /* auxiliary functions */
   #include "ENDFtk/section/8/457/DecaySpectrum/src/verifyLCOV.hpp"
@@ -112,15 +118,18 @@ public:
   /**
    *  @brief Return the discrete spectra, if any are defined
    */
-  auto discreteSpectra() const {
+  AllRange< DiscreteSpectrum > discreteSpectra() const {
 
-    return ranges::view::all( this->discrete_ );
+    return ranges::cpp20::views::all( this->discrete_ );
   }
 
   /**
    *  @brief Return the continuous spectrum, if it is defined
    */
-  const auto& continuousSpectrum() const { return this->continuous_; }
+  const OptionalContinuousSpectrum& continuousSpectrum() const {
+
+    return this->continuous_;
+  }
 
   #include "ENDFtk/section/8/457/DecaySpectrum/src/NC.hpp"
   #include "ENDFtk/section/8/457/DecaySpectrum/src/print.hpp"

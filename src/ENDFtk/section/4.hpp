@@ -115,17 +115,17 @@ namespace section{
     /**
      *  @brief Return the isotropic angular distribution flag
      */
-    bool isotropicAngularDistributions() const { return this->LI(); }
+    bool isotropicDistributions() const { return this->LI(); }
 
     /**
      *  @brief Return the partial distributions defined in this section
      */
-    const auto& distributions() const { return this->distributions_; }
+    const Distributions& distributions() const { return this->distributions_; }
 
     /**
      *  @brief Return the number of interpolation regions
      */
-    auto NR() const {
+    long NR() const {
 
       return std::visit(
                utility::overload{
@@ -162,7 +162,7 @@ namespace section{
       return std::visit(
                utility::overload{
                    [] ( const Isotropic& ) -> LongRange
-                      { return ranges::view::empty< long >(); },
+                      { return ranges::cpp20::views::empty< long >; },
                    [] ( const auto& distributions ) -> LongRange
                       { return distributions.boundaries(); } },
                this->distributions_ );
@@ -176,7 +176,7 @@ namespace section{
       return std::visit(
                utility::overload{
                    [] ( const Isotropic& ) -> LongRange
-                      { return ranges::view::empty< long >(); },
+                      { return ranges::cpp20::views::empty< long >; },
                    [] ( const auto& distributions ) -> LongRange
                       { return distributions.interpolants(); } },
                this->distributions_ );
@@ -190,7 +190,7 @@ namespace section{
       return std::visit(
                utility::overload{
                    [] ( const Isotropic& ) -> DoubleRange
-                      { return ranges::view::empty< double >(); },
+                      { return ranges::cpp20::views::empty< double >; },
                    [] ( const auto& distributions ) -> DoubleRange
                       { return distributions.incidentEnergies(); } },
                this->distributions_ );

@@ -4,17 +4,7 @@
 
 // local includes
 #include "ENDFtk/tree/Tape.hpp"
-#include "ENDFtk/section/1.hpp"
-#include "ENDFtk/section/2.hpp"
-#include "ENDFtk/section/3.hpp"
-#include "ENDFtk/section/4.hpp"
-#include "ENDFtk/section/5.hpp"
-#include "ENDFtk/section/6.hpp"
-#include "ENDFtk/section/7.hpp"
-#include "ENDFtk/section/8.hpp"
-#include "ENDFtk/section/12.hpp"
-#include "ENDFtk/section/13.hpp"
-#include "range/v3/utility/iterator.hpp"
+#include "range/v3/range/operations.hpp"
 #include "views.hpp"
 
 // namespace aliases
@@ -41,9 +31,15 @@ void wrapTreeSection( python::module& module, python::module& ) {
   using MF6MTxxx = njoy::ENDFtk::section::Type< 6 >;
   using MF7MT2 = njoy::ENDFtk::section::Type< 7, 2 >;
   using MF7MT4 = njoy::ENDFtk::section::Type< 7, 4 >;
+  using MF8MT454 = njoy::ENDFtk::section::Type< 8, 454 >;
   using MF8MT457 = njoy::ENDFtk::section::Type< 8, 457 >;
+  using MF8MT459 = njoy::ENDFtk::section::Type< 8, 459 >;
+  using MF9MTxxx = njoy::ENDFtk::section::Type< 9 >;
+  using MF10MTxxx = njoy::ENDFtk::section::Type< 10 >;
   using MF12MTxxx = njoy::ENDFtk::section::Type< 12 >;
   using MF13MTxxx = njoy::ENDFtk::section::Type< 13 >;
+  using MF14MTxxx = njoy::ENDFtk::section::Type< 14 >;
+  using MF15MTxxx = njoy::ENDFtk::section::Type< 15 >;
 
   // wrap views created by this component
 
@@ -111,8 +107,10 @@ void wrapTreeSection( python::module& module, python::module& ) {
                                                 MF2MT151, MF2MT152,
                                                 MF3MTxxx, MF4MTxxx, MF5MTxxx,
                                                 MF6MTxxx, MF7MT2, MF7MT4,
-                                                MF8MT457,
-                                                MF12MTxxx, MF13MTxxx > {
+                                                MF8MT454, MF8MT457, MF8MT459,
+                                                MF9MTxxx, MF10MTxxx,
+                                                MF12MTxxx, MF13MTxxx,
+                                                MF14MTxxx, MF15MTxxx > {
       int mf = self.fileNumber();
       int mt = self.sectionNumber();
       switch ( mf ) {
@@ -169,20 +167,21 @@ void wrapTreeSection( python::module& module, python::module& ) {
 
           switch ( mt ) {
 
+            case 454 : return self.parse< 8, 454 >();
             case 457 : return self.parse< 8, 457 >();
-            case 454 :
-            case 459 : throw std::runtime_error(
-                           "Section " + std::to_string( mt ) + " from file " +
-                           std::to_string( mf ) +
-                           " cannot be parsed yet" );
+            case 459 : return self.parse< 8, 459 >();
             default : throw std::runtime_error(
                            "Section " + std::to_string( mt ) + " from file " +
                            std::to_string( mf ) +
                            " is not an official ENDF section" );
           }
         }
+        case 9 : return self.parse< 9 >();
+        case 10 : return self.parse< 10 >();
         case 12 : return self.parse< 12 >();
         case 13 : return self.parse< 13 >();
+        case 14 : return self.parse< 14 >();
+        case 15 : return self.parse< 15 >();
         default: throw std::runtime_error(
                        "Section from file " +  std::to_string( mf ) +
                        " cannot be parsed yet" );
@@ -194,7 +193,7 @@ void wrapTreeSection( python::module& module, python::module& ) {
 
     "content",
     [] ( const Section& self ) -> std::string
-       { return self.buffer(); },
+       { return ranges::to< std::string >( self.buffer() ); },
     "The content of the section"
   );
 }

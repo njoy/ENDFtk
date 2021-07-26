@@ -37,22 +37,22 @@ public:
   /**
    *  @brief Return the temperature values
    */
-  auto T() const { return TabulationRecord::x(); }
+  AllRange< double > T() const { return TabulationRecord::x(); }
 
   /**
    *  @brief Return the temperature values
    */
-  auto temperatures() const { return this->T(); }
+  AllRange< double > temperatures() const { return this->T(); }
 
   /**
    *  @brief Return the Debye-Waller integral divided by the atomic mass (eV^-1)
    */
-  auto W() const { return TabulationRecord::y(); }
+  AllRange< double > W() const { return TabulationRecord::y(); }
 
   /**
    *  @brief Return the Debye-Waller integral divided by the atomic mass (eV^-1)
    */
-  auto debyeWallerValues() const { return this->W(); }
+  AllRange< double > debyeWallerValues() const { return this->W(); }
 
   /* get methods */
   using TabulationRecord::NP;

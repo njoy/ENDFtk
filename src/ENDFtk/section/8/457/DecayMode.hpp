@@ -28,27 +28,27 @@ public:
   /**
    *  @brief Return the decay chain
    */
-  auto RTYP() const { return this->rtyp_; }
+  double RTYP() const { return this->rtyp_; }
 
   /**
    *  @brief Return the decay chain
    */
-  auto decayChain() const { return this->RTYP(); }
+  double decayChain() const { return this->RTYP(); }
 
   /**
    *  @brief Return the final isomeric state
    */
-  auto RFS() const { return this->rfs_; }
+  double RFS() const { return this->rfs_; }
 
   /**
    *  @brief Return the final isomeric state
    */
-  auto finalIsomericState() const { return this->RFS(); }
+  double finalIsomericState() const { return this->RFS(); }
 
   /**
    *  @brief Return the Q value and its uncertainty
    */
-  auto Q() const { return ranges::view::all( this->q_ ); }
+  auto Q() const { return ranges::cpp20::views::all( this->q_ ); }
 
   /**
    *  @brief Return the Q value and its uncertainty
@@ -58,7 +58,7 @@ public:
   /**
    *  @brief Return the branching ratio and its uncertainty
    */
-  auto BR() const { return ranges::view::all( this->branch_ ); }
+  auto BR() const { return ranges::cpp20::views::all( this->branch_ ); }
 
   /**
    *  @brief Return the branching ratio and its uncertainty

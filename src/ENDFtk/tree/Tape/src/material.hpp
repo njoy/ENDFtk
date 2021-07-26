@@ -15,8 +15,8 @@ auto material( int mat ) const {
   }
   auto bounds = this->materials_.equal_range( mat );
   return
-    ranges::make_iterator_range( bounds.first, bounds.second )
-    | ranges::view::values;
+    ranges::make_subrange( bounds.first, bounds.second )
+    | ranges::cpp20::views::values;
 }
 
 /**
@@ -28,7 +28,7 @@ auto material( int mat ) {
 
   return
     static_cast< const Tape& >( *this ).material( mat )
-    | ranges::view::transform
-      ( []( const auto& material ) -> Material_t&
-        { return const_cast< Material_t& >( material ); } );
+    | ranges::cpp20::views::transform
+      ( [] ( const auto& material ) -> Material_t&
+           { return const_cast< Material_t& >( material ); } );
 }

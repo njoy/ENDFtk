@@ -50,6 +50,18 @@ void wrapTabulatedDistributions( python::module& module, python::module& viewmod
   )
   .def_property_readonly(
 
+    "LI",
+    [] ( const Component& self ) { return self.LI(); },
+    "The isotropic angular distribution flag"
+  )
+  .def_property_readonly(
+
+    "isotropic_distributions",
+    [] ( const Component& self ) { return self.isotropicDistributions(); },
+    "The isotropic angular distribution flag"
+  )
+  .def_property_readonly(
+
     "LTT",
     [] ( const Component& self ) { return self.LTT(); },
     "The distribution law"

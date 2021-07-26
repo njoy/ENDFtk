@@ -32,17 +32,17 @@ public:
   /**
    *  @brief Return the spin value
    */
-  auto AJ() const { return ListRecord::list()[1]; }
+  double AJ() const { return ListRecord::list()[1]; }
 
   /**
    *  @brief Return the spin value
    */
-  auto spin() const { return this->AJ(); }
+  double spin() const { return this->AJ(); }
 
   /**
    *  @brief Return the number of degrees of freedom for the neutron width.
    */
-  int AMUN() const { return static_cast<int>( ListRecord::list()[2] ); }
+  double AMUN() const { return static_cast<int>( ListRecord::list()[2] ); }
 
   /**
    *  @brief Return the number of degrees of freedom for the neutron width.
@@ -125,15 +125,18 @@ public:
   /**
    *  @brief Return the average fission widths (energy dependent).
    */
-  auto GF() const {
+  DropRange< AllRange< double > > GF() const {
 
-    return ListRecord::list() | ranges::view::drop_exactly( 6 );
+    return ListRecord::list() | ranges::views::drop_exactly( 6 );
   }
 
   /**
   *  @brief Return the average fission widths (energy dependent).
    */
-  auto averageFissionWidths() const { return JValue::GF(); }
+  DropRange< AllRange< double > > averageFissionWidths() const {
+
+    return JValue::GF();
+  }
 
   /**
    *  @brief Return the number of average fission width points.

@@ -24,12 +24,12 @@ public:
   /**
    *  @brief Return the spin value
    */
-  auto AJ() const { return this->chunk[1]; }
+  double AJ() const { return this->chunk[1]; }
 
   /**
    *  @brief Return the spin value
    */
-  auto spin() const { return this->AJ(); }
+  double spin() const { return this->AJ(); }
 
   /**
    *  @brief Return the average level spacing.

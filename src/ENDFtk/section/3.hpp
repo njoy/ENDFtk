@@ -74,22 +74,22 @@ namespace section{
     /**
      *  @brief Return the interpolation type for each range
      */
-    auto interpolants() const { return this->table.interpolants(); }
+    AllRange< long > interpolants() const { return this->table.interpolants(); }
 
     /**
      *  @brief Return the interpolation boundaries
      */
-    auto boundaries() const { return this->table.boundaries(); }
+    AllRange< long > boundaries() const { return this->table.boundaries(); }
 
     /**
      *  @brief Return the energy values
      */
-    auto energies() const { return this->table.x(); }
+    AllRange< double > energies() const { return this->table.x(); }
 
     /**
      *  @brief Return the cross section values
      */
-    auto crossSections() const { return this->table.y(); }
+    AllRange< double > crossSections() const { return this->table.y(); }
 
     /**
      *  @brief Return the number of lines in this MF3 section
@@ -100,13 +100,13 @@ namespace section{
      *  @brief Return the energy values (common interface for interpolation
      *         tables)
      */
-    auto x() const { return this->energies(); }
+    AllRange< double > x() const { return this->energies(); }
 
     /**
      *  @brief Return the cross section values (common interface for interpolation
      *         tables)
      */
-    auto y() const { return this->crossSections(); }
+    AllRange< double > y() const { return this->crossSections(); }
 
     /**
      *  @brief Return the interpolation ragions (common interface for

@@ -60,30 +60,33 @@ public:
   /**
    *  @brief Return the secondary energy values
    */
-  auto EP() const {
+  StrideRange< AllRange< double > > EP() const {
 
-    return ListRecord::list()
-                            | ranges::view::stride( 2 + this->NA() );
+    return ListRecord::list() | ranges::views::stride( 2 + this->NA() );
   }
 
   /**
    *  @brief Return the secondary energy values
    */
-  auto energies() const { return this->EP(); }
+  StrideRange< AllRange< double > > energies() const { return this->EP(); }
 
   /**
    *  @brief Return the total emission probabilities
    */
-  auto F0() const {
+  StrideRange< DropRange< AllRange< double > > > F0() const {
 
-    return ranges::view::drop_exactly( ListRecord::list(), 1 )
-             | ranges::view::stride( 2 + this->NA() );
+    return ranges::views::drop_exactly( ListRecord::list(), 1 )
+             | ranges::views::stride( 2 + this->NA() );
   }
 
   /**
    *  @brief Return the total emission probabilities
    */
-  auto totalEmissionProbabilities() const { return this->F0(); }
+  StrideRange< DropRange< AllRange< double > > >
+  totalEmissionProbabilities() const {
+
+    return this->F0();
+  }
 
 private:
 
@@ -102,8 +105,9 @@ protected:
    */
   auto data() const {
 
-    return ListRecord::list() | ranges::view::chunk( 2 + this->NA() )
-                              | ranges::view::transform( ranges::view::tail );
+    return ListRecord::list() | ranges::views::chunk( 2 + this->NA() )
+                              | ranges::cpp20::views::transform(
+                                    ranges::views::tail );
   }
 
 public:

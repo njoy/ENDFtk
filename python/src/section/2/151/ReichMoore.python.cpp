@@ -95,19 +95,19 @@ void wrapReichMoore( python::module& module, python::module& viewmodule ) {
 
     "spin",
     [] ( const Component& self ) { return self.spin(); },
-    "The scattering radius"
+    "The target spin"
   )
   .def_property_readonly(
 
     "AP",
     [] ( const Component& self ) { return self.AP(); },
-    "The target spin"
+    "The scattering radius"
   )
   .def_property_readonly(
 
     "scattering_radius",
     [] ( const Component& self ) { return self.scatteringRadius(); },
-    "The target spin"
+    "The scattering radius"
   )
   .def_property_readonly(
 
@@ -137,13 +137,13 @@ void wrapReichMoore( python::module& module, python::module& viewmodule ) {
 
     "NLSC",
     [] ( const Component& self ) { return self.NLSC(); },
-    "The number of l values required for convergence"
+    "The number of l values required for convergence of angular distributions"
   )
   .def_property_readonly(
 
-    "number_l_values_for_convergence",
-    [] ( const Component& self ) { return self.numberLValuesForConvergence(); },
-    "The number of l values required for convergence"
+    "number_l_values_for_distributions",
+    [] ( const Component& self ) { return self.numberLValuesForDistributions(); },
+    "The number of l values required for convergence of angular distributions"
   )
   .def_property_readonly(
 

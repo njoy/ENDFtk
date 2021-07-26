@@ -4,7 +4,7 @@
 #include "ENDFtk/record/InterpolationBase.hpp"
 
 // other includes
-#include "range/v3/at.hpp"
+#include "range/v3/range/operations.hpp"
 #include "header-utilities/copy.hpp"
 
 // convenience typedefs
