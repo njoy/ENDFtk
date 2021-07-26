@@ -1,4 +1,17 @@
 /**
+ *  @brief Constructor
+ *
+ *  This constructor is not to be called directly by a user.
+ *
+ *  @param[in] MAT      the MAT number of the section
+ *  @param[in] MF       the MF number of the section
+ *  @param[in] MT       the MT number of the section
+ *  @param[in] buffer   the buffer representing the section
+ */
+Section( int MAT, int MF, int MT, std::string&& buffer ) :
+  mat_( MAT ), mf_( MF ), mt_( MT ), content_( std::move( buffer ) ) {}
+
+/**
  *  @brief Constructor (from a buffer)
  *
  *  This constructor is not to be called directly by a user.
@@ -9,18 +22,16 @@
  *  @param[in] end          the end of the buffer
  *  @param[in] lineNumber   the current line number
  */
+template< typename BufferIterator >
 Section( const HEAD& head, BufferIterator begin,
          BufferIterator& position, const BufferIterator& end,
          long& lineNumber )
-  try: materialNo( head.MAT() ),
-       fileNo( head.MF() ),
-       sectionNo( head.MT() ),
-       bufferLimits( { begin, findEnd( position, end, lineNumber ) } ) {}
+  try: Section( head.MAT(), head.MF(), head.MT(),
+                std::string( begin, findEnd( position, end, lineNumber ) ) ) {}
   catch( std::exception& e ) {
 
-    Log::info( "Trouble when creating a syntaxTree::Section" );
-    Log::info( "File/section number (MF/MT) corresponding "
-               "to erroneous section: {}/{}",
-               head.MF(), head.MT() );
+    Log::info( "Trouble encountered while constructing an ENDF tree section" );
+    Log::info( "Current position: MAT{} MF{} MT{} at line {}",
+               head.MAT(), head.MF(), head.MT(), lineNumber );
     throw e;
   }

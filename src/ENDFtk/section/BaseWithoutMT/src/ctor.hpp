@@ -1,3 +1,11 @@
+//! @todo pybind11 variant needs default constructor workaround
+#ifdef PYBIND11
+/**
+ *  @brief Default constructor - only enabled for pybind11
+ */
+BaseWithoutMT() = default;
+#endif
+
 BaseWithoutMT( double ZA, double AWR ) :
   ZA_( ZA ),
   atomicWeightRatio_( AWR ) {

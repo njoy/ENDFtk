@@ -13,6 +13,14 @@ Type( double zaid, double awr, bool lssf, int interpolation,
 
 public:
 
+//! @todo pybind11 variant needs default constructor workaround
+#ifdef PYBIND11
+/**
+ *  @brief Default constructor - only enabled for pybind11
+ */
+Type() = default;
+#endif
+
 /**
  *  @brief General constructor
  *

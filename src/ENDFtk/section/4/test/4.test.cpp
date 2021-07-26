@@ -4,6 +4,7 @@
 #include "ENDFtk/section/4.hpp"
 
 // other includes
+#include "ENDFtk/tree/Section.hpp"
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
@@ -84,6 +85,28 @@ SCENARIO( "section::Type< 4 >" ) {
         CHECK( buffer == sectionString );
       } // THEN
     } //WHEN
+
+    WHEN( "there is a tree::Section" ) {
+
+      tree::Section section( 9228, 4, 18, std::string( sectionString ) );
+
+      section::Type< 4 > chunk = section.parse< 4 >();
+
+      THEN( "a section::Type< 4 > can be constructed and members can be "
+            "tested" ) {
+
+        verifyChunkWithLTT0( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 4 );
+
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
   } // GIVEN
 
   GIVEN( "valid data for a section::Type< 4 > with LTT=1" ) {
@@ -144,6 +167,28 @@ SCENARIO( "section::Type< 4 >" ) {
         CHECK( buffer == sectionString );
       } // THEN
     } //WHEN
+
+    WHEN( "there is a tree::Section" ) {
+
+      tree::Section section( 9228, 4, 2, std::string( sectionString ) );
+
+      section::Type< 4 > chunk = section.parse< 4 >();
+
+      THEN( "a section::Type< 4 > can be constructed and members can be "
+            "tested" ) {
+
+        verifyChunkWithLTT1( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 4 );
+
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
   } // GIVEN
 
   GIVEN( "valid data for a section::Type< 4 > with LTT=2" ) {
@@ -204,6 +249,28 @@ SCENARIO( "section::Type< 4 >" ) {
         CHECK( buffer == sectionString );
       } // THEN
     } //WHEN
+
+    WHEN( "there is a tree::Section" ) {
+
+      tree::Section section( 9228, 4, 2, std::string( sectionString ) );
+
+      section::Type< 4 > chunk = section.parse< 4 >();
+
+      THEN( "a section::Type< 4 > can be constructed and members can be "
+            "tested" ) {
+
+        verifyChunkWithLTT2( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 4 );
+
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
   } // GIVEN
 
   GIVEN( "valid data for a section::Type< 4 > with LTT=3" ) {
@@ -267,6 +334,28 @@ SCENARIO( "section::Type< 4 >" ) {
         CHECK( buffer == sectionString );
       } // THEN
     } //WHEN
+
+    WHEN( "there is a tree::Section" ) {
+
+      tree::Section section( 9228, 4, 2, std::string( sectionString ) );
+
+      section::Type< 4 > chunk = section.parse< 4 >();
+
+      THEN( "a section::Type< 4 > can be constructed and members can be "
+            "tested" ) {
+
+        verifyChunkWithLTT3( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 4 );
+
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
   } // GIVEN
 
   GIVEN( "invalid data for a section::Type< 4 >" ) {
