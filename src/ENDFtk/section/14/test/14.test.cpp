@@ -86,7 +86,7 @@ SCENARIO( "section::Type< 14 >" ) {
 
       section::Type< 14 > chunk = section.parse< 14 >();
 
-      THEN( "a section::Type< 4 > can be constructed and members can be "
+      THEN( "a section::Type< 14 > can be constructed and members can be "
             "tested" ) {
 
         verifyChunkWithLTT0( chunk );
@@ -241,7 +241,7 @@ SCENARIO( "section::Type< 14 >" ) {
 
       section::Type< 14 > chunk = section.parse< 14 >();
 
-      THEN( "a section::Type< 4 > can be constructed and members can be "
+      THEN( "a section::Type< 14 > can be constructed and members can be "
             "tested" ) {
 
         verifyChunkWithLTT1( chunk );
