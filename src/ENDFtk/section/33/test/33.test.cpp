@@ -102,8 +102,7 @@ SCENARIO( "section::Type< 33 >" ) {
       auto end = string.end();
       long lineNumber = 1;
       auto head = HEAD( position, end, lineNumber );
-      tree::Section< std::string::iterator >
-        section( head, begin, position, end, lineNumber );
+      tree::Section section( head, begin, position, end, lineNumber );
 
       section::Type< 33 > chunk = section.parse< 33 >( lineNumber );
 

@@ -43,7 +43,7 @@ using SectionVariant = std::variant< MF1MT451, MF1MT452, MF1MT455,
                                      MF9MTxxx, MF10MTxxx,
                                      MF12MTxxx, MF13MTxxx,
                                      MF14MTxxx, MF15MTxxx,
-                                     MF33MTXXX >;
+                                     MF33MTxxx >;
 
 using MF1 = njoy::ENDFtk::file::Type< 1 >;
 using MF2 = njoy::ENDFtk::file::Type< 2 >;
