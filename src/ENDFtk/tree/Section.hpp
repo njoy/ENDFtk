@@ -7,6 +7,7 @@
 #include "boost/hana.hpp"
 #include "range/v3/view/subrange.hpp"
 #include "ENDFtk/HeadRecord.hpp"
+#include "ENDFtk/TextRecord.hpp"
 #include "ENDFtk/section.hpp"
 #include "boost/hana.hpp"
 
@@ -26,14 +27,13 @@ namespace tree {
    *  This class represents a single section in an ENDF tape, it is the smallest
    *  piece available in the ENDF tree prior to parsing it.
    */
-  template< typename BufferIterator >
   class Section {
 
     /* fields */
-    int materialNo;
-    int fileNo;
-    int sectionNo;
-    std::pair< BufferIterator, BufferIterator > bufferLimits;
+    int mat_;
+    int mf_;
+    int mt_;
+    std::string content_;
 
     /* auxiliary function */
     #include "ENDFtk/tree/Section/src/findEnd.hpp"
@@ -49,7 +49,7 @@ namespace tree {
     /**
      *  @brief Return MAT number of the section
      */
-    int MAT() const { return this->materialNo; }
+    int MAT() const { return this->mat_; }
 
     /**
      *  @brief Return MAT number of the section
@@ -58,7 +58,7 @@ namespace tree {
     /**
      *  @brief Return MF number of the section
      */
-    int MF() const { return this->fileNo; }
+    int MF() const { return this->mf_; }
 
     /**
      *  @brief Return MF number of the section
@@ -68,7 +68,7 @@ namespace tree {
     /**
      *  @brief Return MT number of the section
      */
-    int MT() const { return this->sectionNo; }
+    int MT() const { return this->mt_; }
 
     /**
      *  @brief Return MT number of the section
@@ -76,12 +76,20 @@ namespace tree {
     int sectionNumber() const { return this->MT(); }
 
     /**
-     *  @brief Return the section's buffer
+     *  @brief Return the section's content
      */
-    auto buffer() const {
-      return ranges::make_subrange( this->bufferLimits.first,
-                                    this->bufferLimits.second );
+    const std::string& content() const { return this->content_; }
+
+    /**
+     *  @brief Return the number lines in the section
+     */
+    unsigned int NC() const {
+
+      // count all newline characters, subtract 1 for the SEND record
+      return std::count( this->content_.begin(), this->content_.end(), '\n' ) - 1;
     }
+
+    #include "ENDFtk/tree/Section/src/clean.hpp"
   };
 
 } // tree namespace

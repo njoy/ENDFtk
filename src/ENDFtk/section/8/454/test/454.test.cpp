@@ -128,6 +128,28 @@ SCENARIO( "section::Type< 8, 454 >" ) {
         CHECK( buffer == sectionString );
       } // THEN
     } //WHEN
+
+    WHEN( "there is a tree::Section" ) {
+
+      tree::Section section( 9228, 8, 454, std::string( sectionString ) );
+
+      section::Type< 8, 454 > chunk = section.parse< 8, 454 >();
+
+      THEN( "a section::Type< 8, 454 > can be constructed and members can be "
+            "tested" ) {
+
+        verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 8 );
+
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
   } // GIVEN
 
   GIVEN( "valid data for a section::Type< 8, 454 > for energy independent yields" ) {
@@ -197,15 +219,9 @@ SCENARIO( "section::Type< 8, 454 >" ) {
 
     WHEN( "there is a tree::Section" ) {
 
-      auto begin = sectionString.begin();
-      auto position = begin;
-      auto end = sectionString.end();
-      long lineNumber = 1;
-      auto head = HEAD( position, end, lineNumber );
-      tree::Section< std::string::iterator >
-        section( head, begin, position, end, lineNumber );
+      tree::Section section( 9228, 8, 454, std::string( sectionString ) );
 
-      section::Type< 8, 454 > chunk = section.parse< 8, 454 >( lineNumber );
+      section::Type< 8, 454 > chunk = section.parse< 8, 454 >();
 
       THEN( "a section::Type< 8, 454 > can be constructed and members can be "
             "tested" ) {

@@ -90,15 +90,9 @@ SCENARIO( "section::Type< 7, 2 >" ) {
 
     WHEN( "there is a tree::Section" ) {
 
-      auto begin = sectionString.begin();
-      auto position = begin;
-      auto end = sectionString.end();
-      long lineNumber = 1;
-      auto head = HEAD( position, end, lineNumber );
-      tree::Section< std::string::iterator >
-        section( head, begin, position, end, lineNumber );
+      tree::Section section( 27, 7, 2, std::string( sectionString ) );
 
-      section::Type< 7, 2 > chunk = section.parse< 7, 2 >( lineNumber );
+      section::Type< 7, 2 > chunk = section.parse< 7, 2 >();
 
       THEN( "a section::Type< 7, 2 > can be constructed and members can be "
             "tested" ) {
@@ -180,15 +174,9 @@ SCENARIO( "section::Type< 7, 2 >" ) {
 
     WHEN( "there is a tree::Section" ) {
 
-      auto begin = sectionString.begin();
-      auto position = begin;
-      auto end = sectionString.end();
-      long lineNumber = 1;
-      auto head = HEAD( position, end, lineNumber );
-      tree::Section< std::string::iterator >
-        section( head, begin, position, end, lineNumber );
+      tree::Section section( 27, 7, 2, std::string( sectionString ) );
 
-      section::Type< 7, 2 > chunk = section.parse< 7, 2 >( lineNumber );
+      section::Type< 7, 2 > chunk = section.parse< 7, 2 >();
 
       THEN( "a section::Type< 7, 2 > can be constructed and members can be "
             "tested" ){
@@ -202,7 +190,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 27, 7 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } //WHEN
   } // GIVEN
@@ -266,35 +254,23 @@ SCENARIO( "section::Type< 7, 2 >" ) {
 
     WHEN( "there is a tree::Section" ) {
 
-      auto begin = sectionString.begin();
-      auto position = begin;
-      auto end = sectionString.end();
-      long lineNumber = 1;
-      auto head = HEAD( position, end, lineNumber );
-      tree::Section< std::string::iterator >
-        section( head, begin, position, end, lineNumber );
+      tree::Section section( 27, 7, 2, std::string( sectionString ) );
 
-      section::Type< 7, 2 > chunk1 = section.parse< 7, 2 >();
-      section::Type< 7, 2 > chunk2 = section.parse< 7, 2 >( lineNumber );
-      section::Type< 7, 2 > chunk3 = section.parse( 7_c, 2_c );
-      section::Type< 7, 2 > chunk4 = section.parse( 7_c, 2_c, lineNumber );
+      section::Type< 7, 2 > chunk = section.parse< 7, 2 >();
 
       THEN( "a section::Type< 7, 2 > can be constructed and members can be "
             "tested" ) {
 
-        verifyIncoherentElastic( chunk1 );
-        verifyIncoherentElastic( chunk2 );
-        verifyIncoherentElastic( chunk3 );
-        verifyIncoherentElastic( chunk4 );
+        verifyIncoherentElastic( chunk );
       } // THEN
 
       THEN( "it can be printed" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk1.print( output, 27, 7 );
+        chunk.print( output, 27, 7 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -363,35 +339,23 @@ SCENARIO( "section::Type< 7, 2 >" ) {
 
     WHEN( "there is a tree::Section" ) {
 
-      auto begin = sectionString.begin();
-      auto position = begin;
-      auto end = sectionString.end();
-      long lineNumber = 1;
-      auto head = HEAD( position, end, lineNumber );
-      tree::Section< std::string::iterator >
-        section( head, begin, position, end, lineNumber );
+      tree::Section section( 27, 7, 2, std::string( sectionString ) );
 
-      section::Type< 7, 2 > chunk1 = section.parse< 7, 2 >();
-      section::Type< 7, 2 > chunk2 = section.parse< 7, 2 >( lineNumber );
-      section::Type< 7, 2 > chunk3 = section.parse( 7_c, 2_c );
-      section::Type< 7, 2 > chunk4 = section.parse( 7_c, 2_c, lineNumber );
+      section::Type< 7, 2 > chunk = section.parse< 7, 2 >();
 
       THEN( "a section::Type< 7, 2 > can be constructed and members can be "
             "tested" ) {
 
-        verifyMixedElastic( chunk1 );
-        verifyMixedElastic( chunk2 );
-        verifyMixedElastic( chunk3 );
-        verifyMixedElastic( chunk4 );
+        verifyMixedElastic( chunk );
       } // THEN
 
       THEN( "it can be printed" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk1.print( output, 27, 7 );
+        chunk.print( output, 27, 7 );
 
-        REQUIRE( buffer == sectionString );
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
   } // GIVEN

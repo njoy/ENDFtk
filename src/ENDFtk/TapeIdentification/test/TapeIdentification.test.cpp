@@ -18,7 +18,7 @@ SCENARIO( "TapeIdentification" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      std::string text = " $Rev:: 1056     $  $Date:: 2017-01-26#$                          ";
+      std::string text = " $Rev:: 1056     $  $Date:: 2017-01-26#$";
       int tape = 1;
 
       TapeIdentification chunk( std::move( text ), tape );

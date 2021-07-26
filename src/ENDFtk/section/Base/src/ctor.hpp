@@ -1,3 +1,11 @@
+//! @todo pybind11 variant needs default constructor workaround
+#ifdef PYBIND11
+/**
+ *  @brief Default constructor - only enabled for pybind11
+ */
+Base() = default;
+#endif
+
 Base( double ZA, double AWR, int MT ) :
   BaseWithoutMT( ZA, AWR ), MT_( MT ) {
   if ( MT < 1 ){

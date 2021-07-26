@@ -5,6 +5,8 @@
 
 // local includes
 #include "ENDFtk/Material.hpp"
+#include "ENDFtk/tree/Material.hpp"
+#include "ENDFtk/tree/toMaterial.hpp"
 #include "boost/hana.hpp"
 
 // namespace aliases
@@ -159,5 +161,14 @@ void wrapMaterial( python::module& module, python::module& ) {
     "The string representation of the material\n\n"
     "Arguments:\n"
     "    self    the material"
+  )
+  .def(
+
+    "to_tree",
+    [] ( const Material& self ) -> njoy::ENDFtk::tree::Material
+       { return njoy::ENDFtk::tree::toMaterial( self ); },
+    "Return the ENDF tree representation of the material\n\n"
+    "Arguments:\n"
+    "    self    the file"
   );
 }

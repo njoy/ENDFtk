@@ -188,11 +188,10 @@ SCENARIO( "Testing special case of file 1" ) {
 
       StructureDivision division( begin, end, lineNumber );
 
-      tree::File< std::string::iterator >
-        fileTree( asHead( division ), start, begin, end, lineNumber );
+      tree::File file( asHead( division ), start, begin, end, lineNumber );
 
       THEN( "a file::Type< 1 > can be constructed" ){
-        CHECK_NOTHROW( fileTree.parse< 1 >( lineNumber ) );
+        CHECK_NOTHROW( file.parse< 1 >( lineNumber ) );
       }
     }
 

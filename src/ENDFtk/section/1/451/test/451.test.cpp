@@ -99,15 +99,9 @@ SCENARIO( "section::Type< 1, 451 >" ) {
 
     WHEN( "there is a tree::Section" ){
 
-      auto begin = sectionString.begin();
-      auto position = begin;
-      auto end = sectionString.end();
-      long lineNumber = 0;
-      auto head = HEAD( position, end, lineNumber );
-      tree::Section< std::string::iterator >
-        section( head, begin, position, end, lineNumber );
+      tree::Section section( 125, 1, 451, std::string( sectionString ) );
 
-      section::Type< 1, 451 > chunk = section.parse< 1, 451 >( lineNumber );
+      section::Type< 1, 451 > chunk = section.parse< 1, 451 >();
 
       THEN( "a section::Type< 1, 451 > can be constructed and "
             "members can be tested" ) {
