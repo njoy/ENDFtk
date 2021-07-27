@@ -24,7 +24,7 @@ SCENARIO( "DerivedRedundant" ) {
       double lower = 2.500000e+3;
       double upper = 2.000000e+7;
       std::vector< double > coefficients = {1, -1, -1, -1, -1, -1, -1};
-      std::vector< double > reactions = {1, 4, 16, 17, 18, 37, 102};
+      std::vector< int > reactions = {1, 4, 16, 17, 18, 37, 102};
 
 
       DerivedRedundant chunk( lower, upper,
@@ -80,7 +80,7 @@ SCENARIO( "DerivedRedundant" ) {
       double lower = 2.500000e+3;
       double upper = 2.000000e+7;
       std::vector< double > coefficients = {1, -1, -1, -1, -1, -1};
-      std::vector< double > reactions = {1, 4, 16, 17, 18, 37, 102};
+      std::vector< int > reactions = {1, 4, 16, 17, 18, 37, 102};
 
       THEN( "an exception is thrown" ) {
 

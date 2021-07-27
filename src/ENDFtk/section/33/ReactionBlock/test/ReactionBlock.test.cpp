@@ -35,7 +35,7 @@ SCENARIO( "ReactionBlock" ) {
       double lower = 2.500000e+3;
       double upper = 2.000000e+7;
       std::vector< double > coefficients = {1, -1, -1, -1, -1, -1, -1};
-      std::vector< double > reactions = {1, 4, 16, 17, 18, 37, 102};
+      std::vector< int > reactions = {1, 4, 16, 17, 18, 37, 102};
       std::vector< double > energies = {1, 2};
       std::vector< double > weights = {3, 4};
 
@@ -165,7 +165,7 @@ SCENARIO( "ReactionBlock" ) {
       double lower = 2.500000e+3;
       double upper = 2.000000e+7;
       std::vector< double > coefficients = {1, -1, -1, -1, -1, -1, -1};
-      std::vector< double > reactions = {1, 4, 16, 17, 18, 37, 102};
+      std::vector< int > reactions = {1, 4, 16, 17, 18, 37, 102};
       std::vector< DerivedCovariance > nc = {
         DerivedRedundant( lower, upper,
                           std::move(coefficients),
