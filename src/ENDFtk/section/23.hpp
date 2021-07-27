@@ -1,5 +1,5 @@
-#ifndef NJOY_ENDFTK_SECTION_3
-#define NJOY_ENDFTK_SECTION_3
+#ifndef NJOY_ENDFTK_SECTION_23
+#define NJOY_ENDFTK_SECTION_23
 
 // system includes
 
@@ -14,12 +14,12 @@ namespace section{
 
   /**
    *  @class
-   *  @brief MF3 - reaction cross sections
+   *  @brief MF23 - smooth photon interaction cross sections
    *
-   *  See ENDF102, section 3.2 for more information.
+   *  See ENDF102, section 23.3 for more information.
    */
   template<>
-  class Type< 3 > : protected Base {
+  class Type< 23 > : protected Base {
 
     /* fields */
     TabulationRecord table;
@@ -27,39 +27,29 @@ namespace section{
   public:
 
     /* constructor */
-    #include "ENDFtk/section/3/src/ctor.hpp"
+    #include "ENDFtk/section/23/src/ctor.hpp"
 
     /* methods */
 
     /**
-     *  @brief Return the mass difference Q value
+     *  @brief Return the subshell binding energy
      */
-    double QM() const { return this->table.C1(); }
+    double EPE() const { return this->table.C1(); }
 
     /**
-     *  @brief Return the mass difference Q value
+     *  @brief Return the subshell binding energy
      */
-    double massDifferenceQValue() const { return this->QM(); }
+    double subshellBindingEnergy() const { return this->EPE(); }
 
     /**
-     *  @brief Return the reaction Q value
+     *  @brief Return the fluorescence yield (eV/photoionisation)
      */
-    double QI() const { return this->table.C2(); }
+    double EFL() const { return this->table.C2(); }
 
     /**
-     *  @brief Return the reaction Q value
+     *  @brief Return the fluorescence yield (eV/photoionisation)
      */
-    double reactionQValue() const { return this->QI(); }
-
-    /**
-     *  @brief Return the complex break up flag
-     */
-    int LR() const { return this->table.L2(); }
-
-    /**
-     *  @brief Return the complex break up flag
-     */
-    int complexBreakUp() const { return this->LR(); }
+    double fluorescenceYield() const { return this->EFL(); }
 
     /**
      *  @brief Return the number of interpolation ranges
@@ -92,7 +82,7 @@ namespace section{
     auto crossSections() const { return this->table.y(); }
 
     /**
-     *  @brief Return the number of lines in this MF3 section
+     *  @brief Return the number of lines in this MF23 section
      */
     long NC() const { return this->table.NC() + 1; }
 
@@ -114,7 +104,7 @@ namespace section{
      */
     auto regions() const { return this->table.regions(); }
 
-    #include "ENDFtk/section/3/src/print.hpp"
+    #include "ENDFtk/section/3/src/print.hpp"  // taken from MF3
 
     using Base::MT;
     using Base::sectionNumber;

@@ -152,6 +152,7 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
         case 13 : return self.parse< 13 >();
         case 14 : return self.parse< 14 >();
         case 15 : return self.parse< 15 >();
+        case 23 : return self.parse< 23 >();
       }
       throw std::runtime_error( "File cannot be parsed yet" );
     },

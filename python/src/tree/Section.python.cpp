@@ -150,6 +150,7 @@ void wrapTreeSection( python::module& module, python::module& ) {
         case 13 : return self.parse< 13 >();
         case 14 : return self.parse< 14 >();
         case 15 : return self.parse< 15 >();
+        case 23 : return self.parse< 23 >();
         default: throw std::runtime_error(
                        "Section from file " +  std::to_string( mf ) +
                        " cannot be parsed yet" );
