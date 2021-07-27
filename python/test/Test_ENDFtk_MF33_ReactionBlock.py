@@ -4,12 +4,12 @@ import unittest
 # third party imports
 
 # local imports
-from ENDFtk.MF33 import Subsection
+from ENDFtk.MF33 import ReactionBlock
 from ENDFtk.MF33 import DerivedRedundant
 from ENDFtk.MF33 import DerivedRatioToStandard
 
-class Test_ENDFtk_MF33_Subsection( unittest.TestCase ) :
-    """Unit test for the Subsection class."""
+class Test_ENDFtk_MF33_ReactionBlock( unittest.TestCase ) :
+    """Unit test for the ReactionBlock class."""
 
     chunk = (
         " 0.000000+0 0.000000+0          0          2          2          0943733  2     \n"
@@ -36,13 +36,13 @@ class Test_ENDFtk_MF33_Subsection( unittest.TestCase ) :
             self.assertEqual( 2, chunk.MT1 )
             self.assertEqual( 2, chunk.second_section_number )
             self.assertEqual( 2, chunk.NK )
-            self.assertEqual( 2, chunk.number_nc_type )
+            self.assertEqual( 2, chunk.number_derived )
             self.assertEqual( 0, chunk.NI )
-            self.assertEqual( 0, chunk.number_ni_type )
-            self.assertEqual( 2, len(chunk.components_nc) )
-            self.assertEqual( 0, len(chunk.components_ni) )
+            self.assertEqual( 0, chunk.number_explicit )
+            self.assertEqual( 2, len(chunk.derived_covariances) )
+            self.assertEqual( 0, len(chunk.explicit_covariances) )
 
-            chunky = chunk.components_nc[0]
+            chunky = chunk.derived_covariances[0]
 
             # metadata
             self.assertEqual( 0, chunky.LTY )
@@ -75,7 +75,7 @@ class Test_ENDFtk_MF33_Subsection( unittest.TestCase ) :
             self.assertEqual( 9, chunk.NC )
 
         # the data is given explicitly
-        chunk = Subsection(0., 0., 0, 2, [
+        chunk = ReactionBlock(xmf1=0, xlfs1=0, mat1=0, mt1=2, nc=[
             DerivedRedundant(
                 2.5e3, 2.0e7,
                 [1, -1, -1, -1, -1, -1, -1],
@@ -90,12 +90,12 @@ class Test_ENDFtk_MF33_Subsection( unittest.TestCase ) :
         verify_chunk( self, chunk )
 
         # the data is read from a string
-        chunk = Subsection.from_string( self.chunk, 9437, 33, 2 )
+        chunk = ReactionBlock.from_string( self.chunk, 9437, 33, 2 )
 
         verify_chunk( self, chunk )
 
         # the data is copied
-        copy = Subsection( chunk )
+        copy = ReactionBlock( chunk )
 
         verify_chunk( self, copy )
 

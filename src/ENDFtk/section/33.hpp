@@ -5,7 +5,6 @@
 #include <variant>
 
 // other includes
-#include "boost/hana.hpp"
 #include "range/v3/range/conversion.hpp"
 #include "range/v3/view/all.hpp"
 #include "range/v3/view/concat.hpp"
@@ -21,8 +20,6 @@ namespace njoy {
 namespace ENDFtk {
 namespace section{
 
-namespace hana = boost::hana;
-
   /**
    *  @class
    *  @brief 33 - covariances of neutron cross sections
@@ -37,27 +34,27 @@ namespace hana = boost::hana;
     // include classes for subsubsections
     #include "ENDFtk/section/33/DerivedRedundant.hpp"
     #include "ENDFtk/section/33/DerivedRatioToStandard.hpp"
-    using NCType = std::variant<
+    using DerivedCovariance = std::variant<
       DerivedRedundant,
       DerivedRatioToStandard >;
 
     #include "ENDFtk/section/33/CovariancePairs.hpp"
     #include "ENDFtk/section/33/SquareMatrix.hpp"
     #include "ENDFtk/section/33/RectangularMatrix.hpp"
-    using NIType = std::variant<
+    using ExplicitCovariance = std::variant<
       CovariancePairs,
       SquareMatrix,
       RectangularMatrix >;
 
     // include classes for subsections
-    #include "ENDFtk/section/33/Subsection.hpp"
+    #include "ENDFtk/section/33/ReactionBlock.hpp"
 
 
   private:
 
     /* fields */
     int mtl_;
-    std::vector< Subsection > subsections_;
+    std::vector< ReactionBlock > reactions_;
 
     /* auxiliary functions */
 
@@ -81,19 +78,19 @@ namespace hana = boost::hana;
     /**
      *  @brief Return the number of subsections
      */
-    int NL() const { return this->subsections_.size(); }
+    int NL() const { return this->reactions_.size(); }
 
     /**
-     *  @brief Return the number of subsections
+     *  @brief Return the number of subsections, representing reactions
      */
-    int numberSubsections() const { return this->NL(); }
+    int numberReactions() const { return this->NL(); }
 
     /**
      *  @brief Return the subsections defined in this section
      */
-    auto subsections() const {
+    auto reactions() const {
 
-      return ranges::cpp20::views::all( this->subsections_ );
+      return ranges::cpp20::views::all( this->reactions_ );
     }
 
     #include "ENDFtk/section/33/src/NC.hpp"

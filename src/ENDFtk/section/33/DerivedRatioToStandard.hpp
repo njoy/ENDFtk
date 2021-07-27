@@ -84,22 +84,22 @@ class DerivedRatioToStandard {
   /**
    *  @brief Return the standard's MF number
    */
-  double XMFS() const { return this->list_.list()[0]; }
+  int XMFS() const { return this->list_.list()[0]; }
 
   /**
    *  @brief Return the standard's MF number
    */
-  double standardFileNumber() const { return this->XMFS(); }
+  int standardFileNumber() const { return this->XMFS(); }
 
   /**
    *  @brief Return the standard's final excited state
    */
-  double XLFSS() const { return this->list_.list()[1]; }
+  int XLFSS() const { return this->list_.list()[1]; }
 
   /**
    *  @brief Return the standard's final excited state
    */
-  double standardFinalExcitedState() const { return this->XLFSS(); }
+  int standardFinalExcitedState() const { return this->XLFSS(); }
 
   /**
    *  @brief Return the energies

@@ -4,6 +4,6 @@
 long NC() const {
 
   long NC = 1;
-  for ( const auto& entry : this->subsections_ ) { NC += entry.NC(); }
+  for ( const auto& entry : this->reactions_ ) { NC += entry.NC(); }
   return NC;
 };

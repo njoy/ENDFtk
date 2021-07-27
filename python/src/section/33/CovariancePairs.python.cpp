@@ -42,6 +42,22 @@ void wrapCovariancePairs( python::module& module, python::module& ) {
     "    energies       energies\n"
     "    fvalues        F-values\n"
   )
+  .def(
+
+    python::init< int,
+                  std::vector< double >&&, std::vector< double >&&,
+                  std::vector< double >&&, std::vector< double >&& >(),
+    python::arg( "lb" ),
+    python::arg( "ek" ), python::arg( "fk" ),
+    python::arg( "el" ), python::arg( "fl" ),
+    "Initialise the component\n\n"
+    "Arguments:\n"
+    "    lb             covariance procedure\n"
+    "    ek             first array energies\n"
+    "    fk             first array F-values\n"
+    "    el             second array energies\n"
+    "    fl             second array F-values\n"
+  )
   .def_property_readonly(
 
     "LT",
@@ -92,9 +108,9 @@ void wrapCovariancePairs( python::module& module, python::module& ) {
   )
   .def_property_readonly(
 
-    "Ek",
+    "EK",
     [] ( const Component& self ) -> DoubleRange
-       { return self.Ek(); },
+       { return self.EK(); },
     "the energy values from the first array"
   )
   .def_property_readonly(
@@ -106,9 +122,9 @@ void wrapCovariancePairs( python::module& module, python::module& ) {
   )
   .def_property_readonly(
 
-    "Fk",
+    "FK",
     [] ( const Component& self ) -> DoubleRange
-       { return self.Fk(); },
+       { return self.FK(); },
     "the F values from the first array"
   )
   .def_property_readonly(
@@ -120,9 +136,9 @@ void wrapCovariancePairs( python::module& module, python::module& ) {
   )
   .def_property_readonly(
 
-    "El",
+    "EL",
     [] ( const Component& self ) -> DoubleRange
-       { return self.El(); },
+       { return self.EL(); },
     "the energy values from the second array"
   )
   .def_property_readonly(
@@ -134,9 +150,9 @@ void wrapCovariancePairs( python::module& module, python::module& ) {
   )
   .def_property_readonly(
 
-    "Fl",
+    "FL",
     [] ( const Component& self ) -> DoubleRange
-       { return self.Fl(); },
+       { return self.FL(); },
     "the F values from the second array"
   )
   .def_property_readonly(

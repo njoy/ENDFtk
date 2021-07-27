@@ -60,7 +60,7 @@ public:
   /**
    *  @brief Return the energy values from the first array
    */
-  auto Ek() const {
+  auto EK() const {
     return ranges::views::take_exactly( ListRecord::list(),
                                        2 * ( this->NP() - this->LT() ) )
             | ranges::views::stride( 2 );
@@ -69,12 +69,12 @@ public:
   /**
    *  @brief Return the energy values from the first array
    */
-  auto firstArrayEnergies() const { return this->Ek(); }
+  auto firstArrayEnergies() const { return this->EK(); }
 
   /**
    *  @brief Return the F values from the first array
    */
-  auto Fk() const {
+  auto FK() const {
     return ranges::views::take_exactly( ListRecord::list(),
                                        2 * ( this->NP() - this->LT() ) )
             | ranges::views::drop_exactly( 1 )
@@ -84,12 +84,12 @@ public:
   /**
    *  @brief Return the F values from the first array
    */
-  auto firstArrayFValues() const { return this->Fk(); }
+  auto firstArrayFValues() const { return this->FK(); }
 
   /**
    *  @brief Return the energy values from the second array
    */
-  auto El() const {
+  auto EL() const {
     return ranges::views::drop_exactly( ListRecord::list(),
                                        2 * ( this->NP() - this->LT() ) )
             | ranges::views::stride( 2 );
@@ -98,12 +98,12 @@ public:
   /**
    *  @brief Return the energy values from the second array
    */
-  auto secondArrayEnergies() const { return this->El(); }
+  auto secondArrayEnergies() const { return this->EL(); }
 
   /**
    *  @brief Return the F values from the second array
    */
-  auto Fl() const {
+  auto FL() const {
     return ranges::views::drop_exactly( ListRecord::list(),
                                        2 * ( this->NP() - this->LT() ) + 1 )
             | ranges::views::stride( 2 );
@@ -112,7 +112,7 @@ public:
   /**
    *  @brief Return the F values from the second array
    */
-  auto secondArrayFValues() const { return this->Fl(); }
+  auto secondArrayFValues() const { return this->FL(); }
 
   using ListRecord::NC;
   using ListRecord::print;

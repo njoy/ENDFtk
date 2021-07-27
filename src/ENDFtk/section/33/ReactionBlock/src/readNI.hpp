@@ -1,12 +1,12 @@
 template< typename Iterator >
-static std::vector< NIType >
+static std::vector< ExplicitCovariance >
 readNI( Iterator& begin,
                   const Iterator& end,
                   long& lineNumber,
                   int MAT, int MF, int MT,
                   int numberNI ) {
 
-  std::vector< NIType > result;
+  std::vector< ExplicitCovariance > result;
 
   for (int i=0; i<numberNI; ++i) {
 
@@ -39,9 +39,8 @@ readNI( Iterator& begin,
       default:
         Log::error( "Encountered illegal LB value" );
         Log::info( "LB can only be 0,1,2,3,4,5,6,8,9" );
-        Log::info( "MT value: {}", MT );
-        Log::info( "Line number: {}", lineNumber - 1 );
         Log::info( "LB value: {}", list.L2() );
+        Log::info( "Line number: {}", lineNumber - 1 );
         throw std::exception();
 
     }

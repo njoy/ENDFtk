@@ -44,12 +44,18 @@ class Test_ENDFtk_MF33_RectangularMatrix( unittest.TestCase ) :
             self.assertAlmostEqual( 5.0, chunk.values[4] )
             self.assertAlmostEqual( 6.0, chunk.values[5] )
 
+            self.assertEqual( 4, chunk.NC )
+
+            # verify string
+            self.assertEqual( self.chunk,
+                              chunk.to_string( 9228, 33, 5 ) )
+
 
         # the data is given explicitly
         chunk = RectangularMatrix(
-            [1.1, 1.2, 1.3],
-            [2.1, 2.2, 2.3, 2.4],
-            [1, 2, 3, 4, 5, 6]
+            row_energies=[1.1, 1.2, 1.3],
+            column_energies=[2.1, 2.2, 2.3, 2.4],
+            values=[1, 2, 3, 4, 5, 6]
             )
 
         verify_chunk( self, chunk )

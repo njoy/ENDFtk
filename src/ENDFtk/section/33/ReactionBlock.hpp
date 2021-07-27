@@ -1,73 +1,73 @@
 /**
  *  @class
- *  @brief A Subsection (subsection) given in an MF33 covariance section
+ *  @brief A Reaction block (subsection) given in an MF33 covariance section
  *
- *  The Subsection class is used to represent a subsection in
+ *  The ReactionBlock class is used to represent a subsection in
  *  an ENDF MF33 section, which represents a covariance of the reaction
  * cross section (MT) relative to another reaction (MF1/MT1).
  *
  *  See ENDF102, section 33.2 for more information.
  */
-class Subsection {
+class ReactionBlock {
 
   /* fields */
   double xmf1_;
   double xlfs1_;
   int mat1_;
   int mt1_;
-  std::vector< NCType > nc_;
-  std::vector< NIType > ni_;
+  std::vector< DerivedCovariance > nc_;
+  std::vector< ExplicitCovariance > ni_;
 
   /* auxiliary functions */
-  #include "ENDFtk/section/33/Subsection/src/readNC.hpp"
-  #include "ENDFtk/section/33/Subsection/src/readNI.hpp"
+  #include "ENDFtk/section/33/ReactionBlock/src/readNC.hpp"
+  #include "ENDFtk/section/33/ReactionBlock/src/readNI.hpp"
 
 public:
 
   /* constructor */
-  #include "ENDFtk/section/33/Subsection/src/ctor.hpp"
+  #include "ENDFtk/section/33/ReactionBlock/src/ctor.hpp"
 
   /* methods */
 
   /**
    *  @brief Return the file number for the second cross section
    */
-  double XMF1() const { return this->xmf1_; }
+  int XMF1() const { return this->xmf1_; }
 
   /**
    *  @brief Return the file number for the second cross section
    */
-  double secondFileNumber() const { return this->XMF1(); }
+  int secondFileNumber() const { return this->XMF1(); }
 
   /**
    *  @brief Return the final excited state for the second cross section
    */
-  double XLFS1() const { return this->xlfs1_; }
+  int XLFS1() const { return this->xlfs1_; }
 
   /**
    *  @brief Return the final excited state for the second cross section
    */
-  double secondFinalExcitedState() const { return this->XLFS1(); }
+  int secondFinalExcitedState() const { return this->XLFS1(); }
 
   /**
    *  @brief Return the material number for the second cross section
    */
-  double MAT1() const { return this->mat1_; }
+  int MAT1() const { return this->mat1_; }
 
   /**
    *  @brief Return the material number for the second cross section
    */
-  double secondMaterialNumber() const { return this->MAT1(); }
+  int secondMaterialNumber() const { return this->MAT1(); }
 
   /**
    *  @brief Return the section number for the second cross section
    */
-  double MT1() const { return this->mt1_; }
+  int MT1() const { return this->mt1_; }
 
   /**
    *  @brief Return the section number for the second cross section
    */
-  double secondSectionNumber() const { return this->MT1(); }
+  int secondSectionNumber() const { return this->MT1(); }
 
   /**
    *  @brief Return the number of NC-type subsubsections
@@ -77,34 +77,34 @@ public:
   /**
    *  @brief Return the number of NC-type subsubsections
    */
-  int numberNCType() const { return this->NK(); }
+  int numberDerived() const { return this->NK(); }
 
   /**
-   *  @brief Return the number of NC-type subsubsections
+   *  @brief Return the number of NI-type subsubsections
    */
   int NI() const { return this->ni_.size(); }
 
   /**
    *  @brief Return the number of NI-type subsubsections
    */
-  int numberNIType() const { return this->NI(); }
+  int numberExplicit() const { return this->NI(); }
 
   /**
    *  @brief Return the NC-type subsubsections
    */
-  auto componentsNC() const {
+  auto derivedCovariances() const {
 
     return ranges::cpp20::views::all( this->nc_ );
   }
 
   /**
-   *  @brief Return the NC-type subsubsections
+   *  @brief Return the NI-type subsubsections
    */
-  auto componentsNI() const {
+  auto explicitCovariances() const {
 
     return ranges::cpp20::views::all( this->ni_ );
   }
 
-  #include "ENDFtk/section/33/Subsection/src/NC.hpp"
-  #include "ENDFtk/section/33/Subsection/src/print.hpp"
+  #include "ENDFtk/section/33/ReactionBlock/src/NC.hpp"
+  #include "ENDFtk/section/33/ReactionBlock/src/print.hpp"
 };

@@ -44,10 +44,13 @@ class Test_ENDFtk_MF33_DerivedRatioToStandard( unittest.TestCase ) :
 
             self.assertEqual( 3, chunk.NC )
 
+            self.assertEqual( self.chunk,
+                              chunk.to_string( 9437, 33, 2 ) )
+
         # the data is given explicitly
         chunk = DerivedRatioToStandard(
-                1, 2.5e+3, 2.0e+7, 325, 102, 3, 0,
-                [1, 2], [3, 4]
+                lty=1, e1=2.5e+3, e2=2.0e+7, mats=325, mts=102, xmfs=3, xlfss=0,
+                energies=[1, 2], weights=[3, 4]
                 )
 
         verify_chunk( self, chunk )

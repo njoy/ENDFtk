@@ -12,24 +12,24 @@ namespace python = pybind11;
 
 namespace mf33 {
 
-void wrapSubsection( python::module& module, python::module& viewmodule ) {
+void wrapReactionBlock( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 33 >;
-  using Component = Section::Subsection;
-  using NCType = Section::NCType;
-  using NCTypeRange = RandomAccessAnyView< NCType >;
-  using NIType = Section::NIType;
-  using NITypeRange = RandomAccessAnyView< NIType >;
+  using Component = Section::ReactionBlock;
+  using DerivedCovariance = Section::DerivedCovariance;
+  using DerivedCovarianceRange = RandomAccessAnyView< DerivedCovariance >;
+  using ExplicitCovariance = Section::ExplicitCovariance;
+  using ExplicitCovarianceRange = RandomAccessAnyView< ExplicitCovariance >;
 
 
   // wrap views created by this section
   // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< NCType >(
+  wrapRandomAccessAnyViewOf< DerivedCovariance >(
       viewmodule,
       "any_view< variant< DerivedRedundant, DerivedRatioToStandard >, "
                 "random_access >" );
-  wrapRandomAccessAnyViewOf< NIType >(
+  wrapRandomAccessAnyViewOf< ExplicitCovariance >(
       viewmodule,
       "any_view< variant< CovariancePairs, SquareMatrix,"
                          "RectangularMatrix >, random_access >" );
@@ -38,7 +38,7 @@ void wrapSubsection( python::module& module, python::module& viewmodule ) {
   python::class_< Component > component(
 
     module,
-    "Subsection",
+    "ReactionBlock",
     "MF33 section - a subsection of an MF33 section"
   );
 
@@ -46,8 +46,9 @@ void wrapSubsection( python::module& module, python::module& viewmodule ) {
   component
   .def(
 
-    python::init< double, double, int, int,
-                  std::vector< NCType >&&, std::vector< NIType >&& >(),
+    python::init< int, int, int, int,
+                  std::vector< DerivedCovariance >&&,
+                  std::vector< ExplicitCovariance >&& >(),
     python::arg( "xmf1" ), python::arg( "xlfs1" ),
     python::arg( "mat1" ), python::arg( "mt1" ),
     python::arg( "nc" ), python::arg( "ni" ),
@@ -58,13 +59,13 @@ void wrapSubsection( python::module& module, python::module& viewmodule ) {
     "    xlfs1          the final excited state of the second cross section\n"
     "    mat1           the material number of the second cross section\n"
     "    mt1            the section number of the second cross section\n"
-    "    nc             the NC-type subsubsections\n"
-    "    ni             the NI-type subsubsections\n"
+    "    nc             the NC-type (derived) subsubsections\n"
+    "    ni             the NI-type (explicit) subsubsections\n"
   )
   .def(
 
-    python::init< double, double, int, int,
-                  std::vector< NCType >&& >(),
+    python::init< int, int, int, int,
+                  std::vector< DerivedCovariance >&& >(),
     python::arg( "xmf1" ), python::arg( "xlfs1" ),
     python::arg( "mat1" ), python::arg( "mt1" ),
     python::arg( "nc" ),
@@ -75,12 +76,12 @@ void wrapSubsection( python::module& module, python::module& viewmodule ) {
     "    xlfs1          the final excited state of the second cross section\n"
     "    mat1           the material number of the second cross section\n"
     "    mt1            the section number of the second cross section\n"
-    "    nc             the NC-type subsubsections\n"
+    "    nc             the NC-type (derived) subsubsections\n"
   )
   .def(
 
-    python::init< double, double, int, int,
-                  std::vector< NIType >&& >(),
+    python::init< int, int, int, int,
+                  std::vector< ExplicitCovariance >&& >(),
     python::arg( "xmf1" ), python::arg( "xlfs1" ),
     python::arg( "mat1" ), python::arg( "mt1" ),
     python::arg( "ni" ),
@@ -91,7 +92,7 @@ void wrapSubsection( python::module& module, python::module& viewmodule ) {
     "    xlfs1          the final excited state of the second cross section\n"
     "    mat1           the material number of the second cross section\n"
     "    mt1            the section number of the second cross section\n"
-    "    ni             the NI-type subsubsections\n"
+    "    ni             the NI-type (explicit) subsubsections\n"
   )
   .def_property_readonly(
 
@@ -145,39 +146,39 @@ void wrapSubsection( python::module& module, python::module& viewmodule ) {
 
     "NK",
     &Component::NK,
-    "the number of NC-type subsubsections"
+    "the number of NC-type (derived) subsubsections"
   )
   .def_property_readonly(
 
-    "number_nc_type",
-    &Component::numberNCType,
-    "the number of NC-type subsubsections"
+    "number_derived",
+    &Component::numberDerived,
+    "the number of NC-type (derived) subsubsections"
   )
   .def_property_readonly(
 
     "NI",
     &Component::NI,
-    "the number of NI-type subsubsections"
+    "the number of NI-type (explicit) subsubsections"
   )
   .def_property_readonly(
 
-    "number_ni_type",
-    &Component::numberNIType,
-    "the number of NI-type subsubsections"
+    "number_explicit",
+    &Component::numberExplicit,
+    "the number of NI-type (explicit) subsubsections"
   )
   .def_property_readonly(
 
-    "components_nc",
-    [] ( const Component& self ) -> NCTypeRange
-       { return self.componentsNC(); },
-    "the NC-type subsubsections"
+    "derived_covariances",
+    [] ( const Component& self ) -> DerivedCovarianceRange
+       { return self.derivedCovariances(); },
+    "the NC-type (derived) subsubsections"
   )
   .def_property_readonly(
 
-    "components_ni",
-    [] ( const Component& self ) -> NITypeRange
-       { return self.componentsNI(); },
-    "the NI-type subsubsections"
+    "explicit_covariances",
+    [] ( const Component& self ) -> ExplicitCovarianceRange
+       { return self.explicitCovariances(); },
+    "the NI-type (explicit) subsubsections"
   );
 
   // add standard component definitions

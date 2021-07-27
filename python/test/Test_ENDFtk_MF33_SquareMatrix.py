@@ -40,8 +40,12 @@ class Test_ENDFtk_MF33_SquareMatrix( unittest.TestCase ) :
 
             self.assertEqual( 3, chunk.NC )
 
+            # verify string
+            self.assertEqual( self.chunk,
+                              chunk.to_string( 9228, 33, 5 ) )
+
         # the data is given explicitly
-        chunk = SquareMatrix(0, [0, 100, 200], [1, 2, 3, 4])
+        chunk = SquareMatrix(ls=0, energies=[0, 100, 200], values=[1, 2, 3, 4])
 
         verify_chunk( self, chunk )
 

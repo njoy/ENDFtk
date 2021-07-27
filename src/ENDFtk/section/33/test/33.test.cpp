@@ -8,9 +8,9 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using Subsection = section::Type< 33 >::Subsection;
-using NCType = section::Type< 33 >::NCType;
-using NIType = section::Type< 33 >::NIType;
+using ReactionBlock = section::Type< 33 >::ReactionBlock;
+using DerivedCovariance = section::Type< 33 >::DerivedCovariance;
+using ExplicitCovariance = section::Type< 33 >::ExplicitCovariance;
 using DerivedRedundant = section::Type< 33 >::DerivedRedundant;
 using DerivedRatioToStandard = section::Type< 33 >::DerivedRatioToStandard;
 using SquareMatrix = section::Type< 33 >::SquareMatrix;
@@ -37,7 +37,7 @@ SCENARIO( "section::Type< 33 >" ) {
       double upper = 2.000000e+7;
       std::vector< double > coefficients = {1, -1, -1, -1, -1, -1, -1};
       std::vector< double > reactions = {1, 4, 16, 17, 18, 37, 102};
-      std::vector< NCType > nc = {
+      std::vector< DerivedCovariance > nc = {
         DerivedRedundant( lower, upper,
                           std::move(coefficients),
                           std::move(reactions) ) };
@@ -45,16 +45,16 @@ SCENARIO( "section::Type< 33 >" ) {
       // NI Type
       std::vector< double > energies = { 0, 100, 200 };
       std::vector< double > svalues = { 1, 2, 3, 4 };
-      std::vector< NIType > ni = {
+      std::vector< ExplicitCovariance > ni = {
         SquareMatrix( 0, std::move(energies), std::move(svalues) ) };
 
-      // Subsection
-      auto sub = Subsection( 1., 2., 3, 4, std::move( nc ), std::move( ni ) );
+      // ReactionBlock
+      auto sub = ReactionBlock( 1., 2., 3, 4, std::move( nc ), std::move( ni ) );
 
       // Section
       auto chunk = section::Type< 33 >( 2, 94239., 2.369986e+2, {sub} );
 
-      THEN( "a Subsection can be constructed "
+      THEN( "a ReactionBlock can be constructed "
             "and members can be tested" ) {
 
         verifyChunk( chunk );
@@ -79,7 +79,7 @@ SCENARIO( "section::Type< 33 >" ) {
 
       section::Type< 33 > chunk( head, begin, end, lineNumber, 9437 );
 
-      THEN( "a Subsection object can be constructed "
+      THEN( "a ReactionBlock object can be constructed "
             "and members can be tested" ) {
 
         verifyChunk( chunk );
@@ -132,7 +132,7 @@ SCENARIO( "section::Type< 33 >" ) {
       // Section
       auto lump = section::Type< 33 >( 51, 94239., 2.369986e+2, 850 );
 
-      THEN( "a Subsection can be constructed "
+      THEN( "a ReactionBlock can be constructed "
             "and members can be tested" ) {
 
         verifyLump( lump );
@@ -157,7 +157,7 @@ SCENARIO( "section::Type< 33 >" ) {
 
       section::Type< 33 > lump( head, begin, end, lineNumber, 9437 );
 
-      THEN( "a Subsection object can be constructed "
+      THEN( "a ReactionBlock object can be constructed "
             "and members can be tested" ) {
 
         verifyLump( lump );
@@ -229,12 +229,12 @@ void verifyChunk( const section::Type< 33 >& chunk ) {
   CHECK( 0 == chunk.MTL() );
   CHECK( 0 == chunk.lumpedCovarianceIndex() );
   CHECK( 1 == chunk.NL() );
-  CHECK( 1 == chunk.numberSubsections() );
-  CHECK( 1 == chunk.subsections().size() );
+  CHECK( 1 == chunk.numberReactions() );
+  CHECK( 1 == chunk.reactions().size() );
   CHECK( 2 == chunk.MT() );
   CHECK( 2 == chunk.sectionNumber() );
 
-  auto sub = chunk.subsections()[0];
+  auto sub = chunk.reactions()[0];
 
   // subsection CONT record
   CHECK( 1. == Approx( sub.XMF1() ) );
@@ -246,11 +246,11 @@ void verifyChunk( const section::Type< 33 >& chunk ) {
   CHECK( 4 == sub.MT1() );
   CHECK( 4 == sub.secondSectionNumber() );
   CHECK( 1 == sub.NK() );
-  CHECK( 1 == sub.numberNCType() );
+  CHECK( 1 == sub.numberDerived() );
   CHECK( 1 == sub.NI() );
-  CHECK( 1 == sub.numberNIType() );
-  CHECK( 1 == sub.componentsNC().size() );
-  CHECK( 1 == sub.componentsNI().size() );
+  CHECK( 1 == sub.numberExplicit() );
+  CHECK( 1 == sub.derivedCovariances().size() );
+  CHECK( 1 == sub.explicitCovariances().size() );
 
   CHECK( 10 == chunk.NC() );
 
@@ -265,8 +265,8 @@ void verifyLump( const section::Type< 33 >& lump ) {
   CHECK( 850 == lump.MTL() );
   CHECK( 850 == lump.lumpedCovarianceIndex() );
   CHECK( 0 == lump.NL() );
-  CHECK( 0 == lump.numberSubsections() );
-  CHECK( 0 == lump.subsections().size() );
+  CHECK( 0 == lump.numberReactions() );
+  CHECK( 0 == lump.reactions().size() );
   CHECK( 51 == lump.MT() );
   CHECK( 51 == lump.sectionNumber() );
 

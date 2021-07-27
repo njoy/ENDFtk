@@ -1,6 +1,6 @@
 static std::vector< double >
 generateList( std::vector< double >&& coefficients,
-              std::vector< double >&& reactions ) {
+              std::vector< int >&& reactions ) {
 
   if ( coefficients.size() != reactions.size() ) {
 

@@ -5,7 +5,7 @@ import unittest
 
 # local imports
 from ENDFtk.MF33 import Section
-from ENDFtk.MF33 import Subsection
+from ENDFtk.MF33 import ReactionBlock
 from ENDFtk.MF33 import DerivedRedundant
 from ENDFtk.MF33 import SquareMatrix
 from ENDFtk.tree import Tape
@@ -44,12 +44,12 @@ class Test_ENDFtk_MF33_Section( unittest.TestCase ) :
             self.assertEqual( 0, chunk.MTL)
             self.assertEqual( 0, chunk.lumped_covariance_index )
             self.assertEqual( 1, chunk.NL )
-            self.assertEqual( 1, chunk.number_subsections )
-            self.assertEqual( 1, len(chunk.subsections) )
+            self.assertEqual( 1, chunk.number_reactions )
+            self.assertEqual( 1, len(chunk.reactions) )
             self.assertEqual( 2, chunk.MT )
             self.assertEqual( 2, chunk.section_number )
 
-            sub = chunk.subsections[0]
+            sub = chunk.reactions[0]
 
             # subsection CONT record
             self.assertAlmostEqual( 1., sub.XMF1 )
@@ -61,13 +61,17 @@ class Test_ENDFtk_MF33_Section( unittest.TestCase ) :
             self.assertEqual( 4, sub.MT1 )
             self.assertEqual( 4, sub.second_section_number )
             self.assertEqual( 1, sub.NK )
-            self.assertEqual( 1, sub.number_nc_type )
+            self.assertEqual( 1, sub.number_derived )
             self.assertEqual( 1, sub.NI )
-            self.assertEqual( 1, sub.number_ni_type )
-            self.assertEqual( 1, len(sub.components_ni) )
-            self.assertEqual( 1, len(sub.components_ni) )
+            self.assertEqual( 1, sub.number_explicit )
+            self.assertEqual( 1, len(sub.derived_covariances) )
+            self.assertEqual( 1, len(sub.explicit_covariances) )
 
             self.assertEqual( 10, chunk.NC )
+
+            # verify string
+            self.assertEqual( self.chunk + self.valid_SEND,
+                              chunk.to_string( 9437, 33 ) )
 
         def verify_lump(self, lump):
 
@@ -78,8 +82,8 @@ class Test_ENDFtk_MF33_Section( unittest.TestCase ) :
             self.assertEqual( 850, lump.MTL );
             self.assertEqual( 850, lump.lumped_covariance_index );
             self.assertEqual( 0, lump.NL );
-            self.assertEqual( 0, lump.number_subsections );
-            self.assertEqual( 0, len(lump.subsections) );
+            self.assertEqual( 0, lump.number_reactions );
+            self.assertEqual( 0, len(lump.reactions) );
             self.assertEqual( 51, lump.MT );
             self.assertEqual( 51, lump.section_number );
 
@@ -88,8 +92,8 @@ class Test_ENDFtk_MF33_Section( unittest.TestCase ) :
         # the data is given explicitly
         chunk = Section(
             mt=2, zaid=94239, awr=2.369986e+2,
-            subsections=[Subsection(
-                1., 2., 3, 4,
+            reactions=[ReactionBlock(
+                1, 2, 3, 4,
                 [DerivedRedundant(
                     2.5e3, 2.0e7,
                     [1, -1, -1, -1, -1, -1, -1],

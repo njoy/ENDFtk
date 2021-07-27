@@ -50,11 +50,14 @@ class Test_ENDFtk_MF33_DerivedRedundant( unittest.TestCase ) :
 
             self.assertEqual( 5, chunk.NC )
 
+            self.assertEqual( self.chunk,
+                              chunk.to_string( 9437, 33, 2 ) )
+
         # the data is given explicitly
         chunk = DerivedRedundant(
-                2.5e3, 2.0e7,
-                [1, -1, -1, -1, -1, -1, -1],
-                [1, 4, 16, 17, 18, 37, 102]
+                e1=2.5e3, e2=2.0e7,
+                coefficients=[1, -1, -1, -1, -1, -1, -1],
+                reactions=[1, 4, 16, 17, 18, 37, 102]
                 )
 
         verify_chunk( self, chunk )

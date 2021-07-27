@@ -13,10 +13,10 @@ DerivedRatioToStandard() = default;
  *
  */
 template< typename Iterator >
-DerivedRatioToStandard( ControlRecord&& cont,
+DerivedRatioToStandard( int LTY,
                   Iterator& it, const Iterator& end, long& lineNumber,
                   int MAT, int MF, int MT ) :
-  lty_( cont.L2() ),
+  lty_( LTY ),
   list_( ListRecord( it, end, lineNumber, MAT, MF, MT ) ) {
 
     verifyLTY( this->LTY() );
@@ -36,7 +36,7 @@ DerivedRatioToStandard( ControlRecord&& cont,
  *  @param[in] weights        weights of energies
  */
 DerivedRatioToStandard( int lty, double e1, double e2,
-                  int mats, int mts, double xmfs, double xlfss,
+                  int mats, int mts, int xmfs, int xlfss,
                   std::vector< double >&& energies,
                   std::vector< double >&& weights )
 try :
@@ -70,7 +70,7 @@ DerivedRatioToStandard( Iterator& it, const Iterator& end, long& lineNumber,
                   int MAT, int MF, int MT )
 try :
   DerivedRatioToStandard(
-    ControlRecord( it, end, lineNumber, MAT, MF, MT ),
+    ControlRecord( it, end, lineNumber, MAT, MF, MT ).L2(),
     it, end, lineNumber, MAT, MF, MT ) {
 
 } catch ( std::exception& e ) {

@@ -33,7 +33,7 @@ void wrapDerivedRedundant( python::module& module, python::module& ) {
   .def(
 
     python::init< double, double,
-                  std::vector< double >&&, std::vector< double >&& >(),
+                  std::vector< double >&&, std::vector< int >&& >(),
     python::arg( "e1" ), python::arg( "e2" ),
     python::arg( "coefficients" ), python::arg( "reactions" ),
     "Initialise the component\n\n"

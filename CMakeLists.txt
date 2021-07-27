@@ -222,11 +222,11 @@ pybind11_add_module( ENDFtk.python
     python/src/section/15/Probability.python.cpp
     python/src/section/15/PartialDistribution.python.cpp
     python/src/section/33.python.cpp
-    python/src/section/33/Subsection.python.cpp
     python/src/section/33/DerivedRedundant.python.cpp
     python/src/section/33/DerivedRatioToStandard.python.cpp
     python/src/section/33/CovariancePairs.python.cpp
     python/src/section/33/SquareMatrix.python.cpp
+    python/src/section/33/ReactionBlock.python.cpp
     python/src/section/33/RectangularMatrix.python.cpp
     python/src/file/1.python.cpp
     python/src/file/2.python.cpp

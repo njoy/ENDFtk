@@ -14,12 +14,12 @@ DerivedRedundant() = default;
  *
  */
 template< typename Iterator >
-DerivedRedundant( ControlRecord&& cont,
+DerivedRedundant( int LTY,
                   Iterator& it, const Iterator& end, long& lineNumber,
                   int MAT, int MF, int MT ) :
   list_( ListRecord( it, end, lineNumber, MAT, MF, MT ) ) {
 
-    verifyLTY( cont.L2() );
+    verifyLTY( LTY );
   }
 
 /**
@@ -32,7 +32,7 @@ DerivedRedundant( ControlRecord&& cont,
  */
 DerivedRedundant( double e1, double e2,
                   std::vector< double >&& coefficients,
-                  std::vector< double >&& reactions )
+                  std::vector< int >&& reactions )
 try :
   list_(
     ListRecord( e1, e2, 0, 0, coefficients.size(),
@@ -62,7 +62,7 @@ DerivedRedundant( Iterator& it, const Iterator& end, long& lineNumber,
                   int MAT, int MF, int MT )
 try :
   DerivedRedundant(
-    ControlRecord( it, end, lineNumber, MAT, MF, MT ),
+    ControlRecord( it, end, lineNumber, MAT, MF, MT ).L2(),
     it, end, lineNumber, MAT, MF, MT ) {
 
 } catch ( std::exception& e ) {

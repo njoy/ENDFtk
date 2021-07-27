@@ -4,12 +4,12 @@
  *  @param[in] mt            the MT number of the section
  *  @param[in] zaid          the material ZAID value
  *  @param[in] awr           the atomic weight ratio
- *  @param[in] subsections   the subsections
+ *  @param[in] reactions     the reaction block subsections
  */
 Type( int MT, double zaid, double awr,
-      std::vector< Subsection >&& subsections ) :
+      std::vector< ReactionBlock >&& reactions ) :
   Base( zaid, awr, MT ), mtl_( 0 ),
-  subsections_( std::move( subsections ) ) {}
+  reactions_( std::move( reactions ) ) {}
 
 /**
  *  @brief Constructor
@@ -41,8 +41,8 @@ Type( HEAD& head,
       int MAT )
   try:
     Base( head, MAT, 33 ), mtl_( head.L2() ),
-    subsections_(
-      readSequence< Subsection >( begin, end, lineNumber,
+    reactions_(
+      readSequence< ReactionBlock >( begin, end, lineNumber,
                                   MAT, 33, head.MT(), head.N2() ) ) {
     readSEND(begin, end, lineNumber, MAT, 33 );
   } catch( std::exception& e ) {

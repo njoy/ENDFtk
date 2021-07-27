@@ -7,9 +7,9 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using Subsection = section::Type< 33 >::Subsection;
-using NCType = section::Type< 33 >::NCType;
-using NIType = section::Type< 33 >::NIType;
+using ReactionBlock = section::Type< 33 >::ReactionBlock;
+using DerivedCovariance = section::Type< 33 >::DerivedCovariance;
+using ExplicitCovariance = section::Type< 33 >::ExplicitCovariance;
 using DerivedRedundant = section::Type< 33 >::DerivedRedundant;
 using DerivedRatioToStandard = section::Type< 33 >::DerivedRatioToStandard;
 using SquareMatrix = section::Type< 33 >::SquareMatrix;
@@ -19,14 +19,14 @@ using CovariancePairs = section::Type< 33 >::CovariancePairs;
 std::string chunkNCOnly();
 std::string chunkNIOnly();
 std::string chunkBoth();
-void verifyChunkNCOnly( const Subsection& );
-void verifyChunkNIOnly( const Subsection& );
-void verifyChunkBoth( const Subsection& );
+void verifyChunkNCOnly( const ReactionBlock& );
+void verifyChunkNIOnly( const ReactionBlock& );
+void verifyChunkBoth( const ReactionBlock& );
 
 
-SCENARIO( "Subsection" ) {
+SCENARIO( "ReactionBlock" ) {
 
-  GIVEN( "valid data for a Subsection with an NC-Type Sub-subsection" ) {
+  GIVEN( "valid data for a ReactionBlock with an NC-Type Sub-ReactionBlock" ) {
 
     std::string string = chunkNCOnly();
 
@@ -39,7 +39,7 @@ SCENARIO( "Subsection" ) {
       std::vector< double > energies = {1, 2};
       std::vector< double > weights = {3, 4};
 
-      std::vector< NCType > nc = {
+      std::vector< DerivedCovariance > nc = {
         DerivedRedundant( lower, upper,
                           std::move(coefficients),
                           std::move(reactions) ),
@@ -47,9 +47,9 @@ SCENARIO( "Subsection" ) {
                                 std::move(energies),
                                 std::move(weights) ) };
 
-      auto chunk = Subsection( 0., 0., 0, 2, std::move( nc ) );
+      auto chunk = ReactionBlock( 0., 0., 0, 2, std::move( nc ) );
 
-      THEN( "a Subsection can be constructed "
+      THEN( "a ReactionBlock can be constructed "
             "and members can be tested" ) {
 
         verifyChunkNCOnly( chunk );
@@ -71,9 +71,9 @@ SCENARIO( "Subsection" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      Subsection chunk( begin, end, lineNumber, 9437, 33, 2 );
+      ReactionBlock chunk( begin, end, lineNumber, 9437, 33, 2 );
 
-      THEN( "a Subsection object can be constructed "
+      THEN( "a ReactionBlock object can be constructed "
             "and members can be tested" ) {
 
         verifyChunkNCOnly( chunk );
@@ -92,7 +92,7 @@ SCENARIO( "Subsection" ) {
   } // GIVEN
 
 
-  GIVEN( "valid data for a Subsection with NI-Type Sub-subsections" ) {
+  GIVEN( "valid data for a ReactionBlock with NI-Type Subsections" ) {
 
     std::string string = chunkNIOnly();
 
@@ -104,16 +104,16 @@ SCENARIO( "Subsection" ) {
       std::vector< double > energies = { 0, 100, 200 };
       std::vector< double > svalues = { 1, 2, 3, 4 };
 
-      std::vector< NIType > ni = {
+      std::vector< ExplicitCovariance > ni = {
         SquareMatrix( 0, std::move(energies), std::move(svalues) ),
         RectangularMatrix( std::move(rowEnergies),
                            std::move(columnEnergies),
                            std::move(values) ),
         CovariancePairs( 1, { 1., 3. }, { 2., 4. } ) };
 
-      auto chunk = Subsection( 1., 2., 3, 4, std::move( ni ) );
+      auto chunk = ReactionBlock( 1., 2., 3, 4, std::move( ni ) );
 
-      THEN( "a Subsection can be constructed "
+      THEN( "a ReactionBlock can be constructed "
             "and members can be tested" ) {
 
         verifyChunkNIOnly( chunk );
@@ -135,9 +135,9 @@ SCENARIO( "Subsection" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      Subsection chunk( begin, end, lineNumber, 9437, 33, 2 );
+      ReactionBlock chunk( begin, end, lineNumber, 9437, 33, 2 );
 
-      THEN( "a Subsection object can be constructed "
+      THEN( "a ReactionBlock object can be constructed "
             "and members can be tested" ) {
 
         verifyChunkNIOnly( chunk );
@@ -155,7 +155,7 @@ SCENARIO( "Subsection" ) {
 
   } // GIVEN
 
-  GIVEN( "valid data for a Subsection with both Sub-subsections" ) {
+  GIVEN( "valid data for a ReactionBlock with both Subsection types" ) {
 
     std::string string = chunkBoth();
 
@@ -166,7 +166,7 @@ SCENARIO( "Subsection" ) {
       double upper = 2.000000e+7;
       std::vector< double > coefficients = {1, -1, -1, -1, -1, -1, -1};
       std::vector< double > reactions = {1, 4, 16, 17, 18, 37, 102};
-      std::vector< NCType > nc = {
+      std::vector< DerivedCovariance > nc = {
         DerivedRedundant( lower, upper,
                           std::move(coefficients),
                           std::move(reactions) ) };
@@ -174,12 +174,12 @@ SCENARIO( "Subsection" ) {
       // NI Type
       std::vector< double > energies = { 0, 100, 200 };
       std::vector< double > svalues = { 1, 2, 3, 4 };
-      std::vector< NIType > ni = {
+      std::vector< ExplicitCovariance > ni = {
         SquareMatrix( 0, std::move(energies), std::move(svalues) ) };
 
-      auto chunk = Subsection( 1., 2., 3, 4, std::move( nc ), std::move( ni ) );
+      auto chunk = ReactionBlock( 1., 2., 3, 4, std::move( nc ), std::move( ni ) );
 
-      THEN( "a Subsection can be constructed "
+      THEN( "a ReactionBlock can be constructed "
             "and members can be tested" ) {
 
         verifyChunkBoth( chunk );
@@ -201,9 +201,9 @@ SCENARIO( "Subsection" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      Subsection chunk( begin, end, lineNumber, 9437, 33, 2 );
+      ReactionBlock chunk( begin, end, lineNumber, 9437, 33, 2 );
 
-      THEN( "a Subsection object can be constructed "
+      THEN( "a ReactionBlock object can be constructed "
             "and members can be tested" ) {
 
         verifyChunkBoth( chunk );
@@ -265,25 +265,25 @@ std::string chunkBoth() {
 }
 
 
-void verifyChunkNCOnly( const Subsection& chunk ) {
+void verifyChunkNCOnly( const ReactionBlock& chunk ) {
 
-  // subsection CONT record
-  CHECK( 0. == Approx( chunk.XMF1() ) );
-  CHECK( 0. == Approx( chunk.secondFileNumber() ) );
-  CHECK( 0. == Approx( chunk.XLFS1() ) );
-  CHECK( 0. == Approx( chunk.secondFinalExcitedState() ) );
+  // ReactionBlock CONT record
+  CHECK( 0. == chunk.XMF1() );
+  CHECK( 0. == chunk.secondFileNumber() );
+  CHECK( 0. == chunk.XLFS1() );
+  CHECK( 0. == chunk.secondFinalExcitedState() );
   CHECK( 0 == chunk.MAT1() );
   CHECK( 0 == chunk.secondMaterialNumber() );
   CHECK( 2 == chunk.MT1() );
   CHECK( 2 == chunk.secondSectionNumber() );
   CHECK( 2 == chunk.NK() );
-  CHECK( 2 == chunk.numberNCType() );
+  CHECK( 2 == chunk.numberDerived() );
   CHECK( 0 == chunk.NI() );
-  CHECK( 0 == chunk.numberNIType() );
-  CHECK( 2 == chunk.componentsNC().size() );
-  CHECK( 0 == chunk.componentsNI().size() );
+  CHECK( 0 == chunk.numberExplicit() );
+  CHECK( 2 == chunk.derivedCovariances().size() );
+  CHECK( 0 == chunk.explicitCovariances().size() );
 
-  auto chunky = std::get< DerivedRedundant >( chunk.componentsNC()[0] );
+  auto chunky = std::get< DerivedRedundant >( chunk.derivedCovariances()[0] );
 
   // metadata
   CHECK( 0 == chunky.LTY() );
@@ -316,9 +316,9 @@ void verifyChunkNCOnly( const Subsection& chunk ) {
   CHECK( 9 == chunk.NC() );
 }
 
-void verifyChunkNIOnly( const Subsection& chunk ) {
+void verifyChunkNIOnly( const ReactionBlock& chunk ) {
 
-  // subsection CONT record
+  // ReactionBlock CONT record
   CHECK( 1. == Approx( chunk.XMF1() ) );
   CHECK( 1. == Approx( chunk.secondFileNumber() ) );
   CHECK( 2. == Approx( chunk.XLFS1() ) );
@@ -328,13 +328,13 @@ void verifyChunkNIOnly( const Subsection& chunk ) {
   CHECK( 4 == chunk.MT1() );
   CHECK( 4 == chunk.secondSectionNumber() );
   CHECK( 0 == chunk.NK() );
-  CHECK( 0 == chunk.numberNCType() );
+  CHECK( 0 == chunk.numberDerived() );
   CHECK( 3 == chunk.NI() );
-  CHECK( 3 == chunk.numberNIType() );
-  CHECK( 0 == chunk.componentsNC().size() );
-  CHECK( 3 == chunk.componentsNI().size() );
+  CHECK( 3 == chunk.numberExplicit() );
+  CHECK( 0 == chunk.derivedCovariances().size() );
+  CHECK( 3 == chunk.explicitCovariances().size() );
 
-  auto stuff = std::get< SquareMatrix >( chunk.componentsNI()[0] );
+  auto stuff = std::get< SquareMatrix >( chunk.explicitCovariances()[0] );
 
   // metadata
   CHECK( 0 == stuff.LS() );
@@ -360,9 +360,9 @@ void verifyChunkNIOnly( const Subsection& chunk ) {
 
 }
 
-void verifyChunkBoth( const Subsection& chunk ) {
+void verifyChunkBoth( const ReactionBlock& chunk ) {
 
-  // subsection CONT record
+  // ReactionBlock CONT record
   CHECK( 1. == Approx( chunk.XMF1() ) );
   CHECK( 1. == Approx( chunk.secondFileNumber() ) );
   CHECK( 2. == Approx( chunk.XLFS1() ) );
@@ -372,11 +372,11 @@ void verifyChunkBoth( const Subsection& chunk ) {
   CHECK( 4 == chunk.MT1() );
   CHECK( 4 == chunk.secondSectionNumber() );
   CHECK( 1 == chunk.NK() );
-  CHECK( 1 == chunk.numberNCType() );
+  CHECK( 1 == chunk.numberDerived() );
   CHECK( 1 == chunk.NI() );
-  CHECK( 1 == chunk.numberNIType() );
-  CHECK( 1 == chunk.componentsNC().size() );
-  CHECK( 1 == chunk.componentsNI().size() );
+  CHECK( 1 == chunk.numberExplicit() );
+  CHECK( 1 == chunk.derivedCovariances().size() );
+  CHECK( 1 == chunk.explicitCovariances().size() );
 
   CHECK( 9 == chunk.NC() );
 
