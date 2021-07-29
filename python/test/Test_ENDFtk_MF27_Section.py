@@ -40,12 +40,12 @@ class Test_ENDFtk_MF27_Section( unittest.TestCase ) :
             self.assertEqual( 1, len( chunk.boundaries ) )
             self.assertEqual( 2, chunk.interpolants[0] );
             self.assertEqual( 2, chunk.boundaries[0] );
-            self.assertEqual( 2, len( chunk.energies ) )
-            self.assertEqual( 2, len( chunk.values ) )
-            self.assertAlmostEqual( 00., chunk.energies[0] )
-            self.assertAlmostEqual( 1e+9, chunk.energies[1] )
-            self.assertAlmostEqual( 1., chunk.values[0] )
-            self.assertAlmostEqual( 2., chunk.values[1] )
+            self.assertEqual( 2, len( chunk.X ) )
+            self.assertEqual( 2, len( chunk.H ) )
+            self.assertAlmostEqual( 00., chunk.X[0] )
+            self.assertAlmostEqual( 1e+9, chunk.X[1] )
+            self.assertAlmostEqual( 1., chunk.H[0] )
+            self.assertAlmostEqual( 2., chunk.H[1] )
 
             self.assertEqual( 4, chunk.NC )
 
@@ -56,8 +56,8 @@ class Test_ENDFtk_MF27_Section( unittest.TestCase ) :
         # the data is given explicitly
         chunk = Section( mt = 502,  zaid = 1000, awr = 0.9992414,
                          interpolants = [ 2 ], boundaries = [ 2 ],
-                         energies = [ 0., 1e+9 ],
-                         values = [ 1., 2. ] )
+                         x = [ 0., 1e+9 ],
+                         h = [ 1., 2. ] )
 
         verify_chunk( self, chunk )
 
