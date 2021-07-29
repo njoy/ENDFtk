@@ -1,3 +1,6 @@
+/**
+ *  @brief Return the number of lines in this MF33 subsection
+ */
 long NC() const {
 
   long result = 1;
