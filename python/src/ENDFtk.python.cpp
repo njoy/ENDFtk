@@ -33,6 +33,7 @@ void wrapFile_13( python::module&, python::module& );
 void wrapFile_14( python::module&, python::module& );
 void wrapFile_15( python::module&, python::module& );
 void wrapFile_23( python::module&, python::module& );
+void wrapFile_33( python::module&, python::module& );
 
 // material and tape
 void wrapMaterial( python::module&, python::module& );
@@ -103,6 +104,7 @@ PYBIND11_MODULE( ENDFtk, module ) {
   wrapFile_14( module, viewmodule );
   wrapFile_15( module, viewmodule );
   wrapFile_23( module, viewmodule );
+  wrapFile_33( module, viewmodule );
 
   // wrap material and tape
   wrapMaterial( module, viewmodule );

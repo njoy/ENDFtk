@@ -222,6 +222,13 @@ pybind11_add_module( ENDFtk.python
     python/src/section/15/TabulatedSpectrum.python.cpp
     python/src/section/15/Probability.python.cpp
     python/src/section/15/PartialDistribution.python.cpp
+    python/src/section/33.python.cpp
+    python/src/section/33/DerivedRedundant.python.cpp
+    python/src/section/33/DerivedRatioToStandard.python.cpp
+    python/src/section/33/CovariancePairs.python.cpp
+    python/src/section/33/SquareMatrix.python.cpp
+    python/src/section/33/ReactionBlock.python.cpp
+    python/src/section/33/RectangularMatrix.python.cpp
     python/src/file/1.python.cpp
     python/src/file/2.python.cpp
     python/src/file/3.python.cpp
@@ -237,6 +244,7 @@ pybind11_add_module( ENDFtk.python
     python/src/file/14.python.cpp
     python/src/file/15.python.cpp
     python/src/file/23.python.cpp
+    python/src/file/33.python.cpp
     python/src/Material.python.cpp
     python/src/tree/Section.python.cpp
     python/src/tree/File.python.cpp
