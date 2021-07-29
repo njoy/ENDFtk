@@ -43,7 +43,6 @@ SCENARIO( "section::Type< 3 >" ) {
       THEN( "a section::Type< 3 > can be constructed and "
             "members can be tested" ) {
 
-
         verifyChunk( chunk );
       } // THEN
 
@@ -86,7 +85,7 @@ SCENARIO( "section::Type< 3 >" ) {
 
       tree::Section section( 125, 3, 102, std::string( sectionString ) );
 
-      section::Type<3> chunk = section.parse< 3 >();
+      section::Type< 3 > chunk = section.parse< 3 >();
 
       THEN( "a section::Type< 3 > can be constructed and "
             "members can be tested" ) {
