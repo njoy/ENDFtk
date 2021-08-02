@@ -1,5 +1,5 @@
-#ifndef NJOY_ENDFTK_SECTION_3
-#define NJOY_ENDFTK_SECTION_3
+#ifndef NJOY_ENDFTK_SECTION_27
+#define NJOY_ENDFTK_SECTION_27
 
 // system includes
 
@@ -14,12 +14,12 @@ namespace section{
 
   /**
    *  @class
-   *  @brief MF3 - reaction cross sections
+   *  @brief MF27 - atomic form factors or scattering functions
    *
-   *  See ENDF102, section 3.2 for more information.
+   *  See ENDF102, section 27.2 for more information.
    */
   template<>
-  class Type< 3 > : protected Base {
+  class Type< 27 > : protected Base {
 
     /* fields */
     TabulationRecord table;
@@ -27,39 +27,19 @@ namespace section{
   public:
 
     /* constructor */
-    #include "ENDFtk/section/3/src/ctor.hpp"
+    #include "ENDFtk/section/27/src/ctor.hpp"
 
     /* methods */
 
     /**
-     *  @brief Return the mass difference Q value
+     *  @brief Return the Z number of the atom
      */
-    double QM() const { return this->table.C1(); }
+    unsigned int Z() const { return this->table.C2(); }
 
     /**
-     *  @brief Return the mass difference Q value
+     *  @brief Return the Z number of the atom
      */
-    double massDifferenceQValue() const { return this->QM(); }
-
-    /**
-     *  @brief Return the reaction Q value
-     */
-    double QI() const { return this->table.C2(); }
-
-    /**
-     *  @brief Return the reaction Q value
-     */
-    double reactionQValue() const { return this->QI(); }
-
-    /**
-     *  @brief Return the complex break up flag
-     */
-    int LR() const { return this->table.L2(); }
-
-    /**
-     *  @brief Return the complex break up flag
-     */
-    int complexBreakUp() const { return this->LR(); }
+    unsigned int atomZ() const { return this->Z(); }
 
     /**
      *  @brief Return the number of interpolation ranges
@@ -82,17 +62,17 @@ namespace section{
     auto boundaries() const { return this->table.boundaries(); }
 
     /**
-     *  @brief Return the energy values
+     *  @brief Return the x values
      */
-    auto energies() const { return this->table.x(); }
+    auto X() const { return this->table.x(); }
 
     /**
-     *  @brief Return the cross section values
+     *  @brief Return the form factor or scattering function values
      */
-    auto crossSections() const { return this->table.y(); }
+    auto H() const { return this->table.y(); }
 
     /**
-     *  @brief Return the number of lines in this MF3 section
+     *  @brief Return the form factor or scattering function values
      */
     long NC() const { return this->table.NC() + 1; }
 
@@ -100,13 +80,13 @@ namespace section{
      *  @brief Return the energy values (common interface for interpolation
      *         tables)
      */
-    auto x() const { return this->energies(); }
+    auto x() const { return this->X(); }
 
     /**
-     *  @brief Return the cross section values (common interface for interpolation
+     *  @brief Return the values (common interface for interpolation
      *         tables)
      */
-    auto y() const { return this->crossSections(); }
+    auto y() const { return this->H(); }
 
     /**
      *  @brief Return the interpolation regions (common interface for
@@ -114,7 +94,7 @@ namespace section{
      */
     auto regions() const { return this->table.regions(); }
 
-    #include "ENDFtk/section/3/src/print.hpp"
+    #include "ENDFtk/section/3/src/print.hpp" // taken from MF3
 
     using Base::MT;
     using Base::sectionNumber;

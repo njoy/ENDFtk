@@ -99,7 +99,7 @@ namespace section{
     auto y() const { return this->crossSections(); }
 
     /**
-     *  @brief Return the interpolation ragions (common interface for
+     *  @brief Return the interpolation regions (common interface for
      *         interpolation tables)
      */
     auto regions() const { return this->table.regions(); }
