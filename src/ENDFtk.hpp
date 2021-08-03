@@ -27,6 +27,7 @@
 #include "ENDFtk/section/15.hpp"
 #include "ENDFtk/section/23.hpp"
 #include "ENDFtk/section/27.hpp"
+#include "ENDFtk/section/28.hpp"
 #include "ENDFtk/section/33.hpp"
 
 // include every file
@@ -46,6 +47,7 @@
 #include "ENDFtk/file/15.hpp"
 #include "ENDFtk/file/23.hpp"
 #include "ENDFtk/file/27.hpp"
+#include "ENDFtk/file/28.hpp"
 #include "ENDFtk/file/33.hpp"
 
 // include the material and tape
