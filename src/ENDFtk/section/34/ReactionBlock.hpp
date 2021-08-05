@@ -17,6 +17,7 @@ class ReactionBlock {
   std::vector< LegendreBlock > lblocks_;
 
   #include "ENDFtk/section/34/ReactionBlock/src/readLegendreBlocks.hpp"
+  // #include "ENDFtk/section/34/ReactionBlock/src/verifySize.hpp"
 
 public:
 
@@ -83,6 +84,6 @@ public:
     return ranges::cpp20::views::all( this->lblocks_ );
   }
 
-  // #include "ENDFtk/section/34/ReactionBlock/src/NC.hpp"
-  // #include "ENDFtk/section/34/ReactionBlock/src/print.hpp"
+  #include "ENDFtk/section/34/ReactionBlock/src/NC.hpp"
+  #include "ENDFtk/section/34/ReactionBlock/src/print.hpp"
 };

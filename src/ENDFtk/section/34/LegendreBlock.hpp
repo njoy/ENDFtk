@@ -75,6 +75,6 @@ public:
     return ranges::cpp20::views::all( this->ni_ );
   }
 
-  // #include "ENDFtk/section/33/ReactionBlock/src/NC.hpp"
-  // #include "ENDFtk/section/33/ReactionBlock/src/print.hpp"
+  #include "ENDFtk/section/34/LegendreBlock/src/NC.hpp"
+  #include "ENDFtk/section/34/LegendreBlock/src/print.hpp"
 };

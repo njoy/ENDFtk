@@ -1,5 +1,5 @@
 /**
- *  @brief Print the MF33 section (includes SEND record)
+ *  @brief Print the MF34 section (includes SEND record)
  *
  *  @tparam OutputIterator   an output iterator
  *
@@ -13,6 +13,6 @@ void print( OutputIterator& it, int MAT, int MF ) const {
   int MT = this->MT();
   ControlRecord( this->ZA(), this->AWR(), 0,this->LTT(),
                  0, this->NMT1() ).print( it, MAT, MF, MT );
-  // for ( auto& entry : this->reactions_ ) { entry.print( it, MAT, MF, MT ); }
+  for ( auto& entry : this->reactions_ ) { entry.print( it, MAT, MF, MT ); }
   SEND( MAT, MF ).print( it );
 }
