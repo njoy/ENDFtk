@@ -74,6 +74,10 @@ class Test_ENDFtk_MF33_ReactionBlock( unittest.TestCase ) :
 
             self.assertEqual( 9, chunk.NC )
 
+            # verify string
+            self.assertEqual( self.chunk,
+                              chunk.to_string( 9437, 33, 2 ) )
+
         # the data is given explicitly
         chunk = ReactionBlock(xmf1=0, xlfs1=0, mat1=0, mt1=2, nc=[
             DerivedRedundant(

@@ -233,6 +233,11 @@ pybind11_add_module( ENDFtk.python
     python/src/section/33/ReactionBlock.python.cpp
     python/src/section/33/RectangularMatrix.python.cpp
     python/src/section/34.python.cpp
+    python/src/section/34/CovariancePairs.python.cpp
+    python/src/section/34/LegendreBlock.python.cpp
+    python/src/section/34/ReactionBlock.python.cpp
+    python/src/section/34/RectangularMatrix.python.cpp
+    python/src/section/34/SquareMatrix.python.cpp
     python/src/file/1.python.cpp
     python/src/file/2.python.cpp
     python/src/file/3.python.cpp

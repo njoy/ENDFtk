@@ -13,34 +13,32 @@ namespace python = pybind11;
 namespace mf34 {
 
   // declarations - components
-  // void wrapReactionBlock( python::module&, python::module& );
-  // void wrapDerivedRedundant( python::module&, python::module& );
-  // void wrapDerivedRatioToStandard( python::module&, python::module& );
-  // void wrapCovariancePairs( python::module&, python::module& );
-  // void wrapSquareMatrix( python::module&, python::module& );
-  // void wrapRectangularMatrix( python::module&, python::module& );
+  void wrapReactionBlock( python::module&, python::module& );
+  void wrapLegendreBlock( python::module&, python::module& );
+  void wrapCovariancePairs( python::module&, python::module& );
+  void wrapSquareMatrix( python::module&, python::module& );
+  void wrapRectangularMatrix( python::module&, python::module& );
 }
 
 void wrapSection_34( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 34 >;
-  // using ReactionBlock = Section::ReactionBlock;
-  // using ReactionBlockRange = RandomAccessAnyView< ReactionBlock >;
+  using ReactionBlock = Section::ReactionBlock;
+  using ReactionBlockRange = RandomAccessAnyView< ReactionBlock >;
 
   // wrap components
-  // mf33::wrapReactionBlock( module, viewmodule );
-  // mf33::wrapDerivedRedundant( module, viewmodule );
-  // mf33::wrapDerivedRatioToStandard( module, viewmodule );
-  // mf33::wrapCovariancePairs( module, viewmodule );
-  // mf33::wrapSquareMatrix( module, viewmodule );
-  // mf33::wrapRectangularMatrix( module, viewmodule );
+  mf34::wrapReactionBlock( module, viewmodule );
+  mf34::wrapLegendreBlock( module, viewmodule );
+  mf34::wrapCovariancePairs( module, viewmodule );
+  mf34::wrapSquareMatrix( module, viewmodule );
+  mf34::wrapRectangularMatrix( module, viewmodule );
 
   // wrap views created by this section
   // none of these are supposed to be created directly by the user
-  // wrapRandomAccessAnyViewOf< ReactionBlock >(
-  //     module,
-  //     "any_view< MF33::ReactionBlock, random_access >" );
+  wrapRandomAccessAnyViewOf< ReactionBlock >(
+      module,
+      "any_view< MF34::ReactionBlock, random_access >" );
 
   // create the section
   python::class_< Section > section(
@@ -52,19 +50,21 @@ void wrapSection_34( python::module& module, python::module& viewmodule ) {
 
   // wrap the section
   section
-  // .def(
+  .def(
 
-  //   python::init< int, double, double, std::vector< ReactionBlock >&& >(),
-  //   python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
-  //   python::arg( "reactions" ),
-  //   "Initialise the section\n\n"
-  //   "Arguments:\n"
-  //   "    self        the section\n"
-  //   "    mt          the MT number\n"
-  //   "    zaid        the ZA  identifier\n"
-  //   "    awr         the atomic mass ratio\n"
-  //   "    reactions   the reactions (subsections) (at least 1)\n"
-  // )
+    python::init< int, double, double, int,
+                  std::vector< ReactionBlock >&& >(),
+    python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
+    python::arg( "ltt" ), python::arg( "reactions" ),
+    "Initialise the section\n\n"
+    "Arguments:\n"
+    "    self        the section\n"
+    "    mt          the MT number\n"
+    "    zaid        the ZA  identifier\n"
+    "    awr         the atomic mass ratio\n"
+    "    ltt         the representation\n"
+    "    reactions   the reactions (subsections) (at least 1)\n"
+  )
   .def_property_readonly(
 
     "LTT",
@@ -89,14 +89,14 @@ void wrapSection_34( python::module& module, python::module& viewmodule ) {
     &Section::numberReactions,
     "the number of reaction blocks (subsections)"
   )
-  // .def_property_readonly(
+  .def_property_readonly(
 
-  //   "reactions",
-  //   [] ( const Section& self ) -> ReactionBlockRange
-  //      { return self.reactions(); },
-  //   "the reactions (subsections) defined in this section"
-  // );
-  ;
+    "reactions",
+    [] ( const Section& self ) -> ReactionBlockRange
+       { return self.reactions(); },
+    "the reactions (subsections) defined in this section"
+  );
+
 
   // add standard section definitions
   addStandardSectionDefinitions< Section >( section );
