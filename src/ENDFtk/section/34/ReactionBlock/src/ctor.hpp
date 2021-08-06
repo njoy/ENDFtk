@@ -1,17 +1,18 @@
 /**
  *  @brief Constructor
  *
+ *  @param[in] mt            the section number
  *  @param[in] mt1           the section number of the second cross section
  *  @param[in] nl            the number of Legendre orders for the first cross section
  *  @param[in] nl1           the number of Legendre orders for the second cross section
  *  @param[in] lblocks       the Legendre blocks
  *
  */
-ReactionBlock( int mt1, int nl, int nl1,
+ReactionBlock( int mt, int mt1, int nl, int nl1,
                std::vector< LegendreBlock >&& lblocks ) :
   mt1_( mt1 ), nl_( nl ), nl1_( nl1 ),
   lblocks_( std::move( lblocks) ) {
-    // verifySize(nl, nl1, lblocks_.size() );
+    verifySize(nl, nl1, lblocks_.size(), mt==mt1 );
   };
 
 private:
@@ -22,7 +23,7 @@ ReactionBlock( ControlRecord&& cont,
             const Iterator& end,
             long& lineNumber,
             int MAT, int MF, int MT ) :
-  ReactionBlock( cont.L2(), cont.N1(), cont.N2(),
+  ReactionBlock( MT, cont.L2(), cont.N1(), cont.N2(),
                  readLegendreBlocks( begin, end, lineNumber,
                                      MAT, MF, MT, cont ) ) {}
 

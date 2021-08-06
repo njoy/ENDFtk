@@ -17,7 +17,7 @@ class ReactionBlock {
   std::vector< LegendreBlock > lblocks_;
 
   #include "ENDFtk/section/34/ReactionBlock/src/readLegendreBlocks.hpp"
-  // #include "ENDFtk/section/34/ReactionBlock/src/verifySize.hpp"
+  #include "ENDFtk/section/34/ReactionBlock/src/verifySize.hpp"
 
 public:
 
@@ -54,7 +54,7 @@ public:
   /**
    *  @brief Return the number of Legendre orders of the first cross section
    */
-  int firstLegendreOrder() const { return this->NL(); }
+  int firstNumberLegendre() const { return this->NL(); }
 
   /**
    *  @brief Return the number of Legendre orders of the second cross section
@@ -64,7 +64,7 @@ public:
   /**
    *  @brief Return the number of Legendre orders of the second cross section
    */
-  int secondLegendreOrder() const { return this->NL1(); }
+  int secondNumberLegendre() const { return this->NL1(); }
 
   /**
    *  @brief Return the number of subsubsections (Legendre blocks)

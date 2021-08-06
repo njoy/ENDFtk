@@ -6,7 +6,7 @@ long NC() const {
   long result = 1;
 
   for ( auto& block : this->lblocks_ ) {
-    result += block.NC() );
+    result += block.NC();
   }
 
   return result;
