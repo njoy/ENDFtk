@@ -6,16 +6,16 @@
  *  @param[in] awr            the atomic mass ratio
  *  @param[in] boundaries     the interpolation range boundaries
  *  @param[in] interpolants   the interpolation types for each range
- *  @param[in] energies       the energy values
- *  @param[in] values         the form factor or scattering function values
+ *  @param[in] x              the x values
+ *  @param[in] h              the form factor or scattering function values
  */
 Type( int mt, double zaid, double awr,
       std::vector< long >&& boundaries, std::vector< long >&& interpolants,
-      std::vector< double >&& energies, std::vector< double >&& values ) :
+      std::vector< double >&& x, std::vector< double >&& h ) :
   Base( zaid, awr, mt ),
   table( 0.0, static_cast< int >( zaid ) / 1000, 0, 0,
          std::move( boundaries ), std::move( interpolants ),
-         std::move( energies ), std::move( values ) ) {}
+         std::move( x ), std::move( h ) ) {}
 
 /**
  *  @brief Constructor (from a buffer)

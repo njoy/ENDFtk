@@ -41,8 +41,8 @@ void wrapSubshellData( python::module& module, python::module& viewmodule ) {
                   std::vector< double >&&,
                   std::vector< double >&& >(),
     python::arg( "subshell" ), python::arg( "energy" ), python::arg( "eln" ),
-    python::arg( "secondary" ) = 0., python::arg( "tertiary" ) = 0,
-    python::arg( "energies" ) = 0., python::arg( "probabilities" ) = 0,
+    python::arg( "secondary" ), python::arg( "tertiary" ),
+    python::arg( "energies" ), python::arg( "probabilities" ),
     "Initialise the component\n\n"
     "Arguments:\n"
     "    self            the component\n"

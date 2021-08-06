@@ -10,6 +10,10 @@
 namespace python = pybind11;
 
 // declarations - records
+void wrapControlRecord( python::module&, python::module& );
+void wrapListRecord( python::module&, python::module& );
+void wrapTabulationRecord( python::module&, python::module& );
+void wrapInterpolationRecord( python::module&, python::module& );
 void wrapDirectoryRecord( python::module&, python::module& );
 void wrapTapeIdentification( python::module&, python::module& );
 
@@ -32,6 +36,7 @@ void wrapFile_23( python::module&, python::module& );
 void wrapFile_26( python::module&, python::module& );
 void wrapFile_27( python::module&, python::module& );
 void wrapFile_28( python::module&, python::module& );
+void wrapFile_33( python::module&, python::module& );
 
 // material and tape
 void wrapMaterial( python::module&, python::module& );
@@ -79,6 +84,10 @@ PYBIND11_MODULE( ENDFtk, module ) {
       "any_view< std::complex< double , random_access >" );
 
   // wrap records
+  wrapControlRecord( module, viewmodule );
+  wrapListRecord( module, viewmodule );
+  wrapTabulationRecord( module, viewmodule );
+  wrapInterpolationRecord( module, viewmodule );
   wrapDirectoryRecord( module, viewmodule );
   wrapTapeIdentification( module, viewmodule );
 
@@ -101,6 +110,7 @@ PYBIND11_MODULE( ENDFtk, module ) {
   wrapFile_26( module, viewmodule );
   wrapFile_27( module, viewmodule );
   wrapFile_28( module, viewmodule );
+  wrapFile_33( module, viewmodule );
 
   // wrap material and tape
   wrapMaterial( module, viewmodule );

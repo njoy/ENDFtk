@@ -34,7 +34,7 @@ void wrapSection_27( python::module& module, python::module& ) {
                   std::vector< double >&&, std::vector< double >&& >(),
     python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
     python::arg( "boundaries" ), python::arg( "interpolants" ),
-    python::arg( "energies" ), python::arg( "values" ),
+    python::arg( "x" ), python::arg( "h" ),
     "Initialise the section\n\n"
     "Arguments:\n"
     "    self           the section\n"
@@ -43,8 +43,8 @@ void wrapSection_27( python::module& module, python::module& ) {
     "    awr            the atomic mass ratio\n"
     "    boundaries     the interpolation range boundaries\n"
     "    interpolants   the interpolation types for each range\n"
-    "    energies       the energy values\n"
-    "    values         the form factor or scattering function values"
+    "    x              the x values\n"
+    "    h              the form factor or scattering function values"
   )
   .def_property_readonly(
 
@@ -60,16 +60,16 @@ void wrapSection_27( python::module& module, python::module& ) {
   )
   .def_property_readonly(
 
-    "energies",
+    "X",
     [] ( const Section& self ) -> DoubleRange
-       { return self.energies(); },
-    "The energy values"
+       { return self.X(); },
+    "The x values"
   )
   .def_property_readonly(
 
-    "values",
+    "H",
     [] ( const Section& self ) -> DoubleRange
-       { return self.values(); },
+       { return self.H(); },
     "The form factor or scattering function values"
   );
 

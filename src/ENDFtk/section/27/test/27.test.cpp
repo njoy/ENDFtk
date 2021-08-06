@@ -143,12 +143,12 @@ void verifyChunk( const section::Type< 27 >& chunk ) {
   CHECK( 1 == chunk.boundaries().size() );
   CHECK( 2 == chunk.interpolants()[0] );
   CHECK( 2 == chunk.boundaries()[0] );
-  CHECK( 2 == chunk.energies().size() );
-  CHECK( 2 == chunk.values().size() );
-  CHECK( 0. == Approx( chunk.energies()[0] ) );
-  CHECK( 1e+9 == Approx( chunk.energies()[1] ) );
-  CHECK( 1 == Approx( chunk.values()[0] ) );
-  CHECK( 2 == Approx( chunk.values()[1] ) );
+  CHECK( 2 == chunk.X().size() );
+  CHECK( 2 == chunk.H().size() );
+  CHECK( 0. == Approx( chunk.X()[0] ) );
+  CHECK( 1e+9 == Approx( chunk.X()[1] ) );
+  CHECK( 1 == Approx( chunk.H()[0] ) );
+  CHECK( 2 == Approx( chunk.H()[1] ) );
 
   CHECK( 4 == chunk.NC() );
 }

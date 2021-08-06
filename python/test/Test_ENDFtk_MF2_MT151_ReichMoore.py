@@ -42,7 +42,7 @@ class Test_ENDFtk_MF2_MT151_ReichMoore( unittest.TestCase ) :
             self.assertEqual( 2, chunk.NLS )
             self.assertEqual( 2, chunk.number_l_values )
             self.assertEqual( 3, chunk.NLSC )
-            self.assertEqual( 3, chunk.number_l_values_for_convergence )
+            self.assertEqual( 3, chunk.number_l_values_for_distributions )
 
             self.assertEqual( 2, len( chunk.l_values ) )
 
