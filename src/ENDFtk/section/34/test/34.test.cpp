@@ -148,6 +148,9 @@ void verifyChunk( const section::Type< 34 >& chunk ) {
   CHECK( 2.369986e+2 == Approx( chunk.atomicWeightRatio() ) );
   CHECK( 1 == chunk.LTT() );
   CHECK( 1 == chunk.representation() );
+  CHECK( 1 == chunk.NMT1() );
+  CHECK( 1 == chunk.numberReactions() );
+  CHECK( 1 == chunk.reactions().size() );
 
   auto sub = chunk.reactions()[0];
 

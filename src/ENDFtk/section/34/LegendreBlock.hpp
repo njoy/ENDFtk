@@ -48,14 +48,14 @@ public:
   int secondLegendreOrder() const { return this->L1(); }
 
   /**
-   *  @brief Return the coordinate system
+   *  @brief Return the reference frame
    */
   int LCT() const { return this->lct_; }
 
   /**
-   *  @brief Return the coordinate system
+   *  @brief Return the reference frame
    */
-  int coordinateSystem() const { return this->LCT(); }
+  int referenceFrame() const { return this->LCT(); }
 
   /**
    *  @brief Return the number of NI-type data blocks

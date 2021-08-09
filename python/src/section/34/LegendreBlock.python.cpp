@@ -49,7 +49,7 @@ void wrapLegendreBlock( python::module& module, python::module& viewmodule ) {
     "    self           the component\n"
     "    order          the first Legendre order\n"
     "    order1         the second Legendre order\n"
-    "    lct            the coordinate system\n"
+    "    lct            the reference frame\n"
     "    data           the NI-type data blocks\n"
   )
   .def_property_readonly(
@@ -80,13 +80,13 @@ void wrapLegendreBlock( python::module& module, python::module& viewmodule ) {
 
     "LCT",
     &Component::LCT,
-    "the coordinate system"
+    "the reference frame"
   )
   .def_property_readonly(
 
-    "coordinate_system",
-    &Component::coordinateSystem,
-    "the coordinate system"
+    "reference_frame",
+    &Component::referenceFrame,
+    "the reference frame"
   )
   .def_property_readonly(
 

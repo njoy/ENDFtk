@@ -34,7 +34,7 @@ class Test_ENDFtk_MF34_LegendreBlock( unittest.TestCase ) :
             self.assertEqual( 2, chunk.L1 )
             self.assertEqual( 2, chunk.second_legendre_order )
             self.assertEqual( 3, chunk.LCT )
-            self.assertEqual( 3, chunk.coordinate_system )
+            self.assertEqual( 3, chunk.reference_frame )
             self.assertEqual( 3, chunk.NI )
             self.assertEqual( 3, chunk.number_data_blocks )
             self.assertEqual( 3, len(chunk.data) )

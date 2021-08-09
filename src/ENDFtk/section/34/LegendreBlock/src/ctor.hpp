@@ -3,7 +3,7 @@
  *
  *  @param[in] order         the first Legendre order
  *  @param[in] order1        the second Legendre order
- *  @param[in] lct           the coordinate system
+ *  @param[in] lct           the reference frame
  *  @param[in] data          the NI-type data blocks
  *
  */

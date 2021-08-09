@@ -106,7 +106,7 @@ void verifyChunk( const LegendreBlock& chunk ) {
   CHECK( 2 == chunk.L1() );
   CHECK( 2 == chunk.secondLegendreOrder() );
   CHECK( 3 == chunk.LCT() );
-  CHECK( 3 == chunk.coordinateSystem() );
+  CHECK( 3 == chunk.referenceFrame() );
   CHECK( 3 == chunk.NI() );
   CHECK( 3 == chunk.numberDataBlocks() );
   CHECK( 3 == chunk.data().size() );

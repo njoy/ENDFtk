@@ -38,6 +38,9 @@ class Test_ENDFtk_MF34_Section( unittest.TestCase ) :
             self.assertAlmostEqual( 2.369986e+2,  chunk.atomic_weight_ratio )
             self.assertEqual( 1, chunk.LTT )
             self.assertEqual( 1, chunk.representation )
+            self.assertEqual( 1, chunk.NMT1 )
+            self.assertEqual( 1, chunk.number_reactions )
+            self.assertEqual( 1, len(chunk.reactions) )
 
             sub = chunk.reactions[0]
 

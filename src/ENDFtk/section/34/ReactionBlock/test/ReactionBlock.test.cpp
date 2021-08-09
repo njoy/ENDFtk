@@ -209,7 +209,7 @@ void verifyChunk( const ReactionBlock& chunk ) {
   CHECK( 2 == stuff.L1() );
   CHECK( 2 == stuff.secondLegendreOrder() );
   CHECK( 0 == stuff.LCT() );
-  CHECK( 0 == stuff.coordinateSystem() );
+  CHECK( 0 == stuff.referenceFrame() );
   CHECK( 1 == stuff.NI() );
   CHECK( 1 == stuff.numberDataBlocks() );
   CHECK( 1 == stuff.data().size() );
@@ -241,7 +241,7 @@ void verifyChunk1( const ReactionBlock& chunk ) {
   CHECK( 2 == stuff.L1() );
   CHECK( 2 == stuff.secondLegendreOrder() );
   CHECK( 0 == stuff.LCT() );
-  CHECK( 0 == stuff.coordinateSystem() );
+  CHECK( 0 == stuff.referenceFrame() );
   CHECK( 1 == stuff.NI() );
   CHECK( 1 == stuff.numberDataBlocks() );
   CHECK( 1 == stuff.data().size() );
