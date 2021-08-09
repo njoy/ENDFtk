@@ -3,7 +3,7 @@
 #include <pybind11/stl.h>
 
 // local includes
-#include "ENDFtk/file/33.hpp"
+#include "ENDFtk/file/34.hpp"
 #include "definitions.hpp"
 #include "views.hpp"
 
@@ -11,37 +11,37 @@
 namespace python = pybind11;
 
 // declarations - sections
-void wrapSection_33( python::module&, python::module& );
+void wrapSection_34( python::module&, python::module& );
 
-void wrapFile_33( python::module& module, python::module& viewmodule ) {
+void wrapFile_34( python::module& module, python::module& viewmodule ) {
 
   // type aliases
-  using Section = njoy::ENDFtk::section::Type< 33 >;
-  using File = njoy::ENDFtk::file::Type< 33 >;
+  using Section = njoy::ENDFtk::section::Type< 34 >;
+  using File = njoy::ENDFtk::file::Type< 34 >;
   using SectionRange = BidirectionalAnyView< Section >;
 
   // create the submodule
   python::module submodule = module.def_submodule(
 
-    "MF33",
-    "MF33 - covariances of cross sections"
+    "MF34",
+    "MF34 - covariances for angular distributions"
   );
 
   // wrap sections
-  wrapSection_33( submodule, viewmodule );
+  wrapSection_34( submodule, viewmodule );
 
   // wrap views created by this file
   // none of these are supposed to be created directly by the user
   wrapBidirectionalAnyViewOf< Section >(
       viewmodule,
-      "any_view< section::Type< 33 >, bidirectional >" );
+      "any_view< section::Type< 34 >, bidirectional >" );
 
   // create the file
   python::class_< File > file(
 
     submodule,
     "File",
-    "MF33 file - covariances of cross sections"
+    "MF34 file - covariances for angular distributions"
   );
 
   // wrap the file

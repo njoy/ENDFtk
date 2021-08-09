@@ -31,7 +31,7 @@ void wrapReactionBlock( python::module& module, python::module& viewmodule ) {
                 "random_access >" );
   wrapRandomAccessAnyViewOf< ExplicitCovariance >(
       viewmodule,
-      "any_view< variant< CovariancePairs, SquareMatrix,"
+      "any_view< variant< CovariancePairs, SquareMatrix, "
                          "RectangularMatrix >, random_access >" );
 
   // create the component

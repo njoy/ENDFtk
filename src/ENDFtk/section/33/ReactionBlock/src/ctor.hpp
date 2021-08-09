@@ -41,7 +41,7 @@ ReactionBlock( int xmf1, int xlfs1, int mat1, int mt1,
  *  @param[in] xlfs1         the final excited state of the second cross section
  *  @param[in] mat1          the material number of the second cross section
  *  @param[in] mt1           the section number of the second cross section
- *  @param[in] ni            the NC-type (explicit) subsubsections
+ *  @param[in] ni            the NI-type (explicit) subsubsections
  *
  */
 ReactionBlock( double xmf1, double xlfs1, int mat1, int mt1,

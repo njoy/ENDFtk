@@ -4,7 +4,7 @@
  *
  *  The ReactionBlock class is used to represent a subsection in
  *  an ENDF MF33 section, which represents a covariance of the reaction
- * cross section (MT) relative to another reaction (MF1/MT1).
+ *  cross section (MT) relative to another reaction (MF1/MT1).
  *
  *  See ENDF102, section 33.2 for more information.
  */
