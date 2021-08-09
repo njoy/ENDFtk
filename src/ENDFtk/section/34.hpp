@@ -1,5 +1,5 @@
-#ifndef NJOY_ENDFTK_SECTION_33
-#define NJOY_ENDFTK_SECTION_33
+#ifndef NJOY_ENDFTK_SECTION_34
+#define NJOY_ENDFTK_SECTION_34
 
 // system includes
 #include <variant>
@@ -22,22 +22,17 @@ namespace section{
 
   /**
    *  @class
-   *  @brief 33 - covariances of cross sections
+   *  @brief 34 - covariances for angular distributions
    *
-   *  See ENDF102, section 33.2 for more information.
+   *  See ENDF102, section 34.2 for more information.
    */
   template<>
-  class Type< 33 > : protected Base {
+  class Type< 34 > : protected Base {
 
   public:
 
     // include classes for subsubsections
-    #include "ENDFtk/section/33/DerivedRedundant.hpp"
-    #include "ENDFtk/section/33/DerivedRatioToStandard.hpp"
-    using DerivedCovariance = std::variant<
-      DerivedRedundant,
-      DerivedRatioToStandard >;
-
+    // intentionally taken from MF33
     #include "ENDFtk/section/33/CovariancePairs.hpp"
     #include "ENDFtk/section/33/SquareMatrix.hpp"
     #include "ENDFtk/section/33/RectangularMatrix.hpp"
@@ -47,13 +42,13 @@ namespace section{
       RectangularMatrix >;
 
     // include classes for subsections
-    #include "ENDFtk/section/33/ReactionBlock.hpp"
-
+    #include "ENDFtk/section/34/LegendreBlock.hpp"
+    #include "ENDFtk/section/34/ReactionBlock.hpp"
 
   private:
 
     /* fields */
-    int mtl_;
+    int ltt_;
     std::vector< ReactionBlock > reactions_;
 
     /* auxiliary functions */
@@ -61,29 +56,29 @@ namespace section{
   public:
 
     /* constructor */
-    #include "ENDFtk/section/33/src/ctor.hpp"
+    #include "ENDFtk/section/34/src/ctor.hpp"
 
     /* methods */
 
     /**
-     *  @brief Return the lumped covariance index
+     *  @brief Return the representation of the covariances
      */
-    int MTL() const { return this->mtl_; }
+    int LTT() const { return this->ltt_; }
 
     /**
-     *  @brief Return the lumped covariance index
+     *  @brief Return the representation of the covariances
      */
-    int lumpedCovarianceIndex() const { return this->MTL(); }
+    int representation() const { return this->LTT(); }
 
     /**
      *  @brief Return the number of subsections
      */
-    int NL() const { return this->reactions_.size(); }
+    int NMT1() const { return this->reactions_.size(); }
 
     /**
      *  @brief Return the number of subsections, representing reactions
      */
-    int numberReactions() const { return this->NL(); }
+    int numberReactions() const { return this->NMT1(); }
 
     /**
      *  @brief Return the subsections defined in this section
@@ -93,8 +88,8 @@ namespace section{
       return ranges::cpp20::views::all( this->reactions_ );
     }
 
-    #include "ENDFtk/section/33/src/NC.hpp"
-    #include "ENDFtk/section/33/src/print.hpp"
+    #include "ENDFtk/section/34/src/NC.hpp"
+    #include "ENDFtk/section/34/src/print.hpp"
 
     using Base::MT;
     using Base::sectionNumber;

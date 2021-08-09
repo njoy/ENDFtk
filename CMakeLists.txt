@@ -235,6 +235,12 @@ pybind11_add_module( ENDFtk.python
     python/src/section/33/SquareMatrix.python.cpp
     python/src/section/33/ReactionBlock.python.cpp
     python/src/section/33/RectangularMatrix.python.cpp
+    python/src/section/34.python.cpp
+    python/src/section/34/CovariancePairs.python.cpp
+    python/src/section/34/LegendreBlock.python.cpp
+    python/src/section/34/ReactionBlock.python.cpp
+    python/src/section/34/RectangularMatrix.python.cpp
+    python/src/section/34/SquareMatrix.python.cpp
     python/src/file/1.python.cpp
     python/src/file/2.python.cpp
     python/src/file/3.python.cpp
@@ -254,6 +260,7 @@ pybind11_add_module( ENDFtk.python
     python/src/file/27.python.cpp
     python/src/file/28.python.cpp
     python/src/file/33.python.cpp
+    python/src/file/34.python.cpp
     python/src/Material.python.cpp
     python/src/tree/Section.python.cpp
     python/src/tree/File.python.cpp

@@ -38,6 +38,7 @@ using MF26MTxxx = njoy::ENDFtk::section::Type< 26 >;
 using MF27MTxxx = njoy::ENDFtk::section::Type< 27 >;
 using MF28MTxxx = njoy::ENDFtk::section::Type< 28 >;
 using MF33MTxxx = njoy::ENDFtk::section::Type< 33 >;
+using MF34MTxxx = njoy::ENDFtk::section::Type< 34 >;
 using SectionVariant = std::variant< MF1MT451, MF1MT452, MF1MT455,
                                      MF1MT456, MF1MT458, MF1MT460,
                                      MF2MT151, MF2MT152,
@@ -48,7 +49,7 @@ using SectionVariant = std::variant< MF1MT451, MF1MT452, MF1MT455,
                                      MF12MTxxx, MF13MTxxx,
                                      MF14MTxxx, MF15MTxxx,
                                      MF23MTxxx, MF26MTxxx, MF27MTxxx, MF28MTxxx,
-                                     MF33MTxxx >;
+                                     MF33MTxxx, MF34MTxxx >;
 
 using MF1 = njoy::ENDFtk::file::Type< 1 >;
 using MF2 = njoy::ENDFtk::file::Type< 2 >;
@@ -69,8 +70,10 @@ using MF26 = njoy::ENDFtk::file::Type< 26 >;
 using MF27 = njoy::ENDFtk::file::Type< 27 >;
 using MF28 = njoy::ENDFtk::file::Type< 28 >;
 using MF33 = njoy::ENDFtk::file::Type< 33 >;
+using MF34 = njoy::ENDFtk::file::Type< 34 >;
 using FileVariant = std::variant< MF1, MF2, MF3, MF4, MF5, MF6,
                                   MF7, MF8, MF9, MF10, MF12, MF13,
-                                  MF14, MF15, MF23, MF26, MF27, MF28, MF33 >;
+                                  MF14, MF15, MF23, MF26, MF27, MF28,
+                                  MF33, MF34 >;
 
 #endif
