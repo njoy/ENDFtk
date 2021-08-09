@@ -112,7 +112,7 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
   .def(
 
     "section",
-    ( Section& ( File::* )( int ) ) &File::section,
+    python::overload_cast< int >( &File::section, python::const_ ),
     python::arg( "mt" ),
     "Return the section with the requested MT number\n\n"
     "Arguments:\n"
@@ -123,7 +123,7 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
   .def(
 
     "MT",
-    ( Section& ( File::* )( int ) ) &File::MT,
+    python::overload_cast< int >( &File::MT, python::const_ ),
     python::arg( "mt" ),
     "Return the section with the requested MT number\n\n"
     "Arguments:\n"
