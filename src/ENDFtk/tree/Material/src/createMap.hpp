@@ -1,41 +1,66 @@
-static std::map< int, File_t >
+template< typename BufferIterator >
+static std::map< int, File >
 createMap
 ( const HEAD& head, BufferIterator begin,
   BufferIterator& position, const BufferIterator& end, long& lineNumber ){
 
-  std::map< int, File_t > files;
+  std::map< int, File > files;
 
-  files.emplace( head.MF(), File_t( head, begin, position, end, lineNumber ) );
+  // read the first HEAD record (we need a structure division)
+  --lineNumber;
+  position = begin;
+  auto division = StructureDivision( position, end, lineNumber );
 
-  begin = position;
-  auto division = StructureDivision( position, end, lineNumber ); 
+  // continue reading sections for the same mf
+  auto mat = head.MAT();
+  while ( division.isHead() && ( division.tail.MAT() == mat ) ) {
 
-  while( division.isHead() ){
-    if ( files.count( division.tail.MF() ) ){
-      Log::error( "Files specified with redundant file numbers (MF)" );
-      Log::info
-      ( "Within an ENDF Material, files are required to specify a unique MF" );
-      Log::info( "Encountered redundant MF: {} at line number: {}", 
-                  division.tail.MF(), lineNumber );
+    // check for duplicate mf
+    if ( files.count( division.tail.MF() ) ) {
+
+      Log::error( "Found a duplicate section for MF{}", division.tail.MF() );
+      Log::info( "Current position: MAT{} MF{} MT{} at line {}",
+                 division.tail.MAT(), division.tail.MF(), division.tail.MT(),
+                 lineNumber );
       throw std::exception();
     }
-    files.emplace( 
-        division.tail.MF(),
-        File_t( asHead(division), begin, position, end, lineNumber ) );
 
-    if( position >= end ){
-      Log::error
-      ( "Material encountered end of stream before reading MEND record" );
+    // add the file
+    files.emplace( division.tail.MF(),
+                   File( asHead( division ),
+                         begin, position, end, lineNumber ) );
+
+    // check for end of stream
+    if ( position >= end ) {
+
+      Log::error( "Encountered the end of stream before a MEND record was found" );
       throw std::exception();
     }
+
+    // skip any duplicate FEND records
     begin = position;
-    division = StructureDivision( position, end, lineNumber );  
+    division = StructureDivision( position, end, lineNumber );
+
+    while ( division.isFend() ) {
+
+      begin = position;
+      division = StructureDivision( position, end, lineNumber );
+      if ( position >= end ) {
+
+        break;
+      }
+    }
   }
 
-  if( not division.isMend() ){
-    Log::error( "MEND record is misformatted" );
-    utility::echoErroneousLine(begin, begin, end, lineNumber );
-    throw std::exception();
+  // warn for missing MEND record
+  if ( !division.isMend() ) {
+
+    position = begin;
+    Log::info( "The MEND record for MAT{} appears to be missing", mat );
+    Log::info( "Current position: MAT{} MF{} MT{} at line {}",
+               division.tail.MAT(), division.tail.MF(), division.tail.MT(),
+               lineNumber );
   }
-  return files;  
+
+  return files;
 }

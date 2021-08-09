@@ -46,17 +46,26 @@ namespace section{
                                              LegendreDistributions,
                                              TabulatedDistributions >;
 
-    /* auxiliary functions */
-    #include "ENDFtk/section/14/src/readPhotons.hpp"
+    /** @typedef PhotonDistribution
+     *  @brief The angular distribution of a given discrete photon
+     *
+     *  This distribution class is set up as a variant.
+     */
+    using AnisotropicPhotonDistribution = std::variant< LegendreDistributions,
+                                                        TabulatedDistributions >;
 
   private:
 
     /* type aliases */
 
     /* fields */
+    unsigned int nk_;
     std::vector< PhotonDistribution > photons_;
 
     /* auxiliary functions */
+    #include "ENDFtk/section/14/src/readPhotons.hpp"
+    #include "ENDFtk/section/14/src/makePhotonDistributions.hpp"
+    #include "ENDFtk/section/14/src/makeArrays.hpp"
 
   public:
 
@@ -84,9 +93,12 @@ namespace section{
 
     /**
      *  @brief Return the number of photons (discrete and continuum) with
-     *         angular distributions
+     *         angular distributionss
      */
-    int NK() const { return this->photons_.size(); }
+    int NK() const { 
+
+      return this->photons_.size() ? this->photons_.size() : this->nk_;
+    }
 
     /**
      *  @brief Return the number of photons (discrete and continuum) with
@@ -102,7 +114,7 @@ namespace section{
     /**
      *  @brief Return the isotropic angular distribution flag
      */
-    bool isotropicAngularDistributions() const { return this->LI(); }
+    bool isotropicDistributions() const { return this->LI(); }
 
     /**
      *  @brief Return the distribution law

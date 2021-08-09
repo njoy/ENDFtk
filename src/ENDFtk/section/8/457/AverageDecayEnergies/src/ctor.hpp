@@ -11,6 +11,7 @@ AverageDecayEnergies( ListRecord&& list ) :
 }
 
 public:
+
 /**
  *  @brief Constructor
  *

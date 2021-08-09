@@ -4,14 +4,17 @@
 #include "ENDFtk/section/14.hpp"
 
 // other includes
+#include "ENDFtk/tree/Section.hpp"
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
 using PhotonDistribution = section::Type< 14 >::PhotonDistribution;
+using AnisotropicPhotonDistribution = section::Type< 14 >::AnisotropicPhotonDistribution;
 using LegendreDistributions = section::Type< 14 >::LegendreDistributions;
 using LegendreCoefficients = section::Type< 14 >::LegendreCoefficients;
 using TabulatedDistributions = section::Type< 14 >::TabulatedDistributions;
 using TabulatedDistribution = section::Type< 14 >::TabulatedDistribution;
+using IsotropicDiscretePhoton = section::Type< 14 >::IsotropicDiscretePhoton;
 
 std::string chunkWithLTT0();
 void verifyChunkWithLTT0( const section::Type< 14 >& );
@@ -32,8 +35,9 @@ SCENARIO( "section::Type< 14 >" ) {
       int mt = 2;
       double za = 92235.;
       double awr = 2.330248e+2;
+      unsigned int nk = 2;
 
-      section::Type< 14 > chunk( mt, za, awr );
+      section::Type< 14 > chunk( mt, za, awr, nk );
 
       THEN( "a section::Type< 14 > can be constructed and members can be "
             "tested" ) {
@@ -75,20 +79,43 @@ SCENARIO( "section::Type< 14 >" ) {
         CHECK( buffer == sectionString );
       } // THEN
     } //WHEN
+
+    WHEN( "there is a tree::Section" ) {
+
+      tree::Section section( 9228, 14, 2, std::string( sectionString ) );
+
+      section::Type< 14 > chunk = section.parse< 14 >();
+
+      THEN( "a section::Type< 14 > can be constructed and members can be "
+            "tested" ) {
+
+        verifyChunkWithLTT0( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 14 );
+
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
   } // GIVEN
 
   GIVEN( "valid data for a section::Type< 14 > with LTT=1" ) {
 
     std::string sectionString = chunkWithLTT1() + validSEND();
 
-    WHEN( "the data is given explicitly" ) {
+    WHEN( "the data is given explicitly using PhotonDistribution" ) {
 
       int mt = 2;
       double za = 92235.;
       double awr = 2.330248e+2;
 
       std::vector< PhotonDistribution > photons =
-        { LegendreDistributions( 4.438900e+6, 4.438900e+6,
+        { IsotropicDiscretePhoton( 1.5e+6, 2e+6 ),
+          LegendreDistributions( 4.438900e+6, 4.438900e+6,
                                  { 2 }, { 3 },
                                  { { 4.812998e+6, { 0., 0.04076 } },
                                    { 15e+7, { 0., 0. } } } ) };
@@ -111,6 +138,78 @@ SCENARIO( "section::Type< 14 >" ) {
       } // THEN
     } // WHEN
 
+    WHEN( "the data is given explicitly using AnisotropicPhotonDistribution "
+          "and pairs of energy values" ) {
+
+      int mt = 2;
+      double za = 92235.;
+      double awr = 2.330248e+2;
+
+      std::vector< std::array< double, 2 > > isotropic = { {{ 1.5e+6, 2e+6 }} };
+
+      std::vector< AnisotropicPhotonDistribution > anisotropic =
+        { LegendreDistributions( 4.438900e+6, 4.438900e+6,
+                                 { 2 }, { 3 },
+                                 { { 4.812998e+6, { 0., 0.04076 } },
+                                   { 15e+7, { 0., 0. } } } ) };
+
+      section::Type< 14 > chunk( mt, za, awr,
+                                 std::move( isotropic ),
+                                 std::move( anisotropic ) );
+
+      THEN( "a section::Type< 14 > can be constructed and members can be "
+            "tested" ) {
+
+        verifyChunkWithLTT1( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 14 );
+
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is given explicitly using AnisotropicPhotonDistribution "
+          "and vectors of energies and levels" ) {
+
+      int mt = 2;
+      double za = 92235.;
+      double awr = 2.330248e+2;
+
+      std::vector< double > energies = { 1.5e+6 };
+      std::vector< double > levels = { 2.0e+6 };
+
+      std::vector< AnisotropicPhotonDistribution > anisotropic =
+        { LegendreDistributions( 4.438900e+6, 4.438900e+6,
+                                 { 2 }, { 3 },
+                                 { { 4.812998e+6, { 0., 0.04076 } },
+                                   { 15e+7, { 0., 0. } } } ) };
+
+      section::Type< 14 > chunk( mt, za, awr,
+                                 std::move( energies ),
+                                 std::move( levels ),
+                                 std::move( anisotropic ) );
+
+      THEN( "a section::Type< 14 > can be constructed and members can be "
+            "tested" ) {
+
+        verifyChunkWithLTT1( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 14 );
+
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
+
     WHEN( "the data is read from a string/stream with a valid SEND" ) {
 
       auto begin = sectionString.begin();
@@ -135,6 +234,28 @@ SCENARIO( "section::Type< 14 >" ) {
         CHECK( buffer == sectionString );
       } // THEN
     } //WHEN
+
+    WHEN( "there is a tree::Section" ) {
+
+      tree::Section section( 9228, 14, 2, std::string( sectionString ) );
+
+      section::Type< 14 > chunk = section.parse< 14 >();
+
+      THEN( "a section::Type< 14 > can be constructed and members can be "
+            "tested" ) {
+
+        verifyChunkWithLTT1( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9228, 14 );
+
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
   } // GIVEN
 
   GIVEN( "invalid data for a section::Type< 14 >" ) {
@@ -175,7 +296,7 @@ SCENARIO( "section::Type< 14 >" ) {
 
 std::string chunkWithLTT0() {
   return
-    " 9.223500+4 2.330248+2          1          0          0          0922814  2     \n";
+    " 9.223500+4 2.330248+2          1          0          2          0922814  2     \n";
 }
 
 void verifyChunkWithLTT0( const section::Type< 14 >& chunk ) {
@@ -189,13 +310,13 @@ void verifyChunkWithLTT0( const section::Type< 14 >& chunk ) {
 
   CHECK( 0 == chunk.NI() );
   CHECK( 0 == chunk.numberIsotropicPhotons() );
-  CHECK( 0 == chunk.NK() );
-  CHECK( 0 == chunk.numberPhotons() );
+  CHECK( 2 == chunk.NK() );
+  CHECK( 2 == chunk.numberPhotons() );
 
   CHECK( 0 == chunk.LTT() );
   CHECK( 0 == chunk.LAW() );
   CHECK( true == chunk.LI() );
-  CHECK( true == chunk.isotropicAngularDistributions() );
+  CHECK( true == chunk.isotropicDistributions() );
 
   CHECK( 0 == chunk.photonAngularDistributions().size() );
 
@@ -204,7 +325,8 @@ void verifyChunkWithLTT0( const section::Type< 14 >& chunk ) {
 
 std::string chunkWithLTT1() {
   return
-    " 9.223500+4 2.330248+2          0          1          1          0922814  2     \n"
+    " 9.223500+4 2.330248+2          0          1          2          1922814  2     \n"
+    " 1.500000+6 2.000000+6          0          0          0          0922814  2     \n"
     " 4.438900+6 4.438900+6          0          0          1          2922814  2     \n"
     "          2          3                                            922814  2     \n"
     " 0.000000+0 4.812998+6          0          0          2          0922814  2     \n"
@@ -222,22 +344,34 @@ void verifyChunkWithLTT1( const section::Type< 14 >& chunk ) {
   CHECK( 2.330248e+2 == Approx( chunk.AWR() ) );
   CHECK( 2.330248e+2 == Approx( chunk.atomicWeightRatio() ) );
 
-  CHECK( 0 == chunk.NI() );
-  CHECK( 0 == chunk.numberIsotropicPhotons() );
-  CHECK( 1 == chunk.NK() );
-  CHECK( 1 == chunk.numberPhotons() );
+  CHECK( 1 == chunk.NI() );
+  CHECK( 1 == chunk.numberIsotropicPhotons() );
+  CHECK( 2 == chunk.NK() );
+  CHECK( 2 == chunk.numberPhotons() );
 
   CHECK( 1 == chunk.LTT() );
   CHECK( 1 == chunk.LAW() );
   CHECK( false == chunk.LI() );
-  CHECK( false == chunk.isotropicAngularDistributions() );
+  CHECK( false == chunk.isotropicDistributions() );
 
-  CHECK( 1 == chunk.photonAngularDistributions().size() );
+  CHECK( 2 == chunk.photonAngularDistributions().size() );
 
-  auto photon = std::get< LegendreDistributions >( chunk.photonAngularDistributions()[0] );
+  auto isotropic = std::get< IsotropicDiscretePhoton >( chunk.photonAngularDistributions()[0] );
+
+  CHECK( true == isotropic.LI() );
+  CHECK( true == isotropic.isotropicDistributions() );
+  CHECK( 0 == isotropic.LTT() );
+  CHECK( 0 == isotropic.LAW() );
+
+  CHECK( 1.5e+6 == Approx( isotropic.EG() ) );
+  CHECK( 1.5e+6 == Approx( isotropic.photonEnergy() ) );
+  CHECK( 2e+6 == Approx( isotropic.ES() ) );
+  CHECK( 2e+6 == Approx( isotropic.levelEnergy() ) );
+
+  auto photon = std::get< LegendreDistributions >( chunk.photonAngularDistributions()[1] );
 
   CHECK( false == photon.LI() );
-  CHECK( false == photon.isotropicAngularDistributions() );
+  CHECK( false == photon.isotropicDistributions() );
   CHECK( 1 == photon.LTT() );
   CHECK( 1 == photon.LAW() );
 
@@ -279,7 +413,7 @@ void verifyChunkWithLTT1( const section::Type< 14 >& chunk ) {
   CHECK( 0. == Approx( d.coefficients()[0] ) );
   CHECK( 0. == Approx( d.coefficients()[1] ) );
 
-  CHECK( 7 == chunk.NC() );
+  CHECK( 8 == chunk.NC() );
 }
 
 std::string chunkWithInvalidLTT() {

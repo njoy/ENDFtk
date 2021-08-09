@@ -1,5 +1,5 @@
 private:
-/** 
+/**
  *  @brief Constructor
  *
  *  The number of values in the list should be 2 * 3 or 2 * 17, this is checked.
@@ -13,20 +13,29 @@ DecayModes( ListRecord&& list ) :
 }
 
 public:
-/** 
+
+//! @todo pybind11 variant needs default constructor workaround
+#ifdef PYBIND11
+/**
+ *  @brief Default constructor - only enabled for pybind11
+ */
+DecayModes() = default;
+#endif
+
+/**
  *  @brief Constructor
  *
  *  @param[in] spin       the spin of the nuclide
  *  @param[in] parity     the parity (used if spin is zero)
  *  @param[in] modes      the decay decay modes
  */
-DecayModes( double spin, double parity, 
+DecayModes( double spin, double parity,
             std::vector< DecayMode >&& modes ) :
   // this can never fail, try-catch would be unreachable
   DecayModes( ListRecord( spin, parity, 0, 0, modes.size(),
                                 generateList( std::move( modes ) ) ) ) {}
 
-/** 
+/**
  *  @brief Constructor
  *
  *  This constructor is used for stable nuclides without decay modes and adheres
@@ -39,7 +48,7 @@ DecayModes( double spin, double parity ) :
   DecayModes( ListRecord( spin, parity, 0, 0, 0,
                           { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 } ) ) {}
 
-/** 
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator

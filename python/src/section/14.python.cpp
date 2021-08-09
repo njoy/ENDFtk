@@ -34,6 +34,7 @@ void wrapSection_14( python::module& module, python::module& viewmodule ) {
   // wrap views created by this section
   using Section = njoy::ENDFtk::section::Type< 14 >;
   using PhotonDistribution = Section::PhotonDistribution;
+  using AnisotropicPhotonDistribution = Section::AnisotropicPhotonDistribution;
   using PhotonDistributionRange = RandomAccessAnyView< PhotonDistribution >;
 
   // wrap views created by this section
@@ -54,14 +55,16 @@ void wrapSection_14( python::module& module, python::module& viewmodule ) {
   section
   .def(
 
-    python::init< int, double, double >(),
+    python::init< int, double, double, unsigned int >(),
     python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
+    python::arg( "nk" ),
     "Initialise the section for all isotropic photons\n\n"
     "Arguments:\n"
     "    self   the section\n"
     "    mt     the MT number\n"
     "    zaid   the ZA  identifier\n"
-    "    awr    the atomic mass ratio"
+    "    awr    the atomic mass ratio\n"
+    "    nk     the total number of photons"
   )
   .def(
 
@@ -76,6 +79,41 @@ void wrapSection_14( python::module& module, python::module& viewmodule ) {
     "    zaid      the ZA  identifier\n"
     "    awr       the atomic mass ratio\n"
     "    photons   the photon distribution data"
+  )
+  .def(
+
+    python::init< int, double, double,
+                  std::vector< std::array< double, 2 > >&&,
+                  std::vector< AnisotropicPhotonDistribution >&& >(),
+    python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
+    python::arg( "isotropic" ), python::arg( "anisotropic" ),
+    "Initialise the section\n\n"
+    "Arguments:\n"
+    "    self          the section\n"
+    "    mt            the MT number\n"
+    "    zaid          the ZA  identifier\n"
+    "    awr           the atomic mass ratio\n"
+    "    isotropic     the photon and level energy for each isotropic photon\n"
+    "    anisotropic   the distribution data for the anisotropic photons"
+  )
+  .def(
+
+    python::init< int, double, double,
+                  std::vector< double >&&,
+                  std::vector< double >&&,
+                  std::vector< AnisotropicPhotonDistribution >&& >(),
+    python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
+    python::arg( "energies" ), python::arg( "levels" ),
+    python::arg( "anisotropic" ),
+    "Initialise the section\n\n"
+    "Arguments:\n"
+    "    self          the section\n"
+    "    mt            the MT number\n"
+    "    zaid          the ZA  identifier\n"
+    "    awr           the atomic mass ratio\n"
+    "    energies      the photon energy for each isotropic photon\n"
+    "    levels        the level energy for each isotropic photon\n"
+    "    anisotropic   the distribution data for the anisotropic photons"
   )
   .def_property_readonly(
 
@@ -121,8 +159,8 @@ void wrapSection_14( python::module& module, python::module& viewmodule ) {
   )
   .def_property_readonly(
 
-    "isotropic_angular_distributions",
-    &Section::isotropicAngularDistributions,
+    "isotropic_distributions",
+    &Section::isotropicDistributions,
     "The isotropic angular distribution flag"
   )
   .def_property_readonly(

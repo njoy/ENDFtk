@@ -1,45 +1,66 @@
-static std::map< int, Section_t >
+template< typename BufferIterator >
+static std::map< int, Section >
 createMap
 ( const HEAD& head, BufferIterator begin,
   BufferIterator& position, const BufferIterator& end, long& lineNumber ){
 
-  std::map< int, Section_t > sections;
+  std::map< int, Section > sections;
 
-  sections.emplace( 
-      head.MT(),
-      Section_t( head, begin, position, end, lineNumber ) );
-
-  begin = position; 
+  // read the first HEAD record (we need a structure division)
+  --lineNumber;
+  position = begin;
   auto division = StructureDivision( position, end, lineNumber );
 
-  while( division.isHead() ){
+  // continue reading sections for the same mf
+  auto mf = head.MF();
+  while ( division.isHead() && ( division.tail.MF() == mf ) ) {
 
-    if ( sections.count( division.tail.MT() ) ){
-      Log::error( "Sections specified with redundant section numbers (MT)" );
-      Log::info
-      ( "Within an ENDF File, sections are required to specify a unique MT" );
-      Log::info( "Encountered redundant MT: {}", division.tail.MT() );
+    // check for duplicate mt
+    if ( sections.count( division.tail.MT() ) ) {
+
+      Log::error( "Found a duplicate section for MT{}", division.tail.MT() );
+      Log::info( "Current position: MAT{} MF{} MT{} at line {}",
+                 division.tail.MAT(), division.tail.MF(), division.tail.MT(),
+                 lineNumber );
       throw std::exception();
     }
 
-    sections.emplace( 
-      division.tail.MT(),
-      Section_t( asHead( division ), begin, position, end, lineNumber ) );
+    // add the section
+    sections.emplace( division.tail.MT(),
+                      Section( asHead( division ),
+                               begin, position, end, lineNumber ) );
 
-    if( position >= end ){
-      Log::error( "File encountered end of stream before reading FEND record" );
+    // check for end of stream
+    if ( position >= end ) {
+
+      Log::error( "Encountered the end of stream before a FEND record was found" );
       throw std::exception();
     }
 
-    begin = position; 
-    division = StructureDivision( position, end, lineNumber );  
+    // skip any duplicate SEND records
+    begin = position;
+    division = StructureDivision( position, end, lineNumber );
+
+    while ( division.isSend() ) {
+
+      begin = position;
+      division = StructureDivision( position, end, lineNumber );
+      if ( position >= end ) {
+
+        break;
+      }
+    }
   }
 
-  if( not division.isFend() ){
-    Log::error( "FEND record is misformatted" );
-    utility::echoErroneousLine(begin, begin, end, lineNumber );
-    throw std::exception();
+  // warn for missing FEND record
+  if ( !division.isFend() ) {
+
+    position = begin;
+    Log::info( "The FEND record for MF{} appears to be missing", mf );
+    Log::info( "Current position: MAT{} MF{} MT{} at line {}",
+               division.tail.MAT(), division.tail.MF(), division.tail.MT(),
+               lineNumber );
   }
-  
-  return sections;  
+
+  return sections;
 }

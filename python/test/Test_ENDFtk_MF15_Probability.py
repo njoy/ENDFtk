@@ -50,8 +50,7 @@ class Test_ENDFtk_MF15_Probability( unittest.TestCase ) :
             self.assertEqual( self.chunk, chunk.to_string( 9437, 15, 18 ) )
 
         # the data is given explicitly
-        chunk = Probability( lf = 1,
-                             boundaries = [ 2 ], interpolants = [ 2 ],
+        chunk = Probability( boundaries = [ 2 ], interpolants = [ 2 ],
                              energies = [ 1e-5, 3e+7 ], probabilities = [ 1., 1. ] )
 
         verify_chunk( self, chunk )

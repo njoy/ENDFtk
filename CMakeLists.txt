@@ -81,6 +81,10 @@ include_directories( python/src/ )
 pybind11_add_module( ENDFtk.python
     EXCLUDE_FROM_ALL
     python/src/ENDFtk.python.cpp
+    python/src/record/ControlRecord.python.cpp
+    python/src/record/ListRecord.python.cpp
+    python/src/record/TabulationRecord.python.cpp
+    python/src/record/InterpolationRecord.python.cpp
     python/src/record/DirectoryRecord.python.cpp
     python/src/record/TapeIdentification.python.cpp
     python/src/section/1/TabulatedMultiplicity.python.cpp
@@ -130,6 +134,10 @@ pybind11_add_module( ENDFtk.python
     python/src/section/2/151/UnresolvedEnergyDependentFissionWidths.python.cpp
     python/src/section/2/151/UnresolvedEnergyIndependent.python.cpp
     python/src/section/2/152.python.cpp
+    python/src/section/23.python.cpp
+    python/src/section/27.python.cpp
+    python/src/section/28/SubshellData.python.cpp
+    python/src/section/28.python.cpp
     python/src/section/3.python.cpp
     python/src/section/4.python.cpp
     python/src/section/4/Isotropic.python.cpp
@@ -217,6 +225,19 @@ pybind11_add_module( ENDFtk.python
     python/src/section/15/TabulatedSpectrum.python.cpp
     python/src/section/15/Probability.python.cpp
     python/src/section/15/PartialDistribution.python.cpp
+    python/src/section/33.python.cpp
+    python/src/section/33/DerivedRedundant.python.cpp
+    python/src/section/33/DerivedRatioToStandard.python.cpp
+    python/src/section/33/CovariancePairs.python.cpp
+    python/src/section/33/SquareMatrix.python.cpp
+    python/src/section/33/ReactionBlock.python.cpp
+    python/src/section/33/RectangularMatrix.python.cpp
+    python/src/section/34.python.cpp
+    python/src/section/34/CovariancePairs.python.cpp
+    python/src/section/34/LegendreBlock.python.cpp
+    python/src/section/34/ReactionBlock.python.cpp
+    python/src/section/34/RectangularMatrix.python.cpp
+    python/src/section/34/SquareMatrix.python.cpp
     python/src/file/1.python.cpp
     python/src/file/2.python.cpp
     python/src/file/3.python.cpp
@@ -231,6 +252,11 @@ pybind11_add_module( ENDFtk.python
     python/src/file/13.python.cpp
     python/src/file/14.python.cpp
     python/src/file/15.python.cpp
+    python/src/file/23.python.cpp
+    python/src/file/27.python.cpp
+    python/src/file/28.python.cpp
+    python/src/file/33.python.cpp
+    python/src/file/34.python.cpp
     python/src/Material.python.cpp
     python/src/tree/Section.python.cpp
     python/src/tree/File.python.cpp

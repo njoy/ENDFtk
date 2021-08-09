@@ -32,20 +32,23 @@ void wrapProbability( python::module& module, python::module& ) {
   component
   .def(
 
-    python::init< long, std::vector< long >&&, std::vector< long >&&,
-                  std::vector< double >&&, std::vector< double >&&, double >(),
-    python::arg( "lf" ), python::arg( "boundaries" ),
-    python::arg( "interpolants" ), python::arg( "energies" ),
-    python::arg( "probabilities" ), python::arg( "u" ) = 0.0,
+    python::init( [] ( std::vector< long >&& boundaries,
+                       std::vector< long >&& interpolants,
+                       std::vector< double >&& energies,
+                       std::vector< double >&& probabilities )
+                     { return Component( 1, std::move( boundaries ),
+                                         std::move( interpolants ),
+                                         std::move( energies ),
+                                         std::move( probabilities ) ); } ),
+    python::arg( "boundaries" ), python::arg( "interpolants" ), 
+    python::arg( "energies" ), python::arg( "probabilities" ),
     "Initialise the component\n\n"
     "Arguments:\n"
     "    self             the component\n"
-    "    lf               the type of the underlying distribution\n"
     "    boundaries       the interpolation range boundaries\n"
     "    interpolants     the interpolation types for each range\n"
     "    energies         the energy values\n"
-    "    probabilities    the probability values\n"
-    "    u                the energy limit constant U (default = 0.0)"
+    "    probabilities    the probability values"
   )
   .def_property_readonly(
 

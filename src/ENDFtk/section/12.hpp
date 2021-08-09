@@ -3,6 +3,7 @@
 
 // system includes
 #include <variant>
+#include <optional>
 
 // other includes
 #include "range/v3/view/chunk.hpp"

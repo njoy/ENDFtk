@@ -34,7 +34,7 @@ namespace ENDFtk {
     using InterpolationBase::NR;
 
     /**
-     *  @brief Return the number of interpolation ranges
+     *  @brief Return the number of points
      */
     long NZ() const { return InterpolationBase::N2(); }
 

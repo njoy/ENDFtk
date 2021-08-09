@@ -38,7 +38,7 @@ void wrapTabulatedDistribution( python::module& module, python::module& ) {
     "Initialise the component\n\n"
     "Arguments:\n"
     "    self             the component\n"
-    "    incident         the incident energy value\n"
+    "    energy           the incident energy value\n"
     "    boundaries       the interpolation range boundaries\n"
     "    interpolants     the interpolation types for each range\n"
     "    cosines          the cosine values\n"

@@ -5,8 +5,8 @@ generateFissionYields( std::vector< unsigned int >&& identifiers,
                        std::vector< unsigned int >&& interpolants,
                        std::vector< std::vector< std::array< double, 2 > > >&& yields ) {
 
-  unsigned int size = energies.size();
   std::vector< FissionYieldData > sequence;
+  unsigned int size = energies.size();
   sequence.reserve( size );
 
   if ( size != interpolants.size() + 1 ) {
@@ -20,11 +20,22 @@ generateFissionYields( std::vector< unsigned int >&& identifiers,
   }
 
   unsigned int nfp = identifiers.size();
+  if ( ( nfp != states.size() ) || ( nfp != yields.size() ) ) {
+
+    Log::error( "Encountered inconsistent number of identifiers, isomeric states "
+                "and yield data" );
+    Log::info( "Number of identifiers, isomeric states and yield sets must be the same" );
+    Log::info( "Number of identifiers: {}", identifiers.size() );
+    Log::info( "Number of isomeric states: {}", states.size() );
+    Log::info( "Number of yield sets: {}", yields.size() );
+    throw std::exception();
+  }
+
   for ( unsigned int i = 0; i < nfp; ++i ) {
 
     if ( yields[i].size() != size ) {
 
-      Log::info( "The number of fission yield values for the fission product "
+      Log::error( "The number of fission yield values for the fission product "
                  "with index {} is not equal to the expected value", i );
       Log::info( "NE value: {}", size );
       Log::info( "yields[i].size(): {}", yields[i].size() );
@@ -32,17 +43,16 @@ generateFissionYields( std::vector< unsigned int >&& identifiers,
     }
   }
 
-  unsigned int i = 0;
-  while ( i++ < size ) {
+  for ( unsigned int i = 0; i < size; ++i ) {
 
     sequence.emplace_back( std::vector< unsigned int >( identifiers ),
                            std::vector< unsigned int >( states ),
                            ranges::to< std::vector< std::array< double, 2 > > >(
                                yields | ranges::cpp20::views::transform(
                                             [i] ( const auto& range )
-                                                { return range[i-1]; } ) ),
-                           energies[i-1],
-                           i - 1 == 0 ? energies.size() - 1 : interpolants[i-2] );
+                                                { return range[i]; } ) ),
+                           energies[i],
+                           i == 0 ? energies.size() - 1 : interpolants[i-1] );
   }
 
   return sequence;
