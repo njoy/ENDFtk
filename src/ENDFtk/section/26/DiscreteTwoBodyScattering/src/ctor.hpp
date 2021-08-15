@@ -11,7 +11,7 @@ private:
  *  @brief Private constructor
  */
 DiscreteTwoBodyScattering( InterpolationRecord&& interpolation,
-                           std::vector< Variant >&& sequence ) :
+                           std::vector< TabulatedDistribution >&& sequence ) :
   data_( std::move( interpolation ), std::move( sequence ) ) {}
 
 public:
@@ -24,7 +24,7 @@ public:
  */
 DiscreteTwoBodyScattering( std::vector< long >&& boundaries,
                            std::vector< long >&& interpolants,
-                           std::vector< Variant >&& sequence )
+                           std::vector< TabulatedDistribution >&& sequence )
   try : DiscreteTwoBodyScattering(
           InterpolationRecord( 0.0, 0.0, 0, 0,
                                std::move( boundaries ),
@@ -50,9 +50,9 @@ DiscreteTwoBodyScattering( InterpolationRecord&& interpolation,
                            int MF,
                            int MT ) :
   DiscreteTwoBodyScattering( std::move( interpolation ),
-                             readSequence( interpolation.NZ(),
-                                           begin, end, lineNumber,
-                                           MAT, MF, MT ) ) {}
+                             readSequence< TabulatedDistribution >(
+                               begin, end, lineNumber,
+                               MAT, MF, MT, interpolation.NZ() ) ) {}
 
 public:
 /**

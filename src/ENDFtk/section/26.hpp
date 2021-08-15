@@ -29,7 +29,8 @@ namespace hana = boost::hana;
 
   /**
    *  @class
-   *  @brief 26 - secondary distributions for photo- and electro-atomic interactions
+   *  @brief MF26 - secondary distributions for photo- and electro-atomic
+   *                interactions
    *
    *  See ENDF102, section 26.2 for more information.
    */
@@ -42,9 +43,9 @@ namespace hana = boost::hana;
 
     #include "ENDFtk/section/26/Multiplicity.hpp"
 
-    #include "ENDFtk/section/26/ContinuumEnergyAngle.hpp"     // LAW=1
-    #include "ENDFtk/section/6/DiscreteTwoBodyScattering.hpp" // LAW=2
-    #include "ENDFtk/section/26/EnergyTransfer.hpp"           // LAW=8
+    #include "ENDFtk/section/26/ContinuumEnergyAngle.hpp"      // LAW=1
+    #include "ENDFtk/section/26/DiscreteTwoBodyScattering.hpp" // LAW=2
+    #include "ENDFtk/section/26/EnergyTransfer.hpp"            // LAW=8
 
     using LAW1 = ContinuumEnergyAngle;
     using LAW2 = DiscreteTwoBodyScattering;

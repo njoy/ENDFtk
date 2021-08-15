@@ -23,12 +23,11 @@ private:
   InterpolationSequenceRecord< TabulatedDistribution > data_;
 
   /* auxiliary functions */
-  #include "ENDFtk/section/6/DiscreteTwoBodyScattering/src/readSequence.hpp"
 
 public:
 
   /* constructor */
-  #include "ENDFtk/section/6/DiscreteTwoBodyScattering/src/ctor.hpp"
+  #include "ENDFtk/section/26/DiscreteTwoBodyScattering/src/ctor.hpp"
 
   /* methods */
 
@@ -91,5 +90,6 @@ public:
    */
   long NC() const { return this->data_.NC(); }
 
+  // taken from MF6
   #include "ENDFtk/section/6/DiscreteTwoBodyScattering/src/print.hpp"
 };

@@ -11,8 +11,8 @@ readDistribution( Iterator& begin,
   switch ( LAW ) {
     case   1 : return ContinuumEnergyAngle(
                         begin, end, lineNumber, MAT, MF, MT );
-//    case   2 : return DiscreteTwoBodyScattering(
-//                        begin, end, lineNumber, MAT, MF, MT );
+    case   2 : return DiscreteTwoBodyScattering(
+                        begin, end, lineNumber, MAT, MF, MT );
     case   8 : return EnergyTransfer( begin, end, lineNumber, MAT, MF, MT );
     default : {
       Log::error( "Encountered illegal LAW value" );
