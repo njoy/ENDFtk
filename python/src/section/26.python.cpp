@@ -28,7 +28,9 @@ namespace mf26 {
 
   }
 
-  void wrapEnergyTransfer( python::module&, python::module& );         // law=8
+  void wrapDiscreteTwoBodyScattering( python::module&, python::module& );        // law=2
+
+  void wrapEnergyTransfer( python::module&, python::module& );                   // law=8
 }
 
 void wrapSection_26( python::module& module, python::module& viewmodule ) {

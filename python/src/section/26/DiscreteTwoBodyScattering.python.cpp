@@ -17,6 +17,7 @@ void wrapDiscreteTwoBodyScattering( python::module& module, python::module& view
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 26 >;
   using Component = Section::DiscreteTwoBodyScattering;
+  using TabulatedDistribution = Section::DiscreteTwoBodyScattering::TabulatedDistribution;
   using TabulatedDistributionRange = RandomAccessAnyView< TabulatedDistribution >;
 
   // wrap views created by this section

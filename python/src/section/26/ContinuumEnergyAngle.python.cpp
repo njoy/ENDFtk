@@ -17,6 +17,7 @@ void wrapContinuumEnergyAngle( python::module& module, python::module& viewmodul
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 26 >;
   using Component = Section::ContinuumEnergyAngle;
+  using LegendreCoefficients = Section::ContinuumEnergyAngle::LegendreCoefficients;
   using LegendreCoefficientsRange = RandomAccessAnyView< LegendreCoefficients >;
 
   // wrap views created by this section
