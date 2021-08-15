@@ -15,6 +15,19 @@ namespace mf26 {
   // declarations - components
   void wrapMultiplicity( python::module&, python::module& );
 
+  namespace law1 {
+
+    void wrapLegendreCoefficients( python::module&, python::module& );           // law=1
+  }
+
+  void wrapContinuumEnergyAngle( python::module&, python::module& );             // law=1
+
+  namespace law2 {
+
+    void wrapTabulatedDistribution( python::module&, python::module& );          // law=2
+
+  }
+
   void wrapEnergyTransfer( python::module&, python::module& );         // law=8
 }
 
@@ -24,6 +37,30 @@ void wrapSection_26( python::module& module, python::module& viewmodule ) {
   using Section = njoy::ENDFtk::section::Type< 26 >;
 
   // wrap components
+
+  // LAW = 1 - - - - - - - - - - - - - - - - - - - - - -
+
+  // create the submodule for LAW=1
+  python::module submodule = module.def_submodule(
+
+    "LAW1",
+    "LAW1 - continuum energy-angle data for secondary particles"
+  );
+
+  mf26::law1::wrapLegendreCoefficients( submodule, viewmodule );
+  mf26::wrapContinuumEnergyAngle( module, viewmodule );
+
+  // LAW = 2 - - - - - - - - - - - - - - - - - - - - - -
+
+  // create the submodule for LAW=2
+  submodule = module.def_submodule(
+
+    "LAW2",
+    "LAW2 - discrete two-body scattering data for secondary particles"
+  );
+
+  mf26::law2::wrapTabulatedDistribution( submodule, viewmodule );
+  mf26::wrapDiscreteTwoBodyScattering( module, viewmodule );
 
   // LAW = 8 - - - - - - - - - - - - - - - - - - - - - -
 
