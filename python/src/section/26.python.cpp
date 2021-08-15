@@ -37,6 +37,8 @@ void wrapSection_26( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 26 >;
+  using ReactionProduct = Section::ReactionProduct;
+  using ReactionProductRange = RandomAccessAnyView< ReactionProduct >;
 
   // wrap components
 
@@ -81,7 +83,41 @@ void wrapSection_26( python::module& module, python::module& viewmodule ) {
   );
 
   // wrap the section
+  section
+  .def(
+
+    python::init< int, double, double,
+                  std::vector< ReactionProduct >&& >(),
+    python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
+    python::arg( "products" ),
+    "Initialise the section\n\n"
+    "Arguments:\n"
+    "    self        the section\n"
+    "    mt          the MT number\n"
+    "    zaid        the ZA  identifier\n"
+    "    awr         the atomic mass ratio\n"
+    "    products    the reaction products (at least 1)"
+  )
+  .def_property_readonly(
+
+    "NK",
+    &Section::NK,
+    "The number of reaction products"
+  )
+  .def_property_readonly(
+
+    "number_reaction_products",
+    &Section::numberReactionProducts,
+    "The number of reaction products"
+  )
+  .def_property_readonly(
+
+    "reaction_products",
+    [] ( const Section& self ) -> ReactionProductRange
+       { return self.reactionProducts(); },
+    "The reaction products defined in this section"
+  );
 
   // add standard section definitions
-//  addStandardSectionDefinitions< Section >( section );
+  addStandardSectionDefinitions< Section >( section );
 }

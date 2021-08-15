@@ -1,20 +1,16 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk/section/6.hpp"
+#include "ENDFtk/section/26.hpp"
 
 // other includes
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
 using DiscreteTwoBodyScattering =
-section::Type< 6 >::DiscreteTwoBodyScattering;
-using Variant =
-section::Type< 6 >::DiscreteTwoBodyScattering::Variant;
-using LegendreCoefficients =
-section::Type< 6 >::DiscreteTwoBodyScattering::LegendreCoefficients;
+section::Type< 26 >::DiscreteTwoBodyScattering;
 using TabulatedDistribution =
-section::Type< 6 >::DiscreteTwoBodyScattering::TabulatedDistribution;
+section::Type< 26 >::DiscreteTwoBodyScattering::TabulatedDistribution;
 
 std::string chunk();
 void verifyChunk( const DiscreteTwoBodyScattering& );
@@ -30,8 +26,8 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
 
       std::vector< long > boundaries = { 2 };
       std::vector< long > interpolants = { 1 };
-      std::vector< Variant > sequence = {
-        LegendreCoefficients( 1e-5, { 1., 2., 3., 4. } ),
+      std::vector< TabulatedDistribution > sequence = {
+        TabulatedDistribution( 1e-5, 12, { 1., 3. }, { 2., 4. } ),
         TabulatedDistribution( 2e+7, 12, { 1., 3., 5. }, { 2., 4., 6. } ) };
 
       DiscreteTwoBodyScattering
@@ -86,8 +82,8 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
 
         std::vector< long > wrongBoundaries = { 2, 4 };
         std::vector< long > interpolants = { 1 };
-        std::vector< Variant > sequence = {
-          LegendreCoefficients( 1e-5, { 1., 2., 3., 4. } ),
+        std::vector< TabulatedDistribution > sequence = {
+          TabulatedDistribution( 1e-5, 12, { 1., 3. }, { 2., 4. } ),
           TabulatedDistribution( 2e+7, 12, { 1., 3., 5. }, { 2., 4., 6. } ) };
 
         CHECK_THROWS(
@@ -101,8 +97,8 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
 
         std::vector< long > boundaries = { 2 };
         std::vector< long > wrongInterpolants = { 1, 2 };
-        std::vector< Variant > sequence = {
-          LegendreCoefficients( 1e-5, { 1., 2., 3., 4. } ),
+        std::vector< TabulatedDistribution > sequence = {
+          TabulatedDistribution( 1e-5, 12, { 1., 3. }, { 2., 4. } ),
           TabulatedDistribution( 2e+7, 12, { 1., 3., 5. }, { 2., 4., 6. } ) };
 
         CHECK_THROWS(
@@ -116,8 +112,8 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
 
         std::vector< long > boundaries = { 2 };
         std::vector< long > interpolants = { 1 };
-        std::vector< Variant > wrongSequence = {
-          LegendreCoefficients( 1e-5, { 1., 2., 3., 4. } ) };
+        std::vector< TabulatedDistribution > wrongSequence = {
+          TabulatedDistribution( 1e-5, 12, { 1., 3. }, { 2., 4. } ) };
 
         CHECK_THROWS(
             DiscreteTwoBodyScattering( std::move( boundaries ),
@@ -146,7 +142,7 @@ std::string chunk() {
   return
     " 0.000000+0 0.000000+0          0          0          1          2922826  5     \n"
     "          2          1                                            922826  5     \n"
-    " 0.000000+0 1.000000-5          0          0          4          4922826  5     \n"
+    " 0.000000+0 1.000000-5         12          0          4          2922826  5     \n"
     " 1.000000+0 2.000000+0 3.000000+0 4.000000+0                      922826  5     \n"
     " 0.000000+0 2.000000+7         12          0          6          3922826  5     \n"
     " 1.000000+0 2.000000+0 3.000000+0 4.000000+0 5.000000+0 6.000000+0922826  5     \n";
@@ -171,45 +167,45 @@ void verifyChunk( const DiscreteTwoBodyScattering& chunk ) {
 
       auto energies = chunk.distributions();
 
-      auto subsection1 = std::get< LegendreCoefficients >( energies[0] );
-      CHECK( 1e-5 == Approx( subsection1.E() ) );
-      CHECK( 1e-5 == Approx( subsection1.incidentEnergy() ) );
-      CHECK( 0 == subsection1.LANG() );
-      CHECK( 4 == subsection1.NW() );
-      CHECK( 4 == subsection1.NL() );
-      CHECK( 4 == subsection1.A().size() );
-      CHECK( 4 == subsection1.coefficients().size() );
-      CHECK( 1. == Approx( subsection1.A()[0] ) );
-      CHECK( 2. == Approx( subsection1.A()[1] ) );
-      CHECK( 3. == Approx( subsection1.A()[2] ) );
-      CHECK( 4. == Approx( subsection1.A()[3] ) );
-      CHECK( 1. == Approx( subsection1.coefficients()[0] ) );
-      CHECK( 2. == Approx( subsection1.coefficients()[1] ) );
-      CHECK( 3. == Approx( subsection1.coefficients()[2] ) );
-      CHECK( 4. == Approx( subsection1.coefficients()[3] ) );
+      CHECK( 1e-5 == Approx( energies[0].E() ) );
+      CHECK( 1e-5 == Approx( energies[0].incidentEnergy() ) );
+      CHECK( 12 == energies[0].LANG() );
+      CHECK( 4 == energies[0].NW() );
+      CHECK( 2 == energies[0].NL() );
+      CHECK( 2 == energies[0].MU().size() );
+      CHECK( 2 == energies[0].cosines().size() );
+      CHECK( 1. == Approx( energies[0].MU()[0] ) );
+      CHECK( 3. == Approx( energies[0].MU()[1] ) );
+      CHECK( 1. == Approx( energies[0].cosines()[0] ) );
+      CHECK( 3. == Approx( energies[0].cosines()[1] ) );
+      CHECK( 2 == energies[0].F().size() );
+      CHECK( 2 == energies[0].probabilities().size() );
+      CHECK( 2. == Approx( energies[0].F()[0] ) );
+      CHECK( 4. == Approx( energies[0].F()[1] ) );
+      CHECK( 2. == Approx( energies[0].probabilities()[0] ) );
+      CHECK( 4. == Approx( energies[0].probabilities()[1] ) );
 
-      auto subsection2 = std::get< TabulatedDistribution >( energies[1] );
-      CHECK( 2e+7 == Approx( subsection2.E() ) );
-      CHECK( 2e+7 == Approx( subsection2.incidentEnergy() ) );
-      CHECK( 12 == subsection2.LANG() );
-      CHECK( 6 == subsection2.NW() );
-      CHECK( 3 == subsection2.NL() );
-      CHECK( 3 == subsection2.MU().size() );
-      CHECK( 3 == subsection2.cosines().size() );
-      CHECK( 1. == Approx( subsection2.MU()[0] ) );
-      CHECK( 3. == Approx( subsection2.MU()[1] ) );
-      CHECK( 5. == Approx( subsection2.MU()[2] ) );
-      CHECK( 1. == Approx( subsection2.cosines()[0] ) );
-      CHECK( 3. == Approx( subsection2.cosines()[1] ) );
-      CHECK( 5. == Approx( subsection2.cosines()[2] ) );
-      CHECK( 3 == subsection2.F().size() );
-      CHECK( 3 == subsection2.probabilities().size() );
-      CHECK( 2. == Approx( subsection2.F()[0] ) );
-      CHECK( 4. == Approx( subsection2.F()[1] ) );
-      CHECK( 6. == Approx( subsection2.F()[2] ) );
-      CHECK( 2. == Approx( subsection2.probabilities()[0] ) );
-      CHECK( 4. == Approx( subsection2.probabilities()[1] ) );
-      CHECK( 6. == Approx( subsection2.probabilities()[2] ) );
+      CHECK( 2e+7 == Approx( energies[1].E() ) );
+      CHECK( 2e+7 == Approx( energies[1].incidentEnergy() ) );
+      CHECK( 12 == energies[1].LANG() );
+      CHECK( 6 == energies[1].NW() );
+      CHECK( 3 == energies[1].NL() );
+      CHECK( 3 == energies[1].MU().size() );
+      CHECK( 3 == energies[1].cosines().size() );
+      CHECK( 1. == Approx( energies[1].MU()[0] ) );
+      CHECK( 3. == Approx( energies[1].MU()[1] ) );
+      CHECK( 5. == Approx( energies[1].MU()[2] ) );
+      CHECK( 1. == Approx( energies[1].cosines()[0] ) );
+      CHECK( 3. == Approx( energies[1].cosines()[1] ) );
+      CHECK( 5. == Approx( energies[1].cosines()[2] ) );
+      CHECK( 3 == energies[1].F().size() );
+      CHECK( 3 == energies[1].probabilities().size() );
+      CHECK( 2. == Approx( energies[1].F()[0] ) );
+      CHECK( 4. == Approx( energies[1].F()[1] ) );
+      CHECK( 6. == Approx( energies[1].F()[2] ) );
+      CHECK( 2. == Approx( energies[1].probabilities()[0] ) );
+      CHECK( 4. == Approx( energies[1].probabilities()[1] ) );
+      CHECK( 6. == Approx( energies[1].probabilities()[2] ) );
 
       CHECK( 6 == chunk.NC() );
 }
@@ -218,7 +214,7 @@ std::string invalidLANG() {
   return
     " 0.000000+0 0.000000+0          0          0          1          2922826  5     \n"
     "          2          1                                            922826  5     \n"
-    " 0.000000+0 1.000000-5          1          0          4          4922826  5     \n"
+    " 0.000000+0 1.000000-5          1          0          4          2922826  5     \n"
     " 1.000000+0 2.000000+0 3.000000+0 4.000000+0                      922826  5     \n"
     " 0.000000+0 2.000000+7         12          0          6          3922826  5     \n"
     " 1.000000+0 2.000000+0 3.000000+0 4.000000+0 5.000000+0 6.000000+0922826  5     \n";
