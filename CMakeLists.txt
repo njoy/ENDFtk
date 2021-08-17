@@ -142,6 +142,7 @@ pybind11_add_module( ENDFtk.python
     python/src/section/26/LAW2/TabulatedDistribution.python.cpp
     python/src/section/26/ContinuumEnergyAngle.python.cpp
     python/src/section/26/DiscreteTwoBodyScattering.python.cpp
+    python/src/section/26/ReactionProduct.python.cpp
     python/src/section/27.python.cpp
     python/src/section/28/SubshellData.python.cpp
     python/src/section/28.python.cpp

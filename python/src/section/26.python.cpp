@@ -31,6 +31,7 @@ namespace mf26 {
   void wrapDiscreteTwoBodyScattering( python::module&, python::module& );        // law=2
 
   void wrapEnergyTransfer( python::module&, python::module& );                   // law=8
+  void wrapReactionProduct( python::module&, python::module& );
 }
 
 void wrapSection_26( python::module& module, python::module& viewmodule ) {
@@ -71,6 +72,7 @@ void wrapSection_26( python::module& module, python::module& viewmodule ) {
   mf26::wrapEnergyTransfer( module, viewmodule );
 
   mf26::wrapMultiplicity( module, viewmodule );
+  mf26::wrapReactionProduct( module, viewmodule );
 
   // wrap views created by this section
 

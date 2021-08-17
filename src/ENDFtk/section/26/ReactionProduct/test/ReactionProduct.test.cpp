@@ -301,7 +301,7 @@ void verifyChunkWithLAW1( const ReactionProduct& chunk ) {
   CHECK( 2 == energies[0].coefficients().size() );
   CHECK( 2.1394 == Approx( energies[0].coefficients()[0][0] ) );
   CHECK( 2.122450e-2 == Approx( energies[0].coefficients()[1][0] ) );
-  CHECK( 2 == Approx( energies[0].totalEmissionProbabilities().size() ) );
+  CHECK( 2 == energies[0].totalEmissionProbabilities().size() );
   CHECK( 2.1394 == Approx( energies[0].totalEmissionProbabilities()[0] ) );
   CHECK( 2.12245e-2 == Approx( energies[0].totalEmissionProbabilities()[1] ) );
 
@@ -317,7 +317,7 @@ void verifyChunkWithLAW1( const ReactionProduct& chunk ) {
   CHECK( 2 == energies[1].coefficients().size() );
   CHECK( 1.84823 == Approx( energies[1].coefficients()[0][0] ) );
   CHECK( 8.76641e-3 == Approx( energies[1].coefficients()[1][0] ) );
-  CHECK( 2 == Approx( energies[1].totalEmissionProbabilities().size() ) );
+  CHECK( 2 == energies[1].totalEmissionProbabilities().size() );
   CHECK( 1.84823 == Approx( energies[1].totalEmissionProbabilities()[0] ) );
   CHECK( 8.76641e-3 == Approx( energies[1].totalEmissionProbabilities()[1] ) );
 
