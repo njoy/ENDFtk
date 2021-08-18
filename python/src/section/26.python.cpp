@@ -75,6 +75,10 @@ void wrapSection_26( python::module& module, python::module& viewmodule ) {
   mf26::wrapReactionProduct( module, viewmodule );
 
   // wrap views created by this section
+  // none of these are supposed to be created directly by the user
+  wrapRandomAccessAnyViewOf< ReactionProduct >(
+      viewmodule,
+      "any_view< mf26::ReactionProduct, random_access >" );
 
   // create the section
   python::class_< Section > section(
