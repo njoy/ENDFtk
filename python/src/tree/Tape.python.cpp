@@ -162,6 +162,7 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
 
       return Tape( string );
     },
+    python::arg( "string" ),
     "Read a tape from a string\n\n"
     "An exception is raised if something goes wrong while reading the\n"
     "tape\n\n"
@@ -175,6 +176,7 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
 
       return njoy::ENDFtk::tree::fromFile( filename );
     },
+    python::arg( "filename" ),
     "Read a tape from a file\n\n"
     "An exception is raised if something goes wrong while reading the\n"
     "tape\n\n"
@@ -190,6 +192,7 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
       out << self.content();
       out.close();
     },
+    python::arg( "filename" ),
     "Write the tape to a file\n\n"
     "Arguments:\n"
     "    self        the tape\n"
