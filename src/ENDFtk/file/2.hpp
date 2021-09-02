@@ -25,11 +25,11 @@ namespace file {
 
     // all other sections are optional
     static constexpr auto optionalSections()
-      RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 152_c ) )
+      RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 152_c, 153_c ) )
 
     // the following sections are currently unimplemented
     static constexpr auto unimplementedSections()
-      RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 153_c ) )
+      RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple() )
 
     using Map =
     typename decltype( details::deduceMapType(

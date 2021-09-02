@@ -104,6 +104,7 @@ add_subdirectory( src/ENDFtk/section/2/151/UnresolvedEnergyIndependent/LValue/te
 add_subdirectory( src/ENDFtk/section/2/151/UnresolvedEnergyIndependent/test )
 add_subdirectory( src/ENDFtk/section/2/151/test )
 add_subdirectory( src/ENDFtk/section/2/152/test )
+add_subdirectory( src/ENDFtk/section/2/153/Table/test )
 add_subdirectory( src/ENDFtk/section/23/test )
 add_subdirectory( src/ENDFtk/section/27/test )
 add_subdirectory( src/ENDFtk/section/28/SubshellData/Transition/test )
