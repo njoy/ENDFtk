@@ -91,6 +91,16 @@ namespace section {
      */
     bool selfShieldingOnly() const { return this->LSSF(); }
 
+    /**
+     *  @brief Return the self-shielding only flag
+     */
+    bool LSSF() const { return this->data_.L1(); }
+
+    /**
+     *  @brief Return the self-shielding only flag
+     */
+    bool selfShieldingOnly() const { return this->LSSF(); }
+
     using BaseWithoutMT::MT;
     using BaseWithoutMT::ZA;
     using BaseWithoutMT::atomicWeightRatio;
