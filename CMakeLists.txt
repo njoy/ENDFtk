@@ -35,17 +35,21 @@ set( REPOSITORIES "release"
     CACHE STRING
     "Options for where to fetch repositories: develop, release, local"
     )
+option( LOCAL_BUILD
+    "Option to use local repositories" OFF
+    )
 
-message( STATUS "Using ${REPOSITORIES} repositories" )
+if( LOCAL_BUILD )
+    message( "Using local dependencies" )
+    include( cmake/local_dependencies.cmake )
 
-if( REPOSITORIES STREQUAL "develop" )
+elseif( REPOSITORIES STREQUAL "develop" )
+    message( "Using develop dependencies" )
     include( cmake/develop_dependencies.cmake )
 
 elseif( REPOSITORIES STREQUAL "release" )
+    message( "Using release dependencies" )
     include( cmake/release_dependencies.cmake )
-
-elseif( REPOSITORIES STREQUAL "local" )
-    include( cmake/local_dependencies.cmake )
 
 endif()
 
