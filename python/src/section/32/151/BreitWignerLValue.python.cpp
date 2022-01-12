@@ -49,7 +49,7 @@ void wrapBreitWignerLValue( python::module& module, python::module& ) {
     python::arg( "dn2" ), python::arg( "dndg" ), python::arg( "dg2" ),
     python::arg( "dndf" ), python::arg( "dgdf" ), python::arg( "df2" ),
     python::arg( "djdn" ), python::arg( "djdg" ), python::arg( "djdf" ),
-    python::arg( "df2" ),
+    python::arg( "dj2" ),
     "Initialise the component\n\n"
     "Arguments:\n"
     "    self        the component\n"
