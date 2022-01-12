@@ -4,7 +4,12 @@
 // system includes
 
 // other includes
+#include "range/v3/view/chunk.hpp"
+#include "range/v3/view/drop_exactly.hpp"
+#include "range/v3/view/stride.hpp"
+#include "range/v3/view/transform.hpp"
 #include "ENDFtk/section.hpp"
+#include "ENDFtk/ListRecord.hpp"
 
 namespace njoy {
 namespace ENDFtk {

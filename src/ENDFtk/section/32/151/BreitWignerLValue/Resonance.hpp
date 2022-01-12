@@ -77,19 +77,6 @@ public:
   double fissionWidth() const { return this->GF(); }
 
   /**
-   *  @brief Return the competitive width
-   */
-  double GX() const {
-
-    return this->GT() - this->GN() - this->GG() - this->GF();
-  }
-
-  /**
-   *  @brief Return the competitive width
-   */
-  double competitiveWidth() const { return this->GX(); }
-
-  /**
    *  @brief Return the resonance energy variance
    */
   double DE2() const { return this->chunk[6]; }

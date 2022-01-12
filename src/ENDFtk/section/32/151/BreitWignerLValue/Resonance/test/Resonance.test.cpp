@@ -45,8 +45,6 @@ void verifyChunk( const Resonance& chunk ) {
   CHECK( 4. == Approx( chunk.gammaWidth() ) );
   CHECK( 5. == Approx( chunk.GF() ) );
   CHECK( 5. == Approx( chunk.fissionWidth() ) );
-  CHECK( 6. == Approx( chunk.GX() ) );
-  CHECK( 6. == Approx( chunk.competitiveWidth() ) );
 
   CHECK( 6. == Approx( chunk.DE2() ) );
   CHECK( 6. == Approx( chunk.resonanceEnergyVariance() ) );
