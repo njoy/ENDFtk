@@ -147,6 +147,8 @@ pybind11_add_module( ENDFtk.python
     python/src/section/28/SubshellData.python.cpp
     python/src/section/28.python.cpp
     python/src/section/3.python.cpp
+    python/src/section/32/151.python.cpp
+    python/src/section/32/151/BreitWignerLValue.python.cpp
     python/src/section/4.python.cpp
     python/src/section/4/Isotropic.python.cpp
     python/src/section/4/LegendreCoefficients.python.cpp
@@ -264,6 +266,7 @@ pybind11_add_module( ENDFtk.python
     python/src/file/26.python.cpp
     python/src/file/27.python.cpp
     python/src/file/28.python.cpp
+    python/src/file/32.python.cpp
     python/src/file/33.python.cpp
     python/src/file/34.python.cpp
     python/src/Material.python.cpp

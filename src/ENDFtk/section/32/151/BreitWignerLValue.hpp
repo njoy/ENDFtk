@@ -119,112 +119,112 @@ public:
   auto fissionWidths() const { return this->GF(); }
 
   /**
-   *  @brief Return the resonance energy variance
+   *  @brief Return the resonance energy variances
    */
   auto DE2() const { return this->column( 6 ); }
 
   /**
-   *  @brief Return the resonance energy
+   *  @brief Return the resonance energy variances
    */
   auto resonanceEnergyVariances() const { return this->DE2(); }
 
   /**
-   *  @brief Return the neutron width variance
+   *  @brief Return the neutron width variances
    */
   auto DN2() const { return this->column( 7 ); }
 
   /**
-   *  @brief Return the neutron width variance
+   *  @brief Return the neutron width variances
    */
   auto neutronWidthVariances() const { return this->DN2(); }
 
   /**
-   *  @brief Return the neutron and gamma width covariance
+   *  @brief Return the neutron and gamma width covariances
    */
   auto DNDG() const { return this->column( 8 ); }
 
   /**
-   *  @brief Return the neutron and gamma width covariance
+   *  @brief Return the neutron and gamma width covariances
    */
   auto neutronAndGammaWidthCovariances() const { return this->DNDG(); }
 
   /**
-   *  @brief Return the gamma width variance
+   *  @brief Return the gamma width variances
    */
   auto DG2() const { return this->column( 9 ); }
 
   /**
-   *  @brief Return the gamma width variance
+   *  @brief Return the gamma width variances
    */
   auto gammaWidthVariances() const { return this->DG2(); }
 
   /**
-   *  @brief Return the neutron and fission width covariance
+   *  @brief Return the neutron and fission width covariances
    */
   auto DNDF() const { return this->column( 10 ); }
 
   /**
-   *  @brief Return the neutron and fission width covariance
+   *  @brief Return the neutron and fission width covariances
    */
   auto neutronAndFissionWidthCovariances() const { return this->DNDF(); }
 
   /**
-   *  @brief Return the gamma and fission width covariance
+   *  @brief Return the gamma and fission width covariances
    */
   auto DGDF() const { return this->column( 11 ); }
 
   /**
-   *  @brief Return the neutron and fission width covariance
+   *  @brief Return the neutron and fission width covariances
    */
   auto gammaAndFissionWidthCovariances() const { return this->DGDF(); }
 
   /**
-   *  @brief Return the fission width variance
+   *  @brief Return the fission width variances
    */
   auto DF2() const { return this->column( 12 ); }
 
   /**
-   *  @brief Return the fission width variance
+   *  @brief Return the fission width variances
    */
   auto fissionWidthVariances() const { return this->DF2(); }
 
   /**
-   *  @brief Return the spin and neutron width covariance
+   *  @brief Return the spin and neutron width covariances
    */
   auto DJDN() const { return this->column( 13 ); }
 
   /**
-   *  @brief Return the spin and neutron width covariance
+   *  @brief Return the spin and neutron width covariances
    */
   auto spinAndNeutronWidthCovariances() const { return this->DJDN(); }
 
   /**
-   *  @brief Return the spin and gamma width covariance
+   *  @brief Return the spin and gamma width covariances
    */
   auto DJDG() const { return this->column( 14 ); }
 
   /**
-   *  @brief Return the spin and gamma width covariance
+   *  @brief Return the spin and gamma width covariances
    */
   auto spinAndGammaWidthCovariances() const { return this->DJDG(); }
 
   /**
-   *  @brief Return the spin and fission width covariance
+   *  @brief Return the spin and fission width covariances
    */
   auto DJDF() const { return this->column( 15 ); }
 
   /**
-   *  @brief Return the spin and fission width covariance
+   *  @brief Return the spin and fission width covariances
    */
   auto spinAndFissionWidthCovariances() const { return this->DJDF(); }
 
   /**
-   *  @brief Return the spin variance
+   *  @brief Return the spin variances
    */
   auto DJ2() const { return this->column( 16 ); }
 
   /**
-   *  @brief Return the spin variance
+   *  @brief Return the spin variances
    */
   auto spinVariances() const { return this->DJ2(); }
 

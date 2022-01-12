@@ -4,34 +4,59 @@
 // system includes
 
 // other includes
-#include "ENDFtk/file/NotImplementedYet.hpp"
+#include "ENDFtk/section/32.hpp"
+#include "ENDFtk/file/Base.hpp"
+#include "ENDFtk/file/Type.hpp"
 
 namespace njoy {
 namespace ENDFtk {
 namespace file {
 
   template<>
-  class Type< 32 > : public NotImplementedYet< Type< 32 > > {
+  class Type< 32 > : public Base< Type< 32 > > {
 
-    friend NotImplementedYet< Type< 32 > >;
+    friend Base< Type >;
+    using Parent = Base< Type >;
+
+    // MF7 only has enumerated secton
+    // no sections are required
+    static constexpr auto requiredSections()
+      RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 151_c ) )
+
+    // MT2 and MT4 are optional
+    static constexpr auto optionalSections()
+      RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple() )
+
+    // the following sections are currently unimplemented
+    static constexpr auto unimplementedSections()
+      RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple() )
+
+    using Map =
+    typename decltype( details::deduceMapType(
+                           32_c,
+                           requiredSections(),
+                           optionalSections() ) )::type;
+
+    /* fields */
+    Map sectionMap;
 
   public:
 
-    Type() : NotImplementedYet() {}
-    template< typename BufferIterator >
-    Type( StructureDivision& division,
-          BufferIterator& begin, const BufferIterator& end,
-          long& lineNumber ) :
-      NotImplementedYet( division, begin, end,
-                         lineNumber ) {}
+    #include "ENDFtk/file/32/src/ctor.hpp"
 
-    /**
-     *  @brief Return the MF number of the section
-     */
-    static constexpr int fileNumber() { return 32; }
+    bool
+    hasSection( int sectionNo ) const {
 
-    using NotImplementedYet::MF;
-    using NotImplementedYet::print;
+      switch ( sectionNo ) {
+
+        case 151 : return true;
+        default: return false;
+      }
+    }
+
+    static constexpr auto fileNumber() { return 32; }
+
+    #include "ENDFtk/file/32/src/print.hpp"
   };
 
 } // file namespace

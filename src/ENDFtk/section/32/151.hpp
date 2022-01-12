@@ -34,7 +34,7 @@ namespace section {
 //
   private:
 
-    friend BaseWithoutMT< Type< 2, 151 > >;
+    friend BaseWithoutMT< Type< 32, 151 > >;
 
 //    /* fields */
 //    std::vector< Isotope > isotopes_;
@@ -44,8 +44,8 @@ namespace section {
 
   public:
 
-//    /* constructor */
-//    #include "ENDFtk/section/2/151/src/ctor.hpp"
+    /* constructor */
+    #include "ENDFtk/section/32/151/src/ctor.hpp"
 
     /**
      *  @brief Return the MT number of the section
@@ -75,8 +75,8 @@ namespace section {
     using BaseWithoutMT::atomicWeightRatio;
     using BaseWithoutMT::AWR;
 
-//    #include "ENDFtk/section/2/151/src/print.hpp"
-//    #include "ENDFtk/section/2/151/src/NC.hpp"
+    #include "ENDFtk/section/32/151/src/print.hpp"
+    #include "ENDFtk/section/32/151/src/NC.hpp"
   };
 
 } // section namespace
