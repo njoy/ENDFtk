@@ -2,13 +2,13 @@
  *  @class
  *  @brief Base class for Breit-Wigner resonance and covariance representations
  *
- *  The BreitWignerBase class is used to represent the SLBW and MLBW resonance
- *  and covariance representations (LRU=1 and LRF=1, 2) for LCOMP=0 from
- *  MF32/MT151.
+ *  The LimitedBreitWignerBase class is used to represent the SLBW and MLBW
+ *  resonance and covariance representations (LRU=1 and LRF=1, 2) for LCOMP=0
+ *  from MF32/MT151.
  *
  *  See ENDF102, section 32.2.1 for more information.
  */
-template < typename LValue, typename Derived > class BreitWignerBase {
+template < typename LValue, typename Derived > class LimitedBreitWignerBase {
 
   /* fields */
   double spi_;
@@ -18,12 +18,12 @@ template < typename LValue, typename Derived > class BreitWignerBase {
   std::vector< LValue > lvalues_;
 
   /* auxiliary functions */
-  #include "ENDFtk/section/32/151/BreitWignerBase/src/verifySize.hpp"
+  #include "ENDFtk/section/32/151/LimitedBreitWignerBase/src/verifySize.hpp"
 
 protected:
 
   /* constructor */
-  #include "ENDFtk/section/32/151/BreitWignerBase/src/ctor.hpp"
+  #include "ENDFtk/section/32/151/LimitedBreitWignerBase/src/ctor.hpp"
 
 public:
 
@@ -63,7 +63,7 @@ public:
   */
   constexpr int averageFissionWidthFlag() const {
 
-    return BreitWignerBase::LFW();
+    return LimitedBreitWignerBase::LFW();
   }
 
   /**
@@ -129,6 +129,6 @@ public:
     return ranges::cpp20::views::all( this->lvalues_ );
   }
 
-  #include "ENDFtk/section/32/151/BreitWignerBase/src/NC.hpp"
-  #include "ENDFtk/section/32/151/BreitWignerBase/src/print.hpp"
+  #include "ENDFtk/section/32/151/LimitedBreitWignerBase/src/NC.hpp"
+  #include "ENDFtk/section/32/151/LimitedBreitWignerBase/src/print.hpp"
 };

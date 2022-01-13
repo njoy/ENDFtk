@@ -5,9 +5,9 @@
  *  See ENDF102, section 32.2.1
  */
 class LimitedMultiLevelBreitWigner :
-  protected BreitWignerBase< BreitWignerLValue, LimitedMultiLevelBreitWigner > {
+  protected LimitedBreitWignerBase< BreitWignerLValue, LimitedMultiLevelBreitWigner > {
 
-  friend BreitWignerBase< BreitWignerLValue, LimitedMultiLevelBreitWigner >;
+  friend LimitedBreitWignerBase< BreitWignerLValue, LimitedMultiLevelBreitWigner >;
 
 public:
 
@@ -34,24 +34,24 @@ public:
    */
   static constexpr int covarianceRepresentation() { return 0; }
 
-  using BreitWignerBase::LCOMP;
-  using BreitWignerBase::LRU;
-  using BreitWignerBase::LRF;
-  using BreitWignerBase::LFW;
-  using BreitWignerBase::averageFissionWidthFlag;
+  using LimitedBreitWignerBase::LCOMP;
+  using LimitedBreitWignerBase::LRU;
+  using LimitedBreitWignerBase::LRF;
+  using LimitedBreitWignerBase::LFW;
+  using LimitedBreitWignerBase::averageFissionWidthFlag;
 
-  using BreitWignerBase::SPI;
-  using BreitWignerBase::spin;
-  using BreitWignerBase::AP;
-  using BreitWignerBase::scatteringRadius;
-  using BreitWignerBase::DAP;
-  using BreitWignerBase::scatteringRadiusUncertainty;
-  using BreitWignerBase::NLS;
-  using BreitWignerBase::numberLValues;
-  using BreitWignerBase::ISR;
-  using BreitWignerBase::scatteringRadiusUncertaintyFlag;
-  using BreitWignerBase::lValues;
+  using LimitedBreitWignerBase::SPI;
+  using LimitedBreitWignerBase::spin;
+  using LimitedBreitWignerBase::AP;
+  using LimitedBreitWignerBase::scatteringRadius;
+  using LimitedBreitWignerBase::DAP;
+  using LimitedBreitWignerBase::scatteringRadiusUncertainty;
+  using LimitedBreitWignerBase::NLS;
+  using LimitedBreitWignerBase::numberLValues;
+  using LimitedBreitWignerBase::ISR;
+  using LimitedBreitWignerBase::scatteringRadiusUncertaintyFlag;
+  using LimitedBreitWignerBase::lValues;
 
-  using BreitWignerBase::NC;
-  using BreitWignerBase::print;
+  using LimitedBreitWignerBase::NC;
+  using LimitedBreitWignerBase::print;
 };

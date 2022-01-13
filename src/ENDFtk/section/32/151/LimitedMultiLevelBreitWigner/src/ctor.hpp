@@ -16,7 +16,7 @@ LimitedMultiLevelBreitWigner() = default;
  */
 LimitedMultiLevelBreitWigner( double spi, double ap, double dap,
                               std::vector< BreitWignerLValue >&& lvalues )
-  try : BreitWignerBase( spi, ap, dap, std::move( lvalues ) ) {}
+  try : LimitedBreitWignerBase( spi, ap, dap, std::move( lvalues ) ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing resonance "
@@ -33,7 +33,7 @@ LimitedMultiLevelBreitWigner( double spi, double ap, double dap,
  */
 LimitedMultiLevelBreitWigner( double spi, double ap,
                               std::vector< BreitWignerLValue >&& lvalues )
-  try : BreitWignerBase( spi, ap, std::move( lvalues ) ) {}
+  try : LimitedBreitWignerBase( spi, ap, std::move( lvalues ) ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing resonance "
@@ -56,7 +56,7 @@ LimitedMultiLevelBreitWigner( double spi, double ap,
 template< typename Iterator >
 LimitedMultiLevelBreitWigner( Iterator& it, const Iterator& end, long& lineNumber,
                                int MAT, int MF, int MT )
-  try : BreitWignerBase( it, end, lineNumber, MAT, MF, MT ) {}
+  try : LimitedBreitWignerBase( it, end, lineNumber, MAT, MF, MT ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing resonance "

@@ -29,7 +29,7 @@ namespace section {
 
   public:
 
-    #include "ENDFtk/section/32/151/BreitWignerBase.hpp"
+    #include "ENDFtk/section/32/151/LimitedBreitWignerBase.hpp"
 
     #include "ENDFtk/section/32/151/BreitWignerLValue.hpp"
 
