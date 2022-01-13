@@ -14,6 +14,8 @@ namespace mf32 {
 
 // declarations - components
 void wrapBreitWignerLValue( python::module&, python::module& );
+void wrapLimitedSingleLevelBreitWigner( python::module&, python::module& );
+void wrapLimitedMultiLevelBreitWigner( python::module&, python::module& );
 
 } // namespace mf32
 
@@ -34,6 +36,8 @@ void wrapSection_32_151( python::module& module, python::module& viewmodule ) {
 
   // wrap components
   mf32::wrapBreitWignerLValue( submodule, viewmodule );
+  mf32::wrapLimitedSingleLevelBreitWigner( submodule, viewmodule );
+  mf32::wrapLimitedMultiLevelBreitWigner( submodule, viewmodule );
 
   // wrap views created by this section
 //  // none of these are supposed to be created directly by the user

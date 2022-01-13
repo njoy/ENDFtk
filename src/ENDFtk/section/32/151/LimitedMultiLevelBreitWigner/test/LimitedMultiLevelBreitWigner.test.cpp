@@ -153,6 +153,11 @@ void verifyChunk( const LimitedMultiLevelBreitWigner& chunk ) {
   CHECK( 0.541 == Approx( chunk.AP() ) );
   CHECK( 0.541 == Approx( chunk.scatteringRadius() ) );
 
+  CHECK( std::nullopt == chunk.DAP() );
+  CHECK( std::nullopt == chunk.scatteringRadiusUncertainty() );
+  CHECK( false == chunk.IRS() );
+  CHECK( false == chunk.scatteringRadiusUncertaintyFlag() );
+
   CHECK( 2 == chunk.NLS() );
   CHECK( 2 == chunk.numberLValues() );
 

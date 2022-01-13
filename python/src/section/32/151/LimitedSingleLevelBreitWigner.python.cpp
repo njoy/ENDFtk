@@ -3,35 +3,52 @@
 #include <pybind11/stl.h>
 
 // local includes
-#include "ENDFtk/section/2/151.hpp"
+#include "ENDFtk/section/32/151.hpp"
 #include "definitions.hpp"
 #include "views.hpp"
 
 // namespace aliases
 namespace python = pybind11;
 
-void wrapMultiLevelBreitWigner( python::module& module, python::module& ) {
+namespace mf32 {
+
+void wrapLimitedSingleLevelBreitWigner( python::module& module, python::module& viewmodule ) {
 
   // type aliases
-  using Section = njoy::ENDFtk::section::Type< 2, 151 >;
-  using Component = Section::MultiLevelBreitWigner;
+  using Section = njoy::ENDFtk::section::Type< 32, 151 >;
+  using Component = Section::LimitedSingleLevelBreitWigner;
   using BreitWignerLValue = Section::BreitWignerLValue;
   using BreitWignerLValueRange = RandomAccessAnyView< BreitWignerLValue >;
 
-  // no need to wrap BreitWignerLValueRange since SLBW wrapped it already
-
   // wrap views created by this section
+  // none of these are supposed to be created directly by the user
+  wrapRandomAccessAnyViewOf< BreitWignerLValue >(
+      viewmodule,
+      "any_view< mf32::BreitWignerLValue, random_access >" );
 
   // create the component
   python::class_< Component > component(
 
     module,
-    "MultiLevelBreitWigner",
-    "MF2 MT151 section - Multi-level Breit-Wigner resonance parameters"
+    "LimitedSingleLevelBreitWigner",
+    "MF32 MT151 section - Single level Breit-Wigner resonance parameters and\n"
+    "                     covariances using LCOMP=0"
   );
 
   // wrap the section
   component
+  .def(
+
+    python::init< double, double, double, std::vector< BreitWignerLValue >&& >(),
+    python::arg( "spin" ), python::arg( "ap" ), python::arg( "dap" ), python::arg( "lvalues" ),
+    "Initialise the component\n\n"
+    "Arguments:\n"
+    "    self       the component\n"
+    "    spin       the target spin\n"
+    "    ap         the scattering radius\n"
+    "    ap         the scattering radius uncertainty\n"
+    "    lvalues    l values and the resonance parameters"
+  )
   .def(
 
     python::init< double, double, std::vector< BreitWignerLValue >&& >(),
@@ -81,6 +98,18 @@ void wrapMultiLevelBreitWigner( python::module& module, python::module& ) {
   )
   .def_property_readonly(
 
+    "LCOMP",
+    [] ( const Component& self ) { return self.LCOMP(); },
+    "The covariance representation type"
+  )
+  .def_property_readonly(
+
+    "covariance_representation",
+    [] ( const Component& self ) { return self.covarianceRepresentation(); },
+    "The covariance representation type"
+  )
+  .def_property_readonly(
+
     "SPI",
     [] ( const Component& self ) { return self.SPI(); },
     "The target spin"
@@ -105,6 +134,30 @@ void wrapMultiLevelBreitWigner( python::module& module, python::module& ) {
   )
   .def_property_readonly(
 
+    "DAP",
+    [] ( const Component& self ) { return self.DAP(); },
+    "The scattering radius uncertainty"
+  )
+  .def_property_readonly(
+
+    "scattering_radius_uncertainty",
+    [] ( const Component& self ) { return self.scatteringRadiusUncertainty(); },
+    "The scattering radius uncertainty"
+  )
+  .def_property_readonly(
+
+    "ISR",
+    [] ( const Component& self ) { return self.ISR(); },
+    "The scattering radius uncertainty flag"
+  )
+  .def_property_readonly(
+
+    "scattering_radius_uncertainty_flag",
+    [] ( const Component& self ) { return self.scatteringRadiusUncertaintyFlag(); },
+    "The scattering radius uncertainty flag"
+  )
+  .def_property_readonly(
+
     "NLS",
     [] ( const Component& self ) { return self.NLS(); },
     "The number of l values for which resonance parameters are given"
@@ -126,3 +179,5 @@ void wrapMultiLevelBreitWigner( python::module& module, python::module& ) {
   // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }
+
+} // namespace mf32
