@@ -34,6 +34,7 @@ namespace section {
     #include "ENDFtk/section/32/151/BreitWignerLValue.hpp"
 
     #include "ENDFtk/section/32/151/LimitedSingleLevelBreitWigner.hpp"
+    #include "ENDFtk/section/32/151/LimitedMultiLevelBreitWigner.hpp"
 
 //    #include "ENDFtk/section/2/151/ScatteringRadius.hpp"
 //    #include "ENDFtk/section/2/151/ResonanceRange.hpp"
