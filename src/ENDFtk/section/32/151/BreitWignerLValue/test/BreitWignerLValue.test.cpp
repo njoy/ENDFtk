@@ -249,6 +249,28 @@ void verifyChunk( const BreitWignerLValue& chunk ) {
   CHECK( 2 == chunk.gammaWidths().size() );
   CHECK( 2 == chunk.GF().size() );
   CHECK( 2 == chunk.fissionWidths().size() );
+  CHECK( 2 == chunk.DE2().size() );
+  CHECK( 2 == chunk.resonanceEnergyVariances().size() );
+  CHECK( 2 == chunk.DJ2().size() );
+  CHECK( 2 == chunk.spinVariances().size() );
+  CHECK( 2 == chunk.DN2().size() );
+  CHECK( 2 == chunk.neutronWidthVariances().size() );
+  CHECK( 2 == chunk.DG2().size() );
+  CHECK( 2 == chunk.gammaWidthVariances().size() );
+  CHECK( 2 == chunk.DF2().size() );
+  CHECK( 2 == chunk.fissionWidthVariances().size() );
+  CHECK( 2 == chunk.DJDN().size() );
+  CHECK( 2 == chunk.spinAndNeutronWidthCovariances().size() );
+  CHECK( 2 == chunk.DJDG().size() );
+  CHECK( 2 == chunk.spinAndGammaWidthCovariances().size() );
+  CHECK( 2 == chunk.DJDF().size() );
+  CHECK( 2 == chunk.spinAndFissionWidthCovariances().size() );
+  CHECK( 2 == chunk.DNDG().size() );
+  CHECK( 2 == chunk.neutronAndGammaWidthCovariances().size() );
+  CHECK( 2 == chunk.DNDF().size() );
+  CHECK( 2 == chunk.neutronAndFissionWidthCovariances().size() );
+  CHECK( 2 == chunk.DGDF().size() );
+  CHECK( 2 == chunk.gammaAndFissionWidthCovariances().size() );
   CHECK( 2 == chunk.resonances().size() );
 
   CHECK( -1.470000e+5 == Approx( chunk.ER()[0] ) );
