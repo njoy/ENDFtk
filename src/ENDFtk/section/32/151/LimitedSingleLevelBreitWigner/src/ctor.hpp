@@ -19,7 +19,7 @@ LimitedSingleLevelBreitWigner( double spi, double ap, double dap,
   try : LimitedBreitWignerBase( spi, ap, dap, std::move( lvalues ) ) {}
   catch ( std::exception& e ) {
 
-    Log::info( "Encountered error while constructing resonance "
+    Log::info( "Encountered error while constructing resonance and covariance "
                "parameters in the Single Level Breit-Wigner representation" );
     throw;
   }
@@ -36,7 +36,7 @@ LimitedSingleLevelBreitWigner( double spi, double ap,
   try : LimitedBreitWignerBase( spi, ap, std::move( lvalues ) ) {}
   catch ( std::exception& e ) {
 
-    Log::info( "Encountered error while constructing resonance "
+    Log::info( "Encountered error while constructing resonance and covariance "
                "parameters in the Single Level Breit-Wigner representation" );
     throw;
   }
@@ -59,7 +59,7 @@ LimitedSingleLevelBreitWigner( Iterator& it, const Iterator& end, long& lineNumb
   try : LimitedBreitWignerBase( it, end, lineNumber, MAT, MF, MT ) {}
   catch ( std::exception& e ) {
 
-    Log::info( "Encountered error while constructing resonance "
+    Log::info( "Encountered error while constructing resonance and covariance "
                "parameters in the Single Level Breit-Wigner representation" );
     throw;
   }

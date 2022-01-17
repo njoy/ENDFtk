@@ -42,11 +42,8 @@ readNI( Iterator& begin,
         Log::info( "LB value: {}", list.L2() );
         Log::info( "Line number: {}", lineNumber - 1 );
         throw std::exception();
-
     }
-
   }
 
   return result;
-
 }

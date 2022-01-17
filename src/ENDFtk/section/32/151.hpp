@@ -3,11 +3,15 @@
 
 // system includes
 #include <optional>
+#include <variant>
 
 // other includes
+#include "range/v3/range/conversion.hpp"
 #include "range/v3/view/chunk.hpp"
+#include "range/v3/view/concat.hpp"
 #include "range/v3/view/drop_exactly.hpp"
 #include "range/v3/view/stride.hpp"
+#include "range/v3/view/take_exactly.hpp"
 #include "range/v3/view/transform.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
@@ -29,6 +33,18 @@ namespace section {
 
   public:
 
+    // include classes for subsubsections
+    // intentionally taken from MF33
+    #include "ENDFtk/section/33/CovariancePairs.hpp"
+    #include "ENDFtk/section/33/SquareMatrix.hpp"
+    #include "ENDFtk/section/33/RectangularMatrix.hpp"
+    using ExplicitCovariance = std::variant<
+      CovariancePairs,
+      SquareMatrix,
+      RectangularMatrix >;
+
+    #include "ENDFtk/section/32/151/ScatteringRadiusCovariances.hpp"
+
     #include "ENDFtk/section/32/151/LimitedBreitWignerBase.hpp"
 
     #include "ENDFtk/section/32/151/BreitWignerLValue.hpp"
@@ -36,7 +52,6 @@ namespace section {
     #include "ENDFtk/section/32/151/LimitedSingleLevelBreitWigner.hpp"
     #include "ENDFtk/section/32/151/LimitedMultiLevelBreitWigner.hpp"
 
-//    #include "ENDFtk/section/2/151/ScatteringRadius.hpp"
 //    #include "ENDFtk/section/2/151/ResonanceRange.hpp"
 //    #include "ENDFtk/section/2/151/Isotope.hpp"
 //
