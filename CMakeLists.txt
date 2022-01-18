@@ -87,6 +87,10 @@ pybind11_add_module( ENDFtk.python
     python/src/record/InterpolationRecord.python.cpp
     python/src/record/DirectoryRecord.python.cpp
     python/src/record/TapeIdentification.python.cpp
+    python/src/section/CovariancePairs.python.cpp
+    python/src/section/SquareMatrix.python.cpp
+    python/src/section/covariance.python.cpp
+    python/src/section/RectangularMatrix.python.cpp
     python/src/section/1/TabulatedMultiplicity.python.cpp
     python/src/section/1/PolynomialMultiplicity.python.cpp
     python/src/section/1/451.python.cpp
@@ -240,16 +244,10 @@ pybind11_add_module( ENDFtk.python
     python/src/section/33.python.cpp
     python/src/section/33/DerivedRedundant.python.cpp
     python/src/section/33/DerivedRatioToStandard.python.cpp
-    python/src/section/33/CovariancePairs.python.cpp
-    python/src/section/33/SquareMatrix.python.cpp
     python/src/section/33/ReactionBlock.python.cpp
-    python/src/section/33/RectangularMatrix.python.cpp
     python/src/section/34.python.cpp
-    python/src/section/34/CovariancePairs.python.cpp
     python/src/section/34/LegendreBlock.python.cpp
     python/src/section/34/ReactionBlock.python.cpp
-    python/src/section/34/RectangularMatrix.python.cpp
-    python/src/section/34/SquareMatrix.python.cpp
     python/src/file/1.python.cpp
     python/src/file/2.python.cpp
     python/src/file/3.python.cpp

@@ -15,10 +15,7 @@
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/readSequence.hpp"
 #include "ENDFtk/section.hpp"
-
-#include "ENDFtk/section/CovariancePairs.hpp"
-#include "ENDFtk/section/SquareMatrix.hpp"
-#include "ENDFtk/section/RectangularMatrix.hpp"
+#include "ENDFtk/section/covariance.hpp"
 
 namespace njoy {
 namespace ENDFtk {
@@ -34,12 +31,6 @@ namespace section{
   class Type< 34 > : protected Base {
 
   public:
-
-    // include classes for subsubsections
-    using ExplicitCovariance = std::variant<
-      CovariancePairs,
-      SquareMatrix,
-      RectangularMatrix >;
 
     // include classes for subsections
     #include "ENDFtk/section/34/LegendreBlock.hpp"

@@ -1,26 +1,19 @@
-/*
- * File copied from MF33
- */
-
 // system includes
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
 // local includes
-#include "ENDFtk/section/34.hpp"
+#include "ENDFtk/section/SquareMatrix.hpp"
 #include "definitions.hpp"
 #include "views.hpp"
 
 // namespace aliases
 namespace python = pybind11;
 
-namespace mf34 {
-
 void wrapSquareMatrix( python::module& module, python::module& ) {
 
   // type aliases
-  using Section = njoy::ENDFtk::section::Type< 34 >;
-  using Component = Section::SquareMatrix;
+  using Component = njoy::ENDFtk::section::SquareMatrix;
 
   // wrap views created by this section
 
@@ -29,7 +22,7 @@ void wrapSquareMatrix( python::module& module, python::module& ) {
 
     module,
     "SquareMatrix",
-    "MF34 section - NI-type sub-subsection given as a square matrix"
+    "Covariance component - NI-type sub-subsection given as a square matrix"
   );
 
   // wrap the section
@@ -118,5 +111,3 @@ void wrapSquareMatrix( python::module& module, python::module& ) {
   // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }
-
-} // namespace mf33

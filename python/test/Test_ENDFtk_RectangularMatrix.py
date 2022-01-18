@@ -4,9 +4,9 @@ import unittest
 # third party imports
 
 # local imports
-from ENDFtk.MF33 import RectangularMatrix
+from ENDFtk import RectangularMatrix
 
-class Test_ENDFtk_MF33_RectangularMatrix( unittest.TestCase ) :
+class Test_ENDFtk_RectangularMatrix( unittest.TestCase ) :
     """Unit test for the RectangularMatrix class."""
 
     chunk = (

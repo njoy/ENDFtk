@@ -4,19 +4,19 @@ import unittest
 # third party imports
 
 # local imports
-from ENDFtk.MF34 import CovariancePairs
+from ENDFtk import CovariancePairs
 
-class Test_ENDFtk_MF34_CovariancePairs( unittest.TestCase ) :
+class Test_ENDFtk_CovariancePairs( unittest.TestCase ) :
     """Unit test for the CovariancePairs class."""
 
     chunk1 = (
-        " 0.000000+0 0.000000+0          0          1          4          2922834  5     \n"
-        " 1.000000+0 2.000000+0 3.000000+0 4.000000+0                      922834  5     \n" )
+        " 0.000000+0 0.000000+0          0          1          4          2922833  5     \n"
+        " 1.000000+0 2.000000+0 3.000000+0 4.000000+0                      922833  5     \n" )
 
     chunk3 = (
-        " 0.000000+0 0.000000+0          2          3         10          5922834  5     \n"
-        " 1.000000+0 2.000000+0 3.000000+0 4.000000+0 5.000000+0 6.000000+0922834  5     \n"
-        " 7.000000+0 8.000000+0 9.000000+0 1.000000+1                      922834  5     \n" )
+        " 0.000000+0 0.000000+0          2          3         10          5922833  5     \n"
+        " 1.000000+0 2.000000+0 3.000000+0 4.000000+0 5.000000+0 6.000000+0922833  5     \n"
+        " 7.000000+0 8.000000+0 9.000000+0 1.000000+1                      922833  5     \n" )
 
     def test_lb1( self ) :
 
@@ -46,7 +46,7 @@ class Test_ENDFtk_MF34_CovariancePairs( unittest.TestCase ) :
 
             # verify string
             self.assertEqual( self.chunk1,
-                              chunk.to_string( 9228, 34, 5 ) )
+                              chunk.to_string( 9228, 33, 5 ) )
 
         # the data is given explicitly
         chunk = CovariancePairs(lb=1, energies=[1, 3], fvalues=[2, 4])
@@ -54,7 +54,7 @@ class Test_ENDFtk_MF34_CovariancePairs( unittest.TestCase ) :
         verify_chunk( self, chunk )
 
         # the data is read from a string
-        chunk = CovariancePairs.from_string( self.chunk1, 9228, 34, 5 )
+        chunk = CovariancePairs.from_string( self.chunk1, 9228, 33, 5 )
 
         verify_chunk( self, chunk )
 
@@ -99,7 +99,7 @@ class Test_ENDFtk_MF34_CovariancePairs( unittest.TestCase ) :
 
             # verify string
             self.assertEqual( self.chunk3,
-                              chunk.to_string( 9228, 34, 5 ) )
+                              chunk.to_string( 9228, 33, 5 ) )
 
         # the data is given explicitly
         chunk = CovariancePairs(lb=3,
@@ -109,7 +109,7 @@ class Test_ENDFtk_MF34_CovariancePairs( unittest.TestCase ) :
         verify_chunk( self, chunk )
 
         # the data is read from a string
-        chunk = CovariancePairs.from_string( self.chunk3, 9228, 34, 5 )
+        chunk = CovariancePairs.from_string( self.chunk3, 9228, 33, 5 )
 
         verify_chunk( self, chunk )
 

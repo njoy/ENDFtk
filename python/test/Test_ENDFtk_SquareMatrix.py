@@ -4,15 +4,15 @@ import unittest
 # third party imports
 
 # local imports
-from ENDFtk.MF34 import SquareMatrix
+from ENDFtk import SquareMatrix
 
-class Test_ENDFtk_MF34_SquareMatrix( unittest.TestCase ) :
+class Test_ENDFtk_SquareMatrix( unittest.TestCase ) :
     """Unit test for the SquareMatrix class."""
 
     chunk = (
-        " 0.000000+0 0.000000+0          0          5          7          3922834  5     \n"
-        " 0.000000+0 1.000000+2 2.000000+2 1.000000+0 2.000000+0 3.000000+0922834  5     \n"
-        " 4.000000+0                                                       922834  5     \n" )
+        " 0.000000+0 0.000000+0          0          5          7          3922833  5     \n"
+        " 0.000000+0 1.000000+2 2.000000+2 1.000000+0 2.000000+0 3.000000+0922833  5     \n"
+        " 4.000000+0                                                       922833  5     \n" )
 
     def test_component( self ) :
 
@@ -42,7 +42,7 @@ class Test_ENDFtk_MF34_SquareMatrix( unittest.TestCase ) :
 
             # verify string
             self.assertEqual( self.chunk,
-                              chunk.to_string( 9228, 34, 5 ) )
+                              chunk.to_string( 9228, 33, 5 ) )
 
         # the data is given explicitly
         chunk = SquareMatrix(ls=0, energies=[0, 100, 200], values=[1, 2, 3, 4])
@@ -50,7 +50,7 @@ class Test_ENDFtk_MF34_SquareMatrix( unittest.TestCase ) :
         verify_chunk( self, chunk )
 
         # the data is read from a string
-        chunk = SquareMatrix.from_string( self.chunk, 9228, 34, 5 )
+        chunk = SquareMatrix.from_string( self.chunk, 9228, 33, 5 )
 
         verify_chunk( self, chunk )
 

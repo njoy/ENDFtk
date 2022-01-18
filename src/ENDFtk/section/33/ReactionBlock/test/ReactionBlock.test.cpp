@@ -9,12 +9,12 @@
 using namespace njoy::ENDFtk;
 using ReactionBlock = section::Type< 33 >::ReactionBlock;
 using DerivedCovariance = section::Type< 33 >::DerivedCovariance;
-using ExplicitCovariance = section::Type< 33 >::ExplicitCovariance;
 using DerivedRedundant = section::Type< 33 >::DerivedRedundant;
 using DerivedRatioToStandard = section::Type< 33 >::DerivedRatioToStandard;
 using SquareMatrix = section::SquareMatrix;
 using RectangularMatrix = section::RectangularMatrix;
 using CovariancePairs = section::CovariancePairs;
+using ExplicitCovariance = section::ExplicitCovariance;
 
 std::string chunkNCOnly();
 std::string chunkNIOnly();

@@ -8,14 +8,13 @@
 // convenience typedefs
 using namespace njoy::ENDFtk;
 using LegendreBlock = section::Type< 34 >::LegendreBlock;
-using ExplicitCovariance = section::Type< 34 >::ExplicitCovariance;
 using SquareMatrix = section::SquareMatrix;
 using RectangularMatrix = section::RectangularMatrix;
 using CovariancePairs = section::CovariancePairs;
+using ExplicitCovariance = section::ExplicitCovariance;
 
 std::string chunk();
 void verifyChunk( const LegendreBlock& );
-
 
 SCENARIO( "LegendreBlock" ) {
 

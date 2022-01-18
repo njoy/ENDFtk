@@ -3,20 +3,17 @@
 #include <pybind11/stl.h>
 
 // local includes
-#include "ENDFtk/section/33.hpp"
+#include "ENDFtk/section/CovariancePairs.hpp"
 #include "definitions.hpp"
 #include "views.hpp"
 
 // namespace aliases
 namespace python = pybind11;
 
-namespace mf33 {
-
 void wrapCovariancePairs( python::module& module, python::module& ) {
 
   // type aliases
-  using Section = njoy::ENDFtk::section::Type< 33 >;
-  using Component = Section::CovariancePairs;
+  using Component = njoy::ENDFtk::section::CovariancePairs;
 
   // wrap views created by this section
 
@@ -25,7 +22,7 @@ void wrapCovariancePairs( python::module& module, python::module& ) {
 
     module,
     "CovariancePairs",
-    "MF33 section - NI-type sub-subsection with {{E,F}} pairs"
+    "Covariance component - NI-type sub-subsection with {{E,F}} pairs"
   );
 
   // wrap the section
@@ -62,109 +59,107 @@ void wrapCovariancePairs( python::module& module, python::module& ) {
 
     "LT",
     &Component::LT,
-    "the number of pairs in the second array"
+    "The number of pairs in the second array"
   )
   .def_property_readonly(
 
     "number_second_pairs",
     &Component::numberSecondPairs,
-    "the number of pairs in the second array"
+    "The number of pairs in the second array"
   )
   .def_property_readonly(
 
     "LB",
     &Component::LB,
-    "the procedure"
+    "The procedure"
   )
   .def_property_readonly(
 
     "procedure",
     &Component::procedure,
-    "the procedure"
+    "The procedure"
   )
   .def_property_readonly(
 
     "NT",
     &Component::NT,
-    "the number of values in this component"
+    "The number of values in this component"
   )
   .def_property_readonly(
 
     "number_values",
     &Component::numberValues,
-    "the number of values in this component"
+    "The number of values in this component"
   )
   .def_property_readonly(
 
     "NP",
     &Component::NP,
-    "the total number of pairs"
+    "The total number of pairs"
   )
   .def_property_readonly(
 
     "number_pairs",
     &Component::numberPairs,
-    "the total number of pairs"
+    "The total number of pairs"
   )
   .def_property_readonly(
 
     "EK",
     [] ( const Component& self ) -> DoubleRange
        { return self.EK(); },
-    "the energy values from the first array"
+    "The energy values from the first array"
   )
   .def_property_readonly(
 
     "first_array_energies",
     [] ( const Component& self ) -> DoubleRange
        { return self.firstArrayEnergies(); },
-    "the F values from the first array"
+    "The F values from the first array"
   )
   .def_property_readonly(
 
     "FK",
     [] ( const Component& self ) -> DoubleRange
        { return self.FK(); },
-    "the F values from the first array"
+    "The F values from the first array"
   )
   .def_property_readonly(
 
     "first_array_fvalues",
     [] ( const Component& self ) -> DoubleRange
        { return self.firstArrayFValues(); },
-    "the F values from the first array"
+    "The F values from the first array"
   )
   .def_property_readonly(
 
     "EL",
     [] ( const Component& self ) -> DoubleRange
        { return self.EL(); },
-    "the energy values from the second array"
+    "The energy values from the second array"
   )
   .def_property_readonly(
 
     "second_array_energies",
     [] ( const Component& self ) -> DoubleRange
        { return self.secondArrayEnergies(); },
-    "the F values from the second array"
+    "The F values from the second array"
   )
   .def_property_readonly(
 
     "FL",
     [] ( const Component& self ) -> DoubleRange
        { return self.FL(); },
-    "the F values from the second array"
+    "The F values from the second array"
   )
   .def_property_readonly(
 
     "second_array_fvalues",
     [] ( const Component& self ) -> DoubleRange
        { return self.secondArrayFValues(); },
-    "the F values from the second array"
+    "The F values from the second array"
   );
 
   // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }
-
-} // namespace mf33

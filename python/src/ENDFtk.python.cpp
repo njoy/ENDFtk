@@ -17,6 +17,9 @@ void wrapInterpolationRecord( python::module&, python::module& );
 void wrapDirectoryRecord( python::module&, python::module& );
 void wrapTapeIdentification( python::module&, python::module& );
 
+// declarations - covariance components
+void wrapCovariance( python::module&, python::module& );
+
 // declarations - files
 void wrapFile_1( python::module&, python::module& );
 void wrapFile_2( python::module&, python::module& );
@@ -92,6 +95,9 @@ PYBIND11_MODULE( ENDFtk, module ) {
   wrapInterpolationRecord( module, viewmodule );
   wrapDirectoryRecord( module, viewmodule );
   wrapTapeIdentification( module, viewmodule );
+
+  // wrap covariance components
+  wrapCovariance( module, viewmodule );
 
   // wrap files
   wrapFile_1( module, viewmodule );

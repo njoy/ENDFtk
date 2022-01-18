@@ -3,20 +3,17 @@
 #include <pybind11/stl.h>
 
 // local includes
-#include "ENDFtk/section/33.hpp"
+#include "ENDFtk/section/RectangularMatrix.hpp"
 #include "definitions.hpp"
 #include "views.hpp"
 
 // namespace aliases
 namespace python = pybind11;
 
-namespace mf33 {
-
 void wrapRectangularMatrix( python::module& module, python::module& ) {
 
   // type aliases
-  using Section = njoy::ENDFtk::section::Type< 33 >;
-  using Component = Section::RectangularMatrix;
+  using Component = njoy::ENDFtk::section::RectangularMatrix;
 
   // wrap views created by this section
 
@@ -25,7 +22,7 @@ void wrapRectangularMatrix( python::module& module, python::module& ) {
 
     module,
     "RectangularMatrix",
-    "MF33 section - NI-type sub-subsection given as a rectangular matrix"
+    "Covariance component - NI-type sub-subsection given as a rectangular matrix"
   );
 
   // wrap the section
@@ -46,74 +43,72 @@ void wrapRectangularMatrix( python::module& module, python::module& ) {
 
     "LB",
     &Component::LB,
-    "the procedure"
+    "The procedure"
   )
   .def_property_readonly(
 
     "procedure",
     &Component::procedure,
-    "the procedure"
+    "The procedure"
   )
   .def_property_readonly(
 
     "NT",
     &Component::NT,
-    "the number of values in this component"
+    "The number of values in this component"
   )
   .def_property_readonly(
 
     "number_values",
     &Component::numberValues,
-    "the number of values in this component"
+    "The number of values in this component"
   )
   .def_property_readonly(
 
     "NER",
     &Component::NER,
-    "the number of energies representing a row"
+    "The number of energies representing a row"
   )
   .def_property_readonly(
 
     "number_row_energies",
     &Component::numberRowEnergies,
-    "the number of energies representing a row"
+    "The number of energies representing a row"
   )
   .def_property_readonly(
 
     "NEC",
     &Component::NEC,
-    "the number of energies representing a column"
+    "The number of energies representing a column"
   )
   .def_property_readonly(
 
     "number_column_energies",
     &Component::numberColumnEnergies,
-    "the number of energies representing a column"
+    "The number of energies representing a column"
   )
   .def_property_readonly(
 
     "row_energies",
     [] ( const Component& self ) -> DoubleRange
        { return self.rowEnergies(); },
-    "the row energy values"
+    "The row energy values"
   )
   .def_property_readonly(
 
     "column_energies",
     [] ( const Component& self ) -> DoubleRange
        { return self.columnEnergies(); },
-    "the column energy values"
+    "The column energy values"
   )
   .def_property_readonly(
 
     "values",
     [] ( const Component& self ) -> DoubleRange
        { return self.values(); },
-    "the matrix values"
+    "The matrix values"
   );
 
   // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }
-
-} // namespace mf33
