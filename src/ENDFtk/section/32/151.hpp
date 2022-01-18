@@ -44,15 +44,15 @@ namespace section {
     #include "ENDFtk/section/32/151/LimitedMultiLevelBreitWigner.hpp"
 
     #include "ENDFtk/section/32/151/ResonanceRange.hpp"
-//    #include "ENDFtk/section/2/151/Isotope.hpp"
+    #include "ENDFtk/section/32/151/Isotope.hpp"
 
   private:
 
     friend BaseWithoutMT< Type< 32, 151 > >;
 
-//    /* fields */
-//    std::vector< Isotope > isotopes_;
-//
+    /* fields */
+    std::vector< Isotope > isotopes_;
+
 //    /* auxiliary functions */
 //    #include "ENDFtk/section/2/151/src/verifyNIS.hpp"
 
@@ -66,24 +66,24 @@ namespace section {
      */
     static constexpr int sectionNumber() { return 151; }
 
-//    /**
-//     *  @brief Return the number NIS of isotopes
-//     */
-//    unsigned int numberIsotopes() const { return this->NIS(); }
-//
-//    /**
-//     *  @brief Return the number NIS of isotopes
-//     */
-//    unsigned int NIS() const { return this->isotopes_.size(); }
-//
-//    /**
-//     *  @brief Return the isotopes defined in the section
-//     */
-//    auto isotopes() const {
-//
-//      return ranges::cpp20::views::all( this->isotopes_ );
-//    }
-//
+    /**
+     *  @brief Return the number NIS of isotopes
+     */
+    unsigned int numberIsotopes() const { return this->NIS(); }
+
+    /**
+     *  @brief Return the number NIS of isotopes
+     */
+    unsigned int NIS() const { return this->isotopes_.size(); }
+
+    /**
+     *  @brief Return the isotopes defined in the section
+     */
+    auto isotopes() const {
+
+      return ranges::cpp20::views::all( this->isotopes_ );
+    }
+
     using BaseWithoutMT::MT;
     using BaseWithoutMT::ZA;
     using BaseWithoutMT::atomicWeightRatio;

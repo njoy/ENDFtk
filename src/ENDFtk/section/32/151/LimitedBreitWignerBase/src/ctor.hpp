@@ -69,7 +69,7 @@ LimitedBreitWignerBase( ControlRecord&& cont,
                         int MAT, int MF, int MT ) :
   // no try ... catch: exceptions will be handled in the derived class
   LimitedBreitWignerBase( cont.C1(), cont.C2(),
-                          cont.L2()
+                          cont.N2()
                             ? std::make_optional( ControlRecord( it, end, lineNumber,
                                                                  MAT, MF, MT ).C2() )
                             : std::nullopt,

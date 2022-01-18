@@ -1,5 +1,5 @@
 template< typename Iterator >
-static std::optional< ScatteringRadius >
+static std::optional< ScatteringRadiusCovariances >
 readScatteringRadius( Iterator& begin,
                       const Iterator& end,
                       long& lineNumber,
@@ -13,13 +13,14 @@ readScatteringRadius( Iterator& begin,
     // no energy dependent scattering radius
     case 0 : return std::nullopt;
     // energy dependent scattering radius
-    case 1 : return ScatteringRadius( begin, end, lineNumber, MAT, MF, MT );
+    case 1 : return ScatteringRadiusCovariances( begin, end, lineNumber,
+                                                 MAT, MF, MT );
     default : {
 
       Log::error( "Encountered illegal NRO value" );
       Log::info( "NRO is either 0 (no energy dependent scattering radius "
-                 "given) or 1 (an energy dependent scattering radius is "
-                 "given)" );
+                 "given) or 1 (energy dependent scattering radius covariances "
+                 "are given)" );
       Log::info( "NRO value: {}", NRO );
       Log::info( "Line number: {}", lineNumber );
       throw std::exception();
