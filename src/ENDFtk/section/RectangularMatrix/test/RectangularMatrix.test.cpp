@@ -1,13 +1,13 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk/section/33.hpp"
+#include "ENDFtk/section/RectangularMatrix.hpp"
 
 // other includes
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using RectangularMatrix = section::Type< 33 >::RectangularMatrix;
+using RectangularMatrix = section::RectangularMatrix;
 
 std::string chunk();
 std::string invalidLB();

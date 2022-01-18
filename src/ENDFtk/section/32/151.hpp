@@ -18,6 +18,10 @@
 #include "ENDFtk/section.hpp"
 #include "ENDFtk/readSequence.hpp"
 
+#include "ENDFtk/section/CovariancePairs.hpp"
+#include "ENDFtk/section/SquareMatrix.hpp"
+#include "ENDFtk/section/RectangularMatrix.hpp"
+
 namespace njoy {
 namespace ENDFtk {
 namespace section {
@@ -34,10 +38,6 @@ namespace section {
   public:
 
     // include classes for subsubsections
-    // intentionally taken from MF33
-    #include "ENDFtk/section/33/CovariancePairs.hpp"
-    #include "ENDFtk/section/33/SquareMatrix.hpp"
-    #include "ENDFtk/section/33/RectangularMatrix.hpp"
     using ExplicitCovariance = std::variant<
       CovariancePairs,
       SquareMatrix,

@@ -1,13 +1,13 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk/section/34.hpp"
+#include "ENDFtk/section/SquareMatrix.hpp"
 
 // other includes
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using SquareMatrix = section::Type< 34 >::SquareMatrix;
+using SquareMatrix = section::SquareMatrix;
 
 std::string chunk();
 std::string invalidLB();
@@ -39,7 +39,7 @@ SCENARIO( "SquareMatrix" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 9228, 34, 5 );
+        chunk.print( output, 9228, 33, 5 );
         CHECK( buffer == string );
       } // THEN
     } // WHEN
@@ -50,7 +50,7 @@ SCENARIO( "SquareMatrix" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      SquareMatrix chunk( begin, end, lineNumber, 9228, 34, 5 );
+      SquareMatrix chunk( begin, end, lineNumber, 9228, 33, 5 );
 
       THEN( "a SquareMatrix object can be constructed "
             "and members can be tested" ) {
@@ -62,7 +62,7 @@ SCENARIO( "SquareMatrix" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 9228, 34, 5 );
+        chunk.print( output, 9228, 33, 5 );
         CHECK( buffer == string );
       } // THEN
     } // WHEN
@@ -81,7 +81,7 @@ SCENARIO( "SquareMatrix" ) {
       THEN( "an exception is thrown" ) {
 
         CHECK_THROWS(
-          SquareMatrix( begin, end, lineNumber, 9228, 34, 5 ) );
+          SquareMatrix( begin, end, lineNumber, 9228, 33, 5 ) );
       } // THEN
     } // WHEN
 
@@ -95,7 +95,7 @@ SCENARIO( "SquareMatrix" ) {
       THEN( "an exception is thrown" ) {
 
         CHECK_THROWS(
-          SquareMatrix( begin, end, lineNumber, 9228, 34, 5 ) );
+          SquareMatrix( begin, end, lineNumber, 9228, 33, 5 ) );
       } // THEN
     } // WHEN
 
@@ -109,7 +109,7 @@ SCENARIO( "SquareMatrix" ) {
       THEN( "an exception is thrown" ) {
 
         CHECK_THROWS(
-          SquareMatrix( begin, end, lineNumber, 9228, 34, 5 ) );
+          SquareMatrix( begin, end, lineNumber, 9228, 33, 5 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -118,9 +118,9 @@ SCENARIO( "SquareMatrix" ) {
 
 std::string chunk() {
   return
-    " 0.000000+0 0.000000+0          0          5          7          3922834  5     \n"
-    " 0.000000+0 1.000000+2 2.000000+2 1.000000+0 2.000000+0 3.000000+0922834  5     \n"
-    " 4.000000+0                                                       922834  5     \n";
+    " 0.000000+0 0.000000+0          0          5          7          3922833  5     \n"
+    " 0.000000+0 1.000000+2 2.000000+2 1.000000+0 2.000000+0 3.000000+0922833  5     \n"
+    " 4.000000+0                                                       922833  5     \n";
 }
 
 void verifyChunk( const SquareMatrix& chunk ) {
@@ -152,20 +152,20 @@ void verifyChunk( const SquareMatrix& chunk ) {
 
 std::string invalidLB() {
   return
-    " 0.000000+0 0.000000+0          0          1          7          3922834  5     \n"
-    " 0.000000+0 1.000000+2 2.000000+2 1.000000+0 2.000000+0 3.000000+0922834  5     \n"
-    " 4.000000+0                                                       922834  5     \n";
+    " 0.000000+0 0.000000+0          0          1          7          3922833  5     \n"
+    " 0.000000+0 1.000000+2 2.000000+2 1.000000+0 2.000000+0 3.000000+0922833  5     \n"
+    " 4.000000+0                                                       922833  5     \n";
 }
 
 std::string inconsistentSymmetric() {
   return
-    " 0.000000+0 0.000000+0          1          5          7          3922834  5     \n"
-    " 0.000000+0 1.000000+2 2.000000+2 1.000000+0 2.000000+0 3.000000+0922834  5     \n"
-    " 4.000000+0                                                       922834  5     \n";
+    " 0.000000+0 0.000000+0          1          5          7          3922833  5     \n"
+    " 0.000000+0 1.000000+2 2.000000+2 1.000000+0 2.000000+0 3.000000+0922833  5     \n"
+    " 4.000000+0                                                       922833  5     \n";
 }
 
 std::string inconsistentAsymmetric() {
   return
-    " 0.000000+0 0.000000+0          0          5          6          3922834  5     \n"
-    " 0.000000+0 1.000000+2 2.000000+2 1.000000+0 2.000000+0 3.000000+0922834  5     \n";
+    " 0.000000+0 0.000000+0          0          5          6          3922833  5     \n"
+    " 0.000000+0 1.000000+2 2.000000+2 1.000000+0 2.000000+0 3.000000+0922833  5     \n";
 }

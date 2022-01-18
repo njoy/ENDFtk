@@ -1,13 +1,13 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk/section/33.hpp"
+#include "ENDFtk/section/CovariancePairs.hpp"
 
 // other includes
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using CovariancePairs = section::Type< 33 >::CovariancePairs;
+using CovariancePairs = section::CovariancePairs;
 
 std::string chunkLB1();
 std::string chunkLB3();

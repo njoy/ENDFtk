@@ -1,3 +1,18 @@
+#ifndef NJOY_ENDFTK_SECTION_COVARIANCEPAIRS
+#define NJOY_ENDFTK_SECTION_COVARIANCEPAIRS
+
+// system includes
+
+// other includes
+#include "range/v3/view/drop_exactly.hpp"
+#include "range/v3/view/take_exactly.hpp"
+#include "range/v3/view/stride.hpp"
+#include "ENDFtk/ListRecord.hpp"
+
+namespace njoy {
+namespace ENDFtk {
+namespace section{
+
 /**
  *  @class
  *  @brief NI-Type Sub-subsection with LB=0,1,2,3,4,8,9
@@ -6,14 +21,14 @@
  */
 class CovariancePairs : protected ListRecord {
 
-  #include "ENDFtk/section/33/CovariancePairs/src/verifyLB.hpp"
-  #include "ENDFtk/section/33/CovariancePairs/src/verifySize.hpp"
-  #include "ENDFtk/section/33/CovariancePairs/src/generateList.hpp"
+  #include "ENDFtk/section/CovariancePairs/src/verifyLB.hpp"
+  #include "ENDFtk/section/CovariancePairs/src/verifySize.hpp"
+  #include "ENDFtk/section/CovariancePairs/src/generateList.hpp"
 
 public:
 
   /* constructor */
-  #include "ENDFtk/section/33/CovariancePairs/src/ctor.hpp"
+  #include "ENDFtk/section/CovariancePairs/src/ctor.hpp"
 
   /* methods */
 
@@ -117,3 +132,9 @@ public:
   using ListRecord::NC;
   using ListRecord::print;
 };
+
+} // section namespace
+} // ENDFtk namespace
+} // njoy namespace
+
+#endif

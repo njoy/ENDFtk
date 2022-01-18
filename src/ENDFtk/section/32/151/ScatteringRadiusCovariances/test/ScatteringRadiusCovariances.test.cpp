@@ -9,9 +9,9 @@
 using namespace njoy::ENDFtk;
 using ScatteringRadiusCovariances = section::Type< 32, 151 >::ScatteringRadiusCovariances;
 using ExplicitCovariance = section::Type< 32, 151 >::ExplicitCovariance;
-using SquareMatrix = section::Type< 32, 151 >::SquareMatrix;
-using RectangularMatrix = section::Type< 32, 151 >::RectangularMatrix;
-using CovariancePairs = section::Type< 32, 151 >::CovariancePairs;
+using SquareMatrix = section::SquareMatrix;
+using RectangularMatrix = section::RectangularMatrix;
+using CovariancePairs = section::CovariancePairs;
 
 std::string chunk();
 void verifyChunk( const ScatteringRadiusCovariances& );

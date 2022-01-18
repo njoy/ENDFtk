@@ -9,9 +9,9 @@
 using namespace njoy::ENDFtk;
 using LegendreBlock = section::Type< 34 >::LegendreBlock;
 using ExplicitCovariance = section::Type< 34 >::ExplicitCovariance;
-using SquareMatrix = section::Type< 34 >::SquareMatrix;
-using RectangularMatrix = section::Type< 34 >::RectangularMatrix;
-using CovariancePairs = section::Type< 34 >::CovariancePairs;
+using SquareMatrix = section::SquareMatrix;
+using RectangularMatrix = section::RectangularMatrix;
+using CovariancePairs = section::CovariancePairs;
 
 std::string chunk();
 void verifyChunk( const LegendreBlock& );

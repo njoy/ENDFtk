@@ -1,3 +1,19 @@
+#ifndef NJOY_ENDFTK_SECTION_SQUAREMATRIX
+#define NJOY_ENDFTK_SECTION_SQUAREMATRIX
+
+// system includes
+
+// other includes
+#include "range/v3/range/conversion.hpp"
+#include "range/v3/view/concat.hpp"
+#include "range/v3/view/drop_exactly.hpp"
+#include "range/v3/view/take_exactly.hpp"
+#include "ENDFtk/ListRecord.hpp"
+
+namespace njoy {
+namespace ENDFtk {
+namespace section{
+
 /**
  *  @class
  *  @brief NI-Type Sub-subsection with LB=5
@@ -6,14 +22,14 @@
  */
 class SquareMatrix : protected ListRecord {
 
-  #include "ENDFtk/section/33/SquareMatrix/src/verifyLB.hpp"
-  #include "ENDFtk/section/33/SquareMatrix/src/verifySize.hpp"
-  #include "ENDFtk/section/33/SquareMatrix/src/generateList.hpp"
+  #include "ENDFtk/section/SquareMatrix/src/verifyLB.hpp"
+  #include "ENDFtk/section/SquareMatrix/src/verifySize.hpp"
+  #include "ENDFtk/section/SquareMatrix/src/generateList.hpp"
 
 public:
 
   /* constructor */
-  #include "ENDFtk/section/33/SquareMatrix/src/ctor.hpp"
+  #include "ENDFtk/section/SquareMatrix/src/ctor.hpp"
 
   /* methods */
 
@@ -84,3 +100,9 @@ public:
   using ListRecord::print;
 
 };
+
+} // section namespace
+} // ENDFtk namespace
+} // njoy namespace
+
+#endif

@@ -1,3 +1,19 @@
+#ifndef NJOY_ENDFTK_SECTION_RECTANGULARMATRIX
+#define NJOY_ENDFTK_SECTION_RECTANGULARMATRIX
+
+// system includes
+
+// other includes
+#include "range/v3/range/conversion.hpp"
+#include "range/v3/view/concat.hpp"
+#include "range/v3/view/drop_exactly.hpp"
+#include "range/v3/view/take_exactly.hpp"
+#include "ENDFtk/ListRecord.hpp"
+
+namespace njoy {
+namespace ENDFtk {
+namespace section{
+
 /**
  *  @class
  *  @brief NI-Type Sub-subsection with LB=6
@@ -6,14 +22,14 @@
  */
 class RectangularMatrix : protected ListRecord {
 
-  #include "ENDFtk/section/33/RectangularMatrix/src/verifyLB.hpp"
-  #include "ENDFtk/section/33/RectangularMatrix/src/verifySize.hpp"
-  #include "ENDFtk/section/33/RectangularMatrix/src/generateList.hpp"
+  #include "ENDFtk/section/RectangularMatrix/src/verifyLB.hpp"
+  #include "ENDFtk/section/RectangularMatrix/src/verifySize.hpp"
+  #include "ENDFtk/section/RectangularMatrix/src/generateList.hpp"
 
 public:
 
   /* constructor */
-  #include "ENDFtk/section/33/RectangularMatrix/src/ctor.hpp"
+  #include "ENDFtk/section/RectangularMatrix/src/ctor.hpp"
 
   /* methods */
 
@@ -88,3 +104,9 @@ public:
   using ListRecord::print;
 
 };
+
+} // section namespace
+} // ENDFtk namespace
+} // njoy namespace
+
+#endif
