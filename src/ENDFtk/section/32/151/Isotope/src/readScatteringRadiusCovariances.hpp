@@ -1,12 +1,12 @@
 template< typename Iterator >
 static std::optional< ScatteringRadiusCovariances >
-readScatteringRadius( Iterator& begin,
-                      const Iterator& end,
-                      long& lineNumber,
-                      int MAT,
-                      int MF,
-                      int MT,
-                      int NRO ) {
+readScatteringRadiusCovariances( Iterator& begin,
+                                 const Iterator& end,
+                                 long& lineNumber,
+                                 int MAT,
+                                 int MF,
+                                 int MT,
+                                 int NRO ) {
 
   switch ( NRO ) {
 

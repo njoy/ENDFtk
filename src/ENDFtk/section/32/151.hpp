@@ -53,8 +53,8 @@ namespace section {
     /* fields */
     std::vector< Isotope > isotopes_;
 
-//    /* auxiliary functions */
-//    #include "ENDFtk/section/2/151/src/verifyNIS.hpp"
+    /* auxiliary functions */
+    #include "ENDFtk/section/2/151/src/verifyNIS.hpp"
 
   public:
 
