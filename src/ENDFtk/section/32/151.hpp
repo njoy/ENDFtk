@@ -43,9 +43,9 @@ namespace section {
     #include "ENDFtk/section/32/151/LimitedSingleLevelBreitWigner.hpp"
     #include "ENDFtk/section/32/151/LimitedMultiLevelBreitWigner.hpp"
 
-//    #include "ENDFtk/section/2/151/ResonanceRange.hpp"
+    #include "ENDFtk/section/32/151/ResonanceRange.hpp"
 //    #include "ENDFtk/section/2/151/Isotope.hpp"
-//
+
   private:
 
     friend BaseWithoutMT< Type< 32, 151 > >;
