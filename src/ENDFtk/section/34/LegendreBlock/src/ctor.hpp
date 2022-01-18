@@ -21,8 +21,7 @@ LegendreBlock( ControlRecord&& cont,
             long& lineNumber,
             int MAT, int MF, int MT ) :
   LegendreBlock( cont.L1(), cont.L2(), cont.N1(),
-                 readNI( begin, end, lineNumber,
-                         MAT, MF, MT, cont.N2() ) ) {}
+                 readSequence( begin, end, lineNumber, MAT, MF, MT, cont.N2() ) ) {}
 
 public:
 

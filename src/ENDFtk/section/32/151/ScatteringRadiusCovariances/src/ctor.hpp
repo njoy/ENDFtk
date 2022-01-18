@@ -19,8 +19,8 @@ ScatteringRadiusCovariances( ControlRecord&& cont,
                              const Iterator& end,
                              long& lineNumber,
                              int MAT, int MF, int MT ) :
-  ScatteringRadiusCovariances( readNI( begin, end, lineNumber,
-                                       MAT, MF, MT, cont.N2() ) ) {}
+  ScatteringRadiusCovariances( readSequence( begin, end, lineNumber,
+                                             MAT, MF, MT, cont.N2() ) ) {}
 
 public:
 

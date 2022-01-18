@@ -8,10 +8,10 @@
 // convenience typedefs
 using namespace njoy::ENDFtk;
 using ScatteringRadiusCovariances = section::Type< 32, 151 >::ScatteringRadiusCovariances;
-using ExplicitCovariance = section::Type< 32, 151 >::ExplicitCovariance;
 using SquareMatrix = section::SquareMatrix;
 using RectangularMatrix = section::RectangularMatrix;
 using CovariancePairs = section::CovariancePairs;
+using ExplicitCovariance = section::ExplicitCovariance;
 
 std::string chunk();
 void verifyChunk( const ScatteringRadiusCovariances& );

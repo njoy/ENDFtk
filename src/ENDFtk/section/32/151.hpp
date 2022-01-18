@@ -17,10 +17,7 @@
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/section.hpp"
 #include "ENDFtk/readSequence.hpp"
-
-#include "ENDFtk/section/CovariancePairs.hpp"
-#include "ENDFtk/section/SquareMatrix.hpp"
-#include "ENDFtk/section/RectangularMatrix.hpp"
+#include "ENDFtk/section/covariance.hpp"
 
 namespace njoy {
 namespace ENDFtk {
@@ -36,12 +33,6 @@ namespace section {
   class Type< 32, 151 > : protected BaseWithoutMT< Type< 32, 151 > > {
 
   public:
-
-    // include classes for subsubsections
-    using ExplicitCovariance = std::variant<
-      CovariancePairs,
-      SquareMatrix,
-      RectangularMatrix >;
 
     #include "ENDFtk/section/32/151/ScatteringRadiusCovariances.hpp"
 

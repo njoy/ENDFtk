@@ -17,4 +17,6 @@ namespace section {
 } // ENDFtk namespace
 } // njoy namespace
 
+#include "ENDFtk/section/readSequence.hpp"
+
 #endif

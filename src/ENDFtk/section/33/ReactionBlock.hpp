@@ -20,7 +20,6 @@ class ReactionBlock {
 
   /* auxiliary functions */
   #include "ENDFtk/section/33/ReactionBlock/src/readNC.hpp"
-  #include "ENDFtk/section/33/ReactionBlock/src/readNI.hpp"
 
 public:
 
