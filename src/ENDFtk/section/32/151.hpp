@@ -45,7 +45,7 @@ namespace section {
     // LCOMP = 1 components
     #include "ENDFtk/section/32/151/ShortRangeBreitWignerReichMooreBlockBase.hpp"
     #include "ENDFtk/section/32/151/ShortRangeBreitWignerBlock.hpp"
-//    #include "ENDFtk/section/32/151/ShortRangeReichMooreWignerBlock.hpp"
+    #include "ENDFtk/section/32/151/ShortRangeReichMooreBlock.hpp"
 
     #include "ENDFtk/section/32/151/ResonanceRange.hpp"
     #include "ENDFtk/section/32/151/Isotope.hpp"
