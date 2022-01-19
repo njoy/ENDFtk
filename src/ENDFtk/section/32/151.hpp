@@ -36,12 +36,16 @@ namespace section {
 
     #include "ENDFtk/section/32/151/ScatteringRadiusCovariances.hpp"
 
+    // LCOMP = 0 components
     #include "ENDFtk/section/32/151/LimitedBreitWignerBase.hpp"
-
     #include "ENDFtk/section/32/151/BreitWignerLValue.hpp"
-
     #include "ENDFtk/section/32/151/LimitedSingleLevelBreitWigner.hpp"
     #include "ENDFtk/section/32/151/LimitedMultiLevelBreitWigner.hpp"
+
+    // LCOMP = 1 components
+    #include "ENDFtk/section/32/151/ShortRangeBreitWignerReichMooreBlockBase.hpp"
+//    #include "ENDFtk/section/32/151/ShortRangeSingleLevelBreitWignerBlock.hpp"
+//    #include "ENDFtk/section/32/151/ShortRangeMultiLevelBreitWignerBlock.hpp"
 
     #include "ENDFtk/section/32/151/ResonanceRange.hpp"
     #include "ENDFtk/section/32/151/Isotope.hpp"
