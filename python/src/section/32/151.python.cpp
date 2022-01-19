@@ -16,6 +16,8 @@ namespace mf32 {
 void wrapBreitWignerLValue( python::module&, python::module& );
 void wrapLimitedSingleLevelBreitWigner( python::module&, python::module& );
 void wrapLimitedMultiLevelBreitWigner( python::module&, python::module& );
+void wrapShortRangeBreitWignerBlock( python::module&, python::module& );
+void wrapShortRangeReichMooreBlock( python::module&, python::module& );
 void wrapResonanceRange( python::module&, python::module& );
 void wrapIsotope( python::module&, python::module& );
 
@@ -40,6 +42,8 @@ void wrapSection_32_151( python::module& module, python::module& viewmodule ) {
   mf32::wrapBreitWignerLValue( submodule, viewmodule );
   mf32::wrapLimitedSingleLevelBreitWigner( submodule, viewmodule );
   mf32::wrapLimitedMultiLevelBreitWigner( submodule, viewmodule );
+  mf32::wrapShortRangeBreitWignerBlock( submodule, viewmodule );
+  mf32::wrapShortRangeReichMooreBlock( submodule, viewmodule );
   mf32::wrapResonanceRange( submodule, viewmodule );
   mf32::wrapIsotope( submodule, viewmodule );
 
