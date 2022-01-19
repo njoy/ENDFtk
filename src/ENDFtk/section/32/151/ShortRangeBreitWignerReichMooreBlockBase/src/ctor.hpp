@@ -13,15 +13,14 @@ public:
  *  @brief Constructor
  *
  *  @param[in] awri       the atomic weight ratio
- *  @param[in] c2         the value in C2
- *  @param[in] l          the orbital angular momentum value
- *  @param[in] l2         the value in l2
- *  @param[in] energies   the resonance energies (NRS values)
- *  @param[in] spins      the spin values (NRS values)
- *  @param[in] column1    the first width (NRS values)
- *  @param[in] column2    the second width (NRS values)
- *  @param[in] column3    the third width (NRS values)
- *  @param[in] column4    the fourth width (NRS values)
+ *  @param[in] mpar       the number of parameters with covariances
+ *  @param[in] energies   the resonance energies (NRB values)
+ *  @param[in] spins      the spin values (NRB values)
+ *  @param[in] column1    the first width (NRB values)
+ *  @param[in] column2    the second width (NRB values)
+ *  @param[in] column3    the third width (NRB values)
+ *  @param[in] column4    the fourth width (NRB values)
+ *  @param[in] values     the values of the upper diagonal covaraince matrix
  */
 ShortRangeBreitWignerReichMooreBlockBase( double awri, int mpar,
                                           std::vector< double >&& energies,
@@ -33,7 +32,7 @@ ShortRangeBreitWignerReichMooreBlockBase( double awri, int mpar,
                                           std::vector< double >&& values ) :
   // no try ... catch: exceptions will be handled in the derived class
   ShortRangeBreitWignerReichMooreBlockBase(
-          ListRecord( awri, 0., 0, mpar, energies.size(),
+          ListRecord( awri, 0., mpar, 0, energies.size(),
                       generateList( std::move( energies ),
                                     std::move( spins ),
                                     std::move( column1 ),

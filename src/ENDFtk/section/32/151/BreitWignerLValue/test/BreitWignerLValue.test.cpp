@@ -101,9 +101,7 @@ SCENARIO( "BreitWignerLValue" ) {
     WHEN( "the data is empty" ) {
 
       double awri = 1.982069e+1;
-      double qx = 1.0;
       double l = 1.;
-      bool lrx = true;
       std::vector< double > er = {};
       std::vector< double > aj = {};
       std::vector< double > gt = {};
@@ -140,9 +138,7 @@ SCENARIO( "BreitWignerLValue" ) {
     WHEN( "the data has different sizes" ) {
 
       double awri = 1.982069e+1;
-      double qx = 1.0;
       double l = 1.;
-      bool lrx = true;
       std::vector< double > wrong = { -1.470000e+5 };
       std::vector< double > aj = { 0.5, 0.5 };
       std::vector< double > gt = { 5.470695e+2, 1.072946e+5 };
