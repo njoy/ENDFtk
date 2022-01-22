@@ -3,8 +3,8 @@ private:
 /**
  *  @brief Private constructor
  */
-LimitedBreitWignerBase( double spi, double ap, std::optional< double >&& dap,
-                        std::vector< LValue >&& lvalues ) :
+LimitedCovarianceBase( double spi, double ap, std::optional< double >&& dap,
+                       std::vector< BreitWignerLValue >&& lvalues ) :
     // no need for a try ... catch: nothing can go wrong here
     spi_( spi ), ap_( ap ), dap_( dap ),
     lvalues_( std::move( lvalues ) ) {
@@ -18,7 +18,7 @@ public:
 /**
  *  @brief Default constructor - only enabled for pybind11
  */
-LimitedBreitWignerBase() = default;
+LimitedCovarianceBase() = default;
 #endif
 
 /**
@@ -28,11 +28,11 @@ LimitedBreitWignerBase() = default;
  *  @param[in] ap        the scattering radius
  *  @param[in] lvalues   the l values and the resonance parameters
  */
-LimitedBreitWignerBase( double spi, double ap, double dap,
-                        std::vector< LValue >&& lvalues ) :
+LimitedCovarianceBase( double spi, double ap, double dap,
+                       std::vector< BreitWignerLValue >&& lvalues ) :
   // no need for a try ... catch: nothing can go wrong here
-  LimitedBreitWignerBase( spi, ap, std::make_optional( dap ),
-                          std::move( lvalues ) ) {}
+  LimitedCovarianceBase( spi, ap, std::make_optional( dap ),
+                         std::move( lvalues ) ) {}
 
 /**
  *  @brief Constructor without scattering radius uncertainty
@@ -41,10 +41,10 @@ LimitedBreitWignerBase( double spi, double ap, double dap,
  *  @param[in] ap        the scattering radius
  *  @param[in] lvalues   the l values and the resonance parameters
  */
-LimitedBreitWignerBase( double spi, double ap,
-                        std::vector< LValue >&& lvalues ) :
+LimitedCovarianceBase( double spi, double ap,
+                       std::vector< BreitWignerLValue >&& lvalues ) :
   // no need for a try ... catch: nothing can go wrong here
-  LimitedBreitWignerBase( spi, ap, std::nullopt, std::move( lvalues ) ) {}
+  LimitedCovarianceBase( spi, ap, std::nullopt, std::move( lvalues ) ) {}
 
 private:
 
@@ -52,28 +52,28 @@ private:
  *  @brief Private intermediate constructor
  */
 template< typename Iterator >
-LimitedBreitWignerBase( double spi, double ap, std::optional< double >&& dap,
-                        Iterator& it, const Iterator& end, long& lineNumber,
-                        int MAT, int MF, int MT, int N ) :
+LimitedCovarianceBase( double spi, double ap, std::optional< double >&& dap,
+                       Iterator& it, const Iterator& end, long& lineNumber,
+                       int MAT, int MF, int MT, int N ) :
   // no try ... catch: exceptions will be handled in the derived class
-  LimitedBreitWignerBase( spi, ap, std::move( dap ),
-                          readSequence< LValue >( it, end, lineNumber,
-                                                  MAT, MF, MT, N ) ) {}
+  LimitedCovarianceBase( spi, ap, std::move( dap ),
+                         readSequence< BreitWignerLValue >( it, end, lineNumber,
+                                                            MAT, MF, MT, N ) ) {}
 
 /**
  *  @brief Private intermediate constructor
  */
 template< typename Iterator >
-LimitedBreitWignerBase( ControlRecord&& cont,
+LimitedCovarianceBase( ControlRecord&& cont,
                         Iterator& it, const Iterator& end, long& lineNumber,
                         int MAT, int MF, int MT ) :
   // no try ... catch: exceptions will be handled in the derived class
-  LimitedBreitWignerBase( cont.C1(), cont.C2(),
-                          cont.N2()
-                            ? std::make_optional( ControlRecord( it, end, lineNumber,
-                                                                 MAT, MF, MT ).C2() )
-                            : std::nullopt,
-                          it, end, lineNumber, MAT, MF, MT, cont.N1() ) {}
+  LimitedCovarianceBase( cont.C1(), cont.C2(),
+                         cont.N2()
+                           ? std::make_optional( ControlRecord( it, end, lineNumber,
+                                                                MAT, MF, MT ).C2() )
+                           : std::nullopt,
+                         it, end, lineNumber, MAT, MF, MT, cont.N1() ) {}
 
 protected:
 /**
@@ -89,9 +89,9 @@ protected:
  *  @param[in] MT           the expected MT number
  */
  template< typename Iterator >
- LimitedBreitWignerBase( Iterator& it, const Iterator& end, long& lineNumber,
-                         int MAT, int MF, int MT ) :
+ LimitedCovarianceBase( Iterator& it, const Iterator& end, long& lineNumber,
+                        int MAT, int MF, int MT ) :
    // no try ... catch: exceptions will be handled in the derived class
-   LimitedBreitWignerBase(
+   LimitedCovarianceBase(
      ControlRecord( it, end, lineNumber, MAT, MF, MT ),
      it, end, lineNumber, MAT, MF, MT ) {}

@@ -38,7 +38,7 @@ namespace section {
 
     // LCOMP = 0 components
     #include "ENDFtk/section/32/151/BreitWignerLValue.hpp"
-    #include "ENDFtk/section/32/151/LimitedBreitWignerBase.hpp"
+    #include "ENDFtk/section/32/151/LimitedCovarianceBase.hpp"
     #include "ENDFtk/section/32/151/LimitedSingleLevelBreitWigner.hpp"
     #include "ENDFtk/section/32/151/LimitedMultiLevelBreitWigner.hpp"
 
@@ -46,6 +46,9 @@ namespace section {
     #include "ENDFtk/section/32/151/ShortRangeBreitWignerReichMooreBlockBase.hpp"
     #include "ENDFtk/section/32/151/ShortRangeBreitWignerBlock.hpp"
     #include "ENDFtk/section/32/151/ShortRangeReichMooreBlock.hpp"
+    //! @todo add LB=-1 to Covariancepairs
+    using LongRangeCovarianceBlock = std::variant< CovariancePairs, SquareMatrix >;
+    //#include "ENDFtk/section/32/151/GeneralCovarianceBase.hpp"
 
     #include "ENDFtk/section/32/151/ResonanceRange.hpp"
     #include "ENDFtk/section/32/151/Isotope.hpp"

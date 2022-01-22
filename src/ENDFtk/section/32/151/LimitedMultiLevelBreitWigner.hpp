@@ -5,9 +5,9 @@
  *  See ENDF102, section 32.2.1
  */
 class LimitedMultiLevelBreitWigner :
-  protected LimitedBreitWignerBase< BreitWignerLValue, LimitedMultiLevelBreitWigner > {
+  protected LimitedCovarianceBase< LimitedMultiLevelBreitWigner > {
 
-  friend LimitedBreitWignerBase< BreitWignerLValue, LimitedMultiLevelBreitWigner >;
+  friend LimitedCovarianceBase< LimitedMultiLevelBreitWigner >;
 
 public:
 
@@ -29,29 +29,25 @@ public:
    */
   static constexpr int representation() { return 2; }
 
-  /**
-   *  @brief Return the covariance representation type
-   */
-  static constexpr int covarianceRepresentation() { return 0; }
+  using LimitedCovarianceBase::LRU;
+  using LimitedCovarianceBase::LRF;
+  using LimitedCovarianceBase::LFW;
+  using LimitedCovarianceBase::averageFissionWidthFlag;
+  using LimitedCovarianceBase::LCOMP;
+  using LimitedCovarianceBase::covarianceRepresentation;
 
-  using LimitedBreitWignerBase::LCOMP;
-  using LimitedBreitWignerBase::LRU;
-  using LimitedBreitWignerBase::LRF;
-  using LimitedBreitWignerBase::LFW;
-  using LimitedBreitWignerBase::averageFissionWidthFlag;
+  using LimitedCovarianceBase::SPI;
+  using LimitedCovarianceBase::spin;
+  using LimitedCovarianceBase::AP;
+  using LimitedCovarianceBase::scatteringRadius;
+  using LimitedCovarianceBase::DAP;
+  using LimitedCovarianceBase::scatteringRadiusUncertainty;
+  using LimitedCovarianceBase::NLS;
+  using LimitedCovarianceBase::numberLValues;
+  using LimitedCovarianceBase::ISR;
+  using LimitedCovarianceBase::scatteringRadiusUncertaintyFlag;
+  using LimitedCovarianceBase::lValues;
 
-  using LimitedBreitWignerBase::SPI;
-  using LimitedBreitWignerBase::spin;
-  using LimitedBreitWignerBase::AP;
-  using LimitedBreitWignerBase::scatteringRadius;
-  using LimitedBreitWignerBase::DAP;
-  using LimitedBreitWignerBase::scatteringRadiusUncertainty;
-  using LimitedBreitWignerBase::NLS;
-  using LimitedBreitWignerBase::numberLValues;
-  using LimitedBreitWignerBase::ISR;
-  using LimitedBreitWignerBase::scatteringRadiusUncertaintyFlag;
-  using LimitedBreitWignerBase::lValues;
-
-  using LimitedBreitWignerBase::NC;
-  using LimitedBreitWignerBase::print;
+  using LimitedCovarianceBase::NC;
+  using LimitedCovarianceBase::print;
 };

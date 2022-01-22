@@ -1,29 +1,30 @@
 /**
  *  @class
- *  @brief Base class for Breit-Wigner resonance and covariance representations
+ *  @brief Base class for limited Breit-Wigner resonance and covariance
+ *         representations (LCOMP = 0)
  *
- *  The LimitedBreitWignerBase class is used to represent the SLBW and MLBW
+ *  The LimitedCovarianceBase class is used to represent the SLBW and MLBW
  *  resonance and covariance representations (LRU=1 and LRF=1, 2) for LCOMP=0
  *  from MF32/MT151.
  *
  *  See ENDF102, section 32.2.1 for more information.
  */
-template < typename LValue, typename Derived > class LimitedBreitWignerBase {
+template < typename Derived > class LimitedCovarianceBase {
 
   /* fields */
   double spi_;
   double ap_;
   std::optional< double > dap_;
 
-  std::vector< LValue > lvalues_;
+  std::vector< BreitWignerLValue > lvalues_;
 
   /* auxiliary functions */
-  #include "ENDFtk/section/32/151/LimitedBreitWignerBase/src/verifySize.hpp"
+  #include "ENDFtk/section/32/151/LimitedCovarianceBase/src/verifySize.hpp"
 
 protected:
 
   /* constructor */
-  #include "ENDFtk/section/32/151/LimitedBreitWignerBase/src/ctor.hpp"
+  #include "ENDFtk/section/32/151/LimitedCovarianceBase/src/ctor.hpp"
 
 public:
 
@@ -32,10 +33,12 @@ public:
   /**
    *  @brief Return the covariance representation type
    */
-  constexpr int LCOMP() const {
+  static constexpr int LCOMP() { return 0; }
 
-    return static_cast< const Derived* >( this )->covarianceRepresentation();
-  }
+  /**
+   *  @brief Return the covariance representation type
+   */
+  constexpr int covarianceRepresentation() const { return this->LCOMP(); }
 
   /**
    *  @brief Return the resonance type (resolved or unresolved)
@@ -63,7 +66,7 @@ public:
   */
   constexpr int averageFissionWidthFlag() const {
 
-    return LimitedBreitWignerBase::LFW();
+    return this->LFW();
   }
 
   /**
@@ -129,6 +132,6 @@ public:
     return ranges::cpp20::views::all( this->lvalues_ );
   }
 
-  #include "ENDFtk/section/32/151/LimitedBreitWignerBase/src/NC.hpp"
-  #include "ENDFtk/section/32/151/LimitedBreitWignerBase/src/print.hpp"
+  #include "ENDFtk/section/32/151/LimitedCovarianceBase/src/NC.hpp"
+  #include "ENDFtk/section/32/151/LimitedCovarianceBase/src/print.hpp"
 };
