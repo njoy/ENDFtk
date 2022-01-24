@@ -15,7 +15,8 @@ public:
           std::variant<
               LimitedSingleLevelBreitWigner, // LCOMP = 0, LRF = 1
               LimitedMultiLevelBreitWigner,  // LCOMP = 0, LRF = 2
-              GeneralSingleLevelBreitWigner  // LCOMP = 1, LRF = 1
+              GeneralSingleLevelBreitWigner, // LCOMP = 1, LRF = 1
+              GeneralMultiLevelBreitWigner   // LCOMP = 1, LRF = 2
               >;
 
 private:

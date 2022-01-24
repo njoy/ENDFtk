@@ -50,6 +50,7 @@ namespace section {
     using LongRangeCovarianceBlock = std::variant< CovariancePairs, SquareMatrix >;
     #include "ENDFtk/section/32/151/GeneralCovarianceBase.hpp"
     #include "ENDFtk/section/32/151/GeneralSingleLevelBreitWigner.hpp"
+    #include "ENDFtk/section/32/151/GeneralMultiLevelBreitWigner.hpp"
 
     #include "ENDFtk/section/32/151/ResonanceRange.hpp"
     #include "ENDFtk/section/32/151/Isotope.hpp"
