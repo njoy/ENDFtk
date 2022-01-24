@@ -63,6 +63,8 @@ readParameters( Iterator& begin,
                                 begin, end, lineNumber, MAT, MF, MT );
             case 2 : return GeneralMultiLevelBreitWigner(
                                 begin, end, lineNumber, MAT, MF, MT );
+            case 3 : return GeneralReichMoore(
+                                begin, end, lineNumber, MAT, MF, MT );
             default : {
 
               Log::error( "Encountered illegal LRF value for LCOMP = 1" );

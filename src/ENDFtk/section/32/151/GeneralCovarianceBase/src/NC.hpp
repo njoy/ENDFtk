@@ -7,7 +7,7 @@ long NC() const {
   if ( this->ISR() ) { NC += Derived::NC( this->dap_.value() ); }
   for ( const auto& cshort : this->short_ ) {
 
-    NC += Derived::NC( cshort.NC() );
+    NC += Derived::NC( cshort );
   }
   for ( const auto& clong : this->long_ ) {
 
