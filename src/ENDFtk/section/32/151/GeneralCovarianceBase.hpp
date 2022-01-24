@@ -16,6 +16,7 @@ class GeneralCovarianceBase {
   /* fields */
   double spi_;
   double ap_;
+  unsigned int nls_;
   std::optional< RadiusUncertainty > dap_;
 
   std::vector< ShortRangeCovarianceBlock > short_;
@@ -92,6 +93,18 @@ public:
    *  @brief Return the scattering radius
    */
   double scatteringRadius() const { return this->AP(); }
+
+  /**
+   *  @brief Return the number of l values for which resonance parameters are
+   *         given
+   */
+  unsigned int NLS() const { return this->nls_; }
+
+  /**
+   *  @brief Return the number of l values for which resonance parameters are
+   *         given
+   */
+  unsigned int numberLValues() const { return this->NLS(); }
 
   /**
    *  @brief Return the scattering radius uncertainty

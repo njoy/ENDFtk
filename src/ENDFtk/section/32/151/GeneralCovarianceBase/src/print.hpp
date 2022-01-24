@@ -12,7 +12,7 @@ template< typename OutputIterator >
 void print( OutputIterator& it, int MAT, int MF, int MT ) const {
 
   ControlRecord( this->SPI(), this->AP(),
-                 0, this->LCOMP(), 0, this->ISR() ).print( it, MAT, MF, MT );
+                 0, this->LCOMP(), this->NLS(), this->ISR() ).print( it, MAT, MF, MT );
   if ( this->ISR() ) {
 
     Derived::print( this->dap_.value(), it, MAT, MF, MT );

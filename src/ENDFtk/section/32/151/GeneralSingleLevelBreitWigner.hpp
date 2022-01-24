@@ -50,6 +50,8 @@ public:
   using GeneralCovarianceBase::spin;
   using GeneralCovarianceBase::AP;
   using GeneralCovarianceBase::scatteringRadius;
+  using GeneralCovarianceBase::NLS;
+  using GeneralCovarianceBase::numberLValues;
   using GeneralCovarianceBase::DAP;
   using GeneralCovarianceBase::scatteringRadiusUncertainty;
   using GeneralCovarianceBase::NSRS;
