@@ -1,4 +1,4 @@
-static constexpr long NC( const ReichMooreScatteringRadiusUncertainties& uncertainties ) {
+static long NC( const ReichMooreScatteringRadiusUncertainties& uncertainties ) {
 
   return uncertainties.NC();
 }
