@@ -48,7 +48,7 @@ namespace section {
     #include "ENDFtk/section/32/151/ShortRangeReichMooreBlock.hpp"
     //! @todo add LB=-1 to Covariancepairs
     using LongRangeCovarianceBlock = std::variant< CovariancePairs, SquareMatrix >;
-    //#include "ENDFtk/section/32/151/GeneralCovarianceBase.hpp"
+    #include "ENDFtk/section/32/151/GeneralCovarianceBase.hpp"
 
     #include "ENDFtk/section/32/151/ResonanceRange.hpp"
     #include "ENDFtk/section/32/151/Isotope.hpp"

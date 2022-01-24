@@ -13,6 +13,7 @@ LimitedCovarianceBase( double spi, double ap, std::optional< double >&& dap,
     }
 
 public:
+
 //! @todo pybind11 variant needs default constructor workaround
 #ifdef PYBIND11
 /**
@@ -76,6 +77,7 @@ LimitedCovarianceBase( ControlRecord&& cont,
                          it, end, lineNumber, MAT, MF, MT, cont.N1() ) {}
 
 protected:
+  
 /**
  *  @brief Constructor (from a buffer)
  *
