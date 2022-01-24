@@ -50,6 +50,39 @@ readParameters( Iterator& begin,
         }
       }
     }
+    case 1: {
+
+      switch ( LRU ) {
+
+        // resolved resonances
+        case 1 : {
+
+          switch ( LRF ) {
+
+            case 1 : return GeneralSingleLevelBreitWigner(
+                                begin, end, lineNumber, MAT, MF, MT );
+//            case 2 : return LimitedMultiLevelBreitWigner(
+//                                begin, end, lineNumber, MAT, MF, MT );
+            default : {
+
+              Log::error( "Encountered illegal LRF value for LCOMP = 1" );
+              Log::info( "LRF is equal to 1, 2, 3, 4 or 7" );
+              Log::info( "LRF value: {}", LRF );
+              Log::info( "Line number: {}", lineNumber );
+              throw std::exception();
+            }
+          }
+        }
+        default : {
+
+          Log::error( "Encountered illegal LRU value" );
+          Log::info( "LRU is should be 1 (resolved) for LCOMP = 1" );
+          Log::info( "LRU value: {}", LRU );
+          Log::info( "Line number: {}", lineNumber );
+          throw std::exception();
+        }
+      }
+    }
     default : {
 
       Log::error( "Encountered illegal LCOMP value" );

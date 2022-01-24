@@ -11,7 +11,7 @@ GeneralCovarianceBase( double spi, double ap,
     spi_( spi ), ap_( ap ), dap_( dap ),
     short_( std::move( cshort ) ), long_( std::move( clong ) ) {
 
-      verifySize( this->NLS() );
+      verifySize( this->NSRS(), this->NLRS() );
     }
 
 public:
@@ -80,7 +80,7 @@ GeneralCovarianceBase( double spi, double ap,
                        int MAT, int MF, int MT, int NSRS, int NLRS ) :
   // no try ... catch: exceptions will be handled in the derived class
   GeneralCovarianceBase( spi, ap, std::move( dap ),
-                         readSequence< ShortRangeCovarianceBlock >(
+                         njoy::ENDFtk::readSequence< ShortRangeCovarianceBlock >(
                              it, end, lineNumber, MAT, MF, MT, NSRS ),
                          it, end, lineNumber, MAT, MF, MT, NLRS ) {}
 
@@ -94,8 +94,9 @@ GeneralCovarianceBase( ControlRecord&& cont,
   // no try ... catch: exceptions will be handled in the derived class
   GeneralCovarianceBase( cont.C1(), cont.C2(),
                          cont.N2()
-                           ? Derived::readScatteringRadiusUncertaintyData(
-                                          it, end, lineNumber, MAT, MF, MT )
+                           ? std::make_optional(
+                                    Derived::read( it, end, lineNumber,
+                                                   MAT, MF, MT ) )
                            : std::nullopt,
                          it, end, lineNumber, MAT, MF, MT,
                          cont.N1(), cont.N2() ) {}

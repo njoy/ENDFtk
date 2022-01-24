@@ -109,7 +109,7 @@ public:
   /**
    *  @brief Return the number of short range covariance blocks
    */
-  int NSRS() const { return this->lvalues_.size(); }
+  int NSRS() const { return this->short_.size(); }
 
   /**
    *  @brief Return the number of short range covariance blocks
@@ -119,7 +119,7 @@ public:
   /**
    *  @brief Return the number of long range covariance blocks
    */
-  int NLRS() const { return this->lvalues_.size(); }
+  int NLRS() const { return this->long_.size(); }
 
   /**
    *  @brief Return the number of short range covariance blocks
@@ -137,11 +137,19 @@ public:
   bool scatteringRadiusUncertaintyFlag() const { return this->ISR(); }
 
   /**
-   *  @brief Return the l values and its resonance parameters
+   *  @brief Return the short range resonance covariance blocks
    */
   auto shortRangeBlocks() const {
 
     return ranges::cpp20::views::all( this->short_ );
+  }
+
+  /**
+   *  @brief Return the long range resonance covariance blocks
+   */
+  auto longRangeBlocks() const {
+
+    return ranges::cpp20::views::all( this->long_ );
   }
 
   #include "ENDFtk/section/32/151/GeneralCovarianceBase/src/NC.hpp"
