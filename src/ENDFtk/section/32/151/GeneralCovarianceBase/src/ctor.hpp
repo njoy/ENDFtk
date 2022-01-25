@@ -3,8 +3,9 @@ private:
 /**
  *  @brief Private constructor
  */
-GeneralCovarianceBase( double spi, double ap, unsigned int nls,
+GeneralCovarianceBase( double spi, double ap,
                        std::optional< RadiusUncertainty >&& dap,
+                       unsigned int nls,
                        std::vector< ShortRangeCovarianceBlock >&& cshort,
                        std::vector< LongRangeCovarianceBlock >&& clong ) :
     // no need for a try ... catch: nothing can go wrong here
@@ -28,17 +29,17 @@ GeneralCovarianceBase() = default;
  *
  *  @param[in] spi       the target spin value
  *  @param[in] ap        the scattering radius
- *  @param[in] nls       the number of l values
  *  @param[in] dap       the scattering radius uncertainty data
+ *  @param[in] nls       the number of l values
  *  @param[in] cshort    the short range covariance blocks
  *  @param[in] clong     the long range covariance blocks
  */
-GeneralCovarianceBase( double spi, double ap, unsigned int nls,
-                       RadiusUncertainty&& dap,
+GeneralCovarianceBase( double spi, double ap, RadiusUncertainty&& dap,
+                       unsigned int nls,
                        std::vector< ShortRangeCovarianceBlock >&& cshort,
                        std::vector< LongRangeCovarianceBlock >&& clong ) :
   // no need for a try ... catch: nothing can go wrong here
-  GeneralCovarianceBase( spi, ap, nls, std::make_optional( dap ),
+  GeneralCovarianceBase( spi, ap, std::make_optional( dap ), nls,
                          std::move( cshort ), std::move( clong ) ) {}
 
 /**
@@ -54,7 +55,7 @@ GeneralCovarianceBase( double spi, double ap, unsigned int nls,
                        std::vector< ShortRangeCovarianceBlock >&& cshort,
                        std::vector< LongRangeCovarianceBlock >&& clong ) :
   // no need for a try ... catch: nothing can go wrong here
-  GeneralCovarianceBase( spi, ap, nls, std::nullopt,
+  GeneralCovarianceBase( spi, ap, std::nullopt, nls,
                          std::move( cshort ), std::move( clong ) ) {}
 
 private:
@@ -63,25 +64,27 @@ private:
  *  @brief Private intermediate constructor
  */
 template< typename Iterator >
-GeneralCovarianceBase( double spi, double ap, unsigned int nls,
+GeneralCovarianceBase( double spi, double ap,
                        std::optional< RadiusUncertainty >&& dap,
+                       unsigned int nls,
                        std::vector< ShortRangeCovarianceBlock >&& cshort,
                        Iterator& it, const Iterator& end, long& lineNumber,
                        int MAT, int MF, int MT, int NLRS ) :
   // no try ... catch: exceptions will be handled in the derived class
-  GeneralCovarianceBase( spi, ap, nls, std::move( dap ), std::move( cshort ),
+  GeneralCovarianceBase( spi, ap, std::move( dap ), nls, std::move( cshort ),
                          readSequence( it, end, lineNumber, MAT, MF, MT, NLRS ) ) {}
 
 /**
  *  @brief Private intermediate constructor
  */
 template< typename Iterator >
-GeneralCovarianceBase( double spi, double ap, unsigned int nls,
+GeneralCovarianceBase( double spi, double ap,
                        std::optional< RadiusUncertainty >&& dap,
+                       unsigned int nls,
                        Iterator& it, const Iterator& end, long& lineNumber,
                        int MAT, int MF, int MT, int NSRS, int NLRS ) :
   // no try ... catch: exceptions will be handled in the derived class
-  GeneralCovarianceBase( spi, ap, nls, std::move( dap ),
+  GeneralCovarianceBase( spi, ap, std::move( dap ), nls,
                          njoy::ENDFtk::readSequence< ShortRangeCovarianceBlock >(
                              it, end, lineNumber, MAT, MF, MT, NSRS ),
                          it, end, lineNumber, MAT, MF, MT, NLRS ) {}
@@ -94,12 +97,13 @@ GeneralCovarianceBase( ControlRecord&& cont,
                        Iterator& it, const Iterator& end, long& lineNumber,
                        int MAT, int MF, int MT ) :
   // no try ... catch: exceptions will be handled in the derived class
-  GeneralCovarianceBase( cont.C1(), cont.C2(), cont.N1(),
+  GeneralCovarianceBase( cont.C1(), cont.C2(),
                          cont.N2()
                            ? std::make_optional(
                                     Derived::read( it, end, lineNumber,
                                                    MAT, MF, MT ) )
                            : std::nullopt,
+                         cont.N1(),
                          it, end, lineNumber, MAT, MF, MT,
                          cont.N1(), cont.N2() ) {}
 

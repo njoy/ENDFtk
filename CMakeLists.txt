@@ -158,6 +158,7 @@ pybind11_add_module( ENDFtk.python
     python/src/section/32/151/ShortRangeBreitWignerBlock.python.cpp
     python/src/section/32/151/ShortRangeReichMooreBlock.python.cpp
     python/src/section/32/151/ReichMooreScatteringRadiusUncertainties.python.cpp
+    python/src/section/32/151/GeneralSingleLevelBreitWigner.python.cpp
     python/src/section/32/151/ResonanceRange.python.cpp
     python/src/section/32/151/Isotope.python.cpp
     python/src/section/4.python.cpp

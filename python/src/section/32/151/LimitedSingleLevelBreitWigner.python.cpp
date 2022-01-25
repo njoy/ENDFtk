@@ -46,7 +46,7 @@ void wrapLimitedSingleLevelBreitWigner( python::module& module, python::module& 
     "    self       the component\n"
     "    spin       the target spin\n"
     "    ap         the scattering radius\n"
-    "    ap         the scattering radius uncertainty\n"
+    "    dap        the scattering radius uncertainty\n"
     "    lvalues    l values and the resonance parameters"
   )
   .def(

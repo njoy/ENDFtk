@@ -12,13 +12,15 @@ namespace python = pybind11;
 
 namespace mf32 {
 
-void wrapLimitedMultiLevelBreitWigner( python::module& module, python::module& viewmodule ) {
+void wrapGeneralSingleLevelBreitWigner( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 32, 151 >;
-  using Component = Section::LimitedMultiLevelBreitWigner;
-  using BreitWignerLValue = Section::BreitWignerLValue;
-  using BreitWignerLValueRange = RandomAccessAnyView< BreitWignerLValue >;
+  using Component = Section::GeneralSingleLevelBreitWigner;
+  using ShortRangeBreitWignerBlock = Section::ShortRangeBreitWignerBlock;
+  using LongRangeCovarianceBlock = Section::LongRangeCovarianceBlock;
+  using ShortRangeBreitWignerBlockRange = RandomAccessAnyView< ShortRangeBreitWignerBlock >;
+  using LongRangeCovarianceBlockRange = RandomAccessAnyView< LongRangeCovarianceBlock >;
 
   // wrap views created by this section
 
@@ -26,35 +28,45 @@ void wrapLimitedMultiLevelBreitWigner( python::module& module, python::module& v
   python::class_< Component > component(
 
     module,
-    "LimitedMultiLevelBreitWigner",
+    "GeneralSingleLevelBreitWigner",
     "MF32 MT151 section - Single level Breit-Wigner resonance parameters and\n"
-    "                     covariances using LCOMP=0"
+    "                     covariances using LCOMP=1"
   );
 
   // wrap the section
   component
   .def(
 
-    python::init< double, double, double, std::vector< BreitWignerLValue >&& >(),
-    python::arg( "spin" ), python::arg( "ap" ), python::arg( "dap" ), python::arg( "lvalues" ),
+    python::init< double, double, double, unsigned int,
+                  std::vector< ShortRangeBreitWignerBlock >&&,
+                  std::vector< LongRangeCovarianceBlock >&& >(),
+    python::arg( "spin" ), python::arg( "ap" ), python::arg( "dap" ),
+    python::arg( "nls" ), python::arg( "short" ), python::arg( "long" ),
     "Initialise the component\n\n"
     "Arguments:\n"
-    "    self       the component\n"
-    "    spin       the target spin\n"
-    "    ap         the scattering radius\n"
-    "    dap        the scattering radius uncertainty\n"
-    "    lvalues    l values and the resonance parameters"
+    "    self      the component\n"
+    "    spi       the target spin value\n"
+    "    ap        the scattering radius\n"
+    "    dap       the scattering radius uncertainty data\n"
+    "    nls       the number of l values\n"
+    "    short     the short range covariance blocks\n"
+    "    long      the long range covariance blocks"
   )
   .def(
 
-    python::init< double, double, std::vector< BreitWignerLValue >&& >(),
-    python::arg( "spin" ), python::arg( "ap" ), python::arg( "lvalues" ),
+    python::init< double, double, unsigned int,
+                  std::vector< ShortRangeBreitWignerBlock >&&,
+                  std::vector< LongRangeCovarianceBlock >&& >(),
+    python::arg( "spin" ), python::arg( "ap" ),
+    python::arg( "nls" ), python::arg( "short" ), python::arg( "long" ),
     "Initialise the component\n\n"
     "Arguments:\n"
-    "    self       the component\n"
-    "    spin       the target spin\n"
-    "    ap         the scattering radius\n"
-    "    lvalues    l values and the resonance parameters"
+    "    self      the component\n"
+    "    spi       the target spin value\n"
+    "    ap        the scattering radius\n"
+    "    nls       the number of l values\n"
+    "    short     the short range covariance blocks\n"
+    "    long      the long range covariance blocks"
   )
   .def_property_readonly(
 
@@ -154,22 +166,41 @@ void wrapLimitedMultiLevelBreitWigner( python::module& module, python::module& v
   )
   .def_property_readonly(
 
-    "NLS",
-    [] ( const Component& self ) { return self.NLS(); },
-    "The number of l values for which resonance parameters are given"
+    "NSRS",
+    [] ( const Component& self ) { return self.NSRS(); },
+    "The number of short range covariance blocks"
   )
   .def_property_readonly(
 
-    "number_l_values",
-    [] ( const Component& self ) { return self.numberLValues(); },
-    "The number of l values for which resonance parameters are given"
+    "number_short_range_blocks",
+    [] ( const Component& self ) { return self.numberShortRangeBlocks(); },
+    "The number of short range covariance blocks"
   )
   .def_property_readonly(
 
-    "l_values",
-    [] ( const Component& self ) -> BreitWignerLValueRange
-       { return self.lValues(); },
-    "The l values and its resonance parameters"
+    "NLRS",
+    [] ( const Component& self ) { return self.NLRS(); },
+    "The number of long range covariance blocks"
+  )
+  .def_property_readonly(
+
+    "number_long_range_blocks",
+    [] ( const Component& self ) { return self.numberLongRangeBlocks(); },
+    "The number of long range covariance blocks"
+  )
+  .def_property_readonly(
+
+    "short_range_blocks",
+    [] ( const Component& self ) -> ShortRangeBreitWignerBlockRange
+       { return self.shortRangeBlocks(); },
+    "The short range resonance covariance blocks"
+  )
+  .def_property_readonly(
+
+    "long_range_blocks",
+    [] ( const Component& self ) -> LongRangeCovarianceBlockRange
+       { return self.longRangeBlocks(); },
+    "The long range resonance covariance blocks"
   );
 
   // add standard component definitions

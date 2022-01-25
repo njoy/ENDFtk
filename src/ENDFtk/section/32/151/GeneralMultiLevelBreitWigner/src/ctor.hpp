@@ -11,16 +11,17 @@ GeneralMultiLevelBreitWigner() = default;
  *
  *  @param[in] spi       the target spin value
  *  @param[in] ap        the scattering radius
- *  @param[in] nls       the number of l values
  *  @param[in] dap       the scattering radius uncertainty data
+ *  @param[in] nls       the number of l values
  *  @param[in] cshort    the short range covariance blocks
  *  @param[in] clong     the long range covariance blocks
  */
-GeneralMultiLevelBreitWigner( double spi, double ap, unsigned int nls, double dap,
+GeneralMultiLevelBreitWigner( double spi, double ap, double dap,
+                              unsigned int nls,
                               std::vector< ShortRangeBreitWignerBlock >&& cshort,
                               std::vector< LongRangeCovarianceBlock >&& clong ) :
   // no need for a try ... catch: nothing can go wrong here
-  GeneralCovarianceBase( spi, ap, nls, std::move( dap ),
+  GeneralCovarianceBase( spi, ap, std::move( dap ), nls,
                          std::move( cshort ), std::move( clong ) ) {
 
     Log::info( "Encountered error while constructing resonance and covariance "

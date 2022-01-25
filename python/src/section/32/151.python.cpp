@@ -19,6 +19,7 @@ void wrapLimitedMultiLevelBreitWigner( python::module&, python::module& );
 void wrapShortRangeBreitWignerBlock( python::module&, python::module& );
 void wrapShortRangeReichMooreBlock( python::module&, python::module& );
 void wrapReichMooreScatteringRadiusUncertainties( python::module&, python::module& );
+void wrapGeneralSingleLevelBreitWigner( python::module&, python::module& );
 void wrapResonanceRange( python::module&, python::module& );
 void wrapIsotope( python::module&, python::module& );
 
@@ -31,6 +32,10 @@ void wrapSection_32_151( python::module& module, python::module& viewmodule ) {
   using Isotope = Section::Isotope;
   using ResonanceRange = Section::ResonanceRange;
   using IsotopeRange = RandomAccessAnyView< Isotope >;
+  using ShortRangeBreitWignerBlock = Section::ShortRangeBreitWignerBlock;
+  using LongRangeCovarianceBlock = Section::LongRangeCovarianceBlock;
+  using ShortRangeBreitWignerBlockRange = RandomAccessAnyView< ShortRangeBreitWignerBlock >;
+  using LongRangeCovarianceBlockRange = RandomAccessAnyView< LongRangeCovarianceBlock >;
 
   // create the submodule
   python::module submodule = module.def_submodule(
@@ -39,6 +44,18 @@ void wrapSection_32_151( python::module& module, python::module& viewmodule ) {
     "MT151 - resonance parameter covariances"
   );
 
+  // wrap views created by this section
+  // none of these are supposed to be created directly by the user
+  wrapRandomAccessAnyViewOf< Isotope >(
+      viewmodule,
+      "any_view< MF32::Isotope, random_access >" );
+  wrapRandomAccessAnyViewOf< ShortRangeBreitWignerBlock >(
+      viewmodule,
+      "any_view< ShortRangeBreitWignerBlock, random_access >" );
+  wrapRandomAccessAnyViewOf< LongRangeCovarianceBlock >(
+      viewmodule,
+      "any_view< LongRangeCovarianceBlock, random_access >" );
+
   // wrap components
   mf32::wrapBreitWignerLValue( submodule, viewmodule );
   mf32::wrapLimitedSingleLevelBreitWigner( submodule, viewmodule );
@@ -46,14 +63,9 @@ void wrapSection_32_151( python::module& module, python::module& viewmodule ) {
   mf32::wrapShortRangeBreitWignerBlock( submodule, viewmodule );
   mf32::wrapShortRangeReichMooreBlock( submodule, viewmodule );
   mf32::wrapReichMooreScatteringRadiusUncertainties( submodule, viewmodule );
+  mf32::wrapGeneralSingleLevelBreitWigner( submodule, viewmodule );
   mf32::wrapResonanceRange( submodule, viewmodule );
   mf32::wrapIsotope( submodule, viewmodule );
-
-  // wrap views created by this section
-  // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< Isotope >(
-      viewmodule,
-      "any_view< MF32::Isotope, random_access >" );
 
   // create the section
   python::class_< Section > section(
