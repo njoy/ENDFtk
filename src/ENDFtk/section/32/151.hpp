@@ -46,6 +46,7 @@ namespace section {
     #include "ENDFtk/section/32/151/ShortRangeBreitWignerReichMooreBlockBase.hpp"
     #include "ENDFtk/section/32/151/ShortRangeBreitWignerBlock.hpp"
     #include "ENDFtk/section/32/151/ShortRangeReichMooreBlock.hpp"
+    #include "ENDFtk/section/32/151/ShortRangeLimitedRMatrixBlock.hpp"
     #include "ENDFtk/section/32/151/ReichMooreScatteringRadiusUncertainties.hpp"
     //! @todo add LB=-1 to Covariancepairs
     using LongRangeCovarianceBlock = std::variant< CovariancePairs, SquareMatrix >;

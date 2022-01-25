@@ -1,7 +1,6 @@
 /**
  *  @class
- *  @brief Base class for a short-range Breit-Wigner and Reich-Moore resonance
- *         parameters and covariance data block
+ *  @brief Short-range Breit-Wigner resonance parameters and covariance data
  *
  *  See ENDF102, section 32.2.2 for more information.
  */
