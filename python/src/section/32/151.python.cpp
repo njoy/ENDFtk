@@ -20,6 +20,7 @@ void wrapShortRangeBreitWignerBlock( python::module&, python::module& );
 void wrapShortRangeReichMooreBlock( python::module&, python::module& );
 void wrapReichMooreScatteringRadiusUncertainties( python::module&, python::module& );
 void wrapGeneralSingleLevelBreitWigner( python::module&, python::module& );
+void wrapGeneralMultiLevelBreitWigner( python::module&, python::module& );
 void wrapResonanceRange( python::module&, python::module& );
 void wrapIsotope( python::module&, python::module& );
 
@@ -64,6 +65,7 @@ void wrapSection_32_151( python::module& module, python::module& viewmodule ) {
   mf32::wrapShortRangeReichMooreBlock( submodule, viewmodule );
   mf32::wrapReichMooreScatteringRadiusUncertainties( submodule, viewmodule );
   mf32::wrapGeneralSingleLevelBreitWigner( submodule, viewmodule );
+  mf32::wrapGeneralMultiLevelBreitWigner( submodule, viewmodule );
   mf32::wrapResonanceRange( submodule, viewmodule );
   mf32::wrapIsotope( submodule, viewmodule );
 
