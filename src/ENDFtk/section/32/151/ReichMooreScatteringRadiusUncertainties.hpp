@@ -30,8 +30,13 @@ public:
   /**
    *  @brief Return the l-dependent uncertainties
    */
-  auto uncertainties() const { return ListRecord::list()
-                                      | ranges::views::drop_exactly( 1 ); }
+  auto DAPL() const { return ListRecord::list()
+                             | ranges::views::drop_exactly( 1 ); }
+
+  /**
+   *  @brief Return the l-dependent uncertainties
+   */
+  auto uncertainties() const { return this->DAPL(); }
 
 
   using ListRecord::NC;

@@ -80,8 +80,12 @@ void verifyChunk( const ReichMooreScatteringRadiusUncertainties& chunk ) {
   CHECK( 1. == Approx( chunk.DAP() ) );
   CHECK( 1 == Approx( chunk.defaultUncertainty() ) );
 
+  CHECK( 3 == chunk.DAPL().size() );
   CHECK( 3 == chunk.uncertainties().size() );
 
+  CHECK( 2. == Approx( chunk.DAPL()[0] ) );
+  CHECK( 3. == Approx( chunk.DAPL()[1] ) );
+  CHECK( 4. == Approx( chunk.DAPL()[2] ) );
   CHECK( 2. == Approx( chunk.uncertainties()[0] ) );
   CHECK( 3. == Approx( chunk.uncertainties()[1] ) );
   CHECK( 4. == Approx( chunk.uncertainties()[2] ) );
