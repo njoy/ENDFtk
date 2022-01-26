@@ -79,6 +79,7 @@ public:
                     { return { std::move( chunk ) }; } );
   }
 
+  using ShortRangeBreitWignerReichMooreBlockBase::NPARB;
   using ShortRangeBreitWignerReichMooreBlockBase::covarianceMatrixOrder;
   using ShortRangeBreitWignerReichMooreBlockBase::NVS;
   using ShortRangeBreitWignerReichMooreBlockBase::numberValues;

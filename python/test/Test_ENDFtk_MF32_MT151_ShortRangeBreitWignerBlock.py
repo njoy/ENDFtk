@@ -91,6 +91,7 @@ class Test_ENDFtk_MF32_MT151_ShortRangeBreitWignerBlock( unittest.TestCase ) :
             self.assertAlmostEqual( 3., chunk.fission_widths[0] )
             self.assertAlmostEqual( 4., chunk.fission_widths[1] )
 
+            self.assertEqual( 8, chunk.NPARB )
             self.assertEqual( 8, chunk.covariance_matrix_order )
             self.assertEqual( 36, len( chunk.covariance_matrix ) )
             self.assertEqual( 36, chunk.NVS )

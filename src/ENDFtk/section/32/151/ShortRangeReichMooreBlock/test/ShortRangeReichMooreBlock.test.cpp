@@ -269,6 +269,7 @@ void verifyChunk( const ShortRangeReichMooreBlock& chunk ) {
   CHECK( 3. == Approx( chunk.resonances()[0].secondFissionWidth() ) );
   CHECK( 4. == Approx( chunk.resonances()[1].secondFissionWidth() ) );
 
+  CHECK( 8 == chunk.NPARB() );
   CHECK( 8 == chunk.covarianceMatrixOrder() );
   CHECK( 36 == chunk.covarianceMatrix().size() );
   CHECK( 36 == chunk.NVS() );

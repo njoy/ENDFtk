@@ -113,7 +113,12 @@ public:
   /**
    *  @brief Return the order of the covariance matrix
    */
-  int covarianceMatrixOrder() const { return this->MPAR() * this->NRB(); }
+  int NPARB() const { return this->MPAR() * this->NRB(); }
+
+  /**
+   *  @brief Return the order of the covariance matrix
+   */
+  int covarianceMatrixOrder() const { return this->NPARB(); }
 
   /**
    *  @brief Return the number of values in the upper triangular covariance matrix

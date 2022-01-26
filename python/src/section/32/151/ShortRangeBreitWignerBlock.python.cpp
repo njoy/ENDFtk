@@ -177,6 +177,13 @@ void wrapShortRangeBreitWignerBlock( python::module& module, python::module& ) {
   )
   .def_property_readonly(
 
+    "NPARB",
+    [] ( const Component& self )
+       { return self.NPARB(); },
+    "The order of the covariance matrix"
+  )
+  .def_property_readonly(
+
     "covariance_matrix_order",
     [] ( const Component& self )
        { return self.covarianceMatrixOrder(); },
