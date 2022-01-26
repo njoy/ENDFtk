@@ -86,7 +86,7 @@ public:
   int NRB() const { return ListRecord::N2(); }
 
   /**
-   *  @brief Return the number of resonances for this l value
+   *  @brief Return the number of resonances
    */
   int numberResonances() const { return this->NRB(); }
 

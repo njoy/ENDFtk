@@ -14,6 +14,8 @@ public:
 private:
 
   /* fields */
+  std::vector< ResonanceParameters > parameters_;
+  CovarianceMatrix covariance_;
 
   /* auxiliary functions */
 
@@ -23,6 +25,18 @@ public:
 //  #include "ENDFtk/section/32/151/ShortRangeRMatrixLimitedBlock/src/ctor.hpp"
 
   /* methods */
+
+  /**
+   *  @brief Return the number of spin groups for which resonance parameters
+   *         are given
+   */
+  int NJSX() const { return this->parameters_.size(); }
+
+  /**
+   *  @brief Return the number of spin groups for which resonance parameters 
+   *         are given
+   */
+  int numberSpinGroups() const { return this->NJSX(); }
 
 //  #include "ENDFtk/section/32/151/ShortRangeRMatrixLimitedBlock/src/NC.hpp"
 //  #include "ENDFtk/section/32/151/ShortRangeRMatrixLimitedBlock/src/print.hpp"
