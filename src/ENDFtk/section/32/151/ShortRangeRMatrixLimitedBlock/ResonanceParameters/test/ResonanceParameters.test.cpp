@@ -8,7 +8,7 @@
 // convenience typedefs
 using namespace njoy::ENDFtk;
 using ResonanceParameters =
-section::Type< 32, 151 >::ShortRangeLimitedRMatrixBlock::ResonanceParameters;
+section::Type< 32, 151 >::ShortRangeRMatrixLimitedBlock::ResonanceParameters;
 
 std::string chunk();
 void verifyChunk( const ResonanceParameters& );

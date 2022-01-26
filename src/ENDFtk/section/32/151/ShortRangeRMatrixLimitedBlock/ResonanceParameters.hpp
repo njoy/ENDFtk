@@ -11,13 +11,13 @@
 class ResonanceParameters : protected ListRecord {
 
   /* auxiliary functions */
-  #include "ENDFtk/section/32/151/ShortRangeLimitedRMatrixBlock/ResonanceParameters/src/generateList.hpp"
+  #include "ENDFtk/section/32/151/ShortRangeRMatrixLimitedBlock/ResonanceParameters/src/generateList.hpp"
   // blatantly copied from MF2 MT151
   #include "ENDFtk/section/2/151/RMatrixLimited/ResonanceParameters/src/verifySize.hpp"
 
 public:
   /* constructor */
-  #include "ENDFtk/section/32/151/ShortRangeLimitedRMatrixBlock/ResonanceParameters/src/ctor.hpp"
+  #include "ENDFtk/section/32/151/ShortRangeRMatrixLimitedBlock/ResonanceParameters/src/ctor.hpp"
 
   /* get methods */
 
