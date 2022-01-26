@@ -329,7 +329,7 @@ std::string invalidSize() {
 
 std::string zeroSize() {
   return
-    " 1.982069+1 0.000000+0          0          0          0          21025 2151     \n";
+    " 1.982069+1 0.000000+0          0          0          0          2102532151     \n";
 }
 
 std::string noNumberResonances() {

@@ -9,6 +9,7 @@ class ShortRangeRMatrixLimitedBlock {
 public:
 
   #include "ENDFtk/section/32/151/ShortRangeRMatrixLimitedBlock/ResonanceParameters.hpp"
+  #include "ENDFtk/section/32/151/ShortRangeRMatrixLimitedBlock/CovarianceMatrix.hpp"
 
 private:
 
