@@ -22,7 +22,7 @@ private:
 public:
 
   /* constructor */
-//  #include "ENDFtk/section/32/151/ShortRangeRMatrixLimitedBlock/src/ctor.hpp"
+  #include "ENDFtk/section/32/151/ShortRangeRMatrixLimitedBlock/src/ctor.hpp"
 
   /* methods */
 
@@ -33,11 +33,27 @@ public:
   int NJSX() const { return this->parameters_.size(); }
 
   /**
-   *  @brief Return the number of spin groups for which resonance parameters 
+   *  @brief Return the number of spin groups for which resonance parameters
    *         are given
    */
   int numberSpinGroups() const { return this->NJSX(); }
 
-//  #include "ENDFtk/section/32/151/ShortRangeRMatrixLimitedBlock/src/NC.hpp"
-//  #include "ENDFtk/section/32/151/ShortRangeRMatrixLimitedBlock/src/print.hpp"
+  /**
+   *  @brief Return the resonance parameters
+   */
+  auto resonanceParameters() const {
+
+    return ranges::cpp20::views::all( this->parameters_ );
+  }
+
+  /**
+   *  @brief Return the resonance parameters
+   */
+  const CovarianceMatrix& covarianceMatrix() const {
+
+    return this->covariance_;
+  }
+
+  #include "ENDFtk/section/32/151/ShortRangeRMatrixLimitedBlock/src/NC.hpp"
+  #include "ENDFtk/section/32/151/ShortRangeRMatrixLimitedBlock/src/print.hpp"
 };

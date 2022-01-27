@@ -10,8 +10,6 @@ private:
 
 /**
  *  @brief Private intermediate constructor
- *
- *  @param[in] data          the NI-type data blocks
  */
 template< typename Iterator >
 ScatteringRadiusCovariances( ControlRecord&& cont,
