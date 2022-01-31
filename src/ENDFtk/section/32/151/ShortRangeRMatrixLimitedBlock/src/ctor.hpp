@@ -43,7 +43,7 @@ ShortRangeRMatrixLimitedBlock( ControlRecord&& cont,
                                int MAT, int MF, int MT ) :
   ShortRangeRMatrixLimitedBlock(
       readSequence< ResonanceParameters >( begin, end, lineNumber,
-                                           MAT, MF, MT, cont.N2() ),
+                                           MAT, MF, MT, cont.L1() ),
       begin, end, lineNumber, MAT, MF, MT ) {}
 
 public:
