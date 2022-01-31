@@ -12,7 +12,7 @@ GeneralCovarianceBase( double spi, double ap,
     spi_( spi ), ap_( ap ), nls_( nls ), dap_( dap ),
     short_( std::move( cshort ) ), long_( std::move( clong ) ) {
 
-      verifySize( this->NSRS(), this->NLRS() );
+      verifySize( this->NSRS(), this->NLRS(), this->LRU() );
     }
 
 public:

@@ -54,6 +54,7 @@ namespace section {
     #include "ENDFtk/section/32/151/GeneralSingleLevelBreitWigner.hpp"
     #include "ENDFtk/section/32/151/GeneralMultiLevelBreitWigner.hpp"
     #include "ENDFtk/section/32/151/GeneralReichMoore.hpp"
+    #include "ENDFtk/section/32/151/GeneralRMatrixLimited.hpp"
 
     #include "ENDFtk/section/32/151/ResonanceRange.hpp"
     #include "ENDFtk/section/32/151/Isotope.hpp"

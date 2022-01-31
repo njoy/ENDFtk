@@ -65,11 +65,20 @@ readParameters( Iterator& begin,
                                 begin, end, lineNumber, MAT, MF, MT );
             case 3 : return GeneralReichMoore(
                                 begin, end, lineNumber, MAT, MF, MT );
+            case 7 : return GeneralRMatrixLimited(
+                                begin, end, lineNumber, MAT, MF, MT );
             default : {
 
               Log::error( "Encountered illegal LRF value for LCOMP = 1" );
-              Log::info( "LRF is equal to 1, 2, 3, 4 or 7" );
-              Log::info( "LRF value: {}", LRF );
+              if ( LRF != 4 ) {
+
+                Log::info( "LRF is equal to 1, 2, 3, 4 or 7" );
+                Log::info( "LRF value: {}", LRF );
+              }
+              else {
+
+                Log::info( "LRF equal to 4 (Adler-Adler) is currently unsupported" );
+              }
               Log::info( "Line number: {}", lineNumber );
               throw std::exception();
             }

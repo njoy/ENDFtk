@@ -17,7 +17,8 @@ public:
               LimitedMultiLevelBreitWigner,  // LCOMP = 0, LRF = 2
               GeneralSingleLevelBreitWigner, // LCOMP = 1, LRF = 1
               GeneralMultiLevelBreitWigner,  // LCOMP = 1, LRF = 2
-              GeneralReichMoore              // LCOMP = 1, LRF = 3
+              GeneralReichMoore,             // LCOMP = 1, LRF = 3
+              GeneralRMatrixLimited          // LCOMP = 1, LRF = 3
               >;
 
 private:

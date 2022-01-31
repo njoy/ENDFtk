@@ -1,5 +1,5 @@
 static void
-verifySize( int NSRS, int NLRS ) {
+verifySize( int NSRS, int NLRS, int LRF ) {
 
   if ( NSRS < 1 ) {
 
@@ -8,11 +8,14 @@ verifySize( int NSRS, int NLRS ) {
     Log::info( "NSRS value: {}", NSRS );
     throw std::exception();
   }
-  if ( NLRS < 1 ) {
+  if ( LRF != 7 ) {
 
-    Log::error( "Encountered illegal NLRS value" );
-    Log::info( "NLRS should be larger than zero" );
-    Log::info( "NLRS value: {}", NLRS );
-    throw std::exception();
+    if ( NLRS < 1 ) {
+
+      Log::error( "Encountered illegal NLRS value" );
+      Log::info( "NLRS should be larger than zero" );
+      Log::info( "NLRS value: {}", NLRS );
+      throw std::exception();
+    }
   }
 }
