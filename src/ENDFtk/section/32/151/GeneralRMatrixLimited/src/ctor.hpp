@@ -36,7 +36,7 @@ GeneralRMatrixLimited() = default;
  *  @param[in] nls       the number of l values
  *  @param[in] cshort    the short range covariance blocks
  */
-GeneralRMatrixLimited( std::vector< ShortRangeReichMooreBlock >&& cshort ) :
+GeneralRMatrixLimited( std::vector< ShortRangeRMatrixLimitedBlock >&& cshort ) :
   // no need for a try ... catch: nothing can go wrong here
   GeneralCovarianceBase( 0., 0., 0, std::move( cshort ), {} ) {
 

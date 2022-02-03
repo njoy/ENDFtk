@@ -6,12 +6,12 @@
  */
 class GeneralRMatrixLimited :
   protected GeneralCovarianceBase<
-                ShortRangeReichMooreBlock,
+                ShortRangeRMatrixLimitedBlock,
                 ReichMooreScatteringRadiusUncertainties,
                 GeneralRMatrixLimited > {
 
   friend GeneralCovarianceBase<
-             ShortRangeReichMooreBlock,
+             ShortRangeRMatrixLimitedBlock,
              ReichMooreScatteringRadiusUncertainties,
              GeneralRMatrixLimited >;
 

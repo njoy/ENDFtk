@@ -6,7 +6,7 @@ static void print( const ReichMooreScatteringRadiusUncertainties& dap,
 }
 
 template< typename OutputIterator >
-static void print( const ShortRangeReichMooreBlock& block, OutputIterator& it,
+static void print( const ShortRangeRMatrixLimitedBlock& block, OutputIterator& it,
                    int MAT, int MF, int MT ) {
 
   block.print( it, MAT, MF, MT );
