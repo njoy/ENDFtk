@@ -18,4 +18,14 @@ verifySize( int NSRS, int NLRS, int LRF ) {
       throw std::exception();
     }
   }
+  else {
+
+    if ( NLRS != 0 ) {
+
+      Log::error( "Encountered illegal NLRS value" );
+      Log::info( "NLRS should be zero for LRF=7 and LCOMP=1" );
+      Log::info( "NLRS value: {}", NLRS );
+      throw std::exception();
+    }
+  }
 }

@@ -9,7 +9,7 @@ ShortRangeRMatrixLimitedBlock() = default;
 /**
  *  @brief Constructor
  *
- *  @param[in] parameters     the resonance parameters with covariance data
+ *  @param[in] parameters     the resonance parameters
  *  @param[in] covariances    the covariance matrix
  */
 ShortRangeRMatrixLimitedBlock( std::vector< ResonanceParameters >&& parameters,

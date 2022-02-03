@@ -6,30 +6,27 @@
 GeneralRMatrixLimited() = default;
 #endif
 
-/**
- *  @brief Constructor with scattering radius uncertainty
- *
- *  @param[in] spi       the target spin value
- *  @param[in] ap        the scattering radius
- *  @param[in] dap       the scattering radius uncertainty data
- *  @param[in] nls       the number of l values
- *  @param[in] cshort    the short range covariance blocks
- *  @param[in] clong     the long range covariance blocks
- */
-GeneralRMatrixLimited( double spi, double ap,
-                       ReichMooreScatteringRadiusUncertainties&& dap,
-                       unsigned int nls,
-                       std::vector< ShortRangeReichMooreBlock >&& cshort,
-                       std::vector< LongRangeCovarianceBlock >&& clong ) :
-  // no need for a try ... catch: nothing can go wrong here
-  GeneralCovarianceBase( spi, ap, std::move( dap ), nls,
-                         std::move( cshort ), std::move( clong ) ) {
-
-    Log::info( "Encountered error while constructing resonance and covariance "
-               "parameters in the R-matrix limited representation for the general "
-               "covariance format (LCOMP = 1)" );
-    throw;
-  }
+//! @todo enable this when the scattering radius uncertainty format is ready
+// /**
+//  *  @brief Constructor with scattering radius uncertainty
+//  *
+//  *  @param[in] spi       the target spin value
+//  *  @param[in] ap        the scattering radius
+//  *  @param[in] dap       the scattering radius uncertainty data
+//  *  @param[in] nls       the number of l values
+//  *  @param[in] cshort    the short range covariance blocks
+//  */
+// GeneralRMatrixLimited( ReichMooreScatteringRadiusUncertainties&& dap,
+//                        std::vector< ShortRangeReichMooreBlock >&& cshort ) :
+//   // no need for a try ... catch: nothing can go wrong here
+//   GeneralCovarianceBase( 0., 0., std::move( dap ), 0,
+//                          std::move( cshort ), {} ) {
+//
+//     Log::info( "Encountered error while constructing resonance and covariance "
+//                "parameters in the R-matrix limited representation for the general "
+//                "covariance format (LCOMP = 1)" );
+//     throw;
+//   }
 
 /**
  *  @brief Constructor without scattering radius uncertainty
@@ -38,13 +35,10 @@ GeneralRMatrixLimited( double spi, double ap,
  *  @param[in] ap        the scattering radius
  *  @param[in] nls       the number of l values
  *  @param[in] cshort    the short range covariance blocks
- *  @param[in] clong     the long range covariance blocks
  */
-GeneralRMatrixLimited( double spi, double ap, unsigned int nls,
-                       std::vector< ShortRangeReichMooreBlock >&& cshort,
-                       std::vector< LongRangeCovarianceBlock >&& clong ) :
+GeneralRMatrixLimited( std::vector< ShortRangeReichMooreBlock >&& cshort ) :
   // no need for a try ... catch: nothing can go wrong here
-  GeneralCovarianceBase( spi, ap, nls, std::move( cshort ), std::move( clong ) ) {
+  GeneralCovarianceBase( 0., 0., 0, std::move( cshort ), {} ) {
 
     Log::info( "Encountered error while constructing resonance and covariance "
                "parameters in the R-matrix limited representation for the general "

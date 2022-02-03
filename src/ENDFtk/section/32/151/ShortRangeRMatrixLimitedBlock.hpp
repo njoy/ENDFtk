@@ -47,7 +47,7 @@ public:
   }
 
   /**
-   *  @brief Return the resonance parameters
+   *  @brief Return the covariance matrix
    */
   const CovarianceMatrix& covarianceMatrix() const {
 

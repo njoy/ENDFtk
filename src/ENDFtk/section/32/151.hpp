@@ -49,6 +49,7 @@ namespace section {
     #include "ENDFtk/section/32/151/ShortRangeRMatrixLimitedBlock.hpp"
     #include "ENDFtk/section/32/151/ReichMooreScatteringRadiusUncertainties.hpp"
     //! @todo add LB=-1 to Covariancepairs
+    //! @todo add LRF=7 scattering radius uncertainties
     using LongRangeCovarianceBlock = std::variant< CovariancePairs, SquareMatrix >;
     #include "ENDFtk/section/32/151/GeneralCovarianceBase.hpp"
     #include "ENDFtk/section/32/151/GeneralSingleLevelBreitWigner.hpp"
