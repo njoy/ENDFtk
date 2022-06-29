@@ -33,7 +33,9 @@ ResonanceChannels( double spin, double parity,
                    std::vector< double >&& ape,
                    int kbk = 0 )
   try : ResonanceChannels(
-          ListRecord( spin, parity, kbk, 0, l.size(),
+          ListRecord( std::abs( spin ) * ( parity >= 0 ? +1 : -1 ),
+                      ( spin == 0 ? ( parity >= 0 ? +1 : -1 ) : 0 ),
+                      kbk, 0, l.size(),
                       generateList( std::move( ppi ),
                                     std::move( l ),
                                     std::move( s ),
