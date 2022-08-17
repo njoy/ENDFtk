@@ -42,7 +42,7 @@ public:
   /**
    *  @brief Return the data contained in this component
    */
-  AllRange< double > data() const { return ListRecord::list(); }
+  auto data() const { return ListRecord::list(); }
 
   /**
    *  @brief Return the data contained in this component
@@ -69,7 +69,7 @@ public:
   /**
    *  @brief Return the number of energy points
    */
-  StrideRange< AllRange< double > > EP() const {
+  auto EP() const {
 
     return this->data() | ranges::views::stride( this->N2() );
   }
@@ -77,12 +77,12 @@ public:
   /**
    *  @brief Return the number of energy points
    */
-  StrideRange< AllRange< double > > energies() const { return this->EP(); }
+  auto energies() const { return this->EP(); }
 
   /**
    *  @brief Return second value for every energy
    */
-  StrideRange< DropRange< AllRange< double > > > PP() const {
+  auto PP() const {
 
     return this->data() | ranges::views::drop_exactly( 1 )
                         | ranges::views::stride( this->N2() );

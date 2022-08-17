@@ -51,7 +51,7 @@ public:
   /**
    *  @brief Return the distributions, one for each incident energy
    */
-  AllRange< Variant > distributions() const { return this->data_.records(); }
+  auto distributions() const { return this->data_.records(); }
 
   /**
    *  @brief Return the incident energy values

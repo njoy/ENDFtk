@@ -6,15 +6,9 @@
 
 // other includes
 #include "boost/hana.hpp"
-#include "range/v3/algorithm/find_if_not.hpp"
-#include "range/v3/range/conversion.hpp"
-#include "range/v3/view/all.hpp"
 #include "range/v3/view/chunk.hpp"
-#include "range/v3/view/concat.hpp"
 #include "range/v3/view/drop.hpp"
 #include "range/v3/view/drop_exactly.hpp"
-#include "range/v3/view/join.hpp"
-#include "range/v3/view/single.hpp"
 #include "range/v3/view/stride.hpp"
 #include "range/v3/view/take.hpp"
 #include "range/v3/view/tail.hpp"
@@ -128,9 +122,9 @@ namespace hana = boost::hana;
     /**
      *  @brief Return the reaction products defined in this section
      */
-    AllRange< ReactionProduct > reactionProducts() const { 
+    std::vector< ReactionProduct > reactionProducts() const {
 
-      return ranges::cpp20::views::all( this->products_ );
+      return this->products_;
     }
 
     #include "ENDFtk/section/6/src/NC.hpp"

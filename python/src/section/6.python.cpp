@@ -64,7 +64,6 @@ void wrapSection_6( python::module& module, python::module& viewmodule ) {
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 6 >;
   using ReactionProduct = Section::ReactionProduct;
-  using ReactionProductRange = RandomAccessAnyView< ReactionProduct >;
 
   // wrap components
 
@@ -147,10 +146,6 @@ void wrapSection_6( python::module& module, python::module& viewmodule ) {
   mf6::wrapReactionProduct( module, viewmodule );
 
   // wrap views created by this section
-  // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< ReactionProduct >(
-      viewmodule,
-      "any_view< ReactionProduct, random_access >" );
 
   // create the section
   python::class_< Section > section(
@@ -217,8 +212,7 @@ void wrapSection_6( python::module& module, python::module& viewmodule ) {
   .def_property_readonly(
 
     "reaction_products",
-    [] ( const Section& self ) -> ReactionProductRange
-       { return self.reactionProducts(); },
+    &Section::reactionProducts,
     "The reaction products defined in this section"
   );
 

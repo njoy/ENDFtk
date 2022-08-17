@@ -3,6 +3,8 @@ generateList( unsigned int na,
               std::vector< double >&& energies,
               std::vector< std::vector< double > >&& coefficients ) {
 
+  std::vector< double > list;
+
   if ( energies.size() != coefficients.size() ) {
 
     Log::error( "The number of energies and number of sets if coefficients "
@@ -24,10 +26,11 @@ generateList( unsigned int na,
     }
   }
 
-  return ranges::to< std::vector< double > >(
-           ranges::views::zip_with(
-             ranges::views::concat,
-             energies | ranges::cpp20::views::transform(
-                            ranges::cpp20::views::single ),
-             coefficients ) | ranges::views::join );
+  for ( unsigned int i = 0; i < energies.size(); ++i ) {
+
+    list.push_back( energies[i] );
+    list.insert( list.end(), coefficients[i].begin(), coefficients[i].end() );
+  }
+
+  return list;
 }
