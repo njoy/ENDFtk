@@ -10,7 +10,7 @@
 LegendreBlock( int order, int order1, int lct,
                std::vector< ExplicitCovariance >&& data ) :
   order_( order ), order1_( order1 ), lct_( lct ),
-  ni_( std::move( data ) ) {};
+  ni_( std::move( data ) ) {}
 
 private:
 
@@ -52,4 +52,4 @@ try :
   Log::info( "Trouble while creating a covariance LegendreBlock",
              MT, MAT );
   throw e;
-};
+}

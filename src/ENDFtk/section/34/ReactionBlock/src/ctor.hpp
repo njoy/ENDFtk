@@ -13,7 +13,7 @@ ReactionBlock( int mt, int mt1, int nl, int nl1,
   mt1_( mt1 ), nl_( nl ), nl1_( nl1 ),
   lblocks_( std::move( lblocks) ) {
     verifySize(nl, nl1, lblocks_.size(), mt==mt1 );
-  };
+  }
 
 private:
 
@@ -55,4 +55,4 @@ try :
   Log::info( "Trouble while creating an MF34 ReactionBlock",
              MT, MAT );
   throw e;
-};
+}
