@@ -19,6 +19,7 @@ void wrapEnergyDependentConstants( python::module& module, python::module& viewm
   using Section = njoy::ENDFtk::section::Type< 1, 455 >;
   using Component = Section::EnergyDependentConstants;
   using DecayConstants = Section::DecayConstants;
+  using DecayConstantsRange = RandomAccessAnyView< DecayConstants >;
 
   // wrap views created by this section
   // none of these are supposed to be created directly by the user

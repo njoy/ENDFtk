@@ -74,7 +74,7 @@ public:
    *  @brief Return interpolation type for each range on the incoming
    *         energy grid
    */
-  AllRange< long > interpolants() const {
+  auto interpolants() const {
 
     return this->data_.tab2().interpolants();
   }
@@ -83,7 +83,7 @@ public:
    *  @brief Return interpolation boundaries for the incoming
    *         energy grid
    */
-  AllRange< long > boundaries() const {
+  auto boundaries() const {
 
     return this->data_.tab2().boundaries();
   }
