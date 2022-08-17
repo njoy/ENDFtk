@@ -6,7 +6,6 @@
 #include <optional>
 
 // other includes
-#include "ENDFtk/types.hpp"
 #include "ENDFtk/HeadRecord.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
