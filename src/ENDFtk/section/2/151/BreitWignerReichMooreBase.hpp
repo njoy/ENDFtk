@@ -116,10 +116,7 @@ public:
   /**
    *  @brief Return the l values and its resonance parameters
    */
-  AllRange< LValue > lValues() const {
-
-    return ranges::cpp20::views::all( this->lvalues_ );
-  }
+  const std::vector< LValue >& lValues() const { return this->lvalues_; }
 
   #include "ENDFtk/section/2/151/BreitWignerReichMooreBase/src/NC.hpp"
   #include "ENDFtk/section/2/151/BreitWignerReichMooreBase/src/print.hpp"

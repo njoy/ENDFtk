@@ -16,13 +16,8 @@ void wrapBackgroundChannels( python::module& module, python::module& viewmodule 
   using Section = njoy::ENDFtk::section::Type< 2, 151 >;
   using Component = Section::RMatrixLimited::BackgroundChannels;
   using BackgroundRMatrix = Section::RMatrixLimited::BackgroundRMatrix;
-  using BackgroundRMatrixRange = RandomAccessAnyView< std::optional< BackgroundRMatrix > >;
 
   // wrap views created by this section
-  // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< std::optional< BackgroundRMatrix > >(
-      viewmodule,
-      "any_view< std::optional< BackgroundRMatrix >, random_access >" );
 
   // create the component
   python::class_< Component > component(
@@ -73,8 +68,7 @@ void wrapBackgroundChannels( python::module& module, python::module& viewmodule 
   .def_property_readonly(
 
     "background_rmatrices",
-    [] ( const Component& self ) -> BackgroundRMatrixRange
-       { return self.backgroundRMatrices(); },
+    &Component::backgroundRMatrices,
     "The complex R-matrix values"
   )
   .def(

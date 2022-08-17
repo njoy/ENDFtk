@@ -17,13 +17,8 @@ void wrapRMatrixLimited( python::module& module, python::module& viewmodule ) {
   using Component = Section::RMatrixLimited;
   using ParticlePairs = Section::RMatrixLimited::ParticlePairs;
   using SpinGroup = Section::RMatrixLimited::SpinGroup;
-  using SpinGroupRange = RandomAccessAnyView< SpinGroup >;
 
   // wrap views created by this section
-  // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< SpinGroup >(
-      viewmodule,
-      "any_view< SpinGroup, random_access >" );
 
   // create the component
   python::class_< Component > component(
@@ -170,8 +165,7 @@ void wrapRMatrixLimited( python::module& module, python::module& viewmodule ) {
   .def_property_readonly(
 
     "spin_groups",
-    [] ( const Component& self ) -> SpinGroupRange
-       { return self.spinGroups(); },
+    &Component::spinGroups,
     "The spin groups"
   );
 

@@ -10,13 +10,11 @@
 #include "range/v3/algorithm/count.hpp"
 #include "range/v3/algorithm/find.hpp"
 #include "range/v3/range/conversion.hpp"
-#include "range/v3/view/all.hpp"
 #include "range/v3/view/chunk.hpp"
 #include "range/v3/view/drop_exactly.hpp"
 #include "range/v3/view/repeat_n.hpp"
 #include "range/v3/view/stride.hpp"
 #include "range/v3/view/zip_with.hpp"
-#include "ENDFtk/types.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/TabulationRecord.hpp"
@@ -105,10 +103,7 @@ namespace section {
     /**
      *  @brief Return the isotopes defined in the section
      */
-    AllRange< Isotope > isotopes() const {
-
-      return ranges::cpp20::views::all( this->isotopes_ );
-    }
+    const std::vector< Isotope >& isotopes() const { return this->isotopes_; }
 
     using BaseWithoutMT::MT;
     using BaseWithoutMT::ZA;

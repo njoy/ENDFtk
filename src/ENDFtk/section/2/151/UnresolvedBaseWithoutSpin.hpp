@@ -102,8 +102,5 @@ public:
   /**
    *  @brief Return the l value data
    */
-  AllRange< LValue > lValues() const { 
-
-    return ranges::cpp20::views::all( this->lvalues_ );
-  }
+  const std::vector< LValue >& lValues() const { return this->lvalues_; }
 };

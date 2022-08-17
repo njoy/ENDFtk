@@ -16,13 +16,8 @@ void wrapReichMoore( python::module& module, python::module& viewmodule ) {
   using Section = njoy::ENDFtk::section::Type< 2, 151 >;
   using Component = Section::ReichMoore;
   using ReichMooreLValue = Section::ReichMooreLValue;
-  using ReichMooreLValueRange = RandomAccessAnyView< ReichMooreLValue >;
 
   // wrap views created by this section
-  // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< ReichMooreLValue >(
-      viewmodule,
-      "any_view< ReichMooreLValue, random_access >" );
 
   // create the component
   python::class_< Component > component(
@@ -148,7 +143,7 @@ void wrapReichMoore( python::module& module, python::module& viewmodule ) {
   .def_property_readonly(
 
     "l_values",
-    [] ( const Component& self ) -> ReichMooreLValueRange
+    [] ( const Component& self ) -> decltype(auto)
        { return self.lValues(); },
     "The l values and its resonance parameters"
   );

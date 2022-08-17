@@ -16,13 +16,8 @@ void wrapUnresolvedEnergyIndependent( python::module& module, python::module& vi
   using Section = njoy::ENDFtk::section::Type< 2, 151 >;
   using Component = Section::UnresolvedEnergyIndependent;
   using LValue = Section::UnresolvedEnergyIndependent::LValue;
-  using LValueRange = RandomAccessAnyView< LValue >;
 
   // wrap views created by this section
-  // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< LValue >(
-      viewmodule,
-      "any_view< UnresolvedEnergyIndependentLValueRange, random_access >" );
 
   // create the component
   python::class_< Component > component(
@@ -135,7 +130,7 @@ void wrapUnresolvedEnergyIndependent( python::module& module, python::module& vi
   .def_property_readonly(
 
     "l_values",
-    [] ( const Component& self ) -> LValueRange
+    [] ( const Component& self ) -> decltype(auto)
        { return self.lValues(); },
     "The l values and its resonance parameters"
   );

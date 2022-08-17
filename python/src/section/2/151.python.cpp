@@ -45,7 +45,6 @@ void wrapSection_2_151( python::module& module, python::module& viewmodule ) {
   using Section = njoy::ENDFtk::section::Type< 2, 151 >;
   using Isotope = Section::Isotope;
   using ResonanceRange = Section::ResonanceRange;
-  using IsotopeRange = RandomAccessAnyView< Isotope >;
 
   // create the submodule
   python::module submodule = module.def_submodule(
@@ -154,8 +153,7 @@ void wrapSection_2_151( python::module& module, python::module& viewmodule ) {
   .def_property_readonly(
 
     "isotopes",
-    [] ( const Section& self ) -> IsotopeRange
-       { return self.isotopes(); },
+    &Section::isotopes,
     "The isotopes defined in the section"
   );
 

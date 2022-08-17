@@ -131,9 +131,9 @@ public:
   /**
    *  @brief Return the spin groups
    */
-  AllRange< SpinGroup > spinGroups() const {
+  const std::vector< SpinGroup >& spinGroups() const {
 
-    return ranges::cpp20::views::all( this->spin_groups_ ); 
+    return this->spin_groups_;
   }
 
   #include "ENDFtk/section/2/151/RMatrixLimited/src/SPI.hpp"

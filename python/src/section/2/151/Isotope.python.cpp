@@ -16,13 +16,8 @@ void wrapIsotope( python::module& module, python::module& viewmodule ) {
   using Section = njoy::ENDFtk::section::Type< 2, 151 >;
   using Component = Section::Isotope;
   using ResonanceRange = Section::ResonanceRange;
-  using ResonanceRangeRange = RandomAccessAnyView< ResonanceRange >;
 
   // wrap views created by this section
-  // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< ResonanceRange >(
-      viewmodule,
-      "any_view< ResonanceRange, random_access >" );
 
   // create the component
   python::class_< Component > component(
@@ -92,8 +87,7 @@ void wrapIsotope( python::module& module, python::module& viewmodule ) {
   .def_property_readonly(
 
     "resonance_ranges",
-    [] ( const Component& self ) -> ResonanceRangeRange
-       { return self.resonanceRanges(); },
+    &Component::resonanceRanges,
     "The resonance ranges for this isotope"
   );
 

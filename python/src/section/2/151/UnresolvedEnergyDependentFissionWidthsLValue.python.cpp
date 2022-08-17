@@ -16,13 +16,8 @@ void wrapUnresolvedEnergyDependentFissionWidthsLValue( python::module& module, p
   using Section = njoy::ENDFtk::section::Type< 2, 151 >;
   using Component = Section::UnresolvedEnergyDependentFissionWidths::LValue;
   using JValue = Section::UnresolvedEnergyDependentFissionWidths::JValue;
-  using JValueRange = RandomAccessAnyView< JValue >;
 
   // wrap views created by this section
-  // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< JValue >(
-      viewmodule,
-      "any_view< UnresolvedEnergyDependentFissionWidthsJValue, random_access >" );
 
   // create the component
   python::class_< Component > component(
@@ -86,7 +81,7 @@ void wrapUnresolvedEnergyDependentFissionWidthsLValue( python::module& module, p
   .def_property_readonly(
 
     "j_values",
-    [] ( const Component& self ) -> JValueRange
+    [] ( const Component& self ) -> decltype(auto)
        { return self.jValues(); },
     "The data for each of the J values"
   );
