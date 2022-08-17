@@ -19,13 +19,8 @@ void wrapDiscretePhotons( python::module& module, python::module& viewmodule ) {
   using Section = njoy::ENDFtk::section::Type< 1, 460 >;
   using Component = Section::DiscretePhotons;
   using DiscretePhotonMultiplicity = Section::DiscretePhotonMultiplicity;
-  using DiscretePhotonMultiplicityRange = RandomAccessAnyView< DiscretePhotonMultiplicity >;
 
   // wrap views created by this component
-  // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< DiscretePhotonMultiplicity >(
-      viewmodule,
-      "any_view< DiscretePhotonMultiplicity, random_access >" );
 
   // create the component
   python::class_< Component > component(
@@ -74,8 +69,7 @@ void wrapDiscretePhotons( python::module& module, python::module& viewmodule ) {
   .def_property_readonly(
 
     "photons",
-    [] ( const Component& self ) -> DiscretePhotonMultiplicityRange
-       { return self.photons(); },
+    &Component::photons,
     "The discrete photon data"
   )
   .def(

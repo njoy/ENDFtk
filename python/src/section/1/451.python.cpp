@@ -16,7 +16,6 @@ void wrapSection_1_451( python::module& module, python::module& viewmodule ) {
   // type aliases
   using DirectoryRecord = njoy::ENDFtk::DirectoryRecord;
   using Section = njoy::ENDFtk::section::Type< 1, 451 >;
-  using DirectoryRange = RandomAccessAnyView< DirectoryRecord >;
 
   // create the submodule
   python::module submodule = module.def_submodule(
