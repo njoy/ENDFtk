@@ -37,12 +37,12 @@ public:
   /**
    *  @brief Return the decay constants
    */
-  AllRange< double > lambdas() const { return ListRecord::list(); }
+  auto lambdas() const { return ListRecord::list(); }
 
   /**
    *  @brief Return the decay constants
    */
-  AllRange< double > decayConstants() const { return this->lambdas(); }
+  auto decayConstants() const { return this->lambdas(); }
 
   using ListRecord::NC;
   using ListRecord::print;

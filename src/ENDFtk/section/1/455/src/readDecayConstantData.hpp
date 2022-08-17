@@ -8,6 +8,7 @@ readDecayConstantData( Iterator& begin,
                        int MT,
                        int LDG ) {
   switch ( LDG ) {
+    
     case 0 : return EnergyIndependentConstants( begin, end, lineNumber, MAT, MF, MT );
     case 1 : return EnergyDependentConstants( begin, end, lineNumber, MAT, MF, MT );
     default : {

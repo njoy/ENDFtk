@@ -41,7 +41,7 @@ public:
   /**
    *  @brief Return the decay constants
    */
-  StrideRange< AllRange< double > > lambdas() const {
+  auto lambdas() const {
 
     return ListRecord::list() | ranges::views::stride( 2 );
   }
@@ -49,7 +49,7 @@ public:
   /**
    *  @brief Return the decay constants
    */
-  StrideRange< AllRange< double > > decayConstants() const {
+  auto decayConstants() const {
 
     return this->lambdas();
   }
@@ -57,7 +57,7 @@ public:
   /**
    *  @brief Return the abundance values
    */
-  StrideRange< DropRange< AllRange< double > > > alphas() const {
+  auto alphas() const {
 
     return ListRecord::list() | ranges::views::drop_exactly( 1 )
                               | ranges::views::stride( 2 );
@@ -66,7 +66,7 @@ public:
   /**
    *  @brief Return the abundance values
    */
-  StrideRange< DropRange< AllRange< double > > > abundances() const {
+  auto abundances() const {
 
     return this->alphas();
   }

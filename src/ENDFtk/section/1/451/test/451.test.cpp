@@ -239,7 +239,7 @@ void verifyChunk( const section::Type< 1, 451 >& chunk ) {
   CHECK( 21 == chunk.LDRV() );
   CHECK( 21 == chunk.derivedMaterial() );
   CHECK( 9 == chunk.NWD() );
-  CHECK( description(), chunk.description() );
+  CHECK( description() == chunk.description() );
 
   auto entries = index();
   CHECK( entries.size() == chunk.NXC() );
