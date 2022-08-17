@@ -12,6 +12,25 @@ Type( double zaid, double awr, int lrp, int lfi, int nlib, int nmod,
   description_( std::move( description ) ),
   index_( std::move( index ) ) {}
 
+/**
+ *  @brief Private constructor
+ */
+Type( double zaid, double awr, int lrp, int lfi, int nlib, int nmod,
+      double elis, double sta, int lis, int liso, int nfor,
+      double awi, double emax, int lrel, int nsub, int nver,
+      double temp, int ldrv,
+      std::vector< TextRecord >&& description,
+      std::vector< DirectoryRecord >&& index,
+      double rtol = 0. ) :
+  BaseWithoutMT( zaid, awr ), lrp_( lrp ), lfi_( lfi ), nlib_( nlib ), nmod_( nmod ),
+  parameters_( makeParameters( elis, sta, lis, liso, nfor,
+                               awi, emax, lrel, nsub, nver,
+                               temp, rtol, ldrv,
+                               description.size(),
+                               index.size() ) ),
+  description_( std::move( description ) ),
+  index_( std::move( index ) ) {}
+
 public:
 
 //! @todo pybind11 variant needs default constructor workaround
@@ -54,15 +73,9 @@ Type( double zaid, double awr, int lrp, int lfi, int nlib, int nmod,
       const std::string& description,
       std::vector< DirectoryRecord >&& index,
       double rtol = 0. ) :
-  BaseWithoutMT( zaid, awr ), lrp_( lrp ), lfi_( lfi ), nlib_( nlib ), nmod_( nmod ),
-  parameters_( makeParameters( elis, sta, lis, liso, nfor,
-                               awi, emax, lrel, nsub, nver,
-                               temp, rtol, ldrv,
-                               ranges::cpp20::distance(
-                                   ranges::cpp20::views::split( description, '\n' ) ),
-                               index.size() ) ),
-  description_( makeDescription( description ) ),
-  index_( std::move( index ) ) {}
+  Type( zaid, awr, lrp, lfi, nlib, nmod, elis, sta, lis, liso, nfor,
+        awi, emax, lrel, nsub, nver, temp, ldrv, makeDescription( description ),
+        std::move( index ) ) {}
 
 /**
  *  @brief Constructor (from a buffer)

@@ -4,7 +4,6 @@
 #include "ENDFtk/section/1/451.hpp"
 
 // other includes
-#include "range/v3/algorithm/equal.hpp"
 #include "ENDFtk/tree/Section.hpp"
 
 // convenience typedefs
@@ -240,7 +239,7 @@ void verifyChunk( const section::Type< 1, 451 >& chunk ) {
   CHECK( 21 == chunk.LDRV() );
   CHECK( 21 == chunk.derivedMaterial() );
   CHECK( 9 == chunk.NWD() );
-  CHECK( ranges::cpp20::equal( description(), chunk.description() ) );
+  CHECK( description(), chunk.description() );
 
   auto entries = index();
   CHECK( entries.size() == chunk.NXC() );

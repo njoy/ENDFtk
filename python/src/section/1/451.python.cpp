@@ -28,10 +28,6 @@ void wrapSection_1_451( python::module& module, python::module& viewmodule ) {
   // wrap components
 
   // wrap views created by this section
-  // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< DirectoryRecord >(
-      viewmodule,
-      "any_view< DirectoryRecord, random_access >" );
 
   // create the section
   python::class_< Section > section(
@@ -292,15 +288,13 @@ void wrapSection_1_451( python::module& module, python::module& viewmodule ) {
   .def_property_readonly(
 
     "description",
-    [] ( const Section& type ) -> std::string
-       { return ranges::to< std::string >( type.description() ); },
+    &Section::description,
     "The descriptive information"
   )
   .def_property_readonly(
 
     "index",
-    [] ( const Section& type ) -> DirectoryRange
-       { return type.index(); },
+    &Section::index,
     "The index"
   )
   .def_property_readonly(

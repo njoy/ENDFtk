@@ -2,17 +2,9 @@
 #define NJOY_ENDFTK_SECTION_1_451
 
 // system includes
+#include <sstream>
 
 // other includes
-#include "range/v3/iterator/operations.hpp"
-#include "range/v3/range/conversion.hpp"
-#include "range/v3/view/all.hpp"
-#include "range/v3/view/concat.hpp"
-#include "range/v3/view/join.hpp"
-#include "range/v3/view/single.hpp"
-#include "range/v3/view/split.hpp"
-#include "range/v3/view/transform.hpp"
-#include "ENDFtk/types.hpp"
 #include "ENDFtk/TextRecord.hpp"
 #include "ENDFtk/HeadRecord.hpp"
 #include "ENDFtk/ControlRecord.hpp"
@@ -239,10 +231,7 @@ namespace section {
     /**
      *  @brief Return the index of available files and sections
      */
-    AllRange< DirectoryRecord > index() const {
-
-      return ranges::cpp20::views::all( this->index_ );
-    }
+    const std::vector< DirectoryRecord >& index() const { return this->index_; }
 
     /**
      *  @brief Return the number of lines in this MF1/MT451 section
