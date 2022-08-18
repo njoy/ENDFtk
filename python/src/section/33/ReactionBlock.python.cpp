@@ -18,21 +18,10 @@ void wrapReactionBlock( python::module& module, python::module& viewmodule ) {
   using Section = njoy::ENDFtk::section::Type< 33 >;
   using Component = Section::ReactionBlock;
   using DerivedCovariance = Section::DerivedCovariance;
-  using DerivedCovarianceRange = RandomAccessAnyView< DerivedCovariance >;
   using ExplicitCovariance = Section::ExplicitCovariance;
-  using ExplicitCovarianceRange = RandomAccessAnyView< ExplicitCovariance >;
 
 
   // wrap views created by this section
-  // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< DerivedCovariance >(
-      viewmodule,
-      "any_view< variant< DerivedRedundant, DerivedRatioToStandard >, "
-                "random_access >" );
-  wrapRandomAccessAnyViewOf< ExplicitCovariance >(
-      viewmodule,
-      "any_view< variant< CovariancePairs, SquareMatrix, "
-                         "RectangularMatrix >, random_access >" );
 
   // create the component
   python::class_< Component > component(
@@ -169,15 +158,13 @@ void wrapReactionBlock( python::module& module, python::module& viewmodule ) {
   .def_property_readonly(
 
     "derived_covariances",
-    [] ( const Component& self ) -> DerivedCovarianceRange
-       { return self.derivedCovariances(); },
+    &Component::derivedCovariances,
     "the NC-type (derived) subsubsections"
   )
   .def_property_readonly(
 
     "explicit_covariances",
-    [] ( const Component& self ) -> ExplicitCovarianceRange
-       { return self.explicitCovariances(); },
+    &Component::explicitCovariances,
     "the NI-type (explicit) subsubsections"
   );
 

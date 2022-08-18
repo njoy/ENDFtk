@@ -18,14 +18,8 @@ void wrapReactionBlock( python::module& module, python::module& viewmodule ) {
   using Section = njoy::ENDFtk::section::Type< 34 >;
   using Component = Section::ReactionBlock;
   using LegendreBlock = Section::LegendreBlock;
-  using LegendreBlockRange = RandomAccessAnyView< LegendreBlock >;
-
 
   // wrap views created by this section
-  // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< LegendreBlock >(
-      viewmodule,
-      "any_view< MF34::LegendreBlock, random_access >" );
 
   // create the component
   python::class_< Component > component(
@@ -116,8 +110,7 @@ void wrapReactionBlock( python::module& module, python::module& viewmodule ) {
   .def_property_readonly(
 
     "legendre_blocks",
-    [] ( const Component& self ) -> LegendreBlockRange
-       { return self.legendreBlocks(); },
+    &Component::legendreBlocks,
     "the Legendre blocks"
   );
 

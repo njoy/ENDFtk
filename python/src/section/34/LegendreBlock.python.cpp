@@ -18,15 +18,8 @@ void wrapLegendreBlock( python::module& module, python::module& viewmodule ) {
   using Section = njoy::ENDFtk::section::Type< 34 >;
   using Component = Section::LegendreBlock;
   using ExplicitCovariance = Section::ExplicitCovariance;
-  using ExplicitCovarianceRange = RandomAccessAnyView< ExplicitCovariance >;
-
 
   // wrap views created by this section
-  // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< ExplicitCovariance >(
-      viewmodule,
-      "any_view< variant< MF34::CovariancePairs, MF34::SquareMatrix, "
-                         "MF34::RectangularMatrix >, random_access >" );
 
   // create the component
   python::class_< Component > component(
@@ -103,8 +96,7 @@ void wrapLegendreBlock( python::module& module, python::module& viewmodule ) {
   .def_property_readonly(
 
     "data",
-    [] ( const Component& self ) -> ExplicitCovarianceRange
-       { return self.data(); },
+    &Component::data,
     "the NI-type subsubsections"
   );
 

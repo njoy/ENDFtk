@@ -21,7 +21,6 @@ void wrapSection_28( python::module& module, python::module& viewmodule ) {
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 28 >;
   using SubshellData = njoy::ENDFtk::section::Type< 28 >::SubshellData;
-  using SubshellDataRange = RandomAccessAnyView< SubshellData >;
 
   // wrap components
   mf28::wrapSubshellData( module, viewmodule );
@@ -66,8 +65,7 @@ void wrapSection_28( python::module& module, python::module& viewmodule ) {
   .def_property_readonly(
 
     "subshells",
-    [] ( const Section& self ) -> SubshellDataRange
-       { return self.subshells(); },
+    &Section::subshells,
     "The subshell data"
   );
 

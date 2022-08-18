@@ -79,9 +79,9 @@ public:
   /**
    *  @brief Return the Legendre blocks
    */
-  auto legendreBlocks() const {
+  const std::vector< LegendreBlock >& legendreBlocks() const {
 
-    return ranges::cpp20::views::all( this->lblocks_ );
+    return this->lblocks_;
   }
 
   #include "ENDFtk/section/34/ReactionBlock/src/NC.hpp"

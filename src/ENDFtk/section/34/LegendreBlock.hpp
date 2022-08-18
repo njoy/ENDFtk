@@ -70,9 +70,9 @@ public:
   /**
    *  @brief Return the NI-type subsubsections
    */
-  auto data() const {
+  const std::vector< ExplicitCovariance >& data() const {
 
-    return ranges::cpp20::views::all( this->ni_ );
+    return this->ni_;
   }
 
   #include "ENDFtk/section/34/LegendreBlock/src/NC.hpp"

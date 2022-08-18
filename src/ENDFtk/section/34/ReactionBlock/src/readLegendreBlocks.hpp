@@ -7,10 +7,15 @@ readLegendreBlocks( Iterator& begin,
                     ControlRecord cont ) {
 
   int size;
-  if (MT==cont.L2()) size = cont.N1()*(cont.N2()+1)/2;
-  else size = cont.N1()*cont.N2();
+  if ( MT==cont.L2() ) {
+
+    size = cont.N1()*(cont.N2()+1)/2;
+  }
+  else {
+
+    size = cont.N1()*cont.N2();
+  }
 
   return readSequence< LegendreBlock >( begin, end, lineNumber,
                                         MAT, MF, MT, size );
-
 }

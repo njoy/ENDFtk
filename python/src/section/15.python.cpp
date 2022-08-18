@@ -24,7 +24,6 @@ void wrapSection_15( python::module& module, python::module& viewmodule ) {
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 15 >;
   using PartialDistribution = Section::PartialDistribution;
-  using PartialDistributionRange = RandomAccessAnyView< PartialDistribution >;
 
   // wrap components
   mf15::wrapOutgoingEnergyDistribution( module, viewmodule );
@@ -33,10 +32,6 @@ void wrapSection_15( python::module& module, python::module& viewmodule ) {
   mf15::wrapPartialDistribution( module, viewmodule );
 
   // wrap views created by this section
-  // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< PartialDistribution >(
-      module,
-      "any_view< MF15::PartialDistribution, random_access >" );
 
   // create the section
   python::class_< Section > section(
@@ -76,8 +71,7 @@ void wrapSection_15( python::module& module, python::module& viewmodule ) {
   .def_property_readonly(
 
     "partial_distributions",
-    [] ( const Section& self ) -> PartialDistributionRange
-       { return self.partialDistributions(); },
+    &Section::partialDistributions,
     "The partial distributions defined in this section"
   );
 

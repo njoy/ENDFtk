@@ -5,7 +5,6 @@
 #include <vector>
 
 // other includes
-#include "range/v3/view/all.hpp"
 #include "range/v3/view/transform.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
@@ -62,9 +61,9 @@ public:
   /**
    *  @brief Return the partial distributions defined in this section
    */
-  AllRange< PartialDistribution > partialDistributions() const {
+  const std::vector< PartialDistribution >& partialDistributions() const {
 
-    return ranges::cpp20::views::all( this->partials_ );
+    return this->partials_;
   }
 
   #include "ENDFtk/section/5/src/NC.hpp"               // taken from MF5

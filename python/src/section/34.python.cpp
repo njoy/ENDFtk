@@ -25,7 +25,6 @@ void wrapSection_34( python::module& module, python::module& viewmodule ) {
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 34 >;
   using ReactionBlock = Section::ReactionBlock;
-  using ReactionBlockRange = RandomAccessAnyView< ReactionBlock >;
 
   // wrap components
   mf34::wrapReactionBlock( module, viewmodule );
@@ -92,8 +91,7 @@ void wrapSection_34( python::module& module, python::module& viewmodule ) {
   .def_property_readonly(
 
     "reactions",
-    [] ( const Section& self ) -> ReactionBlockRange
-       { return self.reactions(); },
+    &Section::reactions,
     "the reactions (subsections) defined in this section"
   );
 

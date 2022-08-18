@@ -92,17 +92,17 @@ public:
   /**
    *  @brief Return the NC-type subsubsections
    */
-  auto derivedCovariances() const {
+  const std::vector< DerivedCovariance >& derivedCovariances() const {
 
-    return ranges::cpp20::views::all( this->nc_ );
+    return this->nc_;
   }
 
   /**
    *  @brief Return the NI-type subsubsections
    */
-  auto explicitCovariances() const {
+  const std::vector< ExplicitCovariance >& explicitCovariances() const {
 
-    return ranges::cpp20::views::all( this->ni_ );
+    return this->ni_;
   }
 
   #include "ENDFtk/section/33/ReactionBlock/src/NC.hpp"

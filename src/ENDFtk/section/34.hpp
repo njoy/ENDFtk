@@ -5,8 +5,6 @@
 #include <variant>
 
 // other includes
-#include "range/v3/range/conversion.hpp"
-#include "range/v3/view/all.hpp"
 #include "range/v3/view/concat.hpp"
 #include "range/v3/view/drop_exactly.hpp"
 #include "range/v3/view/take_exactly.hpp"
@@ -83,9 +81,9 @@ namespace section{
     /**
      *  @brief Return the subsections defined in this section
      */
-    auto reactions() const {
+    const std::vector< ReactionBlock >& reactions() const {
 
-      return ranges::cpp20::views::all( this->reactions_ );
+      return this->reactions_;
     }
 
     #include "ENDFtk/section/34/src/NC.hpp"

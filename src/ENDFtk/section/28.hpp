@@ -55,9 +55,9 @@ namespace section{
     /**
      *  @brief Return the subshell data
      */
-    auto subshells() const {
+    const std::vector< SubshellData >& subshells() const {
 
-      return ranges::cpp20::views::all( this->subshells_ );
+      return this->subshells_;
     }
 
     #include "ENDFtk/section/28/src/NC.hpp"
