@@ -1,10 +1,14 @@
 template < typename Range >
 static bool compare( const Range& left, const Range& right ) {
 
-  return ranges::cpp20::count(
-               ranges::views::zip_with(
-                   [] ( double left, double right ) { return left == right; },
-                   left, right ), true ) == ranges::cpp20::distance( left );
+  for ( unsigned int i = 0; i < left.size(); ++i ) {
+
+    if ( left[i] != right[i] ) {
+
+      return false;
+    }
+  }
+  return true;
 }
 
 static void

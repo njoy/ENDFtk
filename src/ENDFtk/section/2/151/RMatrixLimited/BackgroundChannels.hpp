@@ -40,9 +40,9 @@ public:
   /**
    *  @brief Return the background R-matrix values for all channels
    */
-  AllRange< OptionalBackgroundRMatrix > backgroundRMatrices() const {
+  const std::vector< OptionalBackgroundRMatrix >& backgroundRMatrices() const {
 
-    return ranges::cpp20::views::all( this->channels_ );
+    return this->channels_;
   }
 
   /**
@@ -50,11 +50,8 @@ public:
    */
   unsigned int KBK() const {
 
-    return ranges::cpp20::count( this->backgroundRMatrices()
-                                     | ranges::cpp20::views::transform(
-                                           [] ( const auto& value )
-                                              { return bool( value ); } ),
-                                 true );
+    return std::count_if( this->channels_.begin(), this->channels_.end(),
+                          [] ( const auto& value ) { return bool( value ); } );
   }
 
   /**

@@ -9,14 +9,14 @@
 double AP() const {
 
   auto mt = this->particlePairs().MT();
-  unsigned int elastic = ranges::cpp20::distance(
-                             ranges::cpp20::begin( mt ),
-                             ranges::cpp20::find( mt, int( 2 ) ) ) + 1;
+  unsigned int elastic = std::distance(
+                             mt.begin(),
+                             std::find( mt.begin(), mt.end(), int( 2 ) ) ) + 1;
 
   auto channels = this->spinGroups().front().channels();
   auto ppi = channels.particlePairNumbers();
-  unsigned int index = ranges::cpp20::distance(
-                           ranges::cpp20::begin( ppi ),
-                           ranges::cpp20::find( ppi, int( elastic ) ) );
+  unsigned int index = std::distance(
+                           ppi.begin(),
+                           std::find( ppi.begin(), ppi.end(), int( elastic ) ) );
   return channels.trueChannelRadii()[index];
 };

@@ -2,18 +2,22 @@ template < typename Range >
 static std::vector< double >
 extractReal( const Range& values ) {
 
-  return ranges::to< std::vector< double > >(
-             values | ranges::cpp20::views::transform(
-                          [] ( const auto& complex )
-                             { return complex.real(); } ) );
+  std::vector< double > real;
+  for ( const auto& value : values ) {
+
+    real.push_back( value.real() );
+  }
+  return real;
 }
 
 template < typename Range >
 static std::vector< double >
 extractImaginary( const Range& values ) {
 
-  return ranges::to< std::vector< double > >(
-             values | ranges::cpp20::views::transform(
-                          [] ( const auto& complex )
-                             { return complex.imag(); } ) );
+  std::vector< double > real;
+  for ( const auto& value : values ) {
+
+    real.push_back( value.imag() );
+  }
+  return real;
 }
