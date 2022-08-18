@@ -20,17 +20,12 @@ void wrapSection_13( python::module& module, python::module& viewmodule ) {
   using Section = njoy::ENDFtk::section::Type< 13 >;
   using PartialCrossSection = Section::PartialCrossSection;
   using TotalCrossSection = Section::TotalCrossSection;
-  using PartialCrossSectionRange = RandomAccessAnyView< PartialCrossSection >;
 
   // wrap components
   wrapTotalCrossSection( module, viewmodule );
   wrapPartialCrossSection( module, viewmodule );
 
   // wrap views created by this section
-  // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< PartialCrossSection >(
-      viewmodule,
-      "any_view< PartialCrossSection, random_access >" );
 
   // create the section
   python::class_< Section > section(
@@ -100,8 +95,7 @@ void wrapSection_13( python::module& module, python::module& viewmodule ) {
   .def_property_readonly(
 
     "photon_partial_cross_sections",
-    [] ( const Section& self ) -> PartialCrossSectionRange
-       { return self.photonPartialCrossSections(); },
+    &Section::photonPartialCrossSections,
     "The partial cross sections"
   );
 

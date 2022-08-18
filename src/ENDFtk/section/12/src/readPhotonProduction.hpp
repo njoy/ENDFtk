@@ -10,6 +10,7 @@ readPhotonProduction( Iterator& begin,
                       int N ) {
 
   switch ( LO ) {
+    
     case 1: return Multiplicities( begin, end, lineNumber, MAT, MF, MT, N );
     case 2: return TransitionProbabilities( begin, end, lineNumber, MAT, MF, MT );
     default : {

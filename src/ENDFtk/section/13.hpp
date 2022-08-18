@@ -72,9 +72,9 @@ namespace section{
     /**
      *  @brief Return the partial cross sections
      */
-    AllRange< PartialCrossSection > photonPartialCrossSections() const {
+    const std::vector< PartialCrossSection >& photonPartialCrossSections() const {
 
-      return ranges::cpp20::views::all( this->partials_ );
+      return this->partials_;
     }
 
     #include "ENDFtk/section/13/src/NC.hpp"

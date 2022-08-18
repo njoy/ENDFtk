@@ -67,9 +67,9 @@ public:
   /**
    *  @brief Return the partial multiplicities
    */
-  AllRange< PartialMultiplicity > photonPartialMultiplicities() const {
+  const std::vector< PartialMultiplicity >& photonPartialMultiplicities() const {
 
-    return ranges::cpp20::views::all( this->partials_ );
+    return this->partials_;
   }
 
   #include "ENDFtk/section/12/Multiplicities/src/NC.hpp"

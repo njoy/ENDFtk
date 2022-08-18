@@ -5,7 +5,6 @@
 #include <variant>
 
 // other includes
-#include "range/v3/algorithm/count_if.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/TabulationRecord.hpp"
@@ -80,9 +79,9 @@ namespace section{
      */
     int NI() const {
 
-      return ranges::count_if( this->photons_,
-                               [] ( const auto& entry )
-                                  { return entry.index() == 0; } );
+      return std::count_if( this->photons_.begin(), this->photons_.end(),
+                            [] ( const auto& entry )
+                               { return entry.index() == 0; } );
     }
 
     /**
@@ -95,7 +94,7 @@ namespace section{
      *  @brief Return the number of photons (discrete and continuum) with
      *         angular distributionss
      */
-    int NK() const { 
+    int NK() const {
 
       return this->photons_.size() ? this->photons_.size() : this->nk_;
     }
@@ -135,7 +134,10 @@ namespace section{
     /**
      *  @brief Return the secondary photons with their angular distribution
      */
-    const auto& photonAngularDistributions() const { return this->photons_; }
+    const std::vector< PhotonDistribution >& photonAngularDistributions() const {
+
+       return this->photons_;
+     }
 
     #include "ENDFtk/section/14/src/NC.hpp"
     #include "ENDFtk/section/14/src/print.hpp"

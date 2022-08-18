@@ -17,7 +17,6 @@ void wrapMultiplicities( python::module& module, python::module& viewmodule ) {
   using Component = Section::Multiplicities;
   using TotalMultiplicity = Section::TotalMultiplicity;
   using PartialMultiplicity = Section::PartialMultiplicity;
-  using PartialMultiplicityRange = RandomAccessAnyView< PartialMultiplicity >;
 
   // wrap views created by this section
   // none of these are supposed to be created directly by the user
@@ -94,8 +93,7 @@ void wrapMultiplicities( python::module& module, python::module& viewmodule ) {
   .def_property_readonly(
 
     "photon_partial_multiplicities",
-    [] ( const Component& self ) -> PartialMultiplicityRange
-       { return self.photonPartialMultiplicities(); },
+    &Component::photonPartialMultiplicities,
     "The partial multiplicities"
   )
   .def(

@@ -79,7 +79,7 @@ public:
   /**
    *  @brief Return the angular distributions (one for each incident energy)
    */
-  AllRange< Records > angularDistributions() const {
+  auto angularDistributions() const {
 
     return InterpolationSequenceRecord< Records >::records();
   }
