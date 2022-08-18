@@ -62,9 +62,9 @@ namespace section{
     /**
      *  @brief Return the reaction product data
      */
-    AllRange< ReactionProduct > reactionProducts() const {
+    const std::vector< ReactionProduct >& reactionProducts() const {
 
-      return ranges::cpp20::views::all( this->products_ );
+      return this->products_;
     }
 
     #include "ENDFtk/section/10/src/NC.hpp"
