@@ -3,6 +3,7 @@ generateTemperatures( double beta,
                       std::vector< double >&& temperatures,
                       std::vector< long >&& li,
                       std::vector< std::vector< double > >&& s ) {
+
   unsigned int size = temperatures.size() - 1;
   std::vector< ListRecord > sequence;
   sequence.reserve( size );

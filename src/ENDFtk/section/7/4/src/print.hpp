@@ -1,4 +1,4 @@
-/** 
+/**
  *  @brief Print the MF7/MT4 section (includes SEND record)
  *
  *  @tparam OutputIterator   an output iterator
@@ -9,6 +9,7 @@
  */
 template< typename OutputIterator >
 void print( OutputIterator& it, int MAT, int MF ) const {
+
   int MT = 4;
   ControlRecord( this->ZA(), this->AWR(), 0, this->LAT(),
                  this->LASYM(), 0 ).print( it, MAT, MF, MT );
@@ -21,5 +22,4 @@ void print( OutputIterator& it, int MAT, int MF ) const {
     if ( entry ) entry->print( it, MAT, MF, MT );
   }
   SEND( MAT, MF ).print( it );
-} 
-
+}

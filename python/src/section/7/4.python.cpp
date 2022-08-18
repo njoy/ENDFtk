@@ -28,13 +28,8 @@ void wrapSection_7_4( python::module& module, python::module& viewmodule ) {
   using ScatteringLaw = Section::ScatteringLaw;
   using EffectiveTemperature = Section::EffectiveTemperature;
   using ScatteringLawConstants = Section::ScatteringLawConstants;
-  using EffectiveTemperatureRange = RandomAccessAnyView< std::optional< EffectiveTemperature > >;
 
   // wrap views created by this section
-  // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< std::optional< EffectiveTemperature > >(
-      viewmodule,
-      "any_view< std::optional< EffectiveTemperature >, random_access >" );
 
   // create the submodule
   python::module submodule = module.def_submodule(
@@ -131,8 +126,7 @@ void wrapSection_7_4( python::module& module, python::module& viewmodule ) {
   .def_property_readonly(
 
     "secondary_effective_temperatures",
-    [] ( const Section& self ) -> EffectiveTemperatureRange
-       { return self.secondaryEffectiveTemperatures(); },
+    &Section::secondaryEffectiveTemperatures,
     "The effective temperatures for the secondary scatterers (if any are\n"
     "defined)"
   )

@@ -81,7 +81,7 @@ public:
   /**
    *  @brief Return interpolation type for each range on the energy grid
    */
-  AllRange< long > interpolants() const {
+  auto interpolants() const {
 
     return this->principal_.interpolants();
   }
@@ -89,7 +89,7 @@ public:
   /**
    *  @brief Return interpolation boundaries for the energy grid
    */
-  AllRange< long > boundaries() const {
+  auto boundaries() const {
 
     return this->principal_.boundaries();
   }
@@ -116,12 +116,12 @@ public:
   /**
    *  @brief Return the energy grid
    */
-  AllRange< double > E() const { return this->principal_.x(); }
+  auto E() const { return this->principal_.x(); }
 
   /**
    *  @brief Return the energy grid
    */
-  AllRange< double > energies() const { return this->E(); }
+  auto energies() const { return this->E(); }
 
   /**
    *  @brief Return the temperature interpolation flags (LT values will be

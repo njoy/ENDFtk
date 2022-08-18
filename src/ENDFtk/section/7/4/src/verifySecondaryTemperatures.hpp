@@ -13,22 +13,10 @@ verifySecondaryTemperatures( const TypeArray& types,
     throw std::exception();
   }
 
-  if ( types.size() > 0 ) {
+  for ( unsigned int i = 0; i < types.size(); ++i ) {
 
-    auto needTemperature =
-      types | ranges::cpp20::views::transform( [] ( double value )
-                                                  { return value == 0.0; } );
-
-    auto haveTemperature =
-      temperatures | ranges::cpp20::views::transform( hana::to<bool> );
-
-    auto verify =
-      ranges::views::zip_with( std::equal_to<>{},
-                               needTemperature, haveTemperature );
-
-    auto iter = ranges::cpp20::find( verify, false );
-
-    if ( iter != ranges::cpp20::end( verify ) ) {
+    if ( ( ( types[i] == 0.0 ) && !( temperatures[i] ) ) ||
+         ( ( types[i] != 0.0 ) && ( temperatures[i] ) ) ) {
 
       Log::error( "Available effective temperature data for secondary "
                   "scatterers inconsistent with the thermal scattering "
@@ -36,7 +24,7 @@ verifySecondaryTemperatures( const TypeArray& types,
       Log::info( "When B(7), B(13) or B(19) is zero, an effective temperature "
                  "must be given" );
       Log::info( "Encountered issue for the secondary scatterer with index={}",
-                 ranges::cpp20::distance( ranges::cpp20::begin( verify ), iter ) );
+                 i );
       throw std::exception();
     }
   }
