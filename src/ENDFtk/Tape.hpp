@@ -5,7 +5,6 @@
 #include <optional>
 
 // other includes
-#include "range/v3/view/all.hpp"
 #include "range/v3/view/filter.hpp"
 #include "range/v3/iterator/operations.hpp"
 #include "ENDFtk/TapeIdentification.hpp"
@@ -43,15 +42,12 @@ namespace ENDFtk {
     /**
      *  @brief Return the materials stored in this file
      */
-    auto materials() { return ranges::cpp20::views::all( this->materials_ ); }
+    std::vector< Material >& materials() { return this->materials_; }
 
     /**
      *  @brief Return the materials stored in this file
      */
-    auto materials() const {
-
-      return ranges::cpp20::views::all( this->materials_ );
-    }
+    const std::vector< Material >& materials() const { return this->materials_; }
 
     /**
      *  @brief Return an iterator to the start of the materials
@@ -80,7 +76,7 @@ namespace ENDFtk {
      */
     auto MAT( int mat ) const {
 
-      return this->materials_
+      return this->materials()
                  | ranges::cpp20::views::filter(
                       [mat] ( const auto& material )
                             { return material.MAT() == mat; } );
