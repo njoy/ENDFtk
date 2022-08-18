@@ -55,7 +55,7 @@ public:
   /**
    *  @brief Return the outgoing energy distributions
    */
-  AllRange< OutgoingEnergyDistribution > outgoingDistributions() const {
+  decltype(auto) outgoingDistributions() const {
 
     return this->data_.records();
   }
@@ -74,7 +74,7 @@ public:
    *  @brief Return interpolation type for each range on the incoming
    *         energy grid
    */
-  auto interpolants() const {
+  decltype(auto) interpolants() const {
 
     return this->data_.tab2().interpolants();
   }
@@ -83,7 +83,7 @@ public:
    *  @brief Return interpolation boundaries for the incoming
    *         energy grid
    */
-  auto boundaries() const {
+  decltype(auto) boundaries() const {
 
     return this->data_.tab2().boundaries();
   }

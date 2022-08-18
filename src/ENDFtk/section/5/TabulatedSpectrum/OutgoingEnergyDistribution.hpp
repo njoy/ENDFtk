@@ -29,22 +29,22 @@ public:
   /**
    *  @brief Return the outgoing energy values
    */
-  auto EP() const { return TabulationRecord::x(); }
+  decltype(auto) EP() const { return TabulationRecord::x(); }
 
   /**
    *  @brief Return the outgoing energy values
    */
-  auto outgoingEnergies() const { return this->EP(); }
+  decltype(auto) outgoingEnergies() const { return this->EP(); }
 
   /**
    *  @brief Return the distribution values
    */
-  auto G() const { return TabulationRecord::y(); }
+  decltype(auto) G() const { return TabulationRecord::y(); }
 
   /**
    *  @brief Return the distribution values
    */
-  auto probabilities() const { return this->G(); }
+  decltype(auto) probabilities() const { return this->G(); }
 
   using TabulationRecord::NP;
   using TabulationRecord::NR;

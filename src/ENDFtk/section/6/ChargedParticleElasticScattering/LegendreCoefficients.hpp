@@ -55,12 +55,12 @@ public:
   /**
    *  @brief Return the Legendre coefficients
    */
-  auto A() const { return ListRecord::list(); }
+  decltype(auto) A() const { return ListRecord::list(); }
 
   /**
    *  @brief Return the Legendre coefficients
    */
-  auto coefficients() const { return this->A(); }
+  decltype(auto) coefficients() const { return this->A(); }
 
   using ListRecord::NC;
   using ListRecord::print;

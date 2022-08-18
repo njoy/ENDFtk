@@ -39,22 +39,22 @@ public:
   /**
    *  @brief Return the incident energy values
    */
-  AllRange< double > E() const { return TabulationRecord::x(); }
+  decltype(auto) E() const { return TabulationRecord::x(); }
 
   /**
    *  @brief Return the incident energy values
    */
-  AllRange< double > energies() const { return this->E(); }
+  decltype(auto) energies() const { return this->E(); }
 
   /**
    *  @brief Return the fission energy release values
    */
-  AllRange< double > EIFC() const { return TabulationRecord::y(); }
+  decltype(auto) EIFC() const { return TabulationRecord::y(); }
 
   /**
    *  @brief Return the fission energy release values
    */
-  AllRange< double > qValues() const { return this->EIFC(); }
+  decltype(auto) qValues() const { return this->EIFC(); }
 
   using TabulationRecord::NP;
   using TabulationRecord::NR;

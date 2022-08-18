@@ -6,8 +6,6 @@
 #include <vector>
 
 // other includes
-#include "range/v3/view/all.hpp"
-#include "ENDFtk/types.hpp"
 #include "ENDFtk/InterpolationRecord.hpp"
 #include "ENDFtk/readSequence.hpp"
 
@@ -127,9 +125,9 @@ namespace ENDFtk {
     /**
      *  @brief Return the sequence of records in the interpolation sequence record
      */
-    AllRange< Component > records() const {
+    const std::vector< Component >& records() const {
 
-      return ranges::cpp20::views::all( this->sequence_ );
+      return this->sequence_;
     }
 
     #include "ENDFtk/InterpolationSequenceRecord/src/NC.hpp"

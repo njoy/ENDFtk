@@ -19,17 +19,17 @@ public:
   /**
    *  @brief Return the energy values
    */
-  auto E() const { return TabulationRecord::x(); }
+  decltype(auto) E() const { return TabulationRecord::x(); }
 
   /**
    *  @brief Return the energy values
    */
-  auto energies() const { return this->E(); }
+  decltype(auto) energies() const { return this->E(); }
 
   /**
    *  @brief Return the effective temperature values
    */
-  auto thetas() const { return TabulationRecord::y(); }
+  decltype(auto) thetas() const { return TabulationRecord::y(); }
 
   using TabulationRecord::NP;
   using TabulationRecord::NR;

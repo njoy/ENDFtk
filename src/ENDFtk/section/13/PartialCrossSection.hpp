@@ -58,22 +58,22 @@ public:
   /**
    *  @brief Return the incident energy values
    */
-  auto E() const { return TabulationRecord::x(); }
+  decltype(auto) E() const { return TabulationRecord::x(); }
 
   /**
    *  @brief Return the incident energy values
    */
-  auto energies() const { return this->E(); }
+  decltype(auto) energies() const { return this->E(); }
 
   /**
    *  @brief Return the cross section values
    */
-  auto XS() const { return TabulationRecord::y(); }
+  decltype(auto) XS() const { return TabulationRecord::y(); }
 
   /**
    *  @brief Return the cross section values
    */
-  auto crossSections() const { return this->XS(); }
+  decltype(auto) crossSections() const { return this->XS(); }
 
   using TabulationRecord::NR;
   using TabulationRecord::NP;

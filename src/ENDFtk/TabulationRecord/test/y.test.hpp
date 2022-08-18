@@ -26,19 +26,5 @@ SCENARIO( "TabulationRecord yValue",
       // knows size
       REQUIRE( tab1.y().size() == size_t(tab1.NP()) );
     }
-
-    THEN( "the result of y() will be a light-weight reference object" ){
-      // ys is a view object, a non-owning "slice" of a container
-      auto ys = tab1.y();
-
-      // because they don't own data, views are small and live on the stack
-      REQUIRE( sizeof( ys ) == 8 );
-
-      // so we can copy them willy-nilly
-      auto ys2 = ys;
-      REQUIRE( ranges::cpp20::equal( ys2, ys ) );
-
-      // no more worrying about accidentally copying large vectors!
-    }
   }
 }

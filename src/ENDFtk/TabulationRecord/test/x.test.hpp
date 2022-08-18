@@ -27,19 +27,5 @@ SCENARIO( "TabulationRecord x command",
       // knows size
       REQUIRE( tab1.x().size() == size_t(tab1.NP()) );
     }
-
-    THEN( "the result of x() will be a light-weight reference object" ){
-      // xs is a view object, a non-owning "slice" of a container
-      auto xs = tab1.x();
-
-      // because they don't own data, views are small and live on the stack
-      REQUIRE( sizeof( xs ) == 8 );
-
-      // so we can copy them willy-nilly
-      auto xs2 = xs;
-      REQUIRE( ranges::cpp20::equal( xs2, xs ) );
-
-      // no more worrying about accidentally copying large vectors!
-    }
   }
 }

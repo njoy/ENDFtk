@@ -18,14 +18,8 @@ void wrapChargedParticleElasticScattering( python::module& module, python::modul
   using Section = njoy::ENDFtk::section::Type< 6 >;
   using Component = Section::ChargedParticleElasticScattering;
   using Distribution = Section::ChargedParticleElasticScattering::Variant;
-  using DistributionRange = RandomAccessAnyView< Distribution >;
 
   // wrap views created by this section
-  // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< Distribution >(
-      viewmodule,
-      "any_view< variant< NuclearAmplitudeExpansion, LegendreCoefficients,"
-                         "NuclearPlusInterference >, random_access >" );
 
   // create the component
   python::class_< Component > component(
@@ -105,8 +99,7 @@ void wrapChargedParticleElasticScattering( python::module& module, python::modul
   .def_property_readonly(
 
     "distributions",
-    [] ( const Component& self ) -> DistributionRange
-       { return self.distributions(); },
+    &Component::distributions,
     "The distributions"
   );
 

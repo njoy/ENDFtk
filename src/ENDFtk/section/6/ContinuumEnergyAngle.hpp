@@ -72,18 +72,21 @@ public:
   /**
    *  @brief Return the subsections, one for each incident energy
    */
-  auto distributions() const { return this->data_.records(); }
+  decltype(auto) distributions() const { return this->data_.records(); }
 
   /**
    *  @brief Return interpolation type for each range on the incident
    *         energy grid
    */
-  auto interpolants() const { return this->data_.tab2().interpolants(); }
+  decltype(auto) interpolants() const {
+
+    return this->data_.tab2().interpolants();
+  }
 
   /**
    *  @brief Return interpolation boundaries for the incident energy grid
    */
-  auto boundaries() const { return this->data_.tab2().boundaries(); }
+  decltype(auto) boundaries() const { return this->data_.tab2().boundaries(); }
 
   /**
    *  @brief Return the incident energy values

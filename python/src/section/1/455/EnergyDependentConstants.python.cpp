@@ -19,13 +19,8 @@ void wrapEnergyDependentConstants( python::module& module, python::module& viewm
   using Section = njoy::ENDFtk::section::Type< 1, 455 >;
   using Component = Section::EnergyDependentConstants;
   using DecayConstants = Section::DecayConstants;
-  using DecayConstantsRange = RandomAccessAnyView< DecayConstants >;
 
   // wrap views created by this section
-  // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< DecayConstants >(
-      viewmodule,
-      "any_view< DecayConstants, random_access >" );
 
   // create the component
   python::class_< Component > component(
@@ -98,8 +93,7 @@ void wrapEnergyDependentConstants( python::module& module, python::module& viewm
   .def_property_readonly(
 
     "constants",
-    [] ( const Component& self ) -> DecayConstantsRange
-       { return self.constants(); },
+    &Component::constants,
     "The decay contants"
   );
 

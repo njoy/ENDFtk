@@ -18,13 +18,8 @@ void wrapTabulatedSpectrum( python::module& module, python::module& viewmodule )
   using Section = njoy::ENDFtk::section::Type< 15 >;
   using Component = Section::TabulatedSpectrum;
   using Distribution = Section::TabulatedSpectrum::OutgoingEnergyDistribution;
-  using DistributionRange = RandomAccessAnyView< Distribution >;
 
   // wrap views created by this section
-  // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< Distribution >(
-      viewmodule,
-      "any_view< MF15::OutgoingEnergyDistribution, random_access >" );
 
   // create the component
   python::class_< Component > component(
@@ -77,8 +72,7 @@ void wrapTabulatedSpectrum( python::module& module, python::module& viewmodule )
   .def_property_readonly(
 
     "outgoing_distributions",
-    [] ( const Component& self ) -> DistributionRange
-       { return self.outgoingDistributions(); },
+    &Component::outgoingDistributions,
     "The outgoing energy distributions (one for each incident energy)"
   );
 

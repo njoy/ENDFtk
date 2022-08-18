@@ -48,7 +48,7 @@ public:
   /**
    *  @brief Return the interpolants for the cosine axis
    */
-  auto interpolants() const {
+  decltype(auto) interpolants() const {
 
     return InterpolationSequenceRecord::tab2().interpolants();
   }
@@ -56,9 +56,17 @@ public:
   /**
    *  @brief Return the interpolation region boundaries for the cosine axis
    */
-  auto boundaries() const {
+  decltype(auto) boundaries() const {
 
     return InterpolationSequenceRecord::tab2().boundaries();
+  }
+
+  /**
+   *  @brief Return the energy distributions for this incident energy value
+   */
+  decltype(auto) energyDistributions() const {
+
+    return InterpolationSequenceRecord::records();
   }
 
   /**
@@ -66,7 +74,7 @@ public:
    */
   auto MU() const {
 
-    return InterpolationSequenceRecord::records()
+    return this->energyDistributions()
                | ranges::cpp20::views::transform(
                      [] ( const auto& record )
                         { return record.cosine(); } );
@@ -76,14 +84,6 @@ public:
    *  @brief Return the cosines for this incident energy value
    */
   auto cosines() const { return this->MU(); }
-
-  /**
-   *  @brief Return the energy distributions for this incident energy value
-   */
-  auto energyDistributions() const {
-
-    return InterpolationSequenceRecord::records();
-  }
 
   using InterpolationSequenceRecord::NC;
   using InterpolationSequenceRecord::print;

@@ -94,8 +94,9 @@ public:
    */
   auto interpolants() const {
 
-    return ranges::views::concat( this->legendre().interpolants(),
-                                  this->tabulated().interpolants() );
+    return ranges::views::concat(
+             this->legendre().interpolants(),
+             this->tabulated().interpolants() );
   }
 
   /**
@@ -103,8 +104,9 @@ public:
    */
   auto incidentEnergies() const {
 
-    return ranges::views::concat( this->legendre().incidentEnergies(),
-                                  this->tabulated().incidentEnergies() );
+    return ranges::views::concat(
+             this->legendre().incidentEnergies(),
+             this->tabulated().incidentEnergies() );
   }
 
   #include "ENDFtk/section/4/MixedDistributions/src/angularDistributions.hpp"

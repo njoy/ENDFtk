@@ -18,14 +18,8 @@ void wrapContinuumEnergyAngle( python::module& module, python::module& viewmodul
   using Section = njoy::ENDFtk::section::Type< 6 >;
   using Component = Section::ContinuumEnergyAngle;
   using Distribution = Section::ContinuumEnergyAngle::Variant;
-  using DistributionRange = RandomAccessAnyView< Distribution >;
 
   // wrap views created by this section
-  // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< Distribution >(
-      viewmodule,
-      "any_view< variant< LegendreCoefficients, KalbachMann,"
-                         "TabulatedDistribution, ThermalScatteringData >, random_access >" );
 
   // create the component
   python::class_< Component > component(
@@ -92,8 +86,7 @@ void wrapContinuumEnergyAngle( python::module& module, python::module& viewmodul
   .def_property_readonly(
 
     "distributions",
-    [] ( const Component& self ) -> DistributionRange
-       { return self.distributions(); },
+    &Component::distributions,
     "The distributions"
   );
 

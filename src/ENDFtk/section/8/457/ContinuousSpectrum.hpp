@@ -30,22 +30,22 @@ public:
   /**
    *  @brief Return the energy values
    */
-  auto E() const { return TabulationRecord::x(); }
+  decltype(auto) E() const { return TabulationRecord::x(); }
 
   /**
    *  @brief Return the energy values
    */
-  auto energies() const { return this->E(); }
+  decltype(auto) energies() const { return this->E(); }
 
   /**
    *  @brief Return the spectral values
    */
-  auto RP() const { return TabulationRecord::y(); }
+  decltype(auto) RP() const { return TabulationRecord::y(); }
 
   /**
    *  @brief Return the spectral values
    */
-  auto spectralValues() const { return this->RP(); }
+  decltype(auto) spectralValues() const { return this->RP(); }
 
   using TabulationRecord::NP;
   using TabulationRecord::NR;

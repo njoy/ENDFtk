@@ -82,8 +82,7 @@ public:
   /**
    *  @brief Return the total emission probabilities
    */
-  auto
-  totalEmissionProbabilities() const {
+  auto totalEmissionProbabilities() const {
 
     return this->F0();
   }

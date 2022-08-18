@@ -54,22 +54,22 @@ namespace section{
     /**
      *  @brief Return the interpolation type for each range
      */
-    auto interpolants() const { return this->table.interpolants(); }
+    decltype(auto) interpolants() const { return this->table.interpolants(); }
 
     /**
      *  @brief Return the interpolation boundaries
      */
-    auto boundaries() const { return this->table.boundaries(); }
+    decltype(auto) boundaries() const { return this->table.boundaries(); }
 
     /**
      *  @brief Return the x values
      */
-    auto X() const { return this->table.x(); }
+    decltype(auto) X() const { return this->table.x(); }
 
     /**
      *  @brief Return the form factor or scattering function values
      */
-    auto H() const { return this->table.y(); }
+    decltype(auto) H() const { return this->table.y(); }
 
     /**
      *  @brief Return the form factor or scattering function values
@@ -80,13 +80,13 @@ namespace section{
      *  @brief Return the energy values (common interface for interpolation
      *         tables)
      */
-    auto x() const { return this->X(); }
+    decltype(auto) x() const { return this->X(); }
 
     /**
      *  @brief Return the values (common interface for interpolation
      *         tables)
      */
-    auto y() const { return this->H(); }
+    decltype(auto) y() const { return this->H(); }
 
     /**
      *  @brief Return the interpolation regions (common interface for

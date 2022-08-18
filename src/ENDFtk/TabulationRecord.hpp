@@ -5,12 +5,10 @@
 #include <vector>
 
 // other includes
-#include "range/v3/view/all.hpp"
 #include "range/v3/view/iota.hpp"
 #include "range/v3/view/subrange.hpp"
 #include "range/v3/view/transform.hpp"
 #include "range/v3/view/zip.hpp"
-#include "ENDFtk/types.hpp"
 #include "ENDFtk/record.hpp"
 
 namespace njoy {
@@ -73,18 +71,12 @@ namespace ENDFtk {
     /**
      *  @brief Return the x values in the table
      */
-    AllRange< double > x() const {
-
-      return ranges::cpp20::views::all( this->xValues );
-    }
+    const std::vector< double >& x() const { return this->xValues; }
 
     /**
      *  @brief Return the y values in the table
      */
-    AllRange< double > y() const {
-
-      return ranges::cpp20::views::all( this->yValues );
-    }
+    const std::vector< double >& y() const { return this->yValues; }
 
     /**
      *  @brief Return the x,y pairs in the table

@@ -37,12 +37,12 @@ public:
   /**
    *  @brief Return the decay constants
    */
-  auto lambdas() const { return ListRecord::list(); }
+  decltype(auto) lambdas() const { return ListRecord::list(); }
 
   /**
    *  @brief Return the decay constants
    */
-  auto decayConstants() const { return this->lambdas(); }
+  decltype(auto) decayConstants() const { return this->lambdas(); }
 
   using ListRecord::NC;
   using ListRecord::print;

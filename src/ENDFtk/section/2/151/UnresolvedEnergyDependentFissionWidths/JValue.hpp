@@ -125,7 +125,7 @@ public:
   /**
    *  @brief Return the average fission widths (energy dependent).
    */
-  DropRange< AllRange< double > > GF() const {
+  auto GF() const {
 
     return ListRecord::list() | ranges::views::drop_exactly( 6 );
   }
@@ -133,7 +133,7 @@ public:
   /**
   *  @brief Return the average fission widths (energy dependent).
    */
-  DropRange< AllRange< double > > averageFissionWidths() const {
+  auto averageFissionWidths() const {
 
     return JValue::GF();
   }

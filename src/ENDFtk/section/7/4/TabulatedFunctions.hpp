@@ -49,9 +49,22 @@ public:
   /**
    *  @brief Return the beta values and associated S(alpha,T) functions
    */
+  decltype(auto) S() const { return this->data_.records(); }
+
+  /**
+   *  @brief Return the beta values and associated S(alpha,T) functions
+   */
+  decltype(auto) scatteringFunctions() const {
+
+    return this->S();
+  }
+
+  /**
+   *  @brief Return the beta values and associated S(alpha,T) functions
+   */
   auto B() const {
 
-    return this->data_.records()
+    return this->scatteringFunctions()
              | ranges::cpp20::views::transform( [] ( const auto& record )
                                                    { return record.beta(); } );
   }
@@ -62,22 +75,9 @@ public:
   auto betas() const { return this->B(); }
 
   /**
-   *  @brief Return the beta values and associated S(alpha,T) functions
-   */
-  AllRange< ScatteringFunction > S() const { return this->data_.records(); }
-
-  /**
-   *  @brief Return the beta values and associated S(alpha,T) functions
-   */
-  AllRange< ScatteringFunction > scatteringFunctions() const {
-
-    return this->S();
-  }
-
-  /**
    *  @brief Return the interpolation type for each range on the beta grid
    */
-  AllRange< long > interpolants() const {
+  decltype(auto) interpolants() const {
 
     return this->data_.tab2().interpolants();
   }
@@ -85,7 +85,7 @@ public:
   /**
    *  @brief Return the interpolation boundaries for the beta grid
    */
-  AllRange< long > boundaries() const {
+  decltype(auto) boundaries() const {
 
     return this->data_.tab2().boundaries();
   }

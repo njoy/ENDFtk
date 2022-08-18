@@ -44,7 +44,7 @@ public:
   /**
    *  @brief Return the interpolants for the incident energy axis
    */
-  auto interpolants() const {
+  decltype(auto) interpolants() const {
 
     return this->data_.tab2().interpolants();
   }
@@ -53,7 +53,7 @@ public:
    *  @brief Return the interpolation region boundaries for the incident
    *         energy axis
    */
-  auto boundaries() const {
+  decltype(auto) boundaries() const {
 
     return this->data_.tab2().boundaries();
   }
@@ -61,7 +61,7 @@ public:
   /**
    *  @brief Return the angular distributions
    */
-  auto angularDistributions() const {
+  decltype(auto) angularDistributions() const {
 
     return this->data_.records();
   }

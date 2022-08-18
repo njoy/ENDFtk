@@ -42,7 +42,7 @@ public:
   /**
    *  @brief Return the resonance energies
    */
-  StrideRange< AllRange< double > > ER() const {
+  auto ER() const {
 
     return ListRecord::list()
              | ranges::views::stride( this->NX() / this->NRS() * 6 ); }
@@ -50,7 +50,7 @@ public:
   /**
   *  @brief Return the resonance energies
    */
-  StrideRange< AllRange< double > > resonanceEnergies() const {
+  auto resonanceEnergies() const {
 
     return this->ER();
   }
@@ -59,6 +59,7 @@ public:
    *  @brief Return the resonance parameters
    */
   auto GAM() const {
+    
     return ListRecord::list()
              | ranges::views::chunk( this->NX() / this->NRS() * 6 )
              | ranges::cpp20::views::transform(

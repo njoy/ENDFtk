@@ -5,8 +5,6 @@
 #include <vector>
 
 // other includes
-#include "range/v3/view/all.hpp"
-#include "ENDFtk/types.hpp"
 #include "ENDFtk/record/Base.hpp"
 #include "ENDFtk/record/Integer.hpp"
 #include "ENDFtk/record/Real.hpp"
@@ -74,14 +72,14 @@ namespace record {
     long NR() const { return this->boundaryIndices.size(); }
     long N2() const { return this->boundaryIndices.back(); }
 
-    AllRange< long > interpolants() const {
+    const std::vector< long >& interpolants() const {
 
-      return ranges::cpp20::views::all( this->interpolationSchemeIndices );
+      return this->interpolationSchemeIndices;
     }
 
-    AllRange< long > boundaries() const {
+    const std::vector< long >& boundaries() const {
 
-      return ranges::cpp20::views::all( this->boundaryIndices );
+      return this->boundaryIndices ;
     }
 
     bool operator==( const InterpolationBase& rhs ) const {

@@ -30,22 +30,22 @@ public:
   /**
    *  @brief Return the moderator temperatures
    */
-  AllRange< double > TMOD() const { return TabulationRecord::x(); }
+  decltype(auto) TMOD() const { return TabulationRecord::x(); }
 
   /**
    *  @brief Return the moderator temperatures
    */
-  AllRange< double > moderatorTemperatures() const { return this->TMOD(); }
+  decltype(auto) moderatorTemperatures() const { return this->TMOD(); }
 
   /**
    *  @brief Return the effective temperatures
    */
-  AllRange< double > TEFF() const { return TabulationRecord::y(); }
+  decltype(auto) TEFF() const { return TabulationRecord::y(); }
 
   /**
    *  @brief Return the effective temperatures
    */
-  AllRange< double > effectiveTemperatures() const { return this->TEFF(); }
+  decltype(auto) effectiveTemperatures() const { return this->TEFF(); }
 
   using TabulationRecord::NP;
   using TabulationRecord::NR;

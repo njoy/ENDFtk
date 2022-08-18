@@ -17,12 +17,12 @@ public:
   /**
    *  @brief Return the x values
    */
-  auto X() const { return TabulationRecord::x(); }
+  decltype(auto) X() const { return TabulationRecord::x(); }
 
   /**
    *  @brief Return the function values
    */
-  auto G() const { return TabulationRecord::y(); }
+  decltype(auto) G() const { return TabulationRecord::y(); }
 
   using TabulationRecord::NP;
   using TabulationRecord::NR;

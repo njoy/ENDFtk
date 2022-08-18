@@ -18,13 +18,8 @@ void wrapLaboratoryAngleEnergy( python::module& module, python::module& viewmodu
   using Section = njoy::ENDFtk::section::Type< 6 >;
   using Component = Section::LaboratoryAngleEnergy;
   using AngularDistribution = Section::LaboratoryAngleEnergy::AngularDistribution;
-  using AngularDistributionRange = RandomAccessAnyView< AngularDistribution >;
 
   // wrap views created by this section
-  // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< AngularDistribution >(
-      viewmodule,
-      "any_view< AngularDistribution, random_access >" );
 
   // create the component
   python::class_< Component > component(
@@ -78,8 +73,7 @@ void wrapLaboratoryAngleEnergy( python::module& module, python::module& viewmodu
   .def_property_readonly(
 
     "angular_distributions",
-    [] ( const Component& self ) -> AngularDistributionRange
-       { return self.angularDistributions(); },
+    &Component::angularDistributions,
     "The angular distributions"
   );
 

@@ -48,20 +48,20 @@ public:
   /**
    *  @brief Return the Q value and its uncertainty
    */
-  auto Q() const { return ranges::cpp20::views::all( this->q_ ); }
+  const std::array< double, 2 >& Q() const { return this->q_; }
 
   /**
    *  @brief Return the Q value and its uncertainty
    */
-  auto qValue() const { return this->Q(); }
+  const std::array< double, 2 >& qValue() const { return this->Q(); }
 
   /**
    *  @brief Return the branching ratio and its uncertainty
    */
-  auto BR() const { return ranges::cpp20::views::all( this->branch_ ); }
+  const std::array< double, 2 >& BR() const { return this->branch_; }
 
   /**
    *  @brief Return the branching ratio and its uncertainty
    */
-  auto branchingRatio() const { return this->BR(); }
+  const std::array< double, 2 >& branchingRatio() const { return this->BR(); }
 };

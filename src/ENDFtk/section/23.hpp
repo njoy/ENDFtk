@@ -64,22 +64,22 @@ namespace section{
     /**
      *  @brief Return the interpolation type for each range
      */
-    auto interpolants() const { return this->table.interpolants(); }
+    decltype(auto) interpolants() const { return this->table.interpolants(); }
 
     /**
      *  @brief Return the interpolation boundaries
      */
-    auto boundaries() const { return this->table.boundaries(); }
+    decltype(auto) boundaries() const { return this->table.boundaries(); }
 
     /**
      *  @brief Return the energy values
      */
-    auto energies() const { return this->table.x(); }
+    decltype(auto) energies() const { return this->table.x(); }
 
     /**
      *  @brief Return the cross section values
      */
-    auto crossSections() const { return this->table.y(); }
+    decltype(auto) crossSections() const { return this->table.y(); }
 
     /**
      *  @brief Return the number of lines in this MF23 section
@@ -90,13 +90,13 @@ namespace section{
      *  @brief Return the energy values (common interface for interpolation
      *         tables)
      */
-    auto x() const { return this->energies(); }
+    decltype(auto) x() const { return this->energies(); }
 
     /**
      *  @brief Return the cross section values (common interface for interpolation
      *         tables)
      */
-    auto y() const { return this->crossSections(); }
+    decltype(auto) y() const { return this->crossSections(); }
 
     /**
      *  @brief Return the interpolation regions (common interface for

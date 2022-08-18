@@ -16,13 +16,8 @@ void wrapTabulatedDistributions( python::module& module, python::module& viewmod
   using Section = njoy::ENDFtk::section::Type< 4 >;
   using Component = Section::TabulatedDistributions;
   using Distribution = Section::TabulatedDistribution;
-  using DistributionRange = RandomAccessAnyView< Distribution >;
 
   // wrap views created by this section
-  // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< Distribution >(
-      viewmodule,
-      "any_view< TabulatedDistribution, random_access >" );
 
   // create the component
   python::class_< Component > component(
@@ -89,7 +84,7 @@ void wrapTabulatedDistributions( python::module& module, python::module& viewmod
   .def_property_readonly(
 
     "angular_distributions",
-    [] ( const Component& self ) -> DistributionRange
+    [] ( const Component& self ) -> decltype(auto)
        { return self.angularDistributions(); },
     "The angular distributions (one for each incident energy)"
   );

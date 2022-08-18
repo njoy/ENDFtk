@@ -58,22 +58,22 @@ public:
   /**
    *  @brief Return the incident energy values
    */
-  auto E() const { return TabulationRecord::x(); }
+  decltype(auto) E() const { return TabulationRecord::x(); }
 
   /**
    *  @brief Return the incident energy values
    */
-  auto energies() const { return this->E(); }
+  decltype(auto) energies() const { return this->E(); }
 
   /**
    *  @brief Return the multiplicity values
    */
-  auto Y() const { return TabulationRecord::y(); }
+  decltype(auto) Y() const { return TabulationRecord::y(); }
 
   /**
    *  @brief Return the multiplicity values
    */
-  auto multiplicities() const { return this->Y(); }
+  decltype(auto) multiplicities() const { return this->Y(); }
 
   using TabulationRecord::NR;
   using TabulationRecord::NP;

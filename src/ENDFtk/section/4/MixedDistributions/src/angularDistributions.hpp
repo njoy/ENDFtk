@@ -12,6 +12,7 @@ auto angularDistributions() const {
     return std::cref( element );
   } );
 
-  return ranges::views::concat( this->legendre().angularDistributions() | lift,
-                                this->tabulated().angularDistributions() | lift );
+  return ranges::views::concat(
+           this->legendre().angularDistributions() | lift,
+           this->tabulated().angularDistributions() | lift );
 }

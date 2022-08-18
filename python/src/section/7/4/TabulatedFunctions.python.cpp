@@ -18,13 +18,8 @@ void wrapTabulatedFunctions( python::module& module, python::module& viewmodule 
   using Section = njoy::ENDFtk::section::Type< 7, 4 >;
   using Component = Section::TabulatedFunctions;
   using ScatteringFunction = Section::TabulatedFunctions::ScatteringFunction;
-  using ScatteringFunctionRange = RandomAccessAnyView< ScatteringFunction >;
 
   // wrap views created by this section
-  // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< ScatteringFunction >(
-      viewmodule,
-      "any_view< ScatteringFunction, random_access >" );
 
   // create the component
   python::class_< Component > component(
@@ -78,15 +73,13 @@ void wrapTabulatedFunctions( python::module& module, python::module& viewmodule 
   .def_property_readonly(
 
     "S",
-    [] ( const Component& self ) -> ScatteringFunctionRange
-       { return self.S(); },
+    &Component::S,
     "The beta values and associated S(alpha,T) functions"
   )
   .def_property_readonly(
 
     "scattering_functions",
-    [] ( const Component& self ) -> ScatteringFunctionRange
-       { return self.scatteringFunctions(); },
+    &Component::scatteringFunctions,
     "The beta values and associated S(alpha,T) functions"
   );
 

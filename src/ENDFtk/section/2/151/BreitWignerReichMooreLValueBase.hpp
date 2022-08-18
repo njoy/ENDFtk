@@ -45,7 +45,7 @@ protected:
   /**
    *  @brief Return the resonances
    */
-  ChunkRange< AllRange< double > > resonances() const {
+  auto resonances() const {
 
     return ListRecord::list() | ranges::views::chunk(6);
   }

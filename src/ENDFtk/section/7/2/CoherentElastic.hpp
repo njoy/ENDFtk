@@ -81,7 +81,7 @@ public:
   /**
    *  @brief Return interpolation type for each range on the energy grid
    */
-  auto interpolants() const {
+  decltype(auto) interpolants() const {
 
     return this->principal_.interpolants();
   }
@@ -89,7 +89,7 @@ public:
   /**
    *  @brief Return interpolation boundaries for the energy grid
    */
-  auto boundaries() const {
+  decltype(auto) boundaries() const {
 
     return this->principal_.boundaries();
   }
@@ -116,12 +116,12 @@ public:
   /**
    *  @brief Return the energy grid
    */
-  auto E() const { return this->principal_.x(); }
+  decltype(auto) E() const { return this->principal_.x(); }
 
   /**
    *  @brief Return the energy grid
    */
-  auto energies() const { return this->E(); }
+  decltype(auto) energies() const { return this->E(); }
 
   /**
    *  @brief Return the temperature interpolation flags (LT values will be
@@ -149,8 +149,9 @@ public:
     return ranges::views::concat(
              ranges::cpp20::views::single( this->principal_.y() ),
              this->temperatures_ |
-                 ranges::cpp20::views::transform( [] ( const auto& v )
-                                                     { return v.list(); } ) );
+                 ranges::cpp20::views::transform(
+                   [] ( const auto& v ) -> decltype(auto)
+                      { return v.list(); } ) );
   }
 
   /**

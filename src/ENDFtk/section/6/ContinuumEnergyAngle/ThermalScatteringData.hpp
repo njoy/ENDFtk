@@ -42,7 +42,7 @@ public:
   /**
    *  @brief Return the data contained in this component
    */
-  auto data() const { return ListRecord::list(); }
+  decltype(auto) data() const { return ListRecord::list(); }
 
   /**
    *  @brief Return the data contained in this component
