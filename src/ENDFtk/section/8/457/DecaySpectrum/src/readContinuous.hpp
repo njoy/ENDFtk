@@ -7,6 +7,7 @@ readContinuous( Iterator& begin,
                 int MF,
                 int MT,
                 int lcon ) {
+                  
   if ( lcon == 0 ) return std::nullopt;
   return std::make_optional( ContinuousSpectrum( begin, end, lineNumber,
                                                  MAT, MF, MT ) );

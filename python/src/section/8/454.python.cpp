@@ -15,7 +15,6 @@ void wrapSection_8_454( python::module& module, python::module& viewmodule ) {
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 8, 454 >;
   using FissionYieldData = njoy::ENDFtk::section::FissionYieldData;
-  using FissionYieldDataRange = RandomAccessAnyView< FissionYieldData >;
 
   // create the submodule
   python::module submodule = module.def_submodule(
@@ -127,8 +126,7 @@ void wrapSection_8_454( python::module& module, python::module& viewmodule ) {
   .def_property_readonly(
 
     "yields",
-    [] ( const Section& self ) -> FissionYieldDataRange
-       { return self.yields(); },
+    &Section::yields,
     "The fission yield data, one for each incident energy"
   );
 

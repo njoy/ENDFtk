@@ -1,14 +1,15 @@
 static std::vector< double >
 generateList( std::vector< DecayMode >&& modes ) {
 
-  return ranges::to< std::vector< double > >(
-             modes | ranges::cpp20::views::transform(
-                       [] ( const auto& mode ) -> std::array< double, 6 >
-                          { auto q = mode.qValue();
-                            auto br = mode.branchingRatio();
-                            return {{ mode.decayChain(),
-                                      mode.finalIsomericState(),
-                                      q[0], q[1],
-                                      br[0], br[1] }}; } )
-                   | ranges::actions::join );
+  std::vector< double > list;
+  for ( const auto& mode : modes ) {
+
+    auto q = mode.qValue();
+    auto br = mode.branchingRatio();
+    list.push_back( mode.decayChain() );
+    list.push_back( mode.finalIsomericState() );
+    list.insert( list.end(), q.begin(), q.end() );
+    list.insert( list.end(), br.begin(), br.end() );
+  }
+  return list;
 }

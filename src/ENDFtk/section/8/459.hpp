@@ -4,7 +4,6 @@
 // system includes
 
 // other includes
-#include "range/v3/range/conversion.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/readSequence.hpp"
 #include "ENDFtk/section.hpp"
@@ -47,10 +46,7 @@ namespace section {
     /**
      *  @brief Return the fission yield data, one for each incident energy
      */
-    AllRange< FissionYieldData > yields() const {
-
-      return ranges::cpp20::views::all( this->data_ );
-    }
+    const std::vector< FissionYieldData >& yields() const { return this->data_; }
 
     /**
      *  @brief Return the number of incident energy values

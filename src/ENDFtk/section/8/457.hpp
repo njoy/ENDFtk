@@ -5,10 +5,7 @@
 #include <optional>
 
 // other includes
-#include "range/v3/action/join.hpp"
-#include "range/v3/range/conversion.hpp"
 #include "range/v3/view/chunk.hpp"
-#include "range/v3/view/join.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/TabulationRecord.hpp"
@@ -139,9 +136,9 @@ namespace section{
     /**
      *  @brief Return the particle spectra
      */
-    auto decaySpectra() const {
+    const std::vector< DecaySpectrum >& decaySpectra() const {
 
-      return ranges::cpp20::views::all( this->spectra_ );
+      return this->spectra_;
     }
 
     #include "ENDFtk/section/8/457/src/NC.hpp"

@@ -26,17 +26,11 @@ namespace section{
    */
   class FissionYieldData : protected ListRecord {
 
-  public:
-
-    using Column = StrideRange< DropRange< AllRange< double > > >;
-
-  private:
-
     /* auxiliary functions */
     #include "ENDFtk/section/8/FissionYieldData/src/verifySize.hpp"
     #include "ENDFtk/section/8/FissionYieldData/src/generateList.hpp"
 
-    Column column( unsigned int i ) const {
+    auto column( unsigned int i ) const {
 
       return ListRecord::list() | ranges::views::drop_exactly( i )
                                 | ranges::views::stride( 4 );
@@ -95,22 +89,22 @@ namespace section{
     /**
      *  @brief Return the fission product ZA identifiers
      */
-    Column ZAFP() const { return this->column( 0 ); }
+    auto ZAFP() const { return this->column( 0 ); }
 
     /**
      *  @brief Return the fission product ZA identifiers
      */
-    Column fissionProductIdentifiers() const { return this->ZAFP(); }
+    auto fissionProductIdentifiers() const { return this->ZAFP(); }
 
     /**
      *  @brief Return the fission product isomeric states
      */
-    Column FPS() const { return this->column( 1 ); }
+    auto FPS() const { return this->column( 1 ); }
 
     /**
      *  @brief Return the fission product isomeric states
      */
-    Column isomericStates() const { return this->FPS(); }
+    auto isomericStates() const { return this->FPS(); }
 
     /**
      *  @brief Return the fission yield values

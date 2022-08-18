@@ -19,13 +19,8 @@ void wrapDecaySpectrum( python::module& module, python::module& viewmodule ) {
   using Component = Section::DecaySpectrum;
   using DiscreteSpectrum = Section::DiscreteSpectrum;
   using ContinuousSpectrum = Section::ContinuousSpectrum;
-  using DiscreteSpectrumRange = RandomAccessAnyView< DiscreteSpectrum >;
 
   // wrap views created by this section
-  // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< DiscreteSpectrum >(
-      viewmodule,
-      "any_view< DiscreteSpectrum, random_access >" );
 
   // create the component
   python::class_< Component > component(
@@ -180,8 +175,7 @@ void wrapDecaySpectrum( python::module& module, python::module& viewmodule ) {
   .def_property_readonly(
 
     "discrete_spectra",
-    [] ( const Component& self ) -> DiscreteSpectrumRange
-       { return self.discreteSpectra(); },
+    &Component::discreteSpectra,
     "The discrete spectra, if any are defined"
   )
   .def_property_readonly(

@@ -17,9 +17,6 @@
 
 namespace njoy {
 namespace ENDFtk {
-
-  namespace hana = boost::hana;
-
 namespace section{
 
   template<>

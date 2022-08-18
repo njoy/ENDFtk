@@ -29,7 +29,6 @@ void wrapSection_8_457( python::module& module, python::module& viewmodule ) {
   using AverageDecayEnergies = Section::AverageDecayEnergies;
   using DecayModes = Section::DecayModes;
   using DecaySpectrum = Section::DecaySpectrum;
-  using DecaySpectrumRange = RandomAccessAnyView< DecaySpectrum >;
 
   // create the submodule
   python::module submodule = module.def_submodule(
@@ -201,8 +200,7 @@ void wrapSection_8_457( python::module& module, python::module& viewmodule ) {
   .def_property_readonly(
 
     "decay_spectra",
-    [] ( const Section& self ) -> DecaySpectrumRange
-       { return self.decaySpectra(); },
+    &Section::decaySpectra,
     "The particle spectra"
   );
 
