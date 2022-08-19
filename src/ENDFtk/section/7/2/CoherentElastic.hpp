@@ -147,7 +147,9 @@ public:
   auto S() const {
 
     return ranges::views::concat(
-             ranges::cpp20::views::single( this->principal_.y() ),
+             ranges::cpp20::views::single(
+                 ranges::make_subrange( this->principal_.y().begin(),
+                                        this->principal_.y().end() ) ),
              this->temperatures_ |
                  ranges::cpp20::views::transform(
                    [] ( const auto& v ) -> decltype(auto)
