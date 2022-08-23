@@ -144,10 +144,7 @@ void verifyChunk( const section::Type< 35 >& chunk ) {
 
   auto sub = chunk.energyBlocks()[0];
 
-  // subsection CONT record
-  CHECK( 1 == sub.LS() );
-  CHECK( 1 == sub.symmetryFlag() );
-  CHECK( sub.isSymmetric() );
+  // subsection
   CHECK( 7 == sub.LB() );
   CHECK( 7 == sub.procedure() );
   CHECK( 6 == sub.NT() );

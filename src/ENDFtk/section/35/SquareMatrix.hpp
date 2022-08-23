@@ -40,21 +40,6 @@ public:
   int highestEnergy() const { return this->E2(); }
 
   /**
-   *  @brief Return the symmetry flag
-   */
-  int LS() const { return ListRecord::L1(); }
-
-  /**
-   *  @brief Return the symmetry flag
-   */
-  int symmetryFlag() const { return this->LS(); }
-
-  /**
-   *  @brief Return the symmetry flag as a boolean
-   */
-  bool isSymmetric() const { return this->LS(); }
-
-  /**
    *  @brief Return the procedure type
    */
   int LB() const { return this->L2(); }

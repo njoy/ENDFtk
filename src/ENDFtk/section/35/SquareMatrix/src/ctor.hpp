@@ -15,7 +15,7 @@ SquareMatrix( ListRecord&& list ) :
   ListRecord( std::move( list ) ) {
 
     verifyLB( this->LB() );
-    verifySize( this->LS(), this->NE(), this->NT() );
+    verifySize( 1, this->NE(), this->NT() );
 };
 
 /**
