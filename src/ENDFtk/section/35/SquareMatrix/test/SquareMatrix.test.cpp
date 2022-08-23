@@ -98,9 +98,6 @@ std::string chunk() {
 void verifyChunk( const SquareMatrix& chunk ) {
 
   // metadata
-  CHECK( 1 == chunk.LS() );
-  CHECK( 1 == chunk.symmetryFlag() );
-  CHECK( chunk.isSymmetric() );
   CHECK( 7 == chunk.LB() );
   CHECK( 7 == chunk.procedure() );
   CHECK( 6 == chunk.NT() );

@@ -39,39 +39,31 @@ class Test_ENDFtk_MF35_Section( unittest.TestCase ) :
             sub = chunk.energy_blocks[0]
 
             # subsection
-            self.assertEqual( 7, sub.LB() );
-            self.assertEqual( 7, sub.procedure() );
-            self.assertEqual( 6, sub.NT() );
-            self.assertEqual( 6, sub.numberValues() );
-            self.assertEqual( 3, sub.NE() );
-            self.assertEqual( 3, sub.numberEnergies() );
-            self.assertAlmostEqual( 0., sub.energies()[0] ) );
-            self.assertAlmostEqual( 100., sub.energies()[1] ) );
-            self.assertAlmostEqual( 200., sub.energies()[2] ) );
-            self.assertAlmostEqual( 1., sub.values()[0] ) );
-            self.assertAlmostEqual( 2., sub.values()[1] ) );
-            self.assertAlmostEqual( 3., sub.values()[2] ) );
+            self.assertEqual( 7, sub.LB );
+            self.assertEqual( 7, sub.procedure );
+            self.assertEqual( 6, sub.NT );
+            self.assertEqual( 6, sub.number_values );
+            self.assertEqual( 3, sub.NE );
+            self.assertEqual( 3, sub.number_energies );
+            self.assertAlmostEqual( 0., sub.energies[0] );
+            self.assertAlmostEqual( 100., sub.energies[1] );
+            self.assertAlmostEqual( 200., sub.energies[2] );
+            self.assertAlmostEqual( 1., sub.values[0] );
+            self.assertAlmostEqual( 2., sub.values[1] );
+            self.assertAlmostEqual( 3., sub.values[2] );
 
             self.assertEqual( 3, chunk.NC )
 
             # verify string
             self.assertEqual( self.chunk + self.valid_SEND,
-                              chunk.to_string( 9437, 33 ) )
+                              chunk.to_string( 9437, 35 ) )
 
         # the data is given explicitly
         chunk = Section(
-            mt=2, zaid=94239, awr=2.369986e+2,
-            reactions=[ReactionBlock(
-                1, 2, 3, 4,
-                [DerivedRedundant(
-                    2.5e3, 2.0e7,
-                    [1, -1, -1, -1, -1, -1, -1],
-                    [1, 4, 16, 17, 18, 37, 102]
-                    )],
-                [SquareMatrix(
-                    0, [0, 100, 200], [1, 2, 3, 4]
-                    )]
-                )]
+            mt=18, zaid=94239, awr=2.369986e+2,
+            blocks=[SquareMatrix(
+                        0, 1.0e6, [0, 100, 200], [1, 2, 3]
+                        )]
             )
 
         verify_chunk( self, chunk )
