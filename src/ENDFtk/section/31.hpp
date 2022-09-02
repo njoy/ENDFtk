@@ -58,7 +58,6 @@ namespace section{
   private:
 
     /* fields */
-    int mtl_;
     std::vector< ReactionBlock > reactions_;
 
     /* auxiliary functions */

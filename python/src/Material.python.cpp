@@ -36,9 +36,11 @@ void wrapMaterial( python::module& module, python::module& ) {
   using MF23 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 23 > >;
   using MF27 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 27 > >;
   using MF28 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 28 > >;
+  using MF31 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 31 > >;
   using MF33 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 33 > >;
   using MF34 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 34 > >;
   using MF35 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 35 > >;
+  using MF40 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 40 > >;
 
   // wrap views created by this section
 
@@ -54,7 +56,7 @@ void wrapMaterial( python::module& module, python::module& ) {
   auto getFile = [] ( const Material& self, int mf )
   -> std::variant< MF1, MF2, MF3, MF4, MF5, MF6, MF7, MF8, MF9, MF10,
                    MF12, MF13, MF14, MF15, MF23, MF27, MF28,
-                   MF33, MF34, MF35 > {
+                   MF31, MF33, MF34, MF35, MF40 > {
 
     switch ( mf ) {
 
@@ -75,9 +77,11 @@ void wrapMaterial( python::module& module, python::module& ) {
       case 23 : return self.file( 23_c );
       case 27 : return self.file( 27_c );
       case 28 : return self.file( 28_c );
+      case 31 : return self.file( 31_c );
       case 33 : return self.file( 33_c );
       case 34 : return self.file( 34_c );
       case 35 : return self.file( 35_c );
+      case 40 : return self.file( 40_c );
       default: throw std::runtime_error(
                     "Requested file number (" + std::to_string( mf ) +
                     ") does not correspond to a stored file" );

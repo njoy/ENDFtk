@@ -225,6 +225,13 @@ pybind11_add_module( ENDFtk.python
     python/src/section/15/TabulatedSpectrum.python.cpp
     python/src/section/15/Probability.python.cpp
     python/src/section/15/PartialDistribution.python.cpp
+    python/src/section/31.python.cpp
+    python/src/section/31/DerivedRedundant.python.cpp
+    python/src/section/31/DerivedRatioToStandard.python.cpp
+    python/src/section/31/CovariancePairs.python.cpp
+    python/src/section/31/SquareMatrix.python.cpp
+    python/src/section/31/ReactionBlock.python.cpp
+    python/src/section/31/RectangularMatrix.python.cpp
     python/src/section/33.python.cpp
     python/src/section/33/DerivedRedundant.python.cpp
     python/src/section/33/DerivedRatioToStandard.python.cpp
@@ -240,6 +247,14 @@ pybind11_add_module( ENDFtk.python
     python/src/section/34/SquareMatrix.python.cpp
     python/src/section/35.python.cpp
     python/src/section/35/SquareMatrix.python.cpp
+    python/src/section/40.python.cpp
+    python/src/section/40/DerivedRedundant.python.cpp
+    python/src/section/40/DerivedRatioToStandard.python.cpp
+    python/src/section/40/CovariancePairs.python.cpp
+    python/src/section/40/LevelBlock.python.cpp
+    python/src/section/40/SquareMatrix.python.cpp
+    python/src/section/40/ReactionBlock.python.cpp
+    python/src/section/40/RectangularMatrix.python.cpp
     python/src/file/1.python.cpp
     python/src/file/2.python.cpp
     python/src/file/3.python.cpp
@@ -257,9 +272,11 @@ pybind11_add_module( ENDFtk.python
     python/src/file/23.python.cpp
     python/src/file/27.python.cpp
     python/src/file/28.python.cpp
+    python/src/file/31.python.cpp
     python/src/file/33.python.cpp
     python/src/file/34.python.cpp
     python/src/file/35.python.cpp
+    python/src/file/40.python.cpp
     python/src/Material.python.cpp
     python/src/tree/Section.python.cpp
     python/src/tree/File.python.cpp

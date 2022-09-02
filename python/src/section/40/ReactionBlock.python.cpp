@@ -3,19 +3,19 @@
 #include <pybind11/stl.h>
 
 // local includes
-#include "ENDFtk/section/33.hpp"
+#include "ENDFtk/section/40.hpp"
 #include "definitions.hpp"
 #include "views.hpp"
 
 // namespace aliases
 namespace python = pybind11;
 
-namespace mf33 {
+namespace mf40 {
 
 void wrapReactionBlock( python::module& module, python::module& viewmodule ) {
 
   // type aliases
-  using Section = njoy::ENDFtk::section::Type< 33 >;
+  using Section = njoy::ENDFtk::section::Type< 40 >;
   using Component = Section::ReactionBlock;
   using DerivedCovariance = Section::DerivedCovariance;
   using DerivedCovarianceRange = RandomAccessAnyView< DerivedCovariance >;
@@ -27,19 +27,19 @@ void wrapReactionBlock( python::module& module, python::module& viewmodule ) {
   // none of these are supposed to be created directly by the user
   wrapRandomAccessAnyViewOf< DerivedCovariance >(
       viewmodule,
-      "any_view< variant< DerivedRedundant, DerivedRatioToStandard >, "
+      "any_view< variant< MF40::DerivedRedundant, MF40::DerivedRatioToStandard >, "
                 "random_access >" );
   wrapRandomAccessAnyViewOf< ExplicitCovariance >(
       viewmodule,
-      "any_view< variant< CovariancePairs, SquareMatrix, "
-                         "RectangularMatrix >, random_access >" );
+      "any_view< variant< MF40::CovariancePairs, MF40::SquareMatrix, "
+                         "MF40::RectangularMatrix >, random_access >" );
 
   // create the component
   python::class_< Component > component(
 
     module,
     "ReactionBlock",
-    "MF33 section - a subsection of an MF33 section"
+    "MF40 section - a subsection of an MF40 section"
   );
 
   // wrap the section
@@ -185,4 +185,4 @@ void wrapReactionBlock( python::module& module, python::module& viewmodule ) {
   addStandardComponentDefinitions< Component >( component );
 }
 
-} // namespace mf33
+} // namespace mf40

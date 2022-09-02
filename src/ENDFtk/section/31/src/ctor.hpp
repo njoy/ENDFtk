@@ -29,7 +29,7 @@ Type( HEAD& head,
       long& lineNumber,
       int MAT )
   try:
-    Base( head, MAT, 31 ), mtl_( head.L2() ),
+    Base( head, MAT, 31 ),
     reactions_(
       readSequence< ReactionBlock >( begin, end, lineNumber,
                                   MAT, 31, head.MT(), head.N2() ) ) {

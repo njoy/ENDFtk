@@ -22,7 +22,7 @@ namespace section{
 
   /**
    *  @class
-   *  @brief 40 - covariances of cross sections
+   *  @brief 40 - covariances for radionuclide production
    *
    *  See ENDF102, section 40.2 for more information.
    */

@@ -4,7 +4,7 @@
  *  @param[in] mt            the MT number of the section
  *  @param[in] zaid          the material ZAID value
  *  @param[in] awr           the atomic weight ratio
- *  @param[in] lis           level number of target
+ *  @param[in] lis           the level number of target
  *  @param[in] blocks        the level block subsections
  */
 Type( int MT, double zaid, double awr, int lis,
