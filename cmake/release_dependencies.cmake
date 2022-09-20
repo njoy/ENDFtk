@@ -19,6 +19,7 @@ FetchContent_Declare( hana
     GIT_REPOSITORY  https://github.com/boostorg/hana
     GIT_TAG         07eadfb31eab29ca5548baae34e8d64e25a4c1a3 # tag: boost-1.75.0
     )
+set( BUILD_TESTING CACHE BOOL OFF )
 
 FetchContent_Declare( header-utilities
     GIT_REPOSITORY  https://github.com/njoy/header-utilities

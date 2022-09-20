@@ -28,6 +28,7 @@ FetchContent_Declare( hana
     GIT_TAG         v1.7.0
     GIT_SHALLOW     TRUE
     )
+set( BUILD_TESTING CACHE BOOL OFF )
 
 FetchContent_Declare( header-utilities
     GIT_REPOSITORY  https://github.com/njoy/header-utilities
