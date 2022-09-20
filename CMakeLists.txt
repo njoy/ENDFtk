@@ -277,6 +277,9 @@ if( CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR )
 
     # unit testing
     if( ENDFtk_unit_tests )
+        configure_file( cmake/unit_testing_ignore.cmake
+                        "${PROJECT_BINARY_DIR}/CTestCustom.cmake"
+                        COPYONLY )
         include( cmake/unit_testing.cmake )
     endif()
 
