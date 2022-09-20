@@ -15,9 +15,9 @@ FetchContent_Declare( disco
     GIT_TAG         a1a7ddb2c0f69465524d8640ee29988b714a881e
     )
 
-FetchContent_Declare( hana-adapter
-    GIT_REPOSITORY  https://github.com/njoy/hana-adapter
-    GIT_TAG         f58e8973c9a614dc4f3720b5581a762c61bdbb40
+FetchContent_Declare( hana
+    GIT_REPOSITORY  https://github.com/boostorg/hana
+    GIT_TAG         07eadfb31eab29ca5548baae34e8d64e25a4c1a3 # tag: boost-1.75.0
     )
 
 FetchContent_Declare( header-utilities
@@ -44,7 +44,6 @@ FetchContent_Declare( spdlog
     GIT_REPOSITORY  https://github.com/gabime/spdlog
     GIT_TAG         a51b4856377a71f81b6d74b9af459305c4c644f8
     )
-set( SPDLOG_BUILD_TESTING CACHE BOOL OFF )
 
 #######################################################################
 # Load dependencies
@@ -53,7 +52,7 @@ set( SPDLOG_BUILD_TESTING CACHE BOOL OFF )
 FetchContent_MakeAvailable(
     catch-adapter
     disco
-    hana-adapter
+    hana
     header-utilities
     Log
     pybind11

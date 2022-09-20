@@ -67,7 +67,7 @@ target_link_libraries( ENDFtk
     INTERFACE Log
     INTERFACE catch-adapter
     INTERFACE disco
-    INTERFACE hana-adapter
+    INTERFACE hana
     INTERFACE header-utilities
     INTERFACE range-v3
     )

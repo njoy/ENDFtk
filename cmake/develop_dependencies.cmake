@@ -23,9 +23,9 @@ FetchContent_Declare( disco
     GIT_SHALLOW     TRUE
     )
 
-FetchContent_Declare( hana-adapter
-    GIT_REPOSITORY  https://github.com/njoy/hana-adapter
-    GIT_TAG         origin/master
+FetchContent_Declare( hana
+    GIT_REPOSITORY  https://github.com/boostorg/hana
+    GIT_TAG         v1.7.0
     GIT_SHALLOW     TRUE
     )
 
@@ -53,7 +53,7 @@ FetchContent_MakeAvailable(
     Log
     catch-adapter
     disco
-    hana-adapter
+    hana
     header-utilities
     range-v3
     pybind11
