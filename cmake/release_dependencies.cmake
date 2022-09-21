@@ -17,7 +17,7 @@ FetchContent_Declare( disco
 
 FetchContent_Declare( hana
     GIT_REPOSITORY  https://github.com/boostorg/hana
-    GIT_TAG         07eadfb31eab29ca5548baae34e8d64e25a4c1a3 # tag: boost-1.75.0
+    GIT_TAG         5c28aad03b6e157452d8623802d70dc95a7b57b6 # tag: boost-1.77.0
     )
 
 FetchContent_Declare( header-utilities
