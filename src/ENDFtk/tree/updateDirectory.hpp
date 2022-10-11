@@ -44,13 +44,9 @@ namespace tree {
       }
     }
 
-    // pop the front entry for MF1 MT451 - we will replace it
-    index.erase( index.begin() );
-
-    // parse MF1 MT451 and add the index entry for it
+    // parse MF1 MT451 and replace the index entry for it
     auto old = material.file( 1 ).section( 451 ).parse< 1, 451 >();
-    index.insert( index.begin(),
-                  DirectoryRecord( 1, 451, 4 + old.NWD() + 1 + index.size(), 0 ) );
+    index[0] = DirectoryRecord( 1, 451, 4 + old.NWD() + 1 + index.size(), 0 );
 
     // create a new MF1 MT451 section using the new index
     section::Type< 1, 451 > updated(
