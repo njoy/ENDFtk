@@ -40,12 +40,12 @@ namespace tree {
 
       for ( const auto& section : file.sections() ) {
 
-        if ( ( section.MF() != 1 ) && ( section.MT() != 451 ) ) {
-
-          index.emplace_back( section.MF(), section.MT(), section.NC(), 0 );
-        }
+        index.emplace_back( section.MF(), section.MT(), section.NC(), 0 );
       }
     }
+
+    // pop the front entry for MF1 MT451 - we will replace it
+    index.erase( index.begin() );
 
     // parse MF1 MT451 and add the index entry for it
     auto old = material.file( 1 ).section( 451 ).parse< 1, 451 >();
