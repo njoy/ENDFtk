@@ -101,7 +101,7 @@ public:
    *  @brief Return the average fission flag
    */
   bool LCOMP() const { return std::visit( [] ( const auto& v ) -> bool
-                                             { return v.LFW(); },
+                                             { return v.LCOMP(); },
                                           this->parameters_ ); }
 
   /**
