@@ -15,6 +15,7 @@
 #include "range/v3/view/transform.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
+#include "ENDFtk/TextRecord.hpp"
 #include "ENDFtk/section.hpp"
 #include "ENDFtk/readSequence.hpp"
 #include "ENDFtk/section/covariance.hpp"
@@ -56,6 +57,8 @@ namespace section {
     #include "ENDFtk/section/32/151/GeneralMultiLevelBreitWigner.hpp"
     #include "ENDFtk/section/32/151/GeneralReichMoore.hpp"
     #include "ENDFtk/section/32/151/GeneralRMatrixLimited.hpp"
+
+    #include "ENDFtk/section/32/151/CompactCorrelationMatrix.hpp"
 
     #include "ENDFtk/section/32/151/ResonanceRange.hpp"
     #include "ENDFtk/section/32/151/Isotope.hpp"
