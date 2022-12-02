@@ -15,7 +15,6 @@
 #include "range/v3/view/transform.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
-#include "ENDFtk/TextRecord.hpp"
 #include "ENDFtk/section.hpp"
 #include "ENDFtk/readSequence.hpp"
 #include "ENDFtk/section/covariance.hpp"

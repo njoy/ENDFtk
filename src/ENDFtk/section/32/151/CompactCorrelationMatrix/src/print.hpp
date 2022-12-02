@@ -91,16 +91,48 @@ void print( OutputIterator& it, int MAT, int MF, int MT ) const {
                  lines.size(), 0 ).print( it, MAT, MF, MT );
   for ( const auto& entry : lines ) {
 
-    std::ostringstream out;
-    out << std::setw( 5 ) << entry[0] << std::setw( 5 ) << entry[1];
-    if ( this->NDIGITS() != 6 ) { out << ' '; }
+    disco::Integer< 5 >::write( entry[0], it );
+    disco::Integer< 5 >::write( entry[1], it );
+    if ( this->NDIGITS() != 6 ) {
+
+      disco::ColumnPosition< 1 >::write( it );
+    }
     for ( unsigned int i = 2; i < entry.size(); ++i ) {
 
-      out << std::setw( this->NDIGITS() + 1 ) << entry[i];
+      switch ( this->NDIGITS() ) {
+
+        case 2: { disco::Integer< 3 >::write( entry[i], it ); break; }
+        case 3: { disco::Integer< 4 >::write( entry[i], it ); break; }
+        case 4: { disco::Integer< 5 >::write( entry[i], it ); break; }
+        case 5: { disco::Integer< 6 >::write( entry[i], it ); break; }
+        case 6: { disco::Integer< 7 >::write( entry[i], it ); break; }
+        default: { /* unreachable */ break; }
+      }
+    }
+    for ( unsigned int i = entry.size() - 2; i < n; ++i ) {
+
+      switch ( this->NDIGITS() ) {
+
+        case 2: { disco::ColumnPosition< 3 >::write( it ); break; }
+        case 3: { disco::ColumnPosition< 4 >::write( it ); break; }
+        case 4: { disco::ColumnPosition< 5 >::write( it ); break; }
+        case 5: { disco::ColumnPosition< 6 >::write( it ); break; }
+        case 6: { disco::ColumnPosition< 7 >::write( it ); break; }
+        default: { /* unreachable */ break; }
+      }
+    }
+    switch ( this->NDIGITS() ) {
+
+      case 2: { disco::ColumnPosition< 1 >::write( it ); break; }
+      case 3: { disco::ColumnPosition< 3 >::write( it ); break; }
+      case 5: { disco::ColumnPosition< 1 >::write( it ); break; }
+      default: { /* unreachable */ break; }
     }
 
-    std::string line = out.str();
-    line.insert( line.size(), 66 - line.size(), ' ');
-    TextRecord( std::move( line ) ).print( it, MAT, MF, MT );
+    using Format =
+      disco::Record< disco::Integer< 4 >, disco::Integer< 2 >,
+                     disco::Integer< 3 >, disco::ColumnPosition< 5 > >;
+
+    Format::write( it, MAT, MF, MT );
   }
 }
