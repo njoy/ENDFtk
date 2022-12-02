@@ -186,7 +186,7 @@ void verifyChunk( const CompactCorrelationMatrix& chunk ) {
   CHECK( 0.015 == Approx( chunk.correlations()[6] ) );
   CHECK( 0.015 == Approx( chunk.correlations()[7] ) );
 
-//  CHECK( 7 == chunk.NC() );
+  CHECK( 5 == chunk.NC() );
 }
 
 std::string invalidDigits() {

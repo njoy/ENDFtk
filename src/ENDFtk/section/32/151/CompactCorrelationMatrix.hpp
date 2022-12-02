@@ -20,6 +20,7 @@ class CompactCorrelationMatrix {
   std::vector< double > correlations_;
 
   /* auxiliary functions */
+  #include "ENDFtk/section/32/151/CompactCorrelationMatrix/src/compact.hpp"
   #include "ENDFtk/section/32/151/CompactCorrelationMatrix/src/verifyDigits.hpp"
   #include "ENDFtk/section/32/151/CompactCorrelationMatrix/src/verifySize.hpp"
 
@@ -71,6 +72,6 @@ public:
     return ranges::cpp20::views::all( this->correlations_ );
   }
 
-  // #include "ENDFtk/section/32/151/CompactCorrelationMatrix/src/NC.hpp"
+  #include "ENDFtk/section/32/151/CompactCorrelationMatrix/src/NC.hpp"
   #include "ENDFtk/section/32/151/CompactCorrelationMatrix/src/print.hpp"
 };
