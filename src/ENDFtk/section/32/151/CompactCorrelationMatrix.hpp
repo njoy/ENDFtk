@@ -20,6 +20,8 @@ class CompactCorrelationMatrix {
   std::vector< double > correlations_;
 
   /* auxiliary functions */
+  #include "ENDFtk/section/32/151/CompactCorrelationMatrix/src/readMatrixElements.hpp"
+  #include "ENDFtk/section/32/151/CompactCorrelationMatrix/src/verifyUnsigned.hpp"
   #include "ENDFtk/section/32/151/CompactCorrelationMatrix/src/compact.hpp"
   #include "ENDFtk/section/32/151/CompactCorrelationMatrix/src/verifyDigits.hpp"
   #include "ENDFtk/section/32/151/CompactCorrelationMatrix/src/verifySize.hpp"

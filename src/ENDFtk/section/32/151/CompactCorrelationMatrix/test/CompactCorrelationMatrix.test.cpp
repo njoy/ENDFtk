@@ -51,26 +51,26 @@ SCENARIO( "CompactCorrelationMatrix" ) {
 
     WHEN( "the data is read from a string/stream" ) {
 
-//      auto begin = string.begin();
-//      auto end = string.end();
-//      long lineNumber = 1;
-//
-//      CompactCorrelationMatrix chunk( begin, end, lineNumber, 1725, 32, 151 );
-//
-//      THEN( "a CompactCorrelationMatrix can be constructed and members can be "
-//            "tested" ) {
-//
-//        verifyChunk( chunk );
-//      }
-//
-//      THEN( "it can be printed" ) {
-//
-//        std::string buffer;
-//        auto output = std::back_inserter( buffer );
-//        chunk.print( output, 1725, 32, 151 );
-//
-//        CHECK( buffer == string );
-//      } // THEN
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      CompactCorrelationMatrix chunk( begin, end, lineNumber, 1725, 32, 151 );
+
+      THEN( "a CompactCorrelationMatrix can be constructed and members can be "
+            "tested" ) {
+
+        verifyChunk( chunk );
+      }
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 1725, 32, 151 );
+
+        CHECK( buffer == string );
+      } // THEN
     } // GIVEN
   } // GIVEN
 
