@@ -112,12 +112,6 @@ std::cout << *begin << ' ' << (begin - pos) << std::endl;
     default: { /* unreachable */ break; }
   }
 
-  std::cout << is.size() << ' ' << js.size() << ' ' << correlations.size() << std::endl;
-
-  auto tuple = std::make_tuple( std::move( is ), std::move( js ),
+  return std::make_tuple( std::move( is ), std::move( js ),
                           std::move( correlations ) );
-
-std::cout << "made tuple" << std::endl;
-
-  return tuple;
 }
