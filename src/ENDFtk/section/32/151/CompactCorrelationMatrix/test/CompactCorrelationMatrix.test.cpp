@@ -156,11 +156,6 @@ void verifyChunk( const CompactCorrelationMatrix& chunk ) {
   CHECK( 8 == chunk.J().size() );
   CHECK( 8 == chunk.correlations().size() );
 
-  std::vector< unsigned int > i = { 2, 3, 3, 7, 7, 10, 10, 10 };
-  std::vector< unsigned int > j = { 1, 1, 2, 5, 6,  4,  6,  8 };
-  std::vector< double > correlations = { 0.025, 0.035, 0.085, 0.085, 0.055,
-                                         0.015, 0.015, 0.015 };
-
   CHECK(  2 == chunk.I()[0] );
   CHECK(  3 == chunk.I()[1] );
   CHECK(  3 == chunk.I()[2] );

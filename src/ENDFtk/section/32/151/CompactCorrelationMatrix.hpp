@@ -66,8 +66,7 @@ public:
   auto J() const { return ranges::cpp20::views::all( this->j_ ); }
 
   /**
-   *  @brief Return the j coordinates for which correlation values are
-   *         available
+   *  @brief Return the correlation values
    */
   auto correlations() const {
 
