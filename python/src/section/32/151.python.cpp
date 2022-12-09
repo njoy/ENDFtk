@@ -13,7 +13,7 @@ namespace python = pybind11;
 namespace mf32 {
 
 // declarations - components
-void wrapBreitWignerLValue( python::module&, python::module& );
+void wrapLimitedBreitWignerLValue( python::module&, python::module& );
 void wrapLimitedSingleLevelBreitWigner( python::module&, python::module& );
 void wrapLimitedMultiLevelBreitWigner( python::module&, python::module& );
 void wrapShortRangeBreitWignerBlock( python::module&, python::module& );
@@ -64,7 +64,7 @@ void wrapSection_32_151( python::module& module, python::module& viewmodule ) {
       "any_view< LongRangeCovarianceBlock, random_access >" );
 
   // wrap components
-  mf32::wrapBreitWignerLValue( submodule, viewmodule );
+  mf32::wrapLimitedBreitWignerLValue( submodule, viewmodule );
   mf32::wrapLimitedSingleLevelBreitWigner( submodule, viewmodule );
   mf32::wrapLimitedMultiLevelBreitWigner( submodule, viewmodule );
   mf32::wrapShortRangeBreitWignerBlock( submodule, viewmodule );

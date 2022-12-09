@@ -5,11 +5,11 @@
  *
  *  See ENDF102, section 32.2.1 for more information.
  */
-class BreitWignerLValue : protected ListRecord {
+class LimitedBreitWignerLValue : protected ListRecord {
 
   /* auxiliary functions */
-  #include "ENDFtk/section/32/151/BreitWignerLValue/src/verifySize.hpp"
-  #include "ENDFtk/section/32/151/BreitWignerLValue/src/generateList.hpp"
+  #include "ENDFtk/section/32/151/LimitedBreitWignerLValue/src/verifySize.hpp"
+  #include "ENDFtk/section/32/151/LimitedBreitWignerLValue/src/generateList.hpp"
 
   auto column( unsigned int i ) const {
 
@@ -19,10 +19,10 @@ class BreitWignerLValue : protected ListRecord {
 
 public:
 
-  #include "ENDFtk/section/32/151/BreitWignerLValue/Resonance.hpp"
+  #include "ENDFtk/section/32/151/LimitedBreitWignerLValue/Resonance.hpp"
 
   /* constructor */
-  #include "ENDFtk/section/32/151/BreitWignerLValue/src/ctor.hpp"
+  #include "ENDFtk/section/32/151/LimitedBreitWignerLValue/src/ctor.hpp"
 
   /* get methods */
 

@@ -15,7 +15,7 @@ LimitedSingleLevelBreitWigner() = default;
  *  @param[in] lvalues   the l values and the resonance parameters
  */
 LimitedSingleLevelBreitWigner( double spi, double ap, double dap,
-                               std::vector< BreitWignerLValue >&& lvalues )
+                               std::vector< LimitedBreitWignerLValue >&& lvalues )
   try : LimitedCovarianceBase( spi, ap, dap, std::move( lvalues ) ) {}
   catch ( std::exception& e ) {
 
@@ -33,7 +33,7 @@ LimitedSingleLevelBreitWigner( double spi, double ap, double dap,
  *  @param[in] lvalues   the l values and the resonance parameters
  */
 LimitedSingleLevelBreitWigner( double spi, double ap,
-                               std::vector< BreitWignerLValue >&& lvalues )
+                               std::vector< LimitedBreitWignerLValue >&& lvalues )
   try : LimitedCovarianceBase( spi, ap, std::move( lvalues ) ) {}
   catch ( std::exception& e ) {
 

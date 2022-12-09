@@ -12,7 +12,7 @@ class LimitedSingleLevelBreitWigner :
 public:
 
   /* type alias */
-  using LValue = BreitWignerLValue;
+  using LValue = LimitedBreitWignerLValue;
 
   /* constructor */
   #include "ENDFtk/section/32/151/LimitedSingleLevelBreitWigner/src/ctor.hpp"
