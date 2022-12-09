@@ -16,7 +16,7 @@ CovariancePairs( ListRecord&& list ) :
 
     verifyLB( this->LB(), this->LT() );
     verifySize( this->NT(), this->N2() );
-};
+}
 
 /**
  *  @brief Constructor (LB=0,1,2,8,9)

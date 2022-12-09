@@ -16,7 +16,7 @@ RectangularMatrix( ListRecord&& list ) :
 
     verifyLB( this->LB() );
     verifySize( this->NT(), this->NER() );
-};
+}
 
 /**
  *  @brief Constructor (LB=5)

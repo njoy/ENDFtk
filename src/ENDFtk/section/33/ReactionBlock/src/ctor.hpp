@@ -14,7 +14,7 @@ ReactionBlock( double xmf1, double xlfs1, int mat1, int mt1,
                std::vector< ExplicitCovariance >&& ni ) :
   xmf1_( xmf1 ), xlfs1_( xlfs1 ), mat1_( mat1 ), mt1_( mt1 ),
   nc_( std::move( nc ) ),
-  ni_( std::move( ni ) ) {};
+  ni_( std::move( ni ) ) {}
 
 /**
  *  @brief Constructor
@@ -30,7 +30,7 @@ ReactionBlock( double xmf1, double xlfs1, int mat1, int mt1,
 ReactionBlock( int xmf1, int xlfs1, int mat1, int mt1,
                std::vector< DerivedCovariance >&& nc ) :
   xmf1_( xmf1 ), xlfs1_( xlfs1 ), mat1_( mat1 ), mt1_( mt1 ),
-  nc_( std::move( nc ) ) {};
+  nc_( std::move( nc ) ) {}
 
 /**
  *  @brief Constructor
@@ -47,7 +47,7 @@ ReactionBlock( int xmf1, int xlfs1, int mat1, int mt1,
 ReactionBlock( double xmf1, double xlfs1, int mat1, int mt1,
                std::vector< ExplicitCovariance >&& ni ) :
   xmf1_( xmf1 ), xlfs1_( xlfs1 ), mat1_( mat1 ), mt1_( mt1 ),
-  ni_( std::move( ni ) ) {};
+  ni_( std::move( ni ) ) {}
 
 private:
 
@@ -99,4 +99,4 @@ try :
   Log::info( "Trouble while creating a covariance ReactionBlock",
              MT, MAT );
   throw e;
-};
+}
