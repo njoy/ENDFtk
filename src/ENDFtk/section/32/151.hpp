@@ -58,6 +58,7 @@ namespace section {
     #include "ENDFtk/section/32/151/GeneralReichMoore.hpp"
     #include "ENDFtk/section/32/151/GeneralRMatrixLimited.hpp"
 
+    // LCOMP = 2 components
     #include "ENDFtk/section/32/151/CompactCorrelationMatrix.hpp"
 
     #include "ENDFtk/section/32/151/ResonanceRange.hpp"

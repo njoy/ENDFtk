@@ -43,7 +43,7 @@ readParameters( Iterator& begin,
         default : {
 
           Log::error( "Encountered illegal LRU value" );
-          Log::info( "LRU is should be 1 (resolved) for LCOMP = 0" );
+          Log::info( "LRU should be 1 (resolved) for LCOMP = 0" );
           Log::info( "LRU value: {}", LRU );
           Log::info( "Line number: {}", lineNumber );
           throw std::exception();
@@ -93,6 +93,12 @@ readParameters( Iterator& begin,
           throw std::exception();
         }
       }
+    }
+    case 2 : {
+
+      Log::info( "LCOMP equal to 2 is currently unsupported" );
+      Log::info( "Line number: {}", lineNumber );
+      throw std::exception();
     }
     default : {
 
