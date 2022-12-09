@@ -9,7 +9,7 @@ readMatrixElements( Iterator& begin,
                     int MAT,
                     int MF,
                     int MT,
-                    unsigned int ndigits,
+                    unsigned int ndigit,
                     unsigned int lines ) {
 
   // this code is not pretty, but the INTG records are just dumb so ...
@@ -18,98 +18,88 @@ readMatrixElements( Iterator& begin,
   std::vector< unsigned int > js;
   std::vector< double > correlations;
 
-  using tail = record::TailVerifying< record::MAT, record::MF, record::MT >;
+  auto process = [&is,&js,&correlations] ( auto&& record, int factor ) -> void {
 
-  int iv;
-  int jv;
-  std::vector< int > values;
-  unsigned int i;
-  unsigned int j;
+    for ( unsigned int index = 0; index < record.K().size(); ++index  ) {
 
-  std::cout << "NM " << lines << " NDIGITS " << ndigits << std::endl;
+      long value = record.K()[index];
+      if ( value != 0  ) {
 
-  switch ( ndigits ) {
+        is.emplace_back( record.I() );
+        js.emplace_back( record.J() + index );
+        if ( value > 0 ) {
+
+          correlations.emplace_back( ( static_cast< double >( value )
+                                       + 0.5 ) / factor );
+        }
+        else {
+
+          correlations.emplace_back( ( static_cast< double >( value )
+                                       - 0.5 ) / factor );
+        }
+      }
+    }
+  };
+
+  switch ( ndigit ) {
 
     case 2: {
 
-      using Format = disco::Record<
-                         disco::Integer< 5 >, disco::Integer< 5 >,
-                         disco::ColumnPosition< 1 >,
-                         disco::Integer< 3 >, disco::Integer< 3 >,
-                         disco::Integer< 3 >, disco::Integer< 3 >,
-                         disco::Integer< 3 >, disco::Integer< 3 >,
-                         disco::Integer< 3 >, disco::Integer< 3 >,
-                         disco::Integer< 3 >, disco::Integer< 3 >,
-                         disco::Integer< 3 >, disco::Integer< 3 >,
-                         disco::Integer< 3 >, disco::Integer< 3 >,
-                         disco::Integer< 3 >, disco::Integer< 3 >,
-                         disco::Integer< 3 >, disco::Integer< 3 >,
-                         disco::ColumnPosition< 1 > >;
-
-      double factor = 100;
-      values.resize( 18 );
-      auto iterator = values.begin();
-
+      using INTG = record::IntegerBase< 2, 18 >;
       for ( unsigned int line = 0; line < lines; ++line ) {
 
-        auto pos = begin;
-        Format::read( begin, end, i, j,
-                      iterator[0], iterator[1], iterator[2],
-                      iterator[3], iterator[4], iterator[5],
-                      iterator[6], iterator[7], iterator[8],
-                      iterator[9], iterator[10], iterator[11],
-                      iterator[12], iterator[13], iterator[14],
-                      iterator[15], iterator[16], iterator[17] );
-
-std::cout << i << ' ' << j << ' ' << values.front() << ' ' << values.back() << std::endl;
-std::cout << *begin << ' ' << (begin - pos) << std::endl;
-//        tail( MAT, MF, MT, begin, end, lineNumber );
-
-        i = verifyUnsigned( iv, "I" );
-        j = verifyUnsigned( jv, "J" );
-        for ( unsigned int index = 0; index < values.size(); ++index  ) {
-
-          if ( values[index] != 0  ) {
-
-            is.emplace_back( i );
-            js.emplace_back( j + index );
-            if ( values[index] > 0 ) {
-
-              correlations.emplace_back( ( static_cast< double >( values[index] )
-                                           + 0.5 ) / factor );
-            }
-            else {
-
-              correlations.emplace_back( ( static_cast< double >( values[index] )
-                                           - 0.5 ) / factor );
-            }
-          }
-        }
+        process( INTG( begin, end, lineNumber, MAT, MF, MT ), 100 );
       }
 
       break;
     }
     case 3: {
 
-      unsigned int n = 13;
+      using INTG = record::IntegerBase< 3, 13 >;
+      for ( unsigned int line = 0; line < lines; ++line ) {
+
+        process( INTG( begin, end, lineNumber, MAT, MF, MT ), 1000 );
+      }
+
       break;
     }
     case 4: {
 
-      unsigned int n = 11;
+      using INTG = record::IntegerBase< 4, 11 >;
+      for ( unsigned int line = 0; line < lines; ++line ) {
+
+        process( INTG( begin, end, lineNumber, MAT, MF, MT ), 10000 );
+      }
+
       break;
     }
     case 5: {
 
-      unsigned int n = 9;
+      using INTG = record::IntegerBase< 5, 9 >;
+      for ( unsigned int line = 0; line < lines; ++line ) {
+
+        process( INTG( begin, end, lineNumber, MAT, MF, MT ), 100000 );
+      }
+
       break;
     }
     case 6: {
 
-      unsigned int n = 8;
+      using INTG = record::IntegerBase< 6, 8 >;
+      for ( unsigned int line = 0; line < lines; ++line ) {
+
+        process( INTG( begin, end, lineNumber, MAT, MF, MT ), 1000000 );
+      }
+
       break;
     }
-    default: { /* unreachable */ break; }
+    default: {
+
+      Log::error( "Encountered illegal NDIGIT value" );
+      Log::info( "NDIGIT should be equal to 2, 3, 4, 5 or 6" );
+      Log::info( "NDIGIT value: {}", ndigit );
+      throw std::exception();
+    }
   }
 
   return std::make_tuple( std::move( is ), std::move( js ),

@@ -13,7 +13,7 @@
 class CompactCorrelationMatrix {
 
   /* fields */
-  int ndigits_;
+  int ndigit_;
   int nnn_;
   std::vector< unsigned int > i_;
   std::vector< unsigned int > j_;
@@ -36,12 +36,12 @@ public:
   /**
    *  @brief Return the number of digits used for compacting
    */
-  unsigned int NDIGITS() const { return this->ndigits_; }
+  unsigned int NDIGIT() const { return this->ndigit_; }
 
   /**
    *  @brief Return the number of digits used for compacting
    */
-  unsigned int numberDigits() const { return this->NDIGITS(); }
+  unsigned int numberDigits() const { return this->NDIGIT(); }
 
   /**
    *  @brief Return the order of the correlation matrix

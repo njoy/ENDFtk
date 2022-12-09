@@ -26,12 +26,12 @@ SCENARIO( "CompactCorrelationMatrix" ) {
       std::vector< unsigned int > j = { 1, 1, 2, 5, 6,  4,  6,  8 };
       std::vector< double > correlations = { 0.025, 0.035, 0.085, 0.085, 0.055,
                                              0.015, 0.015, 0.015 };
-      unsigned int ndigits = 2;
+      unsigned int ndigit = 2;
       unsigned int order = 12;
 
       CompactCorrelationMatrix chunk( order,
                                       std::move( i ), std::move( j ),
-                                      std::move( correlations ), ndigits );
+                                      std::move( correlations ), ndigit );
 
       THEN( "a CompactCorrelationMatrix can be constructed and members can be "
             "tested" ) {
@@ -71,7 +71,7 @@ SCENARIO( "CompactCorrelationMatrix" ) {
 
         CHECK( buffer == string );
       } // THEN
-    } // GIVEN
+    } // WHEN
   } // GIVEN
 
   GIVEN( "invalid data" ) {
@@ -106,7 +106,7 @@ SCENARIO( "CompactCorrelationMatrix" ) {
       } // THEN
     } // WHEN
 
-    WHEN( "an invalid NDIGITS is used" ) {
+    WHEN( "an invalid NDIGIT is used" ) {
 
       unsigned int order = 12;
       std::vector< unsigned int > i = { 3, 4 };
@@ -122,17 +122,17 @@ SCENARIO( "CompactCorrelationMatrix" ) {
       } // THEN
     } // WHEN
 
-    WHEN( "a string with an invalid NDIGITS is used" ) {
+    WHEN( "a string with an invalid NDIGIT is used" ) {
 
-//      std::string string = invalidDigits();
-//      auto begin = string.begin();
-//      auto end = string.end();
-//      long lineNumber = 1;
-//
-//      THEN( "an exception is thrown" ) {
-//
-//        CHECK_THROWS( CompactCorrelationMatrix( begin, end, lineNumber, 1725, 32, 151 ) );
-//      } // THEN
+      std::string string = invalidDigits();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( CompactCorrelationMatrix( begin, end, lineNumber, 1725, 32, 151 ) );
+      } // THEN
     } // WHEN
   } // GIVEN
 } // SCENARIO
@@ -148,7 +148,7 @@ std::string chunk() {
 
 void verifyChunk( const CompactCorrelationMatrix& chunk ) {
 
-  CHECK( 2 == chunk.NDIGITS() );
+  CHECK( 2 == chunk.NDIGIT() );
   CHECK( 2 == chunk.numberDigits() );
   CHECK( 12 == chunk.NNN() );
   CHECK( 12 == chunk.order() );

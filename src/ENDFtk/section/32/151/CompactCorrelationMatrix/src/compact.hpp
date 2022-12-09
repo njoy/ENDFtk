@@ -1,10 +1,11 @@
-std::vector< std::vector< int > > compact() const {
+std::vector< std::tuple< unsigned int, unsigned int,
+                         std::vector< int > > > compact() const {
 
   // this code is not pretty, but the INTG records are just dumb so ...
 
   // the maximum number of values per line
   unsigned int n = 0;
-  switch ( this->NDIGITS() ) {
+  switch ( this->NDIGIT() ) {
 
     case 2: { n = 18; break; }
     case 3: { n = 13; break; }
@@ -16,7 +17,7 @@ std::vector< std::vector< int > > compact() const {
 
   // conversion factor
   double factor = 1;
-  switch ( this->NDIGITS() ) {
+  switch ( this->NDIGIT() ) {
 
     case 2: { factor = 100; break; }
     case 3: { factor = 1000; break; }
@@ -45,42 +46,41 @@ std::vector< std::vector< int > > compact() const {
   };
 
   // compact the correlation matrix
-  std::vector< std::vector< int > > lines = {
+  std::vector< std::tuple< unsigned int, unsigned int,
+                           std::vector< int > > > lines = {
 
-    { static_cast< int >( this->i_[0] ),
-      static_cast< int >( this->j_[0] ),
-      convert( this->correlations_[0] ) }
+    { this->i_[0], this->j_[0], { convert( this->correlations_[0] ) } }
   };
   unsigned int size = this->i_.size();
   for ( unsigned int i = 1; i < size; ++i ) {
 
-    if ( this->i_[i] == lines.back()[0] ) {
+    if ( this->i_[i] == std::get< 0 >( lines.back() ) ) {
 
-      if ( this->j_[i] < lines.back()[1] + lines.back().size() - 3 + n ) {
+      if ( this->j_[i] < std::get< 1 >( lines.back() ) + std::get< 2 >( lines.back() ).size() - 1 + n ) {
 
-        int pad = this->j_[i] - lines.back()[1] - lines.back().size() + 2;
+        int pad = this->j_[i] - std::get< 1 >( lines.back() ) - std::get< 2 >( lines.back() ).size();
         if ( pad > 0 ) {
 
-          lines.back().insert( lines.back().end(),
-                               pad,
-                               0 );
+          std::get< 2 >( lines.back() ).insert( std::get< 2 >( lines.back() ).end(),
+                                                pad,
+                                                0 );
         }
-        lines.back().emplace_back( convert( this->correlations_[i] ) );
+        std::get< 2 >( lines.back() ).emplace_back( convert( this->correlations_[i] ) );
       }
       else {
 
-        lines.emplace_back(
-          std::vector< int >{ static_cast< int >( this->i_[i] ),
-                              static_cast< int >( this->j_[i] ),
-                              convert( this->correlations_[i] ) } );
+        lines.emplace_back( std::make_tuple (
+                              this->i_[i],
+                              this->j_[i],
+                              std::vector< int >{ convert( this->correlations_[i] ) } ) );
       }
     }
     else {
 
-      lines.emplace_back(
-        std::vector< int >{ static_cast< int >( this->i_[i] ),
-                            static_cast< int >( this->j_[i] ),
-                            convert( this->correlations_[i] ) } );
+      lines.emplace_back( std::make_tuple (
+                            this->i_[i],
+                            this->j_[i],
+                            std::vector< int >{ convert( this->correlations_[i] ) } ) );
     }
   }
 

@@ -13,6 +13,7 @@
 #include "range/v3/view/stride.hpp"
 #include "range/v3/view/take_exactly.hpp"
 #include "range/v3/view/transform.hpp"
+#include "ENDFtk/record.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/section.hpp"
