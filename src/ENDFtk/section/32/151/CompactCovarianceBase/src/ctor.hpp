@@ -71,7 +71,7 @@ CompactCovarianceBase( double spi, double ap, long l1, long n1,
                        Iterator& it, const Iterator& end, long& lineNumber,
                        int MAT, int MF, int MT ) :
   // no try ... catch: exceptions will be handled in the derived class
-  CompactCovarianceBase( spi, ap, l1, l2, std::move( dap ),
+  CompactCovarianceBase( spi, ap, l1, n1, std::move( dap ),
                          std::move( parameters ),
                          CompactCorrelationMatrix( it, end, lineNumber,
                                                    MAT, MF, MT ) ) {}
@@ -85,7 +85,7 @@ CompactCovarianceBase( double spi, double ap, long l1, long n1,
                        Iterator& it, const Iterator& end, long& lineNumber,
                        int MAT, int MF, int MT ) :
   // no try ... catch: exceptions will be handled in the derived class
-  CompactCovarianceBase( spi, ap, l1, n1, std::move( dap ), nls,
+  CompactCovarianceBase( spi, ap, l1, n1, std::move( dap ),
                          ResonanceParameterUncertainties( it, end, lineNumber,
                                                           MAT, MF, MT ),
                          it, end, lineNumber, MAT, MF, MT ) {}
