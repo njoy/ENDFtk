@@ -166,6 +166,7 @@ pybind11_add_module( ENDFtk.python
     python/src/section/32/151/GeneralReichMoore.python.cpp
     python/src/section/32/151/GeneralRMatrixLimited.python.cpp
     python/src/section/32/151/CompactCorrelationMatrix.python.cpp
+    python/src/section/32/151/CompactBreitWignerUncertainties.python.cpp
     python/src/section/32/151/ResonanceRange.python.cpp
     python/src/section/32/151/Isotope.python.cpp
     python/src/section/4.python.cpp
