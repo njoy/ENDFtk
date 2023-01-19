@@ -1,35 +1,35 @@
 /**
  *  @class
- *  @brief Base class for general covariance representations (LCOMP = 1)
+ *  @brief Base class for compact covariance representations (LCOMP = 2)
  *
- *  The GeneralCovarianceBase class is used to represent the resonance and
- *  covariance representations (LRU=1 and LRF=1, 2, 3, 4 and 7) for LCOMP = 1
+ *  The CompactCovarianceBase class is used to represent the resonance and
+ *  covariance representations (LRU=1 and LRF=1, 2, 3 and 7) for LCOMP = 2
  *  from MF32/MT151.
  *
- *  See ENDF102, section 32.2.2 for more information.
+ *  See ENDF102, section 32.2.3 for more information.
  */
-template < typename ShortRangeCovarianceBlock,
+template < typename ResonanceParameterUncertainties,
            typename RadiusUncertainty,
            typename Derived >
-class GeneralCovarianceBase {
+class CompactCovarianceBase {
 
   /* fields */
   double spi_;
   double ap_;
-  unsigned int nls_;
+  long l1_;
+  long n1_;
   std::optional< RadiusUncertainty > dap_;
 
-  std::vector< ShortRangeCovarianceBlock > short_;
-  std::vector< LongRangeCovarianceBlock > long_;
+  ResonanceParameterUncertainties parameters_;
+  CompactCorrelationMatrix matrix_;
 
   /* auxiliary functions */
-  #include "ENDFtk/section/32/151/GeneralCovarianceBase/src/readSequence.hpp"
-  #include "ENDFtk/section/32/151/GeneralCovarianceBase/src/verifySize.hpp"
+//  #include "ENDFtk/section/32/151/CompactCovarianceBase/src/verifySize.hpp"
 
 protected:
 
   /* constructor */
-  #include "ENDFtk/section/32/151/GeneralCovarianceBase/src/ctor.hpp"
+  #include "ENDFtk/section/32/151/CompactCovarianceBase/src/ctor.hpp"
 
 public:
 
@@ -38,7 +38,7 @@ public:
   /**
    *  @brief Return the covariance representation type
    */
-  static constexpr int LCOMP() { return 1; }
+  static constexpr int LCOMP() { return 2; }
 
   /**
    *  @brief Return the covariance representation type
@@ -95,16 +95,14 @@ public:
   double scatteringRadius() const { return this->AP(); }
 
   /**
-   *  @brief Return the number of l values for which resonance parameters are
-   *         given
+   *  @brief Return the value of L1
    */
-  unsigned int NLS() const { return this->nls_; }
+  long L1() const { return this->l1_; }
 
   /**
-   *  @brief Return the number of l values for which resonance parameters are
-   *         given
+   *  @brief Return the value of N1
    */
-  unsigned int numberLValues() const { return this->NLS(); }
+  long N1() const { return this->n1_; }
 
   /**
    *  @brief Return the scattering radius uncertainty
@@ -120,26 +118,6 @@ public:
   }
 
   /**
-   *  @brief Return the number of short range covariance blocks
-   */
-  int NSRS() const { return this->short_.size(); }
-
-  /**
-   *  @brief Return the number of short range covariance blocks
-   */
-  int numberShortRangeBlocks() const { return this->NLS(); }
-
-  /**
-   *  @brief Return the number of long range covariance blocks
-   */
-  int NLRS() const { return this->long_.size(); }
-
-  /**
-   *  @brief Return the number of short range covariance blocks
-   */
-  int numberLongRangeBlocks() const { return this->NLS(); }
-
-  /**
    *  @brief Return the scattering radius uncertainty flag
    */
   bool ISR() const { return bool( this->dap_ ); }
@@ -150,21 +128,21 @@ public:
   bool scatteringRadiusUncertaintyFlag() const { return this->ISR(); }
 
   /**
-   *  @brief Return the short range resonance covariance blocks
+   *  @brief Return the resonance parameter uncertainties
    */
-  auto shortRangeBlocks() const {
+  const ResonanceParameterUncertainties parameters() const {
 
-    return ranges::cpp20::views::all( this->short_ );
+    return this->parameters_;
   }
 
   /**
-   *  @brief Return the long range resonance covariance blocks
+   *  @brief Return the correlation matrix
    */
-  auto longRangeBlocks() const {
+  const CompactCorrelationMatrix& correlationMatrix() const {
 
-    return ranges::cpp20::views::all( this->long_ );
+    return this->matrix_;
   }
 
-  #include "ENDFtk/section/32/151/GeneralCovarianceBase/src/NC.hpp"
-  #include "ENDFtk/section/32/151/GeneralCovarianceBase/src/print.hpp"
+  #include "ENDFtk/section/32/151/CompactCovarianceBase/src/NC.hpp"
+  #include "ENDFtk/section/32/151/CompactCovarianceBase/src/print.hpp"
 };
