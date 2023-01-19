@@ -13,9 +13,7 @@ public:
  *  @brief Constructor
  *
  *  @param[in] awri       the atomic weight ratio
- *  @param[in] c2         the value in C2
  *  @param[in] l          the orbital angular momentum value
- *  @param[in] l2         the value in l2
  *  @param[in] energies   the resonance energies (NRS values)
  *  @param[in] spins      the spin values (NRS values)
  *  @param[in] gt         the total widths (NRS values)
