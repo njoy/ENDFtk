@@ -18,6 +18,6 @@ void print( OutputIterator& it, int MAT, int MF, int MT ) const {
 
     Derived::print( this->dap_.value(), it, MAT, MF, MT );
   }
-  this->parameters_.print( it, MAT, MF, MT );
+  this->uncertainties_.print( it, MAT, MF, MT );
   this->matrix_.print( it, MAT, MF, MT );
 }

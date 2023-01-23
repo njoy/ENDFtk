@@ -5,7 +5,7 @@ long NC() const {
 
   long NC = 1;
   if ( this->ISR() ) { NC += Derived::NC( this->dap_.value() ); }
-  NC += this->parameters_.NC();
+  NC += this->uncertainties_.NC();
   NC += this->matrix_.NC();
   return NC;
 };

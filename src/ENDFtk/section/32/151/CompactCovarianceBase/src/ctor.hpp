@@ -5,11 +5,11 @@ private:
  */
 CompactCovarianceBase( double spi, double ap, long l1, long n1,
                        std::optional< RadiusUncertainty >&& dap,
-                       ResonanceParameterUncertainties&& parameters,
+                       ResonanceParameterUncertainties&& uncertainties,
                        CompactCorrelationMatrix&& matrix ) :
     // no need for a try ... catch: nothing can go wrong here
     spi_( spi ), ap_( ap ), l1_( n1 ), n1_( l1 ), dap_( dap ),
-    parameters_( std::move( parameters ) ), matrix_( std::move( matrix ) ) {
+    uncertainties_( std::move( uncertainties ) ), matrix_( std::move( matrix ) ) {
 
 //      verifySize( this->NSRS(), this->NLRS(), this->LRU() );
     }
@@ -26,38 +26,38 @@ CompactCovarianceBase() = default;
 /**
  *  @brief Constructor with scattering radius uncertainty
  *
- *  @param[in] spi           the target spin value
- *  @param[in] ap            the scattering radius
- *  @param[in] dap           the scattering radius uncertainty data
- *  @param[in] l1            the L1 value
- *  @param[in] n1            the N1 value
- *  @param[in] parameters    the resonance parameters and uncertainties
- *  @param[in] matrix        the correlation matrix
+ *  @param[in] spi             the target spin value
+ *  @param[in] ap              the scattering radius
+ *  @param[in] dap             the scattering radius uncertainty data
+ *  @param[in] l1              the L1 value
+ *  @param[in] n1              the N1 value
+ *  @param[in] uncertainties   the resonance uncertainties and uncertainties
+ *  @param[in] matrix          the correlation matrix
  */
 CompactCovarianceBase( double spi, double ap, RadiusUncertainty&& dap,
                        long l1, long n1,
-                       ResonanceParameterUncertainties&& parameters,
+                       ResonanceParameterUncertainties&& uncertainties,
                        CompactCorrelationMatrix&& matrix ) :
   // no need for a try ... catch: nothing can go wrong here
   CompactCovarianceBase( spi, ap, l1, n1, std::make_optional( dap ),
-                         std::move( parameters ), std::move( matrix ) ) {}
+                         std::move( uncertainties ), std::move( matrix ) ) {}
 
 /**
  *  @brief Constructor without scattering radius uncertainty
  *
- *  @param[in] spi           the target spin value
- *  @param[in] ap            the scattering radius
- *  @param[in] l1            the L1 value
- *  @param[in] n1            the N1 value
- *  @param[in] parameters    the resonance parameters and uncertainties
- *  @param[in] matrix        the correlation matrix
+ *  @param[in] spi             the target spin value
+ *  @param[in] ap              the scattering radius
+ *  @param[in] l1              the L1 value
+ *  @param[in] n1              the N1 value
+ *  @param[in] uncertainties   the resonance uncertainties and uncertainties
+ *  @param[in] matrix          the correlation matrix
  */
 CompactCovarianceBase( double spi, double ap, long l1, long n1,
-  ResonanceParameterUncertainties&& parameters,
+  ResonanceParameterUncertainties&& uncertainties,
   CompactCorrelationMatrix&& matrix ) :
   // no need for a try ... catch: nothing can go wrong here
   CompactCovarianceBase( spi, ap, l1, n1, std::nullopt,
-                         std::move( parameters ), std::move( matrix ) ) {}
+                         std::move( uncertainties ), std::move( matrix ) ) {}
 
 private:
 
@@ -67,12 +67,12 @@ private:
 template< typename Iterator >
 CompactCovarianceBase( double spi, double ap, long l1, long n1,
                        std::optional< RadiusUncertainty >&& dap,
-                       ResonanceParameterUncertainties&& parameters,
+                       ResonanceParameterUncertainties&& uncertainties,
                        Iterator& it, const Iterator& end, long& lineNumber,
                        int MAT, int MF, int MT ) :
   // no try ... catch: exceptions will be handled in the derived class
   CompactCovarianceBase( spi, ap, l1, n1, std::move( dap ),
-                         std::move( parameters ),
+                         std::move( uncertainties ),
                          CompactCorrelationMatrix( it, end, lineNumber,
                                                    MAT, MF, MT ) ) {}
 

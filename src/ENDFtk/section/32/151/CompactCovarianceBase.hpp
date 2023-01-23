@@ -3,7 +3,7 @@
  *  @brief Base class for compact covariance representations (LCOMP = 2)
  *
  *  The CompactCovarianceBase class is used to represent the resonance and
- *  covariance representations (LRU=1 and LRF=1, 2, 3 and 7) for LCOMP = 2
+ *  covariance representations (LRU=1 and LRF = 1, 2, 3 and 7) for LCOMP = 2
  *  from MF32/MT151.
  *
  *  See ENDF102, section 32.2.3 for more information.
@@ -20,7 +20,7 @@ class CompactCovarianceBase {
   long n1_;
   std::optional< RadiusUncertainty > dap_;
 
-  ResonanceParameterUncertainties parameters_;
+  ResonanceParameterUncertainties uncertainties_;
   CompactCorrelationMatrix matrix_;
 
   /* auxiliary functions */
@@ -130,9 +130,9 @@ public:
   /**
    *  @brief Return the resonance parameter uncertainties
    */
-  const ResonanceParameterUncertainties parameters() const {
+  const ResonanceParameterUncertainties uncertainties() const {
 
-    return this->parameters_;
+    return this->uncertainties_;
   }
 
   /**
