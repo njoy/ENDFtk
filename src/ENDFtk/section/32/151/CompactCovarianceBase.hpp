@@ -130,7 +130,7 @@ public:
   /**
    *  @brief Return the resonance parameter uncertainties
    */
-  const ResonanceParameterUncertainties uncertainties() const {
+  const ResonanceParameterUncertainties& uncertainties() const {
 
     return this->uncertainties_;
   }

@@ -31,13 +31,12 @@ CompactSingleLevelBreitWigner( double spi, double ap, double dap,
 /**
  *  @brief Constructor without scattering radius uncertainty
  *
- *  @param[in] spi       the target spin value
- *  @param[in] ap        the scattering radius
- *  @param[in] nls       the number of l values
- *  @param[in] cshort    the short range covariance blocks
- *  @param[in] clong     the long range covariance blocks
+ *  @param[in] spi           the target spin value
+ *  @param[in] ap            the scattering radius
+ *  @param[in] parameters    the short range covariance blocks
+ *  @param[in] matrix        the long range covariance blocks
  */
-CompactSingleLevelBreitWigner( double spi, double ap, unsigned int nls,
+CompactSingleLevelBreitWigner( double spi, double ap, 
                                CompactBreitWignerUncertainties&& parameters,
                                CompactCorrelationMatrix&& matrix ) :
   // no need for a try ... catch: nothing can go wrong here

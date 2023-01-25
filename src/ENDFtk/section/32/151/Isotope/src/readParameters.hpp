@@ -107,6 +107,8 @@ readParameters( Iterator& begin,
                                 begin, end, lineNumber, MAT, MF, MT );
             case 2 : return CompactMultiLevelBreitWigner(
                                 begin, end, lineNumber, MAT, MF, MT );
+            case 3 : return CompactReichMoore(
+                                begin, end, lineNumber, MAT, MF, MT );
             default : {
 
               Log::error( "Encountered illegal LRF value for LCOMP = 1" );
