@@ -168,7 +168,7 @@ public:
   /**
    *  @brief Return the second fission width uncertainties
    */
-  auto secondFissionWidthUncertainties() const { return this->DGFA(); }
+  auto secondFissionWidthUncertainties() const { return this->DGFB(); }
 
   /**
    *  @brief Return the resonances
