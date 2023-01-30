@@ -63,6 +63,7 @@ namespace section {
     #include "ENDFtk/section/32/151/CompactCovarianceBase.hpp"
     #include "ENDFtk/section/32/151/CompactBreitWignerUncertainties.hpp"
     #include "ENDFtk/section/32/151/CompactReichMooreUncertainties.hpp"
+    #include "ENDFtk/section/32/151/CompactRMatrixLimitedUncertainties.hpp"
     #include "ENDFtk/section/32/151/CompactSingleLevelBreitWigner.hpp"
     #include "ENDFtk/section/32/151/CompactMultiLevelBreitWigner.hpp"
     #include "ENDFtk/section/32/151/CompactReichMoore.hpp"
