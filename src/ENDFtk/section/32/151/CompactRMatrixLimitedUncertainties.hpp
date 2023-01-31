@@ -10,6 +10,7 @@ class CompactRMatrixLimitedUncertainties : protected ListRecord {
 public:
 
   #include "ENDFtk/section/32/151/CompactRMatrixLimitedUncertainties/ParticlePairs.hpp"
+  #include "ENDFtk/section/32/151/CompactRMatrixLimitedUncertainties/ResonanceChannels.hpp"
 
   /* constructor */
 //  #include "ENDFtk/section/32/151/CompactRMatrixLimitedUncertainties/src/ctor.hpp"
