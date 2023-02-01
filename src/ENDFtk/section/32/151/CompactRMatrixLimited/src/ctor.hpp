@@ -3,30 +3,29 @@
 /**
  *  @brief Default constructor - only enabled for pybind11
  */
-CompactReichMoore() = default;
+CompactRMatrixLimited() = default;
 #endif
 
 /**
  *  @brief Constructor with scattering radius uncertainty
  *
- *  @param[in] spi           the target spin value
- *  @param[in] ap            the scattering radius
- *  @param[in] lad           the angular distribution flag
+ *  @param[in] ifg           flag to indicate whether or not the widths are reduced
+ *  @param[in] njs           the number of spin groups
  *  @param[in] dap           the scattering radius uncertainty data
  *  @param[in] parameters    the resonance parameters and uncertainties
  *  @param[in] matrix        the correlation matrix
  */
-CompactReichMoore( double spi, double ap, bool lad,
-                   ReichMooreScatteringRadiusUncertainties&& dap,
-                   CompactReichMooreUncertainties&& parameters,
-                   CompactCorrelationMatrix&& matrix ) :
+CompactRMatrixLimited( bool ifg, long njs,
+                       ReichMooreScatteringRadiusUncertainties&& dap,
+                       CompactRMatrixLimitedUncertainties&& parameters,
+                       CompactCorrelationMatrix&& matrix ) :
   // no need for a try ... catch: nothing can go wrong here
-  CompactCovarianceBase( spi, ap, std::move( dap ),
-                         static_cast< long >( lad ), 0.,
+  CompactCovarianceBase( 0., 0., std::move( dap ),
+                         static_cast< long >( ifg ), njs,
                          std::move( parameters ), std::move( matrix ) ) {
 
     Log::info( "Encountered error while constructing resonance and covariance "
-               "parameters in the Reich-Moore representation for the compact "
+               "parameters in the R-Matrix limited representation for the compact "
                "covariance format (LCOMP = 2)" );
     throw;
   }
@@ -34,23 +33,22 @@ CompactReichMoore( double spi, double ap, bool lad,
 /**
  *  @brief Constructor without scattering radius uncertainty
  *
- *  @param[in] spi       the target spin value
- *  @param[in] ap        the scattering radius
- *  @param[in] lad           the angular distribution flag
+ *  @param[in] ifg       flag to indicate whether or not the widths are reduced
+ *  @param[in] njs       the number of spin groups
  *  @param[in] cshort    the short range covariance blocks
  *  @param[in] clong     the long range covariance blocks
  */
-CompactReichMoore( double spi, double ap, bool lad,
-                   CompactReichMooreUncertainties&& parameters,
-                   CompactCorrelationMatrix&& matrix ) :
+CompactRMatrixLimited( bool ifg, long njs,
+                       CompactRMatrixLimitedUncertainties&& parameters,
+                       CompactCorrelationMatrix&& matrix ) :
   // no need for a try ... catch: nothing can go wrong here
-  CompactCovarianceBase( spi, ap,
-                         static_cast< long >( lad ), 0,
+  CompactCovarianceBase( 0., 0.,
+                         static_cast< long >( ifg ), njs,
                          std::move( parameters ),
                          std::move( matrix ) ) {
 
     Log::info( "Encountered error while constructing resonance and covariance "
-               "parameters in the Reich-Moore representation for the compact "
+               "parameters in the R-Matrix limited representation for the compact "
                "covariance format (LCOMP = 2)" );
     throw;
   }
@@ -68,8 +66,8 @@ CompactReichMoore( double spi, double ap, bool lad,
  *  @param[in] MT           the expected MT number
  */
 template< typename Iterator >
-CompactReichMoore( Iterator& it, const Iterator& end, long& lineNumber,
-                   int MAT, int MF, int MT ) :
+CompactRMatrixLimited( Iterator& it, const Iterator& end, long& lineNumber,
+                       int MAT, int MF, int MT ) :
   // no try ... catch: exceptions will be handled in the derived class
   CompactCovarianceBase( it, end, lineNumber, MAT, MF, MT ) {
 

@@ -67,6 +67,7 @@ namespace section {
     #include "ENDFtk/section/32/151/CompactSingleLevelBreitWigner.hpp"
     #include "ENDFtk/section/32/151/CompactMultiLevelBreitWigner.hpp"
     #include "ENDFtk/section/32/151/CompactReichMoore.hpp"
+    #include "ENDFtk/section/32/151/CompactRMatrixLimited.hpp"
 
     #include "ENDFtk/section/32/151/ResonanceRange.hpp"
     #include "ENDFtk/section/32/151/Isotope.hpp"

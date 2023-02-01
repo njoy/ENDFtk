@@ -109,9 +109,11 @@ readParameters( Iterator& begin,
                                 begin, end, lineNumber, MAT, MF, MT );
             case 3 : return CompactReichMoore(
                                 begin, end, lineNumber, MAT, MF, MT );
+            case 7 : return CompactRMatrixLimited(
+                                begin, end, lineNumber, MAT, MF, MT );
             default : {
 
-              Log::error( "Encountered illegal LRF value for LCOMP = 1" );
+              Log::error( "Encountered illegal LRF value for LCOMP = 2" );
               Log::info( "LRF is equal to 1, 2, 3 or 7" );
               Log::info( "LRF value: {}", LRF );
               Log::info( "Line number: {}", lineNumber );
