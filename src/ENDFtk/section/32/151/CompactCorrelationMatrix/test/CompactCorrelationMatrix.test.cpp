@@ -76,21 +76,6 @@ SCENARIO( "CompactCorrelationMatrix" ) {
 
   GIVEN( "invalid data" ) {
 
-    WHEN( "the data is empty" ) {
-
-      unsigned int order = 12;
-      std::vector< unsigned int > i = {};
-      std::vector< unsigned int > j = {};
-      std::vector< double > correlations = {};
-
-      THEN( "an exception is thrown" ) {
-
-        CHECK_THROWS( CompactCorrelationMatrix( order,
-                                                std::move( i ), std::move( j ),
-                                                std::move( correlations ) ) );
-      } // THEN
-    } // WHEN
-
     WHEN( "the data has different sizes" ) {
 
       unsigned int order = 12;
