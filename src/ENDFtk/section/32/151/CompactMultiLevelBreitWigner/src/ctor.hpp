@@ -17,13 +17,13 @@ CompactMultiLevelBreitWigner() = default;
  */
 CompactMultiLevelBreitWigner( double spi, double ap, double dap,
                               CompactBreitWignerUncertainties&& parameters,
-                              CompactCorrelationMatrix&& matrix ) :
-  // no need for a try ... catch: nothing can go wrong here
-  CompactCovarianceBase( spi, ap, std::move( dap ), 0., 0.,
-                         std::move( parameters ), std::move( matrix ) ) {
+                              CompactCorrelationMatrix&& matrix )
+  try : CompactCovarianceBase( spi, ap, std::move( dap ), 0., 0.,
+                               std::move( parameters ), std::move( matrix ) ) {}
+  catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing resonance and covariance "
-               "parameters in the Single Level Breit-Wigner representation for "
+               "parameters in the Multi-Level Breit-Wigner representation for "
                "the compact covariance format (LCOMP = 2)" );
     throw;
   }
@@ -38,13 +38,14 @@ CompactMultiLevelBreitWigner( double spi, double ap, double dap,
  */
 CompactMultiLevelBreitWigner( double spi, double ap,
                               CompactBreitWignerUncertainties&& parameters,
-                              CompactCorrelationMatrix&& matrix ) :
+                              CompactCorrelationMatrix&& matrix )
   // no need for a try ... catch: nothing can go wrong here
-  CompactCovarianceBase( spi, ap, 0, 0, std::move( parameters ),
-                         std::move( matrix ) ) {
+  try : CompactCovarianceBase( spi, ap, 0, 0, std::move( parameters ),
+                               std::move( matrix ) ) {}
+  catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing resonance and covariance "
-               "parameters in the Single Level Breit-Wigner representation for "
+               "parameters in the Multi-Level Breit-Wigner representation for "
                "the compact covariance format (LCOMP = 2)" );
     throw;
   }
@@ -63,12 +64,12 @@ CompactMultiLevelBreitWigner( double spi, double ap,
  */
 template< typename Iterator >
 CompactMultiLevelBreitWigner( Iterator& it, const Iterator& end, long& lineNumber,
-                              int MAT, int MF, int MT ) :
-  // no try ... catch: exceptions will be handled in the derived class
-  CompactCovarianceBase( it, end, lineNumber, MAT, MF, MT ) {
+                              int MAT, int MF, int MT )
+  try : CompactCovarianceBase( it, end, lineNumber, MAT, MF, MT ) {}
+  catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing resonance and covariance "
-               "parameters in the Single Level Breit-Wigner representation for "
+               "parameters in the Multi-Level Breit-Wigner representation for "
                "the compact covariance format (LCOMP = 2)" );
     throw;
   }

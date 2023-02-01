@@ -18,11 +18,11 @@ CompactRMatrixLimited() = default;
 CompactRMatrixLimited( bool ifg, long njs,
                        ReichMooreScatteringRadiusUncertainties&& dap,
                        CompactRMatrixLimitedUncertainties&& parameters,
-                       CompactCorrelationMatrix&& matrix ) :
-  // no need for a try ... catch: nothing can go wrong here
-  CompactCovarianceBase( 0., 0., std::move( dap ),
-                         static_cast< long >( ifg ), njs,
-                         std::move( parameters ), std::move( matrix ) ) {
+                       CompactCorrelationMatrix&& matrix )
+  try : CompactCovarianceBase( 0., 0., std::move( dap ),
+                               static_cast< long >( ifg ), njs,
+                               std::move( parameters ), std::move( matrix ) ) {}
+  catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing resonance and covariance "
                "parameters in the R-Matrix limited representation for the compact "
@@ -40,12 +40,12 @@ CompactRMatrixLimited( bool ifg, long njs,
  */
 CompactRMatrixLimited( bool ifg, long njs,
                        CompactRMatrixLimitedUncertainties&& parameters,
-                       CompactCorrelationMatrix&& matrix ) :
-  // no need for a try ... catch: nothing can go wrong here
-  CompactCovarianceBase( 0., 0.,
-                         static_cast< long >( ifg ), njs,
-                         std::move( parameters ),
-                         std::move( matrix ) ) {
+                       CompactCorrelationMatrix&& matrix )
+  try : CompactCovarianceBase( 0., 0.,
+                               static_cast< long >( ifg ), njs,
+                               std::move( parameters ),
+                               std::move( matrix ) ) {}
+  catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing resonance and covariance "
                "parameters in the R-Matrix limited representation for the compact "
@@ -67,12 +67,12 @@ CompactRMatrixLimited( bool ifg, long njs,
  */
 template< typename Iterator >
 CompactRMatrixLimited( Iterator& it, const Iterator& end, long& lineNumber,
-                       int MAT, int MF, int MT ) :
-  // no try ... catch: exceptions will be handled in the derived class
-  CompactCovarianceBase( it, end, lineNumber, MAT, MF, MT ) {
+                       int MAT, int MF, int MT )
+  try : CompactCovarianceBase( it, end, lineNumber, MAT, MF, MT ) {}
+  catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing resonance and covariance "
-               "parameters in the Reich-Moore representation for the compact "
+               "parameters in the R-Matrix limited representation for the compact "
                "covariance format (LCOMP = 2)" );
     throw;
   }

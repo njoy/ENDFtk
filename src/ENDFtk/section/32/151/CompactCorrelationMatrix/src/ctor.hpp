@@ -75,14 +75,6 @@ public:
  */
 template< typename Iterator >
 CompactCorrelationMatrix( Iterator& it, const Iterator& end, long& lineNumber,
-                          int MAT, int MF, int MT )
-  // no try ... catch: exceptions will be handled in the derived class
-  try : CompactCorrelationMatrix( ControlRecord( it, end, lineNumber, MAT, MF, MT ),
-                                  it, end, lineNumber, MAT, MF, MT ) {}
-
-  catch ( ... ) {
-
-    Log::info( "Encountered error while constructing a compact correlation "
-               "matrix" );
-    throw;
-  }
+                          int MAT, int MF, int MT ) :
+  CompactCorrelationMatrix( ControlRecord( it, end, lineNumber, MAT, MF, MT ),
+                            it, end, lineNumber, MAT, MF, MT ) {}

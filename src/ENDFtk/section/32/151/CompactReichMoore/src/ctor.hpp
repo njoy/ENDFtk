@@ -19,11 +19,12 @@ CompactReichMoore() = default;
 CompactReichMoore( double spi, double ap, bool lad,
                    ReichMooreScatteringRadiusUncertainties&& dap,
                    CompactReichMooreUncertainties&& parameters,
-                   CompactCorrelationMatrix&& matrix ) :
+                   CompactCorrelationMatrix&& matrix )
   // no need for a try ... catch: nothing can go wrong here
-  CompactCovarianceBase( spi, ap, std::move( dap ),
+  try : CompactCovarianceBase( spi, ap, std::move( dap ),
                          static_cast< long >( lad ), 0.,
-                         std::move( parameters ), std::move( matrix ) ) {
+                         std::move( parameters ), std::move( matrix ) ) {}
+  catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing resonance and covariance "
                "parameters in the Reich-Moore representation for the compact "
@@ -42,12 +43,12 @@ CompactReichMoore( double spi, double ap, bool lad,
  */
 CompactReichMoore( double spi, double ap, bool lad,
                    CompactReichMooreUncertainties&& parameters,
-                   CompactCorrelationMatrix&& matrix ) :
-  // no need for a try ... catch: nothing can go wrong here
-  CompactCovarianceBase( spi, ap,
-                         static_cast< long >( lad ), 0,
-                         std::move( parameters ),
-                         std::move( matrix ) ) {
+                   CompactCorrelationMatrix&& matrix )
+  try : CompactCovarianceBase( spi, ap,
+                               static_cast< long >( lad ), 0,
+                               std::move( parameters ),
+                               std::move( matrix ) ) {}
+  catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing resonance and covariance "
                "parameters in the Reich-Moore representation for the compact "
@@ -69,9 +70,9 @@ CompactReichMoore( double spi, double ap, bool lad,
  */
 template< typename Iterator >
 CompactReichMoore( Iterator& it, const Iterator& end, long& lineNumber,
-                   int MAT, int MF, int MT ) :
-  // no try ... catch: exceptions will be handled in the derived class
-  CompactCovarianceBase( it, end, lineNumber, MAT, MF, MT ) {
+                   int MAT, int MF, int MT )
+  try : CompactCovarianceBase( it, end, lineNumber, MAT, MF, MT ) {}
+  catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing resonance and covariance "
                "parameters in the Reich-Moore representation for the compact "
