@@ -140,6 +140,7 @@ add_subdirectory( src/ENDFtk/section/32/151/CompactReichMooreUncertainties/test 
 add_subdirectory( src/ENDFtk/section/32/151/CompactRMatrixLimitedUncertainties/ParticlePairs/test )
 add_subdirectory( src/ENDFtk/section/32/151/CompactRMatrixLimitedUncertainties/ResonanceChannels/test )
 add_subdirectory( src/ENDFtk/section/32/151/CompactRMatrixLimitedUncertainties/ResonanceParameters/test )
+add_subdirectory( src/ENDFtk/section/32/151/CompactRMatrixLimitedUncertainties/SpinGroup/test )
 add_subdirectory( src/ENDFtk/section/33/DerivedRatioToStandard/test )
 add_subdirectory( src/ENDFtk/section/33/DerivedRedundant/test )
 add_subdirectory( src/ENDFtk/section/33/ReactionBlock/test )

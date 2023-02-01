@@ -12,7 +12,7 @@ public:
   #include "ENDFtk/section/32/151/CompactRMatrixLimitedUncertainties/ParticlePairs.hpp"
   #include "ENDFtk/section/32/151/CompactRMatrixLimitedUncertainties/ResonanceChannels.hpp"
   #include "ENDFtk/section/32/151/CompactRMatrixLimitedUncertainties/ResonanceParameters.hpp"
-//  #include "ENDFtk/section/32/151/CompactRMatrixLimitedUncertainties/SpinGroup.hpp"
+  #include "ENDFtk/section/32/151/CompactRMatrixLimitedUncertainties/SpinGroup.hpp"
 
   /* constructor */
 //  #include "ENDFtk/section/32/151/CompactRMatrixLimitedUncertainties/src/ctor.hpp"

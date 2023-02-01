@@ -56,12 +56,12 @@ public:
   /**
    *  @brief Return the number of resonances
    */
-  auto NRS() const { return this->parameters_.NRS(); }
+  auto NRSA() const { return this->parameters_.NRSA(); }
 
   /**
    *  @brief Return the number of resonances
    */
-  auto numberResonances() const { return this->NRS(); }
+  auto numberResonances() const { return this->NRSA(); }
 
   /**
    *  @brief Return the channel information
