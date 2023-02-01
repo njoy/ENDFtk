@@ -13,16 +13,16 @@ readParameters( Iterator& begin,
   Iterator start = begin;
   long current = lineNumber;
   ControlRecord cont( start, end, lineNumber, MAT, MF, MT );
-  int LCOMP = cont.L2();
 
-  switch ( LCOMP ) {
+  switch ( LRU ) {
 
-    case 0: {
+    // resolved resonances
+    case 1 : {
 
-      switch ( LRU ) {
+      int LCOMP = cont.L2();
+      switch ( LCOMP ) {
 
-        // resolved resonances
-        case 1 : {
+        case 0: {
 
           switch ( LRF ) {
 
@@ -40,22 +40,7 @@ readParameters( Iterator& begin,
             }
           }
         }
-        default : {
-
-          Log::error( "Encountered illegal LRU value" );
-          Log::info( "LRU should be 1 (resolved) for LCOMP = 0" );
-          Log::info( "LRU value: {}", LRU );
-          Log::info( "Line number: {}", lineNumber );
-          throw std::exception();
-        }
-      }
-    }
-    case 1: {
-
-      switch ( LRU ) {
-
-        // resolved resonances
-        case 1 : {
+        case 1: {
 
           switch ( LRF ) {
 
@@ -84,22 +69,7 @@ readParameters( Iterator& begin,
             }
           }
         }
-        default : {
-
-          Log::error( "Encountered illegal LRU value" );
-          Log::info( "LRU should be 1 (resolved) for LCOMP = 1" );
-          Log::info( "LRU value: {}", LRU );
-          Log::info( "Line number: {}", lineNumber );
-          throw std::exception();
-        }
-      }
-    }
-    case 2 : {
-
-      switch ( LRU ) {
-
-        // resolved resonances
-        case 1 : {
+        case 2 : {
 
           switch ( LRF ) {
 
@@ -123,19 +93,26 @@ readParameters( Iterator& begin,
         }
         default : {
 
-          Log::error( "Encountered illegal LRU value" );
-          Log::info( "LRU should be 1 (resolved) for LCOMP = 2" );
-          Log::info( "LRU value: {}", LRU );
+          Log::error( "Encountered illegal LCOMP value" );
+          Log::info( "LCOMP is either 0 (limited), 1 (general) or 2 (compact)" );
+          Log::info( "LCOMP value: {}", LCOMP );
           Log::info( "Line number: {}", lineNumber );
           throw std::exception();
         }
       }
     }
+    case 2: {
+
+      Log::error( "Encountered unsupported LRU value" );
+      Log::info( "LRU value: {}", LRU );
+      Log::info( "Line number: {}", lineNumber );
+      throw std::exception();
+    }
     default : {
 
-      Log::error( "Encountered illegal LCOMP value" );
-      Log::info( "LCOMP is either 0 (limited), 1 (general) or 2 (compact)" );
-      Log::info( "LCOMP value: {}", LCOMP );
+      Log::error( "Encountered illegal LRU value" );
+      Log::info( "LRU should be 1 (resolved) or 2 (unresolved)" );
+      Log::info( "LRU value: {}", LRU );
       Log::info( "Line number: {}", lineNumber );
       throw std::exception();
     }
