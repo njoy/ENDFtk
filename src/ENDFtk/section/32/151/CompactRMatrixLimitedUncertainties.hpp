@@ -22,7 +22,7 @@ private:
   std::vector< SpinGroup > spin_groups_;
 
   /* auxiliary functions */
-  #include "ENDFtk/section/32/151/RMatrixLimited/src/verifySize.hpp"
+  #include "ENDFtk/section/32/151/CompactRMatrixLimitedUncertainties/src/verifySize.hpp"
 
 public:
 
