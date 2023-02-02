@@ -60,6 +60,6 @@ CompactRMatrixLimitedUncertainties(
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing R matrix limited "
-               "resonance parameters" );
+               "resonance parameter uncertainties" );
     throw;
   }
