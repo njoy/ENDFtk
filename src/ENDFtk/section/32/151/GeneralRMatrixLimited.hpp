@@ -18,7 +18,6 @@ class GeneralRMatrixLimited :
 protected:
 
   /* auxiliary functions */
-  // blatantly taken from from GeneralSingleLevelBreitWigner
   #include "ENDFtk/section/32/151/GeneralRMatrixLimited/src/NC.hpp"
   #include "ENDFtk/section/32/151/GeneralRMatrixLimited/src/print.hpp"
   #include "ENDFtk/section/32/151/GeneralRMatrixLimited/src/read.hpp"

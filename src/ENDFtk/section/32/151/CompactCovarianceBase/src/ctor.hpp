@@ -9,10 +9,7 @@ CompactCovarianceBase( double spi, double ap, long l1, long n1,
                        CompactCorrelationMatrix&& matrix ) :
     // no need for a try ... catch: nothing can go wrong here
     spi_( spi ), ap_( ap ), l1_( n1 ), n1_( l1 ), dap_( dap ),
-    uncertainties_( std::move( uncertainties ) ), matrix_( std::move( matrix ) ) {
-
-//      verifySize( this->NSRS(), this->NLRS(), this->LRU() );
-    }
+    uncertainties_( std::move( uncertainties ) ), matrix_( std::move( matrix ) ) {}
 
 public:
 //! @todo pybind11 variant needs default constructor workaround
