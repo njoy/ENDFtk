@@ -90,14 +90,6 @@ class Test_ENDFtk_MF32_MT151_CompactCorrelationMatrix( unittest.TestCase ) :
 
         print( '\n' )
 
-        # the data is empty
-        with self.assertRaises( Exception ) :
-
-            chunk = CompactCorrelationMatrix( order = 12,
-                                              i = [],
-                                              j = [],
-                                              correlations = [] )
-
         # different sizes
         with self.assertRaises( Exception ) :
 

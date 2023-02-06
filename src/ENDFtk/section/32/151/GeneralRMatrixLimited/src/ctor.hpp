@@ -36,9 +36,9 @@ GeneralRMatrixLimited() = default;
  *  @param[in] nls       the number of l values
  *  @param[in] cshort    the short range covariance blocks
  */
-GeneralRMatrixLimited( std::vector< ShortRangeRMatrixLimitedBlock >&& cshort ) :
-  // no need for a try ... catch: nothing can go wrong here
-  GeneralCovarianceBase( 0., 0., 0, std::move( cshort ), {} ) {
+GeneralRMatrixLimited( std::vector< ShortRangeRMatrixLimitedBlock >&& cshort )
+  try : GeneralCovarianceBase( 0., 0., 0, std::move( cshort ), {} ) {}
+  catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing resonance and covariance "
                "parameters in the R-matrix limited representation for the general "
@@ -60,9 +60,9 @@ GeneralRMatrixLimited( std::vector< ShortRangeRMatrixLimitedBlock >&& cshort ) :
  */
 template< typename Iterator >
 GeneralRMatrixLimited( Iterator& it, const Iterator& end, long& lineNumber,
-                       int MAT, int MF, int MT ) :
-  // no try ... catch: exceptions will be handled in the derived class
-  GeneralCovarianceBase( it, end, lineNumber, MAT, MF, MT ) {
+                       int MAT, int MF, int MT )
+  try : GeneralCovarianceBase( it, end, lineNumber, MAT, MF, MT ) {}
+  catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing resonance and covariance "
                "parameters in the R-matrix limited representation for the general "
