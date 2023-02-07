@@ -183,7 +183,7 @@ public:
   /**
    *  @brief Return the average competitive width values.
    */
-  auto averageCompetitiveWidths() const { return this->GF(); }
+  auto averageCompetitiveWidths() const { return this->GX(); }
 
   using ListRecord::NC;
   using ListRecord::print;
