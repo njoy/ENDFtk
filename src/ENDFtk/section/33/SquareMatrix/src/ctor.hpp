@@ -16,7 +16,7 @@ SquareMatrix( ListRecord&& list ) :
 
     verifyLB( this->LB() );
     verifySize( this->LS(), this->NE(), this->NT() );
-};
+}
 
 /**
  *  @brief Constructor (LB=5)
