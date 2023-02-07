@@ -24,7 +24,6 @@ class CompactCovarianceBase {
   CompactCorrelationMatrix matrix_;
 
   /* auxiliary functions */
-//  #include "ENDFtk/section/32/151/CompactCovarianceBase/src/verifySize.hpp"
 
 protected:
 
