@@ -26,12 +26,10 @@ private:
 
   /* auxiliary functions */
 
-protected:
+public:
 
   /* constructor */
-//  #include "ENDFtk/section/32/151/CompactCovarianceBase/src/ctor.hpp"
-
-public:
+  #include "ENDFtk/section/32/151/UnresolvedRelativeCovariances/src/ctor.hpp"
 
   /* get methods */
 
@@ -89,6 +87,16 @@ public:
   double scatteringRadius() const { return this->AP(); }
 
   /**
+   *  @brief Return the number of l values for which data is available
+   */
+  int NLS() const { return this->lvalues_.size(); }
+
+  /**
+   *  @brief Return the number of l values for which data is available
+   */
+  int numberLValues() const { return this->NLS(); }
+
+  /**
    *  @brief Return the resonance parameter uncertainties
    */
   auto lValues() const {
@@ -104,6 +112,6 @@ public:
     return this->matrix_;
   }
 
-//  #include "ENDFtk/section/32/151/UnresolvedRelativeCovariances/src/NC.hpp"
-//  #include "ENDFtk/section/32/151/UnresolvedRelativeCovariances/src/print.hpp"
+  #include "ENDFtk/section/32/151/UnresolvedRelativeCovariances/src/NC.hpp"
+  #include "ENDFtk/section/32/151/UnresolvedRelativeCovariances/src/print.hpp"
 };
