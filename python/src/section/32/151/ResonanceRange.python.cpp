@@ -113,18 +113,6 @@ void wrapResonanceRange( python::module& module, python::module& ) {
   )
   .def_property_readonly(
 
-    "LCOMP",
-    &Component::LCOMP,
-    "The covariance representation"
-  )
-  .def_property_readonly(
-
-    "covariance_representation",
-    &Component::covarianceRepresentation,
-    "The covariance representation"
-  )
-  .def_property_readonly(
-
     "NRO",
     &Component::NRO,
     "Flag to indicate whether the scattering radius is energy dependent or not"
