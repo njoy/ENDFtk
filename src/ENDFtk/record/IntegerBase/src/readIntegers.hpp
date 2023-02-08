@@ -3,8 +3,8 @@ static std::vector< int > readIntegers( Iterator& it, const Iterator& end ) {
 
   std::vector< int > sequence;
 
-  // NDIGIT == 2 : there's a space
-  if ( NDIGIT ==  2 ) { ++it; }
+  // NDIGIT != 6 : there's a space
+  if ( NDIGIT != 6 ) { ++it; }
 
   // read N ints of length NDIGIT + 1
   for ( unsigned int i = 0; i < N; ++i ) {
