@@ -144,6 +144,7 @@ add_subdirectory( src/ENDFtk/section/32/151/CompactRMatrixLimitedUncertainties/S
 add_subdirectory( src/ENDFtk/section/32/151/CompactRMatrixLimitedUncertainties/test )
 add_subdirectory( src/ENDFtk/section/32/151/UnresolvedRelativeCovariances/JValue/test )
 add_subdirectory( src/ENDFtk/section/32/151/UnresolvedRelativeCovariances/LValue/test )
+add_subdirectory( src/ENDFtk/section/32/151/UnresolvedRelativeCovariances/CovarianceMatrix/test )
 add_subdirectory( src/ENDFtk/section/33/DerivedRatioToStandard/test )
 add_subdirectory( src/ENDFtk/section/33/DerivedRedundant/test )
 add_subdirectory( src/ENDFtk/section/33/ReactionBlock/test )

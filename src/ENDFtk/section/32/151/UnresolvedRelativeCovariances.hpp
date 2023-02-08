@@ -14,7 +14,7 @@ public:
 
   #include "ENDFtk/section/32/151/UnresolvedRelativeCovariances/JValue.hpp"
   #include "ENDFtk/section/32/151/UnresolvedRelativeCovariances/LValue.hpp"
-//  #include "ENDFtk/section/32/151/UnresolvedRelativeCovariances/CovarianceMatrix.hpp"
+  #include "ENDFtk/section/32/151/UnresolvedRelativeCovariances/CovarianceMatrix.hpp"
 
 private:
 
@@ -22,7 +22,7 @@ private:
   double spi_;
   double ap_;
   std::vector< LValue > lvalues_;
-//  CovarianceMatrix matrix_;
+  CovarianceMatrix matrix_;
 
   /* auxiliary functions */
 
@@ -96,13 +96,13 @@ public:
     return ranges::cpp20::views::all( this->lvalues_ );
   }
 
-//  /**
-//   *  @brief Return the correlation matrix
-//   */
-//  const CovarianceMatrix& covarianceMatrix() const {
-//
-//    return this->matrix_;
-//  }
+  /**
+   *  @brief Return the correlation matrix
+   */
+  const CovarianceMatrix& covarianceMatrix() const {
+
+    return this->matrix_;
+  }
 
 //  #include "ENDFtk/section/32/151/UnresolvedRelativeCovariances/src/NC.hpp"
 //  #include "ENDFtk/section/32/151/UnresolvedRelativeCovariances/src/print.hpp"
