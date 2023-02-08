@@ -37,12 +37,12 @@ namespace section {
 
     #include "ENDFtk/section/32/151/ScatteringRadiusCovariances.hpp"
 
+    // resolved covariance data components
     // LCOMP = 0 components
     #include "ENDFtk/section/32/151/LimitedBreitWignerLValue.hpp"
     #include "ENDFtk/section/32/151/LimitedCovarianceBase.hpp"
     #include "ENDFtk/section/32/151/LimitedSingleLevelBreitWigner.hpp"
     #include "ENDFtk/section/32/151/LimitedMultiLevelBreitWigner.hpp"
-
     // LCOMP = 1 components
     #include "ENDFtk/section/32/151/ShortRangeBreitWignerReichMooreBlockBase.hpp"
     #include "ENDFtk/section/32/151/ShortRangeBreitWignerBlock.hpp"
@@ -57,7 +57,6 @@ namespace section {
     #include "ENDFtk/section/32/151/GeneralMultiLevelBreitWigner.hpp"
     #include "ENDFtk/section/32/151/GeneralReichMoore.hpp"
     #include "ENDFtk/section/32/151/GeneralRMatrixLimited.hpp"
-
     // LCOMP = 2 components
     #include "ENDFtk/section/32/151/CompactCorrelationMatrix.hpp"
     #include "ENDFtk/section/32/151/CompactCovarianceBase.hpp"
@@ -68,6 +67,9 @@ namespace section {
     #include "ENDFtk/section/32/151/CompactMultiLevelBreitWigner.hpp"
     #include "ENDFtk/section/32/151/CompactReichMoore.hpp"
     #include "ENDFtk/section/32/151/CompactRMatrixLimited.hpp"
+
+    // unresolved covariance components
+    #include "ENDFtk/section/32/151/UnresolvedRelativeCovariances.hpp"
 
     #include "ENDFtk/section/32/151/ResonanceRange.hpp"
     #include "ENDFtk/section/32/151/Isotope.hpp"
