@@ -167,13 +167,15 @@ void wrapCompactSingleLevelBreitWigner( python::module& module, python::module& 
   .def_property_readonly(
 
     "uncertainties",
-    [] ( const Component& self ) { return self.uncertainties(); },
+    [] ( const Component& self ) -> const CompactBreitWignerUncertainties&
+       { return self.uncertainties(); },
     "The resonance parameter uncertainties"
   )
   .def_property_readonly(
 
     "correlation_matrix",
-    [] ( const Component& self ) { return self.correlationMatrix(); },
+    [] ( const Component& self ) -> const CompactCorrelationMatrix&
+       { return self.correlationMatrix(); },
     "The correlation matrix"
   );
 

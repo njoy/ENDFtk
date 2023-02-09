@@ -74,10 +74,6 @@ class Test_ENDFtk_MF32_MT151_CompactSingleLevelBreitWigner( unittest.TestCase ) 
             self.assertEqual( 2, len( chunk.uncertainties.DGF ) )
             self.assertEqual( 2, len( chunk.uncertainties.fission_width_uncertainties ) )
 
-            print( chunk.uncertainties.ER.to_list() )
-            print( chunk.uncertainties.ER.copy() )
-            unc = chunk.uncertainties
-            print( unc.ER.to_list() )
             self.assertAlmostEqual( -8.684388e+3, chunk.uncertainties.ER[0] )
             self.assertAlmostEqual( -5.815640e+3, chunk.uncertainties.ER[1] )
             self.assertAlmostEqual( -8.684388e+3, chunk.uncertainties.resonance_energies[0] )
