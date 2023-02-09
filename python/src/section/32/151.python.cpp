@@ -28,6 +28,7 @@ void wrapGeneralReichMoore( python::module&, python::module& );
 void wrapGeneralRMatrixLimited( python::module&, python::module& );
 void wrapCompactCorrelationMatrix( python::module&, python::module& );
 void wrapCompactBreitWignerUncertainties( python::module&, python::module& );
+void wrapCompactSingleLevelBreitWigner( python::module&, python::module& );
 void wrapResonanceRange( python::module&, python::module& );
 void wrapIsotope( python::module&, python::module& );
 
@@ -80,6 +81,7 @@ void wrapSection_32_151( python::module& module, python::module& viewmodule ) {
   mf32::wrapGeneralRMatrixLimited( submodule, viewmodule );
   mf32::wrapCompactCorrelationMatrix( submodule, viewmodule );
   mf32::wrapCompactBreitWignerUncertainties( submodule, viewmodule );
+  mf32::wrapCompactSingleLevelBreitWigner( submodule, viewmodule );
   mf32::wrapResonanceRange( submodule, viewmodule );
   mf32::wrapIsotope( submodule, viewmodule );
 
