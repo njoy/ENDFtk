@@ -33,6 +33,7 @@ void wrapCompactSingleLevelBreitWigner( python::module&, python::module& );
 void wrapCompactMultiLevelBreitWigner( python::module&, python::module& );
 void wrapCompactReichMoore( python::module&, python::module& );
 void wrapParticlePairs( python::module&, python::module& );
+void wrapResonanceChannels( python::module&, python::module& );
 void wrapResonanceRange( python::module&, python::module& );
 void wrapIsotope( python::module&, python::module& );
 
@@ -90,6 +91,7 @@ void wrapSection_32_151( python::module& module, python::module& viewmodule ) {
   mf32::wrapCompactMultiLevelBreitWigner( submodule, viewmodule );
   mf32::wrapCompactReichMoore( submodule, viewmodule );
   mf32::wrapParticlePairs( submodule, viewmodule );
+  mf32::wrapResonanceChannels( submodule, viewmodule );
   mf32::wrapResonanceRange( submodule, viewmodule );
   mf32::wrapIsotope( submodule, viewmodule );
 

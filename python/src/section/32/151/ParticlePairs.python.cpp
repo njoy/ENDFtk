@@ -10,11 +10,13 @@
 // namespace aliases
 namespace python = pybind11;
 
+namespace mf32 {
+
 void wrapParticlePairs( python::module& module, python::module& ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 32, 151 >;
-  using Component = Section::CompactRMatrixLimited::ParticlePairs;
+  using Component = Section::CompactRMatrixLimitedUncertainties::ParticlePairs;
 
   // wrap views created by this section
 
@@ -244,3 +246,5 @@ void wrapParticlePairs( python::module& module, python::module& ) {
   // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }
+
+} // namespace mf32
