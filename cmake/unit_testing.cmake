@@ -139,6 +139,7 @@ add_subdirectory( src/ENDFtk/section/32/151/CompactReichMooreUncertainties/Reson
 add_subdirectory( src/ENDFtk/section/32/151/CompactReichMooreUncertainties/test )
 add_subdirectory( src/ENDFtk/section/32/151/CompactSingleLevelBreitWigner/test )
 add_subdirectory( src/ENDFtk/section/32/151/CompactMultiLevelBreitWigner/test )
+add_subdirectory( src/ENDFtk/section/32/151/CompactReichMoore/test )
 add_subdirectory( src/ENDFtk/section/32/151/CompactRMatrixLimitedUncertainties/ParticlePairs/test )
 add_subdirectory( src/ENDFtk/section/32/151/CompactRMatrixLimitedUncertainties/ResonanceChannels/test )
 add_subdirectory( src/ENDFtk/section/32/151/CompactRMatrixLimitedUncertainties/ResonanceParameters/test )

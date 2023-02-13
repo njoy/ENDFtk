@@ -45,7 +45,7 @@ std::vector< std::tuple< unsigned int, unsigned int,
       }
       else {
 
-        return -std::floor( value );
+        return -std::floor( std::abs( value ) );
       }
     };
 

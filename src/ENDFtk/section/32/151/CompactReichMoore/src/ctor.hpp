@@ -37,7 +37,7 @@ CompactReichMoore( double spi, double ap, bool lad,
  *
  *  @param[in] spi       the target spin value
  *  @param[in] ap        the scattering radius
- *  @param[in] lad           the angular distribution flag
+ *  @param[in] lad       the angular distribution flag
  *  @param[in] cshort    the short range covariance blocks
  *  @param[in] clong     the long range covariance blocks
  */

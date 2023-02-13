@@ -27,17 +27,17 @@ public:
  *  @param[in] dgfb       the second fission width uncertainties (NRSA values)
  */
 CompactReichMooreUncertainties( double awri, double apl,
-                                 std::vector< double >&& energies,
-                                 std::vector< double >&& spins,
-                                 std::vector< double >&& gn,
-                                 std::vector< double >&& gg,
-                                 std::vector< double >&& gfa,
-                                 std::vector< double >&& gfb,
-                                 std::vector< double >&& der,
-                                 std::vector< double >&& dgn,
-                                 std::vector< double >&& dgg,
-                                 std::vector< double >&& dgfa,
-                                 std::vector< double >&& dgfb ) :
+                                std::vector< double >&& energies,
+                                std::vector< double >&& spins,
+                                std::vector< double >&& gn,
+                                std::vector< double >&& gg,
+                                std::vector< double >&& gfa,
+                                std::vector< double >&& gfb,
+                                std::vector< double >&& der,
+                                std::vector< double >&& dgn,
+                                std::vector< double >&& dgg,
+                                std::vector< double >&& dgfa,
+                                std::vector< double >&& dgfb ) :
   // no try ... catch: exceptions will be handled in the derived class
   CompactReichMooreUncertainties(
           ListRecord( awri, apl, 0, 0, energies.size(),
