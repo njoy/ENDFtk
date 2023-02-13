@@ -128,6 +128,8 @@ void verifyChunk( const CompactReichMoore& chunk ) {
   CHECK( 2.5 == Approx( chunk.spin() ) );
   CHECK( 0.962 == Approx( chunk.AP() ) );
   CHECK( 0.962 == Approx( chunk.scatteringRadius() ) );
+  CHECK( false == chunk.LAD() );
+  CHECK( false == chunk.scatteringRadiusUncertainty() );
 
   CHECK( std::nullopt == chunk.DAP() );
   CHECK( std::nullopt == chunk.scatteringRadiusUncertainty() );

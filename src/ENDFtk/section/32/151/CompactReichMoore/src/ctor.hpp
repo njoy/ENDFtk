@@ -35,11 +35,12 @@ CompactReichMoore( double spi, double ap, bool lad,
 /**
  *  @brief Constructor without scattering radius uncertainty
  *
- *  @param[in] spi       the target spin value
- *  @param[in] ap        the scattering radius
- *  @param[in] lad       the angular distribution flag
- *  @param[in] cshort    the short range covariance blocks
- *  @param[in] clong     the long range covariance blocks
+ *  @param[in] spi           the target spin value
+ *  @param[in] ap            the scattering radius
+ *  @param[in] lad           the angular distribution flag
+ *  @param[in] dap           the scattering radius uncertainty data
+ *  @param[in] parameters    the resonance parameters and uncertainties
+ *  @param[in] matrix        the correlation matrix
  */
 CompactReichMoore( double spi, double ap, bool lad,
                    CompactReichMooreUncertainties&& parameters,
