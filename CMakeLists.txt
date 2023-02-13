@@ -171,6 +171,7 @@ pybind11_add_module( ENDFtk.python
     python/src/section/32/151/CompactSingleLevelBreitWigner.python.cpp
     python/src/section/32/151/CompactMultiLevelBreitWigner.python.cpp
     python/src/section/32/151/CompactReichMoore.python.cpp
+    python/src/section/32/151/ParticlePairs.python.cpp
     python/src/section/32/151/ResonanceRange.python.cpp
     python/src/section/32/151/Isotope.python.cpp
     python/src/section/4.python.cpp
