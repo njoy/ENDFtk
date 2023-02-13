@@ -11,6 +11,7 @@
 namespace python = pybind11;
 
 namespace mf32 {
+namespace lcomp1 {
 
 void wrapResonanceParameters( python::module& module, python::module& ) {
 
@@ -111,4 +112,5 @@ void wrapResonanceParameters( python::module& module, python::module& ) {
   addStandardComponentDefinitions< Component >( component );
 }
 
+} // namespace lcomp1
 } // namespace mf32

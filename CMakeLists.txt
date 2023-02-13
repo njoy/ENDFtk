@@ -159,8 +159,8 @@ pybind11_add_module( ENDFtk.python
     python/src/section/32/151/ShortRangeReichMooreBlock.python.cpp
     python/src/section/32/151/ShortRangeRMatrixLimitedBlock.python.cpp
     python/src/section/32/151/ReichMooreScatteringRadiusUncertainties.python.cpp
-    python/src/section/32/151/ResonanceParameters.python.cpp
-    python/src/section/32/151/CovarianceMatrix.python.cpp
+    python/src/section/32/151/LCOMP1/ResonanceParameters.python.cpp
+    python/src/section/32/151/LCOMP1/CovarianceMatrix.python.cpp
     python/src/section/32/151/GeneralSingleLevelBreitWigner.python.cpp
     python/src/section/32/151/GeneralMultiLevelBreitWigner.python.cpp
     python/src/section/32/151/GeneralReichMoore.python.cpp
@@ -171,8 +171,8 @@ pybind11_add_module( ENDFtk.python
     python/src/section/32/151/CompactSingleLevelBreitWigner.python.cpp
     python/src/section/32/151/CompactMultiLevelBreitWigner.python.cpp
     python/src/section/32/151/CompactReichMoore.python.cpp
-    python/src/section/32/151/ParticlePairs.python.cpp
-    python/src/section/32/151/ResonanceChannels.python.cpp
+    python/src/section/32/151/LCOMP2/ParticlePairs.python.cpp
+    python/src/section/32/151/LCOMP2/ResonanceChannels.python.cpp
     python/src/section/32/151/ResonanceRange.python.cpp
     python/src/section/32/151/Isotope.python.cpp
     python/src/section/4.python.cpp

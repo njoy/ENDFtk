@@ -4,7 +4,7 @@ import unittest
 # third party imports
 
 # local imports
-from ENDFtk.MF32.MT151 import ResonanceChannels
+from ENDFtk.MF32.MT151.LCOMP2 import ResonanceChannels
 
 class Test_ENDFtk_MF32_MT151_ResonanceChannels( unittest.TestCase ) :
     """Unit test for the ResonanceChannels class."""

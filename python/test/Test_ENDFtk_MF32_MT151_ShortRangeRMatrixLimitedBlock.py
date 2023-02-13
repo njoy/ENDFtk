@@ -5,8 +5,8 @@ import unittest
 
 # local imports
 from ENDFtk.MF32.MT151 import ShortRangeRMatrixLimitedBlock
-from ENDFtk.MF32.MT151 import ResonanceParameters
-from ENDFtk.MF32.MT151 import CovarianceMatrix
+from ENDFtk.MF32.MT151.LCOMP1 import ResonanceParameters
+from ENDFtk.MF32.MT151.LCOMP1 import CovarianceMatrix
 
 class Test_ENDFtk_MF32_MT151_ShortRangeRMatrixLimitedBlock( unittest.TestCase ) :
     """Unit test for the ShortRangeRMatrixLimitedBlock class."""

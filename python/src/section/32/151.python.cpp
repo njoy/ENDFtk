@@ -20,8 +20,13 @@ void wrapShortRangeBreitWignerBlock( python::module&, python::module& );
 void wrapShortRangeReichMooreBlock( python::module&, python::module& );
 void wrapShortRangeRMatrixLimitedBlock( python::module&, python::module& );
 void wrapReichMooreScatteringRadiusUncertainties( python::module&, python::module& );
-void wrapResonanceParameters( python::module&, python::module& );
-void wrapCovarianceMatrix( python::module&, python::module& );
+
+namespace lcomp1 {
+
+  void wrapResonanceParameters( python::module&, python::module& );
+  void wrapCovarianceMatrix( python::module&, python::module& );
+}
+
 void wrapGeneralSingleLevelBreitWigner( python::module&, python::module& );
 void wrapGeneralMultiLevelBreitWigner( python::module&, python::module& );
 void wrapGeneralReichMoore( python::module&, python::module& );
@@ -32,8 +37,13 @@ void wrapCompactReichMooreUncertainties( python::module&, python::module& );
 void wrapCompactSingleLevelBreitWigner( python::module&, python::module& );
 void wrapCompactMultiLevelBreitWigner( python::module&, python::module& );
 void wrapCompactReichMoore( python::module&, python::module& );
-void wrapParticlePairs( python::module&, python::module& );
-void wrapResonanceChannels( python::module&, python::module& );
+
+namespace lcomp2 {
+
+  void wrapParticlePairs( python::module&, python::module& );
+  void wrapResonanceChannels( python::module&, python::module& );
+}
+
 void wrapResonanceRange( python::module&, python::module& );
 void wrapIsotope( python::module&, python::module& );
 
@@ -71,27 +81,55 @@ void wrapSection_32_151( python::module& module, python::module& viewmodule ) {
       "any_view< LongRangeCovarianceBlock, random_access >" );
 
   // wrap components
+
+  // LCOMP = 0: limited or compatible resolved resonance covariances
+
   mf32::wrapLimitedBreitWignerLValue( submodule, viewmodule );
   mf32::wrapLimitedSingleLevelBreitWigner( submodule, viewmodule );
   mf32::wrapLimitedMultiLevelBreitWigner( submodule, viewmodule );
+
+  // LCOMP = 1: general resolved resonance covariances
+
+  // create the submodule for LCOMP = 1 components
+  python::module lcomp1 = submodule.def_submodule(
+
+    "LCOMP1",
+    "LCOMP1 - general resolved resonance covariance components"
+  );
+
+  mf32::lcomp1::wrapResonanceParameters( lcomp1, viewmodule );
+  mf32::lcomp1::wrapCovarianceMatrix( lcomp1, viewmodule );
+
   mf32::wrapShortRangeBreitWignerBlock( submodule, viewmodule );
   mf32::wrapShortRangeReichMooreBlock( submodule, viewmodule );
   mf32::wrapShortRangeRMatrixLimitedBlock( submodule, viewmodule );
   mf32::wrapReichMooreScatteringRadiusUncertainties( submodule, viewmodule );
-  mf32::wrapResonanceParameters( submodule, viewmodule );
-  mf32::wrapCovarianceMatrix( submodule, viewmodule );
   mf32::wrapGeneralSingleLevelBreitWigner( submodule, viewmodule );
   mf32::wrapGeneralMultiLevelBreitWigner( submodule, viewmodule );
   mf32::wrapGeneralReichMoore( submodule, viewmodule );
   mf32::wrapGeneralRMatrixLimited( submodule, viewmodule );
+
+  // LCOMP = 1: general resolved resonance covariances
+
+  // create the submodule for LCOMP = 2 components
+  python::module lcomp2 = submodule.def_submodule(
+
+    "LCOMP2",
+    "LCOMP2 - compact resolved resonance covariance components"
+  );
+
+  mf32::lcomp2::wrapParticlePairs( lcomp2, viewmodule );
+  mf32::lcomp2::wrapResonanceChannels( lcomp2, viewmodule );
+
   mf32::wrapCompactCorrelationMatrix( submodule, viewmodule );
   mf32::wrapCompactBreitWignerUncertainties( submodule, viewmodule );
   mf32::wrapCompactReichMooreUncertainties( submodule, viewmodule );
   mf32::wrapCompactSingleLevelBreitWigner( submodule, viewmodule );
   mf32::wrapCompactMultiLevelBreitWigner( submodule, viewmodule );
   mf32::wrapCompactReichMoore( submodule, viewmodule );
-  mf32::wrapParticlePairs( submodule, viewmodule );
-  mf32::wrapResonanceChannels( submodule, viewmodule );
+
+  // resonance range and isotope components
+
   mf32::wrapResonanceRange( submodule, viewmodule );
   mf32::wrapIsotope( submodule, viewmodule );
 

@@ -4,7 +4,7 @@ import unittest
 # third party imports
 
 # local imports
-from ENDFtk.MF32.MT151 import ParticlePairs
+from ENDFtk.MF32.MT151.LCOMP2 import ParticlePairs
 
 class Test_ENDFtk_MF32_MT151_ParticlePairs( unittest.TestCase ) :
     """Unit test for the ParticlePairs class."""
