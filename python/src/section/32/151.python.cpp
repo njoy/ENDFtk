@@ -42,6 +42,7 @@ namespace lcomp2 {
 
   void wrapParticlePairs( python::module&, python::module& );
   void wrapResonanceChannels( python::module&, python::module& );
+  void wrapResonanceParameters( python::module&, python::module& );
 }
 
 void wrapResonanceRange( python::module&, python::module& );
@@ -109,7 +110,7 @@ void wrapSection_32_151( python::module& module, python::module& viewmodule ) {
   mf32::wrapGeneralReichMoore( submodule, viewmodule );
   mf32::wrapGeneralRMatrixLimited( submodule, viewmodule );
 
-  // LCOMP = 1: general resolved resonance covariances
+  // LCOMP = 2: comapct resolved resonance covariances
 
   // create the submodule for LCOMP = 2 components
   python::module lcomp2 = submodule.def_submodule(
@@ -120,6 +121,7 @@ void wrapSection_32_151( python::module& module, python::module& viewmodule ) {
 
   mf32::lcomp2::wrapParticlePairs( lcomp2, viewmodule );
   mf32::lcomp2::wrapResonanceChannels( lcomp2, viewmodule );
+  mf32::lcomp2::wrapResonanceParameters( lcomp2, viewmodule );
 
   mf32::wrapCompactCorrelationMatrix( submodule, viewmodule );
   mf32::wrapCompactBreitWignerUncertainties( submodule, viewmodule );

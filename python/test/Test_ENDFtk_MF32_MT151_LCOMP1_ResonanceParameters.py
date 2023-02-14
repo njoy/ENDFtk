@@ -5,7 +5,7 @@ import unittest
 
 # local imports
 from ENDFtk.MF32.MT151.LCOMP1 import ResonanceParameters
-
+ 
 class Test_ENDFtk_MF32_MT151_ResonanceParameters( unittest.TestCase ) :
     """Unit test for the ResonanceParameters class."""
 

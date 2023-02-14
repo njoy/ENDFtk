@@ -12,10 +12,10 @@ public:
 /**
  *  @brief Constructor
  *
- *  @param[in] energies      the resonance energies (NRS values)
- *  @param[in] parameters    the resonance parameters (NRS times NCH values)
- *  @param[in] denergies     the resonance energy uncertainties (NRS values)
- *  @param[in] dparameters   the resonance parameter uncertainties (NRS times
+ *  @param[in] energies      the resonance energies (NRSA values)
+ *  @param[in] parameters    the resonance parameters (NRSA times NCH values)
+ *  @param[in] denergies     the resonance energy uncertainties (NRSA values)
+ *  @param[in] dparameters   the resonance parameter uncertainties (NRSA times
  *                           NCH values)
  */
 ResonanceParameters( std::vector< double >&& energies,
