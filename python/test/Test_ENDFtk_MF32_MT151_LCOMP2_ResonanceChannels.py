@@ -6,7 +6,7 @@ import unittest
 # local imports
 from ENDFtk.MF32.MT151.LCOMP2 import ResonanceChannels
 
-class Test_ENDFtk_MF32_MT151_ResonanceChannels( unittest.TestCase ) :
+class Test_ENDFtk_MF32_MT151_LCOMP2_ResonanceChannels( unittest.TestCase ) :
     """Unit test for the ResonanceChannels class."""
 
     chunk = ( ' 5.000000-1 0.000000+0          0          0         12          2262532151     \n'

@@ -6,7 +6,7 @@ import unittest
 # local imports
 from ENDFtk.MF32.MT151.LCOMP2 import ParticlePairs
 
-class Test_ENDFtk_MF32_MT151_ParticlePairs( unittest.TestCase ) :
+class Test_ENDFtk_MF32_MT151_LCOMP2_ParticlePairs( unittest.TestCase ) :
     """Unit test for the ParticlePairs class."""
 
     chunk = ( ' 0.000000+0 0.000000+0          2          1         24          4262532151     \n'

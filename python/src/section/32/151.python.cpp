@@ -43,6 +43,7 @@ namespace lcomp2 {
   void wrapParticlePairs( python::module&, python::module& );
   void wrapResonanceChannels( python::module&, python::module& );
   void wrapResonanceParameters( python::module&, python::module& );
+  void wrapSpinGroup( python::module&, python::module& );
 }
 
 void wrapResonanceRange( python::module&, python::module& );
@@ -122,6 +123,7 @@ void wrapSection_32_151( python::module& module, python::module& viewmodule ) {
   mf32::lcomp2::wrapParticlePairs( lcomp2, viewmodule );
   mf32::lcomp2::wrapResonanceChannels( lcomp2, viewmodule );
   mf32::lcomp2::wrapResonanceParameters( lcomp2, viewmodule );
+  mf32::lcomp2::wrapSpinGroup( lcomp2, viewmodule );
 
   mf32::wrapCompactCorrelationMatrix( submodule, viewmodule );
   mf32::wrapCompactBreitWignerUncertainties( submodule, viewmodule );

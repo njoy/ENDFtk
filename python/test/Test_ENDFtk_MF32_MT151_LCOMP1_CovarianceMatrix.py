@@ -6,7 +6,7 @@ import unittest
 # local imports
 from ENDFtk.MF32.MT151.LCOMP1 import CovarianceMatrix
 
-class Test_ENDFtk_MF32_MT151_CovarianceMatrix( unittest.TestCase ) :
+class Test_ENDFtk_MF32_MT151_LCOMP1_CovarianceMatrix( unittest.TestCase ) :
     """Unit test for the CovarianceMatrix class."""
 
     chunk = ( ' 0.000000+0 0.000000+0          0          0         36          8102532151     \n'
