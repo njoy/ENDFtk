@@ -44,6 +44,7 @@ FetchContent_Declare( spdlog
     GIT_REPOSITORY  https://github.com/gabime/spdlog
     GIT_TAG         a51b4856377a71f81b6d74b9af459305c4c644f8
     )
+set( SPDLOG_BUILD_TESTING CACHE BOOL OFF )
 
 #######################################################################
 # Load dependencies
