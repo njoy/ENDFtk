@@ -12,15 +12,20 @@ namespace python = pybind11;
 
 namespace mf32 {
 
-void wrapCompactRMatrixLimitedUncertainties( python::module& module, python::module& ) {
+void wrapCompactRMatrixLimitedUncertainties( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 32, 151 >;
   using ParticlePairs = Section::CompactRMatrixLimitedUncertainties::ParticlePairs;
   using SpinGroup = Section::CompactRMatrixLimitedUncertainties::SpinGroup;
+  using SpinGroupRange = RandomAccessAnyView< SpinGroup >;
   using Component = Section::CompactRMatrixLimitedUncertainties;
 
   // wrap views created by this section
+  // none of these are supposed to be created directly by the user
+  wrapRandomAccessAnyViewOf< SpinGroup >(
+      viewmodule,
+      "any_view< MF32::SpinGroup, random_access >" );
 
   // create the component
   python::class_< Component > component(
@@ -67,7 +72,8 @@ void wrapCompactRMatrixLimitedUncertainties( python::module& module, python::mod
   .def_property_readonly(
 
     "spin_groups",
-    &Component::spinGroups,
+    [] ( const Component& self ) -> SpinGroupRange
+       { return self.spinGroups(); },
     "The spin groups"
   );
 
