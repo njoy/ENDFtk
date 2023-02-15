@@ -37,6 +37,7 @@ void wrapCompactReichMooreUncertainties( python::module&, python::module& );
 void wrapCompactSingleLevelBreitWigner( python::module&, python::module& );
 void wrapCompactMultiLevelBreitWigner( python::module&, python::module& );
 void wrapCompactReichMoore( python::module&, python::module& );
+void wrapCompactRMatrixLimitedUncertainties( python::module&, python::module& );
 
 namespace lcomp2 {
 
@@ -131,6 +132,7 @@ void wrapSection_32_151( python::module& module, python::module& viewmodule ) {
   mf32::wrapCompactSingleLevelBreitWigner( submodule, viewmodule );
   mf32::wrapCompactMultiLevelBreitWigner( submodule, viewmodule );
   mf32::wrapCompactReichMoore( submodule, viewmodule );
+  mf32::wrapCompactRMatrixLimitedUncertainties( submodule, viewmodule );
 
   // resonance range and isotope components
 

@@ -10,17 +10,17 @@ CompactRMatrixLimited() = default;
  *  @brief Constructor with scattering radius uncertainty
  *
  *  @param[in] ifg           flag to indicate whether or not the widths are reduced
- *  @param[in] njs           the number of spin groups
  *  @param[in] dap           the scattering radius uncertainty data
  *  @param[in] parameters    the resonance parameters and uncertainties
  *  @param[in] matrix        the correlation matrix
  */
-CompactRMatrixLimited( bool ifg, long njs,
+CompactRMatrixLimited( bool ifg,
                        ReichMooreScatteringRadiusUncertainties&& dap,
                        CompactRMatrixLimitedUncertainties&& parameters,
                        CompactCorrelationMatrix&& matrix )
   try : CompactCovarianceBase( 0., 0., std::move( dap ),
-                               static_cast< long >( ifg ), njs,
+                               static_cast< long >( ifg ),
+                               parameters.NJSX(),
                                std::move( parameters ), std::move( matrix ) ) {}
   catch ( std::exception& e ) {
 
@@ -33,16 +33,16 @@ CompactRMatrixLimited( bool ifg, long njs,
 /**
  *  @brief Constructor without scattering radius uncertainty
  *
- *  @param[in] ifg       flag to indicate whether or not the widths are reduced
- *  @param[in] njs       the number of spin groups
- *  @param[in] cshort    the short range covariance blocks
- *  @param[in] clong     the long range covariance blocks
+ *  @param[in] ifg           flag to indicate whether or not the widths are reduced
+ *  @param[in] parameters    the resonance parameters and uncertainties
+ *  @param[in] matrix        the correlation matrix
  */
-CompactRMatrixLimited( bool ifg, long njs,
+CompactRMatrixLimited( bool ifg,
                        CompactRMatrixLimitedUncertainties&& parameters,
                        CompactCorrelationMatrix&& matrix )
   try : CompactCovarianceBase( 0., 0.,
-                               static_cast< long >( ifg ), njs,
+                               static_cast< long >( ifg ),
+                               parameters.NJSX(),
                                std::move( parameters ),
                                std::move( matrix ) ) {}
   catch ( std::exception& e ) {

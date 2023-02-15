@@ -9,9 +9,6 @@ CompactRMatrixLimitedUncertainties() = default;
 /**
  *  @brief Constructor
  *
- *  @param[in] ifg      flag to indicate whether or not the widths are reduced
- *  @param[in] krl      the non relativistic kinematics flag
- *  @param[in] krm      the resonance formalism to be used
  *  @param[in] pairs    the particle pairs
  *  @param[in] groups   the spin groups
  */

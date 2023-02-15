@@ -8,7 +8,7 @@ CompactCovarianceBase( double spi, double ap, long l1, long n1,
                        ResonanceParameterUncertainties&& uncertainties,
                        CompactCorrelationMatrix&& matrix ) :
     // no need for a try ... catch: nothing can go wrong here
-    spi_( spi ), ap_( ap ), l1_( n1 ), n1_( l1 ), dap_( dap ),
+    spi_( spi ), ap_( ap ), l1_( l1 ), n1_( n1 ), dap_( dap ),
     uncertainties_( std::move( uncertainties ) ), matrix_( std::move( matrix ) ) {}
 
 public:
