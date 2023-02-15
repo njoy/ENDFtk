@@ -12,13 +12,12 @@ namespace python = pybind11;
 
 namespace mf32 {
 
-void wrapCompactReichMoore( python::module& module, python::module& ) {
+void wrapCompactRMatrixLimited( python::module& module, python::module& ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 32, 151 >;
-  using Component = Section::CompactReichMoore;
-  using ReichMooreScatteringRadiusUncertainties = Section::ReichMooreScatteringRadiusUncertainties;
-  using CompactReichMooreUncertainties = Section::CompactReichMooreUncertainties;
+  using Component = Section::CompactRMatrixLimited;
+  using CompactRMatrixLimitedUncertainties = Section::CompactRMatrixLimitedUncertainties;
   using CompactCorrelationMatrix = Section::CompactCorrelationMatrix;
 
   // wrap views created by this section
@@ -27,49 +26,44 @@ void wrapCompactReichMoore( python::module& module, python::module& ) {
   python::class_< Component > component(
 
     module,
-    "CompactReichMoore",
+    "CompactRMatrixLimited",
     "MF32 MT151 section - Reich-Moore resonance parameter covariances (LCOMP = 2)"
   );
 
   // wrap the section
   component
+//  .def(
+//
+//    python::init( [] ( bool ifg,
+//                       ReichMooreScatteringRadiusUncertainties dap,
+//                       CompactRMatrixLimitedUncertainties parameters,
+//                       CompactCorrelationMatrix matrix )
+//                     { return Component( ifg,
+//                                         std::move( dap ),
+//                                         std::move( parameters ),
+//                                         std::move( matrix ) ); } ),
+//    python::arg( "ifg" ), python::arg( "dap" ),
+//    python::arg( "parameters" ), python::arg( "matrix" ),
+//    "Initialise the component\n\n"
+//    "Arguments:\n"
+//    "    self          the component\n"
+//    "    ifg           flag to indicate whether or not the widths are reduced\n"
+//    "    dap           the scattering radius uncertainty data\n"
+//    "    parameters    the resonance parameters and uncertainties\n"
+//    "    matrix        the correlation matrix"
+//  )
   .def(
 
-    python::init( [] ( double spi, double ap, bool lad,
-                       ReichMooreScatteringRadiusUncertainties dap,
-                       CompactReichMooreUncertainties parameters,
+    python::init( [] ( bool ifg,
+                       CompactRMatrixLimitedUncertainties parameters,
                        CompactCorrelationMatrix matrix )
-                     { return Component( spi, ap, lad,
-                                         std::move( dap ),
-                                         std::move( parameters ),
+                     { return Component( ifg, std::move( parameters ),
                                          std::move( matrix ) ); } ),
-    python::arg( "spi" ), python::arg( "ap" ), python::arg( "lad" ),
-    python::arg( "dap" ), python::arg( "parameters" ), python::arg( "matrix" ),
+    python::arg( "ifg" ), python::arg( "parameters" ), python::arg( "matrix" ),
     "Initialise the component\n\n"
     "Arguments:\n"
     "    self          the component\n"
-    "    spi           the target spin value\n"
-    "    ap            the scattering radius\n"
-    "    lad           the angular distribution flag\n"
-    "    dap           the scattering radius uncertainty data\n"
-    "    parameters    the resonance parameters and uncertainties\n"
-    "    matrix        the correlation matrix"
-  )
-  .def(
-
-    python::init( [] ( double spi, double ap, bool lad,
-                       CompactReichMooreUncertainties parameters,
-                       CompactCorrelationMatrix matrix )
-                     { return Component( spi, ap, lad, std::move( parameters ),
-                                         std::move( matrix ) ); } ),
-    python::arg( "spi" ), python::arg( "ap" ), python::arg( "lad" ),
-    python::arg( "parameters" ), python::arg( "matrix" ),
-    "Initialise the component\n\n"
-    "Arguments:\n"
-    "    self          the component\n"
-    "    spi           the target spin value\n"
-    "    ap            the scattering radius\n"
-    "    lad           the angular distribution flag\n"
+    "    ifg           flag to indicate whether or not the widths are reduced\n"
     "    parameters    the resonance parameters and uncertainties\n"
     "    matrix        the correlation matrix"
   )
@@ -123,39 +117,27 @@ void wrapCompactReichMoore( python::module& module, python::module& ) {
   )
   .def_property_readonly(
 
-    "SPI",
-    [] ( const Component& self ) { return self.SPI(); },
-    "The target spin"
+    "IFG",
+    &Component::IFG,
+    "The flag to indicate whether or not the widths are reduced"
   )
   .def_property_readonly(
 
-    "spin",
-    [] ( const Component& self ) { return self.spin(); },
-    "The scattering radius"
+    "reduced_widths",
+    &Component::reducedWidths,
+    "The flag to indicate whether or not the widths are reduced"
   )
   .def_property_readonly(
 
-    "AP",
-    [] ( const Component& self ) { return self.AP(); },
-    "The scattering radius"
+    "NJS",
+    &Component::NJS,
+    "The number of spin groups"
   )
   .def_property_readonly(
 
-    "scattering_radius",
-    [] ( const Component& self ) { return self.scatteringRadius(); },
-    "The scattering radius"
-  )
-  .def_property_readonly(
-
-    "LAD",
-    &Component::LAD,
-    "The angular distribution flag"
-  )
-  .def_property_readonly(
-
-    "angular_distributions_flag",
-    &Component::angularDistributionsFlag,
-    "The angular distribution flag"
+    "number_spin_groups",
+    &Component::numberSpinGroups,
+    "The number of spin groups"
   )
   .def_property_readonly(
 
@@ -184,7 +166,7 @@ void wrapCompactReichMoore( python::module& module, python::module& ) {
   .def_property_readonly(
 
     "uncertainties",
-    [] ( const Component& self ) -> const CompactReichMooreUncertainties&
+    [] ( const Component& self ) -> const CompactRMatrixLimitedUncertainties&
        { return self.uncertainties(); },
     "The resonance parameter uncertainties"
   )

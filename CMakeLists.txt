@@ -176,6 +176,7 @@ pybind11_add_module( ENDFtk.python
     python/src/section/32/151/LCOMP2/ResonanceParameters.python.cpp
     python/src/section/32/151/LCOMP2/SpinGroup.python.cpp
     python/src/section/32/151/CompactRMatrixLimitedUncertainties.python.cpp
+    python/src/section/32/151/CompactRMatrixLimited.python.cpp
     python/src/section/32/151/ResonanceRange.python.cpp
     python/src/section/32/151/Isotope.python.cpp
     python/src/section/4.python.cpp

@@ -78,8 +78,8 @@ class Test_ENDFtk_MF32_MT151_CompactRMatrixLimitedUncertainties( unittest.TestCa
 
             self.assertAlmostEqual( 0., pairs.MA[0] )
             self.assertAlmostEqual( 1., pairs.MA[1] )
-            self.assertAlmostEqual( 0, pairs.mass_particle_A[0] )
-            self.assertAlmostEqual( 1, pairs.mass_particle_A[1] )
+            self.assertAlmostEqual( 0., pairs.mass_particle_A[0] )
+            self.assertAlmostEqual( 1., pairs.mass_particle_A[1] )
             self.assertAlmostEqual( 5.446635e+1, pairs.MB[0] )
             self.assertAlmostEqual( 5.347624e+1, pairs.MB[1] )
             self.assertAlmostEqual( 5.446635e+1, pairs.mass_particle_B[0] )
