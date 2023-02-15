@@ -152,6 +152,7 @@ pybind11_add_module( ENDFtk.python
     python/src/section/28.python.cpp
     python/src/section/3.python.cpp
     python/src/section/32/151.python.cpp
+    python/src/section/32/151/ScatteringRadiusCovariances.python.cpp
     python/src/section/32/151/LimitedBreitWignerLValue.python.cpp
     python/src/section/32/151/LimitedSingleLevelBreitWigner.python.cpp
     python/src/section/32/151/LimitedMultiLevelBreitWigner.python.cpp
