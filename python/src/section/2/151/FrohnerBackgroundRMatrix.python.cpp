@@ -10,6 +10,8 @@
 // namespace aliases
 namespace python = pybind11;
 
+namespace mf2 {
+
 void wrapFrohnerBackgroundRMatrix( python::module& module, python::module& ) {
 
   // type aliases
@@ -101,3 +103,5 @@ void wrapFrohnerBackgroundRMatrix( python::module& module, python::module& ) {
   // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }
+
+} // namespace mf2

@@ -263,12 +263,15 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
   .def(
 
     "update_directory",
-    [] ( Tape& self ) { return njoy::ENDFtk::tree::updateDirectory( self ); },
+    [] ( Tape& self, bool copy_mod = false )
+       { njoy::ENDFtk::tree::updateDirectory( self, copy_mod ); },
+    python::arg( "copy_mod" ) = false,
     "Update the MF1 MT451 directory for all materials in the tape\n\n"
     "An exception will be thrown if a material in the tape has no MF1 MT451\n"
     "section is not present, or if there was an issue parsing it.\n\n"
     "Arguments:\n"
     "    self        the tape\n"
+    "    copy_mod    copy mod numbers if available (default is False)\n"
   )
   .def(
 
