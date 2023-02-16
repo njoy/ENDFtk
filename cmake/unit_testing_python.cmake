@@ -1,0 +1,66 @@
+#######################################################################
+# Setup
+#######################################################################
+
+enable_testing()
+
+#######################################################################
+# Python unit testing
+#######################################################################
+
+message( STATUS "Adding ENDFtk Python unit testing" )
+
+add_test( NAME ENDFtk.python.ControlRecord COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_ControlRecord.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
+set_tests_properties( ENDFtk.python.ControlRecord PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
+add_test( NAME ENDFtk.python.DirectoryRecord COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_DirectoryRecord.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
+set_tests_properties( ENDFtk.python.DirectoryRecord PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
+add_test( NAME ENDFtk.python.TapeIdentification COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_TapeIdentification.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
+set_tests_properties( ENDFtk.python.TapeIdentification PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
+add_test( NAME ENDFtk.python.TabulationRecord COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_TabulationRecord.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
+set_tests_properties( ENDFtk.python.TabulationRecord PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
+add_test( NAME ENDFtk.python.InterpolationRecord COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_InterpolationRecord.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
+set_tests_properties( ENDFtk.python.InterpolationRecord PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
+add_test( NAME ENDFtk.python.ListRecord COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_ListRecord.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
+set_tests_properties( ENDFtk.python.ListRecord PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
+
+add_test( NAME ENDFtk.python.MF1.MT451.Section COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF1_MT451_Section.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
+set_tests_properties( ENDFtk.python.MF1.MT451.Section PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
+add_test( NAME ENDFtk.python.MF1.MT452.Section COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF1_MT452_Section.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
+set_tests_properties( ENDFtk.python.MF1.MT452.Section PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
+add_test( NAME ENDFtk.python.MF1.MT455.Section COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF1_MT455_Section.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
+set_tests_properties( ENDFtk.python.MF1.MT455.Section PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
+add_test( NAME ENDFtk.python.MF1.MT455.DecayConstants COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF1_MT455_DecayConstants.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
+set_tests_properties( ENDFtk.python.MF1.MT455.DecayConstants PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
+add_test( NAME ENDFtk.python.MF1.MT455.EnergyDependentConstants COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF1_MT455_EnergyDependentConstants.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
+set_tests_properties( ENDFtk.python.MF1.MT455.EnergyDependentConstants PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
+add_test( NAME ENDFtk.python.MF1.MT455.EnergyIndependentConstants COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF1_MT455_EnergyIndependentConstants.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
+set_tests_properties( ENDFtk.python.MF1.MT455.EnergyIndependentConstants PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
+add_test( NAME ENDFtk.python.MF1.MT456.Section COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF1_MT456_Section.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
+set_tests_properties( ENDFtk.python.MF1.MT456.Section PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
+add_test( NAME ENDFtk.python.MF1.MT458.Section COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF1_MT458_Section.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
+set_tests_properties( ENDFtk.python.MF1.MT458.Section PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
+add_test( NAME ENDFtk.python.MF1.MT458.EnergyReleaseComponent COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF1_MT458_EnergyReleaseComponent.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
+set_tests_properties( ENDFtk.python.MF1.MT458.EnergyReleaseComponent PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
+add_test( NAME ENDFtk.python.MF1.MT458.PolynomialComponents COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF1_MT458_PolynomialComponents.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
+set_tests_properties( ENDFtk.python.MF1.MT458.PolynomialComponents PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
+add_test( NAME ENDFtk.python.MF1.MT458.TabulatedComponents COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF1_MT458_TabulatedComponents.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
+set_tests_properties( ENDFtk.python.MF1.MT458.TabulatedComponents PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
+add_test( NAME ENDFtk.python.MF1.MT458.ThermalPointComponents COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF1_MT458_ThermalPointComponents.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
+set_tests_properties( ENDFtk.python.MF1.MT458.ThermalPointComponents PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
+add_test( NAME ENDFtk.python.MF1.MT460.ContinuousPhotons COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF1_MT460_ContinuousPhotons.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
+set_tests_properties( ENDFtk.python.MF1.MT460.ContinuousPhotons PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
+add_test( NAME ENDFtk.python.MF1.MT460.DiscretePhotonMultiplicity COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF1_MT460_DiscretePhotonMultiplicity.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
+set_tests_properties( ENDFtk.python.MF1.MT460.DiscretePhotonMultiplicity PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
+add_test( NAME ENDFtk.python.MF1.MT460.DiscretePhotons COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF1_MT460_DiscretePhotons.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
+set_tests_properties( ENDFtk.python.MF1.MT460.DiscretePhotons PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
+add_test( NAME ENDFtk.python.MF1.PolynomialMultiplicity COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF1_PolynomialMultiplicity.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
+set_tests_properties( ENDFtk.python.MF1.PolynomialMultiplicity PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
+add_test( NAME ENDFtk.python.MF1.TabulatedMultiplicity COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF1_TabulatedMultiplicity.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
+set_tests_properties( ENDFtk.python.MF1.TabulatedMultiplicity PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
+
+add_test( NAME ENDFtk.python.tree.File COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_Tree_File.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
+set_tests_properties( ENDFtk.python.tree.File PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
+add_test( NAME ENDFtk.python.tree.Material COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_Tree_Material.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
+set_tests_properties( ENDFtk.python.tree.Material PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
+add_test( NAME ENDFtk.python.tree.Tape COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_Tree_Tape.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
+set_tests_properties( ENDFtk.python.tree.Tape PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
