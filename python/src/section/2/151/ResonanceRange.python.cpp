@@ -10,6 +10,8 @@
 // namespace aliases
 namespace python = pybind11;
 
+namespace mf2 {
+
 void wrapResonanceRange( python::module& module, python::module& ) {
 
   // type aliases
@@ -152,3 +154,5 @@ void wrapResonanceRange( python::module& module, python::module& ) {
     "The number of lines in this component"
   );
 }
+
+} // namespace mf2
