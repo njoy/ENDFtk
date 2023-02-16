@@ -326,6 +326,8 @@ add_test( NAME ENDFtk.python.MF28.SubshellData COMMAND ${PYTHON_EXECUTABLE} -m u
 set_tests_properties( ENDFtk.python.MF28.SubshellData PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
 add_test( NAME ENDFtk.python.MF32.MT151.BreitWignerLValue COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF32_MT151_BreitWignerLValue.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
 set_tests_properties( ENDFtk.python.MF32.MT151.BreitWignerLValue PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
+add_test( NAME ENDFtk.python.MF32.MT151.CompactCorrelationMatrix COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF32_MT151_CompactCorrelationMatrix.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
+set_tests_properties( ENDFtk.python.MF32.MT151.CompactCorrelationMatrix PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
 add_test( NAME ENDFtk.python.MF32.MT151.CovarianceMatrix COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF32_MT151_CovarianceMatrix.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
 set_tests_properties( ENDFtk.python.MF32.MT151.CovarianceMatrix PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
 add_test( NAME ENDFtk.python.MF32.MT151.LimitedMultiLevelBreitWigner COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF32_MT151_LimitedMultiLevelBreitWigner.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
