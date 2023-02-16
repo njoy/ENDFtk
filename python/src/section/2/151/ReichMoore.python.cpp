@@ -10,6 +10,8 @@
 // namespace aliases
 namespace python = pybind11;
 
+namespace mf2 {
+
 void wrapReichMoore( python::module& module, python::module& viewmodule ) {
 
   // type aliases
@@ -156,3 +158,5 @@ void wrapReichMoore( python::module& module, python::module& viewmodule ) {
   // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }
+
+} // namespace mf2
