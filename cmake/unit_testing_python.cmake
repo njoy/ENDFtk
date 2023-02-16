@@ -296,7 +296,7 @@ add_test( NAME ENDFtk.python.MF28.Section COMMAND ${PYTHON_EXECUTABLE} -m unitte
 set_tests_properties( ENDFtk.python.MF28.Section PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
 add_test( NAME ENDFtk.python.MF28.SubshellData COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF28_SubshellData.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
 set_tests_properties( ENDFtk.python.MF28.SubshellData PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
-add_test( NAME ENDFtk.python.MF33.Section COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF33_RectangularMatrix.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
+add_test( NAME ENDFtk.python.MF33.Section COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF33_Section.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
 set_tests_properties( ENDFtk.python.MF33.Section PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
 add_test( NAME ENDFtk.python.MF33.CovariancePairs COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF33_CovariancePairs.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
 set_tests_properties( ENDFtk.python.MF33.CovariancePairs PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
