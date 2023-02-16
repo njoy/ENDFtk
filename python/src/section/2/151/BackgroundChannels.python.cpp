@@ -10,6 +10,8 @@
 // namespace aliases
 namespace python = pybind11;
 
+namespace mf2 {
+
 void wrapBackgroundChannels( python::module& module, python::module& viewmodule ) {
 
   // type aliases
@@ -109,3 +111,5 @@ void wrapBackgroundChannels( python::module& module, python::module& viewmodule 
   // no standard definitions - read constructor needs number of channels and
   // number of background matrices
 }
+
+} // namespace mf2

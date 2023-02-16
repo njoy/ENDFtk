@@ -10,6 +10,8 @@
 // namespace aliases
 namespace python = pybind11;
 
+namespace mf2 {
+
 void wrapScatteringRadius( python::module& module, python::module& ) {
 
   // type aliases
@@ -77,3 +79,5 @@ void wrapScatteringRadius( python::module& module, python::module& ) {
   // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }
+
+} // namespace mf2
