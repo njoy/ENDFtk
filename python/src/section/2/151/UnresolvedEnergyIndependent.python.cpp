@@ -10,6 +10,8 @@
 // namespace aliases
 namespace python = pybind11;
 
+namespace mf2 {
+
 void wrapUnresolvedEnergyIndependent( python::module& module, python::module& viewmodule ) {
 
   // type aliases
@@ -143,3 +145,5 @@ void wrapUnresolvedEnergyIndependent( python::module& module, python::module& vi
   // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }
+
+} // namespace mf2
