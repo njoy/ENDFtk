@@ -146,7 +146,7 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/28.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/3.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151.python.cpp
-      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/BreitWignerLValue.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/LimitedBreitWignerLValue.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/LimitedSingleLevelBreitWigner.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/LimitedMultiLevelBreitWigner.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/ShortRangeBreitWignerBlock.python.cpp
