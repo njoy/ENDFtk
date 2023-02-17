@@ -2,13 +2,13 @@
 # Setup
 #######################################################################
 
-message( STATUS "Adding ENDFtk unit testing" )
 enable_testing()
 
+#######################################################################
+# C++ unit testing
+#######################################################################
 
-#######################################################################
-# Unit testing directories
-#######################################################################
+message( STATUS "Adding ENDFtk C++ unit testing" )
 
 add_subdirectory( src/ENDFtk/ControlRecord/test )
 add_subdirectory( src/ENDFtk/DirectoryRecord/test )
