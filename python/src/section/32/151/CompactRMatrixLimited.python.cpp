@@ -17,6 +17,7 @@ void wrapCompactRMatrixLimited( python::module& module, python::module& ) {
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 32, 151 >;
   using Component = Section::CompactRMatrixLimited;
+  using OptionalScatteringRadiusUncertainties = std::optional< ReichMooreScatteringRadiusUncertainties >;
   using CompactRMatrixLimitedUncertainties = Section::CompactRMatrixLimitedUncertainties;
   using CompactCorrelationMatrix = Section::CompactCorrelationMatrix;
 
@@ -142,13 +143,15 @@ void wrapCompactRMatrixLimited( python::module& module, python::module& ) {
   .def_property_readonly(
 
     "DAP",
-    [] ( const Component& self ) { return self.DAP(); },
+    [] ( const Component& self ) -> const OptionalScatteringRadiusUncertainties&
+       { return self.DAP(); },
     "The scattering radius uncertainty"
   )
   .def_property_readonly(
 
     "scattering_radius_uncertainty",
-    [] ( const Component& self ) { return self.scatteringRadiusUncertainty(); },
+    [] ( const Component& self ) -> const OptionalScatteringRadiusUncertainties&
+       { return self.scatteringRadiusUncertainty(); },
     "The scattering radius uncertainty"
   )
   .def_property_readonly(
