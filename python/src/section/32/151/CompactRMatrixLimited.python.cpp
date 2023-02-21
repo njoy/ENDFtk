@@ -17,6 +17,7 @@ void wrapCompactRMatrixLimited( python::module& module, python::module& ) {
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 32, 151 >;
   using Component = Section::CompactRMatrixLimited;
+  using ReichMooreScatteringRadiusUncertainties = Section::ReichMooreScatteringRadiusUncertainties;
   using OptionalScatteringRadiusUncertainties = std::optional< ReichMooreScatteringRadiusUncertainties >;
   using CompactRMatrixLimitedUncertainties = Section::CompactRMatrixLimitedUncertainties;
   using CompactCorrelationMatrix = Section::CompactCorrelationMatrix;
