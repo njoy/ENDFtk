@@ -172,6 +172,7 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/LCOMP2/SpinGroup.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/CompactRMatrixLimitedUncertainties.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/CompactRMatrixLimited.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/UnresolvedCovarianceMatrix.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/UnresolvedLValue.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/ResonanceRange.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/Isotope.python.cpp

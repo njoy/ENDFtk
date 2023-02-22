@@ -22,6 +22,7 @@ CovarianceMatrix() = default;
 /**
  *  @brief Constructor
  *
+ *  @param[in] mpar       the number of average parameters with covariance data
  *  @param[in] values     the values of the upper diagonal covaraince matrix
  */
 CovarianceMatrix( unsigned int mpar, std::vector< double >&& values ) :
