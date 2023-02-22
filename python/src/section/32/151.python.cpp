@@ -49,6 +49,8 @@ namespace lcomp2 {
   void wrapSpinGroup( python::module&, python::module& );
 }
 
+void wrapUnresolvedLValue( python::module&, python::module& );
+
 void wrapResonanceRange( python::module&, python::module& );
 void wrapIsotope( python::module&, python::module& );
 
@@ -138,6 +140,9 @@ void wrapSection_32_151( python::module& module, python::module& viewmodule ) {
   mf32::wrapCompactReichMoore( submodule, viewmodule );
   mf32::wrapCompactRMatrixLimitedUncertainties( submodule, viewmodule );
   mf32::wrapCompactRMatrixLimited( submodule, viewmodule );
+
+  // unresolved resonance covariances
+  mf32::wrapUnresolvedLValue( submodule, viewmodule );
 
   // resonance range and isotope components
 
