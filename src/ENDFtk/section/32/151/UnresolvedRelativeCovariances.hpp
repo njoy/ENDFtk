@@ -56,7 +56,10 @@ public:
   /**
    *  @brief Return the average fission flag
    */
-  static constexpr bool LFW() { return false; }
+  bool LFW() const {
+
+    return this->covarianceMatrix().MPAR() < 5 ? false : true;
+  }
 
   /**
   *  @brief Return the average fission flag
@@ -105,7 +108,7 @@ public:
   }
 
   /**
-   *  @brief Return the correlation matrix
+   *  @brief Return the covariance matrix
    */
   const CovarianceMatrix& covarianceMatrix() const {
 

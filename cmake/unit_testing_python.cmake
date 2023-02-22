@@ -372,6 +372,8 @@ add_test( NAME ENDFtk.python.MF32.MT151.UnresolvedCovarianceMatrix COMMAND ${PYT
 set_tests_properties( ENDFtk.python.MF32.MT151.UnresolvedCovarianceMatrix PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
 add_test( NAME ENDFtk.python.MF32.MT151.UnresolvedLValue COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF32_MT151_UnresolvedLValue.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
 set_tests_properties( ENDFtk.python.MF32.MT151.UnresolvedLValue PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
+add_test( NAME ENDFtk.python.MF32.MT151.UnresolvedRelativeCovariances COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF32_MT151_UnresolvedRelativeCovariances.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
+set_tests_properties( ENDFtk.python.MF32.MT151.UnresolvedRelativeCovariances PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
 add_test( NAME ENDFtk.python.MF33.Section COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF33_Section.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
 set_tests_properties( ENDFtk.python.MF33.Section PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
 add_test( NAME ENDFtk.python.MF33.DerivedRatioToStandard COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF33_DerivedRatioToStandard.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )

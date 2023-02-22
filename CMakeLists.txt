@@ -174,6 +174,7 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/CompactRMatrixLimited.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/UnresolvedCovarianceMatrix.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/UnresolvedLValue.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/UnresolvedRelativeCovariances.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/ResonanceRange.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/Isotope.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/4.python.cpp

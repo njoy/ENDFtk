@@ -11,8 +11,8 @@ UnresolvedRelativeCovariances() = default;
  *
  *  @param[in] spi       the target spin value
  *  @param[in] ap        the scattering radius
- *  @param[in] lssf      the self-shielding only flag
  *  @param[in] lvalues   the l values and the resonance parameters
+ *  @param[in] matrix    the covariance matrix
  */
 UnresolvedRelativeCovariances( double spi, double ap,
                                std::vector< LValue >&& lvalues,
