@@ -68,7 +68,7 @@ public:
   /**
   *  @brief Return the average fission flag
   */
-  constexpr int averageFissionWidthFlag() const {
+  constexpr bool averageFissionWidthFlag() const {
 
     return this->LFW();
   }
