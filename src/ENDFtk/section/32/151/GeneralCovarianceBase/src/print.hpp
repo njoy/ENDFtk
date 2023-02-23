@@ -18,6 +18,8 @@ void print( OutputIterator& it, int MAT, int MF, int MT ) const {
 
     Derived::print( this->dap_.value(), it, MAT, MF, MT );
   }
+  ControlRecord( this->AWRI(), 0., 0, 0,
+                 this->NSRS(), this->NLRS() ).print( it, MAT, MF, MT );
   for ( const auto& cshort : this->short_ ) {
 
     Derived::print( cshort, it, MAT, MF, MT );

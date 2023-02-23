@@ -9,6 +9,7 @@ GeneralReichMoore() = default;
 /**
  *  @brief Constructor with scattering radius uncertainty
  *
+ *  @param[in] awri      the atomic mass ratio
  *  @param[in] spi       the target spin value
  *  @param[in] ap        the scattering radius
  *  @param[in] dap       the scattering radius uncertainty data
@@ -16,12 +17,12 @@ GeneralReichMoore() = default;
  *  @param[in] cshort    the short range covariance blocks
  *  @param[in] clong     the long range covariance blocks
  */
-GeneralReichMoore( double spi, double ap,
+GeneralReichMoore( double awri, double spi, double ap,
                    ReichMooreScatteringRadiusUncertainties&& dap,
                    unsigned int nls,
                    std::vector< ShortRangeReichMooreBlock >&& cshort,
                    std::vector< LongRangeCovarianceBlock >&& clong )
-  try : GeneralCovarianceBase( spi, ap, std::move( dap ), nls,
+  try : GeneralCovarianceBase( awri, spi, ap, std::move( dap ), nls,
                                std::move( cshort ), std::move( clong ) ) {}
   catch ( std::exception& e ) {
 
@@ -34,16 +35,17 @@ GeneralReichMoore( double spi, double ap,
 /**
  *  @brief Constructor without scattering radius uncertainty
  *
+ *  @param[in] awri      the atomic mass ratio
  *  @param[in] spi       the target spin value
  *  @param[in] ap        the scattering radius
  *  @param[in] nls       the number of l values
  *  @param[in] cshort    the short range covariance blocks
  *  @param[in] clong     the long range covariance blocks
  */
-GeneralReichMoore( double spi, double ap, unsigned int nls,
+GeneralReichMoore( double awri, double spi, double ap, unsigned int nls,
                    std::vector< ShortRangeReichMooreBlock >&& cshort,
                    std::vector< LongRangeCovarianceBlock >&& clong )
-  try : GeneralCovarianceBase( spi, ap, nls,
+  try : GeneralCovarianceBase( awri, spi, ap, nls,
                                std::move( cshort ), std::move( clong ) ) {}
   catch ( std::exception& e ) {
 

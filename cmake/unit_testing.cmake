@@ -132,6 +132,7 @@ add_subdirectory( src/ENDFtk/section/32/151/ShortRangeRMatrixLimitedBlock/Resona
 add_subdirectory( src/ENDFtk/section/32/151/ShortRangeRMatrixLimitedBlock/CovarianceMatrix/test )
 add_subdirectory( src/ENDFtk/section/32/151/ShortRangeRMatrixLimitedBlock/test )
 add_subdirectory( src/ENDFtk/section/32/151/ReichMooreScatteringRadiusUncertainties/test )
+add_subdirectory( src/ENDFtk/section/32/151/GeneralReichMoore/test )
 add_subdirectory( src/ENDFtk/section/32/151/CompactCorrelationMatrix/test )
 add_subdirectory( src/ENDFtk/section/32/151/CompactBreitWignerUncertainties/Resonance/test )
 add_subdirectory( src/ENDFtk/section/32/151/CompactBreitWignerUncertainties/test )

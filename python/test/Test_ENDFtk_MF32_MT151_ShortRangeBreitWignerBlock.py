@@ -9,7 +9,7 @@ from ENDFtk.MF32.MT151 import ShortRangeBreitWignerBlock
 class Test_ENDFtk_MF32_MT151_ShortRangeBreitWignerBlock( unittest.TestCase ) :
     """Unit test for the ShortRangeBreitWignerBlock class."""
 
-    chunk = ( ' 1.982069+1 0.000000+0          4          0         48          2102532151     \n'
+    chunk = ( ' 0.000000+0 0.000000+0          4          0         48          2102532151     \n'
               '-1.470000+5 5.000000-1 5.470695+2 3.680695+2 1.750000+2 3.000000+0102532151     \n'
               ' 4.730000+5 5.000000-1 1.072946+5 1.072900+5 5.600000-1 4.000000+0102532151     \n'
               ' 5.000000+0 6.000000+0 7.000000+0 8.000000+0 9.000000+0 1.000000+1102532151     \n'
@@ -19,7 +19,7 @@ class Test_ENDFtk_MF32_MT151_ShortRangeBreitWignerBlock( unittest.TestCase ) :
               ' 2.900000+1 3.000000+1 3.100000+1 3.200000+1 3.300000+1 3.400000+1102532151     \n'
               ' 3.500000+1 3.600000+1 3.700000+1 3.800000+1 3.900000+1 4.000000+1102532151     \n' )
 
-    invalid_size = ( ' 1.982069+1 0.000000+0          4          0         47          2102532151     \n'
+    invalid_size = ( ' 0.000000+0 0.000000+0          4          0         47          2102532151     \n'
                      '-1.470000+5 5.000000-1 5.470695+2 3.680695+2 1.750000+2 3.000000+0102532151     \n'
                      ' 4.730000+5 5.000000-1 1.072946+5 1.072900+5 5.600000-1 4.000000+0102532151     \n'
                      ' 5.000000+0 6.000000+0 7.000000+0 8.000000+0 9.000000+0 1.000000+1102532151     \n'
@@ -29,9 +29,9 @@ class Test_ENDFtk_MF32_MT151_ShortRangeBreitWignerBlock( unittest.TestCase ) :
                      ' 2.900000+1 3.000000+1 3.100000+1 3.200000+1 3.300000+1 3.400000+1102532151     \n'
                      ' 3.500000+1 3.600000+1 3.700000+1 3.800000+1 3.900000+1           102532151     \n' )
 
-    zero_size = ( ' 1.982069+1 0.000000+0          0          0          0          2102532151     \n' )
+    zero_size = ( ' 0.000000+0 0.000000+0          0          0          0          2102532151     \n' )
 
-    no_number_resonances = ( ' 1.982069+1 0.000000+0          4          0         48          0102532151     \n'
+    no_number_resonances = ( ' 0.000000+0 0.000000+0          4          0         48          0102532151     \n'
                              '-1.470000+5 5.000000-1 5.470695+2 3.680695+2 1.750000+2 3.000000+0102532151     \n'
                              ' 4.730000+5 5.000000-1 1.072946+5 1.072900+5 5.600000-1 4.000000+0102532151     \n'
                              ' 5.000000+0 6.000000+0 7.000000+0 8.000000+0 9.000000+0 1.000000+1102532151     \n'
@@ -46,8 +46,6 @@ class Test_ENDFtk_MF32_MT151_ShortRangeBreitWignerBlock( unittest.TestCase ) :
         def verify_chunk( self, chunk ) :
 
             # verify content
-            self.assertAlmostEqual( 1.982069e+1, chunk.AWRI )
-            self.assertAlmostEqual( 1.982069e+1, chunk.atomic_weight_ratio )
             self.assertEqual( 4, chunk.MPAR )
             self.assertEqual( 4, chunk.number_parameters_with_covariances )
 
@@ -140,21 +138,22 @@ class Test_ENDFtk_MF32_MT151_ShortRangeBreitWignerBlock( unittest.TestCase ) :
             self.assertEqual( self.chunk, chunk.to_string( 1025, 32, 151 ) )
 
         # the data is given explicitly
-        chunk = ShortRangeBreitWignerBlock( awri = 1.982069e+1, mpar = 4,
-                                   energies = [ -1.470000e+5, 4.730000e+5 ],
-                                   spins = [ 0.5, 0.5 ],
-                                   gt = [ 5.470695e+2, 1.072946e+5 ],
-                                   gn = [ 3.680695e+2, 1.072900e+5 ],
-                                   gg = [ 1.750000e+2, 5.600000e-1 ],
-                                   gf = [ 3., 4. ],
-                                   values = [ 5.,  6.,  7.,  8.,  9., 10., 11., 12.,
-                                                  13., 14., 15., 16., 17., 18., 19.,
-                                                       20., 21., 22., 23., 24., 25.,
-                                                            26., 27., 28., 29., 30.,
-                                                                 31., 32., 33., 34.,
-                                                                      35., 36., 37.,
-                                                                           38., 39.,
-                                                                                40. ] )
+        chunk = ShortRangeBreitWignerBlock(
+                    mpar = 4,
+                    energies = [ -1.470000e+5, 4.730000e+5 ],
+                    spins = [ 0.5, 0.5 ],
+                    gt = [ 5.470695e+2, 1.072946e+5 ],
+                    gn = [ 3.680695e+2, 1.072900e+5 ],
+                    gg = [ 1.750000e+2, 5.600000e-1 ],
+                    gf = [ 3., 4. ],
+                    values = [ 5.,  6.,  7.,  8.,  9., 10., 11., 12.,
+                                   13., 14., 15., 16., 17., 18., 19.,
+                                        20., 21., 22., 23., 24., 25.,
+                                             26., 27., 28., 29., 30.,
+                                                  31., 32., 33., 34.,
+                                                       35., 36., 37.,
+                                                            38., 39.,
+                                                                 40. ] )
 
         verify_chunk( self, chunk )
 
@@ -175,50 +174,52 @@ class Test_ENDFtk_MF32_MT151_ShortRangeBreitWignerBlock( unittest.TestCase ) :
         # the data has different sizes
         with self.assertRaises( Exception ) :
 
-            chunk = ShortRangeBreitWignerBlock( awri = 1.982069e+1, mpar = 4,
-                                       energies = [ -1.470000e+5 ],
-                                       spins = [ 0.5, 0.5 ],
-                                       gt = [ 5.470695e+2, 1.072946e+5 ],
-                                       gn = [ 3.680695e+2, 1.072900e+5 ],
-                                       gg = [ 1.750000e+2, 5.600000e-1 ],
-                                       gf = [ 3., 4. ],
-                                       values = [ 5.,  6.,  7.,  8.,  9., 10., 11., 12.,
-                                                      13., 14., 15., 16., 17., 18., 19.,
-                                                           20., 21., 22., 23., 24., 25.,
-                                                                26., 27., 28., 29., 30.,
-                                                                     31., 32., 33., 34.,
-                                                                          35., 36., 37.,
-                                                                               38., 39.,
-                                                                                    40. ] )
+            chunk = ShortRangeBreitWignerBlock(
+                        mpar = 4,
+                        energies = [ -1.470000e+5 ],
+                        spins = [ 0.5, 0.5 ],
+                        gt = [ 5.470695e+2, 1.072946e+5 ],
+                        gn = [ 3.680695e+2, 1.072900e+5 ],
+                        gg = [ 1.750000e+2, 5.600000e-1 ],
+                        gf = [ 3., 4. ],
+                        values = [ 5.,  6.,  7.,  8.,  9., 10., 11., 12.,
+                                       13., 14., 15., 16., 17., 18., 19.,
+                                            20., 21., 22., 23., 24., 25.,
+                                                 26., 27., 28., 29., 30.,
+                                                      31., 32., 33., 34.,
+                                                           35., 36., 37.,
+                                                                38., 39.,
+                                                                     40. ] )
 
         # the data is empty
         with self.assertRaises( Exception ) :
 
-            chunk = ShortRangeBreitWignerBlock( awri = 1.982069e+1, mpar = 4,
-                                       energies = [], spins = [], gt = [],
-                                       gn = [], gg = [], gf = [],
-                                       de2 = [], dn2 = [], dndg = [],
-                                       dg2 = [], dndf = [], dgdf = [],
-                                       df2 = [], djdn = [], djdg = [],
-                                       djdf = [], dj2 = [] )
+            chunk = ShortRangeBreitWignerBlock(
+                        mpar = 4,
+                        energies = [], spins = [], gt = [],
+                        gn = [], gg = [], gf = [],
+                        de2 = [], dn2 = [], dndg = [],
+                        dg2 = [], dndf = [], dgdf = [],
+                        df2 = [], djdn = [], djdg = [],
+                        djdf = [], dj2 = [] )
 
         # invalid list size
         with self.assertRaises( Exception ) :
 
             chunk = ShortRangeBreitWignerBlock.from_string( self.invalid_size,
-                                                   1025, 32, 151 )
+                                                            1025, 32, 151 )
 
         # no data
         with self.assertRaises( Exception ) :
 
             chunk = ShortRangeBreitWignerBlock.from_string( self.zero_size,
-                                                   1025, 32, 151 )
+                                                            1025, 32, 151 )
 
         # no number resonances
         with self.assertRaises( Exception ) :
 
             chunk = ShortRangeBreitWignerBlock.from_string( self.no_number_resonances,
-                                                   1025, 32, 151 )
+                                                            1025, 32, 151 )
 
 if __name__ == '__main__' :
 

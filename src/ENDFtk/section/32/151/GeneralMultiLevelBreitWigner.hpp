@@ -47,6 +47,8 @@ public:
   using GeneralCovarianceBase::LCOMP;
   using GeneralCovarianceBase::covarianceRepresentation;
 
+  using GeneralCovarianceBase::AWRI;
+  using GeneralCovarianceBase::atomicWeightRatio;
   using GeneralCovarianceBase::SPI;
   using GeneralCovarianceBase::spin;
   using GeneralCovarianceBase::AP;

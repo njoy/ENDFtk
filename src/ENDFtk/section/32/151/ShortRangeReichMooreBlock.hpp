@@ -15,8 +15,6 @@ public:
   /* constructor */
   #include "ENDFtk/section/32/151/ShortRangeReichMooreBlock/src/ctor.hpp"
 
-  using ShortRangeBreitWignerReichMooreBlockBase::AWRI;
-  using ShortRangeBreitWignerReichMooreBlockBase::atomicWeightRatio;
   using ShortRangeBreitWignerReichMooreBlockBase::MPAR;
   using ShortRangeBreitWignerReichMooreBlockBase::numberParametersWithCovariances;
   using ShortRangeBreitWignerReichMooreBlockBase::NRB;

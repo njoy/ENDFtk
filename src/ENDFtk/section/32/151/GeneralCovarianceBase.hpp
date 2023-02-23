@@ -17,6 +17,7 @@ class GeneralCovarianceBase {
   double spi_;
   double ap_;
   unsigned int nls_;
+  double awri_;
   std::optional< RadiusUncertainty > dap_;
 
   std::vector< ShortRangeCovarianceBlock > short_;
@@ -120,6 +121,18 @@ public:
   }
 
   /**
+   *  @brief Return the atomic weight ratio of the current isotope to the
+   *         neutron mass
+   */
+  double AWRI() const { return this->awri_; }
+
+  /**
+   *  @brief Return the atomic weight ratio of the current isotope to the
+   *         neutron mass
+   */
+  double atomicWeightRatio() const { return this->AWRI(); }
+
+  /**
    *  @brief Return the number of short range covariance blocks
    */
   int NSRS() const { return this->short_.size(); }
@@ -137,7 +150,7 @@ public:
   /**
    *  @brief Return the number of short range covariance blocks
    */
-  int numberLongRangeBlocks() const { return this->NLS(); }
+  int numberLongRangeBlocks() const { return this->NLRS(); }
 
   /**
    *  @brief Return the scattering radius uncertainty flag

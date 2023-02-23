@@ -57,18 +57,6 @@ public:
   /* get methods */
 
   /**
-   *  @brief Return the atomic weight ratio of the current isotope to the
-   *         neutron mass
-   */
-  double AWRI() const { return ListRecord::C1(); }
-
-  /**
-   *  @brief Return the atomic weight ratio of the current isotope to the
-   *         neutron mass
-   */
-  double atomicWeightRatio() const { return this->AWRI(); }
-
-  /**
    *  @brief Return the number of resonance parameters with covariance data
    *         (for each resonance)
    */

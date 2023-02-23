@@ -10,16 +10,14 @@ GeneralRMatrixLimited() = default;
 // /**
 //  *  @brief Constructor with scattering radius uncertainty
 //  *
-//  *  @param[in] spi       the target spin value
-//  *  @param[in] ap        the scattering radius
-//  *  @param[in] dap       the scattering radius uncertainty data
-//  *  @param[in] nls       the number of l values
+//  *  @param[in] awri      the atomic mass ratio
 //  *  @param[in] cshort    the short range covariance blocks
 //  */
-// GeneralRMatrixLimited( ReichMooreScatteringRadiusUncertainties&& dap,
+// GeneralRMatrixLimited( awri,
+//                        ReichMooreScatteringRadiusUncertainties&& dap,
 //                        std::vector< ShortRangeReichMooreBlock >&& cshort ) :
 //   // no need for a try ... catch: nothing can go wrong here
-//   GeneralCovarianceBase( 0., 0., std::move( dap ), 0,
+//   GeneralCovarianceBase( awri, 0., 0., std::move( dap ), 0,
 //                          std::move( cshort ), {} ) {
 //
 //     Log::info( "Encountered error while constructing resonance and covariance "
@@ -31,13 +29,12 @@ GeneralRMatrixLimited() = default;
 /**
  *  @brief Constructor without scattering radius uncertainty
  *
- *  @param[in] spi       the target spin value
- *  @param[in] ap        the scattering radius
- *  @param[in] nls       the number of l values
+ *  @param[in] awri      the atomic mass ratio
  *  @param[in] cshort    the short range covariance blocks
  */
-GeneralRMatrixLimited( std::vector< ShortRangeRMatrixLimitedBlock >&& cshort )
-  try : GeneralCovarianceBase( 0., 0., 0, std::move( cshort ), {} ) {}
+GeneralRMatrixLimited( double awri,
+                       std::vector< ShortRangeRMatrixLimitedBlock >&& cshort )
+  try : GeneralCovarianceBase( awri, 0., 0., 0, std::move( cshort ), {} ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing resonance and covariance "
