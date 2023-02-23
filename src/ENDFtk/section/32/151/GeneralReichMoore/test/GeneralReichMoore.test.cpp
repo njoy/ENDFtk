@@ -250,5 +250,5 @@ void verifyChunk( const GeneralReichMoore& chunk ) {
   CHECK( 39. == Approx( block.covarianceMatrix()[34] ) );
   CHECK( 40. == Approx( block.covarianceMatrix()[35] ) );
 
-  CHECK( 10 == chunk.NC() );
+  CHECK( 11 == chunk.NC() );
 }

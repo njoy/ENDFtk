@@ -157,6 +157,18 @@ void wrapGeneralMultiLevelBreitWigner( python::module& module, python::module& v
   )
   .def_property_readonly(
 
+    "NLS",
+    [] ( const Component& self ) { return self.NLS(); },
+    "The number of l values for which resonance parameters are given"
+  )
+  .def_property_readonly(
+
+    "number_l_values",
+    [] ( const Component& self ) { return self.numberLValues(); },
+    "The number of l values for which resonance parameters are given"
+  )
+  .def_property_readonly(
+
     "DAP",
     [] ( const Component& self ) -> const std::optional< double >&
        { return self.DAP(); },

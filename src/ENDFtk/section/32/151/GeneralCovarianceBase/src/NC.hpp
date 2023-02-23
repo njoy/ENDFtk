@@ -3,7 +3,7 @@
  */
 long NC() const {
 
-  long NC = 1;
+  long NC = 2;
   if ( this->ISR() ) { NC += Derived::NC( this->dap_.value() ); }
   for ( const auto& cshort : this->short_ ) {
 

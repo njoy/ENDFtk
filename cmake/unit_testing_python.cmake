@@ -342,6 +342,8 @@ add_test( NAME ENDFtk.python.MF32.MT151.CompactRMatrixLimitedUncertainties COMMA
 set_tests_properties( ENDFtk.python.MF32.MT151.CompactRMatrixLimitedUncertainties PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
 add_test( NAME ENDFtk.python.MF32.MT151.CompactSingleLevelBreitWigner COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF32_MT151_CompactSingleLevelBreitWigner.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
 set_tests_properties( ENDFtk.python.MF32.MT151.CompactSingleLevelBreitWigner PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
+add_test( NAME ENDFtk.python.MF32.MT151.GeneralReichMoore COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF32_MT151_GeneralReichMoore.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
+set_tests_properties( ENDFtk.python.MF32.MT151.GeneralReichMoore PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
 add_test( NAME ENDFtk.python.MF32.MT151.LCOMP1.CovarianceMatrix COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF32_MT151_LCOMP1_CovarianceMatrix.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
 set_tests_properties( ENDFtk.python.MF32.MT151.LCOMP1.CovarianceMatrix PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
 add_test( NAME ENDFtk.python.MF32.MT151.LCOMP1.ResonanceParameters COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF32_MT151_LCOMP1_ResonanceParameters.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
