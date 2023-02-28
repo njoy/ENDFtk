@@ -57,7 +57,7 @@ std::vector< std::tuple< unsigned int, unsigned int,
       if ( ( this->i_[i] == std::get< 0 >( lines.back() ) ) &&
            ( std::get< 2 >( lines.back() ) ).size() < n ) {
 
-        if ( this->j_[i] < std::get< 1 >( lines.back() ) + std::get< 2 >( lines.back() ).size() - 1 + n ) {
+        if ( this->j_[i] < std::get< 1 >( lines.back() ) + n ) {
 
           int pad = this->j_[i] - std::get< 1 >( lines.back() ) - std::get< 2 >( lines.back() ).size();
           if ( pad > 0 ) {

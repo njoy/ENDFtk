@@ -24,15 +24,15 @@ SCENARIO( "CompactCorrelationMatrix" ) {
 
       std::vector< unsigned int > i = {  2,  3,  3,  7,  7,  7,  7,  7,  7,
                                          7,  7,  7,  7,  7,  7,  7,  7,  7,
-                                         7,  7, 10, 10, 10 };
+                                         7, 10, 10, 10 };
       std::vector< unsigned int > j = {  1,  1,  2,  5,  6,  9, 10, 11, 12,
                                         13, 14, 15, 16, 17, 18, 19, 20, 21,
-                                        22, 23, 4,  6,  8 };
+                                        23, 4,  6,  8 };
       std::vector< double > correlations = { 0.025, 0.035, 0.085, 0.085, 0.055,
                                              0.015, 0.015, 0.015, 0.015, 0.015,
                                              0.015, 0.015, 0.015, 0.015, 0.015,
-                                             0.015, 0.015, 0.015, 0.015, 0.025,
-                                             0.015, 0.015, 0.015 };
+                                             0.015, 0.015, 0.015, 0.025, 0.015,
+                                             0.015, 0.015 };
       unsigned int ndigit = 2;
       unsigned int order = 25;
 
@@ -134,7 +134,7 @@ std::string chunk() {
     " 0.000000+0 0.000000+0          2         25          5          0172532151     \n"
     "    2    1   2                                                    172532151     \n"
     "    3    1   3  8                                                 172532151     \n"
-    "    7    5   8  5  0  0  1  1  1  1  1  1  1  1  1  1  1  1  1  1 172532151     \n"
+    "    7    5   8  5  0  0  1  1  1  1  1  1  1  1  1  1  1  1  1    172532151     \n"
     "    7   23   2                                                    172532151     \n"
     "   10    4   1  0  1  0  1                                        172532151     \n";
 }
@@ -145,9 +145,9 @@ void verifyChunk( const CompactCorrelationMatrix& chunk ) {
   CHECK( 2 == chunk.numberDigits() );
   CHECK( 25 == chunk.NNN() );
   CHECK( 25 == chunk.order() );
-  CHECK( 23 == chunk.I().size() );
-  CHECK( 23 == chunk.J().size() );
-  CHECK( 23 == chunk.correlations().size() );
+  CHECK( 22 == chunk.I().size() );
+  CHECK( 22 == chunk.J().size() );
+  CHECK( 22 == chunk.correlations().size() );
 
   CHECK(  2 == chunk.I()[0] );
   CHECK(  3 == chunk.I()[1] );
@@ -168,10 +168,9 @@ void verifyChunk( const CompactCorrelationMatrix& chunk ) {
   CHECK(  7 == chunk.I()[16] );
   CHECK(  7 == chunk.I()[17] );
   CHECK(  7 == chunk.I()[18] );
-  CHECK(  7 == chunk.I()[19] );
+  CHECK( 10 == chunk.I()[19] );
   CHECK( 10 == chunk.I()[20] );
   CHECK( 10 == chunk.I()[21] );
-  CHECK( 10 == chunk.I()[22] );
   CHECK(  1 == chunk.J()[0] );
   CHECK(  1 == chunk.J()[1] );
   CHECK(  2 == chunk.J()[2] );
@@ -190,11 +189,10 @@ void verifyChunk( const CompactCorrelationMatrix& chunk ) {
   CHECK( 19 == chunk.J()[15] );
   CHECK( 20 == chunk.J()[16] );
   CHECK( 21 == chunk.J()[17] );
-  CHECK( 22 == chunk.J()[18] );
-  CHECK( 23 == chunk.J()[19] );
-  CHECK(  4 == chunk.J()[20] );
-  CHECK(  6 == chunk.J()[21] );
-  CHECK(  8 == chunk.J()[22] );
+  CHECK( 23 == chunk.J()[18] );
+  CHECK(  4 == chunk.J()[19] );
+  CHECK(  6 == chunk.J()[20] );
+  CHECK(  8 == chunk.J()[21] );
   CHECK( 0.025 == Approx( chunk.correlations()[0] ) );
   CHECK( 0.035 == Approx( chunk.correlations()[1] ) );
   CHECK( 0.085 == Approx( chunk.correlations()[2] ) );
@@ -213,11 +211,10 @@ void verifyChunk( const CompactCorrelationMatrix& chunk ) {
   CHECK( 0.015 == Approx( chunk.correlations()[15] ) );
   CHECK( 0.015 == Approx( chunk.correlations()[16] ) );
   CHECK( 0.015 == Approx( chunk.correlations()[17] ) );
-  CHECK( 0.015 == Approx( chunk.correlations()[18] ) );
-  CHECK( 0.025 == Approx( chunk.correlations()[19] ) );
+  CHECK( 0.025 == Approx( chunk.correlations()[18] ) );
+  CHECK( 0.015 == Approx( chunk.correlations()[19] ) );
   CHECK( 0.015 == Approx( chunk.correlations()[20] ) );
   CHECK( 0.015 == Approx( chunk.correlations()[21] ) );
-  CHECK( 0.015 == Approx( chunk.correlations()[22] ) );
 
   CHECK( 6 == chunk.NC() );
 }
