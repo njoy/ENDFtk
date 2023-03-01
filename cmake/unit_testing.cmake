@@ -135,6 +135,7 @@ add_subdirectory( src/ENDFtk/section/32/151/ReichMooreScatteringRadiusUncertaint
 add_subdirectory( src/ENDFtk/section/32/151/GeneralMultiLevelBreitWigner/test )
 add_subdirectory( src/ENDFtk/section/32/151/GeneralReichMoore/test )
 add_subdirectory( src/ENDFtk/section/32/151/GeneralSingleLevelBreitWigner/test )
+add_subdirectory( src/ENDFtk/section/32/151/GeneralRMatrixLimited/test )
 add_subdirectory( src/ENDFtk/section/32/151/CompactCorrelationMatrix/test )
 add_subdirectory( src/ENDFtk/section/32/151/CompactBreitWignerUncertainties/Resonance/test )
 add_subdirectory( src/ENDFtk/section/32/151/CompactBreitWignerUncertainties/test )
