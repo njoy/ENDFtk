@@ -140,7 +140,7 @@ public:
   /**
    *  @brief Return the number of short range covariance blocks
    */
-  int numberShortRangeBlocks() const { return this->NLS(); }
+  int numberShortRangeBlocks() const { return this->NSRS(); }
 
   /**
    *  @brief Return the number of long range covariance blocks
