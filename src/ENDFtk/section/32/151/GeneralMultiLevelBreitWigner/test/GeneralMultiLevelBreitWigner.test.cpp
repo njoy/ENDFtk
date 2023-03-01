@@ -7,16 +7,16 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using ShortRangeReichMooreBlock = section::Type< 32, 151 >::ShortRangeReichMooreBlock;
+using ShortRangeBreitWignerBlock = section::Type< 32, 151 >::ShortRangeBreitWignerBlock;
 using LongRangeCovarianceBlock = section::Type< 32, 151 >::LongRangeCovarianceBlock;
-using GeneralReichMoore = section::Type< 32, 151 >::GeneralReichMoore;
+using GeneralMultiLevelBreitWigner = section::Type< 32, 151 >::GeneralMultiLevelBreitWigner;
 
 std::string chunk();
-void verifyChunk( const GeneralReichMoore& );
+void verifyChunk( const GeneralMultiLevelBreitWigner& );
 
-SCENARIO( "GeneralReichMoore" ) {
+SCENARIO( "GeneralMultiLevelBreitWigner" ) {
 
-  GIVEN( "valid data for a GeneralReichMoore" ) {
+  GIVEN( "valid data for a GeneralMultiLevelBreitWigner" ) {
 
     std::string string = chunk();
 
@@ -25,9 +25,10 @@ SCENARIO( "GeneralReichMoore" ) {
       double awri = 1.982069e+1;
       double spi = 1.5;
       double ap = .33651;
+      double dap = .0033651;
       unsigned int nls = 1;
 
-      std::vector< ShortRangeReichMooreBlock > cshort = {
+      std::vector< ShortRangeBreitWignerBlock > cshort = {
 
         { 4,
           { -1.470000e+5, 4.730000e+5 }, { 0.5, 0.5 },
@@ -44,10 +45,11 @@ SCENARIO( "GeneralReichMoore" ) {
 
       std::vector< LongRangeCovarianceBlock > clong = {};
 
-      GeneralReichMoore chunk( awri, spi, ap, nls, std::move( cshort ),
-                               std::move( clong ) );
+      GeneralMultiLevelBreitWigner chunk( awri, spi, ap, dap, nls,
+                                           std::move( cshort ),
+                                           std::move( clong ) );
 
-      THEN( "a GeneralReichMoore can be constructed and members can be "
+      THEN( "a GeneralMultiLevelBreitWigner can be constructed and members can be "
             "tested" ) {
 
         verifyChunk( chunk );
@@ -69,9 +71,9 @@ SCENARIO( "GeneralReichMoore" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      GeneralReichMoore chunk( begin, end, lineNumber, 1025, 32, 151 );
+      GeneralMultiLevelBreitWigner chunk( begin, end, lineNumber, 1025, 32, 151 );
 
-      THEN( "a GeneralReichMoore can be constructed and members can be "
+      THEN( "a GeneralMultiLevelBreitWigner can be constructed and members can be "
             "tested" ) {
 
         verifyChunk( chunk );
@@ -91,7 +93,8 @@ SCENARIO( "GeneralReichMoore" ) {
 
 std::string chunk() {
   return
-    " 1.500000+0 3.365100-1          0          1          1          0102532151     \n"
+    " 1.500000+0 3.365100-1          0          1          1          1102532151     \n"
+    " 0.000000+0 3.365100-3          0          0          0          0102532151     \n"
     " 1.982069+1 0.000000+0          0          0          1          0102532151     \n"
     " 0.000000+0 0.000000+0          4          0         48          2102532151     \n"
     "-1.470000+5 5.000000-1 5.470695+2 3.680695+2 1.750000+2 3.000000+0102532151     \n"
@@ -104,12 +107,12 @@ std::string chunk() {
     " 3.500000+1 3.600000+1 3.700000+1 3.800000+1 3.900000+1 4.000000+1102532151     \n";
 }
 
-void verifyChunk( const GeneralReichMoore& chunk ) {
+void verifyChunk( const GeneralMultiLevelBreitWigner& chunk ) {
 
   CHECK( 1 == chunk.LRU() );
   CHECK( 1 == chunk.type() );
-  CHECK( 3 == chunk.LRF() );
-  CHECK( 3 == chunk.representation() );
+  CHECK( 2 == chunk.LRF() );
+  CHECK( 2 == chunk.representation() );
   CHECK( false == chunk.LFW() );
   CHECK( false == chunk.averageFissionWidthFlag() );
   CHECK( 1 == chunk.LCOMP() );
@@ -123,10 +126,10 @@ void verifyChunk( const GeneralReichMoore& chunk ) {
   CHECK( .33651 == Approx( chunk.AP() ) );
   CHECK( .33651 == Approx( chunk.scatteringRadius() ) );
 
-  CHECK( std::nullopt == chunk.DAP() );
-  CHECK( std::nullopt == chunk.scatteringRadiusUncertainty() );
-  CHECK( false == chunk.ISR() );
-  CHECK( false == chunk.scatteringRadiusUncertaintyFlag() );
+  CHECK( .0033651 == chunk.DAP() );
+  CHECK( .0033651 == chunk.scatteringRadiusUncertainty() );
+  CHECK( true == chunk.ISR() );
+  CHECK( true == chunk.scatteringRadiusUncertaintyFlag() );
 
   CHECK( 1 == chunk.NLS() );
   CHECK( 1 == chunk.numberLValues() );
@@ -148,14 +151,14 @@ void verifyChunk( const GeneralReichMoore& chunk ) {
   CHECK( 2 == block.resonanceEnergies().size() );
   CHECK( 2 == block.AJ().size() );
   CHECK( 2 == block.spinValues().size() );
+  CHECK( 2 == block.GT().size() );
+  CHECK( 2 == block.totalWidths().size() );
   CHECK( 2 == block.GN().size() );
   CHECK( 2 == block.neutronWidths().size() );
   CHECK( 2 == block.GG().size() );
   CHECK( 2 == block.gammaWidths().size() );
-  CHECK( 2 == block.GFA().size() );
-  CHECK( 2 == block.firstFissionWidths().size() );
-  CHECK( 2 == block.GFB().size() );
-  CHECK( 2 == block.secondFissionWidths().size() );
+  CHECK( 2 == block.GF().size() );
+  CHECK( 2 == block.fissionWidths().size() );
 
   CHECK( -1.470000e+5 == Approx( block.ER()[0] ) );
   CHECK(  4.730000e+5 == Approx( block.ER()[1] ) );
@@ -165,22 +168,22 @@ void verifyChunk( const GeneralReichMoore& chunk ) {
   CHECK( 0.5 == Approx( block.AJ()[1] ) );
   CHECK( 0.5 == Approx( block.spinValues()[0] ) );
   CHECK( 0.5 == Approx( block.spinValues()[1] ) );
-  CHECK( 5.470695e+2 == Approx( block.GN()[0] ) );
-  CHECK( 1.072946e+5 == Approx( block.GN()[1] ) );
-  CHECK( 5.470695e+2 == Approx( block.neutronWidths()[0] ) );
-  CHECK( 1.072946e+5 == Approx( block.neutronWidths()[1] ) );
-  CHECK( 3.680695e+2 == Approx( block.GG()[0] ) );
-  CHECK( 1.072900e+5 == Approx( block.GG()[1] ) );
-  CHECK( 3.680695e+2 == Approx( block.gammaWidths()[0] ) );
-  CHECK( 1.072900e+5 == Approx( block.gammaWidths()[1] ) );
-  CHECK( 1.750000e+2 == Approx( block.GFA()[0] ) );
-  CHECK( 0.56 == Approx( block.GFA()[1] ) );
-  CHECK( 1.750000e+2 == Approx( block.firstFissionWidths()[0] ) );
-  CHECK( 0.56 == Approx( block.firstFissionWidths()[1] ) );
-  CHECK( 3. == Approx( block.GFB()[0] ) );
-  CHECK( 4. == Approx( block.GFB()[1] ) );
-  CHECK( 3. == Approx( block.secondFissionWidths()[0] ) );
-  CHECK( 4. == Approx( block.secondFissionWidths()[1] ) );
+  CHECK( 5.470695e+2 == Approx( block.GT()[0] ) );
+  CHECK( 1.072946e+5 == Approx( block.GT()[1] ) );
+  CHECK( 5.470695e+2 == Approx( block.totalWidths()[0] ) );
+  CHECK( 1.072946e+5 == Approx( block.totalWidths()[1] ) );
+  CHECK( 3.680695e+2 == Approx( block.GN()[0] ) );
+  CHECK( 1.072900e+5 == Approx( block.GN()[1] ) );
+  CHECK( 3.680695e+2 == Approx( block.neutronWidths()[0] ) );
+  CHECK( 1.072900e+5 == Approx( block.neutronWidths()[1] ) );
+  CHECK( 1.750000e+2 == Approx( block.GG()[0] ) );
+  CHECK( 0.56 == Approx( block.GG()[1] ) );
+  CHECK( 1.750000e+2 == Approx( block.gammaWidths()[0] ) );
+  CHECK( 0.56 == Approx( block.gammaWidths()[1] ) );
+  CHECK( 3. == Approx( block.GF()[0] ) );
+  CHECK( 4. == Approx( block.GF()[1] ) );
+  CHECK( 3. == Approx( block.fissionWidths()[0] ) );
+  CHECK( 4. == Approx( block.fissionWidths()[1] ) );
 
   CHECK( -1.470000e+5 == Approx( block.resonances()[0].ER() ) );
   CHECK(  4.730000e+5 == Approx( block.resonances()[1].ER() ) );
@@ -190,22 +193,22 @@ void verifyChunk( const GeneralReichMoore& chunk ) {
   CHECK( 0.5 == Approx( block.resonances()[1].AJ() ) );
   CHECK( 0.5 == Approx( block.resonances()[0].spin() ) );
   CHECK( 0.5 == Approx( block.resonances()[1].spin() ) );
-  CHECK( 5.470695e+2 == Approx( block.resonances()[0].GN() ) );
-  CHECK( 1.072946e+5 == Approx( block.resonances()[1].GN() ) );
-  CHECK( 5.470695e+2 == Approx( block.resonances()[0].neutronWidth() ) );
-  CHECK( 1.072946e+5 == Approx( block.resonances()[1].neutronWidth() ) );
-  CHECK( 3.680695e+2 == Approx( block.resonances()[0].GG() ) );
-  CHECK( 1.072900e+5 == Approx( block.resonances()[1].GG() ) );
-  CHECK( 3.680695e+2 == Approx( block.resonances()[0].gammaWidth() ) );
-  CHECK( 1.072900e+5 == Approx( block.resonances()[1].gammaWidth() ) );
-  CHECK( 1.750000e+2 == Approx( block.resonances()[0].GFA() ) );
-  CHECK( 0.56 == Approx( block.resonances()[1].GFA() ) );
-  CHECK( 1.750000e+2 == Approx( block.resonances()[0].firstFissionWidth() ) );
-  CHECK( 0.56 == Approx( block.resonances()[1].firstFissionWidth() ) );
-  CHECK( 3. == Approx( block.resonances()[0].GFB() ) );
-  CHECK( 4. == Approx( block.resonances()[1].GFB() ) );
-  CHECK( 3. == Approx( block.resonances()[0].secondFissionWidth() ) );
-  CHECK( 4. == Approx( block.resonances()[1].secondFissionWidth() ) );
+  CHECK( 5.470695e+2 == Approx( block.resonances()[0].GT() ) );
+  CHECK( 1.072946e+5 == Approx( block.resonances()[1].GT() ) );
+  CHECK( 5.470695e+2 == Approx( block.resonances()[0].totalWidth() ) );
+  CHECK( 1.072946e+5 == Approx( block.resonances()[1].totalWidth() ) );
+  CHECK( 3.680695e+2 == Approx( block.resonances()[0].GN() ) );
+  CHECK( 1.072900e+5 == Approx( block.resonances()[1].GN() ) );
+  CHECK( 3.680695e+2 == Approx( block.resonances()[0].neutronWidth() ) );
+  CHECK( 1.072900e+5 == Approx( block.resonances()[1].neutronWidth() ) );
+  CHECK( 1.750000e+2 == Approx( block.resonances()[0].GG() ) );
+  CHECK( 0.56 == Approx( block.resonances()[1].GG() ) );
+  CHECK( 1.750000e+2 == Approx( block.resonances()[0].gammaWidth() ) );
+  CHECK( 0.56 == Approx( block.resonances()[1].gammaWidth() ) );
+  CHECK( 3. == Approx( block.resonances()[0].GF() ) );
+  CHECK( 4. == Approx( block.resonances()[1].GF() ) );
+  CHECK( 3. == Approx( block.resonances()[0].fissionWidth() ) );
+  CHECK( 4. == Approx( block.resonances()[1].fissionWidth() ) );
 
   CHECK( 8 == block.NPARB() );
   CHECK( 8 == block.covarianceMatrixOrder() );
@@ -250,5 +253,5 @@ void verifyChunk( const GeneralReichMoore& chunk ) {
   CHECK( 39. == Approx( block.covarianceMatrix()[34] ) );
   CHECK( 40. == Approx( block.covarianceMatrix()[35] ) );
 
-  CHECK( 11 == chunk.NC() );
+  CHECK( 12 == chunk.NC() );
 }

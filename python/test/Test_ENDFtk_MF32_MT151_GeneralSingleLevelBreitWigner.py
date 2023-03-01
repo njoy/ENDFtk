@@ -4,13 +4,14 @@ import unittest
 # third party imports
 
 # local imports
-from ENDFtk.MF32.MT151 import GeneralReichMoore
-from ENDFtk.MF32.MT151 import ShortRangeReichMooreBlock
+from ENDFtk.MF32.MT151 import GeneralSingleLevelBreitWigner
+from ENDFtk.MF32.MT151 import ShortRangeBreitWignerBlock
 
-class Test_ENDFtk_MF32_MT151_GeneralReichMoore( unittest.TestCase ) :
-    """Unit test for the GeneralReichMoore class."""
+class Test_ENDFtk_MF32_MT151_GeneralSingleLevelBreitWigner( unittest.TestCase ) :
+    """Unit test for the GeneralSingleLevelBreitWigner class."""
 
-    chunk = ( ' 1.500000+0 3.365100-1          0          1          1          0102532151     \n'
+    chunk = ( ' 1.500000+0 3.365100-1          0          1          1          1102532151     \n'
+              ' 0.000000+0 3.365100-3          0          0          0          0102532151     \n'
               ' 1.982069+1 0.000000+0          0          0          1          0102532151     \n'
               ' 0.000000+0 0.000000+0          4          0         48          2102532151     \n'
               '-1.470000+5 5.000000-1 5.470695+2 3.680695+2 1.750000+2 3.000000+0102532151     \n'
@@ -29,8 +30,8 @@ class Test_ENDFtk_MF32_MT151_GeneralReichMoore( unittest.TestCase ) :
             # verify content
             self.assertEqual( 1, chunk.LRU )
             self.assertEqual( 1, chunk.type )
-            self.assertEqual( 3, chunk.LRF )
-            self.assertEqual( 3, chunk.representation )
+            self.assertEqual( 1, chunk.LRF )
+            self.assertEqual( 1, chunk.representation )
             self.assertEqual( False, chunk.LFW )
             self.assertEqual( False, chunk.average_fission_width_flag )
             self.assertEqual( 1, chunk.LCOMP )
@@ -41,10 +42,10 @@ class Test_ENDFtk_MF32_MT151_GeneralReichMoore( unittest.TestCase ) :
             self.assertAlmostEqual( .33651, chunk.AP )
             self.assertAlmostEqual( .33651, chunk.scattering_radius )
 
-            self.assertEqual( None, chunk.DAP )
-            self.assertEqual( None, chunk.scattering_radius_uncertainty )
-            self.assertEqual( False, chunk.ISR )
-            self.assertEqual( False, chunk.scattering_radius_uncertainty_flag )
+            self.assertEqual( .0033651, chunk.DAP )
+            self.assertEqual( .0033651, chunk.scattering_radius_uncertainty )
+            self.assertEqual( True, chunk.ISR )
+            self.assertEqual( True, chunk.scattering_radius_uncertainty_flag )
 
             self.assertAlmostEqual( 19.82069, chunk.AWRI )
             self.assertAlmostEqual( 19.82069, chunk.atomic_weight_ratio )
@@ -69,14 +70,14 @@ class Test_ENDFtk_MF32_MT151_GeneralReichMoore( unittest.TestCase ) :
             self.assertEqual( 2, len( block.resonance_energies ) )
             self.assertEqual( 2, len( block.AJ ) )
             self.assertEqual( 2, len( block.spin_values ) )
+            self.assertEqual( 2, len( block.GT ) )
+            self.assertEqual( 2, len( block.total_widths ) )
             self.assertEqual( 2, len( block.GN ) )
             self.assertEqual( 2, len( block.neutron_widths ) )
             self.assertEqual( 2, len( block.GG ) )
             self.assertEqual( 2, len( block.gamma_widths ) )
-            self.assertEqual( 2, len( block.GFA ) )
-            self.assertEqual( 2, len( block.first_fission_widths ) )
-            self.assertEqual( 2, len( block.GFB ) )
-            self.assertEqual( 2, len( block.second_fission_widths ) )
+            self.assertEqual( 2, len( block.GF ) )
+            self.assertEqual( 2, len( block.fission_widths ) )
 
             self.assertAlmostEqual( -1.470000e+5, block.ER[0] )
             self.assertAlmostEqual(  4.730000e+5, block.ER[1] )
@@ -86,22 +87,22 @@ class Test_ENDFtk_MF32_MT151_GeneralReichMoore( unittest.TestCase ) :
             self.assertAlmostEqual( 0.5, block.AJ[1] )
             self.assertAlmostEqual( 0.5, block.spin_values[0] )
             self.assertAlmostEqual( 0.5, block.spin_values[1] )
-            self.assertAlmostEqual( 5.470695e+2, block.GN[0] )
-            self.assertAlmostEqual( 1.072946e+5, block.GN[1] )
-            self.assertAlmostEqual( 5.470695e+2, block.neutron_widths[0] )
-            self.assertAlmostEqual( 1.072946e+5, block.neutron_widths[1] )
-            self.assertAlmostEqual( 3.680695e+2, block.GG[0] )
-            self.assertAlmostEqual( 1.072900e+5, block.GG[1] )
-            self.assertAlmostEqual( 3.680695e+2, block.gamma_widths[0] )
-            self.assertAlmostEqual( 1.072900e+5, block.gamma_widths[1] )
-            self.assertAlmostEqual( 1.750000e+2, block.GFA[0] )
-            self.assertAlmostEqual( 0.56, block.GFA[1] )
-            self.assertAlmostEqual( 1.750000e+2, block.first_fission_widths[0] )
-            self.assertAlmostEqual( 0.56, block.first_fission_widths[1] )
-            self.assertAlmostEqual( 3., block.GFB[0] )
-            self.assertAlmostEqual( 4., block.GFB[1] )
-            self.assertAlmostEqual( 3., block.second_fission_widths[0] )
-            self.assertAlmostEqual( 4., block.second_fission_widths[1] )
+            self.assertAlmostEqual( 5.470695e+2, block.GT[0] )
+            self.assertAlmostEqual( 1.072946e+5, block.GT[1] )
+            self.assertAlmostEqual( 5.470695e+2, block.total_widths[0] )
+            self.assertAlmostEqual( 1.072946e+5, block.total_widths[1] )
+            self.assertAlmostEqual( 3.680695e+2, block.GN[0] )
+            self.assertAlmostEqual( 1.072900e+5, block.GN[1] )
+            self.assertAlmostEqual( 3.680695e+2, block.neutron_widths[0] )
+            self.assertAlmostEqual( 1.072900e+5, block.neutron_widths[1] )
+            self.assertAlmostEqual( 1.750000e+2, block.GG[0] )
+            self.assertAlmostEqual( 0.56, block.GG[1] )
+            self.assertAlmostEqual( 1.750000e+2, block.gamma_widths[0] )
+            self.assertAlmostEqual( 0.56, block.gamma_widths[1] )
+            self.assertAlmostEqual( 3., block.GF[0] )
+            self.assertAlmostEqual( 4., block.GF[1] )
+            self.assertAlmostEqual( 3., block.fission_widths[0] )
+            self.assertAlmostEqual( 4., block.fission_widths[1] )
 
             self.assertEqual( 8, block.NPARB )
             self.assertEqual( 8, block.covariance_matrix_order )
@@ -146,25 +147,26 @@ class Test_ENDFtk_MF32_MT151_GeneralReichMoore( unittest.TestCase ) :
             self.assertAlmostEqual( 39., block.covariance_matrix[34] )
             self.assertAlmostEqual( 40., block.covariance_matrix[35] )
 
-            self.assertEqual( 11, chunk.NC )
+            self.assertEqual( 12, chunk.NC )
 
             # verify string
             self.assertEqual( self.chunk, chunk.to_string( 1025, 32, 151 ) )
 
         # the data is given explicitly
-        chunk = GeneralReichMoore(
+        chunk = GeneralSingleLevelBreitWigner(
                     awri = 19.82069,
                     spin = 1.5,
                     ap = .33651,
+                    dap = .0033651,
                     nls = 1,
-                    short = [ ShortRangeReichMooreBlock(
+                    short = [ ShortRangeBreitWignerBlock(
                                   mpar = 4,
                                   energies = [ -1.470000e+5, 4.730000e+5 ],
                                   spins = [ 0.5, 0.5 ],
-                                  gn = [ 5.470695e+2, 1.072946e+5 ],
-                                  gg = [ 3.680695e+2, 1.072900e+5 ],
-                                  gfa = [ 1.750000e+2, 5.600000e-1 ],
-                                  gfb = [ 3., 4. ],
+                                  gt = [ 5.470695e+2, 1.072946e+5 ],
+                                  gn = [ 3.680695e+2, 1.072900e+5 ],
+                                  gg = [ 1.750000e+2, 5.600000e-1 ],
+                                  gf = [ 3., 4. ],
                                   values = [ 5.,  6.,  7.,  8.,  9., 10., 11., 12.,
                                                  13., 14., 15., 16., 17., 18., 19.,
                                                       20., 21., 22., 23., 24., 25.,
@@ -178,12 +180,12 @@ class Test_ENDFtk_MF32_MT151_GeneralReichMoore( unittest.TestCase ) :
         verify_chunk( self, chunk )
 
         # the data is read from a string
-        chunk = GeneralReichMoore.from_string( self.chunk, 1025, 32, 151 )
+        chunk = GeneralSingleLevelBreitWigner.from_string( self.chunk, 1025, 32, 151 )
 
         verify_chunk( self, chunk )
 
         # the data is copied
-        copy = GeneralReichMoore( chunk )
+        copy = GeneralSingleLevelBreitWigner( chunk )
 
         verify_chunk( self, copy )
 
