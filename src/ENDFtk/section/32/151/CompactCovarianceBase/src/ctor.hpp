@@ -11,7 +11,7 @@ CompactCovarianceBase( double spi, double ap, long l1, long n1,
     spi_( spi ), ap_( ap ), l1_( l1 ), n1_( n1 ), dap_( dap ),
     uncertainties_( std::move( uncertainties ) ), matrix_( std::move( matrix ) ) {}
 
-public:
+protected:
 //! @todo pybind11 variant needs default constructor workaround
 #ifdef PYBIND11
 /**

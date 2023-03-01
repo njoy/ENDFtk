@@ -15,7 +15,7 @@ GeneralCovarianceBase( double awri, double spi, double ap,
       verifySize( this->NSRS(), this->NLRS(), this->LRU() );
     }
 
-public:
+protected:
 //! @todo pybind11 variant needs default constructor workaround
 #ifdef PYBIND11
 /**
@@ -111,6 +111,20 @@ GeneralCovarianceBase( double spi, double ap,
  *  @brief Private intermediate constructor
  */
 template< typename Iterator >
+GeneralCovarianceBase( double spi, double ap,
+                       std::optional< RadiusUncertainty >&& dap,
+                       unsigned int nls,
+                       Iterator& it, const Iterator& end, long& lineNumber,
+                       int MAT, int MF, int MT ) :
+  // no try ... catch: exceptions will be handled in the derived class
+  GeneralCovarianceBase( spi, ap, std::move( dap ), nls,
+                         ControlRecord( it, end, lineNumber, MAT, MF, MT ),
+                         it, end, lineNumber, MAT, MF, MT ) {}
+
+/**
+ *  @brief Private intermediate constructor
+ */
+template< typename Iterator >
 GeneralCovarianceBase( ControlRecord&& cont,
                        Iterator& it, const Iterator& end, long& lineNumber,
                        int MAT, int MF, int MT ) :
@@ -122,7 +136,6 @@ GeneralCovarianceBase( ControlRecord&& cont,
                                                    MAT, MF, MT ) )
                            : std::nullopt,
                          cont.N1(),
-                         ControlRecord( it, end, lineNumber, MAT, MF, MT ),
                          it, end, lineNumber, MAT, MF, MT ) {}
 
 protected:
