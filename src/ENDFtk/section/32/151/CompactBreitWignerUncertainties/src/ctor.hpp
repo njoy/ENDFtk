@@ -69,6 +69,6 @@ CompactBreitWignerUncertainties( double awri, double qx, bool lrx,
  */
 template< typename Iterator >
 CompactBreitWignerUncertainties( Iterator& it, const Iterator& end, long& lineNumber,
-                   int MAT, int MF, int MT ) :
+                                 int MAT, int MF, int MT ) :
    // no try ... catch: exceptions will be handled in the derived class
   CompactBreitWignerUncertainties( ListRecord( it, end, lineNumber, MAT, MF, MT ) ) {}
