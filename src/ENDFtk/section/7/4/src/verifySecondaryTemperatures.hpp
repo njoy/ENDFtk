@@ -20,7 +20,8 @@ verifySecondaryTemperatures( const TypeArray& types,
                                                   { return value == 0.0; } );
 
     auto haveTemperature =
-      temperatures | ranges::cpp20::views::transform( hana::to<bool> );
+      temperatures | ranges::cpp20::views::transform( [] ( auto&& value )
+                                                         { return bool( value ); } );
 
     auto verify =
       ranges::views::zip_with( std::equal_to<>{},
