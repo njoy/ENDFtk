@@ -1,4 +1,4 @@
-Piece createRangeFromIndex( unsigned int i ) const {
+auto createRangeFromIndex( unsigned int i ) const {
 
   return ListRecord::list()
            | ranges::views::chunk( 2 )

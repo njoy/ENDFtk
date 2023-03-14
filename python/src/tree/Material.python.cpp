@@ -110,7 +110,7 @@ void wrapTreeMaterial( python::module& module, python::module& viewmodule ) {
   .def(
 
     "file",
-    ( File& ( Material::* )( int ) ) &Material::file,
+    python::overload_cast< int >( &Material::file, python::const_ ),
     python::arg( "mf" ),
     "Return the file with the requested MF number\n\n"
     "Arguments:\n"
@@ -121,7 +121,7 @@ void wrapTreeMaterial( python::module& module, python::module& viewmodule ) {
   .def(
 
     "MF",
-    ( File& ( Material::* )( int ) ) &Material::MF,
+    python::overload_cast< int >( &Material::MF, python::const_ ),
     python::arg( "mf" ),
     "Return the file with the requested MF number\n\n"
     "Arguments:\n"

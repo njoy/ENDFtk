@@ -129,6 +129,14 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/2/151/UnresolvedEnergyIndependent.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/2/152.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/23.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/26.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/26/Multiplicity.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/26/EnergyTransfer.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/26/LAW1/LegendreCoefficients.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/26/LAW2/TabulatedDistribution.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/26/ContinuumEnergyAngle.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/26/DiscreteTwoBodyScattering.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/26/ReactionProduct.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/27.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/28/SubshellData.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/28.python.cpp
@@ -247,6 +255,7 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/14.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/15.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/23.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/26.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/27.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/28.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/33.python.cpp

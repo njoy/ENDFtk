@@ -136,7 +136,7 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
       THEN( "an exception is thrown upon construction" ) {
 
         CHECK_THROWS( DiscreteTwoBodyScattering( begin, end, lineNumber,
-                                                   9228, 6, 5 ) );
+                                                 9228, 6, 5 ) );
       } // THEN
     } // WHEN
   } // GIVEN

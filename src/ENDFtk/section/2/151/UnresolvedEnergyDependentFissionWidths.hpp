@@ -81,12 +81,12 @@ public:
   /**
    *  @brief Return the energy values for which fission widths are given
    */
-  AllRange< double > ES() const { return this->energies_.list(); }
+  auto ES() const { return this->energies_.list(); }
 
   /**
    *  @brief Return the energy values for which fission widths are given
    */
-  AllRange< double > energies() const { return this->ES(); }
+  auto energies() const { return this->ES(); }
 
   using UnresolvedBaseWithoutSpin::spin;
   using UnresolvedBaseWithoutSpin::scatteringRadius;

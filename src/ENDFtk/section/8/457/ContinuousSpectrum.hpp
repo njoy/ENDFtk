@@ -30,22 +30,22 @@ public:
   /**
    *  @brief Return the energy values
    */
-  AllRange< double > E() const { return TabulationRecord::x(); }
+  auto E() const { return TabulationRecord::x(); }
 
   /**
    *  @brief Return the energy values
    */
-  AllRange< double > energies() const { return this->E(); }
+  auto energies() const { return this->E(); }
 
   /**
    *  @brief Return the spectral values
    */
-  AllRange< double > RP() const { return TabulationRecord::y(); }
+  auto RP() const { return TabulationRecord::y(); }
 
   /**
    *  @brief Return the spectral values
    */
-  AllRange< double > spectralValues() const { return this->RP(); }
+  auto spectralValues() const { return this->RP(); }
 
   using TabulationRecord::NP;
   using TabulationRecord::NR;

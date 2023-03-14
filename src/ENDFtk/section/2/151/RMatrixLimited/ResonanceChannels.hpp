@@ -11,17 +11,11 @@
  */
 class ResonanceChannels : protected ListRecord {
 
-public:
-
-  using Column = StrideRange< DropRange< AllRange< double > > >;
-
-private:
-
   /* auxiliary functions */
   #include "ENDFtk/section/2/151/RMatrixLimited/ResonanceChannels/src/generateList.hpp"
   #include "ENDFtk/section/2/151/RMatrixLimited/ResonanceChannels/src/verifySize.hpp"
 
-  Column column( unsigned int i ) const {
+  auto column( unsigned int i ) const {
 
     return ListRecord::list()
              | ranges::views::drop_exactly( i )
@@ -115,46 +109,46 @@ public:
   /**
    *  @brief Return the channel spin values
    */
-  Column SCH() const { return ResonanceChannels::column( 2 ); }
+  auto SCH() const { return ResonanceChannels::column( 2 ); }
 
   /**
    *  @brief Return the channel spin values
    */
-  Column channelSpinValues() const { return this->SCH(); }
+  auto channelSpinValues() const { return this->SCH(); }
 
   /**
    *  @brief Return the boundary condition values
    */
-  Column BND() const { return ResonanceChannels::column( 3 ); }
+  auto BND() const { return ResonanceChannels::column( 3 ); }
 
   /**
    *  @brief Return the boundary condition values
    */
-  Column boundaryConditionValues() const { return this->BND(); }
+  auto boundaryConditionValues() const { return this->BND(); }
 
   /**
    *  @brief Return the true channel radii (used in the calculation of the
    *         penetrability and shift factor)
    */
-  Column APT() const { return ResonanceChannels::column( 5 ); }
+  auto APT() const { return ResonanceChannels::column( 5 ); }
 
   /**
    *  @brief Return the true channel radii (used in the calculation of the
    *         penetrability and shift factor)
    */
-  Column trueChannelRadii() const { return this->APT(); }
+  auto trueChannelRadii() const { return this->APT(); }
 
   /**
    *  @brief Return the effective channel radii (used in the calculation of the
    *         phase shift)
    */
-  Column APE() const { return ResonanceChannels::column( 4 ); }
+  auto APE() const { return ResonanceChannels::column( 4 ); }
 
   /**
    *  @brief Return the effective channel radii (used in the calculation of the
    *         phase shift)
    */
-  Column effectiveChannelRadii() const { return this->APE(); }
+  auto effectiveChannelRadii() const { return this->APE(); }
 
   using ListRecord::NC;
   using ListRecord::print;
