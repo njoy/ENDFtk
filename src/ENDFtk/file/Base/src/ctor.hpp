@@ -30,7 +30,7 @@ Base( StructureDivision& division,
   try: sections_( read( division, begin, end, lineNumber ) ) {}
   catch ( std::exception& e ) {
 
-    Log::info("Encountered error while generating file::Type<{}>", this->MF() );
+    Log::info("Encountered error while reading file::Type<{}>", this->MF() );
     Log::info( "Line number: {}", lineNumber );
     throw e;
   }

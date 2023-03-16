@@ -1,39 +1,51 @@
 /**
- *  @brief Retrieve a specific file
+ *  @brief Return the file with the requested MF number
  *
- *  @param mf   the MF number of the file to be retrieved (e.g. 1_c)
+ *  @param[in] mf   the MF number of the file to be returned
  */
-template< typename Index >
-decltype( auto ) file( Index mf ) const {
+const FileVariant& file( int mf ) const {
 
   try {
 
-    return details::get( this->fileMap[ mf ] );
+    return this->files_.at( mf );
   }
-  catch ( ... ) {
+  catch( std::out_of_range& o ) {
 
-    int MAT = this->MAT();
-    Log::error( "Requested file number (MF) does not "
-                "correspond to a stored file" );
+    Log::error( "Requested file number (MF) does not"
+                " correspond to a stored file" );
     Log::info( "Requested file number: {}", mf );
-    Log::info( "Material queried: {}", MAT );
-
-    throw std::out_of_range( "Material " + std::to_string( MAT ) + " file" );
+    Log::info( "Material queried: ", this->MAT() );
+    throw o;
   }
 }
 
 /**
- *  @brief Retrieve a specific file
+ *  @brief Return the file with the requested MF number
  *
- *  @param mf   the MF number of the file to be retrieved (e.g. 1_c)
+ *  @param[in] mf   the MF number of the file to be returned
  */
-template< typename Index >
-decltype( auto ) file( Index mf ) {
+FileVariant& file( int mf ) {
 
-  decltype( auto ) file = const_cast< const Material& >( *this ).file( mf );
+  return const_cast< FileVariant& >(
+      const_cast< const Material& >( *this ).file( mf ) );
+}
 
-  using File_t =
-    std::add_lvalue_reference_t< std::decay_t< decltype( file ) > >;
+/**
+ *  @brief Return the file with the requested MF number
+ *
+ *  @param[in] mf   the MF number of the file to be returned
+ */
+const FileVariant& MF( int mf ) const {
 
-  return const_cast< File_t >( file );
+  return this->file( mf );
+}
+
+/**
+ *  @brief Return the file with the requested MF number
+ *
+ *  @param[in] mf   the MF number of the file to be returned
+ */
+FileVariant& MF( int mf ) {
+
+  return this->file( mf );
 }

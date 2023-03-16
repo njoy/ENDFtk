@@ -4,20 +4,13 @@
 // system includes
 
 // other includes
-#include "boost/hana.hpp"
 #include "range/v3/view/subrange.hpp"
 #include "ENDFtk/HeadRecord.hpp"
 #include "ENDFtk/TextRecord.hpp"
 #include "ENDFtk/section.hpp"
-#include "boost/hana.hpp"
 
 namespace njoy {
 namespace ENDFtk {
-
-  // hana namespace declaration inside ENDFtk
-  namespace hana = boost::hana;
-  inline namespace literals { using namespace hana::literals; }
-
 namespace tree {
 
   /**

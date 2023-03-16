@@ -8,6 +8,7 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
+using FileVariant = Material::FileVariant;
 
 std::string chunk();
 void verifyMaterial( const Material& );
@@ -25,16 +26,13 @@ SCENARIO( "Testing Material" ) {
     StructureDivision head( begin, end, lineNumber );
     Material material( head, begin, end, lineNumber );
 
-    file::Type< 1 > mf1 = material.file( 1_c );
-    file::Type< 2 > mf2 = material.file( 2_c );
-    file::Type< 3 > mf3 = material.file( 3_c );
-    file::Type< 4 > mf4 = material.file( 4_c );
-    file::Type< 5 > mf5 = material.file( 5_c );
+    std::vector< FileVariant > files = { material.file( 1 ), material.file( 2 ),
+                                         material.file( 3 ), material.file( 4 ),
+                                         material.file( 5 ) };
 
     WHEN( "a material is constructed using files" ) {
 
-      Material material( 131, std::move( mf1 ), std::move( mf2 ),
-                         std::move( mf3 ), std::move( mf4 ), std::move( mf5 ) );
+      Material material( 131, std::move( files ) );
 
       THEN( "a Material can be constructed" ) {
 
@@ -1129,19 +1127,19 @@ void verifyMaterial( const Material& chunk ) {
   CHECK( chunk.hasFile( 5 ) );
   CHECK( not chunk.hasFile( 6 ) );
 
-  auto mf1 = chunk.MF( 1_c );
+  decltype(auto) mf1 = std::get< file::Type< 1 > >( chunk.MF( 1 ) );
   CHECK( mf1.hasMT( 451 ) );
   CHECK( not mf1.hasMT( 452 ) );
   CHECK( mf1.hasSection( 451 ) );
   CHECK( not mf1.hasSection( 452 ) );
 
-  auto mf2 = chunk.MF( 2_c );
+  decltype(auto) mf2 = std::get< file::Type< 2 > >( chunk.MF( 2 ) );
   CHECK( mf2.hasMT( 151 ) );
   CHECK( not mf2.hasMT( 152 ) );
   CHECK( mf2.hasSection( 151 ) );
   CHECK( not mf2.hasSection( 152 ) );
 
-  auto mf3 = chunk.MF( 3_c );
+  decltype(auto) mf3 = std::get< file::Type< 3 > >( chunk.MF( 3 ) );
   CHECK( mf3.hasMT( 1 ) );
   CHECK( mf3.hasMT( 2 ) );
   CHECK( mf3.hasMT( 16 ) );
@@ -1151,7 +1149,7 @@ void verifyMaterial( const Material& chunk ) {
   CHECK( mf3.hasSection( 16 ) );
   CHECK( not mf3.hasSection( 102 ) );
 
-  auto mf4 = chunk.MF( 4_c );
+  decltype(auto) mf4 = std::get< file::Type< 4 > >( chunk.MF( 4 ) );
   CHECK( not mf4.hasMT( 1 ) );
   CHECK( mf4.hasMT( 2 ) );
   CHECK( mf4.hasMT( 16 ) );
@@ -1159,7 +1157,7 @@ void verifyMaterial( const Material& chunk ) {
   CHECK( mf4.hasSection( 2 ) );
   CHECK( mf4.hasSection( 16 ) );
 
-  auto mf5 = chunk.MF( 5_c );
+  decltype(auto) mf5 = std::get< file::Type< 5 > >( chunk.MF( 5 ) );
   CHECK( not mf5.hasMT( 1 ) );
   CHECK( not mf5.hasMT( 2 ) );
   CHECK( mf5.hasMT( 16 ) );

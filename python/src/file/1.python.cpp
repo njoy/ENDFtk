@@ -6,13 +6,9 @@
 #include "ENDFtk/file/1.hpp"
 #include "definitions.hpp"
 #include "views.hpp"
-#include "boost/hana.hpp"
 
 // namespace aliases
 namespace python = pybind11;
-
-namespace hana = boost::hana;
-inline namespace literals { using namespace hana::literals; }
 
 // declarations - sections
 void wrap_1_TabulatedMultiplicity( python::module&, python::module& );

@@ -7,39 +7,35 @@
 #include "ENDFtk/Material.hpp"
 #include "ENDFtk/tree/Material.hpp"
 #include "ENDFtk/tree/toMaterial.hpp"
-#include "boost/hana.hpp"
 
 // namespace aliases
 namespace python = pybind11;
-
-namespace hana = boost::hana;
-inline namespace literals { using namespace hana::literals; }
 
 void wrapMaterial( python::module& module, python::module& ) {
 
   // type aliases
   using Material = njoy::ENDFtk::Material;
-  using MF1 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 1 > >;
-  using MF2 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 2 > >;
-  using MF3 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 3 > >;
-  using MF4 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 4 > >;
-  using MF5 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 5 > >;
-  using MF6 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 6 > >;
-  using MF7 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 7 > >;
-  using MF8 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 8 > >;
-  using MF9 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 9 > >;
-  using MF10 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 10 > >;
-  using MF12 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 12 > >;
-  using MF13 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 13 > >;
-  using MF14 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 14 > >;
-  using MF15 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 15 > >;
-  using MF23 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 23 > >;
-  using MF26 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 26 > >;
-  using MF27 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 27 > >;
-  using MF28 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 28 > >;
-  using MF32 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 32 > >;
-  using MF33 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 33 > >;
-  using MF34 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 34 > >;
+  using MF1 = njoy::ENDFtk::file::Type< 1 >;
+  using MF2 = njoy::ENDFtk::file::Type< 2 >;
+  using MF3 = njoy::ENDFtk::file::Type< 3 >;
+  using MF4 = njoy::ENDFtk::file::Type< 4 >;
+  using MF5 = njoy::ENDFtk::file::Type< 5 >;
+  using MF6 = njoy::ENDFtk::file::Type< 6 >;
+  using MF7 = njoy::ENDFtk::file::Type< 7 >;
+  using MF8 = njoy::ENDFtk::file::Type< 8 >;
+  using MF9 = njoy::ENDFtk::file::Type< 9 >;
+  using MF10 = njoy::ENDFtk::file::Type< 10 >;
+  using MF12 = njoy::ENDFtk::file::Type< 12 >;
+  using MF13 = njoy::ENDFtk::file::Type< 13 >;
+  using MF14 = njoy::ENDFtk::file::Type< 14 >;
+  using MF15 = njoy::ENDFtk::file::Type< 15 >;
+  using MF23 = njoy::ENDFtk::file::Type< 23 >;
+  using MF26 = njoy::ENDFtk::file::Type< 26 >;
+  using MF27 = njoy::ENDFtk::file::Type< 27 >;
+  using MF28 = njoy::ENDFtk::file::Type< 28 >;
+  using MF32 = njoy::ENDFtk::file::Type< 32 >;
+  using MF33 = njoy::ENDFtk::file::Type< 33 >;
+  using MF34 = njoy::ENDFtk::file::Type< 34 >;
 
   // wrap views created by this section
 
@@ -50,41 +46,6 @@ void wrapMaterial( python::module& module, python::module& ) {
     "Material",
     "Material - nuclear data for a single material"
   );
-
-  // predefined lambda
-  auto getFile = [] ( const Material& self, int mf )
-  -> std::variant< MF1, MF2, MF3, MF4, MF5, MF6, MF7, MF8, MF9, MF10,
-                   MF12, MF13, MF14, MF15, MF23, MF26, MF27, MF28,
-                   MF32, MF33, MF34 > {
-
-    switch ( mf ) {
-
-      case 1 : return self.file( 1_c );
-      case 2 : return self.file( 2_c );
-      case 3 : return self.file( 3_c );
-      case 4 : return self.file( 4_c );
-      case 5 : return self.file( 5_c );
-      case 6 : return self.file( 6_c );
-      case 7 : return self.file( 7_c );
-      case 8 : return self.file( 8_c );
-      case 9 : return self.file( 9_c );
-      case 10 : return self.file( 10_c );
-      case 12 : return self.file( 12_c );
-      case 13 : return self.file( 13_c );
-      case 14 : return self.file( 14_c );
-      case 15 : return self.file( 15_c );
-      case 23 : return self.file( 23_c );
-      case 26 : return self.file( 26_c );
-      case 27 : return self.file( 27_c );
-      case 28 : return self.file( 28_c );
-      case 32 : return self.file( 32_c );
-      case 33 : return self.file( 33_c );
-      case 34 : return self.file( 34_c );
-      default: throw std::runtime_error(
-                    "Requested file number (" + std::to_string( mf ) +
-                    ") does not correspond to a stored file" );
-    }
-  };
 
   // wrap the section
   material
@@ -123,7 +84,8 @@ void wrapMaterial( python::module& module, python::module& ) {
   .def(
 
     "MF",
-    getFile,
+    [] ( const Material& self, int mf ) ->decltype(auto)
+       { return self.MF( mf ); },
     python::arg( "mf" ),
     "Return the file with the requested MF number\n\n"
     "Arguments:\n"
@@ -134,7 +96,8 @@ void wrapMaterial( python::module& module, python::module& ) {
   .def(
 
     "file",
-    getFile,
+    [] ( const Material& self, int mf ) ->decltype(auto)
+       { return self.file( mf ); },
     python::arg( "mf" ),
     "Return the file with the requested MF number\n\n"
     "Arguments:\n"

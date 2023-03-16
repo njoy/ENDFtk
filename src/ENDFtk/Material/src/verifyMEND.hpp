@@ -1,5 +1,5 @@
 static void
-verifyEND( const StructureDivision& structureDivision,
+verifyMEND( const StructureDivision& structureDivision,
            long lineNumber ) {
 
   if ( not structureDivision.isMend() ) {

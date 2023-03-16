@@ -142,8 +142,6 @@ SCENARIO( "Testing generic case using file 3" ) {
 
         CHECK_NOTHROW( file.parse< 3 >() );
         CHECK_NOTHROW( file.parse< 3 >( lineNumber ) );
-        CHECK_NOTHROW( file.parse( 3_c ) );
-        CHECK_NOTHROW( file.parse( 3_c, lineNumber ) );
       } // THEN
     } // WHEN
 

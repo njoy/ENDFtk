@@ -6,13 +6,9 @@
 #include "ENDFtk/file/32.hpp"
 #include "definitions.hpp"
 #include "views.hpp"
-#include "boost/hana.hpp"
 
 // namespace aliases
 namespace python = pybind11;
-
-namespace hana = boost::hana;
-inline namespace literals { using namespace hana::literals; }
 
 // declarations - sections
 void wrapSection_32_151( python::module&, python::module& );
