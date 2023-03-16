@@ -2,6 +2,7 @@
 #define NJOY_ENDFTK_FILE_2
 
 // system includes
+#include <variant>
 
 // other includes
 #include "ENDFtk/section/2.hpp"
