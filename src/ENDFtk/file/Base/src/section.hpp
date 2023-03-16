@@ -1,39 +1,51 @@
 /**
- *  @brief Retrieve a specific section
+ *  @brief Return the section with the requested MT number
  *
- *  @param mt   the MT number of the section to be retrieved (e.g. 1_c)
+ *  @param[in] mt   the MT number of the section to be returned
  */
-template< typename Index >
-decltype( auto ) section( Index sectionNo ) const {
+const Section& section( int mt ) const {
 
   try {
 
-    return njoy::ENDFtk::details::get( this->derived().sectionMap[ sectionNo ] );
+    return this->sections_.at( mt );
   }
-  catch ( ... ) {
+  catch( std::out_of_range& o ) {
 
-    int MF = this->derived().MF();
-    Log::error( "Requested section number (MT) does not "
-                "correspond to a stored section" );
-    Log::info( "Requested section number: {}", sectionNo );
-    Log::info( "File queried: {}", MF );
-
-    throw std::out_of_range( "File " + std::to_string( MF ) + " section" );
+    Log::error( "Requested section number (MT) does not"
+                " correspond to a stored section" );
+    Log::info( "Requested section number: {}", mt );
+    Log::info( "File queried: ", this->MF() );
+    throw o;
   }
 }
 
 /**
- *  @brief Retrieve a specific section
+ *  @brief Return the section with the requested MT number
  *
- *  @param mt   the MT number of the section to be retrieved (e.g. 1_c)
+ *  @param[in] mt   the MT number of the section to be returned
  */
-template< typename Index >
-decltype( auto ) section( Index sectionNo ) {
+Section& section( int mt ) {
 
-  decltype( auto ) section = const_cast< const Base* >( this )->derived().section( sectionNo );
+  return const_cast< Section& >(
+      const_cast< const Base& >( *this ).section( mt ) );
+}
 
-  using Section_t =
-    std::add_lvalue_reference_t< std::decay_t< decltype( section ) > >;
+/**
+ *  @brief Return the section with the requested MT number
+ *
+ *  @param[in] mt   the MT number of the section to be returned
+ */
+const Section& MT( int mt ) const {
 
-  return const_cast< Section_t >( section );
+  return this->section( mt );
+}
+
+/**
+ *  @brief Return the section with the requested MT number
+ *
+ *  @param[in] mt   the MT number of the section to be returned
+ */
+Section& MT( int mt ) {
+
+  return this->section( mt );
 }

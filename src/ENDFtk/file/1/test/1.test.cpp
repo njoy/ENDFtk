@@ -161,22 +161,24 @@ SCENARIO( "Testing special case of file 1" ) {
         CHECK( file.hasSection( 451 ) );
         CHECK( not file.hasSection( 1 ) );
 
-        CHECK( 1001. == Approx( file.section( 451_c ).ZA() ) );
-        CHECK( 1001. == Approx( file.MT( 451_c ).ZA() ) );
+        decltype(auto) section = std::get< section::Type< 1, 451 > >( file.section( 451 ) );
+        CHECK( 1001. == Approx( section.ZA() ) );
+        section = std::get< section::Type< 1, 451 > >( file.MT( 451 ) );
+        CHECK( 1001. == Approx( section.ZA() ) );
       }
 
       THEN( "the sections can be extracted" ) {
 
-        CHECK_NOTHROW( file.MT( 451_c ) );
+        CHECK_NOTHROW( file.MT( 451 ) );
       }
 
       THEN( "an exception is thrown if invalid MT" ) {
 
-        CHECK_THROWS( file.MT( 452_c ) );
-        CHECK_THROWS( file.MT( 455_c ) );
-        CHECK_THROWS( file.MT( 456_c ) );
-        CHECK_THROWS( file.MT( 458_c ) );
-        CHECK_THROWS( file.MT( 460_c ) );
+        CHECK_THROWS( file.MT( 452 ) );
+        CHECK_THROWS( file.MT( 455 ) );
+        CHECK_THROWS( file.MT( 456 ) );
+        CHECK_THROWS( file.MT( 458 ) );
+        CHECK_THROWS( file.MT( 460 ) );
       }
     }
 
@@ -382,13 +384,14 @@ void verifyChunk451( const file::Type< 1 >& chunk ) {
   CHECK( chunk.hasSection( 451 ) );
   CHECK( not chunk.hasSection( 4 ) );
 
-  CHECK_NOTHROW( chunk.MT( 451_c ) );
-  CHECK_NOTHROW( chunk.section( 451_c ) );
+  CHECK_NOTHROW( chunk.MT( 451 ) );
+  CHECK_NOTHROW( chunk.section( 451 ) );
 
-  CHECK( 39088. == Approx( chunk.MT( 451_c ).ZA() ) );
-  CHECK( 6 == chunk.MT( 451_c ).NWD() );
-  CHECK( 2 == chunk.MT( 451_c ).NXC() );
-  CHECK( 12 == chunk.MT( 451_c ).NC() );
+  decltype(auto) section = std::get< section::Type< 1, 451 > >( chunk.section( 451 ) );
+  CHECK( 39088. == Approx( section.ZA() ) );
+  CHECK( 6 == section.NWD() );
+  CHECK( 2 == section.NXC() );
+  CHECK( 12 == section.NC() );
 }
 
 std::string validSEND() {

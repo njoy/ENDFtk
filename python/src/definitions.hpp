@@ -233,10 +233,20 @@ void addStandardSectionDefinitions( PythonClass& section ) {
  *
  *  @param[in] file   the file to which the definitions have to be added
  */
-template < typename File, typename PythonClass >
+template < typename File, typename Section, typename SectionRange,
+           typename PythonClass >
 void addStandardFileDefinitions( PythonClass& file ) {
 
   file
+  .def(
+
+    python::init< std::vector< Section >&& >(),
+    python::arg( "sections" ),
+    "Initialise the file\n\n"
+    "Arguments:\n"
+    "    self       the file\n"
+    "    sections   the sections to be put into the file"
+  )
   .def(
 
     python::init< const File& >(),
@@ -278,6 +288,35 @@ void addStandardFileDefinitions( PythonClass& file ) {
     "    self    the file\n"
     "    mt      the MT number of the section"
   )
+  .def(
+
+    "section",
+    [] ( const File& self, int mt ) -> decltype(auto)
+       { return self.section( mt ); },
+    python::arg( "mt" ),
+    "Return the section with the requested MT number\n\n"
+    "Arguments:\n"
+    "    self    the file\n"
+    "    mt      the MT number of the section to be returned"
+  )
+  .def(
+
+    "MT",
+    [] ( const File& self, int mt ) -> decltype(auto)
+       { return self.MT( mt ); },
+    python::arg( "mt" ),
+    "Return the section with the requested MT number\n\n"
+    "Arguments:\n"
+    "    self    the file\n"
+    "    mt      the MT number of the section to be returned"
+  )
+  .def_property_readonly(
+
+    "sections",
+    [] ( const File& self ) -> SectionRange
+       { return self.sections(); },
+    "The sections defined in the file"
+  )
   .def_static(
 
     "from_string",
@@ -311,59 +350,6 @@ void addStandardFileDefinitions( PythonClass& file ) {
     "Arguments:\n"
     "    self    the file\n"
     "    mat     the MAT number to be used"
-  );
-}
-
-/**
- *  @brief Add file definitions for an unenumerated file (e.g. MF3)
- *
- *  This adds the following standard properties:
- *    init (list of sections), MT, section, sections
- *
- *  @param[in] file   the file to which the definitions have to be added
- */
-template < typename File, typename Section, typename SectionRange,
-           typename PythonClass >
-void addStandardUnenumeratedFileDefinitions( PythonClass& file ) {
-
-  file
-  .def(
-
-    python::init< std::vector< Section >&& >(),
-    python::arg( "sections" ),
-    "Initialise the file\n\n"
-    "Arguments:\n"
-    "    self       the file\n"
-    "    sections   the sections to be put into the file"
-  )
-  .def(
-
-    "section",
-    ( Section& ( File::* )( int ) ) &File::section,
-    python::arg( "mt" ),
-    "Return the section with the requested MT number\n\n"
-    "Arguments:\n"
-    "    self    the file\n"
-    "    mt      the MT number of the section to be returned",
-    python::return_value_policy::reference_internal
-  )
-  .def(
-
-    "MT",
-    ( Section& ( File::* )( int ) ) &File::MT,
-    python::arg( "mt" ),
-    "Return the section with the requested MT number\n\n"
-    "Arguments:\n"
-    "    self    the file\n"
-    "    mt      the MT number of the section to be returned",
-    python::return_value_policy::reference_internal
-  )
-  .def_property_readonly(
-
-    "sections",
-    [] ( const File& self ) -> SectionRange
-       { return self.sections(); },
-    "The sections defined in the file"
   );
 }
 

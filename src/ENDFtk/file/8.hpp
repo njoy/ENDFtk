@@ -13,55 +13,48 @@ namespace ENDFtk {
 namespace file {
 
   template<>
-  class Type< 8 > : public Base< Type< 8 > > {
+  class Type< 8 > : protected Base< Type< 8 >,
+                                    std::variant< section::Type< 8, 454 >,
+                                                  section::Type< 8, 457 >,
+                                                  section::Type< 8, 459 > > > {
 
-    friend Base< Type >;
-    using Parent = Base< Type >;
+    using SectionVariant = std::variant< section::Type< 8, 454 >,
+                                         section::Type< 8, 457 >,
+                                         section::Type< 8, 459 > >;
+    friend class Base< Type, SectionVariant >;
 
+    //! @todo remove this
     using Text = record::Base< record::Character< 66 > >;
     using Tail = record::Tail;
 
-    // MF8 has enumerated sectons and normal sections
-    // no sections are required
-    static constexpr auto requiredSections()
-      RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple() )
+    /* auxiliary functions blatantly copied from MF1 */
+    #include "ENDFtk/file/1/src/getSectionNumber.hpp"
+    #include "ENDFtk/file/1/src/printSection.hpp"
 
-    // MT454, MT457 and MT459 are optional
-    static constexpr auto optionalSections()
-      RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 454_c, 457_c, 459_c ) )
+    /* auxiliary functions */
+    #include "ENDFtk/file/8/src/readSection.hpp"
 
-    // the following sections are currently unimplemented
-    static constexpr auto unimplementedSections()
-      RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple() )
+  public :
 
-    using Map =
-    typename decltype( details::deduceMapType(
-                           8_c,
-                           requiredSections(),
-                           optionalSections() ) )::type;
-
-    /* fields */
-    Map sectionMap;
-
-  public:
-
+    /* ctor */
     #include "ENDFtk/file/8/src/ctor.hpp"
 
-    bool
-    hasSection( int sectionNo ) const {
+    /* methods */
 
-      switch ( sectionNo ) {
+    /**
+     *  @brief Return the file number
+     */
+    static constexpr int fileNumber() { return 8; }
 
-        case 454 : return bool( this->sectionMap[ 454_c ] );
-        case 457 : return bool( this->sectionMap[ 457_c ] );
-        case 459 : return bool( this->sectionMap[ 459_c ] );
-        default: return false;
-      }
-    }
-
-    static constexpr auto fileNumber() { return 8; }
-
-    #include "ENDFtk/file/8/src/print.hpp"
+    using Base::MF;
+    using Base::sections;
+    using Base::begin;
+    using Base::end;
+    using Base::hasMT;
+    using Base::hasSection;
+    using Base::section;
+    using Base::MT;
+    using Base::print;
   };
 
 } // file namespace

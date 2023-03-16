@@ -5,6 +5,7 @@
 #include <optional>
 
 // other includes
+#include "ENDFtk/details.hpp"
 #include "ENDFtk/file/1.hpp"
 #include "ENDFtk/file/2.hpp"
 #include "ENDFtk/file/3.hpp"
@@ -34,6 +35,9 @@
 
 namespace njoy {
 namespace ENDFtk {
+
+  namespace hana = boost::hana;
+  inline namespace literals { using namespace hana::literals; }
 
   class Material {
 

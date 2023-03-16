@@ -13,50 +13,36 @@ namespace ENDFtk {
 namespace file {
 
   template<>
-  class Type< 32 > : public Base< Type< 32 > > {
+  class Type< 32 > : protected Base< Type< 32 >, section::Type< 32, 151 > > {
 
-    friend Base< Type >;
-    using Parent = Base< Type >;
+    friend class Base< Type, section::Type< 32, 151 > >;
 
-    // MF32 only has enumerated secton
-    // no sections are required
-    static constexpr auto requiredSections()
-      RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 151_c ) )
+    /* auxiliary functions */
+    #include "ENDFtk/file/32/src/getSectionNumber.hpp"
+    #include "ENDFtk/file/32/src/printSection.hpp"
+    #include "ENDFtk/file/32/src/readSection.hpp"
 
-    // no optional sections
-    static constexpr auto optionalSections()
-      RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple() )
+  public :
 
-    // no sections are currently unimplemented
-    static constexpr auto unimplementedSections()
-      RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple() )
-
-    using Map =
-    typename decltype( details::deduceMapType(
-                           32_c,
-                           requiredSections(),
-                           optionalSections() ) )::type;
-
-    /* fields */
-    Map sectionMap;
-
-  public:
-
+    /* ctor */
     #include "ENDFtk/file/32/src/ctor.hpp"
 
-    bool
-    hasSection( int sectionNo ) const {
+    /* methods */
 
-      switch ( sectionNo ) {
+    /**
+     *  @brief Return the file number
+     */
+    static constexpr int fileNumber() { return 32; }
 
-        case 151 : return true;
-        default: return false;
-      }
-    }
-
-    static constexpr auto fileNumber() { return 32; }
-
-    #include "ENDFtk/file/32/src/print.hpp"
+    using Base::MF;
+    using Base::sections;
+    using Base::begin;
+    using Base::end;
+    using Base::hasMT;
+    using Base::hasSection;
+    using Base::section;
+    using Base::MT;
+    using Base::print;
   };
 
 } // file namespace

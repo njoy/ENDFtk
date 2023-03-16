@@ -151,8 +151,10 @@ SCENARIO( "Testing special case of file 8" ) {
         CHECK( file.hasSection( 457 ) );
         CHECK( not file.hasSection( 1 ) );
 
-        CHECK( 92235. == Approx( file.section( 457_c ).ZA() ) );
-        CHECK( 92235. == Approx( file.MT( 457_c ).ZA() ) );
+        decltype(auto) section = std::get< section::Type< 8, 457 > >( file.section( 457 ) );
+        CHECK( 92235. == Approx( section.ZA() ) );
+        section = std::get< section::Type< 8, 457 > >( file.MT( 457 ) );
+        CHECK( 92235. == Approx( section.ZA() ) );
       }
     }
 
@@ -1039,13 +1041,14 @@ void verifyChunk457( const file::Type< 8 >& chunk ) {
   CHECK( chunk.hasSection( 457 ) );
   CHECK( not chunk.hasSection( 1 ) );
 
-  CHECK_NOTHROW( chunk.MT( 457_c ) );
-  CHECK_NOTHROW( chunk.section( 457_c ) );
+  CHECK_NOTHROW( chunk.MT( 457 ) );
+  CHECK_NOTHROW( chunk.section( 457 ) );
 
-  CHECK( 95242. == Approx( chunk.MT( 457_c ).ZA() ) );
-  CHECK( 2 == chunk.MT( 457_c ).LIS() );
-  CHECK( 1 == chunk.MT( 457_c ).LISO() );
-  CHECK( 20 == chunk.MT( 457_c ).NC() );
+  decltype(auto) section = std::get< section::Type< 8, 457 > >( chunk.section( 457 ) );
+  CHECK( 95242. == Approx( section.ZA() ) );
+  CHECK( 2 == section.LIS() );
+  CHECK( 1 == section.LISO() );
+  CHECK( 20 == section.NC() );
 }
 
 std::string validSEND() {

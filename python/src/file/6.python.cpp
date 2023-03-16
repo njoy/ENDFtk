@@ -44,9 +44,6 @@ void wrapFile_6( python::module& module, python::module& viewmodule ) {
     "MF6 file - product energy-angle distributions"
   );
 
-  // wrap the file
-  addStandardUnenumeratedFileDefinitions< File, Section, SectionRange >( file );
-
   // add standard file definitions
-  addStandardFileDefinitions< File >( file );
+  addStandardFileDefinitions< File, Section, SectionRange >( file );
 }

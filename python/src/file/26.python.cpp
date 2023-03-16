@@ -44,9 +44,6 @@ void wrapFile_26( python::module& module, python::module& viewmodule ) {
     "MF26 file - secondary distributions for photo- and electro-atomic interactions"
   );
 
-  // wrap the file
-  addStandardUnenumeratedFileDefinitions< File, Section, SectionRange >( file );
-
   // add standard file definitions
-  addStandardFileDefinitions< File >( file );
+  addStandardFileDefinitions< File, Section, SectionRange >( file );
 }

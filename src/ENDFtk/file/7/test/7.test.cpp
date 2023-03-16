@@ -48,8 +48,8 @@ SCENARIO( "Testing special case of file 7" ) {
 
       THEN( "an exception is thrown if invalid MT or section is requested" ) {
 
-        CHECK_THROWS( mf7.MT( 4_c ) );
-        CHECK_THROWS( mf7.section( 4_c ) );
+        CHECK_THROWS( mf7.MT( 4 ) );
+        CHECK_THROWS( mf7.section( 4 ) );
       } // THEN
 
       THEN( "it can be printed" ) {
@@ -95,8 +95,8 @@ SCENARIO( "Testing special case of file 7" ) {
 
       THEN( "an exception is thrown if invalid MT or section is requested" ) {
 
-        CHECK_THROWS( mf7.MT( 2_c ) );
-        CHECK_THROWS( mf7.section( 2_c ) );
+        CHECK_THROWS( mf7.MT( 2 ) );
+        CHECK_THROWS( mf7.section( 2 ) );
       } // THEN
 
       THEN( "it can be printed" ) {
@@ -242,11 +242,15 @@ SCENARIO( "Testing special case of file 7" ) {
         CHECK( file.hasSection( 4 ) );
         CHECK( not file.hasSection( 1 ) );
 
-        CHECK( 127. == Approx( file.section( 2_c ).ZA() ) );
-        CHECK( 127. == Approx( file.MT( 2_c ).ZA() ) );
+        decltype(auto) elastic = std::get< section::Type< 7, 2 > >( file.section( 2 ) );
+        CHECK( 127. == Approx( elastic.ZA() ) );
+        elastic = std::get< section::Type< 7, 2 > >( file.MT( 2 ) );
+        CHECK( 127. == Approx( elastic.ZA() ) );
 
-        CHECK( 127. == Approx( file.section( 4_c ).ZA() ) );
-        CHECK( 127. == Approx( file.MT( 4_c ).ZA() ) );
+        decltype(auto) inelastic = std::get< section::Type< 7, 4 > >( file.section( 4 ) );
+        CHECK( 127. == Approx( inelastic.ZA() ) );
+        inelastic = std::get< section::Type< 7, 4 > >( file.MT( 4 ) );
+        CHECK( 127. == Approx( inelastic.ZA() ) );
       }
     }
 
@@ -343,12 +347,13 @@ void verifyChunk2( const file::Type< 7 >& chunk ) {
   CHECK( chunk.hasSection( 2 ) );
   CHECK( not chunk.hasSection( 4 ) );
 
-  CHECK_NOTHROW( chunk.MT( 2_c ) );
-  CHECK_NOTHROW( chunk.section( 2_c ) );
+  CHECK_NOTHROW( chunk.MT( 2 ) );
+  CHECK_NOTHROW( chunk.section( 2 ) );
 
-  CHECK( 127. == Approx( chunk.MT( 2_c ).ZA() ) );
-  CHECK( 1 == chunk.MT( 2_c ).LTHR() );
-  CHECK( 4 == chunk.MT( 2_c ).NC() );
+  decltype(auto) section = std::get< section::Type< 7, 2 > >( chunk.section( 2 ) );
+  CHECK( 127. == Approx( section.ZA() ) );
+  CHECK( 1 == section.LTHR() );
+  CHECK( 4 == section.NC() );
 }
 
 std::string chunk4() {
@@ -385,14 +390,15 @@ void verifyChunk4( const file::Type< 7 >& chunk ) {
   CHECK( not chunk.hasMT( 12 ) );
   CHECK( not chunk.hasSection( 12 ) );
 
-  CHECK_NOTHROW( chunk.MT( 4_c ) );
-  CHECK_NOTHROW( chunk.section( 4_c ) );
+  CHECK_NOTHROW( chunk.MT( 4 ) );
+  CHECK_NOTHROW( chunk.section( 4 ) );
 
-  CHECK( 127. == Approx( chunk.MT( 4_c ).ZA() ) );
-  CHECK( 1 == chunk.MT( 4_c ).LAT() );
-  CHECK( 0 == chunk.MT( 4_c ).LASYM() );
+  decltype(auto) section = std::get< section::Type< 7, 4 > >( chunk.section( 4 ) );
+  CHECK( 127. == Approx( section.ZA() ) );
+  CHECK( 1 == section.LAT() );
+  CHECK( 0 == section.LASYM() );
 
-  CHECK( 16 == chunk.MT( 4_c ).NC() );
+  CHECK( 16 == section.NC() );
 }
 
 std::string chunk24() {
@@ -434,19 +440,21 @@ void verifyChunk24( const file::Type< 7 >& chunk ) {
   CHECK( not chunk.hasMT( 12 ) );
   CHECK( not chunk.hasSection( 12 ) );
 
-  CHECK_NOTHROW( chunk.MT( 2_c ) );
-  CHECK_NOTHROW( chunk.MT( 4_c ) );
-  CHECK_NOTHROW( chunk.section( 2_c ) );
-  CHECK_NOTHROW( chunk.section( 4_c ) );
+  CHECK_NOTHROW( chunk.MT( 2 ) );
+  CHECK_NOTHROW( chunk.MT( 4 ) );
+  CHECK_NOTHROW( chunk.section( 2 ) );
+  CHECK_NOTHROW( chunk.section( 4 ) );
 
-  CHECK( 127. == Approx( chunk.MT( 2_c ).ZA() ) );
-  CHECK( 1 == chunk.MT( 2_c ).LTHR() );
-  CHECK( 4 == chunk.MT( 2_c ).NC() );
+  decltype(auto) elastic = std::get< section::Type< 7, 2 > >( chunk.section( 2 ) );
+  CHECK( 127. == Approx( elastic.ZA() ) );
+  CHECK( 1 == elastic.LTHR() );
+  CHECK( 4 == elastic.NC() );
 
-  CHECK( 127. == Approx( chunk.MT( 4_c ).ZA() ) );
-  CHECK( 1 == chunk.MT( 4_c ).LAT() );
-  CHECK( 0 == chunk.MT( 4_c ).LASYM() );
-  CHECK( 16 == chunk.MT( 4_c ).NC() );
+  decltype(auto) inelastic = std::get< section::Type< 7, 4 > >( chunk.section( 4 ) );
+  CHECK( 127. == Approx( inelastic.ZA() ) );
+  CHECK( 1 == inelastic.LAT() );
+  CHECK( 0 == inelastic.LASYM() );
+  CHECK( 16 == inelastic.NC() );
 }
 
 std::string validSEND() {
