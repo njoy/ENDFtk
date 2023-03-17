@@ -49,6 +49,7 @@ namespace file {
 
     using Base::MF;
     using Base::sections;
+    using Base::MTs;
     using Base::begin;
     using Base::end;
     using Base::hasMT;

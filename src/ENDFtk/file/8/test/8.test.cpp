@@ -153,8 +153,8 @@ SCENARIO( "Testing special case of file 8" ) {
 
         decltype(auto) section = std::get< section::Type< 8, 457 > >( file.section( 457 ) );
         CHECK( 92235. == Approx( section.ZA() ) );
-        section = std::get< section::Type< 8, 457 > >( file.MT( 457 ) );
-        CHECK( 92235. == Approx( section.ZA() ) );
+        decltype(auto) mt = std::get< section::Type< 8, 457 > >( file.MT( 457 ) );
+        CHECK( 92235. == Approx( mt.ZA() ) );
       }
     }
 

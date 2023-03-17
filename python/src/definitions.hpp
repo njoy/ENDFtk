@@ -312,6 +312,13 @@ void addStandardFileDefinitions( PythonClass& file ) {
   )
   .def_property_readonly(
 
+    "MTs",
+    [] ( const File& self ) -> SectionRange
+       { return self.MTs(); },
+    "The sections defined in the file"
+  )
+  .def_property_readonly(
+
     "sections",
     [] ( const File& self ) -> SectionRange
        { return self.sections(); },

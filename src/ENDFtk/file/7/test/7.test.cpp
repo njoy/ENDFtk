@@ -242,15 +242,15 @@ SCENARIO( "Testing special case of file 7" ) {
         CHECK( file.hasSection( 4 ) );
         CHECK( not file.hasSection( 1 ) );
 
-        decltype(auto) elastic = std::get< section::Type< 7, 2 > >( file.section( 2 ) );
-        CHECK( 127. == Approx( elastic.ZA() ) );
-        elastic = std::get< section::Type< 7, 2 > >( file.MT( 2 ) );
-        CHECK( 127. == Approx( elastic.ZA() ) );
+        decltype(auto) elastic1 = std::get< section::Type< 7, 2 > >( file.section( 2 ) );
+        CHECK( 127. == Approx( elastic1.ZA() ) );
+        decltype(auto) elastic2 = std::get< section::Type< 7, 2 > >( file.MT( 2 ) );
+        CHECK( 127. == Approx( elastic2.ZA() ) );
 
-        decltype(auto) inelastic = std::get< section::Type< 7, 4 > >( file.section( 4 ) );
-        CHECK( 127. == Approx( inelastic.ZA() ) );
-        inelastic = std::get< section::Type< 7, 4 > >( file.MT( 4 ) );
-        CHECK( 127. == Approx( inelastic.ZA() ) );
+        decltype(auto) inelastic1 = std::get< section::Type< 7, 4 > >( file.section( 4 ) );
+        CHECK( 127. == Approx( inelastic1.ZA() ) );
+        decltype(auto) inelastic2 = std::get< section::Type< 7, 4 > >( file.MT( 4 ) );
+        CHECK( 127. == Approx( inelastic2.ZA() ) );
       }
     }
 

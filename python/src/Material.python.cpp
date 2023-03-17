@@ -4,6 +4,7 @@
 #include <string>
 
 // local includes
+#include "views.hpp"
 #include "ENDFtk/Material.hpp"
 #include "ENDFtk/tree/Material.hpp"
 #include "ENDFtk/tree/toMaterial.hpp"
@@ -11,33 +12,18 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapMaterial( python::module& module, python::module& ) {
+void wrapMaterial( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Material = njoy::ENDFtk::Material;
-  using MF1 = njoy::ENDFtk::file::Type< 1 >;
-  using MF2 = njoy::ENDFtk::file::Type< 2 >;
-  using MF3 = njoy::ENDFtk::file::Type< 3 >;
-  using MF4 = njoy::ENDFtk::file::Type< 4 >;
-  using MF5 = njoy::ENDFtk::file::Type< 5 >;
-  using MF6 = njoy::ENDFtk::file::Type< 6 >;
-  using MF7 = njoy::ENDFtk::file::Type< 7 >;
-  using MF8 = njoy::ENDFtk::file::Type< 8 >;
-  using MF9 = njoy::ENDFtk::file::Type< 9 >;
-  using MF10 = njoy::ENDFtk::file::Type< 10 >;
-  using MF12 = njoy::ENDFtk::file::Type< 12 >;
-  using MF13 = njoy::ENDFtk::file::Type< 13 >;
-  using MF14 = njoy::ENDFtk::file::Type< 14 >;
-  using MF15 = njoy::ENDFtk::file::Type< 15 >;
-  using MF23 = njoy::ENDFtk::file::Type< 23 >;
-  using MF26 = njoy::ENDFtk::file::Type< 26 >;
-  using MF27 = njoy::ENDFtk::file::Type< 27 >;
-  using MF28 = njoy::ENDFtk::file::Type< 28 >;
-  using MF32 = njoy::ENDFtk::file::Type< 32 >;
-  using MF33 = njoy::ENDFtk::file::Type< 33 >;
-  using MF34 = njoy::ENDFtk::file::Type< 34 >;
+  using FileVariant = Material::FileVariant;
+  using FileVariantRange = BidirectionalAnyView< FileVariant >;
 
   // wrap views created by this section
+  // none of these are supposed to be created directly by the user
+  wrapBidirectionalAnyViewOf< FileVariant >(
+      viewmodule,
+      "any_view< Material::FileVariant, bidirectional >" );
 
   // create the section
   python::class_< Material > material(
@@ -81,11 +67,24 @@ void wrapMaterial( python::module& module, python::module& ) {
     "    self    the file\n"
     "    mf      the MF number of the file"
   )
+  .def_property_readonly(
+
+    "MFs",
+    [] ( const Material& self ) -> FileVariantRange
+       { return self.MFs(); },
+    "The files defined in the material"
+  )
+  .def_property_readonly(
+
+    "files",
+    [] ( const Material& self ) -> FileVariantRange
+       { return self.files(); },
+    "The files defined in the material"
+  )
   .def(
 
     "MF",
-    [] ( const Material& self, int mf ) ->decltype(auto)
-       { return self.MF( mf ); },
+    &Material::MF,
     python::arg( "mf" ),
     "Return the file with the requested MF number\n\n"
     "Arguments:\n"
@@ -96,8 +95,7 @@ void wrapMaterial( python::module& module, python::module& ) {
   .def(
 
     "file",
-    [] ( const Material& self, int mf ) ->decltype(auto)
-       { return self.file( mf ); },
+    &Material::file,
     python::arg( "mf" ),
     "Return the file with the requested MF number\n\n"
     "Arguments:\n"

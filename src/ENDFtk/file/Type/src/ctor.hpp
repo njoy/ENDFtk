@@ -12,7 +12,7 @@ Type() = default;
  *  @param[in] sections   the sections of the file
  */
 Type( std::vector< section::Type< FileNumber > >&& sections ) :
-  Base< Type< FileNumber >, section::Type< FileNumber > >( std::move( sections ) ) {}
+  Parent( std::move( sections ) ) {}
 
 /**
  *  @brief Constructor (from a buffer)
@@ -27,4 +27,4 @@ Type( std::vector< section::Type< FileNumber > >&& sections ) :
 template< typename Iterator >
 Type( StructureDivision& division,
       Iterator& begin, const Iterator& end, long& lineNumber ) :
-  Base< Type< FileNumber >, section::Type< FileNumber > >( division, begin, end, lineNumber ) {}
+  Parent( division, begin, end, lineNumber ) {}

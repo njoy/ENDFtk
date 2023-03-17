@@ -18,7 +18,8 @@ namespace file {
   template< int FileNumber >
   class Type : protected Base< Type< FileNumber >, section::Type< FileNumber > > {
 
-    friend class Base< Type< FileNumber >, section::Type< FileNumber > >;
+    friend class Base< Type, section::Type< FileNumber > >;
+    using Parent = Base< Type, section::Type< FileNumber > >;
 
     /* auxiliary functions */
     #include "ENDFtk/file/Type/src/getSectionNumber.hpp"
@@ -37,15 +38,16 @@ namespace file {
      */
     static int fileNumber() { return FileNumber; }
 
-    using Base< Type< FileNumber >, section::Type< FileNumber > >::MF;
-    using Base< Type< FileNumber >, section::Type< FileNumber > >::sections;
-    using Base< Type< FileNumber >, section::Type< FileNumber > >::begin;
-    using Base< Type< FileNumber >, section::Type< FileNumber > >::end;
-    using Base< Type< FileNumber >, section::Type< FileNumber > >::hasMT;
-    using Base< Type< FileNumber >, section::Type< FileNumber > >::hasSection;
-    using Base< Type< FileNumber >, section::Type< FileNumber > >::section;
-    using Base< Type< FileNumber >, section::Type< FileNumber > >::MT;
-    using Base< Type< FileNumber >, section::Type< FileNumber > >::print;
+    using Parent::MF;
+    using Parent::sections;
+    using Parent::MTs;
+    using Parent::begin;
+    using Parent::end;
+    using Parent::hasMT;
+    using Parent::hasSection;
+    using Parent::section;
+    using Parent::MT;
+    using Parent::print;
   };
 
 } // file namespace
