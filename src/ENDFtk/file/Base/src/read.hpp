@@ -8,7 +8,7 @@ read( StructureDivision& division,
   std::vector< Section > sections;
   while ( not division.isFend() ) {
 
-    sections.push_back( Derived::readSection( division, begin, end, lineNumber ) );
+    sections.emplace_back( Derived::readSection( division, begin, end, lineNumber ) );
     division = StructureDivision( begin, end, lineNumber );
   }
   verifyFEND( division, lineNumber );
