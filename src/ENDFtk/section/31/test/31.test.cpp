@@ -13,9 +13,9 @@ using DerivedCovariance = section::Type< 31 >::DerivedCovariance;
 using ExplicitCovariance = section::Type< 31 >::ExplicitCovariance;
 using DerivedRedundant = section::Type< 31 >::DerivedRedundant;
 using DerivedRatioToStandard = section::Type< 31 >::DerivedRatioToStandard;
-using SquareMatrix = section::Type< 31 >::SquareMatrix;
-using RectangularMatrix = section::Type< 31 >::RectangularMatrix;
-using CovariancePairs = section::Type< 31 >::CovariancePairs;
+using SquareMatrix = section::SquareMatrix;
+using RectangularMatrix = section::RectangularMatrix;
+using CovariancePairs = section::CovariancePairs;
 
 std::string chunk();
 void verifyChunk( const section::Type< 31 >& );

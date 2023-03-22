@@ -10,7 +10,7 @@
 using namespace njoy::ENDFtk;
 using LevelBlock = section::Type< 40 >::LevelBlock;
 using ReactionBlock = section::Type< 40 >::ReactionBlock;
-using SquareMatrix = section::Type< 40 >::SquareMatrix;
+using SquareMatrix = section::SquareMatrix;
 
 std::string chunk();
 void verifyChunk( const section::Type< 40 >& );
