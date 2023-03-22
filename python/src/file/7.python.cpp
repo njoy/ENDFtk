@@ -48,6 +48,41 @@ void wrapFile_7( python::module& module, python::module& viewmodule ) {
     "MF7 file - thermal neutron scattering law data"
   );
 
+  // wrap the file
+  file
+  .def(
+
+    python::init( [] ( MF7MT2 elastic )
+                     { return File( std::move( elastic ) ); } ),
+    python::arg( "elastic" ),
+    "Initialise the file with elastic thermal scattering data\n\n"
+    "Arguments:\n"
+    "    self      the file\n"
+    "    elastic   the elastic thermal scattering data (MT2)"
+  )
+  .def(
+
+    python::init( [] ( MF7MT4 inelastic )
+                     { return File( std::move( inelastic ) ); } ),
+    python::arg( "inelastic" ),
+    "Initialise the file with inelastic thermal scattering data\n\n"
+    "Arguments:\n"
+    "    self        the file\n"
+    "    inelastic   the inelastic thermal scattering data (MT4)"
+  )
+  .def(
+
+    python::init( [] ( MF7MT2 elastic, MF7MT4 inelastic )
+                     { return File( std::move( elastic ),
+                                    std::move( inelastic ) ); } ),
+    python::arg( "elastic" ), python::arg( "inelastic" ),
+    "Initialise the file with elastic and inelastic thermal scattering data\n\n"
+    "Arguments:\n"
+    "    self        the file\n"
+    "    elastic     the elastic thermal scattering data (MT2)\n"
+    "    inelastic   the inelastic thermal scattering data (MT4)"
+  );
+
   // add standard file definitions
   addStandardFileDefinitions< File, Section, SectionRange >( file );
 }

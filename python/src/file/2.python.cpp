@@ -48,6 +48,19 @@ void wrapFile_2( python::module& module, python::module& viewmodule ) {
     "MF2 file - resonance parameters"
   );
 
+  // wrap the file
+  file
+  .def(
+
+    python::init( [] ( MF2MT151 parameters )
+                     { return File( std::move( parameters ) ); } ),
+    python::arg( "parameters" ),
+    "Initialise the file with resonance parameters\n\n"
+    "Arguments:\n"
+    "    self         the file\n"
+    "    parameters   the resonance parameter data (MT151)"
+  );
+
   // add standard file definitions
   addStandardFileDefinitions< File, Section, SectionRange >( file );
 }

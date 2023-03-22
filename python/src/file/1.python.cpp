@@ -65,6 +65,19 @@ void wrapFile_1( python::module& module, python::module& viewmodule ) {
     "MF1 file - general information"
   );
 
+  // wrap the file
+  file
+  .def(
+
+    python::init( [] ( MF1MT451 information )
+                     { return File( std::move( information ) ); } ),
+    python::arg( "information" ),
+    "Initialise the file with descriptive data\n\n"
+    "Arguments:\n"
+    "    self          the file\n"
+    "    information   the descriptive information (MT451)"
+  );
+
   // add standard file definitions
   addStandardFileDefinitions< File, Section, SectionRange >( file );
 }

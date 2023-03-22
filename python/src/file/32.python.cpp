@@ -44,6 +44,19 @@ void wrapFile_32( python::module& module, python::module& viewmodule ) {
     "MF32 file - resonance parameter covariance data"
   );
 
+  // wrap the file
+  file
+  .def(
+
+    python::init( [] ( Section covariances )
+                     { return File( std::move( covariances ) ); } ),
+    python::arg( "covariances" ),
+    "Initialise the file with resonance parameter covariance data\n\n"
+    "Arguments:\n"
+    "    self          the file\n"
+    "    covariances   the resonance parameter covariance data (MT151)"
+  );
+
   // add standard file definitions
   addStandardFileDefinitions< File, Section, SectionRange >( file );
 }
