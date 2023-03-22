@@ -45,13 +45,11 @@ namespace ENDFtk {
                             file::Type< 10 >, file::Type< 12 >, file::Type< 13 >,
                             file::Type< 14 >, file::Type< 15 >, file::Type< 23 >,
                             file::Type< 26 >, file::Type< 27 >, file::Type< 28 >,
-                            file::Type< 31 >, file::Type< 32 >, file::Type< 33 >, 
-                            file::Type< 34 >, file::Type< 35 >, file::Type< 40 > >;
+                            file::Type< 30 >, file::Type< 31 >, file::Type< 32 >,
+                            file::Type< 33 >, file::Type< 34 >, file::Type< 35 >,
+                            file::Type< 40 > >;
 
   private:
-
-    using Text = record::Base< record::Character< 66 > >;
-    using Tail = record::Tail;
 
     /* fields */
     int mat_;

@@ -64,6 +64,7 @@ Type( StructureDivision& division,
   //! @todo remove this and set fields and auxiliary functions in Base to private
   try {
 
+    int MT = division.tail.MT();
     if ( ( division.tail.MT() == 454 ) ||
          ( division.tail.MT() == 457 ) ||
          ( division.tail.MT() == 459 ) ) {
@@ -75,7 +76,7 @@ Type( StructureDivision& division,
       int MF = 8;
       if ( division.tail.MF() == MF ) {
 
-        Log::info( "Found unsupported file MF{} - skipping file", MF );
+        Log::info( "Found unsupported section MF{} MT{} - skipping file", MF, MT );
 
         while ( division.tail.MF() == MF ) {
 
