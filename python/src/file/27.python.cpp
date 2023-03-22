@@ -44,9 +44,6 @@ void wrapFile_27( python::module& module, python::module& viewmodule ) {
     "MF27 file - atomic form factors or scattering functions"
   );
 
-  // wrap the file
-  addStandardUnenumeratedFileDefinitions< File, Section, SectionRange >( file );
-
   // add standard file definitions
-  addStandardFileDefinitions< File >( file );
+  addStandardFileDefinitions< File, Section, SectionRange >( file );
 }

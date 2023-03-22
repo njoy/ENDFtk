@@ -11,7 +11,7 @@
 
 namespace njoy {
 namespace ENDFtk {
-namespace section{
+namespace section {
 
   /**
    *  @class
@@ -62,7 +62,7 @@ namespace section{
     /**
      *  @brief Return the reaction product data
      */
-    AllRange< ReactionProduct > reactionProducts() const {
+    auto reactionProducts() const {
 
       return ranges::cpp20::views::all( this->products_ );
     }

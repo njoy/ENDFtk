@@ -781,10 +781,11 @@ SCENARIO( "ReactionProduct" ) {
           LegendreCoefficients(
               2e+7, 0, 1, { 1., 4. }, { { 2., 3. }, { 5., 6. } } ) } ) );
 
-    THEN( "an exception is thrown upon construction" ){
+    THEN( "an exception is thrown upon construction" ) {
+
       CHECK_THROWS( ReactionProduct( std::move( multiplicity ),
                                        std::move( distribution ) ) );
-    }
+    } // THEN
   } // GIVEN
 
   GIVEN( "a string representation of a ReactionProduct"
@@ -794,19 +795,22 @@ SCENARIO( "ReactionProduct" ) {
     auto end = string.end();
     long lineNumber = 1;
 
-    THEN( "an exception is thrown upon construction" ){
+    THEN( "an exception is thrown upon construction" ) {
+
       CHECK_THROWS( ReactionProduct( begin, end, lineNumber, 9228, 6, 5 ) );
-    }
+    } // THEN
   } // GIVEN
 
   GIVEN( "a string representation of a ReactionProduct"
-         " with an invalid MT for LAW<0" ){
+         " with an invalid MT for LAW<0" ) {
+
     std::string string = chunkWithInvalidMTForNegativeLAW();
     auto begin = string.begin();
     auto end = string.end();
     long lineNumber = 1;
 
-    THEN( "an exception is thrown upon construction" ){
+    THEN( "an exception is thrown upon construction" ) {
+
       CHECK_THROWS( ReactionProduct( begin, end, lineNumber, 9228, 6, 5 ) );
     }
   } // GIVEN

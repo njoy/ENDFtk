@@ -35,4 +35,3 @@ generateList( std::vector< double >&& energies,
   }
   return list;
 }
-

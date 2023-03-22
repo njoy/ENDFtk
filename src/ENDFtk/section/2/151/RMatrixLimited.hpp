@@ -9,9 +9,6 @@
  */
 class RMatrixLimited {
 
-  /* auxiliary functions */
-  #include "ENDFtk/section/2/151/RMatrixLimited/src/verifySize.hpp"
-
 public:
 
   #include "ENDFtk/section/2/151/RMatrixLimited/BaseBackgroundRMatrix.hpp"
@@ -42,6 +39,7 @@ private:
   std::vector< SpinGroup > spin_groups_;
 
   /* auxiliary functions */
+  #include "ENDFtk/section/2/151/RMatrixLimited/src/verifySize.hpp"
 
 public:
 
@@ -131,9 +129,9 @@ public:
   /**
    *  @brief Return the spin groups
    */
-  AllRange< SpinGroup > spinGroups() const {
+  auto spinGroups() const {
 
-    return ranges::cpp20::views::all( this->spin_groups_ ); 
+    return ranges::cpp20::views::all( this->spin_groups_ );
   }
 
   #include "ENDFtk/section/2/151/RMatrixLimited/src/SPI.hpp"

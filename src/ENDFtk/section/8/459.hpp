@@ -47,7 +47,7 @@ namespace section {
     /**
      *  @brief Return the fission yield data, one for each incident energy
      */
-    AllRange< FissionYieldData > yields() const {
+    auto yields() const {
 
       return ranges::cpp20::views::all( this->data_ );
     }

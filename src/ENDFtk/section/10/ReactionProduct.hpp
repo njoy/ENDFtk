@@ -58,22 +58,22 @@ public:
   /**
    *  @brief Return the incident energy values
    */
-  AllRange< double > E() const { return TabulationRecord::x(); }
+  auto E() const { return TabulationRecord::x(); }
 
   /**
    *  @brief Return the incident energy values
    */
-  AllRange< double > energies() const { return this->E(); }
+  auto energies() const { return this->E(); }
 
   /**
    *  @brief Return the multiplicity values
    */
-  AllRange< double > XS() const { return TabulationRecord::y(); }
+  auto XS() const { return TabulationRecord::y(); }
 
   /**
    *  @brief Return the multiplicity values
    */
-  AllRange< double > crossSections() const { return this->XS(); }
+  auto crossSections() const { return this->XS(); }
 
   using TabulationRecord::NR;
   using TabulationRecord::NP;

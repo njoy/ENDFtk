@@ -45,9 +45,6 @@ void wrapFile_12( python::module& module, python::module& viewmodule ) {
     "            arrays"
   );
 
-  // wrap the file
-  addStandardUnenumeratedFileDefinitions< File, Section, SectionRange >( file );
-
   // add standard file definitions
-  addStandardFileDefinitions< File >( file );
+  addStandardFileDefinitions< File, Section, SectionRange >( file );
 }

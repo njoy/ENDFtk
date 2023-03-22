@@ -115,7 +115,7 @@ public:
    *  @brief Return the ratio of the atomic weight to the neutron mass for each
    *         scattering atom type, stored in B(3), B(9) and B(15)
    */
-  StrideRange< DropRange< AllRange< double > > > AWR() const {
+  auto AWR() const {
 
     return ListRecord::list()
              | ranges::views::drop_exactly( 2 )
@@ -125,7 +125,7 @@ public:
    *  @brief Return the ratio of the atomic weight to the neutron mass for each
    *         scattering atom type, stored in B(3), B(9) and B(15)
    */
-  StrideRange< DropRange< AllRange< double > > > atomicWeightRatios() const {
+  auto atomicWeightRatios() const {
 
     return this->AWR();
   }
@@ -134,7 +134,7 @@ public:
    *  @brief Return the number of atoms for each scattering atom type present in
    *         the molecule or unit cell, stored in B(6), B(12) and B(18)
    */
-  StrideRange< DropRange< AllRange< double > > > M() const {
+  auto M() const {
 
     return ListRecord::list()
              | ranges::views::drop_exactly( 5 )
@@ -144,7 +144,7 @@ public:
    *  @brief Return the number of atoms for each scattering atom type present in
    *         the molecule or unit cell, stored in B(6), B(12) and B(18)
    */
-  StrideRange< DropRange< AllRange< double > > > numberAtoms() const {
+  auto numberAtoms() const {
 
     return this->M();
   }
@@ -153,8 +153,7 @@ public:
    *  @brief Return the analytical function type for each non-principal
    *         scattering atom type, stored in B(7), B(13) and B(19)
    */
-  StrideRange< DropRange< AllRange< double > > >
-  analyticalFunctionTypes() const {
+  auto analyticalFunctionTypes() const {
 
     return ListRecord::list()
              | ranges::views::drop_exactly( 6 )

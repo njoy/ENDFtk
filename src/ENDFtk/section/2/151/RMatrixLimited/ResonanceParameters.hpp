@@ -25,7 +25,7 @@ public:
   auto NRS() const { return ListRecord::L2(); }
 
   /**
-  *  @brief Return the phase shift option
+  *  @brief Return the number of resonances
    */
   auto numberResonances() const { return this->NRS(); }
 
@@ -42,7 +42,7 @@ public:
   /**
    *  @brief Return the resonance energies
    */
-  StrideRange< AllRange< double > > ER() const {
+  auto ER() const {
 
     return ListRecord::list()
              | ranges::views::stride( this->NX() / this->NRS() * 6 ); }
@@ -50,7 +50,7 @@ public:
   /**
   *  @brief Return the resonance energies
    */
-  StrideRange< AllRange< double > > resonanceEnergies() const {
+  auto resonanceEnergies() const {
 
     return this->ER();
   }

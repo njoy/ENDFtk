@@ -53,14 +53,13 @@ private:
 
 template< typename Iterator >
 ReactionBlock( ControlRecord&& cont,
-            std::vector< DerivedCovariance >&& nc,
-            Iterator& begin,
-            const Iterator& end,
-            long& lineNumber,
-            int MAT, int MF, int MT ) :
+               std::vector< DerivedCovariance >&& nc,
+               Iterator& begin,
+               const Iterator& end,
+               long& lineNumber,
+               int MAT, int MF, int MT ) :
   ReactionBlock( cont.C1(), cont.C2(), cont.L1(), cont.L2(), std::move( nc ),
-              readNI( begin, end, lineNumber,
-                      MAT, MF, MT, cont.N2() ) ) {}
+                 readSequence( begin, end, lineNumber, MAT, MF, MT, cont.N2() ) ) {}
 
 template< typename Iterator >
 ReactionBlock( ControlRecord&& cont,
@@ -80,21 +79,20 @@ public:
  *
  *  @tparam Iterator        a buffer iterator
  *
- *  @param[in] head         the head record of the section
  *  @param[in] it           the current position in the buffer
  *  @param[in] end          the end of the buffer
  *  @param[in] lineNumber   the current line number
  *  @param[in] MAT          the expected MAT number
+ *  @param[in] MF           the expected MF number
+ *  @param[in] MT           the expected MT number
  */
 template< typename Iterator >
-ReactionBlock( Iterator& begin,
-               const Iterator& end,
-               long& lineNumber,
+ReactionBlock( Iterator& it, const Iterator& end, long& lineNumber,
                int MAT, int MF, int MT )
 try :
   ReactionBlock(
-    ControlRecord( begin, end, lineNumber, MAT, MF, MT ),
-    begin, end, lineNumber, MAT, MF, MT ) {
+    ControlRecord( it, end, lineNumber, MAT, MF, MT ),
+    it, end, lineNumber, MAT, MF, MT ) {
 
 } catch( std::exception& e ) {
 

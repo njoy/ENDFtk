@@ -8,7 +8,6 @@
 #include <optional>
 
 // other includes
-#include "boost/hana.hpp"
 #include "range/v3/algorithm/find.hpp"
 #include "range/v3/view/all.hpp"
 #include "range/v3/view/concat.hpp"
@@ -24,9 +23,6 @@
 
 namespace njoy {
 namespace ENDFtk {
-
-  namespace hana = boost::hana;
-
 namespace section{
 
   template<>
@@ -118,7 +114,7 @@ namespace section{
      *  @brief Return the effective temperature for the principal scatterer
      */
     const EffectiveTemperature& principalEffectiveTemperature() const {
-      
+
       return this->principal_;
     }
 
@@ -126,8 +122,7 @@ namespace section{
      *  @brief Return the effective temperatures for the secondary scatterers
      *         (if any are defined)
      */
-    AllRange< OptionalEffectiveTemperature >
-    secondaryEffectiveTemperatures() const {
+    auto secondaryEffectiveTemperatures() const {
 
       return ranges::cpp20::views::all( this->secondary_ );
     }

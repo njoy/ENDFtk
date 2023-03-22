@@ -51,7 +51,7 @@ public:
   /**
    *  @brief Return the interpolants for the incident energy axis
    */
-  AllRange< long > interpolants() const {
+  auto interpolants() const {
 
     return InterpolationSequenceRecord::tab2().interpolants();
   }
@@ -60,7 +60,7 @@ public:
    *  @brief Return the interpolation region boundaries for the incident
    *         energy axis
    */
-  AllRange< long > boundaries() const {
+  auto boundaries() const {
 
     return InterpolationSequenceRecord::tab2().boundaries();
   }
@@ -68,7 +68,7 @@ public:
   /**
    *  @brief Return the decay contants
    */
-  AllRange< DecayConstants > constants() const {
+  auto constants() const {
 
     return this->records();
   }

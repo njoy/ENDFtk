@@ -101,43 +101,6 @@ SCENARIO( "Testing generic case using file 3" ) {
         CHECK( buffer == chunk() + validFEND() );
       } // THEN
     } // WHEN
-
-    WHEN( "a file::Type<3> is constructed from individual elements" ) {
-
-      file::Type< 3 > mf3( std::move( unsorted[0] ),
-                           std::move( unsorted[1] ),
-                           std::move( unsorted[2] ) );
-
-      THEN( "the sections can be extracted and interrogated" ) {
-
-        verifyChunk( mf3 );
-      } // THEN
-
-      THEN( "an exception is thrown if invalid MT or section is requested" ) {
-
-        CHECK_THROWS( mf3.MT( 4 ) );
-        CHECK_THROWS( mf3.section( 4 ) );
-      } // THEN
-
-      THEN( "we can iterate over the sections and they will be in order" ) {
-
-        auto iter = mf3.begin();
-
-        CHECK( 1 == iter->MT() ); iter++;
-        CHECK( 2 == iter->MT() ); iter++;
-        CHECK( 102 == iter->MT() ); iter++;
-        CHECK( iter == mf3.end() );
-      } // THEN
-
-      THEN( "it can be printed and the sections will be in order" ) {
-
-        std::string buffer;
-        auto output = std::back_inserter( buffer );
-        mf3.print( output, 125 );
-
-        CHECK( buffer == chunk() + validFEND() );
-      } // THEN
-    } // WHEN
   } // GIVEN
 
   GIVEN( "a string representation of File 3" ) {
@@ -179,8 +142,6 @@ SCENARIO( "Testing generic case using file 3" ) {
 
         CHECK_NOTHROW( file.parse< 3 >() );
         CHECK_NOTHROW( file.parse< 3 >( lineNumber ) );
-        CHECK_NOTHROW( file.parse( 3_c ) );
-        CHECK_NOTHROW( file.parse( 3_c, lineNumber ) );
       } // THEN
     } // WHEN
 
