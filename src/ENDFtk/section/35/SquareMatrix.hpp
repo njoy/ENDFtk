@@ -9,8 +9,8 @@ class SquareMatrix : protected ListRecord {
   #include "ENDFtk/section/35/SquareMatrix/src/verifyLB.hpp"
 
   // intentionally taken from File 33
-  #include "ENDFtk/section/33/SquareMatrix/src/verifySize.hpp"
-  #include "ENDFtk/section/33/SquareMatrix/src/generateList.hpp"
+  #include "ENDFtk/section/SquareMatrix/src/verifySize.hpp"
+  #include "ENDFtk/section/SquareMatrix/src/generateList.hpp"
 
 public:
 

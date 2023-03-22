@@ -6,7 +6,7 @@ import unittest
 # local imports
 from ENDFtk.MF40 import LevelBlock
 from ENDFtk.MF40 import ReactionBlock
-from ENDFtk.MF40 import SquareMatrix
+from ENDFtk import SquareMatrix
 
 class Test_ENDFtk_MF40_LevelBlock( unittest.TestCase ) :
     """Unit test for the LevelBlock class."""
