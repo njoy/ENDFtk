@@ -3,20 +3,17 @@
 #include <pybind11/stl.h>
 
 // local includes
-#include "ENDFtk/section/33.hpp"
+#include "ENDFtk/section/DerivedRatioToStandard.hpp"
 #include "definitions.hpp"
 #include "views.hpp"
 
 // namespace aliases
 namespace python = pybind11;
 
-namespace mf33 {
-
 void wrapDerivedRatioToStandard( python::module& module, python::module& ) {
 
   // type aliases
-  using Section = njoy::ENDFtk::section::Type< 33 >;
-  using Component = Section::DerivedRatioToStandard;
+  using Component = njoy::ENDFtk::section::DerivedRatioToStandard;
 
   // wrap views created by this section
 
@@ -25,7 +22,7 @@ void wrapDerivedRatioToStandard( python::module& module, python::module& ) {
 
     module,
     "DerivedRatioToStandard",
-    "MF33 section - NC-type sub-subsection for ratios to standards"
+    "Covariance component - NC-type sub-subsection for ratios to standards"
   );
 
   // wrap the section
@@ -178,5 +175,3 @@ void wrapDerivedRatioToStandard( python::module& module, python::module& ) {
   // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }
-
-} // namespace mf33

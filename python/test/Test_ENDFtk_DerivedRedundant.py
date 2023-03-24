@@ -4,9 +4,9 @@ import unittest
 # third party imports
 
 # local imports
-from ENDFtk.MF33 import DerivedRedundant
+from ENDFtk import DerivedRedundant
 
-class Test_ENDFtk_MF33_DerivedRedundant( unittest.TestCase ) :
+class Test_ENDFtk_DerivedRedundant( unittest.TestCase ) :
     """Unit test for the DerivedRedundant class."""
 
     chunk = (

@@ -5,8 +5,8 @@ import unittest
 
 # local imports
 from ENDFtk.MF31 import Section
-from ENDFtk.MF31 import ReactionBlock
-from ENDFtk.MF31 import DerivedRedundant
+from ENDFtk import ReactionBlock
+from ENDFtk import DerivedRedundant
 from ENDFtk import SquareMatrix
 from ENDFtk.tree import Tape
 

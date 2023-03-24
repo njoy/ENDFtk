@@ -14,9 +14,6 @@ namespace mf40 {
 
   // declarations - components
   void wrapLevelBlock( python::module&, python::module& );
-  void wrapReactionBlock( python::module&, python::module& );
-  void wrapDerivedRedundant( python::module&, python::module& );
-  void wrapDerivedRatioToStandard( python::module&, python::module& );
 }
 
 void wrapSection_40( python::module& module, python::module& viewmodule ) {
@@ -28,9 +25,6 @@ void wrapSection_40( python::module& module, python::module& viewmodule ) {
 
   // wrap components
   mf40::wrapLevelBlock( module, viewmodule );
-  mf40::wrapReactionBlock( module, viewmodule );
-  mf40::wrapDerivedRedundant( module, viewmodule );
-  mf40::wrapDerivedRatioToStandard( module, viewmodule );
 
   // wrap views created by this section
   // none of these are supposed to be created directly by the user

@@ -6,7 +6,7 @@ import unittest
 # local imports
 from ENDFtk.MF40 import Section
 from ENDFtk.MF40 import LevelBlock
-from ENDFtk.MF40 import ReactionBlock
+from ENDFtk import ReactionBlock
 from ENDFtk import SquareMatrix
 from ENDFtk.tree import Tape
 

@@ -4,15 +4,15 @@ import unittest
 # third party imports
 
 # local imports
-from ENDFtk.MF31 import DerivedRatioToStandard
+from ENDFtk import DerivedRatioToStandard
 
-class Test_ENDFtk_MF31_DerivedRatioToStandard( unittest.TestCase ) :
+class Test_ENDFtk_DerivedRatioToStandard( unittest.TestCase ) :
     """Unit test for the DerivedRatioToStandard class."""
 
     chunk = (
-        " 0.000000+0 0.000000+0          0          1          0          0943731  2     \n"
-        " 2.500000+3 2.000000+7        325        102          6          2943731  2     \n"
-        " 3.000000+0 0.000000+0 1.000000+0 3.000000+0 2.000000+0 4.000000+0943731  2     \n" )
+        " 0.000000+0 0.000000+0          0          1          0          0943733  2     \n"
+        " 2.500000+3 2.000000+7        325        102          6          2943733  2     \n"
+        " 3.000000+0 0.000000+0 1.000000+0 3.000000+0 2.000000+0 4.000000+0943733  2     \n" )
 
     def test_component( self ) :
 
@@ -45,7 +45,7 @@ class Test_ENDFtk_MF31_DerivedRatioToStandard( unittest.TestCase ) :
             self.assertEqual( 3, chunk.NC )
 
             self.assertEqual( self.chunk,
-                              chunk.to_string( 9437, 31, 2 ) )
+                              chunk.to_string( 9437, 33, 2 ) )
 
         # the data is given explicitly
         chunk = DerivedRatioToStandard(
@@ -56,7 +56,7 @@ class Test_ENDFtk_MF31_DerivedRatioToStandard( unittest.TestCase ) :
         verify_chunk( self, chunk )
 
         # the data is read from a string
-        chunk = DerivedRatioToStandard.from_string( self.chunk, 9437, 31, 2 )
+        chunk = DerivedRatioToStandard.from_string( self.chunk, 9437, 33, 2 )
 
         verify_chunk( self, chunk )
 
