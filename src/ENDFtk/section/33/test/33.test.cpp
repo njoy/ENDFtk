@@ -8,14 +8,14 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using ReactionBlock = section::Type< 33 >::ReactionBlock;
-using DerivedCovariance = section::Type< 33 >::DerivedCovariance;
-using ExplicitCovariance = section::Type< 33 >::ExplicitCovariance;
-using DerivedRedundant = section::Type< 33 >::DerivedRedundant;
-using DerivedRatioToStandard = section::Type< 33 >::DerivedRatioToStandard;
-using SquareMatrix = section::Type< 33 >::SquareMatrix;
-using RectangularMatrix = section::Type< 33 >::RectangularMatrix;
-using CovariancePairs = section::Type< 33 >::CovariancePairs;
+using ReactionBlock = section::ReactionBlock;
+using DerivedCovariance = section::DerivedCovariance;
+using DerivedRedundant = section::DerivedRedundant;
+using DerivedRatioToStandard = section::DerivedRatioToStandard;
+using SquareMatrix = section::SquareMatrix;
+using RectangularMatrix = section::RectangularMatrix;
+using CovariancePairs = section::CovariancePairs;
+using ExplicitCovariance = section::ExplicitCovariance;
 
 std::string chunk();
 void verifyChunk( const section::Type< 33 >& );

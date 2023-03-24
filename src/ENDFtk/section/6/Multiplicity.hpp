@@ -1,3 +1,9 @@
+/**
+ *  @class
+ *  @brief Multiplicity data for a reaction product
+ *
+ *  See ENDF102, section 6.2 for more information.
+ */
 class Multiplicity : protected TabulationRecord {
 
 public:
@@ -45,22 +51,22 @@ public:
   /**
    *  @brief Return the energies
    */
-  AllRange< double > E() const { return TabulationRecord::x(); }
+  auto E() const { return TabulationRecord::x(); }
 
   /**
    *  @brief Return the energies
    */
-  AllRange< double > energies() const { return this->E(); }
+  auto energies() const { return this->E(); }
 
   /**
    *  @brief Return the multiplicities
    */
-  AllRange< double > Y() const { return TabulationRecord::y(); }
+  auto Y() const { return TabulationRecord::y(); }
 
   /**
    *  @brief Return the multiplicities
    */
-  AllRange< double > multiplicities() const { return this->Y(); }
+  auto multiplicities() const { return this->Y(); }
 
   using TabulationRecord::NP;
   using TabulationRecord::NR;

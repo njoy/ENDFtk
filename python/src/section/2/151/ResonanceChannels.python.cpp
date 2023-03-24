@@ -10,6 +10,8 @@
 // namespace aliases
 namespace python = pybind11;
 
+namespace mf2 {
+
 void wrapResonanceChannels( python::module& module, python::module& ) {
 
   // type aliases
@@ -34,10 +36,11 @@ void wrapResonanceChannels( python::module& module, python::module& ) {
                   std::vector< unsigned int >&&,
                   std::vector< double >&&, std::vector< double >&&,
                   std::vector< double >&&, std::vector< double >&&,
-                  int >(),
+                  int, int >(),
     python::arg( "spin" ), python::arg( "parity" ), python::arg( "ppi" ),
     python::arg( "l" ), python::arg( "s" ), python::arg( "b" ),
     python::arg( "apt" ), python::arg( "ape" ), python::arg( "kbk" ) = 0,
+    python::arg( "kps" ) = 0,
     "Initialise the component\n\n"
     "Arguments:\n"
     "    self      the component\n"
@@ -50,17 +53,18 @@ void wrapResonanceChannels( python::module& module, python::module& ) {
     "              of the penetrability and the shift factor (NCH values)\n"
     "    ape       the true scattering radius values for the calculation\n"
     "              of the phase shift (NCH values)\n"
-    "    kbk       the number of channels with a background R-matrix"
+    "    kbk       the number of channels with a background R-matrix\n"
+    "    kps       the phase shift option"
   )
   .def(
 
     python::init< double, double, std::vector< unsigned int >&&,
                   std::vector< unsigned int >&&,
                   std::vector< double >&&, std::vector< double >&&,
-                  std::vector< double >&& >(),
+                  std::vector< double >&&, int, int >(),
     python::arg( "spin" ), python::arg( "parity" ), python::arg( "ppi" ),
     python::arg( "l" ), python::arg( "s" ), python::arg( "b" ),
-    python::arg( "ap" ),
+    python::arg( "ap" ), python::arg( "kbk" ) = 0, python::arg( "kps" ) = 0,
     "Initialise the component\n\n"
     "Arguments:\n"
     "    self      the component\n"
@@ -69,7 +73,9 @@ void wrapResonanceChannels( python::module& module, python::module& ) {
     "    l         the orbital momentum values (NCH values)\n"
     "    s         the channel spin values (NCH values)\n"
     "    b         the boundary condition values (NCH values)\n"
-    "    ap        the scattering radius values (NCH values)"
+    "    ap        the scattering radius values (NCH values)\n"
+    "    kbk       the number of channels with a background R-matrix\n"
+    "    kps       the phase shift option"
   )
   .def_property_readonly(
 
@@ -221,3 +227,5 @@ void wrapResonanceChannels( python::module& module, python::module& ) {
   // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }
+
+} // namespace mf2

@@ -110,7 +110,7 @@ void wrapTreeMaterial( python::module& module, python::module& viewmodule ) {
   .def(
 
     "file",
-    ( File& ( Material::* )( int ) ) &Material::file,
+    python::overload_cast< int >( &Material::file, python::const_ ),
     python::arg( "mf" ),
     "Return the file with the requested MF number\n\n"
     "Arguments:\n"
@@ -121,7 +121,7 @@ void wrapTreeMaterial( python::module& module, python::module& viewmodule ) {
   .def(
 
     "MF",
-    ( File& ( Material::* )( int ) ) &Material::MF,
+    python::overload_cast< int >( &Material::MF, python::const_ ),
     python::arg( "mf" ),
     "Return the file with the requested MF number\n\n"
     "Arguments:\n"
@@ -296,12 +296,15 @@ void wrapTreeMaterial( python::module& module, python::module& viewmodule ) {
   .def(
 
     "update_directory",
-    [] ( Material& self ) { return njoy::ENDFtk::tree::updateDirectory( self ); },
+    [] ( Material& self, bool copy_mod = false )
+       { njoy::ENDFtk::tree::updateDirectory( self, copy_mod ); },
+    python::arg( "copy_mod" ) = false,
     "Update the MF1 MT451 directory for the given material\n\n"
     "An exception will be thrown if the MF1 MT451 section is not present, or if\n"
     "there was an issue parsing it.\n\n"
     "Arguments:\n"
-    "    self   the ENDF tree material"
+    "    self       the ENDF tree material\n"
+    "    copy_mod   copy mod numbers if available (default is False)\n"
   )
   .def(
 

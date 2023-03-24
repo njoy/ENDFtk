@@ -1096,19 +1096,19 @@ void verifyTape( const Tape& chunk ) {
   CHECK( material.hasFile( 5 ) );
   CHECK( not material.hasFile( 6 ) );
 
-  auto mf1 = material.MF( 1_c );
+  decltype(auto) mf1 = std::get< file::Type< 1 > >( material.MF( 1 ) );
   CHECK( mf1.hasMT( 451 ) );
   CHECK( not mf1.hasMT( 452 ) );
   CHECK( mf1.hasSection( 451 ) );
   CHECK( not mf1.hasSection( 452 ) );
 
-  auto mf2 = material.MF( 2_c );
+  decltype(auto) mf2 = std::get< file::Type< 2 > >( material.MF( 2 ) );
   CHECK( mf2.hasMT( 151 ) );
   CHECK( not mf2.hasMT( 152 ) );
   CHECK( mf2.hasSection( 151 ) );
   CHECK( not mf2.hasSection( 152 ) );
 
-  auto mf3 = material.MF( 3_c );
+  decltype(auto) mf3 = std::get< file::Type< 3 > >( material.MF( 3 ) );
   CHECK( mf3.hasMT( 1 ) );
   CHECK( mf3.hasMT( 2 ) );
   CHECK( mf3.hasMT( 16 ) );
@@ -1118,7 +1118,7 @@ void verifyTape( const Tape& chunk ) {
   CHECK( mf3.hasSection( 16 ) );
   CHECK( not mf3.hasSection( 102 ) );
 
-  auto mf4 = material.MF( 4_c );
+  decltype(auto) mf4 = std::get< file::Type< 4 > >( material.MF( 4 ) );
   CHECK( not mf4.hasMT( 1 ) );
   CHECK( mf4.hasMT( 2 ) );
   CHECK( mf4.hasMT( 16 ) );
@@ -1126,7 +1126,7 @@ void verifyTape( const Tape& chunk ) {
   CHECK( mf4.hasSection( 2 ) );
   CHECK( mf4.hasSection( 16 ) );
 
-  auto mf5 = material.MF( 5_c );
+  decltype(auto) mf5 = std::get< file::Type< 5 > >( material.MF( 5 ) );
   CHECK( not mf5.hasMT( 1 ) );
   CHECK( not mf5.hasMT( 2 ) );
   CHECK( mf5.hasMT( 16 ) );

@@ -18,7 +18,7 @@ readScatteringRadius( Iterator& begin,
 
       Log::error( "Encountered illegal NRO value" );
       Log::info( "NRO is either 0 (no energy dependent scattering radius "
-                 "given) or 2 (an energy dependent scattering radius is "
+                 "given) or 1 (an energy dependent scattering radius is "
                  "given)" );
       Log::info( "NRO value: {}", NRO );
       Log::info( "Line number: {}", lineNumber );

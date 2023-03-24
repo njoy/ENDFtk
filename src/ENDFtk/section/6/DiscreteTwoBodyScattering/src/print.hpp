@@ -1,5 +1,5 @@
 /**
- *  @brief Print the MF6 component
+ *  @brief Print the component
  *
  *  @tparam OutputIterator   an output iterator
  *

@@ -12,7 +12,6 @@
 #include "range/v3/view/single.hpp"
 #include "range/v3/view/split.hpp"
 #include "range/v3/view/transform.hpp"
-#include "ENDFtk/types.hpp"
 #include "ENDFtk/TextRecord.hpp"
 #include "ENDFtk/HeadRecord.hpp"
 #include "ENDFtk/ControlRecord.hpp"
@@ -239,7 +238,7 @@ namespace section {
     /**
      *  @brief Return the index of available files and sections
      */
-    AllRange< DirectoryRecord > index() const {
+    auto index() const {
 
       return ranges::cpp20::views::all( this->index_ );
     }

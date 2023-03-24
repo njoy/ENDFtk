@@ -2,7 +2,10 @@ template< typename Array >
 static void
 verifyBetaValues( double beta, const Array& range ) {
 
-  auto iter = std::find_if( range.begin(), range.end(), hana::not_equal.to(beta) );
+  auto compare = [beta] ( const auto& entry )
+                        { return entry != beta; };
+
+  auto iter = std::find_if( range.begin(), range.end(), compare );
   bool inconsistent = ( range.end() != iter );
   if ( inconsistent ) {
 

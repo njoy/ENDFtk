@@ -28,6 +28,18 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
       viewmodule,
       "any_view< tree::Material, bidirectional >" );
 
+
+  // predefined lambda
+  auto getMaterial = [] ( Tape& self, int mat )
+  -> std::variant< std::reference_wrapper< Material >, MaterialRange > {
+
+    if ( self.numberMAT( mat ) == 1 ) {
+
+      return self.MAT( mat ).front();
+    }
+    return self.MAT( mat );
+  };
+
   // create the tree component
   python::class_< Tape > tree(
 
@@ -112,14 +124,7 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
   .def(
 
     "MAT",
-    [] ( Tape& self, int mat )
-       -> std::variant< std::reference_wrapper< Material >, MaterialRange >
-       {
-         if ( self.numberMAT( mat ) == 1 ) {
-
-           return self.MAT( mat ).front();
-         }
-         return self.MAT( mat ); },
+    getMaterial,
     "Return the material(s) with the requested MAT number\n\n"
     "This function returns either a single material (if only a single material\n"
     "is present) or a sequence of materials (if more than one material is\n"
@@ -133,14 +138,7 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
   .def(
 
     "material",
-    [] ( Tape& self, int mat )
-       -> std::variant< std::reference_wrapper< Material >, MaterialRange >
-       {
-         if ( self.numberMaterial( mat ) == 1 ) {
-
-           return self.material( mat ).front();
-         }
-         return self.material( mat ); },
+    getMaterial,
     "Return the material(s) with the requested MAT number\n\n"
     "This function returns either a single material (if only a single material\n"
     "is present) or a sequence of materials (if more than one material is\n"
@@ -164,6 +162,7 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
 
       return Tape( string );
     },
+    python::arg( "string" ),
     "Read a tape from a string\n\n"
     "An exception is raised if something goes wrong while reading the\n"
     "tape\n\n"
@@ -177,6 +176,7 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
 
       return njoy::ENDFtk::tree::fromFile( filename );
     },
+    python::arg( "filename" ),
     "Read a tape from a file\n\n"
     "An exception is raised if something goes wrong while reading the\n"
     "tape\n\n"
@@ -192,6 +192,7 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
       out << self.content();
       out.close();
     },
+    python::arg( "filename" ),
     "Write the tape to a file\n\n"
     "Arguments:\n"
     "    self        the tape\n"
@@ -262,12 +263,15 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
   .def(
 
     "update_directory",
-    [] ( Tape& self ) { return njoy::ENDFtk::tree::updateDirectory( self ); },
+    [] ( Tape& self, bool copy_mod = false )
+       { njoy::ENDFtk::tree::updateDirectory( self, copy_mod ); },
+    python::arg( "copy_mod" ) = false,
     "Update the MF1 MT451 directory for all materials in the tape\n\n"
     "An exception will be thrown if a material in the tape has no MF1 MT451\n"
     "section is not present, or if there was an issue parsing it.\n\n"
     "Arguments:\n"
     "    self        the tape\n"
+    "    copy_mod    copy mod numbers if available (default is False)\n"
   )
   .def(
 

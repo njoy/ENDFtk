@@ -17,11 +17,6 @@
 
 namespace njoy {
 namespace ENDFtk {
-
-  // hana namespace declaration inside ENDFtk
-  namespace hana = boost::hana;
-  inline namespace literals { using namespace hana::literals; }
-
 namespace tree {
 
   /**

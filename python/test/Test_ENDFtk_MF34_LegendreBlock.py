@@ -5,9 +5,9 @@ import unittest
 
 # local imports
 from ENDFtk.MF34 import LegendreBlock
-from ENDFtk.MF34 import SquareMatrix
-from ENDFtk.MF34 import RectangularMatrix
-from ENDFtk.MF34 import CovariancePairs
+from ENDFtk import SquareMatrix
+from ENDFtk import RectangularMatrix
+from ENDFtk import CovariancePairs
 
 class Test_ENDFtk_MF34_LegendreBlock( unittest.TestCase ) :
     """Unit test for the LegendreBlock class."""

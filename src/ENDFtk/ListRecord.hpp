@@ -6,7 +6,6 @@
 // other includes
 #include "Log.hpp"
 #include "range/v3/view/all.hpp"
-#include "ENDFtk/types.hpp"
 #include "ENDFtk/record.hpp"
 
 namespace njoy {
@@ -120,7 +119,7 @@ namespace ENDFtk {
     /**
      *  @brief Return the list of values
      */
-    AllRange< double > list() const {
+    auto list() const {
 
       return ranges::cpp20::views::all( this->data );
     }
@@ -128,7 +127,7 @@ namespace ENDFtk {
     /**
      *  @brief Return the list of values
      */
-    AllRange< double > B() const { return this->list(); }
+    auto B() const { return this->list(); }
 
     /**
      *  @brief Equality operator

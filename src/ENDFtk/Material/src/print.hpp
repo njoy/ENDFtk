@@ -1,11 +1,17 @@
+/**
+ *  @brief Print the file (includes FEND record)
+ *
+ *  @tparam OutputIterator   an output iterator
+ *
+ *  @param[in] it            the current position in the output
+ */
 template< typename OutputIterator >
 void print( OutputIterator& it ) const {
 
   int MAT = this->MAT();
-  this->fileMap[ 1_c ].print( it, MAT );
-  hana::for_each( optionalFiles(),
-                  [&] ( auto MF )
-                      { const auto& file = this->fileMap[ MF ];
-                        if ( file ) { file->print( it, MAT ); } } );
+  for ( const auto& entry : this->files_ ) {
+
+    std::visit( [&] ( auto&& file ) { file.print( it, MAT ); }, entry.second );
+  }
   MEND().print( it );
 }

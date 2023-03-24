@@ -16,9 +16,9 @@ namespace tree {
   /**
    *  @brief Factory function to make a tape from a file
    *
-   *  @param[in] buffer   the file name
+   *  @param[in] filename   the file name
    */
-  auto fromFile( const std::string& filename ) {
+  inline auto fromFile( const std::string& filename ) {
 
     std::string content;
     std::ifstream in( filename,

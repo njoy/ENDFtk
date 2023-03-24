@@ -10,6 +10,8 @@
 // namespace aliases
 namespace python = pybind11;
 
+namespace mf2 {
+
 void wrapResonanceParameters( python::module& module, python::module& ) {
 
   // type aliases
@@ -95,3 +97,5 @@ void wrapResonanceParameters( python::module& module, python::module& ) {
   // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }
+
+} // namespace mf2

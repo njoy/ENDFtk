@@ -112,7 +112,7 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
   .def(
 
     "section",
-    ( Section& ( File::* )( int ) ) &File::section,
+    python::overload_cast< int >( &File::section, python::const_ ),
     python::arg( "mt" ),
     "Return the section with the requested MT number\n\n"
     "Arguments:\n"
@@ -123,7 +123,7 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
   .def(
 
     "MT",
-    ( Section& ( File::* )( int ) ) &File::MT,
+    python::overload_cast< int >( &File::MT, python::const_ ),
     python::arg( "mt" ),
     "Return the section with the requested MT number\n\n"
     "Arguments:\n"
@@ -153,9 +153,15 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
         case 14 : return self.parse< 14 >();
         case 15 : return self.parse< 15 >();
         case 23 : return self.parse< 23 >();
+        case 26 : return self.parse< 26 >();
         case 27 : return self.parse< 27 >();
         case 28 : return self.parse< 28 >();
+        case 31 : return self.parse< 31 >();
+        case 32 : return self.parse< 32 >();
         case 33 : return self.parse< 33 >();
+        case 34 : return self.parse< 34 >();
+        case 35 : return self.parse< 35 >();
+        case 40 : return self.parse< 40 >();
       }
       throw std::runtime_error( "File cannot be parsed yet" );
     },

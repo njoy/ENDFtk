@@ -5,7 +5,6 @@
 #include <complex>
 
 // other includes
-#include "boost/hana.hpp"
 #include "range/v3/algorithm/find_if_not.hpp"
 #include "range/v3/range/conversion.hpp"
 #include "range/v3/view/all.hpp"
@@ -28,9 +27,7 @@
 
 namespace njoy {
 namespace ENDFtk {
-namespace section{
-
-namespace hana = boost::hana;
+namespace section {
 
   /**
    *  @class
@@ -128,7 +125,7 @@ namespace hana = boost::hana;
     /**
      *  @brief Return the reaction products defined in this section
      */
-    AllRange< ReactionProduct > reactionProducts() const { 
+    auto reactionProducts() const {
 
       return ranges::cpp20::views::all( this->products_ );
     }

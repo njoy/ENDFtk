@@ -65,7 +65,7 @@ public:
   /**
    *  @brief Return the resonance ranges for this isotope
    */
-  AllRange< ResonanceRange > resonanceRanges() const {
+  auto resonanceRanges() const {
 
     return ranges::cpp20::views::all( this->ranges_ );
   }

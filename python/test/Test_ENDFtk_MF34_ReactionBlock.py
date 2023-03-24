@@ -6,7 +6,7 @@ import unittest
 # local imports
 from ENDFtk.MF34 import ReactionBlock
 from ENDFtk.MF34 import LegendreBlock
-from ENDFtk.MF34 import SquareMatrix
+from ENDFtk import SquareMatrix
 
 class Test_ENDFtk_MF34_ReactionBlock( unittest.TestCase ) :
     """Unit test for the ReactionBlock class."""

@@ -10,6 +10,8 @@
 // namespace aliases
 namespace python = pybind11;
 
+namespace mf2 {
+
 void wrapMultiLevelBreitWigner( python::module& module, python::module& ) {
 
   // type aliases
@@ -95,13 +97,13 @@ void wrapMultiLevelBreitWigner( python::module& module, python::module& ) {
 
     "AP",
     [] ( const Component& self ) { return self.AP(); },
-    "The target spin"
+    "The scattering radius"
   )
   .def_property_readonly(
 
     "scattering_radius",
     [] ( const Component& self ) { return self.scatteringRadius(); },
-    "The target spin"
+    "The scattering radius"
   )
   .def_property_readonly(
 
@@ -126,3 +128,5 @@ void wrapMultiLevelBreitWigner( python::module& module, python::module& ) {
   // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }
+
+} // namespace mf2
