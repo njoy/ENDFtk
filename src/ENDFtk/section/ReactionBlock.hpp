@@ -1,3 +1,39 @@
+#ifndef NJOY_ENDFTK_SECTION_REACTIONBLOCK
+#define NJOY_ENDFTK_SECTION_REACTIONBLOCK
+
+// system includes
+#include <vector>
+
+// other includes
+#include "range/v3/view/all.hpp"
+#include "ENDFtk/section/CovariancePairs.hpp"
+#include "ENDFtk/section/SquareMatrix.hpp"
+#include "ENDFtk/section/RectangularMatrix.hpp"
+#include "ENDFtk/section/DerivedRedundant.hpp"
+#include "ENDFtk/section/DerivedRatioToStandard.hpp"
+#include "ENDFtk/ControlRecord.hpp"
+
+namespace njoy {
+namespace ENDFtk {
+namespace section{
+
+using ExplicitCovariance = std::variant< CovariancePairs,
+                                         SquareMatrix,
+                                         RectangularMatrix >;
+
+using DerivedCovariance = std::variant< DerivedRedundant,
+                                        DerivedRatioToStandard >;
+
+} // section namespace
+} // ENDFtk namespace
+} // njoy namespace
+
+#include "ENDFtk/section/readSequence.hpp"
+
+namespace njoy {
+namespace ENDFtk {
+namespace section{
+
 /**
  *  @class
  *  @brief A Reaction block (subsection) given in an MF33 covariance section
@@ -19,12 +55,12 @@ class ReactionBlock {
   std::vector< ExplicitCovariance > ni_;
 
   /* auxiliary functions */
-  #include "ENDFtk/section/33/ReactionBlock/src/readNC.hpp"
+  #include "ENDFtk/section/ReactionBlock/src/readNC.hpp"
 
 public:
 
   /* constructor */
-  #include "ENDFtk/section/33/ReactionBlock/src/ctor.hpp"
+  #include "ENDFtk/section/ReactionBlock/src/ctor.hpp"
 
   /* methods */
 
@@ -104,6 +140,12 @@ public:
     return ranges::cpp20::views::all( this->ni_ );
   }
 
-  #include "ENDFtk/section/33/ReactionBlock/src/NC.hpp"
-  #include "ENDFtk/section/33/ReactionBlock/src/print.hpp"
+  #include "ENDFtk/section/ReactionBlock/src/NC.hpp"
+  #include "ENDFtk/section/ReactionBlock/src/print.hpp"
 };
+
+} // section namespace
+} // ENDFtk namespace
+} // njoy namespace
+
+#endif

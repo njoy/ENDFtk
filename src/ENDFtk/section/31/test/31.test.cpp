@@ -8,10 +8,10 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using ReactionBlock = section::Type< 31 >::ReactionBlock;
-using DerivedCovariance = section::Type< 31 >::DerivedCovariance;
-using DerivedRedundant = section::Type< 31 >::DerivedRedundant;
-using DerivedRatioToStandard = section::Type< 31 >::DerivedRatioToStandard;
+using ReactionBlock = section::ReactionBlock;
+using DerivedCovariance = section::DerivedCovariance;
+using DerivedRedundant = section::DerivedRedundant;
+using DerivedRatioToStandard = section::DerivedRatioToStandard;
 using ExplicitCovariance = section::ExplicitCovariance;
 using SquareMatrix = section::SquareMatrix;
 using RectangularMatrix = section::RectangularMatrix;

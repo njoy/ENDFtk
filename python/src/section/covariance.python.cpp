@@ -11,6 +11,9 @@
 void wrapCovariancePairs( python::module&, python::module& );
 void wrapRectangularMatrix( python::module&, python::module& );
 void wrapSquareMatrix( python::module&, python::module& );
+void wrapCovariancePairs( python::module&, python::module& );
+void wrapRectangularMatrix( python::module&, python::module& );
+void wrapReactionBlock( python::module&, python::module& );
 
 // namespace aliases
 namespace python = pybind11;

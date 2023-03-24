@@ -1,16 +1,16 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk/section/33.hpp"
+#include "ENDFtk/section/ReactionBlock.hpp"
 
 // other includes
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using ReactionBlock = section::Type< 33 >::ReactionBlock;
-using DerivedCovariance = section::Type< 33 >::DerivedCovariance;
-using DerivedRedundant = section::Type< 33 >::DerivedRedundant;
-using DerivedRatioToStandard = section::Type< 33 >::DerivedRatioToStandard;
+using ReactionBlock = section::ReactionBlock;
+using DerivedCovariance = section::DerivedCovariance;
+using DerivedRedundant = section::DerivedRedundant;
+using DerivedRatioToStandard = section::DerivedRatioToStandard;
 using SquareMatrix = section::SquareMatrix;
 using RectangularMatrix = section::RectangularMatrix;
 using CovariancePairs = section::CovariancePairs;

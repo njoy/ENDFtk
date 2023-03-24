@@ -1,13 +1,13 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk/section/33.hpp"
+#include "ENDFtk/section/DerivedRatioToStandard.hpp"
 
 // other includes
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using DerivedRatioToStandard = section::Type< 33 >::DerivedRatioToStandard;
+using DerivedRatioToStandard = section::DerivedRatioToStandard;
 
 std::string chunk();
 void verifyChunk( const DerivedRatioToStandard& );

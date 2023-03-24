@@ -32,18 +32,6 @@ namespace section{
 
   public:
 
-    // include classes for subsubsubsections
-    // taken from MF33 intentionally
-    #include "ENDFtk/section/33/DerivedRedundant.hpp"
-    #include "ENDFtk/section/33/DerivedRatioToStandard.hpp"
-    using DerivedCovariance = std::variant<
-      DerivedRedundant,
-      DerivedRatioToStandard >;
-
-    // include classes for subsubsections
-    // taken from MF33 intentionally
-    #include "ENDFtk/section/33/ReactionBlock.hpp"
-
     // include classes for subsections
     #include "ENDFtk/section/40/LevelBlock.hpp"
 

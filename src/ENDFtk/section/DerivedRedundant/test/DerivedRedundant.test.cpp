@@ -1,13 +1,13 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "ENDFtk/section/33.hpp"
+#include "ENDFtk/section/DerivedRedundant.hpp"
 
 // other includes
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using DerivedRedundant = section::Type< 33 >::DerivedRedundant;
+using DerivedRedundant = section::DerivedRedundant;
 
 std::string chunk();
 void verifyChunk( const DerivedRedundant& );

@@ -1,3 +1,18 @@
+#ifndef NJOY_ENDFTK_SECTION_DERIVEDREDUNDANT
+#define NJOY_ENDFTK_SECTION_DERIVEDREDUNDANT
+
+// system includes
+
+// other includes
+#include "range/v3/view/drop_exactly.hpp"
+#include "range/v3/view/stride.hpp"
+#include "ENDFtk/ControlRecord.hpp"
+#include "ENDFtk/ListRecord.hpp"
+
+namespace njoy {
+namespace ENDFtk {
+namespace section{
+
 /**
  *  @class
  *  @brief NC-Type Sub-subsection with LTY=0
@@ -10,13 +25,13 @@ class DerivedRedundant {
    ListRecord list_;
 
    /* auxiliary functions */
-   #include "ENDFtk/section/33/DerivedRedundant/src/verifyLTY.hpp"
-   #include "ENDFtk/section/33/DerivedRedundant/src/generateList.hpp"
+   #include "ENDFtk/section/DerivedRedundant/src/verifyLTY.hpp"
+   #include "ENDFtk/section/DerivedRedundant/src/generateList.hpp"
 
  public:
 
   /* constructor */
-  #include "ENDFtk/section/33/DerivedRedundant/src/ctor.hpp"
+  #include "ENDFtk/section/DerivedRedundant/src/ctor.hpp"
 
   /* methods */
 
@@ -84,7 +99,13 @@ class DerivedRedundant {
    */
   auto reactions() const { return this->XMTI(); }
 
-  #include "ENDFtk/section/33/DerivedRedundant/src/NC.hpp"
-  #include "ENDFtk/section/33/DerivedRedundant/src/print.hpp"
+  #include "ENDFtk/section/DerivedRedundant/src/NC.hpp"
+  #include "ENDFtk/section/DerivedRedundant/src/print.hpp"
 
 };
+
+} // section namespace
+} // ENDFtk namespace
+} // njoy namespace
+
+#endif

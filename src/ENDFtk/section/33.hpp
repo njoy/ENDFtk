@@ -30,21 +30,6 @@ namespace section{
   template<>
   class Type< 33 > : protected Base {
 
-  public:
-
-    // include classes for subsubsections
-    #include "ENDFtk/section/33/DerivedRedundant.hpp"
-    #include "ENDFtk/section/33/DerivedRatioToStandard.hpp"
-    using DerivedCovariance = std::variant<
-      DerivedRedundant,
-      DerivedRatioToStandard >;
-
-    // include classes for subsections
-    #include "ENDFtk/section/33/ReactionBlock.hpp"
-
-
-  private:
-
     /* fields */
     int mtl_;
     std::vector< ReactionBlock > reactions_;

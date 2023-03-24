@@ -4,18 +4,9 @@
 #include "ENDFtk/section/CovariancePairs.hpp"
 #include "ENDFtk/section/SquareMatrix.hpp"
 #include "ENDFtk/section/RectangularMatrix.hpp"
-
-namespace njoy {
-namespace ENDFtk {
-namespace section {
-
-  using ExplicitCovariance = std::variant< CovariancePairs,
-                                           SquareMatrix,
-                                           RectangularMatrix >;
-
-} // section namespace
-} // ENDFtk namespace
-} // njoy namespace
+#include "ENDFtk/section/DerivedRedundant.hpp"
+#include "ENDFtk/section/DerivedRatioToStandard.hpp"
+#include "ENDFtk/section/ReactionBlock.hpp"
 
 #include "ENDFtk/section/readSequence.hpp"
 
