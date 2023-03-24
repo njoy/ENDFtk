@@ -15,7 +15,7 @@
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/readSequence.hpp"
 #include "ENDFtk/section.hpp"
-#include "ENDFtk/section/covariance.hpp"
+#include "ENDFtk/section/ReactionBlock.hpp"
 
 namespace njoy {
 namespace ENDFtk {

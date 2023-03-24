@@ -18,7 +18,7 @@
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/section.hpp"
 #include "ENDFtk/readSequence.hpp"
-#include "ENDFtk/section/covariance.hpp"
+#include "ENDFtk/section/ExplicitCovariance.hpp"
 
 namespace njoy {
 namespace ENDFtk {

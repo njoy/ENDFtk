@@ -1,13 +1,26 @@
-#ifndef NJOY_ENDFTK_READSEQUENCE_EXPLICITCOVARIANCE
-#define NJOY_ENDFTK_READSEQUENCE_EXPLICITCOVARIANCE
+#ifndef NJOY_ENDFTK_SECTION_EXPLICITCOVARIANCE
+#define NJOY_ENDFTK_SECTION_EXPLICITCOVARIANCE
 
 // system includes
+#include <variant>
 #include <vector>
 
 // other includes
+#include "ENDFtk/section/CovariancePairs.hpp"
+#include "ENDFtk/section/SquareMatrix.hpp"
+#include "ENDFtk/section/RectangularMatrix.hpp"
+#include "ENDFtk/readSequence.hpp"
 
 namespace njoy {
 namespace ENDFtk {
+
+namespace section{
+
+  using ExplicitCovariance = std::variant< CovariancePairs,
+                                           SquareMatrix,
+                                           RectangularMatrix >;
+
+} // section namespace
 
   /**
    *  @brief Function to read a sequence of ENDF components
