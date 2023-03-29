@@ -75,20 +75,30 @@ SCENARIO( "tree::Material" ) {
         CHECK( true == material.hasMF( 2 ) );
         CHECK( true == material.file( 2 ).hasSection( 151 ) );
         CHECK( true == material.MF( 2 ).hasMT( 151 ) );
+        CHECK( true == material.hasSection( 2, 151 ) );
+        CHECK( true == material.hasMFMT( 2, 151 ) );
 
         CHECK( true == material.hasFile( 3 ) );
         CHECK( true == material.hasMF( 3 ) );
         CHECK( true == material.file( 3 ).hasSection( 1 ) );
         CHECK( true == material.MF( 3 ).hasMT( 1 ) );
+        CHECK( true == material.hasSection( 3, 1 ) );
+        CHECK( true == material.hasMFMT( 3, 1 ) );
         CHECK( true == material.file( 3 ).hasSection( 5 ) );
         CHECK( true == material.MF( 3 ).hasMT( 5 ) );
+        CHECK( true == material.hasSection( 3, 5 ) );
+        CHECK( true == material.hasMFMT( 3, 5 ) );
         CHECK( false == material.file( 3 ).hasSection( 102 ) );
         CHECK( false == material.MF( 3 ).hasMT( 102 ) );
+        CHECK( false == material.hasSection( 3, 102 ) );
+        CHECK( false == material.hasMFMT( 3, 102 ) );
 
         CHECK( true == material.hasFile( 4 ) );
         CHECK( true == material.hasMF( 4 ) );
         CHECK( true == material.file( 4 ).hasSection( 5 ) );
         CHECK( true == material.MF( 4 ).hasMT( 5 ) );
+        CHECK( true == material.hasSection( 4, 5 ) );
+        CHECK( true == material.hasMFMT( 4, 5 ) );
 
         CHECK( false == material.hasFile( 5 ) );
         CHECK( false == material.hasMF( 5 ) );
@@ -146,20 +156,30 @@ SCENARIO( "tree::Material" ) {
         CHECK( true == material.hasMF( 2 ) );
         CHECK( true == material.file( 2 ).hasSection( 151 ) );
         CHECK( true == material.MF( 2 ).hasMT( 151 ) );
+        CHECK( true == material.hasSection( 2, 151 ) );
+        CHECK( true == material.hasMFMT( 2, 151 ) );
 
         CHECK( true == material.hasFile( 3 ) );
         CHECK( true == material.hasMF( 3 ) );
         CHECK( true == material.file( 3 ).hasSection( 1 ) );
         CHECK( true == material.MF( 3 ).hasMT( 1 ) );
+        CHECK( true == material.hasSection( 3, 1 ) );
+        CHECK( true == material.hasMFMT( 3, 1 ) );
         CHECK( true == material.file( 3 ).hasSection( 5 ) );
         CHECK( true == material.MF( 3 ).hasMT( 5 ) );
+        CHECK( true == material.hasSection( 3, 5 ) );
+        CHECK( true == material.hasMFMT( 3, 5 ) );
         CHECK( false == material.file( 3 ).hasSection( 102 ) );
         CHECK( false == material.MF( 3 ).hasMT( 102 ) );
+        CHECK( false == material.hasSection( 3, 102 ) );
+        CHECK( false == material.hasMFMT( 3, 102 ) );
 
         CHECK( true == material.hasFile( 4 ) );
         CHECK( true == material.hasMF( 4 ) );
         CHECK( true == material.file( 4 ).hasSection( 5 ) );
         CHECK( true == material.MF( 4 ).hasMT( 5 ) );
+        CHECK( true == material.hasSection( 4, 5 ) );
+        CHECK( true == material.hasMFMT( 4, 5 ) );
 
         CHECK( false == material.hasFile( 5 ) );
         CHECK( false == material.hasMF( 5 ) );
@@ -221,20 +241,30 @@ SCENARIO( "tree::Material" ) {
         CHECK( true == material.hasMF( 2 ) );
         CHECK( true == material.file( 2 ).hasSection( 151 ) );
         CHECK( true == material.MF( 2 ).hasMT( 151 ) );
+        CHECK( true == material.hasSection( 2, 151 ) );
+        CHECK( true == material.hasMFMT( 2, 151 ) );
 
         CHECK( true == material.hasFile( 3 ) );
         CHECK( true == material.hasMF( 3 ) );
         CHECK( true == material.file( 3 ).hasSection( 1 ) );
         CHECK( true == material.MF( 3 ).hasMT( 1 ) );
+        CHECK( true == material.hasSection( 3, 1 ) );
+        CHECK( true == material.hasMFMT( 3, 1 ) );
         CHECK( true == material.file( 3 ).hasSection( 5 ) );
         CHECK( true == material.MF( 3 ).hasMT( 5 ) );
+        CHECK( true == material.hasSection( 3, 5 ) );
+        CHECK( true == material.hasMFMT( 3, 5 ) );
         CHECK( false == material.file( 3 ).hasSection( 102 ) );
         CHECK( false == material.MF( 3 ).hasMT( 102 ) );
+        CHECK( false == material.hasSection( 3, 102 ) );
+        CHECK( false == material.hasMFMT( 3, 102 ) );
 
         CHECK( true == material.hasFile( 4 ) );
         CHECK( true == material.hasMF( 4 ) );
         CHECK( true == material.file( 4 ).hasSection( 5 ) );
         CHECK( true == material.MF( 4 ).hasMT( 5 ) );
+        CHECK( true == material.hasSection( 4, 5 ) );
+        CHECK( true == material.hasMFMT( 4, 5 ) );
 
         CHECK( false == material.hasFile( 5 ) );
         CHECK( false == material.hasMF( 5 ) );
@@ -295,20 +325,30 @@ SCENARIO( "tree::Material" ) {
         CHECK( true == material.hasMF( 2 ) );
         CHECK( true == material.file( 2 ).hasSection( 151 ) );
         CHECK( true == material.MF( 2 ).hasMT( 151 ) );
+        CHECK( true == material.hasSection( 2, 151 ) );
+        CHECK( true == material.hasMFMT( 2, 151 ) );
 
         CHECK( true == material.hasFile( 3 ) );
         CHECK( true == material.hasMF( 3 ) );
         CHECK( true == material.file( 3 ).hasSection( 1 ) );
         CHECK( true == material.MF( 3 ).hasMT( 1 ) );
+        CHECK( true == material.hasSection( 3, 1 ) );
+        CHECK( true == material.hasMFMT( 3, 1 ) );
         CHECK( true == material.file( 3 ).hasSection( 5 ) );
         CHECK( true == material.MF( 3 ).hasMT( 5 ) );
+        CHECK( true == material.hasSection( 3, 5 ) );
+        CHECK( true == material.hasMFMT( 3, 5 ) );
         CHECK( false == material.file( 3 ).hasSection( 102 ) );
         CHECK( false == material.MF( 3 ).hasMT( 102 ) );
+        CHECK( false == material.hasSection( 3, 102 ) );
+        CHECK( false == material.hasMFMT( 3, 102 ) );
 
         CHECK( true == material.hasFile( 4 ) );
         CHECK( true == material.hasMF( 4 ) );
         CHECK( true == material.file( 4 ).hasSection( 5 ) );
         CHECK( true == material.MF( 4 ).hasMT( 5 ) );
+        CHECK( true == material.hasSection( 4, 5 ) );
+        CHECK( true == material.hasMFMT( 4, 5 ) );
 
         CHECK( false == material.hasFile( 5 ) );
         CHECK( false == material.hasMF( 5 ) );
@@ -367,20 +407,30 @@ SCENARIO( "tree::Material" ) {
         CHECK( true == material.hasMF( 2 ) );
         CHECK( true == material.file( 2 ).hasSection( 151 ) );
         CHECK( true == material.MF( 2 ).hasMT( 151 ) );
+        CHECK( true == material.hasSection( 2, 151 ) );
+        CHECK( true == material.hasMFMT( 2, 151 ) );
 
         CHECK( true == material.hasFile( 3 ) );
         CHECK( true == material.hasMF( 3 ) );
         CHECK( true == material.file( 3 ).hasSection( 1 ) );
         CHECK( true == material.MF( 3 ).hasMT( 1 ) );
+        CHECK( true == material.hasSection( 3, 1 ) );
+        CHECK( true == material.hasMFMT( 3, 1 ) );
         CHECK( true == material.file( 3 ).hasSection( 5 ) );
         CHECK( true == material.MF( 3 ).hasMT( 5 ) );
+        CHECK( true == material.hasSection( 3, 5 ) );
+        CHECK( true == material.hasMFMT( 3, 5 ) );
         CHECK( true == material.file( 3 ).hasSection( 102 ) );
         CHECK( true == material.MF( 3 ).hasMT( 102 ) );
+        CHECK( true == material.hasSection( 3, 102 ) );
+        CHECK( true == material.hasMFMT( 3, 102 ) );
 
         CHECK( true == material.hasFile( 4 ) );
         CHECK( true == material.hasMF( 4 ) );
         CHECK( true == material.file( 4 ).hasSection( 5 ) );
         CHECK( true == material.MF( 4 ).hasMT( 5 ) );
+        CHECK( true == material.hasSection( 4, 5 ) );
+        CHECK( true == material.hasMFMT( 4, 5 ) );
 
         CHECK( false == material.hasFile( 5 ) );
         CHECK( false == material.hasMF( 5 ) );
@@ -427,20 +477,30 @@ SCENARIO( "tree::Material" ) {
         CHECK( true == material.hasMF( 2 ) );
         CHECK( true == material.file( 2 ).hasSection( 151 ) );
         CHECK( true == material.MF( 2 ).hasMT( 151 ) );
+        CHECK( true == material.hasSection( 2, 151 ) );
+        CHECK( true == material.hasMFMT( 2, 151 ) );
 
         CHECK( true == material.hasFile( 3 ) );
         CHECK( true == material.hasMF( 3 ) );
         CHECK( true == material.file( 3 ).hasSection( 1 ) );
         CHECK( true == material.MF( 3 ).hasMT( 1 ) );
+        CHECK( true == material.hasSection( 3, 1 ) );
+        CHECK( true == material.hasMFMT( 3, 1 ) );
         CHECK( true == material.file( 3 ).hasSection( 5 ) );
         CHECK( true == material.MF( 3 ).hasMT( 5 ) );
+        CHECK( true == material.hasSection( 3, 5 ) );
+        CHECK( true == material.hasMFMT( 3, 5 ) );
         CHECK( true == material.file( 3 ).hasSection( 102 ) );
         CHECK( true == material.MF( 3 ).hasMT( 102 ) );
+        CHECK( true == material.hasSection( 3, 102 ) );
+        CHECK( true == material.hasMFMT( 3, 102 ) );
 
         CHECK( true == material.hasFile( 4 ) );
         CHECK( true == material.hasMF( 4 ) );
         CHECK( true == material.file( 4 ).hasSection( 5 ) );
         CHECK( true == material.MF( 4 ).hasMT( 5 ) );
+        CHECK( true == material.hasSection( 4, 5 ) );
+        CHECK( true == material.hasMFMT( 4, 5 ) );
 
         CHECK( false == material.hasFile( 5 ) );
         CHECK( false == material.hasMF( 5 ) );
@@ -479,20 +539,30 @@ SCENARIO( "tree::Material" ) {
         CHECK( true == material.hasMF( 2 ) );
         CHECK( true == material.file( 2 ).hasSection( 151 ) );
         CHECK( true == material.MF( 2 ).hasMT( 151 ) );
+        CHECK( true == material.hasSection( 2, 151 ) );
+        CHECK( true == material.hasMFMT( 2, 151 ) );
 
         CHECK( true == material.hasFile( 3 ) );
         CHECK( true == material.hasMF( 3 ) );
         CHECK( true == material.file( 3 ).hasSection( 1 ) );
         CHECK( true == material.MF( 3 ).hasMT( 1 ) );
+        CHECK( true == material.hasSection( 3, 1 ) );
+        CHECK( true == material.hasMFMT( 3, 1 ) );
         CHECK( true == material.file( 3 ).hasSection( 5 ) );
         CHECK( true == material.MF( 3 ).hasMT( 5 ) );
+        CHECK( true == material.hasSection( 3, 5 ) );
+        CHECK( true == material.hasMFMT( 3, 5 ) );
         CHECK( false == material.file( 3 ).hasSection( 102 ) );
         CHECK( false == material.MF( 3 ).hasMT( 102 ) );
+        CHECK( false == material.hasSection( 3, 102 ) );
+        CHECK( false == material.hasMFMT( 3, 102 ) );
 
         CHECK( true == material.hasFile( 4 ) );
         CHECK( true == material.hasMF( 4 ) );
         CHECK( true == material.file( 4 ).hasSection( 5 ) );
         CHECK( true == material.MF( 4 ).hasMT( 5 ) );
+        CHECK( true == material.hasSection( 4, 5 ) );
+        CHECK( true == material.hasMFMT( 4, 5 ) );
 
         CHECK( false == material.hasFile( 5 ) );
         CHECK( false == material.hasMF( 5 ) );
@@ -534,20 +604,30 @@ SCENARIO( "tree::Material" ) {
         CHECK( true == material.hasMF( 2 ) );
         CHECK( true == material.file( 2 ).hasSection( 151 ) );
         CHECK( true == material.MF( 2 ).hasMT( 151 ) );
+        CHECK( true == material.hasSection( 2, 151 ) );
+        CHECK( true == material.hasMFMT( 2, 151 ) );
 
         CHECK( true == material.hasFile( 3 ) );
         CHECK( true == material.hasMF( 3 ) );
         CHECK( true == material.file( 3 ).hasSection( 1 ) );
         CHECK( true == material.MF( 3 ).hasMT( 1 ) );
+        CHECK( true == material.hasSection( 3, 1 ) );
+        CHECK( true == material.hasMFMT( 3, 1 ) );
         CHECK( true == material.file( 3 ).hasSection( 5 ) );
         CHECK( true == material.MF( 3 ).hasMT( 5 ) );
+        CHECK( true == material.hasSection( 3, 5 ) );
+        CHECK( true == material.hasMFMT( 3, 5 ) );
         CHECK( false == material.file( 3 ).hasSection( 102 ) );
         CHECK( false == material.MF( 3 ).hasMT( 102 ) );
+        CHECK( false == material.hasSection( 3, 102 ) );
+        CHECK( false == material.hasMFMT( 3, 102 ) );
 
         CHECK( true == material.hasFile( 4 ) );
         CHECK( true == material.hasMF( 4 ) );
         CHECK( true == material.file( 4 ).hasSection( 5 ) );
         CHECK( true == material.MF( 4 ).hasMT( 5 ) );
+        CHECK( true == material.hasSection( 4, 5 ) );
+        CHECK( true == material.hasMFMT( 4, 5 ) );
 
         CHECK( false == material.hasFile( 5 ) );
         CHECK( false == material.hasMF( 5 ) );
@@ -556,6 +636,8 @@ SCENARIO( "tree::Material" ) {
         CHECK( true == material.hasMF( 6 ) );
         CHECK( true == material.file( 6 ).hasSection( 5 ) );
         CHECK( true == material.MF( 6 ).hasMT( 5 ) );
+        CHECK( true == material.hasSection( 6, 5 ) );
+        CHECK( true == material.hasMFMT( 6, 5 ) );
 
         auto fileNumbers = material.fileNumbers();
         CHECK( 5 == material.size() );
@@ -602,20 +684,30 @@ SCENARIO( "tree::Material" ) {
         CHECK( true == material.hasMF( 2 ) );
         CHECK( true == material.file( 2 ).hasSection( 151 ) );
         CHECK( true == material.MF( 2 ).hasMT( 151 ) );
+        CHECK( true == material.hasSection( 2, 151 ) );
+        CHECK( true == material.hasMFMT( 2, 151 ) );
 
         CHECK( true == material.hasFile( 3 ) );
         CHECK( true == material.hasMF( 3 ) );
         CHECK( true == material.file( 3 ).hasSection( 1 ) );
         CHECK( true == material.MF( 3 ).hasMT( 1 ) );
+        CHECK( true == material.hasSection( 3, 1 ) );
+        CHECK( true == material.hasMFMT( 3, 1 ) );
         CHECK( true == material.file( 3 ).hasSection( 5 ) );
         CHECK( true == material.MF( 3 ).hasMT( 5 ) );
+        CHECK( true == material.hasSection( 3, 5 ) );
+        CHECK( true == material.hasMFMT( 3, 5 ) );
         CHECK( false == material.file( 3 ).hasSection( 102 ) );
         CHECK( false == material.MF( 3 ).hasMT( 102 ) );
+        CHECK( false == material.hasSection( 3, 102 ) );
+        CHECK( false == material.hasMFMT( 3, 102 ) );
 
         CHECK( true == material.hasFile( 4 ) );
         CHECK( true == material.hasMF( 4 ) );
         CHECK( true == material.file( 4 ).hasSection( 5 ) );
         CHECK( true == material.MF( 4 ).hasMT( 5 ) );
+        CHECK( true == material.hasSection( 4, 5 ) );
+        CHECK( true == material.hasMFMT( 4, 5 ) );
 
         CHECK( false == material.hasFile( 5 ) );
         CHECK( false == material.hasMF( 5 ) );
@@ -624,6 +716,8 @@ SCENARIO( "tree::Material" ) {
         CHECK( true == material.hasMF( 6 ) );
         CHECK( true == material.file( 6 ).hasSection( 5 ) );
         CHECK( true == material.MF( 6 ).hasMT( 5 ) );
+        CHECK( true == material.hasSection( 6, 5 ) );
+        CHECK( true == material.hasMFMT( 6, 5 ) );
 
         auto fileNumbers = material.fileNumbers();
         CHECK( 5 == material.size() );
@@ -659,20 +753,30 @@ SCENARIO( "tree::Material" ) {
         CHECK( true == material.hasMF( 2 ) );
         CHECK( true == material.file( 2 ).hasSection( 151 ) );
         CHECK( true == material.MF( 2 ).hasMT( 151 ) );
+        CHECK( true == material.hasSection( 2, 151 ) );
+        CHECK( true == material.hasMFMT( 2, 151 ) );
 
         CHECK( true == material.hasFile( 3 ) );
         CHECK( true == material.hasMF( 3 ) );
         CHECK( true == material.file( 3 ).hasSection( 1 ) );
         CHECK( true == material.MF( 3 ).hasMT( 1 ) );
+        CHECK( true == material.hasSection( 3, 1 ) );
+        CHECK( true == material.hasMFMT( 3, 1 ) );
         CHECK( true == material.file( 3 ).hasSection( 5 ) );
         CHECK( true == material.MF( 3 ).hasMT( 5 ) );
+        CHECK( true == material.hasSection( 3, 5 ) );
+        CHECK( true == material.hasMFMT( 3, 5 ) );
         CHECK( false == material.file( 3 ).hasSection( 102 ) );
         CHECK( false == material.MF( 3 ).hasMT( 102 ) );
+        CHECK( false == material.hasSection( 3, 102 ) );
+        CHECK( false == material.hasMFMT( 3, 102 ) );
 
         CHECK( true == material.hasFile( 4 ) );
         CHECK( true == material.hasMF( 4 ) );
         CHECK( true == material.file( 4 ).hasSection( 5 ) );
         CHECK( true == material.MF( 4 ).hasMT( 5 ) );
+        CHECK( true == material.hasSection( 4, 5 ) );
+        CHECK( true == material.hasMFMT( 4, 5 ) );
 
         CHECK( false == material.hasFile( 5 ) );
         CHECK( false == material.hasMF( 5 ) );

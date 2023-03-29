@@ -90,6 +90,27 @@ namespace tree {
     bool hasFile( int mf ) const { return this->hasMF( mf ); }
 
     /**
+     *  @brief Return whether or not the material has a section with the given
+     *         MF and MT number
+     *
+     *  @param[in]   mf   the MF number of the section
+     *  @param[in]   mt   the MT number of the section
+     */
+    bool hasMFMT( int mf, int mt ) const {
+
+      return this->hasMF( mf ) ? this->file( mf ).hasMT( mt ) : false;
+    }
+
+    /**
+     *  @brief Return whether or not the material has a section with the given
+     *         MF and MT number
+     *
+     *  @param[in]   mf   the MF number of the section
+     *  @param[in]   mt   the MT number of the section
+     */
+    bool hasSection( int mf, int mt ) const { return this->hasMFMT( mf, mt ); }
+
+    /**
      *  @brief Return all files in the material
      */
     auto files() const { return this->files_ | ranges::cpp20::views::values; }
