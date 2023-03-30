@@ -4,7 +4,8 @@
  *
  *  The ContinuumEnergyAngle class is used to represent the continuum
  *  energy-angle law=1 data of MF26. It is similar to the MF6 law=1, but only
- *  supports the LANG=1 option (Legendre coefficients).
+ *  supports the LANG=1 option (Legendre coefficients). In addition, only NA=0
+ *  is allowed but we do not enforce that restriction.
  *
  *  See ENDF102, section 26.2.1 for more information.
  */
