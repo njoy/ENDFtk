@@ -152,6 +152,30 @@ void wrapTreeMaterial( python::module& module, python::module& viewmodule ) {
   )
   .def(
 
+    "section",
+    python::overload_cast< int, int >( &Material::section, python::const_ ),
+    python::arg( "mf" ), python::arg( "mt" ),
+    "Return the section with the requested MF and MT number\n\n"
+    "Arguments:\n"
+    "    self    the ENDF tree material\n"
+    "    mf      the MF number of the section to be returned\n",
+    "    mt      the Mt number of the section to be returned",
+    python::return_value_policy::reference_internal
+  )
+  .def(
+
+    "MFMT",
+    python::overload_cast< int, int >( &Material::MFMT, python::const_ ),
+    python::arg( "mf" ), python::arg( "mt" ),
+    "Return the section with the requested MF and MT number\n\n"
+    "Arguments:\n"
+    "    self    the ENDF tree material\n"
+    "    mf      the MF number of the section to be returned\n",
+    "    mt      the Mt number of the section to be returned",
+    python::return_value_policy::reference_internal
+  )
+  .def(
+
     "parse",
     [] ( const Material& self ) -> ParsedMaterial {
 

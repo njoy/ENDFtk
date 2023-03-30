@@ -62,16 +62,60 @@ namespace tree {
     /**
      *  @brief Return the file with the requested MF number
      *
-     *  @param[in]   mf   the MF number of the material to be returned
+     *  @param[in]   mf   the MF number of the file to be returned
      */
     const File& MF( int mf ) const { return this->file( mf ); }
 
     /**
      *  @brief Return the file with the requested MF number
      *
-     *  @param[in]   mf   the MF number of the material to be returned
+     *  @param[in]   mf   the MF number of the file to be returned
      */
     File& MF( int mf ) { return this->file( mf ); }
+
+    /**
+     *  @brief Return the section with the requested MF and MT number
+     *
+     *  @param[in]   mf   the MF number of the section to be returned
+     *  @param[in]   mt   the MT number of the section to be returned
+     */
+    const Section& section( int mf, int mt ) const {
+
+      return this->file( mf ).section( mt );
+    }
+
+    /**
+     *  @brief Return the section with the requested MF and MT number
+     *
+     *  @param[in]   mf   the MF number of the section to be returned
+     *  @param[in]   mt   the MT number of the section to be returned
+     */
+    Section& section( int mf, int mt ) { 
+
+      return this->file( mf ).section( mt );
+    }
+
+    /**
+     *  @brief Return the section with the requested MF and MT number
+     *
+     *  @param[in]   mf   the MF number of the section to be returned
+     *  @param[in]   mt   the MT number of the section to be returned
+     */
+    const Section& MFMT( int mf, int mt ) const {
+
+      return this->section( mf, mt );
+    }
+
+    /**
+     *  @brief Return the section with the requested MF and MT number
+     *
+     *  @param[in]   mf   the MF number of the section to be returned
+     *  @param[in]   mt   the MT number of the section to be returned
+     */
+    Section& MFMT( int mf, int mt ) {
+
+      return this->section( mf, mt );
+    }
 
     /**
      *  @brief Return whether or not the material has a file with the given MF
