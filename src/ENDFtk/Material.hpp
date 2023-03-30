@@ -150,6 +150,31 @@ namespace ENDFtk {
     }
 
     /**
+     *  @brief Return whether or not the material has a section with the given
+     *         MF and MT number
+     *
+     *  @param[in]   mf   the MF number of the section
+     *  @param[in]   mt   the MT number of the section
+     */
+    bool hasMFMT( int mf, int mt ) const {
+
+      return this->hasMF( mf )
+                 ? std::visit( [&] ( const auto& file ) -> bool
+                                   { return file.hasMT( mt ); },
+                               this->MF( mf ) )
+                 : false;
+    }
+
+    /**
+     *  @brief Return whether or not the material has a section with the given
+     *         MF and MT number
+     *
+     *  @param[in]   mf   the MF number of the section
+     *  @param[in]   mt   the MT number of the section
+     */
+    bool hasSection( int mf, int mt ) const { return this->hasMFMT( mf, mt ); }
+
+    /**
      *  @brief Return the file with the requested MF number
      *
      *  @param[in] mf   the MF number of the file to be returned
