@@ -2,12 +2,9 @@
  *  @class
  *  @brief Discrete two-body scattering data for secondary particles (LAW=2)
  *
- *  The DiscreteTwoBodyScattering class is used to represent the discrete
- *  two-body scattering law=2 data of MF6.
- *
- *  The ContinuumEnergyAngle class is used to represent the two-body angular
- *  distribution law=2 data of MF26. It is similar to the MF6 law=1, but only
- *  supports the LANG=1 option (Legendre coefficients).
+ *  The DiscreteTwoBodyScattering class is used to represent the two-body angular
+ *  distribution law=2 data of MF26. It is similar to the MF6 law=2, but only
+ *  supports the LANG=11 to 15 options.
  *
  *  See ENDF102, section 26.2.2 for more information.
  */
