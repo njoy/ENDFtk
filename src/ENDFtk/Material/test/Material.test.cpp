@@ -1194,4 +1194,14 @@ void verifyMaterial( const Material& chunk ) {
   CHECK( not mf5.hasSection( 1 ) );
   CHECK( not mf5.hasSection( 2 ) );
   CHECK( mf5.hasSection( 16 ) );
+
+  decltype(auto) section = chunk.MFMT( 1, 451 );
+  decltype(auto) mf1mt451 = std::get< 0 >( section );
+  CHECK( 90 == mf1mt451.get().NWD() );
+  CHECK( 8 == mf1mt451.get().NXC() );
+
+  section = chunk.section( 1, 451 );
+  mf1mt451 = std::get< 0 >( section );
+  CHECK( 90 == mf1mt451.get().NWD() );
+  CHECK( 8 == mf1mt451.get().NXC() );
 }

@@ -49,6 +49,41 @@ namespace ENDFtk {
                             file::Type< 33 >, file::Type< 34 >, file::Type< 35 >,
                             file::Type< 40 > >;
 
+    using SectionVariant = std::variant<
+                               std::reference_wrapper< const section::Type< 1, 451 > >,
+                               std::reference_wrapper< const section::Type< 1, 452 > >,
+                               std::reference_wrapper< const section::Type< 1, 455 > >,
+                               std::reference_wrapper< const section::Type< 1, 456 > >,
+                               std::reference_wrapper< const section::Type< 1, 458 > >,
+                               std::reference_wrapper< const section::Type< 1, 460 > >,
+                               std::reference_wrapper< const section::Type< 2, 151 > >,
+                               std::reference_wrapper< const section::Type< 2, 152 > >,
+                               std::reference_wrapper< const section::Type< 3 > >,
+                               std::reference_wrapper< const section::Type< 4 > >,
+                               std::reference_wrapper< const section::Type< 5 > >,
+                               std::reference_wrapper< const section::Type< 6 > >,
+                               std::reference_wrapper< const section::Type< 7, 2 > >,
+                               std::reference_wrapper< const section::Type< 7, 4 > >,
+                               std::reference_wrapper< const section::Type< 8, 454 > >,
+                               std::reference_wrapper< const section::Type< 8, 457 > >,
+                               std::reference_wrapper< const section::Type< 8, 459 > >,
+                               std::reference_wrapper< const section::Type< 9 > >,
+                               std::reference_wrapper< const section::Type< 10 > >,
+                               std::reference_wrapper< const section::Type< 12 > >,
+                               std::reference_wrapper< const section::Type< 13 > >,
+                               std::reference_wrapper< const section::Type< 14 > >,
+                               std::reference_wrapper< const section::Type< 15 > >,
+                               std::reference_wrapper< const section::Type< 23 > >,
+                               std::reference_wrapper< const section::Type< 26 > >,
+                               std::reference_wrapper< const section::Type< 27 > >,
+                               std::reference_wrapper< const section::Type< 28 > >,
+                               std::reference_wrapper< const section::Type< 31 > >,
+                               std::reference_wrapper< const section::Type< 32, 151 > >,
+                               std::reference_wrapper< const section::Type< 33 > >,
+                               std::reference_wrapper< const section::Type< 34 > >,
+                               std::reference_wrapper< const section::Type< 35 > >,
+                               std::reference_wrapper< const section::Type< 40 > > >;
+
   private:
 
     /* fields */
@@ -203,6 +238,56 @@ namespace ENDFtk {
     const FileVariant& MF( int mf ) const {
 
       return this->file( mf );
+    }
+
+    /**
+     *  @brief Return the section with the requested MF and MT number
+     *
+     *  @param[in] mf   the MF number of the section to be returned
+     *  @param[in] mt   the MT number of the section to be returned
+     */
+    SectionVariant section( int mf, int mt ) const {
+
+      return std::visit(
+                 utility::overload{
+                     [=] ( const file::Type< 1 >& file ) -> SectionVariant
+                         { return std::visit(
+                                      [=] ( const auto& section ) -> SectionVariant
+                                          { return std::cref( section ); },
+                                      file.section( mt ) ); },
+                     [=] ( const file::Type< 2 >& file ) -> SectionVariant
+                         { return std::visit(
+                                      [=] ( const auto& section ) -> SectionVariant
+                                          { return std::cref( section ); },
+                                      file.section( mt ) ); },
+                     [=] ( const file::Type< 7 >& file ) -> SectionVariant
+                         { return std::visit(
+                                      [=] ( const auto& section ) -> SectionVariant
+                                          { return std::cref( section ); },
+                                      file.section( mt ) ); },
+                     [=] ( const file::Type< 8 >& file ) -> SectionVariant
+                         { return std::visit(
+                                      [=] ( const auto& section ) -> SectionVariant
+                                          { return std::cref( section ); },
+                                      file.section( mt ) ); },
+                     [] ( const file::Type< 30 >& ) -> SectionVariant
+                        { throw std::exception(); },
+                     // MF=32 is enumerated but only one section is allowed so
+                     // we do not need a visit on the section
+                     [=] ( const auto& file ) -> SectionVariant
+                         { return std::cref( file.section( mt ) ); } },
+                 this->file( mf ) );
+    }
+
+    /**
+     *  @brief Return the section with the requested MF and MT number
+     *
+     *  @param[in] mf   the MF number of the section to be returned
+     *  @param[in] mt   the MT number of the section to be returned
+     */
+    SectionVariant MFMT( int mf, int mt ) const {
+
+      return this->section( mf, mt );
     }
 
     #include "ENDFtk/Material/src/print.hpp"
