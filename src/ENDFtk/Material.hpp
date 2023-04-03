@@ -243,6 +243,9 @@ namespace ENDFtk {
     /**
      *  @brief Return the section with the requested MF and MT number
      *
+     *  Note: this returns a variant of reference wrappers since the data is
+     *        stored by file first.
+     *
      *  @param[in] mf   the MF number of the section to be returned
      *  @param[in] mt   the MT number of the section to be returned
      */
@@ -281,6 +284,9 @@ namespace ENDFtk {
 
     /**
      *  @brief Return the section with the requested MF and MT number
+     *
+     *  Note: this returns a variant of reference wrappers since the data is
+     *        stored by file first.
      *
      *  @param[in] mf   the MF number of the section to be returned
      *  @param[in] mt   the MT number of the section to be returned
