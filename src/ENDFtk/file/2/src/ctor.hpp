@@ -1,8 +1,3 @@
-protected:
-Type( Map&& map ) : sectionMap( std::move(map) ){}
-
-public:
-
 //! @todo pybind11 variant needs default constructor workaround
 #ifdef PYBIND11
 /**
@@ -11,23 +6,33 @@ public:
 Type() = default;
 #endif
 
-template< int sectionNo, typename... Args >
-Type( section::Type< 2, sectionNo >&& section_, Args&&... args ) :
-  Type( fill( std::move( section_ ), std::forward< Args >( args )... ) ) {}
+/**
+ *  @brief Constructor
+ *
+ *  @param[in] section   the MF2 MT151 section
+ */
+Type( section::Type< 2, 151 >&& section ) :
+  Base( { std::move( section ) } ) {}
 
-template< typename BufferIterator >
-Type( StructureDivision& structureDivision,
-      BufferIterator& begin,
-      const BufferIterator& end,
-      long& lineNumber )
-  try: Type( this->read( sections(),
-                         structureDivision, begin, end, lineNumber,
-                         structureDivision.tail.MAT() ) ) {
+/**
+ *  @brief Constructor
+ *
+ *  @param[in] sections   the sections of the file
+ */
+Type( std::vector< SectionVariant >&& sections ) :
+  Base( std::move( sections ) ) {}
 
-    this->verifyEND( structureDivision, lineNumber );
-  }
-  catch ( std::exception& e ) {
-
-    Log::info("Error while reading File 2");
-    throw e;
-  }
+/**
+ *  @brief Constructor (from a buffer)
+ *
+ *  @tparam Iterator        a buffer iterator
+ *
+ *  @param[in] division     the first HEAD record of the section
+ *  @param[in] it           the current position in the buffer
+ *  @param[in] end          the end of the buffer
+ *  @param[in] lineNumber   the current line number
+ */
+template< typename Iterator >
+Type( StructureDivision& division,
+      Iterator& begin, const Iterator& end, long& lineNumber ) :
+  Base( division, begin, end, lineNumber ) {}

@@ -48,7 +48,7 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 9228, 6, 5 );
+        chunk.print( output, 9228, 26, 5 );
         CHECK( buffer == string );
       } // THEN
     } // WHEN
@@ -59,7 +59,7 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      DiscreteTwoBodyScattering chunk( begin, end, lineNumber, 9228, 6, 5 );
+      DiscreteTwoBodyScattering chunk( begin, end, lineNumber, 9228, 26, 5 );
 
       THEN( "a DiscreteTwoBodyScattering can "
             "be constructed and members can be tested" ) {
@@ -71,7 +71,7 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 9228, 6, 5 );
+        chunk.print( output, 9228, 26, 5 );
         CHECK( buffer == string );
       } // THEN
     } // WHEN
@@ -136,7 +136,7 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
       THEN( "an exception is thrown upon construction" ) {
 
         CHECK_THROWS( DiscreteTwoBodyScattering( begin, end, lineNumber,
-                                                   9228, 6, 5 ) );
+                                                 9228, 26, 5 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -144,12 +144,12 @@ SCENARIO( "DiscreteTwoBodyScattering" ) {
 
 std::string chunk() {
   return
-    " 0.000000+0 0.000000+0          0          0          1          29228 6  5     \n"
-    "          2          1                                            9228 6  5     \n"
-    " 0.000000+0 1.000000-5          0          0          4          49228 6  5     \n"
-    " 1.000000+0 2.000000+0 3.000000+0 4.000000+0                      9228 6  5     \n"
-    " 0.000000+0 2.000000+7         12          0          6          39228 6  5     \n"
-    " 1.000000+0 2.000000+0 3.000000+0 4.000000+0 5.000000+0 6.000000+09228 6  5     \n";
+    " 0.000000+0 0.000000+0          0          0          1          2922826  5     \n"
+    "          2          1                                            922826  5     \n"
+    " 0.000000+0 1.000000-5          0          0          4          4922826  5     \n"
+    " 1.000000+0 2.000000+0 3.000000+0 4.000000+0                      922826  5     \n"
+    " 0.000000+0 2.000000+7         12          0          6          3922826  5     \n"
+    " 1.000000+0 2.000000+0 3.000000+0 4.000000+0 5.000000+0 6.000000+0922826  5     \n";
 }
 
 void verifyChunk( const DiscreteTwoBodyScattering& chunk ) {
@@ -216,10 +216,10 @@ void verifyChunk( const DiscreteTwoBodyScattering& chunk ) {
 
 std::string invalidLANG() {
   return
-    " 0.000000+0 0.000000+0          0          0          1          29228 6  5     \n"
-    "          2          1                                            9228 6  5     \n"
-    " 0.000000+0 1.000000-5          1          0          4          49228 6  5     \n"
-    " 1.000000+0 2.000000+0 3.000000+0 4.000000+0                      9228 6  5     \n"
-    " 0.000000+0 2.000000+7         12          0          6          39228 6  5     \n"
-    " 1.000000+0 2.000000+0 3.000000+0 4.000000+0 5.000000+0 6.000000+09228 6  5     \n";
+    " 0.000000+0 0.000000+0          0          0          1          2922826  5     \n"
+    "          2          1                                            922826  5     \n"
+    " 0.000000+0 1.000000-5          1          0          4          4922826  5     \n"
+    " 1.000000+0 2.000000+0 3.000000+0 4.000000+0                      922826  5     \n"
+    " 0.000000+0 2.000000+7         12          0          6          3922826  5     \n"
+    " 1.000000+0 2.000000+0 3.000000+0 4.000000+0 5.000000+0 6.000000+0922826  5     \n";
 }

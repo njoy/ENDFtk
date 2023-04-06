@@ -15,11 +15,6 @@ FetchContent_Declare( disco
     GIT_TAG         2606933a854bb0269c4ec37143e1236797e27838
     )
 
-FetchContent_Declare( hana-adapter
-    GIT_REPOSITORY  https://github.com/njoy/hana-adapter
-    GIT_TAG         f58e8973c9a614dc4f3720b5581a762c61bdbb40
-    )
-
 FetchContent_Declare( header-utilities
     GIT_REPOSITORY  https://github.com/njoy/header-utilities
     GIT_TAG         cc2610fee15e255c151e8e22aca1e8b3d1a96b39
@@ -53,7 +48,6 @@ set( SPDLOG_BUILD_TESTING CACHE BOOL OFF )
 FetchContent_MakeAvailable(
     catch-adapter
     disco
-    hana-adapter
     header-utilities
     Log
     pybind11

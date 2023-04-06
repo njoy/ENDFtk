@@ -102,7 +102,7 @@ namespace section {
     /**
      *  @brief Return the dilution or sigma zero values
      */
-    TakeRange< AllRange< double > > SIGZ() const {
+    auto SIGZ() const {
 
       return this->data_.list()
                | ranges::views::take_exactly( this->NSIGZ() );
@@ -111,7 +111,7 @@ namespace section {
     /**
      *  @brief Return the dilution or sigma zero values
      */
-    TakeRange< AllRange< double > > dilutions() const { return this->SIGZ(); }
+    auto dilutions() const { return this->SIGZ(); }
 
     /**
      *  @brief Return the number of energy values
@@ -126,7 +126,7 @@ namespace section {
     /**
      *  @brief Return the unresolved resonance energies
      */
-    StrideRange< DropRange< AllRange< double > > > EUNR() const {
+    auto EUNR() const {
 
       return this->data_.list()
                | ranges::views::drop_exactly( this->NSIGZ() )
@@ -136,7 +136,7 @@ namespace section {
     /**
      *  @brief Return the unresolved resonance energies
      */
-    StrideRange< DropRange< AllRange< double > > > energies() const {
+    auto energies() const {
 
       return this->EUNR();
     }

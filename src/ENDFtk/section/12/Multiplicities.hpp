@@ -67,7 +67,7 @@ public:
   /**
    *  @brief Return the partial multiplicities
    */
-  AllRange< PartialMultiplicity > photonPartialMultiplicities() const {
+  auto photonPartialMultiplicities() const {
 
     return ranges::cpp20::views::all( this->partials_ );
   }

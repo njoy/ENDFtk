@@ -14,7 +14,7 @@
 
 namespace njoy {
 namespace ENDFtk {
-namespace section{
+namespace section {
 
   /**
    *  @class
@@ -95,7 +95,7 @@ namespace section{
      *  @brief Return the number of photons (discrete and continuum) with
      *         angular distributionss
      */
-    int NK() const { 
+    int NK() const {
 
       return this->photons_.size() ? this->photons_.size() : this->nk_;
     }

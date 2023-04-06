@@ -19,7 +19,7 @@ void wrapReactionBlock( python::module& module, python::module& viewmodule ) {
   using Component = Section::ReactionBlock;
   using DerivedCovariance = Section::DerivedCovariance;
   using DerivedCovarianceRange = RandomAccessAnyView< DerivedCovariance >;
-  using ExplicitCovariance = Section::ExplicitCovariance;
+  using ExplicitCovariance = njoy::ENDFtk::section::ExplicitCovariance;
   using ExplicitCovarianceRange = RandomAccessAnyView< ExplicitCovariance >;
 
 
@@ -29,10 +29,6 @@ void wrapReactionBlock( python::module& module, python::module& viewmodule ) {
       viewmodule,
       "any_view< variant< MF31::DerivedRedundant, MF31::DerivedRatioToStandard >, "
                 "random_access >" );
-  wrapRandomAccessAnyViewOf< ExplicitCovariance >(
-      viewmodule,
-      "any_view< variant< MF31::CovariancePairs, MF31::SquareMatrix, "
-                         "MF31::RectangularMatrix >, random_access >" );
 
   // create the component
   python::class_< Component > component(

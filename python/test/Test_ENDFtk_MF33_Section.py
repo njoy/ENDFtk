@@ -7,7 +7,7 @@ import unittest
 from ENDFtk.MF33 import Section
 from ENDFtk.MF33 import ReactionBlock
 from ENDFtk.MF33 import DerivedRedundant
-from ENDFtk.MF33 import SquareMatrix
+from ENDFtk import SquareMatrix
 from ENDFtk.tree import Tape
 
 class Test_ENDFtk_MF33_Section( unittest.TestCase ) :

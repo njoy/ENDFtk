@@ -6,13 +6,9 @@
 #include "ENDFtk/file/1.hpp"
 #include "definitions.hpp"
 #include "views.hpp"
-#include "boost/hana.hpp"
 
 // namespace aliases
 namespace python = pybind11;
-
-namespace hana = boost::hana;
-inline namespace literals { using namespace hana::literals; }
 
 // declarations - sections
 void wrap_1_TabulatedMultiplicity( python::module&, python::module& );
@@ -27,15 +23,16 @@ void wrapSection_1_460( python::module&, python::module& );
 void wrapFile_1( python::module& module, python::module& viewmodule ) {
 
   // type aliases
+  using MF1MT451 = njoy::ENDFtk::section::Type< 1, 451 >;
+  using MF1MT452 = njoy::ENDFtk::section::Type< 1, 452 >;
+  using MF1MT455 = njoy::ENDFtk::section::Type< 1, 455 >;
+  using MF1MT456 = njoy::ENDFtk::section::Type< 1, 456 >;
+  using MF1MT458 = njoy::ENDFtk::section::Type< 1, 458 >;
+  using MF1MT460 = njoy::ENDFtk::section::Type< 1, 460 >;
   using File = njoy::ENDFtk::file::Type< 1 >;
-  using MF1MT451 = std::reference_wrapper< const njoy::ENDFtk::section::Type< 1, 451 > >;
-  using MF1MT452 = std::reference_wrapper< const njoy::ENDFtk::section::Type< 1, 452 > >;
-  using MF1MT455 = std::reference_wrapper< const njoy::ENDFtk::section::Type< 1, 455 > >;
-  using MF1MT456 = std::reference_wrapper< const njoy::ENDFtk::section::Type< 1, 456 > >;
-  using MF1MT458 = std::reference_wrapper< const njoy::ENDFtk::section::Type< 1, 458 > >;
-  using MF1MT460 = std::reference_wrapper< const njoy::ENDFtk::section::Type< 1, 460 > >;
-
-  // wrap views created by this file
+  using Section = std::variant< MF1MT451, MF1MT452, MF1MT455,
+                                MF1MT456, MF1MT458, MF1MT460 >;
+  using SectionRange = BidirectionalAnyView< Section >;
 
   // create the submodule
   python::module submodule = module.def_submodule(
@@ -54,6 +51,12 @@ void wrapFile_1( python::module& module, python::module& viewmodule ) {
   wrapSection_1_458( submodule, viewmodule );
   wrapSection_1_460( submodule, viewmodule );
 
+  // wrap views created by this file
+  // none of these are supposed to be created directly by the user
+  wrapBidirectionalAnyViewOf< Section >(
+      viewmodule,
+      "any_view< section::Type< 1 >, bidirectional >" );
+
   // create the file
   python::class_< File > file(
 
@@ -62,50 +65,19 @@ void wrapFile_1( python::module& module, python::module& viewmodule ) {
     "MF1 file - general information"
   );
 
-  // common lambda
-  auto get_section =
-  [] ( const File& self, int mt ) -> std::variant< MF1MT451, MF1MT452,
-                                                   MF1MT455, MF1MT456,
-                                                   MF1MT458, MF1MT460 > {
-
-    switch ( mt ) {
-
-      case 451 : return self.section( 451_c );
-      case 452 : return self.section( 452_c );
-      case 455 : return self.section( 455_c );
-      case 456 : return self.section( 456_c );
-      case 458 : return self.section( 458_c );
-      case 460 : return self.section( 460_c );
-      default: throw std::runtime_error(
-                    "Requested section number (" + std::to_string( mt ) +
-                    ") does not correspond to a stored section" );
-    }
-  };
-
+  // wrap the file
   file
   .def(
 
-    "section",
-    get_section,
-    python::arg( "mt" ),
-    "Return the section with the requested MT number\n\n"
+    python::init( [] ( MF1MT451 information )
+                     { return File( std::move( information ) ); } ),
+    python::arg( "information" ),
+    "Initialise the file with descriptive data\n\n"
     "Arguments:\n"
-    "    self    the file\n"
-    "    mt      the MT number of the section to be returned",
-    python::return_value_policy::reference_internal
-  )
-  .def(
-
-    "MT",
-    get_section,
-    python::arg( "mt" ),
-    "Return the section with the requested MT number\n\n"
-    "Arguments:\n"
-    "    self    the file\n"
-    "    mt      the MT number of the section to be returned",
-    python::return_value_policy::reference_internal
+    "    self          the file\n"
+    "    information   the descriptive information (MT451)"
   );
 
   // add standard file definitions
-  addStandardFileDefinitions< File >( file );
+  addStandardFileDefinitions< File, Section, SectionRange >( file );
 }

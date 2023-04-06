@@ -60,7 +60,7 @@ public:
   /**
    *  @brief Return the secondary energy values
    */
-  StrideRange< AllRange< double > > EP() const {
+  auto EP() const {
 
     return ListRecord::list() | ranges::views::stride( 2 + this->NA() );
   }
@@ -68,12 +68,12 @@ public:
   /**
    *  @brief Return the secondary energy values
    */
-  StrideRange< AllRange< double > > energies() const { return this->EP(); }
+  auto energies() const { return this->EP(); }
 
   /**
    *  @brief Return the total emission probabilities
    */
-  StrideRange< DropRange< AllRange< double > > > F0() const {
+  auto F0() const {
 
     return ranges::views::drop_exactly( ListRecord::list(), 1 )
              | ranges::views::stride( 2 + this->NA() );
@@ -82,7 +82,7 @@ public:
   /**
    *  @brief Return the total emission probabilities
    */
-  StrideRange< DropRange< AllRange< double > > >
+  auto
   totalEmissionProbabilities() const {
 
     return this->F0();

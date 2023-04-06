@@ -17,6 +17,9 @@ void wrapInterpolationRecord( python::module&, python::module& );
 void wrapDirectoryRecord( python::module&, python::module& );
 void wrapTapeIdentification( python::module&, python::module& );
 
+// declarations - covariance components
+void wrapCovariance( python::module&, python::module& );
+
 // declarations - files
 void wrapFile_1( python::module&, python::module& );
 void wrapFile_2( python::module&, python::module& );
@@ -33,9 +36,11 @@ void wrapFile_13( python::module&, python::module& );
 void wrapFile_14( python::module&, python::module& );
 void wrapFile_15( python::module&, python::module& );
 void wrapFile_23( python::module&, python::module& );
+void wrapFile_26( python::module&, python::module& );
 void wrapFile_27( python::module&, python::module& );
 void wrapFile_28( python::module&, python::module& );
 void wrapFile_31( python::module&, python::module& );
+void wrapFile_32( python::module&, python::module& );
 void wrapFile_33( python::module&, python::module& );
 void wrapFile_34( python::module&, python::module& );
 void wrapFile_35( python::module&, python::module& );
@@ -94,6 +99,9 @@ PYBIND11_MODULE( ENDFtk, module ) {
   wrapDirectoryRecord( module, viewmodule );
   wrapTapeIdentification( module, viewmodule );
 
+  // wrap covariance components
+  wrapCovariance( module, viewmodule );
+
   // wrap files
   wrapFile_1( module, viewmodule );
   wrapFile_2( module, viewmodule );
@@ -110,9 +118,11 @@ PYBIND11_MODULE( ENDFtk, module ) {
   wrapFile_14( module, viewmodule );
   wrapFile_15( module, viewmodule );
   wrapFile_23( module, viewmodule );
+  wrapFile_26( module, viewmodule );
   wrapFile_27( module, viewmodule );
   wrapFile_28( module, viewmodule );
   wrapFile_31( module, viewmodule );
+  wrapFile_32( module, viewmodule );
   wrapFile_33( module, viewmodule );
   wrapFile_34( module, viewmodule );
   wrapFile_35( module, viewmodule );

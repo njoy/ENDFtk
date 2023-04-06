@@ -17,9 +17,6 @@ namespace mf40 {
   void wrapReactionBlock( python::module&, python::module& );
   void wrapDerivedRedundant( python::module&, python::module& );
   void wrapDerivedRatioToStandard( python::module&, python::module& );
-  void wrapCovariancePairs( python::module&, python::module& );
-  void wrapSquareMatrix( python::module&, python::module& );
-  void wrapRectangularMatrix( python::module&, python::module& );
 }
 
 void wrapSection_40( python::module& module, python::module& viewmodule ) {
@@ -34,9 +31,6 @@ void wrapSection_40( python::module& module, python::module& viewmodule ) {
   mf40::wrapReactionBlock( module, viewmodule );
   mf40::wrapDerivedRedundant( module, viewmodule );
   mf40::wrapDerivedRatioToStandard( module, viewmodule );
-  mf40::wrapCovariancePairs( module, viewmodule );
-  mf40::wrapSquareMatrix( module, viewmodule );
-  mf40::wrapRectangularMatrix( module, viewmodule );
 
   // wrap views created by this section
   // none of these are supposed to be created directly by the user

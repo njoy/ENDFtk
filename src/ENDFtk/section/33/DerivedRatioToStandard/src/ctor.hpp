@@ -67,7 +67,7 @@ try :
  */
 template< typename Iterator >
 DerivedRatioToStandard( Iterator& it, const Iterator& end, long& lineNumber,
-                  int MAT, int MF, int MT )
+                        int MAT, int MF, int MT )
 try :
   DerivedRatioToStandard(
     ControlRecord( it, end, lineNumber, MAT, MF, MT ).L2(),

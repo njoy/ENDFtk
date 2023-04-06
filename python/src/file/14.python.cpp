@@ -44,9 +44,6 @@ void wrapFile_14( python::module& module, python::module& viewmodule ) {
     "MF14 file - angular distributions of secondary photons"
   );
 
-  // wrap the file
-  addStandardUnenumeratedFileDefinitions< File, Section, SectionRange >( file );
-
   // add standard file definitions
-  addStandardFileDefinitions< File >( file );
+  addStandardFileDefinitions< File, Section, SectionRange >( file );
 }

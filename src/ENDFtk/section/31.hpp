@@ -15,6 +15,7 @@
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/readSequence.hpp"
 #include "ENDFtk/section.hpp"
+#include "ENDFtk/section/covariance.hpp"
 
 namespace njoy {
 namespace ENDFtk {
@@ -42,14 +43,6 @@ namespace section{
     using DerivedCovariance = std::variant<
       DerivedRedundant,
       DerivedRatioToStandard >;
-
-    #include "ENDFtk/section/33/CovariancePairs.hpp"
-    #include "ENDFtk/section/33/SquareMatrix.hpp"
-    #include "ENDFtk/section/33/RectangularMatrix.hpp"
-    using ExplicitCovariance = std::variant<
-      CovariancePairs,
-      SquareMatrix,
-      RectangularMatrix >;
 
     // include classes for subsections
     #include "ENDFtk/section/33/ReactionBlock.hpp"

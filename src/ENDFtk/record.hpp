@@ -9,3 +9,4 @@
 #include "ENDFtk/record/Sequence.hpp"
 #include "ENDFtk/record/skip.hpp"
 #include "ENDFtk/record/InterpolationBase.hpp"
+#include "ENDFtk/record/IntegerBase.hpp"

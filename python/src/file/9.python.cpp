@@ -44,9 +44,6 @@ void wrapFile_9( python::module& module, python::module& viewmodule ) {
     "MF9 file - multiplicities for radioactive nuclide production"
   );
 
-  // wrap the file
-  addStandardUnenumeratedFileDefinitions< File, Section, SectionRange >( file );
-
   // add standard file definitions
-  addStandardFileDefinitions< File >( file );
+  addStandardFileDefinitions< File, Section, SectionRange >( file );
 }

@@ -9,9 +9,6 @@ class ReichMooreLValue : protected BreitWignerReichMooreLValueBase {
 
 public:
 
-  /* type aliases */
-  using Column = BreitWignerReichMooreLValueBase::Column;
-
   #include "ENDFtk/section/2/151/ReichMooreLValue/Resonance.hpp"
 
   /* constructor */
@@ -44,42 +41,42 @@ public:
   /**
    *  @brief Return the neutron widths
    */
-  Column GN() const { return BreitWignerReichMooreLValueBase::G1(); }
+  auto GN() const { return BreitWignerReichMooreLValueBase::G1(); }
 
   /**
    *  @brief Return the neutron widths
    */
-  Column neutronWidths() const { return this->GN(); }
+  auto neutronWidths() const { return this->GN(); }
 
   /**
    *  @brief Return the gamma widths
    */
-  Column GG() const { return BreitWignerReichMooreLValueBase::G2(); }
+  auto GG() const { return BreitWignerReichMooreLValueBase::G2(); }
 
   /**
    *  @brief Return the gamma widths
    */
-  Column gammaWidths() const { return this->GG(); }
+  auto gammaWidths() const { return this->GG(); }
 
   /**
    *  @brief Return the first fission widths
    */
-  Column GFA() const { return BreitWignerReichMooreLValueBase::G3(); }
+  auto GFA() const { return BreitWignerReichMooreLValueBase::G3(); }
 
   /**
    *  @brief Return the first fission widths
    */
-  Column firstFissionWidths() const { return this->GFA(); }
+  auto firstFissionWidths() const { return this->GFA(); }
 
   /**
    *  @brief Return the second fission widths
    */
-  Column GFB() const { return BreitWignerReichMooreLValueBase::G4(); }
+  auto GFB() const { return BreitWignerReichMooreLValueBase::G4(); }
 
   /**
    *  @brief Return the second fission widths
    */
-  Column secondFissionWidths() const { return this->GFB(); }
+  auto secondFissionWidths() const { return this->GFB(); }
 
   /**
    *  @brief Return the resonances

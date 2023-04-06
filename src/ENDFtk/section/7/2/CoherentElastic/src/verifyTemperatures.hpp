@@ -2,8 +2,10 @@ template< typename Array >
 static void
 verifyTemperatures( int NP, const Array& temperatures ) {
 
-  auto iter = ranges::cpp20::find_if_not( temperatures, hana::equal.to( NP ),
-                                          &ListRecord::NPL );
+  auto compare = [NP] ( const auto& entry )
+                      { return entry.NPL() == NP; };
+
+  auto iter = ranges::cpp20::find_if_not( temperatures, compare );
 
   if ( iter != ranges::cpp20::end( temperatures ) ) {
 

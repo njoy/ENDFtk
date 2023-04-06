@@ -7,7 +7,7 @@ import unittest
 from ENDFtk.MF34 import Section
 from ENDFtk.MF34 import ReactionBlock
 from ENDFtk.MF34 import LegendreBlock
-from ENDFtk.MF34 import SquareMatrix
+from ENDFtk import SquareMatrix
 from ENDFtk.tree import Tape
 
 class Test_ENDFtk_MF34_Section( unittest.TestCase ) :

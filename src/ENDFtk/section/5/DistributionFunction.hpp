@@ -17,12 +17,12 @@ public:
   /**
    *  @brief Return the x values
    */
-  AllRange< double > X() const { return TabulationRecord::x(); }
+  auto X() const { return TabulationRecord::x(); }
 
   /**
    *  @brief Return the function values
    */
-  AllRange< double > G() const { return TabulationRecord::y(); }
+  auto G() const { return TabulationRecord::y(); }
 
   using TabulationRecord::NP;
   using TabulationRecord::NR;

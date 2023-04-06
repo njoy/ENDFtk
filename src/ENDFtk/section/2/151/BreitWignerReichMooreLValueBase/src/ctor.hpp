@@ -18,10 +18,10 @@ public:
  *  @param[in] l2         the value in l2
  *  @param[in] energies   the resonance energies (NRS values)
  *  @param[in] spins      the spin values (NRS values)
- *  @param[in] column1    the the first width (NRS values)
- *  @param[in] column2    the the second width (NRS values)
- *  @param[in] column3    the the third width (NRS values)
- *  @param[in] column4    the the fourth width (NRS values)
+ *  @param[in] column1    the first width (NRS values)
+ *  @param[in] column2    the second width (NRS values)
+ *  @param[in] column3    the third width (NRS values)
+ *  @param[in] column4    the fourth width (NRS values)
  */
 BreitWignerReichMooreLValueBase( double awri, double c2, int l, bool l2,
                                  std::vector< double >&& energies,

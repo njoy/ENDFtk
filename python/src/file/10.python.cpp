@@ -44,9 +44,6 @@ void wrapFile_10( python::module& module, python::module& viewmodule ) {
     "MF10 file - production cross sections for radioactive nuclides"
   );
 
-  // wrap the file
-  addStandardUnenumeratedFileDefinitions< File, Section, SectionRange >( file );
-
   // add standard file definitions
-  addStandardFileDefinitions< File >( file );
+  addStandardFileDefinitions< File, Section, SectionRange >( file );
 }

@@ -44,9 +44,6 @@ void wrapFile_31( python::module& module, python::module& viewmodule ) {
     "MF31 file - covariances of fission"
   );
 
-  // wrap the file
-  addStandardUnenumeratedFileDefinitions< File, Section, SectionRange >( file );
-
   // add standard file definitions
-  addStandardFileDefinitions< File >( file );
+  addStandardFileDefinitions< File, Section, SectionRange >( file );
 }
