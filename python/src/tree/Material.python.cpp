@@ -87,6 +87,27 @@ void wrapTreeMaterial( python::module& module, python::module& viewmodule ) {
     "    self    the material\n"
     "    mf      the MF number of the file"
   )
+  .def(
+
+    "has_MF_MT",
+    &Material::hasMFMT,
+    "Return whether or not the material has a section with the given MF and MT "
+    "number\n\n"
+    "Arguments:\n"
+    "    self    the material\n"
+    "    mf      the MF number of the section\n"
+    "    mt      the MT number of the section"
+  )
+  .def(
+
+    "has_section",
+    &Material::hasSection,
+    "Return whether or not the material has a file with the given MF number\n\n"
+    "Arguments:\n"
+    "    self    the material\n"
+    "    mf      the MF number of the section\n"
+    "    mt      the MT number of the section"
+  )
   .def_property_readonly(
 
     "file_numbers",
@@ -127,6 +148,30 @@ void wrapTreeMaterial( python::module& module, python::module& viewmodule ) {
     "Arguments:\n"
     "    self    the ENDF tree material\n"
     "    mf      the MF number of the file to be returned",
+    python::return_value_policy::reference_internal
+  )
+  .def(
+
+    "section",
+    python::overload_cast< int, int >( &Material::section, python::const_ ),
+    python::arg( "mf" ), python::arg( "mt" ),
+    "Return the section with the requested MF and MT number\n\n"
+    "Arguments:\n"
+    "    self    the ENDF tree material\n"
+    "    mf      the MF number of the section to be returned\n",
+    "    mt      the Mt number of the section to be returned",
+    python::return_value_policy::reference_internal
+  )
+  .def(
+
+    "MFMT",
+    python::overload_cast< int, int >( &Material::MFMT, python::const_ ),
+    python::arg( "mf" ), python::arg( "mt" ),
+    "Return the section with the requested MF and MT number\n\n"
+    "Arguments:\n"
+    "    self    the ENDF tree material\n"
+    "    mf      the MF number of the section to be returned\n",
+    "    mt      the Mt number of the section to be returned",
     python::return_value_policy::reference_internal
   )
   .def(

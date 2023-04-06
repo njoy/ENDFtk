@@ -1127,6 +1127,36 @@ void verifyMaterial( const Material& chunk ) {
   CHECK( chunk.hasFile( 5 ) );
   CHECK( not chunk.hasFile( 6 ) );
 
+  CHECK( chunk.hasMFMT( 1, 451 ) );
+  CHECK( not chunk.hasMFMT( 1, 452 ) );
+  CHECK( chunk.hasMFMT( 2, 151 ) );
+  CHECK( not chunk.hasMFMT( 2, 152 ) );
+  CHECK( chunk.hasMFMT( 3, 1 ) );
+  CHECK( chunk.hasMFMT( 3, 2 ) );
+  CHECK( chunk.hasMFMT( 3, 16 ) );
+  CHECK( not chunk.hasMFMT( 3, 102 ) );
+  CHECK( not chunk.hasMFMT( 4, 1 ) );
+  CHECK( chunk.hasMFMT( 4, 2 ) );
+  CHECK( chunk.hasMFMT( 4, 16 ) );
+  CHECK( not chunk.hasMFMT( 5, 1 ) );
+  CHECK( not chunk.hasMFMT( 5, 2 ) );
+  CHECK( chunk.hasMFMT( 5, 16 ) );
+
+  CHECK( chunk.hasSection( 1, 451 ) );
+  CHECK( not chunk.hasSection( 1, 452 ) );
+  CHECK( chunk.hasSection( 2, 151 ) );
+  CHECK( not chunk.hasSection( 2, 152 ) );
+  CHECK( chunk.hasSection( 3, 1 ) );
+  CHECK( chunk.hasSection( 3, 2 ) );
+  CHECK( chunk.hasSection( 3, 16 ) );
+  CHECK( not chunk.hasSection( 3, 102 ) );
+  CHECK( not chunk.hasSection( 4, 1 ) );
+  CHECK( chunk.hasSection( 4, 2 ) );
+  CHECK( chunk.hasSection( 4, 16 ) );
+  CHECK( not chunk.hasSection( 5, 1 ) );
+  CHECK( not chunk.hasSection( 5, 2 ) );
+  CHECK( chunk.hasSection( 5, 16 ) );
+
   decltype(auto) mf1 = std::get< file::Type< 1 > >( chunk.MF( 1 ) );
   CHECK( mf1.hasMT( 451 ) );
   CHECK( not mf1.hasMT( 452 ) );
@@ -1164,4 +1194,14 @@ void verifyMaterial( const Material& chunk ) {
   CHECK( not mf5.hasSection( 1 ) );
   CHECK( not mf5.hasSection( 2 ) );
   CHECK( mf5.hasSection( 16 ) );
+
+  decltype(auto) section = chunk.MFMT( 1, 451 );
+  decltype(auto) mf1mt451 = std::get< 0 >( section );
+  CHECK( 90 == mf1mt451.get().NWD() );
+  CHECK( 8 == mf1mt451.get().NXC() );
+
+  section = chunk.section( 1, 451 );
+  mf1mt451 = std::get< 0 >( section );
+  CHECK( 90 == mf1mt451.get().NWD() );
+  CHECK( 8 == mf1mt451.get().NXC() );
 }

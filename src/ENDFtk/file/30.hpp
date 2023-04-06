@@ -30,6 +30,20 @@ namespace file {
      */
     static constexpr int fileNumber() { return 30; }
 
+    /**
+     *  @brief Verify if a given section (defined by the MT number) is defined
+     *
+     *  @param mt   the MT number of the section to be verified
+     */
+    static constexpr bool hasMT( int ) { return false; }
+
+    /**
+     *  @brief Verify if a given section (defined by the MT number) is defined
+     *
+     *  @param mt   the MT number of the section to be verified
+     */
+    static constexpr int hasSection( int ) { return false; }
+
     using NotImplementedYet::MF;
     using NotImplementedYet::print;
   };
