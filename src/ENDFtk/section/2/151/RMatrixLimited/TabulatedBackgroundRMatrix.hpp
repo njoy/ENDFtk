@@ -46,42 +46,42 @@ public:
   /**
    *  @brief Return the interpolants
    */
-  AllRange< long > interpolants() const { return this->real_.interpolants(); }
+  auto interpolants() const { return this->real_.interpolants(); }
 
   /**
    *  @brief Return the interpolation range boundaries.
    */
-  AllRange< long > boundaries() const { return this->real_.boundaries(); }
+  auto boundaries() const { return this->real_.boundaries(); }
 
   /**
    *  @brief Return the energy values
    */
-  AllRange< double > E() const { return this->real_.x(); }
+  auto E() const { return this->real_.x(); }
 
   /**
    *  @brief Return the energy values
    */
-  AllRange< double > energies() const { return this->E(); }
+  auto energies() const { return this->E(); }
 
   /**
    *  @brief Return the real component of the R-matrix values
    */
-  AllRange< double > RBR() const { return this->real_.y(); }
+  auto RBR() const { return this->real_.y(); }
 
   /**
    *  @brief Return the real component of the R-matrix values
    */
-  AllRange< double > real() const { return this->RBR(); }
+  auto real() const { return this->RBR(); }
 
   /**
    *  @brief Return the imaginary component of the R-matrix values
    */
-  AllRange< double > RBI() const { return this->imaginary_.y(); }
+  auto RBI() const { return this->imaginary_.y(); }
 
   /**
    *  @brief Return the imaginary component of the R-matrix values
    */
-  AllRange< double > imaginary() const { return this->RBI(); }
+  auto imaginary() const { return this->RBI(); }
 
   /**
    *  @brief Return the complex R-matrix values

@@ -51,12 +51,12 @@ namespace section{
     /**
      *  @brief Return the coefficients
      */
-    AllRange< double > C() const { return ListRecord::list(); }
+    auto C() const { return ListRecord::list(); }
 
     /**
      *  @brief Return the coefficients
      */
-    AllRange< double > coefficients() const { return this->C(); }
+    auto coefficients() const { return this->C(); }
 
     using ListRecord::NC;
     using ListRecord::print;

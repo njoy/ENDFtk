@@ -10,6 +10,8 @@
 // namespace aliases
 namespace python = pybind11;
 
+namespace mf2 {
+
 // declarations - components
 void wrapScatteringRadius( python::module&, python::module& );
 void wrapSpecialCase( python::module&, python::module& );
@@ -39,6 +41,8 @@ void wrapUnresolvedEnergyDependent( python::module&, python::module& );
 void wrapResonanceRange( python::module&, python::module& );
 void wrapIsotope( python::module&, python::module& );
 
+} // namespace mf2
+
 void wrapSection_2_151( python::module& module, python::module& viewmodule ) {
 
   // type aliases
@@ -55,33 +59,33 @@ void wrapSection_2_151( python::module& module, python::module& viewmodule ) {
   );
 
   // wrap components
-  wrapScatteringRadius( submodule, viewmodule );
-  wrapSpecialCase( submodule, viewmodule );
-  wrapBreitWignerLValue( submodule, viewmodule );
-  wrapReichMooreLValue( submodule, viewmodule );
-  wrapSingleLevelBreitWigner( submodule, viewmodule );
-  wrapMultiLevelBreitWigner( submodule, viewmodule );
-  wrapReichMoore( submodule, viewmodule );
-  wrapParticlePairs( submodule, viewmodule );
-  wrapResonanceChannels( submodule, viewmodule );
-  wrapResonanceParameters( submodule, viewmodule );
-  wrapNoBackgroundRMatrix( submodule, viewmodule );
-  wrapSammyBackgroundRMatrix( submodule, viewmodule );
-  wrapFrohnerBackgroundRMatrix( submodule, viewmodule );
-  wrapTabulatedBackgroundRMatrix( submodule, viewmodule );
-  wrapBackgroundChannels( submodule, viewmodule );
-  wrapSpinGroup( submodule, viewmodule );
-  wrapRMatrixLimited( submodule, viewmodule );
-  wrapUnresolvedEnergyDependentFissionWidthsJValue( submodule, viewmodule );
-  wrapUnresolvedEnergyDependentJValue( submodule, viewmodule );
-  wrapUnresolvedEnergyIndependentLValue( submodule, viewmodule );
-  wrapUnresolvedEnergyDependentFissionWidthsLValue( submodule, viewmodule );
-  wrapUnresolvedEnergyDependentLValue( submodule, viewmodule );
-  wrapUnresolvedEnergyIndependent( submodule, viewmodule );
-  wrapUnresolvedEnergyDependentFissionWidths( submodule, viewmodule );
-  wrapUnresolvedEnergyDependent( submodule, viewmodule );
-  wrapResonanceRange( submodule, viewmodule );
-  wrapIsotope( submodule, viewmodule );
+  mf2::wrapScatteringRadius( submodule, viewmodule );
+  mf2::wrapSpecialCase( submodule, viewmodule );
+  mf2::wrapBreitWignerLValue( submodule, viewmodule );
+  mf2::wrapReichMooreLValue( submodule, viewmodule );
+  mf2::wrapSingleLevelBreitWigner( submodule, viewmodule );
+  mf2::wrapMultiLevelBreitWigner( submodule, viewmodule );
+  mf2::wrapReichMoore( submodule, viewmodule );
+  mf2::wrapParticlePairs( submodule, viewmodule );
+  mf2::wrapResonanceChannels( submodule, viewmodule );
+  mf2::wrapResonanceParameters( submodule, viewmodule );
+  mf2::wrapNoBackgroundRMatrix( submodule, viewmodule );
+  mf2::wrapSammyBackgroundRMatrix( submodule, viewmodule );
+  mf2::wrapFrohnerBackgroundRMatrix( submodule, viewmodule );
+  mf2::wrapTabulatedBackgroundRMatrix( submodule, viewmodule );
+  mf2::wrapBackgroundChannels( submodule, viewmodule );
+  mf2::wrapSpinGroup( submodule, viewmodule );
+  mf2::wrapRMatrixLimited( submodule, viewmodule );
+  mf2::wrapUnresolvedEnergyDependentFissionWidthsJValue( submodule, viewmodule );
+  mf2::wrapUnresolvedEnergyDependentJValue( submodule, viewmodule );
+  mf2::wrapUnresolvedEnergyIndependentLValue( submodule, viewmodule );
+  mf2::wrapUnresolvedEnergyDependentFissionWidthsLValue( submodule, viewmodule );
+  mf2::wrapUnresolvedEnergyDependentLValue( submodule, viewmodule );
+  mf2::wrapUnresolvedEnergyIndependent( submodule, viewmodule );
+  mf2::wrapUnresolvedEnergyDependentFissionWidths( submodule, viewmodule );
+  mf2::wrapUnresolvedEnergyDependent( submodule, viewmodule );
+  mf2::wrapResonanceRange( submodule, viewmodule );
+  mf2::wrapIsotope( submodule, viewmodule );
 
   // wrap views created by this section
   // none of these are supposed to be created directly by the user

@@ -16,7 +16,7 @@ cd ENDFtk
 mkdir build
 cd build
 cmake -DCMAKE_BUILD_TYPE=Release ../
-make ENDFtk.python -j8
+make -j8
 ```
 
 The compilation will produce a number of dynamic libraries linked to the python libraries on the user's computer (these will be named something like `< component >.cpython-37m-darwin.so` with `< component >` the name of the component). The names of these dynamic libraries will also indicate which version of the python libraries they are linked against. This is important since you will need to use the associated python version along with them.

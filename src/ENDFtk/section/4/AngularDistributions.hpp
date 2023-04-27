@@ -51,7 +51,7 @@ public:
   /**
    *  @brief Return the interpolants for the incident energy axis
    */
-  AllRange< long > interpolants() const {
+  auto interpolants() const {
 
     return InterpolationSequenceRecord< Records >::tab2().interpolants();
   }
@@ -60,7 +60,7 @@ public:
    *  @brief Return the interpolation region boundaries for the incident
    *         energy axis
    */
-  AllRange< long > boundaries() const {
+  auto boundaries() const {
 
     return InterpolationSequenceRecord< Records >::tab2().boundaries();
   }
@@ -79,7 +79,7 @@ public:
   /**
    *  @brief Return the angular distributions (one for each incident energy)
    */
-  AllRange< Records > angularDistributions() const {
+  auto angularDistributions() const {
 
     return InterpolationSequenceRecord< Records >::records();
   }

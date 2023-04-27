@@ -55,12 +55,12 @@ public:
   /**
    *  @brief Return the Legendre coefficients
    */
-  AllRange< double > A() const { return ListRecord::list(); }
+  auto A() const { return ListRecord::list(); }
 
   /**
    *  @brief Return the Legendre coefficients
    */
-  AllRange< double > coefficients() const { return this->A(); }
+  auto coefficients() const { return this->A(); }
 
   using ListRecord::NC;
   using ListRecord::print;

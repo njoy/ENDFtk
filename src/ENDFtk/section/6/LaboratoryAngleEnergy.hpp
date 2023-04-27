@@ -20,6 +20,7 @@ private:
     < LaboratoryAngleEnergy::AngularDistribution > data_;
 
 public:
+  
   /* constructor */
   #include "ENDFtk/section/6/LaboratoryAngleEnergy/src/ctor.hpp"
 
@@ -44,7 +45,7 @@ public:
   /**
    *  @brief Return the interpolants for the incident energy axis
    */
-  AllRange< long > interpolants() const {
+  auto interpolants() const {
 
     return this->data_.tab2().interpolants();
   }
@@ -53,7 +54,7 @@ public:
    *  @brief Return the interpolation region boundaries for the incident
    *         energy axis
    */
-  AllRange< long > boundaries() const {
+  auto boundaries() const {
 
     return this->data_.tab2().boundaries();
   }
@@ -61,8 +62,7 @@ public:
   /**
    *  @brief Return the angular distributions
    */
-  AllRange< LaboratoryAngleEnergy::AngularDistribution >
-  angularDistributions() const {
+  auto angularDistributions() const {
 
     return this->data_.records();
   }

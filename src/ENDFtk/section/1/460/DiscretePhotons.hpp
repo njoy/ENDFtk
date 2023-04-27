@@ -42,7 +42,7 @@ public:
   /**
    *  @brief Return the discrete photon data
    */
-  AllRange< DiscretePhotonMultiplicity > photons() const {
+  auto photons() const {
 
     return ranges::cpp20::views::all( this->photons_ );
   }

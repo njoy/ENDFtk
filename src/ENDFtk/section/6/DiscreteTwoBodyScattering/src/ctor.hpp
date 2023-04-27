@@ -50,9 +50,9 @@ DiscreteTwoBodyScattering( InterpolationRecord&& interpolation,
                            int MF,
                            int MT ) :
   DiscreteTwoBodyScattering( std::move( interpolation ),
-                            readSequence( interpolation.NZ(),
-                                          begin, end, lineNumber,
-                                          MAT, MF, MT ) ) {}
+                             readSequence( interpolation.NZ(),
+                                           begin, end, lineNumber,
+                                           MAT, MF, MT ) ) {}
 
 public:
 /**

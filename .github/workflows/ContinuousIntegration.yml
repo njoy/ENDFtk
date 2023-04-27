@@ -17,7 +17,7 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-20.04, macos-11 ]
-        cxx: [ clang++, g++-9 ]
+        cxx: [ clang++, g++-10 ]
         build_type: [ Debug, Release ]
 
     steps:
@@ -25,11 +25,11 @@ jobs:
       run: |
         which ${{matrix.cxx}}
         ${{matrix.cxx}} --version
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: mkdir bin
       run: mkdir bin
     - name: cmake
-      run: cmake -DPYTHON_EXECUTABLE=$(which python3) -D CMAKE_CXX_COMPILER=`which ${{matrix.cxx}}` -D CMAKE_BUILD_TYPE=${{matrix.build_type}} ..
+      run: cmake -DPYTHON_EXECUTABLE=$(which python3) -D CMAKE_CXX_COMPILER=`which ${{matrix.cxx}}` -D CMAKE_BUILD_TYPE=${{matrix.build_type}} -D ENDFtk.tests=ON ..
       working-directory: ./bin
     - name: make
       run: make -j2
@@ -37,11 +37,3 @@ jobs:
     - name: ctest
       run: ctest -j2
       working-directory: ./bin
-    - name: make ENDFtk.python
-      run: make ENDFtk.python -j2
-      working-directory: ./bin
-    - name: python -m unittest
-      run: |
-        cp ../bin/*.so .
-        python3 -m unittest discover -v -p "Test*"
-      working-directory: ./python

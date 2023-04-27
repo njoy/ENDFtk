@@ -2,13 +2,13 @@
 # Setup
 #######################################################################
 
-message( STATUS "Adding ENDFtk unit testing" )
 enable_testing()
 
+#######################################################################
+# C++ unit testing
+#######################################################################
 
-#######################################################################
-# Unit testing directories
-#######################################################################
+message( STATUS "Adding ENDFtk C++ unit testing" )
 
 add_subdirectory( src/ENDFtk/ControlRecord/test )
 add_subdirectory( src/ENDFtk/DirectoryRecord/test )
@@ -105,6 +105,14 @@ add_subdirectory( src/ENDFtk/section/2/151/UnresolvedEnergyIndependent/test )
 add_subdirectory( src/ENDFtk/section/2/151/test )
 add_subdirectory( src/ENDFtk/section/2/152/test )
 add_subdirectory( src/ENDFtk/section/23/test )
+add_subdirectory( src/ENDFtk/section/26/ContinuumEnergyAngle/LegendreCoefficients/test )
+add_subdirectory( src/ENDFtk/section/26/ContinuumEnergyAngle/test )
+add_subdirectory( src/ENDFtk/section/26/DiscreteTwoBodyScattering/TabulatedDistribution/test )
+add_subdirectory( src/ENDFtk/section/26/DiscreteTwoBodyScattering/test )
+add_subdirectory( src/ENDFtk/section/26/Multiplicity/test )
+add_subdirectory( src/ENDFtk/section/26/EnergyTransfer/test )
+add_subdirectory( src/ENDFtk/section/26/ReactionProduct/test )
+add_subdirectory( src/ENDFtk/section/26/test )
 add_subdirectory( src/ENDFtk/section/27/test )
 add_subdirectory( src/ENDFtk/section/28/SubshellData/Transition/test )
 add_subdirectory( src/ENDFtk/section/28/SubshellData/test )

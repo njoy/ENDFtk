@@ -86,12 +86,12 @@ public:
   /**
    *  @brief Return interpolation type for each range on the alpha grid
    */
-  AllRange< long > interpolants() const { return this->alphas_.interpolants(); }
+  auto interpolants() const { return this->alphas_.interpolants(); }
 
   /**
    *  @brief Return interpolation boundaries for the alpha grid
    */
-  AllRange< long > boundaries() const { return this->alphas_.boundaries(); }
+  auto boundaries() const { return this->alphas_.boundaries(); }
 
   /**
    *  @brief Return all temperatures for which thermal scattering law data is
@@ -115,12 +115,12 @@ public:
   /**
    *  @brief Return the alpha grid
    */
-  AllRange< double > A() const { return this->alphas_.x(); }
+  auto A() const { return this->alphas_.x(); }
 
   /**
    *  @brief Return the alpha grid
    */
-  AllRange< double > alphas() const { return this->A(); }
+  auto alphas() const { return this->A(); }
 
   /**
    *  @brief Return the temperature interpolation flags (LT values will be

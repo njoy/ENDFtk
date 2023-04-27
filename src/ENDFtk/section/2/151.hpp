@@ -17,7 +17,6 @@
 #include "range/v3/view/stride.hpp"
 #include "range/v3/view/zip_with.hpp"
 #include "ENDFtk/macros.hpp"
-#include "ENDFtk/types.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/TabulationRecord.hpp"
@@ -106,7 +105,7 @@ namespace section {
     /**
      *  @brief Return the isotopes defined in the section
      */
-    AllRange< Isotope > isotopes() const {
+    auto isotopes() const {
 
       return ranges::cpp20::views::all( this->isotopes_ );
     }
