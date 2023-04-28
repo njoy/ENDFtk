@@ -155,8 +155,22 @@ void wrapTreeSection( python::module& module, python::module& ) {
         case 26 : return self.parse< 26 >();
         case 27 : return self.parse< 27 >();
         case 28 : return self.parse< 28 >();
+        case 31 : return self.parse< 31 >();
+        case 32 : {
+
+          switch ( mt ) {
+
+            case 151 : return self.parse< 32, 151 >();
+            default : throw std::runtime_error(
+                           "Section " + std::to_string( mt ) + " from file " +
+                           std::to_string( mf ) +
+                           " is not an official ENDF section" );
+          }
+        }
         case 33 : return self.parse< 33 >();
         case 34 : return self.parse< 34 >();
+        case 35 : return self.parse< 35 >();
+        case 40 : return self.parse< 40 >();
         default: throw std::runtime_error(
                        "Section from file " +  std::to_string( mf ) +
                        " cannot be parsed yet" );

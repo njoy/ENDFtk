@@ -23,11 +23,3 @@ file::Type< MF > parse() const {
   long lineNumber = 1;
   return this->parse<MF>( lineNumber );
 }
-
-/**
- *  @brief Parse the file
- */
-template< long long MF, typename... Args >
-auto parse( hana::llong<MF>, Args&... args ) const {
-  return this->parse<MF>( args... );
-}

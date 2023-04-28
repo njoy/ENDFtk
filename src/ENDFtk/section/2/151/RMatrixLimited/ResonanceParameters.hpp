@@ -25,7 +25,7 @@ public:
   auto NRS() const { return ListRecord::L2(); }
 
   /**
-  *  @brief Return the phase shift option
+  *  @brief Return the number of resonances
    */
   auto numberResonances() const { return this->NRS(); }
 

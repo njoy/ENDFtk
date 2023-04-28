@@ -40,8 +40,7 @@ SCENARIO( "SpinGroup" ) {
 
       SpinGroup chunk( std::move( channels ), std::move( parameters ) );
 
-      THEN( "a SpinGroup can be constructed and members can be "
-            "tested" ) {
+      THEN( "a SpinGroup can be constructed and members can be tested" ) {
 
         verifyChunk( chunk );
       } // THEN
@@ -64,8 +63,7 @@ SCENARIO( "SpinGroup" ) {
 
       SpinGroup chunk( begin, end, lineNumber, 2625, 2, 151 );
 
-      THEN( "a SpinGroup can be constructed and members can be "
-            "tested" ) {
+      THEN( "a SpinGroup can be constructed and members can be tested" ) {
 
         verifyChunk( chunk );
       }
@@ -78,7 +76,7 @@ SCENARIO( "SpinGroup" ) {
 
         CHECK( buffer == string );
       } // THEN
-    } // GIVEN
+    } // WHEN
   } // GIVEN
 
   GIVEN( "valid data for a SpinGroup with backgrounds" ) {
@@ -99,8 +97,7 @@ SCENARIO( "SpinGroup" ) {
       SpinGroup chunk( std::move( channels ), std::move( parameters ),
                        std::move( background ) );
 
-      THEN( "a SpinGroup can be constructed and members can be "
-            "tested" ) {
+      THEN( "a SpinGroup can be constructed and members can be tested" ) {
 
         verifyChunkWithBackground( chunk );
       } // THEN
@@ -137,7 +134,7 @@ SCENARIO( "SpinGroup" ) {
 
         CHECK( buffer == string );
       } // THEN
-    } // GIVEN
+    } // WHEN
   } // GIVEN
 } // SCENARIO
 

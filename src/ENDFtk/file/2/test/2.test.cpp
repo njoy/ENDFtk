@@ -127,8 +127,10 @@ SCENARIO( "Testing special case of file 2" ) {
         CHECK( file.hasSection( 151 ) );
         CHECK( not file.hasSection( 1 ) );
 
-        CHECK( 11022. == Approx( file.section( 151_c ).ZA() ) );
-        CHECK( 11022. == Approx( file.MT( 151_c ).ZA() ) );
+        decltype(auto) section = std::get< section::Type< 2, 151 > >( file.section( 151 ) );
+        CHECK( 11022. == Approx( section.ZA() ) );
+        decltype(auto) mt = std::get< section::Type< 2, 151 > >( file.MT( 151 ) );
+        CHECK( 11022. == Approx( mt.ZA() ) );
       }
     }
 
@@ -363,10 +365,11 @@ void verifyChunk151( const file::Type< 2 >& chunk ) {
   CHECK( chunk.hasSection( 151 ) );
   CHECK( not chunk.hasSection( 4 ) );
 
-  CHECK_NOTHROW( chunk.MT( 151_c ) );
-  CHECK_NOTHROW( chunk.section( 151_c ) );
+  CHECK_NOTHROW( chunk.MT( 151 ) );
+  CHECK_NOTHROW( chunk.section( 151 ) );
 
-  CHECK( 11022. == Approx( chunk.MT( 151_c ).ZA() ) );
+  decltype(auto) section = std::get< section::Type< 2, 151 > >( chunk.MT( 151 ) );
+  CHECK( 11022. == Approx( section.ZA() ) );
 }
 
 std::string validSEND() {

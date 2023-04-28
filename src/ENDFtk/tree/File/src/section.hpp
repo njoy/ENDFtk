@@ -17,3 +17,14 @@ const Section& section( int mt ) const {
     throw error;
   }
 }
+
+/**
+ *  @brief Return the section with the requested MT number
+ *
+ *  @param[in]   mt   the MF number of the section to be returned
+ */
+Section& section( int mt ) {
+
+  return const_cast< Section& >
+         ( const_cast< const File& >( *this ).section( mt ) );
+}

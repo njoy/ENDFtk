@@ -44,9 +44,6 @@ void wrapFile_34( python::module& module, python::module& viewmodule ) {
     "MF34 file - covariances for angular distributions"
   );
 
-  // wrap the file
-  addStandardUnenumeratedFileDefinitions< File, Section, SectionRange >( file );
-
   // add standard file definitions
-  addStandardFileDefinitions< File >( file );
+  addStandardFileDefinitions< File, Section, SectionRange >( file );
 }

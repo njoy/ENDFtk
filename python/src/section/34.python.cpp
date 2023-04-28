@@ -15,9 +15,6 @@ namespace mf34 {
   // declarations - components
   void wrapReactionBlock( python::module&, python::module& );
   void wrapLegendreBlock( python::module&, python::module& );
-  void wrapCovariancePairs( python::module&, python::module& );
-  void wrapSquareMatrix( python::module&, python::module& );
-  void wrapRectangularMatrix( python::module&, python::module& );
 }
 
 void wrapSection_34( python::module& module, python::module& viewmodule ) {
@@ -30,9 +27,6 @@ void wrapSection_34( python::module& module, python::module& viewmodule ) {
   // wrap components
   mf34::wrapReactionBlock( module, viewmodule );
   mf34::wrapLegendreBlock( module, viewmodule );
-  mf34::wrapCovariancePairs( module, viewmodule );
-  mf34::wrapSquareMatrix( module, viewmodule );
-  mf34::wrapRectangularMatrix( module, viewmodule );
 
   // wrap views created by this section
   // none of these are supposed to be created directly by the user

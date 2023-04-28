@@ -44,9 +44,6 @@ void wrapFile_5( python::module& module, python::module& viewmodule ) {
     "MF5 file - energy distributions of secondary particles"
   );
 
-  // wrap the file
-  addStandardUnenumeratedFileDefinitions< File, Section, SectionRange >( file );
-
   // add standard file definitions
-  addStandardFileDefinitions< File >( file );
+  addStandardFileDefinitions< File, Section, SectionRange >( file );
 }

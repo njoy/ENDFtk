@@ -10,7 +10,7 @@
  *  @param[in] gt         the total widths (NRS values)
  *  @param[in] gn         the neutron widths (NRS values)
  *  @param[in] gg         the gamma widths (NRS values)
- *  @param[in] gf         the second fission widths (NRS values)
+ *  @param[in] gf         the fission widths (NRS values)
  */
 BreitWignerLValue( double awri, double qx, int l, bool lrx,
                    std::vector< double >&& energies,

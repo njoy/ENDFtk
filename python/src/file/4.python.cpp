@@ -44,9 +44,6 @@ void wrapFile_4( python::module& module, python::module& viewmodule ) {
     "MF4 file - angular distributions of secondary particles"
   );
 
-  // wrap the file
-  addStandardUnenumeratedFileDefinitions< File, Section, SectionRange >( file );
-
   // add standard file definitions
-  addStandardFileDefinitions< File >( file );
+  addStandardFileDefinitions< File, Section, SectionRange >( file );
 }
