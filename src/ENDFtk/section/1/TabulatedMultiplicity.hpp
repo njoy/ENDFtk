@@ -4,6 +4,7 @@
 // system includes
 
 // other includes
+#include "ENDFtk/macros.hpp"
 #include "ENDFtk/TabulationRecord.hpp"
 
 namespace njoy {
@@ -19,7 +20,7 @@ namespace section{
    *
    *  See ENDF102, section 1.2 for more information.
    */
-  class TabulatedMultiplicity : protected TabulationRecord {
+  class PYTHON_EXPORT TabulatedMultiplicity : protected TabulationRecord {
 
   public:
 
