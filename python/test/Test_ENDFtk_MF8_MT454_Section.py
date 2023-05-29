@@ -47,6 +47,7 @@ class Test_ENDFtk_MF8_MT457_Section( unittest.TestCase ) :
             self.assertEqual( False, chunk.is_energy_independent )
 
             self.assertEqual( 2, chunk.NE )
+            self.assertEqual( 2, chunk.number_incident_energies )
             self.assertEqual( 2, len( chunk.E ) )
             self.assertEqual( 2, len( chunk.incident_energies ) )
             self.assertAlmostEqual( 0.0253, chunk.E[0] )

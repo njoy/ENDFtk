@@ -344,6 +344,7 @@ void verifyChunk( const section::Type< 8, 459 >& chunk ) {
   CHECK( false == chunk.isEnergyIndependent() );
 
   CHECK( 2 == chunk.NE() );
+  CHECK( 2 == chunk.numberIncidentEnergies() );
   CHECK( 2 == chunk.E().size() );
   CHECK( 2 == chunk.incidentEnergies().size() );
   CHECK( 0.0253 == Approx( chunk.E()[0] ) );
