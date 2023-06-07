@@ -51,9 +51,9 @@ namespace section{
     unsigned int numberElements() const { return this->NA(); }
 
     /**
-     *  @brief Return the reaction product data
+     *  @brief Return the element data
      */
-    auto reactionProducts() const {
+    auto elements() const {
 
       return ranges::cpp20::views::all( this->elements_ );
     }

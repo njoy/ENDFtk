@@ -40,7 +40,7 @@ Type ( HEAD& head,
        int MAT )
   try: Type( head.ZA(), head.AWR(),
              readSequence< ElementInformation >( begin, end, lineNumber,
-                                                 MAT, 7, head.MT(), head.N1() ) ) {
+                                                 MAT, 7, head.MT(), head.L1() ) ) {
 
     readSEND(begin, end, lineNumber, MAT, 7 );
   }
