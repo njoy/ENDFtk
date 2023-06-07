@@ -91,7 +91,7 @@ public:
   auto SFI() const { return this->column( 4 ); }
 
   /**
-   *  @brief Return the isotope abundances
+   *  @brief Return the isotope free atom scattering cross sections
    */
   auto freeScatteringCrossSections() const { return this->SFI(); }
 

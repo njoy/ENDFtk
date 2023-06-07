@@ -35,7 +35,7 @@ void wrapFile_7( python::module& module, python::module& viewmodule ) {
   // wrap sections
   wrapSection_7_2( submodule, viewmodule );
   wrapSection_7_4( submodule, viewmodule );
-//  wrapSection_7_451( submodule, viewmodule );
+  wrapSection_7_451( submodule, viewmodule );
 
   // wrap views created by this file
   // none of these are supposed to be created directly by the user
