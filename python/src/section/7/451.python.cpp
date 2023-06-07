@@ -22,8 +22,13 @@ void wrapSection_7_451( python::module& module, python::module& viewmodule ) {
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 7, 451 >;
   using ElementInformation = Section::ElementInformation;
+  using ElementInformationRange = RandomAccessAnyView< ElementInformation >;
 
   // wrap views created by this section
+  // none of these are supposed to be created directly by the user
+  wrapRandomAccessAnyViewOf< ElementInformation >(
+      viewmodule,
+      "any_view< ElementInformation, random_access >" );
 
   // create the submodule
   python::module submodule = module.def_submodule(
@@ -86,7 +91,8 @@ void wrapSection_7_451( python::module& module, python::module& viewmodule ) {
   .def_property_readonly(
 
     "elements",
-    &Section::elements,
+    [] ( const Section& self ) -> ElementInformationRange
+       { return self.elements(); },
     "The element data"
   );
 

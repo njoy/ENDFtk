@@ -39,6 +39,7 @@ class Test_ENDFtk_MF7_MT4_Section( unittest.TestCase ) :
 
             self.assertAlmostEqual( 127., chunk.ZA )
             self.assertAlmostEqual( 8.934780e+0, chunk.AWR )
+            self.assertAlmostEqual( 8.934780e+0, chunk.atomic_weight_ratio )
             self.assertEqual( 1, chunk.LAT )
             self.assertEqual( 1, chunk.temperature_option )
             self.assertEqual( 0, chunk.LASYM )

@@ -232,6 +232,12 @@ add_test( NAME ENDFtk.python.MF7.MT4.ScatteringLawConstants COMMAND ${PYTHON_EXE
 set_tests_properties( ENDFtk.python.MF7.MT4.ScatteringLawConstants PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
 add_test( NAME ENDFtk.python.MF7.MT4.TabulatedFunctions COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF7_MT4_TabulatedFunctions.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
 set_tests_properties( ENDFtk.python.MF7.MT4.TabulatedFunctions PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
+
+add_test( NAME ENDFtk.python.MF7.MT451.ElementInformation COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF7_MT451_ElementInformation.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
+set_tests_properties( ENDFtk.python.MF7.MT451.ElementInformation PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
+add_test( NAME ENDFtk.python.MF7.MT451.Section COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF7_MT451_Section.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
+set_tests_properties( ENDFtk.python.MF7.MT451.Section PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
+
 add_test( NAME ENDFtk.python.MF8.FissionYieldData COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF8_FissionYieldData.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
 set_tests_properties( ENDFtk.python.MF8.FissionYieldData PROPERTIES ENVIRONMENT PYTHONPATH=${ENDFTK_PYTHONPATH}:$ENV{PYTHONPATH})
 add_test( NAME ENDFtk.python.MF8.MT454.Section COMMAND ${PYTHON_EXECUTABLE} -m unittest -v test/Test_ENDFtk_MF8_MT454_Section.py WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )

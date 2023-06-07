@@ -19,10 +19,6 @@ void wrapElementInformation( python::module& module, python::module& viewmodule 
   using Component = Section::ElementInformation;
 
   // wrap views of this component
-  // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< Component >(
-      viewmodule,
-      "any_view< ElementInformation, random_access >" );
 
   // create the component
   python::class_< Component > component(
