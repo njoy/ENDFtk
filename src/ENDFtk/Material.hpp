@@ -64,6 +64,7 @@ namespace ENDFtk {
                                std::reference_wrapper< const section::Type< 6 > >,
                                std::reference_wrapper< const section::Type< 7, 2 > >,
                                std::reference_wrapper< const section::Type< 7, 4 > >,
+                               std::reference_wrapper< const section::Type< 7, 451 > >,
                                std::reference_wrapper< const section::Type< 8, 454 > >,
                                std::reference_wrapper< const section::Type< 8, 457 > >,
                                std::reference_wrapper< const section::Type< 8, 459 > >,
