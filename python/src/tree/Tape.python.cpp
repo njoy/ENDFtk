@@ -158,30 +158,37 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
   .def_static(
 
     "from_string",
-    [] ( const std::string& string ) -> Tape {
+    [] ( const std::string& string, bool clean ) -> Tape {
 
-      return Tape( string );
+      Tape tape( string );
+      if ( clean ) {
+
+        tape.clean();
+      }
+      return tape;
     },
-    python::arg( "string" ),
+    python::arg( "string" ), python::arg( "clean" ) = false,
     "Read a tape from a string\n\n"
     "An exception is raised if something goes wrong while reading the\n"
     "tape\n\n"
     "Arguments:\n"
-    "    string    the content of the tape"
+    "    string    the content of the tape\n"
+    "    clean     the option to perform basic cleanup on the ENDF tape"
   )
   .def_static(
 
     "from_file",
-    [] ( const std::string& filename ) -> Tape {
+    [] ( const std::string& filename, bool clean ) -> Tape {
 
-      return njoy::ENDFtk::tree::fromFile( filename );
+      return njoy::ENDFtk::tree::fromFile( filename, clean );
     },
-    python::arg( "filename" ),
+    python::arg( "filename" ), python::arg( "clean" ) = false,
     "Read a tape from a file\n\n"
     "An exception is raised if something goes wrong while reading the\n"
     "tape\n\n"
     "Arguments:\n"
-    "    filename    the file name and path"
+    "    filename    the file name and path\n"
+    "    clean       the option to perform basic cleanup on the ENDF tape"
   )
   .def(
 

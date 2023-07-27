@@ -17,8 +17,9 @@ namespace tree {
    *  @brief Factory function to make a tape from a file
    *
    *  @param[in] filename   the file name
+   *  @param[in] clean      option to perform basic cleanup of the ENDF tape
    */
-  inline auto fromFile( const std::string& filename ) {
+  inline auto fromFile( const std::string& filename, bool clean = false ) {
 
     std::string content;
     std::ifstream in( filename,
@@ -33,7 +34,14 @@ namespace tree {
     in.seekg( 0, std::ios::beg );
     content.resize( file_size / sizeof( char ) );
     in.read( &( content[ 0 ] ), file_size );
-    return njoy::ENDFtk::tree::Tape( content );
+
+    njoy::ENDFtk::tree::Tape tape( content );
+    if ( clean ) {
+
+      tape.clean();
+    }
+
+    return tape;
   }
 
 } // tree namespace
