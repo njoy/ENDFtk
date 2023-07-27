@@ -193,17 +193,30 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
   .def(
 
     "to_file",
-    [] ( const Tape& self, const std::string& filename ) {
+    [] ( const Tape& self, const std::string& filename, bool truncate ) {
 
       std::ofstream out( filename );
-      out << self.content();
+      if ( truncate ) {
+
+        std::istringstream in( self.content() );
+        std::string line;
+        while ( std::getline( in, line ) ) {
+
+          out << line.substr( 0, 75 ) << std::endl;
+        }
+      }
+      else {
+
+        out << self.content();
+      }
       out.close();
     },
-    python::arg( "filename" ),
+    python::arg( "filename" ), python::arg( "truncate" ) = false,
     "Write the tape to a file\n\n"
     "Arguments:\n"
     "    self        the tape\n"
-    "    filename    the file name and path"
+    "    filename    the file name and path\n"
+    "    truncate    the option to truncate to 75 characters per line"
   )
   .def(
 
