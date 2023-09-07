@@ -52,7 +52,7 @@ public:
   /**
    *  @brief Return the cosine values
    */
-  StrideRange< AllRange< double > > MU() const {
+  auto MU() const {
 
     return ListRecord::list() | ranges::views::stride( 2 );
   }
@@ -60,7 +60,7 @@ public:
   /**
    *  @brief Return the cosine values
    */
-  StrideRange< AllRange< double > > cosines() const {
+  auto cosines() const {
 
     return this->MU();
   }
@@ -68,7 +68,7 @@ public:
   /**
    *  @brief Return the probabilities
    */
-  StrideRange< DropRange< AllRange< double > > > PNI() const {
+  auto PNI() const {
 
     return ranges::views::drop_exactly( ListRecord::list(), 1 )
              | ranges::views::stride( 2 );
@@ -77,7 +77,7 @@ public:
   /**
    *  @brief Return the probabilities
    */
-  StrideRange< DropRange< AllRange< double > > > probabilities() const {
+  auto probabilities() const {
 
     return this->PNI();
   }

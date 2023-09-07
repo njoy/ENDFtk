@@ -16,7 +16,7 @@ cd ENDFtk
 mkdir build
 cd build
 cmake -DCMAKE_BUILD_TYPE=Release ../
-make ENDFtk.python -j8
+make -j8
 ```
 
 ENDFtk in python requires python 3.x so you will need to have at least one python 3.x installed. When multiple python versions are installed, it may be beneficial to include ```-DPYTHON_EXECUTABLE=$(which python3)``` in the cmake configuration step so that the default python3 version will be picked. The compilation will produce a dynamic library linked to the python libraries on the user's computer (it'll be named something like `ENDFtk.cpython-37m-darwin.so`). This name will also indicate which version of the python libraries this library is linked to. This is important since you will need to use the associated python version with the ENDFtk python package.

@@ -74,7 +74,7 @@ public:
   /**
    *  @brief Return the distributions, one for each incident energy
    */
-  AllRange< Variant > distributions() const {
+  auto distributions() const {
 
     return this->data_.records();
   }
@@ -101,7 +101,7 @@ public:
    *  @brief Return interpolation type for each range on the incident
    *         energy grid
    */
-  AllRange< long > interpolants() const {
+  auto interpolants() const {
 
     return this->data_.tab2().interpolants();
   }
@@ -109,7 +109,7 @@ public:
   /**
    *  @brief Return interpolation boundaries for the incident energy grid
    */
-  AllRange< long > boundaries() const {
+  auto boundaries() const {
 
     return this->data_.tab2().boundaries();
   }

@@ -6,7 +6,7 @@ generateList( std::vector< unsigned int >&& identifiers,
   unsigned int nfp = identifiers.size();
   if ( ( states.size() != nfp ) or ( yields.size() != nfp ) ) {
 
-    Log::info( "The number of fission profucts and the fission product data "
+    Log::info( "The number of fission products and the fission product data "
                "are not consistent" );
     Log::info( "NFP value: {}", nfp );
     Log::info( "identifiers.size(): {}", identifiers.size() );

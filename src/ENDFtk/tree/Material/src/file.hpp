@@ -3,7 +3,7 @@
  *
  *  @param[in]   mf   the MF number of the material to be returned
  */
-const File_t& file( int mf ) const {
+const File& file( int mf ) const {
 
   try {
 
@@ -26,8 +26,8 @@ const File_t& file( int mf ) const {
  *
  *  @param[in]   mf   the MF number of the material to be returned
  */
-File_t& file( int mf ) {
+File& file( int mf ) {
 
-  return const_cast< File_t& >
+  return const_cast< File& >
          ( const_cast< const Material& >( *this ).file( mf ) );
 }

@@ -173,15 +173,14 @@ SCENARIO( "Testing generic case using file 3" ) {
       long lineNumber = 0;
 
       StructureDivision division( begin, end, lineNumber);
-      tree::File< std::string::iterator >
-          fileTree( asHead( division ), start, begin, end, lineNumber );
+      tree::File file( asHead( division ), start, begin, end, lineNumber );
 
       THEN( "a file::Type<3> can be constructed" ) {
 
-        CHECK_NOTHROW( fileTree.parse< 3 >() );
-        CHECK_NOTHROW( fileTree.parse< 3 >( lineNumber ) );
-        CHECK_NOTHROW( fileTree.parse( 3_c ) );
-        CHECK_NOTHROW( fileTree.parse( 3_c, lineNumber ) );
+        CHECK_NOTHROW( file.parse< 3 >() );
+        CHECK_NOTHROW( file.parse< 3 >( lineNumber ) );
+        CHECK_NOTHROW( file.parse( 3_c ) );
+        CHECK_NOTHROW( file.parse( 3_c, lineNumber ) );
       } // THEN
     } // WHEN
 

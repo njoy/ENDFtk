@@ -43,11 +43,9 @@ SCENARIO( "Testing Tape" ) {
 
     WHEN( "a Tape is constructed from a syntaxTree" ) {
 
-      std::string buffer( tapestring );
-      tree::Tape< std::string > treeTape( std::move( buffer ) );
-      long lineNumber = 0;
+      tree::Tape tree( tapestring );
 
-      Tape tape = treeTape.parse( lineNumber );
+      Tape tape = tree.parse();
 
       THEN( "a Tape can be constructed" ) {
 

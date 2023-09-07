@@ -1,4 +1,12 @@
-/** 
+//! @todo pybind11 variant needs default constructor workaround
+#ifdef PYBIND11
+/**
+ *  @brief Default constructor - only enabled for pybind11
+ */
+Type() = default;
+#endif
+
+/**
  *  @brief Constructor
  *
  *  @param[in] zaid   the material ZAID value

@@ -6,7 +6,6 @@
 
 // other includes
 #include "range/v3/view/all.hpp"
-#include "ENDFtk/types.hpp"
 #include "ENDFtk/record/Base.hpp"
 #include "ENDFtk/record/Integer.hpp"
 #include "ENDFtk/record/Real.hpp"
@@ -74,12 +73,12 @@ namespace record {
     long NR() const { return this->boundaryIndices.size(); }
     long N2() const { return this->boundaryIndices.back(); }
 
-    AllRange< long > interpolants() const {
+    auto interpolants() const {
 
       return ranges::cpp20::views::all( this->interpolationSchemeIndices );
     }
 
-    AllRange< long > boundaries() const {
+    auto boundaries() const {
 
       return ranges::cpp20::views::all( this->boundaryIndices );
     }

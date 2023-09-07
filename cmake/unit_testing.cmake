@@ -2,13 +2,13 @@
 # Setup
 #######################################################################
 
-message( STATUS "Adding ENDFtk unit testing" )
 enable_testing()
 
+#######################################################################
+# C++ unit testing
+#######################################################################
 
-#######################################################################
-# Unit testing directories
-#######################################################################
+message( STATUS "Adding ENDFtk C++ unit testing" )
 
 add_subdirectory( src/ENDFtk/ControlRecord/test )
 add_subdirectory( src/ENDFtk/DirectoryRecord/test )
@@ -104,7 +104,33 @@ add_subdirectory( src/ENDFtk/section/2/151/UnresolvedEnergyIndependent/LValue/te
 add_subdirectory( src/ENDFtk/section/2/151/UnresolvedEnergyIndependent/test )
 add_subdirectory( src/ENDFtk/section/2/151/test )
 add_subdirectory( src/ENDFtk/section/2/152/test )
+add_subdirectory( src/ENDFtk/section/23/test )
+add_subdirectory( src/ENDFtk/section/26/ContinuumEnergyAngle/LegendreCoefficients/test )
+add_subdirectory( src/ENDFtk/section/26/ContinuumEnergyAngle/test )
+add_subdirectory( src/ENDFtk/section/26/DiscreteTwoBodyScattering/TabulatedDistribution/test )
+add_subdirectory( src/ENDFtk/section/26/DiscreteTwoBodyScattering/test )
+add_subdirectory( src/ENDFtk/section/26/Multiplicity/test )
+add_subdirectory( src/ENDFtk/section/26/EnergyTransfer/test )
+add_subdirectory( src/ENDFtk/section/26/ReactionProduct/test )
+add_subdirectory( src/ENDFtk/section/26/test )
+add_subdirectory( src/ENDFtk/section/27/test )
+add_subdirectory( src/ENDFtk/section/28/SubshellData/Transition/test )
+add_subdirectory( src/ENDFtk/section/28/SubshellData/test )
+add_subdirectory( src/ENDFtk/section/28/test )
 add_subdirectory( src/ENDFtk/section/3/test )
+add_subdirectory( src/ENDFtk/section/33/CovariancePairs/test )
+add_subdirectory( src/ENDFtk/section/33/DerivedRatioToStandard/test )
+add_subdirectory( src/ENDFtk/section/33/DerivedRedundant/test )
+add_subdirectory( src/ENDFtk/section/33/ReactionBlock/test )
+add_subdirectory( src/ENDFtk/section/33/RectangularMatrix/test )
+add_subdirectory( src/ENDFtk/section/33/SquareMatrix/test )
+add_subdirectory( src/ENDFtk/section/33/test )
+add_subdirectory( src/ENDFtk/section/34/CovariancePairs/test )
+add_subdirectory( src/ENDFtk/section/34/LegendreBlock/test )
+add_subdirectory( src/ENDFtk/section/34/ReactionBlock/test )
+add_subdirectory( src/ENDFtk/section/34/RectangularMatrix/test )
+add_subdirectory( src/ENDFtk/section/34/SquareMatrix/test )
+add_subdirectory( src/ENDFtk/section/34/test )
 add_subdirectory( src/ENDFtk/section/4/Isotropic/test )
 add_subdirectory( src/ENDFtk/section/4/LegendreCoefficients/test )
 add_subdirectory( src/ENDFtk/section/4/LegendreDistributions/test )
@@ -180,3 +206,4 @@ add_subdirectory( src/ENDFtk/tree/File/test )
 add_subdirectory( src/ENDFtk/tree/Material/test )
 add_subdirectory( src/ENDFtk/tree/Section/test )
 add_subdirectory( src/ENDFtk/tree/Tape/test )
+add_subdirectory( src/ENDFtk/tree/test )

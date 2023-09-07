@@ -86,21 +86,20 @@ SCENARIO( "Testing Material" ) {
       long lineNumber = 0;
 
       StructureDivision division( begin, end, lineNumber );
-      tree::Material< std::string::iterator >
-        matTree( asHead( division ), start, begin, end, lineNumber );
+      tree::Material material( asHead( division ), start, begin, end, lineNumber );
 
-      Material material = matTree.parse( lineNumber );
+      Material chunk = material.parse( lineNumber );
 
       THEN( "a Material can be constructed" ) {
 
-        verifyMaterial( material );
+        verifyMaterial( chunk );
       } // THEN
 
       THEN( "it can be printed" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        material.print( output );
+        chunk.print( output );
 
         CHECK( buffer == matstring );
       } // THEN

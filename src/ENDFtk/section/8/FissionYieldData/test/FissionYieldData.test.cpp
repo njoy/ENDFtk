@@ -15,7 +15,7 @@ std::string invalidChunk();
 
 SCENARIO( "FissionYieldData" ) {
 
-  GIVEN( "valid data for a TabulatedMultiplicity" ) {
+  GIVEN( "valid data for a FissionYieldData" ) {
 
     std::string string = chunk();
 
@@ -93,9 +93,9 @@ SCENARIO( "FissionYieldData" ) {
 
 std::string chunk() {
   return
-  " 2.530000-2 0.000000+0          2          0         12          39228 8454     \n"
-  " 2.306600+4 0.000000+0 2.05032-19 1.31220-19 5.413500+4 0.000000+09228 8454     \n"
-  " 7.851250-4 4.710750-5 7.217100+4 0.000000+0 0.000000+0 0.000000+09228 8454     \n";
+    " 2.530000-2 0.000000+0          2          0         12          39228 8454     \n"
+    " 2.306600+4 0.000000+0 2.05032-19 1.31220-19 5.413500+4 0.000000+09228 8454     \n"
+    " 7.851250-4 4.710750-5 7.217100+4 0.000000+0 0.000000+0 0.000000+09228 8454     \n";
 }
 
 void verifyChunk( const FissionYieldData& chunk ) {

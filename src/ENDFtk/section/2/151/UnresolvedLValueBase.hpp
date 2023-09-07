@@ -55,7 +55,7 @@ public:
   /**
    *  @brief Return the data for each of the J values
    */
-  AllRange< JValue > jValues() const { 
+  auto jValues() const { 
 
     return ranges::cpp20::views::all( this->jvalues_ );
   }

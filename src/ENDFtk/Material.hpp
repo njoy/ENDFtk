@@ -45,13 +45,14 @@ namespace ENDFtk {
     static constexpr auto optionalFiles()
       RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 2_c, 3_c, 4_c, 5_c, 6_c,
                                                      7_c, 8_c, 9_c, 10_c,
-                                                     12_c, 13_c, 14_c, 15_c ) )
+                                                     12_c, 13_c, 14_c, 15_c,
+                                                     23_c, 26_c, 27_c, 28_c,
+                                                     33_c, 34_c ) )
 
     // the following files are currently unimplemented
     static constexpr auto unimplementedFiles()
-      RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 23_c, 26_c, 27_c, 28_c,
-                                                     30_c, 31_c, 32_c, 33_c,
-                                                     34_c, 35_c, 40_c ) )
+      RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 30_c, 31_c, 32_c,
+                                                     35_c, 40_c ) )
 
     // convenience function to retrieve all file numbers that can be parsed
     static constexpr auto files() {

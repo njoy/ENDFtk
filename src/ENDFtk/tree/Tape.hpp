@@ -13,6 +13,7 @@
 #include "ENDFtk/TapeIdentification.hpp"
 #include "ENDFtk/Tape.hpp"
 #include "ENDFtk/tree/Material.hpp"
+#include "ENDFtk/tree/toMaterial.hpp"
 
 namespace njoy {
 namespace ENDFtk {
@@ -36,23 +37,11 @@ namespace tree {
    *  An ENDF tape starts with a tape identification (a label, which sometimes
    *  can contain a tape number).
    */
-  template< typename Buffer >
   class Tape {
 
-    /* type aliases */
-    using BufferIterator = ranges::iterator_t< const Buffer >;
-
-  public:
-
-    /* type aliases */
-    using Material_t = Material< BufferIterator >;
-
-  private:
-
     /* fields */
-    Buffer buffer_;
-    std::optional< TapeIdentification > tpid;
-    std::multimap< int, Material_t > materials_;
+    std::optional< TapeIdentification > tpid_;
+    std::multimap< int, Material > materials_;
 
     /* auxiliary function */
     #include "ENDFtk/tree/Tape/src/createMap.hpp"
@@ -63,8 +52,6 @@ namespace tree {
     #include "ENDFtk/tree/Tape/src/ctor.hpp"
 
     /* methods */
-    #include "ENDFtk/tree/Tape/src/parse.hpp"
-
     #include "ENDFtk/tree/Tape/src/material.hpp"
 
     /**
@@ -172,14 +159,35 @@ namespace tree {
     std::size_t size() const { return this->materials_.size(); }
 
     /**
-     *  @brief Return the tape's buffer
+     *  @brief Return the tape's content
      */
-    auto buffer() const { return this->buffer_ | ranges::cpp20::views::all; }
+    auto content() const {
+
+      std::string content;
+      if ( this->tpid_ ) {
+
+        auto output = std::back_inserter( content );
+        this->tpid_->print( output, 0, 0, 0 );
+      }
+
+      for ( const auto& material : this->materials() ) {
+
+        content += material.content();
+      }
+
+      if ( content.size() ) {
+
+        auto output = std::back_inserter( content );
+        TEND().print( output );
+      }
+
+      return content;
+    }
 
     /**
      *  @brief Return the tape identification (the first line in the file)
      */
-    const TapeIdentification& TPID() const { return *( this->tpid ); }
+    const TapeIdentification& TPID() const { return *( this->tpid_ ); }
 
     /**
      *  @brief Return all unique material numbers in the tape
@@ -190,6 +198,14 @@ namespace tree {
                | ranges::to_vector
                | ranges::actions::sort | ranges::actions::unique;
     }
+
+    #include "ENDFtk/tree/Tape/src/remove.hpp"
+    #include "ENDFtk/tree/Tape/src/insert.hpp"
+    #include "ENDFtk/tree/Tape/src/replace.hpp"
+
+    #include "ENDFtk/tree/Tape/src/parse.hpp"
+
+    #include "ENDFtk/tree/Tape/src/clean.hpp"
   };
 
 } // tree namespace

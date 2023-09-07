@@ -10,7 +10,7 @@
 
 namespace njoy {
 namespace ENDFtk {
-namespace section{
+namespace section {
 
   /**
    *  @class
@@ -74,22 +74,22 @@ namespace section{
     /**
      *  @brief Return the interpolation type for each range
      */
-    AllRange< long > interpolants() const { return this->table.interpolants(); }
+    auto interpolants() const { return this->table.interpolants(); }
 
     /**
      *  @brief Return the interpolation boundaries
      */
-    AllRange< long > boundaries() const { return this->table.boundaries(); }
+    auto boundaries() const { return this->table.boundaries(); }
 
     /**
      *  @brief Return the energy values
      */
-    AllRange< double > energies() const { return this->table.x(); }
+    auto energies() const { return this->table.x(); }
 
     /**
      *  @brief Return the cross section values
      */
-    AllRange< double > crossSections() const { return this->table.y(); }
+    auto crossSections() const { return this->table.y(); }
 
     /**
      *  @brief Return the number of lines in this MF3 section
@@ -100,16 +100,16 @@ namespace section{
      *  @brief Return the energy values (common interface for interpolation
      *         tables)
      */
-    AllRange< double > x() const { return this->energies(); }
+    auto x() const { return this->energies(); }
 
     /**
      *  @brief Return the cross section values (common interface for interpolation
      *         tables)
      */
-    AllRange< double > y() const { return this->crossSections(); }
+    auto y() const { return this->crossSections(); }
 
     /**
-     *  @brief Return the interpolation ragions (common interface for
+     *  @brief Return the interpolation regions (common interface for
      *         interpolation tables)
      */
     auto regions() const { return this->table.regions(); }

@@ -6,6 +6,7 @@
 #include "ENDFtk/tree/Tape.hpp"
 #include "range/v3/range/operations.hpp"
 #include "views.hpp"
+#include "variants.hpp"
 
 // namespace aliases
 namespace python = pybind11;
@@ -13,25 +14,9 @@ namespace python = pybind11;
 void wrapTreeFile( python::module& module, python::module& viewmodule ) {
 
   // type aliases
-  using Tape = njoy::ENDFtk::tree::Tape< std::string >;
-  using Material = Tape::Material_t;
-  using File = Material::File_t;
-  using Section = File::Section_t;
+  using File = njoy::ENDFtk::tree::File;
+  using Section = njoy::ENDFtk::tree::Section;
   using SectionRange = BidirectionalAnyView< Section >;
-  using MF1 = njoy::ENDFtk::file::Type< 1 >;
-  using MF2 = njoy::ENDFtk::file::Type< 2 >;
-  using MF3 = njoy::ENDFtk::file::Type< 3 >;
-  using MF4 = njoy::ENDFtk::file::Type< 4 >;
-  using MF5 = njoy::ENDFtk::file::Type< 5 >;
-  using MF6 = njoy::ENDFtk::file::Type< 6 >;
-  using MF7 = njoy::ENDFtk::file::Type< 7 >;
-  using MF8 = njoy::ENDFtk::file::Type< 8 >;
-  using MF9 = njoy::ENDFtk::file::Type< 9 >;
-  using MF10 = njoy::ENDFtk::file::Type< 10 >;
-  using MF12 = njoy::ENDFtk::file::Type< 12 >;
-  using MF13 = njoy::ENDFtk::file::Type< 13 >;
-  using MF14 = njoy::ENDFtk::file::Type< 14 >;
-  using MF15 = njoy::ENDFtk::file::Type< 15 >;
 
   // wrap views created by this tree component
   // none of these are supposed to be created directly by the user
@@ -48,8 +33,17 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
   );
 
   // wrap the tree component
-  // only copy is allowed since we do not want to create this object in python
   tree
+  .def(
+
+    python::init< unsigned int, unsigned int >(),
+    python::arg( "mat" ), python::arg( "mf" ),
+    "Initialise an empty file with its MAT and MF number\n\n"
+    "Arguments:\n"
+    "    self    the file\n"
+    "    mat     the MAT number of the file\n"
+    "    mf      the MF number of the file"
+  )
   .def(
 
     python::init< const File& >(),
@@ -111,14 +105,14 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
   .def_property_readonly(
 
     "sections",
-    [] ( const File& self ) -> SectionRange
+    [] ( File& self ) -> SectionRange
        { return self.sections(); },
     "All sections in the file"
   )
   .def(
 
     "section",
-    ( Section& ( File::* )( int ) ) &File::section,
+    python::overload_cast< int >( &File::section, python::const_ ),
     python::arg( "mt" ),
     "Return the section with the requested MT number\n\n"
     "Arguments:\n"
@@ -129,7 +123,7 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
   .def(
 
     "MT",
-    ( Section& ( File::* )( int ) ) &File::MT,
+    python::overload_cast< int >( &File::MT, python::const_ ),
     python::arg( "mt" ),
     "Return the section with the requested MT number\n\n"
     "Arguments:\n"
@@ -140,9 +134,7 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
   .def(
 
     "parse",
-    [] ( const File& self ) -> std::variant< MF1, MF2, MF3, MF4, MF5, MF6,
-                                             MF7, MF8, MF9, MF10, MF12, MF13,
-                                             MF14, MF15 > {
+    [] ( const File& self ) -> FileVariant {
 
       switch ( self.fileNumber() ) {
 
@@ -160,6 +152,12 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
         case 13 : return self.parse< 13 >();
         case 14 : return self.parse< 14 >();
         case 15 : return self.parse< 15 >();
+        case 23 : return self.parse< 23 >();
+        case 26 : return self.parse< 26 >();
+        case 27 : return self.parse< 27 >();
+        case 28 : return self.parse< 28 >();
+        case 33 : return self.parse< 33 >();
+        case 34 : return self.parse< 34 >();
       }
       throw std::runtime_error( "File cannot be parsed yet" );
     },
@@ -168,8 +166,88 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
   .def_property_readonly(
 
     "content",
-    [] ( const File& self ) -> std::string
-       { return ranges::to< std::string >( self.buffer() ); },
+    &File::content,
     "The content of the file"
+  )
+  .def(
+
+    "remove",
+    &File::remove,
+    python::arg( "mt" ),
+    "Remove the section in the file if it is present\n\n"
+    "Arguments:\n"
+    "    self    the ENDF tree file\n"
+    "    mt      the mt number of the section to be removed"
+  )
+  .def(
+
+    "insert",
+    [] ( File& self, Section section )
+       { self.insert( std::move( section ) ); },
+    python::arg( "section" ),
+    "Insert the section in the file\n\n"
+    "This function inserts the section in the ENDF file tree only if a\n"
+    "section with that MT number is not present yet.\n\n"
+    "An exception will be thrown if the MAT and MF number of the section do\n"
+    "not match the MAT and MF number of the file, and when a section with the\n"
+    "same MT number is already present.\n\n"
+    "Arguments:\n"
+    "    self      the ENDF tree file\n"
+    "    section   the section to be inserted"
+  )
+  .def(
+
+    "insert",
+    [] ( File& self, const SectionVariant& section )
+       { std::visit( [&self] ( const auto& variant )
+                             { self.insert( variant ); },
+                     section ); },
+    python::arg( "section" ),
+    "Insert the section in the file\n\n"
+    "This function inserts the section in the ENDF file tree only if a\n"
+    "section with that MT number is not present yet.\n\n"
+    "An exception will be thrown if the MAT and MF number of the section do\n"
+    "not match the MAT and MF number of the file, and when a section with the\n"
+    "same MT number is already present.\n\n"
+    "Arguments:\n"
+    "    self      the ENDF tree file\n"
+    "    section   the section to be inserted"
+  )
+  .def(
+
+    "insert_or_replace",
+    [] ( File& self, Section section )
+       { self.insertOrReplace( std::move( section ) ); },
+    python::arg( "section" ),
+    "Insert or replace the section in the file\n\n"
+    "This function inserts or replaces the section in the ENDF file tree.\n\n"
+    "An exception will be thrown if the MAT and MF number of the section do\n"
+    "not match the MAT and MF number of the file.\n\n"
+    "Arguments:\n"
+    "    self      the ENDF tree file\n"
+    "    section   the section to be inserted or replaced"
+  )
+  .def(
+
+    "insert_or_replace",
+    [] ( File& self, const SectionVariant& section )
+       { std::visit( [&self] ( const auto& variant )
+                             { self.insertOrReplace( variant ); },
+                     section ); },
+    python::arg( "section" ),
+    "Insert or replace the section in the file\n\n"
+    "This function inserts or replaces the section in the ENDF file tree.\n\n"
+    "An exception will be thrown if the MAT and MF number of the section do\n"
+    "not match the MAT and MF number of the file.\n\n"
+    "Arguments:\n"
+    "    self      the ENDF tree file\n"
+    "    section   the section to be inserted or replaced"
+  )
+  .def(
+
+    "clean",
+    &File::clean,
+    "Clean up the file\n\n"
+    "This function removes the sequence numbers from the file."
   );
 }

@@ -40,7 +40,7 @@ public:
   /**
    *  @brief Return the background R-matrix values for all channels
    */
-  AllRange< OptionalBackgroundRMatrix > backgroundRMatrices() const {
+  auto backgroundRMatrices() const {
 
     return ranges::cpp20::views::all( this->channels_ );
   }

@@ -118,7 +118,7 @@ namespace section{
      *  @brief Return the effective temperature for the principal scatterer
      */
     const EffectiveTemperature& principalEffectiveTemperature() const {
-      
+
       return this->principal_;
     }
 
@@ -126,8 +126,7 @@ namespace section{
      *  @brief Return the effective temperatures for the secondary scatterers
      *         (if any are defined)
      */
-    AllRange< OptionalEffectiveTemperature >
-    secondaryEffectiveTemperatures() const {
+    auto secondaryEffectiveTemperatures() const {
 
       return ranges::cpp20::views::all( this->secondary_ );
     }

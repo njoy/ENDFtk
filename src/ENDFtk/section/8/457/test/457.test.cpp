@@ -118,15 +118,9 @@ SCENARIO( "section::Type< 8, 457 >" ) {
 
     WHEN( "there is a tree::Section" ) {
 
-      auto begin = sectionString.begin();
-      auto position = begin;
-      auto end = sectionString.end();
-      long lineNumber = 1;
-      auto head = HEAD( position, end, lineNumber );
-      tree::Section< std::string::iterator >
-        section( head, begin, position, end, lineNumber );
+      tree::Section section( 3580, 8, 457, std::string( sectionString ) );
 
-      section::Type< 8, 457 > chunk = section.parse< 8, 457 >( lineNumber );
+      section::Type< 8, 457 > chunk = section.parse< 8, 457 >();
 
       THEN( "a section::Type< 8, 457 > can be constructed and members can be "
             "tested" ) {
@@ -217,15 +211,9 @@ SCENARIO( "section::Type< 8, 457 >" ) {
 
     WHEN( "there is a tree::Section" ) {
 
-      auto begin = sectionString.begin();
-      auto position = begin;
-      auto end = sectionString.end();
-      long lineNumber = 1;
-      auto head = HEAD( position, end, lineNumber );
-      tree::Section< std::string::iterator >
-        section( head, begin, position, end, lineNumber );
+      tree::Section section( 3580, 8, 457, std::string( sectionString ) );
 
-      section::Type< 8, 457 > chunk = section.parse< 8, 457 >( lineNumber );
+      section::Type< 8, 457 > chunk = section.parse< 8, 457 >();
 
       THEN( "a section::Type< 8, 457 > can be constructed and members can be "
             "tested" ) {
@@ -302,16 +290,9 @@ SCENARIO( "section::Type< 8, 457 >" ) {
 
     WHEN( "there is a tree::Section" ) {
 
-      std::string sectionString = chunkForStableNuclide() + validSEND();
-      auto begin = sectionString.begin();
-      auto position = begin;
-      auto end = sectionString.end();
-      long lineNumber = 1;
-      auto head = HEAD( position, end, lineNumber );
-      tree::Section< std::string::iterator >
-        section( head, begin, position, end, lineNumber );
+      tree::Section section( 3580, 8, 457, std::string( sectionString ) );
 
-      section::Type< 8, 457 > chunk = section.parse< 8, 457 >( lineNumber );
+      section::Type< 8, 457 > chunk = section.parse< 8, 457 >();
 
       THEN( "a section::Type< 8, 457 > can be constructed and members can be "
             "tested" ) {

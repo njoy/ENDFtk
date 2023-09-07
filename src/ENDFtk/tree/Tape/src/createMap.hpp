@@ -1,46 +1,46 @@
+template < typename BufferIterator >
 static auto
-createMap( BufferIterator position, const BufferIterator& end, long& ln ){
+createMap( BufferIterator position, const BufferIterator& end,
+           long& lineNumber ) {
 
-  std::multimap< int, Material_t > materials;
+  std::multimap< int, Material > materials;
 
   auto begin = position;
-  auto division = StructureDivision( position, end, ln );
-  int lastMAT = division.tail.MAT();
+  auto division = StructureDivision( position, end, lineNumber );
 
-  while ( not division.isTend() ) {
-    if( lastMAT > division.tail.MAT() ){
-      Log::error( "Material numbers (MAT) must be increasing." );
-      Log::info( "Found material number: {}", division.tail.MAT() );
-      Log::info( "Expected a material number >= {}", lastMAT );
-      throw std::exception();
-    }
-    materials.emplace( division.tail.MAT(),
-      Material_t( asHead( division ), begin, position, end, ln ) );
+  while ( division.isHead() ) {
 
-    lastMAT = division.tail.MAT();
+    materials.emplace(
+      division.tail.MAT(),
+      Material( asHead( division ), begin, position, end, lineNumber ) );
+
     begin = position;
-    division = StructureDivision( position, end, ln );
+    division = StructureDivision( position, end, lineNumber );
+
+    while ( division.isMend() ) {
+
+      begin = position;
+      division = StructureDivision( position, end, lineNumber );
+      if ( position >= end ) {
+
+        break;
+      }
+    }
+  }
+
+  if ( not division.isTend() ) {
+
+    Log::error( "Did not find a valid TEND record in the tape" );
+    throw std::exception();
   }
 
   return materials;
 }
 
+template < typename BufferIterator >
 static auto
 createMap( BufferIterator position, const BufferIterator& end ){
 
-  std::multimap< int, Material_t > materials;
-  long ln{ 0 };
-
-  auto begin = position;
-  auto division = StructureDivision( position, end, ln );
-
-  while ( not division.isTend() ) {
-    materials.emplace( division.tail.MAT(),
-      Material_t( asHead( division ), begin, position, end, ln ) );
-
-    begin = position;
-    division = StructureDivision( position, end, ln );
-  }
-
-  return materials;
+  long lineNumber{ 0 };
+  return createMap( position, end, lineNumber );
 }

@@ -6,6 +6,7 @@
 #include "ENDFtk/tree/Tape.hpp"
 #include "range/v3/range/operations.hpp"
 #include "views.hpp"
+#include "variants.hpp"
 
 // namespace aliases
 namespace python = pybind11;
@@ -13,33 +14,8 @@ namespace python = pybind11;
 void wrapTreeSection( python::module& module, python::module& ) {
 
   // type aliases
-  using Tape = njoy::ENDFtk::tree::Tape< std::string >;
-  using Material = Tape::Material_t;
-  using File = Material::File_t;
-  using Section = File::Section_t;
-  using MF1MT451 = njoy::ENDFtk::section::Type< 1, 451 >;
-  using MF1MT452 = njoy::ENDFtk::section::Type< 1, 452 >;
-  using MF1MT455 = njoy::ENDFtk::section::Type< 1, 455 >;
-  using MF1MT456 = njoy::ENDFtk::section::Type< 1, 456 >;
-  using MF1MT458 = njoy::ENDFtk::section::Type< 1, 458 >;
-  using MF1MT460 = njoy::ENDFtk::section::Type< 1, 460 >;
-  using MF2MT151 = njoy::ENDFtk::section::Type< 2, 151 >;
-  using MF2MT152 = njoy::ENDFtk::section::Type< 2, 152 >;
-  using MF3MTxxx = njoy::ENDFtk::section::Type< 3 >;
-  using MF4MTxxx = njoy::ENDFtk::section::Type< 4 >;
-  using MF5MTxxx = njoy::ENDFtk::section::Type< 5 >;
-  using MF6MTxxx = njoy::ENDFtk::section::Type< 6 >;
-  using MF7MT2 = njoy::ENDFtk::section::Type< 7, 2 >;
-  using MF7MT4 = njoy::ENDFtk::section::Type< 7, 4 >;
-  using MF8MT454 = njoy::ENDFtk::section::Type< 8, 454 >;
-  using MF8MT457 = njoy::ENDFtk::section::Type< 8, 457 >;
-  using MF8MT459 = njoy::ENDFtk::section::Type< 8, 459 >;
-  using MF9MTxxx = njoy::ENDFtk::section::Type< 9 >;
-  using MF10MTxxx = njoy::ENDFtk::section::Type< 10 >;
-  using MF12MTxxx = njoy::ENDFtk::section::Type< 12 >;
-  using MF13MTxxx = njoy::ENDFtk::section::Type< 13 >;
-  using MF14MTxxx = njoy::ENDFtk::section::Type< 14 >;
-  using MF15MTxxx = njoy::ENDFtk::section::Type< 15 >;
+  using Section = njoy::ENDFtk::tree::Section;
+
 
   // wrap views created by this component
 
@@ -102,15 +78,8 @@ void wrapTreeSection( python::module& module, python::module& ) {
   .def(
 
     "parse",
-    [] ( const Section& self ) -> std::variant< MF1MT451, MF1MT452, MF1MT455,
-                                                MF1MT456, MF1MT458, MF1MT460,
-                                                MF2MT151, MF2MT152,
-                                                MF3MTxxx, MF4MTxxx, MF5MTxxx,
-                                                MF6MTxxx, MF7MT2, MF7MT4,
-                                                MF8MT454, MF8MT457, MF8MT459,
-                                                MF9MTxxx, MF10MTxxx,
-                                                MF12MTxxx, MF13MTxxx,
-                                                MF14MTxxx, MF15MTxxx > {
+    [] ( const Section& self ) -> SectionVariant {
+
       int mf = self.fileNumber();
       int mt = self.sectionNumber();
       switch ( mf ) {
@@ -182,6 +151,12 @@ void wrapTreeSection( python::module& module, python::module& ) {
         case 13 : return self.parse< 13 >();
         case 14 : return self.parse< 14 >();
         case 15 : return self.parse< 15 >();
+        case 23 : return self.parse< 23 >();
+        case 26 : return self.parse< 26 >();
+        case 27 : return self.parse< 27 >();
+        case 28 : return self.parse< 28 >();
+        case 33 : return self.parse< 33 >();
+        case 34 : return self.parse< 34 >();
         default: throw std::runtime_error(
                        "Section from file " +  std::to_string( mf ) +
                        " cannot be parsed yet" );
@@ -192,8 +167,20 @@ void wrapTreeSection( python::module& module, python::module& ) {
   .def_property_readonly(
 
     "content",
-    [] ( const Section& self ) -> std::string
-       { return ranges::to< std::string >( self.buffer() ); },
+    &Section::content,
     "The content of the section"
+  )
+  .def_property_readonly(
+
+    "NC",
+    &Section::NC,
+    "The number of lines in this section"
+  )
+  .def(
+
+    "clean",
+    &Section::clean,
+    "Clean up the section\n\n"
+    "This function removes the sequence numbers from the section."
   );
 }

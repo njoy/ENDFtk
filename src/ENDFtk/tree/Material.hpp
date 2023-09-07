@@ -6,8 +6,10 @@
 #include <map>
 
 // other includes
-#include "header-utilities/echoErroneousLine.hpp"
+#include "ENDFtk/tree/Section.hpp"
+#include "ENDFtk/tree/toSection.hpp"
 #include "ENDFtk/tree/File.hpp"
+#include "ENDFtk/tree/toFile.hpp"
 #include "boost/hana.hpp"
 
 namespace njoy {
@@ -27,22 +29,11 @@ namespace tree {
    *  indexed ENDF files. It is created by the ENDF tree Tape class and should
    *  not be directly constructed by a user.
    */
-  template< typename BufferIterator >
   class Material {
 
-  public:
-
-    /* type aliases */
-    using File_t = File< BufferIterator >;
-    using iterator = typename std::vector< File_t >::iterator;
-    using const_iterator = typename std::vector< File_t >::iterator;
-
-  private:
-
     /* fields */
-    int materialNo;
-    std::map< int, File_t > files_;
-    std::pair< BufferIterator, BufferIterator > bufferLimits;
+    int mat_;
+    std::map< int, File > files_;
 
     /* auxiliary functions */
     #include "ENDFtk/tree/Material/src/createMap.hpp"
@@ -53,7 +44,24 @@ namespace tree {
     #include "ENDFtk/tree/Material/src/ctor.hpp"
 
     /* methods */
-    #include "ENDFtk/tree/Material/src/parse.hpp"
+
+    /**
+     *  @brief Return MAT number of the material
+     */
+    int MAT() const { return this->mat_; }
+
+    /**
+     *  @brief Return MAT number of the material
+     */
+    int materialNumber() const { return this->MAT(); }
+
+    /**
+     *  @brief Return all file numbers in the material
+     */
+    auto fileNumbers() const {
+
+      return ranges::cpp20::views::keys( this->files_ );
+    }
 
     #include "ENDFtk/tree/Material/src/file.hpp"
 
@@ -62,14 +70,14 @@ namespace tree {
      *
      *  @param[in]   mf   the MF number of the material to be returned
      */
-    const File_t& MF( int mf ) const { return this->file( mf ); }
+    const File& MF( int mf ) const { return this->file( mf ); }
 
     /**
      *  @brief Return the file with the requested MF number
      *
      *  @param[in]   mf   the MF number of the material to be returned
      */
-    File_t& MF( int mf ) { return this->file( mf ); }
+    File& MF( int mf ) { return this->file( mf ); }
 
     /**
      *  @brief Return whether or not the material has a file with the given MF
@@ -90,25 +98,12 @@ namespace tree {
     /**
      *  @brief Return all files in the material
      */
-    auto files() { return this->files_ | ranges::cpp20::views::values; }
+    auto files() const { return this->files_ | ranges::cpp20::views::values; }
 
     /**
      *  @brief Return all files in the material
      */
-    auto files() const { return this->files_ | ranges::cpp20::views::values; }
-
-    /**
-     *  @brief Return a begin iterator to all files
-     */
-    auto begin() {
-
-      return ( this->files_ | ranges::cpp20::views::values ).begin();
-    }
-
-    /**
-     *  @brief Return an end iterator to all files
-     */
-    auto end(){ return ( this->files_ | ranges::cpp20::views::values ).end(); }
+    auto files() { return this->files_ | ranges::cpp20::views::values; }
 
     /**
      *  @brief Return a begin iterator to all files
@@ -127,36 +122,53 @@ namespace tree {
     }
 
     /**
+     *  @brief Return a begin iterator to all files
+     */
+    auto begin() {
+
+      return ( this->files_ | ranges::cpp20::views::values ).begin();
+    }
+
+    /**
+     *  @brief Return an end iterator to all files
+     */
+    auto end() {
+
+      return ( this->files_ | ranges::cpp20::views::values ).end();
+    }
+
+    /**
      *  @brief Return the number of files in the materials
      */
     std::size_t size() const { return files_.size(); }
 
     /**
-     *  @brief Return MAT number of the material
+     *  @brief Return the material's content
      */
-    int MAT() const { return this->materialNo; }
+    auto content() const {
 
-    /**
-     *  @brief Return MAT number of the material
-     */
-    int materialNumber() const { return this->MAT(); }
+      std::string content;
+      for ( const auto& file : this->files() ) {
 
-    /**
-     *  @brief Return the material's buffer
-     */
-    auto buffer() const {
+        content += file.content();
+      }
 
-      return ranges::make_subrange( this->bufferLimits.first,
-                                    this->bufferLimits.second );
+      if ( content.size() ) {
+
+        auto output = std::back_inserter( content );
+        MEND().print( output );
+      }
+
+      return content;
     }
 
-    /**
-     *  @brief Return all file numbers in the material
-     */
-    auto fileNumbers() const {
+    #include "ENDFtk/tree/Material/src/remove.hpp"
+    #include "ENDFtk/tree/Material/src/insertOrReplace.hpp"
+    #include "ENDFtk/tree/Material/src/insert.hpp"
 
-      return ranges::cpp20::views::keys( this->files_ );
-    }
+    #include "ENDFtk/tree/Material/src/parse.hpp"
+
+    #include "ENDFtk/tree/Material/src/clean.hpp"
   };
 
 } // tree namespace

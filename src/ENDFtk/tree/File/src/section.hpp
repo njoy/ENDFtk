@@ -3,29 +3,17 @@
  *
  *  @param[in]   mt   the MT number of the section to be returned
  */
-const Section_t& section( int mt ) const {
+const Section& section( int mt ) const {
 
   try {
 
     return this->sections_.at( mt );
   }
-  catch( std::out_of_range& o ) {
+  catch( std::out_of_range& error ) {
 
-    Log::error( "Requested section number (MT) does not"
-                " correspond to a stored section in the syntax tree" );
-    Log::info( "Requested section number: {}", mt );
-    Log::info( "File number of queried file syntax tree: {}",
-               this->fileNumber() );
-    throw o;
+    Log::error( "The requested section (MF{} MT{}) is not present "
+                "in the ENDF file tree",
+                this->fileNumber(), mt );
+    throw error;
   }
-}
-
-/**
- *  @brief Return the section with the requested MT number
- *
- *  @param[in]   mt   the MT number of the section to be returned
- */
-Section_t& section( int mt ) {
-  return const_cast< Section_t& >
-         ( const_cast< const File& >( *this ).section( mt ) );
 }

@@ -9,6 +9,8 @@
 #include "print.hpp"
 #include "read.hpp"
 #include "views.hpp"
+#include "ENDFtk/tree/toSection.hpp"
+#include "ENDFtk/tree/toFile.hpp"
 
 // namespace aliases
 namespace python = pybind11;
@@ -209,6 +211,17 @@ void addStandardSectionDefinitions( PythonClass& section ) {
     "    self    the section\n"
     "    mat     the MAT number to be used\n"
     "    mf      the MF number to be used"
+  )
+  .def(
+
+    "to_tree",
+    [] ( const Section& self, int mat ) -> njoy::ENDFtk::tree::Section
+       { return njoy::ENDFtk::tree::toSection( self, mat ); },
+    python::arg( "mat" ),
+    "Return the ENDF tree representation of the section\n\n"
+    "Arguments:\n"
+    "    self    the section\n"
+    "    mat     the MAT number to be used"
   );
 }
 
@@ -284,6 +297,17 @@ void addStandardFileDefinitions( PythonClass& file ) {
        { return print( self, mat ); },
     python::arg( "mat" ),
     "The string representation of the file\n\n"
+    "Arguments:\n"
+    "    self    the file\n"
+    "    mat     the MAT number to be used"
+  )
+  .def(
+
+    "to_tree",
+    [] ( const File& self, int mat ) -> njoy::ENDFtk::tree::File
+       { return njoy::ENDFtk::tree::toFile( self, mat ); },
+    python::arg( "mat" ),
+    "Return the ENDF tree representation of the file\n\n"
     "Arguments:\n"
     "    self    the file\n"
     "    mat     the MAT number to be used"
