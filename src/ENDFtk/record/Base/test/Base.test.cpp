@@ -4,7 +4,6 @@
 #include "ENDFtk/record/Base.hpp"
 
 // other includes
-#include "header-utilities/copy.hpp"
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
@@ -37,7 +36,7 @@ SCENARIO( "Checking single field record bases" ){
         std::string entry(
           "123456789012345678901234567890123456789012345678901234567890123456"
           );
-        auto base = RecordBase( njoy::utility::copy(entry) );
+        auto base = RecordBase( std::string(entry) );
         REQUIRE( entry == std::get< 0 >(base.fields) );
       }
     }

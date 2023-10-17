@@ -6,23 +6,16 @@
 // other includes
 #include "range/v3/algorithm/equal.hpp"
 #include "range/v3/range/operations.hpp"
-#include "header-utilities/copy.hpp"
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
 
-std::function< TabulationRecord() > makeTAB1 = [](){
-  auto metadata = std::make_tuple( 1.0, 2.0, 3ul, 4ul );
-  auto regionPairs = std::make_tuple( std::vector< long >{ 4, 5, 6 },
-                                      std::vector< long >{ 1, 2, 3 } );
-  auto orderedPairs =
-    std::make_tuple( std::vector< double >{ 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 },
-                     std::vector< double >{ 3.0, 4.0, 5.0, 6.0, 7.0, 8.0 } );
+std::function< TabulationRecord() > makeTAB1 = [] () {
 
-  return TabulationRecord
-  ( std::get< 0 >( metadata ), std::get< 1 >( metadata ),
-    std::get< 2 >( metadata ), std::get< 3 >( metadata ),
-    njoy::utility::copy( regionPairs ), njoy::utility::copy( orderedPairs ) );
+  return TabulationRecord ( 1., 2., 3, 4,
+                            { 4, 5, 6 }, { 1, 2, 3 },
+                            { 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 },
+                            { 3.0, 4.0, 5.0, 6.0, 7.0, 8.0 } );
 };
 
 #include "ENDFtk/TabulationRecord/test/ctor.test.hpp"

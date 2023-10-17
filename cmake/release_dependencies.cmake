@@ -15,11 +15,6 @@ FetchContent_Declare( disco
     GIT_TAG         2606933a854bb0269c4ec37143e1236797e27838
     )
 
-FetchContent_Declare( header-utilities
-    GIT_REPOSITORY  https://github.com/njoy/header-utilities
-    GIT_TAG         cc2610fee15e255c151e8e22aca1e8b3d1a96b39
-    )
-
 FetchContent_Declare( Log
     GIT_REPOSITORY  https://github.com/njoy/Log
     GIT_TAG         52962b7796afe37ef1d8f7edb4bf9ecb1b868d15
@@ -47,7 +42,6 @@ set( SPDLOG_BUILD_TESTING CACHE BOOL OFF )
 
 FetchContent_MakeAvailable(
     disco
-    header-utilities
     Log
     range-v3
     spdlog
