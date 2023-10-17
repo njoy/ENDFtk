@@ -28,6 +28,7 @@ endfunction()
 
 message( STATUS "Adding ENDFtk C++ unit testing" )
 
+# missing tests
 #add_subdirectory( src/ENDFtk/file/32/test )
 #add_subdirectory( src/ENDFtk/file/Base/test )
 #add_subdirectory( src/ENDFtk/record/IntegerBase/test )
