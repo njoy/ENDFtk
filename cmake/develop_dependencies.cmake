@@ -45,9 +45,7 @@ FetchContent_Declare( pybind11
 
 FetchContent_MakeAvailable(
     Log
-    catch-adapter
     disco
     header-utilities
     range-v3
-    pybind11
     )
