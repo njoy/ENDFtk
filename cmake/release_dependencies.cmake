@@ -15,11 +15,6 @@ FetchContent_Declare( disco
     GIT_TAG         2606933a854bb0269c4ec37143e1236797e27838
     )
 
-FetchContent_Declare( Log
-    GIT_REPOSITORY  https://github.com/njoy/Log
-    GIT_TAG         52962b7796afe37ef1d8f7edb4bf9ecb1b868d15
-    )
-
 FetchContent_Declare( pybind11
     GIT_REPOSITORY  https://github.com/pybind/pybind11
     GIT_TAG         80dc998efced8ceb2be59756668a7e90e8bef917 # tag: v2.10.1
@@ -32,9 +27,14 @@ FetchContent_Declare( range-v3
 
 FetchContent_Declare( spdlog
     GIT_REPOSITORY  https://github.com/gabime/spdlog
-    GIT_TAG         a51b4856377a71f81b6d74b9af459305c4c644f8
+    GIT_TAG         ad0e89cbfb4d0c1ce4d097e134eb7be67baebb36 # tag: v1.11.0
     )
 set( SPDLOG_BUILD_TESTING CACHE BOOL OFF )
+
+FetchContent_Declare( tools
+    GIT_REPOSITORY  https://github.com/njoy/tools
+    GIT_TAG         25c9273d05601a9644feea6d7539250bf1d1c0dc # tag: v0.2.0
+    )
 
 #######################################################################
 # Load dependencies
@@ -42,7 +42,7 @@ set( SPDLOG_BUILD_TESTING CACHE BOOL OFF )
 
 FetchContent_MakeAvailable(
     disco
-    Log
     range-v3
     spdlog
+    tools
     )

@@ -76,7 +76,7 @@ target_include_directories( ENDFtk
 )
 target_link_libraries( ENDFtk
     INTERFACE
-      Log
+      njoy::tools
       disco
       range-v3
 )

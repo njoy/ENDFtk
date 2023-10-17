@@ -4,7 +4,7 @@
 // system includes
 
 // other includes
-#include "Log.hpp"
+#include "tools/Log.hpp"
 #include "ENDFtk/record.hpp"
 
 namespace njoy {

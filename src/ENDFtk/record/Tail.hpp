@@ -6,7 +6,7 @@
 
 // other includes
 #include "disco.hpp"
-#include "Log.hpp"
+#include "tools/Log.hpp"
 
 namespace njoy {
 namespace ENDFtk {

@@ -13,7 +13,7 @@ auto angularDistributions() const {
   } );
 
   return std::visit(
-           utility::overload{
+           tools::overload{
                [] ( const Isotropic& ) -> VariantRange
                   { return ranges::cpp20::views::empty<Variant>; },
                [] ( const MixedDistributions& distributions ) -> VariantRange
