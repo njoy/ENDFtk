@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/DirectoryRecord.hpp"
 
 // other includes
@@ -8,105 +11,112 @@
 // convenience typedefs
 using namespace njoy::ENDFtk;
 
-SCENARIO( "DirectoryRecord Tests", "[ENDFtk], [DirectoryRecord]" ){
-  std::string line =
+std::string chunk();
+void verifyChunk( const DirectoryRecord& );
+std::string invalidChunk();
+
+SCENARIO( "DirectoryRecord" ) {
+
+  GIVEN( "valid data for a DirectoryRecord" ) {
+
+    std::string string = chunk();
+
+    WHEN( "the data is given explicitly" ) {
+
+      int mf = 1;
+      int mt = 451;
+      int nc = 101;
+      int mod = 5;
+
+      DirectoryRecord chunk( mf, mt, nc, mod );
+
+      THEN( "a DirectoryRecord can be constructed and members can be tested" ) {
+
+        verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 125, 1, 451 );
+
+        CHECK( buffer == string );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is read from a string/stream" ) {
+
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      DirectoryRecord chunk( begin, end, lineNumber, 125, 1, 451 );
+
+      THEN( "a DirectoryRecord can be constructed and members can be tested" ) {
+
+        verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 125, 1, 451 );
+
+        CHECK( buffer == string );
+      } // THEN
+    } // WHEN
+  } // GIVEN
+
+  GIVEN( "invalid data for a DirectoryRecord" ) {
+
+    WHEN( "a string representation with an error is given" ) {
+
+      std::string string = invalidChunk();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( DirectoryRecord( begin, end, lineNumber, 125, 1, 451 ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a string representation has a mismatch in tha MAT, MF or MT number" ) {
+
+      std::string string = chunk();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( DirectoryRecord( begin, end, lineNumber, 5, 1, 451 ) ); // MAT
+        CHECK_THROWS( DirectoryRecord( begin, end, lineNumber, 125, 2, 451 ) ); // MF
+        CHECK_THROWS( DirectoryRecord( begin, end, lineNumber, 125, 1, 452 ) ); // MT
+      } // THEN
+    } // WHEN
+  } // GIVEN
+} // SCENARIO
+
+std::string chunk() {
+
+  return
     "                                1        451        101          5 125 1451     \n";
+}
 
-  auto values = std::make_tuple( 1, 451, 101, 5 );
-  GIVEN( "value construction, the ctor works"){
-    REQUIRE_NOTHROW(
-      DirectoryRecord( std::get< 0 >(values), std::get< 1 >(values),
-                     std::get< 2 >(values), std::get< 3 >(values) ) );
-  }
+void verifyChunk( const DirectoryRecord& chunk ) {
 
-  GIVEN( "iterators and a line number"){
-    auto it = line.begin();
-    auto end = line.end();
-    auto lineNumber = 0l;
+  CHECK( 1 == chunk.MF() );
+  CHECK( 451 == chunk.MT() );
+  CHECK( 101 == chunk.NC() );
+  CHECK( 5 == chunk.MOD() );
+}
 
-    WHEN("the tail values match, the ctor works"){
-      REQUIRE_NOTHROW( DirectoryRecord( it, end, lineNumber, 125, 1, 451 ) );
-    }
-    WHEN("the MAT value doesn't match, the ctor throws"){
-      REQUIRE_THROWS( DirectoryRecord( it, end, lineNumber, 126, 1, 451 ) );
-    }
-    WHEN("the MF value doesn't match, the ctor throws"){
-      REQUIRE_THROWS( DirectoryRecord( it, end, lineNumber, 125, 2, 451 ) );
-    }
-    WHEN("the MT value doesn't match, the ctor throws"){
-      REQUIRE_THROWS( DirectoryRecord( it, end, lineNumber, 125, 1, 452 ) );
-    }
-  }
+std::string invalidChunk() {
 
-  SECTION("print"){
-    auto it = line.begin();
-    auto end = line.end();
-    auto lineNumber = 0l;
-
-    std::string buffer;
-    auto output = std::back_inserter( buffer );
-
-    const auto dir = DirectoryRecord( it, end, lineNumber, 125, 1, 451 );
-    dir.print( output, 125, 1, 451 );
-
-    REQUIRE( buffer == line );
-  }
-
-  GIVEN( "A constructed directory record"){
-    auto it = line.begin();
-    auto end = line.end();
-    auto lineNumber = 0l;
-    auto directoryRecord0 = DirectoryRecord( it, end, lineNumber, 125, 1, 451 );
-    const auto& constDirectoryRecord0 = directoryRecord0;
-    auto directoryRecord1 =
-      DirectoryRecord( std::get< 0 >(values), std::get< 1 >(values),
-                       std::get< 2 >(values), std::get< 3 >(values) );
-    const auto& constDirectoryRecord1 = directoryRecord1;
-    THEN( "the getter will work" ){
-      REQUIRE( directoryRecord0.MF() == std::get< 0 >( values ) );
-      REQUIRE( directoryRecord1.MF() == std::get< 0 >( values ) );
-      REQUIRE( constDirectoryRecord0.MF() == std::get< 0 >( values ) );
-      REQUIRE( constDirectoryRecord1.MF() == std::get< 0 >( values ) );
-      REQUIRE( directoryRecord0.MT() == std::get< 1 >( values ) );
-      REQUIRE( directoryRecord1.MT() == std::get< 1 >( values ) );
-      REQUIRE( constDirectoryRecord0.MT() == std::get< 1 >( values ) );
-      REQUIRE( constDirectoryRecord1.MT() == std::get< 1 >( values ) );
-      REQUIRE( directoryRecord0.NC() == std::get< 2 >( values ) );
-      REQUIRE( directoryRecord1.NC() == std::get< 2 >( values ) );
-      REQUIRE( constDirectoryRecord0.NC() == std::get< 2 >( values ) );
-      REQUIRE( constDirectoryRecord1.NC() == std::get< 2 >( values ) );
-      REQUIRE( directoryRecord0.MOD() == std::get< 3 >( values ) );
-      REQUIRE( directoryRecord1.MOD() == std::get< 3 >( values ) );
-      REQUIRE( constDirectoryRecord0.MOD() == std::get< 3 >( values ) );
-      REQUIRE( constDirectoryRecord1.MOD() == std::get< 3 >( values ) );
-
-      directoryRecord0.MF() = 5;
-      REQUIRE( directoryRecord0.MF() == 5 );
-      directoryRecord0.MT() = 6;
-      REQUIRE( directoryRecord0.MT() == 6 );
-      directoryRecord0.NC() = 7;
-      REQUIRE( directoryRecord0.NC() == 7 );
-      directoryRecord0.MOD() = 8;
-      REQUIRE( directoryRecord0.MOD() == 8 );
-      // can't assign to const instances. doesn't compile
-      // constDirectoryRecord0.NC() = 10;
-    }
-    THEN( "the equality and inequality operators will work" ){
-      REQUIRE( directoryRecord0 == directoryRecord1 );
-      directoryRecord0.NC() = 10;
-      directoryRecord1.NC() = 8;
-      REQUIRE( directoryRecord0 != directoryRecord1 );
-    }
-  }
-  GIVEN("A line with a typo"){
-    std::string line =
-      "                                1        451        101          5 125 14a1   92\n";
-    auto it = line.begin();
-    auto end = line.end();
-    auto lineNumber = 0l;
-
-    THEN("the ctor throws"){
-      REQUIRE_THROWS( DirectoryRecord( it, end, lineNumber, 125, 1, 451 ) );
-    }
-  }
+  return
+    "                                1        4z1        101          5 125 1451     \n";
 }

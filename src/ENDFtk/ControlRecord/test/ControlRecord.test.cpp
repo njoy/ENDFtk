@@ -17,7 +17,7 @@ std::string invalidChunk();
 
 SCENARIO( "ControlRecord" ) {
 
-  GIVEN( "valid data for a TabulatedMultiplicity" ) {
+  GIVEN( "valid data for a ControlRecord" ) {
 
     std::string string = chunk();
 
