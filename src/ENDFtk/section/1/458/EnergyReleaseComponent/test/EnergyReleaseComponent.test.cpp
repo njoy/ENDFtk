@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/1/458.hpp"
 
 // other includes
@@ -151,18 +154,18 @@ void verifyChunk( const EnergyReleaseComponent& chunk ) {
   CHECK( 3 == chunk.energies().size() );
   CHECK( 3 == chunk.EIFC().size() );
   CHECK( 3 == chunk.qValues().size() );
-  CHECK( 1e-5 == Approx( chunk.E()[0] ) );
-  CHECK( 0.0253 == Approx( chunk.E()[1] ) );
-  CHECK( 2e+7 == Approx( chunk.E()[2] ) );
-  CHECK( 1e-5 == Approx( chunk.energies()[0] ) );
-  CHECK( 0.0253 == Approx( chunk.energies()[1] ) );
-  CHECK( 2e+7 == Approx( chunk.energies()[2] ) );
-  CHECK( 1.6913e+8 == Approx( chunk.EIFC()[0] ) );
-  CHECK( 1.691e+8 == Approx( chunk.EIFC()[1] ) );
-  CHECK( 1.69e+8 == Approx( chunk.EIFC()[2] ) );
-  CHECK( 1.6913e+8 == Approx( chunk.qValues()[0] ) );
-  CHECK( 1.691e+8 == Approx( chunk.qValues()[1] ) );
-  CHECK( 1.69e+8 == Approx( chunk.qValues()[2] ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.E()[0] ) );
+  CHECK_THAT( 0.0253, WithinRel( chunk.E()[1] ) );
+  CHECK_THAT( 2e+7, WithinRel( chunk.E()[2] ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.energies()[0] ) );
+  CHECK_THAT( 0.0253, WithinRel( chunk.energies()[1] ) );
+  CHECK_THAT( 2e+7, WithinRel( chunk.energies()[2] ) );
+  CHECK_THAT( 1.6913e+8, WithinRel( chunk.EIFC()[0] ) );
+  CHECK_THAT( 1.691e+8, WithinRel( chunk.EIFC()[1] ) );
+  CHECK_THAT( 1.69e+8, WithinRel( chunk.EIFC()[2] ) );
+  CHECK_THAT( 1.6913e+8, WithinRel( chunk.qValues()[0] ) );
+  CHECK_THAT( 1.691e+8, WithinRel( chunk.qValues()[1] ) );
+  CHECK_THAT( 1.69e+8, WithinRel( chunk.qValues()[2] ) );
 
   CHECK( 3 == chunk.NC() );
 }

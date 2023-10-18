@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/1/458.hpp"
 
 // other includes
@@ -113,85 +116,85 @@ void verifyChunk( const ThermalPointComponents& chunk ) {
   CHECK( 0 == chunk.NFC() );
   CHECK( 0 == chunk.numberTabulatedComponents() );
 
-  CHECK( 1.691300e+8 == Approx( chunk.E()[0][0] ) );
-  CHECK( 4.838000e+6 == Approx( chunk.E()[1][0] ) );
-  CHECK( 7.400000e+3 == Approx( chunk.E()[2][0] ) );
-  CHECK( 6.600000e+6 == Approx( chunk.E()[3][0] ) );
-  CHECK( 6.330000e+6 == Approx( chunk.E()[4][0] ) );
-  CHECK( 6.500000e+6 == Approx( chunk.E()[5][0] ) );
-  CHECK( 8.750000e+6 == Approx( chunk.E()[6][0] ) );
-  CHECK( 1.934054e+8 == Approx( chunk.E()[7][0] ) );
-  CHECK( 2.021554e+8 == Approx( chunk.E()[8][0] ) );
+  CHECK_THAT( 1.691300e+8, WithinRel( chunk.E()[0][0] ) );
+  CHECK_THAT( 4.838000e+6, WithinRel( chunk.E()[1][0] ) );
+  CHECK_THAT( 7.400000e+3, WithinRel( chunk.E()[2][0] ) );
+  CHECK_THAT( 6.600000e+6, WithinRel( chunk.E()[3][0] ) );
+  CHECK_THAT( 6.330000e+6, WithinRel( chunk.E()[4][0] ) );
+  CHECK_THAT( 6.500000e+6, WithinRel( chunk.E()[5][0] ) );
+  CHECK_THAT( 8.750000e+6, WithinRel( chunk.E()[6][0] ) );
+  CHECK_THAT( 1.934054e+8, WithinRel( chunk.E()[7][0] ) );
+  CHECK_THAT( 2.021554e+8, WithinRel( chunk.E()[8][0] ) );
 
-  CHECK( 4.900000e+5 == Approx( chunk.E()[0][1] ) );
-  CHECK( 7.000000e+4 == Approx( chunk.E()[1][1] ) );
-  CHECK( 1.110000e+3 == Approx( chunk.E()[2][1] ) );
-  CHECK( 5.000000e+5 == Approx( chunk.E()[3][1] ) );
-  CHECK( 5.000000e+4 == Approx( chunk.E()[4][1] ) );
-  CHECK( 5.100000e+4 == Approx( chunk.E()[5][1] ) );
-  CHECK( 7.000000e+4 == Approx( chunk.E()[6][1] ) );
-  CHECK( 1.500000e+5 == Approx( chunk.E()[7][1] ) );
-  CHECK( 1.300000e+5 == Approx( chunk.E()[8][1] ) );
+  CHECK_THAT( 4.900000e+5, WithinRel( chunk.E()[0][1] ) );
+  CHECK_THAT( 7.000000e+4, WithinRel( chunk.E()[1][1] ) );
+  CHECK_THAT( 1.110000e+3, WithinRel( chunk.E()[2][1] ) );
+  CHECK_THAT( 5.000000e+5, WithinRel( chunk.E()[3][1] ) );
+  CHECK_THAT( 5.000000e+4, WithinRel( chunk.E()[4][1] ) );
+  CHECK_THAT( 5.100000e+4, WithinRel( chunk.E()[5][1] ) );
+  CHECK_THAT( 7.000000e+4, WithinRel( chunk.E()[6][1] ) );
+  CHECK_THAT( 1.500000e+5, WithinRel( chunk.E()[7][1] ) );
+  CHECK_THAT( 1.300000e+5, WithinRel( chunk.E()[8][1] ) );
 
-  CHECK( 1.691300e+8 == Approx( chunk.energyRelease()[0][0] ) );
-  CHECK( 4.838000e+6 == Approx( chunk.energyRelease()[1][0] ) );
-  CHECK( 7.400000e+3 == Approx( chunk.energyRelease()[2][0] ) );
-  CHECK( 6.600000e+6 == Approx( chunk.energyRelease()[3][0] ) );
-  CHECK( 6.330000e+6 == Approx( chunk.energyRelease()[4][0] ) );
-  CHECK( 6.500000e+6 == Approx( chunk.energyRelease()[5][0] ) );
-  CHECK( 8.750000e+6 == Approx( chunk.energyRelease()[6][0] ) );
-  CHECK( 1.934054e+8 == Approx( chunk.energyRelease()[7][0] ) );
-  CHECK( 2.021554e+8 == Approx( chunk.energyRelease()[8][0] ) );
+  CHECK_THAT( 1.691300e+8, WithinRel( chunk.energyRelease()[0][0] ) );
+  CHECK_THAT( 4.838000e+6, WithinRel( chunk.energyRelease()[1][0] ) );
+  CHECK_THAT( 7.400000e+3, WithinRel( chunk.energyRelease()[2][0] ) );
+  CHECK_THAT( 6.600000e+6, WithinRel( chunk.energyRelease()[3][0] ) );
+  CHECK_THAT( 6.330000e+6, WithinRel( chunk.energyRelease()[4][0] ) );
+  CHECK_THAT( 6.500000e+6, WithinRel( chunk.energyRelease()[5][0] ) );
+  CHECK_THAT( 8.750000e+6, WithinRel( chunk.energyRelease()[6][0] ) );
+  CHECK_THAT( 1.934054e+8, WithinRel( chunk.energyRelease()[7][0] ) );
+  CHECK_THAT( 2.021554e+8, WithinRel( chunk.energyRelease()[8][0] ) );
 
-  CHECK( 4.900000e+5 == Approx( chunk.energyRelease()[0][1] ) );
-  CHECK( 7.000000e+4 == Approx( chunk.energyRelease()[1][1] ) );
-  CHECK( 1.110000e+3 == Approx( chunk.energyRelease()[2][1] ) );
-  CHECK( 5.000000e+5 == Approx( chunk.energyRelease()[3][1] ) );
-  CHECK( 5.000000e+4 == Approx( chunk.energyRelease()[4][1] ) );
-  CHECK( 5.100000e+4 == Approx( chunk.energyRelease()[5][1] ) );
-  CHECK( 7.000000e+4 == Approx( chunk.energyRelease()[6][1] ) );
-  CHECK( 1.500000e+5 == Approx( chunk.energyRelease()[7][1] ) );
-  CHECK( 1.300000e+5 == Approx( chunk.energyRelease()[8][1] ) );
+  CHECK_THAT( 4.900000e+5, WithinRel( chunk.energyRelease()[0][1] ) );
+  CHECK_THAT( 7.000000e+4, WithinRel( chunk.energyRelease()[1][1] ) );
+  CHECK_THAT( 1.110000e+3, WithinRel( chunk.energyRelease()[2][1] ) );
+  CHECK_THAT( 5.000000e+5, WithinRel( chunk.energyRelease()[3][1] ) );
+  CHECK_THAT( 5.000000e+4, WithinRel( chunk.energyRelease()[4][1] ) );
+  CHECK_THAT( 5.100000e+4, WithinRel( chunk.energyRelease()[5][1] ) );
+  CHECK_THAT( 7.000000e+4, WithinRel( chunk.energyRelease()[6][1] ) );
+  CHECK_THAT( 1.500000e+5, WithinRel( chunk.energyRelease()[7][1] ) );
+  CHECK_THAT( 1.300000e+5, WithinRel( chunk.energyRelease()[8][1] ) );
 
-  CHECK( 1.691300e+8 == Approx( chunk.EFR()[0] ) );
-  CHECK( 4.838000e+6 == Approx( chunk.ENP()[0] ) );
-  CHECK( 7.400000e+3 == Approx( chunk.END()[0] ) );
-  CHECK( 6.600000e+6 == Approx( chunk.EGP()[0] ) );
-  CHECK( 6.330000e+6 == Approx( chunk.EGD()[0] ) );
-  CHECK( 6.500000e+6 == Approx( chunk.EB()[0] ) );
-  CHECK( 8.750000e+6 == Approx( chunk.ENU()[0] ) );
-  CHECK( 1.934054e+8 == Approx( chunk.ER()[0] ) );
-  CHECK( 2.021554e+8 == Approx( chunk.ET()[0] ) );
+  CHECK_THAT( 1.691300e+8, WithinRel( chunk.EFR()[0] ) );
+  CHECK_THAT( 4.838000e+6, WithinRel( chunk.ENP()[0] ) );
+  CHECK_THAT( 7.400000e+3, WithinRel( chunk.END()[0] ) );
+  CHECK_THAT( 6.600000e+6, WithinRel( chunk.EGP()[0] ) );
+  CHECK_THAT( 6.330000e+6, WithinRel( chunk.EGD()[0] ) );
+  CHECK_THAT( 6.500000e+6, WithinRel( chunk.EB()[0] ) );
+  CHECK_THAT( 8.750000e+6, WithinRel( chunk.ENU()[0] ) );
+  CHECK_THAT( 1.934054e+8, WithinRel( chunk.ER()[0] ) );
+  CHECK_THAT( 2.021554e+8, WithinRel( chunk.ET()[0] ) );
 
-  CHECK( 4.900000e+5 == Approx( chunk.EFR()[1] ) );
-  CHECK( 7.000000e+4 == Approx( chunk.ENP()[1] ) );
-  CHECK( 1.110000e+3 == Approx( chunk.END()[1] ) );
-  CHECK( 5.000000e+5 == Approx( chunk.EGP()[1] ) );
-  CHECK( 5.000000e+4 == Approx( chunk.EGD()[1] ) );
-  CHECK( 5.100000e+4 == Approx( chunk.EB()[1] ) );
-  CHECK( 7.000000e+4 == Approx( chunk.ENU()[1] ) );
-  CHECK( 1.500000e+5 == Approx( chunk.ER()[1] ) );
-  CHECK( 1.300000e+5 == Approx( chunk.ET()[1] ) );
+  CHECK_THAT( 4.900000e+5, WithinRel( chunk.EFR()[1] ) );
+  CHECK_THAT( 7.000000e+4, WithinRel( chunk.ENP()[1] ) );
+  CHECK_THAT( 1.110000e+3, WithinRel( chunk.END()[1] ) );
+  CHECK_THAT( 5.000000e+5, WithinRel( chunk.EGP()[1] ) );
+  CHECK_THAT( 5.000000e+4, WithinRel( chunk.EGD()[1] ) );
+  CHECK_THAT( 5.100000e+4, WithinRel( chunk.EB()[1] ) );
+  CHECK_THAT( 7.000000e+4, WithinRel( chunk.ENU()[1] ) );
+  CHECK_THAT( 1.500000e+5, WithinRel( chunk.ER()[1] ) );
+  CHECK_THAT( 1.300000e+5, WithinRel( chunk.ET()[1] ) );
 
-  CHECK( 1.691300e+8 == Approx( chunk.fissionFragments()[0] ) );
-  CHECK( 4.838000e+6 == Approx( chunk.promptNeutrons()[0] ) );
-  CHECK( 7.400000e+3 == Approx( chunk.delayedNeutrons()[0] ) );
-  CHECK( 6.600000e+6 == Approx( chunk.promptGammas()[0] ) );
-  CHECK( 6.330000e+6 == Approx( chunk.delayedGammas()[0] ) );
-  CHECK( 6.500000e+6 == Approx( chunk.delayedBetas()[0] ) );
-  CHECK( 8.750000e+6 == Approx( chunk.neutrinos()[0] ) );
-  CHECK( 1.934054e+8 == Approx( chunk.totalMinusNeutrinos()[0] ) );
-  CHECK( 2.021554e+8 == Approx( chunk.total()[0] ) );
+  CHECK_THAT( 1.691300e+8, WithinRel( chunk.fissionFragments()[0] ) );
+  CHECK_THAT( 4.838000e+6, WithinRel( chunk.promptNeutrons()[0] ) );
+  CHECK_THAT( 7.400000e+3, WithinRel( chunk.delayedNeutrons()[0] ) );
+  CHECK_THAT( 6.600000e+6, WithinRel( chunk.promptGammas()[0] ) );
+  CHECK_THAT( 6.330000e+6, WithinRel( chunk.delayedGammas()[0] ) );
+  CHECK_THAT( 6.500000e+6, WithinRel( chunk.delayedBetas()[0] ) );
+  CHECK_THAT( 8.750000e+6, WithinRel( chunk.neutrinos()[0] ) );
+  CHECK_THAT( 1.934054e+8, WithinRel( chunk.totalMinusNeutrinos()[0] ) );
+  CHECK_THAT( 2.021554e+8, WithinRel( chunk.total()[0] ) );
 
-  CHECK( 4.900000e+5 == Approx( chunk.fissionFragments()[1] ) );
-  CHECK( 7.000000e+4 == Approx( chunk.promptNeutrons()[1] ) );
-  CHECK( 1.110000e+3 == Approx( chunk.delayedNeutrons()[1] ) );
-  CHECK( 5.000000e+5 == Approx( chunk.promptGammas()[1] ) );
-  CHECK( 5.000000e+4 == Approx( chunk.delayedGammas()[1] ) );
-  CHECK( 5.100000e+4 == Approx( chunk.delayedBetas()[1] ) );
-  CHECK( 7.000000e+4 == Approx( chunk.neutrinos()[1] ) );
-  CHECK( 1.500000e+5 == Approx( chunk.totalMinusNeutrinos()[1] ) );
-  CHECK( 1.300000e+5 == Approx( chunk.total()[1] ) );
+  CHECK_THAT( 4.900000e+5, WithinRel( chunk.fissionFragments()[1] ) );
+  CHECK_THAT( 7.000000e+4, WithinRel( chunk.promptNeutrons()[1] ) );
+  CHECK_THAT( 1.110000e+3, WithinRel( chunk.delayedNeutrons()[1] ) );
+  CHECK_THAT( 5.000000e+5, WithinRel( chunk.promptGammas()[1] ) );
+  CHECK_THAT( 5.000000e+4, WithinRel( chunk.delayedGammas()[1] ) );
+  CHECK_THAT( 5.100000e+4, WithinRel( chunk.delayedBetas()[1] ) );
+  CHECK_THAT( 7.000000e+4, WithinRel( chunk.neutrinos()[1] ) );
+  CHECK_THAT( 1.500000e+5, WithinRel( chunk.totalMinusNeutrinos()[1] ) );
+  CHECK_THAT( 1.300000e+5, WithinRel( chunk.total()[1] ) );
 
   CHECK( 4 == chunk.NC() );
 }

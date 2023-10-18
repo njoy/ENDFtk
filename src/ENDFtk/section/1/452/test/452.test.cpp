@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/1/452.hpp"
 
 // other includes
@@ -208,8 +211,8 @@ void verifyChunkLNU1( const section::Type< 1, 452 >& chunk ) {
   CHECK( 452 == chunk.MT() );
   CHECK( 452 == chunk.sectionNumber() );
   CHECK( 92235 == chunk.ZA() );
-  CHECK( 233.0248 == Approx( chunk.atomicWeightRatio() ) );
-  CHECK( 233.0248 == Approx( chunk.AWR() ) );
+  CHECK_THAT( 233.0248, WithinRel( chunk.atomicWeightRatio() ) );
+  CHECK_THAT( 233.0248, WithinRel( chunk.AWR() ) );
   CHECK( 1 == chunk.LNU() );
   CHECK( 1 == chunk.representation() );
 
@@ -222,10 +225,10 @@ void verifyChunkLNU1( const section::Type< 1, 452 >& chunk ) {
   CHECK( 2 == nubar.numberCoefficients() );
   CHECK( 2 == nubar.C().size() );
   CHECK( 2 == nubar.coefficients().size() );
-  CHECK( 2.4367 == Approx( nubar.C()[0] ) );
-  CHECK( 5e-2 == Approx( nubar.C()[1] ) );
-  CHECK( 2.4367 == Approx( nubar.coefficients()[0] ) );
-  CHECK( 5e-2 == Approx( nubar.coefficients()[1] ) );
+  CHECK_THAT( 2.4367, WithinRel( nubar.C()[0] ) );
+  CHECK_THAT( 5e-2, WithinRel( nubar.C()[1] ) );
+  CHECK_THAT( 2.4367, WithinRel( nubar.coefficients()[0] ) );
+  CHECK_THAT( 5e-2, WithinRel( nubar.coefficients()[1] ) );
 
   CHECK( 3 == chunk.NC() );
 }
@@ -244,8 +247,8 @@ void verifyChunkLNU2( const section::Type< 1, 452 >& chunk ) {
   CHECK( 452 == chunk.MT() );
   CHECK( 452 == chunk.sectionNumber() );
   CHECK( 92235 == chunk.ZA() );
-  CHECK( 233.0248 == Approx( chunk.atomicWeightRatio() ) );
-  CHECK( 233.0248 == Approx( chunk.AWR() ) );
+  CHECK_THAT( 233.0248, WithinRel( chunk.atomicWeightRatio() ) );
+  CHECK_THAT( 233.0248, WithinRel( chunk.AWR() ) );
   CHECK( 2 == chunk.LNU() );
   CHECK( 2 == chunk.representation() );
 
@@ -265,22 +268,22 @@ void verifyChunkLNU2( const section::Type< 1, 452 >& chunk ) {
   CHECK( 4 == nubar.energies().size() );
   CHECK( 4 == nubar.NU().size() );
   CHECK( 4 == nubar.multiplicities().size() );
-  CHECK( 1e-5 == Approx( nubar.E()[0] ) );
-  CHECK( 0.0253 == Approx( nubar.E()[1] ) );
-  CHECK( 0.05 == Approx( nubar.E()[2] ) );
-  CHECK( 2e+7 == Approx( nubar.E()[3] ) );
-  CHECK( 1e-5 == Approx( nubar.energies()[0] ) );
-  CHECK( 0.0253 == Approx( nubar.energies()[1] ) );
-  CHECK( 0.05 == Approx( nubar.energies()[2] ) );
-  CHECK( 2e+7 == Approx( nubar.energies()[3] ) );
-  CHECK( 2.4367 == Approx( nubar.NU()[0] ) );
-  CHECK( 2.4367 == Approx( nubar.NU()[1] ) );
-  CHECK( 2.4367 == Approx( nubar.NU()[2] ) );
-  CHECK( 5.209845 == Approx( nubar.NU()[3] ) );
-  CHECK( 2.4367 == Approx( nubar.multiplicities()[0] ) );
-  CHECK( 2.4367 == Approx( nubar.multiplicities()[1] ) );
-  CHECK( 2.4367 == Approx( nubar.multiplicities()[2] ) );
-  CHECK( 5.209845 == Approx( nubar.multiplicities()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( nubar.E()[0] ) );
+  CHECK_THAT( 0.0253, WithinRel( nubar.E()[1] ) );
+  CHECK_THAT( 0.05, WithinRel( nubar.E()[2] ) );
+  CHECK_THAT( 2e+7, WithinRel( nubar.E()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( nubar.energies()[0] ) );
+  CHECK_THAT( 0.0253, WithinRel( nubar.energies()[1] ) );
+  CHECK_THAT( 0.05, WithinRel( nubar.energies()[2] ) );
+  CHECK_THAT( 2e+7, WithinRel( nubar.energies()[3] ) );
+  CHECK_THAT( 2.4367, WithinRel( nubar.NU()[0] ) );
+  CHECK_THAT( 2.4367, WithinRel( nubar.NU()[1] ) );
+  CHECK_THAT( 2.4367, WithinRel( nubar.NU()[2] ) );
+  CHECK_THAT( 5.209845, WithinRel( nubar.NU()[3] ) );
+  CHECK_THAT( 2.4367, WithinRel( nubar.multiplicities()[0] ) );
+  CHECK_THAT( 2.4367, WithinRel( nubar.multiplicities()[1] ) );
+  CHECK_THAT( 2.4367, WithinRel( nubar.multiplicities()[2] ) );
+  CHECK_THAT( 5.209845, WithinRel( nubar.multiplicities()[3] ) );
 
   CHECK( 5 == chunk.NC() );
 }

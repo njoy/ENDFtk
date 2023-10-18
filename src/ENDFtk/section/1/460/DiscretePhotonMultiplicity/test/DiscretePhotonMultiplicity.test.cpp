@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/1/460.hpp"
 
 // other includes
@@ -83,8 +86,8 @@ std::string chunk() {
 
 void verifyChunk( const DiscretePhotonMultiplicity& chunk ) {
 
-  CHECK( 0.1 == Approx( chunk.E() ) );
-  CHECK( 0.1 == Approx( chunk.energy() ) );
+  CHECK_THAT( 0.1, WithinRel( chunk.E() ) );
+  CHECK_THAT( 0.1, WithinRel( chunk.energy() ) );
   CHECK( 1 == chunk.LPH() );
   CHECK( 1 == chunk.index() );
 
@@ -96,10 +99,10 @@ void verifyChunk( const DiscretePhotonMultiplicity& chunk ) {
   CHECK( 2 == chunk.boundaries()[0] );
   CHECK( 2 == chunk.time().size() );
   CHECK( 2 == chunk.multiplicities().size() );
-  CHECK( 0. == Approx( chunk.time()[0] ) );
-  CHECK( 4. == Approx( chunk.time()[1] ) );
-  CHECK( 4.877451e-1 == Approx( chunk.multiplicities()[0] ) );
-  CHECK( 1.715686e-1 == Approx( chunk.multiplicities()[1] ) );
+  CHECK_THAT( 0., WithinRel( chunk.time()[0] ) );
+  CHECK_THAT( 4., WithinRel( chunk.time()[1] ) );
+  CHECK_THAT( 4.877451e-1, WithinRel( chunk.multiplicities()[0] ) );
+  CHECK_THAT( 1.715686e-1, WithinRel( chunk.multiplicities()[1] ) );
 
   CHECK( 3 == chunk.NC() );
 }

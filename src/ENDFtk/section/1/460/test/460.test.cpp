@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/1/460.hpp"
 
 // other includes
@@ -232,8 +235,8 @@ void verifyChunkLO1( const section::Type< 1, 460 >& chunk ) {
   CHECK( 460 == chunk.MT() );
   CHECK( 460 == chunk.sectionNumber() );
   CHECK( 92235 == chunk.ZA() );
-  CHECK( 233.0248 == Approx( chunk.atomicWeightRatio() ) );
-  CHECK( 233.0248 == Approx( chunk.AWR() ) );
+  CHECK_THAT( 233.0248, WithinRel( chunk.atomicWeightRatio() ) );
+  CHECK_THAT( 233.0248, WithinRel( chunk.AWR() ) );
   CHECK( 1 == chunk.LO() );
   CHECK( 1 == chunk.representation() );
   CHECK( 2 == chunk.NG() );
@@ -248,7 +251,7 @@ void verifyChunkLO1( const section::Type< 1, 460 >& chunk ) {
 
   CHECK( 2 == photons.photons().size() );
 
-  CHECK( 0.1 == Approx( photons.photons()[0].E() ) );
+  CHECK_THAT( 0.1, WithinRel( photons.photons()[0].E() ) );
   CHECK( 1 == photons.photons()[0].index() );
   CHECK( 1 == photons.photons()[0].NR() );
   CHECK( 2 == photons.photons()[0].NP() );
@@ -258,12 +261,12 @@ void verifyChunkLO1( const section::Type< 1, 460 >& chunk ) {
   CHECK( 2 == photons.photons()[0].boundaries()[0] );
   CHECK( 2 == photons.photons()[0].time().size() );
   CHECK( 2 == photons.photons()[0].multiplicities().size() );
-  CHECK( 0. == Approx( photons.photons()[0].time()[0] ) );
-  CHECK( 4. == Approx( photons.photons()[0].time()[1] ) );
-  CHECK( 4.877451e-1 == Approx( photons.photons()[0].multiplicities()[0] ) );
-  CHECK( 1.715686e-1 == Approx( photons.photons()[0].multiplicities()[1] ) );
+  CHECK_THAT( 0., WithinRel( photons.photons()[0].time()[0] ) );
+  CHECK_THAT( 4., WithinRel( photons.photons()[0].time()[1] ) );
+  CHECK_THAT( 4.877451e-1, WithinRel( photons.photons()[0].multiplicities()[0] ) );
+  CHECK_THAT( 1.715686e-1, WithinRel( photons.photons()[0].multiplicities()[1] ) );
 
-  CHECK( 0.2 == Approx( photons.photons()[1].E() ) );
+  CHECK_THAT( 0.2, WithinRel( photons.photons()[1].E() ) );
   CHECK( 2 == photons.photons()[1].index() );
   CHECK( 1 == photons.photons()[1].NR() );
   CHECK( 3 == photons.photons()[1].NP() );
@@ -273,12 +276,12 @@ void verifyChunkLO1( const section::Type< 1, 460 >& chunk ) {
   CHECK( 3 == photons.photons()[1].boundaries()[0] );
   CHECK( 3 == photons.photons()[1].time().size() );
   CHECK( 3 == photons.photons()[1].multiplicities().size() );
-  CHECK( 0. == Approx( photons.photons()[1].time()[0] ) );
-  CHECK( 5. == Approx( photons.photons()[1].time()[1] ) );
-  CHECK( 9. == Approx( photons.photons()[1].time()[2] ) );
-  CHECK( 1.691176e-1 == Approx( photons.photons()[1].multiplicities()[0] ) );
-  CHECK( 2.450980e-3 == Approx( photons.photons()[1].multiplicities()[1] ) );
-  CHECK( 1.691176e-1 == Approx( photons.photons()[1].multiplicities()[2] ) );
+  CHECK_THAT( 0., WithinRel( photons.photons()[1].time()[0] ) );
+  CHECK_THAT( 5., WithinRel( photons.photons()[1].time()[1] ) );
+  CHECK_THAT( 9., WithinRel( photons.photons()[1].time()[2] ) );
+  CHECK_THAT( 1.691176e-1, WithinRel( photons.photons()[1].multiplicities()[0] ) );
+  CHECK_THAT( 2.450980e-3, WithinRel( photons.photons()[1].multiplicities()[1] ) );
+  CHECK_THAT( 1.691176e-1, WithinRel( photons.photons()[1].multiplicities()[2] ) );
 
   CHECK( 7 == chunk.NC() );
 }
@@ -295,8 +298,8 @@ void verifyChunkLO2( const section::Type< 1, 460 >& chunk ) {
   CHECK( 460 == chunk.MT() );
   CHECK( 460 == chunk.sectionNumber() );
   CHECK( 92235 == chunk.ZA() );
-  CHECK( 233.0248 == Approx( chunk.atomicWeightRatio() ) );
-  CHECK( 233.0248 == Approx( chunk.AWR() ) );
+  CHECK_THAT( 233.0248, WithinRel( chunk.atomicWeightRatio() ) );
+  CHECK_THAT( 233.0248, WithinRel( chunk.AWR() ) );
   CHECK( 2 == chunk.LO() );
   CHECK( 2 == chunk.representation() );
   CHECK( 0 == chunk.NG() );
@@ -313,18 +316,18 @@ void verifyChunkLO2( const section::Type< 1, 460 >& chunk ) {
 
   CHECK( 6 == photons.lambdas().size() );
   CHECK( 6 == photons.decayConstants().size() );
-  CHECK( 0.013336 == Approx( photons.lambdas()[0] ) );
-  CHECK( 0.032739 == Approx( photons.lambdas()[1] ) );
-  CHECK( 0.12078 == Approx( photons.lambdas()[2] ) );
-  CHECK( 0.30278 == Approx( photons.lambdas()[3] ) );
-  CHECK( 0.84949 == Approx( photons.lambdas()[4] ) );
-  CHECK( 2.853000 == Approx( photons.lambdas()[5] ) );
-  CHECK( 0.013336 == Approx( photons.decayConstants()[0] ) );
-  CHECK( 0.032739 == Approx( photons.decayConstants()[1] ) );
-  CHECK( 0.12078 == Approx( photons.decayConstants()[2] ) );
-  CHECK( 0.30278 == Approx( photons.decayConstants()[3] ) );
-  CHECK( 0.84949 == Approx( photons.decayConstants()[4] ) );
-  CHECK( 2.853000 == Approx( photons.decayConstants()[5] ) );
+  CHECK_THAT( 0.013336, WithinRel( photons.lambdas()[0] ) );
+  CHECK_THAT( 0.032739, WithinRel( photons.lambdas()[1] ) );
+  CHECK_THAT( 0.12078, WithinRel( photons.lambdas()[2] ) );
+  CHECK_THAT( 0.30278, WithinRel( photons.lambdas()[3] ) );
+  CHECK_THAT( 0.84949, WithinRel( photons.lambdas()[4] ) );
+  CHECK_THAT( 2.853000, WithinRel( photons.lambdas()[5] ) );
+  CHECK_THAT( 0.013336, WithinRel( photons.decayConstants()[0] ) );
+  CHECK_THAT( 0.032739, WithinRel( photons.decayConstants()[1] ) );
+  CHECK_THAT( 0.12078, WithinRel( photons.decayConstants()[2] ) );
+  CHECK_THAT( 0.30278, WithinRel( photons.decayConstants()[3] ) );
+  CHECK_THAT( 0.84949, WithinRel( photons.decayConstants()[4] ) );
+  CHECK_THAT( 2.853000, WithinRel( photons.decayConstants()[5] ) );
 
   CHECK( 3 == chunk.NC() );
 }
