@@ -29,7 +29,7 @@ FetchContent_Declare( spdlog
     GIT_REPOSITORY  https://github.com/gabime/spdlog
     GIT_TAG         ad0e89cbfb4d0c1ce4d097e134eb7be67baebb36 # tag: v1.11.0
     )
-set( SPDLOG_BUILD_TESTING CACHE BOOL OFF )
+set( SPDLOG_BUILD_PIC CACHE INTERNAL BOOL ON )
 
 FetchContent_Declare( tools
     GIT_REPOSITORY  https://github.com/njoy/tools
