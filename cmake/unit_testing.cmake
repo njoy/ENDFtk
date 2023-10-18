@@ -5,7 +5,7 @@
 message( STATUS "Adding ENDFtk unit testing" )
 enable_testing()
 
-FetchContent_MakeAvailable( catch-adapter )
+FetchContent_MakeAvailable( Catch2 )
 
 function( add_cpp_test name source )
 
@@ -13,7 +13,7 @@ function( add_cpp_test name source )
   add_executable( ${test_name} ${source} )
   add_test( NAME ${test_name} COMMAND ${test_name} )
   target_link_libraries( ${test_name} PRIVATE ENDFtk )
-  target_link_libraries( ${test_name} PRIVATE catch-adapter )
+  target_link_libraries( ${test_name} PRIVATE Catch2::Catch2WithMain )
 
   file( GLOB resources "resources/*" )
   foreach( resource ${resources} )

@@ -11,9 +11,9 @@ FetchContent_Declare( tools
     GIT_SHALLOW     TRUE
     )
 
-FetchContent_Declare( catch-adapter
-    GIT_REPOSITORY  https://github.com/njoy/catch-adapter
-    GIT_TAG         origin/master
+FetchContent_Declare( Catch2
+    GIT_REPOSITORY  https://github.com/catchorg/Catch2
+    GIT_TAG         v3.3.2
     GIT_SHALLOW     TRUE
     )
 
