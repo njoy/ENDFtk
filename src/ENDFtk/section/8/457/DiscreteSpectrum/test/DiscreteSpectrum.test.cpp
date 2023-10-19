@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/8/457.hpp"
 
 // other includes
@@ -216,32 +219,32 @@ void verifyChunkWithSTYPNotZeroOrTwo( const DiscreteSpectrum& chunk )
   CHECK( 3. == chunk.RTYP() );
   CHECK( 3. == chunk.decayChain() );
   CHECK( 4 == chunk.NT() );
-  CHECK( 4.863000e+4 == Approx( chunk.ER()[0] ) );
-  CHECK( 5.000000e+1 == Approx( chunk.ER()[1] ) );
-  CHECK( 4.863000e+4 == Approx( chunk.discreteEnergy()[0] ) );
-  CHECK( 5.000000e+1 == Approx( chunk.discreteEnergy()[1] ) );
-  CHECK( 1.420112e-6 == Approx( chunk.RI()[0] ) );
-  CHECK( 2.85306e-10 == Approx( chunk.RI()[1] ) );
-  CHECK( 1.420112e-6 == Approx( chunk.relativeIntensity()[0] ) );
-  CHECK( 2.85306e-10 == Approx( chunk.relativeIntensity()[1] ) );
+  CHECK_THAT( 4.863000e+4, WithinRel( chunk.ER()[0] ) );
+  CHECK_THAT( 5.000000e+1, WithinRel( chunk.ER()[1] ) );
+  CHECK_THAT( 4.863000e+4, WithinRel( chunk.discreteEnergy()[0] ) );
+  CHECK_THAT( 5.000000e+1, WithinRel( chunk.discreteEnergy()[1] ) );
+  CHECK_THAT( 1.420112e-6, WithinRel( chunk.RI()[0] ) );
+  CHECK_THAT( 2.85306e-10, WithinRel( chunk.RI()[1] ) );
+  CHECK_THAT( 1.420112e-6, WithinRel( chunk.relativeIntensity()[0] ) );
+  CHECK_THAT( 2.85306e-10, WithinRel( chunk.relativeIntensity()[1] ) );
   CHECK( 0. == chunk.TYPE() );
   CHECK( 0. == chunk.type() );
-  CHECK( 0.0 == Approx( chunk.RIS()[0] ) );
-  CHECK( 0.0 == Approx( chunk.RIS()[1] ) );
-  CHECK( 0.0 == Approx( chunk.internalPairFormationCoefficient()[0] ) );
-  CHECK( 0.0 == Approx( chunk.internalPairFormationCoefficient()[1] ) );
-  CHECK( 0.0 == Approx( chunk.RICC()[0] ) );
-  CHECK( 0.0 == Approx( chunk.RICC()[1] ) );
-  CHECK( 0.0 == Approx( chunk.totalInternalConversionCoefficient()[0] ) );
-  CHECK( 0.0 == Approx( chunk.totalInternalConversionCoefficient()[1] ) );
-  CHECK( 0.0 == Approx( chunk.RICK()[0] ) );
-  CHECK( 0.0 == Approx( chunk.RICK()[1] ) );
-  CHECK( 0.0 == Approx( chunk.internalConversionCoefficientKShell()[0] ) );
-  CHECK( 0.0 == Approx( chunk.internalConversionCoefficientKShell()[1] ) );
-  CHECK( 0.0 == Approx( chunk.RICL()[0] ) );
-  CHECK( 0.0 == Approx( chunk.RICL()[1] ) );
-  CHECK( 0.0 == Approx( chunk.internalConversionCoefficientLShell()[0] ) );
-  CHECK( 0.0 == Approx( chunk.internalConversionCoefficientLShell()[1] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.RIS()[0] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.RIS()[1] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.internalPairFormationCoefficient()[0] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.internalPairFormationCoefficient()[1] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.RICC()[0] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.RICC()[1] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.totalInternalConversionCoefficient()[0] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.totalInternalConversionCoefficient()[1] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.RICK()[0] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.RICK()[1] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.internalConversionCoefficientKShell()[0] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.internalConversionCoefficientKShell()[1] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.RICL()[0] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.RICL()[1] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.internalConversionCoefficientLShell()[0] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.internalConversionCoefficientLShell()[1] ) );
 
   CHECK( 2 == chunk.NC() );
 }
@@ -257,32 +260,32 @@ void verifyChunkWithSTYPTwo( const DiscreteSpectrum& chunk )
   CHECK( 3. == chunk.RTYP() );
   CHECK( 3. == chunk.decayChain() );
   CHECK( 6 == chunk.NT() );
-  CHECK( 4.863000e+4 == Approx( chunk.discreteEnergy()[0] ) );
-  CHECK( 5.000000e+1 == Approx( chunk.discreteEnergy()[1] ) );
-  CHECK( 4.863000e+4 == Approx( chunk.ER()[0] ) );
-  CHECK( 5.000000e+1 == Approx( chunk.ER()[1] ) );
-  CHECK( 1.420112e-6 == Approx( chunk.relativeIntensity()[0] ) );
-  CHECK( 2.85306e-10 == Approx( chunk.relativeIntensity()[1] ) );
-  CHECK( 1.420112e-6 == Approx( chunk.RI()[0] ) );
-  CHECK( 2.85306e-10 == Approx( chunk.RI()[1] ) );
+  CHECK_THAT( 4.863000e+4, WithinRel( chunk.discreteEnergy()[0] ) );
+  CHECK_THAT( 5.000000e+1, WithinRel( chunk.discreteEnergy()[1] ) );
+  CHECK_THAT( 4.863000e+4, WithinRel( chunk.ER()[0] ) );
+  CHECK_THAT( 5.000000e+1, WithinRel( chunk.ER()[1] ) );
+  CHECK_THAT( 1.420112e-6, WithinRel( chunk.relativeIntensity()[0] ) );
+  CHECK_THAT( 2.85306e-10, WithinRel( chunk.relativeIntensity()[1] ) );
+  CHECK_THAT( 1.420112e-6, WithinRel( chunk.RI()[0] ) );
+  CHECK_THAT( 2.85306e-10, WithinRel( chunk.RI()[1] ) );
   CHECK( 0. == chunk.TYPE() );
   CHECK( 0. == chunk.type() );
-  CHECK( 1.0 == Approx( chunk.RIS()[0] ) );
-  CHECK( 2.0 == Approx( chunk.RIS()[1] ) );
-  CHECK( 1.0 == Approx( chunk.internalPairFormationCoefficient()[0] ) );
-  CHECK( 2.0 == Approx( chunk.internalPairFormationCoefficient()[1] ) );
-  CHECK( 0.0 == Approx( chunk.RICC()[0] ) );
-  CHECK( 0.0 == Approx( chunk.RICC()[1] ) );
-  CHECK( 0.0 == Approx( chunk.totalInternalConversionCoefficient()[0] ) );
-  CHECK( 0.0 == Approx( chunk.totalInternalConversionCoefficient()[1] ) );
-  CHECK( 0.0 == Approx( chunk.RICK()[0] ) );
-  CHECK( 0.0 == Approx( chunk.RICK()[1] ) );
-  CHECK( 0.0 == Approx( chunk.internalConversionCoefficientKShell()[0] ) );
-  CHECK( 0.0 == Approx( chunk.internalConversionCoefficientKShell()[1] ) );
-  CHECK( 0.0 == Approx( chunk.RICL()[0] ) );
-  CHECK( 0.0 == Approx( chunk.RICL()[1] ) );
-  CHECK( 0.0 == Approx( chunk.internalConversionCoefficientLShell()[0] ) );
-  CHECK( 0.0 == Approx( chunk.internalConversionCoefficientLShell()[1] ) );
+  CHECK_THAT( 1.0, WithinRel( chunk.RIS()[0] ) );
+  CHECK_THAT( 2.0, WithinRel( chunk.RIS()[1] ) );
+  CHECK_THAT( 1.0, WithinRel( chunk.internalPairFormationCoefficient()[0] ) );
+  CHECK_THAT( 2.0, WithinRel( chunk.internalPairFormationCoefficient()[1] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.RICC()[0] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.RICC()[1] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.totalInternalConversionCoefficient()[0] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.totalInternalConversionCoefficient()[1] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.RICK()[0] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.RICK()[1] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.internalConversionCoefficientKShell()[0] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.internalConversionCoefficientKShell()[1] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.RICL()[0] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.RICL()[1] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.internalConversionCoefficientLShell()[0] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.internalConversionCoefficientLShell()[1] ) );
 
   CHECK( 2 == chunk.NC() );
 }
@@ -299,31 +302,31 @@ void verifyChunkWithSTYPZero( const DiscreteSpectrum& chunk )
   CHECK( 3. == chunk.RTYP() );
   CHECK( 3. == chunk.decayChain() );
   CHECK( 12 == chunk.NT() );
-  CHECK( 4.863000e+4 == Approx( chunk.ER()[0] ) );
-  CHECK( 5.000000e+1 == Approx( chunk.ER()[1] ) );
-  CHECK( 4.863000e+4 == Approx( chunk.discreteEnergy()[0] ) );
-  CHECK( 5.000000e+1 == Approx( chunk.discreteEnergy()[1] ) );
-  CHECK( 1.420112e-6 == Approx( chunk.RI()[0] ) );
-  CHECK( 2.85306e-10 == Approx( chunk.RI()[1] ) );
-  CHECK( 1.420112e-6 == Approx( chunk.relativeIntensity()[0] ) );
-  CHECK( 2.85306e-10 == Approx( chunk.relativeIntensity()[1] ) );
+  CHECK_THAT( 4.863000e+4, WithinRel( chunk.ER()[0] ) );
+  CHECK_THAT( 5.000000e+1, WithinRel( chunk.ER()[1] ) );
+  CHECK_THAT( 4.863000e+4, WithinRel( chunk.discreteEnergy()[0] ) );
+  CHECK_THAT( 5.000000e+1, WithinRel( chunk.discreteEnergy()[1] ) );
+  CHECK_THAT( 1.420112e-6, WithinRel( chunk.RI()[0] ) );
+  CHECK_THAT( 2.85306e-10, WithinRel( chunk.RI()[1] ) );
+  CHECK_THAT( 1.420112e-6, WithinRel( chunk.relativeIntensity()[0] ) );
+  CHECK_THAT( 2.85306e-10, WithinRel( chunk.relativeIntensity()[1] ) );
   CHECK( 0. == chunk.type() );
-  CHECK( 1.0 == Approx( chunk.RIS()[0] ) );
-  CHECK( 2.0 == Approx( chunk.RIS()[1] ) );
-  CHECK( 1.0 == Approx( chunk.internalPairFormationCoefficient()[0] ) );
-  CHECK( 2.0 == Approx( chunk.internalPairFormationCoefficient()[1] ) );
-  CHECK( 7.010000e+5 == Approx( chunk.RICC()[0] ) );
-  CHECK( 1.106180e-2 == Approx( chunk.RICC()[1] ) );
-  CHECK( 7.010000e+5 == Approx( chunk.totalInternalConversionCoefficient()[0] ) );
-  CHECK( 1.106180e-2 == Approx( chunk.totalInternalConversionCoefficient()[1] ) );
-  CHECK( 1.378999e-1 == Approx( chunk.RICK()[0] ) );
-  CHECK( 2.000000e-3 == Approx( chunk.RICK()[1] ) );
-  CHECK( 1.378999e-1 == Approx( chunk.internalConversionCoefficientKShell()[0] ) );
-  CHECK( 2.000000e-3 == Approx( chunk.internalConversionCoefficientKShell()[1] ) );
-  CHECK( 3.315735e+5 == Approx( chunk.RICL()[0] ) );
-  CHECK( 5.608008e+3 == Approx( chunk.RICL()[1] ) );
-  CHECK( 3.315735e+5 == Approx( chunk.internalConversionCoefficientLShell()[0] ) );
-  CHECK( 5.608008e+3 == Approx( chunk.internalConversionCoefficientLShell()[1] ) );
+  CHECK_THAT( 1.0, WithinRel( chunk.RIS()[0] ) );
+  CHECK_THAT( 2.0, WithinRel( chunk.RIS()[1] ) );
+  CHECK_THAT( 1.0, WithinRel( chunk.internalPairFormationCoefficient()[0] ) );
+  CHECK_THAT( 2.0, WithinRel( chunk.internalPairFormationCoefficient()[1] ) );
+  CHECK_THAT( 7.010000e+5, WithinRel( chunk.RICC()[0] ) );
+  CHECK_THAT( 1.106180e-2, WithinRel( chunk.RICC()[1] ) );
+  CHECK_THAT( 7.010000e+5, WithinRel( chunk.totalInternalConversionCoefficient()[0] ) );
+  CHECK_THAT( 1.106180e-2, WithinRel( chunk.totalInternalConversionCoefficient()[1] ) );
+  CHECK_THAT( 1.378999e-1, WithinRel( chunk.RICK()[0] ) );
+  CHECK_THAT( 2.000000e-3, WithinRel( chunk.RICK()[1] ) );
+  CHECK_THAT( 1.378999e-1, WithinRel( chunk.internalConversionCoefficientKShell()[0] ) );
+  CHECK_THAT( 2.000000e-3, WithinRel( chunk.internalConversionCoefficientKShell()[1] ) );
+  CHECK_THAT( 3.315735e+5, WithinRel( chunk.RICL()[0] ) );
+  CHECK_THAT( 5.608008e+3, WithinRel( chunk.RICL()[1] ) );
+  CHECK_THAT( 3.315735e+5, WithinRel( chunk.internalConversionCoefficientLShell()[0] ) );
+  CHECK_THAT( 5.608008e+3, WithinRel( chunk.internalConversionCoefficientLShell()[1] ) );
 
   CHECK( 3 == chunk.NC() );
 }

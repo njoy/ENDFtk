@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/9.hpp"
 
 // other includes
@@ -138,8 +141,8 @@ void verifyChunk( const section::Type< 9 >& chunk ) {
 
   CHECK( 102 == chunk.MT() );
   CHECK( 95241 == chunk.ZA() );
-  CHECK( 2.389860e+2 == Approx( chunk.AWR() ) );
-  CHECK( 2.389860e+2 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK_THAT( 2.389860e+2, WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 2.389860e+2, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 0 == chunk.LIS() );
   CHECK( 0 == chunk.excitedLevel() );
   CHECK( 2 == chunk.NS() );
@@ -148,10 +151,10 @@ void verifyChunk( const section::Type< 9 >& chunk ) {
   CHECK( 2 == chunk.reactionProducts().size() );
 
   auto product = chunk.reactionProducts()[0];
-  CHECK( 5.537755e+6 == Approx( product.QM() ) );
-  CHECK( 5.537755e+6 == Approx( product.massDifferenceQValue() ) );
-  CHECK( 5.537755e+6 == Approx( product.QI() ) );
-  CHECK( 5.537755e+6 == Approx( product.reactionQValue() ) );
+  CHECK_THAT( 5.537755e+6, WithinRel( product.QM() ) );
+  CHECK_THAT( 5.537755e+6, WithinRel( product.massDifferenceQValue() ) );
+  CHECK_THAT( 5.537755e+6, WithinRel( product.QI() ) );
+  CHECK_THAT( 5.537755e+6, WithinRel( product.reactionQValue() ) );
   CHECK( 95242 == product.IZAP() );
   CHECK( 95242 == product.productIdentifier() );
   CHECK( 0 == product.LFS() );
@@ -166,20 +169,20 @@ void verifyChunk( const section::Type< 9 >& chunk ) {
   CHECK( 2 == product.energies().size() );
   CHECK( 2 == product.Y().size() );
   CHECK( 2 == product.multiplicities().size() );
-  CHECK( 1e-5 == Approx( product.E()[0] ) );
-  CHECK( 3e+7 == Approx( product.E()[1] ) );
-  CHECK( 1e-5 == Approx( product.energies()[0] ) );
-  CHECK( 3e+7 == Approx( product.energies()[1] ) );
-  CHECK( 0.9 == Approx( product.Y()[0] ) );
-  CHECK( 0.52 == Approx( product.Y()[1] ) );
-  CHECK( 0.9 == Approx( product.multiplicities()[0] ) );
-  CHECK( 0.52 == Approx( product.multiplicities()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( product.E()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( product.E()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( product.energies()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( product.energies()[1] ) );
+  CHECK_THAT( 0.9, WithinRel( product.Y()[0] ) );
+  CHECK_THAT( 0.52, WithinRel( product.Y()[1] ) );
+  CHECK_THAT( 0.9, WithinRel( product.multiplicities()[0] ) );
+  CHECK_THAT( 0.52, WithinRel( product.multiplicities()[1] ) );
 
   product = chunk.reactionProducts()[1];
-  CHECK( 5.537755e+6 == Approx( product.QM() ) );
-  CHECK( 5.537755e+6 == Approx( product.massDifferenceQValue() ) );
-  CHECK( 5.489125e+6 == Approx( product.QI() ) );
-  CHECK( 5.489125e+6 == Approx( product.reactionQValue() ) );
+  CHECK_THAT( 5.537755e+6, WithinRel( product.QM() ) );
+  CHECK_THAT( 5.537755e+6, WithinRel( product.massDifferenceQValue() ) );
+  CHECK_THAT( 5.489125e+6, WithinRel( product.QI() ) );
+  CHECK_THAT( 5.489125e+6, WithinRel( product.reactionQValue() ) );
   CHECK( 95242 == product.IZAP() );
   CHECK( 95242 == product.productIdentifier() );
   CHECK( 2 == product.LFS() );
@@ -194,14 +197,14 @@ void verifyChunk( const section::Type< 9 >& chunk ) {
   CHECK( 2 == product.energies().size() );
   CHECK( 2 == product.Y().size() );
   CHECK( 2 == product.multiplicities().size() );
-  CHECK( 1e-5 == Approx( product.E()[0] ) );
-  CHECK( 3e+7 == Approx( product.E()[1] ) );
-  CHECK( 1e-5 == Approx( product.energies()[0] ) );
-  CHECK( 3e+7 == Approx( product.energies()[1] ) );
-  CHECK( 0.1 == Approx( product.Y()[0] ) );
-  CHECK( 0.48 == Approx( product.Y()[1] ) );
-  CHECK( 0.1 == Approx( product.multiplicities()[0] ) );
-  CHECK( 0.48 == Approx( product.multiplicities()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( product.E()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( product.E()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( product.energies()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( product.energies()[1] ) );
+  CHECK_THAT( 0.1, WithinRel( product.Y()[0] ) );
+  CHECK_THAT( 0.48, WithinRel( product.Y()[1] ) );
+  CHECK_THAT( 0.1, WithinRel( product.multiplicities()[0] ) );
+  CHECK_THAT( 0.48, WithinRel( product.multiplicities()[1] ) );
 
   CHECK( 7 == chunk.NC() );
 }
