@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/6.hpp"
 
 // other includes
@@ -121,7 +124,7 @@ SCENARIO( "Multiplicity" ) {
 } // SCENARIO
 
 std::string chunk() {
-  
+
   return
     " 1.001000+3 9.986234-1          0          1          1          49228 6  5     \n"
     "          4          2                                            9228 6  5     \n"
@@ -131,10 +134,10 @@ std::string chunk() {
 
 void verifyChunk( const Multiplicity& chunk ) {
 
-  CHECK( 1001. == Approx( chunk.ZAP() ) );
-  CHECK( 1001. == Approx( chunk.productIdentifier() ) );
-  CHECK( 0.9986234 == Approx( chunk.AWP() ) );
-  CHECK( 0.9986234 == Approx( chunk.productWeightRatio() ) );
+  CHECK_THAT( 1001., WithinRel( chunk.ZAP() ) );
+  CHECK_THAT( 1001., WithinRel( chunk.productIdentifier() ) );
+  CHECK_THAT( 0.9986234, WithinRel( chunk.AWP() ) );
+  CHECK_THAT( 0.9986234, WithinRel( chunk.productWeightRatio() ) );
   CHECK( 0 == chunk.LIP() );
   CHECK( 0 == chunk.productModifierFlag() );
   CHECK( 1 == chunk.LAW() );
@@ -149,22 +152,22 @@ void verifyChunk( const Multiplicity& chunk ) {
   CHECK( 4 == chunk.energies().size() );
   CHECK( 4 == chunk.Y().size() );
   CHECK( 4 == chunk.multiplicities().size() );
-  CHECK( 1e-5 == Approx( chunk.E()[0] ) );
-  CHECK( 1.1e+7 == Approx( chunk.E()[1] ) );
-  CHECK( 1.147e+7 == Approx( chunk.E()[2] ) );
-  CHECK( 3e+7 == Approx( chunk.E()[3] ) );
-  CHECK( 1e-5 == Approx( chunk.energies()[0] ) );
-  CHECK( 1.1e+7 == Approx( chunk.energies()[1] ) );
-  CHECK( 1.147e+7 == Approx( chunk.energies()[2] ) );
-  CHECK( 3e+7 == Approx( chunk.energies()[3] ) );
-  CHECK( 0. == Approx( chunk.Y()[0] ) );
-  CHECK( 8.45368e-11 == Approx( chunk.Y()[1] ) );
-  CHECK( 6.622950e-8 == Approx( chunk.Y()[2] ) );
-  CHECK( 2.149790e-1 == Approx( chunk.Y()[3] ) );
-  CHECK( 0. == Approx( chunk.multiplicities()[0] ) );
-  CHECK( 8.45368e-11 == Approx( chunk.multiplicities()[1] ) );
-  CHECK( 6.622950e-8 == Approx( chunk.multiplicities()[2] ) );
-  CHECK( 2.149790e-1 == Approx( chunk.multiplicities()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.E()[0] ) );
+  CHECK_THAT( 1.1e+7, WithinRel( chunk.E()[1] ) );
+  CHECK_THAT( 1.147e+7, WithinRel( chunk.E()[2] ) );
+  CHECK_THAT( 3e+7, WithinRel( chunk.E()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.energies()[0] ) );
+  CHECK_THAT( 1.1e+7, WithinRel( chunk.energies()[1] ) );
+  CHECK_THAT( 1.147e+7, WithinRel( chunk.energies()[2] ) );
+  CHECK_THAT( 3e+7, WithinRel( chunk.energies()[3] ) );
+  CHECK_THAT( 0., WithinRel( chunk.Y()[0] ) );
+  CHECK_THAT( 8.45368e-11, WithinRel( chunk.Y()[1] ) );
+  CHECK_THAT( 6.622950e-8, WithinRel( chunk.Y()[2] ) );
+  CHECK_THAT( 2.149790e-1, WithinRel( chunk.Y()[3] ) );
+  CHECK_THAT( 0., WithinRel( chunk.multiplicities()[0] ) );
+  CHECK_THAT( 8.45368e-11, WithinRel( chunk.multiplicities()[1] ) );
+  CHECK_THAT( 6.622950e-8, WithinRel( chunk.multiplicities()[2] ) );
+  CHECK_THAT( 2.149790e-1, WithinRel( chunk.multiplicities()[3] ) );
 
   CHECK( 4 == chunk.NC() );
 }

@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/5.hpp"
 
 // other includes
@@ -128,16 +131,16 @@ void verifyChunk( const DistributionFunction& chunk ) {
   CHECK( 5 == chunk.boundaries()[0] );
   CHECK( 5 == chunk.X().size() );
   CHECK( 5 == chunk.G().size() );
-  CHECK( 1.0 == Approx( chunk.X()[0] ) );
-  CHECK( 2.0 == Approx( chunk.X()[1] ) );
-  CHECK( 3.0 == Approx( chunk.X()[2] ) );
-  CHECK( 4.0 == Approx( chunk.X()[3] ) );
-  CHECK( 5.0 == Approx( chunk.X()[4] ) );
-  CHECK( 6.0 == Approx( chunk.G()[0] ) );
-  CHECK( 7.0 == Approx( chunk.G()[1] ) );
-  CHECK( 8.0 == Approx( chunk.G()[2] ) );
-  CHECK( 9.0 == Approx( chunk.G()[3] ) );
-  CHECK( 10.0 == Approx( chunk.G()[4] ) );
+  CHECK_THAT( 1.0, WithinRel( chunk.X()[0] ) );
+  CHECK_THAT( 2.0, WithinRel( chunk.X()[1] ) );
+  CHECK_THAT( 3.0, WithinRel( chunk.X()[2] ) );
+  CHECK_THAT( 4.0, WithinRel( chunk.X()[3] ) );
+  CHECK_THAT( 5.0, WithinRel( chunk.X()[4] ) );
+  CHECK_THAT( 6.0, WithinRel( chunk.G()[0] ) );
+  CHECK_THAT( 7.0, WithinRel( chunk.G()[1] ) );
+  CHECK_THAT( 8.0, WithinRel( chunk.G()[2] ) );
+  CHECK_THAT( 9.0, WithinRel( chunk.G()[3] ) );
+  CHECK_THAT( 10.0, WithinRel( chunk.G()[4] ) );
 
   CHECK( 4 == chunk.NC() );
 }

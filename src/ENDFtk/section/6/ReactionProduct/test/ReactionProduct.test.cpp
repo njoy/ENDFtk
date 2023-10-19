@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/6.hpp"
 
 // other includes
@@ -826,18 +829,18 @@ std::string chunkWithLAW0() {
 
 void verifyChunkWithLAW0( const ReactionProduct& chunk ) {
 
-  CHECK( 1001. == Approx( chunk.ZAP() ) );
-  CHECK( 1001. == Approx( chunk.productIdentifier() ) );
-  CHECK( 0.9986234 == Approx( chunk.AWP() ) );
-  CHECK( 0.9986234 == Approx( chunk.productWeightRatio() ) );
+  CHECK_THAT( 1001., WithinRel( chunk.ZAP() ) );
+  CHECK_THAT( 1001., WithinRel( chunk.productIdentifier() ) );
+  CHECK_THAT( 0.9986234, WithinRel( chunk.AWP() ) );
+  CHECK_THAT( 0.9986234, WithinRel( chunk.productWeightRatio() ) );
   CHECK( 0 == chunk.LIP() );
   CHECK( 0 == chunk.productModifierFlag() );
   CHECK( 0 == chunk.LAW() );
 
-  CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-  CHECK( 1001. == Approx( chunk.multiplicity().productIdentifier() ) );
-  CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
-  CHECK( 0.9986234 == Approx( chunk.multiplicity().productWeightRatio() ) );
+  CHECK_THAT( 1001., WithinRel( chunk.multiplicity().ZAP() ) );
+  CHECK_THAT( 1001., WithinRel( chunk.multiplicity().productIdentifier() ) );
+  CHECK_THAT( 0.9986234, WithinRel( chunk.multiplicity().AWP() ) );
+  CHECK_THAT( 0.9986234, WithinRel( chunk.multiplicity().productWeightRatio() ) );
   CHECK( 0 == chunk.multiplicity().LIP() );
   CHECK( 0 == chunk.multiplicity().productModifierFlag() );
   CHECK( 0 == chunk.multiplicity().LAW() );
@@ -850,20 +853,16 @@ void verifyChunkWithLAW0( const ReactionProduct& chunk ) {
   CHECK( 4 == chunk.multiplicity().boundaries()[0] );
   CHECK( 4 == chunk.multiplicity().energies().size() );
   CHECK( 4 == chunk.multiplicity().multiplicities().size() );
-  CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-  CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-  CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-  CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-  CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-  CHECK( 8.45368e-11 ==
-           Approx( chunk.multiplicity().multiplicities()[1] ) );
-  CHECK( 6.622950e-8 ==
-           Approx( chunk.multiplicity().multiplicities()[2] ) );
-  CHECK( 2.149790e-1 ==
-           Approx( chunk.multiplicity().multiplicities()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.multiplicity().energies()[0] ) );
+  CHECK_THAT( 1.1e+7, WithinRel( chunk.multiplicity().energies()[1] ) );
+  CHECK_THAT( 1.147e+7, WithinRel( chunk.multiplicity().energies()[2] ) );
+  CHECK_THAT( 2e+7, WithinRel( chunk.multiplicity().energies()[3] ) );
+  CHECK_THAT( 0., WithinRel( chunk.multiplicity().multiplicities()[0] ) );
+  CHECK_THAT( 8.45368e-11, WithinRel( chunk.multiplicity().multiplicities()[1] ) );
+  CHECK_THAT( 6.622950e-8, WithinRel( chunk.multiplicity().multiplicities()[2] ) );
+  CHECK_THAT( 2.149790e-1, WithinRel( chunk.multiplicity().multiplicities()[3] ) );
 
-  auto law =
-     std::get< Unknown >( chunk.distribution() );
+  auto law = std::get< Unknown >( chunk.distribution() );
 
   CHECK( 0 == law.LAW() );
 
@@ -887,13 +886,13 @@ std::string chunkWithLAW1() {
 
 void verifyChunkWithLAW1( const ReactionProduct& chunk ) {
 
-  CHECK( 1001. == Approx( chunk.ZAP() ) );
-  CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+  CHECK_THAT( 1001., WithinRel( chunk.ZAP() ) );
+  CHECK_THAT( 0.9986234, WithinRel( chunk.AWP() ) );
   CHECK( 0 == chunk.LIP() );
   CHECK( 1 == chunk.LAW() );
 
-  CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-  CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+  CHECK_THAT( 1001., WithinRel( chunk.multiplicity().ZAP() ) );
+  CHECK_THAT( 0.9986234, WithinRel( chunk.multiplicity().AWP() ) );
   CHECK( 0 == chunk.multiplicity().LIP() );
   CHECK( 1 == chunk.multiplicity().LAW() );
 
@@ -905,20 +904,16 @@ void verifyChunkWithLAW1( const ReactionProduct& chunk ) {
   CHECK( 4 == chunk.multiplicity().boundaries()[0] );
   CHECK( 4 == chunk.multiplicity().energies().size() );
   CHECK( 4 == chunk.multiplicity().multiplicities().size() );
-  CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-  CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-  CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-  CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-  CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-  CHECK( 8.45368e-11 ==
-           Approx( chunk.multiplicity().multiplicities()[1] ) );
-  CHECK( 6.622950e-8 ==
-           Approx( chunk.multiplicity().multiplicities()[2] ) );
-  CHECK( 2.149790e-1 ==
-           Approx( chunk.multiplicity().multiplicities()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.multiplicity().energies()[0] ) );
+  CHECK_THAT( 1.1e+7, WithinRel( chunk.multiplicity().energies()[1] ) );
+  CHECK_THAT( 1.147e+7, WithinRel( chunk.multiplicity().energies()[2] ) );
+  CHECK_THAT( 2e+7, WithinRel( chunk.multiplicity().energies()[3] ) );
+  CHECK_THAT( 0., WithinRel( chunk.multiplicity().multiplicities()[0] ) );
+  CHECK_THAT( 8.45368e-11, WithinRel( chunk.multiplicity().multiplicities()[1] ) );
+  CHECK_THAT( 6.622950e-8, WithinRel( chunk.multiplicity().multiplicities()[2] ) );
+  CHECK_THAT( 2.149790e-1, WithinRel( chunk.multiplicity().multiplicities()[3] ) );
 
-  auto law =
-     std::get< ContinuumEnergyAngle >( chunk.distribution() );
+  auto law = std::get< ContinuumEnergyAngle >( chunk.distribution() );
 
   CHECK( 1 == law.LAW() );
   CHECK( 2 == law.LEP() );
@@ -933,50 +928,49 @@ void verifyChunkWithLAW1( const ReactionProduct& chunk ) {
 
   auto subsection1 =
       std::get< LegendreCoefficients >( energies[0] );
-  CHECK( 1e-5 == Approx( subsection1.incidentEnergy() ) );
+  CHECK_THAT( 1e-5, WithinRel( subsection1.incidentEnergy() ) );
   CHECK( 0 == subsection1.ND() );
   CHECK( 1 == subsection1.NA() );
   CHECK( 12 == subsection1.NW() );
   CHECK( 4 == subsection1.NEP() );
   CHECK( 4 == subsection1.energies().size() );
-  CHECK( 1. == Approx( subsection1.energies()[0] ) );
-  CHECK( 4. == Approx( subsection1.energies()[1] ) );
-  CHECK( 7. == Approx( subsection1.energies()[2] ) );
-  CHECK( 10. == Approx( subsection1.energies()[3] ) );
+  CHECK_THAT( 1., WithinRel( subsection1.energies()[0] ) );
+  CHECK_THAT( 4., WithinRel( subsection1.energies()[1] ) );
+  CHECK_THAT( 7., WithinRel( subsection1.energies()[2] ) );
+  CHECK_THAT( 10., WithinRel( subsection1.energies()[3] ) );
   CHECK( 4 == subsection1.coefficients().size() );
-  CHECK( 2. == Approx( subsection1.coefficients()[0][0] ) );
-  CHECK( 3. == Approx( subsection1.coefficients()[0][1] ) );
-  CHECK( 5. == Approx( subsection1.coefficients()[1][0] ) );
-  CHECK( 6. == Approx( subsection1.coefficients()[1][1] ) );
-  CHECK( 8. == Approx( subsection1.coefficients()[2][0] ) );
-  CHECK( 9. == Approx( subsection1.coefficients()[2][1] ) );
-  CHECK( 11. == Approx( subsection1.coefficients()[3][0] ) );
-  CHECK( 12. == Approx( subsection1.coefficients()[3][1] ) );
-  CHECK( 4 == Approx( subsection1.totalEmissionProbabilities().size() ) );
-  CHECK( 2. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
-  CHECK( 5. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
-  CHECK( 8. == Approx( subsection1.totalEmissionProbabilities()[2] ) );
-  CHECK( 11. == Approx( subsection1.totalEmissionProbabilities()[3] ) );
+  CHECK_THAT( 2., WithinRel( subsection1.coefficients()[0][0] ) );
+  CHECK_THAT( 3., WithinRel( subsection1.coefficients()[0][1] ) );
+  CHECK_THAT( 5., WithinRel( subsection1.coefficients()[1][0] ) );
+  CHECK_THAT( 6., WithinRel( subsection1.coefficients()[1][1] ) );
+  CHECK_THAT( 8., WithinRel( subsection1.coefficients()[2][0] ) );
+  CHECK_THAT( 9., WithinRel( subsection1.coefficients()[2][1] ) );
+  CHECK_THAT( 11., WithinRel( subsection1.coefficients()[3][0] ) );
+  CHECK_THAT( 12., WithinRel( subsection1.coefficients()[3][1] ) );
+  CHECK( 4 == subsection1.totalEmissionProbabilities().size() );
+  CHECK_THAT( 2., WithinRel( subsection1.totalEmissionProbabilities()[0] ) );
+  CHECK_THAT( 5., WithinRel( subsection1.totalEmissionProbabilities()[1] ) );
+  CHECK_THAT( 8., WithinRel( subsection1.totalEmissionProbabilities()[2] ) );
+  CHECK_THAT( 11., WithinRel( subsection1.totalEmissionProbabilities()[3] ) );
 
-  auto subsection2 =
-      std::get< LegendreCoefficients >( energies[1] );
-  CHECK( 2e+7 == Approx( subsection2.incidentEnergy() ) );
+  auto subsection2 = std::get< LegendreCoefficients >( energies[1] );
+  CHECK_THAT( 2e+7, WithinRel( subsection2.incidentEnergy() ) );
   CHECK( 1 == subsection2.LANG() );
   CHECK( 0 == subsection2.ND() );
   CHECK( 1 == subsection2.NA() );
   CHECK( 6 == subsection2.NW() );
   CHECK( 2 == subsection2.NEP() );
   CHECK( 2 == subsection2.energies().size() );
-  CHECK( 1. == Approx( subsection2.energies()[0] ) );
-  CHECK( 4. == Approx( subsection2.energies()[1] ) );
+  CHECK_THAT( 1., WithinRel( subsection2.energies()[0] ) );
+  CHECK_THAT( 4., WithinRel( subsection2.energies()[1] ) );
   CHECK( 2 == subsection2.coefficients().size() );
-  CHECK( 2. == Approx( subsection2.coefficients()[0][0] ) );
-  CHECK( 3. == Approx( subsection2.coefficients()[0][1] ) );
-  CHECK( 5. == Approx( subsection2.coefficients()[1][0] ) );
-  CHECK( 6. == Approx( subsection2.coefficients()[1][1] ) );
-  CHECK( 2 == Approx( subsection2.totalEmissionProbabilities().size() ) );
-  CHECK( 2. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
-  CHECK( 5. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
+  CHECK_THAT( 2., WithinRel( subsection2.coefficients()[0][0] ) );
+  CHECK_THAT( 3., WithinRel( subsection2.coefficients()[0][1] ) );
+  CHECK_THAT( 5., WithinRel( subsection2.coefficients()[1][0] ) );
+  CHECK_THAT( 6., WithinRel( subsection2.coefficients()[1][1] ) );
+  CHECK( 2 == subsection2.totalEmissionProbabilities().size() );
+  CHECK_THAT( 2., WithinRel( subsection2.totalEmissionProbabilities()[0] ) );
+  CHECK_THAT( 5., WithinRel( subsection2.totalEmissionProbabilities()[1] ) );
 
   CHECK( 11 == chunk.NC() );
 }
@@ -997,13 +991,13 @@ std::string chunkWithLAW2() {
 
 void verifyChunkWithLAW2( const ReactionProduct& chunk ) {
 
-  CHECK( 1001. == Approx( chunk.ZAP() ) );
-  CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+  CHECK_THAT( 1001., WithinRel( chunk.ZAP() ) );
+  CHECK_THAT( 0.9986234, WithinRel( chunk.AWP() ) );
   CHECK( 0 == chunk.LIP() );
   CHECK( 2 == chunk.LAW() );
 
-  CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-  CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+  CHECK_THAT( 1001., WithinRel( chunk.multiplicity().ZAP() ) );
+  CHECK_THAT( 0.9986234, WithinRel( chunk.multiplicity().AWP() ) );
   CHECK( 0 == chunk.multiplicity().LIP() );
   CHECK( 2 == chunk.multiplicity().LAW() );
 
@@ -1015,20 +1009,16 @@ void verifyChunkWithLAW2( const ReactionProduct& chunk ) {
   CHECK( 4 == chunk.multiplicity().boundaries()[0] );
   CHECK( 4 == chunk.multiplicity().energies().size() );
   CHECK( 4 == chunk.multiplicity().multiplicities().size() );
-  CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-  CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-  CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-  CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-  CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-  CHECK( 8.45368e-11 ==
-           Approx( chunk.multiplicity().multiplicities()[1] ) );
-  CHECK( 6.622950e-8 ==
-           Approx( chunk.multiplicity().multiplicities()[2] ) );
-  CHECK( 2.149790e-1 ==
-           Approx( chunk.multiplicity().multiplicities()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.multiplicity().energies()[0] ) );
+  CHECK_THAT( 1.1e+7, WithinRel( chunk.multiplicity().energies()[1] ) );
+  CHECK_THAT( 1.147e+7, WithinRel( chunk.multiplicity().energies()[2] ) );
+  CHECK_THAT( 2e+7, WithinRel( chunk.multiplicity().energies()[3] ) );
+  CHECK_THAT( 0., WithinRel( chunk.multiplicity().multiplicities()[0] ) );
+  CHECK_THAT( 8.45368e-11, WithinRel( chunk.multiplicity().multiplicities()[1] ) );
+  CHECK_THAT( 6.622950e-8, WithinRel( chunk.multiplicity().multiplicities()[2] ) );
+  CHECK_THAT( 2.149790e-1, WithinRel( chunk.multiplicity().multiplicities()[3] ) );
 
-  auto law =
-     std::get< DiscreteTwoBodyScattering >( chunk.distribution() );
+  auto law = std::get< DiscreteTwoBodyScattering >( chunk.distribution() );
 
   CHECK( 2 == law.LAW() );
   CHECK( 2 == law.NE() );
@@ -1040,33 +1030,31 @@ void verifyChunkWithLAW2( const ReactionProduct& chunk ) {
 
   auto energies = law.distributions();
 
-  auto subsection1 =
-      std::get< Law2LegendreCoefficients >( energies[0] );
-  CHECK( 1e-5 == Approx( subsection1.incidentEnergy() ) );
+  auto subsection1 = std::get< Law2LegendreCoefficients >( energies[0] );
+  CHECK_THAT( 1e-5, WithinRel( subsection1.incidentEnergy() ) );
   CHECK( 0 == subsection1.LANG() );
   CHECK( 4 == subsection1.NW() );
   CHECK( 4 == subsection1.NL() );
   CHECK( 4 == subsection1.coefficients().size() );
-  CHECK( 1. == Approx( subsection1.coefficients()[0] ) );
-  CHECK( 2. == Approx( subsection1.coefficients()[1] ) );
-  CHECK( 3. == Approx( subsection1.coefficients()[2] ) );
-  CHECK( 4. == Approx( subsection1.coefficients()[3] ) );
+  CHECK_THAT( 1., WithinRel( subsection1.coefficients()[0] ) );
+  CHECK_THAT( 2., WithinRel( subsection1.coefficients()[1] ) );
+  CHECK_THAT( 3., WithinRel( subsection1.coefficients()[2] ) );
+  CHECK_THAT( 4., WithinRel( subsection1.coefficients()[3] ) );
 
-  auto subsection2 =
-       std::get< Law2TabulatedDistribution >( energies[1] );
-  CHECK( 2e+7 == Approx( subsection2.E() ) );
-  CHECK( 2e+7 == Approx( subsection2.incidentEnergy() ) );
+  auto subsection2 = std::get< Law2TabulatedDistribution >( energies[1] );
+  CHECK_THAT( 2e+7, WithinRel( subsection2.E() ) );
+  CHECK_THAT( 2e+7, WithinRel( subsection2.incidentEnergy() ) );
   CHECK( 12 == subsection2.LANG() );
   CHECK( 6 == subsection2.NW() );
   CHECK( 3 == subsection2.NL() );
   CHECK( 3 == subsection2.cosines().size() );
-  CHECK( 1. == Approx( subsection2.cosines()[0] ) );
-  CHECK( 3. == Approx( subsection2.cosines()[1] ) );
-  CHECK( 5. == Approx( subsection2.cosines()[2] ) );
+  CHECK_THAT( 1., WithinRel( subsection2.cosines()[0] ) );
+  CHECK_THAT( 3., WithinRel( subsection2.cosines()[1] ) );
+  CHECK_THAT( 5., WithinRel( subsection2.cosines()[2] ) );
   CHECK( 3 == subsection2.probabilities().size() );
-  CHECK( 2. == Approx( subsection2.probabilities()[0] ) );
-  CHECK( 4. == Approx( subsection2.probabilities()[1] ) );
-  CHECK( 6. == Approx( subsection2.probabilities()[2] ) );
+  CHECK_THAT( 2., WithinRel( subsection2.probabilities()[0] ) );
+  CHECK_THAT( 4., WithinRel( subsection2.probabilities()[1] ) );
+  CHECK_THAT( 6., WithinRel( subsection2.probabilities()[2] ) );
 
   CHECK( 10 == chunk.NC() );
 }
@@ -1081,13 +1069,13 @@ std::string chunkWithLAW3() {
 
 void verifyChunkWithLAW3( const ReactionProduct& chunk ) {
 
-  CHECK( 1001. == Approx( chunk.ZAP() ) );
-  CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+  CHECK_THAT( 1001., WithinRel( chunk.ZAP() ) );
+  CHECK_THAT( 0.9986234, WithinRel( chunk.AWP() ) );
   CHECK( 0 == chunk.LIP() );
   CHECK( 3 == chunk.LAW() );
 
-  CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-  CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+  CHECK_THAT( 1001., WithinRel( chunk.multiplicity().ZAP() ) );
+  CHECK_THAT( 0.9986234, WithinRel( chunk.multiplicity().AWP() ) );
   CHECK( 0 == chunk.multiplicity().LIP() );
   CHECK( 3 == chunk.multiplicity().LAW() );
 
@@ -1099,20 +1087,16 @@ void verifyChunkWithLAW3( const ReactionProduct& chunk ) {
   CHECK( 4 == chunk.multiplicity().boundaries()[0] );
   CHECK( 4 == chunk.multiplicity().energies().size() );
   CHECK( 4 == chunk.multiplicity().multiplicities().size() );
-  CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-  CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-  CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-  CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-  CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-  CHECK( 8.45368e-11 ==
-           Approx( chunk.multiplicity().multiplicities()[1] ) );
-  CHECK( 6.622950e-8 ==
-           Approx( chunk.multiplicity().multiplicities()[2] ) );
-  CHECK( 2.149790e-1 ==
-           Approx( chunk.multiplicity().multiplicities()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.multiplicity().energies()[0] ) );
+  CHECK_THAT( 1.1e+7, WithinRel( chunk.multiplicity().energies()[1] ) );
+  CHECK_THAT( 1.147e+7, WithinRel( chunk.multiplicity().energies()[2] ) );
+  CHECK_THAT( 2e+7, WithinRel( chunk.multiplicity().energies()[3] ) );
+  CHECK_THAT( 0., WithinRel( chunk.multiplicity().multiplicities()[0] ) );
+  CHECK_THAT( 8.45368e-11, WithinRel( chunk.multiplicity().multiplicities()[1] ) );
+  CHECK_THAT( 6.622950e-8, WithinRel( chunk.multiplicity().multiplicities()[2] ) );
+  CHECK_THAT( 2.149790e-1, WithinRel( chunk.multiplicity().multiplicities()[3] ) );
 
-  auto law =
-     std::get< IsotropicDiscreteEmission >( chunk.distribution() );
+  auto law = std::get< IsotropicDiscreteEmission >( chunk.distribution() );
 
   CHECK( 3 == law.LAW() );
 
@@ -1129,13 +1113,13 @@ std::string chunkWithLAW4() {
 
 void verifyChunkWithLAW4( const ReactionProduct& chunk ) {
 
-  CHECK( 1001. == Approx( chunk.ZAP() ) );
-  CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+  CHECK_THAT( 1001., WithinRel( chunk.ZAP() ) );
+  CHECK_THAT( 0.9986234, WithinRel( chunk.AWP() ) );
   CHECK( 0 == chunk.LIP() );
   CHECK( 4 == chunk.LAW() );
 
-  CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-  CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+  CHECK_THAT( 1001., WithinRel( chunk.multiplicity().ZAP() ) );
+  CHECK_THAT( 0.9986234, WithinRel( chunk.multiplicity().AWP() ) );
   CHECK( 0 == chunk.multiplicity().LIP() );
   CHECK( 4 == chunk.multiplicity().LAW() );
 
@@ -1147,20 +1131,16 @@ void verifyChunkWithLAW4( const ReactionProduct& chunk ) {
   CHECK( 4 == chunk.multiplicity().boundaries()[0] );
   CHECK( 4 == chunk.multiplicity().energies().size() );
   CHECK( 4 == chunk.multiplicity().multiplicities().size() );
-  CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-  CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-  CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-  CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-  CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-  CHECK( 8.45368e-11 ==
-           Approx( chunk.multiplicity().multiplicities()[1] ) );
-  CHECK( 6.622950e-8 ==
-           Approx( chunk.multiplicity().multiplicities()[2] ) );
-  CHECK( 2.149790e-1 ==
-           Approx( chunk.multiplicity().multiplicities()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.multiplicity().energies()[0] ) );
+  CHECK_THAT( 1.1e+7, WithinRel( chunk.multiplicity().energies()[1] ) );
+  CHECK_THAT( 1.147e+7, WithinRel( chunk.multiplicity().energies()[2] ) );
+  CHECK_THAT( 2e+7, WithinRel( chunk.multiplicity().energies()[3] ) );
+  CHECK_THAT( 0., WithinRel( chunk.multiplicity().multiplicities()[0] ) );
+  CHECK_THAT( 8.45368e-11, WithinRel( chunk.multiplicity().multiplicities()[1] ) );
+  CHECK_THAT( 6.622950e-8, WithinRel( chunk.multiplicity().multiplicities()[2] ) );
+  CHECK_THAT( 2.149790e-1, WithinRel( chunk.multiplicity().multiplicities()[3] ) );
 
-  auto law =
-     std::get< DiscreteTwoBodyRecoils >( chunk.distribution() );
+  auto law = std::get< DiscreteTwoBodyRecoils >( chunk.distribution() );
 
   CHECK( 4 == law.LAW() );
 
@@ -1184,13 +1164,13 @@ std::string chunkWithLAW5() {
 
 void verifyChunkWithLAW5( const ReactionProduct& chunk ) {
 
-  CHECK( 1001. == Approx( chunk.ZAP() ) );
-  CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+  CHECK_THAT( 1001., WithinRel( chunk.ZAP() ) );
+  CHECK_THAT( 0.9986234, WithinRel( chunk.AWP() ) );
   CHECK( 0 == chunk.LIP() );
   CHECK( 5 == chunk.LAW() );
 
-  CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-  CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+  CHECK_THAT( 1001., WithinRel( chunk.multiplicity().ZAP() ) );
+  CHECK_THAT( 0.9986234, WithinRel( chunk.multiplicity().AWP() ) );
   CHECK( 0 == chunk.multiplicity().LIP() );
   CHECK( 5 == chunk.multiplicity().LAW() );
 
@@ -1202,24 +1182,20 @@ void verifyChunkWithLAW5( const ReactionProduct& chunk ) {
   CHECK( 4 == chunk.multiplicity().boundaries()[0] );
   CHECK( 4 == chunk.multiplicity().energies().size() );
   CHECK( 4 == chunk.multiplicity().multiplicities().size() );
-  CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-  CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-  CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-  CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-  CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-  CHECK( 8.45368e-11 ==
-           Approx( chunk.multiplicity().multiplicities()[1] ) );
-  CHECK( 6.622950e-8 ==
-           Approx( chunk.multiplicity().multiplicities()[2] ) );
-  CHECK( 2.149790e-1 ==
-           Approx( chunk.multiplicity().multiplicities()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.multiplicity().energies()[0] ) );
+  CHECK_THAT( 1.1e+7, WithinRel( chunk.multiplicity().energies()[1] ) );
+  CHECK_THAT( 1.147e+7, WithinRel( chunk.multiplicity().energies()[2] ) );
+  CHECK_THAT( 2e+7, WithinRel( chunk.multiplicity().energies()[3] ) );
+  CHECK_THAT( 0., WithinRel( chunk.multiplicity().multiplicities()[0] ) );
+  CHECK_THAT( 8.45368e-11, WithinRel( chunk.multiplicity().multiplicities()[1] ) );
+  CHECK_THAT( 6.622950e-8, WithinRel( chunk.multiplicity().multiplicities()[2] ) );
+  CHECK_THAT( 2.149790e-1, WithinRel( chunk.multiplicity().multiplicities()[3] ) );
 
-  auto law =
-     std::get< ChargedParticleElasticScattering >( chunk.distribution() );
+  auto law = std::get< ChargedParticleElasticScattering >( chunk.distribution() );
 
   CHECK( 5 == law.LAW() );
 
-  CHECK( 0.5 == Approx( law.SPI() ) );
+  CHECK_THAT( 0.5, WithinRel( law.SPI() ) );
   CHECK( 1 == law.LIDP() );
   CHECK( 2 == law.NE() );
   CHECK( 1 == law.NR() );
@@ -1232,65 +1208,64 @@ void verifyChunkWithLAW5( const ReactionProduct& chunk ) {
 
   auto subsection1 =
   std::get< Law5NuclearAmplitudeExpansion >( energies[0] );
-  CHECK( 1e-5 == Approx( subsection1.E() ) );
-  CHECK( 1e-5 == Approx( subsection1.incidentEnergy() ) );
+  CHECK_THAT( 1e-5, WithinRel( subsection1.E() ) );
+  CHECK_THAT( 1e-5, WithinRel( subsection1.incidentEnergy() ) );
   CHECK( 1 == subsection1.LTP() );
   CHECK( 12 == subsection1.NW() );
   CHECK( 3 == subsection1.NL() );
   CHECK( 4 == subsection1.B().size() );
   CHECK( 4 == subsection1.scatteringCoefficients().size() );
-  CHECK( 1. == Approx( subsection1.B()[0] ) );
-  CHECK( 2. == Approx( subsection1.B()[1] ) );
-  CHECK( 3. == Approx( subsection1.B()[2] ) );
-  CHECK( 4. == Approx( subsection1.B()[3] ) );
-  CHECK( 1. == Approx( subsection1.scatteringCoefficients()[0] ) );
-  CHECK( 2. == Approx( subsection1.scatteringCoefficients()[1] ) );
-  CHECK( 3. == Approx( subsection1.scatteringCoefficients()[2] ) );
-  CHECK( 4. == Approx( subsection1.scatteringCoefficients()[3] ) );
+  CHECK_THAT( 1., WithinRel( subsection1.B()[0] ) );
+  CHECK_THAT( 2., WithinRel( subsection1.B()[1] ) );
+  CHECK_THAT( 3., WithinRel( subsection1.B()[2] ) );
+  CHECK_THAT( 4., WithinRel( subsection1.B()[3] ) );
+  CHECK_THAT( 1., WithinRel( subsection1.scatteringCoefficients()[0] ) );
+  CHECK_THAT( 2., WithinRel( subsection1.scatteringCoefficients()[1] ) );
+  CHECK_THAT( 3., WithinRel( subsection1.scatteringCoefficients()[2] ) );
+  CHECK_THAT( 4., WithinRel( subsection1.scatteringCoefficients()[3] ) );
   CHECK( 4 == subsection1.AR().size() );
   CHECK( 4 == subsection1.realInterferenceCoefficients().size() );
-  CHECK( 5. == Approx( subsection1.AR()[0] ) );
-  CHECK( 7. == Approx( subsection1.AR()[1] ) );
-  CHECK( 9. == Approx( subsection1.AR()[2] ) );
-  CHECK( 11. == Approx( subsection1.AR()[3] ) );
-  CHECK( 5. == Approx( subsection1.realInterferenceCoefficients()[0] ) );
-  CHECK( 7. == Approx( subsection1.realInterferenceCoefficients()[1] ) );
-  CHECK( 9. == Approx( subsection1.realInterferenceCoefficients()[2] ) );
-  CHECK( 11. == Approx( subsection1.realInterferenceCoefficients()[3] ) );
+  CHECK_THAT( 5., WithinRel( subsection1.AR()[0] ) );
+  CHECK_THAT( 7., WithinRel( subsection1.AR()[1] ) );
+  CHECK_THAT( 9., WithinRel( subsection1.AR()[2] ) );
+  CHECK_THAT( 11., WithinRel( subsection1.AR()[3] ) );
+  CHECK_THAT( 5., WithinRel( subsection1.realInterferenceCoefficients()[0] ) );
+  CHECK_THAT( 7., WithinRel( subsection1.realInterferenceCoefficients()[1] ) );
+  CHECK_THAT( 9., WithinRel( subsection1.realInterferenceCoefficients()[2] ) );
+  CHECK_THAT( 11., WithinRel( subsection1.realInterferenceCoefficients()[3] ) );
   CHECK( 4 == subsection1.AI().size() );
   CHECK( 4 == subsection1.imaginaryInterferenceCoefficients().size() );
-  CHECK( 6. == Approx( subsection1.AI()[0] ) );
-  CHECK( 8. == Approx( subsection1.AI()[1] ) );
-  CHECK( 10. == Approx( subsection1.AI()[2] ) );
-  CHECK( 12. == Approx( subsection1.AI()[3] ) );
-  CHECK( 6. == Approx( subsection1.imaginaryInterferenceCoefficients()[0] ) );
-  CHECK( 8. == Approx( subsection1.imaginaryInterferenceCoefficients()[1] ) );
-  CHECK( 10. == Approx( subsection1.imaginaryInterferenceCoefficients()[2] ) );
-  CHECK( 12. == Approx( subsection1.imaginaryInterferenceCoefficients()[3] ) );
+  CHECK_THAT( 6., WithinRel( subsection1.AI()[0] ) );
+  CHECK_THAT( 8., WithinRel( subsection1.AI()[1] ) );
+  CHECK_THAT( 10., WithinRel( subsection1.AI()[2] ) );
+  CHECK_THAT( 12., WithinRel( subsection1.AI()[3] ) );
+  CHECK_THAT( 6., WithinRel( subsection1.imaginaryInterferenceCoefficients()[0] ) );
+  CHECK_THAT( 8., WithinRel( subsection1.imaginaryInterferenceCoefficients()[1] ) );
+  CHECK_THAT( 10., WithinRel( subsection1.imaginaryInterferenceCoefficients()[2] ) );
+  CHECK_THAT( 12., WithinRel( subsection1.imaginaryInterferenceCoefficients()[3] ) );
 
-  auto subsection2 =
-  std::get< Law5NuclearPlusInterference >( energies[1] );
-  CHECK( 2e+7 == Approx( subsection2.E() ) );
-  CHECK( 2e+7 == Approx( subsection2.incidentEnergy() ) );
+  auto subsection2 = std::get< Law5NuclearPlusInterference >( energies[1] );
+  CHECK_THAT( 2e+7, WithinRel( subsection2.E() ) );
+  CHECK_THAT( 2e+7, WithinRel( subsection2.incidentEnergy() ) );
   CHECK( 15 == subsection2.LTP() );
   CHECK( 6 == subsection2.NW() );
   CHECK( 3 == subsection2.NL() );
   CHECK( 3 == subsection2.MU().size() );
   CHECK( 3 == subsection2.cosines().size() );
-  CHECK( 1. == Approx( subsection2.MU()[0] ) );
-  CHECK( 3. == Approx( subsection2.MU()[1] ) );
-  CHECK( 5. == Approx( subsection2.MU()[2] ) );
-  CHECK( 1. == Approx( subsection2.cosines()[0] ) );
-  CHECK( 3. == Approx( subsection2.cosines()[1] ) );
-  CHECK( 5. == Approx( subsection2.cosines()[2] ) );
+  CHECK_THAT( 1., WithinRel( subsection2.MU()[0] ) );
+  CHECK_THAT( 3., WithinRel( subsection2.MU()[1] ) );
+  CHECK_THAT( 5., WithinRel( subsection2.MU()[2] ) );
+  CHECK_THAT( 1., WithinRel( subsection2.cosines()[0] ) );
+  CHECK_THAT( 3., WithinRel( subsection2.cosines()[1] ) );
+  CHECK_THAT( 5., WithinRel( subsection2.cosines()[2] ) );
   CHECK( 3 == subsection2.PNI().size() );
   CHECK( 3 == subsection2.probabilities().size() );
-  CHECK( 2. == Approx( subsection2.PNI()[0] ) );
-  CHECK( 4. == Approx( subsection2.PNI()[1] ) );
-  CHECK( 6. == Approx( subsection2.PNI()[2] ) );
-  CHECK( 2. == Approx( subsection2.probabilities()[0] ) );
-  CHECK( 4. == Approx( subsection2.probabilities()[1] ) );
-  CHECK( 6. == Approx( subsection2.probabilities()[2] ) );
+  CHECK_THAT( 2., WithinRel( subsection2.PNI()[0] ) );
+  CHECK_THAT( 4., WithinRel( subsection2.PNI()[1] ) );
+  CHECK_THAT( 6., WithinRel( subsection2.PNI()[2] ) );
+  CHECK_THAT( 2., WithinRel( subsection2.probabilities()[0] ) );
+  CHECK_THAT( 4., WithinRel( subsection2.probabilities()[1] ) );
+  CHECK_THAT( 6., WithinRel( subsection2.probabilities()[2] ) );
 
   CHECK( 11 == chunk.NC() );
 }
@@ -1306,13 +1281,13 @@ std::string chunkWithLAW6() {
 
 void verifyChunkWithLAW6( const ReactionProduct& chunk ) {
 
-  CHECK( 1001. == Approx( chunk.ZAP() ) );
-  CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+  CHECK_THAT( 1001., WithinRel( chunk.ZAP() ) );
+  CHECK_THAT( 0.9986234, WithinRel( chunk.AWP() ) );
   CHECK( 0 == chunk.LIP() );
   CHECK( 6 == chunk.LAW() );
 
-  CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-  CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+  CHECK_THAT( 1001., WithinRel( chunk.multiplicity().ZAP() ) );
+  CHECK_THAT( 0.9986234, WithinRel( chunk.multiplicity().AWP() ) );
   CHECK( 0 == chunk.multiplicity().LIP() );
   CHECK( 6 == chunk.multiplicity().LAW() );
 
@@ -1324,25 +1299,21 @@ void verifyChunkWithLAW6( const ReactionProduct& chunk ) {
   CHECK( 4 == chunk.multiplicity().boundaries()[0] );
   CHECK( 4 == chunk.multiplicity().energies().size() );
   CHECK( 4 == chunk.multiplicity().multiplicities().size() );
-  CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-  CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-  CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-  CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-  CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-  CHECK( 8.45368e-11 ==
-           Approx( chunk.multiplicity().multiplicities()[1] ) );
-  CHECK( 6.622950e-8 ==
-           Approx( chunk.multiplicity().multiplicities()[2] ) );
-  CHECK( 2.149790e-1 ==
-           Approx( chunk.multiplicity().multiplicities()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.multiplicity().energies()[0] ) );
+  CHECK_THAT( 1.1e+7, WithinRel( chunk.multiplicity().energies()[1] ) );
+  CHECK_THAT( 1.147e+7, WithinRel( chunk.multiplicity().energies()[2] ) );
+  CHECK_THAT( 2e+7, WithinRel( chunk.multiplicity().energies()[3] ) );
+  CHECK_THAT( 0., WithinRel( chunk.multiplicity().multiplicities()[0] ) );
+  CHECK_THAT( 8.45368e-11, WithinRel( chunk.multiplicity().multiplicities()[1] ) );
+  CHECK_THAT( 6.622950e-8, WithinRel( chunk.multiplicity().multiplicities()[2] ) );
+  CHECK_THAT( 2.149790e-1, WithinRel( chunk.multiplicity().multiplicities()[3] ) );
 
-  auto law =
-     std::get< NBodyPhaseSpace >( chunk.distribution() );
+  auto law = std::get< NBodyPhaseSpace >( chunk.distribution() );
 
   CHECK( 6 == law.LAW() );
 
-  CHECK( 5. == Approx( law.APSX() ) );
-  CHECK( 5. == Approx( law.totalMass() ) );
+  CHECK_THAT( 5., WithinRel( law.APSX() ) );
+  CHECK_THAT( 5., WithinRel( law.totalMass() ) );
   CHECK( 4 == law.NPSX() );
   CHECK( 4 == law.numberParticles() );
 
@@ -1379,13 +1350,13 @@ std::string chunkWithLAW7() {
 
 void verifyChunkWithLAW7( const ReactionProduct& chunk ) {
 
-  CHECK( 1001. == Approx( chunk.ZAP() ) );
-  CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+  CHECK_THAT( 1001., WithinRel( chunk.ZAP() ) );
+  CHECK_THAT( 0.9986234, WithinRel( chunk.AWP() ) );
   CHECK( 0 == chunk.LIP() );
   CHECK( 7 == chunk.LAW() );
 
-  CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-  CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+  CHECK_THAT( 1001., WithinRel( chunk.multiplicity().ZAP() ) );
+  CHECK_THAT( 0.9986234, WithinRel( chunk.multiplicity().AWP() ) );
   CHECK( 0 == chunk.multiplicity().LIP() );
   CHECK( 7 == chunk.multiplicity().LAW() );
 
@@ -1397,20 +1368,16 @@ void verifyChunkWithLAW7( const ReactionProduct& chunk ) {
   CHECK( 4 == chunk.multiplicity().boundaries()[0] );
   CHECK( 4 == chunk.multiplicity().energies().size() );
   CHECK( 4 == chunk.multiplicity().multiplicities().size() );
-  CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-  CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-  CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-  CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-  CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-  CHECK( 8.45368e-11 ==
-           Approx( chunk.multiplicity().multiplicities()[1] ) );
-  CHECK( 6.622950e-8 ==
-           Approx( chunk.multiplicity().multiplicities()[2] ) );
-  CHECK( 2.149790e-1 ==
-           Approx( chunk.multiplicity().multiplicities()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.multiplicity().energies()[0] ) );
+  CHECK_THAT( 1.1e+7, WithinRel( chunk.multiplicity().energies()[1] ) );
+  CHECK_THAT( 1.147e+7, WithinRel( chunk.multiplicity().energies()[2] ) );
+  CHECK_THAT( 2e+7, WithinRel( chunk.multiplicity().energies()[3] ) );
+  CHECK_THAT( 0., WithinRel( chunk.multiplicity().multiplicities()[0] ) );
+  CHECK_THAT( 8.45368e-11, WithinRel( chunk.multiplicity().multiplicities()[1] ) );
+  CHECK_THAT( 6.622950e-8, WithinRel( chunk.multiplicity().multiplicities()[2] ) );
+  CHECK_THAT( 2.149790e-1, WithinRel( chunk.multiplicity().multiplicities()[3] ) );
 
-  auto law =
-     std::get< LaboratoryAngleEnergy >( chunk.distribution() );
+  auto law = std::get< LaboratoryAngleEnergy >( chunk.distribution() );
 
   CHECK( 7 == law.LAW() );
 
@@ -1423,7 +1390,7 @@ void verifyChunkWithLAW7( const ReactionProduct& chunk ) {
 
   auto energies = law.angularDistributions();
 
-  CHECK( 1e-5 == Approx( energies[0].incidentEnergy() ) );
+  CHECK_THAT( 1e-5, WithinRel( energies[0].incidentEnergy() ) );
 
   CHECK( 2 == energies[0].NMU() );
   CHECK( 1 == energies[0].NRM() );
@@ -1435,7 +1402,7 @@ void verifyChunkWithLAW7( const ReactionProduct& chunk ) {
   auto cosines = energies[0].energyDistributions();
   CHECK( 2 == cosines.size() );
 
-  CHECK( 1. == Approx( cosines[0].cosine() ) );
+  CHECK_THAT( 1., WithinRel( cosines[0].cosine() ) );
   CHECK( 1 == cosines[0].NRP() );
   CHECK( 4 == cosines[0].NEP() );
   CHECK( 1 == cosines[0].interpolants().size() );
@@ -1444,16 +1411,16 @@ void verifyChunkWithLAW7( const ReactionProduct& chunk ) {
   CHECK( 4 == cosines[0].boundaries()[0] );
   CHECK( 4 == cosines[0].energies().size() );
   CHECK( 4 == cosines[0].probabilities().size() );
-  CHECK( 1e-5 == Approx( cosines[0].energies()[0] ) );
-  CHECK( 1.1e+7 == Approx( cosines[0].energies()[1] ) );
-  CHECK( 1.147e+7 == Approx( cosines[0].energies()[2] ) );
-  CHECK( 3e+7 == Approx( cosines[0].energies()[3] ) );
-  CHECK( 0. == Approx( cosines[0].probabilities()[0] ) );
-  CHECK( 2. == Approx( cosines[0].probabilities()[1] ) );
-  CHECK( 4. == Approx( cosines[0].probabilities()[2] ) );
-  CHECK( 6. == Approx( cosines[0].probabilities()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( cosines[0].energies()[0] ) );
+  CHECK_THAT( 1.1e+7, WithinRel( cosines[0].energies()[1] ) );
+  CHECK_THAT( 1.147e+7, WithinRel( cosines[0].energies()[2] ) );
+  CHECK_THAT( 3e+7, WithinRel( cosines[0].energies()[3] ) );
+  CHECK_THAT( 0., WithinRel( cosines[0].probabilities()[0] ) );
+  CHECK_THAT( 2., WithinRel( cosines[0].probabilities()[1] ) );
+  CHECK_THAT( 4., WithinRel( cosines[0].probabilities()[2] ) );
+  CHECK_THAT( 6., WithinRel( cosines[0].probabilities()[3] ) );
 
-  CHECK( -1. == Approx( cosines[1].cosine() ) );
+  CHECK_THAT( -1., WithinRel( cosines[1].cosine() ) );
   CHECK( 1 == cosines[1].NRP() );
   CHECK( 3 == cosines[1].NEP() );
   CHECK( 1 == cosines[1].interpolants().size() );
@@ -1462,14 +1429,14 @@ void verifyChunkWithLAW7( const ReactionProduct& chunk ) {
   CHECK( 3 == cosines[1].boundaries()[0] );
   CHECK( 3 == cosines[1].energies().size() );
   CHECK( 3 == cosines[1].probabilities().size() );
-  CHECK( 1e-5 == Approx( cosines[1].energies()[0] ) );
-  CHECK( 1e+6 == Approx( cosines[1].energies()[1] ) );
-  CHECK( 3e+7 == Approx( cosines[1].energies()[2] ) );
-  CHECK( 6. == Approx( cosines[1].probabilities()[0] ) );
-  CHECK( 4. == Approx( cosines[1].probabilities()[1] ) );
-  CHECK( 2. == Approx( cosines[1].probabilities()[2] ) );
+  CHECK_THAT( 1e-5, WithinRel( cosines[1].energies()[0] ) );
+  CHECK_THAT( 1e+6, WithinRel( cosines[1].energies()[1] ) );
+  CHECK_THAT( 3e+7, WithinRel( cosines[1].energies()[2] ) );
+  CHECK_THAT( 6., WithinRel( cosines[1].probabilities()[0] ) );
+  CHECK_THAT( 4., WithinRel( cosines[1].probabilities()[1] ) );
+  CHECK_THAT( 2., WithinRel( cosines[1].probabilities()[2] ) );
 
-  CHECK( 2e+7 == Approx( energies[1].incidentEnergy() ) );
+  CHECK_THAT( 2e+7, WithinRel( energies[1].incidentEnergy() ) );
 
   CHECK( 2 == energies[1].NMU() );
   CHECK( 1 == energies[1].NRM() );
@@ -1481,7 +1448,7 @@ void verifyChunkWithLAW7( const ReactionProduct& chunk ) {
   cosines = energies[1].energyDistributions();
   CHECK( 2 == cosines.size() );
 
-  CHECK( .9 == Approx( cosines[0].cosine() ) );
+  CHECK_THAT( .9, WithinRel( cosines[0].cosine() ) );
   CHECK( 1 == cosines[0].NRP() );
   CHECK( 4 == cosines[0].NEP() );
   CHECK( 1 == cosines[0].interpolants().size() );
@@ -1490,16 +1457,16 @@ void verifyChunkWithLAW7( const ReactionProduct& chunk ) {
   CHECK( 4 == cosines[0].boundaries()[0] );
   CHECK( 4 == cosines[0].energies().size() );
   CHECK( 4 == cosines[0].probabilities().size() );
-  CHECK( 1e-5 == Approx( cosines[0].energies()[0] ) );
-  CHECK( 1.1e+7 == Approx( cosines[0].energies()[1] ) );
-  CHECK( 1.147e+7 == Approx( cosines[0].energies()[2] ) );
-  CHECK( 3e+7 == Approx( cosines[0].energies()[3] ) );
-  CHECK( 1. == Approx( cosines[0].probabilities()[0] ) );
-  CHECK( 3. == Approx( cosines[0].probabilities()[1] ) );
-  CHECK( 5. == Approx( cosines[0].probabilities()[2] ) );
-  CHECK( 7. == Approx( cosines[0].probabilities()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( cosines[0].energies()[0] ) );
+  CHECK_THAT( 1.1e+7, WithinRel( cosines[0].energies()[1] ) );
+  CHECK_THAT( 1.147e+7, WithinRel( cosines[0].energies()[2] ) );
+  CHECK_THAT( 3e+7, WithinRel( cosines[0].energies()[3] ) );
+  CHECK_THAT( 1., WithinRel( cosines[0].probabilities()[0] ) );
+  CHECK_THAT( 3., WithinRel( cosines[0].probabilities()[1] ) );
+  CHECK_THAT( 5., WithinRel( cosines[0].probabilities()[2] ) );
+  CHECK_THAT( 7., WithinRel( cosines[0].probabilities()[3] ) );
 
-  CHECK( -.9 == Approx( cosines[1].cosine() ) );
+  CHECK_THAT( -.9, WithinRel( cosines[1].cosine() ) );
   CHECK( 1 == cosines[1].NRP() );
   CHECK( 3 == cosines[1].NEP() );
   CHECK( 1 == cosines[1].interpolants().size() );
@@ -1508,12 +1475,12 @@ void verifyChunkWithLAW7( const ReactionProduct& chunk ) {
   CHECK( 3 == cosines[1].boundaries()[0] );
   CHECK( 3 == cosines[1].energies().size() );
   CHECK( 3 == cosines[1].probabilities().size() );
-  CHECK( 1e-5 == Approx( cosines[1].energies()[0] ) );
-  CHECK( 1e+6 == Approx( cosines[1].energies()[1] ) );
-  CHECK( 3e+7 == Approx( cosines[1].energies()[2] ) );
-  CHECK( 5. == Approx( cosines[1].probabilities()[0] ) );
-  CHECK( 3. == Approx( cosines[1].probabilities()[1] ) );
-  CHECK( 1. == Approx( cosines[1].probabilities()[2] ) );
+  CHECK_THAT( 1e-5, WithinRel( cosines[1].energies()[0] ) );
+  CHECK_THAT( 1e+6, WithinRel( cosines[1].energies()[1] ) );
+  CHECK_THAT( 3e+7, WithinRel( cosines[1].energies()[2] ) );
+  CHECK_THAT( 5., WithinRel( cosines[1].probabilities()[0] ) );
+  CHECK_THAT( 3., WithinRel( cosines[1].probabilities()[1] ) );
+  CHECK_THAT( 1., WithinRel( cosines[1].probabilities()[2] ) );
 
   CHECK( 24 == chunk.NC() );
 }
@@ -1528,13 +1495,13 @@ std::string chunkWithNegativeLAW4() {
 
 void verifyChunkWithNegativeLAW4( const ReactionProduct& chunk ) {
 
-  CHECK( 1001. == Approx( chunk.ZAP() ) );
-  CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+  CHECK_THAT( 1001., WithinRel( chunk.ZAP() ) );
+  CHECK_THAT( 0.9986234, WithinRel( chunk.AWP() ) );
   CHECK( 0 == chunk.LIP() );
   CHECK( -4 == chunk.LAW() );
 
-  CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-  CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+  CHECK_THAT( 1001., WithinRel( chunk.multiplicity().ZAP() ) );
+  CHECK_THAT( 0.9986234, WithinRel( chunk.multiplicity().AWP() ) );
   CHECK( 0 == chunk.multiplicity().LIP() );
   CHECK( -4 == chunk.multiplicity().LAW() );
 
@@ -1546,20 +1513,16 @@ void verifyChunkWithNegativeLAW4( const ReactionProduct& chunk ) {
   CHECK( 4 == chunk.multiplicity().boundaries()[0] );
   CHECK( 4 == chunk.multiplicity().energies().size() );
   CHECK( 4 == chunk.multiplicity().multiplicities().size() );
-  CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-  CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-  CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-  CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-  CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-  CHECK( 8.45368e-11 ==
-           Approx( chunk.multiplicity().multiplicities()[1] ) );
-  CHECK( 6.622950e-8 ==
-           Approx( chunk.multiplicity().multiplicities()[2] ) );
-  CHECK( 2.149790e-1 ==
-           Approx( chunk.multiplicity().multiplicities()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.multiplicity().energies()[0] ) );
+  CHECK_THAT( 1.1e+7, WithinRel( chunk.multiplicity().energies()[1] ) );
+  CHECK_THAT( 1.147e+7, WithinRel( chunk.multiplicity().energies()[2] ) );
+  CHECK_THAT( 2e+7, WithinRel( chunk.multiplicity().energies()[3] ) );
+  CHECK_THAT( 0., WithinRel( chunk.multiplicity().multiplicities()[0] ) );
+  CHECK_THAT( 8.45368e-11, WithinRel( chunk.multiplicity().multiplicities()[1] ) );
+  CHECK_THAT( 6.622950e-8, WithinRel( chunk.multiplicity().multiplicities()[2] ) );
+  CHECK_THAT( 2.149790e-1, WithinRel( chunk.multiplicity().multiplicities()[3] ) );
 
-  auto law =
-     std::get< DefinedElsewhere >( chunk.distribution() );
+  auto law = std::get< DefinedElsewhere >( chunk.distribution() );
 
   CHECK( -4 == law.LAW() );
 
@@ -1576,13 +1539,13 @@ std::string chunkWithNegativeLAW5() {
 
 void verifyChunkWithNegativeLAW5( const ReactionProduct& chunk ) {
 
-  CHECK( 1001. == Approx( chunk.ZAP() ) );
-  CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+  CHECK_THAT( 1001., WithinRel( chunk.ZAP() ) );
+  CHECK_THAT( 0.9986234, WithinRel( chunk.AWP() ) );
   CHECK( 0 == chunk.LIP() );
   CHECK( -5 == chunk.LAW() );
 
-  CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-  CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+  CHECK_THAT( 1001., WithinRel( chunk.multiplicity().ZAP() ) );
+  CHECK_THAT( 0.9986234, WithinRel( chunk.multiplicity().AWP() ) );
   CHECK( 0 == chunk.multiplicity().LIP() );
   CHECK( -5 == chunk.multiplicity().LAW() );
 
@@ -1594,20 +1557,16 @@ void verifyChunkWithNegativeLAW5( const ReactionProduct& chunk ) {
   CHECK( 4 == chunk.multiplicity().boundaries()[0] );
   CHECK( 4 == chunk.multiplicity().energies().size() );
   CHECK( 4 == chunk.multiplicity().multiplicities().size() );
-  CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-  CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-  CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-  CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-  CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-  CHECK( 8.45368e-11 ==
-           Approx( chunk.multiplicity().multiplicities()[1] ) );
-  CHECK( 6.622950e-8 ==
-           Approx( chunk.multiplicity().multiplicities()[2] ) );
-  CHECK( 2.149790e-1 ==
-           Approx( chunk.multiplicity().multiplicities()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.multiplicity().energies()[0] ) );
+  CHECK_THAT( 1.1e+7, WithinRel( chunk.multiplicity().energies()[1] ) );
+  CHECK_THAT( 1.147e+7, WithinRel( chunk.multiplicity().energies()[2] ) );
+  CHECK_THAT( 2e+7, WithinRel( chunk.multiplicity().energies()[3] ) );
+  CHECK_THAT( 0., WithinRel( chunk.multiplicity().multiplicities()[0] ) );
+  CHECK_THAT( 8.45368e-11, WithinRel( chunk.multiplicity().multiplicities()[1] ) );
+  CHECK_THAT( 6.622950e-8, WithinRel( chunk.multiplicity().multiplicities()[2] ) );
+  CHECK_THAT( 2.149790e-1, WithinRel( chunk.multiplicity().multiplicities()[3] ) );
 
-  auto law =
-     std::get< DefinedElsewhere >( chunk.distribution() );
+  auto law = std::get< DefinedElsewhere >( chunk.distribution() );
 
   CHECK( -5 == law.LAW() );
 
@@ -1624,13 +1583,13 @@ std::string chunkWithNegativeLAW14() {
 
 void verifyChunkWithNegativeLAW14( const ReactionProduct& chunk ) {
 
-  CHECK( 1001. == Approx( chunk.ZAP() ) );
-  CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+  CHECK_THAT( 1001., WithinRel( chunk.ZAP() ) );
+  CHECK_THAT( 0.9986234, WithinRel( chunk.AWP() ) );
   CHECK( 0 == chunk.LIP() );
   CHECK( -14 == chunk.LAW() );
 
-  CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-  CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+  CHECK_THAT( 1001., WithinRel( chunk.multiplicity().ZAP() ) );
+  CHECK_THAT( 0.9986234, WithinRel( chunk.multiplicity().AWP() ) );
   CHECK( 0 == chunk.multiplicity().LIP() );
   CHECK( -14 == chunk.multiplicity().LAW() );
 
@@ -1642,20 +1601,16 @@ void verifyChunkWithNegativeLAW14( const ReactionProduct& chunk ) {
   CHECK( 4 == chunk.multiplicity().boundaries()[0] );
   CHECK( 4 == chunk.multiplicity().energies().size() );
   CHECK( 4 == chunk.multiplicity().multiplicities().size() );
-  CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-  CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-  CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-  CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-  CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-  CHECK( 8.45368e-11 ==
-           Approx( chunk.multiplicity().multiplicities()[1] ) );
-  CHECK( 6.622950e-8 ==
-           Approx( chunk.multiplicity().multiplicities()[2] ) );
-  CHECK( 2.149790e-1 ==
-           Approx( chunk.multiplicity().multiplicities()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.multiplicity().energies()[0] ) );
+  CHECK_THAT( 1.1e+7, WithinRel( chunk.multiplicity().energies()[1] ) );
+  CHECK_THAT( 1.147e+7, WithinRel( chunk.multiplicity().energies()[2] ) );
+  CHECK_THAT( 2e+7, WithinRel( chunk.multiplicity().energies()[3] ) );
+  CHECK_THAT( 0., WithinRel( chunk.multiplicity().multiplicities()[0] ) );
+  CHECK_THAT( 8.45368e-11, WithinRel( chunk.multiplicity().multiplicities()[1] ) );
+  CHECK_THAT( 6.622950e-8, WithinRel( chunk.multiplicity().multiplicities()[2] ) );
+  CHECK_THAT( 2.149790e-1, WithinRel( chunk.multiplicity().multiplicities()[3] ) );
 
-  auto law =
-     std::get< DefinedElsewhere >( chunk.distribution() );
+  auto law = std::get< DefinedElsewhere >( chunk.distribution() );
 
   CHECK( -14 == law.LAW() );
 
@@ -1672,13 +1627,13 @@ std::string chunkWithNegativeLAW15() {
 
 void verifyChunkWithNegativeLAW15( const ReactionProduct& chunk ) {
 
-  CHECK( 1001. == Approx( chunk.ZAP() ) );
-  CHECK( 0.9986234 == Approx( chunk.AWP() ) );
+  CHECK_THAT( 1001., WithinRel( chunk.ZAP() ) );
+  CHECK_THAT( 0.9986234, WithinRel( chunk.AWP() ) );
   CHECK( 0 == chunk.LIP() );
   CHECK( -15 == chunk.LAW() );
 
-  CHECK( 1001. == Approx( chunk.multiplicity().ZAP() ) );
-  CHECK( 0.9986234 == Approx( chunk.multiplicity().AWP() ) );
+  CHECK_THAT( 1001., WithinRel( chunk.multiplicity().ZAP() ) );
+  CHECK_THAT( 0.9986234, WithinRel( chunk.multiplicity().AWP() ) );
   CHECK( 0 == chunk.multiplicity().LIP() );
   CHECK( -15 == chunk.multiplicity().LAW() );
 
@@ -1690,20 +1645,16 @@ void verifyChunkWithNegativeLAW15( const ReactionProduct& chunk ) {
   CHECK( 4 == chunk.multiplicity().boundaries()[0] );
   CHECK( 4 == chunk.multiplicity().energies().size() );
   CHECK( 4 == chunk.multiplicity().multiplicities().size() );
-  CHECK( 1e-5 == Approx( chunk.multiplicity().energies()[0] ) );
-  CHECK( 1.1e+7 == Approx( chunk.multiplicity().energies()[1] ) );
-  CHECK( 1.147e+7 == Approx( chunk.multiplicity().energies()[2] ) );
-  CHECK( 2e+7 == Approx( chunk.multiplicity().energies()[3] ) );
-  CHECK( 0. == Approx( chunk.multiplicity().multiplicities()[0] ) );
-  CHECK( 8.45368e-11 ==
-           Approx( chunk.multiplicity().multiplicities()[1] ) );
-  CHECK( 6.622950e-8 ==
-           Approx( chunk.multiplicity().multiplicities()[2] ) );
-  CHECK( 2.149790e-1 ==
-           Approx( chunk.multiplicity().multiplicities()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.multiplicity().energies()[0] ) );
+  CHECK_THAT( 1.1e+7, WithinRel( chunk.multiplicity().energies()[1] ) );
+  CHECK_THAT( 1.147e+7, WithinRel( chunk.multiplicity().energies()[2] ) );
+  CHECK_THAT( 2e+7, WithinRel( chunk.multiplicity().energies()[3] ) );
+  CHECK_THAT( 0., WithinRel( chunk.multiplicity().multiplicities()[0] ) );
+  CHECK_THAT( 8.45368e-11, WithinRel( chunk.multiplicity().multiplicities()[1] ) );
+  CHECK_THAT( 6.622950e-8, WithinRel( chunk.multiplicity().multiplicities()[2] ) );
+  CHECK_THAT( 2.149790e-1, WithinRel( chunk.multiplicity().multiplicities()[3] ) );
 
-  auto law =
-     std::get< DefinedElsewhere >( chunk.distribution() );
+  auto law = std::get< DefinedElsewhere >( chunk.distribution() );
 
   CHECK( -15 == law.LAW() );
 

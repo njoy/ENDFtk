@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/5.hpp"
 
 // other includes
@@ -154,15 +157,15 @@ void verifyChunk( const section::Type< 5 >& chunk ) {
   CHECK( 18 == chunk.MT() );
   CHECK( 18 == chunk.sectionNumber() );
 
-  CHECK( 92235. == Approx( chunk.ZA() ) );
-  CHECK( 2.330250e+2 == Approx( chunk.AWR() ) );
-  CHECK( 2.330250e+2 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 92235 == chunk.ZA() );
+  CHECK_THAT( 2.330250e+2, WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 2.330250e+2, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 1 == chunk.NK() );
   CHECK( 1 == chunk.numberPartialDistributions() );
 
   const auto& partial = chunk.partialDistributions()[0];
-  CHECK( -3e+7 == Approx ( partial.U() ) );
-  CHECK( -3e+7 == Approx ( partial.energyLimitConstant() ) );
+  CHECK_THAT( -3e+7, WithinRel( partial.U() ) );
+  CHECK_THAT( -3e+7, WithinRel( partial.energyLimitConstant() ) );
 
   const auto& p = partial.probability();
 
@@ -179,14 +182,14 @@ void verifyChunk( const section::Type< 5 >& chunk ) {
   CHECK( 2 == p.energies().size() );
   CHECK( 2 == p.P().size() );
   CHECK( 2 == p.probabilities().size() );
-  CHECK( 3.25e+6 == Approx( p.E()[0] ) );
-  CHECK( 2e+7 == Approx( p.E()[1] ) );
-  CHECK( 3.25e+6 == Approx( p.energies()[0] ) );
-  CHECK( 2e+7 == Approx( p.energies()[1] ) );
-  CHECK( 1. == Approx( p.P()[0] ) );
-  CHECK( 1. == Approx( p.P()[1] ) );
-  CHECK( 1. == Approx( p.probabilities()[0] ) );
-  CHECK( 1. == Approx( p.probabilities()[1] ) );
+  CHECK_THAT( 3.25e+6, WithinRel( p.E()[0] ) );
+  CHECK_THAT( 2e+7, WithinRel( p.E()[1] ) );
+  CHECK_THAT( 3.25e+6, WithinRel( p.energies()[0] ) );
+  CHECK_THAT( 2e+7, WithinRel( p.energies()[1] ) );
+  CHECK_THAT( 1., WithinRel( p.P()[0] ) );
+  CHECK_THAT( 1., WithinRel( p.P()[1] ) );
+  CHECK_THAT( 1., WithinRel( p.probabilities()[0] ) );
+  CHECK_THAT( 1., WithinRel( p.probabilities()[1] ) );
 
   const auto& d = std::get< MaxwellianFissionSpectrum >
                                          ( partial.distribution() );
@@ -203,15 +206,15 @@ void verifyChunk( const section::Type< 5 >& chunk ) {
   CHECK( 3 == d.E().size() );
   CHECK( 3 == d.energies().size() );
   CHECK( 3 == d.thetas().size() );
-  CHECK( 3.25e+6 == Approx( d.E()[0] ) );
-  CHECK( 1.5e+7 == Approx( d.E()[1] ) );
-  CHECK( 2e+7 == Approx( d.E()[2] ) );
-  CHECK( 3.25e+6 == Approx( d.energies()[0] ) );
-  CHECK( 1.5e+7 == Approx( d.energies()[1] ) );
-  CHECK( 2e+7 == Approx( d.energies()[2] ) );
-  CHECK( 1.2955e+6 == Approx( d.thetas()[0] ) );
-  CHECK( 1.4923e+6 == Approx( d.thetas()[1] ) );
-  CHECK( 1.49447e+6 == Approx( d.thetas()[2] ) );
+  CHECK_THAT( 3.25e+6, WithinRel( d.E()[0] ) );
+  CHECK_THAT( 1.5e+7, WithinRel( d.E()[1] ) );
+  CHECK_THAT( 2e+7, WithinRel( d.E()[2] ) );
+  CHECK_THAT( 3.25e+6, WithinRel( d.energies()[0] ) );
+  CHECK_THAT( 1.5e+7, WithinRel( d.energies()[1] ) );
+  CHECK_THAT( 2e+7, WithinRel( d.energies()[2] ) );
+  CHECK_THAT( 1.2955e+6, WithinRel( d.thetas()[0] ) );
+  CHECK_THAT( 1.4923e+6, WithinRel( d.thetas()[1] ) );
+  CHECK_THAT( 1.49447e+6, WithinRel( d.thetas()[2] ) );
 
   CHECK( 7 == chunk.NC() );
 }
