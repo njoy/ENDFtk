@@ -1,9 +1,13 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/14.hpp"
 
 // other includes
+#include "ENDFtk/tree/Section.hpp"
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
@@ -80,10 +84,10 @@ void verifyChunk( const IsotropicDiscretePhoton& chunk ) {
   CHECK( 0 == chunk.LTT() );
   CHECK( 0 == chunk.LAW() );
 
-  CHECK( 1. == Approx( chunk.EG() ) );
-  CHECK( 1. == Approx( chunk.photonEnergy() ) );
-  CHECK( 2. == Approx( chunk.ES() ) );
-  CHECK( 2. == Approx( chunk.levelEnergy() ) );
+  CHECK_THAT( 1., WithinRel( chunk.EG() ) );
+  CHECK_THAT( 1., WithinRel( chunk.photonEnergy() ) );
+  CHECK_THAT( 2., WithinRel( chunk.ES() ) );
+  CHECK_THAT( 2., WithinRel( chunk.levelEnergy() ) );
 
   CHECK( 1 == chunk.NC() );
 }

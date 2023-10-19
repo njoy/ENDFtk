@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/28.hpp"
 
 // other includes
@@ -138,16 +141,16 @@ void verifyChunk( const section::Type< 28 >& chunk ) {
 
   CHECK( 533 == chunk.MT() );
   CHECK( 1000 == chunk.ZA() );
-  CHECK( 0.9992414 == Approx( chunk.AWR() ) );
-  CHECK( 0.9992414 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK_THAT( 0.9992414, WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 0.9992414, WithinRel( chunk.atomicWeightRatio() ) );
 
   auto shell = chunk.subshells()[0];
   CHECK( 1 == shell.SUBI() );
   CHECK( 1 == shell.subshellDesignator() );
   CHECK( 2 == shell.NTR() );
   CHECK( 2 == shell.numberTransitions() );
-  CHECK( 1.156100e+4 == Approx( shell.EBI() ) );
-  CHECK( 1.156100e+4 == Approx( shell.subshellBindingEnergy() ) );
+  CHECK_THAT( 1.156100e+4, WithinRel( shell.EBI() ) );
+  CHECK_THAT( 1.156100e+4, WithinRel( shell.subshellBindingEnergy() ) );
   CHECK( 2 == shell.ELN() );
   CHECK( 2 == shell.numberSubshellElectrons() );
   CHECK( 2 == shell.transitions().size() );
@@ -155,25 +158,25 @@ void verifyChunk( const section::Type< 28 >& chunk ) {
   CHECK( 4 == shell.transitions()[1].SUBJ() );
   CHECK( 2 == shell.transitions()[0].SUBK() );
   CHECK( 3 == shell.transitions()[1].SUBK() );
-  CHECK( 9.5066e+4 == Approx( shell.transitions()[0].ETR() ) );
-  CHECK( 9.8928e+4 == Approx( shell.transitions()[1].ETR() ) );
-  CHECK( 0.75 == Approx( shell.transitions()[0].FTR() ) );
-  CHECK( 0.25 == Approx( shell.transitions()[1].FTR() ) );
+  CHECK_THAT( 9.5066e+4, WithinRel( shell.transitions()[0].ETR() ) );
+  CHECK_THAT( 9.8928e+4, WithinRel( shell.transitions()[1].ETR() ) );
+  CHECK_THAT( 0.75, WithinRel( shell.transitions()[0].FTR() ) );
+  CHECK_THAT( 0.25, WithinRel( shell.transitions()[1].FTR() ) );
 
   shell = chunk.subshells()[1];
   CHECK( 2 == shell.SUBI() );
   CHECK( 2 == shell.subshellDesignator() );
   CHECK( 1 == shell.NTR() );
   CHECK( 1 == shell.numberTransitions() );
-  CHECK( 2000. == Approx( shell.EBI() ) );
-  CHECK( 2000. == Approx( shell.subshellBindingEnergy() ) );
+  CHECK_THAT( 2000., WithinRel( shell.EBI() ) );
+  CHECK_THAT( 2000., WithinRel( shell.subshellBindingEnergy() ) );
   CHECK( 1 == shell.ELN() );
   CHECK( 1 == shell.numberSubshellElectrons() );
   CHECK( 1 == shell.transitions().size() );
   CHECK( 1 == shell.transitions()[0].SUBJ() );
   CHECK( 0 == shell.transitions()[0].SUBK() );
-  CHECK( 1000. == Approx( shell.transitions()[0].ETR() ) );
-  CHECK( 1. == Approx( shell.transitions()[0].FTR() ) );
+  CHECK_THAT( 1000., WithinRel( shell.transitions()[0].ETR() ) );
+  CHECK_THAT( 1., WithinRel( shell.transitions()[0].FTR() ) );
 
   CHECK( 8 == chunk.NC() );
 }

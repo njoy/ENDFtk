@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/15.hpp"
 
 // other includes
@@ -125,8 +128,8 @@ std::string chunk() {
 
 void verifyChunk( const OutgoingEnergyDistribution& chunk ) {
 
-  CHECK( 1e-5 == Approx( chunk.E() ) );
-  CHECK( 1e-5 == Approx( chunk.incidentEnergy() ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.E() ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.incidentEnergy() ) );
 
   CHECK( 3 == chunk.NP() );
   CHECK( 1 == chunk.NR() );
@@ -138,18 +141,18 @@ void verifyChunk( const OutgoingEnergyDistribution& chunk ) {
   CHECK( 3 == chunk.outgoingEnergies().size() );
   CHECK( 3 == chunk.G().size() );
   CHECK( 3 == chunk.probabilities().size() );
-  CHECK( 0.0 == Approx( chunk.EP()[0] ) );
-  CHECK( 1e+5 == Approx( chunk.EP()[1] ) );
-  CHECK( 3e+7 == Approx( chunk.EP()[2] ) );
-  CHECK( 0.0 == Approx( chunk.outgoingEnergies()[0] ) );
-  CHECK( 1e+5 == Approx( chunk.outgoingEnergies()[1] ) );
-  CHECK( 3e+7 == Approx( chunk.outgoingEnergies()[2] ) );
-  CHECK( 0. == Approx( chunk.G()[0] ) );
-  CHECK( 1.757570e-9 == Approx( chunk.G()[1] ) );
-  CHECK( 1.843350e-9 == Approx( chunk.G()[2] ) );
-  CHECK( 0. == Approx( chunk.probabilities()[0] ) );
-  CHECK( 1.757570e-9 == Approx( chunk.probabilities()[1] ) );
-  CHECK( 1.843350e-9 == Approx( chunk.probabilities()[2] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.EP()[0] ) );
+  CHECK_THAT( 1e+5, WithinRel( chunk.EP()[1] ) );
+  CHECK_THAT( 3e+7, WithinRel( chunk.EP()[2] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.outgoingEnergies()[0] ) );
+  CHECK_THAT( 1e+5, WithinRel( chunk.outgoingEnergies()[1] ) );
+  CHECK_THAT( 3e+7, WithinRel( chunk.outgoingEnergies()[2] ) );
+  CHECK_THAT( 0., WithinRel( chunk.G()[0] ) );
+  CHECK_THAT( 1.757570e-9, WithinRel( chunk.G()[1] ) );
+  CHECK_THAT( 1.843350e-9, WithinRel( chunk.G()[2] ) );
+  CHECK_THAT( 0., WithinRel( chunk.probabilities()[0] ) );
+  CHECK_THAT( 1.757570e-9, WithinRel( chunk.probabilities()[1] ) );
+  CHECK_THAT( 1.843350e-9, WithinRel( chunk.probabilities()[2] ) );
 
   CHECK( 3 == chunk.NC() );
 }
