@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/33.hpp"
 
 // other includes
@@ -223,9 +226,9 @@ std::string invalidSEND() {
 void verifyChunk( const section::Type< 33 >& chunk ) {
 
   // HEAD record
-  CHECK( 94239. == Approx( chunk.ZA() ) );
-  CHECK( 2.369986e+2 == Approx( chunk.AWR() ) );
-  CHECK( 2.369986e+2 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 94239 == chunk.ZA() );
+  CHECK_THAT( 2.369986e+2, WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 2.369986e+2, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 0 == chunk.MTL() );
   CHECK( 0 == chunk.lumpedCovarianceIndex() );
   CHECK( 1 == chunk.NL() );
@@ -237,10 +240,10 @@ void verifyChunk( const section::Type< 33 >& chunk ) {
   auto sub = chunk.reactions()[0];
 
   // subsection CONT record
-  CHECK( 1. == Approx( sub.XMF1() ) );
-  CHECK( 1. == Approx( sub.secondFileNumber() ) );
-  CHECK( 2. == Approx( sub.XLFS1() ) );
-  CHECK( 2. == Approx( sub.secondFinalExcitedState() ) );
+  CHECK( 1 == sub.XMF1() );
+  CHECK( 1 == sub.secondFileNumber() );
+  CHECK( 2 == sub.XLFS1() );
+  CHECK( 2 == sub.secondFinalExcitedState() );
   CHECK( 3 == sub.MAT1() );
   CHECK( 3 == sub.secondMaterialNumber() );
   CHECK( 4 == sub.MT1() );
@@ -259,9 +262,9 @@ void verifyChunk( const section::Type< 33 >& chunk ) {
 void verifyLump( const section::Type< 33 >& lump ) {
 
   // HEAD record
-  CHECK( 94239. == Approx( lump.ZA() ) );
-  CHECK( 2.369986e+2 == Approx( lump.AWR() ) );
-  CHECK( 2.369986e+2 == Approx( lump.atomicWeightRatio() ) );
+  CHECK( 94239 == lump.ZA() );
+  CHECK_THAT( 2.369986e+2, WithinRel( lump.AWR() ) );
+  CHECK_THAT( 2.369986e+2, WithinRel( lump.atomicWeightRatio() ) );
   CHECK( 850 == lump.MTL() );
   CHECK( 850 == lump.lumpedCovarianceIndex() );
   CHECK( 0 == lump.NL() );

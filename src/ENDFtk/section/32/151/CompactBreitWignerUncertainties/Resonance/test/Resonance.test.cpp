@@ -1,7 +1,10 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
-#include "ENDFtk/section/32/151.hpp"
+// what we are testing
+#include "ENDFtk/section/32.hpp"
 
 // other includes
 
@@ -32,25 +35,25 @@ SCENARIO( "Resonance" ) {
 
 void verifyChunk( const Resonance& chunk ) {
 
-  CHECK( 1. == Approx( chunk.ER() ) );
-  CHECK( 1. == Approx( chunk.resonanceEnergy() ) );
-  CHECK( 2. == Approx( chunk.AJ() ) );
-  CHECK( 2. == Approx( chunk.spin() ) );
-  CHECK( 12. == Approx( chunk.GT() ) );
-  CHECK( 12. == Approx( chunk.totalWidth() ) );
-  CHECK( 3. == Approx( chunk.GN() ) );
-  CHECK( 3. == Approx( chunk.neutronWidth() ) );
-  CHECK( 4. == Approx( chunk.GG() ) );
-  CHECK( 4. == Approx( chunk.gammaWidth() ) );
-  CHECK( 5. == Approx( chunk.GF() ) );
-  CHECK( 5. == Approx( chunk.fissionWidth() ) );
+  CHECK_THAT( 1., WithinRel( chunk.ER() ) );
+  CHECK_THAT( 1., WithinRel( chunk.resonanceEnergy() ) );
+  CHECK_THAT( 2., WithinRel( chunk.AJ() ) );
+  CHECK_THAT( 2., WithinRel( chunk.spin() ) );
+  CHECK_THAT( 12., WithinRel( chunk.GT() ) );
+  CHECK_THAT( 12., WithinRel( chunk.totalWidth() ) );
+  CHECK_THAT( 3., WithinRel( chunk.GN() ) );
+  CHECK_THAT( 3., WithinRel( chunk.neutronWidth() ) );
+  CHECK_THAT( 4., WithinRel( chunk.GG() ) );
+  CHECK_THAT( 4., WithinRel( chunk.gammaWidth() ) );
+  CHECK_THAT( 5., WithinRel( chunk.GF() ) );
+  CHECK_THAT( 5., WithinRel( chunk.fissionWidth() ) );
 
-  CHECK( 6. == Approx( chunk.DER() ) );
-  CHECK( 6. == Approx( chunk.resonanceEnergyUncertainty() ) );
-  CHECK( 9. == Approx( chunk.DGN() ) );
-  CHECK( 9. == Approx( chunk.neutronWidthUncertainty() ) );
-  CHECK( 10. == Approx( chunk.DGG() ) );
-  CHECK( 10. == Approx( chunk.gammaWidthUncertainty() ) );
-  CHECK( 11. == Approx( chunk.DGF() ) );
-  CHECK( 11. == Approx( chunk.fissionWidthUncertainty() ) );
+  CHECK_THAT( 6., WithinRel( chunk.DER() ) );
+  CHECK_THAT( 6., WithinRel( chunk.resonanceEnergyUncertainty() ) );
+  CHECK_THAT( 9., WithinRel( chunk.DGN() ) );
+  CHECK_THAT( 9., WithinRel( chunk.neutronWidthUncertainty() ) );
+  CHECK_THAT( 10., WithinRel( chunk.DGG() ) );
+  CHECK_THAT( 10., WithinRel( chunk.gammaWidthUncertainty() ) );
+  CHECK_THAT( 11., WithinRel( chunk.DGF() ) );
+  CHECK_THAT( 11., WithinRel( chunk.fissionWidthUncertainty() ) );
 }
