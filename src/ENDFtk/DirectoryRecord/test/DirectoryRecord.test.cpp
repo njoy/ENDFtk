@@ -84,7 +84,7 @@ SCENARIO( "DirectoryRecord" ) {
       } // THEN
     } // WHEN
 
-    WHEN( "a string representation has a mismatch in tha MAT, MF or MT number" ) {
+    WHEN( "a string representation has a mismatch in the tail values" ) {
 
       std::string string = chunk();
       auto begin = string.begin();
