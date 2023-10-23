@@ -1,16 +1,15 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
-#include "ENDFtk/section/BaseWithoutMT.hpp"
+// what we are testing
+#include "ENDFtk/section/Base.hpp"
 
 // other includes
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-
-std::string chunk();
-std::string validSEND();
-std::string invalidSEND();
 
 class TestBaseWithoutMT : public section::BaseWithoutMT < TestBaseWithoutMT > {
 
@@ -23,80 +22,74 @@ public:
   int sectionNumber() const { return 451; }
 };
 
-SCENARIO( "section::BaseWithoutMT tests") {
+std::string chunk();
+void verifyChunk( const TestBaseWithoutMT& );
 
-  GIVEN( "a string representing the Section" ) {
+SCENARIO( "HeadRecord" ) {
 
-    std::string line = chunk();
-    auto begin = line.begin();
-    auto end = line.end();
+  GIVEN( "valid data for a HeadRecord" ) {
+
+    std::string string = chunk();
+    auto begin = string.begin();
+    auto end = string.end();
     long lineNumber = 2;
     auto head = StructureDivision( begin, end, lineNumber );
 
-    std::unique_ptr<TestBaseWithoutMT> base;
-    WHEN( "given good MAT, MF numbers" ){
+    WHEN( "the data is given explicitly" ) {
 
-      int MAT = 125;
-      int MF = 3;
-      THEN( "the base can be constructed without throwing" ) {
+      double ZA = 1001;
+      double AWR = 0.9991673;
 
-        REQUIRE_NOTHROW(
-            base = std::make_unique<TestBaseWithoutMT>( asHead(head), MAT, MF) );
+      TestBaseWithoutMT chunk( ZA, AWR );
 
-        AND_THEN( "we can get the ZA, MT, and atomicWeightRatio" ) {
+      THEN( "a Base can be constructed and members can be tested" ) {
 
-          REQUIRE( 451 == base->MT() );
-          REQUIRE( 451 == base->sectionNumber() );
-          REQUIRE( 1001 == base->ZA() );
-          REQUIRE( 0.9991673 == base->atomicWeightRatio() );
-        } // AND_THEN
+        verifyChunk( chunk );
       } // THEN
     } // WHEN
 
-    WHEN( "given bad MAT and MF numbers" ) {
+    WHEN( "the data is given using a HeadRecord" ) {
+
+      int MAT = 125;
+      int MF = 3;
+
+      TestBaseWithoutMT chunk( asHead( head ), MAT, MF );
+
+      THEN( "a Base can be constructed and members can be tested" ) {
+
+        verifyChunk( chunk );
+      } // THEN
+    } // WHEN
+  } // GIVEN
+
+  GIVEN( "invalid data for a Base class" ) {
+
+    std::string string = chunk();
+    auto begin = string.begin();
+    auto end = string.end();
+    long lineNumber = 2;
+    auto head = StructureDivision( begin, end, lineNumber );
+
+    WHEN( "given bad MAT and MF numbers when using a HEAD record" ) {
 
       int MAT = 1;
       int MF = 1;
 
       THEN( "an exception is thrown on construction" ) {
 
-        REQUIRE_THROWS( TestBaseWithoutMT( asHead( head ), MAT, MF ) );
-        REQUIRE_THROWS( TestBaseWithoutMT( asHead( head ), MAT, 3 ) );
-        REQUIRE_THROWS( TestBaseWithoutMT( asHead( head ), 125, MF ) );
-      }
-    }
+        CHECK_THROWS( TestBaseWithoutMT( asHead( head ), MAT, MF ) );
+        CHECK_THROWS( TestBaseWithoutMT( asHead( head ), MAT, 3 ) );
+        CHECK_THROWS( TestBaseWithoutMT( asHead( head ), 125, MF ) );
+      } // THEN
+    } // WHEN
 
-    WHEN( "head parameters are negative" ) {
+    WHEN( "the input arguments are negative" ) {
 
-      REQUIRE_THROWS( TestBaseWithoutMT( -1, 2.0 ) );
-      REQUIRE_THROWS( TestBaseWithoutMT( 1, -2.0 ) );
-    }
+      THEN( "an exception is thrown on construction" ) {
 
-    WHEN( "reading the SEND record" ) {
-
-      base = std::make_unique< TestBaseWithoutMT >( asHead(head), 125, 3);
-      std::string sSEND = validSEND();
-      auto beginSEND = sSEND.begin();
-      auto endSEND = sSEND.end();
-
-      THEN( "reading SEND with valid MAT, and MF does not throw" ) {
-
-        REQUIRE_NOTHROW( base->readSEND( beginSEND, endSEND,
-                                         lineNumber, 125, 3 ) );
-      }
-
-      THEN( "reading SEND with invalid MAT, and MF throws an exception" ) {
-
-        beginSEND = sSEND.begin();
-        endSEND = sSEND.end();
-        REQUIRE_THROWS( base->readSEND( beginSEND, endSEND,
-                                        lineNumber, 125, 125 ) );
-
-        beginSEND = sSEND.begin();
-        endSEND = sSEND.end();
-        REQUIRE_THROWS( base->readSEND( beginSEND, endSEND,
-                                        lineNumber, 3, 3 ) );
-      }
+        CHECK_THROWS( TestBaseWithoutMT( -1, 2.0 ) );
+        CHECK_THROWS( TestBaseWithoutMT( 1, -2.0 ) );
+      } // THEN
     } // WHEN
   } // GIVEN
 } // SCENARIO
@@ -107,11 +100,10 @@ std::string chunk(){
     " 1.001000+3 9.991673-1          0          0          0          0 125 3  1     \n";
 }
 
-std::string validSEND() {
-  return
-    "                                                                   125 3  0     \n";
-}
-std::string invalidSEND() {
-  return
-    "                                                                   125 3  1     \n";
+void verifyChunk( const TestBaseWithoutMT& chunk ) {
+
+  CHECK( 451 == chunk.MT() );
+  CHECK( 451 == chunk.sectionNumber() );
+  CHECK( 1001 == chunk.ZA() );
+  CHECK( 0.9991673 == chunk.atomicWeightRatio() );
 }

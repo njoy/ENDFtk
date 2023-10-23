@@ -78,8 +78,8 @@ SCENARIO( "HeadRecord" ) {
         CHECK_THROWS( TestBase( asHead( head ), MAT, MF ) );
         CHECK_THROWS( TestBase( asHead( head ), MAT, 3 ) );
         CHECK_THROWS( TestBase( asHead( head ), 125, MF ) );
-      }
-    }
+      } // THEN
+    } // WHEN
 
     WHEN( "the input arguments are negative" ) {
 
@@ -88,8 +88,8 @@ SCENARIO( "HeadRecord" ) {
         CHECK_THROWS( TestBase( -1, 2.0, 3 ) );
         CHECK_THROWS( TestBase( 1, -2.0, 3 ) );
         CHECK_THROWS( TestBase( 1, 2.0, -3 ) );
-      }
-    }
+      } // THEN
+    } // WHEN
   } // GIVEN
 } // SCENARIO
 
