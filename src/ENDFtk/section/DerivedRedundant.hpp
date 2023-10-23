@@ -48,22 +48,22 @@ class DerivedRedundant {
   /**
    *  @brief Return the lower energy bound
    */
-  int E1() const { return this->list_.C1(); }
+  double E1() const { return this->list_.C1(); }
 
   /**
    *  @brief Return the lower energy bound
    */
-  int lowerEnergy() const { return this->E1(); }
+  double lowerEnergy() const { return this->E1(); }
 
   /**
    *  @brief Return the upper energy bound
    */
-  int E2() const { return this->list_.C2(); }
+  double E2() const { return this->list_.C2(); }
 
   /**
    *  @brief Return the upper energy bound
    */
-  int upperEnergy() const { return this->E2(); }
+  double upperEnergy() const { return this->E2(); }
 
   /**
    *  @brief Return the number of reactions
