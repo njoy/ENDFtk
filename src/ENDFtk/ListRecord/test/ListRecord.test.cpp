@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/ListRecord.hpp"
 
 // other includes
@@ -8,153 +11,180 @@
 // convenience typedefs
 using namespace njoy::ENDFtk;
 
-SCENARIO( "ListRecord Tests", "[ENDFtk], [ListRecord]" ) {
+std::string chunk();
+void verifyChunk( const ListRecord& );
+std::string chunkWithSmallerNPL();
+std::string chunkWithNegativeNPL();
 
-  auto values = std::make_tuple( 1.001000E+3, 9.991673E-1, 0, 0, 10, 5 );
-  std::vector< double > list{0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0};
+SCENARIO( "ListRecord" ) {
 
-  std::string lines =
-    " 1.001000+3 9.991673-1          0          0         10          5 125 1451     \n"
-    " 0.000000+0 1.000000+0 2.000000+0 3.000000+0 4.000000+0 5.000000+0 125 1451     \n"
-    " 6.000000+0 7.000000+0 8.000000+0 9.000000+0                       125 1451     \n";
+  GIVEN( "valid data for a ListRecord" ) {
 
-  GIVEN( "value construction, the ctor works"){
-    REQUIRE_NOTHROW(
-      ListRecord( 1.001000E+3, 9.991673E-1, 0, 0, 5,
-                  {0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0} ) );
-  }
+    std::string string = chunk();
 
-  GIVEN( "iterators and a line number"){
-    auto it = lines.begin();
-    auto end = lines.end();
-    auto lineNumber = 0l;
+    WHEN( "the data is given explicitly" ) {
 
-    WHEN("the tail values match, the ctor works"){
-      REQUIRE_NOTHROW( ListRecord( it, end, lineNumber, 125, 1, 451 ) );
-    }
-    WHEN("the MAT value doesn't match, the ctor throws"){
-      REQUIRE_THROWS( ListRecord( it, end, lineNumber, 126, 1, 451 ) );
-    }
-    WHEN("the MF value doesn't match, the ctor throws"){
-      REQUIRE_THROWS( ListRecord( it, end, lineNumber, 125, 2, 451 ) );
-    }
-    WHEN("the MT value doesn't match, the ctor throws"){
-      REQUIRE_THROWS( ListRecord( it, end, lineNumber, 125, 1, 452 ) );
-    }
-  }
+      double C1 = 1.;
+      double C2 = 2.;
+      int L1 = 3;
+      int L2 = 4;
+      int N2 = 5;
+      std::vector< double > list = { 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0 };
 
-  SECTION( "print" ){
-    auto it = lines.begin();
-    auto end = lines.end();
-    auto lineNumber = 0l;
+      ListRecord chunk( C1, C2, L1, L2, N2, std::move( list ) );
 
-    int MAT = 125;
-    int MF = 1;
-    int MT = 451;
+      THEN( "a ListRecord can be constructed and members can be tested" ) {
 
-    const auto list = ListRecord( it, end, lineNumber, 125, 1, 451 );
-    std::string buffer;
-    auto output = std::back_inserter( buffer );
-    list.print( output, MAT, MF, MT );
+        verifyChunk( chunk );
+      } // THEN
 
-    REQUIRE( buffer == lines );
-  }
+      THEN( "it can be printed" ) {
 
-    SECTION( "print" ){
-    auto it = lines.begin();
-    auto end = lines.end();
-    auto lineNumber = 0l;
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 125, 3, 102 );
 
-    int MAT = 125;
-    int MF = 1;
-    int MT = 451;
+        CHECK( buffer == string );
+      } // THEN
+    } // WHEN
 
-    const auto list = ListRecord( it, end, lineNumber, 125, 1, 451 );
-    REQUIRE( list.NC() == 3 );
-  }
+    WHEN( "the data is read from a string/stream" ) {
 
-  GIVEN("nonzero entries outside list range"){
-    std::string lines =
-      " 1.001000+3 9.991673-1          0          0         10          5 125 1451    1\n"
-      " 0.000000+0 1.000000+0 2.000000+0 3.000000+0 4.000000+0 5.000000+0 125 1451    2\n"
-      " 6.000000+0 7.000000+0 8.000000+0 9.000000+0 1.000000+1 0.000000+0 125 1451    3\n";
-    auto it = lines.begin();
-    auto end = lines.end();
-    auto lineNumber = 0l;
-    THEN("the ctor throws"){
-      REQUIRE_THROWS( ListRecord( it, end, lineNumber, 125, 1, 451 ) );
-    }
-  }
-  GIVEN("blanks in zero entries"){
-    std::string lines =
-      " 1.001000+3 9.991673-1          0          0         10          5 125 1451    1\n"
-      " 0.000000+0 1.000000+0 2.000000+0 3.000000+0 4.000000+0 5.000000+0 125 1451    2\n"
-      " 6.000000+0 7.000000+0 8.000000+0 9.000000+0                       125 1451    3\n";
-    auto it = lines.begin();
-    auto end = lines.end();
-    auto lineNumber = 0l;
-    THEN("the ctor succeeds"){
-      REQUIRE_NOTHROW( ListRecord( it, end, lineNumber, 125, 1, 451 ) );
-    }
-  }
-  GIVEN( "A constructed list record"){
-    auto it = lines.begin();
-    auto end = lines.end();
-    auto lineNumber = 0l;
-    auto listRecord0 = ListRecord( it, end, lineNumber, 125, 1, 451 );
-    const auto& constListRecord0 = listRecord0;
-    auto listRecord1 =
-      ListRecord( 1.001000E+3, 9.991673E-1, 0, 0, 5,
-                  {0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0} );
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
 
-    const auto& constListRecord1 = listRecord1;
-    THEN( "the getter will work" ){
-      REQUIRE( listRecord0.C1() == std::get< 0 >( values ) );
-      REQUIRE( listRecord1.C1() == std::get< 0 >( values ) );
-      REQUIRE( constListRecord0.C1() == std::get< 0 >( values ) );
-      REQUIRE( constListRecord1.C1() == std::get< 0 >( values ) );
-      REQUIRE( listRecord0.C2() == std::get< 1 >( values ) );
-      REQUIRE( listRecord1.C2() == std::get< 1 >( values ) );
-      REQUIRE( constListRecord0.C2() == std::get< 1 >( values ) );
-      REQUIRE( constListRecord1.C2() == std::get< 1 >( values ) );
-      REQUIRE( listRecord0.L1() == std::get< 2 >( values ) );
-      REQUIRE( listRecord1.L1() == std::get< 2 >( values ) );
-      REQUIRE( constListRecord0.L1() == std::get< 2 >( values ) );
-      REQUIRE( constListRecord1.L1() == std::get< 2 >( values ) );
-      REQUIRE( listRecord0.L2() == std::get< 3 >( values ) );
-      REQUIRE( listRecord1.L2() == std::get< 3 >( values ) );
-      REQUIRE( constListRecord0.L2() == std::get< 3 >( values ) );
-      REQUIRE( constListRecord1.L2() == std::get< 3 >( values ) );
-      REQUIRE( long(listRecord0.NPL()) == std::get< 4 >( values ) );
-      REQUIRE( long(listRecord1.NPL()) == std::get< 4 >( values ) );
-      REQUIRE( long(constListRecord0.NPL()) == std::get< 4 >( values ) );
-      REQUIRE( long(constListRecord1.NPL()) == std::get< 4 >( values ) );
-      REQUIRE( listRecord0.N2() == std::get< 5 >( values ) );
-      REQUIRE( listRecord1.N2() == std::get< 5 >( values ) );
-      REQUIRE( constListRecord0.N2() == std::get< 5 >( values ) );
-      REQUIRE( constListRecord1.N2() == std::get< 5 >( values ) );
+      ListRecord chunk( begin, end, lineNumber, 125, 3, 102 );
 
-      auto B = listRecord0.B();
-      REQUIRE( std::equal( B.begin(), B.end(), list.begin(), list.end() ) );
-    }
-    THEN( "the equality and inequality operators will work" ){
-      REQUIRE( listRecord0 == listRecord1 );
-      REQUIRE( listRecord0 == constListRecord1 );
-      listRecord0.N2() = 10;
-      REQUIRE( listRecord0 != listRecord1 );
-      REQUIRE( listRecord0 != constListRecord1 );
-    }
-  }
-  GIVEN("A LIST record with a negative NPL value"){
-    std::string lines =
-      " 1.001000+3 9.991673-1          0          0         -5          5 125 1451    1\n"
-      " 0.000000+0 1.000000+0 2.000000+0 3.000000+0 4.000000+0 5.000000+0 125 1451    2\n"
-      " 6.000000+0 7.000000+0 8.000000+0 9.000000+0 0.000000+0 0.000000+0 125 1451    3\n";
-    auto it = lines.begin();
-    auto end = lines.end();
-    auto lineNumber = 0l;
-    THEN("the ctor throws"){
-      REQUIRE_THROWS( ListRecord( it, end, lineNumber, 125, 1, 451 ) );
-    }
-  }
+      THEN( "a ListRecord can be constructed and members can be tested" ) {
+
+        verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 125, 3, 102 );
+
+        CHECK( buffer == string );
+      } // THEN
+    } // WHEN
+  } // GIVEN
+
+  GIVEN( "different ListRecord" ) {
+
+    GIVEN( "they can be compared" ) {
+
+      ListRecord chunk( 1., 2., 3, 4, 5, { 4., 3., 2., 1. } );
+      ListRecord equal( 1., 2., 3, 4, 5, { 4., 3., 2., 1. } );
+      ListRecord c1( 2., 2., 3, 4, 5, { 4., 3., 2., 1. } );
+      ListRecord c2( 1., 1., 3, 4, 5, { 4., 3., 2., 1. } );
+      ListRecord l1( 1., 2., 4, 4, 5, { 4., 3., 2., 1. } );
+      ListRecord l2( 1., 2., 3, 5, 5, { 4., 3., 2., 1. } );
+      ListRecord n2( 1., 2., 3, 4, 6, { 4., 3., 2., 1. } );
+      ListRecord list( 1., 2., 3, 4, 5, { 6., 7., 8., 9. } );
+
+      CHECK( chunk == equal );
+      CHECK( chunk != c1 );
+      CHECK( chunk != c2 );
+      CHECK( chunk != l1 );
+      CHECK( chunk != l2 );
+      CHECK( chunk != n2 );
+      CHECK( chunk != list );
+    } // GIVEN
+  } // GIVEN
+
+  GIVEN( "invalid data for a ListRecord" ) {
+
+    WHEN( "a string representation with a smaller NPL value is given" ) {
+
+      std::string string = chunkWithSmallerNPL();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( ListRecord( begin, end, lineNumber, 125, 3, 102 ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a string representation with a negative NPL value is given" ) {
+
+      std::string string = chunkWithNegativeNPL();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( ListRecord( begin, end, lineNumber, 125, 3, 102 ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a string representation has a mismatch in the tail values" ) {
+
+      std::string string = chunk();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( ListRecord( begin, end, lineNumber, 5, 3, 102 ) ); // MAT
+        CHECK_THROWS( ListRecord( begin, end, lineNumber, 125, 1, 102 ) ); // MF
+        CHECK_THROWS( ListRecord( begin, end, lineNumber, 125, 3, 103 ) ); // MT
+      } // THEN
+    } // WHEN
+  } // GIVEN
+} // SCENARIO
+
+std::string chunk() {
+
+  return
+    " 1.000000+0 2.000000+0          3          4         10          5 125 3102     \n"
+    " 1.000000+0 2.000000+0 3.000000+0 4.000000+0 5.000000+0 6.000000+0 125 3102     \n"
+    " 7.000000+0 8.000000+0 9.000000+0 1.000000+1                       125 3102     \n";
+}
+
+void verifyChunk( const ListRecord& chunk ) {
+
+  CHECK_THAT( 1.0, WithinRel( chunk.C1() ) );
+  CHECK_THAT( 2.0, WithinRel( chunk.C2() ) );
+  CHECK( 3 == chunk.L1() );
+  CHECK( 4 == chunk.L2() );
+  CHECK( 5 == chunk.N2() );
+
+  CHECK( 10 == chunk.NPL() );
+
+  CHECK( 10 == chunk.list().size() );
+  CHECK_THAT(  1., WithinRel( chunk.list()[0] ) );
+  CHECK_THAT(  2., WithinRel( chunk.list()[1] ) );
+  CHECK_THAT(  3., WithinRel( chunk.list()[2] ) );
+  CHECK_THAT(  4., WithinRel( chunk.list()[3] ) );
+  CHECK_THAT(  5., WithinRel( chunk.list()[4] ) );
+  CHECK_THAT(  6., WithinRel( chunk.list()[5] ) );
+  CHECK_THAT(  7., WithinRel( chunk.list()[6] ) );
+  CHECK_THAT(  8., WithinRel( chunk.list()[7] ) );
+  CHECK_THAT(  9., WithinRel( chunk.list()[8] ) );
+  CHECK_THAT( 10., WithinRel( chunk.list()[9] ) );
+
+  CHECK( 3 == chunk.NC() );
+}
+
+std::string chunkWithSmallerNPL() {
+
+  return
+    " 1.000000+0 2.000000+0          3          4          9          5 125 3102     \n"
+    " 1.000000+0 2.000000+0 3.000000+0 4.000000+0 5.000000+0 6.000000+0 125 3102     \n"
+    " 7.000000+0 8.000000+0 9.000000+0 1.000000+1                       125 3102     \n";
+}
+
+std::string chunkWithNegativeNPL() {
+
+  return
+    " 1.000000+0 2.000000+0          3          4         -1          5 125 3102     \n"
+    " 1.000000+0 2.000000+0 3.000000+0 4.000000+0 5.000000+0 6.000000+0 125 3102     \n"
+    " 7.000000+0 8.000000+0 9.000000+0 1.000000+1                       125 3102     \n";
 }

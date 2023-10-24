@@ -19,15 +19,15 @@ SCENARIO( "The Zipper readPartialLine function", "[ENDFtk], [Zipper]" ){
           ( 2, iteratorTuple, it, end, lineNumber, 125, 1, 451,
             Zip::tupleIndices );
         for ( int i = 0; i < 2; ++i ){
-          REQUIRE( dsink[i] == double(i + 1) );
-          REQUIRE( isink[i] == i + 1 );
+          CHECK_THAT( dsink[i], WithinRel( double(i + 1) ) );
+          CHECK( isink[i] == i + 1 );
         }
       }
 
       THEN( "the function will throw if the line contains too many tuples"){
-        REQUIRE_THROWS( Zipper::readPartialLine< Zip >
-                        ( 1, iteratorTuple, it, end, lineNumber, 125, 1, 451,
-                          Zip::tupleIndices ) );
+        CHECK_THROWS( Zipper::readPartialLine< Zip >
+                      ( 1, iteratorTuple, it, end, lineNumber, 125, 1, 451,
+                        Zip::tupleIndices ) );
       }
     }
   }

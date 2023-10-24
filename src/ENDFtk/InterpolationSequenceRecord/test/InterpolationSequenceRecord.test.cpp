@@ -1,10 +1,13 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/InterpolationSequenceRecord.hpp"
-#include "ENDFtk/ControlRecord.hpp"
 
 // other includes
+#include "ENDFtk/ControlRecord.hpp"
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
@@ -68,7 +71,7 @@ SCENARIO( "InterpolationSequenceRecord" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9228, 1, 455 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
 
@@ -93,7 +96,7 @@ SCENARIO( "InterpolationSequenceRecord" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 9228, 1, 455 );
 
-        REQUIRE( buffer == string );
+        CHECK( buffer == string );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -109,7 +112,7 @@ SCENARIO( "InterpolationSequenceRecord" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS(
+        CHECK_THROWS(
           InterpolationSequenceRecord< ControlRecord >(
             std::move( interpolation ), std::move( sequence ) ) );
       } // THEN
@@ -125,7 +128,7 @@ SCENARIO( "InterpolationSequenceRecord" ) {
 
       THEN( "an exception is thrown" ) {
 
-        REQUIRE_THROWS(
+        CHECK_THROWS(
           InterpolationSequenceRecord< ControlRecord >(
             std::move( interpolation ), std::move( sequence ) ) );
       } // THEN
@@ -143,35 +146,35 @@ std::string chunk() {
 
 void verifyChunk( const InterpolationSequenceRecord< ControlRecord >& chunk ) {
 
-  REQUIRE( 4 == chunk.NC() );
+  CHECK( 4 == chunk.NC() );
 
   InterpolationRecord tab2 = chunk.tab2();
   auto interpolants = tab2.interpolants();
   auto boundaries = tab2.boundaries();
   auto records = chunk.records();
 
-  REQUIRE( 3. == Approx( tab2.C1() ) );
-  REQUIRE( 5. == Approx( tab2.C2() ) );
-  REQUIRE( 6 == tab2.L1() );
-  REQUIRE( 7 == tab2.L2() );
-  REQUIRE( 1 == tab2.NR() );
-  REQUIRE( 2 == tab2.NZ() );
-  REQUIRE( 1 == interpolants.size() );
-  REQUIRE( 1 == boundaries.size() );
-  REQUIRE( 4 == interpolants[0] );
-  REQUIRE( 2 == boundaries[0] );
+  CHECK_THAT( 3., WithinRel( tab2.C1() ) );
+  CHECK_THAT( 5., WithinRel( tab2.C2() ) );
+  CHECK( 6 == tab2.L1() );
+  CHECK( 7 == tab2.L2() );
+  CHECK( 1 == tab2.NR() );
+  CHECK( 2 == tab2.NZ() );
+  CHECK( 1 == interpolants.size() );
+  CHECK( 1 == boundaries.size() );
+  CHECK( 4 == interpolants[0] );
+  CHECK( 2 == boundaries[0] );
 
-  REQUIRE( 2 == records.size() );
-  REQUIRE( 8. == Approx( records[0].C1() ) );
-  REQUIRE( 9. == Approx( records[0].C2() ) );
-  REQUIRE( 10 == records[0].L1() );
-  REQUIRE( 11 == records[0].L2() );
-  REQUIRE( 12 == records[0].N1() );
-  REQUIRE( 13 == records[0].N2() );
-  REQUIRE( 14. == Approx( records[1].C1() ) );
-  REQUIRE( 15. == Approx( records[1].C2() ) );
-  REQUIRE( 16 == records[1].L1() );
-  REQUIRE( 17 == records[1].L2() );
-  REQUIRE( 18 == records[1].N1() );
-  REQUIRE( 19 == records[1].N2() );
+  CHECK( 2 == records.size() );
+  CHECK_THAT( 8., WithinRel( records[0].C1() ) );
+  CHECK_THAT( 9., WithinRel( records[0].C2() ) );
+  CHECK( 10 == records[0].L1() );
+  CHECK( 11 == records[0].L2() );
+  CHECK( 12 == records[0].N1() );
+  CHECK( 13 == records[0].N2() );
+  CHECK_THAT( 14., WithinRel( records[1].C1() ) );
+  CHECK_THAT( 15., WithinRel( records[1].C2() ) );
+  CHECK( 16 == records[1].L1() );
+  CHECK( 17 == records[1].L2() );
+  CHECK( 18 == records[1].N1() );
+  CHECK( 19 == records[1].N2() );
 }
