@@ -32,8 +32,8 @@ namespace section{
 class ReactionBlock {
 
   /* fields */
-  double xmf1_;
-  double xlfs1_;
+  int xmf1_;
+  int xlfs1_;
   int mat1_;
   int mt1_;
   std::vector< DerivedCovariance > nc_;

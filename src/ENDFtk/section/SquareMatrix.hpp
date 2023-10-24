@@ -98,7 +98,6 @@ public:
 
   using ListRecord::NC;
   using ListRecord::print;
-
 };
 
 } // section namespace
