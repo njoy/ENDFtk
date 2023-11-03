@@ -28,23 +28,18 @@ read( StructureDivision& division,
       case 26 : { files.emplace_back( file::Type< 26 >( division, begin, end, lineNumber ) ); break; }
       case 27 : { files.emplace_back( file::Type< 27 >( division, begin, end, lineNumber ) ); break; }
       case 28 : { files.emplace_back( file::Type< 28 >( division, begin, end, lineNumber ) ); break; }
+      case 30 : { files.emplace_back( file::Type< 30 >( division, begin, end, lineNumber ) ); break; }
+      case 31 : { files.emplace_back( file::Type< 31 >( division, begin, end, lineNumber ) ); break; }
       case 32 : { files.emplace_back( file::Type< 32 >( division, begin, end, lineNumber ) ); break; }
       case 33 : { files.emplace_back( file::Type< 33 >( division, begin, end, lineNumber ) ); break; }
       case 34 : { files.emplace_back( file::Type< 34 >( division, begin, end, lineNumber ) ); break; }
+      case 35 : { files.emplace_back( file::Type< 35 >( division, begin, end, lineNumber ) ); break; }
+      case 40 : { files.emplace_back( file::Type< 40 >( division, begin, end, lineNumber ) ); break; }
       default : {
 
         int MF = division.tail.MF();
-        Log::info( "Found unsupported file MF{} - skipping file", MF );
-
-        Tail tail( division.tail.MAT(), division.tail.MF(), division.tail.MT() );
-        while ( tail.MF() == MF ) {
-
-          Text( begin, end );
-          tail = Tail( begin, end, lineNumber );
-        }
-
-        //! @todo once all files are implemented remove the previous code and throw
-        // throw std::exception();
+        Log::error( "Found unsupported file MF{} - skipping file", MF );
+        throw std::exception();
       }
     }
     division = StructureDivision( begin, end, lineNumber );

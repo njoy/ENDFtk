@@ -262,6 +262,10 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/15/TabulatedSpectrum.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/15/Probability.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/15/PartialDistribution.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/31.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/31/DerivedRedundant.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/31/DerivedRatioToStandard.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/31/ReactionBlock.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/33.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/33/DerivedRedundant.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/33/DerivedRatioToStandard.python.cpp
@@ -269,6 +273,13 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/34.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/34/LegendreBlock.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/34/ReactionBlock.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/35.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/35/SquareMatrix.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/40.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/40/DerivedRedundant.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/40/DerivedRatioToStandard.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/40/LevelBlock.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/40/ReactionBlock.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/1.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/2.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/3.python.cpp
@@ -287,9 +298,12 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/26.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/27.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/28.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/31.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/32.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/33.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/34.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/35.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/40.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/Material.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/tree/Section.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/tree/File.python.cpp

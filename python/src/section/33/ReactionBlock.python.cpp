@@ -42,7 +42,7 @@ void wrapReactionBlock( python::module& module, python::module& viewmodule ) {
   component
   .def(
 
-    python::init< int, int, int, int,
+    python::init< double, double, int, int,
                   std::vector< DerivedCovariance >&&,
                   std::vector< ExplicitCovariance >&& >(),
     python::arg( "xmf1" ), python::arg( "xlfs1" ),
@@ -60,7 +60,7 @@ void wrapReactionBlock( python::module& module, python::module& viewmodule ) {
   )
   .def(
 
-    python::init< int, int, int, int,
+    python::init< double, double, int, int,
                   std::vector< DerivedCovariance >&& >(),
     python::arg( "xmf1" ), python::arg( "xlfs1" ),
     python::arg( "mat1" ), python::arg( "mt1" ),
@@ -76,7 +76,7 @@ void wrapReactionBlock( python::module& module, python::module& viewmodule ) {
   )
   .def(
 
-    python::init< int, int, int, int,
+    python::init< double, double, int, int,
                   std::vector< ExplicitCovariance >&& >(),
     python::arg( "xmf1" ), python::arg( "xlfs1" ),
     python::arg( "mat1" ), python::arg( "mt1" ),

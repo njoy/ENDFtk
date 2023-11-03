@@ -39,9 +39,12 @@ void wrapFile_23( python::module&, python::module& );
 void wrapFile_26( python::module&, python::module& );
 void wrapFile_27( python::module&, python::module& );
 void wrapFile_28( python::module&, python::module& );
+void wrapFile_31( python::module&, python::module& );
 void wrapFile_32( python::module&, python::module& );
 void wrapFile_33( python::module&, python::module& );
 void wrapFile_34( python::module&, python::module& );
+void wrapFile_35( python::module&, python::module& );
+void wrapFile_40( python::module&, python::module& );
 
 // material and tape
 void wrapMaterial( python::module&, python::module& );
@@ -118,9 +121,12 @@ PYBIND11_MODULE( ENDFtk, module ) {
   wrapFile_26( module, viewmodule );
   wrapFile_27( module, viewmodule );
   wrapFile_28( module, viewmodule );
+  wrapFile_31( module, viewmodule );
   wrapFile_32( module, viewmodule );
   wrapFile_33( module, viewmodule );
   wrapFile_34( module, viewmodule );
+  wrapFile_35( module, viewmodule );
+  wrapFile_40( module, viewmodule );
 
   // wrap material and tape
   wrapMaterial( module, viewmodule );
