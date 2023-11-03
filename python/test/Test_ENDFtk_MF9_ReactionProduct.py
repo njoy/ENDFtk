@@ -65,6 +65,15 @@ class Test_ENDFtk_MF9_ReactionProduct( unittest.TestCase ) :
 
         verify_chunk( self, chunk )
 
+        # the data is given explicitly
+        chunk = ReactionProduct( qm = 2.224648e+6, qi = 3.224648e+6,
+                                 izap = 95242, lfs = 2,
+                                 energies = [ 1., 3. ],
+                                 multiplicities = [ 2., 4. ],
+                                 interpolant = 5 )
+
+        verify_chunk( self, chunk )
+
         # the data is read from a string
         chunk = ReactionProduct.from_string( self.chunk, 9534, 9, 102 )
 

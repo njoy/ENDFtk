@@ -57,11 +57,20 @@ class Test_ENDFtk_MF10_ReactionProduct( unittest.TestCase ) :
 
         # the data is given explicitly
         chunk = ReactionProduct( qm = 2.224648e+6, qi = 3.224648e+6,
-                                        izap = 95242, lfs = 2,
-                                        boundaries = [ 2 ],
-                                        interpolants = [ 5 ],
-                                        energies = [ 1., 3. ],
-                                        xs = [ 2., 4. ] )
+                                 izap = 95242, lfs = 2,
+                                 boundaries = [ 2 ],
+                                 interpolants = [ 5 ],
+                                 energies = [ 1., 3. ],
+                                 xs = [ 2., 4. ] )
+
+        verify_chunk( self, chunk )
+
+        # the data is given explicitly
+        chunk = ReactionProduct( qm = 2.224648e+6, qi = 3.224648e+6,
+                                 izap = 95242, lfs = 2,
+                                 energies = [ 1., 3. ],
+                                 xs = [ 2., 4. ],
+                                 interpolant = 5 )
 
         verify_chunk( self, chunk )
 

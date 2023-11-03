@@ -28,6 +28,25 @@ ReactionProduct( double qm, double qi, long izap, long lfs,
   }
 
 /**
+ *  @brief Constructor for a single interpolation zone
+ *
+ *  @param[in] qm             the mass difference Q value
+ *  @param[in] qi             the reaction Q value
+ *  @param[in] izap           the za identifier of the product
+ *  @param[in] lfs            the excited level number
+ *  @param[in] energies       the energy values
+ *  @param[in] xs             the multiplicities for every state
+ *  @param[in] interpolant    the interpolation type (default 2 - linlin)
+ */
+ReactionProduct( double qm, double qi, long izap, long lfs,
+                 std::vector< double >&& energies,
+                 std::vector< double >&& xs,
+                 long interpolant = 2 ) :
+  ReactionProduct( qm, qi, izap, lfs,
+                   { static_cast<long>( energies.size() ) }, { interpolant },
+                   std::move( energies ), std::move( xs ) ) {}
+
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator

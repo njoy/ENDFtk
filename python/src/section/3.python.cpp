@@ -50,6 +50,28 @@ void wrapSection_3( python::module& module, python::module& ) {
     "    energies       the energy values\n"
     "    xs             the cross section values"
   )
+  .def(
+
+    python::init< int, double, double, double, double,
+                  std::vector< double >&&, std::vector< double >&&,
+                  long, long >(),
+    python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
+    python::arg( "qm" ), python::arg( "qi" ),
+    python::arg( "energies" ), python::arg( "xs" ),
+    python::arg( "interpolant" ) = 2, python::arg( "lr" ) = 0,
+    "Initialise the section\n\n"
+    "Arguments:\n"
+    "    self          the section\n"
+    "    mt            the MT number\n"
+    "    zaid          the ZA  identifier\n"
+    "    awr           the atomic mass ratio\n"
+    "    qm            the mass difference Q value\n"
+    "    qi            the reaction Q value\n"
+    "    energies      the energy values\n"
+    "    xs            the cross section values\n"
+    "    interpolant   the interpolation type (default 2 - linlin)\n"
+    "    lr            the complex breakup flag (default 0)"
+  )
   .def_property_readonly(
 
     "QM",
