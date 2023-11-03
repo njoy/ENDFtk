@@ -17,8 +17,6 @@ class LegendreBlock {
   std::vector< ExplicitCovariance > ni_;
 
   /* auxiliary functions */
-  // intentionally taken from MF33
-  #include "ENDFtk/section/33/ReactionBlock/src/readNI.hpp"
 
 public:
 

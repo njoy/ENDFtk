@@ -37,6 +37,7 @@ void wrapMaterial( python::module& module, python::module& ) {
   using MF26 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 26 > >;
   using MF27 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 27 > >;
   using MF28 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 28 > >;
+  using MF32 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 32 > >;
   using MF33 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 33 > >;
   using MF34 = std::reference_wrapper< const njoy::ENDFtk::file::Type< 34 > >;
 
@@ -54,7 +55,7 @@ void wrapMaterial( python::module& module, python::module& ) {
   auto getFile = [] ( const Material& self, int mf )
   -> std::variant< MF1, MF2, MF3, MF4, MF5, MF6, MF7, MF8, MF9, MF10,
                    MF12, MF13, MF14, MF15, MF23, MF26, MF27, MF28,
-                   MF33, MF34 > {
+                   MF32, MF33, MF34 > {
 
     switch ( mf ) {
 
@@ -76,6 +77,7 @@ void wrapMaterial( python::module& module, python::module& ) {
       case 26 : return self.file( 26_c );
       case 27 : return self.file( 27_c );
       case 28 : return self.file( 28_c );
+      case 32 : return self.file( 32_c );
       case 33 : return self.file( 33_c );
       case 34 : return self.file( 34_c );
       default: throw std::runtime_error(

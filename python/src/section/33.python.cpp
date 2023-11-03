@@ -16,9 +16,6 @@ namespace mf33 {
   void wrapReactionBlock( python::module&, python::module& );
   void wrapDerivedRedundant( python::module&, python::module& );
   void wrapDerivedRatioToStandard( python::module&, python::module& );
-  void wrapCovariancePairs( python::module&, python::module& );
-  void wrapSquareMatrix( python::module&, python::module& );
-  void wrapRectangularMatrix( python::module&, python::module& );
 }
 
 void wrapSection_33( python::module& module, python::module& viewmodule ) {
@@ -32,9 +29,6 @@ void wrapSection_33( python::module& module, python::module& viewmodule ) {
   mf33::wrapReactionBlock( module, viewmodule );
   mf33::wrapDerivedRedundant( module, viewmodule );
   mf33::wrapDerivedRatioToStandard( module, viewmodule );
-  mf33::wrapCovariancePairs( module, viewmodule );
-  mf33::wrapSquareMatrix( module, viewmodule );
-  mf33::wrapRectangularMatrix( module, viewmodule );
 
   // wrap views created by this section
   // none of these are supposed to be created directly by the user
