@@ -39,7 +39,7 @@ class Test_ENDFtk_MF7_MT2_Section( unittest.TestCase ) :
 
             self.assertAlmostEqual( 107., chunk.ZA )
             self.assertAlmostEqual( 1., chunk.AWR )
-            self.assertEqual( 1., chunk.atomic_weight_ratio )
+            self.assertAlmostEqual( 1., chunk.atomic_weight_ratio )
             self.assertEqual( 1, chunk.LTHR )
             self.assertEqual( 1, chunk.elastic_scattering_type )
 

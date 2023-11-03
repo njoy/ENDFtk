@@ -19,7 +19,7 @@ SCENARIO( "ReactionProduct" ) {
 
     std::string string = chunk();
 
-    WHEN( "the data is given explicitly" ) {
+    WHEN( "the data is given explicitly with boundaries and interpolants" ) {
 
       double qm = 2.224648e+6;
       double qi = 3.224648e+6;
@@ -35,6 +35,59 @@ SCENARIO( "ReactionProduct" ) {
                              std::move( interpolants ),
                              std::move( x ),
                              std::move( y ) );
+
+      THEN( "a ReactionProduct can be constructed and members can be "
+            "tested" ) {
+
+        verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9534, 10, 102 );
+
+        CHECK( buffer == string );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is read from a string/stream" ) {
+
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      ReactionProduct chunk( begin, end, lineNumber, 9534, 10, 102 );
+
+      THEN( "a ReactionProduct can be constructed and members can be "
+            "tested" ) {
+
+        verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9534, 10, 102 );
+
+        CHECK( buffer == string );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is given explicitly with an interpolation type" ) {
+
+      double qm = 2.224648e+6;
+      double qi = 3.224648e+6;
+      long za = 95242;
+      long lfs = 2;
+      long interpolant = 5;
+      std::vector< double > x = { 1., 3. };
+      std::vector< double > y = { 2., 4. };
+
+      ReactionProduct chunk( qm, qi, za, lfs, std::move( x ), std::move( y ),
+                             interpolant );
 
       THEN( "a ReactionProduct can be constructed and members can be "
             "tested" ) {

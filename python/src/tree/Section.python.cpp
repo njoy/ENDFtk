@@ -126,6 +126,7 @@ void wrapTreeSection( python::module& module, python::module& ) {
 
             case 2 : return self.parse< 7, 2 >();
             case 4 : return self.parse< 7, 4 >();
+            case 451 : return self.parse< 7, 451 >();
             default: throw std::runtime_error(
                            "Section " + std::to_string( mt ) + " from file " +
                            std::to_string( mf ) +

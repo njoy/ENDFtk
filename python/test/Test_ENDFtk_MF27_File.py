@@ -81,6 +81,30 @@ class Test_ENDFtk_MF27_File( unittest.TestCase ) :
             self.assertEqual( 1, section.Z )
             self.assertEqual( 5, section.interpolants[0] )
 
+            self.assertEqual( 1000, chunk.section( 1 ).ZA )
+            self.assertEqual( 1, chunk.section( 1 ).Z )
+            self.assertEqual( 5, chunk.section( 1 ).interpolants[0] )
+
+            self.assertEqual( 1000, chunk.section( 2 ).ZA )
+            self.assertEqual( 1, chunk.section( 2 ).Z )
+            self.assertEqual( 2, chunk.section( 2 ).interpolants[0] )
+
+            self.assertEqual( 1000, chunk.section( 102 ).ZA )
+            self.assertEqual( 1, chunk.section( 102 ).Z )
+            self.assertEqual( 5, chunk.section( 102 ).interpolants[0] )
+
+            self.assertEqual( 1000, chunk.MT( 1 ).ZA )
+            self.assertEqual( 1, chunk.MT( 1 ).Z )
+            self.assertEqual( 5, chunk.MT( 1 ).interpolants[0] )
+
+            self.assertEqual( 1000, chunk.MT( 2 ).ZA )
+            self.assertEqual( 1, chunk.MT( 2 ).Z )
+            self.assertEqual( 2, chunk.MT( 2 ).interpolants[0] )
+
+            self.assertEqual( 1000, chunk.MT( 102 ).ZA )
+            self.assertEqual( 1, chunk.MT( 102 ).Z )
+            self.assertEqual( 5, chunk.MT( 102 ).interpolants[0] )
+
             # verify string
             self.assertEqual( self.chunk + self.valid_FEND,
                               chunk.to_string( 100 ) )

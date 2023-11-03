@@ -232,6 +232,8 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/4/AnalyticalFunctions.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/4/TabulatedFunctions.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/4/ScatteringFunction.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/451.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/451/ElementInformation.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/8/FissionYieldData.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/8/454.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/8/457.python.cpp

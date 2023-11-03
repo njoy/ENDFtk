@@ -16,10 +16,12 @@ namespace file {
   template<>
   class Type< 7 > : protected Base< Type< 7 >,
                                     std::variant< section::Type< 7, 2 >,
-                                                  section::Type< 7, 4 > > > {
+                                                  section::Type< 7, 4 >,
+                                                  section::Type< 7, 451 > > > {
 
     using SectionVariant = std::variant< section::Type< 7, 2 >,
-                                         section::Type< 7, 4 > >;
+                                         section::Type< 7, 4 >,
+                                         section::Type< 7, 451 > >;
     friend class Base< Type, SectionVariant >;
 
     /* auxiliary functions blatantly copied from MF1 */
