@@ -70,4 +70,4 @@ void wrapAnalyticalFunctions( python::module& module, python::module& ) {
   // no standard component definitions are added since AnalyticalFunctions is incomplete
 }
 
-} // namespace mf6
+} // namespace mf7

@@ -17,10 +17,28 @@ Type( section::Type< 7, 2 >&& section ) :
 /**
  *  @brief Constructor
  *
+ *  @param[in] elastic       the MF7 MT2 section
+ *  @param[in] information   the MF7 MT451 section
+ */
+Type( section::Type< 7, 2 >&& elastic, section::Type< 7, 451 >&& information ) :
+  Base( { std::move( elastic ), std::move( information ) } ) {}
+
+/**
+ *  @brief Constructor
+ *
  *  @param[in] section   the MF7 MT4 section
  */
 Type( section::Type< 7, 4 >&& section ) :
   Base( { std::move( section ) } ) {}
+
+/**
+ *  @brief Constructor
+ *
+ *  @param[in] inelastic     the MF7 MT4 section
+ *  @param[in] information   the MF7 MT451 section
+ */
+Type( section::Type< 7, 4 >&& inelastic, section::Type< 7, 451 >&& information ) :
+  Base( { std::move( inelastic ), std::move( information ) } ) {}
 
 /**
  *  @brief Constructor
@@ -30,6 +48,18 @@ Type( section::Type< 7, 4 >&& section ) :
  */
 Type( section::Type< 7, 2 >&& elastic, section::Type< 7, 4 >&& inelastic ) :
   Base( { std::move( elastic ), std::move( inelastic ) } ) {}
+
+/**
+ *  @brief Constructor
+ *
+ *  @param[in] elastic     the MF7 MT2 section
+ *  @param[in] inelastic   the MF7 MT4 section
+ *  @param[in] information   the MF7 MT451 section
+ */
+Type( section::Type< 7, 2 >&& elastic, section::Type< 7, 4 >&& inelastic,
+      section::Type< 7, 451 >&& information ) :
+  Base( { std::move( elastic ), std::move( inelastic ),
+          std::move( information ) } ) {}
 
 /**
  *  @brief Constructor

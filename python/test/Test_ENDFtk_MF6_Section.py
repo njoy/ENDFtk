@@ -59,6 +59,7 @@ class Test_ENDFtk_MF6_Section( unittest.TestCase ) :
             # verify content
             self.assertAlmostEqual( 92235., chunk.ZA )
             self.assertAlmostEqual( 2.330248e+2, chunk.AWR )
+            self.assertAlmostEqual( 2.330248e+2, chunk.atomic_weight_ratio )
             self.assertEqual( 0, chunk.JP )
             self.assertEqual( 0, chunk.average_multiple_particles_flag )
             self.assertEqual( 2, chunk.LCT )
