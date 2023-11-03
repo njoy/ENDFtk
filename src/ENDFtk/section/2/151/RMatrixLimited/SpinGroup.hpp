@@ -14,7 +14,7 @@ class SpinGroup  {
   ResonanceParameters parameters_;
   BackgroundChannels background_;
 
-  /* constructor */
+  /* auxiliary functions */
   #include "ENDFtk/section/2/151/RMatrixLimited/SpinGroup/src/verify.hpp"
 
 public:

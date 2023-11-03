@@ -19,10 +19,10 @@ GeneralMultiLevelBreitWigner() = default;
 GeneralMultiLevelBreitWigner( double spi, double ap, double dap,
                               unsigned int nls,
                               std::vector< ShortRangeBreitWignerBlock >&& cshort,
-                              std::vector< LongRangeCovarianceBlock >&& clong ) :
-  // no need for a try ... catch: nothing can go wrong here
-  GeneralCovarianceBase( spi, ap, std::move( dap ), nls,
-                         std::move( cshort ), std::move( clong ) ) {
+                              std::vector< LongRangeCovarianceBlock >&& clong )
+  try : GeneralCovarianceBase( spi, ap, std::move( dap ), nls,
+                               std::move( cshort ), std::move( clong ) ) {}
+  catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing resonance and covariance "
                "parameters in the Multi-Level Breit-Wigner representation for "
@@ -41,9 +41,10 @@ GeneralMultiLevelBreitWigner( double spi, double ap, double dap,
  */
 GeneralMultiLevelBreitWigner( double spi, double ap, unsigned int nls,
                               std::vector< ShortRangeBreitWignerBlock >&& cshort,
-                              std::vector< LongRangeCovarianceBlock >&& clong ) :
-  // no need for a try ... catch: nothing can go wrong here
-  GeneralCovarianceBase( spi, ap, nls, std::move( cshort ), std::move( clong ) ) {
+                              std::vector< LongRangeCovarianceBlock >&& clong )
+  try : GeneralCovarianceBase( spi, ap, nls,
+                               std::move( cshort ), std::move( clong ) ) {}
+  catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing resonance and covariance "
                "parameters in the Multi-Level Breit-Wigner representation for "
@@ -65,9 +66,9 @@ GeneralMultiLevelBreitWigner( double spi, double ap, unsigned int nls,
  */
 template< typename Iterator >
 GeneralMultiLevelBreitWigner( Iterator& it, const Iterator& end, long& lineNumber,
-                              int MAT, int MF, int MT ) :
-  // no try ... catch: exceptions will be handled in the derived class
-  GeneralCovarianceBase( it, end, lineNumber, MAT, MF, MT ) {
+                              int MAT, int MF, int MT )
+  try : GeneralCovarianceBase( it, end, lineNumber, MAT, MF, MT ) {}
+  catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing resonance and covariance "
                "parameters in the Multi-Level Breit-Wigner representation for "

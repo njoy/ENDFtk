@@ -3,7 +3,7 @@
  *  @brief Base class for general covariance representations (LCOMP = 1)
  *
  *  The GeneralCovarianceBase class is used to represent the resonance and
- *  covariance representations (LRU=1 and LRF=1, 2, 3, 4 and 7) for LCOMP=0
+ *  covariance representations (LRU=1 and LRF=1, 2, 3, 4 and 7) for LCOMP = 1
  *  from MF32/MT151.
  *
  *  See ENDF102, section 32.2.2 for more information.

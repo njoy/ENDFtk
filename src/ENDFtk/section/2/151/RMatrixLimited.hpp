@@ -9,9 +9,6 @@
  */
 class RMatrixLimited {
 
-  /* auxiliary functions */
-  #include "ENDFtk/section/2/151/RMatrixLimited/src/verifySize.hpp"
-
 public:
 
   #include "ENDFtk/section/2/151/RMatrixLimited/BaseBackgroundRMatrix.hpp"
@@ -42,6 +39,7 @@ private:
   std::vector< SpinGroup > spin_groups_;
 
   /* auxiliary functions */
+  #include "ENDFtk/section/2/151/RMatrixLimited/src/verifySize.hpp"
 
 public:
 

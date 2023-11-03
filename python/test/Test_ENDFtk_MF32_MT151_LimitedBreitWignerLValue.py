@@ -198,8 +198,7 @@ class Test_ENDFtk_MF32_MT151_LimitedBreitWignerLValue( unittest.TestCase ) :
         with self.assertRaises( Exception ) :
 
             chunk = LimitedBreitWignerLValue(
-                        awri = 1.982069e+1, qx = 1.,
-                        l = 1, lrx = True,
+                        awri = 1.982069e+1, l = 1,
                         energies = [ -1.470000e+5 ],
                         spins = [ 0.5, 0.5 ],
                         gt = [ 5.470695e+2, 1.072946e+5 ],
@@ -222,8 +221,7 @@ class Test_ENDFtk_MF32_MT151_LimitedBreitWignerLValue( unittest.TestCase ) :
         with self.assertRaises( Exception ) :
 
             chunk = LimitedBreitWignerLValue(
-                        awri = 1.982069e+1, qx = 1.,
-                        l = 1, lrx = True,
+                        awri = 1.982069e+1, l = 1,
                         energies = [], spins = [], gt = [],
                         gn = [], gg = [], gf = [],
                         de2 = [], dn2 = [], dndg = [],

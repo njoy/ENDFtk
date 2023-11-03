@@ -18,7 +18,6 @@ class GeneralReichMoore :
 protected:
 
   /* auxiliary functions */
-  // blatantly taken from from GeneralSingleLevelBreitWigner
   #include "ENDFtk/section/32/151/GeneralReichMoore/src/NC.hpp"
   #include "ENDFtk/section/32/151/GeneralReichMoore/src/print.hpp"
   #include "ENDFtk/section/32/151/GeneralReichMoore/src/read.hpp"
