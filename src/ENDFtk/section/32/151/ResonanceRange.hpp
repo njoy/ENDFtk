@@ -13,6 +13,7 @@ public:
 
   using ResonanceParameters =
           std::variant<
+              // resolved resonances
               LimitedSingleLevelBreitWigner, // LCOMP = 0, LRF = 1
               LimitedMultiLevelBreitWigner,  // LCOMP = 0, LRF = 2
               GeneralSingleLevelBreitWigner, // LCOMP = 1, LRF = 1
@@ -22,7 +23,9 @@ public:
               CompactSingleLevelBreitWigner, // LCOMP = 2, LRF = 1
               CompactMultiLevelBreitWigner,  // LCOMP = 2, LRF = 2
               CompactReichMoore,             // LCOMP = 2, LRF = 3
-              CompactRMatrixLimited          // LCOMP = 2, LRF = 7
+              CompactRMatrixLimited,         // LCOMP = 2, LRF = 7
+              // unresolved resonances
+              UnresolvedRelativeCovariances
               >;
 
 private:
@@ -100,18 +103,6 @@ public:
    *  @brief Return the average fission flag
    */
   bool averageFissionWidthFlag() const { return this->LFW(); }
-
-  /**
-   *  @brief Return the average fission flag
-   */
-  bool LCOMP() const { return std::visit( [] ( const auto& v ) -> bool
-                                             { return v.LCOMP(); },
-                                          this->parameters_ ); }
-
-  /**
-   *  @brief Return the covariance representation
-   */
-  int covarianceRepresentation() const { return this->LCOMP(); }
 
   /**
    *  @brief Return whether the scattering radius is energy dependent or not

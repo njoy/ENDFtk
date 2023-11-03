@@ -103,10 +103,7 @@ readParameters( Iterator& begin,
     }
     case 2: {
 
-      Log::error( "Encountered unsupported LRU value" );
-      Log::info( "LRU value: {}", LRU );
-      Log::info( "Line number: {}", lineNumber );
-      throw std::exception();
+      return UnresolvedRelativeCovariances( begin, end, lineNumber, MAT, MF, MT );
     }
     default : {
 
