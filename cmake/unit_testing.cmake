@@ -145,6 +145,7 @@ add_subdirectory( src/ENDFtk/section/32/151/CompactRMatrixLimitedUncertainties/R
 add_subdirectory( src/ENDFtk/section/32/151/CompactRMatrixLimitedUncertainties/ResonanceParameters/test )
 add_subdirectory( src/ENDFtk/section/32/151/CompactRMatrixLimitedUncertainties/SpinGroup/test )
 add_subdirectory( src/ENDFtk/section/32/151/CompactRMatrixLimitedUncertainties/test )
+add_subdirectory( src/ENDFtk/section/32/151/CompactRMatrixLimited/test )
 add_subdirectory( src/ENDFtk/section/32/151/UnresolvedRelativeCovariances/JValue/test )
 add_subdirectory( src/ENDFtk/section/32/151/UnresolvedRelativeCovariances/LValue/test )
 add_subdirectory( src/ENDFtk/section/32/151/UnresolvedRelativeCovariances/CovarianceMatrix/test )

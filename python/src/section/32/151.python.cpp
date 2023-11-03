@@ -13,6 +13,7 @@ namespace python = pybind11;
 namespace mf32 {
 
 // declarations - components
+void wrapScatteringRadiusCovariances( python::module&, python::module& );
 void wrapLimitedBreitWignerLValue( python::module&, python::module& );
 void wrapLimitedSingleLevelBreitWigner( python::module&, python::module& );
 void wrapLimitedMultiLevelBreitWigner( python::module&, python::module& );
@@ -37,6 +38,8 @@ void wrapCompactReichMooreUncertainties( python::module&, python::module& );
 void wrapCompactSingleLevelBreitWigner( python::module&, python::module& );
 void wrapCompactMultiLevelBreitWigner( python::module&, python::module& );
 void wrapCompactReichMoore( python::module&, python::module& );
+void wrapCompactRMatrixLimitedUncertainties( python::module&, python::module& );
+void wrapCompactRMatrixLimited( python::module&, python::module& );
 
 namespace lcomp2 {
 
@@ -83,6 +86,8 @@ void wrapSection_32_151( python::module& module, python::module& viewmodule ) {
       "any_view< LongRangeCovarianceBlock, random_access >" );
 
   // wrap components
+
+  mf32::wrapScatteringRadiusCovariances( submodule, viewmodule );
 
   // LCOMP = 0: limited or compatible resolved resonance covariances
 
@@ -131,6 +136,8 @@ void wrapSection_32_151( python::module& module, python::module& viewmodule ) {
   mf32::wrapCompactSingleLevelBreitWigner( submodule, viewmodule );
   mf32::wrapCompactMultiLevelBreitWigner( submodule, viewmodule );
   mf32::wrapCompactReichMoore( submodule, viewmodule );
+  mf32::wrapCompactRMatrixLimitedUncertainties( submodule, viewmodule );
+  mf32::wrapCompactRMatrixLimited( submodule, viewmodule );
 
   // resonance range and isotope components
 

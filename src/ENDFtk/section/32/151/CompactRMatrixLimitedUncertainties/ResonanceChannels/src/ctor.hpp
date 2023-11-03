@@ -8,6 +8,14 @@ ResonanceChannels( ListRecord&& list ) : ListRecord( std::move( list ) ) {
 }
 
 public:
+//! @todo pybind11 variant needs default constructor workaround
+#ifdef PYBIND11
+/**
+ *  @brief Default constructor - only enabled for pybind11
+ */
+ResonanceChannels() = default;
+#endif
+
 /**
  *  @brief Constructor (using different values for the true and effective
  *         scattering radius)

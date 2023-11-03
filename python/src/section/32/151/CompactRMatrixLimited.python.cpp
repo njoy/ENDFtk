@@ -12,13 +12,14 @@ namespace python = pybind11;
 
 namespace mf32 {
 
-void wrapCompactMultiLevelBreitWigner( python::module& module, python::module& ) {
+void wrapCompactRMatrixLimited( python::module& module, python::module& ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 32, 151 >;
-  using Component = Section::CompactMultiLevelBreitWigner;
-  using OptionalScatteringRadiusUncertainties = std::optional< double >;
-  using CompactBreitWignerUncertainties = Section::CompactBreitWignerUncertainties;
+  using Component = Section::CompactRMatrixLimited;
+  using ReichMooreScatteringRadiusUncertainties = Section::ReichMooreScatteringRadiusUncertainties;
+  using OptionalScatteringRadiusUncertainties = std::optional< ReichMooreScatteringRadiusUncertainties >;
+  using CompactRMatrixLimitedUncertainties = Section::CompactRMatrixLimitedUncertainties;
   using CompactCorrelationMatrix = Section::CompactCorrelationMatrix;
 
   // wrap views created by this section
@@ -27,45 +28,44 @@ void wrapCompactMultiLevelBreitWigner( python::module& module, python::module& )
   python::class_< Component > component(
 
     module,
-    "CompactMultiLevelBreitWigner",
-    "MF32 MT151 section - multi level Breit-Wigner resonance parameter\n"
-    "                     covariances (LCOMP = 2)"
+    "CompactRMatrixLimited",
+    "MF32 MT151 section - Reich-Moore resonance parameter covariances (LCOMP = 2)"
   );
 
   // wrap the section
   component
+//  .def(
+//
+//    python::init( [] ( bool ifg,
+//                       ReichMooreScatteringRadiusUncertainties dap,
+//                       CompactRMatrixLimitedUncertainties parameters,
+//                       CompactCorrelationMatrix matrix )
+//                     { return Component( ifg,
+//                                         std::move( dap ),
+//                                         std::move( parameters ),
+//                                         std::move( matrix ) ); } ),
+//    python::arg( "ifg" ), python::arg( "dap" ),
+//    python::arg( "parameters" ), python::arg( "matrix" ),
+//    "Initialise the component\n\n"
+//    "Arguments:\n"
+//    "    self          the component\n"
+//    "    ifg           flag to indicate whether or not the widths are reduced\n"
+//    "    dap           the scattering radius uncertainty data\n"
+//    "    parameters    the resonance parameters and uncertainties\n"
+//    "    matrix        the correlation matrix"
+//  )
   .def(
 
-    python::init( [] ( double spi, double ap, double dap,
-                       CompactBreitWignerUncertainties parameters,
+    python::init( [] ( bool ifg,
+                       CompactRMatrixLimitedUncertainties parameters,
                        CompactCorrelationMatrix matrix )
-                     { return Component( spi, ap, dap, std::move( parameters ),
+                     { return Component( ifg, std::move( parameters ),
                                          std::move( matrix ) ); } ),
-    python::arg( "spi" ), python::arg( "ap" ), python::arg( "dap" ),
-    python::arg( "parameters" ), python::arg( "matrix" ),
+    python::arg( "ifg" ), python::arg( "parameters" ), python::arg( "matrix" ),
     "Initialise the component\n\n"
     "Arguments:\n"
     "    self          the component\n"
-    "    spi           the target spin value\n"
-    "    ap            the scattering radius\n"
-    "    dap           the scattering radius uncertainty data\n"
-    "    parameters    the resonance parameters and uncertainties\n"
-    "    matrix        the correlation matrix"
-  )
-  .def(
-
-    python::init( [] ( double spi, double ap,
-                       CompactBreitWignerUncertainties parameters,
-                       CompactCorrelationMatrix matrix )
-                     { return Component( spi, ap, std::move( parameters ),
-                                         std::move( matrix ) ); } ),
-    python::arg( "spi" ), python::arg( "ap" ),
-    python::arg( "parameters" ), python::arg( "matrix" ),
-    "Initialise the component\n\n"
-    "Arguments:\n"
-    "    self          the component\n"
-    "    spi           the target spin value\n"
-    "    ap            the scattering radius\n"
+    "    ifg           flag to indicate whether or not the widths are reduced\n"
     "    parameters    the resonance parameters and uncertainties\n"
     "    matrix        the correlation matrix"
   )
@@ -119,27 +119,27 @@ void wrapCompactMultiLevelBreitWigner( python::module& module, python::module& )
   )
   .def_property_readonly(
 
-    "SPI",
-    [] ( const Component& self ) { return self.SPI(); },
-    "The target spin"
+    "IFG",
+    &Component::IFG,
+    "The flag to indicate whether or not the widths are reduced"
   )
   .def_property_readonly(
 
-    "spin",
-    [] ( const Component& self ) { return self.spin(); },
-    "The scattering radius"
+    "reduced_widths",
+    &Component::reducedWidths,
+    "The flag to indicate whether or not the widths are reduced"
   )
   .def_property_readonly(
 
-    "AP",
-    [] ( const Component& self ) { return self.AP(); },
-    "The scattering radius"
+    "NJS",
+    &Component::NJS,
+    "The number of spin groups"
   )
   .def_property_readonly(
 
-    "scattering_radius",
-    [] ( const Component& self ) { return self.scatteringRadius(); },
-    "The scattering radius"
+    "number_spin_groups",
+    &Component::numberSpinGroups,
+    "The number of spin groups"
   )
   .def_property_readonly(
 
@@ -170,7 +170,7 @@ void wrapCompactMultiLevelBreitWigner( python::module& module, python::module& )
   .def_property_readonly(
 
     "uncertainties",
-    [] ( const Component& self ) -> const CompactBreitWignerUncertainties&
+    [] ( const Component& self ) -> const CompactRMatrixLimitedUncertainties&
        { return self.uncertainties(); },
     "The resonance parameter uncertainties"
   )
