@@ -13,6 +13,7 @@
 #include "range/v3/view/stride.hpp"
 #include "range/v3/view/take_exactly.hpp"
 #include "range/v3/view/transform.hpp"
+#include "ENDFtk/record.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/section.hpp"
@@ -56,6 +57,9 @@ namespace section {
     #include "ENDFtk/section/32/151/GeneralMultiLevelBreitWigner.hpp"
     #include "ENDFtk/section/32/151/GeneralReichMoore.hpp"
     #include "ENDFtk/section/32/151/GeneralRMatrixLimited.hpp"
+
+    // LCOMP = 2 components
+    #include "ENDFtk/section/32/151/CompactCorrelationMatrix.hpp"
 
     #include "ENDFtk/section/32/151/ResonanceRange.hpp"
     #include "ENDFtk/section/32/151/Isotope.hpp"
