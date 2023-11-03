@@ -124,6 +124,30 @@ void wrapMaterial( python::module& module, python::module& viewmodule ) {
     "    mf      the MF number of the file to be returned",
     python::return_value_policy::reference_internal
   )
+  .def(
+
+    "MFMT",
+    &Material::MFMT,
+    python::arg( "mf" ), python::arg( "mt" ),
+    "Return the section with the requested MF and MT number\n\n"
+    "Arguments:\n"
+    "    self    the file\n"
+    "    mf      the MF number of the section to be returned\n",
+    "    mt      the MT number of the section to be returned\n",
+    python::return_value_policy::reference_internal
+  )
+  .def(
+
+    "section",
+    &Material::section,
+    python::arg( "mf" ), python::arg( "mt" ),
+    "Return the section with the requested MF and MT number\n\n"
+    "Arguments:\n"
+    "    self    the file\n"
+    "    mf      the MF number of the section to be returned\n",
+    "    mt      the MT number of the section to be returned\n",
+    python::return_value_policy::reference_internal
+  )
   .def_static(
 
     "from_string",
