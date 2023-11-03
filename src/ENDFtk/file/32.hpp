@@ -18,16 +18,16 @@ namespace file {
     friend Base< Type >;
     using Parent = Base< Type >;
 
-    // MF7 only has enumerated secton
+    // MF32 only has enumerated secton
     // no sections are required
     static constexpr auto requiredSections()
       RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 151_c ) )
 
-    // MT2 and MT4 are optional
+    // no optional sections
     static constexpr auto optionalSections()
       RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple() )
 
-    // the following sections are currently unimplemented
+    // no sections are currently unimplemented
     static constexpr auto unimplementedSections()
       RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple() )
 
