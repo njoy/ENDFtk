@@ -16,7 +16,7 @@ template < typename Derived > class LimitedCovarianceBase {
   double ap_;
   std::optional< double > dap_;
 
-  std::vector< BreitWignerLValue > lvalues_;
+  std::vector< LimitedBreitWignerLValue > lvalues_;
 
   /* auxiliary functions */
   #include "ENDFtk/section/32/151/LimitedCovarianceBase/src/verifySize.hpp"

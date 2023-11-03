@@ -4,7 +4,7 @@ private:
  *  @brief Private constructor
  */
 LimitedCovarianceBase( double spi, double ap, std::optional< double >&& dap,
-                       std::vector< BreitWignerLValue >&& lvalues ) :
+                       std::vector< LimitedBreitWignerLValue >&& lvalues ) :
     // no need for a try ... catch: nothing can go wrong here
     spi_( spi ), ap_( ap ), dap_( dap ),
     lvalues_( std::move( lvalues ) ) {
@@ -30,7 +30,7 @@ LimitedCovarianceBase() = default;
  *  @param[in] lvalues   the l values and the resonance parameters
  */
 LimitedCovarianceBase( double spi, double ap, double dap,
-                       std::vector< BreitWignerLValue >&& lvalues ) :
+                       std::vector< LimitedBreitWignerLValue >&& lvalues ) :
   // no need for a try ... catch: nothing can go wrong here
   LimitedCovarianceBase( spi, ap, std::make_optional( dap ),
                          std::move( lvalues ) ) {}
@@ -43,7 +43,7 @@ LimitedCovarianceBase( double spi, double ap, double dap,
  *  @param[in] lvalues   the l values and the resonance parameters
  */
 LimitedCovarianceBase( double spi, double ap,
-                       std::vector< BreitWignerLValue >&& lvalues ) :
+                       std::vector< LimitedBreitWignerLValue >&& lvalues ) :
   // no need for a try ... catch: nothing can go wrong here
   LimitedCovarianceBase( spi, ap, std::nullopt, std::move( lvalues ) ) {}
 
@@ -58,8 +58,9 @@ LimitedCovarianceBase( double spi, double ap, std::optional< double >&& dap,
                        int MAT, int MF, int MT, int N ) :
   // no try ... catch: exceptions will be handled in the derived class
   LimitedCovarianceBase( spi, ap, std::move( dap ),
-                         readSequence< BreitWignerLValue >( it, end, lineNumber,
-                                                            MAT, MF, MT, N ) ) {}
+                         readSequence< LimitedBreitWignerLValue >(
+                             it, end, lineNumber,
+                             MAT, MF, MT, N ) ) {}
 
 /**
  *  @brief Private intermediate constructor
@@ -77,7 +78,7 @@ LimitedCovarianceBase( ControlRecord&& cont,
                          it, end, lineNumber, MAT, MF, MT, cont.N1() ) {}
 
 protected:
-  
+
 /**
  *  @brief Constructor (from a buffer)
  *

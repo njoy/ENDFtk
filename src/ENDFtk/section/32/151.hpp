@@ -38,7 +38,7 @@ namespace section {
     #include "ENDFtk/section/32/151/ScatteringRadiusCovariances.hpp"
 
     // LCOMP = 0 components
-    #include "ENDFtk/section/32/151/BreitWignerLValue.hpp"
+    #include "ENDFtk/section/32/151/LimitedBreitWignerLValue.hpp"
     #include "ENDFtk/section/32/151/LimitedCovarianceBase.hpp"
     #include "ENDFtk/section/32/151/LimitedSingleLevelBreitWigner.hpp"
     #include "ENDFtk/section/32/151/LimitedMultiLevelBreitWigner.hpp"

@@ -4,7 +4,7 @@ import unittest
 # third party imports
 
 # local imports
-from ENDFtk.MF32.MT151 import BreitWignerLValue
+from ENDFtk.MF32.MT151 import LimitedBreitWignerLValue
 from ENDFtk.MF32.MT151 import LimitedSingleLevelBreitWigner
 
 class Test_ENDFtk_MF2_MT151_LimitedSingleLevelBreitWigner( unittest.TestCase ) :
@@ -324,7 +324,7 @@ class Test_ENDFtk_MF2_MT151_LimitedSingleLevelBreitWigner( unittest.TestCase ) :
             self.assertEqual( self.chunk, chunk.to_string( 1125, 32, 151 ) )
 
         # the data is given explicitly
-        lvalues = [ BreitWignerLValue(
+        lvalues = [ LimitedBreitWignerLValue(
                         22.792, 0,
                         [ 2810., 242970., 298320. ], [ 1., 1., 2. ],
                         [ 376.35, 329.5, 2039. ], [ 376., 328., 2038. ],
@@ -334,7 +334,7 @@ class Test_ENDFtk_MF2_MT151_LimitedSingleLevelBreitWigner( unittest.TestCase ) :
                         [ 0., 0., 0. ], [ 0., 0., 0. ], [ 0., 0., 0. ],
                         [ 0., 0., 0. ], [ 0., 0., 0. ], [ 0., 0., 0. ],
                         [ 0., 0., 0. ] ),
-                    BreitWignerLValue(
+                    LimitedBreitWignerLValue(
                         22.792, 1,
                         [ 7617., 392320. ], [ 2., 1. ],
                         [ 6.058e-1, 2.277e+4 ], [ 5.800e-3, 2.276e+4 ],

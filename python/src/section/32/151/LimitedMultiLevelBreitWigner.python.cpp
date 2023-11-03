@@ -17,8 +17,8 @@ void wrapLimitedMultiLevelBreitWigner( python::module& module, python::module& v
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 32, 151 >;
   using Component = Section::LimitedMultiLevelBreitWigner;
-  using BreitWignerLValue = Section::BreitWignerLValue;
-  using BreitWignerLValueRange = RandomAccessAnyView< BreitWignerLValue >;
+  using LimitedBreitWignerLValue = Section::LimitedBreitWignerLValue;
+  using LimitedBreitWignerLValueRange = RandomAccessAnyView< LimitedBreitWignerLValue >;
 
   // wrap views created by this section
 
@@ -35,7 +35,7 @@ void wrapLimitedMultiLevelBreitWigner( python::module& module, python::module& v
   component
   .def(
 
-    python::init< double, double, double, std::vector< BreitWignerLValue >&& >(),
+    python::init< double, double, double, std::vector< LimitedBreitWignerLValue >&& >(),
     python::arg( "spin" ), python::arg( "ap" ), python::arg( "dap" ), python::arg( "lvalues" ),
     "Initialise the component\n\n"
     "Arguments:\n"
@@ -47,7 +47,7 @@ void wrapLimitedMultiLevelBreitWigner( python::module& module, python::module& v
   )
   .def(
 
-    python::init< double, double, std::vector< BreitWignerLValue >&& >(),
+    python::init< double, double, std::vector< LimitedBreitWignerLValue >&& >(),
     python::arg( "spin" ), python::arg( "ap" ), python::arg( "lvalues" ),
     "Initialise the component\n\n"
     "Arguments:\n"
@@ -167,7 +167,7 @@ void wrapLimitedMultiLevelBreitWigner( python::module& module, python::module& v
   .def_property_readonly(
 
     "l_values",
-    [] ( const Component& self ) -> BreitWignerLValueRange
+    [] ( const Component& self ) -> LimitedBreitWignerLValueRange
        { return self.lValues(); },
     "The l values and its resonance parameters"
   );

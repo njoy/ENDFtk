@@ -2,7 +2,7 @@ private:
 /**
  *  @brief Private intermediate constructor
  */
-BreitWignerLValue( ListRecord&& list ) :
+LimitedBreitWignerLValue( ListRecord&& list ) :
   ListRecord( std::move( list ) ) {
 
   verifySize( this->NPL(), this->N2() );
@@ -34,26 +34,26 @@ public:
  *  @param[in] djdf       the spin and fission width covariances (NRS values)
  *  @param[in] df2        the spin variances (NRS values)
  */
-BreitWignerLValue( double awri, int l,
-                   std::vector< double >&& energies,
-                   std::vector< double >&& spins,
-                   std::vector< double >&& gt,
-                   std::vector< double >&& gn,
-                   std::vector< double >&& gg,
-                   std::vector< double >&& gf,
-                   std::vector< double >&& de2,
-                   std::vector< double >&& dn2,
-                   std::vector< double >&& dndg,
-                   std::vector< double >&& dg2,
-                   std::vector< double >&& dndf,
-                   std::vector< double >&& dgdf,
-                   std::vector< double >&& df2,
-                   std::vector< double >&& djdn,
-                   std::vector< double >&& djdg,
-                   std::vector< double >&& djdf,
-                   std::vector< double >&& dj2 ) :
+LimitedBreitWignerLValue( double awri, int l,
+                          std::vector< double >&& energies,
+                          std::vector< double >&& spins,
+                          std::vector< double >&& gt,
+                          std::vector< double >&& gn,
+                          std::vector< double >&& gg,
+                          std::vector< double >&& gf,
+                          std::vector< double >&& de2,
+                          std::vector< double >&& dn2,
+                          std::vector< double >&& dndg,
+                          std::vector< double >&& dg2,
+                          std::vector< double >&& dndf,
+                          std::vector< double >&& dgdf,
+                          std::vector< double >&& df2,
+                          std::vector< double >&& djdn,
+                          std::vector< double >&& djdg,
+                          std::vector< double >&& djdf,
+                          std::vector< double >&& dj2 ) :
   // no try ... catch: exceptions will be handled in the derived class
-  BreitWignerLValue(
+  LimitedBreitWignerLValue(
           ListRecord( awri, 0., l, 0, energies.size(),
                       generateList( std::move( energies ),
                                     std::move( spins ),
@@ -79,7 +79,7 @@ BreitWignerLValue( double awri, int l,
  *  @param[in] MT           the expected MT number
  */
 template< typename Iterator >
-BreitWignerLValue( Iterator& it, const Iterator& end, long& lineNumber,
+LimitedBreitWignerLValue( Iterator& it, const Iterator& end, long& lineNumber,
                    int MAT, int MF, int MT ) :
    // no try ... catch: exceptions will be handled in the derived class
-  BreitWignerLValue( ListRecord( it, end, lineNumber, MAT, MF, MT ) ) {}
+  LimitedBreitWignerLValue( ListRecord( it, end, lineNumber, MAT, MF, MT ) ) {}

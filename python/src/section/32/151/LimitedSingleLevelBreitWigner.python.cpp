@@ -17,14 +17,14 @@ void wrapLimitedSingleLevelBreitWigner( python::module& module, python::module& 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 32, 151 >;
   using Component = Section::LimitedSingleLevelBreitWigner;
-  using BreitWignerLValue = Section::BreitWignerLValue;
-  using BreitWignerLValueRange = RandomAccessAnyView< BreitWignerLValue >;
+  using LimitedBreitWignerLValue = Section::LimitedBreitWignerLValue;
+  using LimitedBreitWignerLValueRange = RandomAccessAnyView< LimitedBreitWignerLValue >;
 
   // wrap views created by this section
   // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< BreitWignerLValue >(
+  wrapRandomAccessAnyViewOf< LimitedBreitWignerLValue >(
       viewmodule,
-      "any_view< mf32::BreitWignerLValue, random_access >" );
+      "any_view< mf32::LimitedBreitWignerLValue, random_access >" );
 
   // create the component
   python::class_< Component > component(
@@ -39,7 +39,7 @@ void wrapLimitedSingleLevelBreitWigner( python::module& module, python::module& 
   component
   .def(
 
-    python::init< double, double, double, std::vector< BreitWignerLValue >&& >(),
+    python::init< double, double, double, std::vector< LimitedBreitWignerLValue >&& >(),
     python::arg( "spin" ), python::arg( "ap" ), python::arg( "dap" ), python::arg( "lvalues" ),
     "Initialise the component\n\n"
     "Arguments:\n"
@@ -51,7 +51,7 @@ void wrapLimitedSingleLevelBreitWigner( python::module& module, python::module& 
   )
   .def(
 
-    python::init< double, double, std::vector< BreitWignerLValue >&& >(),
+    python::init< double, double, std::vector< LimitedBreitWignerLValue >&& >(),
     python::arg( "spin" ), python::arg( "ap" ), python::arg( "lvalues" ),
     "Initialise the component\n\n"
     "Arguments:\n"
@@ -171,7 +171,7 @@ void wrapLimitedSingleLevelBreitWigner( python::module& module, python::module& 
   .def_property_readonly(
 
     "l_values",
-    [] ( const Component& self ) -> BreitWignerLValueRange
+    [] ( const Component& self ) -> LimitedBreitWignerLValueRange
        { return self.lValues(); },
     "The l values and its resonance parameters"
   );

@@ -7,18 +7,18 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using BreitWignerLValue =
-section::Type< 32, 151 >::BreitWignerLValue;
+using LimitedBreitWignerLValue =
+section::Type< 32, 151 >::LimitedBreitWignerLValue;
 
 std::string chunk();
-void verifyChunk( const BreitWignerLValue& );
+void verifyChunk( const LimitedBreitWignerLValue& );
 std::string invalidSize();
 std::string zeroSize();
 std::string noNumberResonances();
 
-SCENARIO( "BreitWignerLValue" ) {
+SCENARIO( "LimitedBreitWignerLValue" ) {
 
-  GIVEN( "valid data for a BreitWignerLValue" ) {
+  GIVEN( "valid data for a LimitedBreitWignerLValue" ) {
 
     std::string string = chunk();
 
@@ -44,18 +44,18 @@ SCENARIO( "BreitWignerLValue" ) {
       std::vector< double > djdf = { 23., 24. };
       std::vector< double > dj2 = { 25., 26. };
 
-      BreitWignerLValue chunk( awri, l,
-                               std::move( er ), std::move( aj ),
-                               std::move( gt ), std::move( gn ),
-                               std::move( gg ), std::move( gf ),
-                               std::move( de2 ), std::move( dn2 ),
-                               std::move( dndg ), std::move( dg2 ),
-                               std::move( dndf ), std::move( dgdf ),
-                               std::move( df2 ), std::move( djdn ),
-                               std::move( djdg ), std::move( djdf ),
-                               std::move( dj2 ) );
+      LimitedBreitWignerLValue chunk( awri, l,
+                                      std::move( er ), std::move( aj ),
+                                      std::move( gt ), std::move( gn ),
+                                      std::move( gg ), std::move( gf ),
+                                      std::move( de2 ), std::move( dn2 ),
+                                      std::move( dndg ), std::move( dg2 ),
+                                      std::move( dndf ), std::move( dgdf ),
+                                      std::move( df2 ), std::move( djdn ),
+                                      std::move( djdg ), std::move( djdf ),
+                                      std::move( dj2 ) );
 
-      THEN( "a BreitWignerLValue can be constructed and members can be "
+      THEN( "a LimitedBreitWignerLValue can be constructed and members can be "
             "tested" ) {
 
         verifyChunk( chunk );
@@ -77,9 +77,9 @@ SCENARIO( "BreitWignerLValue" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      BreitWignerLValue chunk( begin, end, lineNumber, 1025, 32, 151 );
+      LimitedBreitWignerLValue chunk( begin, end, lineNumber, 1025, 32, 151 );
 
-      THEN( "a BreitWignerLValue can be constructed and members can be "
+      THEN( "a LimitedBreitWignerLValue can be constructed and members can be "
             "tested" ) {
 
         verifyChunk( chunk );
@@ -122,16 +122,17 @@ SCENARIO( "BreitWignerLValue" ) {
 
       THEN( "an exception is thrown" ) {
 
-        CHECK_THROWS( BreitWignerLValue( awri, l,
-                                         std::move( er ), std::move( aj ),
-                                         std::move( gt ), std::move( gn ),
-                                         std::move( gg ), std::move( gf ),
-                                         std::move( de2 ), std::move( dn2 ),
-                                         std::move( dndg ), std::move( dg2 ),
-                                         std::move( dndf ), std::move( dgdf ),
-                                         std::move( df2 ), std::move( djdn ),
-                                         std::move( djdg ), std::move( djdf ),
-                                         std::move( dj2 ) ) );
+        CHECK_THROWS( LimitedBreitWignerLValue(
+                          awri, l,
+                          std::move( er ), std::move( aj ),
+                          std::move( gt ), std::move( gn ),
+                          std::move( gg ), std::move( gf ),
+                          std::move( de2 ), std::move( dn2 ),
+                          std::move( dndg ), std::move( dg2 ),
+                          std::move( dndf ), std::move( dgdf ),
+                          std::move( df2 ), std::move( djdn ),
+                          std::move( djdg ), std::move( djdf ),
+                          std::move( dj2 ) ) );
       } // THEN
     } // WHEN
 
@@ -159,16 +160,17 @@ SCENARIO( "BreitWignerLValue" ) {
 
       THEN( "an exception is thrown" ) {
 
-        CHECK_THROWS( BreitWignerLValue( awri, l,
-                                         std::move( wrong ), std::move( aj ),
-                                         std::move( gt ), std::move( gn ),
-                                         std::move( gg ), std::move( gf ),
-                                         std::move( de2 ), std::move( dn2 ),
-                                         std::move( dndg ), std::move( dg2 ),
-                                         std::move( dndf ), std::move( dgdf ),
-                                         std::move( df2 ), std::move( djdn ),
-                                         std::move( djdg ), std::move( djdf ),
-                                         std::move( dj2 ) ) );
+        CHECK_THROWS( LimitedBreitWignerLValue(
+                          awri, l,
+                          std::move( wrong ), std::move( aj ),
+                          std::move( gt ), std::move( gn ),
+                          std::move( gg ), std::move( gf ),
+                          std::move( de2 ), std::move( dn2 ),
+                          std::move( dndg ), std::move( dg2 ),
+                          std::move( dndf ), std::move( dgdf ),
+                          std::move( df2 ), std::move( djdn ),
+                          std::move( djdg ), std::move( djdf ),
+                          std::move( dj2 ) ) );
       } // THEN
     } // WHEN
 
@@ -181,7 +183,7 @@ SCENARIO( "BreitWignerLValue" ) {
 
       THEN( "an exception is thrown" ) {
 
-        CHECK_THROWS( BreitWignerLValue( begin, end, lineNumber, 1025, 32, 151 ) );
+        CHECK_THROWS( LimitedBreitWignerLValue( begin, end, lineNumber, 1025, 32, 151 ) );
       } // THEN
     } // WHEN
 
@@ -194,7 +196,7 @@ SCENARIO( "BreitWignerLValue" ) {
 
       THEN( "an exception is thrown" ) {
 
-        CHECK_THROWS( BreitWignerLValue( begin, end, lineNumber, 1025, 32, 151 ) );
+        CHECK_THROWS( LimitedBreitWignerLValue( begin, end, lineNumber, 1025, 32, 151 ) );
       } // THEN
     } // WHEN
 
@@ -207,7 +209,7 @@ SCENARIO( "BreitWignerLValue" ) {
 
       THEN( "an exception is thrown" ) {
 
-        CHECK_THROWS( BreitWignerLValue( begin, end, lineNumber, 1025, 32, 151 ) );
+        CHECK_THROWS( LimitedBreitWignerLValue( begin, end, lineNumber, 1025, 32, 151 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -224,7 +226,7 @@ std::string chunk() {
     " 1.800000+1 2.000000+1 2.200000+1 2.400000+1 2.600000+1 0.000000+0102532151     \n";
 }
 
-void verifyChunk( const BreitWignerLValue& chunk ) {
+void verifyChunk( const LimitedBreitWignerLValue& chunk ) {
 
   CHECK( 1.982069e+1 == Approx( chunk.AWRI() ) );
   CHECK( 1.982069e+1 == Approx( chunk.atomicWeightRatio() ) );

@@ -8,7 +8,7 @@
 // convenience typedefs
 using namespace njoy::ENDFtk;
 using Resonance =
-section::Type< 32, 151 >::BreitWignerLValue::Resonance< std::vector< double > >;
+section::Type< 32, 151 >::LimitedBreitWignerLValue::Resonance< std::vector< double > >;
 
 void verifyChunk( const Resonance& );
 

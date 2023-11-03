@@ -12,11 +12,11 @@ namespace python = pybind11;
 
 namespace mf32 {
 
-void wrapBreitWignerLValue( python::module& module, python::module& ) {
+void wrapLimitedBreitWignerLValue( python::module& module, python::module& ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 32, 151 >;
-  using Component = Section::BreitWignerLValue;
+  using Component = Section::LimitedBreitWignerLValue;
 
   // wrap views created by this section
 
@@ -24,7 +24,7 @@ void wrapBreitWignerLValue( python::module& module, python::module& ) {
   python::class_< Component > component(
 
     module,
-    "BreitWignerLValue",
+    "LimitedBreitWignerLValue",
     "MF32 MT151 section - resonance parameters and variance/covariance data for\n"
     "                     a given l value in the SLBW or MLBW representation (LCOMP = 0)"
   );
