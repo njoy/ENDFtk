@@ -32,7 +32,7 @@ Type( HEAD& head,
     Base( head, MAT, 31 ),
     reactions_(
       readSequence< ReactionBlock >( begin, end, lineNumber,
-                                  MAT, 31, head.MT(), head.N2() ) ) {
+                                     MAT, 31, head.MT(), head.N2() ) ) {
     readSEND(begin, end, lineNumber, MAT, 31 );
   } catch( std::exception& e ) {
 

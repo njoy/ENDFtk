@@ -82,8 +82,11 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/record/TapeIdentification.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/CovariancePairs.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/SquareMatrix.python.cpp
-      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/covariance.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/RectangularMatrix.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/DerivedRedundant.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/DerivedRatioToStandard.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/ReactionBlock.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/covariance.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/TabulatedMultiplicity.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/PolynomialMultiplicity.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/451.python.cpp
@@ -263,23 +266,14 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/15/Probability.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/15/PartialDistribution.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/31.python.cpp
-      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/31/DerivedRedundant.python.cpp
-      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/31/DerivedRatioToStandard.python.cpp
-      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/31/ReactionBlock.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/33.python.cpp
-      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/33/DerivedRedundant.python.cpp
-      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/33/DerivedRatioToStandard.python.cpp
-      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/33/ReactionBlock.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/34.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/34/LegendreBlock.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/34/ReactionBlock.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/35.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/35/SquareMatrix.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/40.python.cpp
-      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/40/DerivedRedundant.python.cpp
-      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/40/DerivedRatioToStandard.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/40/LevelBlock.python.cpp
-      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/40/ReactionBlock.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/1.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/2.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/3.python.cpp

@@ -15,7 +15,7 @@
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/readSequence.hpp"
 #include "ENDFtk/section.hpp"
-#include "ENDFtk/section/covariance.hpp"
+#include "ENDFtk/section/ReactionBlock.hpp"
 
 namespace njoy {
 namespace ENDFtk {
@@ -32,23 +32,6 @@ namespace section{
    */
   template<>
   class Type< 31 > : protected Base {
-
-  public:
-
-    // all includes intentionally taken from MF33
-
-    // include classes for subsubsections
-    #include "ENDFtk/section/33/DerivedRedundant.hpp"
-    #include "ENDFtk/section/33/DerivedRatioToStandard.hpp"
-    using DerivedCovariance = std::variant<
-      DerivedRedundant,
-      DerivedRatioToStandard >;
-
-    // include classes for subsections
-    #include "ENDFtk/section/33/ReactionBlock.hpp"
-
-
-  private:
 
     /* fields */
     std::vector< ReactionBlock > reactions_;

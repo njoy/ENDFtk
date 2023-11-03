@@ -8,7 +8,7 @@
 // convenience typedefs
 using namespace njoy::ENDFtk;
 using LevelBlock = section::Type< 40 >::LevelBlock;
-using ReactionBlock = section::Type< 40 >::ReactionBlock;
+using ReactionBlock = section::ReactionBlock;
 using SquareMatrix = section::SquareMatrix;
 
 std::string chunk();

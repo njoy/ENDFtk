@@ -22,19 +22,12 @@ void wrapSection_31( python::module& module, python::module& viewmodule ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 31 >;
-  using ReactionBlock = Section::ReactionBlock;
+  using ReactionBlock = njoy::ENDFtk::section::ReactionBlock;
   using ReactionBlockRange = RandomAccessAnyView< ReactionBlock >;
 
   // wrap components
-  mf31::wrapReactionBlock( module, viewmodule );
-  mf31::wrapDerivedRedundant( module, viewmodule );
-  mf31::wrapDerivedRatioToStandard( module, viewmodule );
 
   // wrap views created by this section
-  // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< ReactionBlock >(
-      module,
-      "any_view< MF31::ReactionBlock, random_access >" );
 
   // create the section
   python::class_< Section > section(

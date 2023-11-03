@@ -17,14 +17,10 @@ void wrapLevelBlock( python::module& module, python::module& viewmodule ) {
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 40 >;
   using Component = Section::LevelBlock;
-  using ReactionBlock = Section::ReactionBlock;
+  using ReactionBlock = njoy::ENDFtk::section::ReactionBlock;
   using ReactionBlockRange = RandomAccessAnyView< ReactionBlock >;
 
   // wrap views created by this section
-  // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< ReactionBlock >(
-      module,
-      "any_view< MF40::ReactionBlock, random_access >" );
 
   // create the component
   python::class_< Component > component(

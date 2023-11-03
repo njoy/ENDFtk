@@ -3,20 +3,17 @@
 #include <pybind11/stl.h>
 
 // local includes
-#include "ENDFtk/section/33.hpp"
+#include "ENDFtk/section/DerivedRedundant.hpp"
 #include "definitions.hpp"
 #include "views.hpp"
 
 // namespace aliases
 namespace python = pybind11;
 
-namespace mf33 {
-
 void wrapDerivedRedundant( python::module& module, python::module& ) {
 
   // type aliases
-  using Section = njoy::ENDFtk::section::Type< 33 >;
-  using Component = Section::DerivedRedundant;
+  using Component = njoy::ENDFtk::section::DerivedRedundant;
 
   // wrap views created by this section
 
@@ -25,7 +22,7 @@ void wrapDerivedRedundant( python::module& module, python::module& ) {
 
     module,
     "DerivedRedundant",
-    "MF33 section - NC-type sub-subsection for derived redundant quantities"
+    "Covariance component - NC-type sub-subsection for derived redundant quantities"
   );
 
   // wrap the section
@@ -124,5 +121,3 @@ void wrapDerivedRedundant( python::module& module, python::module& ) {
   // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }
-
-} // namespace mf33

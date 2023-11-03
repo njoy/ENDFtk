@@ -1,3 +1,18 @@
+#ifndef NJOY_ENDFTK_SECTION_DERIVEDRATIOTOSTANDARD
+#define NJOY_ENDFTK_SECTION_DERIVEDRATIOTOSTANDARD
+
+// system includes
+
+// other includes
+#include "range/v3/view/drop_exactly.hpp"
+#include "range/v3/view/stride.hpp"
+#include "ENDFtk/ControlRecord.hpp"
+#include "ENDFtk/ListRecord.hpp"
+
+namespace njoy {
+namespace ENDFtk {
+namespace section{
+
 /**
  *  @class
  *  @brief NC-Type Sub-subsection with LTY=1,2,3
@@ -11,13 +26,13 @@ class DerivedRatioToStandard {
    ListRecord list_;
 
    /* auxiliary functions */
-   #include "ENDFtk/section/33/DerivedRatioToStandard/src/verifyLTY.hpp"
-   #include "ENDFtk/section/33/DerivedRatioToStandard/src/generateList.hpp"
+   #include "ENDFtk/section/DerivedRatioToStandard/src/verifyLTY.hpp"
+   #include "ENDFtk/section/DerivedRatioToStandard/src/generateList.hpp"
 
  public:
 
   /* constructor */
-  #include "ENDFtk/section/33/DerivedRatioToStandard/src/ctor.hpp"
+  #include "ENDFtk/section/DerivedRatioToStandard/src/ctor.hpp"
 
   /* methods */
 
@@ -130,7 +145,13 @@ class DerivedRatioToStandard {
   auto weights() const { return this->WEI(); }
 
 
-  #include "ENDFtk/section/33/DerivedRatioToStandard/src/NC.hpp"
-  #include "ENDFtk/section/33/DerivedRatioToStandard/src/print.hpp"
+  #include "ENDFtk/section/DerivedRatioToStandard/src/NC.hpp"
+  #include "ENDFtk/section/DerivedRatioToStandard/src/print.hpp"
 
 };
+
+} // section namespace
+} // ENDFtk namespace
+} // njoy namespace
+
+#endif

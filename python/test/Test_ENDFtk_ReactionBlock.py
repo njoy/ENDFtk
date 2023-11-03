@@ -4,23 +4,23 @@ import unittest
 # third party imports
 
 # local imports
-from ENDFtk.MF40 import ReactionBlock
-from ENDFtk.MF40 import DerivedRedundant
-from ENDFtk.MF40 import DerivedRatioToStandard
+from ENDFtk import ReactionBlock
+from ENDFtk import DerivedRedundant
+from ENDFtk import DerivedRatioToStandard
 
-class Test_ENDFtk_MF40_ReactionBlock( unittest.TestCase ) :
+class Test_ENDFtk_ReactionBlock( unittest.TestCase ) :
     """Unit test for the ReactionBlock class."""
 
     chunk = (
-        " 0.000000+0 0.000000+0          0          2          2          0943740  2     \n"
-        " 0.000000+0 0.000000+0          0          0          0          0943740  2     \n"
-        " 2.500000+3 2.000000+7          0          0         14          7943740  2     \n"
-        " 1.000000+0 1.000000+0-1.000000+0 4.000000+0-1.000000+0 1.600000+1943740  2     \n"
-        "-1.000000+0 1.700000+1-1.000000+0 1.800000+1-1.000000+0 3.700000+1943740  2     \n"
-        "-1.000000+0 1.020000+2                                            943740  2     \n"
-        " 0.000000+0 0.000000+0          0          1          0          0943740  2     \n"
-        " 2.500000+3 2.000000+7        325        102          6          2943740  2     \n"
-        " 3.000000+0 0.000000+0 1.000000+0 3.000000+0 2.000000+0 4.000000+0943740  2     \n" )
+        " 0.000000+0 0.000000+0          0          2          2          0943733  2     \n"
+        " 0.000000+0 0.000000+0          0          0          0          0943733  2     \n"
+        " 2.500000+3 2.000000+7          0          0         14          7943733  2     \n"
+        " 1.000000+0 1.000000+0-1.000000+0 4.000000+0-1.000000+0 1.600000+1943733  2     \n"
+        "-1.000000+0 1.700000+1-1.000000+0 1.800000+1-1.000000+0 3.700000+1943733  2     \n"
+        "-1.000000+0 1.020000+2                                            943733  2     \n"
+        " 0.000000+0 0.000000+0          0          1          0          0943733  2     \n"
+        " 2.500000+3 2.000000+7        325        102          6          2943733  2     \n"
+        " 3.000000+0 0.000000+0 1.000000+0 3.000000+0 2.000000+0 4.000000+0943733  2     \n" )
 
     def test_component( self ) :
 
@@ -76,7 +76,7 @@ class Test_ENDFtk_MF40_ReactionBlock( unittest.TestCase ) :
 
             # verify string
             self.assertEqual( self.chunk,
-                              chunk.to_string( 9437, 40, 2 ) )
+                              chunk.to_string( 9437, 33, 2 ) )
 
         # the data is given explicitly
         chunk = ReactionBlock(xmf1=0, xlfs1=0, mat1=0, mt1=2, nc=[
@@ -94,7 +94,7 @@ class Test_ENDFtk_MF40_ReactionBlock( unittest.TestCase ) :
         verify_chunk( self, chunk )
 
         # the data is read from a string
-        chunk = ReactionBlock.from_string( self.chunk, 9437, 40, 2 )
+        chunk = ReactionBlock.from_string( self.chunk, 9437, 33, 2 )
 
         verify_chunk( self, chunk )
 
