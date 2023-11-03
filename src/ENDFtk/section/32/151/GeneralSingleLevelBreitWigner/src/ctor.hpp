@@ -9,6 +9,7 @@ GeneralSingleLevelBreitWigner() = default;
 /**
  *  @brief Constructor with scattering radius uncertainty
  *
+ *  @param[in] awri      the atomic mass ratio
  *  @param[in] spi       the target spin value
  *  @param[in] ap        the scattering radius
  *  @param[in] dap       the scattering radius uncertainty data
@@ -16,11 +17,11 @@ GeneralSingleLevelBreitWigner() = default;
  *  @param[in] cshort    the short range covariance blocks
  *  @param[in] clong     the long range covariance blocks
  */
-GeneralSingleLevelBreitWigner( double spi, double ap, double dap,
+GeneralSingleLevelBreitWigner( double awri, double spi, double ap, double dap,
                                unsigned int nls,
                                std::vector< ShortRangeBreitWignerBlock >&& cshort,
                                std::vector< LongRangeCovarianceBlock >&& clong )
-  try : GeneralCovarianceBase( spi, ap, std::move( dap ), nls,
+  try : GeneralCovarianceBase( awri, spi, ap, std::move( dap ), nls,
                                std::move( cshort ), std::move( clong ) ) {}
   catch ( std::exception& e ) {
 
@@ -33,16 +34,17 @@ GeneralSingleLevelBreitWigner( double spi, double ap, double dap,
 /**
  *  @brief Constructor without scattering radius uncertainty
  *
+ *  @param[in] awri      the atomic mass ratio
  *  @param[in] spi       the target spin value
  *  @param[in] ap        the scattering radius
  *  @param[in] nls       the number of l values
  *  @param[in] cshort    the short range covariance blocks
  *  @param[in] clong     the long range covariance blocks
  */
-GeneralSingleLevelBreitWigner( double spi, double ap, unsigned int nls,
+GeneralSingleLevelBreitWigner( double awri, double spi, double ap, unsigned int nls,
                                std::vector< ShortRangeBreitWignerBlock >&& cshort,
                                std::vector< LongRangeCovarianceBlock >&& clong )
-  try : GeneralCovarianceBase( spi, ap, nls,
+  try : GeneralCovarianceBase( awri, spi, ap, nls,
                                std::move( cshort ), std::move( clong ) ) {}
   catch ( std::exception& e ) {
 

@@ -3,19 +3,19 @@ private:
 /**
  *  @brief Private constructor
  */
-GeneralCovarianceBase( double spi, double ap,
+GeneralCovarianceBase( double awri, double spi, double ap,
                        std::optional< RadiusUncertainty >&& dap,
                        unsigned int nls,
                        std::vector< ShortRangeCovarianceBlock >&& cshort,
                        std::vector< LongRangeCovarianceBlock >&& clong ) :
     // no need for a try ... catch: nothing can go wrong here
-    spi_( spi ), ap_( ap ), nls_( nls ), dap_( dap ),
+    spi_( spi ), ap_( ap ), nls_( nls ), awri_( awri ), dap_( dap ),
     short_( std::move( cshort ) ), long_( std::move( clong ) ) {
 
       verifySize( this->NSRS(), this->NLRS(), this->LRU() );
     }
 
-public:
+protected:
 //! @todo pybind11 variant needs default constructor workaround
 #ifdef PYBIND11
 /**
@@ -27,6 +27,7 @@ GeneralCovarianceBase() = default;
 /**
  *  @brief Constructor with scattering radius uncertainty
  *
+ *  @param[in] awri      the atomic mass ratio
  *  @param[in] spi       the target spin value
  *  @param[in] ap        the scattering radius
  *  @param[in] dap       the scattering radius uncertainty data
@@ -34,28 +35,30 @@ GeneralCovarianceBase() = default;
  *  @param[in] cshort    the short range covariance blocks
  *  @param[in] clong     the long range covariance blocks
  */
-GeneralCovarianceBase( double spi, double ap, RadiusUncertainty&& dap,
+GeneralCovarianceBase( double awri, double spi, double ap,
+                       RadiusUncertainty&& dap,
                        unsigned int nls,
                        std::vector< ShortRangeCovarianceBlock >&& cshort,
                        std::vector< LongRangeCovarianceBlock >&& clong ) :
   // no need for a try ... catch: nothing can go wrong here
-  GeneralCovarianceBase( spi, ap, std::make_optional( dap ), nls,
+  GeneralCovarianceBase( awri, spi, ap, std::make_optional( dap ), nls,
                          std::move( cshort ), std::move( clong ) ) {}
 
 /**
  *  @brief Constructor without scattering radius uncertainty
  *
+ *  @param[in] awri      the atomic mass ratio
  *  @param[in] spi       the target spin value
  *  @param[in] ap        the scattering radius
  *  @param[in] nls       the number of l values
  *  @param[in] cshort    the short range covariance blocks
  *  @param[in] clong     the long range covariance blocks
  */
-GeneralCovarianceBase( double spi, double ap, unsigned int nls,
+GeneralCovarianceBase( double awri, double spi, double ap, unsigned int nls,
                        std::vector< ShortRangeCovarianceBlock >&& cshort,
                        std::vector< LongRangeCovarianceBlock >&& clong ) :
   // no need for a try ... catch: nothing can go wrong here
-  GeneralCovarianceBase( spi, ap, std::nullopt, nls,
+  GeneralCovarianceBase( awri, spi, ap, std::nullopt, nls,
                          std::move( cshort ), std::move( clong ) ) {}
 
 private:
@@ -64,27 +67,27 @@ private:
  *  @brief Private intermediate constructor
  */
 template< typename Iterator >
-GeneralCovarianceBase( double spi, double ap,
+GeneralCovarianceBase( double awri, double spi, double ap,
                        std::optional< RadiusUncertainty >&& dap,
                        unsigned int nls,
                        std::vector< ShortRangeCovarianceBlock >&& cshort,
                        Iterator& it, const Iterator& end, long& lineNumber,
                        int MAT, int MF, int MT, int NLRS ) :
   // no try ... catch: exceptions will be handled in the derived class
-  GeneralCovarianceBase( spi, ap, std::move( dap ), nls, std::move( cshort ),
+  GeneralCovarianceBase( awri, spi, ap, std::move( dap ), nls, std::move( cshort ),
                          readSequence( it, end, lineNumber, MAT, MF, MT, NLRS ) ) {}
 
 /**
  *  @brief Private intermediate constructor
  */
 template< typename Iterator >
-GeneralCovarianceBase( double spi, double ap,
+GeneralCovarianceBase( double awri, double spi, double ap,
                        std::optional< RadiusUncertainty >&& dap,
                        unsigned int nls,
                        Iterator& it, const Iterator& end, long& lineNumber,
                        int MAT, int MF, int MT, int NSRS, int NLRS ) :
   // no try ... catch: exceptions will be handled in the derived class
-  GeneralCovarianceBase( spi, ap, std::move( dap ), nls,
+  GeneralCovarianceBase( awri, spi, ap, std::move( dap ), nls,
                          njoy::ENDFtk::readSequence< ShortRangeCovarianceBlock >(
                              it, end, lineNumber, MAT, MF, MT, NSRS ),
                          it, end, lineNumber, MAT, MF, MT, NLRS ) {}
@@ -100,9 +103,23 @@ GeneralCovarianceBase( double spi, double ap,
                        Iterator& it, const Iterator& end, long& lineNumber,
                        int MAT, int MF, int MT ) :
   // no try ... catch: exceptions will be handled in the derived class
-  GeneralCovarianceBase( spi, ap, std::move( dap ), nls,
+  GeneralCovarianceBase( cont.C1(), spi, ap, std::move( dap ), nls,
                          it, end, lineNumber, MAT, MF, MT,
                          cont.N1(), cont.N2() ) {}
+
+/**
+ *  @brief Private intermediate constructor
+ */
+template< typename Iterator >
+GeneralCovarianceBase( double spi, double ap,
+                       std::optional< RadiusUncertainty >&& dap,
+                       unsigned int nls,
+                       Iterator& it, const Iterator& end, long& lineNumber,
+                       int MAT, int MF, int MT ) :
+  // no try ... catch: exceptions will be handled in the derived class
+  GeneralCovarianceBase( spi, ap, std::move( dap ), nls,
+                         ControlRecord( it, end, lineNumber, MAT, MF, MT ),
+                         it, end, lineNumber, MAT, MF, MT ) {}
 
 /**
  *  @brief Private intermediate constructor
@@ -119,7 +136,6 @@ GeneralCovarianceBase( ControlRecord&& cont,
                                                    MAT, MF, MT ) )
                            : std::nullopt,
                          cont.N1(),
-                         ControlRecord( it, end, lineNumber, MAT, MF, MT ),
                          it, end, lineNumber, MAT, MF, MT ) {}
 
 protected:

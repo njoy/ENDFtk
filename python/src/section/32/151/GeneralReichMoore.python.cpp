@@ -43,19 +43,21 @@ void wrapGeneralReichMoore( python::module& module, python::module& viewmodule )
   .def(
 
     //! @todo pybind11 lambda move custom type workaround
-    python::init( [] ( double spi, double ap,
+    python::init( [] ( double awri, double spi, double ap,
                        ReichMooreScatteringRadiusUncertainties dap,
                        unsigned int nls,
                        std::vector< ShortRangeReichMooreBlock >&& cshort,
                        std::vector< LongRangeCovarianceBlock >&& clong )
-                     { return Component( spi, ap, std::move( dap ), nls,
+                     { return Component( awri, spi, ap, std::move( dap ), nls,
                                          std::move( cshort ),
                                          std::move( clong ) ); } ),
-    python::arg( "spin" ), python::arg( "ap" ), python::arg( "dap" ),
-    python::arg( "nls" ), python::arg( "short" ), python::arg( "long" ),
+    python::arg( "awri" ), python::arg( "spin" ), python::arg( "ap" ),
+    python::arg( "dap" ), python::arg( "nls" ), python::arg( "short" ),
+    python::arg( "long" ),
     "Initialise the component\n\n"
     "Arguments:\n"
     "    self      the component\n"
+    "    awri      the atomic mass ratio\n"
     "    spi       the target spin value\n"
     "    ap        the scattering radius\n"
     "    dap       the scattering radius uncertainty data\n"
@@ -65,14 +67,15 @@ void wrapGeneralReichMoore( python::module& module, python::module& viewmodule )
   )
   .def(
 
-    python::init< double, double, unsigned int,
+    python::init< double, double, double, unsigned int,
                   std::vector< ShortRangeReichMooreBlock >&&,
                   std::vector< LongRangeCovarianceBlock >&& >(),
-    python::arg( "spin" ), python::arg( "ap" ),
+    python::arg( "awri" ), python::arg( "spin" ), python::arg( "ap" ),
     python::arg( "nls" ), python::arg( "short" ), python::arg( "long" ),
     "Initialise the component\n\n"
     "Arguments:\n"
     "    self      the component\n"
+    "    awri      the atomic mass ratio\n"
     "    spi       the target spin value\n"
     "    ap        the scattering radius\n"
     "    nls       the number of l values\n"
@@ -129,6 +132,18 @@ void wrapGeneralReichMoore( python::module& module, python::module& viewmodule )
   )
   .def_property_readonly(
 
+    "AWRI",
+    [] ( const Component& self ) { return self.AWRI(); },
+    "The atomic weight ratio of the current isotope"
+  )
+  .def_property_readonly(
+
+    "atomic_weight_ratio",
+    [] ( const Component& self ) { return self.atomicWeightRatio(); },
+    "The atomic weight ratio of the current isotope"
+  )
+  .def_property_readonly(
+
     "SPI",
     [] ( const Component& self ) { return self.SPI(); },
     "The target spin"
@@ -150,6 +165,18 @@ void wrapGeneralReichMoore( python::module& module, python::module& viewmodule )
     "scattering_radius",
     [] ( const Component& self ) { return self.scatteringRadius(); },
     "The scattering radius"
+  )
+  .def_property_readonly(
+
+    "NLS",
+    [] ( const Component& self ) { return self.NLS(); },
+    "The number of l values for which resonance parameters are given"
+  )
+  .def_property_readonly(
+
+    "number_l_values",
+    [] ( const Component& self ) { return self.numberLValues(); },
+    "The number of l values for which resonance parameters are given"
   )
   .def_property_readonly(
 

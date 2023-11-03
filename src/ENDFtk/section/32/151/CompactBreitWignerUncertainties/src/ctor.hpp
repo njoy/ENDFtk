@@ -9,6 +9,14 @@ CompactBreitWignerUncertainties( ListRecord&& list ) :
 }
 
 public:
+//! @todo pybind11 variant needs default constructor workaround
+#ifdef PYBIND11
+/**
+ *  @brief Default constructor - only enabled for pybind11
+ */
+CompactBreitWignerUncertainties() = default;
+#endif
+
 /**
  *  @brief Constructor
  *
@@ -61,6 +69,6 @@ CompactBreitWignerUncertainties( double awri, double qx, bool lrx,
  */
 template< typename Iterator >
 CompactBreitWignerUncertainties( Iterator& it, const Iterator& end, long& lineNumber,
-                   int MAT, int MF, int MT ) :
+                                 int MAT, int MF, int MT ) :
    // no try ... catch: exceptions will be handled in the derived class
   CompactBreitWignerUncertainties( ListRecord( it, end, lineNumber, MAT, MF, MT ) ) {}

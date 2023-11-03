@@ -45,7 +45,7 @@ SCENARIO( "LValue" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 5655, 2, 151 );
+        chunk.print( output, 5655, 32, 151 );
 
         CHECK( buffer == string );
       } // THEN
@@ -57,7 +57,7 @@ SCENARIO( "LValue" ) {
       auto end = string.end();
       long lineNumber = 1;
 
-      LValue chunk( begin, end, lineNumber, 5655, 2, 151 );
+      LValue chunk( begin, end, lineNumber, 5655, 32, 151 );
 
       THEN( "a LValue can be constructed and members can be tested" ) {
 
@@ -68,7 +68,7 @@ SCENARIO( "LValue" ) {
 
         std::string buffer;
         auto output = std::back_inserter( buffer );
-        chunk.print( output, 5655, 2, 151 );
+        chunk.print( output, 5655, 32, 151 );
 
         CHECK( buffer == string );
       } // THEN
@@ -107,7 +107,7 @@ SCENARIO( "LValue" ) {
 
       THEN( "an exception is thrown" ) {
 
-        CHECK_THROWS( LValue( begin, end, lineNumber, 5655, 2, 151 ) );
+        CHECK_THROWS( LValue( begin, end, lineNumber, 5655, 32, 151 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -115,9 +115,9 @@ SCENARIO( "LValue" ) {
 
 std::string chunk() {
   return
-    " 1.387090+2 0.000000+0          1          0         12          25655 2151     \n"
-    " 4.400000+3 5.000000-1 5.280000-1 9.000000-2 1.000000+0 3.000000+05655 2151     \n"
-    " 2.200000+3 1.500000+0 2.640000-1 9.100000-2 2.000000+0 4.000000+05655 2151     \n";
+    " 1.387090+2 0.000000+0          1          0         12          2565532151     \n"
+    " 4.400000+3 5.000000-1 5.280000-1 9.000000-2 1.000000+0 3.000000+0565532151     \n"
+    " 2.200000+3 1.500000+0 2.640000-1 9.100000-2 2.000000+0 4.000000+0565532151     \n";
 }
 
 void verifyChunk( const LValue& chunk ) {
@@ -190,7 +190,7 @@ void verifyChunk( const LValue& chunk ) {
 
 std::string invalidSize() {
   return
-    " 1.387090+2 0.000000+0          1          0         12          15655 2151     \n"
-    " 4.400000+3 5.000000-1 5.280000-1 9.000000-2 1.000000+0 3.000000+05655 2151     \n"
-    " 2.200000+3 1.500000+0 2.640000-1 9.100000-2 2.000000+0 4.000000+05655 2151     \n";
+    " 1.387090+2 0.000000+0          1          0         12          1565532151     \n"
+    " 4.400000+3 5.000000-1 5.280000-1 9.000000-2 1.000000+0 3.000000+0565532151     \n"
+    " 2.200000+3 1.500000+0 2.640000-1 9.100000-2 2.000000+0 4.000000+0565532151     \n";
 }

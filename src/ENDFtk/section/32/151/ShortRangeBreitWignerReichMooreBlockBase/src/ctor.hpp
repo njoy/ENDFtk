@@ -22,7 +22,6 @@ ShortRangeBreitWignerReichMooreBlockBase() = default;
 /**
  *  @brief Constructor
  *
- *  @param[in] awri       the atomic weight ratio
  *  @param[in] mpar       the number of parameters with covariances
  *  @param[in] energies   the resonance energies (NRB values)
  *  @param[in] spins      the spin values (NRB values)
@@ -32,7 +31,7 @@ ShortRangeBreitWignerReichMooreBlockBase() = default;
  *  @param[in] column4    the fourth width (NRB values)
  *  @param[in] values     the values of the upper diagonal covaraince matrix
  */
-ShortRangeBreitWignerReichMooreBlockBase( double awri, int mpar,
+ShortRangeBreitWignerReichMooreBlockBase( int mpar,
                                           std::vector< double >&& energies,
                                           std::vector< double >&& spins,
                                           std::vector< double >&& column1,
@@ -42,7 +41,7 @@ ShortRangeBreitWignerReichMooreBlockBase( double awri, int mpar,
                                           std::vector< double >&& values ) :
   // no try ... catch: exceptions will be handled in the derived class
   ShortRangeBreitWignerReichMooreBlockBase(
-          ListRecord( awri, 0., mpar, 0, energies.size(),
+          ListRecord( 0., 0., mpar, 0, energies.size(),
                       generateList( std::move( energies ),
                                     std::move( spins ),
                                     std::move( column1 ),

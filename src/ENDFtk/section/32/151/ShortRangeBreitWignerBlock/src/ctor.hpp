@@ -9,7 +9,6 @@ ShortRangeBreitWignerBlock() = default;
 /**
  *  @brief Constructor
  *
- *  @param[in] awri       the atomic weight ratio
  *  @param[in] mpar       the number of parameters with covariances
  *  @param[in] energies   the resonance energies (NRB values)
  *  @param[in] spins      the spin values (NRB values)
@@ -19,7 +18,7 @@ ShortRangeBreitWignerBlock() = default;
  *  @param[in] gf         the fission widths (NRB values)
  *  @param[in] values     the values of the upper diagonal covaraince matrix
  */
- ShortRangeBreitWignerBlock( double awri, int mpar,
+ ShortRangeBreitWignerBlock( int mpar,
                              std::vector< double >&& energies,
                              std::vector< double >&& spins,
                              std::vector< double >&& gt,
@@ -28,7 +27,7 @@ ShortRangeBreitWignerBlock() = default;
                              std::vector< double >&& gf,
                              std::vector< double >&& values )
   try : ShortRangeBreitWignerReichMooreBlockBase(
-            awri, mpar, std::move( energies ),
+            mpar, std::move( energies ),
             std::move( spins ), std::move( gt ),
             std::move( gn ), std::move( gg ),
             std::move( gf ), std::move( values ) ) {}

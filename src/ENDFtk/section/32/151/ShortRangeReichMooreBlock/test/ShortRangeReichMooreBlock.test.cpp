@@ -7,8 +7,7 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
-using ShortRangeReichMooreBlock =
-section::Type< 32, 151 >::ShortRangeReichMooreBlock;
+using ShortRangeReichMooreBlock = section::Type< 32, 151 >::ShortRangeReichMooreBlock;
 
 std::string chunk();
 void verifyChunk( const ShortRangeReichMooreBlock& );
@@ -24,7 +23,6 @@ SCENARIO( "ShortRangeReichMooreBlock" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      double awri = 1.982069e+1;
       int mpar = 4;
       std::vector< double > er = { -1.470000e+5, 4.730000e+5 };
       std::vector< double > aj = { 0.5, 0.5 };
@@ -41,7 +39,7 @@ SCENARIO( "ShortRangeReichMooreBlock" ) {
                                                                      38., 39.,
                                                                           40. };
 
-      ShortRangeReichMooreBlock chunk( awri, mpar,
+      ShortRangeReichMooreBlock chunk( mpar,
                                        std::move( er ), std::move( aj ),
                                        std::move( gn ), std::move( gg ),
                                        std::move( gfa ), std::move( gfb ),
@@ -92,7 +90,6 @@ SCENARIO( "ShortRangeReichMooreBlock" ) {
 
     WHEN( "the data is empty" ) {
 
-      double awri = 1.982069e+1;
       int mpar = 4;
       std::vector< double > er = {};
       std::vector< double > aj = {};
@@ -105,7 +102,7 @@ SCENARIO( "ShortRangeReichMooreBlock" ) {
       THEN( "an exception is thrown" ) {
 
         CHECK_THROWS( ShortRangeReichMooreBlock(
-                          awri, mpar,
+                          mpar,
                           std::move( er ), std::move( aj ),
                           std::move( gn ), std::move( gg ),
                           std::move( gfa ), std::move( gfb ),
@@ -115,7 +112,6 @@ SCENARIO( "ShortRangeReichMooreBlock" ) {
 
     WHEN( "the data has different sizes" ) {
 
-      double awri = 1.982069e+1;
       int mpar = 4;
       std::vector< double > wrong = { -1.470000e+5 };
       std::vector< double > aj = { 0.5, 0.5 };
@@ -135,7 +131,7 @@ SCENARIO( "ShortRangeReichMooreBlock" ) {
       THEN( "an exception is thrown" ) {
 
         CHECK_THROWS( ShortRangeReichMooreBlock(
-                          awri, mpar,
+                          mpar,
                           std::move( wrong ), std::move( aj ),
                           std::move( gn ), std::move( gg ),
                           std::move( gfa ), std::move( gfb ),
@@ -186,7 +182,7 @@ SCENARIO( "ShortRangeReichMooreBlock" ) {
 
 std::string chunk() {
   return
-    " 1.982069+1 0.000000+0          4          0         48          2102532151     \n"
+    " 0.000000+0 0.000000+0          4          0         48          2102532151     \n"
     "-1.470000+5 5.000000-1 5.470695+2 3.680695+2 1.750000+2 3.000000+0102532151     \n"
     " 4.730000+5 5.000000-1 1.072946+5 1.072900+5 5.600000-1 4.000000+0102532151     \n"
     " 5.000000+0 6.000000+0 7.000000+0 8.000000+0 9.000000+0 1.000000+1102532151     \n"
@@ -199,8 +195,6 @@ std::string chunk() {
 
 void verifyChunk( const ShortRangeReichMooreBlock& chunk ) {
 
-  CHECK( 1.982069e+1 == Approx( chunk.AWRI() ) );
-  CHECK( 1.982069e+1 == Approx( chunk.atomicWeightRatio() ) );
   CHECK( 4 == chunk.MPAR() );
   CHECK( 4 == chunk.numberParametersWithCovariances() );
 
@@ -317,7 +311,7 @@ void verifyChunk( const ShortRangeReichMooreBlock& chunk ) {
 
 std::string invalidSize() {
   return
-    " 1.982069+1 0.000000+0          4          0         47          2102532151     \n"
+    " 0.000000+0 0.000000+0          4          0         47          2102532151     \n"
     "-1.470000+5 5.000000-1 5.470695+2 3.680695+2 1.750000+2 3.000000+0102532151     \n"
     " 4.730000+5 5.000000-1 1.072946+5 1.072900+5 5.600000-1 4.000000+0102532151     \n"
     " 5.000000+0 6.000000+0 7.000000+0 8.000000+0 9.000000+0 1.000000+1102532151     \n"
@@ -330,12 +324,12 @@ std::string invalidSize() {
 
 std::string zeroSize() {
   return
-    " 1.982069+1 0.000000+0          0          0          0          2102532151     \n";
+    " 0.000000+0 0.000000+0          0          0          0          2102532151     \n";
 }
 
 std::string noNumberResonances() {
   return
-    " 1.982069+1 0.000000+0          4          0         48          0102532151     \n"
+    " 0.000000+0 0.000000+0          4          0         48          0102532151     \n"
     "-1.470000+5 5.000000-1 5.470695+2 3.680695+2 1.750000+2 3.000000+0102532151     \n"
     " 4.730000+5 5.000000-1 1.072946+5 1.072900+5 5.600000-1 4.000000+0102532151     \n"
     " 5.000000+0 6.000000+0 7.000000+0 8.000000+0 9.000000+0 1.000000+1102532151     \n"

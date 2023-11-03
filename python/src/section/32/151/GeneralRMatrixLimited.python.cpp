@@ -40,11 +40,12 @@ void wrapGeneralRMatrixLimited( python::module& module, python::module& viewmodu
   .def(
 
     //! @todo pybind11 lambda move custom type workaround
-    python::init< std::vector< ShortRangeRMatrixLimitedBlock >&& >(),
-    python::arg( "short" ),
+    python::init< double, std::vector< ShortRangeRMatrixLimitedBlock >&& >(),
+    python::arg( "awri" ), python::arg( "short" ),
     "Initialise the component\n\n"
     "Arguments:\n"
     "    self      the component\n"
+    "    awri      the atomic mass ratio\n"
     "    short     the short range covariance blocks"
   )
   .def_property_readonly(
@@ -94,6 +95,18 @@ void wrapGeneralRMatrixLimited( python::module& module, python::module& viewmodu
     "covariance_representation",
     [] ( const Component& self ) { return self.covarianceRepresentation(); },
     "The covariance representation type"
+  )
+  .def_property_readonly(
+
+    "AWRI",
+    [] ( const Component& self ) { return self.AWRI(); },
+    "The atomic weight ratio of the current isotope"
+  )
+  .def_property_readonly(
+
+    "atomic_weight_ratio",
+    [] ( const Component& self ) { return self.atomicWeightRatio(); },
+    "The atomic weight ratio of the current isotope"
   )
   .def_property_readonly(
 

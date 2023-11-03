@@ -12,7 +12,7 @@ LimitedCovarianceBase( double spi, double ap, std::optional< double >&& dap,
       verifySize( this->NLS() );
     }
 
-public:
+protected:
 
 //! @todo pybind11 variant needs default constructor workaround
 #ifdef PYBIND11

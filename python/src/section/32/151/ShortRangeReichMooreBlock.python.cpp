@@ -33,18 +33,17 @@ void wrapShortRangeReichMooreBlock( python::module& module, python::module& ) {
   component
   .def(
 
-    python::init< double, int,
+    python::init< int,
                   std::vector< double >&&, std::vector< double >&&,
                   std::vector< double >&&, std::vector< double >&&,
                   std::vector< double >&&, std::vector< double >&&,
                   std::vector< double >&& >(),
-    python::arg( "awri" ), python::arg( "mpar" ), python::arg( "energies" ),
+    python::arg( "mpar" ), python::arg( "energies" ),
     python::arg( "spins" ), python::arg( "gn" ), python::arg( "gg" ),
     python::arg( "gfa" ), python::arg( "gfb" ), python::arg( "values" ),
     "Initialise the component\n\n"
     "Arguments:\n"
     "    self        the component\n"
-    "    awri        the atomic weight ratio\n"
     "    mpar        the number of parameters with covariances\n"
     "    energies    the resonance energies (NRB values)\n"
     "    spins       the spin values (NRB values)\n"
@@ -53,18 +52,6 @@ void wrapShortRangeReichMooreBlock( python::module& module, python::module& ) {
     "    gfa         the first fission widths (NRB values)\n"
     "    gfb         the second fission widths (NRB values)\n"
     "    values      the values of the upper diagonal covaraince matrix"
-  )
-  .def_property_readonly(
-
-    "AWRI",
-    [] ( const Component& self ) { return self.AWRI(); },
-    "The atomic weight ratio of the current isotope"
-  )
-  .def_property_readonly(
-
-    "atomic_weight_ratio",
-    [] ( const Component& self ) { return self.atomicWeightRatio(); },
-    "The atomic weight ratio of the current isotope"
   )
   .def_property_readonly(
 

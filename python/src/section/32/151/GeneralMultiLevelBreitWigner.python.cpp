@@ -37,14 +37,16 @@ void wrapGeneralMultiLevelBreitWigner( python::module& module, python::module& v
   component
   .def(
 
-    python::init< double, double, double, unsigned int,
+    python::init< double, double, double, double, unsigned int,
                   std::vector< ShortRangeBreitWignerBlock >&&,
                   std::vector< LongRangeCovarianceBlock >&& >(),
-    python::arg( "spin" ), python::arg( "ap" ), python::arg( "dap" ),
-    python::arg( "nls" ), python::arg( "short" ), python::arg( "long" ),
+    python::arg( "awri" ), python::arg( "spin" ), python::arg( "ap" ),
+    python::arg( "dap" ), python::arg( "nls" ), python::arg( "short" ),
+    python::arg( "long" ),
     "Initialise the component\n\n"
     "Arguments:\n"
     "    self      the component\n"
+    "    awri      the atomic mass ratio\n"
     "    spi       the target spin value\n"
     "    ap        the scattering radius\n"
     "    dap       the scattering radius uncertainty data\n"
@@ -54,14 +56,15 @@ void wrapGeneralMultiLevelBreitWigner( python::module& module, python::module& v
   )
   .def(
 
-    python::init< double, double, unsigned int,
+    python::init< double, double, double, unsigned int,
                   std::vector< ShortRangeBreitWignerBlock >&&,
                   std::vector< LongRangeCovarianceBlock >&& >(),
-    python::arg( "spin" ), python::arg( "ap" ),
+    python::arg( "awri" ), python::arg( "spin" ), python::arg( "ap" ),
     python::arg( "nls" ), python::arg( "short" ), python::arg( "long" ),
     "Initialise the component\n\n"
     "Arguments:\n"
     "    self      the component\n"
+    "    awri      the atomic mass ratio\n"
     "    spi       the target spin value\n"
     "    ap        the scattering radius\n"
     "    nls       the number of l values\n"
@@ -118,6 +121,18 @@ void wrapGeneralMultiLevelBreitWigner( python::module& module, python::module& v
   )
   .def_property_readonly(
 
+    "AWRI",
+    [] ( const Component& self ) { return self.AWRI(); },
+    "The atomic weight ratio of the current isotope"
+  )
+  .def_property_readonly(
+
+    "atomic_weight_ratio",
+    [] ( const Component& self ) { return self.atomicWeightRatio(); },
+    "The atomic weight ratio of the current isotope"
+  )
+  .def_property_readonly(
+
     "SPI",
     [] ( const Component& self ) { return self.SPI(); },
     "The target spin"
@@ -139,6 +154,18 @@ void wrapGeneralMultiLevelBreitWigner( python::module& module, python::module& v
     "scattering_radius",
     [] ( const Component& self ) { return self.scatteringRadius(); },
     "The scattering radius"
+  )
+  .def_property_readonly(
+
+    "NLS",
+    [] ( const Component& self ) { return self.NLS(); },
+    "The number of l values for which resonance parameters are given"
+  )
+  .def_property_readonly(
+
+    "number_l_values",
+    [] ( const Component& self ) { return self.numberLValues(); },
+    "The number of l values for which resonance parameters are given"
   )
   .def_property_readonly(
 
