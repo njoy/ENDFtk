@@ -79,6 +79,13 @@ namespace tree {
     const Section& MT( int mt ) const { return this->section( mt ); }
 
     /**
+     *  @brief Return the section with the requested MT number
+     *
+     *  @param[in]   mt   the MT number of the section to be returned
+     */
+    Section& MT( int mt ) { return this->section( mt ); }
+
+    /**
      *  @brief Return whether or not the file has a section with the given MT
      *         number
      *

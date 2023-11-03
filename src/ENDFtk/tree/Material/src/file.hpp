@@ -1,7 +1,7 @@
 /**
  *  @brief Return the file with the requested MF number
  *
- *  @param[in]   mf   the MF number of the material to be returned
+ *  @param[in]   mf   the MF number of the file to be returned
  */
 const File& file( int mf ) const {
 
@@ -24,7 +24,7 @@ const File& file( int mf ) const {
 /**
  *  @brief Return the file with the requested MF number
  *
- *  @param[in]   mf   the MF number of the material to be returned
+ *  @param[in]   mf   the MF number of the file to be returned
  */
 File& file( int mf ) {
 

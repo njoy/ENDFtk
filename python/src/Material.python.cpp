@@ -67,6 +67,27 @@ void wrapMaterial( python::module& module, python::module& viewmodule ) {
     "    self    the file\n"
     "    mf      the MF number of the file"
   )
+  .def(
+
+    "has_MF_MT",
+    &Material::hasMFMT,
+    "Return whether or not the material has a section with the given MF and MT "
+    "number\n\n"
+    "Arguments:\n"
+    "    self    the material\n"
+    "    mf      the MF number of the section\n"
+    "    mt      the MT number of the section"
+  )
+  .def(
+
+    "has_section",
+    &Material::hasSection,
+    "Return whether or not the material has a file with the given MF number\n\n"
+    "Arguments:\n"
+    "    self    the material\n"
+    "    mf      the MF number of the section\n"
+    "    mt      the MT number of the section"
+  )
   .def_property_readonly(
 
     "MFs",
