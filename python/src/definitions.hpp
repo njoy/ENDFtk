@@ -297,7 +297,8 @@ void addStandardFileDefinitions( PythonClass& file ) {
     "Return the section with the requested MT number\n\n"
     "Arguments:\n"
     "    self    the file\n"
-    "    mt      the MT number of the section to be returned"
+    "    mt      the MT number of the section to be returned",
+    python::return_value_policy::reference_internal
   )
   .def(
 
@@ -308,7 +309,8 @@ void addStandardFileDefinitions( PythonClass& file ) {
     "Return the section with the requested MT number\n\n"
     "Arguments:\n"
     "    self    the file\n"
-    "    mt      the MT number of the section to be returned"
+    "    mt      the MT number of the section to be returned",
+    python::return_value_policy::reference_internal
   )
   .def_property_readonly(
 

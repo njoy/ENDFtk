@@ -87,6 +87,36 @@ class Test_ENDFtk_MF3_File( unittest.TestCase ) :
             self.assertAlmostEqual( 2.224631e+6, section.QI )
             self.assertEqual( 5, section.interpolants[0] )
 
+            self.assertEqual( 1001, chunk.section( 1 ).ZA )
+            self.assertEqual( 0.0, chunk.section( 1 ).QM )
+            self.assertEqual( 0.0, chunk.section( 1 ).QI )
+            self.assertEqual( 5, chunk.section( 1 ).interpolants[0] )
+
+            self.assertEqual( 1001, chunk.section( 2 ).ZA )
+            self.assertEqual( 0.0, chunk.section( 2 ).QM )
+            self.assertEqual( 0.0, chunk.section( 2 ).QI )
+            self.assertEqual( 2, chunk.section( 2 ).interpolants[0] )
+
+            self.assertEqual( 1001, chunk.section( 102 ).ZA )
+            self.assertAlmostEqual( 2.224631e+6, chunk.section( 102 ).QM )
+            self.assertAlmostEqual( 2.224631e+6, chunk.section( 102 ).QI )
+            self.assertEqual( 5, chunk.section( 102 ).interpolants[0] )
+
+            self.assertEqual( 1001, chunk.MT( 1 ).ZA )
+            self.assertEqual( 0.0, chunk.MT( 1 ).QM )
+            self.assertEqual( 0.0, chunk.MT( 1 ).QI )
+            self.assertEqual( 5, chunk.MT( 1 ).interpolants[0] )
+
+            self.assertEqual( 1001, chunk.MT( 2 ).ZA )
+            self.assertEqual( 0.0, chunk.MT( 2 ).QM )
+            self.assertEqual( 0.0, chunk.MT( 2 ).QI )
+            self.assertEqual( 2, chunk.MT( 2 ).interpolants[0] )
+
+            self.assertEqual( 1001, chunk.MT( 102 ).ZA )
+            self.assertAlmostEqual( 2.224631e+6, chunk.MT( 102 ).QM )
+            self.assertAlmostEqual( 2.224631e+6, chunk.MT( 102 ).QI )
+            self.assertEqual( 5, chunk.MT( 102 ).interpolants[0] )
+
             # verify string
             self.assertEqual( self.chunk + self.valid_FEND,
                               chunk.to_string( 125 ) )
