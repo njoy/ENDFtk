@@ -31,7 +31,7 @@ void wrapFile_7( python::module& module, python::module& viewmodule ) {
   python::module submodule = module.def_submodule(
 
     "MF7",
-    "MF2 - thermal neutron scattering law data"
+    "MF7 - thermal neutron scattering law data"
   );
 
   // wrap sections

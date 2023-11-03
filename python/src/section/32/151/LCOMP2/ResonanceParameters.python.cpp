@@ -11,12 +11,13 @@
 namespace python = pybind11;
 
 namespace mf32 {
+namespace lcomp2 {
 
 void wrapResonanceParameters( python::module& module, python::module& ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 32, 151 >;
-  using Component = Section::ShortRangeRMatrixLimitedBlock::ResonanceParameters;
+  using Component = Section::CompactRMatrixLimitedUncertainties::ResonanceParameters;
 
   // wrap views created by this section
 
@@ -25,8 +26,7 @@ void wrapResonanceParameters( python::module& module, python::module& ) {
 
     module,
     "ResonanceParameters",
-    "MF32 MT151 section - resonance parameters for the R-matrix limited\n"
-    "                     representation (LCOMP = 1)"
+    "MF32 MT151 section - resonance parameter uncertainties for a spin group"
   );
 
   // wrap the section
@@ -34,30 +34,23 @@ void wrapResonanceParameters( python::module& module, python::module& ) {
   .def(
 
     python::init< std::vector< double >&&,
+                  std::vector< std::vector< double > >&&,
+                  std::vector< double >&&,
                   std::vector< std::vector< double > >&& >(),
     python::arg( "energies" ), python::arg( "parameters" ),
+    python::arg( "denergies" ), python::arg( "dparameters" ),
     "Initialise the component\n\n"
     "Arguments:\n"
     "    self          the component\n"
     "    energies      the resonance energies (NRS values)\n"
-    "    parameters    the resonance parameters (NRS times NCH values)"
+    "    parameters    the resonance parameters (NRS times NCH values)\n"
+    "    denergies     the resonance energy uncertainties (NRS values)\n"
+    "    dparameters   the resonance parameter uncertainties (NRS times NCH values)"
   )
   .def_property_readonly(
 
-    "NCH",
-    &Component::NCH,
-    "The number of channels"
-  )
-  .def_property_readonly(
-
-    "number_channels",
-    &Component::numberChannels,
-    "The number of channels"
-  )
-  .def_property_readonly(
-
-    "NRB",
-    &Component::NRB,
+    "NRSA",
+    &Component::NRSA,
     "The number of resonances"
   )
   .def_property_readonly(
@@ -94,6 +87,20 @@ void wrapResonanceParameters( python::module& module, python::module& ) {
   )
   .def_property_readonly(
 
+    "DER",
+    [] ( const Component& self ) -> DoubleRange
+       { return self.DER(); },
+    "The resonance energy uncertainties"
+  )
+  .def_property_readonly(
+
+    "resonance_energy_uncertainties",
+    [] ( const Component& self ) -> DoubleRange
+       { return self.resonanceEnergyUncertainties(); },
+    "The resonance energy uncertainties"
+  )
+  .def_property_readonly(
+
     "GAM",
     [] ( const Component& self ) -> DoubleRange2D
        { return self.GAM(); },
@@ -105,10 +112,25 @@ void wrapResonanceParameters( python::module& module, python::module& ) {
     [] ( const Component& self ) -> DoubleRange2D
        { return self.resonanceParameters(); },
     "The resonance parameters"
+  )
+  .def_property_readonly(
+
+    "DGAM",
+    [] ( const Component& self ) -> DoubleRange2D
+       { return self.DGAM(); },
+    "The resonance parameter uncertainties"
+  )
+  .def_property_readonly(
+
+    "resonance_parameter_uncertainties",
+    [] ( const Component& self ) -> DoubleRange2D
+       { return self.resonanceParameterUncertainties(); },
+    "The resonance parameters uncertainties"
   );
 
   // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
 }
 
+} // namespace lcomp2
 } // namespace mf32

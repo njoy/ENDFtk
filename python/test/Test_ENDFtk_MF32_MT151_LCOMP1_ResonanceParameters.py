@@ -4,24 +4,24 @@ import unittest
 # third party imports
 
 # local imports
-from ENDFtk.MF32.MT151 import ResonanceParameters
+from ENDFtk.MF32.MT151.LCOMP1 import ResonanceParameters
 
-class Test_ENDFtk_MF32_MT151_ResonanceParameters( unittest.TestCase ) :
+class Test_ENDFtk_MF32_MT151_LCOMP1_ResonanceParameters( unittest.TestCase ) :
     """Unit test for the ResonanceParameters class."""
 
-    chunk = ( ' 0.000000+0 0.000000+0          6          2         24          42625 2151     \n'
-              '-1.223300+6 1.000000+0 9.611086+5 2.000000+0 3.000000+0 4.000000+02625 2151     \n'
-              ' 5.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+02625 2151     \n'
-              ' 7.788000+3 1.455000+0 1.187354+3 6.000000+0 7.000000+0 8.000000+02625 2151     \n'
-              ' 9.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+02625 2151     \n' )
+    chunk = ( ' 0.000000+0 0.000000+0          6          2         24          4262532151     \n'
+              '-1.223300+6 1.000000+0 9.611086+5 2.000000+0 3.000000+0 4.000000+0262532151     \n'
+              ' 5.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+0262532151     \n'
+              ' 7.788000+3 1.455000+0 1.187354+3 6.000000+0 7.000000+0 8.000000+0262532151     \n'
+              ' 9.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+0262532151     \n' )
 
-    invalid_size = ( ' 0.000000+0 0.000000+0          6          2         23          42625 2151     \n'
-                     '-1.223300+6 1.000000+0 9.611086+5 1.000000+0 2.000000+0 3.000000+02625 2151     \n'
-                     ' 4.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+02625 2151     \n'
-                     ' 7.788000+3 1.455000+0 1.187354+3 5.000000+0 6.000000+0 7.000000+02625 2151     \n'
-                     ' 8.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+0           2625 2151     \n' )
+    invalid_size = ( ' 0.000000+0 0.000000+0          6          2         23          4262532151     \n'
+                     '-1.223300+6 1.000000+0 9.611086+5 1.000000+0 2.000000+0 3.000000+0262532151     \n'
+                     ' 4.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+0262532151     \n'
+                     ' 7.788000+3 1.455000+0 1.187354+3 5.000000+0 6.000000+0 7.000000+0262532151     \n'
+                     ' 8.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+0           262532151     \n' )
 
-    zero_size = ( ' 0.000000+0 0.000000+0          6          2          0          42625 2151     \n' )
+    zero_size = ( ' 0.000000+0 0.000000+0          6          2          0          4262532151     \n' )
 
     def test_component( self ) :
 
@@ -76,7 +76,7 @@ class Test_ENDFtk_MF32_MT151_ResonanceParameters( unittest.TestCase ) :
             self.assertEqual( 5, chunk.NC )
 
             # verify string
-            self.assertEqual( self.chunk, chunk.to_string( 2625, 2, 151 ) )
+            self.assertEqual( self.chunk, chunk.to_string( 2625, 32, 151 ) )
 
         # the data is given explicitly
         chunk = ResonanceParameters( energies = [ -1.223300e+6, 7.788000e+3 ],
@@ -86,7 +86,7 @@ class Test_ENDFtk_MF32_MT151_ResonanceParameters( unittest.TestCase ) :
         verify_chunk( self, chunk )
 
         # the data is read from a string
-        chunk = ResonanceParameters.from_string( self.chunk, 2625, 2, 151 )
+        chunk = ResonanceParameters.from_string( self.chunk, 2625, 32, 151 )
 
         verify_chunk( self, chunk )
 
@@ -103,14 +103,14 @@ class Test_ENDFtk_MF32_MT151_ResonanceParameters( unittest.TestCase ) :
         with self.assertRaises( Exception ) :
 
             chunk = ResonanceParameters( energies = [ -1.223300e+6, 7.788000e+3 ],
-                                       parameters = [ [ 1., 9.611086e+5, 2., 3., 4., 5. ] ] )
+                                         parameters = [ [ 1., 9.611086e+5, 2., 3., 4., 5. ] ] )
 
         # channel data incorrect
         with self.assertRaises( Exception ) :
 
             chunk = ResonanceParameters( energies = [ -1.223300e+6, 7.788000e+3 ],
-                                       parameters = [ [ 1., 9.611086e+5, 2., 3., 4., 5. ],
-                                                      [ 1.455, 1.187354e+3, 6., 7., 8. ] ] )
+                                         parameters = [ [ 1., 9.611086e+5, 2., 3., 4., 5. ],
+                                                        [ 1.455, 1.187354e+3, 6., 7., 8. ] ] )
 
         # the data is empty
         with self.assertRaises( Exception ) :
@@ -120,12 +120,12 @@ class Test_ENDFtk_MF32_MT151_ResonanceParameters( unittest.TestCase ) :
         # invalid list size
         with self.assertRaises( Exception ) :
 
-            chunk = ResonanceParameters.from_string( self.invalid_size, 2625, 2, 151 )
+            chunk = ResonanceParameters.from_string( self.invalid_size, 2625, 32, 151 )
 
         # no data
         with self.assertRaises( Exception ) :
 
-            chunk = ResonanceParameters.from_string( self.zero_size, 2625, 2, 151 )
+            chunk = ResonanceParameters.from_string( self.zero_size, 2625, 32, 151 )
 
 if __name__ == '__main__' :
 

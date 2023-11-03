@@ -186,5 +186,34 @@ void verifyChunk( const SpinGroup& chunk ) {
   CHECK( 0. == Approx( parameters.resonanceParameters()[1][3] ) );
   CHECK( 0. == Approx( parameters.resonanceParameters()[1][4] ) );
 
+  CHECK( 2. == Approx( parameters.DER()[0] ) );
+  CHECK( 3. == Approx( parameters.DER()[1] ) );
+  CHECK( 2. == Approx( parameters.resonanceEnergyUncertainties()[0] ) );
+  CHECK( 3. == Approx( parameters.resonanceEnergyUncertainties()[1] ) );
+  CHECK( 5 == parameters.DGAM()[0].size() );
+  CHECK( 5 == parameters.DGAM()[1].size() );
+  CHECK( 4. == Approx( parameters.DGAM()[0][0] ) );
+  CHECK( 5. == Approx( parameters.DGAM()[0][1] ) );
+  CHECK( 0. == Approx( parameters.DGAM()[0][2] ) );
+  CHECK( 0. == Approx( parameters.DGAM()[0][3] ) );
+  CHECK( 0. == Approx( parameters.DGAM()[0][4] ) );
+  CHECK( 6. == Approx( parameters.DGAM()[1][0] ) );
+  CHECK( 7. == Approx( parameters.DGAM()[1][1] ) );
+  CHECK( 0. == Approx( parameters.DGAM()[1][2] ) );
+  CHECK( 0. == Approx( parameters.DGAM()[1][3] ) );
+  CHECK( 0. == Approx( parameters.DGAM()[1][4] ) );
+  CHECK( 5 == parameters.resonanceParameterUncertainties()[0].size() );
+  CHECK( 5 == parameters.resonanceParameterUncertainties()[1].size() );
+  CHECK( 4. == Approx( parameters.resonanceParameterUncertainties()[0][0] ) );
+  CHECK( 5. == Approx( parameters.resonanceParameterUncertainties()[0][1] ) );
+  CHECK( 0. == Approx( parameters.resonanceParameterUncertainties()[0][2] ) );
+  CHECK( 0. == Approx( parameters.resonanceParameterUncertainties()[0][3] ) );
+  CHECK( 0. == Approx( parameters.resonanceParameterUncertainties()[0][4] ) );
+  CHECK( 6. == Approx( parameters.resonanceParameterUncertainties()[1][0] ) );
+  CHECK( 7. == Approx( parameters.resonanceParameterUncertainties()[1][1] ) );
+  CHECK( 0. == Approx( parameters.resonanceParameterUncertainties()[1][2] ) );
+  CHECK( 0. == Approx( parameters.resonanceParameterUncertainties()[1][3] ) );
+  CHECK( 0. == Approx( parameters.resonanceParameterUncertainties()[1][4] ) );
+
   CHECK( 8 == chunk.NC() );
 }

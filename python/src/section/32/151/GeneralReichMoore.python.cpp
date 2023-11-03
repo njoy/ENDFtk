@@ -154,13 +154,15 @@ void wrapGeneralReichMoore( python::module& module, python::module& viewmodule )
   .def_property_readonly(
 
     "DAP",
-    [] ( const Component& self ) { return self.DAP(); },
+    [] ( const Component& self ) -> const std::optional< ReichMooreScatteringRadiusUncertainties >&
+       { return self.DAP(); },
     "The scattering radius uncertainty"
   )
   .def_property_readonly(
 
     "scattering_radius_uncertainty",
-    [] ( const Component& self ) { return self.scatteringRadiusUncertainty(); },
+    [] ( const Component& self )  -> const std::optional< ReichMooreScatteringRadiusUncertainties >&
+       { return self.scatteringRadiusUncertainty(); },
     "The scattering radius uncertainty"
   )
   .def_property_readonly(
