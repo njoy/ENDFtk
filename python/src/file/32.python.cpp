@@ -6,13 +6,9 @@
 #include "ENDFtk/file/32.hpp"
 #include "definitions.hpp"
 #include "views.hpp"
-#include "boost/hana.hpp"
 
 // namespace aliases
 namespace python = pybind11;
-
-namespace hana = boost::hana;
-inline namespace literals { using namespace hana::literals; }
 
 // declarations - sections
 void wrapSection_32_151( python::module&, python::module& );
@@ -20,10 +16,9 @@ void wrapSection_32_151( python::module&, python::module& );
 void wrapFile_32( python::module& module, python::module& viewmodule ) {
 
   // type aliases
+  using Section = njoy::ENDFtk::section::Type< 32, 151 >;
   using File = njoy::ENDFtk::file::Type< 32 >;
-  using MF32MT151 = std::reference_wrapper< const njoy::ENDFtk::section::Type< 32, 151 > >;
-
-  // wrap views created by this file
+  using SectionRange = BidirectionalAnyView< Section >;
 
   // create the submodule
   python::module submodule = module.def_submodule(
@@ -35,51 +30,33 @@ void wrapFile_32( python::module& module, python::module& viewmodule ) {
   // wrap sections
   wrapSection_32_151( submodule, viewmodule );
 
+  // wrap views created by this file
+  // none of these are supposed to be created directly by the user
+  wrapBidirectionalAnyViewOf< Section >(
+      viewmodule,
+      "any_view< section::Type< 32 >, bidirectional >" );
+
   // create the file
   python::class_< File > file(
 
     submodule,
     "File",
-    "MF2 file - resonance parameters"
+    "MF32 file - resonance parameter covariance data"
   );
 
-  // common lambda
-  auto get_section =
-  [] ( const File& self, int mt ) -> MF32MT151 {
-
-    switch ( mt ) {
-
-      case 151 : return self.section( 151_c );
-      default: throw std::runtime_error(
-                    "Requested section number (" + std::to_string( mt ) +
-                    ") does not correspond to a stored section" );
-    }
-  };
-
+  // wrap the file
   file
   .def(
 
-    "section",
-    get_section,
-    python::arg( "mt" ),
-    "Return the section with the requested MT number\n\n"
+    python::init( [] ( Section covariances )
+                     { return File( std::move( covariances ) ); } ),
+    python::arg( "covariances" ),
+    "Initialise the file with resonance parameter covariance data\n\n"
     "Arguments:\n"
-    "    self    the file\n"
-    "    mt      the MT number of the section to be returned",
-    python::return_value_policy::reference_internal
-  )
-  .def(
-
-    "MT",
-    get_section,
-    python::arg( "mt" ),
-    "Return the section with the requested MT number\n\n"
-    "Arguments:\n"
-    "    self    the file\n"
-    "    mt      the MT number of the section to be returned",
-    python::return_value_policy::reference_internal
+    "    self          the file\n"
+    "    covariances   the resonance parameter covariance data (MT151)"
   );
 
   // add standard file definitions
-  addStandardFileDefinitions< File >( file );
+  addStandardFileDefinitions< File, Section, SectionRange >( file );
 }

@@ -10,9 +10,9 @@ template< typename OutputIterator >
 void print( OutputIterator& it, int MAT ) const {
 
   int MF = this->MF();
-  for ( const auto& entry : this->sectionMap ) {
+  for ( const auto& entry : this->sections_ ) {
 
-    entry.second.print( it, MAT, MF );
+    Derived::printSection( entry.second, it, MAT, MF );
   }
   FEND( MAT ).print( it );
 }

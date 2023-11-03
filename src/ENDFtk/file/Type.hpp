@@ -2,10 +2,8 @@
 #define NJOY_ENDFTK_FILE_TYPE
 
 // system includes
-#include <map>
 
 // other includes
-#include "range/v3/view/map.hpp"
 #include "ENDFtk/section.hpp"
 #include "ENDFtk/file/Base.hpp"
 
@@ -18,22 +16,15 @@ namespace file {
    *  @brief Generic file class
    */
   template< int FileNumber >
-  class Type : public Base< Type< FileNumber > > {
+  class Type : protected Base< Type< FileNumber >, section::Type< FileNumber > > {
 
-  public :
+    friend class Base< Type, section::Type< FileNumber > >;
+    using Parent = Base< Type, section::Type< FileNumber > >;
 
-    /* type aliases */
-    using Section = section::Type< FileNumber >;
-
-  protected :
-
-    /* fields */
-    std::map< int, Section > sectionMap;
-
-    /* auxialiary functions */
-    #include "ENDFtk/file/Type/src/insert.hpp"
-    #include "ENDFtk/file/Type/src/fill.hpp"
-    #include "ENDFtk/file/Type/src/read.hpp"
+    /* auxiliary functions */
+    #include "ENDFtk/file/Type/src/getSectionNumber.hpp"
+    #include "ENDFtk/file/Type/src/printSection.hpp"
+    #include "ENDFtk/file/Type/src/readSection.hpp"
 
   public :
 
@@ -43,57 +34,20 @@ namespace file {
     /* methods */
 
     /**
-     *  @brief Return the sections stored in this file
-     */
-    auto sections() {
-
-      return this->sectionMap | ranges::cpp20::views::values;
-    }
-
-    /**
-     *  @brief Return the sections stored in this file
-     */
-    auto sections() const {
-
-      return this->sectionMap | ranges::cpp20::views::values;
-    }
-
-    /**
-     *  @brief Return an iterator to the start of the sections
-     */
-    auto begin() { return this->sections().begin(); }
-
-    /**
-     *  @brief Return an iterator to the end of the sections
-     */
-    auto end() { return this->sections().end(); }
-
-    /**
-     *  @brief Return an iterator to the start of the sections
-     */
-    auto begin() const { return this->sections().begin(); }
-
-    /**
-     *  @brief Return an iterator to the end of the sections
-     */
-    auto end() const { return this->sections().end(); }
-
-    /**
-     *  @brief Return whether or not the file contains a section with the given
-     *         MT number
-     */
-    bool hasSection( int sectionNo ) const {
-
-      return this->sectionMap.count( sectionNo );
-    }
-
-    /**
      *  @brief Return the file number
      */
     static int fileNumber() { return FileNumber; }
 
-    #include "ENDFtk/file/Type/src/section.hpp"
-    #include "ENDFtk/file/Type/src/print.hpp"
+    using Parent::MF;
+    using Parent::sections;
+    using Parent::MTs;
+    using Parent::begin;
+    using Parent::end;
+    using Parent::hasMT;
+    using Parent::hasSection;
+    using Parent::section;
+    using Parent::MT;
+    using Parent::print;
   };
 
 } // file namespace

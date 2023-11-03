@@ -11,15 +11,9 @@
 #include "ENDFtk/file/Type.hpp"
 #include "ENDFtk/tree/Section.hpp"
 #include "ENDFtk/tree/toSection.hpp"
-#include "boost/hana.hpp"
 
 namespace njoy {
 namespace ENDFtk {
-
-  // hana namespace declaration inside ENDFtk
-  namespace hana = boost::hana;
-  inline namespace literals { using namespace hana::literals; }
-
 namespace tree {
 
   /**

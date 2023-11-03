@@ -1,121 +1,54 @@
-template< long long FileNo, typename BufferIterator >
+template< typename Iterator >
 static auto
-read( hana::llong< FileNo >,
-      StructureDivision& structureDivision,
-      BufferIterator& begin,
-      const BufferIterator& end,
+read( StructureDivision& division,
+      Iterator& begin,
+      const Iterator& end,
       long& lineNumber ) {
 
-  auto file = [&] {
+  std::vector< FileVariant > files;
+  while ( not division.isMend() ) {
 
-    try{
+    switch ( division.tail.MF() ) {
 
-      return file::Type< FileNo >( structureDivision, begin, end, lineNumber );
+      case  1 : { files.emplace_back( file::Type<  1 >( division, begin, end, lineNumber ) ); break; }
+      case  2 : { files.emplace_back( file::Type<  2 >( division, begin, end, lineNumber ) ); break; }
+      case  3 : { files.emplace_back( file::Type<  3 >( division, begin, end, lineNumber ) ); break; }
+      case  4 : { files.emplace_back( file::Type<  4 >( division, begin, end, lineNumber ) ); break; }
+      case  5 : { files.emplace_back( file::Type<  5 >( division, begin, end, lineNumber ) ); break; }
+      case  6 : { files.emplace_back( file::Type<  6 >( division, begin, end, lineNumber ) ); break; }
+      case  7 : { files.emplace_back( file::Type<  7 >( division, begin, end, lineNumber ) ); break; }
+      case  8 : { files.emplace_back( file::Type<  8 >( division, begin, end, lineNumber ) ); break; }
+      case  9 : { files.emplace_back( file::Type<  9 >( division, begin, end, lineNumber ) ); break; }
+      case 10 : { files.emplace_back( file::Type< 10 >( division, begin, end, lineNumber ) ); break; }
+      case 12 : { files.emplace_back( file::Type< 12 >( division, begin, end, lineNumber ) ); break; }
+      case 13 : { files.emplace_back( file::Type< 13 >( division, begin, end, lineNumber ) ); break; }
+      case 14 : { files.emplace_back( file::Type< 14 >( division, begin, end, lineNumber ) ); break; }
+      case 15 : { files.emplace_back( file::Type< 15 >( division, begin, end, lineNumber ) ); break; }
+      case 23 : { files.emplace_back( file::Type< 23 >( division, begin, end, lineNumber ) ); break; }
+      case 26 : { files.emplace_back( file::Type< 26 >( division, begin, end, lineNumber ) ); break; }
+      case 27 : { files.emplace_back( file::Type< 27 >( division, begin, end, lineNumber ) ); break; }
+      case 28 : { files.emplace_back( file::Type< 28 >( division, begin, end, lineNumber ) ); break; }
+      case 32 : { files.emplace_back( file::Type< 32 >( division, begin, end, lineNumber ) ); break; }
+      case 33 : { files.emplace_back( file::Type< 33 >( division, begin, end, lineNumber ) ); break; }
+      case 34 : { files.emplace_back( file::Type< 34 >( division, begin, end, lineNumber ) ); break; }
+      default : {
+
+        int MF = division.tail.MF();
+        Log::info( "Found unsupported file MF{} - skipping file", MF );
+
+        Tail tail( division.tail.MAT(), division.tail.MF(), division.tail.MT() );
+        while ( tail.MF() == MF ) {
+
+          Text( begin, end );
+          tail = Tail( begin, end, lineNumber );
+        }
+
+        //! @todo once all files are implemented remove the previous code and throw
+        // throw std::exception();
+      }
     }
-		catch( std::exception& e ) {
-
-      Log::info( "Error while reading File {}", FileNo );
-      throw e;
-    }
-  }();
-
-  try {
-
-    structureDivision = StructureDivision( begin, end, lineNumber );
+    division = StructureDivision( begin, end, lineNumber );
   }
-	catch( std::exception& e ) {
-
-    Log::info( "Error while reading structure division following File {}",
-               FileNo );
-    throw e;
-  }
-
-  return file;
-}
-
-template< typename... FileNos, typename... Args >
-static auto
-read( hana::tuple< FileNos... > fileNos,
-      StructureDivision& structureDivision, Args&&... args ) {
-
-  // compiler issue in gcc 6.4.0: need to capture the capture the actual
-  // arguments because the compiler gets confused (leads to segmentation fault)
-  // final failure is in disco when reading whitespace
-  // required for this lambda and the next one
-  auto readRequiredPair =
-  [ &structureDivision,
-    &begin = hana::arg<1>( args... ),
-    end = std::cref( hana::arg<2>( args... ) ),
-    lineNumber = std::ref( hana::arg<3>( args... ) ) ]
-  ( hana::true_, hana::false_, auto fileNo ) {
-
-    if ( structureDivision.tail.MF() != fileNo ) {
-
-      Log::info( "Error while reading material {}", structureDivision.tail.MAT() );
-      Log::info( "Expected MF: {}", fileNo );
-      Log::info( "Found MF: {}", structureDivision.tail.MF() );
-      throw std::exception();
-    }
-
-    return hana::make_pair( fileNo,
-                            read( fileNo, structureDivision,
-                                  begin, end.get(), lineNumber ) );
-  };
-
-  auto readOptionalPair =
-  [ &structureDivision,
-    &begin = hana::arg<1>( args... ),
-    end = std::cref( hana::arg<2>( args... ) ),
-    lineNumber = std::ref( hana::arg<3>( args... ) ) ]
-  ( hana::false_, hana::true_, auto fileNo ) {
-
-    auto makeOptional  = [&] () {
-
-      return structureDivision.tail.MF() == fileNo ?
-        std::make_optional( read( fileNo, structureDivision,
-                                  begin, end.get(), lineNumber ) ) :
-        std::optional< file::Type< fileNo.value > >{};
-    };
-
-    return hana::make_pair( fileNo, makeOptional() );
-  };
-
-  auto readUnimplementedPair =
-  [ &structureDivision,
-    &begin = hana::arg<1>( args... ),
-    end = std::cref( hana::arg<2>( args... ) ),
-    lineNumber = std::ref( hana::arg<3>( args... ) ) ]
-  ( hana::false_, hana::false_, auto fileNo ) {
-
-    if ( structureDivision.tail.MF() == fileNo ) {
-
-      read( fileNo, structureDivision, begin, end.get(), lineNumber );
-    }
-
-    return hana::make_pair( fileNo,
-                            std::optional< file::Type< fileNo.value > >{} );
-  };
-
-  auto readPair_fn = hana::overload( readRequiredPair,
-                                     readOptionalPair,
-                                     readUnimplementedPair );
-
-  auto append_fn = [&]( auto&& tuple, auto&& fileNo ){
-    return hana::unpack
-           ( std::move( tuple ),
-             [&] ( auto&&... pairs )
-                 { return hana::make_tuple
-                          ( std::move( pairs )... ,
-                            readPair_fn( hana::contains(
-                                           requiredFiles(),
-                                           fileNo ),
-                                         hana::contains(
-                                           optionalFiles(),
-                                           fileNo ),
- 																				 fileNo ) ); } );
-  };
-
-  return hana::unpack( hana::fold( fileNos, hana::make_tuple(), append_fn ),
-                       []( auto&&... args )
-                       { return hana::make_map( std::move(args)... ); } );
+  verifyMEND( division, lineNumber );
+  return std::move( files );
 }

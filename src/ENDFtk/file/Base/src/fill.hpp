@@ -1,71 +1,17 @@
-template< int MF, int MT, typename... Sections >
 static auto
-fill( section::Type< MF, MT >&& section, Sections&&... sections ) {
+fill( std::vector< Section >&& sections ) {
 
-  {
-    constexpr auto fileNumbers =
-      decltype
-      ( hana::make_tuple( details::fileOf( section ),
-                          details::fileOf( sections )... ) ){};
-    constexpr auto compare =
-      hana::equal.to( details::index_c< Derived::MF() > );
-    static_assert( hana::all_of( fileNumbers, compare ),
-                   "Constructing a file::Type with section::Type arguments "
-                   "that have a different MF number is not allowed" );
+  std::map< int, Section > map;
+  for ( auto&& section : sections ) {
 
-    constexpr auto isLValue = hana::trait< std::is_lvalue_reference >;
-    auto types = hana::make_tuple( hana::type_c< Sections >... );
-    static_assert( hana::none_of( types, isLValue ),
-                   "Constructing a file::Type with section::Type arguments "
-                   "that are lvalue references is not allowed" );
+    int MT = Derived::getSectionNumber( section );
+    if ( not map.emplace( MT, std::move( section ) ).second ) {
 
-    constexpr auto sectionNumbers =
-      decltype
-      ( hana::make_set( details::sectionOf( section ),
-                        details::sectionOf( sections )... ) ){};
-    constexpr auto isInArguments = hana::partial( hana::contains, sectionNumbers );
-
-    static_assert( hana::all_of( Derived::requiredSections(), isInArguments ),
-                   "Not all required sections are present" );
+      Log::error( "Section with duplicate section number found" );
+      Log::info( "Sections are required to specify a unique MT or section number" );
+      Log::info( "Encountered duplicate MT: {}", MT );
+      throw std::exception();
+    }
   }
-
-  auto content =
-    hana::make_map
-    ( hana::make_pair( details::sectionOf( section ), std::ref( section ) ),
-      hana::make_pair( details::sectionOf( sections ), std::ref( sections ) )... );
-
-  auto makeFull = [ &content ] ( hana::true_, auto index ) {
-
-    const auto makeRequiredPair = [&] ( hana::true_, auto&& section ) {
-
-      return hana::make_pair( index, std::move( section ) );
-    };
-    const auto makeOptionalPair = [&] ( hana::false_, auto&& section ) {
-
-      return hana::make_pair( index,
-                              std::make_optional( std::move( section ) ) );
-    };
-
-    auto makePair = hana::overload( makeRequiredPair, makeOptionalPair );
-
-    return makePair( hana::contains( Derived::requiredSections(), index ),
-                     std::move( content[ index ].get() ) );
-  };
-
-  auto makeEmpty = [] ( hana::false_,  auto index ) {
-
-    using Section = section::Type< MF, index.value >;
-    return hana::make_pair( index, std::optional< Section >{} );
-  };
-
-  auto makePair = hana::overload( makeFull, makeEmpty );
-
-  auto get = [ &makePair, &content ] ( auto index ) {
-
-    return makePair( hana::contains( content, index ), index);
-  };
-
-  return hana::unpack( Derived::sections(),
-                       [&] ( auto... indices )
-                           { return hana::make_map( get( indices )... ); } );
+  return map;
 }

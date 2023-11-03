@@ -2,10 +2,10 @@ template< typename Array >
 static void
 verifyLANG( int LANG, const Array& sequence ) {
 
-  auto lang = [] ( const auto& entry )
-                 { return entry.LANG(); };
+  auto compare = [LANG] ( const auto& entry )
+                        { return entry.LANG() == LANG; };
 
-  auto iter = ranges::cpp20::find_if_not( sequence, hana::equal.to( LANG ), lang );
+  auto iter = ranges::cpp20::find_if_not( sequence, compare );
 
   if ( iter != ranges::cpp20::end( sequence ) ) {
 

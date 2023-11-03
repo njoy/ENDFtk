@@ -19,7 +19,7 @@ Type() = default;
  *  @param[in] principals    the effective temperature of the
  *                                     principal scatterer
  *  @param[in] secondaries   the effective temperature of the
- *                                     secondary scatterers (if required)
+ *                           secondary scatterers (if required)
  */
 Type( double zaid, double awr, int lat, int lasym,
       ScatteringLawConstants&& constants,

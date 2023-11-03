@@ -6,13 +6,9 @@
 #include "ENDFtk/file/7.hpp"
 #include "definitions.hpp"
 #include "views.hpp"
-#include "boost/hana.hpp"
 
 // namespace aliases
 namespace python = pybind11;
-
-namespace hana = boost::hana;
-inline namespace literals { using namespace hana::literals; }
 
 // declarations - sections
 void wrapSection_7_2( python::module&, python::module& );
@@ -21,11 +17,11 @@ void wrapSection_7_4( python::module&, python::module& );
 void wrapFile_7( python::module& module, python::module& viewmodule ) {
 
   // type aliases
+  using MF7MT2 = njoy::ENDFtk::section::Type< 7, 2 >;
+  using MF7MT4 = njoy::ENDFtk::section::Type< 7, 4 >;
   using File = njoy::ENDFtk::file::Type< 7 >;
-  using MF7MT2 = std::reference_wrapper< const njoy::ENDFtk::section::Type< 7, 2 > >;
-  using MF7MT4 = std::reference_wrapper< const njoy::ENDFtk::section::Type< 7, 4 > >;
-
-  // wrap views created by this file
+  using Section = std::variant< MF7MT2, MF7MT4 >;
+  using SectionRange = BidirectionalAnyView< Section >;
 
   // create the submodule
   python::module submodule = module.def_submodule(
@@ -38,6 +34,12 @@ void wrapFile_7( python::module& module, python::module& viewmodule ) {
   wrapSection_7_2( submodule, viewmodule );
   wrapSection_7_4( submodule, viewmodule );
 
+  // wrap views created by this file
+  // none of these are supposed to be created directly by the user
+  wrapBidirectionalAnyViewOf< Section >(
+      viewmodule,
+      "any_view< section::Type< 7 >, bidirectional >" );
+
   // create the file
   python::class_< File > file(
 
@@ -46,44 +48,41 @@ void wrapFile_7( python::module& module, python::module& viewmodule ) {
     "MF7 file - thermal neutron scattering law data"
   );
 
-  // common lambda
-  auto get_section =
-  [] ( const File& self, int mt ) -> std::variant< MF7MT2, MF7MT4 > {
-
-    switch ( mt ) {
-
-      case 2 : return self.section( 2_c );
-      case 4 : return self.section( 4_c );
-      default: throw std::runtime_error(
-                    "Requested section number (" + std::to_string( mt ) +
-                    ") does not correspond to a stored section" );
-    }
-  };
-
+  // wrap the file
   file
   .def(
 
-    "section",
-    get_section,
-    python::arg( "mt" ),
-    "Return the section with the requested MT number\n\n"
+    python::init( [] ( MF7MT2 elastic )
+                     { return File( std::move( elastic ) ); } ),
+    python::arg( "elastic" ),
+    "Initialise the file with elastic thermal scattering data\n\n"
     "Arguments:\n"
-    "    self    the file\n"
-    "    mt      the MT number of the section to be returned",
-    python::return_value_policy::reference_internal
+    "    self      the file\n"
+    "    elastic   the elastic thermal scattering data (MT2)"
   )
   .def(
 
-    "MT",
-    get_section,
-    python::arg( "mt" ),
-    "Return the section with the requested MT number\n\n"
+    python::init( [] ( MF7MT4 inelastic )
+                     { return File( std::move( inelastic ) ); } ),
+    python::arg( "inelastic" ),
+    "Initialise the file with inelastic thermal scattering data\n\n"
     "Arguments:\n"
-    "    self    the file\n"
-    "    mt      the MT number of the section to be returned",
-    python::return_value_policy::reference_internal
+    "    self        the file\n"
+    "    inelastic   the inelastic thermal scattering data (MT4)"
+  )
+  .def(
+
+    python::init( [] ( MF7MT2 elastic, MF7MT4 inelastic )
+                     { return File( std::move( elastic ),
+                                    std::move( inelastic ) ); } ),
+    python::arg( "elastic" ), python::arg( "inelastic" ),
+    "Initialise the file with elastic and inelastic thermal scattering data\n\n"
+    "Arguments:\n"
+    "    self        the file\n"
+    "    elastic     the elastic thermal scattering data (MT2)\n"
+    "    inelastic   the inelastic thermal scattering data (MT4)"
   );
 
   // add standard file definitions
-  addStandardFileDefinitions< File >( file );
+  addStandardFileDefinitions< File, Section, SectionRange >( file );
 }

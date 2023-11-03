@@ -1,26 +1,18 @@
 //! @todo pybind11 variant needs default constructor workaround
-#ifdef PYBIND11
+//#ifdef PYBIND11
 /**
  *  @brief Default constructor - only enabled for pybind11
  */
-Type() = default;
-#endif
-
-/**
- *  @brief Constructor
- *
- *  @param[in] section   the MF1 MT451 section
- */
-Type( section::Type< 1, 451 >&& section ) :
-  Base( { std::move( section ) } ) {}
+Base() = default;
+//#endif
 
 /**
  *  @brief Constructor
  *
  *  @param[in] sections   the sections of the file
  */
-Type( std::vector< SectionVariant >&& sections ) :
-  Base( std::move( sections ) ) {}
+Base( std::vector< Section >&& sections ) :
+  sections_( fill( std::move( sections ) ) ) {}
 
 /**
  *  @brief Constructor (from a buffer)
@@ -33,6 +25,12 @@ Type( std::vector< SectionVariant >&& sections ) :
  *  @param[in] lineNumber   the current line number
  */
 template< typename Iterator >
-Type( StructureDivision& division,
-      Iterator& begin, const Iterator& end, long& lineNumber ) :
-  Base( division, begin, end, lineNumber ) {}
+Base( StructureDivision& division,
+      Iterator& begin, const Iterator& end, long& lineNumber )
+  try: sections_( read( division, begin, end, lineNumber ) ) {}
+  catch ( std::exception& e ) {
+
+    Log::info("Encountered error while reading file::Type<{}>", this->MF() );
+    Log::info( "Line number: {}", lineNumber );
+    throw e;
+  }

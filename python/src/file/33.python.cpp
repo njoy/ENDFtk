@@ -44,9 +44,6 @@ void wrapFile_33( python::module& module, python::module& viewmodule ) {
     "MF33 file - covariances of cross sections"
   );
 
-  // wrap the file
-  addStandardUnenumeratedFileDefinitions< File, Section, SectionRange >( file );
-
   // add standard file definitions
-  addStandardFileDefinitions< File >( file );
+  addStandardFileDefinitions< File, Section, SectionRange >( file );
 }
