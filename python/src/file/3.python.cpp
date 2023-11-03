@@ -44,9 +44,6 @@ void wrapFile_3( python::module& module, python::module& viewmodule ) {
     "MF3 file - reaction cross sections"
   );
 
-  // wrap the file
-  addStandardUnenumeratedFileDefinitions< File, Section, SectionRange >( file );
-
   // add standard file definitions
-  addStandardFileDefinitions< File >( file );
+  addStandardFileDefinitions< File, Section, SectionRange >( file );
 }

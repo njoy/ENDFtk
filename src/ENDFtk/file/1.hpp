@@ -2,6 +2,7 @@
 #define NJOY_ENDFTK_FILE_1
 
 // system includes
+#include <variant>
 
 // other includes
 #include "ENDFtk/section/1.hpp"
@@ -13,56 +14,49 @@ namespace ENDFtk {
 namespace file {
 
   template<>
-  class Type< 1 > : public Base< Type< 1 > > {
+  class Type< 1 > : protected Base< Type< 1 >,
+                                    std::variant< section::Type< 1, 451 >,
+                                                  section::Type< 1, 452 >,
+                                                  section::Type< 1, 455 >,
+                                                  section::Type< 1, 456 >,
+                                                  section::Type< 1, 458 >,
+                                                  section::Type< 1, 460 > > > {
 
-    friend Base< Type >;
-    using Parent = Base< Type >;
+    using SectionVariant = std::variant< section::Type< 1, 451 >,
+                                         section::Type< 1, 452 >,
+                                         section::Type< 1, 455 >,
+                                         section::Type< 1, 456 >,
+                                         section::Type< 1, 458 >,
+                                         section::Type< 1, 460 > >;
+    friend class Base< Type, SectionVariant >;
 
-    // MF1 only has enumerated sections
-    // MT451 is required
-    static constexpr auto requiredSections()
-      RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 451_c ) )
-
-    // all other sections are optional
-    static constexpr auto optionalSections()
-      RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 452_c, 455_c, 456_c,
-                                                     458_c, 460_c ) )
-
-    // the following sections are currently unimplemented
-    static constexpr auto unimplementedSections()
-      RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple() )
-
-    using Map =
-    typename decltype( details::deduceMapType(
-                           1_c,
-                           requiredSections(),
-                           optionalSections() ) )::type;
-
-    /* fields */
-    Map sectionMap;
+    /* auxiliary functions */
+    #include "ENDFtk/file/1/src/getSectionNumber.hpp"
+    #include "ENDFtk/file/1/src/printSection.hpp"
+    #include "ENDFtk/file/1/src/readSection.hpp"
 
   public :
 
+    /* ctor */
     #include "ENDFtk/file/1/src/ctor.hpp"
 
-    bool
-    hasSection( int sectionNo ) const {
+    /* methods */
 
-      switch( sectionNo ) {
-
-        case 451 : return true;
-        case 452 : return bool( this->sectionMap[ 452_c ] );
-        case 455 : return bool( this->sectionMap[ 455_c ] );
-        case 456 : return bool( this->sectionMap[ 456_c ] );
-        case 458 : return bool( this->sectionMap[ 458_c ] );
-        case 460 : return bool( this->sectionMap[ 460_c ] );
-        default : return false;
-      }
-    }
-
+    /**
+     *  @brief Return the file number
+     */
     static constexpr int fileNumber() { return 1; }
 
-    #include "ENDFtk/file/1/src/print.hpp"
+    using Base::MF;
+    using Base::sections;
+    using Base::MTs;
+    using Base::begin;
+    using Base::end;
+    using Base::hasMT;
+    using Base::hasSection;
+    using Base::section;
+    using Base::MT;
+    using Base::print;
   };
 
 } // file namespace

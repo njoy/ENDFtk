@@ -6,7 +6,6 @@
 #include <vector>
 
 // other includes
-#include "boost/hana.hpp"
 #include "range/v3/algorithm/find_if_not.hpp"
 #include "range/v3/view/concat.hpp"
 #include "range/v3/view/single.hpp"
@@ -19,9 +18,6 @@
 
 namespace njoy {
 namespace ENDFtk {
-
-  namespace hana = boost::hana;
-
 namespace section{
 
   template<>

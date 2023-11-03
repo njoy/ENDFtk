@@ -8,7 +8,6 @@
 #include <optional>
 
 // other includes
-#include "boost/hana.hpp"
 #include "range/v3/algorithm/find.hpp"
 #include "range/v3/view/all.hpp"
 #include "range/v3/view/concat.hpp"
@@ -24,9 +23,6 @@
 
 namespace njoy {
 namespace ENDFtk {
-
-  namespace hana = boost::hana;
-
 namespace section{
 
   template<>

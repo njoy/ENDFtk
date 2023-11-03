@@ -34,8 +34,7 @@ namespace section {
     /* get methods */
 
     /**
-     *  @brief Return whether or not the fission yields are energy dependent
-     *         or not
+     *  @brief Return whether or not the fission yield data is energy independent
      */
     bool LE() const { return this->data_.size() == 1; }
 
@@ -56,6 +55,11 @@ namespace section {
      *  @brief Return the number of incident energy values
      */
     long NE() const { return this->data_.size(); }
+
+    /**
+     *  @brief Return the number of incident energy values
+     */
+    long numberIncidentEnergies() const { return this->NE(); }
 
     /**
      *  @brief Return the incident energy values

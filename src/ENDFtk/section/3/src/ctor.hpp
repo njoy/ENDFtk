@@ -29,6 +29,26 @@ Type( int mt, double zaid, double awr, double qm, double qi, long lr,
          std::move( energies ), std::move( xs ) ) {}
 
 /**
+ *  @brief Constructor for a single interpolation zone
+ *
+ *  @param[in] mt             the MT number
+ *  @param[in] zaid           the ZA  identifier
+ *  @param[in] awr            the atomic mass ratio
+ *  @param[in] qm             the mass difference Q value
+ *  @param[in] qi             the reaction Q value
+ *  @param[in] energies       the energy values
+ *  @param[in] xs             the cross section values
+ *  @param[in] interpolant    the interpolation type (default 2 - linlin)
+ *  @param[in] lr             the complex breakup flag (default 0)
+ */
+Type( int mt, double zaid, double awr, double qm, double qi,
+      std::vector< double >&& energies, std::vector< double >&& xs,
+      long interpolant = 2, long lr = 0 ) :
+  Type( mt, zaid, awr, qm, qi, lr,
+        { static_cast<long>( energies.size() ) }, { interpolant },
+        std::move( energies ), std::move( xs ) ) {}
+
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator

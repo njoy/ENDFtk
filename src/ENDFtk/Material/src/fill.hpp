@@ -1,61 +1,17 @@
-template< int MF, typename... Files >
 static auto
-fill( file::Type< MF >&& file, Files&&... files ) {
+fill( std::vector< FileVariant >&& files ) {
 
-  {
-    constexpr auto isLValue = hana::trait< std::is_lvalue_reference >;
-    auto types = hana::make_tuple( hana::type_c< Files >... );
-    static_assert( hana::none_of( types, isLValue ),
-                   "Constructing a Material with file::Type arguments "
-                   "that are lvalue references is not allowed" );
+  std::map< int, FileVariant > map;
+  for ( auto&& file : files ) {
 
-    constexpr auto fileNumbers =
-      decltype
-      ( hana::make_set( details::fileOf( file ),
-                        details::fileOf( files )... ) ){};
-    constexpr auto isInArguments = hana::partial( hana::contains, fileNumbers );
+    int MF = std::visit( [] ( auto&& value ) { return value.MF(); }, file );
+    if ( not map.emplace( MF, std::move( file ) ).second ) {
 
-    static_assert( hana::all_of( Material::requiredFiles(), isInArguments ),
-                   "Not all required files are present" );
+      Log::error( "File with duplicate file number found" );
+      Log::info( "Files are required to specify a unique MF or file number" );
+      Log::info( "Encountered duplicate MF: {}", MF );
+      throw std::exception();
+    }
   }
-
-  auto content =
-    hana::make_map
-    ( hana::make_pair( details::fileOf( file ), std::ref( file ) ),
-      hana::make_pair( details::fileOf( files ), std::ref( files ) )... );
-
-  auto makeFull = [ &content ] ( hana::true_, auto index ) {
-
-    const auto makeRequiredPair = [&] ( hana::true_, auto&& file ) {
-
-      return hana::make_pair( index, std::move( file ) );
-    };
-    const auto makeOptionalPair = [&] ( hana::false_, auto&& file ) {
-
-      return hana::make_pair( index,
-                              std::make_optional( std::move( file ) ) );
-    };
-
-    auto makePair = hana::overload( makeRequiredPair, makeOptionalPair );
-
-    return makePair( hana::contains( Material::requiredFiles(), index ),
-                     std::move( content[ index ].get() ) );
-  };
-
-  auto makeEmpty = [] ( hana::false_,  auto index ) {
-
-    using File = file::Type< index.value >;
-    return hana::make_pair( index, std::optional< File >{} );
-  };
-
-  auto makePair = hana::overload( makeFull, makeEmpty );
-
-  auto get = [ &makePair, &content ] ( auto index ) {
-
-    return makePair( hana::contains( content, index ), index);
-  };
-
-  return hana::unpack( Material::files(),
-                       [&] ( auto... indices )
-                           { return hana::make_map( get( indices )... ); } );
+  return map;
 }

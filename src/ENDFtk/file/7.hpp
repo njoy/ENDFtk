@@ -2,6 +2,7 @@
 #define NJOY_ENDFTK_FILE_7
 
 // system includes
+#include <variant>
 
 // other includes
 #include "ENDFtk/section/7.hpp"
@@ -13,51 +14,45 @@ namespace ENDFtk {
 namespace file {
 
   template<>
-  class Type< 7 > : public Base< Type< 7 > > {
+  class Type< 7 > : protected Base< Type< 7 >,
+                                    std::variant< section::Type< 7, 2 >,
+                                                  section::Type< 7, 4 >,
+                                                  section::Type< 7, 451 > > > {
 
-    friend Base< Type >;
-    using Parent = Base< Type >;
+    using SectionVariant = std::variant< section::Type< 7, 2 >,
+                                         section::Type< 7, 4 >,
+                                         section::Type< 7, 451 > >;
+    friend class Base< Type, SectionVariant >;
 
-    // MF7 only has enumerated secton
-    // no sections are required
-    static constexpr auto requiredSections()
-      RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple() )
+    /* auxiliary functions blatantly copied from MF1 */
+    #include "ENDFtk/file/1/src/getSectionNumber.hpp"
+    #include "ENDFtk/file/1/src/printSection.hpp"
 
-    // MT2 and MT4 are optional
-    static constexpr auto optionalSections()
-      RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple( 2_c, 4_c ) )
+    /* auxiliary functions */
+    #include "ENDFtk/file/7/src/readSection.hpp"
 
-    // the following sections are currently unimplemented
-    static constexpr auto unimplementedSections()
-      RANGES_DECLTYPE_AUTO_RETURN( hana::make_tuple() )
+  public :
 
-    using Map =
-    typename decltype( details::deduceMapType(
-                           7_c,
-                           requiredSections(),
-                           optionalSections() ) )::type;
-
-    /* fields */
-    Map sectionMap;
-
-  public:
-
+    /* ctor */
     #include "ENDFtk/file/7/src/ctor.hpp"
 
-    bool
-    hasSection( int sectionNo ) const {
+    /* methods */
 
-      switch ( sectionNo ) {
+    /**
+     *  @brief Return the file number
+     */
+    static constexpr int fileNumber() { return 7; }
 
-        case 2: return bool( this->sectionMap[ 2_c ] );
-        case 4: return bool( this->sectionMap[ 4_c ] );
-        default: return false;
-      }
-    }
-
-    static constexpr auto fileNumber() { return 7; }
-
-    #include "ENDFtk/file/7/src/print.hpp"
+    using Base::MF;
+    using Base::sections;
+    using Base::MTs;
+    using Base::begin;
+    using Base::end;
+    using Base::hasMT;
+    using Base::hasSection;
+    using Base::section;
+    using Base::MT;
+    using Base::print;
   };
 
 } // file namespace

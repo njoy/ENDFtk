@@ -11,7 +11,7 @@ DecaySpectrum( ListRecord&& list,
 
 public:
 /**
- *  @brief Constructor for spectra spectra only (LCON=0)
+ *  @brief Constructor for discrete spectra only (LCON=0)
  *
  *  @param[in] type        the particle type for which data is given
  *  @param[in] dnorm       the spectra normalisation factor and its

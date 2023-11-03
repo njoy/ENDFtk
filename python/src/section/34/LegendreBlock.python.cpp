@@ -15,18 +15,11 @@ namespace mf34 {
 void wrapLegendreBlock( python::module& module, python::module& viewmodule ) {
 
   // type aliases
-  using Section = njoy::ENDFtk::section::Type< 34 >;
-  using Component = Section::LegendreBlock;
-  using ExplicitCovariance = Section::ExplicitCovariance;
+  using Component = njoy::ENDFtk::section::Type< 34 >::LegendreBlock;
+  using ExplicitCovariance = njoy::ENDFtk::section::ExplicitCovariance;
   using ExplicitCovarianceRange = RandomAccessAnyView< ExplicitCovariance >;
 
-
   // wrap views created by this section
-  // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< ExplicitCovariance >(
-      viewmodule,
-      "any_view< variant< MF34::CovariancePairs, MF34::SquareMatrix, "
-                         "MF34::RectangularMatrix >, random_access >" );
 
   // create the component
   python::class_< Component > component(

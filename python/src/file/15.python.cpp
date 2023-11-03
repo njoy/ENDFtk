@@ -44,9 +44,6 @@ void wrapFile_15( python::module& module, python::module& viewmodule ) {
     "MF15 file - continuous photon energy spectra"
   );
 
-  // wrap the file
-  addStandardUnenumeratedFileDefinitions< File, Section, SectionRange >( file );
-
   // add standard file definitions
-  addStandardFileDefinitions< File >( file );
+  addStandardFileDefinitions< File, Section, SectionRange >( file );
 }

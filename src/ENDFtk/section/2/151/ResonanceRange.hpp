@@ -137,12 +137,6 @@ public:
    */
   const ResonanceParameters& parameters() const { return this->parameters_; }
 
-  /**
-   *  @brief Return the number of lines in this MF2/MT151 component
-   */
-  long NC() const { return 1 + std::visit( [] ( const auto& v ) -> long
-                                              { return v.NC(); },
-                                           this->parameters_ ); }
-
+  #include "ENDFtk/section/2/151/ResonanceRange/src/NC.hpp"
   #include "ENDFtk/section/2/151/ResonanceRange/src/print.hpp"
 };

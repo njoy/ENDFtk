@@ -63,7 +63,6 @@ target_link_libraries( ENDFtk
     INTERFACE Log
     INTERFACE catch-adapter
     INTERFACE disco
-    INTERFACE hana-adapter
     INTERFACE header-utilities
     INTERFACE range-v3
     )
@@ -81,6 +80,13 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/record/InterpolationRecord.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/record/DirectoryRecord.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/record/TapeIdentification.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/CovariancePairs.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/SquareMatrix.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/RectangularMatrix.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/DerivedRedundant.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/DerivedRatioToStandard.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/ReactionBlock.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/covariance.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/TabulatedMultiplicity.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/PolynomialMultiplicity.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/451.python.cpp
@@ -141,6 +147,38 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/28/SubshellData.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/28.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/3.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/ScatteringRadiusCovariances.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/LimitedBreitWignerLValue.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/LimitedSingleLevelBreitWigner.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/LimitedMultiLevelBreitWigner.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/ShortRangeBreitWignerBlock.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/ShortRangeReichMooreBlock.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/ShortRangeRMatrixLimitedBlock.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/ReichMooreScatteringRadiusUncertainties.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/LCOMP1/ResonanceParameters.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/LCOMP1/CovarianceMatrix.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/GeneralSingleLevelBreitWigner.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/GeneralMultiLevelBreitWigner.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/GeneralReichMoore.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/GeneralRMatrixLimited.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/CompactCorrelationMatrix.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/CompactBreitWignerUncertainties.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/CompactReichMooreUncertainties.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/CompactSingleLevelBreitWigner.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/CompactMultiLevelBreitWigner.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/CompactReichMoore.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/LCOMP2/ParticlePairs.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/LCOMP2/ResonanceChannels.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/LCOMP2/ResonanceParameters.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/LCOMP2/SpinGroup.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/CompactRMatrixLimitedUncertainties.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/CompactRMatrixLimited.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/UnresolvedCovarianceMatrix.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/UnresolvedLValue.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/UnresolvedRelativeCovariances.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/ResonanceRange.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/Isotope.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/4.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/4/Isotropic.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/4/LegendreCoefficients.python.cpp
@@ -194,6 +232,8 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/4/AnalyticalFunctions.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/4/TabulatedFunctions.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/4/ScatteringFunction.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/451.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/451/ElementInformation.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/8/FissionYieldData.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/8/454.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/8/457.python.cpp
@@ -227,19 +267,15 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/15/TabulatedSpectrum.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/15/Probability.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/15/PartialDistribution.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/31.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/33.python.cpp
-      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/33/DerivedRedundant.python.cpp
-      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/33/DerivedRatioToStandard.python.cpp
-      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/33/CovariancePairs.python.cpp
-      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/33/SquareMatrix.python.cpp
-      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/33/ReactionBlock.python.cpp
-      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/33/RectangularMatrix.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/34.python.cpp
-      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/34/CovariancePairs.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/34/LegendreBlock.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/34/ReactionBlock.python.cpp
-      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/34/RectangularMatrix.python.cpp
-      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/34/SquareMatrix.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/35.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/35/SquareMatrix.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/40.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/40/LevelBlock.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/1.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/2.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/3.python.cpp
@@ -258,8 +294,12 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/26.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/27.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/28.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/31.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/32.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/33.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/34.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/35.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/40.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/Material.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/tree/Section.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/tree/File.python.cpp

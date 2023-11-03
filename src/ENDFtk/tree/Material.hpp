@@ -10,15 +10,9 @@
 #include "ENDFtk/tree/toSection.hpp"
 #include "ENDFtk/tree/File.hpp"
 #include "ENDFtk/tree/toFile.hpp"
-#include "boost/hana.hpp"
 
 namespace njoy {
 namespace ENDFtk {
-
-  // hana namespace declaration inside ENDFtk
-  namespace hana = boost::hana;
-  inline namespace literals { using namespace hana::literals; }
-
 namespace tree {
 
   /**
@@ -68,16 +62,60 @@ namespace tree {
     /**
      *  @brief Return the file with the requested MF number
      *
-     *  @param[in]   mf   the MF number of the material to be returned
+     *  @param[in]   mf   the MF number of the file to be returned
      */
     const File& MF( int mf ) const { return this->file( mf ); }
 
     /**
      *  @brief Return the file with the requested MF number
      *
-     *  @param[in]   mf   the MF number of the material to be returned
+     *  @param[in]   mf   the MF number of the file to be returned
      */
     File& MF( int mf ) { return this->file( mf ); }
+
+    /**
+     *  @brief Return the section with the requested MF and MT number
+     *
+     *  @param[in]   mf   the MF number of the section to be returned
+     *  @param[in]   mt   the MT number of the section to be returned
+     */
+    const Section& section( int mf, int mt ) const {
+
+      return this->file( mf ).section( mt );
+    }
+
+    /**
+     *  @brief Return the section with the requested MF and MT number
+     *
+     *  @param[in]   mf   the MF number of the section to be returned
+     *  @param[in]   mt   the MT number of the section to be returned
+     */
+    Section& section( int mf, int mt ) { 
+
+      return this->file( mf ).section( mt );
+    }
+
+    /**
+     *  @brief Return the section with the requested MF and MT number
+     *
+     *  @param[in]   mf   the MF number of the section to be returned
+     *  @param[in]   mt   the MT number of the section to be returned
+     */
+    const Section& MFMT( int mf, int mt ) const {
+
+      return this->section( mf, mt );
+    }
+
+    /**
+     *  @brief Return the section with the requested MF and MT number
+     *
+     *  @param[in]   mf   the MF number of the section to be returned
+     *  @param[in]   mt   the MT number of the section to be returned
+     */
+    Section& MFMT( int mf, int mt ) {
+
+      return this->section( mf, mt );
+    }
 
     /**
      *  @brief Return whether or not the material has a file with the given MF
@@ -94,6 +132,27 @@ namespace tree {
      *  @param[in]   mf   the MF number of the file
      */
     bool hasFile( int mf ) const { return this->hasMF( mf ); }
+
+    /**
+     *  @brief Return whether or not the material has a section with the given
+     *         MF and MT number
+     *
+     *  @param[in]   mf   the MF number of the section
+     *  @param[in]   mt   the MT number of the section
+     */
+    bool hasMFMT( int mf, int mt ) const {
+
+      return this->hasMF( mf ) ? this->file( mf ).hasMT( mt ) : false;
+    }
+
+    /**
+     *  @brief Return whether or not the material has a section with the given
+     *         MF and MT number
+     *
+     *  @param[in]   mf   the MF number of the section
+     *  @param[in]   mt   the MT number of the section
+     */
+    bool hasSection( int mf, int mt ) const { return this->hasMFMT( mf, mt ); }
 
     /**
      *  @brief Return all files in the material

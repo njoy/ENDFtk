@@ -51,6 +51,26 @@ void wrapReactionProduct( python::module& module, python::module& ) {
     "    energies         the energy values\n"
     "    multiplicities   the multiplicity values"
   )
+  .def(
+
+    python::init< double, double, int, int,
+                  std::vector< double >&&, std::vector< double >&&,
+                  long >(),
+    python::arg( "qm" ), python::arg( "qi" ),
+    python::arg( "izap" ), python::arg( "lfs" ),
+    python::arg( "energies" ), python::arg( "multiplicities" ),
+    python::arg( "interpolant" ) = 2,
+    "Initialise the component\n\n"
+    "Arguments:\n"
+    "    self             the component\n"
+    "    qm               the mass difference Q value\n"
+    "    qi               the reaction Q value\n"
+    "    izap             the za identifier of the product\n"
+    "    lfs              the excited level number\n"
+    "    energies         the energy values\n"
+    "    multiplicities   the multiplicity values\n"
+    "    interpolants     the interpolation type (default 2 - linlin)"
+  )
   .def_property_readonly(
 
     "QM",

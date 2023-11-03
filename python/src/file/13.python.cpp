@@ -44,9 +44,6 @@ void wrapFile_13( python::module& module, python::module& viewmodule ) {
     "MF13 file - photon production cross sections"
   );
 
-  // wrap the file
-  addStandardUnenumeratedFileDefinitions< File, Section, SectionRange >( file );
-
   // add standard file definitions
-  addStandardFileDefinitions< File >( file );
+  addStandardFileDefinitions< File, Section, SectionRange >( file );
 }
