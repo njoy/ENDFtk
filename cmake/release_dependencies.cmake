@@ -46,11 +46,9 @@ set( SPDLOG_BUILD_TESTING CACHE BOOL OFF )
 #######################################################################
 
 FetchContent_MakeAvailable(
-    catch-adapter
     disco
     header-utilities
     Log
-    pybind11
     range-v3
     spdlog
     )
