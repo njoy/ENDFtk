@@ -4,8 +4,6 @@
 #include "ENDFtk/tree/Tape.hpp"
 
 // other includes
-#include "header-utilities/copy.hpp"
-#include "header-utilities/slurpFileToMemory.hpp"
 
 // convenience typedefs
 using namespace njoy::ENDFtk;

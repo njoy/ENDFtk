@@ -4,12 +4,12 @@
 #include "ENDFtk/ListRecord.hpp"
 
 // other includes
-#include "header-utilities/copy.hpp"
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
 
-SCENARIO( "ListRecord Tests", "[ENDFtk], [ListRecord]" ){
+SCENARIO( "ListRecord Tests", "[ENDFtk], [ListRecord]" ) {
+
   auto values = std::make_tuple( 1.001000E+3, 9.991673E-1, 0, 0, 10, 5 );
   std::vector< double > list{0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0};
 
@@ -20,9 +20,8 @@ SCENARIO( "ListRecord Tests", "[ENDFtk], [ListRecord]" ){
 
   GIVEN( "value construction, the ctor works"){
     REQUIRE_NOTHROW(
-      ListRecord( std::get< 0 >(values), std::get< 1 >(values),
-                  std::get< 2 >(values), std::get< 3 >(values),
-                  std::get< 5 >(values), njoy::utility::copy(list) ) );
+      ListRecord( 1.001000E+3, 9.991673E-1, 0, 0, 5,
+                  {0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0} ) );
   }
 
   GIVEN( "iterators and a line number"){
@@ -105,9 +104,8 @@ SCENARIO( "ListRecord Tests", "[ENDFtk], [ListRecord]" ){
     auto listRecord0 = ListRecord( it, end, lineNumber, 125, 1, 451 );
     const auto& constListRecord0 = listRecord0;
     auto listRecord1 =
-      ListRecord( std::get< 0 >(values), std::get< 1 >(values),
-                  std::get< 2 >(values), std::get< 3 >(values),
-                  std::get< 5 >(values), njoy::utility::copy(list) );
+      ListRecord( 1.001000E+3, 9.991673E-1, 0, 0, 5,
+                  {0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0} );
 
     const auto& constListRecord1 = listRecord1;
     THEN( "the getter will work" ){

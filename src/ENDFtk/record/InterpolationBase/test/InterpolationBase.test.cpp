@@ -5,20 +5,13 @@
 
 // other includes
 #include "range/v3/range/operations.hpp"
-#include "header-utilities/copy.hpp"
 
 // convenience typedefs
 using namespace njoy::ENDFtk::record;
 
-std::function< InterpolationBase() > makeInterpolationBase = [](){
-  auto metadata = std::make_tuple( 1.0, 2.0, 3ul, 4ul );
-  auto regionPairs = std::make_tuple( std::vector< long >{ 4, 5, 6 },
-                                      std::vector< long >{ 1, 2, 3 } );
+std::function< InterpolationBase() > makeInterpolationBase = [] () {
 
-  return InterpolationBase
-  ( std::get< 0 >( metadata ), std::get< 1 >( metadata ),
-    std::get< 2 >( metadata ), std::get< 3 >( metadata ),
-    njoy::utility::copy( regionPairs ) );
+  return InterpolationBase( 1., 2., 3, 4, { 4, 5, 6 }, { 1, 2, 3 } );
 };
 
 #include "ENDFtk/record/InterpolationBase/test/ctor.test.hpp"

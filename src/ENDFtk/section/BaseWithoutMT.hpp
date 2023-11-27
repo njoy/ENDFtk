@@ -4,7 +4,6 @@
 // system includes
 
 // other includes
-#include "header-utilities/echoErroneousLine.hpp"
 #include "ENDFtk/HeadRecord.hpp"
 
 namespace njoy {

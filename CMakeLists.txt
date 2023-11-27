@@ -78,7 +78,6 @@ target_link_libraries( ENDFtk
     INTERFACE
       Log
       disco
-      header-utilities
       range-v3
 )
 
