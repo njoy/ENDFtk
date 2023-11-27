@@ -90,7 +90,7 @@ namespace tree {
      *  @param[in]   mf   the MF number of the section to be returned
      *  @param[in]   mt   the MT number of the section to be returned
      */
-    Section& section( int mf, int mt ) { 
+    Section& section( int mf, int mt ) {
 
       return this->file( mf ).section( mt );
     }

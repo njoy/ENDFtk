@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/15.hpp"
 
 // other includes
@@ -169,9 +172,9 @@ void verifyChunk( const section::Type< 15 >& chunk ) {
   CHECK( 18 == chunk.MT() );
   CHECK( 18 == chunk.sectionNumber() );
 
-  CHECK( 92235. == Approx( chunk.ZA() ) );
-  CHECK( 2.330250e+2 == Approx( chunk.AWR() ) );
-  CHECK( 2.330250e+2 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 92235 == chunk.ZA() );
+  CHECK_THAT( 2.330250e+2, WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 2.330250e+2, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 1 == chunk.NK() );
   CHECK( 1 == chunk.numberPartialDistributions() );
 
@@ -192,14 +195,14 @@ void verifyChunk( const section::Type< 15 >& chunk ) {
   CHECK( 2 == p.energies().size() );
   CHECK( 2 == p.P().size() );
   CHECK( 2 == p.probabilities().size() );
-  CHECK( 1e-5 == Approx( p.E()[0] ) );
-  CHECK( 3e+7 == Approx( p.E()[1] ) );
-  CHECK( 1e-5 == Approx( p.energies()[0] ) );
-  CHECK( 3e+7 == Approx( p.energies()[1] ) );
-  CHECK( 1. == Approx( p.P()[0] ) );
-  CHECK( 1. == Approx( p.P()[1] ) );
-  CHECK( 1. == Approx( p.probabilities()[0] ) );
-  CHECK( 1. == Approx( p.probabilities()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( p.E()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( p.E()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( p.energies()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( p.energies()[1] ) );
+  CHECK_THAT( 1., WithinRel( p.P()[0] ) );
+  CHECK_THAT( 1., WithinRel( p.P()[1] ) );
+  CHECK_THAT( 1., WithinRel( p.probabilities()[0] ) );
+  CHECK_THAT( 1., WithinRel( p.probabilities()[1] ) );
 
   auto d = partial.distribution();
 
@@ -214,12 +217,12 @@ void verifyChunk( const section::Type< 15 >& chunk ) {
   CHECK( 4 == d.interpolants()[0] );
 
   CHECK( 2 == d.incidentEnergies().size() );
-  CHECK( 1e-5 == Approx( d.incidentEnergies()[0] ) );
-  CHECK( 3e+7 == Approx( d.incidentEnergies()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( d.incidentEnergies()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( d.incidentEnergies()[1] ) );
 
   auto value = d.outgoingDistributions()[0];
-  CHECK( 1e-5 == Approx( value.E() ) );
-  CHECK( 1e-5 == Approx( value.incidentEnergy() ) );
+  CHECK_THAT( 1e-5, WithinRel( value.E() ) );
+  CHECK_THAT( 1e-5, WithinRel( value.incidentEnergy() ) );
   CHECK( 3 == value.NP() );
   CHECK( 1 == value.NR() );
   CHECK( 1 == value.interpolants().size() );
@@ -230,22 +233,22 @@ void verifyChunk( const section::Type< 15 >& chunk ) {
   CHECK( 3 == value.outgoingEnergies().size() );
   CHECK( 3 == value.G().size() );
   CHECK( 3 == value.probabilities().size() );
-  CHECK( 0.0 == Approx( value.EP()[0] ) );
-  CHECK( 1e+5 == Approx( value.EP()[1] ) );
-  CHECK( 3e+7 == Approx( value.EP()[2] ) );
-  CHECK( 0.0 == Approx( value.outgoingEnergies()[0] ) );
-  CHECK( 1e+5 == Approx( value.outgoingEnergies()[1] ) );
-  CHECK( 3e+7 == Approx( value.outgoingEnergies()[2] ) );
-  CHECK( 0. == Approx( value.G()[0] ) );
-  CHECK( 1.757570e-9 == Approx( value.G()[1] ) );
-  CHECK( 1.843350e-9 == Approx( value.G()[2] ) );
-  CHECK( 0. == Approx( value.probabilities()[0] ) );
-  CHECK( 1.757570e-9 == Approx( value.probabilities()[1] ) );
-  CHECK( 1.843350e-9 == Approx( value.probabilities()[2] ) );
+  CHECK_THAT( 0.0, WithinRel( value.EP()[0] ) );
+  CHECK_THAT( 1e+5, WithinRel( value.EP()[1] ) );
+  CHECK_THAT( 3e+7, WithinRel( value.EP()[2] ) );
+  CHECK_THAT( 0.0, WithinRel( value.outgoingEnergies()[0] ) );
+  CHECK_THAT( 1e+5, WithinRel( value.outgoingEnergies()[1] ) );
+  CHECK_THAT( 3e+7, WithinRel( value.outgoingEnergies()[2] ) );
+  CHECK_THAT( 0., WithinRel( value.G()[0] ) );
+  CHECK_THAT( 1.757570e-9, WithinRel( value.G()[1] ) );
+  CHECK_THAT( 1.843350e-9, WithinRel( value.G()[2] ) );
+  CHECK_THAT( 0., WithinRel( value.probabilities()[0] ) );
+  CHECK_THAT( 1.757570e-9, WithinRel( value.probabilities()[1] ) );
+  CHECK_THAT( 1.843350e-9, WithinRel( value.probabilities()[2] ) );
 
   value = d.outgoingDistributions()[1];
-  CHECK( 3e+7 == Approx( value.E() ) );
-  CHECK( 3e+7 == Approx( value.incidentEnergy() ) );
+  CHECK_THAT( 3e+7, WithinRel( value.E() ) );
+  CHECK_THAT( 3e+7, WithinRel( value.incidentEnergy() ) );
   CHECK( 4 == value.NP() );
   CHECK( 1 == value.NR() );
   CHECK( 1 == value.interpolants().size() );
@@ -256,22 +259,22 @@ void verifyChunk( const section::Type< 15 >& chunk ) {
   CHECK( 4 == value.outgoingEnergies().size() );
   CHECK( 4 == value.G().size() );
   CHECK( 4 == value.probabilities().size() );
-  CHECK( 0.0 == Approx( value.EP()[0] ) );
-  CHECK( 10. == Approx( value.EP()[1] ) );
-  CHECK( 11. == Approx( value.EP()[2] ) );
-  CHECK( 3e+7 == Approx( value.EP()[3] ) );
-  CHECK( 0.0 == Approx( value.outgoingEnergies()[0] ) );
-  CHECK( 10. == Approx( value.outgoingEnergies()[1] ) );
-  CHECK( 11. == Approx( value.outgoingEnergies()[2] ) );
-  CHECK( 3e+7 == Approx( value.outgoingEnergies()[3] ) );
-  CHECK( 0. == Approx( value.G()[0] ) );
-  CHECK( 1.733405e-9 == Approx( value.G()[1] ) );
-  CHECK( 1.818010e-9 == Approx( value.G()[2] ) );
-  CHECK( 1.898849e-9 == Approx( value.G()[3] ) );
-  CHECK( 0. == Approx( value.probabilities()[0] ) );
-  CHECK( 1.733405e-9 == Approx( value.probabilities()[1] ) );
-  CHECK( 1.818010e-9 == Approx( value.probabilities()[2] ) );
-  CHECK( 1.898849e-9 == Approx( value.probabilities()[3] ) );
+  CHECK_THAT( 0.0, WithinRel( value.EP()[0] ) );
+  CHECK_THAT( 10., WithinRel( value.EP()[1] ) );
+  CHECK_THAT( 11., WithinRel( value.EP()[2] ) );
+  CHECK_THAT( 3e+7, WithinRel( value.EP()[3] ) );
+  CHECK_THAT( 0.0, WithinRel( value.outgoingEnergies()[0] ) );
+  CHECK_THAT( 10., WithinRel( value.outgoingEnergies()[1] ) );
+  CHECK_THAT( 11., WithinRel( value.outgoingEnergies()[2] ) );
+  CHECK_THAT( 3e+7, WithinRel( value.outgoingEnergies()[3] ) );
+  CHECK_THAT( 0., WithinRel( value.G()[0] ) );
+  CHECK_THAT( 1.733405e-9, WithinRel( value.G()[1] ) );
+  CHECK_THAT( 1.818010e-9, WithinRel( value.G()[2] ) );
+  CHECK_THAT( 1.898849e-9, WithinRel( value.G()[3] ) );
+  CHECK_THAT( 0., WithinRel( value.probabilities()[0] ) );
+  CHECK_THAT( 1.733405e-9, WithinRel( value.probabilities()[1] ) );
+  CHECK_THAT( 1.818010e-9, WithinRel( value.probabilities()[2] ) );
+  CHECK_THAT( 1.898849e-9, WithinRel( value.probabilities()[3] ) );
 
   CHECK( 13 == chunk.NC() );
 }

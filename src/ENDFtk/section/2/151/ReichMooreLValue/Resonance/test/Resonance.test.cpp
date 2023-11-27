@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/2/151.hpp"
 
 // other includes
@@ -31,16 +34,16 @@ SCENARIO( "Resonance" ) {
 
 void verifyChunk( const Resonance& chunk ) {
 
-  CHECK( 1. == Approx( chunk.ER() ) );
-  CHECK( 1. == Approx( chunk.resonanceEnergy() ) );
-  CHECK( 2. == Approx( chunk.AJ() ) );
-  CHECK( 2. == Approx( chunk.spin() ) );
-  CHECK( 3. == Approx( chunk.GN() ) );
-  CHECK( 3. == Approx( chunk.neutronWidth() ) );
-  CHECK( 4. == Approx( chunk.GG() ) );
-  CHECK( 4. == Approx( chunk.gammaWidth() ) );
-  CHECK( 5. == Approx( chunk.GFA() ) );
-  CHECK( 5. == Approx( chunk.firstFissionWidth() ) );
-  CHECK( 6. == Approx( chunk.GFB() ) );
-  CHECK( 6. == Approx( chunk.secondFissionWidth() ) );
+  CHECK_THAT( 1., WithinRel( chunk.ER() ) );
+  CHECK_THAT( 1., WithinRel( chunk.resonanceEnergy() ) );
+  CHECK_THAT( 2., WithinRel( chunk.AJ() ) );
+  CHECK_THAT( 2., WithinRel( chunk.spin() ) );
+  CHECK_THAT( 3., WithinRel( chunk.GN() ) );
+  CHECK_THAT( 3., WithinRel( chunk.neutronWidth() ) );
+  CHECK_THAT( 4., WithinRel( chunk.GG() ) );
+  CHECK_THAT( 4., WithinRel( chunk.gammaWidth() ) );
+  CHECK_THAT( 5., WithinRel( chunk.GFA() ) );
+  CHECK_THAT( 5., WithinRel( chunk.firstFissionWidth() ) );
+  CHECK_THAT( 6., WithinRel( chunk.GFB() ) );
+  CHECK_THAT( 6., WithinRel( chunk.secondFissionWidth() ) );
 }

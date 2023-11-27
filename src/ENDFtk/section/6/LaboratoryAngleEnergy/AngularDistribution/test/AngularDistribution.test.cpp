@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/6.hpp"
 
 // other includes
@@ -176,7 +179,7 @@ std::string chunk() {
 
 void verifyChunk( const AngularDistribution& chunk ) {
 
-  CHECK( 1e-5 == Approx( chunk.incidentEnergy() ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.incidentEnergy() ) );
 
   CHECK( 2 == chunk.NMU() );
   CHECK( 1 == chunk.NRM() );
@@ -188,16 +191,16 @@ void verifyChunk( const AngularDistribution& chunk ) {
 
   CHECK( 2 == chunk.MU().size() );
   CHECK( 2 == chunk.cosines().size() );
-  CHECK( 1. == Approx( chunk.MU()[0] ) );
-  CHECK( -1. == Approx( chunk.MU()[1] ) );
-  CHECK( 1. == Approx( chunk.cosines()[0] ) );
-  CHECK( -1. == Approx( chunk.cosines()[1] ) );
+  CHECK_THAT( 1., WithinRel( chunk.MU()[0] ) );
+  CHECK_THAT( -1., WithinRel( chunk.MU()[1] ) );
+  CHECK_THAT( 1., WithinRel( chunk.cosines()[0] ) );
+  CHECK_THAT( -1., WithinRel( chunk.cosines()[1] ) );
 
   auto distributions = chunk.energyDistributions();
   CHECK( 2 == distributions.size() );
 
-  CHECK( 1. == Approx( distributions[0].MU() ) );
-  CHECK( 1. == Approx( distributions[0].cosine() ) );
+  CHECK_THAT( 1., WithinRel( distributions[0].MU() ) );
+  CHECK_THAT( 1., WithinRel( distributions[0].cosine() ) );
   CHECK( 1 == distributions[0].NRP() );
   CHECK( 4 == distributions[0].NEP() );
   CHECK( 1 == distributions[0].interpolants().size() );
@@ -208,25 +211,25 @@ void verifyChunk( const AngularDistribution& chunk ) {
   CHECK( 4 == distributions[0].energies().size() );
   CHECK( 4 == distributions[0].F().size() );
   CHECK( 4 == distributions[0].probabilities().size() );
-  CHECK( 1e-5 == Approx( distributions[0].EP()[0] ) );
-  CHECK( 1.1e+7 == Approx( distributions[0].EP()[1] ) );
-  CHECK( 1.147e+7 == Approx( distributions[0].EP()[2] ) );
-  CHECK( 3e+7 == Approx( distributions[0].EP()[3] ) );
-  CHECK( 1e-5 == Approx( distributions[0].energies()[0] ) );
-  CHECK( 1.1e+7 == Approx( distributions[0].energies()[1] ) );
-  CHECK( 1.147e+7 == Approx( distributions[0].energies()[2] ) );
-  CHECK( 3e+7 == Approx( distributions[0].energies()[3] ) );
-  CHECK( 0. == Approx( distributions[0].F()[0] ) );
-  CHECK( 2. == Approx( distributions[0].F()[1] ) );
-  CHECK( 4. == Approx( distributions[0].F()[2] ) );
-  CHECK( 6. == Approx( distributions[0].F()[3] ) );
-  CHECK( 0. == Approx( distributions[0].probabilities()[0] ) );
-  CHECK( 2. == Approx( distributions[0].probabilities()[1] ) );
-  CHECK( 4. == Approx( distributions[0].probabilities()[2] ) );
-  CHECK( 6. == Approx( distributions[0].probabilities()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( distributions[0].EP()[0] ) );
+  CHECK_THAT( 1.1e+7, WithinRel( distributions[0].EP()[1] ) );
+  CHECK_THAT( 1.147e+7, WithinRel( distributions[0].EP()[2] ) );
+  CHECK_THAT( 3e+7, WithinRel( distributions[0].EP()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( distributions[0].energies()[0] ) );
+  CHECK_THAT( 1.1e+7, WithinRel( distributions[0].energies()[1] ) );
+  CHECK_THAT( 1.147e+7, WithinRel( distributions[0].energies()[2] ) );
+  CHECK_THAT( 3e+7, WithinRel( distributions[0].energies()[3] ) );
+  CHECK_THAT( 0., WithinRel( distributions[0].F()[0] ) );
+  CHECK_THAT( 2., WithinRel( distributions[0].F()[1] ) );
+  CHECK_THAT( 4., WithinRel( distributions[0].F()[2] ) );
+  CHECK_THAT( 6., WithinRel( distributions[0].F()[3] ) );
+  CHECK_THAT( 0., WithinRel( distributions[0].probabilities()[0] ) );
+  CHECK_THAT( 2., WithinRel( distributions[0].probabilities()[1] ) );
+  CHECK_THAT( 4., WithinRel( distributions[0].probabilities()[2] ) );
+  CHECK_THAT( 6., WithinRel( distributions[0].probabilities()[3] ) );
 
-  CHECK( -1. == Approx( distributions[1].MU() ) );
-  CHECK( -1. == Approx( distributions[1].cosine() ) );
+  CHECK_THAT( -1., WithinRel( distributions[1].MU() ) );
+  CHECK_THAT( -1., WithinRel( distributions[1].cosine() ) );
   CHECK( 1 == distributions[1].NRP() );
   CHECK( 3 == distributions[1].NEP() );
   CHECK( 1 == distributions[1].interpolants().size() );
@@ -237,18 +240,18 @@ void verifyChunk( const AngularDistribution& chunk ) {
   CHECK( 3 == distributions[1].energies().size() );
   CHECK( 3 == distributions[1].F().size() );
   CHECK( 3 == distributions[1].probabilities().size() );
-  CHECK( 1e-5 == Approx( distributions[1].EP()[0] ) );
-  CHECK( 1e+6 == Approx( distributions[1].EP()[1] ) );
-  CHECK( 3e+7 == Approx( distributions[1].EP()[2] ) );
-  CHECK( 1e-5 == Approx( distributions[1].energies()[0] ) );
-  CHECK( 1e+6 == Approx( distributions[1].energies()[1] ) );
-  CHECK( 3e+7 == Approx( distributions[1].energies()[2] ) );
-  CHECK( 6. == Approx( distributions[1].F()[0] ) );
-  CHECK( 4. == Approx( distributions[1].F()[1] ) );
-  CHECK( 2. == Approx( distributions[1].F()[2] ) );
-  CHECK( 6. == Approx( distributions[1].probabilities()[0] ) );
-  CHECK( 4. == Approx( distributions[1].probabilities()[1] ) );
-  CHECK( 2. == Approx( distributions[1].probabilities()[2] ) );
+  CHECK_THAT( 1e-5, WithinRel( distributions[1].EP()[0] ) );
+  CHECK_THAT( 1e+6, WithinRel( distributions[1].EP()[1] ) );
+  CHECK_THAT( 3e+7, WithinRel( distributions[1].EP()[2] ) );
+  CHECK_THAT( 1e-5, WithinRel( distributions[1].energies()[0] ) );
+  CHECK_THAT( 1e+6, WithinRel( distributions[1].energies()[1] ) );
+  CHECK_THAT( 3e+7, WithinRel( distributions[1].energies()[2] ) );
+  CHECK_THAT( 6., WithinRel( distributions[1].F()[0] ) );
+  CHECK_THAT( 4., WithinRel( distributions[1].F()[1] ) );
+  CHECK_THAT( 2., WithinRel( distributions[1].F()[2] ) );
+  CHECK_THAT( 6., WithinRel( distributions[1].probabilities()[0] ) );
+  CHECK_THAT( 4., WithinRel( distributions[1].probabilities()[1] ) );
+  CHECK_THAT( 2., WithinRel( distributions[1].probabilities()[2] ) );
 
   CHECK( 9 == chunk.NC() );
 }

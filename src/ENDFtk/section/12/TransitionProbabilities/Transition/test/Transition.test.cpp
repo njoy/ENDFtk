@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/12.hpp"
 
 // other includes
@@ -43,20 +46,20 @@ SCENARIO( "Transition" ) {
 
 void verifyChunkWithSize2( const Transition& chunk ) {
 
-  CHECK( 3. == Approx( chunk.E() ) );
-  CHECK( 3. == Approx( chunk.energy() ) );
-  CHECK( 2. == Approx( chunk.TP() ) );
-  CHECK( 2. == Approx( chunk.transitionProbability() ) );
-  CHECK( 1. == Approx( chunk.GP() ) );
-  CHECK( 1. == Approx( chunk.conditionalProbability() ) );
+  CHECK_THAT( 3., WithinRel( chunk.E() ) );
+  CHECK_THAT( 3., WithinRel( chunk.energy() ) );
+  CHECK_THAT( 2., WithinRel( chunk.TP() ) );
+  CHECK_THAT( 2., WithinRel( chunk.transitionProbability() ) );
+  CHECK_THAT( 1., WithinRel( chunk.GP() ) );
+  CHECK_THAT( 1., WithinRel( chunk.conditionalProbability() ) );
 }
 
 void verifyChunkWithSize3( const Transition& chunk ) {
 
-  CHECK( 1. == Approx( chunk.E() ) );
-  CHECK( 1. == Approx( chunk.energy() ) );
-  CHECK( 2. == Approx( chunk.TP() ) );
-  CHECK( 2. == Approx( chunk.transitionProbability() ) );
-  CHECK( 3. == Approx( chunk.GP() ) );
-  CHECK( 3. == Approx( chunk.conditionalProbability() ) );
+  CHECK_THAT( 1., WithinRel( chunk.E() ) );
+  CHECK_THAT( 1., WithinRel( chunk.energy() ) );
+  CHECK_THAT( 2., WithinRel( chunk.TP() ) );
+  CHECK_THAT( 2., WithinRel( chunk.transitionProbability() ) );
+  CHECK_THAT( 3., WithinRel( chunk.GP() ) );
+  CHECK_THAT( 3., WithinRel( chunk.conditionalProbability() ) );
 }

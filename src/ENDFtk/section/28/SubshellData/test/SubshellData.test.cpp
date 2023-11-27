@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/28.hpp"
 
 // other includes
@@ -106,8 +109,8 @@ void verifyChunk( const SubshellData& chunk ) {
   CHECK( 2 == chunk.NTR() );
   CHECK( 2 == chunk.numberTransitions() );
 
-  CHECK( 1.156100e+4 == Approx( chunk.EBI() ) );
-  CHECK( 1.156100e+4 == Approx( chunk.subshellBindingEnergy() ) );
+  CHECK_THAT( 1.156100e+4, WithinRel( chunk.EBI() ) );
+  CHECK_THAT( 1.156100e+4, WithinRel( chunk.subshellBindingEnergy() ) );
   CHECK( 2 == chunk.ELN() );
   CHECK( 2 == chunk.numberSubshellElectrons() );
 
@@ -116,10 +119,10 @@ void verifyChunk( const SubshellData& chunk ) {
   CHECK( 4 == chunk.transitions()[1].SUBJ() );
   CHECK( 2 == chunk.transitions()[0].SUBK() );
   CHECK( 3 == chunk.transitions()[1].SUBK() );
-  CHECK( 9.5066e+4 == Approx( chunk.transitions()[0].ETR() ) );
-  CHECK( 9.8928e+4 == Approx( chunk.transitions()[1].ETR() ) );
-  CHECK( 0.75 == Approx( chunk.transitions()[0].FTR() ) );
-  CHECK( 0.25 == Approx( chunk.transitions()[1].FTR() ) );
+  CHECK_THAT( 9.5066e+4, WithinRel( chunk.transitions()[0].ETR() ) );
+  CHECK_THAT( 9.8928e+4, WithinRel( chunk.transitions()[1].ETR() ) );
+  CHECK_THAT( 0.75, WithinRel( chunk.transitions()[0].FTR() ) );
+  CHECK_THAT( 0.25, WithinRel( chunk.transitions()[1].FTR() ) );
 
   CHECK( 2 == chunk.SUBJ().size() );
   CHECK( 2 == chunk.secondarySubshellDesignators().size() );
@@ -138,14 +141,14 @@ void verifyChunk( const SubshellData& chunk ) {
   CHECK( 3 == chunk.SUBK()[1] );
   CHECK( 2 == chunk.tertiarySubshellDesignators()[0] );
   CHECK( 3 == chunk.tertiarySubshellDesignators()[1] );
-  CHECK( 9.5066e+4 == Approx( chunk.ETR()[0] ) );
-  CHECK( 9.8928e+4 == Approx( chunk.ETR()[1] ) );
-  CHECK( 9.5066e+4 == Approx( chunk.transitionEnergies()[0] ) );
-  CHECK( 9.8928e+4 == Approx( chunk.transitionEnergies()[1] ) );
-  CHECK( .75 == Approx( chunk.FTR()[0] ) );
-  CHECK( .25 == Approx( chunk.FTR()[1] ) );
-  CHECK( .75 == Approx( chunk.transitionProbabilities()[0] ) );
-  CHECK( .25 == Approx( chunk.transitionProbabilities()[1] ) );
+  CHECK_THAT( 9.5066e+4, WithinRel( chunk.ETR()[0] ) );
+  CHECK_THAT( 9.8928e+4, WithinRel( chunk.ETR()[1] ) );
+  CHECK_THAT( 9.5066e+4, WithinRel( chunk.transitionEnergies()[0] ) );
+  CHECK_THAT( 9.8928e+4, WithinRel( chunk.transitionEnergies()[1] ) );
+  CHECK_THAT( .75, WithinRel( chunk.FTR()[0] ) );
+  CHECK_THAT( .25, WithinRel( chunk.FTR()[1] ) );
+  CHECK_THAT( .75, WithinRel( chunk.transitionProbabilities()[0] ) );
+  CHECK_THAT( .25, WithinRel( chunk.transitionProbabilities()[1] ) );
 
   CHECK( 4 == chunk.NC() );
 }

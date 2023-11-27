@@ -76,6 +76,3 @@
 #include "ENDFtk/tree/toFile.hpp"
 #include "ENDFtk/tree/toMaterial.hpp"
 #include "ENDFtk/tree/updateDirectory.hpp"
-
-// utility functions
-#include "ENDFtk/isRedundant.hpp"

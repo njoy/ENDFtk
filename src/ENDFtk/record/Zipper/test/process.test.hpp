@@ -19,8 +19,8 @@ SCENARIO( "The Zipper process function ", "[ENDFtk], [Zipper]" ){
                                       dsink[1], isink[1],
                                       dsink[2], isink[2] );
         for ( int i = 0; i < 3; ++i ){
-          REQUIRE( dsink[i] == double(i + 1) );
-          REQUIRE( isink[i] == i + 1 );
+          CHECK_THAT( dsink[i], WithinRel( double(i + 1) ) );
+          CHECK( isink[i] == i + 1 );
         }
       }
     }

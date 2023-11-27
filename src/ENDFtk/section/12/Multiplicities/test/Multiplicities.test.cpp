@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/12.hpp"
 
 // other includes
@@ -165,10 +168,10 @@ void verifyChunkWithOnePartial( const Multiplicities& chunk ) {
   CHECK( 1 == chunk.representation() );
 
   auto partial = chunk.photonPartialMultiplicities()[0];
-  CHECK( 0.0 == Approx( partial.EG() ) );
-  CHECK( 0.0 == Approx( partial.photonOrBindingEnergy() ) );
-  CHECK( 0.0 == Approx( partial.ES() ) );
-  CHECK( 0.0 == Approx( partial.levelEnergy() ) );
+  CHECK_THAT( 0.0, WithinRel( partial.EG() ) );
+  CHECK_THAT( 0.0, WithinRel( partial.photonOrBindingEnergy() ) );
+  CHECK_THAT( 0.0, WithinRel( partial.ES() ) );
+  CHECK_THAT( 0.0, WithinRel( partial.levelEnergy() ) );
   CHECK( 0 == partial.LP() );
   CHECK( 0 == partial.primaryPhotonFlag() );
   CHECK( 1 == partial.LF() );
@@ -181,10 +184,10 @@ void verifyChunkWithOnePartial( const Multiplicities& chunk ) {
   CHECK( 2 == partial.boundaries()[0] );
   CHECK( 2 == partial.energies().size() );
   CHECK( 2 == partial.multiplicities().size() );
-  CHECK( 1e-5 == Approx( partial.energies()[0] ) );
-  CHECK( 3e+7 == Approx( partial.energies()[1] ) );
-  CHECK( 8.579050e+0 == Approx( partial.multiplicities()[0] ) );
-  CHECK( 1.487778e+1 == Approx( partial.multiplicities()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( partial.energies()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( partial.energies()[1] ) );
+  CHECK_THAT( 8.579050e+0, WithinRel( partial.multiplicities()[0] ) );
+  CHECK_THAT( 1.487778e+1, WithinRel( partial.multiplicities()[1] ) );
 
   CHECK( 3 == chunk.NC() );
 }
@@ -220,16 +223,16 @@ void verifyChunkWithMultiplePartials( const Multiplicities& chunk ) {
   CHECK( 2 == total.boundaries()[0] );
   CHECK( 2 == total.energies().size() );
   CHECK( 2 == total.multiplicities().size() );
-  CHECK( 1e-5 == Approx( total.energies()[0] ) );
-  CHECK( 3e+7 == Approx( total.energies()[1] ) );
-  CHECK( 10. == Approx( total.multiplicities()[0] ) );
-  CHECK( 15. == Approx( total.multiplicities()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( total.energies()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( total.energies()[1] ) );
+  CHECK_THAT( 10., WithinRel( total.multiplicities()[0] ) );
+  CHECK_THAT( 15., WithinRel( total.multiplicities()[1] ) );
 
   auto partial = chunk.photonPartialMultiplicities()[0];
-  CHECK( 0.0 == Approx( partial.EG() ) );
-  CHECK( 0.0 == Approx( partial.photonOrBindingEnergy() ) );
-  CHECK( 0.0 == Approx( partial.ES() ) );
-  CHECK( 0.0 == Approx( partial.levelEnergy() ) );
+  CHECK_THAT( 0.0, WithinRel( partial.EG() ) );
+  CHECK_THAT( 0.0, WithinRel( partial.photonOrBindingEnergy() ) );
+  CHECK_THAT( 0.0, WithinRel( partial.ES() ) );
+  CHECK_THAT( 0.0, WithinRel( partial.levelEnergy() ) );
   CHECK( 0 == partial.LP() );
   CHECK( 0 == partial.primaryPhotonFlag() );
   CHECK( 1 == partial.LF() );
@@ -242,16 +245,16 @@ void verifyChunkWithMultiplePartials( const Multiplicities& chunk ) {
   CHECK( 2 == partial.boundaries()[0] );
   CHECK( 2 == partial.energies().size() );
   CHECK( 2 == partial.multiplicities().size() );
-  CHECK( 1e-5 == Approx( partial.energies()[0] ) );
-  CHECK( 3e+7 == Approx( partial.energies()[1] ) );
-  CHECK( 8.579050e+0 == Approx( partial.multiplicities()[0] ) );
-  CHECK( 1.487778e+1 == Approx( partial.multiplicities()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( partial.energies()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( partial.energies()[1] ) );
+  CHECK_THAT( 8.579050e+0, WithinRel( partial.multiplicities()[0] ) );
+  CHECK_THAT( 1.487778e+1, WithinRel( partial.multiplicities()[1] ) );
 
   partial = chunk.photonPartialMultiplicities()[1];
-  CHECK( 0.0 == Approx( partial.EG() ) );
-  CHECK( 0.0 == Approx( partial.photonOrBindingEnergy() ) );
-  CHECK( 0.0 == Approx( partial.ES() ) );
-  CHECK( 0.0 == Approx( partial.levelEnergy() ) );
+  CHECK_THAT( 0.0, WithinRel( partial.EG() ) );
+  CHECK_THAT( 0.0, WithinRel( partial.photonOrBindingEnergy() ) );
+  CHECK_THAT( 0.0, WithinRel( partial.ES() ) );
+  CHECK_THAT( 0.0, WithinRel( partial.levelEnergy() ) );
   CHECK( 0 == partial.LP() );
   CHECK( 0 == partial.primaryPhotonFlag() );
   CHECK( 1 == partial.LF() );
@@ -264,10 +267,10 @@ void verifyChunkWithMultiplePartials( const Multiplicities& chunk ) {
   CHECK( 2 == partial.boundaries()[0] );
   CHECK( 2 == partial.energies().size() );
   CHECK( 2 == partial.multiplicities().size() );
-  CHECK( 1e-5 == Approx( partial.energies()[0] ) );
-  CHECK( 3e+7 == Approx( partial.energies()[1] ) );
-  CHECK( 1.420950e+0 == Approx( partial.multiplicities()[0] ) );
-  CHECK( 1.222200e-1 == Approx( partial.multiplicities()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( partial.energies()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( partial.energies()[1] ) );
+  CHECK_THAT( 1.420950e+0, WithinRel( partial.multiplicities()[0] ) );
+  CHECK_THAT( 1.222200e-1, WithinRel( partial.multiplicities()[1] ) );
 
   CHECK( 9 == chunk.NC() );
 }

@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/6.hpp"
 
 // other includes
@@ -167,66 +170,66 @@ std::string chunk() {
 
 void verifyChunk( const NuclearAmplitudeExpansion& chunk ) {
 
-  CHECK( 1e-5 == Approx( chunk.E() ) );
-  CHECK( 1e-5 == Approx( chunk.incidentEnergy() ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.E() ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.incidentEnergy() ) );
 
   CHECK( 1 == chunk.LTP() );
   CHECK( 15 == chunk.NW() );
   CHECK( 3 == chunk.NL() );
   CHECK( 7 == chunk.B().size() );
   CHECK( 7 == chunk.scatteringCoefficients().size() );
-  CHECK( 1. == Approx( chunk.B()[0] ) );
-  CHECK( 2. == Approx( chunk.B()[1] ) );
-  CHECK( 3. == Approx( chunk.B()[2] ) );
-  CHECK( 4. == Approx( chunk.B()[3] ) );
-  CHECK( 5. == Approx( chunk.B()[4] ) );
-  CHECK( 6. == Approx( chunk.B()[5] ) );
-  CHECK( 7. == Approx( chunk.B()[6] ) );
-  CHECK( 1. == Approx( chunk.scatteringCoefficients()[0] ) );
-  CHECK( 2. == Approx( chunk.scatteringCoefficients()[1] ) );
-  CHECK( 3. == Approx( chunk.scatteringCoefficients()[2] ) );
-  CHECK( 4. == Approx( chunk.scatteringCoefficients()[3] ) );
-  CHECK( 5. == Approx( chunk.scatteringCoefficients()[4] ) );
-  CHECK( 6. == Approx( chunk.scatteringCoefficients()[5] ) );
-  CHECK( 7. == Approx( chunk.scatteringCoefficients()[6] ) );
+  CHECK_THAT( 1., WithinRel( chunk.B()[0] ) );
+  CHECK_THAT( 2., WithinRel( chunk.B()[1] ) );
+  CHECK_THAT( 3., WithinRel( chunk.B()[2] ) );
+  CHECK_THAT( 4., WithinRel( chunk.B()[3] ) );
+  CHECK_THAT( 5., WithinRel( chunk.B()[4] ) );
+  CHECK_THAT( 6., WithinRel( chunk.B()[5] ) );
+  CHECK_THAT( 7., WithinRel( chunk.B()[6] ) );
+  CHECK_THAT( 1., WithinRel( chunk.scatteringCoefficients()[0] ) );
+  CHECK_THAT( 2., WithinRel( chunk.scatteringCoefficients()[1] ) );
+  CHECK_THAT( 3., WithinRel( chunk.scatteringCoefficients()[2] ) );
+  CHECK_THAT( 4., WithinRel( chunk.scatteringCoefficients()[3] ) );
+  CHECK_THAT( 5., WithinRel( chunk.scatteringCoefficients()[4] ) );
+  CHECK_THAT( 6., WithinRel( chunk.scatteringCoefficients()[5] ) );
+  CHECK_THAT( 7., WithinRel( chunk.scatteringCoefficients()[6] ) );
   CHECK( 4 == chunk.AR().size() );
   CHECK( 4 == chunk.realInterferenceCoefficients().size() );
-  CHECK( 8. == Approx( chunk.AR()[0] ) );
-  CHECK( 10. == Approx( chunk.AR()[1] ) );
-  CHECK( 12. == Approx( chunk.AR()[2] ) );
-  CHECK( 14. == Approx( chunk.AR()[3] ) );
-  CHECK( 8. == Approx( chunk.realInterferenceCoefficients()[0] ) );
-  CHECK( 10. == Approx( chunk.realInterferenceCoefficients()[1] ) );
-  CHECK( 12. == Approx( chunk.realInterferenceCoefficients()[2] ) );
-  CHECK( 14. == Approx( chunk.realInterferenceCoefficients()[3] ) );
+  CHECK_THAT( 8., WithinRel( chunk.AR()[0] ) );
+  CHECK_THAT( 10., WithinRel( chunk.AR()[1] ) );
+  CHECK_THAT( 12., WithinRel( chunk.AR()[2] ) );
+  CHECK_THAT( 14., WithinRel( chunk.AR()[3] ) );
+  CHECK_THAT( 8., WithinRel( chunk.realInterferenceCoefficients()[0] ) );
+  CHECK_THAT( 10., WithinRel( chunk.realInterferenceCoefficients()[1] ) );
+  CHECK_THAT( 12., WithinRel( chunk.realInterferenceCoefficients()[2] ) );
+  CHECK_THAT( 14., WithinRel( chunk.realInterferenceCoefficients()[3] ) );
   CHECK( 4 == chunk.AI().size() );
   CHECK( 4 == chunk.imaginaryInterferenceCoefficients().size() );
-  CHECK( 9. == Approx( chunk.AI()[0] ) );
-  CHECK( 11. == Approx( chunk.AI()[1] ) );
-  CHECK( 13. == Approx( chunk.AI()[2] ) );
-  CHECK( 15. == Approx( chunk.AI()[3] ) );
-  CHECK( 9. == Approx( chunk.imaginaryInterferenceCoefficients()[0] ) );
-  CHECK( 11. == Approx( chunk.imaginaryInterferenceCoefficients()[1] ) );
-  CHECK( 13. == Approx( chunk.imaginaryInterferenceCoefficients()[2] ) );
-  CHECK( 15. == Approx( chunk.imaginaryInterferenceCoefficients()[3] ) );
+  CHECK_THAT( 9., WithinRel( chunk.AI()[0] ) );
+  CHECK_THAT( 11., WithinRel( chunk.AI()[1] ) );
+  CHECK_THAT( 13., WithinRel( chunk.AI()[2] ) );
+  CHECK_THAT( 15., WithinRel( chunk.AI()[3] ) );
+  CHECK_THAT( 9., WithinRel( chunk.imaginaryInterferenceCoefficients()[0] ) );
+  CHECK_THAT( 11., WithinRel( chunk.imaginaryInterferenceCoefficients()[1] ) );
+  CHECK_THAT( 13., WithinRel( chunk.imaginaryInterferenceCoefficients()[2] ) );
+  CHECK_THAT( 15., WithinRel( chunk.imaginaryInterferenceCoefficients()[3] ) );
   CHECK( 4 == chunk.A().size() );
   CHECK( 4 == chunk.interferenceCoefficients().size() );
-  CHECK( 8. == Approx( chunk.A()[0].real() ) );
-  CHECK( 10. == Approx( chunk.A()[1].real() ) );
-  CHECK( 12. == Approx( chunk.A()[2].real() ) );
-  CHECK( 14. == Approx( chunk.A()[3].real() ) );
-  CHECK( 9. == Approx( chunk.A()[0].imag() ) );
-  CHECK( 11. == Approx( chunk.A()[1].imag() ) );
-  CHECK( 13. == Approx( chunk.A()[2].imag() ) );
-  CHECK( 15. == Approx( chunk.A()[3].imag() ) );
-  CHECK( 8. == Approx( chunk.interferenceCoefficients()[0].real() ) );
-  CHECK( 10. == Approx( chunk.interferenceCoefficients()[1].real() ) );
-  CHECK( 12. == Approx( chunk.interferenceCoefficients()[2].real() ) );
-  CHECK( 14. == Approx( chunk.interferenceCoefficients()[3].real() ) );
-  CHECK( 9. == Approx( chunk.interferenceCoefficients()[0].imag() ) );
-  CHECK( 11. == Approx( chunk.interferenceCoefficients()[1].imag() ) );
-  CHECK( 13. == Approx( chunk.interferenceCoefficients()[2].imag() ) );
-  CHECK( 15. == Approx( chunk.interferenceCoefficients()[3].imag() ) );
+  CHECK_THAT( 8., WithinRel( chunk.A()[0].real() ) );
+  CHECK_THAT( 10., WithinRel( chunk.A()[1].real() ) );
+  CHECK_THAT( 12., WithinRel( chunk.A()[2].real() ) );
+  CHECK_THAT( 14., WithinRel( chunk.A()[3].real() ) );
+  CHECK_THAT( 9., WithinRel( chunk.A()[0].imag() ) );
+  CHECK_THAT( 11., WithinRel( chunk.A()[1].imag() ) );
+  CHECK_THAT( 13., WithinRel( chunk.A()[2].imag() ) );
+  CHECK_THAT( 15., WithinRel( chunk.A()[3].imag() ) );
+  CHECK_THAT( 8., WithinRel( chunk.interferenceCoefficients()[0].real() ) );
+  CHECK_THAT( 10., WithinRel( chunk.interferenceCoefficients()[1].real() ) );
+  CHECK_THAT( 12., WithinRel( chunk.interferenceCoefficients()[2].real() ) );
+  CHECK_THAT( 14., WithinRel( chunk.interferenceCoefficients()[3].real() ) );
+  CHECK_THAT( 9., WithinRel( chunk.interferenceCoefficients()[0].imag() ) );
+  CHECK_THAT( 11., WithinRel( chunk.interferenceCoefficients()[1].imag() ) );
+  CHECK_THAT( 13., WithinRel( chunk.interferenceCoefficients()[2].imag() ) );
+  CHECK_THAT( 15., WithinRel( chunk.interferenceCoefficients()[3].imag() ) );
 
   CHECK( 4 == chunk.NC() );
 }

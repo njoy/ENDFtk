@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/7/4.hpp"
 
 // other includes
@@ -514,21 +517,21 @@ verifyChunkWithOnlyPrincipalScatterer( const ScatteringLawConstants& chunk ) {
   CHECK( 0 == chunk.NS() );
   CHECK( 0 == chunk.numberNonPrincipalScatterers() );
 
-  CHECK( 1.976285e+2 == Approx( chunk.epsilon() ) );
-  CHECK( 5.000001e+0 == Approx( chunk.EMAX() ) );
-  CHECK( 5.000001e+0 == Approx( chunk.upperEnergyLimit() ) );
+  CHECK_THAT( 1.976285e+2, WithinRel( chunk.epsilon() ) );
+  CHECK_THAT( 5.000001e+0, WithinRel( chunk.EMAX() ) );
+  CHECK_THAT( 5.000001e+0, WithinRel( chunk.upperEnergyLimit() ) );
   CHECK( 1 == chunk.MSIGMA().size() );
   CHECK( 1 == chunk.totalFreeCrossSections().size() );
-  CHECK( 6.153875e+0 == Approx( chunk.MSIGMA()[0] ) );
-  CHECK( 6.153875e+0 == Approx( chunk.totalFreeCrossSections()[0] ) );
+  CHECK_THAT( 6.153875e+0, WithinRel( chunk.MSIGMA()[0] ) );
+  CHECK_THAT( 6.153875e+0, WithinRel( chunk.totalFreeCrossSections()[0] ) );
   CHECK( 1 == chunk.AWR().size() );
   CHECK( 1 == chunk.atomicWeightRatios().size() );
-  CHECK( 8.934780e+0 == Approx( chunk.AWR()[0] ) );
-  CHECK( 8.934780e+0 == Approx( chunk.atomicWeightRatios()[0] ) );
+  CHECK_THAT( 8.934780e+0, WithinRel( chunk.AWR()[0] ) );
+  CHECK_THAT( 8.934780e+0, WithinRel( chunk.atomicWeightRatios()[0] ) );
   CHECK( 1 == chunk.M().size() );
   CHECK( 1 == chunk.numberAtoms().size() );
-  CHECK( 1. == Approx( chunk.M()[0] ) );
-  CHECK( 1. == Approx( chunk.numberAtoms()[0] ) );
+  CHECK_THAT( 1., WithinRel( chunk.M()[0] ) );
+  CHECK_THAT( 1., WithinRel( chunk.numberAtoms()[0] ) );
   CHECK( 0 == chunk.analyticalFunctionTypes().size() );
 
   CHECK( 2 == chunk.NC() );
@@ -551,27 +554,27 @@ void verifyChunkWithBothPrincipalAndSecondaryScatterer(
   CHECK( 1 == chunk.NS() );
   CHECK( 1 == chunk.numberNonPrincipalScatterers() );
 
-  CHECK( 9.750000e+1 == Approx( chunk.epsilon() ) );
-  CHECK( 2.466750e+0 == Approx( chunk.EMAX() ) );
-  CHECK( 2.466750e+0 == Approx( chunk.upperEnergyLimit() ) );
+  CHECK_THAT( 9.750000e+1, WithinRel( chunk.epsilon() ) );
+  CHECK_THAT( 2.466750e+0, WithinRel( chunk.EMAX() ) );
+  CHECK_THAT( 2.466750e+0, WithinRel( chunk.upperEnergyLimit() ) );
   CHECK( 2 == chunk.MSIGMA().size() );
   CHECK( 2 == chunk.totalFreeCrossSections().size() );
-  CHECK( 2.021000e+0 == Approx( chunk.MSIGMA()[0] ) );
-  CHECK( 3.748750e+0 == Approx( chunk.MSIGMA()[1] ) );
-  CHECK( 2.021000e+0 == Approx( chunk.totalFreeCrossSections()[0] ) );
-  CHECK( 3.748750e+0 == Approx( chunk.totalFreeCrossSections()[1] ) );
+  CHECK_THAT( 2.021000e+0, WithinRel( chunk.MSIGMA()[0] ) );
+  CHECK_THAT( 3.748750e+0, WithinRel( chunk.MSIGMA()[1] ) );
+  CHECK_THAT( 2.021000e+0, WithinRel( chunk.totalFreeCrossSections()[0] ) );
+  CHECK_THAT( 3.748750e+0, WithinRel( chunk.totalFreeCrossSections()[1] ) );
   CHECK( 2 == chunk.AWR().size() );
   CHECK( 2 == chunk.atomicWeightRatios().size() );
-  CHECK( 2.784423e+1 == Approx( chunk.AWR()[0] ) );
-  CHECK( 1.586200e+1 == Approx( chunk.AWR()[1] ) );
-  CHECK( 2.784423e+1 == Approx( chunk.atomicWeightRatios()[0] ) );
-  CHECK( 1.586200e+1 == Approx( chunk.atomicWeightRatios()[1] ) );
+  CHECK_THAT( 2.784423e+1, WithinRel( chunk.AWR()[0] ) );
+  CHECK_THAT( 1.586200e+1, WithinRel( chunk.AWR()[1] ) );
+  CHECK_THAT( 2.784423e+1, WithinRel( chunk.atomicWeightRatios()[0] ) );
+  CHECK_THAT( 1.586200e+1, WithinRel( chunk.atomicWeightRatios()[1] ) );
   CHECK( 2 == chunk.M().size() );
   CHECK( 2 == chunk.numberAtoms().size() );
-  CHECK( 1. == Approx( chunk.M()[0] ) );
-  CHECK( 2. == Approx( chunk.M()[1] ) );
-  CHECK( 1. == Approx( chunk.numberAtoms()[0] ) );
-  CHECK( 2. == Approx( chunk.numberAtoms()[1] ) );
+  CHECK_THAT( 1., WithinRel( chunk.M()[0] ) );
+  CHECK_THAT( 2., WithinRel( chunk.M()[1] ) );
+  CHECK_THAT( 1., WithinRel( chunk.numberAtoms()[0] ) );
+  CHECK_THAT( 2., WithinRel( chunk.numberAtoms()[1] ) );
   CHECK( 1 == chunk.analyticalFunctionTypes().size() );
   CHECK( 0. == chunk.analyticalFunctionTypes()[0] );
 
@@ -596,33 +599,33 @@ void verifyChunkWithTwoSecondaryScatterers(
   CHECK( 2 == chunk.NS() );
   CHECK( 2 == chunk.numberNonPrincipalScatterers() );
 
-  CHECK( 9.750000e+1 == Approx( chunk.epsilon() ) );
-  CHECK( 2.466750e+0 == Approx( chunk.EMAX() ) );
-  CHECK( 2.466750e+0 == Approx( chunk.upperEnergyLimit() ) );
+  CHECK_THAT( 9.750000e+1, WithinRel( chunk.epsilon() ) );
+  CHECK_THAT( 2.466750e+0, WithinRel( chunk.EMAX() ) );
+  CHECK_THAT( 2.466750e+0, WithinRel( chunk.upperEnergyLimit() ) );
   CHECK( 3 == chunk.MSIGMA().size() );
   CHECK( 3 == chunk.totalFreeCrossSections().size() );
-  CHECK( 2.021000e+0 == Approx( chunk.MSIGMA()[0] ) );
-  CHECK( 3.748750e+0 == Approx( chunk.MSIGMA()[1] ) );
-  CHECK( 4.000000e+0 == Approx( chunk.MSIGMA()[2] ) );
-  CHECK( 2.021000e+0 == Approx( chunk.totalFreeCrossSections()[0] ) );
-  CHECK( 3.748750e+0 == Approx( chunk.totalFreeCrossSections()[1] ) );
-  CHECK( 4.000000e+0 == Approx( chunk.totalFreeCrossSections()[2] ) );
+  CHECK_THAT( 2.021000e+0, WithinRel( chunk.MSIGMA()[0] ) );
+  CHECK_THAT( 3.748750e+0, WithinRel( chunk.MSIGMA()[1] ) );
+  CHECK_THAT( 4.000000e+0, WithinRel( chunk.MSIGMA()[2] ) );
+  CHECK_THAT( 2.021000e+0, WithinRel( chunk.totalFreeCrossSections()[0] ) );
+  CHECK_THAT( 3.748750e+0, WithinRel( chunk.totalFreeCrossSections()[1] ) );
+  CHECK_THAT( 4.000000e+0, WithinRel( chunk.totalFreeCrossSections()[2] ) );
   CHECK( 3 == chunk.AWR().size() );
   CHECK( 3 == chunk.atomicWeightRatios().size() );
-  CHECK( 2.784423e+1 == Approx( chunk.AWR()[0] ) );
-  CHECK( 1.586200e+1 == Approx( chunk.AWR()[1] ) );
-  CHECK( 2.000000e+0 == Approx( chunk.AWR()[2] ) );
-  CHECK( 2.784423e+1 == Approx( chunk.atomicWeightRatios()[0] ) );
-  CHECK( 1.586200e+1 == Approx( chunk.atomicWeightRatios()[1] ) );
-  CHECK( 2.000000e+0 == Approx( chunk.atomicWeightRatios()[2] ) );
+  CHECK_THAT( 2.784423e+1, WithinRel( chunk.AWR()[0] ) );
+  CHECK_THAT( 1.586200e+1, WithinRel( chunk.AWR()[1] ) );
+  CHECK_THAT( 2.000000e+0, WithinRel( chunk.AWR()[2] ) );
+  CHECK_THAT( 2.784423e+1, WithinRel( chunk.atomicWeightRatios()[0] ) );
+  CHECK_THAT( 1.586200e+1, WithinRel( chunk.atomicWeightRatios()[1] ) );
+  CHECK_THAT( 2.000000e+0, WithinRel( chunk.atomicWeightRatios()[2] ) );
   CHECK( 3 == chunk.M().size() );
   CHECK( 3 == chunk.numberAtoms().size() );
-  CHECK( 1. == Approx( chunk.M()[0] ) );
-  CHECK( 2. == Approx( chunk.M()[1] ) );
-  CHECK( 3. == Approx( chunk.M()[2] ) );
-  CHECK( 1. == Approx( chunk.numberAtoms()[0] ) );
-  CHECK( 2. == Approx( chunk.numberAtoms()[1] ) );
-  CHECK( 3. == Approx( chunk.numberAtoms()[2] ) );
+  CHECK_THAT( 1., WithinRel( chunk.M()[0] ) );
+  CHECK_THAT( 2., WithinRel( chunk.M()[1] ) );
+  CHECK_THAT( 3., WithinRel( chunk.M()[2] ) );
+  CHECK_THAT( 1., WithinRel( chunk.numberAtoms()[0] ) );
+  CHECK_THAT( 2., WithinRel( chunk.numberAtoms()[1] ) );
+  CHECK_THAT( 3., WithinRel( chunk.numberAtoms()[2] ) );
   CHECK( 2 == chunk.analyticalFunctionTypes().size() );
   CHECK( 0. == chunk.analyticalFunctionTypes()[0] );
   CHECK( 1. == chunk.analyticalFunctionTypes()[1] );
@@ -649,39 +652,39 @@ void verifyChunkWithThreeSecondaryScatterers(
   CHECK( 3 == chunk.NS() );
   CHECK( 3 == chunk.numberNonPrincipalScatterers() );
 
-  CHECK( 9.750000e+1 == Approx( chunk.epsilon() ) );
-  CHECK( 2.466750e+0 == Approx( chunk.EMAX() ) );
-  CHECK( 2.466750e+0 == Approx( chunk.upperEnergyLimit() ) );
+  CHECK_THAT( 9.750000e+1, WithinRel( chunk.epsilon() ) );
+  CHECK_THAT( 2.466750e+0, WithinRel( chunk.EMAX() ) );
+  CHECK_THAT( 2.466750e+0, WithinRel( chunk.upperEnergyLimit() ) );
   CHECK( 4 == chunk.MSIGMA().size() );
   CHECK( 4 == chunk.totalFreeCrossSections().size() );
-  CHECK( 2.021000e+0 == Approx( chunk.MSIGMA()[0] ) );
-  CHECK( 3.748750e+0 == Approx( chunk.MSIGMA()[1] ) );
-  CHECK( 4.000000e+0 == Approx( chunk.MSIGMA()[2] ) );
-  CHECK( 8.000000e+0 == Approx( chunk.MSIGMA()[3] ) );
-  CHECK( 2.021000e+0 == Approx( chunk.totalFreeCrossSections()[0] ) );
-  CHECK( 3.748750e+0 == Approx( chunk.totalFreeCrossSections()[1] ) );
-  CHECK( 4.000000e+0 == Approx( chunk.totalFreeCrossSections()[2] ) );
-  CHECK( 8.000000e+0 == Approx( chunk.totalFreeCrossSections()[3] ) );
+  CHECK_THAT( 2.021000e+0, WithinRel( chunk.MSIGMA()[0] ) );
+  CHECK_THAT( 3.748750e+0, WithinRel( chunk.MSIGMA()[1] ) );
+  CHECK_THAT( 4.000000e+0, WithinRel( chunk.MSIGMA()[2] ) );
+  CHECK_THAT( 8.000000e+0, WithinRel( chunk.MSIGMA()[3] ) );
+  CHECK_THAT( 2.021000e+0, WithinRel( chunk.totalFreeCrossSections()[0] ) );
+  CHECK_THAT( 3.748750e+0, WithinRel( chunk.totalFreeCrossSections()[1] ) );
+  CHECK_THAT( 4.000000e+0, WithinRel( chunk.totalFreeCrossSections()[2] ) );
+  CHECK_THAT( 8.000000e+0, WithinRel( chunk.totalFreeCrossSections()[3] ) );
   CHECK( 4 == chunk.AWR().size() );
   CHECK( 4 == chunk.atomicWeightRatios().size() );
-  CHECK( 2.784423e+1 == Approx( chunk.AWR()[0] ) );
-  CHECK( 1.586200e+1 == Approx( chunk.AWR()[1] ) );
-  CHECK( 2.000000e+0 == Approx( chunk.AWR()[2] ) );
-  CHECK( 4.000000e+0 == Approx( chunk.AWR()[3] ) );
-  CHECK( 2.784423e+1 == Approx( chunk.atomicWeightRatios()[0] ) );
-  CHECK( 1.586200e+1 == Approx( chunk.atomicWeightRatios()[1] ) );
-  CHECK( 2.000000e+0 == Approx( chunk.atomicWeightRatios()[2] ) );
-  CHECK( 4.000000e+0 == Approx( chunk.atomicWeightRatios()[3] ) );
+  CHECK_THAT( 2.784423e+1, WithinRel( chunk.AWR()[0] ) );
+  CHECK_THAT( 1.586200e+1, WithinRel( chunk.AWR()[1] ) );
+  CHECK_THAT( 2.000000e+0, WithinRel( chunk.AWR()[2] ) );
+  CHECK_THAT( 4.000000e+0, WithinRel( chunk.AWR()[3] ) );
+  CHECK_THAT( 2.784423e+1, WithinRel( chunk.atomicWeightRatios()[0] ) );
+  CHECK_THAT( 1.586200e+1, WithinRel( chunk.atomicWeightRatios()[1] ) );
+  CHECK_THAT( 2.000000e+0, WithinRel( chunk.atomicWeightRatios()[2] ) );
+  CHECK_THAT( 4.000000e+0, WithinRel( chunk.atomicWeightRatios()[3] ) );
   CHECK( 4 == chunk.M().size() );
   CHECK( 4 == chunk.numberAtoms().size() );
-  CHECK( 1. == Approx( chunk.M()[0] ) );
-  CHECK( 2. == Approx( chunk.M()[1] ) );
-  CHECK( 3. == Approx( chunk.M()[2] ) );
-  CHECK( 4. == Approx( chunk.M()[3] ) );
-  CHECK( 1. == Approx( chunk.numberAtoms()[0] ) );
-  CHECK( 2. == Approx( chunk.numberAtoms()[1] ) );
-  CHECK( 3. == Approx( chunk.numberAtoms()[2] ) );
-  CHECK( 4. == Approx( chunk.numberAtoms()[3] ) );
+  CHECK_THAT( 1., WithinRel( chunk.M()[0] ) );
+  CHECK_THAT( 2., WithinRel( chunk.M()[1] ) );
+  CHECK_THAT( 3., WithinRel( chunk.M()[2] ) );
+  CHECK_THAT( 4., WithinRel( chunk.M()[3] ) );
+  CHECK_THAT( 1., WithinRel( chunk.numberAtoms()[0] ) );
+  CHECK_THAT( 2., WithinRel( chunk.numberAtoms()[1] ) );
+  CHECK_THAT( 3., WithinRel( chunk.numberAtoms()[2] ) );
+  CHECK_THAT( 4., WithinRel( chunk.numberAtoms()[3] ) );
   CHECK( 3 == chunk.analyticalFunctionTypes().size() );
   CHECK( 0. == chunk.analyticalFunctionTypes()[0] );
   CHECK( 1. == chunk.analyticalFunctionTypes()[1] );

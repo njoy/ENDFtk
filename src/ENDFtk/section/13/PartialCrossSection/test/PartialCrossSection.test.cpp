@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/13.hpp"
 
 // other includes
@@ -131,10 +134,10 @@ std::string chunk() {
 
 void verifyChunk( const PartialCrossSection& chunk ) {
 
-  CHECK( 0.0 == Approx( chunk.EG() ) );
-  CHECK( 0.0 == Approx( chunk.photonOrBindingEnergy() ) );
-  CHECK( 3.0 == Approx( chunk.ES() ) );
-  CHECK( 3.0 == Approx( chunk.levelEnergy() ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.EG() ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.photonOrBindingEnergy() ) );
+  CHECK_THAT( 3.0, WithinRel( chunk.ES() ) );
+  CHECK_THAT( 3.0, WithinRel( chunk.levelEnergy() ) );
   CHECK( 2 == chunk.LP() );
   CHECK( 2 == chunk.primaryPhotonFlag() );
   CHECK( 1 == chunk.LF() );
@@ -151,18 +154,18 @@ void verifyChunk( const PartialCrossSection& chunk ) {
   CHECK( 2 == chunk.XS().size() );
   CHECK( 2 == chunk.crossSections().size() );
   CHECK( 2 == chunk.y().size() );
-  CHECK( 1e-5 == Approx( chunk.E()[0] ) );
-  CHECK( 3e+7 == Approx( chunk.E()[1] ) );
-  CHECK( 1e-5 == Approx( chunk.energies()[0] ) );
-  CHECK( 3e+7 == Approx( chunk.energies()[1] ) );
-  CHECK( 1e-5 == Approx( chunk.x()[0] ) );
-  CHECK( 3e+7 == Approx( chunk.x()[1] ) );
-  CHECK( 8.579050e+0 == Approx( chunk.XS()[0] ) );
-  CHECK( 1.487778e+1 == Approx( chunk.XS()[1] ) );
-  CHECK( 8.579050e+0 == Approx( chunk.crossSections()[0] ) );
-  CHECK( 1.487778e+1 == Approx( chunk.crossSections()[1] ) );
-  CHECK( 8.579050e+0 == Approx( chunk.y()[0] ) );
-  CHECK( 1.487778e+1 == Approx( chunk.y()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.E()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( chunk.E()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.energies()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( chunk.energies()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.x()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( chunk.x()[1] ) );
+  CHECK_THAT( 8.579050e+0, WithinRel( chunk.XS()[0] ) );
+  CHECK_THAT( 1.487778e+1, WithinRel( chunk.XS()[1] ) );
+  CHECK_THAT( 8.579050e+0, WithinRel( chunk.crossSections()[0] ) );
+  CHECK_THAT( 1.487778e+1, WithinRel( chunk.crossSections()[1] ) );
+  CHECK_THAT( 8.579050e+0, WithinRel( chunk.y()[0] ) );
+  CHECK_THAT( 1.487778e+1, WithinRel( chunk.y()[1] ) );
 
   CHECK( 3 == chunk.NC() );
 }

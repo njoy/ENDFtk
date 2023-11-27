@@ -1,7 +1,10 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
-#include "ENDFtk/section/32/151.hpp"
+// what we are testing
+#include "ENDFtk/section/32.hpp"
 
 // other includes
 
@@ -193,28 +196,28 @@ void verifyChunk( const CompactCorrelationMatrix& chunk ) {
   CHECK(  4 == chunk.J()[19] );
   CHECK(  6 == chunk.J()[20] );
   CHECK(  8 == chunk.J()[21] );
-  CHECK( 0.025 == Approx( chunk.correlations()[0] ) );
-  CHECK( 0.035 == Approx( chunk.correlations()[1] ) );
-  CHECK( 0.085 == Approx( chunk.correlations()[2] ) );
-  CHECK( 0.085 == Approx( chunk.correlations()[3] ) );
-  CHECK( 0.055 == Approx( chunk.correlations()[4] ) );
-  CHECK( 0.015 == Approx( chunk.correlations()[5] ) );
-  CHECK( 0.015 == Approx( chunk.correlations()[6] ) );
-  CHECK( 0.015 == Approx( chunk.correlations()[7] ) );
-  CHECK( 0.015 == Approx( chunk.correlations()[8] ) );
-  CHECK( 0.015 == Approx( chunk.correlations()[9] ) );
-  CHECK( 0.015 == Approx( chunk.correlations()[10] ) );
-  CHECK( 0.015 == Approx( chunk.correlations()[11] ) );
-  CHECK( 0.015 == Approx( chunk.correlations()[12] ) );
-  CHECK( 0.015 == Approx( chunk.correlations()[13] ) );
-  CHECK( 0.015 == Approx( chunk.correlations()[14] ) );
-  CHECK( 0.015 == Approx( chunk.correlations()[15] ) );
-  CHECK( 0.015 == Approx( chunk.correlations()[16] ) );
-  CHECK( 0.015 == Approx( chunk.correlations()[17] ) );
-  CHECK( 0.025 == Approx( chunk.correlations()[18] ) );
-  CHECK( 0.015 == Approx( chunk.correlations()[19] ) );
-  CHECK( 0.015 == Approx( chunk.correlations()[20] ) );
-  CHECK( 0.015 == Approx( chunk.correlations()[21] ) );
+  CHECK_THAT( 0.025, WithinRel( chunk.correlations()[0] ) );
+  CHECK_THAT( 0.035, WithinRel( chunk.correlations()[1] ) );
+  CHECK_THAT( 0.085, WithinRel( chunk.correlations()[2] ) );
+  CHECK_THAT( 0.085, WithinRel( chunk.correlations()[3] ) );
+  CHECK_THAT( 0.055, WithinRel( chunk.correlations()[4] ) );
+  CHECK_THAT( 0.015, WithinRel( chunk.correlations()[5] ) );
+  CHECK_THAT( 0.015, WithinRel( chunk.correlations()[6] ) );
+  CHECK_THAT( 0.015, WithinRel( chunk.correlations()[7] ) );
+  CHECK_THAT( 0.015, WithinRel( chunk.correlations()[8] ) );
+  CHECK_THAT( 0.015, WithinRel( chunk.correlations()[9] ) );
+  CHECK_THAT( 0.015, WithinRel( chunk.correlations()[10] ) );
+  CHECK_THAT( 0.015, WithinRel( chunk.correlations()[11] ) );
+  CHECK_THAT( 0.015, WithinRel( chunk.correlations()[12] ) );
+  CHECK_THAT( 0.015, WithinRel( chunk.correlations()[13] ) );
+  CHECK_THAT( 0.015, WithinRel( chunk.correlations()[14] ) );
+  CHECK_THAT( 0.015, WithinRel( chunk.correlations()[15] ) );
+  CHECK_THAT( 0.015, WithinRel( chunk.correlations()[16] ) );
+  CHECK_THAT( 0.015, WithinRel( chunk.correlations()[17] ) );
+  CHECK_THAT( 0.025, WithinRel( chunk.correlations()[18] ) );
+  CHECK_THAT( 0.015, WithinRel( chunk.correlations()[19] ) );
+  CHECK_THAT( 0.015, WithinRel( chunk.correlations()[20] ) );
+  CHECK_THAT( 0.015, WithinRel( chunk.correlations()[21] ) );
 
   CHECK( 6 == chunk.NC() );
 }

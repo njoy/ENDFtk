@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/12.hpp"
 
 // other includes
@@ -315,9 +318,9 @@ void verifyChunkWithLO1( const section::Type< 12 >& chunk ) {
   CHECK( 18 == chunk.MT() );
   CHECK( 18 == chunk.sectionNumber() );
 
-  CHECK( 92235. == Approx( chunk.ZA() ) );
-  CHECK( 2.330250e+2 == Approx( chunk.AWR() ) );
-  CHECK( 2.330250e+2 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 92235 == chunk.ZA() );
+  CHECK_THAT( 2.330250e+2, WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 2.330250e+2, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 1 == chunk.LO() );
   CHECK( 1 == chunk.representation() );
 
@@ -331,10 +334,10 @@ void verifyChunkWithLO1( const section::Type< 12 >& chunk ) {
   CHECK( 1 == data.representation() );
 
   auto partial = data.photonPartialMultiplicities()[0];
-  CHECK( 0.0 == Approx( partial.EG() ) );
-  CHECK( 0.0 == Approx( partial.photonOrBindingEnergy() ) );
-  CHECK( 0.0 == Approx( partial.ES() ) );
-  CHECK( 0.0 == Approx( partial.levelEnergy() ) );
+  CHECK_THAT( 0.0, WithinRel( partial.EG() ) );
+  CHECK_THAT( 0.0, WithinRel( partial.photonOrBindingEnergy() ) );
+  CHECK_THAT( 0.0, WithinRel( partial.ES() ) );
+  CHECK_THAT( 0.0, WithinRel( partial.levelEnergy() ) );
   CHECK( 0 == partial.LP() );
   CHECK( 0 == partial.primaryPhotonFlag() );
   CHECK( 1 == partial.LF() );
@@ -347,10 +350,10 @@ void verifyChunkWithLO1( const section::Type< 12 >& chunk ) {
   CHECK( 2 == partial.boundaries()[0] );
   CHECK( 2 == partial.energies().size() );
   CHECK( 2 == partial.multiplicities().size() );
-  CHECK( 1e-5 == Approx( partial.energies()[0] ) );
-  CHECK( 3e+7 == Approx( partial.energies()[1] ) );
-  CHECK( 8.579050e+0 == Approx( partial.multiplicities()[0] ) );
-  CHECK( 1.487778e+1 == Approx( partial.multiplicities()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( partial.energies()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( partial.energies()[1] ) );
+  CHECK_THAT( 8.579050e+0, WithinRel( partial.multiplicities()[0] ) );
+  CHECK_THAT( 1.487778e+1, WithinRel( partial.multiplicities()[1] ) );
 
   CHECK( 4 == chunk.NC() );
 }
@@ -367,9 +370,9 @@ void verifyChunkWithLO2LG1( const section::Type< 12 >& chunk ) {
   CHECK( 51 == chunk.MT() );
   CHECK( 51 == chunk.sectionNumber() );
 
-  CHECK( 92235. == Approx( chunk.ZA() ) );
-  CHECK( 2.330250e+2 == Approx( chunk.AWR() ) );
-  CHECK( 2.330250e+2 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 92235 == chunk.ZA() );
+  CHECK_THAT( 2.330250e+2, WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 2.330250e+2, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 2 == chunk.LO() );
   CHECK( 2 == chunk.representation() );
 
@@ -377,8 +380,8 @@ void verifyChunkWithLO2LG1( const section::Type< 12 >& chunk ) {
   CHECK( 2 == data.LO() );
   CHECK( 2 == data.representation() );
 
-  CHECK( 5.170900e+4 == Approx( data.ES() ) );
-  CHECK( 5.170900e+4 == Approx( data.highestEnergyLevel() ) );
+  CHECK_THAT( 5.170900e+4, WithinRel( data.ES() ) );
+  CHECK_THAT( 5.170900e+4, WithinRel( data.highestEnergyLevel() ) );
   CHECK( 1 == data.LG() );
   CHECK( 1 == data.transitionType() );
   CHECK( 2 == data.NT() );
@@ -390,18 +393,18 @@ void verifyChunkWithLO2LG1( const section::Type< 12 >& chunk ) {
   CHECK( 2 == data.transitionProbabilities().size() );
   CHECK( 2 == data.GP().size() );
   CHECK( 2 == data.conditionalProbabilities().size() );
-  CHECK( 1.304000e+4 == Approx( data.E()[0] ) );
-  CHECK( 7.700000e+1 == Approx( data.E()[1] ) );
-  CHECK( 1.304000e+4 == Approx( data.energies()[0] ) );
-  CHECK( 7.700000e+1 == Approx( data.energies()[1] ) );
-  CHECK( 2.709000e-1 == Approx( data.TP()[0] ) );
-  CHECK( 7.291000e-1 == Approx( data.TP()[1] ) );
-  CHECK( 2.709000e-1 == Approx( data.transitionProbabilities()[0] ) );
-  CHECK( 7.291000e-1 == Approx( data.transitionProbabilities()[1] ) );
-  CHECK( 1.0 == Approx( data.GP()[0] ) );
-  CHECK( 1.0 == Approx( data.GP()[1] ) );
-  CHECK( 1.0 == Approx( data.conditionalProbabilities()[0] ) );
-  CHECK( 1.0 == Approx( data.conditionalProbabilities()[1] ) );
+  CHECK_THAT( 1.304000e+4, WithinRel( data.E()[0] ) );
+  CHECK_THAT( 7.700000e+1, WithinRel( data.E()[1] ) );
+  CHECK_THAT( 1.304000e+4, WithinRel( data.energies()[0] ) );
+  CHECK_THAT( 7.700000e+1, WithinRel( data.energies()[1] ) );
+  CHECK_THAT( 2.709000e-1, WithinRel( data.TP()[0] ) );
+  CHECK_THAT( 7.291000e-1, WithinRel( data.TP()[1] ) );
+  CHECK_THAT( 2.709000e-1, WithinRel( data.transitionProbabilities()[0] ) );
+  CHECK_THAT( 7.291000e-1, WithinRel( data.transitionProbabilities()[1] ) );
+  CHECK_THAT( 1.0, WithinRel( data.GP()[0] ) );
+  CHECK_THAT( 1.0, WithinRel( data.GP()[1] ) );
+  CHECK_THAT( 1.0, WithinRel( data.conditionalProbabilities()[0] ) );
+  CHECK_THAT( 1.0, WithinRel( data.conditionalProbabilities()[1] ) );
 
   CHECK( 3 == chunk.NC() );
 }
@@ -418,9 +421,9 @@ void verifyChunkWithLO2LG2( const section::Type< 12 >& chunk ) {
   CHECK( 51 == chunk.MT() );
   CHECK( 51 == chunk.sectionNumber() );
 
-  CHECK( 92235. == Approx( chunk.ZA() ) );
-  CHECK( 2.330250e+2 == Approx( chunk.AWR() ) );
-  CHECK( 2.330250e+2 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 92235 == chunk.ZA() );
+  CHECK_THAT( 2.330250e+2, WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 2.330250e+2, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 2 == chunk.LO() );
   CHECK( 2 == chunk.representation() );
 
@@ -428,8 +431,8 @@ void verifyChunkWithLO2LG2( const section::Type< 12 >& chunk ) {
   CHECK( 2 == data.LO() );
   CHECK( 2 == data.representation() );
 
-  CHECK( 5.170900e+4 == Approx( data.ES() ) );
-  CHECK( 5.170900e+4 == Approx( data.highestEnergyLevel() ) );
+  CHECK_THAT( 5.170900e+4, WithinRel( data.ES() ) );
+  CHECK_THAT( 5.170900e+4, WithinRel( data.highestEnergyLevel() ) );
   CHECK( 2 == data.LG() );
   CHECK( 2 == data.transitionType() );
   CHECK( 2 == data.NT() );
@@ -441,18 +444,18 @@ void verifyChunkWithLO2LG2( const section::Type< 12 >& chunk ) {
   CHECK( 2 == data.transitionProbabilities().size() );
   CHECK( 2 == data.GP().size() );
   CHECK( 2 == data.conditionalProbabilities().size() );
-  CHECK( 1.304000e+4 == Approx( data.E()[0] ) );
-  CHECK( 7.700000e+1 == Approx( data.E()[1] ) );
-  CHECK( 1.304000e+4 == Approx( data.energies()[0] ) );
-  CHECK( 7.700000e+1 == Approx( data.energies()[1] ) );
-  CHECK( 2.709000e-1 == Approx( data.TP()[0] ) );
-  CHECK( 7.291000e-1 == Approx( data.TP()[1] ) );
-  CHECK( 2.709000e-1 == Approx( data.transitionProbabilities()[0] ) );
-  CHECK( 7.291000e-1 == Approx( data.transitionProbabilities()[1] ) );
-  CHECK( 3.215434e-3 == Approx( data.GP()[0] ) );
-  CHECK( 3.144654e-3 == Approx( data.GP()[1] ) );
-  CHECK( 3.215434e-3 == Approx( data.conditionalProbabilities()[0] ) );
-  CHECK( 3.144654e-3 == Approx( data.conditionalProbabilities()[1] ) );
+  CHECK_THAT( 1.304000e+4, WithinRel( data.E()[0] ) );
+  CHECK_THAT( 7.700000e+1, WithinRel( data.E()[1] ) );
+  CHECK_THAT( 1.304000e+4, WithinRel( data.energies()[0] ) );
+  CHECK_THAT( 7.700000e+1, WithinRel( data.energies()[1] ) );
+  CHECK_THAT( 2.709000e-1, WithinRel( data.TP()[0] ) );
+  CHECK_THAT( 7.291000e-1, WithinRel( data.TP()[1] ) );
+  CHECK_THAT( 2.709000e-1, WithinRel( data.transitionProbabilities()[0] ) );
+  CHECK_THAT( 7.291000e-1, WithinRel( data.transitionProbabilities()[1] ) );
+  CHECK_THAT( 3.215434e-3, WithinRel( data.GP()[0] ) );
+  CHECK_THAT( 3.144654e-3, WithinRel( data.GP()[1] ) );
+  CHECK_THAT( 3.215434e-3, WithinRel( data.conditionalProbabilities()[0] ) );
+  CHECK_THAT( 3.144654e-3, WithinRel( data.conditionalProbabilities()[1] ) );
 
   CHECK( 3 == chunk.NC() );
 }

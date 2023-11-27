@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/2/151.hpp"
 
 // other includes
@@ -80,10 +83,10 @@ void verifyChunk( const SpecialCase& chunk ) {
   CHECK( 0 == chunk.LRF() );
   CHECK( 0 == chunk.representation() );
 
-  CHECK( 0.5 == Approx( chunk.SPI() ) );
-  CHECK( 0.5 == Approx( chunk.spin() ) );
-  CHECK( 1.276553 == Approx( chunk.AP() ) );
-  CHECK( 1.276553 == Approx( chunk.scatteringRadius() ) );
+  CHECK_THAT( 0.5, WithinRel( chunk.SPI() ) );
+  CHECK_THAT( 0.5, WithinRel( chunk.spin() ) );
+  CHECK_THAT( 1.276553, WithinRel( chunk.AP() ) );
+  CHECK_THAT( 1.276553, WithinRel( chunk.scatteringRadius() ) );
 
   CHECK( 1 == chunk.NC() );
 }

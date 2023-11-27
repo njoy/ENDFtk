@@ -1,7 +1,10 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
-#include "ENDFtk/section/32/151.hpp"
+// what we are testing
+#include "ENDFtk/section/32.hpp"
 
 // other includes
 
@@ -30,16 +33,16 @@ SCENARIO( "JValue" ) {
 
 void verifyChunk( const JValue& chunk ) {
 
-  CHECK( 2. == Approx( chunk.AJ() ) );
-  CHECK( 2. == Approx( chunk.spin() ) );
-  CHECK( 1. == Approx( chunk.D() ) );
-  CHECK( 1. == Approx( chunk.averageLevelSpacing() ) );
-  CHECK( 3. == Approx( chunk.GNO() ) );
-  CHECK( 3. == Approx( chunk.averageNeutronWidth() ) );
-  CHECK( 4. == Approx( chunk.GG() ) );
-  CHECK( 4. == Approx( chunk.averageGammaWidth() ) );
-  CHECK( 5. == Approx( chunk.GF() ) );
-  CHECK( 5. == Approx( chunk.averageFissionWidth() ) );
-  CHECK( 6. == Approx( chunk.GX() ) );
-  CHECK( 6. == Approx( chunk.averageCompetitiveWidth() ) );
+  CHECK_THAT( 2., WithinRel( chunk.AJ() ) );
+  CHECK_THAT( 2., WithinRel( chunk.spin() ) );
+  CHECK_THAT( 1., WithinRel( chunk.D() ) );
+  CHECK_THAT( 1., WithinRel( chunk.averageLevelSpacing() ) );
+  CHECK_THAT( 3., WithinRel( chunk.GNO() ) );
+  CHECK_THAT( 3., WithinRel( chunk.averageNeutronWidth() ) );
+  CHECK_THAT( 4., WithinRel( chunk.GG() ) );
+  CHECK_THAT( 4., WithinRel( chunk.averageGammaWidth() ) );
+  CHECK_THAT( 5., WithinRel( chunk.GF() ) );
+  CHECK_THAT( 5., WithinRel( chunk.averageFissionWidth() ) );
+  CHECK_THAT( 6., WithinRel( chunk.GX() ) );
+  CHECK_THAT( 6., WithinRel( chunk.averageCompetitiveWidth() ) );
 }

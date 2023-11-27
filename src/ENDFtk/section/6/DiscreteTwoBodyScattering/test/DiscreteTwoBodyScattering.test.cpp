@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/6.hpp"
 
 // other includes
@@ -164,52 +167,52 @@ void verifyChunk( const DiscreteTwoBodyScattering& chunk ) {
 
       CHECK( 2 == chunk.E().size() );
       CHECK( 2 == chunk.incidentEnergies().size() );
-      CHECK( 1e-5 == Approx( chunk.E()[0] ) );
-      CHECK( 2e+7 == Approx( chunk.E()[1] ) );
-      CHECK( 1e-5 == Approx( chunk.incidentEnergies()[0] ) );
-      CHECK( 2e+7 == Approx( chunk.incidentEnergies()[1] ) );
+      CHECK_THAT( 1e-5, WithinRel( chunk.E()[0] ) );
+      CHECK_THAT( 2e+7, WithinRel( chunk.E()[1] ) );
+      CHECK_THAT( 1e-5, WithinRel( chunk.incidentEnergies()[0] ) );
+      CHECK_THAT( 2e+7, WithinRel( chunk.incidentEnergies()[1] ) );
 
       auto energies = chunk.distributions();
 
       auto subsection1 = std::get< LegendreCoefficients >( energies[0] );
-      CHECK( 1e-5 == Approx( subsection1.E() ) );
-      CHECK( 1e-5 == Approx( subsection1.incidentEnergy() ) );
+      CHECK_THAT( 1e-5, WithinRel( subsection1.E() ) );
+      CHECK_THAT( 1e-5, WithinRel( subsection1.incidentEnergy() ) );
       CHECK( 0 == subsection1.LANG() );
       CHECK( 4 == subsection1.NW() );
       CHECK( 4 == subsection1.NL() );
       CHECK( 4 == subsection1.A().size() );
       CHECK( 4 == subsection1.coefficients().size() );
-      CHECK( 1. == Approx( subsection1.A()[0] ) );
-      CHECK( 2. == Approx( subsection1.A()[1] ) );
-      CHECK( 3. == Approx( subsection1.A()[2] ) );
-      CHECK( 4. == Approx( subsection1.A()[3] ) );
-      CHECK( 1. == Approx( subsection1.coefficients()[0] ) );
-      CHECK( 2. == Approx( subsection1.coefficients()[1] ) );
-      CHECK( 3. == Approx( subsection1.coefficients()[2] ) );
-      CHECK( 4. == Approx( subsection1.coefficients()[3] ) );
+      CHECK_THAT( 1., WithinRel( subsection1.A()[0] ) );
+      CHECK_THAT( 2., WithinRel( subsection1.A()[1] ) );
+      CHECK_THAT( 3., WithinRel( subsection1.A()[2] ) );
+      CHECK_THAT( 4., WithinRel( subsection1.A()[3] ) );
+      CHECK_THAT( 1., WithinRel( subsection1.coefficients()[0] ) );
+      CHECK_THAT( 2., WithinRel( subsection1.coefficients()[1] ) );
+      CHECK_THAT( 3., WithinRel( subsection1.coefficients()[2] ) );
+      CHECK_THAT( 4., WithinRel( subsection1.coefficients()[3] ) );
 
       auto subsection2 = std::get< TabulatedDistribution >( energies[1] );
-      CHECK( 2e+7 == Approx( subsection2.E() ) );
-      CHECK( 2e+7 == Approx( subsection2.incidentEnergy() ) );
+      CHECK_THAT( 2e+7, WithinRel( subsection2.E() ) );
+      CHECK_THAT( 2e+7, WithinRel( subsection2.incidentEnergy() ) );
       CHECK( 12 == subsection2.LANG() );
       CHECK( 6 == subsection2.NW() );
       CHECK( 3 == subsection2.NL() );
       CHECK( 3 == subsection2.MU().size() );
       CHECK( 3 == subsection2.cosines().size() );
-      CHECK( 1. == Approx( subsection2.MU()[0] ) );
-      CHECK( 3. == Approx( subsection2.MU()[1] ) );
-      CHECK( 5. == Approx( subsection2.MU()[2] ) );
-      CHECK( 1. == Approx( subsection2.cosines()[0] ) );
-      CHECK( 3. == Approx( subsection2.cosines()[1] ) );
-      CHECK( 5. == Approx( subsection2.cosines()[2] ) );
+      CHECK_THAT( 1., WithinRel( subsection2.MU()[0] ) );
+      CHECK_THAT( 3., WithinRel( subsection2.MU()[1] ) );
+      CHECK_THAT( 5., WithinRel( subsection2.MU()[2] ) );
+      CHECK_THAT( 1., WithinRel( subsection2.cosines()[0] ) );
+      CHECK_THAT( 3., WithinRel( subsection2.cosines()[1] ) );
+      CHECK_THAT( 5., WithinRel( subsection2.cosines()[2] ) );
       CHECK( 3 == subsection2.F().size() );
       CHECK( 3 == subsection2.probabilities().size() );
-      CHECK( 2. == Approx( subsection2.F()[0] ) );
-      CHECK( 4. == Approx( subsection2.F()[1] ) );
-      CHECK( 6. == Approx( subsection2.F()[2] ) );
-      CHECK( 2. == Approx( subsection2.probabilities()[0] ) );
-      CHECK( 4. == Approx( subsection2.probabilities()[1] ) );
-      CHECK( 6. == Approx( subsection2.probabilities()[2] ) );
+      CHECK_THAT( 2., WithinRel( subsection2.F()[0] ) );
+      CHECK_THAT( 4., WithinRel( subsection2.F()[1] ) );
+      CHECK_THAT( 6., WithinRel( subsection2.F()[2] ) );
+      CHECK_THAT( 2., WithinRel( subsection2.probabilities()[0] ) );
+      CHECK_THAT( 4., WithinRel( subsection2.probabilities()[1] ) );
+      CHECK_THAT( 6., WithinRel( subsection2.probabilities()[2] ) );
 
       CHECK( 6 == chunk.NC() );
 }

@@ -1,11 +1,11 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/file/1.hpp"
 
 // other includes
 #include "ENDFtk/tree/File.hpp"
-#include "range/v3/algorithm/count.hpp"
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
@@ -48,7 +48,7 @@ SCENARIO( "Testing special case of file 1" ) {
         "-----INCIDENT NEUTRON DATA                                        \n"
         "------ENDF-6 FORMAT                                               \n"
         "***************************************************               \n";
-    int nc = 4 + ranges::cpp20::count( description, '\n' ) + 2;
+    int nc = 12;
 
     WHEN( "a file::Type< 1 > is constructed using only mt451" ) {
 
@@ -162,9 +162,9 @@ SCENARIO( "Testing special case of file 1" ) {
         CHECK( not file.hasSection( 1 ) );
 
         decltype(auto) section = std::get< section::Type< 1, 451 > >( file.section( 451 ) );
-        CHECK( 1001. == Approx( section.ZA() ) );
+        CHECK( 1001 == section.ZA() );
         decltype(auto) mt = std::get< section::Type< 1, 451 > >( file.MT( 451 ) );
-        CHECK( 1001. == Approx( mt.ZA() ) );
+        CHECK( 1001 == mt.ZA() );
       }
 
       THEN( "the sections can be extracted" ) {
@@ -388,7 +388,7 @@ void verifyChunk451( const file::Type< 1 >& chunk ) {
   CHECK_NOTHROW( chunk.section( 451 ) );
 
   decltype(auto) section = std::get< section::Type< 1, 451 > >( chunk.section( 451 ) );
-  CHECK( 39088. == Approx( section.ZA() ) );
+  CHECK( 39088 == section.ZA() );
   CHECK( 6 == section.NWD() );
   CHECK( 2 == section.NXC() );
   CHECK( 12 == section.NC() );

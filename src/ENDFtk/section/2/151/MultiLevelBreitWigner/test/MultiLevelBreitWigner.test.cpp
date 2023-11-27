@@ -1,6 +1,10 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
+using Catch::Matchers::WithinAbs;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/2/151.hpp"
 
 // other includes
@@ -126,10 +130,10 @@ void verifyChunk( const MultiLevelBreitWigner& chunk ) {
   CHECK( false == chunk.LFW() );
   CHECK( false == chunk.averageFissionWidthFlag() );
 
-  CHECK( 1. == Approx( chunk.SPI() ) );
-  CHECK( 1. == Approx( chunk.spin() ) );
-  CHECK( 0.893 == Approx( chunk.AP() ) );
-  CHECK( 0.893 == Approx( chunk.scatteringRadius() ) );
+  CHECK_THAT( 1., WithinRel( chunk.SPI() ) );
+  CHECK_THAT( 1., WithinRel( chunk.spin() ) );
+  CHECK_THAT( 0.893, WithinRel( chunk.AP() ) );
+  CHECK_THAT( 0.893, WithinRel( chunk.scatteringRadius() ) );
 
   CHECK( 2 == chunk.NLS() );
   CHECK( 2 == chunk.numberLValues() );
@@ -137,10 +141,10 @@ void verifyChunk( const MultiLevelBreitWigner& chunk ) {
   CHECK( 2 == chunk.lValues().size() );
 
   auto lvalue1 = chunk.lValues()[0];
-  CHECK( 1.982069e+1 == Approx( lvalue1.AWRI() ) );
-  CHECK( 1.982069e+1 == Approx( lvalue1.atomicWeightRatio() ) );
-  CHECK( 0. == Approx( lvalue1.QX() ) );
-  CHECK( 0. == Approx( lvalue1.competitiveQValue() ) );
+  CHECK_THAT( 1.982069e+1, WithinRel( lvalue1.AWRI() ) );
+  CHECK_THAT( 1.982069e+1, WithinRel( lvalue1.atomicWeightRatio() ) );
+  CHECK_THAT( 0., WithinRel( lvalue1.QX() ) );
+  CHECK_THAT( 0., WithinRel( lvalue1.competitiveQValue() ) );
   CHECK( 0 == lvalue1.L() );
   CHECK( 0 == lvalue1.orbitalMomentum() );
   CHECK( false == lvalue1.LRX() );
@@ -164,40 +168,40 @@ void verifyChunk( const MultiLevelBreitWigner& chunk ) {
   CHECK( 2 == lvalue1.competitiveWidths().size() );
   CHECK( 2 == lvalue1.resonances().size() );
 
-  CHECK( -1.470000e+5 == Approx( lvalue1.ER()[0] ) );
-  CHECK(  4.730000e+5 == Approx( lvalue1.ER()[1] ) );
-  CHECK( -1.470000e+5 == Approx( lvalue1.resonanceEnergies()[0] ) );
-  CHECK(  4.730000e+5 == Approx( lvalue1.resonanceEnergies()[1] ) );
-  CHECK( 0.5 == Approx( lvalue1.AJ()[0] ) );
-  CHECK( 0.5 == Approx( lvalue1.AJ()[1] ) );
-  CHECK( 0.5 == Approx( lvalue1.spinValues()[0] ) );
-  CHECK( 0.5 == Approx( lvalue1.spinValues()[1] ) );
-  CHECK( 5.430695e+2 == Approx( lvalue1.GT()[0] ) );
-  CHECK( 1.072906e+5 == Approx( lvalue1.GT()[1] ) );
-  CHECK( 5.430695e+2 == Approx( lvalue1.totalWidths()[0] ) );
-  CHECK( 1.072906e+5 == Approx( lvalue1.totalWidths()[1] ) );
-  CHECK( 3.680695e+2 == Approx( lvalue1.GN()[0] ) );
-  CHECK( 1.072900e+5 == Approx( lvalue1.GN()[1] ) );
-  CHECK( 3.680695e+2 == Approx( lvalue1.neutronWidths()[0] ) );
-  CHECK( 1.072900e+5 == Approx( lvalue1.neutronWidths()[1] ) );
-  CHECK( 1.750000e+2 == Approx( lvalue1.GG()[0] ) );
-  CHECK( 0.56 == Approx( lvalue1.GG()[1] ) );
-  CHECK( 1.750000e+2 == Approx( lvalue1.gammaWidths()[0] ) );
-  CHECK( 0.56 == Approx( lvalue1.gammaWidths()[1] ) );
-  CHECK( 0. == Approx( lvalue1.GF()[0] ) );
-  CHECK( 0.04 == Approx( lvalue1.GF()[1] ) );
-  CHECK( 0. == Approx( lvalue1.fissionWidths()[0] ) );
-  CHECK( 0.04 == Approx( lvalue1.fissionWidths()[1] ) );
-  CHECK( 0. == Approx( lvalue1.GX()[0] ) );
-  CHECK( 0. == Approx( lvalue1.GX()[1] ) );
-  CHECK( 0. == Approx( lvalue1.competitiveWidths()[0] ) );
-  CHECK( 0. == Approx( lvalue1.competitiveWidths()[1] ) );
+  CHECK_THAT( -1.470000e+5, WithinRel( lvalue1.ER()[0] ) );
+  CHECK_THAT(  4.730000e+5, WithinRel( lvalue1.ER()[1] ) );
+  CHECK_THAT( -1.470000e+5, WithinRel( lvalue1.resonanceEnergies()[0] ) );
+  CHECK_THAT(  4.730000e+5, WithinRel( lvalue1.resonanceEnergies()[1] ) );
+  CHECK_THAT( 0.5, WithinRel( lvalue1.AJ()[0] ) );
+  CHECK_THAT( 0.5, WithinRel( lvalue1.AJ()[1] ) );
+  CHECK_THAT( 0.5, WithinRel( lvalue1.spinValues()[0] ) );
+  CHECK_THAT( 0.5, WithinRel( lvalue1.spinValues()[1] ) );
+  CHECK_THAT( 5.430695e+2, WithinRel( lvalue1.GT()[0] ) );
+  CHECK_THAT( 1.072906e+5, WithinRel( lvalue1.GT()[1] ) );
+  CHECK_THAT( 5.430695e+2, WithinRel( lvalue1.totalWidths()[0] ) );
+  CHECK_THAT( 1.072906e+5, WithinRel( lvalue1.totalWidths()[1] ) );
+  CHECK_THAT( 3.680695e+2, WithinRel( lvalue1.GN()[0] ) );
+  CHECK_THAT( 1.072900e+5, WithinRel( lvalue1.GN()[1] ) );
+  CHECK_THAT( 3.680695e+2, WithinRel( lvalue1.neutronWidths()[0] ) );
+  CHECK_THAT( 1.072900e+5, WithinRel( lvalue1.neutronWidths()[1] ) );
+  CHECK_THAT( 1.750000e+2, WithinRel( lvalue1.GG()[0] ) );
+  CHECK_THAT( 0.56, WithinRel( lvalue1.GG()[1] ) );
+  CHECK_THAT( 1.750000e+2, WithinRel( lvalue1.gammaWidths()[0] ) );
+  CHECK_THAT( 0.56, WithinRel( lvalue1.gammaWidths()[1] ) );
+  CHECK_THAT( 0., WithinRel( lvalue1.GF()[0] ) );
+  CHECK_THAT( 0.04, WithinRel( lvalue1.GF()[1] ) );
+  CHECK_THAT( 0., WithinRel( lvalue1.fissionWidths()[0] ) );
+  CHECK_THAT( 0.04, WithinRel( lvalue1.fissionWidths()[1] ) );
+  CHECK_THAT( 0., WithinAbs( lvalue1.GX()[0], 1e-12 ) );
+  CHECK_THAT( 0., WithinAbs( lvalue1.GX()[1], 1e-10 ) );
+  CHECK_THAT( 0., WithinAbs( lvalue1.competitiveWidths()[0], 1e-12 ) );
+  CHECK_THAT( 0., WithinAbs( lvalue1.competitiveWidths()[1], 1e-10 ) );
 
   auto lvalue2 = chunk.lValues()[1];
-  CHECK( 1.982069e+1 == Approx( lvalue2.AWRI() ) );
-  CHECK( 1.982069e+1 == Approx( lvalue2.atomicWeightRatio() ) );
-  CHECK( 0. == Approx( lvalue2.QX() ) );
-  CHECK( 0. == Approx( lvalue2.competitiveQValue() ) );
+  CHECK_THAT( 1.982069e+1, WithinRel( lvalue2.AWRI() ) );
+  CHECK_THAT( 1.982069e+1, WithinRel( lvalue2.atomicWeightRatio() ) );
+  CHECK_THAT( 0., WithinRel( lvalue2.QX() ) );
+  CHECK_THAT( 0., WithinRel( lvalue2.competitiveQValue() ) );
   CHECK( 1 == lvalue2.L() );
   CHECK( 1 == lvalue2.orbitalMomentum() );
   CHECK( false == lvalue2.LRX() );
@@ -221,34 +225,34 @@ void verifyChunk( const MultiLevelBreitWigner& chunk ) {
   CHECK( 2 == lvalue2.competitiveWidths().size() );
   CHECK( 2 == lvalue2.resonances().size() );
 
-  CHECK( -2.060000e+0 == Approx( lvalue2.ER()[0] ) );
-  CHECK(  5.160000e+0 == Approx( lvalue2.ER()[1] ) );
-  CHECK( -2.060000e+0 == Approx( lvalue2.resonanceEnergies()[0] ) );
-  CHECK(  5.160000e+0 == Approx( lvalue2.resonanceEnergies()[1] ) );
-  CHECK( 0.5 == Approx( lvalue2.AJ()[0] ) );
-  CHECK( 0.5 == Approx( lvalue2.AJ()[1] ) );
-  CHECK( 0.5 == Approx( lvalue2.spinValues()[0] ) );
-  CHECK( 0.5 == Approx( lvalue2.spinValues()[1] ) );
-  CHECK( 3.006610e-2 == Approx( lvalue2.GT()[0] ) );
-  CHECK( 3.393822e-2 == Approx( lvalue2.GT()[1] ) );
-  CHECK( 3.006610e-2 == Approx( lvalue2.totalWidths()[0] ) );
-  CHECK( 3.393822e-2 == Approx( lvalue2.totalWidths()[1] ) );
-  CHECK( 5.750000e-3 == Approx( lvalue2.GN()[0] ) );
-  CHECK( 3.920000e-3 == Approx( lvalue2.GN()[1] ) );
-  CHECK( 5.750000e-3 == Approx( lvalue2.neutronWidths()[0] ) );
-  CHECK( 3.920000e-3 == Approx( lvalue2.neutronWidths()[1] ) );
-  CHECK( 2.430000e-2 == Approx( lvalue2.GG()[0] ) );
-  CHECK( 3.000000e-2 == Approx( lvalue2.GG()[1] ) );
-  CHECK( 2.430000e-2 == Approx( lvalue2.gammaWidths()[0] ) );
-  CHECK( 3.000000e-2 == Approx( lvalue2.gammaWidths()[1] ) );
-  CHECK( 1.610000e-5 == Approx( lvalue2.GF()[0] ) );
-  CHECK( 1.822000e-5 == Approx( lvalue2.GF()[1] ) );
-  CHECK( 1.610000e-5 == Approx( lvalue2.fissionWidths()[0] ) );
-  CHECK( 1.822000e-5 == Approx( lvalue2.fissionWidths()[1] ) );
-  CHECK( 0. == Approx( lvalue2.GX()[0] ) );
-  CHECK( 0. == Approx( lvalue2.GX()[1] ) );
-  CHECK( 0. == Approx( lvalue2.competitiveWidths()[0] ) );
-  CHECK( 0. == Approx( lvalue2.competitiveWidths()[1] ) );
+  CHECK_THAT( -2.060000e+0, WithinRel( lvalue2.ER()[0] ) );
+  CHECK_THAT(  5.160000e+0, WithinRel( lvalue2.ER()[1] ) );
+  CHECK_THAT( -2.060000e+0, WithinRel( lvalue2.resonanceEnergies()[0] ) );
+  CHECK_THAT(  5.160000e+0, WithinRel( lvalue2.resonanceEnergies()[1] ) );
+  CHECK_THAT( 0.5, WithinRel( lvalue2.AJ()[0] ) );
+  CHECK_THAT( 0.5, WithinRel( lvalue2.AJ()[1] ) );
+  CHECK_THAT( 0.5, WithinRel( lvalue2.spinValues()[0] ) );
+  CHECK_THAT( 0.5, WithinRel( lvalue2.spinValues()[1] ) );
+  CHECK_THAT( 3.006610e-2, WithinRel( lvalue2.GT()[0] ) );
+  CHECK_THAT( 3.393822e-2, WithinRel( lvalue2.GT()[1] ) );
+  CHECK_THAT( 3.006610e-2, WithinRel( lvalue2.totalWidths()[0] ) );
+  CHECK_THAT( 3.393822e-2, WithinRel( lvalue2.totalWidths()[1] ) );
+  CHECK_THAT( 5.750000e-3, WithinRel( lvalue2.GN()[0] ) );
+  CHECK_THAT( 3.920000e-3, WithinRel( lvalue2.GN()[1] ) );
+  CHECK_THAT( 5.750000e-3, WithinRel( lvalue2.neutronWidths()[0] ) );
+  CHECK_THAT( 3.920000e-3, WithinRel( lvalue2.neutronWidths()[1] ) );
+  CHECK_THAT( 2.430000e-2, WithinRel( lvalue2.GG()[0] ) );
+  CHECK_THAT( 3.000000e-2, WithinRel( lvalue2.GG()[1] ) );
+  CHECK_THAT( 2.430000e-2, WithinRel( lvalue2.gammaWidths()[0] ) );
+  CHECK_THAT( 3.000000e-2, WithinRel( lvalue2.gammaWidths()[1] ) );
+  CHECK_THAT( 1.610000e-5, WithinRel( lvalue2.GF()[0] ) );
+  CHECK_THAT( 1.822000e-5, WithinRel( lvalue2.GF()[1] ) );
+  CHECK_THAT( 1.610000e-5, WithinRel( lvalue2.fissionWidths()[0] ) );
+  CHECK_THAT( 1.822000e-5, WithinRel( lvalue2.fissionWidths()[1] ) );
+  CHECK_THAT( 0., WithinAbs( lvalue2.GX()[0], 1e-12 ) );
+  CHECK_THAT( 0., WithinAbs( lvalue2.GX()[1], 1e-12 ) );
+  CHECK_THAT( 0., WithinAbs( lvalue2.competitiveWidths()[0], 1e-12 ) );
+  CHECK_THAT( 0., WithinAbs( lvalue2.competitiveWidths()[1], 1e-12 ) );
 
   CHECK( 7 == chunk.NC() );
 }

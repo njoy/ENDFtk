@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/14.hpp"
 
 // other includes
@@ -304,9 +307,9 @@ void verifyChunkWithLTT0( const section::Type< 14 >& chunk ) {
   CHECK( 2 == chunk.MT() );
   CHECK( 2 == chunk.sectionNumber() );
 
-  CHECK( 92235. == Approx( chunk.ZA() ) );
-  CHECK( 2.330248e+2 == Approx( chunk.AWR() ) );
-  CHECK( 2.330248e+2 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 92235 == chunk.ZA() );
+  CHECK_THAT( 2.330248e+2, WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 2.330248e+2, WithinRel( chunk.atomicWeightRatio() ) );
 
   CHECK( 0 == chunk.NI() );
   CHECK( 0 == chunk.numberIsotropicPhotons() );
@@ -340,9 +343,9 @@ void verifyChunkWithLTT1( const section::Type< 14 >& chunk ) {
   CHECK( 2 == chunk.MT() );
   CHECK( 2 == chunk.sectionNumber() );
 
-  CHECK( 92235. == Approx( chunk.ZA() ) );
-  CHECK( 2.330248e+2 == Approx( chunk.AWR() ) );
-  CHECK( 2.330248e+2 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 92235 == chunk.ZA() );
+  CHECK_THAT( 2.330248e+2, WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 2.330248e+2, WithinRel( chunk.atomicWeightRatio() ) );
 
   CHECK( 1 == chunk.NI() );
   CHECK( 1 == chunk.numberIsotropicPhotons() );
@@ -363,10 +366,10 @@ void verifyChunkWithLTT1( const section::Type< 14 >& chunk ) {
   CHECK( 0 == isotropic.LTT() );
   CHECK( 0 == isotropic.LAW() );
 
-  CHECK( 1.5e+6 == Approx( isotropic.EG() ) );
-  CHECK( 1.5e+6 == Approx( isotropic.photonEnergy() ) );
-  CHECK( 2e+6 == Approx( isotropic.ES() ) );
-  CHECK( 2e+6 == Approx( isotropic.levelEnergy() ) );
+  CHECK_THAT( 1.5e+6, WithinRel( isotropic.EG() ) );
+  CHECK_THAT( 1.5e+6, WithinRel( isotropic.photonEnergy() ) );
+  CHECK_THAT( 2e+6, WithinRel( isotropic.ES() ) );
+  CHECK_THAT( 2e+6, WithinRel( isotropic.levelEnergy() ) );
 
   auto photon = std::get< LegendreDistributions >( chunk.photonAngularDistributions()[1] );
 
@@ -375,10 +378,10 @@ void verifyChunkWithLTT1( const section::Type< 14 >& chunk ) {
   CHECK( 1 == photon.LTT() );
   CHECK( 1 == photon.LAW() );
 
-  CHECK( 4.438900e+6 == Approx( photon.EG() ) );
-  CHECK( 4.438900e+6 == Approx( photon.photonEnergy() ) );
-  CHECK( 4.438900e+6 == Approx( photon.ES() ) );
-  CHECK( 4.438900e+6 == Approx( photon.levelEnergy() ) );
+  CHECK_THAT( 4.438900e+6, WithinRel( photon.EG() ) );
+  CHECK_THAT( 4.438900e+6, WithinRel( photon.photonEnergy() ) );
+  CHECK_THAT( 4.438900e+6, WithinRel( photon.ES() ) );
+  CHECK_THAT( 4.438900e+6, WithinRel( photon.levelEnergy() ) );
 
   CHECK( 2 == photon.NE() );
   CHECK( 1 == photon.NR() );
@@ -390,28 +393,28 @@ void verifyChunkWithLTT1( const section::Type< 14 >& chunk ) {
   CHECK( 2 == photon.incidentEnergies().size() );
   CHECK( 2 == photon.angularDistributions().size() );
 
-  CHECK( 4.812998e+6 == Approx( photon.incidentEnergies()[0] ) );
-  CHECK( 15e+7 == Approx( photon.incidentEnergies()[1] ) );
+  CHECK_THAT( 4.812998e+6, WithinRel( photon.incidentEnergies()[0] ) );
+  CHECK_THAT( 15e+7, WithinRel( photon.incidentEnergies()[1] ) );
 
   auto distributions = photon.angularDistributions();
 
   auto d = distributions[0];
-  CHECK( 4.812998e+6 == Approx( d.E() ) );
-  CHECK( 4.812998e+6 == Approx( d.incidentEnergy() ) );
+  CHECK_THAT( 4.812998e+6, WithinRel( d.E() ) );
+  CHECK_THAT( 4.812998e+6, WithinRel( d.incidentEnergy() ) );
   CHECK( 2 == d.NL() );
   CHECK( 2 == d.legendreOrder() );
   CHECK( 2 == d.coefficients().size() );
-  CHECK( 0.  == Approx( d.coefficients()[0] ) );
-  CHECK( 4.076000e-2 == Approx( d.coefficients()[1] ) );
+  CHECK_THAT( 0. , WithinRel( d.coefficients()[0] ) );
+  CHECK_THAT( 4.076000e-2, WithinRel( d.coefficients()[1] ) );
 
   d = distributions[1];
-  CHECK( 15e+7 == Approx( d.E() ) );
-  CHECK( 15e+7 == Approx( d.incidentEnergy() ) );
+  CHECK_THAT( 15e+7, WithinRel( d.E() ) );
+  CHECK_THAT( 15e+7, WithinRel( d.incidentEnergy() ) );
   CHECK( 2 == d.NL() );
   CHECK( 2 == d.legendreOrder() );
   CHECK( 2 == d.coefficients().size() );
-  CHECK( 0. == Approx( d.coefficients()[0] ) );
-  CHECK( 0. == Approx( d.coefficients()[1] ) );
+  CHECK_THAT( 0., WithinRel( d.coefficients()[0] ) );
+  CHECK_THAT( 0., WithinRel( d.coefficients()[1] ) );
 
   CHECK( 8 == chunk.NC() );
 }

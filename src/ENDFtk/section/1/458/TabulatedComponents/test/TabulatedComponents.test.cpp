@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/1/458.hpp"
 
 // other includes
@@ -165,85 +168,85 @@ void verifyChunk( const TabulatedComponents& chunk ) {
   CHECK( 2 == chunk.NFC() );
   CHECK( 2 == chunk.numberTabulatedComponents() );
 
-  CHECK( 1.691300e+8 == Approx( chunk.thermalPointValues().E()[0][0] ) );
-  CHECK( 4.838000e+6 == Approx( chunk.thermalPointValues().E()[1][0] ) );
-  CHECK( 7.400000e+3 == Approx( chunk.thermalPointValues().E()[2][0] ) );
-  CHECK( 6.600000e+6 == Approx( chunk.thermalPointValues().E()[3][0] ) );
-  CHECK( 6.330000e+6 == Approx( chunk.thermalPointValues().E()[4][0] ) );
-  CHECK( 6.500000e+6 == Approx( chunk.thermalPointValues().E()[5][0] ) );
-  CHECK( 8.750000e+6 == Approx( chunk.thermalPointValues().E()[6][0] ) );
-  CHECK( 1.934054e+8 == Approx( chunk.thermalPointValues().E()[7][0] ) );
-  CHECK( 2.021554e+8 == Approx( chunk.thermalPointValues().E()[8][0] ) );
+  CHECK_THAT( 1.691300e+8, WithinRel( chunk.thermalPointValues().E()[0][0] ) );
+  CHECK_THAT( 4.838000e+6, WithinRel( chunk.thermalPointValues().E()[1][0] ) );
+  CHECK_THAT( 7.400000e+3, WithinRel( chunk.thermalPointValues().E()[2][0] ) );
+  CHECK_THAT( 6.600000e+6, WithinRel( chunk.thermalPointValues().E()[3][0] ) );
+  CHECK_THAT( 6.330000e+6, WithinRel( chunk.thermalPointValues().E()[4][0] ) );
+  CHECK_THAT( 6.500000e+6, WithinRel( chunk.thermalPointValues().E()[5][0] ) );
+  CHECK_THAT( 8.750000e+6, WithinRel( chunk.thermalPointValues().E()[6][0] ) );
+  CHECK_THAT( 1.934054e+8, WithinRel( chunk.thermalPointValues().E()[7][0] ) );
+  CHECK_THAT( 2.021554e+8, WithinRel( chunk.thermalPointValues().E()[8][0] ) );
 
-  CHECK( 4.900000e+5 == Approx( chunk.thermalPointValues().E()[0][1] ) );
-  CHECK( 7.000000e+4 == Approx( chunk.thermalPointValues().E()[1][1] ) );
-  CHECK( 1.110000e+3 == Approx( chunk.thermalPointValues().E()[2][1] ) );
-  CHECK( 5.000000e+5 == Approx( chunk.thermalPointValues().E()[3][1] ) );
-  CHECK( 5.000000e+4 == Approx( chunk.thermalPointValues().E()[4][1] ) );
-  CHECK( 5.100000e+4 == Approx( chunk.thermalPointValues().E()[5][1] ) );
-  CHECK( 7.000000e+4 == Approx( chunk.thermalPointValues().E()[6][1] ) );
-  CHECK( 1.500000e+5 == Approx( chunk.thermalPointValues().E()[7][1] ) );
-  CHECK( 1.300000e+5 == Approx( chunk.thermalPointValues().E()[8][1] ) );
+  CHECK_THAT( 4.900000e+5, WithinRel( chunk.thermalPointValues().E()[0][1] ) );
+  CHECK_THAT( 7.000000e+4, WithinRel( chunk.thermalPointValues().E()[1][1] ) );
+  CHECK_THAT( 1.110000e+3, WithinRel( chunk.thermalPointValues().E()[2][1] ) );
+  CHECK_THAT( 5.000000e+5, WithinRel( chunk.thermalPointValues().E()[3][1] ) );
+  CHECK_THAT( 5.000000e+4, WithinRel( chunk.thermalPointValues().E()[4][1] ) );
+  CHECK_THAT( 5.100000e+4, WithinRel( chunk.thermalPointValues().E()[5][1] ) );
+  CHECK_THAT( 7.000000e+4, WithinRel( chunk.thermalPointValues().E()[6][1] ) );
+  CHECK_THAT( 1.500000e+5, WithinRel( chunk.thermalPointValues().E()[7][1] ) );
+  CHECK_THAT( 1.300000e+5, WithinRel( chunk.thermalPointValues().E()[8][1] ) );
 
-  CHECK( 1.691300e+8 == Approx( chunk.thermalPointValues().energyRelease()[0][0] ) );
-  CHECK( 4.838000e+6 == Approx( chunk.thermalPointValues().energyRelease()[1][0] ) );
-  CHECK( 7.400000e+3 == Approx( chunk.thermalPointValues().energyRelease()[2][0] ) );
-  CHECK( 6.600000e+6 == Approx( chunk.thermalPointValues().energyRelease()[3][0] ) );
-  CHECK( 6.330000e+6 == Approx( chunk.thermalPointValues().energyRelease()[4][0] ) );
-  CHECK( 6.500000e+6 == Approx( chunk.thermalPointValues().energyRelease()[5][0] ) );
-  CHECK( 8.750000e+6 == Approx( chunk.thermalPointValues().energyRelease()[6][0] ) );
-  CHECK( 1.934054e+8 == Approx( chunk.thermalPointValues().energyRelease()[7][0] ) );
-  CHECK( 2.021554e+8 == Approx( chunk.thermalPointValues().energyRelease()[8][0] ) );
+  CHECK_THAT( 1.691300e+8, WithinRel( chunk.thermalPointValues().energyRelease()[0][0] ) );
+  CHECK_THAT( 4.838000e+6, WithinRel( chunk.thermalPointValues().energyRelease()[1][0] ) );
+  CHECK_THAT( 7.400000e+3, WithinRel( chunk.thermalPointValues().energyRelease()[2][0] ) );
+  CHECK_THAT( 6.600000e+6, WithinRel( chunk.thermalPointValues().energyRelease()[3][0] ) );
+  CHECK_THAT( 6.330000e+6, WithinRel( chunk.thermalPointValues().energyRelease()[4][0] ) );
+  CHECK_THAT( 6.500000e+6, WithinRel( chunk.thermalPointValues().energyRelease()[5][0] ) );
+  CHECK_THAT( 8.750000e+6, WithinRel( chunk.thermalPointValues().energyRelease()[6][0] ) );
+  CHECK_THAT( 1.934054e+8, WithinRel( chunk.thermalPointValues().energyRelease()[7][0] ) );
+  CHECK_THAT( 2.021554e+8, WithinRel( chunk.thermalPointValues().energyRelease()[8][0] ) );
 
-  CHECK( 4.900000e+5 == Approx( chunk.thermalPointValues().energyRelease()[0][1] ) );
-  CHECK( 7.000000e+4 == Approx( chunk.thermalPointValues().energyRelease()[1][1] ) );
-  CHECK( 1.110000e+3 == Approx( chunk.thermalPointValues().energyRelease()[2][1] ) );
-  CHECK( 5.000000e+5 == Approx( chunk.thermalPointValues().energyRelease()[3][1] ) );
-  CHECK( 5.000000e+4 == Approx( chunk.thermalPointValues().energyRelease()[4][1] ) );
-  CHECK( 5.100000e+4 == Approx( chunk.thermalPointValues().energyRelease()[5][1] ) );
-  CHECK( 7.000000e+4 == Approx( chunk.thermalPointValues().energyRelease()[6][1] ) );
-  CHECK( 1.500000e+5 == Approx( chunk.thermalPointValues().energyRelease()[7][1] ) );
-  CHECK( 1.300000e+5 == Approx( chunk.thermalPointValues().energyRelease()[8][1] ) );
+  CHECK_THAT( 4.900000e+5, WithinRel( chunk.thermalPointValues().energyRelease()[0][1] ) );
+  CHECK_THAT( 7.000000e+4, WithinRel( chunk.thermalPointValues().energyRelease()[1][1] ) );
+  CHECK_THAT( 1.110000e+3, WithinRel( chunk.thermalPointValues().energyRelease()[2][1] ) );
+  CHECK_THAT( 5.000000e+5, WithinRel( chunk.thermalPointValues().energyRelease()[3][1] ) );
+  CHECK_THAT( 5.000000e+4, WithinRel( chunk.thermalPointValues().energyRelease()[4][1] ) );
+  CHECK_THAT( 5.100000e+4, WithinRel( chunk.thermalPointValues().energyRelease()[5][1] ) );
+  CHECK_THAT( 7.000000e+4, WithinRel( chunk.thermalPointValues().energyRelease()[6][1] ) );
+  CHECK_THAT( 1.500000e+5, WithinRel( chunk.thermalPointValues().energyRelease()[7][1] ) );
+  CHECK_THAT( 1.300000e+5, WithinRel( chunk.thermalPointValues().energyRelease()[8][1] ) );
 
-  CHECK( 1.691300e+8 == Approx( chunk.thermalPointValues().EFR()[0] ) );
-  CHECK( 4.838000e+6 == Approx( chunk.thermalPointValues().ENP()[0] ) );
-  CHECK( 7.400000e+3 == Approx( chunk.thermalPointValues().END()[0] ) );
-  CHECK( 6.600000e+6 == Approx( chunk.thermalPointValues().EGP()[0] ) );
-  CHECK( 6.330000e+6 == Approx( chunk.thermalPointValues().EGD()[0] ) );
-  CHECK( 6.500000e+6 == Approx( chunk.thermalPointValues().EB()[0] ) );
-  CHECK( 8.750000e+6 == Approx( chunk.thermalPointValues().ENU()[0] ) );
-  CHECK( 1.934054e+8 == Approx( chunk.thermalPointValues().ER()[0] ) );
-  CHECK( 2.021554e+8 == Approx( chunk.thermalPointValues().ET()[0] ) );
+  CHECK_THAT( 1.691300e+8, WithinRel( chunk.thermalPointValues().EFR()[0] ) );
+  CHECK_THAT( 4.838000e+6, WithinRel( chunk.thermalPointValues().ENP()[0] ) );
+  CHECK_THAT( 7.400000e+3, WithinRel( chunk.thermalPointValues().END()[0] ) );
+  CHECK_THAT( 6.600000e+6, WithinRel( chunk.thermalPointValues().EGP()[0] ) );
+  CHECK_THAT( 6.330000e+6, WithinRel( chunk.thermalPointValues().EGD()[0] ) );
+  CHECK_THAT( 6.500000e+6, WithinRel( chunk.thermalPointValues().EB()[0] ) );
+  CHECK_THAT( 8.750000e+6, WithinRel( chunk.thermalPointValues().ENU()[0] ) );
+  CHECK_THAT( 1.934054e+8, WithinRel( chunk.thermalPointValues().ER()[0] ) );
+  CHECK_THAT( 2.021554e+8, WithinRel( chunk.thermalPointValues().ET()[0] ) );
 
-  CHECK( 4.900000e+5 == Approx( chunk.thermalPointValues().EFR()[1] ) );
-  CHECK( 7.000000e+4 == Approx( chunk.thermalPointValues().ENP()[1] ) );
-  CHECK( 1.110000e+3 == Approx( chunk.thermalPointValues().END()[1] ) );
-  CHECK( 5.000000e+5 == Approx( chunk.thermalPointValues().EGP()[1] ) );
-  CHECK( 5.000000e+4 == Approx( chunk.thermalPointValues().EGD()[1] ) );
-  CHECK( 5.100000e+4 == Approx( chunk.thermalPointValues().EB()[1] ) );
-  CHECK( 7.000000e+4 == Approx( chunk.thermalPointValues().ENU()[1] ) );
-  CHECK( 1.500000e+5 == Approx( chunk.thermalPointValues().ER()[1] ) );
-  CHECK( 1.300000e+5 == Approx( chunk.thermalPointValues().ET()[1] ) );
+  CHECK_THAT( 4.900000e+5, WithinRel( chunk.thermalPointValues().EFR()[1] ) );
+  CHECK_THAT( 7.000000e+4, WithinRel( chunk.thermalPointValues().ENP()[1] ) );
+  CHECK_THAT( 1.110000e+3, WithinRel( chunk.thermalPointValues().END()[1] ) );
+  CHECK_THAT( 5.000000e+5, WithinRel( chunk.thermalPointValues().EGP()[1] ) );
+  CHECK_THAT( 5.000000e+4, WithinRel( chunk.thermalPointValues().EGD()[1] ) );
+  CHECK_THAT( 5.100000e+4, WithinRel( chunk.thermalPointValues().EB()[1] ) );
+  CHECK_THAT( 7.000000e+4, WithinRel( chunk.thermalPointValues().ENU()[1] ) );
+  CHECK_THAT( 1.500000e+5, WithinRel( chunk.thermalPointValues().ER()[1] ) );
+  CHECK_THAT( 1.300000e+5, WithinRel( chunk.thermalPointValues().ET()[1] ) );
 
-  CHECK( 1.691300e+8 == Approx( chunk.thermalPointValues().fissionFragments()[0] ) );
-  CHECK( 4.838000e+6 == Approx( chunk.thermalPointValues().promptNeutrons()[0] ) );
-  CHECK( 7.400000e+3 == Approx( chunk.thermalPointValues().delayedNeutrons()[0] ) );
-  CHECK( 6.600000e+6 == Approx( chunk.thermalPointValues().promptGammas()[0] ) );
-  CHECK( 6.330000e+6 == Approx( chunk.thermalPointValues().delayedGammas()[0] ) );
-  CHECK( 6.500000e+6 == Approx( chunk.thermalPointValues().delayedBetas()[0] ) );
-  CHECK( 8.750000e+6 == Approx( chunk.thermalPointValues().neutrinos()[0] ) );
-  CHECK( 1.934054e+8 == Approx( chunk.thermalPointValues().totalMinusNeutrinos()[0] ) );
-  CHECK( 2.021554e+8 == Approx( chunk.thermalPointValues().total()[0] ) );
+  CHECK_THAT( 1.691300e+8, WithinRel( chunk.thermalPointValues().fissionFragments()[0] ) );
+  CHECK_THAT( 4.838000e+6, WithinRel( chunk.thermalPointValues().promptNeutrons()[0] ) );
+  CHECK_THAT( 7.400000e+3, WithinRel( chunk.thermalPointValues().delayedNeutrons()[0] ) );
+  CHECK_THAT( 6.600000e+6, WithinRel( chunk.thermalPointValues().promptGammas()[0] ) );
+  CHECK_THAT( 6.330000e+6, WithinRel( chunk.thermalPointValues().delayedGammas()[0] ) );
+  CHECK_THAT( 6.500000e+6, WithinRel( chunk.thermalPointValues().delayedBetas()[0] ) );
+  CHECK_THAT( 8.750000e+6, WithinRel( chunk.thermalPointValues().neutrinos()[0] ) );
+  CHECK_THAT( 1.934054e+8, WithinRel( chunk.thermalPointValues().totalMinusNeutrinos()[0] ) );
+  CHECK_THAT( 2.021554e+8, WithinRel( chunk.thermalPointValues().total()[0] ) );
 
-  CHECK( 4.900000e+5 == Approx( chunk.thermalPointValues().fissionFragments()[1] ) );
-  CHECK( 7.000000e+4 == Approx( chunk.thermalPointValues().promptNeutrons()[1] ) );
-  CHECK( 1.110000e+3 == Approx( chunk.thermalPointValues().delayedNeutrons()[1] ) );
-  CHECK( 5.000000e+5 == Approx( chunk.thermalPointValues().promptGammas()[1] ) );
-  CHECK( 5.000000e+4 == Approx( chunk.thermalPointValues().delayedGammas()[1] ) );
-  CHECK( 5.100000e+4 == Approx( chunk.thermalPointValues().delayedBetas()[1] ) );
-  CHECK( 7.000000e+4 == Approx( chunk.thermalPointValues().neutrinos()[1] ) );
-  CHECK( 1.500000e+5 == Approx( chunk.thermalPointValues().totalMinusNeutrinos()[1] ) );
-  CHECK( 1.300000e+5 == Approx( chunk.thermalPointValues().total()[1] ) );
+  CHECK_THAT( 4.900000e+5, WithinRel( chunk.thermalPointValues().fissionFragments()[1] ) );
+  CHECK_THAT( 7.000000e+4, WithinRel( chunk.thermalPointValues().promptNeutrons()[1] ) );
+  CHECK_THAT( 1.110000e+3, WithinRel( chunk.thermalPointValues().delayedNeutrons()[1] ) );
+  CHECK_THAT( 5.000000e+5, WithinRel( chunk.thermalPointValues().promptGammas()[1] ) );
+  CHECK_THAT( 5.000000e+4, WithinRel( chunk.thermalPointValues().delayedGammas()[1] ) );
+  CHECK_THAT( 5.100000e+4, WithinRel( chunk.thermalPointValues().delayedBetas()[1] ) );
+  CHECK_THAT( 7.000000e+4, WithinRel( chunk.thermalPointValues().neutrinos()[1] ) );
+  CHECK_THAT( 1.500000e+5, WithinRel( chunk.thermalPointValues().totalMinusNeutrinos()[1] ) );
+  CHECK_THAT( 1.300000e+5, WithinRel( chunk.thermalPointValues().total()[1] ) );
 
   CHECK( true == bool( chunk.tabulatedEFR() ) );
   CHECK( false == bool( chunk.tabulatedENP() ) );
@@ -276,12 +279,12 @@ void verifyChunk( const TabulatedComponents& chunk ) {
   CHECK( 3 == component.boundaries()[0] );
   CHECK( 3 == component.energies().size() );
   CHECK( 3 == component.qValues().size() );
-  CHECK( 1e-5 == Approx( component.energies()[0] ) );
-  CHECK( 0.0253 == Approx( component.energies()[1] ) );
-  CHECK( 2e+7 == Approx( component.energies()[2] ) );
-  CHECK( 1.6913e+8 == Approx( component.qValues()[0] ) );
-  CHECK( 1.691e+8 == Approx( component.qValues()[1] ) );
-  CHECK( 1.69e+8 == Approx( component.qValues()[2] ) );
+  CHECK_THAT( 1e-5, WithinRel( component.energies()[0] ) );
+  CHECK_THAT( 0.0253, WithinRel( component.energies()[1] ) );
+  CHECK_THAT( 2e+7, WithinRel( component.energies()[2] ) );
+  CHECK_THAT( 1.6913e+8, WithinRel( component.qValues()[0] ) );
+  CHECK_THAT( 1.691e+8, WithinRel( component.qValues()[1] ) );
+  CHECK_THAT( 1.69e+8, WithinRel( component.qValues()[2] ) );
 
   component = *chunk.tabulatedET();
   CHECK( true == component.LDRV() );
@@ -294,14 +297,14 @@ void verifyChunk( const TabulatedComponents& chunk ) {
   CHECK( 4 == component.boundaries()[0] );
   CHECK( 4 == component.energies().size() );
   CHECK( 4 == component.qValues().size() );
-  CHECK( 1e-5 == Approx( component.energies()[0] ) );
-  CHECK( 0.0253 == Approx( component.energies()[1] ) );
-  CHECK( 1e+6 == Approx( component.energies()[2] ) );
-  CHECK( 2e+7 == Approx( component.energies()[3] ) );
-  CHECK( 2.021554e+8 == Approx( component.qValues()[0] ) );
-  CHECK( 3e+8 == Approx( component.qValues()[1] ) );
-  CHECK( 2.5e+8 == Approx( component.qValues()[2] ) );
-  CHECK( 1.5e+8 == Approx( component.qValues()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( component.energies()[0] ) );
+  CHECK_THAT( 0.0253, WithinRel( component.energies()[1] ) );
+  CHECK_THAT( 1e+6, WithinRel( component.energies()[2] ) );
+  CHECK_THAT( 2e+7, WithinRel( component.energies()[3] ) );
+  CHECK_THAT( 2.021554e+8, WithinRel( component.qValues()[0] ) );
+  CHECK_THAT( 3e+8, WithinRel( component.qValues()[1] ) );
+  CHECK_THAT( 2.5e+8, WithinRel( component.qValues()[2] ) );
+  CHECK_THAT( 1.5e+8, WithinRel( component.qValues()[3] ) );
 
   CHECK( 11 == chunk.NC() );
 }

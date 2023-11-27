@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/5.hpp"
 
 // other includes
@@ -125,12 +128,12 @@ void verifyChunk( const GeneralEvaporationSpectrum& chunk ) {
   CHECK( 2 == t.E().size() );
   CHECK( 2 == t.energies().size() );
   CHECK( 2 == t.thetas().size() );
-  CHECK( 1e-5 == Approx( t.E()[0] ) );
-  CHECK( 3e+7 == Approx( t.E()[1] ) );
-  CHECK( 1e-5 == Approx( t.energies()[0] ) );
-  CHECK( 3e+7 == Approx( t.energies()[1] ) );
-  CHECK( 1.0 == Approx( t.thetas()[0] ) );
-  CHECK( 1.0 == Approx( t.thetas()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( t.E()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( t.E()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( t.energies()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( t.energies()[1] ) );
+  CHECK_THAT( 1.0, WithinRel( t.thetas()[0] ) );
+  CHECK_THAT( 1.0, WithinRel( t.thetas()[1] ) );
 
   const auto& df = chunk.distributionFunction();
   CHECK( 6 == df.NP() );
@@ -141,18 +144,18 @@ void verifyChunk( const GeneralEvaporationSpectrum& chunk ) {
   CHECK( 6 == df.boundaries()[0] );
   CHECK( 6 == df.X().size() );
   CHECK( 6 == df.G().size() );
-  CHECK( 0.0 == Approx( df.X()[0] ) );
-  CHECK( 1e+4 == Approx( df.X()[1] ) );
-  CHECK( 2e+4 == Approx( df.X()[2] ) );
-  CHECK( 1.8e+6 == Approx( df.X()[3] ) );
-  CHECK( 1.81e+6 == Approx( df.X()[4] ) );
-  CHECK( 1.82e+6 == Approx( df.X()[5] ) );
-  CHECK( 1.533738e-7 == Approx( df.G()[0] ) );
-  CHECK( 1.378483e-6 == Approx( df.G()[1] ) );
-  CHECK( 1.550360e-6 == Approx( df.G()[2] ) );
-  CHECK( 7.90779e-31 == Approx( df.G()[3] ) );
-  CHECK( 0.0 == Approx( df.G()[4] ) );
-  CHECK( 0.0 == Approx( df.G()[5] ) );
+  CHECK_THAT( 0.0, WithinRel( df.X()[0] ) );
+  CHECK_THAT( 1e+4, WithinRel( df.X()[1] ) );
+  CHECK_THAT( 2e+4, WithinRel( df.X()[2] ) );
+  CHECK_THAT( 1.8e+6, WithinRel( df.X()[3] ) );
+  CHECK_THAT( 1.81e+6, WithinRel( df.X()[4] ) );
+  CHECK_THAT( 1.82e+6, WithinRel( df.X()[5] ) );
+  CHECK_THAT( 1.533738e-7, WithinRel( df.G()[0] ) );
+  CHECK_THAT( 1.378483e-6, WithinRel( df.G()[1] ) );
+  CHECK_THAT( 1.550360e-6, WithinRel( df.G()[2] ) );
+  CHECK_THAT( 7.90779e-31, WithinRel( df.G()[3] ) );
+  CHECK_THAT( 0.0, WithinRel( df.G()[4] ) );
+  CHECK_THAT( 0.0, WithinRel( df.G()[5] ) );
 
   CHECK( 7 == chunk.NC() );
 }

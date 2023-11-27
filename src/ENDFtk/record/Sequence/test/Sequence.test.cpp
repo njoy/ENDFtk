@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/record/Sequence.hpp"
 
 // other includes
@@ -19,22 +22,18 @@ SCENARIO( "The Sequence read function", "[ENDFtk], [Sequence]" ){
     auto end = line.end();
     auto lineNumber = 0l;
 
-    auto closeEnough = []( double d0 , double d1 ){
-      return std::abs( (d1 - d0)/( d1 == 0 ? 1.0 : d1 ) ) < 1E-15;
-    };
-
     WHEN("passed to the Sequences's read function"){
       THEN( "extracted values will be correct"){
         auto vector = Sequence::read< Real >
           ( 14, it, end, lineNumber, 125, 1, 451 );
 
-        REQUIRE( 14 == vector.size() );
+        CHECK( 14 == vector.size() );
         for ( int i = 0; i < 14; ++i ){
-          REQUIRE( closeEnough( vector[i],  double(i + 1) ) );
+          CHECK_THAT( vector[i], WithinRel( double(i + 1) ) );
         }
       }
       THEN( "will throw when record has too many tuples"){
-        REQUIRE_THROWS( Sequence::read< Real >
+        CHECK_THROWS( Sequence::read< Real >
                         ( 13, it, end, lineNumber, 125, 1, 451 ) );
       }
     }

@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/2/152.hpp"
 
 // other includes
@@ -236,9 +239,9 @@ void verifyChunkWithOneDilution( const section::Type< 2, 152 >& chunk ) {
   CHECK( 152 == chunk.MT() );
   CHECK( 152 == chunk.sectionNumber() );
 
-  CHECK( 94239. == Approx( chunk.ZA() ) );
-  CHECK( 2.369986e+2 == Approx( chunk.AWR() ) );
-  CHECK( 2.369986e+2 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 94239 == chunk.ZA() );
+  CHECK_THAT( 2.369986e+2, WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 2.369986e+2, WithinRel( chunk.atomicWeightRatio() ) );
 
   CHECK( 1 == chunk.LSSF() );
   CHECK( 2 == chunk.interpolation() );
@@ -250,22 +253,22 @@ void verifyChunkWithOneDilution( const section::Type< 2, 152 >& chunk ) {
   CHECK( 3 == chunk.NUNR() );
   CHECK( 3 == chunk.numberEnergies() );
 
-  CHECK( 0. == Approx( chunk.TEMZ() ) );
-  CHECK( 0. == Approx( chunk.temperature() ) );
+  CHECK_THAT( 0., WithinRel( chunk.TEMZ() ) );
+  CHECK_THAT( 0., WithinRel( chunk.temperature() ) );
 
   CHECK( 1 == chunk.SIGZ().size() );
   CHECK( 1 == chunk.dilutions().size() );
-  CHECK( 1e+10 == Approx( chunk.SIGZ()[0] ) );
-  CHECK( 1e+10 == Approx( chunk.dilutions()[0] ) );
+  CHECK_THAT( 1e+10, WithinRel( chunk.SIGZ()[0] ) );
+  CHECK_THAT( 1e+10, WithinRel( chunk.dilutions()[0] ) );
 
   CHECK( 3 == chunk.EUNR().size() );
   CHECK( 3 == chunk.energies().size() );
-  CHECK( 2500. == Approx( chunk.EUNR()[0] ) );
-  CHECK( 2550. == Approx( chunk.EUNR()[1] ) );
-  CHECK( 30000. == Approx( chunk.EUNR()[2] ) );
-  CHECK( 2500. == Approx( chunk.energies()[0] ) );
-  CHECK( 2550. == Approx( chunk.energies()[1] ) );
-  CHECK( 30000. == Approx( chunk.energies()[2] ) );
+  CHECK_THAT( 2500., WithinRel( chunk.EUNR()[0] ) );
+  CHECK_THAT( 2550., WithinRel( chunk.EUNR()[1] ) );
+  CHECK_THAT( 30000., WithinRel( chunk.EUNR()[2] ) );
+  CHECK_THAT( 2500., WithinRel( chunk.energies()[0] ) );
+  CHECK_THAT( 2550., WithinRel( chunk.energies()[1] ) );
+  CHECK_THAT( 30000., WithinRel( chunk.energies()[2] ) );
 
   CHECK( 3 == chunk.total().size() );
   CHECK( 3 == chunk.elastic().size() );
@@ -277,21 +280,21 @@ void verifyChunkWithOneDilution( const section::Type< 2, 152 >& chunk ) {
   CHECK( 1 == chunk.fission()[0].size() );
   CHECK( 1 == chunk.capture()[0].size() );
   CHECK( 1 == chunk.currentWeightedTotal()[0].size() );
-  CHECK( 2.009120e+1 == Approx( chunk.total()[0][0] ) );
-  CHECK( 1.923568e+1 == Approx( chunk.total()[1][0] ) );
-  CHECK( 1.366039e+1 == Approx( chunk.total()[2][0] ) );
-  CHECK( 1.343187e+1 == Approx( chunk.elastic()[0][0] ) );
-  CHECK( 1.375705e+1 == Approx( chunk.elastic()[1][0] ) );
-  CHECK( 1.156033e+1 == Approx( chunk.elastic()[2][0] ) );
-  CHECK( 4.234708e+0 == Approx( chunk.fission()[0][0] ) );
-  CHECK( 2.725074e+0 == Approx( chunk.fission()[1][0] ) );
-  CHECK( 1.572008e+0 == Approx( chunk.fission()[2][0] ) );
-  CHECK( 2.424629e+0 == Approx( chunk.capture()[0][0] ) );
-  CHECK( 2.753559e+0 == Approx( chunk.capture()[1][0] ) );
-  CHECK( 5.280525e-1 == Approx( chunk.capture()[2][0] ) );
-  CHECK( 2.009120e+1 == Approx( chunk.currentWeightedTotal()[0][0] ) );
-  CHECK( 1.923568e+1 == Approx( chunk.currentWeightedTotal()[1][0] ) );
-  CHECK( 1.366039e+1 == Approx( chunk.currentWeightedTotal()[2][0] ) );
+  CHECK_THAT( 2.009120e+1, WithinRel( chunk.total()[0][0] ) );
+  CHECK_THAT( 1.923568e+1, WithinRel( chunk.total()[1][0] ) );
+  CHECK_THAT( 1.366039e+1, WithinRel( chunk.total()[2][0] ) );
+  CHECK_THAT( 1.343187e+1, WithinRel( chunk.elastic()[0][0] ) );
+  CHECK_THAT( 1.375705e+1, WithinRel( chunk.elastic()[1][0] ) );
+  CHECK_THAT( 1.156033e+1, WithinRel( chunk.elastic()[2][0] ) );
+  CHECK_THAT( 4.234708e+0, WithinRel( chunk.fission()[0][0] ) );
+  CHECK_THAT( 2.725074e+0, WithinRel( chunk.fission()[1][0] ) );
+  CHECK_THAT( 1.572008e+0, WithinRel( chunk.fission()[2][0] ) );
+  CHECK_THAT( 2.424629e+0, WithinRel( chunk.capture()[0][0] ) );
+  CHECK_THAT( 2.753559e+0, WithinRel( chunk.capture()[1][0] ) );
+  CHECK_THAT( 5.280525e-1, WithinRel( chunk.capture()[2][0] ) );
+  CHECK_THAT( 2.009120e+1, WithinRel( chunk.currentWeightedTotal()[0][0] ) );
+  CHECK_THAT( 1.923568e+1, WithinRel( chunk.currentWeightedTotal()[1][0] ) );
+  CHECK_THAT( 1.366039e+1, WithinRel( chunk.currentWeightedTotal()[2][0] ) );
 
   CHECK( 6 == chunk.NC() );
 }

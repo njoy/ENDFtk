@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/35.hpp"
 
 // other includes
@@ -135,9 +138,9 @@ std::string invalidSEND() {
 void verifyChunk( const section::Type< 35 >& chunk ) {
 
   // HEAD record
-  CHECK( 94239. == Approx( chunk.ZA() ) );
-  CHECK( 2.369986e+2 == Approx( chunk.AWR() ) );
-  CHECK( 2.369986e+2 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 94239 == chunk.ZA() );
+  CHECK_THAT( 2.369986e+2, WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 2.369986e+2, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 1 == chunk.NK() );
   CHECK( 1 == chunk.numberEnergyBlocks() );
   CHECK( 1 == chunk.energyBlocks().size() );
@@ -151,12 +154,12 @@ void verifyChunk( const section::Type< 35 >& chunk ) {
   CHECK( 6 == sub.numberValues() );
   CHECK( 3 == sub.NE() );
   CHECK( 3 == sub.numberEnergies() );
-  CHECK( 0. == Approx( sub.energies()[0] ) );
-  CHECK( 100. == Approx( sub.energies()[1] ) );
-  CHECK( 200. == Approx( sub.energies()[2] ) );
-  CHECK( 1. == Approx( sub.values()[0] ) );
-  CHECK( 2. == Approx( sub.values()[1] ) );
-  CHECK( 3. == Approx( sub.values()[2] ) );
+  CHECK_THAT( 0., WithinRel( sub.energies()[0] ) );
+  CHECK_THAT( 100., WithinRel( sub.energies()[1] ) );
+  CHECK_THAT( 200., WithinRel( sub.energies()[2] ) );
+  CHECK_THAT( 1., WithinRel( sub.values()[0] ) );
+  CHECK_THAT( 2., WithinRel( sub.values()[1] ) );
+  CHECK_THAT( 3., WithinRel( sub.values()[2] ) );
 
   CHECK( 3 == chunk.NC() );
 

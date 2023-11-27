@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/1/455.hpp"
 
 // other includes
@@ -82,18 +85,18 @@ void verifyChunk( const EnergyIndependentConstants& chunk ) {
 
   CHECK( 6 == chunk.lambdas().size() );
   CHECK( 6 == chunk.decayConstants().size() );
-  CHECK( 0.013336 == Approx( chunk.lambdas()[0] ) );
-  CHECK( 0.032739 == Approx( chunk.lambdas()[1] ) );
-  CHECK( 0.12078 == Approx( chunk.lambdas()[2] ) );
-  CHECK( 0.30278 == Approx( chunk.lambdas()[3] ) );
-  CHECK( 0.84949 == Approx( chunk.lambdas()[4] ) );
-  CHECK( 2.853000 == Approx( chunk.lambdas()[5] ) );
-  CHECK( 0.013336 == Approx( chunk.decayConstants()[0] ) );
-  CHECK( 0.032739 == Approx( chunk.decayConstants()[1] ) );
-  CHECK( 0.12078 == Approx( chunk.decayConstants()[2] ) );
-  CHECK( 0.30278 == Approx( chunk.decayConstants()[3] ) );
-  CHECK( 0.84949 == Approx( chunk.decayConstants()[4] ) );
-  CHECK( 2.853000 == Approx( chunk.decayConstants()[5] ) );
+  CHECK_THAT( 0.013336, WithinRel( chunk.lambdas()[0] ) );
+  CHECK_THAT( 0.032739, WithinRel( chunk.lambdas()[1] ) );
+  CHECK_THAT( 0.12078, WithinRel( chunk.lambdas()[2] ) );
+  CHECK_THAT( 0.30278, WithinRel( chunk.lambdas()[3] ) );
+  CHECK_THAT( 0.84949, WithinRel( chunk.lambdas()[4] ) );
+  CHECK_THAT( 2.853000, WithinRel( chunk.lambdas()[5] ) );
+  CHECK_THAT( 0.013336, WithinRel( chunk.decayConstants()[0] ) );
+  CHECK_THAT( 0.032739, WithinRel( chunk.decayConstants()[1] ) );
+  CHECK_THAT( 0.12078, WithinRel( chunk.decayConstants()[2] ) );
+  CHECK_THAT( 0.30278, WithinRel( chunk.decayConstants()[3] ) );
+  CHECK_THAT( 0.84949, WithinRel( chunk.decayConstants()[4] ) );
+  CHECK_THAT( 2.853000, WithinRel( chunk.decayConstants()[5] ) );
 
   CHECK( 2 == chunk.NC() );
 }

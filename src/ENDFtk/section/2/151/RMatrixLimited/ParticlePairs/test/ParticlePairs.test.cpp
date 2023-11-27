@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/2/151.hpp"
 
 // other includes
@@ -216,40 +219,40 @@ void verifyChunk( const ParticlePairs& chunk ) {
   CHECK( 2 == chunk.shiftFactorFlag().size() );
   CHECK( 2 == chunk.MT().size() );
 
-  CHECK( 0. == Approx( chunk.MA()[0] ) );
-  CHECK( 1. == Approx( chunk.MA()[1] ) );
-  CHECK( 0 == Approx( chunk.massParticleA()[0] ) );
-  CHECK( 1 == Approx( chunk.massParticleA()[1] ) );
-  CHECK( 5.446635e+1 == Approx( chunk.MB()[0] ) );
-  CHECK( 5.347624e+1 == Approx( chunk.MB()[1] ) );
-  CHECK( 5.446635e+1 == Approx( chunk.massParticleB()[0] ) );
-  CHECK( 5.347624e+1 == Approx( chunk.massParticleB()[1] ) );
-  CHECK( 2. == Approx( chunk.ZA()[0] ) );
-  CHECK( 3. == Approx( chunk.ZA()[1] ) );
-  CHECK( 2. == Approx( chunk.chargeParticleA()[0] ) );
-  CHECK( 3. == Approx( chunk.chargeParticleA()[1] ) );
-  CHECK( 26. == Approx( chunk.ZB()[0] ) );
-  CHECK( 27. == Approx( chunk.ZB()[1] ) );
-  CHECK( 26. == Approx( chunk.chargeParticleB()[0] ) );
-  CHECK( 27. == Approx( chunk.chargeParticleB()[1] ) );
-  CHECK( 1. == Approx( chunk.IA()[0] ) );
-  CHECK( 0.5 == Approx( chunk.IA()[1] ) );
-  CHECK( 1. == Approx( chunk.spinParticleA()[0] ) );
-  CHECK( 0.5 == Approx( chunk.spinParticleA()[1] ) );
-  CHECK( 4. == Approx( chunk.IB()[0] ) );
-  CHECK( 5. == Approx( chunk.IB()[1] ) );
-  CHECK( 4. == Approx( chunk.spinParticleB()[0] ) );
-  CHECK( 5. == Approx( chunk.spinParticleB()[1] ) );
-  CHECK( 12. == Approx( chunk.PA()[0] ) );
-  CHECK( 13. == Approx( chunk.PA()[1] ) );
-  CHECK( 12. == Approx( chunk.parityParticleA()[0] ) );
-  CHECK( 13. == Approx( chunk.parityParticleA()[1] ) );
-  CHECK( 14. == Approx( chunk.PB()[0] ) );
-  CHECK( 15. == Approx( chunk.PB()[1] ) );
-  CHECK( 14. == Approx( chunk.parityParticleB()[0] ) );
-  CHECK( 15. == Approx( chunk.parityParticleB()[1] ) );
-  CHECK( 6. == Approx( chunk.Q()[0] ) );
-  CHECK( 7. == Approx( chunk.Q()[1] ) );
+  CHECK_THAT( 0., WithinRel( chunk.MA()[0] ) );
+  CHECK_THAT( 1., WithinRel( chunk.MA()[1] ) );
+  CHECK_THAT( 0, WithinRel( chunk.massParticleA()[0] ) );
+  CHECK_THAT( 1, WithinRel( chunk.massParticleA()[1] ) );
+  CHECK_THAT( 5.446635e+1, WithinRel( chunk.MB()[0] ) );
+  CHECK_THAT( 5.347624e+1, WithinRel( chunk.MB()[1] ) );
+  CHECK_THAT( 5.446635e+1, WithinRel( chunk.massParticleB()[0] ) );
+  CHECK_THAT( 5.347624e+1, WithinRel( chunk.massParticleB()[1] ) );
+  CHECK_THAT( 2., WithinRel( chunk.ZA()[0] ) );
+  CHECK_THAT( 3., WithinRel( chunk.ZA()[1] ) );
+  CHECK_THAT( 2., WithinRel( chunk.chargeParticleA()[0] ) );
+  CHECK_THAT( 3., WithinRel( chunk.chargeParticleA()[1] ) );
+  CHECK_THAT( 26., WithinRel( chunk.ZB()[0] ) );
+  CHECK_THAT( 27., WithinRel( chunk.ZB()[1] ) );
+  CHECK_THAT( 26., WithinRel( chunk.chargeParticleB()[0] ) );
+  CHECK_THAT( 27., WithinRel( chunk.chargeParticleB()[1] ) );
+  CHECK_THAT( 1., WithinRel( chunk.IA()[0] ) );
+  CHECK_THAT( 0.5, WithinRel( chunk.IA()[1] ) );
+  CHECK_THAT( 1., WithinRel( chunk.spinParticleA()[0] ) );
+  CHECK_THAT( 0.5, WithinRel( chunk.spinParticleA()[1] ) );
+  CHECK_THAT( 4., WithinRel( chunk.IB()[0] ) );
+  CHECK_THAT( 5., WithinRel( chunk.IB()[1] ) );
+  CHECK_THAT( 4., WithinRel( chunk.spinParticleB()[0] ) );
+  CHECK_THAT( 5., WithinRel( chunk.spinParticleB()[1] ) );
+  CHECK_THAT( 12., WithinRel( chunk.PA()[0] ) );
+  CHECK_THAT( 13., WithinRel( chunk.PA()[1] ) );
+  CHECK_THAT( 12., WithinRel( chunk.parityParticleA()[0] ) );
+  CHECK_THAT( 13., WithinRel( chunk.parityParticleA()[1] ) );
+  CHECK_THAT( 14., WithinRel( chunk.PB()[0] ) );
+  CHECK_THAT( 15., WithinRel( chunk.PB()[1] ) );
+  CHECK_THAT( 14., WithinRel( chunk.parityParticleB()[0] ) );
+  CHECK_THAT( 15., WithinRel( chunk.parityParticleB()[1] ) );
+  CHECK_THAT( 6., WithinRel( chunk.Q()[0] ) );
+  CHECK_THAT( 7., WithinRel( chunk.Q()[1] ) );
   CHECK( 8 == chunk.PNT()[0] );
   CHECK( 9 == chunk.PNT()[1] );
   CHECK( 8 == chunk.penetrabilityFlag()[0] );

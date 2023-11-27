@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/CovariancePairs.hpp"
 
 // other includes
@@ -183,14 +186,14 @@ void verifyChunkLB1( const CovariancePairs& chunk ) {
   CHECK( 2 == chunk.numberPairs() );
 
   // values
-  CHECK( 1. == Approx( chunk.EK()[0] ) );
-  CHECK( 2. == Approx( chunk.FK()[0] ) );
-  CHECK( 3. == Approx( chunk.EK()[1] ) );
-  CHECK( 4. == Approx( chunk.FK()[1] ) );
-  CHECK( 1. == Approx( chunk.firstArrayEnergies()[0] ) );
-  CHECK( 2. == Approx( chunk.firstArrayFValues()[0] ) );
-  CHECK( 3. == Approx( chunk.firstArrayEnergies()[1] ) );
-  CHECK( 4. == Approx( chunk.firstArrayFValues()[1] ) );
+  CHECK_THAT( 1., WithinRel( chunk.EK()[0] ) );
+  CHECK_THAT( 2., WithinRel( chunk.FK()[0] ) );
+  CHECK_THAT( 3., WithinRel( chunk.EK()[1] ) );
+  CHECK_THAT( 4., WithinRel( chunk.FK()[1] ) );
+  CHECK_THAT( 1., WithinRel( chunk.firstArrayEnergies()[0] ) );
+  CHECK_THAT( 2., WithinRel( chunk.firstArrayFValues()[0] ) );
+  CHECK_THAT( 3., WithinRel( chunk.firstArrayEnergies()[1] ) );
+  CHECK_THAT( 4., WithinRel( chunk.firstArrayFValues()[1] ) );
 
   CHECK( 2 == chunk.NC() );
 
@@ -209,22 +212,22 @@ void verifyChunkLB3( const CovariancePairs& chunk ) {
   CHECK( 5 == chunk.numberPairs() );
 
   // values
-  CHECK( 1. == Approx( chunk.EK()[0] ) );
-  CHECK( 2. == Approx( chunk.FK()[0] ) );
-  CHECK( 3. == Approx( chunk.EK()[1] ) );
-  CHECK( 4. == Approx( chunk.FK()[1] ) );
-  CHECK( 7. == Approx( chunk.EL()[0] ) );
-  CHECK( 8. == Approx( chunk.FL()[0] ) );
-  CHECK( 9. == Approx( chunk.EL()[1] ) );
-  CHECK( 10. == Approx( chunk.FL()[1] ) );
-  CHECK( 1. == Approx( chunk.firstArrayEnergies()[0] ) );
-  CHECK( 2. == Approx( chunk.firstArrayFValues()[0] ) );
-  CHECK( 3. == Approx( chunk.firstArrayEnergies()[1] ) );
-  CHECK( 4. == Approx( chunk.firstArrayFValues()[1] ) );
-  CHECK( 7. == Approx( chunk.secondArrayEnergies()[0] ) );
-  CHECK( 8. == Approx( chunk.secondArrayFValues()[0] ) );
-  CHECK( 9. == Approx( chunk.secondArrayEnergies()[1] ) );
-  CHECK( 10. == Approx( chunk.secondArrayFValues()[1] ) );
+  CHECK_THAT( 1., WithinRel( chunk.EK()[0] ) );
+  CHECK_THAT( 2., WithinRel( chunk.FK()[0] ) );
+  CHECK_THAT( 3., WithinRel( chunk.EK()[1] ) );
+  CHECK_THAT( 4., WithinRel( chunk.FK()[1] ) );
+  CHECK_THAT( 7., WithinRel( chunk.EL()[0] ) );
+  CHECK_THAT( 8., WithinRel( chunk.FL()[0] ) );
+  CHECK_THAT( 9., WithinRel( chunk.EL()[1] ) );
+  CHECK_THAT( 10., WithinRel( chunk.FL()[1] ) );
+  CHECK_THAT( 1., WithinRel( chunk.firstArrayEnergies()[0] ) );
+  CHECK_THAT( 2., WithinRel( chunk.firstArrayFValues()[0] ) );
+  CHECK_THAT( 3., WithinRel( chunk.firstArrayEnergies()[1] ) );
+  CHECK_THAT( 4., WithinRel( chunk.firstArrayFValues()[1] ) );
+  CHECK_THAT( 7., WithinRel( chunk.secondArrayEnergies()[0] ) );
+  CHECK_THAT( 8., WithinRel( chunk.secondArrayFValues()[0] ) );
+  CHECK_THAT( 9., WithinRel( chunk.secondArrayEnergies()[1] ) );
+  CHECK_THAT( 10., WithinRel( chunk.secondArrayFValues()[1] ) );
 
   CHECK( 3 == chunk.NC() );
 

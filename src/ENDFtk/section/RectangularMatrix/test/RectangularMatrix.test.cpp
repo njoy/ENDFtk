@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/RectangularMatrix.hpp"
 
 // other includes
@@ -125,19 +128,19 @@ void verifyChunk( const RectangularMatrix& chunk ) {
   CHECK( 13 == chunk.numberValues() );
 
   // values
-  CHECK( 1.1 == Approx( chunk.rowEnergies()[0] ) );
-  CHECK( 1.2 == Approx( chunk.rowEnergies()[1] ) );
-  CHECK( 1.3 == Approx( chunk.rowEnergies()[2] ) );
-  CHECK( 2.1 == Approx( chunk.columnEnergies()[0] ) );
-  CHECK( 2.2 == Approx( chunk.columnEnergies()[1] ) );
-  CHECK( 2.3 == Approx( chunk.columnEnergies()[2] ) );
-  CHECK( 2.4 == Approx( chunk.columnEnergies()[3] ) );
-  CHECK( 1.0 == Approx( chunk.values()[0] ) );
-  CHECK( 2.0 == Approx( chunk.values()[1] ) );
-  CHECK( 3.0 == Approx( chunk.values()[2] ) );
-  CHECK( 4.0 == Approx( chunk.values()[3] ) );
-  CHECK( 5.0 == Approx( chunk.values()[4] ) );
-  CHECK( 6.0 == Approx( chunk.values()[5] ) );
+  CHECK_THAT( 1.1, WithinRel( chunk.rowEnergies()[0] ) );
+  CHECK_THAT( 1.2, WithinRel( chunk.rowEnergies()[1] ) );
+  CHECK_THAT( 1.3, WithinRel( chunk.rowEnergies()[2] ) );
+  CHECK_THAT( 2.1, WithinRel( chunk.columnEnergies()[0] ) );
+  CHECK_THAT( 2.2, WithinRel( chunk.columnEnergies()[1] ) );
+  CHECK_THAT( 2.3, WithinRel( chunk.columnEnergies()[2] ) );
+  CHECK_THAT( 2.4, WithinRel( chunk.columnEnergies()[3] ) );
+  CHECK_THAT( 1.0, WithinRel( chunk.values()[0] ) );
+  CHECK_THAT( 2.0, WithinRel( chunk.values()[1] ) );
+  CHECK_THAT( 3.0, WithinRel( chunk.values()[2] ) );
+  CHECK_THAT( 4.0, WithinRel( chunk.values()[3] ) );
+  CHECK_THAT( 5.0, WithinRel( chunk.values()[4] ) );
+  CHECK_THAT( 6.0, WithinRel( chunk.values()[5] ) );
 
   CHECK( 4 == chunk.NC() );
 

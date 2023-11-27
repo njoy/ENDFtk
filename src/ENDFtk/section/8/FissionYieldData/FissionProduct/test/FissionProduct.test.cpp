@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/8/FissionYieldData.hpp"
 
 // other includes
@@ -30,12 +33,12 @@ SCENARIO( "FissionProduct" ) {
 
 void verifyChunk( const FissionProduct& chunk ) {
 
-  CHECK( 1001 == Approx( chunk.ZAFP() ) );
-  CHECK( 1001 == Approx( chunk.fissionProductIdentifier() ) );
-  CHECK( 1 == Approx( chunk.FPS() ) );
-  CHECK( 1 == Approx( chunk.isomericState() ) );
-  CHECK( 1e-3 == Approx( chunk.Y()[0] ) );
-  CHECK( 1e-5 == Approx( chunk.Y()[1] ) );
-  CHECK( 1e-3 == Approx( chunk.fissionYield()[0] ) );
-  CHECK( 1e-5 == Approx( chunk.fissionYield()[1] ) );
+  CHECK( 1001 == chunk.ZAFP() );
+  CHECK( 1001 == chunk.fissionProductIdentifier() );
+  CHECK( 1 == chunk.FPS() );
+  CHECK( 1 == chunk.isomericState() );
+  CHECK_THAT( 1e-3, WithinRel( chunk.Y()[0] ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.Y()[1] ) );
+  CHECK_THAT( 1e-3, WithinRel( chunk.fissionYield()[0] ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.fissionYield()[1] ) );
 }

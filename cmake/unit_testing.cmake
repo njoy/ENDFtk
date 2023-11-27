@@ -5,7 +5,7 @@
 message( STATUS "Adding ENDFtk unit testing" )
 enable_testing()
 
-FetchContent_MakeAvailable( catch-adapter )
+FetchContent_MakeAvailable( Catch2 )
 
 function( add_cpp_test name source )
 
@@ -13,7 +13,7 @@ function( add_cpp_test name source )
   add_executable( ${test_name} ${source} )
   add_test( NAME ${test_name} COMMAND ${test_name} )
   target_link_libraries( ${test_name} PRIVATE ENDFtk )
-  target_link_libraries( ${test_name} PRIVATE catch-adapter )
+  target_link_libraries( ${test_name} PRIVATE Catch2::Catch2WithMain )
 
   file( GLOB resources "resources/*" )
   foreach( resource ${resources} )
@@ -274,7 +274,6 @@ add_subdirectory( src/ENDFtk/StructureDivision/test )
 add_subdirectory( src/ENDFtk/TabulationRecord/test )
 add_subdirectory( src/ENDFtk/Tape/test )
 add_subdirectory( src/ENDFtk/TapeIdentification/test )
-add_subdirectory( src/ENDFtk/test )
 add_subdirectory( src/ENDFtk/TextRecord/test )
 add_subdirectory( src/ENDFtk/tree/File/test )
 add_subdirectory( src/ENDFtk/tree/Material/test )
