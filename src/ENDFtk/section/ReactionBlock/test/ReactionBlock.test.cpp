@@ -50,7 +50,7 @@ SCENARIO( "ReactionBlock" ) {
                                 std::move(energies),
                                 std::move(weights) ) };
 
-      auto chunk = ReactionBlock( 0., 0., 0, 2, std::move( nc ) );
+      auto chunk = ReactionBlock( 0, 0, 0, 2, std::move( nc ) );
 
       THEN( "a ReactionBlock can be constructed "
             "and members can be tested" ) {

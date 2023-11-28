@@ -7,7 +7,7 @@ BaseWithoutMT() = default;
 #endif
 
 BaseWithoutMT( double ZA, double AWR ) :
-  ZA_( ZA ),
+  ZA_( static_cast< int >( std::round( ZA ) ) ),
   atomicWeightRatio_( AWR ) {
   if ( ZA < 1 ){
     Log::error( "Illegal ZA number" );
