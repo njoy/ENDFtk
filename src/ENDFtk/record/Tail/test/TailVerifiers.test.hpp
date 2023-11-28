@@ -1,5 +1,5 @@
 SCENARIO( "Verifying the given numbers in the RecordTail" ){
-  /* Catch CHECKment macros do not like multi-argument templates.
+  /* Catch requirement macros do not like multi-argument templates.
    * These aliases provide a work around
    */
   using TailVerifyingMATMF = TailVerifying< MAT, MF >;
