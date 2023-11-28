@@ -176,13 +176,21 @@ void verifyChunk( const section::Type< 40 >& chunk ) {
   CHECK( 2 == sub.NL() );
   CHECK( 2 == sub.numberReactions() );
 
-  auto stuff = sub.reactionBlocks()[1];
+  auto block1 = sub.reactionBlocks()[0];
 
   // ReactionBlock CONT record
-  CHECK( 3 == stuff.XMF1() );
-  CHECK( 1 == stuff.XLFS1() );
-  CHECK( 77 == stuff.MAT1() );
-  CHECK( 88 == stuff.MT1() );
+  CHECK( 3 == block1.XMF1() );
+  CHECK( 1 == block1.XLFS1() );
+  CHECK( 55 == block1.MAT1() );
+  CHECK( 66 == block1.MT1() );
+
+  auto block2 = sub.reactionBlocks()[1];
+
+  // ReactionBlock CONT record
+  CHECK( 3 == block2.XMF1() );
+  CHECK( 1 == block2.XLFS1() );
+  CHECK( 77 == block2.MAT1() );
+  CHECK( 88 == block2.MT1() );
 
   CHECK( 10 == chunk.NC() );
 }
