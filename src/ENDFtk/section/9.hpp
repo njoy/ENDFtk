@@ -60,6 +60,41 @@ namespace section {
     int numberReactionProducts() const { return this->NS(); }
 
     /**
+     *  @brief Return whether or not the excited state is present
+     *
+     *  @param[in] state    the excited state to retrieve
+     */
+    bool hasExcitedState( int state ) const {
+
+      return std::find_if( this->products_.begin(), this->products_.end(),
+                           [state] ( auto&& product )
+                                   { return product.excitedLevel() == state; } )
+             != this->products_.end();
+    }
+
+    /**
+     *  @brief Return the reaction product for the requested excited state
+     *
+     *  @param[in] state    the excited state to retrieve
+     */
+    const ReactionProduct& reactionProduct( int state ) const {
+
+      auto iter = std::find_if( this->products_.begin(), this->products_.end(),
+                                [state] ( auto&& product )
+                                        { return product.excitedLevel() == state; } );
+      if ( this->products_.end() == iter ) {
+
+        Log::error( "The requested excited state {} is not present in MF10",
+                    state );
+        throw std::exception();
+      }
+      else {
+
+        return *iter;
+      }
+    }
+
+    /**
      *  @brief Return the reaction product data
      */
     auto reactionProducts() const {
