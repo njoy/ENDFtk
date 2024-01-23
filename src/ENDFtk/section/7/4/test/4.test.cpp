@@ -859,6 +859,7 @@ void verifyChunkWithAnalyticalFunctions(
   CHECK( 4 == chunk.sectionNumber() );
 
   CHECK( 127 == chunk.ZA() );
+  CHECK( 127 == chunk.targetIdentifier() );
   CHECK_THAT( 8.934780e+0, WithinRel( chunk.AWR() ) );
   CHECK( 1 == chunk.LAT() );
   CHECK( 1 == chunk.temperatureOption() );
@@ -936,6 +937,7 @@ void verifyChunkWithOneTemperatureAndOneScatterer(
   CHECK( 4 == chunk.sectionNumber() );
 
   CHECK( 127 == chunk.ZA() );
+  CHECK( 127 == chunk.targetIdentifier() );
   CHECK_THAT( 8.934780e+0, WithinRel( chunk.AWR() ) );
   CHECK( 1 == chunk.LAT() );
   CHECK( 1 == chunk.temperatureOption() );
@@ -1102,6 +1104,7 @@ void verifyChunkWithTwoTemperaturesAndOneScatterer(
   CHECK( 4 == chunk.sectionNumber() );
 
   CHECK( 127 == chunk.ZA() );
+  CHECK( 127 == chunk.targetIdentifier() );
   CHECK_THAT( 8.934780e+0, WithinRel( chunk.AWR() ) );
   CHECK( 1 == chunk.LAT() );
   CHECK( 1 == chunk.temperatureOption() );
@@ -1290,6 +1293,7 @@ void verifyChunkWithTwoTemperaturesAndTwoScatterers(
   CHECK( 4 == chunk.sectionNumber() );
 
   CHECK( 127 == chunk.ZA() );
+  CHECK( 127 == chunk.targetIdentifier() );
   CHECK_THAT( 8.934780e+0, WithinRel( chunk.AWR() ) );
   CHECK( 1 == chunk.LAT() );
   CHECK( 1 == chunk.temperatureOption() );
@@ -1493,6 +1497,7 @@ void verifyChunkWithTwoTemperaturesTwoScatterersAndNoSecondaryTemperature(
   CHECK( 4 == chunk.sectionNumber() );
 
   CHECK( 127 == chunk.ZA() );
+  CHECK( 127 == chunk.targetIdentifier() );
   CHECK_THAT( 8.934780e+0, WithinRel( chunk.AWR() ) );
   CHECK( 1 == chunk.LAT() );
   CHECK( 1 == chunk.temperatureOption() );

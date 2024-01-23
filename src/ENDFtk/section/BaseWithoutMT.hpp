@@ -40,6 +40,11 @@ namespace section{
     constexpr int ZA() const { return this->ZA_; }
 
     /**
+     *  @brief Return the ZA identifier of the section
+     */
+    constexpr int targetIdentifier() const { return this->ZA(); }
+
+    /**
      *  @brief Return the atomic weight ratio
      */
     constexpr double AWR() const { return this->atomicWeightRatio_; }

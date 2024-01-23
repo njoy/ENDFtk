@@ -319,6 +319,7 @@ void verifyChunkWithLO1( const section::Type< 12 >& chunk ) {
   CHECK( 18 == chunk.sectionNumber() );
 
   CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
   CHECK_THAT( 2.330250e+2, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 2.330250e+2, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 1 == chunk.LO() );
@@ -371,6 +372,7 @@ void verifyChunkWithLO2LG1( const section::Type< 12 >& chunk ) {
   CHECK( 51 == chunk.sectionNumber() );
 
   CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
   CHECK_THAT( 2.330250e+2, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 2.330250e+2, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 2 == chunk.LO() );
@@ -422,6 +424,7 @@ void verifyChunkWithLO2LG2( const section::Type< 12 >& chunk ) {
   CHECK( 51 == chunk.sectionNumber() );
 
   CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
   CHECK_THAT( 2.330250e+2, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 2.330250e+2, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 2 == chunk.LO() );

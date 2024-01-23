@@ -340,6 +340,7 @@ void verifyChunk( const section::Type< 8, 459 >& chunk ) {
   CHECK( 459 == chunk.sectionNumber() );
 
   CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
   CHECK_THAT( 233.0250, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 233.0250, WithinRel( chunk.atomicWeightRatio() ) );
 

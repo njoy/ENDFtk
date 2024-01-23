@@ -240,6 +240,7 @@ void verifyChunkWithOneDilution( const section::Type< 2, 152 >& chunk ) {
   CHECK( 152 == chunk.sectionNumber() );
 
   CHECK( 94239 == chunk.ZA() );
+  CHECK( 94239 == chunk.targetIdentifier() );
   CHECK_THAT( 2.369986e+2, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 2.369986e+2, WithinRel( chunk.atomicWeightRatio() ) );
 

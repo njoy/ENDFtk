@@ -212,8 +212,13 @@ std::string chunk() {
 
 void verifyChunk( const section::Type< 6 >& chunk ) {
 
+  CHECK( 5 == chunk.MT() );
+  CHECK( 5 == chunk.sectionNumber() );
+
   CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
   CHECK_THAT( 2.330248e+2, WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 2.330248e+2, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 0 == chunk.JP() );
   CHECK( 0 == chunk.averageMultipleParticlesFlag() );
   CHECK( 2 == chunk.LCT() );

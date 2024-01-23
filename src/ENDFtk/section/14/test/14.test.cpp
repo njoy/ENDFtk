@@ -308,6 +308,7 @@ void verifyChunkWithLTT0( const section::Type< 14 >& chunk ) {
   CHECK( 2 == chunk.sectionNumber() );
 
   CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
   CHECK_THAT( 2.330248e+2, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 2.330248e+2, WithinRel( chunk.atomicWeightRatio() ) );
 
@@ -344,6 +345,7 @@ void verifyChunkWithLTT1( const section::Type< 14 >& chunk ) {
   CHECK( 2 == chunk.sectionNumber() );
 
   CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
   CHECK_THAT( 2.330248e+2, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 2.330248e+2, WithinRel( chunk.atomicWeightRatio() ) );
 

@@ -158,6 +158,7 @@ void verifyChunk( const section::Type< 5 >& chunk ) {
   CHECK( 18 == chunk.sectionNumber() );
 
   CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
   CHECK_THAT( 2.330250e+2, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 2.330250e+2, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 1 == chunk.NK() );

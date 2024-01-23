@@ -444,6 +444,7 @@ void verifyCoherentElasticWithOneTemperature(
   CHECK( 2 == chunk.sectionNumber() );
 
   CHECK( 107 == chunk.ZA() );
+  CHECK( 107 == chunk.targetIdentifier() );
   CHECK_THAT( 1., WithinRel( chunk.AWR() ) );
   CHECK_THAT( 1., WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 1 == chunk.LTHR() );
@@ -503,6 +504,7 @@ void verifyCoherentElasticWithTwoTemperatures(
   CHECK( 2 == chunk.sectionNumber() );
 
   CHECK( 107 == chunk.ZA() );
+  CHECK( 107 == chunk.targetIdentifier() );
   CHECK_THAT( 1., WithinRel( chunk.AWR() ) );
   CHECK_THAT( 1., WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 1 == chunk.LTHR() );
@@ -566,6 +568,7 @@ void verifyIncoherentElastic( const section::Type< 7, 2 >& chunk ) {
   CHECK( 2 == chunk.sectionNumber() );
 
   CHECK( 107 == chunk.ZA() );
+  CHECK( 107 == chunk.targetIdentifier() );
   CHECK_THAT( 1., WithinRel( chunk.AWR() ) );
   CHECK_THAT( 1., WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 2 == chunk.LTHR() );
@@ -615,6 +618,7 @@ void verifyMixedElastic( const section::Type< 7, 2 >& chunk ) {
   CHECK( 2 == chunk.sectionNumber() );
 
   CHECK( 107 == chunk.ZA() );
+  CHECK( 107 == chunk.targetIdentifier() );
   CHECK_THAT( 1., WithinRel( chunk.AWR() ) );
   CHECK_THAT( 1., WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 3 == chunk.LTHR() );

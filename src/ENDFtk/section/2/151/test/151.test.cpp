@@ -535,7 +535,10 @@ std::string chunkSpecialCase() {
 void verifyChunkSpecialCase( const section::Type< 2, 151 >& chunk ) {
 
   CHECK( 151 == chunk.MT() );
+  CHECK( 151 == chunk.sectionNumber() );
   CHECK( 1001 == chunk.ZA() );
+  CHECK( 1001 == chunk.targetIdentifier() );
+  CHECK_THAT( 0.9991673, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 0.9991673, WithinRel( chunk.atomicWeightRatio() ) );
 
   CHECK( 1 == chunk.isotopes().size() );
@@ -558,7 +561,10 @@ std::string chunkResolvedSLBW() {
 void verifyChunkResolvedSLBW( const section::Type< 2, 151 >& chunk ) {
 
   CHECK( 151 == chunk.MT() );
+  CHECK( 151 == chunk.sectionNumber() );
   CHECK( 61148 == chunk.ZA() );
+  CHECK( 61148 == chunk.targetIdentifier() );
+  CHECK_THAT( 146.65, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 146.65, WithinRel( chunk.atomicWeightRatio() ) );
 
   CHECK( 1 == chunk.isotopes().size() );
@@ -610,7 +616,10 @@ std::string chunkResolvedMLBW() {
 void verifyChunkResolvedMLBW( const section::Type< 2, 151 >& chunk ) {
 
   CHECK( 151 == chunk.MT() );
+  CHECK( 151 == chunk.sectionNumber() );
   CHECK( 12024 == chunk.ZA() );
+  CHECK( 12024 == chunk.targetIdentifier() );
+  CHECK_THAT( 23.779, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 23.779, WithinRel( chunk.atomicWeightRatio() ) );
 
   CHECK( 1 == chunk.isotopes().size() );
@@ -692,7 +701,10 @@ std::string chunkResolvedRM() {
 void verifyChunkResolvedRM( const section::Type< 2, 151 >& chunk ) {
 
   CHECK( 151 == chunk.MT() );
+  CHECK( 151 == chunk.sectionNumber() );
   CHECK( 14028 == chunk.ZA() );
+  CHECK( 14028 == chunk.targetIdentifier() );
+  CHECK_THAT( 27.737, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 27.737, WithinRel( chunk.atomicWeightRatio() ) );
 
   CHECK( 1 == chunk.isotopes().size() );
@@ -1032,7 +1044,10 @@ std::string chunkResolvedRML() {
 void verifyChunkResolvedRML( const section::Type< 2, 151 >& chunk ) {
 
   CHECK( 151 == chunk.MT() );
+  CHECK( 151 == chunk.sectionNumber() );
   CHECK( 1001 == chunk.ZA() );
+  CHECK( 1001 == chunk.targetIdentifier() );
+  CHECK_THAT( 0.9991673, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 0.9991673, WithinRel( chunk.atomicWeightRatio() ) );
 
   CHECK( 1 == chunk.isotopes().size() );
@@ -1061,7 +1076,10 @@ std::string chunkUnresolvedEnergyIndependent() {
 void verifyChunkUnresolvedEnergyIndependent( const section::Type< 2, 151 >& chunk ) {
 
   CHECK( 151 == chunk.MT() );
+  CHECK( 151 == chunk.sectionNumber() );
   CHECK( 56140 == chunk.ZA() );
+  CHECK( 56140 == chunk.targetIdentifier() );
+  CHECK_THAT( 138.708, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 138.708, WithinRel( chunk.atomicWeightRatio() ) );
 
   CHECK( 1 == chunk.isotopes().size() );
@@ -1113,7 +1131,10 @@ std::string chunkUnresolvedEnergyDependentFission() {
 void verifyChunkUnresolvedEnergyDependentFission( const section::Type< 2, 151 >& chunk ) {
 
   CHECK( 151 == chunk.MT() );
+  CHECK( 151 == chunk.sectionNumber() );
   CHECK( 94240 == chunk.ZA() );
+  CHECK( 94240 == chunk.targetIdentifier() );
+  CHECK_THAT( 237.992, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 237.992, WithinRel( chunk.atomicWeightRatio() ) );
 
   CHECK( 1 == chunk.isotopes().size() );
@@ -1212,7 +1233,10 @@ std::string chunkUnresolvedEnergyDependent() {
 void verifyChunkUnresolvedEnergyDependent( const section::Type< 2, 151 >& chunk ) {
 
   CHECK( 151 == chunk.MT() );
+  CHECK( 151 == chunk.sectionNumber() );
   CHECK( 38090 == chunk.ZA() );
+  CHECK( 38090 == chunk.targetIdentifier() );
+  CHECK_THAT( 89.1354, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 89.1354, WithinRel( chunk.atomicWeightRatio() ) );
 
   CHECK( 1 == chunk.isotopes().size() );

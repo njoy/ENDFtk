@@ -340,6 +340,7 @@ void verifyChunk( const section::Type< 8, 454 >& chunk ) {
   CHECK( 454 == chunk.sectionNumber() );
 
   CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
   CHECK_THAT( 233.0250, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 233.0250, WithinRel( chunk.atomicWeightRatio() ) );
 
@@ -509,6 +510,7 @@ void verifyChunkWithEnergyIndependentYields( const section::Type< 8, 454 >& chun
   CHECK( 454 == chunk.sectionNumber() );
 
   CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
   CHECK_THAT( 233.0250, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 233.0250, WithinRel( chunk.atomicWeightRatio() ) );
 
