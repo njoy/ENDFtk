@@ -84,7 +84,7 @@ namespace section {
                                         { return product.excitedLevel() == state; } );
       if ( this->products_.end() == iter ) {
 
-        Log::error( "The requested excited state {} is not present in MF10",
+        Log::error( "The requested excited state {} is not present in MF9",
                     state );
         throw std::exception();
       }
