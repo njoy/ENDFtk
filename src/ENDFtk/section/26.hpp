@@ -79,6 +79,40 @@ namespace section {
     int numberReactionProducts() const { return this->NK(); }
 
     /**
+     *  @brief Return whether or not the reaction product is present
+     *
+     *  @param[in] zap    the reaction product to retrieve
+     */
+    bool hasReactionProduct( int zap ) const {
+
+      return std::find_if( this->products_.begin(), this->products_.end(),
+                           [zap] ( auto&& product )
+                                 { return product.productIdentifier() == zap; } )
+             != this->products_.end();
+    }
+
+    /**
+     *  @brief Return the requested reaction product
+     *
+     *  @param[in] zap    the reaction product to retrieve
+     */
+    const ReactionProduct& reactionProduct( int zap ) const {
+
+      auto iter = std::find_if( this->products_.begin(), this->products_.end(),
+                                [zap] ( auto&& product )
+                                      { return product.productIdentifier() == zap; } );
+      if ( this->products_.end() == iter ) {
+
+        Log::error( "The requested reaction product {} is not present in MF26", zap );
+        throw std::exception();
+      }
+      else {
+
+        return *iter;
+      }
+    }
+
+    /**
      *  @brief Return the reaction products defined in this section
      */
     auto reactionProducts() const {

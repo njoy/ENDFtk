@@ -172,6 +172,9 @@ void verifyChunk( const section::Type< 26 >& chunk ) {
   CHECK( 1 == chunk.numberReactionProducts() );
   CHECK( 525 == chunk.MT() );
 
+  CHECK( true == chunk.hasReactionProduct( 1000 ) );
+  CHECK( false == chunk.hasReactionProduct( 11 ) );
+
   auto products = chunk.reactionProducts();
   CHECK( 1 == products.size() );
 
@@ -238,6 +241,10 @@ void verifyChunk( const section::Type< 26 >& chunk ) {
   CHECK( 2 == energies[1].totalEmissionProbabilities().size() );
   CHECK_THAT( 1.84823, WithinRel( energies[1].totalEmissionProbabilities()[0] ) );
   CHECK_THAT( 8.76641e-3, WithinRel( energies[1].totalEmissionProbabilities()[1] ) );
+
+  auto product = chunk.reactionProduct( 1000 );
+  CHECK( 1000 == product.ZAP() );
+  CHECK( 1000 == product.productIdentifier() );
 
   CHECK( 10 == chunk.NC() );
 }

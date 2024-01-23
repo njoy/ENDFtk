@@ -68,6 +68,11 @@ class Test_ENDFtk_MF6_Section( unittest.TestCase ) :
             self.assertEqual( 3, chunk.number_reaction_products )
             self.assertEqual( 5, chunk.MT )
 
+            self.assertEqual( True, chunk.has_reaction_product( 1001 ) )
+            self.assertEqual( True, chunk.has_reaction_product( 1 ) )
+            self.assertEqual( True, chunk.has_reaction_product( 0 ) )
+            self.assertEqual( False, chunk.has_reaction_product( 2004 ) )
+
             products = chunk.reaction_products
             self.assertEqual( 3, len( products ) )
 
@@ -349,6 +354,21 @@ class Test_ENDFtk_MF6_Section( unittest.TestCase ) :
             self.assertAlmostEqual( 0., subsection2.total_emission_probabilities[0] )
             self.assertAlmostEqual( 1., subsection2.total_emission_probabilities[1] )
             self.assertAlmostEqual( 0., subsection2.total_emission_probabilities[2] )
+
+            # product 1
+            product = chunk.reaction_product( 1001 )
+            self.assertEqual( 1001, product.ZAP )
+            self.assertEqual( 1001, product.product_identifier )
+
+            # product 2
+            product = chunk.reaction_product( 1 )
+            self.assertEqual( 1, product.ZAP )
+            self.assertEqual( 1, product.product_identifier )
+
+            # product 3
+            product = chunk.reaction_product( 0 )
+            self.assertEqual( 0, product.ZAP )
+            self.assertEqual( 0, product.product_identifier )
 
             self.assertEqual( 30, chunk.NC )
 

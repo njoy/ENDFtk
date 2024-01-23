@@ -222,6 +222,11 @@ void verifyChunk( const section::Type< 6 >& chunk ) {
   CHECK( 3 == chunk.numberReactionProducts() );
   CHECK( 5 == chunk.MT() );
 
+  CHECK( true == chunk.hasReactionProduct( 1001 ) );
+  CHECK( true == chunk.hasReactionProduct( 1 ) );
+  CHECK( true == chunk.hasReactionProduct( 0 ) );
+  CHECK( false == chunk.hasReactionProduct( 2004 ) );
+
   auto products = chunk.reactionProducts();
   CHECK( 3 == products.size() );
 
@@ -495,6 +500,21 @@ void verifyChunk( const section::Type< 6 >& chunk ) {
   CHECK_THAT( 0., WithinRel( subsection2.totalEmissionProbabilities()[0] ) );
   CHECK_THAT( 1., WithinRel( subsection2.totalEmissionProbabilities()[1] ) );
   CHECK_THAT( 0., WithinRel( subsection2.totalEmissionProbabilities()[2] ) );
+
+  // product 1
+  auto product = chunk.reactionProduct( 1001 );
+  CHECK( 1001 == product.ZAP() );
+  CHECK( 1001 == product.productIdentifier() );
+
+  // product 2
+  product = chunk.reactionProduct( 1 );
+  CHECK( 1 == product.ZAP() );
+  CHECK( 1 == product.productIdentifier() );
+
+  // product 3
+  product = chunk.reactionProduct( 0 );
+  CHECK( 0 == product.ZAP() );
+  CHECK( 0 == product.productIdentifier() );
 
   CHECK( 30 == chunk.NC() );
 }

@@ -116,6 +116,26 @@ void wrapSection_26( python::module& module, python::module& viewmodule ) {
     &Section::numberReactionProducts,
     "The number of reaction products"
   )
+  .def(
+
+    "has_reaction_product",
+    &Section::hasReactionProduct,
+    python::arg( "zap" ),
+    "Return whether or not the reaction product is present\n\n"
+    "Arguments:\n"
+    "    self   the section\n"
+    "    zap    the reaction product to retrieve"
+  )
+  .def(
+
+    "reaction_product",
+    &Section::reactionProduct,
+    python::arg( "zap" ),
+    "Return the requested reaction product\n\n"
+    "Arguments:\n"
+    "    self   the section\n"
+    "    zap    the reaction product to retrieve"
+  )
   .def_property_readonly(
 
     "reaction_products",
