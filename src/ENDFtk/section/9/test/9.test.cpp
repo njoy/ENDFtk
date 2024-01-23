@@ -206,6 +206,67 @@ void verifyChunk( const section::Type< 9 >& chunk ) {
   CHECK_THAT( 0.1, WithinRel( product.multiplicities()[0] ) );
   CHECK_THAT( 0.48, WithinRel( product.multiplicities()[1] ) );
 
+  CHECK( true == chunk.hasExcitedState( 0 ) );
+  product = chunk.reactionProduct( 0 );
+  CHECK_THAT( 5.537755e+6, WithinRel( product.QM() ) );
+  CHECK_THAT( 5.537755e+6, WithinRel( product.massDifferenceQValue() ) );
+  CHECK_THAT( 5.537755e+6, WithinRel( product.QI() ) );
+  CHECK_THAT( 5.537755e+6, WithinRel( product.reactionQValue() ) );
+  CHECK( 95242 == product.IZAP() );
+  CHECK( 95242 == product.productIdentifier() );
+  CHECK( 0 == product.LFS() );
+  CHECK( 0 == product.excitedLevel() );
+  CHECK( 2 == product.NP() );
+  CHECK( 1 == product.NR() );
+  CHECK( 1 == product.interpolants().size() );
+  CHECK( 1 == product.boundaries().size() );
+  CHECK( 3 == product.interpolants()[0] );
+  CHECK( 2 == product.boundaries()[0] );
+  CHECK( 2 == product.E().size() );
+  CHECK( 2 == product.energies().size() );
+  CHECK( 2 == product.Y().size() );
+  CHECK( 2 == product.multiplicities().size() );
+  CHECK_THAT( 1e-5, WithinRel( product.E()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( product.E()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( product.energies()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( product.energies()[1] ) );
+  CHECK_THAT( 0.9, WithinRel( product.Y()[0] ) );
+  CHECK_THAT( 0.52, WithinRel( product.Y()[1] ) );
+  CHECK_THAT( 0.9, WithinRel( product.multiplicities()[0] ) );
+  CHECK_THAT( 0.52, WithinRel( product.multiplicities()[1] ) );
+
+  CHECK( false == chunk.hasExcitedState( 1 ) );
+  CHECK_THROWS( product = chunk.reactionProduct( 1 ) );
+
+  CHECK( true == chunk.hasExcitedState( 2 ) );
+  product = chunk.reactionProduct( 2 );
+  CHECK_THAT( 5.537755e+6, WithinRel( product.QM() ) );
+  CHECK_THAT( 5.537755e+6, WithinRel( product.massDifferenceQValue() ) );
+  CHECK_THAT( 5.489125e+6, WithinRel( product.QI() ) );
+  CHECK_THAT( 5.489125e+6, WithinRel( product.reactionQValue() ) );
+  CHECK( 95242 == product.IZAP() );
+  CHECK( 95242 == product.productIdentifier() );
+  CHECK( 2 == product.LFS() );
+  CHECK( 2 == product.excitedLevel() );
+  CHECK( 2 == product.NP() );
+  CHECK( 1 == product.NR() );
+  CHECK( 1 == product.interpolants().size() );
+  CHECK( 1 == product.boundaries().size() );
+  CHECK( 3 == product.interpolants()[0] );
+  CHECK( 2 == product.boundaries()[0] );
+  CHECK( 2 == product.E().size() );
+  CHECK( 2 == product.energies().size() );
+  CHECK( 2 == product.Y().size() );
+  CHECK( 2 == product.multiplicities().size() );
+  CHECK_THAT( 1e-5, WithinRel( product.E()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( product.E()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( product.energies()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( product.energies()[1] ) );
+  CHECK_THAT( 0.1, WithinRel( product.Y()[0] ) );
+  CHECK_THAT( 0.48, WithinRel( product.Y()[1] ) );
+  CHECK_THAT( 0.1, WithinRel( product.multiplicities()[0] ) );
+  CHECK_THAT( 0.48, WithinRel( product.multiplicities()[1] ) );
+
   CHECK( 7 == chunk.NC() );
 }
 
