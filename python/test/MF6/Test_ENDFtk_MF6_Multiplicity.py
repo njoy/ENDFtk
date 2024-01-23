@@ -24,8 +24,8 @@ class Test_ENDFtk_MF6_Multiplicity( unittest.TestCase ) :
         def verify_chunk( self, chunk ) :
 
             # verify content
-            self.assertAlmostEqual( 1001., chunk.ZAP )
-            self.assertAlmostEqual( 1001., chunk.product_identifier )
+            self.assertEqual( 1001, chunk.ZAP )
+            self.assertEqual( 1001, chunk.product_identifier )
             self.assertAlmostEqual( 0.9986234, chunk.AWP )
             self.assertAlmostEqual( 0.9986234, chunk.product_weight_ratio )
             self.assertEqual( 0, chunk.LIP )
@@ -65,7 +65,7 @@ class Test_ENDFtk_MF6_Multiplicity( unittest.TestCase ) :
             self.assertEqual( self.chunk, chunk.to_string( 9228, 6, 5 ) )
 
         # the data is given explicitly
-        chunk = Multiplicity( zap = 1001., awp = 0.9986234, lip = 0, law = 1,
+        chunk = Multiplicity( zap = 1001, awp = 0.9986234, lip = 0, law = 1,
                               boundaries = [ 4 ], interpolants = [ 2 ],
                               energies = [ 1e-5, 1.1e+7, 1.147e+7, 3e+7 ],
                               multiplicities = [ 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 ] )
@@ -89,7 +89,7 @@ class Test_ENDFtk_MF6_Multiplicity( unittest.TestCase ) :
         # wrong boundaries
         with self.assertRaises( Exception ) :
 
-            chunk = Multiplicity( zap = 1001., awp = 0.9986234, lip = 0, law = 1,
+            chunk = Multiplicity( zap = 1001, awp = 0.9986234, lip = 0, law = 1,
                                   boundaries = [ 4, 5 ], interpolants = [ 2 ],
                                   energies = [ 1e-5, 1.1e+7, 1.147e+7, 3e+7 ],
                                   multiplicities = [ 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 ] )

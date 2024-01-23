@@ -33,16 +33,16 @@ class Test_ENDFtk_MF6_ReactionProduct( unittest.TestCase ) :
         def verify_chunk_law0( self, chunk ) :
 
             # verify content
-            self.assertAlmostEqual( 1001., chunk.ZAP )
-            self.assertAlmostEqual( 1001., chunk.product_identifier )
+            self.assertEqual( 1001, chunk.ZAP )
+            self.assertEqual( 1001, chunk.product_identifier )
             self.assertAlmostEqual( 0.9986234, chunk.AWP )
             self.assertAlmostEqual( 0.9986234, chunk.product_weight_ratio )
             self.assertEqual( 0, chunk.LIP )
             self.assertEqual( 0, chunk.product_modifier_flag )
             self.assertEqual( 0, chunk.LAW )
 
-            self.assertAlmostEqual( 1001., chunk.multiplicity.ZAP )
-            self.assertAlmostEqual( 1001., chunk.multiplicity.product_identifier )
+            self.assertEqual( 1001, chunk.multiplicity.ZAP )
+            self.assertEqual( 1001, chunk.multiplicity.product_identifier )
             self.assertAlmostEqual( 0.9986234, chunk.multiplicity.AWP )
             self.assertAlmostEqual( 0.9986234, chunk.multiplicity.product_weight_ratio )
             self.assertEqual( 0, chunk.multiplicity.LIP )
@@ -77,7 +77,7 @@ class Test_ENDFtk_MF6_ReactionProduct( unittest.TestCase ) :
             self.assertEqual( self.chunk_law0, chunk.to_string( 9228, 6, 5 ) )
 
         # the data is given explicitly
-        multiplicity = Multiplicity( zap = 1001., awp = 0.9986234, lip = 0, law = 0,
+        multiplicity = Multiplicity( zap = 1001, awp = 0.9986234, lip = 0, law = 0,
                                      boundaries = [ 4 ], interpolants = [ 2 ],
                                      energies = [ 1e-5, 1.1e+7, 1.147e+7, 2e+7 ],
                                      multiplicities = [ 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 ] )
@@ -107,7 +107,7 @@ class Test_ENDFtk_MF6_ReactionProduct( unittest.TestCase ) :
         # wrong law in multiplicity
         with self.assertRaises( Exception ) :
 
-            multiplicity = Multiplicity( zap = 1001., awp = 0.9986234, lip = 0, law = 1,
+            multiplicity = Multiplicity( zap = 1001, awp = 0.9986234, lip = 0, law = 1,
                                          boundaries = [ 4 ], interpolants = [ 2 ],
                                          energies = [ 1e-5, 1.1e+7, 1.147e+7, 2e+7 ],
                                          multiplicities = [ 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 ] )

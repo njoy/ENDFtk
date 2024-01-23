@@ -25,7 +25,7 @@ SCENARIO( "Multiplicity" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      double zap = 1001.;
+      int zap = 1001;
       double awp = 0.9986234;
       long lip = 0;
       long law = 1;
@@ -86,7 +86,7 @@ SCENARIO( "Multiplicity" ) {
 
       // no need to test every possibility (TAB1 takes care of tests)
 
-      double zap = 1001.;
+      int zap = 1001;
       double awp = 0.9986234;
       long lip = 0;
       long law = 1;
@@ -134,8 +134,8 @@ std::string chunk() {
 
 void verifyChunk( const Multiplicity& chunk ) {
 
-  CHECK_THAT( 1001., WithinRel( chunk.ZAP() ) );
-  CHECK_THAT( 1001., WithinRel( chunk.productIdentifier() ) );
+  CHECK( 1001 == chunk.ZAP() );
+  CHECK( 1001 == chunk.productIdentifier() );
   CHECK_THAT( 0.9986234, WithinRel( chunk.AWP() ) );
   CHECK_THAT( 0.9986234, WithinRel( chunk.productWeightRatio() ) );
   CHECK( 0 == chunk.LIP() );
