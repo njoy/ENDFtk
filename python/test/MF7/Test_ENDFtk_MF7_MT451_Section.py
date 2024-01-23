@@ -32,7 +32,8 @@ class Test_ENDFtk_MF7_MT451_Section( unittest.TestCase ) :
             self.assertEqual( 451, chunk.MT )
             self.assertEqual( 451, chunk.section_number )
 
-            self.assertAlmostEqual( 122., chunk.ZA )
+            self.assertEqual( 122, chunk.ZA )
+            self.assertEqual( 122, chunk.target_identifier )
             self.assertAlmostEqual( 15., chunk.AWR )
             self.assertAlmostEqual( 15., chunk.atomic_weight_ratio )
             self.assertEqual( 1, chunk.NA )
@@ -90,7 +91,7 @@ class Test_ENDFtk_MF7_MT451_Section( unittest.TestCase ) :
             self.assertEqual( self.chunk + self.valid_SEND, chunk.to_string( 22, 7 ) )
 
         # the data is given explicitly
-        chunk = Section( zaid = 122., awr = 15.,
+        chunk = Section( zaid = 122, awr = 15.,
                          element = ElementInformation(
                                      2,
                                      [ 8016, 8017, 8018 ], [ 0, 0, 0 ],

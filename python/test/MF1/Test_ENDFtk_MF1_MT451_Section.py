@@ -124,7 +124,9 @@ class Test_ENDFtk_MF1_MT451_Section( unittest.TestCase ) :
 
             # verify content
             self.assertEqual( 451, chunk.MT )
+            self.assertEqual( 451, chunk.section_number )
             self.assertEqual( 1001, chunk.ZA )
+            self.assertEqual( 1001, chunk.target_identifier )
             self.assertAlmostEqual( 0.9991673, chunk.AWR )
             self.assertAlmostEqual( 0.9991673, chunk.atomic_weight_ratio )
             self.assertEqual( 1, chunk.LRP )
@@ -171,7 +173,7 @@ class Test_ENDFtk_MF1_MT451_Section( unittest.TestCase ) :
                               chunk.to_string( 125, 1 ) )
 
         # the data is given explicitly
-        chunk = Section( zaid = 1001., awr = 0.9991673, lrp = 1,
+        chunk = Section( zaid = 1001, awr = 0.9991673, lrp = 1,
                          lfi = 2, nlib = 3, nmod = 4,
                          elis = 5., sta = 6., lis = 7,
                          liso = 8, nfor = 12, awi = 13.,

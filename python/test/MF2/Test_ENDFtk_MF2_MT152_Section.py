@@ -33,6 +33,7 @@ class Test_ENDFtk_MF2_MT152_Section( unittest.TestCase ) :
             self.assertEqual( 152, chunk.section_number )
 
             self.assertAlmostEqual( 94239., chunk.ZA )
+            self.assertAlmostEqual( 94239., chunk.target_identifier )
             self.assertAlmostEqual( 2.369986e+2, chunk.AWR )
             self.assertAlmostEqual( 2.369986e+2, chunk.atomic_weight_ratio )
 

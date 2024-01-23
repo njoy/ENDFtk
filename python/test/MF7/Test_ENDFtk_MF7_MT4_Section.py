@@ -38,6 +38,7 @@ class Test_ENDFtk_MF7_MT4_Section( unittest.TestCase ) :
             self.assertEqual( 4, chunk.section_number )
 
             self.assertEqual( 127, chunk.ZA )
+            self.assertEqual( 127, chunk.target_identifier )
             self.assertAlmostEqual( 8.934780e+0, chunk.AWR )
             self.assertAlmostEqual( 8.934780e+0, chunk.atomic_weight_ratio )
             self.assertEqual( 1, chunk.LAT )
