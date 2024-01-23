@@ -43,7 +43,7 @@ SCENARIO( "section::Type< 26 >" ) {
         ReactionProduct(
 
           // multiplicity
-          { 1000., .9992414, 1, { 2 }, { 4 },
+          { 1000, .9992414, 1, { 2 }, { 4 },
             { 10., 1e+11 },
             { 1., 1. } },
           // distribution
@@ -175,11 +175,11 @@ void verifyChunk( const section::Type< 26 >& chunk ) {
   auto products = chunk.reactionProducts();
   CHECK( 1 == products.size() );
 
-  CHECK_THAT( 1000., WithinRel( products[0].ZAP() ) );
+  CHECK( 1000 == products[0].ZAP() );
   CHECK_THAT( 0.9992414, WithinRel( products[0].AWI() ) );
   CHECK( 1 == products[0].LAW() );
 
-  CHECK_THAT( 1000., WithinRel( products[0].multiplicity().ZAP() ) );
+  CHECK( 1000 == products[0].multiplicity().ZAP() );
   CHECK_THAT( 0.9992414, WithinRel( products[0].multiplicity().AWI() ) );
   CHECK( 1 == products[0].multiplicity().LAW() );
 

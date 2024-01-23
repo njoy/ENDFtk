@@ -47,11 +47,11 @@ class Test_ENDFtk_MF26_Section( unittest.TestCase ) :
             products = chunk.reaction_products
             self.assertEqual( 1, len( products ) )
 
-            self.assertAlmostEqual( 1000., products[0].ZAP )
+            self.assertEqual( 1000, products[0].ZAP )
             self.assertAlmostEqual( 0.9992414, products[0].AWI )
             self.assertEqual( 1, products[0].LAW )
 
-            self.assertAlmostEqual( 1000., products[0].multiplicity.ZAP )
+            self.assertEqual( 1000, products[0].multiplicity.ZAP )
             self.assertAlmostEqual( 0.9992414, products[0].multiplicity.AWI )
             self.assertEqual( 1, products[0].multiplicity.LAW )
 
