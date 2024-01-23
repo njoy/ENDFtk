@@ -33,7 +33,7 @@ class Test_ENDFtk_MF34_Section( unittest.TestCase ) :
         def verify_chunk( self, chunk ) :
 
             # HEAD record
-            self.assertAlmostEqual( 94239.,  chunk.ZA )
+            self.assertEqual( 94239,  chunk.ZA )
             self.assertAlmostEqual( 2.369986e+2,  chunk.AWR )
             self.assertAlmostEqual( 2.369986e+2,  chunk.atomic_weight_ratio )
             self.assertEqual( 1, chunk.LTT )

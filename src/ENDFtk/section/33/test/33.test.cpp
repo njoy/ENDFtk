@@ -55,7 +55,7 @@ SCENARIO( "section::Type< 33 >" ) {
       auto sub = ReactionBlock( 1., 2., 3, 4, std::move( nc ), std::move( ni ) );
 
       // Section
-      auto chunk = section::Type< 33 >( 2, 94239., 2.369986e+2, {sub} );
+      auto chunk = section::Type< 33 >( 2, 94239, 2.369986e+2, {sub} );
 
       THEN( "a ReactionBlock can be constructed "
             "and members can be tested" ) {
@@ -133,7 +133,7 @@ SCENARIO( "section::Type< 33 >" ) {
     WHEN( "the data is given explicitly" ) {
 
       // Section
-      auto lump = section::Type< 33 >( 51, 94239., 2.369986e+2, 850 );
+      auto lump = section::Type< 33 >( 51, 94239, 2.369986e+2, 850 );
 
       THEN( "a ReactionBlock can be constructed "
             "and members can be tested" ) {

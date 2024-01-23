@@ -37,7 +37,7 @@ class Test_ENDFtk_MF26_Section( unittest.TestCase ) :
         def verify_chunk( self, chunk ) :
 
             # verify content
-            self.assertAlmostEqual( 1000., chunk.ZA )
+            self.assertEqual( 1000, chunk.ZA )
             self.assertAlmostEqual( 9.992414e-1, chunk.AWR )
             self.assertAlmostEqual( 9.992414e-1, chunk.atomic_weight_ratio )
             self.assertEqual( 1, chunk.NK )
@@ -123,7 +123,7 @@ class Test_ENDFtk_MF26_Section( unittest.TestCase ) :
         mt = 525
         products = [
           ReactionProduct(
-            Multiplicity( 1000., .9992414, 1, [ 2 ], [ 4 ],
+            Multiplicity( 1000, .9992414, 1, [ 2 ], [ 4 ],
                           [ 10., 1e+11 ],
                           [ 1., 1. ] ),
             ContinuumEnergyAngle(

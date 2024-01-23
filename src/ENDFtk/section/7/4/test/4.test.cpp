@@ -51,7 +51,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      double za = 127.;
+      int zaid = 127;
       double awr = 8.934780e+0;
       int lasym = 0;
       int lat = 1;
@@ -63,7 +63,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                       { 5.332083e+2, 7.354726e+2,
                                         1.270678e+3 } );
 
-      section::Type< 7, 4 > chunk( za, awr, lat, lasym,
+      section::Type< 7, 4 > chunk( zaid, awr, lat, lasym,
                                    std::move( constants ),
                                    std::move( law ),
                                    std::move( principal ) );
@@ -140,7 +140,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      double za = 127.;
+      int zaid = 127;
       double awr = 8.934780e+0;
       int lasym = 0;
       int lat = 1;
@@ -165,7 +165,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                       { 5.332083e+2, 7.354726e+2,
                                         1.270678e+3 } );
 
-      section::Type< 7, 4 > chunk( za, awr, lat, lasym,
+      section::Type< 7, 4 > chunk( zaid, awr, lat, lasym,
                                    std::move( constants ),
                                    std::move( law ),
                                    std::move( principal ) );
@@ -242,7 +242,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      double za = 127.;
+      int zaid = 127;
       double awr = 8.934780e+0;
       int lasym = 0;
       int lat = 1;
@@ -276,7 +276,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                       { 5.332083e+2, 7.354726e+2,
                                         1.270678e+3 } );
 
-      section::Type< 7, 4 > chunk( za, awr, lat, lasym,
+      section::Type< 7, 4 > chunk( zaid, awr, lat, lasym,
                                   std::move( constants ),
                                    std::move( law ),
                                    std::move( principal ) );
@@ -353,7 +353,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      double za = 127.;
+      int zaid = 127;
       double awr = 8.934780e+0;
       int lasym = 0;
       int lat = 1;
@@ -394,7 +394,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                       { 300.0, 1250. } );
 
       section::Type< 7, 4 >
-      chunk( za, awr, lat, lasym,
+      chunk( zaid, awr, lat, lasym,
              std::move( constants ),
              std::move( law ),
              std::move( principal ),
@@ -473,7 +473,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      double za = 127.;
+      int zaid = 127;
       double awr = 8.934780e+0;
       int lasym = 0;
       int lat = 1;
@@ -513,7 +513,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
               { std::nullopt };
 
       section::Type< 7, 4 >
-      chunk( za, awr, lat, lasym,
+      chunk( zaid, awr, lat, lasym,
              std::move( constants ),
              std::move( law ),
              std::move( principal ),
@@ -596,7 +596,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
         for ( auto lat : invalid ) {
 
-          double za = 127.;
+          int zaid = 127;
           double awr = 8.934780e+0;
           int lasym = 0;
           ScatteringLawConstants constants( 0, 1.976285e+2, 5.000001e+0,
@@ -621,10 +621,10 @@ SCENARIO( "section::Type< 7, 4 >" ) {
                                           { 5.332083e+2, 7.354726e+2,
                                             1.270678e+3 } );
 
-          CHECK_THROWS( section74( za, awr, lat, lasym,
-                                     std::move( constants ),
-                                     std::move( law ),
-                                     std::move( principal ) ) );
+          CHECK_THROWS( section74( zaid, awr, lat, lasym,
+                                   std::move( constants ),
+                                   std::move( law ),
+                                   std::move( principal ) ) );
         } // THEN
       } // THEN
     } // WHEN
@@ -632,7 +632,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
     WHEN( "no effective temperature is given for a secondary scatterer "
           "with B(7) == 0.0" ) {
 
-      double za = 127.;
+      int zaid = 127;
       double awr = 8.934780e+0;
       int lasym = 0;
       int lat = 1;
@@ -663,17 +663,17 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
       THEN( "an exception is thrown" ) {
 
-          CHECK_THROWS( section74( za, awr, lat, lasym,
-                                     std::move( constants ),
-                                     std::move( law ),
-                                     std::move( principal ) ) );
+          CHECK_THROWS( section74( zaid, awr, lat, lasym,
+                                   std::move( constants ),
+                                   std::move( law ),
+                                   std::move( principal ) ) );
       }
     }
 
     WHEN( "an effective temperature equal to std::nullopt is given for a "
           "secondary scatterer with B(7) == 0.0" ) {
 
-      double za = 127.;
+      int zaid = 127;
       double awr = 8.934780e+0;
       int lasym = 0;
       int lat = 1;
@@ -705,18 +705,18 @@ SCENARIO( "section::Type< 7, 4 >" ) {
 
       THEN( "an exception is thrown" ) {
 
-          CHECK_THROWS( section74( za, awr, lat, lasym,
-                                     std::move( constants ),
-                                     std::move( law ),
-                                     std::move( principal ),
-                                     { std::nullopt } ) );
+          CHECK_THROWS( section74( zaid, awr, lat, lasym,
+                                   std::move( constants ),
+                                   std::move( law ),
+                                   std::move( principal ),
+                                   { std::nullopt } ) );
       }
     }
 
     WHEN( "an effective temperature is given for a secondary scatterer "
           "with B(7) != 0.0" ) {
 
-      double za = 127.;
+      int zaid = 127;
       double awr = 8.934780e+0;
       int lasym = 0;
       int lat = 1;
@@ -749,7 +749,7 @@ SCENARIO( "section::Type< 7, 4 >" ) {
       THEN( "an exception is thrown" ) {
 
           CHECK_THROWS(
-              section74( za, awr, lat, lasym,
+              section74( zaid, awr, lat, lasym,
                          std::move( constants ),
                          std::move( law ),
                          std::move( principal ),

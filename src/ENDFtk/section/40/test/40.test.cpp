@@ -36,7 +36,7 @@ SCENARIO( "section::Type< 40 >" ) {
               { SquareMatrix( 0, { 0, 100, 200 }, { 1, 2, 3, 4 } ) } ) } );
 
       // Section
-      auto chunk = section::Type< 40 >( 51, 94239., 2.369986e+2, 1.0, {block} );
+      auto chunk = section::Type< 40 >( 51, 94239, 2.369986e+2, 1.0, {block} );
 
       THEN( "a ReactionBlock can be constructed "
             "and members can be tested" ) {

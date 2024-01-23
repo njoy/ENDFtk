@@ -30,7 +30,7 @@ SCENARIO( "section::Type< 5 >" ) {
     WHEN( "the data is given explicitly" ) {
 
       int mt = 18;
-      double za = 92235.;
+      int zaid = 92235;
       double awr = 2.330250e+2;
 
       std::vector< PartialDistribution > partials =
@@ -40,7 +40,7 @@ SCENARIO( "section::Type< 5 >" ) {
                                      { 3.25e+6, 1.5e+7, 2e+7 },
                                      { 1.2955e+6, 1.4923e+6, 1.49447e+6 } ) } };
 
-      section::Type< 5 > chunk( mt, za, awr, std::move( partials ) );
+      section::Type< 5 > chunk( mt, zaid, awr, std::move( partials ) );
 
       THEN( "a section::Type< 5 > can be constructed and members can be "
             "tested" ) {

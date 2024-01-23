@@ -42,7 +42,7 @@ SCENARIO( "section::Type< 8, 457 >" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      double zaid = 9.524200e+4;
+      double zaid = 95242;
       double awr = 2.399801e+2;
       int lis = 2;
       int liso = 1;
@@ -150,7 +150,7 @@ SCENARIO( "section::Type< 8, 457 >" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      double zaid = 9.524200e+4;
+      double zaid = 95242;
       double awr = 2.399801e+2;
       int lis = 2;
       int liso = 1;

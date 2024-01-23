@@ -30,7 +30,7 @@ SCENARIO( "section::Type< 35 >" ) {
       auto block = SquareMatrix( 0., 1.0e6, { 0, 100, 200 }, { 1, 2, 3 } );
 
       // Section
-      auto chunk = section::Type< 35 >( 18, 94239., 2.369986e+2, {block} );
+      auto chunk = section::Type< 35 >( 18, 94239, 2.369986e+2, {block} );
 
       THEN( "a Section can be constructed "
             "and members can be tested" ) {

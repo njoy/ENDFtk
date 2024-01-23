@@ -36,7 +36,7 @@ class Test_ENDFtk_MF5_Section( unittest.TestCase ) :
             self.assertEqual( 18, chunk.MT )
             self.assertEqual( 18, chunk.section_number )
 
-            self.assertAlmostEqual( 92235., chunk.ZA )
+            self.assertEqual( 92235, chunk.ZA )
             self.assertAlmostEqual( 2.330250e+2, chunk.AWR )
             self.assertAlmostEqual( 2.330250e+2, chunk.atomic_weight_ratio )
             self.assertEqual( 1, chunk.NK )
@@ -103,7 +103,7 @@ class Test_ENDFtk_MF5_Section( unittest.TestCase ) :
                               chunk.to_string( 9228, 5 ) )
 
         # the data is given explicitly
-        chunk = Section( mt = 18, zaid = 92235., awr = 2.330250e+2,
+        chunk = Section( mt = 18, zaid = 92235, awr = 2.330250e+2,
                          partials = [ PartialDistribution(
                                         Probability( 7, [ 2 ], [ 2 ],
                                                      [ 3.25e+6, 2e+7 ], [ 1., 1. ], -3e+7 ),

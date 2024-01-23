@@ -41,7 +41,7 @@ class Test_ENDFtk_MF12_Section( unittest.TestCase ) :
             self.assertEqual( 18, chunk.MT )
             self.assertEqual( 18, chunk.section_number )
 
-            self.assertAlmostEqual( 92235., chunk.ZA )
+            self.assertEqual( 92235, chunk.ZA )
             self.assertAlmostEqual( 2.330250e+2, chunk.AWR )
             self.assertAlmostEqual( 2.330250e+2, chunk.atomic_weight_ratio )
             self.assertEqual( 1, chunk.LO )
@@ -92,7 +92,7 @@ class Test_ENDFtk_MF12_Section( unittest.TestCase ) :
             self.assertEqual( 51, chunk.MT )
             self.assertEqual( 51, chunk.section_number )
 
-            self.assertAlmostEqual( 92235., chunk.ZA )
+            self.assertEqual( 92235, chunk.ZA )
             self.assertAlmostEqual( 2.330250e+2, chunk.AWR )
             self.assertAlmostEqual( 2.330250e+2, chunk.atomic_weight_ratio )
             self.assertEqual( 2, chunk.LO )
@@ -141,7 +141,7 @@ class Test_ENDFtk_MF12_Section( unittest.TestCase ) :
             self.assertEqual( 51, chunk.MT )
             self.assertEqual( 51, chunk.section_number )
 
-            self.assertAlmostEqual( 92235., chunk.ZA )
+            self.assertEqual( 92235, chunk.ZA )
             self.assertAlmostEqual( 2.330250e+2, chunk.AWR )
             self.assertAlmostEqual( 2.330250e+2, chunk.atomic_weight_ratio )
             self.assertEqual( 2, chunk.LO )
@@ -185,7 +185,7 @@ class Test_ENDFtk_MF12_Section( unittest.TestCase ) :
                               chunk.to_string( 9228, 12 ) )
 
         # the data is given explicitly
-        chunk = Section( mt = 18, zaid = 92235., awr = 2.330250e+2,
+        chunk = Section( mt = 18, zaid = 92235, awr = 2.330250e+2,
                          production =
                            Multiplicities(
                              PartialMultiplicity( 0.0, 0.0, 0, 1,
@@ -214,7 +214,7 @@ class Test_ENDFtk_MF12_Section( unittest.TestCase ) :
         verify_chunk_lo1( self, copy )
 
         # the data is given explicitly
-        chunk = Section( mt = 51, zaid = 92235., awr = 2.330250e+2,
+        chunk = Section( mt = 51, zaid = 92235, awr = 2.330250e+2,
                          production = TransitionProbabilities( 5.170900e+4,
                                                                [ 1.304000e+4, 7.700000e+1 ],
                                                                [ 2.709000e-1, 7.291000e-1 ] ) )
@@ -240,7 +240,7 @@ class Test_ENDFtk_MF12_Section( unittest.TestCase ) :
         verify_chunk_lo2lg1( self, copy )
 
         # the data is given explicitly
-        chunk = Section( mt = 51, zaid = 92235., awr = 2.330250e+2,
+        chunk = Section( mt = 51, zaid = 92235, awr = 2.330250e+2,
                          production = TransitionProbabilities( 5.170900e+4,
                                                                [ 1.304000e+4, 7.700000e+1 ],
                                                                [ 2.709000e-1, 7.291000e-1 ],

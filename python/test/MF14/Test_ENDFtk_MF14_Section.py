@@ -43,7 +43,7 @@ class Test_ENDFtk_MF14_Section( unittest.TestCase ) :
             self.assertEqual( 2, chunk.MT )
             self.assertEqual( 2, chunk.section_number )
 
-            self.assertAlmostEqual( 92235., chunk.ZA )
+            self.assertEqual( 92235, chunk.ZA )
             self.assertAlmostEqual( 2.330248e+2, chunk.AWR )
             self.assertAlmostEqual( 2.330248e+2, chunk.atomic_weight_ratio )
 
@@ -71,7 +71,7 @@ class Test_ENDFtk_MF14_Section( unittest.TestCase ) :
             self.assertEqual( 2, chunk.MT )
             self.assertEqual( 2, chunk.section_number )
 
-            self.assertAlmostEqual( 92235., chunk.ZA )
+            self.assertEqual( 92235, chunk.ZA )
             self.assertAlmostEqual( 2.330248e+2, chunk.AWR )
             self.assertAlmostEqual( 2.330248e+2, chunk.atomic_weight_ratio )
 
@@ -153,7 +153,7 @@ class Test_ENDFtk_MF14_Section( unittest.TestCase ) :
                               chunk.to_string( 9228, 14 ) )
 
         # the data is given explicitly for LTT=0
-        chunk = Section( mt = 2, zaid = 92235., awr = 2.330248e+2, nk = 2 )
+        chunk = Section( mt = 2, zaid = 92235, awr = 2.330248e+2, nk = 2 )
 
         verify_chunk_LTT0( self, chunk )
 
@@ -183,7 +183,7 @@ class Test_ENDFtk_MF14_Section( unittest.TestCase ) :
                             distributions = [ LegendreCoefficients( 4.812998e+6, [ 0., 0.04076 ] ),
                                               LegendreCoefficients( 15e+7, [ 0., 0. ] ) ] ) ]
 
-        chunk = Section( mt = 2, zaid = 92235., awr = 2.330248e+2,
+        chunk = Section( mt = 2, zaid = 92235, awr = 2.330248e+2,
                          photons = distributions )
 
         verify_chunk_LTT1( self, chunk )
@@ -195,7 +195,7 @@ class Test_ENDFtk_MF14_Section( unittest.TestCase ) :
                             distributions = [ LegendreCoefficients( 4.812998e+6, [ 0., 0.04076 ] ),
                                               LegendreCoefficients( 15e+7, [ 0., 0. ] ) ] ) ]
 
-        chunk = Section( mt = 2, zaid = 92235., awr = 2.330248e+2,
+        chunk = Section( mt = 2, zaid = 92235, awr = 2.330248e+2,
                          isotropic = [ [ 1.5e+6, 2.0e+6 ] ],
                          anisotropic = distributions )
 
@@ -208,7 +208,7 @@ class Test_ENDFtk_MF14_Section( unittest.TestCase ) :
                             distributions = [ LegendreCoefficients( 4.812998e+6, [ 0., 0.04076 ] ),
                                               LegendreCoefficients( 15e+7, [ 0., 0. ] ) ] ) ]
 
-        chunk = Section( mt = 2, zaid = 92235., awr = 2.330248e+2,
+        chunk = Section( mt = 2, zaid = 92235, awr = 2.330248e+2,
                          energies = [ 1.5e+6 ], levels = [ 2.0e+6 ],
                          anisotropic = distributions )
 

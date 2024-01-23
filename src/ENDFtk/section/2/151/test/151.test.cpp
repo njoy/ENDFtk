@@ -41,7 +41,7 @@ SCENARIO( "section::Type< 2, 151 >" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      double zaid = 1001.0;
+      int zaid = 1001;
       double awr = 0.9991673;
       double el = 1e-5;
       double eh = 1e+5;

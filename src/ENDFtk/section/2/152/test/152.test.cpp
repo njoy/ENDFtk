@@ -27,7 +27,7 @@ SCENARIO( "section::Type< 2, 152 >" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      double za = 94239.;
+      int zaid = 94239;
       double awr = 2.369986e+2;
       bool lssf = true;
       int interpolation = 2;
@@ -53,12 +53,12 @@ SCENARIO( "section::Type< 2, 152 >" ) {
       std::vector< std::vector< double > > dilCwTotal =
           { { 2.009120e+1 }, { 1.923568e+1 }, { 1.366039e+1 } };
 
-      section::Type< 2, 152 > chunk1( za, awr, lssf, interpolation, temperature,
+      section::Type< 2, 152 > chunk1( zaid, awr, lssf, interpolation, temperature,
                                       std::move( energies1 ), std::move( total ),
                                       std::move( elastic ), std::move( fission ),
                                       std::move( capture ), std::move( cwTotal ) );
 
-      section::Type< 2, 152 > chunk2( za, awr, lssf, interpolation, temperature,
+      section::Type< 2, 152 > chunk2( zaid, awr, lssf, interpolation, temperature,
                                       std::move( dilutions ),
                                       std::move( energies2 ), std::move( dilTotal ),
                                       std::move( dilElastic ), std::move( dilFission ),
@@ -152,7 +152,7 @@ SCENARIO( "section::Type< 2, 152 >" ) {
 
     WHEN( "data with the wrong size is used" ) {
 
-      double za = 94239.;
+      int zaid = 94239;
       double awr = 2.369986e+2;
       bool lssf = true;
       int interpolation = 2;
@@ -174,7 +174,7 @@ SCENARIO( "section::Type< 2, 152 >" ) {
       THEN( "an exception is thrown" ) {
 
         CHECK_THROWS( section2152(
-                            za, awr, lssf, interpolation, temperature,
+                            zaid, awr, lssf, interpolation, temperature,
                             std::move( dilutions ),
                             std::move( wrong ), std::move( dilTotal ),
                             std::move( dilElastic ), std::move( dilFission ),
@@ -184,7 +184,7 @@ SCENARIO( "section::Type< 2, 152 >" ) {
 
     WHEN( "data with the wrong size is used in the no dilution constructor" ) {
 
-      double za = 94239.;
+      int zaid = 94239;
       double awr = 2.369986e+2;
       bool lssf = true;
       int interpolation = 2;
@@ -200,7 +200,7 @@ SCENARIO( "section::Type< 2, 152 >" ) {
       THEN( "an exception is thrown" ) {
 
         CHECK_THROWS( section2152(
-                            za, awr, lssf, interpolation, temperature,
+                            zaid, awr, lssf, interpolation, temperature,
                             std::move( wrong ), std::move( total ),
                             std::move( elastic ), std::move( fission ),
                             std::move( capture ), std::move( cwTotal ) ) );

@@ -36,7 +36,7 @@ SCENARIO( "section::Type< 34 >" ) {
       auto sub = ReactionBlock( 2, 51, 1, 1, {subsub} );
 
       // Section
-      auto chunk = section::Type< 34 >( 2, 94239., 2.369986e+2, 1, {sub} );
+      auto chunk = section::Type< 34 >( 2, 94239, 2.369986e+2, 1, {sub} );
 
       THEN( "a ReactionBlock can be constructed "
             "and members can be tested" ) {

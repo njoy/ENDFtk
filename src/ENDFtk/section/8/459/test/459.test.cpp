@@ -31,7 +31,7 @@ SCENARIO( "section::Type< 8, 459 >" ) {
 
     WHEN( "the data is given explicitly as arrays" ) {
 
-      double zaid = 92235.;
+      double zaid = 92235;
       double awr = 233.0250;
 
       std::vector< unsigned int > identifiers = { 23066, 54135, 72171 };
@@ -161,7 +161,7 @@ SCENARIO( "section::Type< 8, 459 >" ) {
 
     WHEN( "the data is given explicitly using arrays" ) {
 
-      double zaid = 92235.;
+      double zaid = 92235;
       double awr = 233.0250;
 
       std::vector< unsigned int > identifiers = { 23066, 54135, 72171 };
@@ -263,7 +263,7 @@ SCENARIO( "section::Type< 8, 459 >" ) {
     WHEN( "the number of identifiers, isomeric states and yield sets are "
           "inconsistent" ) {
 
-      double zaid = 92235.;
+      double zaid = 92235;
       double awr = 233.0250;
 
       std::vector< unsigned int > wrong = { 23066, 54135 };
@@ -293,7 +293,7 @@ SCENARIO( "section::Type< 8, 459 >" ) {
     WHEN( "the number of identifiers, isomeric states and yield sets are "
           "inconsistent" ) {
 
-      double zaid = 92235.;
+      double zaid = 92235;
       double awr = 233.0250;
 
       std::vector< unsigned int > identifiers = { 23066, 54135, 72171 };
