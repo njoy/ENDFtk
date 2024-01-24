@@ -42,7 +42,7 @@ void wrapSection_2_152( python::module& module, python::module& ) {
   section
   .def(
 
-    python::init< double, double, bool, int, double,
+    python::init< int, double, bool, int, double,
                   std::vector< double >&&, std::vector< double >&&,
                   std::vector< std::vector< double > >&&,
                   std::vector< std::vector< double > >&&,

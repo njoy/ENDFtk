@@ -16,7 +16,7 @@ Type() = default;
  *  @param[in] lct           the reference frame
  *  @param[in] products      the reaction products (at least 1)
  */
-Type( int MT, double zaid, double awr, long jp, long lct,
+Type( int MT, int zaid, double awr, long jp, long lct,
       std::vector< ReactionProduct >&& products ) :
   Base( zaid, awr, MT ), jp_( jp ), lct_( lct ),
   products_( std::move( products ) ) {}

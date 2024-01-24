@@ -13,7 +13,7 @@ Type() = default;
  *  @param[in] awr    the atomic weight ratio
  *  @param[in] law    the thermal scattering law
  */
-Type( double zaid, double awr, ScatteringLaw&& law ) :
+Type( int zaid, double awr, ScatteringLaw&& law ) :
   BaseWithoutMT( zaid, awr ), law_( std::move( law ) ) {}
 
 /**

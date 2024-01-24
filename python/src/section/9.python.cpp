@@ -44,7 +44,7 @@ void wrapSection_9( python::module& module, python::module& viewmodule ) {
   section
   .def(
 
-    python::init< int, double, double, long,
+    python::init< int, int, double, long,
                   std::vector< ReactionProduct >&& >(),
     python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
     python::arg( "lis" ), python::arg( "products" ),

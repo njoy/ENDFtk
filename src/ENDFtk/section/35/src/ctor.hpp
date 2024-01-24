@@ -6,7 +6,7 @@
  *  @param[in] awr           the atomic weight ratio
  *  @param[in] blocks        the energy block subsections
  */
-Type( int MT, double zaid, double awr,
+Type( int MT, int zaid, double awr,
       std::vector< SquareMatrix >&& blocks ) :
   Base( zaid, awr, MT ),
   energyBlocks_( std::move( blocks ) ) {}

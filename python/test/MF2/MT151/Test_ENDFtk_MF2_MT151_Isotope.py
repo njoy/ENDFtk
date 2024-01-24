@@ -42,6 +42,7 @@ class Test_ENDFtk_MF2_MT151_Isotope( unittest.TestCase ) :
 
             # verify content
             self.assertEqual( 26054, chunk.ZAI )
+            self.assertEqual( 26054, chunk.isotope_identifier )
             self.assertAlmostEqual( 1., chunk.ABN )
             self.assertAlmostEqual( 1., chunk.abundance )
             self.assertEqual( 1, chunk.NER )

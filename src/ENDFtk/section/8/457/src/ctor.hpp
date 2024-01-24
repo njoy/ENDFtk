@@ -16,7 +16,7 @@ Type() = default;
  *  @param[in] spin       the nuclide spin
  *  @param[in] parity     the nuclide parity
  */
-Type( double zaid, double awr, int lis, int liso, double spin, double parity ) :
+Type( int zaid, double awr, int lis, int liso, double spin, double parity ) :
   BaseWithoutMT( zaid, awr ),
   lis_( lis ), liso_( liso ), nst_( true ),
   energies_(), modes_(spin, parity), spectra_() {}
@@ -32,7 +32,7 @@ Type( double zaid, double awr, int lis, int liso, double spin, double parity ) :
  *  @param[in] modes      the decay modes
  *  @param[in] spectra    the decay spectra
  */
-Type( double zaid, double awr, int lis, int liso,
+Type( int zaid, double awr, int lis, int liso,
       AverageDecayEnergies&& energies,
       DecayModes&& modes,
       std::vector< DecaySpectrum >&& spectra ) :

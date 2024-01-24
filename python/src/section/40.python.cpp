@@ -44,7 +44,7 @@ void wrapSection_40( python::module& module, python::module& viewmodule ) {
   section
   .def(
 
-    python::init< int, double, double, int, std::vector< LevelBlock >&& >(),
+    python::init< int, int, double, int, std::vector< LevelBlock >&& >(),
     python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
     python::arg( "lis" ), python::arg( "blocks" ),
     "Initialise the section\n\n"

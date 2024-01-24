@@ -52,7 +52,7 @@ void wrapSection_4( python::module& module, python::module& viewmodule ) {
   section
   .def(
 
-    python::init< int, double, double, int, Distributions&& >(),
+    python::init< int, int, double, int, Distributions&& >(),
     python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
     python::arg( "lct" ), python::arg( "distributions" ),
     "Initialise the section\n\n"

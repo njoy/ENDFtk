@@ -20,7 +20,7 @@ Type() = default;
  *  @param[in] energies       the energy values
  *  @param[in] xs             the cross section values
  */
-Type( int mt, double zaid, double awr, double qm, double qi, long lr,
+Type( int mt, int zaid, double awr, double qm, double qi, long lr,
       std::vector< long >&& boundaries, std::vector< long >&& interpolants,
       std::vector< double >&& energies, std::vector< double >&& xs ) :
   Base( zaid, awr, mt ),
@@ -41,7 +41,7 @@ Type( int mt, double zaid, double awr, double qm, double qi, long lr,
  *  @param[in] interpolant    the interpolation type (default 2 - linlin)
  *  @param[in] lr             the complex breakup flag (default 0)
  */
-Type( int mt, double zaid, double awr, double qm, double qi,
+Type( int mt, int zaid, double awr, double qm, double qi,
       std::vector< double >&& energies, std::vector< double >&& xs,
       long interpolant = 2, long lr = 0 ) :
   Type( mt, zaid, awr, qm, qi, lr,

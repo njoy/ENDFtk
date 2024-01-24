@@ -97,7 +97,7 @@ class Test_ENDFtk_MF2_MT152_Section( unittest.TestCase ) :
                               chunk.to_string( 9437, 2 ) )
 
         # the data is given explicitly - infinite dilution only
-        chunk = Section(  zaid = 94239., awr = 2.369986e+2, lssf = True,
+        chunk = Section(  zaid = 94239, awr = 2.369986e+2, lssf = True,
                           interpolation = 2, temperature = 0.,
                           energies = [ 2500., 2550., 30000. ],
                           total = [ 2.009120e+1, 1.923568e+1, 1.366039e+1 ],
@@ -109,7 +109,7 @@ class Test_ENDFtk_MF2_MT152_Section( unittest.TestCase ) :
         verify_chunk( self, chunk )
 
         # the data is given explicitly - infinite dilution only
-        chunk = Section(  zaid = 94239., awr = 2.369986e+2, lssf = True,
+        chunk = Section(  zaid = 94239, awr = 2.369986e+2, lssf = True,
                           interpolation = 2, temperature = 0.,
                           dilutions = [ 1e+10 ], energies = [ 2500., 2550., 30000. ],
                           total = [ [ 2.009120e+1 ], [ 1.923568e+1 ], [ 1.366039e+1 ] ],
