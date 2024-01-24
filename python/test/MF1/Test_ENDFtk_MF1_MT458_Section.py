@@ -70,8 +70,8 @@ class Test_ENDFtk_MF1_MT458_Section( unittest.TestCase ) :
             self.assertEqual( 458, chunk.section_number )
             self.assertEqual( 92235, chunk.ZA )
             self.assertEqual( 92235, chunk.target_identifier )
-            self.assertEqual( 233.0248, chunk.AWR )
-            self.assertEqual( 233.0248, chunk.atomic_weight_ratio )
+            self.assertAlmostEqual( 233.0248, chunk.AWR )
+            self.assertAlmostEqual( 233.0248, chunk.atomic_weight_ratio )
 
             self.assertEqual( False, chunk.LFC )
             self.assertEqual( False, chunk.tabulated_energy_release )
