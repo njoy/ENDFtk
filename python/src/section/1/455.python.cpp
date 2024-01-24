@@ -56,7 +56,7 @@ void wrapSection_1_455( python::module& module, python::module& viewmodule ) {
   .def(
 
     //! @todo pybind11 lambda move custom type workaround
-    python::init( [] ( double zaid, double awr, DecayConstantData constants,
+    python::init( [] ( int zaid, double awr, DecayConstantData constants,
                        Multiplicity multiplicity )
                      { return Section( zaid, awr,
                                        std::move( constants ),

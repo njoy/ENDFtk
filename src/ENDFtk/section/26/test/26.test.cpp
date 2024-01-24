@@ -43,7 +43,7 @@ SCENARIO( "section::Type< 26 >" ) {
         ReactionProduct(
 
           // multiplicity
-          { 1000., .9992414, 1, { 2 }, { 4 },
+          { 1000, .9992414, 1, { 2 }, { 4 },
             { 10., 1e+11 },
             { 1., 1. } },
           // distribution
@@ -166,20 +166,28 @@ std::string chunk() {
 
 void verifyChunk( const section::Type< 26 >& chunk ) {
 
+  CHECK( 525 == chunk.MT() );
+  CHECK( 525 == chunk.sectionNumber() );
+
   CHECK( 1000 == chunk.ZA() );
+  CHECK( 1000 == chunk.targetIdentifier() );
   CHECK_THAT( 0.9992414, WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 0.9992414, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 1 == chunk.NK() );
   CHECK( 1 == chunk.numberReactionProducts() );
   CHECK( 525 == chunk.MT() );
 
+  CHECK( true == chunk.hasReactionProduct( 1000 ) );
+  CHECK( false == chunk.hasReactionProduct( 11 ) );
+
   auto products = chunk.reactionProducts();
   CHECK( 1 == products.size() );
 
-  CHECK_THAT( 1000., WithinRel( products[0].ZAP() ) );
+  CHECK( 1000 == products[0].ZAP() );
   CHECK_THAT( 0.9992414, WithinRel( products[0].AWI() ) );
   CHECK( 1 == products[0].LAW() );
 
-  CHECK_THAT( 1000., WithinRel( products[0].multiplicity().ZAP() ) );
+  CHECK( 1000 == products[0].multiplicity().ZAP() );
   CHECK_THAT( 0.9992414, WithinRel( products[0].multiplicity().AWI() ) );
   CHECK( 1 == products[0].multiplicity().LAW() );
 
@@ -238,6 +246,10 @@ void verifyChunk( const section::Type< 26 >& chunk ) {
   CHECK( 2 == energies[1].totalEmissionProbabilities().size() );
   CHECK_THAT( 1.84823, WithinRel( energies[1].totalEmissionProbabilities()[0] ) );
   CHECK_THAT( 8.76641e-3, WithinRel( energies[1].totalEmissionProbabilities()[1] ) );
+
+  auto product = chunk.reactionProduct( 1000 );
+  CHECK( 1000 == product.ZAP() );
+  CHECK( 1000 == product.productIdentifier() );
 
   CHECK( 10 == chunk.NC() );
 }

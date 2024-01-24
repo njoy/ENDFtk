@@ -44,7 +44,7 @@ SCENARIO( "ReactionProduct" ) {
     WHEN( "the data is given explicitly" ) {
 
       Multiplicity multiplicity(
-        1000., .9992414, 1, { 2 }, { 4 },
+        1000, .9992414, 1, { 2 }, { 4 },
         { 10., 1e+11 },
         { 1., 1. } );
       Distribution distribution =
@@ -106,7 +106,7 @@ SCENARIO( "ReactionProduct" ) {
     WHEN( "the data is given explicitly" ) {
 
       Multiplicity multiplicity(
-        1000., .9992414, 2, { 2 }, { 4 },
+        1000, .9992414, 2, { 2 }, { 4 },
         { 10., 1e+11 },
         { 1., 1. } );
       Distribution distribution =
@@ -161,7 +161,7 @@ SCENARIO( "ReactionProduct" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      Multiplicity multiplicity( 11., 5.438673E-4, 8, { 2 }, { 2 },
+      Multiplicity multiplicity( 11, 5.438673E-4, 8, { 2 }, { 2 },
                                  { 10., 1.e+11 }, { 1., 1. } );
       Distribution distribution = EnergyTransfer( { 2 }, { 2 },
                                                   { 10., 1.e+11 },
@@ -210,7 +210,7 @@ SCENARIO( "ReactionProduct" ) {
   GIVEN( "an inconsistent LAW between the Multiplicity and the Distribution" ) {
 
     Multiplicity multiplicity(
-      1000., .9992414, 2, { 2 }, { 4 },
+      1000, .9992414, 2, { 2 }, { 4 },
       { 10., 1e+11 },
       { 1., 1. } );
     Distribution distribution =
@@ -432,11 +432,11 @@ std::string chunkWithLAW8() {
 
 void verifyChunkWithLAW8( const ReactionProduct& chunk ) {
 
-  CHECK_THAT( 11, WithinRel( chunk.ZAP() ) );
+  CHECK( 11 == chunk.ZAP() );
   CHECK_THAT( 5.438673e-4, WithinRel( chunk.AWI() ) );
   CHECK( 8 == chunk.LAW() );
 
-  CHECK_THAT( 11, WithinRel( chunk.multiplicity().ZAP() ) );
+  CHECK( 11 == chunk.multiplicity().ZAP() );
   CHECK_THAT( 5.438673e-4, WithinRel( chunk.multiplicity().AWI() ) );
 
   CHECK( 8 == chunk.multiplicity().LAW() );

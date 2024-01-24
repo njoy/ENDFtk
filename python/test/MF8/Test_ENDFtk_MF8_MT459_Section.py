@@ -39,7 +39,8 @@ class Test_ENDFtk_MF8_MT457_Section( unittest.TestCase ) :
             self.assertEqual( 459, chunk.MT )
             self.assertEqual( 459, chunk.section_number )
 
-            self.assertAlmostEqual( 92235., chunk.ZA )
+            self.assertEqual( 92235, chunk.ZA )
+            self.assertEqual( 92235, chunk.target_identifier )
             self.assertAlmostEqual( 233.0250, chunk.AWR )
             self.assertAlmostEqual( 233.0250, chunk.atomic_weight_ratio )
 
@@ -162,7 +163,7 @@ class Test_ENDFtk_MF8_MT457_Section( unittest.TestCase ) :
             self.assertEqual( 459, chunk.MT )
             self.assertEqual( 459, chunk.section_number )
 
-            self.assertAlmostEqual( 92235., chunk.ZA )
+            self.assertEqual( 92235, chunk.ZA )
             self.assertAlmostEqual( 233.0250, chunk.AWR )
             self.assertAlmostEqual( 233.0250, chunk.atomic_weight_ratio )
 
@@ -230,7 +231,7 @@ class Test_ENDFtk_MF8_MT457_Section( unittest.TestCase ) :
                               chunk.to_string( 9228, 8 ) )
 
         # the data is given explicitly
-        chunk = Section( zaid = 92235., awr = 233.0250,
+        chunk = Section( zaid = 92235, awr = 233.0250,
                          identifiers = [ 23066, 54135, 72171 ],
                          states = [ 0, 0, 0 ],
                          energies = [ 0.0253, 500e+3 ],
@@ -260,7 +261,7 @@ class Test_ENDFtk_MF8_MT457_Section( unittest.TestCase ) :
         verify_chunk( self, copy )
 
         # the data is given explicitly as a FissionYieldData array
-        chunk = Section( zaid = 92235., awr = 233.0250,
+        chunk = Section( zaid = 92235, awr = 233.0250,
                          yields = [ FissionYieldData( [ 23066, 54135, 72171 ], [ 0, 0, 0 ],
                                                       [ [ 2.05032e-19, 1.31220e-19 ],
                                                         [ 7.851250e-4, 4.710750e-5 ],
@@ -293,7 +294,7 @@ class Test_ENDFtk_MF8_MT457_Section( unittest.TestCase ) :
         verify_chunk( self, copy )
 
         # the data is given explicitly for energy independent yields
-        chunk = Section( zaid = 92235., awr = 233.0250,
+        chunk = Section( zaid = 92235, awr = 233.0250,
                          identifiers = [ 23066, 54135, 72171 ],
                          states = [ 0, 0, 0 ],
                          yields = [ [ 2.05032e-19, 1.31220e-19 ],
@@ -332,7 +333,7 @@ class Test_ENDFtk_MF8_MT457_Section( unittest.TestCase ) :
         # inconsistent sizes between identifiers, states and yields
         with self.assertRaises( Exception ) :
 
-            chunk = Section( zaid = 92235., awr = 233.0250,
+            chunk = Section( zaid = 92235, awr = 233.0250,
                              identifiers = [ 23066, 54135 ], # one less identifier
                              states = [ 0, 0, 0 ],
                              energies = [ 0.0253, 500e+3 ],
@@ -344,7 +345,7 @@ class Test_ENDFtk_MF8_MT457_Section( unittest.TestCase ) :
         # inconsistent yield sets
         with self.assertRaises( Exception ) :
 
-            chunk = Section( zaid = 92235., awr = 233.0250,
+            chunk = Section( zaid = 92235, awr = 233.0250,
                              identifiers = [ 23066, 54135, 72171 ],
                              states = [ 0, 0, 0 ],
                              energies = [ 0.0253, 500e+3 ],

@@ -36,11 +36,11 @@ SCENARIO( "section::Type< 14 >" ) {
     WHEN( "the data is given explicitly" ) {
 
       int mt = 2;
-      double za = 92235.;
+      int zaid = 92235;
       double awr = 2.330248e+2;
       unsigned int nk = 2;
 
-      section::Type< 14 > chunk( mt, za, awr, nk );
+      section::Type< 14 > chunk( mt, zaid, awr, nk );
 
       THEN( "a section::Type< 14 > can be constructed and members can be "
             "tested" ) {
@@ -113,7 +113,7 @@ SCENARIO( "section::Type< 14 >" ) {
     WHEN( "the data is given explicitly using PhotonDistribution" ) {
 
       int mt = 2;
-      double za = 92235.;
+      int zaid = 92235;
       double awr = 2.330248e+2;
 
       std::vector< PhotonDistribution > photons =
@@ -123,7 +123,7 @@ SCENARIO( "section::Type< 14 >" ) {
                                  { { 4.812998e+6, { 0., 0.04076 } },
                                    { 15e+7, { 0., 0. } } } ) };
 
-      section::Type< 14 > chunk( mt, za, awr, std::move( photons ) );
+      section::Type< 14 > chunk( mt, zaid, awr, std::move( photons ) );
 
       THEN( "a section::Type< 14 > can be constructed and members can be "
             "tested" ) {
@@ -145,7 +145,7 @@ SCENARIO( "section::Type< 14 >" ) {
           "and pairs of energy values" ) {
 
       int mt = 2;
-      double za = 92235.;
+      int zaid = 92235;
       double awr = 2.330248e+2;
 
       std::vector< std::array< double, 2 > > isotropic = { {{ 1.5e+6, 2e+6 }} };
@@ -156,7 +156,7 @@ SCENARIO( "section::Type< 14 >" ) {
                                  { { 4.812998e+6, { 0., 0.04076 } },
                                    { 15e+7, { 0., 0. } } } ) };
 
-      section::Type< 14 > chunk( mt, za, awr,
+      section::Type< 14 > chunk( mt, zaid, awr,
                                  std::move( isotropic ),
                                  std::move( anisotropic ) );
 
@@ -180,7 +180,7 @@ SCENARIO( "section::Type< 14 >" ) {
           "and vectors of energies and levels" ) {
 
       int mt = 2;
-      double za = 92235.;
+      int zaid = 92235;
       double awr = 2.330248e+2;
 
       std::vector< double > energies = { 1.5e+6 };
@@ -192,7 +192,7 @@ SCENARIO( "section::Type< 14 >" ) {
                                  { { 4.812998e+6, { 0., 0.04076 } },
                                    { 15e+7, { 0., 0. } } } ) };
 
-      section::Type< 14 > chunk( mt, za, awr,
+      section::Type< 14 > chunk( mt, zaid, awr,
                                  std::move( energies ),
                                  std::move( levels ),
                                  std::move( anisotropic ) );
@@ -308,6 +308,7 @@ void verifyChunkWithLTT0( const section::Type< 14 >& chunk ) {
   CHECK( 2 == chunk.sectionNumber() );
 
   CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
   CHECK_THAT( 2.330248e+2, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 2.330248e+2, WithinRel( chunk.atomicWeightRatio() ) );
 
@@ -344,6 +345,7 @@ void verifyChunkWithLTT1( const section::Type< 14 >& chunk ) {
   CHECK( 2 == chunk.sectionNumber() );
 
   CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
   CHECK_THAT( 2.330248e+2, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 2.330248e+2, WithinRel( chunk.atomicWeightRatio() ) );
 

@@ -28,7 +28,9 @@ class Test_ENDFtk_MF23_Section( unittest.TestCase ) :
 
             # verify content
             self.assertEqual( 525, chunk.MT )
+            self.assertEqual( 525, chunk.section_number )
             self.assertEqual( 1000, chunk.ZA )
+            self.assertEqual( 1000, chunk.target_identifier )
             self.assertAlmostEqual( 0.9992414, chunk.AWR )
             self.assertAlmostEqual( 0.9992414, chunk.atomic_weight_ratio )
             self.assertAlmostEqual( 1., chunk.EPE )

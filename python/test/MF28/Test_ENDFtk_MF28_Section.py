@@ -33,7 +33,9 @@ class Test_ENDFtk_MF28_Section( unittest.TestCase ) :
 
             # verify content
             self.assertEqual( 533, chunk.MT )
+            self.assertEqual( 533, chunk.section_number )
             self.assertEqual( 1000, chunk.ZA )
+            self.assertEqual( 1000, chunk.target_identifier )
             self.assertEqual( 0.9992414, chunk.AWR )
             self.assertEqual( 0.9992414, chunk.atomic_weight_ratio )
 

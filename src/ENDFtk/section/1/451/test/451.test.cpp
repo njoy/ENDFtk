@@ -205,7 +205,9 @@ std::string chunk() {
 void verifyChunk( const section::Type< 1, 451 >& chunk ) {
 
   CHECK( 451 == chunk.MT() );
+  CHECK( 451 == chunk.sectionNumber() );
   CHECK( 1001 == chunk.ZA() );
+  CHECK( 1001 == chunk.targetIdentifier() );
   CHECK_THAT( 0.9991673, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 0.9991673, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 1 == chunk.LRP() );

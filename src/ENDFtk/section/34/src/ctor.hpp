@@ -7,7 +7,7 @@
  *  @param[in] ltt           the covariance representation
  *  @param[in] reactions     the reaction block subsections
  */
-Type( int MT, double zaid, double awr, int ltt,
+Type( int MT, int zaid, double awr, int ltt,
       std::vector< ReactionBlock >&& reactions ) :
   Base( zaid, awr, MT ), ltt_( ltt ),
   reactions_( std::move( reactions ) ) {}

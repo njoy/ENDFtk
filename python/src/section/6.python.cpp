@@ -164,7 +164,7 @@ void wrapSection_6( python::module& module, python::module& viewmodule ) {
   section
   .def(
 
-    python::init< int, double, double, int, int,
+    python::init< int, int, double, int, int,
                   std::vector< ReactionProduct >&& >(),
     python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
     python::arg( "jp" ), python::arg( "lct" ), python::arg( "products" ),
@@ -213,6 +213,26 @@ void wrapSection_6( python::module& module, python::module& viewmodule ) {
     "number_reaction_products",
     &Section::numberReactionProducts,
     "The number of reaction products"
+  )
+  .def(
+
+    "has_reaction_product",
+    &Section::hasReactionProduct,
+    python::arg( "zap" ),
+    "Return whether or not the reaction product is present\n\n"
+    "Arguments:\n"
+    "    self   the section\n"
+    "    zap    the reaction product to retrieve"
+  )
+  .def(
+
+    "reaction_product",
+    &Section::reactionProduct,
+    python::arg( "zap" ),
+    "Return the requested reaction product\n\n"
+    "Arguments:\n"
+    "    self   the section\n"
+    "    zap    the reaction product to retrieve"
   )
   .def_property_readonly(
 

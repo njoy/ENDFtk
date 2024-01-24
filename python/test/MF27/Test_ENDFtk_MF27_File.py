@@ -109,22 +109,22 @@ class Test_ENDFtk_MF27_File( unittest.TestCase ) :
             self.assertEqual( self.chunk + self.valid_FEND,
                               chunk.to_string( 100 ) )
 
-        sorted = [ Section( 1, 1000., 0.9991673,
+        sorted = [ Section( 1, 1000, 0.9991673,
                             [ 2 ], [ 5 ],
                             [ 1e-5, 2e+7 ], [ 1., 2. ] ),
-                   Section( 2, 1000., 0.9991673,
+                   Section( 2, 1000, 0.9991673,
                             [ 2 ], [ 2 ],
                             [ 1e-5, 2e+7 ], [ 3., 4. ] ),
-                   Section( 102, 1000., 0.9991673,
+                   Section( 102, 1000, 0.9991673,
                             [ 2 ], [ 5 ],
                             [ 1e-5, 2e+7 ], [ 5., 6. ] ) ]
-        unsorted = [ Section( 102, 1000., 0.9991673,
+        unsorted = [ Section( 102, 1000, 0.9991673,
                               [ 2 ], [ 5 ],
                               [ 1e-5, 2e+7 ], [ 5., 6. ] ),
-                     Section( 2, 1000., 0.9991673,
+                     Section( 2, 1000, 0.9991673,
                               [ 2 ], [ 2 ],
                               [ 1e-5, 2e+7 ], [ 3., 4. ] ),
-                     Section( 1, 1000., 0.9991673,
+                     Section( 1, 1000, 0.9991673,
                               [ 2 ], [ 5 ],
                               [ 1e-5, 2e+7 ], [ 1., 2. ] ) ]
 

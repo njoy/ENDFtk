@@ -25,7 +25,7 @@ SCENARIO( "Multiplicity" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      double zap = 11.;
+      int zap = 11;
       double awi = 5.438673E-4;
       long law = 2;
       std::vector< long > boundaries = { 2 };
@@ -84,7 +84,7 @@ SCENARIO( "Multiplicity" ) {
 
       // no need to test every possibility (TAB1 takes care of tests)
 
-      double zap = 11.;
+      int zap = 11;
       double awi = 5.438673E-4;
       long law = 2;
       std::vector< long > wrongBoundaries = { 4, 2 };
@@ -129,8 +129,8 @@ std::string chunk() {
 
 void verifyChunk( const Multiplicity& chunk ) {
 
-  CHECK_THAT( 11., WithinRel( chunk.ZAP() ) );
-  CHECK_THAT( 11., WithinRel( chunk.productIdentifier() ) );
+  CHECK( 11 == chunk.ZAP() );
+  CHECK( 11 == chunk.productIdentifier() );
   CHECK_THAT( 5.438673e-4, WithinRel( chunk.AWI() ) );
   CHECK_THAT( 5.438673e-4, WithinRel( chunk.projectileWeightRatio() ) );
   CHECK( 2 == chunk.LAW() );

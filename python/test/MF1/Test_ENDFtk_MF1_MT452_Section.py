@@ -40,9 +40,10 @@ class Test_ENDFtk_MF1_MT452_Section( unittest.TestCase ) :
             # verify content
             self.assertEqual( 452, chunk.MT )
             self.assertEqual( 452, chunk.section_number )
-            self.assertAlmostEqual( 92235, chunk.ZA )
-            self.assertAlmostEqual( 233.0248, chunk.atomic_weight_ratio )
+            self.assertEqual( 92235, chunk.ZA )
+            self.assertEqual( 92235, chunk.target_identifier )
             self.assertAlmostEqual( 233.0248, chunk.AWR )
+            self.assertAlmostEqual( 233.0248, chunk.atomic_weight_ratio )
             self.assertEqual( 1, chunk.LNU )
             self.assertEqual( 1, chunk.representation )
 

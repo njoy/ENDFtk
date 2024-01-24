@@ -111,6 +111,7 @@ namespace section {
 
     using BaseWithoutMT::MT;
     using BaseWithoutMT::ZA;
+    using BaseWithoutMT::targetIdentifier;
     using BaseWithoutMT::atomicWeightRatio;
     using BaseWithoutMT::AWR;
 

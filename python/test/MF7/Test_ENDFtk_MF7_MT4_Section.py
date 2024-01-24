@@ -37,7 +37,8 @@ class Test_ENDFtk_MF7_MT4_Section( unittest.TestCase ) :
             self.assertEqual( 4, chunk.MT )
             self.assertEqual( 4, chunk.section_number )
 
-            self.assertAlmostEqual( 127., chunk.ZA )
+            self.assertEqual( 127, chunk.ZA )
+            self.assertEqual( 127, chunk.target_identifier )
             self.assertAlmostEqual( 8.934780e+0, chunk.AWR )
             self.assertAlmostEqual( 8.934780e+0, chunk.atomic_weight_ratio )
             self.assertEqual( 1, chunk.LAT )
@@ -93,7 +94,7 @@ class Test_ENDFtk_MF7_MT4_Section( unittest.TestCase ) :
                               chunk.to_string( 27, 7 ) )
 
         # the data is given explicitly
-        chunk = Section( zaid = 127., awr = 8.934780e+0, lasym = 0, lat = 1,
+        chunk = Section( zaid = 127, awr = 8.934780e+0, lasym = 0, lat = 1,
                          constants = ScatteringLawConstants( 0, 1.976285e+2, 5.000001e+0, 0, 8.934780e+0, 1 ),
                          law = AnalyticalFunctions(),
                          principal = EffectiveTemperature( [ 3 ], [ 2 ],

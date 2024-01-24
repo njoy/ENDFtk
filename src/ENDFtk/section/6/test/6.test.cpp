@@ -44,7 +44,7 @@ SCENARIO( "section::Type< 6 >" ) {
       std::vector< ReactionProduct > products = {
         ReactionProduct(
           // multiplicity
-          { 1001., 0.9986234, 0, 1, { 4 }, { 2 },
+          { 1001, 0.9986234, 0, 1, { 4 }, { 2 },
             { 1e-5, 1.1e+7, 1.147e+7, 2e+7 },
             { 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 } },
           // distribution
@@ -59,7 +59,7 @@ SCENARIO( "section::Type< 6 >" ) {
                     2e+7, 0, 1, { 1., 4. }, { { 2., 3. }, { 5., 6. } } ) } ) } ),
         ReactionProduct(
           // multiplicity
-          { 1., 1., 0, 1, { 2 }, { 2 },
+          { 1, 1., 0, 1, { 2 }, { 2 },
             { 1.858639e+7, 2.e+7 },
             { 4., 4. } },
           // distribution
@@ -71,7 +71,7 @@ SCENARIO( "section::Type< 6 >" ) {
                     2e+7, 0, 0, { 0., 0.5, 1. }, { { 0. }, { 2. }, { 0. } } ) } ) } ),
         ReactionProduct(
           // multiplicity
-          { 0., 0., 0, 1, { 3 }, { 2 },
+          { 0, 0., 0, 1, { 3 }, { 2 },
             { 1.858639e+7, 1.9e+7, 2.e+7 },
             { 1., 2., 3. } },
           // distribution
@@ -212,8 +212,13 @@ std::string chunk() {
 
 void verifyChunk( const section::Type< 6 >& chunk ) {
 
+  CHECK( 5 == chunk.MT() );
+  CHECK( 5 == chunk.sectionNumber() );
+
   CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
   CHECK_THAT( 2.330248e+2, WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 2.330248e+2, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 0 == chunk.JP() );
   CHECK( 0 == chunk.averageMultipleParticlesFlag() );
   CHECK( 2 == chunk.LCT() );
@@ -222,20 +227,25 @@ void verifyChunk( const section::Type< 6 >& chunk ) {
   CHECK( 3 == chunk.numberReactionProducts() );
   CHECK( 5 == chunk.MT() );
 
+  CHECK( true == chunk.hasReactionProduct( 1001 ) );
+  CHECK( true == chunk.hasReactionProduct( 1 ) );
+  CHECK( true == chunk.hasReactionProduct( 0 ) );
+  CHECK( false == chunk.hasReactionProduct( 2004 ) );
+
   auto products = chunk.reactionProducts();
   CHECK( 3 == products.size() );
 
   // product 1
-  CHECK_THAT( 1001., WithinRel( products[0].ZAP() ) );
-  CHECK_THAT( 1001., WithinRel( products[0].productIdentifier() ) );
+  CHECK( 1001 == products[0].ZAP() );
+  CHECK( 1001 == products[0].productIdentifier() );
   CHECK_THAT( 0.9986234, WithinRel( products[0].AWP() ) );
   CHECK_THAT( 0.9986234, WithinRel( products[0].productWeightRatio() ) );
   CHECK( 0 == products[0].LIP() );
   CHECK( 0 == products[0].productModifierFlag() );
   CHECK( 1 == products[0].LAW() );
 
-  CHECK_THAT( 1001., WithinRel( products[0].multiplicity().ZAP() ) );
-  CHECK_THAT( 1001., WithinRel( products[0].multiplicity().productIdentifier() ) );
+  CHECK( 1001 == products[0].multiplicity().ZAP() );
+  CHECK( 1001 == products[0].multiplicity().productIdentifier() );
   CHECK_THAT( 0.9986234, WithinRel( products[0].multiplicity().AWP() ) );
   CHECK_THAT( 0.9986234, WithinRel( products[0].multiplicity().productWeightRatio() ) );
   CHECK( 0 == products[0].multiplicity().LIP() );
@@ -323,16 +333,16 @@ void verifyChunk( const section::Type< 6 >& chunk ) {
   CHECK_THAT( 5., WithinRel( subsection2.totalEmissionProbabilities()[1] ) );
 
   // product 2
-  CHECK_THAT( 1., WithinRel( products[1].ZAP() ) );
-  CHECK_THAT( 1., WithinRel( products[1].productIdentifier() ) );
+  CHECK( 1 == products[1].ZAP() );
+  CHECK( 1 == products[1].productIdentifier() );
   CHECK_THAT( 1., WithinRel( products[1].AWP() ) );
   CHECK_THAT( 1., WithinRel( products[1].productWeightRatio() ) );
   CHECK( 0 == products[1].LIP() );
   CHECK( 0 == products[1].productModifierFlag() );
   CHECK( 1 == products[1].LAW() );
 
-  CHECK_THAT( 1., WithinRel( products[1].multiplicity().ZAP() ) );
-  CHECK_THAT( 1., WithinRel( products[1].multiplicity().productIdentifier() ) );
+  CHECK( 1 == products[1].multiplicity().ZAP() );
+  CHECK( 1 == products[1].multiplicity().productIdentifier() );
   CHECK_THAT( 1., WithinRel( products[1].multiplicity().AWP() ) );
   CHECK_THAT( 1., WithinRel( products[1].multiplicity().productWeightRatio() ) );
   CHECK( 0 == products[1].multiplicity().LIP() );
@@ -409,16 +419,16 @@ void verifyChunk( const section::Type< 6 >& chunk ) {
   CHECK_THAT( 0., WithinRel( subsection2.totalEmissionProbabilities()[2] ) );
 
   // product 3
-  CHECK_THAT( 0., WithinRel( products[2].ZAP() ) );
-  CHECK_THAT( 0., WithinRel( products[2].productIdentifier() ) );
+  CHECK( 0 == products[2].ZAP() );
+  CHECK( 0 == products[2].productIdentifier() );
   CHECK_THAT( 0., WithinRel( products[2].AWP() ) );
   CHECK_THAT( 0., WithinRel( products[2].productWeightRatio() ) );
   CHECK( 0 == products[2].LIP() );
   CHECK( 0 == products[2].productModifierFlag() );
   CHECK( 1 == products[2].LAW() );
 
-  CHECK_THAT( 0., WithinRel( products[2].multiplicity().ZAP() ) );
-  CHECK_THAT( 0., WithinRel( products[2].multiplicity().productIdentifier() ) );
+  CHECK( 0 == products[2].multiplicity().ZAP() );
+  CHECK( 0 == products[2].multiplicity().productIdentifier() );
   CHECK_THAT( 0., WithinRel( products[2].multiplicity().AWP() ) );
   CHECK_THAT( 0., WithinRel( products[2].multiplicity().productWeightRatio() ) );
   CHECK( 0 == products[2].multiplicity().LIP() );
@@ -495,6 +505,21 @@ void verifyChunk( const section::Type< 6 >& chunk ) {
   CHECK_THAT( 0., WithinRel( subsection2.totalEmissionProbabilities()[0] ) );
   CHECK_THAT( 1., WithinRel( subsection2.totalEmissionProbabilities()[1] ) );
   CHECK_THAT( 0., WithinRel( subsection2.totalEmissionProbabilities()[2] ) );
+
+  // product 1
+  auto product = chunk.reactionProduct( 1001 );
+  CHECK( 1001 == product.ZAP() );
+  CHECK( 1001 == product.productIdentifier() );
+
+  // product 2
+  product = chunk.reactionProduct( 1 );
+  CHECK( 1 == product.ZAP() );
+  CHECK( 1 == product.productIdentifier() );
+
+  // product 3
+  product = chunk.reactionProduct( 0 );
+  CHECK( 0 == product.ZAP() );
+  CHECK( 0 == product.productIdentifier() );
 
   CHECK( 30 == chunk.NC() );
 }

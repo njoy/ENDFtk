@@ -35,7 +35,7 @@ SCENARIO( "section::Type< 12 >" ) {
     WHEN( "the data is given explicitly" ) {
 
       int mt = 18;
-      double za = 92235.;
+      int zaid = 92235;
       double awr = 2.330250e+2;
 
       Multiplicities multiplicities( { 0.0, 0.0, 0, 1,
@@ -43,7 +43,7 @@ SCENARIO( "section::Type< 12 >" ) {
                                        { 1e-5, 3e+7 },
                                        { 8.579050e+0, 1.487778e+1 } } );
 
-      section::Type< 12 > chunk( mt, za, awr, std::move( multiplicities ) );
+      section::Type< 12 > chunk( mt, zaid, awr, std::move( multiplicities ) );
 
       THEN( "a Multiplicities can be constructed and members can be "
             "tested" ) {
@@ -116,14 +116,14 @@ SCENARIO( "section::Type< 12 >" ) {
     WHEN( "the data is given explicitly" ) {
 
       int mt = 51;
-      double za = 92235.;
+      int zaid = 92235;
       double awr = 2.330250e+2;
 
       TransitionProbabilities probs( 5.170900e+4,
                                      { 1.304000e+4, 7.700000e+1 },
                                      { 2.709000e-1, 7.291000e-1 } );
 
-      section::Type< 12 > chunk( mt, za, awr, std::move( probs ) );
+      section::Type< 12 > chunk( mt, zaid, awr, std::move( probs ) );
 
       THEN( "a Multiplicities can be constructed and members can be "
             "tested" ) {
@@ -196,7 +196,7 @@ SCENARIO( "section::Type< 12 >" ) {
     WHEN( "the data is given explicitly" ) {
 
       int mt = 51;
-      double za = 92235.;
+      int zaid = 92235;
       double awr = 2.330250e+2;
 
       TransitionProbabilities probs( 5.170900e+4,
@@ -204,7 +204,7 @@ SCENARIO( "section::Type< 12 >" ) {
                                      { 2.709000e-1, 7.291000e-1 },
                                      { 3.215434e-3, 3.144654e-3 } );
 
-      section::Type< 12 > chunk( mt, za, awr, std::move( probs ) );
+      section::Type< 12 > chunk( mt, zaid, awr, std::move( probs ) );
 
       THEN( "a Multiplicities can be constructed and members can be "
             "tested" ) {
@@ -319,6 +319,7 @@ void verifyChunkWithLO1( const section::Type< 12 >& chunk ) {
   CHECK( 18 == chunk.sectionNumber() );
 
   CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
   CHECK_THAT( 2.330250e+2, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 2.330250e+2, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 1 == chunk.LO() );
@@ -371,6 +372,7 @@ void verifyChunkWithLO2LG1( const section::Type< 12 >& chunk ) {
   CHECK( 51 == chunk.sectionNumber() );
 
   CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
   CHECK_THAT( 2.330250e+2, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 2.330250e+2, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 2 == chunk.LO() );
@@ -422,6 +424,7 @@ void verifyChunkWithLO2LG2( const section::Type< 12 >& chunk ) {
   CHECK( 51 == chunk.sectionNumber() );
 
   CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
   CHECK_THAT( 2.330250e+2, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 2.330250e+2, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 2 == chunk.LO() );

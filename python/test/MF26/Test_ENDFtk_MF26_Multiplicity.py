@@ -22,8 +22,8 @@ class Test_ENDFtk_MF26_Multiplicity( unittest.TestCase ) :
         def verify_chunk( self, chunk ) :
 
             # verify content
-            self.assertAlmostEqual( 11., chunk.ZAP )
-            self.assertAlmostEqual( 11., chunk.product_identifier )
+            self.assertEqual( 11, chunk.ZAP )
+            self.assertEqual( 11, chunk.product_identifier )
             self.assertAlmostEqual( 5.438673e-4, chunk.AWI )
             self.assertAlmostEqual( 5.438673e-4, chunk.projectile_weight_ratio )
             self.assertEqual( 2, chunk.LAW )
@@ -53,7 +53,7 @@ class Test_ENDFtk_MF26_Multiplicity( unittest.TestCase ) :
             self.assertEqual( self.chunk, chunk.to_string( 100, 26, 525 ) )
 
         # the data is given explicitly
-        chunk = Multiplicity( zap = 11., awi = 5.438673e-4, law = 2,
+        chunk = Multiplicity( zap = 11, awi = 5.438673e-4, law = 2,
                               boundaries = [ 2 ], interpolants = [ 2 ],
                               energies = [ 10., 1e+11 ],
                               multiplicities = [ 1., 1. ] )
@@ -77,7 +77,7 @@ class Test_ENDFtk_MF26_Multiplicity( unittest.TestCase ) :
         # wrong boundaries
         with self.assertRaises( Exception ) :
 
-            chunk = Multiplicity( zap = 11., awi = 5.438673e-4, law = 2,
+            chunk = Multiplicity( zap = 11, awi = 5.438673e-4, law = 2,
                                   boundaries = [ 2, 4 ], interpolants = [ 2 ],
                                   energies = [ 10., 1e+11 ],
                                   multiplicities = [ 1., 1. ] )

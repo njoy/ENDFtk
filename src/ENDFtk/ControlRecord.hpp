@@ -86,9 +86,6 @@ namespace ENDFtk {
     /* methods */
 
   #define DEFINE_GETTER( name, index )                            \
-    MutableReturnType< index >                                    \
-    name (){ return std::get< index >( this->fields ); }          \
-                                                                  \
     ImmutableReturnType< index >                                  \
     name () const { return std::get< index >( this->fields ); }
 
@@ -124,7 +121,7 @@ namespace ENDFtk {
     /**
      *  @brief Return the number of lines in this record
      */
-    long NC() const { return 1; }
+    static constexpr long NC() { return 1; }
 
     #include "ENDFtk/ControlRecord/src/print.hpp"
   };

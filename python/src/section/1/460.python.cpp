@@ -56,7 +56,7 @@ void wrapSection_1_460( python::module& module, python::module& viewmodule ) {
   .def(
 
     //! @todo pybind11 lambda move custom type workaround
-    python::init( [] ( double zaid, double awr,
+    python::init( [] ( int zaid, double awr,
                        DelayedPhotonData photons )
                      { return Section( zaid, awr,
                                        std::move( photons ) ); } ),

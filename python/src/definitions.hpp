@@ -160,6 +160,12 @@ void addStandardSectionDefinitions( PythonClass& section ) {
   )
   .def_property_readonly(
 
+    "target_identifier",
+    [] ( const Section& self ) { return self.targetIdentifier(); },
+    "The ZA identifier for the section"
+  )
+  .def_property_readonly(
+
     "AWR",
     [] ( const Section& self ) { return self.AWR(); },
     "The atomic weight ratio for the section"

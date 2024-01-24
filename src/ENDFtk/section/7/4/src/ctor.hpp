@@ -21,7 +21,7 @@ Type() = default;
  *  @param[in] secondaries   the effective temperature of the
  *                           secondary scatterers (if required)
  */
-Type( double zaid, double awr, int lat, int lasym,
+Type( int zaid, double awr, int lat, int lasym,
       ScatteringLawConstants&& constants,
       ScatteringLaw&& law,
       EffectiveTemperature&& principal,
@@ -42,7 +42,7 @@ private:
  *  @brief Private intermediate constructor
  */
 template< typename Iterator >
-Type( double zaid, double awr, int lat, int lasym,
+Type( int zaid, double awr, int lat, int lasym,
       ScatteringLawConstants&& constants,
       ScatteringLaw&& law,
       EffectiveTemperature&& principals,
@@ -63,7 +63,7 @@ Type( double zaid, double awr, int lat, int lasym,
  *  @brief Private intermediate constructor
  */
 template< typename Iterator >
-Type( double zaid, double awr, int lat, int lasym,
+Type( int zaid, double awr, int lat, int lasym,
       ScatteringLawConstants&& constants,
       ScatteringLaw&& law,
       Iterator& begin,
@@ -82,7 +82,7 @@ Type( double zaid, double awr, int lat, int lasym,
  *  @brief Private intermediate constructor
  */
 template< typename Iterator >
-Type( double zaid, double awr, int lat, int lasym,
+Type( int zaid, double awr, int lat, int lasym,
       ScatteringLawConstants&& constants,
       Iterator& begin,
       const Iterator& end,

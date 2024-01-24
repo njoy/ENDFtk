@@ -40,7 +40,7 @@ void wrapSection_28( python::module& module, python::module& viewmodule ) {
   section
   .def(
 
-    python::init< int, double, double, std::vector< SubshellData >&& >(),
+    python::init< int, int, double, std::vector< SubshellData >&& >(),
     python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
     python::arg( "subshells" ),
     "Initialise the section\n\n"

@@ -339,6 +339,7 @@ void verifyLFC0NPLY0( const section::Type< 1, 458 >& chunk ) {
   CHECK( 458 == chunk.MT() );
   CHECK( 458 == chunk.sectionNumber() );
   CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
   CHECK_THAT( 233.0248, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK_THAT( 233.0248, WithinRel( chunk.AWR() ) );
 
@@ -458,6 +459,7 @@ void verifyLFC0NPLY1( const section::Type< 1, 458 >& chunk ) {
   CHECK( 458 == chunk.MT() );
   CHECK( 458 == chunk.sectionNumber() );
   CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
   CHECK_THAT( 233.0248, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK_THAT( 233.0248, WithinRel( chunk.AWR() ) );
 
@@ -661,6 +663,7 @@ void verifyLFC1( const section::Type< 1, 458 >& chunk ) {
   CHECK( 458 == chunk.MT() );
   CHECK( 458 == chunk.sectionNumber() );
   CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
   CHECK_THAT( 233.0248, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK_THAT( 233.0248, WithinRel( chunk.AWR() ) );
 

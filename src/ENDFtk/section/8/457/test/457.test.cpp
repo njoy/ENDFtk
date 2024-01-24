@@ -42,7 +42,7 @@ SCENARIO( "section::Type< 8, 457 >" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      double zaid = 9.524200e+4;
+      double zaid = 95242;
       double awr = 2.399801e+2;
       int lis = 2;
       int liso = 1;
@@ -150,7 +150,7 @@ SCENARIO( "section::Type< 8, 457 >" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      double zaid = 9.524200e+4;
+      double zaid = 95242;
       double awr = 2.399801e+2;
       int lis = 2;
       int liso = 1;
@@ -396,6 +396,7 @@ void verifyChunkForRadioactiveNuclideWithSpectra(
   CHECK( 457 == chunk.sectionNumber() );
 
   CHECK( 95242 == chunk.ZA() );
+  CHECK( 95242 == chunk.targetIdentifier() );
   CHECK_THAT( 2.399801e+2, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 2.399801e+2, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 2 == chunk.LIS() );
@@ -648,6 +649,7 @@ void verifyChunkForRadioactiveNuclideWithoutSpectra(
   CHECK( 457 == chunk.sectionNumber() );
 
   CHECK( 95242 == chunk.ZA() );
+  CHECK( 95242 == chunk.targetIdentifier() );
   CHECK_THAT( 2.399801e+2, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 2.399801e+2, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 2 == chunk.LIS() );
@@ -764,6 +766,7 @@ void verifyChunkForStableNuclide( const section::Type< 8,457 >& chunk ) {
   CHECK( 457 == chunk.sectionNumber() );
 
   CHECK( 95242 == chunk.ZA() );
+  CHECK( 95242 == chunk.targetIdentifier() );
   CHECK_THAT( 2.399801e+2, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 2.399801e+2, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 2 == chunk.LIS() );

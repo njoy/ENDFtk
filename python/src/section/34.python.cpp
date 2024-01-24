@@ -46,7 +46,7 @@ void wrapSection_34( python::module& module, python::module& viewmodule ) {
   section
   .def(
 
-    python::init< int, double, double, int,
+    python::init< int, int, double, int,
                   std::vector< ReactionBlock >&& >(),
     python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
     python::arg( "ltt" ), python::arg( "reactions" ),

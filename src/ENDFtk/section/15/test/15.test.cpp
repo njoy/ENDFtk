@@ -32,7 +32,7 @@ SCENARIO( "section::Type< 15 >" ) {
     WHEN( "the data is given explicitly" ) {
 
       int mt = 18;
-      double za = 92235.;
+      int zaid = 92235;
       double awr = 2.330250e+2;
 
       std::vector< PartialDistribution > partials =
@@ -49,7 +49,7 @@ SCENARIO( "section::Type< 15 >" ) {
                      { 0.0, 10., 11., 3e+7 },
                      { 0.0, 1.733405e-9, 1.818010e-9, 1.898849e-9 } ) } ) } };
 
-      section::Type< 15 > chunk( mt, za, awr, std::move( partials ) );
+      section::Type< 15 > chunk( mt, zaid, awr, std::move( partials ) );
 
       THEN( "a section::Type< 15 > can be constructed and members can be "
             "tested" ) {
@@ -173,6 +173,7 @@ void verifyChunk( const section::Type< 15 >& chunk ) {
   CHECK( 18 == chunk.sectionNumber() );
 
   CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
   CHECK_THAT( 2.330250e+2, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 2.330250e+2, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 1 == chunk.NK() );

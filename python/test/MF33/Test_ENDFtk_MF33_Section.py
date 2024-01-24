@@ -38,7 +38,10 @@ class Test_ENDFtk_MF33_Section( unittest.TestCase ) :
         def verify_chunk( self, chunk ) :
 
             # verify content
-            self.assertAlmostEqual( 94239., chunk.ZA )
+            self.assertEqual( 2, chunk.MT )
+            self.assertEqual( 2, chunk.section_number )
+            self.assertEqual( 94239, chunk.ZA )
+            self.assertEqual( 94239, chunk.target_identifier )
             self.assertAlmostEqual( 2.369986e+2, chunk.AWR )
             self.assertAlmostEqual( 2.369986e+2, chunk.atomic_weight_ratio )
             self.assertEqual( 0, chunk.MTL)
@@ -76,7 +79,7 @@ class Test_ENDFtk_MF33_Section( unittest.TestCase ) :
         def verify_lump(self, lump):
 
             # HEAD record
-            self.assertAlmostEqual( 94239., lump.ZA );
+            self.assertEqual( 94239, lump.ZA );
             self.assertAlmostEqual( 2.369986e+2, lump.AWR );
             self.assertAlmostEqual( 2.369986e+2, lump.atomic_weight_ratio );
             self.assertEqual( 850, lump.MTL );

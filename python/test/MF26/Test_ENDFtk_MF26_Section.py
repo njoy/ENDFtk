@@ -37,21 +37,27 @@ class Test_ENDFtk_MF26_Section( unittest.TestCase ) :
         def verify_chunk( self, chunk ) :
 
             # verify content
-            self.assertAlmostEqual( 1000., chunk.ZA )
+            self.assertEqual( 525, chunk.MT )
+            self.assertEqual( 525, chunk.section_number )
+            self.assertEqual( 1000, chunk.ZA )
+            self.assertEqual( 1000, chunk.target_identifier )
             self.assertAlmostEqual( 9.992414e-1, chunk.AWR )
             self.assertAlmostEqual( 9.992414e-1, chunk.atomic_weight_ratio )
             self.assertEqual( 1, chunk.NK )
             self.assertEqual( 1, chunk.number_reaction_products )
             self.assertEqual( 525, chunk.MT )
 
+            self.assertEqual( True, chunk.has_reaction_product( 1000 ) )
+            self.assertEqual( False, chunk.has_reaction_product( 11 ) )
+
             products = chunk.reaction_products
             self.assertEqual( 1, len( products ) )
 
-            self.assertAlmostEqual( 1000., products[0].ZAP )
+            self.assertEqual( 1000, products[0].ZAP )
             self.assertAlmostEqual( 0.9992414, products[0].AWI )
             self.assertEqual( 1, products[0].LAW )
 
-            self.assertAlmostEqual( 1000., products[0].multiplicity.ZAP )
+            self.assertEqual( 1000, products[0].multiplicity.ZAP )
             self.assertAlmostEqual( 0.9992414, products[0].multiplicity.AWI )
             self.assertEqual( 1, products[0].multiplicity.LAW )
 
@@ -111,6 +117,11 @@ class Test_ENDFtk_MF26_Section( unittest.TestCase ) :
             self.assertAlmostEqual( 1.84823, energies[1].total_emission_probabilities[0] )
             self.assertAlmostEqual( 8.76641e-3, energies[1].total_emission_probabilities[1] )
 
+            # product 1
+            product = chunk.reaction_product( 1000 )
+            self.assertEqual( 1000, product.ZAP )
+            self.assertEqual( 1000, product.product_identifier )
+
             self.assertEqual( 10, chunk.NC )
 
             # verify string
@@ -123,7 +134,7 @@ class Test_ENDFtk_MF26_Section( unittest.TestCase ) :
         mt = 525
         products = [
           ReactionProduct(
-            Multiplicity( 1000., .9992414, 1, [ 2 ], [ 4 ],
+            Multiplicity( 1000, .9992414, 1, [ 2 ], [ 4 ],
                           [ 10., 1e+11 ],
                           [ 1., 1. ] ),
             ContinuumEnergyAngle(

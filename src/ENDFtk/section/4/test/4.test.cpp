@@ -41,12 +41,12 @@ SCENARIO( "section::Type< 4 >" ) {
 
       int mt = 18;
       int lct = 1;
-      double za = 92235.;
+      int zaid = 92235;
       double awr = 2.330250e+2;
 
       auto distribution = Isotropic();
 
-      section::Type< 4 > chunk( mt, za, awr, lct, std::move( distribution ) );
+      section::Type< 4 > chunk( mt, zaid, awr, lct, std::move( distribution ) );
 
       THEN( "a section::Type< 4 > can be constructed and members can be "
             "tested" ) {
@@ -120,7 +120,7 @@ SCENARIO( "section::Type< 4 >" ) {
 
       int mt = 2;
       int lct = 1;
-      double za = 92235.;
+      int zaid = 92235;
       double awr = 2.330250e+2;
 
       LegendreDistributions distribution =
@@ -128,7 +128,7 @@ SCENARIO( "section::Type< 4 >" ) {
           { { 1e-5, { 7.392510e-5, 8.477139e-9, 1.17106e-13 } },
             { 2e+7, { 2.874390e-2, 3.19645e-11 } } } };
 
-      section::Type< 4 > chunk( mt, za, awr, lct, std::move( distribution ) );
+      section::Type< 4 > chunk( mt, zaid, awr, lct, std::move( distribution ) );
 
       THEN( "a section::Type< 4 > can be constructed and members can be "
             "tested" ) {
@@ -202,7 +202,7 @@ SCENARIO( "section::Type< 4 >" ) {
 
       int mt = 2;
       int lct = 1;
-      double za = 92235.;
+      int zaid = 92235;
       double awr = 2.330250e+2;
 
       TabulatedDistributions distribution =
@@ -210,7 +210,7 @@ SCENARIO( "section::Type< 4 >" ) {
           { { 1e-5, { 2 }, { 2 }, { -1.0, 1.0 }, { 0.5, 0.5 } },
             { 2e+7, { 3 }, { 2 }, { -1.0, 0.0, 1.0 }, { 0.0, 1.0, 0.0 } } } };
 
-      section::Type< 4 > chunk( mt, za, awr, lct, std::move( distribution ) );
+      section::Type< 4 > chunk( mt, zaid, awr, lct, std::move( distribution ) );
 
       THEN( "a section::Type< 4 > can be constructed and members can be "
             "tested" ) {
@@ -284,7 +284,7 @@ SCENARIO( "section::Type< 4 >" ) {
 
       int mt = 2;
       int lct = 1;
-      double za = 92235.;
+      int zaid = 92235;
       double awr = 2.330250e+2;
 
       MixedDistributions distribution =
@@ -295,7 +295,7 @@ SCENARIO( "section::Type< 4 >" ) {
             { { 1e+6, { 2 }, { 2 }, { -1.0, 1.0 }, { 0.5, 0.5 } },
               { 2e+7, { 3 }, { 2 }, { -1.0, 0.0, 1.0 }, { 0.0, 1.0, 0.0 } } } } };
 
-      section::Type< 4 > chunk( mt, za, awr, lct, std::move( distribution ) );
+      section::Type< 4 > chunk( mt, zaid, awr, lct, std::move( distribution ) );
 
       THEN( "a section::Type< 4 > can be constructed and members can be "
             "tested" ) {
@@ -409,6 +409,7 @@ void verifyChunkWithLTT0( const section::Type< 4 >& chunk ) {
   CHECK( 18 == chunk.sectionNumber() );
 
   CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
   CHECK_THAT( 2.330250e+2, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 2.330250e+2, WithinRel( chunk.atomicWeightRatio() ) );
 
@@ -451,6 +452,7 @@ void verifyChunkWithLTT1( const section::Type< 4 >& chunk ) {
   CHECK( 2 == chunk.sectionNumber() );
 
   CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
   CHECK_THAT( 2.330250e+2, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 2.330250e+2, WithinRel( chunk.atomicWeightRatio() ) );
 
@@ -541,6 +543,7 @@ void verifyChunkWithLTT2( const section::Type< 4 >& chunk ) {
   CHECK( 2 == chunk.sectionNumber() );
 
   CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
   CHECK_THAT( 2.330250e+2, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 2.330250e+2, WithinRel( chunk.atomicWeightRatio() ) );
 
@@ -652,6 +655,7 @@ void verifyChunkWithLTT3( const section::Type< 4 >& chunk ) {
   CHECK( 2 == chunk.sectionNumber() );
 
   CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
   CHECK_THAT( 2.330250e+2, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 2.330250e+2, WithinRel( chunk.atomicWeightRatio() ) );
 

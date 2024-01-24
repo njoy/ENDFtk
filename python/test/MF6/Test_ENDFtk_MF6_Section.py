@@ -57,7 +57,10 @@ class Test_ENDFtk_MF6_Section( unittest.TestCase ) :
         def verify_chunk( self, chunk ) :
 
             # verify content
-            self.assertAlmostEqual( 92235., chunk.ZA )
+            self.assertEqual( 5, chunk.MT )
+            self.assertEqual( 5, chunk.section_number )
+            self.assertEqual( 92235, chunk.ZA )
+            self.assertEqual( 92235, chunk.target_identifier )
             self.assertAlmostEqual( 2.330248e+2, chunk.AWR )
             self.assertAlmostEqual( 2.330248e+2, chunk.atomic_weight_ratio )
             self.assertEqual( 0, chunk.JP )
@@ -68,20 +71,25 @@ class Test_ENDFtk_MF6_Section( unittest.TestCase ) :
             self.assertEqual( 3, chunk.number_reaction_products )
             self.assertEqual( 5, chunk.MT )
 
+            self.assertEqual( True, chunk.has_reaction_product( 1001 ) )
+            self.assertEqual( True, chunk.has_reaction_product( 1 ) )
+            self.assertEqual( True, chunk.has_reaction_product( 0 ) )
+            self.assertEqual( False, chunk.has_reaction_product( 2004 ) )
+
             products = chunk.reaction_products
             self.assertEqual( 3, len( products ) )
 
             # product 1
-            self.assertAlmostEqual( 1001., products[0].ZAP )
-            self.assertAlmostEqual( 1001., products[0].product_identifier )
+            self.assertEqual( 1001, products[0].ZAP )
+            self.assertEqual( 1001, products[0].product_identifier )
             self.assertAlmostEqual( 0.9986234, products[0].AWP )
             self.assertAlmostEqual( 0.9986234, products[0].product_weight_ratio )
             self.assertEqual( 0, products[0].LIP )
             self.assertEqual( 0, products[0].product_modifier_flag )
             self.assertEqual( 1, products[0].LAW )
 
-            self.assertAlmostEqual( 1001., products[0].multiplicity.ZAP )
-            self.assertAlmostEqual( 1001., products[0].multiplicity.product_identifier )
+            self.assertEqual( 1001, products[0].multiplicity.ZAP )
+            self.assertEqual( 1001, products[0].multiplicity.product_identifier )
             self.assertAlmostEqual( 0.9986234, products[0].multiplicity.AWP )
             self.assertAlmostEqual( 0.9986234, products[0].multiplicity.product_weight_ratio )
             self.assertEqual( 0, products[0].multiplicity.LIP )
@@ -171,16 +179,16 @@ class Test_ENDFtk_MF6_Section( unittest.TestCase ) :
             self.assertAlmostEqual( 5., subsection2.total_emission_probabilities[1] )
 
             # product 2
-            self.assertAlmostEqual( 1., products[1].ZAP )
-            self.assertAlmostEqual( 1., products[1].product_identifier )
+            self.assertEqual( 1, products[1].ZAP )
+            self.assertEqual( 1, products[1].product_identifier )
             self.assertAlmostEqual( 1., products[1].AWP )
             self.assertAlmostEqual( 1., products[1].product_weight_ratio )
             self.assertEqual( 0, products[1].LIP )
             self.assertEqual( 0, products[1].product_modifier_flag )
             self.assertEqual( 1, products[1].LAW )
 
-            self.assertAlmostEqual( 1., products[1].multiplicity.ZAP )
-            self.assertAlmostEqual( 1., products[1].multiplicity.product_identifier )
+            self.assertEqual( 1, products[1].multiplicity.ZAP )
+            self.assertEqual( 1, products[1].multiplicity.product_identifier )
             self.assertAlmostEqual( 1., products[1].multiplicity.AWP )
             self.assertAlmostEqual( 1., products[1].multiplicity.product_weight_ratio )
             self.assertEqual( 0, products[1].multiplicity.LIP )
@@ -260,16 +268,16 @@ class Test_ENDFtk_MF6_Section( unittest.TestCase ) :
             self.assertAlmostEqual( 0., subsection2.total_emission_probabilities[2] )
 
             # product 3
-            self.assertAlmostEqual( 0., products[2].ZAP )
-            self.assertAlmostEqual( 0., products[2].product_identifier )
+            self.assertEqual( 0, products[2].ZAP )
+            self.assertEqual( 0, products[2].product_identifier )
             self.assertAlmostEqual( 0., products[2].AWP )
             self.assertAlmostEqual( 0., products[2].product_weight_ratio )
             self.assertEqual( 0, products[2].LIP )
             self.assertEqual( 0, products[2].product_modifier_flag )
             self.assertEqual( 1, products[2].LAW )
 
-            self.assertAlmostEqual( 0., products[2].multiplicity.ZAP )
-            self.assertAlmostEqual( 0., products[2].multiplicity.product_identifier )
+            self.assertEqual( 0, products[2].multiplicity.ZAP )
+            self.assertEqual( 0, products[2].multiplicity.product_identifier )
             self.assertAlmostEqual( 0., products[2].multiplicity.AWP )
             self.assertAlmostEqual( 0., products[2].multiplicity.product_weight_ratio )
             self.assertEqual( 0, products[2].multiplicity.LIP )
@@ -350,6 +358,21 @@ class Test_ENDFtk_MF6_Section( unittest.TestCase ) :
             self.assertAlmostEqual( 1., subsection2.total_emission_probabilities[1] )
             self.assertAlmostEqual( 0., subsection2.total_emission_probabilities[2] )
 
+            # product 1
+            product = chunk.reaction_product( 1001 )
+            self.assertEqual( 1001, product.ZAP )
+            self.assertEqual( 1001, product.product_identifier )
+
+            # product 2
+            product = chunk.reaction_product( 1 )
+            self.assertEqual( 1, product.ZAP )
+            self.assertEqual( 1, product.product_identifier )
+
+            # product 3
+            product = chunk.reaction_product( 0 )
+            self.assertEqual( 0, product.ZAP )
+            self.assertEqual( 0, product.product_identifier )
+
             self.assertEqual( 30, chunk.NC )
 
             # verify string
@@ -363,7 +386,7 @@ class Test_ENDFtk_MF6_Section( unittest.TestCase ) :
         lct = 2
         mt = 5
         products = [
-          ReactionProduct( Multiplicity ( 1001., 0.9986234, 0, 1, [ 4 ], [ 2 ],
+          ReactionProduct( Multiplicity ( 1001, 0.9986234, 0, 1, [ 4 ], [ 2 ],
                                           [ 1e-5, 1.1e+7, 1.147e+7, 2e+7 ],
                                           [ 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 ] ),
                            ContinuumEnergyAngle(
@@ -375,7 +398,7 @@ class Test_ENDFtk_MF6_Section( unittest.TestCase ) :
                                        [ 8., 9. ], [  11., 12. ] ] ),
                                  LegendreCoefficients(
                                      2e+7, 0, 1, [ 1., 4. ], [ [ 2., 3. ], [ 5., 6. ] ] ) ] ) ),
-          ReactionProduct( Multiplicity( 1., 1., 0, 1, [ 2 ], [ 2 ],
+          ReactionProduct( Multiplicity( 1, 1., 0, 1, [ 2 ], [ 2 ],
                                          [ 1.858639e+7, 2.e+7 ],
                                          [ 4., 4. ] ),
                            ContinuumEnergyAngle(
@@ -384,7 +407,7 @@ class Test_ENDFtk_MF6_Section( unittest.TestCase ) :
                                      1.858639e+7, 0, 0, [ 0., 0.5, 1. ], [ [ 0. ], [ 2. ], [ 0. ] ] ),
                                  LegendreCoefficients(
                                      2e+7, 0, 0, [ 0., 0.5, 1. ], [ [ 0. ], [ 2. ], [ 0. ] ] ) ] ) ),
-          ReactionProduct( Multiplicity( 0., 0., 0, 1, [ 3 ], [ 2 ],
+          ReactionProduct( Multiplicity( 0, 0., 0, 1, [ 3 ], [ 2 ],
                                          [ 1.858639e+7, 1.9e+7, 2.e+7 ],
                                          [ 1., 2., 3. ] ),
                            ContinuumEnergyAngle(

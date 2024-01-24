@@ -11,7 +11,7 @@
  *  @param[in] energies       the energy values
  *  @param[in] xs             the cross section values
  */
-Type( int mt, double zaid, double awr, double epe, double efl, 
+Type( int mt, int zaid, double awr, double epe, double efl, 
       std::vector< long >&& boundaries, std::vector< long >&& interpolants,
       std::vector< double >&& energies, std::vector< double >&& xs ) :
   Base( zaid, awr, mt ),

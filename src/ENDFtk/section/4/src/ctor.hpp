@@ -15,7 +15,7 @@ Type() = default;
  *  @param[in] lct             the reference frame
  *  @param[in] distributions   the distributions
  */
-Type( int MT, double zaid, double awr, long lct,
+Type( int MT, int zaid, double awr, long lct,
       Distributions&& distributions ) :
   Base( zaid, awr, MT ), lct_( lct ),
   distributions_( std::move( distributions ) ) {}

@@ -37,7 +37,8 @@ class Test_ENDFtk_MF7_MT2_Section( unittest.TestCase ) :
             self.assertEqual( 2, chunk.MT )
             self.assertEqual( 2, chunk.section_number )
 
-            self.assertAlmostEqual( 107., chunk.ZA )
+            self.assertEqual( 107, chunk.ZA )
+            self.assertEqual( 107, chunk.target_identifier )
             self.assertAlmostEqual( 1., chunk.AWR )
             self.assertAlmostEqual( 1., chunk.atomic_weight_ratio )
             self.assertEqual( 1, chunk.LTHR )
@@ -102,7 +103,8 @@ class Test_ENDFtk_MF7_MT2_Section( unittest.TestCase ) :
             self.assertEqual( 2, chunk.MT )
             self.assertEqual( 2, chunk.section_number )
 
-            self.assertEqual( 107., chunk.ZA )
+            self.assertEqual( 107, chunk.ZA )
+            self.assertEqual( 107, chunk.target_identifier )
             self.assertEqual( 1., chunk.AWR )
             self.assertEqual( 1., chunk.atomic_weight_ratio )
             self.assertEqual( 2, chunk.LTHR )
@@ -138,7 +140,7 @@ class Test_ENDFtk_MF7_MT2_Section( unittest.TestCase ) :
                               chunk.to_string( 27, 7 ) )
 
         # the data is given explicitly
-        chunk = Section( zaid = 107., awr = 1.,
+        chunk = Section( zaid = 107, awr = 1.,
                          law = CoherentElastic(
                                    293.6, [ 3 ], [ 1 ],
                                    [ 1.059427e-3, 3.718355e-3,  4.237708e-3 ],

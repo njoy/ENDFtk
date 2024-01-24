@@ -44,7 +44,7 @@ void wrapSection_35( python::module& module, python::module& viewmodule ) {
   section
   .def(
 
-    python::init< int, double, double, std::vector< SquareMatrix >&& >(),
+    python::init< int, int, double, std::vector< SquareMatrix >&& >(),
     python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
     python::arg( "blocks" ),
     "Initialise the section\n\n"

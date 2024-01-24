@@ -30,7 +30,7 @@ SCENARIO( "section::Type< 35 >" ) {
       auto block = SquareMatrix( 0., 1.0e6, { 0, 100, 200 }, { 1, 2, 3 } );
 
       // Section
-      auto chunk = section::Type< 35 >( 18, 94239., 2.369986e+2, {block} );
+      auto chunk = section::Type< 35 >( 18, 94239, 2.369986e+2, {block} );
 
       THEN( "a Section can be constructed "
             "and members can be tested" ) {
@@ -138,7 +138,10 @@ std::string invalidSEND() {
 void verifyChunk( const section::Type< 35 >& chunk ) {
 
   // HEAD record
+  CHECK( 18 == chunk.MT() );
+  CHECK( 18 == chunk.sectionNumber() );
   CHECK( 94239 == chunk.ZA() );
+  CHECK( 94239 == chunk.targetIdentifier() );
   CHECK_THAT( 2.369986e+2, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 2.369986e+2, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 1 == chunk.NK() );

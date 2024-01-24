@@ -37,7 +37,7 @@ SCENARIO( "HeadRecord" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      double ZA = 1001;
+      int ZA = 1001;
       double AWR = 0.9991673;
 
       TestBaseWithoutMT chunk( ZA, AWR );
@@ -105,5 +105,7 @@ void verifyChunk( const TestBaseWithoutMT& chunk ) {
   CHECK( 451 == chunk.MT() );
   CHECK( 451 == chunk.sectionNumber() );
   CHECK( 1001 == chunk.ZA() );
+  CHECK( 1001 == chunk.targetIdentifier() );
+  CHECK( 0.9991673 == chunk.AWR() );
   CHECK( 0.9991673 == chunk.atomicWeightRatio() );
 }

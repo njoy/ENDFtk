@@ -211,6 +211,7 @@ void verifyChunkLNU1( const section::Type< 1, 452 >& chunk ) {
   CHECK( 452 == chunk.MT() );
   CHECK( 452 == chunk.sectionNumber() );
   CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
   CHECK_THAT( 233.0248, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK_THAT( 233.0248, WithinRel( chunk.AWR() ) );
   CHECK( 1 == chunk.LNU() );
@@ -247,6 +248,7 @@ void verifyChunkLNU2( const section::Type< 1, 452 >& chunk ) {
   CHECK( 452 == chunk.MT() );
   CHECK( 452 == chunk.sectionNumber() );
   CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
   CHECK_THAT( 233.0248, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK_THAT( 233.0248, WithinRel( chunk.AWR() ) );
   CHECK( 2 == chunk.LNU() );

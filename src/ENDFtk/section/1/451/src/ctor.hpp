@@ -3,7 +3,7 @@ private:
 /**
  *  @brief Private constructor
  */
-Type( double zaid, double awr, int lrp, int lfi, int nlib, int nmod,
+Type( int zaid, double awr, int lrp, int lfi, int nlib, int nmod,
       std::array< ControlRecord, 3 >&& parameters,
       std::vector< TextRecord >&& description,
       std::vector< DirectoryRecord >&& index ) :
@@ -47,7 +47,7 @@ Type() = default;
  *  @param[in] index         the index
  *  @param[in] rtol          the reconstruction tolerance (internal NJOY value)
  */
-Type( double zaid, double awr, int lrp, int lfi, int nlib, int nmod,
+Type( int zaid, double awr, int lrp, int lfi, int nlib, int nmod,
       double elis, double sta, int lis, int liso, int nfor,
       double awi, double emax, int lrel, int nsub, int nver,
       double temp, int ldrv,

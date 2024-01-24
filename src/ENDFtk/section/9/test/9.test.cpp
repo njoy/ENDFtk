@@ -140,7 +140,9 @@ std::string chunk() {
 void verifyChunk( const section::Type< 9 >& chunk ) {
 
   CHECK( 102 == chunk.MT() );
+  CHECK( 102 == chunk.sectionNumber() );
   CHECK( 95241 == chunk.ZA() );
+  CHECK( 95241 == chunk.targetIdentifier() );
   CHECK_THAT( 2.389860e+2, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 2.389860e+2, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 0 == chunk.LIS() );

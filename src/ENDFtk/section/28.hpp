@@ -66,6 +66,7 @@ namespace section{
     using Base::MT;
     using Base::sectionNumber;
     using Base::ZA;
+    using Base::targetIdentifier;
     using Base::atomicWeightRatio;
     using Base::AWR;
   };

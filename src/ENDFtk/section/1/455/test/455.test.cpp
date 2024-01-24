@@ -448,6 +448,7 @@ void verifyChunkWithLDG0LNU1( const section::Type< 1, 455 >& chunk ) {
   CHECK( 455 == chunk.MT() );
   CHECK( 455 == chunk.sectionNumber() );
   CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
   CHECK_THAT( 233.0248, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK_THAT( 233.0248, WithinRel( chunk.AWR() ) );
   CHECK( 1 == chunk.LNU() );
@@ -510,6 +511,7 @@ void verifyChunkWithLDG0LNU2( const section::Type< 1, 455 >& chunk ) {
   CHECK( 455 == chunk.MT() );
   CHECK( 455 == chunk.sectionNumber() );
   CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
   CHECK_THAT( 233.0248, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK_THAT( 233.0248, WithinRel( chunk.AWR() ) );
   CHECK( 2 == chunk.LNU() );
@@ -595,6 +597,7 @@ void verifyChunkWithLDG1LNU1( const section::Type< 1, 455 >& chunk ) {
   CHECK( 455 == chunk.MT() );
   CHECK( 455 == chunk.sectionNumber() );
   CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
   CHECK_THAT( 233.0248, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK_THAT( 233.0248, WithinRel( chunk.AWR() ) );
   CHECK( 1 == chunk.LNU() );
@@ -719,6 +722,7 @@ void verifyChunkWithLDG1LNU2( const section::Type< 1, 455 >& chunk ) {
   CHECK( 455 == chunk.MT() );
   CHECK( 455 == chunk.sectionNumber() );
   CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
   CHECK_THAT( 233.0248, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK_THAT( 233.0248, WithinRel( chunk.AWR() ) );
   CHECK( 2 == chunk.LNU() );

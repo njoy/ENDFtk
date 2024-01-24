@@ -23,7 +23,7 @@ SCENARIO( "HeadRecord" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      double c1 = 1001;
+      int zaid = 1001;
       double c2 = 0.9991673;
       int l1 = 1;
       int l2 = 2;
@@ -33,7 +33,7 @@ SCENARIO( "HeadRecord" ) {
       int mf = 1;
       int mt = 451;
 
-      HeadRecord chunk( c1, c2, l1, l2, n1, n2, mat, mf, mt );
+      HeadRecord chunk( zaid, c2, l1, l2, n1, n2, mat, mf, mt );
 
       THEN( "a HeadRecord can be constructed and members can be tested" ) {
 
@@ -81,7 +81,7 @@ std::string chunk() {
 
 void verifyChunk( const HeadRecord& chunk ) {
 
-  CHECK_THAT( 1001., WithinRel( chunk.ZA() ) );
+  CHECK( 1001 == chunk.ZA() );
   CHECK_THAT( 0.9991673, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 0.9991673, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 1 == chunk.L1() );

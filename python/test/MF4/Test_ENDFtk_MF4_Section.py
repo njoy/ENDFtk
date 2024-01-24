@@ -74,7 +74,8 @@ class Test_ENDFtk_MF4_Section( unittest.TestCase ) :
             self.assertEqual( 18, chunk.MT )
             self.assertEqual( 18, chunk.section_number )
 
-            self.assertAlmostEqual( 92235., chunk.ZA )
+            self.assertEqual( 92235, chunk.ZA )
+            self.assertEqual( 92235, chunk.target_identifier )
             self.assertAlmostEqual( 2.330250e+2, chunk.AWR )
             self.assertAlmostEqual( 2.330250e+2, chunk.atomic_weight_ratio )
 
@@ -108,7 +109,8 @@ class Test_ENDFtk_MF4_Section( unittest.TestCase ) :
             self.assertEqual( 2, chunk.MT )
             self.assertEqual( 2, chunk.section_number )
 
-            self.assertAlmostEqual( 92235., chunk.ZA )
+            self.assertEqual( 92235, chunk.ZA )
+            self.assertEqual( 92235, chunk.target_identifier )
             self.assertAlmostEqual( 2.330250e+2, chunk.AWR )
             self.assertAlmostEqual( 2.330250e+2, chunk.atomic_weight_ratio )
 
@@ -197,7 +199,8 @@ class Test_ENDFtk_MF4_Section( unittest.TestCase ) :
             self.assertEqual( 2, chunk.MT )
             self.assertEqual( 2, chunk.section_number )
 
-            self.assertAlmostEqual( 92235., chunk.ZA )
+            self.assertEqual( 92235, chunk.ZA )
+            self.assertEqual( 92235, chunk.target_identifier )
             self.assertAlmostEqual( 2.330250e+2, chunk.AWR )
             self.assertAlmostEqual( 2.330250e+2, chunk.atomic_weight_ratio )
 
@@ -316,7 +319,8 @@ class Test_ENDFtk_MF4_Section( unittest.TestCase ) :
             self.assertEqual( 2, chunk.MT )
             self.assertEqual( 2, chunk.section_number )
 
-            self.assertAlmostEqual( 92235., chunk.ZA )
+            self.assertEqual( 92235, chunk.ZA )
+            self.assertEqual( 92235, chunk.target_identifier )
             self.assertAlmostEqual( 2.330250e+2, chunk.AWR )
             self.assertAlmostEqual( 2.330250e+2, chunk.atomic_weight_ratio )
 
@@ -491,7 +495,7 @@ class Test_ENDFtk_MF4_Section( unittest.TestCase ) :
                               chunk.to_string( 9228, 4 ) )
 
         # the data is given explicitly for LTT=0
-        chunk = Section( mt = 18, lct = 1, zaid = 92235., awr = 2.330250e+2,
+        chunk = Section( mt = 18, lct = 1, zaid = 92235, awr = 2.330250e+2,
                          distributions = Isotropic() )
 
         verify_chunk_LTT0( self, chunk )
@@ -520,7 +524,7 @@ class Test_ENDFtk_MF4_Section( unittest.TestCase ) :
                           distributions = [ LegendreCoefficients( 1e-5, [ 7.392510e-5, 8.477139e-9, 1.17106e-13 ] ),
                                             LegendreCoefficients( 2e+7, [ 2.874390e-2, 3.19645e-11 ] ) ] )
 
-        chunk = Section( mt = 2, lct = 1, zaid = 92235., awr = 2.330250e+2,
+        chunk = Section( mt = 2, lct = 1, zaid = 92235, awr = 2.330250e+2,
                          distributions = distributions )
 
         verify_chunk_LTT1( self, chunk )
@@ -549,7 +553,7 @@ class Test_ENDFtk_MF4_Section( unittest.TestCase ) :
                             distributions = [ TabulatedDistribution( 1e-5, [ 2 ], [ 2 ], [ -1.0, 1.0 ], [ 0.5, 0.5 ] ),
                                               TabulatedDistribution( 2e+7, [ 3 ], [ 2 ], [ -1.0, 0.0, 1.0 ], [ 0.0, 1.0, 0.0 ] ) ] )
 
-        chunk = Section( mt = 2, lct = 1, zaid = 92235., awr = 2.330250e+2,
+        chunk = Section( mt = 2, lct = 1, zaid = 92235, awr = 2.330250e+2,
                          distributions = distributions )
 
         verify_chunk_LTT2( self, chunk )
@@ -583,7 +587,7 @@ class Test_ENDFtk_MF4_Section( unittest.TestCase ) :
                                            [ TabulatedDistribution( 1e+6, [ 2 ], [ 2 ], [ -1.0, 1.0 ], [ 0.5, 0.5 ] ),
                                              TabulatedDistribution( 2e+7, [ 3 ], [ 2 ], [ -1.0, 0.0, 1.0 ], [ 0.0, 1.0, 0.0 ] ) ] ) )
 
-        chunk = Section( mt = 2, lct = 1, zaid = 92235., awr = 2.330250e+2,
+        chunk = Section( mt = 2, lct = 1, zaid = 92235, awr = 2.330250e+2,
                          distributions = distributions )
 
         verify_chunk_LTT3( self, chunk )

@@ -43,7 +43,7 @@ void wrapSection_12( python::module& module, python::module& viewmodule ) {
   section
   .def(
 
-    python::init< int, double, double, PhotonProduction&& >(),
+    python::init< int, int, double, PhotonProduction&& >(),
     python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
     python::arg( "production" ),
     "Initialise the section\n\n"

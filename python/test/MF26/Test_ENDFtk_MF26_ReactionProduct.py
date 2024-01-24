@@ -51,11 +51,11 @@ class Test_ENDFtk_MF26_ReactionProduct( unittest.TestCase ) :
         def verify_chunk_law1( self, chunk ) :
 
             # verify content
-            self.assertAlmostEqual( 1000., chunk.ZAP )
+            self.assertEqual( 1000, chunk.ZAP )
             self.assertAlmostEqual( 0.9992414, chunk.AWI )
             self.assertEqual( 1, chunk.LAW )
 
-            self.assertAlmostEqual( 1000., chunk.multiplicity.ZAP )
+            self.assertEqual( 1000, chunk.multiplicity.ZAP )
             self.assertAlmostEqual( 0.9992414, chunk.multiplicity.AWI )
             self.assertEqual( 1, chunk.multiplicity.LAW )
 
@@ -121,7 +121,7 @@ class Test_ENDFtk_MF26_ReactionProduct( unittest.TestCase ) :
             self.assertEqual( self.chunk_law1, chunk.to_string( 100, 26, 525 ) )
 
         # the data is given explicitly
-        multiplicity = Multiplicity( zap = 1000., awi = 0.9992414, law = 1,
+        multiplicity = Multiplicity( zap = 1000, awi = 0.9992414, law = 1,
                                      boundaries = [ 2 ], interpolants = [ 4 ],
                                      energies = [ 10., 1e+11 ],
                                      multiplicities = [ 1., 1. ] )

@@ -54,7 +54,8 @@ class Test_ENDFtk_MF8_MT457_Section( unittest.TestCase ) :
             self.assertEqual( 457, chunk.MT )
             self.assertEqual( 457, chunk.section_number )
 
-            self.assertAlmostEqual( 9.524200e+4, chunk.ZA )
+            self.assertEqual( 95242, chunk.ZA )
+            self.assertEqual( 95242, chunk.target_identifier )
             self.assertAlmostEqual( 2.399801e+2, chunk.AWR )
             self.assertAlmostEqual( 2.399801e+2, chunk.atomic_weight_ratio )
             self.assertEqual( 2, chunk.LIS )
@@ -286,7 +287,7 @@ class Test_ENDFtk_MF8_MT457_Section( unittest.TestCase ) :
                               chunk.to_string( 3580, 8 ) )
 
         # the data is given explicitly
-        chunk = Section( zaid = 9.524200e+4, awr = 2.399801e+2, lis = 2, liso = 1,
+        chunk = Section( zaid = 95242, awr = 2.399801e+2, lis = 2, liso = 1,
                          energies = AverageDecayEnergies( [ 4.449622e+9, 6.311520e+7 ],
                                                           [ [ 4.008322e+4, 4.128931e+3 ],
                                                             [ 5.373671e+3, 3.660206e+2 ],

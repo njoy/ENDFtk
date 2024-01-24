@@ -36,7 +36,7 @@ SCENARIO( "section::Type< 40 >" ) {
               { SquareMatrix( 0, { 0, 100, 200 }, { 1, 2, 3, 4 } ) } ) } );
 
       // Section
-      auto chunk = section::Type< 40 >( 51, 94239., 2.369986e+2, 1.0, {block} );
+      auto chunk = section::Type< 40 >( 51, 94239, 2.369986e+2, 1.0, {block} );
 
       THEN( "a ReactionBlock can be constructed "
             "and members can be tested" ) {
@@ -150,7 +150,10 @@ std::string invalidSEND() {
 void verifyChunk( const section::Type< 40 >& chunk ) {
 
   // HEAD record
+  CHECK( 51 == chunk.MT() );
+  CHECK( 51 == chunk.sectionNumber() );
   CHECK( 94239 == chunk.ZA() );
+  CHECK( 94239 == chunk.targetIdentifier() );
   CHECK_THAT( 2.369986e+2, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 2.369986e+2, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 1 == chunk.LIS() );

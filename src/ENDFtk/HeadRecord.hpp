@@ -16,18 +16,8 @@ namespace ENDFtk {
   HeadRecord&
   asHead( StructureDivision& record );
 
-  HeadRecord&
-  asHead( double expectedZA,
-          double expectedAtomicWeightRatio,
-          StructureDivision& record );
-
   const HeadRecord&
   asHead( const StructureDivision& record );
-
-  const HeadRecord&
-  asHead( double expectedZA,
-          double expectedAtomicWeightRatio,
-          const StructureDivision& record );
 
   class HeadRecord : protected StructureDivision {
   public:
@@ -38,22 +28,24 @@ namespace ENDFtk {
     template< std::size_t index >
     using ImmutableReturnType = Base::ImmutableReturnType< index >;
 
-    HeadRecord( double C1, double C2, long L1, long L2, long N1, long N2,
+    HeadRecord( int ZA, double C2, long L1, long L2, long N1, long N2,
                 int MAT, int MF, int MT ) :
-    StructureDivision( C1, C2, L1, L2, N1, N2, MAT, MF, MT ) {}
+    StructureDivision( static_cast< double >( ZA ), C2, 
+                       L1, L2, N1, N2, MAT, MF, MT ) {}
 
     template< typename Iterator >
     HeadRecord( Iterator& it, const Iterator& end, long& lineNumber )
       : StructureDivision(it, end, lineNumber) { /* Do nothing */ }
 
+  int ZA() const {
+
+    return static_cast< int >( std::round( std::get< 0 >( this->base.fields ) ) );
+  }
+
   #define DEFINE_BASE_GETTER( name, position )                            \
-    MutableReturnType< position >                                         \
-    name(){ return std::get< position >( this->base.fields ); }           \
-                                                                          \
     ImmutableReturnType< position >                                       \
     name() const { return std::get< position >( this->base.fields ); }
 
-    DEFINE_BASE_GETTER( ZA, 0 )
     DEFINE_BASE_GETTER( atomicWeightRatio, 1 )
     DEFINE_BASE_GETTER( AWR, 1 )
     DEFINE_BASE_GETTER( L1, 2 )
@@ -64,9 +56,6 @@ namespace ENDFtk {
   #undef DEFINE_BASE_GETTER
 
   #define DEFINE_TAIL_GETTER( name )                                      \
-    decltype( StructureDivision::tail.name() )                            \
-    name(){ return this->tail.name(); }                                   \
-                                                                          \
     decltype( std::declval                                                \
               < typename std::add_const                                   \
               < decltype( StructureDivision::tail ) >::type >().name() )  \

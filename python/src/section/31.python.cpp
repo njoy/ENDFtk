@@ -33,7 +33,7 @@ void wrapSection_31( python::module& module, python::module& viewmodule ) {
   section
   .def(
 
-    python::init< int, double, double, std::vector< ReactionBlock >&& >(),
+    python::init< int, int, double, std::vector< ReactionBlock >&& >(),
     python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
     python::arg( "reactions" ),
     "Initialise the section\n\n"

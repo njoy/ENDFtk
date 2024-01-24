@@ -45,7 +45,7 @@ void wrapSection_13( python::module& module, python::module& viewmodule ) {
   .def(
 
     //! @todo pybind11 lambda move custom type workaround
-    python::init( [] ( int mt, double zaid, double awr,
+    python::init( [] ( int mt, int zaid, double awr,
                        PartialCrossSection partial )
                      { return Section( mt, zaid, awr,
                                        std::move( partial ) ); } ),
@@ -62,7 +62,7 @@ void wrapSection_13( python::module& module, python::module& viewmodule ) {
   .def(
 
     //! @todo pybind11 lambda move custom type workaround
-    python::init( [] ( int mt, double zaid, double awr,
+    python::init( [] ( int mt, int zaid, double awr,
                        TotalCrossSection total,
                        std::vector< PartialCrossSection >&& partials )
                      { return Section( mt, zaid, awr,

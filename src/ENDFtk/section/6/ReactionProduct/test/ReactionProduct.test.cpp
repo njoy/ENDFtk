@@ -141,7 +141,7 @@ SCENARIO( "ReactionProduct" ) {
     WHEN( "the data is given explicitly" ) {
 
       Multiplicity multiplicity(
-        1001., 0.9986234, 0, 1, { 4 }, { 2 },
+        1001, 0.9986234, 0, 1, { 4 }, { 2 },
         { 1e-5, 1.1e+7, 1.147e+7, 2e+7 },
         { 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 } );
       Distribution distribution =
@@ -262,7 +262,7 @@ SCENARIO( "ReactionProduct" ) {
     WHEN( "the data is given explicitly" ) {
 
       Multiplicity multiplicity(
-        1001., 0.9986234, 0, 3, { 4 }, { 2 },
+        1001, 0.9986234, 0, 3, { 4 }, { 2 },
         { 1e-5, 1.1e+7, 1.147e+7, 2e+7 },
         { 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 } );
       Distribution distribution = IsotropicDiscreteEmission();
@@ -316,7 +316,7 @@ SCENARIO( "ReactionProduct" ) {
     WHEN( "the data is given explicitly" ) {
 
       Multiplicity multiplicity(
-        1001., 0.9986234, 0, 4, { 4 }, { 2 },
+        1001, 0.9986234, 0, 4, { 4 }, { 2 },
         { 1e-5, 1.1e+7, 1.147e+7, 2e+7 },
         { 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 } );
       Distribution distribution = DiscreteTwoBodyRecoils();
@@ -370,7 +370,7 @@ SCENARIO( "ReactionProduct" ) {
     WHEN( "the data is given explicitly" ) {
 
       Multiplicity multiplicity(
-        1001., 0.9986234, 0, 5, { 4 }, { 2 },
+        1001, 0.9986234, 0, 5, { 4 }, { 2 },
         { 1e-5, 1.1e+7, 1.147e+7, 2e+7 },
         { 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 } );
       Distribution distribution =
@@ -432,7 +432,7 @@ SCENARIO( "ReactionProduct" ) {
     WHEN( "the data is given explicitly" ) {
 
       Multiplicity multiplicity(
-        1001., 0.9986234, 0, 6, { 4 }, { 2 },
+        1001, 0.9986234, 0, 6, { 4 }, { 2 },
         { 1e-5, 1.1e+7, 1.147e+7, 2e+7 },
         { 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 } );
       Distribution distribution = NBodyPhaseSpace( 5., 4 );
@@ -486,7 +486,7 @@ SCENARIO( "ReactionProduct" ) {
     WHEN( "the data is given explicitly" ) {
 
       Multiplicity multiplicity(
-        1001., 0.9986234, 0, 7, { 4 }, { 2 },
+        1001, 0.9986234, 0, 7, { 4 }, { 2 },
         { 1e-5, 1.1e+7, 1.147e+7, 2e+7 },
         { 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 } );
       Distribution distribution =
@@ -558,7 +558,7 @@ SCENARIO( "ReactionProduct" ) {
     WHEN( "the data is given explicitly" ) {
 
       Multiplicity multiplicity(
-        1001., 0.9986234, 0, -4, { 4 }, { 2 },
+        1001, 0.9986234, 0, -4, { 4 }, { 2 },
         { 1e-5, 1.1e+7, 1.147e+7, 2e+7 },
         { 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 } );
       Distribution distribution = DefinedElsewhere( -4 );
@@ -612,7 +612,7 @@ SCENARIO( "ReactionProduct" ) {
     WHEN( "the data is given explicitly" ) {
 
       Multiplicity multiplicity(
-        1001., 0.9986234, 0, -5, { 4 }, { 2 },
+        1001, 0.9986234, 0, -5, { 4 }, { 2 },
         { 1e-5, 1.1e+7, 1.147e+7, 2e+7 },
         { 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 } );
       Distribution distribution = DefinedElsewhere( -5 );
@@ -666,7 +666,7 @@ SCENARIO( "ReactionProduct" ) {
     WHEN( "the data is given explicitly" ) {
 
       Multiplicity multiplicity(
-        1001., 0.9986234, 0, -14, { 4 }, { 2 },
+        1001, 0.9986234, 0, -14, { 4 }, { 2 },
         { 1e-5, 1.1e+7, 1.147e+7, 2e+7 },
         { 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 } );
       Distribution distribution = DefinedElsewhere( -14 );
@@ -720,7 +720,7 @@ SCENARIO( "ReactionProduct" ) {
     WHEN( "the data is given explicitly" ) {
 
       Multiplicity multiplicity(
-        1001., 0.9986234, 0, -15, { 4 }, { 2 },
+        1001, 0.9986234, 0, -15, { 4 }, { 2 },
         { 1e-5, 1.1e+7, 1.147e+7, 2e+7 },
         { 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 } );
       Distribution distribution = DefinedElsewhere( -15 );
@@ -770,7 +770,7 @@ SCENARIO( "ReactionProduct" ) {
   GIVEN( "an inconsistent LAW between the Multiplicity and the Distribution" ) {
 
     Multiplicity multiplicity(
-      1001., 0.9986234, 0, 2, { 4 }, { 2 },
+      1001, 0.9986234, 0, 2, { 4 }, { 2 },
       { 1e-5, 1.1e+7, 1.147e+7, 2e+7 },
       { 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 } );
     Distribution distribution(
@@ -829,16 +829,16 @@ std::string chunkWithLAW0() {
 
 void verifyChunkWithLAW0( const ReactionProduct& chunk ) {
 
-  CHECK_THAT( 1001., WithinRel( chunk.ZAP() ) );
-  CHECK_THAT( 1001., WithinRel( chunk.productIdentifier() ) );
+  CHECK( 1001 == chunk.ZAP() );
+  CHECK( 1001 == chunk.productIdentifier() );
   CHECK_THAT( 0.9986234, WithinRel( chunk.AWP() ) );
   CHECK_THAT( 0.9986234, WithinRel( chunk.productWeightRatio() ) );
   CHECK( 0 == chunk.LIP() );
   CHECK( 0 == chunk.productModifierFlag() );
   CHECK( 0 == chunk.LAW() );
 
-  CHECK_THAT( 1001., WithinRel( chunk.multiplicity().ZAP() ) );
-  CHECK_THAT( 1001., WithinRel( chunk.multiplicity().productIdentifier() ) );
+  CHECK( 1001 == chunk.multiplicity().ZAP() );
+  CHECK( 1001 == chunk.multiplicity().productIdentifier() );
   CHECK_THAT( 0.9986234, WithinRel( chunk.multiplicity().AWP() ) );
   CHECK_THAT( 0.9986234, WithinRel( chunk.multiplicity().productWeightRatio() ) );
   CHECK( 0 == chunk.multiplicity().LIP() );
@@ -886,12 +886,12 @@ std::string chunkWithLAW1() {
 
 void verifyChunkWithLAW1( const ReactionProduct& chunk ) {
 
-  CHECK_THAT( 1001., WithinRel( chunk.ZAP() ) );
+  CHECK( 1001 == chunk.ZAP() );
   CHECK_THAT( 0.9986234, WithinRel( chunk.AWP() ) );
   CHECK( 0 == chunk.LIP() );
   CHECK( 1 == chunk.LAW() );
 
-  CHECK_THAT( 1001., WithinRel( chunk.multiplicity().ZAP() ) );
+  CHECK( 1001 == chunk.multiplicity().ZAP() );
   CHECK_THAT( 0.9986234, WithinRel( chunk.multiplicity().AWP() ) );
   CHECK( 0 == chunk.multiplicity().LIP() );
   CHECK( 1 == chunk.multiplicity().LAW() );
@@ -991,12 +991,12 @@ std::string chunkWithLAW2() {
 
 void verifyChunkWithLAW2( const ReactionProduct& chunk ) {
 
-  CHECK_THAT( 1001., WithinRel( chunk.ZAP() ) );
+  CHECK( 1001 == chunk.ZAP() );
   CHECK_THAT( 0.9986234, WithinRel( chunk.AWP() ) );
   CHECK( 0 == chunk.LIP() );
   CHECK( 2 == chunk.LAW() );
 
-  CHECK_THAT( 1001., WithinRel( chunk.multiplicity().ZAP() ) );
+  CHECK( 1001 == chunk.multiplicity().ZAP() );
   CHECK_THAT( 0.9986234, WithinRel( chunk.multiplicity().AWP() ) );
   CHECK( 0 == chunk.multiplicity().LIP() );
   CHECK( 2 == chunk.multiplicity().LAW() );
@@ -1069,12 +1069,12 @@ std::string chunkWithLAW3() {
 
 void verifyChunkWithLAW3( const ReactionProduct& chunk ) {
 
-  CHECK_THAT( 1001., WithinRel( chunk.ZAP() ) );
+  CHECK( 1001 == chunk.ZAP() );
   CHECK_THAT( 0.9986234, WithinRel( chunk.AWP() ) );
   CHECK( 0 == chunk.LIP() );
   CHECK( 3 == chunk.LAW() );
 
-  CHECK_THAT( 1001., WithinRel( chunk.multiplicity().ZAP() ) );
+  CHECK( 1001 == chunk.multiplicity().ZAP() );
   CHECK_THAT( 0.9986234, WithinRel( chunk.multiplicity().AWP() ) );
   CHECK( 0 == chunk.multiplicity().LIP() );
   CHECK( 3 == chunk.multiplicity().LAW() );
@@ -1113,12 +1113,12 @@ std::string chunkWithLAW4() {
 
 void verifyChunkWithLAW4( const ReactionProduct& chunk ) {
 
-  CHECK_THAT( 1001., WithinRel( chunk.ZAP() ) );
+  CHECK( 1001 == chunk.ZAP() );
   CHECK_THAT( 0.9986234, WithinRel( chunk.AWP() ) );
   CHECK( 0 == chunk.LIP() );
   CHECK( 4 == chunk.LAW() );
 
-  CHECK_THAT( 1001., WithinRel( chunk.multiplicity().ZAP() ) );
+  CHECK( 1001 == chunk.multiplicity().ZAP() );
   CHECK_THAT( 0.9986234, WithinRel( chunk.multiplicity().AWP() ) );
   CHECK( 0 == chunk.multiplicity().LIP() );
   CHECK( 4 == chunk.multiplicity().LAW() );
@@ -1164,12 +1164,12 @@ std::string chunkWithLAW5() {
 
 void verifyChunkWithLAW5( const ReactionProduct& chunk ) {
 
-  CHECK_THAT( 1001., WithinRel( chunk.ZAP() ) );
+  CHECK( 1001 == chunk.ZAP() );
   CHECK_THAT( 0.9986234, WithinRel( chunk.AWP() ) );
   CHECK( 0 == chunk.LIP() );
   CHECK( 5 == chunk.LAW() );
 
-  CHECK_THAT( 1001., WithinRel( chunk.multiplicity().ZAP() ) );
+  CHECK( 1001 == chunk.multiplicity().ZAP() );
   CHECK_THAT( 0.9986234, WithinRel( chunk.multiplicity().AWP() ) );
   CHECK( 0 == chunk.multiplicity().LIP() );
   CHECK( 5 == chunk.multiplicity().LAW() );
@@ -1281,12 +1281,12 @@ std::string chunkWithLAW6() {
 
 void verifyChunkWithLAW6( const ReactionProduct& chunk ) {
 
-  CHECK_THAT( 1001., WithinRel( chunk.ZAP() ) );
+  CHECK( 1001 == chunk.ZAP() );
   CHECK_THAT( 0.9986234, WithinRel( chunk.AWP() ) );
   CHECK( 0 == chunk.LIP() );
   CHECK( 6 == chunk.LAW() );
 
-  CHECK_THAT( 1001., WithinRel( chunk.multiplicity().ZAP() ) );
+  CHECK( 1001 == chunk.multiplicity().ZAP() );
   CHECK_THAT( 0.9986234, WithinRel( chunk.multiplicity().AWP() ) );
   CHECK( 0 == chunk.multiplicity().LIP() );
   CHECK( 6 == chunk.multiplicity().LAW() );
@@ -1350,12 +1350,12 @@ std::string chunkWithLAW7() {
 
 void verifyChunkWithLAW7( const ReactionProduct& chunk ) {
 
-  CHECK_THAT( 1001., WithinRel( chunk.ZAP() ) );
+  CHECK( 1001 == chunk.ZAP() );
   CHECK_THAT( 0.9986234, WithinRel( chunk.AWP() ) );
   CHECK( 0 == chunk.LIP() );
   CHECK( 7 == chunk.LAW() );
 
-  CHECK_THAT( 1001., WithinRel( chunk.multiplicity().ZAP() ) );
+  CHECK( 1001 == chunk.multiplicity().ZAP() );
   CHECK_THAT( 0.9986234, WithinRel( chunk.multiplicity().AWP() ) );
   CHECK( 0 == chunk.multiplicity().LIP() );
   CHECK( 7 == chunk.multiplicity().LAW() );
@@ -1495,12 +1495,12 @@ std::string chunkWithNegativeLAW4() {
 
 void verifyChunkWithNegativeLAW4( const ReactionProduct& chunk ) {
 
-  CHECK_THAT( 1001., WithinRel( chunk.ZAP() ) );
+  CHECK( 1001 == chunk.ZAP() );
   CHECK_THAT( 0.9986234, WithinRel( chunk.AWP() ) );
   CHECK( 0 == chunk.LIP() );
   CHECK( -4 == chunk.LAW() );
 
-  CHECK_THAT( 1001., WithinRel( chunk.multiplicity().ZAP() ) );
+  CHECK( 1001 == chunk.multiplicity().ZAP() );
   CHECK_THAT( 0.9986234, WithinRel( chunk.multiplicity().AWP() ) );
   CHECK( 0 == chunk.multiplicity().LIP() );
   CHECK( -4 == chunk.multiplicity().LAW() );
@@ -1539,12 +1539,12 @@ std::string chunkWithNegativeLAW5() {
 
 void verifyChunkWithNegativeLAW5( const ReactionProduct& chunk ) {
 
-  CHECK_THAT( 1001., WithinRel( chunk.ZAP() ) );
+  CHECK( 1001 == chunk.ZAP() );
   CHECK_THAT( 0.9986234, WithinRel( chunk.AWP() ) );
   CHECK( 0 == chunk.LIP() );
   CHECK( -5 == chunk.LAW() );
 
-  CHECK_THAT( 1001., WithinRel( chunk.multiplicity().ZAP() ) );
+  CHECK( 1001 == chunk.multiplicity().ZAP() );
   CHECK_THAT( 0.9986234, WithinRel( chunk.multiplicity().AWP() ) );
   CHECK( 0 == chunk.multiplicity().LIP() );
   CHECK( -5 == chunk.multiplicity().LAW() );
@@ -1583,12 +1583,12 @@ std::string chunkWithNegativeLAW14() {
 
 void verifyChunkWithNegativeLAW14( const ReactionProduct& chunk ) {
 
-  CHECK_THAT( 1001., WithinRel( chunk.ZAP() ) );
+  CHECK( 1001 == chunk.ZAP() );
   CHECK_THAT( 0.9986234, WithinRel( chunk.AWP() ) );
   CHECK( 0 == chunk.LIP() );
   CHECK( -14 == chunk.LAW() );
 
-  CHECK_THAT( 1001., WithinRel( chunk.multiplicity().ZAP() ) );
+  CHECK( 1001 == chunk.multiplicity().ZAP() );
   CHECK_THAT( 0.9986234, WithinRel( chunk.multiplicity().AWP() ) );
   CHECK( 0 == chunk.multiplicity().LIP() );
   CHECK( -14 == chunk.multiplicity().LAW() );
@@ -1627,12 +1627,12 @@ std::string chunkWithNegativeLAW15() {
 
 void verifyChunkWithNegativeLAW15( const ReactionProduct& chunk ) {
 
-  CHECK_THAT( 1001., WithinRel( chunk.ZAP() ) );
+  CHECK( 1001 == chunk.ZAP() );
   CHECK_THAT( 0.9986234, WithinRel( chunk.AWP() ) );
   CHECK( 0 == chunk.LIP() );
   CHECK( -15 == chunk.LAW() );
 
-  CHECK_THAT( 1001., WithinRel( chunk.multiplicity().ZAP() ) );
+  CHECK( 1001 == chunk.multiplicity().ZAP() );
   CHECK_THAT( 0.9986234, WithinRel( chunk.multiplicity().AWP() ) );
   CHECK( 0 == chunk.multiplicity().LIP() );
   CHECK( -15 == chunk.multiplicity().LAW() );

@@ -19,7 +19,10 @@ public:
   /**
    *  @brief Return the ZA identifier of the reaction product
    */
-  double ZAP() const { return TabulationRecord::C1(); }
+  int ZAP() const {
+    
+    return static_cast< int >( std::round( TabulationRecord::C1() ) ); 
+  }
 
   /**
    *  @brief Return the ZA identifier of the reaction product

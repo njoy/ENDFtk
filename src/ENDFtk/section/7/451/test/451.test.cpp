@@ -29,7 +29,7 @@ SCENARIO( "section::Type< 7, 451 >" ) {
 
     WHEN( "the data is given explicitly for a single element" ) {
 
-      double za = 122.;
+      int zaid = 122;
       double awr = 15.;
 
       ElementInformation element( 2,
@@ -39,7 +39,7 @@ SCENARIO( "section::Type< 7, 451 >" ) {
                                   { 3.744801, 3.642671, 3.846775 } );
 
 
-      section::Type< 7, 451 > chunk( za, awr, std::move( element ) );
+      section::Type< 7, 451 > chunk( zaid, awr, std::move( element ) );
 
       THEN( "a section::Type< 7, 451 > can be constructed and members can be "
             "tested" ) {
@@ -139,7 +139,9 @@ void verifyChunk( const section::Type< 7, 451 >& chunk ) {
   CHECK( 451 == chunk.sectionNumber() );
 
   CHECK( 122 == chunk.ZA() );
+  CHECK( 122 == chunk.targetIdentifier() );
   CHECK_THAT( 15., WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 15., WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 1 == chunk.NA() );
   CHECK( 1 == chunk.numberElements() );
 

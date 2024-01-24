@@ -14,7 +14,7 @@ Type() = default;
  *  @param[in] awr         the atomic mass ratio
  *  @param[in] subshells   the subshell data (at least 1)
  */
-Type( int mt, double zaid, double awr,
+Type( int mt, int zaid, double awr,
       std::vector< SubshellData >&& subshells ) :
   Base( zaid, awr, mt ), subshells_( std::move( subshells ) ) {}
 

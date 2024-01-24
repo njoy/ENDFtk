@@ -41,14 +41,14 @@ SCENARIO( "section::Type< 7, 2 >" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      double za = 107.;
+      int zaid = 107;
       double awr = 1.;
       ScatteringLaw law(
           CoherentElastic( 293.6, { 3 }, { 1 },
                            { 1.059427e-3, 3.718355e-3,  4.237708e-3 },
                            { 0.0, 9.364524e-3, 1.548925e-2 } ) );
 
-      section::Type< 7, 2 > chunk( za, awr, std::move( law ) );
+      section::Type< 7, 2 > chunk( zaid, awr, std::move( law ) );
 
       THEN( "a section::Type< 7, 2 > can be constructed and members can be "
             "tested" ) {
@@ -122,7 +122,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      double za = 107.;
+      int zaid = 107;
       double awr = 1.;
       ScatteringLaw law(
           CoherentElastic( { 3 }, { 1 },
@@ -132,7 +132,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
                            { { 0.0, 9.364524e-3, 1.548925e-2 },
                              { 0.5, 8.318414e-3, 1.640584e-2 } } ) );
 
-      section::Type< 7, 2 > chunk( za, awr, std::move( law ) );
+      section::Type< 7, 2 > chunk( zaid, awr, std::move( law ) );
 
       THEN( "a section::Type< 7, 2 > can be constructed and members can be "
             "tested" ) {
@@ -205,14 +205,14 @@ SCENARIO( "section::Type< 7, 2 >" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      double za = 107.;
+      int zaid = 107;
       double awr = 1.;
       ScatteringLaw law(
           IncoherentElastic( 8.198006e+1, { 3 }, { 2 },
                              { 296., 400., 500. },
                              { 8.486993e+0, 9.093191e+0, 9.828159e+0 } ) );
 
-      section::Type< 7, 2 > chunk( za, awr, std::move( law ) );
+      section::Type< 7, 2 > chunk( zaid, awr, std::move( law ) );
 
       THEN( "a section::Type< 7, 2 > can be constructed and members can be "
             "tested" ) {
@@ -285,7 +285,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      double za = 107.;
+      int zaid = 107;
       double awr = 1.;
       ScatteringLaw law(
           MixedElastic( CoherentElastic(
@@ -297,7 +297,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
                                            { 293.6, 800. },
                                            { 8.937898, 17.65328 } ) ) );
 
-      section::Type< 7, 2 > chunk( za, awr, std::move( law ) );
+      section::Type< 7, 2 > chunk( zaid, awr, std::move( law ) );
 
       THEN( "a section::Type< 7, 2 > can be constructed and members can be "
             "tested" ) {
@@ -444,6 +444,7 @@ void verifyCoherentElasticWithOneTemperature(
   CHECK( 2 == chunk.sectionNumber() );
 
   CHECK( 107 == chunk.ZA() );
+  CHECK( 107 == chunk.targetIdentifier() );
   CHECK_THAT( 1., WithinRel( chunk.AWR() ) );
   CHECK_THAT( 1., WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 1 == chunk.LTHR() );
@@ -503,6 +504,7 @@ void verifyCoherentElasticWithTwoTemperatures(
   CHECK( 2 == chunk.sectionNumber() );
 
   CHECK( 107 == chunk.ZA() );
+  CHECK( 107 == chunk.targetIdentifier() );
   CHECK_THAT( 1., WithinRel( chunk.AWR() ) );
   CHECK_THAT( 1., WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 1 == chunk.LTHR() );
@@ -566,6 +568,7 @@ void verifyIncoherentElastic( const section::Type< 7, 2 >& chunk ) {
   CHECK( 2 == chunk.sectionNumber() );
 
   CHECK( 107 == chunk.ZA() );
+  CHECK( 107 == chunk.targetIdentifier() );
   CHECK_THAT( 1., WithinRel( chunk.AWR() ) );
   CHECK_THAT( 1., WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 2 == chunk.LTHR() );
@@ -615,6 +618,7 @@ void verifyMixedElastic( const section::Type< 7, 2 >& chunk ) {
   CHECK( 2 == chunk.sectionNumber() );
 
   CHECK( 107 == chunk.ZA() );
+  CHECK( 107 == chunk.targetIdentifier() );
   CHECK_THAT( 1., WithinRel( chunk.AWR() ) );
   CHECK_THAT( 1., WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 3 == chunk.LTHR() );

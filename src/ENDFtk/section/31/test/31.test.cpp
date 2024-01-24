@@ -53,7 +53,7 @@ SCENARIO( "section::Type< 31 >" ) {
       auto sub = ReactionBlock( 1., 2., 3, 4, std::move( nc ), std::move( ni ) );
 
       // Section
-      auto chunk = section::Type< 31 >( 2, 94239., 2.369986e+2, {sub} );
+      auto chunk = section::Type< 31 >( 2, 94239, 2.369986e+2, {sub} );
 
       THEN( "a ReactionBlock can be constructed "
             "and members can be tested" ) {
@@ -167,7 +167,10 @@ std::string invalidSEND() {
 void verifyChunk( const section::Type< 31 >& chunk ) {
 
   // HEAD record
+  CHECK( 2 == chunk.MT() );
+  CHECK( 2 == chunk.sectionNumber() );
   CHECK( 94239 == chunk.ZA() );
+  CHECK( 94239 == chunk.targetIdentifier() );
   CHECK_THAT( 2.369986e+2, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 2.369986e+2, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 1 == chunk.NL() );

@@ -29,7 +29,7 @@ SCENARIO( "section::Type< 13 >" ) {
     WHEN( "the data is given explicitly" ) {
 
       int mt = 18;
-      double za = 92235.;
+      int zaid = 92235;
       double awr = 2.330250e+2;
 
       PartialCrossSection partial = { 0.0, 0.0, 0, 1,
@@ -37,7 +37,7 @@ SCENARIO( "section::Type< 13 >" ) {
                                       { 1e-5, 3e+7 },
                                       { 8.579050e+0, 1.487778e+1 } };
 
-      section::Type< 13 > chunk( mt, za, awr, std::move( partial ) );
+      section::Type< 13 > chunk( mt, zaid, awr, std::move( partial ) );
 
       THEN( "a section::Type< 13 > can be constructed and members can be "
             "tested" ) {
@@ -152,6 +152,7 @@ void verifyChunk( const section::Type< 13 >& chunk ) {
   CHECK( 18 == chunk.sectionNumber() );
 
   CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
   CHECK_THAT( 2.330250e+2, WithinRel( chunk.AWR() ) );
   CHECK_THAT( 2.330250e+2, WithinRel( chunk.atomicWeightRatio() ) );
 
