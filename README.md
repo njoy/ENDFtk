@@ -32,6 +32,10 @@ When running python in the build directory directly, none of these steps are req
 
 #### Troubleshooting ####
 
+##### c++: Permission denied #####
+
+On MacOS, an error may occur when using `make -j8` telling the user that there is no permission to execute the compiler (the error message will contain the full path to the compiler executable). This error is related to an issue with the MacOS system default make installation not allowing parallel compilation (the `-j8` part of the make command). Executing `make` without a parallel option will function, but the user should consider installing a different version of make (e.g. using homebrew) to get around this.
+
 ##### CMake doesn’t detect the right Python version #####
 
 Taken from the pybind11 FAQ.
