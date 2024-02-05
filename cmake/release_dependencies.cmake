@@ -10,24 +10,19 @@ FetchContent_Declare( catch-adapter
     GIT_TAG         fb84b82ebf7a4789aa43cea560680cf745c6ee4f
     )
 
+FetchContent_Declare( Catch2
+    GIT_REPOSITORY  https://github.com/catchorg/Catch2
+    GIT_TAG         3f0283de7a9c43200033da996ff9093be3ac84dc # tag: v3.3.2
+    )
+
 FetchContent_Declare( disco
     GIT_REPOSITORY  https://github.com/njoy/disco
     GIT_TAG         2606933a854bb0269c4ec37143e1236797e27838
     )
 
-FetchContent_Declare( header-utilities
-    GIT_REPOSITORY  https://github.com/njoy/header-utilities
-    GIT_TAG         cc2610fee15e255c151e8e22aca1e8b3d1a96b39
-    )
-
-FetchContent_Declare( Log
-    GIT_REPOSITORY  https://github.com/njoy/Log
-    GIT_TAG         52962b7796afe37ef1d8f7edb4bf9ecb1b868d15
-    )
-
 FetchContent_Declare( pybind11
     GIT_REPOSITORY  https://github.com/pybind/pybind11
-    GIT_TAG         80dc998efced8ceb2be59756668a7e90e8bef917 # tag: v2.10.1
+    GIT_TAG         5b0a6fc2017fcc176545afe3e09c9f9885283242 # tag: v2.10.4
     )
 
 FetchContent_Declare( range-v3
@@ -37,20 +32,22 @@ FetchContent_Declare( range-v3
 
 FetchContent_Declare( spdlog
     GIT_REPOSITORY  https://github.com/gabime/spdlog
-    GIT_TAG         a51b4856377a71f81b6d74b9af459305c4c644f8
+    GIT_TAG         ad0e89cbfb4d0c1ce4d097e134eb7be67baebb36 # tag: v1.11.0
     )
-set( SPDLOG_BUILD_TESTING CACHE BOOL OFF )
+set( SPDLOG_BUILD_PIC CACHE INTERNAL BOOL ON )
+
+FetchContent_Declare( tools
+    GIT_REPOSITORY  https://github.com/njoy/tools
+    GIT_TAG         25c9273d05601a9644feea6d7539250bf1d1c0dc # tag: v0.2.0
+    )
 
 #######################################################################
 # Load dependencies
 #######################################################################
 
 FetchContent_MakeAvailable(
-    catch-adapter
     disco
-    header-utilities
-    Log
-    pybind11
     range-v3
     spdlog
+    tools
     )

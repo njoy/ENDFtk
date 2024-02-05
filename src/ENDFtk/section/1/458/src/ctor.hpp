@@ -13,7 +13,7 @@ Type() = default;
  *  @param[in] awr         the atomic weight ratio
  *  @param[in] fissionq    the fission energy release data
  */
-Type( double zaid, double awr, FissionEnergyReleaseData&& fissionq ) :
+Type( int zaid, double awr, FissionEnergyReleaseData&& fissionq ) :
   BaseWithoutMT( zaid, awr ), data_( std::move( fissionq ) ) {}
 
 /**

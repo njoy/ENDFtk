@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/ControlRecord.hpp"
 
 // other includes
@@ -8,128 +11,118 @@
 // convenience typedefs
 using namespace njoy::ENDFtk;
 
-SCENARIO( "ControlRecord Tests", "[ENDFtk], [ControlRecord]" ){
-  std::string line =
-    " 1.001000+3 9.991673-1          0          0          0          5 125 1451     \n";
+std::string chunk();
+void verifyChunk( const ControlRecord& );
+std::string invalidChunk();
 
-  auto values = std::make_tuple( 1.001000E+3, 9.991673E-1, 0, 0, 0, 5 );
+SCENARIO( "ControlRecord" ) {
 
-  GIVEN( "value construction, the ctor works"){
-    REQUIRE_NOTHROW(
-      ControlRecord( std::get< 0 >(values), std::get< 1 >(values),
-                     std::get< 2 >(values), std::get< 3 >(values),
-                     std::get< 4 >(values), std::get< 5 >(values) ) );
-  }
+  GIVEN( "valid data for a ControlRecord" ) {
 
-  GIVEN( "iterators and a line number"){
-    auto it = line.begin();
-    auto end = line.end();
-    auto lineNumber = 0l;
+    std::string string = chunk();
 
-    WHEN("the tail values match, the ctor works"){
-      REQUIRE_NOTHROW( ControlRecord( it, end, lineNumber, 125, 1, 451 ) );
-    }
-    WHEN("the MAT value doesn't match, the ctor throws"){
-      REQUIRE_THROWS( ControlRecord( it, end, lineNumber, 126, 1, 451 ) );
-    }
-    WHEN("the MF value doesn't match, the ctor throws"){
-      REQUIRE_THROWS( ControlRecord( it, end, lineNumber, 125, 2, 451 ) );
-    }
-    WHEN("the MT value doesn't match, the ctor throws"){
-      REQUIRE_THROWS( ControlRecord( it, end, lineNumber, 125, 1, 452 ) );
-    }
-  }
+    WHEN( "the data is given explicitly" ) {
 
-  SECTION("print"){
-    auto it = line.begin();
-    auto end = line.end();
-    auto lineNumber = 0l;
+      double c1 = 1001;
+      double c2 = 0.9991673;
+      int l1 = 1;
+      int l2 = 2;
+      int n1 = 3;
+      int n2 = 4;
 
-    std::string buffer;
-    auto output = std::back_inserter( buffer );
+      ControlRecord chunk( c1, c2, l1, l2, n1, n2 );
 
-    const auto cont = ControlRecord( it, end, lineNumber, 125, 1, 451 );
-    cont.print( output, 125, 1, 451 );
+      THEN( "a ControlRecord can be constructed and members can be tested" ) {
 
-    REQUIRE( buffer == line );
-  }
+        verifyChunk( chunk );
+      } // THEN
 
-  SECTION("NC"){
-    auto it = line.begin();
-    auto end = line.end();
-    auto lineNumber = 0l;
+      THEN( "it can be printed" ) {
 
-    REQUIRE( 1 == ControlRecord( it, end, lineNumber, 125, 1, 451 ).NC() );
-  }
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 125, 1, 451 );
 
-  GIVEN( "A constructed control record"){
-    auto it = line.begin();
-    auto end = line.end();
-    auto lineNumber = 0l;
-    auto controlRecord0 = ControlRecord( it, end, lineNumber, 125, 1, 451 );
-    const auto& constControlRecord0 = controlRecord0;
-    auto controlRecord1 =
-      ControlRecord( std::get< 0 >(values), std::get< 1 >(values),
-                     std::get< 2 >(values), std::get< 3 >(values),
-                     std::get< 4 >(values), std::get< 5 >(values) );
-    const auto& constControlRecord1 = controlRecord1;
-    THEN( "the getter will work" ){
-      REQUIRE( controlRecord0.C1() == std::get< 0 >( values ) );
-      REQUIRE( controlRecord1.C1() == std::get< 0 >( values ) );
-      REQUIRE( constControlRecord0.C1() == std::get< 0 >( values ) );
-      REQUIRE( constControlRecord1.C1() == std::get< 0 >( values ) );
-      REQUIRE( controlRecord0.C2() == std::get< 1 >( values ) );
-      REQUIRE( controlRecord1.C2() == std::get< 1 >( values ) );
-      REQUIRE( constControlRecord0.C2() == std::get< 1 >( values ) );
-      REQUIRE( constControlRecord1.C2() == std::get< 1 >( values ) );
-      REQUIRE( controlRecord0.L1() == std::get< 2 >( values ) );
-      REQUIRE( controlRecord1.L1() == std::get< 2 >( values ) );
-      REQUIRE( constControlRecord0.L1() == std::get< 2 >( values ) );
-      REQUIRE( constControlRecord1.L1() == std::get< 2 >( values ) );
-      REQUIRE( controlRecord0.L2() == std::get< 3 >( values ) );
-      REQUIRE( controlRecord1.L2() == std::get< 3 >( values ) );
-      REQUIRE( constControlRecord0.L2() == std::get< 3 >( values ) );
-      REQUIRE( constControlRecord1.L2() == std::get< 3 >( values ) );
-      REQUIRE( controlRecord0.N1() == std::get< 4 >( values ) );
-      REQUIRE( controlRecord1.N1() == std::get< 4 >( values ) );
-      REQUIRE( constControlRecord0.N1() == std::get< 4 >( values ) );
-      REQUIRE( constControlRecord1.N1() == std::get< 4 >( values ) );
-      REQUIRE( controlRecord0.N2() == std::get< 5 >( values ) );
-      REQUIRE( controlRecord1.N2() == std::get< 5 >( values ) );
-      REQUIRE( constControlRecord0.N2() == std::get< 5 >( values ) );
-      REQUIRE( constControlRecord1.N2() == std::get< 5 >( values ) );
+        CHECK( buffer == string );
+      } // THEN
+    } // WHEN
 
-      controlRecord0.C1() = 3.14;
-      REQUIRE( controlRecord0.C1() == 3.14 );
-      controlRecord0.C2() = 2.5;
-      REQUIRE( controlRecord0.C2() == 2.5 );
-      controlRecord0.L1() = 5;
-      REQUIRE( controlRecord0.L1() == 5 );
-      controlRecord0.L2() = 6;
-      REQUIRE( controlRecord0.L2() == 6 );
-      controlRecord0.N1() = 7;
-      REQUIRE( controlRecord0.N1() == 7 );
-      controlRecord0.N2() = 8;
-      REQUIRE( controlRecord0.N2() == 8 );
-      // can't assign to const instances. doesn't compile
-      // constControlRecord0.N1() = 10;
-    }
-    THEN( "the equality and inequality operators will work" ){
-      REQUIRE( controlRecord0 == controlRecord1 );
-      controlRecord0.N1() = 10;
-      controlRecord1.N1() = 8;
-      REQUIRE( controlRecord0 != controlRecord1 );
-    }
-  }
-  GIVEN("A line with a typo"){
-    std::string line =
-      " 1.0010z0+3 9.991673-1          0          0          0          5 125 1451    1\n";
-    auto it = line.begin();
-    auto end = line.end();
-    auto lineNumber = 0l;
+    WHEN( "the data is read from a string/stream" ) {
 
-    THEN("the ctor throws"){
-      REQUIRE_THROWS( ControlRecord( it, end, lineNumber, 125, 1, 451 ) );
-    }
-  }
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      ControlRecord chunk( begin, end, lineNumber, 125, 1, 451 );
+
+      THEN( "a ControlRecord can be constructed and members can be tested" ) {
+
+        verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 125, 1, 451 );
+
+        CHECK( buffer == string );
+      } // THEN
+    } // WHEN
+  } // GIVEN
+
+  GIVEN( "invalid data for a ControlRecord" ) {
+
+    WHEN( "a string representation with an error is given" ) {
+
+      std::string string = invalidChunk();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( ControlRecord( begin, end, lineNumber, 125, 1, 451 ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "a string representation has a mismatch in tha MAT, MF or MT number" ) {
+
+      std::string string = chunk();
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( ControlRecord( begin, end, lineNumber, 5, 1, 451 ) ); // MAT
+        CHECK_THROWS( ControlRecord( begin, end, lineNumber, 125, 2, 451 ) ); // MF
+        CHECK_THROWS( ControlRecord( begin, end, lineNumber, 125, 1, 452 ) ); // MT
+      } // THEN
+    } // WHEN
+  } // GIVEN
+} // SCENARIO
+
+std::string chunk() {
+
+  return
+    " 1.001000+3 9.991673-1          1          2          3          4 125 1451     \n";
+}
+
+void verifyChunk( const ControlRecord& chunk ) {
+
+  CHECK_THAT( 1001., WithinRel( chunk.C1() ) );
+  CHECK_THAT( 0.9991673, WithinRel( chunk.C2() ) );
+  CHECK( 1 == chunk.L1() );
+  CHECK( 2 == chunk.L2() );
+  CHECK( 3 == chunk.N1() );
+  CHECK( 4 == chunk.N2() );
+
+  CHECK( 1 == chunk.NC() );
+}
+
+std::string invalidChunk() {
+
+  return
+    " 1.0010z0+3 9.991673-1          1          2          3          4 125 1451     \n";
 }

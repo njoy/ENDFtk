@@ -41,7 +41,7 @@ void wrapSection_1_456( python::module& module, python::module& ) {
   .def(
 
     //! @todo pybind11 lambda move custom type workaround
-    python::init( [] ( double zaid, double awr, Multiplicity multiplicity )
+    python::init( [] ( int zaid, double awr, Multiplicity multiplicity )
                      { return Section( zaid, awr,
                                        std::move( multiplicity ) ); } ),
     python::arg( "zaid" ), python::arg( "awr" ), python::arg( "multiplicity" ),

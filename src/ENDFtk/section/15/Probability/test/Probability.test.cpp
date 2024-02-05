@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/15.hpp"
 
 // other includes
@@ -136,14 +139,14 @@ void verifyChunk( const Probability& chunk ) {
   CHECK( 2 == chunk.energies().size() );
   CHECK( 2 == chunk.P().size() );
   CHECK( 2 == chunk.probabilities().size() );
-  CHECK( 1e-5 == Approx( chunk.E()[0] ) );
-  CHECK( 3e+7 == Approx( chunk.E()[1] ) );
-  CHECK( 1e-5 == Approx( chunk.energies()[0] ) );
-  CHECK( 3e+7 == Approx( chunk.energies()[1] ) );
-  CHECK( 1. == Approx( chunk.P()[0] ) );
-  CHECK( 1. == Approx( chunk.P()[1] ) );
-  CHECK( 1. == Approx( chunk.probabilities()[0] ) );
-  CHECK( 1. == Approx( chunk.probabilities()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.E()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( chunk.E()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.energies()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( chunk.energies()[1] ) );
+  CHECK_THAT( 1., WithinRel( chunk.P()[0] ) );
+  CHECK_THAT( 1., WithinRel( chunk.P()[1] ) );
+  CHECK_THAT( 1., WithinRel( chunk.probabilities()[0] ) );
+  CHECK_THAT( 1., WithinRel( chunk.probabilities()[1] ) );
 
   CHECK( 3 == chunk.NC() );
 }

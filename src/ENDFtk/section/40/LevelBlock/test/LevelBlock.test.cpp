@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/40.hpp"
 
 // other includes
@@ -89,10 +92,10 @@ std::string chunk() {
 void verifyChunk( const LevelBlock& chunk ) {
 
   // LevelBlock CONT record
-  CHECK( 3.14 == Approx( chunk.QM() ) );
-  CHECK( 3.14 == Approx( chunk.massDifferenceQValue() ) );
-  CHECK( 6.28 == Approx( chunk.QI() ) );
-  CHECK( 6.28 == Approx( chunk.reactionQValue() ) );
+  CHECK_THAT( 3.14, WithinRel( chunk.QM() ) );
+  CHECK_THAT( 3.14, WithinRel( chunk.massDifferenceQValue() ) );
+  CHECK_THAT( 6.28, WithinRel( chunk.QI() ) );
+  CHECK_THAT( 6.28, WithinRel( chunk.reactionQValue() ) );
   CHECK( 314 == chunk.IZAP() );
   CHECK( 314 == chunk.productIdentifier() );
   CHECK( 628 == chunk.LFS() );
@@ -100,13 +103,21 @@ void verifyChunk( const LevelBlock& chunk ) {
   CHECK( 2 == chunk.NL() );
   CHECK( 2 == chunk.numberReactions() );
 
-  auto stuff = chunk.reactionBlocks()[1];
+  auto block1 = chunk.reactionBlocks()[0];
 
   // ReactionBlock CONT record
-  CHECK( 3.0 == Approx(stuff.XMF1() ) );
-  CHECK( 1.0 == Approx(stuff.XLFS1() ) );
-  CHECK( 77 == stuff.MAT1() );
-  CHECK( 88 == stuff.MT1() );
+  CHECK( 3 == block1.XMF1() );
+  CHECK( 1 == block1.XLFS1() );
+  CHECK( 55 == block1.MAT1() );
+  CHECK( 66 == block1.MT1() );
+
+  auto block2 = chunk.reactionBlocks()[1];
+
+  // ReactionBlock CONT record
+  CHECK( 3 == block2.XMF1() );
+  CHECK( 1 == block2.XLFS1() );
+  CHECK( 77 == block2.MAT1() );
+  CHECK( 88 == block2.MT1() );
 
   CHECK( 9 == chunk.NC() );
 

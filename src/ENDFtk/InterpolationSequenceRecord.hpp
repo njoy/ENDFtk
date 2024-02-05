@@ -7,6 +7,7 @@
 
 // other includes
 #include "range/v3/view/all.hpp"
+#include "tools/Log.hpp"
 #include "ENDFtk/InterpolationRecord.hpp"
 #include "ENDFtk/readSequence.hpp"
 

@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/ReactionBlock.hpp"
 
 // other includes
@@ -47,7 +50,7 @@ SCENARIO( "ReactionBlock" ) {
                                 std::move(energies),
                                 std::move(weights) ) };
 
-      auto chunk = ReactionBlock( 0., 0., 0, 2, std::move( nc ) );
+      auto chunk = ReactionBlock( 0, 0, 0, 2, std::move( nc ) );
 
       THEN( "a ReactionBlock can be constructed "
             "and members can be tested" ) {
@@ -268,10 +271,10 @@ std::string chunkBoth() {
 void verifyChunkNCOnly( const ReactionBlock& chunk ) {
 
   // ReactionBlock CONT record
-  CHECK( 0. == chunk.XMF1() );
-  CHECK( 0. == chunk.secondFileNumber() );
-  CHECK( 0. == chunk.XLFS1() );
-  CHECK( 0. == chunk.secondFinalExcitedState() );
+  CHECK( 0 == chunk.XMF1() );
+  CHECK( 0 == chunk.secondFileNumber() );
+  CHECK( 0 == chunk.XLFS1() );
+  CHECK( 0 == chunk.secondFinalExcitedState() );
   CHECK( 0 == chunk.MAT1() );
   CHECK( 0 == chunk.secondMaterialNumber() );
   CHECK( 2 == chunk.MT1() );
@@ -288,30 +291,30 @@ void verifyChunkNCOnly( const ReactionBlock& chunk ) {
   // metadata
   CHECK( 0 == chunky.LTY() );
   CHECK( 0 == chunky.procedure() );
-  CHECK( 2.5e3 == Approx( chunky.E1() ) );
-  CHECK( 2.5e3 == Approx( chunky.lowerEnergy() ) );
-  CHECK( 2.0e7 == Approx( chunky.E2() ) );
-  CHECK( 2.0e7 == Approx( chunky.upperEnergy() ) );
+  CHECK_THAT( 2.5e3, WithinRel( chunky.E1() ) );
+  CHECK_THAT( 2.5e3, WithinRel( chunky.lowerEnergy() ) );
+  CHECK_THAT( 2.0e7, WithinRel( chunky.E2() ) );
+  CHECK_THAT( 2.0e7, WithinRel( chunky.upperEnergy() ) );
   CHECK( 7 == chunky.NCI() );
   CHECK( 7 == chunky.numberReactions() );
 
   // values
-  CHECK( 1.0 == Approx( chunky.coefficients()[0] ) );
-  CHECK( -1.0 == Approx( chunky.coefficients()[1] ) );
-  CHECK( -1.0 == Approx( chunky.coefficients()[2] ) );
-  CHECK( -1.0 == Approx( chunky.coefficients()[3] ) );
-  CHECK( -1.0 == Approx( chunky.coefficients()[4] ) );
-  CHECK( -1.0 == Approx( chunky.coefficients()[5] ) );
-  CHECK( -1.0 == Approx( chunky.coefficients()[6] ) );
-  CHECK( -1.0 == Approx( chunky.CI()[6] ) );
-  CHECK( 1. == Approx( chunky.reactions()[0] ) );
-  CHECK( 4. == Approx( chunky.reactions()[1] ) );
-  CHECK( 16. == Approx( chunky.reactions()[2] ) );
-  CHECK( 17. == Approx( chunky.reactions()[3] ) );
-  CHECK( 18. == Approx( chunky.reactions()[4] ) );
-  CHECK( 37. == Approx( chunky.reactions()[5] ) );
-  CHECK( 102. == Approx( chunky.reactions()[6] ) );
-  CHECK( 102. == Approx( chunky.XMTI()[6] ) );
+  CHECK_THAT( 1.0, WithinRel( chunky.coefficients()[0] ) );
+  CHECK_THAT( -1.0, WithinRel( chunky.coefficients()[1] ) );
+  CHECK_THAT( -1.0, WithinRel( chunky.coefficients()[2] ) );
+  CHECK_THAT( -1.0, WithinRel( chunky.coefficients()[3] ) );
+  CHECK_THAT( -1.0, WithinRel( chunky.coefficients()[4] ) );
+  CHECK_THAT( -1.0, WithinRel( chunky.coefficients()[5] ) );
+  CHECK_THAT( -1.0, WithinRel( chunky.coefficients()[6] ) );
+  CHECK_THAT( -1.0, WithinRel( chunky.CI()[6] ) );
+  CHECK_THAT( 1., WithinRel( chunky.reactions()[0] ) );
+  CHECK_THAT( 4., WithinRel( chunky.reactions()[1] ) );
+  CHECK_THAT( 16., WithinRel( chunky.reactions()[2] ) );
+  CHECK_THAT( 17., WithinRel( chunky.reactions()[3] ) );
+  CHECK_THAT( 18., WithinRel( chunky.reactions()[4] ) );
+  CHECK_THAT( 37., WithinRel( chunky.reactions()[5] ) );
+  CHECK_THAT( 102., WithinRel( chunky.reactions()[6] ) );
+  CHECK_THAT( 102., WithinRel( chunky.XMTI()[6] ) );
 
   CHECK( 9 == chunk.NC() );
 }
@@ -319,10 +322,10 @@ void verifyChunkNCOnly( const ReactionBlock& chunk ) {
 void verifyChunkNIOnly( const ReactionBlock& chunk ) {
 
   // ReactionBlock CONT record
-  CHECK( 1. == Approx( chunk.XMF1() ) );
-  CHECK( 1. == Approx( chunk.secondFileNumber() ) );
-  CHECK( 2. == Approx( chunk.XLFS1() ) );
-  CHECK( 2. == Approx( chunk.secondFinalExcitedState() ) );
+  CHECK( 1 == chunk.XMF1() );
+  CHECK( 1 == chunk.secondFileNumber() );
+  CHECK( 2 == chunk.XLFS1() );
+  CHECK( 2 == chunk.secondFinalExcitedState() );
   CHECK( 3 == chunk.MAT1() );
   CHECK( 3 == chunk.secondMaterialNumber() );
   CHECK( 4 == chunk.MT1() );
@@ -348,13 +351,13 @@ void verifyChunkNIOnly( const ReactionBlock& chunk ) {
   CHECK( 3 == stuff.numberEnergies() );
 
   // values
-  CHECK( 0. == Approx( stuff.energies()[0] ) );
-  CHECK( 100. == Approx( stuff.energies()[1] ) );
-  CHECK( 200. == Approx( stuff.energies()[2] ) );
-  CHECK( 1. == Approx( stuff.values()[0] ) );
-  CHECK( 2. == Approx( stuff.values()[1] ) );
-  CHECK( 3. == Approx( stuff.values()[2] ) );
-  CHECK( 4. == Approx( stuff.values()[3] ) );
+  CHECK_THAT( 0., WithinRel( stuff.energies()[0] ) );
+  CHECK_THAT( 100., WithinRel( stuff.energies()[1] ) );
+  CHECK_THAT( 200., WithinRel( stuff.energies()[2] ) );
+  CHECK_THAT( 1., WithinRel( stuff.values()[0] ) );
+  CHECK_THAT( 2., WithinRel( stuff.values()[1] ) );
+  CHECK_THAT( 3., WithinRel( stuff.values()[2] ) );
+  CHECK_THAT( 4., WithinRel( stuff.values()[3] ) );
 
   CHECK( 10 == chunk.NC() );
 
@@ -363,10 +366,10 @@ void verifyChunkNIOnly( const ReactionBlock& chunk ) {
 void verifyChunkBoth( const ReactionBlock& chunk ) {
 
   // ReactionBlock CONT record
-  CHECK( 1. == Approx( chunk.XMF1() ) );
-  CHECK( 1. == Approx( chunk.secondFileNumber() ) );
-  CHECK( 2. == Approx( chunk.XLFS1() ) );
-  CHECK( 2. == Approx( chunk.secondFinalExcitedState() ) );
+  CHECK( 1 == chunk.XMF1() );
+  CHECK( 1 == chunk.secondFileNumber() );
+  CHECK( 2 == chunk.XLFS1() );
+  CHECK( 2 == chunk.secondFinalExcitedState() );
   CHECK( 3 == chunk.MAT1() );
   CHECK( 3 == chunk.secondMaterialNumber() );
   CHECK( 4 == chunk.MT1() );

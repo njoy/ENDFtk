@@ -23,12 +23,12 @@ namespace section{
 
   /**
    *  @class
-   *  @brief 31 - covariances of cross sections
+   *  @brief 31 - covariances of fission multiplicities
    *
    *  See ENDF102, section 31.2 for more information.
    *
    *  Exactly the same as MF33, so most is taken from the 33 implementation.
-   *  Caveat: lumped covariances don't make sense in MF31, so this is witheld.
+   *  Caveat: lumped covariances don't make sense in MF31, so this is withheld.
    */
   template<>
   class Type< 31 > : protected Base {
@@ -69,6 +69,7 @@ namespace section{
     using Base::MT;
     using Base::sectionNumber;
     using Base::ZA;
+    using Base::targetIdentifier;
     using Base::atomicWeightRatio;
     using Base::AWR;
   };

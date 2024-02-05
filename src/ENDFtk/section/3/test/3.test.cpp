@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/3.hpp"
 
 // other includes
@@ -216,15 +219,17 @@ std::string chunk(){
 void verifyChunk( const section::Type< 3 >& chunk ) {
 
   CHECK( 102 == chunk.MT() );
+  CHECK( 102 == chunk.sectionNumber() );
   CHECK( 1001 == chunk.ZA() );
-  CHECK( 0.9991673 == Approx( chunk.AWR() ) );
-  CHECK( 0.9991673 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 1001 == chunk.targetIdentifier() );
+  CHECK_THAT( 0.9991673, WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 0.9991673, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 0 == chunk.LR() );
   CHECK( 0 == chunk.complexBreakUp() );
-  CHECK( 2.224648e+6 == Approx( chunk.QM() ) );
-  CHECK( 2.224648e+6 == Approx( chunk.massDifferenceQValue() ) );
-  CHECK( 3.224648e+6 == Approx( chunk.QI() ) );
-  CHECK( 3.224648e+6 == Approx( chunk.reactionQValue() ) );
+  CHECK_THAT( 2.224648e+6, WithinRel( chunk.QM() ) );
+  CHECK_THAT( 2.224648e+6, WithinRel( chunk.massDifferenceQValue() ) );
+  CHECK_THAT( 3.224648e+6, WithinRel( chunk.QI() ) );
+  CHECK_THAT( 3.224648e+6, WithinRel( chunk.reactionQValue() ) );
 
   CHECK( 6 == chunk.NP() );
   CHECK( 2 == chunk.NR() );
@@ -236,18 +241,18 @@ void verifyChunk( const section::Type< 3 >& chunk ) {
   CHECK( 6 == chunk.boundaries()[1] );
   CHECK( 6 == chunk.energies().size() );
   CHECK( 6 == chunk.crossSections().size() );
-  CHECK( 1e-5 == Approx( chunk.energies()[0] ) );
-  CHECK( 2e-5 == Approx( chunk.energies()[1] ) );
-  CHECK( 7.5e+5 == Approx( chunk.energies()[2] ) );
-  CHECK( 1.9e+7 == Approx( chunk.energies()[3] ) );
-  CHECK( 1.95e+7 == Approx( chunk.energies()[4] ) );
-  CHECK( 2e+7 == Approx( chunk.energies()[5] ) );
-  CHECK( 1.672869e+1 == Approx( chunk.crossSections()[0] ) );
-  CHECK( 1.182897e+1 == Approx( chunk.crossSections()[1] ) );
-  CHECK( 3.347392e-5 == Approx( chunk.crossSections()[2] ) );
-  CHECK( 2.751761e-5 == Approx( chunk.crossSections()[3] ) );
-  CHECK( 2.731301e-5 == Approx( chunk.crossSections()[4] ) );
-  CHECK( 2.710792e-5 == Approx( chunk.crossSections()[5] ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.energies()[0] ) );
+  CHECK_THAT( 2e-5, WithinRel( chunk.energies()[1] ) );
+  CHECK_THAT( 7.5e+5, WithinRel( chunk.energies()[2] ) );
+  CHECK_THAT( 1.9e+7, WithinRel( chunk.energies()[3] ) );
+  CHECK_THAT( 1.95e+7, WithinRel( chunk.energies()[4] ) );
+  CHECK_THAT( 2e+7, WithinRel( chunk.energies()[5] ) );
+  CHECK_THAT( 1.672869e+1, WithinRel( chunk.crossSections()[0] ) );
+  CHECK_THAT( 1.182897e+1, WithinRel( chunk.crossSections()[1] ) );
+  CHECK_THAT( 3.347392e-5, WithinRel( chunk.crossSections()[2] ) );
+  CHECK_THAT( 2.751761e-5, WithinRel( chunk.crossSections()[3] ) );
+  CHECK_THAT( 2.731301e-5, WithinRel( chunk.crossSections()[4] ) );
+  CHECK_THAT( 2.710792e-5, WithinRel( chunk.crossSections()[5] ) );
 
   CHECK( 5 == chunk.NC() );
 }
@@ -264,15 +269,17 @@ std::string chunkWithOneZone(){
 void verifyChunkWithOneZone( const section::Type< 3 >& chunk ) {
 
   CHECK( 102 == chunk.MT() );
+  CHECK( 102 == chunk.sectionNumber() );
   CHECK( 1001 == chunk.ZA() );
-  CHECK( 0.9991673 == Approx( chunk.AWR() ) );
-  CHECK( 0.9991673 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 1001 == chunk.targetIdentifier() );
+  CHECK_THAT( 0.9991673, WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 0.9991673, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 0 == chunk.LR() );
   CHECK( 0 == chunk.complexBreakUp() );
-  CHECK( 2.224648e+6 == Approx( chunk.QM() ) );
-  CHECK( 2.224648e+6 == Approx( chunk.massDifferenceQValue() ) );
-  CHECK( 3.224648e+6 == Approx( chunk.QI() ) );
-  CHECK( 3.224648e+6 == Approx( chunk.reactionQValue() ) );
+  CHECK_THAT( 2.224648e+6, WithinRel( chunk.QM() ) );
+  CHECK_THAT( 2.224648e+6, WithinRel( chunk.massDifferenceQValue() ) );
+  CHECK_THAT( 3.224648e+6, WithinRel( chunk.QI() ) );
+  CHECK_THAT( 3.224648e+6, WithinRel( chunk.reactionQValue() ) );
 
   CHECK( 6 == chunk.NP() );
   CHECK( 1 == chunk.NR() );
@@ -282,18 +289,18 @@ void verifyChunkWithOneZone( const section::Type< 3 >& chunk ) {
   CHECK( 6 == chunk.boundaries()[0] );
   CHECK( 6 == chunk.energies().size() );
   CHECK( 6 == chunk.crossSections().size() );
-  CHECK( 1e-5 == Approx( chunk.energies()[0] ) );
-  CHECK( 2e-5 == Approx( chunk.energies()[1] ) );
-  CHECK( 7.5e+5 == Approx( chunk.energies()[2] ) );
-  CHECK( 1.9e+7 == Approx( chunk.energies()[3] ) );
-  CHECK( 1.95e+7 == Approx( chunk.energies()[4] ) );
-  CHECK( 2e+7 == Approx( chunk.energies()[5] ) );
-  CHECK( 1.672869e+1 == Approx( chunk.crossSections()[0] ) );
-  CHECK( 1.182897e+1 == Approx( chunk.crossSections()[1] ) );
-  CHECK( 3.347392e-5 == Approx( chunk.crossSections()[2] ) );
-  CHECK( 2.751761e-5 == Approx( chunk.crossSections()[3] ) );
-  CHECK( 2.731301e-5 == Approx( chunk.crossSections()[4] ) );
-  CHECK( 2.710792e-5 == Approx( chunk.crossSections()[5] ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.energies()[0] ) );
+  CHECK_THAT( 2e-5, WithinRel( chunk.energies()[1] ) );
+  CHECK_THAT( 7.5e+5, WithinRel( chunk.energies()[2] ) );
+  CHECK_THAT( 1.9e+7, WithinRel( chunk.energies()[3] ) );
+  CHECK_THAT( 1.95e+7, WithinRel( chunk.energies()[4] ) );
+  CHECK_THAT( 2e+7, WithinRel( chunk.energies()[5] ) );
+  CHECK_THAT( 1.672869e+1, WithinRel( chunk.crossSections()[0] ) );
+  CHECK_THAT( 1.182897e+1, WithinRel( chunk.crossSections()[1] ) );
+  CHECK_THAT( 3.347392e-5, WithinRel( chunk.crossSections()[2] ) );
+  CHECK_THAT( 2.751761e-5, WithinRel( chunk.crossSections()[3] ) );
+  CHECK_THAT( 2.731301e-5, WithinRel( chunk.crossSections()[4] ) );
+  CHECK_THAT( 2.710792e-5, WithinRel( chunk.crossSections()[5] ) );
 
   CHECK( 5 == chunk.NC() );
 }

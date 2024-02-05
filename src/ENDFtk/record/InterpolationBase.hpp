@@ -58,9 +58,6 @@ namespace record {
     #include "ENDFtk/record/InterpolationBase/src/ctor.hpp"
 
   #define DEFINE_GETTER( name, index )                                    \
-    Base::MutableReturnType< index >                                      \
-    name (){ return std::get< index >( this->metadata.fields ); }         \
-                                                                          \
     Base::ImmutableReturnType< index >                                    \
     name () const { return std::get< index >( this->metadata.fields ); }
 

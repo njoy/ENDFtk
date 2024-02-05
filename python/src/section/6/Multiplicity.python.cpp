@@ -32,7 +32,7 @@ void wrapMultiplicity( python::module& module, python::module& ) {
   component
   .def(
 
-    python::init< double, double, int, int,
+    python::init< int, double, int, int,
                   std::vector< long >&&, std::vector< long >&&,
                   std::vector< double >&&, std::vector< double >&& >(),
     python::arg( "zap" ), python::arg( "awp" ),

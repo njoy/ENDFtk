@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/DerivedRedundant.hpp"
 
 // other includes
@@ -110,30 +113,30 @@ void verifyChunk( const DerivedRedundant& chunk ) {
   // metadata
   CHECK( 0 == chunk.LTY() );
   CHECK( 0 == chunk.procedure() );
-  CHECK( 2.5e3 == Approx( chunk.E1() ) );
-  CHECK( 2.5e3 == Approx( chunk.lowerEnergy() ) );
-  CHECK( 2.0e7 == Approx( chunk.E2() ) );
-  CHECK( 2.0e7 == Approx( chunk.upperEnergy() ) );
+  CHECK_THAT( 2.5e3, WithinRel( chunk.E1() ) );
+  CHECK_THAT( 2.5e3, WithinRel( chunk.lowerEnergy() ) );
+  CHECK_THAT( 2.0e7, WithinRel( chunk.E2() ) );
+  CHECK_THAT( 2.0e7, WithinRel( chunk.upperEnergy() ) );
   CHECK( 7 == chunk.NCI() );
   CHECK( 7 == chunk.numberReactions() );
 
   // values
-  CHECK( 1.0 == Approx( chunk.coefficients()[0] ) );
-  CHECK( -1.0 == Approx( chunk.coefficients()[1] ) );
-  CHECK( -1.0 == Approx( chunk.coefficients()[2] ) );
-  CHECK( -1.0 == Approx( chunk.coefficients()[3] ) );
-  CHECK( -1.0 == Approx( chunk.coefficients()[4] ) );
-  CHECK( -1.0 == Approx( chunk.coefficients()[5] ) );
-  CHECK( -1.0 == Approx( chunk.coefficients()[6] ) );
-  CHECK( -1.0 == Approx( chunk.CI()[6] ) );
-  CHECK( 1. == Approx( chunk.reactions()[0] ) );
-  CHECK( 4. == Approx( chunk.reactions()[1] ) );
-  CHECK( 16. == Approx( chunk.reactions()[2] ) );
-  CHECK( 17. == Approx( chunk.reactions()[3] ) );
-  CHECK( 18. == Approx( chunk.reactions()[4] ) );
-  CHECK( 37. == Approx( chunk.reactions()[5] ) );
-  CHECK( 102. == Approx( chunk.reactions()[6] ) );
-  CHECK( 102. == Approx( chunk.XMTI()[6] ) );
+  CHECK_THAT( 1.0, WithinRel( chunk.coefficients()[0] ) );
+  CHECK_THAT( -1.0, WithinRel( chunk.coefficients()[1] ) );
+  CHECK_THAT( -1.0, WithinRel( chunk.coefficients()[2] ) );
+  CHECK_THAT( -1.0, WithinRel( chunk.coefficients()[3] ) );
+  CHECK_THAT( -1.0, WithinRel( chunk.coefficients()[4] ) );
+  CHECK_THAT( -1.0, WithinRel( chunk.coefficients()[5] ) );
+  CHECK_THAT( -1.0, WithinRel( chunk.coefficients()[6] ) );
+  CHECK_THAT( -1.0, WithinRel( chunk.CI()[6] ) );
+  CHECK_THAT( 1., WithinRel( chunk.reactions()[0] ) );
+  CHECK_THAT( 4., WithinRel( chunk.reactions()[1] ) );
+  CHECK_THAT( 16., WithinRel( chunk.reactions()[2] ) );
+  CHECK_THAT( 17., WithinRel( chunk.reactions()[3] ) );
+  CHECK_THAT( 18., WithinRel( chunk.reactions()[4] ) );
+  CHECK_THAT( 37., WithinRel( chunk.reactions()[5] ) );
+  CHECK_THAT( 102., WithinRel( chunk.reactions()[6] ) );
+  CHECK_THAT( 102., WithinRel( chunk.XMTI()[6] ) );
 
   CHECK( 5 == chunk.NC() );
 

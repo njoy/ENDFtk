@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/2/151.hpp"
 
 // other includes
@@ -173,8 +176,8 @@ std::string chunk() {
 
 void verifyChunk( const JValue& chunk ) {
 
-  CHECK( 3. == Approx( chunk.AJ() ) );
-  CHECK( 3. == Approx( chunk.spin() ) );
+  CHECK_THAT( 3., WithinRel( chunk.AJ() ) );
+  CHECK_THAT( 3., WithinRel( chunk.spin() ) );
 
   CHECK( 1 == chunk.AMUN() );
   CHECK( 1 == chunk.neutronWidthDegreesFreedom() );
@@ -207,42 +210,42 @@ void verifyChunk( const JValue& chunk ) {
   CHECK( 3 == chunk.GX().size() );
   CHECK( 3 == chunk.averageCompetitiveWidths().size() );
 
-  CHECK( 2.25e+3 == Approx( chunk.ES()[0] ) );
-  CHECK( 3.5e+3 == Approx( chunk.ES()[1] ) );
-  CHECK( 2.5e+4 == Approx( chunk.ES()[2] ) );
-  CHECK( 2.25e+3 == Approx( chunk.energies()[0] ) );
-  CHECK( 3.5e+3 == Approx( chunk.energies()[1] ) );
-  CHECK( 2.5e+4 == Approx( chunk.energies()[2] ) );
-  CHECK( 1.05857 == Approx( chunk.D()[0] ) );
-  CHECK( 1.055928 == Approx( chunk.D()[1] ) );
-  CHECK( 1.011535 == Approx( chunk.D()[2] ) );
-  CHECK( 1.05857 == Approx( chunk.averageLevelSpacings()[0] ) );
-  CHECK( 1.055928 == Approx( chunk.averageLevelSpacings()[1] ) );
-  CHECK( 1.011535 == Approx( chunk.averageLevelSpacings()[2] ) );
-  CHECK( 9.567005e-5 == Approx( chunk.GN()[0] ) );
-  CHECK( 9.510382e-5 == Approx( chunk.GN()[1] ) );
-  CHECK( 8.847673e-5 == Approx( chunk.GN()[2] ) );
-  CHECK( 9.567005e-5 == Approx( chunk.averageNeutronWidths()[0] ) );
-  CHECK( 9.510382e-5 == Approx( chunk.averageNeutronWidths()[1] ) );
-  CHECK( 8.847673e-5 == Approx( chunk.averageNeutronWidths()[2] ) );
-  CHECK( 3.882094e-2 == Approx( chunk.GG()[0] ) );
-  CHECK( 3.884319e-2 == Approx( chunk.GG()[1] ) );
-  CHECK( 3.922727e-2 == Approx( chunk.GG()[2] ) );
-  CHECK( 3.882094e-2 == Approx( chunk.averageGammaWidths()[0] ) );
-  CHECK( 3.884319e-2 == Approx( chunk.averageGammaWidths()[1] ) );
-  CHECK( 3.922727e-2 == Approx( chunk.averageGammaWidths()[2] ) );
-  CHECK( 2.893370e-1 == Approx( chunk.GF()[0] ) );
-  CHECK( 2.893379e-1 == Approx( chunk.GF()[1] ) );
-  CHECK( 2.893518e-1 == Approx( chunk.GF()[2] ) );
-  CHECK( 2.893370e-1 == Approx( chunk.averageFissionWidths()[0] ) );
-  CHECK( 2.893379e-1 == Approx( chunk.averageFissionWidths()[1] ) );
-  CHECK( 2.893518e-1 == Approx( chunk.averageFissionWidths()[2] ) );
-  CHECK( 1. == Approx( chunk.GX()[0] ) );
-  CHECK( 2. == Approx( chunk.GX()[1] ) );
-  CHECK( 3. == Approx( chunk.GX()[2] ) );
-  CHECK( 1. == Approx( chunk.averageCompetitiveWidths()[0] ) );
-  CHECK( 2. == Approx( chunk.averageCompetitiveWidths()[1] ) );
-  CHECK( 3. == Approx( chunk.averageCompetitiveWidths()[2] ) );
+  CHECK_THAT( 2.25e+3, WithinRel( chunk.ES()[0] ) );
+  CHECK_THAT( 3.5e+3, WithinRel( chunk.ES()[1] ) );
+  CHECK_THAT( 2.5e+4, WithinRel( chunk.ES()[2] ) );
+  CHECK_THAT( 2.25e+3, WithinRel( chunk.energies()[0] ) );
+  CHECK_THAT( 3.5e+3, WithinRel( chunk.energies()[1] ) );
+  CHECK_THAT( 2.5e+4, WithinRel( chunk.energies()[2] ) );
+  CHECK_THAT( 1.05857, WithinRel( chunk.D()[0] ) );
+  CHECK_THAT( 1.055928, WithinRel( chunk.D()[1] ) );
+  CHECK_THAT( 1.011535, WithinRel( chunk.D()[2] ) );
+  CHECK_THAT( 1.05857, WithinRel( chunk.averageLevelSpacings()[0] ) );
+  CHECK_THAT( 1.055928, WithinRel( chunk.averageLevelSpacings()[1] ) );
+  CHECK_THAT( 1.011535, WithinRel( chunk.averageLevelSpacings()[2] ) );
+  CHECK_THAT( 9.567005e-5, WithinRel( chunk.GN()[0] ) );
+  CHECK_THAT( 9.510382e-5, WithinRel( chunk.GN()[1] ) );
+  CHECK_THAT( 8.847673e-5, WithinRel( chunk.GN()[2] ) );
+  CHECK_THAT( 9.567005e-5, WithinRel( chunk.averageNeutronWidths()[0] ) );
+  CHECK_THAT( 9.510382e-5, WithinRel( chunk.averageNeutronWidths()[1] ) );
+  CHECK_THAT( 8.847673e-5, WithinRel( chunk.averageNeutronWidths()[2] ) );
+  CHECK_THAT( 3.882094e-2, WithinRel( chunk.GG()[0] ) );
+  CHECK_THAT( 3.884319e-2, WithinRel( chunk.GG()[1] ) );
+  CHECK_THAT( 3.922727e-2, WithinRel( chunk.GG()[2] ) );
+  CHECK_THAT( 3.882094e-2, WithinRel( chunk.averageGammaWidths()[0] ) );
+  CHECK_THAT( 3.884319e-2, WithinRel( chunk.averageGammaWidths()[1] ) );
+  CHECK_THAT( 3.922727e-2, WithinRel( chunk.averageGammaWidths()[2] ) );
+  CHECK_THAT( 2.893370e-1, WithinRel( chunk.GF()[0] ) );
+  CHECK_THAT( 2.893379e-1, WithinRel( chunk.GF()[1] ) );
+  CHECK_THAT( 2.893518e-1, WithinRel( chunk.GF()[2] ) );
+  CHECK_THAT( 2.893370e-1, WithinRel( chunk.averageFissionWidths()[0] ) );
+  CHECK_THAT( 2.893379e-1, WithinRel( chunk.averageFissionWidths()[1] ) );
+  CHECK_THAT( 2.893518e-1, WithinRel( chunk.averageFissionWidths()[2] ) );
+  CHECK_THAT( 1., WithinRel( chunk.GX()[0] ) );
+  CHECK_THAT( 2., WithinRel( chunk.GX()[1] ) );
+  CHECK_THAT( 3., WithinRel( chunk.GX()[2] ) );
+  CHECK_THAT( 1., WithinRel( chunk.averageCompetitiveWidths()[0] ) );
+  CHECK_THAT( 2., WithinRel( chunk.averageCompetitiveWidths()[1] ) );
+  CHECK_THAT( 3., WithinRel( chunk.averageCompetitiveWidths()[2] ) );
 
   CHECK( 5 == chunk.NC() );
 }

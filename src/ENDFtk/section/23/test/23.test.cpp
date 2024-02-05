@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/23.hpp"
 
 // other includes
@@ -122,7 +125,7 @@ SCENARIO( "section::Type< 23 >" ) {
 } // SCENARIO
 
 std::string chunk() {
-  
+
   return
     " 1.000000+3 9.992414-1          0          0          0          0 10023525     \n"
     " 1.000000+0 2.000000+0          0          0          1          2 10023525     \n"
@@ -133,13 +136,15 @@ std::string chunk() {
 void verifyChunk( const section::Type< 23 >& chunk ) {
 
   CHECK( 525 == chunk.MT() );
+  CHECK( 525 == chunk.sectionNumber() );
   CHECK( 1000 == chunk.ZA() );
-  CHECK( 0.9992414 == Approx( chunk.AWR() ) );
-  CHECK( 0.9992414 == Approx( chunk.atomicWeightRatio() ) );
-  CHECK( 1. == Approx( chunk.EPE() ) );
-  CHECK( 1. == Approx( chunk.subshellBindingEnergy() ) );
-  CHECK( 2. == Approx( chunk.EFL() ) );
-  CHECK( 2. == Approx( chunk.fluorescenceYield() ) );
+  CHECK( 1000 == chunk.targetIdentifier() );
+  CHECK_THAT( 0.9992414, WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 0.9992414, WithinRel( chunk.atomicWeightRatio() ) );
+  CHECK_THAT( 1., WithinRel( chunk.EPE() ) );
+  CHECK_THAT( 1., WithinRel( chunk.subshellBindingEnergy() ) );
+  CHECK_THAT( 2., WithinRel( chunk.EFL() ) );
+  CHECK_THAT( 2., WithinRel( chunk.fluorescenceYield() ) );
 
   CHECK( 2 == chunk.NP() );
   CHECK( 1 == chunk.NR() );
@@ -149,10 +154,10 @@ void verifyChunk( const section::Type< 23 >& chunk ) {
   CHECK( 2 == chunk.boundaries()[0] );
   CHECK( 2 == chunk.energies().size() );
   CHECK( 2 == chunk.crossSections().size() );
-  CHECK( 10. == Approx( chunk.energies()[0] ) );
-  CHECK( 1e+11 == Approx( chunk.energies()[1] ) );
-  CHECK( 2.748960e+8 == Approx( chunk.crossSections()[0] ) );
-  CHECK( 1.31176E-5 == Approx( chunk.crossSections()[1] ) );
+  CHECK_THAT( 10., WithinRel( chunk.energies()[0] ) );
+  CHECK_THAT( 1e+11, WithinRel( chunk.energies()[1] ) );
+  CHECK_THAT( 2.748960e+8, WithinRel( chunk.crossSections()[0] ) );
+  CHECK_THAT( 1.31176E-5, WithinRel( chunk.crossSections()[1] ) );
 
   CHECK( 4 == chunk.NC() );
 }

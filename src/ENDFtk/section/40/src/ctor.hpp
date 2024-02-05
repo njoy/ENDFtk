@@ -7,7 +7,7 @@
  *  @param[in] lis           the level number of target
  *  @param[in] blocks        the level block subsections
  */
-Type( int MT, double zaid, double awr, int lis,
+Type( int MT, int zaid, double awr, int lis,
       std::vector< LevelBlock >&& blocks ) :
   Base( zaid, awr, MT ), lis_( lis ),
   levelBlocks_( std::move( blocks ) ) {}

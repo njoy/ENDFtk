@@ -16,12 +16,15 @@ public:
   /**
    *  @brief Return the ZA identifier of the reaction product
    */
-  double ZAP() const { return TabulationRecord::C1(); }
+  int ZAP() const { 
+    
+    return static_cast< int >( std::round( TabulationRecord::C1() ) ); 
+  }
 
   /**
    *  @brief Return the ZA identifier of the reaction product
    */
-  double productIdentifier() const { return this->ZAP(); }
+  int productIdentifier() const { return this->ZAP(); }
 
   /**
    *  @brief Return the atomic weight ratio of the reaction product

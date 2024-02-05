@@ -13,7 +13,7 @@ Type() = default;
  *  @param[in] awr        the atomic weight ratio
  *  @param[in] photons    the delayed photon data
  */
-Type( double zaid, double awr, DelayedPhotonData&& photons ) :
+Type( int zaid, double awr, DelayedPhotonData&& photons ) :
   BaseWithoutMT( zaid, awr ), data_( std::move( photons ) ) {}
 
 /**

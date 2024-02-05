@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/6.hpp"
 
 // other includes
@@ -163,8 +166,8 @@ void verifyChunkNA1( const KalbachMann& chunk ) {
 
   CHECK( 2 == chunk.LANG() );
   CHECK( 2 == chunk.representation() );
-  CHECK( 1e-5 == Approx( chunk.E() ) );
-  CHECK( 1e-5 == Approx( chunk.incidentEnergy() ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.E() ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.incidentEnergy() ) );
 
   CHECK( 0 == chunk.ND() );
   CHECK( 0 == chunk.numberDiscreteEnergies() );
@@ -175,21 +178,21 @@ void verifyChunkNA1( const KalbachMann& chunk ) {
   CHECK( 2 == chunk.numberSecondaryEnergies() );
   CHECK( 2 == chunk.EP().size() );
   CHECK( 2 == chunk.energies().size() );
-  CHECK( 1. == Approx( chunk.EP()[0] ) );
-  CHECK( 4. == Approx( chunk.EP()[1] ) );
-  CHECK( 1. == Approx( chunk.energies()[0] ) );
-  CHECK( 4. == Approx( chunk.energies()[1] ) );
+  CHECK_THAT( 1., WithinRel( chunk.EP()[0] ) );
+  CHECK_THAT( 4., WithinRel( chunk.EP()[1] ) );
+  CHECK_THAT( 1., WithinRel( chunk.energies()[0] ) );
+  CHECK_THAT( 4., WithinRel( chunk.energies()[1] ) );
   CHECK( 2 == chunk.parameters().size() );
-  CHECK( 2. == Approx( chunk.parameters()[0][0] ) );
-  CHECK( 3. == Approx( chunk.parameters()[0][1] ) );
-  CHECK( 5. == Approx( chunk.parameters()[1][0] ) );
-  CHECK( 6. == Approx( chunk.parameters()[1][1] ) );
-  CHECK( 2 == Approx( chunk.F0().size() ) );
-  CHECK( 2 == Approx( chunk.totalEmissionProbabilities().size() ) );
-  CHECK( 2. == Approx( chunk.F0()[0] ) );
-  CHECK( 5. == Approx( chunk.F0()[1] ) );
-  CHECK( 2. == Approx( chunk.totalEmissionProbabilities()[0] ) );
-  CHECK( 5. == Approx( chunk.totalEmissionProbabilities()[1] ) );
+  CHECK_THAT( 2., WithinRel( chunk.parameters()[0][0] ) );
+  CHECK_THAT( 3., WithinRel( chunk.parameters()[0][1] ) );
+  CHECK_THAT( 5., WithinRel( chunk.parameters()[1][0] ) );
+  CHECK_THAT( 6., WithinRel( chunk.parameters()[1][1] ) );
+  CHECK( 2 == chunk.F0().size() );
+  CHECK( 2 == chunk.totalEmissionProbabilities().size() );
+  CHECK_THAT( 2., WithinRel( chunk.F0()[0] ) );
+  CHECK_THAT( 5., WithinRel( chunk.F0()[1] ) );
+  CHECK_THAT( 2., WithinRel( chunk.totalEmissionProbabilities()[0] ) );
+  CHECK_THAT( 5., WithinRel( chunk.totalEmissionProbabilities()[1] ) );
 
   CHECK( 2 == chunk.NC() );
 }
@@ -205,8 +208,8 @@ void verifyChunkNA2( const KalbachMann& chunk ) {
 
   CHECK( 2 == chunk.LANG() );
   CHECK( 2 == chunk.representation() );
-  CHECK( 1e-5 == Approx( chunk.E() ) );
-  CHECK( 1e-5 == Approx( chunk.incidentEnergy() ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.E() ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.incidentEnergy() ) );
 
   CHECK( 0 == chunk.ND() );
   CHECK( 0 == chunk.numberDiscreteEnergies() );
@@ -217,23 +220,23 @@ void verifyChunkNA2( const KalbachMann& chunk ) {
   CHECK( 2 == chunk.numberSecondaryEnergies() );
   CHECK( 2 == chunk.EP().size() );
   CHECK( 2 == chunk.energies().size() );
-  CHECK( 1. == Approx( chunk.EP()[0] ) );
-  CHECK( 5. == Approx( chunk.EP()[1] ) );
-  CHECK( 1. == Approx( chunk.energies()[0] ) );
-  CHECK( 5. == Approx( chunk.energies()[1] ) );
+  CHECK_THAT( 1., WithinRel( chunk.EP()[0] ) );
+  CHECK_THAT( 5., WithinRel( chunk.EP()[1] ) );
+  CHECK_THAT( 1., WithinRel( chunk.energies()[0] ) );
+  CHECK_THAT( 5., WithinRel( chunk.energies()[1] ) );
   CHECK( 2 == chunk.parameters().size() );
-  CHECK( 2. == Approx( chunk.parameters()[0][0] ) );
-  CHECK( 3. == Approx( chunk.parameters()[0][1] ) );
-  CHECK( 4. == Approx( chunk.parameters()[0][2] ) );
-  CHECK( 6. == Approx( chunk.parameters()[1][0] ) );
-  CHECK( 7. == Approx( chunk.parameters()[1][1] ) );
-  CHECK( 8. == Approx( chunk.parameters()[1][2] ) );
-  CHECK( 2 == Approx( chunk.F0().size() ) );
-  CHECK( 2 == Approx( chunk.totalEmissionProbabilities().size() ) );
-  CHECK( 2. == Approx( chunk.F0()[0] ) );
-  CHECK( 6. == Approx( chunk.F0()[1] ) );
-  CHECK( 2. == Approx( chunk.totalEmissionProbabilities()[0] ) );
-  CHECK( 6. == Approx( chunk.totalEmissionProbabilities()[1] ) );
+  CHECK_THAT( 2., WithinRel( chunk.parameters()[0][0] ) );
+  CHECK_THAT( 3., WithinRel( chunk.parameters()[0][1] ) );
+  CHECK_THAT( 4., WithinRel( chunk.parameters()[0][2] ) );
+  CHECK_THAT( 6., WithinRel( chunk.parameters()[1][0] ) );
+  CHECK_THAT( 7., WithinRel( chunk.parameters()[1][1] ) );
+  CHECK_THAT( 8., WithinRel( chunk.parameters()[1][2] ) );
+  CHECK( 2 == chunk.F0().size() );
+  CHECK( 2 == chunk.totalEmissionProbabilities().size() );
+  CHECK_THAT( 2., WithinRel( chunk.F0()[0] ) );
+  CHECK_THAT( 6., WithinRel( chunk.F0()[1] ) );
+  CHECK_THAT( 2., WithinRel( chunk.totalEmissionProbabilities()[0] ) );
+  CHECK_THAT( 6., WithinRel( chunk.totalEmissionProbabilities()[1] ) );
 
   CHECK( 3 == chunk.NC() );
 }

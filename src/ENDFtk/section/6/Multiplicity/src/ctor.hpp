@@ -11,12 +11,12 @@
  *  @param[in] energies          the x values
  *  @param[in] multiplicities    the function values
  */
-Multiplicity( double zap, double awp, long lip, long law,
+Multiplicity( int zap, double awp, long lip, long law,
               std::vector< long >&& boundaries,
               std::vector< long >&& interpolants,
               std::vector< double >&& energies,
               std::vector< double >&& multiplicities )
-  try : TabulationRecord( zap, awp, lip, law,
+  try : TabulationRecord( static_cast< double >( zap ), awp, lip, law,
                           std::move( boundaries ),
                           std::move( interpolants ),
                           std::move( energies ),

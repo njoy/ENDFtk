@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/1/455.hpp"
 
 // other includes
@@ -111,37 +114,37 @@ void verifyChunk( const DecayConstants& chunk ) {
   CHECK( 6 == chunk.NNF() );
   CHECK( 6 == chunk.numberPrecursors() );
 
-  CHECK( 1e-5 == Approx( chunk.E() ) );
-  CHECK( 1e-5 == Approx( chunk.incidentEnergy() ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.E() ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.incidentEnergy() ) );
 
   CHECK( 6 == chunk.lambdas().size() );
   CHECK( 6 == chunk.decayConstants().size() );
-  CHECK( 1. == Approx( chunk.lambdas()[0] ) );
-  CHECK( 2. == Approx( chunk.lambdas()[1] ) );
-  CHECK( 3. == Approx( chunk.lambdas()[2] ) );
-  CHECK( 4. == Approx( chunk.lambdas()[3] ) );
-  CHECK( 5. == Approx( chunk.lambdas()[4] ) );
-  CHECK( 6. == Approx( chunk.lambdas()[5] ) );
-  CHECK( 1. == Approx( chunk.decayConstants()[0] ) );
-  CHECK( 2. == Approx( chunk.decayConstants()[1] ) );
-  CHECK( 3. == Approx( chunk.decayConstants()[2] ) );
-  CHECK( 4. == Approx( chunk.decayConstants()[3] ) );
-  CHECK( 5. == Approx( chunk.decayConstants()[4] ) );
-  CHECK( 6. == Approx( chunk.decayConstants()[5] ) );
+  CHECK_THAT( 1., WithinRel( chunk.lambdas()[0] ) );
+  CHECK_THAT( 2., WithinRel( chunk.lambdas()[1] ) );
+  CHECK_THAT( 3., WithinRel( chunk.lambdas()[2] ) );
+  CHECK_THAT( 4., WithinRel( chunk.lambdas()[3] ) );
+  CHECK_THAT( 5., WithinRel( chunk.lambdas()[4] ) );
+  CHECK_THAT( 6., WithinRel( chunk.lambdas()[5] ) );
+  CHECK_THAT( 1., WithinRel( chunk.decayConstants()[0] ) );
+  CHECK_THAT( 2., WithinRel( chunk.decayConstants()[1] ) );
+  CHECK_THAT( 3., WithinRel( chunk.decayConstants()[2] ) );
+  CHECK_THAT( 4., WithinRel( chunk.decayConstants()[3] ) );
+  CHECK_THAT( 5., WithinRel( chunk.decayConstants()[4] ) );
+  CHECK_THAT( 6., WithinRel( chunk.decayConstants()[5] ) );
   CHECK( 6 == chunk.alphas().size() );
   CHECK( 6 == chunk.abundances().size() );
-  CHECK( 1.1 == Approx( chunk.alphas()[0] ) );
-  CHECK( 2.1 == Approx( chunk.alphas()[1] ) );
-  CHECK( 3.1 == Approx( chunk.alphas()[2] ) );
-  CHECK( 4.1 == Approx( chunk.alphas()[3] ) );
-  CHECK( 5.1 == Approx( chunk.alphas()[4] ) );
-  CHECK( 6.1 == Approx( chunk.alphas()[5] ) );
-  CHECK( 1.1 == Approx( chunk.abundances()[0] ) );
-  CHECK( 2.1 == Approx( chunk.abundances()[1] ) );
-  CHECK( 3.1 == Approx( chunk.abundances()[2] ) );
-  CHECK( 4.1 == Approx( chunk.abundances()[3] ) );
-  CHECK( 5.1 == Approx( chunk.abundances()[4] ) );
-  CHECK( 6.1 == Approx( chunk.abundances()[5] ) );
+  CHECK_THAT( 1.1, WithinRel( chunk.alphas()[0] ) );
+  CHECK_THAT( 2.1, WithinRel( chunk.alphas()[1] ) );
+  CHECK_THAT( 3.1, WithinRel( chunk.alphas()[2] ) );
+  CHECK_THAT( 4.1, WithinRel( chunk.alphas()[3] ) );
+  CHECK_THAT( 5.1, WithinRel( chunk.alphas()[4] ) );
+  CHECK_THAT( 6.1, WithinRel( chunk.alphas()[5] ) );
+  CHECK_THAT( 1.1, WithinRel( chunk.abundances()[0] ) );
+  CHECK_THAT( 2.1, WithinRel( chunk.abundances()[1] ) );
+  CHECK_THAT( 3.1, WithinRel( chunk.abundances()[2] ) );
+  CHECK_THAT( 4.1, WithinRel( chunk.abundances()[3] ) );
+  CHECK_THAT( 5.1, WithinRel( chunk.abundances()[4] ) );
+  CHECK_THAT( 6.1, WithinRel( chunk.abundances()[5] ) );
 
   CHECK( 3 == chunk.NC() );
 }

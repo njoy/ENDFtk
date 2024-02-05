@@ -3,7 +3,7 @@ private:
 /**
  *  @brief Private constructor
  */
-Type( int MT, double zaid, double awr,
+Type( int MT, int zaid, double awr,
       std::optional< TotalCrossSection >&& total,
       std::vector< PartialCrossSection >&& partials ) :
   Base( zaid, awr, MT ),
@@ -28,7 +28,7 @@ Type() = default;
  *
  *  @param[in] partial   the partial cross section
  */
-Type( int MT, double zaid, double awr,
+Type( int MT, int zaid, double awr,
       PartialCrossSection&& partial )
   try : Type( MT, zaid, awr, std::nullopt, { std::move( partial ) } ) {}
   catch ( std::exception& e ) {
@@ -42,7 +42,7 @@ Type( int MT, double zaid, double awr,
  *  @param[in] total      the total photon production cross section
  *  @param[in] partials   the partial photon production cross sections
  */
-Type( int MT, double zaid, double awr,
+Type( int MT, int zaid, double awr,
       TotalCrossSection&& total,
       std::vector< PartialCrossSection >&& partials ) :
   Type( MT, zaid, awr,
@@ -55,7 +55,7 @@ private:
  *  @brief Private constructor
  */
 template< typename Iterator >
-Type( double zaid, double awr,
+Type( int zaid, double awr,
       std::optional< TotalCrossSection >&& total,
       Iterator& begin, const Iterator& end,
       long& lineNumber, int MAT, int MF, int MT, int NK ) :

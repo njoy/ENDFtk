@@ -10,14 +10,6 @@
 // namespace aliases
 namespace python = pybind11;
 
-namespace mf31 {
-
-  // declarations - components
-  void wrapReactionBlock( python::module&, python::module& );
-  void wrapDerivedRedundant( python::module&, python::module& );
-  void wrapDerivedRatioToStandard( python::module&, python::module& );
-}
-
 void wrapSection_31( python::module& module, python::module& viewmodule ) {
 
   // type aliases
@@ -34,14 +26,14 @@ void wrapSection_31( python::module& module, python::module& viewmodule ) {
 
     module,
     "Section",
-    "MF31 section - covariances of cross sections"
+    "MF31 section - covariances of fission multiplicities"
   );
 
   // wrap the section
   section
   .def(
 
-    python::init< int, double, double, std::vector< ReactionBlock >&& >(),
+    python::init< int, int, double, std::vector< ReactionBlock >&& >(),
     python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
     python::arg( "reactions" ),
     "Initialise the section\n\n"

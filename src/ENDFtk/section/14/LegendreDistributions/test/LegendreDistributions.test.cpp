@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/14.hpp"
 
 // other includes
@@ -169,10 +172,10 @@ void verifyChunk( const LegendreDistributions& chunk ) {
   CHECK( 1 == chunk.LTT() );
   CHECK( 1 == chunk.LAW() );
 
-  CHECK( 1. == Approx( chunk.EG() ) );
-  CHECK( 1. == Approx( chunk.photonEnergy() ) );
-  CHECK( 2. == Approx( chunk.ES() ) );
-  CHECK( 2. == Approx( chunk.levelEnergy() ) );
+  CHECK_THAT( 1., WithinRel( chunk.EG() ) );
+  CHECK_THAT( 1., WithinRel( chunk.photonEnergy() ) );
+  CHECK_THAT( 2., WithinRel( chunk.ES() ) );
+  CHECK_THAT( 2., WithinRel( chunk.levelEnergy() ) );
 
   CHECK( 2 == chunk.NE() );
   CHECK( 1 == chunk.NR() );
@@ -184,29 +187,29 @@ void verifyChunk( const LegendreDistributions& chunk ) {
   CHECK( 2 == chunk.incidentEnergies().size() );
   CHECK( 2 == chunk.angularDistributions().size() );
 
-  CHECK( 1e-5 == Approx( chunk.incidentEnergies()[0] ) );
-  CHECK( 2e+7 == Approx( chunk.incidentEnergies()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.incidentEnergies()[0] ) );
+  CHECK_THAT( 2e+7, WithinRel( chunk.incidentEnergies()[1] ) );
 
   auto distributions = chunk.angularDistributions();
 
   auto d = distributions[0];
-  CHECK( 1e-5 == Approx( d.E() ) );
-  CHECK( 1e-5 == Approx( d.incidentEnergy() ) );
+  CHECK_THAT( 1e-5, WithinRel( d.E() ) );
+  CHECK_THAT( 1e-5, WithinRel( d.incidentEnergy() ) );
   CHECK( 3 == d.NL() );
   CHECK( 3 == d.legendreOrder() );
   CHECK( 3 == d.coefficients().size() );
-  CHECK( 7.392510e-5  == Approx( d.coefficients()[0] ) );
-  CHECK( 8.477139e-9 == Approx( d.coefficients()[1] ) );
-  CHECK( 1.17106e-13 == Approx( d.coefficients()[2] ) );
+  CHECK_THAT( 7.392510e-5 , WithinRel( d.coefficients()[0] ) );
+  CHECK_THAT( 8.477139e-9, WithinRel( d.coefficients()[1] ) );
+  CHECK_THAT( 1.17106e-13, WithinRel( d.coefficients()[2] ) );
 
   d = distributions[1];
-  CHECK( 2e+7 == Approx( d.E() ) );
-  CHECK( 2e+7 == Approx( d.incidentEnergy() ) );
+  CHECK_THAT( 2e+7, WithinRel( d.E() ) );
+  CHECK_THAT( 2e+7, WithinRel( d.incidentEnergy() ) );
   CHECK( 2 == d.NL() );
   CHECK( 2 == d.legendreOrder() );
   CHECK( 2 == d.coefficients().size() );
-  CHECK( 2.874390e-2   == Approx( d.coefficients()[0] ) );
-  CHECK( 3.19645e-11 == Approx( d.coefficients()[1] ) );
+  CHECK_THAT( 2.874390e-2  , WithinRel( d.coefficients()[0] ) );
+  CHECK_THAT( 3.19645e-11, WithinRel( d.coefficients()[1] ) );
 
   CHECK( 6 == chunk.NC() );
 }

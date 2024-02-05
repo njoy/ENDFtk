@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/26.hpp"
 
 // other includes
@@ -160,52 +163,52 @@ void verifyChunk( const DiscreteTwoBodyScattering& chunk ) {
 
       CHECK( 2 == chunk.E().size() );
       CHECK( 2 == chunk.incidentEnergies().size() );
-      CHECK( 1e-5 == Approx( chunk.E()[0] ) );
-      CHECK( 2e+7 == Approx( chunk.E()[1] ) );
-      CHECK( 1e-5 == Approx( chunk.incidentEnergies()[0] ) );
-      CHECK( 2e+7 == Approx( chunk.incidentEnergies()[1] ) );
+      CHECK_THAT( 1e-5, WithinRel( chunk.E()[0] ) );
+      CHECK_THAT( 2e+7, WithinRel( chunk.E()[1] ) );
+      CHECK_THAT( 1e-5, WithinRel( chunk.incidentEnergies()[0] ) );
+      CHECK_THAT( 2e+7, WithinRel( chunk.incidentEnergies()[1] ) );
 
       auto energies = chunk.distributions();
 
-      CHECK( 1e-5 == Approx( energies[0].E() ) );
-      CHECK( 1e-5 == Approx( energies[0].incidentEnergy() ) );
+      CHECK_THAT( 1e-5, WithinRel( energies[0].E() ) );
+      CHECK_THAT( 1e-5, WithinRel( energies[0].incidentEnergy() ) );
       CHECK( 12 == energies[0].LANG() );
       CHECK( 4 == energies[0].NW() );
       CHECK( 2 == energies[0].NL() );
       CHECK( 2 == energies[0].MU().size() );
       CHECK( 2 == energies[0].cosines().size() );
-      CHECK( 1. == Approx( energies[0].MU()[0] ) );
-      CHECK( 3. == Approx( energies[0].MU()[1] ) );
-      CHECK( 1. == Approx( energies[0].cosines()[0] ) );
-      CHECK( 3. == Approx( energies[0].cosines()[1] ) );
+      CHECK_THAT( 1., WithinRel( energies[0].MU()[0] ) );
+      CHECK_THAT( 3., WithinRel( energies[0].MU()[1] ) );
+      CHECK_THAT( 1., WithinRel( energies[0].cosines()[0] ) );
+      CHECK_THAT( 3., WithinRel( energies[0].cosines()[1] ) );
       CHECK( 2 == energies[0].F().size() );
       CHECK( 2 == energies[0].probabilities().size() );
-      CHECK( 2. == Approx( energies[0].F()[0] ) );
-      CHECK( 4. == Approx( energies[0].F()[1] ) );
-      CHECK( 2. == Approx( energies[0].probabilities()[0] ) );
-      CHECK( 4. == Approx( energies[0].probabilities()[1] ) );
+      CHECK_THAT( 2., WithinRel( energies[0].F()[0] ) );
+      CHECK_THAT( 4., WithinRel( energies[0].F()[1] ) );
+      CHECK_THAT( 2., WithinRel( energies[0].probabilities()[0] ) );
+      CHECK_THAT( 4., WithinRel( energies[0].probabilities()[1] ) );
 
-      CHECK( 2e+7 == Approx( energies[1].E() ) );
-      CHECK( 2e+7 == Approx( energies[1].incidentEnergy() ) );
+      CHECK_THAT( 2e+7, WithinRel( energies[1].E() ) );
+      CHECK_THAT( 2e+7, WithinRel( energies[1].incidentEnergy() ) );
       CHECK( 12 == energies[1].LANG() );
       CHECK( 6 == energies[1].NW() );
       CHECK( 3 == energies[1].NL() );
       CHECK( 3 == energies[1].MU().size() );
       CHECK( 3 == energies[1].cosines().size() );
-      CHECK( 1. == Approx( energies[1].MU()[0] ) );
-      CHECK( 3. == Approx( energies[1].MU()[1] ) );
-      CHECK( 5. == Approx( energies[1].MU()[2] ) );
-      CHECK( 1. == Approx( energies[1].cosines()[0] ) );
-      CHECK( 3. == Approx( energies[1].cosines()[1] ) );
-      CHECK( 5. == Approx( energies[1].cosines()[2] ) );
+      CHECK_THAT( 1., WithinRel( energies[1].MU()[0] ) );
+      CHECK_THAT( 3., WithinRel( energies[1].MU()[1] ) );
+      CHECK_THAT( 5., WithinRel( energies[1].MU()[2] ) );
+      CHECK_THAT( 1., WithinRel( energies[1].cosines()[0] ) );
+      CHECK_THAT( 3., WithinRel( energies[1].cosines()[1] ) );
+      CHECK_THAT( 5., WithinRel( energies[1].cosines()[2] ) );
       CHECK( 3 == energies[1].F().size() );
       CHECK( 3 == energies[1].probabilities().size() );
-      CHECK( 2. == Approx( energies[1].F()[0] ) );
-      CHECK( 4. == Approx( energies[1].F()[1] ) );
-      CHECK( 6. == Approx( energies[1].F()[2] ) );
-      CHECK( 2. == Approx( energies[1].probabilities()[0] ) );
-      CHECK( 4. == Approx( energies[1].probabilities()[1] ) );
-      CHECK( 6. == Approx( energies[1].probabilities()[2] ) );
+      CHECK_THAT( 2., WithinRel( energies[1].F()[0] ) );
+      CHECK_THAT( 4., WithinRel( energies[1].F()[1] ) );
+      CHECK_THAT( 6., WithinRel( energies[1].F()[2] ) );
+      CHECK_THAT( 2., WithinRel( energies[1].probabilities()[0] ) );
+      CHECK_THAT( 4., WithinRel( energies[1].probabilities()[1] ) );
+      CHECK_THAT( 6., WithinRel( energies[1].probabilities()[2] ) );
 
       CHECK( 6 == chunk.NC() );
 }

@@ -9,10 +9,11 @@
  *  @param[in] nc            the NC-type (derived) subsubsections
  *  @param[in] ni            the NI-type (explicit) subsubsections
  */
-ReactionBlock( double xmf1, double xlfs1, int mat1, int mt1,
+ReactionBlock( int xmf1, int xlfs1, int mat1, int mt1,
                std::vector< DerivedCovariance >&& nc,
                std::vector< ExplicitCovariance >&& ni ) :
-  xmf1_( xmf1 ), xlfs1_( xlfs1 ), mat1_( mat1 ), mt1_( mt1 ),
+  xmf1_( xmf1 ), xlfs1_( xlfs1 ),
+  mat1_( mat1 ), mt1_( mt1 ),
   nc_( std::move( nc ) ),
   ni_( std::move( ni ) ) {}
 
@@ -44,7 +45,7 @@ ReactionBlock( int xmf1, int xlfs1, int mat1, int mt1,
  *  @param[in] ni            the NI-type (explicit) subsubsections
  *
  */
-ReactionBlock( double xmf1, double xlfs1, int mat1, int mt1,
+ReactionBlock( int xmf1, int xlfs1, int mat1, int mt1,
                std::vector< ExplicitCovariance >&& ni ) :
   xmf1_( xmf1 ), xlfs1_( xlfs1 ), mat1_( mat1 ), mt1_( mt1 ),
   ni_( std::move( ni ) ) {}
@@ -58,7 +59,9 @@ ReactionBlock( ControlRecord&& cont,
                const Iterator& end,
                long& lineNumber,
                int MAT, int MF, int MT ) :
-  ReactionBlock( cont.C1(), cont.C2(), cont.L1(), cont.L2(), std::move( nc ),
+  ReactionBlock( static_cast< int >( std::round( cont.C1() ) ),
+                 static_cast< int >( std::round( cont.C2() ) ),
+                 cont.L1(), cont.L2(), std::move( nc ),
                  readSequence( begin, end, lineNumber, MAT, MF, MT, cont.N2() ) ) {}
 
 template< typename Iterator >

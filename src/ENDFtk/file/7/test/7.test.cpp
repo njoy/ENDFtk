@@ -1,6 +1,7 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/file/7.hpp"
 
 // other includes
@@ -243,14 +244,14 @@ SCENARIO( "Testing special case of file 7" ) {
         CHECK( not file.hasSection( 1 ) );
 
         decltype(auto) elastic1 = std::get< section::Type< 7, 2 > >( file.section( 2 ) );
-        CHECK( 127. == Approx( elastic1.ZA() ) );
+        CHECK( 127 == elastic1.ZA() );
         decltype(auto) elastic2 = std::get< section::Type< 7, 2 > >( file.MT( 2 ) );
-        CHECK( 127. == Approx( elastic2.ZA() ) );
+        CHECK( 127 == elastic2.ZA() );
 
         decltype(auto) inelastic1 = std::get< section::Type< 7, 4 > >( file.section( 4 ) );
-        CHECK( 127. == Approx( inelastic1.ZA() ) );
+        CHECK( 127 == inelastic1.ZA() );
         decltype(auto) inelastic2 = std::get< section::Type< 7, 4 > >( file.MT( 4 ) );
-        CHECK( 127. == Approx( inelastic2.ZA() ) );
+        CHECK( 127 == inelastic2.ZA() );
       }
     }
 
@@ -351,7 +352,7 @@ void verifyChunk2( const file::Type< 7 >& chunk ) {
   CHECK_NOTHROW( chunk.section( 2 ) );
 
   decltype(auto) section = std::get< section::Type< 7, 2 > >( chunk.section( 2 ) );
-  CHECK( 127. == Approx( section.ZA() ) );
+  CHECK( 127 == section.ZA() );
   CHECK( 1 == section.LTHR() );
   CHECK( 4 == section.NC() );
 }
@@ -394,7 +395,7 @@ void verifyChunk4( const file::Type< 7 >& chunk ) {
   CHECK_NOTHROW( chunk.section( 4 ) );
 
   decltype(auto) section = std::get< section::Type< 7, 4 > >( chunk.section( 4 ) );
-  CHECK( 127. == Approx( section.ZA() ) );
+  CHECK( 127 == section.ZA() );
   CHECK( 1 == section.LAT() );
   CHECK( 0 == section.LASYM() );
 
@@ -446,12 +447,12 @@ void verifyChunk24( const file::Type< 7 >& chunk ) {
   CHECK_NOTHROW( chunk.section( 4 ) );
 
   decltype(auto) elastic = std::get< section::Type< 7, 2 > >( chunk.section( 2 ) );
-  CHECK( 127. == Approx( elastic.ZA() ) );
+  CHECK( 127 == elastic.ZA() );
   CHECK( 1 == elastic.LTHR() );
   CHECK( 4 == elastic.NC() );
 
   decltype(auto) inelastic = std::get< section::Type< 7, 4 > >( chunk.section( 4 ) );
-  CHECK( 127. == Approx( inelastic.ZA() ) );
+  CHECK( 127 == inelastic.ZA() );
   CHECK( 1 == inelastic.LAT() );
   CHECK( 0 == inelastic.LASYM() );
   CHECK( 16 == inelastic.NC() );

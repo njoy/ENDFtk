@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/2/151.hpp"
 
 // other includes
@@ -150,20 +153,20 @@ std::string chunk() {
 
 void verifyChunk( const SpinGroup& chunk ) {
 
-  CHECK( 0.5 == Approx( chunk.AJ() ) );
-  CHECK( 0.5 == Approx( chunk.spin() ) );
-  CHECK( 0. == Approx( chunk.PJ() ) );
-  CHECK( 0. == Approx( chunk.parity() ) );
+  CHECK_THAT( 0.5, WithinRel( chunk.AJ() ) );
+  CHECK_THAT( 0.5, WithinRel( chunk.spin() ) );
+  CHECK_THAT( 0., WithinRel( chunk.PJ() ) );
+  CHECK_THAT( 0., WithinRel( chunk.parity() ) );
   CHECK( 2 == chunk.NCH() );
   CHECK( 2 == chunk.numberChannels() );
   CHECK( 2 == chunk.NRS() );
   CHECK( 2 == chunk.numberResonances() );
 
   decltype(auto) channels = chunk.channels();
-  CHECK( 0.5 == Approx( channels.AJ() ) );
-  CHECK( 0.5 == Approx( channels.spin() ) );
-  CHECK( 0. == Approx( channels.PJ() ) );
-  CHECK( 0. == Approx( channels.parity() ) );
+  CHECK_THAT( 0.5, WithinRel( channels.AJ() ) );
+  CHECK_THAT( 0.5, WithinRel( channels.spin() ) );
+  CHECK_THAT( 0., WithinRel( channels.PJ() ) );
+  CHECK_THAT( 0., WithinRel( channels.parity() ) );
   CHECK( 0 == channels.KBK() );
   CHECK( 0 == channels.numberBackgroundChannels() );
   CHECK( 0 == channels.KPS() );
@@ -192,22 +195,22 @@ void verifyChunk( const SpinGroup& chunk ) {
   CHECK( 0 == channels.L()[1] );
   CHECK( 0 == channels.orbitalMomentumValues()[0] );
   CHECK( 0 == channels.orbitalMomentumValues()[1] );
-  CHECK( 0. == Approx( channels.SCH()[0] ) );
-  CHECK( .5 == Approx( channels.SCH()[1] ) );
-  CHECK( 0. == Approx( channels.channelSpinValues()[0] ) );
-  CHECK( .5 == Approx( channels.channelSpinValues()[1] ) );
-  CHECK( 0. == Approx( channels.BND()[0] ) );
-  CHECK( 0. == Approx( channels.BND()[1] ) );
-  CHECK( 0. == Approx( channels.boundaryConditionValues()[0] ) );
-  CHECK( 0. == Approx( channels.boundaryConditionValues()[1] ) );
-  CHECK( 0. == Approx( channels.APT()[0] ) );
-  CHECK( 5.437300e-1 == Approx( channels.APT()[1] ) );
-  CHECK( 0. == Approx( channels.trueChannelRadii()[0] ) );
-  CHECK( 5.437300e-1 == Approx( channels.trueChannelRadii()[1] ) );
-  CHECK( 0. == Approx( channels.APE()[0] ) );
-  CHECK( 5.437300e-1 == Approx( channels.APE()[1] ) );
-  CHECK( 0. == Approx( channels.effectiveChannelRadii()[0] ) );
-  CHECK( 5.437300e-1 == Approx( channels.effectiveChannelRadii()[1] ) );
+  CHECK_THAT( 0., WithinRel( channels.SCH()[0] ) );
+  CHECK_THAT( .5, WithinRel( channels.SCH()[1] ) );
+  CHECK_THAT( 0., WithinRel( channels.channelSpinValues()[0] ) );
+  CHECK_THAT( .5, WithinRel( channels.channelSpinValues()[1] ) );
+  CHECK_THAT( 0., WithinRel( channels.BND()[0] ) );
+  CHECK_THAT( 0., WithinRel( channels.BND()[1] ) );
+  CHECK_THAT( 0., WithinRel( channels.boundaryConditionValues()[0] ) );
+  CHECK_THAT( 0., WithinRel( channels.boundaryConditionValues()[1] ) );
+  CHECK_THAT( 0., WithinRel( channels.APT()[0] ) );
+  CHECK_THAT( 5.437300e-1, WithinRel( channels.APT()[1] ) );
+  CHECK_THAT( 0., WithinRel( channels.trueChannelRadii()[0] ) );
+  CHECK_THAT( 5.437300e-1, WithinRel( channels.trueChannelRadii()[1] ) );
+  CHECK_THAT( 0., WithinRel( channels.APE()[0] ) );
+  CHECK_THAT( 5.437300e-1, WithinRel( channels.APE()[1] ) );
+  CHECK_THAT( 0., WithinRel( channels.effectiveChannelRadii()[0] ) );
+  CHECK_THAT( 5.437300e-1, WithinRel( channels.effectiveChannelRadii()[1] ) );
 
   decltype(auto) parameters = chunk.parameters();
   CHECK( 2 == parameters.NRS() );
@@ -220,34 +223,34 @@ void verifyChunk( const SpinGroup& chunk ) {
   CHECK( 2 == parameters.GAM().size() );
   CHECK( 2 == parameters.resonanceParameters().size() );
 
-  CHECK( -1.223300e+6 == Approx( parameters.ER()[0] ) );
-  CHECK(  7.788000e+3 == Approx( parameters.ER()[1] ) );
-  CHECK( -1.223300e+6 == Approx( parameters.resonanceEnergies()[0] ) );
-  CHECK(  7.788000e+3 == Approx( parameters.resonanceEnergies()[1] ) );
+  CHECK_THAT( -1.223300e+6, WithinRel( parameters.ER()[0] ) );
+  CHECK_THAT(  7.788000e+3, WithinRel( parameters.ER()[1] ) );
+  CHECK_THAT( -1.223300e+6, WithinRel( parameters.resonanceEnergies()[0] ) );
+  CHECK_THAT(  7.788000e+3, WithinRel( parameters.resonanceEnergies()[1] ) );
   CHECK( 5 == parameters.GAM()[0].size() );
   CHECK( 5 == parameters.GAM()[1].size() );
-  CHECK( 1. == Approx( parameters.GAM()[0][0] ) );
-  CHECK( 9.611086e+5 == Approx( parameters.GAM()[0][1] ) );
-  CHECK( 0. == Approx( parameters.GAM()[0][2] ) );
-  CHECK( 0. == Approx( parameters.GAM()[0][3] ) );
-  CHECK( 0. == Approx( parameters.GAM()[0][4] ) );
-  CHECK( 1.455 == Approx( parameters.GAM()[1][0] ) );
-  CHECK( 1.187354e+3 == Approx( parameters.GAM()[1][1] ) );
-  CHECK( 0. == Approx( parameters.GAM()[1][2] ) );
-  CHECK( 0. == Approx( parameters.GAM()[1][3] ) );
-  CHECK( 0. == Approx( parameters.GAM()[1][4] ) );
+  CHECK_THAT( 1., WithinRel( parameters.GAM()[0][0] ) );
+  CHECK_THAT( 9.611086e+5, WithinRel( parameters.GAM()[0][1] ) );
+  CHECK_THAT( 0., WithinRel( parameters.GAM()[0][2] ) );
+  CHECK_THAT( 0., WithinRel( parameters.GAM()[0][3] ) );
+  CHECK_THAT( 0., WithinRel( parameters.GAM()[0][4] ) );
+  CHECK_THAT( 1.455, WithinRel( parameters.GAM()[1][0] ) );
+  CHECK_THAT( 1.187354e+3, WithinRel( parameters.GAM()[1][1] ) );
+  CHECK_THAT( 0., WithinRel( parameters.GAM()[1][2] ) );
+  CHECK_THAT( 0., WithinRel( parameters.GAM()[1][3] ) );
+  CHECK_THAT( 0., WithinRel( parameters.GAM()[1][4] ) );
   CHECK( 5 == parameters.resonanceParameters()[0].size() );
   CHECK( 5 == parameters.resonanceParameters()[1].size() );
-  CHECK( 1. == Approx( parameters.resonanceParameters()[0][0] ) );
-  CHECK( 9.611086e+5 == Approx( parameters.resonanceParameters()[0][1] ) );
-  CHECK( 0. == Approx( parameters.resonanceParameters()[0][2] ) );
-  CHECK( 0. == Approx( parameters.resonanceParameters()[0][3] ) );
-  CHECK( 0. == Approx( parameters.resonanceParameters()[0][4] ) );
-  CHECK( 1.455 == Approx( parameters.resonanceParameters()[1][0] ) );
-  CHECK( 1.187354e+3 == Approx( parameters.resonanceParameters()[1][1] ) );
-  CHECK( 0. == Approx( parameters.resonanceParameters()[1][2] ) );
-  CHECK( 0. == Approx( parameters.resonanceParameters()[1][3] ) );
-  CHECK( 0. == Approx( parameters.resonanceParameters()[1][4] ) );
+  CHECK_THAT( 1., WithinRel( parameters.resonanceParameters()[0][0] ) );
+  CHECK_THAT( 9.611086e+5, WithinRel( parameters.resonanceParameters()[0][1] ) );
+  CHECK_THAT( 0., WithinRel( parameters.resonanceParameters()[0][2] ) );
+  CHECK_THAT( 0., WithinRel( parameters.resonanceParameters()[0][3] ) );
+  CHECK_THAT( 0., WithinRel( parameters.resonanceParameters()[0][4] ) );
+  CHECK_THAT( 1.455, WithinRel( parameters.resonanceParameters()[1][0] ) );
+  CHECK_THAT( 1.187354e+3, WithinRel( parameters.resonanceParameters()[1][1] ) );
+  CHECK_THAT( 0., WithinRel( parameters.resonanceParameters()[1][2] ) );
+  CHECK_THAT( 0., WithinRel( parameters.resonanceParameters()[1][3] ) );
+  CHECK_THAT( 0., WithinRel( parameters.resonanceParameters()[1][4] ) );
 
   decltype(auto) background = chunk.background();
   CHECK( 2 == background.NCH() );
@@ -277,20 +280,20 @@ std::string chunkWithBackground() {
 
 void verifyChunkWithBackground( const SpinGroup& chunk ) {
 
-  CHECK( 0.5 == Approx( chunk.AJ() ) );
-  CHECK( 0.5 == Approx( chunk.spin() ) );
-  CHECK( 0. == Approx( chunk.PJ() ) );
-  CHECK( 0. == Approx( chunk.parity() ) );
+  CHECK_THAT( 0.5, WithinRel( chunk.AJ() ) );
+  CHECK_THAT( 0.5, WithinRel( chunk.spin() ) );
+  CHECK_THAT( 0., WithinRel( chunk.PJ() ) );
+  CHECK_THAT( 0., WithinRel( chunk.parity() ) );
   CHECK( 2 == chunk.NCH() );
   CHECK( 2 == chunk.numberChannels() );
   CHECK( 2 == chunk.NRS() );
   CHECK( 2 == chunk.numberResonances() );
 
   decltype(auto) channels = chunk.channels();
-  CHECK( 0.5 == Approx( channels.AJ() ) );
-  CHECK( 0.5 == Approx( channels.spin() ) );
-  CHECK( 0. == Approx( channels.PJ() ) );
-  CHECK( 0. == Approx( channels.parity() ) );
+  CHECK_THAT( 0.5, WithinRel( channels.AJ() ) );
+  CHECK_THAT( 0.5, WithinRel( channels.spin() ) );
+  CHECK_THAT( 0., WithinRel( channels.PJ() ) );
+  CHECK_THAT( 0., WithinRel( channels.parity() ) );
   CHECK( 1 == channels.KBK() );
   CHECK( 1 == channels.numberBackgroundChannels() );
   CHECK( 0 == channels.KPS() );
@@ -319,22 +322,22 @@ void verifyChunkWithBackground( const SpinGroup& chunk ) {
   CHECK( 0 == channels.L()[1] );
   CHECK( 0 == channels.orbitalMomentumValues()[0] );
   CHECK( 0 == channels.orbitalMomentumValues()[1] );
-  CHECK( 0. == Approx( channels.SCH()[0] ) );
-  CHECK( .5 == Approx( channels.SCH()[1] ) );
-  CHECK( 0. == Approx( channels.channelSpinValues()[0] ) );
-  CHECK( .5 == Approx( channels.channelSpinValues()[1] ) );
-  CHECK( 0. == Approx( channels.BND()[0] ) );
-  CHECK( 0. == Approx( channels.BND()[1] ) );
-  CHECK( 0. == Approx( channels.boundaryConditionValues()[0] ) );
-  CHECK( 0. == Approx( channels.boundaryConditionValues()[1] ) );
-  CHECK( 0. == Approx( channels.APT()[0] ) );
-  CHECK( 5.437300e-1 == Approx( channels.APT()[1] ) );
-  CHECK( 0. == Approx( channels.trueChannelRadii()[0] ) );
-  CHECK( 5.437300e-1 == Approx( channels.trueChannelRadii()[1] ) );
-  CHECK( 0. == Approx( channels.APE()[0] ) );
-  CHECK( 5.437300e-1 == Approx( channels.APE()[1] ) );
-  CHECK( 0. == Approx( channels.effectiveChannelRadii()[0] ) );
-  CHECK( 5.437300e-1 == Approx( channels.effectiveChannelRadii()[1] ) );
+  CHECK_THAT( 0., WithinRel( channels.SCH()[0] ) );
+  CHECK_THAT( .5, WithinRel( channels.SCH()[1] ) );
+  CHECK_THAT( 0., WithinRel( channels.channelSpinValues()[0] ) );
+  CHECK_THAT( .5, WithinRel( channels.channelSpinValues()[1] ) );
+  CHECK_THAT( 0., WithinRel( channels.BND()[0] ) );
+  CHECK_THAT( 0., WithinRel( channels.BND()[1] ) );
+  CHECK_THAT( 0., WithinRel( channels.boundaryConditionValues()[0] ) );
+  CHECK_THAT( 0., WithinRel( channels.boundaryConditionValues()[1] ) );
+  CHECK_THAT( 0., WithinRel( channels.APT()[0] ) );
+  CHECK_THAT( 5.437300e-1, WithinRel( channels.APT()[1] ) );
+  CHECK_THAT( 0., WithinRel( channels.trueChannelRadii()[0] ) );
+  CHECK_THAT( 5.437300e-1, WithinRel( channels.trueChannelRadii()[1] ) );
+  CHECK_THAT( 0., WithinRel( channels.APE()[0] ) );
+  CHECK_THAT( 5.437300e-1, WithinRel( channels.APE()[1] ) );
+  CHECK_THAT( 0., WithinRel( channels.effectiveChannelRadii()[0] ) );
+  CHECK_THAT( 5.437300e-1, WithinRel( channels.effectiveChannelRadii()[1] ) );
 
   decltype(auto) parameters = chunk.parameters();
   CHECK( 2 == parameters.NRS() );
@@ -347,34 +350,34 @@ void verifyChunkWithBackground( const SpinGroup& chunk ) {
   CHECK( 2 == parameters.GAM().size() );
   CHECK( 2 == parameters.resonanceParameters().size() );
 
-  CHECK( -1.223300e+6 == Approx( parameters.ER()[0] ) );
-  CHECK(  7.788000e+3 == Approx( parameters.ER()[1] ) );
-  CHECK( -1.223300e+6 == Approx( parameters.resonanceEnergies()[0] ) );
-  CHECK(  7.788000e+3 == Approx( parameters.resonanceEnergies()[1] ) );
+  CHECK_THAT( -1.223300e+6, WithinRel( parameters.ER()[0] ) );
+  CHECK_THAT(  7.788000e+3, WithinRel( parameters.ER()[1] ) );
+  CHECK_THAT( -1.223300e+6, WithinRel( parameters.resonanceEnergies()[0] ) );
+  CHECK_THAT(  7.788000e+3, WithinRel( parameters.resonanceEnergies()[1] ) );
   CHECK( 5 == parameters.GAM()[0].size() );
   CHECK( 5 == parameters.GAM()[1].size() );
-  CHECK( 1. == Approx( parameters.GAM()[0][0] ) );
-  CHECK( 9.611086e+5 == Approx( parameters.GAM()[0][1] ) );
-  CHECK( 0. == Approx( parameters.GAM()[0][2] ) );
-  CHECK( 0. == Approx( parameters.GAM()[0][3] ) );
-  CHECK( 0. == Approx( parameters.GAM()[0][4] ) );
-  CHECK( 1.455 == Approx( parameters.GAM()[1][0] ) );
-  CHECK( 1.187354e+3 == Approx( parameters.GAM()[1][1] ) );
-  CHECK( 0. == Approx( parameters.GAM()[1][2] ) );
-  CHECK( 0. == Approx( parameters.GAM()[1][3] ) );
-  CHECK( 0. == Approx( parameters.GAM()[1][4] ) );
+  CHECK_THAT( 1., WithinRel( parameters.GAM()[0][0] ) );
+  CHECK_THAT( 9.611086e+5, WithinRel( parameters.GAM()[0][1] ) );
+  CHECK_THAT( 0., WithinRel( parameters.GAM()[0][2] ) );
+  CHECK_THAT( 0., WithinRel( parameters.GAM()[0][3] ) );
+  CHECK_THAT( 0., WithinRel( parameters.GAM()[0][4] ) );
+  CHECK_THAT( 1.455, WithinRel( parameters.GAM()[1][0] ) );
+  CHECK_THAT( 1.187354e+3, WithinRel( parameters.GAM()[1][1] ) );
+  CHECK_THAT( 0., WithinRel( parameters.GAM()[1][2] ) );
+  CHECK_THAT( 0., WithinRel( parameters.GAM()[1][3] ) );
+  CHECK_THAT( 0., WithinRel( parameters.GAM()[1][4] ) );
   CHECK( 5 == parameters.resonanceParameters()[0].size() );
   CHECK( 5 == parameters.resonanceParameters()[1].size() );
-  CHECK( 1. == Approx( parameters.resonanceParameters()[0][0] ) );
-  CHECK( 9.611086e+5 == Approx( parameters.resonanceParameters()[0][1] ) );
-  CHECK( 0. == Approx( parameters.resonanceParameters()[0][2] ) );
-  CHECK( 0. == Approx( parameters.resonanceParameters()[0][3] ) );
-  CHECK( 0. == Approx( parameters.resonanceParameters()[0][4] ) );
-  CHECK( 1.455 == Approx( parameters.resonanceParameters()[1][0] ) );
-  CHECK( 1.187354e+3 == Approx( parameters.resonanceParameters()[1][1] ) );
-  CHECK( 0. == Approx( parameters.resonanceParameters()[1][2] ) );
-  CHECK( 0. == Approx( parameters.resonanceParameters()[1][3] ) );
-  CHECK( 0. == Approx( parameters.resonanceParameters()[1][4] ) );
+  CHECK_THAT( 1., WithinRel( parameters.resonanceParameters()[0][0] ) );
+  CHECK_THAT( 9.611086e+5, WithinRel( parameters.resonanceParameters()[0][1] ) );
+  CHECK_THAT( 0., WithinRel( parameters.resonanceParameters()[0][2] ) );
+  CHECK_THAT( 0., WithinRel( parameters.resonanceParameters()[0][3] ) );
+  CHECK_THAT( 0., WithinRel( parameters.resonanceParameters()[0][4] ) );
+  CHECK_THAT( 1.455, WithinRel( parameters.resonanceParameters()[1][0] ) );
+  CHECK_THAT( 1.187354e+3, WithinRel( parameters.resonanceParameters()[1][1] ) );
+  CHECK_THAT( 0., WithinRel( parameters.resonanceParameters()[1][2] ) );
+  CHECK_THAT( 0., WithinRel( parameters.resonanceParameters()[1][3] ) );
+  CHECK_THAT( 0., WithinRel( parameters.resonanceParameters()[1][4] ) );
 
   decltype(auto) background = chunk.background();
   CHECK( 2 == background.NCH() );
@@ -394,13 +397,13 @@ void verifyChunkWithBackground( const SpinGroup& chunk ) {
   CHECK( 2 == sammy.LCH() );
   CHECK( 2 == sammy.channelIndex() );
 
-  CHECK( 1. == Approx( sammy.ED() ) );
-  CHECK( 2. == Approx( sammy.EU() ) );
-  CHECK( 3. == Approx( sammy.R0() ) );
-  CHECK( 4. == Approx( sammy.R1() ) );
-  CHECK( 5. == Approx( sammy.R2() ) );
-  CHECK( 6. == Approx( sammy.S0() ) );
-  CHECK( 7. == Approx( sammy.S1() ) );
+  CHECK_THAT( 1., WithinRel( sammy.ED() ) );
+  CHECK_THAT( 2., WithinRel( sammy.EU() ) );
+  CHECK_THAT( 3., WithinRel( sammy.R0() ) );
+  CHECK_THAT( 4., WithinRel( sammy.R1() ) );
+  CHECK_THAT( 5., WithinRel( sammy.R2() ) );
+  CHECK_THAT( 6., WithinRel( sammy.S0() ) );
+  CHECK_THAT( 7., WithinRel( sammy.S1() ) );
 
   CHECK( 9 == chunk.NC() );
 }

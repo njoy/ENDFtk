@@ -13,7 +13,7 @@ Type() = default;
  *  @param[in] awr             the atomic weight ratio
  *  @param[in] multiplicity    the multiplicity data
  */
-Type( double zaid, double awr, Multiplicity&& multiplicity ) :
+Type( int zaid, double awr, Multiplicity&& multiplicity ) :
   BaseWithoutMT( zaid, awr ), data_( std::move( multiplicity ) ) {}
 
 /**

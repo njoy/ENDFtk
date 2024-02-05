@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/7/2.hpp"
 
 // other includes
@@ -38,14 +41,14 @@ SCENARIO( "section::Type< 7, 2 >" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      double za = 107.;
+      int zaid = 107;
       double awr = 1.;
       ScatteringLaw law(
           CoherentElastic( 293.6, { 3 }, { 1 },
                            { 1.059427e-3, 3.718355e-3,  4.237708e-3 },
                            { 0.0, 9.364524e-3, 1.548925e-2 } ) );
 
-      section::Type< 7, 2 > chunk( za, awr, std::move( law ) );
+      section::Type< 7, 2 > chunk( zaid, awr, std::move( law ) );
 
       THEN( "a section::Type< 7, 2 > can be constructed and members can be "
             "tested" ) {
@@ -119,7 +122,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      double za = 107.;
+      int zaid = 107;
       double awr = 1.;
       ScatteringLaw law(
           CoherentElastic( { 3 }, { 1 },
@@ -129,7 +132,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
                            { { 0.0, 9.364524e-3, 1.548925e-2 },
                              { 0.5, 8.318414e-3, 1.640584e-2 } } ) );
 
-      section::Type< 7, 2 > chunk( za, awr, std::move( law ) );
+      section::Type< 7, 2 > chunk( zaid, awr, std::move( law ) );
 
       THEN( "a section::Type< 7, 2 > can be constructed and members can be "
             "tested" ) {
@@ -202,14 +205,14 @@ SCENARIO( "section::Type< 7, 2 >" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      double za = 107.;
+      int zaid = 107;
       double awr = 1.;
       ScatteringLaw law(
           IncoherentElastic( 8.198006e+1, { 3 }, { 2 },
                              { 296., 400., 500. },
                              { 8.486993e+0, 9.093191e+0, 9.828159e+0 } ) );
 
-      section::Type< 7, 2 > chunk( za, awr, std::move( law ) );
+      section::Type< 7, 2 > chunk( zaid, awr, std::move( law ) );
 
       THEN( "a section::Type< 7, 2 > can be constructed and members can be "
             "tested" ) {
@@ -282,7 +285,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      double za = 107.;
+      int zaid = 107;
       double awr = 1.;
       ScatteringLaw law(
           MixedElastic( CoherentElastic(
@@ -294,7 +297,7 @@ SCENARIO( "section::Type< 7, 2 >" ) {
                                            { 293.6, 800. },
                                            { 8.937898, 17.65328 } ) ) );
 
-      section::Type< 7, 2 > chunk( za, awr, std::move( law ) );
+      section::Type< 7, 2 > chunk( zaid, awr, std::move( law ) );
 
       THEN( "a section::Type< 7, 2 > can be constructed and members can be "
             "tested" ) {
@@ -440,9 +443,10 @@ void verifyCoherentElasticWithOneTemperature(
   CHECK( 2 == chunk.MT() );
   CHECK( 2 == chunk.sectionNumber() );
 
-  CHECK( 107. == Approx( chunk.ZA() ) );
-  CHECK( 1. == Approx( chunk.AWR() ) );
-  CHECK( 1. == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 107 == chunk.ZA() );
+  CHECK( 107 == chunk.targetIdentifier() );
+  CHECK_THAT( 1., WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 1., WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 1 == chunk.LTHR() );
   CHECK( 1 == chunk.elasticScatteringType() );
 
@@ -464,21 +468,21 @@ void verifyCoherentElasticWithOneTemperature(
   CHECK( 1 == law.interpolants()[0] );
 
   CHECK( 1 == law.temperatures().size() );
-  CHECK( 293.6 == Approx( law.temperatures()[0] ) );
+  CHECK_THAT( 293.6, WithinRel( law.temperatures()[0] ) );
 
   CHECK( 3 == law.energies().size() );
-  CHECK( 1.059427e-3 == Approx( law.energies()[0] ) );
-  CHECK( 3.718355e-3 == Approx( law.energies()[1] ) );
-  CHECK( 4.237708e-3 == Approx( law.energies()[2] ) );
+  CHECK_THAT( 1.059427e-3, WithinRel( law.energies()[0] ) );
+  CHECK_THAT( 3.718355e-3, WithinRel( law.energies()[1] ) );
+  CHECK_THAT( 4.237708e-3, WithinRel( law.energies()[2] ) );
 
   CHECK( 0 == law.LI().size() );
   CHECK( 0 == law.temperatureInterpolants().size() );
 
   CHECK( 1 == law.thermalScatteringValues().size() );
   CHECK( 3 == law.thermalScatteringValues()[0].size() );
-  CHECK( 0.0 == Approx( law.thermalScatteringValues()[0][0] ) );
-  CHECK( 9.364524e-3 == Approx( law.thermalScatteringValues()[0][1] ) );
-  CHECK( 1.548925e-2 == Approx( law.thermalScatteringValues()[0][2] ) );
+  CHECK_THAT( 0.0, WithinRel( law.thermalScatteringValues()[0][0] ) );
+  CHECK_THAT( 9.364524e-3, WithinRel( law.thermalScatteringValues()[0][1] ) );
+  CHECK_THAT( 1.548925e-2, WithinRel( law.thermalScatteringValues()[0][2] ) );
 
   CHECK( 4 == chunk.NC() );
 }
@@ -499,9 +503,10 @@ void verifyCoherentElasticWithTwoTemperatures(
   CHECK( 2 == chunk.MT() );
   CHECK( 2 == chunk.sectionNumber() );
 
-  CHECK( 107. == Approx( chunk.ZA() ) );
-  CHECK( 1. == Approx( chunk.AWR() ) );
-  CHECK( 1. == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 107 == chunk.ZA() );
+  CHECK( 107 == chunk.targetIdentifier() );
+  CHECK_THAT( 1., WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 1., WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 1 == chunk.LTHR() );
   CHECK( 1 == chunk.elasticScatteringType() );
 
@@ -523,13 +528,13 @@ void verifyCoherentElasticWithTwoTemperatures(
   CHECK( 1 == law.interpolants()[0] );
 
   CHECK( 2 == law.temperatures().size() );
-  CHECK( 293.6 == Approx( law.temperatures()[0] ) );
-  CHECK( 400. == Approx( law.temperatures()[1] ) );
+  CHECK_THAT( 293.6, WithinRel( law.temperatures()[0] ) );
+  CHECK_THAT( 400., WithinRel( law.temperatures()[1] ) );
 
   CHECK( 3 == law.energies().size() );
-  CHECK( 1.059427e-3 == Approx( law.energies()[0] ) );
-  CHECK( 3.718355e-3 == Approx( law.energies()[1] ) );
-  CHECK( 4.237708e-3 == Approx( law.energies()[2] ) );
+  CHECK_THAT( 1.059427e-3, WithinRel( law.energies()[0] ) );
+  CHECK_THAT( 3.718355e-3, WithinRel( law.energies()[1] ) );
+  CHECK_THAT( 4.237708e-3, WithinRel( law.energies()[2] ) );
 
   CHECK( 1 == law.LI().size() );
   CHECK( 2 == law.LI()[0] );
@@ -538,13 +543,13 @@ void verifyCoherentElasticWithTwoTemperatures(
 
   CHECK( 2 == law.thermalScatteringValues().size() );
   CHECK( 3 == law.thermalScatteringValues()[0].size() );
-  CHECK( 0.0 == Approx( law.thermalScatteringValues()[0][0] ) );
-  CHECK( 9.364524e-3 == Approx( law.thermalScatteringValues()[0][1] ) );
-  CHECK( 1.548925e-2 == Approx( law.thermalScatteringValues()[0][2] ) );
+  CHECK_THAT( 0.0, WithinRel( law.thermalScatteringValues()[0][0] ) );
+  CHECK_THAT( 9.364524e-3, WithinRel( law.thermalScatteringValues()[0][1] ) );
+  CHECK_THAT( 1.548925e-2, WithinRel( law.thermalScatteringValues()[0][2] ) );
   CHECK( 3 == law.thermalScatteringValues()[1].size() );
-  CHECK( 0.5 == Approx( law.thermalScatteringValues()[1][0] ) );
-  CHECK( 8.318414e-3 == Approx( law.thermalScatteringValues()[1][1] ) );
-  CHECK( 1.640584e-2 == Approx( law.thermalScatteringValues()[1][2] ) );
+  CHECK_THAT( 0.5, WithinRel( law.thermalScatteringValues()[1][0] ) );
+  CHECK_THAT( 8.318414e-3, WithinRel( law.thermalScatteringValues()[1][1] ) );
+  CHECK_THAT( 1.640584e-2, WithinRel( law.thermalScatteringValues()[1][2] ) );
 
   CHECK( 6 == chunk.NC() );
 }
@@ -562,9 +567,10 @@ void verifyIncoherentElastic( const section::Type< 7, 2 >& chunk ) {
   CHECK( 2 == chunk.MT() );
   CHECK( 2 == chunk.sectionNumber() );
 
-  CHECK( 107. == Approx( chunk.ZA() ) );
-  CHECK( 1. == Approx( chunk.AWR() ) );
-  CHECK( 1. == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 107 == chunk.ZA() );
+  CHECK( 107 == chunk.targetIdentifier() );
+  CHECK_THAT( 1., WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 1., WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 2 == chunk.LTHR() );
   CHECK( 2 == chunk.elasticScatteringType() );
 
@@ -572,8 +578,8 @@ void verifyIncoherentElastic( const section::Type< 7, 2 >& chunk ) {
        std::get< IncoherentElastic >( chunk.scatteringLaw() );
   CHECK( 2 == law.LTHR() );
   CHECK( 2 == law.elasticScatteringType() );
-  CHECK( 8.198006e+1 == Approx( law.SB() ) );
-  CHECK( 8.198006e+1 == Approx( law.boundCrossSection() ) );
+  CHECK_THAT( 8.198006e+1, WithinRel( law.SB() ) );
+  CHECK_THAT( 8.198006e+1, WithinRel( law.boundCrossSection() ) );
   CHECK( 3 == law.NP() );
   CHECK( 3 == law.numberTemperatures() );
   CHECK( 1 == law.NR() );
@@ -583,12 +589,12 @@ void verifyIncoherentElastic( const section::Type< 7, 2 >& chunk ) {
   CHECK( 3 == law.boundaries()[0] );
   CHECK( 3 == law.temperatures().size() );
   CHECK( 3 == law.debyeWallerValues().size() );
-  CHECK( 296. == Approx( law.temperatures()[0] ) );
-  CHECK( 400. == Approx( law.temperatures()[1] ) );
-  CHECK( 500. == Approx( law.temperatures()[2] ) );
-  CHECK( 8.486993e+0 == Approx( law.debyeWallerValues()[0] ) );
-  CHECK( 9.093191e+0 == Approx( law.debyeWallerValues()[1] ) );
-  CHECK( 9.828159e+0 == Approx( law.debyeWallerValues()[2] ) );
+  CHECK_THAT( 296., WithinRel( law.temperatures()[0] ) );
+  CHECK_THAT( 400., WithinRel( law.temperatures()[1] ) );
+  CHECK_THAT( 500., WithinRel( law.temperatures()[2] ) );
+  CHECK_THAT( 8.486993e+0, WithinRel( law.debyeWallerValues()[0] ) );
+  CHECK_THAT( 9.093191e+0, WithinRel( law.debyeWallerValues()[1] ) );
+  CHECK_THAT( 9.828159e+0, WithinRel( law.debyeWallerValues()[2] ) );
 
   CHECK( 4 == chunk.NC() );
 }
@@ -611,9 +617,10 @@ void verifyMixedElastic( const section::Type< 7, 2 >& chunk ) {
   CHECK( 2 == chunk.MT() );
   CHECK( 2 == chunk.sectionNumber() );
 
-  CHECK( 107. == Approx( chunk.ZA() ) );
-  CHECK( 1. == Approx( chunk.AWR() ) );
-  CHECK( 1. == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 107 == chunk.ZA() );
+  CHECK( 107 == chunk.targetIdentifier() );
+  CHECK_THAT( 1., WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 1., WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 3 == chunk.LTHR() );
   CHECK( 3 == chunk.elasticScatteringType() );
 
@@ -641,19 +648,19 @@ void verifyMixedElastic( const section::Type< 7, 2 >& chunk ) {
 
   CHECK( 2 == coherent.T().size() );
   CHECK( 2 == coherent.temperatures().size() );
-  CHECK( 293.6 == Approx( coherent.T()[0] ) );
-  CHECK( 800. == Approx( coherent.T()[1] ) );
-  CHECK( 293.6 == Approx( coherent.temperatures()[0] ) );
-  CHECK( 800. == Approx( coherent.temperatures()[1] ) );
+  CHECK_THAT( 293.6, WithinRel( coherent.T()[0] ) );
+  CHECK_THAT( 800., WithinRel( coherent.T()[1] ) );
+  CHECK_THAT( 293.6, WithinRel( coherent.temperatures()[0] ) );
+  CHECK_THAT( 800., WithinRel( coherent.temperatures()[1] ) );
 
   CHECK( 3 == coherent.E().size() );
   CHECK( 3 == coherent.energies().size() );
-  CHECK( 1.059427e-3 == Approx( coherent.E()[0] ) );
-  CHECK( 3.718355e-3 == Approx( coherent.E()[1] ) );
-  CHECK( 4.237708e-3 == Approx( coherent.E()[2] ) );
-  CHECK( 1.059427e-3 == Approx( coherent.energies()[0] ) );
-  CHECK( 3.718355e-3 == Approx( coherent.energies()[1] ) );
-  CHECK( 4.237708e-3 == Approx( coherent.energies()[2] ) );
+  CHECK_THAT( 1.059427e-3, WithinRel( coherent.E()[0] ) );
+  CHECK_THAT( 3.718355e-3, WithinRel( coherent.E()[1] ) );
+  CHECK_THAT( 4.237708e-3, WithinRel( coherent.E()[2] ) );
+  CHECK_THAT( 1.059427e-3, WithinRel( coherent.energies()[0] ) );
+  CHECK_THAT( 3.718355e-3, WithinRel( coherent.energies()[1] ) );
+  CHECK_THAT( 4.237708e-3, WithinRel( coherent.energies()[2] ) );
 
   CHECK( 1 == coherent.LI().size() );
   CHECK( 2 == coherent.LI()[0] );
@@ -662,30 +669,30 @@ void verifyMixedElastic( const section::Type< 7, 2 >& chunk ) {
 
   CHECK( 2 == coherent.S().size() );
   CHECK( 3 == coherent.S()[0].size() );
-  CHECK( 0.0 == Approx( coherent.S()[0][0] ) );
-  CHECK( 9.364524e-3 == Approx( coherent.S()[0][1] ) );
-  CHECK( 1.548925e-2 == Approx( coherent.S()[0][2] ) );
+  CHECK_THAT( 0.0, WithinRel( coherent.S()[0][0] ) );
+  CHECK_THAT( 9.364524e-3, WithinRel( coherent.S()[0][1] ) );
+  CHECK_THAT( 1.548925e-2, WithinRel( coherent.S()[0][2] ) );
   CHECK( 3 == coherent.S()[1].size() );
-  CHECK( 0.5 == Approx( coherent.S()[1][0] ) );
-  CHECK( 8.318414e-3 == Approx( coherent.S()[1][1] ) );
-  CHECK( 1.640584e-2 == Approx( coherent.S()[1][2] ) );
+  CHECK_THAT( 0.5, WithinRel( coherent.S()[1][0] ) );
+  CHECK_THAT( 8.318414e-3, WithinRel( coherent.S()[1][1] ) );
+  CHECK_THAT( 1.640584e-2, WithinRel( coherent.S()[1][2] ) );
 
   CHECK( 2 == coherent.thermalScatteringValues().size() );
   CHECK( 3 == coherent.thermalScatteringValues()[0].size() );
-  CHECK( 0.0 == Approx( coherent.thermalScatteringValues()[0][0] ) );
-  CHECK( 9.364524e-3 == Approx( coherent.thermalScatteringValues()[0][1] ) );
-  CHECK( 1.548925e-2 == Approx( coherent.thermalScatteringValues()[0][2] ) );
+  CHECK_THAT( 0.0, WithinRel( coherent.thermalScatteringValues()[0][0] ) );
+  CHECK_THAT( 9.364524e-3, WithinRel( coherent.thermalScatteringValues()[0][1] ) );
+  CHECK_THAT( 1.548925e-2, WithinRel( coherent.thermalScatteringValues()[0][2] ) );
   CHECK( 3 == coherent.thermalScatteringValues()[1].size() );
-  CHECK( 0.5 == Approx( coherent.thermalScatteringValues()[1][0] ) );
-  CHECK( 8.318414e-3 == Approx( coherent.thermalScatteringValues()[1][1] ) );
-  CHECK( 1.640584e-2 == Approx( coherent.thermalScatteringValues()[1][2] ) );
+  CHECK_THAT( 0.5, WithinRel( coherent.thermalScatteringValues()[1][0] ) );
+  CHECK_THAT( 8.318414e-3, WithinRel( coherent.thermalScatteringValues()[1][1] ) );
+  CHECK_THAT( 1.640584e-2, WithinRel( coherent.thermalScatteringValues()[1][2] ) );
 
   decltype(auto) incoherent = law.incoherent();
 
   CHECK( 2 == incoherent.LTHR() );
   CHECK( 2 == incoherent.elasticScatteringType() );
-  CHECK( 2.054202 == Approx( incoherent.SB() ) );
-  CHECK( 2.054202 == Approx( incoherent.boundCrossSection() ) );
+  CHECK_THAT( 2.054202, WithinRel( incoherent.SB() ) );
+  CHECK_THAT( 2.054202, WithinRel( incoherent.boundCrossSection() ) );
   CHECK( 2 == incoherent.NP() );
   CHECK( 2 == incoherent.NT() );
   CHECK( 2 == incoherent.numberTemperatures() );
@@ -698,14 +705,14 @@ void verifyMixedElastic( const section::Type< 7, 2 >& chunk ) {
   CHECK( 2 == incoherent.temperatures().size() );
   CHECK( 2 == incoherent.W().size() );
   CHECK( 2 == incoherent.debyeWallerValues().size() );
-  CHECK( 293.6 == Approx( incoherent.T()[0] ) );
-  CHECK( 800. == Approx( incoherent.T()[1] ) );
-  CHECK( 293.6 == Approx( incoherent.temperatures()[0] ) );
-  CHECK( 800. == Approx( incoherent.temperatures()[1] ) );
-  CHECK( 8.937898 == Approx( incoherent.W()[0] ) );
-  CHECK( 17.65328 == Approx( incoherent.W()[1] ) );
-  CHECK( 8.937898 == Approx( incoherent.debyeWallerValues()[0] ) );
-  CHECK( 17.65328 == Approx( incoherent.debyeWallerValues()[1] ) );
+  CHECK_THAT( 293.6, WithinRel( incoherent.T()[0] ) );
+  CHECK_THAT( 800., WithinRel( incoherent.T()[1] ) );
+  CHECK_THAT( 293.6, WithinRel( incoherent.temperatures()[0] ) );
+  CHECK_THAT( 800., WithinRel( incoherent.temperatures()[1] ) );
+  CHECK_THAT( 8.937898, WithinRel( incoherent.W()[0] ) );
+  CHECK_THAT( 17.65328, WithinRel( incoherent.W()[1] ) );
+  CHECK_THAT( 8.937898, WithinRel( incoherent.debyeWallerValues()[0] ) );
+  CHECK_THAT( 17.65328, WithinRel( incoherent.debyeWallerValues()[1] ) );
 
   CHECK( 9 == chunk.NC() );
 }

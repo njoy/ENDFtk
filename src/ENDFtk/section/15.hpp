@@ -17,65 +17,66 @@ namespace njoy {
 namespace ENDFtk {
 namespace section {
 
-template<>
-class Type< 15 > : protected Base {
-
-public:
-
-  #include "ENDFtk/section/5/TabulatedSpectrum.hpp"    // LF=1, taken from MF5
-
-  using LF1 = TabulatedSpectrum;
-
-  /** @typedef Distribution
-   *  @brief A secondary particle energy distribution of MF15
-   */
-  using Distribution = TabulatedSpectrum; // LF=1
-
-  #include "ENDFtk/section/5/Probability.hpp"          // taken from MF5
-  #include "ENDFtk/section/15/PartialDistribution.hpp"
-
-private:
-
-  /* fields */
-  std::vector< PartialDistribution > partials_;
-
-  /* auxiliary functions */
-  #include "ENDFtk/section/5/src/verifyNK.hpp"         // taken from MF5
-
-public:
-
-  /* constructor */
-  #include "ENDFtk/section/15/src/ctor.hpp"
-
-  /* methods */
-
-  /**
-   *  @brief Return the number NK of subsections with partial distributions
-   */
-  int NK() const { return this->partials_.size(); }
-
-  /**
-   *  @brief Return the number NK of subsections with partial distributions
-   */
-  int numberPartialDistributions() const { return this->NK(); }
-
-  /**
-   *  @brief Return the partial distributions defined in this section
-   */
-  auto partialDistributions() const {
-
-    return ranges::cpp20::views::all( this->partials_ );
-  }
-
-  #include "ENDFtk/section/5/src/NC.hpp"               // taken from MF5
-  #include "ENDFtk/section/5/src/print.hpp"            // taken from MF5
-
-  using Base::MT;
-  using Base::sectionNumber;
-  using Base::ZA;
-  using Base::atomicWeightRatio;
-  using Base::AWR;
-};
+  template<>
+  class Type< 15 > : protected Base {
+  
+  public:
+  
+    #include "ENDFtk/section/5/TabulatedSpectrum.hpp"    // LF=1, taken from MF5
+  
+    using LF1 = TabulatedSpectrum;
+  
+    /** @typedef Distribution
+     *  @brief A secondary particle energy distribution of MF15
+     */
+    using Distribution = TabulatedSpectrum; // LF=1
+  
+    #include "ENDFtk/section/5/Probability.hpp"          // taken from MF5
+    #include "ENDFtk/section/15/PartialDistribution.hpp"
+  
+  private:
+  
+    /* fields */
+    std::vector< PartialDistribution > partials_;
+  
+    /* auxiliary functions */
+    #include "ENDFtk/section/5/src/verifyNK.hpp"         // taken from MF5
+  
+  public:
+  
+    /* constructor */
+    #include "ENDFtk/section/15/src/ctor.hpp"
+  
+    /* methods */
+  
+    /**
+     *  @brief Return the number NK of subsections with partial distributions
+     */
+    int NK() const { return this->partials_.size(); }
+  
+    /**
+     *  @brief Return the number NK of subsections with partial distributions
+     */
+    int numberPartialDistributions() const { return this->NK(); }
+  
+    /**
+     *  @brief Return the partial distributions defined in this section
+     */
+    auto partialDistributions() const {
+  
+      return ranges::cpp20::views::all( this->partials_ );
+    }
+  
+    #include "ENDFtk/section/5/src/NC.hpp"               // taken from MF5
+    #include "ENDFtk/section/5/src/print.hpp"            // taken from MF5
+  
+    using Base::MT;
+    using Base::sectionNumber;
+    using Base::ZA;
+    using Base::targetIdentifier;
+    using Base::atomicWeightRatio;
+    using Base::AWR;
+  };
 
 } // section namespace
 } // ENDFtk namespace

@@ -6,7 +6,7 @@
  *  @param[in] lfw      the lfw flag for unresolved resonances
  *  @param[in] ranges   the resonance ranges defined for the isotope
  */
-Isotope( double ZAI, double ABN, bool LFW,
+Isotope( int ZAI, double ABN, bool LFW,
          std::vector< ResonanceRange >&& ranges ):
   zai_( ZAI ), abn_( ABN ), lfw_( LFW ), ranges_( std::move( ranges ) ) {}
 
@@ -22,7 +22,7 @@ Isotope( ControlRecord&& cont,
          int MAT,
          int MF,
          int MT ) :
-  Isotope( cont.C1(), cont.C2(), cont.L2(),
+  Isotope( static_cast< int >( std::round( cont.C1() ) ), cont.C2(), cont.L2(),
            readRanges( begin, end, lineNumber, MAT, MF, MT,
                        cont.L2(), cont.N1() ) ) {}
 

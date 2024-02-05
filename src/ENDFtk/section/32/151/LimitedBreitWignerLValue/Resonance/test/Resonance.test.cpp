@@ -1,7 +1,10 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
-#include "ENDFtk/section/32/151.hpp"
+// what we are testing
+#include "ENDFtk/section/32.hpp"
 
 // other includes
 
@@ -33,39 +36,39 @@ SCENARIO( "Resonance" ) {
 
 void verifyChunk( const Resonance& chunk ) {
 
-  CHECK( 1. == Approx( chunk.ER() ) );
-  CHECK( 1. == Approx( chunk.resonanceEnergy() ) );
-  CHECK( 2. == Approx( chunk.AJ() ) );
-  CHECK( 2. == Approx( chunk.spin() ) );
-  CHECK( 18. == Approx( chunk.GT() ) );
-  CHECK( 18. == Approx( chunk.totalWidth() ) );
-  CHECK( 3. == Approx( chunk.GN() ) );
-  CHECK( 3. == Approx( chunk.neutronWidth() ) );
-  CHECK( 4. == Approx( chunk.GG() ) );
-  CHECK( 4. == Approx( chunk.gammaWidth() ) );
-  CHECK( 5. == Approx( chunk.GF() ) );
-  CHECK( 5. == Approx( chunk.fissionWidth() ) );
+  CHECK_THAT( 1., WithinRel( chunk.ER() ) );
+  CHECK_THAT( 1., WithinRel( chunk.resonanceEnergy() ) );
+  CHECK_THAT( 2., WithinRel( chunk.AJ() ) );
+  CHECK_THAT( 2., WithinRel( chunk.spin() ) );
+  CHECK_THAT( 18., WithinRel( chunk.GT() ) );
+  CHECK_THAT( 18., WithinRel( chunk.totalWidth() ) );
+  CHECK_THAT( 3., WithinRel( chunk.GN() ) );
+  CHECK_THAT( 3., WithinRel( chunk.neutronWidth() ) );
+  CHECK_THAT( 4., WithinRel( chunk.GG() ) );
+  CHECK_THAT( 4., WithinRel( chunk.gammaWidth() ) );
+  CHECK_THAT( 5., WithinRel( chunk.GF() ) );
+  CHECK_THAT( 5., WithinRel( chunk.fissionWidth() ) );
 
-  CHECK( 6. == Approx( chunk.DE2() ) );
-  CHECK( 6. == Approx( chunk.resonanceEnergyVariance() ) );
-  CHECK( 16. == Approx( chunk.DJ2() ) );
-  CHECK( 16. == Approx( chunk.spinVariance() ) );
-  CHECK( 7. == Approx( chunk.DN2() ) );
-  CHECK( 7. == Approx( chunk.neutronWidthVariance() ) );
-  CHECK( 9. == Approx( chunk.DG2() ) );
-  CHECK( 9. == Approx( chunk.gammaWidthVariance() ) );
-  CHECK( 12. == Approx( chunk.DF2() ) );
-  CHECK( 12. == Approx( chunk.fissionWidthVariance() ) );
-  CHECK( 8. == Approx( chunk.DNDG() ) );
-  CHECK( 8. == Approx( chunk.neutronAndGammaWidthCovariance() ) );
-  CHECK( 10. == Approx( chunk.DNDF() ) );
-  CHECK( 10. == Approx( chunk.neutronAndFissionWidthCovariance() ) );
-  CHECK( 11. == Approx( chunk.DGDF() ) );
-  CHECK( 11. == Approx( chunk.gammaAndFissionWidthCovariance() ) );
-  CHECK( 13. == Approx( chunk.DJDN() ) );
-  CHECK( 13. == Approx( chunk.spinAndNeutronWidthCovariance() ) );
-  CHECK( 14. == Approx( chunk.DJDG() ) );
-  CHECK( 14. == Approx( chunk.spinAndGammaWidthCovariance() ) );
-  CHECK( 15. == Approx( chunk.DJDF() ) );
-  CHECK( 15. == Approx( chunk.spinAndFissionWidthCovariance() ) );
+  CHECK_THAT( 6., WithinRel( chunk.DE2() ) );
+  CHECK_THAT( 6., WithinRel( chunk.resonanceEnergyVariance() ) );
+  CHECK_THAT( 16., WithinRel( chunk.DJ2() ) );
+  CHECK_THAT( 16., WithinRel( chunk.spinVariance() ) );
+  CHECK_THAT( 7., WithinRel( chunk.DN2() ) );
+  CHECK_THAT( 7., WithinRel( chunk.neutronWidthVariance() ) );
+  CHECK_THAT( 9., WithinRel( chunk.DG2() ) );
+  CHECK_THAT( 9., WithinRel( chunk.gammaWidthVariance() ) );
+  CHECK_THAT( 12., WithinRel( chunk.DF2() ) );
+  CHECK_THAT( 12., WithinRel( chunk.fissionWidthVariance() ) );
+  CHECK_THAT( 8., WithinRel( chunk.DNDG() ) );
+  CHECK_THAT( 8., WithinRel( chunk.neutronAndGammaWidthCovariance() ) );
+  CHECK_THAT( 10., WithinRel( chunk.DNDF() ) );
+  CHECK_THAT( 10., WithinRel( chunk.neutronAndFissionWidthCovariance() ) );
+  CHECK_THAT( 11., WithinRel( chunk.DGDF() ) );
+  CHECK_THAT( 11., WithinRel( chunk.gammaAndFissionWidthCovariance() ) );
+  CHECK_THAT( 13., WithinRel( chunk.DJDN() ) );
+  CHECK_THAT( 13., WithinRel( chunk.spinAndNeutronWidthCovariance() ) );
+  CHECK_THAT( 14., WithinRel( chunk.DJDG() ) );
+  CHECK_THAT( 14., WithinRel( chunk.spinAndGammaWidthCovariance() ) );
+  CHECK_THAT( 15., WithinRel( chunk.DJDF() ) );
+  CHECK_THAT( 15., WithinRel( chunk.spinAndFissionWidthCovariance() ) );
 }

@@ -6,7 +6,7 @@
  *  @param[in] awr           the atomic weight ratio
  *  @param[in] reactions     the reaction block subsections
  */
-Type( int MT, double zaid, double awr,
+Type( int MT, int zaid, double awr,
       std::vector< ReactionBlock >&& reactions ) :
   Base( zaid, awr, MT ),
   reactions_( std::move( reactions ) ) {}

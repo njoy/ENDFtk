@@ -5,7 +5,7 @@
  *  @param[in] awr        the atomic mass ratio
  *  @param[in] elements   the elements (at least 1)
  */
-Type( double zaid, double awr, std::vector< ElementInformation >&& elements ) :
+Type( int zaid, double awr, std::vector< ElementInformation >&& elements ) :
   BaseWithoutMT( zaid, awr ), elements_( std::move( elements ) ) {
 
   verifySize( this->NA() );
@@ -18,7 +18,7 @@ Type( double zaid, double awr, std::vector< ElementInformation >&& elements ) :
  *  @param[in] awr        the atomic mass ratio
  *  @param[in] element    the element information
  */
-Type( double zaid, double awr, ElementInformation&& element ) :
+Type( int zaid, double awr, ElementInformation&& element ) :
   Type( zaid, awr, std::vector< ElementInformation >{ std::move( element ) } ) {}
 
 /**

@@ -14,8 +14,8 @@ SCENARIO( "The Zipper unzip function", "[ENDFtk], [Zipper]" ){
         auto vectors = Zipper::unzip< Real, Integer<11> >
           ( 7, it, end, lineNumber, 125, 1, 451 );
         for ( int i = 0; i < 7; ++i ){
-          REQUIRE( std::get< 0 >( vectors )[i] == double(i + 1) );
-          REQUIRE( std::get< 1 >( vectors )[i] == i + 1 );
+          CHECK_THAT( std::get< 0 >( vectors )[i], WithinRel( double(i + 1) ) );
+          CHECK( std::get< 1 >( vectors )[i] == i + 1 );
         }
       }
     }

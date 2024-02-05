@@ -14,7 +14,7 @@ Type() = default;
  *  @param[in] awr           the atomic weight ratio
  *  @param[in] products      the reaction products (at least 1)
  */
-Type( int MT, double zaid, double awr,
+Type( int MT, int zaid, double awr,
       std::vector< ReactionProduct >&& products ) :
   Base( zaid, awr, MT ),
   products_( std::move( products ) ) {}

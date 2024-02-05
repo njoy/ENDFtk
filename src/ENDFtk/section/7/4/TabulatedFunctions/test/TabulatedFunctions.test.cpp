@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/7/4.hpp"
 
 // other includes
@@ -194,7 +197,7 @@ void verifyChunkWithOneTemperature( const TabulatedFunctions& chunk ) {
   CHECK( 4 == chunk.interpolants()[0] );
 
   auto value = chunk.scatteringFunctions()[0];
-  CHECK( 0.0 == Approx( value.beta() ) );
+  CHECK_THAT( 0.0, WithinRel( value.beta() ) );
   CHECK( 0 == value.LT() );
   CHECK( 0 == value.temperatureDependenceFlag() );
   CHECK( 1 == value.NT() );
@@ -211,21 +214,21 @@ void verifyChunkWithOneTemperature( const TabulatedFunctions& chunk ) {
 
   CHECK( 1 == value.T().size() );
   CHECK( 1 == value.temperatures().size() );
-  CHECK( 293.6 == Approx( value.T()[0] ) );
-  CHECK( 293.6 == Approx( value.temperatures()[0] ) );
+  CHECK_THAT( 293.6, WithinRel( value.T()[0] ) );
+  CHECK_THAT( 293.6, WithinRel( value.temperatures()[0] ) );
 
   CHECK( 5 == value.A().size() );
   CHECK( 5 == value.alphas().size() );
-  CHECK( 4.423802e-3 == Approx( value.A()[0] ) );
-  CHECK( 4.649528e-3 == Approx( value.A()[1] ) );
-  CHECK( 4.886772e-3 == Approx( value.A()[2] ) );
-  CHECK( 8.418068e+1 == Approx( value.A()[3] ) );
-  CHECK( 8.847604e+1 == Approx( value.A()[4] ) );
-  CHECK( 4.423802e-3 == Approx( value.alphas()[0] ) );
-  CHECK( 4.649528e-3 == Approx( value.alphas()[1] ) );
-  CHECK( 4.886772e-3 == Approx( value.alphas()[2] ) );
-  CHECK( 8.418068e+1 == Approx( value.alphas()[3] ) );
-  CHECK( 8.847604e+1 == Approx( value.alphas()[4] ) );
+  CHECK_THAT( 4.423802e-3, WithinRel( value.A()[0] ) );
+  CHECK_THAT( 4.649528e-3, WithinRel( value.A()[1] ) );
+  CHECK_THAT( 4.886772e-3, WithinRel( value.A()[2] ) );
+  CHECK_THAT( 8.418068e+1, WithinRel( value.A()[3] ) );
+  CHECK_THAT( 8.847604e+1, WithinRel( value.A()[4] ) );
+  CHECK_THAT( 4.423802e-3, WithinRel( value.alphas()[0] ) );
+  CHECK_THAT( 4.649528e-3, WithinRel( value.alphas()[1] ) );
+  CHECK_THAT( 4.886772e-3, WithinRel( value.alphas()[2] ) );
+  CHECK_THAT( 8.418068e+1, WithinRel( value.alphas()[3] ) );
+  CHECK_THAT( 8.847604e+1, WithinRel( value.alphas()[4] ) );
 
   CHECK( 0 == value.LI().size() );
   CHECK( 0 == value.temperatureInterpolants().size() );
@@ -233,23 +236,23 @@ void verifyChunkWithOneTemperature( const TabulatedFunctions& chunk ) {
   decltype(auto) values = value.S();
   CHECK( 1 == values.size() );
   CHECK( 5 == values[0].size() );
-  CHECK( 2.386876e-4 == Approx( values[0][0] ) );
-  CHECK( 2.508466e-4 == Approx( values[0][1] ) );
-  CHECK( 2.636238e-4 == Approx( values[0][2] ) );
-  CHECK( 1.306574e-9 == Approx( values[0][3] ) );
-  CHECK( 5.29573e-10 == Approx( values[0][4] ) );
+  CHECK_THAT( 2.386876e-4, WithinRel( values[0][0] ) );
+  CHECK_THAT( 2.508466e-4, WithinRel( values[0][1] ) );
+  CHECK_THAT( 2.636238e-4, WithinRel( values[0][2] ) );
+  CHECK_THAT( 1.306574e-9, WithinRel( values[0][3] ) );
+  CHECK_THAT( 5.29573e-10, WithinRel( values[0][4] ) );
 
   values = value.thermalScatteringValues();
   CHECK( 1 == values.size() );
   CHECK( 5 == values[0].size() );
-  CHECK( 2.386876e-4 == Approx( values[0][0] ) );
-  CHECK( 2.508466e-4 == Approx( values[0][1] ) );
-  CHECK( 2.636238e-4 == Approx( values[0][2] ) );
-  CHECK( 1.306574e-9 == Approx( values[0][3] ) );
-  CHECK( 5.29573e-10 == Approx( values[0][4] ) );
+  CHECK_THAT( 2.386876e-4, WithinRel( values[0][0] ) );
+  CHECK_THAT( 2.508466e-4, WithinRel( values[0][1] ) );
+  CHECK_THAT( 2.636238e-4, WithinRel( values[0][2] ) );
+  CHECK_THAT( 1.306574e-9, WithinRel( values[0][3] ) );
+  CHECK_THAT( 5.29573e-10, WithinRel( values[0][4] ) );
 
   value = chunk.scatteringFunctions()[1];
-  CHECK( 3.952570e-2 == Approx( value.beta() ) );
+  CHECK_THAT( 3.952570e-2, WithinRel( value.beta() ) );
   CHECK( 0 == value.LT() );
   CHECK( 0 == value.temperatureDependenceFlag() );
   CHECK( 1 == value.NT() );
@@ -266,21 +269,21 @@ void verifyChunkWithOneTemperature( const TabulatedFunctions& chunk ) {
 
   CHECK( 1 == value.T().size() );
   CHECK( 1 == value.temperatures().size() );
-  CHECK( 293.6 == Approx( value.T()[0] ) );
-  CHECK( 293.6 == Approx( value.temperatures()[0] ) );
+  CHECK_THAT( 293.6, WithinRel( value.T()[0] ) );
+  CHECK_THAT( 293.6, WithinRel( value.temperatures()[0] ) );
 
   CHECK( 5 == value.A().size() );
   CHECK( 5 == value.alphas().size() );
-  CHECK( 4.423802e-3 == Approx( value.A()[0] ) );
-  CHECK( 4.649528e-3 == Approx( value.A()[1] ) );
-  CHECK( 4.886772e-3 == Approx( value.A()[2] ) );
-  CHECK( 8.418068e+1 == Approx( value.A()[3] ) );
-  CHECK( 8.847604e+1 == Approx( value.A()[4] ) );
-  CHECK( 4.423802e-3 == Approx( value.alphas()[0] ) );
-  CHECK( 4.649528e-3 == Approx( value.alphas()[1] ) );
-  CHECK( 4.886772e-3 == Approx( value.alphas()[2] ) );
-  CHECK( 8.418068e+1 == Approx( value.alphas()[3] ) );
-  CHECK( 8.847604e+1 == Approx( value.alphas()[4] ) );
+  CHECK_THAT( 4.423802e-3, WithinRel( value.A()[0] ) );
+  CHECK_THAT( 4.649528e-3, WithinRel( value.A()[1] ) );
+  CHECK_THAT( 4.886772e-3, WithinRel( value.A()[2] ) );
+  CHECK_THAT( 8.418068e+1, WithinRel( value.A()[3] ) );
+  CHECK_THAT( 8.847604e+1, WithinRel( value.A()[4] ) );
+  CHECK_THAT( 4.423802e-3, WithinRel( value.alphas()[0] ) );
+  CHECK_THAT( 4.649528e-3, WithinRel( value.alphas()[1] ) );
+  CHECK_THAT( 4.886772e-3, WithinRel( value.alphas()[2] ) );
+  CHECK_THAT( 8.418068e+1, WithinRel( value.alphas()[3] ) );
+  CHECK_THAT( 8.847604e+1, WithinRel( value.alphas()[4] ) );
 
   CHECK( 0 == value.LI().size() );
   CHECK( 0 == value.temperatureInterpolants().size() );
@@ -288,20 +291,20 @@ void verifyChunkWithOneTemperature( const TabulatedFunctions& chunk ) {
   values = value.S();
   CHECK( 1 == values.size() );
   CHECK( 5 == values[0].size() );
-  CHECK( 2.386694e-4 == Approx( values[0][0] ) );
-  CHECK( 2.508273e-4 == Approx( values[0][1] ) );
-  CHECK( 2.636238e-4 == Approx( values[0][2] ) );
-  CHECK( 2.770291e-4 == Approx( values[0][3] ) );
-  CHECK( 2.911373e-4 == Approx( values[0][4] ) );
+  CHECK_THAT( 2.386694e-4, WithinRel( values[0][0] ) );
+  CHECK_THAT( 2.508273e-4, WithinRel( values[0][1] ) );
+  CHECK_THAT( 2.636238e-4, WithinRel( values[0][2] ) );
+  CHECK_THAT( 2.770291e-4, WithinRel( values[0][3] ) );
+  CHECK_THAT( 2.911373e-4, WithinRel( values[0][4] ) );
 
   values = value.thermalScatteringValues();
   CHECK( 1 == values.size() );
   CHECK( 5 == values[0].size() );
-  CHECK( 2.386694e-4 == Approx( values[0][0] ) );
-  CHECK( 2.508273e-4 == Approx( values[0][1] ) );
-  CHECK( 2.636238e-4 == Approx( values[0][2] ) );
-  CHECK( 2.770291e-4 == Approx( values[0][3] ) );
-  CHECK( 2.911373e-4 == Approx( values[0][4] ) );
+  CHECK_THAT( 2.386694e-4, WithinRel( values[0][0] ) );
+  CHECK_THAT( 2.508273e-4, WithinRel( values[0][1] ) );
+  CHECK_THAT( 2.636238e-4, WithinRel( values[0][2] ) );
+  CHECK_THAT( 2.770291e-4, WithinRel( values[0][3] ) );
+  CHECK_THAT( 2.911373e-4, WithinRel( values[0][4] ) );
 
   CHECK( 10 == chunk.NC() );
 }
