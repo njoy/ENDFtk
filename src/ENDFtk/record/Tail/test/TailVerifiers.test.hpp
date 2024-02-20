@@ -10,27 +10,27 @@ SCENARIO( "Verifying the given numbers in the RecordTail" ){
     THEN( "the numbers are verified without throwing an exception" ){
       auto it = tail.begin();
       auto end = tail.end();
-      REQUIRE_NOTHROW( TailVerifying< MAT >( mat, it, end, lineNumber ) );
+      CHECK_NOTHROW( TailVerifying< MAT >( mat, it, end, lineNumber ) );
     }
     THEN( "the numbers are verified without throwing an exception" ){
       auto it = tail.begin();
       auto end = tail.end();
-      REQUIRE_NOTHROW( TailVerifying< MF >( mf, it, end, lineNumber ) );
+      CHECK_NOTHROW( TailVerifying< MF >( mf, it, end, lineNumber ) );
     }
     THEN( "the numbers are verified without throwing an exception" ){
       auto it = tail.begin();
       auto end = tail.end();
-      REQUIRE_NOTHROW( TailVerifying< MT >( mt, it, end, lineNumber ) );
+      CHECK_NOTHROW( TailVerifying< MT >( mt, it, end, lineNumber ) );
     }
     THEN( "the numbers are verified without throwing an exception" ){
       auto it = tail.begin();
       auto end = tail.end();
-      REQUIRE_NOTHROW( TailVerifyingMATMF( mat, mf, it, end, lineNumber ) );
+      CHECK_NOTHROW( TailVerifyingMATMF( mat, mf, it, end, lineNumber ) );
     }
     THEN( "the numbers are verified without throwing an exception" ){
       auto it = tail.begin();
       auto end = tail.end();
-      REQUIRE_NOTHROW( TailVerifyingMATMFMT( mat, mf, mt, it, end, lineNumber ) );
+      CHECK_NOTHROW( TailVerifyingMATMFMT( mat, mf, mt, it, end, lineNumber ) );
     }
   }
   GIVEN( "incorrect tail numbers" ){
@@ -38,23 +38,23 @@ SCENARIO( "Verifying the given numbers in the RecordTail" ){
     auto end = tail.end();
     WHEN("Constructed from a string"){
       auto it = tail.begin();
-      REQUIRE_THROWS( TailVerifying< MAT >( 0, it, end, lineNumber ) );
+      CHECK_THROWS( TailVerifying< MAT >( 0, it, end, lineNumber ) );
     }
     WHEN("Constructed from a string"){
       auto it = tail.begin();
-      REQUIRE_THROWS( TailVerifying< MF >( 0, it, end, lineNumber ) );
+      CHECK_THROWS( TailVerifying< MF >( 0, it, end, lineNumber ) );
     }
     WHEN("Constructed from a string"){
       auto it = tail.begin();
-      REQUIRE_THROWS( TailVerifying< MT >( 0, it, end, lineNumber ) );
+      CHECK_THROWS( TailVerifying< MT >( 0, it, end, lineNumber ) );
     }
     WHEN("Constructed from a string"){
       auto it = tail.begin();
-      REQUIRE_THROWS( TailVerifyingMATMF( 0, 0, it, end, lineNumber ) );
+      CHECK_THROWS( TailVerifyingMATMF( 0, 0, it, end, lineNumber ) );
     }
     WHEN("Constructed from a string"){
       auto it = tail.begin();
-      REQUIRE_THROWS( TailVerifyingMATMFMT( 0, 0, 0, it, end, lineNumber ) );
+      CHECK_THROWS( TailVerifyingMATMFMT( 0, 0, 0, it, end, lineNumber ) );
     }
   }
 }

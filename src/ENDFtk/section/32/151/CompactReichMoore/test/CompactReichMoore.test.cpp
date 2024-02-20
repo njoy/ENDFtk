@@ -1,7 +1,10 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
-#include "ENDFtk/section/32/151.hpp"
+// what we are testing
+#include "ENDFtk/section/32.hpp"
 
 // other includes
 
@@ -124,20 +127,20 @@ void verifyChunk( const CompactReichMoore& chunk ) {
   CHECK( 2 == chunk.LCOMP() );
   CHECK( 2 == chunk.covarianceRepresentation() );
 
-  CHECK( 2.5 == Approx( chunk.SPI() ) );
-  CHECK( 2.5 == Approx( chunk.spin() ) );
-  CHECK( 0.962 == Approx( chunk.AP() ) );
-  CHECK( 0.962 == Approx( chunk.scatteringRadius() ) );
+  CHECK_THAT( 2.5, WithinRel( chunk.SPI() ) );
+  CHECK_THAT( 2.5, WithinRel( chunk.spin() ) );
+  CHECK_THAT( 0.962, WithinRel( chunk.AP() ) );
+  CHECK_THAT( 0.962, WithinRel( chunk.scatteringRadius() ) );
   CHECK( false == chunk.LAD() );
   CHECK( false == chunk.scatteringRadiusUncertaintyFlag() );
 
   CHECK( std::nullopt == chunk.DAP() );
   CHECK( std::nullopt == chunk.scatteringRadiusUncertainty() );
 
-  CHECK( 231.0377 == Approx( chunk.uncertainties().AWRI() ) );
-  CHECK( 231.0377 == Approx( chunk.uncertainties().atomicWeightRatio() ) );
-  CHECK( 0. == Approx( chunk.uncertainties().APL() ) );
-  CHECK( 0. == Approx( chunk.uncertainties().lDependentScatteringRadius() ) );
+  CHECK_THAT( 231.0377, WithinRel( chunk.uncertainties().AWRI() ) );
+  CHECK_THAT( 231.0377, WithinRel( chunk.uncertainties().atomicWeightRatio() ) );
+  CHECK_THAT( 0., WithinRel( chunk.uncertainties().APL() ) );
+  CHECK_THAT( 0., WithinRel( chunk.uncertainties().lDependentScatteringRadius() ) );
 
   CHECK( 2 == chunk.uncertainties().NRSA() );
   CHECK( 2 == chunk.uncertainties().numberResonances() );
@@ -164,51 +167,51 @@ void verifyChunk( const CompactReichMoore& chunk ) {
   CHECK( 2 == chunk.uncertainties().DGFB().size() );
   CHECK( 2 == chunk.uncertainties().secondFissionWidthUncertainties().size() );
 
-  CHECK( -1.060000e+3 == Approx( chunk.uncertainties().ER()[0] ) );
-  CHECK( -8.000000e+2 == Approx( chunk.uncertainties().ER()[1] ) );
-  CHECK( -1.060000e+3 == Approx( chunk.uncertainties().resonanceEnergies()[0] ) );
-  CHECK( -8.000000e+2 == Approx( chunk.uncertainties().resonanceEnergies()[1] ) );
-  CHECK( 3. == Approx( chunk.uncertainties().AJ()[0] ) );
-  CHECK( 2. == Approx( chunk.uncertainties().AJ()[1] ) );
-  CHECK( 3. == Approx( chunk.uncertainties().spinValues()[0] ) );
-  CHECK( 2. == Approx( chunk.uncertainties().spinValues()[1] ) );
-  CHECK( 1.524000e+0 == Approx( chunk.uncertainties().GN()[0] ) );
-  CHECK( 1.315000e+0 == Approx( chunk.uncertainties().GN()[1] ) );
-  CHECK( 1.524000e+0 == Approx( chunk.uncertainties().neutronWidths()[0] ) );
-  CHECK( 1.315000e+0 == Approx( chunk.uncertainties().neutronWidths()[1] ) );
-  CHECK( 0.04 == Approx( chunk.uncertainties().GG()[0] ) );
-  CHECK( 0.04 == Approx( chunk.uncertainties().GG()[1] ) );
-  CHECK( 0.04 == Approx( chunk.uncertainties().gammaWidths()[0] ) );
-  CHECK( 0.04 == Approx( chunk.uncertainties().gammaWidths()[1] ) );
-  CHECK( 2.600000e-1 == Approx( chunk.uncertainties().GFA()[0] ) );
-  CHECK( 3.120000e-1 == Approx( chunk.uncertainties().GFA()[1] ) );
-  CHECK( 2.600000e-1 == Approx( chunk.uncertainties().firstFissionWidths()[0] ) );
-  CHECK( 3.120000e-1 == Approx( chunk.uncertainties().firstFissionWidths()[1] ) );
-  CHECK(  2.370000e-1 == Approx( chunk.uncertainties().GFB()[0] ) );
-  CHECK( -2.250000e-1 == Approx( chunk.uncertainties().GFB()[1] ) );
-  CHECK(  2.370000e-1 == Approx( chunk.uncertainties().secondFissionWidths()[0] ) );
-  CHECK( -2.250000e-1 == Approx( chunk.uncertainties().secondFissionWidths()[1] ) );
+  CHECK_THAT( -1.060000e+3, WithinRel( chunk.uncertainties().ER()[0] ) );
+  CHECK_THAT( -8.000000e+2, WithinRel( chunk.uncertainties().ER()[1] ) );
+  CHECK_THAT( -1.060000e+3, WithinRel( chunk.uncertainties().resonanceEnergies()[0] ) );
+  CHECK_THAT( -8.000000e+2, WithinRel( chunk.uncertainties().resonanceEnergies()[1] ) );
+  CHECK_THAT( 3., WithinRel( chunk.uncertainties().AJ()[0] ) );
+  CHECK_THAT( 2., WithinRel( chunk.uncertainties().AJ()[1] ) );
+  CHECK_THAT( 3., WithinRel( chunk.uncertainties().spinValues()[0] ) );
+  CHECK_THAT( 2., WithinRel( chunk.uncertainties().spinValues()[1] ) );
+  CHECK_THAT( 1.524000e+0, WithinRel( chunk.uncertainties().GN()[0] ) );
+  CHECK_THAT( 1.315000e+0, WithinRel( chunk.uncertainties().GN()[1] ) );
+  CHECK_THAT( 1.524000e+0, WithinRel( chunk.uncertainties().neutronWidths()[0] ) );
+  CHECK_THAT( 1.315000e+0, WithinRel( chunk.uncertainties().neutronWidths()[1] ) );
+  CHECK_THAT( 0.04, WithinRel( chunk.uncertainties().GG()[0] ) );
+  CHECK_THAT( 0.04, WithinRel( chunk.uncertainties().GG()[1] ) );
+  CHECK_THAT( 0.04, WithinRel( chunk.uncertainties().gammaWidths()[0] ) );
+  CHECK_THAT( 0.04, WithinRel( chunk.uncertainties().gammaWidths()[1] ) );
+  CHECK_THAT( 2.600000e-1, WithinRel( chunk.uncertainties().GFA()[0] ) );
+  CHECK_THAT( 3.120000e-1, WithinRel( chunk.uncertainties().GFA()[1] ) );
+  CHECK_THAT( 2.600000e-1, WithinRel( chunk.uncertainties().firstFissionWidths()[0] ) );
+  CHECK_THAT( 3.120000e-1, WithinRel( chunk.uncertainties().firstFissionWidths()[1] ) );
+  CHECK_THAT(  2.370000e-1, WithinRel( chunk.uncertainties().GFB()[0] ) );
+  CHECK_THAT( -2.250000e-1, WithinRel( chunk.uncertainties().GFB()[1] ) );
+  CHECK_THAT(  2.370000e-1, WithinRel( chunk.uncertainties().secondFissionWidths()[0] ) );
+  CHECK_THAT( -2.250000e-1, WithinRel( chunk.uncertainties().secondFissionWidths()[1] ) );
 
-  CHECK( 2.061000e+0 == Approx( chunk.uncertainties().DER()[0] ) );
-  CHECK( 1.891999e+0 == Approx( chunk.uncertainties().DER()[1] ) );
-  CHECK( 2.061000e+0 == Approx( chunk.uncertainties().resonanceEnergyUncertainties()[0] ) );
-  CHECK( 1.891999e+0 == Approx( chunk.uncertainties().resonanceEnergyUncertainties()[1] ) );
-  CHECK( 1.453063e+0 == Approx( chunk.uncertainties().DGN()[0] ) );
-  CHECK( 1.268267e+0 == Approx( chunk.uncertainties().DGN()[1] ) );
-  CHECK( 1.453063e+0 == Approx( chunk.uncertainties().neutronWidthUncertainties()[0] ) );
-  CHECK( 1.268267e+0 == Approx( chunk.uncertainties().neutronWidthUncertainties()[1] ) );
-  CHECK( 3.999991e-2 == Approx( chunk.uncertainties().DGG()[0] ) );
-  CHECK( 3.999987e-2 == Approx( chunk.uncertainties().DGG()[1] ) );
-  CHECK( 3.999991e-2 == Approx( chunk.uncertainties().gammaWidthUncertainties()[0] ) );
-  CHECK( 3.999987e-2 == Approx( chunk.uncertainties().gammaWidthUncertainties()[1] ) );
-  CHECK( 2.592466e-1 == Approx( chunk.uncertainties().DGFA()[0] ) );
-  CHECK( 3.106125e-1 == Approx( chunk.uncertainties().DGFA()[1] ) );
-  CHECK( 2.592466e-1 == Approx( chunk.uncertainties().firstFissionWidthUncertainties()[0] ) );
-  CHECK( 3.106125e-1 == Approx( chunk.uncertainties().firstFissionWidthUncertainties()[1] ) );
-  CHECK( 2.362210e-1 == Approx( chunk.uncertainties().DGFB()[0] ) );
-  CHECK( 2.241766e-1 == Approx( chunk.uncertainties().DGFB()[1] ) );
-  CHECK( 2.362210e-1 == Approx( chunk.uncertainties().secondFissionWidthUncertainties()[0] ) );
-  CHECK( 2.241766e-1 == Approx( chunk.uncertainties().secondFissionWidthUncertainties()[1] ) );
+  CHECK_THAT( 2.061000e+0, WithinRel( chunk.uncertainties().DER()[0] ) );
+  CHECK_THAT( 1.891999e+0, WithinRel( chunk.uncertainties().DER()[1] ) );
+  CHECK_THAT( 2.061000e+0, WithinRel( chunk.uncertainties().resonanceEnergyUncertainties()[0] ) );
+  CHECK_THAT( 1.891999e+0, WithinRel( chunk.uncertainties().resonanceEnergyUncertainties()[1] ) );
+  CHECK_THAT( 1.453063e+0, WithinRel( chunk.uncertainties().DGN()[0] ) );
+  CHECK_THAT( 1.268267e+0, WithinRel( chunk.uncertainties().DGN()[1] ) );
+  CHECK_THAT( 1.453063e+0, WithinRel( chunk.uncertainties().neutronWidthUncertainties()[0] ) );
+  CHECK_THAT( 1.268267e+0, WithinRel( chunk.uncertainties().neutronWidthUncertainties()[1] ) );
+  CHECK_THAT( 3.999991e-2, WithinRel( chunk.uncertainties().DGG()[0] ) );
+  CHECK_THAT( 3.999987e-2, WithinRel( chunk.uncertainties().DGG()[1] ) );
+  CHECK_THAT( 3.999991e-2, WithinRel( chunk.uncertainties().gammaWidthUncertainties()[0] ) );
+  CHECK_THAT( 3.999987e-2, WithinRel( chunk.uncertainties().gammaWidthUncertainties()[1] ) );
+  CHECK_THAT( 2.592466e-1, WithinRel( chunk.uncertainties().DGFA()[0] ) );
+  CHECK_THAT( 3.106125e-1, WithinRel( chunk.uncertainties().DGFA()[1] ) );
+  CHECK_THAT( 2.592466e-1, WithinRel( chunk.uncertainties().firstFissionWidthUncertainties()[0] ) );
+  CHECK_THAT( 3.106125e-1, WithinRel( chunk.uncertainties().firstFissionWidthUncertainties()[1] ) );
+  CHECK_THAT( 2.362210e-1, WithinRel( chunk.uncertainties().DGFB()[0] ) );
+  CHECK_THAT( 2.241766e-1, WithinRel( chunk.uncertainties().DGFB()[1] ) );
+  CHECK_THAT( 2.362210e-1, WithinRel( chunk.uncertainties().secondFissionWidthUncertainties()[0] ) );
+  CHECK_THAT( 2.241766e-1, WithinRel( chunk.uncertainties().secondFissionWidthUncertainties()[1] ) );
 
   CHECK( 5 == chunk.correlationMatrix().NDIGIT() );
   CHECK( 5 == chunk.correlationMatrix().numberDigits() );
@@ -256,24 +259,24 @@ void verifyChunk( const CompactReichMoore& chunk ) {
   CHECK( 6 == chunk.correlationMatrix().J()[16] );
   CHECK( 7 == chunk.correlationMatrix().J()[17] );
 
-  CHECK(  -1205e-6 == Approx( chunk.correlationMatrix().correlations()[0] ) );
-  CHECK(    -25e-6 == Approx( chunk.correlationMatrix().correlations()[1] ) );
-  CHECK(  -9375e-6 == Approx( chunk.correlationMatrix().correlations()[2] ) );
-  CHECK(    -25e-6 == Approx( chunk.correlationMatrix().correlations()[3] ) );
-  CHECK(  -6215e-6 == Approx( chunk.correlationMatrix().correlations()[4] ) );
-  CHECK(   -385e-6 == Approx( chunk.correlationMatrix().correlations()[5] ) );
-  CHECK(   -105e-6 == Approx( chunk.correlationMatrix().correlations()[6] ) );
-  CHECK(    -95e-6 == Approx( chunk.correlationMatrix().correlations()[7] ) );
-  CHECK( -61345e-6 == Approx( chunk.correlationMatrix().correlations()[8] ) );
-  CHECK(  -2095e-6 == Approx( chunk.correlationMatrix().correlations()[9] ) );
-  CHECK(   1145e-6 == Approx( chunk.correlationMatrix().correlations()[10] ) );
-  CHECK(  -1395e-6 == Approx( chunk.correlationMatrix().correlations()[11] ) );
-  CHECK(     25e-6 == Approx( chunk.correlationMatrix().correlations()[12] ) );
-  CHECK(   3245e-6 == Approx( chunk.correlationMatrix().correlations()[13] ) );
-  CHECK(    175e-6 == Approx( chunk.correlationMatrix().correlations()[14] ) );
-  CHECK(     35e-6 == Approx( chunk.correlationMatrix().correlations()[15] ) );
-  CHECK(    -35e-6 == Approx( chunk.correlationMatrix().correlations()[16] ) );
-  CHECK(  -7485e-6 == Approx( chunk.correlationMatrix().correlations()[17] ) );
+  CHECK_THAT(  -1205e-6, WithinRel( chunk.correlationMatrix().correlations()[0] ) );
+  CHECK_THAT(    -25e-6, WithinRel( chunk.correlationMatrix().correlations()[1] ) );
+  CHECK_THAT(  -9375e-6, WithinRel( chunk.correlationMatrix().correlations()[2] ) );
+  CHECK_THAT(    -25e-6, WithinRel( chunk.correlationMatrix().correlations()[3] ) );
+  CHECK_THAT(  -6215e-6, WithinRel( chunk.correlationMatrix().correlations()[4] ) );
+  CHECK_THAT(   -385e-6, WithinRel( chunk.correlationMatrix().correlations()[5] ) );
+  CHECK_THAT(   -105e-6, WithinRel( chunk.correlationMatrix().correlations()[6] ) );
+  CHECK_THAT(    -95e-6, WithinRel( chunk.correlationMatrix().correlations()[7] ) );
+  CHECK_THAT( -61345e-6, WithinRel( chunk.correlationMatrix().correlations()[8] ) );
+  CHECK_THAT(  -2095e-6, WithinRel( chunk.correlationMatrix().correlations()[9] ) );
+  CHECK_THAT(   1145e-6, WithinRel( chunk.correlationMatrix().correlations()[10] ) );
+  CHECK_THAT(  -1395e-6, WithinRel( chunk.correlationMatrix().correlations()[11] ) );
+  CHECK_THAT(     25e-6, WithinRel( chunk.correlationMatrix().correlations()[12] ) );
+  CHECK_THAT(   3245e-6, WithinRel( chunk.correlationMatrix().correlations()[13] ) );
+  CHECK_THAT(    175e-6, WithinRel( chunk.correlationMatrix().correlations()[14] ) );
+  CHECK_THAT(     35e-6, WithinRel( chunk.correlationMatrix().correlations()[15] ) );
+  CHECK_THAT(    -35e-6, WithinRel( chunk.correlationMatrix().correlations()[16] ) );
+  CHECK_THAT(  -7485e-6, WithinRel( chunk.correlationMatrix().correlations()[17] ) );
 
   CHECK( 14 == chunk.NC() );
 }

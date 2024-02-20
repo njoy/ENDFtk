@@ -1,10 +1,10 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/tree/File.hpp"
 
 // other includes
-#include "range/v3/algorithm/equal.hpp"
 #include "ENDFtk/section/3.hpp"
 
 // convenience typedefs

@@ -105,7 +105,7 @@ void wrapSection_2_151( python::module& module, python::module& viewmodule ) {
   section
   .def(
 
-    python::init< double, double, std::vector< Isotope >&& >(),
+    python::init< int, double, std::vector< Isotope >&& >(),
     python::arg( "zaid" ), python::arg( "awr" ), python::arg( "isotopes" ),
     "Initialise the section using isotopes\n\n"
     "Arguments:\n"
@@ -116,7 +116,7 @@ void wrapSection_2_151( python::module& module, python::module& viewmodule ) {
   )
   .def(
 
-    python::init< double, double, bool, std::vector< ResonanceRange >&& >(),
+    python::init< int, double, bool, std::vector< ResonanceRange >&& >(),
     python::arg( "zaid" ), python::arg( "awr" ), python::arg( "lfw" ),
     python::arg( "ranges" ),
     "Initialise the section using a single isotope\n\n"
@@ -129,7 +129,7 @@ void wrapSection_2_151( python::module& module, python::module& viewmodule ) {
   )
   .def(
 
-    python::init< double, double, double, double, double, double >(),
+    python::init< int, double, double, double, double, double >(),
     python::arg( "zaid" ), python::arg( "awr" ), python::arg( "el" ),
     python::arg( "eh" ), python::arg( "spin" ), python::arg( "ap" ),
     "Initialise the section for the special case (only scattering radius is\n"

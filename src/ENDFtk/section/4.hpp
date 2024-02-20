@@ -15,7 +15,7 @@
 #include "ENDFtk/TabulationRecord.hpp"
 #include "ENDFtk/InterpolationSequenceRecord.hpp"
 #include "ENDFtk/section.hpp"
-#include "utility/overload.hpp"
+#include "tools/overload.hpp"
 
 namespace njoy {
 namespace ENDFtk {
@@ -128,7 +128,7 @@ namespace section {
     long NR() const {
 
       return std::visit(
-               utility::overload{
+               tools::overload{
                    [] ( const Isotropic& ) -> int
                       { return 0; },
                    [] ( const auto& distributions ) -> int
@@ -143,7 +143,7 @@ namespace section {
     auto NE() const {
 
       return std::visit(
-               utility::overload{
+               tools::overload{
                    [] ( const Isotropic& ) -> int
                       { return 0; },
                    [] ( const auto& distributions ) -> int
@@ -160,7 +160,7 @@ namespace section {
     auto boundaries() const {
 
       return std::visit(
-               utility::overload{
+               tools::overload{
                    [] ( const Isotropic& ) -> LongRange
                       { return ranges::cpp20::views::empty< long >; },
                    [] ( const auto& distributions ) -> LongRange
@@ -174,7 +174,7 @@ namespace section {
     auto interpolants() const {
 
       return std::visit(
-               utility::overload{
+               tools::overload{
                    [] ( const Isotropic& ) -> LongRange
                       { return ranges::cpp20::views::empty< long >; },
                    [] ( const auto& distributions ) -> LongRange
@@ -188,7 +188,7 @@ namespace section {
     auto incidentEnergies() const {
 
       return std::visit(
-               utility::overload{
+               tools::overload{
                    [] ( const Isotropic& ) -> DoubleRange
                       { return ranges::cpp20::views::empty< double >; },
                    [] ( const auto& distributions ) -> DoubleRange
@@ -204,6 +204,7 @@ namespace section {
     using Base::MT;
     using Base::sectionNumber;
     using Base::ZA;
+    using Base::targetIdentifier;
     using Base::atomicWeightRatio;
     using Base::AWR;
   };

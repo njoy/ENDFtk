@@ -78,8 +78,7 @@ public:
    */
   auto rowEnergies() const {
 
-    return ranges::views::take_exactly( ListRecord::list(),
-                                        this->NER() );
+    return ranges::views::take_exactly( ListRecord::list(), this->NER() );
   }
 
   /**
@@ -87,8 +86,7 @@ public:
    */
   auto columnEnergies() const {
 
-    return ranges::views::drop_exactly( ListRecord::list(),
-                                        this->NER() );
+    return ranges::views::drop_exactly( ListRecord::list(), this->NER() );
   }
 
   /**
@@ -102,7 +100,6 @@ public:
 
   using ListRecord::NC;
   using ListRecord::print;
-
 };
 
 } // section namespace

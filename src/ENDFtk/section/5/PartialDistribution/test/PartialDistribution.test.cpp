@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/5.hpp"
 
 // other includes
@@ -437,8 +440,8 @@ std::string chunkLF1() {
 
 void verifyChunkLF1( const PartialDistribution& chunk ) {
 
-  CHECK( 0.0 == Approx ( chunk.U() ) );
-  CHECK( 0.0 == Approx ( chunk.energyLimitConstant() ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.U() ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.energyLimitConstant() ) );
 
   auto p = chunk.probability();
 
@@ -455,14 +458,14 @@ void verifyChunkLF1( const PartialDistribution& chunk ) {
   CHECK( 2 == p.energies().size() );
   CHECK( 2 == p.P().size() );
   CHECK( 2 == p.probabilities().size() );
-  CHECK( 1e-5 == Approx( p.E()[0] ) );
-  CHECK( 3e+7 == Approx( p.E()[1] ) );
-  CHECK( 1e-5 == Approx( p.energies()[0] ) );
-  CHECK( 3e+7 == Approx( p.energies()[1] ) );
-  CHECK( 1. == Approx( p.P()[0] ) );
-  CHECK( 1. == Approx( p.P()[1] ) );
-  CHECK( 1. == Approx( p.probabilities()[0] ) );
-  CHECK( 1. == Approx( p.probabilities()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( p.E()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( p.E()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( p.energies()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( p.energies()[1] ) );
+  CHECK_THAT( 1., WithinRel( p.P()[0] ) );
+  CHECK_THAT( 1., WithinRel( p.P()[1] ) );
+  CHECK_THAT( 1., WithinRel( p.probabilities()[0] ) );
+  CHECK_THAT( 1., WithinRel( p.probabilities()[1] ) );
 
   auto d =
        std::get< TabulatedSpectrum >( chunk.distribution() );
@@ -475,11 +478,11 @@ void verifyChunkLF1( const PartialDistribution& chunk ) {
   CHECK( 4 == d.interpolants()[0] );
 
   CHECK( 2 == d.incidentEnergies().size() );
-  CHECK( 1e-5 == Approx( d.incidentEnergies()[0] ) );
-  CHECK( 3e+7 == Approx( d.incidentEnergies()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( d.incidentEnergies()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( d.incidentEnergies()[1] ) );
 
   auto value = d.outgoingDistributions()[0];
-  CHECK( 1e-5 == Approx( value.incidentEnergy() ) );
+  CHECK_THAT( 1e-5, WithinRel( value.incidentEnergy() ) );
   CHECK( 3 == value.NP() );
   CHECK( 1 == value.NR() );
   CHECK( 1 == value.interpolants().size() );
@@ -490,21 +493,21 @@ void verifyChunkLF1( const PartialDistribution& chunk ) {
   CHECK( 3 == value.outgoingEnergies().size() );
   CHECK( 3 == value.G().size() );
   CHECK( 3 == value.probabilities().size() );
-  CHECK( 0.0 == Approx( value.EP()[0] ) );
-  CHECK( 1e+5 == Approx( value.EP()[1] ) );
-  CHECK( 3e+7 == Approx( value.EP()[2] ) );
-  CHECK( 0.0 == Approx( value.outgoingEnergies()[0] ) );
-  CHECK( 1e+5 == Approx( value.outgoingEnergies()[1] ) );
-  CHECK( 3e+7 == Approx( value.outgoingEnergies()[2] ) );
-  CHECK( 0. == Approx( value.G()[0] ) );
-  CHECK( 1.757570e-9 == Approx( value.G()[1] ) );
-  CHECK( 1.843350e-9 == Approx( value.G()[2] ) );
-  CHECK( 0. == Approx( value.probabilities()[0] ) );
-  CHECK( 1.757570e-9 == Approx( value.probabilities()[1] ) );
-  CHECK( 1.843350e-9 == Approx( value.probabilities()[2] ) );
+  CHECK_THAT( 0.0, WithinRel( value.EP()[0] ) );
+  CHECK_THAT( 1e+5, WithinRel( value.EP()[1] ) );
+  CHECK_THAT( 3e+7, WithinRel( value.EP()[2] ) );
+  CHECK_THAT( 0.0, WithinRel( value.outgoingEnergies()[0] ) );
+  CHECK_THAT( 1e+5, WithinRel( value.outgoingEnergies()[1] ) );
+  CHECK_THAT( 3e+7, WithinRel( value.outgoingEnergies()[2] ) );
+  CHECK_THAT( 0., WithinRel( value.G()[0] ) );
+  CHECK_THAT( 1.757570e-9, WithinRel( value.G()[1] ) );
+  CHECK_THAT( 1.843350e-9, WithinRel( value.G()[2] ) );
+  CHECK_THAT( 0., WithinRel( value.probabilities()[0] ) );
+  CHECK_THAT( 1.757570e-9, WithinRel( value.probabilities()[1] ) );
+  CHECK_THAT( 1.843350e-9, WithinRel( value.probabilities()[2] ) );
 
   value = d.outgoingDistributions()[1];
-  CHECK( 3e+7 == Approx( value.incidentEnergy() ) );
+  CHECK_THAT( 3e+7, WithinRel( value.incidentEnergy() ) );
   CHECK( 4 == value.NP() );
   CHECK( 1 == value.NR() );
   CHECK( 1 == value.interpolants().size() );
@@ -515,22 +518,22 @@ void verifyChunkLF1( const PartialDistribution& chunk ) {
   CHECK( 4 == value.outgoingEnergies().size() );
   CHECK( 4 == value.G().size() );
   CHECK( 4 == value.probabilities().size() );
-  CHECK( 0.0 == Approx( value.EP()[0] ) );
-  CHECK( 10. == Approx( value.EP()[1] ) );
-  CHECK( 11. == Approx( value.EP()[2] ) );
-  CHECK( 3e+7 == Approx( value.EP()[3] ) );
-  CHECK( 0.0 == Approx( value.outgoingEnergies()[0] ) );
-  CHECK( 10. == Approx( value.outgoingEnergies()[1] ) );
-  CHECK( 11. == Approx( value.outgoingEnergies()[2] ) );
-  CHECK( 3e+7 == Approx( value.outgoingEnergies()[3] ) );
-  CHECK( 0. == Approx( value.G()[0] ) );
-  CHECK( 1.733405e-9 == Approx( value.G()[1] ) );
-  CHECK( 1.818010e-9 == Approx( value.G()[2] ) );
-  CHECK( 1.898849e-9 == Approx( value.G()[3] ) );
-  CHECK( 0. == Approx( value.probabilities()[0] ) );
-  CHECK( 1.733405e-9 == Approx( value.probabilities()[1] ) );
-  CHECK( 1.818010e-9 == Approx( value.probabilities()[2] ) );
-  CHECK( 1.898849e-9 == Approx( value.probabilities()[3] ) );
+  CHECK_THAT( 0.0, WithinRel( value.EP()[0] ) );
+  CHECK_THAT( 10., WithinRel( value.EP()[1] ) );
+  CHECK_THAT( 11., WithinRel( value.EP()[2] ) );
+  CHECK_THAT( 3e+7, WithinRel( value.EP()[3] ) );
+  CHECK_THAT( 0.0, WithinRel( value.outgoingEnergies()[0] ) );
+  CHECK_THAT( 10., WithinRel( value.outgoingEnergies()[1] ) );
+  CHECK_THAT( 11., WithinRel( value.outgoingEnergies()[2] ) );
+  CHECK_THAT( 3e+7, WithinRel( value.outgoingEnergies()[3] ) );
+  CHECK_THAT( 0., WithinRel( value.G()[0] ) );
+  CHECK_THAT( 1.733405e-9, WithinRel( value.G()[1] ) );
+  CHECK_THAT( 1.818010e-9, WithinRel( value.G()[2] ) );
+  CHECK_THAT( 1.898849e-9, WithinRel( value.G()[3] ) );
+  CHECK_THAT( 0., WithinRel( value.probabilities()[0] ) );
+  CHECK_THAT( 1.733405e-9, WithinRel( value.probabilities()[1] ) );
+  CHECK_THAT( 1.818010e-9, WithinRel( value.probabilities()[2] ) );
+  CHECK_THAT( 1.898849e-9, WithinRel( value.probabilities()[3] ) );
 
   CHECK( 12 == chunk.NC() );
 }
@@ -551,8 +554,8 @@ std::string chunkLF5() {
 
 void verifyChunkLF5( const PartialDistribution& chunk ) {
 
-  CHECK( -3e+7 == Approx ( chunk.U() ) );
-  CHECK( -3e+7 == Approx ( chunk.energyLimitConstant() ) );
+  CHECK_THAT( -3e+7, WithinRel( chunk.U() ) );
+  CHECK_THAT( -3e+7, WithinRel( chunk.energyLimitConstant() ) );
 
   auto p = chunk.probability();
 
@@ -569,14 +572,14 @@ void verifyChunkLF5( const PartialDistribution& chunk ) {
   CHECK( 2 == p.energies().size() );
   CHECK( 2 == p.P().size() );
   CHECK( 2 == p.probabilities().size() );
-  CHECK( 1e-5 == Approx( p.E()[0] ) );
-  CHECK( 3e+7 == Approx( p.E()[1] ) );
-  CHECK( 1e-5 == Approx( p.energies()[0] ) );
-  CHECK( 3e+7 == Approx( p.energies()[1] ) );
-  CHECK( 1.804944e-2 == Approx( p.P()[0] ) );
-  CHECK( 1.804944e-2 == Approx( p.P()[1] ) );
-  CHECK( 1.804944e-2 == Approx( p.probabilities()[0] ) );
-  CHECK( 1.804944e-2 == Approx( p.probabilities()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( p.E()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( p.E()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( p.energies()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( p.energies()[1] ) );
+  CHECK_THAT( 1.804944e-2, WithinRel( p.P()[0] ) );
+  CHECK_THAT( 1.804944e-2, WithinRel( p.P()[1] ) );
+  CHECK_THAT( 1.804944e-2, WithinRel( p.probabilities()[0] ) );
+  CHECK_THAT( 1.804944e-2, WithinRel( p.probabilities()[1] ) );
 
   auto d =
        std::get< GeneralEvaporationSpectrum >
@@ -595,12 +598,12 @@ void verifyChunkLF5( const PartialDistribution& chunk ) {
   CHECK( 2 == t.E().size() );
   CHECK( 2 == t.energies().size() );
   CHECK( 2 == t.thetas().size() );
-  CHECK( 1e-5 == Approx( t.E()[0] ) );
-  CHECK( 3e+7 == Approx( t.E()[1] ) );
-  CHECK( 1e-5 == Approx( t.energies()[0] ) );
-  CHECK( 3e+7 == Approx( t.energies()[1] ) );
-  CHECK( 1.0 == Approx( t.thetas()[0] ) );
-  CHECK( 1.0 == Approx( t.thetas()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( t.E()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( t.E()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( t.energies()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( t.energies()[1] ) );
+  CHECK_THAT( 1.0, WithinRel( t.thetas()[0] ) );
+  CHECK_THAT( 1.0, WithinRel( t.thetas()[1] ) );
 
   auto df = d.distributionFunction();
   CHECK( 6 == df.NP() );
@@ -611,18 +614,18 @@ void verifyChunkLF5( const PartialDistribution& chunk ) {
   CHECK( 6 == df.boundaries()[0] );
   CHECK( 6 == df.X().size() );
   CHECK( 6 == df.G().size() );
-  CHECK( 0.0 == Approx( df.X()[0] ) );
-  CHECK( 1e+4 == Approx( df.X()[1] ) );
-  CHECK( 2e+4 == Approx( df.X()[2] ) );
-  CHECK( 1.8e+6 == Approx( df.X()[3] ) );
-  CHECK( 1.81e+6 == Approx( df.X()[4] ) );
-  CHECK( 1.82e+6 == Approx( df.X()[5] ) );
-  CHECK( 1.533738e-7 == Approx( df.G()[0] ) );
-  CHECK( 1.378483e-6 == Approx( df.G()[1] ) );
-  CHECK( 1.550360e-6 == Approx( df.G()[2] ) );
-  CHECK( 7.90779e-31 == Approx( df.G()[3] ) );
-  CHECK( 0.0 == Approx( df.G()[4] ) );
-  CHECK( 0.0 == Approx( df.G()[5] ) );
+  CHECK_THAT( 0.0, WithinRel( df.X()[0] ) );
+  CHECK_THAT( 1e+4, WithinRel( df.X()[1] ) );
+  CHECK_THAT( 2e+4, WithinRel( df.X()[2] ) );
+  CHECK_THAT( 1.8e+6, WithinRel( df.X()[3] ) );
+  CHECK_THAT( 1.81e+6, WithinRel( df.X()[4] ) );
+  CHECK_THAT( 1.82e+6, WithinRel( df.X()[5] ) );
+  CHECK_THAT( 1.533738e-7, WithinRel( df.G()[0] ) );
+  CHECK_THAT( 1.378483e-6, WithinRel( df.G()[1] ) );
+  CHECK_THAT( 1.550360e-6, WithinRel( df.G()[2] ) );
+  CHECK_THAT( 7.90779e-31, WithinRel( df.G()[3] ) );
+  CHECK_THAT( 0.0, WithinRel( df.G()[4] ) );
+  CHECK_THAT( 0.0, WithinRel( df.G()[5] ) );
 
   CHECK( 10 == chunk.NC() );
 }
@@ -639,8 +642,8 @@ std::string chunkLF7() {
 
 void verifyChunkLF7( const PartialDistribution& chunk ) {
 
-  CHECK( -3e+7 == Approx ( chunk.U() ) );
-  CHECK( -3e+7 == Approx ( chunk.energyLimitConstant() ) );
+  CHECK_THAT( -3e+7, WithinRel( chunk.U() ) );
+  CHECK_THAT( -3e+7, WithinRel( chunk.energyLimitConstant() ) );
 
   auto p = chunk.probability();
 
@@ -657,14 +660,14 @@ void verifyChunkLF7( const PartialDistribution& chunk ) {
   CHECK( 2 == p.energies().size() );
   CHECK( 2 == p.P().size() );
   CHECK( 2 == p.probabilities().size() );
-  CHECK( 1e-5 == Approx( p.E()[0] ) );
-  CHECK( 3e+7 == Approx( p.E()[1] ) );
-  CHECK( 1e-5 == Approx( p.energies()[0] ) );
-  CHECK( 3e+7 == Approx( p.energies()[1] ) );
-  CHECK( 1. == Approx( p.P()[0] ) );
-  CHECK( 1. == Approx( p.P()[1] ) );
-  CHECK( 1. == Approx( p.probabilities()[0] ) );
-  CHECK( 1. == Approx( p.probabilities()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( p.E()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( p.E()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( p.energies()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( p.energies()[1] ) );
+  CHECK_THAT( 1., WithinRel( p.P()[0] ) );
+  CHECK_THAT( 1., WithinRel( p.P()[1] ) );
+  CHECK_THAT( 1., WithinRel( p.probabilities()[0] ) );
+  CHECK_THAT( 1., WithinRel( p.probabilities()[1] ) );
 
   auto d = std::get< MaxwellianFissionSpectrum >
                   ( chunk.distribution() );
@@ -679,15 +682,15 @@ void verifyChunkLF7( const PartialDistribution& chunk ) {
   CHECK( 3 == d.E().size() );
   CHECK( 3 == d.energies().size() );
   CHECK( 3 == d.thetas().size() );
-  CHECK( 1e-5 == Approx( d.E()[0] ) );
-  CHECK( 5e+5 == Approx( d.E()[1] ) );
-  CHECK( 3e+7 == Approx( d.E()[2] ) );
-  CHECK( 1e-5 == Approx( d.energies()[0] ) );
-  CHECK( 5e+5 == Approx( d.energies()[1] ) );
-  CHECK( 3e+7 == Approx( d.energies()[2] ) );
-  CHECK( 1.3652e+6 == Approx( d.thetas()[0] ) );
-  CHECK( 1.3748e+6 == Approx( d.thetas()[1] ) );
-  CHECK( 1.6912e+6 == Approx( d.thetas()[2] ) );
+  CHECK_THAT( 1e-5, WithinRel( d.E()[0] ) );
+  CHECK_THAT( 5e+5, WithinRel( d.E()[1] ) );
+  CHECK_THAT( 3e+7, WithinRel( d.E()[2] ) );
+  CHECK_THAT( 1e-5, WithinRel( d.energies()[0] ) );
+  CHECK_THAT( 5e+5, WithinRel( d.energies()[1] ) );
+  CHECK_THAT( 3e+7, WithinRel( d.energies()[2] ) );
+  CHECK_THAT( 1.3652e+6, WithinRel( d.thetas()[0] ) );
+  CHECK_THAT( 1.3748e+6, WithinRel( d.thetas()[1] ) );
+  CHECK_THAT( 1.6912e+6, WithinRel( d.thetas()[2] ) );
 
   CHECK( 6 == chunk.NC() );
 }
@@ -705,8 +708,8 @@ std::string chunkLF9() {
 
 void verifyChunkLF9( const PartialDistribution& chunk ) {
 
-  CHECK( 1.789920e+7 == Approx ( chunk.U() ) );
-  CHECK( 1.789920e+7 == Approx ( chunk.energyLimitConstant() ) );
+  CHECK_THAT( 1.789920e+7, WithinRel( chunk.U() ) );
+  CHECK_THAT( 1.789920e+7, WithinRel( chunk.energyLimitConstant() ) );
 
   auto p = chunk.probability();
 
@@ -723,14 +726,14 @@ void verifyChunkLF9( const PartialDistribution& chunk ) {
   CHECK( 2 == p.energies().size() );
   CHECK( 2 == p.P().size() );
   CHECK( 2 == p.probabilities().size() );
-  CHECK( 1.789920e+7 == Approx( p.E()[0] ) );
-  CHECK( 2e+7 == Approx( p.E()[1] ) );
-  CHECK( 1.789920e+7 == Approx( p.energies()[0] ) );
-  CHECK( 2e+7 == Approx( p.energies()[1] ) );
-  CHECK( 1.0 == Approx( p.P()[0] ) );
-  CHECK( 1.0 == Approx( p.P()[1] ) );
-  CHECK( 1.0 == Approx( p.probabilities()[0] ) );
-  CHECK( 1.0 == Approx( p.probabilities()[1] ) );
+  CHECK_THAT( 1.789920e+7, WithinRel( p.E()[0] ) );
+  CHECK_THAT( 2e+7, WithinRel( p.E()[1] ) );
+  CHECK_THAT( 1.789920e+7, WithinRel( p.energies()[0] ) );
+  CHECK_THAT( 2e+7, WithinRel( p.energies()[1] ) );
+  CHECK_THAT( 1.0, WithinRel( p.P()[0] ) );
+  CHECK_THAT( 1.0, WithinRel( p.P()[1] ) );
+  CHECK_THAT( 1.0, WithinRel( p.probabilities()[0] ) );
+  CHECK_THAT( 1.0, WithinRel( p.probabilities()[1] ) );
 
   auto d = std::get< EvaporationSpectrum >( chunk.distribution() );
   CHECK( 9 == d.LF() );
@@ -744,18 +747,18 @@ void verifyChunkLF9( const PartialDistribution& chunk ) {
   CHECK( 4 == d.E().size() );
   CHECK( 4 == d.energies().size() );
   CHECK( 4 == d.thetas().size() );
-  CHECK( 1.789920e+7 == Approx( d.E()[0] ) );
-  CHECK( 1.8e+7 == Approx( d.E()[1] ) );
-  CHECK( 1.9e+7 == Approx( d.E()[2] ) );
-  CHECK( 2e+7 == Approx( d.E()[3] ) );
-  CHECK( 1.789920e+7 == Approx( d.energies()[0] ) );
-  CHECK( 1.8e+7 == Approx( d.energies()[1] ) );
-  CHECK( 1.9e+7 == Approx( d.energies()[2] ) );
-  CHECK( 2e+7 == Approx( d.energies()[3] ) );
-  CHECK( 1.0099e+5 == Approx( d.thetas()[0] ) );
-  CHECK( 1.0099e+5 == Approx( d.thetas()[1] ) );
-  CHECK( 1.1292e+5 == Approx( d.thetas()[2] ) );
-  CHECK( 1.6143e+5 == Approx( d.thetas()[3] ) );
+  CHECK_THAT( 1.789920e+7, WithinRel( d.E()[0] ) );
+  CHECK_THAT( 1.8e+7, WithinRel( d.E()[1] ) );
+  CHECK_THAT( 1.9e+7, WithinRel( d.E()[2] ) );
+  CHECK_THAT( 2e+7, WithinRel( d.E()[3] ) );
+  CHECK_THAT( 1.789920e+7, WithinRel( d.energies()[0] ) );
+  CHECK_THAT( 1.8e+7, WithinRel( d.energies()[1] ) );
+  CHECK_THAT( 1.9e+7, WithinRel( d.energies()[2] ) );
+  CHECK_THAT( 2e+7, WithinRel( d.energies()[3] ) );
+  CHECK_THAT( 1.0099e+5, WithinRel( d.thetas()[0] ) );
+  CHECK_THAT( 1.0099e+5, WithinRel( d.thetas()[1] ) );
+  CHECK_THAT( 1.1292e+5, WithinRel( d.thetas()[2] ) );
+  CHECK_THAT( 1.6143e+5, WithinRel( d.thetas()[3] ) );
 
   CHECK( 7 == chunk.NC() );
 }
@@ -776,8 +779,8 @@ std::string chunkLF11() {
 
 void verifyChunkLF11( const PartialDistribution& chunk ) {
 
-  CHECK( -3e+7 == Approx ( chunk.U() ) );
-  CHECK( -3e+7 == Approx ( chunk.energyLimitConstant() ) );
+  CHECK_THAT( -3e+7, WithinRel( chunk.U() ) );
+  CHECK_THAT( -3e+7, WithinRel( chunk.energyLimitConstant() ) );
 
   auto p = chunk.probability();
 
@@ -794,14 +797,14 @@ void verifyChunkLF11( const PartialDistribution& chunk ) {
   CHECK( 2 == p.energies().size() );
   CHECK( 2 == p.P().size() );
   CHECK( 2 == p.probabilities().size() );
-  CHECK( 1e-5 == Approx( p.E()[0] ) );
-  CHECK( 3e+7 == Approx( p.E()[1] ) );
-  CHECK( 1e-5 == Approx( p.energies()[0] ) );
-  CHECK( 3e+7 == Approx( p.energies()[1] ) );
-  CHECK( 1. == Approx( p.P()[0] ) );
-  CHECK( 1. == Approx( p.P()[1] ) );
-  CHECK( 1. == Approx( p.probabilities()[0] ) );
-  CHECK( 1. == Approx( p.probabilities()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( p.E()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( p.E()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( p.energies()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( p.energies()[1] ) );
+  CHECK_THAT( 1., WithinRel( p.P()[0] ) );
+  CHECK_THAT( 1., WithinRel( p.P()[1] ) );
+  CHECK_THAT( 1., WithinRel( p.probabilities()[0] ) );
+  CHECK_THAT( 1., WithinRel( p.probabilities()[1] ) );
 
   auto d = std::get< WattSpectrum >( chunk.distribution() );
 
@@ -816,12 +819,12 @@ void verifyChunkLF11( const PartialDistribution& chunk ) {
   CHECK( 3 == d.a().boundaries()[0] );
   CHECK( 3 == d.a().E().size() );
   CHECK( 3 == d.a().energies().size() );
-  CHECK( 1e-5 == Approx( d.a().E()[0] ) );
-  CHECK( 1.5e+6 == Approx( d.a().E()[1] ) );
-  CHECK( 3e+7 == Approx( d.a().E()[2] ) );
-  CHECK( 1e-5 == Approx( d.a().energies()[0] ) );
-  CHECK( 1.5e+6 == Approx( d.a().energies()[1] ) );
-  CHECK( 3e+7 == Approx( d.a().energies()[2] ) );
+  CHECK_THAT( 1e-5, WithinRel( d.a().E()[0] ) );
+  CHECK_THAT( 1.5e+6, WithinRel( d.a().E()[1] ) );
+  CHECK_THAT( 3e+7, WithinRel( d.a().E()[2] ) );
+  CHECK_THAT( 1e-5, WithinRel( d.a().energies()[0] ) );
+  CHECK_THAT( 1.5e+6, WithinRel( d.a().energies()[1] ) );
+  CHECK_THAT( 3e+7, WithinRel( d.a().energies()[2] ) );
 
   CHECK( 5 == d.b().NP() );
   CHECK( 1 == d.b().NR() );
@@ -831,16 +834,16 @@ void verifyChunkLF11( const PartialDistribution& chunk ) {
   CHECK( 5 == d.b().boundaries()[0] );
   CHECK( 5 == d.b().E().size() );
   CHECK( 5 == d.b().energies().size() );
-  CHECK( 1e-5 == Approx( d.b().E()[0] ) );
-  CHECK( 1.5e+6 == Approx( d.b().E()[1] ) );
-  CHECK( 1e+7 == Approx( d.b().E()[2] ) );
-  CHECK( 1.22e+7 == Approx( d.b().E()[3] ) );
-  CHECK( 3e+7 == Approx( d.b().E()[4] ) );
-  CHECK( 1e-5 == Approx( d.b().energies()[0] ) );
-  CHECK( 1.5e+6 == Approx( d.b().energies()[1] ) );
-  CHECK( 1e+7 == Approx( d.b().energies()[2] ) );
-  CHECK( 1.22e+7 == Approx( d.b().energies()[3] ) );
-  CHECK( 3e+7 == Approx( d.b().energies()[4] ) );
+  CHECK_THAT( 1e-5, WithinRel( d.b().E()[0] ) );
+  CHECK_THAT( 1.5e+6, WithinRel( d.b().E()[1] ) );
+  CHECK_THAT( 1e+7, WithinRel( d.b().E()[2] ) );
+  CHECK_THAT( 1.22e+7, WithinRel( d.b().E()[3] ) );
+  CHECK_THAT( 3e+7, WithinRel( d.b().E()[4] ) );
+  CHECK_THAT( 1e-5, WithinRel( d.b().energies()[0] ) );
+  CHECK_THAT( 1.5e+6, WithinRel( d.b().energies()[1] ) );
+  CHECK_THAT( 1e+7, WithinRel( d.b().energies()[2] ) );
+  CHECK_THAT( 1.22e+7, WithinRel( d.b().energies()[3] ) );
+  CHECK_THAT( 3e+7, WithinRel( d.b().energies()[4] ) );
 
   CHECK( 10 == chunk.NC() );
 }
@@ -858,8 +861,8 @@ std::string chunkLF12() {
 
 void verifyChunkLF12( const PartialDistribution& chunk ) {
 
-  CHECK( 0.0 == Approx ( chunk.U() ) );
-  CHECK( 0.0 == Approx ( chunk.energyLimitConstant() ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.U() ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.energyLimitConstant() ) );
 
   auto p = chunk.probability();
 
@@ -876,24 +879,24 @@ void verifyChunkLF12( const PartialDistribution& chunk ) {
   CHECK( 2 == p.energies().size() );
   CHECK( 2 == p.P().size() );
   CHECK( 2 == p.probabilities().size() );
-  CHECK( 1e-5 == Approx( p.E()[0] ) );
-  CHECK( 3e+7 == Approx( p.E()[1] ) );
-  CHECK( 1e-5 == Approx( p.energies()[0] ) );
-  CHECK( 3e+7 == Approx( p.energies()[1] ) );
-  CHECK( 1. == Approx( p.P()[0] ) );
-  CHECK( 1. == Approx( p.P()[1] ) );
-  CHECK( 1. == Approx( p.probabilities()[0] ) );
-  CHECK( 1. == Approx( p.probabilities()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( p.E()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( p.E()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( p.energies()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( p.energies()[1] ) );
+  CHECK_THAT( 1., WithinRel( p.P()[0] ) );
+  CHECK_THAT( 1., WithinRel( p.P()[1] ) );
+  CHECK_THAT( 1., WithinRel( p.probabilities()[0] ) );
+  CHECK_THAT( 1., WithinRel( p.probabilities()[1] ) );
 
   auto d = std::get< MadlandNixSpectrum >( chunk.distribution() );
 
   CHECK( 12 == d.LF() );
   CHECK( 12 == d.LAW() );
 
-  CHECK( 1.029979e+6 == Approx( d.EFL() ) );
-  CHECK( 1.029979e+6 == Approx( d.lightFragmentEnergy() ) );
-  CHECK( 5.467297e+5 == Approx( d.EFH() ) );
-  CHECK( 5.467297e+5 == Approx( d.heavyFragmentEnergy() ) );
+  CHECK_THAT( 1.029979e+6, WithinRel( d.EFL() ) );
+  CHECK_THAT( 1.029979e+6, WithinRel( d.lightFragmentEnergy() ) );
+  CHECK_THAT( 5.467297e+5, WithinRel( d.EFH() ) );
+  CHECK_THAT( 5.467297e+5, WithinRel( d.heavyFragmentEnergy() ) );
 
   CHECK( 4 == d.NP() );
   CHECK( 1 == d.NR() );
@@ -905,22 +908,22 @@ void verifyChunkLF12( const PartialDistribution& chunk ) {
   CHECK( 4 == d.energies().size() );
   CHECK( 4 == d.TM().size() );
   CHECK( 4 == d.maximumTemperatureValues().size() );
-  CHECK( 1e-5 == Approx( d.E()[0] ) );
-  CHECK( 5.000001e+5 == Approx( d.E()[1] ) );
-  CHECK( 1.4e+7 == Approx( d.E()[2] ) );
-  CHECK( 3.0e+7 == Approx( d.E()[3] ) );
-  CHECK( 1e-5 == Approx( d.energies()[0] ) );
-  CHECK( 5.000001e+5 == Approx( d.energies()[1] ) );
-  CHECK( 1.4e+7 == Approx( d.energies()[2] ) );
-  CHECK( 3.0e+7 == Approx( d.energies()[3] ) );
-  CHECK( 1.092064e+6 == Approx( d.TM()[0] ) );
-  CHECK( 1.101483e+6 == Approx( d.TM()[1] ) );
-  CHECK( 1.129269e+6 == Approx( d.TM()[2] ) );
-  CHECK( 1.182884e+6 == Approx( d.TM()[3] ) );
-  CHECK( 1.092064e+6 == Approx( d.maximumTemperatureValues()[0] ) );
-  CHECK( 1.101483e+6 == Approx( d.maximumTemperatureValues()[1] ) );
-  CHECK( 1.129269e+6 == Approx( d.maximumTemperatureValues()[2] ) );
-  CHECK( 1.182884e+6 == Approx( d.maximumTemperatureValues()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( d.E()[0] ) );
+  CHECK_THAT( 5.000001e+5, WithinRel( d.E()[1] ) );
+  CHECK_THAT( 1.4e+7, WithinRel( d.E()[2] ) );
+  CHECK_THAT( 3.0e+7, WithinRel( d.E()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( d.energies()[0] ) );
+  CHECK_THAT( 5.000001e+5, WithinRel( d.energies()[1] ) );
+  CHECK_THAT( 1.4e+7, WithinRel( d.energies()[2] ) );
+  CHECK_THAT( 3.0e+7, WithinRel( d.energies()[3] ) );
+  CHECK_THAT( 1.092064e+6, WithinRel( d.TM()[0] ) );
+  CHECK_THAT( 1.101483e+6, WithinRel( d.TM()[1] ) );
+  CHECK_THAT( 1.129269e+6, WithinRel( d.TM()[2] ) );
+  CHECK_THAT( 1.182884e+6, WithinRel( d.TM()[3] ) );
+  CHECK_THAT( 1.092064e+6, WithinRel( d.maximumTemperatureValues()[0] ) );
+  CHECK_THAT( 1.101483e+6, WithinRel( d.maximumTemperatureValues()[1] ) );
+  CHECK_THAT( 1.129269e+6, WithinRel( d.maximumTemperatureValues()[2] ) );
+  CHECK_THAT( 1.182884e+6, WithinRel( d.maximumTemperatureValues()[3] ) );
 
   CHECK( 7 == chunk.NC() );
 }

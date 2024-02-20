@@ -10,7 +10,7 @@
 class Isotope {
 
   /* fields */
-  double zai_;
+  int zai_;
   double abn_;
   bool lfw_;
   std::vector< ResonanceRange > ranges_;
@@ -30,7 +30,12 @@ public:
   /**
    *  @brief Return the ZA identifier of the isotope
    */
-  double ZAI() const { return this->zai_; }
+  int ZAI() const { return this->zai_; }
+
+  /**
+   *  @brief Return the ZA identifier of the isotope
+   */
+  int isotopeIdentifier() const { return this->ZAI(); }
 
   /**
    *  @brief Return the abundance of the isotope

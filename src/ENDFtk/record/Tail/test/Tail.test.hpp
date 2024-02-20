@@ -3,9 +3,9 @@ SCENARIO( "Checking the values of MAT, MF, and MT" ){
     WHEN("Constructed from values"){
       auto myTail = std::make_unique< Tail >( mat, mf, mt );
       THEN( "the correct values are read in" ){
-        REQUIRE( mat == myTail->material() );
-        REQUIRE(  mf == myTail->file()  );
-        REQUIRE(  mt == myTail->section()  );
+        CHECK( mat == myTail->material() );
+        CHECK(  mf == myTail->file()  );
+        CHECK(  mt == myTail->section()  );
       }
     }
     auto lineNumber = 0l;
@@ -15,9 +15,9 @@ SCENARIO( "Checking the values of MAT, MF, and MT" ){
       auto end = tail.end();
       auto myTail = std::make_unique< Tail >( it, end, lineNumber );
       THEN( "the correct values are read in" ){
-        REQUIRE( mat == myTail->material() );
-        REQUIRE(  mf == myTail->file()  );
-        REQUIRE(  mt == myTail->section()  );
+        CHECK( mat == myTail->material() );
+        CHECK(  mf == myTail->file()  );
+        CHECK(  mt == myTail->section()  );
       }
     }
     WHEN("Constructed from a string without gaps"){
@@ -26,9 +26,9 @@ SCENARIO( "Checking the values of MAT, MF, and MT" ){
       auto end = tail.end();
       auto myTail = std::make_unique< Tail >( it, end, lineNumber );
       THEN( "the correct values are read in" ){
-        REQUIRE( 125 == myTail->material() );
-        REQUIRE(  44 == myTail->file()  );
-        REQUIRE( 222 == myTail->section()  );
+        CHECK( 125 == myTail->material() );
+        CHECK(  44 == myTail->file()  );
+        CHECK( 222 == myTail->section()  );
       }
     }
     WHEN("Constructed from a stringwith incomplete NS"){
@@ -37,34 +37,34 @@ SCENARIO( "Checking the values of MAT, MF, and MT" ){
       auto end = tail.end();
       auto myTail = std::make_unique< Tail >( it, end, lineNumber );
       THEN( "the correct values are read in" ){
-        REQUIRE( mat == myTail->material() );
-        REQUIRE(  mf == myTail->file()  );
-        REQUIRE(  mt == myTail->section()  );
+        CHECK( mat == myTail->material() );
+        CHECK(  mf == myTail->file()  );
+        CHECK(  mt == myTail->section()  );
       }
     }
     WHEN("Constructed from a string with invalid NS"){
       std::string tail(" 125 4  2 a\n");
       auto it = tail.begin();
       auto end = tail.end();
-      REQUIRE_THROWS( std::make_unique< Tail >( it, end, lineNumber ) );
+      CHECK_THROWS( std::make_unique< Tail >( it, end, lineNumber ) );
     }
     WHEN("Constructed from a string with invalid MT"){
       std::string tail(" 125 4 a2\n");
       auto it = tail.begin();
       auto end = tail.end();
-      REQUIRE_THROWS( std::make_unique< Tail >( it, end, lineNumber ) );
+      CHECK_THROWS( std::make_unique< Tail >( it, end, lineNumber ) );
     }
     WHEN("Constructed from a string with invalid MF"){
       std::string tail(" 125a4  2\n");
       auto it = tail.begin();
       auto end = tail.end();
-      REQUIRE_THROWS( std::make_unique< Tail >( it, end, lineNumber ) );
+      CHECK_THROWS( std::make_unique< Tail >( it, end, lineNumber ) );
     }
     WHEN("Constructed from a string with invalid MAT"){
       std::string tail(" 1a5 4  2\n");
       auto it = tail.begin();
       auto end = tail.end();
-      REQUIRE_THROWS( std::make_unique< Tail >( it, end, lineNumber ) );
+      CHECK_THROWS( std::make_unique< Tail >( it, end, lineNumber ) );
     }
   }
 } // SCENARIO

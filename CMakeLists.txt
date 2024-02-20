@@ -1,8 +1,22 @@
 ########################################################################
 # Preamble
 ########################################################################
+
 cmake_minimum_required( VERSION 3.14 )
-project( ENDFtk LANGUAGES CXX )
+
+set( subproject OFF )
+if( DEFINED PROJECT_NAME )
+  set( subproject ON )
+endif()
+
+project( ENDFtk
+  VERSION 1.0.0
+  LANGUAGES CXX
+)
+
+include( CTest )
+include( CMakeDependentOption )
+include( GNUInstallDirs )
 
 ########################################################################
 # Project-wide setup
@@ -11,18 +25,16 @@ project( ENDFtk LANGUAGES CXX )
 set( CMAKE_CXX_STANDARD 17 )
 set( CMAKE_CXX_STANDARD_REQUIRED YES )
 
-option( ENDFtk.tests "Build the ENDFtk unit tests" OFF )
-option( ENDFtk.python "Build ENDFtk python bindings" ON )
-option( strict_compile
-    "Treat all warnings as errors." ON
-    )
-
-# Compile flags
-set( common_flags "-Wall" "-Wextra" "-Wpedantic" )
-set( strict_flags "-Werror" )
-set( release_flags "-O3" )
-set( debug_flags "-O0" "-g" )
-
+cmake_dependent_option(
+  ENDFtk.tests
+  "Build the ENDFtk unit tests and integrate with ctest" ON
+  "BUILD_TESTING AND NOT ${subproject}" OFF
+)
+cmake_dependent_option(
+  ENDFtk.python
+  "Build ENDFtk python bindings" ON
+  "NOT ${subproject}" OFF
+)
 
 ########################################################################
 # Dependencies
@@ -55,23 +67,28 @@ endif()
 # ENDFtk : library
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-include_directories( src/ )
-
 add_library( ENDFtk INTERFACE )
-target_include_directories( ENDFtk INTERFACE src/ )
+add_library( njoy::ENDFtk ALIAS ENDFtk )
+target_include_directories( ENDFtk
+  INTERFACE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/src>
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+)
 target_link_libraries( ENDFtk
-    INTERFACE Log
-    INTERFACE catch-adapter
-    INTERFACE disco
-    INTERFACE header-utilities
-    INTERFACE range-v3
-    )
+    INTERFACE
+      njoy::tools
+      disco
+      range-v3
+)
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # ENDFtk : python bindings
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 if( ENDFtk.python )
+
+  FetchContent_MakeAvailable( pybind11 )
+
   pybind11_add_module( ENDFtk.python
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/ENDFtk.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/record/ControlRecord.python.cpp
@@ -309,14 +326,14 @@ if( ENDFtk.python )
 
   target_link_libraries( ENDFtk.python PRIVATE ENDFtk )
   target_include_directories( ENDFtk.python PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/python/src )
-  target_compile_options( ENDFtk.python PRIVATE "-fvisibility=hidden" )
+  target_compile_options( ENDFtk.python PRIVATE -fvisibility=hidden )
   set_target_properties( ENDFtk.python PROPERTIES OUTPUT_NAME ENDFtk )
   set_target_properties( ENDFtk.python PROPERTIES COMPILE_DEFINITIONS "PYBIND11" )
-  set_target_properties( ENDFtk.python PROPERTIES POSITION_INDEPENDENT_CODE ON)
+  set_target_properties( ENDFtk.python PROPERTIES POSITION_INDEPENDENT_CODE ON )
 
   message( STATUS "Building ENDFtk's python API" )
 
-  list( APPEND ENDFTK_PYTHONPATH ${CMAKE_CURRENT_BINARY_DIR} )
+  list( APPEND ENDFtk_PYTHONPATH ${CMAKE_CURRENT_BINARY_DIR} )
 
   include( cmake/unit_testing_python.cmake )
 

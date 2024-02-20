@@ -9,7 +9,7 @@
  *  @param[in] x              the x values
  *  @param[in] h              the form factor or scattering function values
  */
-Type( int mt, double zaid, double awr,
+Type( int mt, int zaid, double awr,
       std::vector< long >&& boundaries, std::vector< long >&& interpolants,
       std::vector< double >&& x, std::vector< double >&& h ) :
   Base( zaid, awr, mt ),

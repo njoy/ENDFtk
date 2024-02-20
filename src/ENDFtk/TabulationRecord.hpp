@@ -5,6 +5,7 @@
 #include <vector>
 
 // other includes
+#include "tools/Log.hpp"
 #include "range/v3/view/all.hpp"
 #include "range/v3/view/iota.hpp"
 #include "range/v3/view/subrange.hpp"

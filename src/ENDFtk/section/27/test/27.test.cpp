@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/27.hpp"
 
 // other includes
@@ -131,9 +134,11 @@ std::string chunk() {
 void verifyChunk( const section::Type< 27 >& chunk ) {
 
   CHECK( 502 == chunk.MT() );
+  CHECK( 502 == chunk.sectionNumber() );
   CHECK( 1000 == chunk.ZA() );
-  CHECK( 0.9992414 == Approx( chunk.AWR() ) );
-  CHECK( 0.9992414 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 1000 == chunk.targetIdentifier() );
+  CHECK_THAT( 0.9992414, WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 0.9992414, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 1 == chunk.Z() );
   CHECK( 1. == chunk.atomZ() );
 
@@ -145,10 +150,10 @@ void verifyChunk( const section::Type< 27 >& chunk ) {
   CHECK( 2 == chunk.boundaries()[0] );
   CHECK( 2 == chunk.X().size() );
   CHECK( 2 == chunk.H().size() );
-  CHECK( 0. == Approx( chunk.X()[0] ) );
-  CHECK( 1e+9 == Approx( chunk.X()[1] ) );
-  CHECK( 1 == Approx( chunk.H()[0] ) );
-  CHECK( 2 == Approx( chunk.H()[1] ) );
+  CHECK_THAT( 0., WithinRel( chunk.X()[0] ) );
+  CHECK_THAT( 1e+9, WithinRel( chunk.X()[1] ) );
+  CHECK_THAT( 1, WithinRel( chunk.H()[0] ) );
+  CHECK_THAT( 2, WithinRel( chunk.H()[1] ) );
 
   CHECK( 4 == chunk.NC() );
 }

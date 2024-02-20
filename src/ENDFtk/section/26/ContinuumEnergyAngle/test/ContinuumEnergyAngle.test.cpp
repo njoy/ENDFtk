@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/26.hpp"
 
 // other includes
@@ -120,8 +123,8 @@ void verifyChunk( const ContinuumEnergyAngle& chunk ) {
   auto energies = chunk.distributions();
 
   auto subsection1 = energies[0];
-  CHECK( 1e-5 == Approx( subsection1.E() ) );
-  CHECK( 1e-5 == Approx( subsection1.incidentEnergy() ) );
+  CHECK_THAT( 1e-5, WithinRel( subsection1.E() ) );
+  CHECK_THAT( 1e-5, WithinRel( subsection1.incidentEnergy() ) );
   CHECK( 1 == subsection1.LANG() );
   CHECK( 1 == subsection1.representation() );
   CHECK( 0 == subsection1.ND() );
@@ -133,46 +136,46 @@ void verifyChunk( const ContinuumEnergyAngle& chunk ) {
   CHECK( 4 == subsection1.numberSecondaryEnergies() );
   CHECK( 4 == subsection1.EP().size() );
   CHECK( 4 == subsection1.energies().size() );
-  CHECK( 1. == Approx( subsection1.EP()[0] ) );
-  CHECK( 4. == Approx( subsection1.EP()[1] ) );
-  CHECK( 7. == Approx( subsection1.EP()[2] ) );
-  CHECK( 10. == Approx( subsection1.EP()[3] ) );
-  CHECK( 1. == Approx( subsection1.energies()[0] ) );
-  CHECK( 4. == Approx( subsection1.energies()[1] ) );
-  CHECK( 7. == Approx( subsection1.energies()[2] ) );
-  CHECK( 10. == Approx( subsection1.energies()[3] ) );
+  CHECK_THAT( 1., WithinRel( subsection1.EP()[0] ) );
+  CHECK_THAT( 4., WithinRel( subsection1.EP()[1] ) );
+  CHECK_THAT( 7., WithinRel( subsection1.EP()[2] ) );
+  CHECK_THAT( 10., WithinRel( subsection1.EP()[3] ) );
+  CHECK_THAT( 1., WithinRel( subsection1.energies()[0] ) );
+  CHECK_THAT( 4., WithinRel( subsection1.energies()[1] ) );
+  CHECK_THAT( 7., WithinRel( subsection1.energies()[2] ) );
+  CHECK_THAT( 10., WithinRel( subsection1.energies()[3] ) );
   CHECK( 4 == subsection1.A().size() );
   CHECK( 4 == subsection1.coefficients().size() );
-  CHECK( 2. == Approx( subsection1.A()[0][0] ) );
-  CHECK( 3. == Approx( subsection1.A()[0][1] ) );
-  CHECK( 5. == Approx( subsection1.A()[1][0] ) );
-  CHECK( 6. == Approx( subsection1.A()[1][1] ) );
-  CHECK( 8. == Approx( subsection1.A()[2][0] ) );
-  CHECK( 9. == Approx( subsection1.A()[2][1] ) );
-  CHECK( 11. == Approx( subsection1.A()[3][0] ) );
-  CHECK( 12. == Approx( subsection1.A()[3][1] ) );
-  CHECK( 2. == Approx( subsection1.coefficients()[0][0] ) );
-  CHECK( 3. == Approx( subsection1.coefficients()[0][1] ) );
-  CHECK( 5. == Approx( subsection1.coefficients()[1][0] ) );
-  CHECK( 6. == Approx( subsection1.coefficients()[1][1] ) );
-  CHECK( 8. == Approx( subsection1.coefficients()[2][0] ) );
-  CHECK( 9. == Approx( subsection1.coefficients()[2][1] ) );
-  CHECK( 11. == Approx( subsection1.coefficients()[3][0] ) );
-  CHECK( 12. == Approx( subsection1.coefficients()[3][1] ) );
-  CHECK( 4 == Approx( subsection1.F0().size() ) );
-  CHECK( 4 == Approx( subsection1.totalEmissionProbabilities().size() ) );
-  CHECK( 2. == Approx( subsection1.F0()[0] ) );
-  CHECK( 5. == Approx( subsection1.F0()[1] ) );
-  CHECK( 8. == Approx( subsection1.F0()[2] ) );
-  CHECK( 11. == Approx( subsection1.F0()[3] ) );
-  CHECK( 2. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
-  CHECK( 5. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
-  CHECK( 8. == Approx( subsection1.totalEmissionProbabilities()[2] ) );
-  CHECK( 11. == Approx( subsection1.totalEmissionProbabilities()[3] ) );
+  CHECK_THAT( 2., WithinRel( subsection1.A()[0][0] ) );
+  CHECK_THAT( 3., WithinRel( subsection1.A()[0][1] ) );
+  CHECK_THAT( 5., WithinRel( subsection1.A()[1][0] ) );
+  CHECK_THAT( 6., WithinRel( subsection1.A()[1][1] ) );
+  CHECK_THAT( 8., WithinRel( subsection1.A()[2][0] ) );
+  CHECK_THAT( 9., WithinRel( subsection1.A()[2][1] ) );
+  CHECK_THAT( 11., WithinRel( subsection1.A()[3][0] ) );
+  CHECK_THAT( 12., WithinRel( subsection1.A()[3][1] ) );
+  CHECK_THAT( 2., WithinRel( subsection1.coefficients()[0][0] ) );
+  CHECK_THAT( 3., WithinRel( subsection1.coefficients()[0][1] ) );
+  CHECK_THAT( 5., WithinRel( subsection1.coefficients()[1][0] ) );
+  CHECK_THAT( 6., WithinRel( subsection1.coefficients()[1][1] ) );
+  CHECK_THAT( 8., WithinRel( subsection1.coefficients()[2][0] ) );
+  CHECK_THAT( 9., WithinRel( subsection1.coefficients()[2][1] ) );
+  CHECK_THAT( 11., WithinRel( subsection1.coefficients()[3][0] ) );
+  CHECK_THAT( 12., WithinRel( subsection1.coefficients()[3][1] ) );
+  CHECK( 4 == subsection1.F0().size() );
+  CHECK( 4 == subsection1.totalEmissionProbabilities().size() );
+  CHECK_THAT( 2., WithinRel( subsection1.F0()[0] ) );
+  CHECK_THAT( 5., WithinRel( subsection1.F0()[1] ) );
+  CHECK_THAT( 8., WithinRel( subsection1.F0()[2] ) );
+  CHECK_THAT( 11., WithinRel( subsection1.F0()[3] ) );
+  CHECK_THAT( 2., WithinRel( subsection1.totalEmissionProbabilities()[0] ) );
+  CHECK_THAT( 5., WithinRel( subsection1.totalEmissionProbabilities()[1] ) );
+  CHECK_THAT( 8., WithinRel( subsection1.totalEmissionProbabilities()[2] ) );
+  CHECK_THAT( 11., WithinRel( subsection1.totalEmissionProbabilities()[3] ) );
 
   auto subsection2 = energies[1];
-  CHECK( 2e+7 == Approx( subsection2.E() ) );
-  CHECK( 2e+7 == Approx( subsection2.incidentEnergy() ) );
+  CHECK_THAT( 2e+7, WithinRel( subsection2.E() ) );
+  CHECK_THAT( 2e+7, WithinRel( subsection2.incidentEnergy() ) );
   CHECK( 1 == subsection2.LANG() );
   CHECK( 1 == subsection2.representation() );
   CHECK( 0 == subsection2.ND() );
@@ -184,26 +187,26 @@ void verifyChunk( const ContinuumEnergyAngle& chunk ) {
   CHECK( 2 == subsection2.numberSecondaryEnergies() );
   CHECK( 2 == subsection2.EP().size() );
   CHECK( 2 == subsection2.energies().size() );
-  CHECK( 1. == Approx( subsection2.EP()[0] ) );
-  CHECK( 4. == Approx( subsection2.EP()[1] ) );
-  CHECK( 1. == Approx( subsection2.energies()[0] ) );
-  CHECK( 4. == Approx( subsection2.energies()[1] ) );
+  CHECK_THAT( 1., WithinRel( subsection2.EP()[0] ) );
+  CHECK_THAT( 4., WithinRel( subsection2.EP()[1] ) );
+  CHECK_THAT( 1., WithinRel( subsection2.energies()[0] ) );
+  CHECK_THAT( 4., WithinRel( subsection2.energies()[1] ) );
   CHECK( 2 == subsection2.A().size() );
   CHECK( 2 == subsection2.coefficients().size() );
-  CHECK( 2. == Approx( subsection2.A()[0][0] ) );
-  CHECK( 3. == Approx( subsection2.A()[0][1] ) );
-  CHECK( 5. == Approx( subsection2.A()[1][0] ) );
-  CHECK( 6. == Approx( subsection2.A()[1][1] ) );
-  CHECK( 2. == Approx( subsection2.coefficients()[0][0] ) );
-  CHECK( 3. == Approx( subsection2.coefficients()[0][1] ) );
-  CHECK( 5. == Approx( subsection2.coefficients()[1][0] ) );
-  CHECK( 6. == Approx( subsection2.coefficients()[1][1] ) );
-  CHECK( 2 == Approx( subsection2.F0().size() ) );
-  CHECK( 2 == Approx( subsection2.totalEmissionProbabilities().size() ) );
-  CHECK( 2. == Approx( subsection2.F0()[0] ) );
-  CHECK( 5. == Approx( subsection2.F0()[1] ) );
-  CHECK( 2. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
-  CHECK( 5. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
+  CHECK_THAT( 2., WithinRel( subsection2.A()[0][0] ) );
+  CHECK_THAT( 3., WithinRel( subsection2.A()[0][1] ) );
+  CHECK_THAT( 5., WithinRel( subsection2.A()[1][0] ) );
+  CHECK_THAT( 6., WithinRel( subsection2.A()[1][1] ) );
+  CHECK_THAT( 2., WithinRel( subsection2.coefficients()[0][0] ) );
+  CHECK_THAT( 3., WithinRel( subsection2.coefficients()[0][1] ) );
+  CHECK_THAT( 5., WithinRel( subsection2.coefficients()[1][0] ) );
+  CHECK_THAT( 6., WithinRel( subsection2.coefficients()[1][1] ) );
+  CHECK( 2 == subsection2.F0().size() );
+  CHECK( 2 == subsection2.totalEmissionProbabilities().size() );
+  CHECK_THAT( 2., WithinRel( subsection2.F0()[0] ) );
+  CHECK_THAT( 5., WithinRel( subsection2.F0()[1] ) );
+  CHECK_THAT( 2., WithinRel( subsection2.totalEmissionProbabilities()[0] ) );
+  CHECK_THAT( 5., WithinRel( subsection2.totalEmissionProbabilities()[1] ) );
 
   CHECK( 7 == chunk.NC() );
 }

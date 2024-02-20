@@ -45,7 +45,7 @@ void wrapSection_1_451( python::module& module, python::module& viewmodule ) {
   section
   .def(
 
-    python::init< double, double, int, int, int, int,
+    python::init< int, double, int, int, int, int,
                   double, double, int, int, int,
                   double, double, int, int, int,
                   double, int,

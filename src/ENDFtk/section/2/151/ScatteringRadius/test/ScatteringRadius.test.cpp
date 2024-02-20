@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/2/151.hpp"
 
 // other includes
@@ -130,26 +133,26 @@ void verifyChunk( const ScatteringRadius& chunk ) {
   CHECK( 5 == chunk.energies().size() );
   CHECK( 5 == chunk.AP().size() );
   CHECK( 5 == chunk.radii().size() );
-  CHECK( 1.0 == Approx( chunk.E()[0] ) );
-  CHECK( 2.0 == Approx( chunk.E()[1] ) );
-  CHECK( 3.0 == Approx( chunk.E()[2] ) );
-  CHECK( 4.0 == Approx( chunk.E()[3] ) );
-  CHECK( 5.0 == Approx( chunk.E()[4] ) );
-  CHECK( 1.0 == Approx( chunk.energies()[0] ) );
-  CHECK( 2.0 == Approx( chunk.energies()[1] ) );
-  CHECK( 3.0 == Approx( chunk.energies()[2] ) );
-  CHECK( 4.0 == Approx( chunk.energies()[3] ) );
-  CHECK( 5.0 == Approx( chunk.energies()[4] ) );
-  CHECK( 6.0 == Approx( chunk.AP()[0] ) );
-  CHECK( 7.0 == Approx( chunk.AP()[1] ) );
-  CHECK( 8.0 == Approx( chunk.AP()[2] ) );
-  CHECK( 9.0 == Approx( chunk.AP()[3] ) );
-  CHECK( 10.0 == Approx( chunk.AP()[4] ) );
-  CHECK( 6.0 == Approx( chunk.radii()[0] ) );
-  CHECK( 7.0 == Approx( chunk.radii()[1] ) );
-  CHECK( 8.0 == Approx( chunk.radii()[2] ) );
-  CHECK( 9.0 == Approx( chunk.radii()[3] ) );
-  CHECK( 10.0 == Approx( chunk.radii()[4] ) );
+  CHECK_THAT( 1.0, WithinRel( chunk.E()[0] ) );
+  CHECK_THAT( 2.0, WithinRel( chunk.E()[1] ) );
+  CHECK_THAT( 3.0, WithinRel( chunk.E()[2] ) );
+  CHECK_THAT( 4.0, WithinRel( chunk.E()[3] ) );
+  CHECK_THAT( 5.0, WithinRel( chunk.E()[4] ) );
+  CHECK_THAT( 1.0, WithinRel( chunk.energies()[0] ) );
+  CHECK_THAT( 2.0, WithinRel( chunk.energies()[1] ) );
+  CHECK_THAT( 3.0, WithinRel( chunk.energies()[2] ) );
+  CHECK_THAT( 4.0, WithinRel( chunk.energies()[3] ) );
+  CHECK_THAT( 5.0, WithinRel( chunk.energies()[4] ) );
+  CHECK_THAT( 6.0, WithinRel( chunk.AP()[0] ) );
+  CHECK_THAT( 7.0, WithinRel( chunk.AP()[1] ) );
+  CHECK_THAT( 8.0, WithinRel( chunk.AP()[2] ) );
+  CHECK_THAT( 9.0, WithinRel( chunk.AP()[3] ) );
+  CHECK_THAT( 10.0, WithinRel( chunk.AP()[4] ) );
+  CHECK_THAT( 6.0, WithinRel( chunk.radii()[0] ) );
+  CHECK_THAT( 7.0, WithinRel( chunk.radii()[1] ) );
+  CHECK_THAT( 8.0, WithinRel( chunk.radii()[2] ) );
+  CHECK_THAT( 9.0, WithinRel( chunk.radii()[3] ) );
+  CHECK_THAT( 10.0, WithinRel( chunk.radii()[4] ) );
 
   CHECK( 4 == chunk.NC() );
 }

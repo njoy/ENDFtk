@@ -13,7 +13,7 @@ Type() = default;
  *  @param[in] awr        the atomic weight ratio
  *  @param[in] isotopes   the isotopes for the section
  */
-Type( double zaid, double awr, std::vector< Isotope >&& isotopes ) :
+Type( int zaid, double awr, std::vector< Isotope >&& isotopes ) :
   BaseWithoutMT( zaid, awr ), isotopes_( std::move( isotopes ) ) {
 
     verifyNIS( this->NIS() );
@@ -27,7 +27,7 @@ Type( double zaid, double awr, std::vector< Isotope >&& isotopes ) :
  *  @param[in] lfw      the lfw flag for unresolved resonances
  *  @param[in] ranges   the resonance ranges defined for the isotope
  */
-Type( double zaid, double awr, bool lfw,
+Type( int zaid, double awr, bool lfw,
       std::vector< ResonanceRange >&& ranges ) :
   Type( zaid, awr,
         std::vector< Isotope >{ Isotope( zaid, 1., lfw,

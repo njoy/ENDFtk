@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/34.hpp"
 
 // other includes
@@ -124,13 +127,13 @@ void verifyChunk( const LegendreBlock& chunk ) {
   CHECK( 3 == stuff.numberEnergies() );
 
   // values
-  CHECK( 0. == Approx( stuff.energies()[0] ) );
-  CHECK( 100. == Approx( stuff.energies()[1] ) );
-  CHECK( 200. == Approx( stuff.energies()[2] ) );
-  CHECK( 1. == Approx( stuff.values()[0] ) );
-  CHECK( 2. == Approx( stuff.values()[1] ) );
-  CHECK( 3. == Approx( stuff.values()[2] ) );
-  CHECK( 4. == Approx( stuff.values()[3] ) );
+  CHECK_THAT( 0., WithinRel( stuff.energies()[0] ) );
+  CHECK_THAT( 100., WithinRel( stuff.energies()[1] ) );
+  CHECK_THAT( 200., WithinRel( stuff.energies()[2] ) );
+  CHECK_THAT( 1., WithinRel( stuff.values()[0] ) );
+  CHECK_THAT( 2., WithinRel( stuff.values()[1] ) );
+  CHECK_THAT( 3., WithinRel( stuff.values()[2] ) );
+  CHECK_THAT( 4., WithinRel( stuff.values()[3] ) );
 
   CHECK( 10 == chunk.NC() );
 

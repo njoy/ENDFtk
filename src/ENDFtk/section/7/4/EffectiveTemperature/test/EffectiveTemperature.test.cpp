@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/7/4.hpp"
 
 // other includes
@@ -134,18 +137,18 @@ void verifyChunk( const EffectiveTemperature& chunk ) {
   CHECK( 3 == chunk.moderatorTemperatures().size() );
   CHECK( 3 == chunk.TEFF().size() );
   CHECK( 3 == chunk.effectiveTemperatures().size() );
-  CHECK( 293.6 == Approx( chunk.TMOD()[0] ) );
-  CHECK( 600. == Approx( chunk.TMOD()[1] ) );
-  CHECK( 1200. == Approx( chunk.TMOD()[2] ) );
-  CHECK( 293.6 == Approx( chunk.moderatorTemperatures()[0] ) );
-  CHECK( 600. == Approx( chunk.moderatorTemperatures()[1] ) );
-  CHECK( 1200. == Approx( chunk.moderatorTemperatures()[2] ) );
-  CHECK( 5.332083e+2 == Approx( chunk.TEFF()[0] ) );
-  CHECK( 7.354726e+2 == Approx( chunk.TEFF()[1] ) );
-  CHECK( 1.270678e+3 == Approx( chunk.TEFF()[2] ) );
-  CHECK( 5.332083e+2 == Approx( chunk.effectiveTemperatures()[0] ) );
-  CHECK( 7.354726e+2 == Approx( chunk.effectiveTemperatures()[1] ) );
-  CHECK( 1.270678e+3 == Approx( chunk.effectiveTemperatures()[2] ) );
+  CHECK_THAT( 293.6, WithinRel( chunk.TMOD()[0] ) );
+  CHECK_THAT( 600., WithinRel( chunk.TMOD()[1] ) );
+  CHECK_THAT( 1200., WithinRel( chunk.TMOD()[2] ) );
+  CHECK_THAT( 293.6, WithinRel( chunk.moderatorTemperatures()[0] ) );
+  CHECK_THAT( 600., WithinRel( chunk.moderatorTemperatures()[1] ) );
+  CHECK_THAT( 1200., WithinRel( chunk.moderatorTemperatures()[2] ) );
+  CHECK_THAT( 5.332083e+2, WithinRel( chunk.TEFF()[0] ) );
+  CHECK_THAT( 7.354726e+2, WithinRel( chunk.TEFF()[1] ) );
+  CHECK_THAT( 1.270678e+3, WithinRel( chunk.TEFF()[2] ) );
+  CHECK_THAT( 5.332083e+2, WithinRel( chunk.effectiveTemperatures()[0] ) );
+  CHECK_THAT( 7.354726e+2, WithinRel( chunk.effectiveTemperatures()[1] ) );
+  CHECK_THAT( 1.270678e+3, WithinRel( chunk.effectiveTemperatures()[2] ) );
 
   CHECK( 3 == chunk.NC() );
 }

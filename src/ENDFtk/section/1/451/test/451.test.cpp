@@ -1,11 +1,14 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/1/451.hpp"
 
 // other includes
-#include "range/v3/algorithm/equal.hpp"
 #include "ENDFtk/tree/Section.hpp"
+#include "range/v3/algorithm/equal.hpp"
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
@@ -202,9 +205,11 @@ std::string chunk() {
 void verifyChunk( const section::Type< 1, 451 >& chunk ) {
 
   CHECK( 451 == chunk.MT() );
+  CHECK( 451 == chunk.sectionNumber() );
   CHECK( 1001 == chunk.ZA() );
-  CHECK( 0.9991673 == Approx( chunk.AWR() ) );
-  CHECK( 0.9991673 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 1001 == chunk.targetIdentifier() );
+  CHECK_THAT( 0.9991673, WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 0.9991673, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 1 == chunk.LRP() );
   CHECK( 1 == chunk.resonanceParameterFlag() );
   CHECK( 2 == chunk.LFI() );
@@ -213,30 +218,30 @@ void verifyChunk( const section::Type< 1, 451 >& chunk ) {
   CHECK( 3 == chunk.libraryType() );
   CHECK( 4 == chunk.NMOD() );
   CHECK( 4 == chunk.modificationNumber() );
-  CHECK( 5.0 == Approx( chunk.ELIS() ) );
-  CHECK( 5.0 == Approx( chunk.excitationEnergy() ) );
-  CHECK( 6.0 == Approx( chunk.STA() ) );
-  CHECK( true == Approx( chunk.isStable() ) );
+  CHECK_THAT( 5.0, WithinRel( chunk.ELIS() ) );
+  CHECK_THAT( 5.0, WithinRel( chunk.excitationEnergy() ) );
+  CHECK_THAT( 6.0, WithinRel( chunk.STA() ) );
+  CHECK( true == chunk.isStable() );
   CHECK( 7 == chunk.LIS() );
   CHECK( 7 == chunk.excitedLevel() );
   CHECK( 8 == chunk.LISO() );
   CHECK( 8 == chunk.isomericLevel() );
   CHECK( 12 == chunk.NFOR() );
   CHECK( 12 == chunk.libraryFormat() );
-  CHECK( 13.0 == Approx( chunk.AWI() ) );
-  CHECK( 13.0 == Approx( chunk.projectileAtomicMassRatio() ) );
-  CHECK( 14.0 == Approx( chunk.EMAX() ) );
-  CHECK( 14.0 == Approx( chunk.maximumEnergy() ) );
+  CHECK_THAT( 13.0, WithinRel( chunk.AWI() ) );
+  CHECK_THAT( 13.0, WithinRel( chunk.projectileAtomicMassRatio() ) );
+  CHECK_THAT( 14.0, WithinRel( chunk.EMAX() ) );
+  CHECK_THAT( 14.0, WithinRel( chunk.maximumEnergy() ) );
   CHECK( 15 == chunk.LREL() );
   CHECK( 15 == chunk.releaseNumber() );
   CHECK( 17 == chunk.NSUB() );
   CHECK( 17 == chunk.subLibrary() );
   CHECK( 18 == chunk.NVER() );
   CHECK( 18 == chunk.versionNumber() );
-  CHECK( 19.0 == Approx( chunk.TEMP() ) );
-  CHECK( 19.0 == Approx( chunk.temperature() ) );
-  CHECK( 0.0 == Approx( chunk.RTOL() ) );
-  CHECK( 0.0 == Approx( chunk.reconstructionTolerance() ) );
+  CHECK_THAT( 19.0, WithinRel( chunk.TEMP() ) );
+  CHECK_THAT( 19.0, WithinRel( chunk.temperature() ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.RTOL() ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.reconstructionTolerance() ) );
   CHECK( 21 == chunk.LDRV() );
   CHECK( 21 == chunk.derivedMaterial() );
   CHECK( 9 == chunk.NWD() );

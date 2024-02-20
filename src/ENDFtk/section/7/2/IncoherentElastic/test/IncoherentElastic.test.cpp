@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/7/2.hpp"
 
 // other includes
@@ -125,8 +128,8 @@ void verifyChunk( const IncoherentElastic& chunk ) {
 
   CHECK( 2 == chunk.LTHR() );
   CHECK( 2 == chunk.elasticScatteringType() );
-  CHECK( 8.198006e+1 == Approx( chunk.SB() ) );
-  CHECK( 8.198006e+1 == Approx( chunk.boundCrossSection() ) );
+  CHECK_THAT( 8.198006e+1, WithinRel( chunk.SB() ) );
+  CHECK_THAT( 8.198006e+1, WithinRel( chunk.boundCrossSection() ) );
   CHECK( 3 == chunk.NP() );
   CHECK( 3 == chunk.NT() );
   CHECK( 3 == chunk.numberTemperatures() );
@@ -139,18 +142,18 @@ void verifyChunk( const IncoherentElastic& chunk ) {
   CHECK( 3 == chunk.temperatures().size() );
   CHECK( 3 == chunk.W().size() );
   CHECK( 3 == chunk.debyeWallerValues().size() );
-  CHECK( 296. == Approx( chunk.T()[0] ) );
-  CHECK( 400. == Approx( chunk.T()[1] ) );
-  CHECK( 500. == Approx( chunk.T()[2] ) );
-  CHECK( 296. == Approx( chunk.temperatures()[0] ) );
-  CHECK( 400. == Approx( chunk.temperatures()[1] ) );
-  CHECK( 500. == Approx( chunk.temperatures()[2] ) );
-  CHECK( 8.486993e+0 == Approx( chunk.W()[0] ) );
-  CHECK( 9.093191e+0 == Approx( chunk.W()[1] ) );
-  CHECK( 9.828159e+0 == Approx( chunk.W()[2] ) );
-  CHECK( 8.486993e+0 == Approx( chunk.debyeWallerValues()[0] ) );
-  CHECK( 9.093191e+0 == Approx( chunk.debyeWallerValues()[1] ) );
-  CHECK( 9.828159e+0 == Approx( chunk.debyeWallerValues()[2] ) );
+  CHECK_THAT( 296., WithinRel( chunk.T()[0] ) );
+  CHECK_THAT( 400., WithinRel( chunk.T()[1] ) );
+  CHECK_THAT( 500., WithinRel( chunk.T()[2] ) );
+  CHECK_THAT( 296., WithinRel( chunk.temperatures()[0] ) );
+  CHECK_THAT( 400., WithinRel( chunk.temperatures()[1] ) );
+  CHECK_THAT( 500., WithinRel( chunk.temperatures()[2] ) );
+  CHECK_THAT( 8.486993e+0, WithinRel( chunk.W()[0] ) );
+  CHECK_THAT( 9.093191e+0, WithinRel( chunk.W()[1] ) );
+  CHECK_THAT( 9.828159e+0, WithinRel( chunk.W()[2] ) );
+  CHECK_THAT( 8.486993e+0, WithinRel( chunk.debyeWallerValues()[0] ) );
+  CHECK_THAT( 9.093191e+0, WithinRel( chunk.debyeWallerValues()[1] ) );
+  CHECK_THAT( 9.828159e+0, WithinRel( chunk.debyeWallerValues()[2] ) );
 
   CHECK( 3 == chunk.NC() );
 }

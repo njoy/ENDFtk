@@ -3,7 +3,7 @@ private:
 /**
  *  @brief Intermediate private constructor
  */
-Type( double zaid, double awr, bool lssf, int interpolation,
+Type( int zaid, double awr, bool lssf, int interpolation,
       ListRecord&& list ) :
   BaseWithoutMT( zaid, awr ), lssf_( lssf ), interpolation_( interpolation ),
   data_( std::move( list ) ) {
@@ -42,7 +42,7 @@ Type() = default;
  *  @param[in] cwTotal         the current weighted total cross section values
  *                             (nunr values of nsigz values)
  */
-Type( double zaid, double awr, bool lssf, int interpolation, double temperature,
+Type( int zaid, double awr, bool lssf, int interpolation, double temperature,
       std::vector< double >&& dilutions, std::vector< double >&& energies,
       std::vector< std::vector< double > >&& total,
       std::vector< std::vector< double > >&& elastic,
@@ -80,7 +80,7 @@ Type( double zaid, double awr, bool lssf, int interpolation, double temperature,
  *  @param[in] cwTotal         the current weighted total cross section values
  *                             (nunr values)
  */
-Type( double zaid, double awr, bool lssf, int interpolation, double temperature,
+Type( int zaid, double awr, bool lssf, int interpolation, double temperature,
       std::vector< double >&& energies, std::vector< double >&& total,
       std::vector< double >&& elastic, std::vector< double >&& fission,
       std::vector< double >&& capture, std::vector< double >&& cwTotal )

@@ -63,7 +63,7 @@ void wrapSection_5( python::module& module, python::module& viewmodule ) {
   section
   .def(
 
-    python::init< int, double, double, std::vector< PartialDistribution >&& >(),
+    python::init< int, int, double, std::vector< PartialDistribution >&& >(),
     python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
     python::arg( "partials" ),
     "Initialise the section\n\n"

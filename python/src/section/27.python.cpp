@@ -29,7 +29,7 @@ void wrapSection_27( python::module& module, python::module& ) {
   section
   .def(
 
-    python::init< int, double, double,
+    python::init< int, int, double,
                   std::vector< long >&&, std::vector< long >&&,
                   std::vector< double >&&, std::vector< double >&& >(),
     python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),

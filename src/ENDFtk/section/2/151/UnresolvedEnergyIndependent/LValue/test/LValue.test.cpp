@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/2/151.hpp"
 
 // other includes
@@ -117,8 +120,8 @@ std::string chunk() {
 
 void verifyChunk( const LValue& chunk ) {
 
-  CHECK( 138.709 == Approx( chunk.AWRI() ) );
-  CHECK( 138.709 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK_THAT( 138.709, WithinRel( chunk.AWRI() ) );
+  CHECK_THAT( 138.709, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 1 == chunk.L() );
   CHECK( 1 == chunk.orbitalMomentum() );
 
@@ -146,10 +149,10 @@ void verifyChunk( const LValue& chunk ) {
   CHECK( 2 == chunk.averageCompetitiveWidths().size() );
   CHECK( 2 == chunk.jValues().size() );
 
-  CHECK( 0.5 == Approx( chunk.AJ()[0] ) );
-  CHECK( 1.5 == Approx( chunk.AJ()[1] ) );
-  CHECK( 0.5 == Approx( chunk.spinValues()[0] ) );
-  CHECK( 1.5 == Approx( chunk.spinValues()[1] ) );
+  CHECK_THAT( 0.5, WithinRel( chunk.AJ()[0] ) );
+  CHECK_THAT( 1.5, WithinRel( chunk.AJ()[1] ) );
+  CHECK_THAT( 0.5, WithinRel( chunk.spinValues()[0] ) );
+  CHECK_THAT( 1.5, WithinRel( chunk.spinValues()[1] ) );
   CHECK( 1 == chunk.AMUN()[0] );
   CHECK( 2 == chunk.AMUN()[1] );
   CHECK( 1 == chunk.neutronWidthDegreesFreedom()[0] );
@@ -166,27 +169,27 @@ void verifyChunk( const LValue& chunk ) {
   CHECK( 0 == chunk.AMUX()[1] );
   CHECK( 0 == chunk.competitiveWidthDegreesFreedom()[0] );
   CHECK( 0 == chunk.competitiveWidthDegreesFreedom()[1] );
-  CHECK( 0.528 == Approx( chunk.GN()[0] ) );
-  CHECK( 0.264 == Approx( chunk.GN()[1] ) );
-  CHECK( 0.528 == Approx( chunk.averageNeutronWidths()[0] ) );
-  CHECK( 0.264 == Approx( chunk.averageNeutronWidths()[1] ) );
-  CHECK( 0.090 == Approx( chunk.GG()[0] ) );
-  CHECK( 0.091 == Approx( chunk.GG()[1] ) );
-  CHECK( 0.090 == Approx( chunk.averageGammaWidths()[0] ) );
-  CHECK( 0.091 == Approx( chunk.averageGammaWidths()[1] ) );
-  CHECK( 0. == Approx( chunk.GF()[0] ) );
-  CHECK( 0. == Approx( chunk.GF()[1] ) );
-  CHECK( 0. == Approx( chunk.averageFissionWidths()[0] ) );
-  CHECK( 0. == Approx( chunk.averageFissionWidths()[1] ) );
-  CHECK( 0. == Approx( chunk.GX()[0] ) );
-  CHECK( 0. == Approx( chunk.GX()[1] ) );
-  CHECK( 0. == Approx( chunk.averageCompetitiveWidths()[0] ) );
-  CHECK( 0. == Approx( chunk.averageCompetitiveWidths()[1] ) );
+  CHECK_THAT( 0.528, WithinRel( chunk.GN()[0] ) );
+  CHECK_THAT( 0.264, WithinRel( chunk.GN()[1] ) );
+  CHECK_THAT( 0.528, WithinRel( chunk.averageNeutronWidths()[0] ) );
+  CHECK_THAT( 0.264, WithinRel( chunk.averageNeutronWidths()[1] ) );
+  CHECK_THAT( 0.090, WithinRel( chunk.GG()[0] ) );
+  CHECK_THAT( 0.091, WithinRel( chunk.GG()[1] ) );
+  CHECK_THAT( 0.090, WithinRel( chunk.averageGammaWidths()[0] ) );
+  CHECK_THAT( 0.091, WithinRel( chunk.averageGammaWidths()[1] ) );
+  CHECK_THAT( 0., WithinRel( chunk.GF()[0] ) );
+  CHECK_THAT( 0., WithinRel( chunk.GF()[1] ) );
+  CHECK_THAT( 0., WithinRel( chunk.averageFissionWidths()[0] ) );
+  CHECK_THAT( 0., WithinRel( chunk.averageFissionWidths()[1] ) );
+  CHECK_THAT( 0., WithinRel( chunk.GX()[0] ) );
+  CHECK_THAT( 0., WithinRel( chunk.GX()[1] ) );
+  CHECK_THAT( 0., WithinRel( chunk.averageCompetitiveWidths()[0] ) );
+  CHECK_THAT( 0., WithinRel( chunk.averageCompetitiveWidths()[1] ) );
 
-  CHECK( 0.5 == Approx( chunk.jValues()[0].AJ() ) );
-  CHECK( 1.5 == Approx( chunk.jValues()[1].AJ() ) );
-  CHECK( 0.5 == Approx( chunk.jValues()[0].spin() ) );
-  CHECK( 1.5 == Approx( chunk.jValues()[1].spin() ) );
+  CHECK_THAT( 0.5, WithinRel( chunk.jValues()[0].AJ() ) );
+  CHECK_THAT( 1.5, WithinRel( chunk.jValues()[1].AJ() ) );
+  CHECK_THAT( 0.5, WithinRel( chunk.jValues()[0].spin() ) );
+  CHECK_THAT( 1.5, WithinRel( chunk.jValues()[1].spin() ) );
   CHECK( 1 == chunk.jValues()[0].AMUN() );
   CHECK( 2 == chunk.jValues()[1].AMUN() );
   CHECK( 1 == chunk.jValues()[0].neutronWidthDegreesFreedom() );
@@ -203,22 +206,22 @@ void verifyChunk( const LValue& chunk ) {
   CHECK( 0 == chunk.jValues()[1].AMUX() );
   CHECK( 0 == chunk.jValues()[0].competitiveWidthDegreesFreedom() );
   CHECK( 0 == chunk.jValues()[1].competitiveWidthDegreesFreedom() );
-  CHECK( 0.528 == Approx( chunk.jValues()[0].GN() ) );
-  CHECK( 0.264 == Approx( chunk.jValues()[1].GN() ) );
-  CHECK( 0.528 == Approx( chunk.jValues()[0].averageNeutronWidth() ) );
-  CHECK( 0.264 == Approx( chunk.jValues()[1].averageNeutronWidth() ) );
-  CHECK( 0.090 == Approx( chunk.jValues()[0].GG() ) );
-  CHECK( 0.091 == Approx( chunk.jValues()[1].GG() ) );
-  CHECK( 0.090 == Approx( chunk.jValues()[0].averageGammaWidth() ) );
-  CHECK( 0.091 == Approx( chunk.jValues()[1].averageGammaWidth() ) );
-  CHECK( 0. == Approx( chunk.jValues()[0].GF() ) );
-  CHECK( 0. == Approx( chunk.jValues()[1].GF() ) );
-  CHECK( 0. == Approx( chunk.jValues()[0].averageFissionWidth() ) );
-  CHECK( 0. == Approx( chunk.jValues()[1].averageFissionWidth() ) );
-  CHECK( 0. == Approx( chunk.jValues()[0].GX() ) );
-  CHECK( 0. == Approx( chunk.jValues()[1].GX() ) );
-  CHECK( 0. == Approx( chunk.jValues()[0].averageCompetitiveWidth() ) );
-  CHECK( 0. == Approx( chunk.jValues()[1].averageCompetitiveWidth() ) );
+  CHECK_THAT( 0.528, WithinRel( chunk.jValues()[0].GN() ) );
+  CHECK_THAT( 0.264, WithinRel( chunk.jValues()[1].GN() ) );
+  CHECK_THAT( 0.528, WithinRel( chunk.jValues()[0].averageNeutronWidth() ) );
+  CHECK_THAT( 0.264, WithinRel( chunk.jValues()[1].averageNeutronWidth() ) );
+  CHECK_THAT( 0.090, WithinRel( chunk.jValues()[0].GG() ) );
+  CHECK_THAT( 0.091, WithinRel( chunk.jValues()[1].GG() ) );
+  CHECK_THAT( 0.090, WithinRel( chunk.jValues()[0].averageGammaWidth() ) );
+  CHECK_THAT( 0.091, WithinRel( chunk.jValues()[1].averageGammaWidth() ) );
+  CHECK_THAT( 0., WithinRel( chunk.jValues()[0].GF() ) );
+  CHECK_THAT( 0., WithinRel( chunk.jValues()[1].GF() ) );
+  CHECK_THAT( 0., WithinRel( chunk.jValues()[0].averageFissionWidth() ) );
+  CHECK_THAT( 0., WithinRel( chunk.jValues()[1].averageFissionWidth() ) );
+  CHECK_THAT( 0., WithinRel( chunk.jValues()[0].GX() ) );
+  CHECK_THAT( 0., WithinRel( chunk.jValues()[1].GX() ) );
+  CHECK_THAT( 0., WithinRel( chunk.jValues()[0].averageCompetitiveWidth() ) );
+  CHECK_THAT( 0., WithinRel( chunk.jValues()[1].averageCompetitiveWidth() ) );
 
   CHECK( 3 == chunk.NC() );
 }

@@ -14,7 +14,7 @@ Type() = default;
  *  @param[in] constants       the decay constant data
  *  @param[in] multiplicity    the multiplicity data
  */
-Type( double zaid, double awr, DecayConstantData&& constants,
+Type( int zaid, double awr, DecayConstantData&& constants,
       Multiplicity&& multiplicity ) :
   BaseWithoutMT( zaid, awr ), lambda_( std::move( constants ) ),
   nubar_( std::move( multiplicity ) ) {}
@@ -25,7 +25,7 @@ private:
  *  @brief Private intermediate constructor
  */
 template< typename Iterator >
-Type( double zaid, double awr, DecayConstantData&& constants,
+Type( int zaid, double awr, DecayConstantData&& constants,
       Iterator& begin, const Iterator& end, long& lineNumber,
       int MAT, int LNU ) :
   Type( zaid, awr, std::move( constants ),

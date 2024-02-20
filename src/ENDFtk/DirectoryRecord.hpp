@@ -83,9 +83,6 @@ namespace ENDFtk {
       }
 
   #define DEFINE_GETTER( name, index )                            \
-    MutableReturnType< index >                                    \
-    name (){ return std::get< index >( this->fields ); }          \
-                                                                  \
     ImmutableReturnType< index >                                  \
     name () const { return std::get< index >( this->fields ); }
 

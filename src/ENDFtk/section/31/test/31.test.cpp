@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/31.hpp"
 
 // other includes
@@ -50,7 +53,7 @@ SCENARIO( "section::Type< 31 >" ) {
       auto sub = ReactionBlock( 1., 2., 3, 4, std::move( nc ), std::move( ni ) );
 
       // Section
-      auto chunk = section::Type< 31 >( 2, 94239., 2.369986e+2, {sub} );
+      auto chunk = section::Type< 31 >( 2, 94239, 2.369986e+2, {sub} );
 
       THEN( "a ReactionBlock can be constructed "
             "and members can be tested" ) {
@@ -164,9 +167,12 @@ std::string invalidSEND() {
 void verifyChunk( const section::Type< 31 >& chunk ) {
 
   // HEAD record
-  CHECK( 94239. == Approx( chunk.ZA() ) );
-  CHECK( 2.369986e+2 == Approx( chunk.AWR() ) );
-  CHECK( 2.369986e+2 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 2 == chunk.MT() );
+  CHECK( 2 == chunk.sectionNumber() );
+  CHECK( 94239 == chunk.ZA() );
+  CHECK( 94239 == chunk.targetIdentifier() );
+  CHECK_THAT( 2.369986e+2, WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 2.369986e+2, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 1 == chunk.NL() );
   CHECK( 1 == chunk.numberReactions() );
   CHECK( 1 == chunk.reactions().size() );
@@ -176,10 +182,10 @@ void verifyChunk( const section::Type< 31 >& chunk ) {
   auto sub = chunk.reactions()[0];
 
   // subsection CONT record
-  CHECK( 1. == Approx( sub.XMF1() ) );
-  CHECK( 1. == Approx( sub.secondFileNumber() ) );
-  CHECK( 2. == Approx( sub.XLFS1() ) );
-  CHECK( 2. == Approx( sub.secondFinalExcitedState() ) );
+  CHECK( 1 == sub.XMF1() );
+  CHECK( 1 == sub.secondFileNumber() );
+  CHECK( 2 == sub.XLFS1() );
+  CHECK( 2 == sub.secondFinalExcitedState() );
   CHECK( 3 == sub.MAT1() );
   CHECK( 3 == sub.secondMaterialNumber() );
   CHECK( 4 == sub.MT1() );

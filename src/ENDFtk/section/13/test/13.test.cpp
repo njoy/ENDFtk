@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/13.hpp"
 
 // other includes
@@ -26,7 +29,7 @@ SCENARIO( "section::Type< 13 >" ) {
     WHEN( "the data is given explicitly" ) {
 
       int mt = 18;
-      double za = 92235.;
+      int zaid = 92235;
       double awr = 2.330250e+2;
 
       PartialCrossSection partial = { 0.0, 0.0, 0, 1,
@@ -34,7 +37,7 @@ SCENARIO( "section::Type< 13 >" ) {
                                       { 1e-5, 3e+7 },
                                       { 8.579050e+0, 1.487778e+1 } };
 
-      section::Type< 13 > chunk( mt, za, awr, std::move( partial ) );
+      section::Type< 13 > chunk( mt, zaid, awr, std::move( partial ) );
 
       THEN( "a section::Type< 13 > can be constructed and members can be "
             "tested" ) {
@@ -148,9 +151,10 @@ void verifyChunk( const section::Type< 13 >& chunk ) {
   CHECK( 18 == chunk.MT() );
   CHECK( 18 == chunk.sectionNumber() );
 
-  CHECK( 92235. == Approx( chunk.ZA() ) );
-  CHECK( 2.330250e+2 == Approx( chunk.AWR() ) );
-  CHECK( 2.330250e+2 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
+  CHECK_THAT( 2.330250e+2, WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 2.330250e+2, WithinRel( chunk.atomicWeightRatio() ) );
 
   CHECK( std::nullopt == chunk.totalCrossSection() );
   CHECK( 1 == chunk.photonPartialCrossSections().size() );
@@ -159,10 +163,10 @@ void verifyChunk( const section::Type< 13 >& chunk ) {
   CHECK( 1 == chunk.numberPhotons() );
 
   auto partial = chunk.photonPartialCrossSections()[0];
-  CHECK( 0.0 == Approx( partial.EG() ) );
-  CHECK( 0.0 == Approx( partial.photonOrBindingEnergy() ) );
-  CHECK( 0.0 == Approx( partial.ES() ) );
-  CHECK( 0.0 == Approx( partial.levelEnergy() ) );
+  CHECK_THAT( 0.0, WithinRel( partial.EG() ) );
+  CHECK_THAT( 0.0, WithinRel( partial.photonOrBindingEnergy() ) );
+  CHECK_THAT( 0.0, WithinRel( partial.ES() ) );
+  CHECK_THAT( 0.0, WithinRel( partial.levelEnergy() ) );
   CHECK( 0 == partial.LP() );
   CHECK( 0 == partial.primaryPhotonFlag() );
   CHECK( 1 == partial.LF() );
@@ -175,10 +179,10 @@ void verifyChunk( const section::Type< 13 >& chunk ) {
   CHECK( 2 == partial.boundaries()[0] );
   CHECK( 2 == partial.energies().size() );
   CHECK( 2 == partial.crossSections().size() );
-  CHECK( 1e-5 == Approx( partial.energies()[0] ) );
-  CHECK( 3e+7 == Approx( partial.energies()[1] ) );
-  CHECK( 8.579050e+0 == Approx( partial.crossSections()[0] ) );
-  CHECK( 1.487778e+1 == Approx( partial.crossSections()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( partial.energies()[0] ) );
+  CHECK_THAT( 3e+7, WithinRel( partial.energies()[1] ) );
+  CHECK_THAT( 8.579050e+0, WithinRel( partial.crossSections()[0] ) );
+  CHECK_THAT( 1.487778e+1, WithinRel( partial.crossSections()[1] ) );
 
   CHECK( 4 == chunk.NC() );
 }

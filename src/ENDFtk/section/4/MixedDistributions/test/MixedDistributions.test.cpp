@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/4.hpp"
 
 // other includes
@@ -157,14 +160,14 @@ void verifyChunk( const MixedDistributions& chunk ) {
 
   auto getE = [] ( const auto& value ) { return value.get().E(); };
   auto getIE = [] ( const auto& value ) { return value.get().incidentEnergy(); };
-  CHECK( 1e-5 == Approx( std::visit( getE, distributions[0] ) ) );
-  CHECK( 1e+6 == Approx( std::visit( getE, distributions[1] ) ) );
-  CHECK( 1e+6 == Approx( std::visit( getE, distributions[2] ) ) );
-  CHECK( 2e+7 == Approx( std::visit( getE, distributions[3] ) ) );
-  CHECK( 1e-5 == Approx( std::visit( getIE, distributions[0] ) ) );
-  CHECK( 1e+6 == Approx( std::visit( getIE, distributions[1] ) ) );
-  CHECK( 1e+6 == Approx( std::visit( getIE, distributions[2] ) ) );
-  CHECK( 2e+7 == Approx( std::visit( getIE, distributions[3] ) ) );
+  CHECK_THAT( 1e-5, WithinRel( std::visit( getE, distributions[0] ) ) );
+  CHECK_THAT( 1e+6, WithinRel( std::visit( getE, distributions[1] ) ) );
+  CHECK_THAT( 1e+6, WithinRel( std::visit( getE, distributions[2] ) ) );
+  CHECK_THAT( 2e+7, WithinRel( std::visit( getE, distributions[3] ) ) );
+  CHECK_THAT( 1e-5, WithinRel( std::visit( getIE, distributions[0] ) ) );
+  CHECK_THAT( 1e+6, WithinRel( std::visit( getIE, distributions[1] ) ) );
+  CHECK_THAT( 1e+6, WithinRel( std::visit( getIE, distributions[2] ) ) );
+  CHECK_THAT( 2e+7, WithinRel( std::visit( getIE, distributions[3] ) ) );
 
   CHECK( 2 == chunk.legendre().NE() );
   CHECK( 1 == chunk.legendre().NR() );
@@ -176,23 +179,23 @@ void verifyChunk( const MixedDistributions& chunk ) {
   auto ldistributions = chunk.legendre().angularDistributions();
 
   auto ld = ldistributions[0];
-  CHECK( 1e-5 == Approx( ld.E() ) );
-  CHECK( 1e-5 == Approx( ld.incidentEnergy() ) );
+  CHECK_THAT( 1e-5, WithinRel( ld.E() ) );
+  CHECK_THAT( 1e-5, WithinRel( ld.incidentEnergy() ) );
   CHECK( 3 == ld.NL() );
   CHECK( 3 == ld.legendreOrder() );
   CHECK( 3 == ld.coefficients().size() );
-  CHECK( 7.392510e-5  == Approx( ld.coefficients()[0] ) );
-  CHECK( 8.477139e-9 == Approx( ld.coefficients()[1] ) );
-  CHECK( 1.17106e-13 == Approx( ld.coefficients()[2] ) );
+  CHECK_THAT( 7.392510e-5 , WithinRel( ld.coefficients()[0] ) );
+  CHECK_THAT( 8.477139e-9, WithinRel( ld.coefficients()[1] ) );
+  CHECK_THAT( 1.17106e-13, WithinRel( ld.coefficients()[2] ) );
 
   ld = ldistributions[1];
-  CHECK( 1e+6 == Approx( ld.E() ) );
-  CHECK( 1e+6 == Approx( ld.incidentEnergy() ) );
+  CHECK_THAT( 1e+6, WithinRel( ld.E() ) );
+  CHECK_THAT( 1e+6, WithinRel( ld.incidentEnergy() ) );
   CHECK( 2 == ld.NL() );
   CHECK( 2 == ld.legendreOrder() );
   CHECK( 2 == ld.coefficients().size() );
-  CHECK( 2.874390e-2   == Approx( ld.coefficients()[0] ) );
-  CHECK( 3.19645e-11 == Approx( ld.coefficients()[1] ) );
+  CHECK_THAT( 2.874390e-2  , WithinRel( ld.coefficients()[0] ) );
+  CHECK_THAT( 3.19645e-11, WithinRel( ld.coefficients()[1] ) );
 
   CHECK( 2 == chunk.tabulated().NE() );
   CHECK( 1 == chunk.tabulated().NR() );
@@ -204,8 +207,8 @@ void verifyChunk( const MixedDistributions& chunk ) {
   auto tdistributions = chunk.tabulated().angularDistributions();
 
   auto td = tdistributions[0];
-  CHECK( 1e+6 == Approx( td.E() ) );
-  CHECK( 1e+6 == Approx( td.incidentEnergy() ) );
+  CHECK_THAT( 1e+6, WithinRel( td.E() ) );
+  CHECK_THAT( 1e+6, WithinRel( td.incidentEnergy() ) );
   CHECK( 2 == td.NP() );
   CHECK( 1 == td.NR() );
   CHECK( 1 == td.boundaries().size() );
@@ -213,15 +216,15 @@ void verifyChunk( const MixedDistributions& chunk ) {
   CHECK( 2 == td.boundaries()[0] );
   CHECK( 2 == td.interpolants()[0] );
   CHECK( 2 == td.cosines().size() );
-  CHECK( -1.0  == Approx( td.cosines()[0] ) );
-  CHECK( 1.0 == Approx( td.cosines()[1] ) );
+  CHECK_THAT( -1.0 , WithinRel( td.cosines()[0] ) );
+  CHECK_THAT( 1.0, WithinRel( td.cosines()[1] ) );
   CHECK( 2 == td.probabilities().size() );
-  CHECK( 0.5  == Approx( td.probabilities()[0] ) );
-  CHECK( 0.5 == Approx( td.probabilities()[1] ) );
+  CHECK_THAT( 0.5 , WithinRel( td.probabilities()[0] ) );
+  CHECK_THAT( 0.5, WithinRel( td.probabilities()[1] ) );
 
   td = tdistributions[1];
-  CHECK( 2e+7 == Approx( td.E() ) );
-  CHECK( 2e+7 == Approx( td.incidentEnergy() ) );
+  CHECK_THAT( 2e+7, WithinRel( td.E() ) );
+  CHECK_THAT( 2e+7, WithinRel( td.incidentEnergy() ) );
   CHECK( 3 == td.NP() );
   CHECK( 1 == td.NR() );
   CHECK( 1 == td.boundaries().size() );
@@ -229,13 +232,13 @@ void verifyChunk( const MixedDistributions& chunk ) {
   CHECK( 3 == td.boundaries()[0] );
   CHECK( 2 == td.interpolants()[0] );
   CHECK( 3 == td.cosines().size() );
-  CHECK( -1.0  == Approx( td.cosines()[0] ) );
-  CHECK( 0.0 == Approx( td.cosines()[1] ) );
-  CHECK( 1.0 == Approx( td.cosines()[2] ) );
+  CHECK_THAT( -1.0 , WithinRel( td.cosines()[0] ) );
+  CHECK_THAT( 0.0, WithinRel( td.cosines()[1] ) );
+  CHECK_THAT( 1.0, WithinRel( td.cosines()[2] ) );
   CHECK( 3 == td.probabilities().size() );
-  CHECK( 0.0  == Approx( td.probabilities()[0] ) );
-  CHECK( 1.0 == Approx( td.probabilities()[1] ) );
-  CHECK( 0.0 == Approx( td.probabilities()[2] ) );
+  CHECK_THAT( 0.0 , WithinRel( td.probabilities()[0] ) );
+  CHECK_THAT( 1.0, WithinRel( td.probabilities()[1] ) );
+  CHECK_THAT( 0.0, WithinRel( td.probabilities()[2] ) );
 
   CHECK( 14 == chunk.NC() );
 }

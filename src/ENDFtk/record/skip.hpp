@@ -4,7 +4,7 @@
 // system includes
 
 // other includes
-#include "Log.hpp"
+#include "tools/Log.hpp"
 #include "ENDFtk/record/Character.hpp"
 #include "ENDFtk/record/Base.hpp"
 #include "ENDFtk/record/Tail.hpp"

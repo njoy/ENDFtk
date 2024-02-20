@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/12.hpp"
 
 // other includes
@@ -131,18 +134,18 @@ void verifyChunk( const TotalMultiplicity& chunk ) {
   CHECK( 2 == chunk.Y().size() );
   CHECK( 2 == chunk.multiplicities().size() );
   CHECK( 2 == chunk.y().size() );
-  CHECK( 1. == Approx( chunk.E()[0] ) );
-  CHECK( 3. == Approx( chunk.E()[1] ) );
-  CHECK( 1. == Approx( chunk.energies()[0] ) );
-  CHECK( 3. == Approx( chunk.energies()[1] ) );
-  CHECK( 1. == Approx( chunk.x()[0] ) );
-  CHECK( 3. == Approx( chunk.x()[1] ) );
-  CHECK( 2. == Approx( chunk.Y()[0] ) );
-  CHECK( 4. == Approx( chunk.Y()[1] ) );
-  CHECK( 2. == Approx( chunk.multiplicities()[0] ) );
-  CHECK( 4. == Approx( chunk.multiplicities()[1] ) );
-  CHECK( 2. == Approx( chunk.y()[0] ) );
-  CHECK( 4. == Approx( chunk.y()[1] ) );
+  CHECK_THAT( 1., WithinRel( chunk.E()[0] ) );
+  CHECK_THAT( 3., WithinRel( chunk.E()[1] ) );
+  CHECK_THAT( 1., WithinRel( chunk.energies()[0] ) );
+  CHECK_THAT( 3., WithinRel( chunk.energies()[1] ) );
+  CHECK_THAT( 1., WithinRel( chunk.x()[0] ) );
+  CHECK_THAT( 3., WithinRel( chunk.x()[1] ) );
+  CHECK_THAT( 2., WithinRel( chunk.Y()[0] ) );
+  CHECK_THAT( 4., WithinRel( chunk.Y()[1] ) );
+  CHECK_THAT( 2., WithinRel( chunk.multiplicities()[0] ) );
+  CHECK_THAT( 4., WithinRel( chunk.multiplicities()[1] ) );
+  CHECK_THAT( 2., WithinRel( chunk.y()[0] ) );
+  CHECK_THAT( 4., WithinRel( chunk.y()[1] ) );
 
   CHECK( 3 == chunk.NC() );
 }

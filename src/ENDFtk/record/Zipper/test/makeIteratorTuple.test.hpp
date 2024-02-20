@@ -8,8 +8,8 @@ SCENARIO( "The Zipper makeIteratorTuple function ", "[ENDFtk], [Zipper]" ){
         ( vid, std::make_index_sequence< 2 >() );
       THEN( "the values referenced by the iterator will be correct"){
         for ( int i = 0; i < 3; ++i ){
-          REQUIRE( std::get<0>( tuple )[i] == i );
-          REQUIRE( std::get<1>( tuple )[i] == double(i) );
+          CHECK( std::get<0>( tuple )[i] == i );
+          CHECK_THAT( std::get<1>( tuple )[i], WithinRel( double(i) ) );
         }
       }
     }

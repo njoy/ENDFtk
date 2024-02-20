@@ -4,7 +4,6 @@
 // system includes
 
 // other includes
-#include "header-utilities/echoErroneousLine.hpp"
 #include "ENDFtk/HeadRecord.hpp"
 
 namespace njoy {
@@ -39,6 +38,11 @@ namespace section{
      *  @brief Return the ZA identifier of the section
      */
     constexpr int ZA() const { return this->ZA_; }
+
+    /**
+     *  @brief Return the ZA identifier of the section
+     */
+    constexpr int targetIdentifier() const { return this->ZA(); }
 
     /**
      *  @brief Return the atomic weight ratio

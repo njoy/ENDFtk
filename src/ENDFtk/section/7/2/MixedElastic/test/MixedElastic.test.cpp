@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/7/2.hpp"
 
 // other includes
@@ -131,19 +134,19 @@ void verifyChunk( const MixedElastic& chunk ) {
 
   CHECK( 2 == coherent.T().size() );
   CHECK( 2 == coherent.temperatures().size() );
-  CHECK( 293.6 == Approx( coherent.T()[0] ) );
-  CHECK( 800. == Approx( coherent.T()[1] ) );
-  CHECK( 293.6 == Approx( coherent.temperatures()[0] ) );
-  CHECK( 800. == Approx( coherent.temperatures()[1] ) );
+  CHECK_THAT( 293.6, WithinRel( coherent.T()[0] ) );
+  CHECK_THAT( 800., WithinRel( coherent.T()[1] ) );
+  CHECK_THAT( 293.6, WithinRel( coherent.temperatures()[0] ) );
+  CHECK_THAT( 800., WithinRel( coherent.temperatures()[1] ) );
 
   CHECK( 3 == coherent.E().size() );
   CHECK( 3 == coherent.energies().size() );
-  CHECK( 1.059427e-3 == Approx( coherent.E()[0] ) );
-  CHECK( 3.718355e-3 == Approx( coherent.E()[1] ) );
-  CHECK( 4.237708e-3 == Approx( coherent.E()[2] ) );
-  CHECK( 1.059427e-3 == Approx( coherent.energies()[0] ) );
-  CHECK( 3.718355e-3 == Approx( coherent.energies()[1] ) );
-  CHECK( 4.237708e-3 == Approx( coherent.energies()[2] ) );
+  CHECK_THAT( 1.059427e-3, WithinRel( coherent.E()[0] ) );
+  CHECK_THAT( 3.718355e-3, WithinRel( coherent.E()[1] ) );
+  CHECK_THAT( 4.237708e-3, WithinRel( coherent.E()[2] ) );
+  CHECK_THAT( 1.059427e-3, WithinRel( coherent.energies()[0] ) );
+  CHECK_THAT( 3.718355e-3, WithinRel( coherent.energies()[1] ) );
+  CHECK_THAT( 4.237708e-3, WithinRel( coherent.energies()[2] ) );
 
   CHECK( 1 == coherent.LI().size() );
   CHECK( 2 == coherent.LI()[0] );
@@ -152,30 +155,30 @@ void verifyChunk( const MixedElastic& chunk ) {
 
   CHECK( 2 == coherent.S().size() );
   CHECK( 3 == coherent.S()[0].size() );
-  CHECK( 0.0 == Approx( coherent.S()[0][0] ) );
-  CHECK( 9.364524e-3 == Approx( coherent.S()[0][1] ) );
-  CHECK( 1.548925e-2 == Approx( coherent.S()[0][2] ) );
+  CHECK_THAT( 0.0, WithinRel( coherent.S()[0][0] ) );
+  CHECK_THAT( 9.364524e-3, WithinRel( coherent.S()[0][1] ) );
+  CHECK_THAT( 1.548925e-2, WithinRel( coherent.S()[0][2] ) );
   CHECK( 3 == coherent.S()[1].size() );
-  CHECK( 0.5 == Approx( coherent.S()[1][0] ) );
-  CHECK( 8.318414e-3 == Approx( coherent.S()[1][1] ) );
-  CHECK( 1.640584e-2 == Approx( coherent.S()[1][2] ) );
+  CHECK_THAT( 0.5, WithinRel( coherent.S()[1][0] ) );
+  CHECK_THAT( 8.318414e-3, WithinRel( coherent.S()[1][1] ) );
+  CHECK_THAT( 1.640584e-2, WithinRel( coherent.S()[1][2] ) );
 
   CHECK( 2 == coherent.thermalScatteringValues().size() );
   CHECK( 3 == coherent.thermalScatteringValues()[0].size() );
-  CHECK( 0.0 == Approx( coherent.thermalScatteringValues()[0][0] ) );
-  CHECK( 9.364524e-3 == Approx( coherent.thermalScatteringValues()[0][1] ) );
-  CHECK( 1.548925e-2 == Approx( coherent.thermalScatteringValues()[0][2] ) );
+  CHECK_THAT( 0.0, WithinRel( coherent.thermalScatteringValues()[0][0] ) );
+  CHECK_THAT( 9.364524e-3, WithinRel( coherent.thermalScatteringValues()[0][1] ) );
+  CHECK_THAT( 1.548925e-2, WithinRel( coherent.thermalScatteringValues()[0][2] ) );
   CHECK( 3 == coherent.thermalScatteringValues()[1].size() );
-  CHECK( 0.5 == Approx( coherent.thermalScatteringValues()[1][0] ) );
-  CHECK( 8.318414e-3 == Approx( coherent.thermalScatteringValues()[1][1] ) );
-  CHECK( 1.640584e-2 == Approx( coherent.thermalScatteringValues()[1][2] ) );
+  CHECK_THAT( 0.5, WithinRel( coherent.thermalScatteringValues()[1][0] ) );
+  CHECK_THAT( 8.318414e-3, WithinRel( coherent.thermalScatteringValues()[1][1] ) );
+  CHECK_THAT( 1.640584e-2, WithinRel( coherent.thermalScatteringValues()[1][2] ) );
 
   decltype(auto) incoherent = chunk.incoherent();
 
   CHECK( 2 == incoherent.LTHR() );
   CHECK( 2 == incoherent.elasticScatteringType() );
-  CHECK( 2.054202 == Approx( incoherent.SB() ) );
-  CHECK( 2.054202 == Approx( incoherent.boundCrossSection() ) );
+  CHECK_THAT( 2.054202, WithinRel( incoherent.SB() ) );
+  CHECK_THAT( 2.054202, WithinRel( incoherent.boundCrossSection() ) );
   CHECK( 2 == incoherent.NP() );
   CHECK( 2 == incoherent.NT() );
   CHECK( 2 == incoherent.numberTemperatures() );
@@ -188,14 +191,14 @@ void verifyChunk( const MixedElastic& chunk ) {
   CHECK( 2 == incoherent.temperatures().size() );
   CHECK( 2 == incoherent.W().size() );
   CHECK( 2 == incoherent.debyeWallerValues().size() );
-  CHECK( 293.6 == Approx( incoherent.T()[0] ) );
-  CHECK( 800. == Approx( incoherent.T()[1] ) );
-  CHECK( 293.6 == Approx( incoherent.temperatures()[0] ) );
-  CHECK( 800. == Approx( incoherent.temperatures()[1] ) );
-  CHECK( 8.937898 == Approx( incoherent.W()[0] ) );
-  CHECK( 17.65328 == Approx( incoherent.W()[1] ) );
-  CHECK( 8.937898 == Approx( incoherent.debyeWallerValues()[0] ) );
-  CHECK( 17.65328 == Approx( incoherent.debyeWallerValues()[1] ) );
+  CHECK_THAT( 293.6, WithinRel( incoherent.T()[0] ) );
+  CHECK_THAT( 800., WithinRel( incoherent.T()[1] ) );
+  CHECK_THAT( 293.6, WithinRel( incoherent.temperatures()[0] ) );
+  CHECK_THAT( 800., WithinRel( incoherent.temperatures()[1] ) );
+  CHECK_THAT( 8.937898, WithinRel( incoherent.W()[0] ) );
+  CHECK_THAT( 17.65328, WithinRel( incoherent.W()[1] ) );
+  CHECK_THAT( 8.937898, WithinRel( incoherent.debyeWallerValues()[0] ) );
+  CHECK_THAT( 17.65328, WithinRel( incoherent.debyeWallerValues()[1] ) );
 
   CHECK( 8 == chunk.NC() );
 }

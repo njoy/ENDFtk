@@ -114,8 +114,9 @@ namespace section {
 
     using BaseWithoutMT::MT;
     using BaseWithoutMT::ZA;
-    using BaseWithoutMT::atomicWeightRatio;
+    using BaseWithoutMT::targetIdentifier;
     using BaseWithoutMT::AWR;
+    using BaseWithoutMT::atomicWeightRatio;
 
     #include "ENDFtk/section/32/151/src/print.hpp"
     #include "ENDFtk/section/32/151/src/NC.hpp"

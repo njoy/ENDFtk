@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/6.hpp"
 
 // other includes
@@ -247,8 +250,8 @@ std::string chunk() {
 
 void verifyChunk( const EnergyDistribution& chunk ) {
 
-  CHECK( 1. == Approx( chunk.MU() ) );
-  CHECK( 1. == Approx( chunk.cosine() ) );
+  CHECK_THAT( 1., WithinRel( chunk.MU() ) );
+  CHECK_THAT( 1., WithinRel( chunk.cosine() ) );
 
   CHECK( 1 == chunk.NRP() );
   CHECK( 4 == chunk.NEP() );
@@ -262,22 +265,22 @@ void verifyChunk( const EnergyDistribution& chunk ) {
   CHECK( 4 == chunk.energies().size() );
   CHECK( 4 == chunk.F().size() );
   CHECK( 4 == chunk.probabilities().size() );
-  CHECK( 1e-5 == Approx( chunk.EP()[0] ) );
-  CHECK( 1.1e+7 == Approx( chunk.EP()[1] ) );
-  CHECK( 1.147e+7 == Approx( chunk.EP()[2] ) );
-  CHECK( 3e+7 == Approx( chunk.EP()[3] ) );
-  CHECK( 1e-5 == Approx( chunk.energies()[0] ) );
-  CHECK( 1.1e+7 == Approx( chunk.energies()[1] ) );
-  CHECK( 1.147e+7 == Approx( chunk.energies()[2] ) );
-  CHECK( 3e+7 == Approx( chunk.energies()[3] ) );
-  CHECK( 0. == Approx( chunk.F()[0] ) );
-  CHECK( 8.45368e-11 == Approx( chunk.F()[1] ) );
-  CHECK( 6.622950e-8 == Approx( chunk.F()[2] ) );
-  CHECK( 2.149790e-1 == Approx( chunk.F()[3] ) );
-  CHECK( 0. == Approx( chunk.probabilities()[0] ) );
-  CHECK( 8.45368e-11 == Approx( chunk.probabilities()[1] ) );
-  CHECK( 6.622950e-8 == Approx( chunk.probabilities()[2] ) );
-  CHECK( 2.149790e-1 == Approx( chunk.probabilities()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.EP()[0] ) );
+  CHECK_THAT( 1.1e+7, WithinRel( chunk.EP()[1] ) );
+  CHECK_THAT( 1.147e+7, WithinRel( chunk.EP()[2] ) );
+  CHECK_THAT( 3e+7, WithinRel( chunk.EP()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.energies()[0] ) );
+  CHECK_THAT( 1.1e+7, WithinRel( chunk.energies()[1] ) );
+  CHECK_THAT( 1.147e+7, WithinRel( chunk.energies()[2] ) );
+  CHECK_THAT( 3e+7, WithinRel( chunk.energies()[3] ) );
+  CHECK_THAT( 0., WithinRel( chunk.F()[0] ) );
+  CHECK_THAT( 8.45368e-11, WithinRel( chunk.F()[1] ) );
+  CHECK_THAT( 6.622950e-8, WithinRel( chunk.F()[2] ) );
+  CHECK_THAT( 2.149790e-1, WithinRel( chunk.F()[3] ) );
+  CHECK_THAT( 0., WithinRel( chunk.probabilities()[0] ) );
+  CHECK_THAT( 8.45368e-11, WithinRel( chunk.probabilities()[1] ) );
+  CHECK_THAT( 6.622950e-8, WithinRel( chunk.probabilities()[2] ) );
+  CHECK_THAT( 2.149790e-1, WithinRel( chunk.probabilities()[3] ) );
 
   CHECK( 4 == chunk.NC() );
 }

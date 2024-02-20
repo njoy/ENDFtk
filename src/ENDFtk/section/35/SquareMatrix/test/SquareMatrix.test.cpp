@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/35.hpp"
 
 // other includes
@@ -106,12 +109,12 @@ void verifyChunk( const SquareMatrix& chunk ) {
   CHECK( 3 == chunk.numberEnergies() );
 
   // values
-  CHECK( 0. == Approx( chunk.energies()[0] ) );
-  CHECK( 100. == Approx( chunk.energies()[1] ) );
-  CHECK( 200. == Approx( chunk.energies()[2] ) );
-  CHECK( 1. == Approx( chunk.values()[0] ) );
-  CHECK( 2. == Approx( chunk.values()[1] ) );
-  CHECK( 3. == Approx( chunk.values()[2] ) );
+  CHECK_THAT( 0., WithinRel( chunk.energies()[0] ) );
+  CHECK_THAT( 100., WithinRel( chunk.energies()[1] ) );
+  CHECK_THAT( 200., WithinRel( chunk.energies()[2] ) );
+  CHECK_THAT( 1., WithinRel( chunk.values()[0] ) );
+  CHECK_THAT( 2., WithinRel( chunk.values()[1] ) );
+  CHECK_THAT( 3., WithinRel( chunk.values()[2] ) );
 
   CHECK( 2 == chunk.NC() );
 

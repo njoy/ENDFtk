@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/2/151.hpp"
 
 // other includes
@@ -126,26 +129,26 @@ void verifyChunk( const TabulatedBackgroundRMatrix& chunk ) {
   CHECK( 2 == chunk.RBI().size() );
   CHECK( 2 == chunk.imaginary().size() );
 
-  CHECK( 1e-5 == Approx( chunk.E()[0] ) );
-  CHECK( 2e+7 == Approx( chunk.E()[1] ) );
-  CHECK( 1e-5 == Approx( chunk.energies()[0] ) );
-  CHECK( 2e+7 == Approx( chunk.energies()[1] ) );
-  CHECK( 1. == Approx( chunk.RBR()[0] ) );
-  CHECK( 2. == Approx( chunk.RBR()[1] ) );
-  CHECK( 1. == Approx( chunk.real()[0] ) );
-  CHECK( 2. == Approx( chunk.real()[1] ) );
-  CHECK( 2. == Approx( chunk.RBI()[0] ) );
-  CHECK( 1. == Approx( chunk.RBI()[1] ) );
-  CHECK( 2. == Approx( chunk.imaginary()[0] ) );
-  CHECK( 1. == Approx( chunk.imaginary()[1] ) );
-  CHECK( 1. == Approx( chunk.RB()[0].real() ) );
-  CHECK( 2. == Approx( chunk.RB()[1].real() ) );
-  CHECK( 2. == Approx( chunk.RB()[0].imag() ) );
-  CHECK( 1. == Approx( chunk.RB()[1].imag() ) );
-  CHECK( 1. == Approx( chunk.rmatrix()[0].real() ) );
-  CHECK( 2. == Approx( chunk.rmatrix()[1].real() ) );
-  CHECK( 2. == Approx( chunk.rmatrix()[0].imag() ) );
-  CHECK( 1. == Approx( chunk.rmatrix()[1].imag() ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.E()[0] ) );
+  CHECK_THAT( 2e+7, WithinRel( chunk.E()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.energies()[0] ) );
+  CHECK_THAT( 2e+7, WithinRel( chunk.energies()[1] ) );
+  CHECK_THAT( 1., WithinRel( chunk.RBR()[0] ) );
+  CHECK_THAT( 2., WithinRel( chunk.RBR()[1] ) );
+  CHECK_THAT( 1., WithinRel( chunk.real()[0] ) );
+  CHECK_THAT( 2., WithinRel( chunk.real()[1] ) );
+  CHECK_THAT( 2., WithinRel( chunk.RBI()[0] ) );
+  CHECK_THAT( 1., WithinRel( chunk.RBI()[1] ) );
+  CHECK_THAT( 2., WithinRel( chunk.imaginary()[0] ) );
+  CHECK_THAT( 1., WithinRel( chunk.imaginary()[1] ) );
+  CHECK_THAT( 1., WithinRel( chunk.RB()[0].real() ) );
+  CHECK_THAT( 2., WithinRel( chunk.RB()[1].real() ) );
+  CHECK_THAT( 2., WithinRel( chunk.RB()[0].imag() ) );
+  CHECK_THAT( 1., WithinRel( chunk.RB()[1].imag() ) );
+  CHECK_THAT( 1., WithinRel( chunk.rmatrix()[0].real() ) );
+  CHECK_THAT( 2., WithinRel( chunk.rmatrix()[1].real() ) );
+  CHECK_THAT( 2., WithinRel( chunk.rmatrix()[0].imag() ) );
+  CHECK_THAT( 1., WithinRel( chunk.rmatrix()[1].imag() ) );
 
   CHECK( 7 == chunk.NC() );
 }
