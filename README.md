@@ -3,9 +3,12 @@
 # ENDFtk
 Toolkit for reading and interacting with ENDF-6 formatted files. This toolkit provides a full C++ library along with python bindings.
 
-## ENDFtk in python
+## Release and development versions
+For the latest version of ENDFtk and an overview of the latest changes, please see the [Release Notes](ReleaseNotes.md) or the [release](https://github.com/njoy/ENDFtk/releases) page.
 
-The python bindings for ENDFtk are still work in progress and should be used accordingly. Please report any issues encountered while using the python bindings using the issue tracker on this repository.
+The latest release version of ENDFtk can always be found at the head of the [main](https://github.com/njoy/ENDFtk) branch of this repository and every release is associated to a release tag. New versions are released on a regular basis (we aim to provide updates at least every three months). The latest development version of ENDFtk containing the latest updates and changes can be found in at the head of the [develop](https://github.com/njoy/ENDFtk/tree/develop) branch. This development version should be used with caution.
+
+## ENDFtk in python
 
 ### Installing ENDFtk for python
 
