@@ -4,6 +4,7 @@
 // system includes
 
 // other includes
+#include "ENDFtk/macros.hpp"
 #include "range/v3/view/drop_exactly.hpp"
 #include "range/v3/view/stride.hpp"
 #include "ENDFtk/ControlRecord.hpp"
@@ -19,7 +20,7 @@ namespace section{
  *
  *  See ENDF102, section 33.2 for more information.
  */
-class DerivedRedundant {
+class PYTHON_EXPORT DerivedRedundant {
 
    /* fields */
    ListRecord list_;

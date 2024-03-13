@@ -4,6 +4,7 @@
 // system includes
 
 // other includes
+#include "ENDFtk/macros.hpp"
 #include "range/v3/range/conversion.hpp"
 #include "range/v3/view/concat.hpp"
 #include "range/v3/view/drop_exactly.hpp"
@@ -20,7 +21,7 @@ namespace section{
  *
  *  See ENDF102, section 33.2 for more information.
  */
-class RectangularMatrix : protected ListRecord {
+class PYTHON_EXPORT RectangularMatrix : protected ListRecord {
 
   #include "ENDFtk/section/RectangularMatrix/src/verifyLB.hpp"
   #include "ENDFtk/section/RectangularMatrix/src/verifySize.hpp"

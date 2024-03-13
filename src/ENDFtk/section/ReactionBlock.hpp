@@ -5,6 +5,7 @@
 #include <vector>
 
 // other includes
+#include "ENDFtk/macros.hpp"
 #include "range/v3/view/all.hpp"
 #include "ENDFtk/section/CovariancePairs.hpp"
 #include "ENDFtk/section/SquareMatrix.hpp"
@@ -29,7 +30,7 @@ namespace section{
  *
  *  See ENDF102, section 33.2 for more information.
  */
-class ReactionBlock {
+class PYTHON_EXPORT ReactionBlock {
 
   /* fields */
   int xmf1_;

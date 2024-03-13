@@ -4,6 +4,7 @@
 // system includes
 
 // other includes
+#include "ENDFtk/macros.hpp"
 #include "range/v3/range/conversion.hpp"
 #include "range/v3/view/concat.hpp"
 #include "range/v3/view/drop_exactly.hpp"
@@ -20,7 +21,7 @@ namespace section{
  *
  *  See ENDF102, section 33.2 for more information.
  */
-class SquareMatrix : protected ListRecord {
+class PYTHON_EXPORT SquareMatrix : protected ListRecord {
 
   #include "ENDFtk/section/SquareMatrix/src/verifyLB.hpp"
   #include "ENDFtk/section/SquareMatrix/src/verifySize.hpp"
