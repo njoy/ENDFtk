@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/40.hpp"
 
 // other includes
@@ -33,7 +36,7 @@ SCENARIO( "section::Type< 40 >" ) {
               { SquareMatrix( 0, { 0, 100, 200 }, { 1, 2, 3, 4 } ) } ) } );
 
       // Section
-      auto chunk = section::Type< 40 >( 51, 94239., 2.369986e+2, 1.0, {block} );
+      auto chunk = section::Type< 40 >( 51, 94239, 2.369986e+2, 1.0, {block} );
 
       THEN( "a ReactionBlock can be constructed "
             "and members can be tested" ) {
@@ -147,9 +150,12 @@ std::string invalidSEND() {
 void verifyChunk( const section::Type< 40 >& chunk ) {
 
   // HEAD record
-  CHECK( 94239. == Approx( chunk.ZA() ) );
-  CHECK( 2.369986e+2 == Approx( chunk.AWR() ) );
-  CHECK( 2.369986e+2 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 51 == chunk.MT() );
+  CHECK( 51 == chunk.sectionNumber() );
+  CHECK( 94239 == chunk.ZA() );
+  CHECK( 94239 == chunk.targetIdentifier() );
+  CHECK_THAT( 2.369986e+2, WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 2.369986e+2, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 1 == chunk.LIS() );
   CHECK( 1 == chunk.excitedLevel() );
 
@@ -162,10 +168,10 @@ void verifyChunk( const section::Type< 40 >& chunk ) {
   auto sub = chunk.levelBlocks()[0];
 
   // LevelBlock CONT record
-  CHECK( 3.14 == Approx( sub.QM() ) );
-  CHECK( 3.14 == Approx( sub.massDifferenceQValue() ) );
-  CHECK( 6.28 == Approx( sub.QI() ) );
-  CHECK( 6.28 == Approx( sub.reactionQValue() ) );
+  CHECK_THAT( 3.14, WithinRel( sub.QM() ) );
+  CHECK_THAT( 3.14, WithinRel( sub.massDifferenceQValue() ) );
+  CHECK_THAT( 6.28, WithinRel( sub.QI() ) );
+  CHECK_THAT( 6.28, WithinRel( sub.reactionQValue() ) );
   CHECK( 314 == sub.IZAP() );
   CHECK( 314 == sub.productIdentifier() );
   CHECK( 628 == sub.LFS() );
@@ -173,14 +179,21 @@ void verifyChunk( const section::Type< 40 >& chunk ) {
   CHECK( 2 == sub.NL() );
   CHECK( 2 == sub.numberReactions() );
 
-  auto stuff = sub.reactionBlocks()[1];
+  auto block1 = sub.reactionBlocks()[0];
 
   // ReactionBlock CONT record
-  CHECK( 3.0 == Approx(stuff.XMF1() ) );
-  CHECK( 1.0 == Approx(stuff.XLFS1() ) );
-  CHECK( 77 == stuff.MAT1() );
-  CHECK( 88 == stuff.MT1() );
+  CHECK( 3 == block1.XMF1() );
+  CHECK( 1 == block1.XLFS1() );
+  CHECK( 55 == block1.MAT1() );
+  CHECK( 66 == block1.MT1() );
+
+  auto block2 = sub.reactionBlocks()[1];
+
+  // ReactionBlock CONT record
+  CHECK( 3 == block2.XMF1() );
+  CHECK( 1 == block2.XLFS1() );
+  CHECK( 77 == block2.MAT1() );
+  CHECK( 88 == block2.MT1() );
 
   CHECK( 10 == chunk.NC() );
-
 }

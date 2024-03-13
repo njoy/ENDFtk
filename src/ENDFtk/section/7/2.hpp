@@ -86,8 +86,9 @@ namespace section{
 
     using BaseWithoutMT::MT;
     using BaseWithoutMT::ZA;
-    using BaseWithoutMT::atomicWeightRatio;
+    using BaseWithoutMT::targetIdentifier;
     using BaseWithoutMT::AWR;
+    using BaseWithoutMT::atomicWeightRatio;
   };
 
 } // section namespace

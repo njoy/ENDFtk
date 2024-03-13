@@ -1,6 +1,7 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/TapeIdentification.hpp"
 
 // other includes
@@ -35,7 +36,7 @@ SCENARIO( "TapeIdentification" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 1, 0, 0 );
 
-        REQUIRE( buffer == record );
+        CHECK( buffer == record );
       } // THEN
     } // WHEN
 
@@ -59,7 +60,7 @@ SCENARIO( "TapeIdentification" ) {
         auto output = std::back_inserter( buffer );
         chunk.print( output, 1, 0, 0 );
 
-        REQUIRE( buffer == record );
+        CHECK( buffer == record );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -74,16 +75,16 @@ SCENARIO( "TapeIdentification" ) {
       auto begin = ID.begin();
       auto end = ID.end();
 
-      REQUIRE_THROWS( TapeIdentification( begin, end, lineNumber ) );
+      CHECK_THROWS( TapeIdentification( begin, end, lineNumber ) );
     }
   }
 }
 
 void verifyChunk( const TapeIdentification& chunk ) {
 
-  REQUIRE( " $Rev:: 1056     $  $Date:: 2017-01-26#$                          "
+  CHECK( " $Rev:: 1056     $  $Date:: 2017-01-26#$                          "
            == chunk.text() );
-  REQUIRE( 1 == chunk.tapeNumber() );
-  REQUIRE( 1 == chunk.NTAPE() );
-  REQUIRE( 1 == chunk.NC() );
+  CHECK( 1 == chunk.tapeNumber() );
+  CHECK( 1 == chunk.NTAPE() );
+  CHECK( 1 == chunk.NC() );
 }

@@ -14,7 +14,7 @@ Type() = default;
  *  @param[in] awr           the atomic weight ratio
  *  @param[in] partials      the partial distributions (at least 1)
  */
-Type( int mt, double zaid, double awr,
+Type( int mt, int zaid, double awr,
       std::vector< PartialDistribution >&& partials ) :
   Base( zaid, awr, mt ), partials_( std::move( partials ) ) {
 

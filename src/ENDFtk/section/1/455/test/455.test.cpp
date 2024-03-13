@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/1/455.hpp"
 
 // other includes
@@ -445,8 +448,9 @@ void verifyChunkWithLDG0LNU1( const section::Type< 1, 455 >& chunk ) {
   CHECK( 455 == chunk.MT() );
   CHECK( 455 == chunk.sectionNumber() );
   CHECK( 92235 == chunk.ZA() );
-  CHECK( 233.0248 == Approx( chunk.atomicWeightRatio() ) );
-  CHECK( 233.0248 == Approx( chunk.AWR() ) );
+  CHECK( 92235 == chunk.targetIdentifier() );
+  CHECK_THAT( 233.0248, WithinRel( chunk.atomicWeightRatio() ) );
+  CHECK_THAT( 233.0248, WithinRel( chunk.AWR() ) );
   CHECK( 1 == chunk.LNU() );
   CHECK( 1 == chunk.representation() );
   CHECK( 0 == chunk.LDG() );
@@ -461,18 +465,18 @@ void verifyChunkWithLDG0LNU1( const section::Type< 1, 455 >& chunk ) {
 
   CHECK( 6 == constants.lambdas().size() );
   CHECK( 6 == constants.decayConstants().size() );
-  CHECK( 0.013336 == Approx( constants.lambdas()[0] ) );
-  CHECK( 0.032739 == Approx( constants.lambdas()[1] ) );
-  CHECK( 0.12078 == Approx( constants.lambdas()[2] ) );
-  CHECK( 0.30278 == Approx( constants.lambdas()[3] ) );
-  CHECK( 0.84949 == Approx( constants.lambdas()[4] ) );
-  CHECK( 2.853000 == Approx( constants.lambdas()[5] ) );
-  CHECK( 0.013336 == Approx( constants.decayConstants()[0] ) );
-  CHECK( 0.032739 == Approx( constants.decayConstants()[1] ) );
-  CHECK( 0.12078 == Approx( constants.decayConstants()[2] ) );
-  CHECK( 0.30278 == Approx( constants.decayConstants()[3] ) );
-  CHECK( 0.84949 == Approx( constants.decayConstants()[4] ) );
-  CHECK( 2.853000 == Approx( constants.decayConstants()[5] ) );
+  CHECK_THAT( 0.013336, WithinRel( constants.lambdas()[0] ) );
+  CHECK_THAT( 0.032739, WithinRel( constants.lambdas()[1] ) );
+  CHECK_THAT( 0.12078, WithinRel( constants.lambdas()[2] ) );
+  CHECK_THAT( 0.30278, WithinRel( constants.lambdas()[3] ) );
+  CHECK_THAT( 0.84949, WithinRel( constants.lambdas()[4] ) );
+  CHECK_THAT( 2.853000, WithinRel( constants.lambdas()[5] ) );
+  CHECK_THAT( 0.013336, WithinRel( constants.decayConstants()[0] ) );
+  CHECK_THAT( 0.032739, WithinRel( constants.decayConstants()[1] ) );
+  CHECK_THAT( 0.12078, WithinRel( constants.decayConstants()[2] ) );
+  CHECK_THAT( 0.30278, WithinRel( constants.decayConstants()[3] ) );
+  CHECK_THAT( 0.84949, WithinRel( constants.decayConstants()[4] ) );
+  CHECK_THAT( 2.853000, WithinRel( constants.decayConstants()[5] ) );
 
   decltype(auto) nubar = std::get< PolynomialMultiplicity >( chunk.nubar() );
 
@@ -483,10 +487,10 @@ void verifyChunkWithLDG0LNU1( const section::Type< 1, 455 >& chunk ) {
   CHECK( 2 == nubar.numberCoefficients() );
   CHECK( 2 == nubar.C().size() );
   CHECK( 2 == nubar.coefficients().size() );
-  CHECK( 2.4367 == Approx( nubar.C()[0] ) );
-  CHECK( 5e-2 == Approx( nubar.C()[1] ) );
-  CHECK( 2.4367 == Approx( nubar.coefficients()[0] ) );
-  CHECK( 5e-2 == Approx( nubar.coefficients()[1] ) );
+  CHECK_THAT( 2.4367, WithinRel( nubar.C()[0] ) );
+  CHECK_THAT( 5e-2, WithinRel( nubar.C()[1] ) );
+  CHECK_THAT( 2.4367, WithinRel( nubar.coefficients()[0] ) );
+  CHECK_THAT( 5e-2, WithinRel( nubar.coefficients()[1] ) );
 
   CHECK( 5 == chunk.NC() );
 }
@@ -507,8 +511,9 @@ void verifyChunkWithLDG0LNU2( const section::Type< 1, 455 >& chunk ) {
   CHECK( 455 == chunk.MT() );
   CHECK( 455 == chunk.sectionNumber() );
   CHECK( 92235 == chunk.ZA() );
-  CHECK( 233.0248 == Approx( chunk.atomicWeightRatio() ) );
-  CHECK( 233.0248 == Approx( chunk.AWR() ) );
+  CHECK( 92235 == chunk.targetIdentifier() );
+  CHECK_THAT( 233.0248, WithinRel( chunk.atomicWeightRatio() ) );
+  CHECK_THAT( 233.0248, WithinRel( chunk.AWR() ) );
   CHECK( 2 == chunk.LNU() );
   CHECK( 2 == chunk.representation() );
   CHECK( 0 == chunk.LDG() );
@@ -523,18 +528,18 @@ void verifyChunkWithLDG0LNU2( const section::Type< 1, 455 >& chunk ) {
 
   CHECK( 6 == constants.lambdas().size() );
   CHECK( 6 == constants.decayConstants().size() );
-  CHECK( 0.013336 == Approx( constants.lambdas()[0] ) );
-  CHECK( 0.032739 == Approx( constants.lambdas()[1] ) );
-  CHECK( 0.12078 == Approx( constants.lambdas()[2] ) );
-  CHECK( 0.30278 == Approx( constants.lambdas()[3] ) );
-  CHECK( 0.84949 == Approx( constants.lambdas()[4] ) );
-  CHECK( 2.853000 == Approx( constants.lambdas()[5] ) );
-  CHECK( 0.013336 == Approx( constants.decayConstants()[0] ) );
-  CHECK( 0.032739 == Approx( constants.decayConstants()[1] ) );
-  CHECK( 0.12078 == Approx( constants.decayConstants()[2] ) );
-  CHECK( 0.30278 == Approx( constants.decayConstants()[3] ) );
-  CHECK( 0.84949 == Approx( constants.decayConstants()[4] ) );
-  CHECK( 2.853000 == Approx( constants.decayConstants()[5] ) );
+  CHECK_THAT( 0.013336, WithinRel( constants.lambdas()[0] ) );
+  CHECK_THAT( 0.032739, WithinRel( constants.lambdas()[1] ) );
+  CHECK_THAT( 0.12078, WithinRel( constants.lambdas()[2] ) );
+  CHECK_THAT( 0.30278, WithinRel( constants.lambdas()[3] ) );
+  CHECK_THAT( 0.84949, WithinRel( constants.lambdas()[4] ) );
+  CHECK_THAT( 2.853000, WithinRel( constants.lambdas()[5] ) );
+  CHECK_THAT( 0.013336, WithinRel( constants.decayConstants()[0] ) );
+  CHECK_THAT( 0.032739, WithinRel( constants.decayConstants()[1] ) );
+  CHECK_THAT( 0.12078, WithinRel( constants.decayConstants()[2] ) );
+  CHECK_THAT( 0.30278, WithinRel( constants.decayConstants()[3] ) );
+  CHECK_THAT( 0.84949, WithinRel( constants.decayConstants()[4] ) );
+  CHECK_THAT( 2.853000, WithinRel( constants.decayConstants()[5] ) );
 
   decltype(auto) nubar = std::get< TabulatedMultiplicity >( chunk.nubar() );
 
@@ -552,22 +557,22 @@ void verifyChunkWithLDG0LNU2( const section::Type< 1, 455 >& chunk ) {
   CHECK( 4 == nubar.energies().size() );
   CHECK( 4 == nubar.NU().size() );
   CHECK( 4 == nubar.multiplicities().size() );
-  CHECK( 1e-5 == Approx( nubar.E()[0] ) );
-  CHECK( 0.0253 == Approx( nubar.E()[1] ) );
-  CHECK( 0.05 == Approx( nubar.E()[2] ) );
-  CHECK( 2e+7 == Approx( nubar.E()[3] ) );
-  CHECK( 1e-5 == Approx( nubar.energies()[0] ) );
-  CHECK( 0.0253 == Approx( nubar.energies()[1] ) );
-  CHECK( 0.05 == Approx( nubar.energies()[2] ) );
-  CHECK( 2e+7 == Approx( nubar.energies()[3] ) );
-  CHECK( 2.4367 == Approx( nubar.NU()[0] ) );
-  CHECK( 2.4367 == Approx( nubar.NU()[1] ) );
-  CHECK( 2.4367 == Approx( nubar.NU()[2] ) );
-  CHECK( 5.209845 == Approx( nubar.NU()[3] ) );
-  CHECK( 2.4367 == Approx( nubar.multiplicities()[0] ) );
-  CHECK( 2.4367 == Approx( nubar.multiplicities()[1] ) );
-  CHECK( 2.4367 == Approx( nubar.multiplicities()[2] ) );
-  CHECK( 5.209845 == Approx( nubar.multiplicities()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( nubar.E()[0] ) );
+  CHECK_THAT( 0.0253, WithinRel( nubar.E()[1] ) );
+  CHECK_THAT( 0.05, WithinRel( nubar.E()[2] ) );
+  CHECK_THAT( 2e+7, WithinRel( nubar.E()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( nubar.energies()[0] ) );
+  CHECK_THAT( 0.0253, WithinRel( nubar.energies()[1] ) );
+  CHECK_THAT( 0.05, WithinRel( nubar.energies()[2] ) );
+  CHECK_THAT( 2e+7, WithinRel( nubar.energies()[3] ) );
+  CHECK_THAT( 2.4367, WithinRel( nubar.NU()[0] ) );
+  CHECK_THAT( 2.4367, WithinRel( nubar.NU()[1] ) );
+  CHECK_THAT( 2.4367, WithinRel( nubar.NU()[2] ) );
+  CHECK_THAT( 5.209845, WithinRel( nubar.NU()[3] ) );
+  CHECK_THAT( 2.4367, WithinRel( nubar.multiplicities()[0] ) );
+  CHECK_THAT( 2.4367, WithinRel( nubar.multiplicities()[1] ) );
+  CHECK_THAT( 2.4367, WithinRel( nubar.multiplicities()[2] ) );
+  CHECK_THAT( 5.209845, WithinRel( nubar.multiplicities()[3] ) );
 
   CHECK( 7 == chunk.NC() );
 }
@@ -592,8 +597,9 @@ void verifyChunkWithLDG1LNU1( const section::Type< 1, 455 >& chunk ) {
   CHECK( 455 == chunk.MT() );
   CHECK( 455 == chunk.sectionNumber() );
   CHECK( 92235 == chunk.ZA() );
-  CHECK( 233.0248 == Approx( chunk.atomicWeightRatio() ) );
-  CHECK( 233.0248 == Approx( chunk.AWR() ) );
+  CHECK( 92235 == chunk.targetIdentifier() );
+  CHECK_THAT( 233.0248, WithinRel( chunk.atomicWeightRatio() ) );
+  CHECK_THAT( 233.0248, WithinRel( chunk.AWR() ) );
   CHECK( 1 == chunk.LNU() );
   CHECK( 1 == chunk.representation() );
   CHECK( 1 == chunk.LDG() );
@@ -614,68 +620,68 @@ void verifyChunkWithLDG1LNU1( const section::Type< 1, 455 >& chunk ) {
   CHECK( 2 == constants.boundaries()[0] );
 
   CHECK( 2 == constants.constants().size() );
-  CHECK( 1e-5 == Approx( constants.constants()[0].incidentEnergy() ) );
-  CHECK( 2e+7 == Approx( constants.constants()[1].incidentEnergy() ) );
+  CHECK_THAT( 1e-5, WithinRel( constants.constants()[0].incidentEnergy() ) );
+  CHECK_THAT( 2e+7, WithinRel( constants.constants()[1].incidentEnergy() ) );
 
   CHECK( 6 == constants.constants()[0].lambdas().size() );
   CHECK( 6 == constants.constants()[0].decayConstants().size() );
-  CHECK( 1. == Approx( constants.constants()[0].lambdas()[0] ) );
-  CHECK( 2. == Approx( constants.constants()[0].lambdas()[1] ) );
-  CHECK( 3. == Approx( constants.constants()[0].lambdas()[2] ) );
-  CHECK( 4. == Approx( constants.constants()[0].lambdas()[3] ) );
-  CHECK( 5. == Approx( constants.constants()[0].lambdas()[4] ) );
-  CHECK( 6. == Approx( constants.constants()[0].lambdas()[5] ) );
-  CHECK( 1. == Approx( constants.constants()[0].decayConstants()[0] ) );
-  CHECK( 2. == Approx( constants.constants()[0].decayConstants()[1] ) );
-  CHECK( 3. == Approx( constants.constants()[0].decayConstants()[2] ) );
-  CHECK( 4. == Approx( constants.constants()[0].decayConstants()[3] ) );
-  CHECK( 5. == Approx( constants.constants()[0].decayConstants()[4] ) );
-  CHECK( 6. == Approx( constants.constants()[0].decayConstants()[5] ) );
+  CHECK_THAT( 1., WithinRel( constants.constants()[0].lambdas()[0] ) );
+  CHECK_THAT( 2., WithinRel( constants.constants()[0].lambdas()[1] ) );
+  CHECK_THAT( 3., WithinRel( constants.constants()[0].lambdas()[2] ) );
+  CHECK_THAT( 4., WithinRel( constants.constants()[0].lambdas()[3] ) );
+  CHECK_THAT( 5., WithinRel( constants.constants()[0].lambdas()[4] ) );
+  CHECK_THAT( 6., WithinRel( constants.constants()[0].lambdas()[5] ) );
+  CHECK_THAT( 1., WithinRel( constants.constants()[0].decayConstants()[0] ) );
+  CHECK_THAT( 2., WithinRel( constants.constants()[0].decayConstants()[1] ) );
+  CHECK_THAT( 3., WithinRel( constants.constants()[0].decayConstants()[2] ) );
+  CHECK_THAT( 4., WithinRel( constants.constants()[0].decayConstants()[3] ) );
+  CHECK_THAT( 5., WithinRel( constants.constants()[0].decayConstants()[4] ) );
+  CHECK_THAT( 6., WithinRel( constants.constants()[0].decayConstants()[5] ) );
 
   CHECK( 6 == constants.constants()[1].lambdas().size() );
   CHECK( 6 == constants.constants()[1].decayConstants().size() );
-  CHECK( 6. == Approx( constants.constants()[1].lambdas()[0] ) );
-  CHECK( 5. == Approx( constants.constants()[1].lambdas()[1] ) );
-  CHECK( 4. == Approx( constants.constants()[1].lambdas()[2] ) );
-  CHECK( 3. == Approx( constants.constants()[1].lambdas()[3] ) );
-  CHECK( 2. == Approx( constants.constants()[1].lambdas()[4] ) );
-  CHECK( 1. == Approx( constants.constants()[1].lambdas()[5] ) );
-  CHECK( 6. == Approx( constants.constants()[1].decayConstants()[0] ) );
-  CHECK( 5. == Approx( constants.constants()[1].decayConstants()[1] ) );
-  CHECK( 4. == Approx( constants.constants()[1].decayConstants()[2] ) );
-  CHECK( 3. == Approx( constants.constants()[1].decayConstants()[3] ) );
-  CHECK( 2. == Approx( constants.constants()[1].decayConstants()[4] ) );
-  CHECK( 1. == Approx( constants.constants()[1].decayConstants()[5] ) );
+  CHECK_THAT( 6., WithinRel( constants.constants()[1].lambdas()[0] ) );
+  CHECK_THAT( 5., WithinRel( constants.constants()[1].lambdas()[1] ) );
+  CHECK_THAT( 4., WithinRel( constants.constants()[1].lambdas()[2] ) );
+  CHECK_THAT( 3., WithinRel( constants.constants()[1].lambdas()[3] ) );
+  CHECK_THAT( 2., WithinRel( constants.constants()[1].lambdas()[4] ) );
+  CHECK_THAT( 1., WithinRel( constants.constants()[1].lambdas()[5] ) );
+  CHECK_THAT( 6., WithinRel( constants.constants()[1].decayConstants()[0] ) );
+  CHECK_THAT( 5., WithinRel( constants.constants()[1].decayConstants()[1] ) );
+  CHECK_THAT( 4., WithinRel( constants.constants()[1].decayConstants()[2] ) );
+  CHECK_THAT( 3., WithinRel( constants.constants()[1].decayConstants()[3] ) );
+  CHECK_THAT( 2., WithinRel( constants.constants()[1].decayConstants()[4] ) );
+  CHECK_THAT( 1., WithinRel( constants.constants()[1].decayConstants()[5] ) );
 
   CHECK( 6 == constants.constants()[0].alphas().size() );
   CHECK( 6 == constants.constants()[0].abundances().size() );
-  CHECK( 1.1 == Approx( constants.constants()[0].alphas()[0] ) );
-  CHECK( 2.1 == Approx( constants.constants()[0].alphas()[1] ) );
-  CHECK( 3.1 == Approx( constants.constants()[0].alphas()[2] ) );
-  CHECK( 4.1 == Approx( constants.constants()[0].alphas()[3] ) );
-  CHECK( 5.1 == Approx( constants.constants()[0].alphas()[4] ) );
-  CHECK( 6.1 == Approx( constants.constants()[0].alphas()[5] ) );
-  CHECK( 1.1 == Approx( constants.constants()[0].abundances()[0] ) );
-  CHECK( 2.1 == Approx( constants.constants()[0].abundances()[1] ) );
-  CHECK( 3.1 == Approx( constants.constants()[0].abundances()[2] ) );
-  CHECK( 4.1 == Approx( constants.constants()[0].abundances()[3] ) );
-  CHECK( 5.1 == Approx( constants.constants()[0].abundances()[4] ) );
-  CHECK( 6.1 == Approx( constants.constants()[0].abundances()[5] ) );
+  CHECK_THAT( 1.1, WithinRel( constants.constants()[0].alphas()[0] ) );
+  CHECK_THAT( 2.1, WithinRel( constants.constants()[0].alphas()[1] ) );
+  CHECK_THAT( 3.1, WithinRel( constants.constants()[0].alphas()[2] ) );
+  CHECK_THAT( 4.1, WithinRel( constants.constants()[0].alphas()[3] ) );
+  CHECK_THAT( 5.1, WithinRel( constants.constants()[0].alphas()[4] ) );
+  CHECK_THAT( 6.1, WithinRel( constants.constants()[0].alphas()[5] ) );
+  CHECK_THAT( 1.1, WithinRel( constants.constants()[0].abundances()[0] ) );
+  CHECK_THAT( 2.1, WithinRel( constants.constants()[0].abundances()[1] ) );
+  CHECK_THAT( 3.1, WithinRel( constants.constants()[0].abundances()[2] ) );
+  CHECK_THAT( 4.1, WithinRel( constants.constants()[0].abundances()[3] ) );
+  CHECK_THAT( 5.1, WithinRel( constants.constants()[0].abundances()[4] ) );
+  CHECK_THAT( 6.1, WithinRel( constants.constants()[0].abundances()[5] ) );
 
   CHECK( 6 == constants.constants()[1].alphas().size() );
   CHECK( 6 == constants.constants()[1].abundances().size() );
-  CHECK( 6.1 == Approx( constants.constants()[1].alphas()[0] ) );
-  CHECK( 5.1 == Approx( constants.constants()[1].alphas()[1] ) );
-  CHECK( 4.1 == Approx( constants.constants()[1].alphas()[2] ) );
-  CHECK( 3.1 == Approx( constants.constants()[1].alphas()[3] ) );
-  CHECK( 2.1 == Approx( constants.constants()[1].alphas()[4] ) );
-  CHECK( 1.1 == Approx( constants.constants()[1].alphas()[5] ) );
-  CHECK( 6.1 == Approx( constants.constants()[1].abundances()[0] ) );
-  CHECK( 5.1 == Approx( constants.constants()[1].abundances()[1] ) );
-  CHECK( 4.1 == Approx( constants.constants()[1].abundances()[2] ) );
-  CHECK( 3.1 == Approx( constants.constants()[1].abundances()[3] ) );
-  CHECK( 2.1 == Approx( constants.constants()[1].abundances()[4] ) );
-  CHECK( 1.1 == Approx( constants.constants()[1].abundances()[5] ) );
+  CHECK_THAT( 6.1, WithinRel( constants.constants()[1].alphas()[0] ) );
+  CHECK_THAT( 5.1, WithinRel( constants.constants()[1].alphas()[1] ) );
+  CHECK_THAT( 4.1, WithinRel( constants.constants()[1].alphas()[2] ) );
+  CHECK_THAT( 3.1, WithinRel( constants.constants()[1].alphas()[3] ) );
+  CHECK_THAT( 2.1, WithinRel( constants.constants()[1].alphas()[4] ) );
+  CHECK_THAT( 1.1, WithinRel( constants.constants()[1].alphas()[5] ) );
+  CHECK_THAT( 6.1, WithinRel( constants.constants()[1].abundances()[0] ) );
+  CHECK_THAT( 5.1, WithinRel( constants.constants()[1].abundances()[1] ) );
+  CHECK_THAT( 4.1, WithinRel( constants.constants()[1].abundances()[2] ) );
+  CHECK_THAT( 3.1, WithinRel( constants.constants()[1].abundances()[3] ) );
+  CHECK_THAT( 2.1, WithinRel( constants.constants()[1].abundances()[4] ) );
+  CHECK_THAT( 1.1, WithinRel( constants.constants()[1].abundances()[5] ) );
 
   decltype(auto) nubar = std::get< PolynomialMultiplicity >( chunk.nubar() );
 
@@ -686,10 +692,10 @@ void verifyChunkWithLDG1LNU1( const section::Type< 1, 455 >& chunk ) {
   CHECK( 2 == nubar.numberCoefficients() );
   CHECK( 2 == nubar.C().size() );
   CHECK( 2 == nubar.coefficients().size() );
-  CHECK( 2.4367 == Approx( nubar.C()[0] ) );
-  CHECK( 5e-2 == Approx( nubar.C()[1] ) );
-  CHECK( 2.4367 == Approx( nubar.coefficients()[0] ) );
-  CHECK( 5e-2 == Approx( nubar.coefficients()[1] ) );
+  CHECK_THAT( 2.4367, WithinRel( nubar.C()[0] ) );
+  CHECK_THAT( 5e-2, WithinRel( nubar.C()[1] ) );
+  CHECK_THAT( 2.4367, WithinRel( nubar.coefficients()[0] ) );
+  CHECK_THAT( 5e-2, WithinRel( nubar.coefficients()[1] ) );
 
   CHECK( 11 == chunk.NC() );
 }
@@ -716,8 +722,9 @@ void verifyChunkWithLDG1LNU2( const section::Type< 1, 455 >& chunk ) {
   CHECK( 455 == chunk.MT() );
   CHECK( 455 == chunk.sectionNumber() );
   CHECK( 92235 == chunk.ZA() );
-  CHECK( 233.0248 == Approx( chunk.atomicWeightRatio() ) );
-  CHECK( 233.0248 == Approx( chunk.AWR() ) );
+  CHECK( 92235 == chunk.targetIdentifier() );
+  CHECK_THAT( 233.0248, WithinRel( chunk.atomicWeightRatio() ) );
+  CHECK_THAT( 233.0248, WithinRel( chunk.AWR() ) );
   CHECK( 2 == chunk.LNU() );
   CHECK( 2 == chunk.representation() );
   CHECK( 1 == chunk.LDG() );
@@ -738,68 +745,68 @@ void verifyChunkWithLDG1LNU2( const section::Type< 1, 455 >& chunk ) {
   CHECK( 2 == constants.boundaries()[0] );
 
   CHECK( 2 == constants.constants().size() );
-  CHECK( 1e-5 == Approx( constants.constants()[0].incidentEnergy() ) );
-  CHECK( 2e+7 == Approx( constants.constants()[1].incidentEnergy() ) );
+  CHECK_THAT( 1e-5, WithinRel( constants.constants()[0].incidentEnergy() ) );
+  CHECK_THAT( 2e+7, WithinRel( constants.constants()[1].incidentEnergy() ) );
 
   CHECK( 6 == constants.constants()[0].lambdas().size() );
   CHECK( 6 == constants.constants()[0].decayConstants().size() );
-  CHECK( 1. == Approx( constants.constants()[0].lambdas()[0] ) );
-  CHECK( 2. == Approx( constants.constants()[0].lambdas()[1] ) );
-  CHECK( 3. == Approx( constants.constants()[0].lambdas()[2] ) );
-  CHECK( 4. == Approx( constants.constants()[0].lambdas()[3] ) );
-  CHECK( 5. == Approx( constants.constants()[0].lambdas()[4] ) );
-  CHECK( 6. == Approx( constants.constants()[0].lambdas()[5] ) );
-  CHECK( 1. == Approx( constants.constants()[0].decayConstants()[0] ) );
-  CHECK( 2. == Approx( constants.constants()[0].decayConstants()[1] ) );
-  CHECK( 3. == Approx( constants.constants()[0].decayConstants()[2] ) );
-  CHECK( 4. == Approx( constants.constants()[0].decayConstants()[3] ) );
-  CHECK( 5. == Approx( constants.constants()[0].decayConstants()[4] ) );
-  CHECK( 6. == Approx( constants.constants()[0].decayConstants()[5] ) );
+  CHECK_THAT( 1., WithinRel( constants.constants()[0].lambdas()[0] ) );
+  CHECK_THAT( 2., WithinRel( constants.constants()[0].lambdas()[1] ) );
+  CHECK_THAT( 3., WithinRel( constants.constants()[0].lambdas()[2] ) );
+  CHECK_THAT( 4., WithinRel( constants.constants()[0].lambdas()[3] ) );
+  CHECK_THAT( 5., WithinRel( constants.constants()[0].lambdas()[4] ) );
+  CHECK_THAT( 6., WithinRel( constants.constants()[0].lambdas()[5] ) );
+  CHECK_THAT( 1., WithinRel( constants.constants()[0].decayConstants()[0] ) );
+  CHECK_THAT( 2., WithinRel( constants.constants()[0].decayConstants()[1] ) );
+  CHECK_THAT( 3., WithinRel( constants.constants()[0].decayConstants()[2] ) );
+  CHECK_THAT( 4., WithinRel( constants.constants()[0].decayConstants()[3] ) );
+  CHECK_THAT( 5., WithinRel( constants.constants()[0].decayConstants()[4] ) );
+  CHECK_THAT( 6., WithinRel( constants.constants()[0].decayConstants()[5] ) );
 
   CHECK( 6 == constants.constants()[1].lambdas().size() );
   CHECK( 6 == constants.constants()[1].decayConstants().size() );
-  CHECK( 6. == Approx( constants.constants()[1].lambdas()[0] ) );
-  CHECK( 5. == Approx( constants.constants()[1].lambdas()[1] ) );
-  CHECK( 4. == Approx( constants.constants()[1].lambdas()[2] ) );
-  CHECK( 3. == Approx( constants.constants()[1].lambdas()[3] ) );
-  CHECK( 2. == Approx( constants.constants()[1].lambdas()[4] ) );
-  CHECK( 1. == Approx( constants.constants()[1].lambdas()[5] ) );
-  CHECK( 6. == Approx( constants.constants()[1].decayConstants()[0] ) );
-  CHECK( 5. == Approx( constants.constants()[1].decayConstants()[1] ) );
-  CHECK( 4. == Approx( constants.constants()[1].decayConstants()[2] ) );
-  CHECK( 3. == Approx( constants.constants()[1].decayConstants()[3] ) );
-  CHECK( 2. == Approx( constants.constants()[1].decayConstants()[4] ) );
-  CHECK( 1. == Approx( constants.constants()[1].decayConstants()[5] ) );
+  CHECK_THAT( 6., WithinRel( constants.constants()[1].lambdas()[0] ) );
+  CHECK_THAT( 5., WithinRel( constants.constants()[1].lambdas()[1] ) );
+  CHECK_THAT( 4., WithinRel( constants.constants()[1].lambdas()[2] ) );
+  CHECK_THAT( 3., WithinRel( constants.constants()[1].lambdas()[3] ) );
+  CHECK_THAT( 2., WithinRel( constants.constants()[1].lambdas()[4] ) );
+  CHECK_THAT( 1., WithinRel( constants.constants()[1].lambdas()[5] ) );
+  CHECK_THAT( 6., WithinRel( constants.constants()[1].decayConstants()[0] ) );
+  CHECK_THAT( 5., WithinRel( constants.constants()[1].decayConstants()[1] ) );
+  CHECK_THAT( 4., WithinRel( constants.constants()[1].decayConstants()[2] ) );
+  CHECK_THAT( 3., WithinRel( constants.constants()[1].decayConstants()[3] ) );
+  CHECK_THAT( 2., WithinRel( constants.constants()[1].decayConstants()[4] ) );
+  CHECK_THAT( 1., WithinRel( constants.constants()[1].decayConstants()[5] ) );
 
   CHECK( 6 == constants.constants()[0].alphas().size() );
   CHECK( 6 == constants.constants()[0].abundances().size() );
-  CHECK( 1.1 == Approx( constants.constants()[0].alphas()[0] ) );
-  CHECK( 2.1 == Approx( constants.constants()[0].alphas()[1] ) );
-  CHECK( 3.1 == Approx( constants.constants()[0].alphas()[2] ) );
-  CHECK( 4.1 == Approx( constants.constants()[0].alphas()[3] ) );
-  CHECK( 5.1 == Approx( constants.constants()[0].alphas()[4] ) );
-  CHECK( 6.1 == Approx( constants.constants()[0].alphas()[5] ) );
-  CHECK( 1.1 == Approx( constants.constants()[0].abundances()[0] ) );
-  CHECK( 2.1 == Approx( constants.constants()[0].abundances()[1] ) );
-  CHECK( 3.1 == Approx( constants.constants()[0].abundances()[2] ) );
-  CHECK( 4.1 == Approx( constants.constants()[0].abundances()[3] ) );
-  CHECK( 5.1 == Approx( constants.constants()[0].abundances()[4] ) );
-  CHECK( 6.1 == Approx( constants.constants()[0].abundances()[5] ) );
+  CHECK_THAT( 1.1, WithinRel( constants.constants()[0].alphas()[0] ) );
+  CHECK_THAT( 2.1, WithinRel( constants.constants()[0].alphas()[1] ) );
+  CHECK_THAT( 3.1, WithinRel( constants.constants()[0].alphas()[2] ) );
+  CHECK_THAT( 4.1, WithinRel( constants.constants()[0].alphas()[3] ) );
+  CHECK_THAT( 5.1, WithinRel( constants.constants()[0].alphas()[4] ) );
+  CHECK_THAT( 6.1, WithinRel( constants.constants()[0].alphas()[5] ) );
+  CHECK_THAT( 1.1, WithinRel( constants.constants()[0].abundances()[0] ) );
+  CHECK_THAT( 2.1, WithinRel( constants.constants()[0].abundances()[1] ) );
+  CHECK_THAT( 3.1, WithinRel( constants.constants()[0].abundances()[2] ) );
+  CHECK_THAT( 4.1, WithinRel( constants.constants()[0].abundances()[3] ) );
+  CHECK_THAT( 5.1, WithinRel( constants.constants()[0].abundances()[4] ) );
+  CHECK_THAT( 6.1, WithinRel( constants.constants()[0].abundances()[5] ) );
 
   CHECK( 6 == constants.constants()[1].alphas().size() );
   CHECK( 6 == constants.constants()[1].abundances().size() );
-  CHECK( 6.1 == Approx( constants.constants()[1].alphas()[0] ) );
-  CHECK( 5.1 == Approx( constants.constants()[1].alphas()[1] ) );
-  CHECK( 4.1 == Approx( constants.constants()[1].alphas()[2] ) );
-  CHECK( 3.1 == Approx( constants.constants()[1].alphas()[3] ) );
-  CHECK( 2.1 == Approx( constants.constants()[1].alphas()[4] ) );
-  CHECK( 1.1 == Approx( constants.constants()[1].alphas()[5] ) );
-  CHECK( 6.1 == Approx( constants.constants()[1].abundances()[0] ) );
-  CHECK( 5.1 == Approx( constants.constants()[1].abundances()[1] ) );
-  CHECK( 4.1 == Approx( constants.constants()[1].abundances()[2] ) );
-  CHECK( 3.1 == Approx( constants.constants()[1].abundances()[3] ) );
-  CHECK( 2.1 == Approx( constants.constants()[1].abundances()[4] ) );
-  CHECK( 1.1 == Approx( constants.constants()[1].abundances()[5] ) );
+  CHECK_THAT( 6.1, WithinRel( constants.constants()[1].alphas()[0] ) );
+  CHECK_THAT( 5.1, WithinRel( constants.constants()[1].alphas()[1] ) );
+  CHECK_THAT( 4.1, WithinRel( constants.constants()[1].alphas()[2] ) );
+  CHECK_THAT( 3.1, WithinRel( constants.constants()[1].alphas()[3] ) );
+  CHECK_THAT( 2.1, WithinRel( constants.constants()[1].alphas()[4] ) );
+  CHECK_THAT( 1.1, WithinRel( constants.constants()[1].alphas()[5] ) );
+  CHECK_THAT( 6.1, WithinRel( constants.constants()[1].abundances()[0] ) );
+  CHECK_THAT( 5.1, WithinRel( constants.constants()[1].abundances()[1] ) );
+  CHECK_THAT( 4.1, WithinRel( constants.constants()[1].abundances()[2] ) );
+  CHECK_THAT( 3.1, WithinRel( constants.constants()[1].abundances()[3] ) );
+  CHECK_THAT( 2.1, WithinRel( constants.constants()[1].abundances()[4] ) );
+  CHECK_THAT( 1.1, WithinRel( constants.constants()[1].abundances()[5] ) );
 
   decltype(auto) nubar = std::get< TabulatedMultiplicity >( chunk.nubar() );
 
@@ -817,22 +824,22 @@ void verifyChunkWithLDG1LNU2( const section::Type< 1, 455 >& chunk ) {
   CHECK( 4 == nubar.energies().size() );
   CHECK( 4 == nubar.NU().size() );
   CHECK( 4 == nubar.multiplicities().size() );
-  CHECK( 1e-5 == Approx( nubar.E()[0] ) );
-  CHECK( 0.0253 == Approx( nubar.E()[1] ) );
-  CHECK( 0.05 == Approx( nubar.E()[2] ) );
-  CHECK( 2e+7 == Approx( nubar.E()[3] ) );
-  CHECK( 1e-5 == Approx( nubar.energies()[0] ) );
-  CHECK( 0.0253 == Approx( nubar.energies()[1] ) );
-  CHECK( 0.05 == Approx( nubar.energies()[2] ) );
-  CHECK( 2e+7 == Approx( nubar.energies()[3] ) );
-  CHECK( 2.4367 == Approx( nubar.NU()[0] ) );
-  CHECK( 2.4367 == Approx( nubar.NU()[1] ) );
-  CHECK( 2.4367 == Approx( nubar.NU()[2] ) );
-  CHECK( 5.209845 == Approx( nubar.NU()[3] ) );
-  CHECK( 2.4367 == Approx( nubar.multiplicities()[0] ) );
-  CHECK( 2.4367 == Approx( nubar.multiplicities()[1] ) );
-  CHECK( 2.4367 == Approx( nubar.multiplicities()[2] ) );
-  CHECK( 5.209845 == Approx( nubar.multiplicities()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( nubar.E()[0] ) );
+  CHECK_THAT( 0.0253, WithinRel( nubar.E()[1] ) );
+  CHECK_THAT( 0.05, WithinRel( nubar.E()[2] ) );
+  CHECK_THAT( 2e+7, WithinRel( nubar.E()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( nubar.energies()[0] ) );
+  CHECK_THAT( 0.0253, WithinRel( nubar.energies()[1] ) );
+  CHECK_THAT( 0.05, WithinRel( nubar.energies()[2] ) );
+  CHECK_THAT( 2e+7, WithinRel( nubar.energies()[3] ) );
+  CHECK_THAT( 2.4367, WithinRel( nubar.NU()[0] ) );
+  CHECK_THAT( 2.4367, WithinRel( nubar.NU()[1] ) );
+  CHECK_THAT( 2.4367, WithinRel( nubar.NU()[2] ) );
+  CHECK_THAT( 5.209845, WithinRel( nubar.NU()[3] ) );
+  CHECK_THAT( 2.4367, WithinRel( nubar.multiplicities()[0] ) );
+  CHECK_THAT( 2.4367, WithinRel( nubar.multiplicities()[1] ) );
+  CHECK_THAT( 2.4367, WithinRel( nubar.multiplicities()[2] ) );
+  CHECK_THAT( 5.209845, WithinRel( nubar.multiplicities()[3] ) );
 
   CHECK( 13 == chunk.NC() );
 }

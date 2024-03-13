@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/8/457.hpp"
 
 // other includes
@@ -165,30 +168,30 @@ std::string chunk() {
 
 void verifyChunk( const DecayModes& chunk )
 {
-  CHECK( 5.0 == Approx( chunk.spin() ) );
-  CHECK( -1. == Approx( chunk.parity() ) );
+  CHECK_THAT( 5.0, WithinRel( chunk.spin() ) );
+  CHECK_THAT( -1., WithinRel( chunk.parity() ) );
 
   auto modes = chunk.decayModes();
   CHECK( 3 == chunk.NDK() );
   CHECK( 3 == modes.size() );
-  CHECK( 4. == Approx( modes[0].decayChain() ) );
-  CHECK( 0. == Approx( modes[0].finalIsomericState() ) );
-  CHECK( 5.637120e+6 == Approx( modes[0].qValue()[0] ) );
-  CHECK( 2.549510e+2 == Approx( modes[0].qValue()[1] ) );
-  CHECK( 4.590000e-3 == Approx( modes[0].branchingRatio()[0] ) );
-  CHECK( 1.200000e-4 == Approx( modes[0].branchingRatio()[1] ) );
-  CHECK( 3. == Approx( modes[1].decayChain() ) );
-  CHECK( 0. == Approx( modes[1].finalIsomericState() ) );
-  CHECK( 4.860000e+4 == Approx( modes[1].qValue()[0] ) );
-  CHECK( 5.000000e+1 == Approx( modes[1].qValue()[1] ) );
-  CHECK( 9.954100e-1 == Approx( modes[1].branchingRatio()[0] ) );
-  CHECK( 1.200000e-4 == Approx( modes[1].branchingRatio()[1] ) );
-  CHECK( 6. == Approx( modes[2].decayChain() ) );
-  CHECK( 0. == Approx( modes[2].finalIsomericState() ) );
-  CHECK( 1.884000e+8 == Approx( modes[2].qValue()[0] ) );
-  CHECK( 3.700000e+6 == Approx( modes[2].qValue()[1] ) );
-  CHECK( 1.60000e-10 == Approx( modes[2].branchingRatio()[0] ) );
-  CHECK( 6.00000e-11 == Approx( modes[2].branchingRatio()[1] ) );
+  CHECK_THAT( 4., WithinRel( modes[0].decayChain() ) );
+  CHECK_THAT( 0., WithinRel( modes[0].finalIsomericState() ) );
+  CHECK_THAT( 5.637120e+6, WithinRel( modes[0].qValue()[0] ) );
+  CHECK_THAT( 2.549510e+2, WithinRel( modes[0].qValue()[1] ) );
+  CHECK_THAT( 4.590000e-3, WithinRel( modes[0].branchingRatio()[0] ) );
+  CHECK_THAT( 1.200000e-4, WithinRel( modes[0].branchingRatio()[1] ) );
+  CHECK_THAT( 3., WithinRel( modes[1].decayChain() ) );
+  CHECK_THAT( 0., WithinRel( modes[1].finalIsomericState() ) );
+  CHECK_THAT( 4.860000e+4, WithinRel( modes[1].qValue()[0] ) );
+  CHECK_THAT( 5.000000e+1, WithinRel( modes[1].qValue()[1] ) );
+  CHECK_THAT( 9.954100e-1, WithinRel( modes[1].branchingRatio()[0] ) );
+  CHECK_THAT( 1.200000e-4, WithinRel( modes[1].branchingRatio()[1] ) );
+  CHECK_THAT( 6., WithinRel( modes[2].decayChain() ) );
+  CHECK_THAT( 0., WithinRel( modes[2].finalIsomericState() ) );
+  CHECK_THAT( 1.884000e+8, WithinRel( modes[2].qValue()[0] ) );
+  CHECK_THAT( 3.700000e+6, WithinRel( modes[2].qValue()[1] ) );
+  CHECK_THAT( 1.60000e-10, WithinRel( modes[2].branchingRatio()[0] ) );
+  CHECK_THAT( 6.00000e-11, WithinRel( modes[2].branchingRatio()[1] ) );
 
   CHECK( 4 == chunk.NC() );
 }
@@ -201,18 +204,18 @@ std::string chunkStableNuclide() {
 
 void verifyChunkStableNuclide( const DecayModes& chunk )
 {
-  CHECK( 5.0 == Approx( chunk.spin() ) );
-  CHECK( -1. == Approx( chunk.parity() ) );
+  CHECK_THAT( 5.0, WithinRel( chunk.spin() ) );
+  CHECK_THAT( -1., WithinRel( chunk.parity() ) );
 
   auto modes = chunk.decayModes();
   CHECK( 0 == chunk.NDK() );
   CHECK( 1 == modes.size() );
-  CHECK( 0. == Approx( modes[0].decayChain() ) );
-  CHECK( 0. == Approx( modes[0].finalIsomericState() ) );
-  CHECK( 0. == Approx( modes[0].qValue()[0] ) );
-  CHECK( 0. == Approx( modes[0].qValue()[1] ) );
-  CHECK( 0. == Approx( modes[0].branchingRatio()[0] ) );
-  CHECK( 0. == Approx( modes[0].branchingRatio()[1] ) );
+  CHECK_THAT( 0., WithinRel( modes[0].decayChain() ) );
+  CHECK_THAT( 0., WithinRel( modes[0].finalIsomericState() ) );
+  CHECK_THAT( 0., WithinRel( modes[0].qValue()[0] ) );
+  CHECK_THAT( 0., WithinRel( modes[0].qValue()[1] ) );
+  CHECK_THAT( 0., WithinRel( modes[0].branchingRatio()[0] ) );
+  CHECK_THAT( 0., WithinRel( modes[0].branchingRatio()[1] ) );
 
   CHECK( 2 == chunk.NC() );
 }

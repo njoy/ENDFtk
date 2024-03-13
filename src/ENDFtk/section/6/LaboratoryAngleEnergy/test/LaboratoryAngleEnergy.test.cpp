@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/6.hpp"
 
 // other includes
@@ -223,8 +226,8 @@ void verifyChunk( const LaboratoryAngleEnergy& chunk ) {
   CHECK( 1 == chunk.interpolants()[0] );
   CHECK( 2 == chunk.boundaries()[0] );
 
-  CHECK( 1e-5 == Approx( chunk.angularDistributions()[0].E() ) );
-  CHECK( 1e-5 == Approx( chunk.angularDistributions()[0].incidentEnergy() ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.angularDistributions()[0].E() ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.angularDistributions()[0].incidentEnergy() ) );
 
   CHECK( 2 == chunk.angularDistributions()[0].NMU() );
   CHECK( 1 == chunk.angularDistributions()[0].NRM() );
@@ -236,8 +239,8 @@ void verifyChunk( const LaboratoryAngleEnergy& chunk ) {
   auto cosines = chunk.angularDistributions()[0].energyDistributions();
   CHECK( 2 == cosines.size() );
 
-  CHECK( 1. == Approx( cosines[0].MU() ) );
-  CHECK( 1. == Approx( cosines[0].cosine() ) );
+  CHECK_THAT( 1., WithinRel( cosines[0].MU() ) );
+  CHECK_THAT( 1., WithinRel( cosines[0].cosine() ) );
   CHECK( 1 == cosines[0].NRP() );
   CHECK( 4 == cosines[0].NEP() );
   CHECK( 1 == cosines[0].interpolants().size() );
@@ -248,24 +251,24 @@ void verifyChunk( const LaboratoryAngleEnergy& chunk ) {
   CHECK( 4 == cosines[0].energies().size() );
   CHECK( 4 == cosines[0].F().size() );
   CHECK( 4 == cosines[0].probabilities().size() );
-  CHECK( 1e-5 == Approx( cosines[0].EP()[0] ) );
-  CHECK( 1.1e+7 == Approx( cosines[0].EP()[1] ) );
-  CHECK( 1.147e+7 == Approx( cosines[0].EP()[2] ) );
-  CHECK( 3e+7 == Approx( cosines[0].EP()[3] ) );
-  CHECK( 1e-5 == Approx( cosines[0].energies()[0] ) );
-  CHECK( 1.1e+7 == Approx( cosines[0].energies()[1] ) );
-  CHECK( 1.147e+7 == Approx( cosines[0].energies()[2] ) );
-  CHECK( 3e+7 == Approx( cosines[0].energies()[3] ) );
-  CHECK( 0. == Approx( cosines[0].F()[0] ) );
-  CHECK( 2. == Approx( cosines[0].F()[1] ) );
-  CHECK( 4. == Approx( cosines[0].F()[2] ) );
-  CHECK( 6. == Approx( cosines[0].F()[3] ) );
-  CHECK( 0. == Approx( cosines[0].probabilities()[0] ) );
-  CHECK( 2. == Approx( cosines[0].probabilities()[1] ) );
-  CHECK( 4. == Approx( cosines[0].probabilities()[2] ) );
-  CHECK( 6. == Approx( cosines[0].probabilities()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( cosines[0].EP()[0] ) );
+  CHECK_THAT( 1.1e+7, WithinRel( cosines[0].EP()[1] ) );
+  CHECK_THAT( 1.147e+7, WithinRel( cosines[0].EP()[2] ) );
+  CHECK_THAT( 3e+7, WithinRel( cosines[0].EP()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( cosines[0].energies()[0] ) );
+  CHECK_THAT( 1.1e+7, WithinRel( cosines[0].energies()[1] ) );
+  CHECK_THAT( 1.147e+7, WithinRel( cosines[0].energies()[2] ) );
+  CHECK_THAT( 3e+7, WithinRel( cosines[0].energies()[3] ) );
+  CHECK_THAT( 0., WithinRel( cosines[0].F()[0] ) );
+  CHECK_THAT( 2., WithinRel( cosines[0].F()[1] ) );
+  CHECK_THAT( 4., WithinRel( cosines[0].F()[2] ) );
+  CHECK_THAT( 6., WithinRel( cosines[0].F()[3] ) );
+  CHECK_THAT( 0., WithinRel( cosines[0].probabilities()[0] ) );
+  CHECK_THAT( 2., WithinRel( cosines[0].probabilities()[1] ) );
+  CHECK_THAT( 4., WithinRel( cosines[0].probabilities()[2] ) );
+  CHECK_THAT( 6., WithinRel( cosines[0].probabilities()[3] ) );
 
-  CHECK( -1. == Approx( cosines[1].cosine() ) );
+  CHECK_THAT( -1., WithinRel( cosines[1].cosine() ) );
   CHECK( 1 == cosines[1].NRP() );
   CHECK( 3 == cosines[1].NEP() );
   CHECK( 1 == cosines[1].interpolants().size() );
@@ -276,21 +279,21 @@ void verifyChunk( const LaboratoryAngleEnergy& chunk ) {
   CHECK( 3 == cosines[1].energies().size() );
   CHECK( 3 == cosines[1].F().size() );
   CHECK( 3 == cosines[1].probabilities().size() );
-  CHECK( 1e-5 == Approx( cosines[1].EP()[0] ) );
-  CHECK( 1e+6 == Approx( cosines[1].EP()[1] ) );
-  CHECK( 3e+7 == Approx( cosines[1].EP()[2] ) );
-  CHECK( 1e-5 == Approx( cosines[1].energies()[0] ) );
-  CHECK( 1e+6 == Approx( cosines[1].energies()[1] ) );
-  CHECK( 3e+7 == Approx( cosines[1].energies()[2] ) );
-  CHECK( 6. == Approx( cosines[1].F()[0] ) );
-  CHECK( 4. == Approx( cosines[1].F()[1] ) );
-  CHECK( 2. == Approx( cosines[1].F()[2] ) );
-  CHECK( 6. == Approx( cosines[1].probabilities()[0] ) );
-  CHECK( 4. == Approx( cosines[1].probabilities()[1] ) );
-  CHECK( 2. == Approx( cosines[1].probabilities()[2] ) );
+  CHECK_THAT( 1e-5, WithinRel( cosines[1].EP()[0] ) );
+  CHECK_THAT( 1e+6, WithinRel( cosines[1].EP()[1] ) );
+  CHECK_THAT( 3e+7, WithinRel( cosines[1].EP()[2] ) );
+  CHECK_THAT( 1e-5, WithinRel( cosines[1].energies()[0] ) );
+  CHECK_THAT( 1e+6, WithinRel( cosines[1].energies()[1] ) );
+  CHECK_THAT( 3e+7, WithinRel( cosines[1].energies()[2] ) );
+  CHECK_THAT( 6., WithinRel( cosines[1].F()[0] ) );
+  CHECK_THAT( 4., WithinRel( cosines[1].F()[1] ) );
+  CHECK_THAT( 2., WithinRel( cosines[1].F()[2] ) );
+  CHECK_THAT( 6., WithinRel( cosines[1].probabilities()[0] ) );
+  CHECK_THAT( 4., WithinRel( cosines[1].probabilities()[1] ) );
+  CHECK_THAT( 2., WithinRel( cosines[1].probabilities()[2] ) );
 
-  CHECK( 2e+7 == Approx( chunk.angularDistributions()[1].E() ) );
-  CHECK( 2e+7 == Approx( chunk.angularDistributions()[1].incidentEnergy() ) );
+  CHECK_THAT( 2e+7, WithinRel( chunk.angularDistributions()[1].E() ) );
+  CHECK_THAT( 2e+7, WithinRel( chunk.angularDistributions()[1].incidentEnergy() ) );
 
   CHECK( 2 == chunk.angularDistributions()[1].NMU() );
   CHECK( 1 == chunk.angularDistributions()[1].NRM() );
@@ -302,7 +305,7 @@ void verifyChunk( const LaboratoryAngleEnergy& chunk ) {
   cosines = chunk.angularDistributions()[1].energyDistributions();
   CHECK( 2 == cosines.size() );
 
-  CHECK( .9 == Approx( cosines[0].cosine() ) );
+  CHECK_THAT( .9, WithinRel( cosines[0].cosine() ) );
   CHECK( 1 == cosines[0].NRP() );
   CHECK( 4 == cosines[0].NEP() );
   CHECK( 1 == cosines[0].interpolants().size() );
@@ -313,24 +316,24 @@ void verifyChunk( const LaboratoryAngleEnergy& chunk ) {
   CHECK( 4 == cosines[0].energies().size() );
   CHECK( 4 == cosines[0].F().size() );
   CHECK( 4 == cosines[0].probabilities().size() );
-  CHECK( 1e-5 == Approx( cosines[0].EP()[0] ) );
-  CHECK( 1.1e+7 == Approx( cosines[0].EP()[1] ) );
-  CHECK( 1.147e+7 == Approx( cosines[0].EP()[2] ) );
-  CHECK( 3e+7 == Approx( cosines[0].EP()[3] ) );
-  CHECK( 1e-5 == Approx( cosines[0].energies()[0] ) );
-  CHECK( 1.1e+7 == Approx( cosines[0].energies()[1] ) );
-  CHECK( 1.147e+7 == Approx( cosines[0].energies()[2] ) );
-  CHECK( 3e+7 == Approx( cosines[0].energies()[3] ) );
-  CHECK( 1. == Approx( cosines[0].F()[0] ) );
-  CHECK( 3. == Approx( cosines[0].F()[1] ) );
-  CHECK( 5. == Approx( cosines[0].F()[2] ) );
-  CHECK( 7. == Approx( cosines[0].F()[3] ) );
-  CHECK( 1. == Approx( cosines[0].probabilities()[0] ) );
-  CHECK( 3. == Approx( cosines[0].probabilities()[1] ) );
-  CHECK( 5. == Approx( cosines[0].probabilities()[2] ) );
-  CHECK( 7. == Approx( cosines[0].probabilities()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( cosines[0].EP()[0] ) );
+  CHECK_THAT( 1.1e+7, WithinRel( cosines[0].EP()[1] ) );
+  CHECK_THAT( 1.147e+7, WithinRel( cosines[0].EP()[2] ) );
+  CHECK_THAT( 3e+7, WithinRel( cosines[0].EP()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( cosines[0].energies()[0] ) );
+  CHECK_THAT( 1.1e+7, WithinRel( cosines[0].energies()[1] ) );
+  CHECK_THAT( 1.147e+7, WithinRel( cosines[0].energies()[2] ) );
+  CHECK_THAT( 3e+7, WithinRel( cosines[0].energies()[3] ) );
+  CHECK_THAT( 1., WithinRel( cosines[0].F()[0] ) );
+  CHECK_THAT( 3., WithinRel( cosines[0].F()[1] ) );
+  CHECK_THAT( 5., WithinRel( cosines[0].F()[2] ) );
+  CHECK_THAT( 7., WithinRel( cosines[0].F()[3] ) );
+  CHECK_THAT( 1., WithinRel( cosines[0].probabilities()[0] ) );
+  CHECK_THAT( 3., WithinRel( cosines[0].probabilities()[1] ) );
+  CHECK_THAT( 5., WithinRel( cosines[0].probabilities()[2] ) );
+  CHECK_THAT( 7., WithinRel( cosines[0].probabilities()[3] ) );
 
-  CHECK( -.9 == Approx( cosines[1].cosine() ) );
+  CHECK_THAT( -.9, WithinRel( cosines[1].cosine() ) );
   CHECK( 1 == cosines[1].NRP() );
   CHECK( 3 == cosines[1].NEP() );
   CHECK( 1 == cosines[1].interpolants().size() );
@@ -341,18 +344,18 @@ void verifyChunk( const LaboratoryAngleEnergy& chunk ) {
   CHECK( 3 == cosines[1].energies().size() );
   CHECK( 3 == cosines[1].F().size() );
   CHECK( 3 == cosines[1].probabilities().size() );
-  CHECK( 1e-5 == Approx( cosines[1].EP()[0] ) );
-  CHECK( 1e+6 == Approx( cosines[1].EP()[1] ) );
-  CHECK( 3e+7 == Approx( cosines[1].EP()[2] ) );
-  CHECK( 1e-5 == Approx( cosines[1].energies()[0] ) );
-  CHECK( 1e+6 == Approx( cosines[1].energies()[1] ) );
-  CHECK( 3e+7 == Approx( cosines[1].energies()[2] ) );
-  CHECK( 5. == Approx( cosines[1].F()[0] ) );
-  CHECK( 3. == Approx( cosines[1].F()[1] ) );
-  CHECK( 1. == Approx( cosines[1].F()[2] ) );
-  CHECK( 5. == Approx( cosines[1].probabilities()[0] ) );
-  CHECK( 3. == Approx( cosines[1].probabilities()[1] ) );
-  CHECK( 1. == Approx( cosines[1].probabilities()[2] ) );
+  CHECK_THAT( 1e-5, WithinRel( cosines[1].EP()[0] ) );
+  CHECK_THAT( 1e+6, WithinRel( cosines[1].EP()[1] ) );
+  CHECK_THAT( 3e+7, WithinRel( cosines[1].EP()[2] ) );
+  CHECK_THAT( 1e-5, WithinRel( cosines[1].energies()[0] ) );
+  CHECK_THAT( 1e+6, WithinRel( cosines[1].energies()[1] ) );
+  CHECK_THAT( 3e+7, WithinRel( cosines[1].energies()[2] ) );
+  CHECK_THAT( 5., WithinRel( cosines[1].F()[0] ) );
+  CHECK_THAT( 3., WithinRel( cosines[1].F()[1] ) );
+  CHECK_THAT( 1., WithinRel( cosines[1].F()[2] ) );
+  CHECK_THAT( 5., WithinRel( cosines[1].probabilities()[0] ) );
+  CHECK_THAT( 3., WithinRel( cosines[1].probabilities()[1] ) );
+  CHECK_THAT( 1., WithinRel( cosines[1].probabilities()[2] ) );
 
   CHECK( 20 == chunk.NC() );
 }

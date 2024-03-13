@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/26.hpp"
 
 // other includes
@@ -130,14 +133,14 @@ void verifyChunk( const EnergyTransfer& chunk ) {
   CHECK( 2 == chunk.energies().size() );
   CHECK( 2 == chunk.ET().size() );
   CHECK( 2 == chunk.energyTransferValues().size() );
-  CHECK( 10. == Approx( chunk.E()[0] ) );
-  CHECK( 1.e+11 == Approx( chunk.E()[1] ) );
-  CHECK( 10. == Approx( chunk.energies()[0] ) );
-  CHECK( 1.e+11 == Approx( chunk.energies()[1] ) );
-  CHECK( 1.e-5 == Approx( chunk.ET()[0] ) );
-  CHECK( 2e+4 == Approx( chunk.ET()[1] ) );
-  CHECK( 1.e-5 == Approx( chunk.energyTransferValues()[0] ) );
-  CHECK( 2e+4 == Approx( chunk.energyTransferValues()[1] ) );
+  CHECK_THAT( 10., WithinRel( chunk.E()[0] ) );
+  CHECK_THAT( 1.e+11, WithinRel( chunk.E()[1] ) );
+  CHECK_THAT( 10., WithinRel( chunk.energies()[0] ) );
+  CHECK_THAT( 1.e+11, WithinRel( chunk.energies()[1] ) );
+  CHECK_THAT( 1.e-5, WithinRel( chunk.ET()[0] ) );
+  CHECK_THAT( 2e+4, WithinRel( chunk.ET()[1] ) );
+  CHECK_THAT( 1.e-5, WithinRel( chunk.energyTransferValues()[0] ) );
+  CHECK_THAT( 2e+4, WithinRel( chunk.energyTransferValues()[1] ) );
 
   CHECK( 3 == chunk.NC() );
 }

@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/1/PolynomialMultiplicity.hpp"
 
 // other includes
@@ -101,10 +104,10 @@ void verifyChunk( const PolynomialMultiplicity& chunk ) {
   CHECK( 2 == chunk.numberCoefficients() );
   CHECK( 2 == chunk.C().size() );
   CHECK( 2 == chunk.coefficients().size() );
-  CHECK( 2.4367 == Approx( chunk.C()[0] ) );
-  CHECK( 5e-2 == Approx( chunk.C()[1] ) );
-  CHECK( 2.4367 == Approx( chunk.coefficients()[0] ) );
-  CHECK( 5e-2 == Approx( chunk.coefficients()[1] ) );
+  CHECK_THAT( 2.4367, WithinRel( chunk.C()[0] ) );
+  CHECK_THAT( 5e-2, WithinRel( chunk.C()[1] ) );
+  CHECK_THAT( 2.4367, WithinRel( chunk.coefficients()[0] ) );
+  CHECK_THAT( 5e-2, WithinRel( chunk.coefficients()[1] ) );
 
   CHECK( 2 == chunk.NC() );
 }

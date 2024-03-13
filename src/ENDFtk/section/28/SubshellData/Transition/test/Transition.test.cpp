@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/28.hpp"
 
 // other includes
@@ -29,12 +32,12 @@ SCENARIO( "Transition" ) {
 
 void verifyChunk( const Transition& chunk ) {
 
-  CHECK( 1 == Approx( chunk.SUBJ() ) );
-  CHECK( 1 == Approx( chunk.secondarySubshellDesignator() ) );
-  CHECK( 2 == Approx( chunk.SUBK() ) );
-  CHECK( 2 == Approx( chunk.tertiarySubshellDesignator() ) );
-  CHECK( 3. == Approx( chunk.ETR() ) );
-  CHECK( 3. == Approx( chunk.transitionEnergy() ) );
-  CHECK( 4. == Approx( chunk.FTR() ) );
-  CHECK( 4. == Approx( chunk.transitionProbability() ) );
+  CHECK_THAT( 1, WithinRel( chunk.SUBJ() ) );
+  CHECK_THAT( 1, WithinRel( chunk.secondarySubshellDesignator() ) );
+  CHECK_THAT( 2, WithinRel( chunk.SUBK() ) );
+  CHECK_THAT( 2, WithinRel( chunk.tertiarySubshellDesignator() ) );
+  CHECK_THAT( 3., WithinRel( chunk.ETR() ) );
+  CHECK_THAT( 3., WithinRel( chunk.transitionEnergy() ) );
+  CHECK_THAT( 4., WithinRel( chunk.FTR() ) );
+  CHECK_THAT( 4., WithinRel( chunk.transitionProbability() ) );
 }

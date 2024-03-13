@@ -1,12 +1,13 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/3.hpp"
 #include "ENDFtk/file/Type.hpp"
 
 // other includes
-#include "range/v3/range/conversion.hpp"
-#include "range/v3/view/reverse.hpp"
 #include "ENDFtk/tree/File.hpp"
 
 // convenience typedefs
@@ -24,13 +25,20 @@ SCENARIO( "Testing generic case using file 3" ) {
   GIVEN( "valid data for a File 3" ) {
 
     std::vector< section::Type< 3 > > sorted =
-      { { 1, 1001., 0.9991673, 0., 0., 0,
+      { { 1, 1001, 0.9991673, 0., 0., 0,
           { 2l }, { 5l }, { 1e-5, 2e+7 }, { 37.13628, 0.4827735 } },
-        { 2, 1001., 0.9991673, 0., 0., 0,
+        { 2, 1001, 0.9991673, 0., 0., 0,
           { 2l }, { 2l }, { 1e-5, 2e+7 }, { 20.43634, 0.4827462 } },
-        { 102, 1001., 0.9991673, 2.224631e+6, 2.224631e+6, 0,
+        { 102, 1001, 0.9991673, 2.224631e+6, 2.224631e+6, 0,
           { 2l }, { 5l }, { 1e-5, 2e+7 }, { 16.69994, 2.722354e-5 } } };
-    auto unsorted = sorted | ranges::cpp20::views::reverse | ranges::to_vector;
+
+    std::vector< section::Type< 3 > > unsorted =
+      { { 102, 1001, 0.9991673, 2.224631e+6, 2.224631e+6, 0,
+          { 2l }, { 5l }, { 1e-5, 2e+7 }, { 16.69994, 2.722354e-5 } },
+        { 2, 1001, 0.9991673, 0., 0., 0,
+          { 2l }, { 2l }, { 1e-5, 2e+7 }, { 20.43634, 0.4827462 } },
+        { 1, 1001, 0.9991673, 0., 0., 0,
+          { 2l }, { 5l }, { 1e-5, 2e+7 }, { 37.13628, 0.4827735 } } };
 
     WHEN( "a file::Type<3> is constructed from a sorted vector" ) {
 
@@ -270,31 +278,31 @@ void verifyChunk( const file::Type< 3 >& chunk ) {
   CHECK_NOTHROW( chunk.section( 2 ) );
   CHECK_NOTHROW( chunk.section( 102 ) );
 
-  CHECK( 1001. == Approx( chunk.MT( 1 ).ZA() ) );
-  CHECK( 0.0 == Approx( chunk.MT( 1 ).QM() ) );
-  CHECK( 0.0 == Approx( chunk.MT( 1 ).QI() ) );
+  CHECK( 1001 == chunk.MT( 1 ).ZA() );
+  CHECK_THAT( 0.0, WithinRel( chunk.MT( 1 ).QM() ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.MT( 1 ).QI() ) );
   CHECK( 5 == chunk.MT( 1 ).interpolants()[0] );
-  CHECK( 1001. == Approx( chunk.section( 1 ).ZA() ) );
-  CHECK( 0.0 == Approx( chunk.section( 1 ).QM() ) );
-  CHECK( 0.0 == Approx( chunk.section( 1 ).QI() ) );
+  CHECK( 1001 == chunk.section( 1 ).ZA() );
+  CHECK_THAT( 0.0, WithinRel( chunk.section( 1 ).QM() ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.section( 1 ).QI() ) );
   CHECK( 5 == chunk.section( 1 ).interpolants()[0] );
 
-  CHECK( 1001. == Approx( chunk.MT( 2 ).ZA() ) );
-  CHECK( 0.0 == Approx( chunk.MT( 2 ).QM() ) );
-  CHECK( 0.0 == Approx( chunk.MT( 2 ).QI() ) );
+  CHECK( 1001 == chunk.MT( 2 ).ZA() );
+  CHECK_THAT( 0.0, WithinRel( chunk.MT( 2 ).QM() ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.MT( 2 ).QI() ) );
   CHECK( 2 == chunk.MT( 2 ).interpolants()[0] );
-  CHECK( 1001. == Approx( chunk.section( 2 ).ZA() ) );
-  CHECK( 0.0 == Approx( chunk.section( 2 ).QM() ) );
-  CHECK( 0.0 == Approx( chunk.section( 2 ).QI() ) );
+  CHECK( 1001 == chunk.section( 2 ).ZA() );
+  CHECK_THAT( 0.0, WithinRel( chunk.section( 2 ).QM() ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.section( 2 ).QI() ) );
   CHECK( 2 == chunk.section( 2 ).interpolants()[0] );
 
-  CHECK( 1001. == Approx( chunk.MT( 102 ).ZA() ) );
-  CHECK( 2.224631e+6 == Approx( chunk.MT( 102 ).QM() ) );
-  CHECK( 2.224631e+6 == Approx( chunk.MT( 102 ).QI() ) );
+  CHECK( 1001 == chunk.MT( 102 ).ZA() );
+  CHECK_THAT( 2.224631e+6, WithinRel( chunk.MT( 102 ).QM() ) );
+  CHECK_THAT( 2.224631e+6, WithinRel( chunk.MT( 102 ).QI() ) );
   CHECK( 5 == chunk.MT( 102 ).interpolants()[0] );
-  CHECK( 1001. == Approx( chunk.section( 102 ).ZA() ) );
-  CHECK( 2.224631e+6 == Approx( chunk.section( 102 ).QM() ) );
-  CHECK( 2.224631e+6 == Approx( chunk.section( 102 ).QI() ) );
+  CHECK( 1001 == chunk.section( 102 ).ZA() );
+  CHECK_THAT( 2.224631e+6, WithinRel( chunk.section( 102 ).QM() ) );
+  CHECK_THAT( 2.224631e+6, WithinRel( chunk.section( 102 ).QI() ) );
   CHECK( 5 == chunk.section( 102 ).interpolants()[0] );
 }
 

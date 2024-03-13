@@ -14,7 +14,7 @@ Type() = default;
  *  @param[in] awr           the atomic weight ratio
  *  @param[in] production    the photon production data
  */
-Type( int MT, double zaid, double awr, PhotonProduction&& production ) :
+Type( int MT, int zaid, double awr, PhotonProduction&& production ) :
   Base( zaid, awr, MT ), photon_( std::move( production ) ) {}
 
 /**

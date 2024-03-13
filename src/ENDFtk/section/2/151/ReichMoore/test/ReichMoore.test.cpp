@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/2/151.hpp"
 
 // other includes
@@ -138,10 +141,10 @@ void verifyChunk( const ReichMoore& chunk ) {
   CHECK( false == chunk.LFW() );
   CHECK( false == chunk.averageFissionWidthFlag() );
 
-  CHECK( 1. == Approx( chunk.SPI() ) );
-  CHECK( 1. == Approx( chunk.spin() ) );
-  CHECK( 0.893 == Approx( chunk.AP() ) );
-  CHECK( 0.893 == Approx( chunk.scatteringRadius() ) );
+  CHECK_THAT( 1., WithinRel( chunk.SPI() ) );
+  CHECK_THAT( 1., WithinRel( chunk.spin() ) );
+  CHECK_THAT( 0.893, WithinRel( chunk.AP() ) );
+  CHECK_THAT( 0.893, WithinRel( chunk.scatteringRadius() ) );
 
   CHECK( false == chunk.LAD() );
   CHECK( false == chunk.angularDistributionsFlag() );
@@ -153,10 +156,10 @@ void verifyChunk( const ReichMoore& chunk ) {
   CHECK( 2 == chunk.lValues().size() );
 
   auto lvalue1 = chunk.lValues()[0];
-  CHECK( 1.982069e+1 == Approx( lvalue1.AWRI() ) );
-  CHECK( 1.982069e+1 == Approx( lvalue1.atomicWeightRatio() ) );
-  CHECK( 0. == Approx( lvalue1.APL() ) );
-  CHECK( 0. == Approx( lvalue1.lDependentScatteringRadius() ) );
+  CHECK_THAT( 1.982069e+1, WithinRel( lvalue1.AWRI() ) );
+  CHECK_THAT( 1.982069e+1, WithinRel( lvalue1.atomicWeightRatio() ) );
+  CHECK_THAT( 0., WithinRel( lvalue1.APL() ) );
+  CHECK_THAT( 0., WithinRel( lvalue1.lDependentScatteringRadius() ) );
   CHECK( 0 == lvalue1.L() );
   CHECK( 0 == lvalue1.orbitalMomentum() );
 
@@ -176,36 +179,36 @@ void verifyChunk( const ReichMoore& chunk ) {
   CHECK( 2 == lvalue1.secondFissionWidths().size() );
   CHECK( 2 == lvalue1.resonances().size() );
 
-  CHECK( -1.470000e+5 == Approx( lvalue1.ER()[0] ) );
-  CHECK(  4.730000e+5 == Approx( lvalue1.ER()[1] ) );
-  CHECK( -1.470000e+5 == Approx( lvalue1.resonanceEnergies()[0] ) );
-  CHECK(  4.730000e+5 == Approx( lvalue1.resonanceEnergies()[1] ) );
-  CHECK( 0.5 == Approx( lvalue1.AJ()[0] ) );
-  CHECK( 0.5 == Approx( lvalue1.AJ()[1] ) );
-  CHECK( 0.5 == Approx( lvalue1.spinValues()[0] ) );
-  CHECK( 0.5 == Approx( lvalue1.spinValues()[1] ) );
-  CHECK( 5.430695e+2 == Approx( lvalue1.GN()[0] ) );
-  CHECK( 1.072906e+5 == Approx( lvalue1.GN()[1] ) );
-  CHECK( 5.430695e+2 == Approx( lvalue1.neutronWidths()[0] ) );
-  CHECK( 1.072906e+5 == Approx( lvalue1.neutronWidths()[1] ) );
-  CHECK( 3.680695e+2 == Approx( lvalue1.GG()[0] ) );
-  CHECK( 1.072900e+5 == Approx( lvalue1.GG()[1] ) );
-  CHECK( 3.680695e+2 == Approx( lvalue1.gammaWidths()[0] ) );
-  CHECK( 1.072900e+5 == Approx( lvalue1.gammaWidths()[1] ) );
-  CHECK( 1.750000e+2 == Approx( lvalue1.GFA()[0] ) );
-  CHECK( 0.56 == Approx( lvalue1.GFA()[1] ) );
-  CHECK( 1.750000e+2 == Approx( lvalue1.firstFissionWidths()[0] ) );
-  CHECK( 0.56 == Approx( lvalue1.firstFissionWidths()[1] ) );
-  CHECK( 0. == Approx( lvalue1.GFB()[0] ) );
-  CHECK( 0.04 == Approx( lvalue1.GFB()[1] ) );
-  CHECK( 0. == Approx( lvalue1.secondFissionWidths()[0] ) );
-  CHECK( 0.04 == Approx( lvalue1.secondFissionWidths()[1] ) );
+  CHECK_THAT( -1.470000e+5, WithinRel( lvalue1.ER()[0] ) );
+  CHECK_THAT(  4.730000e+5, WithinRel( lvalue1.ER()[1] ) );
+  CHECK_THAT( -1.470000e+5, WithinRel( lvalue1.resonanceEnergies()[0] ) );
+  CHECK_THAT(  4.730000e+5, WithinRel( lvalue1.resonanceEnergies()[1] ) );
+  CHECK_THAT( 0.5, WithinRel( lvalue1.AJ()[0] ) );
+  CHECK_THAT( 0.5, WithinRel( lvalue1.AJ()[1] ) );
+  CHECK_THAT( 0.5, WithinRel( lvalue1.spinValues()[0] ) );
+  CHECK_THAT( 0.5, WithinRel( lvalue1.spinValues()[1] ) );
+  CHECK_THAT( 5.430695e+2, WithinRel( lvalue1.GN()[0] ) );
+  CHECK_THAT( 1.072906e+5, WithinRel( lvalue1.GN()[1] ) );
+  CHECK_THAT( 5.430695e+2, WithinRel( lvalue1.neutronWidths()[0] ) );
+  CHECK_THAT( 1.072906e+5, WithinRel( lvalue1.neutronWidths()[1] ) );
+  CHECK_THAT( 3.680695e+2, WithinRel( lvalue1.GG()[0] ) );
+  CHECK_THAT( 1.072900e+5, WithinRel( lvalue1.GG()[1] ) );
+  CHECK_THAT( 3.680695e+2, WithinRel( lvalue1.gammaWidths()[0] ) );
+  CHECK_THAT( 1.072900e+5, WithinRel( lvalue1.gammaWidths()[1] ) );
+  CHECK_THAT( 1.750000e+2, WithinRel( lvalue1.GFA()[0] ) );
+  CHECK_THAT( 0.56, WithinRel( lvalue1.GFA()[1] ) );
+  CHECK_THAT( 1.750000e+2, WithinRel( lvalue1.firstFissionWidths()[0] ) );
+  CHECK_THAT( 0.56, WithinRel( lvalue1.firstFissionWidths()[1] ) );
+  CHECK_THAT( 0., WithinRel( lvalue1.GFB()[0] ) );
+  CHECK_THAT( 0.04, WithinRel( lvalue1.GFB()[1] ) );
+  CHECK_THAT( 0., WithinRel( lvalue1.secondFissionWidths()[0] ) );
+  CHECK_THAT( 0.04, WithinRel( lvalue1.secondFissionWidths()[1] ) );
 
   auto lvalue2 = chunk.lValues()[1];
-  CHECK( 1.982069e+1 == Approx( lvalue2.AWRI() ) );
-  CHECK( 1.982069e+1 == Approx( lvalue2.atomicWeightRatio() ) );
-  CHECK( 0. == Approx( lvalue2.APL() ) );
-  CHECK( 0. == Approx( lvalue2.lDependentScatteringRadius() ) );
+  CHECK_THAT( 1.982069e+1, WithinRel( lvalue2.AWRI() ) );
+  CHECK_THAT( 1.982069e+1, WithinRel( lvalue2.atomicWeightRatio() ) );
+  CHECK_THAT( 0., WithinRel( lvalue2.APL() ) );
+  CHECK_THAT( 0., WithinRel( lvalue2.lDependentScatteringRadius() ) );
   CHECK( 1 == lvalue2.L() );
   CHECK( 1 == lvalue2.orbitalMomentum() );
 
@@ -225,30 +228,30 @@ void verifyChunk( const ReichMoore& chunk ) {
   CHECK( 2 == lvalue2.secondFissionWidths().size() );
   CHECK( 2 == lvalue2.resonances().size() );
 
-  CHECK( -2.060000e+0 == Approx( lvalue2.ER()[0] ) );
-  CHECK(  5.160000e+0 == Approx( lvalue2.ER()[1] ) );
-  CHECK( -2.060000e+0 == Approx( lvalue2.resonanceEnergies()[0] ) );
-  CHECK(  5.160000e+0 == Approx( lvalue2.resonanceEnergies()[1] ) );
-  CHECK( 0.5 == Approx( lvalue2.AJ()[0] ) );
-  CHECK( 0.5 == Approx( lvalue2.AJ()[1] ) );
-  CHECK( 0.5 == Approx( lvalue2.spinValues()[0] ) );
-  CHECK( 0.5 == Approx( lvalue2.spinValues()[1] ) );
-  CHECK( 3.006610e-2 == Approx( lvalue2.GN()[0] ) );
-  CHECK( 3.393822e-2 == Approx( lvalue2.GN()[1] ) );
-  CHECK( 3.006610e-2 == Approx( lvalue2.neutronWidths()[0] ) );
-  CHECK( 3.393822e-2 == Approx( lvalue2.neutronWidths()[1] ) );
-  CHECK( 5.750000e-3 == Approx( lvalue2.GG()[0] ) );
-  CHECK( 3.920000e-3 == Approx( lvalue2.GG()[1] ) );
-  CHECK( 5.750000e-3 == Approx( lvalue2.gammaWidths()[0] ) );
-  CHECK( 3.920000e-3 == Approx( lvalue2.gammaWidths()[1] ) );
-  CHECK( 2.430000e-2 == Approx( lvalue2.GFA()[0] ) );
-  CHECK( 3.000000e-2 == Approx( lvalue2.GFA()[1] ) );
-  CHECK( 2.430000e-2 == Approx( lvalue2.firstFissionWidths()[0] ) );
-  CHECK( 3.000000e-2 == Approx( lvalue2.firstFissionWidths()[1] ) );
-  CHECK( 1.610000e-5 == Approx( lvalue2.GFB()[0] ) );
-  CHECK( 1.822000e-5 == Approx( lvalue2.GFB()[1] ) );
-  CHECK( 1.610000e-5 == Approx( lvalue2.secondFissionWidths()[0] ) );
-  CHECK( 1.822000e-5 == Approx( lvalue2.secondFissionWidths()[1] ) );
+  CHECK_THAT( -2.060000e+0, WithinRel( lvalue2.ER()[0] ) );
+  CHECK_THAT(  5.160000e+0, WithinRel( lvalue2.ER()[1] ) );
+  CHECK_THAT( -2.060000e+0, WithinRel( lvalue2.resonanceEnergies()[0] ) );
+  CHECK_THAT(  5.160000e+0, WithinRel( lvalue2.resonanceEnergies()[1] ) );
+  CHECK_THAT( 0.5, WithinRel( lvalue2.AJ()[0] ) );
+  CHECK_THAT( 0.5, WithinRel( lvalue2.AJ()[1] ) );
+  CHECK_THAT( 0.5, WithinRel( lvalue2.spinValues()[0] ) );
+  CHECK_THAT( 0.5, WithinRel( lvalue2.spinValues()[1] ) );
+  CHECK_THAT( 3.006610e-2, WithinRel( lvalue2.GN()[0] ) );
+  CHECK_THAT( 3.393822e-2, WithinRel( lvalue2.GN()[1] ) );
+  CHECK_THAT( 3.006610e-2, WithinRel( lvalue2.neutronWidths()[0] ) );
+  CHECK_THAT( 3.393822e-2, WithinRel( lvalue2.neutronWidths()[1] ) );
+  CHECK_THAT( 5.750000e-3, WithinRel( lvalue2.GG()[0] ) );
+  CHECK_THAT( 3.920000e-3, WithinRel( lvalue2.GG()[1] ) );
+  CHECK_THAT( 5.750000e-3, WithinRel( lvalue2.gammaWidths()[0] ) );
+  CHECK_THAT( 3.920000e-3, WithinRel( lvalue2.gammaWidths()[1] ) );
+  CHECK_THAT( 2.430000e-2, WithinRel( lvalue2.GFA()[0] ) );
+  CHECK_THAT( 3.000000e-2, WithinRel( lvalue2.GFA()[1] ) );
+  CHECK_THAT( 2.430000e-2, WithinRel( lvalue2.firstFissionWidths()[0] ) );
+  CHECK_THAT( 3.000000e-2, WithinRel( lvalue2.firstFissionWidths()[1] ) );
+  CHECK_THAT( 1.610000e-5, WithinRel( lvalue2.GFB()[0] ) );
+  CHECK_THAT( 1.822000e-5, WithinRel( lvalue2.GFB()[1] ) );
+  CHECK_THAT( 1.610000e-5, WithinRel( lvalue2.secondFissionWidths()[0] ) );
+  CHECK_THAT( 1.822000e-5, WithinRel( lvalue2.secondFissionWidths()[1] ) );
 
   CHECK( 7 == chunk.NC() );
 }

@@ -44,7 +44,7 @@ void wrapSection_10( python::module& module, python::module& viewmodule ) {
   section
   .def(
 
-    python::init< int, double, double, long,
+    python::init< int, int, double, long,
                   std::vector< ReactionProduct >&& >(),
     python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
     python::arg( "lis" ), python::arg( "products" ),
@@ -80,6 +80,26 @@ void wrapSection_10( python::module& module, python::module& viewmodule ) {
     "number_reaction_products",
     &Section::numberReactionProducts,
     "The number of excited states for the reaction product"
+  )
+  .def(
+
+    "has_excited_state",
+    &Section::hasExcitedState,
+    python::arg( "state" ),
+    "Return whether or not the excited state is present\n\n"
+    "Arguments:\n"
+    "    self    the section\n"
+    "    state   the excited state to retrieve"
+  )
+  .def(
+
+    "reaction_product",
+    &Section::reactionProduct,
+    python::arg( "state" ),
+    "Return the reaction product for the requested excited state\n\n"
+    "Arguments:\n"
+    "    self    the section\n"
+    "    state   the excited state to retrieve"
   )
   .def_property_readonly(
 

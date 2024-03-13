@@ -1,7 +1,10 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
-#include "ENDFtk/section/32/151.hpp"
+// what we are testing
+#include "ENDFtk/section/32.hpp"
 
 // other includes
 
@@ -173,10 +176,10 @@ std::string chunk() {
 
 void verifyChunk( const ResonanceChannels& chunk ) {
 
-  CHECK( 0.5 == Approx( chunk.AJ() ) );
-  CHECK( 0.5 == Approx( chunk.spin() ) );
-  CHECK( 0. == Approx( chunk.PJ() ) );
-  CHECK( 0. == Approx( chunk.parity() ) );
+  CHECK_THAT( 0.5, WithinRel( chunk.AJ() ) );
+  CHECK_THAT( 0.5, WithinRel( chunk.spin() ) );
+  CHECK_THAT( 0., WithinRel( chunk.PJ() ) );
+  CHECK_THAT( 0., WithinRel( chunk.parity() ) );
   CHECK( 2 == chunk.NCH() );
   CHECK( 2 == chunk.numberChannels() );
 
@@ -197,26 +200,26 @@ void verifyChunk( const ResonanceChannels& chunk ) {
   CHECK( 2 == chunk.PPI()[1] );
   CHECK( 1 == chunk.particlePairNumbers()[0] );
   CHECK( 2 == chunk.particlePairNumbers()[1] );
-  CHECK( 0 == Approx( chunk.L()[0] ) );
-  CHECK( 1 == Approx( chunk.L()[1] ) );
-  CHECK( 0 == Approx( chunk.orbitalMomentumValues()[0] ) );
-  CHECK( 1 == Approx( chunk.orbitalMomentumValues()[1] ) );
-  CHECK( 0. == Approx( chunk.SCH()[0] ) );
-  CHECK( .5 == Approx( chunk.SCH()[1] ) );
-  CHECK( 0. == Approx( chunk.channelSpinValues()[0] ) );
-  CHECK( .5 == Approx( chunk.channelSpinValues()[1] ) );
-  CHECK( 0. == Approx( chunk.BND()[0] ) );
-  CHECK( 2. == Approx( chunk.BND()[1] ) );
-  CHECK( 0. == Approx( chunk.boundaryConditionValues()[0] ) );
-  CHECK( 2. == Approx( chunk.boundaryConditionValues()[1] ) );
-  CHECK( 0. == Approx( chunk.APT()[0] ) );
-  CHECK( 5.437300e-1 == Approx( chunk.APT()[1] ) );
-  CHECK( 0. == Approx( chunk.trueChannelRadii()[0] ) );
-  CHECK( 5.437300e-1 == Approx( chunk.trueChannelRadii()[1] ) );
-  CHECK( 0. == Approx( chunk.APE()[0] ) );
-  CHECK( 5.437310e-1 == Approx( chunk.APE()[1] ) );
-  CHECK( 0. == Approx( chunk.effectiveChannelRadii()[0] ) );
-  CHECK( 5.437310e-1 == Approx( chunk.effectiveChannelRadii()[1] ) );
+  CHECK( 0 == chunk.L()[0] );
+  CHECK( 1 == chunk.L()[1] );
+  CHECK( 0 == chunk.orbitalMomentumValues()[0] );
+  CHECK( 1 == chunk.orbitalMomentumValues()[1] );
+  CHECK_THAT( 0., WithinRel( chunk.SCH()[0] ) );
+  CHECK_THAT( .5, WithinRel( chunk.SCH()[1] ) );
+  CHECK_THAT( 0., WithinRel( chunk.channelSpinValues()[0] ) );
+  CHECK_THAT( .5, WithinRel( chunk.channelSpinValues()[1] ) );
+  CHECK_THAT( 0., WithinRel( chunk.BND()[0] ) );
+  CHECK_THAT( 2., WithinRel( chunk.BND()[1] ) );
+  CHECK_THAT( 0., WithinRel( chunk.boundaryConditionValues()[0] ) );
+  CHECK_THAT( 2., WithinRel( chunk.boundaryConditionValues()[1] ) );
+  CHECK_THAT( 0., WithinRel( chunk.APT()[0] ) );
+  CHECK_THAT( 5.437300e-1, WithinRel( chunk.APT()[1] ) );
+  CHECK_THAT( 0., WithinRel( chunk.trueChannelRadii()[0] ) );
+  CHECK_THAT( 5.437300e-1, WithinRel( chunk.trueChannelRadii()[1] ) );
+  CHECK_THAT( 0., WithinRel( chunk.APE()[0] ) );
+  CHECK_THAT( 5.437310e-1, WithinRel( chunk.APE()[1] ) );
+  CHECK_THAT( 0., WithinRel( chunk.effectiveChannelRadii()[0] ) );
+  CHECK_THAT( 5.437310e-1, WithinRel( chunk.effectiveChannelRadii()[1] ) );
 
   CHECK( 3 == chunk.NC() );
 }

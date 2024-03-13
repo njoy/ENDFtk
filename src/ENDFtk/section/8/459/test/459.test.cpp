@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/8/459.hpp"
 
 // other includes
@@ -28,7 +31,7 @@ SCENARIO( "section::Type< 8, 459 >" ) {
 
     WHEN( "the data is given explicitly as arrays" ) {
 
-      double zaid = 92235.;
+      int zaid = 92235;
       double awr = 233.0250;
 
       std::vector< unsigned int > identifiers = { 23066, 54135, 72171 };
@@ -69,7 +72,7 @@ SCENARIO( "section::Type< 8, 459 >" ) {
 
     WHEN( "the data is given explicitly as a FissionYieldData array" ) {
 
-      double zaid = 92235.;
+      int zaid = 92235.;
       double awr = 233.0250;
 
       std::vector< FissionYieldData > yields = {
@@ -158,7 +161,7 @@ SCENARIO( "section::Type< 8, 459 >" ) {
 
     WHEN( "the data is given explicitly using arrays" ) {
 
-      double zaid = 92235.;
+      int zaid = 92235;
       double awr = 233.0250;
 
       std::vector< unsigned int > identifiers = { 23066, 54135, 72171 };
@@ -260,7 +263,7 @@ SCENARIO( "section::Type< 8, 459 >" ) {
     WHEN( "the number of identifiers, isomeric states and yield sets are "
           "inconsistent" ) {
 
-      double zaid = 92235.;
+      int zaid = 92235;
       double awr = 233.0250;
 
       std::vector< unsigned int > wrong = { 23066, 54135 };
@@ -290,7 +293,7 @@ SCENARIO( "section::Type< 8, 459 >" ) {
     WHEN( "the number of identifiers, isomeric states and yield sets are "
           "inconsistent" ) {
 
-      double zaid = 92235.;
+      int zaid = 92235;
       double awr = 233.0250;
 
       std::vector< unsigned int > identifiers = { 23066, 54135, 72171 };
@@ -336,9 +339,10 @@ void verifyChunk( const section::Type< 8, 459 >& chunk ) {
   CHECK( 459 == chunk.MT() );
   CHECK( 459 == chunk.sectionNumber() );
 
-  CHECK( 92235. == Approx( chunk.ZA() ) );
-  CHECK( 233.0250 == Approx( chunk.AWR() ) );
-  CHECK( 233.0250 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
+  CHECK_THAT( 233.0250, WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 233.0250, WithinRel( chunk.atomicWeightRatio() ) );
 
   CHECK( false == chunk.LE() );
   CHECK( false == chunk.isEnergyIndependent() );
@@ -347,10 +351,10 @@ void verifyChunk( const section::Type< 8, 459 >& chunk ) {
   CHECK( 2 == chunk.numberIncidentEnergies() );
   CHECK( 2 == chunk.E().size() );
   CHECK( 2 == chunk.incidentEnergies().size() );
-  CHECK( 0.0253 == Approx( chunk.E()[0] ) );
-  CHECK( 500e+3 == Approx( chunk.E()[1] ) );
-  CHECK( 0.0253 == Approx( chunk.incidentEnergies()[0] ) );
-  CHECK( 500e+3 == Approx( chunk.incidentEnergies()[1] ) );
+  CHECK_THAT( 0.0253, WithinRel( chunk.E()[0] ) );
+  CHECK_THAT( 500e+3, WithinRel( chunk.E()[1] ) );
+  CHECK_THAT( 0.0253, WithinRel( chunk.incidentEnergies()[0] ) );
+  CHECK_THAT( 500e+3, WithinRel( chunk.incidentEnergies()[1] ) );
 
   CHECK( 2 == chunk.yields().size() );
 
@@ -361,8 +365,8 @@ void verifyChunk( const section::Type< 8, 459 >& chunk ) {
   CHECK( false == data.isEnergyIndependent() );
   CHECK( 3 == data.NFP() );
   CHECK( 3 == data.numberFissionProducts() );
-  CHECK( 0.0253 == Approx( data.E() ) );
-  CHECK( 0.0253 == Approx( data.incidentEnergy() ) );
+  CHECK_THAT( 0.0253, WithinRel( data.E() ) );
+  CHECK_THAT( 0.0253, WithinRel( data.incidentEnergy() ) );
 
   CHECK( 3 == data.fissionProducts().size() );
   CHECK( 23066 == data.fissionProducts()[0].ZAFP() );
@@ -377,12 +381,12 @@ void verifyChunk( const section::Type< 8, 459 >& chunk ) {
   CHECK( 0 == data.fissionProducts()[0].isomericState() );
   CHECK( 0 == data.fissionProducts()[1].isomericState() );
   CHECK( 0 == data.fissionProducts()[2].isomericState() );
-  CHECK( 2.05032e-19 == Approx( data.fissionProducts()[0].Y()[0] ) );
-  CHECK( 1.31220e-19 == Approx( data.fissionProducts()[0].Y()[1] ) );
-  CHECK( 7.851250e-4 == Approx( data.fissionProducts()[1].Y()[0] ) );
-  CHECK( 4.710750e-5 == Approx( data.fissionProducts()[1].Y()[1] ) );
-  CHECK( 0 == Approx( data.fissionProducts()[2].Y()[0] ) );
-  CHECK( 0 == Approx( data.fissionProducts()[2].Y()[1] ) );
+  CHECK_THAT( 2.05032e-19, WithinRel( data.fissionProducts()[0].Y()[0] ) );
+  CHECK_THAT( 1.31220e-19, WithinRel( data.fissionProducts()[0].Y()[1] ) );
+  CHECK_THAT( 7.851250e-4, WithinRel( data.fissionProducts()[1].Y()[0] ) );
+  CHECK_THAT( 4.710750e-5, WithinRel( data.fissionProducts()[1].Y()[1] ) );
+  CHECK_THAT( 0, WithinRel( data.fissionProducts()[2].Y()[0] ) );
+  CHECK_THAT( 0, WithinRel( data.fissionProducts()[2].Y()[1] ) );
 
   CHECK( 3 == data.ZAFP().size() );
   CHECK( 3 == data.fissionProductIdentifiers().size() );
@@ -408,18 +412,18 @@ void verifyChunk( const section::Type< 8, 459 >& chunk ) {
   CHECK( 2 == data.fissionYields()[0].size() );
   CHECK( 2 == data.fissionYields()[1].size() );
   CHECK( 2 == data.fissionYields()[2].size() );
-  CHECK( 2.05032e-19 == Approx( data.Y()[0][0] ) );
-  CHECK( 1.31220e-19 == Approx( data.Y()[0][1] ) );
-  CHECK( 7.851250e-4 == Approx( data.Y()[1][0] ) );
-  CHECK( 4.710750e-5 == Approx( data.Y()[1][1] ) );
-  CHECK( 0 == Approx( data.Y()[2][0] ) );
-  CHECK( 0 == Approx( data.Y()[2][1] ) );
-  CHECK( 2.05032e-19 == Approx( data.fissionYields()[0][0] ) );
-  CHECK( 1.31220e-19 == Approx( data.fissionYields()[0][1] ) );
-  CHECK( 7.851250e-4 == Approx( data.fissionYields()[1][0] ) );
-  CHECK( 4.710750e-5 == Approx( data.fissionYields()[1][1] ) );
-  CHECK( 0 == Approx( data.fissionYields()[2][0] ) );
-  CHECK( 0 == Approx( data.fissionYields()[2][1] ) );
+  CHECK_THAT( 2.05032e-19, WithinRel( data.Y()[0][0] ) );
+  CHECK_THAT( 1.31220e-19, WithinRel( data.Y()[0][1] ) );
+  CHECK_THAT( 7.851250e-4, WithinRel( data.Y()[1][0] ) );
+  CHECK_THAT( 4.710750e-5, WithinRel( data.Y()[1][1] ) );
+  CHECK_THAT( 0, WithinRel( data.Y()[2][0] ) );
+  CHECK_THAT( 0, WithinRel( data.Y()[2][1] ) );
+  CHECK_THAT( 2.05032e-19, WithinRel( data.fissionYields()[0][0] ) );
+  CHECK_THAT( 1.31220e-19, WithinRel( data.fissionYields()[0][1] ) );
+  CHECK_THAT( 7.851250e-4, WithinRel( data.fissionYields()[1][0] ) );
+  CHECK_THAT( 4.710750e-5, WithinRel( data.fissionYields()[1][1] ) );
+  CHECK_THAT( 0, WithinRel( data.fissionYields()[2][0] ) );
+  CHECK_THAT( 0, WithinRel( data.fissionYields()[2][1] ) );
 
   data = chunk.yields()[1];
   CHECK( 3 == data.I() );
@@ -428,8 +432,8 @@ void verifyChunk( const section::Type< 8, 459 >& chunk ) {
   CHECK( false == data.isEnergyIndependent() );
   CHECK( 3 == data.NFP() );
   CHECK( 3 == data.numberFissionProducts() );
-  CHECK( 500e+3 == Approx( data.E() ) );
-  CHECK( 500e+3 == Approx( data.incidentEnergy() ) );
+  CHECK_THAT( 500e+3, WithinRel( data.E() ) );
+  CHECK_THAT( 500e+3, WithinRel( data.incidentEnergy() ) );
 
   CHECK( 3 == data.fissionProducts().size() );
   CHECK( 23066 == data.fissionProducts()[0].ZAFP() );
@@ -444,12 +448,12 @@ void verifyChunk( const section::Type< 8, 459 >& chunk ) {
   CHECK( 0 == data.fissionProducts()[0].isomericState() );
   CHECK( 0 == data.fissionProducts()[1].isomericState() );
   CHECK( 0 == data.fissionProducts()[2].isomericState() );
-  CHECK( 4.48456e-18 == Approx( data.fissionProducts()[0].Y()[0] ) );
-  CHECK( 2.87012e-18 == Approx( data.fissionProducts()[0].Y()[1] ) );
-  CHECK( 1.196100e-3 == Approx( data.fissionProducts()[1].Y()[0] ) );
-  CHECK( 2.751030e-4 == Approx( data.fissionProducts()[1].Y()[1] ) );
-  CHECK( 0 == Approx( data.fissionProducts()[2].Y()[0] ) );
-  CHECK( 0 == Approx( data.fissionProducts()[2].Y()[1] ) );
+  CHECK_THAT( 4.48456e-18, WithinRel( data.fissionProducts()[0].Y()[0] ) );
+  CHECK_THAT( 2.87012e-18, WithinRel( data.fissionProducts()[0].Y()[1] ) );
+  CHECK_THAT( 1.196100e-3, WithinRel( data.fissionProducts()[1].Y()[0] ) );
+  CHECK_THAT( 2.751030e-4, WithinRel( data.fissionProducts()[1].Y()[1] ) );
+  CHECK_THAT( 0, WithinRel( data.fissionProducts()[2].Y()[0] ) );
+  CHECK_THAT( 0, WithinRel( data.fissionProducts()[2].Y()[1] ) );
 
   CHECK( 3 == data.ZAFP().size() );
   CHECK( 3 == data.fissionProductIdentifiers().size() );
@@ -475,18 +479,18 @@ void verifyChunk( const section::Type< 8, 459 >& chunk ) {
   CHECK( 2 == data.fissionYields()[0].size() );
   CHECK( 2 == data.fissionYields()[1].size() );
   CHECK( 2 == data.fissionYields()[2].size() );
-  CHECK( 4.48456e-18 == Approx( data.Y()[0][0] ) );
-  CHECK( 2.87012e-18 == Approx( data.Y()[0][1] ) );
-  CHECK( 1.196100e-3 == Approx( data.Y()[1][0] ) );
-  CHECK( 2.751030e-4 == Approx( data.Y()[1][1] ) );
-  CHECK( 0 == Approx( data.Y()[2][0] ) );
-  CHECK( 0 == Approx( data.Y()[2][1] ) );
-  CHECK( 4.48456e-18 == Approx( data.fissionYields()[0][0] ) );
-  CHECK( 2.87012e-18 == Approx( data.fissionYields()[0][1] ) );
-  CHECK( 1.196100e-3 == Approx( data.fissionYields()[1][0] ) );
-  CHECK( 2.751030e-4 == Approx( data.fissionYields()[1][1] ) );
-  CHECK( 0 == Approx( data.fissionYields()[2][0] ) );
-  CHECK( 0 == Approx( data.fissionYields()[2][1] ) );
+  CHECK_THAT( 4.48456e-18, WithinRel( data.Y()[0][0] ) );
+  CHECK_THAT( 2.87012e-18, WithinRel( data.Y()[0][1] ) );
+  CHECK_THAT( 1.196100e-3, WithinRel( data.Y()[1][0] ) );
+  CHECK_THAT( 2.751030e-4, WithinRel( data.Y()[1][1] ) );
+  CHECK_THAT( 0, WithinRel( data.Y()[2][0] ) );
+  CHECK_THAT( 0, WithinRel( data.Y()[2][1] ) );
+  CHECK_THAT( 4.48456e-18, WithinRel( data.fissionYields()[0][0] ) );
+  CHECK_THAT( 2.87012e-18, WithinRel( data.fissionYields()[0][1] ) );
+  CHECK_THAT( 1.196100e-3, WithinRel( data.fissionYields()[1][0] ) );
+  CHECK_THAT( 2.751030e-4, WithinRel( data.fissionYields()[1][1] ) );
+  CHECK_THAT( 0, WithinRel( data.fissionYields()[2][0] ) );
+  CHECK_THAT( 0, WithinRel( data.fissionYields()[2][1] ) );
 
   CHECK( 7 == chunk.NC() );
 }
@@ -505,9 +509,9 @@ void verifyChunkWithEnergyIndependentYields( const section::Type< 8, 459 >& chun
   CHECK( 459 == chunk.MT() );
   CHECK( 459 == chunk.sectionNumber() );
 
-  CHECK( 92235. == Approx( chunk.ZA() ) );
-  CHECK( 233.0250 == Approx( chunk.AWR() ) );
-  CHECK( 233.0250 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK( 92235 == chunk.ZA() );
+  CHECK_THAT( 233.0250, WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 233.0250, WithinRel( chunk.atomicWeightRatio() ) );
 
   CHECK( true == chunk.LE() );
   CHECK( true == chunk.isEnergyIndependent() );
@@ -515,8 +519,8 @@ void verifyChunkWithEnergyIndependentYields( const section::Type< 8, 459 >& chun
   CHECK( 1 == chunk.NE() );
   CHECK( 1 == chunk.E().size() );
   CHECK( 1 == chunk.incidentEnergies().size() );
-  CHECK( 0. == Approx( chunk.E()[0] ) );
-  CHECK( 0. == Approx( chunk.incidentEnergies()[0] ) );
+  CHECK_THAT( 0., WithinRel( chunk.E()[0] ) );
+  CHECK_THAT( 0., WithinRel( chunk.incidentEnergies()[0] ) );
 
   CHECK( 1 == chunk.yields().size() );
 
@@ -527,8 +531,8 @@ void verifyChunkWithEnergyIndependentYields( const section::Type< 8, 459 >& chun
   CHECK( true == data.isEnergyIndependent() );
   CHECK( 3 == data.NFP() );
   CHECK( 3 == data.numberFissionProducts() );
-  CHECK( 0. == Approx( data.E() ) );
-  CHECK( 0. == Approx( data.incidentEnergy() ) );
+  CHECK_THAT( 0., WithinRel( data.E() ) );
+  CHECK_THAT( 0., WithinRel( data.incidentEnergy() ) );
 
   CHECK( 3 == data.fissionProducts().size() );
   CHECK( 23066 == data.fissionProducts()[0].ZAFP() );
@@ -543,12 +547,12 @@ void verifyChunkWithEnergyIndependentYields( const section::Type< 8, 459 >& chun
   CHECK( 0 == data.fissionProducts()[0].isomericState() );
   CHECK( 0 == data.fissionProducts()[1].isomericState() );
   CHECK( 0 == data.fissionProducts()[2].isomericState() );
-  CHECK( 2.05032e-19 == Approx( data.fissionProducts()[0].Y()[0] ) );
-  CHECK( 1.31220e-19 == Approx( data.fissionProducts()[0].Y()[1] ) );
-  CHECK( 7.851250e-4 == Approx( data.fissionProducts()[1].Y()[0] ) );
-  CHECK( 4.710750e-5 == Approx( data.fissionProducts()[1].Y()[1] ) );
-  CHECK( 0 == Approx( data.fissionProducts()[2].Y()[0] ) );
-  CHECK( 0 == Approx( data.fissionProducts()[2].Y()[1] ) );
+  CHECK_THAT( 2.05032e-19, WithinRel( data.fissionProducts()[0].Y()[0] ) );
+  CHECK_THAT( 1.31220e-19, WithinRel( data.fissionProducts()[0].Y()[1] ) );
+  CHECK_THAT( 7.851250e-4, WithinRel( data.fissionProducts()[1].Y()[0] ) );
+  CHECK_THAT( 4.710750e-5, WithinRel( data.fissionProducts()[1].Y()[1] ) );
+  CHECK_THAT( 0, WithinRel( data.fissionProducts()[2].Y()[0] ) );
+  CHECK_THAT( 0, WithinRel( data.fissionProducts()[2].Y()[1] ) );
 
   CHECK( 3 == data.ZAFP().size() );
   CHECK( 3 == data.fissionProductIdentifiers().size() );
@@ -574,18 +578,18 @@ void verifyChunkWithEnergyIndependentYields( const section::Type< 8, 459 >& chun
   CHECK( 2 == data.fissionYields()[0].size() );
   CHECK( 2 == data.fissionYields()[1].size() );
   CHECK( 2 == data.fissionYields()[2].size() );
-  CHECK( 2.05032e-19 == Approx( data.Y()[0][0] ) );
-  CHECK( 1.31220e-19 == Approx( data.Y()[0][1] ) );
-  CHECK( 7.851250e-4 == Approx( data.Y()[1][0] ) );
-  CHECK( 4.710750e-5 == Approx( data.Y()[1][1] ) );
-  CHECK( 0 == Approx( data.Y()[2][0] ) );
-  CHECK( 0 == Approx( data.Y()[2][1] ) );
-  CHECK( 2.05032e-19 == Approx( data.fissionYields()[0][0] ) );
-  CHECK( 1.31220e-19 == Approx( data.fissionYields()[0][1] ) );
-  CHECK( 7.851250e-4 == Approx( data.fissionYields()[1][0] ) );
-  CHECK( 4.710750e-5 == Approx( data.fissionYields()[1][1] ) );
-  CHECK( 0 == Approx( data.fissionYields()[2][0] ) );
-  CHECK( 0 == Approx( data.fissionYields()[2][1] ) );
+  CHECK_THAT( 2.05032e-19, WithinRel( data.Y()[0][0] ) );
+  CHECK_THAT( 1.31220e-19, WithinRel( data.Y()[0][1] ) );
+  CHECK_THAT( 7.851250e-4, WithinRel( data.Y()[1][0] ) );
+  CHECK_THAT( 4.710750e-5, WithinRel( data.Y()[1][1] ) );
+  CHECK_THAT( 0, WithinRel( data.Y()[2][0] ) );
+  CHECK_THAT( 0, WithinRel( data.Y()[2][1] ) );
+  CHECK_THAT( 2.05032e-19, WithinRel( data.fissionYields()[0][0] ) );
+  CHECK_THAT( 1.31220e-19, WithinRel( data.fissionYields()[0][1] ) );
+  CHECK_THAT( 7.851250e-4, WithinRel( data.fissionYields()[1][0] ) );
+  CHECK_THAT( 4.710750e-5, WithinRel( data.fissionYields()[1][1] ) );
+  CHECK_THAT( 0, WithinRel( data.fissionYields()[2][0] ) );
+  CHECK_THAT( 0, WithinRel( data.fissionYields()[2][1] ) );
 
   CHECK( 4 == chunk.NC() );
 }

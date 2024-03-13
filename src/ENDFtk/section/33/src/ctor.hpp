@@ -6,7 +6,7 @@
  *  @param[in] awr           the atomic weight ratio
  *  @param[in] reactions     the reaction block subsections
  */
-Type( int MT, double zaid, double awr,
+Type( int MT, int zaid, double awr,
       std::vector< ReactionBlock >&& reactions ) :
   Base( zaid, awr, MT ), mtl_( 0 ),
   reactions_( std::move( reactions ) ) {}
@@ -19,7 +19,7 @@ Type( int MT, double zaid, double awr,
  *  @param[in] awr           the atomic weight ratio
  *  @param[in] mtl           the lumped covariance index
  */
-Type( int MT, double zaid, double awr, int mtl ) :
+Type( int MT, int zaid, double awr, int mtl ) :
   Base( zaid, awr, MT ), mtl_( mtl ) {}
 
 /**

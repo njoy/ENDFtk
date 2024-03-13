@@ -57,7 +57,7 @@ void wrapSection_1_458( python::module& module, python::module& viewmodule ) {
   .def(
 
     //! @todo pybind11 lambda move custom type workaround
-    python::init( [] ( double zaid, double awr,
+    python::init( [] ( int zaid, double awr,
                        FissionEnergyReleaseData fissionq )
                      { return Section( zaid, awr,
                                        std::move( fissionq ) ); } ),

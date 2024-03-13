@@ -3,9 +3,12 @@
 # ENDFtk
 Toolkit for reading and interacting with ENDF-6 formatted files. This toolkit provides a full C++ library along with python bindings.
 
-## ENDFtk in python
+## Release and development versions
+For the latest version of ENDFtk and an overview of the latest changes, please see the [Release Notes](ReleaseNotes.md) or the [release](https://github.com/njoy/ENDFtk/releases) page.
 
-The python bindings for ENDFtk are still work in progress and should be used accordingly. Please report any issues encountered while using the python bindings using the issue tracker on this repository.
+The latest release version of ENDFtk can always be found at the head of the [main](https://github.com/njoy/ENDFtk) branch of this repository and every release is associated to a release tag. New versions are released on a regular basis (we aim to provide updates at least every three months). The latest development version of ENDFtk containing the latest updates and changes can be found in at the head of the [develop](https://github.com/njoy/ENDFtk/tree/develop) branch. This development version should be used with caution.
+
+## ENDFtk in python
 
 ### Installing ENDFtk for python
 
@@ -33,6 +36,10 @@ where `< ENDFtk-build-path >` is the path to the ENDFtk python dynamic library.
 When running python in the build directory directly, none of these steps are required.
 
 #### Troubleshooting ####
+
+##### c++: Permission denied #####
+
+On MacOS, an error may occur when using `make -j8` telling the user that there is no permission to execute the compiler (the error message will contain the full path to the compiler executable). This error is related to an issue with the MacOS system default make installation not allowing parallel compilation (the `-j8` part of the make command). Executing `make` without a parallel option will function, but the user should consider installing a different version of make (e.g. using homebrew) to get around this.
 
 ##### CMake doesn’t detect the right Python version #####
 

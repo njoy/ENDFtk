@@ -1,6 +1,7 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/file/8.hpp"
 
 // other includes
@@ -152,9 +153,9 @@ SCENARIO( "Testing special case of file 8" ) {
         CHECK( not file.hasSection( 1 ) );
 
         decltype(auto) section = std::get< section::Type< 8, 457 > >( file.section( 457 ) );
-        CHECK( 92235. == Approx( section.ZA() ) );
+        CHECK( 92235 == section.ZA() );
         decltype(auto) mt = std::get< section::Type< 8, 457 > >( file.MT( 457 ) );
-        CHECK( 92235. == Approx( mt.ZA() ) );
+        CHECK( 92235 == mt.ZA() );
       }
     }
 
@@ -1045,7 +1046,7 @@ void verifyChunk457( const file::Type< 8 >& chunk ) {
   CHECK_NOTHROW( chunk.section( 457 ) );
 
   decltype(auto) section = std::get< section::Type< 8, 457 > >( chunk.section( 457 ) );
-  CHECK( 95242. == Approx( section.ZA() ) );
+  CHECK( 95242 == section.ZA() );
   CHECK( 2 == section.LIS() );
   CHECK( 1 == section.LISO() );
   CHECK( 20 == section.NC() );

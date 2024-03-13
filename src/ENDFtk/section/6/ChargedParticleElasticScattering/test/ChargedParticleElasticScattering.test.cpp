@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/6.hpp"
 
 // other includes
@@ -179,8 +182,8 @@ std::string chunk() {
 void verifyChunk( const ChargedParticleElasticScattering& chunk ) {
 
   CHECK( 5 == chunk.LAW() );
-  CHECK( 0.5 == Approx( chunk.SPI() ) );
-  CHECK( 0.5 == Approx( chunk.spin() ) );
+  CHECK_THAT( 0.5, WithinRel( chunk.SPI() ) );
+  CHECK_THAT( 0.5, WithinRel( chunk.spin() ) );
   CHECK( true == chunk.LIDP() );
   CHECK( true == chunk.identicalParticles() );
   CHECK( 2 == chunk.NE() );
@@ -192,92 +195,92 @@ void verifyChunk( const ChargedParticleElasticScattering& chunk ) {
 
   CHECK( 2 == chunk.E().size() );
   CHECK( 2 == chunk.incidentEnergies().size() );
-  CHECK( 1e-5 == Approx( chunk.E()[0] ) );
-  CHECK( 2e+7 == Approx( chunk.E()[1] ) );
-  CHECK( 1e-5 == Approx( chunk.incidentEnergies()[0] ) );
-  CHECK( 2e+7 == Approx( chunk.incidentEnergies()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.E()[0] ) );
+  CHECK_THAT( 2e+7, WithinRel( chunk.E()[1] ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.incidentEnergies()[0] ) );
+  CHECK_THAT( 2e+7, WithinRel( chunk.incidentEnergies()[1] ) );
 
   auto energies = chunk.distributions();
 
   auto subsection1 =
-    std::get< NuclearAmplitudeExpansion >( energies[0] );
-    CHECK( 1e-5 == Approx( subsection1.E() ) );
-    CHECK( 1e-5 == Approx( subsection1.incidentEnergy() ) );
+  std::get< NuclearAmplitudeExpansion >( energies[0] );
+  CHECK_THAT( 1e-5, WithinRel( subsection1.E() ) );
+  CHECK_THAT( 1e-5, WithinRel( subsection1.incidentEnergy() ) );
   CHECK( 1 == subsection1.LTP() );
   CHECK( 12 == subsection1.NW() );
   CHECK( 3 == subsection1.NL() );
   CHECK( 4 == subsection1.B().size() );
   CHECK( 4 == subsection1.scatteringCoefficients().size() );
-  CHECK( 1. == Approx( subsection1.B()[0] ) );
-  CHECK( 2. == Approx( subsection1.B()[1] ) );
-  CHECK( 3. == Approx( subsection1.B()[2] ) );
-  CHECK( 4. == Approx( subsection1.B()[3] ) );
-  CHECK( 1. == Approx( subsection1.scatteringCoefficients()[0] ) );
-  CHECK( 2. == Approx( subsection1.scatteringCoefficients()[1] ) );
-  CHECK( 3. == Approx( subsection1.scatteringCoefficients()[2] ) );
-  CHECK( 4. == Approx( subsection1.scatteringCoefficients()[3] ) );
+  CHECK_THAT( 1., WithinRel( subsection1.B()[0] ) );
+  CHECK_THAT( 2., WithinRel( subsection1.B()[1] ) );
+  CHECK_THAT( 3., WithinRel( subsection1.B()[2] ) );
+  CHECK_THAT( 4., WithinRel( subsection1.B()[3] ) );
+  CHECK_THAT( 1., WithinRel( subsection1.scatteringCoefficients()[0] ) );
+  CHECK_THAT( 2., WithinRel( subsection1.scatteringCoefficients()[1] ) );
+  CHECK_THAT( 3., WithinRel( subsection1.scatteringCoefficients()[2] ) );
+  CHECK_THAT( 4., WithinRel( subsection1.scatteringCoefficients()[3] ) );
   CHECK( 4 == subsection1.AR().size() );
   CHECK( 4 == subsection1.realInterferenceCoefficients().size() );
-  CHECK( 5. == Approx( subsection1.AR()[0] ) );
-  CHECK( 7. == Approx( subsection1.AR()[1] ) );
-  CHECK( 9. == Approx( subsection1.AR()[2] ) );
-  CHECK( 11. == Approx( subsection1.AR()[3] ) );
-  CHECK( 5. == Approx( subsection1.realInterferenceCoefficients()[0] ) );
-  CHECK( 7. == Approx( subsection1.realInterferenceCoefficients()[1] ) );
-  CHECK( 9. == Approx( subsection1.realInterferenceCoefficients()[2] ) );
-  CHECK( 11. == Approx( subsection1.realInterferenceCoefficients()[3] ) );
+  CHECK_THAT( 5., WithinRel( subsection1.AR()[0] ) );
+  CHECK_THAT( 7., WithinRel( subsection1.AR()[1] ) );
+  CHECK_THAT( 9., WithinRel( subsection1.AR()[2] ) );
+  CHECK_THAT( 11., WithinRel( subsection1.AR()[3] ) );
+  CHECK_THAT( 5., WithinRel( subsection1.realInterferenceCoefficients()[0] ) );
+  CHECK_THAT( 7., WithinRel( subsection1.realInterferenceCoefficients()[1] ) );
+  CHECK_THAT( 9., WithinRel( subsection1.realInterferenceCoefficients()[2] ) );
+  CHECK_THAT( 11., WithinRel( subsection1.realInterferenceCoefficients()[3] ) );
   CHECK( 4 == subsection1.AI().size() );
   CHECK( 4 == subsection1.imaginaryInterferenceCoefficients().size() );
-  CHECK( 6. == Approx( subsection1.AI()[0] ) );
-  CHECK( 8. == Approx( subsection1.AI()[1] ) );
-  CHECK( 10. == Approx( subsection1.AI()[2] ) );
-  CHECK( 12. == Approx( subsection1.AI()[3] ) );
-  CHECK( 6. == Approx( subsection1.imaginaryInterferenceCoefficients()[0] ) );
-  CHECK( 8. == Approx( subsection1.imaginaryInterferenceCoefficients()[1] ) );
-  CHECK( 10. == Approx( subsection1.imaginaryInterferenceCoefficients()[2] ) );
-  CHECK( 12. == Approx( subsection1.imaginaryInterferenceCoefficients()[3] ) );
+  CHECK_THAT( 6., WithinRel( subsection1.AI()[0] ) );
+  CHECK_THAT( 8., WithinRel( subsection1.AI()[1] ) );
+  CHECK_THAT( 10., WithinRel( subsection1.AI()[2] ) );
+  CHECK_THAT( 12., WithinRel( subsection1.AI()[3] ) );
+  CHECK_THAT( 6., WithinRel( subsection1.imaginaryInterferenceCoefficients()[0] ) );
+  CHECK_THAT( 8., WithinRel( subsection1.imaginaryInterferenceCoefficients()[1] ) );
+  CHECK_THAT( 10., WithinRel( subsection1.imaginaryInterferenceCoefficients()[2] ) );
+  CHECK_THAT( 12., WithinRel( subsection1.imaginaryInterferenceCoefficients()[3] ) );
   CHECK( 4 == subsection1.A().size() );
   CHECK( 4 == subsection1.interferenceCoefficients().size() );
-  CHECK( 5. == Approx( subsection1.A()[0].real() ) );
-  CHECK( 7. == Approx( subsection1.A()[1].real() ) );
-  CHECK( 9. == Approx( subsection1.A()[2].real() ) );
-  CHECK( 11. == Approx( subsection1.A()[3].real() ) );
-  CHECK( 6. == Approx( subsection1.A()[0].imag() ) );
-  CHECK( 8. == Approx( subsection1.A()[1].imag() ) );
-  CHECK( 10. == Approx( subsection1.A()[2].imag() ) );
-  CHECK( 12. == Approx( subsection1.A()[3].imag() ) );
-  CHECK( 5. == Approx( subsection1.interferenceCoefficients()[0].real() ) );
-  CHECK( 7. == Approx( subsection1.interferenceCoefficients()[1].real() ) );
-  CHECK( 9. == Approx( subsection1.interferenceCoefficients()[2].real() ) );
-  CHECK( 11. == Approx( subsection1.interferenceCoefficients()[3].real() ) );
-  CHECK( 6. == Approx( subsection1.interferenceCoefficients()[0].imag() ) );
-  CHECK( 8. == Approx( subsection1.interferenceCoefficients()[1].imag() ) );
-  CHECK( 10. == Approx( subsection1.interferenceCoefficients()[2].imag() ) );
-  CHECK( 12. == Approx( subsection1.interferenceCoefficients()[3].imag() ) );
+  CHECK_THAT( 5., WithinRel( subsection1.A()[0].real() ) );
+  CHECK_THAT( 7., WithinRel( subsection1.A()[1].real() ) );
+  CHECK_THAT( 9., WithinRel( subsection1.A()[2].real() ) );
+  CHECK_THAT( 11., WithinRel( subsection1.A()[3].real() ) );
+  CHECK_THAT( 6., WithinRel( subsection1.A()[0].imag() ) );
+  CHECK_THAT( 8., WithinRel( subsection1.A()[1].imag() ) );
+  CHECK_THAT( 10., WithinRel( subsection1.A()[2].imag() ) );
+  CHECK_THAT( 12., WithinRel( subsection1.A()[3].imag() ) );
+  CHECK_THAT( 5., WithinRel( subsection1.interferenceCoefficients()[0].real() ) );
+  CHECK_THAT( 7., WithinRel( subsection1.interferenceCoefficients()[1].real() ) );
+  CHECK_THAT( 9., WithinRel( subsection1.interferenceCoefficients()[2].real() ) );
+  CHECK_THAT( 11., WithinRel( subsection1.interferenceCoefficients()[3].real() ) );
+  CHECK_THAT( 6., WithinRel( subsection1.interferenceCoefficients()[0].imag() ) );
+  CHECK_THAT( 8., WithinRel( subsection1.interferenceCoefficients()[1].imag() ) );
+  CHECK_THAT( 10., WithinRel( subsection1.interferenceCoefficients()[2].imag() ) );
+  CHECK_THAT( 12., WithinRel( subsection1.interferenceCoefficients()[3].imag() ) );
 
   auto subsection2 =
-    std::get< NuclearPlusInterference >( energies[1] );
-    CHECK( 2e+7 == Approx( subsection2.E() ) );
-    CHECK( 2e+7 == Approx( subsection2.incidentEnergy() ) );
+  std::get< NuclearPlusInterference >( energies[1] );
+  CHECK_THAT( 2e+7, WithinRel( subsection2.E() ) );
+  CHECK_THAT( 2e+7, WithinRel( subsection2.incidentEnergy() ) );
   CHECK( 15 == subsection2.LTP() );
   CHECK( 6 == subsection2.NW() );
   CHECK( 3 == subsection2.NL() );
   CHECK( 3 == subsection2.MU().size() );
   CHECK( 3 == subsection2.cosines().size() );
-  CHECK( 1. == Approx( subsection2.MU()[0] ) );
-  CHECK( 3. == Approx( subsection2.MU()[1] ) );
-  CHECK( 5. == Approx( subsection2.MU()[2] ) );
-  CHECK( 1. == Approx( subsection2.cosines()[0] ) );
-  CHECK( 3. == Approx( subsection2.cosines()[1] ) );
-  CHECK( 5. == Approx( subsection2.cosines()[2] ) );
+  CHECK_THAT( 1., WithinRel( subsection2.MU()[0] ) );
+  CHECK_THAT( 3., WithinRel( subsection2.MU()[1] ) );
+  CHECK_THAT( 5., WithinRel( subsection2.MU()[2] ) );
+  CHECK_THAT( 1., WithinRel( subsection2.cosines()[0] ) );
+  CHECK_THAT( 3., WithinRel( subsection2.cosines()[1] ) );
+  CHECK_THAT( 5., WithinRel( subsection2.cosines()[2] ) );
   CHECK( 3 == subsection2.PNI().size() );
   CHECK( 3 == subsection2.probabilities().size() );
-  CHECK( 2. == Approx( subsection2.PNI()[0] ) );
-  CHECK( 4. == Approx( subsection2.PNI()[1] ) );
-  CHECK( 6. == Approx( subsection2.PNI()[2] ) );
-  CHECK( 2. == Approx( subsection2.probabilities()[0] ) );
-  CHECK( 4. == Approx( subsection2.probabilities()[1] ) );
-  CHECK( 6. == Approx( subsection2.probabilities()[2] ) );
+  CHECK_THAT( 2., WithinRel( subsection2.PNI()[0] ) );
+  CHECK_THAT( 4., WithinRel( subsection2.PNI()[1] ) );
+  CHECK_THAT( 6., WithinRel( subsection2.PNI()[2] ) );
+  CHECK_THAT( 2., WithinRel( subsection2.probabilities()[0] ) );
+  CHECK_THAT( 4., WithinRel( subsection2.probabilities()[1] ) );
+  CHECK_THAT( 6., WithinRel( subsection2.probabilities()[2] ) );
 
   CHECK( 7 == chunk.NC() );
 }

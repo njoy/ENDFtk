@@ -55,7 +55,7 @@ void wrapSection_14( python::module& module, python::module& viewmodule ) {
   section
   .def(
 
-    python::init< int, double, double, unsigned int >(),
+    python::init< int, int, double, unsigned int >(),
     python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
     python::arg( "nk" ),
     "Initialise the section for all isotropic photons\n\n"
@@ -68,7 +68,7 @@ void wrapSection_14( python::module& module, python::module& viewmodule ) {
   )
   .def(
 
-    python::init< int, double, double,
+    python::init< int, int, double,
                   std::vector< PhotonDistribution >&& >(),
     python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
     python::arg( "photons" ),
@@ -82,7 +82,7 @@ void wrapSection_14( python::module& module, python::module& viewmodule ) {
   )
   .def(
 
-    python::init< int, double, double,
+    python::init< int, int, double,
                   std::vector< std::array< double, 2 > >&&,
                   std::vector< AnisotropicPhotonDistribution >&& >(),
     python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
@@ -98,7 +98,7 @@ void wrapSection_14( python::module& module, python::module& viewmodule ) {
   )
   .def(
 
-    python::init< int, double, double,
+    python::init< int, int, double,
                   std::vector< double >&&,
                   std::vector< double >&&,
                   std::vector< AnisotropicPhotonDistribution >&& >(),

@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/2/151.hpp"
 
 // other includes
@@ -106,13 +109,13 @@ void verifyChunk( const SammyBackgroundRMatrix& chunk ) {
   CHECK( 1 == chunk.LCH() );
   CHECK( 1 == chunk.channelIndex() );
 
-  CHECK( 1. == Approx( chunk.ED() ) );
-  CHECK( 2. == Approx( chunk.EU() ) );
-  CHECK( 3. == Approx( chunk.R0() ) );
-  CHECK( 4. == Approx( chunk.R1() ) );
-  CHECK( 5. == Approx( chunk.R2() ) );
-  CHECK( 6. == Approx( chunk.S0() ) );
-  CHECK( 7. == Approx( chunk.S1() ) );
+  CHECK_THAT( 1., WithinRel( chunk.ED() ) );
+  CHECK_THAT( 2., WithinRel( chunk.EU() ) );
+  CHECK_THAT( 3., WithinRel( chunk.R0() ) );
+  CHECK_THAT( 4., WithinRel( chunk.R1() ) );
+  CHECK_THAT( 5., WithinRel( chunk.R2() ) );
+  CHECK_THAT( 6., WithinRel( chunk.S0() ) );
+  CHECK_THAT( 7., WithinRel( chunk.S1() ) );
 
   CHECK( 3 == chunk.NC() );
 }

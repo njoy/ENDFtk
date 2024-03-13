@@ -4,7 +4,7 @@
 // system includes
 
 // other includes
-#include "Log.hpp"
+#include "tools/Log.hpp"
 #include "range/v3/view/all.hpp"
 #include "ENDFtk/record.hpp"
 
@@ -97,9 +97,6 @@ namespace ENDFtk {
     /* methods */
 
   #define DEFINE_GETTER( name, index )                                    \
-    Base::MutableReturnType< index >                                      \
-    name (){ return std::get< index >( this->metadata.fields ); }         \
-                                                                          \
     Base::ImmutableReturnType< index >                                    \
     name () const { return std::get< index >( this->metadata.fields ); }
 

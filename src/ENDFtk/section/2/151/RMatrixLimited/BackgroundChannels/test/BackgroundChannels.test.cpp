@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/2/151.hpp"
 
 // other includes
@@ -102,13 +105,13 @@ void verifyChunk( const BackgroundChannels& chunk ) {
   CHECK( 2 == background.LCH() );
   CHECK( 2 == background.channelIndex() );
 
-  CHECK( 1. == Approx( background.ED() ) );
-  CHECK( 2. == Approx( background.EU() ) );
-  CHECK( 3. == Approx( background.R0() ) );
-  CHECK( 4. == Approx( background.R1() ) );
-  CHECK( 5. == Approx( background.R2() ) );
-  CHECK( 6. == Approx( background.S0() ) );
-  CHECK( 7. == Approx( background.S1() ) );
+  CHECK_THAT( 1., WithinRel( background.ED() ) );
+  CHECK_THAT( 2., WithinRel( background.EU() ) );
+  CHECK_THAT( 3., WithinRel( background.R0() ) );
+  CHECK_THAT( 4., WithinRel( background.R1() ) );
+  CHECK_THAT( 5., WithinRel( background.R2() ) );
+  CHECK_THAT( 6., WithinRel( background.S0() ) );
+  CHECK_THAT( 7., WithinRel( background.S1() ) );
 
   CHECK( 3 == chunk.NC() );
 }

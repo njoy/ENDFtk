@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/7/451.hpp"
 
 // other includes
@@ -128,24 +131,24 @@ void verifyChunk( const ElementInformation& chunk ) {
   CHECK( 0 == chunk.isomericStates()[0] );
   CHECK( 0 == chunk.isomericStates()[1] );
   CHECK( 0 == chunk.isomericStates()[2] );
-  CHECK( 9.976200e-1 == Approx( chunk.AFI()[0] ) );
-  CHECK( 3.800000e-4 == Approx( chunk.AFI()[1] ) );
-  CHECK( 2.000000e-3 == Approx( chunk.AFI()[2] ) );
-  CHECK( 9.976200e-1 == Approx( chunk.abundances()[0] ) );
-  CHECK( 3.800000e-4 == Approx( chunk.abundances()[1] ) );
-  CHECK( 2.000000e-3 == Approx( chunk.abundances()[2] ) );
-  CHECK(    15.85751 == Approx( chunk.AWRI()[0] ) );
-  CHECK(    16.85310 == Approx( chunk.AWRI()[1] ) );
-  CHECK(    17.84450 == Approx( chunk.AWRI()[2] ) );
-  CHECK(    15.85751 == Approx( chunk.atomicWeightRatios()[0] ) );
-  CHECK(    16.85310 == Approx( chunk.atomicWeightRatios()[1] ) );
-  CHECK(    17.84450 == Approx( chunk.atomicWeightRatios()[2] ) );
-  CHECK(    3.744801 == Approx( chunk.SFI()[0] ) );
-  CHECK(    3.642671 == Approx( chunk.SFI()[1] ) );
-  CHECK(    3.846775 == Approx( chunk.SFI()[2] ) );
-  CHECK(    3.744801 == Approx( chunk.freeScatteringCrossSections()[0] ) );
-  CHECK(    3.642671 == Approx( chunk.freeScatteringCrossSections()[1] ) );
-  CHECK(    3.846775 == Approx( chunk.freeScatteringCrossSections()[2] ) );
+  CHECK_THAT( 9.976200e-1, WithinRel( chunk.AFI()[0] ) );
+  CHECK_THAT( 3.800000e-4, WithinRel( chunk.AFI()[1] ) );
+  CHECK_THAT( 2.000000e-3, WithinRel( chunk.AFI()[2] ) );
+  CHECK_THAT( 9.976200e-1, WithinRel( chunk.abundances()[0] ) );
+  CHECK_THAT( 3.800000e-4, WithinRel( chunk.abundances()[1] ) );
+  CHECK_THAT( 2.000000e-3, WithinRel( chunk.abundances()[2] ) );
+  CHECK_THAT(    15.85751, WithinRel( chunk.AWRI()[0] ) );
+  CHECK_THAT(    16.85310, WithinRel( chunk.AWRI()[1] ) );
+  CHECK_THAT(    17.84450, WithinRel( chunk.AWRI()[2] ) );
+  CHECK_THAT(    15.85751, WithinRel( chunk.atomicWeightRatios()[0] ) );
+  CHECK_THAT(    16.85310, WithinRel( chunk.atomicWeightRatios()[1] ) );
+  CHECK_THAT(    17.84450, WithinRel( chunk.atomicWeightRatios()[2] ) );
+  CHECK_THAT(    3.744801, WithinRel( chunk.SFI()[0] ) );
+  CHECK_THAT(    3.642671, WithinRel( chunk.SFI()[1] ) );
+  CHECK_THAT(    3.846775, WithinRel( chunk.SFI()[2] ) );
+  CHECK_THAT(    3.744801, WithinRel( chunk.freeScatteringCrossSections()[0] ) );
+  CHECK_THAT(    3.642671, WithinRel( chunk.freeScatteringCrossSections()[1] ) );
+  CHECK_THAT(    3.846775, WithinRel( chunk.freeScatteringCrossSections()[2] ) );
 
   CHECK( 4 == chunk.NC() );
 }

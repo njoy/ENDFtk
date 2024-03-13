@@ -14,7 +14,7 @@ Type() = default;
  *  @param[in] awr             the atomic weight ratio
  *  @param[in] nk              the number of photons
  */
-Type( int MT, double zaid, double awr, unsigned int nk ) :
+Type( int MT, int zaid, double awr, unsigned int nk ) :
   Base( zaid, awr, MT ),
   nk_( nk ), photons_() {}
 
@@ -26,7 +26,7 @@ Type( int MT, double zaid, double awr, unsigned int nk ) :
  *  @param[in] awr       the atomic weight ratio
  *  @param[in] photons   the photon distribution data
  */
-Type( int MT, double zaid, double awr,
+Type( int MT, int zaid, double awr,
       std::vector< PhotonDistribution >&& photons ) :
   Base( zaid, awr, MT ),
   nk_(0), photons_( std::move( photons ) ) {}
@@ -40,7 +40,7 @@ Type( int MT, double zaid, double awr,
  *                           photons
  *  @param[in] anisotropic   the distribution data for the anisotropic photons
  */
-Type( int MT, double zaid, double awr,
+Type( int MT, int zaid, double awr,
       std::vector< std::array< double, 2 > >&& isotropic,
       std::vector< AnisotropicPhotonDistribution >&& anisotropic ) :
   Type( MT, zaid, awr,
@@ -56,7 +56,7 @@ Type( int MT, double zaid, double awr,
  *  @param[in] levels        the level energy for each isotropic photon
  *  @param[in] anisotropic   the distribution data for the anisotropic photons
  */
- Type( int MT, double zaid, double awr,
+ Type( int MT, int zaid, double awr,
        std::vector< double >&& energies,
        std::vector< double >&& levels,
        std::vector< AnisotropicPhotonDistribution >&& anisotropic ) :
@@ -69,7 +69,7 @@ private:
 /**
  *  @brief Private intermediate constructor
  */
-Type( int MT, double zaid, double awr, unsigned int nk,
+Type( int MT, int zaid, double awr, unsigned int nk,
       std::vector< PhotonDistribution >&& photons ) :
   Base( zaid, awr, MT ),
   nk_( nk ), photons_( std::move( photons ) ) {}

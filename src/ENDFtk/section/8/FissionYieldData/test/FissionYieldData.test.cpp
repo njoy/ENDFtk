@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/8/FissionYieldData.hpp"
 
 // other includes
@@ -106,8 +109,8 @@ void verifyChunk( const FissionYieldData& chunk ) {
   CHECK( false == chunk.isEnergyIndependent() );
   CHECK( 3 == chunk.NFP() );
   CHECK( 3 == chunk.numberFissionProducts() );
-  CHECK( 0.0253 == Approx( chunk.E() ) );
-  CHECK( 0.0253 == Approx( chunk.incidentEnergy() ) );
+  CHECK_THAT( 0.0253, WithinRel( chunk.E() ) );
+  CHECK_THAT( 0.0253, WithinRel( chunk.incidentEnergy() ) );
 
   CHECK( 3 == chunk.fissionProducts().size() );
   CHECK( 23066 == chunk.fissionProducts()[0].ZAFP() );
@@ -122,12 +125,12 @@ void verifyChunk( const FissionYieldData& chunk ) {
   CHECK( 0 == chunk.fissionProducts()[0].isomericState() );
   CHECK( 0 == chunk.fissionProducts()[1].isomericState() );
   CHECK( 0 == chunk.fissionProducts()[2].isomericState() );
-  CHECK( 2.05032e-19 == Approx( chunk.fissionProducts()[0].Y()[0] ) );
-  CHECK( 1.31220e-19 == Approx( chunk.fissionProducts()[0].Y()[1] ) );
-  CHECK( 7.851250e-4 == Approx( chunk.fissionProducts()[1].Y()[0] ) );
-  CHECK( 4.710750e-5 == Approx( chunk.fissionProducts()[1].Y()[1] ) );
-  CHECK( 0 == Approx( chunk.fissionProducts()[2].Y()[0] ) );
-  CHECK( 0 == Approx( chunk.fissionProducts()[2].Y()[1] ) );
+  CHECK_THAT( 2.05032e-19, WithinRel( chunk.fissionProducts()[0].Y()[0] ) );
+  CHECK_THAT( 1.31220e-19, WithinRel( chunk.fissionProducts()[0].Y()[1] ) );
+  CHECK_THAT( 7.851250e-4, WithinRel( chunk.fissionProducts()[1].Y()[0] ) );
+  CHECK_THAT( 4.710750e-5, WithinRel( chunk.fissionProducts()[1].Y()[1] ) );
+  CHECK_THAT( 0, WithinRel( chunk.fissionProducts()[2].Y()[0] ) );
+  CHECK_THAT( 0, WithinRel( chunk.fissionProducts()[2].Y()[1] ) );
 
   CHECK( 3 == chunk.ZAFP().size() );
   CHECK( 3 == chunk.fissionProductIdentifiers().size() );
@@ -153,18 +156,18 @@ void verifyChunk( const FissionYieldData& chunk ) {
   CHECK( 2 == chunk.fissionYields()[0].size() );
   CHECK( 2 == chunk.fissionYields()[1].size() );
   CHECK( 2 == chunk.fissionYields()[2].size() );
-  CHECK( 2.05032e-19 == Approx( chunk.Y()[0][0] ) );
-  CHECK( 1.31220e-19 == Approx( chunk.Y()[0][1] ) );
-  CHECK( 7.851250e-4 == Approx( chunk.Y()[1][0] ) );
-  CHECK( 4.710750e-5 == Approx( chunk.Y()[1][1] ) );
-  CHECK( 0 == Approx( chunk.Y()[2][0] ) );
-  CHECK( 0 == Approx( chunk.Y()[2][1] ) );
-  CHECK( 2.05032e-19 == Approx( chunk.fissionYields()[0][0] ) );
-  CHECK( 1.31220e-19 == Approx( chunk.fissionYields()[0][1] ) );
-  CHECK( 7.851250e-4 == Approx( chunk.fissionYields()[1][0] ) );
-  CHECK( 4.710750e-5 == Approx( chunk.fissionYields()[1][1] ) );
-  CHECK( 0 == Approx( chunk.fissionYields()[2][0] ) );
-  CHECK( 0 == Approx( chunk.fissionYields()[2][1] ) );
+  CHECK_THAT( 2.05032e-19, WithinRel( chunk.Y()[0][0] ) );
+  CHECK_THAT( 1.31220e-19, WithinRel( chunk.Y()[0][1] ) );
+  CHECK_THAT( 7.851250e-4, WithinRel( chunk.Y()[1][0] ) );
+  CHECK_THAT( 4.710750e-5, WithinRel( chunk.Y()[1][1] ) );
+  CHECK_THAT( 0, WithinRel( chunk.Y()[2][0] ) );
+  CHECK_THAT( 0, WithinRel( chunk.Y()[2][1] ) );
+  CHECK_THAT( 2.05032e-19, WithinRel( chunk.fissionYields()[0][0] ) );
+  CHECK_THAT( 1.31220e-19, WithinRel( chunk.fissionYields()[0][1] ) );
+  CHECK_THAT( 7.851250e-4, WithinRel( chunk.fissionYields()[1][0] ) );
+  CHECK_THAT( 4.710750e-5, WithinRel( chunk.fissionYields()[1][1] ) );
+  CHECK_THAT( 0, WithinRel( chunk.fissionYields()[2][0] ) );
+  CHECK_THAT( 0, WithinRel( chunk.fissionYields()[2][1] ) );
 
   CHECK( 3 == chunk.NC() );
 }

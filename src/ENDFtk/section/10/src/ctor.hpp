@@ -15,7 +15,7 @@ Type() = default;
  *  @param[in] lis    the target's excited level
  *  @param[in] products   the reaction products (at least 1)
  */
-Type( int mt, double zaid, double awr, long lis,
+Type( int mt, int zaid, double awr, long lis,
       std::vector< ReactionProduct >&& products ) :
   Base( zaid, awr, mt ), lis_( lis ), products_( std::move( products ) ) {}
 

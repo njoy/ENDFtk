@@ -30,6 +30,7 @@
 #include "ENDFtk/file/34.hpp"
 #include "ENDFtk/file/35.hpp"
 #include "ENDFtk/file/40.hpp"
+#include "tools/overload.hpp"
 
 namespace njoy {
 namespace ENDFtk {
@@ -253,7 +254,7 @@ namespace ENDFtk {
     SectionVariant section( int mf, int mt ) const {
 
       return std::visit(
-                 utility::overload{
+                 tools::overload{
                      [=] ( const file::Type< 1 >& file ) -> SectionVariant
                          { return std::visit(
                                       [=] ( const auto& section ) -> SectionVariant

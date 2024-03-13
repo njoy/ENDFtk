@@ -5,26 +5,20 @@ include( FetchContent )
 # Declare project dependencies
 #######################################################################
 
-FetchContent_Declare( Log
-    GIT_REPOSITORY  https://github.com/njoy/Log
-    GIT_TAG         origin/master
+FetchContent_Declare( tools
+    GIT_REPOSITORY  https://github.com/njoy/tools
+    GIT_TAG         v0.2.0
     GIT_SHALLOW     TRUE
     )
 
-FetchContent_Declare( catch-adapter
-    GIT_REPOSITORY  https://github.com/njoy/catch-adapter
-    GIT_TAG         origin/master
+FetchContent_Declare( Catch2
+    GIT_REPOSITORY  https://github.com/catchorg/Catch2
+    GIT_TAG         v3.3.2
     GIT_SHALLOW     TRUE
     )
 
 FetchContent_Declare( disco
     GIT_REPOSITORY  https://github.com/njoy/disco
-    GIT_TAG         origin/master
-    GIT_SHALLOW     TRUE
-    )
-
-FetchContent_Declare( header-utilities
-    GIT_REPOSITORY  https://github.com/njoy/header-utilities
     GIT_TAG         origin/master
     GIT_SHALLOW     TRUE
     )
@@ -36,7 +30,7 @@ FetchContent_Declare( range-v3
 
 FetchContent_Declare( pybind11
     GIT_REPOSITORY  https://github.com/pybind/pybind11
-    GIT_TAG         v2.10.1
+    GIT_TAG         v2.10.4
     )
 
 #######################################################################
@@ -44,10 +38,7 @@ FetchContent_Declare( pybind11
 #######################################################################
 
 FetchContent_MakeAvailable(
-    Log
-    catch-adapter
+    tools
     disco
-    header-utilities
     range-v3
-    pybind11
     )

@@ -13,7 +13,7 @@ Type() = default;
  *  @param[in] awr       the atomic weight ratio
  *  @param[in] yields    the fission yield data
  */
-Type( double zaid, double awr, std::vector< FissionYieldData >&& yields ) :
+Type( int zaid, double awr, std::vector< FissionYieldData >&& yields ) :
   BaseWithoutMT( zaid, awr ),
   data_( std::move( yields ) ) {}
 
@@ -27,7 +27,7 @@ Type( double zaid, double awr, std::vector< FissionYieldData >&& yields ) :
  *  @param[in] yields         the fission yield values and uncertainties
  *                            (NFP pairs)
  */
-Type( double zaid, double awr,
+Type( int zaid, double awr,
       std::vector< unsigned int >&& identifiers,
       std::vector< unsigned int >&& states,
       std::vector< std::array< double, 2 > >&& yields )
@@ -54,7 +54,7 @@ Type( double zaid, double awr,
  *  @param[in] yields         the fission yield values and uncertainties
  *                            (NFP arrays of NE pairs)
  */
-Type( double zaid, double awr,
+Type( int zaid, double awr,
       std::vector< unsigned int >&& identifiers,
       std::vector< unsigned int >&& states,
       std::vector< double >&& energies,

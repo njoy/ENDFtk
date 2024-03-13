@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/2/151.hpp"
 
 // other includes
@@ -55,10 +58,10 @@ SCENARIO( "Isotope" ){
       CHECK( 1 == iso.resonanceRanges().size() );
 
       const auto& range = iso.resonanceRanges().back();
-      CHECK( 1E-5 == Approx( range.EL() ) );
-      CHECK( 1E-5 == Approx( range.lowerEnergy() ) );
-      CHECK( 1E+5 == Approx( range.EH() ) );
-      CHECK( 1E+5 == Approx( range.upperEnergy() ) );
+      CHECK_THAT( 1E-5, WithinRel( range.EL() ) );
+      CHECK_THAT( 1E-5, WithinRel( range.lowerEnergy() ) );
+      CHECK_THAT( 1E+5, WithinRel( range.EH() ) );
+      CHECK_THAT( 1E+5, WithinRel( range.upperEnergy() ) );
 
       CHECK( 0 == range.LRU() );
       CHECK( 0 == range.type() );
@@ -94,10 +97,10 @@ SCENARIO( "Isotope" ){
       CHECK( 1 == iso.resonanceRanges().size() );
 
       const auto& range = iso.resonanceRanges().back();
-      CHECK( 1E-5 == Approx( range.EL() ) );
-      CHECK( 1E-5 == Approx( range.lowerEnergy() ) );
-      CHECK( 1. == Approx( range.EH() ) );
-      CHECK( 1. == Approx( range.upperEnergy() ) );
+      CHECK_THAT( 1E-5, WithinRel( range.EL() ) );
+      CHECK_THAT( 1E-5, WithinRel( range.lowerEnergy() ) );
+      CHECK_THAT( 1., WithinRel( range.EH() ) );
+      CHECK_THAT( 1., WithinRel( range.upperEnergy() ) );
 
       CHECK( 1 == range.LRU() );
       CHECK( 1 == range.type() );
@@ -132,10 +135,10 @@ SCENARIO( "Isotope" ){
       CHECK( 1 == iso.resonanceRanges().size() );
 
       const auto& range = iso.resonanceRanges().back();
-      CHECK( 1E-5 == Approx( range.EL() ) );
-      CHECK( 1E-5 == Approx( range.lowerEnergy() ) );
-      CHECK( 1. == Approx( range.EH() ) );
-      CHECK( 1. == Approx( range.upperEnergy() ) );
+      CHECK_THAT( 1E-5, WithinRel( range.EL() ) );
+      CHECK_THAT( 1E-5, WithinRel( range.lowerEnergy() ) );
+      CHECK_THAT( 1., WithinRel( range.EH() ) );
+      CHECK_THAT( 1., WithinRel( range.upperEnergy() ) );
 
       CHECK( 1 == range.LRU() );
       CHECK( 1 == range.type() );
@@ -170,10 +173,10 @@ SCENARIO( "Isotope" ){
       CHECK( 1 == iso.resonanceRanges().size() );
 
       const auto& range = iso.resonanceRanges().back();
-      CHECK( 1E-5 == Approx( range.EL() ) );
-      CHECK( 1E-5 == Approx( range.lowerEnergy() ) );
-      CHECK( 1. == Approx( range.EH() ) );
-      CHECK( 1. == Approx( range.upperEnergy() ) );
+      CHECK_THAT( 1E-5, WithinRel( range.EL() ) );
+      CHECK_THAT( 1E-5, WithinRel( range.lowerEnergy() ) );
+      CHECK_THAT( 1., WithinRel( range.EH() ) );
+      CHECK_THAT( 1., WithinRel( range.upperEnergy() ) );
 
       CHECK( 1 == range.LRU() );
       CHECK( 1 == range.type() );
@@ -987,10 +990,10 @@ SCENARIO( "Isotope" ){
       CHECK( 1 == iso.resonanceRanges().size() );
 
       const auto& range = iso.resonanceRanges().back();
-      CHECK( 1E-5 == Approx( range.EL() ) );
-      CHECK( 1E-5 == Approx( range.lowerEnergy() ) );
-      CHECK( 1.036e+6 == Approx( range.EH() ) );
-      CHECK( 1.036e+6 == Approx( range.upperEnergy() ) );
+      CHECK_THAT( 1E-5, WithinRel( range.EL() ) );
+      CHECK_THAT( 1E-5, WithinRel( range.lowerEnergy() ) );
+      CHECK_THAT( 1.036e+6, WithinRel( range.EH() ) );
+      CHECK_THAT( 1.036e+6, WithinRel( range.upperEnergy() ) );
 
       CHECK( 1 == range.LRU() );
       CHECK( 1 == range.type() );

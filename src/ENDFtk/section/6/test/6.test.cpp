@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/6.hpp"
 
 // other includes
@@ -41,7 +44,7 @@ SCENARIO( "section::Type< 6 >" ) {
       std::vector< ReactionProduct > products = {
         ReactionProduct(
           // multiplicity
-          { 1001., 0.9986234, 0, 1, { 4 }, { 2 },
+          { 1001, 0.9986234, 0, 1, { 4 }, { 2 },
             { 1e-5, 1.1e+7, 1.147e+7, 2e+7 },
             { 0., 8.45368e-11, 6.622950e-8, 2.149790e-1 } },
           // distribution
@@ -56,7 +59,7 @@ SCENARIO( "section::Type< 6 >" ) {
                     2e+7, 0, 1, { 1., 4. }, { { 2., 3. }, { 5., 6. } } ) } ) } ),
         ReactionProduct(
           // multiplicity
-          { 1., 1., 0, 1, { 2 }, { 2 },
+          { 1, 1., 0, 1, { 2 }, { 2 },
             { 1.858639e+7, 2.e+7 },
             { 4., 4. } },
           // distribution
@@ -68,7 +71,7 @@ SCENARIO( "section::Type< 6 >" ) {
                     2e+7, 0, 0, { 0., 0.5, 1. }, { { 0. }, { 2. }, { 0. } } ) } ) } ),
         ReactionProduct(
           // multiplicity
-          { 0., 0., 0, 1, { 3 }, { 2 },
+          { 0, 0., 0, 1, { 3 }, { 2 },
             { 1.858639e+7, 1.9e+7, 2.e+7 },
             { 1., 2., 3. } },
           // distribution
@@ -209,8 +212,13 @@ std::string chunk() {
 
 void verifyChunk( const section::Type< 6 >& chunk ) {
 
-  CHECK( 92235. == Approx( chunk.ZA() ) );
-  CHECK( 2.330248e+2 == Approx( chunk.AWR() ) );
+  CHECK( 5 == chunk.MT() );
+  CHECK( 5 == chunk.sectionNumber() );
+
+  CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
+  CHECK_THAT( 2.330248e+2, WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 2.330248e+2, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 0 == chunk.JP() );
   CHECK( 0 == chunk.averageMultipleParticlesFlag() );
   CHECK( 2 == chunk.LCT() );
@@ -219,22 +227,27 @@ void verifyChunk( const section::Type< 6 >& chunk ) {
   CHECK( 3 == chunk.numberReactionProducts() );
   CHECK( 5 == chunk.MT() );
 
+  CHECK( true == chunk.hasReactionProduct( 1001 ) );
+  CHECK( true == chunk.hasReactionProduct( 1 ) );
+  CHECK( true == chunk.hasReactionProduct( 0 ) );
+  CHECK( false == chunk.hasReactionProduct( 2004 ) );
+
   auto products = chunk.reactionProducts();
   CHECK( 3 == products.size() );
 
   // product 1
-  CHECK( 1001. == Approx( products[0].ZAP() ) );
-  CHECK( 1001. == Approx( products[0].productIdentifier() ) );
-  CHECK( 0.9986234 == Approx( products[0].AWP() ) );
-  CHECK( 0.9986234 == Approx( products[0].productWeightRatio() ) );
+  CHECK( 1001 == products[0].ZAP() );
+  CHECK( 1001 == products[0].productIdentifier() );
+  CHECK_THAT( 0.9986234, WithinRel( products[0].AWP() ) );
+  CHECK_THAT( 0.9986234, WithinRel( products[0].productWeightRatio() ) );
   CHECK( 0 == products[0].LIP() );
   CHECK( 0 == products[0].productModifierFlag() );
   CHECK( 1 == products[0].LAW() );
 
-  CHECK( 1001. == Approx( products[0].multiplicity().ZAP() ) );
-  CHECK( 1001. == Approx( products[0].multiplicity().productIdentifier() ) );
-  CHECK( 0.9986234 == Approx( products[0].multiplicity().AWP() ) );
-  CHECK( 0.9986234 == Approx( products[0].multiplicity().productWeightRatio() ) );
+  CHECK( 1001 == products[0].multiplicity().ZAP() );
+  CHECK( 1001 == products[0].multiplicity().productIdentifier() );
+  CHECK_THAT( 0.9986234, WithinRel( products[0].multiplicity().AWP() ) );
+  CHECK_THAT( 0.9986234, WithinRel( products[0].multiplicity().productWeightRatio() ) );
   CHECK( 0 == products[0].multiplicity().LIP() );
   CHECK( 0 == products[0].multiplicity().productModifierFlag() );
   CHECK( 1 == products[0].multiplicity().LAW() );
@@ -247,20 +260,16 @@ void verifyChunk( const section::Type< 6 >& chunk ) {
   CHECK( 4 == products[0].multiplicity().boundaries()[0] );
   CHECK( 4 == products[0].multiplicity().energies().size() );
   CHECK( 4 == products[0].multiplicity().multiplicities().size() );
-  CHECK( 1e-5 == Approx( products[0].multiplicity().energies()[0] ) );
-  CHECK( 1.1e+7 == Approx( products[0].multiplicity().energies()[1] ) );
-  CHECK( 1.147e+7 == Approx( products[0].multiplicity().energies()[2] ) );
-  CHECK( 2e+7 == Approx( products[0].multiplicity().energies()[3] ) );
-  CHECK( 0. == Approx( products[0].multiplicity().multiplicities()[0] ) );
-  CHECK( 8.45368e-11 ==
-           Approx( products[0].multiplicity().multiplicities()[1] ) );
-  CHECK( 6.622950e-8 ==
-           Approx( products[0].multiplicity().multiplicities()[2] ) );
-  CHECK( 2.149790e-1 ==
-           Approx( products[0].multiplicity().multiplicities()[3] ) );
+  CHECK_THAT( 1e-5, WithinRel( products[0].multiplicity().energies()[0] ) );
+  CHECK_THAT( 1.1e+7, WithinRel( products[0].multiplicity().energies()[1] ) );
+  CHECK_THAT( 1.147e+7, WithinRel( products[0].multiplicity().energies()[2] ) );
+  CHECK_THAT( 2e+7, WithinRel( products[0].multiplicity().energies()[3] ) );
+  CHECK_THAT( 0., WithinRel( products[0].multiplicity().multiplicities()[0] ) );
+  CHECK_THAT( 8.45368e-11, WithinRel( products[0].multiplicity().multiplicities()[1] ) );
+  CHECK_THAT( 6.622950e-8, WithinRel( products[0].multiplicity().multiplicities()[2] ) );
+  CHECK_THAT( 2.149790e-1, WithinRel( products[0].multiplicity().multiplicities()[3] ) );
 
-  auto law = std::get< ContinuumEnergyAngle >(
-                 products[0].distribution() );
+  auto law = std::get< ContinuumEnergyAngle >( products[0].distribution() );
 
   CHECK( 1 == law.LAW() );
   CHECK( 2 == law.LEP() );
@@ -283,27 +292,26 @@ void verifyChunk( const section::Type< 6 >& chunk ) {
   CHECK( 4 == subsection1.NEP() );
   CHECK( 4 == subsection1.numberSecondaryEnergies() );
   CHECK( 4 == subsection1.energies().size() );
-  CHECK( 1. == Approx( subsection1.energies()[0] ) );
-  CHECK( 4. == Approx( subsection1.energies()[1] ) );
-  CHECK( 7. == Approx( subsection1.energies()[2] ) );
-  CHECK( 10. == Approx( subsection1.energies()[3] ) );
+  CHECK_THAT( 1., WithinRel( subsection1.energies()[0] ) );
+  CHECK_THAT( 4., WithinRel( subsection1.energies()[1] ) );
+  CHECK_THAT( 7., WithinRel( subsection1.energies()[2] ) );
+  CHECK_THAT( 10., WithinRel( subsection1.energies()[3] ) );
   CHECK( 4 == subsection1.coefficients().size() );
-  CHECK( 2. == Approx( subsection1.coefficients()[0][0] ) );
-  CHECK( 3. == Approx( subsection1.coefficients()[0][1] ) );
-  CHECK( 5. == Approx( subsection1.coefficients()[1][0] ) );
-  CHECK( 6. == Approx( subsection1.coefficients()[1][1] ) );
-  CHECK( 8. == Approx( subsection1.coefficients()[2][0] ) );
-  CHECK( 9. == Approx( subsection1.coefficients()[2][1] ) );
-  CHECK( 11. == Approx( subsection1.coefficients()[3][0] ) );
-  CHECK( 12. == Approx( subsection1.coefficients()[3][1] ) );
-  CHECK( 4 == Approx( subsection1.totalEmissionProbabilities().size() ) );
-  CHECK( 2. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
-  CHECK( 5. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
-  CHECK( 8. == Approx( subsection1.totalEmissionProbabilities()[2] ) );
-  CHECK( 11. == Approx( subsection1.totalEmissionProbabilities()[3] ) );
+  CHECK_THAT( 2., WithinRel( subsection1.coefficients()[0][0] ) );
+  CHECK_THAT( 3., WithinRel( subsection1.coefficients()[0][1] ) );
+  CHECK_THAT( 5., WithinRel( subsection1.coefficients()[1][0] ) );
+  CHECK_THAT( 6., WithinRel( subsection1.coefficients()[1][1] ) );
+  CHECK_THAT( 8., WithinRel( subsection1.coefficients()[2][0] ) );
+  CHECK_THAT( 9., WithinRel( subsection1.coefficients()[2][1] ) );
+  CHECK_THAT( 11., WithinRel( subsection1.coefficients()[3][0] ) );
+  CHECK_THAT( 12., WithinRel( subsection1.coefficients()[3][1] ) );
+  CHECK( 4 == subsection1.totalEmissionProbabilities().size() );
+  CHECK_THAT( 2., WithinRel( subsection1.totalEmissionProbabilities()[0] ) );
+  CHECK_THAT( 5., WithinRel( subsection1.totalEmissionProbabilities()[1] ) );
+  CHECK_THAT( 8., WithinRel( subsection1.totalEmissionProbabilities()[2] ) );
+  CHECK_THAT( 11., WithinRel( subsection1.totalEmissionProbabilities()[3] ) );
 
-  auto subsection2 =
-      std::get< LegendreCoefficients >( energies[1] );
+  auto subsection2 = std::get< LegendreCoefficients >( energies[1] );
   CHECK( 1 == subsection2.LANG() );
   CHECK( 0 == subsection2.ND() );
   CHECK( 0 == subsection2.numberDiscreteEnergies() );
@@ -313,30 +321,30 @@ void verifyChunk( const section::Type< 6 >& chunk ) {
   CHECK( 2 == subsection2.NEP() );
   CHECK( 2 == subsection2.numberSecondaryEnergies() );
   CHECK( 2 == subsection2.energies().size() );
-  CHECK( 1. == Approx( subsection2.energies()[0] ) );
-  CHECK( 4. == Approx( subsection2.energies()[1] ) );
+  CHECK_THAT( 1., WithinRel( subsection2.energies()[0] ) );
+  CHECK_THAT( 4., WithinRel( subsection2.energies()[1] ) );
   CHECK( 2 == subsection2.coefficients().size() );
-  CHECK( 2. == Approx( subsection2.coefficients()[0][0] ) );
-  CHECK( 3. == Approx( subsection2.coefficients()[0][1] ) );
-  CHECK( 5. == Approx( subsection2.coefficients()[1][0] ) );
-  CHECK( 6. == Approx( subsection2.coefficients()[1][1] ) );
-  CHECK( 2 == Approx( subsection2.totalEmissionProbabilities().size() ) );
-  CHECK( 2. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
-  CHECK( 5. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
+  CHECK_THAT( 2., WithinRel( subsection2.coefficients()[0][0] ) );
+  CHECK_THAT( 3., WithinRel( subsection2.coefficients()[0][1] ) );
+  CHECK_THAT( 5., WithinRel( subsection2.coefficients()[1][0] ) );
+  CHECK_THAT( 6., WithinRel( subsection2.coefficients()[1][1] ) );
+  CHECK( 2 == subsection2.totalEmissionProbabilities().size() );
+  CHECK_THAT( 2., WithinRel( subsection2.totalEmissionProbabilities()[0] ) );
+  CHECK_THAT( 5., WithinRel( subsection2.totalEmissionProbabilities()[1] ) );
 
   // product 2
-  CHECK( 1. == Approx( products[1].ZAP() ) );
-  CHECK( 1. == Approx( products[1].productIdentifier() ) );
-  CHECK( 1. == Approx( products[1].AWP() ) );
-  CHECK( 1. == Approx( products[1].productWeightRatio() ) );
+  CHECK( 1 == products[1].ZAP() );
+  CHECK( 1 == products[1].productIdentifier() );
+  CHECK_THAT( 1., WithinRel( products[1].AWP() ) );
+  CHECK_THAT( 1., WithinRel( products[1].productWeightRatio() ) );
   CHECK( 0 == products[1].LIP() );
   CHECK( 0 == products[1].productModifierFlag() );
   CHECK( 1 == products[1].LAW() );
 
-  CHECK( 1. == Approx( products[1].multiplicity().ZAP() ) );
-  CHECK( 1. == Approx( products[1].multiplicity().productIdentifier() ) );
-  CHECK( 1. == Approx( products[1].multiplicity().AWP() ) );
-  CHECK( 1. == Approx( products[1].multiplicity().productWeightRatio() ) );
+  CHECK( 1 == products[1].multiplicity().ZAP() );
+  CHECK( 1 == products[1].multiplicity().productIdentifier() );
+  CHECK_THAT( 1., WithinRel( products[1].multiplicity().AWP() ) );
+  CHECK_THAT( 1., WithinRel( products[1].multiplicity().productWeightRatio() ) );
   CHECK( 0 == products[1].multiplicity().LIP() );
   CHECK( 0 == products[1].multiplicity().productModifierFlag() );
   CHECK( 1 == products[1].multiplicity().LAW() );
@@ -349,14 +357,12 @@ void verifyChunk( const section::Type< 6 >& chunk ) {
   CHECK( 2 == products[1].multiplicity().boundaries()[0] );
   CHECK( 2 == products[1].multiplicity().energies().size() );
   CHECK( 2 == products[1].multiplicity().multiplicities().size() );
-  CHECK( 1.858639e+7 == Approx( products[1].multiplicity().energies()[0] ) );
-  CHECK( 2e+7 == Approx( products[1].multiplicity().energies()[1] ) );
-  CHECK( 4. == Approx( products[1].multiplicity().multiplicities()[0] ) );
-  CHECK( 4. == Approx( products[1].multiplicity().multiplicities()[1] ) );
+  CHECK_THAT( 1.858639e+7, WithinRel( products[1].multiplicity().energies()[0] ) );
+  CHECK_THAT( 2e+7, WithinRel( products[1].multiplicity().energies()[1] ) );
+  CHECK_THAT( 4., WithinRel( products[1].multiplicity().multiplicities()[0] ) );
+  CHECK_THAT( 4., WithinRel( products[1].multiplicity().multiplicities()[1] ) );
 
-  law =
-      std::get< ContinuumEnergyAngle >(
-          products[1].distribution() );
+  law = std::get< ContinuumEnergyAngle >( products[1].distribution() );
 
   CHECK( 1 == law.LAW() );
   CHECK( 2 == law.LEP() );
@@ -369,8 +375,7 @@ void verifyChunk( const section::Type< 6 >& chunk ) {
 
   energies = law.distributions();
 
-  subsection1 =
-      std::get< LegendreCoefficients >( energies[0] );
+  subsection1 = std::get< LegendreCoefficients >( energies[0] );
   CHECK( 0 == subsection1.ND() );
   CHECK( 0 == subsection1.numberDiscreteEnergies() );
   CHECK( 0 == subsection1.NA() );
@@ -379,20 +384,19 @@ void verifyChunk( const section::Type< 6 >& chunk ) {
   CHECK( 3 == subsection1.NEP() );
   CHECK( 3 == subsection1.numberSecondaryEnergies() );
   CHECK( 3 == subsection1.energies().size() );
-  CHECK( 0. == Approx( subsection1.energies()[0] ) );
-  CHECK( 0.5 == Approx( subsection1.energies()[1] ) );
-  CHECK( 1. == Approx( subsection1.energies()[2] ) );
+  CHECK_THAT( 0., WithinRel( subsection1.energies()[0] ) );
+  CHECK_THAT( 0.5, WithinRel( subsection1.energies()[1] ) );
+  CHECK_THAT( 1., WithinRel( subsection1.energies()[2] ) );
   CHECK( 3 == subsection1.coefficients().size() );
-  CHECK( 0. == Approx( subsection1.coefficients()[0][0] ) );
-  CHECK( 2. == Approx( subsection1.coefficients()[1][0] ) );
-  CHECK( 0. == Approx( subsection1.coefficients()[2][0] ) );
-  CHECK( 3 == Approx( subsection1.totalEmissionProbabilities().size() ) );
-  CHECK( 0. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
-  CHECK( 2. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
-  CHECK( 0. == Approx( subsection1.totalEmissionProbabilities()[2] ) );
+  CHECK_THAT( 0., WithinRel( subsection1.coefficients()[0][0] ) );
+  CHECK_THAT( 2., WithinRel( subsection1.coefficients()[1][0] ) );
+  CHECK_THAT( 0., WithinRel( subsection1.coefficients()[2][0] ) );
+  CHECK( 3 == subsection1.totalEmissionProbabilities().size() );
+  CHECK_THAT( 0., WithinRel( subsection1.totalEmissionProbabilities()[0] ) );
+  CHECK_THAT( 2., WithinRel( subsection1.totalEmissionProbabilities()[1] ) );
+  CHECK_THAT( 0., WithinRel( subsection1.totalEmissionProbabilities()[2] ) );
 
-  subsection2 =
-      std::get< LegendreCoefficients >( energies[1] );
+  subsection2 = std::get< LegendreCoefficients >( energies[1] );
   CHECK( 1 == subsection2.LANG() );
   CHECK( 0 == subsection2.ND() );
   CHECK( 0 == subsection2.numberDiscreteEnergies() );
@@ -402,31 +406,31 @@ void verifyChunk( const section::Type< 6 >& chunk ) {
   CHECK( 3 == subsection2.NEP() );
   CHECK( 3 == subsection2.numberSecondaryEnergies() );
   CHECK( 3 == subsection2.energies().size() );
-  CHECK( 0. == Approx( subsection2.energies()[0] ) );
-  CHECK( .5 == Approx( subsection2.energies()[1] ) );
-  CHECK( 1. == Approx( subsection2.energies()[2] ) );
+  CHECK_THAT( 0., WithinRel( subsection2.energies()[0] ) );
+  CHECK_THAT( .5, WithinRel( subsection2.energies()[1] ) );
+  CHECK_THAT( 1., WithinRel( subsection2.energies()[2] ) );
   CHECK( 3 == subsection2.coefficients().size() );
-  CHECK( 0. == Approx( subsection2.coefficients()[0][0] ) );
-  CHECK( 2. == Approx( subsection2.coefficients()[1][0] ) );
-  CHECK( 0. == Approx( subsection2.coefficients()[2][0] ) );
-  CHECK( 3 == Approx( subsection2.totalEmissionProbabilities().size() ) );
-  CHECK( 0. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
-  CHECK( 2. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
-  CHECK( 0. == Approx( subsection2.totalEmissionProbabilities()[2] ) );
+  CHECK_THAT( 0., WithinRel( subsection2.coefficients()[0][0] ) );
+  CHECK_THAT( 2., WithinRel( subsection2.coefficients()[1][0] ) );
+  CHECK_THAT( 0., WithinRel( subsection2.coefficients()[2][0] ) );
+  CHECK( 3 == subsection2.totalEmissionProbabilities().size() );
+  CHECK_THAT( 0., WithinRel( subsection2.totalEmissionProbabilities()[0] ) );
+  CHECK_THAT( 2., WithinRel( subsection2.totalEmissionProbabilities()[1] ) );
+  CHECK_THAT( 0., WithinRel( subsection2.totalEmissionProbabilities()[2] ) );
 
   // product 3
-  CHECK( 0. == Approx( products[2].ZAP() ) );
-  CHECK( 0. == Approx( products[2].productIdentifier() ) );
-  CHECK( 0. == Approx( products[2].AWP() ) );
-  CHECK( 0. == Approx( products[2].productWeightRatio() ) );
+  CHECK( 0 == products[2].ZAP() );
+  CHECK( 0 == products[2].productIdentifier() );
+  CHECK_THAT( 0., WithinRel( products[2].AWP() ) );
+  CHECK_THAT( 0., WithinRel( products[2].productWeightRatio() ) );
   CHECK( 0 == products[2].LIP() );
   CHECK( 0 == products[2].productModifierFlag() );
   CHECK( 1 == products[2].LAW() );
 
-  CHECK( 0. == Approx( products[2].multiplicity().ZAP() ) );
-  CHECK( 0. == Approx( products[2].multiplicity().productIdentifier() ) );
-  CHECK( 0. == Approx( products[2].multiplicity().AWP() ) );
-  CHECK( 0. == Approx( products[2].multiplicity().productWeightRatio() ) );
+  CHECK( 0 == products[2].multiplicity().ZAP() );
+  CHECK( 0 == products[2].multiplicity().productIdentifier() );
+  CHECK_THAT( 0., WithinRel( products[2].multiplicity().AWP() ) );
+  CHECK_THAT( 0., WithinRel( products[2].multiplicity().productWeightRatio() ) );
   CHECK( 0 == products[2].multiplicity().LIP() );
   CHECK( 0 == products[2].multiplicity().productModifierFlag() );
   CHECK( 1 == products[2].multiplicity().LAW() );
@@ -439,17 +443,14 @@ void verifyChunk( const section::Type< 6 >& chunk ) {
   CHECK( 3 == products[2].multiplicity().boundaries()[0] );
   CHECK( 3 == products[2].multiplicity().energies().size() );
   CHECK( 3 == products[2].multiplicity().multiplicities().size() );
-  CHECK( 1.858639e+7 ==
-           Approx( products[2].multiplicity().energies()[0] ) );
-  CHECK( 1.9e+7 == Approx( products[2].multiplicity().energies()[1] ) );
-  CHECK( 2e+7 == Approx( products[2].multiplicity().energies()[2] ) );
-  CHECK( 1. == Approx( products[2].multiplicity().multiplicities()[0] ) );
-  CHECK( 2. == Approx( products[2].multiplicity().multiplicities()[1] ) );
-  CHECK( 3. == Approx( products[2].multiplicity().multiplicities()[2] ) );
+  CHECK_THAT( 1.858639e+7, WithinRel( products[2].multiplicity().energies()[0] ) );
+  CHECK_THAT( 1.9e+7, WithinRel( products[2].multiplicity().energies()[1] ) );
+  CHECK_THAT( 2e+7, WithinRel( products[2].multiplicity().energies()[2] ) );
+  CHECK_THAT( 1., WithinRel( products[2].multiplicity().multiplicities()[0] ) );
+  CHECK_THAT( 2., WithinRel( products[2].multiplicity().multiplicities()[1] ) );
+  CHECK_THAT( 3., WithinRel( products[2].multiplicity().multiplicities()[2] ) );
 
-  law =
-      std::get< ContinuumEnergyAngle >(
-          products[2].distribution() );
+  law = std::get< ContinuumEnergyAngle >( products[2].distribution() );
 
   CHECK( 1 == law.LAW() );
   CHECK( 2 == law.LEP() );
@@ -462,8 +463,7 @@ void verifyChunk( const section::Type< 6 >& chunk ) {
 
   energies = law.distributions();
 
-  subsection1 =
-      std::get< LegendreCoefficients >( energies[0] );
+  subsection1 = std::get< LegendreCoefficients >( energies[0] );
   CHECK( 0 == subsection1.ND() );
   CHECK( 0 == subsection1.numberDiscreteEnergies() );
   CHECK( 0 == subsection1.NA() );
@@ -472,20 +472,19 @@ void verifyChunk( const section::Type< 6 >& chunk ) {
   CHECK( 3 == subsection1.NEP() );
   CHECK( 3 == subsection1.numberSecondaryEnergies() );
   CHECK( 3 == subsection1.energies().size() );
-  CHECK( 0. == Approx( subsection1.energies()[0] ) );
-  CHECK( 1. == Approx( subsection1.energies()[1] ) );
-  CHECK( 2. == Approx( subsection1.energies()[2] ) );
+  CHECK_THAT( 0., WithinRel( subsection1.energies()[0] ) );
+  CHECK_THAT( 1., WithinRel( subsection1.energies()[1] ) );
+  CHECK_THAT( 2., WithinRel( subsection1.energies()[2] ) );
   CHECK( 3 == subsection1.coefficients().size() );
-  CHECK( 0. == Approx( subsection1.coefficients()[0][0] ) );
-  CHECK( 1. == Approx( subsection1.coefficients()[1][0] ) );
-  CHECK( 0. == Approx( subsection1.coefficients()[2][0] ) );
-  CHECK( 3 == Approx( subsection1.totalEmissionProbabilities().size() ) );
-  CHECK( 0. == Approx( subsection1.totalEmissionProbabilities()[0] ) );
-  CHECK( 1. == Approx( subsection1.totalEmissionProbabilities()[1] ) );
-  CHECK( 0. == Approx( subsection1.totalEmissionProbabilities()[2] ) );
+  CHECK_THAT( 0., WithinRel( subsection1.coefficients()[0][0] ) );
+  CHECK_THAT( 1., WithinRel( subsection1.coefficients()[1][0] ) );
+  CHECK_THAT( 0., WithinRel( subsection1.coefficients()[2][0] ) );
+  CHECK( 3 == subsection1.totalEmissionProbabilities().size() );
+  CHECK_THAT( 0., WithinRel( subsection1.totalEmissionProbabilities()[0] ) );
+  CHECK_THAT( 1., WithinRel( subsection1.totalEmissionProbabilities()[1] ) );
+  CHECK_THAT( 0., WithinRel( subsection1.totalEmissionProbabilities()[2] ) );
 
-  subsection2 =
-      std::get< LegendreCoefficients >( energies[1] );
+  subsection2 = std::get< LegendreCoefficients >( energies[1] );
   CHECK( 1 == subsection2.LANG() );
   CHECK( 0 == subsection2.ND() );
   CHECK( 0 == subsection2.numberDiscreteEnergies() );
@@ -495,17 +494,32 @@ void verifyChunk( const section::Type< 6 >& chunk ) {
   CHECK( 3 == subsection2.NEP() );
   CHECK( 3 == subsection2.numberSecondaryEnergies() );
   CHECK( 3 == subsection2.energies().size() );
-  CHECK( 0. == Approx( subsection2.energies()[0] ) );
-  CHECK( 1. == Approx( subsection2.energies()[1] ) );
-  CHECK( 2. == Approx( subsection2.energies()[2] ) );
+  CHECK_THAT( 0., WithinRel( subsection2.energies()[0] ) );
+  CHECK_THAT( 1., WithinRel( subsection2.energies()[1] ) );
+  CHECK_THAT( 2., WithinRel( subsection2.energies()[2] ) );
   CHECK( 3 == subsection2.coefficients().size() );
-  CHECK( 0. == Approx( subsection2.coefficients()[0][0] ) );
-  CHECK( 1. == Approx( subsection2.coefficients()[1][0] ) );
-  CHECK( 0. == Approx( subsection2.coefficients()[2][0] ) );
-  CHECK( 3 == Approx( subsection2.totalEmissionProbabilities().size() ) );
-  CHECK( 0. == Approx( subsection2.totalEmissionProbabilities()[0] ) );
-  CHECK( 1. == Approx( subsection2.totalEmissionProbabilities()[1] ) );
-  CHECK( 0. == Approx( subsection2.totalEmissionProbabilities()[2] ) );
+  CHECK_THAT( 0., WithinRel( subsection2.coefficients()[0][0] ) );
+  CHECK_THAT( 1., WithinRel( subsection2.coefficients()[1][0] ) );
+  CHECK_THAT( 0., WithinRel( subsection2.coefficients()[2][0] ) );
+  CHECK( 3 == subsection2.totalEmissionProbabilities().size() );
+  CHECK_THAT( 0., WithinRel( subsection2.totalEmissionProbabilities()[0] ) );
+  CHECK_THAT( 1., WithinRel( subsection2.totalEmissionProbabilities()[1] ) );
+  CHECK_THAT( 0., WithinRel( subsection2.totalEmissionProbabilities()[2] ) );
+
+  // product 1
+  auto product = chunk.reactionProduct( 1001 );
+  CHECK( 1001 == product.ZAP() );
+  CHECK( 1001 == product.productIdentifier() );
+
+  // product 2
+  product = chunk.reactionProduct( 1 );
+  CHECK( 1 == product.ZAP() );
+  CHECK( 1 == product.productIdentifier() );
+
+  // product 3
+  product = chunk.reactionProduct( 0 );
+  CHECK( 0 == product.ZAP() );
+  CHECK( 0 == product.productIdentifier() );
 
   CHECK( 30 == chunk.NC() );
 }

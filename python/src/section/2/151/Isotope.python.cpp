@@ -38,7 +38,7 @@ void wrapIsotope( python::module& module, python::module& viewmodule ) {
   component
   .def(
 
-    python::init< double, double, bool, std::vector< ResonanceRange >&& >(),
+    python::init< int, double, bool, std::vector< ResonanceRange >&& >(),
     python::arg( "zai" ), python::arg( "abn" ), python::arg( "lfw" ),
     python::arg( "ranges" ),
     "Initialise the component\n\n"
@@ -53,6 +53,12 @@ void wrapIsotope( python::module& module, python::module& viewmodule ) {
 
     "ZAI",
     &Component::ZAI,
+    "The ZA identifier of the isotope"
+  )
+  .def_property_readonly(
+
+    "isotope_identifier",
+    &Component::isotopeIdentifier,
     "The ZA identifier of the isotope"
   )
   .def_property_readonly(

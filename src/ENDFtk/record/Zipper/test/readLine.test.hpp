@@ -18,8 +18,8 @@ SCENARIO( "The Zipper readLine function", "[ENDFtk], [Zipper]" ){
         Zipper::readLine< Zip >
           ( iteratorTuple, it, end, lineNumber, 125, 1, 451 );
         for ( int i = 0; i < 3; ++i ){
-          REQUIRE( dsink[i] == double(i + 1) );
-          REQUIRE( isink[i] == i + 1 );
+          CHECK_THAT( dsink[i], WithinRel( double(i + 1) ) );
+          CHECK( isink[i] == i + 1 );
         }
       }
     }

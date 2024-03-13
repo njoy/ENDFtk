@@ -1,6 +1,9 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
 
-#include "catch.hpp"
+// what we are testing
 #include "ENDFtk/section/2/151.hpp"
 
 // other includes
@@ -149,8 +152,8 @@ std::string chunk() {
 
 void verifyChunk( const LValue& chunk ) {
 
-  CHECK( 237.992 == Approx( chunk.AWRI() ) );
-  CHECK( 237.992 == Approx( chunk.atomicWeightRatio() ) );
+  CHECK_THAT( 237.992, WithinRel( chunk.AWRI() ) );
+  CHECK_THAT( 237.992, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 1 == chunk.L() );
   CHECK( 1 == chunk.orbitalMomentum() );
 
@@ -169,10 +172,10 @@ void verifyChunk( const LValue& chunk ) {
   CHECK( 2 == jvalue.interpolants()[0] );
   CHECK( 14 == jvalue.boundaries()[0] );
 
-  CHECK( 0.5 == Approx( jvalue.AJ() ) );
-  CHECK( 0.5 == Approx( jvalue.spin() ) );
-  CHECK( 13.1 == Approx( jvalue.D() ) );
-  CHECK( 13.1 == Approx( jvalue.averageLevelSpacing() ) );
+  CHECK_THAT( 0.5, WithinRel( jvalue.AJ() ) );
+  CHECK_THAT( 0.5, WithinRel( jvalue.spin() ) );
+  CHECK_THAT( 13.1, WithinRel( jvalue.D() ) );
+  CHECK_THAT( 13.1, WithinRel( jvalue.averageLevelSpacing() ) );
   CHECK( 1 == jvalue.AMUN() );
   CHECK( 1 == jvalue.neutronWidthDegreesFreedom() );
   CHECK( 0 == jvalue.AMUG() );
@@ -181,41 +184,41 @@ void verifyChunk( const LValue& chunk ) {
   CHECK( 1 == jvalue.fissionWidthDegreesFreedom() );
   CHECK( 0 == jvalue.AMUX() );
   CHECK( 0 == jvalue.competitiveWidthDegreesFreedom() );
-  CHECK( 3.013000e-3 == Approx( jvalue.GN() ) );
-  CHECK( 3.013000e-3 == Approx( jvalue.averageNeutronWidth() ) );
-  CHECK( 3.100000e-2 == Approx( jvalue.GG() ) );
-  CHECK( 3.100000e-2 == Approx( jvalue.averageGammaWidth() ) );
+  CHECK_THAT( 3.013000e-3, WithinRel( jvalue.GN() ) );
+  CHECK_THAT( 3.013000e-3, WithinRel( jvalue.averageNeutronWidth() ) );
+  CHECK_THAT( 3.100000e-2, WithinRel( jvalue.GG() ) );
+  CHECK_THAT( 3.100000e-2, WithinRel( jvalue.averageGammaWidth() ) );
 
-  CHECK( 4.314000e-3 == Approx( jvalue.GF()[0] ) );
-  CHECK( 4.572000e-3 == Approx( jvalue.GF()[1] ) );
-  CHECK( 4.740000e-3 == Approx( jvalue.GF()[2] ) );
-  CHECK( 5.000000e-3 == Approx( jvalue.GF()[3] ) );
-  CHECK( 5.520000e-3 == Approx( jvalue.GF()[4] ) );
-  CHECK( 7.057000e-3 == Approx( jvalue.GF()[5] ) );
-  CHECK( 8.251000e-3 == Approx( jvalue.GF()[6] ) );
-  CHECK( 9.276000e-3 == Approx( jvalue.GF()[7] ) );
-  CHECK( 9.930000e-3 == Approx( jvalue.GF()[8] ) );
-  CHECK( 1.035000e-2 == Approx( jvalue.GF()[9] ) );
-  CHECK( 1.210000e-2 == Approx( jvalue.GF()[10] ) );
-  CHECK( 1.341000e-2 == Approx( jvalue.GF()[11] ) );
-  CHECK( 1.456000e-2 == Approx( jvalue.GF()[12] ) );
-  CHECK( 1.542000e-2 == Approx( jvalue.GF()[13] ) );
-  CHECK( 4.314000e-3 == Approx( jvalue.averageFissionWidths()[0] ) );
-  CHECK( 4.572000e-3 == Approx( jvalue.averageFissionWidths()[1] ) );
-  CHECK( 4.740000e-3 == Approx( jvalue.averageFissionWidths()[2] ) );
-  CHECK( 5.000000e-3 == Approx( jvalue.averageFissionWidths()[3] ) );
-  CHECK( 5.520000e-3 == Approx( jvalue.averageFissionWidths()[4] ) );
-  CHECK( 7.057000e-3 == Approx( jvalue.averageFissionWidths()[5] ) );
-  CHECK( 8.251000e-3 == Approx( jvalue.averageFissionWidths()[6] ) );
-  CHECK( 9.276000e-3 == Approx( jvalue.averageFissionWidths()[7] ) );
-  CHECK( 9.930000e-3 == Approx( jvalue.averageFissionWidths()[8] ) );
-  CHECK( 1.035000e-2 == Approx( jvalue.averageFissionWidths()[9] ) );
-  CHECK( 1.210000e-2 == Approx( jvalue.averageFissionWidths()[10] ) );
-  CHECK( 1.341000e-2 == Approx( jvalue.averageFissionWidths()[11] ) );
-  CHECK( 1.456000e-2 == Approx( jvalue.averageFissionWidths()[12] ) );
-  CHECK( 1.542000e-2 == Approx( jvalue.averageFissionWidths()[13] ) );
-  CHECK( 0. == Approx( jvalue.GX() ) );
-  CHECK( 0. == Approx( jvalue.averageCompetitiveWidth() ) );
+  CHECK_THAT( 4.314000e-3, WithinRel( jvalue.GF()[0] ) );
+  CHECK_THAT( 4.572000e-3, WithinRel( jvalue.GF()[1] ) );
+  CHECK_THAT( 4.740000e-3, WithinRel( jvalue.GF()[2] ) );
+  CHECK_THAT( 5.000000e-3, WithinRel( jvalue.GF()[3] ) );
+  CHECK_THAT( 5.520000e-3, WithinRel( jvalue.GF()[4] ) );
+  CHECK_THAT( 7.057000e-3, WithinRel( jvalue.GF()[5] ) );
+  CHECK_THAT( 8.251000e-3, WithinRel( jvalue.GF()[6] ) );
+  CHECK_THAT( 9.276000e-3, WithinRel( jvalue.GF()[7] ) );
+  CHECK_THAT( 9.930000e-3, WithinRel( jvalue.GF()[8] ) );
+  CHECK_THAT( 1.035000e-2, WithinRel( jvalue.GF()[9] ) );
+  CHECK_THAT( 1.210000e-2, WithinRel( jvalue.GF()[10] ) );
+  CHECK_THAT( 1.341000e-2, WithinRel( jvalue.GF()[11] ) );
+  CHECK_THAT( 1.456000e-2, WithinRel( jvalue.GF()[12] ) );
+  CHECK_THAT( 1.542000e-2, WithinRel( jvalue.GF()[13] ) );
+  CHECK_THAT( 4.314000e-3, WithinRel( jvalue.averageFissionWidths()[0] ) );
+  CHECK_THAT( 4.572000e-3, WithinRel( jvalue.averageFissionWidths()[1] ) );
+  CHECK_THAT( 4.740000e-3, WithinRel( jvalue.averageFissionWidths()[2] ) );
+  CHECK_THAT( 5.000000e-3, WithinRel( jvalue.averageFissionWidths()[3] ) );
+  CHECK_THAT( 5.520000e-3, WithinRel( jvalue.averageFissionWidths()[4] ) );
+  CHECK_THAT( 7.057000e-3, WithinRel( jvalue.averageFissionWidths()[5] ) );
+  CHECK_THAT( 8.251000e-3, WithinRel( jvalue.averageFissionWidths()[6] ) );
+  CHECK_THAT( 9.276000e-3, WithinRel( jvalue.averageFissionWidths()[7] ) );
+  CHECK_THAT( 9.930000e-3, WithinRel( jvalue.averageFissionWidths()[8] ) );
+  CHECK_THAT( 1.035000e-2, WithinRel( jvalue.averageFissionWidths()[9] ) );
+  CHECK_THAT( 1.210000e-2, WithinRel( jvalue.averageFissionWidths()[10] ) );
+  CHECK_THAT( 1.341000e-2, WithinRel( jvalue.averageFissionWidths()[11] ) );
+  CHECK_THAT( 1.456000e-2, WithinRel( jvalue.averageFissionWidths()[12] ) );
+  CHECK_THAT( 1.542000e-2, WithinRel( jvalue.averageFissionWidths()[13] ) );
+  CHECK_THAT( 0., WithinRel( jvalue.GX() ) );
+  CHECK_THAT( 0., WithinRel( jvalue.averageCompetitiveWidth() ) );
 
   CHECK( 6 == chunk.NC() );
 }
