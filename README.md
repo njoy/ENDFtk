@@ -47,12 +47,17 @@ The CMake-based build system will try to automatically detect the installed vers
 
 A version of python 3.x is preferred.
 
-##### importError cannot import name <sysconfig> #####
+##### ImportError cannot import name <sysconfig> #####
 
 This error sometimes comes up when running the cmake command. This appears to be related to an incomplete/corrupted python installation. It can be rectified by installing the distutils package for the python version that is being used. On a linux system, the following command should install the distutils package:
 ```
 sudo apt install python3-distutils
 ```
+
+##### ImportError `GLIBCXX_3.4.30' not found
+
+A problem may occur if a user's installed python environment is through conda. The user will be able to build properly but all of the unit tests for python may fail due to GLIBCXX_3.4.30 being missing. This seems to be an a problem with conda not having GLIBCXX_3.4.30 in the path. If the user is able to compile ENDFtk, they have GLIBCXX_3.4.30. At which point, a symlink will need to be created to point the conda enviroment to where GLIBCXX_3.4.30 is installed.
+
 
 ##### cannot find python.h #####
 
