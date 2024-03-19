@@ -3,9 +3,12 @@
 # ENDFtk
 Toolkit for reading and interacting with ENDF-6 formatted files. This toolkit provides a full C++ library along with python bindings.
 
-## ENDFtk in python
+## Release and development versions
+For the latest version of ENDFtk and an overview of the latest changes, please see the [Release Notes](ReleaseNotes.md) or the [release](https://github.com/njoy/ENDFtk/releases) page.
 
-The python bindings for ENDFtk are still work in progress and should be used accordingly. Please report any issues encountered while using the python bindings using the issue tracker on this repository.
+The latest release version of ENDFtk can always be found at the head of the [main](https://github.com/njoy/ENDFtk) branch of this repository and every release is associated to a release tag. New versions are released on a regular basis (we aim to provide updates at least every three months). The latest development version of ENDFtk containing the latest updates and changes can be found in at the head of the [develop](https://github.com/njoy/ENDFtk/tree/develop) branch. This development version should be used with caution.
+
+## ENDFtk in python
 
 ### Installing ENDFtk for python
 
@@ -44,12 +47,17 @@ The CMake-based build system will try to automatically detect the installed vers
 
 A version of python 3.x is preferred.
 
-##### importError cannot import name <sysconfig> #####
+##### ImportError cannot import name <sysconfig> #####
 
 This error sometimes comes up when running the cmake command. This appears to be related to an incomplete/corrupted python installation. It can be rectified by installing the distutils package for the python version that is being used. On a linux system, the following command should install the distutils package:
 ```
 sudo apt install python3-distutils
 ```
+
+##### ImportError `GLIBCXX_3.4.30' not found
+
+A problem may occur if a user's installed python environment is through conda. The user will be able to build properly but all of the unit tests for python may fail due to GLIBCXX_3.4.30 being missing. This seems to be an a problem with conda not having GLIBCXX_3.4.30 in the path. If the user is able to compile ENDFtk, they have GLIBCXX_3.4.30. At which point, a symlink will need to be created to point the conda enviroment to where GLIBCXX_3.4.30 is installed.
+
 
 ##### cannot find python.h #####
 
