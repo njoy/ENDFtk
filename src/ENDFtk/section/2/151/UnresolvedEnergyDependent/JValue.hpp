@@ -6,7 +6,7 @@
  *
  *  See ENDF102, section 2.3.1 for more information.
  */
-class JValue : protected ListRecord {
+class ENDFTK_PYTHON_EXPORT JValue : protected ListRecord {
 
   /* auxiliary functions */
   #include "ENDFtk/section/2/151/UnresolvedEnergyDependent/JValue/src/generateList.hpp"

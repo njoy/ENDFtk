@@ -10,7 +10,7 @@
  *
  *  See ENDF102, section 7.2 for more information.
  */
-class CoherentElastic {
+class ENDFTK_PYTHON_EXPORT CoherentElastic {
 
   /* members */
   TabulationRecord principal_;

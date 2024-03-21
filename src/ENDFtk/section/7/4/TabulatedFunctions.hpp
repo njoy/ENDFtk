@@ -11,7 +11,7 @@
  *
  *  See ENDF102, section 7.5 for more information.
  */
-class TabulatedFunctions {
+class ENDFTK_PYTHON_EXPORT TabulatedFunctions {
 
 public:
 

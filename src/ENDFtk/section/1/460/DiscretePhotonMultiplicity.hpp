@@ -4,7 +4,8 @@
  *
  *  See ENDF102, section 1.6 for more information.
  */
-class DiscretePhotonMultiplicity : protected TabulationRecord {
+class ENDFTK_PYTHON_EXPORT DiscretePhotonMultiplicity : 
+  protected TabulationRecord {
 
 public:
 

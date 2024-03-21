@@ -2,7 +2,7 @@
  *  @class
  *  @brief A distribution subsection of an MF15 section
  */
-class PartialDistribution {
+class ENDFTK_PYTHON_EXPORT PartialDistribution {
 
   Probability probability_;
   Distribution distribution_;

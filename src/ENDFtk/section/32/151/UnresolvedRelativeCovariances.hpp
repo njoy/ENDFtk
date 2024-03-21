@@ -8,7 +8,7 @@
  *
  *  See ENDF102, section 32.2.4 for more information.
  */
-class UnresolvedRelativeCovariances {
+class ENDFTK_PYTHON_EXPORT UnresolvedRelativeCovariances {
 
 public:
 

@@ -4,7 +4,7 @@
  *
  *  See ENDF102, section 6.2.1 for more information.
  */
-class Unknown : protected NoLawDataGiven {
+class ENDFTK_PYTHON_EXPORT Unknown : protected NoLawDataGiven {
 
 public:
 

@@ -22,7 +22,9 @@ cmake -DCMAKE_BUILD_TYPE=Release ../
 make -j8
 ```
 
-ENDFtk in python requires python 3.x so you will need to have at least one python 3.x installed. When multiple python versions are installed, it may be beneficial to include ```-DPYTHON_EXECUTABLE=$(which python3)``` in the cmake configuration step so that the default python3 version will be picked. The compilation will produce a dynamic library linked to the python libraries on the user's computer (it'll be named something like `ENDFtk.cpython-37m-darwin.so`). This name will also indicate which version of the python libraries this library is linked to. This is important since you will need to use the associated python version with the ENDFtk python package.
+The compilation will produce a number of dynamic libraries linked to the python libraries on the user's computer (these will be named something like `< component >.cpython-37m-darwin.so` with `< component >` the name of the component). The names of these dynamic libraries will also indicate which version of the python libraries they are linked against. This is important since you will need to use the associated python version along with them.
+
+ENDFtk in python requires python 3.x so you will need to have at least one python 3.x installed. When multiple python versions are installed, it may be beneficial to include ```-DPYTHON_EXECUTABLE=$(which python3)``` in the cmake configuration step so that the default python3 version will be picked.
 
 In order to use the ENDFtk python package, the user should make sure that the library is within the python path. This can be done in multiple ways. You can set that up by adding the ENDFtk build path to the python path `$PYTHONPATH` environmental variable on your machine, or by using the following in your python code:
 ```
@@ -125,4 +127,5 @@ sections = file.sections.copy()    # this is a list of MF6 sections that have be
 ```
 
 ## LICENSE
-The software contained in this repository is covered under the associated [LICENSE](LICENSE) file.
+This software is copyrighted by Los Alamos National Laboratory and distributed
+according to the conditions in the accompanying [LICENSE](LICENSE) file.

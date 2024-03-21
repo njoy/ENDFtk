@@ -19,7 +19,7 @@ struct LJValueType< UnresolvedEnergyIndependent, GCC > {
  *
  *  See ENDF102, section 2.3.1 for more information.
  */
-class UnresolvedEnergyIndependent :
+class ENDFTK_PYTHON_EXPORT UnresolvedEnergyIndependent :
   public UnresolvedBase< UnresolvedEnergyIndependent > {
 
 public:

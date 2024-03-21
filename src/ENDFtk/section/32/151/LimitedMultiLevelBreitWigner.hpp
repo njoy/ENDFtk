@@ -4,7 +4,7 @@
  *
  *  See ENDF102, section 32.2.1
  */
-class LimitedMultiLevelBreitWigner :
+class ENDFTK_PYTHON_EXPORT LimitedMultiLevelBreitWigner :
   protected LimitedCovarianceBase< LimitedMultiLevelBreitWigner > {
 
   friend LimitedCovarianceBase< LimitedMultiLevelBreitWigner >;

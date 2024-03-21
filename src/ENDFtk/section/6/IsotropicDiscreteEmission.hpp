@@ -4,7 +4,7 @@
  *
  *  See ENDF102, section 6.2.4 for more information.
  */
-class IsotropicDiscreteEmission : protected NoLawDataGiven {
+class ENDFTK_PYTHON_EXPORT IsotropicDiscreteEmission : protected NoLawDataGiven {
 
 public:
 

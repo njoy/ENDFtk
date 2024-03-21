@@ -8,7 +8,7 @@
  *
  *  See ENDF102, section 6.2.7 for more information.
  */
-class ChargedParticleElasticScattering {
+class ENDFTK_PYTHON_EXPORT ChargedParticleElasticScattering {
 
 public:
 

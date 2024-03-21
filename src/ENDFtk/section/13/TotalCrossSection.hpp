@@ -4,7 +4,7 @@
  *
  *  See ENDF102, section 13.2 for more information.
  */
-class TotalCrossSection : protected TabulationRecord {
+class ENDFTK_PYTHON_EXPORT TotalCrossSection : protected TabulationRecord {
 
   /* auxiliary functions */
 

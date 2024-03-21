@@ -9,7 +9,7 @@
  *
  *  See ENDF102, section 6.2.8 for more information.
  */
-class LaboratoryAngleEnergy {
+class ENDFTK_PYTHON_EXPORT LaboratoryAngleEnergy {
 public:
 
   #include "ENDFtk/section/6/LaboratoryAngleEnergy/EnergyDistribution.hpp"

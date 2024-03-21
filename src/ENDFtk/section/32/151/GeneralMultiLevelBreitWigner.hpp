@@ -4,7 +4,7 @@
  *
  *  See ENDF102, section 32.2.2
  */
-class GeneralMultiLevelBreitWigner :
+class ENDFTK_PYTHON_EXPORT GeneralMultiLevelBreitWigner :
   protected GeneralCovarianceBase<
                 ShortRangeBreitWignerBlock,
                 double,

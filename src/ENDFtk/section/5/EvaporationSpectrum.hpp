@@ -4,7 +4,7 @@
  *
  *  See ENDF102, section 5.1.1.4 and 5.2.4 for more information.
  */
-class EvaporationSpectrum : protected EffectiveTemperature {
+class ENDFTK_PYTHON_EXPORT EvaporationSpectrum : protected EffectiveTemperature {
 
 public:
 

@@ -7,7 +7,7 @@
  *
  *  See ENDF102, section 1.5 for more information.
  */
-class ThermalPointComponents : protected ListRecord {
+class ENDFTK_PYTHON_EXPORT ThermalPointComponents : protected ListRecord {
 
   /* auxiliary functions */
   #include "ENDFtk/section/1/458/ThermalPointComponents/src/verify.hpp"

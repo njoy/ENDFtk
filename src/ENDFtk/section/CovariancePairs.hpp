@@ -4,6 +4,7 @@
 // system includes
 
 // other includes
+#include "ENDFtk/macros.hpp"
 #include "range/v3/view/drop_exactly.hpp"
 #include "range/v3/view/take_exactly.hpp"
 #include "range/v3/view/stride.hpp"
@@ -19,7 +20,7 @@ namespace section{
  *
  *  See ENDF102, section 33.2 for more information.
  */
-class CovariancePairs : protected ListRecord {
+class ENDFTK_PYTHON_EXPORT CovariancePairs : protected ListRecord {
 
   #include "ENDFtk/section/CovariancePairs/src/verifyLB.hpp"
   #include "ENDFtk/section/CovariancePairs/src/verifySize.hpp"

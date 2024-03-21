@@ -12,7 +12,7 @@
  *
  *  See ENDF102, section 7.5 for more information.
  */
-class AnalyticalFunctions {
+class ENDFTK_PYTHON_EXPORT AnalyticalFunctions {
 
 public:
 

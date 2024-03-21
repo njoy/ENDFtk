@@ -11,7 +11,7 @@
  *
  *  See ENDF102, section 6.2.4 for more information.
  */
-class LegendreCoefficients : protected ListRecord {
+class ENDFTK_PYTHON_EXPORT LegendreCoefficients : protected ListRecord {
 
   /* auxiliary functions */
   #include "ENDFtk/section/6/DiscreteTwoBodyScattering/LegendreCoefficients/src/verifyLANG.hpp"

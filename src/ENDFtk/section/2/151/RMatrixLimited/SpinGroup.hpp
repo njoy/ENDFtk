@@ -7,7 +7,7 @@
  *
  *  See ENDF102, section 2.2.1.6 for more information.
  */
-class SpinGroup  {
+class ENDFTK_PYTHON_EXPORT SpinGroup  {
 
   /* fields */
   ResonanceChannels channels_;

@@ -10,6 +10,7 @@
 #include "range/v3/view/concat.hpp"
 #include "range/v3/view/single.hpp"
 #include "range/v3/view/transform.hpp"
+#include "ENDFtk/macros.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/TabulationRecord.hpp"
@@ -21,7 +22,8 @@ namespace ENDFtk {
 namespace section{
 
   template<>
-  class Type< 7, 2 > : protected BaseWithoutMT< Type< 7, 2 > > {
+  class ENDFTK_PYTHON_EXPORT Type< 7, 2 > : 
+    protected BaseWithoutMT< Type< 7, 2 > > {
 
     friend BaseWithoutMT< Type< 7, 2 > >;
 

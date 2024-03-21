@@ -4,7 +4,7 @@
  *
  *  See ENDF102, section 32.2.2
  */
-class GeneralRMatrixLimited :
+class ENDFTK_PYTHON_EXPORT GeneralRMatrixLimited :
   protected GeneralCovarianceBase<
                 ShortRangeRMatrixLimitedBlock,
                 ReichMooreScatteringRadiusUncertainties,

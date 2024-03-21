@@ -4,7 +4,7 @@
  *
  *  See ENDF102, section 32.1 for more information.
  */
-class ResonanceRange {
+class ENDFTK_PYTHON_EXPORT ResonanceRange {
 
 public:
 

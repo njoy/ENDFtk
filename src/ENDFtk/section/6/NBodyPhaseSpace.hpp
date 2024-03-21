@@ -4,7 +4,7 @@
  *
  *  See ENDF102, section 6.2.5 for more information.
  */
-class NBodyPhaseSpace : protected ControlRecord {
+class ENDFTK_PYTHON_EXPORT NBodyPhaseSpace : protected ControlRecord {
 
 public:
   /* constructor */

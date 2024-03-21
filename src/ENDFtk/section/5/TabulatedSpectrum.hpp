@@ -11,7 +11,7 @@
  *
  *  See ENDF102, section 5.1.1.1 and 5.2.1 for more information.
  */
-class TabulatedSpectrum {
+class ENDFTK_PYTHON_EXPORT TabulatedSpectrum {
 
 public:
 

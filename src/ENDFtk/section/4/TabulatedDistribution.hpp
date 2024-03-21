@@ -8,7 +8,7 @@
  *
  *  See ENDF102, section 4.2.2 for more information.
  */
-class TabulatedDistribution : protected TabulationRecord {
+class ENDFTK_PYTHON_EXPORT TabulatedDistribution : protected TabulationRecord {
 
   /* auxiliary functions */
 

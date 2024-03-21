@@ -4,6 +4,7 @@
 // system includes
 
 // other includes
+#include "ENDFtk/macros.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/TabulationRecord.hpp"
 #include "ENDFtk/section.hpp"
@@ -19,7 +20,7 @@ namespace section {
    *  See ENDF102, section 3.2 for more information.
    */
   template<>
-  class Type< 3 > : protected Base {
+  class ENDFTK_PYTHON_EXPORT Type< 3 > : protected Base {
 
     /* fields */
     TabulationRecord table;

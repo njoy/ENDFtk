@@ -10,7 +10,7 @@
  *
  *  See ENDF102, section 12.2.1 for more information.
  */
-class Multiplicities {
+class ENDFTK_PYTHON_EXPORT Multiplicities {
 
 public:
 

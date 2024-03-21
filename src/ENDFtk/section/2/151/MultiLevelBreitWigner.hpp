@@ -7,7 +7,7 @@
  *
  *  See ENDF102, section 2.2.1.1 for more information.
  */
-class MultiLevelBreitWigner :
+class ENDFTK_PYTHON_EXPORT MultiLevelBreitWigner :
   protected BreitWignerReichMooreBase< BreitWignerLValue,
                                        MultiLevelBreitWigner > {
 

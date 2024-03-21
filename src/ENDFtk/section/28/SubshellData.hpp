@@ -4,7 +4,7 @@
  *
  *  See ENDF102, section 28.2 for more information.
  */
-class SubshellData : protected ListRecord {
+class ENDFTK_PYTHON_EXPORT SubshellData : protected ListRecord {
 
   /* auxiliary functions */
   #include "ENDFtk/section/28/SubshellData/src/generateList.hpp"

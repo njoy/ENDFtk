@@ -7,7 +7,7 @@
  *
  *  See ENDF102, section 2.2.1.6 for more information.
  */
-class RMatrixLimited {
+class ENDFTK_PYTHON_EXPORT RMatrixLimited {
 
 public:
 

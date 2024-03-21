@@ -1,14 +1,12 @@
 # Release Notes&mdash;ENDFtk
 Given here are some release notes for ENDFtk.
 
-## [ENDFtk v1.0.2](https://github.com/njoy/ENDFtk/pull/xxx)
-This update does not add any additional functionality.
-
-## [ENDFtk v1.0.1](https://github.com/njoy/ENDFtk/pull/194)
+## [ENDFtk v1.0.1](https://github.com/njoy/ENDFtk/pull/xxx)
 This update does not add any additional functionality.
 
 This update fixes the following issues:
   - A compilation issue in a unit test that still used the old catch-adapter (see issue #193).
+  - Macros for pybind11 were added where required so that other pybind11 bond libraries can accept ENDFtk components as input arguments on the python side (e.g. covariance matrice blocks). This is currently limited to all ENDFtk section components.
 
 ## [ENDFtk v1.0.0](https://github.com/njoy/ENDFtk/pull/192)
 This release of ENDFtk has the following changes:

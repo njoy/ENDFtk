@@ -5,6 +5,7 @@
 #include <variant>
 
 // other includes
+#include "ENDFtk/macros.hpp"
 #include "range/v3/range/conversion.hpp"
 #include "range/v3/view/all.hpp"
 #include "range/v3/view/concat.hpp"
@@ -28,7 +29,7 @@ namespace section{
    *  See ENDF102, section 33.2 for more information.
    */
   template<>
-  class Type< 33 > : protected Base {
+  class ENDFTK_PYTHON_EXPORT Type< 33 > : protected Base {
 
     /* fields */
     int mtl_;

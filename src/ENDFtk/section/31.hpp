@@ -11,6 +11,7 @@
 #include "range/v3/view/drop_exactly.hpp"
 #include "range/v3/view/take_exactly.hpp"
 #include "range/v3/view/stride.hpp"
+#include "ENDFtk/macros.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/readSequence.hpp"
@@ -31,7 +32,7 @@ namespace section{
    *  Caveat: lumped covariances don't make sense in MF31, so this is withheld.
    */
   template<>
-  class Type< 31 > : protected Base {
+  class ENDFTK_PYTHON_EXPORT Type< 31 > : protected Base {
 
     /* fields */
     std::vector< ReactionBlock > reactions_;

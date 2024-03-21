@@ -4,7 +4,7 @@
  *
  *  See ENDF102, section 12.2.8 for more information.
  */
-class AngularDistribution :
+class ENDFTK_PYTHON_EXPORT AngularDistribution :
   protected InterpolationSequenceRecord< EnergyDistribution > {
 
 public:

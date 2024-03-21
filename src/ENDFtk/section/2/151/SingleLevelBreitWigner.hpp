@@ -7,7 +7,7 @@
  *
  *  See ENDF102, section 2.2.1.1 for more information.
  */
-class SingleLevelBreitWigner :
+class ENDFTK_PYTHON_EXPORT SingleLevelBreitWigner :
   protected BreitWignerReichMooreBase< BreitWignerLValue,
                                        SingleLevelBreitWigner > {
 

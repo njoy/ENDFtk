@@ -11,7 +11,7 @@ class PartialDistribution;
  *
  *  See ENDF102, section 5 for more information.
  */
-class Probability : protected TabulationRecord {
+class ENDFTK_PYTHON_EXPORT Probability : protected TabulationRecord {
 
   friend PartialDistribution;
 

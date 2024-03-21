@@ -4,7 +4,7 @@
  *
  *  See ENDF102, section 1.5 for more information.
  */
-class EnergyReleaseComponent : protected TabulationRecord {
+class ENDFTK_PYTHON_EXPORT EnergyReleaseComponent : protected TabulationRecord {
 
   /* auxiliary functions */
   #include "ENDFtk/section/1/458/EnergyReleaseComponent/src/verify.hpp"

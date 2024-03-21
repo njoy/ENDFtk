@@ -4,7 +4,7 @@
  *
  *  See ENDF102, section 35.2 for more information.
  */
-class SquareMatrix : protected ListRecord {
+class ENDFTK_PYTHON_EXPORT SquareMatrix : protected ListRecord {
 
   #include "ENDFtk/section/35/SquareMatrix/src/verifyLB.hpp"
 

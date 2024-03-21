@@ -7,7 +7,7 @@
  *
  *  See ENDF102, section 7.3 for more information.
  */
-class IncoherentElastic : protected TabulationRecord {
+class ENDFTK_PYTHON_EXPORT IncoherentElastic : protected TabulationRecord {
 
 public:
 

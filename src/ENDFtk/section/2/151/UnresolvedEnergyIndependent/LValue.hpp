@@ -5,7 +5,7 @@
  *
  *  See ENDF102, section 2.3.1 for more information.
  */
-class LValue : protected ListRecord {
+class ENDFTK_PYTHON_EXPORT LValue : protected ListRecord {
 
   /* auxiliary functions */
   #include "ENDFtk/section/2/151/UnresolvedEnergyIndependent/LValue/src/verifySize.hpp"

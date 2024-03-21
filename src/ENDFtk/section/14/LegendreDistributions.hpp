@@ -9,7 +9,7 @@
  *
  *  See ENDF102, section 14.2.2 for more information.
  */
-class LegendreDistributions :
+class ENDFTK_PYTHON_EXPORT LegendreDistributions :
   protected AngularDistributions< LegendreCoefficients > {
 
 public:

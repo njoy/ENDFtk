@@ -6,6 +6,7 @@
 #include <optional>
 
 // other includes
+#include "ENDFtk/macros.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/TabulationRecord.hpp"
@@ -23,7 +24,7 @@ namespace section {
    *  See ENDF102, section 13.2 for more information.
    */
   template<>
-  class Type< 13 > : protected Base {
+  class ENDFTK_PYTHON_EXPORT Type< 13 > : protected Base {
 
   public:
 

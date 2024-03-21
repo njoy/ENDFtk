@@ -4,7 +4,7 @@
  *
  *  See ENDF102, section 32.2.3.2
  */
-class CompactRMatrixLimited :
+class ENDFTK_PYTHON_EXPORT CompactRMatrixLimited :
   protected CompactCovarianceBase<
                 CompactRMatrixLimitedUncertainties,
                 ReichMooreScatteringRadiusUncertainties,

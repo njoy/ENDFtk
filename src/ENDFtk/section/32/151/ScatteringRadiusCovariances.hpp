@@ -4,7 +4,7 @@
  *
  *  See ENDF102, section 32.2 for more information.
  */
-class ScatteringRadiusCovariances {
+class ENDFTK_PYTHON_EXPORT ScatteringRadiusCovariances {
 
   /* fields */
   std::vector< ExplicitCovariance > ni_;

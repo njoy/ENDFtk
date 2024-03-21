@@ -8,7 +8,7 @@
  *
  *  See ENDF102, section 34.2 for more information.
  */
-class ReactionBlock {
+class ENDFTK_PYTHON_EXPORT ReactionBlock {
 
   /* fields */
   int mt1_;

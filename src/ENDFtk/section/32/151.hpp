@@ -13,6 +13,7 @@
 #include "range/v3/view/stride.hpp"
 #include "range/v3/view/take_exactly.hpp"
 #include "range/v3/view/transform.hpp"
+#include "ENDFtk/macros.hpp"
 #include "ENDFtk/record.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
@@ -31,7 +32,8 @@ namespace section {
    *  See ENDF102, section 32.1 for more information.
    */
   template<>
-  class Type< 32, 151 > : protected BaseWithoutMT< Type< 32, 151 > > {
+  class ENDFTK_PYTHON_EXPORT Type< 32, 151 > : 
+    protected BaseWithoutMT< Type< 32, 151 > > {
 
   public:
 

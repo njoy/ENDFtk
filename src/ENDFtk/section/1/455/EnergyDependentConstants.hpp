@@ -5,7 +5,7 @@
  *
  *  See ENDF102, section 1.3 for more information.
  */
-class EnergyDependentConstants :
+class ENDFTK_PYTHON_EXPORT EnergyDependentConstants :
   protected InterpolationSequenceRecord< DecayConstants > {
 
   /* auxiliary functions */

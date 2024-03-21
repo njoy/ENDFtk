@@ -10,7 +10,7 @@
  *
  *  See ENDF102, section 0.6.4.9 and 32.2.3 for more information.
  */
-class CompactCorrelationMatrix {
+class ENDFTK_PYTHON_EXPORT CompactCorrelationMatrix {
 
   /* fields */
   int ndigit_;

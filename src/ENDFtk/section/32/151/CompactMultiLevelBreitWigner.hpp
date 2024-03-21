@@ -4,7 +4,7 @@
  *
  *  See ENDF102, section 32.2.3.1
  */
-class CompactMultiLevelBreitWigner :
+class ENDFTK_PYTHON_EXPORT CompactMultiLevelBreitWigner :
   protected CompactCovarianceBase<
                 CompactBreitWignerUncertainties,
                 double,

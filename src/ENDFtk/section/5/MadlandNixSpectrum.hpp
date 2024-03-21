@@ -4,7 +4,7 @@
  *
  *  See ENDF102, section 5.1.1.6 and 5.2.6 for more information.
  */
-class MadlandNixSpectrum : protected TabulationRecord {
+class ENDFTK_PYTHON_EXPORT MadlandNixSpectrum : protected TabulationRecord {
 
 public:
 

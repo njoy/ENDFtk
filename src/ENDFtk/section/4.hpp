@@ -10,6 +10,7 @@
 #include "range/v3/view/transform.hpp"
 #include "range/v3/view/empty.hpp"
 #include "range/v3/view/any_view.hpp"
+#include "ENDFtk/macros.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/TabulationRecord.hpp"
@@ -28,7 +29,7 @@ namespace section {
    *  See ENDF102, section 4.2 for more information.
    */
   template<>
-  class Type< 4 > : protected Base {
+  class ENDFTK_PYTHON_EXPORT Type< 4 > : protected Base {
 
   protected:
 
