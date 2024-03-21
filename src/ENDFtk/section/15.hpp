@@ -7,6 +7,7 @@
 // other includes
 #include "range/v3/view/all.hpp"
 #include "range/v3/view/transform.hpp"
+#include "ENDFtk/macros.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/TabulationRecord.hpp"
@@ -18,7 +19,7 @@ namespace ENDFtk {
 namespace section {
 
   template<>
-  class Type< 15 > : protected Base {
+  class ENDFTK_PYTHON_EXPORT Type< 15 > : protected Base {
   
   public:
   

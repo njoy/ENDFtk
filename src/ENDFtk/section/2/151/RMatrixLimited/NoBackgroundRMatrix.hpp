@@ -4,7 +4,8 @@
  *
  *  See ENDF102, section 2.2.1.6 for more information.
  */
-class NoBackgroundRMatrix : protected BaseBackgroundRMatrix< NoBackgroundRMatrix > {
+class ENDFTK_PYTHON_EXPORT NoBackgroundRMatrix : 
+  protected BaseBackgroundRMatrix< NoBackgroundRMatrix > {
 
   friend BaseBackgroundRMatrix< NoBackgroundRMatrix >;
 

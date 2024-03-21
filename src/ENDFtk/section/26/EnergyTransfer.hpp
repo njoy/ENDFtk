@@ -7,7 +7,7 @@
  *
  *  See ENDF102, section 26.2.3 for more information.
  */
-class EnergyTransfer : protected TabulationRecord {
+class ENDFTK_PYTHON_EXPORT EnergyTransfer : protected TabulationRecord {
 
 public:
 

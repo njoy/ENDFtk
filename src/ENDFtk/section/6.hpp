@@ -19,6 +19,7 @@
 #include "range/v3/view/tail.hpp"
 #include "range/v3/view/transform.hpp"
 #include "range/v3/view/zip_with.hpp"
+#include "ENDFtk/macros.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/TabulationRecord.hpp"
@@ -36,7 +37,7 @@ namespace section {
    *  See ENDF102, section 6.2 for more information.
    */
   template<>
-  class Type< 6 > : protected Base {
+  class ENDFTK_PYTHON_EXPORT Type< 6 > : protected Base {
 
     #include "ENDFtk/section/6/src/verifySorted.hpp"
 

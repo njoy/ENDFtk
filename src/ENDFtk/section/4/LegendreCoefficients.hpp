@@ -8,7 +8,7 @@
  *
  *  See ENDF102, section 4.2.1 for more information.
  */
-class LegendreCoefficients : protected ListRecord {
+class ENDFTK_PYTHON_EXPORT LegendreCoefficients : protected ListRecord {
 
   /* auxiliary functions */
 

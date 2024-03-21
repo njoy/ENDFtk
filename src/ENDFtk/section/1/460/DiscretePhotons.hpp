@@ -4,7 +4,7 @@
  *
  *  See ENDF102, section 1.6 for more information.
  */
-class DiscretePhotons {
+class ENDFTK_PYTHON_EXPORT DiscretePhotons {
 
   /* fields */
   std::vector< DiscretePhotonMultiplicity > photons_;

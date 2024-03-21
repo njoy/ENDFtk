@@ -4,6 +4,7 @@
 // system includes
 
 // other includes
+#include "ENDFtk/macros.hpp"
 #include "ENDFtk/ListRecord.hpp"
 
 namespace njoy {
@@ -19,7 +20,7 @@ namespace section{
    *
    *  See ENDF102, section 1.2 for more information.
    */
-  class PolynomialMultiplicity : protected ListRecord {
+  class ENDFTK_PYTHON_EXPORT PolynomialMultiplicity : protected ListRecord {
 
   public:
 

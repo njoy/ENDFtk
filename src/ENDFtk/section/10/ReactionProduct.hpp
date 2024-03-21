@@ -4,7 +4,7 @@
  *
  *  See ENDF102, section 10.2 for more information.
  */
-class ReactionProduct : protected TabulationRecord {
+class ENDFTK_PYTHON_EXPORT ReactionProduct : protected TabulationRecord {
 
   /* auxiliary functions */
 

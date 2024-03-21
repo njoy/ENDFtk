@@ -7,7 +7,8 @@
  *
  *  See ENDF102, section 5.2.1 for more information.
  */
-class OutgoingEnergyDistribution : protected TabulationRecord {
+class ENDFTK_PYTHON_EXPORT OutgoingEnergyDistribution : 
+    protected TabulationRecord {
 
 public:
 

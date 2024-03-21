@@ -5,7 +5,7 @@
  *  See ENDF102, section 28.2 for more information.
  */
 template < typename Range >
-class Transition {
+class ENDFTK_PYTHON_EXPORT Transition {
 
   /* fields */
   Range chunk;

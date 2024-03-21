@@ -7,7 +7,7 @@
  *
  *  See NJOY2016 manual, section 7.4 for more information.
  */
-class ThermalScatteringData : protected ListRecord {
+class ENDFTK_PYTHON_EXPORT ThermalScatteringData : protected ListRecord {
 
   /* auxiliary functions */
   #include "ENDFtk/section/6/ContinuumEnergyAngle/ThermalScatteringData/src/generateList.hpp"

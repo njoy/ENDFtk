@@ -4,7 +4,7 @@
  *
  *  See ENDF102, section 32.2.2 for more information.
  */
-class ShortRangeRMatrixLimitedBlock {
+class ENDFTK_PYTHON_EXPORT ShortRangeRMatrixLimitedBlock {
 
 public:
 

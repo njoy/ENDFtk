@@ -8,7 +8,7 @@
  *
  *  See ENDF102, section 8.4 for more information.
  */
-class ContinuousSpectrum : protected TabulationRecord {
+class ENDFTK_PYTHON_EXPORT ContinuousSpectrum : protected TabulationRecord {
 
 public:
 

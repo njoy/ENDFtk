@@ -8,7 +8,7 @@
  *
  *  See ENDF102, section 26.2.2 for more information.
  */
-class DiscreteTwoBodyScattering {
+class ENDFTK_PYTHON_EXPORT DiscreteTwoBodyScattering {
 
 public:
 

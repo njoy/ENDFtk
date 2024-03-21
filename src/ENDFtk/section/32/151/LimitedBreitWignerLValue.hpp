@@ -5,7 +5,7 @@
  *
  *  See ENDF102, section 32.2.1 for more information.
  */
-class LimitedBreitWignerLValue : protected ListRecord {
+class ENDFTK_PYTHON_EXPORT LimitedBreitWignerLValue : protected ListRecord {
 
   /* auxiliary functions */
   #include "ENDFtk/section/32/151/LimitedBreitWignerLValue/src/verifySize.hpp"

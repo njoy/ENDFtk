@@ -7,7 +7,7 @@
  *
  *  See ENDF102, section 2.2.1.2 for more information.
  */
-class ReichMoore :
+class ENDFTK_PYTHON_EXPORT ReichMoore :
   protected BreitWignerReichMooreBase< ReichMooreLValue, ReichMoore > {
 
   friend BreitWignerReichMooreBase< ReichMooreLValue, ReichMoore >;

@@ -7,7 +7,7 @@
  *
  *  See ENDF102, section 8.4 for more information.
  */
-class DecaySpectrum {
+class ENDFTK_PYTHON_EXPORT DecaySpectrum {
 
 public:
 

@@ -7,7 +7,7 @@
  *
  *  See ENDF102, section 2.2.1.6 for more information.
  */
-class ResonanceParameters : protected ListRecord {
+class ENDFTK_PYTHON_EXPORT ResonanceParameters : protected ListRecord {
 
   /* auxiliary functions */
   #include "ENDFtk/section/2/151/RMatrixLimited/ResonanceParameters/src/generateList.hpp"

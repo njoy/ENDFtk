@@ -7,7 +7,7 @@
  *
  *  See ENDF102, section 2.1 for more information.
  */
-class SpecialCase {
+class ENDFTK_PYTHON_EXPORT SpecialCase {
 
   /* fields */
   double spi_;

@@ -8,7 +8,7 @@
  *
  *  See ENDF102, section 1.5 for more information.
  */
-class TabulatedComponents {
+class ENDFTK_PYTHON_EXPORT TabulatedComponents {
 
 public:
 

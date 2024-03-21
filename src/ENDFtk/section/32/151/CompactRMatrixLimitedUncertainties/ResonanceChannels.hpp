@@ -8,7 +8,7 @@
  *  See ENDF102, section 32.2.3.3 for more information - if you don't value
  *  your sanity.
  */
-class ResonanceChannels : protected ListRecord {
+class ENDFTK_PYTHON_EXPORT ResonanceChannels : protected ListRecord {
 
   /* auxiliary functions - blatantly taken from MF2 MT151 LRF = 7 */
   #include "ENDFtk/section/2/151/RMatrixLimited/ResonanceChannels/src/generateList.hpp"

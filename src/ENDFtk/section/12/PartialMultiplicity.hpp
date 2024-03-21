@@ -5,7 +5,7 @@
  *
  *  See ENDF102, section 12.2.1 for more information.
  */
-class PartialMultiplicity : protected TabulationRecord {
+class ENDFTK_PYTHON_EXPORT PartialMultiplicity : protected TabulationRecord {
 
   /* auxiliary functions */
 

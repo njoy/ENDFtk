@@ -6,7 +6,7 @@
  *  See ENDF102, section 32.2.1 for more information.
  */
 template < typename Range >
-class Resonance {
+class ENDFTK_PYTHON_EXPORT Resonance {
 
   /* fields */
   Range chunk;

@@ -8,7 +8,7 @@
  *
  *  See ENDF102, section 8.4 for more information.
  */
-class DecayMode {
+class ENDFTK_PYTHON_EXPORT DecayMode {
 
   /* members */
   double rtyp_;

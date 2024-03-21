@@ -5,7 +5,7 @@
  *
  *  See ENDF102, section 12.2.8 for more information.
  */
-class EnergyDistribution : protected TabulationRecord {
+class ENDFTK_PYTHON_EXPORT EnergyDistribution : protected TabulationRecord {
 
 public:
   /* constructor */

@@ -7,7 +7,7 @@
  *
  *  See ENDF102, section 5 for more information.
  */
-class EffectiveTemperature : protected TabulationRecord {
+class ENDFTK_PYTHON_EXPORT EffectiveTemperature : protected TabulationRecord {
 
 public:
 

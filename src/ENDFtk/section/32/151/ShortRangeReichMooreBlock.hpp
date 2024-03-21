@@ -4,7 +4,7 @@
  *
  *  See ENDF102, section 32.2.2 for more information.
  */
-class ShortRangeReichMooreBlock :
+class ENDFTK_PYTHON_EXPORT ShortRangeReichMooreBlock :
   protected ShortRangeBreitWignerReichMooreBlockBase {
 
 public:

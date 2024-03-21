@@ -8,6 +8,7 @@
 // other includes
 #include "range/v3/view/chunk.hpp"
 #include "range/v3/view/join.hpp"
+#include "ENDFtk/macros.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/TabulationRecord.hpp"
@@ -26,7 +27,7 @@ namespace section {
    *  See ENDF102, section 12.2 for more information.
    */
   template<>
-  class Type< 12 > : protected Base {
+  class ENDFTK_PYTHON_EXPORT Type< 12 > : protected Base {
 
   public:
 

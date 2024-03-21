@@ -4,7 +4,8 @@
  *
  *  See ENDF102, section 2.2.1.6 for more information.
  */
-class FrohnerBackgroundRMatrix : protected BaseBackgroundRMatrix< FrohnerBackgroundRMatrix > {
+class ENDFTK_PYTHON_EXPORT FrohnerBackgroundRMatrix : 
+  protected BaseBackgroundRMatrix< FrohnerBackgroundRMatrix > {
 
   friend BaseBackgroundRMatrix< FrohnerBackgroundRMatrix >;
 

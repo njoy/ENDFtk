@@ -8,7 +8,7 @@
  *  See ENDF102, section 32.2.3.3 for more information - if you don't value
  *  your sanity.
  */
-class SpinGroup  {
+class ENDFTK_PYTHON_EXPORT SpinGroup  {
 
   /* fields */
   ResonanceChannels channels_;

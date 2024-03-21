@@ -16,6 +16,7 @@
 #include "range/v3/view/repeat_n.hpp"
 #include "range/v3/view/stride.hpp"
 #include "range/v3/view/zip_with.hpp"
+#include "ENDFtk/macros.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/TabulationRecord.hpp"

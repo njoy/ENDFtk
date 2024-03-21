@@ -3,7 +3,7 @@
  *  @brief Base class for Legendre or tabulated angular distributions
  */
 template < typename Records >
-class AngularDistributions :
+class ENDFTK_PYTHON_EXPORT AngularDistributions :
   protected InterpolationSequenceRecord< Records > {
 
 protected:

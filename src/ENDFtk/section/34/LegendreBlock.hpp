@@ -8,7 +8,7 @@
  *
  *  See ENDF102, section 34.2 for more information.
  */
-class LegendreBlock {
+class ENDFTK_PYTHON_EXPORT LegendreBlock {
 
   /* fields */
   int order_;

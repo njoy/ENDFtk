@@ -12,7 +12,7 @@
  *  See ENDF102, section 32.2.3.3 for more information - if you don't value
  *  your sanity.
  */
-class ResonanceParameters : protected ListRecord {
+class ENDFTK_PYTHON_EXPORT ResonanceParameters : protected ListRecord {
 
   /* auxiliary functions */
   #include "ENDFtk/section/32/151/CompactRMatrixLimitedUncertainties/ResonanceParameters/src/generateList.hpp"

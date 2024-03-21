@@ -20,7 +20,7 @@ struct LJValueType< UnresolvedEnergyDependentFissionWidths, GCC > {
  *
  *  See ENDF102, section 2.3.1 for more information.
  */
-class UnresolvedEnergyDependentFissionWidths :
+class ENDFTK_PYTHON_EXPORT UnresolvedEnergyDependentFissionWidths :
     public UnresolvedBaseWithoutSpin< UnresolvedEnergyDependentFissionWidths > {
 
 public:

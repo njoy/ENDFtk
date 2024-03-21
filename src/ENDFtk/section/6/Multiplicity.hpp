@@ -4,7 +4,7 @@
  *
  *  See ENDF102, section 6.2 for more information.
  */
-class Multiplicity : protected TabulationRecord {
+class ENDFTK_PYTHON_EXPORT Multiplicity : protected TabulationRecord {
 
 public:
 

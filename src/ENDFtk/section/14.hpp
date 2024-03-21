@@ -6,6 +6,7 @@
 
 // other includes
 #include "range/v3/algorithm/count_if.hpp"
+#include "ENDFtk/macros.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/TabulationRecord.hpp"
@@ -23,7 +24,7 @@ namespace section {
    *  See ENDF102, section 14.2 for more information.
    */
   template<>
-  class Type< 14 > : protected Base {
+  class ENDFTK_PYTHON_EXPORT Type< 14 > : protected Base {
 
   protected:
 
