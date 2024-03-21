@@ -4,7 +4,7 @@
  *
  *  See ENDF102, section 32.2.2 for more information.
  */
-class CovarianceMatrix : protected ListRecord {
+class ENDFTK_PYTHON_EXPORT CovarianceMatrix : protected ListRecord {
 
   /* auxiliary functions */
   #include "ENDFtk/section/32/151/ShortRangeRMatrixLimitedBlock/CovarianceMatrix/src/verifySize.hpp"

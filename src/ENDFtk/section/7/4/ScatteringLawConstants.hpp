@@ -11,7 +11,7 @@
  *
  *  See ENDF102, section 7.5 for more information.
  */
-class ScatteringLawConstants : protected ListRecord {
+class ENDFTK_PYTHON_EXPORT ScatteringLawConstants : protected ListRecord {
 
   /* auxiliary functions */
   #include "ENDFtk/section/7/4/ScatteringLawConstants/src/generateList.hpp"

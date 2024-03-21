@@ -5,7 +5,8 @@
  *
  *  See ENDF102, section 32.2.3.2 for more information.
  */
-class CompactReichMooreUncertainties : protected ListRecord {
+class ENDFTK_PYTHON_EXPORT CompactReichMooreUncertainties : 
+  protected ListRecord {
 
   // blatantly stolen from CompactBreitWignerUncertainties
   #include "ENDFtk/section/32/151/CompactBreitWignerUncertainties/src/verifySize.hpp"

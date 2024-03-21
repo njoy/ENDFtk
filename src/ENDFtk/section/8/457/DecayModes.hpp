@@ -7,7 +7,7 @@
  *
  *  See ENDF102, section 8.4 for more information.
  */
-class DecayModes : protected ListRecord {
+class ENDFTK_PYTHON_EXPORT DecayModes : protected ListRecord {
 
   /* members */
 

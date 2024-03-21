@@ -30,7 +30,7 @@ namespace section{
  *
  *  See ENDF102, section 33.2 for more information.
  */
-class PYTHON_EXPORT ReactionBlock {
+class ENDFTK_PYTHON_EXPORT ReactionBlock {
 
   /* fields */
   int xmf1_;

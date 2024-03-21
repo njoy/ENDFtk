@@ -9,7 +9,7 @@
  *
  *  See ENDF102, section 4.2.3 for more information.
  */
-class MixedDistributions {
+class ENDFTK_PYTHON_EXPORT MixedDistributions {
 
   /* fields */
   LegendreDistributions legendre_;

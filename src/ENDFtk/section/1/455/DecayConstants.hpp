@@ -5,7 +5,7 @@
  *
  *  See ENDF102, section 1.3 for more information.
  */
-class DecayConstants : protected ListRecord {
+class ENDFTK_PYTHON_EXPORT DecayConstants : protected ListRecord {
 
   /* auxiliary functions */
   #include "ENDFtk/section/1/455/DecayConstants/src/generateList.hpp"

@@ -12,7 +12,7 @@
  *
  *  See ENDF102, section 6.2.3.1 for more information.
  */
-class LegendreCoefficients : protected Base {
+class ENDFTK_PYTHON_EXPORT LegendreCoefficients : protected Base {
 
   /* auxiliary functions */
   #include "ENDFtk/section/6/ContinuumEnergyAngle/LegendreCoefficients/src/generateList.hpp"

@@ -5,7 +5,7 @@
  *
  *  See ENDF102, section 1.3 for more information.
  */
-class EnergyIndependentConstants : protected ListRecord {
+class ENDFTK_PYTHON_EXPORT EnergyIndependentConstants : protected ListRecord {
 
 public:
 

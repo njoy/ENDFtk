@@ -11,7 +11,7 @@
  *
  *  See ENDF102, section 6.2.4 for more information.
  */
-class TabulatedDistribution : protected ListRecord {
+class ENDFTK_PYTHON_EXPORT TabulatedDistribution : protected ListRecord {
 
   /* auxiliary functions */
   #include "ENDFtk/section/6/DiscreteTwoBodyScattering/TabulatedDistribution/src/verifyLANG.hpp"

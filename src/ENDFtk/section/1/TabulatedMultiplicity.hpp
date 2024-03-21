@@ -20,7 +20,7 @@ namespace section{
    *
    *  See ENDF102, section 1.2 for more information.
    */
-  class PYTHON_EXPORT TabulatedMultiplicity : protected TabulationRecord {
+  class ENDFTK_PYTHON_EXPORT TabulatedMultiplicity : protected TabulationRecord {
 
   public:
 

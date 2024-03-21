@@ -4,7 +4,8 @@
  *
  *  See ENDF102, section 2.2.1.6 for more information.
  */
-class SammyBackgroundRMatrix : protected BaseBackgroundRMatrix< SammyBackgroundRMatrix > {
+class ENDFTK_PYTHON_EXPORT SammyBackgroundRMatrix : 
+  protected BaseBackgroundRMatrix< SammyBackgroundRMatrix > {
 
   friend BaseBackgroundRMatrix< SammyBackgroundRMatrix >;
 

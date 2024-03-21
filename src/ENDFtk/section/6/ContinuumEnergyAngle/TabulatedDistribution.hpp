@@ -12,7 +12,7 @@
  *
  *  See ENDF102, section 6.2.3.1 for more information.
  */
-class TabulatedDistribution : protected Base {
+class ENDFTK_PYTHON_EXPORT TabulatedDistribution : protected Base {
 
   /* fields */
   int lang_;

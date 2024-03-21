@@ -6,6 +6,7 @@
 #include <optional>
 
 // other includes
+#include "ENDFtk/macros.hpp"
 #include "ENDFtk/HeadRecord.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
@@ -26,7 +27,8 @@ namespace section{
    *  See ENDF102, section 1.5 for more information.
    */
   template<>
-  class Type< 1, 458 > : protected BaseWithoutMT< Type< 1, 458 > > {
+  class ENDFTK_PYTHON_EXPORT Type< 1, 458 > : 
+    protected BaseWithoutMT< Type< 1, 458 > > {
 
     friend BaseWithoutMT< Type< 1, 458 > >;
 

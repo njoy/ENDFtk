@@ -5,6 +5,7 @@
 #include <variant>
 
 // other includes
+#include "ENDFtk/macros.hpp"
 #include "ENDFtk/TabulationRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/InterpolationSequenceRecord.hpp"
@@ -29,7 +30,8 @@ namespace section{
    *  See ENDF102, section 1.3 for more information.
    */
   template<>
-  class Type< 1, 455 > : protected BaseWithoutMT< Type< 1, 455 > > {
+  class ENDFTK_PYTHON_EXPORT Type< 1, 455 > : 
+    protected BaseWithoutMT< Type< 1, 455 > > {
 
     friend BaseWithoutMT< Type< 1, 455 > >;
 

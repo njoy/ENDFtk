@@ -9,7 +9,7 @@
  *  See ENDF102, section 32.2.3.3 for more information - if you don't value
  *  your sanity.
  */
-class ParticlePairs : protected ListRecord {
+class ENDFTK_PYTHON_EXPORT ParticlePairs : protected ListRecord {
 
   /* auxiliary functions */
   #include "ENDFtk/section/32/151/CompactRMatrixLimitedUncertainties/ParticlePairs/src/generateList.hpp"

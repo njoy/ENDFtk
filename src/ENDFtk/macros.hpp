@@ -9,9 +9,9 @@
 // define PYTHON_EXPORT macro but only when PYBIND11 is defined
 #if !defined(PYTHON_EXPORT)
 #  ifdef PYBIND11
-#    define PYTHON_EXPORT PYBIND11_EXPORT
+#    define ENDFTK_PYTHON_EXPORT PYBIND11_EXPORT
 #  else
-#    define PYTHON_EXPORT
+#    define ENDFTK_PYTHON_EXPORT
 #  endif
 #endif
 

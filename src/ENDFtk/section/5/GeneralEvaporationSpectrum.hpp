@@ -4,7 +4,7 @@
  *
  *  See ENDF102, section 5.1.1.2 and 5.2.2 for more information.
  */
-class GeneralEvaporationSpectrum {
+class ENDFTK_PYTHON_EXPORT GeneralEvaporationSpectrum {
 
   EffectiveTemperature temperature_;
   DistributionFunction distribution_;

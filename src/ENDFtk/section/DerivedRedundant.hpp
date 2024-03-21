@@ -20,7 +20,7 @@ namespace section{
  *
  *  See ENDF102, section 33.2 for more information.
  */
-class PYTHON_EXPORT DerivedRedundant {
+class ENDFTK_PYTHON_EXPORT DerivedRedundant {
 
    /* fields */
    ListRecord list_;

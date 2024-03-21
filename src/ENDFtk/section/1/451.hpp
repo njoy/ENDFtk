@@ -12,6 +12,7 @@
 #include "range/v3/view/single.hpp"
 #include "range/v3/view/split.hpp"
 #include "range/v3/view/transform.hpp"
+#include "ENDFtk/macros.hpp"
 #include "ENDFtk/TextRecord.hpp"
 #include "ENDFtk/HeadRecord.hpp"
 #include "ENDFtk/ControlRecord.hpp"
@@ -30,7 +31,8 @@ namespace section {
    *  See ENDF102, section 1.1 for more information.
    */
   template<>
-  class Type< 1, 451 > : protected BaseWithoutMT< Type< 1, 451 > > {
+  class ENDFTK_PYTHON_EXPORT Type< 1, 451 > : 
+    protected BaseWithoutMT< Type< 1, 451 > > {
 
     friend BaseWithoutMT< Type< 1, 451 > >;
 

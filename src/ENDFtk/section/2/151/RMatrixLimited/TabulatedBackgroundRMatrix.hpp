@@ -4,7 +4,8 @@
  *
  *  See ENDF102, section 2.2.1.6 for more information.
  */
-class TabulatedBackgroundRMatrix : protected BaseBackgroundRMatrix< TabulatedBackgroundRMatrix > {
+class ENDFTK_PYTHON_EXPORT TabulatedBackgroundRMatrix : 
+  protected BaseBackgroundRMatrix< TabulatedBackgroundRMatrix > {
 
   friend BaseBackgroundRMatrix< TabulatedBackgroundRMatrix >;
 

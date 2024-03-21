@@ -5,7 +5,7 @@
  *
  *  See ENDF102, section 6.2.5 for more information.
  */
-class DiscreteTwoBodyRecoils : protected NoLawDataGiven {
+class ENDFTK_PYTHON_EXPORT DiscreteTwoBodyRecoils : protected NoLawDataGiven {
 
 public:
 

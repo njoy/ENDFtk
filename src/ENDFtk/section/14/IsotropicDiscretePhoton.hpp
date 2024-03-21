@@ -4,7 +4,7 @@
  *
  *  See ENDF102, section 14.2.2 for more information.
  */
-class IsotropicDiscretePhoton {
+class ENDFTK_PYTHON_EXPORT IsotropicDiscretePhoton {
 
   /* fields */
   double eg_;

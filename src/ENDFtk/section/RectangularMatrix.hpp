@@ -21,7 +21,7 @@ namespace section{
  *
  *  See ENDF102, section 33.2 for more information.
  */
-class PYTHON_EXPORT RectangularMatrix : protected ListRecord {
+class ENDFTK_PYTHON_EXPORT RectangularMatrix : protected ListRecord {
 
   #include "ENDFtk/section/RectangularMatrix/src/verifyLB.hpp"
   #include "ENDFtk/section/RectangularMatrix/src/verifySize.hpp"

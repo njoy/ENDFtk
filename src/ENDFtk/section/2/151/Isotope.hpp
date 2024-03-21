@@ -7,7 +7,7 @@
  *
  *  See ENDF102, section 2.1 for more information.
  */
-class Isotope {
+class ENDFTK_PYTHON_EXPORT Isotope {
 
   /* fields */
   int zai_;

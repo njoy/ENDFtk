@@ -9,7 +9,7 @@
  *
  *  See ENDF102, section 14.2.3 for more information.
  */
-class TabulatedDistributions :
+class ENDFTK_PYTHON_EXPORT TabulatedDistributions :
   protected AngularDistributions< TabulatedDistribution > {
 
 public:

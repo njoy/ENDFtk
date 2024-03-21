@@ -9,7 +9,7 @@
  *
  *  See ENDF102, section 40.2 for more information.
  */
-class LevelBlock {
+class ENDFTK_PYTHON_EXPORT LevelBlock {
 
   /* fields */
   double qm_;

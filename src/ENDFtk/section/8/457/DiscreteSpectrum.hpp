@@ -10,7 +10,7 @@
  *
  *  See ENDF102, section 8.4 for more information.
  */
-class DiscreteSpectrum : protected ListRecord {
+class ENDFTK_PYTHON_EXPORT DiscreteSpectrum : protected ListRecord {
 
   /* members */
 

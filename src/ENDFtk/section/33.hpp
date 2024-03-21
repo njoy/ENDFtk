@@ -29,7 +29,7 @@ namespace section{
    *  See ENDF102, section 33.2 for more information.
    */
   template<>
-  class PYTHON_EXPORT Type< 33 > : protected Base {
+  class ENDFTK_PYTHON_EXPORT Type< 33 > : protected Base {
 
     /* fields */
     int mtl_;

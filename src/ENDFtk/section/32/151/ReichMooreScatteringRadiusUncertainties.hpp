@@ -5,7 +5,8 @@
  *
  *  See ENDF102, section 32.2.2 for more information.
  */
-class ReichMooreScatteringRadiusUncertainties : protected ListRecord {
+class ENDFTK_PYTHON_EXPORT ReichMooreScatteringRadiusUncertainties : 
+  protected ListRecord {
 
   /* auxiliary functions */
   #include "ENDFtk/section/32/151/ReichMooreScatteringRadiusUncertainties/src/generateList.hpp"

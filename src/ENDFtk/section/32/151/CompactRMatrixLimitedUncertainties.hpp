@@ -6,7 +6,7 @@
  *  See ENDF102, section 32.2.3.3 for more information - if you don't value
  *  your sanity.
  */
-class CompactRMatrixLimitedUncertainties {
+class ENDFTK_PYTHON_EXPORT CompactRMatrixLimitedUncertainties {
 
 public:
 

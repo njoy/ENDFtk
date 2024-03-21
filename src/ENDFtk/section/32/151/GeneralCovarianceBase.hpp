@@ -11,7 +11,7 @@
 template < typename ShortRangeCovarianceBlock,
            typename RadiusUncertainty,
            typename Derived >
-class GeneralCovarianceBase {
+class ENDFTK_PYTHON_EXPORT GeneralCovarianceBase {
 
   /* fields */
   double spi_;

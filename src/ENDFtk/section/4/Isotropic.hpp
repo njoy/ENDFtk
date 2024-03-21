@@ -11,7 +11,7 @@
  *
  *  See ENDF102, section 4.2.1 for more information.
  */
-class Isotropic {
+class ENDFTK_PYTHON_EXPORT Isotropic {
 
 public:
 

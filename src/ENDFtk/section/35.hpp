@@ -11,6 +11,7 @@
 #include "range/v3/view/drop_exactly.hpp"
 #include "range/v3/view/take_exactly.hpp"
 #include "range/v3/view/stride.hpp"
+#include "ENDFtk/macros.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/readSequence.hpp"
@@ -27,7 +28,7 @@ namespace section{
    *  See ENDF102, section 35.2 for more information.
    */
   template<>
-  class Type< 35 > : protected Base {
+  class ENDFTK_PYTHON_EXPORT Type< 35 > : protected Base {
 
   public:
 

@@ -4,7 +4,7 @@
  *
  *  See ENDF102, section 5.1.1.3 and 5.2.3 for more information.
  */
-class MaxwellianFissionSpectrum : protected EffectiveTemperature {
+class ENDFTK_PYTHON_EXPORT MaxwellianFissionSpectrum : protected EffectiveTemperature {
 
 public:
 

@@ -21,7 +21,7 @@ namespace section{
  *
  *  See ENDF102, section 33.2 for more information.
  */
-class PYTHON_EXPORT SquareMatrix : protected ListRecord {
+class ENDFTK_PYTHON_EXPORT SquareMatrix : protected ListRecord {
 
   #include "ENDFtk/section/SquareMatrix/src/verifyLB.hpp"
   #include "ENDFtk/section/SquareMatrix/src/verifySize.hpp"

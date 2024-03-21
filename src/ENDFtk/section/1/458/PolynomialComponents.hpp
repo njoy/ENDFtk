@@ -7,7 +7,7 @@
  *
  *  See ENDF102, section 1.5 for more information.
  */
-class PolynomialComponents : protected ListRecord {
+class ENDFTK_PYTHON_EXPORT PolynomialComponents : protected ListRecord {
 
   /* auxiliary functions */
   #include "ENDFtk/section/1/458/PolynomialComponents/src/verify.hpp"

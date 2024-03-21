@@ -5,7 +5,8 @@
  *
  *  See ENDF102, section 2.2.1.1 for more information.
  */
-class BreitWignerLValue : protected BreitWignerReichMooreLValueBase {
+class ENDFTK_PYTHON_EXPORT BreitWignerLValue : 
+  protected BreitWignerReichMooreLValueBase {
 
 public:
 

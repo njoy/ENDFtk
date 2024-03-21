@@ -5,7 +5,8 @@
  *
  *  See ENDF102, section 32.2.3.1 for more information.
  */
-class CompactBreitWignerUncertainties : protected ListRecord {
+class ENDFTK_PYTHON_EXPORT CompactBreitWignerUncertainties : 
+  protected ListRecord {
 
   /* auxiliary functions */
   #include "ENDFtk/section/32/151/CompactBreitWignerUncertainties/src/verifySize.hpp"

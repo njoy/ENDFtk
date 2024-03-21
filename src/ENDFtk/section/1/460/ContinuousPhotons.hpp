@@ -4,7 +4,7 @@
  *
  *  See ENDF102, section 1.6 for more information.
  */
-class ContinuousPhotons : protected ListRecord {
+class ENDFTK_PYTHON_EXPORT ContinuousPhotons : protected ListRecord {
 
   /* auxiliary functions */
   #include "ENDFtk/section/1/460/ContinuousPhotons/src/verifySize.hpp"

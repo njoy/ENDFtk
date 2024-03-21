@@ -4,7 +4,7 @@
  *
  *  See ENDF102, section 32.2.3.2
  */
-class CompactReichMoore :
+class ENDFTK_PYTHON_EXPORT CompactReichMoore :
   protected CompactCovarianceBase<
                 CompactReichMooreUncertainties,
                 ReichMooreScatteringRadiusUncertainties,

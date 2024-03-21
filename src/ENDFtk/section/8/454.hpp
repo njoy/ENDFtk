@@ -5,6 +5,7 @@
 
 // other includes
 #include "range/v3/range/conversion.hpp"
+#include "ENDFtk/macros.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/readSequence.hpp"
 #include "ENDFtk/section.hpp"
@@ -15,7 +16,8 @@ namespace ENDFtk {
 namespace section {
 
   template<>
-  class Type< 8, 454 > : protected BaseWithoutMT< Type< 8, 454 > > {
+  class ENDFTK_PYTHON_EXPORT Type< 8, 454 > : 
+    protected BaseWithoutMT< Type< 8, 454 > > {
 
     friend BaseWithoutMT< Type< 8, 454 > >;
 

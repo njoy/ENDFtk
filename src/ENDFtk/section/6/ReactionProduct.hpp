@@ -8,7 +8,7 @@
  *
  *  See ENDF102, section 6.2 for more information.
  */
-class ReactionProduct {
+class ENDFTK_PYTHON_EXPORT ReactionProduct {
 
   /* fields */
   Multiplicity multiplicity_;

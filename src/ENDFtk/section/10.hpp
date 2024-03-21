@@ -4,6 +4,7 @@
 // system includes
 
 // other includes
+#include "ENDFtk/macros.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/TabulationRecord.hpp"
 #include "ENDFtk/readSequence.hpp"
@@ -20,7 +21,7 @@ namespace section {
    *  See ENDF102, section 10.2 for more information.
    */
   template<>
-  class Type< 10 > : protected Base {
+  class ENDFTK_PYTHON_EXPORT Type< 10 > : protected Base {
 
   public:
 

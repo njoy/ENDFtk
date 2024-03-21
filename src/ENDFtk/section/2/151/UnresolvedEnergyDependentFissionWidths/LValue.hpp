@@ -6,7 +6,7 @@
  *
  *  See ENDF102, section 2.3.1 for more information.
  */
-class LValue : protected UnresolvedLValueBase< JValue > {
+class ENDFTK_PYTHON_EXPORT LValue : protected UnresolvedLValueBase< JValue > {
 
   /* auxiliary functions */
   #include "ENDFtk/section/2/151/UnresolvedEnergyDependentFissionWidths/LValue/src/verifySize.hpp"

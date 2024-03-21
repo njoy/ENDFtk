@@ -20,7 +20,7 @@ namespace section{
  *
  *  See ENDF102, section 33.2 for more information.
  */
-class PYTHON_EXPORT CovariancePairs : protected ListRecord {
+class ENDFTK_PYTHON_EXPORT CovariancePairs : protected ListRecord {
 
   #include "ENDFtk/section/CovariancePairs/src/verifyLB.hpp"
   #include "ENDFtk/section/CovariancePairs/src/verifySize.hpp"

@@ -7,7 +7,7 @@
  *
  *  See ENDF102, section 6.2.3 for more information.
  */
-class ContinuumEnergyAngle {
+class ENDFTK_PYTHON_EXPORT ContinuumEnergyAngle {
 
 public:
 

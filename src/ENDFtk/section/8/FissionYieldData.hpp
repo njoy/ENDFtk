@@ -4,6 +4,7 @@
 // system includes
 
 // other includes
+#include "ENDFtk/macros.hpp"
 #include "ENDFtk/ListRecord.hpp"
 #include "range/v3/view/chunk.hpp"
 #include "range/v3/view/drop_exactly.hpp"
@@ -24,7 +25,7 @@ namespace section{
    *
    *  See ENDF102, section 8.3 for more information.
    */
-  class FissionYieldData : protected ListRecord {
+  class ENDFTK_PYTHON_EXPORT FissionYieldData : protected ListRecord {
 
     /* auxiliary functions */
     #include "ENDFtk/section/8/FissionYieldData/src/verifySize.hpp"

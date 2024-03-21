@@ -12,7 +12,7 @@
  *  See ENDF102, section 2.3.1 for more information.
  */
 template < typename Range >
-class JValue {
+class ENDFTK_PYTHON_EXPORT JValue {
 
   Range chunk;
 

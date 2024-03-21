@@ -7,7 +7,7 @@
  *
  *  See ENDF102, section 7.4 for more information.
  */
-class MixedElastic {
+class ENDFTK_PYTHON_EXPORT MixedElastic {
 
   /* fields */
   CoherentElastic coherent_;

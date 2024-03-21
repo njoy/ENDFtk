@@ -5,7 +5,7 @@
  *  See ENDF102, section 8.3 for more information.
  */
 template < typename Range >
-class FissionProduct {
+class ENDFTK_PYTHON_EXPORT FissionProduct {
 
   /* fields */
   Range chunk;

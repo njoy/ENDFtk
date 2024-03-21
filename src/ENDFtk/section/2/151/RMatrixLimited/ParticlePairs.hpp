@@ -8,7 +8,7 @@
  *
  *  See ENDF102, section 2.2.1.6 for more information.
  */
-class ParticlePairs : protected ListRecord {
+class ENDFTK_PYTHON_EXPORT ParticlePairs : protected ListRecord {
 
   /* auxiliary functions */
   #include "ENDFtk/section/2/151/RMatrixLimited/ParticlePairs/src/generateList.hpp"

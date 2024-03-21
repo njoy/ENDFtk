@@ -5,6 +5,7 @@
 #include <vector>
 
 // other includes
+#include "ENDFtk/macros.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/section.hpp"
@@ -17,7 +18,8 @@ namespace ENDFtk {
 namespace section{
 
   template<>
-  class Type< 7, 451 > : protected BaseWithoutMT< Type< 7, 451 > > {
+  class ENDFTK_PYTHON_EXPORT Type< 7, 451 > : 
+    protected BaseWithoutMT< Type< 7, 451 > > {
 
     friend BaseWithoutMT< Type< 7, 451 > >;
 

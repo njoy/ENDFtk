@@ -4,7 +4,7 @@
  *
  *  See ENDF102, section 5.1.1.5 and 5.2.5 for more information.
  */
-class WattSpectrum {
+class ENDFTK_PYTHON_EXPORT WattSpectrum {
 
   std::array< Parameter, 2 > parameters_;
 

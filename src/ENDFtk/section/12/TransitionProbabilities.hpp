@@ -9,7 +9,7 @@
  *
  *  See ENDF102, section 12.2.2 for more information.
  */
-class TransitionProbabilities : protected ListRecord {
+class ENDFTK_PYTHON_EXPORT TransitionProbabilities : protected ListRecord {
 
 public:
 

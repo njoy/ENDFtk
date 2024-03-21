@@ -5,7 +5,7 @@
  *
  *  See ENDF102, section 13.2 for more information.
  */
-class PartialCrossSection : protected TabulationRecord {
+class ENDFTK_PYTHON_EXPORT PartialCrossSection : protected TabulationRecord {
 
   /* auxiliary functions */
 
