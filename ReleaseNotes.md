@@ -1,6 +1,9 @@
 # Release Notes&mdash;ENDFtk
 Given here are some release notes for ENDFtk.
 
+## [ENDFtk v1.0.2](https://github.com/njoy/ENDFtk/pull/xxx)
+This update does not add any additional functionality.
+
 ## [ENDFtk v1.0.1](https://github.com/njoy/ENDFtk/pull/194)
 This update does not add any additional functionality.
 

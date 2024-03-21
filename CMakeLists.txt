@@ -10,7 +10,7 @@ if( DEFINED PROJECT_NAME )
 endif()
 
 project( ENDFtk
-  VERSION 1.0.1
+  VERSION 1.0.2
   LANGUAGES CXX
 )
 
