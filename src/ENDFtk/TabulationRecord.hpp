@@ -106,7 +106,7 @@ namespace ENDFtk {
     using InterpolationBase::boundaries;
 
     /**
-     *  @brief Return the interpolation ranges
+     *  @brief Return the interpolation regions
      */
     auto regions() const {
 

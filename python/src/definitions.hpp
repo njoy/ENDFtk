@@ -31,14 +31,20 @@ void addStandardInterpolationTableDefinitions( PythonClass& component ) {
 
     "NR",
     [] ( const Component& self ) { return self.NR(); },
-    "The number of interpolation ranges"
+    "The number of interpolation regions"
+  )
+  .def_property_readonly(
+
+    "number_interpolation_regions",
+    [] ( const Component& self ) { return self.numberInterpolationRegions(); },
+    "The number of interpolation regions"
   )
   .def_property_readonly(
 
     "interpolants",
     [] ( const Component& self ) -> LongRange
        { return self.interpolants(); },
-    "The interpolation type for each range"
+    "The interpolation type for each region"
   )
   .def_property_readonly(
 
