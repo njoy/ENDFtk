@@ -157,6 +157,7 @@ void verifyChunk( const ListRecord& chunk ) {
   CHECK( 5 == chunk.N2() );
 
   CHECK( 10 == chunk.NPL() );
+  CHECK( 10 == chunk.numberValues() );
 
   CHECK( 10 == chunk.list().size() );
   CHECK_THAT(  1., WithinRel( chunk.list()[0] ) );

@@ -68,6 +68,11 @@ namespace ENDFtk {
      */
     long NP() const { return this->xValues.size(); }
 
+    /**
+     *  @brief Return the number of points in the table
+     */
+    long numberPoints() const { return this->NP(); }
+
     using InterpolationBase::NR;
     using InterpolationBase::numberInterpolationRegions;
 

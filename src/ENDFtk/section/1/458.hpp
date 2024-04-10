@@ -27,7 +27,7 @@ namespace section{
    *  See ENDF102, section 1.5 for more information.
    */
   template<>
-  class ENDFTK_PYTHON_EXPORT Type< 1, 458 > : 
+  class ENDFTK_PYTHON_EXPORT Type< 1, 458 > :
     protected BaseWithoutMT< Type< 1, 458 > > {
 
     friend BaseWithoutMT< Type< 1, 458 > >;
@@ -81,9 +81,9 @@ namespace section{
                                          this->data_ ); }
 
     /**
-     *  @brief Return the polynomial expansion order
+     *  @brief Return the number of tabulated energy release components
      */
-    int order() const { return this->NPLY(); }
+    int numberTabulatedComponents() const { return this->NFC(); }
 
     /**
      *  @brief Return the number of tabulated energy release components
@@ -93,9 +93,9 @@ namespace section{
                                           this->data_ ); }
 
     /**
-     *  @brief Return the number of tabulated energy release components
+     *  @brief Return the polynomial expansion order
      */
-    int numberTabulatedComponents() const { return this->NFC(); }
+    int order() const { return this->NPLY(); }
 
     /**
      *  @brief Return the fission energy release data

@@ -245,7 +245,11 @@ void verifyChunkWithOneDilution( const section::Type< 2, 152 >& chunk ) {
   CHECK_THAT( 2.369986e+2, WithinRel( chunk.atomicWeightRatio() ) );
 
   CHECK( 1 == chunk.LSSF() );
+  CHECK( 1 == chunk.selfShieldingOnly() );
   CHECK( 2 == chunk.interpolation() );
+
+  CHECK( 19 == chunk.NW() );
+  CHECK( 19 == chunk.numberValues() );
 
   CHECK( 5 == chunk.NREAC() );
   CHECK( 5 == chunk.numberReactions() );

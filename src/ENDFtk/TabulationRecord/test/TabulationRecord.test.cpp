@@ -346,6 +346,7 @@ void verifyChunk( const TabulationRecord& chunk ) {
 
   CHECK( 8 == chunk.NP() );
   CHECK( 4 == chunk.NR() );
+  CHECK( 8 == chunk.numberPoints() );
   CHECK( 4 == chunk.numberInterpolationRegions() );
 
   CHECK( 4 == chunk.NBT().size() );
