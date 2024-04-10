@@ -69,6 +69,7 @@ namespace ENDFtk {
     long NP() const { return this->xValues.size(); }
 
     using InterpolationBase::NR;
+    using InterpolationBase::numberInterpolationRegions;
 
     /**
      *  @brief Return the x values in the table
@@ -94,6 +95,8 @@ namespace ENDFtk {
       return ranges::views::zip( this->xValues, this->yValues );
     }
 
+    using InterpolationBase::INT;
+    using InterpolationBase::NBT;
     using InterpolationBase::interpolants;
     using InterpolationBase::boundaries;
 
