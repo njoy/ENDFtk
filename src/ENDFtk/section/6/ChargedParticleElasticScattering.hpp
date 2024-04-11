@@ -67,9 +67,20 @@ public:
   long NR() const { return this->data_.tab2().NR(); }
 
   /**
+   *  @brief Return the number of interpolation ranges on the incident
+   *         energy axis
+   */
+  long numberInterpolationRegions() const { return this->NR(); }
+
+  /**
    *  @brief Return the number of incident energy values
    */
   long NE() const { return this->data_.tab2().NZ(); }
+
+  /**
+   *  @brief Return the number of incident energy values
+   */
+  long numberIncidentEnergies() const { return this->NE(); }
 
   /**
    *  @brief Return the distributions, one for each incident energy
@@ -101,18 +112,23 @@ public:
    *  @brief Return interpolation type for each range on the incident
    *         energy grid
    */
-  auto interpolants() const {
+  auto INT() const { return this->data_.tab2().INT(); }
 
-    return this->data_.tab2().interpolants();
-  }
+  /**
+   *  @brief Return interpolation type for each range on the incident
+   *         energy grid
+   */
+  auto interpolants() const { return this->INT(); }
 
   /**
    *  @brief Return interpolation boundaries for the incident energy grid
    */
-  auto boundaries() const {
+  auto NBT() const { return this->data_.tab2().NBT(); }
 
-    return this->data_.tab2().boundaries();
-  }
+  /**
+   *  @brief Return interpolation boundaries for the incident energy grid
+   */
+  auto boundaries() const { return this->NBT(); }
 
   /**
    *  @brief Return the number of lines in this MF6 component

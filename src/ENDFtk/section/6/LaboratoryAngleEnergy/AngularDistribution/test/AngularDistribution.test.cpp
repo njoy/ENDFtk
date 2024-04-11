@@ -182,8 +182,14 @@ void verifyChunk( const AngularDistribution& chunk ) {
   CHECK_THAT( 1e-5, WithinRel( chunk.incidentEnergy() ) );
 
   CHECK( 2 == chunk.NMU() );
+  CHECK( 2 == chunk.numberCosines() );
   CHECK( 1 == chunk.NRM() );
+  CHECK( 1 == chunk.numberInterpolationRegions() );
   CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.INT().size() );
+  CHECK( 1 == chunk.NBT().size() );
+  CHECK( 4 == chunk.INT()[0] );
+  CHECK( 2 == chunk.NBT()[0] );
   CHECK( 1 == chunk.interpolants().size() );
   CHECK( 1 == chunk.boundaries().size() );
   CHECK( 4 == chunk.interpolants()[0] );
@@ -202,7 +208,13 @@ void verifyChunk( const AngularDistribution& chunk ) {
   CHECK_THAT( 1., WithinRel( distributions[0].MU() ) );
   CHECK_THAT( 1., WithinRel( distributions[0].cosine() ) );
   CHECK( 1 == distributions[0].NRP() );
+  CHECK( 1 == distributions[0].numberInterpolationRegions() );
   CHECK( 4 == distributions[0].NEP() );
+  CHECK( 4 == distributions[0].numberOutgoingEnergies() );
+  CHECK( 1 == distributions[0].INT().size() );
+  CHECK( 1 == distributions[0].NBT().size() );
+  CHECK( 2 == distributions[0].INT()[0] );
+  CHECK( 4 == distributions[0].NBT()[0] );
   CHECK( 1 == distributions[0].interpolants().size() );
   CHECK( 1 == distributions[0].boundaries().size() );
   CHECK( 2 == distributions[0].interpolants()[0] );
@@ -231,7 +243,13 @@ void verifyChunk( const AngularDistribution& chunk ) {
   CHECK_THAT( -1., WithinRel( distributions[1].MU() ) );
   CHECK_THAT( -1., WithinRel( distributions[1].cosine() ) );
   CHECK( 1 == distributions[1].NRP() );
+  CHECK( 1 == distributions[1].numberInterpolationRegions() );
   CHECK( 3 == distributions[1].NEP() );
+  CHECK( 3 == distributions[1].numberOutgoingEnergies() );
+  CHECK( 1 == distributions[1].INT().size() );
+  CHECK( 1 == distributions[1].NBT().size() );
+  CHECK( 5 == distributions[1].INT()[0] );
+  CHECK( 3 == distributions[1].NBT()[0] );
   CHECK( 1 == distributions[1].interpolants().size() );
   CHECK( 1 == distributions[1].boundaries().size() );
   CHECK( 5 == distributions[1].interpolants()[0] );

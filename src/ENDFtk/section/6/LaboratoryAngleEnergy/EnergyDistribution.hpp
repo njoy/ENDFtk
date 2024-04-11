@@ -19,9 +19,14 @@ public:
   long NRP() const { return TabulationRecord::NR(); }
 
   /**
-   *  @brief Return the number of secondary energy values
+   *  @brief Return the number of outgoing energy values
    */
   long NEP() const { return TabulationRecord::NP(); }
+
+  /**
+   *  @brief Return the number of outgoing energy values
+   */
+  long numberOutgoingEnergies() const { return this->NEP(); }
 
   /**
    *  @brief Return the cosine value for this secondary energy distribition
@@ -54,8 +59,12 @@ public:
   auto probabilities() const { return  this->F(); }
 
   using TabulationRecord::NR;
+  using TabulationRecord::numberInterpolationRegions;
   using TabulationRecord::NP;
+  using TabulationRecord::numberPoints;
+  using TabulationRecord::INT;
   using TabulationRecord::interpolants;
+  using TabulationRecord::NBT;
   using TabulationRecord::boundaries;
   using TabulationRecord::NC;
   using TabulationRecord::print;

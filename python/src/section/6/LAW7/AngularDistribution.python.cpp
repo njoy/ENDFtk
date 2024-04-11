@@ -66,6 +66,12 @@ void wrapAngularDistribution( python::module& module, python::module& viewmodule
   )
   .def_property_readonly(
 
+    "number_cosines",
+    &Component::numberCosines,
+    "The number of cosine values"
+  )
+  .def_property_readonly(
+
     "E",
     &Component::E,
     "The incident energy value"

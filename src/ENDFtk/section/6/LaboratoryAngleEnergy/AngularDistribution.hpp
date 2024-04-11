@@ -25,9 +25,19 @@ public:
   long NRM() const { return this->NR(); }
 
   /**
+   *  @brief Return the number of interpolation regions for the cosines
+   */
+  long numberInterpolationRegions() const { return this->NR(); }
+
+  /**
    *  @brief Return the number of cosine values
    */
   long NMU() const { return InterpolationSequenceRecord::tab2().NZ(); }
+
+  /**
+   *  @brief Return the number of cosine values
+   */
+  long numberCosines() const { return this->NMU(); }
 
   /**
    *  @brief Return the incident energy value
@@ -48,18 +58,22 @@ public:
   /**
    *  @brief Return the interpolants for the cosine axis
    */
-  auto interpolants() const {
+  auto INT() const { return InterpolationSequenceRecord::tab2().INT(); }
 
-    return InterpolationSequenceRecord::tab2().interpolants();
-  }
+  /**
+   *  @brief Return the interpolants for the cosine axis
+   */
+  auto interpolants() const { return this->INT(); }
 
   /**
    *  @brief Return the interpolation region boundaries for the cosine axis
    */
-  auto boundaries() const {
+  auto NBT() const { return InterpolationSequenceRecord::tab2().NBT(); }
 
-    return InterpolationSequenceRecord::tab2().boundaries();
-  }
+  /**
+   *  @brief Return the interpolation region boundaries for the cosine axis
+   */
+  auto boundaries() const { return this->NBT(); }
 
   /**
    *  @brief Return the cosines for this incident energy value

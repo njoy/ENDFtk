@@ -254,9 +254,16 @@ void verifyChunk( const EnergyDistribution& chunk ) {
   CHECK_THAT( 1., WithinRel( chunk.cosine() ) );
 
   CHECK( 1 == chunk.NRP() );
+  CHECK( 1 == chunk.numberInterpolationRegions() );
   CHECK( 4 == chunk.NEP() );
+  CHECK( 4 == chunk.numberOutgoingEnergies() );
   CHECK( 1 == chunk.NR() );
   CHECK( 4 == chunk.NP() );
+  CHECK( 4 == chunk.numberPoints() );
+  CHECK( 1 == chunk.INT().size() );
+  CHECK( 1 == chunk.NBT().size() );
+  CHECK( 2 == chunk.INT()[0] );
+  CHECK( 4 == chunk.NBT()[0] );
   CHECK( 1 == chunk.interpolants().size() );
   CHECK( 1 == chunk.boundaries().size() );
   CHECK( 2 == chunk.interpolants()[0] );

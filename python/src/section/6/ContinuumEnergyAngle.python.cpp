@@ -77,6 +77,12 @@ void wrapContinuumEnergyAngle( python::module& module, python::module& viewmodul
   )
   .def_property_readonly(
 
+    "number_incident_energies",
+    &Component::numberIncidentEnergies,
+    "The number of incident energy values"
+  )
+  .def_property_readonly(
+
     "E",
     [] ( const Component& self ) -> DoubleRange
        { return self.E(); },

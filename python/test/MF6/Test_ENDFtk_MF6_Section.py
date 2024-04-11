@@ -97,11 +97,17 @@ class Test_ENDFtk_MF6_Section( unittest.TestCase ) :
             self.assertEqual( 1, products[0].multiplicity.LAW )
 
             self.assertEqual( 4, products[0].multiplicity.NP )
+            self.assertEqual( 4, products[0].multiplicity.number_points )
             self.assertEqual( 1, products[0].multiplicity.NR )
+            self.assertEqual( 1, products[0].multiplicity.number_interpolation_regions )
+            self.assertEqual( 1, len( products[0].multiplicity.INT ) )
+            self.assertEqual( 1, len( products[0].multiplicity.NBT ) )
+            self.assertEqual( 2, products[0].multiplicity.INT[0] )
+            self.assertEqual( 4, products[0].multiplicity.NBT[0] )
             self.assertEqual( 1, len( products[0].multiplicity.interpolants ) )
             self.assertEqual( 1, len( products[0].multiplicity.boundaries ) )
-            self.assertEqual( 2, products[0].multiplicity.interpolants[0] );
-            self.assertEqual( 4, products[0].multiplicity.boundaries[0] );
+            self.assertEqual( 2, products[0].multiplicity.interpolants[0] )
+            self.assertEqual( 4, products[0].multiplicity.boundaries[0] )
             self.assertEqual( 4, len( products[0].multiplicity.energies ) )
             self.assertEqual( 4, len( products[0].multiplicity.multiplicities ) )
             self.assertAlmostEqual( 1e-5, products[0].multiplicity.energies[0] )
@@ -119,11 +125,17 @@ class Test_ENDFtk_MF6_Section( unittest.TestCase ) :
             self.assertEqual( 1, law.LAW )
             self.assertEqual( 2, law.LEP )
             self.assertEqual( 2, law.NE )
+            self.assertEqual( 2, law.number_incident_energies )
             self.assertEqual( 1, law.NR )
+            self.assertEqual( 1, law.number_interpolation_regions )
+            self.assertEqual( 1, len( law.INT ) )
+            self.assertEqual( 1, len( law.NBT ) )
+            self.assertEqual( 1, law.INT[0] )
+            self.assertEqual( 2, law.NBT[0] )
             self.assertEqual( 1, len( law.interpolants ) )
             self.assertEqual( 1, len( law.boundaries ) )
-            self.assertEqual( 1, law.interpolants[0] );
-            self.assertEqual( 2, law.boundaries[0] );
+            self.assertEqual( 1, law.interpolants[0] )
+            self.assertEqual( 2, law.boundaries[0] )
 
             energies = law.distributions
             self.assertEqual( True, isinstance( energies[0], LegendreCoefficients ) )
@@ -196,11 +208,17 @@ class Test_ENDFtk_MF6_Section( unittest.TestCase ) :
             self.assertEqual( 1, products[1].multiplicity.LAW )
 
             self.assertEqual( 2, products[1].multiplicity.NP )
+            self.assertEqual( 2, products[1].multiplicity.number_points )
             self.assertEqual( 1, products[1].multiplicity.NR )
+            self.assertEqual( 1, products[1].multiplicity.number_interpolation_regions )
+            self.assertEqual( 1, len( products[1].multiplicity.INT ) )
+            self.assertEqual( 1, len( products[1].multiplicity.NBT ) )
+            self.assertEqual( 2, products[1].multiplicity.INT[0] )
+            self.assertEqual( 2, products[1].multiplicity.NBT[0] )
             self.assertEqual( 1, len( products[1].multiplicity.interpolants ) )
             self.assertEqual( 1, len( products[1].multiplicity.boundaries ) )
-            self.assertEqual( 2, products[1].multiplicity.interpolants[0] );
-            self.assertEqual( 2, products[1].multiplicity.boundaries[0] );
+            self.assertEqual( 2, products[1].multiplicity.interpolants[0] )
+            self.assertEqual( 2, products[1].multiplicity.boundaries[0] )
             self.assertEqual( 2, len( products[1].multiplicity.energies ) )
             self.assertEqual( 2, len( products[1].multiplicity.multiplicities ) )
             self.assertAlmostEqual( 1.858639e+7, products[1].multiplicity.energies[0] )
@@ -214,11 +232,17 @@ class Test_ENDFtk_MF6_Section( unittest.TestCase ) :
             self.assertEqual( 1, law.LAW )
             self.assertEqual( 2, law.LEP )
             self.assertEqual( 2, law.NE )
+            self.assertEqual( 2, law.number_incident_energies )
             self.assertEqual( 1, law.NR )
+            self.assertEqual( 1, law.number_interpolation_regions )
+            self.assertEqual( 1, len( law.INT ) )
+            self.assertEqual( 1, len( law.NBT ) )
+            self.assertEqual( 22, law.INT[0] )
+            self.assertEqual( 2, law.NBT[0] )
             self.assertEqual( 1, len( law.interpolants ) )
             self.assertEqual( 1, len( law.boundaries ) )
-            self.assertEqual( 22, law.interpolants[0] );
-            self.assertEqual( 2, law.boundaries[0] );
+            self.assertEqual( 22, law.interpolants[0] )
+            self.assertEqual( 2, law.boundaries[0] )
 
             energies = law.distributions
             self.assertEqual( True, isinstance( energies[0], LegendreCoefficients ) )
@@ -305,11 +329,17 @@ class Test_ENDFtk_MF6_Section( unittest.TestCase ) :
             self.assertEqual( 1, law.LAW )
             self.assertEqual( 2, law.LEP )
             self.assertEqual( 2, law.NE )
+            self.assertEqual( 2, law.number_incident_energies )
             self.assertEqual( 1, law.NR )
+            self.assertEqual( 1, law.number_interpolation_regions )
+            self.assertEqual( 1, len( law.INT ) )
+            self.assertEqual( 1, len( law.NBT ) )
+            self.assertEqual( 5, law.INT[0] )
+            self.assertEqual( 2, law.NBT[0] )
             self.assertEqual( 1, len( law.interpolants ) )
             self.assertEqual( 1, len( law.boundaries ) )
-            self.assertEqual( 5, law.interpolants[0] );
-            self.assertEqual( 2, law.boundaries[0] );
+            self.assertEqual( 5, law.interpolants[0] )
+            self.assertEqual( 2, law.boundaries[0] )
 
             energies = law.distributions
             self.assertEqual( True, isinstance( energies[0], LegendreCoefficients ) )

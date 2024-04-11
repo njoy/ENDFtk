@@ -28,7 +28,9 @@ class Test_ENDFtk_MF6_LAW7_EnergyDistribution( unittest.TestCase ) :
             self.assertAlmostEqual( 1., chunk.cosine )
 
             self.assertEqual( 1, chunk.NRP )
+            self.assertEqual( 1, chunk.number_interpolation_regions )
             self.assertEqual( 4, chunk.NEP )
+            self.assertEqual( 4, chunk.number_outgoing_energies )
             self.assertEqual( 1, chunk.NR )
             self.assertEqual( 4, chunk.NP )
             self.assertEqual( 1, len( chunk.interpolants ) )
