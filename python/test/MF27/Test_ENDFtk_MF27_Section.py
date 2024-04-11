@@ -37,11 +37,17 @@ class Test_ENDFtk_MF27_Section( unittest.TestCase ) :
             self.assertEqual( 1, chunk.atom_z )
 
             self.assertEqual( 2, chunk.NP )
+            self.assertEqual( 2, chunk.number_points )
             self.assertEqual( 1, chunk.NR )
+            self.assertEqual( 1, chunk.number_interpolation_regions )
+            self.assertEqual( 1, len( chunk.INT ) )
+            self.assertEqual( 1, len( chunk.NBT ) )
+            self.assertEqual( 2, chunk.INT[0] )
+            self.assertEqual( 2, chunk.NBT[0] )
             self.assertEqual( 1, len( chunk.interpolants ) )
             self.assertEqual( 1, len( chunk.boundaries ) )
-            self.assertEqual( 2, chunk.interpolants[0] );
-            self.assertEqual( 2, chunk.boundaries[0] );
+            self.assertEqual( 2, chunk.interpolants[0] )
+            self.assertEqual( 2, chunk.boundaries[0] )
             self.assertEqual( 2, len( chunk.X ) )
             self.assertEqual( 2, len( chunk.H ) )
             self.assertAlmostEqual( 00., chunk.X[0] )

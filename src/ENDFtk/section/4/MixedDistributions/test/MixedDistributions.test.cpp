@@ -143,7 +143,15 @@ void verifyChunk( const MixedDistributions& chunk ) {
   CHECK( 3 == chunk.LAW() );
 
   CHECK( 2 == chunk.NR() );
+  CHECK( 2 == chunk.numberInterpolationRegions() );
   CHECK( 4 == chunk.NE() );
+  CHECK( 4 == chunk.numberIncidentEnergies() );
+  CHECK( 2 == chunk.INT().size() );
+  CHECK( 2 == chunk.NBT().size() );
+  CHECK( 1 == chunk.INT()[0] );
+  CHECK( 5 == chunk.INT()[1] );
+  CHECK( 2 == chunk.NBT()[0] );
+  CHECK( 4 == chunk.NBT()[1] );
   CHECK( 2 == chunk.interpolants().size() );
   CHECK( 2 == chunk.boundaries().size() );
   CHECK( 1 == chunk.interpolants()[0] );
@@ -170,7 +178,13 @@ void verifyChunk( const MixedDistributions& chunk ) {
   CHECK_THAT( 2e+7, WithinRel( std::visit( getIE, distributions[3] ) ) );
 
   CHECK( 2 == chunk.legendre().NE() );
+  CHECK( 2 == chunk.legendre().numberIncidentEnergies() );
   CHECK( 1 == chunk.legendre().NR() );
+  CHECK( 1 == chunk.legendre().numberInterpolationRegions() );
+  CHECK( 1 == chunk.legendre().INT().size() );
+  CHECK( 1 == chunk.legendre().NBT().size() );
+  CHECK( 1 == chunk.legendre().INT()[0] );
+  CHECK( 2 == chunk.legendre().NBT()[0] );
   CHECK( 1 == chunk.legendre().interpolants().size() );
   CHECK( 1 == chunk.legendre().boundaries().size() );
   CHECK( 1 == chunk.legendre().interpolants()[0] );
@@ -210,7 +224,13 @@ void verifyChunk( const MixedDistributions& chunk ) {
   CHECK_THAT( 1e+6, WithinRel( td.E() ) );
   CHECK_THAT( 1e+6, WithinRel( td.incidentEnergy() ) );
   CHECK( 2 == td.NP() );
+  CHECK( 2 == td.numberPoints() );
   CHECK( 1 == td.NR() );
+  CHECK( 1 == td.numberInterpolationRegions() );
+  CHECK( 1 == td.NBT().size() );
+  CHECK( 1 == td.INT().size() );
+  CHECK( 2 == td.NBT()[0] );
+  CHECK( 2 == td.INT()[0] );
   CHECK( 1 == td.boundaries().size() );
   CHECK( 1 == td.interpolants().size() );
   CHECK( 2 == td.boundaries()[0] );
@@ -226,7 +246,13 @@ void verifyChunk( const MixedDistributions& chunk ) {
   CHECK_THAT( 2e+7, WithinRel( td.E() ) );
   CHECK_THAT( 2e+7, WithinRel( td.incidentEnergy() ) );
   CHECK( 3 == td.NP() );
+  CHECK( 3 == td.numberPoints() );
   CHECK( 1 == td.NR() );
+  CHECK( 1 == td.numberInterpolationRegions() );
+  CHECK( 1 == td.NBT().size() );
+  CHECK( 1 == td.INT().size() );
+  CHECK( 3 == td.NBT()[0] );
+  CHECK( 2 == td.INT()[0] );
   CHECK( 1 == td.boundaries().size() );
   CHECK( 1 == td.interpolants().size() );
   CHECK( 3 == td.boundaries()[0] );

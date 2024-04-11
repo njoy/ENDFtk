@@ -110,20 +110,43 @@ void wrapSection_4( python::module& module, python::module& viewmodule ) {
 
     "NE",
     &Section::NE,
-    "The number of incident energy values for which angular distributions\n"
-    "are given"
+    "The number of incident energy values"
+  )
+  .def_property_readonly(
+
+    "number_incident_energies",
+    &Section::numberIncidentEnergies,
+    "The number of incident energy values"
   )
   .def_property_readonly(
 
     "NR",
     &Section::NR,
-    "The number of interpolation ranges"
+    "The number of interpolation regions"
+  )
+  .def_property_readonly(
+
+    "number_interpolation_regions",
+    &Section::numberInterpolationRegions,
+    "The number of interpolation regions"
+  )
+  .def_property_readonly(
+
+    "INT",
+    &Section::INT,
+    "The interpolation type for each region"
   )
   .def_property_readonly(
 
     "interpolants",
     &Section::interpolants,
-    "The interpolation type for each range"
+    "The interpolation type for each region"
+  )
+  .def_property_readonly(
+
+    "NBT",
+    &Section::NBT,
+    "The interpolation boundaries"
   )
   .def_property_readonly(
 
