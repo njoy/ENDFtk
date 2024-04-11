@@ -67,6 +67,12 @@ void wrapTabulatedSpectrum( python::module& module, python::module& viewmodule )
   )
   .def_property_readonly(
 
+    "number_incident_energies",
+    [] ( const Component& self ) { return self.numberIncidentEnergies(); },
+    "The number of incident energy values"
+  )
+  .def_property_readonly(
+
     "incident_energies",
     [] ( const Component& self ) -> DoubleRange
        { return self.incidentEnergies(); },

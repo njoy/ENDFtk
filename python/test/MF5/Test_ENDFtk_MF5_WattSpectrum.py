@@ -36,7 +36,13 @@ class Test_ENDFtk_MF5_WattSpectrum( unittest.TestCase ) :
 
             valueA = chunk.a
             self.assertEqual( 3, valueA.NP )
+            self.assertEqual( 3, valueA.number_points )
             self.assertEqual( 1, valueA.NR )
+            self.assertEqual( 1, valueA.number_interpolation_regions )
+            self.assertEqual( 1, len( valueA.INT ) )
+            self.assertEqual( 1, len( valueA.NBT ) )
+            self.assertEqual( 2, valueA.INT[0] )
+            self.assertEqual( 3, valueA.NBT[0] )
             self.assertEqual( 1, len( valueA.interpolants ) )
             self.assertEqual( 1, len( valueA.boundaries ) )
             self.assertEqual( 2, valueA.interpolants[0] )
@@ -52,7 +58,13 @@ class Test_ENDFtk_MF5_WattSpectrum( unittest.TestCase ) :
 
             valueB = chunk.b
             self.assertEqual( 5, valueB.NP )
+            self.assertEqual( 5, valueB.number_points )
             self.assertEqual( 1, valueB.NR )
+            self.assertEqual( 1, valueB.number_interpolation_regions )
+            self.assertEqual( 1, len( valueB.INT ) )
+            self.assertEqual( 1, len( valueB.NBT ) )
+            self.assertEqual( 2, valueB.INT[0] )
+            self.assertEqual( 5, valueB.NBT[0] )
             self.assertEqual( 1, len( valueB.interpolants ) )
             self.assertEqual( 1, len( valueB.boundaries ) )
             self.assertEqual( 2, valueB.interpolants[0] )

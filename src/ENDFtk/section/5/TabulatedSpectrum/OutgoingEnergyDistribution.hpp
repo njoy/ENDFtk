@@ -7,7 +7,7 @@
  *
  *  See ENDF102, section 5.2.1 for more information.
  */
-class ENDFTK_PYTHON_EXPORT OutgoingEnergyDistribution : 
+class ENDFTK_PYTHON_EXPORT OutgoingEnergyDistribution :
     protected TabulationRecord {
 
 public:
@@ -48,8 +48,12 @@ public:
   auto probabilities() const { return this->G(); }
 
   using TabulationRecord::NP;
+  using TabulationRecord::numberPoints;
   using TabulationRecord::NR;
+  using TabulationRecord::numberInterpolationRegions;
+  using TabulationRecord::INT;
   using TabulationRecord::interpolants;
+  using TabulationRecord::NBT;
   using TabulationRecord::boundaries;
   using TabulationRecord::NC;
   using TabulationRecord::print;

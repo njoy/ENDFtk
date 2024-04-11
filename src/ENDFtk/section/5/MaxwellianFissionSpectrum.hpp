@@ -27,8 +27,12 @@ public:
   using EffectiveTemperature::energies;
   using EffectiveTemperature::thetas;
   using EffectiveTemperature::NP;
+  using EffectiveTemperature::numberPoints;
   using EffectiveTemperature::NR;
+  using EffectiveTemperature::numberInterpolationRegions;
+  using EffectiveTemperature::INT;
   using EffectiveTemperature::interpolants;
+  using EffectiveTemperature::NBT;
   using EffectiveTemperature::boundaries;
   using EffectiveTemperature::NC;
   using EffectiveTemperature::print;

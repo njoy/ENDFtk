@@ -37,7 +37,13 @@ class Test_ENDFtk_MF5_GeneralEvaporationSpectrum( unittest.TestCase ) :
 
             t = chunk.effective_temperature
             self.assertEqual( 2, t.NP )
+            self.assertEqual( 2, t.number_points )
             self.assertEqual( 1, t.NR )
+            self.assertEqual( 1, t.number_interpolation_regions )
+            self.assertEqual( 1, len( t.INT ) )
+            self.assertEqual( 1, len( t.NBT ) )
+            self.assertEqual( 2, t.INT[0] )
+            self.assertEqual( 2, t.NBT[0] )
             self.assertEqual( 1, len( t.interpolants ) )
             self.assertEqual( 1, len( t.boundaries ) )
             self.assertEqual( 2, t.interpolants[0] )
@@ -54,7 +60,13 @@ class Test_ENDFtk_MF5_GeneralEvaporationSpectrum( unittest.TestCase ) :
 
             df = chunk.distribution_function
             self.assertEqual( 6, df.NP )
+            self.assertEqual( 6, df.number_points )
             self.assertEqual( 1, df.NR )
+            self.assertEqual( 1, df.number_interpolation_regions )
+            self.assertEqual( 1, len( df.INT ) )
+            self.assertEqual( 1, len( df.NBT ) )
+            self.assertEqual( 1, df.INT[0] )
+            self.assertEqual( 6, df.NBT[0] )
             self.assertEqual( 1, len( df.interpolants ) )
             self.assertEqual( 1, len( df.boundaries ) )
             self.assertEqual( 1, df.interpolants[0] )
