@@ -205,7 +205,7 @@ void verifyChunkLANG12( const TabulatedDistribution& chunk ) {
   CHECK( 12 == chunk.LANG() );
   CHECK( 6 == chunk.NW() );
   CHECK( 3 == chunk.NL() );
-  CHECK( 3 == chunk.numberCosines() );
+  CHECK( 3 == chunk.numberCosineValues() );
   CHECK( 3 == chunk.MU().size() );
   CHECK( 3 == chunk.cosines().size() );
   CHECK_THAT( 1., WithinRel( chunk.MU()[0] ) );
@@ -240,7 +240,7 @@ void verifyChunkLANG14( const TabulatedDistribution& chunk ) {
   CHECK( 14 == chunk.LANG() );
   CHECK( 6 == chunk.NW() );
   CHECK( 3 == chunk.NL() );
-  CHECK( 3 == chunk.numberCosines() );
+  CHECK( 3 == chunk.numberCosineValues() );
   CHECK( 3 == chunk.MU().size() );
   CHECK( 3 == chunk.cosines().size() );
   CHECK_THAT( 1., WithinRel( chunk.MU()[0] ) );
