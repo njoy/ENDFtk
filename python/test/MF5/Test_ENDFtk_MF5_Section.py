@@ -55,7 +55,7 @@ class Test_ENDFtk_MF5_Section( unittest.TestCase ) :
             self.assertEqual( 2, p.NP )
             self.assertEqual( 2, p.number_points )
             self.assertEqual( 1, p.NR )
-            self.assertEqual( 1, p.number_inteprolation_regions )
+            self.assertEqual( 1, p.number_interpolation_regions )
             self.assertEqual( 1, len( p.INT ) )
             self.assertEqual( 1, len( p.NBT ) )
             self.assertEqual( 2, p.INT[0] )

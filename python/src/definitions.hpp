@@ -41,10 +41,24 @@ void addStandardInterpolationTableDefinitions( PythonClass& component ) {
   )
   .def_property_readonly(
 
+    "INT",
+    [] ( const Component& self ) -> LongRange
+       { return self.INT(); },
+    "The interpolation type for each region"
+  )
+  .def_property_readonly(
+
     "interpolants",
     [] ( const Component& self ) -> LongRange
        { return self.interpolants(); },
     "The interpolation type for each region"
+  )
+  .def_property_readonly(
+
+    "NBT",
+    [] ( const Component& self ) -> LongRange
+       { return self.NBT(); },
+    "The interpolation boundaries"
   )
   .def_property_readonly(
 
@@ -71,6 +85,12 @@ void addStandardTableDefinitions( PythonClass& component ) {
 
     "NP",
     [] ( const Component& self ) { return self.NP(); },
+    "The number of points"
+  )
+  .def_property_readonly(
+
+    "number_points",
+    [] ( const Component& self ) { return self.numberPoints(); },
     "The number of points"
   );
 

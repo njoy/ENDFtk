@@ -67,7 +67,7 @@ public:
    *  @brief Return the interpolation region boundaries for the incident
    *         energy axis
    */
-  auto NBT() const { return this->data_.tab2().INT(); }
+  auto NBT() const { return this->data_.tab2().NBT(); }
 
   /**
    *  @brief Return the interpolation region boundaries for the incident

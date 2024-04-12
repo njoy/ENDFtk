@@ -290,6 +290,7 @@ void verifyOneTemperature( const CoherentElastic& chunk ) {
   CHECK( 1 == chunk.NT() );
   CHECK( 1 == chunk.numberTemperatures() );
   CHECK( 3 == chunk.NP() );
+  CHECK( 3 == chunk.numberPoints() );
   CHECK( 3 == chunk.numberBraggEdges() );
 
   CHECK( 1 == chunk.NR() );
@@ -353,6 +354,7 @@ void verifyTwoTemperatures( const CoherentElastic& chunk ) {
   CHECK( 2 == chunk.NT() );
   CHECK( 2 == chunk.numberTemperatures() );
   CHECK( 3 == chunk.NP() );
+  CHECK( 3 == chunk.numberPoints() );
   CHECK( 3 == chunk.numberBraggEdges() );
 
   CHECK( 1 == chunk.NR() );

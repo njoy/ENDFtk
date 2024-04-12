@@ -162,10 +162,7 @@ namespace section {
     auto numberIncidentEnergies() const { return this->NE(); }
 
     /**
-     *  @brief Return the boundaries of the interpolation regions
-     *
-     *         The intersection point is considered as a jump in the incident
-     *         energy.
+     *  @brief Return the interpolants of the interpolation regions
      */
     auto INT() const {
 
@@ -179,15 +176,15 @@ namespace section {
     }
 
     /**
+     *  @brief Return the interpolants of the interpolation regions
+     */
+    auto interpolants() const { return this->INT(); }
+
+    /**
      *  @brief Return the boundaries of the interpolation regions
      *
      *         The intersection point is considered as a jump in the incident
      *         energy.
-     */
-    auto boundaries() const { return this->INT(); }
-
-    /**
-     *  @brief Return the interpolants of the interpolation regions
      */
     auto NBT() const {
 
@@ -201,9 +198,12 @@ namespace section {
     }
 
     /**
-     *  @brief Return the interpolants of the interpolation regions
+     *  @brief Return the boundaries of the interpolation regions
+     *
+     *         The intersection point is considered as a jump in the incident
+     *         energy.
      */
-    auto interpolants() const { return this->NBT(); }
+    auto boundaries() const { return this->NBT(); }
 
     /**
      *  @brief Return the incident energy values

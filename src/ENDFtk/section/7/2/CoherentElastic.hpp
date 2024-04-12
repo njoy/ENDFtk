@@ -81,6 +81,12 @@ public:
    *  @brief Return the number of Bragg edges, equal to the number of energy
    *         values
    */
+  long numberPoints() const { return this->NP(); }
+
+  /**
+   *  @brief Return the number of Bragg edges, equal to the number of energy
+   *         values
+   */
   long numberBraggEdges() const { return this->NP(); }
 
   /**

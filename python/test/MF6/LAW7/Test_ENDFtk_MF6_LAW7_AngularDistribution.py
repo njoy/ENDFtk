@@ -95,7 +95,7 @@ class Test_ENDFtk_MF6_LAW7_AngularDistribution( unittest.TestCase ) :
             self.assertEqual( 1, distributions[1].NRP )
             self.assertEqual( 1, distributions[1].number_interpolation_regions )
             self.assertEqual( 3, distributions[1].NEP )
-            self.assertEqual( 3, distributions[1].number_outgoing_regions )
+            self.assertEqual( 3, distributions[1].number_outgoing_energies )
             self.assertEqual( 1, len( distributions[1].INT ) )
             self.assertEqual( 1, len( distributions[1].NBT ) )
             self.assertEqual( 5, distributions[1].INT[0] )

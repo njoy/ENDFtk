@@ -124,6 +124,7 @@ void verifyChunk( const MixedElastic& chunk ) {
   CHECK( 2 == coherent.NT() );
   CHECK( 2 == coherent.numberTemperatures() );
   CHECK( 3 == coherent.NP() );
+  CHECK( 3 == coherent.numberPoints() );
   CHECK( 3 == coherent.numberBraggEdges() );
 
   CHECK( 1 == coherent.NR() );

@@ -108,7 +108,7 @@ class Test_ENDFtk_MF7_MT4_ScatteringFunction( unittest.TestCase ) :
             self.assertEqual( 2, chunk.number_temperatures )
 
             self.assertEqual( 1, chunk.NR )
-            self.assertEqual( 1, chunk.number_interpolaiton_regions )
+            self.assertEqual( 1, chunk.number_interpolation_regions )
             self.assertEqual( 5, chunk.NP )
             self.assertEqual( 5, chunk.number_points )
             self.assertEqual( 5, chunk.NA )

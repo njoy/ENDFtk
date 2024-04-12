@@ -28,7 +28,7 @@ class Test_ENDFtk_MF13_TotalCrossSection( unittest.TestCase ) :
             self.assertEqual( 1, chunk.number_interpolation_regions )
             self.assertEqual( 1, len( chunk.INT ) )
             self.assertEqual( 1, len( chunk.NBT ) )
-            self.assertEqual( 2, chunk.INT[0] )
+            self.assertEqual( 5, chunk.INT[0] )
             self.assertEqual( 2, chunk.NBT[0] )
             self.assertEqual( 1, len( chunk.interpolants ) )
             self.assertEqual( 1, len( chunk.boundaries ) )

@@ -39,7 +39,7 @@ class Test_ENDFtk_MF5_TabulatedSpectrum( unittest.TestCase ) :
             self.assertEqual( 1, chunk.LAW )
 
             self.assertEqual( 1, chunk.NR )
-            self.assertEqual( 1, chunk.number_interpolation_ranges )
+            self.assertEqual( 1, chunk.number_interpolation_regions )
             self.assertEqual( 2, chunk.NE )
             self.assertEqual( 2, chunk.number_incident_energies )
             self.assertEqual( 1, len( chunk.NBT ) )

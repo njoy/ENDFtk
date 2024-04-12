@@ -174,7 +174,7 @@ class Test_ENDFtk_MF6_AngularDistribution( unittest.TestCase ) :
             self.assertEqual( 1, cosines[0].NRP )
             self.assertEqual( 1, cosines[0].number_interpolation_regions )
             self.assertEqual( 4, cosines[0].NEP )
-            self.assertEqual( 4, cosines[0].number_incident_energies )
+            self.assertEqual( 4, cosines[0].number_outgoing_energies )
             self.assertEqual( 1, len( cosines[0].INT ) )
             self.assertEqual( 1, len( cosines[0].NBT ) )
             self.assertEqual( 2, cosines[0].INT[0] )

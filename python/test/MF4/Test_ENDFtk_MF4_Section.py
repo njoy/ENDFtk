@@ -228,7 +228,7 @@ class Test_ENDFtk_MF4_Section( unittest.TestCase ) :
             self.assertEqual( 2, chunk.NE )
             self.assertEqual( 2, chunk.number_incident_energies )
             self.assertEqual( 1, chunk.NR )
-            self.assertEqual( 1, chunk.number_interpolation_energies )
+            self.assertEqual( 1, chunk.number_interpolation_regions )
             self.assertEqual( 1, len( chunk.NBT ) )
             self.assertEqual( 1, len( chunk.INT ) )
             self.assertEqual( 1, len( chunk.boundaries ) )
