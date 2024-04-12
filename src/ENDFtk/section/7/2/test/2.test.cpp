@@ -462,6 +462,11 @@ void verifyCoherentElasticWithOneTemperature(
   CHECK( 3 == law.numberBraggEdges() );
 
   CHECK( 1 == law.NR() );
+  CHECK( 1 == law.numberInterpolationRegions() );
+  CHECK( 1 == law.NBT().size() );
+  CHECK( 3 == law.NBT()[0] );
+  CHECK( 1 == law.INT().size() );
+  CHECK( 1 == law.INT()[0] );
   CHECK( 1 == law.boundaries().size() );
   CHECK( 3 == law.boundaries()[0] );
   CHECK( 1 == law.interpolants().size() );

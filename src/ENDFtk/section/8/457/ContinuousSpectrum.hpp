@@ -48,8 +48,12 @@ public:
   auto spectralValues() const { return this->RP(); }
 
   using TabulationRecord::NP;
+  using TabulationRecord::numberPoints;
   using TabulationRecord::NR;
+  using TabulationRecord::numberInterpolationRegions;
+  using TabulationRecord::INT;
   using TabulationRecord::interpolants;
+  using TabulationRecord::NBT;
   using TabulationRecord::boundaries;
   using TabulationRecord::NC;
   using TabulationRecord::print;

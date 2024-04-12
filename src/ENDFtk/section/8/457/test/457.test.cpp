@@ -614,7 +614,13 @@ void verifyChunkForRadioactiveNuclideWithSpectra(
   CHECK( 4. == continuous.RTYP() );
   CHECK( 4. == continuous.decayChain() );
   CHECK( 3 == continuous.NP() );
+  CHECK( 3 == continuous.numberPoints() );
   CHECK( 1 == continuous.NR() );
+  CHECK( 1 == continuous.numberInterpolationRegions() );
+  CHECK( 1 == continuous.INT().size() );
+  CHECK( 1 == continuous.NBT().size() );
+  CHECK( 1 == continuous.INT()[0] );
+  CHECK( 3 == continuous.NBT()[0] );
   CHECK( 1 == continuous.interpolants().size() );
   CHECK( 1 == continuous.boundaries().size() );
   CHECK( 1 == continuous.interpolants()[0] );
