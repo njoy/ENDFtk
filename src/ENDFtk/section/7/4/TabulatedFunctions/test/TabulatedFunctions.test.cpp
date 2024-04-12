@@ -204,9 +204,15 @@ void verifyChunkWithOneTemperature( const TabulatedFunctions& chunk ) {
   CHECK( 1 == value.numberTemperatures() );
 
   CHECK( 1 == value.NR() );
+  CHECK( 1 == value.numberInterpolationRegions() );
   CHECK( 5 == value.NP() );
+  CHECK( 5 == value.numberPoints() );
   CHECK( 5 == value.NA() );
   CHECK( 5 == value.numberAlphas() );
+  CHECK( 1 == value.NBT().size() );
+  CHECK( 5 == value.NBT()[0] );
+  CHECK( 1 == value.INT().size() );
+  CHECK( 4 == value.INT()[0] );
   CHECK( 1 == value.boundaries().size() );
   CHECK( 5 == value.boundaries()[0] );
   CHECK( 1 == value.interpolants().size() );
@@ -259,9 +265,15 @@ void verifyChunkWithOneTemperature( const TabulatedFunctions& chunk ) {
   CHECK( 1 == value.numberTemperatures() );
 
   CHECK( 1 == value.NR() );
+  CHECK( 1 == value.numberInterpolationRegions() );
   CHECK( 5 == value.NA() );
   CHECK( 5 == value.NP() );
+  CHECK( 5 == value.numberPoints() );
   CHECK( 5 == value.numberAlphas() );
+  CHECK( 1 == value.NBT().size() );
+  CHECK( 5 == value.NBT()[0] );
+  CHECK( 1 == value.INT().size() );
+  CHECK( 2 == value.INT()[0] );
   CHECK( 1 == value.boundaries().size() );
   CHECK( 5 == value.boundaries()[0] );
   CHECK( 1 == value.interpolants().size() );

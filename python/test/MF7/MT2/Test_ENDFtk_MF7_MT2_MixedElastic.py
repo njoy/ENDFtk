@@ -49,6 +49,11 @@ class Test_ENDFtk_MF7_MT2_MixedElastic( unittest.TestCase ) :
             self.assertEqual( 3, coherent.number_bragg_edges )
 
             self.assertEqual( 1, coherent.NR )
+            self.assertEqual( 1, coherent.number_interpolation_regions )
+            self.assertEqual( 1, len( coherent.NBT ) )
+            self.assertEqual( 3, coherent.NBT[0] );
+            self.assertEqual( 1, len( coherent.INT ) )
+            self.assertEqual( 1, coherent.INT[0] );
             self.assertEqual( 1, len( coherent.boundaries ) )
             self.assertEqual( 3, coherent.boundaries[0] );
             self.assertEqual( 1, len( coherent.interpolants ) )
@@ -102,9 +107,15 @@ class Test_ENDFtk_MF7_MT2_MixedElastic( unittest.TestCase ) :
             self.assertAlmostEqual( 2.054202, incoherent.SB )
             self.assertAlmostEqual( 2.054202, incoherent.bound_cross_section )
             self.assertEqual( 2, incoherent.NP )
+            self.assertEqual( 2, incoherent.number_points )
             self.assertEqual( 2, incoherent.NT )
             self.assertEqual( 2, incoherent.number_temperatures )
             self.assertEqual( 1, incoherent.NR )
+            self.assertEqual( 1, incoherent.number_interpolation_regions )
+            self.assertEqual( 1, len( incoherent.INT ) )
+            self.assertEqual( 1, len( incoherent.NBT ) )
+            self.assertEqual( 2, incoherent.INT[0] );
+            self.assertEqual( 2, incoherent.NBT[0] );
             self.assertEqual( 1, len( incoherent.interpolants ) )
             self.assertEqual( 1, len( incoherent.boundaries ) )
             self.assertEqual( 2, incoherent.interpolants[0] );

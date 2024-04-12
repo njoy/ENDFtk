@@ -37,6 +37,11 @@ public:
   long NR() const { return this->data_.tab2().NR(); }
 
   /**
+   *  @brief Return the number of interpolation ranges on the beta grid
+   */
+  long numberInterpolationRegions() const { return this->NR(); }
+
+  /**
    *  @brief Return the number of beta values
    */
   long NB() const { return this->data_.tab2().NZ(); }
@@ -77,18 +82,22 @@ public:
   /**
    *  @brief Return the interpolation type for each range on the beta grid
    */
-  auto interpolants() const {
+  auto INT() const { return this->data_.tab2().INT(); }
 
-    return this->data_.tab2().interpolants();
-  }
+  /**
+   *  @brief Return the interpolation type for each range on the beta grid
+   */
+  auto interpolants() const { return this->INT(); }
 
   /**
    *  @brief Return the interpolation boundaries for the beta grid
    */
-  auto boundaries() const {
+  auto NBT() const { return this->data_.tab2().NBT(); }
 
-    return this->data_.tab2().boundaries();
-  }
+  /**
+   *  @brief Return the interpolation boundaries for the beta grid
+   */
+  auto boundaries() const { return this->NBT(); }
 
   /**
    *  @brief Return the number of lines in this MF7/MT4 component

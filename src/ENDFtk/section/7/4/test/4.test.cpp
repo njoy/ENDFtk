@@ -891,6 +891,11 @@ void verifyChunkWithAnalyticalFunctions(
   CHECK( 3 == temp.NT() );
   CHECK( 3 == temp.numberTemperatures() );
   CHECK( 1 == temp.NR() );
+  CHECK( 1 == temp.numberInterpolationRegions() );
+  CHECK( 1 == temp.INT().size() );
+  CHECK( 1 == temp.NBT().size() );
+  CHECK( 2 == temp.INT()[0] );
+  CHECK( 3 == temp.NBT()[0] );
   CHECK( 1 == temp.interpolants().size() );
   CHECK( 1 == temp.boundaries().size() );
   CHECK( 2 == temp.interpolants()[0] );
@@ -964,8 +969,13 @@ void verifyChunkWithOneTemperatureAndOneScatterer(
 
   auto table = std::get< TabulatedFunctions >( chunk.scatteringLaw() );
   CHECK( 1 == table.NR() );
+  CHECK( 1 == table.numberInterpolationRegions() );
   CHECK( 2 == table.NB() );
   CHECK( 2 == table.numberBetas() );
+  CHECK( 1 == table.NBT().size() );
+  CHECK( 2 == table.NBT()[0] );
+  CHECK( 1 == table.INT().size() );
+  CHECK( 4 == table.INT()[0] );
   CHECK( 1 == table.boundaries().size() );
   CHECK( 2 == table.boundaries()[0] );
   CHECK( 1 == table.interpolants().size() );
@@ -986,6 +996,7 @@ void verifyChunkWithOneTemperatureAndOneScatterer(
   CHECK( 1 == value.numberTemperatures() );
 
   CHECK( 1 == value.NR() );
+  CHECK( 1 == value.numberInterpolationRegions() );
   CHECK( 5 == value.NA() );
   CHECK( 5 == value.numberAlphas() );
   CHECK( 1 == value.boundaries().size() );

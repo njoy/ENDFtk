@@ -293,6 +293,11 @@ void verifyOneTemperature( const CoherentElastic& chunk ) {
   CHECK( 3 == chunk.numberBraggEdges() );
 
   CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.numberInterpolationRegions() );
+  CHECK( 1 == chunk.NBT().size() );
+  CHECK( 3 == chunk.NBT()[0] );
+  CHECK( 1 == chunk.INT().size() );
+  CHECK( 1 == chunk.INT()[0] );
   CHECK( 1 == chunk.boundaries().size() );
   CHECK( 3 == chunk.boundaries()[0] );
   CHECK( 1 == chunk.interpolants().size() );
@@ -351,6 +356,11 @@ void verifyTwoTemperatures( const CoherentElastic& chunk ) {
   CHECK( 3 == chunk.numberBraggEdges() );
 
   CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.numberInterpolationRegions() );
+  CHECK( 1 == chunk.NBT().size() );
+  CHECK( 3 == chunk.NBT()[0] );
+  CHECK( 1 == chunk.INT().size() );
+  CHECK( 1 == chunk.INT()[0] );
   CHECK( 1 == chunk.boundaries().size() );
   CHECK( 3 == chunk.boundaries()[0] );
   CHECK( 1 == chunk.interpolants().size() );

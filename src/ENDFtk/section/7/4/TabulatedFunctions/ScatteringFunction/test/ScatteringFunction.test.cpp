@@ -429,9 +429,15 @@ void verifyChunkWithOneTemperature( const ScatteringFunction& chunk ) {
   CHECK( 1 == chunk.numberTemperatures() );
 
   CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.numberInterpolationRegions() );
   CHECK( 5 == chunk.NP() );
+  CHECK( 5 == chunk.numberPoints() );
   CHECK( 5 == chunk.NA() );
   CHECK( 5 == chunk.numberAlphas() );
+  CHECK( 1 == chunk.NBT().size() );
+  CHECK( 5 == chunk.NBT()[0] );
+  CHECK( 1 == chunk.INT().size() );
+  CHECK( 4 == chunk.INT()[0] );
   CHECK( 1 == chunk.boundaries().size() );
   CHECK( 5 == chunk.boundaries()[0] );
   CHECK( 1 == chunk.interpolants().size() );
@@ -496,9 +502,15 @@ void verifyChunkWithTwoTemperatures( const ScatteringFunction& chunk ) {
   CHECK( 2 == chunk.numberTemperatures() );
 
   CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.numberInterpolationRegions() );
   CHECK( 5 == chunk.NP() );
+  CHECK( 5 == chunk.numberPoints() );
   CHECK( 5 == chunk.NA() );
   CHECK( 5 == chunk.numberAlphas() );
+  CHECK( 1 == chunk.NBT().size() );
+  CHECK( 5 == chunk.NBT()[0] );
+  CHECK( 1 == chunk.INT().size() );
+  CHECK( 4 == chunk.INT()[0] );
   CHECK( 1 == chunk.boundaries().size() );
   CHECK( 5 == chunk.boundaries()[0] );
   CHECK( 1 == chunk.interpolants().size() );

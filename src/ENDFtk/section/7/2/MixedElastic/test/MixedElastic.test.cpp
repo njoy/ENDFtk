@@ -127,6 +127,11 @@ void verifyChunk( const MixedElastic& chunk ) {
   CHECK( 3 == coherent.numberBraggEdges() );
 
   CHECK( 1 == coherent.NR() );
+  CHECK( 1 == coherent.numberInterpolationRegions() );
+  CHECK( 1 == coherent.NBT().size() );
+  CHECK( 3 == coherent.NBT()[0] );
+  CHECK( 1 == coherent.INT().size() );
+  CHECK( 1 == coherent.INT()[0] );
   CHECK( 1 == coherent.boundaries().size() );
   CHECK( 3 == coherent.boundaries()[0] );
   CHECK( 1 == coherent.interpolants().size() );
@@ -180,9 +185,15 @@ void verifyChunk( const MixedElastic& chunk ) {
   CHECK_THAT( 2.054202, WithinRel( incoherent.SB() ) );
   CHECK_THAT( 2.054202, WithinRel( incoherent.boundCrossSection() ) );
   CHECK( 2 == incoherent.NP() );
+  CHECK( 2 == incoherent.numberPoints() );
   CHECK( 2 == incoherent.NT() );
   CHECK( 2 == incoherent.numberTemperatures() );
   CHECK( 1 == incoherent.NR() );
+  CHECK( 1 == incoherent.numberInterpolationRegions() );
+  CHECK( 1 == incoherent.INT().size() );
+  CHECK( 1 == incoherent.NBT().size() );
+  CHECK( 2 == incoherent.INT()[0] );
+  CHECK( 2 == incoherent.NBT()[0] );
   CHECK( 1 == incoherent.interpolants().size() );
   CHECK( 1 == incoherent.boundaries().size() );
   CHECK( 2 == incoherent.interpolants()[0] );
