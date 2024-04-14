@@ -189,8 +189,13 @@ std::string chunkWithOneTemperature() {
 void verifyChunkWithOneTemperature( const TabulatedFunctions& chunk ) {
 
   CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.numberInterpolationRegions() );
   CHECK( 2 == chunk.NB() );
   CHECK( 2 == chunk.numberBetas() );
+  CHECK( 1 == chunk.NBT().size() );
+  CHECK( 2 == chunk.NBT()[0] );
+  CHECK( 1 == chunk.INT().size() );
+  CHECK( 4 == chunk.INT()[0] );
   CHECK( 1 == chunk.boundaries().size() );
   CHECK( 2 == chunk.boundaries()[0] );
   CHECK( 1 == chunk.interpolants().size() );

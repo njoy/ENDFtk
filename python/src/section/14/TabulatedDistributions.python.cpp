@@ -111,6 +111,13 @@ void wrapTabulatedDistributions( python::module& module, python::module& viewmod
   )
   .def_property_readonly(
 
+    "number_incident_energies",
+    [] ( const Component& self ) { return self.numberIncidentEnergies(); },
+    "The number of incident energy values for which angular distributions\n"
+    "are given"
+  )
+  .def_property_readonly(
+
     "incident_energies",
     [] ( const Component& self ) -> DoubleRange
        { return self.incidentEnergies(); },

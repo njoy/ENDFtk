@@ -312,8 +312,8 @@ class Test_ENDFtk_MF6_Section( unittest.TestCase ) :
             self.assertEqual( 1, products[2].multiplicity.NR )
             self.assertEqual( 1, len( products[2].multiplicity.interpolants ) )
             self.assertEqual( 1, len( products[2].multiplicity.boundaries ) )
-            self.assertEqual( 2, products[2].multiplicity.interpolants[0] );
-            self.assertEqual( 3, products[2].multiplicity.boundaries[0] );
+            self.assertEqual( 2, products[2].multiplicity.interpolants[0] )
+            self.assertEqual( 3, products[2].multiplicity.boundaries[0] )
             self.assertEqual( 3, len( products[2].multiplicity.energies ) )
             self.assertEqual( 3, len( products[2].multiplicity.multiplicities ) )
             self.assertAlmostEqual( 1.858639e+7, products[2].multiplicity.energies[0] )

@@ -134,7 +134,13 @@ void verifyChunk( const WattSpectrum& chunk ) {
 
   auto valueB = chunk.b();
   CHECK( 5 == valueB.NP() );
+  CHECK( 5 == valueB.numberPoints() );
   CHECK( 1 == valueB.NR() );
+  CHECK( 1 == valueB.numberInterpolationRegions() );
+  CHECK( 1 == valueB.INT().size() );
+  CHECK( 1 == valueB.NBT().size() );
+  CHECK( 2 == valueB.INT()[0] );
+  CHECK( 5 == valueB.NBT()[0] );
   CHECK( 1 == valueB.interpolants().size() );
   CHECK( 1 == valueB.boundaries().size() );
   CHECK( 2 == valueB.interpolants()[0] );

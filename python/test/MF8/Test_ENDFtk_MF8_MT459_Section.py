@@ -74,18 +74,18 @@ class Test_ENDFtk_MF8_MT457_Section( unittest.TestCase ) :
             self.assertEqual( 3, len( data.isomeric_states ) )
             self.assertEqual( 3, len( data.Y ) )
             self.assertEqual( 3, len( data.fission_yields ) )
-            self.assertEqual( 23066, data.ZAFP[0] );
-            self.assertEqual( 54135, data.ZAFP[1] );
-            self.assertEqual( 72171, data.ZAFP[2] );
-            self.assertEqual( 23066, data.fission_product_identifiers[0] );
-            self.assertEqual( 54135, data.fission_product_identifiers[1] );
-            self.assertEqual( 72171, data.fission_product_identifiers[2] );
-            self.assertEqual( 0, data.FPS[0] );
-            self.assertEqual( 0, data.FPS[1] );
-            self.assertEqual( 0, data.FPS[2] );
-            self.assertEqual( 0, data.isomeric_states[0] );
-            self.assertEqual( 0, data.isomeric_states[1] );
-            self.assertEqual( 0, data.isomeric_states[2] );
+            self.assertEqual( 23066, data.ZAFP[0] )
+            self.assertEqual( 54135, data.ZAFP[1] )
+            self.assertEqual( 72171, data.ZAFP[2] )
+            self.assertEqual( 23066, data.fission_product_identifiers[0] )
+            self.assertEqual( 54135, data.fission_product_identifiers[1] )
+            self.assertEqual( 72171, data.fission_product_identifiers[2] )
+            self.assertEqual( 0, data.FPS[0] )
+            self.assertEqual( 0, data.FPS[1] )
+            self.assertEqual( 0, data.FPS[2] )
+            self.assertEqual( 0, data.isomeric_states[0] )
+            self.assertEqual( 0, data.isomeric_states[1] )
+            self.assertEqual( 0, data.isomeric_states[2] )
             self.assertEqual( 2, len( data.Y[0] ) )
             self.assertEqual( 2, len( data.Y[1] ) )
             self.assertEqual( 2, len( data.Y[2] ) )
@@ -121,18 +121,18 @@ class Test_ENDFtk_MF8_MT457_Section( unittest.TestCase ) :
             self.assertEqual( 3, len( data.isomeric_states ) )
             self.assertEqual( 3, len( data.Y ) )
             self.assertEqual( 3, len( data.fission_yields ) )
-            self.assertEqual( 23066, data.ZAFP[0] );
-            self.assertEqual( 54135, data.ZAFP[1] );
-            self.assertEqual( 72171, data.ZAFP[2] );
-            self.assertEqual( 23066, data.fission_product_identifiers[0] );
-            self.assertEqual( 54135, data.fission_product_identifiers[1] );
-            self.assertEqual( 72171, data.fission_product_identifiers[2] );
-            self.assertEqual( 0, data.FPS[0] );
-            self.assertEqual( 0, data.FPS[1] );
-            self.assertEqual( 0, data.FPS[2] );
-            self.assertEqual( 0, data.isomeric_states[0] );
-            self.assertEqual( 0, data.isomeric_states[1] );
-            self.assertEqual( 0, data.isomeric_states[2] );
+            self.assertEqual( 23066, data.ZAFP[0] )
+            self.assertEqual( 54135, data.ZAFP[1] )
+            self.assertEqual( 72171, data.ZAFP[2] )
+            self.assertEqual( 23066, data.fission_product_identifiers[0] )
+            self.assertEqual( 54135, data.fission_product_identifiers[1] )
+            self.assertEqual( 72171, data.fission_product_identifiers[2] )
+            self.assertEqual( 0, data.FPS[0] )
+            self.assertEqual( 0, data.FPS[1] )
+            self.assertEqual( 0, data.FPS[2] )
+            self.assertEqual( 0, data.isomeric_states[0] )
+            self.assertEqual( 0, data.isomeric_states[1] )
+            self.assertEqual( 0, data.isomeric_states[2] )
             self.assertEqual( 2, len( data.Y[0] ) )
             self.assertEqual( 2, len( data.Y[1] ) )
             self.assertEqual( 2, len( data.Y[2] ) )
@@ -193,18 +193,18 @@ class Test_ENDFtk_MF8_MT457_Section( unittest.TestCase ) :
             self.assertEqual( 3, len( data.isomeric_states ) )
             self.assertEqual( 3, len( data.Y ) )
             self.assertEqual( 3, len( data.fission_yields ) )
-            self.assertEqual( 23066, data.ZAFP[0] );
-            self.assertEqual( 54135, data.ZAFP[1] );
-            self.assertEqual( 72171, data.ZAFP[2] );
-            self.assertEqual( 23066, data.fission_product_identifiers[0] );
-            self.assertEqual( 54135, data.fission_product_identifiers[1] );
-            self.assertEqual( 72171, data.fission_product_identifiers[2] );
-            self.assertEqual( 0, data.FPS[0] );
-            self.assertEqual( 0, data.FPS[1] );
-            self.assertEqual( 0, data.FPS[2] );
-            self.assertEqual( 0, data.isomeric_states[0] );
-            self.assertEqual( 0, data.isomeric_states[1] );
-            self.assertEqual( 0, data.isomeric_states[2] );
+            self.assertEqual( 23066, data.ZAFP[0] )
+            self.assertEqual( 54135, data.ZAFP[1] )
+            self.assertEqual( 72171, data.ZAFP[2] )
+            self.assertEqual( 23066, data.fission_product_identifiers[0] )
+            self.assertEqual( 54135, data.fission_product_identifiers[1] )
+            self.assertEqual( 72171, data.fission_product_identifiers[2] )
+            self.assertEqual( 0, data.FPS[0] )
+            self.assertEqual( 0, data.FPS[1] )
+            self.assertEqual( 0, data.FPS[2] )
+            self.assertEqual( 0, data.isomeric_states[0] )
+            self.assertEqual( 0, data.isomeric_states[1] )
+            self.assertEqual( 0, data.isomeric_states[2] )
             self.assertEqual( 2, len( data.Y[0] ) )
             self.assertEqual( 2, len( data.Y[1] ) )
             self.assertEqual( 2, len( data.Y[2] ) )

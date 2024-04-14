@@ -112,7 +112,13 @@ void verifyChunk( const DiscretePhotons& chunk ) {
   CHECK_THAT( 0.1, WithinRel( chunk.photons()[0].E() ) );
   CHECK( 1 == chunk.photons()[0].index() );
   CHECK( 1 == chunk.photons()[0].NR() );
+  CHECK( 1 == chunk.photons()[0].numberInterpolationRegions() );
   CHECK( 2 == chunk.photons()[0].NP() );
+  CHECK( 2 == chunk.photons()[0].numberPoints() );
+  CHECK( 1 == chunk.photons()[0].INT().size() );
+  CHECK( 1 == chunk.photons()[0].NBT().size() );
+  CHECK( 4 == chunk.photons()[0].INT()[0] );
+  CHECK( 2 == chunk.photons()[0].NBT()[0] );
   CHECK( 1 == chunk.photons()[0].interpolants().size() );
   CHECK( 1 == chunk.photons()[0].boundaries().size() );
   CHECK( 4 == chunk.photons()[0].interpolants()[0] );
@@ -127,7 +133,13 @@ void verifyChunk( const DiscretePhotons& chunk ) {
   CHECK_THAT( 0.2, WithinRel( chunk.photons()[1].E() ) );
   CHECK( 2 == chunk.photons()[1].index() );
   CHECK( 1 == chunk.photons()[1].NR() );
+  CHECK( 1 == chunk.photons()[1].numberInterpolationRegions() );
   CHECK( 3 == chunk.photons()[1].NP() );
+  CHECK( 3 == chunk.photons()[1].numberPoints() );
+  CHECK( 1 == chunk.photons()[1].INT().size() );
+  CHECK( 1 == chunk.photons()[1].NBT().size() );
+  CHECK( 2 == chunk.photons()[1].INT()[0] );
+  CHECK( 3 == chunk.photons()[1].NBT()[0] );
   CHECK( 1 == chunk.photons()[1].interpolants().size() );
   CHECK( 1 == chunk.photons()[1].boundaries().size() );
   CHECK( 2 == chunk.photons()[1].interpolants()[0] );

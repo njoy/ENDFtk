@@ -158,11 +158,17 @@ class Test_ENDFtk_MF1_MT455_Section( unittest.TestCase ) :
             self.assertEqual( 2, chunk.nubar.representation )
 
             self.assertEqual( 4, chunk.nubar.NP )
+            self.assertEqual( 4, chunk.nubar.number_points )
             self.assertEqual( 1, chunk.nubar.NR )
+            self.assertEqual( 1, chunk.nubar.number_interpolation_regions )
+            self.assertEqual( 1, len( chunk.nubar.INT ) )
+            self.assertEqual( 1, len( chunk.nubar.NBT ) )
+            self.assertEqual( 2, chunk.nubar.INT[0] )
+            self.assertEqual( 4, chunk.nubar.NBT[0] )
             self.assertEqual( 1, len( chunk.nubar.interpolants ) )
             self.assertEqual( 1, len( chunk.nubar.boundaries ) )
-            self.assertEqual( 2, chunk.nubar.interpolants[0] );
-            self.assertEqual( 4, chunk.nubar.boundaries[0] );
+            self.assertEqual( 2, chunk.nubar.interpolants[0] )
+            self.assertEqual( 4, chunk.nubar.boundaries[0] )
 
             self.assertEqual( 4, len( chunk.nubar.E ) )
             self.assertEqual( 4, len( chunk.nubar.energies ) )
@@ -213,14 +219,15 @@ class Test_ENDFtk_MF1_MT455_Section( unittest.TestCase ) :
             self.assertEqual( 1, chunk.delayed_groups.NR )
             self.assertEqual( 1, chunk.delayed_groups.number_interpolation_regions )
             self.assertEqual( 2, chunk.delayed_groups.NE )
+            self.assertEqual( 2, chunk.delayed_groups.number_incident_energies )
             self.assertEqual( 1, len( chunk.delayed_groups.INT ) )
             self.assertEqual( 1, len( chunk.delayed_groups.NBT ) )
-            self.assertEqual( 4, chunk.delayed_groups.INT[0] );
-            self.assertEqual( 2, chunk.delayed_groups.NBT[0] );
+            self.assertEqual( 4, chunk.delayed_groups.INT[0] )
+            self.assertEqual( 2, chunk.delayed_groups.NBT[0] )
             self.assertEqual( 1, len( chunk.delayed_groups.interpolants ) )
             self.assertEqual( 1, len( chunk.delayed_groups.boundaries ) )
-            self.assertEqual( 4, chunk.delayed_groups.interpolants[0] );
-            self.assertEqual( 2, chunk.delayed_groups.boundaries[0] );
+            self.assertEqual( 4, chunk.delayed_groups.interpolants[0] )
+            self.assertEqual( 2, chunk.delayed_groups.boundaries[0] )
 
             self.assertEqual( 2, len( chunk.delayed_groups.constants ) )
             self.assertAlmostEqual( 1e-5, chunk.delayed_groups.constants[0].incident_energy )
@@ -326,14 +333,15 @@ class Test_ENDFtk_MF1_MT455_Section( unittest.TestCase ) :
             self.assertEqual( 1, chunk.delayed_groups.NR )
             self.assertEqual( 1, chunk.delayed_groups.number_interpolation_regions )
             self.assertEqual( 2, chunk.delayed_groups.NE )
+            self.assertEqual( 2, chunk.delayed_groups.number_incident_energies )
             self.assertEqual( 1, len( chunk.delayed_groups.INT ) )
             self.assertEqual( 1, len( chunk.delayed_groups.NBT ) )
-            self.assertEqual( 4, chunk.delayed_groups.INT[0] );
-            self.assertEqual( 2, chunk.delayed_groups.NBT[0] );
+            self.assertEqual( 4, chunk.delayed_groups.INT[0] )
+            self.assertEqual( 2, chunk.delayed_groups.NBT[0] )
             self.assertEqual( 1, len( chunk.delayed_groups.interpolants ) )
             self.assertEqual( 1, len( chunk.delayed_groups.boundaries ) )
-            self.assertEqual( 4, chunk.delayed_groups.interpolants[0] );
-            self.assertEqual( 2, chunk.delayed_groups.boundaries[0] );
+            self.assertEqual( 4, chunk.delayed_groups.interpolants[0] )
+            self.assertEqual( 2, chunk.delayed_groups.boundaries[0] )
 
             self.assertEqual( 2, len( chunk.delayed_groups.constants ) )
             self.assertAlmostEqual( 1e-5, chunk.delayed_groups.constants[0].incident_energy )

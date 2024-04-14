@@ -59,7 +59,7 @@ class Test_ENDFtk_MF12_Section( unittest.TestCase ) :
             self.assertEqual( 1, data.LO )
             self.assertEqual( 1, data.representation )
 
-            partial = data.photon_partial_multiplicities[0];
+            partial = data.photon_partial_multiplicities[0]
             self.assertAlmostEqual( 0.0, partial.EG )
             self.assertAlmostEqual( 0.0, partial.photon_or_binding_energy )
             self.assertAlmostEqual( 0.0, partial.ES )

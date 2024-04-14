@@ -258,6 +258,7 @@ void verifyChunk( const EnergyDistribution& chunk ) {
   CHECK( 4 == chunk.NEP() );
   CHECK( 4 == chunk.numberOutgoingEnergies() );
   CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.numberInterpolationRegions() );
   CHECK( 4 == chunk.NP() );
   CHECK( 4 == chunk.numberPoints() );
   CHECK( 1 == chunk.INT().size() );

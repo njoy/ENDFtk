@@ -46,7 +46,7 @@ class Test_ENDFtk_MF2_MT151_ReichMoore( unittest.TestCase ) :
 
             self.assertEqual( 2, len( chunk.l_values ) )
 
-            lvalue1 = chunk.l_values[0];
+            lvalue1 = chunk.l_values[0]
             self.assertAlmostEqual( 1.982069e+1, lvalue1.AWRI )
             self.assertAlmostEqual( 1.982069e+1, lvalue1.atomic_weight_ratio )
             self.assertAlmostEqual( 0., lvalue1.APL )
@@ -94,7 +94,7 @@ class Test_ENDFtk_MF2_MT151_ReichMoore( unittest.TestCase ) :
             self.assertAlmostEqual( 0., lvalue1.second_fission_widths[0] )
             self.assertAlmostEqual( 0.04, lvalue1.second_fission_widths[1] )
 
-            lvalue2 = chunk.l_values[1];
+            lvalue2 = chunk.l_values[1]
             self.assertAlmostEqual( 1.982069e+1, lvalue2.AWRI )
             self.assertAlmostEqual( 1.982069e+1, lvalue2.atomic_weight_ratio )
             self.assertAlmostEqual( 0., lvalue2.APL )

@@ -62,7 +62,13 @@ class Test_ENDFtk_MF26_Section( unittest.TestCase ) :
             self.assertEqual( 1, products[0].multiplicity.LAW )
 
             self.assertEqual( 2, products[0].multiplicity.NP )
+            self.assertEqual( 2, products[0].multiplicity.number_points )
             self.assertEqual( 1, products[0].multiplicity.NR )
+            self.assertEqual( 1, products[0].multiplicity.number_interpolation_regions )
+            self.assertEqual( 1, len( products[0].multiplicity.INT ) )
+            self.assertEqual( 1, len( products[0].multiplicity.NBT ) )
+            self.assertEqual( 4, products[0].multiplicity.INT[0] )
+            self.assertEqual( 2, products[0].multiplicity.NBT[0] )
             self.assertEqual( 1, len( products[0].multiplicity.interpolants ) )
             self.assertEqual( 1, len( products[0].multiplicity.boundaries ) )
             self.assertEqual( 4, products[0].multiplicity.interpolants[0] )

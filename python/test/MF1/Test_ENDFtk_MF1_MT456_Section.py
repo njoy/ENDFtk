@@ -81,7 +81,13 @@ class Test_ENDFtk_MF1_MT456_Section( unittest.TestCase ) :
             self.assertEqual( 2, chunk.nubar.representation )
 
             self.assertEqual( 4, chunk.nubar.NP )
+            self.assertEqual( 4, chunk.nubar.number_points )
             self.assertEqual( 1, chunk.nubar.NR )
+            self.assertEqual( 1, chunk.nubar.number_interpolation_regions )
+            self.assertEqual( 1, len( chunk.nubar.INT ) )
+            self.assertEqual( 1, len( chunk.nubar.NBT ) )
+            self.assertEqual( 2, chunk.nubar.INT[0] )
+            self.assertEqual( 4, chunk.nubar.NBT[0] )
             self.assertEqual( 1, len( chunk.nubar.interpolants ) )
             self.assertEqual( 1, len( chunk.nubar.boundaries ) )
             self.assertEqual( 2, chunk.nubar.interpolants[0] )

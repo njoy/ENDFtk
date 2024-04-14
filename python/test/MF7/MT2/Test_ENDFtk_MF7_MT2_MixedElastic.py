@@ -51,13 +51,13 @@ class Test_ENDFtk_MF7_MT2_MixedElastic( unittest.TestCase ) :
             self.assertEqual( 1, coherent.NR )
             self.assertEqual( 1, coherent.number_interpolation_regions )
             self.assertEqual( 1, len( coherent.NBT ) )
-            self.assertEqual( 3, coherent.NBT[0] );
+            self.assertEqual( 3, coherent.NBT[0] )
             self.assertEqual( 1, len( coherent.INT ) )
-            self.assertEqual( 1, coherent.INT[0] );
+            self.assertEqual( 1, coherent.INT[0] )
             self.assertEqual( 1, len( coherent.boundaries ) )
-            self.assertEqual( 3, coherent.boundaries[0] );
+            self.assertEqual( 3, coherent.boundaries[0] )
             self.assertEqual( 1, len( coherent.interpolants ) )
-            self.assertEqual( 1, coherent.interpolants[0] );
+            self.assertEqual( 1, coherent.interpolants[0] )
 
             self.assertEqual( 2, len( coherent.T ) )
             self.assertEqual( 2, len( coherent.temperatures ) )
@@ -78,7 +78,7 @@ class Test_ENDFtk_MF7_MT2_MixedElastic( unittest.TestCase ) :
             self.assertEqual( 1, len( coherent.LI ) )
             self.assertEqual( 2, coherent.LI[0] )
             self.assertEqual( 1, len( coherent.temperature_interpolants ) )
-            self.assertEqual( 2, coherent.temperature_interpolants[0] );
+            self.assertEqual( 2, coherent.temperature_interpolants[0] )
 
             self.assertEqual( 2, len( coherent.S ) )
             self.assertEqual( 3, len( coherent.S[0] ) )
@@ -114,12 +114,12 @@ class Test_ENDFtk_MF7_MT2_MixedElastic( unittest.TestCase ) :
             self.assertEqual( 1, incoherent.number_interpolation_regions )
             self.assertEqual( 1, len( incoherent.INT ) )
             self.assertEqual( 1, len( incoherent.NBT ) )
-            self.assertEqual( 2, incoherent.INT[0] );
-            self.assertEqual( 2, incoherent.NBT[0] );
+            self.assertEqual( 2, incoherent.INT[0] )
+            self.assertEqual( 2, incoherent.NBT[0] )
             self.assertEqual( 1, len( incoherent.interpolants ) )
             self.assertEqual( 1, len( incoherent.boundaries ) )
-            self.assertEqual( 2, incoherent.interpolants[0] );
-            self.assertEqual( 2, incoherent.boundaries[0] );
+            self.assertEqual( 2, incoherent.interpolants[0] )
+            self.assertEqual( 2, incoherent.boundaries[0] )
             self.assertEqual( 2, len( incoherent.T ) )
             self.assertEqual( 2, len( incoherent.temperatures ) )
             self.assertEqual( 2, len( incoherent.W ) )

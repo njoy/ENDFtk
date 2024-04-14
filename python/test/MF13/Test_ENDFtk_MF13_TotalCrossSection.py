@@ -32,8 +32,8 @@ class Test_ENDFtk_MF13_TotalCrossSection( unittest.TestCase ) :
             self.assertEqual( 2, chunk.NBT[0] )
             self.assertEqual( 1, len( chunk.interpolants ) )
             self.assertEqual( 1, len( chunk.boundaries ) )
-            self.assertEqual( 5, chunk.interpolants[0] );
-            self.assertEqual( 2, chunk.boundaries[0] );
+            self.assertEqual( 5, chunk.interpolants[0] )
+            self.assertEqual( 2, chunk.boundaries[0] )
             self.assertEqual( 2, len( chunk.E ) )
             self.assertEqual( 2, len( chunk.energies ) )
             self.assertEqual( 2, len( chunk.XS ) )

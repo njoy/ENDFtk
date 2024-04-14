@@ -212,7 +212,13 @@ void verifyChunk( const MixedDistributions& chunk ) {
   CHECK_THAT( 3.19645e-11, WithinRel( ld.coefficients()[1] ) );
 
   CHECK( 2 == chunk.tabulated().NE() );
+  CHECK( 2 == chunk.tabulated().numberIncidentEnergies() );
   CHECK( 1 == chunk.tabulated().NR() );
+  CHECK( 1 == chunk.tabulated().numberInterpolationRegions() );
+  CHECK( 1 == chunk.tabulated().INT().size() );
+  CHECK( 1 == chunk.tabulated().NBT().size() );
+  CHECK( 5 == chunk.tabulated().INT()[0] );
+  CHECK( 2 == chunk.tabulated().NBT()[0] );
   CHECK( 1 == chunk.tabulated().interpolants().size() );
   CHECK( 1 == chunk.tabulated().boundaries().size() );
   CHECK( 5 == chunk.tabulated().interpolants()[0] );
