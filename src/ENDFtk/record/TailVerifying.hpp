@@ -5,7 +5,6 @@
 
 // other includes
 #include "tools/Log.hpp"
-#include "disco.hpp"
 #include "ENDFtk/record/helper.hpp"
 #include "ENDFtk/record/Integer.hpp"
 #include "ENDFtk/record/Real.hpp"

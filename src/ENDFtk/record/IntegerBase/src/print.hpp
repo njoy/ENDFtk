@@ -11,10 +11,12 @@
 template< typename OutputIterator >
 void print( OutputIterator& it, int MAT, int MF, int MT ) const {
 
+  using namespace njoy::tools;
+
   record::Integer< 5 >::Parser::write( this->I(), it );
   record::Integer< 5 >::Parser::write( this->J(), it );
 
-  if ( NDIGIT != 6 ) { disco::ColumnPosition< 1 >::write( it ); };
+  if ( NDIGIT != 6 ) { disco::Column< 1 >::write( it ); };
 
   for ( auto value : this->K() ) {
 
@@ -23,18 +25,18 @@ void print( OutputIterator& it, int MAT, int MF, int MT ) const {
 
   switch ( NDIGIT ) {
 
-    case 2: { disco::ColumnPosition< 1 >::write( it ); break; }
-    case 3: { disco::ColumnPosition< 3 >::write( it ); break; }
-    case 5: { disco::ColumnPosition< 1 >::write( it ); break; }
+    case 2: { disco::Column< 1 >::write( it ); break; }
+    case 3: { disco::Column< 3 >::write( it ); break; }
+    case 5: { disco::Column< 1 >::write( it ); break; }
     default: { /* unreachable */ break; }
   }
 
   int blankEntries = N - this->K().size();
-  while ( blankEntries-- ){ disco::ColumnPosition< NDIGIT + 1 >::write( it ); }
+  while ( blankEntries-- ){ disco::Column< NDIGIT + 1 >::write( it ); }
 
   using Format =
     disco::Record< disco::Integer< 4 >, disco::Integer< 2 >,
-                   disco::Integer< 3 >, disco::ColumnPosition< 5 > >;
+                   disco::Integer< 3 >, disco::Column< 5 > >;
 
   Format::write( it, MAT, MF, MT );
 }

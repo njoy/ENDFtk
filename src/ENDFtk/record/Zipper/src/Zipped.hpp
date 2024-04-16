@@ -2,7 +2,7 @@ template< typename... ENDFTypes  >
 struct Zipped {
   static constexpr std::size_t
   tupleWidth = helper::sum< ENDFTypes::width... >();
-    
+
   static_assert( tupleWidth < 66, "too many entries on line" );
 
   static constexpr std::size_t entriesPerTuple = sizeof...( ENDFTypes );
@@ -10,25 +10,26 @@ struct Zipped {
 
   static constexpr std::size_t
   entriesPerRecord = tuplesPerRecord * entriesPerTuple;
-    
+
   static const std::size_t nPad = 66 % tupleWidth;
 
   static constexpr auto tupleIndices =
     std::make_index_sequence< entriesPerTuple >();
-    
+
   /**
-   * @brief 
-   * This is dark magic to expand the parameter pack a number of times equal 
+   * @brief
+   * This is dark magic to expand the parameter pack a number of times equal
    * to the tuplesPerRecord class variable
    */
   template< std::size_t... indices >
   static decltype(auto)
     expand( std::index_sequence< indices... > ){
-    return disco::Record
+    return njoy::tools::disco::Record
       < typename std::tuple_element
         < indices % entriesPerTuple,
           std::tuple< typename ENDFTypes::Parser... > >::type... ,
-        disco::ColumnPosition< nPad >, disco::RetainCarriage >();
+        njoy::tools::disco::Column< nPad >,
+        njoy::tools::disco::RetainCarriage >();
   }
 
   using Format =
@@ -38,9 +39,10 @@ struct Zipped {
   using Type =
     typename std::tuple_element
     < index, std::tuple< typename ENDFTypes::Type... > >::type;
-    
+
   using TupleFormat =
-    disco::Record< typename ENDFTypes::Parser..., disco::RetainCarriage >;
+    njoy::tools::disco::Record< typename ENDFTypes::Parser...,
+                                njoy::tools::disco::RetainCarriage >;
 
   static const std::tuple< typename ENDFTypes::Type... >&
   defaultTuple(){

@@ -10,12 +10,14 @@
  */
 template< typename OutputIterator >
 void print( OutputIterator& it, int MAT, int MF, int MT ) const {
+
+  using namespace njoy::tools;
   {
     using Format = disco::Record< disco::ENDF, disco::ENDF,
                                   disco::Integer< 11 >, disco::Integer< 11 >,
                                   disco::Integer< 11 >, disco::Integer< 11 >,
                                   disco::Integer< 4 >, disco::Integer< 2 >,
-                                  disco::Integer< 3 >, disco::ColumnPosition<5> >;
+                                  disco::Integer< 3 >, disco::Column<5> >;
     Format::write( it,
                    this->C1(), this->C2(),
                    this->L1(), this->L2(),
@@ -26,7 +28,7 @@ void print( OutputIterator& it, int MAT, int MF, int MT ) const {
                                   disco::ENDF, disco::ENDF,
                                   disco::ENDF, disco::ENDF,
                                   disco::Integer< 4 >, disco::Integer< 2 >,
-                                  disco::Integer< 3 >, disco::ColumnPosition<5> >;
+                                  disco::Integer< 3 >, disco::Column<5> >;
 
     auto nFullLines = this->NPL() / 6;
     auto partialLineEntries = this->NPL() - nFullLines * 6;
@@ -47,11 +49,11 @@ void print( OutputIterator& it, int MAT, int MF, int MT ) const {
 
       auto blankEntries = 6 - partialLineEntries;
 
-      while ( blankEntries-- ){ disco::ColumnPosition< 11 >::write( it ); }
+      while ( blankEntries-- ){ disco::Column< 11 >::write( it ); }
 
       using Format =
         disco::Record< disco::Integer< 4 >, disco::Integer< 2 >,
-                       disco::Integer< 3 >, disco::ColumnPosition< 5 > >;
+                       disco::Integer< 3 >, disco::Column< 5 > >;
 
       Format::write( it, MAT, MF, MT );
     }

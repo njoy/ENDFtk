@@ -5,6 +5,7 @@
 
 // other includes
 #include "tools/Log.hpp"
+#include "tools/disco/Record.hpp"
 #include "ENDFtk/record/helper.hpp"
 #include "ENDFtk/record/Character.hpp"
 #include "ENDFtk/record/Integer.hpp"
@@ -26,8 +27,8 @@ namespace record {
 
     /* convenience typedefs */
     using FieldTuple = std::tuple< typename Fields::Type... >;
-    using Format = disco::Record< typename Fields::Parser...,
-                                  disco::RetainCarriage >;
+    using Format = njoy::tools::disco::Record< typename Fields::Parser...,
+                                               njoy::tools::disco::RetainCarriage >;
 
     template< int Index >
     using ShouldRecurse =
