@@ -232,7 +232,15 @@ void verifyChunk( const section::Type< 3 >& chunk ) {
   CHECK_THAT( 3.224648e+6, WithinRel( chunk.reactionQValue() ) );
 
   CHECK( 6 == chunk.NP() );
+  CHECK( 6 == chunk.numberPoints() );
   CHECK( 2 == chunk.NR() );
+  CHECK( 2 == chunk.numberInterpolationRegions() );
+  CHECK( 2 == chunk.INT().size() );
+  CHECK( 2 == chunk.NBT().size() );
+  CHECK( 5 == chunk.INT()[0] );
+  CHECK( 2 == chunk.INT()[1] );
+  CHECK( 3 == chunk.NBT()[0] );
+  CHECK( 6 == chunk.NBT()[1] );
   CHECK( 2 == chunk.interpolants().size() );
   CHECK( 2 == chunk.boundaries().size() );
   CHECK( 5 == chunk.interpolants()[0] );
@@ -282,7 +290,13 @@ void verifyChunkWithOneZone( const section::Type< 3 >& chunk ) {
   CHECK_THAT( 3.224648e+6, WithinRel( chunk.reactionQValue() ) );
 
   CHECK( 6 == chunk.NP() );
+  CHECK( 6 == chunk.numberPoints() );
   CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.numberInterpolationRegions() );
+  CHECK( 1 == chunk.INT().size() );
+  CHECK( 1 == chunk.NBT().size() );
+  CHECK( 2 == chunk.INT()[0] );
+  CHECK( 6 == chunk.NBT()[0] );
   CHECK( 1 == chunk.interpolants().size() );
   CHECK( 1 == chunk.boundaries().size() );
   CHECK( 2 == chunk.interpolants()[0] );

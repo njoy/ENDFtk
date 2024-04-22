@@ -76,8 +76,13 @@ void wrapTabulatedDistributions( python::module& module, python::module& viewmod
 
     "NE",
     [] ( const Component& self ) { return self.NE(); },
-    "The number of incident energy values for which angular distributions\n"
-    "are given"
+    "The number of incident energy values"
+  )
+  .def_property_readonly(
+
+    "number_incident_energies",
+    [] ( const Component& self ) { return self.numberIncidentEnergies(); },
+    "The number of incident energy values"
   )
   .def_property_readonly(
 

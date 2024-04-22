@@ -180,7 +180,13 @@ void verifyChunk( const TabulatedDistributions& chunk ) {
   CHECK_THAT( 2., WithinRel( chunk.levelEnergy() ) );
 
   CHECK( 2 == chunk.NE() );
+  CHECK( 2 == chunk.numberIncidentEnergies() );
   CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.numberInterpolationRegions() );
+  CHECK( 1 == chunk.INT().size() );
+  CHECK( 1 == chunk.NBT().size() );
+  CHECK( 1 == chunk.INT()[0] );
+  CHECK( 2 == chunk.NBT()[0] );
   CHECK( 1 == chunk.interpolants().size() );
   CHECK( 1 == chunk.boundaries().size() );
   CHECK( 1 == chunk.interpolants()[0] );
@@ -198,7 +204,13 @@ void verifyChunk( const TabulatedDistributions& chunk ) {
   CHECK_THAT( 1e-5, WithinRel( d.E() ) );
   CHECK_THAT( 1e-5, WithinRel( d.incidentEnergy() ) );
   CHECK( 2 == d.NP() );
+  CHECK( 2 == d.numberPoints() );
   CHECK( 1 == d.NR() );
+  CHECK( 1 == d.numberInterpolationRegions() );
+  CHECK( 1 == d.NBT().size() );
+  CHECK( 1 == d.INT().size() );
+  CHECK( 2 == d.NBT()[0] );
+  CHECK( 2 == d.INT()[0] );
   CHECK( 1 == d.boundaries().size() );
   CHECK( 1 == d.interpolants().size() );
   CHECK( 2 == d.boundaries()[0] );
@@ -214,7 +226,13 @@ void verifyChunk( const TabulatedDistributions& chunk ) {
   CHECK_THAT( 2e+7, WithinRel( d.E() ) );
   CHECK_THAT( 2e+7, WithinRel( d.incidentEnergy() ) );
   CHECK( 3 == d.NP() );
+  CHECK( 3 == d.numberPoints() );
   CHECK( 1 == d.NR() );
+  CHECK( 1 == d.numberInterpolationRegions() );
+  CHECK( 1 == d.NBT().size() );
+  CHECK( 1 == d.INT().size() );
+  CHECK( 3 == d.NBT()[0] );
+  CHECK( 2 == d.INT()[0] );
   CHECK( 1 == d.boundaries().size() );
   CHECK( 1 == d.interpolants().size() );
   CHECK( 3 == d.boundaries()[0] );

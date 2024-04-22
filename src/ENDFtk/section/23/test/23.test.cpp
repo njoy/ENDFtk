@@ -147,7 +147,13 @@ void verifyChunk( const section::Type< 23 >& chunk ) {
   CHECK_THAT( 2., WithinRel( chunk.fluorescenceYield() ) );
 
   CHECK( 2 == chunk.NP() );
+  CHECK( 2 == chunk.numberPoints() );
   CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.numberInterpolationRegions() );
+  CHECK( 1 == chunk.INT().size() );
+  CHECK( 1 == chunk.NBT().size() );
+  CHECK( 2 == chunk.INT()[0] );
+  CHECK( 2 == chunk.NBT()[0] );
   CHECK( 1 == chunk.interpolants().size() );
   CHECK( 1 == chunk.boundaries().size() );
   CHECK( 2 == chunk.interpolants()[0] );

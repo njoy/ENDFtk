@@ -187,7 +187,13 @@ void verifyChunk( const section::Type< 15 >& chunk ) {
   CHECK( 1 == p.LAW() );
 
   CHECK( 2 == p.NP() );
+  CHECK( 2 == p.numberPoints() );
   CHECK( 1 == p.NR() );
+  CHECK( 1 == p.numberInterpolationRegions() );
+  CHECK( 1 == p.INT().size() );
+  CHECK( 1 == p.NBT().size() );
+  CHECK( 2 == p.INT()[0] );
+  CHECK( 2 == p.NBT()[0] );
   CHECK( 1 == p.interpolants().size() );
   CHECK( 1 == p.boundaries().size() );
   CHECK( 2 == p.interpolants()[0] );
@@ -211,7 +217,13 @@ void verifyChunk( const section::Type< 15 >& chunk ) {
   CHECK( 1 == d.LAW() );
 
   CHECK( 1 == d.NR() );
+  CHECK( 1 == d.numberInterpolationRegions() );
   CHECK( 2 == d.NE() );
+  CHECK( 2 == d.numberIncidentEnergies() );
+  CHECK( 1 == d.NBT().size() );
+  CHECK( 2 == d.NBT()[0] );
+  CHECK( 1 == d.INT().size() );
+  CHECK( 4 == d.INT()[0] );
   CHECK( 1 == d.boundaries().size() );
   CHECK( 2 == d.boundaries()[0] );
   CHECK( 1 == d.interpolants().size() );
@@ -225,7 +237,13 @@ void verifyChunk( const section::Type< 15 >& chunk ) {
   CHECK_THAT( 1e-5, WithinRel( value.E() ) );
   CHECK_THAT( 1e-5, WithinRel( value.incidentEnergy() ) );
   CHECK( 3 == value.NP() );
+  CHECK( 3 == value.numberPoints() );
   CHECK( 1 == value.NR() );
+  CHECK( 1 == value.numberInterpolationRegions() );
+  CHECK( 1 == value.INT().size() );
+  CHECK( 1 == value.NBT().size() );
+  CHECK( 2 == value.INT()[0] );
+  CHECK( 3 == value.NBT()[0] );
   CHECK( 1 == value.interpolants().size() );
   CHECK( 1 == value.boundaries().size() );
   CHECK( 2 == value.interpolants()[0] );
@@ -251,7 +269,13 @@ void verifyChunk( const section::Type< 15 >& chunk ) {
   CHECK_THAT( 3e+7, WithinRel( value.E() ) );
   CHECK_THAT( 3e+7, WithinRel( value.incidentEnergy() ) );
   CHECK( 4 == value.NP() );
+  CHECK( 4 == value.numberPoints() );
   CHECK( 1 == value.NR() );
+  CHECK( 1 == value.numberInterpolationRegions() );
+  CHECK( 1 == value.INT().size() );
+  CHECK( 1 == value.NBT().size() );
+  CHECK( 2 == value.INT()[0] );
+  CHECK( 4 == value.NBT()[0] );
   CHECK( 1 == value.interpolants().size() );
   CHECK( 1 == value.boundaries().size() );
   CHECK( 2 == value.interpolants()[0] );

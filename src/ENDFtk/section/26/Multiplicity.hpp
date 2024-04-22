@@ -20,8 +20,8 @@ public:
    *  @brief Return the ZA identifier of the reaction product
    */
   int ZAP() const {
-    
-    return static_cast< int >( std::round( TabulationRecord::C1() ) ); 
+
+    return static_cast< int >( std::round( TabulationRecord::C1() ) );
   }
 
   /**
@@ -65,8 +65,12 @@ public:
   auto multiplicities() const { return this->Y(); }
 
   using TabulationRecord::NP;
+  using TabulationRecord::numberPoints;
   using TabulationRecord::NR;
+  using TabulationRecord::numberInterpolationRegions;
+  using TabulationRecord::INT;
   using TabulationRecord::interpolants;
+  using TabulationRecord::NBT;
   using TabulationRecord::boundaries;
   using TabulationRecord::NC;
   using TabulationRecord::print;

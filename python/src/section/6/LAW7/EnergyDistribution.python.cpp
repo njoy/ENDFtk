@@ -62,6 +62,12 @@ void wrapEnergyDistribution( python::module& module, python::module& ) {
   )
   .def_property_readonly(
 
+    "number_outgoing_energies",
+    &Component::numberOutgoingEnergies,
+    "The number of secondary energy values"
+  )
+  .def_property_readonly(
+
     "MU",
     &Component::MU,
     "The cosine value for this secondary energy distribition"

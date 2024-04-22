@@ -33,12 +33,15 @@ namespace ENDFtk {
     using InterpolationBase::L1;
     using InterpolationBase::L2;
     using InterpolationBase::NR;
+    using InterpolationBase::numberInterpolationRegions;
 
     /**
      *  @brief Return the number of points
      */
     long NZ() const { return InterpolationBase::N2(); }
 
+    using InterpolationBase::NBT;
+    using InterpolationBase::INT;
     using InterpolationBase::interpolants;
     using InterpolationBase::boundaries;
 

@@ -220,7 +220,13 @@ void verifyChunk( const LaboratoryAngleEnergy& chunk ) {
   CHECK( 7 == chunk.LAW() );
 
   CHECK( 2 == chunk.NE() );
+  CHECK( 2 == chunk.numberIncidentEnergies() );
   CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.numberInterpolationRegions() );
+  CHECK( 1 == chunk.INT().size() );
+  CHECK( 1 == chunk.NBT().size() );
+  CHECK( 1 == chunk.INT()[0] );
+  CHECK( 2 == chunk.NBT()[0] );
   CHECK( 1 == chunk.interpolants().size() );
   CHECK( 1 == chunk.boundaries().size() );
   CHECK( 1 == chunk.interpolants()[0] );
@@ -230,7 +236,13 @@ void verifyChunk( const LaboratoryAngleEnergy& chunk ) {
   CHECK_THAT( 1e-5, WithinRel( chunk.angularDistributions()[0].incidentEnergy() ) );
 
   CHECK( 2 == chunk.angularDistributions()[0].NMU() );
+  CHECK( 2 == chunk.angularDistributions()[0].numberCosines() );
   CHECK( 1 == chunk.angularDistributions()[0].NRM() );
+  CHECK( 1 == chunk.angularDistributions()[0].numberInterpolationRegions() );
+  CHECK( 1 == chunk.angularDistributions()[0].INT().size() );
+  CHECK( 1 == chunk.angularDistributions()[0].NBT().size() );
+  CHECK( 4 == chunk.angularDistributions()[0].INT()[0] );
+  CHECK( 2 == chunk.angularDistributions()[0].NBT()[0] );
   CHECK( 1 == chunk.angularDistributions()[0].interpolants().size() );
   CHECK( 1 == chunk.angularDistributions()[0].boundaries().size() );
   CHECK( 4 == chunk.angularDistributions()[0].interpolants()[0] );
@@ -242,7 +254,13 @@ void verifyChunk( const LaboratoryAngleEnergy& chunk ) {
   CHECK_THAT( 1., WithinRel( cosines[0].MU() ) );
   CHECK_THAT( 1., WithinRel( cosines[0].cosine() ) );
   CHECK( 1 == cosines[0].NRP() );
+  CHECK( 1 == cosines[0].numberInterpolationRegions() );
   CHECK( 4 == cosines[0].NEP() );
+  CHECK( 4 == cosines[0].numberOutgoingEnergies() );
+  CHECK( 1 == cosines[0].INT().size() );
+  CHECK( 1 == cosines[0].NBT().size() );
+  CHECK( 2 == cosines[0].INT()[0] );
+  CHECK( 4 == cosines[0].NBT()[0] );
   CHECK( 1 == cosines[0].interpolants().size() );
   CHECK( 1 == cosines[0].boundaries().size() );
   CHECK( 2 == cosines[0].interpolants()[0] );
@@ -270,7 +288,13 @@ void verifyChunk( const LaboratoryAngleEnergy& chunk ) {
 
   CHECK_THAT( -1., WithinRel( cosines[1].cosine() ) );
   CHECK( 1 == cosines[1].NRP() );
+  CHECK( 1 == cosines[1].numberInterpolationRegions() );
   CHECK( 3 == cosines[1].NEP() );
+  CHECK( 3 == cosines[1].numberOutgoingEnergies() );
+  CHECK( 1 == cosines[1].INT().size() );
+  CHECK( 1 == cosines[1].NBT().size() );
+  CHECK( 2 == cosines[1].INT()[0] );
+  CHECK( 3 == cosines[1].NBT()[0] );
   CHECK( 1 == cosines[1].interpolants().size() );
   CHECK( 1 == cosines[1].boundaries().size() );
   CHECK( 2 == cosines[1].interpolants()[0] );
@@ -296,7 +320,13 @@ void verifyChunk( const LaboratoryAngleEnergy& chunk ) {
   CHECK_THAT( 2e+7, WithinRel( chunk.angularDistributions()[1].incidentEnergy() ) );
 
   CHECK( 2 == chunk.angularDistributions()[1].NMU() );
+  CHECK( 2 == chunk.angularDistributions()[1].numberCosines() );
   CHECK( 1 == chunk.angularDistributions()[1].NRM() );
+  CHECK( 1 == chunk.angularDistributions()[1].numberInterpolationRegions() );
+  CHECK( 1 == chunk.angularDistributions()[1].INT().size() );
+  CHECK( 1 == chunk.angularDistributions()[1].NBT().size() );
+  CHECK( 4 == chunk.angularDistributions()[1].INT()[0] );
+  CHECK( 2 == chunk.angularDistributions()[1].NBT()[0] );
   CHECK( 1 == chunk.angularDistributions()[1].interpolants().size() );
   CHECK( 1 == chunk.angularDistributions()[1].boundaries().size() );
   CHECK( 4 == chunk.angularDistributions()[1].interpolants()[0] );
@@ -307,7 +337,13 @@ void verifyChunk( const LaboratoryAngleEnergy& chunk ) {
 
   CHECK_THAT( .9, WithinRel( cosines[0].cosine() ) );
   CHECK( 1 == cosines[0].NRP() );
+  CHECK( 1 == cosines[0].numberInterpolationRegions() );
   CHECK( 4 == cosines[0].NEP() );
+  CHECK( 4 == cosines[0].numberOutgoingEnergies() );
+  CHECK( 1 == cosines[0].INT().size() );
+  CHECK( 1 == cosines[0].NBT().size() );
+  CHECK( 2 == cosines[0].INT()[0] );
+  CHECK( 4 == cosines[0].NBT()[0] );
   CHECK( 1 == cosines[0].interpolants().size() );
   CHECK( 1 == cosines[0].boundaries().size() );
   CHECK( 2 == cosines[0].interpolants()[0] );
@@ -335,7 +371,13 @@ void verifyChunk( const LaboratoryAngleEnergy& chunk ) {
 
   CHECK_THAT( -.9, WithinRel( cosines[1].cosine() ) );
   CHECK( 1 == cosines[1].NRP() );
+  CHECK( 1 == cosines[1].numberInterpolationRegions() );
   CHECK( 3 == cosines[1].NEP() );
+  CHECK( 3 == cosines[1].numberOutgoingEnergies() );
+  CHECK( 1 == cosines[1].INT().size() );
+  CHECK( 1 == cosines[1].NBT().size() );
+  CHECK( 2 == cosines[1].INT()[0] );
+  CHECK( 3 == cosines[1].NBT()[0] );
   CHECK( 1 == cosines[1].interpolants().size() );
   CHECK( 1 == cosines[1].boundaries().size() );
   CHECK( 2 == cosines[1].interpolants()[0] );

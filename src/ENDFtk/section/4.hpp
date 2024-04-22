@@ -138,8 +138,12 @@ namespace section {
     }
 
     /**
-     *  @brief Return the number of energy points for which angular distributions
-     *         are available.
+     *  @brief Return the number of interpolation regions
+     */
+    auto numberInterpolationRegions() const { return this->NR(); }
+
+    /**
+     *  @brief Return the number of incident energy points
      */
     auto NE() const {
 
@@ -153,35 +157,53 @@ namespace section {
     }
 
     /**
-     *  @brief Return the boundaries of the interpolation ranges
-     *
-     *         The intersection point is considered as a jump in the incident
-     *         energy.
+     *  @brief Return the number of incident energy points
      */
-    auto boundaries() const {
+    auto numberIncidentEnergies() const { return this->NE(); }
+
+    /**
+     *  @brief Return the interpolants of the interpolation regions
+     */
+    auto INT() const {
 
       return std::visit(
                tools::overload{
                    [] ( const Isotropic& ) -> LongRange
                       { return ranges::cpp20::views::empty< long >; },
                    [] ( const auto& distributions ) -> LongRange
-                      { return distributions.boundaries(); } },
+                      { return distributions.INT(); } },
                this->distributions_ );
     }
 
     /**
-     *  @brief Return the interpolants of the interpolation ranges
+     *  @brief Return the interpolants of the interpolation regions
      */
-    auto interpolants() const {
+    auto interpolants() const { return this->INT(); }
+
+    /**
+     *  @brief Return the boundaries of the interpolation regions
+     *
+     *         The intersection point is considered as a jump in the incident
+     *         energy.
+     */
+    auto NBT() const {
 
       return std::visit(
                tools::overload{
                    [] ( const Isotropic& ) -> LongRange
                       { return ranges::cpp20::views::empty< long >; },
                    [] ( const auto& distributions ) -> LongRange
-                      { return distributions.interpolants(); } },
+                      { return distributions.NBT(); } },
                this->distributions_ );
     }
+
+    /**
+     *  @brief Return the boundaries of the interpolation regions
+     *
+     *         The intersection point is considered as a jump in the incident
+     *         energy.
+     */
+    auto boundaries() const { return this->NBT(); }
 
     /**
      *  @brief Return the incident energy values

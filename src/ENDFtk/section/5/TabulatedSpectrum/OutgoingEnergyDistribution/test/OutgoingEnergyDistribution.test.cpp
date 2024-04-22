@@ -132,7 +132,13 @@ void verifyChunk( const OutgoingEnergyDistribution& chunk ) {
   CHECK_THAT( 1e-5, WithinRel( chunk.incidentEnergy() ) );
 
   CHECK( 3 == chunk.NP() );
+  CHECK( 3 == chunk.numberPoints() );
   CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.numberInterpolationRegions() );
+  CHECK( 1 == chunk.INT().size() );
+  CHECK( 1 == chunk.NBT().size() );
+  CHECK( 2 == chunk.INT()[0] );
+  CHECK( 3 == chunk.NBT()[0] );
   CHECK( 1 == chunk.interpolants().size() );
   CHECK( 1 == chunk.boundaries().size() );
   CHECK( 2 == chunk.interpolants()[0] );

@@ -80,6 +80,11 @@ namespace section {
     int NW() const { return this->data_.NPL(); }
 
     /**
+     *  @brief Return the number of data values
+     */
+    int numberValues() const { return this->NW(); }
+
+    /**
      *  @brief Return the number of reactions (normally 5)
      */
     int NREAC() const { return this->data_.L1(); }

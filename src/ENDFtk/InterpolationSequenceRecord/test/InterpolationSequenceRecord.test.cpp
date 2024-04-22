@@ -149,8 +149,6 @@ void verifyChunk( const InterpolationSequenceRecord< ControlRecord >& chunk ) {
   CHECK( 4 == chunk.NC() );
 
   InterpolationRecord tab2 = chunk.tab2();
-  auto interpolants = tab2.interpolants();
-  auto boundaries = tab2.boundaries();
   auto records = chunk.records();
 
   CHECK_THAT( 3., WithinRel( tab2.C1() ) );
@@ -158,11 +156,16 @@ void verifyChunk( const InterpolationSequenceRecord< ControlRecord >& chunk ) {
   CHECK( 6 == tab2.L1() );
   CHECK( 7 == tab2.L2() );
   CHECK( 1 == tab2.NR() );
+  CHECK( 1 == tab2.numberInterpolationRegions() );
   CHECK( 2 == tab2.NZ() );
-  CHECK( 1 == interpolants.size() );
-  CHECK( 1 == boundaries.size() );
-  CHECK( 4 == interpolants[0] );
-  CHECK( 2 == boundaries[0] );
+  CHECK( 1 == tab2.INT().size() );
+  CHECK( 1 == tab2.NBT().size() );
+  CHECK( 4 == tab2.INT()[0] );
+  CHECK( 2 == tab2.NBT()[0] );
+  CHECK( 1 == tab2.interpolants().size() );
+  CHECK( 1 == tab2.boundaries().size() );
+  CHECK( 4 == tab2.interpolants()[0] );
+  CHECK( 2 == tab2.boundaries()[0] );
 
   CHECK( 2 == records.size() );
   CHECK_THAT( 8., WithinRel( records[0].C1() ) );

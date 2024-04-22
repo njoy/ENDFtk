@@ -53,9 +53,14 @@ namespace section {
     double fluorescenceYield() const { return this->EFL(); }
 
     /**
-     *  @brief Return the number of interpolation ranges
+     *  @brief Return the number of interpolation regions
      */
     long NR() const { return this->table.NR(); }
+
+    /**
+     *  @brief Return the number of interpolation regions
+     */
+    long numberInterpolationRegions() const { return this->NR(); }
 
     /**
      *  @brief Return the number of points
@@ -63,14 +68,29 @@ namespace section {
     long NP() const { return this->table.NP(); }
 
     /**
-     *  @brief Return the interpolation type for each range
+     *  @brief Return the number of points
      */
-    auto interpolants() const { return this->table.interpolants(); }
+    long numberPoints() const { return this->NP(); }
+
+    /**
+     *  @brief Return the interpolation type for each region
+     */
+    auto INT() const { return this->table.interpolants(); }
+
+    /**
+     *  @brief Return the interpolation type for each region
+     */
+    auto interpolants() const { return this->INT(); }
 
     /**
      *  @brief Return the interpolation boundaries
      */
-    auto boundaries() const { return this->table.boundaries(); }
+    auto NBT() const { return this->table.NBT(); }
+
+    /**
+     *  @brief Return the interpolation boundaries
+     */
+    auto boundaries() const { return this->NBT(); }
 
     /**
      *  @brief Return the energy values
@@ -98,12 +118,6 @@ namespace section {
      *         tables)
      */
     auto y() const { return this->crossSections(); }
-
-    /**
-     *  @brief Return the interpolation regions (common interface for
-     *         interpolation tables)
-     */
-    auto regions() const { return this->table.regions(); }
 
     #include "ENDFtk/section/3/src/print.hpp"  // taken from MF3
 

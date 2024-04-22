@@ -40,8 +40,12 @@ public:
   int LAW() const { return this->LTT(); }
 
   using AngularDistributions< LegendreCoefficients >::NR;
+  using AngularDistributions< LegendreCoefficients >::numberInterpolationRegions;
   using AngularDistributions< LegendreCoefficients >::NE;
+  using AngularDistributions< LegendreCoefficients >::numberIncidentEnergies;
+  using AngularDistributions< LegendreCoefficients >::INT;
   using AngularDistributions< LegendreCoefficients >::interpolants;
+  using AngularDistributions< LegendreCoefficients >::NBT;
   using AngularDistributions< LegendreCoefficients >::boundaries;
   using AngularDistributions< LegendreCoefficients >::incidentEnergies;
   using AngularDistributions< LegendreCoefficients >::angularDistributions;

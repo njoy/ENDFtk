@@ -139,6 +139,12 @@ void wrapSection_2_152( python::module& module, python::module& ) {
   )
   .def_property_readonly(
 
+    "number_values",
+    &Section::numberValues,
+    "The number of data values"
+  )
+  .def_property_readonly(
+
     "NREAC",
     &Section::NREAC,
     "The number of reactions (normally 5)"

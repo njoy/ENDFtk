@@ -386,7 +386,13 @@ void verifyChunkWithLTT1( const section::Type< 14 >& chunk ) {
   CHECK_THAT( 4.438900e+6, WithinRel( photon.levelEnergy() ) );
 
   CHECK( 2 == photon.NE() );
+  CHECK( 2 == photon.numberIncidentEnergies() );
   CHECK( 1 == photon.NR() );
+  CHECK( 1 == photon.numberInterpolationRegions() );
+  CHECK( 1 == photon.INT().size() );
+  CHECK( 1 == photon.NBT().size() );
+  CHECK( 3 == photon.INT()[0] );
+  CHECK( 2 == photon.NBT()[0] );
   CHECK( 1 == photon.interpolants().size() );
   CHECK( 1 == photon.boundaries().size() );
   CHECK( 3 == photon.interpolants()[0] );

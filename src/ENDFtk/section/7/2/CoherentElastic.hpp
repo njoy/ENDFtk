@@ -67,10 +67,21 @@ public:
   long NR() const { return this->principal_.NR(); }
 
   /**
+   *  @brief Return the number of interpolation ranges on the energy grid
+   */
+  long numberInterpolationRegions() const { return this->NR(); }
+
+  /**
    *  @brief Return the number of Bragg edges, equal to the number of energy
    *         values
    */
   long NP() const { return this->principal_.NP(); }
+
+  /**
+   *  @brief Return the number of Bragg edges, equal to the number of energy
+   *         values
+   */
+  long numberPoints() const { return this->NP(); }
 
   /**
    *  @brief Return the number of Bragg edges, equal to the number of energy
@@ -81,18 +92,22 @@ public:
   /**
    *  @brief Return interpolation type for each range on the energy grid
    */
-  auto interpolants() const {
+  auto INT() const { return this->principal_.INT(); }
 
-    return this->principal_.interpolants();
-  }
+  /**
+   *  @brief Return interpolation type for each range on the energy grid
+   */
+  auto interpolants() const { return this->INT(); }
 
   /**
    *  @brief Return interpolation boundaries for the energy grid
    */
-  auto boundaries() const {
+  auto NBT() const { return this->principal_.NBT(); }
 
-    return this->principal_.boundaries();
-  }
+  /**
+   *  @brief Return interpolation boundaries for the energy grid
+   */
+  auto boundaries() const { return this->NBT(); }
 
   /**
    *  @brief Return all temperatures for which thermal scattering law data is

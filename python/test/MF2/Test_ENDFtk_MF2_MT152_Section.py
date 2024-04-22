@@ -38,7 +38,11 @@ class Test_ENDFtk_MF2_MT152_Section( unittest.TestCase ) :
             self.assertAlmostEqual( 2.369986e+2, chunk.atomic_weight_ratio )
 
             self.assertEqual( 1, chunk.LSSF )
+            self.assertEqual( 1, chunk.self_shielding_only )
             self.assertEqual( 2, chunk.interpolation )
+
+            self.assertEqual( 19, chunk.NW )
+            self.assertEqual( 19, chunk.number_values )
 
             self.assertEqual( 5, chunk.NREAC )
             self.assertEqual( 5, chunk.number_reactions )

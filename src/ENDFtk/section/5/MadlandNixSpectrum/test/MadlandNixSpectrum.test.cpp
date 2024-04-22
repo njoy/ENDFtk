@@ -142,7 +142,13 @@ void verifyChunk( const MadlandNixSpectrum& chunk ) {
   CHECK_THAT( 5.467297e+5, WithinRel( chunk.heavyFragmentEnergy() ) );
 
   CHECK( 4 == chunk.NP() );
+  CHECK( 4 == chunk.numberPoints() );
   CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.numberInterpolationRegions() );
+  CHECK( 1 == chunk.INT().size() );
+  CHECK( 1 == chunk.NBT().size() );
+  CHECK( 5 == chunk.INT()[0] );
+  CHECK( 4 == chunk.NBT()[0] );
   CHECK( 1 == chunk.interpolants().size() );
   CHECK( 1 == chunk.boundaries().size() );
   CHECK( 5 == chunk.interpolants()[0] );

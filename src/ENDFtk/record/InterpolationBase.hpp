@@ -68,17 +68,24 @@ namespace record {
   #undef DEFINE_GETTER
 
     long NR() const { return this->boundaryIndices.size(); }
+
+    long numberInterpolationRegions() const { return this->NR(); }
+
     long N2() const { return this->boundaryIndices.back(); }
 
-    auto interpolants() const {
+    auto INT() const {
 
       return ranges::cpp20::views::all( this->interpolationSchemeIndices );
     }
 
-    auto boundaries() const {
+    auto interpolants() const { return this->INT(); }
+
+    auto NBT() const {
 
       return ranges::cpp20::views::all( this->boundaryIndices );
     }
+
+    auto boundaries() const { return this->NBT(); }
 
     bool operator==( const InterpolationBase& rhs ) const {
       return ( this->C1() == rhs.C1() )

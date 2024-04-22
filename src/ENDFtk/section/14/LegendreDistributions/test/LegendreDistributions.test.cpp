@@ -178,7 +178,13 @@ void verifyChunk( const LegendreDistributions& chunk ) {
   CHECK_THAT( 2., WithinRel( chunk.levelEnergy() ) );
 
   CHECK( 2 == chunk.NE() );
+  CHECK( 2 == chunk.numberIncidentEnergies() );
   CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.numberInterpolationRegions() );
+  CHECK( 1 == chunk.INT().size() );
+  CHECK( 1 == chunk.NBT().size() );
+  CHECK( 1 == chunk.INT()[0] );
+  CHECK( 2 == chunk.NBT()[0] );
   CHECK( 1 == chunk.interpolants().size() );
   CHECK( 1 == chunk.boundaries().size() );
   CHECK( 1 == chunk.interpolants()[0] );

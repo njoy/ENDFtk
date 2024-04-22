@@ -65,8 +65,12 @@ public:
   int LAW() const { return this->LTT(); }
 
   using AngularDistributions< TabulatedDistribution >::NR;
+  using AngularDistributions< TabulatedDistribution >::numberInterpolationRegions;
   using AngularDistributions< TabulatedDistribution >::NE;
+  using AngularDistributions< TabulatedDistribution >::numberIncidentEnergies;
+  using AngularDistributions< TabulatedDistribution >::INT;
   using AngularDistributions< TabulatedDistribution >::interpolants;
+  using AngularDistributions< TabulatedDistribution >::NBT;
   using AngularDistributions< TabulatedDistribution >::boundaries;
   using AngularDistributions< TabulatedDistribution >::incidentEnergies;
   using AngularDistributions< TabulatedDistribution >::angularDistributions;

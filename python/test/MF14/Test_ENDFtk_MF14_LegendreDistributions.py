@@ -43,8 +43,8 @@ class Test_ENDFtk_MF14_LegendreDistributions( unittest.TestCase ) :
             self.assertEqual( 1, chunk.NR )
             self.assertEqual( 1, len( chunk.interpolants ) )
             self.assertEqual( 1, len( chunk.boundaries ) )
-            self.assertEqual( 1, chunk.interpolants[0] );
-            self.assertEqual( 2, chunk.boundaries[0] );
+            self.assertEqual( 1, chunk.interpolants[0] )
+            self.assertEqual( 2, chunk.boundaries[0] )
 
             self.assertEqual( 2, len( chunk.incident_energies ) )
             self.assertEqual( 2, len( chunk.angular_distributions ) )
@@ -54,7 +54,7 @@ class Test_ENDFtk_MF14_LegendreDistributions( unittest.TestCase ) :
 
             distributions = chunk.angular_distributions
 
-            d = distributions[0];
+            d = distributions[0]
             self.assertAlmostEqual( 1e-5, d.E )
             self.assertAlmostEqual( 1e-5, d.incident_energy )
             self.assertEqual( 3, d.NL )
@@ -64,7 +64,7 @@ class Test_ENDFtk_MF14_LegendreDistributions( unittest.TestCase ) :
             self.assertAlmostEqual( 8.477139e-9, d.coefficients[1] )
             self.assertAlmostEqual( 1.17106e-13, d.coefficients[2] )
 
-            d = distributions[1];
+            d = distributions[1]
             self.assertAlmostEqual( 2e+7, d.E )
             self.assertAlmostEqual( 2e+7, d.incident_energy )
             self.assertEqual( 2, d.NL )

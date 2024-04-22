@@ -35,12 +35,15 @@ public:
   auto radii() const { return this->AP(); }
 
   using TabulationRecord::NP;
+  using TabulationRecord::numberPoints;
   using TabulationRecord::NR;
+  using TabulationRecord::numberInterpolationRegions;
+  using TabulationRecord::INT;
   using TabulationRecord::interpolants;
+  using TabulationRecord::NBT;
   using TabulationRecord::boundaries;
   using TabulationRecord::x;
   using TabulationRecord::y;
-  using TabulationRecord::regions;
   using TabulationRecord::NC;
   using TabulationRecord::print;
 };

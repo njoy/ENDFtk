@@ -123,7 +123,13 @@ std::string chunk() {
 void verifyChunk( const TotalCrossSection& chunk ) {
 
   CHECK( 2 == chunk.NP() );
+  CHECK( 2 == chunk.numberPoints() );
   CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.numberInterpolationRegions() );
+  CHECK( 1 == chunk.INT().size() );
+  CHECK( 1 == chunk.NBT().size() );
+  CHECK( 5 == chunk.INT()[0] );
+  CHECK( 2 == chunk.NBT()[0] );
   CHECK( 1 == chunk.interpolants().size() );
   CHECK( 1 == chunk.boundaries().size() );
   CHECK( 5 == chunk.interpolants()[0] );

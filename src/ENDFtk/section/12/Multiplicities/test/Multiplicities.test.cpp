@@ -177,7 +177,13 @@ void verifyChunkWithOnePartial( const Multiplicities& chunk ) {
   CHECK( 1 == partial.LF() );
   CHECK( 1 == partial.LAW() );
   CHECK( 2 == partial.NP() );
+  CHECK( 2 == partial.numberPoints() );
   CHECK( 1 == partial.NR() );
+  CHECK( 1 == partial.numberInterpolationRegions() );
+  CHECK( 1 == partial.INT().size() );
+  CHECK( 1 == partial.NBT().size() );
+  CHECK( 2 == partial.INT()[0] );
+  CHECK( 2 == partial.NBT()[0] );
   CHECK( 1 == partial.interpolants().size() );
   CHECK( 1 == partial.boundaries().size() );
   CHECK( 2 == partial.interpolants()[0] );
@@ -216,7 +222,13 @@ void verifyChunkWithMultiplePartials( const Multiplicities& chunk ) {
 
   auto total = chunk.totalMultiplicity().value();
   CHECK( 2 == total.NP() );
+  CHECK( 2 == total.numberPoints() );
   CHECK( 1 == total.NR() );
+  CHECK( 1 == total.numberInterpolationRegions() );
+  CHECK( 1 == total.INT().size() );
+  CHECK( 1 == total.NBT().size() );
+  CHECK( 2 == total.INT()[0] );
+  CHECK( 2 == total.NBT()[0] );
   CHECK( 1 == total.interpolants().size() );
   CHECK( 1 == total.boundaries().size() );
   CHECK( 2 == total.interpolants()[0] );
@@ -238,7 +250,13 @@ void verifyChunkWithMultiplePartials( const Multiplicities& chunk ) {
   CHECK( 1 == partial.LF() );
   CHECK( 1 == partial.LAW() );
   CHECK( 2 == partial.NP() );
+  CHECK( 2 == partial.numberPoints() );
   CHECK( 1 == partial.NR() );
+  CHECK( 1 == partial.numberInterpolationRegions() );
+  CHECK( 1 == partial.INT().size() );
+  CHECK( 1 == partial.NBT().size() );
+  CHECK( 2 == partial.INT()[0] );
+  CHECK( 2 == partial.NBT()[0] );
   CHECK( 1 == partial.interpolants().size() );
   CHECK( 1 == partial.boundaries().size() );
   CHECK( 2 == partial.interpolants()[0] );
@@ -260,7 +278,13 @@ void verifyChunkWithMultiplePartials( const Multiplicities& chunk ) {
   CHECK( 1 == partial.LF() );
   CHECK( 1 == partial.LAW() );
   CHECK( 2 == partial.NP() );
+  CHECK( 2 == partial.numberPoints() );
   CHECK( 1 == partial.NR() );
+  CHECK( 1 == partial.numberInterpolationRegions() );
+  CHECK( 1 == partial.INT().size() );
+  CHECK( 1 == partial.NBT().size() );
+  CHECK( 2 == partial.INT()[0] );
+  CHECK( 2 == partial.NBT()[0] );
   CHECK( 1 == partial.interpolants().size() );
   CHECK( 1 == partial.boundaries().size() );
   CHECK( 2 == partial.interpolants()[0] );

@@ -123,22 +123,22 @@ class Test_ENDFtk_MF2_MT151_RMatrixLimited( unittest.TestCase ) :
             self.assertAlmostEqual( 1., pairs.parity_particle_B[1] )
             self.assertAlmostEqual( 0., pairs.Q[0] )
             self.assertAlmostEqual( 0., pairs.Q[1] )
-            self.assertEqual( 0, pairs.PNT[0] );
-            self.assertEqual( 1, pairs.PNT[1] );
-            self.assertEqual( 0, pairs.penetrability_flag[0] );
-            self.assertEqual( 1, pairs.penetrability_flag[1] );
-            self.assertEqual( 0, pairs.SHF[0] );
-            self.assertEqual( 0, pairs.SHF[1] );
-            self.assertEqual( 0, pairs.shift_factor_flag[0] );
-            self.assertEqual( 0, pairs.shift_factor_flag[1] );
-            self.assertEqual( 102, pairs.MT[0] );
-            self.assertEqual( 2, pairs.MT[1] );
+            self.assertEqual( 0, pairs.PNT[0] )
+            self.assertEqual( 1, pairs.PNT[1] )
+            self.assertEqual( 0, pairs.penetrability_flag[0] )
+            self.assertEqual( 1, pairs.penetrability_flag[1] )
+            self.assertEqual( 0, pairs.SHF[0] )
+            self.assertEqual( 0, pairs.SHF[1] )
+            self.assertEqual( 0, pairs.shift_factor_flag[0] )
+            self.assertEqual( 0, pairs.shift_factor_flag[1] )
+            self.assertEqual( 102, pairs.MT[0] )
+            self.assertEqual( 2, pairs.MT[1] )
 
             self.assertEqual( 2, chunk.NJS )
             self.assertEqual( 2, chunk.number_spin_groups )
             self.assertEqual( 2, len( chunk.spin_groups ) )
 
-            group1 = chunk.spin_groups[0];
+            group1 = chunk.spin_groups[0]
             self.assertAlmostEqual( 0.5, group1.AJ )
             self.assertAlmostEqual( 0.5, group1.spin )
             self.assertAlmostEqual( 0., group1.PJ )
@@ -173,14 +173,14 @@ class Test_ENDFtk_MF2_MT151_RMatrixLimited( unittest.TestCase ) :
             self.assertEqual( 2, len( channels1.APE ) )
             self.assertEqual( 2, len( channels1.effective_channel_radii ) )
 
-            self.assertEqual( 1, channels1.PPI[0] );
-            self.assertEqual( 2, channels1.PPI[1] );
-            self.assertEqual( 1, channels1.particle_pair_numbers[0] );
-            self.assertEqual( 2, channels1.particle_pair_numbers[1] );
-            self.assertEqual( 0, channels1.L[0] );
-            self.assertEqual( 0, channels1.L[1] );
-            self.assertEqual( 0., channels1.orbital_momentum_values[0] );
-            self.assertEqual( 0., channels1.orbital_momentum_values[1] );
+            self.assertEqual( 1, channels1.PPI[0] )
+            self.assertEqual( 2, channels1.PPI[1] )
+            self.assertEqual( 1, channels1.particle_pair_numbers[0] )
+            self.assertEqual( 2, channels1.particle_pair_numbers[1] )
+            self.assertEqual( 0, channels1.L[0] )
+            self.assertEqual( 0, channels1.L[1] )
+            self.assertEqual( 0., channels1.orbital_momentum_values[0] )
+            self.assertEqual( 0., channels1.orbital_momentum_values[1] )
             self.assertAlmostEqual( 0., channels1.SCH[0] )
             self.assertAlmostEqual( .5, channels1.SCH[1] )
             self.assertAlmostEqual( 0., channels1.channel_spin_values[0] )
@@ -238,7 +238,7 @@ class Test_ENDFtk_MF2_MT151_RMatrixLimited( unittest.TestCase ) :
             self.assertAlmostEqual( 0., parameters1.resonance_parameters[1][3] )
             self.assertAlmostEqual( 0., parameters1.resonance_parameters[1][4] )
 
-            group2 = chunk.spin_groups[1];
+            group2 = chunk.spin_groups[1]
             self.assertAlmostEqual( -0.5, group2.AJ )
             self.assertAlmostEqual( -0.5, group2.spin )
             self.assertAlmostEqual( 0., group2.PJ )
@@ -273,14 +273,14 @@ class Test_ENDFtk_MF2_MT151_RMatrixLimited( unittest.TestCase ) :
             self.assertEqual( 2, len( channels2.APE ) )
             self.assertEqual( 2, len( channels2.effective_channel_radii ) )
 
-            self.assertEqual( 1, channels2.PPI[0] );
-            self.assertEqual( 2, channels2.PPI[1] );
-            self.assertEqual( 1, channels2.particle_pair_numbers[0] );
-            self.assertEqual( 2, channels2.particle_pair_numbers[1] );
-            self.assertEqual( 0, channels2.L[0] );
-            self.assertEqual( 1, channels2.L[1] );
-            self.assertEqual( 0, channels2.orbital_momentum_values[0] );
-            self.assertEqual( 1, channels2.orbital_momentum_values[1] );
+            self.assertEqual( 1, channels2.PPI[0] )
+            self.assertEqual( 2, channels2.PPI[1] )
+            self.assertEqual( 1, channels2.particle_pair_numbers[0] )
+            self.assertEqual( 2, channels2.particle_pair_numbers[1] )
+            self.assertEqual( 0, channels2.L[0] )
+            self.assertEqual( 1, channels2.L[1] )
+            self.assertEqual( 0, channels2.orbital_momentum_values[0] )
+            self.assertEqual( 1, channels2.orbital_momentum_values[1] )
             self.assertAlmostEqual( 0., channels2.SCH[0] )
             self.assertAlmostEqual( .5, channels2.SCH[1] )
             self.assertAlmostEqual( 0., channels2.channel_spin_values[0] )
