@@ -33,7 +33,7 @@ cmake_dependent_option(
 cmake_dependent_option(
   ENDFtk.python
   "Build ENDFtk python bindings" ON
-  "NOT ${subproject}" OFF
+  "NOT ${subproject} OR DEFINED requires.ENDFtk.python " OFF
 )
 
 ########################################################################
@@ -334,7 +334,9 @@ if( ENDFtk.python )
 
   list( APPEND ENDFtk_PYTHONPATH ${CMAKE_CURRENT_BINARY_DIR} )
 
-  include( cmake/unit_testing_python.cmake )
+  if( ENDFtk.tests )
+    include( cmake/unit_testing_python.cmake )
+  endif()
 
 endif()
 
