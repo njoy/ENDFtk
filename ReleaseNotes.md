@@ -1,7 +1,7 @@
 # Release Notes&mdash;ENDFtk
 Given here are some release notes for ENDFtk.
 
-## [ENDFtk v1.0.2](https://github.com/njoy/ENDFtk/pull/198)
+## [ENDFtk v1.1.0](https://github.com/njoy/ENDFtk/pull/198)
 This update adds additional interface functions to complete the human readable and ENDF speak interface for many objects:
   - the NBT() and INT() interface functions to complement the boundaries() and interpolants() functions already present in TAB1 and TAB2 style components
   - the numberInterpolationRegions() functions to complement the NR() function already present in TAB1 and TAB2 style components.
