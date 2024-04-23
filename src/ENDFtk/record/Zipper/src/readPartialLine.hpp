@@ -6,14 +6,16 @@ readPartialLine
   long& lineNumber, int MAT, int MF, int MT,
   std::index_sequence< indices... > ){
 
+  using namespace njoy::tools;
+
 //auto increment = []( uint64_t offset, auto& iterator ){ iterator+= offset; };
-  
+
   for ( uint64_t offset = 0; offset < nEntries; ++offset ){
     Zip::TupleFormat::read
       ( it, end, std::get< indices >( iteratorTuple )[offset]... );
   }
-  
-  auto remainingEntries = Zip::tuplesPerRecord - nEntries;    
+
+  auto remainingEntries = Zip::tuplesPerRecord - nEntries;
   std::tuple< typename Zip:: template Type< indices >... > leftovers;
 
   while ( remainingEntries-- ){
@@ -23,12 +25,11 @@ readPartialLine
       throw std::exception();
     }
   }
-  
+
   using Gap = disco::Record
-              < disco::ColumnPosition< Zip::nPad >, disco::RetainCarriage >;
+              < disco::Column< Zip::nPad >, disco::RetainCarriage >;
 
   Gap::read( it, end );
 
   verifyTail( it, end, lineNumber, MAT, MF, MT );
 }
-

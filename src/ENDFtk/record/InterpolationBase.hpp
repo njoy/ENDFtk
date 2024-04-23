@@ -5,6 +5,10 @@
 #include <vector>
 
 // other includes
+#include "tools/disco/Integer.hpp"
+#include "tools/disco/ENDF.hpp"
+#include "tools/disco/Column.hpp"
+#include "tools/disco/Record.hpp"
 #include "range/v3/view/all.hpp"
 #include "ENDFtk/record/Base.hpp"
 #include "ENDFtk/record/Integer.hpp"

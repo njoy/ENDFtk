@@ -4,7 +4,7 @@
 // system includes
 
 // other includes
-#include "disco.hpp"
+#include "tools/disco/Integer.hpp"
 
 namespace njoy {
 namespace ENDFtk {
@@ -14,7 +14,7 @@ namespace record {
   struct Integer{
     static constexpr std::size_t width = w;
     using Type = long;
-    using Parser = disco::Integer< width >;
+    using Parser = njoy::tools::disco::Integer< width >;
 
     static constexpr Type defaultValue = 0;
   };

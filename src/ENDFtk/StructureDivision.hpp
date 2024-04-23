@@ -144,6 +144,7 @@ namespace ENDFtk {
     template< typename OutputIterator >
     void print( OutputIterator& it ) const {
 
+      using namespace njoy::tools;
       if ( this->isHead() ) {
 
         using Format = disco::Record< disco::ENDF, disco::ENDF,
@@ -151,7 +152,7 @@ namespace ENDFtk {
                                       disco::Integer< 11 >, disco::Integer< 11 >,
                                       disco::Integer< 4 >, disco::Integer< 2>,
                                       disco::Integer< 3 >,
-                                      disco::ColumnPosition<5> >;
+                                      disco::Column<5> >;
         Format::write( it, std::get< 0 >( this->base.fields ),
                            std::get< 1 >( this->base.fields ),
                            std::get< 2 >( this->base.fields ),
@@ -165,7 +166,7 @@ namespace ENDFtk {
         using Format = disco::Record< disco::Integer< 70 >,
                                       disco::Integer< 2 >,
                                       disco::Integer< 3 >,
-                                      disco::ColumnPosition<5> >;
+                                      disco::Column<5> >;
         Format::write( it, this->tail.MAT(), this->tail.MF(), this->tail.MT() );
       }
     }
