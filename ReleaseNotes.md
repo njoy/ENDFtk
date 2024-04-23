@@ -1,6 +1,14 @@
 # Release Notes&mdash;ENDFtk
 Given here are some release notes for ENDFtk.
 
+## [ENDFtk v1.0.2](https://github.com/njoy/ENDFtk/pull/198)
+This update adds additional interface functions to complete the human readable and ENDF speak interface for many objects:
+  - the NBT() and INT() interface functions to complement the boundaries() and interpolants() functions already present in TAB1 and TAB2 style components
+  - the numberInterpolationRegions() functions to complement the NR() function already present in TAB1 and TAB2 style components.
+
+This update fixes the following issues:
+  - Older versions of ENDFtk sometimes read numbers like '2.0000000+0' as 1.999999999 instead of 2. The disco library was replaced with a new version included in the tools library that fixes this issue. In addition to fixing this issue, parsing ENDF files is now 10-20% faster.
+
 ## [ENDFtk v1.0.1](https://github.com/njoy/ENDFtk/pull/195)
 This update does not add any additional functionality.
 
