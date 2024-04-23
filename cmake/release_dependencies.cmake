@@ -33,7 +33,7 @@ set( SPDLOG_BUILD_PIC CACHE INTERNAL BOOL ON )
 
 FetchContent_Declare( tools
     GIT_REPOSITORY  https://github.com/njoy/tools
-    GIT_TAG         8db01f66cd75a4ae61289fec7d6a58b562fb7913
+    GIT_TAG         14596b303de7413167f4f4c030e2923cabd3f2a3
     )
 
 #######################################################################
