@@ -7,7 +7,7 @@ include( FetchContent )
 
 FetchContent_Declare( tools
     GIT_REPOSITORY  https://github.com/njoy/tools
-    GIT_TAG         feature/python-views
+    GIT_TAG         v0.3.0
     GIT_SHALLOW     TRUE
     )
 
