@@ -33,7 +33,7 @@ cmake_dependent_option(
 cmake_dependent_option(
   ENDFtk.python
   "Build ENDFtk python bindings" ON
-  "NOT ${subproject} OR DEFINED requires.ENDFtk.python " OFF
+  "NOT ${subproject} OR DEFINED require.ENDFtk.python " OFF
 )
 
 ########################################################################
