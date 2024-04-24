@@ -24,6 +24,7 @@ class Test_ENDFtk_ListRecord( unittest.TestCase ) :
             self.assertEqual( chunk.N2, 103 )
 
             self.assertEqual( chunk.NPL, 10 )
+            self.assertEqual( chunk.number_values, 10 )
             self.assertEqual( len( chunk.list ), 10 )
 
             self.assertEqual( 0., chunk.list[0] )

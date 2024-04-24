@@ -112,7 +112,13 @@ void verifyChunk( const WattSpectrum& chunk ) {
 
   auto valueA = chunk.a();
   CHECK( 3 == valueA.NP() );
+  CHECK( 3 == valueA.numberPoints() );
   CHECK( 1 == valueA.NR() );
+  CHECK( 1 == valueA.numberInterpolationRegions() );
+  CHECK( 1 == valueA.INT().size() );
+  CHECK( 1 == valueA.NBT().size() );
+  CHECK( 2 == valueA.INT()[0] );
+  CHECK( 3 == valueA.NBT()[0] );
   CHECK( 1 == valueA.interpolants().size() );
   CHECK( 1 == valueA.boundaries().size() );
   CHECK( 2 == valueA.interpolants()[0] );
@@ -128,7 +134,13 @@ void verifyChunk( const WattSpectrum& chunk ) {
 
   auto valueB = chunk.b();
   CHECK( 5 == valueB.NP() );
+  CHECK( 5 == valueB.numberPoints() );
   CHECK( 1 == valueB.NR() );
+  CHECK( 1 == valueB.numberInterpolationRegions() );
+  CHECK( 1 == valueB.INT().size() );
+  CHECK( 1 == valueB.NBT().size() );
+  CHECK( 2 == valueB.INT()[0] );
+  CHECK( 5 == valueB.NBT()[0] );
   CHECK( 1 == valueB.interpolants().size() );
   CHECK( 1 == valueB.boundaries().size() );
   CHECK( 2 == valueB.interpolants()[0] );

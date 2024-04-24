@@ -4,7 +4,7 @@
  *
  *  See ENDF102, section 2.2.1.6 for more information.
  */
-class ENDFTK_PYTHON_EXPORT TabulatedBackgroundRMatrix : 
+class ENDFTK_PYTHON_EXPORT TabulatedBackgroundRMatrix :
   protected BaseBackgroundRMatrix< TabulatedBackgroundRMatrix > {
 
   friend BaseBackgroundRMatrix< TabulatedBackgroundRMatrix >;
@@ -40,19 +40,39 @@ public:
   unsigned int NP() const { return this->real_.NP(); }
 
   /**
-   *  @brief Return the number of interpolation ranges
+   *  @brief Return the number of energy points.
+   */
+  unsigned int numberPoints() const { return this->NP(); }
+
+  /**
+   *  @brief Return the number of interpolation regions
    */
   unsigned int NR() const { return this->real_.NR(); }
 
   /**
+   *  @brief Return the number of interpolation regions
+   */
+  unsigned int numberInterpolationRegions() const { return this->NR(); }
+
+  /**
    *  @brief Return the interpolants
    */
-  auto interpolants() const { return this->real_.interpolants(); }
+  auto INT() const { return this->real_.interpolants(); }
+
+  /**
+   *  @brief Return the interpolants
+   */
+  auto interpolants() const { return this->INT(); }
 
   /**
    *  @brief Return the interpolation range boundaries.
    */
-  auto boundaries() const { return this->real_.boundaries(); }
+  auto NBT() const { return this->real_.boundaries(); }
+
+  /**
+   *  @brief Return the interpolation boundaries.
+   */
+  auto boundaries() const { return this->NBT(); }
 
   /**
    *  @brief Return the energy values

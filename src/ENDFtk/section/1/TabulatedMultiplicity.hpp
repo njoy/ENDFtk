@@ -61,6 +61,10 @@ namespace section{
 
     using TabulationRecord::NP;
     using TabulationRecord::NR;
+    using TabulationRecord::numberPoints;
+    using TabulationRecord::numberInterpolationRegions;
+    using TabulationRecord::INT;
+    using TabulationRecord::NBT;
     using TabulationRecord::interpolants;
     using TabulationRecord::boundaries;
     using TabulationRecord::NC;

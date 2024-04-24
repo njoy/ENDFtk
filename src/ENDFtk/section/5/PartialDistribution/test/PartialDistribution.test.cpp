@@ -449,7 +449,13 @@ void verifyChunkLF1( const PartialDistribution& chunk ) {
   CHECK( 1 == p.LAW() );
 
   CHECK( 2 == p.NP() );
+  CHECK( 2 == p.numberPoints() );
   CHECK( 1 == p.NR() );
+  CHECK( 1 == p.numberInterpolationRegions() );
+  CHECK( 1 == p.INT().size() );
+  CHECK( 1 == p.NBT().size() );
+  CHECK( 2 == p.INT()[0] );
+  CHECK( 2 == p.NBT()[0] );
   CHECK( 1 == p.interpolants().size() );
   CHECK( 1 == p.boundaries().size() );
   CHECK( 2 == p.interpolants()[0] );
@@ -471,7 +477,13 @@ void verifyChunkLF1( const PartialDistribution& chunk ) {
        std::get< TabulatedSpectrum >( chunk.distribution() );
 
   CHECK( 1 == d.NR() );
+  CHECK( 1 == d.numberInterpolationRegions() );
   CHECK( 2 == d.NE() );
+  CHECK( 2 == d.numberIncidentEnergies() );
+  CHECK( 1 == d.NBT().size() );
+  CHECK( 2 == d.NBT()[0] );
+  CHECK( 1 == d.INT().size() );
+  CHECK( 4 == d.INT()[0] );
   CHECK( 1 == d.boundaries().size() );
   CHECK( 2 == d.boundaries()[0] );
   CHECK( 1 == d.interpolants().size() );
@@ -484,7 +496,13 @@ void verifyChunkLF1( const PartialDistribution& chunk ) {
   auto value = d.outgoingDistributions()[0];
   CHECK_THAT( 1e-5, WithinRel( value.incidentEnergy() ) );
   CHECK( 3 == value.NP() );
+  CHECK( 3 == value.numberPoints() );
   CHECK( 1 == value.NR() );
+  CHECK( 1 == value.numberInterpolationRegions() );
+  CHECK( 1 == value.INT().size() );
+  CHECK( 1 == value.NBT().size() );
+  CHECK( 2 == value.INT()[0] );
+  CHECK( 3 == value.NBT()[0] );
   CHECK( 1 == value.interpolants().size() );
   CHECK( 1 == value.boundaries().size() );
   CHECK( 2 == value.interpolants()[0] );
@@ -509,7 +527,13 @@ void verifyChunkLF1( const PartialDistribution& chunk ) {
   value = d.outgoingDistributions()[1];
   CHECK_THAT( 3e+7, WithinRel( value.incidentEnergy() ) );
   CHECK( 4 == value.NP() );
+  CHECK( 4 == value.numberPoints() );
   CHECK( 1 == value.NR() );
+  CHECK( 1 == value.numberInterpolationRegions() );
+  CHECK( 1 == value.INT().size() );
+  CHECK( 1 == value.NBT().size() );
+  CHECK( 2 == value.INT()[0] );
+  CHECK( 4 == value.NBT()[0] );
   CHECK( 1 == value.interpolants().size() );
   CHECK( 1 == value.boundaries().size() );
   CHECK( 2 == value.interpolants()[0] );
@@ -563,7 +587,13 @@ void verifyChunkLF5( const PartialDistribution& chunk ) {
   CHECK( 5 == p.LAW() );
 
   CHECK( 2 == p.NP() );
+  CHECK( 2 == p.numberPoints() );
   CHECK( 1 == p.NR() );
+  CHECK( 1 == p.numberInterpolationRegions() );
+  CHECK( 1 == p.INT().size() );
+  CHECK( 1 == p.NBT().size() );
+  CHECK( 2 == p.INT()[0] );
+  CHECK( 2 == p.NBT()[0] );
   CHECK( 1 == p.interpolants().size() );
   CHECK( 1 == p.boundaries().size() );
   CHECK( 2 == p.interpolants()[0] );
@@ -590,7 +620,13 @@ void verifyChunkLF5( const PartialDistribution& chunk ) {
 
   auto t = d.effectiveTemperature();
   CHECK( 2 == t.NP() );
+  CHECK( 2 == t.numberPoints() );
   CHECK( 1 == t.NR() );
+  CHECK( 1 == t.numberInterpolationRegions() );
+  CHECK( 1 == t.INT().size() );
+  CHECK( 1 == t.NBT().size() );
+  CHECK( 2 == t.INT()[0] );
+  CHECK( 2 == t.NBT()[0] );
   CHECK( 1 == t.interpolants().size() );
   CHECK( 1 == t.boundaries().size() );
   CHECK( 2 == t.interpolants()[0] );
@@ -607,7 +643,13 @@ void verifyChunkLF5( const PartialDistribution& chunk ) {
 
   auto df = d.distributionFunction();
   CHECK( 6 == df.NP() );
+  CHECK( 6 == df.numberPoints() );
   CHECK( 1 == df.NR() );
+  CHECK( 1 == df.numberInterpolationRegions() );
+  CHECK( 1 == df.INT().size() );
+  CHECK( 1 == df.NBT().size() );
+  CHECK( 1 == df.INT()[0] );
+  CHECK( 6 == df.NBT()[0] );
   CHECK( 1 == df.interpolants().size() );
   CHECK( 1 == df.boundaries().size() );
   CHECK( 1 == df.interpolants()[0] );
@@ -651,7 +693,13 @@ void verifyChunkLF7( const PartialDistribution& chunk ) {
   CHECK( 7 == p.LAW() );
 
   CHECK( 2 == p.NP() );
+  CHECK( 2 == p.numberPoints() );
   CHECK( 1 == p.NR() );
+  CHECK( 1 == p.numberInterpolationRegions() );
+  CHECK( 1 == p.INT().size() );
+  CHECK( 1 == p.NBT().size() );
+  CHECK( 2 == p.INT()[0] );
+  CHECK( 2 == p.NBT()[0] );
   CHECK( 1 == p.interpolants().size() );
   CHECK( 1 == p.boundaries().size() );
   CHECK( 2 == p.interpolants()[0] );
@@ -674,7 +722,13 @@ void verifyChunkLF7( const PartialDistribution& chunk ) {
   CHECK( 7 == d.LF() );
   CHECK( 7 == d.LAW() );
   CHECK( 3 == d.NP() );
+  CHECK( 3 == d.numberPoints() );
   CHECK( 1 == d.NR() );
+  CHECK( 1 == d.numberInterpolationRegions() );
+  CHECK( 1 == d.INT().size() );
+  CHECK( 1 == d.NBT().size() );
+  CHECK( 2 == d.INT()[0] );
+  CHECK( 3 == d.NBT()[0] );
   CHECK( 1 == d.interpolants().size() );
   CHECK( 1 == d.boundaries().size() );
   CHECK( 2 == d.interpolants()[0] );
@@ -717,7 +771,13 @@ void verifyChunkLF9( const PartialDistribution& chunk ) {
   CHECK( 9 == p.LAW() );
 
   CHECK( 2 == p.NP() );
+  CHECK( 2 == p.numberPoints() );
   CHECK( 1 == p.NR() );
+  CHECK( 1 == p.numberInterpolationRegions() );
+  CHECK( 1 == p.INT().size() );
+  CHECK( 1 == p.NBT().size() );
+  CHECK( 2 == p.INT()[0] );
+  CHECK( 2 == p.NBT()[0] );
   CHECK( 1 == p.interpolants().size() );
   CHECK( 1 == p.boundaries().size() );
   CHECK( 2 == p.interpolants()[0] );
@@ -739,7 +799,13 @@ void verifyChunkLF9( const PartialDistribution& chunk ) {
   CHECK( 9 == d.LF() );
   CHECK( 9 == d.LAW() );
   CHECK( 4 == d.NP() );
+  CHECK( 4 == d.numberPoints() );
   CHECK( 1 == d.NR() );
+  CHECK( 1 == d.numberInterpolationRegions() );
+  CHECK( 1 == d.INT().size() );
+  CHECK( 1 == d.NBT().size() );
+  CHECK( 2 == d.INT()[0] );
+  CHECK( 4 == d.NBT()[0] );
   CHECK( 1 == d.interpolants().size() );
   CHECK( 1 == d.boundaries().size() );
   CHECK( 2 == d.interpolants()[0] );
@@ -788,7 +854,13 @@ void verifyChunkLF11( const PartialDistribution& chunk ) {
   CHECK( 11 == p.LAW() );
 
   CHECK( 2 == p.NP() );
+  CHECK( 2 == p.numberPoints() );
   CHECK( 1 == p.NR() );
+  CHECK( 1 == p.numberInterpolationRegions() );
+  CHECK( 1 == p.INT().size() );
+  CHECK( 1 == p.NBT().size() );
+  CHECK( 2 == p.INT()[0] );
+  CHECK( 2 == p.NBT()[0] );
   CHECK( 1 == p.interpolants().size() );
   CHECK( 1 == p.boundaries().size() );
   CHECK( 2 == p.interpolants()[0] );
@@ -812,7 +884,13 @@ void verifyChunkLF11( const PartialDistribution& chunk ) {
   CHECK( 11 == d.LAW() );
 
   CHECK( 3 == d.a().NP() );
+  CHECK( 3 == d.a().numberPoints() );
   CHECK( 1 == d.a().NR() );
+  CHECK( 1 == d.a().numberInterpolationRegions() );
+  CHECK( 1 == d.a().INT().size() );
+  CHECK( 1 == d.a().NBT().size() );
+  CHECK( 2 == d.a().INT()[0] );
+  CHECK( 3 == d.a().NBT()[0] );
   CHECK( 1 == d.a().interpolants().size() );
   CHECK( 1 == d.a().boundaries().size() );
   CHECK( 2 == d.a().interpolants()[0] );
@@ -827,7 +905,13 @@ void verifyChunkLF11( const PartialDistribution& chunk ) {
   CHECK_THAT( 3e+7, WithinRel( d.a().energies()[2] ) );
 
   CHECK( 5 == d.b().NP() );
+  CHECK( 5 == d.b().numberPoints() );
   CHECK( 1 == d.b().NR() );
+  CHECK( 1 == d.b().numberInterpolationRegions() );
+  CHECK( 1 == d.b().INT().size() );
+  CHECK( 1 == d.b().NBT().size() );
+  CHECK( 2 == d.b().INT()[0] );
+  CHECK( 5 == d.b().NBT()[0] );
   CHECK( 1 == d.b().interpolants().size() );
   CHECK( 1 == d.b().boundaries().size() );
   CHECK( 2 == d.b().interpolants()[0] );
@@ -870,7 +954,13 @@ void verifyChunkLF12( const PartialDistribution& chunk ) {
   CHECK( 12 == p.LAW() );
 
   CHECK( 2 == p.NP() );
+  CHECK( 2 == p.numberPoints() );
   CHECK( 1 == p.NR() );
+  CHECK( 1 == p.numberInterpolationRegions() );
+  CHECK( 1 == p.INT().size() );
+  CHECK( 1 == p.NBT().size() );
+  CHECK( 2 == p.INT()[0] );
+  CHECK( 2 == p.NBT()[0] );
   CHECK( 1 == p.interpolants().size() );
   CHECK( 1 == p.boundaries().size() );
   CHECK( 2 == p.interpolants()[0] );
@@ -899,7 +989,13 @@ void verifyChunkLF12( const PartialDistribution& chunk ) {
   CHECK_THAT( 5.467297e+5, WithinRel( d.heavyFragmentEnergy() ) );
 
   CHECK( 4 == d.NP() );
+  CHECK( 4 == d.numberPoints() );
   CHECK( 1 == d.NR() );
+  CHECK( 1 == d.numberInterpolationRegions() );
+  CHECK( 1 == d.INT().size() );
+  CHECK( 1 == d.NBT().size() );
+  CHECK( 5 == d.INT()[0] );
+  CHECK( 4 == d.NBT()[0] );
   CHECK( 1 == d.interpolants().size() );
   CHECK( 1 == d.boundaries().size() );
   CHECK( 5 == d.interpolants()[0] );

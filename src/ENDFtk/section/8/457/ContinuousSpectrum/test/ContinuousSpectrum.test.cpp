@@ -130,7 +130,13 @@ void verifyChunk( const ContinuousSpectrum& chunk )
   CHECK( 4. == chunk.RTYP() );
   CHECK( 4. == chunk.decayChain() );
   CHECK( 3 == chunk.NP() );
+  CHECK( 3 == chunk.numberPoints() );
   CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.numberInterpolationRegions() );
+  CHECK( 1 == chunk.INT().size() );
+  CHECK( 1 == chunk.NBT().size() );
+  CHECK( 1 == chunk.INT()[0] );
+  CHECK( 3 == chunk.NBT()[0] );
   CHECK( 1 == chunk.interpolants().size() );
   CHECK( 1 == chunk.boundaries().size() );
   CHECK( 1 == chunk.interpolants()[0] );

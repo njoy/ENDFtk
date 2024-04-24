@@ -120,7 +120,13 @@ void verifyChunk( const GeneralEvaporationSpectrum& chunk ) {
 
   const auto& t = chunk.effectiveTemperature();
   CHECK( 2 == t.NP() );
+  CHECK( 2 == t.numberPoints() );
   CHECK( 1 == t.NR() );
+  CHECK( 1 == t.numberInterpolationRegions() );
+  CHECK( 1 == t.INT().size() );
+  CHECK( 1 == t.NBT().size() );
+  CHECK( 2 == t.INT()[0] );
+  CHECK( 2 == t.NBT()[0] );
   CHECK( 1 == t.interpolants().size() );
   CHECK( 1 == t.boundaries().size() );
   CHECK( 2 == t.interpolants()[0] );
@@ -137,7 +143,13 @@ void verifyChunk( const GeneralEvaporationSpectrum& chunk ) {
 
   const auto& df = chunk.distributionFunction();
   CHECK( 6 == df.NP() );
+  CHECK( 6 == df.numberPoints() );
   CHECK( 1 == df.NR() );
+  CHECK( 1 == df.numberInterpolationRegions() );
+  CHECK( 1 == df.INT().size() );
+  CHECK( 1 == df.NBT().size() );
+  CHECK( 1 == df.INT()[0] );
+  CHECK( 6 == df.NBT()[0] );
   CHECK( 1 == df.interpolants().size() );
   CHECK( 1 == df.boundaries().size() );
   CHECK( 1 == df.interpolants()[0] );

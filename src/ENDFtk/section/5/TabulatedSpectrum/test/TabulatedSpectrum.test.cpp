@@ -144,7 +144,13 @@ void verifyChunk( const TabulatedSpectrum& chunk ) {
   CHECK( 1 == chunk.LAW() );
 
   CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.numberInterpolationRegions() );
   CHECK( 2 == chunk.NE() );
+  CHECK( 2 == chunk.numberIncidentEnergies() );
+  CHECK( 1 == chunk.NBT().size() );
+  CHECK( 2 == chunk.NBT()[0] );
+  CHECK( 1 == chunk.INT().size() );
+  CHECK( 4 == chunk.INT()[0] );
   CHECK( 1 == chunk.boundaries().size() );
   CHECK( 2 == chunk.boundaries()[0] );
   CHECK( 1 == chunk.interpolants().size() );
@@ -158,7 +164,13 @@ void verifyChunk( const TabulatedSpectrum& chunk ) {
   CHECK_THAT( 1e-5, WithinRel( value.E() ) );
   CHECK_THAT( 1e-5, WithinRel( value.incidentEnergy() ) );
   CHECK( 3 == value.NP() );
+  CHECK( 3 == value.numberPoints() );
   CHECK( 1 == value.NR() );
+  CHECK( 1 == value.numberInterpolationRegions() );
+  CHECK( 1 == value.INT().size() );
+  CHECK( 1 == value.NBT().size() );
+  CHECK( 2 == value.INT()[0] );
+  CHECK( 3 == value.NBT()[0] );
   CHECK( 1 == value.interpolants().size() );
   CHECK( 1 == value.boundaries().size() );
   CHECK( 2 == value.interpolants()[0] );
@@ -184,7 +196,13 @@ void verifyChunk( const TabulatedSpectrum& chunk ) {
   CHECK_THAT( 3e+7, WithinRel( value.E() ) );
   CHECK_THAT( 3e+7, WithinRel( value.incidentEnergy() ) );
   CHECK( 4 == value.NP() );
+  CHECK( 4 == value.numberPoints() );
   CHECK( 1 == value.NR() );
+  CHECK( 1 == value.numberInterpolationRegions() );
+  CHECK( 1 == value.INT().size() );
+  CHECK( 1 == value.NBT().size() );
+  CHECK( 2 == value.INT()[0] );
+  CHECK( 4 == value.NBT()[0] );
   CHECK( 1 == value.interpolants().size() );
   CHECK( 1 == value.boundaries().size() );
   CHECK( 2 == value.interpolants()[0] );

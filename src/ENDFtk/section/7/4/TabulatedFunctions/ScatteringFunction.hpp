@@ -69,9 +69,19 @@ public:
   long NR() const { return this->alphas_.NR(); }
 
   /**
+   *  @brief Return the number of interpolation ranges on the alpha grid
+   */
+  long numberInterpolationRegions() const { return this->NR(); }
+
+  /**
    *  @brief Return the number of alpha values
    */
   long NP() const { return this->alphas_.NP(); }
+
+  /**
+   *  @brief Return the number of alpha values
+   */
+  long numberPoints() const { return this->NP(); }
 
   /**
    *  @brief Return the number of alpha values
@@ -86,12 +96,22 @@ public:
   /**
    *  @brief Return interpolation type for each range on the alpha grid
    */
-  auto interpolants() const { return this->alphas_.interpolants(); }
+  auto INT() const { return this->alphas_.INT(); }
+
+  /**
+   *  @brief Return interpolation type for each range on the alpha grid
+   */
+  auto interpolants() const { return this->INT(); }
 
   /**
    *  @brief Return interpolation boundaries for the alpha grid
    */
-  auto boundaries() const { return this->alphas_.boundaries(); }
+  auto NBT() const { return this->alphas_.NBT(); }
+
+  /**
+   *  @brief Return interpolation boundaries for the alpha grid
+   */
+  auto boundaries() const { return this->NBT(); }
 
   /**
    *  @brief Return all temperatures for which thermal scattering law data is

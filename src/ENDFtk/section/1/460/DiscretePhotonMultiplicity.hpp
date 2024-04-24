@@ -4,7 +4,7 @@
  *
  *  See ENDF102, section 1.6 for more information.
  */
-class ENDFTK_PYTHON_EXPORT DiscretePhotonMultiplicity : 
+class ENDFTK_PYTHON_EXPORT DiscretePhotonMultiplicity :
   protected TabulationRecord {
 
 public:
@@ -47,8 +47,12 @@ public:
   using TabulationRecord::x;
   using TabulationRecord::y;
   using TabulationRecord::NP;
+  using TabulationRecord::numberPoints;
   using TabulationRecord::NR;
+  using TabulationRecord::numberInterpolationRegions;
+  using TabulationRecord::INT;
   using TabulationRecord::interpolants;
+  using TabulationRecord::NBT;
   using TabulationRecord::boundaries;
   using TabulationRecord::NC;
   using TabulationRecord::print;

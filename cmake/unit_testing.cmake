@@ -2,7 +2,6 @@
 # Setup
 #######################################################################
 
-message( STATUS "Adding ENDFtk unit testing" )
 enable_testing()
 
 FetchContent_MakeAvailable( Catch2 )

@@ -50,7 +50,13 @@ class Test_ENDFtk_MF6_ReactionProduct( unittest.TestCase ) :
             self.assertEqual( 0, chunk.multiplicity.LAW )
 
             self.assertEqual( 4, chunk.multiplicity.NP )
+            self.assertEqual( 4, chunk.multiplicity.number_points )
             self.assertEqual( 1, chunk.multiplicity.NR )
+            self.assertEqual( 1, chunk.multiplicity.number_interpolation_regions )
+            self.assertEqual( 1, len( chunk.multiplicity.INT ) )
+            self.assertEqual( 1, len( chunk.multiplicity.NBT ) )
+            self.assertEqual( 2, chunk.multiplicity.INT[0] )
+            self.assertEqual( 4, chunk.multiplicity.NBT[0] )
             self.assertEqual( 1, len( chunk.multiplicity.interpolants ) )
             self.assertEqual( 1, len( chunk.multiplicity.boundaries ) )
             self.assertEqual( 2, chunk.multiplicity.interpolants[0] )

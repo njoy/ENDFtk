@@ -4,7 +4,7 @@
 // system includes
 
 // other includes
-#include "disco.hpp"
+#include "tools/disco/Character.hpp"
 #include "ENDFtk/record/helper.hpp"
 
 namespace njoy {
@@ -15,7 +15,7 @@ namespace record {
   struct Character {
     static constexpr std::size_t width = w;
     using Type = std::string;
-    using Parser = disco::Character< width >;
+    using Parser = njoy::tools::disco::Character< width >;
 
     static constexpr const Type& defaultValue = helper::defaultString< w >;
   };

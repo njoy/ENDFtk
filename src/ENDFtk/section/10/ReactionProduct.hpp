@@ -76,8 +76,12 @@ public:
   auto crossSections() const { return this->XS(); }
 
   using TabulationRecord::NR;
+  using TabulationRecord::numberInterpolationRegions;
   using TabulationRecord::NP;
+  using TabulationRecord::numberPoints;
+  using TabulationRecord::INT;
   using TabulationRecord::interpolants;
+  using TabulationRecord::NBT;
   using TabulationRecord::boundaries;
   using TabulationRecord::x;
   using TabulationRecord::y;

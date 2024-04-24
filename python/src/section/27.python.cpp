@@ -41,8 +41,8 @@ void wrapSection_27( python::module& module, python::module& ) {
     "    mt             the MT number\n"
     "    zaid           the ZA  identifier\n"
     "    awr            the atomic mass ratio\n"
-    "    boundaries     the interpolation range boundaries\n"
-    "    interpolants   the interpolation types for each range\n"
+    "    boundaries     the interpolation region boundaries\n"
+    "    interpolants   the interpolation types for each region\n"
     "    x              the x values\n"
     "    h              the form factor or scattering function values"
   )

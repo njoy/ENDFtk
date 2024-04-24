@@ -193,7 +193,13 @@ void verifyChunkWithUZero( const Probability& chunk ) {
   CHECK( 1 == chunk.LAW() );
 
   CHECK( 2 == chunk.NP() );
+  CHECK( 2 == chunk.numberPoints() );
   CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.numberInterpolationRegions() );
+  CHECK( 1 == chunk.INT().size() );
+  CHECK( 1 == chunk.NBT().size() );
+  CHECK( 2 == chunk.INT()[0] );
+  CHECK( 2 == chunk.NBT()[0] );
   CHECK( 1 == chunk.interpolants().size() );
   CHECK( 1 == chunk.boundaries().size() );
   CHECK( 2 == chunk.interpolants()[0] );
@@ -227,7 +233,13 @@ void verifyChunkWithUOne( const Probability& chunk ) {
   CHECK( 1 == chunk.LAW() );
 
   CHECK( 2 == chunk.NP() );
+  CHECK( 2 == chunk.numberPoints() );
   CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.numberInterpolationRegions() );
+  CHECK( 1 == chunk.INT().size() );
+  CHECK( 1 == chunk.NBT().size() );
+  CHECK( 2 == chunk.INT()[0] );
+  CHECK( 2 == chunk.NBT()[0] );
   CHECK( 1 == chunk.interpolants().size() );
   CHECK( 1 == chunk.boundaries().size() );
   CHECK( 2 == chunk.interpolants()[0] );

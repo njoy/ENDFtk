@@ -613,7 +613,13 @@ void verifyChunkWithLDG1LNU1( const section::Type< 1, 455 >& chunk ) {
   CHECK( 6 == constants.numberPrecursors() );
 
   CHECK( 1 == constants.NR() );
+  CHECK( 1 == constants.numberInterpolationRegions() );
   CHECK( 2 == constants.NE() );
+  CHECK( 2 == constants.numberIncidentEnergies() );
+  CHECK( 1 == constants.INT().size() );
+  CHECK( 1 == constants.NBT().size() );
+  CHECK( 4 == constants.INT()[0] );
+  CHECK( 2 == constants.NBT()[0] );
   CHECK( 1 == constants.interpolants().size() );
   CHECK( 1 == constants.boundaries().size() );
   CHECK( 4 == constants.interpolants()[0] );
@@ -738,7 +744,13 @@ void verifyChunkWithLDG1LNU2( const section::Type< 1, 455 >& chunk ) {
   CHECK( 6 == constants.numberPrecursors() );
 
   CHECK( 1 == constants.NR() );
+  CHECK( 1 == constants.numberInterpolationRegions() );
   CHECK( 2 == constants.NE() );
+  CHECK( 2 == constants.numberIncidentEnergies() );
+  CHECK( 1 == constants.INT().size() );
+  CHECK( 1 == constants.NBT().size() );
+  CHECK( 4 == constants.INT()[0] );
+  CHECK( 2 == constants.NBT()[0] );
   CHECK( 1 == constants.interpolants().size() );
   CHECK( 1 == constants.boundaries().size() );
   CHECK( 4 == constants.interpolants()[0] );
@@ -814,7 +826,13 @@ void verifyChunkWithLDG1LNU2( const section::Type< 1, 455 >& chunk ) {
   CHECK( 2 == nubar.representation() );
 
   CHECK( 4 == nubar.NP() );
+  CHECK( 4 == nubar.numberPoints() );
   CHECK( 1 == nubar.NR() );
+  CHECK( 1 == nubar.numberInterpolationRegions() );
+  CHECK( 1 == nubar.INT().size() );
+  CHECK( 1 == nubar.NBT().size() );
+  CHECK( 2 == nubar.INT()[0] );
+  CHECK( 4 == nubar.NBT()[0] );
   CHECK( 1 == nubar.interpolants().size() );
   CHECK( 1 == nubar.boundaries().size() );
   CHECK( 2 == nubar.interpolants()[0] );

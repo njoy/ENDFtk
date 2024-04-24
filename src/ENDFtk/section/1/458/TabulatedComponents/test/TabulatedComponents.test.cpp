@@ -272,7 +272,13 @@ void verifyChunk( const TabulatedComponents& chunk ) {
   CHECK( false == component.LDRV() );
   CHECK( 1 == component.IFC() );
   CHECK( 3 == component.NP() );
+  CHECK( 3 == component.numberPoints() );
   CHECK( 1 == component.NR() );
+  CHECK( 1 == component.numberInterpolationRegions() );
+  CHECK( 1 == component.INT().size() );
+  CHECK( 1 == component.NBT().size() );
+  CHECK( 2 == component.INT()[0] );
+  CHECK( 3 == component.NBT()[0] );
   CHECK( 1 == component.interpolants().size() );
   CHECK( 1 == component.boundaries().size() );
   CHECK( 2 == component.interpolants()[0] );
@@ -290,7 +296,13 @@ void verifyChunk( const TabulatedComponents& chunk ) {
   CHECK( true == component.LDRV() );
   CHECK( 9 == component.IFC() );
   CHECK( 4 == component.NP() );
+  CHECK( 4 == component.numberPoints() );
   CHECK( 1 == component.NR() );
+  CHECK( 1 == component.numberInterpolationRegions() );
+  CHECK( 1 == component.INT().size() );
+  CHECK( 1 == component.NBT().size() );
+  CHECK( 2 == component.INT()[0] );
+  CHECK( 4 == component.NBT()[0] );
   CHECK( 1 == component.interpolants().size() );
   CHECK( 1 == component.boundaries().size() );
   CHECK( 2 == component.interpolants()[0] );

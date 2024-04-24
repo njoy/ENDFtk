@@ -91,6 +91,12 @@ void wrapListRecord( python::module& module, python::module& ) {
   )
   .def_property_readonly(
 
+    "number_values",
+    &Record::numberValues,
+    "The number of values in the list"
+  )
+  .def_property_readonly(
+
     "list",
     [] ( const Record& self ) -> DoubleRange
        { return self.list(); },

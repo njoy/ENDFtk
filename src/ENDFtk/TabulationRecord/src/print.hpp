@@ -12,11 +12,13 @@ template< typename OutputIterator >
 void print( OutputIterator& it, int MAT, int MF, int MT ) const {
   record::InterpolationBase::print( it, MAT, MF, MT );
 
+  using namespace njoy::tools;
+
   using Format = disco::Record< disco::ENDF, disco::ENDF,
                                 disco::ENDF, disco::ENDF,
                                 disco::ENDF, disco::ENDF,
                                 disco::Integer< 4 >, disco::Integer< 2 >,
-                                disco::Integer< 3 >, disco::ColumnPosition< 5 > >;
+                                disco::Integer< 3 >, disco::Column< 5 > >;
 
   auto nFullLines = this->NP() / 3;
   auto partialLineEntries = this->NP() - nFullLines * 3;
@@ -37,11 +39,11 @@ void print( OutputIterator& it, int MAT, int MF, int MT ) const {
       ++x; ++y;
     }
 
-    while ( blankEntries-- ){ disco::ColumnPosition< 11 >::write( it ); }
+    while ( blankEntries-- ){ disco::Column< 11 >::write( it ); }
 
     using Format =
       disco::Record< disco::Integer< 4 >, disco::Integer< 2 >,
-                     disco::Integer< 3 >, disco::ColumnPosition< 5 > >;
+                     disco::Integer< 3 >, disco::Column< 5 > >;
 
     Format::write( it, MAT, MF, MT );
   }

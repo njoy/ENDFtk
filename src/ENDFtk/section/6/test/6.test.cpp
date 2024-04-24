@@ -253,7 +253,13 @@ void verifyChunk( const section::Type< 6 >& chunk ) {
   CHECK( 1 == products[0].multiplicity().LAW() );
 
   CHECK( 4 == products[0].multiplicity().NP() );
+  CHECK( 4 == products[0].multiplicity().numberPoints() );
   CHECK( 1 == products[0].multiplicity().NR() );
+  CHECK( 1 == products[0].multiplicity().numberInterpolationRegions() );
+  CHECK( 1 == products[0].multiplicity().INT().size() );
+  CHECK( 1 == products[0].multiplicity().NBT().size() );
+  CHECK( 2 == products[0].multiplicity().INT()[0] );
+  CHECK( 4 == products[0].multiplicity().NBT()[0] );
   CHECK( 1 == products[0].multiplicity().interpolants().size() );
   CHECK( 1 == products[0].multiplicity().boundaries().size() );
   CHECK( 2 == products[0].multiplicity().interpolants()[0] );
@@ -274,7 +280,13 @@ void verifyChunk( const section::Type< 6 >& chunk ) {
   CHECK( 1 == law.LAW() );
   CHECK( 2 == law.LEP() );
   CHECK( 2 == law.NE() );
+  CHECK( 2 == law.numberIncidentEnergies() );
   CHECK( 1 == law.NR() );
+  CHECK( 1 == law.numberInterpolationRegions() );
+  CHECK( 1 == law.INT().size() );
+  CHECK( 1 == law.NBT().size() );
+  CHECK( 1 == law.INT()[0] );
+  CHECK( 2 == law.NBT()[0] );
   CHECK( 1 == law.interpolants().size() );
   CHECK( 1 == law.boundaries().size() );
   CHECK( 1 == law.interpolants()[0] );
@@ -350,7 +362,13 @@ void verifyChunk( const section::Type< 6 >& chunk ) {
   CHECK( 1 == products[1].multiplicity().LAW() );
 
   CHECK( 2 == products[1].multiplicity().NP() );
+  CHECK( 2 == products[1].multiplicity().numberPoints() );
   CHECK( 1 == products[1].multiplicity().NR() );
+  CHECK( 1 == products[1].multiplicity().numberInterpolationRegions() );
+  CHECK( 1 == products[1].multiplicity().INT().size() );
+  CHECK( 1 == products[1].multiplicity().NBT().size() );
+  CHECK( 2 == products[1].multiplicity().INT()[0] );
+  CHECK( 2 == products[1].multiplicity().NBT()[0] );
   CHECK( 1 == products[1].multiplicity().interpolants().size() );
   CHECK( 1 == products[1].multiplicity().boundaries().size() );
   CHECK( 2 == products[1].multiplicity().interpolants()[0] );
@@ -367,7 +385,13 @@ void verifyChunk( const section::Type< 6 >& chunk ) {
   CHECK( 1 == law.LAW() );
   CHECK( 2 == law.LEP() );
   CHECK( 2 == law.NE() );
+  CHECK( 2 == law.numberIncidentEnergies() );
   CHECK( 1 == law.NR() );
+  CHECK( 1 == law.numberInterpolationRegions() );
+  CHECK( 1 == law.INT().size() );
+  CHECK( 1 == law.NBT().size() );
+  CHECK( 22 == law.INT()[0] );
+  CHECK( 2 == law.NBT()[0] );
   CHECK( 1 == law.interpolants().size() );
   CHECK( 1 == law.boundaries().size() );
   CHECK( 22 == law.interpolants()[0] );
@@ -436,7 +460,13 @@ void verifyChunk( const section::Type< 6 >& chunk ) {
   CHECK( 1 == products[2].multiplicity().LAW() );
 
   CHECK( 3 == products[2].multiplicity().NP() );
+  CHECK( 3 == products[2].multiplicity().numberPoints() );
   CHECK( 1 == products[2].multiplicity().NR() );
+  CHECK( 1 == products[2].multiplicity().numberInterpolationRegions() );
+  CHECK( 1 == products[2].multiplicity().INT().size() );
+  CHECK( 1 == products[2].multiplicity().NBT().size() );
+  CHECK( 2 == products[2].multiplicity().INT()[0] );
+  CHECK( 3 == products[2].multiplicity().NBT()[0] );
   CHECK( 1 == products[2].multiplicity().interpolants().size() );
   CHECK( 1 == products[2].multiplicity().boundaries().size() );
   CHECK( 2 == products[2].multiplicity().interpolants()[0] );
@@ -455,7 +485,13 @@ void verifyChunk( const section::Type< 6 >& chunk ) {
   CHECK( 1 == law.LAW() );
   CHECK( 2 == law.LEP() );
   CHECK( 2 == law.NE() );
+  CHECK( 2 == law.numberIncidentEnergies() );
   CHECK( 1 == law.NR() );
+  CHECK( 1 == law.numberInterpolationRegions() );
+  CHECK( 1 == law.INT().size() );
+  CHECK( 1 == law.NBT().size() );
+  CHECK( 5 == law.INT()[0] );
+  CHECK( 2 == law.NBT()[0] );
   CHECK( 1 == law.interpolants().size() );
   CHECK( 1 == law.boundaries().size() );
   CHECK( 5 == law.interpolants()[0] );

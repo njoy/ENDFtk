@@ -269,7 +269,13 @@ void verifyChunkWithLAW1( const ReactionProduct& chunk ) {
   CHECK( 1 == chunk.multiplicity().LAW() );
 
   CHECK( 2 == chunk.multiplicity().NP() );
+  CHECK( 2 == chunk.multiplicity().numberPoints() );
   CHECK( 1 == chunk.multiplicity().NR() );
+  CHECK( 1 == chunk.multiplicity().numberInterpolationRegions() );
+  CHECK( 1 == chunk.multiplicity().INT().size() );
+  CHECK( 1 == chunk.multiplicity().NBT().size() );
+  CHECK( 4 == chunk.multiplicity().INT()[0] );
+  CHECK( 2 == chunk.multiplicity().NBT()[0] );
   CHECK( 1 == chunk.multiplicity().interpolants().size() );
   CHECK( 1 == chunk.multiplicity().boundaries().size() );
   CHECK( 4 == chunk.multiplicity().interpolants()[0] );
@@ -285,7 +291,13 @@ void verifyChunkWithLAW1( const ReactionProduct& chunk ) {
 
   CHECK( 1 == law.LAW() );
   CHECK( 2 == law.NE() );
+  CHECK( 2 == law.numberIncidentEnergies() );
   CHECK( 1 == law.NR() );
+  CHECK( 1 == law.numberInterpolationRegions() );
+  CHECK( 1 == law.INT().size() );
+  CHECK( 1 == law.NBT().size() );
+  CHECK( 1 == law.INT()[0] );
+  CHECK( 2 == law.NBT()[0] );
   CHECK( 1 == law.interpolants().size() );
   CHECK( 1 == law.boundaries().size() );
   CHECK( 1 == law.interpolants()[0] );
@@ -352,7 +364,13 @@ void verifyChunkWithLAW2( const ReactionProduct& chunk ) {
   CHECK( 2 == chunk.multiplicity().LAW() );
 
   CHECK( 2 == chunk.multiplicity().NP() );
+  CHECK( 2 == chunk.multiplicity().numberPoints() );
   CHECK( 1 == chunk.multiplicity().NR() );
+  CHECK( 1 == chunk.multiplicity().numberInterpolationRegions() );
+  CHECK( 1 == chunk.multiplicity().INT().size() );
+  CHECK( 1 == chunk.multiplicity().NBT().size() );
+  CHECK( 4 == chunk.multiplicity().INT()[0] );
+  CHECK( 2 == chunk.multiplicity().NBT()[0] );
   CHECK( 1 == chunk.multiplicity().interpolants().size() );
   CHECK( 1 == chunk.multiplicity().boundaries().size() );
   CHECK( 4 == chunk.multiplicity().interpolants()[0] );
@@ -368,7 +386,13 @@ void verifyChunkWithLAW2( const ReactionProduct& chunk ) {
 
   CHECK( 2 == law.LAW() );
   CHECK( 2 == law.NE() );
+  CHECK( 2 == law.numberIncidentEnergies() );
   CHECK( 1 == law.NR() );
+  CHECK( 1 == law.numberInterpolationRegions() );
+  CHECK( 1 == law.INT().size() );
+  CHECK( 1 == law.NBT().size() );
+  CHECK( 1 == law.INT()[0] );
+  CHECK( 2 == law.NBT()[0] );
   CHECK( 1 == law.interpolants().size() );
   CHECK( 1 == law.boundaries().size() );
   CHECK( 1 == law.interpolants()[0] );
@@ -441,7 +465,13 @@ void verifyChunkWithLAW8( const ReactionProduct& chunk ) {
 
   CHECK( 8 == chunk.multiplicity().LAW() );
   CHECK( 2 == chunk.multiplicity().NP() );
+  CHECK( 2 == chunk.multiplicity().numberPoints() );
   CHECK( 1 == chunk.multiplicity().NR() );
+  CHECK( 1 == chunk.multiplicity().numberInterpolationRegions() );
+  CHECK( 1 == chunk.multiplicity().INT().size() );
+  CHECK( 1 == chunk.multiplicity().NBT().size() );
+  CHECK( 2 == chunk.multiplicity().INT()[0] );
+  CHECK( 2 == chunk.multiplicity().NBT()[0] );
   CHECK( 1 == chunk.multiplicity().interpolants().size() );
   CHECK( 1 == chunk.multiplicity().boundaries().size() );
   CHECK( 2 == chunk.multiplicity().interpolants()[0] );
@@ -464,7 +494,13 @@ void verifyChunkWithLAW8( const ReactionProduct& chunk ) {
   CHECK( 8 == law.LAW() );
 
   CHECK( 2 == law.NP() );
+  CHECK( 2 == law.numberPoints() );
   CHECK( 1 == law.NR() );
+  CHECK( 1 == law.numberInterpolationRegions() );
+  CHECK( 1 == law.INT().size() );
+  CHECK( 1 == law.NBT().size() );
+  CHECK( 2 == law.INT()[0] );
+  CHECK( 2 == law.NBT()[0] );
   CHECK( 1 == law.interpolants().size() );
   CHECK( 1 == law.boundaries().size() );
   CHECK( 2 == law.interpolants()[0] );

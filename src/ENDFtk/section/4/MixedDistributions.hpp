@@ -64,6 +64,11 @@ public:
   }
 
   /**
+   *  @brief Return the number of interpolation regions
+   */
+  long numberInterpolationRegions() const { return this->NR(); }
+
+  /**
    *  @brief Return the number of energy points for which angular distributions
    *         are available.
    */
@@ -73,30 +78,49 @@ public:
   }
 
   /**
+   *  @brief Return the number of energy points for which angular distributions
+   *         are available.
+   */
+  long numberIncidentEnergies() const { return this->NE(); }
+
+  /**
    *  @brief Return the boundaries of the interpolation ranges
    *
    *         The intersection point is considered as a jump in the incident
    *         energy.
    */
-  auto boundaries() const {
+  auto NBT() const {
 
-    auto offset = this->legendre().boundaries().back();
+    auto offset = this->legendre().NBT().back();
     return ranges::views::concat(
-             this->legendre().boundaries(),
-             this->tabulated().boundaries()
+             this->legendre().NBT(),
+             this->tabulated().NBT()
                | ranges::cpp20::views::transform(
                      [=] ( auto index )
                          { return index + offset; } ) );
   }
 
   /**
+   *  @brief Return the boundaries of the interpolation ranges
+   *
+   *         The intersection point is considered as a jump in the incident
+   *         energy.
+   */
+  auto boundaries() const { return this->NBT(); }
+
+  /**
    *  @brief Return the interpolants of the interpolation ranges
    */
-  auto interpolants() const {
+  auto INT() const {
 
-    return ranges::views::concat( this->legendre().interpolants(),
-                                  this->tabulated().interpolants() );
+    return ranges::views::concat( this->legendre().INT(),
+                                  this->tabulated().INT() );
   }
+
+  /**
+   *  @brief Return the interpolants of the interpolation ranges
+   */
+  auto interpolants() const { return this->INT(); }
 
   /**
    *  @brief Return the incident energy values

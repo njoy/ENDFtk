@@ -174,7 +174,13 @@ void verifyChunk( const section::Type< 5 >& chunk ) {
   CHECK( 7 == p.LAW() );
 
   CHECK( 2 == p.NP() );
+  CHECK( 2 == p.numberPoints() );
   CHECK( 1 == p.NR() );
+  CHECK( 1 == p.numberInterpolationRegions() );
+  CHECK( 1 == p.INT().size() );
+  CHECK( 1 == p.NBT().size() );
+  CHECK( 2 == p.INT()[0] );
+  CHECK( 2 == p.NBT()[0] );
   CHECK( 1 == p.interpolants().size() );
   CHECK( 1 == p.boundaries().size() );
   CHECK( 2 == p.interpolants()[0] );
@@ -199,7 +205,13 @@ void verifyChunk( const section::Type< 5 >& chunk ) {
   CHECK( 7 == d.LAW() );
 
   CHECK( 3 == d.NP() );
+  CHECK( 3 == d.numberPoints() );
   CHECK( 1 == d.NR() );
+  CHECK( 1 == d.numberInterpolationRegions() );
+  CHECK( 1 == d.INT().size() );
+  CHECK( 1 == d.NBT().size() );
+  CHECK( 5 == d.INT()[0] );
+  CHECK( 3 == d.NBT()[0] );
   CHECK( 1 == d.interpolants().size() );
   CHECK( 1 == d.boundaries().size() );
   CHECK( 5 == d.interpolants()[0] );

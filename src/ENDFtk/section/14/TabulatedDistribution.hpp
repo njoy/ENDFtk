@@ -52,9 +52,15 @@ public:
   AllRange< double > probabilities() const { return this->F(); }
 
   using TabulationRecord::NR;
+  using TabulationRecord::numberInterpolationRegions;
   using TabulationRecord::NP;
+  using TabulationRecord::numberPoints;
+  using TabulationRecord::INT;
   using TabulationRecord::interpolants;
+  using TabulationRecord::NBT;
   using TabulationRecord::boundaries;
+  using TabulationRecord::x;
+  using TabulationRecord::y;
   using TabulationRecord::NC;
   using TabulationRecord::print;
 };

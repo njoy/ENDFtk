@@ -5,7 +5,8 @@
 #include <string>
 
 // other includes
-#include "disco.hpp"
+#include "tools/disco/Integer.hpp"
+#include "tools/disco/Record.hpp"
 #include "tools/Log.hpp"
 
 namespace njoy {
@@ -20,10 +21,11 @@ namespace record {
 
   public:
 
-    using Format = disco::Record< disco::Integer< 4 >,
-                                  disco::Integer< 2 >,
-                                  disco::Integer< 3 >,
-                                  disco::Integer< 5 > >;
+    using Format = njoy::tools::disco::Record<
+                       njoy::tools::disco::Integer< 4 >,
+                       njoy::tools::disco::Integer< 2 >,
+                       njoy::tools::disco::Integer< 3 >,
+                       njoy::tools::disco::Integer< 5 > >;
 
     /* fields */
     std::array< int, 3 > fields;

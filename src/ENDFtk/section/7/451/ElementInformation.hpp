@@ -95,18 +95,6 @@ public:
    */
   auto freeScatteringCrossSections() const { return this->SFI(); }
 
-//  /**
-//   *  @brief Return the resonances
-//   */
-//  auto resonances() const {
-//
-//    using Chunk = decltype( ( ListRecord::list() | ranges::views::chunk(18) )[0] );
-//    return ListRecord::list() | ranges::views::chunk(18)
-//             | ranges::cpp20::views::transform(
-//                 [] ( Chunk&& chunk ) -> Resonance< Chunk >
-//                    { return { std::move( chunk ) }; } );
-//  }
-
   using ListRecord::NC;
   using ListRecord::print;
 };

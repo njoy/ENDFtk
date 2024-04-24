@@ -59,7 +59,7 @@ class Test_ENDFtk_MF12_Section( unittest.TestCase ) :
             self.assertEqual( 1, data.LO )
             self.assertEqual( 1, data.representation )
 
-            partial = data.photon_partial_multiplicities[0];
+            partial = data.photon_partial_multiplicities[0]
             self.assertAlmostEqual( 0.0, partial.EG )
             self.assertAlmostEqual( 0.0, partial.photon_or_binding_energy )
             self.assertAlmostEqual( 0.0, partial.ES )
@@ -69,7 +69,13 @@ class Test_ENDFtk_MF12_Section( unittest.TestCase ) :
             self.assertEqual( 1, partial.LF )
             self.assertEqual( 1, partial.LAW )
             self.assertEqual( 2, partial.NP )
+            self.assertEqual( 2, partial.number_points )
             self.assertEqual( 1, partial.NR )
+            self.assertEqual( 1, partial.number_interpolation_regions )
+            self.assertEqual( 1, len( partial.INT ) )
+            self.assertEqual( 1, len( partial.NBT ) )
+            self.assertEqual( 2, partial.INT[0] )
+            self.assertEqual( 2, partial.NBT[0] )
             self.assertEqual( 1, len( partial.interpolants ) )
             self.assertEqual( 1, len( partial.boundaries ) )
             self.assertEqual( 2, partial.interpolants[0] )

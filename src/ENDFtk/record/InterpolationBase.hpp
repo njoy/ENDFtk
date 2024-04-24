@@ -5,6 +5,10 @@
 #include <vector>
 
 // other includes
+#include "tools/disco/Integer.hpp"
+#include "tools/disco/ENDF.hpp"
+#include "tools/disco/Column.hpp"
+#include "tools/disco/Record.hpp"
 #include "range/v3/view/all.hpp"
 #include "ENDFtk/record/Base.hpp"
 #include "ENDFtk/record/Integer.hpp"
@@ -68,17 +72,24 @@ namespace record {
   #undef DEFINE_GETTER
 
     long NR() const { return this->boundaryIndices.size(); }
+
+    long numberInterpolationRegions() const { return this->NR(); }
+
     long N2() const { return this->boundaryIndices.back(); }
 
-    auto interpolants() const {
+    auto INT() const {
 
       return ranges::cpp20::views::all( this->interpolationSchemeIndices );
     }
 
-    auto boundaries() const {
+    auto interpolants() const { return this->INT(); }
+
+    auto NBT() const {
 
       return ranges::cpp20::views::all( this->boundaryIndices );
     }
+
+    auto boundaries() const { return this->NBT(); }
 
     bool operator==( const InterpolationBase& rhs ) const {
       return ( this->C1() == rhs.C1() )

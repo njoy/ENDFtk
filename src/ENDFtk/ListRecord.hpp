@@ -114,6 +114,11 @@ namespace ENDFtk {
     long NPL() const { return this->data.size(); }
 
     /**
+     *  @brief Return the number of values in the list
+     */
+    long numberValues() const { return this->NPL(); }
+
+    /**
      *  @brief Return the list of values
      */
     auto list() const {

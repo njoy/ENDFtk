@@ -26,7 +26,13 @@ class Test_ENDFtk_MF5_OutgoingEnergyDistribution( unittest.TestCase ) :
             self.assertAlmostEqual( 1e-5, chunk.incident_energy )
 
             self.assertEqual( 3, chunk.NP )
+            self.assertEqual( 3, chunk.number_points )
             self.assertEqual( 1, chunk.NR )
+            self.assertEqual( 1, chunk.number_interpolation_regions )
+            self.assertEqual( 1, len( chunk.INT ) )
+            self.assertEqual( 1, len( chunk.NBT ) )
+            self.assertEqual( 2, chunk.INT[0] )
+            self.assertEqual( 3, chunk.NBT[0] )
             self.assertEqual( 1, len( chunk.interpolants ) )
             self.assertEqual( 1, len( chunk.boundaries ) )
             self.assertEqual( 2, chunk.interpolants[0] )

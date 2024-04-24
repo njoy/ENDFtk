@@ -38,6 +38,11 @@ class Test_ENDFtk_MF7_MT2_CoherentElastic( unittest.TestCase ) :
             self.assertEqual( 3, chunk.number_bragg_edges )
 
             self.assertEqual( 1, chunk.NR )
+            self.assertEqual( 1, chunk.number_interpolation_regions )
+            self.assertEqual( 1, len( chunk.NBT ) )
+            self.assertEqual( 3, chunk.NBT[0] )
+            self.assertEqual( 1, len( chunk.INT ) )
+            self.assertEqual( 1, chunk.INT[0] )
             self.assertEqual( 1, len( chunk.boundaries ) )
             self.assertEqual( 3, chunk.boundaries[0] )
             self.assertEqual( 1, len( chunk.interpolants ) )
@@ -90,6 +95,11 @@ class Test_ENDFtk_MF7_MT2_CoherentElastic( unittest.TestCase ) :
             self.assertEqual( 3, chunk.number_bragg_edges )
 
             self.assertEqual( 1, chunk.NR )
+            self.assertEqual( 1, chunk.number_interpolation_regions )
+            self.assertEqual( 1, len( chunk.NBT ) )
+            self.assertEqual( 3, chunk.NBT[0] )
+            self.assertEqual( 1, len( chunk.INT ) )
+            self.assertEqual( 1, chunk.INT[0] )
             self.assertEqual( 1, len( chunk.boundaries ) )
             self.assertEqual( 3, chunk.boundaries[0] )
             self.assertEqual( 1, len( chunk.interpolants ) )

@@ -93,16 +93,16 @@ class Test_ENDFtk_MF2_MT151_ParticlePairs( unittest.TestCase ) :
             self.assertAlmostEqual( 15., chunk.parity_particle_B[1] )
             self.assertAlmostEqual( 6., chunk.Q[0] )
             self.assertAlmostEqual( 7., chunk.Q[1] )
-            self.assertEqual( 8, chunk.PNT[0] );
-            self.assertEqual( 9, chunk.PNT[1] );
-            self.assertEqual( 8, chunk.penetrability_flag[0] );
-            self.assertEqual( 9, chunk.penetrability_flag[1] );
-            self.assertEqual( 10, chunk.SHF[0] );
-            self.assertEqual( 11, chunk.SHF[1] );
-            self.assertEqual( 10, chunk.shift_factor_flag[0] );
-            self.assertEqual( 11, chunk.shift_factor_flag[1] );
-            self.assertEqual( 102, chunk.MT[0] );
-            self.assertEqual( 2, chunk.MT[1] );
+            self.assertEqual( 8, chunk.PNT[0] )
+            self.assertEqual( 9, chunk.PNT[1] )
+            self.assertEqual( 8, chunk.penetrability_flag[0] )
+            self.assertEqual( 9, chunk.penetrability_flag[1] )
+            self.assertEqual( 10, chunk.SHF[0] )
+            self.assertEqual( 11, chunk.SHF[1] )
+            self.assertEqual( 10, chunk.shift_factor_flag[0] )
+            self.assertEqual( 11, chunk.shift_factor_flag[1] )
+            self.assertEqual( 102, chunk.MT[0] )
+            self.assertEqual( 2, chunk.MT[1] )
 
             self.assertEqual( 5, chunk.NC )
 

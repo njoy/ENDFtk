@@ -48,7 +48,13 @@ class Test_ENDFtk_MF1_MT455_EnergyDependentConstants( unittest.TestCase ) :
             self.assertEqual( 6, chunk.number_precursors )
 
             self.assertEqual( 1, chunk.NR )
+            self.assertEqual( 1, chunk.number_interpolation_regions )
             self.assertEqual( 2, chunk.NE )
+            self.assertEqual( 2, chunk.number_incident_energies )
+            self.assertEqual( 1, len( chunk.INT ) )
+            self.assertEqual( 1, len( chunk.NBT ) )
+            self.assertEqual( 4, chunk.INT[0] )
+            self.assertEqual( 2, chunk.NBT[0] )
             self.assertEqual( 1, len( chunk.interpolants ) )
             self.assertEqual( 1, len( chunk.boundaries ) )
             self.assertEqual( 4, chunk.interpolants[0] )
