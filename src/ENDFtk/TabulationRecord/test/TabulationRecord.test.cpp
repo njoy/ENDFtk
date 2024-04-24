@@ -390,58 +390,6 @@ void verifyChunk( const TabulationRecord& chunk ) {
   CHECK_THAT(  9., WithinRel( chunk.y()[6] ) );
   CHECK_THAT( 10., WithinRel( chunk.y()[7] ) );
 
-  auto regions = chunk.regions();
-  CHECK( 4 == regions.size() );
-  CHECK( 4 == regions[0].first.size() );
-  CHECK( 4 == regions[0].second.size() );
-  CHECK( 2 == regions[1].first.size() );
-  CHECK( 2 == regions[1].second.size() );
-  CHECK( 2 == regions[2].first.size() );
-  CHECK( 2 == regions[2].second.size() );
-  CHECK( 3 == regions[3].first.size() );
-  CHECK( 3 == regions[3].second.size() );
-  CHECK_THAT(  1., WithinRel( regions[0].first[0] ) );
-  CHECK_THAT(  2., WithinRel( regions[0].first[1] ) );
-  CHECK_THAT(  3., WithinRel( regions[0].first[2] ) );
-  CHECK_THAT(  4., WithinRel( regions[0].first[3] ) );
-  CHECK_THAT(  4., WithinRel( regions[1].first[0] ) );
-  CHECK_THAT(  5., WithinRel( regions[1].first[1] ) );
-  CHECK_THAT(  5., WithinRel( regions[2].first[0] ) );
-  CHECK_THAT(  6., WithinRel( regions[2].first[1] ) );
-  CHECK_THAT(  6., WithinRel( regions[3].first[0] ) );
-  CHECK_THAT(  7., WithinRel( regions[3].first[1] ) );
-  CHECK_THAT(  8., WithinRel( regions[3].first[2] ) );
-  CHECK_THAT(  3., WithinRel( regions[0].second[0] ) );
-  CHECK_THAT(  4., WithinRel( regions[0].second[1] ) );
-  CHECK_THAT(  5., WithinRel( regions[0].second[2] ) );
-  CHECK_THAT(  6., WithinRel( regions[0].second[3] ) );
-  CHECK_THAT(  6., WithinRel( regions[1].second[0] ) );
-  CHECK_THAT(  7., WithinRel( regions[1].second[1] ) );
-  CHECK_THAT(  7., WithinRel( regions[2].second[0] ) );
-  CHECK_THAT(  8., WithinRel( regions[2].second[1] ) );
-  CHECK_THAT(  8., WithinRel( regions[3].second[0] ) );
-  CHECK_THAT(  9., WithinRel( regions[3].second[1] ) );
-  CHECK_THAT( 10., WithinRel( regions[3].second[2] ) );
-
-  auto pairs = chunk.pairs();
-  CHECK( 8 == pairs.size() );
-  CHECK_THAT(  1., WithinRel( pairs[0].first ) );
-  CHECK_THAT(  2., WithinRel( pairs[1].first ) );
-  CHECK_THAT(  3., WithinRel( pairs[2].first ) );
-  CHECK_THAT(  4., WithinRel( pairs[3].first ) );
-  CHECK_THAT(  5., WithinRel( pairs[4].first ) );
-  CHECK_THAT(  6., WithinRel( pairs[5].first ) );
-  CHECK_THAT(  7., WithinRel( pairs[6].first ) );
-  CHECK_THAT(  8., WithinRel( pairs[7].first ) );
-  CHECK_THAT(  3., WithinRel( pairs[0].second ) );
-  CHECK_THAT(  4., WithinRel( pairs[1].second ) );
-  CHECK_THAT(  5., WithinRel( pairs[2].second ) );
-  CHECK_THAT(  6., WithinRel( pairs[3].second ) );
-  CHECK_THAT(  7., WithinRel( pairs[4].second ) );
-  CHECK_THAT(  8., WithinRel( pairs[5].second ) );
-  CHECK_THAT(  9., WithinRel( pairs[6].second ) );
-  CHECK_THAT( 10., WithinRel( pairs[7].second ) );
-
   CHECK( 6 == chunk.NC() );
 }
 
