@@ -7,10 +7,6 @@
 // other includes
 #include "tools/Log.hpp"
 #include "range/v3/view/all.hpp"
-#include "range/v3/view/iota.hpp"
-#include "range/v3/view/subrange.hpp"
-#include "range/v3/view/transform.hpp"
-#include "range/v3/view/zip.hpp"
 #include "ENDFtk/record.hpp"
 
 namespace njoy {
@@ -37,20 +33,6 @@ namespace ENDFtk {
     #include "ENDFtk/TabulationRecord/src/verifyXValuesAreSorted.hpp"
     #include "ENDFtk/TabulationRecord/src/verifyNP.hpp"
     #include "ENDFtk/TabulationRecord/src/readPairs.hpp"
-
-  protected:
-
-    auto regions( size_t index ) const {
-      const auto left = index ? this->boundaries()[ index - 1 ] - 1 : 0;
-      const auto right = this->boundaries()[ index ];
-      return
-        std::make_pair( ranges::make_subrange
-                        ( this->xValues.begin() + left,
-                          this->xValues.begin() + right ),
-                        ranges::make_subrange
-                        ( this->yValues.begin() + left,
-                          this->yValues.begin() + right ) );
-    }
 
   public:
 
@@ -92,29 +74,10 @@ namespace ENDFtk {
       return ranges::cpp20::views::all( this->yValues );
     }
 
-    /**
-     *  @brief Return the x,y pairs in the table
-     */
-    auto pairs() const {
-
-      return ranges::views::zip( this->xValues, this->yValues );
-    }
-
     using InterpolationBase::INT;
     using InterpolationBase::NBT;
     using InterpolationBase::interpolants;
     using InterpolationBase::boundaries;
-
-    /**
-     *  @brief Return the interpolation regions
-     */
-    auto regions() const {
-
-      return
-        ranges::views::iota( 0ul, this->boundaries().size() )
-        | ranges::cpp20::views::transform(
-            [this ]( int i ){ return this->regions(i); } );
-    }
 
     /**
      *  @brief Equality operator

@@ -14,6 +14,7 @@
 #include "ENDFtk/section.hpp"
 #include "range/v3/view/stride.hpp"
 #include "range/v3/view/drop_exactly.hpp"
+#include "range/v3/view/transform.hpp"
 
 #include "ENDFtk/section/1/PolynomialMultiplicity.hpp"
 #include "ENDFtk/section/1/TabulatedMultiplicity.hpp"
