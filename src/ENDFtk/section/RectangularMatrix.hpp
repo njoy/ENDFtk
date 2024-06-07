@@ -87,7 +87,8 @@ public:
    */
   auto columnEnergies() const {
 
-    return ranges::views::drop_exactly( ListRecord::list(), this->NER() );
+    return ranges::views::take_exactly( ListRecord::list(), this->NER() + this->NEC() )
+        | ranges::views::drop_exactly( this->NER() );
   }
 
   /**
