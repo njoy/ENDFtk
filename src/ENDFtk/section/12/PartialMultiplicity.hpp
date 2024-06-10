@@ -85,7 +85,6 @@ public:
   using TabulationRecord::boundaries;
   using TabulationRecord::x;
   using TabulationRecord::y;
-  using TabulationRecord::regions;
   using TabulationRecord::NC;
   using TabulationRecord::print;
 };

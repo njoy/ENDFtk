@@ -6,6 +6,7 @@
 
 // other includes
 #include "range/v3/algorithm/count_if.hpp"
+#include "range/v3/view/transform.hpp"
 #include "ENDFtk/macros.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"

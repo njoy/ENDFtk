@@ -1,6 +1,12 @@
 # Release Notes&mdash;ENDFtk
 Given here are some release notes for ENDFtk.
 
+## [ENDFtk v1.1.1](https://github.com/njoy/ENDFtk/pull/xxx)
+This update removes a few interface functions that are unused:
+  - the regions() and pairs() interface functions on the TAB1 record
+
+The removal of these interface functions has no impact on the Python interface as these interface functions were not included on the Python side.
+
 ## [ENDFtk v1.1.0](https://github.com/njoy/ENDFtk/pull/198)
 This update adds additional interface functions to complete the human readable and ENDF speak interface for many objects:
   - the NBT() and INT() interface functions to complement the boundaries() and interpolants() functions already present in TAB1 and TAB2 style components

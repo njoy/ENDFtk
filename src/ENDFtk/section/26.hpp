@@ -14,6 +14,8 @@
 #include "range/v3/view/single.hpp"
 #include "range/v3/view/stride.hpp"
 #include "range/v3/view/tail.hpp"
+#include "range/v3/view/zip.hpp"
+#include "range/v3/view/transform.hpp"
 #include "ENDFtk/macros.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
