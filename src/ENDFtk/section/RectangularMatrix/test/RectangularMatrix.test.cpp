@@ -121,11 +121,11 @@ void verifyChunk( const RectangularMatrix& chunk ) {
   CHECK( 6 == chunk.LB() );
   CHECK( 6 == chunk.procedure() );
   CHECK( 3 == chunk.NER() );
-  CHECK( 3 == ranges::cpp20::distance( chunk.rowEnergies() ) );
   CHECK( 3 == chunk.numberRowEnergies() );
+  CHECK( 3 == chunk.rowEnergies().size() );
   CHECK( 4 == chunk.NEC() );
-  CHECK( 4 == ranges::cpp20::distance( chunk.columnEnergies() ) );
   CHECK( 4 == chunk.numberColumnEnergies() );
+  CHECK( 4 == chunk.columnEnergies().size() );
   CHECK( 13 == chunk.NT() );
   CHECK( 13 == chunk.numberValues() );
 

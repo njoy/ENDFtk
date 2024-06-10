@@ -24,10 +24,10 @@ class Test_ENDFtk_RectangularMatrix( unittest.TestCase ) :
             self.assertEqual( 6, chunk.procedure )
             self.assertEqual( 3, chunk.NER )
             self.assertEqual( 3, chunk.number_row_energies )
-            self.assertEqual( 3, len(chunk.row_energies) )
+            self.assertEqual( 3, len( chunk.row_energies ) )
             self.assertEqual( 4, chunk.NEC )
             self.assertEqual( 4, chunk.number_column_energies )
-            self.assertEqual( 4, len(chunk.column_energies) )
+            self.assertEqual( 4, len( chunk.column_energies ) )
             self.assertEqual( 13, chunk.NT )
             self.assertEqual( 13, chunk.number_values )
 
