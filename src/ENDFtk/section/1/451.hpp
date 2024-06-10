@@ -7,11 +7,7 @@
 #include "range/v3/iterator/operations.hpp"
 #include "range/v3/range/conversion.hpp"
 #include "range/v3/view/all.hpp"
-#include "range/v3/view/concat.hpp"
-#include "range/v3/view/join.hpp"
-#include "range/v3/view/single.hpp"
 #include "range/v3/view/split.hpp"
-#include "range/v3/view/transform.hpp"
 #include "ENDFtk/macros.hpp"
 #include "ENDFtk/TextRecord.hpp"
 #include "ENDFtk/HeadRecord.hpp"
@@ -31,7 +27,7 @@ namespace section {
    *  See ENDF102, section 1.1 for more information.
    */
   template<>
-  class ENDFTK_PYTHON_EXPORT Type< 1, 451 > : 
+  class ENDFTK_PYTHON_EXPORT Type< 1, 451 > :
     protected BaseWithoutMT< Type< 1, 451 > > {
 
     friend BaseWithoutMT< Type< 1, 451 > >;
