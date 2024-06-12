@@ -3,6 +3,13 @@
 # ENDFtk
 Toolkit for reading and interacting with ENDF-6 formatted files. This toolkit provides a full C++ library along with python bindings.
 
+## Citation
+
+To cite ENDFtk, please use the following publication:
+
+W. Haeck, N. Gibson, P. Talou, “ENDFtk: A robust tool for reading and writing ENDF-formatted nuclear data,” Comp. Phys. Comm., 303 (2024),
+DOI: [10.1016/j.cpc.2024.109245](https://doi.org/10.1016/j.cpc.2024.109245)
+
 ## Release and development versions
 For the latest version of ENDFtk and an overview of the latest changes, please see the [Release Notes](ReleaseNotes.md) or the [release](https://github.com/njoy/ENDFtk/releases) page.
 
