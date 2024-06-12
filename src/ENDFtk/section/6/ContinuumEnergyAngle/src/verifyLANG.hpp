@@ -7,14 +7,13 @@ verifyLANG( int LANG, const Array& sequence ) {
                                                 { return entry.LANG(); },
                                              variant ) == LANG; };
 
-  auto iter = ranges::cpp20::find_if_not( sequence, compare );
+  auto iter = std::find_if_not( sequence.begin(), sequence.end(), compare );
 
-  if ( iter != ranges::cpp20::end( sequence ) ) {
+  if ( iter != sequence.end() ) {
 
     Log::error( "All subsections must use the same LANG format option" );
     Log::info( "Expected LANG={} for the subsection with index={}", LANG,
-               ranges::cpp20::distance(
-                   ranges::cpp20::begin( sequence ), iter ) );
+               ranges::cpp20::distance( sequence.begin(), iter ) );
     throw std::exception();
   }
 }

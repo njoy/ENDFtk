@@ -5,14 +5,13 @@ verifyTemperatures( int NP, const Array& temperatures ) {
   auto compare = [NP] ( const auto& entry )
                       { return entry.NPL() == NP; };
 
-  auto iter = ranges::cpp20::find_if_not( temperatures, compare );
+  auto iter = std::find_if_not( temperatures.begin(), temperatures.end(), compare );
 
-  if ( iter != ranges::cpp20::end( temperatures ) ) {
+  if ( iter != temperatures.end() ) {
 
     Log::error( "All S(E,T) functions must have the same size" );
     Log::info( "Expected NP={} for the temperature with index={}", NP,
-               ranges::cpp20::distance(
-                   ranges::cpp20::begin( temperatures ), iter ) );
+               ranges::cpp20::distance( temperatures.begin(), iter ) );
     throw std::exception();
   }
 }

@@ -6,7 +6,6 @@
 #include <vector>
 
 // other includes
-#include "range/v3/algorithm/find_if_not.hpp"
 #include "range/v3/view/concat.hpp"
 #include "range/v3/view/single.hpp"
 #include "range/v3/view/transform.hpp"
@@ -22,7 +21,7 @@ namespace ENDFtk {
 namespace section{
 
   template<>
-  class ENDFTK_PYTHON_EXPORT Type< 7, 2 > : 
+  class ENDFTK_PYTHON_EXPORT Type< 7, 2 > :
     protected BaseWithoutMT< Type< 7, 2 > > {
 
     friend BaseWithoutMT< Type< 7, 2 > >;

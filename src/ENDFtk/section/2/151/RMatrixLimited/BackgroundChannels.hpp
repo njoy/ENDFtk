@@ -50,11 +50,9 @@ public:
    */
   unsigned int KBK() const {
 
-    return ranges::cpp20::count( this->backgroundRMatrices()
-                                     | ranges::cpp20::views::transform(
-                                           [] ( const auto& value )
-                                              { return bool( value ); } ),
-                                 true );
+    auto matrices = this->backgroundRMatrices();
+    return std::count_if( matrices.begin(), matrices.end(),
+                          [] ( auto&& matrix ) { return matrix.has_value(); } );
   }
 
   /**
