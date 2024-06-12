@@ -18,6 +18,8 @@ std::string chunkWithSTYPTwo();
 void verifyChunkWithSTYPTwo( const DiscreteSpectrum& );
 std::string chunkWithSTYPZero();
 void verifyChunkWithSTYPZero( const DiscreteSpectrum& );
+std::string chunkWithSTYPEight();
+void verifyChunkWithSTYPEight( const DiscreteSpectrum& );
 std::string chunkWithWrongNT();
 
 SCENARIO( "DiscreteSpectrum" ) {
@@ -191,6 +193,62 @@ SCENARIO( "DiscreteSpectrum" ) {
     } // WHEN
   } // GIVEN
 
+  GIVEN( "valid data for a DiscreteSpectrum with STYP equal to 8" ) {
+
+    std::string string = chunkWithSTYPEight();
+
+    WHEN( "the data is given explicitly" ) {
+
+      std::array< double, 2 > discreteEnergy = {{ 4.863000e+4, 5.000000e+1 }};
+      double decayChain = 3.;
+      double type = 1.;
+      std::array< double, 2 > relativeIntensity = {{ 1.420112e-6,
+                                                     2.85306e-10 }};
+      std::array< double, 2 > ris = {{ 1.0, 2.0 }};
+      std::array< double, 2 > ricc = {{ 7.010000e+5, 1.106180e-2 }};
+
+      DiscreteSpectrum chunk( decayChain, discreteEnergy,
+                              relativeIntensity, type, ris, ricc );
+
+      THEN( "a DiscreteSpectrum can be constructed and members can be tested" ) {
+
+        verifyChunkWithSTYPEight( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8, 457 );
+
+        CHECK( buffer == string );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is read from a string/stream" ) {
+
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      DiscreteSpectrum chunk( begin, end, lineNumber, 3580, 8, 457 );
+
+      THEN( "a DiscreteSpectrum can be constructed and members can be tested" ) {
+
+        verifyChunkWithSTYPEight( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8, 457 );
+
+        CHECK( buffer == string );
+      } // THEN
+    } // WHEN
+  } // GIVEN
+
   GIVEN( "invalid data for a DiscreteSpectrum" ) {
 
     WHEN( "a string with the wrong NT value is used" ) {
@@ -327,6 +385,47 @@ void verifyChunkWithSTYPZero( const DiscreteSpectrum& chunk )
   CHECK_THAT( 5.608008e+3, WithinRel( chunk.RICL()[1] ) );
   CHECK_THAT( 3.315735e+5, WithinRel( chunk.internalConversionCoefficientLShell()[0] ) );
   CHECK_THAT( 5.608008e+3, WithinRel( chunk.internalConversionCoefficientLShell()[1] ) );
+
+  CHECK( 3 == chunk.NC() );
+}
+
+std::string chunkWithSTYPEight() {
+  return
+    " 4.863000+4 5.000000+1          0          0          8          03580 8457     \n"
+    " 3.000000+0 1.000000+0 1.420112-6 2.85306-10 1.000000+0 2.000000+03580 8457     \n"
+    " 7.010000+5 1.106180-2                                            3580 8457     \n";
+}
+
+void verifyChunkWithSTYPEight( const DiscreteSpectrum& chunk )
+{
+  CHECK( 3. == chunk.RTYP() );
+  CHECK( 3. == chunk.decayChain() );
+  CHECK( 8 == chunk.NT() );
+  CHECK_THAT( 4.863000e+4, WithinRel( chunk.ER()[0] ) );
+  CHECK_THAT( 5.000000e+1, WithinRel( chunk.ER()[1] ) );
+  CHECK_THAT( 4.863000e+4, WithinRel( chunk.discreteEnergy()[0] ) );
+  CHECK_THAT( 5.000000e+1, WithinRel( chunk.discreteEnergy()[1] ) );
+  CHECK_THAT( 1.420112e-6, WithinRel( chunk.RI()[0] ) );
+  CHECK_THAT( 2.85306e-10, WithinRel( chunk.RI()[1] ) );
+  CHECK_THAT( 1.420112e-6, WithinRel( chunk.relativeIntensity()[0] ) );
+  CHECK_THAT( 2.85306e-10, WithinRel( chunk.relativeIntensity()[1] ) );
+  CHECK( 1. == chunk.type() );
+  CHECK_THAT( 1.0, WithinRel( chunk.RIS()[0] ) );
+  CHECK_THAT( 2.0, WithinRel( chunk.RIS()[1] ) );
+  CHECK_THAT( 1.0, WithinRel( chunk.internalPairFormationCoefficient()[0] ) );
+  CHECK_THAT( 2.0, WithinRel( chunk.internalPairFormationCoefficient()[1] ) );
+  CHECK_THAT( 7.010000e+5, WithinRel( chunk.RICC()[0] ) );
+  CHECK_THAT( 1.106180e-2, WithinRel( chunk.RICC()[1] ) );
+  CHECK_THAT( 7.010000e+5, WithinRel( chunk.totalInternalConversionCoefficient()[0] ) );
+  CHECK_THAT( 1.106180e-2, WithinRel( chunk.totalInternalConversionCoefficient()[1] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.RICK()[0] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.RICK()[1] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.internalConversionCoefficientKShell()[0] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.internalConversionCoefficientKShell()[1] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.RICL()[0] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.RICL()[1] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.internalConversionCoefficientLShell()[0] ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.internalConversionCoefficientLShell()[1] ) );
 
   CHECK( 3 == chunk.NC() );
 }
