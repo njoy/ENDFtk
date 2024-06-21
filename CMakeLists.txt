@@ -336,6 +336,7 @@ if( ENDFtk.python )
   message( STATUS "Building ENDFtk's python API" )
 
   list( APPEND ENDFtk_PYTHONPATH ${CMAKE_CURRENT_BINARY_DIR} )
+  list( APPEND tools_PYTHONPATH ${CMAKE_CURRENT_BINARY_DIR}/_deps/tools-build )
 
   if( ENDFtk.tests )
     include( cmake/unit_testing_python.cmake )
