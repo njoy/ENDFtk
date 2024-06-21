@@ -164,11 +164,11 @@ add_python_test( MF9.ReactionProduct MF9/Test_ENDFtk_MF9_ReactionProduct.py )
 add_python_test( MF10.ReactionProduct MF10/Test_ENDFtk_MF10_ReactionProduct.py )
 
 #add_python_test( MF12.Section                 MF12/Test_ENDFtk_MF12_Section.py )
-#add_python_test( MF12.Multiplicities          MF12/Test_ENDFtk_MF12_Multiplicities.py )
-#add_python_test( MF12.PartialMultiplicity     MF12/Test_ENDFtk_MF12_PartialMultiplicity.py )
-#add_python_test( MF12.TotalMultiplicity       MF12/Test_ENDFtk_MF12_TotalMultiplicity.py )
-#add_python_test( MF12.TransitionProbabilities MF12/Test_ENDFtk_MF12_TransitionProbabilities.py )
-#
+add_python_test( MF12.Multiplicities          MF12/Test_ENDFtk_MF12_Multiplicities.py )
+add_python_test( MF12.PartialMultiplicity     MF12/Test_ENDFtk_MF12_PartialMultiplicity.py )
+add_python_test( MF12.TotalMultiplicity       MF12/Test_ENDFtk_MF12_TotalMultiplicity.py )
+add_python_test( MF12.TransitionProbabilities MF12/Test_ENDFtk_MF12_TransitionProbabilities.py )
+
 #add_python_test( MF13.Section             MF13/Test_ENDFtk_MF13_Section.py )
 #add_python_test( MF13.PartialCrossSection MF13/Test_ENDFtk_MF13_PartialCrossSection.py )
 #add_python_test( MF13.TotalCrossSection   MF13/Test_ENDFtk_MF13_TotalCrossSection.py )

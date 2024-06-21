@@ -69,7 +69,8 @@ public:
    */
   auto photonPartialMultiplicities() const {
 
-    return ranges::cpp20::views::all( this->partials_ );
+    using namespace njoy::tools;
+    return this->partials_ | std20::views::all;
   }
 
   #include "ENDFtk/section/12/Multiplicities/src/NC.hpp"

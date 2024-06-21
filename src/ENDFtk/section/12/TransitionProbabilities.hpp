@@ -75,9 +75,10 @@ public:
    */
   auto transitions() const {
 
-    auto chunked = ListRecord::list() | ranges::views::chunk( this->LG() + 1 );
+    using namespace njoy::tools;
+    auto chunked = ListRecord::list() | std23::views::chunk( this->LG() + 1 );
     using Range = decltype( chunked[0] );
-    return chunked | ranges::cpp20::views::transform(
+    return chunked | std20::views::transform(
                          [] ( Range&& chunk ) -> Transition< Range >
                             { return { std::move( chunk ) }; } );
   }
@@ -87,9 +88,10 @@ public:
    */
   auto E() const {
 
+    using namespace njoy::tools;
     return this->transitions()
-             | ranges::cpp20::views::transform( [] ( const auto& transition )
-                                                   { return transition.E(); } );
+             | std20::views::transform( [] ( const auto& transition )
+                                           { return transition.E(); } );
   }
 
   /**
@@ -102,9 +104,10 @@ public:
    */
   auto TP() const {
 
+    using namespace njoy::tools;
     return this->transitions()
-      | ranges::cpp20::views::transform( [] ( const auto& transition )
-                                            { return transition.TP(); } );
+      | std20::views::transform( [] ( const auto& transition )
+                                    { return transition.TP(); } );
   }
 
   /**
@@ -117,9 +120,10 @@ public:
    */
   auto GP() const {
 
+    using namespace njoy::tools;
     return this->transitions()
-      | ranges::cpp20::views::transform( [] ( const auto& transition )
-                                            { return transition.GP(); } );
+      | std20::views::transform( [] ( const auto& transition )
+                                    { return transition.GP(); } );
   }
 
   /**
