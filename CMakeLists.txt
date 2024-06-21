@@ -152,7 +152,7 @@ if( ENDFtk.python )
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/2/151/UnresolvedEnergyDependentFissionWidths.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/2/151/UnresolvedEnergyIndependent.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/2/152.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/23.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/23.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/26.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/26/Multiplicity.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/26/EnergyTransfer.python.cpp
@@ -161,7 +161,7 @@ if( ENDFtk.python )
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/26/ContinuumEnergyAngle.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/26/DiscreteTwoBodyScattering.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/26/ReactionProduct.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/27.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/27.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/28/SubshellData.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/28.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/3.python.cpp
@@ -262,10 +262,10 @@ if( ENDFtk.python )
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/8/457/ContinuousSpectrum.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/8/457/DecaySpectrum.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/8/459.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/9.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/9/ReactionProduct.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/10.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/10/ReactionProduct.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/9.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/9/ReactionProduct.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/10.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/10/ReactionProduct.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/12.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/12/TotalMultiplicity.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/12/PartialMultiplicity.python.cpp
@@ -302,15 +302,15 @@ if( ENDFtk.python )
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/6.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/7.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/8.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/9.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/10.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/9.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/10.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/12.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/13.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/14.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/15.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/23.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/23.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/26.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/27.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/27.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/28.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/31.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/32.python.cpp

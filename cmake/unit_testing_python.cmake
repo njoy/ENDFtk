@@ -156,13 +156,13 @@ add_python_test( MF1.TabulatedMultiplicity            MF1/Test_ENDFtk_MF1_Tabula
 #add_python_test( MF8.MT457.DecaySpectrum        MF8/Test_ENDFtk_MF8_MT457_DecaySpectrum.py )
 #add_python_test( MF8.MT457.DiscreteSpectrum     MF8/Test_ENDFtk_MF8_MT457_DiscreteSpectrum.py )
 #add_python_test( MF8.MT459.Section              MF8/Test_ENDFtk_MF8_MT459_Section.py )
-#
+
 #add_python_test( MF9.Section         MF9/Test_ENDFtk_MF9_Section.py )
-#add_python_test( MF9.ReactionProduct MF9/Test_ENDFtk_MF9_ReactionProduct.py )
-#
+add_python_test( MF9.ReactionProduct MF9/Test_ENDFtk_MF9_ReactionProduct.py )
+
 #add_python_test( MF10.Section         MF10/Test_ENDFtk_MF10_Section.py )
-#add_python_test( MF10.ReactionProduct MF10/Test_ENDFtk_MF10_ReactionProduct.py )
-#
+add_python_test( MF10.ReactionProduct MF10/Test_ENDFtk_MF10_ReactionProduct.py )
+
 #add_python_test( MF12.Section                 MF12/Test_ENDFtk_MF12_Section.py )
 #add_python_test( MF12.Multiplicities          MF12/Test_ENDFtk_MF12_Multiplicities.py )
 #add_python_test( MF12.PartialMultiplicity     MF12/Test_ENDFtk_MF12_PartialMultiplicity.py )
@@ -184,10 +184,10 @@ add_python_test( MF1.TabulatedMultiplicity            MF1/Test_ENDFtk_MF1_Tabula
 #add_python_test( MF15.OutgoingEnergyDistribution MF15/Test_ENDFtk_MF15_OutgoingEnergyDistribution.py )
 #add_python_test( MF15.Probability                MF15/Test_ENDFtk_MF15_Probability.py )
 #add_python_test( MF15.TabulatedSpectrum          MF15/Test_ENDFtk_MF15_TabulatedSpectrum.py )
-#
+
 #add_python_test( MF23.Section MF23/Test_ENDFtk_MF23_Section.py )
 #add_python_test( MF23.File    MF23/Test_ENDFtk_MF23_File.py )
-#
+
 #add_python_test( MF26.Section                    MF26/Test_ENDFtk_MF26_Section.py )
 #add_python_test( MF26.ContinuumEnergyAngle       MF26/Test_ENDFtk_MF26_ContinuumEnergyAngle.py )
 #add_python_test( MF26.DiscreteTwoBodyScattering  MF26/Test_ENDFtk_MF26_DiscreteTwoBodyScattering.py )
