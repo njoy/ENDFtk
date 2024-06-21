@@ -65,6 +65,24 @@ void wrapDiscreteSpectrum( python::module& module, python::module& ) {
     python::init< double, const std::array< double, 2 >&,
                   const std::array< double, 2 >&, double,
                   const std::array< double, 2 >&,
+                  const std::array< double, 2 >& >(),
+    python::arg( "chain" ), python::arg( "energy" ), python::arg( "intensity" ),
+    python::arg( "type" ), python::arg( "ris" ), python::arg( "ricc" ),
+    "Initialise the component\n\n"
+    "Arguments:\n"
+    "    self         the component\n"
+    "    chain        the ENDF decay chain\n"
+    "    energy       the energy and uncertainty\n"
+    "    intensity    the relative intensity and uncertainty\n"
+    "    type         the transition type\n"
+    "    ris          internal pair formation coefficient or positron intensity\n"
+    "    ricc         the total internal conversion coefficient"
+  )
+  .def(
+
+    python::init< double, const std::array< double, 2 >&,
+                  const std::array< double, 2 >&, double,
+                  const std::array< double, 2 >&,
                   const std::array< double, 2 >&,
                   const std::array< double, 2 >&,
                   const std::array< double, 2 >& >(),
