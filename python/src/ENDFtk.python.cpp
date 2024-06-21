@@ -78,10 +78,10 @@ PYBIND11_MODULE( ENDFtk, module ) {
   wrapInterpolationRecord( module, viewmodule );
   wrapDirectoryRecord( module, viewmodule );
   wrapTapeIdentification( module, viewmodule );
-//
-//  // wrap covariance components
-//  wrapCovariance( module, viewmodule );
-//
+
+  // wrap covariance components
+  wrapCovariance( module, viewmodule );
+
 //  // wrap files
 //  wrapFile_1( module, viewmodule );
 //  wrapFile_2( module, viewmodule );

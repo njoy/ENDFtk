@@ -5,8 +5,8 @@
 
 // other includes
 #include "ENDFtk/macros.hpp"
-#include "range/v3/view/drop_exactly.hpp"
-#include "range/v3/view/stride.hpp"
+#include "tools/std20/views.hpp"
+#include "tools/std23/views.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
 
@@ -79,7 +79,11 @@ class ENDFTK_PYTHON_EXPORT DerivedRedundant {
   /**
    *  @brief Return the coefficients
    */
-  auto CI() const { return ranges::views::stride(this->list_.list(), 2); }
+  auto CI() const {
+
+    using namespace njoy::tools;
+    return this->list_.list() | std23::views::stride( 2 );
+  }
 
   /**
    *  @brief Return the coefficients
@@ -91,8 +95,9 @@ class ENDFTK_PYTHON_EXPORT DerivedRedundant {
    */
   auto XMTI() const {
 
-   return ranges::views::drop_exactly(this->list_.list(), 1)
-      | ranges::views::stride(2);
+    using namespace njoy::tools;
+    return this->list_.list() | std20::views::drop( 1 )
+                              | std23::views::stride( 2 );
   }
 
   /**

@@ -2,7 +2,8 @@ static std::vector< double >
 generateList( std::vector< double >&& energies,
               std::vector< double >&& values ) {
 
-  return ranges::views::concat(energies, values)
-    | ranges::to_vector;
-
+  std::vector< double > list;
+  list.insert( list.end(), energies.begin(), energies.end() );
+  list.insert( list.end(), values.begin(), values.end() );
+  return list;
 }

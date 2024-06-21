@@ -98,13 +98,13 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/record/InterpolationRecord.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/record/DirectoryRecord.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/record/TapeIdentification.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/CovariancePairs.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/SquareMatrix.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/RectangularMatrix.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/DerivedRedundant.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/DerivedRatioToStandard.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/ReactionBlock.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/covariance.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/CovariancePairs.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/SquareMatrix.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/RectangularMatrix.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/DerivedRedundant.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/DerivedRatioToStandard.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/ReactionBlock.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/covariance.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/TabulatedMultiplicity.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/PolynomialMultiplicity.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/451.python.cpp

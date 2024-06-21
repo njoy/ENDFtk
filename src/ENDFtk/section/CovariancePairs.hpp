@@ -5,9 +5,8 @@
 
 // other includes
 #include "ENDFtk/macros.hpp"
-#include "range/v3/view/drop_exactly.hpp"
-#include "range/v3/view/take_exactly.hpp"
-#include "range/v3/view/stride.hpp"
+#include "tools/std20/views.hpp"
+#include "tools/std23/views.hpp"
 #include "ENDFtk/ListRecord.hpp"
 
 namespace njoy {
@@ -77,9 +76,10 @@ public:
    *  @brief Return the energy values from the first array
    */
   auto EK() const {
-    return ranges::views::take_exactly( ListRecord::list(),
-                                       2 * ( this->NP() - this->LT() ) )
-            | ranges::views::stride( 2 );
+
+    using namespace njoy::tools;
+    return ListRecord::list() | std20::views::take( 2 * ( this->NP() - this->LT() ) )
+                              | std23::views::stride( 2 );
   }
 
   /**
@@ -91,10 +91,11 @@ public:
    *  @brief Return the F values from the first array
    */
   auto FK() const {
-    return ranges::views::take_exactly( ListRecord::list(),
-                                       2 * ( this->NP() - this->LT() ) )
-            | ranges::views::drop_exactly( 1 )
-            | ranges::views::stride( 2 );
+
+    using namespace njoy::tools;
+    return ListRecord::list() | std20::views::take(  2 * ( this->NP() - this->LT() ) )
+                              | std20::views::drop( 1 )
+                              | std23::views::stride( 2 );
   }
 
   /**
@@ -106,9 +107,10 @@ public:
    *  @brief Return the energy values from the second array
    */
   auto EL() const {
-    return ranges::views::drop_exactly( ListRecord::list(),
-                                       2 * ( this->NP() - this->LT() ) )
-            | ranges::views::stride( 2 );
+
+    using namespace njoy::tools;
+    return ListRecord::list() | std20::views::drop( 2 * ( this->NP() - this->LT() ) )
+                              | std23::views::stride( 2 );
   }
 
   /**
@@ -120,9 +122,10 @@ public:
    *  @brief Return the F values from the second array
    */
   auto FL() const {
-    return ranges::views::drop_exactly( ListRecord::list(),
-                                       2 * ( this->NP() - this->LT() ) + 1 )
-            | ranges::views::stride( 2 );
+
+    using namespace njoy::tools;
+    return ListRecord::list() | std20::views::drop( 2 * ( this->NP() - this->LT() ) + 1 )
+                              | std23::views::stride( 2 );
   }
 
   /**
