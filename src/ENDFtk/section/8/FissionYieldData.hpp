@@ -4,12 +4,10 @@
 // system includes
 
 // other includes
+#include "tools/std20/views.hpp"
+#include "tools/std23/views.hpp"
 #include "ENDFtk/macros.hpp"
 #include "ENDFtk/ListRecord.hpp"
-#include "range/v3/view/chunk.hpp"
-#include "range/v3/view/drop_exactly.hpp"
-#include "range/v3/view/stride.hpp"
-#include "range/v3/view/transform.hpp"
 
 namespace njoy {
 namespace ENDFtk {
@@ -33,8 +31,9 @@ namespace section{
 
     auto column( unsigned int i ) const {
 
-      return ListRecord::list() | ranges::views::drop_exactly( i )
-                                | ranges::views::stride( 4 );
+      using namespace njoy::tools;
+      return ListRecord::list() | std20::views::drop( i )
+                                | std23::views::stride( 4 );
     }
 
   public:
@@ -112,9 +111,10 @@ namespace section{
      */
     auto Y() const {
 
-      return ListRecord::list() | ranges::views::drop_exactly( 2 )
-                                | ranges::views::chunk( 2 )
-                                | ranges::views::stride( 2 );
+      using namespace njoy::tools;
+      return ListRecord::list() | std20::views::drop( 2 )
+                                | std23::views::chunk( 2 )
+                                | std23::views::stride( 2 );
     }
 
     /**
@@ -127,10 +127,11 @@ namespace section{
      */
     auto fissionProducts() const {
 
+      using namespace njoy::tools;
       using Chunk = decltype( ( ListRecord::list()
-                                  | ranges::views::chunk( 4 ) )[0] );
-      return ListRecord::list() | ranges::views::chunk( 4 )
-               | ranges::cpp20::views::transform(
+                                  | std23::views::chunk( 4 ) )[0] );
+      return ListRecord::list() | std23::views::chunk( 4 )
+               | std20::views::transform(
                    [] ( Chunk&& chunk ) -> FissionProduct< Chunk >
                       { return { std::move( chunk ) }; } );
     }

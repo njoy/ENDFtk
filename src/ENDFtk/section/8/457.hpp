@@ -5,11 +5,8 @@
 #include <optional>
 
 // other includes
-#include "range/v3/action/join.hpp"
-#include "range/v3/range/conversion.hpp"
-#include "range/v3/view/chunk.hpp"
-#include "range/v3/view/join.hpp"
-#include "range/v3/view/transform.hpp"
+#include "tools/std20/views.hpp"
+#include "tools/std23/views.hpp"
 #include "ENDFtk/macros.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
@@ -144,7 +141,8 @@ namespace section{
      */
     auto decaySpectra() const {
 
-      return ranges::cpp20::views::all( this->spectra_ );
+      using namespace njoy::tools;
+      return this->spectra_ | std20::views::all;
     }
 
     #include "ENDFtk/section/8/457/src/NC.hpp"

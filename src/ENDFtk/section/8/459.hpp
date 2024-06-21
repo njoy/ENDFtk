@@ -4,7 +4,7 @@
 // system includes
 
 // other includes
-#include "range/v3/range/conversion.hpp"
+#include "tools/std20/views.hpp"
 #include "ENDFtk/macros.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/readSequence.hpp"
@@ -16,7 +16,7 @@ namespace ENDFtk {
 namespace section {
 
   template<>
-  class ENDFTK_PYTHON_EXPORT Type< 8, 459 > : 
+  class ENDFTK_PYTHON_EXPORT Type< 8, 459 > :
     protected BaseWithoutMT< Type< 8, 459 > > {
 
     friend BaseWithoutMT< Type< 8, 459 > >;
@@ -50,7 +50,8 @@ namespace section {
      */
     auto yields() const {
 
-      return ranges::cpp20::views::all( this->data_ );
+      using namespace njoy::tools;
+      return this->data_ | std20::views::all;
     }
 
     /**
@@ -68,9 +69,10 @@ namespace section {
      */
     auto E() const {
 
+      using namespace njoy::tools;
       return this->yields()
-                 | ranges::cpp20::views::transform( [] ( const auto& entry )
-                                                       { return entry.E(); } );
+                 | std20::views::transform( [] ( const auto& entry )
+                                               { return entry.E(); } );
     }
 
     /**

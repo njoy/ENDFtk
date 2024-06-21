@@ -252,16 +252,16 @@ if( ENDFtk.python )
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/4/ScatteringFunction.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/451.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/451/ElementInformation.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/8/FissionYieldData.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/8/454.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/8/457.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/8/457/AverageDecayEnergies.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/8/457/DecayMode.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/8/457/DecayModes.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/8/457/DiscreteSpectrum.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/8/457/ContinuousSpectrum.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/8/457/DecaySpectrum.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/8/459.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/8/FissionYieldData.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/8/454.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/8/457.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/8/457/AverageDecayEnergies.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/8/457/DecayMode.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/8/457/DecayModes.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/8/457/DiscreteSpectrum.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/8/457/ContinuousSpectrum.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/8/457/DecaySpectrum.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/8/459.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/9.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/9/ReactionProduct.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/10.python.cpp
@@ -301,7 +301,7 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/5.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/6.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/7.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/8.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/8.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/9.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/10.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/12.python.cpp

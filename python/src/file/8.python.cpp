@@ -39,65 +39,65 @@ void wrapFile_8( python::module& module, python::module& viewmodule ) {
   wrapSection_8_457( submodule, viewmodule );
   wrapSection_8_459( submodule, viewmodule );
 
-  // wrap views created by this file
-  // none of these are supposed to be created directly by the user
-  wrapBidirectionalAnyViewOf< Section >(
-      viewmodule,
-      "any_view< section::Type< 8 >, bidirectional >" );
-
-  // create the file
-  python::class_< File > file(
-
-    submodule,
-    "File",
-    "MF8 file - radioactive decay and fission product yield data"
-  );
-
-  // wrap the file
-  file
-  .def(
-
-    python::init( [] ( MF8MT457 decay )
-                     { return File( std::move( decay ) ); } ),
-    python::arg( "decay" ),
-    "Initialise the file with radioactive decay data\n\n"
-    "Arguments:\n"
-    "    self    the file\n"
-    "    decay   the decay data (MT457)"
-  )
-  .def(
-
-    python::init( [] ( MF8MT454 direct )
-                     { return File( std::move( direct ) ); } ),
-    python::arg( "direct" ),
-    "Initialise the file with direct fission yield data\n\n"
-    "Arguments:\n"
-    "    self     the file\n"
-    "    direct   the direct fission yield data (MT454)"
-  )
-  .def(
-
-    python::init( [] ( MF8MT459 cumulative )
-                     { return File( std::move( cumulative ) ); } ),
-    python::arg( "cumulative" ),
-    "Initialise the file with cumulative fission yield data\n\n"
-    "Arguments:\n"
-    "    self         the file\n"
-    "    cumulative   the cumulative fission yield data (MT459)"
-  )
-  .def(
-
-    python::init( [] ( MF8MT454 direct, MF8MT459 cumulative )
-                     { return File( std::move( direct ),
-                                    std::move( cumulative ) ); } ),
-    python::arg( "direct" ), python::arg( "cumulative" ),
-    "Initialise the file with direct and cumulative fission yield data\n\n"
-    "Arguments:\n"
-    "    self         the file\n"
-    "    direct       the direct fission yield data (MT454)\n"
-    "    cumulative   the cumulative fission yield data (MT459)"
-  );
-
-  // add standard file definitions
-  addStandardFileDefinitions< File, Section, SectionRange >( file );
+//  // wrap views created by this file
+//  // none of these are supposed to be created directly by the user
+//  wrapBidirectionalAnyViewOf< Section >(
+//      viewmodule,
+//      "any_view< section::Type< 8 >, bidirectional >" );
+//
+//  // create the file
+//  python::class_< File > file(
+//
+//    submodule,
+//    "File",
+//    "MF8 file - radioactive decay and fission product yield data"
+//  );
+//
+//  // wrap the file
+//  file
+//  .def(
+//
+//    python::init( [] ( MF8MT457 decay )
+//                     { return File( std::move( decay ) ); } ),
+//    python::arg( "decay" ),
+//    "Initialise the file with radioactive decay data\n\n"
+//    "Arguments:\n"
+//    "    self    the file\n"
+//    "    decay   the decay data (MT457)"
+//  )
+//  .def(
+//
+//    python::init( [] ( MF8MT454 direct )
+//                     { return File( std::move( direct ) ); } ),
+//    python::arg( "direct" ),
+//    "Initialise the file with direct fission yield data\n\n"
+//    "Arguments:\n"
+//    "    self     the file\n"
+//    "    direct   the direct fission yield data (MT454)"
+//  )
+//  .def(
+//
+//    python::init( [] ( MF8MT459 cumulative )
+//                     { return File( std::move( cumulative ) ); } ),
+//    python::arg( "cumulative" ),
+//    "Initialise the file with cumulative fission yield data\n\n"
+//    "Arguments:\n"
+//    "    self         the file\n"
+//    "    cumulative   the cumulative fission yield data (MT459)"
+//  )
+//  .def(
+//
+//    python::init( [] ( MF8MT454 direct, MF8MT459 cumulative )
+//                     { return File( std::move( direct ),
+//                                    std::move( cumulative ) ); } ),
+//    python::arg( "direct" ), python::arg( "cumulative" ),
+//    "Initialise the file with direct and cumulative fission yield data\n\n"
+//    "Arguments:\n"
+//    "    self         the file\n"
+//    "    direct       the direct fission yield data (MT454)\n"
+//    "    cumulative   the cumulative fission yield data (MT459)"
+//  );
+//
+//  // add standard file definitions
+//  addStandardFileDefinitions< File, Section, SectionRange >( file );
 }

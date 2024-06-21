@@ -45,12 +45,12 @@ generateFissionYields( std::vector< unsigned int >&& identifiers,
 
   for ( unsigned int i = 0; i < size; ++i ) {
 
+    using namespace njoy::tools;
+    auto data = yields | std20::views::transform( [i] ( auto&& values )
+                                                      { return values[i]; });
     sequence.emplace_back( std::vector< unsigned int >( identifiers ),
                            std::vector< unsigned int >( states ),
-                           ranges::to< std::vector< std::array< double, 2 > > >(
-                               yields | ranges::cpp20::views::transform(
-                                            [i] ( const auto& range )
-                                                { return range[i]; } ) ),
+                           std::vector< std::array< double, 2 > >{ data.begin(), data.end() },
                            energies[i],
                            i == 0 ? energies.size() - 1 : interpolants[i-1] );
   }
