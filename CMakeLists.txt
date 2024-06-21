@@ -271,9 +271,9 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/12/PartialMultiplicity.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/12/Multiplicities.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/12/TransitionProbabilities.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/13.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/13/TotalCrossSection.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/13/PartialCrossSection.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/13.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/13/TotalCrossSection.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/13/PartialCrossSection.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/14.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/14/IsotropicDiscretePhoton.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/14/LegendreCoefficients.python.cpp
@@ -305,7 +305,7 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/9.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/10.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/12.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/13.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/13.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/14.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/15.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/23.python.cpp

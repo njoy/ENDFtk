@@ -6,6 +6,7 @@
 #include <optional>
 
 // other includes
+#include "tools/std20/views.hpp"
 #include "ENDFtk/macros.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
@@ -75,7 +76,8 @@ namespace section {
      */
     auto photonPartialCrossSections() const {
 
-      return ranges::cpp20::views::all( this->partials_ );
+      using namespace njoy::tools;
+      return this->partials_ | std20::views::all;
     }
 
     #include "ENDFtk/section/13/src/NC.hpp"
