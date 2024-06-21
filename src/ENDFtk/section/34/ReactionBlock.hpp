@@ -81,7 +81,8 @@ public:
    */
   auto legendreBlocks() const {
 
-    return ranges::cpp20::views::all( this->lblocks_ );
+    using namespace njoy::tools;
+    return this->lblocks_ | std20::views::all;
   }
 
   #include "ENDFtk/section/34/ReactionBlock/src/NC.hpp"

@@ -202,9 +202,9 @@ add_python_test( MF15.TabulatedSpectrum          MF15/Test_ENDFtk_MF15_Tabulated
 #
 #add_python_test( MF28.Section      MF28/Test_ENDFtk_MF28_Section.py )
 #add_python_test( MF28.SubshellData MF28/Test_ENDFtk_MF28_SubshellData.py )
-#
+
 #add_python_test( MF31.Section MF31/Test_ENDFtk_MF31_Section.py )
-#
+
 #add_python_test( MF32.MT151.CompactBreitWignerUncertainties         MF32/MT151/Test_ENDFtk_MF32_MT151_CompactBreitWignerUncertainties.py )
 #add_python_test( MF32.MT151.CompactCorrelationMatrix                MF32/MT151/Test_ENDFtk_MF32_MT151_CompactCorrelationMatrix.py )
 #add_python_test( MF32.MT151.CompactMultiLevelBreitWigner            MF32/MT151/Test_ENDFtk_MF32_MT151_CompactMultiLevelBreitWigner.py )
@@ -238,8 +238,8 @@ add_python_test( MF15.TabulatedSpectrum          MF15/Test_ENDFtk_MF15_Tabulated
 #add_python_test( MF33.Section MF33/Test_ENDFtk_MF33_Section.py )
 
 #add_python_test( MF34.Section       MF34/Test_ENDFtk_MF34_Section.py )
-#add_python_test( MF34.LegendreBlock MF34/Test_ENDFtk_MF34_LegendreBlock.py )
-#add_python_test( MF34.ReactionBlock MF34/Test_ENDFtk_MF34_ReactionBlock.py )
+add_python_test( MF34.LegendreBlock MF34/Test_ENDFtk_MF34_LegendreBlock.py )
+add_python_test( MF34.ReactionBlock MF34/Test_ENDFtk_MF34_ReactionBlock.py )
 #
 #add_python_test( MF35.Section      MF35/Test_ENDFtk_MF35_Section.py )
 #add_python_test( MF35.SquareMatrix MF35/Test_ENDFtk_MF35_SquareMatrix.py )

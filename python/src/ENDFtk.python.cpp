@@ -101,10 +101,10 @@ PYBIND11_MODULE( ENDFtk, module ) {
 //  wrapFile_26( module, viewmodule );
   wrapFile_27( module, viewmodule );
 //  wrapFile_28( module, viewmodule );
-//  wrapFile_31( module, viewmodule );
+  wrapFile_31( module, viewmodule );
 //  wrapFile_32( module, viewmodule );
   wrapFile_33( module, viewmodule );
-//  wrapFile_34( module, viewmodule );
+  wrapFile_34( module, viewmodule );
 //  wrapFile_35( module, viewmodule );
 //  wrapFile_40( module, viewmodule );
 //
