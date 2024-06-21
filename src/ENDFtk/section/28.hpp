@@ -4,15 +4,13 @@
 // system includes
 
 // other includes
+#include "tools/std20/views.hpp"
+#include "tools/std23/views.hpp"
 #include "ENDFtk/macros.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/readSequence.hpp"
 #include "ENDFtk/section.hpp"
-#include "range/v3/view/chunk.hpp"
-#include "range/v3/view/drop_exactly.hpp"
-#include "range/v3/view/stride.hpp"
-#include "range/v3/view/transform.hpp"
 
 namespace njoy {
 namespace ENDFtk {
@@ -58,7 +56,8 @@ namespace section{
      */
     auto subshells() const {
 
-      return ranges::cpp20::views::all( this->subshells_ );
+      using namespace njoy::tools;
+      return std20::views::all( this->subshells_ );
     }
 
     #include "ENDFtk/section/28/src/NC.hpp"

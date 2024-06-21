@@ -12,8 +12,9 @@ class ENDFTK_PYTHON_EXPORT SubshellData : protected ListRecord {
 
   auto column( unsigned int i ) const {
 
-    return ListRecord::list() | ranges::views::drop_exactly( 6 + i )
-                              | ranges::views::stride( 6 );
+    using namespace njoy::tools;
+    return ListRecord::list() | std20::views::drop( 6 + i )
+                              | std23::views::stride( 6 );
   }
 
 public:
@@ -110,13 +111,14 @@ public:
    */
   auto transitions() const {
 
+    using namespace njoy::tools;
     using Chunk = decltype( ( ListRecord::list()
-                                | ranges::views::chunk( 6 ) )[0] );
-    return ListRecord::list() | ranges::views::chunk( 6 )
-             | ranges::cpp20::views::transform(
+                                | std23::views::chunk( 6 ) )[0] );
+    return ListRecord::list() | std23::views::chunk( 6 )
+             | std20::views::transform(
                  [] ( Chunk&& chunk ) -> Transition< Chunk >
                     { return { std::move( chunk ) }; } )
-             | ranges::views::drop_exactly( 1 );
+             | std20::views::drop( 1 );
   }
 
   using ListRecord::NC;
