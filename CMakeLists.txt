@@ -286,7 +286,7 @@ if( ENDFtk.python )
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/15/Probability.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/15/PartialDistribution.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/31.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/33.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/33.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/34.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/34/LegendreBlock.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/34/ReactionBlock.python.cpp
@@ -314,7 +314,7 @@ if( ENDFtk.python )
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/28.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/31.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/32.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/33.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/33.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/34.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/35.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/40.python.cpp

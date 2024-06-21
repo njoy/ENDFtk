@@ -7,9 +7,7 @@
 #include <optional>
 
 // other includes
-#include "range/v3/action/sort.hpp"
-#include "range/v3/action/unique.hpp"
-#include "range/v3/range/operations.hpp"
+#include "tools/std20/views.hpp"
 #include "ENDFtk/TapeIdentification.hpp"
 #include "ENDFtk/Tape.hpp"
 #include "ENDFtk/tree/Material.hpp"
@@ -114,6 +112,7 @@ namespace tree {
      */
     auto materials() {
 
+      using namespace njoy::tools;
       return this->materials_ | ranges::cpp20::views::values;
     }
 
@@ -122,6 +121,7 @@ namespace tree {
      */
     auto materials() const {
 
+      using namespace njoy::tools;
       return this->materials_ | ranges::cpp20::views::values;
     }
 
@@ -189,9 +189,12 @@ namespace tree {
      */
     std::vector< int > materialNumbers() const {
 
-      return ranges::cpp20::views::keys( this->materials_ )
-               | ranges::to_vector
-               | ranges::actions::sort | ranges::actions::unique;
+      using namespace njoy::tools;
+      auto keys = this->materials_ | std20::views::keys;
+      std::vector< int > materials( keys.begin(), keys.end() );
+      std::sort( materials.begin(), materials.end() );
+      materials.erase( std::unique( materials.begin(), materials.end() ), materials.end() );
+      return materials;
     }
 
     #include "ENDFtk/tree/Tape/src/remove.hpp"
