@@ -164,7 +164,7 @@ if( ENDFtk.python )
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/27.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/28/SubshellData.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/28.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/3.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/3.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/ScatteringRadiusCovariances.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/LimitedBreitWignerLValue.python.cpp
@@ -296,7 +296,7 @@ if( ENDFtk.python )
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/40/LevelBlock.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/1.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/2.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/3.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/3.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/4.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/5.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/6.python.cpp
