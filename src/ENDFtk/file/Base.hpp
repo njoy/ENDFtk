@@ -5,7 +5,7 @@
 #include <map>
 
 // other includes
-#include "range/v3/view/map.hpp"
+#include "tools/std20/views.hpp"
 
 namespace njoy {
 namespace ENDFtk {
@@ -44,7 +44,8 @@ namespace file {
      */
     auto MTs() {
 
-      return this->sections_ | ranges::cpp20::views::values;
+      using namespace njoy::tools;
+      return this->sections_ | std20::views::values;
     }
 
     /**
@@ -60,7 +61,8 @@ namespace file {
      */
     auto MTs() const {
 
-      return this->sections_ | ranges::cpp20::views::values;
+      using namespace njoy::tools;
+      return this->sections_ | std20::views::values;
     }
 
     /**

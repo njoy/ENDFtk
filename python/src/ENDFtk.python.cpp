@@ -4,7 +4,6 @@
 #include <complex>
 
 // other includes
-#include "views.hpp"
 
 // namespace aliases
 namespace python = pybind11;
@@ -70,77 +69,56 @@ PYBIND11_MODULE( ENDFtk, module ) {
     "sequence - ENDF sequences (internal use only)"
   );
 
-  // wrap some basic recurring views
-  // none of these are supposed to be created directly by the user
-  wrapBasicRandomAccessAnyViewOf< double >(
-      viewmodule,
-      "any_view< double, random_access >" );
-  wrapBasicRandomAccessAnyViewOf< long >(
-      viewmodule,
-      "any_view< long, random_access >" );
-  wrapBasicRandomAccessAnyViewOf< int >(
-      viewmodule,
-      "any_view< int, random_access >" );
-  wrapBasicRandomAccessAnyViewOf< BasicRandomAccessAnyView< double > >(
-      viewmodule,
-      "any_view< any_view< double, random_access >, random_access >" );
-  wrapBasicRandomAccessAnyViewOf< BasicRandomAccessAnyView< BasicRandomAccessAnyView< double > > >(
-      viewmodule,
-      "any_view< any_view< any_view< double, random_access >, random_access >, random_access >" );
-  wrapBasicRandomAccessAnyViewOf< std::complex< double > >(
-      viewmodule,
-      "any_view< std::complex< double , random_access >" );
-
   // wrap records
   wrapControlRecord( module, viewmodule );
-  wrapListRecord( module, viewmodule );
-  wrapTabulationRecord( module, viewmodule );
-  wrapInterpolationRecord( module, viewmodule );
-  wrapDirectoryRecord( module, viewmodule );
-  wrapTapeIdentification( module, viewmodule );
-
-  // wrap covariance components
-  wrapCovariance( module, viewmodule );
-
-  // wrap files
-  wrapFile_1( module, viewmodule );
-  wrapFile_2( module, viewmodule );
-  wrapFile_3( module, viewmodule );
-  wrapFile_4( module, viewmodule );
-  wrapFile_5( module, viewmodule );
-  wrapFile_6( module, viewmodule );
-  wrapFile_7( module, viewmodule );
-  wrapFile_8( module, viewmodule );
-  wrapFile_9( module, viewmodule );
-  wrapFile_10( module, viewmodule );
-  wrapFile_12( module, viewmodule );
-  wrapFile_13( module, viewmodule );
-  wrapFile_14( module, viewmodule );
-  wrapFile_15( module, viewmodule );
-  wrapFile_23( module, viewmodule );
-  wrapFile_26( module, viewmodule );
-  wrapFile_27( module, viewmodule );
-  wrapFile_28( module, viewmodule );
-  wrapFile_31( module, viewmodule );
-  wrapFile_32( module, viewmodule );
-  wrapFile_33( module, viewmodule );
-  wrapFile_34( module, viewmodule );
-  wrapFile_35( module, viewmodule );
-  wrapFile_40( module, viewmodule );
-
-  // wrap material and tape
-  wrapMaterial( module, viewmodule );
-
-  // create the submodule
-  python::module submodule = module.def_submodule(
-
-    "tree",
-    "tree - ENDF tree components"
-  );
-
-  // wrap tree
-  wrapTreeSection( submodule, viewmodule );
-  wrapTreeFile( submodule, viewmodule );
-  wrapTreeMaterial( submodule, viewmodule );
-  wrapTreeTape( submodule, viewmodule );
+//  wrapListRecord( module, viewmodule );
+//  wrapTabulationRecord( module, viewmodule );
+//  wrapInterpolationRecord( module, viewmodule );
+//  wrapDirectoryRecord( module, viewmodule );
+//  wrapTapeIdentification( module, viewmodule );
+//
+//  // wrap covariance components
+//  wrapCovariance( module, viewmodule );
+//
+//  // wrap files
+//  wrapFile_1( module, viewmodule );
+//  wrapFile_2( module, viewmodule );
+//  wrapFile_3( module, viewmodule );
+//  wrapFile_4( module, viewmodule );
+//  wrapFile_5( module, viewmodule );
+//  wrapFile_6( module, viewmodule );
+//  wrapFile_7( module, viewmodule );
+//  wrapFile_8( module, viewmodule );
+//  wrapFile_9( module, viewmodule );
+//  wrapFile_10( module, viewmodule );
+//  wrapFile_12( module, viewmodule );
+//  wrapFile_13( module, viewmodule );
+//  wrapFile_14( module, viewmodule );
+//  wrapFile_15( module, viewmodule );
+//  wrapFile_23( module, viewmodule );
+//  wrapFile_26( module, viewmodule );
+//  wrapFile_27( module, viewmodule );
+//  wrapFile_28( module, viewmodule );
+//  wrapFile_31( module, viewmodule );
+//  wrapFile_32( module, viewmodule );
+//  wrapFile_33( module, viewmodule );
+//  wrapFile_34( module, viewmodule );
+//  wrapFile_35( module, viewmodule );
+//  wrapFile_40( module, viewmodule );
+//
+//  // wrap material and tape
+//  wrapMaterial( module, viewmodule );
+//
+//  // create the submodule
+//  python::module submodule = module.def_submodule(
+//
+//    "tree",
+//    "tree - ENDF tree components"
+//  );
+//
+//  // wrap tree
+//  wrapTreeSection( submodule, viewmodule );
+//  wrapTreeFile( submodule, viewmodule );
+//  wrapTreeMaterial( submodule, viewmodule );
+//  wrapTreeTape( submodule, viewmodule );
 }

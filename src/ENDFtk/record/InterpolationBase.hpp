@@ -5,11 +5,11 @@
 #include <vector>
 
 // other includes
+#include "tools/std20/views.hpp"
 #include "tools/disco/Integer.hpp"
 #include "tools/disco/ENDF.hpp"
 #include "tools/disco/Column.hpp"
 #include "tools/disco/Record.hpp"
-#include "range/v3/view/all.hpp"
 #include "ENDFtk/record/Base.hpp"
 #include "ENDFtk/record/Integer.hpp"
 #include "ENDFtk/record/Real.hpp"
@@ -79,14 +79,16 @@ namespace record {
 
     auto INT() const {
 
-      return ranges::cpp20::views::all( this->interpolationSchemeIndices );
+      using namespace njoy::tools;
+      return std20::views::all( this->interpolationSchemeIndices );
     }
 
     auto interpolants() const { return this->INT(); }
 
     auto NBT() const {
 
-      return ranges::cpp20::views::all( this->boundaryIndices );
+      using namespace njoy::tools;
+      return std20::views::all( this->boundaryIndices );
     }
 
     auto boundaries() const { return this->NBT(); }

@@ -6,8 +6,7 @@
 #include <map>
 
 // other includes
-#include "range/v3/view/subrange.hpp"
-#include "range/v3/view/map.hpp"
+#include "tools/std20/views.hpp"
 #include "ENDFtk/file/Type.hpp"
 #include "ENDFtk/tree/Section.hpp"
 #include "ENDFtk/tree/toSection.hpp"
@@ -66,7 +65,8 @@ namespace tree {
      */
     auto sectionNumbers() const {
 
-      return ranges::cpp20::views::keys( this->sections_ );
+      using namespace njoy::tools;
+      return this->sections_ | std20::views::keys;
     }
 
     #include "ENDFtk/tree/File/src/section.hpp"
@@ -109,7 +109,8 @@ namespace tree {
      */
     auto sections() const {
 
-      return this->sections_ | ranges::cpp20::views::values;
+      using namespace njoy::tools;
+      return this->sections_ | std20::views::values;
     }
 
     /**
@@ -117,7 +118,8 @@ namespace tree {
      */
     auto sections() {
 
-      return this->sections_ | ranges::cpp20::views::values;
+      using namespace njoy::tools;
+      return this->sections_ | std20::views::values;
     }
 
     /**
@@ -125,7 +127,7 @@ namespace tree {
      */
     auto begin() const {
 
-      return ( this->sections_ | ranges::cpp20::views::values ).begin();
+      return this->sections().begin();
     }
 
     /**
@@ -133,7 +135,7 @@ namespace tree {
      */
     auto end() const {
 
-      return ( this->sections_ | ranges::cpp20::views::values ).end();
+      return this->sections().end();
     }
 
     /**
@@ -141,7 +143,7 @@ namespace tree {
      */
     auto begin() {
 
-      return ( this->sections_ | ranges::cpp20::views::values ).begin();
+      return this->sections().begin();
     }
 
     /**
@@ -149,7 +151,7 @@ namespace tree {
      */
     auto end() {
 
-      return ( this->sections_ | ranges::cpp20::views::values ).end();
+      return this->sections().end();
     }
 
     /**
