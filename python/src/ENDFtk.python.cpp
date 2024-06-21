@@ -105,9 +105,9 @@ PYBIND11_MODULE( ENDFtk, module ) {
 //  wrapFile_32( module, viewmodule );
   wrapFile_33( module, viewmodule );
   wrapFile_34( module, viewmodule );
-//  wrapFile_35( module, viewmodule );
-//  wrapFile_40( module, viewmodule );
-//
+  wrapFile_35( module, viewmodule );
+  wrapFile_40( module, viewmodule );
+
 //  // wrap material and tape
 //  wrapMaterial( module, viewmodule );
 //

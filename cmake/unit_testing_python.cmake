@@ -240,12 +240,12 @@ add_python_test( MF15.TabulatedSpectrum          MF15/Test_ENDFtk_MF15_Tabulated
 #add_python_test( MF34.Section       MF34/Test_ENDFtk_MF34_Section.py )
 add_python_test( MF34.LegendreBlock MF34/Test_ENDFtk_MF34_LegendreBlock.py )
 add_python_test( MF34.ReactionBlock MF34/Test_ENDFtk_MF34_ReactionBlock.py )
-#
+
 #add_python_test( MF35.Section      MF35/Test_ENDFtk_MF35_Section.py )
-#add_python_test( MF35.SquareMatrix MF35/Test_ENDFtk_MF35_SquareMatrix.py )
-#
+add_python_test( MF35.SquareMatrix MF35/Test_ENDFtk_MF35_SquareMatrix.py )
+
 #add_python_test( MF40.Section    MF40/Test_ENDFtk_MF40_Section.py )
-#add_python_test( MF40.LevelBlock MF40/Test_ENDFtk_MF40_LevelBlock.py )
+add_python_test( MF40.LevelBlock MF40/Test_ENDFtk_MF40_LevelBlock.py )
 #
 #add_python_test( tree.File     tree/Test_ENDFtk_Tree_File.py )
 #add_python_test( tree.Material tree/Test_ENDFtk_Tree_Material.py )

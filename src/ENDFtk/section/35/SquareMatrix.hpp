@@ -74,8 +74,8 @@ public:
    */
   auto energies() const {
 
-    return ranges::views::take_exactly( ListRecord::list(),
-                                        this->NE() );
+    using namespace njoy::tools;
+    return ListRecord::list() | std20::views::take( this->NE() );
   }
 
   /**
@@ -83,8 +83,8 @@ public:
    */
   auto values() const {
 
-    return ranges::views::drop_exactly( ListRecord::list(),
-                                        this->NE() );
+    using namespace njoy::tools;
+    return ListRecord::list() | std20::views::drop( this->NE() );
   }
 
   using ListRecord::NC;

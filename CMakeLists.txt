@@ -290,10 +290,10 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/34.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/34/LegendreBlock.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/34/ReactionBlock.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/35.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/35/SquareMatrix.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/40.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/40/LevelBlock.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/35.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/35/SquareMatrix.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/40.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/40/LevelBlock.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/1.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/2.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/3.python.cpp
@@ -316,8 +316,8 @@ if( ENDFtk.python )
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/32.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/33.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/34.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/35.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/40.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/35.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/40.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/Material.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/tree/Section.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/tree/File.python.cpp

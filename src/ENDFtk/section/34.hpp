@@ -6,7 +6,6 @@
 
 // other includes
 #include "tools/std20/views.hpp"
-#include "tools/std23/views.hpp"
 #include "ENDFtk/macros.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
@@ -74,7 +73,7 @@ namespace section{
     auto reactions() const {
 
       using namespace njoy::tools;
-      return std20::views::all( this->reactions_ );
+      return this->reactions_ | std20::views::all;
     }
 
     #include "ENDFtk/section/34/src/NC.hpp"
