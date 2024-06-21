@@ -53,9 +53,10 @@ public:
    */
   auto jValues() const {
 
-    auto chunked = ListRecord::list() | ranges::views::chunk( 6 );
+    using namespace njoy::tools;
+    auto chunked = ListRecord::list() | std23::views::chunk( 6 );
     using Range = decltype( chunked[0] );
-    return chunked | ranges::cpp20::views::transform(
+    return chunked | std20::views::transform(
                        [] ( Range&& chunk ) -> JValue< Range >
                           { return { std::move( chunk ) }; } );
   }
@@ -65,9 +66,10 @@ public:
    */
   auto D() const {
 
+    using namespace njoy::tools;
     return this->jValues()
-             | ranges::cpp20::views::transform( [] ( const auto& jvalue )
-                                                   { return jvalue.D(); } );
+             | std20::views::transform( [] ( const auto& jvalue )
+                                           { return jvalue.D(); } );
   }
 
   /**
@@ -80,9 +82,10 @@ public:
    */
   auto AJ() const {
 
+    using namespace njoy::tools;
     return this->jValues()
-             | ranges::cpp20::views::transform( [] ( const auto& jvalue )
-                                                   { return jvalue.AJ(); } );
+             | std20::views::transform( [] ( const auto& jvalue )
+                                           { return jvalue.AJ(); } );
   }
 
   /**
@@ -95,9 +98,10 @@ public:
    */
   auto AMUN() const {
 
+    using namespace njoy::tools;
     return this->jValues()
-             | ranges::cpp20::views::transform( [] ( const auto& jvalue )
-                                                   { return jvalue.AMUN(); } );
+             | std20::views::transform( [] ( const auto& jvalue )
+                                           { return jvalue.AMUN(); } );
   }
 
   /**
@@ -105,43 +109,44 @@ public:
    */
   auto neutronWidthDegreesFreedom() const { return this->AMUN(); }
 
-  /**
-   *  @brief Return the degrees of freedom for the gamma width
-   */
-  auto AMUG() const { return ranges::views::repeat_n( 0.0, this->NJS() ); }
-
-  /**
-   *  @brief Return the degrees of freedom for the gamma width
-   */
-  auto gammaWidthDegreesFreedom() const { return this->AMUG(); }
-
-  /**
-   *  @brief Return the degrees of freedom for the fission width
-   */
-  auto AMUF() const { return ranges::views::repeat_n( 0.0, this->NJS() ); }
-
-  /**
-   *  @brief Return the degrees of freedom for the fission width
-   */
-  auto fissionWidthDegreesFreedom() const { return this->AMUG(); }
-
-  /**
-   *  @brief Return the degrees of freedom for the competitive width
-   */
-  auto AMUX() const { return ranges::views::repeat_n( 0.0, this->NJS() ); }
-
-  /**
-   *  @brief Return the degrees of freedom for the competitive width
-   */
-  auto competitiveWidthDegreesFreedom() const { return this->AMUG(); }
+//  /**
+//   *  @brief Return the degrees of freedom for the gamma width
+//   */
+//  auto AMUG() const { return ranges::views::repeat_n( 0.0, this->NJS() ); }
+//
+//  /**
+//   *  @brief Return the degrees of freedom for the gamma width
+//   */
+//  auto gammaWidthDegreesFreedom() const { return this->AMUG(); }
+//
+//  /**
+//   *  @brief Return the degrees of freedom for the fission width
+//   */
+//  auto AMUF() const { return ranges::views::repeat_n( 0.0, this->NJS() ); }
+//
+//  /**
+//   *  @brief Return the degrees of freedom for the fission width
+//   */
+//  auto fissionWidthDegreesFreedom() const { return this->AMUG(); }
+//
+//  /**
+//   *  @brief Return the degrees of freedom for the competitive width
+//   */
+//  auto AMUX() const { return ranges::views::repeat_n( 0.0, this->NJS() ); }
+//
+//  /**
+//   *  @brief Return the degrees of freedom for the competitive width
+//   */
+//  auto competitiveWidthDegreesFreedom() const { return this->AMUG(); }
 
   /**
    *  @brief Return the average neutron width values.
    */
   auto GN() const {
 
+    using namespace njoy::tools;
     return this->jValues()
-             | ranges::cpp20::views::transform( [] ( const auto& jvalue )
+             | std20::views::transform( [] ( const auto& jvalue )
                                                    { return jvalue.GN(); } );
   }
 
@@ -155,8 +160,9 @@ public:
    */
   auto GG() const {
 
+    using namespace njoy::tools;
     return this->jValues()
-             | ranges::cpp20::views::transform( [] ( const auto& jvalue )
+             | std20::views::transform( [] ( const auto& jvalue )
                                                    { return jvalue.GG(); } );
   }
 
@@ -165,25 +171,25 @@ public:
    */
   auto averageGammaWidths() const { return this->GG(); }
 
-  /**
-   *  @brief Return the average fission width values.
-   */
-  auto GF() const { return ranges::views::repeat_n( 0.0, this->NJS() ); }
-
-  /**
-   *  @brief Return the average fission width values.
-   */
-  auto averageFissionWidths() const { return this->GF(); }
-
-  /**
-   *  @brief Return the average competitive width values.
-   */
-  auto GX() const { return ranges::views::repeat_n( 0.0, this->NJS() ); }
-
-  /**
-   *  @brief Return the average competitive width values.
-   */
-  auto averageCompetitiveWidths() const { return this->GX(); }
+//  /**
+//   *  @brief Return the average fission width values.
+//   */
+//  auto GF() const { return ranges::views::repeat_n( 0.0, this->NJS() ); }
+//
+//  /**
+//   *  @brief Return the average fission width values.
+//   */
+//  auto averageFissionWidths() const { return this->GF(); }
+//
+//  /**
+//   *  @brief Return the average competitive width values.
+//   */
+//  auto GX() const { return ranges::views::repeat_n( 0.0, this->NJS() ); }
+//
+//  /**
+//   *  @brief Return the average competitive width values.
+//   */
+//  auto averageCompetitiveWidths() const { return this->GX(); }
 
   using ListRecord::NC;
   using ListRecord::print;

@@ -8,15 +8,16 @@
  */
 double AP() const {
 
+  using namespace njoy::tools;
   auto mt = this->particlePairs().MT();
-  unsigned int elastic = ranges::cpp20::distance(
-                             ranges::cpp20::begin( mt ),
-                             ranges::cpp20::find( mt, int( 2 ) ) ) + 1;
+  unsigned int elastic = std20::distance(
+                             std20::begin( mt ),
+                             std20::find( mt, int( 2 ) ) ) + 1;
 
   auto channels = this->spinGroups().front().channels();
   auto ppi = channels.particlePairNumbers();
-  unsigned int index = ranges::cpp20::distance(
-                           ranges::cpp20::begin( ppi ),
-                           ranges::cpp20::find( ppi, int( elastic ) ) );
+  unsigned int index = std20::distance(
+                           std20::begin( ppi ),
+                           std20::find( ppi, int( elastic ) ) );
   return channels.trueChannelRadii()[index];
 };

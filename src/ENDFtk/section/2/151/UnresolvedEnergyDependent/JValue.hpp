@@ -14,10 +14,11 @@ class ENDFTK_PYTHON_EXPORT JValue : protected ListRecord {
 
   auto column( const int index ) const {
 
+    using namespace njoy::tools;
     return
       ListRecord::list()
-        | ranges::views::drop_exactly( index + 6 )
-        | ranges::views::stride(6);
+        | std20::views::drop( index + 6 )
+        | std23::views::stride(6);
   }
 
 public:

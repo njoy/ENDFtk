@@ -127,7 +127,8 @@ public:
    */
   auto GF() const {
 
-    return ListRecord::list() | ranges::views::drop_exactly( 6 );
+    using namespace njoy::tools;
+    return ListRecord::list() | std20::views::drop( 6 );
   }
 
   /**

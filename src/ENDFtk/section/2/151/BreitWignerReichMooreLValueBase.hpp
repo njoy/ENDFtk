@@ -48,7 +48,8 @@ protected:
    */
   auto resonances() const {
 
-    return ListRecord::list() | ranges::views::chunk(6);
+    using namespace njoy::tools;
+    return ListRecord::list() | std23::views::chunk(6);
   }
 
 public:

@@ -109,7 +109,8 @@ public:
    */
   auto RB() const {
 
-    return ranges::views::zip_with(
+    using namespace njoy::tools;
+    return std23::views::zip_transform(
                [] ( double real, double imag ) -> std::complex< double >
                   { return { real, imag }; },
                this->real_.y(),

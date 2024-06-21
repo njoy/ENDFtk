@@ -72,7 +72,8 @@ public:
    */
   auto resonanceRanges() const {
 
-    return ranges::cpp20::views::all( this->ranges_ );
+    using namespace njoy::tools;
+    return this->ranges_ | std20::views::all;
   }
 
   #include "ENDFtk/section/2/151/Isotope/src/print.hpp"

@@ -44,8 +44,9 @@ public:
    */
   auto ER() const {
 
+    using namespace njoy::tools;
     return ListRecord::list()
-             | ranges::views::stride( this->NX() / this->NRS() * 6 ); }
+             | std23::views::stride( this->NX() / this->NRS() * 6 ); }
 
   /**
   *  @brief Return the resonance energies
@@ -59,11 +60,13 @@ public:
    *  @brief Return the resonance parameters
    */
   auto GAM() const {
+
+    using namespace njoy::tools;
     return ListRecord::list()
-             | ranges::views::chunk( this->NX() / this->NRS() * 6 )
-             | ranges::cpp20::views::transform(
+             | std23::views::chunk( this->NX() / this->NRS() * 6 )
+             | std20::views::transform(
                    [] ( auto chunk )
-                      { return chunk | ranges::views::drop_exactly( 1 ); } ); }
+                      { return chunk | std20::views::drop( 1 ); } ); }
 
   /**
   *  @brief Return the resonance parameters

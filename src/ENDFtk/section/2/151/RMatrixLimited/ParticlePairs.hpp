@@ -16,9 +16,10 @@ class ENDFTK_PYTHON_EXPORT ParticlePairs : protected ListRecord {
 
   auto column( unsigned int i ) const {
 
+    using namespace njoy::tools;
     return ListRecord::list()
-             | ranges::views::drop_exactly( i )
-             | ranges::views::stride( 12 );
+             | std20::views::drop( i )
+             | std23::views::stride( 12 );
   }
 
 public:
@@ -127,8 +128,10 @@ public:
    *  @brief Return the penetrability flag for each particle pair
    */
   auto PNT() const {
+
+    using namespace njoy::tools;
     return ParticlePairs::column( 7 )
-             | ranges::cpp20::views::transform( [] ( auto pnt )
+             | std20::views::transform( [] ( auto pnt )
                                                    { return int( pnt ); } ); }
 
   /**
@@ -140,8 +143,10 @@ public:
    *  @brief Return the shift factor flag for each particle pair
    */
   auto SHF() const {
+
+    using namespace njoy::tools;
     return ParticlePairs::column( 8 )
-             | ranges::cpp20::views::transform( [] ( auto shf )
+             | std20::views::transform( [] ( auto shf )
                                                    { return int( shf ); } ); }
 
   /**
@@ -153,8 +158,10 @@ public:
    *  @brief Return the MT value associated to each particle pair
    */
   auto MT() const {
+
+    using namespace njoy::tools;
     return ParticlePairs::column( 9 )
-             | ranges::cpp20::views::transform( [] ( auto mt )
+             | std20::views::transform( [] ( auto mt )
                                                    { return int( mt ); } ); }
 
   using ListRecord::NC;

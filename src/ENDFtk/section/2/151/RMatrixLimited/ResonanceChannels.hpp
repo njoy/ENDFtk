@@ -17,9 +17,10 @@ class ENDFTK_PYTHON_EXPORT ResonanceChannels : protected ListRecord {
 
   auto column( unsigned int i ) const {
 
+    using namespace njoy::tools;
     return ListRecord::list()
-             | ranges::views::drop_exactly( i )
-             | ranges::views::stride( 6 );
+             | std20::views::drop( i )
+             | std23::views::stride( 6 );
   }
 
 public:
@@ -83,9 +84,11 @@ public:
    *  @brief Return the particle pair numbers of each channel
    */
   auto PPI() const {
+
+    using namespace njoy::tools;
     return ListRecord::list()
-             | ranges::views::stride( 6 )
-             | ranges::cpp20::views::transform( [] ( auto ppi )
+             | std23::views::stride( 6 )
+             | std20::views::transform( [] ( auto ppi )
                                                    { return int( ppi ); } ); }
 
   /**
@@ -97,8 +100,10 @@ public:
    *  @brief Return the orbital momentum values for all channels
    */
   auto L() const {
+
+    using namespace njoy::tools;
     return ResonanceChannels::column( 1 )
-             | ranges::cpp20::views::transform( [] ( auto l )
+             | std20::views::transform( [] ( auto l )
                                                    { return int( l ); } ); }
 
   /**
