@@ -5,7 +5,6 @@
 // local includes
 #include "ENDFtk/section/15.hpp"
 #include "definitions.hpp"
-#include "views.hpp"
 
 // namespace aliases
 namespace python = pybind11;
@@ -40,7 +39,7 @@ void wrapProbability( python::module& module, python::module& ) {
                                          std::move( interpolants ),
                                          std::move( energies ),
                                          std::move( probabilities ) ); } ),
-    python::arg( "boundaries" ), python::arg( "interpolants" ), 
+    python::arg( "boundaries" ), python::arg( "interpolants" ),
     python::arg( "energies" ), python::arg( "probabilities" ),
     "Initialise the component\n\n"
     "Arguments:\n"

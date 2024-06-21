@@ -280,11 +280,11 @@ if( ENDFtk.python )
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/14/TabulatedDistribution.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/14/LegendreDistributions.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/14/TabulatedDistributions.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/15.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/15/OutgoingEnergyDistribution.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/15/TabulatedSpectrum.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/15/Probability.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/15/PartialDistribution.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/15.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/15/OutgoingEnergyDistribution.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/15/TabulatedSpectrum.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/15/Probability.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/15/PartialDistribution.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/31.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/33.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/34.python.cpp
@@ -307,7 +307,7 @@ if( ENDFtk.python )
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/12.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/13.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/14.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/15.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/15.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/23.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/26.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/27.python.cpp

@@ -179,11 +179,11 @@ add_python_test( MF10.ReactionProduct MF10/Test_ENDFtk_MF10_ReactionProduct.py )
 #add_python_test( MF14.LegendreDistributions   MF14/Test_ENDFtk_MF14_LegendreDistributions.py )
 #add_python_test( MF14.TabulatedDistribution   MF14/Test_ENDFtk_MF14_TabulatedDistribution.py )
 #add_python_test( MF14.TabulatedDistributions  MF14/Test_ENDFtk_MF14_TabulatedDistributions.py )
-#
+
 #add_python_test( MF15.Section                    MF15/Test_ENDFtk_MF15_Section.py )
-#add_python_test( MF15.OutgoingEnergyDistribution MF15/Test_ENDFtk_MF15_OutgoingEnergyDistribution.py )
-#add_python_test( MF15.Probability                MF15/Test_ENDFtk_MF15_Probability.py )
-#add_python_test( MF15.TabulatedSpectrum          MF15/Test_ENDFtk_MF15_TabulatedSpectrum.py )
+add_python_test( MF15.OutgoingEnergyDistribution MF15/Test_ENDFtk_MF15_OutgoingEnergyDistribution.py )
+add_python_test( MF15.Probability                MF15/Test_ENDFtk_MF15_Probability.py )
+add_python_test( MF15.TabulatedSpectrum          MF15/Test_ENDFtk_MF15_TabulatedSpectrum.py )
 
 #add_python_test( MF23.Section MF23/Test_ENDFtk_MF23_Section.py )
 #add_python_test( MF23.File    MF23/Test_ENDFtk_MF23_File.py )
