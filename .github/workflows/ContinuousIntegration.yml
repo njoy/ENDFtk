@@ -32,8 +32,8 @@ jobs:
       run: cmake -DPYTHON_EXECUTABLE=$(which python3) -D CMAKE_CXX_COMPILER=`which ${{matrix.cxx}}` -D CMAKE_BUILD_TYPE=${{matrix.build_type}} -D ENDFtk.tests=ON ..
       working-directory: ./bin
     - name: make
-      run: make -j2
+      run: make -j8
       working-directory: ./bin
     - name: ctest
-      run: ctest -j2
+      run: ctest -j8
       working-directory: ./bin
