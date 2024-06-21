@@ -34,33 +34,33 @@ void wrapFile_2( python::module& module, python::module& viewmodule ) {
   wrapSection_2_151( submodule, viewmodule );
   wrapSection_2_152( submodule, viewmodule );
 
-  // wrap views created by this file
-  // none of these are supposed to be created directly by the user
-  wrapBidirectionalAnyViewOf< Section >(
-      viewmodule,
-      "any_view< section::Type< 2 >, bidirectional >" );
-
-  // create the file
-  python::class_< File > file(
-
-    submodule,
-    "File",
-    "MF2 file - resonance parameters"
-  );
-
-  // wrap the file
-  file
-  .def(
-
-    python::init( [] ( MF2MT151 parameters )
-                     { return File( std::move( parameters ) ); } ),
-    python::arg( "parameters" ),
-    "Initialise the file with resonance parameters\n\n"
-    "Arguments:\n"
-    "    self         the file\n"
-    "    parameters   the resonance parameter data (MT151)"
-  );
-
-  // add standard file definitions
-  addStandardFileDefinitions< File, Section, SectionRange >( file );
+//  // wrap views created by this file
+//  // none of these are supposed to be created directly by the user
+//  wrapBidirectionalAnyViewOf< Section >(
+//      viewmodule,
+//      "any_view< section::Type< 2 >, bidirectional >" );
+//
+//  // create the file
+//  python::class_< File > file(
+//
+//    submodule,
+//    "File",
+//    "MF2 file - resonance parameters"
+//  );
+//
+//  // wrap the file
+//  file
+//  .def(
+//
+//    python::init( [] ( MF2MT151 parameters )
+//                     { return File( std::move( parameters ) ); } ),
+//    python::arg( "parameters" ),
+//    "Initialise the file with resonance parameters\n\n"
+//    "Arguments:\n"
+//    "    self         the file\n"
+//    "    parameters   the resonance parameter data (MT151)"
+//  );
+//
+//  // add standard file definitions
+//  addStandardFileDefinitions< File, Section, SectionRange >( file );
 }

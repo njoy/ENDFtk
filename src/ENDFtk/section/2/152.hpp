@@ -5,11 +5,8 @@
 #include <variant>
 
 // other includes
-#include "range/v3/view/chunk.hpp"
-#include "range/v3/view/drop_exactly.hpp"
-#include "range/v3/view/stride.hpp"
-#include "range/v3/view/take_exactly.hpp"
-#include "range/v3/view/transform.hpp"
+#include "tools/std20/views.hpp"
+#include "tools/std23/views.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/section.hpp"
@@ -109,8 +106,8 @@ namespace section {
      */
     auto SIGZ() const {
 
-      return this->data_.list()
-               | ranges::views::take_exactly( this->NSIGZ() );
+      using namespace njoy::tools;
+      return this->data_.list() | std20::views::take( this->NSIGZ() );
     }
 
     /**
@@ -133,9 +130,10 @@ namespace section {
      */
     auto EUNR() const {
 
+      using namespace njoy::tools;
       return this->data_.list()
-               | ranges::views::drop_exactly( this->NSIGZ() )
-               | ranges::views::stride( 1 + this->NSIGZ() * 5 );
+               | std20::views::drop( this->NSIGZ() )
+               | std23::views::stride( 1 + this->NSIGZ() * 5 );
     }
 
     /**

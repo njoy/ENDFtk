@@ -7,17 +7,8 @@
 #include <optional>
 
 // other includes
-#include "range/v3/algorithm/count.hpp"
-#include "range/v3/algorithm/find.hpp"
-#include "range/v3/range/conversion.hpp"
-#include "range/v3/view/all.hpp"
-#include "range/v3/view/iota.hpp"
-#include "range/v3/view/transform.hpp"
-#include "range/v3/view/chunk.hpp"
-#include "range/v3/view/drop_exactly.hpp"
-#include "range/v3/view/repeat_n.hpp"
-#include "range/v3/view/stride.hpp"
-#include "range/v3/view/zip_with.hpp"
+#include "tools/std20/views.hpp"
+#include "tools/std23/views.hpp"
 #include "ENDFtk/macros.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
