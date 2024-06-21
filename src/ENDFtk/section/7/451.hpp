@@ -5,20 +5,20 @@
 #include <vector>
 
 // other includes
+#include "tools/std20/views.hpp"
+#include "tools/std23/views.hpp"
 #include "ENDFtk/macros.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
 #include "ENDFtk/section.hpp"
 #include "ENDFtk/readSequence.hpp"
-#include "range/v3/view/drop_exactly.hpp"
-#include "range/v3/view/stride.hpp"
 
 namespace njoy {
 namespace ENDFtk {
 namespace section{
 
   template<>
-  class ENDFTK_PYTHON_EXPORT Type< 7, 451 > : 
+  class ENDFTK_PYTHON_EXPORT Type< 7, 451 > :
     protected BaseWithoutMT< Type< 7, 451 > > {
 
     friend BaseWithoutMT< Type< 7, 451 > >;

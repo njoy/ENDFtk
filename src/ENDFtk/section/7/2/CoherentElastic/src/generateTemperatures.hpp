@@ -18,7 +18,8 @@ generateTemperatures( std::vector< double >&& temperatures,
 
   sequence.reserve( size );
   unsigned int i = 0;
-  while( i++ < size ){
+  while( i++ < size ) {
+
     sequence.emplace_back( ListRecord( temperatures[i], 0, li[i-1], 0, 0,
                                        std::move( s[i] ) ) );
   }

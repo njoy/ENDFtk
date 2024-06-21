@@ -119,11 +119,12 @@ public:
    */
   auto T() const {
 
-    return ranges::views::concat(
-             ranges::cpp20::views::single( this->alphas_.C1() ),
-             this->temperatures_ |
-                 ranges::cpp20::views::transform( [] ( const auto& v )
-                                                     { return v.C1(); } ) );
+    using namespace njoy::tools;
+    std::vector< double > temperatures = { this->alphas_.C1() };
+    auto data = this->temperatures_ | std20::views::transform( [] ( const auto& v )
+                                                                  { return v.C1(); } );
+    temperatures.insert( temperatures.end(), data.begin(), data.end() );
+    return temperatures;
   }
 
   /**
@@ -148,9 +149,9 @@ public:
    */
   auto LI() const {
 
-    return this->temperatures_ |
-               ranges::cpp20::views::transform( [] ( const auto& v )
-                                                   { return v.L1(); } );
+    using namespace njoy::tools;
+    return this->temperatures_ | std20::views::transform( [] ( const auto& v )
+                                                             { return v.L1(); } );
   }
 
   /**
@@ -165,10 +166,11 @@ public:
    */
   auto S() const {
 
+    using namespace njoy::tools;
     return ranges::views::concat(
-             ranges::cpp20::views::single( this->alphas_.y() ),
+             std20::views::single( this->alphas_.y() ),
              this->temperatures_ |
-                 ranges::cpp20::views::transform( [] ( const auto& v )
+                 std20::views::transform( [] ( const auto& v )
                                                      { return v.list(); } ) );
   }
 

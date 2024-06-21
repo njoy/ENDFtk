@@ -12,7 +12,7 @@ ScatteringFunction( TabulationRecord&& alphas,
   if ( this->NT() != 1 ) {
     verifyBetaValues( this->beta(),
                       this->temperatures_ |
-                          ranges::cpp20::views::transform(
+                          njoy::tools::std20::views::transform(
                               [] ( const auto& v )
                                  { return v.C2(); } ) );
   }
