@@ -105,24 +105,24 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/DerivedRatioToStandard.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/ReactionBlock.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/covariance.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/TabulatedMultiplicity.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/PolynomialMultiplicity.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/451.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/452.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/455.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/455/DecayConstants.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/455/EnergyIndependentConstants.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/455/EnergyDependentConstants.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/456.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/458.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/458/EnergyReleaseComponent.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/458/ThermalPointComponents.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/458/PolynomialComponents.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/458/TabulatedComponents.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/460.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/460/DiscretePhotonMultiplicity.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/460/DiscretePhotons.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/460/ContinuousPhotons.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/TabulatedMultiplicity.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/PolynomialMultiplicity.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/451.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/452.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/455.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/455/DecayConstants.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/455/EnergyIndependentConstants.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/455/EnergyDependentConstants.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/456.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/458.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/458/EnergyReleaseComponent.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/458/ThermalPointComponents.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/458/PolynomialComponents.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/458/TabulatedComponents.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/460.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/460/DiscretePhotonMultiplicity.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/460/DiscretePhotons.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/1/460/ContinuousPhotons.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/2/151.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/2/151/Isotope.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/2/151/ScatteringRadius.python.cpp
@@ -294,7 +294,7 @@ if( ENDFtk.python )
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/35/SquareMatrix.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/40.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/40/LevelBlock.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/1.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/1.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/2.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/3.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/4.python.cpp

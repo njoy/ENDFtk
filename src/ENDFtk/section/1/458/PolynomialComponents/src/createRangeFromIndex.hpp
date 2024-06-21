@@ -1,7 +1,8 @@
 auto createRangeFromIndex( unsigned int i ) const {
 
+  using namespace njoy::tools;
   return ListRecord::list()
-           | ranges::views::chunk( 2 )
-           | ranges::views::drop_exactly( i )
-           | ranges::views::stride( 9 );
+           | std23::views::chunk( 2 )
+           | std20::views::drop( i )
+           | std23::views::stride( 9 );
 }

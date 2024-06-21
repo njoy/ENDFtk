@@ -5,7 +5,7 @@
 // local includes
 #include "ENDFtk/file/1.hpp"
 #include "definitions.hpp"
-#include "views.hpp"
+#include "tools/views/views-python.hpp"
 
 // namespace aliases
 namespace python = pybind11;
@@ -51,33 +51,33 @@ void wrapFile_1( python::module& module, python::module& viewmodule ) {
   wrapSection_1_458( submodule, viewmodule );
   wrapSection_1_460( submodule, viewmodule );
 
-  // wrap views created by this file
-  // none of these are supposed to be created directly by the user
-  wrapBidirectionalAnyViewOf< Section >(
-      viewmodule,
-      "any_view< section::Type< 1 >, bidirectional >" );
-
-  // create the file
-  python::class_< File > file(
-
-    submodule,
-    "File",
-    "MF1 file - general information"
-  );
-
-  // wrap the file
-  file
-  .def(
-
-    python::init( [] ( MF1MT451 information )
-                     { return File( std::move( information ) ); } ),
-    python::arg( "information" ),
-    "Initialise the file with descriptive data\n\n"
-    "Arguments:\n"
-    "    self          the file\n"
-    "    information   the descriptive information (MT451)"
-  );
-
-  // add standard file definitions
-  addStandardFileDefinitions< File, Section, SectionRange >( file );
+//  // wrap views created by this file
+//  // none of these are supposed to be created directly by the user
+//  wrapBidirectionalAnyViewOf< Section >(
+//      viewmodule,
+//      "any_view< section::Type< 1 >, bidirectional >" );
+//
+//  // create the file
+//  python::class_< File > file(
+//
+//    submodule,
+//    "File",
+//    "MF1 file - general information"
+//  );
+//
+//  // wrap the file
+//  file
+//  .def(
+//
+//    python::init( [] ( MF1MT451 information )
+//                     { return File( std::move( information ) ); } ),
+//    python::arg( "information" ),
+//    "Initialise the file with descriptive data\n\n"
+//    "Arguments:\n"
+//    "    self          the file\n"
+//    "    information   the descriptive information (MT451)"
+//  );
+//
+//  // add standard file definitions
+//  addStandardFileDefinitions< File, Section, SectionRange >( file );
 }

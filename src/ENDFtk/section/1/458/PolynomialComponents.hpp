@@ -59,8 +59,9 @@ public:
    */
   auto E() const {
 
-    return ranges::cpp20::views::iota( 0, 9 )
-             | ranges::cpp20::views::transform(
+    using namespace njoy::tools;
+    return std20::views::iota( 0, 9 )
+             | std20::views::transform(
                  [&] ( unsigned int index )
                      { return this->createRangeFromIndex( index ); } );
   }

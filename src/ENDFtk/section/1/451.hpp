@@ -4,10 +4,7 @@
 // system includes
 
 // other includes
-#include "range/v3/iterator/operations.hpp"
-#include "range/v3/range/conversion.hpp"
-#include "range/v3/view/all.hpp"
-#include "range/v3/view/split.hpp"
+#include "tools/std20/views.hpp"
 #include "ENDFtk/macros.hpp"
 #include "ENDFtk/TextRecord.hpp"
 #include "ENDFtk/HeadRecord.hpp"
@@ -238,7 +235,8 @@ namespace section {
      */
     auto index() const {
 
-      return ranges::cpp20::views::all( this->index_ );
+      using namespace njoy::tools;
+      return std20::views::all( this->index_ );
     }
 
     /**
