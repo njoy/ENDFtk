@@ -62,6 +62,8 @@ void wrapTreeTape( python::module&, python::module& );
  */
 PYBIND11_MODULE( ENDFtk, module ) {
 
+  python::module::import( "tools" );
+
   // create the views submodule
   python::module viewmodule = module.def_submodule(
 
@@ -71,11 +73,11 @@ PYBIND11_MODULE( ENDFtk, module ) {
 
   // wrap records
   wrapControlRecord( module, viewmodule );
-//  wrapListRecord( module, viewmodule );
-//  wrapTabulationRecord( module, viewmodule );
-//  wrapInterpolationRecord( module, viewmodule );
-//  wrapDirectoryRecord( module, viewmodule );
-//  wrapTapeIdentification( module, viewmodule );
+  wrapListRecord( module, viewmodule );
+  wrapTabulationRecord( module, viewmodule );
+  wrapInterpolationRecord( module, viewmodule );
+  wrapDirectoryRecord( module, viewmodule );
+  wrapTapeIdentification( module, viewmodule );
 //
 //  // wrap covariance components
 //  wrapCovariance( module, viewmodule );

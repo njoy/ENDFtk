@@ -35,6 +35,9 @@ cmake_dependent_option(
   "Build ENDFtk python bindings" ON
   "NOT ${subproject} OR DEFINED require.ENDFtk.python " OFF
 )
+if ( ENDFtk.python )
+  set( require.tools.python CACHE BOOL ON )
+endif()
 
 ########################################################################
 # Dependencies
@@ -90,11 +93,11 @@ if( ENDFtk.python )
   pybind11_add_module( ENDFtk.python
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/ENDFtk.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/record/ControlRecord.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/record/ListRecord.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/record/TabulationRecord.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/record/InterpolationRecord.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/record/DirectoryRecord.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/record/TapeIdentification.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/record/ListRecord.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/record/TabulationRecord.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/record/InterpolationRecord.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/record/DirectoryRecord.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/record/TapeIdentification.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/CovariancePairs.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/SquareMatrix.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/RectangularMatrix.python.cpp
@@ -323,6 +326,7 @@ if( ENDFtk.python )
       )
 
   target_link_libraries( ENDFtk.python PRIVATE ENDFtk )
+  add_dependencies( ENDFtk.python tools.python )
   target_include_directories( ENDFtk.python PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/python/src )
   target_compile_options( ENDFtk.python PRIVATE -fvisibility=hidden )
   set_target_properties( ENDFtk.python PROPERTIES OUTPUT_NAME ENDFtk )

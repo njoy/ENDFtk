@@ -22,12 +22,15 @@ endfunction()
 
 message( STATUS "Adding ENDFtk Python unit testing" )
 
+# missing tests
+#add_python_test( TextRecord          Test_ENDFtk_TextRecord.py )
+
 add_python_test( ControlRecord       Test_ENDFtk_ControlRecord.py )
-#add_python_test( DirectoryRecord     Test_ENDFtk_DirectoryRecord.py )
-#add_python_test( InterpolationRecord Test_ENDFtk_InterpolationRecord.py )
-#add_python_test( ListRecord          Test_ENDFtk_ListRecord.py )
-#add_python_test( TabulationRecord    Test_ENDFtk_TabulationRecord.py )
-#add_python_test( TapeIdentification  Test_ENDFtk_TapeIdentification.py )
+add_python_test( DirectoryRecord     Test_ENDFtk_DirectoryRecord.py )
+add_python_test( InterpolationRecord Test_ENDFtk_InterpolationRecord.py )
+add_python_test( ListRecord          Test_ENDFtk_ListRecord.py )
+add_python_test( TabulationRecord    Test_ENDFtk_TabulationRecord.py )
+add_python_test( TapeIdentification  Test_ENDFtk_TapeIdentification.py )
 #
 #add_python_test( CovariancePairs   Test_ENDFtk_CovariancePairs.py )
 #add_python_test( RectangularMatrix Test_ENDFtk_RectangularMatrix.py )

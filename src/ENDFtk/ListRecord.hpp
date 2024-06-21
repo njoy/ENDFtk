@@ -5,7 +5,7 @@
 
 // other includes
 #include "tools/Log.hpp"
-#include "range/v3/view/all.hpp"
+#include "tools/std20/views.hpp"
 #include "ENDFtk/record.hpp"
 
 namespace njoy {
@@ -123,7 +123,8 @@ namespace ENDFtk {
      */
     auto list() const {
 
-      return ranges::cpp20::views::all( this->data );
+      using namespace njoy::tools;
+      return std20::views::all( this->data );
     }
 
     /**
