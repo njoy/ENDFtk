@@ -59,9 +59,9 @@ SCENARIO( "Testing generic case using file 3" ) {
 
         auto iter = mf3.begin();
 
-        CHECK( 1 == iter->MT() ); iter++;
-        CHECK( 2 == iter->MT() ); iter++;
-        CHECK( 102 == iter->MT() ); iter++;
+        CHECK( 1 == (*iter).MT() ); iter++;
+        CHECK( 2 == (*iter).MT() ); iter++;
+        CHECK( 102 == (*iter).MT() ); iter++;
         CHECK( iter == mf3.end() );
       } // THEN
 
@@ -94,9 +94,9 @@ SCENARIO( "Testing generic case using file 3" ) {
 
         auto iter = mf3.begin();
 
-        CHECK( 1 == iter->MT() ); iter++;
-        CHECK( 2 == iter->MT() ); iter++;
-        CHECK( 102 == iter->MT() ); iter++;
+        CHECK( 1 == (*iter).MT() ); iter++;
+        CHECK( 2 == (*iter).MT() ); iter++;
+        CHECK( 102 == (*iter).MT() ); iter++;
         CHECK( iter == mf3.end() );
       } // THEN
 

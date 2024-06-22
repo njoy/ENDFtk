@@ -112,8 +112,7 @@ public:
   auto transitions() const {
 
     using namespace njoy::tools;
-    using Chunk = decltype( ( ListRecord::list()
-                                | std23::views::chunk( 6 ) )[0] );
+    using Chunk = decltype( ( ListRecord::list() | std23::views::chunk( 6 ) )[0] );
     return ListRecord::list() | std23::views::chunk( 6 )
              | std20::views::transform(
                  [] ( Chunk&& chunk ) -> Transition< Chunk >

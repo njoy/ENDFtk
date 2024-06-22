@@ -162,8 +162,8 @@ if( ENDFtk.python )
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/26/DiscreteTwoBodyScattering.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/26/ReactionProduct.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/27.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/28/SubshellData.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/28.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/28/SubshellData.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/28.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/3.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/ScatteringRadiusCovariances.python.cpp
@@ -311,7 +311,7 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/23.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/26.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/27.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/28.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/28.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/31.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/32.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/33.python.cpp

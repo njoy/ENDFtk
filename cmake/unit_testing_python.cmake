@@ -199,9 +199,9 @@ add_python_test( MF15.TabulatedSpectrum          MF15/Test_ENDFtk_MF15_Tabulated
 #
 #add_python_test( MF27.Section MF27/Test_ENDFtk_MF27_Section.py )
 #add_python_test( MF27.File    MF27/Test_ENDFtk_MF27_File.py )
-#
+
 #add_python_test( MF28.Section      MF28/Test_ENDFtk_MF28_Section.py )
-#add_python_test( MF28.SubshellData MF28/Test_ENDFtk_MF28_SubshellData.py )
+add_python_test( MF28.SubshellData MF28/Test_ENDFtk_MF28_SubshellData.py )
 
 #add_python_test( MF31.Section MF31/Test_ENDFtk_MF31_Section.py )
 
