@@ -30,20 +30,20 @@ void wrapFile_6( python::module& module, python::module& viewmodule ) {
   // wrap sections
   wrapSection_6( submodule, viewmodule );
 
-  // wrap views created by this file
-  // none of these are supposed to be created directly by the user
-  wrapBidirectionalAnyViewOf< Section >(
-      viewmodule,
-      "any_view< section::Type< 6 >, bidirectional >" );
-
-  // create the file
-  python::class_< File > file(
-
-    submodule,
-    "File",
-    "MF6 file - product energy-angle distributions"
-  );
-
-  // add standard file definitions
-  addStandardFileDefinitions< File, Section, SectionRange >( file );
+//  // wrap views created by this file
+//  // none of these are supposed to be created directly by the user
+//  wrapBidirectionalAnyViewOf< Section >(
+//      viewmodule,
+//      "any_view< section::Type< 6 >, bidirectional >" );
+//
+//  // create the file
+//  python::class_< File > file(
+//
+//    submodule,
+//    "File",
+//    "MF6 file - product energy-angle distributions"
+//  );
+//
+//  // add standard file definitions
+//  addStandardFileDefinitions< File, Section, SectionRange >( file );
 }

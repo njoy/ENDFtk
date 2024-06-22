@@ -101,12 +101,13 @@ public:
    */
   auto A() const {
 
+    //! @todo the range-v3 implementation used zip_transform on AR() and AI()
+    //!       but this did not work with the tools implementation (const issues)
     using namespace njoy::tools;
-    return std23::views::zip_transform(
-             [] ( auto real, auto imag )
-                { return std::complex< double >( real, imag ); },
-             this->realInterferenceCoefficients(),
-             this->imaginaryInterferenceCoefficients() );
+    return ListRecord::list() | std20::views::drop( this->NW() - 2 * this->NL() - 2 )
+                              | std23::views::chunk( 2 )
+                              | std20::views::transform( [] ( auto&& pair )
+                                                            { return std::complex< double >( pair[0], pair[1] ); } );
   }
 
   /**

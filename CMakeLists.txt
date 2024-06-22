@@ -217,29 +217,29 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/5/MadlandNixSpectrum.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/5/Probability.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/5/PartialDistribution.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/Multiplicity.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/DefinedElsewhere.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/Unknown.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/LAW1/LegendreCoefficients.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/LAW1/TabulatedDistribution.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/LAW1/KalbachMann.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/LAW1/ThermalScatteringData.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/ContinuumEnergyAngle.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/LAW2/LegendreCoefficients.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/LAW2/TabulatedDistribution.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/DiscreteTwoBodyScattering.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/IsotropicDiscreteEmission.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/DiscreteTwoBodyRecoils.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/ChargedParticleElasticScattering.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/LAW5/LegendreCoefficients.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/LAW5/NuclearAmplitudeExpansion.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/LAW5/NuclearPlusInterference.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/NBodyPhaseSpace.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/LAW7/EnergyDistribution.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/LAW7/AngularDistribution.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/LaboratoryAngleEnergy.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/ReactionProduct.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/Multiplicity.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/DefinedElsewhere.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/Unknown.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/LAW1/LegendreCoefficients.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/LAW1/TabulatedDistribution.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/LAW1/KalbachMann.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/LAW1/ThermalScatteringData.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/ContinuumEnergyAngle.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/LAW2/LegendreCoefficients.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/LAW2/TabulatedDistribution.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/DiscreteTwoBodyScattering.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/IsotropicDiscreteEmission.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/DiscreteTwoBodyRecoils.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/ChargedParticleElasticScattering.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/LAW5/LegendreCoefficients.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/LAW5/NuclearAmplitudeExpansion.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/LAW5/NuclearPlusInterference.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/NBodyPhaseSpace.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/LAW7/EnergyDistribution.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/LAW7/AngularDistribution.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/LaboratoryAngleEnergy.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/ReactionProduct.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/2.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/2/CoherentElastic.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/2/IncoherentElastic.python.cpp
@@ -299,7 +299,7 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/3.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/4.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/5.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/6.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/6.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/7.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/8.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/9.python.cpp
