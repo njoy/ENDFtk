@@ -54,8 +54,9 @@ public:
    */
   auto B() const {
 
+    using namespace njoy::tools;
     return ListRecord::list()
-             | ranges::views::take( this->NW() - 2 * this->NL() - 2 );
+             | std20::views::take( this->NW() - 2 * this->NL() - 2 );
   }
 
   /**
@@ -69,9 +70,9 @@ public:
    */
   auto AR() const {
 
-    return ranges::views::drop_exactly( ListRecord::list(),
-                                       this->NW() - 2 * this->NL() - 2 )
-             | ranges::views::stride( 2 );
+    using namespace njoy::tools;
+    return ListRecord::list() | std20::views::drop( this->NW() - 2 * this->NL() - 2 )
+                              | std23::views::stride( 2 );
   }
 
   /**
@@ -84,9 +85,9 @@ public:
    */
   auto AI() const {
 
-    return ranges::views::drop_exactly( ListRecord::list(),
-                                       this->NW() - 2 * this->NL() - 1 )
-             | ranges::views::stride( 2 );
+    using namespace njoy::tools;
+    return ListRecord::list() | std20::views::drop( this->NW() - 2 * this->NL() - 1 )
+                              | std23::views::stride( 2 );
   }
 
   /**
@@ -100,7 +101,8 @@ public:
    */
   auto A() const {
 
-    return ranges::views::zip_with(
+    using namespace njoy::tools;
+    return std23::views::zip_transform(
              [] ( auto real, auto imag )
                 { return std::complex< double >( real, imag ); },
              this->realInterferenceCoefficients(),

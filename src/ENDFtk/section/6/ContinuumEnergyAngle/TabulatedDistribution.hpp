@@ -57,11 +57,12 @@ public:
    */
   auto MU() const {
 
+    using namespace njoy::tools;
     return Base::list()
-             | ranges::views::chunk( 2 + this->NA() )
-             | ranges::cpp20::views::transform(
-                   ranges::views::drop( 2 )
-                       | ranges::views::stride( 2 ) ); }
+             | std23::views::chunk( 2 + this->NA() )
+             | std20::views::transform(
+                   std20::views::drop( 2 )
+                       | std23::views::stride( 2 ) ); }
 
   /**
    *  @brief Return the cosine values
@@ -73,11 +74,14 @@ public:
    */
   auto F() const {
 
+    using namespace njoy::tools;
     return Base::list()
-             | ranges::views::chunk( 2 + this->NA() )
-             | ranges::cpp20::views::transform(
-                   ranges::views::drop( 3 )
-                       | ranges::views::stride( 2 ) ); }
+             | std23::views::chunk( 2 + this->NA() )
+             | std20::views::transform(
+                  [] ( const auto& array )
+                     { return array | std20::views::drop( 3 )
+                                    | std23::views::stride( 2 ); } );
+  }
 
   /**
    *  @brief Return the distribution probabilities
