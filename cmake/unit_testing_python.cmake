@@ -189,14 +189,14 @@ add_python_test( MF15.TabulatedSpectrum          MF15/Test_ENDFtk_MF15_Tabulated
 #add_python_test( MF23.File    MF23/Test_ENDFtk_MF23_File.py )
 
 #add_python_test( MF26.Section                    MF26/Test_ENDFtk_MF26_Section.py )
-#add_python_test( MF26.ContinuumEnergyAngle       MF26/Test_ENDFtk_MF26_ContinuumEnergyAngle.py )
-#add_python_test( MF26.DiscreteTwoBodyScattering  MF26/Test_ENDFtk_MF26_DiscreteTwoBodyScattering.py )
-#add_python_test( MF26.EnergyTransfer             MF26/Test_ENDFtk_MF26_EnergyTransfer.py )
-#add_python_test( MF26.LAW1.LegendreCoefficients  MF26/LAW1/Test_ENDFtk_MF26_LAW1_LegendreCoefficients.py )
-#add_python_test( MF26.LAW2.TabulatedDistribution MF26/LAW2/Test_ENDFtk_MF26_LAW2_TabulatedDistribution.py )
-#add_python_test( MF26.Multiplicity               MF26/Test_ENDFtk_MF26_Multiplicity.py )
-#add_python_test( MF26.ReactionProduct            MF26/Test_ENDFtk_MF26_ReactionProduct.py )
-#
+add_python_test( MF26.ContinuumEnergyAngle       MF26/Test_ENDFtk_MF26_ContinuumEnergyAngle.py )
+add_python_test( MF26.DiscreteTwoBodyScattering  MF26/Test_ENDFtk_MF26_DiscreteTwoBodyScattering.py )
+add_python_test( MF26.EnergyTransfer             MF26/Test_ENDFtk_MF26_EnergyTransfer.py )
+add_python_test( MF26.LAW1.LegendreCoefficients  MF26/LAW1/Test_ENDFtk_MF26_LAW1_LegendreCoefficients.py )
+add_python_test( MF26.LAW2.TabulatedDistribution MF26/LAW2/Test_ENDFtk_MF26_LAW2_TabulatedDistribution.py )
+add_python_test( MF26.Multiplicity               MF26/Test_ENDFtk_MF26_Multiplicity.py )
+add_python_test( MF26.ReactionProduct            MF26/Test_ENDFtk_MF26_ReactionProduct.py )
+
 #add_python_test( MF27.Section MF27/Test_ENDFtk_MF27_Section.py )
 #add_python_test( MF27.File    MF27/Test_ENDFtk_MF27_File.py )
 

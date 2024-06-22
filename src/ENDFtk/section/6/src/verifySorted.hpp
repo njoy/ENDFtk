@@ -2,7 +2,9 @@ template < typename Range, typename String >
 static void
 verifySorted( const Range& values, const String& name ){
 
-  auto iter = std::is_sorted_until( values.begin(), values.end() );
+  auto iter = std::is_sorted_until( values.begin(), values.end(),
+                                    [] ( auto&& left, auto&& right )
+                                       { return left < right; } );
   const bool valuesAreSorted = ( iter == values.end() );
 
   if ( not valuesAreSorted ){
@@ -14,4 +16,3 @@ verifySorted( const Range& values, const String& name ){
     throw std::exception();
   }
 }
-

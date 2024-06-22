@@ -65,8 +65,9 @@ public:
    */
   auto E() const {
 
+    using namespace njoy::tools;
     return this->distributions()
-               | ranges::cpp20::views::transform(
+               | std20::views::transform(
                      [] ( const auto& record )
                         { return record.incidentEnergy(); } );
   }

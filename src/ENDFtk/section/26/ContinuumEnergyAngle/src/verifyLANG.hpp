@@ -9,9 +9,10 @@ verifyLANG( int LANG, const Array& sequence ) {
 
   if ( iter != sequence.end() ) {
 
+    using namespace njoy::tools;
     Log::error( "All subsections must use the same LANG format option" );
     Log::info( "Expected LANG={} for the subsection with index={}", LANG,
-               ranges::cpp20::distance( sequence.begin(), iter ) );
+               std20::distance( sequence.begin(), iter ) );
     throw std::exception();
   }
 }
