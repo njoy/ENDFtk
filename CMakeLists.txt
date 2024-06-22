@@ -165,38 +165,38 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/28/SubshellData.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/28.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/3.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/ScatteringRadiusCovariances.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/LimitedBreitWignerLValue.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/LimitedSingleLevelBreitWigner.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/LimitedMultiLevelBreitWigner.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/ShortRangeBreitWignerBlock.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/ShortRangeReichMooreBlock.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/ShortRangeRMatrixLimitedBlock.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/ReichMooreScatteringRadiusUncertainties.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/LCOMP1/ResonanceParameters.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/LCOMP1/CovarianceMatrix.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/GeneralSingleLevelBreitWigner.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/GeneralMultiLevelBreitWigner.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/GeneralReichMoore.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/GeneralRMatrixLimited.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/CompactCorrelationMatrix.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/CompactBreitWignerUncertainties.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/CompactReichMooreUncertainties.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/CompactSingleLevelBreitWigner.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/CompactMultiLevelBreitWigner.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/CompactReichMoore.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/LCOMP2/ParticlePairs.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/LCOMP2/ResonanceChannels.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/LCOMP2/ResonanceParameters.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/LCOMP2/SpinGroup.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/CompactRMatrixLimitedUncertainties.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/CompactRMatrixLimited.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/UnresolvedCovarianceMatrix.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/UnresolvedLValue.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/UnresolvedRelativeCovariances.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/ResonanceRange.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/Isotope.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/ScatteringRadiusCovariances.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/LimitedBreitWignerLValue.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/LimitedSingleLevelBreitWigner.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/LimitedMultiLevelBreitWigner.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/ShortRangeBreitWignerBlock.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/ShortRangeReichMooreBlock.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/ShortRangeRMatrixLimitedBlock.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/ReichMooreScatteringRadiusUncertainties.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/LCOMP1/ResonanceParameters.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/LCOMP1/CovarianceMatrix.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/GeneralSingleLevelBreitWigner.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/GeneralMultiLevelBreitWigner.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/GeneralReichMoore.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/GeneralRMatrixLimited.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/CompactCorrelationMatrix.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/CompactBreitWignerUncertainties.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/CompactReichMooreUncertainties.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/CompactSingleLevelBreitWigner.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/CompactMultiLevelBreitWigner.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/CompactReichMoore.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/LCOMP2/ParticlePairs.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/LCOMP2/ResonanceChannels.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/LCOMP2/ResonanceParameters.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/LCOMP2/SpinGroup.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/CompactRMatrixLimitedUncertainties.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/CompactRMatrixLimited.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/UnresolvedCovarianceMatrix.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/UnresolvedLValue.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/UnresolvedRelativeCovariances.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/ResonanceRange.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/Isotope.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/4.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/4/Isotropic.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/4/LegendreCoefficients.python.cpp
@@ -313,7 +313,7 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/27.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/28.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/31.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/32.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/32.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/33.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/34.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/35.python.cpp

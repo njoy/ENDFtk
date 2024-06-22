@@ -57,20 +57,29 @@ public:
    *  @brief Return the i coordinates for which correlation values are
    *         available
    */
-  auto I() const { return ranges::cpp20::views::all( this->i_ ); }
+  auto I() const {
+
+    using namespace njoy::tools;
+    return this->i_ | std20::views::all;
+  }
 
   /**
    *  @brief Return the j coordinates for which correlation values are
    *         available
    */
-  auto J() const { return ranges::cpp20::views::all( this->j_ ); }
+  auto J() const {
+
+    using namespace njoy::tools;
+    return this->j_ | std20::views::all;
+  }
 
   /**
    *  @brief Return the correlation values
    */
   auto correlations() const {
 
-    return ranges::cpp20::views::all( this->correlations_ );
+    using namespace njoy::tools;
+    return this->correlations_ | std20::views::all;
   }
 
   #include "ENDFtk/section/32/151/CompactCorrelationMatrix/src/NC.hpp"

@@ -5,7 +5,7 @@
  *
  *  See ENDF102, section 32.2.2 for more information.
  */
-class ENDFTK_PYTHON_EXPORT ReichMooreScatteringRadiusUncertainties : 
+class ENDFTK_PYTHON_EXPORT ReichMooreScatteringRadiusUncertainties :
   protected ListRecord {
 
   /* auxiliary functions */
@@ -31,8 +31,11 @@ public:
   /**
    *  @brief Return the l-dependent uncertainties
    */
-  auto DAPL() const { return ListRecord::list()
-                             | ranges::views::drop_exactly( 1 ); }
+  auto DAPL() const {
+
+    using namespace njoy::tools;
+    return ListRecord::list() | std20::views::drop( 1 );
+  }
 
   /**
    *  @brief Return the l-dependent uncertainties

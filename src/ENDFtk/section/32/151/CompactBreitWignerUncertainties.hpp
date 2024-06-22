@@ -5,7 +5,7 @@
  *
  *  See ENDF102, section 32.2.3.1 for more information.
  */
-class ENDFTK_PYTHON_EXPORT CompactBreitWignerUncertainties : 
+class ENDFTK_PYTHON_EXPORT CompactBreitWignerUncertainties :
   protected ListRecord {
 
   /* auxiliary functions */
@@ -14,8 +14,9 @@ class ENDFTK_PYTHON_EXPORT CompactBreitWignerUncertainties :
 
   auto column( unsigned int i ) const {
 
-    return ListRecord::list() | ranges::views::drop_exactly( i )
-                              | ranges::views::stride( 12 );
+    using namespace njoy::tools;
+    return ListRecord::list() | std20::views::drop( i )
+                              | std23::views::stride( 12 );
   }
 
 public:
@@ -174,9 +175,10 @@ public:
    */
   auto resonances() const {
 
-    using Chunk = decltype( ( ListRecord::list() | ranges::views::chunk(12) )[0] );
-    return ListRecord::list() | ranges::views::chunk(12)
-             | ranges::cpp20::views::transform(
+    using namespace njoy::tools;
+    using Chunk = decltype( ( ListRecord::list() | std23::views::chunk( 12 ) )[0] );
+    return ListRecord::list() | std23::views::chunk( 12 )
+             | std20::views::transform(
                  [] ( Chunk&& chunk ) -> Resonance< Chunk >
                     { return { std::move( chunk ) }; } );
   }

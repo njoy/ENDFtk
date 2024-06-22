@@ -5,7 +5,7 @@
  *
  *  See ENDF102, section 32.2.2 for more information.
  */
-class ENDFTK_PYTHON_EXPORT ShortRangeBreitWignerReichMooreBlockBase : 
+class ENDFTK_PYTHON_EXPORT ShortRangeBreitWignerReichMooreBlockBase :
   protected ListRecord {
 
   /* auxiliary functions */
@@ -14,9 +14,10 @@ class ENDFTK_PYTHON_EXPORT ShortRangeBreitWignerReichMooreBlockBase :
 
   auto column( unsigned int i ) const {
 
-    return ListRecord::list() | ranges::views::take_exactly( 6 * this->NRB() )
-                              | ranges::views::drop_exactly( i )
-                              | ranges::views::stride( 6 );
+    using namespace njoy::tools;
+    return ListRecord::list() | std20::views::take( 6 * this->NRB() )
+                              | std20::views::drop( i )
+                              | std23::views::stride( 6 );
   }
 
 protected:
@@ -49,8 +50,9 @@ protected:
    */
   auto resonances() const {
 
-    return ListRecord::list() | ranges::views::take_exactly( 6 * this->NRB() )
-                              | ranges::views::chunk(6);
+    using namespace njoy::tools;
+    return ListRecord::list() | std20::views::take( 6 * this->NRB() )
+                              | std23::views::chunk( 6 );
   }
 
 public:
@@ -128,7 +130,8 @@ public:
    */
   auto covarianceMatrix() const {
 
-    return ListRecord::list() | ranges::views::drop_exactly( 6 * this->NRB() );
+    using namespace njoy::tools;
+    return ListRecord::list() | std20::views::drop( 6 * this->NRB() );
   }
 
   //! @todo provide convenience interface for the covariance data

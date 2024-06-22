@@ -30,33 +30,33 @@ void wrapFile_32( python::module& module, python::module& viewmodule ) {
   // wrap sections
   wrapSection_32_151( submodule, viewmodule );
 
-  // wrap views created by this file
-  // none of these are supposed to be created directly by the user
-  wrapBidirectionalAnyViewOf< Section >(
-      viewmodule,
-      "any_view< section::Type< 32 >, bidirectional >" );
-
-  // create the file
-  python::class_< File > file(
-
-    submodule,
-    "File",
-    "MF32 file - resonance parameter covariance data"
-  );
-
-  // wrap the file
-  file
-  .def(
-
-    python::init( [] ( Section covariances )
-                     { return File( std::move( covariances ) ); } ),
-    python::arg( "covariances" ),
-    "Initialise the file with resonance parameter covariance data\n\n"
-    "Arguments:\n"
-    "    self          the file\n"
-    "    covariances   the resonance parameter covariance data (MT151)"
-  );
-
-  // add standard file definitions
-  addStandardFileDefinitions< File, Section, SectionRange >( file );
+//  // wrap views created by this file
+//  // none of these are supposed to be created directly by the user
+//  wrapBidirectionalAnyViewOf< Section >(
+//      viewmodule,
+//      "any_view< section::Type< 32 >, bidirectional >" );
+//
+//  // create the file
+//  python::class_< File > file(
+//
+//    submodule,
+//    "File",
+//    "MF32 file - resonance parameter covariance data"
+//  );
+//
+//  // wrap the file
+//  file
+//  .def(
+//
+//    python::init( [] ( Section covariances )
+//                     { return File( std::move( covariances ) ); } ),
+//    python::arg( "covariances" ),
+//    "Initialise the file with resonance parameter covariance data\n\n"
+//    "Arguments:\n"
+//    "    self          the file\n"
+//    "    covariances   the resonance parameter covariance data (MT151)"
+//  );
+//
+//  // add standard file definitions
+//  addStandardFileDefinitions< File, Section, SectionRange >( file );
 }

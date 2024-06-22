@@ -33,7 +33,8 @@ public:
    */
   auto data() const {
 
-    return ranges::cpp20::views::all( this->ni_ );
+    using namespace njoy::tools;
+    return this->ni_ | std20::views::all;
   }
 
   #include "ENDFtk/section/32/151/ScatteringRadiusCovariances/src/NC.hpp"
