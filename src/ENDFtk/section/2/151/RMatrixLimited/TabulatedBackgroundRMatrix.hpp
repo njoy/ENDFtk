@@ -109,6 +109,8 @@ public:
    */
   auto RB() const {
 
+    //! @todo the range-v3 implementation used zip_transform on RBR() and RBI()
+    //!       but this did not work with the tools implementation (const issues)
     using namespace njoy::tools;
     return std23::views::zip_transform(
                [] ( double real, double imag ) -> std::complex< double >
