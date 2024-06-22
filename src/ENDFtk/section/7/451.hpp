@@ -57,7 +57,8 @@ namespace section{
      */
     auto elements() const {
 
-      return ranges::cpp20::views::all( this->elements_ );
+      using namespace njoy::tools;
+      return this->elements_ | std20::views::all;
     }
 
     #include "ENDFtk/section/7/451/src/NC.hpp"
