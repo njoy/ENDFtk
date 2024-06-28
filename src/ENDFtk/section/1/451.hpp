@@ -106,9 +106,14 @@ namespace section {
     double STA() const { return std::get< 0 >( this->parameters_ ).C2(); }
 
     /**
-     *  @brief Return the stability flag
+     *  @brief Return whether or not the nuclide is unstable
      */
-    bool isStable() const { return this->STA(); }
+    bool isUnstable() const { return this->STA() == 1; }
+
+    /**
+     *  @brief Return whether or not the nuclide is stable
+     */
+    bool isStable() const { return ! this->isUnstable(); }
 
     /**
      *  @brief Return the excited level number

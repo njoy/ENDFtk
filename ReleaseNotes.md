@@ -7,6 +7,8 @@ This update removes the regions() and pairs() interface functions on the TAB1 re
 In addition, the following issues were corrected:
   - A minor bug in the rectangular matrix covariance block was corrected. The values for the row and column energies are lifted out of a larger array using the std::ranges::take and std::ranges::drop function. For the column energies, we forgot to properly end the sequence. As a result, the end() iterator of the range did not point to the end of the column energies but to the end of the covariance values, which is now corrected.
   - In MF8 MT457 DiscreteSpectrum, NT=8 (which can occur for electrons, i.e. STYP=8), was explicitly disallowed by ENDFtk. This was corrected and a new constructor reflecting this usage was added as well.
+  - The STA variable in MF1 MT451 was interpreted incorrectly and this has now been fixed. An additional isUnstable() function has been added to the interface.
+  - The NJSX value (the number of spin groups) is now read from the CONT record before the particle pairs in MF32 R-matrix limited uncertainties since SAMMY does not print the NJSX value on the particle pairs (the ENDF format bascially has the NJSX value appear in two places and ENDFtk used the second one while SAMMY only prints out the first one). This "breaks" some interface functions (the R-matrix limited uncertainties from_string() function now requires the number of spin groups while previously it did not).
 
 A few changes were also made to remove some range-v3 code in MF1 MT451. These changes have no impact on functionality.
 
