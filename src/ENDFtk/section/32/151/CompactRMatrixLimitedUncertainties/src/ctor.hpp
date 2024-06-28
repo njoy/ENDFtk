@@ -29,10 +29,10 @@ template< typename Iterator >
 CompactRMatrixLimitedUncertainties(
     ParticlePairs&& pairs,
     Iterator& it, const Iterator& end, long& lineNumber,
-    int MAT, int MF, int MT ) :
+    int MAT, int MF, int MT, int NJSX ) :
   CompactRMatrixLimitedUncertainties(
     std::move( pairs ),
-    readSequence< SpinGroup >( it, end, lineNumber, MAT, MF, MT, pairs.NJSX() ) ) {}
+    readSequence< SpinGroup >( it, end, lineNumber, MAT, MF, MT, NJSX ) ) {}
 
 public:
 /**
@@ -46,14 +46,15 @@ public:
  *  @param[in] MAT          the expected MAT number
  *  @param[in] MF           the expected MF number
  *  @param[in] MT           the expected MT number
+ *  @param[in] NJSX         the number of spin groups to be read
  */
 template< typename Iterator >
 CompactRMatrixLimitedUncertainties(
     Iterator& it, const Iterator& end, long& lineNumber,
-    int MAT, int MF, int MT )
+    int MAT, int MF, int MT, int NJSX )
   try : CompactRMatrixLimitedUncertainties(
             ParticlePairs( it, end, lineNumber, MAT, MF, MT ),
-            it, end, lineNumber, MAT, MF, MT ) {}
+            it, end, lineNumber, MAT, MF, MT, NJSX ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing R matrix limited "
