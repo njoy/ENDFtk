@@ -15,7 +15,7 @@ class Test_ENDFtk_MF1_MT451_Section( unittest.TestCase ) :
     # randomly set to test if the correct value is extracted instead of using
     # ENDF legal values
     chunk = ( ' 1.001000+3 9.991673-1          1          2          3          4 125 1451     \n'
-              ' 5.000000+0 6.000000+0          7          8          0         12 125 1451     \n'
+              ' 5.000000+0 0.000000+0          7          8          0         12 125 1451     \n'
               ' 1.300000+1 1.400000+1         15          0         17         18 125 1451     \n'
               ' 1.900000+1 0.000000+0         21          0          9         10 125 1451     \n'
               '  1-H -  1 LANL       EVAL-JUL16 G.M.Hale                          125 1451     \n'
@@ -139,7 +139,8 @@ class Test_ENDFtk_MF1_MT451_Section( unittest.TestCase ) :
             self.assertEqual( 4, chunk.modification_number )
             self.assertAlmostEqual( 5.0, chunk.ELIS )
             self.assertAlmostEqual( 5.0, chunk.excitation_energy )
-            self.assertAlmostEqual( 6.0, chunk.STA )
+            self.assertAlmostEqual( 0.0, chunk.STA )
+            self.assertEqual( False, chunk.is_unstable )
             self.assertEqual( True, chunk.is_stable )
             self.assertEqual( 7, chunk.LIS )
             self.assertEqual( 7, chunk.excited_level )
@@ -175,7 +176,7 @@ class Test_ENDFtk_MF1_MT451_Section( unittest.TestCase ) :
         # the data is given explicitly
         chunk = Section( zaid = 1001, awr = 0.9991673, lrp = 1,
                          lfi = 2, nlib = 3, nmod = 4,
-                         elis = 5., sta = 6., lis = 7,
+                         elis = 5., sta = 0., lis = 7,
                          liso = 8, nfor = 12, awi = 13.,
                          emax = 14., lrel = 15, nsub = 17,
                          nver = 18, temp = 19., ldrv = 21,

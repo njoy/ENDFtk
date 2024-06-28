@@ -39,7 +39,7 @@ SCENARIO( "section::Type< 1, 451 >" ) {
       int nlib = 3;
       int nmod = 4;
       double elis = 5.;
-      double sta = 6.;
+      double sta = 0.;
       int lis = 7;
       int liso = 8;
       int nfor = 12;
@@ -178,7 +178,7 @@ std::string chunk() {
   // ENDF legal values
   return
     " 1.001000+3 9.991673-1          1          2          3          4 125 1451     \n"
-    " 5.000000+0 6.000000+0          7          8          0         12 125 1451     \n"
+    " 5.000000+0 0.000000+0          7          8          0         12 125 1451     \n"
     " 1.300000+1 1.400000+1         15          0         17         18 125 1451     \n"
     " 1.900000+1 0.000000+0         21          0          9         10 125 1451     \n"
     "  1-H -  1 LANL       EVAL-JUL16 G.M.Hale                          125 1451     \n"
@@ -220,7 +220,8 @@ void verifyChunk( const section::Type< 1, 451 >& chunk ) {
   CHECK( 4 == chunk.modificationNumber() );
   CHECK_THAT( 5.0, WithinRel( chunk.ELIS() ) );
   CHECK_THAT( 5.0, WithinRel( chunk.excitationEnergy() ) );
-  CHECK_THAT( 6.0, WithinRel( chunk.STA() ) );
+  CHECK_THAT( 0.0, WithinRel( chunk.STA() ) );
+  CHECK( false == chunk.isUnstable() );
   CHECK( true == chunk.isStable() );
   CHECK( 7 == chunk.LIS() );
   CHECK( 7 == chunk.excitedLevel() );

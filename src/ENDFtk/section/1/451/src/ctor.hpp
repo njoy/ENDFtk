@@ -32,7 +32,7 @@ Type() = default;
  *  @param[in] nlib          the library type
  *  @param[in] nmod          the modification number
  *  @param[in] elis          the excitation energy
- *  @param[in] sta           the stability flag
+ *  @param[in] sta           the stability flag (whether or not the nuclide is unstable)
  *  @param[in] lis           the excited level number
  *  @param[in] liso          the isomeric state number
  *  @param[in] nfor          the library format version number
