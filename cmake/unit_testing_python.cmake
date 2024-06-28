@@ -174,11 +174,11 @@ add_python_test( MF13.PartialCrossSection MF13/Test_ENDFtk_MF13_PartialCrossSect
 add_python_test( MF13.TotalCrossSection   MF13/Test_ENDFtk_MF13_TotalCrossSection.py )
 
 #add_python_test( MF14.Section                 MF14/Test_ENDFtk_MF14_Section.py )
-#add_python_test( MF14.IsotropicDiscretePhoton MF14/Test_ENDFtk_MF14_IsotropicDiscretePhoton.py )
-#add_python_test( MF14.LegendreCoefficients    MF14/Test_ENDFtk_MF14_LegendreCoefficients.py )
-#add_python_test( MF14.LegendreDistributions   MF14/Test_ENDFtk_MF14_LegendreDistributions.py )
-#add_python_test( MF14.TabulatedDistribution   MF14/Test_ENDFtk_MF14_TabulatedDistribution.py )
-#add_python_test( MF14.TabulatedDistributions  MF14/Test_ENDFtk_MF14_TabulatedDistributions.py )
+add_python_test( MF14.IsotropicDiscretePhoton MF14/Test_ENDFtk_MF14_IsotropicDiscretePhoton.py )
+add_python_test( MF14.LegendreCoefficients    MF14/Test_ENDFtk_MF14_LegendreCoefficients.py )
+add_python_test( MF14.LegendreDistributions   MF14/Test_ENDFtk_MF14_LegendreDistributions.py )
+add_python_test( MF14.TabulatedDistribution   MF14/Test_ENDFtk_MF14_TabulatedDistribution.py )
+add_python_test( MF14.TabulatedDistributions  MF14/Test_ENDFtk_MF14_TabulatedDistributions.py )
 
 #add_python_test( MF15.Section                    MF15/Test_ENDFtk_MF15_Section.py )
 add_python_test( MF15.OutgoingEnergyDistribution MF15/Test_ENDFtk_MF15_OutgoingEnergyDistribution.py )

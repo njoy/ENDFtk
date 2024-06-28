@@ -274,12 +274,12 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/13.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/13/TotalCrossSection.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/13/PartialCrossSection.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/14.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/14/IsotropicDiscretePhoton.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/14/LegendreCoefficients.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/14/TabulatedDistribution.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/14/LegendreDistributions.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/14/TabulatedDistributions.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/14.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/14/IsotropicDiscretePhoton.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/14/LegendreCoefficients.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/14/TabulatedDistribution.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/14/LegendreDistributions.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/14/TabulatedDistributions.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/15.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/15/OutgoingEnergyDistribution.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/15/TabulatedSpectrum.python.cpp
@@ -306,7 +306,7 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/10.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/12.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/13.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/14.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/14.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/15.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/23.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/26.python.cpp
