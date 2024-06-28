@@ -11,6 +11,8 @@ class ENDFTK_PYTHON_EXPORT LValue : protected ListRecord {
   #include "ENDFtk/section/2/151/UnresolvedEnergyIndependent/LValue/src/verifySize.hpp"
   #include "ENDFtk/section/2/151/UnresolvedEnergyIndependent/LValue/src/generateList.hpp"
 
+  std::vector< double > zeros_;
+
 public:
 
   /* constructor */
@@ -109,35 +111,56 @@ public:
    */
   auto neutronWidthDegreesFreedom() const { return this->AMUN(); }
 
-//  /**
-//   *  @brief Return the degrees of freedom for the gamma width
-//   */
-//  auto AMUG() const { return ranges::views::repeat_n( 0.0, this->NJS() ); }
-//
-//  /**
-//   *  @brief Return the degrees of freedom for the gamma width
-//   */
-//  auto gammaWidthDegreesFreedom() const { return this->AMUG(); }
-//
-//  /**
-//   *  @brief Return the degrees of freedom for the fission width
-//   */
-//  auto AMUF() const { return ranges::views::repeat_n( 0.0, this->NJS() ); }
-//
-//  /**
-//   *  @brief Return the degrees of freedom for the fission width
-//   */
-//  auto fissionWidthDegreesFreedom() const { return this->AMUG(); }
-//
-//  /**
-//   *  @brief Return the degrees of freedom for the competitive width
-//   */
-//  auto AMUX() const { return ranges::views::repeat_n( 0.0, this->NJS() ); }
-//
-//  /**
-//   *  @brief Return the degrees of freedom for the competitive width
-//   */
-//  auto competitiveWidthDegreesFreedom() const { return this->AMUG(); }
+  /**
+   *  @brief Return the degrees of freedom for the gamma width
+   */
+  auto AMUG() const {
+
+//    using namespace njoy::tools;
+//    return std20::views::repeat_n( 0.0, this->NJS() );
+
+    using namespace njoy::tools;
+    return this->zeros_ | std20::views::all;
+  }
+
+  /**
+   *  @brief Return the degrees of freedom for the gamma width
+   */
+  auto gammaWidthDegreesFreedom() const { return this->AMUG(); }
+
+  /**
+   *  @brief Return the degrees of freedom for the fission width
+   */
+  auto AMUF() const {
+
+//    using namespace njoy::tools;
+//    return std20::views::repeat_n( 0.0, this->NJS() );
+
+    using namespace njoy::tools;
+    return this->zeros_ | std20::views::all;
+  }
+
+  /**
+   *  @brief Return the degrees of freedom for the fission width
+   */
+  auto fissionWidthDegreesFreedom() const { return this->AMUG(); }
+
+  /**
+   *  @brief Return the degrees of freedom for the competitive width
+   */
+  auto AMUX() const {
+
+//    using namespace njoy::tools;
+//    return std20::views::repeat_n( 0.0, this->NJS() );
+
+    using namespace njoy::tools;
+    return this->zeros_ | std20::views::all;
+  }
+
+  /**
+   *  @brief Return the degrees of freedom for the competitive width
+   */
+  auto competitiveWidthDegreesFreedom() const { return this->AMUG(); }
 
   /**
    *  @brief Return the average neutron width values.
@@ -147,7 +170,7 @@ public:
     using namespace njoy::tools;
     return this->jValues()
              | std20::views::transform( [] ( const auto& jvalue )
-                                                   { return jvalue.GN(); } );
+                                           { return jvalue.GN(); } );
   }
 
   /**
@@ -171,25 +194,39 @@ public:
    */
   auto averageGammaWidths() const { return this->GG(); }
 
-//  /**
-//   *  @brief Return the average fission width values.
-//   */
-//  auto GF() const { return ranges::views::repeat_n( 0.0, this->NJS() ); }
-//
-//  /**
-//   *  @brief Return the average fission width values.
-//   */
-//  auto averageFissionWidths() const { return this->GF(); }
-//
-//  /**
-//   *  @brief Return the average competitive width values.
-//   */
-//  auto GX() const { return ranges::views::repeat_n( 0.0, this->NJS() ); }
-//
-//  /**
-//   *  @brief Return the average competitive width values.
-//   */
-//  auto averageCompetitiveWidths() const { return this->GX(); }
+  /**
+   *  @brief Return the average fission width values.
+   */
+  auto GF() const {
+
+//    using namespace njoy::tools;
+//    return std20::views::repeat_n( 0.0, this->NJS() );
+
+    using namespace njoy::tools;
+    return this->zeros_ | std20::views::all;
+  }
+
+  /**
+   *  @brief Return the average fission width values.
+   */
+  auto averageFissionWidths() const { return this->GF(); }
+
+  /**
+   *  @brief Return the average competitive width values.
+   */
+  auto GX() const {
+
+//    using namespace njoy::tools;
+//    return std20::views::repeat_n( 0.0, this->NJS() );
+
+    using namespace njoy::tools;
+    return this->zeros_ | std20::views::all;
+  }
+
+  /**
+   *  @brief Return the average competitive width values.
+   */
+  auto averageCompetitiveWidths() const { return this->GX(); }
 
   using ListRecord::NC;
   using ListRecord::print;
