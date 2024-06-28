@@ -83,55 +83,55 @@ public:
    */
   long numberIncidentEnergies() const { return this->NE(); }
 
-  /**
-   *  @brief Return the boundaries of the interpolation ranges
-   *
-   *         The intersection point is considered as a jump in the incident
-   *         energy.
-   */
-  auto NBT() const {
-
-    auto offset = this->legendre().NBT().back();
-    return ranges::views::concat(
-             this->legendre().NBT(),
-             this->tabulated().NBT()
-               | ranges::cpp20::views::transform(
-                     [=] ( auto index )
-                         { return index + offset; } ) );
-  }
-
-  /**
-   *  @brief Return the boundaries of the interpolation ranges
-   *
-   *         The intersection point is considered as a jump in the incident
-   *         energy.
-   */
-  auto boundaries() const { return this->NBT(); }
-
-  /**
-   *  @brief Return the interpolants of the interpolation ranges
-   */
-  auto INT() const {
-
-    return ranges::views::concat( this->legendre().INT(),
-                                  this->tabulated().INT() );
-  }
-
-  /**
-   *  @brief Return the interpolants of the interpolation ranges
-   */
-  auto interpolants() const { return this->INT(); }
-
-  /**
-   *  @brief Return the incident energy values
-   */
-  auto incidentEnergies() const {
-
-    return ranges::views::concat( this->legendre().incidentEnergies(),
-                                  this->tabulated().incidentEnergies() );
-  }
-
-  #include "ENDFtk/section/4/MixedDistributions/src/angularDistributions.hpp"
+//  /**
+//   *  @brief Return the boundaries of the interpolation ranges
+//   *
+//   *         The intersection point is considered as a jump in the incident
+//   *         energy.
+//   */
+//  auto NBT() const {
+//
+//    auto offset = this->legendre().NBT().back();
+//    return ranges::views::concat(
+//             this->legendre().NBT(),
+//             this->tabulated().NBT()
+//               | ranges::cpp20::views::transform(
+//                     [=] ( auto index )
+//                         { return index + offset; } ) );
+//  }
+//
+//  /**
+//   *  @brief Return the boundaries of the interpolation ranges
+//   *
+//   *         The intersection point is considered as a jump in the incident
+//   *         energy.
+//   */
+//  auto boundaries() const { return this->NBT(); }
+//
+//  /**
+//   *  @brief Return the interpolants of the interpolation ranges
+//   */
+//  auto INT() const {
+//
+//    return ranges::views::concat( this->legendre().INT(),
+//                                  this->tabulated().INT() );
+//  }
+//
+//  /**
+//   *  @brief Return the interpolants of the interpolation ranges
+//   */
+//  auto interpolants() const { return this->INT(); }
+//
+//  /**
+//   *  @brief Return the incident energy values
+//   */
+//  auto incidentEnergies() const {
+//
+//    return ranges::views::concat( this->legendre().incidentEnergies(),
+//                                  this->tabulated().incidentEnergies() );
+//  }
+//
+//  #include "ENDFtk/section/4/MixedDistributions/src/angularDistributions.hpp"
 
   /**
    *  @brief Return the number of lines for this ENDF component

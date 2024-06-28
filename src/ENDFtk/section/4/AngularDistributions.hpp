@@ -92,8 +92,9 @@ public:
    */
   auto incidentEnergies() const {
 
+    using namespace njoy::tools;
     return InterpolationSequenceRecord< Records >::records()
-               | ranges::cpp20::views::transform(
+               | std20::views::transform(
                      [] ( const auto& record )
                         { return record.incidentEnergy(); } );
   }

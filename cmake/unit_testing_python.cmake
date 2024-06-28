@@ -88,12 +88,12 @@ add_python_test( MF2.MT151.UnresolvedEnergyIndependentLValue            MF2/MT15
 #add_python_test( MF3.File    MF3/Test_ENDFtk_MF3_File.py )
 
 #add_python_test( MF4.Section                MF4/Test_ENDFtk_MF4_Section.py )
-#add_python_test( MF4.Isotropic              MF4/Test_ENDFtk_MF4_Isotropic.py )
-#add_python_test( MF4.LegendreCoefficients   MF4/Test_ENDFtk_MF4_LegendreCoefficients.py )
-#add_python_test( MF4.LegendreDistributions  MF4/Test_ENDFtk_MF4_LegendreDistributions.py )
-#add_python_test( MF4.MixedDistributions     MF4/Test_ENDFtk_MF4_MixedDistributions.py )
-#add_python_test( MF4.TabulatedDistribution  MF4/Test_ENDFtk_MF4_TabulatedDistribution.py )
-#add_python_test( MF4.TabulatedDistributions MF4/Test_ENDFtk_MF4_TabulatedDistributions.py )
+add_python_test( MF4.Isotropic              MF4/Test_ENDFtk_MF4_Isotropic.py )
+add_python_test( MF4.LegendreCoefficients   MF4/Test_ENDFtk_MF4_LegendreCoefficients.py )
+add_python_test( MF4.LegendreDistributions  MF4/Test_ENDFtk_MF4_LegendreDistributions.py )
+add_python_test( MF4.MixedDistributions     MF4/Test_ENDFtk_MF4_MixedDistributions.py )
+add_python_test( MF4.TabulatedDistribution  MF4/Test_ENDFtk_MF4_TabulatedDistribution.py )
+add_python_test( MF4.TabulatedDistributions MF4/Test_ENDFtk_MF4_TabulatedDistributions.py )
 
 #add_python_test( MF5.Section                    MF5/Test_ENDFtk_MF5_Section.py )
 add_python_test( MF5.DistributionFunction       MF5/Test_ENDFtk_MF5_DistributionFunction.py )

@@ -197,13 +197,13 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/UnresolvedRelativeCovariances.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/ResonanceRange.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/32/151/Isotope.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/4.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/4/Isotropic.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/4/LegendreCoefficients.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/4/TabulatedDistribution.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/4/LegendreDistributions.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/4/TabulatedDistributions.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/4/MixedDistributions.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/4.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/4/Isotropic.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/4/LegendreCoefficients.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/4/TabulatedDistribution.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/4/LegendreDistributions.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/4/TabulatedDistributions.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/4/MixedDistributions.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/5.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/5/Parameter.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/5/OutgoingEnergyDistribution.python.cpp
@@ -297,7 +297,7 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/1.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/2.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/3.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/4.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/4.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/5.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/6.python.cpp
 #      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/7.python.cpp

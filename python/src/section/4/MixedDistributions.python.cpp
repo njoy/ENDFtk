@@ -6,7 +6,6 @@
 // local includes
 #include "ENDFtk/section/4.hpp"
 #include "definitions.hpp"
-#include "views.hpp"
 
 // namespace aliases
 namespace python = pybind11;
@@ -20,8 +19,8 @@ void wrapMixedDistributions( python::module& module, python::module& ) {
   using TabulatedDistribution = Section::TabulatedDistribution;
   using LegendreDistributions = Section::LegendreDistributions;
   using TabulatedDistributions = Section::TabulatedDistributions;
-  using Distribution = Section::Variant;
-  using DistributionRange = BasicRandomAccessAnyView< Distribution >;
+//  using Distribution = Section::Variant;
+//  using DistributionRange = BasicRandomAccessAnyView< Distribution >;
 
   // wrap views created by this section
 
@@ -86,7 +85,7 @@ void wrapMixedDistributions( python::module& module, python::module& ) {
     &Component::tabulated,
     "The tabulated distributions"
   )
-  .def_property_readonly(
+/*  .def_property_readonly(
 
     "NE",
     [] ( const Component& self ) { return self.NE(); },
@@ -111,10 +110,10 @@ void wrapMixedDistributions( python::module& module, python::module& ) {
     [] ( const Component& self ) -> DistributionRange
        { return self.angularDistributions(); },
     "The angular distributions (one for each incident energy)"
-  );
+  )*/;
 
-  // add standard tab2 definitions
-  addStandardInterpolationTableDefinitions< Component >( component );
+//  // add standard tab2 definitions
+//  addStandardInterpolationTableDefinitions< Component >( component );
 
   // add standard component definitions
   addStandardComponentDefinitions< Component >( component );
