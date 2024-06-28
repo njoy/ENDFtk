@@ -84,7 +84,7 @@ CompactCovarianceBase( double spi, double ap, long l1, long n1,
   // no try ... catch: exceptions will be handled in the derived class
   CompactCovarianceBase( spi, ap, l1, n1, std::move( dap ),
                          ResonanceParameterUncertainties( it, end, lineNumber,
-                                                          MAT, MF, MT ),
+                                                          MAT, MF, MT, n1 ),
                          it, end, lineNumber, MAT, MF, MT ) {}
 
 /**

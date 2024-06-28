@@ -420,7 +420,7 @@ class Test_ENDFtk_MF32_MT151_CompactRMatrixLimitedUncertainties( unittest.TestCa
         verify_chunk( self, chunk )
 
         # the data is read from a string
-        chunk = CompactRMatrixLimitedUncertainties.from_string( self.chunk, 2625, 32, 151 )
+        chunk = CompactRMatrixLimitedUncertainties.from_string( self.chunk, 2625, 32, 151, 2 )
 
         verify_chunk( self, chunk )
 

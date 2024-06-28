@@ -75,10 +75,34 @@ void wrapCompactRMatrixLimitedUncertainties( python::module& module, python::mod
     [] ( const Component& self ) -> SpinGroupRange
        { return self.spinGroups(); },
     "The spin groups"
+  )
+  .def_static(
+
+    "from_string",
+    [] ( const std::string& string, int mat, int mf, int mt, int njsx ) -> Component {
+
+      auto begin = string.begin();
+      auto end = string.end();
+      long lineNumber = 1;
+
+      return Component( begin, end, lineNumber, mat, mf, mt, njsx );
+    },
+    python::arg( "string" ), python::arg( "mat" ),
+    python::arg( "mf" ), python::arg( "mt" ),
+    python::arg( "njsx" ),
+    "Read the component from a string\n\n"
+    "An exception is raised if something goes wrong while reading the\n"
+    "component\n\n"
+    "Arguments:\n"
+    "    string    the string representing the component\n"
+    "    mat       the MAT number of the section\n"
+    "    mf        the MF number of the section\n"
+    "    mt        the MT number of the section\n"
+    "    njsx      the number of spin groups"
   );
 
   // add standard component definitions
-  addStandardComponentDefinitions< Component >( component );
+  addStandardComponentDefinitionsWithoutReading< Component >( component );
 }
 
 } // namespace mf32

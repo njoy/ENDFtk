@@ -76,7 +76,7 @@ SCENARIO( "CompactRMatrixLimitedUncertainties" ) {
       long lineNumber = 1;
 
       CompactRMatrixLimitedUncertainties chunk( begin, end, lineNumber,
-                                                2625, 32, 151 );
+                                                2625, 32, 151, 2 );
 
       THEN( "an CompactRMatrixLimitedUncertainties can be constructed and members can be "
             "tested" ) {
@@ -125,7 +125,7 @@ SCENARIO( "CompactRMatrixLimitedUncertainties" ) {
       THEN( "an exception is thrown" ) {
 
         CHECK_THROWS( CompactRMatrixLimitedUncertainties( begin, end, lineNumber,
-                                                          2625, 2, 151 ) );
+                                                          2625, 2, 151, 0 ) );
       } // THEN
     } // WHEN
   } // GIVEN
