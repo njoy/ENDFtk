@@ -17,10 +17,13 @@ auto material( int mat ) const {
     throw std::out_of_range( "Requested material number (MAT) does not"
                              " correspond to a stored material tree" );
   }
+
+
+  using namespace njoy::tools;
   auto bounds = this->materials_.equal_range( mat );
-  return
-    ranges::make_subrange( bounds.first, bounds.second )
-    | ranges::cpp20::views::values;
+  auto subrange = std20::ranges::subrange( bounds.first, bounds.second );
+
+  return subrange | std20::views::values;
 }
 
 /**
@@ -34,9 +37,10 @@ auto material( int mat ) const {
  */
 auto material( int mat ) {
 
+  using namespace njoy::tools;
   return
     static_cast< const Tape& >( *this ).material( mat )
-    | ranges::cpp20::views::transform
+    | std20::views::transform
       ( [] ( const auto& material ) -> Material&
            { return const_cast< Material& >( material ); } );
 }

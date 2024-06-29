@@ -54,7 +54,8 @@ namespace tree {
      */
     auto fileNumbers() const {
 
-      return ranges::cpp20::views::keys( this->files_ );
+      using namespace njoy::tools;
+      return std20::views::keys( this->files_ );
     }
 
     #include "ENDFtk/tree/Material/src/file.hpp"
@@ -157,44 +158,40 @@ namespace tree {
     /**
      *  @brief Return all files in the material
      */
-    auto files() const { return this->files_ | ranges::cpp20::views::values; }
+    auto files() const {
+
+      using namespace njoy::tools;
+      return this->files_ | std20::views::values;
+    }
 
     /**
      *  @brief Return all files in the material
      */
-    auto files() { return this->files_ | ranges::cpp20::views::values; }
+    auto files() {
 
-    /**
-     *  @brief Return a begin iterator to all files
-     */
-    auto begin() const {
-
-      return ( this->files_ | ranges::cpp20::views::values ).begin();
-    }
-
-    /**
-     *  @brief Return an end iterator to all files
-     */
-    auto end() const {
-
-      return ( this->files_ | ranges::cpp20::views::values ).end();
+      using namespace njoy::tools;
+      return this->files_ | std20::views::values;
     }
 
     /**
      *  @brief Return a begin iterator to all files
      */
-    auto begin() {
-
-      return ( this->files_ | ranges::cpp20::views::values ).begin();
-    }
+    auto begin() const { return this->files().begin(); }
 
     /**
      *  @brief Return an end iterator to all files
      */
-    auto end() {
+    auto end() const { return this->files().end(); }
 
-      return ( this->files_ | ranges::cpp20::views::values ).end();
-    }
+    /**
+     *  @brief Return a begin iterator to all files
+     */
+    auto begin()  { return this->files().begin(); }
+
+    /**
+     *  @brief Return an end iterator to all files
+     */
+    auto end()  { return this->files().end(); }
 
     /**
      *  @brief Return the number of files in the materials

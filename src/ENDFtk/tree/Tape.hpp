@@ -113,7 +113,7 @@ namespace tree {
     auto materials() {
 
       using namespace njoy::tools;
-      return this->materials_ | ranges::cpp20::views::values;
+      return this->materials_ | std20::views::values;
     }
 
     /**
@@ -122,7 +122,7 @@ namespace tree {
     auto materials() const {
 
       using namespace njoy::tools;
-      return this->materials_ | ranges::cpp20::views::values;
+      return this->materials_ | std20::views::values;
     }
 
     /**
@@ -191,7 +191,11 @@ namespace tree {
 
       using namespace njoy::tools;
       auto keys = this->materials_ | std20::views::keys;
-      std::vector< int > materials( keys.begin(), keys.end() );
+      std::vector< int > materials;
+      for ( auto&& key : this->materials_ | std20::views::keys ) {
+
+        materials.push_back( key );
+      }
       std::sort( materials.begin(), materials.end() );
       materials.erase( std::unique( materials.begin(), materials.end() ), materials.end() );
       return materials;

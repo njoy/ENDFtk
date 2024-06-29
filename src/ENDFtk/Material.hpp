@@ -119,7 +119,8 @@ namespace ENDFtk {
      */
     auto MFs() {
 
-      return this->files_ | ranges::cpp20::views::values;
+      using namespace njoy::tools;
+      return this->files_ | std20::views::values;
     }
 
     /**
@@ -135,7 +136,8 @@ namespace ENDFtk {
      */
     auto MFs() const {
 
-      return this->files_ | ranges::cpp20::views::values;
+      using namespace njoy::tools;
+      return this->files_ | std20::views::values;
     }
 
     /**

@@ -15,8 +15,9 @@ template< typename Buffer >
 Tape( const Buffer& buffer, long lineNumber = 0 )
   try {
 
-    auto position = ranges::cpp20::begin( buffer );
-    auto end = ranges::cpp20::end( buffer );
+    using namespace njoy::tools;
+    auto position = std20::begin( buffer );
+    auto end = std20::end( buffer );
     this->tpid_ = TapeIdentification{ position, end, lineNumber };
     materials_ = createMap( position, end, lineNumber );
   }
