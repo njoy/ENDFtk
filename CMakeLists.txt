@@ -318,11 +318,11 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/34.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/35.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/40.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/Material.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/tree/Section.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/tree/File.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/tree/Material.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/tree/Tape.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/Material.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/tree/Section.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/tree/File.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/tree/Material.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/tree/Tape.python.cpp
       )
 
   target_link_libraries( ENDFtk.python PRIVATE ENDFtk )

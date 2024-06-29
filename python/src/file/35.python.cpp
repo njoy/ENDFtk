@@ -30,20 +30,20 @@ void wrapFile_35( python::module& module, python::module& viewmodule ) {
   // wrap sections
   wrapSection_35( submodule, viewmodule );
 
-//  // wrap views created by this file
-//  // none of these are supposed to be created directly by the user
-//  wrapBidirectionalAnyViewOf< Section >(
-//      viewmodule,
-//      "any_view< section::Type< 35 >, bidirectional >" );
-//
-//  // create the file
-//  python::class_< File > file(
-//
-//    submodule,
-//    "File",
-//    "MF35 file - covariances for angular distributions"
-//  );
-//
-//  // add standard file definitions
-//  addStandardFileDefinitions< File, Section, SectionRange >( file );
+  // wrap views created by this file
+  // none of these are supposed to be created directly by the user
+  wrapBidirectionalAnyViewOf< Section >(
+      viewmodule,
+      "any_view< section::Type< 35 >, bidirectional >" );
+
+  // create the file
+  python::class_< File > file(
+
+    submodule,
+    "File",
+    "MF35 file - covariances for angular distributions"
+  );
+
+  // add standard file definitions
+  addStandardFileDefinitions< File, Section, SectionRange >( file );
 }

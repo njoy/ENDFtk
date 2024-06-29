@@ -4,8 +4,6 @@
 
 // local includes
 #include "ENDFtk/tree/Tape.hpp"
-#include "range/v3/range/operations.hpp"
-#include "views.hpp"
 #include "variants.hpp"
 
 // namespace aliases

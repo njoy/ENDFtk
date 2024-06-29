@@ -4,7 +4,7 @@
 #include <string>
 
 // local includes
-#include "views.hpp"
+#include "tools/views/views-python.hpp"
 #include "ENDFtk/Material.hpp"
 #include "ENDFtk/tree/Material.hpp"
 #include "ENDFtk/tree/toMaterial.hpp"
@@ -88,20 +88,20 @@ void wrapMaterial( python::module& module, python::module& viewmodule ) {
     "    mf      the MF number of the section\n"
     "    mt      the MT number of the section"
   )
-  .def_property_readonly(
-
-    "MFs",
-    [] ( const Material& self ) -> FileVariantRange
-       { return self.MFs(); },
-    "The files defined in the material"
-  )
-  .def_property_readonly(
-
-    "files",
-    [] ( const Material& self ) -> FileVariantRange
-       { return self.files(); },
-    "The files defined in the material"
-  )
+//  .def_property_readonly(
+//
+//    "MFs",
+//    [] ( const Material& self ) -> FileVariantRange
+//       { return self.MFs(); },
+//    "The files defined in the material"
+//  )
+//  .def_property_readonly(
+//
+//    "files",
+//    [] ( const Material& self ) -> FileVariantRange
+//       { return self.files(); },
+//    "The files defined in the material"
+//  )
   .def(
 
     "MF",

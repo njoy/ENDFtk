@@ -7,8 +7,7 @@
 #include "ENDFtk/tree/Tape.hpp"
 #include "ENDFtk/tree/Material.hpp"
 #include "ENDFtk/tree/updateDirectory.hpp"
-#include "range/v3/range/operations.hpp"
-#include "views.hpp"
+#include "tools/views/views-python.hpp"
 #include "variants.hpp"
 
 // namespace aliases
@@ -111,17 +110,19 @@ void wrapTreeMaterial( python::module& module, python::module& viewmodule ) {
   .def_property_readonly(
 
     "file_numbers",
-    [] ( const Material& self ) -> std::vector< int >
-       { return ranges::to< std::vector< int > >( self.fileNumbers() ); },
+    [] ( const Material& self )
+       { std::vector< int > numbers;
+         for ( auto&& number : self.fileNumbers() ) { numbers.push_back( number ); };
+         return numbers; },
     "All file numbers in the material"
   )
-  .def_property_readonly(
-
-    "files",
-    [] ( Material& self ) -> FileRange
-       { return self.files(); },
-    "All files in the material"
-  )
+//  .def_property_readonly(
+//
+//    "files",
+//    [] ( Material& self ) -> FileRange
+//       { return self.files(); },
+//    "All files in the material"
+//  )
   .def_property_readonly(
 
     "content",

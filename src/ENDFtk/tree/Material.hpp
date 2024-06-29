@@ -55,7 +55,7 @@ namespace tree {
     auto fileNumbers() const {
 
       using namespace njoy::tools;
-      return std20::views::keys( this->files_ );
+      return this->files_ | std20::views::keys;
     }
 
     #include "ENDFtk/tree/Material/src/file.hpp"

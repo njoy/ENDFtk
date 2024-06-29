@@ -30,20 +30,20 @@ void wrapFile_10( python::module& module, python::module& viewmodule ) {
   // wrap sections
   wrapSection_10( submodule, viewmodule );
 
-//  // wrap views created by this file
-//  // none of these are supposed to be created directly by the user
-//  wrapBidirectionalAnyViewOf< Section >(
-//      viewmodule,
-//      "any_view< section::Type< 10 >, bidirectional >" );
-//
-//  // create the file
-//  python::class_< File > file(
-//
-//    submodule,
-//    "File",
-//    "MF10 file - production cross sections for radioactive nuclides"
-//  );
-//
-//  // add standard file definitions
-//  addStandardFileDefinitions< File, Section, SectionRange >( file );
+  // wrap views created by this file
+  // none of these are supposed to be created directly by the user
+  wrapBidirectionalAnyViewOf< Section >(
+      viewmodule,
+      "any_view< section::Type< 10 >, bidirectional >" );
+
+  // create the file
+  python::class_< File > file(
+
+    submodule,
+    "File",
+    "MF10 file - production cross sections for radioactive nuclides"
+  );
+
+  // add standard file definitions
+  addStandardFileDefinitions< File, Section, SectionRange >( file );
 }
