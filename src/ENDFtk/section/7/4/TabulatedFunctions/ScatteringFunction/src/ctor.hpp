@@ -1,4 +1,5 @@
 private:
+
 /**
  *  @brief Private intermediate constructor
  *
@@ -9,6 +10,7 @@ ScatteringFunction( TabulationRecord&& alphas,
                     std::vector< ListRecord >&& temperatures ) :
   alphas_( std::move( alphas ) ), temperatures_( std::move( temperatures ) ) {
 
+  this->generateS();
   if ( this->NT() != 1 ) {
     verifyBetaValues( this->beta(),
                       this->temperatures_ |
@@ -18,7 +20,21 @@ ScatteringFunction( TabulationRecord&& alphas,
   }
 }
 
-  public:
+public:
+
+ScatteringFunction( const ScatteringFunction& f ) :
+  alphas_( f.alphas_ ), temperatures_( f.temperatures_ ) {
+
+  this->generateS();
+}
+
+ScatteringFunction( ScatteringFunction&& f ) :
+  alphas_( std::move( f.alphas_ ) ), temperatures_( std::move( f.temperatures_ ) ) {
+
+  this->generateS();
+}
+
+
 /**
  *  @brief Constructor (multiple temperatures)
  *
@@ -132,3 +148,15 @@ ScatteringFunction( Iterator& begin,
                "beta value" );
     throw;
   }
+
+ScatteringFunction& operator=( const ScatteringFunction& base ) {
+
+  new (this) ScatteringFunction( base );
+  return *this;
+}
+
+ScatteringFunction& operator=( ScatteringFunction&& base ) {
+
+  new (this) ScatteringFunction( std::move( base ) );
+  return *this;
+}

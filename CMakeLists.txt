@@ -240,18 +240,18 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/LAW7/AngularDistribution.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/LaboratoryAngleEnergy.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/6/ReactionProduct.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/2.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/2/CoherentElastic.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/2/IncoherentElastic.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/2/MixedElastic.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/4.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/4/EffectiveTemperature.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/4/ScatteringLawConstants.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/4/AnalyticalFunctions.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/4/TabulatedFunctions.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/4/ScatteringFunction.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/451.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/451/ElementInformation.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/2.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/2/CoherentElastic.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/2/IncoherentElastic.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/2/MixedElastic.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/4.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/4/EffectiveTemperature.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/4/ScatteringLawConstants.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/4/AnalyticalFunctions.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/4/TabulatedFunctions.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/4/ScatteringFunction.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/451.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/7/451/ElementInformation.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/8/FissionYieldData.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/8/454.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/section/8/457.python.cpp
@@ -300,7 +300,7 @@ if( ENDFtk.python )
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/4.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/5.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/6.python.cpp
-#      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/7.python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/7.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/8.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/9.python.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/python/src/file/10.python.cpp

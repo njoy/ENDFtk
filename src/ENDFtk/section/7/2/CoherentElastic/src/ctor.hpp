@@ -7,6 +7,7 @@ CoherentElastic() = default;
 #endif
 
 private:
+
 /**
  *  @brief Private intermediate constructor
  *
@@ -18,10 +19,24 @@ CoherentElastic( TabulationRecord&& principal,
   principal_( std::move( principal ) ),
   temperatures_( std::move( temperatures ) ) {
 
+  this->generateS();
   verifyTemperatures( this->NP(), this->temperatures_ );
 }
 
 public:
+
+CoherentElastic( const CoherentElastic& f ) :
+  principal_( f.principal_ ), temperatures_( f.temperatures_ ) {
+
+  this->generateS();
+}
+
+CoherentElastic( CoherentElastic&& f ) :
+  principal_( std::move( f.principal_ ) ), temperatures_( std::move( f.temperatures_ ) ) {
+
+  this->generateS();
+}
+
 /**
  *  @brief Constructor (multiple temperatures)
  *
@@ -131,3 +146,15 @@ CoherentElastic( Iterator& begin,
                "scattering data" );
     throw;
   }
+
+CoherentElastic& operator=( const CoherentElastic& base ) {
+
+  new (this) CoherentElastic( base );
+  return *this;
+}
+
+CoherentElastic& operator=( CoherentElastic&& base ) {
+
+  new (this) CoherentElastic( std::move( base ) );
+  return *this;
+}

@@ -16,7 +16,11 @@ class ENDFTK_PYTHON_EXPORT CoherentElastic {
   TabulationRecord principal_;
   std::vector< ListRecord > temperatures_;
 
+  using Array = decltype( principal_.y() );
+  std::vector< Array > s_;
+
   /* auxiliary functions */
+  #include "ENDFtk/section/7/2/CoherentElastic/src/generateS.hpp"
   #include "ENDFtk/section/7/2/CoherentElastic/src/generateTemperatures.hpp"
   #include "ENDFtk/section/7/2/CoherentElastic/src/verifyTemperatures.hpp"
 
@@ -162,11 +166,8 @@ public:
    */
   auto S() const {
 
-    return ranges::views::concat(
-             std20::views::single( this->principal_.y() ),
-             this->temperatures_ |
-                 std20::views::transform( [] ( const auto& v )
-                                                     { return v.list(); } ) );
+    using namespace njoy::tools;
+    return this->s_ | std20::views::all;
   }
 
   /**

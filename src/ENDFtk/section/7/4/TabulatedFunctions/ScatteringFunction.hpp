@@ -18,7 +18,11 @@ class ScatteringFunction {
   TabulationRecord alphas_;
   std::vector< ListRecord > temperatures_;
 
+  using Array = decltype( alphas_.y() );
+  std::vector< Array > s_;
+
   /* auxiliary functions */
+  #include "ENDFtk/section/7/4/TabulatedFunctions/ScatteringFunction/src/generateS.hpp"
   #include "ENDFtk/section/7/4/TabulatedFunctions/ScatteringFunction/src/generateTemperatures.hpp"
   #include "ENDFtk/section/7/4/TabulatedFunctions/ScatteringFunction/src/verifyBetaValues.hpp"
 
@@ -167,12 +171,8 @@ public:
   auto S() const {
 
     using namespace njoy::tools;
-    return ranges::views::concat(
-             std20::views::single( this->alphas_.y() ),
-             this->temperatures_ |
-                 std20::views::transform( [] ( const auto& v )
-                                                     { return v.list(); } ) );
-  }
+    return this->s_ | std20::views::all;
+ }
 
   /**
    *  @brief Return the thermal scattering law values as an array, one for each
