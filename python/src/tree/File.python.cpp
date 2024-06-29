@@ -16,13 +16,13 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
   // type aliases
   using File = njoy::ENDFtk::tree::File;
   using Section = njoy::ENDFtk::tree::Section;
-  using SectionRange = BidirectionalAnyView< Section >;
+  using SectionRange = RandomAccessAnyView< Section >;
 
   // wrap views created by this tree component
   // none of these are supposed to be created directly by the user
-  wrapBidirectionalAnyViewOf< Section >(
+  wrapRandomAccessAnyViewOf< Section >(
       viewmodule,
-      "any_view< tree::Section, bidirectional >" );
+      "any_view< tree::Section, random_access >" );
 
   // create the tree component
   python::class_< File > tree(

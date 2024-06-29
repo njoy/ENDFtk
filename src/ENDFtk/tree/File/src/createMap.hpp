@@ -1,10 +1,13 @@
 template< typename BufferIterator >
-static std::map< int, Section >
+static std::vector< Section >
 createMap
 ( const HEAD& head, BufferIterator begin,
   BufferIterator& position, const BufferIterator& end, long& lineNumber ){
 
-  std::map< int, Section > sections;
+  std::vector< Section > sections;
+
+  auto compare = [] ( auto&& left, auto&& right )
+                    { return left.sectionNumber() < right; };
 
   // read the first HEAD record (we need a structure division)
   --lineNumber;
@@ -15,18 +18,23 @@ createMap
   auto mf = head.MF();
   while ( division.isHead() && ( division.tail.MF() == mf ) ) {
 
-    // check for duplicate mt
-    if ( sections.count( division.tail.MT() ) ) {
+    auto iter = std::lower_bound( sections.begin(), sections.end(), division.tail.MT(), compare );
 
-      Log::error( "Found a duplicate section for MT{}", division.tail.MT() );
-      Log::info( "Current position: MAT{} MF{} MT{} at line {}",
-                 division.tail.MAT(), division.tail.MF(), division.tail.MT(),
-                 lineNumber );
-      throw std::exception();
+    // check for duplicate mt
+    if ( iter != sections.end() ) {
+
+      if ( iter->sectionNumber() == division.tail.MT() ) {
+
+        Log::error( "Found a duplicate section for MT{}", division.tail.MT() );
+        Log::info( "Current position: MAT{} MF{} MT{} at line {}",
+                   division.tail.MAT(), division.tail.MF(), division.tail.MT(),
+                   lineNumber );
+        throw std::exception();
+      }
     }
 
     // add the section
-    sections.emplace( division.tail.MT(),
+    sections.emplace( iter,
                       Section( asHead( division ),
                                begin, position, end, lineNumber ) );
 
