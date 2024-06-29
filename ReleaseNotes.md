@@ -5,6 +5,7 @@ NOTES FOR range-v3 REMOVAL:
   - once zip_transform works properly: look at TabulatedBackgroundRMatrix
   - once repeat_n is available look at UnresolvedEnergyIndependent/LValue
   - look for a solution on the angularDistributions function in MF4 (commented out for now)
+  - see if we want to change how we handle MF7 MT2 CoherentElastic and and MF7 MT4 ScatteringFunctions
 
 ## [ENDFtk v1.1.1](https://github.com/njoy/ENDFtk/pull/xxx)
 This update removes the regions() and pairs() interface functions on the TAB1 record interface functions that are unused. The removal of these interface functions has no impact on the Python interface as these interface functions were not included on the Python side.
