@@ -138,10 +138,7 @@ namespace tree {
     /**
      *  @brief Return a begin iterator to all materials
      */
-    auto begin() const {
-
-      return this->materials().begin();
-    }
+    auto begin() const { return this->materials().begin(); }
 
     /**
      *  @brief Return an end iterator to all materials

@@ -12,7 +12,7 @@ void print( OutputIterator& it, int MAT ) const {
   int MF = this->MF();
   for ( const auto& entry : this->sections_ ) {
 
-    Derived::printSection( entry.second, it, MAT, MF );
+    Derived::printSection( entry, it, MAT, MF );
   }
   FEND( MAT ).print( it );
 }

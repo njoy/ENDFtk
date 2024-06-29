@@ -2,9 +2,11 @@
 #define NJOY_ENDFTK_MATERIAL
 
 // system includes
+#include <map>
 #include <variant>
 
 // other includes
+#include "range/v3/view/map.hpp"
 #include "ENDFtk/file/1.hpp"
 #include "ENDFtk/file/2.hpp"
 #include "ENDFtk/file/3.hpp"
