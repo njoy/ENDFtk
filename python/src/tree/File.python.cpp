@@ -4,7 +4,6 @@
 
 // local includes
 #include "ENDFtk/tree/Tape.hpp"
-#include "range/v3/range/operations.hpp"
 #include "views.hpp"
 #include "variants.hpp"
 
@@ -16,13 +15,13 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
   // type aliases
   using File = njoy::ENDFtk::tree::File;
   using Section = njoy::ENDFtk::tree::Section;
-  using SectionRange = RandomAccessAnyView< Section >;
+  using SectionRange = BidirectionalAnyView< Section >;
 
   // wrap views created by this tree component
   // none of these are supposed to be created directly by the user
-  wrapRandomAccessAnyViewOf< Section >(
+  wrapBidirectionalAnyViewOf< Section >(
       viewmodule,
-      "any_view< tree::Section, random_access >" );
+      "any_view< tree::Section, bidirectional >" );
 
   // create the tree component
   python::class_< File > tree(
@@ -98,8 +97,8 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
   .def_property_readonly(
 
     "section_numbers",
-    [] ( const File& self ) -> std::vector< int >
-       { return ranges::to< std::vector< int > >( self.sectionNumbers() ); },
+    [] ( const File& self ) -> IntList
+       { return self.sectionNumbers(); },
     "All section numbers in the file"
   )
   .def_property_readonly(

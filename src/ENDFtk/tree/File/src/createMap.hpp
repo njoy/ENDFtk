@@ -1,10 +1,10 @@
 template< typename BufferIterator >
-static std::vector< Section >
+static std::list< Section >
 createMap
 ( const HEAD& head, BufferIterator begin,
   BufferIterator& position, const BufferIterator& end, long& lineNumber ){
 
-  std::vector< Section > sections;
+  std::list< Section > sections;
 
   auto compare = [] ( auto&& left, auto&& right )
                     { return left.sectionNumber() < right; };

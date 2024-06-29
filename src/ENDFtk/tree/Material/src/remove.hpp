@@ -5,7 +5,7 @@
  */
 void remove( int mf ) {
 
-  auto iter = this->files_.find( mf );
+  auto iter = this->find( mf );
   if ( iter != this->files_.end() ) {
 
     this->files_.erase( iter );
@@ -20,9 +20,9 @@ void remove( int mf ) {
  */
 void remove( int mf, int mt ) {
 
-  auto iter = this->files_.find( mf );
+  auto iter = this->find( mf );
   if ( iter != this->files_.end() ) {
 
-    iter->second.remove( mt );
+    iter->remove( mt );
   }
 }

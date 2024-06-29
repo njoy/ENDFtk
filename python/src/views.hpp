@@ -51,6 +51,7 @@ using RandomAccessAnyView = BasicRandomAccessAnyView< RefWrapper< Element > >;
 /**
  *  @brief Some recurring basic views
  */
+using IntList = BasicBidirectionalAnyView< int >;
 using DoubleRange = BasicRandomAccessAnyView< double >;
 using LongRange = BasicRandomAccessAnyView< long >;
 using IntRange = BasicRandomAccessAnyView< int >;

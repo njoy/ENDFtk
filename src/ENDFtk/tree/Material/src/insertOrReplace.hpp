@@ -12,7 +12,11 @@ void insertOrReplace( Section&& section ) {
 
   if ( !this->hasMF( section.MF() ) ) {
 
-    this->files_.emplace( section.MF(), File( this->MAT(), section.MF() ) );
+    auto iter = std::lower_bound( this->files_.begin(), this->files_.end(), section.fileNumber(),
+                                  [] ( auto&& left, auto&& right )
+                                     { return left.fileNumber() < right; } );
+
+    this->files_.emplace( iter, File( this->MAT(), section.MF() ) );
   }
 
   this->MF( section.MF() ).insertOrReplace( std::move( section ) );
@@ -57,8 +61,17 @@ void insertOrReplace( File&& file ) {
     throw std::exception();
   }
 
-  this->remove( file.MF() );
-  this->files_.emplace( file.MF(), std::move( file ) );
+  auto iter = std::lower_bound( this->files_.begin(), this->files_.end(), file.fileNumber(),
+                                [] ( auto&& left, auto&& right )
+                                   { return left.fileNumber() < right; } );
+  if ( iter != this->files_.end() ) {
+
+    if ( iter->fileNumber() == file.fileNumber() ) {
+
+      iter = this->files_.erase( iter );
+    }
+  }
+  this->files_.emplace( iter, std::move( file ) );
 }
 
 /**

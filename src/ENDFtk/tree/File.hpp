@@ -2,12 +2,11 @@
 #define NJOY_ENDFTK_TREE_FILE
 
 // system includes
-#include <vector>
-#include <map>
+#include <list>
 
 // other includes
+#include "range/v3/view/all.hpp"
 #include "range/v3/view/subrange.hpp"
-#include "range/v3/view/map.hpp"
 #include "ENDFtk/file/Type.hpp"
 #include "ENDFtk/tree/Section.hpp"
 #include "ENDFtk/tree/toSection.hpp"
@@ -29,7 +28,7 @@ namespace tree {
     /* fields */
     int mat_;
     int mf_;
-    std::vector< Section > sections_;
+    std::list< Section > sections_;
 
     /* auxiliary functions */
     #include "ENDFtk/tree/File/src/find.hpp"
