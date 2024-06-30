@@ -5,17 +5,16 @@
  */
 const Section& section( int mt ) const {
 
-  try {
+  auto iter = this->find( mt );
+  if ( iter != this->sections_.end() ) {
 
-    return this->sections_.at( mt );
+    return *iter;
   }
-  catch( std::out_of_range& error ) {
 
-    Log::error( "The requested section (MF{} MT{}) is not present "
-                "in the ENDF file tree",
-                this->fileNumber(), mt );
-    throw error;
-  }
+  Log::error( "The requested section (MF{} MT{}) is not present "
+              "in the ENDF file tree",
+              this->fileNumber(), mt );
+  throw std::exception();
 }
 
 /**

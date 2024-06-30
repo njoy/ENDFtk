@@ -1,17 +1,24 @@
 static auto
 fill( std::vector< Section >&& sections ) {
 
-  std::map< int, Section > map;
+  std::list< Section > list;
   for ( auto&& section : sections ) {
 
     int MT = Derived::getSectionNumber( section );
-    if ( not map.emplace( MT, std::move( section ) ).second ) {
+    auto iter = std::lower_bound( list.begin(), list.end(), MT,
+                                  [] ( auto&& left, auto&& right )
+                                     { return Derived::getSectionNumber( left ) < right; } );
+    if ( iter != list.end() ) {
 
-      Log::error( "Section with duplicate section number found" );
-      Log::info( "Sections are required to specify a unique MT or section number" );
-      Log::info( "Encountered duplicate MT: {}", MT );
-      throw std::exception();
+      if ( Derived::getSectionNumber( *iter ) == MT ) {
+
+        Log::error( "Section with duplicate section number found" );
+        Log::info( "Sections are required to specify a unique MT or section number" );
+        Log::info( "Encountered duplicate MT: {}", MT );
+        throw std::exception();
+      }
     }
+    list.insert( iter, std::move( section ) );
   }
-  return map;
+  return list;
 }

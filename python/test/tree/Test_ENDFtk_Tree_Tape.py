@@ -37,7 +37,7 @@ class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
                 self.assertEqual( 1, file.MF )
                 self.assertEqual( 1, file.file_number )
 
-                self.assertEqual( [ 451 ], file.section_numbers )
+                self.assertEqual( [ 451 ], file.section_numbers.to_list() )
                 self.assertEqual( [ 451 ],
                                   [ section.MT for section in file.sections ] )
 
@@ -61,7 +61,7 @@ class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
                 self.assertEqual( 2, file.MF )
                 self.assertEqual( 2, file.file_number )
 
-                self.assertEqual( [ 151 ], file.section_numbers )
+                self.assertEqual( [ 151 ], file.section_numbers.to_list() )
                 self.assertEqual( [ 151 ],
                                   [ section.MT for section in file.sections ] )
 
@@ -85,7 +85,7 @@ class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
                 self.assertEqual( 3, file.MF )
                 self.assertEqual( 3, file.file_number )
 
-                self.assertEqual( [ 1, 2, 102 ], file.section_numbers )
+                self.assertEqual( [ 1, 2, 102 ], file.section_numbers.to_list() )
                 self.assertEqual( [ 1, 2, 102 ],
                                   [ section.MT for section in file.sections ] )
 
@@ -109,7 +109,7 @@ class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
                 self.assertEqual( 4, file.MF )
                 self.assertEqual( 4, file.file_number )
 
-                self.assertEqual( [ 2 ], file.section_numbers )
+                self.assertEqual( [ 2 ], file.section_numbers.to_list() )
                 self.assertEqual( [ 2 ],
                                   [ section.MT for section in file.sections ] )
 
@@ -133,7 +133,7 @@ class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
                 self.assertEqual( 6, file.MF )
                 self.assertEqual( 6, file.file_number )
 
-                self.assertEqual( [ 102 ], file.section_numbers )
+                self.assertEqual( [ 102 ], file.section_numbers.to_list() )
                 self.assertEqual( [ 102 ],
                                   [ section.MT for section in file.sections ] )
 
@@ -157,7 +157,7 @@ class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
                 self.assertEqual( 33, file.MF )
                 self.assertEqual( 33, file.file_number )
 
-                self.assertEqual( [ 1, 2, 102 ], file.section_numbers )
+                self.assertEqual( [ 1, 2, 102 ], file.section_numbers.to_list() )
                 self.assertEqual( [ 1, 2, 102 ],
                                   [ section.MT for section in file.sections ] )
 
@@ -179,7 +179,7 @@ class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
                 self.assertEqual( 125, material.MAT )
                 self.assertEqual( 125, material.material_number )
 
-                self.assertEqual( [ 1, 2, 3, 4, 6, 33 ], material.file_numbers )
+                self.assertEqual( [ 1, 2, 3, 4, 6, 33 ], material.file_numbers.to_list() )
                 self.assertEqual( [ 1, 2, 3, 4, 6, 33 ],
                                   [ file.MF for file in material.files ] )
 
@@ -289,44 +289,44 @@ class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
 
         # remove a file from a material
         material.remove( 2 )
-        self.assertEqual( [ 1, 3, 4, 6, 33 ], material.file_numbers )
-        self.assertEqual( [ 1, 3, 4, 6, 33 ], tape.materials.front().file_numbers )
+        self.assertEqual( [ 1, 3, 4, 6, 33 ], material.file_numbers.to_list() )
+        self.assertEqual( [ 1, 3, 4, 6, 33 ], tape.materials.front().file_numbers.to_list() )
 
         # remove a section from a material
         material.remove( 3, 2 )
-        self.assertEqual( [ 1, 3, 4, 6, 33 ], material.file_numbers )
-        self.assertEqual( [ 1, 102 ], file.section_numbers )
-        self.assertEqual( [ 1, 3, 4, 6, 33 ], tape.materials.front().file_numbers )
-        self.assertEqual( [ 1, 102 ], tape.materials.front().file(3).section_numbers )
+        self.assertEqual( [ 1, 3, 4, 6, 33 ], material.file_numbers.to_list() )
+        self.assertEqual( [ 1, 102 ], file.section_numbers.to_list() )
+        self.assertEqual( [ 1, 3, 4, 6, 33 ], tape.materials.front().file_numbers.to_list() )
+        self.assertEqual( [ 1, 102 ], tape.materials.front().file(3).section_numbers.to_list() )
 
         # remove a section from a file
         file.remove( 102 )
-        self.assertEqual( [ 1, 3, 4, 6, 33 ], material.file_numbers )
-        self.assertEqual( [ 1 ], file.section_numbers )
-        self.assertEqual( [ 1, 3, 4, 6, 33 ], tape.materials.front().file_numbers )
-        self.assertEqual( [ 1 ], tape.materials.front().file(3).section_numbers )
+        self.assertEqual( [ 1, 3, 4, 6, 33 ], material.file_numbers.to_list() )
+        self.assertEqual( [ 1 ], file.section_numbers.to_list() )
+        self.assertEqual( [ 1, 3, 4, 6, 33 ], tape.materials.front().file_numbers.to_list() )
+        self.assertEqual( [ 1 ], tape.materials.front().file(3).section_numbers.to_list() )
 
         # insert a section into a file
         data = copy.materials.front().file( 3 ).section( 102 )
         file.insert( data )
-        self.assertEqual( [ 1, 3, 4, 6, 33 ], material.file_numbers )
-        self.assertEqual( [ 1, 102 ], file.section_numbers )
-        self.assertEqual( [ 1, 3, 4, 6, 33 ], tape.materials.front().file_numbers )
-        self.assertEqual( [ 1, 102 ], tape.materials.front().file(3).section_numbers )
+        self.assertEqual( [ 1, 3, 4, 6, 33 ], material.file_numbers.to_list() )
+        self.assertEqual( [ 1, 102 ], file.section_numbers.to_list() )
+        self.assertEqual( [ 1, 3, 4, 6, 33 ], tape.materials.front().file_numbers.to_list() )
+        self.assertEqual( [ 1, 102 ], tape.materials.front().file(3).section_numbers.to_list() )
 
         # insert a section into a material
         data = copy.materials.front().file( 3 ).section( 2 )
         file.insert( data )
-        self.assertEqual( [ 1, 3, 4, 6, 33 ], material.file_numbers )
-        self.assertEqual( [ 1, 2, 102 ], file.section_numbers )
-        self.assertEqual( [ 1, 3, 4, 6, 33 ], tape.materials.front().file_numbers )
-        self.assertEqual( [ 1, 2, 102 ], tape.materials.front().file(3).section_numbers )
+        self.assertEqual( [ 1, 3, 4, 6, 33 ], material.file_numbers.to_list() )
+        self.assertEqual( [ 1, 2, 102 ], file.section_numbers.to_list() )
+        self.assertEqual( [ 1, 3, 4, 6, 33 ], tape.materials.front().file_numbers.to_list() )
+        self.assertEqual( [ 1, 2, 102 ], tape.materials.front().file(3).section_numbers.to_list() )
 
         # insert a file into a material
         data = copy.materials.front().file( 2 )
         material.insert( data )
-        self.assertEqual( [ 1, 2, 3, 4, 6, 33 ], material.file_numbers )
-        self.assertEqual( [ 1, 2, 3, 4, 6, 33 ], tape.materials.front().file_numbers )
+        self.assertEqual( [ 1, 2, 3, 4, 6, 33 ], material.file_numbers.to_list() )
+        self.assertEqual( [ 1, 2, 3, 4, 6, 33 ], tape.materials.front().file_numbers.to_list() )
 
     def test_insert_replace_parsed_section( self ) :
 
@@ -346,7 +346,7 @@ class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
 
         # insert a parsed section into a file
         file.insert( data )
-        self.assertEqual( [ 1, 2, 102, 103 ], file.section_numbers )
+        self.assertEqual( [ 1, 2, 102, 103 ], file.section_numbers.to_list() )
 
         # the section was replaced correctly (testing some data)
         section = file.section( 103 ).parse()
@@ -366,7 +366,7 @@ class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
 
         # replacing a parsed section into a file
         file.insert_or_replace( data )
-        self.assertEqual( [ 1, 2, 102, 103 ], file.section_numbers )
+        self.assertEqual( [ 1, 2, 102, 103 ], file.section_numbers.to_list() )
 
         # the section was replaced correctly (testing some data)
         section = file.section( 103 ).parse()

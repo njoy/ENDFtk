@@ -10,7 +10,12 @@
 void replace( Material&& material ) {
 
   this->remove( material.MAT() );
-  this->materials_.emplace( material.MAT(), std::move( material ) );
+  auto compare = [] ( auto&& left, auto&& right )
+                    { return left.materialNumber() < right; };
+  auto lower = std::lower_bound( this->materials_.begin(), this->materials_.end(),
+                                 material.materialNumber(), compare );
+
+  this->materials_.emplace( lower, std::move( material ) );
 }
 
 /**

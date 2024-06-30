@@ -2,7 +2,7 @@
 #define NJOY_ENDFTK_FILE_BASE
 
 // system includes
-#include <map>
+#include <list>
 
 // other includes
 #include "tools/std20/views.hpp"
@@ -17,9 +17,10 @@ namespace file {
   protected:
 
     /* fields */
-    std::map< int, Section > sections_;
+    std::list< Section > sections_;
 
     /* auxiliary functions */
+    #include "ENDFtk/file/Base/src/find.hpp"
     #include "ENDFtk/file/Base/src/read.hpp"
     #include "ENDFtk/file/Base/src/fill.hpp"
     #include "ENDFtk/file/Base/src/verifyFEND.hpp"
@@ -34,10 +35,7 @@ namespace file {
     /**
      *  @brief Return the MF number of the file
      */
-    static constexpr int MF() {
-
-      return Derived::fileNumber();
-    }
+    static constexpr int MF() { return Derived::fileNumber(); }
 
     /**
      *  @brief Return the sections stored in this file
@@ -45,16 +43,13 @@ namespace file {
     auto MTs() {
 
       using namespace njoy::tools;
-      return this->sections_ | std20::views::values;
+      return this->sections_ | std20::views::all;
     }
 
     /**
      *  @brief Return the sections stored in this file
      */
-    auto sections() {
-
-      return this->MTs();
-    }
+    auto sections() { return this->MTs(); }
 
     /**
      *  @brief Return the sections stored in this file
@@ -62,16 +57,13 @@ namespace file {
     auto MTs() const {
 
       using namespace njoy::tools;
-      return this->sections_ | std20::views::values;
+      return this->sections_ | std20::views::all;
     }
 
     /**
      *  @brief Return the sections stored in this file
      */
-    auto sections() const {
-
-      return this->MTs();
-    }
+    auto sections() const { return this->MTs(); }
 
     /**
      *  @brief Return an iterator to the start of the sections
@@ -98,20 +90,14 @@ namespace file {
      *
      *  @param mt   the MT number of the section to be verified
      */
-    bool hasMT( int mt ) const {
-
-      return this->sections_.count( mt );
-    }
+    bool hasMT( int mt ) const { return this->find( mt ) != this->sections_.end(); }
 
     /**
      *  @brief Verify if a given section (defined by the MT number) is defined
      *
      *  @param mt   the MT number of the section to be verified
      */
-    bool hasSection( int mt ) const {
-
-      return this->hasMT( mt );
-    }
+    bool hasSection( int mt ) const { return this->hasMT( mt ); }
 
     /**
      *  @brief Return the section with the requested MT number
@@ -120,18 +106,17 @@ namespace file {
      */
     const Section& section( int mt ) const {
 
-      try {
+      auto iter = this->find( mt );
+      if ( iter != this->sections_.end() ) {
 
-        return this->sections_.at( mt );
+        return *iter;
       }
-      catch( std::out_of_range& o ) {
 
-        Log::error( "Requested section number (MT) does not"
-                    " correspond to a stored section" );
-        Log::info( "Requested section number: {}", mt );
-        Log::info( "File queried: ", this->MF() );
-        throw o;
-      }
+      Log::error( "Requested section number (MT) does not"
+                  " correspond to a stored section" );
+      Log::info( "Requested section number: {}", mt );
+      Log::info( "File queried: ", this->MF() );
+      throw std::exception();
     }
 
     /**

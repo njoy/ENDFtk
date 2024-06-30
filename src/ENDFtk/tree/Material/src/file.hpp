@@ -5,20 +5,15 @@
  */
 const File& file( int mf ) const {
 
-  try {
+  auto iter = this->find( mf );
+  if ( iter != this->files_.end() ) {
 
-    return this->files_.at( mf );
+    return *iter;
   }
-  catch( std::out_of_range& o ) {
 
-    Log::error
-      ( "Requested file number (MF) does not"
-        " correspond to a stored file syntax tree" );
-    Log::info( "Requested file number: {}", mf );
-    Log::info( "Material number of queried material syntax tree: ",
-               this->materialNumber() );
-    throw o;
-  }
+  Log::error( "The requested file (MF{}) is not present "
+              "in the ENDF file tree", mf );
+  throw std::exception();
 }
 
 /**

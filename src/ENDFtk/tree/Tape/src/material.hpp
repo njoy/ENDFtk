@@ -9,7 +9,8 @@
  */
 auto material( int mat ) const {
 
-  if ( not this->materials_.count( mat ) ) {
+  auto range = this->find( mat );
+  if ( range.first ==  range.second ) {
 
     Log::error( "Requested material number (MAT) does not"
                 " correspond to a stored material syntax tree" );
@@ -21,7 +22,7 @@ auto material( int mat ) const {
 
   using namespace njoy::tools;
   auto bounds = this->materials_.equal_range( mat );
-  auto subrange = std20::ranges::subrange( bounds.first, bounds.second );
+  auto subrange = std20::ranges::subrange( range.first, range.second );
 
   return subrange | std20::views::values;
 }

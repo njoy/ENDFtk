@@ -110,10 +110,8 @@ void wrapTreeMaterial( python::module& module, python::module& viewmodule ) {
   .def_property_readonly(
 
     "file_numbers",
-    [] ( const Material& self )
-       { std::vector< int > numbers;
-         for ( auto&& number : self.fileNumbers() ) { numbers.push_back( number ); };
-         return numbers; },
+    [] ( const Material& self ) -> IntList
+       { return self.fileNumbers(); },
     "All file numbers in the material"
   )
 //  .def_property_readonly(

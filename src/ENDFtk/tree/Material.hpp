@@ -2,10 +2,10 @@
 #define NJOY_ENDFTK_TREE_MATERIAL
 
 // system includes
-#include <vector>
-#include <map>
+#include <list>
 
 // other includes
+#include "range/v3/view/all.hpp"
 #include "ENDFtk/tree/Section.hpp"
 #include "ENDFtk/tree/toSection.hpp"
 #include "ENDFtk/tree/File.hpp"
@@ -27,10 +27,11 @@ namespace tree {
 
     /* fields */
     int mat_;
-    std::map< int, File > files_;
+    std::list< File > files_;
 
     /* auxiliary functions */
-    #include "ENDFtk/tree/Material/src/createMap.hpp"
+    #include "ENDFtk/tree/Material/src/find.hpp"
+    #include "ENDFtk/tree/Material/src/fill.hpp"
 
   public:
 
@@ -55,7 +56,9 @@ namespace tree {
     auto fileNumbers() const {
 
       using namespace njoy::tools;
-      return this->files_ | std20::views::keys;
+      return this->files_ | std20::views::transform(
+                                   [] ( auto&& file )
+                                      { return file.fileNumber(); } );
     }
 
     #include "ENDFtk/tree/Material/src/file.hpp"
@@ -124,7 +127,7 @@ namespace tree {
      *
      *  @param[in]   mf   the MF number of the file
      */
-    bool hasMF( int mf ) const { return this->files_.count( mf ); }
+    bool hasMF( int mf ) const { return this->find( mf ) != this->files_.end(); }
 
     /**
      *  @brief Return whether or not the material has a file with the given MF
@@ -161,7 +164,7 @@ namespace tree {
     auto files() const {
 
       using namespace njoy::tools;
-      return this->files_ | std20::views::values;
+      return this->files_ | std20::views::all;
     }
 
     /**
@@ -170,7 +173,7 @@ namespace tree {
     auto files() {
 
       using namespace njoy::tools;
-      return this->files_ | std20::views::values;
+      return this->files_ | std20::views::all;
     }
 
     /**

@@ -19,7 +19,7 @@ Tape( const Buffer& buffer, long lineNumber = 0 )
     auto position = std20::begin( buffer );
     auto end = std20::end( buffer );
     this->tpid_ = TapeIdentification{ position, end, lineNumber };
-    materials_ = createMap( position, end, lineNumber );
+    materials_ = fill( position, end, lineNumber );
   }
   catch ( std::exception& e ) {
 

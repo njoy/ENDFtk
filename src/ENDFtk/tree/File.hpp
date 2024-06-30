@@ -2,8 +2,7 @@
 #define NJOY_ENDFTK_TREE_FILE
 
 // system includes
-#include <vector>
-#include <map>
+#include <list>
 
 // other includes
 #include "tools/std20/views.hpp"
@@ -28,10 +27,11 @@ namespace tree {
     /* fields */
     int mat_;
     int mf_;
-    std::map< int, Section > sections_;
+    std::list< Section > sections_;
 
     /* auxiliary functions */
-    #include "ENDFtk/tree/File/src/createMap.hpp"
+    #include "ENDFtk/tree/File/src/find.hpp"
+    #include "ENDFtk/tree/File/src/fill.hpp"
 
   public:
 
@@ -66,7 +66,9 @@ namespace tree {
     auto sectionNumbers() const {
 
       using namespace njoy::tools;
-      return this->sections_ | std20::views::keys;
+      return this->sections_ | std20::views::transform(
+                                   [] ( auto&& section )
+                                      { return section.sectionNumber(); } );
     }
 
     #include "ENDFtk/tree/File/src/section.hpp"
@@ -93,7 +95,7 @@ namespace tree {
      */
     bool hasMT( int mt ) const {
 
-      return this->sections_.count( mt );
+      return this->find( mt ) != this->sections_.end();
     }
 
     /**
@@ -110,7 +112,7 @@ namespace tree {
     auto sections() const {
 
       using namespace njoy::tools;
-      return this->sections_ | std20::views::values;
+      return this->sections_ | std20::views::all;
     }
 
     /**
@@ -119,7 +121,7 @@ namespace tree {
     auto sections() {
 
       using namespace njoy::tools;
-      return this->sections_ | std20::views::values;
+      return this->sections_ | std20::views::all;
     }
 
     /**

@@ -97,10 +97,8 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
   .def_property_readonly(
 
     "section_numbers",
-    [] ( const File& self )
-       { std::vector< int > numbers;
-         for ( auto&& number : self.sectionNumbers() ) { numbers.push_back( number ); };
-         return numbers; },
+    [] ( const File& self ) -> IntList
+       { return self.sectionNumbers(); },
     "All section numbers in the file"
   )
 //  .def_property_readonly(

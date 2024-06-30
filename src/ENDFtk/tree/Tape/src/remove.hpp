@@ -5,5 +5,6 @@
  */
 void remove( int mat ) {
 
-  this->materials_.erase( mat );
+  auto range = this->find( mat );
+  this->materials_.erase( range.first, range.second );
 }
