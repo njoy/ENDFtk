@@ -1,6 +1,6 @@
 template< typename BufferIterator >
 static std::list< File >
-createMap
+fill
 ( const HEAD& head, BufferIterator begin,
   BufferIterator& position, const BufferIterator& end, long& lineNumber ){
 

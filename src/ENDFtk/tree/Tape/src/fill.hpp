@@ -1,7 +1,6 @@
 template < typename BufferIterator >
 static auto
-createMap( BufferIterator position, const BufferIterator& end,
-           long& lineNumber ) {
+fill( BufferIterator position, const BufferIterator& end, long& lineNumber ) {
 
   std::list< Material > materials;
 
@@ -44,8 +43,8 @@ createMap( BufferIterator position, const BufferIterator& end,
 
 template < typename BufferIterator >
 static auto
-createMap( BufferIterator position, const BufferIterator& end ){
+fill( BufferIterator position, const BufferIterator& end ){
 
   long lineNumber{ 0 };
-  return createMap( position, end, lineNumber );
+  return fill( position, end, lineNumber );
 }

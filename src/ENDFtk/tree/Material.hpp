@@ -31,7 +31,7 @@ namespace tree {
 
     /* auxiliary functions */
     #include "ENDFtk/tree/Material/src/find.hpp"
-    #include "ENDFtk/tree/Material/src/createMap.hpp"
+    #include "ENDFtk/tree/Material/src/fill.hpp"
 
   public:
 
