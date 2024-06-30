@@ -3,15 +3,20 @@ static auto
 createMap( BufferIterator position, const BufferIterator& end,
            long& lineNumber ) {
 
-  std::multimap< int, Material > materials;
+  std::list< Material > materials;
+
+  auto compare = [] ( auto&& left, auto&& right )
+                    { return left < right.materialNumber(); };
 
   auto begin = position;
   auto division = StructureDivision( position, end, lineNumber );
 
   while ( division.isHead() ) {
 
+    auto iter = std::upper_bound( materials.begin(), materials.end(), division.tail.MAT(), compare );
+
     materials.emplace(
-      division.tail.MAT(),
+      iter,
       Material( asHead( division ), begin, position, end, lineNumber ) );
 
     begin = position;
