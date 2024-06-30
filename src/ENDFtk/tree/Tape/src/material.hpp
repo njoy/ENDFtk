@@ -21,10 +21,9 @@ auto material( int mat ) const {
 
 
   using namespace njoy::tools;
-  auto bounds = this->materials_.equal_range( mat );
   auto subrange = std20::ranges::subrange( range.first, range.second );
 
-  return subrange | std20::views::values;
+  return subrange | std20::views::all;
 }
 
 /**

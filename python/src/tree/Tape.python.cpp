@@ -28,16 +28,16 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
       "any_view< tree::Material, bidirectional >" );
 
 
-//  // predefined lambda
-//  auto getMaterial = [] ( Tape& self, int mat )
-//  -> std::variant< std::reference_wrapper< Material >, MaterialRange > {
-//
-//    if ( self.numberMAT( mat ) == 1 ) {
-//
-//      return std::ref( self.MAT( mat ).front() );
-//    }
-//    return self.MAT( mat );
-//  };
+  // predefined lambda
+  auto getMaterial = [] ( Tape& self, int mat )
+  -> std::variant< std::reference_wrapper< Material >, MaterialRange > {
+
+    if ( self.numberMAT( mat ) == 1 ) {
+
+      return std::ref( self.MAT( mat ).front() );
+    }
+    return self.MAT( mat );
+  };
 
   // create the tree component
   python::class_< Tape > tree(
@@ -113,41 +113,41 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
     &Tape::materialNumbers,
     "All unique material numbers in the tape"
   )
-//  .def_property_readonly(
-//
-//    "materials",
-//    [] ( Tape& self ) -> MaterialRange
-//       { return self.materials(); },
-//    "All materials in the tape"
-//  )
-//  .def(
-//
-//    "MAT",
-//    getMaterial,
-//    "Return the material(s) with the requested MAT number\n\n"
-//    "This function returns either a single material (if only a single material\n"
-//    "is present) or a sequence of materials (if more than one material is\n"
-//    "present) since a tape can contain multiple instances of the same material\n"
-//    "(e.g. at different temperatures).\n\n"
-//    "Arguments:\n"
-//    "    self    the tape\n"
-//    "    mat     the MAT number of the material to be returned",
-//    python::return_value_policy::reference_internal
-//  )
-//  .def(
-//
-//    "material",
-//    getMaterial,
-//    "Return the material(s) with the requested MAT number\n\n"
-//    "This function returns either a single material (if only a single material\n"
-//    "is present) or a sequence of materials (if more than one material is\n"
-//    "present) since a tape can contain multiple instances of the same material\n"
-//    "(e.g. at different temperatures).\n\n"
-//    "Arguments:\n"
-//    "    self    the tape\n"
-//    "    mat     the MAT number of the material to be returned",
-//    python::return_value_policy::reference_internal
-//  )
+  .def_property_readonly(
+
+    "materials",
+    [] ( Tape& self ) -> MaterialRange
+       { return self.materials(); },
+    "All materials in the tape"
+  )
+  .def(
+
+    "MAT",
+    getMaterial,
+    "Return the material(s) with the requested MAT number\n\n"
+    "This function returns either a single material (if only a single material\n"
+    "is present) or a sequence of materials (if more than one material is\n"
+    "present) since a tape can contain multiple instances of the same material\n"
+    "(e.g. at different temperatures).\n\n"
+    "Arguments:\n"
+    "    self    the tape\n"
+    "    mat     the MAT number of the material to be returned",
+    python::return_value_policy::reference_internal
+  )
+  .def(
+
+    "material",
+    getMaterial,
+    "Return the material(s) with the requested MAT number\n\n"
+    "This function returns either a single material (if only a single material\n"
+    "is present) or a sequence of materials (if more than one material is\n"
+    "present) since a tape can contain multiple instances of the same material\n"
+    "(e.g. at different temperatures).\n\n"
+    "Arguments:\n"
+    "    self    the tape\n"
+    "    mat     the MAT number of the material to be returned",
+    python::return_value_policy::reference_internal
+  )
   .def_property_readonly(
 
     "content",

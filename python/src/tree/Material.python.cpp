@@ -114,13 +114,13 @@ void wrapTreeMaterial( python::module& module, python::module& viewmodule ) {
        { return self.fileNumbers(); },
     "All file numbers in the material"
   )
-//  .def_property_readonly(
-//
-//    "files",
-//    [] ( Material& self ) -> FileRange
-//       { return self.files(); },
-//    "All files in the material"
-//  )
+  .def_property_readonly(
+
+    "files",
+    [] ( Material& self ) -> FileRange
+       { return self.files(); },
+    "All files in the material"
+  )
   .def_property_readonly(
 
     "content",

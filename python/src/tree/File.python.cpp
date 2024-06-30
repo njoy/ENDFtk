@@ -101,13 +101,13 @@ void wrapTreeFile( python::module& module, python::module& viewmodule ) {
        { return self.sectionNumbers(); },
     "All section numbers in the file"
   )
-//  .def_property_readonly(
-//
-//    "sections",
-//    [] ( File& self ) -> SectionRange
-//       { return self.sections(); },
-//    "All sections in the file"
-//  )
+  .def_property_readonly(
+
+    "sections",
+    [] ( File& self ) -> SectionRange
+       { return self.sections(); },
+    "All sections in the file"
+  )
   .def(
 
     "section",

@@ -190,7 +190,7 @@ namespace tree {
     std::vector< int > materialNumbers() const {
 
       using namespace njoy::tools;
-      auto keys = this->materials_ | ranges::cpp20::views::transform(
+      auto keys = this->materials_ | std20::views::transform(
                                          [] ( auto&& material )
                                             { return material.materialNumber(); } );
       std::vector< int > materials( keys.begin(), keys.end() );
