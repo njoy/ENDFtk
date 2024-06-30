@@ -468,7 +468,7 @@ class Test_ENDFtk_MF1_MT455_Section( unittest.TestCase ) :
         tape = Tape.from_string( self.valid_TPID + self.chunk_ldg0_lnu1 +
                                  self.valid_SEND + self.valid_FEND +
                                  self.valid_MEND + self.valid_TEND )
-        chunk = tape.material( 9228 ).file( 1 ).section( 455 ).parse()
+        chunk = tape.materials.front().file( 1 ).section( 455 ).parse()
 
         verify_chunk_ldg0_lnu1( self, chunk )
 
@@ -499,7 +499,7 @@ class Test_ENDFtk_MF1_MT455_Section( unittest.TestCase ) :
         tape = Tape.from_string( self.valid_TPID + self.chunk_ldg0_lnu2 +
                                  self.valid_SEND + self.valid_FEND +
                                  self.valid_MEND + self.valid_TEND )
-        chunk = tape.material( 9228 ).file( 1 ).section( 455 ).parse()
+        chunk = tape.materials.front().file( 1 ).section( 455 ).parse()
 
         verify_chunk_ldg0_lnu2( self, chunk )
 
@@ -529,7 +529,7 @@ class Test_ENDFtk_MF1_MT455_Section( unittest.TestCase ) :
         tape = Tape.from_string( self.valid_TPID + self.chunk_ldg1_lnu1 +
                                  self.valid_SEND + self.valid_FEND +
                                  self.valid_MEND + self.valid_TEND )
-        chunk = tape.material( 9228 ).file( 1 ).section( 455 ).parse()
+        chunk = tape.materials.front().file( 1 ).section( 455 ).parse()
 
         verify_chunk_ldg1_lnu1( self, chunk )
 
@@ -563,7 +563,7 @@ class Test_ENDFtk_MF1_MT455_Section( unittest.TestCase ) :
         tape = Tape.from_string( self.valid_TPID + self.chunk_ldg1_lnu2 +
                                  self.valid_SEND + self.valid_FEND +
                                  self.valid_MEND + self.valid_TEND )
-        chunk = tape.material( 9228 ).file( 1 ).section( 455 ).parse()
+        chunk = tape.materials.front().file( 1 ).section( 455 ).parse()
 
         verify_chunk_ldg1_lnu2( self, chunk )
 

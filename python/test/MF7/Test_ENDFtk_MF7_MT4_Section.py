@@ -112,7 +112,7 @@ class Test_ENDFtk_MF7_MT4_Section( unittest.TestCase ) :
         tape = Tape.from_string( self.valid_TPID + self.chunk_analytical_functions +
                                  self.valid_SEND + self.valid_FEND +
                                  self.valid_MEND + self.valid_TEND )
-        chunk = tape.material( 27 ).file( 7 ).section( 4 ).parse()
+        chunk = tape.materials.front().file( 7 ).section( 4 ).parse()
 
         verify_chunk_analytical_functions( self, chunk )
 

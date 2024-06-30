@@ -168,7 +168,7 @@ class Test_ENDFtk_MF7_MT2_Section( unittest.TestCase ) :
         tape = Tape.from_string( self.valid_TPID + self.chunk_coherent +
                                  self.valid_SEND + self.valid_FEND +
                                  self.valid_MEND + self.valid_TEND )
-        chunk = tape.material( 27 ).file( 7 ).section( 2 ).parse()
+        chunk = tape.materials.front().file( 7 ).section( 2 ).parse()
 
         verify_chunk_coherent( self, chunk )
 
@@ -195,7 +195,7 @@ class Test_ENDFtk_MF7_MT2_Section( unittest.TestCase ) :
         tape = Tape.from_string( self.valid_TPID + self.chunk_incoherent +
                                  self.valid_SEND + self.valid_FEND +
                                  self.valid_MEND + self.valid_TEND )
-        chunk = tape.material( 27 ).file( 7 ).section( 2 ).parse()
+        chunk = tape.materials.front().file( 7 ).section( 2 ).parse()
 
         verify_chunk_incoherent( self, chunk )
 
