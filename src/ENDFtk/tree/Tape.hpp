@@ -7,6 +7,7 @@
 #include <optional>
 
 // other includes
+#include "range/v3/view/map.hpp"
 #include "range/v3/action/sort.hpp"
 #include "range/v3/action/unique.hpp"
 #include "range/v3/range/operations.hpp"
