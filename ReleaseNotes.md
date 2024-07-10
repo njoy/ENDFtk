@@ -2,7 +2,7 @@
 Given here are some release notes for ENDFtk.
 
 ## [ENDFtk v1.1.1](https://github.com/njoy/ENDFtk/pull/xxx)
-This update removes the regions() and pairs() interface functions on the TAB1 record interface functions that are unused. The removal of these interface functions has no impact on the Python interface as these interface functions were not included on the Python side.
+This update removes the regions() and pairs() interface functions on the TAB1 record interface functions that are unused. The removal of these interface functions has no impact on the Python interface as these interface functions were not included on the Python side. Miscellaneous documentation updates were made as well.
 
 In addition, the following issues were corrected:
   - A minor bug in the rectangular matrix covariance block was corrected. The values for the row and column energies are lifted out of a larger array using the std::ranges::take and std::ranges::drop function. For the column energies, we forgot to properly end the sequence. As a result, the end() iterator of the range did not point to the end of the column energies but to the end of the covariance values, which is now corrected.

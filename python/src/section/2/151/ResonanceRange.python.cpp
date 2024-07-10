@@ -40,16 +40,16 @@ void wrapResonanceRange( python::module& module, python::module& ) {
     python::arg( "parameters" ), python::arg( "scattering_radius" ) = std::nullopt,
     "Initialise the component\n\n"
     "Arguments:\n"
-    "    self                the component\n"
-    "    el                  the lower energy of the resonance region\n"
-    "    eh                  the upper energy of the resonance region\n"
-    "    naps                the flag to indicate then on how to calculate\n"
-    "                        the scattering radius (0 or 1 if no energy\n"
-    "                        dependent scattering radius is given and 0, 1\n"
-    "                        or 2 if energy dependent scattering radius is\n"
-    "                        given)\n"
-    "    parameters          the resonance parameters\n"
-    "    scatteringRadius    An optional energy dependent scattering radius"
+    "    self                 the component\n"
+    "    el                   the lower energy of the resonance region\n"
+    "    eh                   the upper energy of the resonance region\n"
+    "    naps                 the flag to indicate then on how to calculate\n"
+    "                         the scattering radius (0 or 1 if no energy\n"
+    "                         dependent scattering radius is given and 0, 1\n"
+    "                         or 2 if energy dependent scattering radius is\n"
+    "                         given)\n"
+    "    parameters           the resonance parameters\n"
+    "    scattering_radius    An optional energy dependent scattering radius"
   )
   .def_property_readonly(
 
