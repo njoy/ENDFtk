@@ -72,3 +72,22 @@ CompactBreitWignerUncertainties( Iterator& it, const Iterator& end, long& lineNu
                                  int MAT, int MF, int MT ) :
    // no try ... catch: exceptions will be handled in the derived class
   CompactBreitWignerUncertainties( ListRecord( it, end, lineNumber, MAT, MF, MT ) ) {}
+
+/**
+ *  @brief Constructor (from a buffer)
+ *
+ *  @tparam Iterator        a buffer iterator
+ *
+ *  @param[in] it           the current position in the buffer
+ *  @param[in] end          the end of the buffer
+ *  @param[in] lineNumber   the current line number
+ *  @param[in] MAT          the expected MAT number
+ *  @param[in] MF           the expected MF number
+ *  @param[in] MT           the expected MT number
+ *  @param[in] unused       placeholder
+ */
+template< typename Iterator >
+CompactBreitWignerUncertainties( Iterator& it, const Iterator& end, long& lineNumber,
+                                 int MAT, int MF, int MT, int /* unused */ ) :
+   // no try ... catch: exceptions will be handled in the derived class
+  CompactBreitWignerUncertainties( it, end, lineNumber, MAT, MF, MT ) {}
