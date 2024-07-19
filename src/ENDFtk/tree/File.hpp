@@ -2,12 +2,10 @@
 #define NJOY_ENDFTK_TREE_FILE
 
 // system includes
-#include <vector>
-#include <map>
+#include <list>
 
 // other includes
-#include "range/v3/view/subrange.hpp"
-#include "range/v3/view/map.hpp"
+#include "range/v3/view/all.hpp"
 #include "ENDFtk/file/Type.hpp"
 #include "ENDFtk/tree/Section.hpp"
 #include "ENDFtk/tree/toSection.hpp"
@@ -29,10 +27,11 @@ namespace tree {
     /* fields */
     int mat_;
     int mf_;
-    std::map< int, Section > sections_;
+    std::list< Section > sections_;
 
     /* auxiliary functions */
-    #include "ENDFtk/tree/File/src/createMap.hpp"
+    #include "ENDFtk/tree/File/src/find.hpp"
+    #include "ENDFtk/tree/File/src/fill.hpp"
 
   public:
 
@@ -66,7 +65,9 @@ namespace tree {
      */
     auto sectionNumbers() const {
 
-      return ranges::cpp20::views::keys( this->sections_ );
+      return this->sections_ | ranges::cpp20::views::transform(
+                                   [] ( auto&& section )
+                                      { return section.sectionNumber(); } );
     }
 
     #include "ENDFtk/tree/File/src/section.hpp"
@@ -93,7 +94,7 @@ namespace tree {
      */
     bool hasMT( int mt ) const {
 
-      return this->sections_.count( mt );
+      return this->find( mt ) != this->sections_.end();
     }
 
     /**
@@ -109,7 +110,7 @@ namespace tree {
      */
     auto sections() const {
 
-      return this->sections_ | ranges::cpp20::views::values;
+      return this->sections_ | ranges::cpp20::views::all;
     }
 
     /**
@@ -117,7 +118,7 @@ namespace tree {
      */
     auto sections() {
 
-      return this->sections_ | ranges::cpp20::views::values;
+      return this->sections_ | ranges::cpp20::views::all;
     }
 
     /**
@@ -125,7 +126,7 @@ namespace tree {
      */
     auto begin() const {
 
-      return ( this->sections_ | ranges::cpp20::views::values ).begin();
+      return this->sections().begin();
     }
 
     /**
@@ -133,7 +134,7 @@ namespace tree {
      */
     auto end() const {
 
-      return ( this->sections_ | ranges::cpp20::views::values ).end();
+      return this->sections().end();
     }
 
     /**
@@ -141,7 +142,7 @@ namespace tree {
      */
     auto begin() {
 
-      return ( this->sections_ | ranges::cpp20::views::values ).begin();
+      return this->sections().end();
     }
 
     /**
@@ -149,7 +150,7 @@ namespace tree {
      */
     auto end() {
 
-      return ( this->sections_ | ranges::cpp20::views::values ).end();
+      return this->sections().end();
     }
 
     /**

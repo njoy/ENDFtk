@@ -11,7 +11,7 @@ void print( OutputIterator& it ) const {
   int MAT = this->MAT();
   for ( const auto& entry : this->files_ ) {
 
-    std::visit( [&] ( auto&& file ) { file.print( it, MAT ); }, entry.second );
+    std::visit( [&] ( auto&& file ) { file.print( it, MAT ); }, entry );
   }
   MEND().print( it );
 }

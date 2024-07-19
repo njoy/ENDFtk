@@ -9,7 +9,8 @@
  */
 auto material( int mat ) const {
 
-  if ( not this->materials_.count( mat ) ) {
+  auto range = this->find( mat );
+  if ( range.first ==  range.second ) {
 
     Log::error( "Requested material number (MAT) does not"
                 " correspond to a stored material syntax tree" );
@@ -17,10 +18,9 @@ auto material( int mat ) const {
     throw std::out_of_range( "Requested material number (MAT) does not"
                              " correspond to a stored material tree" );
   }
-  auto bounds = this->materials_.equal_range( mat );
   return
-    ranges::make_subrange( bounds.first, bounds.second )
-    | ranges::cpp20::views::values;
+    ranges::make_subrange( range.first, range.second )
+    | ranges::cpp20::views::all;
 }
 
 /**

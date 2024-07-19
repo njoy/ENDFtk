@@ -19,8 +19,17 @@ void insertOrReplace( Section&& section ) {
     throw std::exception();
   }
 
-  this->remove( section.MT() );
-  this->sections_.emplace( section.MT(), std::move( section ) );
+  auto iter = std::lower_bound( this->sections_.begin(), this->sections_.end(), section.sectionNumber(),
+                                [] ( auto&& left, auto&& right )
+                                   { return left.sectionNumber() < right; } );
+  if ( iter != this->sections_.end() ) {
+
+    if ( iter->sectionNumber() == section.sectionNumber() ) {
+
+      iter = this->sections_.erase( iter );
+    }
+  }
+  this->sections_.emplace( iter, std::move( section ) );
 }
 
 /**

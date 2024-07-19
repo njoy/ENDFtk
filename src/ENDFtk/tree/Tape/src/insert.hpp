@@ -9,7 +9,12 @@
  */
 void insert( Material&& material ) {
 
-  this->materials_.emplace( material.MAT(), std::move( material ) );
+  auto compare = [] ( auto&& left, auto&& right )
+                    { return left < right.materialNumber(); };
+  auto iter = std::upper_bound( this->materials_.begin(), this->materials_.end(),
+                                material.MAT(), compare );
+
+  this->materials_.emplace( iter, std::move( material ) );
 }
 
 /**

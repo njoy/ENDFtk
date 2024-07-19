@@ -20,7 +20,7 @@ template< typename BufferIterator >
 Material( const HEAD& head, BufferIterator begin, BufferIterator& position,
           const BufferIterator& end, long& lineNumber )
   try : mat_( head.MAT() ),
-        files_( createMap( head, begin, position, end, lineNumber ) ) {}
+        files_( fill( head, begin, position, end, lineNumber ) ) {}
   catch( std::exception& e ) {
 
     Log::info( "Trouble encountered while constructing a material tree." );

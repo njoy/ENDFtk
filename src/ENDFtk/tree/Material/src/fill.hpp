@@ -1,10 +1,13 @@
 template< typename BufferIterator >
-static std::map< int, File >
-createMap
+static std::list< File >
+fill
 ( const HEAD& head, BufferIterator begin,
   BufferIterator& position, const BufferIterator& end, long& lineNumber ){
 
-  std::map< int, File > files;
+  std::list< File > files;
+
+  auto compare = [] ( auto&& left, auto&& right )
+                    { return left.fileNumber() < right; };
 
   // read the first HEAD record (we need a structure division)
   --lineNumber;
@@ -15,18 +18,23 @@ createMap
   auto mat = head.MAT();
   while ( division.isHead() && ( division.tail.MAT() == mat ) ) {
 
-    // check for duplicate mf
-    if ( files.count( division.tail.MF() ) ) {
+    auto iter = std::lower_bound( files.begin(), files.end(), division.tail.MF(), compare );
 
-      Log::error( "Found a duplicate section for MF{}", division.tail.MF() );
-      Log::info( "Current position: MAT{} MF{} MT{} at line {}",
-                 division.tail.MAT(), division.tail.MF(), division.tail.MT(),
-                 lineNumber );
-      throw std::exception();
+    // check for duplicate mf
+    if ( iter != files.end() ) {
+
+      if ( iter->fileNumber() == division.tail.MF() ) {
+
+        Log::error( "Found a duplicate section for MF{}", division.tail.MF() );
+        Log::info( "Current position: MAT{} MF{} MT{} at line {}",
+                   division.tail.MAT(), division.tail.MF(), division.tail.MT(),
+                   lineNumber );
+        throw std::exception();
+      }
     }
 
     // add the file
-    files.emplace( division.tail.MF(),
+    files.emplace( iter,
                    File( asHead( division ),
                          begin, position, end, lineNumber ) );
 

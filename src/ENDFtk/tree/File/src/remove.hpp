@@ -5,7 +5,7 @@
  */
 void remove( int mt ) {
 
-  auto iter = this->sections_.find( mt );
+  auto iter = this->find( mt );
   if ( iter != this->sections_.end() ) {
 
     this->sections_.erase( iter );

@@ -22,7 +22,7 @@ File( const HEAD& head, BufferIterator begin,
       BufferIterator& position, const BufferIterator& end, long& lineNumber )
   try: mat_( head.MAT() ),
        mf_( head.MF() ),
-       sections_( createMap( head, begin, position, end, lineNumber ) ) {}
+       sections_( fill( head, begin, position, end, lineNumber ) ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Trouble encountered while constructing an ENDF tree file" );

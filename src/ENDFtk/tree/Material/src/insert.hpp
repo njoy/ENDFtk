@@ -15,7 +15,11 @@ void insert( Section&& section ) {
 
   if ( !this->hasMF( section.MF() ) ) {
 
-    this->files_.emplace( section.MF(), File( this->MAT(), section.MF() ) );
+    auto iter = std::lower_bound( this->files_.begin(), this->files_.end(), section.fileNumber(),
+                                  [] ( auto&& left, auto&& right )
+                                     { return left.fileNumber() < right; } );
+
+    this->files_.emplace( iter, File( this->MAT(), section.MF() ) );
   }
 
   this->MF( section.MF() ).insert( std::move( section ) );

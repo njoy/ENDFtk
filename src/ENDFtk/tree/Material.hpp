@@ -2,10 +2,10 @@
 #define NJOY_ENDFTK_TREE_MATERIAL
 
 // system includes
-#include <vector>
-#include <map>
+#include <list>
 
 // other includes
+#include "range/v3/view/all.hpp"
 #include "ENDFtk/tree/Section.hpp"
 #include "ENDFtk/tree/toSection.hpp"
 #include "ENDFtk/tree/File.hpp"
@@ -27,10 +27,11 @@ namespace tree {
 
     /* fields */
     int mat_;
-    std::map< int, File > files_;
+    std::list< File > files_;
 
     /* auxiliary functions */
-    #include "ENDFtk/tree/Material/src/createMap.hpp"
+    #include "ENDFtk/tree/Material/src/find.hpp"
+    #include "ENDFtk/tree/Material/src/fill.hpp"
 
   public:
 
@@ -54,7 +55,9 @@ namespace tree {
      */
     auto fileNumbers() const {
 
-      return ranges::cpp20::views::keys( this->files_ );
+      return this->files_ | ranges::cpp20::views::transform(
+                                   [] ( auto&& file )
+                                      { return file.fileNumber(); } );
     }
 
     #include "ENDFtk/tree/Material/src/file.hpp"
@@ -123,7 +126,7 @@ namespace tree {
      *
      *  @param[in]   mf   the MF number of the file
      */
-    bool hasMF( int mf ) const { return this->files_.count( mf ); }
+    bool hasMF( int mf ) const { return this->find( mf ) != this->files_.end(); }
 
     /**
      *  @brief Return whether or not the material has a file with the given MF
@@ -157,44 +160,32 @@ namespace tree {
     /**
      *  @brief Return all files in the material
      */
-    auto files() const { return this->files_ | ranges::cpp20::views::values; }
+    auto files() const { return this->files_ | ranges::cpp20::views::all; }
 
     /**
      *  @brief Return all files in the material
      */
-    auto files() { return this->files_ | ranges::cpp20::views::values; }
+    auto files() { return this->files_ | ranges::cpp20::views::all; }
 
     /**
      *  @brief Return a begin iterator to all files
      */
-    auto begin() const {
-
-      return ( this->files_ | ranges::cpp20::views::values ).begin();
-    }
+    auto begin() const { return this->files().begin(); }
 
     /**
      *  @brief Return an end iterator to all files
      */
-    auto end() const {
-
-      return ( this->files_ | ranges::cpp20::views::values ).end();
-    }
+    auto end() const { return this->files().end(); }
 
     /**
      *  @brief Return a begin iterator to all files
      */
-    auto begin() {
-
-      return ( this->files_ | ranges::cpp20::views::values ).begin();
-    }
+    auto begin() { return this->files().begin(); }
 
     /**
      *  @brief Return an end iterator to all files
      */
-    auto end() {
-
-      return ( this->files_ | ranges::cpp20::views::values ).end();
-    }
+    auto end() { return this->files().end(); }
 
     /**
      *  @brief Return the number of files in the materials

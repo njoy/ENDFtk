@@ -2,9 +2,11 @@
 #define NJOY_ENDFTK_MATERIAL
 
 // system includes
+#include <list>
 #include <variant>
 
 // other includes
+#include "range/v3/view/all.hpp"
 #include "ENDFtk/file/1.hpp"
 #include "ENDFtk/file/2.hpp"
 #include "ENDFtk/file/3.hpp"
@@ -90,9 +92,10 @@ namespace ENDFtk {
 
     /* fields */
     int mat_;
-    std::map< int, FileVariant > files_;
+    std::list< FileVariant > files_;
 
     /* auxiliary functions */
+    #include "ENDFtk/Material/src/find.hpp"
     #include "ENDFtk/Material/src/fill.hpp"
     #include "ENDFtk/Material/src/read.hpp"
     #include "ENDFtk/Material/src/verifyMEND.hpp"
@@ -117,34 +120,22 @@ namespace ENDFtk {
     /**
      *  @brief Return the files stored in this material
      */
-    auto MFs() {
-
-      return this->files_ | ranges::cpp20::views::values;
-    }
+    auto MFs() { return this->files_ | ranges::cpp20::views::all; }
 
     /**
      *  @brief Return the files stored in this material
      */
-    auto files() {
-
-      return this->MFs();
-    }
+    auto files() { return this->MFs(); }
 
     /**
      *  @brief Return the files stored in this material
      */
-    auto MFs() const {
-
-      return this->files_ | ranges::cpp20::views::values;
-    }
+    auto MFs() const { return this->files_ | ranges::cpp20::views::all; }
 
     /**
      *  @brief Return the files stored in this material
      */
-    auto files() const {
-
-      return this->MFs();
-    }
+    auto files() const { return this->MFs(); }
 
     /**
      *  @brief Return an iterator to the start of the files
@@ -173,7 +164,7 @@ namespace ENDFtk {
      */
     bool hasMF( int mf ) const {
 
-      return this->files_.count( mf );
+      return this->find( mf ) != this->files_.end();
     }
 
     /**
@@ -181,10 +172,7 @@ namespace ENDFtk {
      *
      *  @param mf   the MF number of the file to be verified
      */
-    bool hasFile( int mf ) const {
-
-      return this->hasMF( mf );
-    }
+    bool hasFile( int mf ) const { return this->hasMF( mf ); }
 
     /**
      *  @brief Return whether or not the material has a section with the given
@@ -218,18 +206,17 @@ namespace ENDFtk {
      */
     const FileVariant& file( int mf ) const {
 
-      try {
+      auto iter = this->find( mf );
+      if ( iter != this->files_.end() ) {
 
-        return this->files_.at( mf );
+        return *iter;
       }
-      catch( std::out_of_range& o ) {
 
-        Log::error( "Requested file number (MF) does not"
-                    " correspond to a stored file" );
-        Log::info( "Requested file number: {}", mf );
-        Log::info( "Material queried: ", this->MAT() );
-        throw o;
-      }
+      Log::error( "Requested file number (MF) does not"
+                  " correspond to a stored file" );
+      Log::info( "Requested file number: {}", mf );
+      Log::info( "Material queried: ", this->MAT() );
+      throw std::exception();
     }
 
     /**
