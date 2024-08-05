@@ -111,6 +111,7 @@ void wrapTabulatedDistribution( python::module& module, python::module& ) {
   );
 
   // add standard component definitions
+  addStandardInterpolationTableDefinitions< Component >( component );
   addStandardComponentDefinitions< Component >( component );
 }
 
