@@ -12,10 +12,11 @@ class ENDFTK_PYTHON_EXPORT TabulatedBackgroundRMatrix :
   /* fields */
   TabulationRecord real_;
   TabulationRecord imaginary_;
-  mutable std::optional< std::vector< std::complex< double > > > complex_;
+  std::vector< std::complex< double > > complex_;
 
   /* auxiliary functions */
   #include "ENDFtk/section/2/151/RMatrixLimited/TabulatedBackgroundRMatrix/src/extract.hpp"
+  #include "ENDFtk/section/2/151/RMatrixLimited/TabulatedBackgroundRMatrix/src/generateComplexNumbers.hpp"
   #include "ENDFtk/section/2/151/RMatrixLimited/TabulatedBackgroundRMatrix/src/verify.hpp"
   #include "ENDFtk/section/2/151/RMatrixLimited/TabulatedBackgroundRMatrix/src/verifyLBK.hpp"
 
@@ -110,27 +111,16 @@ public:
    */
   auto RB() const {
 
-//    //! @todo the range-v3 implementation used zip_transform on RBR() and RBI()
-//    //!       but this did not work with the tools implementation (const issues)
-//    using namespace njoy::tools;
-//    return std23::views::zip_transform(
-//               [] ( double real, double imag ) -> std::complex< double >
-//                  { return { real, imag }; },
-//               this->real_.y(),
-//               this->imaginary_.y() );
-    if ( ! this->complex_.has_value() ) {
-
-      std::vector< std::complex< double > > list;
-      list.reserve( this->numberPoints() );
-      for ( unsigned int i = 0; i < this->numberPoints(); ++i ) {
-
-        list.emplace_back( this->real()[i], this->imaginary()[i] );
-      }
-      this->complex_ = list;
-    }
-
+    // //! @todo the range-v3 implementation used zip_transform on RBR() and RBI()
+    // //!       but this did not work with the tools implementation (const issues)
+    // using namespace njoy::tools;
+    // return std23::views::zip_transform(
+    //            [] ( double real, double imag ) -> std::complex< double >
+    //               { return { real, imag }; },
+    //            this->real_.y(),
+    //            this->imaginary_.y() );
     using namespace njoy::tools;
-    return this->complex_.value() | std20::views::all;
+    return this->complex_ | std20::views::all;
   }
 
   /**

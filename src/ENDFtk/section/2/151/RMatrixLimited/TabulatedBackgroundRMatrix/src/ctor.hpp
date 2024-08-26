@@ -11,6 +11,7 @@ TabulatedBackgroundRMatrix( int index,
   imaginary_( std::move( imaginary ) ) {
 
     verify( this->real_, this->imaginary_ );
+    this->generateComplexNumbers();
   }
 
 public:
