@@ -90,6 +90,6 @@ CompactReichMooreUncertainties( Iterator& it, const Iterator& end, long& lineNum
  */
 template< typename Iterator >
 CompactReichMooreUncertainties( Iterator& it, const Iterator& end, long& lineNumber,
-                   int MAT, int MF, int MT, int ) :
+                   int MAT, int MF, int MT, int /* unused */ ) :
    // no try ... catch: exceptions will be handled in the derived class
   CompactReichMooreUncertainties( it, end, lineNumber, MAT, MF, MT ) {}
