@@ -2,7 +2,6 @@
 Given here are some release notes for ENDFtk.
 
 NOTES FOR range-v3 REMOVAL:
-  - once zip_transform works properly: look at TabulatedBackgroundRMatrix
   - once repeat_n is available look at UnresolvedEnergyIndependent/LValue
   - look for a solution on the angularDistributions function in MF4 (commented out for now)
   - see if we want to change how we handle MF7 MT2 CoherentElastic and and MF7 MT4 ScatteringFunctions

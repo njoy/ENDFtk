@@ -6,7 +6,7 @@ LValue( ListRecord&& list ) :
   ListRecord( std::move( list ) ) {
 
   verifySize( this->NPL(), this->N2() );
-  zeros_ = std::vector( this->NJS(), 0.0 );
+  generateZeros();
 }
 
 public:

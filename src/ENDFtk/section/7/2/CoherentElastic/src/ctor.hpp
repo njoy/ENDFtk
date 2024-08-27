@@ -19,7 +19,7 @@ CoherentElastic( TabulationRecord&& principal,
   principal_( std::move( principal ) ),
   temperatures_( std::move( temperatures ) ) {
 
-  this->generateS();
+  this->generateSandT();
   verifyTemperatures( this->NP(), this->temperatures_ );
 }
 
@@ -28,13 +28,13 @@ public:
 CoherentElastic( const CoherentElastic& f ) :
   principal_( f.principal_ ), temperatures_( f.temperatures_ ) {
 
-  this->generateS();
+  this->generateSandT();
 }
 
 CoherentElastic( CoherentElastic&& f ) :
   principal_( std::move( f.principal_ ) ), temperatures_( std::move( f.temperatures_ ) ) {
 
-  this->generateS();
+  this->generateSandT();
 }
 
 /**

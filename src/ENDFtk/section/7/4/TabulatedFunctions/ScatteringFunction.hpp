@@ -20,9 +20,10 @@ class ScatteringFunction {
 
   using Array = decltype( alphas_.y() );
   std::vector< Array > s_;
+  std::vector< double > t_;
 
   /* auxiliary functions */
-  #include "ENDFtk/section/7/4/TabulatedFunctions/ScatteringFunction/src/generateS.hpp"
+  #include "ENDFtk/section/7/4/TabulatedFunctions/ScatteringFunction/src/generateSandT.hpp"
   #include "ENDFtk/section/7/4/TabulatedFunctions/ScatteringFunction/src/generateTemperatures.hpp"
   #include "ENDFtk/section/7/4/TabulatedFunctions/ScatteringFunction/src/verifyBetaValues.hpp"
 
@@ -124,11 +125,7 @@ public:
   auto T() const {
 
     using namespace njoy::tools;
-    std::vector< double > temperatures = { this->alphas_.C1() };
-    auto data = this->temperatures_ | std20::views::transform( [] ( const auto& v )
-                                                                  { return v.C1(); } );
-    temperatures.insert( temperatures.end(), data.begin(), data.end() );
-    return temperatures;
+    return this->t_ | std20::views::all;
   }
 
   /**

@@ -10,7 +10,7 @@ ScatteringFunction( TabulationRecord&& alphas,
                     std::vector< ListRecord >&& temperatures ) :
   alphas_( std::move( alphas ) ), temperatures_( std::move( temperatures ) ) {
 
-  this->generateS();
+  this->generateSandT();
   if ( this->NT() != 1 ) {
     verifyBetaValues( this->beta(),
                       this->temperatures_ |
@@ -25,13 +25,13 @@ public:
 ScatteringFunction( const ScatteringFunction& f ) :
   alphas_( f.alphas_ ), temperatures_( f.temperatures_ ) {
 
-  this->generateS();
+  this->generateSandT();
 }
 
 ScatteringFunction( ScatteringFunction&& f ) :
   alphas_( std::move( f.alphas_ ) ), temperatures_( std::move( f.temperatures_ ) ) {
 
-  this->generateS();
+  this->generateSandT();
 }
 
 

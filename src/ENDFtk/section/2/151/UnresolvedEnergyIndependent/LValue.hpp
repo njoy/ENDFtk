@@ -10,6 +10,7 @@ class ENDFTK_PYTHON_EXPORT LValue : protected ListRecord {
   /* auxiliary functions */
   #include "ENDFtk/section/2/151/UnresolvedEnergyIndependent/LValue/src/verifySize.hpp"
   #include "ENDFtk/section/2/151/UnresolvedEnergyIndependent/LValue/src/generateList.hpp"
+  #include "ENDFtk/section/2/151/UnresolvedEnergyIndependent/LValue/src/generateZeros.hpp"
 
   std::vector< double > zeros_;
 
@@ -186,7 +187,7 @@ public:
     using namespace njoy::tools;
     return this->jValues()
              | std20::views::transform( [] ( const auto& jvalue )
-                                                   { return jvalue.GG(); } );
+                                           { return jvalue.GG(); } );
   }
 
   /**
