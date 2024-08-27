@@ -28,17 +28,6 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
       "any_view< tree::Material, bidirectional >" );
 
 
-  // predefined lambda
-  auto getMaterial = [] ( Tape& self, int mat )
-  -> std::variant< std::reference_wrapper< Material >, MaterialRange > {
-
-    if ( self.numberMAT( mat ) == 1 ) {
-
-      return std::ref( self.MAT( mat ).front() );
-    }
-    return self.MAT( mat );
-  };
-
   // create the tree component
   python::class_< Tape > tree(
 
