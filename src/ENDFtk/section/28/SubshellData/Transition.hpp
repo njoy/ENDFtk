@@ -36,6 +36,16 @@ public:
   auto tertiarySubshellDesignator() const { return this->SUBK(); }
 
   /**
+   *  @brief Return whether or not the transition is radiative
+   */
+  bool isRadiative() const { return this->SUBK() == 0.; }
+
+  /**
+   *  @brief Return whether or not the transition is non-radiative
+   */
+  bool isNonRadiative() const { return ! this->isRadiative(); }
+
+  /**
    *  @brief Return the transition energy
    */
   auto ETR() const { return this->chunk[2]; }
