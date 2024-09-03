@@ -345,7 +345,7 @@ if(ENDFtk.python)
 
   message( STATUS "Building ENDFtk's python API" )
 
-  set( ENDFtk "${CMAKE_CURRENT_BINARY_DIR}" )
+  set( ENDFtk_PYTHONPATH "${CMAKE_CURRENT_BINARY_DIR}" )
   # Append potential installation and build paths for tools python module
   set( tools_PYTHONPATH "${CMAKE_CURRENT_BINARY_DIR}/_deps/tools-build" )
   if (tools_DIR)
