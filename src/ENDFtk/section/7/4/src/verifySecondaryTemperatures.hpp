@@ -22,7 +22,9 @@ verifySecondaryTemperatures( const TypeArray& types,
     auto haveTemperature = temperatures | std20::views::transform( [] ( auto&& value )
                                                                       { return bool( value ); } );
 
-    auto verify = std23::views::zip_transform( std::equal_to<>{}, needTemperature, haveTemperature );
+    std::vector< bool > verify;
+    std::transform( needTemperature.begin(), needTemperature.end(), haveTemperature.begin(),
+                    std::back_inserter( verify ), std::equal_to<>{} );
 
     auto iter = std20::find( verify, false );
 
