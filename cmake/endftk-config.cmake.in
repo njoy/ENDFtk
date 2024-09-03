@@ -1,0 +1,7 @@
+include(CMakeFindDependencyMacro)
+
+if (NOT TARGET njoy::tools)
+    find_dependency(tools)
+endif()
+
+include("${CMAKE_CURRENT_LIST_DIR}/ENDFtk-targets.cmake")

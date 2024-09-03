@@ -7,7 +7,7 @@ include( FetchContent )
 
 FetchContent_Declare( tools
     GIT_REPOSITORY  https://github.com/njoy/tools
-    GIT_TAG         feature/std23-zip_transform
+    GIT_TAG         develop
     GIT_SHALLOW     TRUE
     )
 
