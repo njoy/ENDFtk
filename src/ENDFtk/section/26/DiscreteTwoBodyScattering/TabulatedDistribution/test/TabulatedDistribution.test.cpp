@@ -168,6 +168,17 @@ void verifyChunk( const TabulatedDistribution& chunk ) {
   CHECK_THAT( 4., WithinRel( chunk.probabilities()[1] ) );
   CHECK_THAT( 6., WithinRel( chunk.probabilities()[2] ) );
 
+  CHECK( 1 == chunk.NR() );
+  CHECK( 1 == chunk.numberInterpolationRegions() );
+  CHECK( 1 == chunk.INT().size() );
+  CHECK( 1 == chunk.interpolants().size() );
+  CHECK( 1 == chunk.NBT().size() );
+  CHECK( 1 == chunk.boundaries().size() );
+  CHECK( 2 == chunk.INT()[0] );
+  CHECK( 2 == chunk.interpolants()[0] );
+  CHECK( 3 == chunk.NBT()[0] );
+  CHECK( 3 == chunk.boundaries()[0] );
+
   CHECK( 2 == chunk.NC() );
 }
 

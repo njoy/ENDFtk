@@ -90,6 +90,42 @@ public:
     return this->F();
   }
 
+  /**
+   *  @brief Return the number of interpolation ranges
+   */
+  static constexpr long NR() { return 1; }
+
+  /**
+   *  @brief Return the number of interpolation ranges
+   */
+  static constexpr long numberInterpolationRegions() { return NR(); }
+
+  /**
+   *  @brief Return the interpolants
+   */
+  auto INT() const {
+
+    return ranges::cpp20::views::single( this->LANG() - 10 );
+  }
+
+  /**
+   *  @brief Return the interpolants
+   */
+  auto interpolants() const { return this->INT(); }
+
+  /**
+   *  @brief Return the boundaries
+   */
+  auto NBT() const {
+
+    return ranges::cpp20::views::single( this->numberCosineValues() );
+  }
+
+  /**
+   *  @brief Return the boundaries
+   */
+  auto boundaries() const { return this->NBT(); }
+
   using ListRecord::NC;
   using ListRecord::print;
 };

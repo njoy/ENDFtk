@@ -50,6 +50,17 @@ class Test_ENDFtk_MF6_LAW2_TabulatedDistribution( unittest.TestCase ) :
             self.assertAlmostEqual( 4., chunk.probabilities[1] )
             self.assertAlmostEqual( 6., chunk.probabilities[2] )
 
+            self.assertEqual( 1, chunk.NR )
+            self.assertEqual( 1, chunk.number_interpolation_regions )
+            self.assertEqual( 1, len( chunk.INT ) )
+            self.assertEqual( 1, len( chunk.NBT ) )
+            self.assertEqual( 2, chunk.INT[0] )
+            self.assertEqual( 3, chunk.NBT[0] )
+            self.assertEqual( 1, len( chunk.interpolants ) )
+            self.assertEqual( 1, len( chunk.boundaries ) )
+            self.assertEqual( 2, chunk.interpolants[0] )
+            self.assertEqual( 3, chunk.boundaries[0] )
+
             self.assertEqual( 2, chunk.NC )
 
             # verify string
@@ -81,6 +92,17 @@ class Test_ENDFtk_MF6_LAW2_TabulatedDistribution( unittest.TestCase ) :
             self.assertAlmostEqual( 2., chunk.probabilities[0] )
             self.assertAlmostEqual( 4., chunk.probabilities[1] )
             self.assertAlmostEqual( 6., chunk.probabilities[2] )
+
+            self.assertEqual( 1, chunk.NR )
+            self.assertEqual( 1, chunk.number_interpolation_regions )
+            self.assertEqual( 1, len( chunk.INT ) )
+            self.assertEqual( 1, len( chunk.NBT ) )
+            self.assertEqual( 4, chunk.INT[0] )
+            self.assertEqual( 3, chunk.NBT[0] )
+            self.assertEqual( 1, len( chunk.interpolants ) )
+            self.assertEqual( 1, len( chunk.boundaries ) )
+            self.assertEqual( 4, chunk.interpolants[0] )
+            self.assertEqual( 3, chunk.boundaries[0] )
 
             self.assertEqual( 2, chunk.NC )
 
