@@ -2,7 +2,9 @@
 Given here are some release notes for ENDFtk.
 
 ## [ENDFtk v1.1.1](https://github.com/njoy/ENDFtk/pull/xxx)
-This update removes the regions() and pairs() interface functions on the TAB1 record interface functions that are unused. The removal of these interface functions has no impact on the Python interface as these interface functions were not included on the Python side. Miscellaneous documentation updates were made as well.
+This update makes the following changes on interface functions:
+  - The regions() and pairs() interface functions on the TAB1 record interface functions have been removed. The removal of these interface functions has no impact on the Python interface as these interface functions were not included on the Python side. Miscellaneous documentation updates were made as well.
+  - When using the C++ interface for atomic relaxation data, a Transition now has a isRadiative() and isNonRadiative() function returning a boolean so that a user can check if a given transition emits a photon or electron without having to look at subshell identifiers. Since Transition is not exposed ont he Python side, this is not available on the Python side.
 
 This update also adds NBT(), INT(), boundaries(), interpolants(), NR(), numberInterpolationRegions() on a number of ENDFtk objects that mimic the behaviour of a TAB1 record but that are not actual TAB1 records:
 - TwoBodyScattering::TabulatedDistribution in MF6 and MF26
