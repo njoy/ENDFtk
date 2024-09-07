@@ -153,8 +153,8 @@ void verifyChunk( const section::Type< 28 >& chunk ) {
   CHECK( 2 == shell.numberTransitions() );
   CHECK_THAT( 1.156100e+4, WithinRel( shell.EBI() ) );
   CHECK_THAT( 1.156100e+4, WithinRel( shell.subshellBindingEnergy() ) );
-  CHECK( 2 == shell.ELN() );
-  CHECK( 2 == shell.numberSubshellElectrons() );
+  CHECK_THAT( 2, WithinRel( shell.ELN() ) );
+  CHECK_THAT( 2, WithinRel( shell.numberSubshellElectrons() ) );
   CHECK( 2 == shell.transitions().size() );
   CHECK( 3 == shell.transitions()[0].SUBJ() );
   CHECK( 4 == shell.transitions()[1].SUBJ() );
@@ -176,8 +176,8 @@ void verifyChunk( const section::Type< 28 >& chunk ) {
   CHECK( 1 == shell.numberTransitions() );
   CHECK_THAT( 2000., WithinRel( shell.EBI() ) );
   CHECK_THAT( 2000., WithinRel( shell.subshellBindingEnergy() ) );
-  CHECK( 1 == shell.ELN() );
-  CHECK( 1 == shell.numberSubshellElectrons() );
+  CHECK_THAT( 1, WithinRel( shell.ELN() ) );
+  CHECK_THAT( 1, WithinRel( shell.numberSubshellElectrons() ) );
   CHECK( 1 == shell.transitions().size() );
   CHECK( 1 == shell.transitions()[0].SUBJ() );
   CHECK( 0 == shell.transitions()[0].SUBK() );

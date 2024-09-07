@@ -111,8 +111,8 @@ void verifyChunk( const SubshellData& chunk ) {
 
   CHECK_THAT( 1.156100e+4, WithinRel( chunk.EBI() ) );
   CHECK_THAT( 1.156100e+4, WithinRel( chunk.subshellBindingEnergy() ) );
-  CHECK( 2 == chunk.ELN() );
-  CHECK( 2 == chunk.numberSubshellElectrons() );
+  CHECK_THAT( 2, WithinRel( chunk.ELN() ) );
+  CHECK_THAT( 2, WithinRel( chunk.numberSubshellElectrons() ) );
 
   CHECK( 2 == chunk.transitions().size() );
   CHECK( 3 == chunk.transitions()[0].SUBJ() );

@@ -12,6 +12,8 @@ In addition, the following issues were corrected:
   - In MF8 MT457 DiscreteSpectrum, NT=8 (which can occur for electrons, i.e. STYP=8), was explicitly disallowed by ENDFtk. This was corrected and a new constructor reflecting this usage was added as well.
   - The STA variable in MF1 MT451 was interpreted incorrectly and this has now been fixed. An additional isUnstable() function has been added to the interface.
   - The NJSX value (the number of spin groups) is now read from the CONT record before the particle pairs in MF32 R-matrix limited uncertainties since SAMMY does not print the NJSX value on the particle pairs (the ENDF format basically has the NJSX value appear in two places and ENDFtk used the second one while SAMMY only prints out the first one). This "breaks" some interface functions (the R-matrix limited uncertainties from_string() function now requires the number of spin groups while previously it did not).
+  - In MF28 MT533, the electron population was being returned as an integer value while this can be a floating point value. This has been corrected.
+  - All electron subshell identifiers in MF26 MT533 are returned as an integers.
 
 A few changes were also made to remove some range-v3 code in MF1 MT451. These changes have no impact on functionality.
 
