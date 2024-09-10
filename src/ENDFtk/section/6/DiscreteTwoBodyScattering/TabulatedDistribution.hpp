@@ -106,7 +106,8 @@ public:
    */
   auto INT() const {
 
-    return ranges::cpp20::views::single( this->LANG() - 10 );
+    using namespace njoy::tools;
+    return std20::views::single( this->LANG() - 10 );
   }
 
   /**
@@ -119,7 +120,8 @@ public:
    */
   auto NBT() const {
 
-    return ranges::cpp20::views::single( this->numberCosineValues() );
+    using namespace njoy::tools;
+    return std20::views::single( this->numberCosineValues() );
   }
 
   /**
