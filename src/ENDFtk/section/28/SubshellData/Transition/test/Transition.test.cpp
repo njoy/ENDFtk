@@ -43,10 +43,10 @@ SCENARIO( "Transition" ) {
 
 void verifyRadiativeChunk( const Transition& chunk ) {
 
-  CHECK_THAT( 1, WithinRel( chunk.SUBJ() ) );
-  CHECK_THAT( 1, WithinRel( chunk.secondarySubshellDesignator() ) );
-  CHECK_THAT( 0, WithinRel( chunk.SUBK() ) );
-  CHECK_THAT( 0, WithinRel( chunk.tertiarySubshellDesignator() ) );
+  CHECK( 1 == chunk.SUBJ() );
+  CHECK( 1 == chunk.secondarySubshellDesignator() );
+  CHECK( 0 == chunk.SUBK() );
+  CHECK( 0 == chunk.tertiarySubshellDesignator() );
   CHECK( true == chunk.isRadiative() );
   CHECK( false == chunk.isNonRadiative() );
   CHECK_THAT( 3., WithinRel( chunk.ETR() ) );
@@ -57,10 +57,10 @@ void verifyRadiativeChunk( const Transition& chunk ) {
 
 void verifyNonRadiativeChunk( const Transition& chunk ) {
 
-  CHECK_THAT( 1, WithinRel( chunk.SUBJ() ) );
-  CHECK_THAT( 1, WithinRel( chunk.secondarySubshellDesignator() ) );
-  CHECK_THAT( 2, WithinRel( chunk.SUBK() ) );
-  CHECK_THAT( 2, WithinRel( chunk.tertiarySubshellDesignator() ) );
+  CHECK( 1 == chunk.SUBJ() );
+  CHECK( 1 == chunk.secondarySubshellDesignator() );
+  CHECK( 2 == chunk.SUBK() );
+  CHECK( 2 == chunk.tertiarySubshellDesignator() );
   CHECK( false == chunk.isRadiative() );
   CHECK( true == chunk.isNonRadiative() );
   CHECK_THAT( 3., WithinRel( chunk.ETR() ) );

@@ -29,7 +29,10 @@ public:
   /**
    *  @brief Return the subshell designator
    */
-  unsigned int SUBI() const { return ListRecord::C1(); }
+  unsigned int SUBI() const {
+
+    return static_cast< unsigned int >( std::round( ListRecord::C1() ) );
+  }
 
   /**
    *  @brief Return the subshell designator
@@ -59,12 +62,12 @@ public:
   /**
    *  @brief Return the number of electrons in the subshell
    */
-  unsigned int ELN() const { return ListRecord::list()[1]; }
+  double ELN() const { return ListRecord::list()[1]; }
 
   /**
    *  @brief Return the number of electrons in the subshell
    */
-  unsigned int numberSubshellElectrons() const { return this->ELN(); }
+  double numberSubshellElectrons() const { return this->ELN(); }
 
   /**
    *  @brief Return the secondary subshell designators (one for each transition)
