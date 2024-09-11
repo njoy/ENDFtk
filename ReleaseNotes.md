@@ -2,9 +2,12 @@
 Given here are some release notes for ENDFtk.
 
 NOTES FOR range-v3 REMOVAL:
-  - once repeat_n is available look at UnresolvedEnergyIndependent/LValue
   - look for a solution on the angularDistributions function in MF4 (commented out for now)
-  - see if we want to change how we handle MF7 MT2 CoherentElastic and and MF7 MT4 ScatteringFunctions
+  - Python issues for E in MF1 MT458 PolynomialComponents
+  - Python issues for MU and F in MF6 LAW1 TabulatedDistribution
+  - Python issues for total, elastic, fission, capture, current_weighted_total in mF2 MT152
+  - Python issues for MSIGMA in MF7 MT4 ScatteringLawConstants
+  - Python issues for GAM in MF32 MT151 ResonanceParameters
 
 ## [ENDFtk v1.1.1](https://github.com/njoy/ENDFtk/pull/xxx)
 This update makes the following changes on interface functions:
