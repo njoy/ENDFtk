@@ -122,7 +122,7 @@ namespace section{
     auto secondaryEffectiveTemperatures() const {
 
       using namespace njoy::tools;
-      return this->secondary_ | std20::views::all;
+      return std20::views::all( this->secondary_ );
     }
 
     #include "ENDFtk/section/7/4/src/NC.hpp"

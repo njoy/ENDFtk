@@ -82,7 +82,7 @@ public:
   auto legendreBlocks() const {
 
     using namespace njoy::tools;
-    return this->lblocks_ | std20::views::all;
+    return std20::views::all( this->lblocks_ );
   }
 
   #include "ENDFtk/section/34/ReactionBlock/src/NC.hpp"

@@ -101,7 +101,7 @@ namespace section {
     auto isotopes() const {
 
       using namespace njoy::tools;
-      return this->isotopes_ | std20::views::all;
+      return std20::views::all( this->isotopes_ );
     }
 
     using BaseWithoutMT::MT;

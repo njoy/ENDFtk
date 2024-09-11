@@ -16,14 +16,18 @@ class ENDFTK_PYTHON_EXPORT CoherentElastic {
   TabulationRecord principal_;
   std::vector< ListRecord > temperatures_;
 
+  /* auxiliary functions */
+  #include "ENDFtk/section/7/2/CoherentElastic/src/generateTemperatures.hpp"
+  #include "ENDFtk/section/7/2/CoherentElastic/src/verifyTemperatures.hpp"
+
+  /* workaround for the removal of range-v3 */
+
+  // range-v3 allowed for concatenation of different ranges but our new capability
+  // does not. we therefore generate these arrays at construction time
   using Array = decltype( principal_.y() );
   std::vector< Array > s_;
   std::vector< double > t_;
-
-  /* auxiliary functions */
   #include "ENDFtk/section/7/2/CoherentElastic/src/generateSandT.hpp"
-  #include "ENDFtk/section/7/2/CoherentElastic/src/generateTemperatures.hpp"
-  #include "ENDFtk/section/7/2/CoherentElastic/src/verifyTemperatures.hpp"
 
 public:
 
@@ -121,7 +125,7 @@ public:
   auto T() const {
 
     using namespace njoy::tools;
-    return this->t_ | std20::views::all;
+    return std20::views::all( this->t_ );
   }
 
   /**
@@ -164,7 +168,7 @@ public:
   auto S() const {
 
     using namespace njoy::tools;
-    return this->s_ | std20::views::all;
+    return std20::views::all( this->s_ );
   }
 
   /**

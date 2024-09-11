@@ -51,7 +51,7 @@ public:
   auto Q() const {
 
     using namespace njoy::tools;
-    return this->q_ | std20::views::all;
+    return std20::views::all( this->q_ );
   }
 
   /**
@@ -64,8 +64,8 @@ public:
    */
   auto BR() const {
 
-      using namespace njoy::tools;
-    return this->branch_ | std20::views::all;
+    using namespace njoy::tools;
+    return std20::views::all( this->branch_ );
   }
 
   /**

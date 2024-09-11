@@ -10,9 +10,12 @@ class ENDFTK_PYTHON_EXPORT LValue : protected ListRecord {
   /* auxiliary functions */
   #include "ENDFtk/section/2/151/UnresolvedEnergyIndependent/LValue/src/verifySize.hpp"
   #include "ENDFtk/section/2/151/UnresolvedEnergyIndependent/LValue/src/generateList.hpp"
-  #include "ENDFtk/section/2/151/UnresolvedEnergyIndependent/LValue/src/generateZeros.hpp"
 
+  /* workaround for the removal of range-v3 */
+
+  // using std20::views::repeat in C++ works but causes issues on the Python side
   std::vector< double > zeros_;
+  #include "ENDFtk/section/2/151/UnresolvedEnergyIndependent/LValue/src/generateZeros.hpp"
 
 public:
 
@@ -117,11 +120,10 @@ public:
    */
   auto AMUG() const {
 
-//    using namespace njoy::tools;
-//    return std20::views::repeat_n( 0.0, this->NJS() );
-
+    // using namespace njoy::tools;
+    // return std20::views::repeat_n( 0.0, this->NJS() );
     using namespace njoy::tools;
-    return this->zeros_ | std20::views::all;
+    return std20::views::all( this->zeros_ );
   }
 
   /**
@@ -134,11 +136,10 @@ public:
    */
   auto AMUF() const {
 
-//    using namespace njoy::tools;
-//    return std20::views::repeat_n( 0.0, this->NJS() );
-
+    // using namespace njoy::tools;
+    // return std20::views::repeat_n( 0.0, this->NJS() );
     using namespace njoy::tools;
-    return this->zeros_ | std20::views::all;
+    return std20::views::all( this->zeros_ );
   }
 
   /**
@@ -151,11 +152,10 @@ public:
    */
   auto AMUX() const {
 
-//    using namespace njoy::tools;
-//    return std20::views::repeat_n( 0.0, this->NJS() );
-
+    // using namespace njoy::tools;
+    // return std20::views::repeat_n( 0.0, this->NJS() );
     using namespace njoy::tools;
-    return this->zeros_ | std20::views::all;
+    return std20::views::all( this->zeros_ );
   }
 
   /**
@@ -217,11 +217,10 @@ public:
    */
   auto GX() const {
 
-//    using namespace njoy::tools;
-//    return std20::views::repeat_n( 0.0, this->NJS() );
-
+    // using namespace njoy::tools;
+    // return std20::views::repeat_n( 0.0, this->NJS() );
     using namespace njoy::tools;
-    return this->zeros_ | std20::views::all;
+    return std20::views::all( this->zeros_ );
   }
 
   /**

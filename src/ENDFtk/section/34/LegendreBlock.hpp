@@ -71,7 +71,7 @@ public:
   auto data() const {
 
     using namespace njoy::tools;
-    return this->ni_ | std20::views::all;
+    return std20::views::all( this->ni_ );
   }
 
   #include "ENDFtk/section/34/LegendreBlock/src/NC.hpp"

@@ -139,9 +139,9 @@ ScatteringFunction( Iterator& begin,
                     int MAT,
                     int MF,
                     int MT )
-  try :ScatteringFunction( TabulationRecord( begin, end, lineNumber,
-                                             MAT, MF, MT ),
-                           begin, end, lineNumber, MAT, MF, MT ) {}
+  try : ScatteringFunction( TabulationRecord( begin, end, lineNumber,
+                                              MAT, MF, MT ),
+                            begin, end, lineNumber, MAT, MF, MT ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing S(a,b) data for a given "
@@ -151,12 +151,22 @@ ScatteringFunction( Iterator& begin,
 
 ScatteringFunction& operator=( const ScatteringFunction& base ) {
 
-  new (this) ScatteringFunction( base );
+  if ( this != &base ) {
+
+    this->alphas_ = base.alphas_;
+    this->temperatures_ = base.temperatures_;
+    this->generateSandT();
+  }
   return *this;
 }
 
 ScatteringFunction& operator=( ScatteringFunction&& base ) {
 
-  new (this) ScatteringFunction( std::move( base ) );
+  if ( this != &base ) {
+
+    this->alphas_ = std::move( base.alphas_ );
+    this->temperatures_ = std::move( base.temperatures_ );
+    this->generateSandT();
+  }
   return *this;
 }

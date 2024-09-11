@@ -20,7 +20,7 @@ class ENDFTK_PYTHON_EXPORT TabulatedDistribution : protected ListRecord {
 
   /* workaround for the removal of range-v3 */
 
-  // returning std20::views::single causes issues on the Python side
+  // using std20::views::single in C++ works but causes issues on the Python side
   // std::array< long, 1 > leads to assertion failure in Apple clang 14.5 so we
   // are using vectors of one element instead
   std::vector< long > interpolants_;

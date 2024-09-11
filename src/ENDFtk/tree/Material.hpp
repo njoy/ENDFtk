@@ -164,7 +164,7 @@ namespace tree {
     auto files() const {
 
       using namespace njoy::tools;
-      return this->files_ | std20::views::all;
+      return std20::views::all( this->files_ );
     }
 
     /**
@@ -173,7 +173,7 @@ namespace tree {
     auto files() {
 
       using namespace njoy::tools;
-      return this->files_ | std20::views::all;
+      return std20::views::all( this->files_ );
     }
 
     /**

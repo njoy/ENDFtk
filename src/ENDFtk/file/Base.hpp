@@ -43,7 +43,7 @@ namespace file {
     auto MTs() {
 
       using namespace njoy::tools;
-      return this->sections_ | std20::views::all;
+      return std20::views::all( this->sections_ );
     }
 
     /**
@@ -57,7 +57,7 @@ namespace file {
     auto MTs() const {
 
       using namespace njoy::tools;
-      return this->sections_ | std20::views::all;
+      return std20::views::all( this->sections_ );
     }
 
     /**

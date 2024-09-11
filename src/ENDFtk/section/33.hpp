@@ -65,7 +65,7 @@ namespace section{
     auto reactions() const {
 
       using namespace njoy::tools;
-      return this->reactions_ | std20::views::all;
+      return std20::views::all( this->reactions_ );
     }
 
     #include "ENDFtk/section/33/src/NC.hpp"

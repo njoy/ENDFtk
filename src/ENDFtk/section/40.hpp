@@ -72,7 +72,7 @@ namespace section{
     auto levelBlocks() const {
 
       using namespace njoy::tools;
-      return this->levelBlocks_ | std20::views::all;
+      return std20::views::all( this->levelBlocks_ );
     }
 
     #include "ENDFtk/section/40/src/NC.hpp"

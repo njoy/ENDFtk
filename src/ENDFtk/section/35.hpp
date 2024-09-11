@@ -60,7 +60,7 @@ namespace section{
     auto energyBlocks() const {
 
       using namespace njoy::tools;
-      return this->energyBlocks_ | std20::views::all;
+      return std20::views::all( this->energyBlocks_ );
     }
 
     #include "ENDFtk/section/35/src/NC.hpp"

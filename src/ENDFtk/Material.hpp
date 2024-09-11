@@ -123,7 +123,7 @@ namespace ENDFtk {
     auto MFs() {
 
       using namespace njoy::tools;
-      return this->files_ | std20::views::all;
+      return std20::views::all( this->files_ );
     }
 
     /**
@@ -137,7 +137,7 @@ namespace ENDFtk {
     auto MFs() const {
 
       using namespace njoy::tools;
-      return this->files_ | std20::views::all;
+      return std20::views::all( this->files_ );
     }
 
     /**

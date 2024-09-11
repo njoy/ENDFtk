@@ -112,7 +112,7 @@ namespace tree {
     auto sections() const {
 
       using namespace njoy::tools;
-      return this->sections_ | std20::views::all;
+      return std20::views::all( this->sections_ );
     }
 
     /**
@@ -121,7 +121,7 @@ namespace tree {
     auto sections() {
 
       using namespace njoy::tools;
-      return this->sections_ | std20::views::all;
+      return std20::views::all( this->sections_ );
     }
 
     /**

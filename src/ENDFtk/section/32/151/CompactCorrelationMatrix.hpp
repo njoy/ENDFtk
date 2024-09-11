@@ -60,7 +60,7 @@ public:
   auto I() const {
 
     using namespace njoy::tools;
-    return this->i_ | std20::views::all;
+    return std20::views::all( this->i_ );
   }
 
   /**
@@ -70,7 +70,7 @@ public:
   auto J() const {
 
     using namespace njoy::tools;
-    return this->j_ | std20::views::all;
+    return std20::views::all( this->j_ );
   }
 
   /**
@@ -79,7 +79,7 @@ public:
   auto correlations() const {
 
     using namespace njoy::tools;
-    return this->correlations_ | std20::views::all;
+    return std20::views::all( this->correlations_ );
   }
 
   #include "ENDFtk/section/32/151/CompactCorrelationMatrix/src/NC.hpp"

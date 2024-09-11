@@ -142,7 +142,7 @@ namespace section{
     auto decaySpectra() const {
 
       using namespace njoy::tools;
-      return this->spectra_ | std20::views::all;
+      return std20::views::all( this->spectra_ );
     }
 
     #include "ENDFtk/section/8/457/src/NC.hpp"

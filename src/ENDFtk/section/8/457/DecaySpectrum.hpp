@@ -121,7 +121,7 @@ public:
   auto discreteSpectra() const {
 
     using namespace njoy::tools;
-    return this->discrete_ | std20::views::all;
+    return std20::views::all( this->discrete_ );
   }
 
   /**

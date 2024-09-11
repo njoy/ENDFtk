@@ -102,7 +102,7 @@ namespace section {
     auto reactionProducts() const {
 
       using namespace njoy::tools;
-      return this->products_ | std20::views::all;
+      return std20::views::all( this->products_ );
     }
 
     #include "ENDFtk/section/9/src/NC.hpp"

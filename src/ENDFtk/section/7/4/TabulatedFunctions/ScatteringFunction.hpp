@@ -18,14 +18,18 @@ class ScatteringFunction {
   TabulationRecord alphas_;
   std::vector< ListRecord > temperatures_;
 
+  /* auxiliary functions */
+  #include "ENDFtk/section/7/4/TabulatedFunctions/ScatteringFunction/src/generateTemperatures.hpp"
+  #include "ENDFtk/section/7/4/TabulatedFunctions/ScatteringFunction/src/verifyBetaValues.hpp"
+
+  /* workaround for the removal of range-v3 */
+
+  // range-v3 allowed for concatenation of different ranges but our new capability
+  // does not. we therefore generate these arrays at construction time
   using Array = decltype( alphas_.y() );
   std::vector< Array > s_;
   std::vector< double > t_;
-
-  /* auxiliary functions */
   #include "ENDFtk/section/7/4/TabulatedFunctions/ScatteringFunction/src/generateSandT.hpp"
-  #include "ENDFtk/section/7/4/TabulatedFunctions/ScatteringFunction/src/generateTemperatures.hpp"
-  #include "ENDFtk/section/7/4/TabulatedFunctions/ScatteringFunction/src/verifyBetaValues.hpp"
 
 public:
 

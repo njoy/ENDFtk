@@ -51,7 +51,7 @@ namespace section {
     auto yields() const {
 
       using namespace njoy::tools;
-      return this->data_ | std20::views::all;
+      return std20::views::all( this->data_ );
     }
 
     /**

@@ -77,7 +77,7 @@ namespace section {
     auto photonPartialCrossSections() const {
 
       using namespace njoy::tools;
-      return this->partials_ | std20::views::all;
+      return std20::views::all( this->partials_ );
     }
 
     #include "ENDFtk/section/13/src/NC.hpp"

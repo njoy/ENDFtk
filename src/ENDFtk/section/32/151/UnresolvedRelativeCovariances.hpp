@@ -105,7 +105,7 @@ public:
   auto lValues() const {
 
     using namespace njoy::tools;
-    return this->lvalues_ | std20::views::all;
+    return std20::views::all( this->lvalues_ );
   }
 
   /**

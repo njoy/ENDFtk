@@ -50,7 +50,8 @@ public:
   auto ER() const {
 
     using namespace njoy::tools;
-    return ListRecord::list() | std23::views::stride( this->NX() / this->NRSA() * 12 ); }
+    return ListRecord::list() | std23::views::stride( this->NX() / this->NRSA() * 12 );
+  }
 
   /**
   *  @brief Return the resonance energies
@@ -68,7 +69,8 @@ public:
     using namespace njoy::tools;
     return ListRecord::list()
              | std20::views::drop( this->NX() / this->NRSA() * 6 )
-             | std23::views::stride( this->NX() / this->NRSA() * 12 ); }
+             | std23::views::stride( this->NX() / this->NRSA() * 12 );
+  }
 
   /**
    *  @brief Return the resonance energy uncertainties
@@ -89,7 +91,8 @@ public:
              | std23::views::stride( 2 )
              | std20::views::transform(
                    [] ( auto chunk )
-                      { return chunk | std20::views::drop( 1 ); } ); }
+                      { return chunk | std20::views::drop( 1 ); } );
+  }
 
   /**
   *  @brief Return the resonance parameters
@@ -108,7 +111,8 @@ public:
              | std23::views::stride( 2 )
              | std20::views::transform(
                    [] ( auto chunk )
-                      { return chunk | std20::views::drop( 1 ); } ); }
+                      { return chunk | std20::views::drop( 1 ); } );
+  }
 
   /**
   *  @brief Return the resonance parameters

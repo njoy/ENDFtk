@@ -149,12 +149,22 @@ CoherentElastic( Iterator& begin,
 
 CoherentElastic& operator=( const CoherentElastic& base ) {
 
-  new (this) CoherentElastic( base );
+  if ( this != &base ) {
+
+    this->principal_ = base.principal_;
+    this->temperatures_ = base.temperatures_;
+    this->generateSandT();
+  }
   return *this;
 }
 
 CoherentElastic& operator=( CoherentElastic&& base ) {
 
-  new (this) CoherentElastic( std::move( base ) );
+  if ( this != &base ) {
+
+    this->principal_ = std::move( base.principal_ );
+    this->temperatures_ = std::move( base.temperatures_ );
+    this->generateSandT();
+  }
   return *this;
 }

@@ -44,7 +44,7 @@ public:
   auto resonanceParameters() const {
 
     using namespace njoy::tools;
-    return this->parameters_ | std20::views::all;
+    return std20::views::all( this->parameters_ );
   }
 
   /**

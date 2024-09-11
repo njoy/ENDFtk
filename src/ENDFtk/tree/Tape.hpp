@@ -116,7 +116,7 @@ namespace tree {
     auto materials() {
 
       using namespace njoy::tools;
-      return this->materials_ | std20::views::all;
+      return std20::views::all( this->materials_ );
     }
 
     /**
@@ -125,7 +125,7 @@ namespace tree {
     auto materials() const {
 
       using namespace njoy::tools;
-      return this->materials_ | std20::views::all;
+      return std20::views::all( this->materials_ );
     }
 
     /**

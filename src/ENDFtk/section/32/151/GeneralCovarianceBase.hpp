@@ -168,7 +168,7 @@ public:
   auto shortRangeBlocks() const {
 
     using namespace njoy::tools;
-    return this->short_ | std20::views::all;
+    return std20::views::all( this->short_ );
   }
 
   /**
@@ -177,7 +177,7 @@ public:
   auto longRangeBlocks() const {
 
     using namespace njoy::tools;
-    return this->long_ | std20::views::all;
+    return std20::views::all( this->long_ );
   }
 
   #include "ENDFtk/section/32/151/GeneralCovarianceBase/src/NC.hpp"

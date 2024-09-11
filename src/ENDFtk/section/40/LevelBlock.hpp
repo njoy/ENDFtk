@@ -81,7 +81,7 @@ public:
   auto reactionBlocks() const {
 
     using namespace njoy::tools;
-    return this->reactions_ | std20::views::all;
+    return std20::views::all( this->reactions_ );
   }
 
   #include "ENDFtk/section/40/LevelBlock/src/NC.hpp"

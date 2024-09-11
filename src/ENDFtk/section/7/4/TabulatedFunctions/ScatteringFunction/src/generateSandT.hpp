@@ -1,5 +1,7 @@
 void  generateSandT() {
 
+  this->s_.clear();
+  this->t_.clear();
   this->s_.push_back( this->alphas_.y() );
   this->t_.push_back( this->alphas_.C1() );
   for ( auto&& list : this->temperatures_ ) {
