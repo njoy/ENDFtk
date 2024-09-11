@@ -18,6 +18,15 @@ class ENDFTK_PYTHON_EXPORT TabulatedDistribution : protected ListRecord {
   #include "ENDFtk/section/6/DiscreteTwoBodyScattering/TabulatedDistribution/src/verifySize.hpp"
   #include "ENDFtk/section/6/DiscreteTwoBodyScattering/TabulatedDistribution/src/generateList.hpp"
 
+  /* workaround for the removal of range-v3 */
+
+  // returning std20::views::single causes issues on the Python side
+  // std::array< long, 1 > leads to assertion failure in Apple clang 14.5 so we
+  // are using vectors of one element instead
+  std::vector< long > interpolants_;
+  std::vector< long > boundaries_;
+  #include "ENDFtk/section/6/DiscreteTwoBodyScattering/TabulatedDistribution/src/generateArrays.hpp"
+
 public:
 
   /* constructor */
@@ -107,7 +116,7 @@ public:
   auto INT() const {
 
     using namespace njoy::tools;
-    return std20::views::single( this->LANG() - 10 );
+    return std20::views::all( this->interpolants_ );
   }
 
   /**
@@ -121,7 +130,7 @@ public:
   auto NBT() const {
 
     using namespace njoy::tools;
-    return std20::views::single( this->numberCosineValues() );
+    return std20::views::all( this->boundaries_ );
   }
 
   /**

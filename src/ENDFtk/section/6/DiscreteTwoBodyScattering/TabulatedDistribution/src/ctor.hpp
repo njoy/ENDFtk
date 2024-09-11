@@ -10,10 +10,11 @@ TabulatedDistribution() = default;
  *  @brief Private constructor
  */
 TabulatedDistribution( ListRecord&& list ) :
-  ListRecord( std::move( list ) ) {
+  ListRecord( std::move( list ) ), interpolants_( { 0 } ), boundaries_( { 0 } ) {
 
-    verifyLANG( this->L1() );
-    verifySize( this->NW(), this->NL() );
+  verifyLANG( this->L1() );
+  verifySize( this->NW(), this->NL() );
+  this->generateArrays();
 }
 
 /**
