@@ -73,14 +73,12 @@ public:
   auto GAM() const {
 
     using namespace njoy::tools;
-    auto nch = this->NCH();
     return ListRecord::list()
              | std23::views::chunk( this->NX() / this->NRB() * 6 )
              | std20::views::transform(
-                   [nch] ( auto chunk )
-                         { return chunk
-                                  | std20::views::drop( 1 )
-                                  | std20::views::take( nch ); } ); }
+                   [] ( auto chunk )
+                      { return chunk | std20::views::drop( 1 ); } );
+  }
 
   /**
   *  @brief Return the resonance parameters
