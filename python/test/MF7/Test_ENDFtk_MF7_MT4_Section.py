@@ -56,8 +56,8 @@ class Test_ENDFtk_MF7_MT4_Section( unittest.TestCase ) :
 
             self.assertAlmostEqual( 1.976285e+2, barray.epsilon )
             self.assertAlmostEqual( 5.000001e+0, barray.upper_energy_limit )
-            #self.assertEqual( 1, len( barray.total_free_cross_sections ) )
-            #self.assertAlmostEqual( 0.000000+0, barray.total_free_cross_sections[0] )
+            self.assertEqual( 1, len( barray.total_free_cross_sections ) )
+            self.assertAlmostEqual( 0.000000+0, barray.total_free_cross_sections[0] )
             self.assertEqual( 1, len( barray.atomic_weight_ratios ) )
             self.assertAlmostEqual( 8.934780e+0, barray.atomic_weight_ratios[0] )
             self.assertEqual( 1, len( barray.number_atoms ) )

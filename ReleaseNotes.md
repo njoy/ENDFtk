@@ -5,8 +5,7 @@ NOTES FOR range-v3 REMOVAL:
   - look for a solution on the angularDistributions function in MF4 (commented out for now)
   - Python issues for E in MF1 MT458 PolynomialComponents
   - Python issues for MU and F in MF6 LAW1 TabulatedDistribution
-  - Python issues for total, elastic, fission, capture, current_weighted_total in mF2 MT152
-  - Python issues for MSIGMA in MF7 MT4 ScatteringLawConstants
+  - Python issues for total, elastic, fission, capture, current_weighted_total in MF2 MT152
 
 ## [ENDFtk v1.1.1](https://github.com/njoy/ENDFtk/pull/xxx)
 This update makes the following changes on interface functions:

@@ -10,6 +10,7 @@ ScatteringLawConstants( ListRecord&& list ) :
 
   verifySize( this->NI(), this->NS() );
   checkLLN( this->LLN() );
+  this->generateSigma();
 };
 
 public:

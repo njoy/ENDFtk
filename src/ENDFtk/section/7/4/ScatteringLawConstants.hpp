@@ -18,7 +18,13 @@ class ENDFTK_PYTHON_EXPORT ScatteringLawConstants : protected ListRecord {
   #include "ENDFtk/section/7/4/ScatteringLawConstants/src/verifySize.hpp"
   #include "ENDFtk/section/7/4/ScatteringLawConstants/src/checkLLN.hpp"
 
+  /* workaround for the removal of range-v3 */
+
+  std::vector< double > sigma_;
+  #include "ENDFtk/section/7/4/ScatteringLawConstants/src/generateSigma.hpp"
+
 public:
+
   /* constructor */
   #include "ENDFtk/section/7/4/ScatteringLawConstants/src/ctor.hpp"
 
@@ -78,32 +84,7 @@ public:
   auto MSIGMA() const {
 
     using namespace njoy::tools;
-    auto indices = [] (auto NS) {
-      switch(1 + NS) {
-        case 1: {
-          static constexpr std::array< std::ptrdiff_t, 1 > indices = {{0}};
-          return std20::ranges::subrange(indices.begin(), indices.end());
-        } case 2: {
-          static constexpr std::array< std::ptrdiff_t, 2 > indices = {{0, 7}};
-          return std20::ranges::subrange(indices.begin(), indices.end());
-        } case 3: {
-          static constexpr std::array< std::ptrdiff_t, 3 > indices = {{0, 7, 13}};
-          return std20::ranges::subrange(indices.begin(), indices.end());
-        } case 4: {
-          static constexpr std::array< std::ptrdiff_t, 4 > indices = {{0, 7, 13, 19}};
-          return std20::ranges::subrange(indices.begin(), indices.end());
-        } default: {
-         #ifdef __GNUC__
-          __builtin_unreachable();
-         #endif
-         throw std::logic_error("Illegal NS");
-        }
-      }
-    };
-
-    auto element = [l = ListRecord::list()](auto index){ return l[index]; };
-
-    return indices( this->NS() ) | std20::views::transform( element );
+    return std20::views::all( this->sigma_ );
   }
 
   /**
