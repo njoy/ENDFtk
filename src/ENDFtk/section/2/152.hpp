@@ -31,6 +31,16 @@ namespace section {
     int interpolation_;
     ListRecord data_;
 
+    /* workaround for the removal of range-v3 */
+
+    // using transform with more ranges operations in the transform causes issues
+    // on the Python side. we just generate the underlying array at construction
+    // time to solve it.
+    using Iterator = njoy::tools::std20::ranges::iterator_t< decltype( data_.list() ) >;
+    using Array = njoy::tools::std20::subrange< Iterator, Iterator >;
+    std::vector< std::vector< Array > > reactions_;
+    #include "ENDFtk/section/2/152/src/generateArrays.hpp"
+
     /* auxiliary functions */
     #include "ENDFtk/section/2/152/src/generateList.hpp"
     #include "ENDFtk/section/2/152/src/reaction.hpp"
@@ -147,28 +157,48 @@ namespace section {
     /**
      *  @brief Return the total cross section values for each energy and dilution
      */
-    auto total() const { return this->reaction( 0 ); }
+    auto total() const {
+
+      using namespace njoy::tools;
+      return std20::views::all( this->reactions_[0] );
+    }
 
     /**
      *  @brief Return the elastic cross section values for each energy and dilution
      */
-    auto elastic() const { return this->reaction( 1 ); }
+    auto elastic() const {
+
+      using namespace njoy::tools;
+      return std20::views::all( this->reactions_[1] );
+    }
 
     /**
      *  @brief Return the fission cross section values for each energy and dilution
      */
-    auto fission() const { return this->reaction( 2 ); }
+    auto fission() const {
+
+      using namespace njoy::tools;
+      return std20::views::all( this->reactions_[2] );
+    }
 
     /**
      *  @brief Return the capture cross section values for each energy and dilution
      */
-    auto capture() const { return this->reaction( 3 ); }
+    auto capture() const {
+
+      using namespace njoy::tools;
+      return std20::views::all( this->reactions_[3] );
+    }
 
     /**
      *  @brief Return the current weighted cross section values for each
      *         energy and dilution
      */
-    auto currentWeightedTotal() const { return this->reaction( 4 ); }
+    auto currentWeightedTotal() const {
+
+      using namespace njoy::tools;
+      return std20::views::all( this->reactions_[4] );
+    }
 
     using BaseWithoutMT::MT;
     using BaseWithoutMT::ZA;

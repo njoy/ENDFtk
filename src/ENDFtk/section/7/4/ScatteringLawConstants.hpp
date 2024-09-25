@@ -20,6 +20,9 @@ class ENDFTK_PYTHON_EXPORT ScatteringLawConstants : protected ListRecord {
 
   /* workaround for the removal of range-v3 */
 
+  // using transform with more ranges operations in the transform causes issues
+  // on the Python side. we just generate the underlying array at construction
+  // time to solve it.
   std::vector< double > sigma_;
   #include "ENDFtk/section/7/4/ScatteringLawConstants/src/generateSigma.hpp"
 

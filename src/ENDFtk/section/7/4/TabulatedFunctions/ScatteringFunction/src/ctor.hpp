@@ -34,7 +34,6 @@ ScatteringFunction( ScatteringFunction&& f ) :
   this->generateSandT();
 }
 
-
 /**
  *  @brief Constructor (multiple temperatures)
  *
