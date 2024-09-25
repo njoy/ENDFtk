@@ -61,8 +61,10 @@ public:
     return Base::list()
              | std23::views::chunk( 2 + this->NA() )
              | std20::views::transform(
-                   std20::views::drop( 2 )
-                       | std23::views::stride( 2 ) ); }
+                  [] ( const auto& array )
+                     { return array | std20::views::drop( 2 )
+                                    | std23::views::stride( 2 ); } );
+  }
 
   /**
    *  @brief Return the cosine values

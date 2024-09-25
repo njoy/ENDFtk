@@ -4,7 +4,6 @@ Given here are some release notes for ENDFtk.
 NOTES FOR range-v3 REMOVAL:
   - look for a solution on the angularDistributions function in MF4 (commented out for now)
   - Python issues for E in MF1 MT458 PolynomialComponents
-  - Python issues for MU and F in MF6 LAW1 TabulatedDistribution
 
 ## [ENDFtk v1.1.1](https://github.com/njoy/ENDFtk/pull/xxx)
 This update makes the following changes on interface functions:
