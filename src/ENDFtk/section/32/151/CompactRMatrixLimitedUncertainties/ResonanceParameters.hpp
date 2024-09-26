@@ -90,7 +90,7 @@ public:
              | std23::views::chunk( this->NX() / this->NRSA() * 6 )
              | std23::views::stride( 2 )
              | std20::views::transform(
-                   [] ( auto chunk )
+                   [] ( auto&& chunk )
                       { return chunk | std20::views::drop( 1 ); } );
   }
 
@@ -110,7 +110,7 @@ public:
              | std23::views::chunk( this->NX() / this->NRSA() * 6 )
              | std23::views::stride( 2 )
              | std20::views::transform(
-                   [] ( auto chunk )
+                   [] ( auto&& chunk )
                       { return chunk | std20::views::drop( 1 ); } );
   }
 

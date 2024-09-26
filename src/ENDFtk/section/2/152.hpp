@@ -43,7 +43,6 @@ namespace section {
 
     /* auxiliary functions */
     #include "ENDFtk/section/2/152/src/generateList.hpp"
-    #include "ENDFtk/section/2/152/src/reaction.hpp"
     #include "ENDFtk/section/2/152/src/verifySize.hpp"
 
   public:

@@ -67,8 +67,8 @@ public:
     using namespace njoy::tools;
     return ListRecord::list()
              | std23::views::stride( 6 )
-             | std20::views::transform( [] ( auto ppi )
-                                                   { return int( ppi ); } ); }
+             | std20::views::transform( [] ( auto&& ppi )
+                                           { return int( ppi ); } ); }
 
   /**
    *  @brief Return the particle pair numbers of each channel
@@ -82,8 +82,8 @@ public:
 
     using namespace njoy::tools;
     return ResonanceChannels::column( 1 )
-             | std20::views::transform( [] ( auto l )
-                                                   { return int( l ); } ); }
+             | std20::views::transform( [] ( auto&& l )
+                                           { return int( l ); } ); }
 
   /**
    *  @brief Return the orbital momentum values for all channels

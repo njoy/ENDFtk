@@ -77,8 +77,8 @@ public:
   auto F0() const {
 
     using namespace njoy::tools;
-    return std20::views::drop( ListRecord::list(), 1 )
-             | std23::views::stride( 2 + this->NA() );
+    return ListRecord::list() | std20::views::drop( 1 )
+                              | std23::views::stride( 2 + this->NA() );
   }
 
   /**

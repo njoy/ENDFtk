@@ -200,9 +200,8 @@ public:
    */
   auto GF() const {
 
-//    using namespace njoy::tools;
-//    return std20::views::repeat_n( 0.0, this->NJS() );
-
+    // using namespace njoy::tools;
+    // return std20::views::repeat_n( 0.0, this->NJS() );
     using namespace njoy::tools;
     return this->zeros_ | std20::views::all;
   }

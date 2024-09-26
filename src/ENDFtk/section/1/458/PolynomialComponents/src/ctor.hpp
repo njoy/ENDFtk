@@ -1,18 +1,20 @@
 /**
  *  @brief Private constructor
  */
-PolynomialComponents( ListRecord&& list ) :
-  ListRecord( std::move( list ) ) {
-
-    verify( ListRecord::NPL(), this->NPLY() );
-  }
+PolynomialComponents( int nply, std::vector< double >&& list ) :
+  nply_( nply ), values_( std::move( list ) ) {}
 
 /**
  *  @brief Private constructor
  */
 PolynomialComponents( std::vector< double >&& list ) :
-  ListRecord( 0.0, 0.0, 0, list.size() / 18 - 1, list.size() / 2,
-              std::move( list ) ) {}
+  PolynomialComponents( list.size() / 18 - 1, std::move( list ) ) {}
+
+/**
+ *  @brief Private constructor
+ */
+PolynomialComponents( ListRecord&& list ) :
+  PolynomialComponents( generateList( list ) ) {}
 
 public:
 
@@ -70,7 +72,7 @@ PolynomialComponents( std::vector< std::array< double, 2 > >&& efr,
  */
 template< typename Iterator >
 PolynomialComponents( Iterator& begin, const Iterator& end,
-                        long& lineNumber, int MAT, int MF, int MT )
+                      long& lineNumber, int MAT, int MF, int MT )
   try : PolynomialComponents(
             ListRecord( begin, end, lineNumber, MAT, MF, MT ) ) {}
   catch ( std::exception& e ) {

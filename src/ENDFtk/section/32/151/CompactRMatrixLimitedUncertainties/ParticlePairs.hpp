@@ -144,7 +144,7 @@ public:
 
     using namespace njoy::tools;
     return ParticlePairs::column( 7 )
-             | std20::views::transform( [] ( auto pnt )
+             | std20::views::transform( [] ( auto&& pnt )
                                            { return int( pnt ); } ); }
 
   /**
@@ -159,7 +159,7 @@ public:
 
     using namespace njoy::tools;
     return ParticlePairs::column( 8 )
-             | std20::views::transform( [] ( auto shf )
+             | std20::views::transform( [] ( auto&& shf )
                                            { return int( shf ); } ); }
 
   /**
@@ -174,7 +174,7 @@ public:
 
     using namespace njoy::tools;
     return ParticlePairs::column( 9 )
-             | std20::views::transform( [] ( auto mt )
+             | std20::views::transform( [] ( auto&& mt )
                                            { return int( mt ); } ); }
 
   using ListRecord::NC;
