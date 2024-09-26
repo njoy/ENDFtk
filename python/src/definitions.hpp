@@ -360,20 +360,20 @@ void addStandardFileDefinitions( PythonClass& file ) {
     "    mt      the MT number of the section to be returned",
     python::return_value_policy::reference_internal
   )
-//  .def_property_readonly(
-//
-//    "MTs",
-//    [] ( const File& self ) -> SectionRange
-//       { return self.MTs(); },
-//    "The sections defined in the file"
-//  )
-//  .def_property_readonly(
-//
-//    "sections",
-//    [] ( const File& self ) -> SectionRange
-//       { return self.sections(); },
-//    "The sections defined in the file"
-//  )
+  .def_property_readonly(
+
+    "MTs",
+    [] ( const File& self ) -> SectionRange
+       { return self.MTs(); },
+    "The sections defined in the file"
+  )
+  .def_property_readonly(
+
+    "sections",
+    [] ( const File& self ) -> SectionRange
+       { return self.sections(); },
+    "The sections defined in the file"
+  )
   .def_static(
 
     "from_string",
