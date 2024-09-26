@@ -131,8 +131,8 @@ public:
 
     using namespace njoy::tools;
     return ParticlePairs::column( 7 )
-             | std20::views::transform( [] ( auto pnt )
-                                                   { return int( pnt ); } ); }
+             | std20::views::transform( [] ( auto&& pnt )
+                                           { return int( pnt ); } ); }
 
   /**
    *  @brief Return the penetrability flag for each particle pair
@@ -146,8 +146,8 @@ public:
 
     using namespace njoy::tools;
     return ParticlePairs::column( 8 )
-             | std20::views::transform( [] ( auto shf )
-                                                   { return int( shf ); } ); }
+             | std20::views::transform( [] ( auto&& shf )
+                                           { return int( shf ); } ); }
 
   /**
    *  @brief Return the shift factor flag for each particle pair
@@ -161,8 +161,8 @@ public:
 
     using namespace njoy::tools;
     return ParticlePairs::column( 9 )
-             | std20::views::transform( [] ( auto mt )
-                                                   { return int( mt ); } ); }
+             | std20::views::transform( [] ( auto&& mt )
+                                           { return int( mt ); } ); }
 
   using ListRecord::NC;
   using ListRecord::print;

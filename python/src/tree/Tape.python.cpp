@@ -27,17 +27,6 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
       viewmodule,
       "any_view< tree::Material, bidirectional >" );
 
-  // predefined lambda
-  auto getMaterial = [] ( Tape& self, int mat )
-  -> std::variant< std::reference_wrapper< Material >, MaterialRange > {
-
-    if ( self.numberMAT( mat ) == 1 ) {
-
-      return std::ref( self.MAT( mat ).front() );
-    }
-    return self.MAT( mat );
-  };
-
   // create the tree component
   python::class_< Tape > tree(
 
@@ -122,13 +111,12 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
   .def(
 
     "MAT",
-    getMaterial,
+    [] ( Tape& self, int mat ) -> MaterialRange
+       { return self.MAT( mat ); },
     python::arg( "mat" ),
     "Return the material(s) with the requested MAT number\n\n"
-    "This function returns either a single material (if only a single material\n"
-    "is present) or a sequence of materials (if more than one material is\n"
-    "present) since a tape can contain multiple instances of the same material\n"
-    "(e.g. at different temperatures).\n\n"
+    "This function returns  a sequence of materials since a tape can contain multiple\n"
+    "instances of the same material (e.g. at different temperatures).\n\n"
     "Arguments:\n"
     "    self    the tape\n"
     "    mat     the MAT number of the material to be returned",
@@ -137,13 +125,12 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
   .def(
 
     "material",
-    getMaterial,
+    [] ( Tape& self, int mat ) -> MaterialRange
+       { return self.MAT( mat ); },
     python::arg( "mat" ),
     "Return the material(s) with the requested MAT number\n\n"
-    "This function returns either a single material (if only a single material\n"
-    "is present) or a sequence of materials (if more than one material is\n"
-    "present) since a tape can contain multiple instances of the same material\n"
-    "(e.g. at different temperatures).\n\n"
+    "This function returns  a sequence of materials since a tape can contain multiple\n"
+    "instances of the same material (e.g. at different temperatures).\n\n"
     "Arguments:\n"
     "    self    the tape\n"
     "    mat     the MAT number of the material to be returned",

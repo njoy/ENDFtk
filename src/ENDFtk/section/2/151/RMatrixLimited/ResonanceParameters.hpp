@@ -65,7 +65,7 @@ public:
     return ListRecord::list()
              | std23::views::chunk( this->NX() / this->NRS() * 6 )
              | std20::views::transform(
-                   [] ( auto chunk )
+                   [] ( auto&& chunk )
                       { return chunk | std20::views::drop( 1 ); } ); }
 
   /**
