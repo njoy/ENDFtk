@@ -15,6 +15,16 @@ class ENDFTK_PYTHON_EXPORT MixedDistributions {
   LegendreDistributions legendre_;
   TabulatedDistributions tabulated_;
 
+  /* workaround for the removal of range-v3 */
+
+  // concat is not available in std20 or std23 so we generate the arrays
+  // at construction time
+  std::vector< long > interpolants_;
+  std::vector< long > boundaries_;
+  std::vector< double > energies_;
+  std::vector< Variant > distributions_;
+  #include "ENDFtk/section/4/MixedDistributions/src/generateArrays.hpp"
+
   /* auxiliary functions */
   #include "ENDFtk/section/4/MixedDistributions/src/verifyBoundary.hpp"
 
@@ -83,55 +93,61 @@ public:
    */
   long numberIncidentEnergies() const { return this->NE(); }
 
-//  /**
-//   *  @brief Return the boundaries of the interpolation ranges
-//   *
-//   *         The intersection point is considered as a jump in the incident
-//   *         energy.
-//   */
-//  auto NBT() const {
-//
-//    auto offset = this->legendre().NBT().back();
-//    return ranges::views::concat(
-//             this->legendre().NBT(),
-//             this->tabulated().NBT()
-//               | ranges::cpp20::views::transform(
-//                     [=] ( auto index )
-//                         { return index + offset; } ) );
-//  }
-//
-//  /**
-//   *  @brief Return the boundaries of the interpolation ranges
-//   *
-//   *         The intersection point is considered as a jump in the incident
-//   *         energy.
-//   */
-//  auto boundaries() const { return this->NBT(); }
-//
-//  /**
-//   *  @brief Return the interpolants of the interpolation ranges
-//   */
-//  auto INT() const {
-//
-//    return ranges::views::concat( this->legendre().INT(),
-//                                  this->tabulated().INT() );
-//  }
-//
-//  /**
-//   *  @brief Return the interpolants of the interpolation ranges
-//   */
-//  auto interpolants() const { return this->INT(); }
-//
-//  /**
-//   *  @brief Return the incident energy values
-//   */
-//  auto incidentEnergies() const {
-//
-//    return ranges::views::concat( this->legendre().incidentEnergies(),
-//                                  this->tabulated().incidentEnergies() );
-//  }
-//
-//  #include "ENDFtk/section/4/MixedDistributions/src/angularDistributions.hpp"
+  /**
+   *  @brief Return the boundaries of the interpolation ranges
+   *
+   *         The intersection point is considered as a jump in the incident
+   *         energy.
+   */
+  auto NBT() const {
+
+    using namespace njoy::tools;
+    return std20::views::all( this->boundaries_ );
+  }
+
+  /**
+   *  @brief Return the boundaries of the interpolation ranges
+   *
+   *         The intersection point is considered as a jump in the incident
+   *         energy.
+   */
+  auto boundaries() const { return this->NBT(); }
+
+  /**
+   *  @brief Return the interpolants of the interpolation ranges
+   */
+  auto INT() const {
+
+    using namespace njoy::tools;
+    return std20::views::all( this->interpolants_ );
+  }
+
+  /**
+   *  @brief Return the interpolants of the interpolation ranges
+   */
+  auto interpolants() const { return this->INT(); }
+
+  /**
+   *  @brief Return the incident energy values
+   */
+  auto incidentEnergies() const {
+
+    using namespace njoy::tools;
+    return std20::views::all( this->energies_ );
+  }
+
+  /**
+   *  @brief Return the angular distributions (one for each incident energy)
+   *
+   *  This function returns the underlying angular distributions as a variant
+   *  of reference wrappers. See the MixedDistributions unit test for more
+   *  information on how to use this.
+   */
+  auto angularDistributions() const {
+
+    using namespace njoy::tools;
+    return std20::views::all( this->distributions_ );
+  }
 
   /**
    *  @brief Return the number of lines for this ENDF component

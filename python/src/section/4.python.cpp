@@ -23,8 +23,8 @@ void wrapSection_4( python::module& module, python::module& viewmodule ) {
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 4 >;
   using Distributions = Section::Distributions;
-//  using Distribution = Section::Variant;
-//  using DistributionRange = BasicRandomAccessAnyView< Distribution >;
+  using Distribution = Section::Variant;
+  using DistributionRange = BasicRandomAccessAnyView< Distribution >;
 
   // wrap components
   wrapIsotropic( module, viewmodule );
@@ -36,9 +36,9 @@ void wrapSection_4( python::module& module, python::module& viewmodule ) {
 
   // wrap views created by this section
   // none of these are supposed to be created directly by the user
-//  wrapBasicRandomAccessAnyViewOf< Distribution >(
-//      viewmodule,
-//      "any_view< variant< LegendreCoefficients&, TabulatedDistribution& >, random_access >" );
+  wrapBasicRandomAccessAnyViewOf< Distribution >(
+      viewmodule,
+      "any_view< variant< LegendreCoefficients&, TabulatedDistribution& >, random_access >" );
 
   // create the section
   python::class_< Section > section(
@@ -130,7 +130,7 @@ void wrapSection_4( python::module& module, python::module& viewmodule ) {
     &Section::numberInterpolationRegions,
     "The number of interpolation regions"
   )
-/*  .def_property_readonly(
+  .def_property_readonly(
 
     "INT",
     &Section::INT,
@@ -165,7 +165,7 @@ void wrapSection_4( python::module& module, python::module& viewmodule ) {
     "angular_distributions",
     &Section::angularDistributions,
     "The angular distributions (one for each incident energy)"
-  )*/;
+  );
 
   // add standard section definitions
   addStandardSectionDefinitions< Section >( section );

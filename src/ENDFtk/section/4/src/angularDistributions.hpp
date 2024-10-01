@@ -7,18 +7,17 @@
  */
 auto angularDistributions() const {
 
-  auto lift = ranges::cpp20::views::transform( []( const auto& element ) -> Variant {
-
-    return std::cref( element );
-  } );
-
   return std::visit(
            tools::overload{
                [] ( const Isotropic& ) -> VariantRange
-                  { return ranges::cpp20::views::empty<Variant>; },
+                  { using namespace njoy::tools;
+                    return std20::views::empty<Variant>; },
                [] ( const MixedDistributions& distributions ) -> VariantRange
                   { return distributions.angularDistributions(); },
                [&] ( const auto& distributions ) -> VariantRange
-                   { return distributions.angularDistributions() | lift; } },
+                   { using namespace njoy::tools;
+                     return distributions.angularDistributions()
+                            | std20::views::transform( [] ( auto&& element ) -> Variant
+                                                          { return std::cref( element ); } ); } },
            this->distributions_ );
 }

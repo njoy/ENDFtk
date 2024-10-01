@@ -146,36 +146,36 @@ void verifyChunk( const MixedDistributions& chunk ) {
   CHECK( 2 == chunk.numberInterpolationRegions() );
   CHECK( 4 == chunk.NE() );
   CHECK( 4 == chunk.numberIncidentEnergies() );
-//  CHECK( 2 == chunk.INT().size() );
-//  CHECK( 2 == chunk.NBT().size() );
-//  CHECK( 1 == chunk.INT()[0] );
-//  CHECK( 5 == chunk.INT()[1] );
-//  CHECK( 2 == chunk.NBT()[0] );
-//  CHECK( 4 == chunk.NBT()[1] );
-//  CHECK( 2 == chunk.interpolants().size() );
-//  CHECK( 2 == chunk.boundaries().size() );
-//  CHECK( 1 == chunk.interpolants()[0] );
-//  CHECK( 5 == chunk.interpolants()[1] );
-//  CHECK( 2 == chunk.boundaries()[0] );
-//  CHECK( 4 == chunk.boundaries()[1] );
-//
-//  auto distributions = chunk.angularDistributions();
-//
-//  CHECK( 0 == distributions[0].index() );
-//  CHECK( 0 == distributions[1].index() );
-//  CHECK( 1 == distributions[2].index() );
-//  CHECK( 1 == distributions[3].index() );
-//
-//  auto getE = [] ( const auto& value ) { return value.get().E(); };
-//  auto getIE = [] ( const auto& value ) { return value.get().incidentEnergy(); };
-//  CHECK_THAT( 1e-5, WithinRel( std::visit( getE, distributions[0] ) ) );
-//  CHECK_THAT( 1e+6, WithinRel( std::visit( getE, distributions[1] ) ) );
-//  CHECK_THAT( 1e+6, WithinRel( std::visit( getE, distributions[2] ) ) );
-//  CHECK_THAT( 2e+7, WithinRel( std::visit( getE, distributions[3] ) ) );
-//  CHECK_THAT( 1e-5, WithinRel( std::visit( getIE, distributions[0] ) ) );
-//  CHECK_THAT( 1e+6, WithinRel( std::visit( getIE, distributions[1] ) ) );
-//  CHECK_THAT( 1e+6, WithinRel( std::visit( getIE, distributions[2] ) ) );
-//  CHECK_THAT( 2e+7, WithinRel( std::visit( getIE, distributions[3] ) ) );
+  CHECK( 2 == chunk.INT().size() );
+  CHECK( 2 == chunk.NBT().size() );
+  CHECK( 1 == chunk.INT()[0] );
+  CHECK( 5 == chunk.INT()[1] );
+  CHECK( 2 == chunk.NBT()[0] );
+  CHECK( 4 == chunk.NBT()[1] );
+  CHECK( 2 == chunk.interpolants().size() );
+  CHECK( 2 == chunk.boundaries().size() );
+  CHECK( 1 == chunk.interpolants()[0] );
+  CHECK( 5 == chunk.interpolants()[1] );
+  CHECK( 2 == chunk.boundaries()[0] );
+  CHECK( 4 == chunk.boundaries()[1] );
+
+  auto distributions = chunk.angularDistributions();
+
+  CHECK( 0 == distributions[0].index() );
+  CHECK( 0 == distributions[1].index() );
+  CHECK( 1 == distributions[2].index() );
+  CHECK( 1 == distributions[3].index() );
+
+  auto getE = [] ( const auto& value ) { return value.get().E(); };
+  auto getIE = [] ( const auto& value ) { return value.get().incidentEnergy(); };
+  CHECK_THAT( 1e-5, WithinRel( std::visit( getE, distributions[0] ) ) );
+  CHECK_THAT( 1e+6, WithinRel( std::visit( getE, distributions[1] ) ) );
+  CHECK_THAT( 1e+6, WithinRel( std::visit( getE, distributions[2] ) ) );
+  CHECK_THAT( 2e+7, WithinRel( std::visit( getE, distributions[3] ) ) );
+  CHECK_THAT( 1e-5, WithinRel( std::visit( getIE, distributions[0] ) ) );
+  CHECK_THAT( 1e+6, WithinRel( std::visit( getIE, distributions[1] ) ) );
+  CHECK_THAT( 1e+6, WithinRel( std::visit( getIE, distributions[2] ) ) );
+  CHECK_THAT( 2e+7, WithinRel( std::visit( getIE, distributions[3] ) ) );
 
   CHECK( 2 == chunk.legendre().NE() );
   CHECK( 2 == chunk.legendre().numberIncidentEnergies() );

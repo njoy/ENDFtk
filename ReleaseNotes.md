@@ -1,9 +1,6 @@
 # Release Notes&mdash;ENDFtk
 Given here are some release notes for ENDFtk.
 
-NOTES FOR range-v3 REMOVAL:
-  - look for a solution on the angularDistributions function in MF4 (commented out for now)
-
 ## [ENDFtk v1.1.1](https://github.com/njoy/ENDFtk/pull/xxx)
 This update makes the following changes on interface functions:
   - The regions() and pairs() interface functions on the TAB1 record interface functions have been removed. The removal of these interface functions has no impact on the Python interface as these interface functions were not included on the Python side. Miscellaneous documentation updates were made as well.

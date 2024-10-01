@@ -1,4 +1,4 @@
-/** 
+/**
  *  @brief Constructor
  *
  *  @param[in] boundaries      the interpolation range boundaries
@@ -11,7 +11,7 @@ LegendreDistributions( std::vector< long >&& boundaries,
   AngularDistributions( std::move( interpolants ), std::move( boundaries ),
                         std::move( distributions ) ) {}
 
-/** 
+/**
  *  @brief Constructor (from a buffer)
  *
  *  @tparam Iterator        a buffer iterator
