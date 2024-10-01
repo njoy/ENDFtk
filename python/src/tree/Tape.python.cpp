@@ -35,7 +35,7 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
 
       return std::ref( self.MAT( mat ).front() );
     }
-    return MaterialRange( self.MAT( mat ).begin(), self.MAT( mat ).end() );
+    return self.MAT( mat );
   };
 
   // create the tree component
@@ -124,6 +124,7 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
     "MAT",
     getMaterial,
     python::arg( "mat" ),
+    "Return the material(s) with the requested MAT number\n\n"
     "This function returns either a single material (if only a single material\n"
     "is present) or a sequence of materials (if more than one material is\n"
     "present) since a tape can contain multiple instances of the same material\n"
@@ -138,6 +139,7 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
     "material",
     getMaterial,
     python::arg( "mat" ),
+    "Return the material(s) with the requested MAT number\n\n"
     "This function returns either a single material (if only a single material\n"
     "is present) or a sequence of materials (if more than one material is\n"
     "present) since a tape can contain multiple instances of the same material\n"
