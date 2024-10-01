@@ -247,10 +247,10 @@ class Test_ENDFtk_Tree_Tape( unittest.TestCase ) :
             material = materials.front()
             verify_material( self, material )
 
-            material = tape.MAT( 125 ).front()
+            material = tape.MAT( 125 )
             verify_material( self, material )
 
-            material = tape.material( 125 ).front()
+            material = tape.material( 125 )
             verify_material( self, material )
 
             copy = Material( material )
