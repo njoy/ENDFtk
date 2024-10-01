@@ -12,6 +12,7 @@ template< typename OutputIterator >
 void print( OutputIterator& it, int MAT, int MF, int MT ) const {
 
   std::vector< double > values;
+  values.reserve( 18 * ( this->order() + 1 ) );
   for ( std::size_t i = 0; i < this->order() + 1; ++i ) {
 
     for ( std::size_t j = 0; j < 9; ++j ) {
