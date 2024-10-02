@@ -94,8 +94,8 @@ public:
    */
   auto GX() const {
 
-    //! @todo the range-v3 implementation used zip_transform on GT(), GN(), GG() and GF()
-    //!       but this did not work with the tools implementation (const issues)
+    // note: the range-v3 implementation used zip_transform on GT(), GN(), GG() and GF()
+    //       but this did not work with the tools implementation (const issues)
     using namespace njoy::tools;
     return BreitWignerReichMooreLValueBase::resonances()
                | std20::views::transform( [] ( auto&& array )

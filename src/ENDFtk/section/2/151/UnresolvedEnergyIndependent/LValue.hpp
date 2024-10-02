@@ -120,6 +120,7 @@ public:
    */
   auto AMUG() const {
 
+    // see note above about range-v3 removal workaround
     // using namespace njoy::tools;
     // return std20::views::repeat_n( 0.0, this->NJS() );
     using namespace njoy::tools;
@@ -136,6 +137,7 @@ public:
    */
   auto AMUF() const {
 
+    // see note above about range-v3 removal workaround
     // using namespace njoy::tools;
     // return std20::views::repeat_n( 0.0, this->NJS() );
     using namespace njoy::tools;
@@ -152,6 +154,7 @@ public:
    */
   auto AMUX() const {
 
+    // see note above about range-v3 removal workaround
     // using namespace njoy::tools;
     // return std20::views::repeat_n( 0.0, this->NJS() );
     using namespace njoy::tools;
@@ -200,6 +203,7 @@ public:
    */
   auto GF() const {
 
+    // see note above about range-v3 removal workaround
     // using namespace njoy::tools;
     // return std20::views::repeat_n( 0.0, this->NJS() );
     using namespace njoy::tools;
@@ -216,6 +220,7 @@ public:
    */
   auto GX() const {
 
+    // see note above about range-v3 removal workaround
     // using namespace njoy::tools;
     // return std20::views::repeat_n( 0.0, this->NJS() );
     using namespace njoy::tools;

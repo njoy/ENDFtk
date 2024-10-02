@@ -117,6 +117,7 @@ public:
    */
   auto RB() const {
 
+    // see note above about range-v3 removal workaround
     // using namespace njoy::tools;
     // return std23::views::zip_transform(
     //            [] ( double real, double imag ) -> std::complex< double >
