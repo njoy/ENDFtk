@@ -16,7 +16,7 @@ In addition, the following issues were corrected:
   - In MF28 MT533, the electron population was being returned as an integer value while this can be a floating point value. This has been corrected.
   - All electron subshell identifiers in MF26 MT533 are returned as an integers.
 
-A few changes were also made to remove some range-v3 code in MF1 MT451. These changes have no impact on functionality.
+The range-v3 dependency has been removed and replaced with a partial implementation of the C++20 and C++23 ranges standard (see the tools dependency release notes for more information). This change has no impact on functionality.
 
 ## [ENDFtk v1.1.0](https://github.com/njoy/ENDFtk/pull/198)
 This update adds additional interface functions to complete the human readable and ENDF speak interface for many objects:
