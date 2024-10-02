@@ -5,9 +5,7 @@
 #include <optional>
 
 // other includes
-#include "range/v3/view/all.hpp"
-#include "range/v3/view/filter.hpp"
-#include "range/v3/iterator/operations.hpp"
+#include "tools/std20/views.hpp"
 #include "ENDFtk/TapeIdentification.hpp"
 #include "ENDFtk/Material.hpp"
 
@@ -43,14 +41,19 @@ namespace ENDFtk {
     /**
      *  @brief Return the materials stored in this file
      */
-    auto materials() { return ranges::cpp20::views::all( this->materials_ ); }
+    auto materials() {
+
+      using namespace njoy::tools;
+      return this->materials_ | std20::views::all;
+    }
 
     /**
      *  @brief Return the materials stored in this file
      */
     auto materials() const {
 
-      return ranges::cpp20::views::all( this->materials_ );
+      using namespace njoy::tools;
+      return this->materials_ | std20::views::all;
     }
 
     /**
@@ -80,8 +83,9 @@ namespace ENDFtk {
      */
     auto MAT( int mat ) const {
 
+      using namespace njoy::tools;
       return this->materials_
-                 | ranges::cpp20::views::filter(
+                 | std20::views::filter(
                       [mat] ( const auto& material )
                             { return material.MAT() == mat; } );
     }
@@ -101,7 +105,8 @@ namespace ENDFtk {
      */
     bool hasMAT( int mat ) const {
 
-      return ranges::cpp20::distance( this->material( mat ) ) > 0;
+      using namespace njoy::tools;
+      return std20::distance( this->material( mat ) ) > 0;
     }
 
     /**

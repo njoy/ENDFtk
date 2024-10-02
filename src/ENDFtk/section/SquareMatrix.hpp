@@ -5,10 +5,7 @@
 
 // other includes
 #include "ENDFtk/macros.hpp"
-#include "range/v3/range/conversion.hpp"
-#include "range/v3/view/concat.hpp"
-#include "range/v3/view/drop_exactly.hpp"
-#include "range/v3/view/take_exactly.hpp"
+#include "tools/std20/views.hpp"
 #include "ENDFtk/ListRecord.hpp"
 
 namespace njoy {
@@ -84,8 +81,8 @@ public:
    */
   auto energies() const {
 
-    return ranges::views::take_exactly( ListRecord::list(),
-                                        this->NE() );
+    using namespace njoy::tools;
+    return ListRecord::list() | std20::views::take( this->NE() );
   }
 
   /**
@@ -93,8 +90,8 @@ public:
    */
   auto values() const {
 
-    return ranges::views::drop_exactly( ListRecord::list(),
-                                        this->NE() );
+    using namespace njoy::tools;
+    return ListRecord::list() | std20::views::drop( this->NE() );
   }
 
   using ListRecord::NC;

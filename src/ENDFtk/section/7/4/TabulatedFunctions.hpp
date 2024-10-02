@@ -56,9 +56,9 @@ public:
    */
   auto B() const {
 
-    return this->data_.records()
-             | ranges::cpp20::views::transform( [] ( const auto& record )
-                                                   { return record.beta(); } );
+    using namespace njoy::tools;
+    return this->data_.records() | std20::views::transform( [] ( const auto& record )
+                                                               { return record.beta(); } );
   }
 
   /**

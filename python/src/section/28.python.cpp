@@ -5,7 +5,6 @@
 // local includes
 #include "ENDFtk/section/28.hpp"
 #include "definitions.hpp"
-#include "views.hpp"
 
 namespace mf28 {
 

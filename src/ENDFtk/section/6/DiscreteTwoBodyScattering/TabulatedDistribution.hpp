@@ -18,6 +18,15 @@ class ENDFTK_PYTHON_EXPORT TabulatedDistribution : protected ListRecord {
   #include "ENDFtk/section/6/DiscreteTwoBodyScattering/TabulatedDistribution/src/verifySize.hpp"
   #include "ENDFtk/section/6/DiscreteTwoBodyScattering/TabulatedDistribution/src/generateList.hpp"
 
+  /* workaround for the removal of range-v3 */
+
+  // using std20::views::single in C++ works but causes issues on the Python side
+  // std::array< long, 1 > leads to assertion failure in Apple clang 14.5 so we
+  // are using vectors of one element instead
+  std::vector< long > interpolants_;
+  std::vector< long > boundaries_;
+  #include "ENDFtk/section/6/DiscreteTwoBodyScattering/TabulatedDistribution/src/generateArrays.hpp"
+
 public:
 
   /* constructor */
@@ -62,7 +71,8 @@ public:
    */
   auto MU() const {
 
-    return ListRecord::list() | ranges::views::stride( 2 );
+    using namespace njoy::tools;
+    return ListRecord::list() | std23::views::stride( 2 );
   }
 
   /**
@@ -78,8 +88,8 @@ public:
    */
   auto F() const {
 
-    return ranges::views::drop_exactly( ListRecord::list(), 1 )
-             | ranges::views::stride( 2 );
+    using namespace njoy::tools;
+    return ListRecord::list() | std20::views::drop( 1 ) | std23::views::stride( 2 );
   }
 
   /**
@@ -105,7 +115,8 @@ public:
    */
   auto INT() const {
 
-    return ranges::cpp20::views::single( this->LANG() - 10 );
+    using namespace njoy::tools;
+    return std20::views::all( this->interpolants_ );
   }
 
   /**
@@ -118,7 +129,8 @@ public:
    */
   auto NBT() const {
 
-    return ranges::cpp20::views::single( this->numberCosineValues() );
+    using namespace njoy::tools;
+    return std20::views::all( this->boundaries_ );
   }
 
   /**

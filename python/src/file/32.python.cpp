@@ -5,7 +5,7 @@
 // local includes
 #include "ENDFtk/file/32.hpp"
 #include "definitions.hpp"
-#include "views.hpp"
+#include "tools/views/views-python.hpp"
 
 // namespace aliases
 namespace python = pybind11;

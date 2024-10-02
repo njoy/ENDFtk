@@ -5,7 +5,7 @@
  *
  *  See ENDF102, section 2.2.1.1 for more information.
  */
-class ENDFTK_PYTHON_EXPORT BreitWignerLValue : 
+class ENDFTK_PYTHON_EXPORT BreitWignerLValue :
   protected BreitWignerReichMooreLValueBase {
 
 public:
@@ -94,10 +94,12 @@ public:
    */
   auto GX() const {
 
-    return ranges::views::zip_with(
-             [] ( double gt, double gn, double gg, double gf )
-                { return gt - gn - gg - gf; },
-             this->GT(), this->GN(), this->GG(), this->GF() );
+    // note: the range-v3 implementation used zip_transform on GT(), GN(), GG() and GF()
+    //       but this did not work with the tools implementation (const issues)
+    using namespace njoy::tools;
+    return BreitWignerReichMooreLValueBase::resonances()
+               | std20::views::transform( [] ( auto&& array )
+                                             { return array[2] - array[3] - array[4] - array[5]; });
   }
 
   /**
@@ -110,9 +112,10 @@ public:
    */
   auto resonances() const {
 
+    using namespace njoy::tools;
     using Chunk = decltype( BreitWignerReichMooreLValueBase::resonances()[0] );
     return BreitWignerReichMooreLValueBase::resonances()
-             | ranges::cpp20::views::transform(
+             | std20::views::transform(
                  [] ( Chunk&& chunk ) -> Resonance< Chunk >
                     { return { std::move( chunk ) }; } );
   }

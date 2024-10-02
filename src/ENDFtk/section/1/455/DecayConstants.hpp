@@ -43,7 +43,8 @@ public:
    */
   auto lambdas() const {
 
-    return ListRecord::list() | ranges::views::stride( 2 );
+    using namespace njoy::tools;
+    return ListRecord::list() | std23::views::stride( 2 );
   }
 
   /**
@@ -59,8 +60,9 @@ public:
    */
   auto alphas() const {
 
-    return ListRecord::list() | ranges::views::drop_exactly( 1 )
-                              | ranges::views::stride( 2 );
+    using namespace njoy::tools;
+    return ListRecord::list() | std20::views::drop( 1 )
+                              | std23::views::stride( 2 );
   }
 
   /**

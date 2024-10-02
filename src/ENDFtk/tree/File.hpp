@@ -5,7 +5,7 @@
 #include <list>
 
 // other includes
-#include "range/v3/view/all.hpp"
+#include "tools/std20/views.hpp"
 #include "ENDFtk/file/Type.hpp"
 #include "ENDFtk/tree/Section.hpp"
 #include "ENDFtk/tree/toSection.hpp"
@@ -65,7 +65,8 @@ namespace tree {
      */
     auto sectionNumbers() const {
 
-      return this->sections_ | ranges::cpp20::views::transform(
+      using namespace njoy::tools;
+      return this->sections_ | std20::views::transform(
                                    [] ( auto&& section )
                                       { return section.sectionNumber(); } );
     }
@@ -110,7 +111,8 @@ namespace tree {
      */
     auto sections() const {
 
-      return this->sections_ | ranges::cpp20::views::all;
+      using namespace njoy::tools;
+      return std20::views::all( this->sections_ );
     }
 
     /**
@@ -118,7 +120,8 @@ namespace tree {
      */
     auto sections() {
 
-      return this->sections_ | ranges::cpp20::views::all;
+      using namespace njoy::tools;
+      return std20::views::all( this->sections_ );
     }
 
     /**
@@ -142,7 +145,7 @@ namespace tree {
      */
     auto begin() {
 
-      return this->sections().end();
+      return this->sections().begin();
     }
 
     /**

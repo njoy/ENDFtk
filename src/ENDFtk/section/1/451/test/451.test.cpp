@@ -8,7 +8,7 @@ using Catch::Matchers::WithinRel;
 
 // other includes
 #include "ENDFtk/tree/Section.hpp"
-#include "range/v3/algorithm/equal.hpp"
+#include "tools/std20/algorithm.hpp"
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
@@ -246,7 +246,7 @@ void verifyChunk( const section::Type< 1, 451 >& chunk ) {
   CHECK( 21 == chunk.LDRV() );
   CHECK( 21 == chunk.derivedMaterial() );
   CHECK( 9 == chunk.NWD() );
-  CHECK( ranges::cpp20::equal( description(), chunk.description() ) );
+  CHECK( njoy::tools::std20::ranges::equal( description(), chunk.description() ) );
 
   auto entries = index();
   CHECK( entries.size() == chunk.NXC() );

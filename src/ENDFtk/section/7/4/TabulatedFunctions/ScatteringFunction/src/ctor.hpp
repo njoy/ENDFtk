@@ -1,4 +1,5 @@
 private:
+
 /**
  *  @brief Private intermediate constructor
  *
@@ -9,16 +10,30 @@ ScatteringFunction( TabulationRecord&& alphas,
                     std::vector< ListRecord >&& temperatures ) :
   alphas_( std::move( alphas ) ), temperatures_( std::move( temperatures ) ) {
 
+  this->generateSandT();
   if ( this->NT() != 1 ) {
     verifyBetaValues( this->beta(),
                       this->temperatures_ |
-                          ranges::cpp20::views::transform(
+                          njoy::tools::std20::views::transform(
                               [] ( const auto& v )
                                  { return v.C2(); } ) );
   }
 }
 
-  public:
+public:
+
+ScatteringFunction( const ScatteringFunction& f ) :
+  alphas_( f.alphas_ ), temperatures_( f.temperatures_ ) {
+
+  this->generateSandT();
+}
+
+ScatteringFunction( ScatteringFunction&& f ) :
+  alphas_( std::move( f.alphas_ ) ), temperatures_( std::move( f.temperatures_ ) ) {
+
+  this->generateSandT();
+}
+
 /**
  *  @brief Constructor (multiple temperatures)
  *
@@ -123,12 +138,34 @@ ScatteringFunction( Iterator& begin,
                     int MAT,
                     int MF,
                     int MT )
-  try :ScatteringFunction( TabulationRecord( begin, end, lineNumber,
-                                             MAT, MF, MT ),
-                           begin, end, lineNumber, MAT, MF, MT ) {}
+  try : ScatteringFunction( TabulationRecord( begin, end, lineNumber,
+                                              MAT, MF, MT ),
+                            begin, end, lineNumber, MAT, MF, MT ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while constructing S(a,b) data for a given "
                "beta value" );
     throw;
   }
+
+ScatteringFunction& operator=( const ScatteringFunction& base ) {
+
+  if ( this != &base ) {
+
+    this->alphas_ = base.alphas_;
+    this->temperatures_ = base.temperatures_;
+    this->generateSandT();
+  }
+  return *this;
+}
+
+ScatteringFunction& operator=( ScatteringFunction&& base ) {
+
+  if ( this != &base ) {
+
+    this->alphas_ = std::move( base.alphas_ );
+    this->temperatures_ = std::move( base.temperatures_ );
+    this->generateSandT();
+  }
+  return *this;
+}

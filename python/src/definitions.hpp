@@ -8,7 +8,7 @@
 // other includes
 #include "print.hpp"
 #include "read.hpp"
-#include "views.hpp"
+#include "tools/views/views-python.hpp"
 #include "ENDFtk/tree/toSection.hpp"
 #include "ENDFtk/tree/toFile.hpp"
 

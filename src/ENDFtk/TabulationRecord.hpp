@@ -6,7 +6,7 @@
 
 // other includes
 #include "tools/Log.hpp"
-#include "range/v3/view/all.hpp"
+#include "tools/std20/views.hpp"
 #include "ENDFtk/record.hpp"
 
 namespace njoy {
@@ -63,7 +63,8 @@ namespace ENDFtk {
      */
     auto x() const {
 
-      return ranges::cpp20::views::all( this->xValues );
+      using namespace njoy::tools;
+      return std20::views::all( this->xValues );
     }
 
     /**
@@ -71,7 +72,8 @@ namespace ENDFtk {
      */
     auto y() const {
 
-      return ranges::cpp20::views::all( this->yValues );
+      using namespace njoy::tools;
+      return std20::views::all( this->yValues );
     }
 
     using InterpolationBase::INT;

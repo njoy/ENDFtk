@@ -5,7 +5,7 @@
 #include <vector>
 
 // other includes
-#include "range/v3/view/all.hpp"
+#include "tools/std20/views.hpp"
 #include "ENDFtk/record/Integer.hpp"
 #include "ENDFtk/record/Zipper.hpp"
 
@@ -38,7 +38,11 @@ namespace record {
 
     unsigned int J() const { return this->j_; }
 
-    auto K() const { return ranges::cpp20::views::all( this->k_ ); }
+    auto K() const {
+
+      using namespace njoy::tools;
+      return std20::views::all( this->k_ );
+    }
 
     constexpr long NC() { return 1; }
 

@@ -4,17 +4,8 @@
 // system includes
 
 // other includes
-#include "range/v3/range/conversion.hpp"
-#include "range/v3/view/all.hpp"
-#include "range/v3/view/chunk.hpp"
-#include "range/v3/view/concat.hpp"
-#include "range/v3/view/drop_exactly.hpp"
-#include "range/v3/view/join.hpp"
-#include "range/v3/view/single.hpp"
-#include "range/v3/view/stride.hpp"
-#include "range/v3/view/tail.hpp"
-#include "range/v3/view/zip.hpp"
-#include "range/v3/view/transform.hpp"
+#include "tools/std20/views.hpp"
+#include "tools/std23/views.hpp"
 #include "ENDFtk/macros.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
@@ -119,7 +110,8 @@ namespace section {
      */
     auto reactionProducts() const {
 
-      return ranges::cpp20::views::all( this->products_ );
+      using namespace njoy::tools;
+      return std20::views::all( this->products_ );
     }
 
     #include "ENDFtk/section/26/src/NC.hpp"

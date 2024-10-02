@@ -18,6 +18,14 @@ class ENDFTK_PYTHON_EXPORT TabulatedBackgroundRMatrix :
   #include "ENDFtk/section/2/151/RMatrixLimited/TabulatedBackgroundRMatrix/src/verify.hpp"
   #include "ENDFtk/section/2/151/RMatrixLimited/TabulatedBackgroundRMatrix/src/verifyLBK.hpp"
 
+  /* workaround for the removal of range-v3 */
+
+  // the range-v3 implementation used zip_transform on RBR() and RBI() but the
+  // replacement capability does not work the way it should so we generate a vector
+  // at construction time instead
+  std::vector< std::complex< double > > complex_;
+  #include "ENDFtk/section/2/151/RMatrixLimited/TabulatedBackgroundRMatrix/src/generateComplexNumbers.hpp"
+
 public:
 
   /* constructor */
@@ -109,11 +117,15 @@ public:
    */
   auto RB() const {
 
-    return ranges::views::zip_with(
-               [] ( double real, double imag ) -> std::complex< double >
-                  { return { real, imag }; },
-               this->real_.y(),
-               this->imaginary_.y() );
+    // see note above about range-v3 removal workaround
+    // using namespace njoy::tools;
+    // return std23::views::zip_transform(
+    //            [] ( double real, double imag ) -> std::complex< double >
+    //               { return { real, imag }; },
+    //            this->real_.y(),
+    //            this->imaginary_.y() );
+    using namespace njoy::tools;
+    return this->complex_ | std20::views::all;
   }
 
   /**

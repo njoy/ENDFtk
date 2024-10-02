@@ -55,9 +55,10 @@ public:
   /**
    *  @brief Return the data for each of the J values
    */
-  auto jValues() const { 
+  auto jValues() const {
 
-    return ranges::cpp20::views::all( this->jvalues_ );
+    using namespace njoy::tools;
+    return std20::views::all( this->jvalues_ );
   }
 
   /**

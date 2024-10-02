@@ -4,7 +4,6 @@
 #include <complex>
 
 // other includes
-#include "views.hpp"
 
 // namespace aliases
 namespace python = pybind11;
@@ -63,36 +62,14 @@ void wrapTreeTape( python::module&, python::module& );
  */
 PYBIND11_MODULE( ENDFtk, module ) {
 
+  python::module::import( "tools" );
+
   // create the views submodule
   python::module viewmodule = module.def_submodule(
 
     "sequence",
     "sequence - ENDF sequences (internal use only)"
   );
-
-  // wrap some basic recurring views
-  // none of these are supposed to be created directly by the user
-  wrapBasicBidirectionalAnyViewOf< int >(
-      viewmodule,
-      "any_view< int, bidirectional >" );
-  wrapBasicRandomAccessAnyViewOf< double >(
-      viewmodule,
-      "any_view< double, random_access >" );
-  wrapBasicRandomAccessAnyViewOf< long >(
-      viewmodule,
-      "any_view< long, random_access >" );
-  wrapBasicRandomAccessAnyViewOf< int >(
-      viewmodule,
-      "any_view< int, random_access >" );
-  wrapBasicRandomAccessAnyViewOf< BasicRandomAccessAnyView< double > >(
-      viewmodule,
-      "any_view< any_view< double, random_access >, random_access >" );
-  wrapBasicRandomAccessAnyViewOf< BasicRandomAccessAnyView< BasicRandomAccessAnyView< double > > >(
-      viewmodule,
-      "any_view< any_view< any_view< double, random_access >, random_access >, random_access >" );
-  wrapBasicRandomAccessAnyViewOf< std::complex< double > >(
-      viewmodule,
-      "any_view< std::complex< double , random_access >" );
 
   // wrap records
   wrapControlRecord( module, viewmodule );

@@ -572,7 +572,7 @@ class Test_ENDFtk_MF1_MT458_Section( unittest.TestCase ) :
         tape = Tape.from_string( self.valid_TPID + self.chunk_thermal +
                                  self.valid_SEND + self.valid_FEND +
                                  self.valid_MEND + self.valid_TEND )
-        chunk = tape.material( 9228 ).file( 1 ).section( 458 ).parse()
+        chunk = tape.materials.front().file( 1 ).section( 458 ).parse()
 
         verify_chunk_thermal( self, chunk )
 
@@ -605,7 +605,7 @@ class Test_ENDFtk_MF1_MT458_Section( unittest.TestCase ) :
         tape = Tape.from_string( self.valid_TPID + self.chunk_polynomial +
                                  self.valid_SEND + self.valid_FEND +
                                  self.valid_MEND + self.valid_TEND )
-        chunk = tape.material( 9228 ).file( 1 ).section( 458 ).parse()
+        chunk = tape.materials.front().file( 1 ).section( 458 ).parse()
 
         verify_chunk_polynomial( self, chunk )
 
@@ -647,7 +647,7 @@ class Test_ENDFtk_MF1_MT458_Section( unittest.TestCase ) :
         tape = Tape.from_string( self.valid_TPID + self.chunk_tabulated +
                                  self.valid_SEND + self.valid_FEND +
                                  self.valid_MEND + self.valid_TEND )
-        chunk = tape.material( 9228 ).file( 1 ).section( 458 ).parse()
+        chunk = tape.materials.front().file( 1 ).section( 458 ).parse()
 
         verify_chunk_tabulated( self, chunk )
 

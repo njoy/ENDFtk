@@ -12,7 +12,7 @@ function( add_python_test name source )
             WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python )
   set_tests_properties( ${test_name}
                         PROPERTIES ENVIRONMENT
-                        PYTHONPATH=${ENDFtk_PYTHONPATH}:$ENV{PYTHONPATH})
+                        PYTHONPATH=${tools_PYTHONPATH}:${ENDFtk_PYTHONPATH}:$ENV{PYTHONPATH})
 
 endfunction()
 
@@ -21,6 +21,9 @@ endfunction()
 #######################################################################
 
 message( STATUS "Adding ENDFtk Python unit testing" )
+
+# missing tests
+#add_python_test( TextRecord          Test_ENDFtk_TextRecord.py )
 
 add_python_test( ControlRecord       Test_ENDFtk_ControlRecord.py )
 add_python_test( DirectoryRecord     Test_ENDFtk_DirectoryRecord.py )

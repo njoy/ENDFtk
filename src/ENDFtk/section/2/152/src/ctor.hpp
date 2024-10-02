@@ -9,6 +9,7 @@ Type( int zaid, double awr, bool lssf, int interpolation,
   data_( std::move( list ) ) {
 
     verifySize( this->NREAC(), this->NSIGZ(), this->NUNR(), this->NW() );
+    this->generateArrays();
   }
 
 public:
@@ -125,3 +126,45 @@ Type ( const HEAD& head,
                MAT );
     throw e;
   }
+
+Type( const Type& base ) :
+  BaseWithoutMT( base.ZA(), base.AWR() ),
+  lssf_( base.lssf_ ), interpolation_( base.interpolation_ ),
+  data_( base.data_ ) {
+
+  this->generateArrays();
+}
+
+Type( Type&& base ) :
+  BaseWithoutMT( base.ZA(), base.AWR() ),
+  lssf_( base.lssf_ ), interpolation_( base.interpolation_ ),
+  data_( std::move( base.data_ ) ) {
+
+  this->generateArrays();
+}
+
+Type& operator=( const Type& base ) {
+
+  if ( this != &base ) {
+
+    BaseWithoutMT::operator=( base );
+    this->lssf_ = base.lssf_;
+    this->interpolation_ = base.interpolation_;
+    this->data_ = base.data_;
+    this->generateArrays();
+  }
+  return *this;
+}
+
+Type& operator=( Type&& base ) {
+
+  if ( this != &base ) {
+
+    BaseWithoutMT::operator=( std::move( base ) );
+    this->lssf_ = base.lssf_;
+    this->interpolation_ = base.interpolation_;
+    this->data_ = std::move( base.data_ );
+    this->generateArrays();
+  }
+  return *this;
+}

@@ -4,7 +4,7 @@
 // system includes
 
 // other includes
-#include "range/v3/range/conversion.hpp"
+#include "tools/std20/views.hpp"
 #include "ENDFtk/macros.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/readSequence.hpp"
@@ -16,7 +16,7 @@ namespace ENDFtk {
 namespace section {
 
   template<>
-  class ENDFTK_PYTHON_EXPORT Type< 8, 454 > : 
+  class ENDFTK_PYTHON_EXPORT Type< 8, 454 > :
     protected BaseWithoutMT< Type< 8, 454 > > {
 
     friend BaseWithoutMT< Type< 8, 454 > >;
@@ -47,7 +47,11 @@ namespace section {
     /**
      *  @brief Return the fission yield data, one for each incident energy
      */
-    auto yields() const { return ranges::cpp20::views::all( this->data_ ); }
+    auto yields() const {
+
+      using namespace njoy::tools;
+      return std20::views::all( this->data_ );
+    }
 
     /**
      *  @brief Return the number of incident energy values
@@ -64,9 +68,10 @@ namespace section {
      */
     auto E() const {
 
+      using namespace njoy::tools;
       return this->yields()
-                 | ranges::cpp20::views::transform( [] ( const auto& entry )
-                                                       { return entry.E(); } );
+                 | std20::views::transform( [] ( const auto& entry )
+                                               { return entry.E(); } );
     }
 
     /**

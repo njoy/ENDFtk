@@ -5,7 +5,6 @@
 // local includes
 #include "ENDFtk/section/8/457.hpp"
 #include "definitions.hpp"
-#include "views.hpp"
 
 // namespace aliases
 namespace python = pybind11;
@@ -95,7 +94,8 @@ void wrapDecayModes( python::module& module, python::module& ) {
 
     "decay_modes",
     [] ( const Component& self ) -> std::vector< DecayMode >
-       { return ranges::to< std::vector< DecayMode > >( self.decayModes() ); },
+       { auto modes = self.decayModes();
+         return { modes.begin(), modes.end() }; },
     "The decay mode information"
   );
 

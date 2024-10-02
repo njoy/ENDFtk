@@ -15,21 +15,20 @@ verifySecondaryTemperatures( const TypeArray& types,
 
   if ( types.size() > 0 ) {
 
-    auto needTemperature =
-      types | ranges::cpp20::views::transform( [] ( double value )
-                                                  { return value == 0.0; } );
+    using namespace njoy::tools;
+    auto needTemperature = types | std20::views::transform( [] ( double value )
+                                                               { return value == 0.0; } );
 
-    auto haveTemperature =
-      temperatures | ranges::cpp20::views::transform( [] ( auto&& value )
-                                                         { return bool( value ); } );
+    auto haveTemperature = temperatures | std20::views::transform( [] ( auto&& value )
+                                                                      { return bool( value ); } );
 
-    auto verify =
-      ranges::views::zip_with( std::equal_to<>{},
-                               needTemperature, haveTemperature );
+    std::vector< bool > verify;
+    std::transform( needTemperature.begin(), needTemperature.end(), haveTemperature.begin(),
+                    std::back_inserter( verify ), std::equal_to<>{} );
 
-    auto iter = ranges::cpp20::find( verify, false );
+    auto iter = std20::find( verify, false );
 
-    if ( iter != ranges::cpp20::end( verify ) ) {
+    if ( iter != verify.end() ) {
 
       Log::error( "Available effective temperature data for secondary "
                   "scatterers inconsistent with the thermal scattering "
@@ -37,7 +36,7 @@ verifySecondaryTemperatures( const TypeArray& types,
       Log::info( "When B(7), B(13) or B(19) is zero, an effective temperature "
                  "must be given" );
       Log::info( "Encountered issue for the secondary scatterer with index={}",
-                 ranges::cpp20::distance( ranges::cpp20::begin( verify ), iter ) );
+                 std20::distance( std20::begin( verify ), iter ) );
       throw std::exception();
     }
   }

@@ -13,8 +13,9 @@ class ENDFTK_PYTHON_EXPORT LimitedBreitWignerLValue : protected ListRecord {
 
   auto column( unsigned int i ) const {
 
-    return ListRecord::list() | ranges::views::drop_exactly( i )
-                              | ranges::views::stride( 18 );
+    using namespace njoy::tools;
+    return ListRecord::list() | std20::views::drop( i )
+                              | std23::views::stride( 18 );
   }
 
 public:
@@ -233,9 +234,10 @@ public:
    */
   auto resonances() const {
 
-    using Chunk = decltype( ( ListRecord::list() | ranges::views::chunk(18) )[0] );
-    return ListRecord::list() | ranges::views::chunk(18)
-             | ranges::cpp20::views::transform(
+    using namespace njoy::tools;
+    using Chunk = decltype( ( ListRecord::list() | std23::views::chunk( 18 ) )[0] );
+    return ListRecord::list() | std23::views::chunk( 18 )
+             | std20::views::transform(
                  [] ( Chunk&& chunk ) -> Resonance< Chunk >
                     { return { std::move( chunk ) }; } );
   }

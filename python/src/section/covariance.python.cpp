@@ -12,7 +12,7 @@
 #include "ENDFtk/section/DerivedCovariance.hpp"
 #include "ENDFtk/section/ReactionBlock.hpp"
 #include "definitions.hpp"
-#include "views.hpp"
+#include "tools/views/views-python.hpp"
 
 // declarations - covariance components
 void wrapCovariancePairs( python::module&, python::module& );

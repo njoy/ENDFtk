@@ -13,8 +13,9 @@ class BreitWignerReichMooreLValueBase : protected ListRecord {
 
   auto column( unsigned int i ) const {
 
-    return ListRecord::list() | ranges::views::drop_exactly( i )
-                              | ranges::views::stride( 6 );
+    using namespace njoy::tools;
+    return ListRecord::list() | std20::views::drop( i )
+                              | std23::views::stride( 6 );
   }
 
 protected:
@@ -47,7 +48,8 @@ protected:
    */
   auto resonances() const {
 
-    return ListRecord::list() | ranges::views::chunk(6);
+    using namespace njoy::tools;
+    return ListRecord::list() | std23::views::chunk(6);
   }
 
 public:

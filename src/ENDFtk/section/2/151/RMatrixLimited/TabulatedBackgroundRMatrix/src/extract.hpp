@@ -2,18 +2,20 @@ template < typename Range >
 static std::vector< double >
 extractReal( const Range& values ) {
 
-  return ranges::to< std::vector< double > >(
-             values | ranges::cpp20::views::transform(
+  using namespace njoy::tools;
+  auto reals = values | std20::views::transform(
                           [] ( const auto& complex )
-                             { return complex.real(); } ) );
+                             { return complex.real(); } );
+  return { reals.begin(), reals.end() };
 }
 
 template < typename Range >
 static std::vector< double >
 extractImaginary( const Range& values ) {
 
-  return ranges::to< std::vector< double > >(
-             values | ranges::cpp20::views::transform(
+  using namespace njoy::tools;
+  auto imags = values | std20::views::transform(
                           [] ( const auto& complex )
-                             { return complex.imag(); } ) );
+                             { return complex.imag(); } );
+  return { imags.begin(), imags.end() };
 }

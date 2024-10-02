@@ -5,7 +5,6 @@
 // local includes
 #include "ENDFtk/DirectoryRecord.hpp"
 #include "print.hpp"
-#include "views.hpp"
 
 // namespace aliases
 namespace python = pybind11;

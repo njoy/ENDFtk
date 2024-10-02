@@ -118,7 +118,8 @@ public:
    */
   auto lValues() const {
 
-    return ranges::cpp20::views::all( this->lvalues_ );
+    using namespace njoy::tools;
+    return this->lvalues_ | std20::views::all;
   }
 
   #include "ENDFtk/section/2/151/BreitWignerReichMooreBase/src/NC.hpp"

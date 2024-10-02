@@ -51,7 +51,8 @@ public:
    */
   auto spinGroups() const {
 
-    return ranges::cpp20::views::all( this->spin_groups_ );
+    using namespace njoy::tools;
+    return std20::views::all( this->spin_groups_ );
   }
 
   #include "ENDFtk/section/32/151/CompactRMatrixLimitedUncertainties/src/NC.hpp"

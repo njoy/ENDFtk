@@ -82,7 +82,7 @@ namespace tree {
           old.ELIS(), old.STA(), old.LIS(), old.LISO(), old.NFOR(),
           old.AWI(), old.EMAX(), old.LREL(), old.NSUB(), old.NVER(),
           old.TEMP(), old.LDRV(),
-          ranges::to< std::string >( old.description() ),
+          old.description(),
           std::move( index ), old.RTOL() );
 
     // replace the section in the material

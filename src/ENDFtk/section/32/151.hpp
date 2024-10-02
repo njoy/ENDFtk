@@ -6,13 +6,8 @@
 #include <variant>
 
 // other includes
-#include "range/v3/range/conversion.hpp"
-#include "range/v3/view/chunk.hpp"
-#include "range/v3/view/concat.hpp"
-#include "range/v3/view/drop_exactly.hpp"
-#include "range/v3/view/stride.hpp"
-#include "range/v3/view/take_exactly.hpp"
-#include "range/v3/view/transform.hpp"
+#include "tools/std20/views.hpp"
+#include "tools/std23/views.hpp"
 #include "ENDFtk/macros.hpp"
 #include "ENDFtk/record.hpp"
 #include "ENDFtk/ControlRecord.hpp"
@@ -32,7 +27,7 @@ namespace section {
    *  See ENDF102, section 32.1 for more information.
    */
   template<>
-  class ENDFTK_PYTHON_EXPORT Type< 32, 151 > : 
+  class ENDFTK_PYTHON_EXPORT Type< 32, 151 > :
     protected BaseWithoutMT< Type< 32, 151 > > {
 
   public:
@@ -111,7 +106,8 @@ namespace section {
      */
     auto isotopes() const {
 
-      return ranges::cpp20::views::all( this->isotopes_ );
+      using namespace njoy::tools;
+      return std20::views::all( this->isotopes_ );
     }
 
     using BaseWithoutMT::MT;

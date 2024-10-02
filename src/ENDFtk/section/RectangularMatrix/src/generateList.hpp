@@ -3,6 +3,8 @@ generateList( std::vector< double >&& rowEnergies,
               std::vector< double >&& columnEnergies,
               std::vector< double >&& values ) {
 
+  std::vector< double > list;
+
   int NER = rowEnergies.size();
   int NEC = columnEnergies.size();
   int NV = values.size();
@@ -16,7 +18,8 @@ generateList( std::vector< double >&& rowEnergies,
     throw std::exception();
   }
 
-  return ranges::views::concat( rowEnergies, columnEnergies, values )
-    | ranges::to_vector;
-
+  list.insert( list.end(), rowEnergies.begin(), rowEnergies.end() );
+  list.insert( list.end(), columnEnergies.begin(), columnEnergies.end() );
+  list.insert( list.end(), values.begin(), values.end() );
+  return list;
 }

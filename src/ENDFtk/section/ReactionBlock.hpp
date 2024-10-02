@@ -5,8 +5,8 @@
 #include <vector>
 
 // other includes
+#include "tools/std20/views.hpp"
 #include "ENDFtk/macros.hpp"
-#include "range/v3/view/all.hpp"
 #include "ENDFtk/section/CovariancePairs.hpp"
 #include "ENDFtk/section/SquareMatrix.hpp"
 #include "ENDFtk/section/RectangularMatrix.hpp"
@@ -115,7 +115,8 @@ public:
    */
   auto derivedCovariances() const {
 
-    return ranges::cpp20::views::all( this->nc_ );
+    using namespace njoy::tools;
+    return std20::views::all( this->nc_ );
   }
 
   /**
@@ -123,7 +124,8 @@ public:
    */
   auto explicitCovariances() const {
 
-    return ranges::cpp20::views::all( this->ni_ );
+    using namespace njoy::tools;
+    return std20::views::all( this->ni_ );
   }
 
   #include "ENDFtk/section/ReactionBlock/src/NC.hpp"

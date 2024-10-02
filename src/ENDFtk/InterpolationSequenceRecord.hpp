@@ -6,7 +6,7 @@
 #include <vector>
 
 // other includes
-#include "range/v3/view/all.hpp"
+#include "tools/std20/views.hpp"
 #include "tools/Log.hpp"
 #include "ENDFtk/InterpolationRecord.hpp"
 #include "ENDFtk/readSequence.hpp"
@@ -129,7 +129,8 @@ namespace ENDFtk {
      */
     auto records() const {
 
-      return ranges::cpp20::views::all( this->sequence_ );
+      using namespace njoy::tools;
+      return std20::views::all( this->sequence_ );
     }
 
     #include "ENDFtk/InterpolationSequenceRecord/src/NC.hpp"

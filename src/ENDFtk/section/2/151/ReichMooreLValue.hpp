@@ -5,7 +5,7 @@
  *
  *  See ENDF102, section 2.2.1.2 for more information.
  */
-class ENDFTK_PYTHON_EXPORT ReichMooreLValue : 
+class ENDFTK_PYTHON_EXPORT ReichMooreLValue :
   protected BreitWignerReichMooreLValueBase {
 
 public:
@@ -84,9 +84,10 @@ public:
    */
   auto resonances() const {
 
+    using namespace njoy::tools;
     using Chunk = decltype( BreitWignerReichMooreLValueBase::resonances()[0] );
     return BreitWignerReichMooreLValueBase::resonances()
-             | ranges::cpp20::views::transform(
+             | std20::views::transform(
                  [] ( Chunk&& chunk ) -> Resonance< Chunk >
                     { return { std::move( chunk ) }; } );
   }

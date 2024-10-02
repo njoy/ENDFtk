@@ -6,11 +6,8 @@
 #include <vector>
 
 // other includes
-#include "range/v3/view/concat.hpp"
-#include "range/v3/view/transform.hpp"
-#include "range/v3/view/empty.hpp"
-#include "range/v3/view/any_view.hpp"
-#include "range/v3/view/transform.hpp"
+#include "tools/std20/views.hpp"
+#include "tools/views/AnyView.hpp"
 #include "ENDFtk/macros.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
@@ -41,6 +38,10 @@ namespace section {
     #include "ENDFtk/section/4/LegendreCoefficients.hpp"
     #include "ENDFtk/section/4/TabulatedDistribution.hpp"
 
+    using Variant =
+      std::variant< std::reference_wrapper< const LegendreCoefficients >,
+                    std::reference_wrapper< const TabulatedDistribution > >;
+
     #include "ENDFtk/section/4/Isotropic.hpp"                    // LTT=0, LI=1
     #include "ENDFtk/section/4/LegendreDistributions.hpp"        // LTT=1, LI=0
     #include "ENDFtk/section/4/TabulatedDistributions.hpp"       // LTT=2, LI=0
@@ -62,15 +63,11 @@ namespace section {
                             TabulatedDistributions,              // LTT=2, LI=0
                             MixedDistributions >;                // LTT=3, LI=0
 
-    using Variant =
-      std::variant< std::reference_wrapper< const LegendreCoefficients >,
-                    std::reference_wrapper< const TabulatedDistribution > >;
-
   private:
 
     /* type aliases */
     template < typename Element >
-    using RandomAccessAnyView = ranges::any_view< Element, ranges::category::random_access >;
+    using RandomAccessAnyView = njoy::tools::views::AnyRandomAccessView< Element >;
     using DoubleRange = RandomAccessAnyView< double >;
     using LongRange = RandomAccessAnyView< long >;
     using VariantRange = RandomAccessAnyView< Variant >;
@@ -170,7 +167,8 @@ namespace section {
       return std::visit(
                tools::overload{
                    [] ( const Isotropic& ) -> LongRange
-                      { return ranges::cpp20::views::empty< long >; },
+                      { using namespace njoy::tools;
+                        return std20::views::empty< long >; },
                    [] ( const auto& distributions ) -> LongRange
                       { return distributions.INT(); } },
                this->distributions_ );
@@ -192,7 +190,8 @@ namespace section {
       return std::visit(
                tools::overload{
                    [] ( const Isotropic& ) -> LongRange
-                      { return ranges::cpp20::views::empty< long >; },
+                      { using namespace njoy::tools;
+                        return std20::views::empty< long >; },
                    [] ( const auto& distributions ) -> LongRange
                       { return distributions.NBT(); } },
                this->distributions_ );
@@ -214,7 +213,8 @@ namespace section {
       return std::visit(
                tools::overload{
                    [] ( const Isotropic& ) -> DoubleRange
-                      { return ranges::cpp20::views::empty< double >; },
+                      { using namespace njoy::tools;
+                        return std20::views::empty< double >; },
                    [] ( const auto& distributions ) -> DoubleRange
                       { return distributions.incidentEnergies(); } },
                this->distributions_ );

@@ -6,7 +6,7 @@
 #include <variant>
 
 // other includes
-#include "range/v3/view/all.hpp"
+#include "tools/std20/views.hpp"
 #include "ENDFtk/file/1.hpp"
 #include "ENDFtk/file/2.hpp"
 #include "ENDFtk/file/3.hpp"
@@ -120,7 +120,11 @@ namespace ENDFtk {
     /**
      *  @brief Return the files stored in this material
      */
-    auto MFs() { return this->files_ | ranges::cpp20::views::all; }
+    auto MFs() {
+
+      using namespace njoy::tools;
+      return std20::views::all( this->files_ );
+    }
 
     /**
      *  @brief Return the files stored in this material
@@ -130,7 +134,11 @@ namespace ENDFtk {
     /**
      *  @brief Return the files stored in this material
      */
-    auto MFs() const { return this->files_ | ranges::cpp20::views::all; }
+    auto MFs() const {
+
+      using namespace njoy::tools;
+      return std20::views::all( this->files_ );
+    }
 
     /**
      *  @brief Return the files stored in this material

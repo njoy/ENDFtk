@@ -53,9 +53,10 @@ public:
    */
   auto jValues() const {
 
-    auto chunked = ListRecord::list() | ranges::views::chunk( 6 );
+    using namespace njoy::tools;
+    auto chunked = ListRecord::list() | std23::views::chunk( 6 );
     using Range = decltype( chunked[0] );
-    return chunked | ranges::cpp20::views::transform(
+    return chunked | std20::views::transform(
                        [] ( Range&& chunk ) -> JValue< Range >
                           { return { std::move( chunk ) }; } );
   }
@@ -65,9 +66,10 @@ public:
    */
   auto D() const {
 
+    using namespace njoy::tools;
     return this->jValues()
-             | ranges::cpp20::views::transform( [] ( const auto& jvalue )
-                                                   { return jvalue.D(); } );
+             | std20::views::transform( [] ( const auto& jvalue )
+                                           { return jvalue.D(); } );
   }
 
   /**
@@ -80,9 +82,10 @@ public:
    */
   auto AJ() const {
 
+    using namespace njoy::tools;
     return this->jValues()
-             | ranges::cpp20::views::transform( [] ( const auto& jvalue )
-                                                   { return jvalue.AJ(); } );
+             | std20::views::transform( [] ( const auto& jvalue )
+                                           { return jvalue.AJ(); } );
   }
 
   /**
@@ -95,9 +98,10 @@ public:
    */
   auto GNO() const {
 
+    using namespace njoy::tools;
     return this->jValues()
-             | ranges::cpp20::views::transform( [] ( const auto& jvalue )
-                                                   { return jvalue.GNO(); } );
+             | std20::views::transform( [] ( const auto& jvalue )
+                                           { return jvalue.GNO(); } );
   }
 
   /**
@@ -110,9 +114,10 @@ public:
    */
   auto GG() const {
 
+    using namespace njoy::tools;
     return this->jValues()
-             | ranges::cpp20::views::transform( [] ( const auto& jvalue )
-                                                   { return jvalue.GG(); } );
+             | std20::views::transform( [] ( const auto& jvalue )
+                                           { return jvalue.GG(); } );
   }
 
   /**
@@ -125,9 +130,10 @@ public:
    */
   auto GF() const {
 
+    using namespace njoy::tools;
     return this->jValues()
-             | ranges::cpp20::views::transform( [] ( const auto& jvalue )
-                                                   { return jvalue.GF(); } );
+             | std20::views::transform( [] ( const auto& jvalue )
+                                           { return jvalue.GF(); } );
   }
 
   /**
@@ -140,9 +146,10 @@ public:
    */
   auto GX() const {
 
+    using namespace njoy::tools;
     return this->jValues()
-             | ranges::cpp20::views::transform( [] ( const auto& jvalue )
-                                                   { return jvalue.GX(); } );
+             | std20::views::transform( [] ( const auto& jvalue )
+                                           { return jvalue.GX(); } );
   }
 
   /**

@@ -71,7 +71,8 @@ public:
    */
   auto EP() const {
 
-    return this->data() | ranges::views::stride( this->N2() );
+    using namespace njoy::tools;
+    return this->data() | std23::views::stride( this->N2() );
   }
 
   /**
@@ -84,8 +85,9 @@ public:
    */
   auto PP() const {
 
-    return this->data() | ranges::views::drop_exactly( 1 )
-                        | ranges::views::stride( this->N2() );
+    using namespace njoy::tools;
+    return this->data() | std20::views::drop( 1 )
+                        | std23::views::stride( this->N2() );
   }
 
   /**
@@ -93,11 +95,12 @@ public:
    */
   auto MU() const {
 
+    using namespace njoy::tools;
     return this->data()
-             | ranges::views::chunk( this->N2() )
-             | ranges::cpp20::views::transform(
+             | std23::views::chunk( this->N2() )
+             | std20::views::transform(
                    [] ( const auto& array )
-                      { return array | ranges::views::drop_exactly( 2 ); } );
+                      { return array | std20::views::drop( 2 ); } );
   }
 
   /**

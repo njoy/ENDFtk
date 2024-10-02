@@ -7,8 +7,7 @@
 #include "ENDFtk/tree/Tape.hpp"
 #include "ENDFtk/tree/Material.hpp"
 #include "ENDFtk/tree/updateDirectory.hpp"
-#include "range/v3/range/operations.hpp"
-#include "views.hpp"
+#include "tools/views/views-python.hpp"
 #include "variants.hpp"
 
 // namespace aliases

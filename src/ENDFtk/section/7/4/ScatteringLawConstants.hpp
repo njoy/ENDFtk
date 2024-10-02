@@ -18,7 +18,16 @@ class ENDFTK_PYTHON_EXPORT ScatteringLawConstants : protected ListRecord {
   #include "ENDFtk/section/7/4/ScatteringLawConstants/src/verifySize.hpp"
   #include "ENDFtk/section/7/4/ScatteringLawConstants/src/checkLLN.hpp"
 
+  /* workaround for the removal of range-v3 */
+
+  // using transform with more ranges operations in the transform causes issues
+  // on the Python side. we just generate the underlying array at construction
+  // time to solve it.
+  std::vector< double > sigma_;
+  #include "ENDFtk/section/7/4/ScatteringLawConstants/src/generateSigma.hpp"
+
 public:
+
   /* constructor */
   #include "ENDFtk/section/7/4/ScatteringLawConstants/src/ctor.hpp"
 
@@ -77,32 +86,8 @@ public:
    */
   auto MSIGMA() const {
 
-    auto indices = [] (auto NS) {
-      switch(1 + NS) {
-        case 1: {
-          static constexpr std::array< std::ptrdiff_t, 1 > indices = {{0}};
-          return ranges::make_subrange(indices.begin(), indices.end());
-        } case 2: {
-          static constexpr std::array< std::ptrdiff_t, 2 > indices = {{0, 7}};
-          return ranges::make_subrange(indices.begin(), indices.end());
-        } case 3: {
-          static constexpr std::array< std::ptrdiff_t, 3 > indices = {{0, 7, 13}};
-          return ranges::make_subrange(indices.begin(), indices.end());
-        } case 4: {
-          static constexpr std::array< std::ptrdiff_t, 4 > indices = {{0, 7, 13, 19}};
-          return ranges::make_subrange(indices.begin(), indices.end());
-        } default: {
-         #ifdef __GNUC__
-          __builtin_unreachable();
-         #endif
-         throw std::logic_error("Illegal NS");
-        }
-      }
-    };
-
-    auto element = [l = ListRecord::list()](auto index){ return l[index]; };
-
-    return indices( this->NS() ) | ranges::cpp20::views::transform( element );
+    using namespace njoy::tools;
+    return std20::views::all( this->sigma_ );
   }
 
   /**
@@ -117,9 +102,10 @@ public:
    */
   auto AWR() const {
 
+    using namespace njoy::tools;
     return ListRecord::list()
-             | ranges::views::drop_exactly( 2 )
-             | ranges::views::stride( 6 ); }
+             | std20::views::drop( 2 )
+             | std23::views::stride( 6 ); }
 
   /**
    *  @brief Return the ratio of the atomic weight to the neutron mass for each
@@ -136,9 +122,10 @@ public:
    */
   auto M() const {
 
+    using namespace njoy::tools;
     return ListRecord::list()
-             | ranges::views::drop_exactly( 5 )
-             | ranges::views::stride( 6 ); }
+             | std20::views::drop( 5 )
+             | std23::views::stride( 6 ); }
 
   /**
    *  @brief Return the number of atoms for each scattering atom type present in
@@ -155,9 +142,10 @@ public:
    */
   auto analyticalFunctionTypes() const {
 
+    using namespace njoy::tools;
     return ListRecord::list()
-             | ranges::views::drop_exactly( 6 )
-             | ranges::views::stride( 6 );
+             | std20::views::drop( 6 )
+             | std23::views::stride( 6 );
   }
 
   using ListRecord::NC;

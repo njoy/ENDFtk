@@ -7,8 +7,7 @@
 #include "ENDFtk/tree/Tape.hpp"
 #include "ENDFtk/tree/fromFile.hpp"
 #include "ENDFtk/tree/updateDirectory.hpp"
-#include "range/v3/range/operations.hpp"
-#include "views.hpp"
+#include "tools/views/views-python.hpp"
 
 // namespace aliases
 namespace python = pybind11;
@@ -28,14 +27,13 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
       viewmodule,
       "any_view< tree::Material, bidirectional >" );
 
-
   // predefined lambda
   auto getMaterial = [] ( Tape& self, int mat )
   -> std::variant< std::reference_wrapper< Material >, MaterialRange > {
 
     if ( self.numberMAT( mat ) == 1 ) {
 
-      return self.MAT( mat ).front();
+      return std::ref( self.MAT( mat ).front() );
     }
     return self.MAT( mat );
   };
@@ -125,6 +123,7 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
 
     "MAT",
     getMaterial,
+    python::arg( "mat" ),
     "Return the material(s) with the requested MAT number\n\n"
     "This function returns either a single material (if only a single material\n"
     "is present) or a sequence of materials (if more than one material is\n"
@@ -139,6 +138,7 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
 
     "material",
     getMaterial,
+    python::arg( "mat" ),
     "Return the material(s) with the requested MAT number\n\n"
     "This function returns either a single material (if only a single material\n"
     "is present) or a sequence of materials (if more than one material is\n"

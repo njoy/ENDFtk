@@ -6,7 +6,7 @@
 #include "ENDFtk/DirectoryRecord.hpp"
 #include "ENDFtk/section/1/451.hpp"
 #include "definitions.hpp"
-#include "views.hpp"
+#include "tools/views/views-python.hpp"
 
 // namespace aliases
 namespace python = pybind11;

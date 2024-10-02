@@ -8,6 +8,7 @@
 
 // convenience typedefs
 using namespace njoy::ENDFtk;
+using namespace njoy::tools;
 
 std::string chunk();
 std::string chunkMaterial125();
@@ -47,8 +48,8 @@ SCENARIO( "tree::Tape" ) {
 
         CHECK( true == tape.hasMaterial( 125 ) );
         CHECK( true == tape.hasMAT( 125 ) );
-        CHECK( 1 == ranges::distance( tape.MAT( 125 ) ) );
-        CHECK( 1 == ranges::distance( tape.MAT( 125 ) ) );
+        CHECK( 1 == std20::distance( tape.MAT( 125 ) ) );
+        CHECK( 1 == std20::distance( tape.MAT( 125 ) ) );
 
         CHECK( false == tape.hasMaterial( 128 ) );
         CHECK( false == tape.hasMAT( 128 ) );
@@ -87,8 +88,8 @@ SCENARIO( "tree::Tape" ) {
 
         CHECK( true == tape.hasMaterial( 125 ) );
         CHECK( true == tape.hasMAT( 125 ) );
-        CHECK( 2 == ranges::distance( tape.MAT( 125 ) ) );
-        CHECK( 2 == ranges::distance( tape.MAT( 125 ) ) );
+        CHECK( 2 == std20::distance( tape.MAT( 125 ) ) );
+        CHECK( 2 == std20::distance( tape.MAT( 125 ) ) );
 
         CHECK( false == tape.hasMaterial( 128 ) );
         CHECK( false == tape.hasMAT( 128 ) );
@@ -121,8 +122,8 @@ SCENARIO( "tree::Tape" ) {
 
         CHECK( true == tape.hasMaterial( 125 ) );
         CHECK( true == tape.hasMAT( 125 ) );
-        CHECK( 1 == ranges::distance( tape.MAT( 125 ) ) );
-        CHECK( 1 == ranges::distance( tape.MAT( 125 ) ) );
+        CHECK( 1 == std20::distance( tape.MAT( 125 ) ) );
+        CHECK( 1 == std20::distance( tape.MAT( 125 ) ) );
 
         CHECK( false == tape.hasMaterial( 128 ) );
         CHECK( false == tape.hasMAT( 128 ) );

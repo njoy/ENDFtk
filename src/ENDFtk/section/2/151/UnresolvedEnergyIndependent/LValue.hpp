@@ -11,6 +11,12 @@ class ENDFTK_PYTHON_EXPORT LValue : protected ListRecord {
   #include "ENDFtk/section/2/151/UnresolvedEnergyIndependent/LValue/src/verifySize.hpp"
   #include "ENDFtk/section/2/151/UnresolvedEnergyIndependent/LValue/src/generateList.hpp"
 
+  /* workaround for the removal of range-v3 */
+
+  // using std20::views::repeat in C++ works but causes issues on the Python side
+  std::vector< double > zeros_;
+  #include "ENDFtk/section/2/151/UnresolvedEnergyIndependent/LValue/src/generateZeros.hpp"
+
 public:
 
   /* constructor */
@@ -53,9 +59,10 @@ public:
    */
   auto jValues() const {
 
-    auto chunked = ListRecord::list() | ranges::views::chunk( 6 );
+    using namespace njoy::tools;
+    auto chunked = ListRecord::list() | std23::views::chunk( 6 );
     using Range = decltype( chunked[0] );
-    return chunked | ranges::cpp20::views::transform(
+    return chunked | std20::views::transform(
                        [] ( Range&& chunk ) -> JValue< Range >
                           { return { std::move( chunk ) }; } );
   }
@@ -65,9 +72,10 @@ public:
    */
   auto D() const {
 
+    using namespace njoy::tools;
     return this->jValues()
-             | ranges::cpp20::views::transform( [] ( const auto& jvalue )
-                                                   { return jvalue.D(); } );
+             | std20::views::transform( [] ( const auto& jvalue )
+                                           { return jvalue.D(); } );
   }
 
   /**
@@ -80,9 +88,10 @@ public:
    */
   auto AJ() const {
 
+    using namespace njoy::tools;
     return this->jValues()
-             | ranges::cpp20::views::transform( [] ( const auto& jvalue )
-                                                   { return jvalue.AJ(); } );
+             | std20::views::transform( [] ( const auto& jvalue )
+                                           { return jvalue.AJ(); } );
   }
 
   /**
@@ -95,9 +104,10 @@ public:
    */
   auto AMUN() const {
 
+    using namespace njoy::tools;
     return this->jValues()
-             | ranges::cpp20::views::transform( [] ( const auto& jvalue )
-                                                   { return jvalue.AMUN(); } );
+             | std20::views::transform( [] ( const auto& jvalue )
+                                           { return jvalue.AMUN(); } );
   }
 
   /**
@@ -108,7 +118,14 @@ public:
   /**
    *  @brief Return the degrees of freedom for the gamma width
    */
-  auto AMUG() const { return ranges::views::repeat_n( 0.0, this->NJS() ); }
+  auto AMUG() const {
+
+    // see note above about range-v3 removal workaround
+    // using namespace njoy::tools;
+    // return std20::views::repeat_n( 0.0, this->NJS() );
+    using namespace njoy::tools;
+    return std20::views::all( this->zeros_ );
+  }
 
   /**
    *  @brief Return the degrees of freedom for the gamma width
@@ -118,7 +135,14 @@ public:
   /**
    *  @brief Return the degrees of freedom for the fission width
    */
-  auto AMUF() const { return ranges::views::repeat_n( 0.0, this->NJS() ); }
+  auto AMUF() const {
+
+    // see note above about range-v3 removal workaround
+    // using namespace njoy::tools;
+    // return std20::views::repeat_n( 0.0, this->NJS() );
+    using namespace njoy::tools;
+    return std20::views::all( this->zeros_ );
+  }
 
   /**
    *  @brief Return the degrees of freedom for the fission width
@@ -128,7 +152,14 @@ public:
   /**
    *  @brief Return the degrees of freedom for the competitive width
    */
-  auto AMUX() const { return ranges::views::repeat_n( 0.0, this->NJS() ); }
+  auto AMUX() const {
+
+    // see note above about range-v3 removal workaround
+    // using namespace njoy::tools;
+    // return std20::views::repeat_n( 0.0, this->NJS() );
+    using namespace njoy::tools;
+    return std20::views::all( this->zeros_ );
+  }
 
   /**
    *  @brief Return the degrees of freedom for the competitive width
@@ -140,9 +171,10 @@ public:
    */
   auto GN() const {
 
+    using namespace njoy::tools;
     return this->jValues()
-             | ranges::cpp20::views::transform( [] ( const auto& jvalue )
-                                                   { return jvalue.GN(); } );
+             | std20::views::transform( [] ( const auto& jvalue )
+                                           { return jvalue.GN(); } );
   }
 
   /**
@@ -155,9 +187,10 @@ public:
    */
   auto GG() const {
 
+    using namespace njoy::tools;
     return this->jValues()
-             | ranges::cpp20::views::transform( [] ( const auto& jvalue )
-                                                   { return jvalue.GG(); } );
+             | std20::views::transform( [] ( const auto& jvalue )
+                                           { return jvalue.GG(); } );
   }
 
   /**
@@ -168,7 +201,14 @@ public:
   /**
    *  @brief Return the average fission width values.
    */
-  auto GF() const { return ranges::views::repeat_n( 0.0, this->NJS() ); }
+  auto GF() const {
+
+    // see note above about range-v3 removal workaround
+    // using namespace njoy::tools;
+    // return std20::views::repeat_n( 0.0, this->NJS() );
+    using namespace njoy::tools;
+    return this->zeros_ | std20::views::all;
+  }
 
   /**
    *  @brief Return the average fission width values.
@@ -178,7 +218,14 @@ public:
   /**
    *  @brief Return the average competitive width values.
    */
-  auto GX() const { return ranges::views::repeat_n( 0.0, this->NJS() ); }
+  auto GX() const {
+
+    // see note above about range-v3 removal workaround
+    // using namespace njoy::tools;
+    // return std20::views::repeat_n( 0.0, this->NJS() );
+    using namespace njoy::tools;
+    return std20::views::all( this->zeros_ );
+  }
 
   /**
    *  @brief Return the average competitive width values.

@@ -133,7 +133,7 @@ class Test_ENDFtk_MF2_MT152_Section( unittest.TestCase ) :
         tape = Tape.from_string( self.valid_TPID + self.chunk +
                                  self.valid_SEND + self.valid_FEND +
                                  self.valid_MEND + self.valid_TEND )
-        chunk = tape.material( 9437 ).file( 2 ).section( 152 ).parse()
+        chunk = tape.materials.front().file( 2 ).section( 152 ).parse()
 
         verify_chunk( self, chunk )
 

@@ -7,12 +7,18 @@
  *
  *  See ENDF102, section 1.5 for more information.
  */
-class ENDFTK_PYTHON_EXPORT PolynomialComponents : protected ListRecord {
+class ENDFTK_PYTHON_EXPORT PolynomialComponents {
+
+  /* workaround for the removal of range-v3 */
+
+  // using transform with more ranges operations in the transform causes issues
+  // on the Python side. we just rearrange the underlying array at construction
+  // time to solve it. As a result, this no longer inherits from ListRecord.
+  int nply_;
+  std::vector< double > values_;
 
   /* auxiliary functions */
-  #include "ENDFtk/section/1/458/PolynomialComponents/src/verify.hpp"
   #include "ENDFtk/section/1/458/PolynomialComponents/src/generateList.hpp"
-  #include "ENDFtk/section/1/458/PolynomialComponents/src/createRangeFromIndex.hpp"
 
 public:
 
@@ -34,7 +40,7 @@ public:
   /**
    *  @brief Return the polynomial expansion order
    */
-  int NPLY() const { return ListRecord::L2(); }
+  int NPLY() const { return this->nply_; }
 
   /**
    *  @brief Return the polynomial expansion order
@@ -59,10 +65,9 @@ public:
    */
   auto E() const {
 
-    return ranges::cpp20::views::iota( 0, 9 )
-             | ranges::cpp20::views::transform(
-                 [&] ( unsigned int index )
-                     { return this->createRangeFromIndex( index ); } );
+    using namespace njoy::tools;
+    return this->values_ | std23::views::chunk( 2 )
+                         | std23::views::chunk( this->order() + 1 );
   }
 
   /**
@@ -77,7 +82,7 @@ public:
    *  @brief Return the kinetic energy of the fission fragments and its
    *         uncertainty
    */
-  auto EFR() const {  return this->createRangeFromIndex( 0 ); }
+  auto EFR() const { return this->E()[0]; }
 
   /**
    *  @brief Return the kinetic energy of the fission fragments and its
@@ -89,7 +94,7 @@ public:
    *  @brief Return the kinetic energy of the prompt fission neutrons and its
    *         uncertainty
    */
-  auto ENP() const { return this->createRangeFromIndex( 1 ); }
+  auto ENP() const { return this->E()[1]; }
 
   /**
    *  @brief Return the kinetic energy of the prompt fission neutrons and its
@@ -101,7 +106,7 @@ public:
    *  @brief Return the kinetic energy of the delayed fission neutrons and its
    *         uncertainty
    */
-  auto END() const { return this->createRangeFromIndex( 2 ); }
+  auto END() const { return this->E()[2]; }
 
   /**
    *  @brief Return the kinetic energy of the delayed fission neutrons and its
@@ -112,7 +117,7 @@ public:
   /**
    *  @brief Return the energy release by prompt gammas and its uncertainty
    */
-  auto EGP() const { return this->createRangeFromIndex( 3 ); }
+  auto EGP() const { return this->E()[3]; }
 
   /**
    *  @brief Return the energy release by prompt gammas and its uncertainty
@@ -122,7 +127,7 @@ public:
   /**
    *  @brief Return the energy release by delayed gammas and its uncertainty
    */
-  auto EGD() const { return this->createRangeFromIndex( 4 ); }
+  auto EGD() const { return this->E()[4]; }
 
   /**
    *  @brief Return the energy release by delayed gammas and its uncertainty
@@ -132,7 +137,7 @@ public:
   /**
    *  @brief Return the energy release by delayed betas and its uncertainty
    */
-  auto EB() const { return this->createRangeFromIndex( 5 ); }
+  auto EB() const { return this->E()[5]; }
 
   /**
    *  @brief Return the energy release by delayed betas and its uncertainty
@@ -142,7 +147,7 @@ public:
   /**
    *  @brief Return the energy release by neutrinos and its uncertainty
    */
-  auto ENU() const { return this->createRangeFromIndex( 6 ); }
+  auto ENU() const { return this->E()[6]; }
 
   /**
    *  @brief Return the energy release by neutrinos and its uncertainty
@@ -153,7 +158,7 @@ public:
    *  @brief Return the total energy release minus the neutrino energy and its
    *         uncertainty
    */
-  auto ER() const { return this->createRangeFromIndex( 7 ); }
+  auto ER() const { return this->E()[7]; }
 
   /**
    *  @brief Return the total energy release minus the neutrino energy and its
@@ -164,13 +169,20 @@ public:
   /**
    *  @brief Return the total energy release and its uncertainty
    */
-  auto ET() const  { return this->createRangeFromIndex( 8 ); }
+  auto ET() const  { return this->E()[8]; }
 
   /**
    *  @brief Return the total energy release and its uncertainty
    */
   auto total() const  { return this->ET(); }
 
-  using ListRecord::NC;
-  using ListRecord::print;
+  /**
+   *  @brief Return the number of lines in this MF1/MT458 component
+   */
+  long NC() const {
+
+    return 1 + ( this->order() + 1 ) * 3;
+  }
+
+  #include "ENDFtk/section/1/458/PolynomialComponents/src/print.hpp"
 };

@@ -5,8 +5,7 @@
 #include <list>
 
 // other includes
-#include "range/v3/view/all.hpp"
-#include "range/v3/view/transform.hpp"
+#include "tools/std20/views.hpp"
 
 namespace njoy {
 namespace ENDFtk {
@@ -41,7 +40,11 @@ namespace file {
     /**
      *  @brief Return the sections stored in this file
      */
-    auto MTs() { return this->sections_ | ranges::cpp20::views::all; }
+    auto MTs() {
+
+      using namespace njoy::tools;
+      return std20::views::all( this->sections_ );
+    }
 
     /**
      *  @brief Return the sections stored in this file
@@ -51,7 +54,11 @@ namespace file {
     /**
      *  @brief Return the sections stored in this file
      */
-    auto MTs() const { return this->sections_ | ranges::cpp20::views::all; }
+    auto MTs() const {
+
+      using namespace njoy::tools;
+      return std20::views::all( this->sections_ );
+    }
 
     /**
      *  @brief Return the sections stored in this file

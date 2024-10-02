@@ -4,7 +4,7 @@
 #include <string>
 
 // local includes
-#include "views.hpp"
+#include "tools/views/views-python.hpp"
 #include "ENDFtk/Material.hpp"
 #include "ENDFtk/tree/Material.hpp"
 #include "ENDFtk/tree/toMaterial.hpp"

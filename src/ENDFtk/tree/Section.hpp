@@ -4,7 +4,6 @@
 // system includes
 
 // other includes
-#include "range/v3/view/subrange.hpp"
 #include "ENDFtk/HeadRecord.hpp"
 #include "ENDFtk/TextRecord.hpp"
 #include "ENDFtk/section.hpp"

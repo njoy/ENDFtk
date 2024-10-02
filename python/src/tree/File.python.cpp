@@ -4,7 +4,7 @@
 
 // local includes
 #include "ENDFtk/tree/Tape.hpp"
-#include "views.hpp"
+#include "tools/views/views-python.hpp"
 #include "variants.hpp"
 
 // namespace aliases

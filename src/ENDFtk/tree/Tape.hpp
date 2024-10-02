@@ -7,10 +7,7 @@
 #include <optional>
 
 // other includes
-#include "range/v3/view/map.hpp"
-#include "range/v3/action/sort.hpp"
-#include "range/v3/action/unique.hpp"
-#include "range/v3/range/operations.hpp"
+#include "tools/std20/views.hpp"
 #include "ENDFtk/TapeIdentification.hpp"
 #include "ENDFtk/Tape.hpp"
 #include "ENDFtk/tree/Material.hpp"
@@ -116,12 +113,20 @@ namespace tree {
     /**
      *  @brief Return all materials in the tape
      */
-    auto materials() { return this->materials_ | ranges::cpp20::views::all; }
+    auto materials() {
+
+      using namespace njoy::tools;
+      return std20::views::all( this->materials_ );
+    }
 
     /**
      *  @brief Return all materials in the tape
      */
-    auto materials() const { return this->materials_ | ranges::cpp20::views::all; }
+    auto materials() const {
+
+      using namespace njoy::tools;
+      return std20::views::all( this->materials_ );
+    }
 
     /**
      *  @brief Return a begin iterator to all materials
@@ -185,7 +190,7 @@ namespace tree {
     std::vector< int > materialNumbers() const {
 
       using namespace njoy::tools;
-      auto keys = this->materials_ | ranges::cpp20::views::transform(
+      auto keys = this->materials_ | std20::views::transform(
                                          [] ( auto&& material )
                                             { return material.materialNumber(); } );
       std::vector< int > materials( keys.begin(), keys.end() );

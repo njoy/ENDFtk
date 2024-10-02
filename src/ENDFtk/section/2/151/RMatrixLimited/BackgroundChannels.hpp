@@ -42,7 +42,8 @@ public:
    */
   auto backgroundRMatrices() const {
 
-    return ranges::cpp20::views::all( this->channels_ );
+    using namespace njoy::tools;
+    return this->channels_ | std20::views::all;
   }
 
   /**

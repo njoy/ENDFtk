@@ -5,12 +5,7 @@
 #include <variant>
 
 // other includes
-#include "range/v3/range/conversion.hpp"
-#include "range/v3/view/all.hpp"
-#include "range/v3/view/concat.hpp"
-#include "range/v3/view/drop_exactly.hpp"
-#include "range/v3/view/take_exactly.hpp"
-#include "range/v3/view/stride.hpp"
+#include "tools/std20/views.hpp"
 #include "ENDFtk/macros.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/ListRecord.hpp"
@@ -64,7 +59,8 @@ namespace section{
      */
     auto energyBlocks() const {
 
-      return ranges::cpp20::views::all( this->energyBlocks_ );
+      using namespace njoy::tools;
+      return std20::views::all( this->energyBlocks_ );
     }
 
     #include "ENDFtk/section/35/src/NC.hpp"

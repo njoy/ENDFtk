@@ -4,6 +4,7 @@
 // system includes
 
 // other includes
+#include "tools/std20/views.hpp"
 #include "ENDFtk/macros.hpp"
 #include "ENDFtk/ControlRecord.hpp"
 #include "ENDFtk/TabulationRecord.hpp"
@@ -100,7 +101,8 @@ namespace section {
      */
     auto reactionProducts() const {
 
-      return ranges::cpp20::views::all( this->products_ );
+      using namespace njoy::tools;
+      return std20::views::all( this->products_ );
     }
 
     #include "ENDFtk/section/9/src/NC.hpp"

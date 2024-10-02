@@ -102,8 +102,9 @@ public:
   /**
    *  @brief Return the l value data
    */
-  auto lValues() const { 
+  auto lValues() const {
 
-    return ranges::cpp20::views::all( this->lvalues_ );
+    using namespace njoy::tools;
+    return std20::views::all( this->lvalues_ );
   }
 };

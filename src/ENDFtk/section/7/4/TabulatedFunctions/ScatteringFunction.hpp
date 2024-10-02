@@ -22,6 +22,15 @@ class ScatteringFunction {
   #include "ENDFtk/section/7/4/TabulatedFunctions/ScatteringFunction/src/generateTemperatures.hpp"
   #include "ENDFtk/section/7/4/TabulatedFunctions/ScatteringFunction/src/verifyBetaValues.hpp"
 
+  /* workaround for the removal of range-v3 */
+
+  // range-v3 allowed for concatenation of different ranges but our new capability
+  // does not. we therefore generate these arrays at construction time
+  using Array = decltype( alphas_.y() );
+  std::vector< Array > s_;
+  std::vector< double > t_;
+  #include "ENDFtk/section/7/4/TabulatedFunctions/ScatteringFunction/src/generateSandT.hpp"
+
 public:
 
   /* constructor */
@@ -119,11 +128,8 @@ public:
    */
   auto T() const {
 
-    return ranges::views::concat(
-             ranges::cpp20::views::single( this->alphas_.C1() ),
-             this->temperatures_ |
-                 ranges::cpp20::views::transform( [] ( const auto& v )
-                                                     { return v.C1(); } ) );
+    using namespace njoy::tools;
+    return this->t_ | std20::views::all;
   }
 
   /**
@@ -148,9 +154,9 @@ public:
    */
   auto LI() const {
 
-    return this->temperatures_ |
-               ranges::cpp20::views::transform( [] ( const auto& v )
-                                                   { return v.L1(); } );
+    using namespace njoy::tools;
+    return this->temperatures_ | std20::views::transform( [] ( const auto& v )
+                                                             { return v.L1(); } );
   }
 
   /**
@@ -165,12 +171,9 @@ public:
    */
   auto S() const {
 
-    return ranges::views::concat(
-             ranges::cpp20::views::single( this->alphas_.y() ),
-             this->temperatures_ |
-                 ranges::cpp20::views::transform( [] ( const auto& v )
-                                                     { return v.list(); } ) );
-  }
+    using namespace njoy::tools;
+    return this->s_ | std20::views::all;
+ }
 
   /**
    *  @brief Return the thermal scattering law values as an array, one for each

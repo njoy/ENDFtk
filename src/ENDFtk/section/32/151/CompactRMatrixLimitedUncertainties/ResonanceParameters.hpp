@@ -49,8 +49,9 @@ public:
    */
   auto ER() const {
 
-    return ListRecord::list()
-             | ranges::views::stride( this->NX() / this->NRSA() * 12 ); }
+    using namespace njoy::tools;
+    return ListRecord::list() | std23::views::stride( this->NX() / this->NRSA() * 12 );
+  }
 
   /**
   *  @brief Return the resonance energies
@@ -65,9 +66,11 @@ public:
    */
   auto DER() const {
 
+    using namespace njoy::tools;
     return ListRecord::list()
-             | ranges::views::drop_exactly( this->NX() / this->NRSA() * 6 )
-             | ranges::views::stride( this->NX() / this->NRSA() * 12 ); }
+             | std20::views::drop( this->NX() / this->NRSA() * 6 )
+             | std23::views::stride( this->NX() / this->NRSA() * 12 );
+  }
 
   /**
    *  @brief Return the resonance energy uncertainties
@@ -81,12 +84,15 @@ public:
    *  @brief Return the resonance parameters
    */
   auto GAM() const {
+
+    using namespace njoy::tools;
     return ListRecord::list()
-             | ranges::views::chunk( this->NX() / this->NRSA() * 6 )
-             | ranges::views::stride( 2 )
-             | ranges::cpp20::views::transform(
-                   [] ( auto chunk )
-                      { return chunk | ranges::views::drop_exactly( 1 ); } ); }
+             | std23::views::chunk( this->NX() / this->NRSA() * 6 )
+             | std23::views::stride( 2 )
+             | std20::views::transform(
+                   [] ( auto&& chunk )
+                      { return chunk | std20::views::drop( 1 ); } );
+  }
 
   /**
   *  @brief Return the resonance parameters
@@ -97,13 +103,16 @@ public:
    *  @brief Return the resonance parameter uncertainties
    */
   auto DGAM() const {
+
+    using namespace njoy::tools;
     return ListRecord::list()
-             | ranges::views::drop_exactly( this->NX() / this->NRSA() * 6 )
-             | ranges::views::chunk( this->NX() / this->NRSA() * 6 )
-             | ranges::views::stride( 2 )
-             | ranges::cpp20::views::transform(
-                   [] ( auto chunk )
-                      { return chunk | ranges::views::drop_exactly( 1 ); } ); }
+             | std20::views::drop( this->NX() / this->NRSA() * 6 )
+             | std23::views::chunk( this->NX() / this->NRSA() * 6 )
+             | std23::views::stride( 2 )
+             | std20::views::transform(
+                   [] ( auto&& chunk )
+                      { return chunk | std20::views::drop( 1 ); } );
+  }
 
   /**
   *  @brief Return the resonance parameters

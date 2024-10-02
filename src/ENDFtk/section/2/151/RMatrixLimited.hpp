@@ -131,7 +131,8 @@ public:
    */
   auto spinGroups() const {
 
-    return ranges::cpp20::views::all( this->spin_groups_ );
+    using namespace njoy::tools;
+    return this->spin_groups_ | std20::views::all;
   }
 
   #include "ENDFtk/section/2/151/RMatrixLimited/src/SPI.hpp"

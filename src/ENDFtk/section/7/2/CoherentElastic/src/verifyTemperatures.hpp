@@ -9,9 +9,10 @@ verifyTemperatures( int NP, const Array& temperatures ) {
 
   if ( iter != temperatures.end() ) {
 
+    using namespace njoy::tools;
     Log::error( "All S(E,T) functions must have the same size" );
     Log::info( "Expected NP={} for the temperature with index={}", NP,
-               ranges::cpp20::distance( temperatures.begin(), iter ) );
+               std20::ranges::distance( temperatures.begin(), iter ) );
     throw std::exception();
   }
 }

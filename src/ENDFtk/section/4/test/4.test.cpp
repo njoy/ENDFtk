@@ -424,12 +424,12 @@ void verifyChunkWithLTT0( const section::Type< 4 >& chunk ) {
   CHECK( 0 == chunk.numberIncidentEnergies() );
   CHECK( 0 == chunk.NR() );
   CHECK( 0 == chunk.numberInterpolationRegions() );
-  CHECK( 0 == ranges::cpp20::distance( chunk.NBT() ) );
-  CHECK( 0 == ranges::cpp20::distance( chunk.INT() ) );
-  CHECK( 0 == ranges::cpp20::distance( chunk.boundaries() ) );
-  CHECK( 0 == ranges::cpp20::distance( chunk.interpolants() ) );
-  CHECK( 0 == ranges::cpp20::distance( chunk.incidentEnergies() ) );
-  CHECK( 0 == ranges::cpp20::distance( chunk.angularDistributions() ) );
+  CHECK( 0 == chunk.NBT().size() );
+  CHECK( 0 == chunk.INT().size() );
+  CHECK( 0 == chunk.boundaries().size() );
+  CHECK( 0 == chunk.interpolants().size() );
+  CHECK( 0 == chunk.incidentEnergies().size() );
+  CHECK( 0 == chunk.angularDistributions().size() );
 
   const auto& distribution = std::get< Isotropic >( chunk.distributions() );
   CHECK( 0 == distribution.LTT() );
@@ -471,12 +471,12 @@ void verifyChunkWithLTT1( const section::Type< 4 >& chunk ) {
   CHECK( 2 == chunk.numberIncidentEnergies() );
   CHECK( 1 == chunk.NR() );
   CHECK( 1 == chunk.numberInterpolationRegions() );
-  CHECK( 1 == ranges::cpp20::distance( chunk.NBT() ) );
-  CHECK( 1 == ranges::cpp20::distance( chunk.INT() ) );
-  CHECK( 1 == ranges::cpp20::distance( chunk.boundaries() ) );
-  CHECK( 1 == ranges::cpp20::distance( chunk.interpolants() ) );
-  CHECK( 2 == ranges::cpp20::distance( chunk.incidentEnergies() ) );
-  CHECK( 2 == ranges::cpp20::distance( chunk.angularDistributions() ) );
+  CHECK( 1 == chunk.NBT().size() );
+  CHECK( 1 == chunk.INT().size() );
+  CHECK( 1 == chunk.boundaries().size() );
+  CHECK( 1 == chunk.interpolants().size() );
+  CHECK( 2 == chunk.incidentEnergies().size() );
+  CHECK( 2 == chunk.angularDistributions().size() );
 
   CHECK( 1 == chunk.INT()[0] );
   CHECK( 2 == chunk.NBT()[0] );
@@ -574,12 +574,12 @@ void verifyChunkWithLTT2( const section::Type< 4 >& chunk ) {
   CHECK( 2 == chunk.numberIncidentEnergies() );
   CHECK( 1 == chunk.NR() );
   CHECK( 1 == chunk.numberInterpolationRegions() );
-  CHECK( 1 == ranges::cpp20::distance( chunk.NBT() ) );
-  CHECK( 1 == ranges::cpp20::distance( chunk.INT() ) );
-  CHECK( 1 == ranges::cpp20::distance( chunk.boundaries() ) );
-  CHECK( 1 == ranges::cpp20::distance( chunk.interpolants() ) );
-  CHECK( 2 == ranges::cpp20::distance( chunk.incidentEnergies() ) );
-  CHECK( 2 == ranges::cpp20::distance( chunk.angularDistributions() ) );
+  CHECK( 1 == chunk.NBT().size() );
+  CHECK( 1 == chunk.INT().size() );
+  CHECK( 1 == chunk.boundaries().size() );
+  CHECK( 1 == chunk.interpolants().size() );
+  CHECK( 2 == chunk.incidentEnergies().size() );
+  CHECK( 2 == chunk.angularDistributions().size() );
 
   CHECK( 1 == chunk.INT()[0] );
   CHECK( 2 == chunk.NBT()[0] );
@@ -710,12 +710,12 @@ void verifyChunkWithLTT3( const section::Type< 4 >& chunk ) {
   CHECK( 4 == chunk.numberIncidentEnergies() );
   CHECK( 2 == chunk.NR() );
   CHECK( 2 == chunk.numberInterpolationRegions() );
-  CHECK( 2 == ranges::cpp20::distance( chunk.NBT() ) );
-  CHECK( 2 == ranges::cpp20::distance( chunk.boundaries() ) );
-  CHECK( 2 == ranges::cpp20::distance( chunk.INT() ) );
-  CHECK( 2 == ranges::cpp20::distance( chunk.interpolants() ) );
-  CHECK( 4 == ranges::cpp20::distance( chunk.incidentEnergies() ) );
-  CHECK( 4 == ranges::cpp20::distance( chunk.angularDistributions() ) );
+  CHECK( 2 == chunk.NBT().size() );
+  CHECK( 2 == chunk.boundaries().size() );
+  CHECK( 2 == chunk.INT().size() );
+  CHECK( 2 == chunk.interpolants().size() );
+  CHECK( 4 == chunk.incidentEnergies().size() );
+  CHECK( 4 == chunk.angularDistributions().size() );
 
   CHECK( 1 == chunk.interpolants()[0] );
   CHECK( 5 == chunk.interpolants()[1] );

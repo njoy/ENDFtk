@@ -5,7 +5,6 @@
 // local includes
 #include "ENDFtk/section/1/TabulatedMultiplicity.hpp"
 #include "definitions.hpp"
-#include "views.hpp"
 
 // namespace aliases
 namespace python = pybind11;

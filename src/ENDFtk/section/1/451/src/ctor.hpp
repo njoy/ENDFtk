@@ -58,8 +58,7 @@ Type( int zaid, double awr, int lrp, int lfi, int nlib, int nmod,
   parameters_( makeParameters( elis, sta, lis, liso, nfor,
                                awi, emax, lrel, nsub, nver,
                                temp, rtol, ldrv,
-                               ranges::cpp20::distance(
-                                   ranges::cpp20::views::split( description, '\n' ) ),
+                               njoy::tools::std20::distance( njoy::tools::std20::views::split( description, '\n' ) ),
                                index.size() ) ),
   description_( makeDescription( description ) ),
   index_( std::move( index ) ) {}

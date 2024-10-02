@@ -70,9 +70,10 @@ public:
    */
   auto resonances() const {
 
+    using namespace njoy::tools;
     using Chunk = decltype( ShortRangeBreitWignerReichMooreBlockBase::resonances()[0] );
     return ShortRangeBreitWignerReichMooreBlockBase::resonances()
-             | ranges::cpp20::views::transform(
+             | std20::views::transform(
                  [] ( Chunk&& chunk ) -> Resonance< Chunk >
                     { return { std::move( chunk ) }; } );
   }

@@ -20,6 +20,15 @@ class ENDFTK_PYTHON_EXPORT CoherentElastic {
   #include "ENDFtk/section/7/2/CoherentElastic/src/generateTemperatures.hpp"
   #include "ENDFtk/section/7/2/CoherentElastic/src/verifyTemperatures.hpp"
 
+  /* workaround for the removal of range-v3 */
+
+  // range-v3 allowed for concatenation of different ranges but our new capability
+  // does not. we therefore generate these arrays at construction time
+  using Array = decltype( principal_.y() );
+  std::vector< Array > s_;
+  std::vector< double > t_;
+  #include "ENDFtk/section/7/2/CoherentElastic/src/generateSandT.hpp"
+
 public:
 
   /* constructor */
@@ -115,11 +124,8 @@ public:
    */
   auto T() const {
 
-    return ranges::views::concat(
-             ranges::cpp20::views::single( this->principal_.C1() ),
-             this->temperatures_ |
-                 ranges::cpp20::views::transform( [] ( const auto& v )
-                                                     { return v.C1(); } ) );
+    using namespace njoy::tools;
+    return std20::views::all( this->t_ );
   }
 
   /**
@@ -144,9 +150,9 @@ public:
    */
   auto LI() const {
 
-    return this->temperatures_ |
-               ranges::cpp20::views::transform( [] ( const auto& v )
-                                                   { return v.L1(); } );
+    using namespace njoy::tools;
+    return this->temperatures_ | std20::views::transform( [] ( const auto& v )
+                                                             { return v.L1(); } );
   }
 
   /**
@@ -161,11 +167,8 @@ public:
    */
   auto S() const {
 
-    return ranges::views::concat(
-             ranges::cpp20::views::single( this->principal_.y() ),
-             this->temperatures_ |
-                 ranges::cpp20::views::transform( [] ( const auto& v )
-                                                     { return v.list(); } ) );
+    using namespace njoy::tools;
+    return std20::views::all( this->s_ );
   }
 
   /**

@@ -55,7 +55,8 @@ public:
    */
   auto E() const {
 
-    return ListRecord::list() | ranges::views::chunk( 2 );
+    using namespace njoy::tools;
+    return ListRecord::list() | std23::views::chunk( 2 );
   }
 
   /**

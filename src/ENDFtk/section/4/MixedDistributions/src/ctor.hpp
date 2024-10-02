@@ -11,6 +11,7 @@ MixedDistributions( LegendreDistributions&& legendre,
     verifyBoundary(
       this->legendre_.angularDistributions().back().incidentEnergy(),
       this->tabulated_.angularDistributions().front().incidentEnergy() );
+    this->generateArrays();
   }
 
 private:
@@ -31,6 +32,40 @@ MixedDistributions( LegendreDistributions&& legendre,
                                               MAT, MF, MT ) ) {}
 
 public:
+
+MixedDistributions( const MixedDistributions& base ) :
+  legendre_( base.legendre_ ), tabulated_( base.tabulated_ ) {
+
+  this->generateArrays();
+}
+
+MixedDistributions( MixedDistributions&& base ) :
+  legendre_( std::move( base.legendre_ ) ), tabulated_( std::move( base.tabulated_ ) ) {
+
+  this->generateArrays();
+}
+
+MixedDistributions& operator=( const MixedDistributions& base ) {
+
+  if ( this != &base ) {
+
+    this->legendre_ = base.legendre_;
+    this->tabulated_ = base.tabulated_;
+    this->generateArrays();
+  }
+  return *this;
+}
+
+MixedDistributions& operator=( MixedDistributions&& base ) {
+
+  if ( this != &base ) {
+
+    this->legendre_ = std::move( base.legendre_ );
+    this->tabulated_ = std::move( base.tabulated_ );
+    this->generateArrays();
+  }
+  return *this;
+}
 
 /**
  *  @brief Constructor (from a buffer)

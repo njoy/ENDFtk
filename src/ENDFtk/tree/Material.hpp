@@ -5,7 +5,7 @@
 #include <list>
 
 // other includes
-#include "range/v3/view/all.hpp"
+#include "tools/std20/views.hpp"
 #include "ENDFtk/tree/Section.hpp"
 #include "ENDFtk/tree/toSection.hpp"
 #include "ENDFtk/tree/File.hpp"
@@ -55,7 +55,8 @@ namespace tree {
      */
     auto fileNumbers() const {
 
-      return this->files_ | ranges::cpp20::views::transform(
+      using namespace njoy::tools;
+      return this->files_ | std20::views::transform(
                                    [] ( auto&& file )
                                       { return file.fileNumber(); } );
     }
@@ -160,12 +161,20 @@ namespace tree {
     /**
      *  @brief Return all files in the material
      */
-    auto files() const { return this->files_ | ranges::cpp20::views::all; }
+    auto files() const {
+
+      using namespace njoy::tools;
+      return std20::views::all( this->files_ );
+    }
 
     /**
      *  @brief Return all files in the material
      */
-    auto files() { return this->files_ | ranges::cpp20::views::all; }
+    auto files() {
+
+      using namespace njoy::tools;
+      return std20::views::all( this->files_ );
+    }
 
     /**
      *  @brief Return a begin iterator to all files
@@ -180,12 +189,12 @@ namespace tree {
     /**
      *  @brief Return a begin iterator to all files
      */
-    auto begin() { return this->files().begin(); }
+    auto begin()  { return this->files().begin(); }
 
     /**
      *  @brief Return an end iterator to all files
      */
-    auto end() { return this->files().end(); }
+    auto end()  { return this->files().end(); }
 
     /**
      *  @brief Return the number of files in the materials
