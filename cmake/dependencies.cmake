@@ -1,5 +1,4 @@
 cmake_minimum_required( VERSION 3.27 )
-list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/.cmake)
 include( FetchContent )
 
 FetchContent_Declare( tools
