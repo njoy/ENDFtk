@@ -29,7 +29,7 @@ jobs:
     - name: mkdir bin
       run: mkdir bin
     - name: cmake
-      run: cmake -DPYTHON_EXECUTABLE=$(which python3) -D CMAKE_CXX_COMPILER=`which ${{matrix.cxx}}` -D CMAKE_BUILD_TYPE=${{matrix.build_type}} -D ENDFtk.tests=ON ..
+      run: cmake -DCMAKE_CXX_FLAGS="-gdwarf-4" -DPYTHON_EXECUTABLE=$(which python3) -D CMAKE_CXX_COMPILER=`which ${{matrix.cxx}}` -D CMAKE_BUILD_TYPE=${{matrix.build_type}} -D ENDFtk.tests=ON ..
       working-directory: ./bin
     - name: make
       run: make -j2
@@ -37,3 +37,16 @@ jobs:
     - name: ctest
       run: ctest -j2
       working-directory: ./bin
+
+    - name: Setup Valgrind on Ubuntu
+      if: ${{matrix.os == 'ubuntu-22.04'}}
+      run: |
+        sudo apt-get install valgrind;
+        bash .github/scripts/prep_valgrind_test.sh
+      working-directory: .
+
+    - name: Run tests with Valgrind
+      if: ${{matrix.os == 'ubuntu-22.04'}}
+      run: |
+        bash test_valgrind.sh
+      working-directory: .
