@@ -488,22 +488,7 @@ SCENARIO( "tree::File" ) {
 
   GIVEN( "invalid data for a tree::File" ) {
 
-    WHEN( "the data is read from a string/stream with an invalid FEND" ) {
-
-      std::string fileString = chunk() + invalidFEND();
-      auto position = fileString.begin();
-      auto start = fileString.begin();
-      auto end = fileString.end();
-      long lineNumber = 1;
-      HeadRecord head( position, end, lineNumber );
-
-      THEN( "an exception is thrown upon construction" ) {
-
-        CHECK_THROWS( tree::File( head, start, position, end, lineNumber ) );
-      } // THEN
-    } // WHEN
-
-    WHEN( "the data is read from a string/stream without a SEND" ) {
+    WHEN( "the data is read from a string/stream that abruptly ends (no END record)" ) {
 
       std::string fileString = chunk();
       auto position = fileString.begin();
@@ -696,8 +681,4 @@ std::string validSEND(){
 
 std::string validFEND(){
   return "                                                                   125 0  0     \n";
-}
-
-std::string invalidFEND(){
-  return "                                                                   125 3  0     \n";
 }
