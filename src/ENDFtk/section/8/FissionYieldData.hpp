@@ -109,6 +109,26 @@ namespace section{
     /**
      *  @brief Return the fission yield values
      */
+    auto FY() const { return this->column( 2 ); }
+
+    /**
+     *  @brief Return the fission yield values
+     */
+    auto fissionYieldValues() const { return this->FY(); }
+
+    /**
+     *  @brief Return the fission yield uncertainties
+     */
+    auto DFY() const { return this->column( 3 ); }
+
+    /**
+     *  @brief Return the fission yield values
+     */
+    auto fissionYieldUncertainties() const { return this->DFY(); }
+
+    /**
+     *  @brief Return the fission yield values and uncertainties
+     */
     auto Y() const {
 
       using namespace njoy::tools;

@@ -129,6 +129,34 @@ void wrap_8_FissionYieldData( python::module& module, python::module& viewmodule
   )
   .def_property_readonly(
 
+    "FY",
+    [] ( const Component& self ) -> DoubleRange
+       { return self.FY(); },
+    "The fission yield values"
+  )
+  .def_property_readonly(
+
+    "fission_yield_values",
+    [] ( const Component& self ) -> DoubleRange
+       { return self.fissionYieldValues(); },
+    "The fission yield values"
+  )
+  .def_property_readonly(
+
+    "DFY",
+    [] ( const Component& self ) -> DoubleRange
+       { return self.DFY(); },
+    "The fission yield uncertainties"
+  )
+  .def_property_readonly(
+
+    "fission_yield_uncertainties",
+    [] ( const Component& self ) -> DoubleRange
+       { return self.fissionYieldUncertainties(); },
+    "The fission yield uncertainties"
+  )
+  .def_property_readonly(
+
     "Y",
     [] ( const Component& self ) -> DoubleRange2D
        { return self.Y(); },

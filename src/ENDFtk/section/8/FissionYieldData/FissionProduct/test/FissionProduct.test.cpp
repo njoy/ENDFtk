@@ -37,6 +37,10 @@ void verifyChunk( const FissionProduct& chunk ) {
   CHECK( 1001 == chunk.fissionProductIdentifier() );
   CHECK( 1 == chunk.FPS() );
   CHECK( 1 == chunk.isomericState() );
+  CHECK_THAT( 1e-3, WithinRel( chunk.FY() ) );
+  CHECK_THAT( 1e-3, WithinRel( chunk.fissionYieldValue() ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.DFY() ) );
+  CHECK_THAT( 1e-5, WithinRel( chunk.fissionYieldUncertainty() ) );
   CHECK_THAT( 1e-3, WithinRel( chunk.Y()[0] ) );
   CHECK_THAT( 1e-5, WithinRel( chunk.Y()[1] ) );
   CHECK_THAT( 1e-3, WithinRel( chunk.fissionYield()[0] ) );
