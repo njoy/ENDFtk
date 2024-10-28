@@ -43,8 +43,8 @@ void wrapEffectiveTemperature( python::module& module, python::module& ) {
     "    self            the component\n"
     "    boundaries      the interpolation range boundaries\n"
     "    interpolants    the interpolation types for each range\n"
-    "    tmoderator      the moderator temperature values\n"
-    "    teffective      the effective temperature values"
+    "    tmod            the moderator temperature values\n"
+    "    teff            the effective temperature values"
   )
   .def_property_readonly(
 
