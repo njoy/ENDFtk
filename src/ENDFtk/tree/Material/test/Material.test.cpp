@@ -216,8 +216,9 @@ SCENARIO( "tree::Material" ) {
                                chunkMF4() + validFEND() +
                                validMEND();
 
-      auto stop = duplicates.end();
+      auto stop_ind = duplicates.size();
       duplicates += validMEND();
+      auto stop = duplicates.begin() + stop_ind;
 
       auto position = duplicates.begin();
       auto start = duplicates.begin();
@@ -300,8 +301,9 @@ SCENARIO( "tree::Material" ) {
                                chunkMF3() + validFEND() +
                                chunkMF4() + validFEND();
 
-      auto stop = duplicates.end();
+      auto stop_ind = duplicates.size();
       duplicates += chunkMAT();
+      auto stop = duplicates.begin() + stop_ind;
 
       auto position = duplicates.begin();
       auto start = duplicates.begin();
