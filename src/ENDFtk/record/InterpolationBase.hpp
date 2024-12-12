@@ -83,7 +83,11 @@ namespace record {
       return std20::views::all( this->interpolationSchemeIndices );
     }
 
-    auto interpolants() const { return this->INT(); }
+    auto interpolants() const {
+
+      using namespace njoy::tools;
+      return std20::views::all( this->interpolationSchemeIndices );
+    }
 
     auto NBT() const {
 
@@ -91,7 +95,11 @@ namespace record {
       return std20::views::all( this->boundaryIndices );
     }
 
-    auto boundaries() const { return this->NBT(); }
+    auto boundaries() const {
+
+      using namespace njoy::tools;
+      return std20::views::all( this->boundaryIndices );
+    }
 
     bool operator==( const InterpolationBase& rhs ) const {
       return ( this->C1() == rhs.C1() )
