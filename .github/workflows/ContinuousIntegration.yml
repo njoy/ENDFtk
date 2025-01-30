@@ -11,6 +11,9 @@ on:
   pull_request:
     branches: 'master'
 
+# ubuntu-22.04 is x64
+# macos-13 is intel
+# macos-14 is arm64 (M1)
 jobs:
   build:
     runs-on: ${{matrix.os}}
