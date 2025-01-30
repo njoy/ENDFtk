@@ -11,12 +11,15 @@ on:
   pull_request:
     branches: 'master'
 
+# ubuntu-22.04 is x64
+# macos-13 is intel
+# macos-14 is arm64 (M1)
 jobs:
   build:
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        os: [ ubuntu-22.04, macos-13 ]
+        os: [ ubuntu-22.04, macos-13, macos-14 ]
         cxx: [ clang++, g++-12 ]
         build_type: [ Debug, Release ]
 
