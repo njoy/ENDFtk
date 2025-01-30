@@ -20,6 +20,12 @@ In addition, the following issues were corrected:
 
 The range-v3 dependency has been removed and replaced with a partial implementation of the C++20 and C++23 ranges standard (see the tools dependency release notes for more information). This change has no impact on functionality.
 
+A few updates were made in the CMake files for Windows compilation issues.
+
+The GitHub CI was also updated: macos-14 (arm64 architecture) was added in addition to macos-13 (intel architecture).
+
+The version of the tools dependency was upped to the latest release (no functionality chages result from this update).
+
 Valgrind testing was added to the GitHub CI to detect memory issues in the future.
 
 ## [ENDFtk v1.1.0](https://github.com/njoy/ENDFtk/pull/198)
