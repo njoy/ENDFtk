@@ -38,7 +38,7 @@ jobs:
       run: make -j2
       working-directory: ./bin
     - name: ctest
-      run: ctest -j2
+      run: ctest --rerun-failed --output-on-failure -j2
       working-directory: ./bin
 
     - name: Setup Valgrind on Ubuntu
