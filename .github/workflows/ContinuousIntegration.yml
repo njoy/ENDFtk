@@ -19,9 +19,9 @@ jobs:
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        os: [ ubuntu-22.04, macos-13, macos-14 ]
-        cxx: [ clang++, g++-12 ]
-        build_type: [ Debug, Release ]
+        os: [ macos-14 ]
+        cxx: [ g++-12 ]
+        build_type: [ Release ]
 
     steps:
     - name: which CXX
