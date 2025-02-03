@@ -19,9 +19,9 @@ jobs:
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        os: [ macos-14 ]
-        cxx: [ g++-12 ]
-        build_type: [ Release ]
+        os: [ ubuntu-22.04, macos-13, macos-14 ]
+        cxx: [ clang++, g++-12 ]
+        build_type: [ Debug, Release ]
 
     steps:
     - name: which CXX
@@ -38,7 +38,7 @@ jobs:
       run: make -j2
       working-directory: ./bin
     - name: ctest
-      run: ctest --rerun-failed --output-on-failure -j2
+      run: ctest -j2
       working-directory: ./bin
 
     - name: Setup Valgrind on Ubuntu
