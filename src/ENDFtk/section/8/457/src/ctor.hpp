@@ -19,10 +19,7 @@ Type() = default;
 Type( int zaid, double awr, int lis, int liso, double spin, double parity ) :
   BaseWithoutMT( zaid, awr ),
   lis_( lis ), liso_( liso ), nst_( true ),
-  energies_(), modes_(spin, parity), spectra_() {
-
-  std::cout << "ctor without spectra" << std::endl;
-  }
+  energies_(), modes_(spin, parity), spectra_() {}
 
 /**
  *  @brief Constructor
@@ -43,10 +40,7 @@ Type( int zaid, double awr, int lis, int liso,
   lis_( lis ), liso_( liso ), nst_( modes.NDK() == 0 ),
   energies_( std::move( energies ) ),
   modes_( std::move( modes ) ),
-  spectra_( std::move( spectra ) ) {
-  
-  std::cout << "ctor with spectra" << std::endl;
-  }
+  spectra_( std::move( spectra ) ) {}
 
 private:
 
@@ -62,13 +56,7 @@ Type( double za, double awr, int lis, int liso, int NSP,
         std::move( energies ),
         std::move( modes ),
         readSequence< DecaySpectrum >( begin, end, lineNumber,
-                                       MAT, 8, 457, NSP ) ) {
-  
-
-  
-  std::cout << "private ctor 1" << std::endl;
-  std::cout << "lis = " << lis << std::endl;
-                                       }
+                                       MAT, 8, 457, NSP ) ) {}
 
 template< typename Iterator >
 Type( double za, double awr, int lis, int liso, int NSP,
@@ -80,12 +68,7 @@ Type( double za, double awr, int lis, int liso, int NSP,
   Type( za, awr, lis, liso, NSP,
         std::move( energies ),
         DecayModes( begin, end, lineNumber, MAT, 8, 457 ),
-        begin, end, lineNumber, MAT ) {
-  
-  
-  std::cout << "private ctor 2" << std::endl;
-  std::cout << "lis = " << lis << std::endl;
-        }
+        begin, end, lineNumber, MAT ) {}
 
 public:
 
@@ -109,9 +92,6 @@ Type( HEAD& head,
   try : Type( head.ZA(), head.AWR(), head.L1(), head.L2(), head.N2(),
               AverageDecayEnergies( begin, end, lineNumber, MAT, 8, 457 ),
               begin, end, lineNumber, MAT ) {
-  
-  std::cout << "read ctor" << std::endl;
-  std::cout << "lis = " << head.L1() << std::endl;
     readSEND(begin, end, lineNumber, MAT, 8 );
   } catch ( std::exception& e ) {
     Log::info( "Trouble while reading section 457 of File 8 of Material {}",
