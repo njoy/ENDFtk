@@ -11,7 +11,7 @@ This update makes the following changes on interface functions:
   - Miscellaneous documentation updates were made.
 
 In addition, the following issues were corrected:
-  - In some ENDF files (such as the JEFF 3.3 decay library files), the directory records in MF1 MT451 sometimes have superfluous zeros in column 1 and 2. Previously, ENDFtk flagged these as erroneous files. This has been corrected, although these columns will still be left blank when printing them out.
+  - In some ENDF files (such as the JEFF 3.3 decay library files), the directory records in MF1 MT451 sometimes have superfluous zeros in column 1 and 2 (similar to how END records sometimes have supefluous zeros in columns 1 though 6). Previously, ENDFtk flagged these directory records as errors. This has been corrected, although these columns will still be left blank when printing them out (in the same way as END records).
   - A minor bug in the rectangular matrix covariance block was corrected. The values for the row and column energies are lifted out of a larger array using the std::ranges::take and std::ranges::drop function. For the column energies, we forgot to properly end the sequence. As a result, the end() iterator of the range did not point to the end of the column energies but to the end of the covariance values, which is now corrected.
   - In MF8 MT457 DiscreteSpectrum, NT=8 (which can occur for electrons, i.e. STYP=8), was explicitly disallowed by ENDFtk. This was corrected and a new constructor reflecting this usage was added as well.
   - The STA variable in MF1 MT451 was interpreted incorrectly and this has now been fixed. An additional isUnstable() function has been added to the interface.
