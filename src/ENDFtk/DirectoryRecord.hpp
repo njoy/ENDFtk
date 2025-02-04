@@ -18,14 +18,17 @@ namespace ENDFtk {
    *
    *  See ENDF102, section 1.1 for more information.
    */
-  class DirectoryRecord : protected record::Base< record::Integer< 33 >,
+  class DirectoryRecord : protected record::Base< record::Real,
+                                                  record::Real,
+                                                  record::Integer< 11 >,
                                                   record::Integer< 11 >,
                                                   record::Integer< 11 >,
                                                   record::Integer< 11 > > {
 
     /* type aliases */
     using base =
-      record::Base< record::Integer< 33 >, record::Integer< 11 >,
+      record::Base< record::Real, record::Real,
+                    record::Integer< 11 >, record::Integer< 11 >,
                     record::Integer< 11 >, record::Integer< 11 > >;
     using tail = record::TailVerifying< record::MAT, record::MF, record::MT >;
 
@@ -42,7 +45,7 @@ namespace ENDFtk {
      *  @param[in] mod   the modification number
      */
     DirectoryRecord( long mf, long mt, long nc, long mod ) :
-      base( mf, mt, nc, mod ){}
+      base( 0.0, 0.0, mf, mt, nc, mod ){}
 
 //! @todo pybind11 variant needs default constructor workaround
 #ifdef PYBIND11
@@ -86,10 +89,10 @@ namespace ENDFtk {
     ImmutableReturnType< index >                                  \
     name () const { return std::get< index >( this->fields ); }
 
-    DEFINE_GETTER( MF, 0 )
-    DEFINE_GETTER( MT, 1 )
-    DEFINE_GETTER( NC, 2 )
-    DEFINE_GETTER( MOD, 3 )
+    DEFINE_GETTER( MF, 2 )
+    DEFINE_GETTER( MT, 3 )
+    DEFINE_GETTER( NC, 4 )
+    DEFINE_GETTER( MOD, 5 )
 
   #undef DEFINE_GETTER
 
