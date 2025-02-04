@@ -42,7 +42,7 @@ Type( int zaid, double awr, int lis, int liso,
   modes_( std::move( modes ) ),
   spectra_( std::move( spectra ) ) {
 
-    lis_( lis );
+    this->lis_ = lis;
   }
 
 private:
