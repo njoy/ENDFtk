@@ -17,6 +17,7 @@ In addition, the following issues were corrected:
   - The NJSX value (the number of spin groups) is now read from the CONT record before the particle pairs in MF32 R-matrix limited uncertainties since SAMMY does not print the NJSX value on the particle pairs (the ENDF format basically has the NJSX value appear in two places and ENDFtk used the second one while SAMMY only prints out the first one). This "breaks" some interface functions (the R-matrix limited uncertainties from_string() function now requires the number of spin groups while previously it did not).
   - In MF28 MT533, the electron population was being returned as an integer value while this can be a floating point value. This has been corrected.
   - All electron subshell identifiers in MF26 MT533 are returned as an integers.
+  - gcc-12 optimisation caused issues with MF8 MT457 values to not be properly initialised upon reading the section as a string. While this particular issue was corrected, caution is advised when using gcc-12 on Mac arm64 systems as similar issues may still be present in other parts of the library.
 
 The range-v3 dependency has been removed and replaced with a partial implementation of the C++20 and C++23 ranges standard (see the tools dependency release notes for more information). This change has no impact on functionality.
 

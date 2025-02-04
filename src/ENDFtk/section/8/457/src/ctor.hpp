@@ -37,10 +37,14 @@ Type( int zaid, double awr, int lis, int liso,
       DecayModes&& modes,
       std::vector< DecaySpectrum >&& spectra ) :
   BaseWithoutMT( zaid, awr ),
-  lis_( lis ), liso_( liso ), nst_( modes.NDK() == 0 ),
+  liso_( liso ), nst_( modes.NDK() == 0 ),
   energies_( std::move( energies ) ),
   modes_( std::move( modes ) ),
-  spectra_( std::move( spectra ) ) {}
+  spectra_( std::move( spectra ) ) {
+
+    // initialisation of lis_ is moved here to fix a gcc-12 optimisation issue on Mac arm64
+    this->lis_ = lis;
+  }
 
 private:
 
