@@ -12,6 +12,7 @@ using Catch::Matchers::WithinRel;
 using namespace njoy::ENDFtk;
 
 std::string chunk();
+std::string chunkWithSuperfluousZeros();
 void verifyChunk( const DirectoryRecord& );
 std::string invalidChunk();
 
@@ -67,6 +68,30 @@ SCENARIO( "DirectoryRecord" ) {
         CHECK( buffer == string );
       } // THEN
     } // WHEN
+
+    WHEN( "the data is read from a string/stream with superfluous zeros" ) {
+
+      auto superfluous = chunkWithSuperfluousZeros();
+      auto begin = superfluous.begin();
+      auto end = superfluous.end();
+      long lineNumber = 1;
+
+      DirectoryRecord chunk( begin, end, lineNumber, 125, 1, 451 );
+
+      THEN( "a DirectoryRecord can be constructed and members can be tested" ) {
+
+        verifyChunk( chunk );
+      } // THEN
+
+      THEN( "it can be printed without the superfluous zeros" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 125, 1, 451 );
+
+        CHECK( buffer == string );
+      } // THEN
+    } // WHEN
   } // GIVEN
 
   GIVEN( "invalid data for a DirectoryRecord" ) {
@@ -105,6 +130,12 @@ std::string chunk() {
 
   return
     "                                1        451        101          5 125 1451     \n";
+}
+
+std::string chunkWithSuperfluousZeros() {
+
+  return
+    " 0.00000+00 0.00000+00          1        451        101          5 125 1451     \n";
 }
 
 void verifyChunk( const DirectoryRecord& chunk ) {
