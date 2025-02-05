@@ -17,6 +17,7 @@ std::string chunk();
 void verifyChunk( const DecayModes& );
 std::string chunkStableNuclide();
 void verifyChunkStableNuclide( const DecayModes& );
+std::string chunkStableNuclideWithZeroNPL();
 std::string wrongNDK();
 std::string wrongStableNDK();
 
@@ -124,6 +125,30 @@ SCENARIO( "DecayModes" ) {
         CHECK( buffer == string );
       } // THEN
     } // WHEN
+
+    WHEN( "the data is read from a string/stream with NPL=0" ) {
+
+      auto modes = chunkStableNuclideWithZeroNPL();
+      auto begin = modes.begin();
+      auto end = modes.end();
+      long lineNumber = 1;
+
+      DecayModes chunk( begin, end, lineNumber, 3580, 8, 457 );
+
+      THEN( "a DecayModes can be constructed and members can be tested" ) {
+
+        verifyChunkStableNuclide( chunk );
+      } // THEN
+
+      THEN( "it can be printed and has NPL=6" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 3580, 8, 457 );
+
+        CHECK( buffer == string );
+      } // THEN
+    } // WHEN
   } // GIVEN
 
   GIVEN( "invalid data for a ContinuousSpectrum" ) {
@@ -200,6 +225,11 @@ std::string chunkStableNuclide() {
   return
     " 5.000000+0-1.000000+0          0          0          6          03580 8457     \n"
     " 0.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+03580 8457     \n";
+}
+
+std::string chunkStableNuclideWithZeroNPL() {
+  return
+    " 5.000000+0-1.000000+0          0          0          0          03580 8457     \n";
 }
 
 void verifyChunkStableNuclide( const DecayModes& chunk )

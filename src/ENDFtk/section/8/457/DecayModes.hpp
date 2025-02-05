@@ -12,6 +12,7 @@ class ENDFTK_PYTHON_EXPORT DecayModes : protected ListRecord {
   /* members */
 
   /* auxiliary functions */
+  #include "ENDFtk/section/8/457/DecayModes/src/readListRecord.hpp"
   #include "ENDFtk/section/8/457/DecayModes/src/verifyNDK.hpp"
   #include "ENDFtk/section/8/457/DecayModes/src/generateList.hpp"
 

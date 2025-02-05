@@ -1,4 +1,5 @@
 private:
+
 /**
  *  @brief Constructor
  *
@@ -6,8 +7,7 @@ private:
  *
  *  @param[in] list   the ListRecord to be moved into the object
  */
-DecayModes( ListRecord&& list ) :
-  ListRecord( std::move( list ) ) {
+DecayModes( ListRecord&& list ) : ListRecord( std::move( list ) ) {
 
   verifyNDK( ListRecord::NPL(), this->NDK() );
 }
@@ -33,7 +33,7 @@ DecayModes( double spin, double parity,
             std::vector< DecayMode >&& modes ) :
   // this can never fail, try-catch would be unreachable
   DecayModes( ListRecord( spin, parity, 0, 0, modes.size(),
-                                generateList( std::move( modes ) ) ) ) {}
+                          generateList( std::move( modes ) ) ) ) {}
 
 /**
  *  @brief Constructor
@@ -63,7 +63,7 @@ DecayModes( double spin, double parity ) :
 template< typename Iterator >
 DecayModes( Iterator& it, const Iterator& end, long& lineNumber,
             int MAT, int MF, int MT )
-  try : DecayModes( ListRecord( it, end, lineNumber, MAT, MF, MT ) ) {}
+  try : DecayModes( readListRecord( it, end, lineNumber, MAT, MF, MT ) ) {}
   catch ( std::exception& e ) {
 
     Log::info( "Encountered error while reading decay mode data" );
