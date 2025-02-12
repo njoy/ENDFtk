@@ -44,6 +44,7 @@ jobs:
     - name: Setup Valgrind on Ubuntu
       if: ${{matrix.os == 'ubuntu-22.04'}}
       run: |
+        sudo apt-get update
         sudo apt-get install valgrind;
         bash .github/scripts/prep_valgrind_test.sh
       working-directory: .
