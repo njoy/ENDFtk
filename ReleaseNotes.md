@@ -27,7 +27,7 @@ A few updates were made in the CMake files for Windows compilation issues.
 
 The GitHub CI was also updated: macos-14 (arm64 architecture) was added in addition to macos-13 (intel architecture).
 
-The version of the tools dependency was upped to the latest release (no functionality chages result from this update).
+The version of the tools dependency and the pybind11 dependency was upped to the latest release (no functionality changes result from these dependency changes).
 
 Valgrind testing was added to the GitHub CI to detect memory issues in the future.
 
