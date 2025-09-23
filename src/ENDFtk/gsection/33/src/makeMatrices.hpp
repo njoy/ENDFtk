@@ -19,10 +19,12 @@ makeMatrices( const std::vector< std::pair< size_t, std::vector< DataRecord > > 
                 for ( const auto& record : matrix.second ) {
 
                     auto g_i = ( record.IG() - 1 );
+                    size_t idx = 0;
                     for ( size_t g_o = record.IG2LO() - 1;
-                          g_o <= ( record.IG2LO() + record.NW() - 1 ); ++g_o ) {
+                          g_o < ( record.IG2LO() + record.NW() - 1 ); ++g_o ) {
                         
-                        covr_matrices[ sec_mt ][g_i][g_o] = record.list()[ g_o ];
+                        covr_matrices[ sec_mt ][g_i][g_o] = record.list()[ idx ];
+                        ++idx;
                     } // outgoing energy
                 } // records
             } // endif
