@@ -43,7 +43,12 @@ namespace section {
         /**
          *  @brief Return the breakup flag.
          */
-        int LRFLAG() const { return this-> lr_; }
+        int LRFLAG() const { return this->lr_; }
+
+        /**
+         *  @brief Return the breakup flag.
+         */
+        int breakUp() const { return this->LRFLAG(); }
 
         /**
          *  @brief Return the number of neutron groups.

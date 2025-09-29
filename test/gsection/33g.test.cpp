@@ -954,8 +954,8 @@ std::string validSEND2() {
 void verifyChunk( const section::GType< 33 >& chunk ) {
   CHECK( 92235 == chunk.ZA() );
   CHECK( 92235 == chunk.targetIdentifier() );
-  CHECK( 233.0248 == chunk.AWR() );
-  CHECK( 233.0248 == chunk.atomicWeightRatio() );
+  CHECK_THAT( 233.0248, WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 233.0248, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 51 == chunk.MT() );
   CHECK( 51 == chunk.sectionNumber() );
   CHECK( 4 == chunk.numberSecondaryReactions() );
@@ -963,6 +963,7 @@ void verifyChunk( const section::GType< 33 >& chunk ) {
   CHECK( 30 == chunk.NGN() );
   CHECK( 30 == chunk.numberNeutronGroups() );
   CHECK( 0 == chunk.LRFLAG() );
+  CHECK( 0 == chunk.breakUp() );
 
   std::vector< size_t > input_sec_rxns = { 51, 102, 851, 852 };
 
@@ -1306,8 +1307,8 @@ void verifyChunk( const section::GType< 33 >& chunk ) {
 void verifyChunkZeroLastRecord( const section::GType< 33 >& chunk ) {
   CHECK( 26000 == chunk.ZA() );
   CHECK( 26000 == chunk.targetIdentifier() );
-  CHECK( 55.365 == chunk.AWR() );
-  CHECK( 55.365 == chunk.atomicWeightRatio() );
+  CHECK_THAT( 55.365, WithinRel( chunk.AWR() ) );
+  CHECK_THAT( 55.365, WithinRel( chunk.atomicWeightRatio() ) );
   CHECK( 1 == chunk.MT() );
   CHECK( 1 == chunk.sectionNumber() );
   CHECK( 1 == chunk.numberSecondaryReactions() );
@@ -1315,6 +1316,7 @@ void verifyChunkZeroLastRecord( const section::GType< 33 >& chunk ) {
   CHECK( 10 == chunk.NGN() );
   CHECK( 10 == chunk.numberNeutronGroups() );
   CHECK( 0 == chunk.LRFLAG() );
+  CHECK( 0 == chunk.breakUp() );
 
   std::vector< size_t > input_sec_rxns = { 1 };
   auto output_sec_rxns = chunk.secondaryReactions();
