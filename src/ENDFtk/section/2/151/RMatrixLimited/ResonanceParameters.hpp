@@ -46,7 +46,9 @@ public:
 
     using namespace njoy::tools;
     return ListRecord::list()
-             | std23::views::stride( this->NX() / this->NRS() * 6 ); }
+             | std23::views::stride( this->NRS() != 0
+                                     ? this->NX() / this->NRS() * 6
+                                     : 6 ); }
 
   /**
   *  @brief Return the resonance energies
@@ -63,7 +65,9 @@ public:
 
     using namespace njoy::tools;
     return ListRecord::list()
-             | std23::views::chunk( this->NX() / this->NRS() * 6 )
+             | std23::views::chunk( this->NRS() != 0
+                                    ? this->NX() / this->NRS() * 6
+                                    : 6 )
              | std20::views::transform(
                    [] ( auto&& chunk )
                       { return chunk | std20::views::drop( 1 ); } ); }
@@ -81,7 +85,9 @@ public:
     using namespace njoy::tools;
     return ListRecord::list()
              | std20::views::drop( 1 + channel )
-             | std23::views::stride( this->NX() / this->NRS() * 6 );
+             | std23::views::stride( this->NRS() != 0
+                                     ? this->NX() / this->NRS() * 6
+                                     : 6 );
   }
 
   /**
