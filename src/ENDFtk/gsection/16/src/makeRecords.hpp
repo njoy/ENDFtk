@@ -3,10 +3,10 @@ makeRecords( double temp,
              const std::vector< std::vector< std::vector< double > > >& flux,
              const std::vector< std::vector< std::vector< std::vector< double > > > >& matrix ) {
 
-  size_t nmoments = flux.size();
-  size_t ndilutions = 0;
-  size_t ngroups = 0;
-  size_t max_gg = 0;
+  std::size_t nmoments = flux.size();
+  std::size_t ndilutions = 0;
+  std::size_t ngroups = 0;
+  std::size_t max_gg = 0;
   bool last_record_not_zero = true;
   if ( nmoments > 0 ) {
 
@@ -24,25 +24,25 @@ makeRecords( double temp,
 
 
   std::vector< DataRecord > records;
-  for ( size_t g_i = 0; g_i < ngroups; ++g_i ) {
+  for ( std::size_t g_i = 0; g_i < ngroups; ++g_i ) {
 
     std::vector< double > list;
     std::vector< double > yield;
     auto it = std::find_if( matrix[0][0][g_i].begin(), matrix[0][0][g_i].end(),
                     [] (auto && val ) { return val != 0.0; } );
-    int ig2lo = std::distance( matrix[0][0][g_i].begin(), it );
-    for ( size_t g_o = 0; g_o < max_gg; ++g_o ) {
+    std::size_t ig2lo = std::distance( matrix[0][0][g_i].begin(), it );
+    for ( std::size_t g_o = 0; g_o < max_gg; ++g_o ) {
 
-      for ( size_t l = 0; l < nmoments; ++l ) {
+      for ( std::size_t l = 0; l < nmoments; ++l ) {
 
-        for ( size_t z = 0; z < ndilutions; ++z ) {
+        for ( std::size_t z = 0; z < ndilutions; ++z ) {
 
           if ( g_o == 0 && flux[l][z][g_i] != 0.0 ) {
 
             list.emplace_back( flux[l][z][g_i] );
           }
 
-          if ( g_o >= ( ig2lo ) && matrix[l][z][g_i][g_o] != 0.0 ||
+          if ( ( g_o >= ig2lo && matrix[l][z][g_i][g_o] != 0.0 ) ||
                ( g_i == (ngroups - 1) && g_o == 0 ) ) {
 
             yield.emplace_back( matrix[l][z][g_i][g_o] );
@@ -54,9 +54,9 @@ makeRecords( double temp,
     // check last record contains zero yields
     if ( g_i == ngroups - 1 ) {
 
-      for ( size_t l = 0; l < nmoments; ++ l ) {
+      for ( std::size_t l = 0; l < nmoments; ++ l ) {
 
-        for ( size_t z = 0; z < ndilutions; ++ z ) {
+        for ( std::size_t z = 0; z < ndilutions; ++ z ) {
 
           last_record_not_zero = std::all_of( matrix[l][z][ngroups - 1].begin(), matrix[l][z][ngroups - 1].end(),
                                               [](double val) { return val > 0.; } );

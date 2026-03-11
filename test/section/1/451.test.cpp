@@ -295,7 +295,7 @@ void verifyChunk( const section::Type< 1, 451 >& chunk ) {
   CHECK( njoy::tools::std20::ranges::equal( description(), chunk.description() ) );
 
   auto entries = index();
-  CHECK( entries.size() == chunk.NXC() );
+  CHECK( entries.size() == static_cast< std::size_t >( chunk.NXC() ) );
   for ( unsigned int i = 0; i < entries.size(); ++i ) {
 
     CHECK( entries[i].MF() == chunk.index()[i].MF() );

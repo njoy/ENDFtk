@@ -1,13 +1,13 @@
 static auto
 makeRecords( double temp,
-             int cutoff_ig,
+             std::size_t cutoff_ig,
              const std::vector< std::vector< std::vector< double > > >& flux,
              const std::vector< std::vector< std::vector< std::vector< double > > > >& matrix,
              const std::vector< std::vector< double > >& chi ) {
 
-  size_t nmoments = flux.size();
-  size_t ndilutions = 0;
-  size_t ngroups = 0;
+  std::size_t nmoments = flux.size();
+  std::size_t ndilutions = 0;
+  std::size_t ngroups = 0;
   if ( nmoments > 0 ) {
 
     ndilutions = flux.front().size();
@@ -25,19 +25,19 @@ makeRecords( double temp,
     // write the chi record
     std::vector< double > list;
     list.reserve( ndilutions * ngroups );
-    for ( size_t g_o = 0; g_o < ngroups; ++ g_o ) {
-        for ( size_t z = 0; z < ndilutions; ++z ) {
+    for ( std::size_t g_o = 0; g_o < ngroups; ++ g_o ) {
+        for ( std::size_t z = 0; z < ndilutions; ++z ) {
             list.push_back( chi[z][g_o] );
         }
     }
     records.emplace_back( temp, ngroups, 1, 0, std::move( list ) );
 
     // write the compressed low energy format
-    for ( size_t g_i = 0; g_i < cutoff_ig; ++g_i ) {
+    for ( std::size_t g_i = 0; g_i < cutoff_ig; ++g_i ) {
 
       std::vector< double > list(  ndilutions );
       std::vector< double > xs ( ndilutions );
-      for ( size_t z = 0; z < ndilutions; ++z ) {
+      for ( std::size_t z = 0; z < ndilutions; ++z ) {
 
         list[z] = ( flux[0][z][g_i] );
         xs[z] = ( matrix[0][z][g_i][g_i] / chi[z][g_i] );
@@ -50,7 +50,7 @@ makeRecords( double temp,
     } // compressed ig
 
     // write the uncompressed format
-    for ( size_t g_i = cutoff_ig; g_i < ngroups; ++g_i ) {
+    for ( std::size_t g_i = cutoff_ig; g_i < ngroups; ++g_i ) {
 
       std::vector< double > list;
       std::vector< double > xs;
@@ -60,11 +60,11 @@ makeRecords( double temp,
 
       int ig2lo = std::distance( matrix[0][0][g_i].begin(), it );
       int ng2 = 1;
-      for ( size_t g_o = 0; g_o < ngroups; ++g_o ) {
+      for ( std::size_t g_o = 0; g_o < ngroups; ++g_o ) {
 
-        for ( size_t z = 0; z < ndilutions; ++z ) {
+        for ( std::size_t z = 0; z < ndilutions; ++z ) {
 
-          for ( size_t l = 0; l < nmoments; ++l ) {
+          for ( std::size_t l = 0; l < nmoments; ++l ) {
 
 
             if ( flux[l][z][g_i] != 0.0 && g_o == g_i ) {
@@ -92,7 +92,7 @@ makeRecords( double temp,
   }
   else {
 
-    for ( size_t g_i = 0; g_i < ngroups; ++g_i ) {
+    for ( std::size_t g_i = 0; g_i < ngroups; ++g_i ) {
 
       std::vector< double > list;
       std::vector< double > xs;
@@ -100,13 +100,13 @@ makeRecords( double temp,
       auto it = std::find_if( matrix[0][0][g_i].begin(), matrix[0][0][g_i].end(),
                               [] ( auto&& val ) { return val != 0.0; } );
 
-      int ig2lo = std::distance( matrix[0][0][g_i].begin(), it );
-      int ng2 = 1;
-      for ( size_t g_o = 0; g_o < ngroups; ++g_o ) {
+      std::size_t ig2lo = std::distance( matrix[0][0][g_i].begin(), it );
+      std::size_t ng2 = 1;
+      for ( std::size_t g_o = 0; g_o < ngroups; ++g_o ) {
 
-        for ( size_t z = 0; z < ndilutions; ++z ) {
+        for ( std::size_t z = 0; z < ndilutions; ++z ) {
 
-          for ( size_t l = 0; l < nmoments; ++l ) {
+          for ( std::size_t l = 0; l < nmoments; ++l ) {
 
             if ( flux[l][z][g_i] != 0.0 && g_o == g_i ) {
 

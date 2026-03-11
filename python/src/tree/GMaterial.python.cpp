@@ -16,7 +16,6 @@ void wrapTreeGMaterial( python::module& module, python::module& viewmodule ) {
   // type aliases
   using Material = njoy::ENDFtk::tree::GMaterial;
   using File = njoy::ENDFtk::tree::GFile;
-  using Section = njoy::ENDFtk::tree::GSection;
   using FileRange = BidirectionalAnyView< File >;
 
   // wrap views created by this tree component

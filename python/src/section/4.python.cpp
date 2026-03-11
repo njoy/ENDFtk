@@ -24,7 +24,6 @@ void wrapSection_4( python::module& module, python::module& viewmodule ) {
   using Section = njoy::ENDFtk::section::Type< 4 >;
   using Distributions = Section::Distributions;
   using Distribution = Section::Variant;
-  using DistributionRange = BasicRandomAccessAnyView< Distribution >;
 
   // wrap components
   wrapIsotropic( module, viewmodule );

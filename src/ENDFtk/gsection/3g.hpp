@@ -21,7 +21,6 @@ namespace section {
 
     /* fields */
     int lr_;
-    int ngn_;
     double temp_;
     std::vector< unsigned int > groups_;
 
