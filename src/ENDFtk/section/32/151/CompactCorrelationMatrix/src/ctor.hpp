@@ -20,9 +20,9 @@ CompactCorrelationMatrix( unsigned int order,
                           std::vector< unsigned int >&& j,
                           std::vector< double >&& correlations,
                           unsigned int ndigit = 6 )
-  try : nnn_( order ), i_( std::move( i ) ), j_( std::move( j ) ),
-        correlations_( std::move( correlations ) ),
-        ndigit_( ndigit ) {
+  try : ndigit_( ndigit ), nnn_( order ), i_( std::move( i ) ), j_( std::move( j ) ),
+        correlations_( std::move( correlations ) )
+         {
 
     verifySize( this->i_.size(), this->j_.size(), this->correlations_.size() );
     verifyDigits( this->ndigit_ );

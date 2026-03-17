@@ -15,8 +15,6 @@ void wrapMixedDistributions( python::module& module, python::module& ) {
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 4 >;
   using Component = Section::MixedDistributions;
-  using LegendreCoefficients = Section::LegendreCoefficients;
-  using TabulatedDistribution = Section::TabulatedDistribution;
   using LegendreDistributions = Section::LegendreDistributions;
   using TabulatedDistributions = Section::TabulatedDistributions;
   using Distribution = Section::Variant;

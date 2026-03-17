@@ -21,8 +21,6 @@ void wrapFile_5( python::module& module, python::module& viewmodule ) {
   using Section = njoy::ENDFtk::section::Type< 5 >;
   using File = njoy::ENDFtk::file::Type< 5 >;
   using SectionRange = BidirectionalAnyView< Section >;
-  using GMF5MT455 = njoy::ENDFtk::section::GType< 5, 455 >;
-  using GMF5MT18 = njoy::ENDFtk::section::GType< 5, 18 >;
 
   // create the submodule
   python::module submodule = module.def_submodule(
@@ -33,7 +31,7 @@ void wrapFile_5( python::module& module, python::module& viewmodule ) {
 
   // wrap sections
   wrapSection_5( submodule, viewmodule );
-  
+
   // wrap multigroup sections
   wrapGSection_5_455( submodule, viewmodule );
   wrapGSection_5_18( submodule, viewmodule );

@@ -11,7 +11,7 @@ namespace python = pybind11;
 
 namespace mf32 {
 
-void wrapGeneralMultiLevelBreitWigner( python::module& module, python::module& viewmodule ) {
+void wrapGeneralMultiLevelBreitWigner( python::module& module, python::module& ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 32, 151 >;

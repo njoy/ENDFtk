@@ -7,49 +7,58 @@ makeVectors( const std::vector< DataRecord >& records,
   std::vector< std::vector< std::vector< double > > > ratio;
   double temp;
 
+  if ( nmoments <= 0 || ndilutions <= 0 || ngroups <= 0 ) {
+
+    throw std::runtime_error( "Number of moments, dilutions and groups cannot be "
+                              "less than or equal to 0" );
+  }
+  std::size_t number_moments = nmoments;
+  std::size_t number_dilutions = ndilutions;
+  std::size_t number_groups = ngroups;
+
   if ( records.size() != 0 ) {
 
     bool has_ratios = records.front().NG2() == 3 ? true : false;
     temp = records.front().TEMP();
 
-    flux.resize( nmoments );
-    sigma.resize( nmoments );
+    flux.resize( number_moments );
+    sigma.resize( number_moments );
     if ( has_ratios ) {
 
-      ratio.resize( nmoments );
+      ratio.resize( number_moments );
     }
 
     for ( const auto& record : records ) {
 
       auto g = record.IG() - 1;
-      for ( unsigned int l = 0; l < nmoments; ++l ) {
+      for ( unsigned int l = 0; l < number_moments; ++l ) {
 
         if ( flux[l].size() == 0 ) {
 
-          flux[l].resize( ndilutions );
-          sigma[l].resize( ndilutions );
-          if ( has_ratios ) { ratio[l].resize( ndilutions ); }
+          flux[l].resize( number_dilutions );
+          sigma[l].resize( number_dilutions );
+          if ( has_ratios ) { ratio[l].resize( number_dilutions ); }
         }
 
-        for ( unsigned int z = 0; z < ndilutions; ++z ) {
+        for ( unsigned int z = 0; z < number_dilutions; ++z ) {
 
           if (flux[l][z].size() == 0 ) {
 
-            flux[l][z] = std::vector< double >( ngroups, 0. );
-            sigma[l][z] = std::vector< double >( ngroups, 0. );
-            if ( has_ratios ) { ratio[l][z] = std::vector< double >( ngroups, 0.); }
+            flux[l][z] = std::vector< double >( number_groups, 0. );
+            sigma[l][z] = std::vector< double >( number_groups, 0. );
+            if ( has_ratios ) { ratio[l][z] = std::vector< double >( number_groups, 0.); }
           }
 
-          std::size_t index = z * nmoments + l;
+          std::size_t index = z * number_moments + l;
           flux[l][z][g] = record.list()[ index ];
           if ( has_ratios ) {
 
             ratio[l][z][g] = record.list()[ index + 1 ];
-            sigma[l][z][g] = record.list()[ nmoments * ndilutions * 2 + index ];
+            sigma[l][z][g] = record.list()[ number_moments * number_dilutions * 2 + index ];
           }
           else {
 
-            sigma[l][z][g] = record.list()[ nmoments * ndilutions + index ];
+            sigma[l][z][g] = record.list()[ number_moments * number_dilutions + index ];
           }
         }
       }

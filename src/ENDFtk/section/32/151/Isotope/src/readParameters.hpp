@@ -8,10 +8,9 @@ readParameters( Iterator& begin,
                 int MT,
                 int LRU,
                 int LRF,
-                int LFW ) {
+                int ) {
 
   Iterator start = begin;
-  long current = lineNumber;
   ControlRecord cont( start, end, lineNumber, MAT, MF, MT );
 
   switch ( LRU ) {

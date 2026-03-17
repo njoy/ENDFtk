@@ -59,8 +59,16 @@ generateList( const ListRecord& list ) {
 
   std::vector< double > values;
 
-  int npl = list.NPL();
-  int nply =  list.L2();
+  if ( list.L2() < 0 ) {
+
+    Log::error( "Encountered illegal NPLY value" );
+    Log::info( "NPL must be larger than or equal to zero" );
+    Log::info( "NPL value: {}", list.L2() );
+    throw std::exception();
+  }
+
+  std::size_t npl = list.NPL();
+  std::size_t nply = list.L2();
   if ( npl != ( nply + 1 ) * 18 ) {
 
     Log::error( "Encountered illegal NPL value" );

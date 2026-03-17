@@ -9,7 +9,7 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapGSection_5_18( python::module& module, python::module&  viewmodule ) {
+void wrapGSection_5_18( python::module& module, python::module& ) {
 
   // type alias
   using GSection = njoy::ENDFtk::section::GType< 5, 18 >;

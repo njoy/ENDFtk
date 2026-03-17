@@ -11,12 +11,10 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapGSection_1_451( python::module& module, python::module& viewmodule ) {
+void wrapGSection_1_451( python::module& module, python::module& ) {
 
   // type aliases
-  using DirectoryRecord = njoy::ENDFtk::DirectoryRecord;
   using GSection = njoy::ENDFtk::section::GType< 1, 451 >;
-  using DirectoryRange = RandomAccessAnyView< DirectoryRecord >;
 
   // create submodule
   python::module submodule = module.def_submodule(

@@ -2,8 +2,17 @@ static auto
 makeMatrices( const std::vector< DataRecord > records,
               int nmoments, int ndilutions, int ngroups ) {
 
-  std::vector< std::vector < std::vector< double > > > flux( nmoments );
-  std::vector< std::vector< std::vector < std::vector< double > > > > matrix( nmoments );
+  if ( nmoments <= 0 || ndilutions <= 0 || ngroups <= 0 ) {
+
+    throw std::runtime_error( "Number of moments, dilutions and groups cannot be "
+                              "less than or equal to 0" );
+  }
+  std::size_t number_moments = nmoments;
+  std::size_t number_dilutions = ndilutions;
+  std::size_t number_groups = ngroups;
+
+  std::vector< std::vector < std::vector< double > > > flux( number_moments );
+  std::vector< std::vector< std::vector < std::vector< double > > > > matrix( number_moments );
   std::vector< std::vector < double > > chi;
 
   double temp;
@@ -25,16 +34,16 @@ makeMatrices( const std::vector< DataRecord > records,
       // prompt fission ( MT18 )
       if ( record.IG() == 0 ) {
 
-        chi.resize( ndilutions );
-        for ( size_t z = 0; z < ndilutions; ++z ) {
+        chi.resize( number_dilutions );
+        for ( std::size_t z = 0; z < number_dilutions; ++z ) {
 
           if ( chi[z].size() == 0 ) {
 
-              chi[z] = std::vector< double >( ngroups, 0. );
+              chi[z] = std::vector< double >( number_groups, 0. );
           }
-          for ( size_t g = 0; g < ngroups; ++g ) {
+          for ( std::size_t g = 0; g < number_groups; ++g ) {
 
-              chi[z][g] = record.list()[ g * ndilutions + z];
+              chi[z][g] = record.list()[ g * number_dilutions + z];
           }
         }
       } // prompt fission ( MT18 )
@@ -44,22 +53,22 @@ makeMatrices( const std::vector< DataRecord > records,
         if ( record.IG2LO() == 0 ) {
 
           // nl is 1 for MT 18
-          flux[0].resize( ndilutions );
-          matrix[0].resize( ndilutions );
+          flux[0].resize( number_dilutions );
+          matrix[0].resize( number_dilutions );
           auto g_i = record.IG() - 1;
           cutoff_ig = record.IG();
-          for ( size_t z = 0; z < ndilutions; ++z ) {
+          for ( std::size_t z = 0; z < number_dilutions; ++z ) {
 
             if ( flux[0][z].size() == 0) {
 
-                flux[0][z] = std::vector< double >( ngroups, 0. );
+                flux[0][z] = std::vector< double >( number_groups, 0. );
                 matrix[0][z] = std::vector< std::vector< double > >
-                               ( ngroups, std::vector< double >( ngroups, 0. ) );
+                               ( number_groups, std::vector< double >( number_groups, 0. ) );
             }
             flux[0][z][g_i] = record.list()[ z ];
-            for ( size_t g_o = 0; g_o < ngroups; ++g_o ) {
+            for ( std::size_t g_o = 0; g_o < number_groups; ++g_o ) {
 
-              matrix[0][z][g_i][g_o] = record.list()[ ndilutions + z ] * chi[z][g_o];
+              matrix[0][z][g_i][g_o] = record.list()[ number_dilutions + z ] * chi[z][g_o];
             } // outgoing erg
           } // dilutions
         } // compressed format
@@ -67,18 +76,18 @@ makeMatrices( const std::vector< DataRecord > records,
         // uncompressed format of fission matrix
         else {
 
-          auto g_i = record.IG() - 1; // g_i = incident_erg
+          std::size_t g_i = record.IG() - 1; // g_i = incident_erg
           int group_block = 1;
-          for ( size_t g_o = 0; g_o < ngroups; ++g_o ) { // g_o = outgoing_erg
+          for ( std::size_t g_o = 0; g_o < number_groups; ++g_o ) { // g_o = outgoing_erg
 
-            for ( size_t z = 0; z < ndilutions; ++z ) {
+            for ( std::size_t z = 0; z < number_dilutions; ++z ) {
 
               if ( g_i == g_o ) {
 
-                  flux[0][z][g_i] = record.list()[ z * nmoments];
+                  flux[0][z][g_i] = record.list()[ z * number_moments];
               }
 
-              matrix[0][z][g_i][g_o] = record.list()[group_block  * ndilutions * nmoments + z * nmoments ];
+              matrix[0][z][g_i][g_o] = record.list()[group_block  * number_dilutions * number_moments + z * number_moments ];
             } // dilutions
             ++group_block;
           } // outgoing erg
@@ -92,30 +101,30 @@ makeMatrices( const std::vector< DataRecord > records,
 
     for ( const auto& record : records) {
 
-      auto g_i = record.IG() - 1; // g_i = incident_erg
+      std::size_t g_i = record.IG() - 1; // g_i = incident_erg
       int group_block = 1;
-      for ( size_t g_o = record.IG2LO() - 1; g_o <= g_i; ++g_o ) { // g_o = outgoing_erg
+      for ( std::size_t g_o = record.IG2LO() - 1; g_o <= g_i; ++g_o ) { // g_o = outgoing_erg
 
-        for ( size_t l = 0; l < nmoments; ++l ) {
+        for ( std::size_t l = 0; l < number_moments; ++l ) {
 
           if ( flux[l].size() == 0 ) {
 
-              flux[l].resize( ndilutions );
-              matrix[l].resize( ndilutions );
+              flux[l].resize( number_dilutions );
+              matrix[l].resize( number_dilutions );
           } // endif
-          for ( size_t z = 0; z < ndilutions; ++z ) {
+          for ( std::size_t z = 0; z < number_dilutions; ++z ) {
 
             if ( flux[l][z].size() == 0 ) {
 
-              flux[l][z] = std::vector< double > (ngroups, 0. );
+              flux[l][z] = std::vector< double > (number_groups, 0. );
               matrix[l][z] = std::vector< std::vector< double > >
-              (ngroups, std::vector< double >(ngroups, 0.));
+              (number_groups, std::vector< double >(number_groups, 0.));
             } // endif
             if ( g_i == g_o ) {
 
-              flux[l][z][g_i] = record.list()[ z * nmoments + l];
+              flux[l][z][g_i] = record.list()[ z * number_moments + l];
             }
-            matrix[l][z][g_i][g_o] = record.list()[group_block  * ndilutions * nmoments + z * nmoments + l];
+            matrix[l][z][g_i][g_o] = record.list()[group_block  * number_dilutions * number_moments + z * number_moments + l];
           } // dilutions
         } // moments
         ++group_block;
