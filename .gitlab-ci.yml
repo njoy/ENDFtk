@@ -15,7 +15,7 @@ trigger_ci_downstream:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
       variables:
         REF_BRANCH: $CI_COMMIT_REF_NAME
-    - if: 'DEPLOY_CODE == "1"'
+    - if: '$DEPLOY_CODE == "1"'
       variables:
         DEPLOY_CODE_PASS: $DEPLOY_CODE
 
