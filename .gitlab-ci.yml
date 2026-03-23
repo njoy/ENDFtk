@@ -25,7 +25,6 @@ trigger_ci_downstream:
     MERGE_TYPE: $CI_PIPELINE_SOURCE
     PARENT_MR_ID: "$CI_MERGE_REQUEST_IID"
     PROJECT_ROOT_NAME: "ENDFtk"
-    DEPLOY_CODE: $DEPLOY_CODE
 
 check:
   stage: check_ok
