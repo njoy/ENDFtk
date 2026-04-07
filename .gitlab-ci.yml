@@ -29,7 +29,7 @@ trigger_ci_downstream:
     PARENT_MR_ID: "$CI_MERGE_REQUEST_IID"
     PROJECT_ROOT_NAME: "ENDFtk"
     PROJECT_LIB_NAME: "ENDFtk"
-    PROJECT_TEST_OPTION: "ENDFtk.test"
+    PROJECT_TEST_OPTION: "ENDFtk.tests"
 
 check:
   stage: check_ok
