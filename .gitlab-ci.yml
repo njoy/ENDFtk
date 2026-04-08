@@ -31,6 +31,7 @@ trigger_ci_downstream:
     PROJECT_LIB_NAME: "ENDFtk"
     PROJECT_TEST_OPTION: "ENDFtk.tests"
 
+
 check:
   stage: check_ok
   script:
