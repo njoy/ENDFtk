@@ -21,7 +21,7 @@ trigger_ci_downstream:
 
   trigger:
     project: NJOY/common_ci
-    branch: xdiv_deploy
+    branch: main
     strategy: depend
 
   variables:
