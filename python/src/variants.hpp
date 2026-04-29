@@ -93,7 +93,8 @@ using GMF5MT18 = njoy::ENDFtk::section::GType< 5, 18 >;
 using GMF5MT455 = njoy::ENDFtk::section::GType< 5, 455 >;
 using GMF6MTxxx = njoy::ENDFtk::section::GType< 6 >;
 using GMF16MTxxx = njoy::ENDFtk::section::GType< 16 >;
+using GMF33MTxxx = njoy::ENDFtk::section::GType< 33 >;
 using GSectionVariant = std::variant< GMF1MT451, GMF3MTxxx, GMF5MT18, GMF5MT455, GMF6MTxxx,
-                                      GMF16MTxxx >;
+                                      GMF16MTxxx, GMF33MTxxx >;
 
 #endif
