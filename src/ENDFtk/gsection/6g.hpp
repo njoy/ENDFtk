@@ -21,14 +21,14 @@ namespace section {
   template < >
   class ENDFTK_PYTHON_EXPORT GType< 6 > : protected Base {
 
-        /* fields */
-        int lr_;
-        int ngn_;
-        double temp_;
-        int cutoff_ig_;
-        std::vector< std::vector< std::vector< double > > > flux_;
-        std::vector< std::vector< std::vector< std::vector< double > > > > matrix_;
-        std::vector< std::vector< double > > chi_;
+    /* fields */
+    int lr_;
+    int ngn_;
+    double temp_;
+    int cutoff_ig_;
+    std::vector< std::vector< std::vector< double > > > flux_;
+    std::vector< std::vector< std::vector< std::vector< double > > > > matrix_;
+    std::vector< std::vector< double > > chi_;
 
     /* auxiliary functions */
     #include "ENDFtk/gsection/6/src/makeMatrices.hpp"

@@ -4,7 +4,7 @@ MT455 - the number of delayed fission neutrons
 import ENDFtk.MF1
 from __future__ import annotations
 import typing
-__all__ = ['DecayConstants', 'EnergyDependentConstants', 'EnergyIndependentConstants', 'Section']
+__all__: list[str] = ['DecayConstants', 'EnergyDependentConstants', 'EnergyIndependentConstants', 'Section']
 class DecayConstants:
     """
     MF1 MT455 component - decay constants for delayed neutron precursors at                       a given incident energy

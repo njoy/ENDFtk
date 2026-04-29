@@ -35,7 +35,6 @@ void wrapSection_14( python::module& module, python::module& viewmodule ) {
   using Section = njoy::ENDFtk::section::Type< 14 >;
   using PhotonDistribution = Section::PhotonDistribution;
   using AnisotropicPhotonDistribution = Section::AnisotropicPhotonDistribution;
-  using PhotonDistributionRange = RandomAccessAnyView< PhotonDistribution >;
 
   // wrap views created by this section
   // none of these are supposed to be created directly by the user

@@ -27,7 +27,7 @@ set( CMAKE_CXX_STANDARD_REQUIRED YES )
 
 cmake_dependent_option(
   ENDFtk.tests
-  "Build the ENDFtk unit tests and integrate with ctest" ON
+  "Build the ENDFtk unit tests and integrate with ctest" OFF
   "BUILD_TESTING AND NOT ${subproject}" OFF
 )
 

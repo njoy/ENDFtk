@@ -530,8 +530,8 @@ verifyChunkWithOnlyPrincipalScatterer( const ScatteringLawConstants& chunk ) {
   CHECK_THAT( 8.934780e+0, WithinRel( chunk.atomicWeightRatios()[0] ) );
   CHECK( 1 == chunk.M().size() );
   CHECK( 1 == chunk.numberAtoms().size() );
-  CHECK_THAT( 1., WithinRel( chunk.M()[0] ) );
-  CHECK_THAT( 1., WithinRel( chunk.numberAtoms()[0] ) );
+  CHECK( 1 == chunk.M()[0] );
+  CHECK( 1 == chunk.numberAtoms()[0] );
   CHECK( 0 == chunk.analyticalFunctionTypes().size() );
 
   CHECK( 2 == chunk.NC() );
@@ -571,12 +571,12 @@ void verifyChunkWithBothPrincipalAndSecondaryScatterer(
   CHECK_THAT( 1.586200e+1, WithinRel( chunk.atomicWeightRatios()[1] ) );
   CHECK( 2 == chunk.M().size() );
   CHECK( 2 == chunk.numberAtoms().size() );
-  CHECK_THAT( 1., WithinRel( chunk.M()[0] ) );
-  CHECK_THAT( 2., WithinRel( chunk.M()[1] ) );
-  CHECK_THAT( 1., WithinRel( chunk.numberAtoms()[0] ) );
-  CHECK_THAT( 2., WithinRel( chunk.numberAtoms()[1] ) );
+  CHECK( 1 == chunk.M()[0] );
+  CHECK( 2 == chunk.M()[1] );
+  CHECK( 1 == chunk.numberAtoms()[0] );
+  CHECK( 2 == chunk.numberAtoms()[1] );
   CHECK( 1 == chunk.analyticalFunctionTypes().size() );
-  CHECK( 0. == chunk.analyticalFunctionTypes()[0] );
+  CHECK( 0 == chunk.analyticalFunctionTypes()[0] );
 
   CHECK( 3 == chunk.NC() );
 }
@@ -620,15 +620,15 @@ void verifyChunkWithTwoSecondaryScatterers(
   CHECK_THAT( 2.000000e+0, WithinRel( chunk.atomicWeightRatios()[2] ) );
   CHECK( 3 == chunk.M().size() );
   CHECK( 3 == chunk.numberAtoms().size() );
-  CHECK_THAT( 1., WithinRel( chunk.M()[0] ) );
-  CHECK_THAT( 2., WithinRel( chunk.M()[1] ) );
-  CHECK_THAT( 3., WithinRel( chunk.M()[2] ) );
-  CHECK_THAT( 1., WithinRel( chunk.numberAtoms()[0] ) );
-  CHECK_THAT( 2., WithinRel( chunk.numberAtoms()[1] ) );
-  CHECK_THAT( 3., WithinRel( chunk.numberAtoms()[2] ) );
+  CHECK( 1 == chunk.M()[0] );
+  CHECK( 2 == chunk.M()[1] );
+  CHECK( 3 == chunk.M()[2] );
+  CHECK( 1 == chunk.numberAtoms()[0] );
+  CHECK( 2 == chunk.numberAtoms()[1] );
+  CHECK( 3 == chunk.numberAtoms()[2] );
   CHECK( 2 == chunk.analyticalFunctionTypes().size() );
-  CHECK( 0. == chunk.analyticalFunctionTypes()[0] );
-  CHECK( 1. == chunk.analyticalFunctionTypes()[1] );
+  CHECK( 0 == chunk.analyticalFunctionTypes()[0] );
+  CHECK( 1 == chunk.analyticalFunctionTypes()[1] );
 
   CHECK( 4 == chunk.NC() );
 }
@@ -677,18 +677,18 @@ void verifyChunkWithThreeSecondaryScatterers(
   CHECK_THAT( 4.000000e+0, WithinRel( chunk.atomicWeightRatios()[3] ) );
   CHECK( 4 == chunk.M().size() );
   CHECK( 4 == chunk.numberAtoms().size() );
-  CHECK_THAT( 1., WithinRel( chunk.M()[0] ) );
-  CHECK_THAT( 2., WithinRel( chunk.M()[1] ) );
-  CHECK_THAT( 3., WithinRel( chunk.M()[2] ) );
-  CHECK_THAT( 4., WithinRel( chunk.M()[3] ) );
-  CHECK_THAT( 1., WithinRel( chunk.numberAtoms()[0] ) );
-  CHECK_THAT( 2., WithinRel( chunk.numberAtoms()[1] ) );
-  CHECK_THAT( 3., WithinRel( chunk.numberAtoms()[2] ) );
-  CHECK_THAT( 4., WithinRel( chunk.numberAtoms()[3] ) );
+  CHECK( 1 == chunk.M()[0] );
+  CHECK( 2 == chunk.M()[1] );
+  CHECK( 3 == chunk.M()[2] );
+  CHECK( 4 == chunk.M()[3] );
+  CHECK( 1 == chunk.numberAtoms()[0] );
+  CHECK( 2 == chunk.numberAtoms()[1] );
+  CHECK( 3 == chunk.numberAtoms()[2] );
+  CHECK( 4 == chunk.numberAtoms()[3] );
   CHECK( 3 == chunk.analyticalFunctionTypes().size() );
-  CHECK( 0. == chunk.analyticalFunctionTypes()[0] );
-  CHECK( 1. == chunk.analyticalFunctionTypes()[1] );
-  CHECK( 2. == chunk.analyticalFunctionTypes()[2] );
+  CHECK( 0 == chunk.analyticalFunctionTypes()[0] );
+  CHECK( 1 == chunk.analyticalFunctionTypes()[1] );
+  CHECK( 2 == chunk.analyticalFunctionTypes()[2] );
 
   CHECK( 5 == chunk.NC() );
 }

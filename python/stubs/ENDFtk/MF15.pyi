@@ -3,7 +3,7 @@ MF15 - continuous photon energy spectra
 """
 from __future__ import annotations
 import typing
-__all__ = ['File', 'OutgoingEnergyDistribution', 'PartialDistribution', 'Probability', 'Section', 'TabulatedSpectrum']
+__all__: list[str] = ['File', 'OutgoingEnergyDistribution', 'PartialDistribution', 'Probability', 'Section', 'TabulatedSpectrum']
 class File:
     """
     MF15 file - continuous photon energy spectra

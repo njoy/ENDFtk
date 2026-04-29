@@ -3,7 +3,7 @@ MF28 - atomic relaxation data
 """
 from __future__ import annotations
 import typing
-__all__ = ['File', 'Section', 'SubshellData']
+__all__: list[str] = ['File', 'Section', 'SubshellData']
 class File:
     """
     MF28 file - atomic relaxation data

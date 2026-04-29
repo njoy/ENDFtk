@@ -46,8 +46,6 @@ SCENARIO( "section::Type< 8, 457 >" ) {
       double awr = 2.399801e+2;
       int lis = 2;
       int liso = 1;
-      double spin = 5.;
-      double parity = -1.;
 
       AverageDecayEnergies energies( {{ 4.449622e+9, 6.311520e+7 }},
                                      { {{ 4.008322e+4, 4.128931e+3 }},
@@ -154,8 +152,6 @@ SCENARIO( "section::Type< 8, 457 >" ) {
       double awr = 2.399801e+2;
       int lis = 2;
       int liso = 1;
-      double spin = 5.;
-      double parity = -1.;
 
       AverageDecayEnergies energies( {{ 4.449622e+9, 6.311520e+7 }},
                                      { {{ 4.008322e+4, 4.128931e+3 }},

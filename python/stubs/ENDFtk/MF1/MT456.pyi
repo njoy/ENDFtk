@@ -4,7 +4,7 @@ MT456 - the number of prompt fission neutrons
 import ENDFtk.MF1
 from __future__ import annotations
 import typing
-__all__ = ['Section']
+__all__: list[str] = ['Section']
 class Section:
     """
     MF1 MT456 section - the number of prompt fission neutrons

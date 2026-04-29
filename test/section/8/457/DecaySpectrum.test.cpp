@@ -32,7 +32,6 @@ SCENARIO( "DecaySpectrum" ) {
 
       double styp = 0.0;
       std::array< double, 2 > fd = {{ 1., 0. }};
-      std::array< double, 2 > fc = {{ 0.5, 0.25 }};
       std::array< double, 2 > erav = {{ 2.107044e+2, 1.576284e+1 }};
 
       std::vector< DiscreteSpectrum > discrete =
@@ -93,7 +92,6 @@ SCENARIO( "DecaySpectrum" ) {
     WHEN( "the data is given explicitly" ) {
 
       double styp = 0.0;
-      std::array< double, 2 > fd = {{ 1., 0. }};
       std::array< double, 2 > fc = {{ 0.5, 0.25 }};
       std::array< double, 2 > erav = {{ 2.107044e+2, 1.576284e+1 }};
 

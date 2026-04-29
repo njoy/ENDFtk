@@ -3,7 +3,7 @@ LCOMP2 - compact resolved resonance covariance components
 """
 from __future__ import annotations
 import typing
-__all__ = ['ParticlePairs', 'ResonanceChannels', 'ResonanceParameters', 'SpinGroup']
+__all__: list[str] = ['ParticlePairs', 'ResonanceChannels', 'ResonanceParameters', 'SpinGroup']
 class ParticlePairs:
     """
     MF32 MT151 section - particle pair information for the R-matrix limited

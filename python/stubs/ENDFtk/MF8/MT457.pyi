@@ -4,8 +4,7 @@ MT457 - radioactive decay data
 from __future__ import annotations
 import pybind11_stubgen.typing_ext
 import typing
-import typing_extensions
-__all__ = ['AverageDecayEnergies', 'ContinuousSpectrum', 'DecayMode', 'DecayModes', 'DecaySpectrum', 'DiscreteSpectrum', 'Section']
+__all__: list[str] = ['AverageDecayEnergies', 'ContinuousSpectrum', 'DecayMode', 'DecayModes', 'DecaySpectrum', 'DiscreteSpectrum', 'Section']
 class AverageDecayEnergies:
     """
     MF8 MT457 section - half life information and average decay energies for
@@ -26,7 +25,7 @@ class AverageDecayEnergies:
             mt        the MT number of the section
         """
     @typing.overload
-    def __init__(self, halflife: typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], energies: list[typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]]) -> None:
+    def __init__(self, halflife: typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], energies: list[typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]]) -> None:
         """
         Initialise the component
         
@@ -94,7 +93,7 @@ class AverageDecayEnergies:
         The number of decay energies
         """
     @property
-    def T(self) -> typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
+    def T(self) -> typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
         """
         The half life and its uncertainty
         """
@@ -109,7 +108,7 @@ class AverageDecayEnergies:
         The decay energy and uncertainty electromagnetic radiation
         """
     @property
-    def half_life(self) -> typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
+    def half_life(self) -> typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
         """
         The half life and its uncertainty
         """
@@ -437,7 +436,7 @@ class DecaySpectrum:
             mt        the MT number of the section
         """
     @typing.overload
-    def __init__(self, type: float, dnorm: typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], energy: typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], dspectra: list[DiscreteSpectrum]) -> None:
+    def __init__(self, type: float, dnorm: typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], energy: typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], dspectra: list[DiscreteSpectrum]) -> None:
         """
         Initialise the component for discrete spectra only (LCON=0)
         
@@ -449,7 +448,7 @@ class DecaySpectrum:
             dspectra    the discrete spectra
         """
     @typing.overload
-    def __init__(self, type: float, cnorm: typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], energy: typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], cspectrum: ContinuousSpectrum) -> None:
+    def __init__(self, type: float, cnorm: typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], energy: typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], cspectrum: ContinuousSpectrum) -> None:
         """
         Initialise the component for a continuous spectrum only (LCON=1)
         
@@ -461,7 +460,7 @@ class DecaySpectrum:
             cspectrum    the continuous spectrum
         """
     @typing.overload
-    def __init__(self, type: float, dnorm: typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], cnorm: typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], energy: typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], dspectra: list[DiscreteSpectrum], cspectrum: ContinuousSpectrum) -> None:
+    def __init__(self, type: float, dnorm: typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], cnorm: typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], energy: typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], dspectra: list[DiscreteSpectrum], cspectrum: ContinuousSpectrum) -> None:
         """
         Initialise the component for discrete and continuous spectra (LCON=2)
         
@@ -494,17 +493,17 @@ class DecaySpectrum:
             mt      the MT number to be used
         """
     @property
-    def ERAV(self) -> typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
+    def ERAV(self) -> typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
         """
         The average decay energy and its uncertainty
         """
     @property
-    def FC(self) -> typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
+    def FC(self) -> typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
         """
         The continuous normalisation factor and its uncertainty
         """
     @property
-    def FD(self) -> typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
+    def FD(self) -> typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
         """
         The discrete normalisation factor and its uncertainty
         """
@@ -534,12 +533,12 @@ class DecaySpectrum:
         The radiation type STYP for which spectral data is given
         """
     @property
-    def average_decay_energy(self) -> typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
+    def average_decay_energy(self) -> typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
         """
         The average decay energy and its uncertainty
         """
     @property
-    def continuous_normalisation_factor(self) -> typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
+    def continuous_normalisation_factor(self) -> typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
         """
         The continuous normalisation factor and its uncertainty
         """
@@ -554,7 +553,7 @@ class DecaySpectrum:
         The covariance data flag
         """
     @property
-    def discrete_normalisation_factor(self) -> typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
+    def discrete_normalisation_factor(self) -> typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
         """
         The discrete normalisation factor and its uncertainty
         """
@@ -597,7 +596,7 @@ class DiscreteSpectrum:
             mt        the MT number of the section
         """
     @typing.overload
-    def __init__(self, chain: float, energy: typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], intensity: typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], type: float) -> None:
+    def __init__(self, chain: float, energy: typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], intensity: typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], type: float) -> None:
         """
         Initialise the component
         
@@ -609,7 +608,7 @@ class DiscreteSpectrum:
             type         the transition type
         """
     @typing.overload
-    def __init__(self, chain: float, energy: typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], intensity: typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], type: float, ris: typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]) -> None:
+    def __init__(self, chain: float, energy: typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], intensity: typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], type: float, ris: typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]) -> None:
         """
         Initialise the component
         
@@ -622,7 +621,7 @@ class DiscreteSpectrum:
             ris          internal pair formation coefficient or positron intensity
         """
     @typing.overload
-    def __init__(self, chain: float, energy: typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], intensity: typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], type: float, ris: typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], ricc: typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]) -> None:
+    def __init__(self, chain: float, energy: typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], intensity: typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], type: float, ris: typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], ricc: typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]) -> None:
         """
         Initialise the component
         
@@ -636,7 +635,7 @@ class DiscreteSpectrum:
             ricc         the total internal conversion coefficient
         """
     @typing.overload
-    def __init__(self, chain: float, energy: typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], intensity: typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], type: float, ris: typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], ricc: typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], rick: typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], ricl: typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]) -> None:
+    def __init__(self, chain: float, energy: typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], intensity: typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], type: float, ris: typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], ricc: typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], rick: typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], ricl: typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]) -> None:
         """
         Initialise the component
         
@@ -671,7 +670,7 @@ class DiscreteSpectrum:
             mt      the MT number to be used
         """
     @property
-    def ER(self) -> typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
+    def ER(self) -> typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
         """
         The discrete energy value and uncertainty
         """
@@ -686,30 +685,30 @@ class DiscreteSpectrum:
         The number of entries
         """
     @property
-    def RI(self) -> typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
+    def RI(self) -> typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
         """
         The relative intensity and uncertainty
         """
     @property
-    def RICC(self) -> typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
+    def RICC(self) -> typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
         """
         The total internal conversion coefficient value and its uncertainty
         (STYP=0.0 only)
         """
     @property
-    def RICK(self) -> typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
+    def RICK(self) -> typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
         """
         The K shell internal conversion coefficient  and its uncertainty
         (STYP=0.0 only)
         """
     @property
-    def RICL(self) -> typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
+    def RICL(self) -> typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
         """
         The L shell internal conversion coefficient  and its uncertainty
         (STYP=0.0 only)
         """
     @property
-    def RIS(self) -> typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
+    def RIS(self) -> typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
         """
         The RIS value and its uncertainty, the internal pair formation
         coefficient (STYP=0.0) or the positron intensity (STYP=2.0)
@@ -730,35 +729,35 @@ class DiscreteSpectrum:
         The decay chain responsible for this spectrum
         """
     @property
-    def discrete_energy(self) -> typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
+    def discrete_energy(self) -> typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
         """
         The discrete energy value and uncertainty
         """
     @property
-    def internal_conversion_coefficient_k_shell(self) -> typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
+    def internal_conversion_coefficient_k_shell(self) -> typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
         """
         The K shell internal conversion coefficient  and its uncertainty
         (STYP=0.0 only)
         """
     @property
-    def internal_conversion_coefficient_l_shell(self) -> typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
+    def internal_conversion_coefficient_l_shell(self) -> typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
         """
         The L shell internal conversion coefficient  and its uncertainty
         (STYP=0.0 only)
         """
     @property
-    def internal_pair_formation_coefficient(self) -> typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
+    def internal_pair_formation_coefficient(self) -> typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
         """
         The RIS value and its uncertainty, the internal pair formation
         coefficient (STYP=0.0) or the positron intensity (STYP=2.0)
         """
     @property
-    def relative_intensity(self) -> typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
+    def relative_intensity(self) -> typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
         """
         The relative intensity and uncertainty
         """
     @property
-    def total_internal_conversion_coefficient(self) -> typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
+    def total_internal_conversion_coefficient(self) -> typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
         """
         The total internal conversion coefficient value and its uncertainty
         (STYP=0.0 only)
@@ -884,7 +883,7 @@ class Section:
         The target spin
         """
     @property
-    def T(self) -> typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
+    def T(self) -> typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
         """
         The half life and its uncertainty
         """
@@ -919,7 +918,7 @@ class Section:
         The excited state number
         """
     @property
-    def half_life(self) -> typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
+    def half_life(self) -> typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]:
         """
         The half life and its uncertainty
         """

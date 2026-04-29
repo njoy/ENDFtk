@@ -7,7 +7,7 @@ from . import LAW1
 from . import LAW2
 from . import LAW5
 from . import LAW7
-__all__ = ['ChargedParticleElasticScattering', 'ContinuumEnergyAngle', 'DefinedElsewhere', 'DiscreteTwoBodyRecoils', 'DiscreteTwoBodyScattering', 'File', 'GSection', 'IsotropicDiscreteEmission', 'LAW1', 'LAW2', 'LAW5', 'LAW7', 'LaboratoryAngleEnergy', 'Multiplicity', 'NBodyPhaseSpace', 'ReactionProduct', 'Section', 'Unknown']
+__all__: list[str] = ['ChargedParticleElasticScattering', 'ContinuumEnergyAngle', 'DefinedElsewhere', 'DiscreteTwoBodyRecoils', 'DiscreteTwoBodyScattering', 'File', 'GSection', 'IsotropicDiscreteEmission', 'LAW1', 'LAW2', 'LAW5', 'LAW7', 'LaboratoryAngleEnergy', 'Multiplicity', 'NBodyPhaseSpace', 'ReactionProduct', 'Section', 'Unknown']
 class ChargedParticleElasticScattering:
     """
     MF6 section - LAW=5 - charged particle elastic scattering

@@ -3,7 +3,6 @@ makeRecord( double temp,
             const std::vector< double >& chi ) {
 
   // int nz is always one for this section
-  int nz = 1;
   int ig2lo = 1;
   unsigned int ngroups = chi.size();
 

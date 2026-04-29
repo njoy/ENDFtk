@@ -3,7 +3,7 @@ MF23 - smooth photon interaction cross sections
 """
 from __future__ import annotations
 import typing
-__all__ = ['File', 'Section']
+__all__: list[str] = ['File', 'Section']
 class File:
     """
     MF23 file - smooth photon interaction cross sections

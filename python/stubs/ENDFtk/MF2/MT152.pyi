@@ -3,7 +3,7 @@ MT152 - internal NJOY section
 """
 from __future__ import annotations
 import typing
-__all__ = ['Section']
+__all__: list[str] = ['Section']
 class Section:
     """
     MF2 MT152 section - internal NJOY section

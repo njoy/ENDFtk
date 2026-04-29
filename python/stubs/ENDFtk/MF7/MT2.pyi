@@ -3,7 +3,7 @@ MT2 - coherent and incoherent elastic scattering
 """
 from __future__ import annotations
 import typing
-__all__ = ['CoherentElastic', 'IncoherentElastic', 'MixedElastic', 'Section']
+__all__: list[str] = ['CoherentElastic', 'IncoherentElastic', 'MixedElastic', 'Section']
 class CoherentElastic:
     """
     MF7 MT2 section - coherent elastic scattering

@@ -46,7 +46,9 @@ public:
 
     using namespace njoy::tools;
     return ListRecord::list()
-             | std23::views::stride( this->NX() / this->NRS() * 6 ); }
+             | std23::views::stride( this->NRS() != 0
+                                     ? this->NX() / this->NRS() * 6
+                                     : 6 ); }
 
   /**
   *  @brief Return the resonance energies
@@ -57,21 +59,44 @@ public:
   }
 
   /**
-   *  @brief Return the resonance parameters
+   *  @brief Return the resonance parameters as rows
    */
   auto GAM() const {
 
     using namespace njoy::tools;
     return ListRecord::list()
-             | std23::views::chunk( this->NX() / this->NRS() * 6 )
+             | std23::views::chunk( this->NRS() != 0
+                                    ? this->NX() / this->NRS() * 6
+                                    : 6 )
              | std20::views::transform(
                    [] ( auto&& chunk )
                       { return chunk | std20::views::drop( 1 ); } ); }
 
   /**
-  *  @brief Return the resonance parameters
+  *  @brief Return the resonance parameters as rows
    */
   auto resonanceParameters() const { return this->GAM(); }
+
+  /**
+   *  @brief Return the resonance parameters as columns
+   */
+  auto GAM( unsigned int channel ) const {
+
+    using namespace njoy::tools;
+    return ListRecord::list()
+             | std20::views::drop( 1 + channel )
+             | std23::views::stride( this->NRS() != 0
+                                     ? this->NX() / this->NRS() * 6
+                                     : 6 );
+  }
+
+  /**
+  *  @brief Return the resonance parameters as columns
+   */
+  auto resonanceParameters( unsigned int channel ) const {
+
+    return this->GAM( channel );
+  }
 
   using ListRecord::NC;
   using ListRecord::print;

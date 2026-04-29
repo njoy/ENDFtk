@@ -881,7 +881,7 @@ void verifyChunkWithAnalyticalFunctions(
   CHECK( 1 == barray.atomicWeightRatios().size() );
   CHECK_THAT( 8.934780e+0, WithinRel( barray.atomicWeightRatios()[0] ) );
   CHECK( 1 == barray.numberAtoms().size() );
-  CHECK_THAT( 1., WithinRel( barray.numberAtoms()[0] ) );
+  CHECK( 1 == barray.numberAtoms()[0] );
   CHECK( 0 == barray.analyticalFunctionTypes().size() );
 
   auto table = std::get< AnalyticalFunctions >( chunk.scatteringLaw() );
@@ -964,7 +964,7 @@ void verifyChunkWithOneTemperatureAndOneScatterer(
   CHECK( 1 == barray.atomicWeightRatios().size() );
   CHECK_THAT( 8.934780e+0, WithinRel( barray.atomicWeightRatios()[0] ) );
   CHECK( 1 == barray.numberAtoms().size() );
-  CHECK_THAT( 1., WithinRel( barray.numberAtoms()[0] ) );
+  CHECK( 1 == barray.numberAtoms()[0] );
   CHECK( 0 == barray.analyticalFunctionTypes().size() );
 
   auto table = std::get< TabulatedFunctions >( chunk.scatteringLaw() );
@@ -1146,7 +1146,7 @@ void verifyChunkWithTwoTemperaturesAndOneScatterer(
   CHECK( 1 == barray.atomicWeightRatios().size() );
   CHECK_THAT( 8.934780e+0, WithinRel( barray.atomicWeightRatios()[0] ) );
   CHECK( 1 == barray.numberAtoms().size() );
-  CHECK_THAT( 1., WithinRel( barray.numberAtoms()[0] ) );
+  CHECK( 1 == barray.numberAtoms()[0] );
   CHECK( 0 == barray.analyticalFunctionTypes().size() );
 
   auto table = std::get< TabulatedFunctions >( chunk.scatteringLaw() );
@@ -1357,8 +1357,8 @@ void verifyChunkWithTwoTemperaturesAndTwoScatterers(
   CHECK_THAT( 8.934780e+0, WithinRel( barray.atomicWeightRatios()[0] ) );
   CHECK_THAT( 1.586200e+1, WithinRel( barray.atomicWeightRatios()[1] ) );
   CHECK( 2 == barray.numberAtoms().size() );
-  CHECK_THAT( 1., WithinRel( barray.numberAtoms()[0] ) );
-  CHECK_THAT( 2., WithinRel( barray.numberAtoms()[1] ) );
+  CHECK( 1 == barray.numberAtoms()[0] );
+  CHECK( 2 == barray.numberAtoms()[1] );
   CHECK( 1 == barray.analyticalFunctionTypes().size() );
   CHECK( 0 == barray.analyticalFunctionTypes()[0] );
 
@@ -1586,8 +1586,8 @@ void verifyChunkWithTwoTemperaturesTwoScatterersAndNoSecondaryTemperature(
   CHECK_THAT( 8.934780e+0, WithinRel( barray.atomicWeightRatios()[0] ) );
   CHECK_THAT( 1.586200e+1, WithinRel( barray.atomicWeightRatios()[1] ) );
   CHECK( 2 == barray.numberAtoms().size() );
-  CHECK_THAT( 1., WithinRel( barray.numberAtoms()[0] ) );
-  CHECK_THAT( 2., WithinRel( barray.numberAtoms()[1] ) );
+  CHECK( 1 == barray.numberAtoms()[0] );
+  CHECK( 2 == barray.numberAtoms()[1] );
   CHECK( 1 == barray.analyticalFunctionTypes().size() );
   CHECK( 1 == barray.analyticalFunctionTypes()[0] );
 

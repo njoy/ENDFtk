@@ -1710,14 +1710,15 @@ void verifyChunk(const section::GType< 6 >& chunk) {
     auto matrix_1_2 = chunk.matrix( 1, 2);
 
     // Check matrices and fluxes
-    for ( size_t g_i = 0; g_i < chunk.NGN(); ++g_i ) {
+    std::size_t ngn = chunk.NGN();
+    for ( size_t g_i = 0; g_i < ngn; ++g_i ) {
         CHECK_THAT(flux_0_0[g_i], WithinRel(chunk.flux(0, 0)[g_i]));
         CHECK_THAT(flux_1_0[g_i], WithinRel(chunk.flux(1, 0)[g_i]));
         CHECK_THAT(flux_0_1[g_i], WithinRel(chunk.flux(0, 1)[g_i]));
         CHECK_THAT(flux_1_1[g_i], WithinRel(chunk.flux(1, 1)[g_i]));
         CHECK_THAT(flux_0_2[g_i], WithinRel(chunk.flux(0, 2)[g_i]));
         CHECK_THAT(flux_1_2[g_i], WithinRel(chunk.flux(1, 2)[g_i]));
-        for ( size_t g_o = 0; g_o < chunk.NGN(); ++g_o ) {
+        for ( size_t g_o = 0; g_o < ngn; ++g_o ) {
             CHECK_THAT(sig_0_0[g_i][g_o], WithinRel(matrix_0_0[g_i][g_o]));
             CHECK_THAT(sig_1_0[g_i][g_o], WithinRel(matrix_1_0[g_i][g_o]));
             CHECK_THAT(sig_0_1[g_i][g_o], WithinRel(matrix_0_1[g_i][g_o]));
@@ -1769,7 +1770,8 @@ void verifyChunkFission( const section::GType< 6 >& chunk ) {
     std::vector< double > expected_sig_0_4( 20 );
     std::vector< double > expected_sig_1_4( 20 );
     std::vector< double > expected_sig_2_4( 20 );
-    for ( size_t g_o = 0; g_o < chunk.NGN(); ++g_o ) {
+    std::size_t ngn = chunk.NGN();
+    for ( size_t g_o = 0; g_o < ngn; ++g_o ) {
         expected_sig_0_0[g_o] = 9052.22571 * expected_chi[0][g_o];
         expected_sig_1_0[g_o] = 8830.47557 * expected_chi[1][g_o];
         expected_sig_2_0[g_o] = 8519.47854 * expected_chi[2][g_o];
@@ -1957,14 +1959,14 @@ void verifyChunkFission( const section::GType< 6 >& chunk ) {
           6.611413e+5, 1.565160e+6, 4.772571e+5, 9.501989e+5, 7.699213e+5, 6.029894e+5, 3.145665e+4, 1.008610e+5, 2.327251e+3, 8.550510e+2 }
     };
 
-    for ( size_t g_i = 0; g_i < chunk.NGN(); ++g_i ) {
+    for ( size_t g_i = 0; g_i < ngn; ++g_i ) {
         CHECK_THAT( expected_flux[0][g_i], WithinRel( chunk.flux(0, 0)[g_i] ) );
         CHECK_THAT( expected_flux[1][g_i], WithinRel( chunk.flux(0, 1)[g_i] ) );
         CHECK_THAT( expected_flux[2][g_i], WithinRel( chunk.flux(0, 2)[g_i] ) );
         CHECK_THAT( expected_chi[0][g_i], WithinRel( chunk.chi(0)[g_i] ) );
         CHECK_THAT( expected_chi[1][g_i], WithinRel( chunk.chi(1)[g_i] ) );
         CHECK_THAT( expected_chi[2][g_i], WithinRel( chunk.chi(2)[g_i] ) );
-        for (size_t g_o = 0; g_o < chunk.NGN(); ++ g_o ) {
+        for (size_t g_o = 0; g_o < ngn; ++ g_o ) {
             CHECK_THAT( expected_matrix_0[g_i][g_o], WithinRel( chunk.matrix(0, 0)[g_i][g_o] ) );
             CHECK_THAT( expected_matrix_1[g_i][g_o], WithinRel( chunk.matrix(0, 1)[g_i][g_o] ) );
             CHECK_THAT( expected_matrix_2[g_i][g_o], WithinRel( chunk.matrix(0, 2)[g_i][g_o] ) );

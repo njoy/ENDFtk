@@ -3,7 +3,7 @@ LAW2 - discrete two-body scattering data for secondary particles
 """
 from __future__ import annotations
 import typing
-__all__ = ['TabulatedDistribution']
+__all__: list[str] = ['TabulatedDistribution']
 class TabulatedDistribution:
     """
     MF26 section - LAW=2 - an angular distribution given as a tabulated function

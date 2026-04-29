@@ -262,6 +262,7 @@ add_python_test( MF5.MT455.GSection MF5/Test_ENDFtk_MF5_MT455_GSection.py )
 add_python_test( MF5.MT18.GSection  MF5/Test_ENDFtk_MF5_MT18_GSection.py )
 add_python_test( MF6.GSection       MF6/Test_ENDFtk_MF6_GSection.py )
 add_python_test( MF33.GSection      MF33/Test_ENDFtk_MF33_GSection.py)
+add_python_test( MF16.GSection      MF16/Test_ENDFtk_MF16_GSection.py)
 
 add_python_test( tree.GFile     tree/Test_ENDFtk_Tree_GFile.py )
 add_python_test( tree.GMaterial tree/Test_ENDFtk_Tree_GMaterial.py )

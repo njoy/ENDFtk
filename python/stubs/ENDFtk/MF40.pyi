@@ -4,7 +4,7 @@ MF40 - covariances for radionuclide production
 import ENDFtk
 from __future__ import annotations
 import typing
-__all__ = ['File', 'LevelBlock', 'Section']
+__all__: list[str] = ['File', 'LevelBlock', 'Section']
 class File:
     """
     MF40 file - covariances for radionuclide production

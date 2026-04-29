@@ -4,7 +4,7 @@ MT452 - the total number of fission neutrons
 import ENDFtk.MF1
 from __future__ import annotations
 import typing
-__all__ = ['Section']
+__all__: list[str] = ['Section']
 class Section:
     """
     MF1 MT452 section - the total number of fission neutrons

@@ -4,7 +4,7 @@ MT451 - descriptive data and directory
 import ENDFtk
 from __future__ import annotations
 import typing
-__all__ = ['GSection', 'Section']
+__all__: list[str] = ['GSection', 'Section']
 class GSection:
     """
     MF1 MT451 gsection - descriptive data and directory

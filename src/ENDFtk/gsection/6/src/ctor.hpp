@@ -12,8 +12,7 @@
  *  @param[in]  cutoff_ig       the cuttoff group index for compressed fission matrix
  *  @param[in]  chi             the fission spectrum
  */
-GType( int mt, int zaid, double awr, int lr, int ngn,
-       double temp,
+GType( int mt, int zaid, double awr, int lr, int ngn, double temp,
        std::vector < std::vector< std::vector< double > > > flux,
        std::vector < std::vector< std::vector< std::vector< double > > > > matrix,
        int cutoff_ig,

@@ -3,7 +3,7 @@ MF13 - photon production cross sections
 """
 from __future__ import annotations
 import typing
-__all__ = ['File', 'PartialCrossSection', 'Section', 'TotalCrossSection']
+__all__: list[str] = ['File', 'PartialCrossSection', 'Section', 'TotalCrossSection']
 class File:
     """
     MF13 file - photon production cross sections

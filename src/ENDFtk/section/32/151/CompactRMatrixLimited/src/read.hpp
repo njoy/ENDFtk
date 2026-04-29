@@ -1,7 +1,7 @@
 template< typename Iterator >
 static ReichMooreScatteringRadiusUncertainties
-read( Iterator& begin, const Iterator& end, long& lineNumber,
-      int MAT, int MF, int MT ) {
+read( Iterator&, const Iterator&, long&,
+      int, int, int ) {
 
   // return ReichMooreScatteringRadiusUncertainties( begin, end, lineNumber,
   //                                                 MAT, MF, MT );

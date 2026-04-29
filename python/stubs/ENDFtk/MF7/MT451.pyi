@@ -3,7 +3,7 @@ MT451 - thermal scattering general information
 """
 from __future__ import annotations
 import typing
-__all__ = ['ElementInformation', 'Section']
+__all__: list[str] = ['ElementInformation', 'Section']
 class ElementInformation:
     """
     MF7 MT451 component - element information for thermal scattering moderators

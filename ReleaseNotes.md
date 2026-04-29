@@ -5,6 +5,7 @@ Given here are some release notes for ENDFtk.
 
 This update makes the following changes on interface functions:
   - A contructor without transitions has been added to the MF28 SubshellData. The type of the number of electrons in a subshell in the constructor was changed to a double.
+  - The return type of M, number_atoms and analytical_function_Types properties in the MF7 MT4 ScatteringLawConstants (and the corresponding C++ functions) has been changed to a view of integers.
 
 This update adds GENDF capability.
 

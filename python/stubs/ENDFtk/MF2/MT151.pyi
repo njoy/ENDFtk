@@ -4,8 +4,7 @@ MT151 - resonance parameters
 from __future__ import annotations
 import pybind11_stubgen.typing_ext
 import typing
-import typing_extensions
-__all__ = ['BackgroundChannels', 'BreitWignerLValue', 'FrohnerBackgroundRMatrix', 'Isotope', 'MultiLevelBreitWigner', 'NoBackgroundRMatrix', 'ParticlePairs', 'RMatrixLimited', 'ReichMoore', 'ReichMooreLValue', 'ResonanceChannels', 'ResonanceParameters', 'ResonanceRange', 'SammyBackgroundRMatrix', 'ScatteringRadius', 'Section', 'SingleLevelBreitWigner', 'SpecialCase', 'SpinGroup', 'TabulatedBackgroundRMatrix', 'UnresolvedEnergyDependent', 'UnresolvedEnergyDependentFissionWidths', 'UnresolvedEnergyDependentFissionWidthsJValue', 'UnresolvedEnergyDependentFissionWidthsLValue', 'UnresolvedEnergyDependentJValue', 'UnresolvedEnergyDependentLValue', 'UnresolvedEnergyIndependent', 'UnresolvedEnergyIndependentLValue']
+__all__: list[str] = ['BackgroundChannels', 'BreitWignerLValue', 'FrohnerBackgroundRMatrix', 'Isotope', 'MultiLevelBreitWigner', 'NoBackgroundRMatrix', 'ParticlePairs', 'RMatrixLimited', 'ReichMoore', 'ReichMooreLValue', 'ResonanceChannels', 'ResonanceParameters', 'ResonanceRange', 'SammyBackgroundRMatrix', 'ScatteringRadius', 'Section', 'SingleLevelBreitWigner', 'SpecialCase', 'SpinGroup', 'TabulatedBackgroundRMatrix', 'UnresolvedEnergyDependent', 'UnresolvedEnergyDependentFissionWidths', 'UnresolvedEnergyDependentFissionWidthsJValue', 'UnresolvedEnergyDependentFissionWidthsLValue', 'UnresolvedEnergyDependentJValue', 'UnresolvedEnergyDependentLValue', 'UnresolvedEnergyIndependent', 'UnresolvedEnergyIndependentLValue']
 class BackgroundChannels:
     """
     MF2 MT151 section - background R-matrix values for each channel in the
@@ -2963,7 +2962,7 @@ class UnresolvedEnergyDependentFissionWidthsJValue:
         The average neutron width
         """
     @property
-    def boundaries(self) -> typing_extensions.Annotated[list[int], pybind11_stubgen.typing_ext.FixedSize(1)]:
+    def boundaries(self) -> typing.Annotated[list[int], pybind11_stubgen.typing_ext.FixedSize(1)]:
         """
         The interpolation range boundaries
         """
@@ -2983,7 +2982,7 @@ class UnresolvedEnergyDependentFissionWidthsJValue:
         The degrees of freedom for the gamma width
         """
     @property
-    def interpolants(self) -> typing_extensions.Annotated[list[int], pybind11_stubgen.typing_ext.FixedSize(1)]:
+    def interpolants(self) -> typing.Annotated[list[int], pybind11_stubgen.typing_ext.FixedSize(1)]:
         """
         The interpolants
         """
@@ -3252,7 +3251,7 @@ class UnresolvedEnergyDependentJValue:
         The average neutron widths
         """
     @property
-    def boundaries(self) -> typing_extensions.Annotated[list[int], pybind11_stubgen.typing_ext.FixedSize(1)]:
+    def boundaries(self) -> typing.Annotated[list[int], pybind11_stubgen.typing_ext.FixedSize(1)]:
         """
         The interpolation range boundaries
         """
@@ -3277,7 +3276,7 @@ class UnresolvedEnergyDependentJValue:
         The degrees of freedom for the gamma width
         """
     @property
-    def interpolants(self) -> typing_extensions.Annotated[list[int], pybind11_stubgen.typing_ext.FixedSize(1)]:
+    def interpolants(self) -> typing.Annotated[list[int], pybind11_stubgen.typing_ext.FixedSize(1)]:
         """
         The interpolants
         """

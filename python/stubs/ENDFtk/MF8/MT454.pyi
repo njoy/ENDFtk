@@ -5,8 +5,7 @@ import ENDFtk.MF8
 from __future__ import annotations
 import pybind11_stubgen.typing_ext
 import typing
-import typing_extensions
-__all__ = ['Section']
+__all__: list[str] = ['Section']
 class Section:
     """
     MF8 MT454 section - independent fission product yields
@@ -34,7 +33,7 @@ class Section:
             yields   the fission yield data
         """
     @typing.overload
-    def __init__(self, zaid: float, awr: float, identifiers: list[int], states: list[int], yields: list[typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]]) -> None:
+    def __init__(self, zaid: float, awr: float, identifiers: list[int], states: list[int], yields: list[typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]]) -> None:
         """
         Initialise the section with energy independent fission yields
         
@@ -48,7 +47,7 @@ class Section:
                           (NFP pairs)
         """
     @typing.overload
-    def __init__(self, zaid: float, awr: float, identifiers: list[int], states: list[int], energies: list[float], interpolants: list[int], yields: list[list[typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]]]) -> None:
+    def __init__(self, zaid: float, awr: float, identifiers: list[int], states: list[int], energies: list[float], interpolants: list[int], yields: list[list[typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]]]) -> None:
         """
         Initialise the section with energy dependent fission yields
         

@@ -4,7 +4,7 @@ MF33 - covariances of cross sections
 import ENDFtk
 from __future__ import annotations
 import typing
-__all__ = ['File', 'Section']
+__all__: list[str] = ['File', 'Section']
 class File:
     """
     MF33 file - covariances of cross sections

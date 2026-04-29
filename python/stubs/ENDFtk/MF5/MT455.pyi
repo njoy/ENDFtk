@@ -3,7 +3,7 @@ MT455 - delayed neutron spectra
 """
 from __future__ import annotations
 import typing
-__all__ = ['GSection']
+__all__: list[str] = ['GSection']
 class GSection:
     """
     MF5 MT455 gsection - delayed neutron spectra

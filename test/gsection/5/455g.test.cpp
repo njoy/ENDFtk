@@ -158,11 +158,11 @@ void verifyChunkDelayed( const section::GType< 5, 455 >& chunk ) {
         { 1.22217e-12, 8.44587e-11, 2.32662e-10, 6.075751e-9, 3.354359e-7, 3.505928e-5, 1.259095e-3, 2.981301e-3, 1.327339e-3,
           8.832828e-3, 1.292705e-2, 2.614138e-2, 4.131419e-3, 5.489045e-3, 2.801146e-3, 5.005918e-4, 0.0, 0.0, 0.0, 0.0 }
     };
-    for ( size_t t = 0; t < chunk.NT(); ++t ) {
+    for ( size_t t = 0; t < static_cast< std::size_t >( chunk.NT() ); ++t ) {
         CHECK_THAT( expected_lambda[t], WithinRel( chunk.lambda()[t] ) );
-        for ( size_t g = 0; g < chunk.NGN(); ++g ) {
+        for ( size_t g = 0; g < static_cast< std::size_t >( chunk.NGN() ); ++g ) {
             CHECK_THAT( expected_chi[t][g], WithinRel( chunk.chi(t)[g] ) );
         }
     }
-    
+
 }

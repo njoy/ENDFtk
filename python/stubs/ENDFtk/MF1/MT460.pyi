@@ -3,7 +3,7 @@ MT460 - delayed photon data for particle induced or spontaneous fission
 """
 from __future__ import annotations
 import typing
-__all__ = ['ContinuousPhotons', 'DiscretePhotonMultiplicity', 'DiscretePhotons', 'Section']
+__all__: list[str] = ['ContinuousPhotons', 'DiscretePhotonMultiplicity', 'DiscretePhotons', 'Section']
 class ContinuousPhotons:
     """
     MF1 MT460 component - decay constants for delayed photon precursors

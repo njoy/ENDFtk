@@ -4,7 +4,7 @@ MF34 - covariances for angular distributions
 import ENDFtk
 from __future__ import annotations
 import typing
-__all__ = ['File', 'LegendreBlock', 'ReactionBlock', 'Section']
+__all__: list[str] = ['File', 'LegendreBlock', 'ReactionBlock', 'Section']
 class File:
     """
     MF34 file - covariances for angular distributions

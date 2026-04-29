@@ -15,7 +15,7 @@ makeRecords( double temp,
     unsigned int ngroups = flux.front().front().size();
 
     std::vector< DataRecord > records;
-    for ( int g = 0; g < ngroups; ++g ) {
+    for ( std::size_t g = 0; g < ngroups; ++g ) {
 
       std::vector< double > list;
       std::vector< double > xs;
@@ -28,7 +28,7 @@ makeRecords( double temp,
 
         for ( unsigned int l = 0; l < nmoments; ++l ) {
 
-          if (sigma[l][z][g] != 0.0 || g == ngroups) {
+          if (sigma[l][z][g] != 0.0 || ( g == ngroups - 1 ) ) {
 
             list.push_back( flux[l][z][g] );
             xs.push_back( sigma[l][z][g] );

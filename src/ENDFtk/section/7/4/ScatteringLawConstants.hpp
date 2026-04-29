@@ -125,7 +125,10 @@ public:
     using namespace njoy::tools;
     return ListRecord::list()
              | std20::views::drop( 5 )
-             | std23::views::stride( 6 ); }
+             | std23::views::stride( 6 )
+             | std20::views::transform( [] ( auto&& value ) -> int
+                                           { return std::round( value ); } );
+  }
 
   /**
    *  @brief Return the number of atoms for each scattering atom type present in
@@ -145,7 +148,9 @@ public:
     using namespace njoy::tools;
     return ListRecord::list()
              | std20::views::drop( 6 )
-             | std23::views::stride( 6 );
+             | std23::views::stride( 6 )
+             | std20::views::transform( [] ( auto&& value ) -> int
+                                           { return std::round( value ); } );
   }
 
   using ListRecord::NC;

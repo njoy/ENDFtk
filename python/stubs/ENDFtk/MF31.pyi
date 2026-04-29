@@ -4,7 +4,7 @@ MF31 - covariances of fission
 import ENDFtk
 from __future__ import annotations
 import typing
-__all__ = ['File', 'Section']
+__all__: list[str] = ['File', 'Section']
 class File:
     """
     MF31 file - covariances of fission

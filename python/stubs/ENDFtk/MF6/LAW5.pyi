@@ -3,7 +3,7 @@ LAW5 - charged particle elastic scattering
 """
 from __future__ import annotations
 import typing
-__all__ = ['LegendreCoefficients', 'NuclearAmplitudeExpansion', 'NuclearPlusInterference']
+__all__: list[str] = ['LegendreCoefficients', 'NuclearAmplitudeExpansion', 'NuclearPlusInterference']
 class LegendreCoefficients:
     """
     MF6 section - LAW=5 - charged particle elastic scattering given as

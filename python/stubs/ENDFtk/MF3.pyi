@@ -3,7 +3,7 @@ MF3 - reaction cross sections
 """
 from __future__ import annotations
 import typing
-__all__ = ['File', 'GSection', 'Section']
+__all__: list[str] = ['File', 'GSection', 'Section']
 class File:
     """
     MF3 file - reaction cross sections

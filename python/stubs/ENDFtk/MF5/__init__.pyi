@@ -5,7 +5,7 @@ from __future__ import annotations
 import typing
 from . import MT18
 from . import MT455
-__all__ = ['DistributionFunction', 'EffectiveTemperature', 'EvaporationSpectrum', 'File', 'GeneralEvaporationSpectrum', 'MT18', 'MT455', 'MadlandNixSpectrum', 'MaxwellianFissionSpectrum', 'OutgoingEnergyDistribution', 'Parameter', 'PartialDistribution', 'Probability', 'Section', 'TabulatedSpectrum', 'WattSpectrum']
+__all__: list[str] = ['DistributionFunction', 'EffectiveTemperature', 'EvaporationSpectrum', 'File', 'GeneralEvaporationSpectrum', 'MT18', 'MT455', 'MadlandNixSpectrum', 'MaxwellianFissionSpectrum', 'OutgoingEnergyDistribution', 'Parameter', 'PartialDistribution', 'Probability', 'Section', 'TabulatedSpectrum', 'WattSpectrum']
 class DistributionFunction:
     """
     MF5 section - a distribution function y = f(x)
