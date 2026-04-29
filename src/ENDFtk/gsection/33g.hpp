@@ -24,13 +24,14 @@ namespace section {
     /* fields */
     int lr_;
     int ngn_;
-    std::map< std::size_t, std::vector< std::vector< double > > > covr_;
+    std::map< std::size_t, std::vector< std::vector< double > > > covariances_;
+    std::vector< std::size_t > reactions_;
 
     /* auxiliary functions */
     #include "ENDFtk/gsection/33/src/makeMatrices.hpp"
     #include "ENDFtk/gsection/33/src/makeRecords.hpp"
     #include "ENDFtk/gsection/33/src/readRecords.hpp"
-    #include "ENDFtk/gsection/33/src/verifySecondaryReaction.hpp"
+    #include "ENDFtk/gsection/33/src/generateReactions.hpp"
 
   public:
 
@@ -74,15 +75,10 @@ namespace section {
     /**
      *  @brief Return the present secondary reactions.
      */
-    std::vector< std::size_t > secondaryReactions() const {
+    auto secondaryReactions() const {
 
-      std::vector< std::size_t > sec_rxns;
-      sec_rxns.reserve( this->covr_.size() );
-      for ( const auto& [sec_rxn, _ ] : this->covr_ ) {
-
-          sec_rxns.push_back( sec_rxn );
-      }
-      return sec_rxns;
+      using namespace njoy::tools;
+      return std20::views::all( this->reactions_ );
     }
 
     /**
@@ -90,7 +86,7 @@ namespace section {
      */
     std::size_t NSMT() const {
 
-      return this->covr_.size();
+      return this->covariances_.size();
     }
 
     /**
@@ -102,20 +98,20 @@ namespace section {
     }
 
     /**
-     *  @brief Return the covariance matrix for a given secondary reaction.
+     *  @brief Return the covariance matrix for a given secondary mt number
      *
-     *  @param[in] secondary_rxn    the requested secondary reaction ( MT )
+     *  @param[in] mt   the requested secondary mt number
      */
-    decltype(auto) covariance ( std::size_t secondary_rxn ) const {
+    decltype(auto) covariance ( std::size_t mt ) const {
 
-      this->verifySecondaryReaction( secondary_rxn );
-      if ( this->covr_.at( secondary_rxn).empty() ) {
+      auto iter = this->covariances_.find( mt );
+      if ( iter != this->covariances_.end() ) {
 
-        throw std::runtime_error( "Requested covariances when they are not present");
+        return iter->second;
       }
-      else{
+      else {
 
-        return this->covr_.at( secondary_rxn );
+        throw std::runtime_error( "Requested secondary reaction is not present");
       }
     }
 

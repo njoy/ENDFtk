@@ -13,7 +13,10 @@ GType( int mt, int zaid, double awr, int lr, int ngn,
     Base( zaid, awr, mt ),
     lr_( lr ),
     ngn_( ngn ),
-    covr_( std::move( covr ) ) {}
+    covariances_( std::move( covr ) ) {
+
+  this->generateReactions();
+}
 
 private:
 
@@ -21,7 +24,6 @@ GType( int mt, int zaid, double awr, int lr, int ngn,
        std::vector< std::pair< std::size_t, std::vector< DataRecord > > >&& records ) :
     GType( mt, zaid, awr, lr, ngn,
            makeMatrices( records, ngn ) ) {}
-
 
 GType( int mt, int zaid, double awr, int lr, std::tuple< int,
        std::vector< std::pair< std::size_t, std::vector< DataRecord > > > >&& data ) :
