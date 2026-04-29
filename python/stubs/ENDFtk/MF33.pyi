@@ -144,7 +144,7 @@ class GSection:
             self       the gsection
             section    the gsection to be copied
         """
-    def covariance(self, secondary_rxn: int) -> list[list[float]]:
+    def covariance(self, mt: int) -> list[list[float]]:
         """
         The covaraince matrix for a given secondary reaction
         """
@@ -208,7 +208,7 @@ class GSection:
         The number of secondary reactions
         """
     @property
-    def secondary_reactions(self) -> list[int]:
+    def secondary_reactions(self) -> ...:
         """
         The present secondary reactions
         """
