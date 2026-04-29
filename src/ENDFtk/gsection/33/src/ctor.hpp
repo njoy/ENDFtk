@@ -1,6 +1,6 @@
 /**
  *  @brief Constructor for covariance matrices
- * 
+ *
  *  @param[in] mt           the section number
  *  @param[in] zaid         the ZAID identifier
  *  @param[in] awr          the atomic weight ratio
@@ -9,8 +9,7 @@
  *  @param[in] covr         the covariance matrices
  */
 GType( int mt, int zaid, double awr, int lr, int ngn,
-       std::map< size_t, 
-       std::vector< std::vector< double > > > covr ) :
+       std::map< std::size_t, std::vector< std::vector< double > > > covr ) :
     Base( zaid, awr, mt ),
     lr_( lr ),
     ngn_( ngn ),
@@ -18,15 +17,15 @@ GType( int mt, int zaid, double awr, int lr, int ngn,
 
 private:
 
-GType( int mt, int zaid, double awr, int lr, int ngn, 
-       std::vector< std::pair< size_t, std::vector< DataRecord > > >&& records ) :
-    GType( mt, zaid, awr, lr, ngn, 
+GType( int mt, int zaid, double awr, int lr, int ngn,
+       std::vector< std::pair< std::size_t, std::vector< DataRecord > > >&& records ) :
+    GType( mt, zaid, awr, lr, ngn,
            makeMatrices( records, ngn ) ) {}
 
 
-GType( int mt, int zaid, double awr, int lr, std::tuple< int, 
-       std::vector< std::pair< size_t, std::vector< DataRecord > > > >&& data ) :
-    GType( mt, zaid, awr, lr, 
+GType( int mt, int zaid, double awr, int lr, std::tuple< int,
+       std::vector< std::pair< std::size_t, std::vector< DataRecord > > > >&& data ) :
+    GType( mt, zaid, awr, lr,
            std::get<0>( data ),                     // ngn
            std::move( std::get<1>( data ) ) ) {}    // records
 
@@ -34,9 +33,9 @@ public:
 
 /**
  *  @brief Constructor from buffer/string
- * 
+ *
  *  @tparam Iterator        buffer iterator
- * 
+ *
  *  @param[in] head         the head record of the section
  *  @param[in] begin        the start for the iterator
  *  @param[in] end          the end for the iterator
@@ -56,7 +55,7 @@ GType( const HEAD& head,
         this->readSEND(begin, end, lineNumber, MAT, head.MF() );
     }
     catch( std::exception& e ) {
-        
+
         Log::info( "Encountered error while reading section {} of file {} for material {}"
                    " in GENDF file.", head.MT(), head.MF(), head.MAT());
         throw e;
