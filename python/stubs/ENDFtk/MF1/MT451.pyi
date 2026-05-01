@@ -21,9 +21,21 @@ class GSection:
             section    the string representing the section
         """
     @typing.overload
+    def __init__(self, zaid: int, awr: float, temp: float, egn: list[float]) -> None:
+        """
+        Initialise the section for an ERRORR style MF1 MT451 section
+        
+        Arguments:
+            self           the section
+            zaid           the ZA value of the material
+            awr            the atomic weight ratio
+            temp           the temperature
+            egn            the neutron group structure
+        """
+    @typing.overload
     def __init__(self, zaid: int, awr: float, temp: float, sigz: list[float], egn: list[float], egg: list[float]) -> None:
         """
-        Initialise the section
+        Initialise the section for a GROUPR style MF1 MT451 section
         
         Arguments:
             self           the section
@@ -83,6 +95,16 @@ class GSection:
         The number of neutron groups
         """
     @property
+    def NGT(self) -> int:
+        """
+        The GENDF file type (-1 for GROUPR and -11 for ERRORR)
+        """
+    @property
+    def NWT(self) -> int:
+        """
+        The number of title words
+        """
+    @property
     def NZ(self) -> int:
         """
         The number of dilutions
@@ -133,6 +155,11 @@ class GSection:
         The number of photon groups
         """
     @property
+    def number_title_words(self) -> int:
+        """
+        The number of title words
+        """
+    @property
     def photon_structure(self) -> ...:
         """
         The photon group structure
@@ -151,6 +178,11 @@ class GSection:
     def temperature(self) -> float:
         """
         The temperature
+        """
+    @property
+    def type(self) -> int:
+        """
+        The GENDF file type (-1 for GROUPR and -11 for ERRORR)
         """
 class Section:
     """

@@ -3,8 +3,10 @@ private:
 /**
  *  @brief Intermediate private constructor
  */
-GType( int zaid, double awr, int nz, ListRecord&& list ) :
+GType( int zaid, double awr, int nz, int ngt, int nwt, ListRecord&& list ) :
     BaseWithoutMT(zaid, awr),
+    nwt_( nwt ),
+    ngt_( ngt ),
     nz_( nz ),
     parameters_( std::move( list ) ) {}
 
@@ -15,14 +17,27 @@ GType( int zaid, double awr, std::size_t nz, double temp,
        std::vector< double >&& sigz,
        std::vector< double >&& egn,
        std::vector< double >&& egg ) :
-    GType( zaid, awr, nz,
+    GType( zaid, awr, nz, -1, 0,
            makeParameters( temp, std::move( sigz ),
                            std::move( egn ), std::move( egg ) ) ) {}
 
 public:
 
 /**
- *  @brief Constructor
+ *  @brief Constructor for an ERRORR style MF1 MT451 section
+ *
+ *  @param[in] zaid   the ZA value of the material
+ *  @param[in] awr    the atomic weight ratio
+ *  @param[in] egn    the neutron group structure
+ */
+GType( int zaid, double awr, double temp,
+       std::vector< double > egn ) :
+  GType( zaid, awr, 0, -11, 0,
+         makeParameters( temp, std::move( egn ) ) ) {}
+
+/**
+ *  @brief Constructor for a GROUPR style MF1 MT451 section
+ *
  *  @param[in] zaid   the ZA value of the material
  *  @param[in] awr    the atomic weight ratio
  *  @param[in] temp   the temperature evaluated
@@ -54,7 +69,7 @@ GType( HEAD& head,
        const Iterator& end,
        long& lineNumber,
        int MAT )
-  try : GType( head.ZA(), head.AWR(), head.L2(),
+  try : GType( head.ZA(), head.AWR(), head.L2(), head.N1(), head.N2(),
                ListRecord( begin, end, lineNumber, MAT, 1, 451 ) ) {
 
     readFendOrSend(begin, end, lineNumber, MAT, 1 );
