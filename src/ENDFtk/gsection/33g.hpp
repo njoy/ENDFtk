@@ -22,6 +22,7 @@ namespace section {
   class ENDFTK_PYTHON_EXPORT GType< 33 > : protected Base {
 
     /* fields */
+    int lmt_;
     int lr_;
     int ngn_;
     std::map< std::size_t, std::vector< std::vector< double > > > covariances_;
@@ -39,6 +40,22 @@ namespace section {
     #include "ENDFtk/gsection/33/src/ctor.hpp"
 
     /* methods */
+
+    /**
+     *  @brief Return the lumped reaction number (0 is not defined)
+     */
+    int LMT() const {
+
+      return this->lmt_;
+    }
+
+    /**
+     *  @brief Return the lumped reaction number (0 is not defined)
+     */
+    int lumpedReactionNumber() const {
+
+      return this->LRFLAG();
+    }
 
     /**
      *  @brief Return the breakup flag.

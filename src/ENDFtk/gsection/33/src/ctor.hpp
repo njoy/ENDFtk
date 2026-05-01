@@ -4,13 +4,15 @@
  *  @param[in] mt           the section number
  *  @param[in] zaid         the ZAID identifier
  *  @param[in] awr          the atomic weight ratio
+ *  @param[in] lmt          the lumped reaction number (0 is undefined)
  *  @param[in] lr           the break-up identifier flag
  *  @param[in] ngn          the number of neutron groups
  *  @param[in] covr         the covariance matrices
  */
-GType( int mt, int zaid, double awr, int lr, int ngn,
+GType( int mt, int zaid, double awr, int lmt, int lr, int ngn,
        std::map< std::size_t, std::vector< std::vector< double > > > covr ) :
     Base( zaid, awr, mt ),
+    lmt_( lmt ),
     lr_( lr ),
     ngn_( ngn ),
     covariances_( std::move( covr ) ) {
@@ -20,14 +22,14 @@ GType( int mt, int zaid, double awr, int lr, int ngn,
 
 private:
 
-GType( int mt, int zaid, double awr, int lr, int ngn,
+GType( int mt, int zaid, double awr, int lmt, int lr, int ngn,
        std::vector< std::pair< std::size_t, std::vector< DataRecord > > >&& records ) :
-    GType( mt, zaid, awr, lr, ngn,
+    GType( mt, zaid, awr, lmt, lr, ngn,
            makeMatrices( records, ngn ) ) {}
 
-GType( int mt, int zaid, double awr, int lr, std::tuple< int,
+GType( int mt, int zaid, double awr, int lmt, int lr, std::tuple< int,
        std::vector< std::pair< std::size_t, std::vector< DataRecord > > > >&& data ) :
-    GType( mt, zaid, awr, lr,
+    GType( mt, zaid, awr, lmt, lr,
            std::get<0>( data ),                     // ngn
            std::move( std::get<1>( data ) ) ) {}    // records
 
@@ -51,7 +53,7 @@ GType( const HEAD& head,
        long& lineNumber,
        int MAT )
     try:
-        GType( head.MT(), head.ZA(), head.AWR(), head.N1(),
+        GType( head.MT(), head.ZA(), head.AWR(), head.L2(), head.N1(),
                readRecords( begin, end, lineNumber, head.MAT(), head.MF(),
                             head.MT(), head.N2() ) ) {
         this->readSEND(begin, end, lineNumber, MAT, head.MF() );

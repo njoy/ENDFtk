@@ -122,7 +122,7 @@ class GSection:
             section    the string representing the section
         """
     @typing.overload
-    def __init__(self, mt: int, zaid: int, awr: float, lr: int = 0, ngn: int, covr: dict[int, list[list[float]]]) -> None:
+    def __init__(self, mt: int, zaid: int, awr: float, lmt: int = 0, lr: int = 0, ngn: int, covr: dict[int, list[list[float]]]) -> None:
         """
         Initialise the section
         
@@ -131,6 +131,7 @@ class GSection:
            mt          the MT number
            zaid        the ZA identifier
            awr         the atomic mass ratio
+           lmt         the lumped reaction number (default 0)
            lr          the complex breakup flag (default 0)
            ngn         the number of neutron groups
            covr        map of the secondary reaction and its associated covariance matrix (ngn, ngn)
@@ -161,6 +162,11 @@ class GSection:
     def AWR(self) -> float:
         """
         The atomic weight ratio for the section
+        """
+    @property
+    def LMT(self) -> int:
+        """
+        The lumped reaction number (0 is not defined)
         """
     @property
     def LRFLAG(self) -> int:
@@ -196,6 +202,11 @@ class GSection:
     def break_up(self) -> int:
         """
         The break up identifier flag
+        """
+    @property
+    def lumped_reaction_number(self) -> int:
+        """
+        The lumped reaction number (0 is not defined)
         """
     @property
     def number_groups(self) -> int:

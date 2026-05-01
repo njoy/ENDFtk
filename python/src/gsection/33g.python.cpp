@@ -26,19 +26,33 @@ void wrapGSection_33( python::module& module, python::module& ) {
   gsection
   .def(
 
-      python::init< int, int, double, int, int, std::map< size_t,
+      python::init< int, int, double, int, int, int, std::map< std::size_t,
                     std::vector< std::vector< double > > >&& >(),
       python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
-      python::arg( "lr" ) = 0, python::arg( "ngn" ), python::arg( "covr" ),
+      python::arg( "lmt" ) = 0, python::arg( "lr" ) = 0, python::arg( "ngn" ),
+      python::arg( "covr" ),
       "Initialise the section\n\n"
       "Arguments:\n"
       "   self        the section\n"
       "   mt          the MT number\n"
       "   zaid        the ZA identifier\n"
       "   awr         the atomic mass ratio\n"
+      "   lmt         the lumped reaction number (default 0)\n"
       "   lr          the complex breakup flag (default 0)\n"
       "   ngn         the number of neutron groups\n"
       "   covr        map of the secondary reaction and its associated covariance matrix (ngn, ngn)\n"
+  )
+  .def_property_readonly(
+
+    "LMT",
+    &GSection::LMT,
+    "The lumped reaction number (0 is not defined)"
+  )
+  .def_property_readonly(
+
+    "lumped_reaction_number",
+    &GSection::lumpedReactionNumber,
+    "The lumped reaction number (0 is not defined)"
   )
   .def_property_readonly(
 
