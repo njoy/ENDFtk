@@ -30,7 +30,9 @@ static void readSEND
       Log::info( "Encountered MF = {}", division.tail.MF() );
       throw std::exception();
     }
-  } catch ( std::exception& e ){
+  }
+  catch ( std::exception& e ) {
+
     Log::info( "Encountered error while reading the SEND record." );
     throw e;
   }

@@ -57,7 +57,7 @@ GType( HEAD& head,
   try : GType( head.ZA(), head.AWR(), head.L2(),
                ListRecord( begin, end, lineNumber, MAT, 1, 451 ) ) {
 
-    readFEND(begin, end, lineNumber, MAT);
+    readFendOrSend(begin, end, lineNumber, MAT, 1 );
   }
   catch( std::exception& e ) {
 

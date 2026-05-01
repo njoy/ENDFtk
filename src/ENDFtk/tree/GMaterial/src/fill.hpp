@@ -63,9 +63,14 @@ fill
       throw std::exception();
     }
 
-    // get the next END record
+    // get the next HEAD record
     begin = position;
     division = StructureDivision( position, end, lineNumber );
+    if ( ! division.isHead() && division.isFend() ) {
+
+      begin = position;
+      division = StructureDivision( position, end, lineNumber );
+    }
   }
 
   // subdivide into files

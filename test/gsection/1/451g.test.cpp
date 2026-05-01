@@ -16,6 +16,7 @@ using gsection1451 = section::GType< 1, 451 >;
 
 std::string chunk();
 std::string validFEND();
+std::string validSEND();
 void verifyChunk( const section::GType< 1, 451 >& );
 
 SCENARIO( "section::GType< 1, 451 >" ) {
@@ -47,6 +48,32 @@ SCENARIO( "section::GType< 1, 451 >" ) {
 
       THEN( "a section::GType<1,451> can be constructed and "
             "members can be tested") {
+
+        verifyChunk(chunk);
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter(buffer);
+        chunk.print(output, 9228, 1);
+
+        CHECK(buffer == sectionString);
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is being read from a string/stream with a valid SEND" ) {
+
+      std::string alternate = chunk() + validSEND();
+      auto begin = alternate.begin();
+      auto end = alternate.end();
+      long lineNumber = 1;
+      HeadRecord head(begin, end, lineNumber);
+
+      section::GType<1, 451> chunk(head, begin, end, lineNumber, 9228);
+
+      THEN( "a section GType<1,451> can be constructed and "
+            "members can be tested" ) {
 
         verifyChunk(chunk);
       } // THEN
@@ -107,6 +134,12 @@ std::string validFEND() {
 
   return
     "                                                                  9228 0  0     \n";
+}
+
+std::string validSEND() {
+
+  return
+    "                                                                  9228 1  0     \n";
 }
 
 void verifyChunk( const section::GType< 1, 451 >& chunk ) {
