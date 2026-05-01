@@ -37,11 +37,25 @@ void wrapGSection_1_451( python::module& module, python::module& ) {
   .def(
 
     python::init< int, double, double,
+                  std::vector< double > >(),
+    python::arg( "zaid" ), python::arg( "awr" ), python::arg( "temp" ),
+    python::arg( "egn" ),
+    "Initialise the section for an ERRORR style MF1 MT451 section\n\n"
+    "Arguments:\n"
+    "    self           the section\n"
+    "    zaid           the ZA value of the material\n"
+    "    awr            the atomic weight ratio\n"
+    "    temp           the temperature\n"
+    "    egn            the neutron group structure"
+  )
+  .def(
+
+    python::init< int, double, double,
                   std::vector< double >, std::vector< double >,
                   std::vector< double > >(),
     python::arg( "zaid" ), python::arg( "awr" ), python::arg( "temp" ),
     python::arg( "sigz" ), python::arg( "egn" ), python::arg( "egg" ),
-    "Initialise the section\n\n"
+    "Initialise the section for a GROUPR style MF1 MT451 section\n\n"
     "Arguments:\n"
     "    self           the section\n"
     "    zaid           the ZA value of the material\n"
@@ -50,6 +64,30 @@ void wrapGSection_1_451( python::module& module, python::module& ) {
     "    sigz           the dilution values\n"
     "    egn            the neutron group structure\n"
     "    egg            the photon group structure"
+  )
+  .def_property_readonly(
+
+    "NGT",
+    &GSection::NGT,
+    "The GENDF file type (-1 for GROUPR and -11 for ERRORR)"
+  )
+  .def_property_readonly(
+
+    "type",
+    &GSection::type,
+    "The GENDF file type (-1 for GROUPR and -11 for ERRORR)"
+  )
+  .def_property_readonly(
+
+    "NWT",
+    &GSection::NWT,
+    "The number of title words"
+  )
+  .def_property_readonly(
+
+    "number_title_words",
+    &GSection::numberTitleWords,
+    "The number of title words"
   )
   .def_property_readonly(
 
