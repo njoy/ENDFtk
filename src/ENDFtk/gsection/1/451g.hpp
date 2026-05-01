@@ -21,6 +21,8 @@ namespace section {
     friend BaseWithoutMT< GType< 1, 451 > >;
 
     /* fields */
+    int nwt_;
+    int ngt_;
     int nz_;
     ListRecord parameters_;
 
@@ -33,6 +35,26 @@ namespace section {
     #include "ENDFtk/gsection/1/451/src/ctor.hpp"
 
     /* methods */
+
+    /**
+     *  @brief Return the GENDF file type (-1 for GROUPR and -11 for ERRORR)
+     */
+    int NGT() const { return this->ngt_; }
+
+    /**
+     *  @brief Return the GENDF file type (-1 for GROUPR and -11 for ERRORR)
+     */
+    int type() const { return this->NGT(); }
+
+    /**
+     *  @brief Return the number of title words
+     */
+    int NWT() const { return this->nwt_; }
+
+    /**
+     *  @brief Return the number of title words (obsolete)
+     */
+    int numberTitleWords() const { return this->NWT(); }
 
     /**
      *  @brief Return the number of dilution values
@@ -80,7 +102,7 @@ namespace section {
     auto SIGZ() const {
 
       using namespace njoy::tools;
-      return this->parameters_.list() | std20::views::drop( 1 )
+      return this->parameters_.list() | std20::views::drop( this->NWT() )
                                       | std20::views::take( this->NZ() );
     }
 
@@ -95,7 +117,7 @@ namespace section {
     auto EGN() const {
 
       using namespace njoy::tools;
-      return this->parameters_.list() | std20::views::drop( 1 + this->NZ() )
+      return this->parameters_.list() | std20::views::drop( this->NWT() + this->NZ() )
                                       | std20::views::take( this->NGN() + 1 );
     }
 
@@ -110,7 +132,7 @@ namespace section {
     auto EGG() const {
 
       using namespace njoy::tools;
-      return this->parameters_.list() | std20::views::drop( 1 + this->NZ() + this->NGN() + 1 )
+      return this->parameters_.list() | std20::views::drop( this->NWT() + this->NZ() + this->NGN() + 1 )
                                       | std20::views::take( this->NGG() + 1 );
     }
 
