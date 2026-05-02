@@ -4,7 +4,7 @@ void print( OutputIterator& it, int MAT, int MF ) const {
   int MT = this->MT();
   if ( this->covariances_.begin()->second.empty() ) {
 
-      ControlRecord( this->ZA(), this->AWR(), 0, covariances_.begin()->first,
+      ControlRecord( this->ZA(), this->AWR(), 0, this->LMT(),
                      this->LRFLAG(), 0 ).print( it, MAT, MF, MT );
   } // endif
   else {

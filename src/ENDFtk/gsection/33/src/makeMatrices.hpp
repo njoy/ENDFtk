@@ -28,10 +28,6 @@ makeMatrices( const std::vector< std::pair< std::size_t, std::vector< DataRecord
       } // endif
     } // matrix
   } //endif
-  else {
-
-    throw std::runtime_error( "Vector of DataRecords is empty!" );
-  }
 
   return covr_matrices;
 }
