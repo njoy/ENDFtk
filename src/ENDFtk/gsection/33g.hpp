@@ -54,7 +54,7 @@ namespace section {
      */
     int lumpedReactionNumber() const {
 
-      return this->LRFLAG();
+      return this->LMT();
     }
 
     /**
