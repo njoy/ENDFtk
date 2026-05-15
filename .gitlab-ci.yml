@@ -34,6 +34,20 @@ trigger_ci_downstream:
 
 check:
   stage: check_ok
+  tags:
+    - wrs
+    - AVX2
+
+  artifacts:
+    expire_in: 30d
+
+  id_tokens:
+    SITE_ID_TOKEN:
+      aud: https://asc-git.lanl.gov
+    CI_JOB_JWT:
+      aud: https://asc-git.lanl.gov/
+
+
   script:
     - printenv
     - echo "Looks good..."
