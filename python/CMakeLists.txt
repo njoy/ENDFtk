@@ -211,6 +211,7 @@ if(ENDFtk.python)
         ${CMAKE_CURRENT_SOURCE_DIR}/src/gsection/5/455g.python.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/src/gsection/6g.python.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/src/gsection/33g.python.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/gsection/34g.python.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/src/gsection/16g.python.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/src/file/1.python.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/src/file/2.python.cpp

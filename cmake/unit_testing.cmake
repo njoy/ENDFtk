@@ -267,6 +267,7 @@ add_cpp_test( gsection.5.455  gsection/5/455g.test.cpp )
 add_cpp_test( gsection.5.18   gsection/5/18g.test.cpp )
 add_cpp_test( gsection.6      gsection/6g.test.cpp )
 add_cpp_test( gsection.33     gsection/33g.test.cpp )
+add_cpp_test( gsection.34     gsection/34g.test.cpp )
 add_cpp_test( gsection.16     gsection/16g.test.cpp )
 
 add_cpp_test( tree.GSection  tree/GSection.test.cpp )
