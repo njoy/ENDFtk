@@ -14,9 +14,11 @@ using Catch::Matchers::WithinRel;
 using namespace njoy::ENDFtk;
 
 std::string chunk();
+std::string chunkZeros();
 std::string validSEND();
 
 void verifyChunk( const section::GType< 34 >& );
+void verifyChunkZeros( const section::GType< 34 >& );
 
 SCENARIO( "section::GType< 34 >" ) {
   GIVEN( "valid data for a section::GType< 34 >" ) {
@@ -122,6 +124,69 @@ SCENARIO( "section::GType< 34 >" ) {
       } // THEN
     } // WHEN
   } // GIVEN
+
+  GIVEN( "valid data for a section::GType< 34 > that is all zero" ) {
+
+    std::string sectionString = chunkZeros() + validSEND();
+
+    WHEN( "the data is given explicitly" ) {
+
+      int zaid = 92238;
+      double awr = 236.0058;
+      int mt = 251;
+      int l = 2;
+      int l1 = 2;
+      int ngn = 27;
+      int irelco = 1;
+
+      std::vector< std::vector< double > > ang_covr( 27, std::vector< double > ( 27, 0.0 ) );
+
+      section::GType< 34 > chunk(  mt, zaid, awr, irelco, l, l1, ngn, ang_covr );
+
+      THEN( "a section GType< 34 > can be constructed and its"
+            " members can be tested" ) {
+
+        verifyChunkZeros( chunk );
+
+      } // THEN
+
+      THEN( "it can be printed" ) {
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9237, 34 );
+
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is read from a string" ) {
+
+    std::string line = chunkZeros() + validSEND();
+    auto begin = line.begin();
+    auto end = line.end();
+    long lineNumber = 0;
+    auto head = HeadRecord( begin, end, lineNumber );
+
+    section::GType< 34 > chunk(head, begin, end, lineNumber, 9237 );
+
+      THEN( " a section GType< 34 > can be constructed and its"
+            " members can be tested" ) {
+
+        verifyChunkZeros( chunk );
+
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print( output, 9237, 34 );
+
+        CHECK( buffer == sectionString );
+
+      } // THEN
+    } // WHEN      
+  } // GIVEN
 } // SCENARIO
 
 std::string chunk() {
@@ -180,6 +245,13 @@ std::string chunk() {
     "-8.227505-7-3.692090-6-3.464455-6-5.333293-6-8.331543-7 6.595560-6923734251     \n"
     " 1.433498-5 7.865715-6-1.992313-5-7.660755-5 1.492545-4 2.509053-4923734251     \n"
     " 3.685124-4                                                       923734251     \n";
+}
+
+std::string chunkZeros() {
+    return " 9.223800+4 2.360058+2          0          1          2          2923734251     \n"    
+    " 0.000000+0 0.000000+0        251          2          2         27923734251     \n"
+    " 0.000000+0 0.000000+0          1         27          1         27923734251     \n"
+    " 0.000000+0                                                       923734251     \n";
 }
 
 std::string validSEND() {
@@ -253,4 +325,32 @@ void verifyChunk( const section::GType< 34 >& chunk ) {
         CHECK_THAT( ang_covr[ g_i ][ g_o ], WithinRel( out_ang_covr[ g_i ][ g_o ] ) );
       } // g_o
     } // g_i
+}
+
+void verifyChunkZeros( const section::GType< 34 >& chunk ) {
+    CHECK( 92238 == chunk.ZA() );
+    CHECK( 92238 == chunk.targetIdentifier() );
+    CHECK_THAT( 236.0058, WithinRel( chunk.AWR() ) );
+    CHECK_THAT( 236.0058, WithinRel( chunk.atomicWeightRatio() ) );
+    CHECK( 251 == chunk.MT() );
+    CHECK( 251 == chunk.sectionNumber() );
+    CHECK( 27 == chunk.NGN() );
+    CHECK( 27 == chunk.numberNeutronGroups() );
+    CHECK( 2 == chunk.L() );
+    CHECK( 2 == chunk.primaryLegendre() );
+    CHECK( 2 == chunk.L1() );
+    CHECK( 2 == chunk.secondaryLegendre() );
+    CHECK( 1 == chunk.IRELCO() );
+    CHECK( 1 == chunk.covarianceFormat() );
+
+  // covr matrix
+  std::vector< std::vector< double > > ang_covr( 27, std::vector< double > ( 27, 0.0 ) );
+
+  auto out_ang_covr = chunk.angularCovariance();
+  for ( size_t g_i = 0; g_i < chunk.NGN(); ++g_i ) {
+    for ( size_t g_o = 0; g_o < chunk.NGN(); ++g_o ) {
+      CHECK_THAT( ang_covr[ g_i ][ g_o ], WithinRel( out_ang_covr[ g_i ][ g_o ] ) );
+    } // g_o
+  } // g_i
+  
 }
