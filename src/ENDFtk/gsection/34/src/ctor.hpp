@@ -27,13 +27,11 @@ GType( int mt, int zaid, double awr, int irelco, int l, int l1, int ngn,
     GType( mt, zaid, awr, irelco, l, l1, ngn,
            makeMatrices( records, ngn ) ) {}
 
-GType( int mt, int zaid, double awr, int irelco,std::tuple< int, int,
-       int, std::vector< DataRecord > >&& data ) :
-    GType( mt, zaid, awr, irelco,
-           std::get<0>( data ),                     // l
-           std::get<1>( data ),                     // l1
-           std::get<2>( data ),                     // ngn
-           std::move( std::get<3>( data ) ) ) {}    // records
+GType( int mt, int zaid, double awr, int irelco, int l, int l1, 
+       std::tuple< int, std::vector< DataRecord > >&& data ) :
+    GType( mt, zaid, awr, irelco, l, l1,
+           std::get<0>( data ),                     // ngn
+           std::move( std::get<1>( data ) ) ) {}    // records
 
 public:
 
@@ -55,7 +53,7 @@ GType( const HEAD&head,
        long& lineNumber,
        int MAT )
     try:
-        GType( head.MT(), head.ZA(), head.AWR(), head.L2(),
+        GType( head.MT(), head.ZA(), head.AWR(), head.L2(), head.N1(), head.N2(),
                readRecords(begin, end, lineNumber, head.MAT(), head.MF(),
                            head.MT() ) ) {
         this->readSEND(begin, end, lineNumber, MAT, head.MF() );

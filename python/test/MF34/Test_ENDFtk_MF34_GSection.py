@@ -63,8 +63,8 @@ class Test_ENDFtk_MF34_GSection( unittest.TestCase ) :
     " 1.433498-5 7.865715-6-1.992313-5-7.660755-5 1.492545-4 2.509053-4923734251     \n"
     " 3.685124-4                                                       923734251     \n" )
 
-    chunk_zeros = ( " 9.223800+4 2.360058+2          0          1          2          2923734251     \n"    
-    " 0.000000+0 0.000000+0        251          2          2         27923734251     \n"
+    chunk_zeros = ( " 9.223800+4 2.360058+2          0          1          1          2923734251     \n"    
+    " 0.000000+0 0.000000+0        251          1          2         27923734251     \n"
     " 0.000000+0 0.000000+0          1         27          1         27923734251     \n"
     " 0.000000+0                                                       923734251     \n"  )
 
@@ -146,8 +146,8 @@ class Test_ENDFtk_MF34_GSection( unittest.TestCase ) :
         self.assertAlmostEqual( 236.0058, chunk.atomic_weight_ratio )
         self.assertEqual( 251, chunk.MT )
         self.assertEqual( 251, chunk.section_number )
-        self.assertEqual( 2, chunk.L )
-        self.assertEqual( 2, chunk.primary_legendre )
+        self.assertEqual( 1, chunk.L )
+        self.assertEqual( 1, chunk.primary_legendre )
         self.assertEqual( 2, chunk.L1 )
         self.assertEqual( 2, chunk.secondary_legendre )
         self.assertEqual( 1, chunk.IRELCO )
@@ -225,7 +225,7 @@ class Test_ENDFtk_MF34_GSection( unittest.TestCase ) :
       # When the data is all zero
 
       ang_covr = [ [ 0.0 for _ in range( 27 ) ] for _ in range( 27 ) ]
-      chunk_zero = GSection( mt = 251, zaid = 92238, awr = 236.0058, irelco = 1, l = 2, l1 = 2, ngn = 27, ang_covr = ang_covr )
+      chunk_zero = GSection( mt = 251, zaid = 92238, awr = 236.0058, irelco = 1, l = 1, l1 = 2, ngn = 27, ang_covr = ang_covr )
 
       # Then it can be verified
       verify_chunk_zeros( self, chunk_zero )

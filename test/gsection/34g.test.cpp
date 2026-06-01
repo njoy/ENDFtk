@@ -125,7 +125,8 @@ SCENARIO( "section::GType< 34 >" ) {
     } // WHEN
   } // GIVEN
 
-  GIVEN( "valid data for a section::GType< 34 > that is all zero" ) {
+  GIVEN( "valid data for a section::GType< 34 > that is all zero and has specified"
+         " and the legendre order pair is n.e.q to one another. " ) {
 
     std::string sectionString = chunkZeros() + validSEND();
 
@@ -134,7 +135,7 @@ SCENARIO( "section::GType< 34 >" ) {
       int zaid = 92238;
       double awr = 236.0058;
       int mt = 251;
-      int l = 2;
+      int l = 1;
       int l1 = 2;
       int ngn = 27;
       int irelco = 1;
@@ -248,8 +249,8 @@ std::string chunk() {
 }
 
 std::string chunkZeros() {
-    return " 9.223800+4 2.360058+2          0          1          2          2923734251     \n"    
-    " 0.000000+0 0.000000+0        251          2          2         27923734251     \n"
+    return " 9.223800+4 2.360058+2          0          1          1          2923734251     \n"    
+    " 0.000000+0 0.000000+0        251          1          2         27923734251     \n"
     " 0.000000+0 0.000000+0          1         27          1         27923734251     \n"
     " 0.000000+0                                                       923734251     \n";
 }
@@ -336,8 +337,8 @@ void verifyChunkZeros( const section::GType< 34 >& chunk ) {
     CHECK( 251 == chunk.sectionNumber() );
     CHECK( 27 == chunk.NGN() );
     CHECK( 27 == chunk.numberNeutronGroups() );
-    CHECK( 2 == chunk.L() );
-    CHECK( 2 == chunk.primaryLegendre() );
+    CHECK( 1 == chunk.L() );
+    CHECK( 1 == chunk.primaryLegendre() );
     CHECK( 2 == chunk.L1() );
     CHECK( 2 == chunk.secondaryLegendre() );
     CHECK( 1 == chunk.IRELCO() );
