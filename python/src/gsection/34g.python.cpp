@@ -25,11 +25,11 @@ void wrapGSection_34( python::module& module, python::module& ) {
   // wrap section
   gsection
   .def(
-        python::init< int, int, double, int, int, int, int,
+        python::init< int, int, double, int, int, int,
                       std::vector< std::vector< double > >&& >(),
         python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
         python::arg( "irelco" ), python::arg( "l" ), python::arg( "l1" ),
-        python::arg( "ngn" ), python::arg( "ang_covr" ),
+        python::arg( "ang_covr" ),
         "Initialise the section\n\n"
         "Arguments:\n"
         "   self        the section\n"
@@ -39,7 +39,6 @@ void wrapGSection_34( python::module& module, python::module& ) {
         "   irelco      the covariance format ( 0/1 = abs./rel. )\n"
         "   l           the primary legendre order\n"
         "   l1          the secondary legendre order\n"
-        "   ngn         the number of neutron groups\n"
         "   ang_covr    the secondary angular distribution covariance matrix\n"
   )
   .def_property_readonly(

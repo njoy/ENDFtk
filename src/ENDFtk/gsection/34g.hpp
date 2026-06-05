@@ -24,7 +24,6 @@ namespace section {
     /* fields */
     int l_;
     int l1_;
-    int ngn_;
     int irelco_;
     std::vector< std::vector< double > > ang_covr_;
 
@@ -76,8 +75,8 @@ namespace section {
      *  @brief Return the covariance format (0/1 -> abs./rel.)
      */
     int IRELCO() const {
-        
-      return this->irelco_; 
+
+      return this->irelco_;
     }
 
     /**
@@ -93,7 +92,7 @@ namespace section {
      */
     int NGN() const {
 
-      return this->ngn_;
+      return this->ang_covr_.size();
     }
 
     /**
@@ -107,7 +106,8 @@ namespace section {
     /**
      * @brief Return the secondary angular distribution covariance matrix.
      */
-    decltype( auto ) angularCovariance() const{
+    const std::vector< std::vector< double > >& angularCovariance() const{
+
       return this->ang_covr_;
     }
 
