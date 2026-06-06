@@ -4,7 +4,7 @@ MF34 - covariances for angular distributions
 import ENDFtk
 from __future__ import annotations
 import typing
-__all__: list[str] = ['File', 'LegendreBlock', 'ReactionBlock', 'Section']
+__all__: list[str] = ['File', 'GSection', 'LegendreBlock', 'ReactionBlock', 'Section']
 class File:
     """
     MF34 file - covariances for angular distributions
@@ -105,6 +105,129 @@ class File:
     def sections(self) -> ...:
         """
         The sections defined in the file
+        """
+class GSection:
+    """
+    MF34 gsection - secondary angular distribution covariance matrices
+    """
+    @staticmethod
+    def from_string(gsection: str) -> GSection:
+        """
+        Read the section from a string
+        
+        An exception is raised if something goes wrong while reading the
+        section
+        
+        Arguments:
+            section    the string representing the section
+        """
+    @typing.overload
+    def __init__(self, mt: int, zaid: int, awr: float, irelco: int, l: int, l1: int, ang_covr: list[list[float]]) -> None:
+        """
+        Initialise the section
+        
+        Arguments:
+           self        the section
+           mt          the MT number
+           zaid        the ZA identifier
+           awr         the atomic mass ratio
+           irelco      the covariance format ( 0/1 = abs./rel. )
+           l           the primary legendre order
+           l1          the secondary legendre order
+           ang_covr    the secondary angular distribution covariance matrix
+        """
+    @typing.overload
+    def __init__(self, gsection: GSection) -> None:
+        """
+        Initialise the gsection with another gsection
+        
+        Arguments:
+            self       the gsection
+            section    the gsection to be copied
+        """
+    def to_string(self, mat: int, mf: int) -> str:
+        """
+        Return the string representation of the section
+        
+        Arguments:
+            self    the section
+            mat     the MAT number to be used
+            mf      the MF number to be used
+        """
+    @property
+    def AWR(self) -> float:
+        """
+        The atomic weight ratio for the section
+        """
+    @property
+    def IRELCO(self) -> int:
+        """
+        The covariance format (0/1 = abs./rel.)
+        """
+    @property
+    def L(self) -> int:
+        """
+        The primary legendre order
+        """
+    @property
+    def L1(self) -> int:
+        """
+        The secondary legendre order
+        """
+    @property
+    def MT(self) -> int:
+        """
+        The MT number of the section
+        """
+    @property
+    def NGN(self) -> int:
+        """
+        The number of neutron groups
+        """
+    @property
+    def ZA(self) -> int:
+        """
+        The ZA identifier for the section
+        """
+    @property
+    def angular_covariance(self) -> list[list[float]]:
+        """
+        The secondary angular distribution covariance matrix
+        """
+    @property
+    def atomic_weight_ratio(self) -> float:
+        """
+        The atomic weight ratio for the section
+        """
+    @property
+    def covariance_format(self) -> int:
+        """
+        The covariance format (0/1 = abs./rel.)
+        """
+    @property
+    def number_groups(self) -> int:
+        """
+        The number of neutron groups
+        """
+    @property
+    def primary_legendre(self) -> int:
+        """
+        The primary legendre order
+        """
+    @property
+    def secondary_legendre(self) -> int:
+        """
+        The secondary legendre order
+        """
+    @property
+    def section_number(self) -> int:
+        """
+        The MT number of the section
+        """
+    @property
+    def target_identifier(self) -> int:
+        """
+        The ZA identifier for the section
         """
 class LegendreBlock:
     """

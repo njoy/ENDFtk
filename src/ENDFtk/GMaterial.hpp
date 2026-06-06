@@ -10,5 +10,6 @@
 #include "ENDFtk/gfile/6.hpp"
 #include "ENDFtk/gfile/16.hpp"
 #include "ENDFtk/gfile/33.hpp"
+#include "ENDFtk/gfile/34.hpp"
 
 #endif

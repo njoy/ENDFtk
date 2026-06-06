@@ -99,7 +99,7 @@ makeMatrices( const std::vector< DataRecord > records,
   // standard MF6 matrix
   else {
 
-    for ( const auto& record : records) {
+    for ( const auto& record : records ) {
 
       std::size_t g_i = record.IG() - 1; // g_i = incident_erg
       int group_block = 1;
