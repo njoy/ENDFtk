@@ -26,9 +26,11 @@ if(ENDFtk.tests)
       GIT_REPOSITORY  ../../catchorg/Catch2
       GIT_TAG         b670de4fe12ac7c5e858b7de3a14fb4bd18c760e  # tag: v3.14.0
       )
+  set( BUILD_SHARED_LIBS ON )
   shacl_FetchContent_MakeAvailable(
     Catch2
     )
+  set( BUILD_SHARED_LIBS OFF )
 endif()
 
 shacl_FetchContent_MakeAvailable(
