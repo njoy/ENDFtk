@@ -42,19 +42,19 @@ namespace section {
     /* methods */
 
     /**
-     *  @brief Return the lumped reaction number (0 is not defined)
+     *  @brief Return the lumped covariance index (0 is not defined)
      */
-    int LMT() const {
+    int MTL() const {
 
       return this->lmt_;
     }
 
     /**
-     *  @brief Return the lumped reaction number (0 is not defined)
+     *  @brief Return the lumped covariance index (0 is not defined)
      */
-    int lumpedReactionNumber() const {
+    int lumpedCovarianceIndex() const {
 
-      return this->LMT();
+      return this->MTL();
     }
 
     /**
