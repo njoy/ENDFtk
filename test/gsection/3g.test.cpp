@@ -16,11 +16,13 @@ using namespace njoy::ENDFtk;
 std::string chunk();
 std::string chunkRatios();
 std::string chunkClipped();
+std::string chunkErrorr();
 std::string validSEND();
 
 void verifyChunkRatios(const section::GType< 3 >& );
 void verifyChunk(const section::GType< 3 >& );
 void verifyChunkClipped(const section::GType< 3 >& );
+void verifyChunkErrorr(const section::GType< 3 >& );
 
 SCENARIO( "section::GType< 3 >" ) {
 
@@ -102,16 +104,16 @@ SCENARIO( "section::GType< 3 >" ) {
 
       THEN( "a section GType< 3 > can be constructed and members can be tested" ) {
 
-        verifyChunk(chunk);
+        verifyChunk( chunk );
       } // THEN
 
       THEN( "it can be printed" ) {
 
         std::string buffer;
-        auto output = std::back_inserter(buffer);
+        auto output = std::back_inserter( buffer );
         chunk.print(output, 9228, 3);
 
-        CHECK(buffer == sectionString);
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
 
@@ -121,27 +123,27 @@ SCENARIO( "section::GType< 3 >" ) {
       auto begin = line.begin();
       auto end = line.end();
       long lineNumber = 0;
-      auto head = HeadRecord(begin, end, lineNumber);
+      auto head = HeadRecord( begin, end, lineNumber );
 
-      section::GType< 3 > chunk(head, begin, end, lineNumber, 9228);
+      section::GType< 3 > chunk( head, begin, end, lineNumber, 9228 );
 
       THEN( "a section GType<3> can be constructed and members can be tested" ) {
 
-        verifyChunk(chunk);
+        verifyChunk( chunk );
       } // THEN
 
       THEN( "it can be printed" ) {
 
         std::string buffer;
-        auto output = std::back_inserter(buffer);
+        auto output = std::back_inserter( buffer );
         chunk.print(output, 9228, 3);
 
-        CHECK(buffer == sectionString);
+        CHECK( buffer == sectionString );
       } // THEN
 
       THEN( "ratios are requested, it will error out" ) {
 
-        CHECK_THROWS( chunk.ratio(0,0) );
+        CHECK_THROWS( chunk.ratio( 0, 0 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -181,16 +183,16 @@ SCENARIO( "section::GType< 3 >" ) {
       THEN( "a section::GType<3> can be constructed and "
             "members can be tested.") {
 
-        verifyChunkRatios(chunkRatios);
+        verifyChunkRatios( chunkRatios );
       } // THEN
 
       THEN( "it can be printed" ) {
 
         std::string buffer;
-        auto output = std::back_inserter(buffer);
+        auto output = std::back_inserter( buffer );
         chunkRatios.print( output, 9228, 3 );
 
-        CHECK(buffer == sectionString);
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
 
@@ -206,16 +208,16 @@ SCENARIO( "section::GType< 3 >" ) {
       THEN( "a gsection::GType<3> can be constructed and"
             "members can be tested." ) {
 
-        verifyChunkRatios(chunkRatios);
+        verifyChunkRatios( chunkRatios );
       } // THEN
 
       THEN( "it can be printed" ) {
 
         std::string buffer;
-        auto output = std::back_inserter(buffer);
+        auto output = std::back_inserter( buffer );
         chunkRatios.print( output, 9228, 3);
 
-        CHECK(buffer == sectionString);
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -253,10 +255,10 @@ SCENARIO( "section::GType< 3 >" ) {
       THEN( "it can be printed" ) {
 
         std::string buffer;
-        auto output = std::back_inserter(buffer);
+        auto output = std::back_inserter( buffer );
         chunkClipped.print(output, 9228, 3);
 
-        CHECK(buffer == sectionString);
+        CHECK( buffer == sectionString );
       } // THEN
     } // WHEN
 
@@ -266,7 +268,7 @@ SCENARIO( "section::GType< 3 >" ) {
       auto begin = line.begin();
       auto end = line.end();
       long lineNumber = 0;
-      auto head = HeadRecord(begin, end, lineNumber);
+      auto head = HeadRecord( begin, end, lineNumber );
 
       section::GType< 3 > chunkClipped(head, begin, end, lineNumber, 9228);
 
@@ -279,10 +281,74 @@ SCENARIO( "section::GType< 3 >" ) {
       THEN("it can be printed") {
 
         std::string buffer;
-        auto output = std::back_inserter(buffer);
+        auto output = std::back_inserter( buffer );
         chunkClipped.print(output, 9228, 3);
 
-        CHECK(buffer == sectionString);
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
+  } // GIVEN
+
+  GIVEN( "valid data for an ERRORR formatted section::GType< 3 >" ) {
+
+    std::string sectionString = chunkErrorr() + validSEND();
+
+    WHEN( "the data is provided explicitly" ) {
+
+      int zaid = 92235;
+      double awr = 0.0;
+      int mt = 1;
+
+      std::vector< double > xs = {
+        5.367046e2, 2.202761e2, 9.571743e1, 3.879649e1, 5.525322e1, 1.123560e2,
+        8.429812e1, 4.716981e1, 3.549166e1, 2.659377e1, 2.029375e1, 1.712288e1,
+        1.496041e1, 1.339889e1, 1.176493e1, 1.030321e1, 8.994543e0, 7.724532e0,
+        6.866099e0, 6.841653e0, 7.226625e0, 7.693402e0, 7.979821e0, 7.647424e0,
+        6.661945e0, 6.031144e0, 5.747069e0, 5.746542e0, 5.827871e0, 6.020082e0 };
+
+      section::GType< 3 > chunk( mt, zaid, awr, xs );
+
+      THEN( "a section GType< 3 > can be constructed and members can be tested" ) {
+
+        verifyChunkErrorr( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print(output, 9228, 3);
+
+        CHECK( buffer == sectionString );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is given as a string" ) {
+
+      auto begin = sectionString.begin();
+      auto end = sectionString.end();
+      long lineNumber = 0;
+      auto head = HeadRecord( begin, end, lineNumber );
+
+      section::GType< 3 > chunk( head, begin, end, lineNumber, 9228 );
+
+      THEN( "a section GType<3> can be constructed and members can be tested" ) {
+
+        verifyChunkErrorr( chunk );
+      } // THEN
+
+      THEN( "it can be printed" ) {
+
+        std::string buffer;
+        auto output = std::back_inserter( buffer );
+        chunk.print(output, 9228, 3);
+
+        CHECK( buffer == sectionString );
+      } // THEN
+
+      THEN( "ratios are requested, it will error out" ) {
+
+        CHECK_THROWS( chunk.ratio( 0, 0 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -413,85 +479,97 @@ void verifyChunk( const section::GType< 3 >& chunk ) {
      1.154819e6, 1.153684e6, 1.154784e6, 1.152800e6, 1.156920e6, 1.154341e6, 1.157786e6, 1.156371e6, 5.809202e5,
      7.341455e5, 1.030736e6, 1.175655e6, 5.407961e5, 4.481701e5, 3.429532e5, 2.344895e5, 2.235493e5, 4.396216e4,
      2.311833e4, 1.410474e4, 1.905167e4, 7.393531e4, 3.724272e3};
-  for (size_t i = 0; i < ngn; ++i) {
-      CHECK_THAT(flux_0_0[i], WithinRel(chunk.flux(0, 0)[i]));
+  for ( std::size_t i = 0; i < ngn; ++i ) {
+
+    CHECK_THAT( flux_0_0[i], WithinRel( chunk.flux(0, 0)[i] ) );
   }
   std::vector<double> flux_0_1 = {1.197023e7, 1.124479e6, 1.147463e6, 1.143887e6, 1.149144e6, 1.141705e6, 1.144432e6, 1.149445e6, 1.149437e6,
                   1.151641e6, 1.150432e6, 1.154913e6, 1.152599e6, 1.156223e6, 1.154994e6, 5.803194e5, 7.334852e5, 1.029938e6,
                   1.174846e6, 5.404268e5, 4.478473e5, 3.426903e5, 2.343027e5, 2.233755e5, 4.393264e4, 2.310431e4, 1.409665e4,
                   1.904072e4, 7.389235e4, 3.722040e3};
-  for (size_t i = 0; i< ngn; ++i) {
-      CHECK_THAT(flux_0_1[i], WithinRel(chunk.flux(0, 1)[i]));
+  for ( std::size_t i = 0; i< ngn; ++i ) {
+
+    CHECK_THAT( flux_0_1[i], WithinRel( chunk.flux(0, 1)[i] ) );
   }
   std::vector< double > flux_0_2 = {2.016090e6, 3.559089e5, 5.945259e5, 8.277563e5, 8.242293e5, 6.987721e5, 7.170965e5, 8.250987e5, 8.671104e5,
                   9.151104e5, 9.572601e5, 9.854300e5, 1.002600e6, 1.019964e6, 1.033272e6, 5.264252e5, 6.735186e5, 9.566351e5,
                   1.099930e6, 5.062082e5, 4.180345e5, 3.185175e5, 2.171752e5, 2.074169e5, 4.119423e4, 2.179531e4, 1.333844e4,
                   1.801546e4, 6.987280e4, 3.513643e3};
-  for (size_t i = 0; i < ngn; ++i) {
-      CHECK_THAT(flux_0_2[i], WithinRel(chunk.flux(0, 2)[i]));
+  for (  std::size_t i = 0; i < ngn; ++i ) {
+
+    CHECK_THAT( flux_0_2[i], WithinRel( chunk.flux(0, 2)[i] ) );
   }
   std::vector< double > flux_1_0 = {1.270790e7, 1.149905e6, 1.158584e6, 1.148732e6, 1.155337e6, 1.154847e6,
       1.153966e6, 1.154819e6, 1.153684e6, 1.154784e6, 1.152800e6, 1.156920e6, 1.154341e6, 1.157786e6, 1.156371e6,
       5.809202e5, 7.341455e5, 1.030736e6, 1.175655e6, 5.407961e5, 4.481701e5, 3.429532e5, 2.344895e5, 2.235493e5,
       4.396216e4, 2.311833e4, 1.410474e4, 1.905167e4, 7.393531e4, 3.724272e3};
-  for (size_t i = 0; i < ngn; ++i) {
-      CHECK_THAT(flux_1_0[i], WithinRel(chunk.flux(1,0)[i]));
+  for ( std::size_t i = 0; i < ngn; ++i) {
+
+    CHECK_THAT( flux_1_0[i], WithinRel( chunk.flux(1,0)[i] ) );
   }
   std::vector< double > flux_1_1 = {1.128546e7, 1.099624e6, 1.136454e6, 1.139071e6, 1.143039e6, 1.129072e6, 1.135065e6, 1.144111e6, 1.145215e6,
                   1.148509e6, 1.148069e6, 1.152910e6, 1.150859e6, 1.154663e6, 1.153620e6, 5.797192e5, 7.328254e5, 1.029141e6,
                   1.174038e6, 5.400578e5, 4.475246e5, 3.424276e5, 2.341160e5, 2.232019e5, 4.390314e4, 2.309029e4, 1.408855e4,
                   1.902977e4, 7.384941e4, 3.719810e3};
-  for (size_t i = 0; i< ngn; ++i) {
-      CHECK_THAT(flux_1_1[i], WithinRel(chunk.flux(1, 1)[i]));
+  for ( std::size_t i = 0; i< ngn; ++i) {
+
+    CHECK_THAT( flux_1_1[i], WithinRel( chunk.flux(1, 1)[i] ) );
   }
   std::vector< double > flux_1_2 = {3.552522e5, 1.113871e5, 3.080750e5, 6.075435e5, 6.180888e5, 4.707030e5, 4.826207e5,
       6.107359e5, 6.661531e5, 7.306688e5, 7.958322e5, 8.391668e5, 8.706505e5, 8.985596e5, 9.232978e5, 4.770473e5,
       6.179062e5, 8.878708e5, 1.029084e6, 4.738327e5, 3.899259e5, 2.958232e5, 2.011394e5, 1.924498e5, 3.860075e4,
       2.054803e4, 1.261378e4, 1.703561e4, 6.603351e4, 3.314928e3};
-  for (size_t i = 0; i< ngn; ++i) {
-      CHECK_THAT(flux_1_2[i], WithinRel(chunk.flux(1, 2)[i]));
+  for ( std::size_t i = 0; i< ngn; ++i) {
+
+    CHECK_THAT( flux_1_2[i], WithinRel( chunk.flux(1, 2)[i] ) );
   }
   std::vector< double > sigma_0_0 = {6.266544e2, 2.261991e2, 9.695867e1, 4.242725e1, 5.437948e1, 1.185407e2, 8.411095e1,
       4.690043e1, 3.702289e1, 2.730364e1, 2.058304e1, 1.737549e1, 1.511328e1, 1.351391e1, 1.191600e1, 1.035308e1,
       9.002912, 7.747087, 6.884748, 6.832784, 7.209057, 7.671847, 7.972503, 7.778415, 6.719709,
       6.070456, 5.745072, 5.751786, 5.814161, 5.994611};
-  for (size_t i = 0; i < ngn; ++i) {
-      CHECK_THAT(sigma_0_0[i], WithinRel(chunk.crossSection(0,0)[i]));
+  for ( std::size_t i = 0; i < ngn; ++i) {
+
+    CHECK_THAT( sigma_0_0[i], WithinRel( chunk.crossSection( 0, 0 )[i] ) );
   }
   std::vector< double > sigma_0_1 = {6.162562e2, 2.261133e2, 9.691458e1, 4.235340e1, 5.388817e1, 1.151101e2, 8.330874e1, 4.675655e1, 3.694638e1,
   2.728690e1, 2.058112e1, 1.737619e1, 1.511373e1, 1.351390e1, 1.191598e1, 1.035307e1, 9.002896, 7.747076,
   6.884747, 6.832784, 7.209055, 7.671845, 7.972503, 7.778410, 6.719703, 6.070453, 5.745068,
   5.751786, 5.814160, 5.994612};
-  for (size_t i = 0; i < ngn; ++i) {
-      CHECK_THAT(sigma_0_1[i], WithinRel(chunk.crossSection(0,1)[i]));
+  for ( std::size_t i = 0; i < ngn; ++i) {
+
+    CHECK_THAT( sigma_0_1[i], WithinRel( chunk.crossSection(0,1)[i] ) );
   }
   std::vector< double > sigma_0_2 = {5.303243e2, 2.230897e2, 9.487519e1, 3.877662e1, 4.017175e1, 6.526800e1, 6.092206e1,
   3.996131e1, 3.304928e1, 2.619063e1, 2.042701e1, 1.740253e1, 1.513475e1, 1.351245e1, 1.191350e1, 1.035190e1,
   9.001521, 7.745969, 6.884560, 6.832738, 7.208877, 7.671702, 7.972488, 7.777768, 6.719217, 6.070241,
   5.745052, 5.751784, 5.814157, 5.994582};
-  for (size_t i = 0; i < ngn; ++i) {
-      CHECK_THAT(sigma_0_2[i], WithinRel(chunk.crossSection(0,2)[i]));
+  for ( std::size_t i = 0; i < ngn; ++i) {
+
+    CHECK_THAT( sigma_0_2[i], WithinRel( chunk.crossSection(0,2)[i] ) );
   }
   std::vector< double > sigma_1_0 = {6.266548e2, 2.261991e2, 9.695867e1, 4.242725e1, 5.437948e1, 1.185407e2, 8.411095e1, 4.690043e1, 3.702289e1,
   2.730364e1, 2.058304e1, 1.737549e1, 1.511328e1, 1.351391e1, 1.191600e1, 1.035308e1, 9.002912, 7.747087,
   6.884748, 6.832784, 7.209057, 7.671847, 7.972503, 7.778415, 6.719709, 6.070456, 5.745072,
   5.751786, 5.814161, 5.994611};
-  for (size_t i = 0; i < ngn; ++i) {
-      CHECK_THAT(sigma_1_0[i], WithinRel(chunk.crossSection(1,0)[i]));
+  for ( std::size_t i = 0; i < ngn; ++i) {
+
+    CHECK_THAT( sigma_1_0[i], WithinRel(chunk.crossSection(1,0)[i] ) );
   }
   std::vector< double > sigma_1_1 = {6.067706e2, 2.260272e2, 9.687056e1, 4.228004e1, 5.341036e1, 1.118811e2, 8.252645e1, 4.661387e1, 3.687041e1,
   2.727020e1, 2.057925e1, 1.737692e1, 1.511419e1, 1.351388e1, 1.191594e1, 1.035305e1, 9.002881, 7.747061,
   6.884743, 6.832783, 7.209054, 7.671843, 7.972504, 7.778402, 6.719698, 6.070451, 5.745070,
   5.751787, 5.814161, 5.994612};
-  for (size_t i = 0; i < ngn; ++i) {
-      CHECK_THAT(sigma_1_1[i], WithinRel(chunk.crossSection(1,1)[i]));
+  for ( std::size_t i = 0; i < ngn; ++i) {
+
+    CHECK_THAT( sigma_1_1[i], WithinRel( chunk.crossSection(1,1)[i] ) );
   }
   std::vector< double > sigma_1_2 = {4.675096e2, 2.195244e2, 9.298089e1, 3.624642e1, 3.335129e1, 4.845287e1, 4.858386e1, 3.509910e1, 3.016684e1,
   2.524285e1, 2.028417e1, 1.742958e1, 1.515522e1, 1.351098e1, 1.191100e1, 1.035072e1, 9.000132, 7.744850,
   6.884374, 6.832691, 7.208697, 7.671560, 7.972473, 7.777122, 6.718726, 6.070030, 5.745030,
   5.751781, 5.814154, 5.994551};
-  for (size_t i = 0; i < ngn; ++i) {
-      CHECK_THAT(sigma_1_2[i], WithinRel(chunk.crossSection(1,2)[i]));
+  for ( std::size_t i = 0; i < ngn; ++i) {
+
+    CHECK_THAT( sigma_1_2[i], WithinRel( chunk.crossSection(1,2)[i] ) );
   }
 }
 
@@ -563,20 +641,20 @@ std::string chunkRatios() {
 
 void verifyChunkRatios( const section::GType< 3 >& chunkRatios ) {
 
-  CHECK(92235 == chunkRatios.ZA());
-  CHECK(92235 == chunkRatios.targetIdentifier());
-  CHECK(452 == chunkRatios.MT());
-  CHECK(452 == chunkRatios.sectionNumber());
-  CHECK(1 == chunkRatios.NL());
-  CHECK(1 == chunkRatios.numberMoments());
-  CHECK(1 == chunkRatios.NZ());
-  CHECK(1 == chunkRatios.numberDilutions());
-  CHECK(30 == chunkRatios.NGN());
-  CHECK(30 == chunkRatios.numberNeutronGroups());
-  CHECK(1 == chunkRatios.NZ());
-  CHECK(1 == chunkRatios.numberDilutions());
-  CHECK(0 == chunkRatios.LR());
-  CHECK(0 == chunkRatios.breakUp());
+  CHECK( 92235 == chunkRatios.ZA() );
+  CHECK( 92235 == chunkRatios.targetIdentifier() );
+  CHECK( 452 == chunkRatios.MT() );
+  CHECK( 452 == chunkRatios.sectionNumber() );
+  CHECK( 1 == chunkRatios.NL() );
+  CHECK( 1 == chunkRatios.numberMoments() );
+  CHECK( 1 == chunkRatios.NZ() );
+  CHECK( 1 == chunkRatios.numberDilutions() );
+  CHECK( 30 == chunkRatios.NGN() );
+  CHECK( 30 == chunkRatios.numberNeutronGroups() );
+  CHECK( 1 == chunkRatios.NZ() );
+  CHECK( 1 == chunkRatios.numberDilutions() );
+  CHECK( 0 == chunkRatios.LR() );
+  CHECK( 0 == chunkRatios.breakUp() );
   CHECK_THAT( 293.6, WithinRel( chunkRatios.temperature() ) );
 
   std::size_t ngn = chunkRatios.NGN();
@@ -586,8 +664,9 @@ void verifyChunkRatios( const section::GType< 3 >& chunkRatios ) {
           1.154819e6, 1.153684e6, 1.154784e6, 1.152800e6, 1.156920e6, 1.154341e6, 1.157786e6, 1.156371e6, 5.809202e5,
           7.341455e5, 1.030736e6, 1.175655e6, 5.407961e5, 4.481701e5, 3.429532e5, 2.344895e5, 2.235493e5, 4.396216e4,
           2.311833e4, 1.410474e4, 1.905167e4, 7.393531e4, 3.724272e3}}};
-  for (size_t i = 0; i < ngn; ++i) {
-      CHECK_THAT(flux[0][0][i], WithinRel(chunkRatios.flux(0, 0)[i]));
+  for ( std::size_t i = 0; i < ngn; ++i) {
+
+    CHECK_THAT( flux[0][0][i], WithinRel( chunkRatios.flux(0, 0)[i] ) );
   }
 
   std::vector < std::vector< std::vector< double> > > ratio =
@@ -595,8 +674,9 @@ void verifyChunkRatios( const section::GType< 3 >& chunkRatios ) {
           2.436916, 2.442703, 2.430792, 2.434855, 2.419640, 2.426568, 2.417260, 2.439160, 2.467889,
           2.479153, 2.496982, 2.528400, 2.586487, 2.642705, 2.716914, 2.800571, 2.988991, 3.409679,
           3.663458, 3.968481, 4.260765, 4.415797, 4.651492}}};
-  for (size_t i = 0; i < ngn; ++i) {
-      CHECK_THAT(ratio[0][0][i], WithinRel(chunkRatios.ratio(0, 0)[i]));
+  for ( std::size_t i = 0; i < ngn; ++i) {
+
+    CHECK_THAT( ratio[0][0][i], WithinRel( chunkRatios.ratio(0, 0)[i] ) );
   }
 
   std::vector < std::vector< std::vector< double> > > sigma =
@@ -604,8 +684,9 @@ void verifyChunkRatios( const section::GType< 3 >& chunkRatios ) {
           2.265849e1, 1.763465e1, 1.090636e1, 5.999898, 3.849512, 2.560637, 1.929781, 1.536979, 1.298960,
           1.193878, 1.123199, 1.185698, 1.244700, 1.280184, 1.259628, 1.197753, 1.108814, 1.438964,
           1.778379, 1.730948, 1.873645, 2.067954, 2.135172}}};
-  for (size_t i = 0; i < ngn; ++i) {
-      CHECK_THAT(sigma[0][0][i], WithinRel(chunkRatios.crossSection(0, 0)[i]));
+  for ( std::size_t i = 0; i < ngn; ++i) {
+
+    CHECK_THAT( sigma[0][0][i], WithinRel( chunkRatios.crossSection(0, 0)[i] ) );
   }
 }
 
@@ -631,20 +712,20 @@ std::string chunkClipped() {
 
 void verifyChunkClipped( const section::GType<3>& chunkClipped ) {
 
-    CHECK(92235 == chunkClipped.ZA());
-    CHECK(92235 == chunkClipped.targetIdentifier());
-    CHECK(16 == chunkClipped.MT());
-    CHECK(16 == chunkClipped.sectionNumber());
-    CHECK(1 == chunkClipped.NL());
-    CHECK(1 == chunkClipped.numberMoments());
-    CHECK(1 == chunkClipped.NZ());
-    CHECK(1 == chunkClipped.numberDilutions());
-    CHECK(30 == chunkClipped.NGN());
-    CHECK(30 == chunkClipped.numberNeutronGroups());
-    CHECK(1 == chunkClipped.NZ());
-    CHECK(1 == chunkClipped.numberDilutions());
-    CHECK(0 == chunkClipped.LR());
-    CHECK(0 == chunkClipped.breakUp());
+    CHECK( 92235 == chunkClipped.ZA() );
+    CHECK( 92235 == chunkClipped.targetIdentifier() );
+    CHECK( 16 == chunkClipped.MT() );
+    CHECK( 16 == chunkClipped.sectionNumber() );
+    CHECK( 1 == chunkClipped.NL() );
+    CHECK( 1 == chunkClipped.numberMoments() );
+    CHECK( 1 == chunkClipped.NZ() );
+    CHECK( 1 == chunkClipped.numberDilutions() );
+    CHECK( 30 == chunkClipped.NGN() );
+    CHECK( 30 == chunkClipped.numberNeutronGroups() );
+    CHECK( 1 == chunkClipped.NZ() );
+    CHECK( 1 == chunkClipped.numberDilutions() );
+    CHECK( 0 == chunkClipped.LR() );
+    CHECK( 0 == chunkClipped.breakUp() );
     CHECK_THAT( 293.6, WithinRel( chunkClipped.temperature() ) );
 
     std::size_t ngn = chunkClipped.NGN();
@@ -654,15 +735,66 @@ void verifyChunkClipped( const section::GType<3>& chunkClipped ) {
          0.0, 0.0, 2.235493e5, 4.396216e4, 2.311833e4, 1.410474e4, 1.905167e4,
          7.393531e4, 3.724272e3
         }}};
-    for (size_t i = 0; i < ngn; ++i) {
-        CHECK_THAT(flux[0][0][i], WithinRel(chunkClipped.flux(0, 0)[i]));
+    for ( std::size_t i = 0; i < ngn; ++i) {
+
+      CHECK_THAT( flux[0][0][i], WithinRel(chunkClipped.flux(0, 0)[i] ) );
     }
     std::vector < std::vector< std::vector< double> > > sigma = {{{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
          0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
          0.0, 0.0, 1.047471e-2, 3.690336e-1, 6.475546e-1, 8.511604e-1, 7.647669e-1,
          5.483544e-1, 3.717841e-1
         }}};
-    for (size_t i = 0; i < ngn; ++i) {
-        CHECK_THAT(flux[0][0][i], WithinRel(chunkClipped.flux(0, 0)[i]));
+    for ( std::size_t i = 0; i < ngn; ++i) {
+
+      CHECK_THAT( flux[0][0][i], WithinRel(chunkClipped.flux(0, 0)[i] ) );
     }
+}
+
+std::string chunkErrorr() {
+
+  return
+    " 9.223500+4 0.000000+0          0          0         30          09228 3  1     \n"
+    " 5.367046+2 2.202761+2 9.571743+1 3.879649+1 5.525322+1 1.123560+29228 3  1     \n"
+    " 8.429812+1 4.716981+1 3.549166+1 2.659377+1 2.029375+1 1.712288+19228 3  1     \n"
+    " 1.496041+1 1.339889+1 1.176493+1 1.030321+1 8.994543+0 7.724532+09228 3  1     \n"
+    " 6.866099+0 6.841653+0 7.226625+0 7.693402+0 7.979821+0 7.647424+09228 3  1     \n"
+    " 6.661945+0 6.031144+0 5.747069+0 5.746542+0 5.827871+0 6.020082+09228 3  1     \n";
+}
+
+void verifyChunkErrorr( const section::GType< 3 >& chunk ) {
+
+  CHECK( 92235 == chunk.ZA() );
+  CHECK( 92235 == chunk.targetIdentifier() );
+  CHECK( 1 == chunk.MT() );
+  CHECK( 1 == chunk.sectionNumber() );
+  CHECK( 1 == chunk.NL() );
+  CHECK( 1 == chunk.numberMoments() );
+  CHECK( 1 == chunk.NZ() );
+  CHECK( 1 == chunk.numberDilutions() );
+  CHECK( 30 == chunk.NGN() );
+  CHECK( 30 == chunk.numberNeutronGroups() );
+  CHECK( 0 == chunk.LR() );
+  CHECK( 0 == chunk.breakUp() );
+  CHECK( true == chunk.isErrorr() );
+  CHECK( false == chunk.isGroupr() );
+  CHECK_THAT( 0.0, WithinRel( chunk.temperature() ) );
+
+  std::size_t ngn = chunk.NGN();
+
+  std::vector< double > sigma = {
+    5.367046e2, 2.202761e2, 9.571743e1, 3.879649e1, 5.525322e1, 1.123560e2,
+    8.429812e1, 4.716981e1, 3.549166e1, 2.659377e1, 2.029375e1, 1.712288e1,
+    1.496041e1, 1.339889e1, 1.176493e1, 1.030321e1, 8.994543e0, 7.724532e0,
+    6.866099e0, 6.841653e0, 7.226625e0, 7.693402e0, 7.979821e0, 7.647424e0,
+    6.661945e0, 6.031144e0, 5.747069e0, 5.746542e0, 5.827871e0, 6.020082e0 };
+  for ( std::size_t i = 0; i < ngn; ++i) {
+
+    CHECK_THAT( sigma[i], WithinRel( chunk.crossSection(0, 0)[i] ) );
+  }
+
+  // flux is a zero vector of length NGN for an ERRORR section
+  for ( std::size_t i = 0; i < ngn; ++i) {
+
+    CHECK( 0.0 == chunk.flux(0, 0)[i] );
+  }
 }
