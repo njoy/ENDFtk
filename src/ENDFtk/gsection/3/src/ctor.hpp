@@ -68,27 +68,6 @@ GType( int mt, int zaid, double awr, int lr, double temp,
   GType( mt, zaid, awr, lr, temp,
          std::move( flux ), std::move( sigma ), {} ) {}
 
-private:
-
-/**
- *  @brief Constructor for an ERRORR formatted section
- *
- *  @param[in] mt              the section number
- *  @param[in] zaid            the ZAID identifier
- *  @param[in] awr             the atomic weight ratio
- *  @param[in] crossSections   the group-wise cross sections
- *  @param[in] number          the number of groups
- */
-GType( int mt, int zaid, double awr,
-       std::size_t number,
-       std::vector< double > crossSections ) :
-    GType( mt, zaid, awr, 0,  0., false,
-           { { std::vector< double >( number, 0. ) } },
-           { { std::move( crossSections ) } },
-           {} ) {}
-
-public:
-
 /**
  *  @brief Constructor for an ERRORR formatted section
  *
@@ -99,7 +78,16 @@ public:
  */
 GType( int mt, int zaid, double awr,
        std::vector< double > crossSections ) :
-    GType( mt, zaid, awr, crossSections.size(), std::move( crossSections ) ) {}
+    Base( zaid, awr, mt ),
+    lr_( 0 ),
+    temp_( 0. ),
+    groupr_( false ),
+    flux_( { { std::vector< double >( crossSections.size(), 0. ) } } ),
+    sigma_( { { std::move( crossSections ) } } ),
+    ratio_( {} ) {
+
+  verifySize( this->flux_, this->sigma_, this->ratio_ );
+}
 
 /**
  *  @brief Constructor from buffer/string
