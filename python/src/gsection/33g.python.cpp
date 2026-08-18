@@ -44,15 +44,15 @@ void wrapGSection_33( python::module& module, python::module& ) {
   )
   .def_property_readonly(
 
-    "LMT",
-    &GSection::LMT,
-    "The lumped reaction number (0 is not defined)"
+    "MTL",
+    &GSection::MTL,
+    "the lumped covariance index (0 is not defined)"
   )
   .def_property_readonly(
 
-    "lumped_reaction_number",
-    &GSection::lumpedReactionNumber,
-    "The lumped reaction number (0 is not defined)"
+    "lumped_covariance_index",
+    &GSection::lumpedCovarianceIndex,
+    "the lumped covariance index (0 is not defined)"
   )
   .def_property_readonly(
 

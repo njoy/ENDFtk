@@ -64,6 +64,31 @@ void wrapGSection_3( python::module& module, python::module& ) {
     "    xs       3D array of the group-wise cross sections (nl, nz, ngn)\n"
     "    ratio    3D array of the group-wise ratios (nl, nz, ngn)"
   )
+  .def(
+
+    python::init< int, int, double, std::vector< double >&& >(),
+    python::arg( "mt" ), python::arg( "zaid" ), python::arg( "awr" ),
+    python::arg( "xs" ),
+    "Initialise an ERRORR formatted section\n\n"
+    "Arguments:\n"
+    "    self     the section\n"
+    "    mt       the MT number\n"
+    "    zaid     the ZA identifier\n"
+    "    awr      the atomic mass ratio\n"
+    "    xs       the group-wise cross sections (ngn)"
+  )
+  .def_property_readonly(
+
+    "is_groupr",
+    &GSection::isGroupr,
+    "Flag to indicate whether or not this is a GROUPR formatted section"
+  )
+  .def_property_readonly(
+
+    "is_errorr",
+    &GSection::isErrorr,
+    "Flag to indicate whether or not this is an ERRORR formatted section"
+  )
   .def_property_readonly(
 
     "NL",

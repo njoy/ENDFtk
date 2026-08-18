@@ -42,7 +42,7 @@ static void verifySize( const std::vector< std::vector< std::vector< double > > 
   for ( std::size_t i = 0; i < nmoments; ++i ) {
 
     if ( ( ndilutions != sigma[i].size() ) || ( ndilutions != flux[i].size() ) ||
-         ( ratio.size() != 0 && nmoments != ratio[i].size() ) ) {
+         ( ratio.size() != 0 && ndilutions != ratio[i].size() ) ) {
 
       Log::error( "The number of dilutions is not consistent across the flux, cross section "
                   "and ratio data for moment with index {}", i );

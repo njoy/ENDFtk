@@ -177,9 +177,14 @@ class Test_ENDFtk_MF3_Section( unittest.TestCase ) :
     " 2.936000+2 0.000000+0          2          1          2         309228 3 16     \n"
     " 3.724272+3 3.717841-1                                            9228 3 16     \n" )
 
+    chunk_errorr = ( " 9.223500+4 0.000000+0          0          0         30          09228 3  1     \n"
+    " 5.367046+2 2.202761+2 9.571743+1 3.879649+1 5.525322+1 1.123560+29228 3  1     \n"
+    " 8.429812+1 4.716981+1 3.549166+1 2.659377+1 2.029375+1 1.712288+19228 3  1     \n"
+    " 1.496041+1 1.339889+1 1.176493+1 1.030321+1 8.994543+0 7.724532+09228 3  1     \n"
+    " 6.866099+0 6.841653+0 7.226625+0 7.693402+0 7.979821+0 7.647424+09228 3  1     \n"
+    " 6.661945+0 6.031144+0 5.747069+0 5.746542+0 5.827871+0 6.020082+09228 3  1     \n" )
+
     validSEND = "                                                                  9228 3  0     \n"
-
-
 
     def test_section(self) :
 
@@ -347,6 +352,43 @@ class Test_ENDFtk_MF3_Section( unittest.TestCase ) :
 
             # verify string
             self.assertEqual( self.chunk_clipped + self.validSEND, chunk.to_string(9228, 3))
+
+        def verify_chunk_errorr(self, chunk) :
+            self.assertEqual(1, chunk.MT)
+            self.assertEqual(1, chunk.section_number)
+            self.assertEqual(1, chunk.NZ)
+            self.assertEqual(1, chunk.number_dilutions)
+            self.assertEqual(0, chunk.LR)
+            self.assertEqual(0, chunk.break_up)
+            self.assertEqual(92235, chunk.ZA)
+            self.assertEqual(92235, chunk.target_identifier)
+            self.assertEqual(1, chunk.NL)
+            self.assertEqual(1, chunk.number_moments)
+            self.assertEqual(30, chunk.NGN)
+            self.assertEqual(30, chunk.number_groups)
+            self.assertEqual(True, chunk.is_errorr)
+            self.assertEqual(False, chunk.is_groupr)
+            self.assertAlmostEqual(0.0, chunk.AWR)
+            self.assertAlmostEqual(0.0, chunk.atomic_weight_ratio)
+            self.assertAlmostEqual(0.0, chunk.temperature)
+
+            xs = [5.367046e2, 2.202761e2, 9.571743e1, 3.879649e1, 5.525322e1, 1.123560e2,
+                  8.429812e1, 4.716981e1, 3.549166e1, 2.659377e1, 2.029375e1, 1.712288e1,
+                  1.496041e1, 1.339889e1, 1.176493e1, 1.030321e1, 8.994543e0, 7.724532e0,
+                  6.866099e0, 6.841653e0, 7.226625e0, 7.693402e0, 7.979821e0, 7.647424e0,
+                  6.661945e0, 6.031144e0, 5.747069e0, 5.746542e0, 5.827871e0, 6.020082e0]
+
+            for g in range(chunk.NGN):
+                self.assertAlmostEqual(xs[g], chunk.cross_section(0, 0)[g])
+                # flux is a zero vector of length NGN for an ERRORR section
+                self.assertAlmostEqual(0.0, chunk.flux(0, 0)[g])
+
+            # a ratio request raises since there are no ratios
+            with self.assertRaises(Exception) :
+                chunk.ratio(0, 0)
+
+            # verify string
+            self.assertEqual( self.chunk_errorr + self.validSEND, chunk.to_string(9228, 3))
         # TESTS
 
         # When the data is given explicitly and contains no ratios.
@@ -478,6 +520,26 @@ class Test_ENDFtk_MF3_Section( unittest.TestCase ) :
 
         # then it can be verified
         verify_chunk_clipped(self, chunk)
+
+        # MF3 in the ERRORR format
+
+        # when the data is given explicitly
+        xs = [5.367046e2, 2.202761e2, 9.571743e1, 3.879649e1, 5.525322e1, 1.123560e2,
+              8.429812e1, 4.716981e1, 3.549166e1, 2.659377e1, 2.029375e1, 1.712288e1,
+              1.496041e1, 1.339889e1, 1.176493e1, 1.030321e1, 8.994543e0, 7.724532e0,
+              6.866099e0, 6.841653e0, 7.226625e0, 7.693402e0, 7.979821e0, 7.647424e0,
+              6.661945e0, 6.031144e0, 5.747069e0, 5.746542e0, 5.827871e0, 6.020082e0]
+
+        chunk = GSection(mt = 1, zaid = 92235, awr = 0.0, xs = xs)
+
+        # then it can be verified
+        verify_chunk_errorr(self, chunk)
+
+        # when the data is read in from a string
+        chunk = GSection.from_string(self.chunk_errorr + self.validSEND)
+
+        # then it can be verified
+        verify_chunk_errorr(self, chunk)
 
 if __name__ == "__main__":
     unittest.main()

@@ -16,6 +16,8 @@ namespace njoy {
 namespace ENDFtk {
 namespace section {
 
+  //! @todo for now, errorr sections get printed as errorr sections. do we keep this?
+
   template <>
   class ENDFTK_PYTHON_EXPORT GType< 3 > : protected Base {
 
@@ -23,6 +25,9 @@ namespace section {
     int lr_;
     double temp_;
     std::vector< unsigned int > groups_;
+
+    // format flag: groupr (true), errorr (false)
+    bool groupr_;
 
     // data is stored by moment and dilution
     std::vector< std::vector< std::vector< double > > > flux_;
@@ -46,47 +51,90 @@ namespace section {
     /**
      *  @brief Return the number of legendre moments
      */
-    int NL() const { return this->sigma_.size(); }
+    int NL() const {
+
+      return this->sigma_.size();
+    }
 
     /**
      *  @brief Return the number of legendre moments
      */
-    int numberMoments() const { return this->NL(); }
+    int numberMoments() const {
+
+      return this->NL();
+    }
 
     /**
      *  @brief Return the number of dilution values
      */
-    int NZ() const { return this->sigma_.front().size(); }
+    int NZ() const {
+
+      return this->sigma_.front().size();
+    }
 
     /**
      *  @brief Return the number of dilution values
      */
-    int numberDilutions() const { return this->NZ(); }
+    int numberDilutions() const {
+
+      return this->NZ();
+    }
 
     /**
      *  @brief Return the break up flag
      */
-    int LR() const { return this->lr_; }
+    int LR() const {
+
+      return this->lr_;
+    }
 
     /**
      *  @brief Return the break up identifier flag
      */
-    int breakUp() const { return this->LR(); }
+    int breakUp() const {
+
+      return this->LR();
+    }
+
+    /**
+     *  @brief Return whether or not this is a GROUPR formatted section
+     */
+    bool isGroupr() const {
+
+      return this->groupr_;
+    }
+
+    /**
+     *  @brief Return whether or not this is an ERRORR formatted section
+     */
+    bool isErrorr() const {
+
+      return ! this->isGroupr();
+    }
 
     /**
      *  @brief Return the number of neutron groups
      */
-    int NGN() const { return this->sigma_.front().front().size(); }
+    int NGN() const {
+
+      return this->sigma_.front().front().size();
+    }
 
     /**
      *  @brief Return the number of neutron groups
      */
-    int numberNeutronGroups() const { return this->NGN(); }
+    int numberNeutronGroups() const {
+
+      return this->NGN();
+    }
 
     /**
      *  @brief Return the temperature
      */
-    double temperature() const { return this->temp_; }
+    double temperature() const {
+
+      return this->temp_;
+    }
 
     /**
      *  @brief Return the multigroup cross section for a given moment and dilution

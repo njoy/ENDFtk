@@ -152,6 +152,18 @@ class GSection:
             ratio    3D array of the group-wise ratios (nl, nz, ngn)
         """
     @typing.overload
+    def __init__(self, mt: int, zaid: int, awr: float, xs: list[float]) -> None:
+        """
+        Initialise an ERRORR formatted section
+        
+        Arguments:
+            self     the section
+            mt       the MT number
+            zaid     the ZA identifier
+            awr      the atomic mass ratio
+            xs       the group-wise cross sections (ngn)
+        """
+    @typing.overload
     def __init__(self, gsection: GSection) -> None:
         """
         Initialise the gsection with another gsection
@@ -225,6 +237,16 @@ class GSection:
     def break_up(self) -> int:
         """
         The complex break up flag
+        """
+    @property
+    def is_errorr(self) -> bool:
+        """
+        Flag to indicate whether or not this is an ERRORR formatted section
+        """
+    @property
+    def is_groupr(self) -> bool:
+        """
+        Flag to indicate whether or not this is a GROUPR formatted section
         """
     @property
     def number_dilutions(self) -> int:

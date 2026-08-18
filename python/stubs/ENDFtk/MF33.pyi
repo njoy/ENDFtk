@@ -164,11 +164,6 @@ class GSection:
         The atomic weight ratio for the section
         """
     @property
-    def LMT(self) -> int:
-        """
-        The lumped reaction number (0 is not defined)
-        """
-    @property
     def LRFLAG(self) -> int:
         """
         The break up identifier flag
@@ -177,6 +172,11 @@ class GSection:
     def MT(self) -> int:
         """
         The MT number of the section
+        """
+    @property
+    def MTL(self) -> int:
+        """
+        the lumped covariance index (0 is not defined)
         """
     @property
     def NGN(self) -> int:
@@ -204,9 +204,9 @@ class GSection:
         The break up identifier flag
         """
     @property
-    def lumped_reaction_number(self) -> int:
+    def lumped_covariance_index(self) -> int:
         """
-        The lumped reaction number (0 is not defined)
+        the lumped covariance index (0 is not defined)
         """
     @property
     def number_groups(self) -> int:
