@@ -2877,7 +2877,7 @@ class UnresolvedEnergyDependentFissionWidthsJValue:
         The degrees of freedom for the fission width
         """
     @property
-    def AMUG(self) -> int:
+    def AMUG(self) -> float:
         """
         The degrees of freedom for the gamma width
         """
@@ -2887,7 +2887,7 @@ class UnresolvedEnergyDependentFissionWidthsJValue:
         The degrees of freedom for the neutron width
         """
     @property
-    def AMUX(self) -> int:
+    def AMUX(self) -> float:
         """
         The degrees of freedom for the competitive width
         """
@@ -2967,7 +2967,7 @@ class UnresolvedEnergyDependentFissionWidthsJValue:
         The interpolation range boundaries
         """
     @property
-    def competitive_width_degrees_freedom(self) -> int:
+    def competitive_width_degrees_freedom(self) -> float:
         """
         The degrees of freedom for the competitive width
         """
@@ -2977,7 +2977,7 @@ class UnresolvedEnergyDependentFissionWidthsJValue:
         The degrees of freedom for the fission width
         """
     @property
-    def gamma_width_degrees_freedom(self) -> int:
+    def gamma_width_degrees_freedom(self) -> float:
         """
         The degrees of freedom for the gamma width
         """
@@ -2987,7 +2987,7 @@ class UnresolvedEnergyDependentFissionWidthsJValue:
         The interpolants
         """
     @property
-    def neutron_width_degrees_freedom(self) -> int:
+    def neutron_width_degrees_freedom(self) -> float:
         """
         The degrees of freedom for the neutron width
         """
