@@ -26,7 +26,7 @@ public:
 LValue( double awri, int l,
         std::vector< double >&& spins,
         std::vector< double >&& spacing,
-        std::vector< int >&& amun,
+        std::vector< double >&& amun,
         std::vector< double >&& gn,
         std::vector< double >&& gg )
   try :  LValue( ListRecord( awri, 0.0, l, 0.0, spins.size(),

@@ -39,42 +39,42 @@ public:
   /**
    *  @brief Return the number of degrees of freedom for the neutron width.
    */
-  int AMUN() const { return static_cast<int>( ListRecord::list()[3] ); }
+  double AMUN() const { return ListRecord::list()[3]; }
 
   /**
    *  @brief Return the number of degrees of freedom for the neutron width.
    */
-  int neutronWidthDegreesFreedom() const { return this->AMUN(); }
+  double neutronWidthDegreesFreedom() const { return this->AMUN(); }
 
   /**
    *  @brief Return the number of degrees of freedom for the gamma width.
    */
-  int AMUG() const { return static_cast<int>( ListRecord::list()[4] ); }
+  double AMUG() const { return ListRecord::list()[4]; }
 
   /**
    *  @brief Return the number of degrees of freedom for the gamma width.
    */
-  int gammaWidthDegreesFreedom() const { return JValue::AMUG(); }
+  double gammaWidthDegreesFreedom() const { return JValue::AMUG(); }
 
   /**
    *  @brief Return the number of degrees of freedom for the fission width.
    */
-  int AMUF() const { return static_cast<int>( ListRecord::list()[5] ); }
+  double AMUF() const { return ListRecord::list()[5]; }
 
   /**
    *  @brief Return the number of degrees of freedom for the fission width.
    */
-  int fissionWidthDegreesFreedom() const { return JValue::AMUF(); }
+  double fissionWidthDegreesFreedom() const { return JValue::AMUF(); }
 
   /**
    *  @brief Return the number of degrees of freedom for the competitive width.
    */
-  int AMUX() const { return static_cast<int>( ListRecord::list()[2] ); }
+  double AMUX() const { return ListRecord::list()[2]; }
 
   /**
    *  @brief Return the number of degrees of freedom for the competitive width.
    */
-  int competitiveWidthDegreesFreedom() const { return JValue::AMUX(); }
+  double competitiveWidthDegreesFreedom() const { return JValue::AMUX(); }
 
   /**
    *  @brief Return the energy values.

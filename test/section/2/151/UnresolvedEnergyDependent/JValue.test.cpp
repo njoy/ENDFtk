@@ -27,10 +27,10 @@ SCENARIO( "JValue" ) {
 
       int interpolation = 2;
       double spin = 3.;
-      int amux = 0;
-      int amun = 1;
-      int amug = 3;
-      int amuf = 2;
+      double amux = 0.;
+      double amun = 1.5;
+      double amug = 3.;
+      double amuf = 2.;
       std::vector< double > energies = { 2.25e+3, 3.5e+3,  2.5e+4 };
       std::vector< double > d = { 1.05857, 1.055928, 1.011535 };
       std::vector< double > gx = { 1., 2., 3. };
@@ -89,10 +89,10 @@ SCENARIO( "JValue" ) {
 
       int interpolation = 1;
       double spin = 3.;
-      int amux = 0;
-      int amun = 1;
-      int amug = 3;
-      int amuf = 2;
+      double amux = 0.;
+      double amun = 1.;
+      double amug = 3.;
+      double amuf = 2.;
       std::vector< double > wrongEnergies = { 2.25e+3, 3.5e+3 };
       std::vector< double > d = { 1.05857, 1.055928, 1.01135 };
       std::vector< double > gx = { 1., 2., 3. };
@@ -128,10 +128,10 @@ SCENARIO( "JValue" ) {
 
       int interpolation = 1;
       double spin = 3.;
-      int amux = 0;
-      int amun = 1;
-      int amug = 3;
-      int amuf = 2;
+      double amux = 0.;
+      double amun = 1.;
+      double amug = 3.;
+      double amuf = 2.;
       std::vector< double > energies = {};
       std::vector< double > d = {};
       std::vector< double > gx = {};
@@ -169,7 +169,7 @@ SCENARIO( "JValue" ) {
 std::string chunk() {
   return
     " 3.000000+0 0.000000+0          2          0         24          39228 2151     \n"
-    " 0.000000+0 0.000000+0 0.000000+0 1.000000+0 3.000000+0 2.000000+09228 2151     \n"
+    " 0.000000+0 0.000000+0 0.000000+0 1.500000+0 3.000000+0 2.000000+09228 2151     \n"
     " 2.250000+3 1.058570+0 1.000000+0 9.567005-5 3.882094-2 2.893370-19228 2151     \n"
     " 3.500000+3 1.055928+0 2.000000+0 9.510382-5 3.884319-2 2.893379-19228 2151     \n"
     " 2.500000+4 1.011535+0 3.000000+0 8.847673-5 3.922727-2 2.893518-19228 2151     \n";
@@ -180,8 +180,8 @@ void verifyChunk( const JValue& chunk ) {
   CHECK_THAT( 3., WithinRel( chunk.AJ() ) );
   CHECK_THAT( 3., WithinRel( chunk.spin() ) );
 
-  CHECK( 1 == chunk.AMUN() );
-  CHECK( 1 == chunk.neutronWidthDegreesFreedom() );
+  CHECK_THAT( 1.5, WithinRel( chunk.AMUN() ) );
+  CHECK_THAT( 1.5, WithinRel( chunk.neutronWidthDegreesFreedom() ) );
   CHECK( 3 == chunk.AMUG() );
   CHECK( 3 == chunk.gammaWidthDegreesFreedom() );
   CHECK( 2 == chunk.AMUF() );

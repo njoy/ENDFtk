@@ -33,7 +33,7 @@ void wrapUnresolvedEnergyDependentJValue( python::module& module, python::module
   component
   .def(
 
-    python::init< double, int, int, int, int, int,
+    python::init< double, double, double, double, double, int,
                   std::vector< double >&&, std::vector< double >&&,
                   std::vector< double >&&, std::vector< double >&&,
                   std::vector< double >&&, std::vector< double >&& >(),

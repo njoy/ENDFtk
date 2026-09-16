@@ -1,7 +1,7 @@
 static std::vector< double >
 generateList( std::vector< double >&& spins,
               std::vector< double >&& d,
-              std::vector< int >&& amun,
+              std::vector< double >&& amun,
               std::vector< double >&& gn,
               std::vector< double >&& gg ) {
 

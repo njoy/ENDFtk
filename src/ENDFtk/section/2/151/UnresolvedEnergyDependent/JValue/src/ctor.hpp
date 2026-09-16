@@ -24,7 +24,7 @@ public:
  *  @param[in] gf          the average fission widths (NE values)
  *  @param[in] gx          the average competitive widths (NE values)
  */
-JValue( double spin, int amun, int amug, int amuf, int amux, int inter,
+JValue( double spin, double amun, double amug, double amuf, double amux, int inter,
         std::vector< double >&& energies,
         std::vector< double >&& d,
         std::vector< double >&& gn,
