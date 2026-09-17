@@ -21,7 +21,7 @@ SCENARIO( "JValue" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      JValue chunk( { 1., 2., 3., 4., 5., 0. } );
+      JValue chunk( { 1., 2., 3.5, 4., 5., 0. } );
 
       THEN( "a JValue can be constructed and members can be tested" ) {
 
@@ -37,8 +37,8 @@ void verifyChunk( const JValue& chunk ) {
   CHECK_THAT( 2., WithinRel( chunk.spin() ) );
   CHECK_THAT( 1., WithinRel( chunk.D() ) );
   CHECK_THAT( 1., WithinRel( chunk.averageLevelSpacing() ) );
-  CHECK( 3 == chunk.AMUN() );
-  CHECK( 3 == chunk.neutronWidthDegreesFreedom() );
+  CHECK_THAT( 3.5, WithinRel( chunk.AMUN() ) );
+  CHECK_THAT( 3.5, WithinRel( chunk.neutronWidthDegreesFreedom() ) );
   CHECK( 0 == chunk.AMUG() );
   CHECK( 0 == chunk.gammaWidthDegreesFreedom() );
   CHECK( 0 == chunk.AMUF() );

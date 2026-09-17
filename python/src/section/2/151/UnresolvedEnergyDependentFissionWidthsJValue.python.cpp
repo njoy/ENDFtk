@@ -32,7 +32,7 @@ void wrapUnresolvedEnergyDependentFissionWidthsJValue( python::module& module, p
   component
   .def(
 
-    python::init< int, double, double, int, int,
+    python::init< int, double, double, double, int,
                   double, double, std::vector< double >&& >(),
     python::arg( "l" ), python::arg( "spin" ),
     python::arg( "d" ), python::arg( "amun" ), python::arg( "amuf" ),

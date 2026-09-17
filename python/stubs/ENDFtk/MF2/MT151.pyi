@@ -2832,7 +2832,7 @@ class UnresolvedEnergyDependentFissionWidthsJValue:
             mt        the MT number of the section
         """
     @typing.overload
-    def __init__(self, l: int, spin: float, d: float, amun: int, amuf: int, gn: float, gg: float, gf: list[float]) -> None:
+    def __init__(self, l: int, spin: float, d: float, amun: float, amuf: int, gn: float, gg: float, gf: list[float]) -> None:
         """
         Initialise the component
         
@@ -2877,7 +2877,7 @@ class UnresolvedEnergyDependentFissionWidthsJValue:
         The degrees of freedom for the fission width
         """
     @property
-    def AMUG(self) -> int:
+    def AMUG(self) -> float:
         """
         The degrees of freedom for the gamma width
         """
@@ -2887,7 +2887,7 @@ class UnresolvedEnergyDependentFissionWidthsJValue:
         The degrees of freedom for the neutron width
         """
     @property
-    def AMUX(self) -> int:
+    def AMUX(self) -> float:
         """
         The degrees of freedom for the competitive width
         """
@@ -2967,7 +2967,7 @@ class UnresolvedEnergyDependentFissionWidthsJValue:
         The interpolation range boundaries
         """
     @property
-    def competitive_width_degrees_freedom(self) -> int:
+    def competitive_width_degrees_freedom(self) -> float:
         """
         The degrees of freedom for the competitive width
         """
@@ -2977,7 +2977,7 @@ class UnresolvedEnergyDependentFissionWidthsJValue:
         The degrees of freedom for the fission width
         """
     @property
-    def gamma_width_degrees_freedom(self) -> int:
+    def gamma_width_degrees_freedom(self) -> float:
         """
         The degrees of freedom for the gamma width
         """
@@ -2987,7 +2987,7 @@ class UnresolvedEnergyDependentFissionWidthsJValue:
         The interpolants
         """
     @property
-    def neutron_width_degrees_freedom(self) -> int:
+    def neutron_width_degrees_freedom(self) -> float:
         """
         The degrees of freedom for the neutron width
         """
@@ -3112,7 +3112,7 @@ class UnresolvedEnergyDependentJValue:
             mt        the MT number of the section
         """
     @typing.overload
-    def __init__(self, spin: float, amun: int, amug: int, amuf: int, amux: int, interpolation: int, energies: list[float], d: list[float], gn: list[float], gg: list[float], gf: list[float], gx: list[float]) -> None:
+    def __init__(self, spin: float, amun: float, amug: float, amuf: float, amux: float, interpolation: int, energies: list[float], d: list[float], gn: list[float], gg: list[float], gf: list[float], gx: list[float]) -> None:
         """
         Initialise the component
         
@@ -3156,22 +3156,22 @@ class UnresolvedEnergyDependentJValue:
         The spin value
         """
     @property
-    def AMUF(self) -> int:
+    def AMUF(self) -> float:
         """
         The degrees of freedom for the fission width
         """
     @property
-    def AMUG(self) -> int:
+    def AMUG(self) -> float:
         """
         The degrees of freedom for the gamma width
         """
     @property
-    def AMUN(self) -> int:
+    def AMUN(self) -> float:
         """
         The degrees of freedom for the neutron width
         """
     @property
-    def AMUX(self) -> int:
+    def AMUX(self) -> float:
         """
         The degrees of freedom for the competitive width
         """
@@ -3256,7 +3256,7 @@ class UnresolvedEnergyDependentJValue:
         The interpolation range boundaries
         """
     @property
-    def competitive_width_degrees_freedom(self) -> int:
+    def competitive_width_degrees_freedom(self) -> float:
         """
         The degrees of freedom for the competitive width
         """
@@ -3266,12 +3266,12 @@ class UnresolvedEnergyDependentJValue:
         The energy values
         """
     @property
-    def fission_width_degrees_freedom(self) -> int:
+    def fission_width_degrees_freedom(self) -> float:
         """
         The degrees of freedom for the fission width
         """
     @property
-    def gamma_width_degrees_freedom(self) -> int:
+    def gamma_width_degrees_freedom(self) -> float:
         """
         The degrees of freedom for the gamma width
         """
@@ -3281,7 +3281,7 @@ class UnresolvedEnergyDependentJValue:
         The interpolants
         """
     @property
-    def neutron_width_degrees_freedom(self) -> int:
+    def neutron_width_degrees_freedom(self) -> float:
         """
         The degrees of freedom for the neutron width
         """
@@ -3530,7 +3530,7 @@ class UnresolvedEnergyIndependentLValue:
             mt        the MT number of the section
         """
     @typing.overload
-    def __init__(self, awri: float, l: int, spins: list[float], d: list[float], amun: list[int], gn: list[float], gg: list[float]) -> None:
+    def __init__(self, awri: float, l: int, spins: list[float], d: list[float], amun: list[float], gn: list[float], gg: list[float]) -> None:
         """
         Initialise the component
         

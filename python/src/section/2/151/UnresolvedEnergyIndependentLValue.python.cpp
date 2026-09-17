@@ -34,7 +34,7 @@ void wrapUnresolvedEnergyIndependentLValue( python::module& module, python::modu
 
     python::init< double, int,
                   std::vector< double >&&, std::vector< double >&&,
-                  std::vector< int >&&, std::vector< double >&&,
+                  std::vector< double >&&, std::vector< double >&&,
                   std::vector< double >&& >(),
     python::arg( "awri" ), python::arg( "l" ),
     python::arg( "spins" ), python::arg( "d" ), python::arg( "amun" ),

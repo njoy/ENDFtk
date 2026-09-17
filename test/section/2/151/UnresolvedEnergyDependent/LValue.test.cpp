@@ -29,7 +29,7 @@ SCENARIO( "LValue" ) {
       unsigned int l = 1;
 
       std::vector< JValue > jvalues =
-        { { 0.5, 3, 2, 1, 4, 5,
+        { { 0.5, 3.5, 2, 1, 4, 5,
             { 6000., 7000., 8000. }, { 12406., 12406., 12406. },
             { 6.7238, 6.7238, 6.7238 }, { 0.205, 0.205, 0.205 },
             { 0., 0., 0. }, { 0., 0., 0. } },
@@ -113,7 +113,7 @@ std::string chunk() {
   return
     " 8.913540+1 0.000000+0          1          0          2          03843 2151     \n"
     " 5.000000-1 0.000000+0          5          0         24          33843 2151     \n"
-    " 0.000000+0 0.000000+0 4.000000+0 3.000000+0 2.000000+0 1.000000+03843 2151     \n"
+    " 0.000000+0 0.000000+0 4.000000+0 3.500000+0 2.000000+0 1.000000+03843 2151     \n"
     " 6.000000+3 1.240600+4 0.000000+0 6.723800+0 2.050000-1 0.000000+03843 2151     \n"
     " 7.000000+3 1.240600+4 0.000000+0 6.723800+0 2.050000-1 0.000000+03843 2151     \n"
     " 8.000000+3 1.240600+4 0.000000+0 6.723800+0 2.050000-1 0.000000+03843 2151     \n"
@@ -136,8 +136,8 @@ void verifyChunk( const LValue& chunk ) {
   CHECK_THAT( 0.5, WithinRel( jvalue10.AJ() ) );
   CHECK_THAT( 0.5, WithinRel( jvalue10.spin() ) );
 
-  CHECK( 3 == jvalue10.AMUN() );
-  CHECK( 3 == jvalue10.neutronWidthDegreesFreedom() );
+  CHECK_THAT( 3.5, WithinRel( jvalue10.AMUN() ) );
+  CHECK_THAT( 3.5, WithinRel( jvalue10.neutronWidthDegreesFreedom() ) );
   CHECK( 2 == jvalue10.AMUG() );
   CHECK( 2 == jvalue10.gammaWidthDegreesFreedom() );
   CHECK( 1 == jvalue10.AMUF() );
@@ -208,8 +208,8 @@ void verifyChunk( const LValue& chunk ) {
   CHECK_THAT( 1.5, WithinRel( jvalue11.AJ() ) );
   CHECK_THAT( 1.5, WithinRel( jvalue11.spin() ) );
 
-  CHECK( 1 == jvalue11.AMUN() );
-  CHECK( 1 == jvalue11.neutronWidthDegreesFreedom() );
+  CHECK_THAT( 1., WithinRel( jvalue11.AMUN() ) );
+  CHECK_THAT( 1., WithinRel( jvalue11.neutronWidthDegreesFreedom() ) );
   CHECK( 4 == jvalue11.AMUG() );
   CHECK( 4 == jvalue11.gammaWidthDegreesFreedom() );
   CHECK( 2 == jvalue11.AMUF() );

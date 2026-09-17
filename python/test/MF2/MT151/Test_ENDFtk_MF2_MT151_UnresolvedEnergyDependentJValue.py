@@ -10,7 +10,7 @@ class Test_ENDFtk_MF2_MT151_UnresolvedEnergyDependentJValue( unittest.TestCase )
     """Unit test for the UnresolvedEnergyDependentJValue class."""
 
     chunk = ( ' 3.000000+0 0.000000+0          2          0         24          39228 2151     \n'
-              ' 0.000000+0 0.000000+0 0.000000+0 1.000000+0 3.000000+0 2.000000+09228 2151     \n'
+              ' 0.000000+0 0.000000+0 0.000000+0 1.500000+0 3.000000+0 2.000000+09228 2151     \n'
               ' 2.250000+3 1.058570+0 1.000000+0 9.567005-5 3.882094-2 2.893370-19228 2151     \n'
               ' 3.500000+3 1.055928+0 2.000000+0 9.510382-5 3.884319-2 2.893379-19228 2151     \n'
               ' 2.500000+4 1.011535+0 3.000000+0 8.847673-5 3.922727-2 2.893518-19228 2151     \n' )
@@ -31,8 +31,8 @@ class Test_ENDFtk_MF2_MT151_UnresolvedEnergyDependentJValue( unittest.TestCase )
             self.assertAlmostEqual( 3., chunk.AJ )
             self.assertAlmostEqual( 3., chunk.spin )
 
-            self.assertEqual( 1, chunk.AMUN )
-            self.assertEqual( 1, chunk.neutron_width_degrees_freedom )
+            self.assertAlmostEqual( 1.5, chunk.AMUN )
+            self.assertAlmostEqual( 1.5, chunk.neutron_width_degrees_freedom )
             self.assertEqual( 3, chunk.AMUG )
             self.assertEqual( 3, chunk.gamma_width_degrees_freedom )
             self.assertEqual( 2, chunk.AMUF )
@@ -106,7 +106,7 @@ class Test_ENDFtk_MF2_MT151_UnresolvedEnergyDependentJValue( unittest.TestCase )
 
         # the data is given explicitly
         chunk = UnresolvedEnergyDependentJValue(
-                    interpolation = 2, spin = 3., amux = 0, amun = 1,
+                    interpolation = 2, spin = 3., amux = 0, amun = 1.5,
                     amug = 3, amuf = 2, energies = [ 2.25e+3, 3.5e+3,  2.5e+4 ],
                     d = [ 1.05857, 1.055928, 1.011535 ], gx = [ 1., 2., 3. ],
                     gn = [ 9.567005e-5, 9.510382e-5, 8.847673e-5 ],

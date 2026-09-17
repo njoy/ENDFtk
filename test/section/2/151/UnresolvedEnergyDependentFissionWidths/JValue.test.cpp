@@ -28,7 +28,7 @@ SCENARIO( "JValue" ) {
       int l = 1;
       double d = 13.1;
       double spin = 0.5;
-      int amun = 1;
+      double amun = 1.5;
       int amuf = 1;
       double gn = 3.013000e-3;
       double gg = 3.100000e-2;
@@ -87,7 +87,7 @@ SCENARIO( "JValue" ) {
       int l = 1;
       double d = 13.1;
       double spin = 0.5;
-      int amun = 1;
+      double amun = 1.;
       int amuf = 1;
       double gn = 3.013000e-3;
       double gg = 3.100000e-2;
@@ -133,7 +133,7 @@ SCENARIO( "JValue" ) {
 std::string chunk() {
   return
     " 0.000000+0 0.000000+0          1          1         20          09440 2151     \n"
-    " 1.310000+1 5.000000-1 1.000000+0 3.013000-3 3.100000-2 0.000000+09440 2151     \n"
+    " 1.310000+1 5.000000-1 1.500000+0 3.013000-3 3.100000-2 0.000000+09440 2151     \n"
     " 4.314000-3 4.572000-3 4.740000-3 5.000000-3 5.520000-3 7.057000-39440 2151     \n"
     " 8.251000-3 9.276000-3 9.930000-3 1.035000-2 1.210000-2 1.341000-29440 2151     \n"
     " 1.456000-2 1.542000-2                                            9440 2151     \n";
@@ -158,8 +158,8 @@ void verifyChunk( const JValue& chunk ) {
   CHECK_THAT( 0.5, WithinRel( chunk.spin() ) );
   CHECK_THAT( 13.1, WithinRel( chunk.D() ) );
   CHECK_THAT( 13.1, WithinRel( chunk.averageLevelSpacing() ) );
-  CHECK( 1 == chunk.AMUN() );
-  CHECK( 1 == chunk.neutronWidthDegreesFreedom() );
+  CHECK_THAT( 1.5, WithinRel( chunk.AMUN() ) );
+  CHECK_THAT( 1.5, WithinRel( chunk.neutronWidthDegreesFreedom() ) );
   CHECK( 0 == chunk.AMUG() );
   CHECK( 0 == chunk.gammaWidthDegreesFreedom() );
   CHECK( 1 == chunk.AMUF() );

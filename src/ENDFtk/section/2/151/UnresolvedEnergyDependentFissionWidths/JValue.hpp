@@ -42,22 +42,22 @@ public:
   /**
    *  @brief Return the number of degrees of freedom for the neutron width.
    */
-  double AMUN() const { return static_cast<int>( ListRecord::list()[2] ); }
+  double AMUN() const { return ListRecord::list()[2]; }
 
   /**
    *  @brief Return the number of degrees of freedom for the neutron width.
    */
-  int neutronWidthDegreesFreedom() const { return this->AMUN(); }
+  double neutronWidthDegreesFreedom() const { return this->AMUN(); }
 
   /**
    *  @brief Return the number of degrees of freedom for the gamma width.
    */
-  static constexpr int AMUG() { return 0; }
+  static constexpr double AMUG() { return 0.0; }
 
   /**
    *  @brief Return the number of degrees of freedom for the gamma width.
    */
-  static constexpr int gammaWidthDegreesFreedom() { return JValue::AMUG(); }
+  static constexpr double gammaWidthDegreesFreedom() { return JValue::AMUG(); }
 
   /**
    *  @brief Return the number of degrees of freedom for the fission width.
@@ -72,12 +72,12 @@ public:
   /**
    *  @brief Return the number of degrees of freedom for the competitive width.
    */
-  static constexpr int AMUX() { return 0; }
+  static constexpr double AMUX() { return 0.0; }
 
   /**
    *  @brief Return the number of degrees of freedom for the competitive width.
    */
-  static constexpr int competitiveWidthDegreesFreedom() {
+  static constexpr double competitiveWidthDegreesFreedom() {
 
     return JValue::AMUX();
   }

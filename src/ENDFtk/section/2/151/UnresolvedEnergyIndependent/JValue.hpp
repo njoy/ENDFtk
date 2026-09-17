@@ -44,42 +44,42 @@ public:
   /**
    *  @brief Return the number of degrees of freedom for the neutron width.
    */
-  int AMUN() const { return static_cast<int>( this->chunk[2] ); }
+  double AMUN() const { return this->chunk[2]; }
 
   /**
    *  @brief Return the number of degrees of freedom for the neutron width.
    */
-  int neutronWidthDegreesFreedom() const { return this->AMUN(); }
+  double neutronWidthDegreesFreedom() const { return this->AMUN(); }
 
   /**
    *  @brief Return the number of degrees of freedom for the gamma width.
    */
-  static constexpr int AMUG() { return 0; }
+  static constexpr double AMUG() { return 0.0; }
 
   /**
    *  @brief Return the number of degrees of freedom for the gamma width.
    */
-  static constexpr int gammaWidthDegreesFreedom() { return JValue::AMUG(); }
+  static constexpr double gammaWidthDegreesFreedom() { return JValue::AMUG(); }
 
   /**
    *  @brief Return the number of degrees of freedom for the fission width.
    */
-  static constexpr int AMUF() { return 0; }
+  static constexpr double AMUF() { return 0.0; }
 
   /**
    *  @brief Return the number of degrees of freedom for the fission width.
    */
-  static constexpr int fissionWidthDegreesFreedom() { return JValue::AMUF(); }
+  static constexpr double fissionWidthDegreesFreedom() { return JValue::AMUF(); }
 
   /**
    *  @brief Return the number of degrees of freedom for the competitive width.
    */
-  static constexpr int AMUX() { return 0; }
+  static constexpr double AMUX() { return 0.0; }
 
   /**
    *  @brief Return the number of degrees of freedom for the competitive width.
    */
-  static constexpr int competitiveWidthDegreesFreedom() {
+  static constexpr double competitiveWidthDegreesFreedom() {
 
     return JValue::AMUX();
   }

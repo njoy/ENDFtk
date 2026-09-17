@@ -20,7 +20,7 @@ public:
  *  @param[in] gg         the average gamma width
  *  @param[in] gf         the average fission widths
  */
-JValue( int l, double spin, double d, int amun, int amuf,
+JValue( int l, double spin, double d, double amun, int amuf,
         double gn, double gg, std::vector< double >&& gf )
   try :  JValue( ListRecord( 0.0, 0.0, l, amuf, 0,
                              generateList( spin, d, amun, gn, gg,
