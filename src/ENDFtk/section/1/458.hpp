@@ -48,15 +48,105 @@ namespace section{
   protected:
 
     /* fields */
+
     FissionEnergyReleaseData data_;
 
     /* auxiliary functions */
-    #include "ENDFtk/section/1/458/src/readFissionEnergyReleaseData.hpp"
+
+    template< typename Iterator >
+    static FissionEnergyReleaseData
+    readFissionEnergyReleaseData( Iterator& begin,
+                                  const Iterator& end,
+                                  long& lineNumber,
+                                  int MAT,
+                                  int LFC,
+                                  int NFC ) {
+
+      switch ( LFC ) {
+
+        case 0 : {
+
+          ListRecord list( begin, end, lineNumber, MAT, 1, 458 );
+          if ( list.NPL() != ( list.L2() + 1 ) * 18 ) {
+
+            Log::error( "Encountered illegal NPL value" );
+            Log::info( "NPL must be equal to {}", ( list.L2() + 1 ) * 18 );
+            Log::info( "NPL value: {}", list.NPL() );
+            Log::info( "Line number: {}", lineNumber - list.NC() );
+            throw std::exception();
+          }
+          if ( list.L2() == 0 ) {
+
+            return ThermalPointComponents( std::move( list ) );
+          }
+          else {
+
+            return PolynomialComponents( std::move( list ) );
+          }
+        }
+        case 1 : return TabulatedComponents( begin, end, lineNumber, MAT, 1, 458, NFC );
+        default : {
+
+          Log::error( "Encountered illegal LFC value" );
+          Log::info( "LFC must be equal to 0 or 1" );
+          Log::info( "LFC value: {}", LFC );
+          Log::info( "Line number: {}", lineNumber - 1 );
+          throw std::exception();
+        }
+      }
+    }
 
   public:
 
     /* constructor */
-    #include "ENDFtk/section/1/458/src/ctor.hpp"
+
+    //! @todo pybind11 variant needs default constructor workaround
+    #ifdef PYBIND11
+    /**
+     *  @brief Default constructor - only enabled for pybind11
+     */
+    Type() = default;
+    #endif
+
+    /**
+     *  @brief Constructor
+     *
+     *  @param[in] zaid        the ZA value of the material
+     *  @param[in] awr         the atomic weight ratio
+     *  @param[in] fissionq    the fission energy release data
+     */
+    Type( int zaid, double awr, FissionEnergyReleaseData&& fissionq ) :
+      BaseWithoutMT( zaid, awr ), data_( std::move( fissionq ) ) {}
+
+    /**
+     *  @brief Constructor (from a buffer)
+     *
+     *  @tparam Iterator        a buffer iterator
+     *
+     *  @param[in] head         the head record of the section
+     *  @param[in] begin        the current position in the buffer
+     *  @param[in] end          the end of the buffer
+     *  @param[in] lineNumber   the current line number
+     *  @param[in] MAT          the expected MAT number
+     */
+    template< typename Iterator >
+    Type ( const HEAD& head,
+           Iterator& begin,
+           const Iterator& end,
+           long& lineNumber,
+           int MAT )
+      try: BaseWithoutMT( head, MAT, 1 ),
+           data_( readFissionEnergyReleaseData( begin, end, lineNumber, MAT,
+                                                head.L2(), head.N2() ) ) {
+
+        readSEND( begin, end, lineNumber, MAT, 1 );
+      }
+      catch( std::exception& e ) {
+
+        Log::info( "Trouble while constructing section 458 of File 1 of Material {}",
+                   MAT );
+        throw e;
+      }
 
     /* methods */
 
@@ -111,7 +201,25 @@ namespace section{
                                                 { return v.NC(); },
                                              this->data_ ); }
 
-    #include "ENDFtk/section/1/458/src/print.hpp"
+    /**
+     *  @brief Print the MF1/MT458 section (includes SEND record)
+     *
+     *  @tparam OutputIterator   an output iterator
+     *
+     *  @param[in] it            the current position in the output
+     *  @param[in] MAT           the MAT number
+     *  @param[in] MF            the MF number
+     */
+    template< typename OutputIterator >
+    void print( OutputIterator& it, int MAT, int MF ) const {
+
+      ControlRecord( this->ZA(), this->AWR(), 0,
+                     this->LFC(), 0, this->NFC() ).print( it, MAT, MF, MT() );
+      std::visit( [&] ( const auto& v ) -> void
+                      { v.print( it, MAT, MF, MT() ); },
+                  this->data_ );
+      SEND( MAT, MF ).print( it );
+    }
 
     /**
      *  @brief Return the MT number of the section

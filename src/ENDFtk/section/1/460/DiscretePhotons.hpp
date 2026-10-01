@@ -7,15 +7,79 @@
 class ENDFTK_PYTHON_EXPORT DiscretePhotons {
 
   /* fields */
+
   std::vector< DiscretePhotonMultiplicity > photons_;
 
   /* auxiliary functions */
-  #include "ENDFtk/section/1/460/DiscretePhotons/src/verifySize.hpp"
+
+  static void
+  verifySize( int NG ) {
+
+    if ( NG <= 0 ) {
+
+      Log::error( "Inconsistent data size" );
+      Log::info( "Expected NG > 0" );
+      Log::info( "NG value: {}", NG );
+      throw std::exception();
+    }
+  }
 
 public:
 
   /* constructor */
-  #include "ENDFtk/section/1/460/DiscretePhotons/src/ctor.hpp"
+
+  //! @todo pybind11 variant needs default constructor workaround
+  #ifdef PYBIND11
+  /**
+   *  @brief Default constructor - only enabled for pybind11
+   */
+  DiscretePhotons() = default;
+  #endif
+
+  /**
+   *  @brief Constructor
+   *
+   *  @param[in] photons     the discrete photon data
+   */
+  DiscretePhotons( std::vector< DiscretePhotonMultiplicity >&& multiplicities )
+    try : photons_( std::move( multiplicities ) ) {
+
+      verifySize( this->NG() );
+    }
+    catch ( std::exception& e ) {
+
+      Log::info( "Encountered error while constructing discrete photon data" );
+      throw;
+    }
+
+  /**
+   *  @brief Constructor (from a buffer)
+   *
+   *  @tparam Iterator        a buffer iterator
+   *
+   *  @param[in] it           the current position in the buffer
+   *  @param[in] end          the end of the buffer
+   *  @param[in] lineNumber   the current line number
+   *  @param[in] MAT          the expected MAT number
+   *  @param[in] MF           the expected MF number
+   *  @param[in] MT           the expected MT number
+   */
+  template< typename Iterator >
+  DiscretePhotons( Iterator& begin,
+                   const Iterator& end,
+                   long& lineNumber,
+                   int MAT,
+                   int MF,
+                   int MT,
+                   int NG )
+    try : DiscretePhotons(
+              readSequence< DiscretePhotonMultiplicity >( begin, end, lineNumber,
+                                                          MAT, MF, MT, NG ) ) {}
+    catch ( std::exception& e ) {
+
+      Log::info( "Encountered error while constructing discrete photon data" );
+      throw;
+    }
 
   /* methods */
 
@@ -48,6 +112,29 @@ public:
     return std20::views::all( this->photons_ );
   }
 
-  #include "ENDFtk/section/1/460/DiscretePhotons/src/NC.hpp"
-  #include "ENDFtk/section/1/460/DiscretePhotons/src/print.hpp"
+  /**
+   *  @brief Return the number of lines in this MF1/MT458 section
+   */
+  long NC() const {
+
+    long NC = 0;
+    for ( auto& entry : this->photons_ ) { NC += entry.NC(); }
+    return NC;
+  }
+
+  /**
+   *  @brief Print the MF1/MT458 section (includes SEND record)
+   *
+   *  @tparam OutputIterator   an output iterator
+   *
+   *  @param[in] it            the current position in the output
+   *  @param[in] MAT           the MAT number
+   *  @param[in] MF            the MF number
+   *  @param[in] MT            the MT number
+   */
+  template< typename OutputIterator >
+  void print( OutputIterator& it, int MAT, int MF, int MT ) const {
+
+    for ( auto& entry : this->photons_ ) { entry.print( it, MAT, MF, MT ); }
+  }
 };

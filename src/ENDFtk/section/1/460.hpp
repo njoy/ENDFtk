@@ -43,15 +43,86 @@ namespace section{
   protected:
 
     /* fields */
+
     DelayedPhotonData data_;
 
     /* auxiliary functions */
-    #include "ENDFtk/section/1/460/src/readPhotonData.hpp"
+
+    template< typename Iterator >
+    static DelayedPhotonData
+    readPhotonData( Iterator& begin,
+                    const Iterator& end,
+                    long& lineNumber,
+                    int MAT,
+                    int LO,
+                    int NG ) {
+
+      switch ( LO ) {
+
+        case 1 : return DiscretePhotons( begin, end, lineNumber, MAT, 1, 460, NG );
+        case 2 : return ContinuousPhotons( begin, end, lineNumber, MAT, 1, 460 );
+        default : {
+
+          Log::error( "Encountered illegal LO value" );
+          Log::info( "LO must be equal to 1 or 2" );
+          Log::info( "LO value: {}", LO );
+          Log::info( "Line number: {}", lineNumber - 1 );
+          throw std::exception();
+        }
+      }
+    }
 
   public:
 
     /* constructor */
-    #include "ENDFtk/section/1/460/src/ctor.hpp"
+
+    //! @todo pybind11 variant needs default constructor workaround
+    #ifdef PYBIND11
+    /**
+     *  @brief Default constructor - only enabled for pybind11
+     */
+    Type() = default;
+    #endif
+
+    /**
+     *  @brief Constructor
+     *
+     *  @param[in] zaid       the ZA value of the material
+     *  @param[in] awr        the atomic weight ratio
+     *  @param[in] photons    the delayed photon data
+     */
+    Type( int zaid, double awr, DelayedPhotonData&& photons ) :
+      BaseWithoutMT( zaid, awr ), data_( std::move( photons ) ) {}
+
+    /**
+     *  @brief Constructor (from a buffer)
+     *
+     *  @tparam Iterator        a buffer iterator
+     *
+     *  @param[in] head         the head record of the section
+     *  @param[in] begin        the current position in the buffer
+     *  @param[in] end          the end of the buffer
+     *  @param[in] lineNumber   the current line number
+     *  @param[in] MAT          the expected MAT number
+     */
+    template< typename Iterator >
+    Type ( const HEAD& head,
+           Iterator& begin,
+           const Iterator& end,
+           long& lineNumber,
+           int MAT )
+      try: BaseWithoutMT( head, MAT, 1 ),
+           data_( readPhotonData( begin, end, lineNumber,
+                                  MAT, head.L1(), head.N1() ) ) {
+
+        readSEND( begin, end, lineNumber, MAT, 1 );
+      }
+      catch( std::exception& e ) {
+
+        Log::info( "Trouble while reading section 460 of File 1 of Material {}",
+                   MAT );
+        throw e;
+      }
 
     /* methods */
 
@@ -91,7 +162,25 @@ namespace section{
                                                 { return v.NC(); },
                                              this->data_ ); }
 
-    #include "ENDFtk/section/1/460/src/print.hpp"
+    /**
+     *  @brief Print the MF1/MT458 section (includes SEND record)
+     *
+     *  @tparam OutputIterator   an output iterator
+     *
+     *  @param[in] it            the current position in the output
+     *  @param[in] MAT           the MAT number
+     *  @param[in] MF            the MF number
+     */
+    template< typename OutputIterator >
+    void print( OutputIterator& it, int MAT, int MF ) const {
+
+      ControlRecord( this->ZA(), this->AWR(), this->LO(),
+                     0, this->NG(), 0 ).print( it, MAT, MF, MT() );
+      std::visit( [&] ( const auto& v ) -> void
+                      { v.print( it, MAT, MF, MT() ); },
+                  this->data_ );
+      SEND( MAT, MF ).print( it );
+    }
 
     /**
      *  @brief Return the MT number of the section
