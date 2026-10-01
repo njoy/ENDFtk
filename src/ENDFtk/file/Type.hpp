@@ -22,14 +22,64 @@ namespace file {
     using Parent = Base< Type, section::Type< FileNumber > >;
 
     /* auxiliary functions */
-    #include "ENDFtk/file/Type/src/getSectionNumber.hpp"
-    #include "ENDFtk/file/Type/src/printSection.hpp"
-    #include "ENDFtk/file/Type/src/readSection.hpp"
+
+    static auto getSectionNumber( const section::Type< FileNumber >& section ) {
+
+      return section.MT();
+    }
+
+    template< typename OutputIterator >
+    static void printSection( const section::Type< FileNumber >& section,
+                              OutputIterator& it, int MAT, int MF ) {
+
+      section.print( it, MAT, MF );
+    }
+
+    template< typename Iterator >
+    static auto
+    readSection( StructureDivision& division,
+                 Iterator& begin,
+                 const Iterator& end,
+                 long& lineNumber ) {
+
+      return section::Type< FileNumber >( asHead( division ), begin, end,
+                                          lineNumber, division.tail.MAT() );
+    }
 
   public :
 
     /* constructors */
-    #include "ENDFtk/file/Type/src/ctor.hpp"
+
+    //! @todo pybind11 variant needs default constructor workaround
+    #ifdef PYBIND11
+    /**
+     *  @brief Default constructor - only enabled for pybind11
+     */
+    Type() = default;
+    #endif
+
+    /**
+     *  @brief Constructor
+     *
+     *  @param[in] sections   the sections of the file
+     */
+    Type( std::vector< section::Type< FileNumber > >&& sections ) :
+      Parent( std::move( sections ) ) {}
+
+    /**
+     *  @brief Constructor (from a buffer)
+     *
+     *  @tparam Iterator        a buffer iterator
+     *
+     *  @param[in] division     the first HEAD record of the section
+     *  @param[in] it           the current position in the buffer
+     *  @param[in] end          the end of the buffer
+     *  @param[in] lineNumber   the current line number
+     */
+    template< typename Iterator >
+    Type( StructureDivision& division,
+          Iterator& begin, const Iterator& end, long& lineNumber ) :
+      Parent( division, begin, end, lineNumber ) {}
 
     /* methods */
 

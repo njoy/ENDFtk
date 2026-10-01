@@ -17,16 +17,168 @@ namespace file {
   protected:
 
     /* fields */
+
     std::list< Section > sections_;
 
     /* auxiliary functions */
-    #include "ENDFtk/file/Base/src/find.hpp"
-    #include "ENDFtk/file/Base/src/read.hpp"
-    #include "ENDFtk/file/Base/src/fill.hpp"
-    #include "ENDFtk/file/Base/src/verifyFEND.hpp"
+
+    /**
+     *  @brief Return iterator to the section with the given mt number
+     *
+     *  @param[in] mt    the mt number
+     */
+    auto find( int mt ) {
+
+      auto iter = std::lower_bound( this->sections_.begin(), this->sections_.end(), mt,
+                                    [] ( auto&& left, auto&& right )
+                                       { return Derived::getSectionNumber( left ) < right; } );
+
+      if ( iter != this->sections_.end() ) {
+
+        if ( Derived::getSectionNumber( *iter ) == mt ) {
+
+          return iter;
+        }
+      }
+      return this->sections_.end();
+    }
+
+    /**
+     *  @brief Return iterator to the section with the given mt number
+     *
+     *  @param[in] mt    the mt number
+     */
+    auto find( int mt ) const {
+
+      auto iter = std::lower_bound( this->sections_.begin(), this->sections_.end(), mt,
+                                    [] ( auto&& left, auto&& right )
+                                       { return Derived::getSectionNumber( left ) < right; } );
+
+      if ( iter != this->sections_.end() ) {
+
+        if ( Derived::getSectionNumber( *iter ) == mt ) {
+
+          return iter;
+        }
+      }
+      return this->sections_.end();
+    }
+
+    template< typename Iterator >
+    static auto
+    read( StructureDivision& division,
+          Iterator& begin,
+          const Iterator& end,
+          long& lineNumber ) {
+
+      std::vector< Section > sections;
+      while ( not division.isFend() ) {
+
+        sections.emplace_back( Derived::readSection( division, begin, end, lineNumber ) );
+        division = StructureDivision( begin, end, lineNumber );
+      }
+      verifyFEND( division, lineNumber );
+      return fill( std::move( sections ) );
+    }
+
+    static auto
+    fill( std::vector< Section >&& sections ) {
+
+      std::list< Section > list;
+      for ( auto&& section : sections ) {
+
+        int MT = Derived::getSectionNumber( section );
+        auto iter = std::lower_bound( list.begin(), list.end(), MT,
+                                      [] ( auto&& left, auto&& right )
+                                         { return Derived::getSectionNumber( left ) < right; } );
+        if ( iter != list.end() ) {
+
+          if ( Derived::getSectionNumber( *iter ) == MT ) {
+
+            Log::error( "Section with duplicate section number found" );
+            Log::info( "Sections are required to specify a unique MT or section number" );
+            Log::info( "Encountered duplicate MT: {}", MT );
+            throw std::exception();
+          }
+        }
+        list.insert( iter, std::move( section ) );
+      }
+      return list;
+    }
+
+    static void
+    verifyFEND( const StructureDivision& structureDivision,
+                long lineNumber ) {
+
+      if ( not structureDivision.isFend() ) {
+
+        int MF = Base::MF();
+        if ( structureDivision.isSend() ) {
+
+          Log::error( "Encountered duplicate SEND record in File {}", MF );
+          Log::info("Line number: {}", lineNumber );
+          throw std::exception{};
+        }
+        else if ( structureDivision.isHead() ) {
+
+          Log::error( "Inappropriate section encountered in File {}", MF );
+          Log::info( "Section number: {}", asHead( structureDivision ).section() );
+          Log::info( "Line number: {}", lineNumber );
+          throw std::exception{};
+        }
+        else if ( structureDivision.isMend() ) {
+
+          Log::error( "Encountered MEND record before FEND record in File {}", MF );
+          Log::info( "Line number: {}", lineNumber );
+          throw std::exception{};
+        }
+        else if ( structureDivision.isTend() ) {
+
+          Log::error( "Encountered TEND record before FEND record in File {}", MF );
+          Log::info( "Line number: {}", lineNumber );
+          throw std::exception{};
+        }
+      }
+    }
 
     /* ctor */
-    #include "ENDFtk/file/Base/src/ctor.hpp"
+
+    //! @todo pybind11 variant needs default constructor workaround
+    //#ifdef PYBIND11
+    /**
+     *  @brief Default constructor - only enabled for pybind11
+     */
+    Base() = default;
+    //#endif
+
+    /**
+     *  @brief Constructor
+     *
+     *  @param[in] sections   the sections of the file
+     */
+    Base( std::vector< Section >&& sections ) :
+      sections_( fill( std::move( sections ) ) ) {}
+
+    /**
+     *  @brief Constructor (from a buffer)
+     *
+     *  @tparam Iterator        a buffer iterator
+     *
+     *  @param[in] division     the first HEAD record of the section
+     *  @param[in] it           the current position in the buffer
+     *  @param[in] end          the end of the buffer
+     *  @param[in] lineNumber   the current line number
+     */
+    template< typename Iterator >
+    Base( StructureDivision& division,
+          Iterator& begin, const Iterator& end, long& lineNumber )
+      try: sections_( read( division, begin, end, lineNumber ) ) {}
+      catch ( std::exception& e ) {
+
+        Log::info("Encountered error while reading file::Type<{}>", MF() );
+        Log::info( "Line number: {}", lineNumber );
+        throw e;
+      }
 
   public:
 
@@ -129,7 +281,24 @@ namespace file {
       return this->section( mt );
     }
 
-    #include "ENDFtk/file/Base/src/print.hpp"
+    /**
+     *  @brief Print the file (includes FEND record)
+     *
+     *  @tparam OutputIterator   an output iterator
+     *
+     *  @param[in] it            the current position in the output
+     *  @param[in] MAT           the MAT number
+     */
+    template< typename OutputIterator >
+    void print( OutputIterator& it, int MAT ) const {
+
+      int MF = this->MF();
+      for ( const auto& entry : this->sections_ ) {
+
+        Derived::printSection( entry, it, MAT, MF );
+      }
+      FEND( MAT ).print( it );
+    }
   };
 
 } // file namespace

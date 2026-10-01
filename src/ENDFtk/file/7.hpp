@@ -25,16 +25,133 @@ namespace file {
     friend class Base< Type, SectionVariant >;
 
     /* auxiliary functions blatantly copied from MF1 */
-    #include "ENDFtk/file/1/src/getSectionNumber.hpp"
-    #include "ENDFtk/file/1/src/printSection.hpp"
+
+    static auto getSectionNumber( const SectionVariant& section ) {
+
+      return std::visit( [] ( const auto& value )
+                            { return value.MT(); },
+                         section );
+    }
+
+    template< typename OutputIterator >
+    static void printSection( const SectionVariant& section,
+                              OutputIterator& it, int MAT, int MF ) {
+
+      std::visit( [&] ( const auto& value )
+                      { value.print( it, MAT, MF ); },
+                  section );
+    }
 
     /* auxiliary functions */
-    #include "ENDFtk/file/7/src/readSection.hpp"
+
+    template< typename Iterator >
+    static SectionVariant
+    readSection( StructureDivision& division,
+                 Iterator& begin,
+                 const Iterator& end,
+                 long& lineNumber ) {
+
+      switch ( division.tail.MT() ) {
+
+        case   2 : return section::Type< 7, 2 >( asHead( division ), begin, end,
+                                                 lineNumber, division.tail.MAT() );
+        case   4 : return section::Type< 7, 4 >( asHead( division ), begin, end,
+                                                 lineNumber, division.tail.MAT() );
+        case 451 : return section::Type< 7, 451 >( asHead( division ), begin, end,
+                                                   lineNumber, division.tail.MAT() );
+        default : throw std::exception();
+      }
+    }
 
   public :
 
     /* ctor */
-    #include "ENDFtk/file/7/src/ctor.hpp"
+
+    //! @todo pybind11 variant needs default constructor workaround
+    #ifdef PYBIND11
+    /**
+     *  @brief Default constructor - only enabled for pybind11
+     */
+    Type() = default;
+    #endif
+
+    /**
+     *  @brief Constructor
+     *
+     *  @param[in] section   the MF7 MT2 section
+     */
+    Type( section::Type< 7, 2 >&& section ) :
+      Base( { std::move( section ) } ) {}
+
+    /**
+     *  @brief Constructor
+     *
+     *  @param[in] elastic       the MF7 MT2 section
+     *  @param[in] information   the MF7 MT451 section
+     */
+    Type( section::Type< 7, 2 >&& elastic, section::Type< 7, 451 >&& information ) :
+      Base( { std::move( elastic ), std::move( information ) } ) {}
+
+    /**
+     *  @brief Constructor
+     *
+     *  @param[in] section   the MF7 MT4 section
+     */
+    Type( section::Type< 7, 4 >&& section ) :
+      Base( { std::move( section ) } ) {}
+
+    /**
+     *  @brief Constructor
+     *
+     *  @param[in] inelastic     the MF7 MT4 section
+     *  @param[in] information   the MF7 MT451 section
+     */
+    Type( section::Type< 7, 4 >&& inelastic, section::Type< 7, 451 >&& information ) :
+      Base( { std::move( inelastic ), std::move( information ) } ) {}
+
+    /**
+     *  @brief Constructor
+     *
+     *  @param[in] elastic     the MF7 MT2 section
+     *  @param[in] inelastic   the MF7 MT4 section
+     */
+    Type( section::Type< 7, 2 >&& elastic, section::Type< 7, 4 >&& inelastic ) :
+      Base( { std::move( elastic ), std::move( inelastic ) } ) {}
+
+    /**
+     *  @brief Constructor
+     *
+     *  @param[in] elastic     the MF7 MT2 section
+     *  @param[in] inelastic   the MF7 MT4 section
+     *  @param[in] information   the MF7 MT451 section
+     */
+    Type( section::Type< 7, 2 >&& elastic, section::Type< 7, 4 >&& inelastic,
+          section::Type< 7, 451 >&& information ) :
+      Base( { std::move( elastic ), std::move( inelastic ),
+              std::move( information ) } ) {}
+
+    /**
+     *  @brief Constructor
+     *
+     *  @param[in] sections   the sections of the file
+     */
+    Type( std::vector< SectionVariant >&& sections ) :
+      Base( std::move( sections ) ) {}
+
+    /**
+     *  @brief Constructor (from a buffer)
+     *
+     *  @tparam Iterator        a buffer iterator
+     *
+     *  @param[in] division     the first HEAD record of the section
+     *  @param[in] it           the current position in the buffer
+     *  @param[in] end          the end of the buffer
+     *  @param[in] lineNumber   the current line number
+     */
+    template< typename Iterator >
+    Type( StructureDivision& division,
+          Iterator& begin, const Iterator& end, long& lineNumber ) :
+      Base( division, begin, end, lineNumber ) {}
 
     /* methods */
 
