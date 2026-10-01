@@ -284,7 +284,6 @@ class ENDFTK_PYTHON_EXPORT DerivedRatioToStandard {
     ControlRecord( 0.0, 0.0, 0, this->LTY(), 0, 0).print( it, MAT, MF, MT );
     this->list_.print( it, MAT, MF, MT );
   }
-
 };
 
 } // section namespace

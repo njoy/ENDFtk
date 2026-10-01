@@ -89,7 +89,6 @@ public:
    */
   auto uncertainties() const { return this->DAPL(); }
 
-
   using ListRecord::NC;
   using ListRecord::print;
 };

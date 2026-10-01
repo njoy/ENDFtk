@@ -23,7 +23,7 @@ namespace ENDFtk {
     TapeIdentification id_;
     std::vector< Material > materials_;
 
-    /* auxialiary functions */
+    /* auxiliary functions */
 
     /**
      *  @brief Function to read a sequence of ENDF components

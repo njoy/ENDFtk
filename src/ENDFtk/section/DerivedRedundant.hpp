@@ -75,7 +75,6 @@ class ENDFTK_PYTHON_EXPORT DerivedRedundant {
   DerivedRedundant() = default;
   #endif
 
-
   /**
    *  @brief Cascade for buffer iterator
    *
