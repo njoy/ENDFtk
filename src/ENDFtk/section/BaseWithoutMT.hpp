@@ -14,13 +14,59 @@ namespace section{
   class BaseWithoutMT {
 
     /* fields */
+
     int ZA_;
     double atomicWeightRatio_;
 
   protected:
 
     /* constructor */
-    #include "ENDFtk/section/BaseWithoutMT/src/ctor.hpp"
+
+    //! @todo pybind11 variant needs default constructor workaround
+    #ifdef PYBIND11
+    /**
+     *  @brief Default constructor - only enabled for pybind11
+     */
+    BaseWithoutMT() = default;
+    #endif
+
+    BaseWithoutMT( int ZA, double AWR ) :
+      ZA_( ZA ), atomicWeightRatio_( AWR ) {
+
+      if ( ZA < 1 ) {
+
+        Log::error( "Illegal ZA number" );
+        Log::info( "ZA numbers must be greater than zero" );
+        Log::info( "Encountered ZA number: {}", ZA );
+        throw std::exception();
+      }
+      if ( AWR < 0.0 ) {
+
+        Log::error( "Illegal atomic mass ratio" );
+        Log::info( "atomic mass ratio numbers must be greater than zero" );
+        Log::info( "Encountered atomic mass ratio: {}", AWR );
+        throw std::exception();
+      }
+    }
+
+    BaseWithoutMT( const HEAD& head, int MAT, int MF ) :
+      BaseWithoutMT( head.ZA(), head.atomicWeightRatio() ) {
+
+      if ( MAT != head.MAT() ) {
+
+        Log::error( "Incorrect Material number (MAT)." );
+        Log::info( "Expected MAT = {}", MAT );
+        Log::info( "Encountered MAT = {}", head.MAT() );
+        throw std::exception();
+      }
+      if ( MF != head.MF() ) {
+
+        Log::error( "Incorrect File number (MF)." );
+        Log::info( "Expected MF = {}", MF );
+        Log::info( "Encountered MF = {}", head.MF() );
+        throw std::exception();
+      }
+    }
 
   public:
 
@@ -54,8 +100,85 @@ namespace section{
      */
     constexpr double atomicWeightRatio() const { return this->AWR(); }
 
-    #include "ENDFtk/section/BaseWithoutMT/src/readSEND.hpp"
-    #include "ENDFtk/section/BaseWithoutMT/src/readFEND.hpp"
+    template< typename Iterator >
+    static void readSEND
+    ( Iterator& it, const Iterator& end, long& lineNumber, int MAT, int MF ) {
+
+      try {
+
+        const auto begin = it;
+        auto division = StructureDivision( it, end, lineNumber );
+        if ( not division.isSend() ) {
+
+          Log::error( "Malformatted SEND record." );
+          Log::info( "Error parsing line {}: \"{}\"",
+                     lineNumber - 1,
+                     std::string( begin, std::find( begin, end, '\n' ) ) );
+          throw std::exception();
+        }
+
+        if ( MAT != division.tail.MAT() ) {
+
+          Log::error( "Incorrect Material number (MAT) in SEND record." );
+          Log::info( "Expected MAT = {}", MAT );
+          Log::info( "Encountered MAT = {}", division.tail.MAT() );
+          throw std::exception();
+        }
+
+        if ( MF != division.tail.MF() ) {
+
+          Log::error( "Incorrect File number (MF) in SEND record" );
+          Log::info( "Expected MF = {}", MF );
+          Log::info( "Encountered MF = {}", division.tail.MF() );
+          throw std::exception();
+        }
+      }
+      catch ( std::exception& e ) {
+
+        Log::info( "Encountered error while reading the SEND record." );
+        throw e;
+      }
+    }
+
+    template<typename Iterator>
+    static void readFendOrSend
+    ( Iterator&it, const Iterator& end, long& lineNumber, int MAT, int MF ) {
+
+      try {
+
+        const auto begin = it;
+        auto division = StructureDivision(it, end, lineNumber);
+        if ( ( ! division.isFend() ) && ( ! division.isSend() ) ) {
+
+            Log::error( "Malformatted FEND or SEND record.");
+            Log::info( "Error parsing line {}: \"{}\"",
+                       lineNumber - 1,
+                       std::string( begin, std::find( begin, end, '\n' ) ) );
+            throw std::exception();
+        }
+
+        if ( MAT != division.tail.MAT() ) {
+
+            Log::error("Incorrect Material number (MAT) in FEND record.");
+            Log::info("Expected MAT = {}", MAT);
+            Log::info("Encountered MAT = {}", division.tail.MAT());
+            throw std::exception();
+        }
+
+        if ( division.isSend() && MF != division.tail.MF() ) {
+
+          Log::error( "Incorrect File number (MF) in SEND record" );
+          Log::info( "Expected MF = {}", MF );
+          Log::info( "Encountered MF = {}", division.tail.MF() );
+          throw std::exception();
+        }
+      }
+      catch (std::exception& e) {
+
+        Log::info( "Encountered error while reading the FEND record." );
+        throw e;
+      }
+    }
     
   };
 
