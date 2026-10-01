@@ -29,13 +29,108 @@ namespace section {
     // NOTE: NZ is always 1 for MF5
 
     /* auxiliary functions */
-    #include "ENDFtk/gsection/5/18/src/makeVectors.hpp"
-    #include "ENDFtk/gsection/5/18/src/makeRecord.hpp"
+
+    static auto
+    makeVectors( const DataRecord& record, int ngroups ) {
+
+      if ( ngroups <= 0 ) {
+
+        throw std::runtime_error( "Number of groups cannot be less than or equal to 0" );
+      }
+      std::size_t number_groups = ngroups;
+
+      double temp;
+      std::vector< double > chi( number_groups );
+
+      if ( record.list().size() != 0 ) {
+
+          temp = record.TEMP();
+
+          for ( unsigned int g = 0; g < number_groups; ++g) {
+
+              chi[g] = record.list()[ g ];
+          } // groups
+      } // endif
+
+      return std::make_tuple( temp, std::move( chi ) );
+    }
+
+    static auto
+    makeRecord( double temp,
+                const std::vector< double >& chi ) {
+
+      // int nz is always one for this section
+      int ig2lo = 1;
+      unsigned int ngroups = chi.size();
+
+      std::vector< double > list( ngroups );
+      list = std::move( chi );
+
+      return DataRecord( temp, ngroups, ig2lo, ngroups, std::move ( list ) );
+    }
+
+    /* constructor */
+
+    GType( int zaid, double awr, int lr,
+           std::tuple< double,
+           std::vector< double > >&& data ) :
+        GType( zaid, awr, lr,
+               std::move( std::get< 0 >( data ) ),        // temp
+               std::move( std::get< 1 >( data ) ) ) {}    // chi
+
+    GType( int zaid, double awr, int lr, int ngn,
+           DataRecord&& record ) :
+        GType( zaid, awr, lr,
+               makeVectors( record, ngn ) ) {}
 
   public:
 
     /* constructor */
-    #include "ENDFtk/gsection/5/18/src/ctor.hpp"
+
+    /**
+     *  @brief Constructor from parameters for prompt fission spectrum
+     *
+     *  @param[in]  zaid        the ZAID identifier
+     *  @param[in]  awr         the atomic weight ration
+     *  @param[in]  lr          the break-up identifier flag
+     *  @param[in]  temp        the temperature
+     *  @param[in]  chi         the prompt neutron spectrum
+     */
+    GType( int zaid, double awr, int lr, double temp,
+           std::vector< double > chi ) :
+        BaseWithoutMT( zaid, awr ),
+        lr_( lr ),
+        temp_( temp ),
+        chi_( std::move( chi ) ) {}
+
+    /**
+     *  @brief Constructor from buffer/string
+     *
+     *  @tparam Iterator        buffer iterator
+     *
+     *  @param[in] head         the head record of the section
+     *  @param[in] begin        the start for the iterator
+     *  @param[in] end          the end for the iterator
+     *  @param[in] lineNumber   the current line number
+     *  @param[in] MAT          the expected MAT number
+     */
+    template<typename Iterator>
+    GType(const HEAD& head,
+          Iterator& begin,
+          const Iterator& end,
+          long& lineNumber,
+          int MAT)
+      try: GType( head.ZA(), head.AWR(), head.N1(), head.N2(),
+                  DataRecord( begin, end, lineNumber, head.MAT(), head.MF(), 18 ) ) {
+
+        this->readSEND( begin, end, lineNumber, MAT, head.MF() );
+      }
+      catch(std::exception& e) {
+
+        Log::info( "Encountered error while reading section {} of file {} fo material {}"
+                   " in GENDF file.", 18, head.MF(), head.MAT() );
+        throw e;
+      }
 
 
     /* methods */
@@ -85,7 +180,16 @@ namespace section {
      */
     const std::vector< double >& chi() const { return this->chi_; }
 
-    #include "ENDFtk/gsection/5/18/src/print.hpp"
+    template < typename OutputIterator >
+    void print( OutputIterator& it, int MAT, int MF ) const {
+
+      int MT = 18;
+      ControlRecord( this->ZA(), this->AWR(), 1, this->NZ(),
+                     this->LR(), this->NGN() ).print( it, MAT, MF, MT );
+      auto record = makeRecord( this->temp_, this->chi_ );
+      record.print( it, MAT, MF, MT );
+      SEND( MAT, MF ).print( it );
+    }
 
     /**
      *  @brief Return the section number

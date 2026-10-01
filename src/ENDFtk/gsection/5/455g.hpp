@@ -34,13 +34,152 @@ namespace section {
     // NOTE: NZ is always 1 for MF5
 
     /* auxiliary functions */
-    #include "ENDFtk/gsection/5/455/src/makeVectors.hpp"
-    #include "ENDFtk/gsection/5/455/src/makeRecord.hpp"
+
+    static auto
+    makeVectors( const DataRecord& record,
+                 int ntimes, int ngroups ) {
+
+      std::vector< double > lambda;
+      std::vector< std::vector< double > > chi;
+      double temp;
+
+      if ( ntimes <= 0 || ngroups <= 0 ) {
+
+        throw std::runtime_error( "Number of times and groups cannot be "
+                                  "less than or equal to 0" );
+      }
+      std::size_t number_times = ntimes;
+      std::size_t number_groups = ngroups;
+      std::size_t ng2 = record.NG2();
+
+      if ( record.list().size() != 0 ) {
+
+        chi.resize( number_times );
+        temp = record.TEMP();
+
+        lambda.resize( number_times );
+        for ( std::size_t t = 0; t < number_times; ++t ) {
+
+          lambda[t] = record.list()[ t ];
+
+          for ( std::size_t g = 0; g < ( ng2 - 1 ); ++g ) {
+
+            if ( chi[t].size() == 0 ) {
+
+                chi[t] = std::vector< double > (number_groups, 0. );
+            } // endif
+            chi[t][g] = record.list()[ number_times * ( g + 1 ) + t ];
+          } // groups
+        } // times
+      } // endif
+
+
+      return std::make_tuple(temp, ng2, std::move( chi ), std::move( lambda ) );
+    }
+
+    static auto
+    makeRecord( double temp,
+                int ng2,
+                const std::vector< double >& lambda,
+                const std::vector< std::vector< double > >& chi ) {
+
+      if ( ng2 <= 0 ) {
+
+        throw std::runtime_error( "Number of outgoing groups cannot be "
+                                  "less than or equal to 0" );
+      }
+      std::size_t number_groups = ng2;
+
+      int ig2lo = 1;
+      auto ntimes = lambda.size();
+      std::size_t ngroups = chi.front().size();
+
+      std::vector < double > list;
+      list = std::move( lambda );
+      for  ( std::size_t g = 0; g < ( number_groups - 1 ); ++g ) {
+
+          for ( std::size_t t = 0; t < ntimes; ++t ) {
+
+              list.emplace_back( chi[t][g] );
+          }
+      }
+
+      return DataRecord( temp, ng2, ig2lo, ngroups, std::move ( list ) );
+    }
+
+    /* constructor */
+
+    GType( int zaid, double awr, int lr,
+           std::tuple< double,
+                       int,
+                       std::vector< std::vector< double > >,
+                       std::vector< double > >&& data ) :
+        GType( zaid, awr, lr,
+               std::move( std::get<0>( data ) ),        // temp
+               std::move( std::get<1>( data ) ),        // ng2
+               std::move( std::get<2>( data ) ),        // chi
+               std::move( std::get<3>( data ) ) ) {}    // lambda
+
+    GType( int zaid, double awr, int nt, int lr, int ngn,
+           DataRecord&& record ) :
+        GType( zaid, awr, lr,
+               makeVectors( record, nt, ngn ) ) {}
 
   public:
 
     /* constructor */
-    #include "ENDFtk/gsection/5/455/src/ctor.hpp"
+
+    /**
+     *  @brief Constructor from parameters for delayed fission spectrum
+     *
+     *  @param[in]  zaid        the ZAID identifier
+     *  @param[in]  awr         the atomic weight ration
+     *  @param[in]  lr          the break-up identifier flag
+     *  @param[in]  temp        the temperature
+     *  @param[in]  ng2         number of secondary positions (needed for clipped records)
+     *  @param[in]  chi         the delayed neutron spectrum
+     *  @param[in]  lambda      the time constants
+     */
+    GType( int zaid, double awr, int lr, double temp, int ng2,
+           std::vector< std::vector< double > > chi,
+           std::vector< double > lambda ) :
+        BaseWithoutMT( zaid, awr ),
+        lr_( lr ),
+        temp_( temp ),
+        ng2_( ng2 ),
+        lambda_( std::move( lambda ) ),
+        chi_( std::move( chi ) ) {}
+
+    /**
+     *  @brief Constructor from buffer/string
+     *
+     *  @tparam Iterator        buffer iterator
+     *
+     *  @param[in] head         the head record of the section
+     *  @param[in] begin        the start for the iterator
+     *  @param[in] end          the end for the iterator
+     *  @param[in] lineNumber   the current line number
+     *  @param[in] MAT          the expected MAT number
+     */
+    template<typename Iterator>
+    GType(const HEAD& head,
+          Iterator& begin,
+          const Iterator& end,
+          long& lineNumber,
+          int MAT)
+      try:
+            GType( head.ZA(), head.AWR(), head.L1(),
+                   head.N1(), head.N2(),
+            DataRecord( begin, end, lineNumber, head.MAT(), head.MF(), 455 ) ) {
+
+        this->readSEND( begin, end, lineNumber, MAT, head.MF() );
+      }
+      catch(std::exception& e) {
+
+        Log::info( "Encountered error while reading section {} of file {} fo material {}"
+                   " in GENDF file.", 455, head.MF(), head.MAT());
+        throw e;
+      }
 
     /* methods */
 
@@ -106,7 +245,16 @@ namespace section {
         return this->chi_[timeConstant];
     }
 
-    #include "ENDFtk/gsection/5/455/src/print.hpp"
+    template < typename OutputIterator >
+    void print( OutputIterator& it, int MAT, int MF ) const {
+
+      int MT = 455;
+      ControlRecord( this->ZA(), this->AWR(), this->NT(), this->NZ(),
+                     this->LR(), this->NGN() ).print( it, MAT, MF, MT );
+      auto record = makeRecord( this->temp_, this->ng2_, this->lambda_, this->chi_ );
+      record.print( it, MAT, MF, MT );
+      SEND( MAT, MF ).print( it );
+    }
 
     /**
      *  @brief Return the section number
