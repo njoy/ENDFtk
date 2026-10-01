@@ -106,16 +106,59 @@ namespace ENDFtk {
   class InterpolationSequenceRecord {
 
     /* fields */
+
     InterpolationRecord interpolation_;
     std::vector< Component > sequence_;
 
     /* auxiliary functions */
-    #include "ENDFtk/InterpolationSequenceRecord/src/verifyNZ.hpp"
+
+    static void
+    verifyNZ( unsigned int index, unsigned int NZ ) {
+
+      if ( NZ == 0 ) {
+
+        Log::error( "NZ should be larger than 0" );
+        throw std::exception();
+      }
+
+      const bool inconsistentNZ = ( index != NZ );
+
+      if ( inconsistentNZ ) {
+
+        Log::error( "Inconsistent NZ value between interpolation table and "
+                    "data points" );
+        Log::info( "Last index interpolation table: {}", index );
+        Log::info( "Number of points in data: {}", NZ );
+        throw std::exception();
+      }
+    }
 
   public:
 
     /* constructor */
-    #include "ENDFtk/InterpolationSequenceRecord/src/ctor.hpp"
+
+    //! @todo pybind11 variant needs default constructor workaround
+    #ifdef PYBIND11
+    /**
+     *  @brief Default constructor - only enabled for pybind11
+     */
+    InterpolationSequenceRecord() = default;
+    #endif
+
+    /**
+     *  @brief Constructor
+     *
+     *  @param[in] interpolation   the interpolation record associated to the data
+     *  @param[in] sequence        the data
+     */
+    InterpolationSequenceRecord ( InterpolationRecord&& interpolation,
+                                  std::vector< Component >&& sequence ) :
+      interpolation_( interpolation ),
+      sequence_( sequence ) {
+
+      verifyNZ( this->tab2().NZ(), sequence.size() );
+      validateSequence( sequence );
+    }
 
     /* get methods */
 
@@ -133,8 +176,35 @@ namespace ENDFtk {
       return std20::views::all( this->sequence_ );
     }
 
-    #include "ENDFtk/InterpolationSequenceRecord/src/NC.hpp"
-    #include "ENDFtk/InterpolationSequenceRecord/src/print.hpp"
+    /**
+     *  @brief Return the number of lines in this ENDF component
+     */
+    auto NC() const {
+
+      auto NC = this->interpolation_.NC();
+      for ( const auto& entry : this->sequence_ ) { NC += ENDFtk::NC( entry ); }
+      return NC;
+    };
+
+    /**
+     *  @brief Print the interpolation sequence record
+     *
+     *  @tparam OutputIterator   an output iterator
+     *
+     *  @param[in] it            the current position in the output
+     *  @param[in] MAT           the MAT number
+     *  @param[in] MF            the MF number
+     *  @param[in] MT            the MT number
+     */
+    template< typename OutputIterator >
+    void print( OutputIterator& it, int MAT, int MF, int MT ) const {
+
+      this->interpolation_.print( it, MAT, MF, MT );
+      for ( const auto& entry : this->sequence_ ) {
+
+        ENDFtk::print( entry, it, MAT, MF, MT );
+      }
+    }
   };
 
   #include "ENDFtk/InterpolationSequenceRecord/src/readInterpolationSequenceRecord.hpp"
