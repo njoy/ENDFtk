@@ -23,6 +23,7 @@ namespace tree {
   class GFile {
 
     /* fields */
+
     int mat_;
     int mf_;
     std::list< GSection > sections_;
@@ -30,12 +31,72 @@ namespace tree {
     /* auxiliary functions */
 
     // blatantly stolen from tree File
-    #include "ENDFtk/tree/File/src/find.hpp"
+
+    /**
+     *  @brief Return iterator to the section with the given mt number
+     *
+     *  @param[in] mt    the mt number
+     */
+    auto find( int mt ) {
+
+      auto iter = std::lower_bound( this->sections_.begin(), this->sections_.end(), mt,
+                                    [] ( auto&& left, auto&& right )
+                                       { return left.sectionNumber() < right; } );
+
+      if ( iter != this->sections_.end() ) {
+
+        if ( iter->sectionNumber() == mt ) {
+
+          return iter;
+        }
+      }
+      return this->sections_.end();
+    }
+
+    /**
+     *  @brief Return iterator to the section with the given mt number
+     *
+     *  @param[in] mt    the mt number
+     */
+    auto find( int mt ) const {
+
+      auto iter = std::lower_bound( this->sections_.begin(), this->sections_.end(), mt,
+                                    [] ( auto&& left, auto&& right )
+                                       { return left.sectionNumber() < right; } );
+
+      if ( iter != this->sections_.end() ) {
+
+        if ( iter->sectionNumber() == mt ) {
+
+          return iter;
+        }
+      }
+      return this->sections_.end();
+    }
 
   public:
 
     /* constructor */
-    #include "ENDFtk/tree/GFile/src/ctor.hpp"
+
+    /**
+     *  @brief Constructor for an empty file
+     *
+     *  @param[in] mat    the MAT number of the file
+     *  @param[in] mf     the MF number of the file
+     */
+    GFile( unsigned int mat, unsigned int mf ) :
+      mat_( mat ), mf_( mf ), sections_() {}
+
+    /**
+     *  @brief Constructor (internal use only)
+     *
+     *  @param[in] mat        the MAT number of the file
+     *  @param[in] mf         the MF number of the file
+     *  @param[in] sections   the sections of the file (assumed to be sorted and unique)
+     */
+    GFile( unsigned int mat, unsigned int mf,
+           std::list< GSection >&& sections ) :
+      mat_( mat ), mf_( mf ), sections_( std::move( sections ) ) {}
 
     /* methods */
 
@@ -70,7 +131,35 @@ namespace tree {
                                       { return section.sectionNumber(); } );
     }
 
-    #include "ENDFtk/tree/GFile/src/section.hpp"
+    /**
+     *  @brief Return the section with the requested MT number
+     *
+     *  @param[in]   mt   the MT number of the section to be returned
+     */
+    const GSection& section( int mt ) const {
+
+      auto iter = this->find( mt );
+      if ( iter != this->sections_.end() ) {
+
+        return *iter;
+      }
+
+      Log::error( "The requested section (MF{} MT{}) is not present "
+                  "in the GENDF file tree",
+                  this->fileNumber(), mt );
+      throw std::exception();
+    }
+
+    /**
+     *  @brief Return the section with the requested MT number
+     *
+     *  @param[in]   mt   the MF number of the section to be returned
+     */
+    GSection& section( int mt ) {
+
+      return const_cast< GSection& >
+             ( const_cast< const GFile& >( *this ).section( mt ) );
+    }
 
     /**
      *  @brief Return the section with the requested MT number
@@ -181,7 +270,19 @@ namespace tree {
 //    #include "ENDFtk/tree/File/src/parse.hpp"
 
     // blatantly copied from tree File
-    #include "ENDFtk/tree/File/src/clean.hpp"
+
+    /**
+     *  @brief Clean up the file
+     *
+     *  This function removes the sequence numbers from the file
+     */
+    void clean() {
+
+      for ( auto& section : this->sections() ) {
+
+        section.clean();
+      }
+    }
   };
 
 } // tree namespace

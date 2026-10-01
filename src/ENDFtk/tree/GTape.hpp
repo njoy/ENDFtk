@@ -39,22 +39,176 @@ namespace tree {
   class GTape {
 
     /* fields */
+
     std::optional< TapeIdentification > tpid_;
     std::list< GMaterial > materials_;
 
     /* auxiliary function */
-    #include "ENDFtk/tree/GTape/src/fill.hpp"
+
+    template < typename BufferIterator >
+    static auto
+    fill( BufferIterator position, const BufferIterator& end, long& lineNumber ) {
+
+      std::list< GMaterial > materials;
+
+      auto compare = [] ( auto&& left, auto&& right )
+                        { return left < right.materialNumber(); };
+
+      auto begin = position;
+      auto division = StructureDivision( position, end, lineNumber );
+
+      while ( division.isHead() ) {
+
+        auto iter = std::upper_bound( materials.begin(), materials.end(), division.tail.MAT(), compare );
+
+        materials.emplace( iter, asHead( division ), begin, position, end, lineNumber );
+
+        begin = position;
+        division = StructureDivision( position, end, lineNumber );
+      }
+
+      if ( not division.isTend() ) {
+
+        Log::error( "Did not find a valid TEND record in the tape" );
+        throw std::exception();
+      }
+
+      return materials;
+    }
+
+    template < typename BufferIterator >
+    static auto
+    fill( BufferIterator position, const BufferIterator& end ){
+
+      long lineNumber{ 0 };
+      return fill( position, end, lineNumber );
+    }
 
     // blatantly stolen from the tree Tape
-    #include "ENDFtk/tree/Tape/src/find.hpp"
+
+    /**
+     *  @brief Return iterator to the file with the given mat number
+     *
+     *  @param[in] mat    the mat number
+     */
+    auto find( int mat ) {
+
+      auto lower = std::lower_bound( this->materials_.begin(), this->materials_.end(), mat,
+                                     [] ( auto&& left, auto&& right )
+                                        { return left.materialNumber() < right; } );
+      auto upper = std::upper_bound( this->materials_.begin(), this->materials_.end(), mat,
+                                     [] ( auto&& left, auto&& right )
+                                        { return left < right.materialNumber(); } );
+
+      if ( lower != upper ) {
+
+        return std::make_pair( lower, upper );
+      }
+      return std::make_pair( this->materials_.end(), this->materials_.end() );
+    }
+
+    /**
+     *  @brief Return iterator to the file with the given mat number
+     *
+     *  @param[in] mat    the mat number
+     */
+    auto find( int mat ) const {
+
+      auto lower = std::lower_bound( this->materials_.begin(), this->materials_.end(), mat,
+                                     [] ( auto&& left, auto&& right )
+                                        { return left.materialNumber() < right; } );
+      auto upper = std::upper_bound( this->materials_.begin(), this->materials_.end(), mat,
+                                     [] ( auto&& left, auto&& right )
+                                        { return left < right.materialNumber(); } );
+
+      if ( lower != upper ) {
+
+        return std::make_pair( lower, upper );
+      }
+      return std::make_pair( this->materials_.end(), this->materials_.end() );
+    }
 
   public:
 
     /* constructor */
-    #include "ENDFtk/tree/GTape/src/ctor.hpp"
+
+    /**
+     *  @brief Empty tape constructor
+     *
+     *  @param[in] id    the tape identifier
+     */
+    GTape( TapeIdentification&& id ) : tpid_( std::move( id ) ) {}
+
+    /**
+     *  @brief Constructor
+     *
+     *  @param[in] buffer       the buffer from which a buffer can be constructed
+     *  @param[in] lineNumber   the line numbers
+     */
+    template< typename Buffer >
+    GTape( const Buffer& buffer, long lineNumber = 0 )
+      try {
+
+        using namespace njoy::tools;
+        auto position = std20::begin( buffer );
+        auto end = std20::end( buffer );
+        this->tpid_ = TapeIdentification{ position, end, lineNumber };
+        materials_ = fill( position, end, lineNumber );
+      }
+      catch ( std::exception& e ) {
+
+        Log::info( "Trouble encountered while constructing a tape syntax tree." );
+        throw e;
+      }
 
     /* methods */
-    #include "ENDFtk/tree/GTape/src/material.hpp"
+
+    /**
+     *  @brief Return the materials with the requested MAT number
+     *
+     *  This function returns a range of materials since a tape can contain
+     *  multiple instances of the same material (e.g. at different
+     *  temperatures).
+     *
+     *  @param[in]   mat   the MAT number of the material to be returned
+     */
+    auto material( int mat ) const {
+
+      auto range = this->find( mat );
+      if ( range.first ==  range.second ) {
+
+        Log::error( "Requested material number (MAT) does not"
+                    " correspond to a stored material syntax tree" );
+        Log::info( "Requested material number: {}", mat );
+        throw std::out_of_range( "Requested material number (MAT) does not"
+                                 " correspond to a stored material tree" );
+      }
+
+
+      using namespace njoy::tools;
+      auto subrange = std20::ranges::subrange( range.first, range.second );
+
+      return subrange | std20::views::all;
+    }
+
+    /**
+     *  @brief Return the materials with the requested MAT number
+     *
+     *  This function returns a range of materials since a tape can contain
+     *  multiple instances of the same material (e.g. at different
+     *  temperatures).
+     *
+     *  @param[in]   mat   the MAT number of the material to be returned
+     */
+    auto material( int mat ) {
+
+      using namespace njoy::tools;
+      return
+        static_cast< const GTape& >( *this ).material( mat )
+        | std20::views::transform
+          ( [] ( const auto& material ) -> GMaterial&
+               { return const_cast< GMaterial& >( material ); } );
+    }
 
     /**
      *  @brief Return the materials with the requested MAT number
@@ -214,7 +368,19 @@ namespace tree {
 //    #include "ENDFtk/tree/Tape/src/parse.hpp"
 
     // blatantly stolen from the tree Tape
-    #include "ENDFtk/tree/Tape/src/clean.hpp"
+
+    /**
+     *  @brief Clean up the tape
+     *
+     *  This function removes the sequence numbers from the tape
+     */
+    void clean() {
+
+      for ( auto& material : this->materials() ) {
+
+        material.clean();
+      }
+    }
   };
 
 } // tree namespace
