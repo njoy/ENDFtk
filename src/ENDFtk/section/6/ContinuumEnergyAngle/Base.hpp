@@ -6,6 +6,37 @@
  */
 class Base : protected ListRecord {
 
+  /* auxiliary functions */
+
+  static void
+  verifySize( int NW, int NA, int NEP ) {
+
+    if ( NW != NEP * ( NA + 2 ) ) {
+
+      Log::error( "Encountered illegal NA, NW and NEP values " );
+      Log::info( "NW must be equal to NEP*(NA+2) for continuum energy-angle "
+                 "distributions" );
+      Log::info( "NW value: {}", NW );
+      Log::info( "NA value: {}", NA );
+      Log::info( "NEP value: {}", NEP );
+      throw std::exception();
+    }
+  }
+
+protected:
+
+  /**
+   *  @brief Return the data
+   */
+  auto data() const {
+
+    using namespace njoy::tools;
+    return ListRecord::list()
+               | std23::views::chunk( 2 + this->NA() )
+               | std20::views::transform( [] ( auto&& chunk )
+                                             { return chunk | std20::views::drop( 1 ); } );
+  }
+
 public:
 
   /* methods */
@@ -90,32 +121,36 @@ public:
     return this->F0();
   }
 
-private:
-
-  /* auxiliary functions */
-  #include "ENDFtk/section/6/ContinuumEnergyAngle/Base/src/verifySize.hpp"
+  using ListRecord::NC;
+  using ListRecord::print;
 
 protected:
 
   /* constructor */
-  #include "ENDFtk/section/6/ContinuumEnergyAngle/Base/src/ctor.hpp"
 
-  /* methods */
-
+  //! @todo pybind11 variant needs default constructor workaround
+  #ifdef PYBIND11
   /**
-   *  @brief Return the data
+   *  @brief Default constructor - only enabled for pybind11
    */
-  auto data() const {
+  Base() = default;
+  #endif
 
-    using namespace njoy::tools;
-    return ListRecord::list()
-               | std23::views::chunk( 2 + this->NA() )
-               | std20::views::transform( [] ( auto&& chunk )
-                                             { return chunk | std20::views::drop( 1 ); } );
-  }
+  Base( ListRecord&& list ) :
+    ListRecord( std::move( list ) ) {
 
-public:
+    verifySorted( this->energies() | njoy::tools::std20::views::drop( this->ND() ),
+                  "Energy" );
+    verifySize( this->NW(), this->NA(), this->NEP() );
+  };
 
-  using ListRecord::NC;
-  using ListRecord::print;
+  Base( double energy, long nd, long na, long nep,
+        std::vector< double >&& list ) :
+    Base( ListRecord( 0.0, energy, nd, na, nep,
+                      std::move( list ) ) ) {};
+
+  template< typename Iterator >
+  Base( Iterator& it, const Iterator& end, long& lineNumber,
+        int MAT, int MF, int MT ) :
+    Base( ListRecord( it, end, lineNumber, MAT, MF, MT ) ) {}
 };
