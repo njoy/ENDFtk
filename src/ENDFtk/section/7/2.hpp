@@ -46,15 +46,83 @@ namespace section{
   private:
 
     /* fields */
+
     ScatteringLaw law_;
 
     /* auxiliary functions */
-    #include "ENDFtk/section/7/2/src/readScatteringLaw.hpp"
+
+    template< typename Iterator >
+    static ScatteringLaw
+    readScatteringLaw( Iterator& begin,
+                       const Iterator& end,
+                       long& lineNumber,
+                       int MAT,
+                       int MF,
+                       int MT,
+                       int LTHR ) {
+
+      switch ( LTHR ) {
+        case 1: return CoherentElastic( begin, end, lineNumber, MAT, MF, MT );
+        case 2: return IncoherentElastic( begin, end, lineNumber, MAT, MF, MT );
+        case 3: return MixedElastic( begin, end, lineNumber, MAT, MF, MT );
+        default : {
+          Log::error( "Encountered illegal LTHR value" );
+          Log::info( "LTHR is either 1 (coherent), 2 (incoherent) or 3 (mixed)" );
+          Log::info( "LTHR value: {}", LTHR );
+          Log::info( "Line number: {}", lineNumber );
+          throw std::exception();
+        }
+      }
+    }
 
   public:
 
     /* constructor */
-    #include "ENDFtk/section/7/2/src/ctor.hpp"
+
+    //! @todo pybind11 variant needs default constructor workaround
+    #ifdef PYBIND11
+    /**
+     *  @brief Default constructor - only enabled for pybind11
+     */
+    Type() = default;
+    #endif
+
+    /**
+     *  @brief Constructor
+     *
+     *  @param[in] zaid   the material ZAID value
+     *  @param[in] awr    the atomic weight ratio
+     *  @param[in] law    the thermal scattering law
+     */
+    Type( int zaid, double awr, ScatteringLaw&& law ) :
+      BaseWithoutMT( zaid, awr ), law_( std::move( law ) ) {}
+
+    /**
+     *  @brief Constructor (from a buffer)
+     *
+     *  @tparam Iterator        a buffer iterator
+     *
+     *  @param[in] head         the head record of the section
+     *  @param[in] it           the current position in the buffer
+     *  @param[in] end          the end of the buffer
+     *  @param[in] lineNumber   the current line number
+     *  @param[in] MAT          the expected MAT number
+     */
+    template< typename Iterator >
+    Type( HEAD& head,
+          Iterator& begin,
+          const Iterator& end,
+          long& lineNumber,
+          int MAT )
+      try : BaseWithoutMT( head.ZA(), head.AWR() ),
+            law_( readScatteringLaw( begin, end, lineNumber, MAT, 7, 2,
+                                     head.L1() ) ) {
+        readSEND(begin, end, lineNumber, MAT, 7 );
+      } catch ( std::exception& e ) {
+        Log::info( "Trouble while reading section 2 of File 7 of Material {}",
+                   MAT );
+        throw e;
+      }
 
     /* get methods */
 
@@ -75,8 +143,34 @@ namespace section{
      */
     const ScatteringLaw& scatteringLaw() const { return this->law_; }
 
-    #include "ENDFtk/section/7/2/src/NC.hpp"
-    #include "ENDFtk/section/7/2/src/print.hpp"
+    /** 
+     *  @brief Return the number of lines in this MF7/MT2 section
+     */
+    long NC() const {
+      long NC = 1
+              + std::visit( [&] ( const auto& v ) { return v.NC(); }, this->law_ );
+      return NC;
+    };
+
+    /** 
+     *  @brief Print the MF7/MT2 section (includes SEND record)
+     *
+     *  @tparam OutputIterator   an output iterator
+     *
+     *  @param[in] it            the current position in the output
+     *  @param[in] MAT           the MAT number
+     *  @param[in] MF            the MF number
+     */
+    template< typename OutputIterator >
+    void print( OutputIterator& it, int MAT, int MF ) const {
+      int MT = 2;
+      ControlRecord( this->ZA(), this->AWR(), this->LTHR(), 0, 
+                     0, 0 ).print( it, MAT, MF, MT );
+      std::visit( [&] ( const auto& v ) -> void
+                      { v.print( it, MAT, MF, MT ); },
+                  this->law_ );
+      SEND( MAT, MF ).print( it );
+    } 
 
     /**
      *  @brief Return the MT number of the section
