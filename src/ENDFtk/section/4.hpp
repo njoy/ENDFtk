@@ -66,6 +66,7 @@ namespace section {
   private:
 
     /* type aliases */
+
     template < typename Element >
     using RandomAccessAnyView = njoy::tools::views::AnyRandomAccessView< Element >;
     using DoubleRange = RandomAccessAnyView< double >;
@@ -73,16 +74,110 @@ namespace section {
     using VariantRange = RandomAccessAnyView< Variant >;
 
     /* fields */
+
     int lct_;
     Distributions distributions_;
 
     /* auxiliary functions */
-    #include "ENDFtk/section/4/src/readDistributions.hpp"
+
+    template< typename Iterator >
+    static Distributions
+    readDistributions( Iterator& begin,
+                       const Iterator& end,
+                       long& lineNumber,
+                       int MAT,
+                       int MF,
+                       int MT,
+                       long LTT) {
+
+      switch ( LTT ) {
+        case 0 : return Isotropic();
+        case 1 : return LegendreDistributions( begin, end, lineNumber,
+                                               MAT, MF, MT );
+        case 2 : return TabulatedDistributions( begin, end, lineNumber, MAT, MF, MT );
+        case 3 : return MixedDistributions( begin, end, lineNumber, MAT, MF, MT );
+        default : {
+          Log::error( "Encountered illegal LTT value" );
+          Log::info( "LTT must be equal to 0, 1, 2 or 3" );
+          Log::info( "LTT value: {}", LTT );
+          Log::info( "Line number: {}", lineNumber - 2 );
+          throw std::exception();
+        }
+      }
+    }
+
+    /* constructor */
+
+    /**
+     *  @brief Private intermediate constructor
+     */
+    template< typename Iterator >
+    Type ( HEAD& head,
+           const ControlRecord& cont,
+           Iterator& begin,
+           const Iterator& end,
+           long& lineNumber,
+           int MAT ) :
+      Base( head, MAT, 4 ),
+      lct_( cont.L2() ),
+      distributions_( readDistributions( begin, end, lineNumber,
+                                         head.MAT(), 4, head.MT(), head.L2() ) ) {}
 
   public:
 
     /* constructor */
-    #include "ENDFtk/section/4/src/ctor.hpp"
+
+    //! @todo pybind11 variant needs default constructor workaround
+    #ifdef PYBIND11
+    /**
+     *  @brief Default constructor - only enabled for pybind11
+     */
+    Type() = default;
+    #endif
+
+    /**
+     *  @brief Constructor
+     *
+     *  @param[in] mt              the MT number for the section
+     *  @param[in] zaid            the material ZAID value
+     *  @param[in] awr             the atomic weight ratio
+     *  @param[in] lct             the reference frame
+     *  @param[in] distributions   the distributions
+     */
+    Type( int MT, int zaid, double awr, long lct,
+          Distributions&& distributions ) :
+      Base( zaid, awr, MT ), lct_( lct ),
+      distributions_( std::move( distributions ) ) {}
+
+    /**
+     *  @brief Constructor (from a buffer)
+     *
+     *  @tparam Iterator        a buffer iterator
+     *
+     *  @param[in] head         the head record of the section
+     *  @param[in] it           the current position in the buffer
+     *  @param[in] end          the end of the buffer
+     *  @param[in] lineNumber   the current line number
+     *  @param[in] MAT          the expected MAT number
+     */
+    template< typename Iterator >
+    Type ( HEAD& head,
+           Iterator& begin,
+           const Iterator& end,
+           long& lineNumber,
+           int MAT )
+      try: Type( head,
+                 ControlRecord( begin, end, lineNumber, head.MAT(), 4, head.MT() ),
+                 begin, end, lineNumber, MAT ) {
+
+        readSEND(begin, end, lineNumber, MAT, 4 );
+      } catch( std::exception& e ) {
+
+        Log::info
+        ( "Encountered error while reading section {} of file 4 of material {}",
+          head.MT(), MAT );
+        throw;
+      }
 
     /* get methods */
 
@@ -220,10 +315,71 @@ namespace section {
                this->distributions_ );
     }
 
-    #include "ENDFtk/section/4/src/angularDistributions.hpp"
+    /**
+     *  @brief Return the angular distributions (one for each incident energy)
+     *
+     *  This function returns the underlying angular distributions as a variant of
+     *  reference wrappers. See the section::Type< 4 > unit test for more
+     *  information on how to use this.
+     */
+    auto angularDistributions() const {
 
-    #include "ENDFtk/section/4/src/NC.hpp"
-    #include "ENDFtk/section/4/src/print.hpp"
+      return std::visit(
+               tools::overload{
+                   [] ( const Isotropic& ) -> VariantRange
+                        { using namespace njoy::tools;
+                          return std20::views::empty<Variant>; 
+                        },
+                   [] ( const MixedDistributions& distributions ) -> VariantRange
+                        { return distributions.angularDistributions(); 
+                        },
+                   [&] ( const LegendreDistributions& distributions ) -> VariantRange
+                         { using namespace njoy::tools;
+                           return distributions.angularDistributions()
+                                | std20::views::transform( [] ( auto&& element ) -> Variant
+                                                              { return std::cref( element ); } ); 
+                         },
+                   [&] ( const TabulatedDistributions& distributions ) -> VariantRange
+                         { using namespace njoy::tools;
+                         return distributions.angularDistributions()
+                                | std20::views::transform( [] ( auto&& element ) -> Variant
+                                                              { return std::cref( element ); } ); 
+                         }
+               },
+
+               this->distributions_ );
+    }
+
+    /** 
+     *  @brief Return the number of lines in this MF4 section
+     */
+    long NC() const {
+
+      return 2 + std::visit( [&] ( const auto& v ) { return v.NC(); },
+                             this->distributions_ );
+    };
+
+    /** 
+     *  @brief Print the MF4 section (includes SEND record)
+     *
+     *  @tparam OutputIterator   an output iterator
+     *
+     *  @param[in] it            the current position in the output
+     *  @param[in] MAT           the MAT number
+     *  @param[in] MF            the MF number
+     */
+    template< typename OutputIterator >
+    void print( OutputIterator& it, int MAT, int MF ) const {
+
+      int MT = this->MT();
+      ControlRecord( this->ZA(), this->AWR(), 0, this->LTT(),
+                     0, 0 ).print( it, MAT, MF, MT );
+      ControlRecord( 0, this->AWR(), this->LI(), this->LCT(),
+                     0, 0 ).print( it, MAT, MF, MT );
+      std::visit( [&] ( const auto& v ) { return v.print( it, MAT, MF, MT ); },
+                  this->distributions_ );
+      SEND( MAT, MF ).print( it );
+    } 
 
     using Base::MT;
     using Base::sectionNumber;
