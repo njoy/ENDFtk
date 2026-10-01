@@ -23,12 +23,60 @@ namespace section{
   class ENDFTK_PYTHON_EXPORT Type< 27 > : protected Base {
 
     /* fields */
+
     TabulationRecord table;
 
   public:
 
     /* constructor */
-    #include "ENDFtk/section/27/src/ctor.hpp"
+
+    /**
+     *  @brief Constructor
+     *
+     *  @param[in] mt             the MT number
+     *  @param[in] zaid           the ZA  identifier
+     *  @param[in] awr            the atomic mass ratio
+     *  @param[in] boundaries     the interpolation range boundaries
+     *  @param[in] interpolants   the interpolation types for each range
+     *  @param[in] x              the x values
+     *  @param[in] h              the form factor or scattering function values
+     */
+    Type( int mt, int zaid, double awr,
+          std::vector< long >&& boundaries, std::vector< long >&& interpolants,
+          std::vector< double >&& x, std::vector< double >&& h ) :
+      Base( zaid, awr, mt ),
+      table( 0.0, static_cast< int >( zaid ) / 1000, 0, 0,
+             std::move( boundaries ), std::move( interpolants ),
+             std::move( x ), std::move( h ) ) {}
+
+    /**
+     *  @brief Constructor (from a buffer)
+     *
+     *  @tparam Iterator        a buffer iterator
+     *
+     *  @param[in] head         the head record of the section
+     *  @param[in] it           the current position in the buffer
+     *  @param[in] end          the end of the buffer
+     *  @param[in] lineNumber   the current line number
+     *  @param[in] MAT          the expected MAT number
+     */
+    template< typename Iterator >
+    Type ( HEAD& head,
+           Iterator& begin,
+           const Iterator& end,
+           long& lineNumber,
+           int MAT )
+      try: Base( head, MAT, 27 ),
+           table( begin, end, lineNumber, head.MAT(), 27, head.MT() ){
+        readSEND(begin, end, lineNumber, MAT, 27 );
+      }
+      catch( std::exception& e ) {
+
+        Log::info
+        ( "Encountered error while reading section {} of file 27 of material {}",
+          head.MT(), MAT );
+        throw e;
+      }
 
     /* methods */
 
@@ -109,7 +157,25 @@ namespace section{
      */
     auto y() const { return this->H(); }
 
-    #include "ENDFtk/section/3/src/print.hpp" // taken from MF3
+    // taken from MF3
+
+    /**
+     *  @brief Print the MF3 section (includes SEND record)
+     *
+     *  @tparam OutputIterator   an output iterator
+     *
+     *  @param[in] it            the current position in the output
+     *  @param[in] MAT           the MAT number
+     *  @param[in] MF            the MF number
+     */
+    template< typename OutputIterator >
+    void print( OutputIterator& it, int MAT, int MF ) const {
+
+      int MT = this->MT();
+      ControlRecord( this->ZA(), this->AWR(), 0, 0, 0, 0 ).print( it, MAT, MF, MT );
+      this->table.print( it, MAT, MF, MT );
+      SEND( MAT, MF ).print( it );
+    }
 
     using Base::MT;
     using Base::sectionNumber;
