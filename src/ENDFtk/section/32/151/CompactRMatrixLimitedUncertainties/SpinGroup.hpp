@@ -11,15 +11,68 @@
 class ENDFTK_PYTHON_EXPORT SpinGroup  {
 
   /* fields */
+
   ResonanceChannels channels_;
   ResonanceParameters parameters_;
 
   /* auxiliary functions */
 
+  /* constructor */
+
+  /**
+   *  @brief Private intermediate constructor
+   */
+  template< typename Iterator >
+  SpinGroup( ResonanceChannels&& channels,
+             Iterator& it, const Iterator& end, long& lineNumber,
+             int MAT, int MF, int MT ) :
+    SpinGroup( std::move( channels ),
+               ResonanceParameters( it, end, lineNumber, MAT, MF, MT ) ) {}
+
 public:
 
   /* constructor */
-  #include "ENDFtk/section/32/151/CompactRMatrixLimitedUncertainties/SpinGroup/src/ctor.hpp"
+
+  //! @todo pybind11 variant needs default constructor workaround
+  #ifdef PYBIND11
+  /**
+   *  @brief Default constructor - only enabled for pybind11
+   */
+  SpinGroup() = default;
+  #endif
+
+  /**
+   *  @brief Constructor
+   *
+   *  @param[in] channels      the resonance channel information
+   *  @param[in] parameters    the associated resonance parameters
+   */
+  SpinGroup( ResonanceChannels&& channels, ResonanceParameters&& parameters ) :
+    channels_( std::move( channels ) ),
+    parameters_( std::move( parameters ) ) {}
+
+  /**
+   *  @brief Constructor (from a buffer)
+   *
+   *  @tparam Iterator        a buffer iterator
+   *
+   *  @param[in] it           the current position in the buffer
+   *  @param[in] end          the end of the buffer
+   *  @param[in] lineNumber   the current line number
+   *  @param[in] MAT          the expected MAT number
+   *  @param[in] MF           the expected MF number
+   *  @param[in] MT           the expected MT number
+   */
+  template< typename Iterator >
+  SpinGroup( Iterator& it, const Iterator& end, long& lineNumber,
+             int MAT, int MF, int MT )
+    try: SpinGroup( ResonanceChannels( it, end, lineNumber, MAT, MF, MT ),
+                    it, end, lineNumber, MAT, MF, MT ) {}
+    catch ( std::exception& e ) {
+
+      Log::info( "Encountered error while constructing a spin group" );
+      throw;
+    }
 
   /* methods */
 
@@ -78,5 +131,20 @@ public:
    */
   long NC() const { return this->channels_.NC() + this->parameters_.NC(); };
 
-  #include "ENDFtk/section/32/151/CompactRMatrixLimitedUncertainties/SpinGroup/src/print.hpp"
+  /**
+   *  @brief Print this MF32 MT151 component
+   *
+   *  @tparam OutputIterator   an output iterator
+   *
+   *  @param[in] it            the current position in the output
+   *  @param[in] MAT           the MAT number
+   *  @param[in] MF            the MF number
+   *  @param[in] MT            the MT number
+   */
+  template< typename OutputIterator >
+  void print( OutputIterator& it, int MAT, int MF, int MT ) const {
+
+    this->channels_.print( it, MAT, MF, MT );
+    this->parameters_.print( it, MAT, MF, MT );
+  }
 };
