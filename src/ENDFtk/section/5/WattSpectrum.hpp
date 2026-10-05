@@ -40,7 +40,7 @@ class ENDFTK_PYTHON_EXPORT WattSpectrum {
   /* constructor */
 
   /**
-   *  @brief Protected Constructor
+   *  @brief Private Constructor
    */
   WattSpectrum( std::array< Parameter, 2 >&& parameters ) :
     // no need to try-catch, would be unreachable
@@ -117,7 +117,7 @@ public:
    */
   const Parameter& b() const { return this->parameters_[1]; }
 
-  /** 
+  /**
    *  @brief Return the number of lines in this MF5 component
    */
   long NC() const {
@@ -125,7 +125,7 @@ public:
     return this->parameters_[0].NC() + this->parameters_[1].NC();
   };
 
-  /** 
+  /**
    *  @brief Print this MF5 component
    *
    *  @tparam OutputIterator   an output iterator
@@ -139,5 +139,5 @@ public:
   void print( OutputIterator& it, int MAT, int MF, int MT ) const {
 
     for ( const auto& entry : this->parameters_ ) { entry.print( it, MAT, MF, MT ); };
-  } 
+  }
 };
