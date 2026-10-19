@@ -27,7 +27,24 @@ namespace section {
   template<>
   class ENDFTK_PYTHON_EXPORT Type< 6 > : protected Base {
 
-    #include "ENDFtk/section/6/src/verifySorted.hpp"
+    template < typename Range, typename String >
+    static void
+    verifySorted( const Range& values, const String& name ){
+
+      auto iter = std::is_sorted_until( values.begin(), values.end(),
+                                        [] ( auto&& left, auto&& right )
+                                           { return left < right; } );
+      const bool valuesAreSorted = ( iter == values.end() );
+
+      if ( not valuesAreSorted ){
+
+        Log::error( "{} values are not sorted", name );
+        const auto position = iter - values.begin();
+        Log::info( "{} value [{}]: {}", name, (position - 1), iter[-1] );
+        Log::info( "{} value [{}]: {}", name, position, iter[0] );
+        throw std::exception();
+      }
+    }
 
   public:
 
@@ -68,6 +85,7 @@ namespace section {
   private:
 
     /* fields */
+
     int jp_;
     int lct_;
     std::vector< ReactionProduct > products_;
@@ -77,7 +95,59 @@ namespace section {
   public:
 
     /* constructor */
-    #include "ENDFtk/section/6/src/ctor.hpp"
+
+    //! @todo pybind11 variant needs default constructor workaround
+    #ifdef PYBIND11
+    /**
+     *  @brief Default constructor - only enabled for pybind11
+     */
+    Type() = default;
+    #endif
+
+    /**
+     *  @brief Constructor
+     *
+     *  @param[in] mt            the MT number of the section
+     *  @param[in] zaid          the material ZAID value
+     *  @param[in] awr           the atomic weight ratio
+     *  @param[in] jp            the particle spectrum type flag
+     *  @param[in] lct           the reference frame
+     *  @param[in] products      the reaction products (at least 1)
+     */
+    Type( int MT, int zaid, double awr, long jp, long lct,
+          std::vector< ReactionProduct >&& products ) :
+      Base( zaid, awr, MT ), jp_( jp ), lct_( lct ),
+      products_( std::move( products ) ) {}
+
+    /**
+     *  @brief Constructor (from a buffer)
+     *
+     *  @tparam Iterator        a buffer iterator
+     *
+     *  @param[in] head         the head record of the section
+     *  @param[in] it           the current position in the buffer
+     *  @param[in] end          the end of the buffer
+     *  @param[in] lineNumber   the current line number
+     *  @param[in] MAT          the expected MAT number
+     */
+    template< typename Iterator >
+    Type( HEAD& head,
+          Iterator& begin,
+          const Iterator& end,
+          long& lineNumber,
+          int MAT )
+      try:
+        Base( head, MAT, 6 ), jp_( head.L1() ), lct_( head.L2() ),
+        products_(
+          readSequence< ReactionProduct >( begin, end, lineNumber,
+                                           MAT, 6, head.MT(), head.N1() ) ) {
+        readSEND(begin, end, lineNumber, MAT, 6 );
+      } catch( std::exception& e ) {
+
+        Log::info( "Trouble while reading section {} of File 6 of Material {}",
+                   head.MT(), MAT );
+        throw e;
+      }
 
     /* methods */
 
@@ -154,8 +224,34 @@ namespace section {
       return std20::views::all( this->products_ );
     }
 
-    #include "ENDFtk/section/6/src/NC.hpp"
-    #include "ENDFtk/section/6/src/print.hpp"
+    /**
+     *  @brief Return the number of lines in this MF6 section
+     */
+    long NC() const {
+
+      long NC = 1;
+      for ( const auto& entry : this->products_ ) { NC += entry.NC(); }
+      return NC;
+    };
+
+    /**
+     *  @brief Print the MF6 section (includes SEND record)
+     *
+     *  @tparam OutputIterator   an output iterator
+     *
+     *  @param[in] it            the current position in the output
+     *  @param[in] MAT           the MAT number
+     *  @param[in] MF            the MF number
+     */
+    template< typename OutputIterator >
+    void print( OutputIterator& it, int MAT, int MF ) const {
+
+      int MT = this->MT();
+      ControlRecord( this->ZA(), this->AWR(), this->JP(),this->LCT(),
+                     this->NK(), 0 ).print( it, MAT, MF, MT );
+      for ( auto& entry : this->products_ ) { entry.print( it, MAT, MF, MT ); }
+      SEND( MAT, MF ).print( it );
+    }
 
     using Base::MT;
     using Base::sectionNumber;

@@ -27,15 +27,47 @@ template < typename Derived,
 class UnresolvedBaseWithoutSpin {
 
   /* fields */
+
   std::vector< LValue > lvalues_;
 
 protected:
 
   /* auxiliary functions */
-  #include "ENDFtk/section/2/151/UnresolvedBaseWithoutSpin/src/verifySize.hpp"
+
+  static void
+  verifySize( int NLS ) {
+
+    if ( NLS < 1 ) {
+
+      Log::error( "Encountered illegal NLS value" );
+      Log::info( "NLS should be larger than zero" );
+      Log::info( "NLS value: {}", NLS );
+      throw std::exception();
+    }
+  }
 
   /* constructor */
-  #include "ENDFtk/section/2/151/UnresolvedBaseWithoutSpin/src/ctor.hpp"
+
+  //! @todo pybind11 variant needs default constructor workaround
+  #ifdef PYBIND11
+  /**
+   *  @brief Default constructor - only enabled for pybind11
+   */
+  UnresolvedBaseWithoutSpin() = default;
+  #endif
+
+  /**
+   *  @brief Constructor
+   *
+   *  @param[in] lvalues   the l values and the resonance parameters
+   */
+  UnresolvedBaseWithoutSpin(
+    std::vector< LValue >&& lvalues ) :
+      // no need for a try ... catch: handled in derived class
+      lvalues_( std::move( lvalues ) ) {
+
+        verifySize( this->NLS() );
+      }
 
 public:
 

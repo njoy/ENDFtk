@@ -11,8 +11,89 @@
 class ENDFTK_PYTHON_EXPORT ParticlePairs : protected ListRecord {
 
   /* auxiliary functions */
-  #include "ENDFtk/section/2/151/RMatrixLimited/ParticlePairs/src/generateList.hpp"
-  #include "ENDFtk/section/2/151/RMatrixLimited/ParticlePairs/src/verifySize.hpp"
+
+  static std::vector< double >
+  generateList( std::vector< double >&& ma, std::vector< double >&& mb,
+                std::vector< double >&& za, std::vector< double >&& zb,
+                std::vector< double >&& ia, std::vector< double >&& ib,
+                std::vector< double >&& q, std::vector< int >&& pnt,
+                std::vector< int >&& shf, std::vector< int >&& mt,
+                std::vector< double >&& pa, std::vector< double >&& pb ) {
+
+    unsigned int npp = ma.size();
+    if ( ( mb.size() != npp ) or
+         ( za.size() != npp ) or ( zb.size() != npp ) or
+         ( ia.size() != npp ) or ( ib.size() != npp ) or
+         ( q.size() != npp ) or ( pnt.size() != npp ) or
+         ( shf.size() != npp ) or ( mt.size() != npp ) or
+         ( pa.size() != npp ) or ( pb.size() != npp ) ) {
+
+      Log::info( "The number of particle pairs and the particle pair is not "
+                 "consistent" );
+      Log::info( "NPP value: {}", npp );
+      Log::info( "ma.size(): {}", ma.size() );
+      Log::info( "mb.size(): {}", mb.size() );
+      Log::info( "za.size(): {}", za.size() );
+      Log::info( "zb.size(): {}", zb.size() );
+      Log::info( "ia.size(): {}", ia.size() );
+      Log::info( "ib.size(): {}", ib.size() );
+      Log::info( "q.size(): {}", q.size() );
+      Log::info( "pnt.size(): {}", pnt.size() );
+      Log::info( "shf.size(): {}", shf.size() );
+      Log::info( "mt.size(): {}", mt.size() );
+      Log::info( "pa.size(): {}", pa.size() );
+      Log::info( "pb.size(): {}", pb.size() );
+      throw std::exception();
+    }
+
+    std::vector< double > list;
+    for ( unsigned int i = 0; i < npp; ++i ) {
+
+      list.push_back( ma[i] );
+      list.push_back( mb[i] );
+      list.push_back( za[i] );
+      list.push_back( zb[i] );
+      list.push_back( ia[i] );
+      list.push_back( ib[i] );
+      list.push_back( q[i] );
+      list.push_back( pnt[i] );
+      list.push_back( shf[i] );
+      list.push_back( mt[i] );
+      list.push_back( pa[i] );
+      list.push_back( pb[i] );
+    }
+    return list;
+  }
+
+  static void
+  verifySize( int NPL, int NPP ) {
+
+    if ( NPL < 1 ) {
+
+      Log::error( "Encountered empty list" );
+      Log::info( "NPL should be larger than zero and equal to 12 * NPP" );
+      Log::info( "NPL value: {}", NPL );
+      Log::info( "NPP value: {}", NPP );
+      throw std::exception();
+    }
+
+    if ( NPP < 1 ) {
+
+      Log::error( "Encountered illegal NPP value" );
+      Log::info( "NPP should be larger than zero" );
+      Log::info( "NPP value: {}", NPP );
+      throw std::exception();
+    }
+
+    if ( NPL / 12. != NPP ) {
+
+      Log::error( "Encountered inconsistent list size" );
+      Log::info( "NPL must be equal to 12 * NPP" );
+      Log::info( "NPL value: {}", NPL );
+      Log::info( "NPP value: {}", NPP );
+      throw std::exception();
+    }
+  }
 
   auto column( unsigned int i ) const {
 
@@ -22,10 +103,85 @@ class ENDFTK_PYTHON_EXPORT ParticlePairs : protected ListRecord {
              | std23::views::stride( 12 );
   }
 
+  /* constructor */
+
+  /**
+   *  @brief Private intermediate constructor
+   */
+  ParticlePairs( ListRecord&& list ) : ListRecord( std::move( list ) ) {
+
+    verifySize( this->NPL(), this->L1() );
+  }
+
 public:
 
   /* constructor */
-  #include "ENDFtk/section/2/151/RMatrixLimited/ParticlePairs/src/ctor.hpp"
+
+  //! @todo pybind11 variant needs default constructor workaround
+  #ifdef PYBIND11
+  /**
+   *  @brief Default constructor - only enabled for pybind11
+   */
+  ParticlePairs() = default;
+  #endif
+
+  /**
+   *  @brief Constructor
+   *
+   *  @param[in] ma    the mass of the first particle in each particle pair
+   *  @param[in] mb    the mass of the first particle in each particle pair
+   *  @param[in] za    the charge of the first particle in each particle pair
+   *  @param[in] zb    the charge of the first particle in each particle pair
+   *  @param[in] ia    the spin of the first particle in each particle pair
+   *  @param[in] ib    the spin of the first particle in each particle pair
+   *  @param[in] pa    the parity of the first particle in each particle pair
+   *  @param[in] pb    the parity of the first particle in each particle pair
+   *  @param[in] q     the mass of the first particle in each particle pair
+   *  @param[in] pnt   the mass of the first particle in each particle pair
+   *  @param[in] shf   the charge of the first particle in each particle pair
+   *  @param[in] mt    the charge of the first particle in each particle pair
+   */
+  ParticlePairs( std::vector< double >&& ma, std::vector< double >&& mb,
+                 std::vector< double >&& za, std::vector< double >&& zb,
+                 std::vector< double >&& ia, std::vector< double >&& ib,
+                 std::vector< double >&& pa, std::vector< double >&& pb,
+                 std::vector< double >&& q, std::vector< int >&& pnt,
+                 std::vector< int >&& shf, std::vector< int >&& mt )
+    try : ParticlePairs(
+            ListRecord( 0., 0., ma.size(), 0, 2 * ma.size(),
+                        generateList( std::move( ma ), std::move( mb ),
+                                      std::move( za ), std::move( zb ),
+                                      std::move( ia ), std::move( ib ),
+                                      std::move( q ), std::move( pnt ),
+                                      std::move( shf ), std::move( mt ),
+                                      std::move( pa ), std::move( pb ) ) ) ) {}
+    catch ( std::exception& e ) {
+
+      Log::info( "Encountered error while constructing particle pairs" );
+      throw;
+    }
+
+  /**
+   *  @brief Constructor (from a buffer)
+   *
+   *  @tparam Iterator        a buffer iterator
+   *
+   *  @param[in] it           the current position in the buffer
+   *  @param[in] end          the end of the buffer
+   *  @param[in] lineNumber   the current line number
+   *  @param[in] MAT          the expected MAT number
+   *  @param[in] MF           the expected MF number
+   *  @param[in] MT           the expected MT number
+   */
+  template< typename Iterator >
+  ParticlePairs( Iterator& it, const Iterator& end, long& lineNumber,
+                 int MAT, int MF, int MT )
+    try : ParticlePairs( ListRecord( it, end, lineNumber, MAT, MF, MT ) ) {}
+    catch ( std::exception& e ) {
+
+      Log::info( "Encountered error while constructing particle pairs" );
+      throw;
+    }
 
   /* get methods */
 

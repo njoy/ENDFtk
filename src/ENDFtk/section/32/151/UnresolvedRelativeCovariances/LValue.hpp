@@ -8,13 +8,127 @@
 class LValue : protected ListRecord {
 
   /* auxiliary functions */
-  #include "ENDFtk/section/32/151/UnresolvedRelativeCovariances/LValue/src/verifySize.hpp"
-  #include "ENDFtk/section/32/151/UnresolvedRelativeCovariances/LValue/src/generateList.hpp"
+
+  static void
+  verifySize( int NPL, int NJS ) {
+
+    if ( NPL != 6 * NJS ) {
+
+      Log::error( "Encountered inconsistent list size" );
+      Log::info( "NPL must be equal to 6 * NJS" );
+      Log::info( "NPL value: {}", NPL );
+      Log::info( "NJS value: {}", NJS );
+      throw std::exception();
+    }
+  }
+
+  static std::vector< double >
+  generateList( std::vector< double >&& spins,
+                std::vector< double >&& d,
+                std::vector< double >&& gno,
+                std::vector< double >&& gg,
+                std::vector< double >&& gf,
+                std::vector< double >&& gx ) {
+
+    std::vector< double > list;
+    unsigned int njs = spins.size();
+    if ( ( d.size() != njs ) or ( gno.size() != njs ) or ( gg.size() != njs ) or
+         ( gf.size() != njs ) or ( gx.size() != njs ) ) {
+
+      Log::info( "The number of spin values and the resonance parameters are not "
+                 "consistent" );
+      Log::info( "NJS value: {}", njs );
+      Log::info( "spins.size(): {}", spins.size() );
+      Log::info( "d.size(): {}", d.size() );
+      Log::info( "gno.size(): {}", gno.size() );
+      Log::info( "gg.size(): {}", gg.size() );
+      Log::info( "gf.size(): {}", gf.size() );
+      Log::info( "gx.size(): {}", gx.size() );
+      throw std::exception();
+    }
+
+    for ( unsigned int i = 0; i < njs; ++i ) {
+
+      list.push_back( d[i] );
+      list.push_back( spins[i] );
+      list.push_back( gno[i] );
+      list.push_back( gg[i] );
+      list.push_back( gf[i] );
+      list.push_back( gx[i] );
+    }
+    return list;
+  }
+
+  /* constructor */
+
+  /**
+   *  @brief Private intermediate constructor
+   */
+  LValue( ListRecord&& list ) :
+    ListRecord( std::move( list ) ) {
+
+    verifySize( this->NPL(), this->N2() );
+  }
 
 public:
 
   /* constructor */
-  #include "ENDFtk/section/32/151/UnresolvedRelativeCovariances/LValue/src/ctor.hpp"
+
+  /**
+   *  @brief Constructor
+   *
+   *  @param[in] awri       the atomic weight ratio
+   *  @param[in] l          the orbital angular momentum value
+   *  @param[in] spins      the spin values (NJS values)
+   *  @param[in] spacing    the level spacing values (NJS values)
+   *  @param[in] gno        the average neutron widths (NJS values)
+   *  @param[in] gg         the average gamma widths (NJS values)
+   *  @param[in] gf         the average fission widths (NJS values)
+   *  @param[in] gx         the average competitive widths (NJS values)
+   */
+  LValue( double awri, int l,
+          std::vector< double >&& spins,
+          std::vector< double >&& spacing,
+          std::vector< double >&& gno,
+          std::vector< double >&& gg,
+          std::vector< double >&& gf,
+          std::vector< double >&& gx )
+    try :  LValue( ListRecord( awri, 0.0, l, 0.0, spins.size(),
+                               generateList( std::move( spins ),
+                                             std::move( spacing ),
+                                             std::move( gno ),
+                                             std::move( gg ),
+                                             std::move( gf ),
+                                             std::move( gx ) ) ) ) {}
+    catch ( std::exception& e ) {
+
+      Log::info( "Encountered error while constructing l value resonance "
+                 "parameters for unresolved resonance covariance data" );
+      throw;
+    }
+
+  /**
+   *  @brief Constructor (from a buffer)
+   *
+   *  @tparam Iterator        a buffer iterator
+   *
+   *  @param[in] it           the current position in the buffer
+   *  @param[in] end          the end of the buffer
+   *  @param[in] lineNumber   the current line number
+   *  @param[in] MAT          the expected MAT number
+   *  @param[in] MF           the expected MF number
+   *  @param[in] MT           the expected MT number
+   */
+  template< typename Iterator >
+  LValue( Iterator& it, const Iterator& end, long& lineNumber,
+          int MAT, int MF, int MT )
+    try : LValue( ListRecord( it, end, lineNumber, MAT, MF, MT ) ) {}
+    catch ( std::exception& e ) {
+
+      Log::info( "Encountered error while constructing l value resonance "
+                 "parameters for unresolved resonance covariance data" );
+      throw;
+    }
 
   /**
    *  @brief Return the atomic weight ratio of the current isotope to the

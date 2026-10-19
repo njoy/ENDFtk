@@ -8,8 +8,113 @@
 class ENDFTK_PYTHON_EXPORT LimitedBreitWignerLValue : protected ListRecord {
 
   /* auxiliary functions */
-  #include "ENDFtk/section/32/151/LimitedBreitWignerLValue/src/verifySize.hpp"
-  #include "ENDFtk/section/32/151/LimitedBreitWignerLValue/src/generateList.hpp"
+
+  static void
+  verifySize( int NPL, int NRS ) {
+
+    if ( NPL < 1 ) {
+
+      Log::error( "Encountered empty list" );
+      Log::info( "NPL should be larger than zero and equal to 18 * NRS" );
+      Log::info( "NPL value: {}", NPL );
+      Log::info( "NRS value: {}", NRS );
+      throw std::exception();
+    }
+
+    if ( NRS < 1 ) {
+
+      Log::error( "Encountered illegal NRS value" );
+      Log::info( "NRS should be larger than zero" );
+      Log::info( "NRS value: {}", NRS );
+      throw std::exception();
+    }
+
+    if ( NPL != 18 * NRS ) {
+
+      Log::error( "Encountered inconsistent list size" );
+      Log::info( "NPL must be equal to 18 * NRS" );
+      Log::info( "NPL value: {}", NPL );
+      Log::info( "NRS value: {}", NRS );
+      throw std::exception();
+    }
+  }
+
+  static std::vector< double >
+  generateList( std::vector< double >&& energies,
+                std::vector< double >&& spins,
+                std::vector< double >&& gt,
+                std::vector< double >&& gn,
+                std::vector< double >&& gg,
+                std::vector< double >&& gf,
+                std::vector< double >&& de2,
+                std::vector< double >&& dn2,
+                std::vector< double >&& dndg,
+                std::vector< double >&& dg2,
+                std::vector< double >&& dndf,
+                std::vector< double >&& dgdf,
+                std::vector< double >&& df2,
+                std::vector< double >&& djdn,
+                std::vector< double >&& djdg,
+                std::vector< double >&& djdf,
+                std::vector< double >&& dj2 ) {
+
+    unsigned int nrs = energies.size();
+    if ( ( spins.size() != nrs ) or ( gt.size() != nrs ) or
+         ( gn.size() != nrs ) or ( gg.size() != nrs ) or ( gf.size() != nrs ) or
+         ( de2.size() != nrs ) or ( dn2.size() != nrs ) or
+         ( dndg.size() != nrs ) or ( dg2.size() != nrs ) or
+         ( dndf.size() != nrs ) or ( dgdf.size() != nrs ) or
+         ( df2.size() != nrs ) or ( djdn.size() != nrs ) or
+         ( djdg.size() != nrs ) or ( djdn.size() != nrs ) or
+         ( dj2.size() != nrs ) ) {
+
+      Log::info( "The number of resonances and the resonance parameters are not "
+                 "consistent" );
+      Log::info( "NRS value: {}", nrs );
+      Log::info( "energies.size(): {}", energies.size() );
+      Log::info( "spins.size(): {}", spins.size() );
+      Log::info( "gt.size(): {}", gt.size() );
+      Log::info( "gn.size(): {}", gn.size() );
+      Log::info( "gg.size(): {}", gg.size() );
+      Log::info( "gf.size(): {}", gf.size() );
+      Log::info( "de2.size(): {}", de2.size() );
+      Log::info( "dn2.size(): {}", dn2.size() );
+      Log::info( "dndg.size(): {}", dndg.size() );
+      Log::info( "dg2.size(): {}", dg2.size() );
+      Log::info( "dndf.size(): {}", dndf.size() );
+      Log::info( "dgdf.size(): {}", dgdf.size() );
+      Log::info( "df2.size(): {}", df2.size() );
+      Log::info( "djdn.size(): {}", djdn.size() );
+      Log::info( "djdg.size(): {}", djdg.size() );
+      Log::info( "djdf.size(): {}", djdf.size() );
+      Log::info( "dj2.size(): {}", dj2.size() );
+      throw std::exception();
+    }
+
+    std::vector< double > list;
+    for ( unsigned int i = 0; i < nrs; ++i ) {
+
+      list.push_back( energies[i] );
+      list.push_back( spins[i] );
+      list.push_back( gt[i] );
+      list.push_back( gn[i] );
+      list.push_back( gg[i] );
+      list.push_back( gf[i] );
+      list.push_back( de2[i] );
+      list.push_back( dn2[i] );
+      list.push_back( dndg[i] );
+      list.push_back( dg2[i] );
+      list.push_back( dndf[i] );
+      list.push_back( dgdf[i] );
+      list.push_back( df2[i] );
+      list.push_back( djdn[i] );
+      list.push_back( djdg[i] );
+      list.push_back( djdf[i] );
+      list.push_back( dj2[i] );
+      list.push_back( 0. );
+    }
+    return list;
+  }
 
   auto column( unsigned int i ) const {
 
@@ -18,12 +123,95 @@ class ENDFTK_PYTHON_EXPORT LimitedBreitWignerLValue : protected ListRecord {
                               | std23::views::stride( 18 );
   }
 
+  /* constructor */
+
+  /**
+   *  @brief Private intermediate constructor
+   */
+  LimitedBreitWignerLValue( ListRecord&& list ) :
+    ListRecord( std::move( list ) ) {
+
+    verifySize( this->NPL(), this->N2() );
+  }
+
 public:
 
   #include "ENDFtk/section/32/151/LimitedBreitWignerLValue/Resonance.hpp"
 
   /* constructor */
-  #include "ENDFtk/section/32/151/LimitedBreitWignerLValue/src/ctor.hpp"
+
+  /**
+   *  @brief Constructor
+   *
+   *  @param[in] awri       the atomic weight ratio
+   *  @param[in] l          the orbital angular momentum value
+   *  @param[in] energies   the resonance energies (NRS values)
+   *  @param[in] spins      the spin values (NRS values)
+   *  @param[in] gt         the total widths (NRS values)
+   *  @param[in] gn         the neutron widths (NRS values)
+   *  @param[in] gg         the gamma widths (NRS values)
+   *  @param[in] gf         the fission widths (NRS values)
+   *  @param[in] de2        the energy variances (NRS values)
+   *  @param[in] dn2        the neutron width variances (NRS values)
+   *  @param[in] dndg       the neutron and gamma width covariances (NRS values)
+   *  @param[in] dg2        the gamma width variances (NRS values)
+   *  @param[in] dndf       the neutron and fission width covariances (NRS values)
+   *  @param[in] dgdf       the gamma and fission width covariances (NRS values)
+   *  @param[in] df2        the fission width variances (NRS values)
+   *  @param[in] djdn       the spin and neutron width covariances (NRS values)
+   *  @param[in] djdg       the spin and gamma width covariances (NRS values)
+   *  @param[in] djdf       the spin and fission width covariances (NRS values)
+   *  @param[in] df2        the spin variances (NRS values)
+   */
+  LimitedBreitWignerLValue( double awri, int l,
+                            std::vector< double >&& energies,
+                            std::vector< double >&& spins,
+                            std::vector< double >&& gt,
+                            std::vector< double >&& gn,
+                            std::vector< double >&& gg,
+                            std::vector< double >&& gf,
+                            std::vector< double >&& de2,
+                            std::vector< double >&& dn2,
+                            std::vector< double >&& dndg,
+                            std::vector< double >&& dg2,
+                            std::vector< double >&& dndf,
+                            std::vector< double >&& dgdf,
+                            std::vector< double >&& df2,
+                            std::vector< double >&& djdn,
+                            std::vector< double >&& djdg,
+                            std::vector< double >&& djdf,
+                            std::vector< double >&& dj2 ) :
+    // no try ... catch: exceptions will be handled in the derived class
+    LimitedBreitWignerLValue(
+            ListRecord( awri, 0., l, 0, energies.size(),
+                        generateList( std::move( energies ),
+                                      std::move( spins ),
+                                      std::move( gt ), std::move( gn ),
+                                      std::move( gg ), std::move( gf ),
+                                      std::move( de2 ), std::move( dn2 ),
+                                      std::move( dndg ), std::move( dg2 ),
+                                      std::move( dndf ), std::move( dgdf ),
+                                      std::move( df2 ), std::move( djdn ),
+                                      std::move( djdg ), std::move( djdf ),
+                                      std::move( dj2 ) ) ) ) {}
+
+  /**
+   *  @brief Constructor (from a buffer)
+   *
+   *  @tparam Iterator        a buffer iterator
+   *
+   *  @param[in] it           the current position in the buffer
+   *  @param[in] end          the end of the buffer
+   *  @param[in] lineNumber   the current line number
+   *  @param[in] MAT          the expected MAT number
+   *  @param[in] MF           the expected MF number
+   *  @param[in] MT           the expected MT number
+   */
+  template< typename Iterator >
+  LimitedBreitWignerLValue( Iterator& it, const Iterator& end, long& lineNumber,
+                     int MAT, int MF, int MT ) :
+     // no try ... catch: exceptions will be handled in the derived class
+    LimitedBreitWignerLValue( ListRecord( it, end, lineNumber, MAT, MF, MT ) ) {}
 
   /* get methods */
 

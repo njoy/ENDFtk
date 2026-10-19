@@ -23,6 +23,7 @@ namespace record {
   class InterpolationBase {
 
     /* type aliases */
+
     using Base = record::Base< record::Real, record::Real,
                                record::Integer< 11 >, record::Integer< 11 >,
                                record::Integer< 11 >, record::Integer< 11 > >;
@@ -30,22 +31,127 @@ namespace record {
     using tail = record::TailVerifying< record::MAT, record::MF, record::MT >;
 
     /* fields */
+
     Base metadata;
 
     std::vector< long > boundaryIndices;
     std::vector< long > interpolationSchemeIndices;
 
     /* auxiliary methods */
-    #include "ENDFtk/record/InterpolationBase/src/verifyN2.hpp"
-    #include "ENDFtk/record/InterpolationBase/src/verifyTail.hpp"
-    #include "ENDFtk/record/InterpolationBase/src/verifyVectorSizes.hpp"
-    #include "ENDFtk/record/InterpolationBase/src/verifyBoundaryIndicesAreSorted.hpp"
-    #include "ENDFtk/record/InterpolationBase/src/readRangeDescriptions.hpp"
-    #include "ENDFtk/record/InterpolationBase/src/readMetadata.hpp"
+
+    static void
+    verifyN2( long n2, long index ) {
+      if ( n2 != index ) {
+        InconsistentN2 exception( n2, index);
+        throw exception;
+      }
+    }
+
+    template< typename Iterator >
+    static void
+    verifyTail( Iterator& it, const Iterator& end, long& lineNumber,
+                int MAT, int MF, int MT ){
+      tail( MAT, MF, MT, it, end, lineNumber );
+    }
+
+    static void
+    verifyVectorSizes( const std::vector< long >& boundaryIndices,
+                       const std::vector< long >& interpolationSchemeIndices ) {
+      const bool mismatchedRegionVectorLengths =
+        ( boundaryIndices.size() != interpolationSchemeIndices.size() );
+
+      if ( mismatchedRegionVectorLengths ) {
+        Log::error( "Mismatched region pair vector lengths" );
+        Log::info( "Boundary indices vector length: {}",
+                   boundaryIndices.size() );
+        Log::info( "Interpolation scheme vector length: {}",
+                   interpolationSchemeIndices.size() );
+        throw std::exception();
+      }
+    }
+
+    static void
+    verifyBoundaryIndicesAreSorted( const std::vector< long >& boundaryIndices ){
+      auto boundaryIndexIterator = 
+        std::is_sorted_until( boundaryIndices.begin(), boundaryIndices.end() );
+
+      const bool boundariesAreSorted =
+        ( boundaryIndexIterator == boundaryIndices.end() );
+
+      if ( not boundariesAreSorted ){
+        Log::error( "Interpolation boundary indices are not sorted" );
+        const auto position = boundaryIndexIterator - boundaryIndices.begin();
+        Log::info( "Boundary index [{}]: {}",
+                   (position - 1), boundaryIndexIterator[-1] );
+        Log::info( "Boundary index [{}]: {}", position, boundaryIndexIterator[0] );
+        throw std::exception();
+      }
+    }
+
+    template< typename Iterator >
+    static std::tuple< std::vector< long >, std::vector< long > >
+    readRangeDescriptions
+    ( long nRanges, Iterator& it, const Iterator& end, long& lineNumber,
+      int MAT, int MF, int MT ){
+      try{
+        std::tuple< std::vector< long >, std::vector< long > > result;
+        result = record::Zipper::unzip< record::Integer<11>, record::Integer<11> >
+                 ( nRanges, it, end, lineNumber, MAT, MF, MT );
+        auto& boundaryIndices = std::get< 0 >( result );
+        verifyBoundaryIndicesAreSorted( boundaryIndices );
+        return result;
+      } catch( std::exception& e ){
+        Log::info( "Error encountered reading range descriptions" );
+        throw e;
+      }
+    }
+
+    template< typename Iterator >
+    static Base
+    readMetadata( Iterator& it, const Iterator& end, long& lineNumber,
+                  int MAT, int MF, int MT ){
+      Base metadata( it, end );
+      verifyTail( it, end, lineNumber, MAT, MF, MT );
+      if ( std::get<4>( metadata.fields ) < 1 ){
+        Log::error( "Illegal NR value encountered" );
+        Log::info( "NR (or number of regions) must be greater than or equal to 1" );
+        Log::info( "NR value: {}", std::get<4>( metadata.fields ) );
+        throw std::exception();
+      }
+      if ( std::get<5>( metadata.fields ) < 0 ){
+        IllegalN2 exception( std::get<5>( metadata.fields ) );
+        throw exception;
+      }
+      return metadata;
+    }
+
+    /* constructor */
+
+    InterpolationBase
+    ( Base&& metadata,
+      std::tuple< std::vector< long >, std::vector< long > >&& regions ) :
+      InterpolationBase( std::get<0>( metadata.fields ),
+                         std::get<1>( metadata.fields ),
+                         std::get<2>( metadata.fields ),
+                         std::get<3>( metadata.fields ),
+                         std::move( std::get<0>( regions ) ),
+                         std::move( std::get<1>( regions ) ) ) {
+      verifyN2( std::get<5>( metadata.fields ), this->boundaryIndices.back() );
+    }
+
+    template< typename Iterator >
+    InterpolationBase
+    ( Base&& metadata,
+      Iterator& it, const Iterator& end, long& lineNumber, int MAT, int MF, int MT ) :
+      InterpolationBase( std::move( metadata ),
+                         readRangeDescriptions( std::get<4>( metadata.fields ),
+                                                  it, end, lineNumber,
+                                                  MAT, MF, MT ) ) {}
 
   protected:
 
     /* custom exception objects */
+
     struct IllegalN2 {
       long n2;
       IllegalN2( long value ) : n2( value ) {}
@@ -59,7 +165,39 @@ namespace record {
   public:
 
     /* constructor */
-    #include "ENDFtk/record/InterpolationBase/src/ctor.hpp"
+
+    //! @todo pybind11 variant needs default constructor workaround
+    #ifdef PYBIND11
+    InterpolationBase() :
+      metadata( 0., 0., 0, 0, 0, 0 ),
+      boundaryIndices(),
+      interpolationSchemeIndices() {}
+    #endif
+
+    InterpolationBase
+    ( double C1, double C2, long L1, long L2,
+      std::vector< long >&& boundaryIndices,
+      std::vector< long >&& interpolationSchemeIndices ) :
+      metadata( C1, C2, L1, L2, boundaryIndices.size(), boundaryIndices.back() ),
+      boundaryIndices( std::move(boundaryIndices) ),
+      interpolationSchemeIndices( std::move(interpolationSchemeIndices) ) {
+      verifyVectorSizes( this->boundaryIndices, this->interpolationSchemeIndices );
+      verifyBoundaryIndicesAreSorted( this->boundaryIndices );
+    }
+
+    InterpolationBase
+    ( double C1, double C2, long L1, long L2,
+      std::tuple< std::vector< long >, std::vector< long > >&& regions ) :
+      InterpolationBase( C1, C2, L1, L2,
+                         std::move( std::get<0>(regions) ),
+                         std::move( std::get<1>(regions) ) ) {}
+
+    template< typename Iterator >
+    InterpolationBase
+    ( Iterator& it, const Iterator& end, long& lineNumber,
+     int MAT, int MF, int MT ) :
+     InterpolationBase( readMetadata( it, end, lineNumber, MAT, MF, MT ),
+                        it, end, lineNumber, MAT, MF, MT ) {}
 
   #define DEFINE_GETTER( name, index )                                    \
     Base::ImmutableReturnType< index >                                    \
@@ -118,7 +256,63 @@ namespace record {
 
     long NC() const { return 1 + ( this->NR() + 2 ) / 3; }
 
-    #include "ENDFtk/record/InterpolationBase/src/print.hpp"
+    template< typename OutputIterator >
+    void print( OutputIterator& it, int MAT, int MF, int MT ) const {
+
+      using namespace njoy::tools;
+
+      {
+        using Format = disco::Record< disco::ENDF, disco::ENDF,
+                                      disco::Integer< 11 >, disco::Integer< 11 >,
+                                      disco::Integer< 11 >, disco::Integer< 11 >,
+                                      disco::Integer< 4 >, disco::Integer< 2 >,
+                                      disco::Integer< 3 >, disco::Column< 5 > >;
+        Format::write( it,
+                       this->C1(), this->C2(),
+                       this->L1(), this->L2(),
+                       this->NR(), this->N2(),
+                       MAT, MF, MT );
+      }
+      {
+        using Format = disco::Record< disco::Integer< 11 >, disco::Integer< 11 >,
+                                      disco::Integer< 11 >, disco::Integer< 11 >,
+                                      disco::Integer< 11 >, disco::Integer< 11 >,
+                                      disco::Integer< 4 >, disco::Integer< 2 >,
+                                      disco::Integer< 3 >, disco::Column< 5 > >;
+
+        auto nFullLines = this->NR() / 3;
+        auto partialLineEntries = this->NR() - nFullLines * 3;
+
+        auto boundary = this->boundaries().begin();
+        auto interpolant = this->interpolants().begin();
+
+        while ( nFullLines-- ){
+          Format::write( it,
+                         boundary[0], interpolant[0],
+                         boundary[1], interpolant[1],
+                         boundary[2], interpolant[2],
+                         MAT, MF, MT );
+          boundary += 3; interpolant += 3;
+        }
+
+        if ( partialLineEntries ){
+          auto blankEntries = 2 * ( 3 - partialLineEntries );
+          while ( partialLineEntries-- ){
+            disco::Integer<11>::write( *boundary, it );
+            disco::Integer<11>::write( *interpolant, it );
+            ++boundary; ++interpolant;
+          }
+
+          while ( blankEntries-- ){ disco::Column< 11 >::write( it ); }
+
+          using Format =
+            disco::Record< disco::Integer< 4 >, disco::Integer< 2 >,
+                           disco::Integer< 3 >, disco::Column< 5 > >;
+
+          Format::write( it, MAT, MF, MT );
+        }
+      }
+    }
   };
 
 } // record namespace

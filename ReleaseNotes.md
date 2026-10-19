@@ -10,6 +10,9 @@ This update makes the following changes on interface functions:
 
 This update adds GENDF capability.
 
+The repository has been restructured: all code contained in component specific hpp files are now in the
+main component's hpp file. This was done to make the repository more readable.
+
 shacl-cmake was updated to the latest version.
 
 ## ENDFtk v1.2.0

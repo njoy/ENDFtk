@@ -19,6 +19,7 @@ public:
 private:
 
   /* fields */
+
   double spi_;
   double ap_;
   std::vector< LValue > lvalues_;
@@ -26,10 +27,79 @@ private:
 
   /* auxiliary functions */
 
+  /* constructor */
+
+  /**
+   *  @brief Private intermediate constructor
+   */
+  template< typename Iterator >
+  UnresolvedRelativeCovariances( double spi, double ap,
+                                 std::vector< LValue >&& lvalues,
+                                 Iterator& it, const Iterator& end, long& lineNumber,
+                                 int MAT, int MF, int MT ) :
+    UnresolvedRelativeCovariances( spi, ap, std::move( lvalues ),
+                                   CovarianceMatrix( it, end, lineNumber,
+                                                     MAT, MF, MT ) ) {}
+
+  /**
+   *  @brief Private intermediate constructor
+   */
+  template< typename Iterator >
+  UnresolvedRelativeCovariances( ControlRecord&& cont,
+                                 Iterator& it, const Iterator& end, long& lineNumber,
+                                 int MAT, int MF, int MT ) :
+    UnresolvedRelativeCovariances( cont.C1(), cont.C2(),
+                                   readSequence< LValue >( it, end, lineNumber,
+                                                           MAT, MF, MT,
+                                                           cont.N1() ),
+                                   it, end, lineNumber, MAT, MF, MT ) {}
+
 public:
 
   /* constructor */
-  #include "ENDFtk/section/32/151/UnresolvedRelativeCovariances/src/ctor.hpp"
+
+  //! @todo pybind11 variant needs default constructor workaround
+  #ifdef PYBIND11
+  /**
+   *  @brief Default constructor - only enabled for pybind11
+   */
+  UnresolvedRelativeCovariances() = default;
+  #endif
+
+  /**
+   *  @brief Constructor
+   *
+   *  @param[in] spi       the target spin value
+   *  @param[in] ap        the scattering radius
+   *  @param[in] lvalues   the l values and the resonance parameters
+   *  @param[in] matrix    the covariance matrix
+   */
+  UnresolvedRelativeCovariances( double spi, double ap,
+                                 std::vector< LValue >&& lvalues,
+                                 CovarianceMatrix&& matrix ) :
+      // no need for a try ... catch: nothing can go wrong here
+      spi_( spi ), ap_( ap ), lvalues_( std::move( lvalues ) ),
+      matrix_( std::move( matrix ) ) {}
+
+  /**
+   *  @brief Constructor (from a buffer)
+   *
+   *  @tparam Iterator        a buffer iterator
+   *
+   *  @param[in] it           the current position in the buffer
+   *  @param[in] end          the end of the buffer
+   *  @param[in] lineNumber   the current line number
+   *  @param[in] MAT          the expected MAT number
+   *  @param[in] MF           the expected MF number
+   *  @param[in] MT           the expected MT number
+   */
+  template< typename Iterator >
+  UnresolvedRelativeCovariances(
+      Iterator& it, const Iterator& end, long& lineNumber,
+      int MAT, int MF, int MT ) :
+    UnresolvedRelativeCovariances(
+        ControlRecord( it, end, lineNumber, MAT, MF, MT ),
+        it, end, lineNumber, MAT, MF, MT ) {}
 
   /* get methods */
 
@@ -116,6 +186,36 @@ public:
     return this->matrix_;
   }
 
-  #include "ENDFtk/section/32/151/UnresolvedRelativeCovariances/src/NC.hpp"
-  #include "ENDFtk/section/32/151/UnresolvedRelativeCovariances/src/print.hpp"
+  /**
+   *  @brief Return the number of lines in this MF2 MT151 component
+   */
+  long NC() const {
+
+    long NC = 1 + this->covarianceMatrix().NC();
+    for ( const auto& lvalue : this->lValues() ) { NC += lvalue.NC(); }
+    return NC;
+  };
+
+  /**
+   *  @brief Print this MF32 MT151 component
+   *
+   *  @tparam OutputIterator   an output iterator
+   *
+   *  @param[in] it            the current position in the output
+   *  @param[in] MAT           the MAT number
+   *  @param[in] MF            the MF number
+   *  @param[in] MT            the MT number
+   */
+  template< typename OutputIterator >
+  void print( OutputIterator& it, int MAT, int MF, int MT ) const {
+
+    ControlRecord( this->SPI(), this->AP(),
+                   0, 0,
+                   this->NLS(), 0 ).print( it, MAT, MF, MT );
+    for ( const auto& lvalue : this->lValues() ) {
+
+      lvalue.print( it, MAT, MF, MT );
+    }
+    this->covarianceMatrix().print( it, MAT, MF, MT );
+  }
 };

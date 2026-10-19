@@ -24,19 +24,183 @@ namespace tree {
   class GMaterial {
 
     /* fields */
+
     int mat_;
     std::list< GFile > files_;
 
     /* auxiliary functions */
-    #include "ENDFtk/tree/GMaterial/src/fill.hpp"
+
+    template< typename BufferIterator >
+    static std::list< GFile >
+    fill
+    ( const HEAD& head, BufferIterator begin,
+      BufferIterator& position, const BufferIterator& end, long& lineNumber ){
+
+      std::list< GFile > files;
+      std::vector< GSection > sections;
+
+      auto compare = [] ( auto&& left, auto&& right ) {
+
+        if ( left.MF() < right.first ) {
+
+          return true;
+        }
+        else if ( left.MF() == right.first ) {
+
+          return left.MT() < right.second;
+        }
+        else {
+
+          return false;
+        }
+      };
+
+      // read the first HEAD record (we need a structure division)
+      --lineNumber;
+      position = begin;
+      auto division = StructureDivision( position, end, lineNumber );
+
+      // continue reading sections for the same mf
+      auto mat = head.MAT();
+      while ( division.isHead() && ( division.tail.MAT() == mat ) ) {
+
+        auto iter = std::lower_bound( sections.begin(), sections.end(),
+                                      std::make_pair( division.tail.MF(), division.tail.MT() ),
+                                      compare );
+
+        // check for duplicate mf,mt
+        if ( ( iter != sections.end() ) &&
+             ( iter->fileNumber() == division.tail.MF() ) &&
+             ( iter->sectionNumber() == division.tail.MT() ) ) {
+
+          Log::info( "Found a duplicate section for MF{} MT{}, skipping section",
+                     division.tail.MF(), division.tail.MT() );
+          Log::info( "Current position: MAT{} MF{} MT{} at line {}",
+                     division.tail.MAT(), division.tail.MF(), division.tail.MT(),
+                     lineNumber );
+
+          //just skip the section
+          GSection( asHead( division ), begin, position, end, lineNumber );
+        }
+        else {
+
+          // add the section
+          sections.emplace( iter, asHead( division ), begin, position, end, lineNumber );
+        }
+
+        // check for end of stream
+        if ( position >= end ) {
+
+          Log::error( "Encountered the end of stream before an END record was found" );
+          throw std::exception();
+        }
+
+        // get the next HEAD record
+        begin = position;
+        division = StructureDivision( position, end, lineNumber );
+        if ( ! division.isHead() && division.isFend() ) {
+
+          begin = position;
+          division = StructureDivision( position, end, lineNumber );
+        }
+      }
+
+      // subdivide into files
+      auto iter = sections.begin();
+      auto upper = std::upper_bound( sections.begin(), sections.end(), iter->fileNumber(),
+                                     [] ( auto&& left, auto&& right )
+                                        { return left < right.fileNumber(); } );
+      while ( iter != sections.end() ) {
+
+        files.emplace_back( iter->materialNumber(), iter->fileNumber(),
+                            std::list< GSection >( iter, upper ) );
+
+        iter = upper;
+        upper = std::upper_bound( iter, sections.end(), iter->fileNumber(),
+                                  [] ( auto&& left, auto&& right )
+                                     { return left < right.fileNumber(); } );
+      }
+
+      return files;
+    }
 
     // blatantly copied from the tree Material
-    #include "ENDFtk/tree/Material/src/find.hpp"
+
+    /**
+     *  @brief Return iterator to the file with the given mf number
+     *
+     *  @param[in] mf    the mf number
+     */
+    auto find( int mf ) {
+
+      auto iter = std::lower_bound( this->files_.begin(), this->files_.end(), mf,
+                                    [] ( auto&& left, auto&& right )
+                                       { return left.fileNumber() < right; } );
+
+      if ( iter != this->files_.end() ) {
+
+        if ( iter->fileNumber() == mf ) {
+
+          return iter;
+        }
+      }
+      return this->files_.end();
+    }
+
+    /**
+     *  @brief Return iterator to the file with the given mf number
+     *
+     *  @param[in] mf    the mf number
+     */
+    auto find( int mf ) const {
+
+      auto iter = std::lower_bound( this->files_.begin(), this->files_.end(), mf,
+                                    [] ( auto&& left, auto&& right )
+                                       { return left.fileNumber() < right; } );
+
+      if ( iter != this->files_.end() ) {
+
+        if ( iter->fileNumber() == mf ) {
+
+          return iter;
+        }
+      }
+      return this->files_.end();
+    }
 
   public:
 
     /* constructor */
-    #include "ENDFtk/tree/GMaterial/src/ctor.hpp"
+
+    /**
+     *  @brief Empty material constructor
+     *
+     *  @param[in] mat    the MAT number of the file
+     */
+    GMaterial( unsigned int mat ) : mat_( mat ), files_() {}
+
+    /**
+     *  @brief Constructor (from a buffer)
+     *
+     *  This constructor is not to be called directly by a user.
+     *
+     *  @param[in] head         the first head record of the material
+     *  @param[in] begin        the beginning of the buffer
+     *  @param[in] position     the current position in the buffer
+     *  @param[in] end          the end of the buffer
+     *  @param[in] lineNumber   the current line number
+     */
+    template< typename BufferIterator >
+    GMaterial( const HEAD& head, BufferIterator begin, BufferIterator& position,
+               const BufferIterator& end, long& lineNumber )
+      try : mat_( head.MAT() ),
+            files_( fill( head, begin, position, end, lineNumber ) ) {}
+      catch( std::exception& e ) {
+
+        Log::info( "Trouble encountered while constructing a GENDF tree material" );
+        Log::info( "Material number (MAT): {}", head.MAT() );
+        throw e;
+      }
 
     /* methods */
 
@@ -61,7 +225,34 @@ namespace tree {
                                       { return file.fileNumber(); } );
     }
 
-    #include "ENDFtk/tree/GMaterial/src/file.hpp"
+    /**
+     *  @brief Return the file with the requested MF number
+     *
+     *  @param[in]   mf   the MF number of the file to be returned
+     */
+    const GFile& file( int mf ) const {
+
+      auto iter = this->find( mf );
+      if ( iter != this->files_.end() ) {
+
+        return *iter;
+      }
+
+      Log::error( "The requested file (MF{}) is not present "
+                  "in the GENDF file tree", mf );
+      throw std::exception();
+    }
+
+    /**
+     *  @brief Return the file with the requested MF number
+     *
+     *  @param[in]   mf   the MF number of the file to be returned
+     */
+    GFile& file( int mf ) {
+
+      return const_cast< GFile& >
+             ( const_cast< const GMaterial& >( *this ).file( mf ) );
+    }
 
     /**
      *  @brief Return the file with the requested MF number
@@ -228,7 +419,19 @@ namespace tree {
 //    #include "ENDFtk/tree/Material/src/parse.hpp"
 
     // blatantly copied from the tree Material
-    #include "ENDFtk/tree/Material/src/clean.hpp"
+
+    /**
+     *  @brief Clean up the material
+     *
+     *  This function removes the sequence numbers from the material
+     */
+    void clean() {
+
+      for ( auto& file : this->files() ) {
+
+        file.clean();
+      }
+    }
   };
 
 } // tree namespace

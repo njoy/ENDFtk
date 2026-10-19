@@ -8,19 +8,136 @@
 class ENDFTK_PYTHON_EXPORT LValue : protected ListRecord {
 
   /* auxiliary functions */
-  #include "ENDFtk/section/2/151/UnresolvedEnergyIndependent/LValue/src/verifySize.hpp"
-  #include "ENDFtk/section/2/151/UnresolvedEnergyIndependent/LValue/src/generateList.hpp"
+
+  static void
+  verifySize( int NPL, int NJS ) {
+
+    if ( NPL != 6 * NJS ) {
+
+      Log::error( "Encountered inconsistent list size" );
+      Log::info( "NPL must be equal to 6 * NJS" );
+      Log::info( "NPL value: {}", NPL );
+      Log::info( "NJS value: {}", NJS );
+      throw std::exception();
+    }
+  }
+
+  static std::vector< double >
+  generateList( std::vector< double >&& spins,
+                std::vector< double >&& d,
+                std::vector< double >&& amun,
+                std::vector< double >&& gn,
+                std::vector< double >&& gg ) {
+
+    std::vector< double > list;
+    unsigned int njs = spins.size();
+    if ( ( d.size() != njs ) or ( amun.size() != njs ) or
+         ( gn.size() != njs ) or ( gg.size() != njs ) ) {
+
+      Log::info( "The number of spin values and the resonance parameters are not "
+                 "consistent" );
+      Log::info( "NJS value: {}", njs );
+      Log::info( "spins.size(): {}", spins.size() );
+      Log::info( "d.size(): {}", d.size() );
+      Log::info( "amun.size(): {}", amun.size() );
+      Log::info( "gn.size(): {}", gn.size() );
+      Log::info( "gg.size(): {}", gg.size() );
+      throw std::exception();
+    }
+
+    for ( unsigned int i = 0; i < njs; ++i ) {
+
+      list.push_back( d[i] );
+      list.push_back( spins[i] );
+      list.push_back( amun[i] );
+      list.push_back( gn[i] );
+      list.push_back( gg[i] );
+      list.push_back( 0.0 );
+    }
+    return list;
+  }
 
   /* workaround for the removal of range-v3 */
 
   // using std20::views::repeat in C++ works but causes issues on the Python side
   std::vector< double > zeros_;
-  #include "ENDFtk/section/2/151/UnresolvedEnergyIndependent/LValue/src/generateZeros.hpp"
+
+  void generateZeros() {
+
+    this->zeros_ = std::vector( this->NJS(), 0.0 );
+  }
+
+  /* constructor */
+
+  /**
+   *  @brief Private intermediate constructor
+   */
+  LValue( ListRecord&& list ) :
+    ListRecord( std::move( list ) ) {
+
+    verifySize( this->NPL(), this->N2() );
+    generateZeros();
+  }
 
 public:
 
   /* constructor */
-  #include "ENDFtk/section/2/151/UnresolvedEnergyIndependent/LValue/src/ctor.hpp"
+
+  /**
+   *  @brief Constructor
+   *
+   *  @param[in] awri       the atomic weight ratio
+   *  @param[in] l          the orbital angular momentum value
+   *  @param[in] spins      the spin values (NJS values)
+   *  @param[in] spacing    the level spacing values (NJS values)
+   *  @param[in] amun       the degrees of freedom for the neutron width (NJS
+   *                        values)
+   *  @param[in] gn         the average neutron widths (NJS values)
+   *  @param[in] gg         the average gamma widths (NJS values)
+   */
+  LValue( double awri, int l,
+          std::vector< double >&& spins,
+          std::vector< double >&& spacing,
+          std::vector< double >&& amun,
+          std::vector< double >&& gn,
+          std::vector< double >&& gg )
+    try :  LValue( ListRecord( awri, 0.0, l, 0.0, spins.size(),
+                               generateList( std::move( spins ),
+                                             std::move( spacing ),
+                                             std::move( amun ),
+                                             std::move( gn ),
+                                             std::move( gg ) ) ) ) {}
+    catch ( std::exception& e ) {
+
+      Log::info( "Encountered error while constructing l value resonance "
+                 "parameters in the unresolved Single Level Breit-Wigner "
+                 "representation" );
+      throw;
+    }
+
+  /**
+   *  @brief Constructor (from a buffer)
+   *
+   *  @tparam Iterator        a buffer iterator
+   *
+   *  @param[in] it           the current position in the buffer
+   *  @param[in] end          the end of the buffer
+   *  @param[in] lineNumber   the current line number
+   *  @param[in] MAT          the expected MAT number
+   *  @param[in] MF           the expected MF number
+   *  @param[in] MT           the expected MT number
+   */
+  template< typename Iterator >
+  LValue( Iterator& it, const Iterator& end, long& lineNumber,
+          int MAT, int MF, int MT )
+    try : LValue( ListRecord( it, end, lineNumber, MAT, MF, MT ) ) {}
+    catch ( std::exception& e ) {
+
+      Log::info( "Encountered error while constructing l value resonance "
+                 "parameters in the unresolved Single Level Breit-Wigner "
+                 "representation" );
+      throw;
+    }
 
   /**
    *  @brief Return the atomic weight ratio of the current isotope to the

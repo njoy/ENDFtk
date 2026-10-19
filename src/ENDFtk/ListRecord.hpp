@@ -33,13 +33,33 @@ namespace ENDFtk {
     std::vector< double > data;
 
     /* auxiliary functions */
+
     template< typename Iterator >
     static void
     verifyTail( Iterator& it, const Iterator& end, long& lineNumber,
                 int MAT, int MF, int MT ){
       tail( MAT, MF, MT, it, end, lineNumber );
     }
-    #include "ENDFtk/ListRecord/src/readMetadata.hpp"
+
+    template< typename Iterator >
+    static Base
+    readMetadata
+    ( Iterator& it, const Iterator& end, long& lineNumber, int MAT, int MF, int MT ){
+      try{
+        Base metadata( it, end );
+        verifyTail( it, end, lineNumber, MAT, MF, MT );
+        if ( std::get<4>( metadata.fields ) < 0 ){
+          Log::error( "Illegal NPL value encountered" );
+          Log::info( "NPL must be greater than or equal to 0" );
+          Log::info( "NPL value: ", std::get<4>( metadata.fields ) );
+          throw std::runtime_error( "List Record NPL value" );
+        }
+        return metadata;
+      } catch ( std::exception& e ){
+        Log::info( "Error while reading metadata" );
+        throw e;
+      }
+    }
 
   public:
 
@@ -162,7 +182,67 @@ namespace ENDFtk {
      */
     long NC() const { return 1 + ( this->NPL() + 5 ) / 6; }
 
-    #include "ENDFtk/ListRecord/src/print.hpp"
+    /**
+     *  @brief Print the record
+     *
+     *  @tparam OutputIterator   an output iterator
+     *
+     *  @param[in] it            the current position in the output
+     *  @param[in] MAT           the MAT number
+     *  @param[in] MF            the MF number
+     *  @param[in] MT            the MT number
+     */
+    template< typename OutputIterator >
+    void print( OutputIterator& it, int MAT, int MF, int MT ) const {
+
+      using namespace njoy::tools;
+      {
+        using Format = disco::Record< disco::ENDF, disco::ENDF,
+                                      disco::Integer< 11 >, disco::Integer< 11 >,
+                                      disco::Integer< 11 >, disco::Integer< 11 >,
+                                      disco::Integer< 4 >, disco::Integer< 2 >,
+                                      disco::Integer< 3 >, disco::Column<5> >;
+        Format::write( it,
+                       this->C1(), this->C2(),
+                       this->L1(), this->L2(),
+                       this->NPL(), this->N2(),
+                       MAT, MF, MT );
+      }{
+        using Format = disco::Record< disco::ENDF, disco::ENDF,
+                                      disco::ENDF, disco::ENDF,
+                                      disco::ENDF, disco::ENDF,
+                                      disco::Integer< 4 >, disco::Integer< 2 >,
+                                      disco::Integer< 3 >, disco::Column<5> >;
+
+        auto nFullLines = this->NPL() / 6;
+        auto partialLineEntries = this->NPL() - nFullLines * 6;
+
+        auto entry = this->list().begin();
+
+        for ( ; nFullLines-- != 0; entry += 6 ){
+          Format::write( it,
+                         entry[0], entry[1], entry[2],
+                         entry[3], entry[4], entry[5],
+                         MAT, MF, MT );
+        }
+
+        if ( partialLineEntries ){
+          do {
+            disco::ENDF::write( *entry, it );
+          } while( ++entry != this->list().end() );
+
+          auto blankEntries = 6 - partialLineEntries;
+
+          while ( blankEntries-- ){ disco::Column< 11 >::write( it ); }
+
+          using Format =
+            disco::Record< disco::Integer< 4 >, disco::Integer< 2 >,
+                           disco::Integer< 3 >, disco::Column< 5 > >;
+
+          Format::write( it, MAT, MF, MT );
+        }
+      }
+    }
 
   };
 

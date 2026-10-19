@@ -31,6 +31,7 @@ public:
 private:
 
   /* fields */
+
   bool ifg_;
   bool krl_;
   int krm_;
@@ -39,12 +40,111 @@ private:
   std::vector< SpinGroup > spin_groups_;
 
   /* auxiliary functions */
-  #include "ENDFtk/section/2/151/RMatrixLimited/src/verifySize.hpp"
+
+  static void
+  verifySize( int NJS ) {
+
+    if ( NJS < 1 ) {
+
+      Log::error( "Encountered illegal NJS value" );
+      Log::info( "NJS should be larger than zero" );
+      Log::info( "NJS value: {}", NJS );
+      throw std::exception();
+    }
+  }
+
+  /* constructor */
+
+  /**
+   *  @brief Private intermediate constructor
+   */
+  template< typename Iterator >
+  RMatrixLimited( bool ifg, bool krl, int krm,
+                  ParticlePairs&& pairs,
+                  int njs,
+                  Iterator& it, const Iterator& end, long& lineNumber,
+                  int MAT, int MF, int MT ) :
+    RMatrixLimited( ifg, krl, krm,
+                    std::move( pairs ),
+                    readSequence< SpinGroup >( it, end, lineNumber,
+                                               MAT, MF, MT, njs ) ) {}
+
+  /**
+   *  @brief Private intermediate constructor
+   */
+  template< typename Iterator >
+  RMatrixLimited( bool ifg, bool krl, int krm, int njs,
+                  Iterator& it, const Iterator& end, long& lineNumber,
+                  int MAT, int MF, int MT ) :
+    RMatrixLimited( ifg, krl, krm,
+                    ParticlePairs( it, end, lineNumber, MAT, MF, MT ), njs,
+                    it, end, lineNumber, MAT, MF, MT ) {}
+
+  /**
+   *  @brief Private intermediate constructor
+   */
+  template< typename Iterator >
+  RMatrixLimited( ControlRecord&& cont,
+                  Iterator& it, const Iterator& end, long& lineNumber,
+                  int MAT, int MF, int MT ) :
+    RMatrixLimited( cont.L1(), cont.N2(), cont.L2(), cont.N1(),
+                    it, end, lineNumber, MAT, MF, MT ) {}
 
 public:
 
   /* constructor */
-  #include "ENDFtk/section/2/151/RMatrixLimited/src/ctor.hpp"
+
+  //! @todo pybind11 variant needs default constructor workaround
+  #ifdef PYBIND11
+  /**
+   *  @brief Default constructor - only enabled for pybind11
+   */
+  RMatrixLimited() = default;
+  #endif
+
+  /**
+   *  @brief Constructor
+   *
+   *  @param[in] ifg      flag to indicate whether or not the widths are reduced
+   *  @param[in] krl      the non relativistic kinematics flag
+   *  @param[in] krm      the resonance formalism to be used
+   *  @param[in] pairs    the particle pairs
+   *  @param[in] groups   the spin groups
+   */
+  RMatrixLimited( bool ifg, bool krl, int krm,
+                  ParticlePairs&& pairs,
+                  std::vector< SpinGroup >&& groups ) :
+      // no need for a try ... catch: nothing can go wrong here
+      ifg_( ifg ), krl_( krl ), krm_( krm ),
+      particle_pairs_( std::move( pairs ) ),
+      spin_groups_( std::move( groups ) ) {
+
+        verifySize( this->NJS() );
+      }
+
+  /**
+   *  @brief Constructor (from a buffer)
+   *
+   *  @tparam Iterator        a buffer iterator
+   *
+   *  @param[in] it           the current position in the buffer
+   *  @param[in] end          the end of the buffer
+   *  @param[in] lineNumber   the current line number
+   *  @param[in] MAT          the expected MAT number
+   *  @param[in] MF           the expected MF number
+   *  @param[in] MT           the expected MT number
+   */
+  template< typename Iterator >
+  RMatrixLimited( Iterator& it, const Iterator& end, long& lineNumber,
+                  int MAT, int MF, int MT )
+    try : RMatrixLimited( ControlRecord( it, end, lineNumber, MAT, MF, MT ),
+                          it, end, lineNumber, MAT, MF, MT ) {}
+    catch ( std::exception& e ) {
+
+      Log::info( "Encountered error while constructing R matrix limited "
+                 "resonance parameters" );
+      throw;
+    }
 
   /* get methods */
 
@@ -135,8 +235,42 @@ public:
     return this->spin_groups_ | std20::views::all;
   }
 
-  #include "ENDFtk/section/2/151/RMatrixLimited/src/SPI.hpp"
-  #include "ENDFtk/section/2/151/RMatrixLimited/src/AP.hpp"
+  /**
+   *  @brief Return the target spin
+   */
+  double SPI() const {
+
+    using namespace njoy::tools;
+    auto mt = this->particlePairs().MT();
+    unsigned int index = std20::distance(
+                             std20::begin( mt ),
+                             std20::find( mt, int( 2 ) ) );
+    return this->particlePairs().spinParticleB()[index];
+  };
+
+  /**
+   *  @brief Return the scattering radius
+   *
+   *  This function will only return the first true scattering radius value it
+   *  finds in the first spin group. If other spin groups use different radii,
+   *  AP is meaningless and should not be used as a shortcut to retrieve
+   *  the scattering radius.
+   */
+  double AP() const {
+
+    using namespace njoy::tools;
+    auto mt = this->particlePairs().MT();
+    unsigned int elastic = std20::distance(
+                               std20::begin( mt ),
+                               std20::find( mt, int( 2 ) ) ) + 1;
+
+    auto channels = this->spinGroups().front().channels();
+    auto ppi = channels.particlePairNumbers();
+    unsigned int index = std20::distance(
+                             std20::begin( ppi ),
+                             std20::find( ppi, int( elastic ) ) );
+    return channels.trueChannelRadii()[index];
+  };
 
   /**
    *  @brief Return the target spin
@@ -148,6 +282,36 @@ public:
    */
   double scatteringRadius() const { return this->AP(); }
 
-  #include "ENDFtk/section/2/151/RMatrixLimited/src/NC.hpp"
-  #include "ENDFtk/section/2/151/RMatrixLimited/src/print.hpp"
+  /**
+   *  @brief Return the number of lines in this MF2 MT151 component
+   */
+  long NC() const {
+
+    long NC = 1 + this->particle_pairs_.NC();
+    for ( const auto& spingroup : this->spin_groups_ ) { NC += spingroup.NC(); }
+    return NC;
+  };
+
+  /**
+   *  @brief Print this MF2 MT151 component
+   *
+   *  @tparam OutputIterator   an output iterator
+   *
+   *  @param[in] it            the current position in the output
+   *  @param[in] MAT           the MAT number
+   *  @param[in] MF            the MF number
+   *  @param[in] MT            the MT number
+   */
+  template< typename OutputIterator >
+  void print( OutputIterator& it, int MAT, int MF, int MT ) const {
+
+    ControlRecord( 0.0, 0.0,
+                   this->IFG(), this->KRM(),
+                   this->NJS(), this->KRL() ).print( it, MAT, MF, MT );
+    this->particle_pairs_.print( it, MAT, MF, MT );
+    for ( const auto& spingroup : this->spin_groups_ ) {
+
+      spingroup.print( it, MAT, MF, MT );
+    }
+  }
 };
