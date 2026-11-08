@@ -182,7 +182,7 @@ public:
    */
   long NC() const { return this->data_.NC(); }
 
-  /** 
+  /**
    *  @brief Print this MF5 component
    *
    *  @tparam OutputIterator   an output iterator
@@ -195,5 +195,5 @@ public:
   template< typename OutputIterator >
   void print( OutputIterator& it, int MAT, int MF, int MT ) const {
     this->data_.print( it, MAT, MF, MT );
-  } 
+  }
 };

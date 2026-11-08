@@ -114,6 +114,16 @@ public:
   /* get methods */
 
   /**
+   *  @brief Return the distribution type (the LF flag)
+   */
+  int LF() const { return this->probability().LF(); }
+
+  /**
+   *  @brief Return the distribution type (the LF flag)
+   */
+  int LAW() const { return this->probability().LAW(); }
+
+  /**
    *  @brief Return the constant that defines the upper energy
    *         limit E - U for the secondary particle's energy E'
    */
@@ -135,17 +145,17 @@ public:
    */
   const Distribution& distribution() const { return this->distribution_; }
 
-  /** 
+  /**
    *  @brief Return the number of lines in this MF5 component
    */
   long NC() const {
-    return this->probability_.NC() + 
+    return this->probability_.NC() +
            std::visit( [] ( const auto& entry )
                           { return entry.NC(); },
                        this->distribution_ );
   };
 
-  /** 
+  /**
    *  @brief Print this MF5 component
    *
    *  @tparam OutputIterator   an output iterator
@@ -162,5 +172,5 @@ public:
     std::visit( [&] ( const auto& entry )
                     { return entry.print( it, MAT, MF, MT ); },
                 this->distribution_ );
-  } 
+  }
 };
