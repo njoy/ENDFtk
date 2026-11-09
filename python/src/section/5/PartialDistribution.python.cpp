@@ -44,6 +44,18 @@ void wrapPartialDistribution( python::module& module, python::module& ) {
   )
   .def_property_readonly(
 
+    "LF",
+    &Component::LF,
+    "The distribution type (the LF flag)"
+  )
+  .def_property_readonly(
+
+    "LAW",
+    &Component::LAW,
+    "The distribution type (the LF flag)"
+  )
+  .def_property_readonly(
+
     "U",
     &Component::U,
     "The energy limit constant"

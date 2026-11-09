@@ -442,6 +442,8 @@ void verifyChunkLF1( const PartialDistribution& chunk ) {
 
   CHECK_THAT( 0.0, WithinRel( chunk.U() ) );
   CHECK_THAT( 0.0, WithinRel( chunk.energyLimitConstant() ) );
+  CHECK( 1 == chunk.LF() );
+  CHECK( 1 == chunk.LAW() );
 
   auto p = chunk.probability();
 
@@ -580,6 +582,8 @@ void verifyChunkLF5( const PartialDistribution& chunk ) {
 
   CHECK_THAT( -3e+7, WithinRel( chunk.U() ) );
   CHECK_THAT( -3e+7, WithinRel( chunk.energyLimitConstant() ) );
+  CHECK( 5 == chunk.LF() );
+  CHECK( 5 == chunk.LAW() );
 
   auto p = chunk.probability();
 
@@ -686,6 +690,8 @@ void verifyChunkLF7( const PartialDistribution& chunk ) {
 
   CHECK_THAT( -3e+7, WithinRel( chunk.U() ) );
   CHECK_THAT( -3e+7, WithinRel( chunk.energyLimitConstant() ) );
+  CHECK( 7 == chunk.LF() );
+  CHECK( 7 == chunk.LAW() );
 
   auto p = chunk.probability();
 
@@ -764,6 +770,8 @@ void verifyChunkLF9( const PartialDistribution& chunk ) {
 
   CHECK_THAT( 1.789920e+7, WithinRel( chunk.U() ) );
   CHECK_THAT( 1.789920e+7, WithinRel( chunk.energyLimitConstant() ) );
+  CHECK( 9 == chunk.LF() );
+  CHECK( 9 == chunk.LAW() );
 
   auto p = chunk.probability();
 
@@ -847,6 +855,8 @@ void verifyChunkLF11( const PartialDistribution& chunk ) {
 
   CHECK_THAT( -3e+7, WithinRel( chunk.U() ) );
   CHECK_THAT( -3e+7, WithinRel( chunk.energyLimitConstant() ) );
+  CHECK( 11 == chunk.LF() );
+  CHECK( 11 == chunk.LAW() );
 
   auto p = chunk.probability();
 
@@ -947,6 +957,8 @@ void verifyChunkLF12( const PartialDistribution& chunk ) {
 
   CHECK_THAT( 0.0, WithinRel( chunk.U() ) );
   CHECK_THAT( 0.0, WithinRel( chunk.energyLimitConstant() ) );
+  CHECK( 12 == chunk.LF() );
+  CHECK( 12 == chunk.LAW() );
 
   auto p = chunk.probability();
 

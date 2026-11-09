@@ -1068,6 +1068,16 @@ class PartialDistribution:
             mt      the MT number to be used
         """
     @property
+    def LAW(self) -> int:
+        """
+        The distribution type (the LF flag)
+        """
+    @property
+    def LF(self) -> int:
+        """
+        The distribution type (the LF flag)
+        """
+    @property
     def NC(self) -> int:
         """
         The number of lines in this component
