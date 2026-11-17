@@ -1,6 +1,8 @@
 # Release Notes&mdash;ENDFtk
 Given here are some release notes for ENDFtk.
 
+## ENDFtk v1.4.0
+
 ## ENDFtk v1.3.0
 
 This update makes the following changes on interface functions:
