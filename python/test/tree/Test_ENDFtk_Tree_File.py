@@ -4,15 +4,15 @@ import unittest
 # third party imports
 
 # local imports
-from ENDFtk.tree import File
+from ENDFtk.tree import GFile
 
-class Test_ENDFtk_Tree_File( unittest.TestCase ) :
+class Test_ENDFtk_Tree_GFile( unittest.TestCase ) :
     """Unit test for the File class."""
 
     def test_empty_file( self ) :
 
         # the file is empty
-        file = File( mat = 125, mf = 3 )
+        file = GFile( mat = 125, mf = 3 )
 
         self.assertEqual( 125, file.MAT )
         self.assertEqual( 125, file.material_number )

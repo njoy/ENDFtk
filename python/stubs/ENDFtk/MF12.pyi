@@ -3,7 +3,7 @@ MF12 - photon production multiplicities and transition probability arrays
 """
 from __future__ import annotations
 import typing
-__all__ = ['File', 'Multiplicities', 'PartialMultiplicity', 'Section', 'TotalMultiplicity', 'TransitionProbabilities']
+__all__: list[str] = ['File', 'Multiplicities', 'PartialMultiplicity', 'Section', 'TotalMultiplicity', 'TransitionProbabilities']
 class File:
     """
     MF12 file - photon production multiplicities and transition probability

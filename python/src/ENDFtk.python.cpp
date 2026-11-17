@@ -34,6 +34,7 @@ void wrapFile_12( python::module&, python::module& );
 void wrapFile_13( python::module&, python::module& );
 void wrapFile_14( python::module&, python::module& );
 void wrapFile_15( python::module&, python::module& );
+void wrapFile_16( python::module&, python::module& );
 void wrapFile_23( python::module&, python::module& );
 void wrapFile_26( python::module&, python::module& );
 void wrapFile_27( python::module&, python::module& );
@@ -53,6 +54,10 @@ void wrapTreeSection( python::module&, python::module& );
 void wrapTreeFile( python::module&, python::module& );
 void wrapTreeMaterial( python::module&, python::module& );
 void wrapTreeTape( python::module&, python::module& );
+void wrapTreeGSection( python::module&, python::module& );
+void wrapTreeGFile( python::module&, python::module& );
+void wrapTreeGMaterial( python::module&, python::module& );
+void wrapTreeGTape( python::module&, python::module& );
 
 /**
  *  @brief ENDFtk python bindings
@@ -97,6 +102,7 @@ PYBIND11_MODULE( ENDFtk, module ) {
   wrapFile_13( module, viewmodule );
   wrapFile_14( module, viewmodule );
   wrapFile_15( module, viewmodule );
+  wrapFile_16( module, viewmodule );
   wrapFile_23( module, viewmodule );
   wrapFile_26( module, viewmodule );
   wrapFile_27( module, viewmodule );
@@ -123,4 +129,8 @@ PYBIND11_MODULE( ENDFtk, module ) {
   wrapTreeFile( submodule, viewmodule );
   wrapTreeMaterial( submodule, viewmodule );
   wrapTreeTape( submodule, viewmodule );
+  wrapTreeGSection( submodule, viewmodule );
+  wrapTreeGFile( submodule, viewmodule );
+  wrapTreeGMaterial( submodule, viewmodule );
+  wrapTreeGTape( submodule, viewmodule );
 }

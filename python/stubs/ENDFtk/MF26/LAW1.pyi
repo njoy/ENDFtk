@@ -3,7 +3,7 @@ LAW1 - continuum energy-angle data for secondary particles
 """
 from __future__ import annotations
 import typing
-__all__ = ['LegendreCoefficients']
+__all__: list[str] = ['LegendreCoefficients']
 class LegendreCoefficients:
     """
     MF26 section - LAW=1 - angular distributions are given as Legendre

@@ -45,13 +45,13 @@ void wrapReichMooreScatteringRadiusUncertainties( python::module& module,
 
     "DAP",
     &Component::DAP,
-    "The atomic weight ratio of the current isotope"
+    "The default scattering radius uncertainty"
   )
   .def_property_readonly(
 
     "default_uncertainty",
     &Component::defaultUncertainty,
-    "The atomic weight ratio of the current isotope"
+    "The default scattering radius uncertainty"
   )
   .def_property_readonly(
 

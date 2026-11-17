@@ -4,8 +4,7 @@ MT151 - resonance parameters
 from __future__ import annotations
 import pybind11_stubgen.typing_ext
 import typing
-import typing_extensions
-__all__ = ['BackgroundChannels', 'BreitWignerLValue', 'FrohnerBackgroundRMatrix', 'Isotope', 'MultiLevelBreitWigner', 'NoBackgroundRMatrix', 'ParticlePairs', 'RMatrixLimited', 'ReichMoore', 'ReichMooreLValue', 'ResonanceChannels', 'ResonanceParameters', 'ResonanceRange', 'SammyBackgroundRMatrix', 'ScatteringRadius', 'Section', 'SingleLevelBreitWigner', 'SpecialCase', 'SpinGroup', 'TabulatedBackgroundRMatrix', 'UnresolvedEnergyDependent', 'UnresolvedEnergyDependentFissionWidths', 'UnresolvedEnergyDependentFissionWidthsJValue', 'UnresolvedEnergyDependentFissionWidthsLValue', 'UnresolvedEnergyDependentJValue', 'UnresolvedEnergyDependentLValue', 'UnresolvedEnergyIndependent', 'UnresolvedEnergyIndependentLValue']
+__all__: list[str] = ['BackgroundChannels', 'BreitWignerLValue', 'FrohnerBackgroundRMatrix', 'Isotope', 'MultiLevelBreitWigner', 'NoBackgroundRMatrix', 'ParticlePairs', 'RMatrixLimited', 'ReichMoore', 'ReichMooreLValue', 'ResonanceChannels', 'ResonanceParameters', 'ResonanceRange', 'SammyBackgroundRMatrix', 'ScatteringRadius', 'Section', 'SingleLevelBreitWigner', 'SpecialCase', 'SpinGroup', 'TabulatedBackgroundRMatrix', 'UnresolvedEnergyDependent', 'UnresolvedEnergyDependentFissionWidths', 'UnresolvedEnergyDependentFissionWidthsJValue', 'UnresolvedEnergyDependentFissionWidthsLValue', 'UnresolvedEnergyDependentJValue', 'UnresolvedEnergyDependentLValue', 'UnresolvedEnergyIndependent', 'UnresolvedEnergyIndependentLValue']
 class BackgroundChannels:
     """
     MF2 MT151 section - background R-matrix values for each channel in the
@@ -562,7 +561,7 @@ class MultiLevelBreitWigner:
     @property
     def spin(self) -> float:
         """
-        The scattering radius
+        The target spin
         """
     @property
     def type(self) -> int:
@@ -666,17 +665,17 @@ class ParticlePairs:
         Arguments:
             self    the component
             ma      the mass of the first particle in each particle pair
-            mb      the mass of the first particle in each particle pair
+            mb      the mass of the second particle in each particle pair
             za      the charge of the first particle in each particle pair
-            zb      the charge of the first particle in each particle pair
+            zb      the charge of the second particle in each particle pair
             ia      the spin of the first particle in each particle pair
-            ib      the spin of the first particle in each particle pair
+            ib      the spin of the second particle in each particle pair
             pa      the parity of the first particle in each particle pair
-            pb      the parity of the first particle in each particle pair
-            q       the mass of the first particle in each particle pair
-            pnt     the mass of the first particle in each particle pair
-            shf     the charge of the first particle in each particle pair
-            mt      the charge of the first particle in each particle pair
+            pb      the parity of the second particle in each particle pair
+            q       the Q value for each particle pair
+            pnt     the penetrability flag for each particle pair
+            shf     the shift factor flag for each particle pair
+            mt      the MT value for each particle pair
         """
     @typing.overload
     def __init__(self, component: ParticlePairs) -> None:
@@ -770,7 +769,7 @@ class ParticlePairs:
     @property
     def charge_particle_A(self) -> ...:
         """
-        The mass of the first particle in each particle pair
+        The charge of the first particle in each particle pair
         """
     @property
     def charge_particle_B(self) -> ...:
@@ -875,7 +874,7 @@ class RMatrixLimited:
     @property
     def AP(self) -> float:
         """
-        The target spin
+        The scattering radius
         """
     @property
     def IFG(self) -> bool:
@@ -960,12 +959,12 @@ class RMatrixLimited:
     @property
     def scattering_radius(self) -> float:
         """
-        The target spin
+        The scattering radius
         """
     @property
     def spin(self) -> float:
         """
-        The scattering radius
+        The target spin
         """
     @property
     def spin_groups(self) -> ...:
@@ -1398,7 +1397,7 @@ class ResonanceChannels:
     @property
     def PJ(self) -> float:
         """
-        The parity of the spin J
+        The parity of the spin group
         """
     @property
     def PPI(self) -> ...:
@@ -1443,7 +1442,7 @@ class ResonanceChannels:
     @property
     def parity(self) -> float:
         """
-        The parity of the spin J
+        The parity of the spin group
         """
     @property
     def particle_pair_numbers(self) -> ...:
@@ -1828,7 +1827,7 @@ class ScatteringRadius:
     @property
     def AP(self) -> ...:
         """
-        The scatterin radius values
+        The scattering radius values
         """
     @property
     def E(self) -> ...:
@@ -1888,7 +1887,7 @@ class ScatteringRadius:
     @property
     def radii(self) -> ...:
         """
-        The scatterin radius values
+        The scattering radius values
         """
 class Section:
     """
@@ -2130,7 +2129,7 @@ class SingleLevelBreitWigner:
     @property
     def spin(self) -> float:
         """
-        The scattering radius
+        The target spin
         """
     @property
     def type(self) -> int:
@@ -2187,7 +2186,7 @@ class SpecialCase:
     @property
     def AP(self) -> float:
         """
-        The target spin
+        The scattering radius
         """
     @property
     def LFW(self) -> bool:
@@ -2227,12 +2226,12 @@ class SpecialCase:
     @property
     def scattering_radius(self) -> float:
         """
-        The target spin
+        The scattering radius
         """
     @property
     def spin(self) -> float:
         """
-        The scattering radius
+        The target spin
         """
     @property
     def type(self) -> int:
@@ -2325,7 +2324,7 @@ class SpinGroup:
     @property
     def PJ(self) -> float:
         """
-        The parity of the spin J
+        The parity of the spin group
         """
     @property
     def background(self) -> BackgroundChannels:
@@ -2360,7 +2359,7 @@ class SpinGroup:
     @property
     def parity(self) -> float:
         """
-        The parity of the spin J
+        The parity of the spin group
         """
     @property
     def spin(self) -> float:
@@ -2590,7 +2589,7 @@ class UnresolvedEnergyDependent:
     @property
     def AP(self) -> float:
         """
-        The target spin
+        The scattering radius
         """
     @property
     def LFW(self) -> bool:
@@ -2628,7 +2627,7 @@ class UnresolvedEnergyDependent:
         The target spin
         """
     @property
-    def average_fission_width_flag(self) -> int:
+    def average_fission_width_flag(self) -> bool:
         """
         The average fission flag
         """
@@ -2650,7 +2649,7 @@ class UnresolvedEnergyDependent:
     @property
     def scattering_radius(self) -> float:
         """
-        The target spin
+        The scattering radius
         """
     @property
     def self_shielding_only(self) -> bool:
@@ -2660,7 +2659,7 @@ class UnresolvedEnergyDependent:
     @property
     def spin(self) -> float:
         """
-        The scattering radius
+        The target spin
         """
     @property
     def type(self) -> int:
@@ -2721,7 +2720,7 @@ class UnresolvedEnergyDependentFissionWidths:
     @property
     def AP(self) -> float:
         """
-        The target spin
+        The scattering radius
         """
     @property
     def ES(self) -> ...:
@@ -2796,7 +2795,7 @@ class UnresolvedEnergyDependentFissionWidths:
     @property
     def scattering_radius(self) -> float:
         """
-        The target spin
+        The scattering radius
         """
     @property
     def self_shielding_only(self) -> bool:
@@ -2806,7 +2805,7 @@ class UnresolvedEnergyDependentFissionWidths:
     @property
     def spin(self) -> float:
         """
-        The scattering radius
+        The target spin
         """
     @property
     def type(self) -> int:
@@ -2833,7 +2832,7 @@ class UnresolvedEnergyDependentFissionWidthsJValue:
             mt        the MT number of the section
         """
     @typing.overload
-    def __init__(self, l: int, spin: float, d: float, amun: int, amuf: int, gn: float, gg: float, gf: list[float]) -> None:
+    def __init__(self, l: int, spin: float, d: float, amun: float, amuf: int, gn: float, gg: float, gf: list[float]) -> None:
         """
         Initialise the component
         
@@ -2878,7 +2877,7 @@ class UnresolvedEnergyDependentFissionWidthsJValue:
         The degrees of freedom for the fission width
         """
     @property
-    def AMUG(self) -> int:
+    def AMUG(self) -> float:
         """
         The degrees of freedom for the gamma width
         """
@@ -2888,7 +2887,7 @@ class UnresolvedEnergyDependentFissionWidthsJValue:
         The degrees of freedom for the neutron width
         """
     @property
-    def AMUX(self) -> int:
+    def AMUX(self) -> float:
         """
         The degrees of freedom for the competitive width
         """
@@ -2963,32 +2962,32 @@ class UnresolvedEnergyDependentFissionWidthsJValue:
         The average neutron width
         """
     @property
-    def boundaries(self) -> typing_extensions.Annotated[list[int], pybind11_stubgen.typing_ext.FixedSize(1)]:
+    def boundaries(self) -> typing.Annotated[list[int], pybind11_stubgen.typing_ext.FixedSize(1)]:
         """
         The interpolation range boundaries
         """
     @property
-    def competitive_width_degrees_freedom(self) -> int:
+    def competitive_width_degrees_freedom(self) -> float:
         """
         The degrees of freedom for the competitive width
         """
     @property
     def fission_width_degrees_freedom(self) -> int:
         """
+        The degrees of freedom for the fission width
+        """
+    @property
+    def gamma_width_degrees_freedom(self) -> float:
+        """
         The degrees of freedom for the gamma width
         """
     @property
-    def gamma_width_degrees_freedom(self) -> int:
-        """
-        The degrees of freedom for the gamma width
-        """
-    @property
-    def interpolants(self) -> typing_extensions.Annotated[list[int], pybind11_stubgen.typing_ext.FixedSize(1)]:
+    def interpolants(self) -> typing.Annotated[list[int], pybind11_stubgen.typing_ext.FixedSize(1)]:
         """
         The interpolants
         """
     @property
-    def neutron_width_degrees_freedom(self) -> int:
+    def neutron_width_degrees_freedom(self) -> float:
         """
         The degrees of freedom for the neutron width
         """
@@ -3113,7 +3112,7 @@ class UnresolvedEnergyDependentJValue:
             mt        the MT number of the section
         """
     @typing.overload
-    def __init__(self, spin: float, amun: int, amug: int, amuf: int, amux: int, interpolation: int, energies: list[float], d: list[float], gn: list[float], gg: list[float], gf: list[float], gx: list[float]) -> None:
+    def __init__(self, spin: float, amun: float, amug: float, amuf: float, amux: float, interpolation: int, energies: list[float], d: list[float], gn: list[float], gg: list[float], gf: list[float], gx: list[float]) -> None:
         """
         Initialise the component
         
@@ -3157,22 +3156,22 @@ class UnresolvedEnergyDependentJValue:
         The spin value
         """
     @property
-    def AMUF(self) -> int:
+    def AMUF(self) -> float:
         """
         The degrees of freedom for the fission width
         """
     @property
-    def AMUG(self) -> int:
+    def AMUG(self) -> float:
         """
         The degrees of freedom for the gamma width
         """
     @property
-    def AMUN(self) -> int:
+    def AMUN(self) -> float:
         """
         The degrees of freedom for the neutron width
         """
     @property
-    def AMUX(self) -> int:
+    def AMUX(self) -> float:
         """
         The degrees of freedom for the competitive width
         """
@@ -3252,12 +3251,12 @@ class UnresolvedEnergyDependentJValue:
         The average neutron widths
         """
     @property
-    def boundaries(self) -> typing_extensions.Annotated[list[int], pybind11_stubgen.typing_ext.FixedSize(1)]:
+    def boundaries(self) -> typing.Annotated[list[int], pybind11_stubgen.typing_ext.FixedSize(1)]:
         """
         The interpolation range boundaries
         """
     @property
-    def competitive_width_degrees_freedom(self) -> int:
+    def competitive_width_degrees_freedom(self) -> float:
         """
         The degrees of freedom for the competitive width
         """
@@ -3267,22 +3266,22 @@ class UnresolvedEnergyDependentJValue:
         The energy values
         """
     @property
-    def fission_width_degrees_freedom(self) -> int:
+    def fission_width_degrees_freedom(self) -> float:
+        """
+        The degrees of freedom for the fission width
+        """
+    @property
+    def gamma_width_degrees_freedom(self) -> float:
         """
         The degrees of freedom for the gamma width
         """
     @property
-    def gamma_width_degrees_freedom(self) -> int:
-        """
-        The degrees of freedom for the gamma width
-        """
-    @property
-    def interpolants(self) -> typing_extensions.Annotated[list[int], pybind11_stubgen.typing_ext.FixedSize(1)]:
+    def interpolants(self) -> typing.Annotated[list[int], pybind11_stubgen.typing_ext.FixedSize(1)]:
         """
         The interpolants
         """
     @property
-    def neutron_width_degrees_freedom(self) -> int:
+    def neutron_width_degrees_freedom(self) -> float:
         """
         The degrees of freedom for the neutron width
         """
@@ -3434,7 +3433,7 @@ class UnresolvedEnergyIndependent:
     @property
     def AP(self) -> float:
         """
-        The target spin
+        The scattering radius
         """
     @property
     def LFW(self) -> bool:
@@ -3494,7 +3493,7 @@ class UnresolvedEnergyIndependent:
     @property
     def scattering_radius(self) -> float:
         """
-        The target spin
+        The scattering radius
         """
     @property
     def self_shielding_only(self) -> bool:
@@ -3504,7 +3503,7 @@ class UnresolvedEnergyIndependent:
     @property
     def spin(self) -> float:
         """
-        The scattering radius
+        The target spin
         """
     @property
     def type(self) -> int:
@@ -3531,7 +3530,7 @@ class UnresolvedEnergyIndependentLValue:
             mt        the MT number of the section
         """
     @typing.overload
-    def __init__(self, awri: float, l: int, spins: list[float], d: list[float], amun: list[int], gn: list[float], gg: list[float]) -> None:
+    def __init__(self, awri: float, l: int, spins: list[float], d: list[float], amun: list[float], gn: list[float], gg: list[float]) -> None:
         """
         Initialise the component
         

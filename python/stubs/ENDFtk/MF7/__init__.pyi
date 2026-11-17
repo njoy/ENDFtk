@@ -6,7 +6,7 @@ import typing
 from . import MT2
 from . import MT4
 from . import MT451
-__all__ = ['File', 'MT2', 'MT4', 'MT451']
+__all__: list[str] = ['File', 'MT2', 'MT4', 'MT451']
 class File:
     """
     MF7 file - thermal neutron scattering law data

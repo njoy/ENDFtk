@@ -3,7 +3,7 @@ MF35 - covariances for energy distributions
 """
 from __future__ import annotations
 import typing
-__all__ = ['File', 'Section', 'SquareMatrix']
+__all__: list[str] = ['File', 'Section', 'SquareMatrix']
 class File:
     """
     MF35 file - covariances for angular distributions

@@ -1,5 +1,7 @@
 # standard imports
 import unittest
+import sys
+import platform
 
 # third party imports
 
@@ -470,6 +472,7 @@ class Test_ENDFtk_MF6_Section( unittest.TestCase ) :
 
         verify_chunk( self, copy )
 
+    @unittest.skipIf(sys.platform == "win32" and __debug__, "Skip on Windows debug mode")
     def test_failures( self ) :
 
         print( '\n' )

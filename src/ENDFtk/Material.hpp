@@ -91,19 +91,195 @@ namespace ENDFtk {
   private:
 
     /* fields */
+
     int mat_;
     std::list< FileVariant > files_;
 
     /* auxiliary functions */
-    #include "ENDFtk/Material/src/find.hpp"
-    #include "ENDFtk/Material/src/fill.hpp"
-    #include "ENDFtk/Material/src/read.hpp"
-    #include "ENDFtk/Material/src/verifyMEND.hpp"
+
+    /**
+     *  @brief Return iterator to the file with the given mf number
+     *
+     *  @param[in] mt    the mf number
+     */
+    auto find( int mf ) {
+
+      auto getMF = [] ( auto&& value ) { return value.MF(); };
+      auto iter = std::lower_bound( this->files_.begin(), this->files_.end(), mf,
+                                    [&getMF] ( auto&& left, auto&& right )
+                                             { return std::visit( getMF, left ) < right; } );
+
+      if ( iter != this->files_.end() ) {
+
+        if ( std::visit( getMF, *iter ) == mf ) {
+
+          return iter;
+        }
+      }
+      return this->files_.end();
+    }
+
+    /**
+     *  @brief Return iterator to the section with the given mf number
+     *
+     *  @param[in] mf    the mf number
+     */
+    auto find( int mf ) const {
+
+      auto getMF = [] ( auto&& value ) { return value.MF(); };
+      auto iter = std::lower_bound( this->files_.begin(), this->files_.end(), mf,
+                                    [&getMF] ( auto&& left, auto&& right )
+                                             { return std::visit( getMF, left ) < right; } );
+
+      if ( iter != this->files_.end() ) {
+
+        if ( std::visit( getMF, *iter ) == mf ) {
+
+          return iter;
+        }
+      }
+      return this->files_.end();
+    }
+
+    static auto
+    fill( std::vector< FileVariant >&& files ) {
+
+      std::list< FileVariant > list;
+      for ( auto&& file : files ) {
+
+        auto getMF = [] ( auto&& value ) { return value.MF(); };
+        int MF = std::visit( getMF, file );
+        auto iter = std::lower_bound( list.begin(), list.end(), MF,
+                                      [&getMF] ( auto&& left, auto&& right )
+                                               { return std::visit( getMF, left ) < right; } );
+        if ( iter != list.end() ) {
+
+          if ( std::visit( getMF, *iter ) == MF ) {
+
+            Log::error( "File with duplicate file number found" );
+            Log::info( "Files are required to specify a unique MF or file number" );
+            Log::info( "Encountered duplicate MF: {}", MF );
+            throw std::exception();
+          }
+        }
+        list.insert( iter, std::move( file ) );
+      }
+      return list;
+    }
+
+    template< typename Iterator >
+    static auto
+    read( StructureDivision& division,
+          Iterator& begin,
+          const Iterator& end,
+          long& lineNumber ) {
+
+      std::vector< FileVariant > files;
+      while ( not division.isMend() ) {
+
+        switch ( division.tail.MF() ) {
+
+          case  1 : { files.emplace_back( file::Type<  1 >( division, begin, end, lineNumber ) ); break; }
+          case  2 : { files.emplace_back( file::Type<  2 >( division, begin, end, lineNumber ) ); break; }
+          case  3 : { files.emplace_back( file::Type<  3 >( division, begin, end, lineNumber ) ); break; }
+          case  4 : { files.emplace_back( file::Type<  4 >( division, begin, end, lineNumber ) ); break; }
+          case  5 : { files.emplace_back( file::Type<  5 >( division, begin, end, lineNumber ) ); break; }
+          case  6 : { files.emplace_back( file::Type<  6 >( division, begin, end, lineNumber ) ); break; }
+          case  7 : { files.emplace_back( file::Type<  7 >( division, begin, end, lineNumber ) ); break; }
+          case  8 : { files.emplace_back( file::Type<  8 >( division, begin, end, lineNumber ) ); break; }
+          case  9 : { files.emplace_back( file::Type<  9 >( division, begin, end, lineNumber ) ); break; }
+          case 10 : { files.emplace_back( file::Type< 10 >( division, begin, end, lineNumber ) ); break; }
+          case 12 : { files.emplace_back( file::Type< 12 >( division, begin, end, lineNumber ) ); break; }
+          case 13 : { files.emplace_back( file::Type< 13 >( division, begin, end, lineNumber ) ); break; }
+          case 14 : { files.emplace_back( file::Type< 14 >( division, begin, end, lineNumber ) ); break; }
+          case 15 : { files.emplace_back( file::Type< 15 >( division, begin, end, lineNumber ) ); break; }
+          case 23 : { files.emplace_back( file::Type< 23 >( division, begin, end, lineNumber ) ); break; }
+          case 26 : { files.emplace_back( file::Type< 26 >( division, begin, end, lineNumber ) ); break; }
+          case 27 : { files.emplace_back( file::Type< 27 >( division, begin, end, lineNumber ) ); break; }
+          case 28 : { files.emplace_back( file::Type< 28 >( division, begin, end, lineNumber ) ); break; }
+          case 30 : { files.emplace_back( file::Type< 30 >( division, begin, end, lineNumber ) ); break; }
+          case 31 : { files.emplace_back( file::Type< 31 >( division, begin, end, lineNumber ) ); break; }
+          case 32 : { files.emplace_back( file::Type< 32 >( division, begin, end, lineNumber ) ); break; }
+          case 33 : { files.emplace_back( file::Type< 33 >( division, begin, end, lineNumber ) ); break; }
+          case 34 : { files.emplace_back( file::Type< 34 >( division, begin, end, lineNumber ) ); break; }
+          case 35 : { files.emplace_back( file::Type< 35 >( division, begin, end, lineNumber ) ); break; }
+          case 40 : { files.emplace_back( file::Type< 40 >( division, begin, end, lineNumber ) ); break; }
+          default : {
+
+            int MF = division.tail.MF();
+            Log::error( "Found unsupported file MF{} - skipping file", MF );
+            throw std::exception();
+          }
+        }
+        division = StructureDivision( begin, end, lineNumber );
+      }
+      verifyMEND( division, lineNumber );
+      return std::move( files );
+    }
+
+    static void
+    verifyMEND( const StructureDivision& structureDivision,
+               long lineNumber ) {
+
+      if ( not structureDivision.isMend() ) {
+
+        Log::error( "Expected MEND record" );
+        Log::info("Line number: {}", lineNumber );
+        throw std::exception{};
+      }
+    }
+
+    /* constructor */
+
+    /**
+     *  @brief Private intermediate constructor
+     *
+     *  @param[in] sections   the sections of the file
+     */
+    template< typename Iterator >
+    Material( int MAT,
+              StructureDivision& division,
+              Iterator& begin,
+              const Iterator& end,
+              long& lineNumber ) :
+      Material( MAT, this->read( division, begin, end, lineNumber ) ) {}
 
   public:
 
     /* constructors */
-    #include "ENDFtk/Material/src/ctor.hpp"
+
+    /**
+     *  @brief Constructor
+     *
+     *  @param[in] sections   the sections of the file
+     */
+    Material( int MAT, std::vector< FileVariant >&& files ) :
+      mat_( MAT ), files_( fill( std::move( files ) ) ) {}
+
+    /**
+     *  @brief Constructor (from a buffer)
+     *
+     *  @tparam Iterator        a buffer iterator
+     *
+     *  @param[in] division     the first HEAD record of the section
+     *  @param[in] it           the current position in the buffer
+     *  @param[in] end          the end of the buffer
+     *  @param[in] lineNumber   the current line number
+     */
+    template< typename Iterator >
+    Material( StructureDivision& division,
+              Iterator& begin,
+              const Iterator& end,
+              long& lineNumber )
+      try: Material( division.tail.MAT(), division, begin, end, lineNumber ) {
+
+        this->verifyMEND( division, lineNumber );
+      }
+      catch ( std::exception& e ) {
+
+        Log::info( "Error while reading material {}", division.tail.MAT() );
+        throw e;
+      }
 
     /* methods */
 
@@ -293,7 +469,23 @@ namespace ENDFtk {
       return this->section( mf, mt );
     }
 
-    #include "ENDFtk/Material/src/print.hpp"
+    /**
+     *  @brief Print the file (includes FEND record)
+     *
+     *  @tparam OutputIterator   an output iterator
+     *
+     *  @param[in] it            the current position in the output
+     */
+    template< typename OutputIterator >
+    void print( OutputIterator& it ) const {
+
+      int MAT = this->MAT();
+      for ( const auto& entry : this->files_ ) {
+
+        std::visit( [&] ( auto&& file ) { file.print( it, MAT ); }, entry );
+      }
+      MEND().print( it );
+    }
   };
 
 } // ENDFtk namespace

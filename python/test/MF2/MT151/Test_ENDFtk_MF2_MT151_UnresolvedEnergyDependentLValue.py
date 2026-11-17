@@ -12,7 +12,7 @@ class Test_ENDFtk_MF2_MT151_UnresolvedEnergyDependentLValue( unittest.TestCase )
 
     chunk = ( ' 8.913540+1 0.000000+0          1          0          2          03843 2151     \n'
               ' 5.000000-1 0.000000+0          5          0         24          33843 2151     \n'
-              ' 0.000000+0 0.000000+0 4.000000+0 3.000000+0 2.000000+0 1.000000+03843 2151     \n'
+              ' 0.000000+0 0.000000+0 4.000000+0 3.500000+0 2.000000+0 1.000000+03843 2151     \n'
               ' 6.000000+3 1.240600+4 0.000000+0 6.723800+0 2.050000-1 0.000000+03843 2151     \n'
               ' 7.000000+3 1.240600+4 0.000000+0 6.723800+0 2.050000-1 0.000000+03843 2151     \n'
               ' 8.000000+3 1.240600+4 0.000000+0 6.723800+0 2.050000-1 0.000000+03843 2151     \n'
@@ -39,8 +39,8 @@ class Test_ENDFtk_MF2_MT151_UnresolvedEnergyDependentLValue( unittest.TestCase )
             self.assertAlmostEqual( 0.5, jvalue10.AJ )
             self.assertAlmostEqual( 0.5, jvalue10.spin )
 
-            self.assertEqual( 3, jvalue10.AMUN )
-            self.assertEqual( 3, jvalue10.neutron_width_degrees_freedom )
+            self.assertAlmostEqual( 3.5, jvalue10.AMUN )
+            self.assertAlmostEqual( 3.5, jvalue10.neutron_width_degrees_freedom )
             self.assertEqual( 2, jvalue10.AMUG )
             self.assertEqual( 2, jvalue10.gamma_width_degrees_freedom )
             self.assertEqual( 1, jvalue10.AMUF )
@@ -111,8 +111,8 @@ class Test_ENDFtk_MF2_MT151_UnresolvedEnergyDependentLValue( unittest.TestCase )
             self.assertAlmostEqual( 1.5, jvalue11.AJ )
             self.assertAlmostEqual( 1.5, jvalue11.spin )
 
-            self.assertEqual( 1, jvalue11.AMUN )
-            self.assertEqual( 1, jvalue11.neutron_width_degrees_freedom )
+            self.assertAlmostEqual( 1., jvalue11.AMUN )
+            self.assertAlmostEqual( 1., jvalue11.neutron_width_degrees_freedom )
             self.assertEqual( 4, jvalue11.AMUG )
             self.assertEqual( 4, jvalue11.gamma_width_degrees_freedom )
             self.assertEqual( 2, jvalue11.AMUF )
@@ -177,7 +177,7 @@ class Test_ENDFtk_MF2_MT151_UnresolvedEnergyDependentLValue( unittest.TestCase )
                     awri = 89.13540, l = 1,
                     jvalues =
                         [ UnresolvedEnergyDependentJValue(
-                              0.5, 3, 2, 1, 4, 5,
+                              0.5, 3.5, 2, 1, 4, 5,
                               [ 6000., 7000., 8000. ], [ 12406., 12406., 12406. ],
                               [ 6.7238, 6.7238, 6.7238 ], [ 0.205, 0.205, 0.205 ],
                               [ 0., 0., 0. ], [ 0., 0., 0. ] ),

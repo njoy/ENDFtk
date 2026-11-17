@@ -10,7 +10,7 @@ class Test_ENDFtk_MF2_MT151_UnresolvedEnergyIndependentLValue( unittest.TestCase
     """Unit test for the UnresolvedEnergyIndependentLValue class."""
 
     chunk = ( ' 1.387090+2 0.000000+0          1          0         12          25655 2151     \n'
-              ' 4.400000+3 5.000000-1 1.000000+0 5.280000-1 9.000000-2 0.000000+05655 2151     \n'
+              ' 4.400000+3 5.000000-1 1.500000+0 5.280000-1 9.000000-2 0.000000+05655 2151     \n'
               ' 2.200000+3 1.500000+0 2.000000+0 2.640000-1 9.100000-2 0.000000+05655 2151     \n' )
 
     invalid = ( ' 1.387090+2 0.000000+0          1          0         12          15655 2151     \n'
@@ -55,10 +55,10 @@ class Test_ENDFtk_MF2_MT151_UnresolvedEnergyIndependentLValue( unittest.TestCase
             self.assertAlmostEqual( 1.5, chunk.AJ[1] )
             self.assertAlmostEqual( 0.5, chunk.spin_values[0] )
             self.assertAlmostEqual( 1.5, chunk.spin_values[1] )
-            self.assertEqual( 1, chunk.AMUN[0] )
-            self.assertEqual( 2, chunk.AMUN[1] )
-            self.assertEqual( 1, chunk.neutron_width_degrees_freedom[0] )
-            self.assertEqual( 2, chunk.neutron_width_degrees_freedom[1] )
+            self.assertAlmostEqual( 1.5, chunk.AMUN[0] )
+            self.assertAlmostEqual( 2., chunk.AMUN[1] )
+            self.assertAlmostEqual( 1.5, chunk.neutron_width_degrees_freedom[0] )
+            self.assertAlmostEqual( 2., chunk.neutron_width_degrees_freedom[1] )
             self.assertEqual( 0, chunk.AMUG[0] )
             self.assertEqual( 0, chunk.AMUG[1] )
             self.assertEqual( 0, chunk.gamma_width_degrees_freedom[0] )
@@ -133,7 +133,7 @@ class Test_ENDFtk_MF2_MT151_UnresolvedEnergyIndependentLValue( unittest.TestCase
         # the data is given explicitly
         chunk = UnresolvedEnergyIndependentLValue(
                     awri = 1.387090e+2, l = 1,
-                    d = [ 4400., 2200. ], spins = [ 0.5, 1.5 ], amun = [ 1, 2 ],
+                    d = [ 4400., 2200. ], spins = [ 0.5, 1.5 ], amun = [ 1.5, 2. ],
                     gn = [ 0.528, 0.264 ], gg = [ 0.09, 0.091 ] )
 
         verify_chunk( self, chunk )

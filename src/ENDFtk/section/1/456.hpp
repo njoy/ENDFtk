@@ -42,12 +42,57 @@ namespace section {
   private:
 
     /* fields */
+
     Multiplicity data_;
 
   public:
 
     /* constructors */
-    #include "ENDFtk/section/1/456/src/ctor.hpp"
+
+    //! @todo pybind11 variant needs default constructor workaround
+    #ifdef PYBIND11
+    /**
+     *  @brief Default constructor - only enabled for pybind11
+     */
+    Type() = default;
+    #endif
+
+    /**
+     *  @brief Constructor
+     *
+     *  @param[in] zaid            the ZA value of the material
+     *  @param[in] awr             the atomic weight ratio
+     *  @param[in] multiplicity    the multiplicity data
+     */
+    Type( int zaid, double awr, Multiplicity&& multiplicity ) :
+      BaseWithoutMT( zaid, awr ), data_( std::move( multiplicity ) ) {}
+
+    /**
+     *  @brief Constructor (from a buffer)
+     *
+     *  @tparam Iterator        a buffer iterator
+     *
+     *  @param[in] head         the head record of the section
+     *  @param[in] begin        the current position in the buffer
+     *  @param[in] end          the end of the buffer
+     *  @param[in] lineNumber   the current line number
+     *  @param[in] MAT          the expected MAT number
+     */
+    template< typename Iterator >
+    Type ( const HEAD& head,
+           Iterator& begin,
+           const Iterator& end,
+           long& lineNumber,
+           int MAT )
+      try: BaseWithoutMT( head, MAT, 1 ),
+           data_( std::move( readMultiplicity( begin, end, lineNumber,
+                                               MAT, 1, head.MT(), head.L2() ) ) ) {
+        readSEND( begin, end, lineNumber, MAT, 1 );
+      } catch( std::exception& e ) {
+        Log::info( "Trouble while reading section {} of File 1 of Material {}",
+                   head.MT(), MAT );
+        throw e;
+      }
 
     /* methods */
 
@@ -75,7 +120,25 @@ namespace section {
                                                 { return v.NC(); },
                                              this->data_ ); }
 
-    #include "ENDFtk/section/1/456/src/print.hpp"
+    /**
+     *  @brief Print the MF1/MT456 section (includes SEND record)
+     *
+     *  @tparam OutputIterator   an output iterator
+     *
+     *  @param[in] it            the current position in the output
+     *  @param[in] MAT           the MAT number
+     *  @param[in] MF            the MF number
+     */
+    template< typename OutputIterator >
+    void print( OutputIterator& it, int MAT, int MF ) const {
+
+      ControlRecord( this->ZA(), this->AWR(), 0,
+                     this->LNU(), 0, 0 ).print( it, MAT, MF, this->MT() );
+      std::visit( [&] ( const auto& v ) -> void
+                      { v.print( it, MAT, MF, this->MT() ); },
+                  this->nubar() );
+      SEND( MAT, MF ).print( it );
+    }
 
     /**
      *  @brief Return the MT number of the section

@@ -11,7 +11,7 @@ namespace python = pybind11;
 
 namespace mf34 {
 
-void wrapLegendreBlock( python::module& module, python::module& viewmodule ) {
+void wrapLegendreBlock( python::module& module, python::module& ) {
 
   // type aliases
   using Component = njoy::ENDFtk::section::Type< 34 >::LegendreBlock;

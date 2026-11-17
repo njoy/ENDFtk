@@ -30,6 +30,7 @@ namespace section {
     friend BaseWithoutMT< Type< 1, 451 > >;
 
     /* fields */
+
     int lrp_;
     int lfi_;
     int nlib_;
@@ -39,14 +40,165 @@ namespace section {
     std::vector< DirectoryRecord > index_;
 
     /* auxiliary functions */
-    #include "ENDFtk/section/1/451/src/makeParameters.hpp"
-    #include "ENDFtk/section/1/451/src/makeDescription.hpp"
-    #include "ENDFtk/section/1/451/src/readParameters.hpp"
+
+    static auto
+    makeParameters( double elis, double sta, int lis, int liso, int nfor,
+                    double awi, double emax, int lrel, int nsub, int nver,
+                    double temp, double rtol, int ldrv, int nwd, int nxc ) {
+
+      auto line0 = ControlRecord( elis, sta, lis, liso, 0, nfor );
+      auto line1 = ControlRecord( awi, emax, lrel, 0, nsub, nver );
+      auto line2 = ControlRecord( temp, rtol, ldrv, 0, nwd, nxc );
+      return std::array< ControlRecord, 3 >{{ line0, line1, line2 }};
+    }
+
+    static
+    std::vector< TextRecord >
+    makeDescription( const std::string& description ) {
+
+      std::vector< TextRecord > result;
+      auto begin = description.begin();
+      auto iter = std::find_if( begin, description.end(),
+                                [] ( auto&& character ) { return character == '\n'; } );
+      while ( begin != description.end() &&  iter != description.end() ) {
+
+        result.emplace_back( std::string( begin, iter ) );
+        begin = iter + 1;
+        iter = std::find_if( begin, description.end(),
+                             [] ( auto&& character ) { return character == '\n'; } );
+      }
+
+      if ( iter == description.end() && begin != description.end() ){
+    	  result.emplace_back( std::string( begin, iter ) );
+      }
+
+      return result;
+    }
+
+    template< typename Iterator >
+    static auto
+    readParameters( Iterator& it, const Iterator& end, long& lineNumber, int MAT ) {
+
+      auto line0 = ControlRecord( it, end, lineNumber, MAT, 1, 451 );
+      auto line1 = ControlRecord( it, end, lineNumber, MAT, 1, 451 );
+      auto line2 = ControlRecord( it, end, lineNumber, MAT, 1, 451 );
+      if ( line2.N1() < 0 ){
+        Log::error( "Number of descriptive records (NWD) must be greater than or equal to zero" );
+        Log::info( "See line {}", lineNumber - 1 );
+        throw std::runtime_error("Number of descriptive records (NWD) must be greater than or equal to zero");
+      }
+      if ( line2.N2() < 1 ){
+        Log::error( "Number of index records (NXC) must be greater than or equal to one" );
+        Log::info( "See line {}", lineNumber - 1 );
+        throw std::runtime_error("Number of index records (NXC) must be greater than or equal to one");
+      }
+      return std::array< ControlRecord, 3 >{{ line0, line1, line2 }};
+    }
+
+    /* constructor */
+
+    /**
+     *  @brief Private constructor
+     */
+    Type( int zaid, double awr, int lrp, int lfi, int nlib, int nmod,
+          std::array< ControlRecord, 3 >&& parameters,
+          std::vector< TextRecord >&& description,
+          std::vector< DirectoryRecord >&& index ) :
+      BaseWithoutMT( zaid, awr ), lrp_( lrp ), lfi_( lfi ), nlib_( nlib ), nmod_( nmod ),
+      parameters_( std::move( parameters ) ),
+      description_( std::move( description ) ),
+      index_( std::move( index ) ) {}
 
   public:
 
     /* constructor */
-    #include "ENDFtk/section/1/451/src/ctor.hpp"
+
+    //! @todo pybind11 variant needs default constructor workaround
+    #ifdef PYBIND11
+    /**
+     *  @brief Default constructor - only enabled for pybind11
+     */
+    Type() = default;
+    #endif
+
+    /**
+     *  @brief Constructor
+     *
+     *  @param[in] zaid          the ZA value of the material
+     *  @param[in] awr           the atomic weight ratio
+     *  @param[in] lrp           the resonance parameter flag
+     *  @param[in] lfi           the fissile flag
+     *  @param[in] nlib          the library type
+     *  @param[in] nmod          the modification number
+     *  @param[in] elis          the excitation energy
+     *  @param[in] sta           the stability flag (whether or not the nuclide is unstable)
+     *  @param[in] lis           the excited level number
+     *  @param[in] liso          the isomeric state number
+     *  @param[in] nfor          the library format version number
+     *  @param[in] awi           the atomic weight ratio of the incident particle
+     *  @param[in] emax          the maximum incident energy
+     *  @param[in] lrel          the release number
+     *  @param[in] nsub          the sublibrary number
+     *  @param[in] nver          the version number
+     *  @param[in] temp          the temperature
+     *  @param[in] ldrv          the derived material flag
+     *  @param[in] description   the descriptive information
+     *  @param[in] index         the index
+     *  @param[in] rtol          the reconstruction tolerance (internal NJOY value)
+     */
+    Type( int zaid, double awr, int lrp, int lfi, int nlib, int nmod,
+          double elis, double sta, int lis, int liso, int nfor,
+          double awi, double emax, int lrel, int nsub, int nver,
+          double temp, int ldrv,
+          const std::string& description,
+          std::vector< DirectoryRecord >&& index,
+          double rtol = 0. ) :
+      BaseWithoutMT( zaid, awr ), lrp_( lrp ), lfi_( lfi ), nlib_( nlib ), nmod_( nmod ),
+      parameters_( makeParameters( elis, sta, lis, liso, nfor,
+                                   awi, emax, lrel, nsub, nver,
+                                   temp, rtol, ldrv,
+                                   njoy::tools::std20::distance( njoy::tools::std20::views::split( description, '\n' ) ),
+                                   index.size() ) ),
+      description_( makeDescription( description ) ),
+      index_( std::move( index ) ) {}
+
+    /**
+     *  @brief Constructor (from a buffer)
+     *
+     *  @tparam Iterator        a buffer iterator
+     *
+     *  @param[in] head         the head record of the section
+     *  @param[in] begin        the current position in the buffer
+     *  @param[in] end          the end of the buffer
+     *  @param[in] lineNumber   the current line number
+     *  @param[in] MAT          the expected MAT number
+     */
+    template< typename Iterator >
+    Type ( HEAD& head,
+           Iterator& begin,
+           const Iterator& end,
+           long& lineNumber,
+           int MAT )
+      try :
+
+        BaseWithoutMT( head, MAT, 1 ), lrp_( head.L1() ), lfi_( head.L2() ),
+        nlib_( head.N1() ), nmod_( head.N2() ),
+        parameters_( readParameters( begin, end, lineNumber, MAT ) ),
+        description_( readSequence< TextRecord >(
+                          begin, end, lineNumber, MAT, 1, 451,
+                          this->parameters_[2].N1() ) ),
+        index_( readSequence< DirectoryRecord >(
+                    begin, end, lineNumber, MAT, 1, 451,
+                    this->parameters_[2].N2() ) ) {
+        readSEND(begin, end, lineNumber, MAT, 1 );
+      }
+      catch( std::exception& e ) {
+
+        Log::info( "Trouble while reading section 451 of File 1 of Material {}",
+                   MAT );
+        Log::info( "lineNumber: {}", lineNumber );
+        throw e;
+      }
 
     /* methods */
 
@@ -249,8 +401,41 @@ namespace section {
      */
     long NC() const { return 4 + this->NWD() + this->NXC(); }
 
-    #include "ENDFtk/section/1/451/src/description.hpp"
-    #include "ENDFtk/section/1/451/src/print.hpp"
+    /**
+     *  @brief Return the descriptive data
+     */
+    auto description() const {
+
+      std::string description;
+      description.reserve( this->description_.size() * 67 );
+      for ( auto&& record : this->description_ ) {
+
+        description += record.text();
+        description += '\n';
+      }
+      return description;
+    }
+
+    /**
+     *  @brief Print the MF1/MT451 section (includes SEND record)
+     *
+     *  @tparam OutputIterator   an output iterator
+     *
+     *  @param[in] it            the current position in the output
+     *  @param[in] MAT           the MAT number
+     *  @param[in] MF            the MF number
+     */
+    template< typename OutputIterator >
+    void print( OutputIterator& it, int MAT, int MF ) const {
+
+      int MT = 451;
+      ControlRecord( this->ZA(), this->AWR(), this->LRP(),this->LFI(),
+                     this->NLIB(), this->NMOD() ).print( it, MAT, MF, MT );
+      for ( const auto& entry : this->parameters_ ) entry.print( it, MAT, MF, MT );
+      for ( const auto& entry : this->description_ ) entry.print( it, MAT, MF, MT );
+      for ( const auto& entry : this->index_ ) entry.print( it, MAT, MF, MT );
+      SEND( MAT, MF ).print( it );
+    }
 
     /**
      *  @brief Return the MT number of the section

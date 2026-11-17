@@ -62,14 +62,14 @@ void wrapScatteringRadius( python::module& module, python::module& ) {
     "AP",
     [] ( const Component& self ) -> DoubleRange
        { return self.AP(); },
-    "The scatterin radius values"
+    "The scattering radius values"
   )
   .def_property_readonly(
 
     "radii",
     [] ( const Component& self ) -> DoubleRange
        { return self.radii(); },
-    "The scatterin radius values"
+    "The scattering radius values"
   );
 
   // add standard tab1 definitions

@@ -11,7 +11,7 @@ namespace python = pybind11;
 
 namespace mf40 {
 
-void wrapLevelBlock( python::module& module, python::module& viewmodule ) {
+void wrapLevelBlock( python::module& module, python::module& ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 40 >;

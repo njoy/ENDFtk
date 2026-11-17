@@ -4,11 +4,10 @@ MF8 - radioactive decay and fission product yield data
 from __future__ import annotations
 import pybind11_stubgen.typing_ext
 import typing
-import typing_extensions
 from . import MT454
 from . import MT457
 from . import MT459
-__all__ = ['File', 'FissionYieldData', 'MT454', 'MT457', 'MT459']
+__all__: list[str] = ['File', 'FissionYieldData', 'MT454', 'MT457', 'MT459']
 class File:
     """
     MF8 file - radioactive decay and fission product yield data
@@ -167,7 +166,7 @@ class FissionYieldData:
             mt        the MT number of the section
         """
     @typing.overload
-    def __init__(self, identifiers: list[int], states: list[int], yields: list[typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]], energy: float = 0.0, interpolation: int = 0) -> None:
+    def __init__(self, identifiers: list[int], states: list[int], yields: list[typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]], energy: float = 0.0, interpolation: int = 0) -> None:
         """
         Initialise the component
         

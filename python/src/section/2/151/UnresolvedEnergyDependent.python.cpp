@@ -77,13 +77,15 @@ void wrapUnresolvedEnergyDependent( python::module& module, python::module& view
   .def_property_readonly(
 
     "LFW",
-    [] ( const Component& self ) { return self.LFW(); },
+    [] ( const Component& self ) -> bool
+       { return self.LFW(); },
     "The average fission flag"
   )
   .def_property_readonly(
 
     "average_fission_width_flag",
-    [] ( const Component& self ) { return self.averageFissionWidthFlag(); },
+    [] ( const Component& self ) -> bool
+       { return self.averageFissionWidthFlag(); },
     "The average fission flag"
   )
   .def_property_readonly(
@@ -96,19 +98,19 @@ void wrapUnresolvedEnergyDependent( python::module& module, python::module& view
 
     "spin",
     [] ( const Component& self ) { return self.spin(); },
-    "The scattering radius"
+    "The target spin"
   )
   .def_property_readonly(
 
     "AP",
     [] ( const Component& self ) { return self.AP(); },
-    "The target spin"
+    "The scattering radius"
   )
   .def_property_readonly(
 
     "scattering_radius",
     [] ( const Component& self ) { return self.scatteringRadius(); },
-    "The target spin"
+    "The scattering radius"
   )
   .def_property_readonly(
 

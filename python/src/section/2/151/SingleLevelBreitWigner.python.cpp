@@ -93,7 +93,7 @@ void wrapSingleLevelBreitWigner( python::module& module, python::module& viewmod
 
     "spin",
     [] ( const Component& self ) { return self.spin(); },
-    "The scattering radius"
+    "The target spin"
   )
   .def_property_readonly(
 

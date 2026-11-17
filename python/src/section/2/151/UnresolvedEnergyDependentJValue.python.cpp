@@ -33,7 +33,7 @@ void wrapUnresolvedEnergyDependentJValue( python::module& module, python::module
   component
   .def(
 
-    python::init< double, int, int, int, int, int,
+    python::init< double, double, double, double, double, int,
                   std::vector< double >&&, std::vector< double >&&,
                   std::vector< double >&&, std::vector< double >&&,
                   std::vector< double >&&, std::vector< double >&& >(),
@@ -103,7 +103,7 @@ void wrapUnresolvedEnergyDependentJValue( python::module& module, python::module
 
     "fission_width_degrees_freedom",
     &Component::fissionWidthDegreesFreedom,
-    "The degrees of freedom for the gamma width"
+    "The degrees of freedom for the fission width"
   )
   .def_property_readonly(
 

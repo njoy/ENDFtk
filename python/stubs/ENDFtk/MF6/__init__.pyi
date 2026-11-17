@@ -7,7 +7,7 @@ from . import LAW1
 from . import LAW2
 from . import LAW5
 from . import LAW7
-__all__ = ['ChargedParticleElasticScattering', 'ContinuumEnergyAngle', 'DefinedElsewhere', 'DiscreteTwoBodyRecoils', 'DiscreteTwoBodyScattering', 'File', 'IsotropicDiscreteEmission', 'LAW1', 'LAW2', 'LAW5', 'LAW7', 'LaboratoryAngleEnergy', 'Multiplicity', 'NBodyPhaseSpace', 'ReactionProduct', 'Section', 'Unknown']
+__all__: list[str] = ['ChargedParticleElasticScattering', 'ContinuumEnergyAngle', 'DefinedElsewhere', 'DiscreteTwoBodyRecoils', 'DiscreteTwoBodyScattering', 'File', 'GSection', 'IsotropicDiscreteEmission', 'LAW1', 'LAW2', 'LAW5', 'LAW7', 'LaboratoryAngleEnergy', 'Multiplicity', 'NBodyPhaseSpace', 'ReactionProduct', 'Section', 'Unknown']
 class ChargedParticleElasticScattering:
     """
     MF6 section - LAW=5 - charged particle elastic scattering
@@ -565,6 +565,163 @@ class File:
     def sections(self) -> ...:
         """
         The sections defined in the file
+        """
+class GSection:
+    """
+    MF6 gsection - scattering matrices and fission matrices
+    """
+    @staticmethod
+    def from_string(gsection: str) -> GSection:
+        """
+        Read the section from a string
+        
+        An exception is raised if something goes wrong while reading the
+        section
+        
+        Arguments:
+            section    the string representing the section
+        """
+    @typing.overload
+    def __init__(self, mt: int, zaid: int, awr: float, lr: int = 0, ngn: int, temp: float, flux: list[list[list[float]]], matrix: list[list[list[list[float]]]], cutoff_ig: int, chi: list[list[float]]) -> None:
+        """
+        Initialise the section
+        
+        Arguments:
+           self        the section
+           mt          the MT number
+           zaid        the ZA identifier
+           awr         the atomic mass ratio
+           lr          the complex breakup flag (default 0)
+           ngn         the number of neutron groups
+           temp        the temperature
+           flux        3D array of the group-wise fluxes (nl, nz, ngn)
+           matrix      4D array of cross-sections ( nl, nz, ngn, ngn )
+        """
+    @typing.overload
+    def __init__(self, mt: int, zaid: int, awr: float, lr: int = 0, ngn: int, temp: float, flux: list[list[list[float]]], matrix: list[list[list[list[float]]]]) -> None:
+        """
+        Initialise the section
+        
+        Arguments:
+           self        the section
+           mt          the MT number
+           zaid        the ZA identifier
+           awr         the atomic mass ratio
+           lr          the complex breakup flag (default 0)
+           ngn         the number of neutron groups
+           temp        the temperature
+           flux        3D array of the group-wise fluxes (nl, nz, ngn)
+           matrix      4D array of cross-sections ( nl, nz, ngn, ngn )
+        """
+    @typing.overload
+    def __init__(self, gsection: GSection) -> None:
+        """
+        Initialise the gsection with another gsection
+        
+        Arguments:
+            self       the gsection
+            section    the gsection to be copied
+        """
+    def chi(self, dilution: int) -> list[float]:
+        """
+        The prompt fission spectrum for a given dilution
+        """
+    def flux(self, moment: int, dilution: int) -> list[float]:
+        """
+        The group fluxes for a given moment and dilution index
+        """
+    def matrix(self, moment: int, dilution: int) -> list[list[float]]:
+        """
+        The matrix for a given moment and dilution index
+        """
+    def to_string(self, mat: int, mf: int) -> str:
+        """
+        Return the string representation of the section
+        
+        Arguments:
+            self    the section
+            mat     the MAT number to be used
+            mf      the MF number to be used
+        """
+    @property
+    def AWR(self) -> float:
+        """
+        The atomic weight ratio for the section
+        """
+    @property
+    def LRFLAG(self) -> int:
+        """
+        The break up identifier flag
+        """
+    @property
+    def MT(self) -> int:
+        """
+        The MT number of the section
+        """
+    @property
+    def NGN(self) -> int:
+        """
+        The number of neutron energy bins
+        """
+    @property
+    def NL(self) -> int:
+        """
+        The number of legendre moments
+        """
+    @property
+    def NZ(self) -> int:
+        """
+        The number of dilution values
+        """
+    @property
+    def TEMP(self) -> float:
+        """
+        The temperature
+        """
+    @property
+    def ZA(self) -> int:
+        """
+        The ZA identifier for the section
+        """
+    @property
+    def atomic_weight_ratio(self) -> float:
+        """
+        The atomic weight ratio for the section
+        """
+    @property
+    def break_up(self) -> int:
+        """
+        The break up identifier flag
+        """
+    @property
+    def number_dilutions(self) -> int:
+        """
+        The number of diltuion values
+        """
+    @property
+    def number_groups(self) -> int:
+        """
+        The number of neutron groups
+        """
+    @property
+    def number_moments(self) -> int:
+        """
+        The number of legendre moments
+        """
+    @property
+    def section_number(self) -> int:
+        """
+        The MT number of the section
+        """
+    @property
+    def target_identifier(self) -> int:
+        """
+        The ZA identifier for the section
+        """
+    @property
+    def temperature(self) -> float:
+        """
+        The temperature
         """
 class IsotropicDiscreteEmission:
     """

@@ -98,6 +98,8 @@ class Test_ENDFtk_MF5_PartialDistribution( unittest.TestCase ) :
             # verify content
             self.assertAlmostEqual( 0.0, chunk.U )
             self.assertAlmostEqual( 0.0, chunk.energy_limit_constant )
+            self.assertEqual( 1, chunk.LF )
+            self.assertEqual( 1, chunk.LAW )
 
             p = chunk.probability
 
@@ -226,6 +228,8 @@ class Test_ENDFtk_MF5_PartialDistribution( unittest.TestCase ) :
             # verify content
             self.assertAlmostEqual( -3e+7, chunk.U )
             self.assertAlmostEqual( -3e+7, chunk.energy_limit_constant )
+            self.assertEqual( 5, chunk.LF )
+            self.assertEqual( 5, chunk.LAW )
 
             p = chunk.probability
 
@@ -325,6 +329,8 @@ class Test_ENDFtk_MF5_PartialDistribution( unittest.TestCase ) :
             # verify content
             self.assertEqual( -3e+7, chunk.U )
             self.assertEqual( -3e+7, chunk.energy_limit_constant )
+            self.assertEqual( 7, chunk.LF )
+            self.assertEqual( 7, chunk.LAW )
 
             p = chunk.probability
 
@@ -397,6 +403,8 @@ class Test_ENDFtk_MF5_PartialDistribution( unittest.TestCase ) :
             # verify content
             self.assertAlmostEqual( 1.789920e+7, chunk.U )
             self.assertAlmostEqual( 1.789920e+7, chunk.energy_limit_constant )
+            self.assertEqual( 9, chunk.LF )
+            self.assertEqual( 9, chunk.LAW )
 
             p = chunk.probability
 
@@ -472,6 +480,8 @@ class Test_ENDFtk_MF5_PartialDistribution( unittest.TestCase ) :
             # verify content
             self.assertEqual( -3e+7, chunk.U )
             self.assertEqual( -3e+7, chunk.energy_limit_constant )
+            self.assertEqual( 11, chunk.LF )
+            self.assertEqual( 11, chunk.LAW )
 
             p = chunk.probability
 
@@ -566,6 +576,8 @@ class Test_ENDFtk_MF5_PartialDistribution( unittest.TestCase ) :
             # verify content
             self.assertEqual( 0.0, chunk.U )
             self.assertEqual( 0.0, chunk.energy_limit_constant )
+            self.assertEqual( 12, chunk.LF )
+            self.assertEqual( 12, chunk.LAW )
 
             p = chunk.probability
 

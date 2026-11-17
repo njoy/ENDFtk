@@ -33,6 +33,7 @@ namespace section{
 class ENDFTK_PYTHON_EXPORT ReactionBlock {
 
   /* fields */
+
   int xmf1_;
   int xlfs1_;
   int mat1_;
@@ -41,12 +42,161 @@ class ENDFTK_PYTHON_EXPORT ReactionBlock {
   std::vector< ExplicitCovariance > ni_;
 
   /* auxiliary functions */
-  #include "ENDFtk/section/ReactionBlock/src/readNC.hpp"
+
+  template< typename Iterator >
+  static std::vector< DerivedCovariance >
+  readNC( Iterator& begin,
+                    const Iterator& end,
+                    long& lineNumber,
+                    int MAT, int MF, int MT,
+                    int numberNC ) {
+
+    std::vector< DerivedCovariance > result;
+
+    for (int i=0; i<numberNC; ++i) {
+
+      ControlRecord cont( begin, end, lineNumber, MAT, MF, MT );
+
+      switch ( cont.L2() ) {
+
+        // DerivedRedundant
+        case 0:
+          result.push_back(
+            DerivedRedundant( cont.L2(),
+                              begin, end, lineNumber, MAT, MF, MT ) );
+          break;
+
+        // DerivedRatioToStandard
+        case 1:
+        case 2:
+        case 3:
+          result.push_back(
+            DerivedRatioToStandard( cont.L2(),
+                                    begin, end, lineNumber, MAT, MF, MT ) );
+          break;
+
+        // Error
+        default:
+          Log::error( "Encountered illegal LTY value" );
+          Log::info( "LTY can only be 0,1,2,3" );
+          Log::info( "LTY value: {}", cont.L2() );
+          Log::info( "Line number: {}", lineNumber - 1 );
+          throw std::exception();
+
+      }
+
+    }
+
+    return result;
+
+  }
+
+  /* constructor */
+
+  template< typename Iterator >
+  ReactionBlock( ControlRecord&& cont,
+                 std::vector< DerivedCovariance >&& nc,
+                 Iterator& begin,
+                 const Iterator& end,
+                 long& lineNumber,
+                 int MAT, int MF, int MT ) :
+    ReactionBlock( static_cast< int >( std::round( cont.C1() ) ),
+                   static_cast< int >( std::round( cont.C2() ) ),
+                   cont.L1(), cont.L2(), std::move( nc ),
+                   readSequence( begin, end, lineNumber, MAT, MF, MT, cont.N2() ) ) {}
+
+  template< typename Iterator >
+  ReactionBlock( ControlRecord&& cont,
+                 Iterator& begin,
+                 const Iterator& end,
+                 long& lineNumber,
+                 int MAT, int MF, int MT ) :
+    ReactionBlock( std::move( cont ),
+                   readNC( begin, end, lineNumber,
+                           MAT, MF, MT, cont.N1() ),
+                   begin, end, lineNumber, MAT, MF, MT ) {}
 
 public:
 
   /* constructor */
-  #include "ENDFtk/section/ReactionBlock/src/ctor.hpp"
+
+  /**
+   *  @brief Constructor
+   *
+   *  @param[in] xmf1          the file number of the second cross section
+   *  @param[in] xlfs1         the final excited state of the second cross section
+   *  @param[in] mat1          the material number of the second cross section
+   *  @param[in] mt1           the section number of the second cross section
+   *  @param[in] nc            the NC-type (derived) subsubsections
+   *  @param[in] ni            the NI-type (explicit) subsubsections
+   */
+  ReactionBlock( int xmf1, int xlfs1, int mat1, int mt1,
+                 std::vector< DerivedCovariance >&& nc,
+                 std::vector< ExplicitCovariance >&& ni ) :
+    xmf1_( xmf1 ), xlfs1_( xlfs1 ),
+    mat1_( mat1 ), mt1_( mt1 ),
+    nc_( std::move( nc ) ),
+    ni_( std::move( ni ) ) {}
+
+  /**
+   *  @brief Constructor
+   *
+   *  NC Only.
+   *
+   *  @param[in] xmf1          the file number of the second cross section
+   *  @param[in] xlfs1         the final excited state of the second cross section
+   *  @param[in] mat1          the material number of the second cross section
+   *  @param[in] mt1           the section number of the second cross section
+   *  @param[in] nc            the NC-type (derived) subsubsections
+   */
+  ReactionBlock( int xmf1, int xlfs1, int mat1, int mt1,
+                 std::vector< DerivedCovariance >&& nc ) :
+    xmf1_( xmf1 ), xlfs1_( xlfs1 ), mat1_( mat1 ), mt1_( mt1 ),
+    nc_( std::move( nc ) ) {}
+
+  /**
+   *  @brief Constructor
+   *
+   *  NI Only.
+   *
+   *  @param[in] xmf1          the file number of the second cross section
+   *  @param[in] xlfs1         the final excited state of the second cross section
+   *  @param[in] mat1          the material number of the second cross section
+   *  @param[in] mt1           the section number of the second cross section
+   *  @param[in] ni            the NI-type (explicit) subsubsections
+   *
+   */
+  ReactionBlock( int xmf1, int xlfs1, int mat1, int mt1,
+                 std::vector< ExplicitCovariance >&& ni ) :
+    xmf1_( xmf1 ), xlfs1_( xlfs1 ), mat1_( mat1 ), mt1_( mt1 ),
+    ni_( std::move( ni ) ) {}
+
+  /**
+   *  @brief Constructor (from a buffer)
+   *
+   *  @tparam Iterator        a buffer iterator
+   *
+   *  @param[in] it           the current position in the buffer
+   *  @param[in] end          the end of the buffer
+   *  @param[in] lineNumber   the current line number
+   *  @param[in] MAT          the expected MAT number
+   *  @param[in] MF           the expected MF number
+   *  @param[in] MT           the expected MT number
+   */
+  template< typename Iterator >
+  ReactionBlock( Iterator& it, const Iterator& end, long& lineNumber,
+                 int MAT, int MF, int MT )
+  try :
+    ReactionBlock(
+      ControlRecord( it, end, lineNumber, MAT, MF, MT ),
+      it, end, lineNumber, MAT, MF, MT ) {
+
+  } catch( std::exception& e ) {
+
+    Log::info( "Trouble while creating a covariance ReactionBlock",
+               MT, MAT );
+    throw e;
+  }
 
   /* methods */
 
@@ -128,8 +278,63 @@ public:
     return std20::views::all( this->ni_ );
   }
 
-  #include "ENDFtk/section/ReactionBlock/src/NC.hpp"
-  #include "ENDFtk/section/ReactionBlock/src/print.hpp"
+  /**
+   *  @brief Return the number of lines in this MF33 subsection
+   */
+  long NC() const {
+
+    long result = 1;
+
+    // NC subsubsections
+    for ( const auto& nc : this->nc_ ) {
+      std::visit( [&] ( const auto& v ) -> void
+                      { result += v.NC(); },
+                  nc );
+    }
+
+    // NI subsubsections
+    for ( const auto& ni : this->ni_ ) {
+      std::visit( [&] ( const auto& v ) -> void
+                      { result += v.NC(); },
+                  ni );
+    }
+
+    return result;
+
+  }
+
+  /**
+   *  @brief Print this MF33 component
+   *
+   *  @tparam OutputIterator   an output iterator
+   *
+   *  @param[in] it            the current position in the output
+   *  @param[in] MAT           the MAT number
+   *  @param[in] MF            the MF number
+   *  @param[in] MT            the MT number
+   */
+  template< typename OutputIterator >
+  void print( OutputIterator& it, int MAT, int MF, int MT ) const {
+
+    // metadata
+    ControlRecord( this->XMF1(), this->XLFS1(), this->MAT1(), this->MT1(),
+                   this->NK(), this->NI() ).print( it, MAT, MF, MT );
+
+    // NC subsubsections
+    for ( auto& nc : this->nc_ ) {
+      std::visit( [&] ( const auto& v ) -> void
+                      { v.print( it, MAT, MF, MT ); },
+                  nc );
+    }
+
+    // NI subsubsections
+    for ( auto& ni : this->ni_ ) {
+      std::visit( [&] ( const auto& v ) -> void
+                      { v.print( it, MAT, MF, MT ); },
+                  ni );
+    }
+
+  }
 };
 
 } // section namespace

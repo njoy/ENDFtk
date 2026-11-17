@@ -11,7 +11,7 @@ namespace python = pybind11;
 
 namespace mf7 {
 
-void wrapElementInformation( python::module& module, python::module& viewmodule ) {
+void wrapElementInformation( python::module& module, python::module& ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 7, 451 >;

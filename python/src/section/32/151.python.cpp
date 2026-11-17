@@ -67,8 +67,6 @@ void wrapSection_32_151( python::module& module, python::module& viewmodule ) {
   using IsotopeRange = RandomAccessAnyView< Isotope >;
   using ShortRangeBreitWignerBlock = Section::ShortRangeBreitWignerBlock;
   using LongRangeCovarianceBlock = Section::LongRangeCovarianceBlock;
-  using ShortRangeBreitWignerBlockRange = RandomAccessAnyView< ShortRangeBreitWignerBlock >;
-  using LongRangeCovarianceBlockRange = RandomAccessAnyView< LongRangeCovarianceBlock >;
 
   // create the submodule
   python::module submodule = module.def_submodule(

@@ -7,15 +7,45 @@
 class ENDFTK_PYTHON_EXPORT DefinedElsewhere : protected NoLawDataGiven {
 
   /* fields */
+
   int law_;
 
   /* auxiliary functions */
-  #include "ENDFtk/section/6/DefinedElsewhere/src/checkLAW.hpp"
+
+  static void
+  checkLAW( int law ) {
+
+    if ( ( law != -4 ) and ( law != -5 ) and
+         ( law != -14 ) and ( law != -15 ) ) {
+
+      Log::error( "Encountered illegal negative LAW value" );
+      Log::info( "LANG must be equal to -4, -5, -14 or -15" );
+      Log::info( "LANG value: {}", law );
+      throw std::exception();
+    }
+  }
 
 public:
 
   /* constructor */
-  #include "ENDFtk/section/6/DefinedElsewhere/src/ctor.hpp"
+
+  //! @todo pybind11 variant needs default constructor workaround
+  #ifdef PYBIND11
+  /**
+   *  @brief Default constructor - only enabled for pybind11
+   */
+  DefinedElsewhere() = default;
+  #endif
+
+  /**
+   *  @brief Constructor
+   *
+   *  @param[in] law    the law number to be used (-4, -5, -14, -15 only)
+   */
+  DefinedElsewhere ( int LAW ) : law_( LAW ) {
+
+    checkLAW( this->LAW() );
+  }
 
   /* methods */
 

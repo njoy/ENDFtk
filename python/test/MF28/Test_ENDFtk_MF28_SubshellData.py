@@ -14,6 +14,9 @@ class Test_ENDFtk_MF8_SubshellData( unittest.TestCase ) :
               ' 3.000000+0 2.000000+0 9.506600+4 7.500000-1 0.000000+0 0.000000+0 10028533     \n'
               ' 4.000000+0 3.000000+0 9.892800+4 2.500000-1 0.000000+0 0.000000+0 10028533     \n' )
 
+    chunk_without_transitions = ( ' 1.000000+0 0.000000+0          0          0          6          0 10028533     \n'
+                                  ' 1.156100+4 1.330000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+0 10028533     \n' )
+
     invalid = ( ' 1.000000+0 0.000000+0          0          0         18          1 10028533     \n'
                 ' 1.156100+4 2.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+0 10028533     \n'
                 ' 3.000000+0 2.000000+0 9.506600+4 7.500000-1 0.000000+0 0.000000+0 10028533     \n'
@@ -31,8 +34,8 @@ class Test_ENDFtk_MF8_SubshellData( unittest.TestCase ) :
 
             self.assertAlmostEqual( 1.156100e+4, chunk.EBI )
             self.assertAlmostEqual( 1.156100e+4, chunk.subshell_binding_energy )
-            self.assertEqual( 2, chunk.ELN )
-            self.assertEqual( 2, chunk.number_subshell_electrons )
+            self.assertAlmostEqual( 2, chunk.ELN )
+            self.assertAlmostEqual( 2, chunk.number_subshell_electrons )
 
             self.assertEqual( 2, len( chunk.SUBJ ) )
             self.assertEqual( 2, len( chunk.secondary_subshell_designators ) )
@@ -64,6 +67,39 @@ class Test_ENDFtk_MF8_SubshellData( unittest.TestCase ) :
 
             # verify string
             self.assertEqual( self.chunk, chunk.to_string( 100, 28, 533 ) )
+
+        def verify_chunk_without_transitions( self, chunk ) :
+
+            # verify content
+            self.assertEqual( 1, chunk.SUBI )
+            self.assertEqual( 1, chunk.subshell_designator )
+            self.assertEqual( 0, chunk.NTR )
+            self.assertEqual( 0, chunk.number_transitions )
+
+            self.assertAlmostEqual( 1.156100e+4, chunk.EBI )
+            self.assertAlmostEqual( 1.156100e+4, chunk.subshell_binding_energy )
+            self.assertAlmostEqual( 1.33, chunk.ELN )
+            self.assertAlmostEqual( 1.33, chunk.number_subshell_electrons )
+
+            self.assertEqual( 2, chunk.NC )
+
+            # verify string
+            self.assertEqual( self.chunk_without_transitions, chunk.to_string( 100, 28, 533 ) )
+
+        # the data is given explicitly without transitions
+        chunk = SubshellData( subshell = 1, energy = 11561, eln = 1.33 )
+
+        verify_chunk_without_transitions( self, chunk )
+
+        # the data is read from a string
+        chunk = SubshellData.from_string( self.chunk_without_transitions, 100, 28, 533 )
+
+        verify_chunk_without_transitions( self, chunk )
+
+        # the data is copied
+        copy = SubshellData( chunk )
+
+        verify_chunk_without_transitions( self, copy )
 
         # the data is given explicitly
         chunk = SubshellData( subshell = 1, energy = 11561, eln = 2,

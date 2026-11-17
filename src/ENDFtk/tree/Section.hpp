@@ -22,21 +22,98 @@ namespace tree {
   class Section {
 
     /* fields */
+
     int mat_;
     int mf_;
     int mt_;
     std::string content_;
 
     /* auxiliary function */
-    #include "ENDFtk/tree/Section/src/findEnd.hpp"
+
+    template< typename BufferIterator >
+    static BufferIterator findEnd
+    ( BufferIterator& position, const BufferIterator& end, long& lineNumber ) {
+
+      // skip to the first SEND record
+      while ( record::skip( position, end, lineNumber ).MT() != 0 ) {
+
+        if ( position >= end ) {
+
+          Log::error( "Encountered the end of stream before a SEND record was found" );
+          throw std::exception();
+        }
+      }
+      return position;
+    }
 
   public:
 
     /* constructor */
-    #include "ENDFtk/tree/Section/src/ctor.hpp"
+
+    /**
+     *  @brief Constructor
+     *
+     *  This constructor is not to be called directly by a user.
+     *
+     *  @param[in] MAT      the MAT number of the section
+     *  @param[in] MF       the MF number of the section
+     *  @param[in] MT       the MT number of the section
+     *  @param[in] buffer   the buffer representing the section
+     */
+    Section( int MAT, int MF, int MT, std::string&& buffer ) :
+      mat_( MAT ), mf_( MF ), mt_( MT ), content_( std::move( buffer ) ) {}
+
+    /**
+     *  @brief Constructor (from a buffer)
+     *
+     *  This constructor is not to be called directly by a user.
+     *
+     *  @param[in] head         the head record of the section
+     *  @param[in] begin        the beginning of the buffer
+     *  @param[in] position     the current position in the buffer
+     *  @param[in] end          the end of the buffer
+     *  @param[in] lineNumber   the current line number
+     */
+    template< typename BufferIterator >
+    Section( const HEAD& head, BufferIterator begin,
+             BufferIterator& position, const BufferIterator& end,
+             long& lineNumber )
+      try: Section( head.MAT(), head.MF(), head.MT(),
+                    std::string( begin, findEnd( position, end, lineNumber ) ) ) {}
+      catch( std::exception& e ) {
+
+        Log::info( "Trouble encountered while constructing an ENDF tree section" );
+        Log::info( "Current position: MAT{} MF{} MT{} at line {}",
+                   head.MAT(), head.MF(), head.MT(), lineNumber );
+        throw e;
+      }
 
     /* methods */
-    #include "ENDFtk/tree/Section/src/parse.hpp"
+
+    /**
+     *  @brief Parse the section
+     *
+     *  @param[in] lineNumber   the line number to be used in parsing
+     */
+    template< int MF, int... OptionalMT >
+    section::Type< MF, OptionalMT... > parse( long& lineNumber ) const {
+
+      auto position = this->content().begin();
+      auto end = this->content().end();
+
+      HeadRecord head( position, end, lineNumber );
+      return { head, position, end, lineNumber, head.MAT() };
+    }
+
+    /**
+     *  @brief Parse the section
+     */
+    template< int MF, int... OptionalMT >
+    section::Type< MF, OptionalMT... > parse() const {
+
+      long lineNumber = 1;
+      return this->parse< MF, OptionalMT... >( lineNumber );
+    }
 
     /**
      *  @brief Return MAT number of the section
@@ -81,7 +158,29 @@ namespace tree {
       return std::count( this->content_.begin(), this->content_.end(), '\n' ) - 1;
     }
 
-    #include "ENDFtk/tree/Section/src/clean.hpp"
+    /**
+     *  @brief Clean up the section
+     *
+     *  This section removes the sequence numbers from the section
+     */
+    void clean() {
+
+      int NC = this->NC();
+      std::string content = this->content();
+      auto position = content.begin();
+      auto end = content.end();
+      long lineNumber = 0;
+
+      this->content_.clear();
+      auto output = std::back_inserter( this->content_ );
+
+      while ( NC-- > 0 ) {
+
+        TextRecord text( position, end, lineNumber, this->MAT(), this->MF(), this->MT() );
+        text.print( output, this->MAT(), this->MF(), this->MT() );
+      }
+      SEND( this->MAT(), this->MF() ).print( output );
+    }
   };
 
 } // tree namespace

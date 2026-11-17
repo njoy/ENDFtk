@@ -5,7 +5,7 @@ from __future__ import annotations
 import typing
 from . import MT151
 from . import MT152
-__all__ = ['File', 'MT151', 'MT152']
+__all__: list[str] = ['File', 'MT151', 'MT152']
 class File:
     """
     MF2 file - resonance parameters

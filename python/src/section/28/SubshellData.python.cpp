@@ -35,7 +35,18 @@ void wrapSubshellData( python::module& module, python::module& viewmodule ) {
   component
   .def(
 
-    python::init< unsigned int, double, unsigned int,
+    python::init< unsigned int, double, double >(),
+    python::arg( "subshell" ), python::arg( "energy" ), python::arg( "eln" ),
+    "Initialise the component\n\n"
+    "Arguments:\n"
+    "    self            the component\n"
+    "    subshell        the subshell designator\n"
+    "    energy          the binding energy of the subshell\n"
+    "    eln             the number of electrons in the subshell"
+  )
+  .def(
+
+    python::init< unsigned int, double, double,
                   std::vector< unsigned int >&&,
                   std::vector< unsigned int >&&,
                   std::vector< double >&&,

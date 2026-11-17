@@ -3,7 +3,7 @@ LCOMP1 - general resolved resonance covariance components
 """
 from __future__ import annotations
 import typing
-__all__ = ['CovarianceMatrix', 'ResonanceParameters']
+__all__: list[str] = ['CovarianceMatrix', 'ResonanceParameters']
 class CovarianceMatrix:
     """
     MF32 MT151 section - covariance data for the R-matrix limited

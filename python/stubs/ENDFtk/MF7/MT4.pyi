@@ -3,7 +3,7 @@ MT4 - incoherent inelastic scattering
 """
 from __future__ import annotations
 import typing
-__all__ = ['AnalyticalFunctions', 'EffectiveTemperature', 'ScatteringFunction', 'ScatteringLawConstants', 'Section', 'TabulatedFunctions']
+__all__: list[str] = ['AnalyticalFunctions', 'EffectiveTemperature', 'ScatteringFunction', 'ScatteringLawConstants', 'Section', 'TabulatedFunctions']
 class AnalyticalFunctions:
     """
     MF7 MT4 section - scattering law for the principal scatterer are

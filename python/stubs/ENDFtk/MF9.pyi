@@ -3,7 +3,7 @@ MF9 - multiplicities for radioactive nuclide production
 """
 from __future__ import annotations
 import typing
-__all__ = ['File', 'ReactionProduct', 'Section']
+__all__: list[str] = ['File', 'ReactionProduct', 'Section']
 class File:
     """
     MF9 file - multiplicities for radioactive nuclide production

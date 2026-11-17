@@ -6,7 +6,7 @@ from __future__ import annotations
 import typing
 from . import LCOMP1
 from . import LCOMP2
-__all__ = ['CompactBreitWignerUncertainties', 'CompactCorrelationMatrix', 'CompactMultiLevelBreitWigner', 'CompactRMatrixLimited', 'CompactRMatrixLimitedUncertainties', 'CompactReichMoore', 'CompactReichMooreUncertainties', 'CompactSingleLevelBreitWigner', 'GeneralMultiLevelBreitWigner', 'GeneralRMatrixLimited', 'GeneralReichMoore', 'GeneralSingleLevelBreitWigner', 'Isotope', 'LCOMP1', 'LCOMP2', 'LimitedBreitWignerLValue', 'LimitedMultiLevelBreitWigner', 'LimitedSingleLevelBreitWigner', 'ReichMooreScatteringRadiusUncertainties', 'ResonanceRange', 'ScatteringRadiusCovariances', 'Section', 'ShortRangeBreitWignerBlock', 'ShortRangeRMatrixLimitedBlock', 'ShortRangeReichMooreBlock', 'UnresolvedCovarianceMatrix', 'UnresolvedLValue', 'UnresolvedRelativeCovariances']
+__all__: list[str] = ['CompactBreitWignerUncertainties', 'CompactCorrelationMatrix', 'CompactMultiLevelBreitWigner', 'CompactRMatrixLimited', 'CompactRMatrixLimitedUncertainties', 'CompactReichMoore', 'CompactReichMooreUncertainties', 'CompactSingleLevelBreitWigner', 'GeneralMultiLevelBreitWigner', 'GeneralRMatrixLimited', 'GeneralReichMoore', 'GeneralSingleLevelBreitWigner', 'Isotope', 'LCOMP1', 'LCOMP2', 'LimitedBreitWignerLValue', 'LimitedMultiLevelBreitWigner', 'LimitedSingleLevelBreitWigner', 'ReichMooreScatteringRadiusUncertainties', 'ResonanceRange', 'ScatteringRadiusCovariances', 'Section', 'ShortRangeBreitWignerBlock', 'ShortRangeRMatrixLimitedBlock', 'ShortRangeReichMooreBlock', 'UnresolvedCovarianceMatrix', 'UnresolvedLValue', 'UnresolvedRelativeCovariances']
 class CompactBreitWignerUncertainties:
     """
     MF32 MT151 section - The resonance parameters and uncertainties in the SLBW or MLBW                      representation (LCOMP = 2)
@@ -1769,7 +1769,7 @@ class GeneralReichMoore:
     @property
     def spin(self) -> float:
         """
-        The scattering radius
+        The target spin
         """
     @property
     def type(self) -> int:
@@ -2715,7 +2715,7 @@ class ReichMooreScatteringRadiusUncertainties:
     @property
     def DAP(self) -> float:
         """
-        The atomic weight ratio of the current isotope
+        The default scattering radius uncertainty
         """
     @property
     def DAPL(self) -> ...:
@@ -2730,7 +2730,7 @@ class ReichMooreScatteringRadiusUncertainties:
     @property
     def default_uncertainty(self) -> float:
         """
-        The atomic weight ratio of the current isotope
+        The default scattering radius uncertainty
         """
     @property
     def uncertainties(self) -> ...:

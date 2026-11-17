@@ -9,8 +9,89 @@ class ENDFTK_PYTHON_EXPORT CompactBreitWignerUncertainties :
   protected ListRecord {
 
   /* auxiliary functions */
-  #include "ENDFtk/section/32/151/CompactBreitWignerUncertainties/src/verifySize.hpp"
-  #include "ENDFtk/section/32/151/CompactBreitWignerUncertainties/src/generateList.hpp"
+
+  static void
+  verifySize( int NPL, int NRSA ) {
+
+    if ( NPL < 1 ) {
+
+      Log::error( "Encountered empty list" );
+      Log::info( "NPL should be larger than zero and equal to 12 * NRSA" );
+      Log::info( "NPL value: {}", NPL );
+      Log::info( "NRSA value: {}", NRSA );
+      throw std::exception();
+    }
+
+    if ( NRSA < 1 ) {
+
+      Log::error( "Encountered illegal NRSA value" );
+      Log::info( "NRSA should be larger than zero" );
+      Log::info( "NRSA value: {}", NRSA );
+      throw std::exception();
+    }
+
+    if ( NPL != 12 * NRSA ) {
+
+      Log::error( "Encountered inconsistent list size" );
+      Log::info( "NPL must be equal to 12 * NRSA" );
+      Log::info( "NPL value: {}", NPL );
+      Log::info( "NRSA value: {}", NRSA );
+      throw std::exception();
+    }
+  }
+
+  static std::vector< double >
+  generateList( std::vector< double >&& energies,
+                std::vector< double >&& spins,
+                std::vector< double >&& gt,
+                std::vector< double >&& gn,
+                std::vector< double >&& gg,
+                std::vector< double >&& gf,
+                std::vector< double >&& der,
+                std::vector< double >&& dgn,
+                std::vector< double >&& dgg,
+                std::vector< double >&& dgf ) {
+
+    unsigned int nrs = energies.size();
+    if ( ( spins.size() != nrs ) or ( gt.size() != nrs ) or
+         ( gn.size() != nrs ) or ( gg.size() != nrs ) or ( gf.size() != nrs ) or
+         ( der.size() != nrs ) or ( dgn.size() != nrs ) or
+         ( dgg.size() != nrs ) or ( dgf.size() != nrs ) ) {
+
+      Log::info( "The number of resonances and the resonance parameters are not "
+                 "consistent" );
+      Log::info( "NRSA value: {}", nrs );
+      Log::info( "energies.size(): {}", energies.size() );
+      Log::info( "spins.size(): {}", spins.size() );
+      Log::info( "gt.size(): {}", gt.size() );
+      Log::info( "gn.size(): {}", gn.size() );
+      Log::info( "gg.size(): {}", gg.size() );
+      Log::info( "gf.size(): {}", gf.size() );
+      Log::info( "der.size(): {}", der.size() );
+      Log::info( "dgn.size(): {}", dgn.size() );
+      Log::info( "dgg.size(): {}", dgg.size() );
+      Log::info( "dgf.size(): {}", dgf.size() );
+      throw std::exception();
+    }
+
+    std::vector< double > list;
+    for ( unsigned int i = 0; i < nrs; ++i ) {
+
+      list.push_back( energies[i] );
+      list.push_back( spins[i] );
+      list.push_back( gt[i] );
+      list.push_back( gn[i] );
+      list.push_back( gg[i] );
+      list.push_back( gf[i] );
+      list.push_back( der[i] );
+      list.push_back( 0. );
+      list.push_back( 0. );
+      list.push_back( dgn[i] );
+      list.push_back( dgg[i] );
+      list.push_back( dgf[i] );
+    }
+    return list;
+  }
 
   auto column( unsigned int i ) const {
 
@@ -19,12 +100,105 @@ class ENDFTK_PYTHON_EXPORT CompactBreitWignerUncertainties :
                               | std23::views::stride( 12 );
   }
 
+  /* constructor */
+
+  /**
+   *  @brief Private intermediate constructor
+   */
+  CompactBreitWignerUncertainties( ListRecord&& list ) :
+    ListRecord( std::move( list ) ) {
+
+    verifySize( this->NPL(), this->N2() );
+  }
+
 public:
 
   #include "ENDFtk/section/32/151/CompactBreitWignerUncertainties/Resonance.hpp"
 
   /* constructor */
-  #include "ENDFtk/section/32/151/CompactBreitWignerUncertainties/src/ctor.hpp"
+
+  //! @todo pybind11 variant needs default constructor workaround
+  #ifdef PYBIND11
+  /**
+   *  @brief Default constructor - only enabled for pybind11
+   */
+  CompactBreitWignerUncertainties() = default;
+  #endif
+
+  /**
+   *  @brief Constructor
+   *
+   *  @param[in] awri       the atomic weight ratio
+   *  @param[in] qx         the competitive Q value
+   *  @param[in] lrx        the competitive width flag
+   *  @param[in] energies   the resonance energies (NRSA values)
+   *  @param[in] spins      the spin values (NRSA values)
+   *  @param[in] gt         the total widths (NRSA values)
+   *  @param[in] gn         the neutron widths (NRSA values)
+   *  @param[in] gg         the gamma widths (NRSA values)
+   *  @param[in] gf         the fission widths (NRSA values)
+   *  @param[in] der        the energy uncertainties (NRSA values)
+   *  @param[in] dgn        the neutron width uncertainties (NRSA values)
+   *  @param[in] dgg        the gamma width uncertainties (NRSA values)
+   *  @param[in] dgf        the fission width uncertainties (NRSA values)
+   */
+  CompactBreitWignerUncertainties( double awri, double qx, bool lrx,
+                                   std::vector< double >&& energies,
+                                   std::vector< double >&& spins,
+                                   std::vector< double >&& gt,
+                                   std::vector< double >&& gn,
+                                   std::vector< double >&& gg,
+                                   std::vector< double >&& gf,
+                                   std::vector< double >&& der,
+                                   std::vector< double >&& dgn,
+                                   std::vector< double >&& dgg,
+                                   std::vector< double >&& dgf ) :
+    // no try ... catch: exceptions will be handled in the derived class
+    CompactBreitWignerUncertainties(
+            ListRecord( awri, qx, 0, lrx, energies.size(),
+                        generateList( std::move( energies ),
+                                      std::move( spins ),
+                                      std::move( gt ), std::move( gn ),
+                                      std::move( gg ), std::move( gf ),
+                                      std::move( der ), std::move( dgn ),
+                                      std::move( dgg ), std::move( dgf ) ) ) ) {}
+
+  /**
+   *  @brief Constructor (from a buffer)
+   *
+   *  @tparam Iterator        a buffer iterator
+   *
+   *  @param[in] it           the current position in the buffer
+   *  @param[in] end          the end of the buffer
+   *  @param[in] lineNumber   the current line number
+   *  @param[in] MAT          the expected MAT number
+   *  @param[in] MF           the expected MF number
+   *  @param[in] MT           the expected MT number
+   */
+  template< typename Iterator >
+  CompactBreitWignerUncertainties( Iterator& it, const Iterator& end, long& lineNumber,
+                                   int MAT, int MF, int MT ) :
+     // no try ... catch: exceptions will be handled in the derived class
+    CompactBreitWignerUncertainties( ListRecord( it, end, lineNumber, MAT, MF, MT ) ) {}
+
+  /**
+   *  @brief Constructor (from a buffer)
+   *
+   *  @tparam Iterator        a buffer iterator
+   *
+   *  @param[in] it           the current position in the buffer
+   *  @param[in] end          the end of the buffer
+   *  @param[in] lineNumber   the current line number
+   *  @param[in] MAT          the expected MAT number
+   *  @param[in] MF           the expected MF number
+   *  @param[in] MT           the expected MT number
+   *  @param[in] unused       placeholder
+   */
+  template< typename Iterator >
+  CompactBreitWignerUncertainties( Iterator& it, const Iterator& end, long& lineNumber,
+                                   int MAT, int MF, int MT, int /* unused */ ) :
+     // no try ... catch: exceptions will be handled in the derived class
+    CompactBreitWignerUncertainties( it, end, lineNumber, MAT, MF, MT ) {}
 
   /* get methods */
 

@@ -6,6 +6,7 @@ from . import MF12
 from . import MF13
 from . import MF14
 from . import MF15
+from . import MF16
 from . import MF2
 from . import MF23
 from . import MF26
@@ -26,7 +27,7 @@ from . import MF8
 from . import MF9
 from . import sequence
 from . import tree
-__all__ = ['ControlRecord', 'CovariancePairs', 'DerivedRatioToStandard', 'DerivedRedundant', 'DirectoryRecord', 'InterpolationRecord', 'ListRecord', 'MF1', 'MF10', 'MF12', 'MF13', 'MF14', 'MF15', 'MF2', 'MF23', 'MF26', 'MF27', 'MF28', 'MF3', 'MF31', 'MF32', 'MF33', 'MF34', 'MF35', 'MF4', 'MF40', 'MF5', 'MF6', 'MF7', 'MF8', 'MF9', 'Material', 'ReactionBlock', 'RectangularMatrix', 'SquareMatrix', 'TabulationRecord', 'TapeIdentification', 'sequence', 'tree']
+__all__: list[str] = ['ControlRecord', 'CovariancePairs', 'DerivedRatioToStandard', 'DerivedRedundant', 'DirectoryRecord', 'InterpolationRecord', 'ListRecord', 'MF1', 'MF10', 'MF12', 'MF13', 'MF14', 'MF15', 'MF16', 'MF2', 'MF23', 'MF26', 'MF27', 'MF28', 'MF3', 'MF31', 'MF32', 'MF33', 'MF34', 'MF35', 'MF4', 'MF40', 'MF5', 'MF6', 'MF7', 'MF8', 'MF9', 'Material', 'ReactionBlock', 'RectangularMatrix', 'SquareMatrix', 'TabulationRecord', 'TapeIdentification', 'sequence', 'tree']
 class ControlRecord:
     """
     ENDF CONT record

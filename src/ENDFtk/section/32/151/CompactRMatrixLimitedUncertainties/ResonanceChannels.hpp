@@ -11,8 +11,84 @@
 class ENDFTK_PYTHON_EXPORT ResonanceChannels : protected ListRecord {
 
   /* auxiliary functions - blatantly taken from MF2 MT151 LRF = 7 */
-  #include "ENDFtk/section/2/151/RMatrixLimited/ResonanceChannels/src/generateList.hpp"
-  #include "ENDFtk/section/2/151/RMatrixLimited/ResonanceChannels/src/verifySize.hpp"
+
+  static std::vector< double >
+  generateList( std::vector< unsigned int >&& ppi,
+                std::vector< unsigned int >&& l,
+                std::vector< double >&& s,
+                std::vector< double >&& b,
+                std::vector< double >&& ape,
+                std::vector< double >&& apt ) {
+
+    unsigned int nch = l.size();
+    if ( ( ppi.size() != nch ) or ( s.size() != nch ) or ( b.size() != nch ) or
+         ( ape.size() != nch ) or ( apt.size() != nch ) ) {
+
+      Log::info( "The number of channels and the channel data is not consistent" );
+      Log::info( "NCH value: {}", nch );
+      Log::info( "ppi.size(): {}", ppi.size() );
+      Log::info( "l.size(): {}", l.size() );
+      Log::info( "s.size(): {}", s.size() );
+      Log::info( "b.size(): {}", b.size() );
+      Log::info( "ape.size(): {}", ape.size() );
+      Log::info( "apt.size(): {}", apt.size() );
+      throw std::exception();
+    }
+
+    std::vector< double > list;
+    for ( unsigned int i = 0; i < nch; ++i ) {
+
+      list.push_back( ppi[i] );
+      list.push_back( l[i] );
+      list.push_back( s[i] );
+      list.push_back( b[i] );
+      list.push_back( ape[i] );
+      list.push_back( apt[i] );
+    }
+    return list;
+  }
+
+  static std::vector< double >
+  generateList( std::vector< unsigned int >&& ppi,
+                std::vector< unsigned int >&& l,
+                std::vector< double >&& s,
+                std::vector< double >&& b,
+                std::vector< double >&& ap ) {
+
+      std::vector< double > apt( ap );
+      return generateList( std::move( ppi ), std::move( l ), std::move( s ),
+                           std::move( b ), std::move( ap ), std::move( apt ) );
+  }
+
+  static void
+  verifySize( int NPL, int NCH ) {
+
+    if ( NPL < 1 ) {
+
+      Log::error( "Encountered empty list" );
+      Log::info( "NPL should be larger than zero and equal to 6 * NCH" );
+      Log::info( "NPL value: {}", NPL );
+      Log::info( "NCH value: {}", NCH );
+      throw std::exception();
+    }
+
+    if ( NCH < 1 ) {
+
+      Log::error( "Encountered illegal NCH value" );
+      Log::info( "NCH should be larger than zero" );
+      Log::info( "NCH value: {}", NCH );
+      throw std::exception();
+    }
+
+    if ( NPL / 6. != NCH ) {
+
+      Log::error( "Encountered inconsistent list size" );
+      Log::info( "NPL must be equal to 6 * NCH" );
+      Log::info( "NPL value: {}", NPL );
+      Log::info( "NCH value: {}", NCH );
+      throw std::exception();
+    }
+  }
 
   auto column( unsigned int i ) const {
 
@@ -22,10 +98,116 @@ class ENDFTK_PYTHON_EXPORT ResonanceChannels : protected ListRecord {
              | std23::views::stride( 6 );
   }
 
+  /* constructor */
+
+  /**
+   *  @brief Private intermediate constructor
+   */
+  ResonanceChannels( ListRecord&& list ) : ListRecord( std::move( list ) ) {
+
+    verifySize( this->NPL(), this->N2() );
+  }
+
 public:
 
   /* constructor */
-  #include "ENDFtk/section/32/151/CompactRMatrixLimitedUncertainties/ResonanceChannels/src/ctor.hpp"
+
+  //! @todo pybind11 variant needs default constructor workaround
+  #ifdef PYBIND11
+  /**
+   *  @brief Default constructor - only enabled for pybind11
+   */
+  ResonanceChannels() = default;
+  #endif
+
+  /**
+   *  @brief Constructor (using different values for the true and effective
+   *         scattering radius)
+   *
+   *  @param[in] spin     the spin group's spin value
+   *  @param[in] parity   the associated parity
+   *  @param[in] ppi      the particle pair indices (NCH values)
+   *  @param[in] l        the orbital momentum values (NCH values)
+   *  @param[in] s        the channel spin values (NCH values)
+   *  @param[in] b        the boundary condition values (NCH values)
+   *  @param[in] apt      the true scattering radius values for the calculation
+   *                      of the penetrability and the shift factor (NCH values)
+   *  @param[in] ape      the true scattering radius values for the calculation
+   *                      of the phase shift (NCH values)
+   */
+  ResonanceChannels( double spin, double parity,
+                     std::vector< unsigned int >&& ppi,
+                     std::vector< unsigned int >&& l,
+                     std::vector< double >&& s,
+                     std::vector< double >&& b,
+                     std::vector< double >&& apt,
+                     std::vector< double >&& ape )
+    try : ResonanceChannels(
+            ListRecord( spin, parity, 0, 0, l.size(),
+                        generateList( std::move( ppi ),
+                                      std::move( l ),
+                                      std::move( s ),
+                                      std::move( b ),
+                                      std::move( ape ),
+                                      std::move( apt ) ) ) ) {}
+    catch ( std::exception& e ) {
+
+      Log::info( "Encountered error while constructing resonance channels" );
+      throw;
+    }
+
+  /**
+   *  @brief Constructor (using the same values for the true and effective
+   *         scattering radius)
+   *
+   *  @param[in] spin     the spin group's spin value
+   *  @param[in] parity   the associated parity
+   *  @param[in] ppi      the particle pair indices (NCH values)
+   *  @param[in] l        the orbital momentum values (NCH values)
+   *  @param[in] s        the channel spin values (NCH values)
+   *  @param[in] b        the boundary condition values (NCH values)
+   *  @param[in] ap       the scattering radius values (NCH values)
+   */
+  ResonanceChannels( double spin, double parity,
+                     std::vector< unsigned int >&& ppi,
+                     std::vector< unsigned int >&& l,
+                     std::vector< double >&& s,
+                     std::vector< double >&& b,
+                     std::vector< double >&& ap )
+    try : ResonanceChannels(
+            ListRecord( spin, parity, 0, 0, l.size(),
+                        generateList( std::move( ppi ),
+                                      std::move( l ),
+                                      std::move( s ),
+                                      std::move( b ),
+                                      std::move( ap ) ) ) ) {}
+    catch ( std::exception& e ) {
+
+      Log::info( "Encountered error while constructing resonance channels" );
+      throw;
+    }
+
+  /**
+   *  @brief Constructor (from a buffer)
+   *
+   *  @tparam Iterator        a buffer iterator
+   *
+   *  @param[in] it           the current position in the buffer
+   *  @param[in] end          the end of the buffer
+   *  @param[in] lineNumber   the current line number
+   *  @param[in] MAT          the expected MAT number
+   *  @param[in] MF           the expected MF number
+   *  @param[in] MT           the expected MT number
+   */
+  template< typename Iterator >
+  ResonanceChannels( Iterator& it, const Iterator& end, long& lineNumber,
+                     int MAT, int MF, int MT )
+    try : ResonanceChannels( ListRecord( it, end, lineNumber, MAT, MF, MT ) ) {}
+    catch ( std::exception& e ) {
+
+      Log::info( "Encountered error while constructing resonance channels" );
+      throw;
+    }
 
   /* get methods */
 

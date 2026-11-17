@@ -274,6 +274,90 @@ void addStandardSectionDefinitions( PythonClass& section ) {
 }
 
 /**
+ *  @brief Add standard section definitions
+ *
+ *  This adds the following standard properties:
+ *    init (copy), ZA, AWR, atomic_weight_ratio, MT, section_number, NC,
+ *    from_string, to_string
+ *
+ *  @param[in] gsection   the section to which the definitions have to be added
+ */
+template < typename GSection, typename PythonClass >
+void addStandardGSectionDefinitions( PythonClass& gsection ) {
+
+  gsection
+  .def(
+
+    python::init< const GSection& >(),
+    python::arg( "gsection" ),
+    "Initialise the gsection with another gsection\n\n"
+    "Arguments:\n"
+    "    self       the gsection\n"
+    "    section    the gsection to be copied"
+  )
+  .def_property_readonly(
+
+    "ZA",
+    [] ( const GSection& self ) { return self.ZA(); },
+    "The ZA identifier for the section"
+  )
+  .def_property_readonly(
+
+    "target_identifier",
+    [] ( const GSection& self ) { return self.targetIdentifier(); },
+    "The ZA identifier for the section"
+  )
+  .def_property_readonly(
+
+    "AWR",
+    [] ( const GSection& self ) { return self.AWR(); },
+    "The atomic weight ratio for the section"
+  )
+  .def_property_readonly(
+
+    "atomic_weight_ratio",
+    [] ( const GSection& self ) { return self.atomicWeightRatio(); },
+    "The atomic weight ratio for the section"
+  )
+  .def_property_readonly(
+
+    "MT",
+    [] ( const GSection& self ) { return self.MT(); },
+    "The MT number of the section"
+  )
+  .def_property_readonly(
+
+    "section_number",
+    [] ( const GSection& self ) { return self.sectionNumber(); },
+    "The MT number of the section"
+  )
+  .def_static(
+
+    "from_string",
+    [] ( const std::string& section ) -> GSection
+       { return readSection< GSection >( section ); },
+    python::arg( "gsection" ),
+    "Read the section from a string\n\n"
+    "An exception is raised if something goes wrong while reading the\n"
+    "section\n\n"
+    "Arguments:\n"
+    "    section    the string representing the section"
+  )
+  .def(
+
+    "to_string",
+    [] ( const GSection& self, int mat, int mf ) -> std::string
+       { return print( self, mat, mf ); },
+    python::arg( "mat" ), python::arg( "mf" ),
+    "Return the string representation of the section\n\n"
+    "Arguments:\n"
+    "    self    the section\n"
+    "    mat     the MAT number to be used\n"
+    "    mf      the MF number to be used"
+  );
+}
+
+/**
  *  @brief Add standard file definitions
  *
  *  This adds the following standard properties:

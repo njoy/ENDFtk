@@ -10,6 +10,7 @@ namespace ENDFtk {
 namespace section {
 
 template< int MF, int... OptionalMT > class Type;
+template< int MF, int... OptionalMT > class GType;
 
 } // section namespace
 } // ENDFtk namespace

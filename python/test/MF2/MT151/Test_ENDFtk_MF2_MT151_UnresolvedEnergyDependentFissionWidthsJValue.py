@@ -10,7 +10,7 @@ class Test_ENDFtk_MF2_MT151_UnresolvedEnergyDependentFissionWidthsJValue( unitte
     """Unit test for the UnresolvedEnergyDependentFissionWidthsJValue class."""
 
     chunk = ( ' 0.000000+0 0.000000+0          1          1         20          09440 2151     \n'
-              ' 1.310000+1 5.000000-1 1.000000+0 3.013000-3 3.100000-2 0.000000+09440 2151     \n'
+              ' 1.310000+1 5.000000-1 1.500000+0 3.013000-3 3.100000-2 0.000000+09440 2151     \n'
               ' 4.314000-3 4.572000-3 4.740000-3 5.000000-3 5.520000-3 7.057000-39440 2151     \n'
               ' 8.251000-3 9.276000-3 9.930000-3 1.035000-2 1.210000-2 1.341000-29440 2151     \n'
               ' 1.456000-2 1.542000-2                                            9440 2151     \n' )
@@ -46,8 +46,8 @@ class Test_ENDFtk_MF2_MT151_UnresolvedEnergyDependentFissionWidthsJValue( unitte
             self.assertAlmostEqual( 0.5, chunk.spin )
             self.assertAlmostEqual( 13.1, chunk.D )
             self.assertAlmostEqual( 13.1, chunk.average_level_spacing )
-            self.assertEqual( 1, chunk.AMUN )
-            self.assertEqual( 1, chunk.neutron_width_degrees_freedom )
+            self.assertAlmostEqual( 1.5, chunk.AMUN )
+            self.assertAlmostEqual( 1.5, chunk.neutron_width_degrees_freedom )
             self.assertEqual( 0, chunk.AMUG )
             self.assertEqual( 0, chunk.gamma_width_degrees_freedom )
             self.assertEqual( 1, chunk.AMUF )
@@ -97,7 +97,7 @@ class Test_ENDFtk_MF2_MT151_UnresolvedEnergyDependentFissionWidthsJValue( unitte
 
         # the data is given explicitly
         chunk = UnresolvedEnergyDependentFissionWidthsJValue(
-                    l = 1, d = 13.1, spin = 0.5, amun = 1, amuf = 1,
+                    l = 1, d = 13.1, spin = 0.5, amun = 1.5, amuf = 1,
                     gn = 3.013000e-3, gg = 3.100000e-2,
                     gf = [ 4.314000e-3, 4.572000e-3, 4.740000e-3,
                            5.000000e-3, 5.520000e-3, 7.057000e-3,

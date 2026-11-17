@@ -9,7 +9,7 @@ from . import MT455
 from . import MT456
 from . import MT458
 from . import MT460
-__all__ = ['File', 'MT451', 'MT452', 'MT455', 'MT456', 'MT458', 'MT460', 'PolynomialMultiplicity', 'TabulatedMultiplicity']
+__all__: list[str] = ['File', 'MT451', 'MT452', 'MT455', 'MT456', 'MT458', 'MT460', 'PolynomialMultiplicity', 'TabulatedMultiplicity']
 class File:
     """
     MF1 file - general information

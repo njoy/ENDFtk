@@ -17,14 +17,98 @@ public:
 private:
 
   /* fields */
+
   InterpolationSequenceRecord< TabulatedDistribution > data_;
 
   /* auxiliary functions */
 
+  /* constructor */
+
+  /**
+   *  @brief Private constructor
+   */
+  DiscreteTwoBodyScattering( InterpolationRecord&& interpolation,
+                             std::vector< TabulatedDistribution >&& sequence ) :
+    data_( std::move( interpolation ), std::move( sequence ) ) {}
+
+  /**
+   *  @brief Private constructor
+   */
+  template< typename Iterator >
+  DiscreteTwoBodyScattering( InterpolationRecord&& interpolation,
+                             Iterator& begin,
+                             const Iterator& end,
+                             long& lineNumber,
+                             int MAT,
+                             int MF,
+                             int MT ) :
+    DiscreteTwoBodyScattering( std::move( interpolation ),
+                               readSequence< TabulatedDistribution >(
+                                 begin, end, lineNumber,
+                                 MAT, MF, MT, interpolation.NZ() ) ) {}
+
 public:
 
   /* constructor */
-  #include "ENDFtk/section/26/DiscreteTwoBodyScattering/src/ctor.hpp"
+
+  //! @todo pybind11 variant needs default constructor workaround
+  #ifdef PYBIND11
+  /**
+   *  @brief Default constructor - only enabled for pybind11
+   */
+  DiscreteTwoBodyScattering() = default;
+  #endif
+
+  /**
+   *  @brief Constructor
+   *
+   *  @param[in] boundaries     the interpolation range boundaries
+   *  @param[in] interpolants   the interpolation types for each range
+   *  @param[in] sequence       the data for each incident energy value
+   */
+  DiscreteTwoBodyScattering( std::vector< long >&& boundaries,
+                             std::vector< long >&& interpolants,
+                             std::vector< TabulatedDistribution >&& sequence )
+    try : DiscreteTwoBodyScattering(
+            InterpolationRecord( 0.0, 0.0, 0, 0,
+                                 std::move( boundaries ),
+                                 std::move( interpolants ) ),
+            std::move( sequence ) ) {}
+    catch ( std::exception& e ) {
+
+      Log::info( "Encountered error while constructing discrete two body "
+                 "scattering distribution data (LAW=2)" );
+      throw;
+    }
+
+  /**
+   *  @brief Constructor (from a buffer)
+   *
+   *  @tparam Iterator        a buffer iterator
+   *
+   *  @param[in] it           the current position in the buffer
+   *  @param[in] end          the end of the buffer
+   *  @param[in] lineNumber   the current line number
+   *  @param[in] MAT          the expected MAT number
+   *  @param[in] MF           the expected MF number
+   *  @param[in] MT           the expected MT number
+   */
+  template< typename Iterator >
+  DiscreteTwoBodyScattering ( Iterator& begin,
+                              const Iterator& end,
+                              long& lineNumber,
+                              int MAT,
+                              int MF,
+                              int MT )
+    try : DiscreteTwoBodyScattering(
+            InterpolationRecord( begin, end, lineNumber, MAT, MF, MT ),
+            begin, end, lineNumber, MAT, MF, MT ) {}
+    catch ( std::exception& e ) {
+
+      Log::info( "Encountered error while constructing discrete two body "
+                 "scattering distribution data (LAW=2)" );
+      throw;
+    }
 
   /* methods */
 
@@ -105,5 +189,20 @@ public:
   long NC() const { return this->data_.NC(); }
 
   // taken from MF6
-  #include "ENDFtk/section/6/DiscreteTwoBodyScattering/src/print.hpp"
+
+  /**
+   *  @brief Print the component
+   *
+   *  @tparam OutputIterator   an output iterator
+   *
+   *  @param[in] it            the current position in the output
+   *  @param[in] MAT           the MAT number
+   *  @param[in] MF            the MF number
+   *  @param[in] MT            the MT number
+   */
+  template< typename OutputIterator >
+  void print( OutputIterator& it, int MAT, int MF, int MT ) const {
+
+    this->data_.print( it, MAT, MF, MT );
+  }
 };

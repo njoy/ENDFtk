@@ -4,8 +4,7 @@ MT458 - fission energy release components
 from __future__ import annotations
 import pybind11_stubgen.typing_ext
 import typing
-import typing_extensions
-__all__ = ['EnergyReleaseComponent', 'PolynomialComponents', 'Section', 'TabulatedComponents', 'ThermalPointComponents']
+__all__: list[str] = ['EnergyReleaseComponent', 'PolynomialComponents', 'Section', 'TabulatedComponents', 'ThermalPointComponents']
 class EnergyReleaseComponent:
     """
     MF1 MT458 component - a tabulated fission energy release component
@@ -162,7 +161,7 @@ class PolynomialComponents:
             mt        the MT number of the section
         """
     @typing.overload
-    def __init__(self, efr: list[typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]], enp: list[typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]], end: list[typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]], egp: list[typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]], egd: list[typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]], eb: list[typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]], enu: list[typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]], er: list[typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]], et: list[typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]]) -> None:
+    def __init__(self, efr: list[typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]], enp: list[typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]], end: list[typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]], egp: list[typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]], egd: list[typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]], eb: list[typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]], enu: list[typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]], er: list[typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]], et: list[typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]]) -> None:
         """
         Initialise the component
         
@@ -638,7 +637,7 @@ class ThermalPointComponents:
             mt        the MT number of the section
         """
     @typing.overload
-    def __init__(self, efr: typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], enp: typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], end: typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], egp: typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], egd: typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], eb: typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], enu: typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], er: typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], et: typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]) -> None:
+    def __init__(self, efr: typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], enp: typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], end: typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], egp: typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], egd: typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], eb: typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], enu: typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], er: typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)], et: typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]) -> None:
         """
         Initialise the component
         

@@ -3,7 +3,7 @@ MF4 - angular distributions of secondary particles
 """
 from __future__ import annotations
 import typing
-__all__ = ['File', 'Isotropic', 'LegendreCoefficients', 'LegendreDistributions', 'MixedDistributions', 'Section', 'TabulatedDistribution', 'TabulatedDistributions']
+__all__: list[str] = ['File', 'Isotropic', 'LegendreCoefficients', 'LegendreDistributions', 'MixedDistributions', 'Section', 'TabulatedDistribution', 'TabulatedDistributions']
 class File:
     """
     MF4 file - angular distributions of secondary particles

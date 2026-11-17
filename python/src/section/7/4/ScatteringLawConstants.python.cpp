@@ -158,7 +158,7 @@ void wrapScatteringLawConstants( python::module& module, python::module& ) {
   .def_property_readonly(
 
     "M",
-    [] ( const Component& self ) -> DoubleRange
+    [] ( const Component& self ) -> IntRange
        { return self.M(); },
     "The number of atoms for each scattering atom type present in the\n"
     "molecule or unit cell, stored in B(6), B(12) and B(18)"
@@ -166,7 +166,7 @@ void wrapScatteringLawConstants( python::module& module, python::module& ) {
   .def_property_readonly(
 
     "number_atoms",
-    [] ( const Component& self ) -> DoubleRange
+    [] ( const Component& self ) -> IntRange
        { return self.numberAtoms(); },
     "The number of atoms for each scattering atom type present in the\n"
     "molecule or unit cell, stored in B(6), B(12) and B(18)"
@@ -174,7 +174,7 @@ void wrapScatteringLawConstants( python::module& module, python::module& ) {
   .def_property_readonly(
 
     "analytical_function_types",
-    [] ( const Component& self ) -> DoubleRange
+    [] ( const Component& self ) -> IntRange
        { return self.analyticalFunctionTypes(); },
     "The analytical function type for each non-principal scattering atom\n"
     "type, stored in B(7), B(13) and B(19)"

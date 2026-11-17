@@ -31,6 +31,7 @@ namespace section{
   class ENDFTK_PYTHON_EXPORT Type< 31 > : protected Base {
 
     /* fields */
+
     std::vector< ReactionBlock > reactions_;
 
     /* auxiliary functions */
@@ -38,7 +39,49 @@ namespace section{
   public:
 
     /* constructor */
-    #include "ENDFtk/section/31/src/ctor.hpp"
+
+    /**
+     *  @brief Constructor
+     *
+     *  @param[in] mt            the MT number of the section
+     *  @param[in] zaid          the material ZAID value
+     *  @param[in] awr           the atomic weight ratio
+     *  @param[in] reactions     the reaction block subsections
+     */
+    Type( int MT, int zaid, double awr,
+          std::vector< ReactionBlock >&& reactions ) :
+      Base( zaid, awr, MT ),
+      reactions_( std::move( reactions ) ) {}
+
+    /**
+     *  @brief Constructor (from a buffer)
+     *
+     *  @tparam Iterator        a buffer iterator
+     *
+     *  @param[in] head         the head record of the section
+     *  @param[in] it           the current position in the buffer
+     *  @param[in] end          the end of the buffer
+     *  @param[in] lineNumber   the current line number
+     *  @param[in] MAT          the expected MAT number
+     */
+    template< typename Iterator >
+    Type( HEAD& head,
+          Iterator& begin,
+          const Iterator& end,
+          long& lineNumber,
+          int MAT )
+      try:
+        Base( head, MAT, 31 ),
+        reactions_(
+          readSequence< ReactionBlock >( begin, end, lineNumber,
+                                         MAT, 31, head.MT(), head.N2() ) ) {
+        readSEND(begin, end, lineNumber, MAT, 31 );
+      } catch( std::exception& e ) {
+
+        Log::info( "Trouble while reading section {} of File 31 of Material {}",
+                   head.MT(), MAT );
+        throw e;
+      }
 
     /* methods */
 
@@ -61,8 +104,34 @@ namespace section{
       return std20::views::all( this->reactions_ );
     }
 
-    #include "ENDFtk/section/31/src/NC.hpp"
-    #include "ENDFtk/section/31/src/print.hpp"
+    /**
+     *  @brief Return the number of lines in this MF31 section
+     */
+    long NC() const {
+
+      long NC = 1;
+      for ( const auto& entry : this->reactions_ ) { NC += entry.NC(); }
+      return NC;
+    };
+
+    /**
+     *  @brief Print the MF31 section (includes SEND record)
+     *
+     *  @tparam OutputIterator   an output iterator
+     *
+     *  @param[in] it            the current position in the output
+     *  @param[in] MAT           the MAT number
+     *  @param[in] MF            the MF number
+     */
+    template< typename OutputIterator >
+    void print( OutputIterator& it, int MAT, int MF ) const {
+
+      int MT = this->MT();
+      ControlRecord( this->ZA(), this->AWR(), 0, 0,
+                     0, this->NL() ).print( it, MAT, MF, MT );
+      for ( const auto& entry : this->reactions_ ) { entry.print( it, MAT, MF, MT ); }
+      SEND( MAT, MF ).print( it );
+    }
 
     using Base::MT;
     using Base::sectionNumber;

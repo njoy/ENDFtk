@@ -31,13 +31,66 @@ namespace section {
   private:
 
     /* fields */
+
     int lis_;
     std::vector< ReactionProduct > products_;
 
   public:
 
     /* constructor */
-    #include "ENDFtk/section/10/src/ctor.hpp"
+
+    //! @todo pybind11 variant needs default constructor workaround
+    #ifdef PYBIND11
+    /**
+     *  @brief Default constructor - only enabled for pybind11
+     */
+    Type() = default;
+    #endif
+
+    /**
+     *  @brief Constructor
+     *
+     *  @param[in] mt     the MT number
+     *  @param[in] zaid   the ZA  identifier
+     *  @param[in] awr    the atomic mass ratio
+     *  @param[in] lis    the target's excited level
+     *  @param[in] products   the reaction products (at least 1)
+     */
+    Type( int mt, int zaid, double awr, long lis,
+          std::vector< ReactionProduct >&& products ) :
+      Base( zaid, awr, mt ), lis_( lis ), products_( std::move( products ) ) {}
+
+    /**
+     *  @brief Constructor (from a buffer)
+     *
+     *  @tparam Iterator        a buffer iterator
+     *
+     *  @param[in] head         the head record of the section
+     *  @param[in] it           the current position in the buffer
+     *  @param[in] end          the end of the buffer
+     *  @param[in] lineNumber   the current line number
+     *  @param[in] MAT          the expected MAT number
+     */
+    template< typename Iterator >
+    Type ( HEAD& head,
+           Iterator& begin,
+           const Iterator& end,
+           long& lineNumber,
+           int MAT )
+      try: Type( head.MT(), head.ZA(), head.AWR(), head.L1(),
+                 readSequence< ReactionProduct >( begin, end, lineNumber,
+                                                         MAT, 10, head.MT(),
+                                                         head.N1() ) ) {
+
+        readSEND(begin, end, lineNumber, MAT, 10 );
+      }
+      catch( std::exception& e ) {
+
+        Log::info
+        ( "Encountered error while reading section {} of file 10 of material {}",
+          head.MT(), MAT );
+        throw e;
+      }
 
     /* methods */
 
@@ -105,8 +158,41 @@ namespace section {
       return this->products_ | std20::views::all;
     }
 
-    #include "ENDFtk/section/10/src/NC.hpp"
-    #include "ENDFtk/section/10/src/print.hpp"
+    /**
+     *  @brief Return the number of lines in this MF10 component
+     */
+    long NC() const {
+
+      long NC = 1;
+      for ( const auto& entry : this->products_ ) {
+
+        NC += entry.NC();
+      }
+      return NC;
+    };
+
+    /**
+     *  @brief Print this MF10 component
+     *
+     *  @tparam OutputIterator   an output iterator
+     *
+     *  @param[in] it            the current position in the output
+     *  @param[in] MAT           the MAT number
+     *  @param[in] MF            the MF number
+     */
+    template< typename OutputIterator >
+    void print( OutputIterator& it, int MAT, int MF ) const {
+
+      int MT = this->MT();
+      ControlRecord( this->ZA(), this->AWR(),
+                     this->LIS(), 0,
+                     this->products_.size(), 0 ).print( it, MAT, MF, MT );
+      for ( const auto& entry : this->products_ ) {
+
+        entry.print( it, MAT, MF, MT );
+      }
+      SEND( MAT, MF ).print( it );
+    }
 
     using Base::MT;
     using Base::sectionNumber;

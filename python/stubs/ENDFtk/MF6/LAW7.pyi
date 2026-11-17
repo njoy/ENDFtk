@@ -3,7 +3,7 @@ LAW7 - distributions are given in the E,mu,E' ordering
 """
 from __future__ import annotations
 import typing
-__all__ = ['AngularDistribution', 'EnergyDistribution']
+__all__: list[str] = ['AngularDistribution', 'EnergyDistribution']
 class AngularDistribution:
     """
     MF6 section - LAW=7 - the angular distributions associated to a given

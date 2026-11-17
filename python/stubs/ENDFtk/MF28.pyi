@@ -3,7 +3,7 @@ MF28 - atomic relaxation data
 """
 from __future__ import annotations
 import typing
-__all__ = ['File', 'Section', 'SubshellData']
+__all__: list[str] = ['File', 'Section', 'SubshellData']
 class File:
     """
     MF28 file - atomic relaxation data
@@ -227,7 +227,18 @@ class SubshellData:
             mt        the MT number of the section
         """
     @typing.overload
-    def __init__(self, subshell: int, energy: float, eln: int, secondary: list[int], tertiary: list[int], energies: list[float], probabilities: list[float]) -> None:
+    def __init__(self, subshell: int, energy: float, eln: float) -> None:
+        """
+        Initialise the component
+        
+        Arguments:
+            self            the component
+            subshell        the subshell designator
+            energy          the binding energy of the subshell
+            eln             the number of electrons in the subshell
+        """
+    @typing.overload
+    def __init__(self, subshell: int, energy: float, eln: float, secondary: list[int], tertiary: list[int], energies: list[float], probabilities: list[float]) -> None:
         """
         Initialise the component
         

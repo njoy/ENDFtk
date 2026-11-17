@@ -18,7 +18,8 @@ namespace tree {
    *
    *  @param[in] filename   the file name
    */
-  inline auto fromFile( const std::string& filename ) {
+  template < typename Tape >
+  inline Tape fromFile( const std::string& filename ) {
 
     std::string content;
     std::ifstream in( filename,
@@ -33,7 +34,7 @@ namespace tree {
     in.seekg( 0, std::ios::beg );
     content.resize( file_size / sizeof( char ) );
     in.read( &( content[ 0 ] ), file_size );
-    return njoy::ENDFtk::tree::Tape( content );
+    return Tape( content );
   }
 
 } // tree namespace

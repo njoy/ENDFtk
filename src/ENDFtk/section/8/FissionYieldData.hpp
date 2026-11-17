@@ -26,8 +26,47 @@ namespace section{
   class ENDFTK_PYTHON_EXPORT FissionYieldData : protected ListRecord {
 
     /* auxiliary functions */
-    #include "ENDFtk/section/8/FissionYieldData/src/verifySize.hpp"
-    #include "ENDFtk/section/8/FissionYieldData/src/generateList.hpp"
+
+    static void
+    verifySize( int NPL, int NFP ) {
+
+      if ( NPL != NFP * 4 ) {
+
+        Log::error( "Encountered illegal NPL and NFP values " );
+        Log::info( "NPL must be equal to 4*NFP for fission yield data" );
+        Log::info( "NPL value: {}", NPL );
+        Log::info( "NFP value: {}", NFP );
+        throw std::exception();
+      }
+    }
+
+    static std::vector< double >
+    generateList( std::vector< unsigned int >&& identifiers,
+                  std::vector< unsigned int >&& states,
+                  std::vector< std::array< double, 2 > >&& yields ) {
+
+      unsigned int nfp = identifiers.size();
+      if ( ( states.size() != nfp ) or ( yields.size() != nfp ) ) {
+
+        Log::info( "The number of fission products and the fission product data "
+                   "are not consistent" );
+        Log::info( "NFP value: {}", nfp );
+        Log::info( "identifiers.size(): {}", identifiers.size() );
+        Log::info( "states.size(): {}", states.size() );
+        Log::info( "yields.size(): {}", yields.size() );
+        throw std::exception();
+      }
+
+      std::vector< double > list;
+      for ( unsigned int i = 0; i < nfp; ++i ) {
+
+        list.push_back( identifiers[i] );
+        list.push_back( states[i] );
+        list.push_back( yields[i][0] );
+        list.push_back( yields[i][1] );
+      }
+      return list;
+    }
 
     auto column( unsigned int i ) const {
 
@@ -36,12 +75,71 @@ namespace section{
                                 | std23::views::stride( 4 );
     }
 
+    /* constructor */
+
+    /**
+     *  @brief Private constructor
+     */
+    FissionYieldData( ListRecord&& list ) :
+      ListRecord( std::move( list ) ) {
+
+      verifySize( ListRecord::NPL(), this->NFP() );
+    };
+
   public:
 
     #include "ENDFtk/section/8/FissionYieldData/FissionProduct.hpp"
 
     /* constructors */
-    #include "ENDFtk/section/8/FissionYieldData/src/ctor.hpp"
+
+    /**
+     *  @brief Constructor
+     *
+     *  @param[in] identifiers     the fission product identifiers (ZA identifier)
+     *  @param[in] states          the isomeric state for each fission product
+     *  @param[in] yields          the fission yield values and uncertainties
+     *  @param[in] energy          the incident neutron energy (equal to zero for
+     *                             energy independent yields)
+     *  @param[in] interpolation   the interpolation type (equal to zero for
+     *                             energy independent yields)
+     */
+    FissionYieldData( std::vector< unsigned int >&& identifiers,
+                      std::vector< unsigned int >&& states,
+                      std::vector< std::array< double, 2 > >&& yields,
+                      double energy = 0.0, int interpolation = 0 )
+      try : FissionYieldData(
+                ListRecord( energy, 0.0,
+                            interpolation, 0, identifiers.size(),
+                            generateList( std::move( identifiers ),
+                                          std::move( states ),
+                                          std::move( yields ) ) ) ) {}
+      catch ( std::exception& e ) {
+
+        Log::info( "Encountered error while constructing fission yields" );
+        throw;
+      }
+
+    /**
+     *  @brief Constructor (from a buffer)
+     *
+     *  @tparam Iterator        a buffer iterator
+     *
+     *  @param[in] it           the current position in the buffer
+     *  @param[in] end          the end of the buffer
+     *  @param[in] lineNumber   the current line number
+     *  @param[in] MAT          the expected MAT number
+     *  @param[in] MF           the expected MF number
+     *  @param[in] MT           the expected MT number
+     */
+    template< typename Iterator >
+    FissionYieldData( Iterator& begin, const Iterator& end,
+                      long& lineNumber, int MAT, int MF, int MT )
+      try : FissionYieldData( ListRecord( begin, end, lineNumber, MAT, MF, MT ) ) {}
+      catch ( std::exception& e ) {
+
+        Log::info( "Encountered error while constructing fission yields" );
+        throw;
+      }
 
     /* methods */
 

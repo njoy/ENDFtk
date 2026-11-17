@@ -91,7 +91,7 @@ void wrapMultiLevelBreitWigner( python::module& module, python::module& ) {
 
     "spin",
     [] ( const Component& self ) { return self.spin(); },
-    "The scattering radius"
+    "The target spin"
   )
   .def_property_readonly(
 

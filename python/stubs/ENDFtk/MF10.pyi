@@ -3,7 +3,7 @@ MF10 - production cross sections for radioactive nuclides
 """
 from __future__ import annotations
 import typing
-__all__ = ['File', 'ReactionProduct', 'Section']
+__all__: list[str] = ['File', 'ReactionProduct', 'Section']
 class File:
     """
     MF10 file - production cross sections for radioactive nuclides

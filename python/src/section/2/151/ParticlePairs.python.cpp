@@ -47,17 +47,17 @@ void wrapParticlePairs( python::module& module, python::module& ) {
     "Arguments:\n"
     "    self    the component\n"
     "    ma      the mass of the first particle in each particle pair\n"
-    "    mb      the mass of the first particle in each particle pair\n"
+    "    mb      the mass of the second particle in each particle pair\n"
     "    za      the charge of the first particle in each particle pair\n"
-    "    zb      the charge of the first particle in each particle pair\n"
+    "    zb      the charge of the second particle in each particle pair\n"
     "    ia      the spin of the first particle in each particle pair\n"
-    "    ib      the spin of the first particle in each particle pair\n"
+    "    ib      the spin of the second particle in each particle pair\n"
     "    pa      the parity of the first particle in each particle pair\n"
-    "    pb      the parity of the first particle in each particle pair\n"
-    "    q       the mass of the first particle in each particle pair\n"
-    "    pnt     the mass of the first particle in each particle pair\n"
-    "    shf     the charge of the first particle in each particle pair\n"
-    "    mt      the charge of the first particle in each particle pair"
+    "    pb      the parity of the second particle in each particle pair\n"
+    "    q       the Q value for each particle pair\n"
+    "    pnt     the penetrability flag for each particle pair\n"
+    "    shf     the shift factor flag for each particle pair\n"
+    "    mt      the MT value for each particle pair"
   )
   .def_property_readonly(
 
@@ -111,7 +111,7 @@ void wrapParticlePairs( python::module& module, python::module& ) {
     "charge_particle_A",
     [] ( const Component& self ) -> DoubleRange
        { return self.chargeParticleA(); },
-    "The mass of the first particle in each particle pair"
+    "The charge of the first particle in each particle pair"
   )
   .def_property_readonly(
 

@@ -3,7 +3,7 @@ MF3 - reaction cross sections
 """
 from __future__ import annotations
 import typing
-__all__ = ['File', 'Section']
+__all__: list[str] = ['File', 'GSection', 'Section']
 class File:
     """
     MF3 file - reaction cross sections
@@ -104,6 +104,179 @@ class File:
     def sections(self) -> ...:
         """
         The sections defined in the file
+        """
+class GSection:
+    """
+    MF3 gsection - reaction cross sections and ratio quantities
+    """
+    @staticmethod
+    def from_string(gsection: str) -> GSection:
+        """
+        Read the section from a string
+        
+        An exception is raised if something goes wrong while reading the
+        section
+        
+        Arguments:
+            section    the string representing the section
+        """
+    @typing.overload
+    def __init__(self, mt: int, zaid: int, awr: float, lr: int, temp: float, flux: list[list[list[float]]], xs: list[list[list[float]]]) -> None:
+        """
+        Initialise the section
+        
+        Arguments:
+            self     the section
+            mt       the MT number
+            zaid     the ZA identifier
+            awr      the atomic mass ratio
+            lr       the complex breakup flag
+            temp     the temperature
+            flux     3D array of the group-wise fluxes (nl, nz, ngn)
+            xs       3D array of the group-wise cross sections (nl, nz, ngn)
+        """
+    @typing.overload
+    def __init__(self, mt: int, zaid: int, awr: float, lr: int, temp: float, flux: list[list[list[float]]], xs: list[list[list[float]]], ratio: list[list[list[float]]]) -> None:
+        """
+        Initialise the section
+        
+        Arguments:
+            self     the section
+            mt       the MT number
+            zaid     the ZA  identifier
+            awr      the atomic mass ratio
+            lr       the complex breakup flag (default 0)
+            temp     the temperature
+            flux     3D array of the group-wise fluxes (nl, nz, ngn)
+            xs       3D array of the group-wise cross sections (nl, nz, ngn)
+            ratio    3D array of the group-wise ratios (nl, nz, ngn)
+        """
+    @typing.overload
+    def __init__(self, mt: int, zaid: int, awr: float, xs: list[float]) -> None:
+        """
+        Initialise an ERRORR formatted section
+        
+        Arguments:
+            self     the section
+            mt       the MT number
+            zaid     the ZA identifier
+            awr      the atomic mass ratio
+            xs       the group-wise cross sections (ngn)
+        """
+    @typing.overload
+    def __init__(self, gsection: GSection) -> None:
+        """
+        Initialise the gsection with another gsection
+        
+        Arguments:
+            self       the gsection
+            section    the gsection to be copied
+        """
+    def cross_section(self, moment: int, dilution: int) -> list[float]:
+        """
+        The group cross sections for a given moment and dilution index
+        """
+    def flux(self, moment: int, dilution: int) -> list[float]:
+        """
+        The group fluxes for a given moment and dilution index
+        """
+    def ratio(self, moment: int, dilution: int) -> list[float]:
+        """
+        The group ratios for a given moment and dilution index
+        """
+    def to_string(self, mat: int, mf: int) -> str:
+        """
+        Return the string representation of the section
+        
+        Arguments:
+            self    the section
+            mat     the MAT number to be used
+            mf      the MF number to be used
+        """
+    @property
+    def AWR(self) -> float:
+        """
+        The atomic weight ratio for the section
+        """
+    @property
+    def LR(self) -> int:
+        """
+        The complex break up flag
+        """
+    @property
+    def MT(self) -> int:
+        """
+        The MT number of the section
+        """
+    @property
+    def NGN(self) -> int:
+        """
+        The number of neutron groups
+        """
+    @property
+    def NL(self) -> int:
+        """
+        The number of legendre moments
+        """
+    @property
+    def NZ(self) -> int:
+        """
+        The number of dilution values
+        """
+    @property
+    def ZA(self) -> int:
+        """
+        The ZA identifier for the section
+        """
+    @property
+    def atomic_weight_ratio(self) -> float:
+        """
+        The atomic weight ratio for the section
+        """
+    @property
+    def break_up(self) -> int:
+        """
+        The complex break up flag
+        """
+    @property
+    def is_errorr(self) -> bool:
+        """
+        Flag to indicate whether or not this is an ERRORR formatted section
+        """
+    @property
+    def is_groupr(self) -> bool:
+        """
+        Flag to indicate whether or not this is a GROUPR formatted section
+        """
+    @property
+    def number_dilutions(self) -> int:
+        """
+        The number of dilution values
+        """
+    @property
+    def number_groups(self) -> int:
+        """
+        The number of neutron groups
+        """
+    @property
+    def number_moments(self) -> int:
+        """
+        The number of legendre moments
+        """
+    @property
+    def section_number(self) -> int:
+        """
+        The MT number of the section
+        """
+    @property
+    def target_identifier(self) -> int:
+        """
+        The ZA identifier for the section
+        """
+    @property
+    def temperature(self) -> float:
+        """
+        The temperature
         """
 class Section:
     """

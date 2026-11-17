@@ -96,19 +96,19 @@ void wrapUnresolvedEnergyIndependent( python::module& module, python::module& vi
 
     "spin",
     [] ( const Component& self ) { return self.spin(); },
-    "The scattering radius"
+    "The target spin"
   )
   .def_property_readonly(
 
     "AP",
     [] ( const Component& self ) { return self.AP(); },
-    "The target spin"
+    "The scattering radius"
   )
   .def_property_readonly(
 
     "scattering_radius",
     [] ( const Component& self ) { return self.scatteringRadius(); },
-    "The target spin"
+    "The scattering radius"
   )
   .def_property_readonly(
 

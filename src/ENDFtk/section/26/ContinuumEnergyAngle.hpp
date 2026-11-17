@@ -20,16 +20,154 @@ public:
 private:
 
   /* fields */
+
   InterpolationSequenceRecord< LegendreCoefficients > data_;
 
   /* auxiliary functions */
-  #include "ENDFtk/section/26/ContinuumEnergyAngle/src/readSequence.hpp"
-  #include "ENDFtk/section/26/ContinuumEnergyAngle/src/verifyLANG.hpp"
+
+  template< typename Iterator >
+  static std::vector< LegendreCoefficients >
+  readSequence( long lang,
+                long nep,
+                Iterator& begin,
+                const Iterator& end,
+                long& lineNumber,
+                int MAT,
+                int MF,
+                int MT ) {
+
+    std::vector< LegendreCoefficients > sequence;
+    sequence.reserve( nep );
+
+    if ( lang != 1 ) {
+
+      Log::error( "Encountered illegal LANG value" );
+      Log::info( "LANG must be equal to 1 for LAW=1" );
+      Log::info( "LANG value: {}", lang );
+      throw std::exception();
+    }
+
+    while( nep-- ) {
+
+      sequence.emplace_back(
+          LegendreCoefficients( begin, end, lineNumber, MAT, MF, MT ) );
+    }
+
+    return sequence;
+  }
+
+  template< typename Array >
+  static void
+  verifyLANG( int LANG, const Array& sequence ) {
+
+    auto compare = [LANG] ( const auto& entry )
+                          { return entry.LANG() == LANG; };
+
+    auto iter = std::find_if_not( sequence.begin(), sequence.end(), compare );
+
+    if ( iter != sequence.end() ) {
+
+      using namespace njoy::tools;
+      Log::error( "All subsections must use the same LANG format option" );
+      Log::info( "Expected LANG={} for the subsection with index={}", LANG,
+                 std20::distance( sequence.begin(), iter ) );
+      throw std::exception();
+    }
+  }
+
+  /* constructor */
+
+  /**
+   *  @brief Private constructor
+   */
+  ContinuumEnergyAngle( InterpolationRecord&& interpolation,
+                        std::vector< LegendreCoefficients >&& sequence ) :
+    data_( std::move( interpolation ), std::move( sequence ) ) {
+
+    verifyLANG( this->LANG(), this->data_.records() );
+  }
+
+  /**
+   *  @brief Private constructor
+   */
+  template< typename Iterator >
+  ContinuumEnergyAngle( InterpolationRecord&& interpolation,
+                        Iterator& begin,
+                        const Iterator& end,
+                        long& lineNumber,
+                        int MAT,
+                        int MF,
+                        int MT ) :
+    ContinuumEnergyAngle( std::move( interpolation ),
+                          readSequence( interpolation.L1(), interpolation.NZ(),
+                                        begin, end, lineNumber, MAT, MF, MT ) ) {}
 
 public:
 
   /* constructor */
-  #include "ENDFtk/section/26/ContinuumEnergyAngle/src/ctor.hpp"
+
+  //! @todo pybind11 variant needs default constructor workaround
+  #ifdef PYBIND11
+  /**
+   *  @brief Default constructor - only enabled for pybind11
+   */
+  ContinuumEnergyAngle() = default;
+  #endif
+
+  /**
+   *  @brief Constructor
+   *
+   *  @param[in] lep              the secondary energy interpolation scheme
+   *  @param[in] boundaries       the interpolation range boundaries
+   *  @param[in] interpolants     the interpolation types for each range
+   *  @param[in] distributions    the data for each incident energy value
+   */
+  ContinuumEnergyAngle( long lep,
+                        std::vector< long >&& boundaries,
+                        std::vector< long >&& interpolants,
+                        std::vector< LegendreCoefficients >&& distributions )
+    try : ContinuumEnergyAngle(
+            InterpolationRecord( 0.0, 0.0,
+                                 distributions.front().LANG(),
+                                 lep,
+                                 std::move( boundaries ),
+                                 std::move( interpolants ) ),
+            std::move( distributions ) ) {}
+    catch ( std::exception& e ) {
+
+      Log::info( "Encountered error while constructing continuum energy angle "
+                 "distribution data (LAW=1)" );
+      throw;
+    }
+
+  /**
+   *  @brief Constructor (from a buffer)
+   *
+   *  @tparam Iterator        a buffer iterator
+   *
+   *  @param[in] it           the current position in the buffer
+   *  @param[in] end          the end of the buffer
+   *  @param[in] lineNumber   the current line number
+   *  @param[in] MAT          the expected MAT number
+   *  @param[in] MF           the expected MF number
+   *  @param[in] MT           the expected MT number
+   */
+  template< typename Iterator >
+  ContinuumEnergyAngle( Iterator& begin,
+                        const Iterator& end,
+                        long& lineNumber,
+                        int MAT,
+                        int MF,
+                        int MT )
+    try : ContinuumEnergyAngle(
+            InterpolationRecord( begin, end, lineNumber, MAT, MF, MT ),
+            begin, end, lineNumber, MAT, MF, MT ) {}
+    catch ( std::exception& e ) {
+
+      Log::info( "Encountered error while reading continuum energy angle "
+                 "distribution data (LAW=1)" );
+      throw;
+    }
 
   /* methods */
 
@@ -127,5 +265,19 @@ public:
    */
   long NC() const { return this->data_.NC(); }
 
-  #include "ENDFtk/section/6/ContinuumEnergyAngle/src/print.hpp" // taken from MF6
+  /**
+   *  @brief Print the component
+   *
+   *  @tparam OutputIterator   an output iterator
+   *
+   *  @param[in] it            the current position in the output
+   *  @param[in] MAT           the MAT number
+   *  @param[in] MF            the MF number
+   *  @param[in] MT            the MT number
+   */
+  template< typename OutputIterator >
+  void print( OutputIterator& it, int MAT, int MF, int MT ) const {
+
+    this->data_.print( it, MAT, MF, MT );
+  }
 };

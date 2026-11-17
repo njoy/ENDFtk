@@ -5,7 +5,7 @@ from __future__ import annotations
 import typing
 from . import LAW1
 from . import LAW2
-__all__ = ['ContinuumEnergyAngle', 'DiscreteTwoBodyScattering', 'EnergyTransfer', 'File', 'LAW1', 'LAW2', 'Multiplicity', 'ReactionProduct', 'Section']
+__all__: list[str] = ['ContinuumEnergyAngle', 'DiscreteTwoBodyScattering', 'EnergyTransfer', 'File', 'LAW1', 'LAW2', 'Multiplicity', 'ReactionProduct', 'Section']
 class ContinuumEnergyAngle:
     """
     MF26 section - LAW=1 - continuum energy-angle data for secondary particles

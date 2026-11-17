@@ -2,4 +2,4 @@
 sequence - ENDF sequences (internal use only)
 """
 from __future__ import annotations
-__all__ = list()
+__all__: list[str] = list()

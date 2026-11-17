@@ -15,6 +15,9 @@ class Test_ENDFtk_MF2_MT151_ResonanceParameters( unittest.TestCase ) :
               ' 7.788000+3 1.455000+0 1.187354+3 6.000000+0 7.000000+0 8.000000+02625 2151     \n'
               ' 9.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+02625 2151     \n' )
 
+    chunk_empty_spin_group = ( ' 0.000000+0 0.000000+0          0          0          6          12625 2151     \n'
+                               ' 0.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+02625 2151     \n' )
+
     invalid_size = ( ' 0.000000+0 0.000000+0          0          2         23          42625 2151     \n'
                      '-1.223300+6 1.000000+0 9.611086+5 1.000000+0 2.000000+0 3.000000+02625 2151     \n'
                      ' 4.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+0 0.000000+02625 2151     \n'
@@ -96,6 +99,39 @@ class Test_ENDFtk_MF2_MT151_ResonanceParameters( unittest.TestCase ) :
             # verify string
             self.assertEqual( self.chunk, chunk.to_string( 2625, 2, 151 ) )
 
+        def verify_chunk_empty_spin_group( self, chunk ) :
+
+            # verify content
+            self.assertEqual( 0, chunk.NRS )
+            self.assertEqual( 0, chunk.number_resonances )
+            self.assertEqual( 1, chunk.NX )
+            self.assertEqual( 1, chunk.number_lines )
+
+            self.assertEqual( 1, len( chunk.ER ) )
+            self.assertEqual( 1, len( chunk.resonance_energies ) )
+            self.assertEqual( 1, len( chunk.GAM ) )
+            self.assertEqual( 1, len( chunk.resonance_parameters ) )
+
+            self.assertAlmostEqual( 0., chunk.ER[0] )
+            self.assertAlmostEqual( 0., chunk.resonance_energies[0] )
+            self.assertEqual( 5, len( chunk.GAM[0] ) )
+            self.assertAlmostEqual( 0., chunk.GAM[0][0] )
+            self.assertAlmostEqual( 0., chunk.GAM[0][1] )
+            self.assertAlmostEqual( 0., chunk.GAM[0][2] )
+            self.assertAlmostEqual( 0., chunk.GAM[0][3] )
+            self.assertAlmostEqual( 0., chunk.GAM[0][4] )
+            self.assertEqual( 5, len( chunk.resonance_parameters[0] ) )
+            self.assertAlmostEqual( 0., chunk.resonance_parameters[0][0] )
+            self.assertAlmostEqual( 0., chunk.resonance_parameters[0][1] )
+            self.assertAlmostEqual( 0., chunk.resonance_parameters[0][2] )
+            self.assertAlmostEqual( 0., chunk.resonance_parameters[0][3] )
+            self.assertAlmostEqual( 0., chunk.resonance_parameters[0][4] )
+
+            self.assertEqual( 2, chunk.NC )
+
+            # verify string
+            self.assertEqual( self.chunk_empty_spin_group, chunk.to_string( 2625, 2, 151 ) )
+
         # the data is given explicitly
         chunk = ResonanceParameters( energies = [ -1.223300e+6, 7.788000e+3 ],
                                      parameters = [ [ 1., 9.611086e+5, 2., 3., 4., 5. ],
@@ -113,6 +149,21 @@ class Test_ENDFtk_MF2_MT151_ResonanceParameters( unittest.TestCase ) :
 
         verify_chunk( self, copy )
 
+        # the data is empty
+        chunk = ResonanceParameters( energies = [], parameters = [] )
+
+        verify_chunk_empty_spin_group( self, chunk )
+
+        # the data is read from a string
+        chunk = ResonanceParameters.from_string( self.chunk_empty_spin_group, 2625, 2, 151 )
+
+        verify_chunk_empty_spin_group( self, chunk )
+
+        # the data is copied
+        copy = ResonanceParameters( chunk )
+
+        verify_chunk_empty_spin_group( self, copy )
+
     def test_failures( self ) :
 
         print( '\n' )
@@ -129,11 +180,6 @@ class Test_ENDFtk_MF2_MT151_ResonanceParameters( unittest.TestCase ) :
             chunk = ResonanceParameters( energies = [ -1.223300e+6, 7.788000e+3 ],
                                        parameters = [ [ 1., 9.611086e+5, 2., 3., 4., 5. ],
                                                       [ 1.455, 1.187354e+3, 6., 7., 8. ] ] )
-
-        # the data is empty
-        with self.assertRaises( Exception ) :
-
-            chunk = ResonanceParameters( energies = [], parameters = [] )
 
         # invalid list size
         with self.assertRaises( Exception ) :

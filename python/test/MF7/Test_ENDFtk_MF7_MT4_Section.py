@@ -61,7 +61,7 @@ class Test_ENDFtk_MF7_MT4_Section( unittest.TestCase ) :
             self.assertEqual( 1, len( barray.atomic_weight_ratios ) )
             self.assertAlmostEqual( 8.934780e+0, barray.atomic_weight_ratios[0] )
             self.assertEqual( 1, len( barray.number_atoms ) )
-            self.assertAlmostEqual( 1., barray.number_atoms[0] )
+            self.assertEqual( 1, barray.number_atoms[0] )
             self.assertEqual( 0, len( barray.analytical_function_types ) )
 
             law = chunk.scattering_law

@@ -4,7 +4,7 @@ MF32 - resonance parameter covariances
 from __future__ import annotations
 import typing
 from . import MT151
-__all__ = ['File', 'MT151']
+__all__: list[str] = ['File', 'MT151']
 class File:
     """
     MF32 file - resonance parameter covariance data

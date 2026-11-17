@@ -1,6 +1,21 @@
 # Release Notes&mdash;ENDFtk
 Given here are some release notes for ENDFtk.
 
+## ENDFtk v1.3.0
+
+This update makes the following changes on interface functions:
+  - A contructor without transitions has been added to the MF28 SubshellData. The type of the number of electrons in a subshell in the constructor was changed to a double.
+  - The return type of M, number_atoms and analytical_function_Types properties in the MF7 MT4 ScatteringLawConstants (and the corresponding C++ functions) has been changed to a view of integers.
+  - The degrees of freedom in the unresolved data has been changed from integer values to floating point values since these can technically be floats (there are evaluations that use 1.5 as the number of degrees of freedom).
+  - A few additional interface functions were added for MF5 partial distribution data as a shortcut to retrieve the LF flag.
+
+This update adds GENDF capability.
+
+The repository has been restructured: all code contained in component specific hpp files are now in the
+main component's hpp file. This was done to make the repository more readable.
+
+shacl-cmake was updated to the latest version.
+
 ## ENDFtk v1.2.0
 This update makes the following changes on interface functions:
   - The regions() and pairs() interface functions on the TAB1 record interface functions have been removed. The removal of these interface functions has no impact on the Python interface as these interface functions were not included on the Python side.

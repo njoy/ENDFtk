@@ -9,10 +9,95 @@ class ENDFTK_PYTHON_EXPORT CompactReichMooreUncertainties :
   protected ListRecord {
 
   // blatantly stolen from CompactBreitWignerUncertainties
-  #include "ENDFtk/section/32/151/CompactBreitWignerUncertainties/src/verifySize.hpp"
+
+  static void
+  verifySize( int NPL, int NRSA ) {
+
+    if ( NPL < 1 ) {
+
+      Log::error( "Encountered empty list" );
+      Log::info( "NPL should be larger than zero and equal to 12 * NRSA" );
+      Log::info( "NPL value: {}", NPL );
+      Log::info( "NRSA value: {}", NRSA );
+      throw std::exception();
+    }
+
+    if ( NRSA < 1 ) {
+
+      Log::error( "Encountered illegal NRSA value" );
+      Log::info( "NRSA should be larger than zero" );
+      Log::info( "NRSA value: {}", NRSA );
+      throw std::exception();
+    }
+
+    if ( NPL != 12 * NRSA ) {
+
+      Log::error( "Encountered inconsistent list size" );
+      Log::info( "NPL must be equal to 12 * NRSA" );
+      Log::info( "NPL value: {}", NPL );
+      Log::info( "NRSA value: {}", NRSA );
+      throw std::exception();
+    }
+  }
 
   /* auxiliary functions */
-  #include "ENDFtk/section/32/151/CompactReichMooreUncertainties/src/generateList.hpp"
+
+  static std::vector< double >
+  generateList( std::vector< double >&& energies,
+                std::vector< double >&& spins,
+                std::vector< double >&& gn,
+                std::vector< double >&& gg,
+                std::vector< double >&& gfa,
+                std::vector< double >&& gfb,
+                std::vector< double >&& der,
+                std::vector< double >&& dgn,
+                std::vector< double >&& dgg,
+                std::vector< double >&& dgfa,
+                std::vector< double >&& dgfb ) {
+
+    unsigned int nrs = energies.size();
+    if ( ( spins.size() != nrs ) or
+         ( gn.size() != nrs ) or ( gg.size() != nrs ) or
+         ( gfa.size() != nrs ) or ( gfb.size() != nrs ) or
+         ( der.size() != nrs ) or ( dgn.size() != nrs ) or
+         ( dgg.size() != nrs ) or ( dgfa.size() != nrs ) or
+         ( dgfb.size() != nrs ) ) {
+
+      Log::info( "The number of resonances and the resonance parameters are not "
+                 "consistent" );
+      Log::info( "NRSA value: {}", nrs );
+      Log::info( "energies.size(): {}", energies.size() );
+      Log::info( "spins.size(): {}", spins.size() );
+      Log::info( "gn.size(): {}", gn.size() );
+      Log::info( "gg.size(): {}", gg.size() );
+      Log::info( "gfa.size(): {}", gfa.size() );
+      Log::info( "gfb.size(): {}", gfb.size() );
+      Log::info( "der.size(): {}", der.size() );
+      Log::info( "dgn.size(): {}", dgn.size() );
+      Log::info( "dgg.size(): {}", dgg.size() );
+      Log::info( "dgfa.size(): {}", dgfa.size() );
+      Log::info( "dgfb.size(): {}", dgfb.size() );
+      throw std::exception();
+    }
+
+    std::vector< double > list;
+    for ( unsigned int i = 0; i < nrs; ++i ) {
+
+      list.push_back( energies[i] );
+      list.push_back( spins[i] );
+      list.push_back( gn[i] );
+      list.push_back( gg[i] );
+      list.push_back( gfa[i] );
+      list.push_back( gfb[i] );
+      list.push_back( der[i] );
+      list.push_back( 0. );
+      list.push_back( dgn[i] );
+      list.push_back( dgg[i] );
+      list.push_back( dgfa[i] );
+      list.push_back( dgfb[i] );
+    }
+    return list;
+  }
 
   auto column( unsigned int i ) const {
 
@@ -21,12 +106,107 @@ class ENDFTK_PYTHON_EXPORT CompactReichMooreUncertainties :
                               | std23::views::stride( 12 );
   }
 
+  /* constructor */
+
+  /**
+   *  @brief Private intermediate constructor
+   */
+  CompactReichMooreUncertainties( ListRecord&& list ) :
+    ListRecord( std::move( list ) ) {
+
+    verifySize( this->NPL(), this->N2() );
+  }
+
 public:
 
   #include "ENDFtk/section/32/151/CompactReichMooreUncertainties/Resonance.hpp"
 
   /* constructor */
-  #include "ENDFtk/section/32/151/CompactReichMooreUncertainties/src/ctor.hpp"
+
+  //! @todo pybind11 variant needs default constructor workaround
+  #ifdef PYBIND11
+  /**
+   *  @brief Default constructor - only enabled for pybind11
+   */
+  CompactReichMooreUncertainties() = default;
+  #endif
+
+  /**
+   *  @brief Constructor
+   *
+   *  @param[in] awri       the atomic weight ratio
+   *  @param[in] apl        the l dependent scattering radius
+   *  @param[in] energies   the resonance energies (NRSA values)
+   *  @param[in] spins      the spin values (NRSA values)
+   *  @param[in] gn         the neutron widths (NRSA values)
+   *  @param[in] gg         the gamma widths (NRSA values)
+   *  @param[in] gfa        the first fission widths (NRSA values)
+   *  @param[in] gfb        the second fission widths (NRSA values)
+   *  @param[in] der        the energy uncertainties (NRSA values)
+   *  @param[in] dgn        the neutron width uncertainties (NRSA values)
+   *  @param[in] dgg        the gamma width uncertainties (NRSA values)
+   *  @param[in] dgfa       the first fission width uncertainties (NRSA values)
+   *  @param[in] dgfb       the second fission width uncertainties (NRSA values)
+   */
+  CompactReichMooreUncertainties( double awri, double apl,
+                                  std::vector< double >&& energies,
+                                  std::vector< double >&& spins,
+                                  std::vector< double >&& gn,
+                                  std::vector< double >&& gg,
+                                  std::vector< double >&& gfa,
+                                  std::vector< double >&& gfb,
+                                  std::vector< double >&& der,
+                                  std::vector< double >&& dgn,
+                                  std::vector< double >&& dgg,
+                                  std::vector< double >&& dgfa,
+                                  std::vector< double >&& dgfb ) :
+    // no try ... catch: exceptions will be handled in the derived class
+    CompactReichMooreUncertainties(
+            ListRecord( awri, apl, 0, 0, energies.size(),
+                        generateList( std::move( energies ),
+                                      std::move( spins ),
+                                      std::move( gn ), std::move( gg ),
+                                      std::move( gfa ), std::move( gfb ),
+                                      std::move( der ), std::move( dgn ),
+                                      std::move( dgg ), std::move( dgfa ),
+                                      std::move( dgfb ) ) ) ) {}
+
+  /**
+   *  @brief Constructor (from a buffer)
+   *
+   *  @tparam Iterator        a buffer iterator
+   *
+   *  @param[in] it           the current position in the buffer
+   *  @param[in] end          the end of the buffer
+   *  @param[in] lineNumber   the current line number
+   *  @param[in] MAT          the expected MAT number
+   *  @param[in] MF           the expected MF number
+   *  @param[in] MT           the expected MT number
+   */
+  template< typename Iterator >
+  CompactReichMooreUncertainties( Iterator& it, const Iterator& end, long& lineNumber,
+                     int MAT, int MF, int MT ) :
+     // no try ... catch: exceptions will be handled in the derived class
+    CompactReichMooreUncertainties( ListRecord( it, end, lineNumber, MAT, MF, MT ) ) {}
+
+  /**
+   *  @brief Constructor (from a buffer)
+   *
+   *  @tparam Iterator        a buffer iterator
+   *
+   *  @param[in] it           the current position in the buffer
+   *  @param[in] end          the end of the buffer
+   *  @param[in] lineNumber   the current line number
+   *  @param[in] MAT          the expected MAT number
+   *  @param[in] MF           the expected MF number
+   *  @param[in] MT           the expected MT number
+   *  @param[in] unused       placeholder
+   */
+  template< typename Iterator >
+  CompactReichMooreUncertainties( Iterator& it, const Iterator& end, long& lineNumber,
+                     int MAT, int MF, int MT, int /* unused */ ) :
+     // no try ... catch: exceptions will be handled in the derived class
+    CompactReichMooreUncertainties( it, end, lineNumber, MAT, MF, MT ) {}
 
   /* get methods */
 

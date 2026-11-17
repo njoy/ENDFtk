@@ -174,7 +174,7 @@ void wrapTreeTape( python::module& module, python::module& viewmodule ) {
     "from_file",
     [] ( const std::string& filename ) -> Tape {
 
-      return njoy::ENDFtk::tree::fromFile( filename );
+      return njoy::ENDFtk::tree::fromFile< Tape >( filename );
     },
     python::arg( "filename" ),
     "Read a tape from a file\n\n"

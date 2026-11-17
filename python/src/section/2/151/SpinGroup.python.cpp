@@ -80,13 +80,13 @@ void wrapSpinGroup( python::module& module, python::module& ) {
 
     "PJ",
     &Component::PJ,
-    "The parity of the spin J"
+    "The parity of the spin group"
   )
   .def_property_readonly(
 
     "parity",
     &Component::parity,
-    "The parity of the spin J"
+    "The parity of the spin group"
   )
   .def_property_readonly(
 

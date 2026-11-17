@@ -9,7 +9,7 @@
 // namespace aliases
 namespace python = pybind11;
 
-void wrapSection_31( python::module& module, python::module& viewmodule ) {
+void wrapSection_31( python::module& module, python::module& ) {
 
   // type aliases
   using Section = njoy::ENDFtk::section::Type< 31 >;

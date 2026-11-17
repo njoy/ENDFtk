@@ -4,8 +4,7 @@ LAW1 - continuum energy-angle data for secondary particles
 from __future__ import annotations
 import pybind11_stubgen.typing_ext
 import typing
-import typing_extensions
-__all__ = ['KalbachMann', 'LegendreCoefficients', 'TabulatedDistribution', 'ThermalScatteringData']
+__all__: list[str] = ['KalbachMann', 'LegendreCoefficients', 'TabulatedDistribution', 'ThermalScatteringData']
 class KalbachMann:
     """
     MF6 section - LAW=1 - angular distributions are given using Kalbach-Mann
@@ -26,7 +25,7 @@ class KalbachMann:
             mt        the MT number of the section
         """
     @typing.overload
-    def __init__(self, energy: float, nd: int, data: list[typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(3)]]) -> None:
+    def __init__(self, energy: float, nd: int, data: list[typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(3)]]) -> None:
         """
         Initialise the component
         
@@ -37,7 +36,7 @@ class KalbachMann:
             data      the Kalbach-Mann data (nep sets of 3 values)
         """
     @typing.overload
-    def __init__(self, energy: float, nd: int, data: list[typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(4)]]) -> None:
+    def __init__(self, energy: float, nd: int, data: list[typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(4)]]) -> None:
         """
         Initialise the component
         

@@ -85,19 +85,19 @@ void wrapSpecialCase( python::module& module, python::module& ) {
 
     "spin",
     &Component::spin,
-    "The scattering radius"
+    "The target spin"
   )
   .def_property_readonly(
 
     "AP",
     &Component::AP,
-    "The target spin"
+    "The scattering radius"
   )
   .def_property_readonly(
 
     "scattering_radius",
     &Component::scatteringRadius,
-    "The target spin"
+    "The scattering radius"
   );
 
   // add standard component definitions

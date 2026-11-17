@@ -10,7 +10,7 @@ if( DEFINED PROJECT_NAME )
 endif()
 
 project( ENDFtk
-  VERSION 1.2.0
+  VERSION 1.3.0
   LANGUAGES CXX
 )
 
@@ -27,7 +27,7 @@ set( CMAKE_CXX_STANDARD_REQUIRED YES )
 
 cmake_dependent_option(
   ENDFtk.tests
-  "Build the ENDFtk unit tests and integrate with ctest" ON
+  "Build the ENDFtk unit tests and integrate with ctest" OFF
   "BUILD_TESTING AND NOT ${subproject}" OFF
 )
 
@@ -82,12 +82,12 @@ if (ENDFtk.python AND NOT TARGET njoy::tools.python)
   set(ENDFtk.python OFF)
 endif()
 
-if (ENDFtk.python)
-  add_subdirectory(python)
+if ( ENDFtk.python )
+  add_subdirectory( python )
 endif()
 
 if( ${ENDFtk.tests} )
-  include( cmake/unit_testing.cmake )
+  add_subdirectory( test )
 endif()
 
 #######################################################################
@@ -150,4 +150,8 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     target_compile_options(${PROJECT_NAME}  INTERFACE "/ZI")
     target_link_options(${PROJECT_NAME} INTERFACE "/INCREMENTAL")
   endif()
+endif()
+
+if (MSVC)
+    target_compile_options(${PROJECT_NAME} INTERFACE "/bigobj")
 endif()

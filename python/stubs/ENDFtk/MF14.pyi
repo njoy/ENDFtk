@@ -4,8 +4,7 @@ MF14 - angular distributions of photons
 from __future__ import annotations
 import pybind11_stubgen.typing_ext
 import typing
-import typing_extensions
-__all__ = ['File', 'IsotropicDiscretePhoton', 'LegendreCoefficients', 'LegendreDistributions', 'Section', 'TabulatedDistribution', 'TabulatedDistributions']
+__all__: list[str] = ['File', 'IsotropicDiscretePhoton', 'LegendreCoefficients', 'LegendreDistributions', 'Section', 'TabulatedDistribution', 'TabulatedDistributions']
 class File:
     """
     MF14 file - angular distributions of secondary photons
@@ -468,7 +467,7 @@ class Section:
             photons   the photon distribution data
         """
     @typing.overload
-    def __init__(self, mt: int, zaid: int, awr: float, isotropic: list[typing_extensions.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]], anisotropic: list[LegendreDistributions | TabulatedDistributions]) -> None:
+    def __init__(self, mt: int, zaid: int, awr: float, isotropic: list[typing.Annotated[list[float], pybind11_stubgen.typing_ext.FixedSize(2)]], anisotropic: list[LegendreDistributions | TabulatedDistributions]) -> None:
         """
         Initialise the section
         

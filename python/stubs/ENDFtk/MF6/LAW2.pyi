@@ -3,7 +3,7 @@ LAW2 - discrete two-body scattering data for secondary particles
 """
 from __future__ import annotations
 import typing
-__all__ = ['LegendreCoefficients', 'TabulatedDistribution']
+__all__: list[str] = ['LegendreCoefficients', 'TabulatedDistribution']
 class LegendreCoefficients:
     """
     MF6 section - LAW=2 - an angular distribution given as a Legendre coefficients

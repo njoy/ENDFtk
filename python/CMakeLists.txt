@@ -205,6 +205,14 @@ if(ENDFtk.python)
         ${CMAKE_CURRENT_SOURCE_DIR}/src/section/35/SquareMatrix.python.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/src/section/40.python.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/src/section/40/LevelBlock.python.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/gsection/3g.python.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/gsection/1g.python.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/gsection/5/18g.python.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/gsection/5/455g.python.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/gsection/6g.python.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/gsection/33g.python.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/gsection/34g.python.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/gsection/16g.python.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/src/file/1.python.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/src/file/2.python.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/src/file/3.python.cpp
@@ -219,6 +227,7 @@ if(ENDFtk.python)
         ${CMAKE_CURRENT_SOURCE_DIR}/src/file/13.python.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/src/file/14.python.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/src/file/15.python.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/file/16.python.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/src/file/23.python.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/src/file/26.python.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/src/file/27.python.cpp
@@ -234,6 +243,10 @@ if(ENDFtk.python)
         ${CMAKE_CURRENT_SOURCE_DIR}/src/tree/File.python.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/src/tree/Material.python.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/src/tree/Tape.python.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/tree/GSection.python.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/tree/GFile.python.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/tree/GMaterial.python.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/tree/GTape.python.cpp
     )
 
     target_link_libraries(ENDFtk.python PRIVATE njoy::ENDFtk)

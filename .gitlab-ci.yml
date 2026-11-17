@@ -15,6 +15,9 @@ trigger_ci_downstream:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
       variables:
         REF_BRANCH: $CI_COMMIT_REF_NAME
+    - if: '$DEPLOY_CODE == "1"'
+      variables:
+        DEPLOY_CODE_PASS: $DEPLOY_CODE
 
   trigger:
     project: NJOY/common_ci
@@ -23,10 +26,29 @@ trigger_ci_downstream:
 
   variables:
     MERGE_TYPE: $CI_PIPELINE_SOURCE
+    PARENT_MR_ID: "$CI_MERGE_REQUEST_IID"
     PROJECT_ROOT_NAME: "ENDFtk"
+    PROJECT_LIB_NAME: "ENDFtk"
+    PROJECT_TEST_OPTION: "ENDFtk.tests"
+
 
 check:
   stage: check_ok
+  tags:
+    - wrs
+    - AVX2
+
+  artifacts:
+    expire_in: 30d
+
+  id_tokens:
+    SITE_ID_TOKEN:
+      aud: https://asc-git.lanl.gov
+    CI_JOB_JWT:
+      aud: https://asc-git.lanl.gov/
+
+
   script:
+    - printenv
     - echo "Looks good..."
 

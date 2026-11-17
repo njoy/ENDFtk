@@ -157,19 +157,32 @@ function(shacl_FetchContent_Declare name)
     if(NOT override_pkg_index EQUAL -1)
       message(FATAL_ERROR "shacl_FetchContent - cannot use OVERRIDE_FIND_PACKAGE in conjunction with shacl_Fetchcontent.force_find_package")
     endif()
-      list(APPEND arg_subset REQUIRED)
+    list(APPEND arg_subset REQUIRED)
   endif()
+
   # If the dependency uses a relative path then it uses the same server as the host project.
   # This is useful for automated testing with gitlab CI tokens or if repos are hosted on different servers
   # e.g. if the project is hosted on github then pull all relative dependencies from github.
 
-  # Find the GIT_REPOSITORY keyword then increment index to point to associated value
+  # Find the GIT_REPOSITORY keyword then increment index to point to associated value.
   list(FIND arg_subset GIT_REPOSITORY git_repository_index)
   math(EXPR git_repository_index "${git_repository_index}+1")
   list(GET arg_subset ${git_repository_index} git_repository_url)
 
-  # Update the git URL if it was a relative URL, otherwise return it unchanged
+  # Update the git URL if it was a relative URL, otherwise return it unchanged.
   get_dependency_url(${git_repository_url} updated_url)
+
+  # If the .git directory does not exist, then cmake will fail to resolve a relative url and throw an error.
+  # In that case replace the relative URL with a value to avoid the error and force the use of find_package.
+  if( NOT IS_DIRECTORY "${PROJECT_SOURCE_DIR}/.git")
+     if( "${updated_url}" MATCHES "^\\./|^\\.\\./" )
+        message( WARNING "Could not find local .git directory to resolve a relative url, forcing the use of find_package")
+        set( shacl_FetchContent.force_find_package ON )
+        list(APPEND arg_subset REQUIRED)
+        set( updated_url "unresolved_relative_url.git" )
+     endif()
+  endif()
+
   list(REMOVE_AT arg_subset ${git_repository_index})
   list(INSERT arg_subset ${git_repository_index} ${updated_url})
 
